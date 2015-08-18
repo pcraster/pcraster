@@ -1,0 +1,33 @@
+# everything except CMakeLists.txt
+INSTALL(
+    FILES
+        allStatistics.xml
+        areaMap.xml
+        bilStatistics.xml
+        clean.bat
+        clean.sh
+        compressionNoAreaMap.xml
+        compression.xml
+        demo.bat
+        demo.sh
+        diagonalNotSet.xml
+        diagonalSetFalse.xml
+        diagonalSetTrue.xml
+        dynamicNoTimer.xml
+        lookup.xml
+        memoryOnlyIO_1.xml
+        memoryOnlyIO_2.xml
+        memoryOnlyIO_3.xml
+        memoryOnlyIO_4.xml
+        memoryOnlyIO_5.xml
+        memoryOnlyIO_6.xml
+        memoryOnlyIO_7.xml
+        memoryOnlyIO_8.xml
+        memoryOnlyIO_StatisticsAsString.xml
+        memoryOnlyIO_Timeoutput.xml
+        notValid.xml
+        staticScript.xml
+        statisticsMask.xml
+    DESTINATION
+        doc/developer/linkout/Examples
+)

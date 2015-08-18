@@ -1,0 +1,285 @@
+<?xml version="1.0"?>
+<ObjectLinkMeta className="mldd">
+  <ObjectLinkCpp className="mldd::Mldd" type="1"/>
+  <!-- <ObjectLinkCtor/> -->
+  <ObjectLinkMethod name="setDem">
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </ObjectLinkMethod>
+  <ObjectLinkMethod name="getDem">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+  </ObjectLinkMethod>
+  <ObjectLinkMethod name="addStream">
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+  </ObjectLinkMethod>
+  <ObjectLinkMethod name="setStream">
+    <Input contextName="stream[]" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+    <Input contextName="stream[]" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+    <Input contextName="stream[]" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+    <Input contextName="stream[]" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+    <Input contextName="stream[]" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+    <Input contextName="stream[]" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+    <Input contextName="stream[]" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+    <Input contextName="stream[]" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+  </ObjectLinkMethod>
+  <ObjectLinkMethod name="removeStream">
+    <Input contextName="stream[]" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+      </Field>
+    </Input>
+    <Input contextName="stream[]" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+      </Field>
+    </Input>
+    <Input contextName="stream[]" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+      </Field>
+    </Input>
+    <Input contextName="stream[]" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+      </Field>
+    </Input>
+    <Input contextName="stream[]" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+      </Field>
+    </Input>
+    <Input contextName="stream[]" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+      </Field>
+    </Input>
+    <Input contextName="stream[]" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+      </Field>
+    </Input>
+    <Input contextName="stream[]" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+      </Field>
+    </Input>
+  </ObjectLinkMethod>
+  <ObjectLinkMethod name="getStream">
+    <Result contextName="stream[]">
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Result>
+    <Result contextName="stream[]">
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Result>
+    <Result contextName="stream[]">
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Result>
+    <Result contextName="stream[]">
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Result>
+    <Result contextName="stream[]">
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Result>
+    <Result contextName="stream[]">
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Result>
+    <Result contextName="stream[]">
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Result>
+    <Result contextName="stream[]">
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Result>
+  </ObjectLinkMethod>
+  <ObjectLinkMethod name="getWeight">
+    <Result contextName="weight[]">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Result contextName="weight[]">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Result contextName="weight[]">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Result contextName="weight[]">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Result contextName="weight[]">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Result contextName="weight[]">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Result contextName="weight[]">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Result contextName="weight[]">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+  </ObjectLinkMethod>
+  <ObjectLinkMethod name="upstream">
+    <Result contextName="out">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input contextName="in" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </ObjectLinkMethod>
+  <ObjectLinkMethod name="accuflux">
+    <Result contextName="out">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input contextName="in" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </ObjectLinkMethod>
+  <ObjectLinkMethod name="diffuse">
+    <Result contextName="totalOutflow">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input contextName="oldState" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="area" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="fixedHead" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="diffusionValueInArgOrder[]" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="diffusionValueInArgOrder[]" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="diffusionValueInArgOrder[]" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="diffusionValueInArgOrder[]" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="diffusionValueInArgOrder[]" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="diffusionValueInArgOrder[]" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="diffusionValueInArgOrder[]" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="diffusionValueInArgOrder[]" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="nrIterations" repeat="false">
+      <Field spatial="Non">
+        <DataType value="Nominal"/>
+      </Field>
+    </Input>
+  </ObjectLinkMethod>
+</ObjectLinkMeta>

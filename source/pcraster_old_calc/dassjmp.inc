@@ -1,0 +1,15 @@
+/* this file is created by oplist. do not edit */
+/* EXEC_DASS jump table node */
+/* fluxes and (spread)zones are always second */
+{{OP_ACCUSTATE,OP_ACCUFLUX},(DO_DASS)Do_accu},
+{{OP_ACCUCAPACITYSTATE,OP_ACCUCAPACITYFLUX},(DO_DASS)Do_accucapacity},
+{{OP_ACCUTHRESHOLDSTATE,OP_ACCUTHRESHOLDFLUX},(DO_DASS)Do_accuthreshold},
+{{OP_ACCUFRACTIONSTATE,OP_ACCUFRACTIONFLUX},(DO_DASS)Do_accufraction},
+{{OP_ACCUTRIGGERSTATE,OP_ACCUTRIGGERFLUX},(DO_DASS)Do_accutrigger},
+{{OP_ACCUTRAVELTIMESTATE,OP_ACCUTRAVELTIMEFLUX},(DO_DASS)Do_accutraveltime},
+{{OP_DIFFUSESTATE,OP_DIFFUSEFLUX},(DO_DASS)Do_diffuse},
+{{OP_SPREAD,OP_SPREADZONE},(DO_DASS)Do_spread_impl},
+{{OP_SPREADMAX,OP_SPREADMAXZONE},(DO_DASS)Do_spreadmax_impl},
+{{OP_SPREADLDD,OP_SPREADLDDZONE},(DO_DASS)Do_spreadldd_impl},
+{{OP_LDDCREATE,OP_LDDCREATEDEM},(DO_DASS)Do_lddcreate_impl},
+{{OP_DYNAMICWAVEQ,OP_DYNAMICWAVEH},(DO_DASS)Do_dynamicwave},

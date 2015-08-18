@@ -1,0 +1,13 @@
+@Report
+   @Title { Misc: portability and general purpose C-functions
+   @LP
+            Mathx: mathematical functions
+   }
+   @Author { C.G. Wesseling }
+   @Institution {Department of Physical Geography, University of Utrecht}
+   @DateLine { Yes }
+//
+
+@Abstract { 
+Manual of using the misc and mathx library. To be used in combination with the man pages.
+}

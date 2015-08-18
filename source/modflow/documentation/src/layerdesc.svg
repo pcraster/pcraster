@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448"
+   height="1052.3622"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.45.1"
+   sodipodi:docbase="/home/oliver/pcrtree/docs/pcrmodflow/calc"
+   sodipodi:docname="layerdesc.svg"
+   inkscape:export-filename="/home/oliver/pcrtree/docs/pcrmodflow/calc/layerdesc.png"
+   inkscape:export-xdpi="170"
+   inkscape:export-ydpi="170"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   version="1.0">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     gridtolerance="10000"
+     guidetolerance="10"
+     objecttolerance="10"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.8784008"
+     inkscape:cx="284.67542"
+     inkscape:cy="943.38619"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     inkscape:window-width="1109"
+     inkscape:window-height="723"
+     inkscape:window-x="140"
+     inkscape:window-y="26"
+     width="210.00001mm"
+     height="297.00001mm"
+     units="mm"
+     gridspacingx="0.28222223mm"
+     gridspacingy="0.28222223mm"
+     gridanglex="8.4666669mm"
+     gridanglez="8.4666669mm"
+     grid_units="mm" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 92.39865,76.113048 L 243.70746,76.141126 L 243.70746,76.141126"
+       id="path1872"
+       inkscape:export-filename="/home/oliver/pcrtree/docs/pcrmodflow/calc/layerdesc.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 92.39865,198.46261 L 243.70746,198.49068 L 243.70746,198.49068"
+       id="path1874"
+       inkscape:export-filename="/home/oliver/pcrtree/docs/pcrmodflow/calc/layerdesc.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 92.39865,150.68533 L 243.70746,150.7134 L 243.70746,150.7134"
+       id="path1876"
+       inkscape:export-filename="/home/oliver/pcrtree/docs/pcrmodflow/calc/layerdesc.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 92.39865,104.76966 L 243.70746,104.79773 L 243.70746,104.79773"
+       id="path1878"
+       inkscape:export-filename="/home/oliver/pcrtree/docs/pcrmodflow/calc/layerdesc.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 92.39865,171.56804 L 243.70746,171.59611 L 243.70746,171.59611"
+       id="path1880"
+       inkscape:export-filename="/home/oliver/pcrtree/docs/pcrmodflow/calc/layerdesc.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:0.95790935;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.95790935, 1.91581869;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 168.68162,36.963168 L 169.68707,197.88584 L 169.68707,197.88584"
+       id="path1894"
+       inkscape:export-filename="/home/oliver/pcrtree/docs/pcrmodflow/calc/layerdesc.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="95.005867"
+       y="33.3321"
+       id="text1896"
+       inkscape:export-filename="/home/oliver/pcrtree/docs/pcrmodflow/calc/layerdesc.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan1898"
+         x="95.005867"
+         y="33.3321">MODFLOW</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="169.53969"
+       y="33.3321"
+       id="text1900"
+       inkscape:export-filename="/home/oliver/pcrtree/docs/pcrmodflow/calc/layerdesc.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan1902"
+         x="169.53969"
+         y="33.3321">PCRasterModflow</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="104.63945"
+       y="92.799576"
+       id="text1904"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/oliver/pcrtree/docs/pcrmodflow/calc/layerdesc.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan1906"
+         x="104.63945"
+         y="92.799576">Layer 1</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="104.63945"
+       y="128.5031"
+       id="text1908"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/oliver/pcrtree/docs/pcrmodflow/calc/layerdesc.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan1910"
+         x="104.63945"
+         y="128.5031">Layer 2</tspan><tspan
+         sodipodi:role="line"
+         x="104.63945"
+         y="139.7531"
+         id="tspan1914" /></text>
+    <text
+       xml:space="preserve"
+       style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="104.63945"
+       y="163.24326"
+       id="text1918"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/oliver/pcrtree/docs/pcrmodflow/calc/layerdesc.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan1920"
+         x="104.63945"
+         y="163.24326">Layer 3</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="104.63945"
+       y="187.44937"
+       id="text1922"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/oliver/pcrtree/docs/pcrmodflow/calc/layerdesc.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan1924"
+         x="104.63945"
+         y="187.44937">Layer 4</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="188.93317"
+       y="163.18393"
+       id="text1926"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/oliver/pcrtree/docs/pcrmodflow/calc/layerdesc.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan1928"
+         x="188.93317"
+         y="163.18393">Layer 2</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="188.93317"
+       y="128.5031"
+       id="text1930"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/oliver/pcrtree/docs/pcrmodflow/calc/layerdesc.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan1932"
+         x="188.93317"
+         y="128.5031">Layer 3</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="188.93317"
+       y="92.858902"
+       id="text1934"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/oliver/pcrtree/docs/pcrmodflow/calc/layerdesc.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan1936"
+         x="188.93317"
+         y="92.858902">Layer 4</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="188.93317"
+       y="187.5087"
+       id="text1938"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/oliver/pcrtree/docs/pcrmodflow/calc/layerdesc.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan1940"
+         x="188.93317"
+         y="187.5087">Layer 1</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="31.578922"
+       y="200.68367"
+       id="text2846"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/oliver/pcrtree/docs/pcrmodflow/calc/layerdesc.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan2848"
+         x="31.578922"
+         y="200.68367">bottom.map</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="40.094547"
+       y="173.78911"
+       id="text2850"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/oliver/pcrtree/docs/pcrmodflow/calc/layerdesc.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan2852"
+         x="40.094547"
+         y="173.78911">l4top.map</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="40.094547"
+       y="152.9064"
+       id="text2854"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/oliver/pcrtree/docs/pcrmodflow/calc/layerdesc.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan2856"
+         x="40.094547"
+         y="152.9064">l3top.map</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="40.094547"
+       y="106.99072"
+       id="text2858"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/oliver/pcrtree/docs/pcrmodflow/calc/layerdesc.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan2860"
+         x="40.094547"
+         y="106.99072">l2top.map</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="40.094547"
+       y="78.334122"
+       id="text2862"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/oliver/pcrtree/docs/pcrmodflow/calc/layerdesc.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan2864"
+         x="40.094547"
+         y="78.334122">l1top.map</tspan></text>
+    <path
+       style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 334.18688,76.759243 L 485.49569,76.787321 L 485.49569,76.787321"
+       id="path2874"
+       inkscape:export-filename="/home/oliver/pcrtree/docs/pcrmodflow/calc/layerdesc.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 334.18688,199.10881 L 485.49569,199.13688 L 485.49569,199.13688"
+       id="path2876"
+       inkscape:export-filename="/home/oliver/pcrtree/docs/pcrmodflow/calc/layerdesc.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <rect
+       style="opacity:1;fill:#cccccc;fill-opacity:1;stroke-width:0.95790935;stroke-miterlimit:4;stroke-dasharray:0.95790935, 1.91581869;stroke-dashoffset:0"
+       id="rect3853"
+       width="150.85402"
+       height="19.844593"
+       x="334.37259"
+       y="151.80405"
+       inkscape:export-filename="/home/oliver/pcrtree/docs/pcrmodflow/calc/layerdesc.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 334.18688,105.41586 L 485.49569,105.44393 L 485.49569,105.44393"
+       id="path2880"
+       inkscape:export-filename="/home/oliver/pcrtree/docs/pcrmodflow/calc/layerdesc.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:0.95790935;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.95790935, 1.91581869;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 410.46985,37.609363 L 411.4753,198.53204 L 411.4753,198.53204"
+       id="path2884"
+       inkscape:export-filename="/home/oliver/pcrtree/docs/pcrmodflow/calc/layerdesc.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 334.18688,172.21424 L 485.49569,172.24231 L 485.49569,172.24231"
+       id="path2882"
+       inkscape:export-filename="/home/oliver/pcrtree/docs/pcrmodflow/calc/layerdesc.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       style="opacity:1;fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 334.18702,151.19948 L 485.49555,151.49165 L 485.49555,151.49165"
+       id="path2878"
+       inkscape:export-filename="/home/oliver/pcrtree/docs/pcrmodflow/calc/layerdesc.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="336.7941"
+       y="33.3321"
+       id="text2886"
+       inkscape:export-filename="/home/oliver/pcrtree/docs/pcrmodflow/calc/layerdesc.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan2888"
+         x="336.7941"
+         y="33.3321">MODFLOW</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="346.42767"
+       y="93.44577"
+       id="text2894"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/oliver/pcrtree/docs/pcrmodflow/calc/layerdesc.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan2896"
+         x="346.42767"
+         y="93.44577">Layer 1</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="346.42767"
+       y="129.14928"
+       id="text2898"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/oliver/pcrtree/docs/pcrmodflow/calc/layerdesc.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan2900"
+         x="346.42767"
+         y="129.14928">Layer 2</tspan><tspan
+         sodipodi:role="line"
+         x="346.42767"
+         y="140.39928"
+         id="tspan2902" /></text>
+    <text
+       xml:space="preserve"
+       style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="346.42767"
+       y="187.4917"
+       id="text2904"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/oliver/pcrtree/docs/pcrmodflow/calc/layerdesc.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan2906"
+         x="346.42767"
+         y="187.4917">Layer 3</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="430.72137"
+       y="163.83014"
+       id="text2912"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/oliver/pcrtree/docs/pcrmodflow/calc/layerdesc.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan2914"
+         x="430.72137"
+         y="163.83014">Layer 2</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="430.72137"
+       y="129.14928"
+       id="text2916"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/oliver/pcrtree/docs/pcrmodflow/calc/layerdesc.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan2918"
+         x="430.72137"
+         y="129.14928">Layer 3</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="430.72137"
+       y="93.505096"
+       id="text2920"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/oliver/pcrtree/docs/pcrmodflow/calc/layerdesc.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan2922"
+         x="430.72137"
+         y="93.505096">Layer 4</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="430.72137"
+       y="188.15491"
+       id="text2924"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/oliver/pcrtree/docs/pcrmodflow/calc/layerdesc.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan2926"
+         x="430.72137"
+         y="188.15491">Layer 1</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="273.36716"
+       y="201.32988"
+       id="text2928"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/oliver/pcrtree/docs/pcrmodflow/calc/layerdesc.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan2930"
+         x="273.36716"
+         y="201.32988">bottom.map</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="281.88278"
+       y="174.43532"
+       id="text2932"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/oliver/pcrtree/docs/pcrmodflow/calc/layerdesc.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan2934"
+         x="281.88278"
+         y="174.43532">l4top.map</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="281.88278"
+       y="153.55261"
+       id="text2936"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/oliver/pcrtree/docs/pcrmodflow/calc/layerdesc.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan2938"
+         x="281.88278"
+         y="153.55261">l3top.map</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="281.88278"
+       y="107.63692"
+       id="text2940"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/oliver/pcrtree/docs/pcrmodflow/calc/layerdesc.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan2942"
+         x="281.88278"
+         y="107.63692">l2top.map</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="281.88278"
+       y="78.980316"
+       id="text2944"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/oliver/pcrtree/docs/pcrmodflow/calc/layerdesc.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan2946"
+         x="281.88278"
+         y="78.980316">l1top.map</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:6px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="487.64883"
+       y="159.58148"
+       id="text3875"
+       sodipodi:linespacing="125%"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"
+       inkscape:export-filename="/home/oliver/pcrtree/docs/pcrmodflow/calc/layerdesc.png"><tspan
+         sodipodi:role="line"
+         id="tspan3877"
+         x="487.64883"
+         y="159.58148">Quasi-3D</tspan><tspan
+         sodipodi:role="line"
+         x="487.64883"
+         y="167.08148"
+         id="tspan3879">confining bed</tspan></text>
+    <rect
+       style="opacity:1;fill:none;fill-opacity:1;stroke:none;stroke-width:0.958;stroke-miterlimit:4;stroke-dasharray:0.958, 0.958;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect3881"
+       width="504.68463"
+       height="209.75288"
+       x="35.136272"
+       y="6.7919364"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="410.7601"
+       y="33.3321"
+       id="text2234"
+       inkscape:export-filename="/home/oliver/pcrtree/docs/pcrmodflow/calc/layerdesc.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan2236"
+         x="410.7601"
+         y="33.3321">PCRasterModflow</tspan></text>
+  </g>
+</svg>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    some elements used in the unit tests
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:pcr="http://www.pcraster.nl/pcrxml"
+           elementFormDefault="qualified"
+           targetNamespace="http://www.pcraster.nl/pcrxml">
+
+    <!-- document (root) elements -->
+
+    <xs:element name="clock" type="xs:dateTime"/>
+
+</xs:schema>

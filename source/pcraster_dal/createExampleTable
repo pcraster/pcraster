@@ -1,0 +1,8 @@
+CREATE TABLE example (ExampleInt int, ExampleDouble double, ExampleString varchar(80));
+INSERT INTO example VALUES (5, 5.5, 'vijf');
+INSERT INTO example VALUES (6, 6.6, 'zes');
+
+
+
+-- CREATE TABLE daltest (ExampleInt int, ExampleDouble decimal, ExampleString varchar(80), ExampleDate date);
+-- INSERT INTO daltest VALUES (5, 5.5, 'vijf', '1995-5-25');

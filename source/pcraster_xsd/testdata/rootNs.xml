@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<pcr:definition 
+        name="a"
+        xmlns:pcr="http://www.pcraster.nl/pcrxml"
+        xmlns="http://www.pcraster.nl/pcrxml"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.pcraster.nl/pcrxml PCRaster.xsd">
+<!--
+   the root has full ns rest is default
+  -->
+  <scriptInput><external>a.bil</external></scriptInput>
+</pcr:definition>

@@ -1,0 +1,29 @@
+SET(LINK_LIBRARIES
+    ${QWT_LIBRARIES}
+    ${QT_LIBRARIES}
+)
+SET(LIB_SOURCES
+    Classification.cc
+    RangeClassification.cc
+)
+SET(LIBRARY_SOURCES
+    ${LIB_SOURCES}
+)
+ADD_LIBRARY(Classifications
+    STATIC
+    ${LIBRARY_SOURCES}
+)
+
+SET(TEST_SOURCES
+    RangeClassificationTest.cc
+    Test.cc
+)
+ADD_EXECUTABLE(testClassifications
+    ${TEST_SOURCES}
+)
+TARGET_LINK_LIBRARIES(testClassifications
+    Classifications
+    ${LINK_LIBRARIES}
+)
+CONFIGURE_TEST(testClassifications)
+ADD_TEST(Classifications ${EXECUTABLE_OUTPUT_PATH}/testClassifications)

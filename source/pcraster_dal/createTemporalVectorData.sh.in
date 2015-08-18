@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+gdalTranslate="@GDAL_TRANSLATE@ -quiet"
+west=100000.0
+south=199850.0
+cellSize=50.0
+
+for((i = 1; i <= 3; ++i)); do
+  echo -e "NCOLS 2\n"\
+"NROWS 3\n"\
+"XLLCORNER $west\n"\
+"YLLCORNER $south\n"\
+"CELLSIZE $cellSize\n"\
+"NODATA_VALUE -5.0\n"\
+"$i.00 $i.01\n"\
+"$i.10 -5.0\n"\
+"$i.20 $i.21" > values.col
+  $gdalTranslate -ot Float32 -mo "PCRASTER_VALUESCALE=VS_SCALAR" -of PCRaster values.col `printf "vector_x_%d.map" $i`
+  echo -e "NCOLS 2\n"\
+"NROWS 3\n"\
+"XLLCORNER $west\n"\
+"YLLCORNER $south\n"\
+"CELLSIZE $cellSize\n"\
+"NODATA_VALUE -5.0\n"\
+"-$i.00 -$i.01\n"\
+"-$i.10 -5.0\n"\
+"-$i.20 -$i.21" > values.col
+  $gdalTranslate -ot Float32 -mo "PCRASTER_VALUESCALE=VS_SCALAR" -of PCRaster values.col `printf "vector_y_%d.map" $i`
+done

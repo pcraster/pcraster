@@ -1,0 +1,10 @@
+# rm -rf rundir_*
+rm -rf stackReader
+
+# srcdiff . ../testdata *Tbl.txt
+
+# for i in *Tbl.txt
+# do
+#     echo $i
+#     diff $i ../testdata
+# done

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Root identifier="0" class="nl.wldelft.habitat.CaseHabitat" key="Case8" name="Testcase 13 nov">
+   <Status>
+      <Status class="java.lang.String" value=""/>
+   </Status>
+   <dateCreated>
+      <dateCreated class="java.lang.String" value="1068736305775"/>
+   </dateCreated>
+   <dateLastUpdate>
+      <dateLastUpdate class="java.lang.String" value="1068736305775"/>
+   </dateLastUpdate>
+   <verified>
+      <verified class="java.lang.String" value="false"/>
+   </verified>
+   <doel>
+      <doel class="java.lang.String" value=""/>
+   </doel>
+   <opdracht>
+      <opdracht class="java.lang.String" value=""/>
+   </opdracht>
+   <aangemaakt>
+      <aangemaakt class="java.lang.String" value=""/>
+   </aangemaakt>
+   <document>
+      <document class="java.lang.String" value=""/>
+   </document>
+   <overig>
+      <overig class="java.lang.String" value=""/>
+   </overig>
+   <VinkOptie>
+      <VinkOptie class="java.lang.String" value=""/>
+   </VinkOptie>
+   <Parameter identifier="1" class="nl.wldelft.dataserver.Item">
+      <Parameter association="Parameter0" identifier="2" class="nl.wldelft.habitat.Parameter" name="OnderwerpKaarten" parent="0">
+         <VARIABELE>
+            <VARIABELE class="java.lang.String" value="aa23"/>
+         </VARIABELE>
+         <KAARTNAAM>
+            <KAARTNAAM class="java.lang.String" value="krt_aa23"/>
+         </KAARTNAAM>
+         <BESCHRIJVING>
+            <BESCHRIJVING class="java.lang.String" value="dit is zomaar een kaart"/>
+         </BESCHRIJVING>
+         <EENHEID>
+            <EENHEID class="java.lang.String" value="ha"/>
+         </EENHEID>
+         <BESTAND>
+           <BESTAND class="java.lang.String" value="ecotoop.bil"/>
+         </BESTAND>
+      </Parameter>
+      <Parameter association="Parameter1" identifier="3" class="nl.wldelft.habitat.Parameter" name="IndelingsKaarten" parent="0">
+         <VARIABELE>
+            <VARIABELE class="java.lang.String" value="bb32"/>
+         </VARIABELE>
+         <KAARTNAAM>
+            <KAARTNAAM class="java.lang.String" value="krt_bb32"/>
+         </KAARTNAAM>
+         <BESCHRIJVING>
+            <BESCHRIJVING class="java.lang.String" value="wat zal ik hier van zeggen"/>
+         </BESCHRIJVING>
+         <EENHEID>
+            <EENHEID class="java.lang.String" value="ha"/>
+         </EENHEID>
+         <BESTAND>
+           <BESTAND class="java.lang.String" value="habschik.bil"/>
+         </BESTAND>
+      </Parameter>
+   </Parameter>
+   <Statistics identifier="4" class="nl.wldelft.dataserver.Item">
+      <Statistics association="Statistics0" identifier="5" class="nl.wldelft.habitat.Statistics" name="TestStat 13 nov">
+         <dateCreated>
+            <dateCreated class="java.lang.String" value="1068736316775"/>
+         </dateCreated>
+         <dateLastUpdate>
+            <dateLastUpdate class="java.lang.String" value="1068736511874"/>
+         </dateLastUpdate>
+         <aangemaakt>
+            <aangemaakt class="java.lang.String" value=""/>
+         </aangemaakt>
+         <doel>
+            <doel class="java.lang.String" value=""/>
+         </doel>
+         <document>
+            <document class="java.lang.String" value=""/>
+         </document>
+         <opdracht>
+            <opdracht class="java.lang.String" value=""/>
+         </opdracht>
+         <ZoomXmax>
+            <ZoomXmax class="java.lang.String" value="30"/>
+         </ZoomXmax>
+         <ZoomYmin>
+            <ZoomYmin class="java.lang.String" value="-200"/>
+         </ZoomYmin>
+         <UitvoerTabel>
+           <UitvoerTabel class="java.lang.String" value="Case8Tbl.txt"/>
+         </UitvoerTabel>
+         <ZoomYmax>
+            <ZoomYmax class="java.lang.String" value="998"/>
+         </ZoomYmax>
+         <ZoomXmin>
+            <ZoomXmin class="java.lang.String" value="0"/>
+         </ZoomXmin>
+         <overig>
+            <overig class="java.lang.String" value=""/>
+         </overig>
+         <StatistiekType>
+            <StatistiekType class="java.lang.String" value="HeleKaart"/>
+         </StatistiekType>
+         <ZoomGebruik>
+            <ZoomGebruik class="java.lang.String" value="true"/>
+         </ZoomGebruik>
+         <OnderwerpKaarten identifier="6" class="nl.wldelft.dataserver.Item">
+            <OnderwerpKaarten association="OnderwerpKaarten0" reference="2"/>
+         </OnderwerpKaarten>
+         <OnderwerpKlassen identifier="7" class="nl.wldelft.dataserver.Item">
+            <bp_0 identifier="8" class="nl.wldelft.habitat.BreakPoint" name="bp_0">
+               <VARIABELE>
+                  <VARIABELE class="java.lang.String" value="1"/>
+               </VARIABELE>
+               <CODE>
+                  <CODE class="java.lang.String" value="dit is een"/>
+               </CODE>
+            </bp_0>
+            <bp_1 identifier="9" class="nl.wldelft.habitat.BreakPoint" name="bp_1">
+               <VARIABELE>
+                  <VARIABELE class="java.lang.String" value="2"/>
+               </VARIABELE>
+               <CODE>
+                  <CODE class="java.lang.String" value="beschrijving van 2"/>
+               </CODE>
+            </bp_1>
+            <bp_2 identifier="10" class="nl.wldelft.habitat.BreakPoint" name="bp_2">
+               <VARIABELE>
+                  <VARIABELE class="java.lang.String" value="3"/>
+               </VARIABELE>
+               <CODE>
+                  <CODE class="java.lang.String" value="drie toch"/>
+               </CODE>
+            </bp_2>
+         </OnderwerpKlassen>
+         <IndelingsKaarten identifier="11" class="nl.wldelft.dataserver.Item">
+            <IndelingsKaarten association="IndelingsKaarten0" reference="3"/>
+         </IndelingsKaarten>
+      </Statistics>
+   </Statistics>
+</Root>

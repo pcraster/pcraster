@@ -1,0 +1,178 @@
+<!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
+<qgis projectname="" version="0.11.0-Metis" >
+    <title></title>
+    <mapcanvas>
+        <units>degrees</units>
+        <extent>
+            <xmin>-1.322246</xmin>
+            <ymin>0.089827</ymin>
+            <xmax>-0.144926</xmax>
+            <ymax>1.043843</ymax>
+        </extent>
+        <projections>0</projections>
+        <destinationsrs>
+            <spatialrefsys>
+                <proj4>+proj=longlat +ellps=bessel +no_defs </proj4>
+                <srsid>3313</srsid>
+                <srid>4289</srid>
+                <epsg>4289</epsg>
+                <description>Amersfoort</description>
+                <projectionacronym>longlat</projectionacronym>
+                <ellipsoidacronym>bessel</ellipsoidacronym>
+                <geographicflag>false</geographicflag>
+            </spatialrefsys>
+        </destinationsrs>
+    </mapcanvas>
+    <legend>
+        <legendlayer open="true" checked="Qt::Checked" name="points" >
+            <filegroup open="false" hidden="true" >
+                <legendlayerfile layerid="points20081010115054903" visible="1" inOverview="1" />
+            </filegroup>
+        </legendlayer>
+        <legendlayer open="true" checked="Qt::Checked" name="lines" >
+            <filegroup open="false" hidden="true" >
+                <legendlayerfile layerid="lines20081010115001490" visible="1" inOverview="0" />
+            </filegroup>
+        </legendlayer>
+    </legend>
+    <projectlayers layercount="2" >
+        <maplayer minScale="1" maxScale="1e+08" scaleBasedVisibilityFlag="0" geometry="Line" type="vector" >
+            <id>lines20081010115001490</id>
+            <datasource>/home/kor/Development/projects/Dal/data/test/PCRasterDal/lines.shp</datasource>
+            <layername>lines</layername>
+            <srs>
+                <spatialrefsys>
+                    <proj4>+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs </proj4>
+                    <srsid>3344</srsid>
+                    <srid>4326</srid>
+                    <epsg>4326</epsg>
+                    <description>WGS 84</description>
+                    <projectionacronym>longlat</projectionacronym>
+                    <ellipsoidacronym>WGS84</ellipsoidacronym>
+                    <geographicflag>false</geographicflag>
+                </spatialrefsys>
+            </srs>
+            <transparencyLevelInt>255</transparencyLevelInt>
+            <provider>ogr</provider>
+            <encoding>System</encoding>
+            <displayfield>name</displayfield>
+            <label>1</label>
+            <attributeactions/>
+            <singlesymbol>
+                <symbol>
+                    <lowervalue></lowervalue>
+                    <uppervalue></uppervalue>
+                    <label></label>
+                    <pointsymbol>hard:circle</pointsymbol>
+                    <pointsize>3</pointsize>
+                    <rotationclassificationfield>-1</rotationclassificationfield>
+                    <scaleclassificationfield>-1</scaleclassificationfield>
+                    <outlinecolor red="44" blue="27" green="232" />
+                    <outlinestyle>SolidLine</outlinestyle>
+                    <outlinewidth>0.4</outlinewidth>
+                    <fillcolor red="0" blue="0" green="0" />
+                    <fillpattern>NoBrush</fillpattern>
+                    <texturepath></texturepath>
+                </symbol>
+            </singlesymbol>
+            <labelfield>name</labelfield>
+            <labelattributes>
+                <label field="0" text="Label" />
+                <family field="" name="Sans Serif" />
+                <size field="" units="pt" value="12" />
+                <bold field="" on="0" />
+                <italic field="" on="0" />
+                <underline field="" on="0" />
+                <color field="" red="0" blue="0" green="0" />
+                <x field="" />
+                <y field="" />
+                <offset x="0" y="0" yfield="-1" xfield="-1" units="pt" />
+                <angle field="" value="0" />
+                <alignment field="-1" value="center" />
+                <buffercolor field="" red="255" blue="255" green="255" />
+                <buffersize field="" units="pt" value="1" />
+                <bufferenabled field="" on="" />
+            </labelattributes>
+        </maplayer>
+        <maplayer minScale="1" maxScale="1e+08" scaleBasedVisibilityFlag="0" geometry="Point" type="vector" >
+            <id>points20081010115054903</id>
+            <datasource>/home/kor/Development/projects/Dal/data/test/PCRasterDal/points.shp</datasource>
+            <layername>points</layername>
+            <srs>
+                <spatialrefsys>
+                    <proj4>+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs </proj4>
+                    <srsid>3344</srsid>
+                    <srid>4326</srid>
+                    <epsg>4326</epsg>
+                    <description>WGS 84</description>
+                    <projectionacronym>longlat</projectionacronym>
+                    <ellipsoidacronym>WGS84</ellipsoidacronym>
+                    <geographicflag>false</geographicflag>
+                </spatialrefsys>
+            </srs>
+            <transparencyLevelInt>255</transparencyLevelInt>
+            <provider>ogr</provider>
+            <encoding>System</encoding>
+            <displayfield>name</displayfield>
+            <label>1</label>
+            <attributeactions/>
+            <singlesymbol>
+                <symbol>
+                    <lowervalue></lowervalue>
+                    <uppervalue></uppervalue>
+                    <label></label>
+                    <pointsymbol>hard:circle</pointsymbol>
+                    <pointsize>3</pointsize>
+                    <rotationclassificationfield>-1</rotationclassificationfield>
+                    <scaleclassificationfield>-1</scaleclassificationfield>
+                    <outlinecolor red="0" blue="0" green="0" />
+                    <outlinestyle>SolidLine</outlinestyle>
+                    <outlinewidth>0.4</outlinewidth>
+                    <fillcolor red="193" blue="41" green="14" />
+                    <fillpattern>SolidPattern</fillpattern>
+                    <texturepath></texturepath>
+                </symbol>
+            </singlesymbol>
+            <labelfield>name</labelfield>
+            <labelattributes>
+                <label field="0" text="Label" />
+                <family field="" name="Sans Serif" />
+                <size field="" units="pt" value="12" />
+                <bold field="" on="0" />
+                <italic field="" on="0" />
+                <underline field="" on="0" />
+                <color field="" red="0" blue="0" green="0" />
+                <x field="" />
+                <y field="" />
+                <offset x="0" y="0" yfield="-1" xfield="-1" units="pt" />
+                <angle field="" value="0" />
+                <alignment field="-1" value="center" />
+                <buffercolor field="" red="255" blue="255" green="255" />
+                <buffersize field="" units="pt" value="1" />
+                <bufferenabled field="" on="" />
+            </labelattributes>
+        </maplayer>
+    </projectlayers>
+    <properties>
+        <SpatialRefSys>
+            <ProjectSRSProj4String type="QString" >+proj=longlat +ellps=bessel +no_defs</ProjectSRSProj4String>
+            <ProjectSRSID type="int" >3313</ProjectSRSID>
+        </SpatialRefSys>
+        <Gui>
+            <SelectionColorBluePart type="int" >0</SelectionColorBluePart>
+            <CanvasColorGreenPart type="int" >255</CanvasColorGreenPart>
+            <CanvasColorRedPart type="int" >255</CanvasColorRedPart>
+            <SelectionColorRedPart type="int" >255</SelectionColorRedPart>
+            <SelectionColorGreenPart type="int" >255</SelectionColorGreenPart>
+            <CanvasColorBluePart type="int" >255</CanvasColorBluePart>
+        </Gui>
+        <Digitizing>
+            <AvoidPolygonIntersections type="int" >0</AvoidPolygonIntersections>
+            <TopologicalEditing type="int" >0</TopologicalEditing>
+        </Digitizing>
+        <PositionPrecision>
+            <DecimalPlaces type="int" >2</DecimalPlaces>
+            <Automatic type="bool" >true</Automatic>
+        </PositionPrecision>
+    </properties>
+</qgis>

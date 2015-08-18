@@ -1,0 +1,11 @@
+Naam bestand: type2Tbl.txt
+Klassen/Grenzen Onderwerp:	niet opgegeven
+BEGIN	WERKELIJKE	TABEL:
+	habschik
+opp	3300
+som	9.73
+min	0
+max	1
+gem	0.294848
+sd	0.365386
+med	0.1

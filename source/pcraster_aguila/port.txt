@@ -1,0 +1,25 @@
+- zoek op SPACING e.d., verwijder zo veel mogelijk
+
+--------------------------------------------------------------------------------
+MORGEN
+legenda:
+  - selectie moet signaal naar dataobject sturen
+  - selectie moet uit als de focus buiten de tabel gaat
+
+cursorwindow:
+  - selectie moet signaal naar dataobject sturen
+  - selectie moet uit als de focus buiten de tabel gaat
+
+map2dwindow:
+  (- initiele zoom all werkt niet helemaal goed, deel kaart valt buiten beeld)
+  - als de splitter helemaal over de kaart geschoven wordt:
+  - splitter moet kaart niet live tekenen (?)
+
+--------------------------------------------------------------------------------
+LATER
+- erg kleine letters (misschien specifiek iets van colossal?)
+- gebruik Qt's buffered widget
+- gebruik Qt's coordinaten transformatie
+- maak dialogen met designer
+
+- verwijder afhankelijkheid op pcrcom, pcrgeo

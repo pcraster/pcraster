@@ -1,0 +1,217 @@
+SHELL         := bash
+gdalTranslate := @GDAL_TRANSLATE@ -quiet
+west          := 100000.0
+south         := 199850.0
+cellSize      := 50.0
+
+all: emptyfile CopyTestData TextTables VectorData MyDatabase # Hdf4Data
+
+emptyfile:
+	touch emptyfile
+
+# ------------------------------------------------------------------------------
+# Copy some existing test data.
+# ------------------------------------------------------------------------------
+TestDataCopied:
+	cp @PCRASTER_DATA_DIR@/test/pcraster_dal/*.{bil,hdr} .
+	cp @PCRASTER_DATA_DIR@/test/pcraster_dal/inp1b.map .
+	cp @PCRASTER_DATA_DIR@/test/pcraster_dal/d83.map . # For the legend.
+	cp @PCRASTER_DATA_DIR@/test/pcraster_dal/dosformat.col .
+	cp @PCRASTER_DATA_DIR@/test/pcraster_dal/points.* .
+	cp @PCRASTER_DATA_DIR@/test/pcraster_dal/lines.* .
+	cp @PCRASTER_DATA_DIR@/test/pcraster_dal/boolean.Result.map .
+	cp @PCRASTER_DATA_DIR@/test/pcraster_dal/areaarea.Class.imap .
+	cp @PCRASTER_DATA_DIR@/test/pcraster_dal/map2col.PCRmap2.imap .
+	cp @PCRASTER_DATA_DIR@/test/pcraster_dal/abs.Expr.imap .
+	cp @PCRASTER_DATA_DIR@/test/pcraster_dal/nodirection.Expr.imap .
+	cp @PCRASTER_DATA_DIR@/test/pcraster_dal/accu.Ldd.imap .
+	cp @PCRASTER_DATA_DIR@/test/pcraster_dal/dtmsmall.map .
+	touch TestDataCopied
+
+clean::
+	rm -f *.{bil,hdr} inp1b.map d83.map dosformat.col points.* lines.* boolean.Result.map areaarea.Class.imap map2col.PCRmap2.imap abs.Expr.imap nodirection.Expr.imap accu.Ldd.imap dtmsmall.map TestDataCopied
+
+CopyTestData: TestDataCopied
+
+# ------------------------------------------------------------------------------
+#  Text tables.
+# ------------------------------------------------------------------------------
+# Simple table with only numbers.
+table1.col:
+	echo -e " 1  2  3\n\
+ 4 -5  6\n\
+ 7  8  9\n\
+10 11 12\n\
+13 14 15.5\n\
+16 17 18" > table1.col
+
+clean::
+	rm -f table1.col
+
+# Header of non-numbers.
+table2.col:
+	echo -e "cola colb colc\n\
+ 1  2  3\n\
+ 4 -5  6\n\
+ 7  8  9\n\
+10 11 12\n\
+13 14 15.5\n\
+16 17 18" > table2.col
+
+clean::
+	rm -f table2.col
+
+# Header of non-numbers with spaces.
+table3.col:
+	echo -e "\"col a\" \"col b\" \"col c\"\n\
+ 1  2  3\n\
+ 4 -5  6\n\
+ 7  8  9\n\
+10 11 12\n\
+13 14 15.5\n\
+16 17 18" > table3.col
+
+clean::
+	rm -f table3.col
+
+# Mixed header.
+table4.col:
+	echo -e "cola \"col b\" colc\n\
+ 1  2  -3\n\
+ 4 -5  6\n\
+ 7  8  9\n\
+10 11 12\n\
+13 14 15.5\n\
+16 17 18" > table4.col
+
+clean::
+	rm -f table4.col
+
+# One line.
+table5.col:
+	echo -e "1 2 3 4 5" > table5.col
+
+clean::
+	rm -f table5.col
+
+# Values seperated by tabs.
+table6.col:
+	echo -e " 1\t2\t3\n\
+ 4\t-5\t6\n\
+ 7\t8\t9\n\
+10\t11\t12\n\
+13\t14\t15.5\n\
+16\t17\t18" > table6.col
+
+clean::
+	rm -f table6.col
+
+# Multiple lines with '0', after which a line with a floating point.
+table7.col:
+	echo -e "\
+ 1\t0\n\
+ 2\t0\n\
+ 3\t0\n\
+ 4\t0\n\
+ 5\t0\n\
+ 7\t0\n\
+ 8\t0\n\
+ 9\t0.5" > table7.col
+
+clean::
+	rm -f table7.col
+
+# TableDriverTest
+TextTables: table1.col table2.col table3.col table4.col table5.col table6.col table7.col
+
+# ------------------------------------------------------------------------------
+#  Hdf4 data.
+# ------------------------------------------------------------------------------
+
+# Hdf4DataCreated: CopyTestData
+# 	${gdalTranslate} -of HDF4Image boolean.Result.map    boolean.hdf4
+# 	${gdalTranslate} -of HDF4Image areaarea.Class.imap   nominal.hdf4
+# 	${gdalTranslate} -of HDF4Image map2col.PCRmap2.imap  ordinal.hdf4
+# 	${gdalTranslate} -of HDF4Image abs.Expr.imap         scalar.hdf4
+# 	${gdalTranslate} -of HDF4Image nodirection.Expr.imap directional.hdf4
+# 	${gdalTranslate} -of HDF4Image accu.Ldd.imap         ldd.hdf4
+# 	${gdalTranslate} -of HDF4Image allmv.pcrmap          allmv.hdf4
+# 	touch Hdf4DataCreated
+
+# clean::
+# 	rm -f boolean.hdf4 nominal.hdf4 ordinal.hdf4 scalar.hdf4 directional.hdf4 ldd.hdf4 allmv.hdf4 Hdf4DataCreated
+# 
+# Hdf4Data: Hdf4DataCreated
+
+# ------------------------------------------------------------------------------
+#  Vector data.
+# ------------------------------------------------------------------------------
+vector_x.map:
+	echo -e "NCOLS 2\n\
+NROWS 3\n\
+XLLCORNER ${west}\n\
+YLLCORNER ${south}\n\
+CELLSIZE ${cellSize}\n\
+NODATA_VALUE 5.5\n\
+1.1  0.0\n\
+1.1  5.5\n\
+1.1 -1.1" > values_x.col
+	${gdalTranslate} -ot Float32 -mo "PCRASTER_VALUESCALE=VS_SCALAR" -of PCRaster values_x.col vector_x.map
+
+clean::
+	rm -f values_x.col vector_x.map
+
+vector_y.map:
+	echo -e "NCOLS 2\n\
+NROWS 3\n\
+XLLCORNER ${west}\n\
+YLLCORNER ${south}\n\
+CELLSIZE ${cellSize}\n\
+NODATA_VALUE 5.5\n\
+ 0.0 -2.2\n\
+-2.2  5.5\n\
+ 0.0 -2.2\n" > values_y.col
+	${gdalTranslate} -ot Float32 -mo "PCRASTER_VALUESCALE=VS_SCALAR" -of PCRaster values_y.col vector_y.map
+
+clean::
+	rm -f values_y.col vector_y.map
+
+TemporalVectorDataCreated:
+	./createTemporalVectorData.sh
+	touch TemporalVectorDataCreated
+
+clean::
+	rm -f values.col vector_{x,y}_{1,2,3}.map TemporalVectorDataCreated
+
+VectorData: vector_x.map vector_y.map TemporalVectorData
+
+TemporalVectorData: TemporalVectorDataCreated
+
+# ------------------------------------------------------------------------------
+# MyDatabase.sql3
+# ------------------------------------------------------------------------------
+
+MyDatabase.sql3:
+	@SQLITE3@ MyDatabase.sql3 "\
+  create table timesteps(\
+    'date' INTEGER,\
+    'co2' REAL,\
+    PRIMARY KEY ('date'));\
+  insert into timesteps values(1, 1.1);\
+  insert into timesteps values(2, 2.2);\
+  insert into timesteps values(3, 3.3);"
+	@SQLITE3@ MyDatabase.sql3 "\
+  create table quantiles(\
+    'quantile' REAL,\
+    'co2' REAL,\
+    PRIMARY KEY ('quantile'));\
+  insert into quantiles values(0.10, 1.1);\
+  insert into quantiles values(0.25, 2.2);\
+  insert into quantiles values(0.50, 3.3);\
+  insert into quantiles values(0.75, 4.4);\
+  insert into quantiles values(0.90, 5.5);"
+
+clean::
+	rm -f MyDatabase.sql3
+
+MyDatabase: MyDatabase.sql3

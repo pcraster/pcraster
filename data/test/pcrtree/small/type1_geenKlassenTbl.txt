@@ -1,0 +1,8 @@
+Naam bestand: type1_geenKlassenTbl.txt
+Klassen/Grenzen Onderwerp:	niet opgegeven
+BEGIN	WERKELIJKE	TABEL:
+ecotoop	opp
+1	900
+2	900
+3	1200
+4	300

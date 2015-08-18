@@ -1,0 +1,159 @@
+/* vim: syntax=c
+ */
+
+/* THIS_TYPE */
+
+MAP_THIS_TYPE *ReadTHIS_TYPE(
+  const char *nameOrValue, size_t nrRows, size_t nrCols)
+{
+ THIS_TYPE val;
+ if (CnvrtTHIS_TYPE(&val, nameOrValue))
+  return InitMapTHIS_TYPE(nrRows,nrCols,&val,FALSE,
+                                                      CR_THIS_TYPE);
+else
+  {
+   REAL8 dummy;
+   if (CnvrtREAL8(&dummy, nameOrValue))
+   { /* it's a number but not a valid one for THIS_TYPE
+      */
+     Error(" (in ReadTHIS_TYPE) '%s' is not a valid THIS_TYPE",nameOrValue);
+     return NULL;
+   }
+     return ReadTHIS_TYPEMap(nameOrValue);
+  }
+}
+
+MAP_THIS_TYPE *ReadTHIS_TYPEMap(const char *name)
+{
+  MAP *m;
+        MAP_THIS_TYPE *map;
+        THIS_TYPE max;
+        UINT2 inCr;   /* in memory cellRepr */
+        UINT2 fileCr; /* in file cellRepr */
+        void *buf;
+
+  PRECOND(name != NULL);
+  m = Mopen(name, M_READ);
+  if (m == NULL)
+    MperrorExit(name,1);
+
+  fileCr = RgetCellRepr(m);
+
+  switch(fileCr) {
+    case CR_INT1:
+    case CR_INT2:
+    case CR_UINT2:
+    case CR_INT4:  inCr = CR_INT4; break;
+    case CR_UINT1: inCr = CR_UINT1; break;
+    case CR_REAL4:
+    case CR_REAL8: inCr = CR_REAL4; break;
+    case CR_UINT4:
+    default      :
+               Error(" '%s' has CR_UINT4 or illegal celRepr(%d)",
+                    name, (int)fileCr);
+               goto errExit;
+        }
+        if ( (CELLSIZE(inCr) > CELLSIZE(CR_THIS_TYPE))
+              /* grabs all except: */ ||
+             (inCr == CR_REAL4 && CR_THIS_TYPE == CR_INT4)
+           ) {
+           Error(" (in ReadTHIS_TYPEMap) '%s' is '%s' (too big for THIS_TYPE)",
+                    name, RstrCellRepr(RgetCellRepr(m)));
+    goto errExit; }
+
+        if (RuseAs(m, inCr))
+        {
+          Error("RuseAs: Can't open '%s' as cellRepr '%d'\n",
+                  name, (int)inCr);
+          goto errExit;
+        }
+        Register(m);
+        {
+           size_t nrRows=RgetNrRows(m);
+           size_t nrCols=RgetNrCols(m);
+           /* first register then create */
+           buf = ReadMapContents(m,  inCr,nrRows,nrCols);
+          if (buf == NULL)
+            goto errExit;
+          map = InitMapTHIS_TYPE(nrRows,nrCols,
+                  buf,TRUE, inCr);
+          if (map == NULL)
+          {
+            Free(buf);
+            goto errExit;
+          }
+          RgetMaxVal(m, &max);
+          map->maxVal = (int)max;
+          map->valueScale = RgetValueScale(m);
+        }
+  return map;
+errExit:
+        Mclose(m);
+        return NULL;
+}
+
+void WriteTHIS_TYPEMap(const char *name,
+                   MAP_THIS_TYPE *map,
+                   CSF_VS       valueScale)
+{
+
+  MAP *m;
+  CSF_CR fileInCr = DetermineCellRepr(valueScale);
+  /* fileInCr is different from m-?inCr */
+
+  PRECOND(name != NULL);
+  PRECOND(map != NULL);
+
+  if ( fileInCr == CR_UINT2)
+  {
+    Error("(writing %s) valueScale is not type 2\n"
+          " (probably inherited from an input map)", name);
+    exit(1);
+  }
+
+  if (CELLSIZE(fileInCr) > CELLSIZE(CR_THIS_TYPE))
+  {
+   Error("(writing %s) valueScale does not support cellrepr THIS_TYPE\n",
+    name);
+   exit(1);
+  }
+
+  m = NewMap(name, fileInCr, valueScale);
+  if (m == NULL)
+    MperrorExit(name,1);
+  if (RuseAs(m, map->inCellRepr))
+    MperrorExit(name,1);
+  RputSomeCells(m, 0, (UINT4)(map->nrRows*map->nrCols), map->spatialValue[0]);
+  Mclose(m);
+}
+
+void DeleteMAP_THIS_TYPE(
+  MAP_THIS_TYPE *m)
+{
+  if (m->spatial)
+    Free(m->spatialValue[0]);
+  DeleteInternalMAP_THIS_TYPE(m);
+}
+
+MAP_THIS_TYPE *CreateSpatialTHIS_TYPE(CSF_CR cr,size_t nrRows, size_t nrCols)
+{
+  MAP_THIS_TYPE *map;
+  void *buf;
+  PRECOND(TestApiInitTest("CreateSpatialTHIS_TYPE"));
+  if (cr != CR_UINT1 && cr != CR_INT4 && cr != CR_REAL8 && cr != CR_REAL4)
+        {
+    Error("CreateSpatialTHIS_TYPE cr must be UINT1,INT4,REAL4 or REAL8");
+    return NULL;
+  }
+  if (cr == CR_REAL8)
+      cr = CR_REAL4;
+  buf = ChkMalloc( (size_t)(nrRows*nrCols*CELLSIZE(cr)));
+  if (buf == NULL)
+      return NULL;
+  map = InitMapTHIS_TYPE(nrRows,nrCols, buf,TRUE, cr);
+  if (map == NULL) {
+      Free(buf);
+      return NULL;
+  }
+  return map;
+}

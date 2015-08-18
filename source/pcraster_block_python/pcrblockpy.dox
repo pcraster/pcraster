@@ -1,0 +1,13 @@
+/*!
+\page pcrblockpy PCRaster Block Python Library
+
+\section intro Introduction
+This library is the Python extension for handling blocks and their data. It can be used in combination with the PCRaster Python Library.
+
+More information about the PCRaster Python Library and the PCRaster Block Python Library can be found at http://pcrserver.geo.uu.nl/pcrasterwiki/PCRasterPython.
+
+
+- What about the formatting of function names: switch to camelcase?
+
+
+*/

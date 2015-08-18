@@ -1,0 +1,15 @@
+set -e
+for b in develop release
+do
+  rm *.obj
+  make -j2  APP_TARGET=pcrcalc install
+done
+# for t in LIB_TARGET DLL_TARGET
+for t in DLL_TARGET
+do
+ for b in develop release
+ do
+  rm *.obj
+  make  $t=pcrcalc BUILD_TYPE=$b install
+ done
+done

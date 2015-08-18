@@ -1,0 +1,66 @@
+first: all
+
+# define OLDCALC if building .so for oldcalc
+# undef  if for "pcrme"
+# might need to rm *.d's
+# OLDCALC=1
+
+testOldCalc:
+	runapp oldcalc -r demo -f demo/diffuse.pcr
+
+# 	runapp aguila  inpython/DemOut inpython/demCW inpython/totCW inpython/Outflow
+
+DLL_TARGET    = mldd
+NAMESPACE     = mldd
+
+# OLD INTERFACE modellinks.o and mldd_mlddlink.o
+# NEW INTERFACE calcLibWrapper.o
+ OBJS  = mldd_upstream.o \
+         mldd_removestream.o \
+         mldd_diffuse.o \
+         mldd_mldd.o \
+         mldd_vertexiterator.o \
+         mldd_dagraster.o \
+         mldd_weightmap.o \
+         mldd_downstreamvisitor.o \
+         mldd_accuflux.o \
+         modellinks.o \
+         mldd_mlddlink.o 
+
+TESTOBJS      = mldd_test.o \
+                mldd_outedgeiteratortest.o \
+                mldd_vertexiteratortest.o \
+                mldd_dagrastertest.o
+
+
+# TODO pcrme aan begin of eind maakt uit! als enige .so
+PCRLIBS       = pcrgeo api pcrcom csf misc mathx cppunit 
+ifdef OLDCALC
+CFLAGS        += -I$??/libs/pcrme
+else
+PCRLIBS       += pcrme
+OBJS          += calcLibWrapper.o
+endif
+
+# pcrcalc lib code is not yet in the libs dir:
+# even for pcrme include, some .h only exist in (old) pcrcalc
+pcrIncludes   = pcrcalc
+
+
+debug.map: out dem.map
+	runapp col2map --unitcell --clone dem.map -B out debug.map
+
+flux.map: flux.tbl dem.map
+	runapp pcrcalc "flux.map=lookupscalar(flux.tbl, dem.map)"
+	runapp pcrcalc "flux.map=if(defined(dem.map) and not(defined(flux.map)), 0.0, flux.map)"
+
+calcLibWrapper.cc: objectlink.xml $(OLDPCRTREE)/devbin/calcLibWrap
+	@$(OLDPCRTREE)/devbin/xmlvalid objectlink.xml
+	@ln -f $(OLDPCRTREE)/template/xml/operation.dtd operation.dtd
+	@xmlpretty objectlink.xml > tmp_mldd.xml
+	@$(OLDPCRTREE)/devbin/calcLibWrap tmp_mldd.xml
+
+preprocess: calcLibWrapper.cc
+
+PCR_BUILDSYS ?= make
+include $(OLDPCRTREE)/template/${PCR_BUILDSYS}/epilog

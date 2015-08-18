@@ -1,0 +1,3 @@
+# rm -rf rundir_*
+rm -rf stackReader
+# rm -rf statistics

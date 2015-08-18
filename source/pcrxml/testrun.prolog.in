@@ -1,0 +1,1 @@
+cp @CMAKE_CURRENT_SOURCE_DIR@/pcrxml_documenttest.cc aNonXMLfile

@@ -1,0 +1,57 @@
+- Make optional:
+  - Qt, GDAL, netCDF, HDF libraries
+- Check all references to _MSC_VER and make sure a version number is explicitly checked. No general _MSC_VER checks!
+- Only link against csf on Windows.
+
+- Make it possible to only document the public headers, meant to be used by clients.
+
+sql/odbc strategy:
+- dal unit tests require installation of sqlite, including its odbc wrapper
+  sqlite is used to test the odbc access by the SQLTableDriver.
+  sqlite is used to test the SQLite SQLTableDriver.
+- optionally postgres and other dbms-es can be tested by the SQLTableDriverTest.
+
+http://geos.refractions.net/
+
+dingen in Analyse/Requirement of Data Abstraction Layer die werkelijk zo zijn gemaakt mischien naar de Dal StyleGuide en die hernoemen naar Dal Introduction/Overview
+
+pathFor functies
+- pathFor... functies moeten een optioneel laatste argument hebben die de te gebruiken bestandsnaam conventie voorstelt. De default hiervoor is DefaultFilenameConvention oid, en een variant is PCRasterDynamicStackNameConvention. Dit zijn de standaard pathFor functies.
+- De pathFor... functies met fieldwidth argument zijn aparte functies (die alleen vanuit dal_utils.cc zelf worden aangeroepen geloof ik, behalve waarsch diegene die een address als argument heeft.).
+- Code die op zoek is naar data moet verschillende naamgevingsconventies gebruiken of ook een conventie argument hebben. De aanroeper wil weten volgens welke conventie de bestandsnamen gemaakt zijn.
+1. Verwijder in huidige code het fieldwidth argument.
+2. Voeg Convention argument toe.
+3. Laat fieldwidth variant even achterwege.
+4. Pas alle code aan die pathFor gebruikt en zorg dat de verschillende
+   conventies gebruikt worden. Default conventie veranderen in DALConvention.
+5. Bepaal of fieldwidth nodig is of een lokale hack voldoet
+   (in ag_visualisationwindow.cc)
+6. testTimeStepPathVariant weer aanzetten.
+7. Loop TODO af
+8. pathFor spullen in eigen module?
+
+
+
+
+void dal::Dal::removeDatasetDriverTuple(Driver* driver)
+  moet aangepast worden voor  _MSC_VER
+
+unsetCoordinate en eraseCoordinate maken en alle aanroepen van unsetCoordinate aflopen en kijken wat er bedoeld wordt.
+
+Functie maken die gegeven een naam en een dataspace de dataspace teruggeeft waar naam in voorkomt of anders een exceptie gooit. Deze dataspace kan gebruikt worden om deze dataset steeds te laden. Zo snel mogelijk per dataset bepalen in welke space ie voorkomt en die info bewaren. Anders wordt er veel te veel tijd verkloot met het zoeken naar de juiste ruimte. Dit alles om dit mogelijk te maken:
+
+aguila --times [1, 100] elev dem
+
+waarbij elev dynamisch is en dem niet. Aguila moet dat uitzoek en elev en dem in 1 groep laten zien (mits rijen en kolommen kloppen).
+
+Zie dal::Dal::dataSpace
+
+
+stackinfo afmaken
+docs van geo_csfstackname naar stackinfo
+alle referenties naar csfstackname vervangen door stackinfo
+geo_csfstackname weg
+
+CSVTableDriver maken of TextTableDriver uitbreiden
+
+raster name member eruit?

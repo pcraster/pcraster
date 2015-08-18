@@ -1,0 +1,226 @@
+<!-- DTD operation description
+     internal DTD to validate xml from which other C++ and xml code is
+     generated.
+  -->
+
+<!-- start copy section from libs/pcrxml/pcraster.dtd -->
+
+<!ENTITY opPublic  PUBLIC "-//PCRaster//DTD PCRasterInternal V1.0//EN" "http://www.pcraster.nl">
+
+<!ENTITY % String 'CDATA' >
+
+<!ENTITY % Boolean         '(true|false)'>
+
+<!ENTITY % DataTypeEnum '(Unknown|Boolean|Nominal|Ordinal|Scalar|Directional|Ldd)'>
+<!ELEMENT  DataType EMPTY>
+<!ATTLIST  DataType
+           value %DataTypeEnum; #REQUIRED>
+
+<!-- TimeSeries and Table also from pcrxml, but
+     not the same definition FTTB
+  -->
+<!ELEMENT TimeSeries       EMPTY>
+<!ELEMENT Table            EMPTY>
+<!ELEMENT IndexTable       EMPTY>
+<!ELEMENT MapStack         EMPTY>
+<!ELEMENT String           EMPTY>
+
+<!ENTITY % Spatial '(Yes|Non|Either|NA)'>
+
+<!-- end copy section from libs/pcrxml/pcraster.dtd -->
+
+<!-- Function    function
+     Operator    infix or prefix operator
+     None        no user visible construction
+     MRF         old style multiple result function
+  -->
+<!ENTITY % Syntax '(Function|Operator|None|MRF)'>
+<!ENTITY % Cg     '(COMM|SPEC|PLAIN)' >
+<!-- Exec type describes a number of common characteristics of
+          a group of operations. Most types map to a subclass
+          of IOpImpl
+     is ook gemapped naar Operator::EXEC
+
+    some of these types moeten obsolete worden
+
+     Exec type IOpImpl
+               subclass
+     Direct    there is an IOpImpl subclass instance named builtIn_name
+               e.g. like builtIn_kinematic and builtIn__cellfocus
+     SAME_UN   SameUn
+     SAME_BIN  SameBin
+     DIFF_UN   DiffUn
+     DIFF_BIN  DiffBin
+     GEN_NS    GenNonSpatial
+     GEN_SP    GenSpatial
+     GLOBAL    Global
+     TRIG      Trig       ,, met impl. voor scalar and directional
+     MRF       MRF       MRF operation implementation
+     DOUBLE    OneOfMRF  1 van meerdere Result elementen(syntax=MRF)
+     POLY      -           Eerste Input (Field) dat meer dan 1 type heeft
+                           bepaalt het result, als het result nog niet
+                           vast staat.
+                         C-function name is name of operation with suffix (_f,_4,_1)
+                         Field has DataType that match prefix
+                         VS_BL _1 UINT1
+                         VS_NO _4  INT4
+                         VS_SD _f REAL4 (float)
+                         if there are implementation then the following holds:
+                          - all arguments accepting multiple types must have equal types
+                         the implementation is selected on the actual field type of the
+                          argument returned by calc::Operator::firstPolyInput()
+
+     CONV      Conversion   all type conversies, boolean(), etc.
+     T_IN      TimeinputTssOp   timeinputTYPE
+     IFTHEN     -              ,,
+     IFTHENELSE IfThenElse     ,,
+     INDEX      TODO          indexTYPE
+     EXTERN     TODO
+     zooitje/nodige :
+     TOUT         timeoutput(_4/_s)
+     MISC         timeinput(sparse),timeinputseries,lookup,test_until,
+                  timeoutput/mapsummary
+
+  -->
+<!ENTITY % Exec '(SAME_UN| SAME_BIN| DIFF_UN| DIFF_BIN|POLY|
+                  IFTHENELSE| IFTHEN|Direct|
+                  GEN_NS| GEN_SP| GLOBAL| TOUT| EXTERN| TRIG|
+                  CONV|T_IN| INDEX|DOUBLE|MRF|MISC)'>
+
+<!-- need as document element -->
+<!ELEMENT Operations (Operation+)>
+<!-- an Operation returns one or more  Field results using
+     a number of non field arguments (tss, tables) and
+     a number of field arguments.
+     If more then 1 Result element is present
+     then the order is as the
+     order of the arguments in dassfunc.c
+
+
+  -->
+<!ELEMENT Operation ((SameUn|SameBin|DiffBin|DiffUn|Manual)?,
+                     Result*,Input*)>
+  <!--
+
+     implName, implementation name, is the one used if name can not serve as
+     a program identifier (e.g. the operators +,-,boolean etc.)
+     * and,or,xor also seem to be taken even though they are not keywords
+        probably some macro in one of the headers
+     * inputTailRepeat means that the last 'inputTailRepeat' arguments of
+       the specification can be repeated 1 or more times.
+       google argorderarealimited for spec
+     * TODO inputTailRepeat eigenlijk size_t !!!!!!!!!
+    -->
+<!ATTLIST Operation
+          name        %String;   #REQUIRED
+          implName    %String;   #IMPLIED
+          syntax      %Syntax;   "Function"
+          exec        %Exec;     #REQUIRED
+          commutative %Boolean;  "false"
+          inputTailRepeat %String;  "0"
+ >
+  <!--        special     %Boolean;  "false" -->
+
+<!ENTITY % FoTypeSet '(1|4|f|14|1f|14f|4f)' >
+<!ENTITY % FoTypes   '(1|4|f)' >
+
+<!ELEMENT SameUn EMPTY>
+<!ATTLIST SameUn
+          foTypes    %FoTypeSet; 'f'
+          onlyDomainIll  %String;    #IMPLIED
+          function   %String;    #REQUIRED>
+<!ELEMENT DiffUn EMPTY>
+<!-- if foResultType is not set then input and result are equal
+  -->
+<!ATTLIST DiffUn
+          foResultType %FoTypes;   #IMPLIED
+          foTypes      %FoTypeSet; #REQUIRED
+          onlyDomainIll    %String;    #IMPLIED
+          function     %String;    #REQUIRED>
+<!ELEMENT SameBin EMPTY>
+<!-- rightDomainIll and combDomainIll are
+     exclusive
+  -->
+<!ATTLIST SameBin
+          foTypes        %FoTypeSet; 'f'
+          rightDomainIll %String;    #IMPLIED
+          combDomainIll  %String;    #IMPLIED
+          function       %String;    #REQUIRED>
+<!-- TODO optimalisatie voor eq/ne(_1) is SameBin i.p.v. DiffBin (sbinfunc.c) -->
+<!ELEMENT DiffBin EMPTY>
+<!ATTLIST DiffBin
+          foTypes        %FoTypeSet; #REQUIRED
+          function       %String;    #REQUIRED>
+<!ELEMENT Manual EMPTY>
+
+<!--  contextName
+        is the name as used in the manual
+        for the argument
+  -->
+<!ENTITY % ContextName "contextName %String; #IMPLIED">
+<!-- in the context of functions with more than 1 result this is
+     the suffix of the function name, the suffix can be an empty
+     string
+  -->
+<!ENTITY % FunctionSuffix  "functionSuffix %String; #IMPLIED">
+
+<!ENTITY % ArgType   "(Field|TimeSeries|Table|IndexTable|MapStack|String)">
+<!ELEMENT Result      %ArgType;>
+<!ATTLIST Result      %ContextName;
+                      %FunctionSuffix;>
+<!--
+     if repeat is true then it may occur 1 or more times
+     in the argument list
+  -->
+<!ELEMENT Input       %ArgType;>
+<!ATTLIST Input       %ContextName;
+                      repeat %Boolean; "false">
+<!ELEMENT Field       (DataType+)>
+<!ATTLIST Field
+          spatial %Spatial; "Either">
+<!ENTITY VS_B       "<DataType value='Boolean'/>">
+<!ENTITY VS_N       "<DataType value='Nominal'/>">
+<!ENTITY VS_O       "<DataType value='Ordinal'/>">
+<!ENTITY VS_S       "<DataType value='Scalar'/>">
+<!ENTITY VS_SV      "<DataType value='Scalar'/>">
+<!ENTITY VS_D       "<DataType value='Directional'/>">
+<!ENTITY VS_L       "<DataType value='Ldd'/>">
+<!ENTITY VS_NO      "&VS_N;&VS_O;">
+<!ENTITY VS_OS      "&VS_O;&VS_S;">
+<!ENTITY VS_SD      "&VS_S;&VS_D;">
+<!ENTITY VS_BNO     "&VS_B;&VS_NO;">
+<!ENTITY VS_BLNO    "&VS_BNO;&VS_L;">
+<!ENTITY VS_BL      "&VS_B;&VS_L;">
+<!ENTITY VS_NOSDL   "&VS_NO;&VS_S;&VS_D;&VS_L;">
+<!ENTITY VS_FIELD   "&VS_BNO;&VS_SD;&VS_L;">
+
+<!-- if ObjectLinkCtor is not specified, a default ctor
+     is assumed
+
+     className the class name used in pcrcalc / python
+  -->
+<!ELEMENT ObjectLinkMeta   (ObjectLinkCpp?,ObjectLinkCtor?,ObjectLinkMethod*)>
+<!ATTLIST ObjectLinkMeta
+          className  %String; #REQUIRED>
+<!-- c++ wrapper info
+  -->
+<!ELEMENT ObjectLinkCpp EMPTY>
+<!-- className it will interface, including namespace if needed
+     type      interface generator type
+               1 simplest full automatic using ObjectLinkProxy<className>
+  -->
+<!ATTLIST ObjectLinkCpp
+          className  %String; #REQUIRED
+          type       (1)      #REQUIRED>
+<!-- Constructor
+     1st Input can only be String FTTB
+  -->
+<!ELEMENT ObjectLinkCtor   (Input*)>
+<!-- TODO
+      reuse Operation as ObjectLinkMethod
+       get rid of exec in Operation,
+       Input's only Field's FTTB
+  -->
+<!ELEMENT ObjectLinkMethod (Result*,Input*)>
+<!ATTLIST ObjectLinkMethod
+          name       %String; #REQUIRED>

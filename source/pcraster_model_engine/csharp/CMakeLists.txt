@@ -1,0 +1,12 @@
+INSTALL(
+    FILES
+        Makefile
+        PCRasterDotNetApi.csproj
+        PCRasterDotNetApi.csproj.user
+        Script.cs
+        ScriptTest.cs
+        XsdValidation.cs
+        XsdValidationTest.cs
+    DESTINATION
+        doc/developer/linkout/csharp
+)

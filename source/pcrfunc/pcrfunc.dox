@@ -1,0 +1,8 @@
+/*!
+\page pcrfunc PCRaster Function Library
+
+\section intro Introduction
+This library contains elementary algorithms to be used by more complex algorithms.
+
+This is a base library which should not depend on other libraries preferably.
+*/

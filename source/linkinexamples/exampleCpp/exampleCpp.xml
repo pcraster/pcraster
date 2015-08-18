@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?> <linkInLibraryManifest xmlns="http://www.pcraster.nl/pcrxml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.pcraster.nl/pcrxml PCRaster.xsd">
+<function>
+ <name>checkerBoard</name>
+ <result>
+  <dataType><boolean/></dataType>
+  <spatialType>Spatial</spatialType>
+ </result>
+</function>
+<class>
+ <name>Class1</name>
+ <constructor>
+  <argument>
+   <dataType><scalar/></dataType>
+   <spatialType>NonSpatial</spatialType>
+  </argument>
+ </constructor>
+ <method>
+  <name>operation</name>
+  <result>
+   <dataType><scalar/></dataType>
+   <spatialType>Either</spatialType>
+  </result>
+  <argument>
+   <dataType><scalar/></dataType>
+   <spatialType>Either</spatialType>
+  </argument>
+ </method>
+ <method>
+  <name>sety</name>
+ </method>
+</class>
+</linkInLibraryManifest>

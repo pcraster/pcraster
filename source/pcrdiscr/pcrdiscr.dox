@@ -1,0 +1,6 @@
+/*!
+\page pcrdiscr PCRaster Discretisation Library
+
+\section intro Introduction
+This library contains classes related to discretisations and their data.
+*/

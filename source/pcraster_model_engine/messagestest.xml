@@ -1,0 +1,4888 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE testlist 
+PUBLIC "-//PCRaster//DTD PCRasterInternal V1.0//EN" "testlist.dtd"
+[ <!-- NA NEE, momenteel geen expand entities -->
+ <!ENTITY Clone " --clone inp5s.map "
+ >
+]
+>
+
+<!-- list of messages as expected 
+     pcrcalcXXX refers to test number in 
+      $OLDPCRTREE/test/pcrcalc/testXXX
+
+      XXX >= 500 new tests
+      pcrcalc561 is last used
+
+     contents of msg ignores trailing and leading whitespace chars
+
+      dumpmsg.txt
+
+-->
+
+<testlist>
+  <test id='pcrcalc258'><msg>
+ERROR: 8: argument nr. 1 of function 'spread' is non-spatial only spatial allowed
+</msg></test>
+<test id='pcrcalc252'><msg>
+ERROR: 9: function 'spread' not enough arguments specified
+</msg></test>
+<test id='pcrcalc252a'>
+<!--
+  solved bug, there are no arguments
+  but arguments are expected
+  pos error cannot depend on arguments!
+  -->
+<msg>
+ERROR: 8: function 'maparea' not enough arguments specified
+</msg></test>
+<test id='pcrcalc253'><msg>
+ERROR: 9: function 'spread' too many arguments specified
+</msg></test>
+<test id='pcrcalc10c'>
+  <model>tmp.map=5*inp1b.map;</model>
+<msg>
+?:1:11:ERROR: inp1b.map: used as scalar type, but has boolean type
+</msg></test>
+<test id='pcrcalc10b'>
+  <!-- map instead of table -->
+  <model>tmp.map = lookupnominal(inp1s.map, 5, 8, 10)</model>
+  <msg>?:1:25:ERROR: inp1s.map: Expected table, got a map</msg>
+</test>
+<test id='pcrcalc500'><msg>
+ERROR: 8: argument nr. 1 of function 'spread': type is scalar, legal type is one of (nominal,ordinal,boolean)
+</msg></test>
+<test id='pcrcalc259'><msg>
+ERROR: 8: argument nr. 3 of function 'cover': type is boolean, while previous argument types are scalar
+</msg></test>
+<test id='pcrcalc259a'><msg>
+ERROR: 8: argument nr. 2 of function 'cover': type is boolean, while type of argument nr. 1 is scalar
+</msg></test>
+<test id='pcrcalc260'><msg>
+ERROR: 8: right operand of operator 'eq': type is nominal, while type of left argument is boolean
+</msg></test>
+<test id='pcrcalc260a'>
+  <ast>
+    <e v='ifthenelse'>
+     <p v='inp1b.map'/>
+     <e v='nominal' a='4'/>
+     <n v='4.3' p='8'/>
+   </e>
+   </ast><msg>
+ERROR: 8: argument nr. 3 of function 'if': type is one of (scalar,directional), while previous argument types are nominal
+</msg></test>
+ <!-- actulaly we want something else for 501 -->
+ <test id='pcrcalc501'><msg>
+ERROR: 0: argument nr. 2 of function 'spread': type is one of (nominal,ordinal,boolean), legal type is scalar
+</msg></test>
+<test id='pcrcalc2a'>
+<ast><a v='inp1b.map' p='def2'><n v='2'/></a></ast>
+<msg>
+def2:ERROR: inp1b.map: defined as boolean type on testTable and redefined here as one of (scalar,nominal,ordinal,ldd,directional) type
+</msg></test>
+<test id='pcrcalc2'>
+<ast>
+  <l><a v='tmp.res' p='firstDef'>
+        <n v='2'/></a>
+     <a v='tmp.res' p='2ndDef'>
+        <p v='inp1b.map'/></a>
+  </l>
+</ast>
+<msg>
+2ndDef:ERROR: tmp.res: defined as one of (scalar,nominal,ordinal,ldd,directional) type on firstDef and redefined here as boolean type
+ </msg></test>
+<test id='pcrcalc60'>
+ <ast>
+  <l>
+    <a v='Ch2' p="8"><n v='0'/></a>
+   <!--                                  sweep 1    sweep 2  -->
+   <a v='SurW' p="7"><e v='scalar' a="0"/></a>
+   <!--                                  surw to ns   spatial -->
+   <a v='DSt'  p="6"><e v='scalar' a="0"/></a>
+   <!--                                  dst to ns    ns     -->
+   <a v='DSt0' p="5"><p v='DSt'/></a> <!--     dst0->ns   dst0 still ns! -->
+   <a v='DSt'  p="1"><p v='SurW'/></a>
+   <a v='DSt'  p="2"><p v='Ch2'/></a>   <!--     dst to ns    dst->spatial -->
+   <a v='Ch2'  p="3"><p v='SurW'/></a>
+   <a v='SurW' p="4"><e v='spatial' a="0"/></a>
+                                  <!--   surw->spatial spatial -->
+   <a v='tmp.res'><p v='DSt0'/></a> <!-- report -->
+  </l>
+ </ast>
+ </test>
+ <test id='pcrcalc257'>
+<ast>
+  <e v='timeinput' p='epos'><e v='*' a='1,inp5s.map' /></e>
+</ast>
+   <msg>
+     ERROR: epos: argument nr. 1 of function 'timeinput': type is scalar, legal type is map-stack
+ </msg></test>
+ <test id='pcrcalc257a'>
+<ast>
+  <e v='timeinput' p='epos'><e v='*' a='inp5s.map,1' /></e>
+</ast>
+   <msg>
+     ERROR: epos: argument nr. 1 of function 'timeinput': type is scalar, legal type is map-stack
+ </msg></test>
+ <test id='pcrcalc502'>
+<ast>
+  <e v='timeinput' p='epos' ><p p="epos" v="inp5s.map"/><n v="1"/></e>
+</ast>
+   <msg>
+ERROR: epos: function 'timeinput' too many arguments specified
+ </msg></test>
+ <test id='pcrcalc503'>
+<ast>
+  <e v='timeinput' p='epos' ><p p="epos" v="inp5s.map"/></e>
+</ast>
+   <msg>
+ERROR: epos: argument nr. 1 of function 'timeinput': type is scalar, legal type is map-stack
+ </msg></test>
+<test id='pcrcalc213b'>
+  <model>jan=doesnotexist.map;</model>
+  <msg>
+?:1:5:ERROR: doesnotexist.map: File 'doesnotexist.map': No such file or directory
+ </msg></test>
+<test id='pcrcalc11b'>
+  <!-- cannot mix these 2 functions -->
+  <model>a,b=spread,clump(inp1b.map,0,1)</model>
+<msg>
+?:1:5:ERROR: Functions 'spread' and 'clump' can not be combined
+</msg></test>
+<test id='pcrcalc11c'>
+  <!-- cannot mix these 2 functions
+  they both can mix with other -->
+  <model>a,b=spread,lddcreate(inp1b.map,0,1)</model>
+<msg>
+?:1:5:ERROR: Functions 'spread' and 'lddcreate' can not be combined
+</msg></test>
+<test id='pcrcalc101'>
+ <!-- not enough parameters on left -->
+<model>
+tmp.map = spread, spreadzone(inp1b.map, 0, 1);
+</model>
+<msg>
+?:1:1:ERROR: function on right side of = does not return the number of parameters defined on left of =
+</msg></test>
+<test id='pcrcalc43'>
+  <model>
+binding tmp = 9; tmp = inp1s.map; model tmp.map += 8 ** tmp;</model>
+  <msg>
+?:1:18:ERROR: 'tmp' is used twice as binding name, first use at line '1:9'
+ </msg></test>
+ <test id='pcrcalc42'>
+   <model>binding tmp = boolean(8); model tmp.map = 3;</model>
+   <msg> 
+?:1:15:ERROR: Illegal conversion applied: '8' is not a valid 'boolean' value
+ </msg></test>
+<test id='pcrcalc41'>
+  <model>binding tmp = sin(8); model tmp.map = 3;</model>
+  <msg>?:1:15:ERROR: function 'sin' illegal here</msg>
+</test>
+ <test id='pcrcalc43a'>
+ <!-- double binding, Ok if first is useless? no better not -->
+<model>binding tmp = tmp; tmp = inp1s.map; model tmp.map += 8 ** tmp;</model>
+ <msg>
+?:1:20:ERROR: 'tmp' is used twice as binding name, first use at line '1:9'
+ </msg>
+ </test>
+ <test id='pcrcalc43b'>
+     <model>binding tmp = 9; tmp = 8; model tmp.map = tmp+0;</model>
+     <msg>?:1:18:ERROR: 'tmp' is used twice as binding name, first use at line '1:9'</msg>
+   </test>
+ <test id='pcrcalc238'>
+   <model>
+timer 1 9 1;
+twice = 1..endtime;
+twice = 1..endtime;
+initial dynamic
+report(twice) tmp_s = inp5s.map;
+   </model>
+  <msg>
+?:3:1:ERROR: 'twice' is used twice as report name, first use at line '2:1'
+ </msg></test>
+<test id='pcrcalc239'>
+ <!-- endtime at start of range is parse error -->
+   <model>
+timer 1 9 1;
+reportdefault = endtime..4;
+initial dynamic
+report tmp_s = inp5s.map;
+   </model>
+   <msg>?:2:17:ERROR: Syntax error at symbol 'endtime..4'</msg>
+</test>
+  <test id='pcrcalc242'>
+    <model>
+timer 1 9 1;
+reportdefault = 4+2..2;
+initial dynamic
+report tmp_s = inp5s.map;
+</model>
+    <msg>?:2:17:ERROR: report moment contains invalid range '4+2-2'</msg>
+  </test>
+  <test id='pcrcalc243'>
+    <model>
+timer 1 9 1;
+reportdefault = 4..2;
+initial dynamic
+report tmp_s = inp5s.map;
+    </model>
+ <msg>?:2:17:ERROR: report moment contains invalid range '4-2'</msg>
+</test>
+<test id='pcrcalc244'>
+ <!-- catch invalid range insitu -->
+  <model>
+timer 1 9 1;
+initial dynamic
+report(4..2) tmp_s = inp5s.map;
+</model>
+  <msg>?:3:8:ERROR: report moment contains invalid range '4-2'</msg>
+</test>
+<test id='pcrcalc237'>
+<model>
+timer 1 9 1;
+reportdefault = 1..endtime;
+initial dynamic
+report(unknown) tmp_s = inp5s.map;
+</model>
+ <msg>?:4:8:ERROR: 'unknown' is not a report name</msg>
+</test>
+<test id='pcrcalc255'>
+<model>
+areamap areaMap255.map;
+timer 1 2 1;
+initial dynamic
+report tmp = boolean(1);
+report tmp = boolean(1);
+</model>
+<msg>?:5:8:ERROR: tmp: Report already done previous (line '4:8')</msg>
+</test>
+<test id='pcrcalc289'>
+  <model>A = dtmsmall.map + inp0s.map;</model>
+<msg>
+?:1:20:ERROR: inp0s.map: location attributes of 'dtmsmall.map' and 'inp0s.map' are different
+</msg></test>
+<test id='pcrcalc82'>
+  <model options="--clone failureExpected">a=5+sqrt(0.5);</model>
+ <msg>--clone:ERROR: failureExpected: File 'failureExpected': No such file or directory</msg>
+</test>
+<test id='pcrcalc248a'>
+<!-- now support non boolean as clone (std. conversion to boolean) 
+  -->
+  <model options="--clone inp5s.map -d tmp.map">
+areamap inp5s.map;
+initial
+report tmp_s = inp5s.map/spatial(0);
+tmp_s2 = tmp_s;
+</model>
+<msg>
+?:3:8:ERROR: RUNTIME -d catched MV creation, inspection map written to tmp.map
+</msg>
+</test>
+<test id='pcrcalc4'>
+  <model>model tmp.res = spatial(8.9); tmp.res = xcoordinate(1);</model>
+  <msg>ERROR: no clone or area map specified</msg></test>
+<test id='pcrcalc5a'>
+  <model>timer 1 2 1; initial jan = 8.9; dynamic jan = xcoordinate(1);</model>
+  <msg>ERROR: no clone or area map specified</msg>
+</test>
+<test id='pcrcalc5c'>
+  <model>areamap notexist.map; 
+    timer 1 2 1; initial jan = 8.9; dynamic jan = xcoordinate(1);</model>
+<msg> ?:1:9:ERROR: notexist.map: File 'notexist.map': No such file or directory 
+ </msg></test>
+<test id='pcrcalc10d'>
+ <!-- check if type checking works through binding mapping, and points to binding mapping
+   -->
+ <model>binding s = boolean(1); model tmp.map = 5 * s;</model>
+<msg>?:1:45:ERROR: s: used as scalar type, but has boolean type
+</msg>
+</test>
+<test id='pcrcalc0'>
+<model>
+  binding tmp.map = 0.2; model report tmp.map = 8 ** inp1s.map;
+</model>
+<msg>?:1:37:ERROR: tmp.map: Assigning value to constant binding: 'tmp.map=0.2'</msg>
+</test>
+<test id='pcrcalc69'>
+<model>
+binding
+ntime = 2;
+TextureRussia = inp1n.map;
+TableRussia=tab69.tbl;
+# derived from model form Jitske
+# 4 [0.05,0.010> 2
+# 4 [0.10,0.50> 3 --> works when
+# 4 [0.05,0.10> 2
+# 4 [0.10,0.50> 3 
+
+timer
+1 2 1;
+
+initial
+dynamic
+ TrekkingRussia = uniform(boolean(inp1n.map));
+ TextRu = lookupnominal(TableRussia,TextureRussia,1);
+</model>
+<msg>
+?:17:25:ERROR: TableRussia(binding=tab69.tbl): while parsing lookuptable 'tab69.tbl'
+ while reading at line '11' column '2'
+  low value ('0.05') of range larger than high value ('0.01')
+ </msg>
+</test>
+<test id="pcrcalc352">
+  <!-- -r must have valid path -->
+  <model options="-rfailureExpected/alsoNotExistant">
+    # any model will do here
+    jan=inp1s.map;
+  </model>
+<msg>
+ERROR: -r: 'failureExpected' is not an existing directory
+</msg></test>
+<test id='pcrcalc353'>
+  <model options="-r tmpdirTestRunDirectory">
+    tmp353.res=inp5s.map;
+  </model>
+</test>
+<test id='pcrcalc354'>
+<model options="-r tmpdirNewTestRunDirectory">
+    tmp.res=inp5s.map;
+  </model>
+</test>
+<test id='pcrcalc357a'>
+<model options="-ddebug.map -r tmpdirAreaMapInRunDirectory">
+ areamap findit.map; initial tmp.res = scalar(5);
+</model>
+</test>
+<test id='pcrcalc355'>
+  <model options="-r..">
+"failureExpected/tmp.res"=inp5s.map;
+</model>
+<msg replace="yes">ERROR: -r: output 'failureExpectedXtmp.res' has illegal directory part
+</msg>
+</test>
+
+<test id='pcrcalc46'>
+<!-- areamap must support binded symbol
+     test by checking not existing
+  -->
+<model options="-m">
+binding noExist=failureExpectedNotExist.map; areamap noExist; model tmp.res=sin(1);
+</model>
+<msg>
+?:1:54:ERROR: noExist(binding=failureExpectedNotExist.map): File 'failureExpectedNotExist.map': No such file or directory
+</msg></test>
+ <test id='pcrcalc6'>
+   <model>
+timer 0 1 1; initial t = 8.9; dynamic t = xcoordinate(1);</model>
+<msg>?:1:7:ERROR: start time must be > 0
+ </msg></test>
+ <test id='pcrcalc7'>
+   <model>
+timer 1 2 3; initial t = 8.9; dynamic t = xcoordinate(1);</model>
+   <msg>?:1:11:ERROR: current limitation: time step must be 1 (not 3)
+
+ </msg></test>
+ <test id='pcrcalc7a'>
+   <model>
+timer 1 2.8 1; initial t = 8.9; dynamic t = xcoordinate(1);</model>
+   <msg>?:1:9:ERROR: '2.8' is not a whole positive number (in end time definition)
+ </msg></test>
+ <test id='pcrcalc8'>
+   <!-- also catch up with binding by tss -->
+   <model>
+binding c=0; timer 1 c 1; initial t = 8.9; dynamic t = xcoordinate(1);</model>
+   <msg>?:1:20:ERROR: Start time (1) is greater than end time (0)
+ </msg></test>
+ <test id='pcrcalc8b'>
+   <!-- symbol not found in timer -->
+   <model>
+timer 1 failureExpected 1; initial t = 8.9; dynamic t = scalar(1);</model>
+<msg>?:1:9:ERROR: 'failureExpected' is not a whole positive number (in end time definition)</msg>
+</test>
+<test id='pcrcalc364'>
+ <!-- read a malformed tss, to define nr of timesteps -->
+<model>areamap inp1b.map; timer tab69.tbl; initial jan = 8.9; dynamic jan = xcoordinate(1);</model>
+<msg>
+?:1:7:ERROR: tab69.tbl: while reading timeseries 'tab69.tbl'
+ column nr. '2' on line 1 contains an illegal value: '[0'
+is not a legal nominal value
+</msg></test>
+<test id='pcrcalc214a'><model>
+# simple dynamic stack
+timer 1 3 1;
+dynamic
+ report tmpStack =inp1s.map*inp5s.map;
+</model>
+</test>
+<test id='pcrcalc214b'><model>
+# sparse dynamic stack
+timer 1 3 1;
+dynamic
+ report(endtime) tmpStack =inp1s.map*inp5s.map;
+</model>
+</test>
+<test id='pcrcalc214c'><model>
+ # tricky type deduction
+ # scalar of t pushed down to 5?
+ t = if(inp1b.map,5);   # l/0/a/>/,/1/n
+ # sqrt makes t scalar
+ sqrtT = sqrt(t);
+ report tmp.res =t;
+</model>
+</test>
+<test id='pcrcalc214'><model>
+# do we want this?
+# writing a nonspatial result to a map stack?
+timer 1 3 1;
+initial
+dynamic
+ # here it is forced to spatial
+ tmpStack =inp1s.map*inp5s.map;
+ # so this is not a tss but a stack:
+ report tmpStack =mapmaximum(tmpStack);
+</model>
+</test>
+<test id='pcrcalc249'>
+<model>
+#implicit report for tmp.res timeoutput
+timer 1 2 1;
+initial dynamic
+ tmp.res=timeoutput(nominal(inp5s.map),time()*10);
+</model>
+<msg resFile='yes'>
+timeseries scalar
+6
+timestep
+1
+2
+3
+4
+5
+       1       1e31       1e31       1e31       1e31          10
+       2       1e31       1e31       1e31       1e31          20
+</msg>
+</test>
+
+<test id='pcrcalc232'>
+ <model>
+# what if timeinput... index is non-spatial and that column is missing?
+# than the number of columns
+# it should generate a run time error
+areamap inp1b.map;
+timer 1 1 1;
+initial dynamic
+ report tmp.res = timeinputscalar(twoSteps.tss,2);
+</model>
+<msg>
+?:7:19:ERROR: RUNTIME (at timestep 1) function timeinputscalar: No match
+</msg></test>
+<test id='pcrcalc225'>
+  <model>
+tmp.map = lookupscalar(inp225.tbl, 0)*inp5s.map;</model>
+<msg>
+?:1:11:ERROR: RUNTIME function lookupscalar: No match
+</msg></test>
+<test id='pcrcalc226'>
+<model>
+areamap inp1b.map;
+timer 1 300 1;
+initial dynamic
+Temp = timeinputscalar(twoSteps.tss,1);
+</model>
+<msg>
+?:4:24:ERROR: twoSteps.tss: Timeseries 'twoSteps.tss' contains only '2' entries ('300' required)
+ </msg></test>
+ <test id='pcrcalc44'>
+   <model>
+# cannot use a tss for in and out
+binding Mosel=inp1n.map; Pitst1=pits1.tbl;
+areamap inp1n.map;
+timer 1 1 1;
+initial dynamic
+ report Pitst1=timeoutput(inp1n.map,scalar(3.4));
+ Pitsca1=timeinputscalar(Pitst1,inp1n.map);
+ </model>
+<msg>
+m44.mod:14:26:ERROR: Pitst1(binding=pits1.tbl)
+ is already defined as an timeoutput on line '12:9'
+can not mix timeinput and timeoutput
+</msg></test>
+<test id='pcrcalc45'>
+  <model>
+binding
+ Pitst1=tab69.tbl;
+timer 1 1 1;
+initial dynamic
+ Pitsca1=timeinputscalar(Pitst1,inp1n.map);
+ </model>
+<!-- result column (2) can not have range -->
+<msg>
+?:5:26:ERROR: Pitst1(binding=tab69.tbl): while reading timeseries 'tab69.tbl'
+ column nr. '2' on line 1 contains an illegal value: '[0'
+</msg></test>
+<test id='pcrcalc37'>
+<model>
+tmp.res = timeinputscalar(inp_1.tss, inp1b.map);
+# only in dynamic section, valid
+</model>
+<msg> 
+?:1:11:ERROR: function 'timeinputscalar' is only legal in the dynamic section
+ </msg> </test>
+<test id='pcrcalc37c'>
+<model>
+areamap inp1b.map;
+timer 1 1 1; dynamic report tmp.res = timeinputscalar(inp_1.tss, 2.3);
+</model>
+<msg>
+?:2:39:ERROR: argument nr. 2 of function 'timeinputscalar': type is one of (scalar,directional), legal type is one of (nominal,ordinal,boolean)
+</msg></test>
+  <test id='pcrcalc37d'>
+    <model>
+areamap inp1b.map;
+timer 1 1 1; dynamic report tmp.res = timeinputscalar(inp_1.tss, 1);
+    </model>
+<msg resFile='yes'>
+timeseries scalar
+2
+timestep
+1
+       1          30
+</msg></test>
+<test id='pcrcalc37e'>
+<model>
+areamap inp1b.map;timer 1 1 1;dynamic v=timeinputscalar(tmp37e.tss, 1);
+</model>
+<msg>
+?:1:41:ERROR: RUNTIME (at timestep 1) function timeinputscalar: Read mv for non-spatial
+</msg>
+</test>
+<!-- INCODE model-element test into PCRasterModelEngine unit tests 
+     alle tests moeten in xml bestaan, daarna test/pcrcalc/Makefile afbreken
+  -->
+<test id='pcrcalc11'><model>INCODE</model></test>
+<test id='pcrcalc5b'><model>INCODE</model></test>
+<test id='pcrcalc379'>
+ <model options="--clone inp5s.map">tmp.res = scalar(0); repeat { tmp.res += 5; } until 1;</model>
+</test>
+<test id='pcrcalc380'><model>INCODE</model></test>
+<test id='pcrcalc47'><model>INCODE</model>
+<msg resFile='yes'>
+timeseries scalar
+2
+timestep
+1
+       1           1
+       2           2
+       3           3
+</msg></test>
+<test id='pcrcalc375'><model>INCODE</model></test>
+
+<test id='pcrcalc250'>
+ <model>
+areamap inp5s.map;
+timer 1 2 1;
+initial dynamic
+tmp = timeinput(tmp_s);
+</model>
+<msg>
+?:4:17:ERROR: tmp_s: on checking map-stack:
+  element tmp_s000.002: File 'tmp_s000.002': file is not a PCRaster map
+</msg></test>
+<test id='pcrcalc250a'>
+<model>
+areamap inp5s.map;
+timer 1 2 1;
+initial dynamic
+tmp = timeinput(tmp_s);
+</model>
+<msg> 
+?:4:17:ERROR: tmp_s: on checking map-stack:
+  element tmp_s000.002: does not have the same data type as first element (scalar)
+</msg></test>
+<test id='pcrcalc250b'>
+<model>
+areamap inp5s.map;
+timer 1 2 1;
+initial tmp.res = 0; dynamic
+report tmp.res += mapmaximum(timeinput(tmp_s));
+</model>
+<msg resFile='yes'>
+timeseries scalar
+2
+timestep
+1
+       1           5
+       2           6
+ </msg></test>
+ <test id='pcrcalc250c'>
+<model>
+areamap inp5s.map;
+timer 1 20 1;
+initial dynamic
+tmp = timeinputsparse(tmp_s);
+</model>
+<msg>
+?:4:23:ERROR: tmp_s: on checking map-stack:
+  element tmp_s000.008: does not have the same data type as first element (scalar)
+</msg></test>
+ <test id='pcrcalc250d'>
+<model>
+areamap inp5s.map;
+timer 1 8 1;
+initial tmp.res = 0; dynamic
+report tmp.res = mapmaximum(timeinputsparse(tmp_s));
+  </model><msg resFile='yes'>
+timeseries scalar
+2
+timestep
+1
+       1           5
+       2           5
+       3           5
+       4           5
+       5           5
+       6           1
+       7           1
+       8           1
+
+ </msg></test>
+<test id='pcrcalc250f'>
+<model>
+# stack input says scalar, arg must be nominal
+areamap inp5s.map;
+timer 1 2 1;
+initial dynamic
+report tmp.res = spread(timeinputsparse(tmp_s),0,1);
+ </model><msg >
+?:5:41:ERROR: tmp_s: used as one of (nominal,ordinal,boolean) type, but has scalar type
+ </msg></test>
+ <test id='pcrcalc344'>
+<model>
+areamap
+ inp1b.map;
+timer
+1 1 1;
+
+initial
+dynamic
+ report tmp.res = timeinput(tmp_s);
+</model>
+   <msg> 
+?:8:29:ERROR: tmp_s: on checking map-stack:
+  element tmp_s000.001: location attributes of 'inp1b.map' and 'tmp_s000.001' are different
+ </msg></test>
+<test id='pcrcalc344a'>
+ <!-- as 344, but stack is sole input, no area map -->
+<model>
+timer
+1 2 1;
+
+initial
+dynamic
+ report tmp.res = timeinput(tmp_s);
+</model>
+   <msg> 
+?:6:29:ERROR: tmp_s: on checking map-stack:
+  element tmp_s000.002: location attributes of 'tmp_s000.001' and 'tmp_s000.002' are different
+ </msg></test>
+<test id='pcrcalc376'>
+ <!-- no input for timeinputsparse -->
+<model>
+areamap inp5s.map;
+timer 1 5 1;
+initial dynamic
+tmp = timeinputsparse(failureExpected);
+</model>
+<msg>
+?:4:23:ERROR: failureExpected: on checking map-stack:
+ not a single map found
+</msg>
+</test>
+<test id='pcrcalc381'><model>
+tmp.res = scalar(1); repeat { tmp.res += 1; } until tmp.res;
+</model><msg>
+?:1:53:ERROR: until condition: type is scalar, legal type is boolean
+</msg></test>
+<test id='pcrcalc381a'><model>
+tmp.res = scalar(1); repeat { tmp.res += 1; } until tmp.res==expectedFailure;
+</model><msg>
+?:1:62:ERROR: expectedFailure: File 'expectedFailure': No such file or directory
+</msg></test>
+<test id='pcrcalc382'>
+  <model>
+# spatial condition
+binding
+ nrLoops=tmp.res;
+areamap inp1b.map;
+timer 1 5 1;
+initial
+ spatialCounter = order(spatial(1));
+dynamic
+ nrLoops=0;
+ repeat {
+   report nrLoops+=1;
+ } until nrLoops > spatialCounter;
+  </model>
+  <msg resFile='yes'>
+timeseries scalar
+2
+timestep
+1
+       1          26
+       2          26
+       3          26
+       4          26
+       5          26
+
+ </msg></test>
+ <test id='pcrcalc38'>
+<model>
+report tmp.map = if(normal(1) > 0 then 2 else 1); n=inp1s.map;
+</model>
+<msg>
+?:1:8:ERROR: tmp.map: Use a conversion function to pick an output data type 
+possible data type is one of (scalar,nominal,ordinal,ldd,directional)
+ </msg></test>
+ <test id='pcrcalc38a'>
+<model>
+report tmp.map = spatial(2); n=inp1s.map;
+ </model>
+   <msg>
+?:1:8:ERROR: tmp.map: Use a conversion function to pick an output data type 
+possible data type is one of (scalar,nominal,ordinal,ldd,directional)
+ </msg></test>
+<test id='pcrcalc68'>
+<model>
+binding startYear = 14;
+areamap inp1b.map;
+timer 1 2 1; 
+initial dynamic
+ Year = if (1, 1998, startYear);
+ report outTss  = timeoutput(inp1b.map,Year);
+# Year +=1;
+# year can be scalar, ordinal etc.
+</model>
+<msg>
+?:6:9:ERROR: outTss: Use a conversion function to pick a data type for second argument of timeoutput
+possible data type is one of (scalar,nominal,ordinal,directional)
+</msg>
+</test>
+<test id='pcrcalc68a'>
+<model>
+binding startYear = 14;
+areamap inp1b.map;
+timer 1 2 1; 
+initial dynamic
+ Year = if (1, 1998, startYear);
+ report tmp.res  = timeoutput(inp1b.map,Year);
+ Year +=1;
+# year can be scalar, ordinal etc.
+</model>
+<msg resFile='yes'>
+timeseries scalar
+2
+timestep
+1
+       1        1998
+       2        1998
+
+ </msg></test>
+<test id='pcrcalc370'>
+  <model options="-b failureExpected.txt">
+areamap inp1b.map;
+timer 1 90 1;
+initial dynamic
+tmp_s = 90/(inp5s.map-time());
+tmp_s2 = tmp_s;
+</model>
+<msg>ERROR: File 'failureExpected.txt': No such file or directory</msg>
+</test>
+<test id='pcrcalc371'>
+  <model options="-b tmp.binding">
+binding Mul = 5;
+ Result= tmp.notUsed;
+initial
+report Result= inp1s.map * Mul;
+</model>
+</test>
+<test id='pcrcalc372'>
+  <!-- TODO error position in binding -->
+  <model options="-b tmp.binding">
+binding Mul = 5;
+ Result= tmp.notUsed;
+initial
+report Result= Input * Mul;
+</model>
+<msg>
+?:4:16:ERROR: Input(binding=failureExpected372.map): File 'failureExpected372.map': No such file or directory
+</msg></test>
+<test id='pcrcalc372a'>
+ <!-- input in binding file is incorrect
+  TODO melding moet positie in binding file geven
+  zeker bij een sealed script zie pcrcalc372b, pcrcalc374a
+ 1st kijken of operand kaart/getal is, dan foutmelding vanuit de
+   operand of kaart schrijven?
+ tmp.binding: ...: type is nominal, legal type is scalar
+  -->
+  <model options="-b tmp.binding">
+binding
+ Result= result.map;
+initial
+report Result= Input + 2;
+</model>
+<msg>
+?:4:16:ERROR: Input(binding=inp1n.map): used as scalar type, but has nominal type
+</msg></test>
+<test id='pcrcalc373'>
+  <!-- overwrite non-spatial with spatial -->
+<model options="-b tmp.binding">
+binding Mul = 8;
+initial
+report Result= inp1s.map * Mul;
+</model>
+</test>
+<test id='pcrcalc374'>
+  <!-- overwrite spatial with non-spatial
+        and a positive test for -d option
+    -->
+<model options="-b tmp.binding -d failureExpected.map">
+binding
+ Mul = inp1s.map;
+ Result= tmp.res;
+areamap inp1b.map;
+initial
+report Result= inp1s.map * Mul;
+</model>
+</test>
+<test id="pcrcalc504">
+<!-- quoted strings are always file references
+     or free strings as in interface.
+  -->
+  <model>
+tmp.res = inp1b.map eq "0";
+</model>
+<!-- ?:1:24:ERROR: filename can not be a numeric value -->
+<msg>
+?:1:24:ERROR: 0: File '0': No such file or directory
+</msg>
+</test>
+<test id="pcrcalc505">
+  <model options="-d inp1b.map">
+areamap inp1b.map; initial tmp.res = inp1s.map eq 0;
+</model>
+<msg>
+ERROR: File 'inp1b.map': result map for -d can not be used in the script
+</msg>
+</test>
+<test id="pcrcalc506">
+<!-- test ICachedObject -->
+<model>
+ timer 1 3 1;
+ initial
+ dynamic
+  tmp.res = accuflux(inpldd.map,1);
+</model>
+</test>
+<test id='pcrcalc247'>
+  <model options="-d tmp.map">
+areamap inp1b.map;
+timer 1 90 1;
+initial dynamic
+tmp_s = 90/(inp5s.map-time());
+tmp_s2 = tmp_s;
+</model>
+<msg>?:4:1:ERROR: RUNTIME (at timestep 5) -d catched MV creation, inspection map written to tmp.map
+</msg>
+</test>
+<test id='pcrcalc248'>
+  <model options="-d tmp.map">
+areamap inp1b.map;
+initial
+tmp_s = inp5s.map/spatial(0);
+tmp_s2 = tmp_s;
+</model>
+<msg>
+?:3:1:ERROR: RUNTIME -d catched MV creation, inspection map written to tmp.map
+</msg>
+ </test>
+<test id='pcrcalc64a'>
+<!-- catch division by zero -->
+<model options="--clone inp1b.map">tmp.res=1/0;</model><msg>
+?:1:10:ERROR: RUNTIME operator /: Domain Error
+</msg></test>
+ <test id='pcrcalc228'>
+<model options="--clone inp1s.map">
+ # fileoutput tan(90);
+ tmp.res = tan(90);
+</model>
+ <msg>
+?:2:12:ERROR: RUNTIME function tan: Domain Error
+ </msg></test>
+<test id='pcrcalc229'>
+<model options="--clone inp1s.map">
+ # fileoutput tan(270);
+ tmp.res = tan(270);
+</model>
+<msg>
+?:2:12:ERROR: RUNTIME function tan: Domain Error
+ </msg></test>
+<test id='pcrcalc369'>
+<model>
+areamap inp5s.map;
+timer 1 3 1;
+initial dynamic
+report tmp.res=lookuplinear(tmp369.tbl, time());
+</model>
+<msg resFile='yes'>
+timeseries scalar
+2
+timestep
+1
+       1           1
+       2           2
+       3           3
+</msg></test>
+<test id='pcrcalc507'>
+<model>
+ report tmp.state,tmp.flux=
+  dynwavestate,dynwaveflux(
+      tmp507.tbl,
+      inp1n.map,  # profile id
+      inpldd.map,
+      if (upstream(inpldd.map,1)==0,10*1,2), # oldState
+      0, # inflow
+      0, # bottomLevel
+      1, # roughness
+      1, # segmentLength
+      10, # nrTimeSlices
+      1, # timestepInSecs
+      0  # constantState
+      );
+</model>
+</test>
+<test id='pcrcalc508'>
+<!-- TODO msg has wrong function name -->
+<msg>
+?:2:8:ERROR: RUNTIME operator dynwave_mrf: No match for Key{ProfileId=1,A=100000} -> H
+</msg>
+</test>
+<test id='pcrcalc510a'>
+<!-- external unit test demo in openMI release -->
+<model>
+interface
+ inputMap {
+   input =    ; # Caller is responsible for input definition
+   description = "Provide any input map here for this algorithm";
+   unit="m3s-1";
+  }
+  outputMap {
+    unit="m3s-1";
+    description = "This is the output of the algorithm";
+    output =    ; # Caller is responsible for output definition
+  }
+
+areamap
+  area.map;
+
+model
+  # innerMap is not exposed
+  innerMap  = inputMap + 1;
+  outputMap = innerMap + 2;
+</model>
+</test>
+<test id='pcrcalc509'>
+<!-- test interface parsen -->
+<model>
+interface
+ Q {
+   input=;
+   description = "water discharge";
+   unit        = "m3s-1";
+ }
+ c1 {
+   description = " met {";
+   constant=-2;
+ }
+ c2 {
+   constant="-9";
+ }
+initial
+ logDischarge = log10(Q);
+</model>
+</test>
+<test id='pcrcalc510'>
+<model>
+interface
+ dem {
+   input=;
+   input=;
+ }
+initial
+ slope.map = slope(dem);
+</model>
+<msg>
+?:4:4:ERROR: input: redefinition of item
+</msg>
+</test>
+<test id='pcrcalc511'>
+<model>
+interface
+ dem {
+   input=;
+   output=;
+ }
+initial
+ slope.map = slope(dem);
+</model>
+<msg>
+?:4:4:ERROR: output: can not define both input and output
+</msg>
+</test>
+<test id='pcrcalc512'>
+<model>
+interface
+ dem {
+   failureExpected=dada;
+ }
+initial
+ slope.map = slope(dem);
+</model>
+<msg>
+?:3:4:ERROR: failureExpected: unknown item
+</msg>
+</test>
+<test id='pcrcalc513'>
+<model>
+interface
+ dem {
+   input=dada;
+ }
+binding
+   dem=dada;
+initial
+ slope.map = slope(dem);
+</model>
+<msg>
+?:6:4:ERROR: dem: binding is obsolete when using an interface section
+</msg>
+</test>
+<test id='pcrcalc514'>
+<model>
+fileoutput maptotal(if(soil.map == 1, dem.map)) / maparea(if(soil.map eq 1, dem.map))
+</model>
+<msg>
+?:1:1:ERROR: Sorry, this language construct is not implemented
+</msg>
+</test>
+<test id='pcrcalc515'>
+<model>
+interface
+ dem {
+   input=;
+   description = " met {";
+   unit        = "m3;-1";
+ }
+ c1 {
+   constant=-2;
+ }
+ c2 {
+   constant="-9";
+ }
+initial
+ slope.map = slope(dem);
+</model>
+<msg>
+?:5:18:ERROR: m3;-1: ';' is not a recognized unit dimension
+</msg>
+</test>
+<test id='pcrcalc516'>
+<model>
+interface
+ dem {
+   input=;
+   description = " met {";
+   unit        = "m3BullUnit-1";
+ }
+ c1 {
+   constant=-2;
+ }
+ c2 {
+   constant="-9";
+ }
+initial
+ slope.map = slope(dem);
+</model>
+<msg>
+?:5:18:ERROR: m3BullUnit-1: 'BullUnit' is not a recognized unit dimension
+</msg>
+</test>
+<test id='pcrcalc517'>
+<model>
+interface
+  inputMap {
+    input =    ; # Caller is responsible for input definition
+    description = "Provide any input map here for this algorithm";
+    # unit = "scalar"; # Moet scalar zijn, anders is addition niet gedefinieerd
+    }
+  # TODO this must be in the internal section NOT interface
+  constantToBeAdded {
+    constant = 3;
+    description = " This is the constant to be added to the input";
+  }
+  outputMap {
+    # unit = inputMap; # Function returns same units as in input
+    unit="m3s-1";
+    description = "This is the output of the algorithm";
+    output =    ; # Caller is responsible for output definition
+    }
+
+areamap
+  inp1b.map; # Noodzakelijk voor OpenMI, bepaalt de ruimtelijke referentie
+
+# timer
+# This script doesn't define anything for the timer section
+
+initial
+# This script doesn't define anything for the initialization section
+
+dynamic
+  # The algorithm has been implemented in the dynamic section so that each time the function is called a new call to this function is made
+  # CW policy dropped: timeinput marks dynamic input
+  #     outputMap = timeinput(inputMap)+constantToBeAdded;
+  outputMap = inputMap+constantToBeAdded;
+</model>
+</test>
+<test id='pcrcalc518'>
+<!-- bug
+     09/29/04 16:30 / johan.van-der-knijff@jrc.it
+     constant in binding did not register type OK
+  -->
+<model>
+binding
+ Ord=5; # putting ordinal(5) here did fix it
+timer 1 1 1;
+initial
+dynamic
+ report tmp.res = mapmaximum(if(inpxo.map ge Ord, inpxo.map));
+</model>
+<msg resFile='yes'>
+timeseries ordinal
+2
+timestep
+1
+       1        1044
+</msg>
+</test>
+<test id='pcrcalc519'>
+<!-- result is not checked 
+     was bug with non-existing STClash
+     FCum=FCum+FcA; : + did not promote
+     from nonspatial to spatial
+  -->
+<model>
+binding
+ Ldd=inpldd.map;
+timer
+ 1 1 1;
+initial
+  FcA =scalar(0.00000001);
+  FCum=scalar(0.0000000001);
+dynamic
+ FCum=FCum+FcA;
+ report FcA,Runoff=accuthresholdstate,accuthresholdflux(Ldd,3,3);
+</model>
+</test>
+<test id='pcrcalc520'>
+<model>
+report=uniform(clone.map)
+</model>
+<msg>
+?:1:7:ERROR: Syntax error at symbol '='
+</msg>
+</test>
+<test id='pcrcalc521'>
+<model>
+interface
+  inputMap {
+    input =    ; # Caller is responsible for input definition
+    description = "Provide any input map here for this algorithm";
+    unit="m3s-1";
+    }
+  outputMap {
+    # unit = inputMap; # Function returns same units as in input
+    unit="m3s-1";
+    description = "This is the output of the algorithm";
+    output =    ; # Caller is responsible for output definition
+    }
+
+areamap
+  inp1b.map;
+
+initial
+  outputMap = inputMap+3;
+</model>
+</test>
+ <test id='pcrcalc337'>
+<model>
+ areamap inp1b.map;
+ model
+ tmp.res=ln(-1);
+</model>
+<msg> 
+?:3:10:ERROR: RUNTIME function ln: Domain Error
+</msg></test>
+<test id='pcrcalc337a'>
+<model>
+ areamap inp1b.map;
+ model
+ report tmpxx.res=(-0.047**1.5);
+</model>
+<msg>
+?:3:26:ERROR: RUNTIME operator **: Domain Error
+</msg></test>
+<test id='pcrcalc338'>
+<model>
+ areamap inp1b.map;
+ model
+ tmp.res=0**-2;
+</model>
+<msg>
+?:3:11:ERROR: RUNTIME operator **: Domain Error
+</msg></test>
+ <test id='pcrcalc294'>
+<model>
+ areamap inp1b.map;
+ model
+ tmp.res=-2 ** 0.75;
+</model><msg>
+?:3:13:ERROR: RUNTIME operator **: Domain Error
+ </msg></test>
+ <test id='pcrcalc348'>
+<model>
+tmp.res = ibngauss(inp5s.map,-2,1);
+# check if domain error of glob func is catched
+</model>
+<msg> 
+?:1:11:ERROR: RUNTIME function ibngauss: ibngauss: Domain error on parameters
+</msg></test>
+<!--
+# check if domain error of dass func is catched
+pcrcalc349: m349.mod
+	-$(CALC) -f m349.mod 2> tmp.res
+	$(END_CHK_ARESULT)
+
+# more as test349 for dynamicwave
+pcrcalc350: m350.mod
+	-$(CALC) -f m350.mod 2> tmp.res
+	$(END_CHK_ARESULT)
+
+# more as test349 for dynamicwave, for special case FW
+pcrcalc351: m351.mod
+	-$(CALC) -f m351.mod 2> tmp.res
+	$(END_CHK_ARESULT)
+-->
+ <test id='pcrcalc349'>
+<model options="--chezy">
+# must give error that timestepinseconds is spatial
+binding
+  Mask               = inp1n.map;
+timer
+  1 10 1;
+initial
+  Qin                = 0.5;
+  Hin                = -0.5;  # DOMAIN ERROR
+  bottomHeight       = scalar(inp1n.map);
+  Roughness          = 45;
+  channelLength      = 1000;
+  channelBottomWidth = 30;
+  channelDepth       = 10;
+  channelForm        = 0.5;
+  floodplainWidth    = 10000;
+  timestepinseconds  = 20;
+  nroftimeslices     = 5;
+  structures         = not(boolean(inp1n.map));
+  structuresA        = 0;
+  structuresB        = 0;
+  structuresCrestLevel = 0;
+dynamic
+  test = dynamicwaveh(spatial(ldd(5)),Qin,Hin,bottomHeight,Roughness,
+                channelLength,channelBottomWidth,channelDepth,channelForm,
+		floodplainWidth,timestepinseconds,nroftimeslices,
+		structures,structuresA,structuresB,structuresCrestLevel);
+</model>
+ <msg>
+?:23:10:ERROR: RUNTIME (at timestep 1) function dynamicwaveh: argument 'Hin' must be greater than or equal to 0 (&gt;=0)
+ </msg></test>
+ <test id='pcrcalc350'>
+<model options="--chezy">
+# must give error that timestepinseconds is spatial
+binding
+  Mask               = inp1n.map;
+timer
+  1 10 1;
+initial
+  Qin                = 0.5;
+  Hin                = 0.5;
+  bottomHeight       = scalar(Mask);
+  Roughness          = 45;
+  channelLength      = 1000;
+  channelBottomWidth = 30;
+  channelDepth       = 10;
+  channelForm        = 0.5;
+  floodplainWidth    = 10000;
+  timestepinseconds  = 0;  # DOMAIN ERROR
+  nroftimeslices     = 5;
+  structures         = not(boolean(Mask));
+  structuresA        = 0;
+  structuresB        = 0;
+  structuresCrestLevel = 0;
+dynamic
+  test = dynamicwaveh(spatial(ldd(5)),Qin,Hin,bottomHeight,Roughness,
+                channelLength,channelBottomWidth,channelDepth,channelForm,
+		floodplainWidth,timestepinseconds,nroftimeslices,
+		structures,structuresA,structuresB,structuresCrestLevel);
+</model>
+<msg>
+?:23:10:ERROR: RUNTIME (at timestep 1) function dynamicwaveh: argument 'TimeStepInSeconds' must be greater than 0 (&gt;0)
+</msg></test>
+
+<test id='pcrcalc351'>
+<model options="--chezy">
+# floodplainWidth
+binding
+  Mask               = inp1n.map;
+timer
+  1 10 1;
+initial
+  Qin                = 0.5;
+  Hin                = 0.5;
+  bottomHeight       = scalar(Mask);
+  Roughness          = 45;
+  channelLength      = 1000;
+  channelBottomWidth = 30;
+  channelDepth       = 10;
+  channelForm        = 0.5;
+  floodplainWidth    = 10; # DOMAIN ERROR >= 30+10+0.5
+  timestepinseconds  = 20;
+  nroftimeslices     = 5;
+  structures         = not(boolean(Mask));
+  structuresA        = 0;
+  structuresB        = 0;
+  structuresCrestLevel = 0;
+dynamic
+  test = dynamicwaveh(spatial(ldd(5)),Qin,Hin,bottomHeight,Roughness,
+                channelLength,channelBottomWidth,channelDepth,channelForm,
+		floodplainWidth,timestepinseconds,nroftimeslices,
+		structures,structuresA,structuresB,structuresCrestLevel);
+</model>
+<msg> 
+?:23:10:ERROR: RUNTIME (at timestep 1) function dynamicwaveh: FloodplainWidth not wider than bankfull channel width
+ </msg></test>
+<test id='pcrcalc522'>
+<model>
+ AtOutflow = boolean(pit(inpldd.map));
+ report tmp.res = if (AtOutflow, sqrt(-2), sqrt(-2));
+</model>
+<msg> 
+?:2:34:ERROR: RUNTIME function sqrt: Domain Error
+</msg></test>
+<test id='pcrcalc523'>
+<model>
+# read twice:
+# reference inp1n.map through binding and direct
+binding
+  Mask               = inp1b.map;
+model
+  bottomHeight       = scalar(inp1b.map);
+  structures         = not(boolean(Mask));
+</model>
+<!-- NOT CORRECT, BUG IN DEVELOP MODE -->
+<msg> 
+?:7:36:ERROR: Mask(binding=inp1b.map): File 'inp1b.map': IoFieldStrategy::createField
+ </msg></test>
+<test id='pcrcalc524'>
+<model options="-d tmp.map">
+# read twice:
+# reference inp1b.map as area map (use forced by -d) and in model
+# NOW WORKING OK, since rewrite of IOStrategy
+binding
+  Mask               = inp1b.map;
+areamap Mask;
+model
+  structures         = not(boolean(Mask));
+</model>
+<!-- NOT CORRECT, BUG IN DEVELOP MODE -->
+<msg> 
+?:7:28:ERROR: RUNTIME function boolean: File 'inp1b.map': IoFieldStrategy::createField
+ </msg></test>
+<test id='pcrcalc525'>
+<model>
+# read twice:
+# reference inp1b.map as area map and in model
+binding
+  Mask1              = inp1b.map;
+  Mask2              = inp1b.map;
+model
+  bottomHeight       = scalar(Mask1);
+  structures         = not(boolean(Mask2));
+</model>
+<!-- NOT CORRECT, BUG IN DEVELOP MODE -->
+<msg> 
+?:8:36:ERROR: Mask2(binding=inp1b.map): File 'inp1b.map': IoCsfFieldStrategy::createField
+</msg></test>
+<test id='pcrcalc526'>
+<model>
+areamap inp1n.map;
+timer 1 10 1;
+initial
+  X = noCodeLinkIn::modelLink("ref SD",inp1n.map);
+dynamic
+ scalar1,scalar2,bool1 = X::methodA("A",time(),0);
+</model>
+</test>
+<test id='pcrcalc527'>
+<model>
+binding
+	par1=scalar(5);
+  BETA=scalar(  1.0000000E+00);
+areamap inp1s.map;
+timer 
+  1 5 1;
+initial
+dynamic
+ id=0;
+repeat {
+   w9 = if (par1 gt 0, 3**BETA,id);
+   id+=3;
+} until id eq 3;
+</model>
+</test>
+<test id='pcrcalc528'><model>
+# simple dynamic stack
+timer 3 6 1;
+selective1 = endtime;
+selective2 = 4,5;
+dynamic
+ report            tmp528    = inp1s.map*inp5s.map;
+ report(selective1) tmpL528  = tmp528*1;
+ report(selective2) tmp45528 = tmp528*1;
+ report            tmp.res = timeoutput(1,maptotal(tmp528));
+</model>
+<msg resFile='yes'>
+timeseries scalar
+2
+timestep
+1
+       1       1e31
+       2       1e31
+       3         120
+       4         120
+       5         120
+       6         120
+ </msg>
+</test>
+<test id='pcrcalc529'>
+<!-- test both mapstack input and writing tss
+     prepend out-ss with MV
+  -->
+<model>
+areamap inp5s.map;
+timer 3 5 1;
+initial tmp.res = 0; dynamic
+report tmp.res += mapmaximum(timeinput(tmp529));
+</model>
+<msg resFile='yes'>
+timeseries scalar
+2
+timestep
+1
+       1       1e31
+       2       1e31
+       3           1
+       4           6
+       5           7
+ </msg></test>
+<test id='pcrcalc317'>
+<model>
+timer 1 2 1;
+dynamic
+i=0;
+repeat {
+  i +=1;
+  report tmp.res = timeoutput(inp1b.map,time());
+} until (i==3);
+</model>
+<msg resFile='yes'>
+timeseries scalar
+2
+timestep
+1
+       1           1
+       2           2
+</msg></test>
+<test id='pcrcalc13c'>
+<!-- noheaders will enable selective reports on tss -->
+<model options="--noheader">
+areamap inp1b.map;
+timer 1 300 1;
+reportdefault=4,6,40+50..endtime;
+initial
+ t=300;
+dynamic
+report tmp.res=timeoutput(1,t-time());
+</model>
+<msg resFile='yes'>
+       4         296
+       6         294
+      40         260
+      90         210
+     140         160
+     190         110
+     240          60
+     290          10
+</msg></test>
+<test id='pcrcalc13d'>
+ <!-- noheaders will enable selective reports on tss -->
+<model options="--noheader">
+#! --noheader
+areamap inp1b.map;
+timer 1 9 1;
+initial t=6;
+dynamic
+report(1,4,6) tmp.res=t-time();
+</model>
+<msg resFile='yes'>
+       1           5
+       4           2
+       6           0
+</msg></test>
+<test id='pcrcalc530'>
+ <!-- noheaders will enable selective reports on tss -->
+<model options="--noheader">
+#! --noheader
+areamap inp1b.map;
+timer 3 9 1;
+initial t=6;
+dynamic
+report(1,4,6) tmp.res=t-time();
+</model>
+<msg resFile='yes'>
+       4           2
+       6           0
+</msg></test>
+<test id='pcrcalc531'>
+ <!-- noheaders will enable selective reports on tss 
+      way past tss flushing
+   -->
+<!--  model options="noheader"  -->
+<model>
+areamap inp1b.map;
+timer 300 308 1;
+initial t=6;
+dynamic
+report tmp.res=t-time();
+</model>
+<msg resFile='yes'>
+       4           2
+       6           0
+</msg></test>
+<test id='pcrcalc532'>
+<model>
+areamap inp1b.map;
+initial
+ t2.map=areamajority(inpxo.map, inp1n.map);
+</model>
+</test>
+<test id='pcrcalc533'>
+<!-- TEST script that should have everything for May 2005 ESRI demo:
+       - all types of input and output
+       - var's a and b not exposed
+  -->
+<model>
+areamap inp1b.map;
+timer  1 5 1;
+initial
+ a = lookupscalar(lookupTable,initialInputMap);
+ report initialOutputMap = a * 10;
+dynamic
+ b = timeinput(inputMapStack) * timeinputscalar(inputTss,initialInputMap);
+ report outputTss = timeoutput(initialInputMap, b * 2);
+ report outputMapStack = b * 10;
+</model>
+</test>
+<test id='pcrcalc534'>
+<model>
+areamap inp1b.map;
+timer  1 5 1;
+initial
+dynamic
+ b = timeinputmodulo(inputMapStack);
+</model>
+<msg>
+?:5:22:ERROR: function 'timeinputmodulo' not enough arguments specified
+</msg>
+</test>
+<test id='pcrcalc535'>
+<model>
+areamap inp1b.map;
+timer  1 5 1;
+initial
+dynamic
+ a = ordinal(12);
+ b = timeinputmodulo(inputMapStack,a);
+</model>
+<msg>
+?:6:36:ERROR: highestTimestepAvailable argument of timeinputmodulo must be an integer > 0
+</msg>
+</test>
+<test id='pcrcalc536'>
+<model>
+areamap inp1b.map;
+timer  1 5 1;
+initial
+dynamic
+ b = timeinputmodulo(inputMapStack,12);
+ c = timeinput(inputMapStack);
+</model>
+<msg>
+?:6:16:ERROR: inputMapStack: can not apply both timeinputmodulo and timeinput to same mapstack
+</msg>
+</test>
+<test id='pcrcalc537'>
+<model>
+areamap inp1b.map;
+timer  1 7 1;
+initial
+dynamic
+ report tmp.res = mapmaximum(timeinputmodulo(tmp_tim,3));
+</model>
+<msg resFile='yes'>
+timeseries scalar
+2
+timestep
+1
+       1           5
+       2           0
+       3           1
+       4           5
+       5           0
+       6           1
+       7           5
+</msg>
+</test>
+<test id='pcrcalc538'>
+<model>
+areamap inp1b.map;
+b = lookupscalar(inp1b.map,10);
+</model>
+<msg>
+?:1:9:ERROR: inp1b.map: Expected table, got a map
+</msg>
+</test>
+<test id='pcrcalc539'>
+<!--
+   typechecking of areamap and timersection elements
+   is not correct. introduce AstRestictPar having a
+    restriction on the type, that is caught in the 
+    BuildTypesVisitor
+  -->
+<model>
+areamap inp_2.tbl;
+b = lookupscalar(inp_2.tbl,10);
+</model>
+<msg>
+?:1:9:ERROR: inp1b.map: Expected table, got a map
+</msg>
+</test>
+<test id='pcrcalc540'>
+<model>
+areamap inp1b.map;
+dynamic
+ b = lookupmapstack(notExLL,10);
+</model>
+<msg>
+?:3:21:ERROR: notExLL: on checking map-stack:
+  element notExLL0.001: File 'notExLL0.001': No such file or directory
+</msg>
+</test>
+<test id='pcrcalc541'>
+<model>
+areamap inp1b.map;
+timer 1 3 1;
+dynamic
+ b = lookupmapstack(tmp_lms,3);
+</model>
+<msg>
+?:4:6:ERROR: RUNTIME (at timestep 1) function lookupmapstack: on checking map-stack:
+  element tmp_lms0.003: File 'tmp_lms0.003': No such file or directory
+</msg>
+</test>
+<test id='pcrcalc542'>
+<model>
+areamap inp1b.map;
+timer 1 3 1;
+dynamic
+ b = lookupmapstack(tmp_lms,2);
+</model>
+<msg>
+?:4:6:ERROR: RUNTIME (at timestep 1) function lookupmapstack: on checking map-stack:
+  element tmp_lms0.002: does not have the same data type as first element (scalar)
+</msg>
+</test>
+<test id='pcrcalc543'>
+<model>
+areamap inp1b.map;
+timer 1 3 1;
+initial
+ a = pred(0);
+dynamic
+ b = lookupmapstack(tmp_lms,a);
+</model>
+<msg>
+?:6:6:ERROR: RUNTIME (at timestep 1) function lookupmapstack: index must be > 0
+</msg>
+</test>
+<test id='pcrcalc544'>
+<model options="-l">
+areamap inp1b.map;
+timer  1 3 1;
+initial
+dynamic
+ report tmp544s = inp1s.map + 3; # yield 4
+        tmp2    = inp5s.map * 0; # yield 0
+ report tmp.res = mapmaximum(tmp544s * (inp1s.map + tmp2)); # yield 4
+</model>
+<msg resFile='yes'>
+timeseries scalar
+2
+timestep
+1
+       1           4
+       2           4
+       3           4
+</msg>
+</test>
+<test id='pcrcalc545'>
+<model options="-l">
+binding
+ tmp1=out1;
+ tmp5=out1;
+areamap inp1b.map;
+timer  1 3 1;
+initial
+dynamic
+ report tmp1    = inp1s.map + 3; # yield 4
+ report tmp5    = inp1s.map + 3; # yield 4
+ report tmp.res = mapmaximum(tmp544s * (inp1s.map + tmp5)); # yield 4
+</model>
+<msg>
+?:9:9:ERROR: tmp5(binding=out1): shares identical binding with 'tmp1':out1
+</msg>
+</test>
+<test id='pcrcalc546'>
+<model>
+binding
+  init=scalar(6);
+areamap inp1b.map;
+timer  1 3 1;
+initial
+  a = areatotal(init,inp1n.map);
+dynamic
+  init2=init*inp1s.map;
+  b = areatotal(init2,inp1n.map);
+</model>
+<msg>
+?:9:9:ERROR: tmp5(binding=out1): shares identical binding with 'tmp1':out1
+</msg>
+</test>
+<test id='pcrcalc547'>
+<model>
+ l = argorderwithid(inp5s.map,4,inp5s.map,3.4);
+</model>
+<msg>
+?:1:5:ERROR: argument nr. 4 of function 'argorderwithid': type is one of (scalar,directional), legal type is ordinal
+</msg>
+</test>
+<test id='pcrcalc548'>
+<model options=" --dynamiclibraries:linkexample">
+areamap inp1n.map;
+timer 1 10 1;
+initial
+  y = 3*4;
+  X = y::modelLink("ref SD",inp1n.map);
+</model>
+<msg> 
+?:5:7:ERROR: y: type is scalar, legal type is object
+</msg></test>
+<test id='pcrcalc549'>
+<model>
+  X = example1::unknownFunction("ref SD",inp1n.map);
+</model>
+<msg>
+?:1:15:ERROR: unknownFunction: unknown function
+</msg></test>
+<test id='pcrcalc550'>
+<model>
+  object X1 = exampleCpp::Class1();
+  a = X1::unknownMethod();
+</model>
+<msg>
+?:2:11:ERROR: unknownMethod: unknown method
+</msg></test>
+<test id='pcrcalc551'>
+<model>
+ tmp.res = noXMLLinkIn::checkerBoard();
+</model>
+<msg>
+CHECKED WITHIN test code
+</msg></test>
+<test id='pcrcalc552'>
+<!-- execute sample -->
+<model>
+areamap inp1b.map;
+ tmpXX.res = example1::checkerBoard();
+</model>
+</test>
+<test id='pcrcalc553'>
+<!-- execute -->
+<model>
+areamap inp1b.map;
+ tmpXX.res = exampleCpp::checkerBoard();
+</model>
+</test>
+<test id='pcrcalc554'>
+<!-- execute -->
+<model>
+areamap inp1b.map;
+ object obj = exampleCpp::Class1(4);
+ tmp.res = obj::operation("add",inp1s.map);
+</model>
+</test>
+<test id='pcrcalc555'>
+<!-- syntax error -->
+<model>
+object obj = 4;
+</model>
+<msg>
+?:1:14:ERROR: libraryName::ClassName construct expected
+</msg>
+</test>
+<test id='pcrcalc556'>
+<!-- execute -->
+<model>
+ tmp556.res = example2::addSpatialToNonSpatial(inp1s.map,4);
+</model>
+</test>
+<test id='pcrcalc557'>
+<model>
+ tmp557.res = inp1nUINT1.map;
+</model>
+</test>
+<test id='pcrcalc558'>
+<model options="-s1">
+ tmp558.res = lddcreatend(inundatiekaart_2m.map,0,0,0,0);
+</model>
+</test>
+<test id='pcrcalc559'>
+<model options="-s1">
+ tmp559.res = lddcreate(inundatiekaart_2m.map,0,0,0,0);
+</model>
+</test>
+<test id='pcrcalc560'>
+<model>
+areamap inp1n.map;
+timer 1 2 1;
+dynamic
+ report tmp560 = spatial(time());
+</model>
+</test>
+<test id='pcrcalc561'>
+ <model>
+# writing tss to non existant dir
+# bugzilla 160,87
+binding out = "nonExistant/tmp.res";
+areamap inp1b.map;
+timer 1 1 1;
+initial dynamic
+ report out = time();
+</model>
+<!-- TODO DirectoryXFolder not consistent in this file -->
+<msg replace="yes">
+ERROR: File 'nonExistantXtmp.res': DirectoryXFolder part of file does not exist
+</msg>
+</test>
+<test id='pcrcalc10a'>
+<model>
+tmp.map = lookupnominal(inp_2.tbl, inp5s.map, 8, 10);
+</model>
+<msg> 
+?:1:25:ERROR: inp_2.tbl: while parsing lookuptable 'inp_2.tbl'
+ contains not enough columns ('3' read,'4' expected)
+ </msg></test>
+<!-- TOT HIER WORDT OOK WERKELIJK GETEST
+     HIERONDER ALLEEN GEBRUIK VOOR PARSEN (calc_parsertest.cc)
+     MAAR NOG GEEN ANTWOORD CHECKEN
+  -->
+<test id='pcrcalc102a'>
+   <!-- staat ergens UIT in de tests -->
+  <ast><e v='notafunction' p='epos' a='0,coord'/></ast>
+<msg>
+epos:ERROR: 'notafunction' is not a function
+ </msg></test>
+<test id='pcrcalc8a'>
+  <!-- no timer -->
+<model>dynamic tmp.map = inp1b.map;  tmp2.map = scalar(8.9);</model>
+<msg>?:1:1:ERROR: There is a dynamic section but no timer section</msg>
+</test>
+<test id='pcrcalc8ab'>
+  <!-- no timer -->
+  <model>initial tmp.map = inp1b.map; dynamic tmp2.map = scalar(8.9);</model>
+<msg>ERROR: : There is a dynamic section but no timer section</msg>
+</test>
+<test id='pcrcalc11pre'>
+<!-- double ass, wrong redef of arg 2 -->
+<model>
+tmp2.map = 0.3; tmp.res, tmp2.map = spread, spreadzone(inp1b.map, 0, 1);</model>
+<msg>
+?:1:26:ERROR: 'tmp2.map' is defined as one of (scalar,directional) type on line '1:1' and used here as boolean type
+</msg>
+</test>
+<test id='pcrcalc9'>
+  <!-- should be non-spatial, number 1 -->
+  <model>fileoutput lookupnominal(inp_1.tbl, 5, 8, 10);</model>
+<msg>?:1:1:ERROR: Sorry, this language construct is not implemented</msg>
+ <!-- <msg>1</msg> -->
+</test>
+<test id='pcrcalc301b'>
+  <!--
+      if then
+      bug found by DJ in bridge model
+      ifthen with UINT1 return is different
+       from other value returns
+      Sat Oct 30 11:32:52 CEST 1999
+  -->
+  <model>report tmp.res= if(inp1b.map, ldd(5));</model>
+  <msg>5</msg>
+</test>
+<test id='pcrcalc256'>
+  <model>
+areamap inp5s.map;
+ timer 1 2 1;
+ initial
+ dynamic
+tmp = timeoutput(1,uniform(1));
+tmp = boolean(1);
+</model>
+   <msg>
+tmp.mod:5:1:ERROR: 'tmp' is defined as timeseries type on line '4:1' and used here as boolean type
+ </msg></test>
+<!-- EINDE TESTS in calc_parsertest.cc
+  -->
+<test id='pcrcalc41a'> <!-- not a binding test -->
+   <model>tmp.res = boolean(122);</model>
+<msg>
+?:1:11:ERROR: Illegal conversion applied: '122' is not a valid 'boolean' value
+ </msg></test>
+ <test id='pcrcalc5d'><msg> 
+m5d.mod:4:1:ERROR: Syntax error at keyword 'areamap'
+ Keywords can not be used as names for files or variables
+ Keywords must be placed in a specific order
+
+ </msg></test>
+ <test id='pcrcalc11pre2'><msg> 
+?:1:22:ERROR: 'tmp.res' is defined as boolean type on line '1:1' and used here as scalar type
+
+ </msg></test>
+ <test id='pcrcalc11a'><msg> 
+?:1:41:ERROR: 'tmp.map' is defined as scalar type on line '1:7' and used here as boolean type
+
+ </msg></test>
+ <test id='pcrcalc13'><msg> 
+6.28
+
+ </msg></test>
+ <test id='pcrcalc13a'><msg> 
+6
+6
+
+ </msg></test>
+ <test id='pcrcalc13b'><msg> 
+5
+4
+3
+2
+1
+0
+6
+
+ </msg></test>
+ <test id='pcrcalc13e'><msg> 
+tmp-a1
+       1           5
+       4           5
+       6           5
+
+ </msg></test>
+ <test id='pcrcalc13f'><msg> 
+timeseries scalar
+2
+timestep
+1
+       1           5
+       2          10
+       3          15
+       4          20
+       5          25
+       6          30
+       7          35
+       8          40
+       9          45
+
+ </msg></test>
+ <test id='pcrcalc14'><msg> 
+?:1:27:ERROR: function 'mapminimum' too many arguments specified
+
+ </msg></test>
+ <test id='pcrcalc15'><msg> 
+-0.5
+
+ </msg></test>
+ <test id='pcrcalc16'><msg> 
+-0.5
+
+ </msg></test>
+ <test id='pcrcalc17'><msg> 
+5
+
+ </msg></test>
+ <test id='pcrcalc18'><msg> 
+120
+
+ </msg></test>
+ <test id='pcrcalc19'><msg> 
+24
+
+ </msg></test>
+ <test id='pcrcalc20'><msg> 
+?:1:22:ERROR: Can not write spatial output using outputfile
+
+ </msg></test>
+ <test id='pcrcalc31a'><msg> 
+?:1:1:ERROR: tmp2.res: File 'tmp2.res': No such file or directory
+
+ </msg></test>
+ <test id='pcrcalc34'><msg> 
+?:1:26:ERROR: Syntax error at symbol '*'
+
+ </msg></test>
+ <test id='pcrcalc37b'><msg> 
+?:1:22:ERROR: Syntax error at keyword 'timeoutput'
+ Keywords can not be used as names for files or variables
+ Keywords must be placed in a specific order
+
+ </msg></test>
+ <test id='pcrcalc39'><msg> 
+6.28
+
+ </msg></test>
+ <test id='pcrcalc48'><msg> 
+?:1:55:ERROR: 'endTime' does not have a numeric value
+
+ </msg></test>
+ <test id='pcrcalc48a'><msg> 
+?:1:36:ERROR: 'endTimeUnknown' not defined
+
+ </msg></test>
+ <test id='pcrcalc49'><msg> 
+?:1:10:ERROR: argument nr. 1 of function 'accuflux' is non-spatial only spatial allowed
+
+ </msg></test>
+ <test id='pcrcalc50a'><msg> 
+?:1:11:ERROR: 'accu' is not a function
+
+ </msg></test>
+ <test id='pcrcalc61'><msg> 
+?:1:1:ERROR: 'tmp.map' is defined as scalar type on line '1:19' and used here as nominal type
+
+ </msg></test>
+ <test id='pcrcalc62'><msg> 
+?:1:1:ERROR: tmp2.res: File 'tmp2.res': Permission denied for (over)writing
+
+ </msg></test>
+ <test id='pcrcalc64'><msg> 
+timeseries scalar
+2
+timestep
+1
+       1           0
+       2           0
+       3           0
+
+ </msg></test>
+ <test id='pcrcalc65'><msg> 
+24
+
+ </msg></test>
+ <test id='pcrcalc66'><msg> 
+8
+
+ </msg></test>
+ <test id='pcrcalc67'><msg> 
+&lt;!DOCTYPE Script&lt;
+&lt;Script scriptFileName="m67.mod" ioStrategy="PCRaster" &lt;
+ &lt;Timer end="2" step="1" start="1" /&lt;
+ &lt;ScriptData&lt;
+  &lt;Data name="inp1s.map" ioType="Input" &lt;
+   &lt;Map&lt;
+    &lt;DataType value="Scalar" /&lt;
+   &lt;/Map&lt;
+  &lt;/Data&lt;
+  &lt;Data name="inp5s.map" ioType="Input" &lt;
+   &lt;Map&lt;
+    &lt;DataType value="Scalar" /&lt;
+   &lt;/Map&lt;
+  &lt;/Data&lt;
+  &lt;Data name="jan" ioType="Output" &lt;
+   &lt;Stack&lt;
+    &lt;DataType value="Scalar" /&lt;
+   &lt;/Stack&lt;
+  &lt;/Data&lt;
+  &lt;Data name="piet" ioType="None" &lt;
+   &lt;Map&lt;
+    &lt;DataType value="Scalar" /&lt;
+   &lt;/Map&lt;
+  &lt;/Data&lt;
+  &lt;Data name="tmpTss" ioType="Output" &lt;
+   &lt;TimeSeries&lt;
+    &lt;DataType value="Scalar" /&lt;
+   &lt;/TimeSeries&lt;
+  &lt;/Data&lt;
+ &lt;/ScriptData&lt;
+&lt;/Script&lt;
+
+ </msg></test>
+ <test id='pcrcalc71'><msg> 
+0.5
+
+ </msg></test>
+ <test id='pcrcalc72'><msg> 
+0.5
+
+ </msg></test>
+ <test id='pcrcalc73'><msg> 
+0.5
+
+ </msg></test>
+ <test id='pcrcalc74'><msg> 
+         0.5         0.5         0.5         0.5         0.5
+         0.5         0.5         0.5         0.5         0.5
+         0.5         0.5         0.5         0.5         0.5
+         0.5         0.5         0.5         0.5         0.5
+         0.5         0.5         0.5         0.5         0.5
+
+ </msg></test>
+ <test id='pcrcalc75'><msg> 
+         0.5         0.5         0.5         0.5         0.5
+         0.5         0.5         0.5         0.5         0.5
+         0.5         0.5         0.5         0.5         0.5
+         0.5         0.5         0.5         0.5         0.5
+         0.5         0.5         0.5         0.5         0.5
+
+ </msg></test>
+ <test id='pcrcalc76'><msg> 
+60
+
+ </msg></test>
+ <test id='pcrcalc77'><msg> 
+1.0472
+
+ </msg></test>
+ <test id='pcrcalc78'><msg> 
+timeseries directional
+2
+timestep
+1
+       1          60
+       2          60
+
+ </msg></test>
+ <test id='pcrcalc79'><msg> 
+timeseries directional
+2
+timestep
+1
+       1      1.0472
+       2      1.0472
+
+ </msg></test>
+ <test id='pcrcalc80'><msg> 
+timeseries scalar
+2
+timestep
+1
+       1         0.5
+       2         0.5
+
+ </msg></test>
+ <test id='pcrcalc81'><msg> 
+timeseries scalar
+2
+timestep
+1
+       1    0.499998
+       2    0.499998
+
+ </msg></test>
+ <test id='pcrcalc102'><msg> 
+?:1:11:ERROR: 'cellfocus' is not a function
+
+ </msg></test>
+ <test id='pcrcalc208a'><msg> 
+timeseries scalar
+2
+timestep
+1
+       1         2.6
+
+ </msg></test>
+ <test id='pcrcalc209'><msg> 
+?:1:2:ERROR: exist.notXtest.map: File 'exist.notXtest.map': Directory/Folder part of file does not exist
+
+ </msg></test>
+ <test id='pcrcalc212'><msg> 
+?:1:1:ERROR: aux: File 'aux': Not a valid filename
+
+ </msg></test>
+ <test id='pcrcalc213'><msg> 
+?:1:3:ERROR: ..Xcon: File '..Xcon': Not a valid filename
+
+ </msg></test>
+ <test id='pcrcalc213a'><msg> 
+?:1:9:ERROR: con: File 'con': Not a valid filename
+
+ </msg></test>
+ <test id='pcrcalc213c'><msg> 
+?:1:9:ERROR: ..Xpcrcalc: File '..Xpcrcalc': Is a directory
+
+ </msg></test>
+ <test id='pcrcalc217'><msg> 
+attributes  tmp_s000.001 tmp_s000.002 tmp_s000.003
+rows        5            5            5           
+columns     5            5            5           
+cell_length 50           50           50          
+data_type   scalar       scalar       scalar      
+cell_repr   single       single       single      
+projection  yt2b         yt2b         yt2b        
+angle(deg)  0            0            0           
+xUL         200          200          200         
+yUL         200          200          200         
+min_val     1            1            1           
+max_val     3            3            3           
+version     2            2            2           
+file_id     0            0            0           
+native      y            y            y           
+attr_tab    n            n            n           
+
+ </msg></test>
+ <test id='pcrcalc218'><msg> 
+attributes  adirname/tmp_s000.001 adirname/tmp_s000.002 adirname/tmp_s000.003
+rows        5                     5                     5                    
+columns     5                     5                     5                    
+cell_length 50                    50                    50                   
+data_type   scalar                scalar                scalar               
+cell_repr   single                single                single               
+projection  yt2b                  yt2b                  yt2b                 
+angle(deg)  0                     0                     0                    
+xUL         200                   200                   200                  
+yUL         200                   200                   200                  
+min_val     1                     1                     1                    
+max_val     3                     3                     3                    
+version     2                     2                     2                    
+file_id     0                     0                     0                    
+native      y                     y                     y                    
+attr_tab    n                     n                     n                    
+
+ </msg></test>
+ <test id='pcrcalc219'><msg> 
+tmp45678.xxx
+
+ </msg></test>
+ <test id='pcrcalc219a'><msg> 
+tmp_s.csf
+
+ </msg></test>
+ <test id='pcrcalc219b'><msg> 
+tmp_s.csf
+
+ </msg></test>
+ <test id='pcrcalc220'><msg> 
+attributes  tmp45678.xxx
+rows        5           
+columns     5           
+cell_length 50          
+data_type   scalar      
+cell_repr   single      
+projection  yt2b        
+angle(deg)  0           
+xUL         200         
+yUL         200         
+min_val     1           
+max_val     3           
+version     2           
+file_id     0           
+native      y           
+attr_tab    n           
+
+ </msg></test>
+ <test id='pcrcalc221'><msg> 
+EMPTY_RESULT
+
+ </msg></test>
+ <test id='pcrcalc223'><msg> 
+?:1:20:ERROR: function 'add2maps' not enough arguments specified
+
+ </msg></test>
+ <test id='pcrcalc224a'><msg> 
+?:1:11:ERROR: argument nr. 2 of function 'add2maps': type is nominal, legal type is scalar
+
+ </msg></test>
+ <test id='pcrcalc227'><msg> 
+0
+
+ </msg></test>
+ <test id='pcrcalc231'><msg> 
+ERROR: Empty model script, nothing to execute
+
+ </msg></test>
+ <test id='pcrcalc233'><msg> 
+tmp_s000.009
+
+ </msg></test>
+ <test id='pcrcalc234'><msg> 
+tmp_s000.009
+
+ </msg></test>
+ <test id='pcrcalc234a'><msg> 
+attributes  tmp_s000.001 tmp_s000.002 tmp_s000.003 tmp_s000.010 tmp_s000.020 tmp_s000.030 tmp_s000.040 tmp_s000.050
+rows        5            5            5            5            5            5            5            5           
+columns     5            5            5            5            5            5            5            5           
+cell_length 50           50           50           50           50           50           50           50          
+data_type   scalar       scalar       scalar       scalar       scalar       scalar       scalar       scalar      
+cell_repr   single       single       single       single       single       single       single       single      
+projection  yt2b         yt2b         yt2b         yt2b         yt2b         yt2b         yt2b         yt2b        
+angle(deg)  0            0            0            0            0            0            0            0           
+xUL         200          200          200          200          200          200          200          200         
+yUL         200          200          200          200          200          200          200          200         
+min_val     0            0            0            0            0            0            0            0           
+max_val     1.69897      1.69897      1.69897      1.69897      1.69897      1.69897      1.69897      1.69897     
+version     2            2            2            2            2            2            2            2           
+file_id     0            0            0            0            0            0            0            0           
+native      y            y            y            y            y            y            y            y           
+attr_tab    n            n            n            n            n            n            n            n           
+
+ </msg></test>
+ <test id='pcrcalc234b'><msg> 
+tmp_sX00.005
+tmp_sY00.001
+tmp_sY00.002
+tmp_sY00.003
+tmp_sY00.004
+tmp_sY00.005
+
+ </msg></test>
+ <test id='pcrcalc234c'><msg> 
+tmp_sX00.010
+tmp_sY00.001
+tmp_sY00.002
+tmp_sY00.004
+tmp_sY00.006
+tmp_sY00.008
+tmp_sY00.010
+
+ </msg></test>
+ <test id='pcrcalc234d'><msg> 
+tmp_sStatic
+tmp_sX00.020
+tmp_sY00.001
+tmp_sY00.010
+tmp_sY00.020
+
+ </msg></test>
+ <test id='pcrcalc235'><msg> 
+tmp_s000.009
+
+ </msg></test>
+ <test id='pcrcalc236'><msg> 
+tmp_s000.002
+tmp_s000.004
+tmp_s000.006
+tmp_s000.009
+EMPTY_RESULT
+
+ </msg></test>
+ <test id='pcrcalc237a'><msg> 
+tmp.mod:2:21:ERROR: Syntax error at symbol ';'
+
+ </msg></test>
+ <test id='pcrcalc240'><msg> 
+tmp_sX
+
+ </msg></test>
+ <test id='pcrcalc241'><msg> 
+tmp_sX
+
+ </msg></test>
+ <test id='pcrcalc241a'><msg> 
+tmp_sX
+
+ </msg></test>
+ <test id='pcrcalc245'><msg> 
+tmp.mod:3:8:ERROR: Syntax error at symbol ')'
+
+ </msg></test>
+ <test id='pcrcalc246'><msg> 
+tmp.mod:2:6:ERROR: Syntax error at symbol ';'
+
+ </msg></test>
+ <test id='pcrcalc254'><msg> 
+m254.mod:7:4:ERROR: 'sin' not defined
+
+ </msg></test>
+ <test id='pcrcalc261'><msg> 
+?:1:9:ERROR: 'a' defined twice, first definition at line '1:16'
+
+ </msg></test>
+ <test id='pcrcalc262'><msg> 
+?:1:39:ERROR: 'a' defined twice, first definition at line '1:16'
+
+ </msg></test>
+ <test id='pcrcalc263'><msg> 
+?:1:7:ERROR: 'cover' not defined
+
+ </msg></test>
+ <test id='pcrcalc264'><msg> 
+?:1:11:ERROR: 'B' not defined
+
+ </msg></test>
+ <test id='pcrcalc265'><msg> 
+?:1:34:ERROR: 'b' is defined as array-index type on line '1:17' and used here as map or nonspatial type
+
+ </msg></test>
+ <test id='pcrcalc266'><msg> 
+?:1:28:ERROR: 'b' is defined as array-index type on line '1:17' and used here as scalar type
+
+ </msg></test>
+ <test id='pcrcalc267'><msg> 
+?:1:30:ERROR: 'A' is defined as array type on line '1:9' and used here as array-index type
+
+ </msg></test>
+ <test id='pcrcalc268'><msg> 
+?:1:44:ERROR: 'C' is used here as C[B] first use (line '1:32') was C[A]
+
+ </msg></test>
+ <test id='pcrcalc268a'><msg> 
+?:1:47:ERROR: 'C' is used here as C[B][A] first use (line '1:32') was C[A][B]
+
+ </msg></test>
+ <test id='pcrcalc268b'><msg> 
+?:1:44:ERROR: 'C' is used here as C[B][A] first use (line '1:32') was C[B]
+
+ </msg></test>
+ <test id='pcrcalc269'><msg> 
+?:1:46:ERROR: 'U' not defined
+
+ </msg></test>
+ <test id='pcrcalc270'><msg> 
+?:1:48:ERROR: Element expected to be part of array 'A'
+
+ </msg></test>
+ <test id='pcrcalc270a'><msg> 
+?:1:71:ERROR: Element expected to be part of array 'B'
+
+ </msg></test>
+ <test id='pcrcalc271'><msg> 
+?:1:41:ERROR: 'X' is used here as X first use (line '1:28') was X[A]
+
+ </msg></test>
+ <test id='pcrcalc272'><msg> 
+?:1:57:ERROR: 'C' is used here as C[B] first use (line '1:32') was C[A]
+
+ </msg></test>
+ <test id='pcrcalc273'><msg> 
+?:1:45:ERROR: 'h' defined twice, first definition at line '1:32'
+
+ </msg></test>
+ <test id='pcrcalc273a'><msg> 
+?:1:50:ERROR: 'h' defined twice, first definition at line '1:33'
+
+ </msg></test>
+ <test id='pcrcalc274'><msg> 
+?:1:65:ERROR: Use a conversion function to pick a data type for 'h'
+possible data type is one of (scalar,nominal,ordinal,boolean,directional)
+
+ </msg></test>
+ <test id='pcrcalc275'><msg> 
+?:1:29:ERROR: Function 'indexscalar' only allowed on array parameters
+
+ </msg></test>
+ <test id='pcrcalc276'><msg> 
+?:1:45:ERROR: Expression illegal here, expecting name of index-table
+
+ </msg></test>
+ <test id='pcrcalc277'><msg> 
+?:1:75:ERROR: 'tmp.tbl' is defined as an index-table on [A] type on line '1:49' and used here as [B]
+
+ </msg></test>
+ <test id='pcrcalc278'><msg> 
+?:1:52:ERROR: File 'notexist.tmp': No such file or directory
+
+ </msg></test>
+ <test id='pcrcalc279'><msg> 
+?:1:52:ERROR: Expected indextable, got a map
+
+ </msg></test>
+ <test id='pcrcalc280'><msg> 
+?:1:52:ERROR: While initializing 'a':
+No value found for a[a2][b1]
+
+ </msg></test>
+ <test id='pcrcalc281'><msg> 
+?:1:52:ERROR: While reading 'tmp.tbl':
+tmp.tbl:1: expecting 4 items read 3 items
+
+ </msg></test>
+ <test id='pcrcalc282'><msg> 
+?:1:52:ERROR: While reading 'tmp.tbl':
+tmp.tbl:2: key already defined at line 1
+
+ </msg></test>
+ <test id='pcrcalc283'><msg> 
+?:1:53:ERROR: While initializing 'a':
+tmp.tbl:1:'3.4' is not a legal boolean non-spatial
+
+ </msg></test>
+ <test id='pcrcalc284'><msg> 
+?:1:53:ERROR: While reading 'tmp.tbl':
+Illegal sequence '@' at line 1
+
+ </msg></test>
+ <test id='pcrcalc285'><msg> 
+?:1:51:ERROR: While initializing 'a':
+tmp.tbl:1:Expected table, got a map
+
+ </msg></test>
+ <test id='pcrcalc286'><msg> 
+?:1:51:ERROR: While initializing 'a':
+tmp.tbl:1:'3.4' is not a legal tablename
+
+ </msg></test>
+ <test id='pcrcalc287'><msg> 
+?:1:76:ERROR: b: while parsing lookuptable 'tmp2.tbl'
+ while reading at line '1' column '2'
+  '8' is not a legal boolean value
+ read from tmp.tbl line 2
+
+ </msg></test>
+ <test id='pcrcalc288'><msg> 
+?:1:76:ERROR: b: while parsing lookuptable 'tmp2.tbl'
+ contains not enough columns ('2' read,'3' expected)
+ read from tmp.tbl line 2
+
+ </msg></test>
+ <test id='pcrcalc290'><msg> 
+==&lt; tmpTSS-Species1 &lt;==
+timeseries scalar
+2
+timestep
+1
+       1           1
+       2           5
+       3           9
+
+==&lt; tmpTSS-Species2 &lt;==
+timeseries scalar
+2
+timestep
+1
+       1           2
+       2           6
+       3          10
+
+==&lt; tmpTSS-Species3 &lt;==
+timeseries scalar
+2
+timestep
+1
+       1           3
+       2           7
+       3          11
+
+ </msg></test>
+ <test id='pcrcalc290a'><msg> 
+==&lt; tmpTSS-Species1 &lt;==
+timeseries scalar
+2
+timestep
+1
+       1           1
+       2           5
+       3           9
+
+==&lt; tmpTSS-Species2 &lt;==
+timeseries scalar
+2
+timestep
+1
+       1           2
+       2           6
+       3          10
+
+==&lt; tmpTSS-Species3 &lt;==
+timeseries scalar
+2
+timestep
+1
+       1           3
+       2           7
+       3          11
+
+ </msg></test>
+ <test id='pcrcalc291'><msg> 
+==&lt; tmpTSS-s1_1-s2_1 &lt;==
+timeseries scalar
+2
+timestep
+1
+       1           1
+
+==&lt; tmpTSS-s1_1-s2_2 &lt;==
+timeseries scalar
+2
+timestep
+1
+       1           2
+
+==&lt; tmpTSS-s1_2-s2_1 &lt;==
+timeseries scalar
+2
+timestep
+1
+       1           3
+
+==&lt; tmpTSS-s1_2-s2_2 &lt;==
+timeseries scalar
+2
+timestep
+1
+       1           4
+
+ </msg></test>
+ <test id='pcrcalc295'><msg> 
+m295.mod:28:21:ERROR: RUNTIME (at timestep 1) tmpTSS[s1_1][s2_2] not initialized
+
+ </msg></test>
+ <test id='pcrcalc295a'><msg> 
+m295a.mod:24:8:ERROR: RUNTIME (at timestep 1) xt not initialized
+
+ </msg></test>
+ <test id='pcrcalc296'><msg> 
+==&lt; tmpTSS-s_1-s_2 &lt;==
+timeseries scalar
+2
+timestep
+1
+       1           1
+
+==&lt; tmpTSS-s_2-s_1 &lt;==
+timeseries scalar
+2
+timestep
+1
+       1           2
+
+ </msg></test>
+ <test id='pcrcalc297'><msg> 
+==&lt; tmpTSS-s_1-s_1 &lt;==
+timeseries scalar
+2
+timestep
+1
+       1           1
+
+==&lt; tmpTSS-s_2-s_1 &lt;==
+timeseries scalar
+2
+timestep
+1
+       1           2
+
+ </msg></test>
+ <test id='pcrcalc298'><msg> 
+m298.mod:25:9:ERROR: RUNTIME (at timestep 1) tmpTSS[s_1][s_4] not initialized
+
+ </msg></test>
+ <test id='pcrcalc299'><msg> 
+timeseries nominal
+2
+timestep
+1
+       1           1
+       2           1
+       3           1
+
+ </msg></test>
+ <test id='pcrcalc300'><msg> 
+timeseries scalar
+2
+timestep
+1
+       1           3
+       2           3
+       3           3
+
+ </msg></test>
+ <test id='pcrcalc301'><msg> 
+timeseries scalar
+2
+timestep
+1
+       1           3
+       2           3
+       3           3
+
+ </msg></test>
+ <test id='pcrcalc302'><msg> 
+?:1:33:ERROR: Element expected to be part of array 'B'
+
+ </msg></test>
+ <test id='pcrcalc303'><msg> 
+==&lt; tmpTSS-Species3 &lt;==
+timeseries scalar
+2
+timestep
+1
+       1           0
+       2           2
+       3           4
+
+==&lt; tmpTSS-Species4 &lt;==
+timeseries scalar
+2
+timestep
+1
+       1           1
+       2           3
+       3           5
+
+ </msg></test>
+ <test id='pcrcalc304'><msg> 
+tmpTSSX
+
+ </msg></test>
+ <test id='pcrcalc305'><msg> 
+?:1:29:ERROR: Index is switched off
+
+ </msg></test>
+ <test id='pcrcalc306'><msg> 
+?:1:43:ERROR: While initializing 'a':
+tmp.tbl:1:'3.4' is not a map
+
+ </msg></test>
+ <test id='pcrcalc307'><msg> 
+?:1:43:ERROR: While initializing 'a':
+tmp.tbl:1:'inp_1.tbl' Expected map, got a different file
+
+ </msg></test>
+ <test id='pcrcalc308'><msg> 
+?:1:35:ERROR: While initializing 'a':
+tmp.tbl:2:'inp1b.map' is a boolean map, previous values are of type scalar
+
+ </msg></test>
+ <test id='pcrcalc309'><msg> 
+?:1:35:ERROR: While initializing 'a':
+tmp.tbl:2:'dtmsmall.map' location attributes of 'inp0s.map' and 'dtmsmall.map' are different
+
+ </msg></test>
+ <test id='pcrcalc311'><msg> 
+==&lt; tmp_s-a1 &lt;==
+timeseries scalar
+2
+timestep
+1
+       1           1
+       2           1
+
+==&lt; tmp_s-a2 &lt;==
+timeseries scalar
+2
+timestep
+1
+       1           5
+       2           5
+
+ </msg></test>
+ <test id='pcrcalc315'><msg> 
+==&lt; tmp_s-a1-b1 &lt;==
+timeseries scalar
+2
+timestep
+1
+       1           0
+       2           0
+
+==&lt; tmp_s-a1-b2 &lt;==
+timeseries scalar
+2
+timestep
+1
+       1           1
+       2           1
+
+==&lt; tmp_s-a2-b1 &lt;==
+timeseries scalar
+2
+timestep
+1
+       1           2
+       2           2
+
+==&lt; tmp_s-a2-b2 &lt;==
+timeseries scalar
+2
+timestep
+1
+       1           3
+       2           3
+
+ </msg></test>
+ <test id='pcrcalc316'><msg> 
+tmp_sX
+
+ </msg></test>
+ <test id='pcrcalc317a'><msg> 
+?:1:19:ERROR: Illegal construct
+
+ </msg></test>
+ <test id='pcrcalc318'><msg> 
+?:1:10:ERROR: Unknown character(s) '^'
+
+ </msg></test>
+ <test id='pcrcalc319'><msg> 
+tmp.mod:3:23:ERROR: 'Unknown' No such objectlink
+
+ </msg></test>
+ <test id='pcrcalc320'><msg> 
+tmp.mod:3:45:ERROR: function 'examplemodel' too many arguments specified
+
+ </msg></test>
+ <test id='pcrcalc321'><msg> 
+tmp.mod:3:23:ERROR: argument nr. 2 of function 'examplemodel': type is scalar, legal type is nominal
+
+ </msg></test>
+ <test id='pcrcalc322'><msg> 
+tmp.mod:3:33:ERROR: 'X' defined twice, first definition at line '3:9'
+
+ </msg></test>
+ <test id='pcrcalc323'><msg> 
+str arg is Let's rock: 
+Cleaning up link example
+
+ </msg></test>
+ <test id='pcrcalc324'><msg> 
+tmp.mod:1:22:ERROR: 'X' is defined as scalar type on line '1:1' and used here as objectlink type
+
+ </msg></test>
+ <test id='pcrcalc325'><msg> 
+tmp.mod:3:64:ERROR: 'unknown' unknown function for objectlink examplemodel
+
+ </msg></test>
+ <test id='pcrcalc326'><msg> 
+tmp.mod:3:64:ERROR: 'methodA'  arg. nr 1 must be A or B
+
+ </msg></test>
+ <test id='pcrcalc327'><msg> 
+tmp.mod:3:57:ERROR: Expecting 3 arguments left of =-symbol
+
+ </msg></test>
+ <test id='pcrcalc328'><msg> 
+tmp.mod:3:69:ERROR: 'c' is defined as one of (scalar,directional) type on line '3:57' and used here as boolean type
+
+ </msg></test>
+ <test id='pcrcalc329'><msg> 
+tmp.mod:3:66:ERROR: argument nr. 3 of function 'methodA' is spatial only non-spatial allowed
+
+ </msg></test>
+ <test id='pcrcalc330'><msg> 
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+str arg is ref SD
+Cleaning up link example
+
+ </msg></test>
+ <test id='pcrcalc331'><msg> 
+tmp.mod:3:59:ERROR: Expecting only one return value
+
+ </msg></test>
+ <test id='pcrcalc332'><msg> 
+tmp.mod:3:75:ERROR: right operand of operator 'eq': type is nominal, while type of left argument is scalar
+
+ </msg></test>
+ <test id='pcrcalc335'><msg> 
+==&lt; tmpTSS-Species3 &lt;==
+timeseries scalar
+2
+timestep
+1
+       1           0
+       2           2
+       3           4
+
+==&lt; tmpTSS-Species4 &lt;==
+timeseries scalar
+2
+timestep
+1
+       1           1
+       2           3
+       3           5
+
+ </msg></test>
+ <test id='pcrcalc343'><msg> 
+m343.mod:4:9:ERROR: Illegal combination of number and name: '2l.map'
+
+ </msg></test>
+ <test id='pcrcalc345'><msg> 
+ERROR: Syntax Error
+
+ </msg></test>
+ <test id='pcrcalc345a'><msg> 
+ERROR: Syntax Error
+
+ </msg></test>
+ <test id='pcrcalc345b'><msg> 
+ERROR: Syntax Error
+
+ </msg></test>
+ <test id='pcrcalc346'><msg> 
+m346.mod:25:10:ERROR: argument nr. 11 of function 'dynamicwaveh' is spatial only non-spatial allowed
+
+ </msg></test>
+ <test id='pcrcalc356'><msg> 
+tmp.res
+tmp00000.001
+
+tmpNew:
+tmp00000.001
+tmpNew2
+
+ </msg></test>
+ <test id='pcrcalc357'><msg> 
+timeseries scalar
+2
+timestep
+1
+       1           2
+timeseries scalar
+2
+timestep
+1
+       1           3
+tmp.res
+tmp.tss
+
+tmpNew:
+tmp.tss
+tmpNew2
+tmpout.tss
+
+ </msg></test>
+ <test id='pcrcalc358'><msg>
+?:1:1:ERROR: with use of -r: 'tmp.map' cannot be both input and output
+
+ </msg></test>
+ <test id='pcrcalc359'><msg>
+tmp.map
+tmp.res
+tmp2.map
+
+tmpNew:
+tmp.map
+tmp2.map
+tmpNew2
+
+ </msg></test>
+ <test id='pcrcalc360'><msg> 
+?:1:11:ERROR: inp5sNotFound.map: File 'inp5sNotFound.map': No such file or directory
+
+ </msg></test>
+ <test id='pcrcalc361'><msg> 
+ERROR: File 'PWD/tmpdir/binding.ipcr': error occurred while parsing element
+
+ </msg></test>
+ <test id='pcrcalc365'><msg> 
+1
+
+ </msg></test>
+ <test id='pcrcalc366'><msg> 
+?:1:82:ERROR: inp_1.tss(binding=PWD/tmpdir/deep/inp_1.tss): Timeseries 'PWD/tmpdir/deep/inp_1.tss' contains only '1' entries ('12' required)
+
+ </msg></test>
+ <test id='pcrcalc367'><msg> 
+timeseries scalar
+2
+timestep
+1
+       1           3
+       2           3
+
+ </msg></test>
+ <test id='pcrcalc368'><msg> 
+-t: no output available
+
+ </msg></test>
+ <test id='pcrcalc377'><msg> 
+tmp.mod:4:1:ERROR: Syntax error at keyword 'binding'
+ Keywords can not be used as names for files or variables
+ Keywords must be placed in a specific order
+
+ </msg></test>
+<makefile><![CDATA[
+# 
+# pcrcalc1: inp1b.map
+# # redefinition should work , simplest form
+# 	rm -f tmp.res
+# 	$(CALC) 'model report tmp.res = inp1b.map;'
+# 	$(CHK_MRESULT)
+# 	$(END_OF_TEST)
+# 
+# pcrcalc1a: inp1b.map
+# # redefinition should work
+# # 4FEB96 makecode.c generated wrong assingment conversion code
+# 	rm -f tmp.res
+# 	echo 'model tmp.res = 1; report tmp.res = inp1b.map;' > tmp.mod
+# 	$(CALC_C) -f tmp.mod
+# 	$(CHK_CMRESULT) 1 > /dev/null
+# 	$(END_OF_TEST)
+# 
+# pcrcalc3: inp1s.map
+# # auto spatial ?
+# 	$(CALC) 'model tmp.res = 0.2;  tmp.res += 8 ** inp1s.map;'
+# 	$(CHK_CMRESULT) 8.2 >/dev/null
+# 	$(END_OF_TEST)
+# 
+# pcrcalc4a: inp1s.map
+# # check comm
+# 	$(CALC) 'tmp.res = 4 + inp1s.map;'
+# 	$(CHK_CMRESULT) 5 >/dev/null
+# 	$(END_OF_TEST)
+# 
+# pcrcalc4b: inp1s.map
+# # check comm
+# 	$(CALC) 'tmp.res = inp1s.map +4;'
+# 	$(CHK_CMRESULT) 5 >/dev/null
+# 	$(END_OF_TEST)
+# 
+# 
+# # solved, problem TEST_RET_PTR in newcalc.y
+# # Wed Nov 19 15:09:32 MET 1997
+# pcrcalc5d: m5d.mod
+# #  clone as areamap
+# 	-$(CALC) -f m5d.mod 2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# 
+# pcrcalc10: inp_1.tbl
+# # should be a map, all number 1
+# 	$(CALC_C) 'tmp.res = lookupnominal(inp_1.tbl, 5, 8, 10);'
+# 	$(CHK_CMRESULT) 1 >/dev/null
+# 	$(END_OF_TEST)
+# 
+# 
+# 
+# pcrcalc10e: inp1b.map
+# 	$(CALC) 'tmp.res = clump(inp1b.map);'
+# 	$(CHK_CMRESULT) 1 >/dev/null
+# 	$(END_OF_TEST)
+# 
+# # on expr type clash, not possible to point to input items
+# pcrcalc10f: inp1s.map
+# 	-$(CALC_C) 'tmp.map = (5 eq inp1s.map)*8;'  2> tmp.res
+# 
+# # 	$(END_CHK_ARESULT)
+# 
+# 
+# pcrcalc11pre2: inp1b.map
+# # double ass, wrong redef of arg 1
+# 	cp inp1b.map tmp1.map
+# 	-$(CALC) 'tmp.res = boolean(1);tmp.res, tmp2.map = spread, spreadzone(inp1b.map, 0, 1);' 2>tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# 
+# # Fri Mar 10 15:46:19 CET 2000
+# # catsop/accuracy2000 bug
+# # reverse funcnames of test11
+# # check double ass, right order
+# pcrcalc11ac: inp1b.map
+# 	cp inp1b.map tmp1.map
+# 	$(CALC) 'tmp.res, tmp2.map = spreadzone, spread(inp1b.map == tmp1.map, 0, 1);'
+# 	$(CHK_CMRESULT) 1 >/dev/null
+# 	cp inp1b.map tmp1.map
+# 	$(CALC) 'tmp2.map, tmp.res = spreadzone, spread(inp1b.map == tmp1.map, 0, 1);'
+# 	$(CHK_CMRESULT) 0 >/dev/null
+# 	$(END_OF_TEST)
+# 
+# pcrcalc11aa: inp1b.map
+# # check double ass, singe func needed
+# 	cp inp1b.map tmp1.map
+# 	$(CALC) 'tmp.res = spread(inp1b.map == tmp1.map, 0, 1);'
+# 	$(END_CHK_MRESULT)
+# 
+# pcrcalc11ab: inp1b.map
+# 	cp inp1b.map tmp1.map
+# 	$(CALC) 'tmp.res = spreadzone(inp1b.map == tmp1.map, 0, 1);'
+# 	$(END_CHK_MRESULT)
+# 
+# 
+# pcrcalc11a: inp1b.map inp1s.map
+# # bad redefinition of tmp.map
+# 	-$(CALC_C) 'model tmp.map = inp1s.map * 3; tmp2.map,tmp.map = spread, spreadzone(inp1b.map, 0, 1);'  2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# pcrcalc12: inp1b.map
+# 	$(CALC) 'tmp.res = windowmajority(inp1b.map, 8.3);'
+# 	$(CHK_CMRESULT) 1 >/dev/null
+# 	$(END_OF_TEST)
+# 
+# pcrcalc13:
+# 	$(CALC_C) 'fileoutput 2 * 3.14;' > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # -e check exitcheck
+# pcrcalc13a: exitcheck
+# 	echo 'fileoutput 2 * 3;' > tmp.mod
+# 	exitcheck $(CALC_C) -ef tmp.mod > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # -E test exit check, quit in 6th step
+# pcrcalc13b: inp5s.map exitcheck
+# 	rm -f tmp_s*
+# 	echo 'timer 1 9 1;    '> tmp.mod
+# 	echo 'initial t=6;dynamic '>> tmp.mod
+# 	echo 'fileoutput t-time();' >> tmp.mod
+# 	exitcheck $(CALC_C) -Ef tmp.mod > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# 
+# # only writing one element of tss-array
+# pcrcalc13e:  inp5s.map
+# 	echo '#! --noheader '> tmp.mod
+# 	echo 'binding A=[a1,a2]; '>> tmp.mod
+# 	echo 'timer 1 9 1;    '>> tmp.mod
+# 	echo 'initial dynamic '>> tmp.mod
+# 	echo 'report(1,4,6) tmp[a1] =timeoutput(1,inp5s.map);' >> tmp.mod
+# 	$(CALC_C) -f tmp.mod
+# 	ls  tmp-a* > tmp.res
+# 	cat tmp-a1 >> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # -1 will flush tss writing every time step
+# pcrcalc13f:  inp5s.map
+# 	echo 'timer 1 9 1;       '  > tmp.mod
+# 	echo 'initial dynamic    ' >> tmp.mod
+# 	echo 'report  tmp.res = timeoutput(1,inp5s.map * time());' >> tmp.mod
+# 	$(CALC_C) -1f tmp.mod
+# 	$(END_CHK_ARESULT)
+# 
+# # this is confusing, but not terrible
+# # with Yacc/antlr: "does not balance ()-symbols!,
+# # but gives error on too many args for mapmi..!"
+# pcrcalc14:
+# 	-$(CALC_C) 'fileoutput max(mapminimum(uniform(1), 6.7);' 2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# pcrcalc15: inp1b.map
+# 	$(CALC_C) 'fileoutput min(mapminimum(uniform(inp1b.map)), -0.5, 9.99);'  > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# pcrcalc16:
+# 	$(CALC_C) 'fileoutput min(mapminimum(uniform(1)), -0.5, 9.99);'  > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# pcrcalc17: inp5s.map
+# 	$(CALC_C) 'fileoutput mapmaximum(inp5s.map);'  > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# pcrcalc18: inp5s.map
+# 	$(CALC_C) 'fileoutput maptotal(inp5s.map);'  > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# pcrcalc19: inp5s.map
+# 	$(CALC_C) --unitcell 'fileoutput maparea(inp5s.map);'  > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# pcrcalc20: inp5s.map
+# # spatial can't go to file,yet   :-)
+# 	-$(CALC_C) 'fileoutput inp5s.map + 3.14;' 2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# pcrcalc21: inp1b.map
+# 	$(CALC_C) 'tmp.res = (if(inp1b.map,inp1b.map,inp1b.map));'
+# 	$(CHK_CMRESULT) 1 >/dev/null
+# 	$(END_OF_TEST)
+# 
+# pcrcalc21a: inp1b.map
+# 	$(CALC_C) 'tmp.res = areamajority(inp1b.map,inp1b.map);'
+# 	$(CHK_CMRESULT) 1 >/dev/null
+# 	$(END_OF_TEST)
+# 
+# pcrcalc22: inp1b.map
+# 	$(CALC_C) 'tmp.res = nominal(if(inp1b.map,3,8));'
+# 	$(CHK_CMRESULT) 3 >/dev/null
+# 	$(END_OF_TEST)
+# 
+# pcrcalc23: inp1b.map
+# 	$(CALC_C) 'tmp.res = inp1b.map;'
+# 	$(CHK_CMRESULT) 1 >/dev/null
+# 	$(END_OF_TEST)
+# 
+# # check if ALL are 2, no MV's
+# pcrcalc24:
+# 	$(CALC_C) 'tmp.res = cover(nominal(2), 9);'
+# 	$(CHK_MRESULT)
+# 	$(END_OF_TEST)
+# 
+# pcrcalc26: inp1n.map
+# 	$(CALC_C) 'tmp.res = cover(nominal(3),inp1n.map);'
+# 	$(CHK_CMRESULT) 3 >/dev/null
+# 	$(END_OF_TEST)
+# 
+# pcrcalc26a: inp1b.map
+# 	$(CALC_C) 'tmp.res = cover(0, 1, inp1b.map);'
+# 	$(CHK_CMRESULT) 0 >/dev/null
+# 	$(END_OF_TEST)
+# 
+# pcrcalc26b: inp1n.map
+# 	$(CALC_C) 'tmp.res = cover(0, 8, inp1n.map);'
+# 	$(CHK_CMRESULT) 0 >/dev/null
+# 	$(END_OF_TEST)
+# 
+# pcrcalc27: inp1s.map
+# 	$(CALC_C) 'tmp.res = ((((8 ** inp1s.map))));'
+# 	$(CHK_CMRESULT) 8 >/dev/null
+# 	$(END_OF_TEST)
+# 
+# pcrcalc28:
+# 	$(CALC_C) 'tmp.res = spatial(boolean(0)); # optimal way'
+# 	$(CHK_CMRESULT) 0 >/dev/null
+# 	$(END_OF_TEST)
+# 
+# pcrcalc29:
+# 	$(CALC_C) 'tmp.res = boolean(spatial(0)); # other  way'
+# 	$(CHK_CMRESULT) 0 >/dev/null
+# 	$(END_OF_TEST)
+# 
+# pcrcalc30:
+# 	$(CALC_C) 'tmp.res = spatial(scalar(0)+19);'
+# 	$(CHK_CMRESULT) 19 >/dev/null
+# 	$(END_OF_TEST)
+# 
+# pcrcalc31: inp1s.map
+# 	cp inp1s.map tmp.res
+# 	$(CALC_C) 'tmp.res *= normal(1);'
+# 	$(END_OF_TEST)
+# 
+# # *= -> left must exist
+# pcrcalc31a: inp1s.map
+# 	rm -f tmp2.res
+# 	-$(CALC_C) 'tmp2.res *= normal(1);'  2>tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# pcrcalc32: inp90d.map inp1s.map
+# 	cp inp1s.map tmp.res
+# 	$(CALC_C) 'tmp.res *= sin(inp90d.map);'
+# 	$(CHK_CMRESULT) 1 >/dev/null
+# 	$(END_OF_TEST)
+# 
+# pcrcalc33: inp5s.map inp1s.map
+# 	$(CALC_C) 'tmp.res= if(inp1s.map gt 0 then inp5s.map - inp1s.map else 0);'
+# 	$(CHK_CMRESULT) 4 >/dev/null
+# 	$(END_OF_TEST)
+# 
+# pcrcalc34: inp1s.map
+# # C-style comments, not allowed
+# 	-$(CALC_C) 'tmp.res = 8 * inp1s.map /* a comment */;'  2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# pcrcalc35: inp1s.map inp5s.map
+# 	cp inp5s.map tmp.res
+# 	$(CALC_C) 'tmp.res += 8 ** inp1s.map;'
+# 	$(CHK_CMRESULT) 13 >/dev/null
+# 	$(END_OF_TEST)
+# 
+# pcrcalc36: inp1s.map inp5s.map
+# 	$(CALC_C) 'tmp.res = min(inp1s.map * 9, sqrt(inp5s.map), -1 , 5);'
+# 	$(CHK_CMRESULT) -1 >/dev/null
+# 	$(END_OF_TEST)
+# 
+# pcrcalc37a: inp1b.map inp_1.tss
+# 	$(CALC_C) 'timer 1 1 1; dynamic report tmp.res = timeinputscalar(inp_1.tss, inp1b.map);'
+# 	$(CHK_CMRESULT) 30 >/dev/null
+# 	$(END_OF_TEST)
+# 
+# 
+# pcrcalc37b: inp1b.map inp1n.map
+# # forgot assignment
+# 	-$(CALC_C) 'timer 1 1 1; dynamic timeoutput(inp1b.map, inp1n.map);' 2> tmp.res
+# 	$(END_CHK_ARESULT)
+# pcrcalc38b:
+# # But this should work, 2nd statement attached type
+# 	$(CALC_C) ' report tmp.res = spatial(2); j = tmp.res*4'
+# 	$(CHK_CMRESULT) 2 >/dev/null
+# 	$(END_OF_TEST)
+# 
+# pcrcalc39:
+# # double ;
+# 	$(CALC_C) 'fileoutput 2 * 3.14;;' > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # timer must have nr symbol
+# pcrcalc48: inp1s.map
+# 	-$(CALC_C) 'binding endTime=inp1s.map; areamap inp1b.map; timer 1 endTime 1; dynamic report tmp.res=time();' 2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # Error timer has unknown symbol
+# pcrcalc48a: inp1s.map
+# 	-$(CALC_C) 'binding areamap inp1b.map; timer 1 endTimeUnknown 1; dynamic report tmp.res=time();' 2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # lddrepair issue, now we force explicit use of lddrepair
+# # since this is illegal
+# # timer must have nr symbol
+# pcrcalc49: inp1s.map
+# 	-$(CALC_C) 'hi.map = accuflux(ldd(1),1);' 2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # lddrepair issue, now we force explicit use of lddrepair
+# # since this is illegal
+# # timer must have nr symbol
+# pcrcalc50: inp1s.map
+# 	$(CALC_C) 'tmp.res = accuflux(lddrepair(1),1);'
+# 	$(END_CHK_MRESULT)
+# 
+# # bug discovered accu, accutrigger are recognized
+# # as functions!
+# pcrcalc50a: inp1s.map
+# 	-$(CALC_C) 'tmp.res = accu(lddrepair(1),1);' 2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # ldd - spatial issue
+# # see email box/problems
+# pcrcalc51: inp1s.map
+# 	@$(UNSOLVED) DISCUSSION POINT ldd-spatial problem
+# 	@echo 'timer 1 2 1;    '> tmp.mod
+# 	echo 'initial ldd1 = ldd(1); dynamic '>> tmp.mod
+# 	echo 'report tmp_s = accuflux(ldd1,1);' >> tmp.mod
+# 	echo 'ldd1 = lddrepair(ldd1);' >> tmp.mod
+# 	@-$(CALC_C) -f tmp.mod
+# 
+# # Sat Feb  5 15:47:26 CET 2000
+# # new setup of generate functions
+# pcrcalc52:
+# 	$(CALC_C) 'tmp.res = uniqueid(1);'
+# 	$(END_CHK_MRESULT)
+# 
+# pcrcalc53:
+# 	$(CALC_C) 'tmp.res = uniqueid(0);'
+# 	$(CHK_CMRESULT) 0 >/dev/null
+# 	$(END_OF_TEST)
+# 
+# pcrcalc54: inp1b.map
+# 	$(CALC_C) 'tmp.res = uniqueid(inp1b.map);'
+# 	$(END_CHK_MRESULT)
+# 
+# # new setup of generate functions
+# pcrcalc55:
+# 	$(CALC_C) 'tmp.res = xcoordinate(1);'
+# 	$(END_CHK_MRESULT)
+# 
+# # all mv!
+# pcrcalc56:
+# 	$(CALC_C) 'tmp.res = xcoordinate(0);'
+# 	$(END_CHK_MRESULT)
+# 
+# pcrcalc57: inp1b.map
+# 	$(CALC_C) 'tmp.res = xcoordinate(inp1b.map);'
+# 	$(END_CHK_MRESULT)
+# 
+# # react on glob settings
+# pcrcalc58: inp1b.map
+# 	$(CALC_C) --unitcell --coorcentre 'tmp.res = xcoordinate(inp1b.map);'
+# 	$(END_CHK_MRESULT)
+# 
+# # Mon Feb 14 11:19:07  2000
+# pcrcalc59:
+# 	$(UNSOLVED) we could do better using matherr on win32
+# 	$(UNSOLVED)  we create inf-maps on linux!
+# 	@-$(CALC_C) 'tmp.map = (19999999999**78) / 3.14;' 2> tmp.res
+# 
+# # Tue Feb 15 14:55:25 CET 2000
+# # spatial promotion bug, see mod file
+# pcrcalc60: m60.mod
+# 	$(CALC_C) -f m60.mod
+# 	$(CHK_CMRESULT) 0 >/dev/null
+# 	$(END_OF_TEST)
+# 
+# areamap inp1b.map;
+#  # this one needs three sweeps to promote spatial/non-spatial stuff
+# initial
+#  Ch2=0;
+# #                    sweep 1             sweep 2
+#  SurW=scalar(0); #   surw->ns             spatial
+#  DSt=scalar(0);  #   dst->ns               ns
+#     #
+#  DStO=DSt;  #         dst0->ns             dst0 still ns!
+#  DSt=SurW;
+#  DSt=Ch2;  #            dst->ns              dst->spatial
+#  Ch2=SurW;
+#  SurW=spatial(0); #   surw->spatial        spatail
+#  report tmp.res=DStO;
+# 
+# # Thu Mar  9 15:42:52 CET 2000
+# # has been possible in old pcrcalc
+# # typecasting an external map is a special case?
+# # no no longer possible
+# pcrcalc61: inp1s.map
+# 	cp inp1s.map tmp.map
+# 	-$(CALC_C) 'tmp.map = nominal(tmp.map);' 2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # Wed Feb 23 10:54:47 CET 2000
+# pcrcalc62:
+# 	touch  tmp2.res
+# 	chmod a-w tmp2.res
+# 	ls -l tmp2.res
+# 	-$(CALC_C) 'tmp2.res = xcoordinate(inp1b.map);' 2> tmp.res
+# 	chmod a+w tmp2.res
+# 	rm tmp2.res
+# 	$(END_CHK_ARESULT)
+# 
+# # Mon Mar  6 19:53:14 CET 2000
+# pcrcalc63:
+# 	@$(UNSOLVED) we can see it is a keyword
+# 	-$(CALC_C) 'in = (1999) / 3.14;'
+# 
+# # Mon Mar 13 17:57:10  2000
+# # division by 0 all MV!
+# pcrcalc64: m64.mod
+# 	$(CALC_C) -f m64.mod
+# 	$(END_CHK_ARESULT)
+# 
+# 
+# 
+# # Tue Mar 14 12:13:46  2000
+# pcrcalc65: inpldd.map
+# 	$(CALC_C) 'tmp.map = if(inpldd.map eq 5, boolean(1) else boolean(0))'
+# 	$(CALC_C) --unitcell 'fileoutput maparea(tmp.map);' > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # Tue Mar 14 12:13:46  2000
+# pcrcalc66: inpldd.map
+# 	$(CALC_C) 'tmp.map = if(inpldd.map eq 5, boolean(1))'
+# 	$(CALC_C) --unitcell 'fileoutput maparea(tmp.map);' > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # TODO : nothing is checked
+# pcrcalc67: m67.mod
+# 	$(CALC_C) -Xtmp.res -Tfm67.mod
+# 	$(END_OF_TEST)
+# 
+# 
+# # Tue Apr 25 15:41:47  2000
+# # bug: timeinput for stack
+# # wrong recursive build
+# pcrcalc70: m70.mod inp1n.map
+# 	cp inp1n.map tmp00000.001
+# 	$(CALC_C) -fm70.mod
+# 	$(END_OF_TEST)
+# 
+# # Wed May 24 18:00:47 CEST 2000
+# # bug: conv of directional
+# pcrcalc71:
+# 	$(CALC_C) 'fileoutput cos(directional(300));' > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # more tests on radians (scalar and directional) stuff
+# pcrcalc72:
+# 	$(CALC_C) --radians 'fileoutput cos(directional(1.04719755));' > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# pcrcalc73:
+# 	$(CALC_C) 'fileoutput cos(scalar(300));' > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # need to map2asc for rounding (0.49999999 =  0.5)
+# pcrcalc74:
+# 	$(CALC_C) 'tmp.map = directional(300);'
+# 	$(CALC_C) 'tmp2.map = cos(tmp.map);'
+# 	map2asc tmp2.map tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # need to map2asc for rounding (0.49999999 =  0.5)
+# pcrcalc75:
+# 	$(CALC_C) 'tmp.map = scalar(300);'
+# 	$(CALC_C) 'tmp2.map = cos(tmp.map);'
+# 	map2asc tmp2.map tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# pcrcalc76:
+# 	$(CALC_C) 'fileoutput acos(0.5);' > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# pcrcalc77:
+# 	$(CALC_C) --radians 'fileoutput acos(0.5);' > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# pcrcalc78:
+# 	$(CALC_C) 'timer 1 2 1;initial dynamic report tmp.res = acos(0.5);'
+# 	$(END_CHK_ARESULT)
+# 
+# pcrcalc79:
+# 	$(CALC_C) --radians 'timer 1 2 1;initial dynamic report tmp.res = acos(0.5);'
+# 	$(END_CHK_ARESULT)
+# 
+# pcrcalc80:
+# 	$(CALC_C) 'timer 1 2 1;initial dynamic report tmp.tss = acos(0.5);'
+# 	$(CALC_C) 'timer 1 2 1;initial dynamic report tmp.res = cos(timeinputdirectional(tmp.tss,1));'
+# 	$(END_CHK_ARESULT)
+# 
+# pcrcalc81:
+# 	$(CALC_C) --radians 'timer 1 2 1;initial dynamic report tmp.tss = acos(0.5);'
+# 	$(CALC_C) --radians 'timer 1 2 1;initial dynamic report tmp.res = cos(timeinputdirectional(tmp.tss,1));'
+# 	$(END_CHK_ARESULT)
+# 
+# 
+# # Mon Apr 15 21:04:29 UTC 2002
+# # see also test342
+# pcrcalc83:
+# 	@$(UNSOLVED) calc_field.cc:48: void calc::Field::resetVs Assertion failed.
+# 	-$(CALC_C) -f m83.mod
+# 
+# # Mon Apr 15 21:05:38 UTC 2002
+# pcrcalc84:
+# 	@$(UNSOLVED) path goes wild with unsound as input.
+# 	-$(CALC_C) 'tmp.res = path(c83.map,d83.map);' 
+# 
+# pcrcalc100: inp1b.map
+# # parse unary (not)
+# 	$(CALC_C) 'tmp.res = cover(0, 1, not inp1b.map);'
+# 	$(CHK_CMRESULT) 0 >/dev/null
+# 	$(END_OF_TEST)
+# 
+# 
+# pcrcalc102: inp1b.map inp5s.map
+# # dream on
+# 	-$(CALC_C) 'tmp.map = cellfocus( maptotal(spread(inp1b.map, 0, coord)), coord = inp5s.map );'  2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# 
+# 
+# # Fri Feb 21 13:25:36 GMT+0100 1997
+# # bug fix in area.c, MV on inp5s.map where id > NR_FAST_LIST in inpxo.map
+# # also do it with inp0s.map to check if bug in test 206 has any impact
+# 
+# pcrcalc200: inp0s.map inpxo.map
+# 	$(CALC) 'tmp.res = areaaverage(inp0s.map,inpxo.map)'
+# 	$(END_CHK_MRESULT)
+# 
+# pcrcalc201: inp0s.map inpxo.map
+# 	$(CALC) 'tmp.res = areaminimum(inp0s.map,inpxo.map)'
+# 	$(END_CHK_MRESULT)
+# 
+# pcrcalc202: inp0s.map inpxo.map
+# 	$(CALC) 'tmp.res = areamaximum(inp0s.map,inpxo.map)'
+# 	$(END_CHK_MRESULT)
+# 
+# pcrcalc203: inp0s.map inpxo.map
+# 	$(CALC) 'tmp.res = areadiversity(if(defined(inp0s.map),inpxo.map),inpxo.map)'
+# 	$(END_CHK_MRESULT)
+# 
+# pcrcalc204: inp0s.map inpxo.map
+# 	$(CALC) 'tmp.res = areamajority(if(defined(inp0s.map),inpxo.map),inpxo.map)'
+# 	$(END_CHK_MRESULT)
+# 
+# # broke on HP (sept/96)
+# # error: introduction of UINT1_T in libapi.a incorrect for big endians
+# # fixed
+# pcrcalc205: dtmsmall.map
+# 	$(CALC)  'tmp.res = lddcreate(dtmsmall.map, 0,0,0,0)'
+# 	$(END_OF_TEST)
+# 
+# # Mon May 12 21:42:34 MET DST 1997
+# # window total gave missing values
+# pcrcalc206: inp0s.map inpxo.map
+# 	$(CALC) 'tmp.res = windowtotal(inp0s.map,7)'
+# 	$(END_CHK_MRESULT)
+# 
+# #Tue May 13 09:34:55 MET DST 1997
+# # crashes or assertion failed only on DJGGP, release mode!
+# # seems to work since change of order function
+# pcrcalc207: sort1.map
+# 	-$(CALC) 'tmp.res = order(sort1.map)'
+# 	$(END_OF_TEST)
+# 
+# # Fri Jul 11 09:21:38 MET DST 1997
+# # crashes if equal
+# # Sun Nov  8 13:49:16 RST 1998
+# # fixed also the fact that result
+# #  is wrong  (see order.c this day patch)
+# #  when input is already sorted
+# pcrcalc207a: inp0s.map
+# 	$(CALC) 'tmp.res = order(inp0s.map)'
+# 	$(END_CHK_MRESULT)
+# 
+# # Sat Sep  6 16:32:45 MET DST 1997
+# # test 208 'till XX for true live and death analysis
+# 
+# # does it handle never used parameters?
+# pcrcalc208: inp0s.map
+# 	$(CALC) 'A = inp0s.map+1; report tmp.res = 1 + 8;'
+# 	$(CHK_CMRESULT) 9  >/dev/null
+# 	$(END_OF_TEST)
+# 
+# # create a tss since it is a nonspatial model
+# pcrcalc208a: s208a.mod
+# 	$(CALC_C) -f s208a.mod
+# 	$(END_CHK_ARESULT)
+# 
+# # create a tss since it is a nonspatial model
+# pcrcalc208b: s208b.mod
+# 	rm -f tmp*.001 tmp.res
+# 	$(CALC_C) -f s208b.mod
+# 	mv tmp*.001 tmp.res
+# 	$(CHK_CMRESULT) 2.6 >/dev/null
+# 	$(END_OF_TEST)
+# 	
+# # Mon Sep 15 18:00:34 MET DST 1997
+# # adding directory-support, now check for non-existing directories
+# pcrcalc209:
+# 	-$(CALC_C) ' exist.not\test.map = scalar(3);' 2> tmp2.res
+# 	sed s/not.test/notXtest/g < tmp2.res > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # Mon Sep 15 18:00:34 MET DST 1997
+# # MSDOS only
+# # adding directory-support, now check for valid names in subdir
+# #ifeq ($(PLATFORM),djgpp)
+# #test210:
+# #	mkdir exist.dir
+# #	-$(CALC_C) 'exist.dir\test.map.nval = 3;' 2> tmp.res
+# #	rm -rf exist.dir
+# #	$(END_CHK_ARESULT)
+# # endif
+# 
+# pcrcalc211:
+# 	mkdir exist.dir
+# 	$(CALC_C) 'exist.dir\test.map = scalar(3);'
+# 	cp exist.dir/test.map tmp.res
+# 	rm -rf exist.dir
+# 	$(CHK_CMRESULT) 3 >/dev/null
+# 	$(END_OF_TEST)
+# 
+# # Mon Sep 22 15:34:59 MET DST 1997
+# # added test for DOS filenames aux and con
+# # (illegal on all platforms for portability reasons)
+# pcrcalc212:
+# 	-$(CALC_C) 'aux = 3;' 2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# pcrcalc213:
+# 	-$(CALC_C) '  ..\con = 3;' 2> tmp.txt
+# 	sed 's/[\/\\]/X/g' < tmp.txt > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# pcrcalc213a:
+# 	-$(CALC_C) '  jan = con;' 2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# 
+# pcrcalc213c:
+# 	-$(CALC_C) '  jan = "..\pcrcalc";' 2> tmp.txt
+# 	sed 's/[\/\\]/X/g' < tmp.txt > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# 
+# # Mon Sep 22 17:11:39 MET DST 1997
+# # Crash VerifyNamedRegs DEVELOP MODE
+# # variant of test214
+# pcrcalc215: m215.mod dtmsmall.map
+# 	$(CALC) -f m215.mod
+# 	$(END_OF_TEST)
+# 
+# # CHECK THIS  m215.mod:
+# # is not needed!
+# timer
+#  1 2 1;
+# initial
+#  X=xcoordinate(defined(dtmsmall.map));
+# dynamic
+#  tmpXStart=if(dtmsmall.map eq 1,X,-1e31);
+#  tmpXStart=mapmaximum(tmpXStart);
+# # report tmpj = uniform(1);
+# 
+# # Mon Sep 22 17:34:22 MET DST 1997
+# # cover(if.... bug WRONG RESULT
+# # longstanding bug with unknown type give -1 in MV area
+# # solved in IBN version
+# pcrcalc216: m216_1.map m216_2.map
+# 	$(CALC) "tmp.res=cover(m216_1.map,if(m216_2.map,0));"
+# 	$(END_CHK_MRESULT)
+# 
+# # bug introduced when optimizing live/death use
+# # of dynamic parameters
+# # min/max are not adjusted for some parameters
+# # Tue Oct  7 10:04:25 MET DST 1997
+# pcrcalc217: m218.mod
+# 	rm -f tmp_s*
+# 	$(CALC) -f m218.mod tmp_s
+# 	$(MAPATTR_L) tmp_s000.001 tmp_s000.002 tmp_s000.003 > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # time stack cannot be written to a directory
+# # Tue Oct  7 10:04:25 MET DST 1997
+# pcrcalc218: m218.mod
+# 	rm -f tmp_s*
+# 	mkdir -p adirname
+# 	$(CALC) -f m218.mod "adirname\tmp_s"
+# 	$(MAPATTR_L) adirname/tmp_s000.001 adirname/tmp_s000.002 adirname/tmp_s000.003 > tmp.res
+# 	rm -rf adirname
+# 	$(END_CHK_ARESULT)
+# 
+# # now chekc if 8.3 trick for only last timestep
+# # still works! even in directory
+# # Tue Oct  7 10:04:25 MET DST 1997
+# pcrcalc219: m218.mod
+# 	rm -rf tmp_s* adirname
+# 	mkdir adirname
+# 	$(CALC) -f m218.mod "adirname\tmp45678.xxx"
+# 	ls adirname > tmp.res
+# 	rm -rf adirname
+# 	$(END_CHK_ARESULT)
+# 
+# # does  8.3 trick for only last timestep
+# # works in for <8.3, e.g. soil.csf
+# # needed for integration with com::CsfStackName
+# # Tue Jan 22 14:57:03 UTC 2002
+# pcrcalc219a: m218.mod
+# 	rm -rf tmp_s*
+# 	$(CALC) -f m218.mod "tmp_s.csf"
+# 	ls tmp_s* > tmp.res
+# 	rm -rf tmp_s*
+# 	$(END_CHK_ARESULT)
+# 
+# # as in 219a but in directory
+# pcrcalc219b: m218.mod
+# 	rm -rf tmp_s* adirname
+# 	mkdir adirname
+# 	$(CALC) -f m218.mod "adirname\tmp_s.csf"
+# 	ls adirname > tmp.res
+# 	rm -rf adirname
+# 	$(END_CHK_ARESULT)
+# 
+# # now chekc if 8.3 trick for only last timestep
+# # still works! even in directory
+# # Tue Oct  7 10:04:25 MET DST 1997
+# pcrcalc220: m218.mod
+# 	rm -rf tmp*
+# 	$(CALC) -f m218.mod "tmp45678.xxx"
+# 	$(MAPATTR_L) tmp45* > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # dl stuff
+# # Thu Nov 20 11:41:17 RST 1997
+# # not existent, but not used, no error message. tmp.res empty
+# pcrcalc221: inp5s.map
+# 	$(CALC) --dynamiclibraries:notexistent 'tmp.map = order(inp5s.map);' 2> tmp.res
+# 	$(EMPTY_RESULT)
+# 	$(END_CHK_ARESULT)
+# 
+# # Thu Nov 20 11:41:17 RST 1997
+# # not existent, and unknown function used, error message.
+# pcrcalc222: inp5s.map
+# 	-$(CALC) --dynamiclibraries:notexistent 'tmp.map = externalfunc(inp5s.map);' 2> tmp.res
+# 	$(END_CHK_P_ARESULT)
+# 
+# # existent, and used function, but not enough arguments
+# pcrcalc223: inp5s.map
+# 	-$(CALC) --dynamiclibraries:$(DLL_PRE)pcr_c_xmp 'tmp.map = add2maps(inp5s.map);' 2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 	
+# pcrcalc224: inp5s.map
+# 	$(CALC) --dynamiclibraries:$(DLL_PRE)pcr_c_xmp 'tmp.res = add2maps(inp5s.map,5);'
+# 	$(CHK_CMRESULT) 10 >/dev/null
+# 	$(END_OF_TEST)
+# 
+# 	
+# # type error in dll-func
+# # crash in efence, need to rewrite dll-name parsing
+# # Sat Feb  5 21:33:17 CET 2000
+# # multiple use of strtok messes up
+# # see app/appinst.c
+# # fixed Fri Aug 16 2002 / Freiburg dll!
+# pcrcalc224a: inp5s.map
+# 	-export EF_ALLOW_MALLOC_0=1;$(CALC) --dynamiclibraries:$(DLL_PRE)pcr_c_xmp 'tmp.res = add2maps(inp5s.map,nominal(5));' 2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 	$(END_OF_TEST)
+# 
+# # Wed Mar  8 23:06:42 CET 2000
+# pcrcalc224c: inp5s.map
+# 	cp inp5s.map tmp1.map
+# 	cp inp5s.map tmp2.map
+# 	cp inp5s.map tmp3.map
+# 	-$(CALC) --dynamiclibraries:$(DLL_PRE)pcr_c_xmp 'tmp.res = quantile(1,inp5s.map,tmp1.map,tmp2.map,tmp3.map);'
+# 	$(CHK_CMRESULT) 5 >/dev/null
+# 	$(END_OF_TEST)
+# 
+# 
+# # Thu Feb 19 22:45:58 RST 1998
+# # tan 0 must be 0 (not MV)
+# pcrcalc227:
+# 	$(CALC_C) 'fileoutput tan(0);' > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# 
+# # Thu Feb 19 22:45:58 RST 1998
+# # more tests on tan
+# pcrcalc230:
+# 	@$(UNSOLVED) "tan of 180 not zero due to roundoff"
+# 	$(CALC_C) 'fileoutput tan(180);'
+# 
+# # Tue Feb 24 21:33:18 MET 1998
+# # linux version hates the Ctrl-Z of some brain-dead DOS editors
+# pcrcalc231: m231.mod ctrlz.tbl
+# 	rm -f tmp.res
+# 	-$(CALC_C) -f m231.mod 2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # Sat Feb 28 15:14:59 MET 1998
+# # do some tests on report moments
+# pcrcalc233: inp5s.map
+# 	echo 'timer 1 9 1;    '> tmp.mod
+# 	echo 'rep = endtime;  '>> tmp.mod
+# 	echo 'initial dynamic '>> tmp.mod
+# 	rm -f tmp_s*
+# 	echo 'report(rep) tmp_s = inp5s.map;' >> tmp.mod
+# 	$(CALC_C) -f tmp.mod
+# 	ls tmp_s* > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # overwrite the default
+# pcrcalc234: inp5s.map
+# 	echo 'timer 1 9 1;    '> tmp.mod
+# 	echo 'reportdefault = endtime;  '>> tmp.mod
+# 	echo 'initial dynamic '>> tmp.mod
+# 	rm -f tmp_s*
+# 	echo 'report tmp_s = inp5s.map;' >> tmp.mod
+# 	$(CALC_C) -f tmp.mod
+# 	ls tmp_s* > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # Thu Jan  7 09:58:09 CET 1999
+# # bug:  min/max val where not adjusted
+# # solution: moment contained a 0, adjusted
+# #           BuildReport to skip 0
+# pcrcalc234a: inp5s.map m234a.mod
+# 	rm -f tmp_s*
+# 	$(CALC_C) -f m234a.mod
+# 	$(MAPATTR_L) tmp_s* > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # Thu Jan  7 10:34:04 CET 1999
+# # suggestion by DJ
+# # change behavior: do not complain
+# # about a shortage of timesteps
+# pcrcalc234b: inp5s.map
+# 	echo 'timer 1 5 1;    '> tmp.mod
+# 	echo 'reportdefault = 1,2,3,4,5,6..endtime;  '>> tmp.mod
+# 	echo 'initial dynamic '>> tmp.mod
+# 	rm -f tmp_s*
+# 	echo 'report(endtime) tmp_sX = inp5s.map;' >> tmp.mod
+# 	echo 'report          tmp_sY = inp5s.map;' >> tmp.mod
+# 	$(CALC_C) -f tmp.mod
+# 	ls tmp_s* > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # Tue May 29 15:26:23  2001
+# # bug report by DJ
+# # expect as 234b, but crashes
+# pcrcalc234c: inp5s.map
+# 	echo 'timer 1 10 1;    '> tmp.mod
+# 	echo 'reportdefault = 1,2+2..10000;  '>> tmp.mod
+# 	echo 'initial dynamic '>> tmp.mod
+# 	rm -f tmp_s*
+# 	echo 'report(endtime) tmp_sX = inp5s.map;' >> tmp.mod
+# 	echo 'report          tmp_sY = inp5s.map;' >> tmp.mod
+# 	$(CALC_C) -f tmp.mod
+# 	ls tmp_s* > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # bug report by DEREK
+# # Thu Nov 28 21:01:03 GMT 2002
+# # reportdefault definition will ignore static reports
+# pcrcalc234d: inp5s.map
+# 	rm -f tmp_s*
+# 	echo 'timer 1 20 1; reportdefault=1,10+10..endtime;    '> tmp.mod
+# 	echo 'initial report tmp_sStatic = inp5s.map; dynamic '>> tmp.mod
+# 	echo 'report(endtime) tmp_sX = inp5s.map;' >> tmp.mod
+# 	echo 'report          tmp_sY = inp5s.map;' >> tmp.mod
+# 	$(CALC_C) -f tmp.mod
+# 	ls tmp_s* > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # insitu
+# pcrcalc235: inp5s.map
+# 	echo 'timer 1 9 1;    '> tmp.mod
+# 	echo 'reportdefault = 1..endtime;  '>> tmp.mod
+# 	echo 'initial dynamic '>> tmp.mod
+# 	rm -f tmp_s*
+# 	echo 'report(endtime) tmp_s = inp5s.map;' >> tmp.mod
+# 	$(CALC_C) -f tmp.mod
+# 	ls tmp_s* > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # insit, only 0 does nothing
+# pcrcalc235a: inp5s.map
+# 	echo 'timer 1 9 1;    '> tmp.mod
+# 	echo 'd = 0;  '>> tmp.mod
+# 	echo 'initial dynamic '>> tmp.mod
+# 	rm -f tmp_s*
+# 	echo 'report(d) tmp_s = inp5s.map;' >> tmp.mod
+# 	$(CALC_C) -f tmp.mod
+# 	-ls tmp_s* > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # insitu range
+# pcrcalc236: inp5s.map
+# 	echo 'timer 1 9 1;    '> tmp.mod
+# 	echo 'reportdefault = 1..endtime;  '>> tmp.mod
+# 	echo 'initial dynamic '>> tmp.mod
+# 	rm -f tmp_s*
+# 	echo 'report(2+2..6,endtime) tmp_s = inp5s.map;' >> tmp.mod
+# 	$(CALC_C) -f tmp.mod
+# 	ls tmp_s* > tmp.res
+# 	$(EMPTY_RESULT)
+# 	$(END_CHK_ARESULT)
+# 
+# 
+# # missing end-range, while given step
+# pcrcalc237a: inp5s.map
+# 	echo 'timer 1 9 1;    '> tmp.mod
+# 	echo 'reportdefault = 1+10;  '>> tmp.mod
+# 	echo 'initial dynamic '>> tmp.mod
+# 	rm -f tmp_s*
+# 	echo 'report tmp_s = inp5s.map;' >> tmp.mod
+# 	-$(CALC_C) -f tmp.mod 2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # WAS catch invalid range even when it apears outside
+# # IS  report nothing after change as given 234b
+# #  make a tmp_sX so ls will not complain
+# pcrcalc240: inp5s.map
+# 	echo 'timer 1 9 1;    '> tmp.mod
+# 	echo 'reportdefault = 40..endtime;  '>> tmp.mod
+# 	echo 'initial dynamic '>> tmp.mod
+# 	rm -f tmp_s*
+# 	touch tmp_sX
+# 	echo 'report tmp_s = inp5s.map;' >> tmp.mod
+# 	$(CALC_C) -f tmp.mod
+# 	ls tmp_s* > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # report nothing if these ranges are outside
+# #  make a tmp_sX so ls will not complain
+# pcrcalc241: inp5s.map
+# 	echo 'timer 1 9 1;    '> tmp.mod
+# 	echo 'reportdefault = 30..40;  '>> tmp.mod
+# 	echo 'initial dynamic '>> tmp.mod
+# 	rm -f tmp_s*
+# 	touch tmp_sX
+# 	echo 'report tmp_s = inp5s.map;' >> tmp.mod
+# 	$(CALC_C) -f tmp.mod
+# 	ls tmp_s* > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # report nothing if a value is outside
+# #  make a tmp_sX so ls will not complain
+# pcrcalc241a: inp5s.map
+# 	echo 'timer 1 9 1;    '> tmp.mod
+# 	echo 'reportdefault = 40;  '>> tmp.mod
+# 	echo 'initial dynamic '>> tmp.mod
+# 	rm -f tmp_s*
+# 	touch tmp_sX
+# 	echo 'report tmp_s = inp5s.map;' >> tmp.mod
+# 	$(CALC_C) -f tmp.mod
+# 	ls tmp_s* > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # empty moment defiintion? insitu -> parse error
+# pcrcalc245: inp5s.map
+# 	echo 'timer 1 9 1;    '> tmp.mod
+# 	echo 'initial dynamic '>> tmp.mod
+# 	rm -f tmp_s*
+# 	echo 'report() tmp_s = inp5s.map;' >> tmp.mod
+# 	-$(CALC_C) -f tmp.mod 2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # empty moment defiintion? in timer section -> parse error
+# pcrcalc246: inp5s.map
+# 	echo 'timer 1 9 1;    '> tmp.mod
+# 	echo 'r =  ; '>> tmp.mod
+# 	echo 'initial dynamic '>> tmp.mod
+# 	rm -f tmp_s*
+# 	echo 'report(r) tmp_s = inp5s.map;' >> tmp.mod
+# 	-$(CALC_C) -f tmp.mod 2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# 
+# # test -d of pcrcalc, the result map
+# pcrcalc248b: inp5s.map inp1b.map
+# 	echo 'areamap inp1b.map;'> tmp.mod
+# 	echo 'initial '>> tmp.mod
+# 	echo 'tmp_s = inp5s.map/spatial(0);' >> tmp.mod
+# 	echo 'tmp_s2 = tmp_s;' >> tmp.mod
+# 	-$(CALC_C) -d tmp.res -f tmp.mod 2> /dev/null
+# 	$(END_CHK_MRESULT)
+# 
+# # whappen if there is not enough room in filenaem
+# # see also email of giovanni may 2003
+# pcrcalc250e: inp5s.map inp1s.map
+# 	cp inp5s.map tmpaaaaa.aa1
+# 	cp inp1s.map tmpaaaaa.aa2
+# 	cp inp1s.map tmpaaaaa.aa3
+# 	cp inp1s.map tmpaaaaa.aa4
+# 	cp inp1s.map tmpaaaaa.aa5
+# 	cp inp1s.map tmpaaaaa.aa6
+# 	cp inp1s.map tmpaaaaa.aa7
+# 	cp inp1s.map tmpaaaaa.aa8
+# 	cp inp1s.map tmpaaaaa.aa9
+# 	echo 'areamap inp5s.map;'> tmp.mod
+# 	echo 'timer 1 11 1;    '>> tmp.mod
+# 	echo 'initial tmp.res = 0; dynamic '>> tmp.mod
+# 	echo 'report tmp.res += mapmaximum(timeinput(tmpaaaaa.aa));' >> tmp.mod
+# 	-$(CALC_C) -f tmp.mod
+# 	@$(UNSOLVED) suffix to long for nr of timesteps
+# 
+# pcrcalc251: inp1b.map
+# # Wed Jul  7 23:08:28 CEST 1999
+# # use function as id-name is now possible
+# 	$(CALC_C) 'cover = spread(inp1b.map, 0, 1);'
+# 	mv cover tmp.res
+# 	$(CHK_MRESULT)
+# 	$(END_OF_TEST)
+# 
+# 
+# # LEAK test254
+# pcrcalc254: inp5s.map m254.mod
+# # sin in timer def
+# 	-$(CALC_C) -f m254.mod  2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# 
+# # START OF ARRAY TESTS
+# 
+# # array type name cannot be an index name
+# pcrcalc261:
+# 	-$(CALC_C) 'binding a = [ +a=p, -b=c, k ];'  2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # array twice defined
+# pcrcalc262:
+# 	-$(CALC_C) 'binding A = [ +a=p, -b=c, k ]; A = [ +a=p, -b=c, k ];'  2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # index can be a function name
+# pcrcalc263:
+# 	-$(CALC_C) 'A = C[cover];'  2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # Wed Jul  7 22:16:59 CEST 1999
+# # now name can be a function name
+# pcrcalc264:
+# 	-$(CALC_C) 'A = cover[B];' 2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # index cannot be a parameter
+# pcrcalc265:
+# 	-$(CALC_C) 'binding A = [a, b];initial B=sin(b);'  2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # index cannot be an array
+# pcrcalc266:
+# 	-$(CALC_C) 'binding A = [a, b];initial b[a]=sin(2);'  2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # unknown index
+# pcrcalc267:
+# 	-$(CALC_C) 'binding A = [a, b];initial X[A]=sin(2);'  2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # different subscripts
+# pcrcalc268:
+# 	-$(CALC_C) 'binding A = [a]; B=[b];initial C[a]=sin(2);C[b]=sin(2);'  2> tmp.res
+# 	$(END_CHK_ARESULT)
+# # different subscripts
+# pcrcalc268a:
+# 	-$(CALC_C) 'binding A = [a]; B=[b];initial C[a][b]=sin(2);C[b][a]=sin(2);'  2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # different subscripts
+# pcrcalc268b:
+# 	-$(CALC_C) 'binding A = [a]; B=[b];initial C[b]=sin(2);C[b][a]=sin(2);'  2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # unknwon on right
+# pcrcalc269:
+# 	-$(CALC_C) 'binding A = [a]; B=[b];initial C[a]=sin(2);x=U[a];'  2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # not all indices from same type
+# pcrcalc270:
+# 	-$(CALC_C) 'binding A = [a]; B=[b];initial foreach h in (a,b) { x = sin(2);}'  2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # not all indices from same type
+# pcrcalc270a:
+# 	-$(CALC_C) 'binding A = [a]; B=[b];initial foreach h in A { foreach j in B except h { x = sin(2);}}'  2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # use of non-array on array
+# pcrcalc271:
+# 	-$(CALC_C) 'binding A = [a, b];initial X[a]=sin(2); X=4.5;'  2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # different subscripts through foreach
+# pcrcalc272:
+# 	-$(CALC_C) 'binding A = [a]; B=[b];initial C[a]=0; foreach h in B { C[h] = sin(2);}'  2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # foreach parameter already defined
+# pcrcalc273:
+# 	-$(CALC_C) 'binding A = [a]; B=[b];initial h=0; foreach h in A { C[h] = sin(2);}'  2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # foreach parameter already defined, redef local
+# pcrcalc273a:
+# 	-$(CALC_C) 'binding A = [a];initial foreach h in A { foreach h in A {}}'  2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # foreach parameter is not re-defined, h is in foreach scope!
+# pcrcalc274:
+# 	-$(CALC_C) 'binding A = [a]; B=[b];initial foreach h in A { C[h] = sin(2);} h=0;'  2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # indexscalar only allowed on array parameters
+# pcrcalc275:
+# 	-$(CALC_C) 'binding A = [a]; B=[b]; x = indexscalar(t);initial x = sin(2);'  2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # indexscalar want id not expr
+# pcrcalc276:
+# 	-$(CALC_C) 'binding A = [a]; B=[b]; x[B] = indexscalar(t+3);initial x = sin(2);'  2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # diff array's on indexscalar
+# pcrcalc277:
+# 	echo a a1 3.4 > tmp.tbl
+# 	-$(CALC_C) 'binding A = [a1]; B=[b1,b2]; a[A] = indexscalar(tmp.tbl);c[B]=indexscalar(tmp.tbl);'  2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # expect table, got notexistent
+# pcrcalc278:
+# 	-$(CALC_C) 'binding A = [a1,a2]; B=[b1,b2]; a[A] = indexscalar(notexist.tmp);'  2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # expect table, got map
+# pcrcalc279: inp5s.map
+# 	-$(CALC_C) 'binding A = [a1,a2]; B=[b1,b2]; a[A] = indexscalar(inp5s.map);'  2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # LEAK test280
+# # no val for a2
+# pcrcalc280:
+# 	echo a a1 b1 3.4 > tmp.tbl
+# 	-$(CALC_C) 'binding A = [a1,a2]; B=[b1]; a[A][B] = indexscalar(tmp.tbl);'  2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # Tue Jul  2 11:40:18 UTC 2002
+# # bug external name is not lookuped
+# pcrcalc280a:
+# 	echo a extern1 b1 3 > tmp.tbl
+# 	$(CALC_C) 'binding A = [a1=extern1]; B=[b1]; a[A][B] = indexscalar(tmp.tbl);initial tmp.res = a[a1][b1];'
+# 	$(CHK_CMRESULT) 3 > /dev/null
+# 	$(END_OF_TEST)
+# 
+# # Tue Jul  2 11:40:18 UTC 2002
+# # bug, 2nd use of indextable generated error
+# pcrcalc280b:
+# 	echo a a1 b1 3 > tmp.tbl
+# 	echo b a1 b1 3 >> tmp.tbl
+# 	$(CALC_C) 'binding A = [a1]; B=[b1]; a[A][B] = indexscalar(tmp.tbl); b[A][B]=indexscalar(tmp.tbl); initial tmp.res = a[a1][b1];'
+# 	$(CHK_CMRESULT) 3 > /dev/null
+# 	$(END_OF_TEST)
+# 
+# # not enough keys
+# pcrcalc281:
+# 	echo a1 b1 3.4 > tmp.tbl
+# 	echo x a1 b1 3.4 >> tmp.tbl
+# 	-$(CALC_C) 'binding A = [a1,a2]; B=[b1]; a[A][B] = indexscalar(tmp.tbl);'  2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # double key
+# pcrcalc282:
+# 	echo a a1 b1 3.4 > tmp.tbl
+# 	echo a a1 b1 3.4 >> tmp.tbl
+# 	-$(CALC_C) 'binding A = [a1,a2]; B=[b1]; a[A][B] = indexscalar(tmp.tbl);'  2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # not legal value
+# pcrcalc283:
+# 	echo a a1 b1 3.4 > tmp.tbl
+# 	-$(CALC_C) 'binding A = [a1,a2]; B=[b1]; a[A][B] = indexboolean(tmp.tbl);'  2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # illegal char
+# pcrcalc284:
+# 	echo a @ b1 3.4 > tmp.tbl
+# 	-$(CALC_C) 'binding A = [a1,a2]; B=[b1]; a[A][B] = indexboolean(tmp.tbl);'  2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # map where table expected
+# pcrcalc285: inp5s.map
+# 	echo a a1 b1 inp5s.map > tmp.tbl
+# 	-$(CALC_C) 'binding A = [a1,a2]; B=[b1]; a[A][B] = indextable(tmp.tbl);'  2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # nr where table expected
+# pcrcalc286:
+# 	echo a a1 b1 3.4 > tmp.tbl
+# 	-$(CALC_C) 'binding A = [a1,a2]; B=[b1]; a[A][B] = indextable(tmp.tbl);'  2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # error in table (1)
+# pcrcalc287: inp5s.map
+# 	echo a a1 3.4 > tmp.tbl
+# 	echo b a1 tmp2.tbl >> tmp.tbl
+# 	echo 3.4  8 > tmp2.tbl
+# 	-$(CALC_C) 'binding A = [a1]; b[A] = indextable(tmp.tbl); \
+# 	        initial c[a1]=lookupboolean(b[a1],inp5s.map);'  2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # error in table (1)
+# pcrcalc288: inp5s.map
+# 	echo a a1 3.4 > tmp.tbl
+# 	echo b a1 tmp2.tbl >> tmp.tbl
+# 	echo 3.4  8 > tmp2.tbl
+# 	-$(CALC_C) 'binding A = [a1]; b[A] = indextable(tmp.tbl); \
+# 	        initial c[a1]=lookupboolean(b[a1],inp5s.map,inp5s.map);'  2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# 
+# # check default order of foreach, setname
+# pcrcalc290: m290.mod inp5s.map
+# 	rm -f tmpTSS*
+# 	$(CALC_C) -f m290.mod
+# 	head tmpTSS* > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # check default order of foreach, indeces listed
+# pcrcalc290a: m290a.mod inp5s.map
+# 	rm -f tmpTSS*
+# 	$(CALC_C) -f m290a.mod
+# 	head tmpTSS* > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # check default order of foreach, by using first init (a01)
+# pcrcalc290b: m290b.mod inp5s.map
+# 	$(CALC_C) -f m290b.mod
+# 	$(END_OF_TEST)
+# 
+# # check default order of foreach
+# pcrcalc291: m291.mod inp5s.map
+# 	rm -f tmpTSS*
+# 	$(CALC_C) -f m291.mod
+# 	head tmpTSS* > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # test assignment of constant
+# pcrcalc292:
+# 	echo a a1 3.4 > tmp.tbl
+# 	$(CALC_C) 'binding A = [a1]; a[A] = indexscalar(tmp.tbl); initial foreach i in A { report tmpMAP[i] = 1+a[i];} '
+# 	mv tmpMAP-a1 tmp.res
+# 	$(CHK_CMRESULT) 4.4  >/dev/null
+# 	$(END_OF_TEST)
+# 
+# # core dumps -> spatial promotion
+# pcrcalc293: m293.mod inp5s.map
+# 	$(CALC) -f m293.mod
+# 	$(CHK_CMRESULT) 12  >/dev/null
+# 	$(END_OF_TEST)
+# 
+# 
+# # un-initialized
+# pcrcalc295: m295.mod
+# 	-$(CALC_C) -f m295.mod 2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # un-initialized also holds for non-arrays!
+# pcrcalc295a: m295a.mod
+# 	-$(CALC_C) -f m295a.mod 2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # check except clause 1
+# pcrcalc296: m296.mod inp5s.map
+# 	rm -f tmpTSS*
+# 	$(CALC_C) -f m296.mod
+# 	head tmpTSS* > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # check except clause 2
+# pcrcalc297: m297.mod inp5s.map
+# 	rm -f tmpTSS*
+# 	$(CALC_C) -f m297.mod
+# 	head tmpTSS* > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # should report un-initialized
+# pcrcalc298: m298.mod inp5s.map
+# 	-$(CALC_C) -f m298.mod 2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# pcrcalc299: inp1b.map inp1n.map
+# # forgot assignment
+# 	$(CALC_C) 'timer 1 3 1; dynamic report tmp.res= timeoutput(inp1b.map, inp1n.map);'
+# 	$(END_CHK_ARESULT)
+# 
+# # Mon Jun  7 21:24:35 CEST 1999
+# # true branch was evaluated
+# pcrcalc300:
+# 	$(CALC_C) 'timer 1 3 1; dynamic report tmp.res= if(0, 1/0 else scalar(3));'
+# 	$(END_CHK_ARESULT)
+# 
+# # Mon Jun  7 21:24:35 CEST 1999
+# pcrcalc301: inp1b.map
+# 	$(CALC_C) 'timer 1 3 1;initial a=0; dynamic report tmp.res= mapmaximum(if(inp1b.map, 3 else 1/a));'
+# 	$(END_CHK_ARESULT)
+# 
+# # if then
+# pcrcalc301a: inp1b.map
+# 	$(CALC_C) 'a=0; report tmp.res= cover(if(!inp1b.map, 1/a),4);'
+# 	$(CHK_CMRESULT) 4  >/dev/null
+# 	$(END_OF_TEST)
+# 
+# 
+# pcrcalc302:
+# 	-$(CALC_C) 'binding A = [a1,a2]; B=[b1, bs=(a1,b1)];'  2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # check order of foreach, set excl
+# pcrcalc303: m303.mod inp5s.map
+# 	rm -f tmpTSS*
+# 	$(CALC_C) -f m303.mod
+# 	head tmpTSS* > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # should not write anything
+# pcrcalc304: m304.mod inp5s.map
+# 	rm -f tmpTSS*
+# 	touch tmpTSSX
+# 	$(CALC_C) -f m304.mod
+# 	ls tmpTSS* > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # cannot explictly address switched off idices
+# pcrcalc305:
+# 	-$(CALC_C) 'binding A = [-a]; initial x[a] = sin(2);'  2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # number expect map
+# pcrcalc306:
+# 	echo a a1 b1 3.4 > tmp.tbl
+# 	-$(CALC_C) 'binding A = [a1]; B=[b1]; a[A][B] = index(tmp.tbl);'  2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # table expect map
+# pcrcalc307: inp_1.tbl
+# 	echo a a1 b1 inp_1.tbl > tmp.tbl
+# 	-$(CALC_C) 'binding A = [a1]; B=[b1]; a[A][B] = index(tmp.tbl);'  2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # different vs
+# pcrcalc308: inp1s.map inp1b.map
+# 	echo a a1 inp1s.map > tmp.tbl
+# 	echo a a2 inp1b.map >> tmp.tbl
+# 	-$(CALC_C) 'binding A = [a1,a2]; a[A] = index(tmp.tbl);'  2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # attributes differ
+# pcrcalc309: dtmsmall.map inp0s.map
+# 	echo a a1 inp0s.map > tmp.tbl
+# 	echo a a2 dtmsmall.map >> tmp.tbl
+# 	-$(CALC_C) 'binding A = [a1,a2]; a[A] = index(tmp.tbl);'  2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# #! crashes on win32!
+# pcrcalc310: inp1s.map inp5s.map
+# 	echo a a1 inp1s.map > tmp.tbl
+# 	echo a a2 inp5s.map >> tmp.tbl
+# 	$(CALC_C) 'binding A = [a1,a2]; a[A] = index(tmp.tbl); initial report tmp.res = a[a1]+a[a2]'  2> tmp.res
+# 	$(CHK_CMRESULT) 6  >/dev/null
+# 	$(END_OF_TEST)
+# 
+# # test arrayed timeoutput
+# pcrcalc311: inp1s.map inp1b.map inp5s.map
+# 	echo a a1 inp1s.map > tmp.tbl
+# 	echo a a2 inp5s.map >> tmp.tbl
+# 	rm -f tmp_s*
+# 	$(CALC_C) 'binding A=[a1,a2];a[A]=index(tmp.tbl); timer 1 2 1; dynamic foreach x in A { report tmp_s[x] = timeoutput(inp1b.map,a[x]);}'
+# 	head tmp_s* > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # test arrayed timeoutput, ERROR tmp_s is not arrayed
+# pcrcalc312: inp1s.map inp1b.map inp5s.map
+# 	@$(UNSOLVED) timeoutput not arrayed
+# 	echo a a1 inp1s.map > tmp.tbl
+# 	echo a a2 inp5s.map >> tmp.tbl
+# 	rm -f tmp_s*
+# #	$(END_OF_TEST)
+# #	$(END_CHK_ARESULT)
+# #	head tmp_s* > tmp.res
+# #	$(CALC_C) 'binding A=[a1,a2];a[A]=index(tmp.tbl); timer 1 2 1; dynamic foreach x in A { report tmp_s = timeoutput(inp1b.map,a[x]);}'
+# 
+# # backward compat
+# pcrcalc313: inp1s.map
+# 	echo 'binding a = scalar(5);' > tmp.mod
+# 	echo 'b = a; ' >> tmp.mod
+# 	echo 'initial' >> tmp.mod
+# 	echo 'report tmp.res = inp1s.map + a+b;' >> tmp.mod
+# 	$(CALC_C) -f tmp.mod
+# 	$(CHK_CMRESULT) 11  >/dev/null
+# 	$(END_OF_TEST)
+# 
+# # backward compat
+# pcrcalc314: inp1s.map inp5s.map
+# 	echo 'binding a = inp5s.map;' > tmp.mod
+# 	echo 'b = a; ' >> tmp.mod
+# 	echo 'initial' >> tmp.mod
+# 	echo 'report tmp.res = inp1s.map + a+b;' >> tmp.mod
+# 	$(CALC_C) -f tmp.mod
+# 	$(CHK_CMRESULT) 11  >/dev/null
+# 	$(END_OF_TEST)
+# 
+# # ToLinear in arrays failed, if stuff switched off
+# pcrcalc315: inp1s.map inp1b.map inp5s.map
+# 	rm -f tmp_s*
+# 	$(CALC_C) 'binding A=[-a0,a1,a2];B=[b1,b2]; timer 1 2 1; dynamic c=0; foreach a in A { foreach b in B { report tmp_s[a][b] = c; c+=1;}}'
+# 	head tmp_s* > tmp.res
+# 	$(END_OF_TEST)
+# 	$(END_CHK_ARESULT)
+# 
+# # Skip loop completely if all off
+# pcrcalc316: inp1s.map inp1b.map inp5s.map
+# 	rm -f tmp_s*
+# 	touch tmp_sX
+# 	$(CALC_C) 'binding A=[-a0,-a1,-a2];B=[b1,b2]; timer 1 2 1; dynamic c=0; foreach a in A { foreach b in B { report tmp_s[a][b] = c; c+=1;}}'
+# 	ls tmp_s* > tmp.res
+# 	$(END_OF_TEST)
+# 	$(END_CHK_ARESULT)
+# 
+# 
+# # Mon Sep 27 17:27:03 CEST 1999
+# # Bug, reported by IBN
+# pcrcalc317a: inp1s.map inp1b.map inp5s.map
+# 	-$(CALC_C) 'binding A=[a1,a2];a[A]=scalar(0.4);' 2>tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # check for illegal char
+# pcrcalc318:
+# 	-$(CALC_C) 'binding A^B=[b1,b2];' 2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # LEAK test319
+# # unknown objectlink
+# pcrcalc319: inp1s.map inp5s.map $(LINKEXAMPLELIB)
+# 	echo '#! --dynamiclibraries:linkexample' > tmp.mod
+# 	echo 'areamap inp1s.map;' >> tmp.mod
+# 	echo 'initial objectlink X = Unknown("ref SD",inp1s.map,inp5s.map);' >> tmp.mod
+# 	-$(CALC_C) -f tmp.mod 2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # LEAK test320
+# # too many args
+# pcrcalc320: inp1n.map inp5s.map $(LINKEXAMPLELIB)
+# 	echo '#! --dynamiclibraries:linkexample' > tmp.mod
+# 	echo 'areamap inp1n.map;' >> tmp.mod
+# 	echo 'initial objectlink X = examplemodel("ref SD",inp1n.map,inp5s.map);' >> tmp.mod
+# 	-$(CALC_C) -f tmp.mod 2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # arg must be nominal
+# pcrcalc321: inp1s.map $(LINKEXAMPLELIB)
+# 	echo '#! --dynamiclibraries:linkexample' > tmp.mod
+# 	echo 'areamap inp1s.map;' >> tmp.mod
+# 	echo 'initial objectlink X = examplemodel("ref SD",inp1s.map);' >> tmp.mod
+# 	-$(CALC_C) -f tmp.mod 2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # redefinition
+# pcrcalc322: inp1n.map inp1s.map $(LINKEXAMPLELIB)
+# 	echo '#! --dynamiclibraries:linkexample' > tmp.mod
+# 	echo 'areamap inp1n.map;' >> tmp.mod
+# 	echo 'initial X = inp1s.map;objectlink X = examplemodel("ref SD",inp1n.map);' >> tmp.mod
+# 	-$(CALC_C) -f tmp.mod 2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # let's rock and accept ' in string
+# pcrcalc323: inp1n.map m323.mod $(LINKEXAMPLELIB)
+# 	$(UNSOLVED) crashes on Mandrake 8.2
+# 	-$(CALC_C) -f m323.mod > tmp.res
+# 
+# # not a objectlink
+# pcrcalc324: inp1n.map
+# 	echo 'X = inp1s.map; A,B = X::method("ref SD",inp1n.map);' > tmp.mod
+# 	-$(CALC_C) -f tmp.mod 2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # known model, unknown method
+# pcrcalc325: inp1n.map $(LINKEXAMPLELIB)
+# 	echo '#! --dynamiclibraries:linkexample' > tmp.mod
+# 	echo 'areamap inp1n.map;' >> tmp.mod
+# 	echo 'initial objectlink X = examplemodel("ref SD",inp1n.map); a,b=X::unknown()' >> tmp.mod
+# 	-$(CALC_C) -f tmp.mod 2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # exception thrown by implementing model
+# pcrcalc326: inp1n.map $(LINKEXAMPLELIB)
+# 	echo '#! --dynamiclibraries:linkexample' > tmp.mod
+# 	echo 'areamap inp1n.map;' >> tmp.mod
+# 	echo 'initial objectlink X = examplemodel("ref SD",inp1n.map); a,b=X::methodA("X",0);' >> tmp.mod
+# 	-$(CALC_C) -f tmp.mod 2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # not enough  out-args
+# pcrcalc327: inp1n.map  inp1s.map $(LINKEXAMPLELIB)
+# 	echo '#! --dynamiclibraries:linkexample' > tmp.mod
+# 	echo 'areamap inp1n.map;' >> tmp.mod
+# 	echo 'initial objectlink X = examplemodel("ref SD",inp1n.map); a,b=X::methodA("A",inp1s.map,0);' >> tmp.mod
+# 	-$(CALC_C) -f tmp.mod 2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # method defined boolean output, but arg is not
+# pcrcalc328: inp1n.map inp1s.map $(LINKEXAMPLELIB)
+# 	echo '#! --dynamiclibraries:linkexample' > tmp.mod
+# 	echo 'areamap inp1n.map;' >> tmp.mod
+# 	echo 'initial objectlink X = examplemodel("ref SD",inp1n.map); c=3.14; a,b,c=X::methodA("A",inp1s.map,0);' >> tmp.mod
+# 	-$(CALC_C) -f tmp.mod 2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # spatial where only non-spatial allowed
+# pcrcalc329: inp1n.map  inp1s.map $(LINKEXAMPLELIB)
+# 	echo '#! --dynamiclibraries:linkexample' > tmp.mod
+# 	echo 'areamap inp1n.map;' >> tmp.mod
+# 	echo 'initial objectlink X = examplemodel("ref SD",inp1n.map); a,b,c=X::methodA("A",0,inp1s.map);' >> tmp.mod
+# 	-$(CALC_C) -f tmp.mod 2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # let's rock
+# pcrcalc330: m330.mod inp1n.map  $(LINKEXAMPLELIB)
+# 	$(CALC_C) -f m330.mod > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # double symbol, should work, ignoring second
+# pcrcalc330a: m330a.mod inp1n.map  $(LINKEXAMPLELIB)
+# 	-$(CALC_C) -f m330a.mod 2> tmp.res
+# 	$(UNSOLVED) double symbol, should work, ignoring second
+# 
+# # test where expr is expected but method returns more then 1 result
+# pcrcalc331: inp1n.map  inp1s.map $(LINKEXAMPLELIB)
+# 	echo '#! --dynamiclibraries:linkexample' > tmp.mod
+# 	echo 'areamap inp1n.map;' >> tmp.mod
+# 	echo 'initial objectlink X = examplemodel("ref SD",inp1n.map); c=X::methodA("A",0,inp1s.map)*10;' >> tmp.mod
+# 	-$(CALC_C) -f tmp.mod 2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # proper typebuilding
+# pcrcalc332: inp1n.map  inp1s.map $(LINKEXAMPLELIB)
+# 	echo '#! --dynamiclibraries:linkexample' > tmp.mod
+# 	echo 'areamap inp1n.map;' >> tmp.mod
+# 	echo 'initial objectlink X = examplemodel("ref SD",inp1n.map); c=X::methodB() eq nominal(10);' >> tmp.mod
+# 	-$(CALC_C) -f tmp.mod 2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # executing, test rasterSpace
+# pcrcalc333: inp1n.map  inp1s.map $(LINKEXAMPLELIB)
+# 	echo '#! --dynamiclibraries:linkexample' > tmp.mod
+# 	echo 'areamap inp1n.map;' >> tmp.mod
+# 	echo 'initial objectlink X = examplemodel("ref SD",inp1n.map); tmp.res=X::methodB() / 10;' >> tmp.mod
+# 	$(CALC_C) -f tmp.mod
+# 	$(CHK_CMRESULT) 22.4  >/dev/null
+# 	$(END_OF_TEST)
+# 
+# # executing, test rasterSpace, when set after objectlink init
+# pcrcalc333a: inp1n.map  inp1s.map $(LINKEXAMPLELIB)
+# 	echo '#! --dynamiclibraries:linkexample' > tmp.mod
+# 	echo 'initial objectlink X = examplemodel("ref SD",spatial(2)); tmp.res=(X::methodB()*inp1s.map) / 10;' >> tmp.mod
+# 	$(CALC) -f tmp.mod
+# 	$(CHK_CMRESULT) 22.4  >/dev/null
+# 	$(END_OF_TEST)
+# 
+# # test correct use/def of if-then
+# pcrcalc334: inp5s.map
+# 	$(CALC_C) -f m334.mod
+# 	$(END_OF_TEST)
+# 
+# # optimize bug
+# # Fri Jan 14 16:22:13 CET 2000
+# pcrcalc335: m335.mod inp5s.map
+# 	$(CALC_C) -f m335.mod
+# 	$(END_OF_TEST)
+# 	
+# # Todo
+# pcrcalc336:
+# 	$(UNSOLVED) Todo, no default report if foreach is used
+# 	$(CALC_C) "binding A = [a1,a2]; B=[b1,b2];initial foreach h in A { tmpX[h][b1]=sin(2);tmpX[h][b2]=3.4;}"  2> tmp.res
+# 
+# 
+# # test all kinds of math errs (example from bcc matherr)
+# # discern between domain (illegal input) and range (can not represent)
+# 
+# 
+# # OVERFLOW
+# pcrcalc339:
+# 	-$(CALC_C) 'fileoutput exp(1000);' 2> tmp.res
+# 
+# # UNDERFLOW will go to 0
+# pcrcalc340:
+# 	-$(CALC_C) 'fileoutput exp(-1000);' > tmp.res
+# 
+# # TLOSS will also to overflow
+# pcrcalc341:
+# 	-$(CALC_C) 'fileoutput sin(10e70);' 2> tmp.res
+# 
+# # Fri Dec  8 08:49:42  2000
+# # see also test83
+# pcrcalc342: inp5s.map  m342.mod
+# 	$(UNSOLVED) exotic typecasting bug
+# 	-$(CALC_C) -f m342.mod
+# 
+# # lexer stops at number, where illegal id must be recognized
+# # consisting of num+id
+# pcrcalc343: inp5s.map  m343.mod
+# 	$(UNSOLVED) Check if this works on linux but not on win32
+# 	-$(CALC_C) -f m343.mod 2> tmp.res
+# 
+# 
+# # Wed Jan 24 16:50:41 CET 2001 (derek)
+# pcrcalc345: m345.mod
+# 	-$(CALC_C) -fm345.mod 2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # as in test345
+# # Thu Nov 22 10:24:31 UTC 2001
+# pcrcalc345a: m345a.mod
+# 	$(UNSOLVED) Should be syntax error, tss in expr
+# 	-$(CALC_C) -fm345a.mod 2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # as in test345
+# # Thu May 23 13:22:13 UTC 2002
+# pcrcalc345b: m345b.mod
+# 	$(UNSOLVED) Should be syntax error, backslash at begin
+# 	-$(CALC_C) -fm345b.mod 2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # Thu Feb 22 10:00:07 CET 2001 (CW, dynamic wave)
+# #  restictring arg to NON_SPATIAL failed
+# pcrcalc346: m346.mod
+# 	-$(CALC_C) -f m346.mod 2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# 
+# # tests of Model Run organizer start here
+# 
+# 
+# # test stack search input and output path
+# pcrcalc356: m356.mod inp1s.map
+# 	rm -rf tmp*
+# 	cp inp1s.map tmp00000.001
+# 	$(CALC_C) -rtmpNew -fm356.mod
+# 	cp tmpNew/tmp0*1 tmp.res
+# 	$(CHK_CMRESULT) 2  >/dev/null
+# 	$(CALC_C) -rtmpNew/tmpNew2 -fm356.mod
+# 	cp tmpNew/tmpNew2/tmp0*1 tmp.res
+# 	$(CHK_CMRESULT) 3  >/dev/null
+# 	ls tmp* > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # test tss search input and output path
+# pcrcalc357: m357.mod
+# 	rm -rf tmp*
+# 	echo 1 1 > tmp.tss
+# 	$(CALC_C) -rtmpNew -fm357.mod
+# 	cp tmpNew/tmpout.tss tmpNew/tmp.tss
+# 	$(CALC_C) -rtmpNew/tmpNew2 -fm357.mod
+# 	cp tmpNew/tmpout.tss tmp.res
+# 	cat tmpNew/tmpNew2/tmpout.tss >> tmp.res
+# 	ls tmp*   >> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# 
+# # Bummer, get rid of input and output in one parameter object
+# pcrcalc358: inp1s.map
+# 	rm -rf tmp*
+# 	cp inp1s.map tmp.map
+# 	-$(CALC_C) -rtmpNew "tmp.map +=1;" 2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # test map search input and output path
+# pcrcalc359: inp1s.map
+# 	rm -rf tmp*
+# 	cp inp1s.map tmp.map
+# 	cp inp1s.map tmp2.map
+# 	$(CALC_C) -rtmpNew "tmp.map = tmp2.map + 1;"
+# 	cp tmpNew/tmp.map tmp.res
+# 	cp tmpNew/tmp.map tmpNew/tmp2.map
+# 	$(CHK_CMRESULT) 2  >/dev/null
+# 	$(CALC_C) -rtmpNew/tmpNew2  "tmp.map= tmp2.map + 1;"
+# 	cp tmpNew/tmpNew2/tmp.map tmp.res
+# 	$(CHK_CMRESULT) 3  >/dev/null
+# 	ls tmp*   > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # if input is not found, give map with no path in err msg.
+# pcrcalc360: inp5s.map
+# 	rm -rf tmp*
+# 	mkdir tmpdir
+# 	-$(CALC_C) -rtmpdir/new '"tmp.res"=inp5sNotFound.map' 2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # invalid binding.ipcr file
+# pcrcalc361: inp5s.map
+# 	rm -rf tmp*
+# 	mkdir tmpdir
+# 	cp Makefile tmpdir/binding.ipcr
+# 	-$(CALC_C) -rtmpdir/new '"tmp.res"=inp5sNotFound.map' 2> tmp2.res
+# 	stdpath < tmp2.res > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# MRSHEAD='<!DOCTYPE ModelRunSettings > <ModelRunSettings name="s" complete="true">'
+# 
+# # test overwriting of binding from binding.ipcr
+# pcrcalc362: inp5s.map inp1s.map
+# 	rm -rf tmp*
+# 	echo 'binding Map = inp1s.map; Num = 3;' >  tmp.mod
+# 	echo 'initial tmp.res = Map + Num;'      >> tmp.mod
+# 	echo $(MRSHEAD)                                                 >  binding.ipcr
+# 	echo '<NumericSetting value="2" name="Num" />'                  >> binding.ipcr
+# 	echo '<FileSetting externalFileName="inp5s.map" name="Map" />'  >> binding.ipcr
+# 	echo '</ModelRunSettings>'                                      >> binding.ipcr
+# 	$(CALC_C) -r. -f tmp.mod
+# 	$(CHK_CMRESULT) 7  >/dev/null
+# 	$(END_OF_TEST)
+# 
+# # test priority of deeper model run directories
+# pcrcalc363: inp5s.map inp1s.map
+# 	rm -rf tmp*
+# 	mkdir -p tmpdir/deep
+# 	echo 'binding Map = inp1s.map; Num = 3;' > tmp.mod
+# 	echo 'initial tmp.res = Map + Num;' >> tmp.mod
+# 	echo $(MRSHEAD) > tmpdir/binding.ipcr
+# 	echo '<NumericSetting value="2" name="Num" />'                  >> tmpdir/binding.ipcr
+# 	echo '<FileSetting externalFileName="inp5s.map" name="Map" />'      >> tmpdir/binding.ipcr
+# 	echo '</ModelRunSettings>'                                      >> tmpdir/binding.ipcr
+# 	echo $(MRSHEAD) > tmpdir/deep/binding.ipcr
+# 	echo '<NumericSetting value="40" name="Num" />'                 >> tmpdir/deep/binding.ipcr
+# 	echo '<FileSetting externalFileName="inp5s.map" name="MapX" />'     >> tmpdir/deep/binding.ipcr
+# 	echo '</ModelRunSettings>'                                      >> tmpdir/deep/binding.ipcr
+# 	$(CALC_C) -rtmpdir/deep -f tmp.mod
+# 	mv tmpdir/deep/tmp.res .
+# 	$(CHK_CMRESULT) 45  >/dev/null
+# 	$(END_OF_TEST)
+# 
+# # read a tss, to define nr of timesteps
+# pcrcalc365: inp_1.tss
+# 	$(CALC_C) 'timer inp_1.tss; initial jan = 8.9; dynamic fileoutput time();' > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # read a tss, to define nr of timesteps
+# pcrcalc366: inp_1.tss inp226.tss
+# 	rm -rf tmp*
+# 	mkdir -p tmpdir/deep
+# 	cp inp226.tss tmpdir/t1.tss
+# 	cp inp_1.tss tmpdir/deep
+# 	-$(CALC_C) -r tmpdir/deep 'binding Tss=t1.tss; timer Tss ; initial jan = 8.9; dynamic jan = timeinputscalar(inp_1.tss,1);' 2> tmp2.res
+# 	@stdpath < tmp2.res > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # bug: seal does not preserve $1
+# # solved, but not for env.vars!
+# # Wed Jun  5 20:18:51 UTC 2002
+# pcrcalc367: m367.mod
+# 	$(SEAL) m367.mod tmp.mod 
+# 	$(CALC_C) -f tmp.mod 3
+# 	$(END_CHK_ARESULT)
+# 
+# # bug: -t uncovers the sealed script!
+# pcrcalc368:
+# 	$(SEAL) m367.mod tmp.mod
+# 	$(CALC_C) -tf tmp.mod 3 > tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# # reserved keyword in wrong place
+# pcrcalc377: inp5s.map
+# 	echo 'areamap inp5s.map;'> tmp.mod
+# 	echo 'timer 1 5 1;    '>> tmp.mod
+# 	echo 'initial dynamic '>> tmp.mod
+# 	echo 'binding = timeinputsparse(failureExpected);' >> tmp.mod
+# 	-$(CALC_C) -f tmp.mod 2> tmp.res
+# 	$(END_CHK_ARESULT)
+# 
+# pcrcalc378:
+# 	-$(CALC_C) failureExpected
+# 	@$(UNSOLVED) Should generate syntax-error
+# 
+# # debug map nog given
+# pcrcalc383:
+# 	-$(CALC_C) -df m382.mod
+# 	@$(UNSOLVED) Should explain that cmd line args are wrong
+# 
+# # # add numeric binding in tmp.binding while tss expected
+# # test376: inp1s.map
+# # 	$(END_CHK_ARESULT)
+# 
+# # not printable (lexer) of in pcrcalc/testunit?
+# #test377: inp1s.map
+# #	$(END_CHK_ARESULT)
+# 
+# # TODO make test non-spatial-valu in  tss must become tss ??
+# # test989:
+# #	$(END_CHK_ARESULT)
+# 
+# # TODO make test fixed non-spatial-value as in foreach q in QualityRanges
+# # test999:
+# #	$(END_CHK_ARESULT)
+# 
+# pcrcalc5:
+# # init_nonspatial/can run with no clone
+# 	$(CALC_C) 'timer 1 2 1; initial jan = 8.9; dynamic jan = xcoordinate(1);'
+# 	$(END_OF_TEST)
+# 
+#  ]]></makefile>
+ </testlist>

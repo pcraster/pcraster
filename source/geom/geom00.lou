@@ -1,0 +1,12 @@
+@Report
+   @Title { Geometry}
+   @Author { C.G. Wesseling }
+   @Institution {Department of Physical Geography, University of Utrecht}
+   @DateLine { Yes }
+//
+
+@Abstract { 
+This document contains an explanation of the data structures used in the 
+geometry library and a list of available man pages of all functions that
+are part of the library.
+}

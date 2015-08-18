@@ -1,0 +1,32 @@
+include_directories(
+    ${CMAKE_CURRENT_SOURCE_DIR}/../mathx
+    ${CMAKE_CURRENT_SOURCE_DIR}/../misc
+    ${CMAKE_CURRENT_SOURCE_DIR}/../pcrcom
+)
+
+SET(SOURCES
+    app.c
+    appclone.c
+    appcoord.c
+    appcr.c
+    appdir.c
+    appinst.c
+    applog.c
+    app_options.cc
+    apptime.c
+    apptxt.c
+    appval.c
+    appvers.c
+    aprowcol.c
+    inpfile.c
+    readcols.c
+)
+IF(WIN32)
+    SET(SOURCES
+        ${SOURCES}
+        pcrshell.cc
+    )
+ENDIF(WIN32)
+ADD_LIBRARY(app
+    ${SOURCES}
+)

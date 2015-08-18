@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+# wrapper on python
+# to call python win32 from cygwin
+# with the script path in Windows style
+
+if [ -f $1 ]; then
+    script=$1
+else
+    script=`which $1`
+fi
+
+# Convert the location of the script to windows pathname conventions.
+# Make sure to handle the location of the script too, otherwise the /cygdrive
+# stuff will be added.
+if [ ${OSTYPE} == "cygwin" ]; then
+    script=`cygpath -w $script`
+fi
+
+shift
+
+# When PYTHONVER is set, use that to select a specific python version.
+# Otherwise use the default python version.
+if [ ! ${PYTHONVER} ]; then
+    python=python
+else
+    python=python${PYTHONVER}
+fi
+
+$python "$script" "$@"

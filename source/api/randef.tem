@@ -1,0 +1,59 @@
+/* vim: syntax=c
+ */
+
+typedef struct MAP_THIS_TYPE {
+  /* private */
+  void   *ownPtr;
+  /* public: */
+  PCR_ST st;
+  PCR_VS vs;
+  PCR_CR cr;
+  /* Get has actually a BOOL return type */
+  int  (*Get)( THIS_TYPE *v, int r, int c, const struct MAP_THIS_TYPE *m);
+  void (*Put)( THIS_TYPE_T v, int r, int c, struct MAP_THIS_TYPE *m);
+  void (*PutMV)(int r, int c, struct MAP_THIS_TYPE *m);
+  void (*PutAllMV)( struct MAP_THIS_TYPE *m);
+  int  (*NrRows)(const struct MAP_THIS_TYPE *m);
+  int  (*NrCols)(const struct MAP_THIS_TYPE *m);
+  REAL8(*CellLength)(const struct MAP_THIS_TYPE *m);
+
+  /* private to libcalc.a */
+  /* Copy is not correct implemented! 
+   * void (*Copy)(const struct MAP_THIS_TYPE *src, struct MAP_THIS_TYPE *m);
+   */
+  void (*SetGetTest)(GET_TEST t, const struct MAP_THIS_TYPE *m);
+  GET_TEST  (*GetGetTest)( const struct MAP_THIS_TYPE *m);
+  int   (*HintNrFastList)(const struct MAP_THIS_TYPE *m);
+  /* testapi only
+     CSF_VS (*GetValueScale)(const struct MAP_THIS_TYPE *m);
+     CSF_CR (*GetInCellRepr)(const struct MAP_THIS_TYPE *m);
+   */
+
+  /* private to libapi.a */
+  int maxVal;
+  GET_TEST  getType;
+  BOOL      spatial;         /* does mapCont contains a spatial or nonSpatial.*/
+  THIS_TYPE nonSpatialValue; /* if not spatial */
+  void  **spatialValue;      /* if spatial */
+  int nrRows, nrCols;
+  BOOL (*getMVtest)( THIS_TYPE *v, int r, int c, const struct MAP_THIS_TYPE *m);
+  BOOL (*getNOtest)( THIS_TYPE *v, int r, int c, const struct MAP_THIS_TYPE *m);
+  GET_FUNC     getPrivate;
+  PUT_VAL_FUNC putPrivate;
+  PUT_MV_FUNC  putMVPrivate;
+  CSF_VS       valueScale; /* testapi only */
+  CSF_CR       inCellRepr; /* testapi only */
+} MAP_THIS_TYPE;
+
+/* delete map object AND map contents: */
+extern void DeleteMAP_THIS_TYPE(MAP_THIS_TYPE *m);
+
+/* delete map object BUT NOT THE map contents: */
+extern void DeleteInternalMAP_THIS_TYPE(MAP_THIS_TYPE *m);
+
+extern MAP_THIS_TYPE *InitMapTHIS_TYPE( size_t nrRows,size_t nrCols,void *v,BOOL spatial, CSF_CR inCr);
+
+extern MAP_THIS_TYPE *ReadTHIS_TYPE(const char *nameOrValue,size_t nrRows, size_t nrCols);
+extern MAP_THIS_TYPE *ReadTHIS_TYPEMap(const char *name);
+extern void WriteTHIS_TYPEMap(const char *name, MAP_THIS_TYPE *map, CSF_VS valueScale);
+extern MAP_THIS_TYPE *CreateSpatialTHIS_TYPE(CSF_CR inCr,size_t nrRows,size_t nrCols);

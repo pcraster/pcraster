@@ -1,0 +1,16 @@
+# com_pathinfotest.cc
+# be sure we can remove all 
+chmod -R a+rwx pi_*
+rm -rf pi_*
+
+# com_directorytest.cc
+# be sure we can remove all 
+chmod -R a+rwx dir_*
+rm -rf dir_*
+
+# com_filetest.cc
+chmod -R a+rwx rm_* if_* fe_*
+rm -rf rm_* if_* fe_*
+
+chmod -R a+rwx mv_*
+rm -rf mv_*

@@ -1,0 +1,73 @@
+#vim:syntax=bash
+
+gdalTranslate="$GDAL_ROOT/bin/gdal_translate -quiet"
+
+west=100000.0
+south=199850.0
+cellSize=50.0
+
+function createRaster {
+  value1=$1
+  let value2=$value1+1
+  outputFilename=$2
+
+  echo "NCOLS 2"                > tmp.col
+  echo "NROWS 3"               >> tmp.col
+  echo "XLLCORNER $west"       >> tmp.col
+  echo "YLLCORNER $south"      >> tmp.col
+  echo "CELLSIZE $cellSize"    >> tmp.col
+  echo "NODATA_VALUE -1.0"     >> tmp.col
+  echo $value1 -1.0            >> tmp.col
+  echo -1.0    -1.0            >> tmp.col
+  echo -1.0    $value2         >> tmp.col
+  $gdalTranslate -ot Float32 -mo "PCRASTER_VALUESCALE=VS_SCALAR" -of PCRaster tmp.col $outputFilename
+}
+
+# ------------------------------------------------------------------------------
+
+echo "NCOLS 2"                > tmp.col
+echo "NROWS 3"               >> tmp.col
+echo "XLLCORNER $west"       >> tmp.col
+echo "YLLCORNER $south"      >> tmp.col
+echo "CELLSIZE $cellSize"    >> tmp.col
+echo "NODATA_VALUE -1.0"     >> tmp.col
+echo  5.0    -1.0            >> tmp.col
+echo -1.0    -1.0            >> tmp.col
+echo -1.0    -1.0            >> tmp.col
+$gdalTranslate -ot Float32 -mo "PCRASTER_VALUESCALE=VS_SCALAR" -of PCRaster tmp.col MinMaxEqual.map
+
+# Create directories.
+mkdir -p dataset1
+
+for scenario in aap noot mies
+do
+  mkdir -p dataset1/$scenario
+done
+
+# Create rasters.
+# scalar_x
+for((t = 10; t <= 20; t += 1))
+do
+  # Upper left cell of scalar equals the time step.
+  # Some time steps are missing.
+  # All other cells are missing values for the time being.
+  # 0: 10, 11, 12, 13, 14, 15
+  if(($t != 15))
+  then
+    let v=t
+    createRaster $v `printf "dataset1/aap/scalar_%d" $t`
+  fi
+
+  if(($t != 16))
+  then
+    let v=t*2
+    createRaster $v `printf "dataset1/noot/scalar_%d" $t`
+  fi
+
+  if(($t != 17))
+  then
+    let v=t*3
+    createRaster $v `printf "dataset1/mies/scalar_%d" $t`
+  fi
+done
+

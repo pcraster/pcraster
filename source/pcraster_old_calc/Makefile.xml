@@ -1,0 +1,13 @@
+all: major_op.h dassjmp.inc
+
+major_op_1.xsl major_op_2.xsl dassjmp.xsl: common.xsl
+
+major_op.h: major_op_1.xsl major_op_2.xsl operation.xml
+	xmlvalid -wno-valid major_op_1.xsl
+	xmlvalid  -wno-valid major_op_2.xsl
+	xmlvalid operation.xml
+	xslt operation.xml major_op_1.xsl > tmp.xml
+	xslt tmp.xml major_op_2.xsl > major_op.h
+
+dassjmp.inc: dassjmp.xsl operation.xml
+	xslt operation.xml dassjmp.xsl > dassjmp.inc

@@ -1,0 +1,16 @@
+
+glossary probleem
+optional exclusion of  Indices and tables latex
+page breaks in latex for op_*rst and app_*rst
+
+~/tmp/extensions.txt
+~/tmp/scenario.txt
+
+/home/cees/development/projects/pcrtree/docs/scenario
+/home/cees/development/projects/pcrtree/docs/pcrseal
+
+
+
+OUDE MANUAL
+ ycoordinate o.a. mist plaatje 
+  http://pcraster.geo.uu.nl/documentation/PCRasterManual-20110330/rn01re121.html

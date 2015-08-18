@@ -1,0 +1,15 @@
+- PathName:
+    - isValid(const std::string& pathName)
+      -> checkt de string die in de constructor komt, gooit exceptie als het
+        splitten kansloos is
+        WIN32: twee drive delims: c:d:
+    - tests met meerdere slashes
+
+- Add automatic parsing of commandline in com::App.
+  - command line app: print usage: sort arguments:
+    1. required options, alphabet
+    2. optional options, alphabet
+    3. positional arguments, alphabet
+- Encapsulate DIR structure -> see rumminations on C++
+- testOpenForUpdating in addition to testOpenFor{Reading,Writing}
+   see geo_csfmap.cc for use

@@ -1,0 +1,98 @@
+INHOUD
+
+CODE:
+
+dll.txt       dit bestand
+pcrcalc.h     prototypes API
+pcrdll.h        wordt door pcrcalc.h gebruikt
+pcrcalcl.dll   de DLL met de API
+pcrcalcl.lib  import library van de DLL
+3 dll dir door pcrcalcl.dll  worden gebruikt:
+1) qt-mt334.dll  Qt toolkit
+2) MSVCP71.dll   Microsoft Runtime DLL
+3) MSVCR71.dll   Microsoft Runtime DLL
+pcrcitd.exe   client interface test driver
+pcrcitd.c     source code
+
+VOORLOPIG VOORBEELD:
+Case1.xml             aangepaste xml met result tag die werkt
+geenInvoer.xml        aangepaste xml met result tag die werkt
+                       maar een invoerbestand niet kan vinden
+demo.bat              voorbeeld aanroep test driver
+
+
+De interface bestaat uit de volgende C functies:
+
+1) PcrScript* pcr_createScript(const char* scriptName);
+   Maak een PcrScript object aan met script bestand genaamd
+   scriptName (0-terminated).
+   Er mag slechts 1 PcrScript object tegelijkertijd bestaan, de
+   pcrcalcl.dll checked dit niet.
+   scriptName mag een standaard PCRaster script zijn of een XML
+   bestand met als document element Root en een attribute class met
+   de waarde nl.wldelft.habitat.CaseHabitat.
+   In het laatste geval worden rasterbestanden in het BIL formaat
+   gelezen en geschreven.
+
+2) void pcr_ScriptExecute(PcrScript *script);
+   Parse het script en voer het uit.
+
+3) void pcr_destroyScript(PcrScript *script);
+   Ruim het script object op.
+
+Fouten die optreden bij bovenstaande functies kunnen afgehandeld
+worden met behulp van de volgende 2 functies:
+
+4) int pcr_ScriptError(PcrScript *script);
+   String lengte (excl. 0-terminator) van de huidige foutboodschap,
+   0 als geen fout.
+5) const char*pcr_ScriptErrorMessage(PcrScript *script);
+   Huidige foutboodschap, lege string als geen fout.
+   De achterliggende string buffer is geldig zolang geen
+   van de bovenstaande functies opnieuw is aangeroepen.
+
+Een voorbeeld van het API gebruik is te lezen in pcrcitd.c.
+
+VRAAG OVER GEBRUIK IN DELPHI of VB
+
+Het gebruik van de pcrcalc-dll vanuit VB of Delphi is net zo makkelijk 
+of moeilijk als het aanroepen van een standaard win32 API function.
+De pcrcalc dll distributie heeft een voorbeeld in C:  pcrcitd.c en de C 
+functie definities met (cdecl aanroep) in pcrcalc.h, en een NL-talige 
+synopsis in dll.txt
+
+pcrcitd is tevens een voorbeeld van hoe de foutafhandeling momenteel werkt.
+
+pcrcalc.h geeft de volgende functies
+
+PcrScript*  pcr_createScript(const char* scriptName);
+void        pcr_ScriptExecute(PcrScript *script);
+int         pcr_ScriptError(PcrScript *script);
+const char* pcr_ScriptErrorMessage(PcrScript *script);
+void        pcr_destroyScript(PcrScript *script);
+
+In delphi termen is alles dus een functie, m.u.v. pcr_destroyScript dat 
+is een procedure. De C datatypen const char * en int zijn 
+respectievelijk een string en een integer die hun equivalenten hebben in 
+VB en Delphi.
+PcrScript* is een zgn. "opaque pointer", die aangemaakt wordt door 
+pcr_createScript en opgeruimd door pcr_destroyScript, en in andere 
+functies altijd wordt meegegeven. Daarvoor kan je dus in VB of Delphi een uniek 
+"maak-niet-uit-wat-erin-zit" record of object-type maken.
+
+Zoals in dll.txt staat, is scriptName een xml-file volgens de habitat 
+specs of gewoon een PCRaster Ascii script. Bedenk wel dat momenteel de 
+XML interface uitsluitend het BIL format ondersteund terwijl de Ascii 
+script interface uitsluitend met PCRaster kaarten werkt. Deze beperking 
+opheffen is overigens niet erg veel werk.
+
+Andere interfaces, die niet via kaarten in BIL of PCRaster formaat  op 
+de schijf werken, zoals in-memory zijn mogelijk, maar momenteel niet 
+beschikbaar in de interface.
+
+Verder heb ik in een eerder telefonisch overleg al even aangestipt dat 
+t.b.v. de topowizard, de datatypering in het BIL formaat misschien te 
+zwak is: PCRaster eist ldd typen in bepaalde functies terwijl we voor 
+habitat (only) wat shortcuts hebben gemaakt met het mappen van de 
+typesystemen: alles in BIL wat integer is, is nominal/ordinal of boolean 
+maar nooit een ldd. Ik denkt dat dat ook eenvoudig oplosbaar is.

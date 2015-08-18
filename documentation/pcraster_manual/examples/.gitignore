@@ -1,0 +1,21 @@
+/manualInclusionFilesDone.txt
+/testInputFilesDone.txt
+/generatedMakefile
+/*.exec.sh
+/*.exec.mod
+/*.png
+/*.map
+
+# make -n -f generatedMakefile clean | grep --invert "\.map"
+/table_Result4.txt
+/table_Result1.txt
+/map2asc_AscFile1.txt
+/map2asc_AscFile3.txt
+/map2asc_AscFile2.txt
+/table_Result3.txt
+/map2col_ColFile3.txt
+/muskingum_FlowRate1.txt
+/map2col_ColFile1.txt
+/table_Result2.txt
+/map2col_ColFile2.txt
+/dynamicwave_Table.txt

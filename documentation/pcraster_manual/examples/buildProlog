@@ -1,0 +1,57 @@
+#! vim:syntax=make
+
+# DEPRECATED .SUFFIXES: .itxt .imap .omap .otxt .gif
+
+# use cygdrive is needed
+VPATH=${PCRTREE2}/documentation/user/Common/PCRasterManual/examples
+
+EXEC:=execWithNativePathArgs.sh
+
+%.imap: %.itxt
+	@${EXEC} ${VPATH}/AscHeader2map $< $@
+
+# RESULT
+# gif from imap is created for the manual
+.imap.gif:
+	mangif $*.imap $*.gif
+# omap is created from the command:
+#  1) in pcrcalcExamples.xml all Result tags
+#  2) here for all defined in NON_CALC_COMMANDS section below
+# gif from imap is created for the manual
+.omap.gif:
+	mangif $*.omap $*.gif
+
+# files that need to be copied verbatim from VPATH
+#  will have a .in extension there that is stripped when copying
+% : %.in
+	cp $< $*
+
+# DEPRECATED dunno why it is here
+# .omap.otxt:
+#	@$(map2asc) --nothing $*.omap $*.otxt
+
+mapattr       := mapattr  --nothing
+asc2map       := asc2map  --nothing
+map2asc       := map2asc  --nothing
+col2map       := col2map  --nothing
+map2col       := map2col  --nothing
+resample      := resample --nothing
+table         := table    --nothing
+CALC          := pcrcalc  --nothing
+
+TEXT_INPUTS= lookup.Table.txt lookup.Table2.txt lookup.Table3.txt \
+  asc2map.AscFile1.txt asc2map.AscFile2.txt col2map.ColFile1.txt \
+  col2map.ColFile2.txt table.Input.txt table.Input2.txt dynamicwave.Table.txt
+MAP_INPUTS= $(addsuffix .imap, $(basename $(wildcard *.itxt)))
+inputs: $(TEXT_INPUTS) $(MAP_INPUTS)
+	@echo $^
+
+clean::
+	rm -f *.imap *.omap *.otxt *.gif
+
+TEXT_OUTPUTS= map2asc.AscFile1.txt map2asc.AscFile2.txt map2asc.AscFile3.txt \
+ map2col.ColFile1.txt map2col.ColFile2.txt map2col.ColFile3.txt \
+ table.Result1.txt table.Result2.txt table.Result3.txt table.Result4.txt
+clean::
+	rm -f $(TEXT_OUTPUTS)
+

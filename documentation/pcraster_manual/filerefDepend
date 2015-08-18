@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# create a Makefile fragment  foreach fileref attr found
+#  created filerefDepend.d at toplevel
+#    that calls a sub make for an item
+#  create  filerefDepend.d at sublevel (figures/examples), 
+#   what must be made there
+
+set -e
+
+rm -f filerefDepend.d
+rm -f figures/filerefDepend.d
+rm -f examples/filerefDepend.d
+#xslt manual.xml $OLDPCRTREE/template/xsl/docbookDepend.xsl |
+# don't give -xinclude on xslproc, because we want to fetch them not expand
+xsltproc docbookDepend.xsl manual.xml |
+# removes duplicates
+sort | uniq  | tee xslOutput.txt | while read f
+do
+ # part for toplevel filerefDepend.d
+ echo $f:
+ # sub make in the dirname for item $f
+ echo "	make -sC`dirname $f` `basename $f`"
+ echo FILEREFDEPEND += $f
+
+ # part for subdir filerefDepend.d
+ echo "FILEREFDEPEND += `basename $f`" >> `dirname $f`/filerefDepend.d
+done > filerefDepend.d

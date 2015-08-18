@@ -1,0 +1,38 @@
+#! --dynamiclibraries:/home/cees/pcrtree/bin/develop/mldd
+
+areamap TestRN00.008;
+
+initial
+  modellink m = mldd();
+
+# NOTE de operaties met bogusBool krijgen GEEN 
+# zinnige boolean kaart terug, maar zo zit de syntax 
+# van de model link er nu eenmaal uit 
+# re-initialize stream network
+
+  bogusBool = m::setStream( LddN0000.008,
+                            LddNE000.008,
+                            LddE0000.008,
+                            LddSE000.008,
+                            LddS0000.008,
+                            LddSW000.008,
+                            LddW0000.008,
+                            LddNW000.008);
+
+  bogusBool = m::removeStream( TestRN00.008,
+                               TestRNE0.008,
+                               TestRE00.008,
+                               TestRSE0.008,
+                               TestRS00.008,
+                               TestRSW0.008,
+                               TestRW00.008,
+                               TestRNW0.008);
+
+  report Nout.map,
+         NEout.map,
+         Eout.map,
+         SEout.map,
+         Sout.map,
+         SWout.map,
+         Wout.map,
+         NWout.map  = m::getStream();

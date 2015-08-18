@@ -1,0 +1,13 @@
+set -e
+for t in test?
+do
+cd $t
+for i in Test*
+do
+   pcrcalc "$i = if ($i then boolean(1))"
+done
+runapp oldcalc -f ../test.pcr
+runapp aguila -2 TestRE00.008 + TestRN00.008 + TestRNE0.008 + TestRNW0.008 + TestRS00.008 + TestRSE0.008 + TestRSW0.008 + TestRW00.008 + LddE0000.008 + LddN0000.008 + LddNE000.008 + LddNW000.008 + LddS0000.008 + LddSE000.008 + LddSW000.008 + LddW0000.008  \
+ Eout.map + NEout.map + NWout.map + Nout.map + SEout.map + SWout.map + Sout.map + Wout.map
+cd ..
+done

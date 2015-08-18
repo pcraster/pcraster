@@ -1,0 +1,1621 @@
+<!DOCTYPE Operations
+  PUBLIC "-//PCRaster//DTD PCRasterNone V1.0//EN" "operation.dtd"
+[
+ <!ENTITY Mark "
+ <Result><Field spatial='Yes'>&VS_B;</Field></Result>
+ <Input contextName='order'><Field spatial='Yes'>&VS_S;</Field></Input>
+ <Input contextName='amount'><Field>&VS_S;</Field></Input>
+ <Input contextName='threshold'><Field spatial='Non'>&VS_S;</Field></Input>
+ ">
+ <!-- IMPORTANT Result order in AccuResults and SpreadResults is significant
+      this order is hard-coded in wrappers in calc_globfunc.cc (e.g. Do_spread())
+   -->
+ <!ENTITY AccuResults "
+ <Result functionSuffix='state'><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Result functionSuffix='flux'><Field spatial='Yes'>&VS_S;</Field></Result>
+ ">
+ <!ENTITY SpreadResults "
+ <Result functionSuffix=''><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Result functionSuffix='zone'><Field spatial='Yes'>&VS_BNO;</Field></Result>
+ ">
+ <!ENTITY LookupStatePot "
+  <Result><Field>&VS_S;</Field></Result>
+  <Input><Table/></Input>
+  <!-- field 0: -->
+  <Input contextName='profileId'><Field>&VS_NO;</Field></Input>
+  <!-- field 1: -->
+  <Input contextName='bottomLevel'><Field>&VS_S;</Field></Input>
+  <!-- field 2: -->
+  <Input contextName='segmentLength'> <!-- or channelLength -->
+            <Field>&VS_S;</Field></Input>
+   ">
+ ]>
+<Operations>
+<!-- # Name_of_field syntax resultType spatialresult nrInput -->
+<!-- # followed by  arguments: -->
+<!-- # no operation -->
+<!-- Obsolete ?????
+<Operation name='nop'
+           syntax='None'
+           exec='MISC'>
+ <Result><Field>&VS_FIELD;</Field></Result>
+</Operation>
+ -->
+<!-- # if/mif looks like function but it is -->
+<!-- # a grammar construction, do not insert in symbol table -->
+
+<!-- # if without an else clause is a spatial mask -->
+<!-- # normal use assumes one of the argument to be spatial -->
+<!-- # hence the result is spatial -->
+<Operation name='if'
+           implName='ifthen'
+           syntax='None'
+           exec='IFTHEN'>
+ <Manual/>
+ <Result><Field spatial='Yes'>&VS_FIELD;</Field></Result>
+ <Input><Field>&VS_B;</Field></Input>
+ <Input><Field>&VS_FIELD;</Field></Input>
+</Operation>
+
+<Operation name='if'
+           implName='ifthenelse'
+           syntax='None'
+           exec='IFTHENELSE'>
+ <Manual/>
+ <Result><Field>&VS_FIELD;</Field></Result>
+ <Input><Field>&VS_B;</Field></Input>
+ <Input><Field>&VS_FIELD;</Field></Input>
+ <Input><Field>&VS_FIELD;</Field></Input>
+</Operation>
+
+<!-- # special rule (obsolete?), all arguments equal type  -->
+<!-- # but result is always boolean -->
+<Operation name='ne'
+           syntax='Operator'
+           commutative='true'
+           exec='POLY'>
+ <DiffBin foTypes="14f" function="a1!=a2"/>
+ <Result><Field>&VS_B;</Field></Result>
+ <Input><Field>&VS_FIELD;</Field></Input>
+ <Input><Field>&VS_FIELD;</Field></Input>
+</Operation>
+<Operation name='eq'
+           syntax='Operator'
+           commutative='true'
+           exec='POLY'>
+<DiffBin foTypes="14f" function="a1==a2"/>
+ <Result><Field>&VS_B;</Field></Result>
+ <Input><Field>&VS_FIELD;</Field></Input>
+ <Input><Field>&VS_FIELD;</Field></Input>
+</Operation>
+<Operation name='gt'
+           syntax='Operator'
+           exec='POLY'>
+ <DiffBin foTypes="4f" function="a1>a2"/>
+ <Result><Field>&VS_B;</Field></Result>
+ <Input><Field>&VS_OS;</Field></Input>
+ <Input><Field>&VS_OS;</Field></Input>
+</Operation>
+<Operation name='ge'
+           syntax='Operator'
+           exec='POLY'>
+ <DiffBin foTypes="4f" function="a1>=a2"/>
+ <Result><Field>&VS_B;</Field></Result>
+ <Input><Field>&VS_OS;</Field></Input>
+ <Input><Field>&VS_OS;</Field></Input>
+</Operation>
+<Operation name='lt'
+           syntax='Operator'
+           exec='POLY'>
+ <DiffBin foTypes="4f" function="a1&lt;a2"/>
+ <Result><Field>&VS_B;</Field></Result>
+ <Input><Field>&VS_OS;</Field></Input>
+ <Input><Field>&VS_OS;</Field></Input>
+</Operation>
+<Operation name='le'
+           syntax='Operator'
+           exec='POLY'>
+ <DiffBin foTypes="4f" function="a1&lt;=a2"/>
+ <Result><Field>&VS_B;</Field></Result>
+ <Input><Field>&VS_OS;</Field></Input>
+ <Input><Field>&VS_OS;</Field></Input>
+</Operation>
+<!-- # derived rule, all arguments equal type and result is that type -->
+<!-- # syntax of min,max,cover: -->
+<!-- # implementation of unlimited arguments ( CG_VARARG) -->
+<!-- # as binary operators (min,max,cover) -->
+<!-- # and functions that have implementation for different cellrepresentations -->
+<Operation name='min'
+           exec='POLY'>
+ <SameBin foTypes="4f" function="std::min&lt;>(a1,a2)"/>
+ <Result><Field>&VS_OS;</Field></Result>
+ <Input><Field>&VS_OS;</Field></Input>
+ <Input repeat='true'><Field>&VS_OS;</Field></Input>
+</Operation>
+<Operation name='max'
+           exec='POLY'>
+ <SameBin foTypes="4f" function="std::max&lt;&gt;(a1,a2)"/>
+ <Result><Field>&VS_OS;</Field></Result>
+ <Input><Field>&VS_OS;</Field></Input>
+ <Input repeat='true'><Field>&VS_OS;</Field></Input>
+</Operation>
+<Operation name='cover'
+           exec='POLY'>
+ <Manual/>
+ <Result><Field>&VS_FIELD;</Field></Result>
+ <Input><Field>&VS_FIELD;</Field></Input>
+ <Input repeat='true'><Field>&VS_FIELD;</Field></Input>
+</Operation>
+<Operation name='timeinput'
+           exec='MISC'>
+           <Manual/>
+ <Result><Field spatial='Yes'>&VS_FIELD;</Field></Result>
+ <Input><MapStack/></Input>
+</Operation>
+<Operation name='timeinputsparse'
+           exec='MISC'>
+           <Manual/>
+ <Result><Field spatial='Yes'>&VS_FIELD;</Field></Result>
+ <Input><MapStack/></Input>
+</Operation>
+<Operation name='timeinputmodulo'
+           exec='MISC'>
+           <Manual/>
+ <Result><Field spatial='Yes'>&VS_FIELD;</Field></Result>
+ <Input><MapStack/></Input>
+ <Input contextName='highestTimestepAvailable'><Field spatial='Non'>&VS_O;</Field></Input>
+</Operation>
+<Operation name='lookupmapstack'
+           exec='MISC'>
+           <Manual/>
+ <Result><Field spatial='Yes'>&VS_FIELD;</Field></Result>
+ <Input><MapStack/></Input>
+ <Input contextName='index'><Field spatial='Non'>&VS_O;</Field></Input>
+</Operation>
+<!-- THERE CAN BE NO OPERATORS WITH WITH MORE THAN RESULT 1 VS TYPE BELOW THIS LINE
+     Other than the rule that the first multi argument will set the result type
+  -->
+<Operation name='spreadmax'
+           syntax='MRF'
+           exec='MRF'>
+ &SpreadResults;
+ <Input contextName='points'><Field spatial='Yes'>&VS_BNO;</Field></Input>
+ <Input contextName='initial costs'><Field>&VS_S;</Field></Input>
+ <Input contextName='friction'><Field>&VS_S;</Field></Input>
+ <Input contextName='max'><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='spread'
+           syntax='MRF'
+           exec='MRF'
+  >
+ &SpreadResults;
+ <Input contextName='points'><Field spatial='Yes'>&VS_BNO;</Field></Input>
+ <Input contextName='initial costs'><Field>&VS_S;</Field></Input>
+ <Input contextName='friction'><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='spreadldd'
+           syntax='MRF'
+           exec='MRF'>
+ &SpreadResults;
+ <Input contextName='ldd'><Field spatial='Yes'>&VS_L;</Field></Input>
+ <Input contextName='points'><Field spatial='Yes'>&VS_BNO;</Field></Input>
+ <Input contextName='initial costs'><Field>&VS_S;</Field></Input>
+ <Input contextName='friction'><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='dynamicwave'
+           syntax='MRF'
+           exec='MRF'>
+<!--
+    documentation is in docs/pcrmanual/manual_updates/DynWave_msw.doc
+ -->
+ <Result functionSuffix="q"><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Result functionSuffix="h"><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Input contextName='ldd'><Field spatial='Yes'>&VS_L;</Field></Input>
+ <Input contextName='inQ'><Field>&VS_S;</Field></Input>
+ <Input contextName='inH'><Field>&VS_S;</Field></Input>
+ <Input contextName='bottomHeight'><Field>&VS_S;</Field></Input>
+ <Input contextName='roughness'><Field>&VS_S;</Field></Input>
+ <Input contextName='channelLength'><Field>&VS_S;</Field></Input>
+ <Input contextName='channelBottomWidth'><Field>&VS_S;</Field></Input>
+ <Input contextName='channelDepth'><Field>&VS_S;</Field></Input>
+ <Input contextName='channelForm'><Field>&VS_S;</Field></Input>
+ <Input contextName='floodplainWidth'><Field>&VS_S;</Field></Input>
+ <Input contextName='timeStepInSeconds'><Field spatial='Non'>&VS_S;</Field></Input>
+ <!-- Ooohps wrong order of timeStepInSeconds and nrTimeSlices
+     in all other routines the other way around
+  -->
+ <Input contextName='nrTimeSlices'><Field spatial='Non'>&VS_S;</Field></Input>
+ <Input contextName='structures'><Field>&VS_B;</Field></Input>
+ <Input contextName='structureA'><Field>&VS_S;</Field></Input>
+ <Input contextName='structureB'><Field>&VS_S;</Field></Input>
+ <Input contextName='structureCrestLevel'><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='order'
+           exec='Direct'>
+ <Result><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Input><Field spatial='Yes'>&VS_OS;</Field></Input>
+</Operation>
+<Operation name='areaorder'
+           exec='Direct'>
+ <Result><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Input contextName='expr'><Field spatial='Yes'>&VS_OS;</Field></Input>
+ <Input contextName='areaClass'><Field spatial='Yes'>&VS_BNO;</Field></Input>
+</Operation>
+<Operation name='argorder'
+           exec='Direct'>
+ <Result><Field spatial='Yes'>&VS_O;</Field></Result>
+ <Input repeat='true' contextName='chances'><Field spatial='Yes'>&VS_S;</Field></Input>
+</Operation>
+<Operation name='argorderwithid'
+           exec='Direct'
+           inputTailRepeat='2'
+           >
+ <Result><Field spatial='Yes'>&VS_O;</Field></Result>
+ <Input contextName='chances'><Field spatial='Yes'>&VS_S;</Field></Input>
+ <Input contextName='id'><Field spatial='Non'>&VS_O;</Field></Input>
+</Operation>
+<Operation name='argorderarealimited'
+           exec='Direct'
+           inputTailRepeat='2'
+           >
+ <Result><Field spatial='Yes'>&VS_O;</Field></Result>
+ <Input contextName='chances'><Field spatial='Yes'>&VS_S;</Field></Input>
+ <Input contextName='areaLimit'><Field spatial='Non'>&VS_S;</Field></Input>
+</Operation>
+<Operation name='argorderwithidarealimited'
+           exec='Direct'
+           inputTailRepeat='3'
+           >
+ <Result><Field spatial='Yes'>&VS_O;</Field></Result>
+ <Input contextName='chances'><Field spatial='Yes'>&VS_S;</Field></Input>
+ <Input contextName='id'><Field spatial='Non'>&VS_O;</Field></Input>
+ <Input contextName='areaLimit'><Field spatial='Non'>&VS_S;</Field></Input>
+</Operation>
+<Operation name='argorderaddarealimited'
+           exec='Direct'
+           inputTailRepeat='2'
+           >
+ <Result><Field spatial='Yes'>&VS_O;</Field></Result>
+ <Input contextName='currentId'><Field spatial='Yes'>&VS_O;</Field></Input>
+ <Input contextName='chances'><Field spatial='Yes'>&VS_S;</Field></Input>
+ <Input contextName='areaLimit'><Field spatial='Non'>&VS_S;</Field></Input>
+</Operation>
+<Operation name='argorderwithidaddarealimited'
+           exec='Direct'
+           inputTailRepeat='3'
+           >
+ <Result><Field spatial='Yes'>&VS_O;</Field></Result>
+ <Input contextName='currentId'><Field spatial='Yes'>&VS_O;</Field></Input>
+ <Input contextName='chances'><Field spatial='Yes'>&VS_S;</Field></Input>
+ <Input contextName='id'><Field spatial='Non'>&VS_O;</Field></Input>
+ <Input contextName='areaLimit'><Field spatial='Non'>&VS_S;</Field></Input>
+</Operation>
+<Operation name='windowminimum'
+           exec='GLOBAL'>
+ <Result><Field spatial='Yes'>&VS_OS;</Field></Result>
+ <Input><Field spatial='Yes'>&VS_OS;</Field></Input>
+ <Input contextName='windowSize'><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='brenner'
+           exec='GLOBAL'>
+ <Result><Field spatial='Yes'>&VS_B;</Field></Result>
+ <Input contextName='nrBirds'><Field spatial='Yes'>&VS_S;</Field></Input>
+ <Input contextName='cost'><Field>&VS_S;</Field></Input>
+ <Input contextName='friction'><Field>&VS_S;</Field></Input>
+ <Input contextName='maxCost'><Field>&VS_S;</Field></Input>
+ <Input contextName='dispRange'><Field>&VS_S;</Field></Input>
+ <Input contextName='habQual'><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='windowmaximum'
+           exec='GLOBAL'>
+ <Result><Field spatial='Yes'>&VS_OS;</Field></Result>
+ <Input><Field spatial='Yes'>&VS_OS;</Field></Input>
+ <Input contextName='windowSize'><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='windowdiversity'
+           exec='GLOBAL'>
+ <Result><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Input><Field spatial='Yes'>&VS_BNO;</Field></Input>
+ <Input contextName='windowSize'><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='areadiversity'
+           exec='GLOBAL'>
+ <Result><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Input><Field spatial='Yes'>&VS_BNO;</Field></Input>
+ <Input contextName='classes'><Field spatial='Yes'>&VS_BNO;</Field></Input>
+</Operation>
+<Operation name='areamajority'
+           exec='GLOBAL'>
+ <Result><Field spatial='Yes'>&VS_BNO;</Field></Result>
+ <Input><Field spatial='Yes'>&VS_BNO;</Field></Input>
+ <Input contextName='classes'><Field spatial='Yes'>&VS_BNO;</Field></Input>
+</Operation>
+<Operation name='windowmajority'
+           exec='GLOBAL'>
+ <Result><Field spatial='Yes'>&VS_BNO;</Field></Result>
+ <Input><Field spatial='Yes'>&VS_BNO;</Field></Input>
+ <Input contextName='windowSize'><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='_ldddownstreamcell'
+           exec='Direct'
+           syntax='None'
+           >
+ <Result><Field spatial='Non'>&VS_FIELD;</Field></Result>
+ <Input><Field>&VS_FIELD;</Field></Input>
+</Operation>
+<!-- # become special rules concerning combination of scalar and vector -->
+<!-- # if vector is implemented -->
+<Operation name='*'
+           implName='mul'
+           syntax='Operator'
+           commutative='true'
+           exec='SAME_BIN'>
+ <SameBin  function="a1*a2"/>
+ <Result><Field>&VS_SV;</Field></Result>
+ <Input><Field>&VS_SV;</Field></Input>
+ <Input><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='/'
+           implName='fdiv'
+           syntax='Operator'
+           exec='SAME_BIN'>
+
+ <SameBin  rightDomainIll="r==0" function="a1/a2"/>
+ <Result><Field>&VS_SV;</Field></Result>
+ <Input><Field>&VS_SV;</Field></Input>
+ <Input><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='**'
+           implName='pow'
+           syntax='Operator'
+           exec='SAME_BIN'>
+ <SameBin combDomainIll="special::pow_domainIll(l,r)" function="std::pow(a1,a2)"/>
+ <Result><Field>&VS_SV;</Field></Result>
+ <Input><Field>&VS_SV;</Field></Input>
+ <Input><Field>&VS_SV;</Field></Input>
+</Operation>
+<Operation name='mod'
+           syntax='Operator'
+           exec='SAME_BIN'>
+ <SameBin rightDomainIll="r==0" function="std::fmod(a1,a2)"/>
+ <Result><Field>&VS_SV;</Field></Result>
+ <Input><Field>&VS_SV;</Field></Input>
+ <Input><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='idiv'
+           syntax='Operator'
+           exec='SAME_BIN'>
+ <SameBin  rightDomainIll="r==0" function="(T)Fdiv(a1,a2)"/>
+ <Result><Field>&VS_SV;</Field></Result>
+ <Input><Field>&VS_SV;</Field></Input>
+ <Input><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='+'
+           implName='uadd'
+           syntax='Operator'
+           exec='SAME_UN'>
+ <SameUn  function="v"/>
+ <Result><Field>&VS_SV;</Field></Result>
+ <Input><Field>&VS_SV;</Field></Input>
+</Operation>
+<Operation name='-'
+           implName='umin'
+           syntax='Operator'
+           exec='SAME_UN'>
+<SameUn  function="-v"/>
+ <Result><Field>&VS_SV;</Field></Result>
+ <Input><Field>&VS_SV;</Field></Input>
+</Operation>
+<Operation name='+'
+           implName='badd'
+           syntax='Operator'
+           commutative='true'
+           exec='SAME_BIN'>
+ <SameBin  function="a1+a2"/>
+ <Result><Field>&VS_SV;</Field></Result>
+ <Input><Field>&VS_SV;</Field></Input>
+ <Input><Field>&VS_SV;</Field></Input>
+</Operation>
+<Operation name='-'
+           implName='bmin'
+           syntax='Operator'
+           exec='SAME_BIN'>
+ <SameBin  function="a1-a2"/>
+ <Result><Field>&VS_SV;</Field></Result>
+ <Input><Field>&VS_SV;</Field></Input>
+ <Input><Field>&VS_SV;</Field></Input>
+</Operation>
+<Operation name='timeinputscalar'
+           exec='T_IN'>
+           <Manual/>
+ <Result><Field>&VS_S;</Field></Result>
+ <Input><TimeSeries/></Input>
+ <Input><Field>&VS_BNO;</Field></Input>
+</Operation>
+<Operation name='timeinputdirectional'
+           exec='T_IN'>
+           <Manual/>
+ <Result><Field>&VS_D;</Field></Result>
+ <Input><TimeSeries/></Input>
+ <Input><Field>&VS_BNO;</Field></Input>
+</Operation>
+<Operation name='timeinputboolean'
+           exec='T_IN'>
+           <Manual/>
+ <Result><Field>&VS_B;</Field></Result>
+ <Input><TimeSeries/></Input>
+ <Input><Field>&VS_BNO;</Field></Input>
+</Operation>
+<Operation name='timeinputldd'
+           exec='T_IN'>
+           <Manual/>
+ <Result><Field>&VS_L;</Field></Result>
+ <Input><TimeSeries/></Input>
+ <Input><Field>&VS_BNO;</Field></Input>
+</Operation>
+<Operation name='timeinputnominal'
+           exec='T_IN'>
+           <Manual/>
+ <Result><Field>&VS_N;</Field></Result>
+ <Input><TimeSeries/></Input>
+ <Input><Field>&VS_BNO;</Field></Input>
+</Operation>
+<Operation name='timeinputordinal'
+           exec='T_IN'>
+           <Manual/>
+ <Result><Field>&VS_O;</Field></Result>
+ <Input><TimeSeries/></Input>
+ <Input><Field>&VS_BNO;</Field></Input>
+</Operation>
+<Operation name='lookupnominal'
+           exec='Direct'>
+ <Result><Field>&VS_N;</Field></Result>
+ <Input><Table/></Input>
+ <Input repeat='true'><Field>&VS_FIELD;</Field></Input>
+</Operation>
+<Operation name='lookupboolean'
+           exec='Direct'>
+ <Result><Field>&VS_B;</Field></Result>
+ <Input><Table/></Input>
+ <Input repeat='true'><Field>&VS_FIELD;</Field></Input>
+</Operation>
+<Operation name='lookupordinal'
+           exec='Direct'>
+ <Result><Field>&VS_O;</Field></Result>
+ <Input><Table/></Input>
+ <Input repeat='true'><Field>&VS_FIELD;</Field></Input>
+</Operation>
+<Operation name='lookupscalar'
+           exec='Direct'>
+ <Result><Field>&VS_S;</Field></Result>
+ <Input><Table/></Input>
+ <Input repeat='true'><Field>&VS_FIELD;</Field></Input>
+</Operation>
+<Operation name='lookuplinear'
+           exec='Direct'>
+ <Result><Field>&VS_S;</Field></Result>
+ <Input><Table/></Input>
+ <Input><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='lookupdirectional'
+           exec='Direct'>
+ <Result><Field>&VS_D;</Field></Result>
+ <Input><Table/></Input>
+ <Input repeat='true'><Field>&VS_FIELD;</Field></Input>
+</Operation>
+<Operation name='lookupldd'
+           exec='Direct'>
+ <Result><Field>&VS_L;</Field></Result>
+ <Input><Table/></Input>
+ <Input repeat='true'><Field>&VS_FIELD;</Field></Input>
+</Operation>
+<Operation name='indexnominal'
+           exec='INDEX'>
+ <Result><Field spatial='Non'>&VS_N;</Field></Result>
+ <Input><IndexTable/></Input>
+</Operation>
+<Operation name='indexboolean'
+           exec='INDEX'>
+ <Result><Field spatial='Non'>&VS_B;</Field></Result>
+ <Input><IndexTable/></Input>
+</Operation>
+<Operation name='indexordinal'
+           exec='INDEX'>
+ <Result><Field spatial='Non'>&VS_O;</Field></Result>
+ <Input><IndexTable/></Input>
+</Operation>
+<Operation name='indexscalar'
+           exec='INDEX'>
+ <Result><Field spatial='Non'>&VS_S;</Field></Result>
+ <Input><IndexTable/></Input>
+</Operation>
+<Operation name='indexdirectional'
+           exec='INDEX'>
+ <Result><Field spatial='Non'>&VS_D;</Field></Result>
+ <Input><IndexTable/></Input>
+</Operation>
+<Operation name='indexldd'
+           exec='INDEX'>
+ <Result><Field spatial='Non'>&VS_L;</Field></Result>
+ <Input><IndexTable/></Input>
+</Operation>
+<Operation name='indextable'
+           exec='INDEX'>
+ <Result><IndexTable/></Result>
+ <Input><IndexTable/></Input>
+</Operation>
+<Operation name='index'
+           exec='INDEX'>
+ <Result><Field spatial='Yes'>&VS_FIELD;</Field></Result>
+ <Input><IndexTable/></Input>
+</Operation>
+<!-- # type conversions: -->
+<!-- # clean ones: -->
+<!-- #vector SYNTAX_FUNC VS_V ST_DERIVED 2 EXEC_TYPE_CONV CG_PLAIN -->
+<!-- # VS_S ST_DERIVED -->
+<!-- # VS_S ST_DERIVED -->
+<Operation name='ldd'
+           exec='CONV'>
+           <Manual/>
+ <Result><Field>&VS_L;</Field></Result>
+ <Input><Field>&VS_NOSDL;</Field></Input>
+</Operation>
+<Operation name='directional'
+           exec='CONV'>
+           <Manual/>
+ <Result><Field>&VS_D;</Field></Result>
+ <Input><Field>&VS_FIELD;</Field></Input>
+</Operation>
+<!-- #dirty ones, or neccessary for numbers: -->
+<Operation name='scalar'
+           exec='CONV'>
+           <Manual/>
+ <Result><Field>&VS_S;</Field></Result>
+ <Input><Field>&VS_FIELD;</Field></Input>
+</Operation>
+<Operation name='boolean'
+           implName='boolean_'
+           exec='CONV'>
+           <Manual/>
+ <Result><Field>&VS_B;</Field></Result>
+ <Input><Field>&VS_FIELD;</Field></Input>
+</Operation>
+<Operation name='nominal'
+           exec='CONV'>
+           <Manual/>
+ <Result><Field>&VS_N;</Field></Result>
+ <Input><Field>&VS_FIELD;</Field></Input>
+</Operation>
+<Operation name='ordinal'
+           exec='CONV'>
+           <Manual/>
+ <Result><Field>&VS_O;</Field></Result>
+ <Input><Field>&VS_FIELD;</Field></Input>
+</Operation>
+<!-- # boolean operands: -->
+<Operation name='and'
+           implName='and_'
+           syntax='Operator'
+           commutative='true'
+           exec='SAME_BIN'>
+ <SameBin foTypes="1"  function="a1 &amp; a2"/>
+ <Result><Field>&VS_B;</Field></Result>
+ <Input><Field>&VS_B;</Field></Input>
+ <Input><Field>&VS_B;</Field></Input>
+</Operation>
+<Operation name='or'
+           implName='or_'
+           syntax='Operator'
+           commutative='true'
+           exec='SAME_BIN'>
+ <SameBin foTypes="1"  function="a1 | a2"/>
+ <Result><Field>&VS_B;</Field></Result>
+ <Input><Field>&VS_B;</Field></Input>
+ <Input><Field>&VS_B;</Field></Input>
+</Operation>
+<Operation name='xor'
+           implName='xor_'
+           syntax='Operator'
+           commutative='true'
+           exec='SAME_BIN'>
+ <SameBin foTypes="1"  function="a1 ^ a2"/>
+ <Result><Field>&VS_B;</Field></Result>
+ <Input><Field>&VS_B;</Field></Input>
+ <Input><Field>&VS_B;</Field></Input>
+</Operation>
+<Operation name='not'
+           implName='not_'
+           syntax='Operator'
+           exec='SAME_UN'>
+ <SameUn foTypes="1" function="!v"/>
+ <Result><Field>&VS_B;</Field></Result>
+ <Input><Field>&VS_B;</Field></Input>
+</Operation>
+<Operation name='test_until'
+           syntax='None'
+           exec='MISC'>
+ <Result><Field>&VS_B;</Field></Result>
+ <Input><Field>&VS_B;</Field></Input>
+</Operation>
+<!-- trigonimetric funcs for directional and scalar input
+     SameUn is the case for VS_D, VS_S needs pre-conversion
+     thus the generated sin/cos/tan_f code is the VS_D case
+
+     sin/cos/tan are dealt with special in createOperatorCppCode
+      they are tagged SameUn but they are not!
+  -->
+<Operation name='sin'
+           exec='TRIG'>
+<SameUn onlyDomainIll="v==-1" function="std::sin(v)"/>
+ <Result><Field>&VS_S;</Field></Result>
+ <Input><Field>&VS_SD;</Field></Input>
+</Operation>
+<Operation name='cos'
+           exec='TRIG'>
+<SameUn onlyDomainIll="v==-1"     function="std::cos(v)"/>
+ <Result><Field>&VS_S;</Field></Result>
+ <Input><Field>&VS_SD;</Field></Input>
+</Operation>
+<Operation name='tan'
+           exec='TRIG'>
+ <!-- flat, 90 or 180 degrees, rounded problem conver from degrees to radians -->
+<SameUn onlyDomainIll=
+ "(v==-1||com::equal_epsilon(M_PI*0.5,(double)v)||com::equal_epsilon(M_PI*1.5,(double)v))"
+         function="std::tan(v)" />
+ <Result><Field>&VS_S;</Field></Result>
+ <Input><Field>&VS_SD;</Field></Input>
+</Operation>
+<Operation name='asin'
+           exec='SAME_UN'>
+ <SameUn onlyDomainIll="std::fabs(v)>1" function="(T)ScaleRad(std::asin(v))"/>
+ <Result><Field>&VS_D;</Field></Result>
+ <Input><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='acos'
+           exec='SAME_UN'>
+ <SameUn onlyDomainIll="std::fabs(v)>1" function="(T)std::acos(v)"/>
+ <Result><Field>&VS_D;</Field></Result>
+ <Input><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='atan'
+           exec='SAME_UN'>
+<SameUn  function="(T)ScaleRad(std::atan(v))"/>
+ <Result><Field>&VS_D;</Field></Result>
+ <Input><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='abs'
+           exec='SAME_UN'>
+ <SameUn  function="std::fabs(v)"/>
+ <Result><Field>&VS_S;</Field></Result>
+ <Input><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='exp'
+           exec='SAME_UN'>
+ <SameUn  function="std::exp(v)"/>
+ <Result><Field>&VS_S;</Field></Result>
+ <Input><Field>&VS_S;</Field></Input>
+</Operation>
+<!-- # faculty factorial -->
+<Operation name='fac'
+           exec='SAME_UN'>
+ <SameUn onlyDomainIll="special::fac_domainIll(v)" function="special::fac_impl(v)"/>
+ <Result><Field>&VS_S;</Field></Result>
+ <Input><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='rounddown'
+           exec='SAME_UN'>
+<SameUn  function="std::floor(v)"/>
+ <Result><Field>&VS_S;</Field></Result>
+ <Input><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='ln'
+           exec='SAME_UN'>
+<SameUn onlyDomainIll="v&lt;=0 "     function="std::log(v)"/>
+ <Result><Field>&VS_S;</Field></Result>
+ <Input><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='log10'
+           exec='SAME_UN'>
+ <SameUn onlyDomainIll="v&lt;=0 "     function="std::log10(v)"/>
+ <Result><Field>&VS_S;</Field></Result>
+ <Input><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='roundup'
+           exec='SAME_UN'>
+<SameUn  function="std::ceil(v)"/>
+ <Result><Field>&VS_S;</Field></Result>
+ <Input><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='roundoff'
+           exec='SAME_UN'>
+ <SameUn  function="boost::math::round(v)"/>
+ <Result><Field>&VS_S;</Field></Result>
+ <Input><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='sqrt'
+           exec='SAME_UN'>
+ <SameUn onlyDomainIll="v &lt; 0" function="std::sqrt(v)"/>
+ <Result><Field>&VS_S;</Field></Result>
+ <Input><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='sqr'
+           exec='SAME_UN'>
+ <SameUn  function="v*v"/>
+ <Result><Field>&VS_S;</Field></Result>
+ <Input><Field>&VS_S;</Field></Input>
+</Operation>
+<!-- # map creation:  -->
+<Operation name='normal'
+           exec='GEN_SP'>
+           <Manual/>
+ <Result><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Input><Field>&VS_B;</Field></Input>
+</Operation>
+<Operation name='uniform'
+           exec='GEN_SP'>
+           <Manual/>
+ <Result><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Input><Field>&VS_B;</Field></Input>
+</Operation>
+<Operation name='xcoordinate'
+           exec='GEN_SP'>
+           <Manual/>
+ <Result><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Input><Field>&VS_B;</Field></Input>
+</Operation>
+<Operation name='ycoordinate'
+           exec='GEN_SP'>
+           <Manual/>
+ <Result><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Input><Field>&VS_B;</Field></Input>
+</Operation>
+<Operation name='uniqueid'
+           exec='GEN_SP'>
+           <Manual/>
+ <Result><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Input><Field>&VS_B;</Field></Input>
+</Operation>
+<Operation name='move'
+           exec='GLOBAL'>
+ <Result><Field spatial='Yes'>&VS_B;</Field></Result>
+ <Input><Field>&VS_B;</Field></Input>
+ <Input><Field>&VS_S;</Field></Input>
+ <Input><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='shift'
+           exec='GLOBAL'>
+ <Result><Field spatial='Yes'>&VS_FIELD;</Field></Result>
+ <Input><Field>&VS_FIELD;</Field></Input>
+ <Input><Field spatial="Non">&VS_S;</Field></Input>
+ <Input><Field spatial="Non">&VS_S;</Field></Input>
+</Operation>
+<Operation name='shift0'
+           exec='GLOBAL'>
+ <Result><Field spatial='Yes'>&VS_FIELD;</Field></Result>
+ <Input><Field>&VS_FIELD;</Field></Input>
+ <Input><Field spatial="Non">&VS_S;</Field></Input>
+ <Input><Field spatial="Non">&VS_S;</Field></Input>
+</Operation>
+<!-- # constants: -->
+<Operation name='celllength'
+           exec='GEN_NS'>
+ <Manual/>
+ <Result><Field spatial='Non'>&VS_S;</Field></Result>
+</Operation>
+<Operation name='cellarea'
+           exec='GEN_NS'>
+ <Manual/>
+ <Result><Field spatial='Non'>&VS_S;</Field></Result>
+</Operation>
+<Operation name='time'
+           exec='GEN_NS'>
+ <Manual/>
+ <Result><Field spatial='Non'>&VS_S;</Field></Result>
+</Operation>
+<Operation name='timeslice'
+           exec='GEN_NS'>
+ <Manual/>
+ <Result><Field spatial='Non'>&VS_S;</Field></Result>
+</Operation>
+<Operation name='mapnormal'
+           exec='GEN_NS'>
+ <Manual/>
+ <Result><Field spatial='Non'>&VS_S;</Field></Result>
+</Operation>
+<Operation name='mapuniform'
+           exec='GEN_NS'>
+ <Manual/>
+ <Result><Field spatial='Non'>&VS_S;</Field></Result>
+</Operation>
+<!-- # misc -->
+<Operation name='succ'
+           exec='SAME_UN'>
+ <SameUn foTypes="4" function="v+(v&lt;INT4_MAX)"/>
+ <Result><Field>&VS_O;</Field></Result>
+ <Input><Field>&VS_O;</Field></Input>
+</Operation>
+<Operation name='pred'
+           exec='SAME_UN'>
+<SameUn foTypes="4" function="v-(v>INT4_MIN)"/>
+ <Result><Field>&VS_O;</Field></Result>
+ <Input><Field>&VS_O;</Field></Input>
+</Operation>
+<Operation name='pit'
+           exec='DIFF_UN'>
+ <Manual/>
+ <Result><Field>&VS_N;</Field></Result>
+ <Input><Field>&VS_L;</Field></Input>
+</Operation>
+<Operation name='nodirection'
+           exec='DIFF_UN'>
+           <DiffUn foResultType="1" foTypes="f" function="i==-1"/>
+ <Result><Field>&VS_B;</Field></Result>
+ <Input><Field>&VS_D;</Field></Input>
+</Operation>
+
+
+<!-- # mapminimum, mapmaximum is also solved by first and only operand -->
+<Operation name='mapminimum'
+           exec='POLY'>
+ <Manual/>
+ <Result><Field spatial='Non'>&VS_OS;</Field></Result>
+ <Input><Field spatial='Yes'>&VS_OS;</Field></Input>
+</Operation>
+<Operation name='mapmaximum'
+           exec='POLY'>
+ <Manual/>
+ <Result><Field spatial='Non'>&VS_OS;</Field></Result>
+ <Input><Field spatial='Yes'>&VS_OS;</Field></Input>
+</Operation>
+
+<Operation name='defined'
+           exec='POLY'>
+ <Manual/>
+ <Result><Field>&VS_B;</Field></Result>
+ <Input><Field>&VS_FIELD;</Field></Input>
+</Operation>
+<Operation name='maparea'
+           exec='POLY'>
+ <Manual/>
+ <Result><Field spatial='Non'>&VS_S;</Field></Result>
+ <Input><Field spatial='Yes'>&VS_FIELD;</Field></Input>
+</Operation>
+<Operation name='spatial'
+           exec='POLY'>
+ <Manual/>
+ <Result><Field spatial='Yes'>&VS_FIELD;</Field></Result>
+ <Input><Field>&VS_FIELD;</Field></Input>
+</Operation>
+<!-- single function -->
+<!-- # in case of the routing expression of a storage: -->
+<Operation name='accu'
+           syntax='MRF'
+           exec='MRF'>
+ &AccuResults;
+ <Input><Field spatial='Yes'>&VS_L;</Field></Input>
+ <Input><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='muskingum'
+           exec='Direct'>
+<!-- parked muskingtimestep in muskingum.h -->
+ <Result contextName='flowRate'>
+    <!-- m3/sec -->
+   <Field spatial='Yes'>&VS_S;</Field></Result>
+ <Input contextName='Ldd'>
+    <!-- 0 m3/sec -->
+   <Field spatial='Yes'>&VS_L;</Field></Input>
+ <Input contextName='prevFlowRate'>
+    <!-- 1 m3/sec -->
+    <Field spatial='Yes'>&VS_S;</Field></Input>
+ <Input contextName='prevInflow'>
+    <!-- 2 m3/sec -->
+    <Field spatial='Yes'>&VS_S;</Field></Input>
+ <Input contextName='Inflow'>
+    <!-- 3 m3/sec -->
+    <Field spatial='Yes'>&VS_S;</Field></Input>
+ <Input contextName='kPerUnitSegmentLength'>
+    <!-- 4 sec > 0 -->
+    <Field>&VS_S;</Field></Input>
+ <Input contextName='x'>
+    <!-- 5 interval in [0,1] -->
+    <Field>&VS_S;</Field></Input>
+ <Input contextName='segmentLength'>
+    <!-- 6 L -->
+    <Field>&VS_S;</Field></Input>
+ <Input contextName='nrTimeSlices'>
+    <!-- 7 > 0 -->
+    <Field>&VS_NO;</Field></Input>
+ <Input contextName='timestepInSecs'>
+    <!-- 8 > 0 -->
+    <Field spatial='Non'>&VS_S;</Field></Input>
+</Operation>
+<!-- dynwave/lookupstate/lookuppotential:
+    table always as first argument is a current limitation
+    enum   LookupColumns { profileId=0,H=1,A=2,P=3 };
+    documentation is in docs/pcrmanual/manual_updates/dynWaveRouting.doc
+ -->
+<Operation name='dynwave'
+           syntax='MRF'
+           exec='MRF'>
+ &AccuResults;
+ <Input><Table/></Input>
+ <!-- field 0: -->
+ <Input contextName='profileId'><Field>&VS_NO;</Field></Input>
+ <!-- field 1: -->
+ <Input contextName='ldd'><Field spatial='Yes'>&VS_L;</Field></Input>
+ <!-- field 2: -->
+ <Input contextName='oldState'><Field>&VS_S;</Field></Input>
+ <!-- field 3: -->
+ <Input contextName='inflow'><Field>&VS_S;</Field></Input>
+ <!-- field 4: -->
+ <Input contextName='bottomLevel'><Field>&VS_S;</Field></Input>
+ <!-- field 5: -->
+ <Input contextName='roughness'><Field>&VS_S;</Field></Input>
+ <!-- field 6: -->
+ <Input contextName='segmentLength'> <!-- or channelLength -->
+           <Field>&VS_S;</Field></Input>
+ <!-- field 7: -->
+ <Input contextName='nrTimeSlices'><Field>&VS_O;</Field></Input>
+ <!-- field 8: -->
+ <Input contextName='timestepInSecs'><Field spatial='Non'>&VS_S;</Field></Input>
+ <!-- field 9: -->
+ <Input contextName='constantState'><Field>&VS_B;</Field></Input>
+</Operation>
+<Operation name='lookupstate'
+           exec='Direct'>
+  &LookupStatePot;
+ <!-- field 3: -->
+ <Input contextName='potential'><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='lookuppotential'
+           exec='Direct'>
+  &LookupStatePot;
+ <!-- field 3: -->
+ <Input contextName='state'><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='accucapacity'
+           syntax='MRF'
+           exec='MRF'>
+ &AccuResults;
+ <Input><Field spatial='Yes'>&VS_L;</Field></Input>
+ <Input><Field>&VS_S;</Field></Input>
+ <Input><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='accuthreshold'
+           syntax='MRF'
+           exec='MRF'>
+ &AccuResults;
+ <Input><Field spatial='Yes'>&VS_L;</Field></Input>
+ <Input><Field>&VS_S;</Field></Input>
+ <Input><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='accufraction'
+           syntax='MRF'
+           exec='MRF'>
+ &AccuResults;
+ <Input><Field spatial='Yes'>&VS_L;</Field></Input>
+ <Input><Field>&VS_S;</Field></Input>
+ <Input><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='accutrigger'
+           syntax='MRF'
+           exec='MRF'>
+ &AccuResults;
+ <Input><Field spatial='Yes'>&VS_L;</Field></Input>
+ <Input><Field>&VS_S;</Field></Input>
+ <Input><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='accutraveltime'
+           syntax='MRF'
+           exec='MRF'>
+ &AccuResults;
+ <Input contextName='ldd'><Field spatial='Yes'>&VS_L;</Field></Input>
+ <Input contextName='material'><Field>&VS_S;</Field></Input>
+ <Input contextName='velocity'><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='accutraveltimefractionremoved'
+           exec='GLOBAL'>
+ <Result><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Input contextName='ldd'><Field spatial='Yes'>&VS_L;</Field></Input>
+ <Input contextName='material'><Field>&VS_S;</Field></Input>
+ <Input contextName='velocity'><Field>&VS_S;</Field></Input>
+ <Input contextName='fraction'><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='accutraveltimefraction'
+           syntax='MRF'
+           exec='MRF'>
+ &AccuResults;
+ <Input contextName='ldd'><Field spatial='Yes'>&VS_L;</Field></Input>
+ <Input contextName='material'><Field>&VS_S;</Field></Input>
+ <Input contextName='velocity'><Field>&VS_S;</Field></Input>
+ <Input contextName='fraction'><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='diffuse'
+           syntax='MRF'
+           exec='MRF'>
+ &AccuResults;
+ <Input contextName='direction'><Field>&VS_D;</Field></Input>
+ <Input contextName='in'><Field>&VS_S;</Field></Input>
+ <Input contextName='fluxIn'><Field>&VS_S;</Field></Input>
+</Operation>
+<!-- kinwavestate kinwaveflux -->
+<Operation name='kinwave'
+           syntax='MRF'
+           exec='MRF'
+           >
+ &AccuResults;
+ <Input contextName='ldd'><Field spatial='Yes'>&VS_L;</Field></Input>
+ <Input contextName='previousState'><Field>&VS_S;</Field></Input>
+ <Input contextName='qTimestep'><Field>&VS_S;</Field></Input>
+ <Input contextName='alpha'><Field>&VS_S;</Field></Input>
+ <!-- arg nr 4 -->
+ <Input contextName='beta'><Field>&VS_S;</Field></Input>
+ <!-- arg nr 5 -->
+ <Input contextName='nrTimeSlices'><Field>&VS_O;</Field></Input>
+ <!-- should map to the real dt of the timeslice, hence
+      non spatial
+   -->
+ <!-- arg nr 6 -->
+ <Input contextName='timestepInSecs'><Field spatial='Non'>&VS_S;</Field></Input>
+ <!-- arg nr 7 -->
+ <Input contextName='deltaX'><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='kinematic'
+           exec='Direct'>
+ <Result><Field spatial='Yes'>&VS_S;</Field></Result>
+ <!-- arg nr 0 -->
+ <Input contextName='ldd'><Field spatial='Yes'>&VS_L;</Field></Input>
+ <!-- arg nr 1 -->
+ <Input contextName='Qold'><Field>&VS_S;</Field></Input>
+ <!-- arg nr 2 -->
+ <Input contextName='q'><Field>&VS_S;</Field></Input>
+ <!-- arg nr 3 -->
+ <Input contextName='alpha'><Field>&VS_S;</Field></Input>
+ <!-- arg nr 4 -->
+ <Input contextName='beta'><Field>&VS_S;</Field></Input>
+ <!-- arg nr 5
+      value on Pit is used for whole catchment
+   -->
+ <Input contextName='nrTimeSlices'><Field>&VS_O;</Field></Input>
+ <!-- arg nr 6 -->
+ <Input contextName='timestepInSecs'><Field spatial='Non'>&VS_S;</Field></Input>
+ <!-- arg nr 7: -->
+ <Input contextName='deltaX'><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='_cellfocus'
+           exec='Direct'
+           syntax='None'
+           >
+ <Result><Field spatial='Non'>&VS_FIELD;</Field></Result>
+ <Input><Field>&VS_FIELD;</Field></Input>
+</Operation>
+
+<Operation name='timeoutput'
+           exec='MISC'>
+<!-- tricked void calc::Executor::visitExpr(ASTExpr   *e)
+  -->
+ <Result><TimeSeries/></Result>
+ <Input><Field>&VS_BNO;</Field></Input>
+ <Input><Field>&VS_FIELD;</Field></Input>
+</Operation>
+<!-- Not supported
+<Operation name='mapsummary'
+           exec='MISC'>
+ <Result><TimeSeries/></Result>
+ <Input><Field spatial='Yes'>&VS_FIELD;</Field></Input>
+</Operation>
+-->
+<Operation name='maptotal'
+           exec='DIFF_UN'>
+ <Manual/>
+ <Result><Field spatial='Non'>&VS_S;</Field></Result>
+ <Input><Field spatial='Yes'>&VS_S;</Field></Input>
+</Operation>
+<Operation name='mapand'
+           exec='DIFF_UN'>
+ <Manual/>
+ <Result><Field spatial='Non'>&VS_S;</Field></Result>
+ <Input><Field spatial='Yes'>&VS_S;</Field></Input>
+</Operation>
+<Operation name='mapor'
+           exec='DIFF_UN'>
+ <Manual/>
+ <Result><Field spatial='Non'>&VS_S;</Field></Result>
+ <Input><Field spatial='Yes'>&VS_S;</Field></Input>
+</Operation>
+<Operation name='areaarea'
+           exec='GLOBAL'>
+ <Result><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Input><Field spatial='Yes'>&VS_BNO;</Field></Input>
+</Operation>
+<Operation name='clump'
+           exec='GLOBAL'>
+ <Result><Field spatial='Yes'>&VS_N;</Field></Result>
+ <Input><Field spatial='Yes'>&VS_BNO;</Field></Input>
+</Operation>
+<Operation name='drain'
+           exec='GLOBAL'>
+ <Result><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Input><Field spatial='Yes'>&VS_S;</Field></Input>
+ <Input><Field spatial='Yes'>&VS_S;</Field></Input>
+</Operation>
+<Operation name='path'
+           exec='GLOBAL'>
+ <Result><Field spatial='Yes'>&VS_B;</Field></Result>
+ <Input><Field spatial='Yes'>&VS_L;</Field></Input>
+ <Input><Field spatial='Yes'>&VS_B;</Field></Input>
+</Operation>
+<Operation name='aspect'
+           exec='GLOBAL'>
+ <Result><Field spatial='Yes'>&VS_D;</Field></Result>
+ <Input><Field spatial='Yes'>&VS_S;</Field></Input>
+</Operation>
+<Operation name='slope'
+           exec='GLOBAL'>
+ <Result><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Input><Field spatial='Yes'>&VS_S;</Field></Input>
+</Operation>
+<Operation name='window4total'
+           exec='GLOBAL'>
+ <Result><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Input><Field spatial='Yes'>&VS_S;</Field></Input>
+</Operation>
+<Operation name='profcurv'
+           exec='GLOBAL'>
+ <Result><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Input><Field spatial='Yes'>&VS_S;</Field></Input>
+</Operation>
+<Operation name='plancurv'
+           exec='GLOBAL'>
+ <Result><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Input><Field spatial='Yes'>&VS_S;</Field></Input>
+</Operation>
+<Operation name='view'
+           exec='GLOBAL'>
+ <Result><Field spatial='Yes'>&VS_B;</Field></Result>
+ <Input><Field spatial='Yes'>&VS_S;</Field></Input>
+ <Input><Field spatial='Yes'>&VS_B;</Field></Input>
+</Operation>
+<Operation name='extentofview'
+           exec='GLOBAL'>
+ <Result><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Input><Field spatial='Yes'>&VS_BNO;</Field></Input>
+ <Input><Field spatial='Non'>&VS_S;</Field></Input>
+</Operation>
+<Operation name='inversedistance'
+           exec='GLOBAL'>
+ <Result><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Input><Field>&VS_B;</Field></Input>
+ <Input><Field spatial='Yes'>&VS_S;</Field></Input>
+ <Input contextName='power'><Field>&VS_S;</Field></Input>
+ <Input contextName='max.  search radius (unit-cell)'><Field>&VS_S;</Field></Input>
+ <Input contextName='max. points in neigbourhood'><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='catchment'
+           exec='GLOBAL'>
+ <Result><Field spatial='Yes'>&VS_BNO;</Field></Result>
+ <Input contextName='ldd'><Field spatial='Yes'>&VS_L;</Field></Input>
+ <Input contextName='points'><Field spatial='Yes'>&VS_BNO;</Field></Input>
+</Operation>
+<Operation name='subcatchment'
+           exec='GLOBAL'>
+ <Result><Field spatial='Yes'>&VS_BNO;</Field></Result>
+ <Input contextName='ldd'><Field spatial='Yes'>&VS_L;</Field></Input>
+ <Input contextName='points'><Field spatial='Yes'>&VS_BNO;</Field></Input>
+</Operation>
+<Operation name='windowaverage'
+           exec='GLOBAL'>
+ <Result><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Input><Field spatial='Yes'>&VS_S;</Field></Input>
+ <Input contextName='windowSize'><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='markwhilesumle'
+           exec='GLOBAL'>
+ &Mark;
+</Operation>
+<Operation name='markwhilesumge'
+           exec='GLOBAL'>
+ &Mark;
+</Operation>
+<Operation name='ellipseaverage'
+           exec='GLOBAL'>
+ <Result><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Input><Field spatial='Yes'>&VS_S;</Field></Input>
+ <Input contextName='xmajor'><Field>&VS_S;</Field></Input>
+ <Input contextName='ymajor'><Field>&VS_S;</Field></Input>
+ <Input contextName='angle'><Field>&VS_D;</Field></Input>
+</Operation>
+<Operation name='influencesimplegauss'
+           exec='GLOBAL'>
+ <Result><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Input contextName='input'><Field spatial='Yes'>&VS_S;</Field></Input>
+ <Input contextName='range'><Field>&VS_S;</Field></Input>
+ <Input contextName='eps'><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='distributesimplegauss'
+           exec='GLOBAL'>
+ <Result><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Input contextName='amount'><Field spatial='Yes'>&VS_S;</Field></Input>
+ <Input contextName='range'><Field>&VS_S;</Field></Input>
+ <Input contextName='eps'><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='ibngauss'
+           exec='GLOBAL'>
+ <Result><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Input contextName='units'><Field spatial='Yes'>&VS_S;</Field></Input>
+ <Input contextName='range'><Field>&VS_S;</Field></Input>
+ <Input contextName='packages'><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='horizontan'
+           exec='GLOBAL'>
+ <Result><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Input contextName='dem'><Field spatial='Yes'>&VS_S;</Field></Input>
+ <Input contextName='viewAngle'><Field>&VS_D;</Field></Input>
+</Operation>
+<Operation name='catchmenttotal'
+           exec='GLOBAL'>
+ <Result><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Input><Field>&VS_S;</Field></Input>
+ <Input contextName='ldd'><Field spatial='Yes'>&VS_L;</Field></Input>
+</Operation>
+<Operation name='areamaximum'
+           exec='Direct'>
+ <Result><Field spatial='Yes'>&VS_OS;</Field></Result>
+ <Input><Field spatial='Yes'>&VS_OS;</Field></Input>
+ <Input contextName='classes'><Field spatial='Yes'>&VS_BNO;</Field></Input>
+</Operation>
+<Operation name='areaminimum'
+           exec='Direct'>
+ <Result><Field spatial='Yes'>&VS_OS;</Field></Result>
+ <Input><Field spatial='Yes'>&VS_OS;</Field></Input>
+ <Input contextName='classes'><Field spatial='Yes'>&VS_BNO;</Field></Input>
+</Operation>
+<Operation name='areaaverage'
+           exec='Direct'>
+ <Result><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Input><Field spatial='Yes'>&VS_S;</Field></Input>
+ <Input contextName='classes'><Field spatial='Yes'>&VS_BNO;</Field></Input>
+</Operation>
+<Operation name='areatotal'
+           exec='Direct'>
+ <Result><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Input><Field spatial='Yes'>&VS_S;</Field></Input>
+ <Input contextName='classes'><Field spatial='Yes'>&VS_BNO;</Field></Input>
+</Operation>
+<Operation name='areauniform'
+           exec='GLOBAL'>
+ <Result><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Input contextName='classes'><Field spatial='Yes'>&VS_BNO;</Field></Input>
+</Operation>
+<Operation name='areanormal'
+           exec='GLOBAL'>
+ <Result><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Input contextName='classes'><Field spatial='Yes'>&VS_BNO;</Field></Input>
+</Operation>
+<Operation name='windowtotal'
+           exec='GLOBAL'>
+ <Result><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Input><Field spatial='Yes'>&VS_S;</Field></Input>
+ <Input contextName='windowsize'><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='windowhighpass'
+           exec='GLOBAL'>
+ <Result><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Input><Field spatial='Yes'>&VS_S;</Field></Input>
+ <Input contextName='windowSize'><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='ldddist'
+           exec='GLOBAL'>
+ <Result><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Input contextName='ldd'><Field spatial='Yes'>&VS_L;</Field></Input>
+ <Input contextName='points'><Field spatial='Yes'>&VS_B;</Field></Input>
+ <Input contextName='frictionMaterial'><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='upstream'
+           exec='GLOBAL'>
+ <Result><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Input contextName='ldd'><Field spatial='Yes'>&VS_L;</Field></Input>
+ <Input contextName='frictionMaterial'><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='streamorder'
+           exec='GLOBAL'>
+ <Result><Field spatial='Yes'>&VS_O;</Field></Result>
+ <Input contextName='ldd'><Field spatial='Yes'>&VS_L;</Field></Input>
+</Operation>
+<Operation name='transient'
+           exec='GLOBAL'>
+ <Result><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Input contextName='dem'><Field spatial='Yes'>&VS_S;</Field></Input>
+ <Input contextName='recharge'><Field>&VS_S;</Field></Input>
+ <Input contextName='transmissivity'><Field>&VS_S;</Field></Input>
+ <Input contextName='flow condition'><Field>&VS_N;</Field></Input>
+ <Input contextName='storage coeff.'><Field>&VS_S;</Field></Input>
+ <Input contextName='interval'><Field spatial='Non'>&VS_S;</Field></Input>
+ <Input contextName='tolerance'><Field spatial='Non'>&VS_S;</Field></Input>
+</Operation>
+<Operation name='downstream'
+           exec='GLOBAL'>
+ <Result><Field spatial='Yes'>&VS_FIELD;</Field></Result>
+ <Input contextName='ldd'><Field spatial='Yes'>&VS_L;</Field></Input>
+ <Input contextName='transportvalue'><Field>&VS_FIELD;</Field></Input>
+</Operation>
+<Operation name='downstreamdist'
+           exec='DIFF_UN'>
+           <DiffUn foResultType="f" foTypes="1"
+             function="special::impl_downstreamdist(i)"/>
+ <Result><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Input contextName='ldd'><Field spatial='Yes'>&VS_L;</Field></Input>
+</Operation>
+<Operation name='lddmask'
+           exec='GLOBAL'>
+ <Result><Field spatial='Yes'>&VS_L;</Field></Result>
+ <Input contextName='ldd'><Field spatial='Yes'>&VS_L;</Field></Input>
+ <Input contextName='points'><Field spatial='Yes'>&VS_B;</Field></Input>
+</Operation>
+<Operation name='lddrepair'
+           exec='GLOBAL'>
+ <Result><Field spatial='Yes'>&VS_L;</Field></Result>
+ <Input contextName='ldd'><Field>&VS_L;</Field></Input>
+</Operation>
+<Operation name='slopelength'
+           exec='GLOBAL'>
+ <Result><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Input contextName='ldd'><Field spatial='Yes'>&VS_L;</Field></Input>
+ <Input contextName='frictionMaterial'><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='lddcreate'
+           syntax='MRF'
+           exec='MRF'>
+ <Result functionSuffix=""><Field spatial='Yes'>&VS_L;</Field></Result>
+ <Result functionSuffix="dem"><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Input contextName='dem'><Field spatial='Yes'>&VS_S;</Field></Input>
+ <Input contextName='depth'><Field>&VS_S;</Field></Input>
+ <Input contextName='volume'><Field>&VS_S;</Field></Input>
+ <Input contextName='area'><Field>&VS_S;</Field></Input>
+ <Input contextName='volumeArea'><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='lddcreatend'
+           syntax='MRF'
+           exec='MRF'>
+ <Result functionSuffix=""><Field spatial='Yes'>&VS_L;</Field></Result>
+ <Result functionSuffix="dem"><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Input contextName='dem'><Field spatial='Yes'>&VS_S;</Field></Input>
+ <Input contextName='depth'><Field>&VS_S;</Field></Input>
+ <Input contextName='volume'><Field>&VS_S;</Field></Input>
+ <Input contextName='area'><Field>&VS_S;</Field></Input>
+ <Input contextName='volumeArea'><Field>&VS_S;</Field></Input>
+</Operation>
+<!-- # implementation functions for execution -->
+<!-- # Non spatial timeoutput:  not used anymore -->
+<!-- # timeoutput SYNTAX_NONE VS_tss ST_NA 1 EXEC_TYPE_TOUT CG_PLAIN timeoutput_n -->
+<!-- # VS_FIELD   ST_NONSPATIAL -->
+<!--
+<Operation name='timeoutput'
+           implName='timeoutput_4'
+           syntax='None'
+           exec='TOUT'>
+ <Result><TimeSeries/></Result>
+ <Input><Field spatial='Yes'>&VS_BNO;</Field></Input>
+ <Input><Field>&VS_BLNO;</Field></Input>
+</Operation>
+<Operation name='timeoutput'
+           implName='timeoutput_s'
+           syntax='None'
+           exec='TOUT'>
+ <Result><TimeSeries/></Result>
+ <Input><Field spatial='Yes'>&VS_BNO;</Field></Input>
+ <Input><Field>&VS_SD;</Field></Input>
+</Operation>
+
+
+# ?TO? conv. based on cell representation
+    IS THIS USED?
+<Operation name='4to1'
+           syntax='None'
+           exec='DIFF_UN'>
+ <Result><Field>&VS_BL;</Field></Result>
+ <Input><Field>&VS_NO;</Field></Input>
+</Operation>
+<Operation name='sto1'
+           syntax='None'
+           exec='DIFF_UN'>
+ <Result><Field>&VS_BL;</Field></Result>
+ <Input><Field>&VS_SD;</Field></Input>
+</Operation>
+ checked version of c_s_2_4
+<Operation name='sto4'
+           syntax='None'
+           exec='DIFF_UN'>
+ <Result><Field>&VS_NO;</Field></Result>
+ <Input><Field>&VS_SD;</Field></Input>
+</Operation>
+-->
+
+<!-- # conversion stuff -->
+<!-- # ?_2_? conv. based on value scale -->
+<Operation name='c_1_2_b' syntax='None'
+           exec='SAME_UN'>
+<SameUn foTypes="1" function="v!= 0"/>
+ <Result><Field>&VS_B;</Field></Result>
+ <Input><Field>&VS_L;</Field></Input>
+</Operation>
+<Operation name='c_4_2_b'
+           syntax='None'
+           exec='DIFF_UN'>
+           <DiffUn foResultType="1" foTypes="4" function="i!= 0"/>
+ <Result><Field>&VS_B;</Field></Result>
+ <Input><Field>&VS_NO;</Field></Input>
+</Operation>
+<Operation name='c_s_2_b'
+           syntax='None'
+           exec='DIFF_UN'>
+           <DiffUn foResultType="1" foTypes="f" function="i!= 0"/>
+ <Result><Field>&VS_B;</Field></Result>
+ <Input><Field>&VS_SD;</Field></Input>
+</Operation>
+<!-- c_1_2_o and c_1_2_n only differ in result type -->
+<Operation name='c_1_2_o'
+           syntax='None'
+           exec='DIFF_UN'>
+           <DiffUn foResultType="4" foTypes="1" function="i"/>
+ <Result><Field>&VS_O;</Field></Result>
+ <Input><Field>&VS_BL;</Field></Input>
+</Operation>
+<Operation name='c_1_2_n'
+           syntax='None'
+           exec='DIFF_UN'>
+           <DiffUn foResultType="4" foTypes="1" function="i"/>
+ <Result><Field>&VS_N;</Field></Result>
+ <Input><Field>&VS_BL;</Field></Input>
+</Operation>
+<!-- c_s_2_O and c_s_2_N only differ in result type -->
+<Operation name='c_s_2_o'
+           syntax='None'
+           exec='DIFF_UN'>
+<DiffUn foResultType="4" foTypes="f" function="std::max&lt;>(((INT4)i), INT4_MIN)"/>
+ <Result><Field>&VS_O;</Field></Result>
+ <Input><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='c_s_2_n'
+           syntax='None'
+           exec='DIFF_UN'>
+<DiffUn foResultType="4" foTypes="f" function="std::max&lt;>(((INT4)i), INT4_MIN)"/>
+ <Result><Field>&VS_N;</Field></Result>
+ <Input><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='c_1_2_s'
+           syntax='None'
+           exec='DIFF_UN'>
+           <DiffUn foResultType="f" foTypes="1" function="i"/>
+ <Result><Field>&VS_S;</Field></Result>
+ <Input><Field>&VS_BL;</Field></Input>
+</Operation>
+<Operation name='c_4_2_s'
+           syntax='None'
+           exec='DIFF_UN'>
+           <DiffUn foResultType="f" foTypes="4" function="(ResultType)i"/>
+ <Result><Field>&VS_S;</Field></Result>
+ <Input><Field>&VS_NO;</Field></Input>
+</Operation>
+<Operation name='c_s_2_d'
+           syntax='None'
+           exec='SAME_UN'>
+ <SameUn function="special::impl_s_2_d(v)"/>
+ <Result><Field>&VS_D;</Field></Result>
+ <Input><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='c_d_2_s'
+           syntax='None'
+           exec='SAME_UN'>
+ <SameUn onlyDomainIll="v==-1" function="(T)(appDirection==APP_DEGREES?Rad2Deg(v):v)"/>
+ <Result><Field>&VS_S;</Field></Result>
+ <Input><Field>&VS_D;</Field></Input>
+</Operation>
+<Operation name='c_d_2_n'
+           syntax='None'
+           exec='DIFF_UN'>
+ <SameUn onlyDomainIll="v==-1" function="(T)(appDirection==APP_DEGREES?Rad2Deg(v):v)"/>
+ <Result><Field>&VS_N;</Field></Result>
+ <Input><Field>&VS_D;</Field></Input>
+</Operation>
+<Operation name='c_d_2_o'
+           syntax='None'
+           exec='DIFF_UN'>
+ <SameUn onlyDomainIll="v==-1" function="(T)(appDirection==APP_DEGREES?Rad2Deg(v):v)"/>
+ <Result><Field>&VS_O;</Field></Result>
+ <Input><Field>&VS_D;</Field></Input>
+</Operation>
+<Operation name='c_1_2_d'
+           syntax='None'
+           exec='DIFF_UN'>
+ <DiffUn foResultType="f" foTypes="1" function="special::impl_1_2_d(i)"/>
+ <Result><Field>&VS_D;</Field></Result>
+ <Input><Field>&VS_BL;</Field></Input>
+</Operation>
+<Operation name='c_4_2_d'
+           syntax='None'
+           exec='DIFF_UN'>
+           <DiffUn foResultType="f" foTypes="4" function="special::impl_4_2_d(i)"/>
+ <Result><Field>&VS_D;</Field></Result>
+ <Input><Field>&VS_NO;</Field></Input>
+</Operation>
+<Operation name='c_l_2_d'
+           syntax='None'
+           exec='DIFF_UN'>
+           <DiffUn foResultType="f" foTypes="1" function="special::impl_l_2_d(i)"/>
+ <Result><Field>&VS_D;</Field></Result>
+ <Input><Field>&VS_L;</Field></Input>
+</Operation>
+<Operation name='c_4_2_l'
+           syntax='None'
+           exec='DIFF_UN'>
+           <DiffUn foResultType="1" foTypes="4" function="special::impl_4_2_l(i)"/>
+ <Result><Field>&VS_L;</Field></Result>
+ <Input><Field>&VS_NO;</Field></Input>
+</Operation>
+<Operation name='c_s_2_l'
+           syntax='None'
+           exec='DIFF_UN'>
+           <DiffUn foResultType="1" foTypes="f" function="special::impl_s_2_l(i)"/>
+ <Result><Field>&VS_L;</Field></Result>
+ <Input><Field>&VS_S;</Field></Input>
+</Operation>
+<Operation name='c_d_2_l'
+           syntax='None'
+           exec='DIFF_UN'>
+           <DiffUn foResultType="1" foTypes="f" function="special::impl_d_2_l(i)"/>
+ <Result><Field>&VS_L;</Field></Result>
+ <Input><Field>&VS_D;</Field></Input>
+</Operation>
+<Operation name="riksfraction"
+           exec="GLOBAL">
+ <Result><Field spatial="Yes">&VS_S;</Field></Result>
+ <Input>                          <Field spatial="Yes">&VS_B;</Field></Input>
+ <Input contextName="innerRadius"><Field spatial="Non">&VS_S;</Field></Input>
+ <Input contextName="outerRadius"><Field spatial="Non">&VS_S;</Field></Input>
+</Operation>
+<Operation name="squarefraction"
+           exec="GLOBAL">
+ <Result><Field spatial="Yes">&VS_S;</Field></Result>
+ <Input>                          <Field spatial="Yes">&VS_B;</Field></Input>
+ <Input contextName="innerRadius"><Field spatial="Non">&VS_S;</Field></Input>
+ <Input contextName="outerRadius"><Field spatial="Non">&VS_S;</Field></Input>
+</Operation>
+<Operation name="gradx"
+           exec="GLOBAL">
+ <Result><Field spatial="Yes">&VS_S;</Field></Result>
+ <Input contextName="scalar"><Field spatial="Yes">&VS_S;</Field></Input>
+</Operation>
+<Operation name="grady"
+           exec="GLOBAL">
+ <Result><Field spatial="Yes">&VS_S;</Field></Result>
+ <Input contextName="scalar"><Field spatial="Yes">&VS_S;</Field></Input>
+</Operation>
+<Operation name="divergence"
+           exec="GLOBAL">
+ <Result><Field spatial="Yes">&VS_S;</Field></Result>
+ <Input contextName="vectorX"><Field spatial="Yes">&VS_S;</Field></Input>
+ <Input contextName="vectorY"><Field spatial="Yes">&VS_S;</Field></Input>
+</Operation>
+<Operation name="diver"
+           exec="GLOBAL">
+ <Result><Field spatial="Yes">&VS_S;</Field></Result>
+ <Input contextName="vectorX"><Field spatial="Yes">&VS_S;</Field></Input>
+ <Input contextName="vectorY"><Field spatial="Yes">&VS_S;</Field></Input>
+ <Input contextName="deltaX"><Field spatial="Yes">&VS_S;</Field></Input>
+ <Input contextName="deltaY"><Field spatial="Yes">&VS_S;</Field></Input>
+</Operation>
+<Operation name="lax"
+           exec="GLOBAL">
+ <Result><Field spatial="Yes">&VS_S;</Field></Result>
+ <Input contextName="input"><Field spatial="Yes">&VS_S;</Field></Input>
+ <Input contextName="fraction"><Field spatial="Non">&VS_S;</Field></Input>
+ <!--    defaults to 0.5 in code -->
+</Operation>
+<Operation name="laplacian"
+           exec="GLOBAL">
+ <Result><Field spatial="Yes">&VS_S;</Field></Result>
+ <Input contextName="input"><Field spatial="Yes">&VS_S;</Field></Input>
+</Operation>
+
+</Operations>

@@ -1,0 +1,111 @@
+<!-- pcrviscfg dtd -->
+
+<!-- Structure
+
+  pcrviscfg
+    visgroup
+      dataobject
+        cursor
+        stack
+      visualization
+        map3d
+          map3dviewoptions
+          map3danimtionoptions
+          height
+          attribute
+
+-->
+
+
+
+<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- Parameter entities -->
+<!-- Boolean type. -->
+<!ENTITY %    PEBoolean      "(true | false)">
+
+<!-- Integer type. -->
+<!ENTITY %    PEPositiveInteger "CDATA">
+
+
+
+<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- General entities -->
+<!-- Integer type (emulated). -->
+<!ENTITY %    PositiveInteger "(#PCDATA)">
+
+
+
+<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- Element and attribute declarations -->
+<!-- 1st level -->
+<!-- Tope level element. -->
+<!ELEMENT     pcrviscfg      (visgroup*)>
+
+<!--
+  date        Date on which the configuration file was written.
+  version     DTD version, which is provided by the xml generating software.
+  os          Runtime platform.
+  cwd         Current working directory.
+  -->
+<!ATTLIST     pcrviscfg      date CDATA #REQUIRED
+                             version CDATA #REQUIRED
+                             os (WIN32 | LINUX) #REQUIRED
+                             cwd CDATA #REQUIRED>
+
+<!-- 2nd level -->
+<!-- Visualization group. -->
+<!ELEMENT     visgroup       (dataobject)>
+<!-- <!ELEMENT     visgroup       (dataobject, visualization*)> -->
+
+<!-- 3rd level -->
+<!-- Data object. -->
+<!ELEMENT     dataobject     (cursor, stack*)>
+
+<!-- Cursor position of the data object. -->
+<!ELEMENT     cursor         (x, y, t)>
+
+<!ELEMENT     x              %PositiveInteger;>
+<!ELEMENT     y              %PositiveInteger;>
+<!ELEMENT     t              %PositiveInteger;>
+
+<!-- 3rd level -->
+<!-- Visualization. -->
+<!ELEMENT     visualization  (map3d+)>
+
+<!-- 4th level -->
+<!-- Map3D visualization. -->
+<!ELEMENT     map3d          (map3dviewoptions, map3danimationoptions,
+                              heightstack?, attributestack*)>
+
+<!ELEMENT     map3dviewoptions EMPTY>
+<!ATTLIST     map3dviewoptions smoothshading %PEBoolean; #REQUIRED
+                             lighton %PEBoolean; #REQUIRED
+                             scale CDATA #REQUIRED
+                             quadlength CDATA #REQUIRED>
+<!ELEMENT     map3danimationoptions EMPTY>
+<!ATTLIST     map3danimationoptions loopanimation %PEBoolean; #REQUIRED
+                             animationinterval CDATA #REQUIRED>
+
+<!-- Height stack is the stack in a Map3D visualization which contains the
+     height values. -->
+<!ELEMENT     heightstack    (stack)>
+
+<!-- An attribute stack is a stack which has to be visualized. -->
+<!ELEMENT     attributestack (stack)>
+
+<!-- Stack type -->
+<!ELEMENT     stack          ((name, firsttimestep, lasttimestep) | name)>
+
+<!--
+<!ELEMENT     stack          (name, directoryname)>
+<!ATTLIST     stack          firsttimestep %PEPositiveInteger; #REQUIRED
+                             lasttimestep %PEPositiveInteger; #REQUIRED>
+
+                             valuescale (BOOLEAN | NOMINAL | ORDINAL | SCALAR |
+                                  DIRECTIONAL | LDD) #REQUIRED>
+  -->
+
+<!ELEMENT     name           (#PCDATA)>
+<!ELEMENT     firsttimestep  %PositiveInteger;>
+<!ELEMENT     lasttimestep   %PositiveInteger;>
+

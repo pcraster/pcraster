@@ -1,0 +1,98 @@
+<!-- DTD test description
+     internal DTD to create and verify tests
+  -->
+
+<!-- start copy section from libs/pcrxml/pcraster.dtd -->
+
+<!ENTITY testPublic  PUBLIC "-//PCRaster//DTD PCRasterInternal V1.0//EN" "http://www.pcraster.nl">
+
+
+<!--
+<!ENTITY % String 'CDATA' >
+<!ENTITY % Boolean         '(true|false)'>
+
+<!ENTITY % DataTypeEnum '(Unknown|Boolean|Nominal|Ordinal|Scalar|Directional|Ldd|1|4|f)'>
+<!ELEMENT  DataType EMPTY>
+<!ATTLIST  DataType
+           value %DataTypeEnum; #REQUIRED>
+-->
+<!-- end copy section from libs/pcrxml/pcraster.dtd -->
+
+<!ELEMENT  testlist (test*,makefile) >
+<!ELEMENT  test     ((ast|model)?,(result|msg)?) >
+<!ELEMENT  makefile  ANY>
+<!ATTLIST  test
+           id   ID #REQUIRED>
+
+<!-- message/result
+     illnamed: result is a better name
+     resFile  create a textfile named "<id>.res"
+              within testdir
+     replace  if yes comparing msg should be done
+              after a number of replacement for possible platform
+              specifics:
+              LicensedFeatures::filePath() => @LF
+              \ => X
+              / => X
+              NOTE both style of slashes are done, set up tests
+                   accordingly
+              see calc_messagestestdb.cc at:
+              if (e.hasAttribute("replace")) {
+                 ...
+              }
+  -->
+<!ELEMENT  msg     (#PCDATA)>
+<!ATTLIST  msg
+           resFile (yes) #IMPLIED
+           replace (yes) #IMPLIED>
+<!-- result,
+     nog uitwerken, numeric kaart
+     etc.
+  -->
+<!ELEMENT  result  (#PCDATA)>
+
+<!ENTITY % ExprTypes 'e|n|p'>
+<!ENTITY % NodeTypes 'l|a|e|n|p'>
+
+<!ELEMENT  ast    (%NodeTypes;)>
+
+<!ELEMENT  model   (#PCDATA)>
+<!ATTLIST  model
+           options  CDATA #IMPLIED>
+
+<!ENTITY % Value 'v CDATA #REQUIRED'>
+<!ENTITY % Pos   'p CDATA #IMPLIED'>
+
+<!-- list of statements -->
+<!ELEMENT  l      (%NodeTypes;)+>
+
+<!--
+   assignment  par=expr
+   <a v='par'><e ..expr..></a>
+-->
+<!ELEMENT  a      (%ExprTypes;)*>
+<!-- Value is the assigned par -->
+<!ATTLIST  a
+              %Value;
+              %Pos;  >
+
+<!--
+     expression
+ -->
+<!ELEMENT  e      (%ExprTypes;)*>
+<!--
+     a                  ,-seperated arg list
+ -->
+<!ATTLIST  e
+  a                  CDATA #IMPLIED
+  %Value;
+  %Pos;  >
+
+<!ELEMENT  n      EMPTY>
+<!ATTLIST  n
+              %Value;
+              %Pos;  >
+<!ELEMENT  p      EMPTY>
+<!ATTLIST  p
+              %Value;
+              %Pos;  >

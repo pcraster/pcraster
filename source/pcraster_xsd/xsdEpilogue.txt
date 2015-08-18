@@ -1,0 +1,79 @@
+#ifndef INCLUDED_SSTREAM
+#include <sstream>
+#define INCLUDED_SSTREAM
+#endif
+#ifndef INCLUDED_STRING
+#include <string>
+#define INCLUDED_STRING
+#endif
+#ifndef INCLUDED_PCRXSD_SUPPORTEDSCHEMA
+#include "pcrxsd_supportedschema.h"
+#define INCLUDED_PCRXSD_SUPPORTEDSCHEMA
+#endif
+namespace pcrxsd {
+  inline xml_schema::namespace_infomap namespaceInfoMap(
+      const char* schemaSystemId) {
+
+    // should know schema
+    assert(SupportedSchema::findBySystemId(schemaSystemId));
+
+    xml_schema::namespace_infomap map;
+    map["pcr"].name = "http://www.pcraster.nl/pcrxml";
+    map["pcr"].schema = schemaSystemId;
+
+    return map;
+   }
+
+  //! convert an xs:string type to std::string
+  /*!
+     It is a template version because I have no clue what the actual
+     type is :-)
+   */
+  template<typename T>
+   inline std::string toString(
+       T const& xsStringTypeValue)
+  {
+      std::ostringstream s;
+      s << xsStringTypeValue;
+      return s.str();
+  }
+
+//! function template to cast types derived from xsd fundamental types
+/*!
+ * suppress gcc warnings like:
+ * \verbatim
+ *  choosing 'xsd::cxx::tree::fundamental_base<X>::operator X&() [with X = unsigned int]' over 'xsd::cxx::tree::fundamental_base<X>::operator Y() const [with Y = unsigned int, X = unsigned int]'
+ *    for conversion from 'pcrxml::Non0UnsignedInt' to 'unsigned int'
+ *    because conversion sequence for the argument is better
+ * \endverbatim
+ *
+ * generated from types derived from fundamental types like:
+ * \verbatim
+ * <xs:simpleType name="Non0UnsignedInt">
+ *  <xs:restriction base="xs:unsignedInt">
+ *    <xs:minInclusive value="1"/>
+ *     </xs:restriction>
+ *     </xs:simpleType>
+ * \endverbatim
+ *
+ * solution is inspired by xsd/examples/cxx/tree/library/library.cxx
+ *
+ * MSVC-8.0 does not compile the solution, but also does not complain about
+ * this issue. Hence, for MSVC this function is a NO-OP
+ *
+ * the macro (NOT USED)
+ * #define XSD_CAST(type,value) \
+ * (static_cast< ::xsd::cxx::tree::fundamental_base< type > const& >(value))
+ */
+template<
+  typename T,
+  typename V>
+inline T fundamentalBaseCast(V value) {
+#ifdef _MSC_VER
+   return value;
+#else
+   return value;
+//   return static_cast< ::xsd::cxx::tree::fundamental_base<T> const& >(value);
+#endif
+  }
+}

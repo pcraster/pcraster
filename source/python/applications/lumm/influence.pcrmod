@@ -1,0 +1,13 @@
+binding
+  # landuse = "/home/kor/notinbackup/landusetoolkit/resampled/resbslgn93rec.map";
+  landuse = "/lumm-data/resampled/resbslgn93rec.map";
+
+initial
+  recreation = landuse == 3;
+  # globalFraction = mapfraction(recreation);
+
+  localFraction = riksfraction(recreation, 1, 5);
+  # enrichment = localFraction / globalFraction;
+
+  report enrichmentRecreation.pcrmap = localFraction;
+

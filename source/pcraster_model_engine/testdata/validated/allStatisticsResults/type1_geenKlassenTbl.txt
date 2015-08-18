@@ -1,0 +1,7 @@
+Klassen/Grenzen Onderwerp:	niet opgegeven
+BEGIN	WERKELIJKE	TABEL:
+ecotoop	area
+1	900
+2	900
+3	1200
+4	300

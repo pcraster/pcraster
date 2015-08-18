@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+     Example only that is linked in unit tests: calc_objectlinktest.cc
+ --><!-- Tester9 just a make up class
+ -->
+<ObjectLinkMeta className="CalcLibDemoObjectLink">
+
+   <ObjectLinkCpp className="calc::CalcLibDemoObjectLink" type="1"/>
+<!-- <ObjectLinkCtor/> -->
+
+   <ObjectLinkMethod name="setDem">
+ 
+      <Input contextName="dem" repeat="false">
+         <Field spatial="Yes">
+            <DataType value="Scalar"/>
+         </Field>
+      </Input>
+
+   </ObjectLinkMethod>
+
+   <ObjectLinkMethod name="testOrder">
+ 
+      <Result>
+         <Field spatial="Yes">
+            <DataType value="Scalar"/>
+         </Field>
+      </Result>
+ 
+      <Input contextName="dems[]" repeat="false">
+         <Field spatial="Yes">
+            <DataType value="Scalar"/>
+         </Field>
+      </Input>
+ 
+      <Input contextName="dems[]" repeat="false">
+         <Field spatial="Yes">
+            <DataType value="Scalar"/>
+         </Field>
+      </Input>
+ 
+      <Input contextName="singleLdd" repeat="false">
+       
+         <Field spatial="Non">
+            <DataType value="Ldd"/>
+         </Field>
+      </Input>
+
+   </ObjectLinkMethod>
+
+   <ObjectLinkMethod name="testOrder2">
+ 
+      <Result contextName="results[]">
+         <Field spatial="Yes">
+            <DataType value="Scalar"/>
+         </Field>
+      </Result>
+ 
+      <Result contextName="results[]">
+         <Field spatial="Yes">
+            <DataType value="Scalar"/>
+         </Field>
+      </Result>
+ 
+      <Input contextName="dems[]" repeat="false">
+         <Field spatial="Yes">
+            <DataType value="Scalar"/>
+         </Field>
+      </Input>
+ 
+      <Input contextName="dems[]" repeat="false">
+         <Field spatial="Yes">
+            <DataType value="Scalar"/>
+         </Field>
+      </Input>
+ 
+      <Input contextName="singleLdd" repeat="false">
+       
+         <Field spatial="Non">
+            <DataType value="Ldd"/>
+         </Field>
+      </Input>
+
+   </ObjectLinkMethod>
+
+   <ObjectLinkMethod name="getDem">
+ 
+      <Result>
+         <Field spatial="Yes">
+            <DataType value="Scalar"/>
+         </Field>
+      </Result>
+
+   </ObjectLinkMethod>
+   
+   <ObjectLinkMethod name="noArguments"/>
+
+</ObjectLinkMeta>

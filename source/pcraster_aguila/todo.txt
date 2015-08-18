@@ -1,0 +1,18 @@
+Grep on -w Space and update code which assumes row/col indices. Ook in dal.
+
+Check all references to row/col in
+- DataObject
+- Map*View
+
+Check all references to dataObject::dataSpaceAddress. Some code might depend on there being row/col indices in there.
+- CursorView
+- VisEngine
+
+dal::DataSource gets raw spatial coordinates, instead of row/col indices. Update code so it behaves well. read(Table, ...)
+
+dal::Drivers
+
+Remove references to com::toString from all the code, replace by dev::toString.
+
+Replace com::hasElement, com::forWhole, etc (com_algorithm) by dev equivalents.
+

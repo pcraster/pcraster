@@ -1,0 +1,375 @@
+@Section
+@Title{misc}
+{@PP
+Name: misc
+@PP
+include file: misc.h
+@PP
+This library contains groups of functions that are commonly used in
+many applications. Each group of functions is discussed in a separate
+sub section.
+@PP
+Misc also solves one portability issue: search.h and it's function lfind.
+Lfind is not part of the ANSI-C library but available on most platforms.
+If it is available, misc.h include search.h otherwise it provides an 
+implementation and prototype for lfind(). Other functions from search.h
+(such as lsearch() ) are not yet implemented.
+
+@BeginSubSections
+
+@SubSection
+@Title{memory allocation}
+{@PP
+
+All the PCRaster application uses the following functions for memory
+allocation:
+
+@TaggedList
+@DTI{ChkMalloc}{wrapper around malloc()}
+@DTI{ChkRealloc}{wrapper around realloc()}
+@DTI{ChkReallocFree}{calls Realloc and calls Free for old block in case of failure}
+@DTI{ChkCalloc}{wrapper around calloc()}
+@DTI{Free}{wrapper around free}
+@DTI{ChkRegisterNoMoreMemory} {install 'no more memory action'-function}
+@DTI{ChkRegisterTryReleaseMemory} {install 'release memory'-function}
+@DTI{ChkTmpMalloc}{Wrapper around ChkMalloc for 'temporary' allocation}
+@DTI{ChkTmpFree}{deallocates memory allocated through a call to ChkTmpMalloc}
+@DTI{FREE_NULL}{macro that calls Free and then sets it's argument to NULL}
+@EndList
+
+@Code{ChkMalloc, ChkRealloc, ChkCalloc and Free} are functionally equal to their 
+@Code{malloc}, @Code{realloc}, @Code{calloc} and @Code{free} counterparts. In addition,
+both allocation functions perform the following algorithm:
+
+@LD @Code{
+ while( allocation fails )
+ "{"
+  if ( not TryReleaseMemory )
+  "{"
+    call NoMoreMemory
+    return NULL
+  "}"
+  "/* else some memory released, try again in loop */"
+ "}"
+ succes, return ptr 
+}
+
+@PP
+
+TryReleaseMemory is a function that can be installed with 
+@Code{ChkRegisterTryReleaseMemory}. The function must return 0 if
+it fails to free additional memory and non-zero if it succeeds.
+The default installed function returns always 0.
+
+@PP
+NoMoreMemory is a function that is called if the allocation fails.
+It is installed with ChkRegisterNoMoreMemory. The default function
+calls @Code Error with the message: Not enough memory.
+
+@PP
+@Code{ChkTmpMalloc} is handy for easying very local allocation and 
+de-allocation and associated error handling.
+All memory allocated through @Code ChkTmpMalloc is automatically freed in
+a failing call to @Code{ChkMalloc, ChkRealloc or ChkTmpMalloc}. In normal
+cases meory allocated by @Code ChkTmpMalloc must be freed by ChkTmpFree.
+
+} # section memory allocation 
+
+@SubSection
+@Title{warning and error messages and error handling}
+{@PP
+
+@Code Error and @Code ErrorNested can be used to collect all information
+neccessary for a descriptive error message. @Code Error only exits
+if the external integer variable @Code exitOnError is set to non-zero.
+
+@TaggedList
+ @DTI{int exitOnError}{determines if Error will call @Code exit()}
+ @DTI{Error}{Writes error message to stderr and (optional) exits}
+ @DTI{RetError}{calls Error and return a value (if @Code Error() returns)}
+ @DTI{vfError}{vfprintf-flavour of Error()}
+ @DTI{ErrorNested}{Buffer an error message for @Code Error()}
+ @DTI{RetErrorNested}{calls ErrorNested and return a value }
+ @DTI{vfErrorNested}{vfprintf-flavour of ErrorNested()}
+ @DTI{AtError}{acts like atexit, registers functions that are called 
+if @Code ExecAtError is called}
+ @DTI{NoLongerAtError} {remove function from the list that is called
+ by @Code ExecAtError}
+ @DTI{ExecAtError} {call all function registered by @Code AtError}
+ @DTI{Warning}{Writes warning message to stderr}
+ @DTI{WriteTM}{writes copyright notice (obsolete)}
+@EndList
+
+} # section warning and error messages and error handling
+
+@SubSection
+@Title{allocation of 2d matrices}
+{@PP
+
+@TaggedList
+@DTI{Malloc2d}{Allocate memory that can be addressed as a 2d-array.}
+@DTI{Free2d}{deallocate a 2d array created through a call to Malloc2d or MallocIndex2d}
+@DTI{FreeIndex2d}{deallocate the index of a 2d array created through a call to Malloc2d or MallocIndex2d}
+@DTI{Linear2d}{address of continuous area representing the 2d array contents}
+@DTI{MallocIndex2d}{Allocate memory to stuff a linear array in a 2d-array.}
+@DTI{Realloc2d}{reallocate memory allocated by Malloc2d}
+@EndList
+
+@PP
+Only @Code Malloc2d and @Code Free2d are available in 16-bits mode. 
+
+} # allocation of 2d matrices
+
+@SubSection
+@Title{allocation of many small structures}
+{@PP
+
+If one uses many small structures that are often freed and allocated
+again (e.g. tree building), this set of functions might be handy.  The
+set of functions allocate space that is large enough to satisfy the
+point where the most structures are required.  Downside is that all this
+maximum amount of space is set aside until @Code FreeAllRecords is
+called.
+
+
+@TaggedList
+@DTI{NewRecMemHeap}{create a 'heap' for records}
+@DTI{NewRecord}{Allocate a record in a record heap}
+@DTI{FreeRecord}{Free a record from a record heap}
+@DTI{FreeAllRecords}{deallocates all space from a record heap}
+@DTI{VerifyRecPtr}{checks if m is a pointer that is allocated from
+this record heap and is used (not free)}
+@EndList
+
+} # allocation of many small records
+
+@SubSection
+@Title{Malloc test env. NOT YET DOCUMENTED }
+{@PP
+@TaggedList
+@DTI{StartLimitMalloc}{initialize test environment for allocation failure}
+@DTI{StopLimitMalloc}{stop test environment for allocation failure}
+@EndList
+}
+
+@SubSection
+@Title{String functions}
+{@PP
+
+@TaggedList
+@DTI{CountChars}{Count the occurrence of some characters in a set}
+@DTI{DelChars}{Removes a subset of characters}
+@DTI{DelSpaces}{Removes all space characters}
+@DTI{EmptyString}{Checks if string is empty.}
+@DTI{LeftRightTabTrim}{Trim string and replace space by single space.}
+@DTI{LeftRightTrim}{Trim string.}
+@DTI{NoSpaces}{Checks if string contains space characters.}
+@DTI{StrCaseEq}{compare strings, ignoring the case of the characters}
+@DTI{StrEq}{wrapper around strcmp()}
+@DTI{StrNCaseEq}{compare strings like strncmp , ignoring the case of the characters}
+@DTI{StrcpyChkMalloc}{copy string in buffer allocated by ChkMalloc}
+@DTI{StrcpyChkTmpMalloc}{copy string in buffer allocated by ChkTmpMalloc}
+@DTI{Strncpy0}{normal strncpy plus adding string terminator if necessary.}
+@DTI{StrTime}{format time in seconds in hh:mm:ss-string}
+@DTI{TokenSpaceTrim}{Trim string and replace space by single space, and count tokens.}
+@EndList
+
+} # section String functions
+
+@SubSection
+@Title{comparison functions for qsort, lfind, bsearch, etc.}
+{@PP
+
+@TaggedList
+@DTI{CmpDouble}{Comparison function for double}
+@DTI{CmpFloat}{Comparison function for float}
+@DTI{CmpInt}{Comparison function for integer}
+@DTI{CmpUchar}{Comparison function for unsigned char}
+@EndList
+
+@PP
+Note that @Code stddefx.h contains a typedef @Code QSORT_CMP for passing
+this type of functions to routines like @Code qsort .
+
+} # SubSection comp
+
+@SubSection
+@Title{string to number conversion}
+{@PP
+
+A bunch of functions that convert and check the resulting number if
+it falls in the domain.
+
+@TaggedList
+ @DTI{CnvrtDouble}{Converts a string to a double number.}
+ @DTI{CnvrtInt}{Converts a string to an int number}
+ @DTI{CnvrtUINT1}{Converts a string to an UINT1 number}
+ @DTI{CnvrtINT4}{Converts a string to an INT4 number}
+ @DTI{CnvrtREAL4}{Converts a string to an REAL4 number.}
+ @DTI{CnvrtREAL8}{Converts a string to an REAL8 number.}
+ @DTI{CnvrtValueMV}{converts a value with missing value detection}
+@EndList
+
+} # section string to number conversion
+
+@SubSection
+@Title{(Portable) filename and directory handling}
+{@PP
+
+@TaggedList
+ @DTI{CheckFileSets}{checks conflict on set of input and output files}
+ @DTI{FileNameExt}{check filename extension.}
+ @DTI{FileNamesEq}{compare filenames.}
+ @DTI{FileStat}{stat a file, for regular file yes or no}
+ @DTI{DirectoryStat}{stat a file, for directory yes or no}
+@EndList
+
+Posix systems (including BCC) also contains functions for directory
+listings: @Code{opendir, readdir and closedir}.
+
+} # file handling
+
+@SubSection
+@Title{Bit set functions}
+{@PP
+
+@TaggedList
+@DTI{BitSet}{Checks given bit on being 1.}
+@DTI{FirstBitSet}{compute the index of the lowest bit set}
+@DTI{FIRSTBITSET_TYPE}{macro for typedef's (see misc.h)}
+@DTI{NrBitSet}{compute the number of bits set to 1}
+@DTI{NRBITSET_TYPE}{macro for typedef's (see misc.h)}
+@DTI{SetBit0}{Set given bit on 0.}
+@DTI{SetBit1}{Set given bit on 1.}
+@EndList
+
+@PP
+See also the macro's in @Code bits.h .
+
+} # section Bit set functions
+
+@SubSection
+@Title{A simple lexical analyser}
+{@PP
+
+A simple lexical analyser parsing input files containing numbers
+and special symbols. Other symbols, such as name strings always
+give the code LEX_ILL_TOKEN. But anyway it is usable
+since @Code LexGetTokenValue simply returns the name string.
+
+@TaggedList
+@DTI{LexInstall}{initialize a simple lexical analyzer}
+@DTI{LexGetToken}{get next token}
+@DTI{LexGetTokenValue}{get value of last parsed token}
+@DTI{LexUngetToken}{unget the last token}
+@DTI{LexGetLineNr}{return line number of last parsed token}
+@DTI{LexError}{analyses token for error and prints message}
+@DTI{LexSkipLines}{Skip a number of lines in the Lex input}
+@EndList
+
+} # section {A simple lexical analyser}
+
+@SubSection
+@Title{stopwatch, timer}
+{@PP
+@TaggedList
+@DTI{StartTimer}{Start a stopwatch}
+@DTI{ReadTimer}{Read stopwatch time}
+@DTI{PauseOnTimer}{Pause the stopwatch}
+@DTI{PauseOffTimer}{Continue the paused stopwatch}
+@DTI{StrTime}{format time in seconds in hh:mm:ss-string}
+@EndList
+} 
+
+@SubSection
+@Title {Write to multiple streams}
+{@PP
+@TaggedList
+@DTI{MultiFprintf}{Writes to multiple streams}
+@EndList
+}
+
+@SubSection
+@Title {Byte swapping: ENDIAN handling}
+{@PP
+These functions swap to the non-native format.
+@TaggedList
+@DTI{SwapByte2} { swap 2 byte entity}
+@DTI{SwapByte4} { swap 4 byte entity}
+@DTI{SwapByte8} { swap 4 byte entity}
+@EndList
+}
+@EndSubSections
+} # Section misc 
+
+@Section
+@Title{mathx}
+{@PP
+Name: mathx
+@PP
+include file: mathx.h
+@PP
+This library contains groups of mathematical functions that are commonly used in
+many applications. Each group of functions is discussed in a separate
+sub section.
+@PP
+Mathx.h is an extension on math.h, math.h is included in mathx.h
+
+@BeginSubSections
+
+@SubSection
+@Title {@Eq{ pi 2pi }}
+{@PP
+math.h tests if M_PI is defined and defines the macro M_2PI (@Eq{2 pi})
+}
+
+@SubSection
+@Title { sqr() : @Eq{ x sup 2 }}
+{@PP
+math.h defines the macro sqr(x) for @Eq{x sup 2}.
+}
+
+@SubSection
+@Title {Random number generation}
+{@PP
+@TaggedList
+@DTI{GasDev}{draw from standard normal distribution}
+@DTI{Ran}{Random number between 0 and 1}
+@DTI{SetRan}{Initialize Ran()}
+@DTI{MilliSecSeed}{get some time number for a seed}
+@EndList
+}
+
+@SubSection
+@Title{Directional data handling}
+{@PP
+
+@TaggedList
+@DTI{Deg2Rad}{convert a degree value to radian value}
+@DTI{Rad2Deg}{convert a radian value to degree value}
+@DTI{ScaleDeg}{scales a value in degrees to the domain [0,360.}
+@DTI{ScaleRad}{scales a value in radians to the domain [0,2PI>}
+@DTI{DirectionalMean}{Calculate mean of directional data sample}
+@DTI{DirectionalMoments}{Calculate the first four moments of a directional data sample}
+@EndList
+
+} # SubSection {Directional data handling}
+
+@SubSection
+@Title{linear algebra, matrix operations}
+{@PP
+This  is very old code. Be careful.
+
+@TaggedList
+@DTI{Cholesky}{Cholesky decomposition of symmetric positive definite matrix}
+@DTI{Ludcmp}{lower"/"upper triangulization of matrix}
+@DTI{MltSqrMm}{Multiply two square matrices}
+@DTI{MltSqrMv}{Multiply square matrix with vector}
+@DTI{TransposeSqr}{Transpose a square matrix}
+@DTI{FreeSqrMatrix}{Deallocate a n*n matrix.}
+@DTI{NewSqrMatrix}{Allocate a n*n matrix}
+@EndList
+}
+
+@EndSubSections
+} # Section mathx 

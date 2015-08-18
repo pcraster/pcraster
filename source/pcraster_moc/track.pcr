@@ -1,0 +1,25 @@
+#! --dynamiclibraries:/home/kor/pcrtree/bin/develop/moc
+# vim: syntax=sh
+
+binding
+  flux = flux.map;           # Flux.
+  xVel = xveloc.map;         # Velocity in x direction.
+  yVel = yveloc.map;         # Velocity in y direction.
+  longDispCoef = ldispcoef.map;   # Longitudinal dispersion coefficient.
+  transDispCoef = tdispcoef.map;  # Transverse dispersion coefficient.
+  satThickness = satthickness.map;     # Saturated thickness.
+  iniConc = iniconc.map;     # Initial concentration.
+  timeStep = 1.0;            # Time step used.
+
+areamap
+  iniConc;
+
+timer
+  1 10 1;
+
+initial
+  modellink moc = moc(timeStep, 9, iniConc);
+
+dynamic
+  report conc, partic =
+    moc::update(flux, xVel, yVel, longDispCoef, transDispCoef, satThickness);

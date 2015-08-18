@@ -1,0 +1,12 @@
+Naam bestand: type2_2XTbl.txt
+Klassen/Grenzen Onderwerp:	niet opgegeven
+Klassen/Grenzen Indeling:	niet opgegeven
+BEGIN	WERKELIJKE	TABEL:
+	habschik2	habschik
+opp	3300	3300
+som	11.8	9.73
+min	-0.2	0
+max	1.1	1
+gem	0.357576	0.294848
+sd	0.374191	0.365386
+med	0.2	0.1

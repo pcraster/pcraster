@@ -1,0 +1,452 @@
+@Section
+@Title{Synopsis}
+{
+ @LP
+
+@BulletList
+@LI{Name of library: appx}
+@LI{ Name of include file: app.h}
+@EndList
+
+@LP
+
+The @I{app} library contains all standard functions to share global settings
+between PCRaster applications and functions that are
+frequently used by typical PCRaster applications.
+} # @Section
+ 
+@Section
+ @Title {The Command Line Parser for Applications}
+{@PP
+
+Applications often have options that the user can use. 
+To parse the command line for options that can be used and
+evaluate them a command line parser is needed. To following 4
+functions implement the command line parser:
+
+@TaggedList
+@DTI{@Code{InstallArgs}} {Parses the command line with options, arguments and file names.}
+@DTI{@Code{GetOpt}} {Get options one by one}
+@DTI{@Code{OptArg}} {Contains pointer for paramater of option}
+@DTI{@Code{ArgArguments}} {Gives the arguments left over after GetOpt processing.}
+@DTI{@Code{AppArgCountCheck}} {check if the application has enough arguments}
+@DTI{@Code{AppEnd}} {Cleans up copies of argument lists allocated.}
+@EndList
+
+@Code InstallArgs also sets the global options (See below). @Code GetOpt
+only returns the local options, global options are never seen by the
+program, they are set and removed in @Code InstallArgs .
+getopt() is a standard UNIX function, but
+our GetOpt is different since it skips numbers (e.g. -10 is not 
+option 1 and 0).
+
+@PP
+
+Command line arguments of an application exist of @B{options}
+(or flags) and @B{arguments} (maps, numbers, filenames). 
+Arguments and options can appear in any order 
+(ls *.c -l or ls -l *.c is the same), only the argument order
+is important. The output arguments are always the most right arguments
+in PCRASTER (just as in cp, mv, etc.). 
+
+@PP
+
+Some options are applicable to all applications. Hence they are called 
+@B {global options} see [@Ref{pcraster95}]. Global options can be given to any application, 
+even if they are not used. Global options are words, not single
+characters. 
+They always have a default value and can be given in the environment
+variable PCROPTIONS and on the command line. Command
+line overrules the environment variable, and options overrule from
+left to right if "&" is not used for that option (see @B{Remarks} in
+subsection XXXXXXX ).
+So the last one is the one valid.
+
+@PP
+
+When using one of the global options the name of the option must
+be preceded by: "-""-"
+to discern them from a sequence of single character options. 
+
+@PP
+Global options are set in the following external variables:
+@Code{
+extern BOOL appDiagonal;	diagonal or nondiagonal
+extern BOOL app2dMatrix;	2dmatrix or 2dtable
+extern BOOL appPitOnBorder;	behaviour of pits on edge
+extern BOOL appUnitTrue;	units true or pixel
+extern BOOL appDouble;		REAL4 or REAL8 
+extern BOOL appLarge;		UINT1 or INT4
+extern char* appClone;		clone map 
+extern APP_LDDDEM_MOD appLddDemModifier; fill or cut of dem
+extern APP_COORD appCoord; 		 centre, upperleft or lower right
+extern APP_DIRECTION appDirection; 	 radians or degrees
+extern APP_OUTPUT appOutput; 		 progress, output or no output
+}#Code 
+ 
+@LP
+
+There is one special global option called "-""-"clone @I{fileName}.
+Which sets the output clone already: 
+
+@LP
+@Code{char *appClone;}
+
+@LP
+
+Other options are application specific. They are called 
+@B{local options}.
+Local options, adhere the UNIX conventions: 1 single character 
+per option and if the option requires an argument (number or 
+name). The argument should follow the option with or without a space.
+
+@LP
+
+In UNIX the shell expands wild card characters (*? etc.) to filenames
+and the command line can be of infinite length. DOS has no filename
+expansion and the command line can only be 128 characters. The 128 chars
+limit is fixed by in-line file expansion. In-line file expansion is
+specified by the "@"-symbol. For example: @I {resample -b 8
+"@"resample.par -c 4}. The argument function reads the file resample.par
+and treats its contents in the same way as if the contents were given on
+the command line.
+However to prevent non-termination of the parser, it is not allowed to
+expand a file in an expanded file.
+
+} # section {The Command Line Parser for Applications}
+
+@Section
+ @Title{co-ordinate functions}
+{@PP
+
+These functions converts between row,col indices and x,y co-ordinates depending
+on the global settings "--"unitcell, "--"unittrue, "--"coorcentre, "--"coorul, "--"coorlr.
+
+@TaggedList
+@DTI{@Code{AppRgetCoords}} {Compute output co-ordinate of a pixel on base of global options.}
+@DTI{@Code{AppRgetRowCol}} {compute row, column number of an input co-ordinate.}
+@EndList
+
+} # @Section{co-ordinate functions}
+
+@Section
+ @Title{directional data functions}
+{@PP
+
+	These functions converts between the internal (always radians) and the external
+(radians or degrees) representation of directional data depending 
+on the global settings "--"degrees or "--"radians.
+This is done because all PCRaster applications are working with radians
+internally.
+
+@TaggedList
+@DTI{@Code{AppInputDirection}} {Converts degrees to radians or performs mod(2pi) on radians.}
+@DTI{@Code{AppOutputDirection}} {Converts radians to degrees if option "--"degrees was used.}
+@EndList
+
+} # section {directional data functions}
+
+@Section
+ @Title{cell value validation check}
+{@PP
+These functions checks a possible cell value 
+depending on the global settings "--"single, "--"double, "--"large or "--"small.
+
+@TaggedList
+ @DTI{@Code{AppCheckVal}} {Checks a value on being valid for given valuescale and cellRepresentation.}
+ @DTI{@Code{AppCheckValNum}} {Checks a value on being valid for given valuescale and cellRepresentation.}
+@EndList
+
+} # Section cell value validation check
+
+@Section
+ @Title{Default cell representation}
+{@PP
+This functions returns the default cell representation
+depending on the global settings "--"single, "--"double, "--"large or "--"small.
+
+@TaggedList
+@DTI{@Code{AppDefaultCellRepr}} {return the default cell representation for a value scale}
+@EndList
+
+} # section
+
+@Section
+ @Title{reading columns (x,y,z) data and timeseries}
+{@PP
+@TaggedList
+@DTI{@Code{AppDetectColumnFile}} {Detects the number of columns and type of column file}
+@DTI{@Code{AppReadColumnFile}} {Reads column records from inputFile.}
+@DTI{@Code{AppReadTimeSeriesFile}} {Read a timeseries file.}
+@EndList
+}
+
+@Section
+ @Title{Progress functions}
+{@PP
+
+To ensure the user that the program is running and is not pending due to
+an error, the user can ask for progress information. This can be done by
+using the option @B{"-""-"progress}.  If this option is not used the
+following functions will do nothing.
+
+@TaggedList
+ @DTI{@Code{AppVerbose}} {Writes verbose message to stderr if desired and then returns.}
+ @DTI{@Code{AppDynamicProgress}} {Prints time at line to show that program is running.}
+ @DTI{@Code{AppEndDynamicProgress}} {Prints new line to stderr.}
+ @DTI{@Code{AppRowProgress}} {Write busy with given row number to stderr and returns}
+ @DTI{@Code{AppEndRowProgress}} {Write newline to stderr and returns}
+ @DTI{@Code{AppProgress}} {Writes progress message to stderr if desired and then returns.}
+@EndList
+
+}#Section Progress
+
+@Section
+@Title{AppCastREAL4}
+{@PP
+A function that is added to cast a REAL8 type argument to a REAL4
+type is: @Code{AppCastREAL4}. This is done to prevent rounding errors
+causing programs to run forever (@Code{spread} for example).
+}#Section
+
+@Section
+@Title{Old stuff}
+{@PP
+@TaggedList
+@DTI{@Code{AppCastREAL4}} {Casts REAL8 to REAL4.}
+@DTI{@Code{AppFileOpenError}} {Prints error message for failed file opening to buffer of ErrorNested.}
+@DTI{@Code{AppInputTest}} {test if a file exists and is a regular file}
+@DTI{@Code{AppIsClassified}} {Checks a value on being classified.}
+@DTI{@Code{AppMemoryError}} {empty function.}
+@DTI{@Code{AppOpenClone}} {open a clone file}
+@DTI{@Code{AppUsageError}} {Prints message to stderr, when the number of arguments is incorrect.}
+@EndList
+}#Section
+
+# @SubSection
+# @Title{Pseudo code}
+# {
+# @LP
+# @Code{
+# ArgArguments(numberOfArgs):
+# 
+# numberOfArgs = 0;
+# FOR(all input strings)
+# DO
+# 	IF(input string is empty)
+# 	THEN
+# 		Remove this input string of list of arguments;
+# 	ELSE
+# 		numberOfArgs++;
+# 	FI
+# 	Return pointer to arguments;
+# OD
+# }#code
+# @LP
+# @Code{
+# @LP
+# int index
+# 
+# GetOpt():
+# 
+# IF(NonEmptyArgumentsLeft)
+# THEN
+# 	Take first not null character string 
+# 	IF(first option is a legal option)
+# 	THEN
+# 		IF(option expects argument)
+# 		THEN
+# 			Search for next not null argument;
+# 			IF(legal argument)
+# 			THEN
+# 				Let optArg point to argv[index];
+# 			ELSE
+# 				Error("illegal argument");
+# 			FI
+# 		ELSE
+# 			Let optArg be NULL;
+# 		FI
+# 	ELSE
+# 		Error("illegal local option");
+# 	FI
+# 	IF(option does not get overruled OR "&" was used)
+# 	THEN
+# 		Let optArg point to argument;
+# 	FI;
+# FI
+# 
+# }#code
+# @Code{
+# /@LP
+# InstallArgs:
+# 
+# Get environment variable;
+# Make copy of argv;
+# WHILE(not all input strings done)
+# DO
+# 	IF(input string starts with '"-""-"')
+# 	THEN
+# 		IF(input string is a global option AND
+# 		input string is a valid option)
+# 		THEN
+# 			Make null(input string);
+# 		ELSE
+# 			IF(input string out of env. variable)
+# 			THEN
+# 				Illegal global option;
+# 			FI
+# 		FI
+# 	ELSE
+# 		IF(input string starts with "'@'")
+# 		THEN
+# 			Expand file;
+# 			Make null(input string);
+# 		FI
+# 	FI
+# 
+#       	IF(-nothing not set)
+#       	THEN
+#       		Print(progName, version, copyright);
+#       	FI
+# OD
+# 
+# }#Code
+# }#Subsection pseudo code
+# 
+# @SubSection
+# @Title{Examples}
+# {
+# @LP
+# Suppose the file exp.com looks like:
+# in1.map in2.map
+# @LP
+# Then the command @Code{programName out.map "@"exp.com}
+# will result in: @Code{progName out.map in1.map in2.map}.
+# }#subsection Examples
+# 
+# @SubSection
+#  @Title{Implementation}
+#   @Tag{impl}
+#  {
+#  @LP
+# 
+# @LP
+# The functionality mentioned above is wrapped in the library app for all
+# PC-RASTER applications. In such a way that we can pass the original
+# @I{argv} and @I{argc} arguments and return a stripped version containing
+# only the application arguments. But the program name is still in argv[0].
+# 
+# @LP
+# @B{Remarks}
+# @LP
+# 
+# @Code{
+# interface:
+# 
+# int InstallArgs(int argc,
+#                 char *argv[],
+#                 const char *options, 
+#                 const char *progName,
+#                 const char *version);
+#     "{" 
+#       Perform inline-file expansion.
+#       Scans and sets global options, 
+#       if (-nothing not set) print progName, version, copyright.
+#       Do everything necessary to get the rest of the interface 
+#       working.
+#     "}"
+# }#Code
+# @DP
+# /
+# The string options is a string with flag-characters [a-zA-Z].
+# If a character is followed by "&", then whenever the option  is
+# used, GetOpt will return it (i.e. no overruling for that option,
+# for example -D in C compiler).
+# If a character is followed by a one of "\"$#*\"",
+# then the option requires an argument.
+# The format character and the "&" may appear in any order.
+# 
+# @LP
+# 
+# The format characters and their formats are:
+# 
+# @BulletList
+# @ListItem{
+# $ for a floating point
+# }
+# @ListItem{
+# "#" for an integer
+# }
+# @ListItem{
+# * for a character string, which is not allowed to start with "@",
+# because of the special meaning of "@" for expansion of its argument.
+# }
+# @EndList
+# 
+# @LP
+# @Code{
+# @LP
+# 
+# int  GetOpt();
+#     "{" 
+#     	Returns a local option each time called or 0
+#     	if all locals are processed
+#       	and sets the OptArg pointer to some static buffer
+#       	for argument.
+#     "}"
+# 
+# extern void "*"OptArg; "/"* pointer to argument (int, double or (char *) *"/"
+#     
+# char **ArgArguments(int "&"nrArgs); 
+#     "{" 
+#     	Returns the remaining arguments.
+#     	Only guaranteed to work if GetOpt has
+#       	returned 0.
+#     "}"
+# }#Code
+# 
+# @LP
+# /
+# @LP
+# @B{Example}
+# @LP
+# @Code{
+# int main(
+# 	int Argc, 
+# 	char *Argv[])
+# "{"
+#     int c, border;
+#     BOOL toggleOn = FALSE;
+#     double percentage = DEFAULT_PERCENTAGE;
+#     char **argv, argc, *mv;
+# 
+#     if(InstallArgs(argc, argv[], "\"t&p$b#m*no\"", "\"resample\"", "\"1.01\""))
+#          exit(1);
+#     while((c = GetOpt()) != 0)
+#    "{"
+#        switch(c) "{"
+#         case 'p': percentage = *((double *)OptArg);
+#              	if (0 >= percentage "||" percentage >= 1)
+#                 	Error("-p must be in [0, 1]");
+#              	break;
+#         case 'b': border = *((int *)OptArg);
+#              	break;
+#         case 'm': mv = OptArg;
+#              	break;
+#         case 't': toggleOn = !toggleOn;
+#              	break;
+#         ......
+#     	"}"
+#     "}"
+#     argv = ArgArguments("&"argc); 
+#     if(argv == NULL)
+#     	exit(1);
+#     ... rest of program
+#     AppEnd();
+# "}"
+# 
+# }#Code
+# }#Subsection Implementation
+# 
+# @EndSubSections 
+# @End @Section

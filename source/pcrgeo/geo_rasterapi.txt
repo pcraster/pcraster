@@ -1,0 +1,108 @@
+/*!
+  \file
+   implement New raster stuff docs.
+
+<pre>
+- minder interne pcrtree src interfaces, 1 is ideaal
+- verlies geen functionaliteit bij het mergen van huidige
+  interfaces.
+- snelheidsverschil tussen interface en "gewoon" float[50][50]
+  cq. MAP_REAL* niet merkbaar. Dit kunnen we meten.
+- leesbaarheid in algoritmen
+- genereerbare interface voor externe gebuikers:
+   - Procedureel:   C, Fortran, Delphi
+   - OO/Component:  COM/.Net ??
+
+RasterAPI met constructor RasterSpace (zodat nrRows en nrCols altijd
+in de juiste volgorde staan?)
+
+
+Details:
+- introduce MAP_REAL4 - like type for scalar only
+- let ddl/modellink user return a non-spatial; is not possible now.
+- compare performance of a[][] en a[r*nrCols+c]
+
+
+huidige API's:
+ alles in libs/api  t.b.v. pcrcalc versus libs/calc
+ SimpleRaster, RasterAPI (geo)
+ RasterSpace
+ ModelLink,ApiMap,Field   (pcrcalc)
+ com::Matrix + geo::SimpleRaster : 1 classe
+
+relaties:
+ com::CSFCell    missing value spul
+ CellLocVisitor     (geo)  soort iterator?
+</pre>
+*/
+
+
+
+
+ /*! Raster of type T cells on the outside, other 
+  * (smaller) type on the (encapsulated) inside
+  */
+class MultiTypeRaster: public IRaster {
+  //! T  becomes template argument
+  typedef double Tinternal;
+  typedef double Texternal;
+
+  MultiTypeRaster(size_t nrRows, size_t nrCols):
+     IRaster(nrRows,nrCols){};
+
+};
+
+ /*! as geo::SimpleRaster is now,
+     Features, services:
+     <ul>
+      <li>has notion of missing values
+      <li>type conversions, as com::copyCells now
+     </ul>
+     What not:
+     <ul>
+       <li>projection. cellsizes, angle
+       <li>spatial algorithms, spread, etc.
+     </ul>
+  */
+class Raster: public IRaster {
+     //! T  becomes template argument
+     typedef double T;
+  private:
+    T    *d_values;
+  public:
+    //! allocate values leaving them uninitialized
+    Raster(size_t nrRows, size_t nrCols):
+     IRaster(nrRows,nrCols)
+     {
+       // d_values = new .....
+     };
+
+    //! copy the values
+    Raster(size_t nrRows, size_t nrCols, const T *values):
+     IRaster(nrRows,nrCols)
+     {
+       // d_values(values)
+     }
+
+    virtual ~Raster() {
+      delete d_values;
+    }
+
+    // ACCESSORS
+
+    /*! \returns true if \a value is not missing value, false
+     *          otherwise
+     */
+    bool cell(T& value, size_t r, size_t c) const;
+
+    /*! \returns true if \a value is not missing value and \a r and
+     *           \c c are inside the raster dimensions, false
+     *            otherwise
+     */
+    bool cell(T& value, int r, int c) const;
+
+    //! \returns value
+    const T& cell(size_t r, size_t c) const;
+ };
+
+}

@@ -1,0 +1,126 @@
+
+BUG: old types default to large real!
+
+
+resample a single program that can 
+ resample:  resample a grid to a finer or coarser grid.
+ coockey cut: cut a piece of a map out.
+ enlarge:  put a map in a larger area.
+ overlay:  values are read from more than 1 input map
+
+given
+*	N input maps with all 
+	   the same valuescale (e.g. scalar, ordinal, etc.)
+	   the same projection (e.g. PT_LATLON, PT_XY, etc. )
+*       Name of output map
+*        1 clone map specifying the desired
+           cellsize, (X0,Y0), angle, nrCols, nrRows.
+           and having the same projection as the N input maps.
+*        Optional minimum percentage of cell area that must be covered 
+         by a non MV input value to assign a non-MV to the cell.
+         Default 0 %.
+
+scalar and directional types are averaged.
+with other types one takes the value that covers the largest area
+of the target pixel or the maximum value that falls in the target pixel.
+
+
+Basic Algorithm:
+
+ for every pixel in the output map do:
+
+	 search in all inputs maps the pixels that fall
+	 in the current output pixel.
+	 ** initialize areaCoverRaster to FALSE
+	 for all non-mv pixels in the input maps that fall in the
+	 output pixel do
+	 {
+	   Intersect the output pixel with the input pixel,
+	    creating a polygon described by maximal 8 points. (step A)
+	   ** set areaCoverRaster[i][j] to true if (i,j) falls in
+	      polygon.
+	   Remember area of polygon and input pixel value
+	 }
+	 ** AreaCovered is percentage of areaCoverRaster pixels set to
+	    true.
+	 if (AreaCovered > MinAreaCovered)
+	  combine statistics off all area/value input-pixels to 
+	    compute pixel value
+	 else
+	  pixel becomes MV.
+
+** NB:
+ Computing the AreaCovered is difficult. It requires computing
+ the union of polygons computed in step A.
+ Another approach is to "rasterize" that union to a very fine grid.
+
+
+Implementation details:
+1.Finding out which pixels of a map X falls in some pixel Y of map Z 
+  can be done by using the csf functions: Rcoords2RowCol, RgetRowCol
+  RgetCoords, RrowCol2Coords that does conversions between true 
+  co-ordinates (defined by X0,Y0,angle and cellsize) and the row
+  column indices.
+
+  for example: 
+    the row-col index of Y is (r,c).
+
+   /* compute co-ordinates of corners */
+   RrowCol2Coords(Z, r  , c  , &tlX, &tlY); /* top left */
+   RrowCol2Coords(Z, r  , c+1, &trX, &trY); /* top right */
+   RrowCol2Coords(Z, r+1, c+1, &brX, &brY); /* bottom right */
+   RrowCol2Coords(Z, r+1, c  , &blX, &blY); /* bottom left */
+
+   /* Translate co-ordinates of map Z to rowCol indices on map X */
+
+   RrowCol2Coords(Z, &tlX, &tlY, &tlC, &tlR); /* top left */
+   RrowCol2Coords(Z, &trX, &trY, &trC, &trR); /* top right */
+   RrowCol2Coords(Z, &brX, &brY, &brC, &brR); /* bottom right */
+   RrowCol2Coords(Z, &blX, &blY, &blC, &blR); /* bottom left */
+
+   See csf.h for details.
+
+2. The geometry-library (named geom with include file geometry.h)
+   contains functions such as: 
+
+	int IntersectRectangles(POINT *pol, const POINT *r1, const POINT *r2);
+	double AreaOfPolygon(POINT *p, size_t nr);
+
+   A polygon is an array of N points with points i,i+1 defining a cord.
+   The first point is copied to position N+1, to ease cord definition.
+   A Rectangle is also defined as a Polygon with 4 sides and therefore uses
+   a 5-point array.
+   IntersectRectangles returns the number of polygon points, 0 if rectangles
+   do not intersect.
+	
+
+3. For the time being we only have classified and continuous:
+    classified: use ReadAs(*, CR_INT4) and compute everything in INT4.
+		take the value that covers the largest area
+                of the target pixel or the maximum value that falls in the 
+                target pixel. (is a flag).
+    continuous: use ReadAs(*, CR_REAL4) and compute everything in REAL4.
+                compute using weighted average, with area as weight factor.
+
+4. CSF version 1 does not support the angle:
+
+   REAL8 MgetAngle(const MAP *m); Simply returns 0 at this moment.
+   REAL8 MputAngle(const MAP *m, REAL8 a); Does nothing
+
+5. Use the put and get functions of the following header-attributes: 
+
+	UINT2 MgetProjection(const MAP *map);
+	UINT2 MputProjection(MAP *map, UINT2 p);
+	REAL8  RgetX0(const MAP *map);
+	REAL8  RgetY0(const MAP *map);
+	REAL8  RputX0(MAP *map, REAL8 x0);
+	REAL8  RputY0(MAP *map, REAL8 y0);
+	UINT4  RgetNrCols(const MAP *map);
+	UINT4  RgetNrRows(const MAP *map);
+	/* Set X and Y, stop with error-message if
+	 *  X and Y of input are not equal
+	 */
+	REAL8  RputCellSizeX(MAP *map, REAL8 cellSizeX);
+	REAL8  RgetCellSizeX(const MAP *map);
+	REAL8  RputCellSizeY(MAP *map, REAL8 cellSizeY);
+	REAL8  RgetCellSizeY(const MAP *map);

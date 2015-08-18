@@ -1,0 +1,25 @@
+# makefile
+#  expects gnu make
+# USER MAKEFILE, NOT PCRTREE2 development
+
+# notes
+#  this example expects the schema to be present in the current
+#  directory. To change that the instantion of the pcrxml::LinkIn* objects
+#  from a modified parser instead within xml.cc
+
+# xsd tool from http://codesynthesis.com/projects/xsd/
+XSD=xsd
+ifeq ($(HOST_PLATFORM),cygwin)
+ XSD=xsdCpp
+endif
+
+genForScons: PCRasterXSD.cpp commonTypesXSD.cpp
+
+xsdOpts= --generate-serialization --generate-ostream --hxx-suffix XSD.h --cxx-suffix XSD.cpp
+
+PCRasterXSD.cpp: $(PCRTREE2)/Sources/PCRasterModelEngine/PCRaster.xsd
+	@$(XSD) cxx-tree $(xsdOpts) --output-dir . $<
+
+commonTypesXSD.cpp: $(XSD)/Sources/xmlschema/commonTypes.xsd
+	@$(XSD) cxx-tree $(xsdOpts) --output-dir . $<
+

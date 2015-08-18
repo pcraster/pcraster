@@ -1,0 +1,115 @@
+Dan kan het als volgt implementeren:
+
+#! --dynamiclibraries:/home/cees/pcrtree/bin/develop/mldd
+
+areamap ELddF000.out;
+
+initial
+  modellink m = mldd();
+
+  # NOTE de operaties met bogusBool krijgen GEEN
+  # zinnige boolean kaart terug, maar zo zit de syntax
+  # van de model link er nu eenmaal uit
+
+  # re-initialize stream network
+  bogusBool = m::setStream( ELddF000.out,
+                           NELddF00.out ,
+                            NLddF000.out,
+                           NWLddF00.out ,
+                           SELddF00.out ,
+                            SLddF000.out,
+                           SWLddF00.out ,
+                            WLddF000.out);
+
+  # add some stream(s) to existing
+  bogusBool = m::addStream( ELddF000.out);
+
+  bogusBool = m::setDem(dem);
+  # totalOutflow are only defined at
+  # the mldd network, MV elsewhere.
+  # NB  dem is updated internally
+  totalOutflow=m::diffuse(
+      input,area,dv[0],...,dv[7],iterations);
+  # will return updated dem within the mldd 
+  # outside mldd value is identical to last setDem call
+  newDem = m::getDem();
+
+PSEUDO CODE:
+
+
+ def diffusion(
+     self,
+     #Dem,              # MAP SET PRIOR
+     Input,            # MAP  (STATE?)
+     Area,             # MAP
+     FixedHead,        # MAP
+     DiffusionValue,   # [8] list of 8 MAPS
+     iterations        # integer number (INT4|nominal)  (> 0)?
+     ):
+
+ # prefixed by RESULTTYPE:
+ MAP: InputPerIteration=(Input/scalar(iterations))/Area
+ [8]: DiffusionValuePerIteration=self.divide(DiffusionValue,scalar(iterations))
+ for i in range(0,iterations):
+   # adjust dem globally (not only Channels)
+   # DJ not globally, I would say, this is not very important
+   # anyway, this function changes the dem only at channel cells 
+   # so either: outside channel cells, the DEM is not changed or,
+   # outside channel cells, missing values are returned
+   # i think i prefer to assign mv's outside channels (maybe more logical, an
+   # accuflux with a mv on Ldd returns a mv at that cell, too)
+   MAP: Dem=Dem+InputPerIteration
+   # compute slope-weights on base of this adjusted Dem
+   # DJ note that slope is a fraction (see my slope function in the script,
+   # in Digraph)
+   # 2 stats below: (std::max(dem[src]-dem[dest],0))/downstreamdist(true-length edge)
+   [8]: Slope = self.slope(Dem)
+   [8]: SlopeNoNegativeValues=self.digraphMax(Slope,scalar(0.0))
+   # 8-way flow scheme
+   [8]: Outflow = self.multiply(SlopeNoNegativeValues,DiffusionValuePerIteration)
+   # disect flow scheme
+   MAP: Inflow=self.upstream(Outflow)
+   MAP: TotalOutflow=self.sum(Outflow)
+   # adjust Dem in Channel on non-FixedHead cells.
+   # DJ self.Channels hou ik zelf nu dus bij, is TRUE als er een startnode of een
+   # endnode voorkomt in een cel, anders FALSE
+   MAP: Dem=mapif(  self.Channels,mapifelse(FixedHead,Dem,Dem+((Inflow-TotalOutflow)/Area)) )
+ return Dem, TotalOutflow*scalar(iterations)
+
+DJ:
+TotalOutflow is the total outflow over the 100 iterations. It is actually
+more precise to calculate this as a cumulative value (instead of multiplying
+the last value by 100):
+
+MAP: TotalOutflowCum = scalar(0)
+for i in range(0,iterations):
+  ..
+  ..
+  MAP: TotalOutflow=self.sum(Outflow)
+  MAP: TotalOutflowCum=TotalOutflowCum+TotalOutflow
+  ..
+  ..
+
+return Dem, TotalOutflowCum
+
+This will be a bit slower but more precise (so do this).
+
+Vragen/opmerkingen:
+ 1) in bovenstaande code is de self.Channels dus het mldd netwerk?
+ Ja, die update ik nu steeds zelf in m'n script als er een tak bijkomt of afgaat
+ Jij kunt die dus ook zelf uitrekenen in deze functie (1 x bovenin de functie), alle
+ cellen TRUE waar een segment uitgaat of inkomt
+
+ 2) self.Channels wordt ook in het mldd netwerk wordt ook in self.upstream() en
+    self.sum() gebruikt.
+ Ja, om ervoor te zorgen dat ie mv houdt buiten het mldd netwerk
+
+ 3) volgens mij geen behoud van massa (mass-balance?) als we de slope-sums niet wegen?
+ Lijkt me wel. Die slopes bepalen voor iedere cel en voor iedere richting
+ hoeveel er moet stromen (Outflow). De hoogte wordt geupdate door de Inflow erbij
+ te doen (som van wat er boven afgaat van de directe bovenburen) en de
+ Outflow (som van wat er uitgaat) er af te halen. Dit (lijkt mij) correct budget
+ geld als Area overal hetzelfde is (Area geeft de breedte van een channel weer,
+ je modelleert dus een 2D object (een channel segment met een lengte en een breedte)
+ als een lijn, waarbij de breedte wordt gerepresenteerd door Area).
+

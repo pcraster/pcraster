@@ -1,0 +1,18 @@
+Klassen/Grenzen Onderwerp:
+0
+<0,0.2]
+<0.2,0.4]
+<0.4,0.6]
+<0.6,0.8]
+<0.8,1]
+
+Klassen/Grenzen Indeling:	niet opgegeven
+BEGIN	WERKELIJKE	TABEL:
+	habschik2
+habschik	area	sum	minimum	maximum	average	standard deviation	median
+0	900	1.5	0	0.3	0.166667	0.132288	0.2
+<0,0.2]	1200	2.2	-0.2	1.1	0.183333	0.306989	0.1
+<0.2,0.4]	300	0.6	0.2	0.2	0.2	0	0.2
+<0.4,0.6]	300	1.5	0.5	0.5	0.5	0	0.5
+<0.6,0.8]	0
+<0.8,1]	600	6	1	1	1	0	1

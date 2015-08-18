@@ -1,0 +1,75 @@
+#ifndef tokens_h
+#define tokens_h
+/* tokens.h -- List of labelled tokens and stuff
+ *
+ * Generated from: calcparser.g
+ *
+ * Terence Parr, Will Cohen, and Hank Dietz: 1989-1998
+ * Purdue University Electrical Engineering
+ * ANTLR Version 1.33MR19
+ */
+enum ANTLRTokenType {
+	TOK_DOLLAR=2,
+	TOK_EOF=3,
+	TOK_INTERFACE=4,
+	TOK_BINDING=5,
+	TOK_AREAMAP=6,
+	TOK_TIMER=7,
+	TOK_MODEL=8,
+	TOK_REPORT=9,
+	TOK_DYNAMIC=10,
+	TOK_INITIAL=11,
+	TOK_FILEOUTPUT=12,
+	TOK_OBJECT=13,
+	TOK_FOREACH=14,
+	TOK_REPEAT=15,
+	TOK_UNTIL=16,
+	TOK_IF=17,
+	TOK_IN=18,
+	TOK_EXCEPT=19,
+	TOK_AND=20,
+	TOK_OR=21,
+	TOK_ELSE=22,
+	TOK_THEN=23,
+	TOK_COMMA=24,
+	TOK_COMP=27,
+	TOK_ASSOP=28,
+	TOK_MOMENT_RANGE=29,
+	TOK_ENDTIME=30,
+	TOK_INT=31,
+	TOK_FLOAT=32,
+	TOK_FDIV=33,
+	TOK_IDIV=34,
+	TOK_MOD=35,
+	TOK_EQ=36,
+	TOK_GE=37,
+	TOK_GT=38,
+	TOK_ID=39,
+	TOK_LE=40,
+	TOK_LT=41,
+	TOK_NE=42,
+	TOK_NOT=43,
+	TOK_XOR=44,
+	TOK_LP=45,
+	TOK_RP=46,
+	TOK_LB=47,
+	TOK_RB=48,
+	TOK_LC=49,
+	TOK_RC=50,
+	TOK_STAR=51,
+	TOK_PLUS=52,
+	TOK_MINUS=53,
+	TOK_IS=54,
+	TOK_SC=55,
+	TOK_COL=56,
+	TOK_COLON=57,
+	TOK_ILLEGAL=58,
+	TOK_ILLEGALID=59,
+	TOK_CONV_F=60,
+	TOK_POW=61,
+	TOK_REFERENCE=65,
+	TOK_2COL=66,
+	DLGminToken=0,
+	DLGmaxToken=9999};
+
+#endif

@@ -1,0 +1,46 @@
+#!/bin/sh
+
+set -e
+
+# used in creation of example maps
+#  in the manual (docs/pcrmanual/examples)
+
+if [ $# -eq 0 ]
+then
+  echo "Usage: AscHeader2map inputTxtFile outputCsfFile"
+  echo " format inputTxtFile"
+  echo "  line 1: output data type (scalar,ldd,...)"
+  echo "  line 2: clone file"
+  echo "  then the data with mv as mv"
+  exit 1
+fi
+
+if [ ! -f $1 ]
+then
+ echo $1 does not exist
+ exit 1
+fi
+
+# WARNING
+#  on cygwin setting vsi and clone
+#  goes wrong with ff=DOS without the tr -d \r step
+
+vsi=`head -1 $1 | tr -d \\\r`
+case $vsi in
+	s*|S*) vs=S;;
+	n*|N*) vs=N;;
+	o*|O*) vs=O;;
+	b*|B*) vs=B;;
+	l*|L*) vs=L;;
+	d*|D*) vs=D;;
+	l*|L*) vs=L;;
+	*)     echo illegal value scale on line 1  $vsi
+	       exit 1;;
+esac
+clone=mapattr_`head -2 $1 | tail -1 | tr -d \\\r`.map
+if [ ! -f $clone ]
+then
+ echo "Error ", $clone "not generated"
+ exit 1
+fi
+@EXECUTABLE_OUTPUT_PATH@/CMAKE_CFG_INTDIR/asc2map --large --clone $clone --nothing -h 2 -$vs -m mv $1 $2

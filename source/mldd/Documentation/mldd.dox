@@ -1,0 +1,179 @@
+// vim: syntax=cpp
+/* doxygen docs only, NO code
+ */
+
+// enclosing in namespace to link class names within text
+namespace mldd {
+
+/*!
+   \page mlddNotes mldd design notes
+
+\section vertexCalculations vertex calculations
+
+We willen dat Derek ook attributen aan de mldd vertices kan hangen en
+daarop berekeningen kan doen, dan kan die alle lijsten met 8 kaarten
+opruimen. Die attributen worden dan als Fields met een row X col dimensie
+van 1 X #vertices (geo::RasterSpace) opgeslagen (noem ik hier AttrField's).
+
+Een naieve oplossing is het toevoegen van een extra rte() met die dimensie, waarmee
+je dan operaties kan doen. Problemen zijn:
+ - de huidige staat van de intern mldd graph bepaalt de dimensie.
+ - de dimensie is variabel: mldd::removeStream et.al. passen hem aan, reeds
+   bestaande AttrField's moeten aangepast worden.
+ .
+
+De oplossing die ik hier beschrijf is om alle AttrField's als members in 
+een klasse te hangen die erft van Mldd(Core). Dan hebben we ten allen tijde
+toegang tot de AttrFields:
+
+ \code
+  class Mldd(MlddCore):
+      ....
+   attrs(self):
+     # liever attrs() als method van MlddCore als die in __dict__
+     #  van zijn erfer kan kijken.
+     l = []
+     for i in self.__dict__:
+       if "i is a Field (or float/integer for NonSpatial)":
+         l.append(i)
+     return i
+ \endcode
+
+Met deze toegang kunnen we ten alle tijde de AttrField's patchen voor een
+gewijzigde graph.
+
+Mldd moet tenminste de volgende functies implementeren om 2D Field's uit de rest
+v/h model naar de attrField geo::RasterSpace te mappen:
+
+ - source(2DField)  -> AttrField :
+     "zet de upstream waarde op de vertex"
+ - target(2DField)  -> AttrField :
+     "zet de downstream waarde op de vertex"
+ - vertexlength()  -> non spatial scalar : celllength() van AttrField.
+
+De andere kant gaat nog steeds met een lijst van 8 2DField's:
+
+ - attr2Fields(AttrField) -> python list of 8 2DField's
+
+Of:
+
+ - attr2SourceField(AttrField, aggregator) -> 2DField
+ - attr2TargetField(AttrField, aggregator) -> 2DField
+
+De bovenstaande 2 functies zetten de waarde van AttrField naar
+hun upstream of downstream 2D cell. Op die 2D cell kunnen dan meerder
+waarden aankomen: Dat is het idee van multi-ldd. De aggragator is
+dan de methode om tot 1 waarde te komen:  sum/total, maximum, minimun,
+average, count.
+
+The current python Mldd class is renamed to MlddCore. MlddCore only implements
+the graph and methods on that graph. The user extends MlddCore (e.g. Mldd) 
+with its own attributes:
+
+ \code
+  class Mldd(MlddCore):
+   __init__("args for MlddCore"):
+     # the calc::ObjectLink constructor passes the 2D geo::RasterSpace
+     # Mldd is the first one to know about the current AttrField's geo::RasterSpace
+
+   # dem is a 2D field
+   calcEverything(self, dem):
+     # method of MlddCore: enter magic explained later
+     # this call is required!
+     self.enterAttrDictionary()
+
+      # operations go here
+      self.d_vertexSlope =  (source(dem)-target(dem))/vertexlength()
+      self.d_attrB =  uniform(1);
+      self.d_attrC =  ifthenelse( ..., self.d_attrB)
+      ....
+
+     # method of MlddCore: leave magic explained later
+     # this call is required!
+     self.leaveAttrDictionary()
+
+   # example of return list of 2D fields:
+   vertexSlope(self):
+     return self.attr2Fields(self.d_vertexSlope)
+ \endcode
+
+The enterAttrDictionary en leaveAttrDictionary zou allerlei magic moeten/kunnen
+doen om AttrField's aan te passen als de graph verandert. Gebruikmakend van
+attrs()  is dit niet triviaal maar oplosbaar. Beter is de  "Class with default method handler " uit het ActiveState Cookbook. Of in de init de method handler alles kun renamen:
+
+ \code
+
+  self.originalCode = self.calcEverything
+  self.calcEverything = "stubb calling wrapped self.originalCode"
+
+ \endcode
+
+Echter, waarschijnlijk kan Derek al zijn attribuut code berekening op
+1 plek triggeren met alleen 2D Fields als invoerargumenten. Alle AttrFields worden
+opnieuw uitgerekend, maar dat is op de "kleine" 1*#vertices AttrFields i.t.t. tot
+8 maal de 2D dimensie.
+
+Nog beter! De graph aanpassingen zijn alleen maar removeStream et.al functies, dus
+Mldd kan zelf de calcEverything methode triggeren, waarna Derek met de methode's
+zoals zelf aan te maken query methodes, zoals Mldd::vertextSlope(), de data weer 
+op kan pakken
+
+Het mooie van de aanpak hier geschetst is dat het ook toepasbaar is op ander
+datastructuren dan Mlld,zoals Blockpy. We hebben dan 3 datastructuren die alle 3 topologien
+genereren.
+
+ - Raster:  8 buren, inflow/outflow (vol en MVCompressed raster kunnen nog onderschieden worden).
+ - Mldd:    datastructuur legt 0-8 buren als inflow of outflow vast.
+ - Blockpy: datastructuur legt 0-N buren als inflow of outflow vast.
+
+
+
+Rest hier onder nog details voor Kor:
+
+Adaptions to pcrcalpy:
+
+separate (deletable) calc::RunTimeEngine instance, since geo::RasterSpace
+ changes. Globals should implement multiple calc::RunTimeEngine's that can
+ be nested in the python scope's (a bit simplistic here, no siblings supported).
+
+  \code
+    std::vector<calc::RunTimeEngine*> d_rte;
+    //! \pre d_currentRte < d_rte.size
+    size_t                            d_currentRte;
+    // instead of rte();
+    RunTimeEngine& currentRte();
+    // go to a "deeper" rte
+    //  used in enterAttrDictionary
+    void           incrRte();
+    // go to a "lower" rte
+    //  used in leaveAttrDictionary
+    void           decrRte();
+  \endcode
+
+
+\section Opmerkingen van Kor die misschien wat dommig zijn omdat ie het misschien niet helemaal begrijpt maar dat heb je vaker met geniale zaken.
+
+- Python is ook maar een taal, daar staan weer andere tegenover. Oftewel, als algemene regel zou ik stellen: zoveel mogelijk code in C++ zetten en de wrapper code / interface laag zo dun en eenvoudig mogelijk laten zijn. Over twee jaar moet alles in X.net.
+   <b>CW:</b>Mee eens.
+- Je gaat hiermee een grens over van relatief eenvoudig te gebruiken functies en objectlinks naar object georienteerd modelleren in Python.
+   <b>CW:</b>Mee eens, maar gebruik Mldd is ook niet makkelijk.
+- Je MlddCore klasse wordt afhankelijk van goed gedrag van z'n erfgenamen via de attrs() override en enterAttrDictionary() en leaveAttrDictionary() aanroepen.
+   <b>CW:</b>Mee eens, die methode's zijn overigens mischien ook niet nodig voor de gebruiker, Python heeft nog een paar truuks under-the-hood om
+   die te verstoppen, maar dat later
+- Het koppelen van attributen aan vertices lijkt me een basale eigenschap van Mldd en de koppeling die je beschrijft tussen MlddCore en Mldd is erop gericht om de datastructuur voor het opslaan van attribuutwaarden te kunnen updaten als de graph verandert. Dit is zo belangrijk dat ik attributen in MlddCore zou hangen of andersinds strakker aanelkaar zou koppelen.
+   <b>CW:</b>Kan ook, dit is maar een 1e schets.
+
+- Een mldd attribuut als een field opslaan is een slimme hack, maar een hack en ik zou Field uit de naam laten om verwarring bij mij en andere lezers te voorkomen, het is geen Field.
+   <b>CW:</b>Ok, we maken er Attr van.
+- Het probleem lijkt heel erg op wat ik voor blokken heb moeten maken: attributen die volgens een 3D blok gediscretiseerd zijn. De discretisatie is veranderlijk en globaal aan alle attributen (en in het geval van blokken GROOT) en wil je dus niet kopieren in elk object. Daarnaast zijn er processen die de discretisatie aanpassen waarna de afzonderlijk attributen ook aangepast moeten worden (verwijderen van elementen, toevoegen van elementen met een bepaalde of default waarde.) Eigenlijk is een raster een uitzondering met z'n starre discretisatie. Maar in het algemeen zouden we kunnen nadenken over een alaternatieve opzet van dicretisatie info en attributen die volgens die discretisatie zijn gemaakt.
+- Van elk attribuut moet bekend zijn wat z'n discretisatie/structuur is. Van elke discretisatie moeten de attributen bekend zijn. Een Raster klasse zou dan bijv een pointer naar de discretisatie en een pointer naar de data kunnen bevatten. Een RasterSpace klasse zou dan de discretisatie info van de raster data kunnen bevatten en een lijst met pointers naar raster data. Dit levert geheugen winst op omdat niet alle rasters diezelfde informatie meer hoeven te bevatten. Mldd en Block zijn ook een discretisatie of structuur klasses, vergelijkbaar met RasterSpace. Als de discretisatie wordt aangepast, moeten alle attributen worden aangepast. Dit is de verantwoordelijkheid van het discretisatie object wat mij betreft.
+- Volgens bovenstaande (en conform mijn block code die ik nu weer snap ;) moet er voor elke discretisatie unieke attribuut klasses komen: geo::Raster voor geo::RasterSpace, block::Attribute voor geo::Block en mldd::Attribute voor mldd::Mldd. Deze verenigen discretisatie info met data en kunnen rondgepompt worden in algorithmes e.d. Mocht de discretisatie aangepast worden dan wordt deze voor alle attributen aangepast.
+
+ - <b>CW:</b>De eerste simpele aanpak is de aanpassing van attributen
+   te verwaarlozen: Derek moet gewoon zorgen alle berekening doet.
+   Een kleine verbetering is om na een discretisatie aanpassing (e.g. removeStream)  alle Attr's (m.b.v. attrs())
+
+ -  <b>CW:</b>Yep, van die dingen ja, in het algemeen kunnen we stellen dat met zo'n Attribute klasse, alle punt operaties van pcrcalc zinnig kunne maken in elke discretisatie: graphs, volumes, polygonen, etc.
+*/
+
+} // namespace mldd

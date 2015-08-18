@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+#
+# We are in @CMAKE_CURRENT_BINARY_DIR@ now.
+
+export PCROPTIONS="--nothing"
+
+cp -r @CMAKE_CURRENT_SOURCE_DIR@/testdata/* .
+cp @CMAKE_CURRENT_SOURCE_DIR@/PCRaster.xsd .
+cp @CMAKE_CURRENT_SOURCE_DIR@/../xmlschema/commonTypes.xsd .
+
+
+cp @CMAKE_CURRENT_SOURCE_DIR@/../python/applications/LinkOutTestDriver/dynamicModel.xml PCRasterLinkOutTestPyDynamicModel.xml
+cp @CMAKE_CURRENT_SOURCE_DIR@/testdata/apiExamplesData/*.* .
+# windows problem
+chmod -R a+rwx ./*
+
+linkInBinDir=@EXECUTABLE_OUTPUT_PATH@/CMAKE_CFG_INTDIR
+if [ ${OSTYPE} == "cygwin" ]; then
+  cp ${linkInBinDir}/example1.dll ${linkInBinDir}/noXMLLinkIn.dll
+elif [ ${OSTYPE:0:6} == "darwin" ]; then
+  cp ${linkInBinDir}/libexample1.dylib ${linkInBinDir}/libnoXMLLinkIn.dylib
+elif [ ${OSTYPE} == "linux-gnu" ]; then
+  cp ${linkInBinDir}/libexample1.so ${linkInBinDir}/libnoXMLLinkIn.so
+else
+  echo "Unknown platform"
+  exit 1
+fi
+
+cp  @PROJECT_BINARY_DIR@/documentation/pcraster_manual/examples/*.map .
+# tables,tss
+cp  @PROJECT_BINARY_DIR@/documentation/pcraster_manual/examples/*.txt .
+cp -fR @PROJECT_SOURCE_DIR@/documentation/pcraster_manual/examples/validated .
+
+# add more to the validated created
+cp -fR @CMAKE_CURRENT_SOURCE_DIR@/testdata/validated/*   validated
+# make all writable even the .svn that is copied with it
+chmod -R a+w validated
+
+# allStatistics.xml expect a sub directory to be present
+rm -rf allStatisticsResults
+mkdir -p allStatisticsResults
+
+rm -rf tmp*
+rm -rf *_tmp*
+
+
+
+
+cp @CMAKE_CURRENT_SOURCE_DIR@/messagestest.xml .
+
+# tests from messagestest.xml and more
+_small=@PCRASTER_DATA_DIR@/test/pcrtree/small
+cp $_small/*.map .
+cp $_small/all1_float.* .
+
+cp $_small/*.tbl         .
+cp $_small/*.tss         .
+
+rm -rf rundir_*
+rm -rf ModelBuilder*
+mkdir -p rundir_dir1/dir2/dir3
+cp binding.ipcr rundir_dir1
+rm -rf stackReader
+mkdir  stackReader
+cp inp5s.map stackReader/tmp00000.001
+
+# calc_manualexampletestertest.cc
+mkdir -p validated
+cp inp5s.map validated/TesterTest.map
+cp inp1s.map validated/TesterTest1s.map
+cp inp1s.map validated/TesterOption.map
+cp inp5s_all.map validated/TesterClone.map

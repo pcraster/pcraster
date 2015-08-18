@@ -1,0 +1,49 @@
+#! --dynamiclibraries:/home/kor/pcrtree/bin/develop/mldd
+
+areamap ELddF000.out;
+
+initial
+  modellink m = mldd();
+
+  # NOTE de operaties met bogusBool krijgen GEEN
+  # zinnige boolean kaart terug, maar zo zit de syntax
+  # van de model link er nu eenmaal uit
+
+  # re-initialize stream network
+  bogusBool = m::setStream( ELddF000.out,
+                           NELddF00.out ,
+                            NLddF000.out,
+                           NWLddF00.out ,
+                           SELddF00.out ,
+                            SLddF000.out,
+                           SWLddF00.out ,
+                            WLddF000.out);
+
+  # add some stream(s) to existing
+  bogusBool = m::addStream( ELddF000.out);
+
+  # flat dem, will make equal weights
+  bogusBool = m::setDem(spatial(1));
+
+  # summing this shows sums of upstream weight
+  # in downstream cell
+  report upstream.map = m::upstream(spatial(1));
+
+  report accuflux.map = m::accuflux(if(defined(upstream.map),spatial(1)));
+
+  report Nout.map,
+         NEout.map,
+         Eout.map,
+         SEout.map,
+         Sout.map,
+         SWout.map,
+         Wout.map,
+         NWout.map  = m::getStream();
+  report N_w.map,
+         NE_w.map,
+         E_w.map,
+         SE_w.map,
+         S_w.map,
+         SW_w.map,
+         W_w.map,
+         NW_w.map  = m::getWeight();

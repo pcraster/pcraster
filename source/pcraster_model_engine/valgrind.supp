@@ -1,0 +1,26 @@
+{
+   <insert a suppression name here>
+   Memcheck:Cond
+   fun:DetMinMaxREAL4
+   fun:RputSomeCells
+   fun:_ZN3geo6CSFMap8putCellsEPKv
+   fun:_ZN4calc6CsfMap9writeDataEPKv
+}
+
+{
+   <insert a suppression name here>
+   Memcheck:Cond
+   fun:REAL4tREAL8
+   fun:RgetMinVal
+   fun:_ZNK3geo6CSFMap9getMinMaxERdS1_
+   fun:_ZNK4calc6CsfMap9getMinMaxERdS1_
+}
+{
+   Mclose:88
+   Memcheck:Param
+   write(buf)
+   fun:write
+   obj:/lib/libc-2.3.2.so
+   fun:_IO_do_write
+   fun:_IO_file_overflow
+}

@@ -1,0 +1,425 @@
+tag:
+   calcBase    1 save tag (cvs tag calcBase)
+   calcStable  Not set, basis is calcBase
+   calcNew     cvs rtag -b calcNew pcrtree/apps/pcrcalc
+
+wat is nieuw in stabiele t.o.v. branch?
+cvs diff -r calcBase
+
+co van calcNew branch:
+cvs co -r calcNew -d pcrme pcrtree/apps/pcrcalc
+cvs co -r calcNew -d pcrX pcrtree/apps/pcrcalc
+
+ZIT DIT NU in calcNew
+
+Repeat Until, timeinputsparse 
+ documentatie staat in docs/pcrmanual/manual_updates/ispra.txt
+
+? test_until in operation.xml?
+
+MV compressie losse eindjes:
+*) nonspatial -> spatial promotie OOK NOG DOEN?
+   c = order(spatial(1));  zou een MV moeten geven als
+       areamask ook een MV heeft.
+*) areaMvComprScript.map = maparea(resultMvComprScript.map
+    levert overal waarde op, niet alleen in mask, moet dat?
+    pas writeNonSpatial aan
+*)Script::d_mask is geshared voor zowel -m als -d maar -d kan hem wijzigen!
+  //! data is altered if a debug assertion is encountered
+  virtual unsigned char *areaMask() const=0;
+
+*) LATER denk eraan dat in globfunc.c nog temporaries worden aangemaakt:
+    MAP_REAL8 *t = CreateSpatialREAL8(CR_REAL8,o->nrRows,o->nrCols);
+
+
+
+___________________________________________________________________________________
+
+
+add function pi()
+
+Local algorithm modifiers
+ - current problem
+    --unitcell e.d. globaal
+Syntax
+	funcname(f_expr1, ... , f_exprn | name=value pairs)
+	funcname(f_expr1, ... , f_exprn : name=value pairs)
+----------------------------------------------
+
+redesign validateOutputFileName in finalCheck
+ with ESRI bongus
+
+if overwriting esri-stack first delete all
+ timesteps
+---------------------------------------------
+
+check directional stuff in esrigrid Mode
+
+manual explain boolean better
+-niet zoals test/pcrcalc/test64
+-tss now write each 128 steps away
+  except in noheader mode
+-document that test/pcrcalc/test61 is no longer possible
+
+- improve err message test/pcrcalc/test62
+   analyse merrno on open in Rcreate
+- manual examples, tan en windowtotal have different results
+
+- verzin test manier voor not enough memory
+  mischien efence patchen om na zoveel keer
+  te laten falen.  CodeGuard?
+
+ESRI problems:
+<ul>
+<li> Het lijkt alsof als iets in de dll misgaat zo nu en dan
+     de XML file blijgt staan. Of blijft ie altijd staan?
+ <il>verbetering, proces en XML: named pipes.
+ <li>Cees: add datatype to pcr_esri file, i.d.g. zou de extensie
+    andere legenda's kunnen maken a.h.v. data type</li>
+ <li>Willem: 1 current common directory in de extensie</li>
+ <li>Willem: Dynamic map in use niet helemaal lekker qua namen</li>
+ <li>Willem: Naam an PCRRunForm en modality, als ik van andere app
+     switched naar ArcView terwijl PCRRunForm open staat reageert
+		 ArcView niet, is terecht als dialog modal is, maar koppeling met
+		 ArcView dan (even) niet duidelijk</li>
+ </li>
+</ul>
+current limits
+ - do not understand projections of grid
+	
+tests on ESRI
+ : debug map ???
+
+Obs:
+  1)	ESRI meld naar stdout(of stderr)
+	 in geval van foutmelding
+* maps in indextable can only
+  be csf maps for the time being
+
+- internal documented only -X file.bla writes XML
+
+Dll's:
+- Problem with _ on linking dll's
+- move dynamiclink code from misc to
+  pcrcomm
+- implement DlClose
+
+test281 breaks on bcc32
+should act like 282
+
+Rhineflow 2 consumes a lot of time when reading
+ the input,tss even  if the script is incorrect. 
+
+potential problem, if on win32 user types same external parameter
+ in mixed case, it probably creates 2 distinct parameters.
+
+test231 on ctrlz breaks on win32!
+ ctrl-Z is end of file, basta!
+
+DID I solve this already?
+  swap dest+src ??
+  # should not copy tmp1.map!, handles are wrong!
+  tmp.res, tmp2.map = spread, spreadzone(inp1b.map == tmp1.map, 0, 1);
+
+- logfile.txt
+- NrOfValues(), branchexprimpl.cc too many LoadExternals
+- check warning never used
+- remove dummy CreateResultField in IfThen?
+  altough it is allocated but never paged ??
+- optimize if ( Temp gt 0 , etc... )
+    if Temp is last use we may piggyback a REAL4 to an UINT1
+- use a derived or new class for "not initialized" in runtime_error.
+  see if we can catch win32 numeric errors (huge_val etc..)
+- error.cc is a mess!
+
+single vs. arrayed field parameters
+
+SetReportPoint method + plus the way we track if an array element
+  is initialized sucks!
+
+Live/death analysis of single parameter:
+ scan in execution order:
+  for all statements do
+  - for expressionarg do
+         call recursive for expr.
+	 - mark a FieldLeaf as USE
+  - mark FieldLeft as a DEF
+
+define begin point in initial
+
+Todo
+* define how reportdefault affects timeseries, yes/no
+
+* diminish memory use of rhineflow model
+ see ~/rhineflow/*
+ had perf-figures in rflow.mod
+* if not enough memory then the ObjCounter destructor fails
+always!
+
+----------------------------------------------
+* dll's for sub-models:
+ can be hard-links for time being
+  IDEA : 
+     initial
+      modellink M1 = sedsim("sedsim.ini");
+     dynamic
+      map = M1:toptype();
+* interface as is now plus
+ - DLL_PROBLEM fixed
+ - spatials and non-spatial returns
+ - unlimited multiple returns
+ - object-based name spaces
+
+DLL_PROBLEM:
+------------
+look again at dll interface seems to be missing how
+ we know WHAT the IMPLEMENTING OUT MAP OBJECT RESULT IS
+ at input, we know (by convention) largest vs returned
+
+
+Make a good design and guidelines for handling  Errors and
+Warning:
+	- exception handling
+	- old Error/Warning funcs from libmisc.a
+	- sync with Kor
+
+-------------------
+DOCUMENT:
+- timeoutput -> report now needed
+- changed behaviour of maptotals and a-sorted functions.
+  timeinput with 
+   spatial if indexpression is spatial
+   non-spatial if indexpression is non-spatial
+- fileoutput 
+- HTML generation
+- header global option 
+- timeoutput extra docs, nr Cols are defined in first
+  timestep, if tss < 1 --> no tss written
+- if is different now.
+- made tss flush to disk, every 128 timesteps.
+ perfecter is eerste bepalen hoeveel:
+----------------------------------------------------------------
+ * incompat. bug: (hacked now, make a test)
+     with copyContents (does not do correct positioning?)
+ 	binding
+	  a = scalar(3);
+	  b = a;
+
+TODO: Wed Jun  9 16:46:33 CEST 1999
+ - whoops ibngauss needs check, material > 0
+ - write a test for arrayed time output
+   --> fails/work test
+ - add * to indextable
+ - alternative syntax voor time output
+ - stacks-beschrijven, nieuwe display aanpassen (wildargs.c)
+ - initiele constanten
+------------------------
+
+optimize foreach in and exl list, on the indexparametervariable
+ needs dynamic to be included and excluded?
+allow index.... function anywhere in the code
+let -d optie also check input of maps
+redo GetCalcApiClone into MAP_* structure
+
+
+PATCHED FLEX for namespaces
+
+check SRC.RCS when packing on zip-files!
+
+forgetting matching { - } is a headach for users
+ add a light pre-parser to match {} and () pairs
+
+~/Makefile.rev contains new thing for rcsdiff
+  apply to makercs template
+- NEW allow binding  a=a -> pcrcalc/test43a
+   what are the consequences?
+
+updated maketest
+makesrc: commented -ansi -pedantic
+devbin/test_dep changed for opennt
+makesrc
+ explicit language use for gcc
+   -x c  and -x c++ !
+maketest: added rm core
+
+note line 760 symbuild.c on reports, names have to be external
+ unique!
+ thus have global scope checking , not yet implemented!
+
+test/dl:
+	clean up old tests copied from args
+	seems broken, linux does not search in dir of
+	 application
+        No, pcrcalc dir has correct ones
+	Check use of env LD_LIBRARIES (dlopen)
+
+IDEA:  if we can have a true positional error
+      we can mark a cursor line x char y
+       if we get a general syntax error
+      we can mark the whole line x (and the line above that?) 
+      NOTE the expression is printed AFTER the error-msg
+       with a pos on the next line, this allows a shell
+       to find the expr in the command line (skipping options)
+      0,0 as position is an error that must be handled, in 
+       DEBUG_DEVELOP mode it crashes
+     - most left positions see pcrcalc/test257 line 644,symbuild.c 
+
+Rewrite errorHandler -> PosError
+
+Add to manual : con & aux on all platforms illegal filenames (FileNameValid )
+
+Bug: see report(60,endtime) bse* in ~/koen/ibn/simple1/new/1S*MDL
+      name van stack gaat niet goed
+
+ASSERTION: if all types are ok, and the mif-bug is fixed by propagating
+a result back through mif and cover then every type object has exactly
+one type defined!
+
+FORSPACE, specific
+  - real non-spatials !
+  - extremely simple I/O model :
+    report Lai[Hl][Que]  writes  "Lai-Hl-Que.map"
+  - if index eq X then else should only execute one branch?
+  - localizing arrays, is a certain index only used in 1
+     code block such that
+      a[i] = ...
+      ..   = ..a[i].. # only use a[i]
+      -->
+      a  = ...
+      .. = ..a..
+    even in nested code blocks! See AlcWst
+  - sparse arrays, check if certain rows or columns are not used
+     see forspace -> Jv only act on Hl layers
+
+  - done rewriting until Lct
+  
+
+SOME DEFINITIONS
+  initial
+      report a  = <non-spatial expr>
+    --> write a map with on every cell that value;
+
+  dynamic
+      report a  = <non-spatial expr>
+    	--> write a tss with one column giving the value
+
+  in both cases parameter a is known as non-spatial in the
+  run-time system.
+
+* ibngauss functie opgenomen:
+
+   Synopsis: Result = ibngauss(Material, Range)
+
+	Result   scalar spatial
+	Material scalar spatial
+	Range    scalar spatial or nonspatial
+
+   This function distributes an amount of Material over a certain area.
+
+   The Material argument describes an number of units that can
+   be distributed.  Each distributable unit has a value of 1. The
+   possible fractional part of Material is left on the same position
+   in Result. Example, if Material has a value of 3.4, then 3 distinct
+   units are distributed and 0.4 is kept on the same location on Result.
+
+   The destination cell, the location where a unit is put in Result,
+   is computed using a 3 dimensional gaussian distribution with it's
+   mean value on the source cell, the location on Material where the
+   unit originates, and a standard deviation equal to the Range argument
+   value on the source cell.
+
+   - The range parameter must be equal or larger than zero.
+   - The destination cell can equal the source cell.
+   - If the destination cell is a MV on Material or Range or is outside
+     the map, the unit is "lost". In other words, 
+     maptotal(Result) eq maptotal(Material) is not true,
+     but maptotal(Result) lt maptotal(Material) is true.
+   - Since this function deploys an gaussian distribution using a random
+     number generator, subsequent calls to the function will yield different 
+     results, except if the -s option of pcrcalc is used.
+-----------
+
+blz 147 areaarea tikfout laatste regel 'or' moet 'of' zijn.
+ on an expr.. -> of an expression resulting in classes.
+
+classes staat niet in index, wordt wel veel gebruikt in de 
+commando referenties dit, classes zo naar II.2 kunnen verwijzen.
+
+minimize pushing on stack by changing tree structure
+ in communative operators in grammare rules!
+
+_________________________________________________________________________
+
+User defined functions design
+------------------------------
+
+two terms, two goals:
+1. script function
+   user can write functions in pcrcalc scripts. 
+2. external function
+   user can add external functions to pcrcalc by
+   means of a dynamic library (DLL in MS-windows terms)
+
+Script function, are a long term wish, external functions are
+needed now. We design both but only implement external functions.
+
+Definition of a script function:
+ functionName
+  output : X1,...,Xn;
+  input  : Y1,...,Yn;
+ {
+#  body
+ }
+
+Calling such a definition:
+ X1,...,Xn = functionName(Y1,...,YN)
+
+We have to get rid of the current double function names, such as
+ ldd,dem = lddcreate,lddcreatedem(...)
+Should be:
+ ldd,dem = lddcreateNEW(...)
+
+The old lldcreate can be emulated by the following script function
+definition:
+ lddcreate
+ output : ldd;
+ input  : dem,a1,a2,a3;
+ {
+  ldd,dummy = lddcreateNew(dem,a1,a2,a3);
+ }
+
+This aproach is equally efficient as the current, since variables that
+are never referenced (dummy) are optimized out immediately.
+Thus users can write generic functions with outputs X1,...,XN and make
+special functions that call the generic functions to get only some
+of the outputs, avoiding the the script is cluttered with dummy variables.
+This requires that script functions can call other script functions.
+
+Should script function definitions include type checking information?
+I think that all type information can be generated when substituting
+actual parameters at the point where a script function is used.
+
+external functions
+-------------------
+External functions are function programmed in some computer language other
+the PCRaster modelling language and that are linked in some way into the
+PCRaster modelling language. For example by means of an MS-Windows-DLL.
+
+There should be no distinction in the use of an external function or
+a function supplied by pcrcalc. 
+Therefor an external function must provide: 
+- type information
+- polymorphic behaviour: spatial <-> nonspatial, return of datatypes
+
+what we need is:
+ - name of the function
+ - number of arguments: input, output
+   type of arguments:
+    spatial <-> nonspatial (timeseries,tables etc. not yet supported)
+    datatypes
+ - a type checker   
+
+rules:
+ name must be uniq, e.g. must be different (CHECKED)
+ name must be an indentifier, not $% and other shit
+  NOT CHECKED, but you are unable to call the function

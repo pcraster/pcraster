@@ -1,0 +1,45 @@
+/* sbinfunc.c */
+extern int Do_fdiv_ss(REAL4 *vL, REAL4 *vR, size_t n);
+extern int Do_fdiv_ns(REAL4 *vL, REAL4 *vR, size_t n);
+extern int Do_fdiv_sn(REAL4 *vL, REAL4 *vR, size_t n);
+extern int Do_idiv_ss(REAL4 *vL, REAL4 *vR, size_t n);
+extern int Do_idiv_ns(REAL4 *vL, REAL4 *vR, size_t n);
+extern int Do_idiv_sn(REAL4 *vL, REAL4 *vR, size_t n);
+extern int Do_mod_ss(REAL4 *vL, REAL4 *vR, size_t n);
+extern int Do_mod_ns(REAL4 *vL, REAL4 *vR, size_t n);
+extern int Do_mod_sn(REAL4 *vL, REAL4 *vR, size_t n);
+extern int Do_pow_ss(REAL4 *vL, REAL4 *vR, size_t n);
+extern int Do_pow_ns(REAL4 *vL, REAL4 *vR, size_t n);
+extern int Do_pow_sn(REAL4 *vL, REAL4 *vR, size_t n);
+extern int Do_mul_ss(REAL4 *vL, REAL4 *vR, size_t n);
+extern int Do_mul_ns(REAL4 *vL, REAL4 *vR, size_t n);
+extern int Do_badd_ss(REAL4 *vL, REAL4 *vR, size_t n);
+extern int Do_badd_ns(REAL4 *vL, REAL4 *vR, size_t n);
+extern int Do_bmin_ss(REAL4 *vL, REAL4 *vR, size_t n);
+extern int Do_bmin_sn(REAL4 *vL, REAL4 *vR, size_t n);
+extern int Do_bmin_ns(REAL4 *vL, REAL4 *vR, size_t n);
+extern int Do_and_ss(UINT1 *vL, UINT1 *vR, size_t n);
+extern int Do_and_ns(UINT1 *vL, UINT1 *vR, size_t n);
+extern int Do_or_ss(UINT1 *vL, UINT1 *vR, size_t n);
+extern int Do_or_ns(UINT1 *vL, UINT1 *vR, size_t n);
+extern int Do_xor_ss(UINT1 *vL, UINT1 *vR, size_t n);
+extern int Do_xor_ns(UINT1 *vL, UINT1 *vR, size_t n);
+extern int Do_max_4_ns(INT4 *vL, INT4 *vR, size_t n);
+extern int Do_max_4_ss(INT4 *vL, INT4 *vR, size_t n);
+extern int Do_min_4_ns(INT4 *vL, INT4 *vR, size_t n);
+extern int Do_min_4_ss(INT4 *vL, INT4 *vR, size_t n);
+extern int Do_min_s_ns(REAL4 *vL, REAL4 *vR, size_t n);
+extern int Do_min_s_ss(REAL4 *vL, REAL4 *vR, size_t n);
+extern int Do_max_s_ns(REAL4 *vL, REAL4 *vR, size_t n);
+extern int Do_max_s_ss(REAL4 *vL, REAL4 *vR, size_t n);
+extern int Do_cover_1_ns(UINT1 *vL, UINT1 *vR, size_t n);
+extern int Do_cover_4_ns(INT4 *vL, INT4 *vR, size_t n);
+extern int Do_cover_s_ns(REAL4 *vL, REAL4 *vR, size_t n);
+extern int Do_cover_1_ss(UINT1 *vL, UINT1 *vR, size_t n);
+extern int Do_cover_4_ss(INT4 *vL, INT4 *vR, size_t n);
+extern int Do_cover_4_sn(INT4 *vL, INT4 *vR, size_t n);
+extern int Do_cover_1_sn(UINT1 *vL, UINT1 *vR, size_t n);
+extern int Do_cover_s_ss(REAL4 *vL, REAL4 *vR, size_t n);
+extern int Do_cover_s_sn(REAL4 *vL, REAL4 *vR, size_t n);
+
+

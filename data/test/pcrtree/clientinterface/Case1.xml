@@ -1,0 +1,325 @@
+<Root identifier="0" class="nl.wldelft.habitat.CaseHabitat" key="Case1" name="case1">
+  <Status>
+    <Status association="Status0" class="java.lang.String" value="" />
+  </Status>
+  <dateCreated>
+    <dateCreated association="dateCreated0" class="java.lang.String" value="1039704025265" />
+  </dateCreated>
+  <dateLastUpdate>
+    <dateLastUpdate association="dateLastUpdate0" class="java.lang.String" value="1039704397530" />
+  </dateLastUpdate>
+  <doel>
+    <doel association="doel0" class="java.lang.String" value="" />
+  </doel>
+  <opdracht>
+    <opdracht association="opdracht0" class="java.lang.String" value="" />
+  </opdracht>
+  <aangemaakt>
+    <aangemaakt association="aangemaakt0" class="java.lang.String" value="" />
+  </aangemaakt>
+  <document>
+    <document association="document0" class="java.lang.String" value="" />
+  </document>
+  <overig>
+    <overig association="overig0" class="java.lang.String" value="" />
+  </overig>
+  <VinkOptie>
+    <VinkOptie association="VinkOptie0" class="java.lang.String" value="0" />
+  </VinkOptie>
+  <Parameter>
+    <Parameter association="Parameter0" identifier="1" class="nl.wldelft.habitat.Parameter" name="x">
+      <VARIABELE>
+        <VARIABELE association="VARIABELE0" class="java.lang.String" value="x" />
+      </VARIABELE>
+      <KAARTNAAM>
+        <KAARTNAAM association="KAARTNAAM0" class="java.lang.String" value="jan" />
+      </KAARTNAAM>
+      <BESCHRIJVING>
+        <BESCHRIJVING association="BESCHRIJVING0" class="java.lang.String" value="" />
+      </BESCHRIJVING>
+      <BESTAND>
+        <BESTAND association="BESTAND0" class="java.lang.String" value="inp10_Univariaat.bil" />
+      </BESTAND>
+    </Parameter>
+    <Parameter association="Parameter1" identifier="2" class="nl.wldelft.habitat.Parameter" name="y">
+      <VARIABELE>
+        <VARIABELE association="VARIABELE0" class="java.lang.String" value="y" />
+      </VARIABELE>
+      <KAARTNAAM>
+        <KAARTNAAM association="KAARTNAAM0" class="java.lang.String" value="piet" />
+      </KAARTNAAM>
+      <BESTAND>
+        <BESTAND association="BESTAND0" class="java.lang.String" value="res1_y.bil" />
+      </BESTAND>
+    </Parameter>
+    <Parameter association="Parameter2" identifier="3" class="nl.wldelft.habitat.Parameter" name="z">
+      <VARIABELE>
+        <VARIABELE association="VARIABELE0" class="java.lang.String" value="z" />
+      </VARIABELE>
+      <KAARTNAAM>
+        <KAARTNAAM association="KAARTNAAM0" class="java.lang.String" value="zet" />
+      </KAARTNAAM>
+      <BESTAND>
+        <BESTAND association="BESTAND0" class="java.lang.String" value="inp10_Univariaat.bil" />
+      </BESTAND>
+    </Parameter>
+    <Parameter association="Parameter3" identifier="4" class="nl.wldelft.habitat.Parameter" name="q">
+      <VARIABELE>
+        <VARIABELE association="VARIABELE0" class="java.lang.String" value="q" />
+      </VARIABELE>
+      <KAARTNAAM>
+        <KAARTNAAM association="KAARTNAAM0" class="java.lang.String" value="qu" />
+      </KAARTNAAM>
+    </Parameter>
+    <Parameter association="Parameter4" identifier="5" class="nl.wldelft.habitat.Parameter" name="r">
+      <VARIABELE>
+        <VARIABELE association="VARIABELE0" class="java.lang.String" value="r" />
+      </VARIABELE>
+      <KAARTNAAM>
+        <KAARTNAAM association="KAARTNAAM0" class="java.lang.String" value="er" />
+      </KAARTNAAM>
+    </Parameter>
+    <Parameter association="Parameter5" identifier="6" class="nl.wldelft.habitat.Parameter" name="out">
+      <VARIABELE>
+        <VARIABELE association="VARIABELE0" class="java.lang.String" value="out" />
+      </VARIABELE>
+      <BESTAND>
+        <BESTAND association="BESTAND0" class="java.lang.String" value="res1_out.bil" />
+      </BESTAND>
+    </Parameter>
+  </Parameter>
+  <Model>
+    <Model association="Model0" identifier="7" class="nl.wldelft.habitat.Model" name="sjabloon1">
+      <dateCreated>
+        <dateCreated association="dateCreated0" class="java.lang.String" value="1039704025245" />
+      </dateCreated>
+      <dateLastUpdate>
+        <dateLastUpdate association="dateLastUpdate0" class="java.lang.String" value="1039704025245" />
+      </dateLastUpdate>
+      <functiesIn>
+        <functiesIn association="functiesIn0" class="java.lang.String" value="" />
+      </functiesIn>
+      <functiesUit>
+        <functiesUit association="functiesUit0" class="java.lang.String" value="" />
+      </functiesUit>
+      <Rule>
+        <Rule association="Rule0" identifier="8" class="nl.wldelft.habitat.Rule" name="rule1">
+          <dateCreated>
+            <dateCreated association="dateCreated0" class="java.lang.String" value="1039704039365" />
+          </dateCreated>
+          <dateLastUpdate>
+            <dateLastUpdate association="dateLastUpdate0" class="java.lang.String" value="1039704142663" />
+          </dateLastUpdate>
+          <SoortKennis>
+            <SoortKennis association="SoortKennis0" class="java.lang.String" value="Univariaat" />
+          </SoortKennis>
+          <UnivarFunc>
+            <UnivarFunc association="UnivarFunc0" class="java.lang.String" value="x+1" />
+          </UnivarFunc>
+          <UnivarX>
+            <UnivarX association="UnivarX0" class="java.lang.String" value="" />
+          </UnivarX>
+          <UnivarXvan>
+            <UnivarXvan association="UnivarXvan0" class="java.lang.String" value="" />
+          </UnivarXvan>
+          <UnivarXtot>
+            <UnivarXtot association="UnivarXtot0" class="java.lang.String" value="" />
+          </UnivarXtot>
+          <UnivarIntX>
+            <UnivarIntX association="UnivarIntX0" class="java.lang.String" value="" />
+          </UnivarIntX>
+          <UnivarIntY>
+            <UnivarIntY association="UnivarIntY0" class="java.lang.String" value="" />
+          </UnivarIntY>
+          <MultivarFunc>
+            <MultivarFunc association="MultivarFunc0" class="java.lang.String" value="" />
+          </MultivarFunc>
+          <INVOER>
+            <INVOER association="INVOER0" reference="1" />
+          </INVOER>
+          <UITVOER>
+            <UITVOER association="UITVOER0" reference="2" />
+          </UITVOER>
+        </Rule>
+        <Rule association="Rule1" identifier="9" class="nl.wldelft.habitat.Rule" name="rule2">
+          <dateCreated>
+            <dateCreated association="dateCreated0" class="java.lang.String" value="1039704045213" />
+          </dateCreated>
+          <dateLastUpdate>
+            <dateLastUpdate association="dateLastUpdate0" class="java.lang.String" value="1039704184564" />
+          </dateLastUpdate>
+          <SoortKennis>
+            <SoortKennis association="SoortKennis0" class="java.lang.String" value="Multivariaat" />
+          </SoortKennis>
+          <UnivarFunc>
+            <UnivarFunc association="UnivarFunc0" class="java.lang.String" value="" />
+          </UnivarFunc>
+          <UnivarX>
+            <UnivarX association="UnivarX0" class="java.lang.String" value="" />
+          </UnivarX>
+          <UnivarXvan>
+            <UnivarXvan association="UnivarXvan0" class="java.lang.String" value="" />
+          </UnivarXvan>
+          <UnivarXtot>
+            <UnivarXtot association="UnivarXtot0" class="java.lang.String" value="" />
+          </UnivarXtot>
+          <UnivarIntX>
+            <UnivarIntX association="UnivarIntX0" class="java.lang.String" value="" />
+          </UnivarIntX>
+          <UnivarIntY>
+            <UnivarIntY association="UnivarIntY0" class="java.lang.String" value="" />
+          </UnivarIntY>
+          <MultivarFunc>
+            <MultivarFunc association="MultivarFunc0" class="java.lang.String" value="y+z" />
+          </MultivarFunc>
+          <INVOER>
+            <INVOER association="INVOER0" reference="2" />
+            <INVOER association="INVOER1" reference="3" />
+          </INVOER>
+          <UITVOER>
+            <UITVOER association="UITVOER0" reference="4" />
+          </UITVOER>
+        </Rule>
+        <Rule association="Rule2" identifier="10" class="nl.wldelft.habitat.Rule" name="rule3">
+          <dateCreated>
+            <dateCreated association="dateCreated0" class="java.lang.String" value="1039704050851" />
+          </dateCreated>
+          <dateLastUpdate>
+            <dateLastUpdate association="dateLastUpdate0" class="java.lang.String" value="1039704289174" />
+          </dateLastUpdate>
+          <SoortKennis>
+            <SoortKennis association="SoortKennis0" class="java.lang.String" value="Klassen" />
+          </SoortKennis>
+          <UnivarFunc>
+            <UnivarFunc association="UnivarFunc0" class="java.lang.String" value="" />
+          </UnivarFunc>
+          <UnivarX>
+            <UnivarX association="UnivarX0" class="java.lang.String" value="" />
+          </UnivarX>
+          <UnivarXvan>
+            <UnivarXvan association="UnivarXvan0" class="java.lang.String" value="" />
+          </UnivarXvan>
+          <UnivarXtot>
+            <UnivarXtot association="UnivarXtot0" class="java.lang.String" value="" />
+          </UnivarXtot>
+          <UnivarIntX>
+            <UnivarIntX association="UnivarIntX0" class="java.lang.String" value="" />
+          </UnivarIntX>
+          <UnivarIntY>
+            <UnivarIntY association="UnivarIntY0" class="java.lang.String" value="" />
+          </UnivarIntY>
+          <MultivarFunc>
+            <MultivarFunc association="MultivarFunc0" class="java.lang.String" value="" />
+          </MultivarFunc>
+          <KlassenTabel>
+            <KlassenTabel association="bp_0" identifier="11" class="nl.wldelft.habitat.KlassenTabel" name="bp_0">
+              <VARIABELE>
+                <VARIABELE association="VARIABELE0" class="java.lang.String" value="0" />
+              </VARIABELE>
+              <FACTOR>
+                <FACTOR association="FACTOR0" class="java.lang.Double" value="0.0" />
+              </FACTOR>
+            </KlassenTabel>
+            <KlassenTabel association="bp_1" identifier="12" class="nl.wldelft.habitat.KlassenTabel" name="bp_1">
+              <VARIABELE>
+                <VARIABELE association="VARIABELE0" class="java.lang.String" value="1" />
+              </VARIABELE>
+              <FACTOR>
+                <FACTOR association="FACTOR0" class="java.lang.Double" value="2.0" />
+              </FACTOR>
+            </KlassenTabel>
+            <KlassenTabel association="bp_2" identifier="13" class="nl.wldelft.habitat.KlassenTabel" name="bp_2">
+              <VARIABELE>
+                <VARIABELE association="VARIABELE0" class="java.lang.String" value="2" />
+              </VARIABELE>
+              <FACTOR>
+                <FACTOR association="FACTOR0" class="java.lang.Double" value="5.0" />
+              </FACTOR>
+            </KlassenTabel>
+          </KlassenTabel>
+          <INVOER>
+            <INVOER association="INVOER0" reference="4" />
+          </INVOER>
+          <UITVOER>
+            <UITVOER association="UITVOER0" reference="5" />
+          </UITVOER>
+        </Rule>
+        <Rule association="Rule3" identifier="14" class="nl.wldelft.habitat.Rule" name="rule4">
+          <dateCreated>
+            <dateCreated association="dateCreated0" class="java.lang.String" value="1039704297917" />
+          </dateCreated>
+          <dateLastUpdate>
+            <dateLastUpdate association="dateLastUpdate0" class="java.lang.String" value="1039704357502" />
+          </dateLastUpdate>
+          <SoortKennis>
+            <SoortKennis association="SoortKennis0" class="java.lang.String" value="Gebroken lineair" />
+          </SoortKennis>
+          <UnivarFunc>
+            <UnivarFunc association="UnivarFunc0" class="java.lang.String" value="" />
+          </UnivarFunc>
+          <UnivarX>
+            <UnivarX association="UnivarX0" class="java.lang.String" value="" />
+          </UnivarX>
+          <UnivarXvan>
+            <UnivarXvan association="UnivarXvan0" class="java.lang.String" value="" />
+          </UnivarXvan>
+          <UnivarXtot>
+            <UnivarXtot association="UnivarXtot0" class="java.lang.String" value="" />
+          </UnivarXtot>
+          <UnivarIntX>
+            <UnivarIntX association="UnivarIntX0" class="java.lang.String" value="" />
+          </UnivarIntX>
+          <UnivarIntY>
+            <UnivarIntY association="UnivarIntY0" class="java.lang.String" value="" />
+          </UnivarIntY>
+          <MultivarFunc>
+            <MultivarFunc association="MultivarFunc0" class="java.lang.String" value="" />
+          </MultivarFunc>
+          <GebrokenLineair>
+            <GebrokenLineair association="bp_0" identifier="15" class="nl.wldelft.habitat.GebrokenLineair" name="bp_0">
+              <X>
+                <X association="X0" class="java.lang.Double" value="0.0" />
+              </X>
+              <Y>
+                <Y association="Y0" class="java.lang.Double" value="1.0" />
+              </Y>
+            </GebrokenLineair>
+            <GebrokenLineair association="bp_1" identifier="16" class="nl.wldelft.habitat.GebrokenLineair" name="bp_1">
+              <X>
+                <X association="X0" class="java.lang.Double" value="0.3" />
+              </X>
+              <Y>
+                <Y association="Y0" class="java.lang.Double" value="0.0" />
+              </Y>
+            </GebrokenLineair>
+            <GebrokenLineair association="bp_2" identifier="17" class="nl.wldelft.habitat.GebrokenLineair" name="bp_2">
+              <X>
+                <X association="X0" class="java.lang.Double" value="1.0" />
+              </X>
+              <Y>
+                <Y association="Y0" class="java.lang.Double" value="1.0" />
+              </Y>
+            </GebrokenLineair>
+            <GebrokenLineair association="bp_3" identifier="18" class="nl.wldelft.habitat.GebrokenLineair" name="bp_3">
+              <X>
+                <X association="X0" class="java.lang.Double" value="2.0" />
+              </X>
+              <Y>
+                <Y association="Y0" class="java.lang.Double" value="1.0" />
+              </Y>
+            </GebrokenLineair>
+          </GebrokenLineair>
+          <INVOER>
+            <INVOER association="INVOER0" reference="5" />
+          </INVOER>
+          <UITVOER>
+            <UITVOER association="UITVOER0" reference="6" />
+          </UITVOER>
+        </Rule>
+      </Rule>
+    </Model>
+  </Model>
+  <Configuration>
+    <Configuration association="Configuration0" identifier="19" class="nl.wldelft.workflowserver.Configuration" key="Configuration1" name="HabitatComputation" root="Database1.xml" />
+  </Configuration>
+</Root>

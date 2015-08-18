@@ -1,0 +1,20 @@
+SET(SOURCES
+    aterror.c
+    bitset2d.c
+    bitset.c
+    chkmem.c
+    cnvrtnum.c
+    error.c
+    exstring.c
+    fileio.c
+    fileset.c
+    filestat.c
+    mallocxd.c
+    qsortcmp.c
+    recmem.c
+    simplex.c
+    swapbyte.c
+)
+ADD_LIBRARY(misc
+    ${SOURCES}
+)

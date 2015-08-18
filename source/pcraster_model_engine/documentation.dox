@@ -1,0 +1,1660 @@
+// vim: syntax=cpp
+/* doxygen docs only, NO code
+ */
+
+// enclosing in namespace to link class names within text
+namespace calc {
+
+/*!
+   \page pcrmeDesign PCRasterModelEngine design
+
+   XML API doc is in PCRTREE2/documentation/user/Developer/LinkOut/
+
+   \section WL work
+      dsadsad
+
+   for field exchange:
+     for memoryInputId of value x add:
+       add a construct
+         x =  memoryInput();
+         # where memoryInput is an internal function
+
+     cddb
+         memoryOutput(x)
+
+     memoryInput expression
+
+   Derive from BaseExpr (like LinkInExpr) does
+
+   rename calc_timeinputstackop.cc to calc_fieldioops.cc
+
+   Add input node for offending node not working ( dynamicInput )
+   If going for memoryOutput as function with dummy result
+    then add this to bugs of modflow link
+
+  ACHIEVED:
+     textModel can contain initial and dynamic section
+       - timer, binding are simply ignored
+     fixed areaMap bug reported by Erik.deRooij@wldelft.nl
+       mail him
+     there is a check that the timer section must exist
+     if the model has a dynamic section
+   timer 1 3 1; # THIS TIMER IS IGNORED
+                # XML based scripts MUST have timer as element
+   Model:
+     testdata/apiExamples/memoryOnlyIO_8.xml
+
+   Timer xml is er nu als onderdeel van script, DOC IT
+        <xs:element name="timer"  type="pcr:TimerOfModel"
+
+  WAAR ZIJN WE:
+   document zoals in mail naar Willem
+   document in .  xmlApiJan2006.odt is current,
+    rest op wiki van WL
+   spell check pcrcalc.h
+
+  TODO
+    get a plain nog such file or directory for missing lookup?
+
+  RAW:
+    1 - N  - N elements
+    start with 1 element
+
+  TODO:
+      - Have lookup/table new thing like relation spec that is somewhere in doyxgen
+      end time situations:
+        document this in xsd IntegerTimer
+       - fixed in XML elements
+       - there are external ascii timeseries files, minumum of those is taken.
+       - unknown at start is done by omitting end step in XML elements internally end is set as max integer.
+
+   \section parsing
+
+   The code is parsed and put in an AST. The AST is represented by the ASTNode
+   hierarchy. CompleteParser (and StringParser) is the only interface for parsing
+   into the AST. Parser (ANTLRParser subclass) should not be called directly.
+
+
+
+   \section LinkIn
+
+   - add each library by name in symbol table
+   - in 
+
+   DONE:
+    - xml's and libs are found by PATH en LD_PATH? opties
+   refactor:
+
+   memory management by the model engine (link-out is other way around)
+   TODO 
+    - error messages are not passed:
+      a)  schema-not found yields no error, but garbage maps as results
+      b)  unknow operation like "div123" is also not messaged to user
+    - test "void" methods
+    - sequence nrs in callPoint to register order of calls
+    - variable number of arguments
+    - validate results of execute and check
+    - set context in InLinkExpr::check() (hack a global pointer)
+       pcr_LinkInCheck should have areaMap if clone is known
+        may need an additional  work on resolve
+        also the nrOfTimesteps must be passed
+    - variable number of inputs
+    - make a def file for decorating?
+    - check to objectLink Symbol (ASTSymbolInfo)is only ctor'ed at one spot
+    - pcr_LinkInExecute with a constructor may be called multiple time
+      for a unique instanceName, if ctor in dynamic section:
+       as such the ctor for the succesive instance should implement the dtor
+       of the previuous instance.
+    - add contextName to results and args with [] syntax for C++ link
+    - kijk of we on the fly operator configs kunnen doen,
+       d.m.v string argument
+       -> xml geeft de potentiele lijst van methodes aan, maar dat kan kleiner
+       worden, b.v. string arg van modflow-ctor beperkt in bepaalde methode.
+    - is stringArgument een argument of een "function modifier", tellen we het mee
+      in de argument count naar de gebruiker?
+    - python links, symbol inits are done by symbols. not by entire symbols:
+      ! may forget dynamic links  but symbolTable is kept!
+
+    - const char * pcr_LinkInLibraryManifest(); if available return what is in the dll
+          xml has linkInLibraryManifest as root
+    - PCR_DLL_FUNC (const char *) pcr_LinkInExecuteFinish();
+        if defined in the library, pcr_LinkInExecuteFinish is called when the PCRaster script finishes
+
+creating a modellink:
+
+modellink m = libName::modelLinkName(args);
+  m is unique and has type VS_OBJECTLINK
+
+calling a modellink method:
+  f1,f2,f3 =  m::methodName(args);
+  f* is a field multiple can created
+  or
+   m::method(args)
+  no returns
+
+calling a function:
+  f = libName::functionName(args);
+  f is a field,
+
+Simpelste voorbeeld:
+   lib::pi()
+   random::number generator
+
+   working of PCR_DLL_FUNC (const char *) pcr_LinkInCheck(const char *xml);
+     refine data types specification on base of now known type information
+     this function can be called for the same call point a number of times.
+     the xml argument should have the linkInCheckInput as root element.
+
+
+   \section ASTScript
+
+   All parsed information is stored in ASTScript.
+
+   \section analysing
+
+    Phase 1: ASTScript::analyzeNoContext(): analyses the AST and its symbols used by only looking at the AST itself, how are the symbols used. This generates a calc::DataType requirement for each symbol.
+
+     The AST is annotated by:
+     - ASTNode::returnDataType(size_t i=0); (non-const)
+        in BuildTypesVisitor
+     - ASTPar::setLastUse()
+        in calc::setLastUse()
+
+     In addition information is stored in the ASTSymbolInfo items of ASTSymbolTable as returned by BuildTypesVisitor::table().
+
+     Note that ASTSymbolInfo does contain ptrs (e.g ASTSymbolInfo::d_reportPar, etc) into the AST. Therefor the AST cannot be altered or copied when analysing has started (use ASTNode::createClone() with care).
+
+    Phase 2: ASTScript::resolve(): The requirements generated in phase 1 are 
+    checked by looking at the inputs. The inputs are external files or
+    memory references.
+
+    These 2 phases are distinct for the following reasons:
+     - XMLScriptClientInterface::createScriptAndAnalyzeNoContext() will
+       "inject" info into symbol table by setDefinition()
+     - pcr_ScriptXmlReflection() is FTTB done without resolving
+     .
+
+   \section reflection
+
+   At present reflection does only reflect on the model with the
+   setDefinition()' executed, not on the input
+   data. This is sufficient for OpenMI, type deduction (Andre WL) and
+   the R link.
+
+   see if partial resolve is feasible:
+    if scriptInput/external tag THEN resolve otherwise NOT.
+
+   \section preparing for execution
+
+   \section executing
+
+   \page pcrmeNotes PCRasterModelEngine development notes
+
+- <a href="#classNotes">Dingen per klasse</a>
+- <a href="#operationClassification">Operation classification</a>
+- <a href="#misc">miscNotes</a>
+
+\section WL bezoek:
+  - JanJaap BIL nog niet over:
+      - voeg aan geo::BilMap het CELLTYPE toe
+  - textModel: preserve white space while printing in IE!
+  - 0-value compressie in stat table nog eens aanhalen of in XML versie
+  - OpenMI Unit/Dimension klopt geen ruk van
+  - Bil format spec naar ANDRE, vertel Andre hoe statements (syntax) te checken.
+
+release:
+  - Habitat: all map inputs.
+  - FEWS: all memory: AreaMap must be set
+  - OpenMI: Future: mixed memory/map
+
+\section  Function Interface API design
+
+Requirements:
+ -  ObjectLink stuff los van built-in operators:
+       het ene run time het andere fixed
+ - Multiple returns ondersteunen
+ - named returns and named arguments
+
+//! ctor for built-in operators
+ Operator -->  IOpImpl
+    - needs type checking:
+       - top-down TopDownExprRestrictor
+       - bottom-up
+    - needs an implementation
+ calc::DataType
+    - should hold/describe ANY symbol value
+
+ Operation_xmlStinks:
+  - zie bug entry not in TopDownExprRestrictor class 
+  - test pcrcalc532
+  - isPolyInput hack
+
+- Bugs:
+  1) BuildTypesVisitor doet StatTable niet goed. 
+    zware refactoring, zet alles in de Operator's code: de top down en
+    bottom up visit. Laat assignment ook andere type's terug-geven incl.
+    runtime-types (e.g. XML-stat-table).
+    a) hack oplossing in LookupTable ctor:
+     if (vs.empty())
+       vs.push_back(VS_S);
+   b) skipping of VS_STRING type's StatTable is set as returning a string.
+
+\section XML API
+
+- Memory exchange mixed, set memory-ID or externalName in ASTSymbolInfo
+   merge IOStrategy again in one class (no subclasses)
+   IOStrategy has the name-data pair cache 
+- memory interface
+   not a reader/writer e.g. IOStrategy but per ASTSymbolInfo table.
+
+- er klopt geen ruk van de coordinate systems in de habitat tests!
+
+- bil dal/gdal writer fixen (dal fix can not open int2mv.bil)
+   bil format zonder extensie, dan extensie eraanplakken?
+   stx file
+
+
+BUG! lookup intervals als float, kan dat ook large integers aan?
+
+- TODO support both input and output simultaneously
+
+\section t dalRefactoring
+
+- rename calc_iocsffieldstrategytest.cc -> calc_iofieldstrategytest.cc
+- make IOFiles working with Dal
+ - affected classes:
+   GridMap  --> CsfMap (EsriMap not compiled yet)
+    GridMap reading should do dal
+   GridStat StackInfo
+- merge IoFieldStrategy and IoCsfFieldStrategy 
+
+- make a small unit-test with intended use:
+  test 1:
+   - init dal such that all formats are recognized
+   - test if bil, esri and csf are read.
+   - what exception are thrown in case of:
+      - not an existing file/directory
+      - unsupport format
+  test 2:
+   - as test 1, check if we get value-scales
+  test 3:
+   - configure a "writer": bil-writer, esri-write, csf-writer
+   - test writing
+
+- affected classes:
+   GridMap  --> CsfMap (EsriMap not compiled yet)
+    GridMap reading should do dal
+   GridStat StackInfo
+   IoFieldStrategy IoBandFieldStrategy IoCsfFieldStrategy IoEsriFieldStrategy
+
+- void IOFiles::initResolve() should become redundant: Dal should
+  recognize all input. When outputs are needed to be checked or written
+  we know we have parsed the script #! --esrigrid
+
+- first test: read a bil file
+
+- EsriGrid stacks in dal
+
+- get StackInput into IOStrategy
+   IOFiles::ioFieldStrategy()), should be made redunant
+    only used by StackInput
+
+\section t timeoutputmodulo
+
+- implement re-reading of inputs
+   and maybe outputs, if data is written it can be re-read.
+   DataTable::getOrReleaseValue HACKED_UP
+   DataTable::d_useDiskStorage
+
+\section e ExchangeModel FEWS
+
+tag pcrmeBeforeMemoryIO 
+ input/output eruit, ALS er in dan de inputType/outputType's i.p.v.
+ input-ouput.
+
+ - rapport aangepast
+    - maak een punt van de defaults
+    - het setten van de rasterSpace is nu mogelijk
+       pcr_ScriptConfigure
+    - kan ook als overschrijven
+
+TESTS
+X) AreaMap::AreaMap(const pcrxml::AreaMap& am):
+   test geo::RasterSpace <->  by roundtripping what we want:
+    nu performance penalty iedere reset via IOFieldStrategy
+     maakt een nieuw Mask aan!
+    wrsl. SpatialPacking creator in AreaMap ?
+X) ambiguity 
+   ambiguity/readyToRun tag
+    XmlReflection::ambiguous                   () const;
+
+
+
+Refactor:
+*IOStrategy:
+  setRasterSpace/AreaMap/SpatialPacking dependencies
+   - there must always be a working SpatialPacking
+   - changing the areaMap will yield another SpatialPacking
+ calc::RunTimeEnv::RunTimeEnv(const geo::RasterSpace&  rs)
+  to new class: BasicRunTimeEnv
+* void calc::Executor::wrapVisitWithCatch(Visit  v)
+  void calc::Operator::exec(class RunTimeEnv* rte, size_t nrActualInputs)const
+  handling of PosException
+
+if IoFieldStrategy set explicit we do have IOFiles!
+
+resolve:
+load before execution: DataTable::insert
+   really load data (Table/Tss) and checking
+
+
+IOMixed: public IOStrategy
+  propose for openMi, see what we have or
+  configure by xml
+  remainder to be passed throug memory.
+
+Phases:
+ 1: void calc::ASTScript::analyzeNoContext()
+ 2: void calc::ASTScript::resolve()
+          -->  ASTScript::analyzeByStrategy()
+                 check areamap/clone setting
+                 get rid of updateRteSettings
+    resolve2()
+    PREREQ: should know type of IOStrategy
+     install IOStrategy then not earlier
+Phase 2: must be triggered by one of:
+  - cmd line execute (File strategy)
+  - pcr_ScriptExecute (File strategy)
+  - pcr_ScriptExecuteNextTimeStepMemory (Memory strategy)
+
+Checks:
+ things like AreaMap and Timer can be either set from
+ 1) script (ASTScript)
+     creating possible PosError's
+ 2) pcr_ScriptConfigure(script,xmlString)
+     creating possible XML-set errors (XPointer)
+
+AreaMap as bitmap should go into RunTimeEnvSettings not in ASTScript.
+NOTE: 
+1) if areamap set in a script executed by IOMemory then pass by memory
+  may set the mask, areamap MUST be boolean.
+2) if --clone set, then we always use it, if no areamap in script, that is
+    different: vroeger was ALLEEN als geen input files.
+3) Or recast areamap's != boolean naar boolean  (0,1)
+
+X  check of items in DataTransferArray, 0 mogen zijn.
+X  resolve namespace issues!
+     evt. hack van binnen/buiten pcrxml expliciet toevoegen.
+4. exchangeModel defaults/configuration's als attributen ?
+    default: PCRaster MV' handling, normal cellRepr's
+    dataTransferArrayPossible: yes/no
+     yes: no ambiguity dataType and spatial/nonSpatial
+5. fase out ESRI en OpenMI verschillen:
+    interface sectie is een uitbreiding op ESRI/FEWS
+6. ioTypes algorithm  werkt niet goed voor VS_TABLE en VS_TSS types.
+   maak voorlopig simpele aannmames eerst op type.
+7. volgorde van script declaratie in het ExchangeModel, i.p.v alfabetische volgrode.
+8. support constants
+
+
+More architecturing: change xmlReflection openMI flag to 
+   - Variable    RING
+   - DataStorage RING
+
+OpenMI:
+ check MOET areamap bekend zijn.
+
+NOG doen- test Undefine en NoUnit
+
+
+
+TODO:
+  - csf valgrind.supp things oplossen of in global suppression
+
+
+DONE
+- t.b.v. esriModelBuilder: ExchangeItem with DataStorage for tables and timeseries FTTB, DataTYpe extension only 
+
+TODO
+
+
+Geadviseerd is om een specifieke PCRCALC-EngineAPIAccess interface te
+maken die direct deze calls aanroept in plaats van de trilogie 
+SetValues - Compute - GetValues
+NB Cees: wrsl is de PCRCALC afleiding een combo van EngineAPIAccess en SmartWrapper.
+
+ElementSet definitie, tricky  uniform(1) type call zonder  area map.
+
+Timer sectie
+PCRCalc kent geen kalendertijd, alleen stappen. Vaak is de kalender niet
+noodzakelijk. Tevens geeft het problemen bij stapgroottes van bv. een
+maand welke niet equidistant in seconden uit te drukken zijn.
+IN script:
+ timer sectie:
+ - start in julian date. (Boost time parser ISO thing?)
+    (of mischien in tss header?) Hymos! actie
+ - stap: integer type b.v 1 sec / 5 days / 1 month, etc.
+ - end optional?
+OpenMI: zou enum type voor juliandate moeten hebben.
+
+In dit deel wordt de kalenderhuishouding bijgehouden.
+Hiervoor moet de PCRCALC.DLL wel de volgende functies ondersteunen:
+heb je een begin tijd
+wat voor kalender type is je begintijd (enumeratie)
+wat is je begin tijd
+heb je een delta T
+wat is je delta T (enumeratie)
+wat is je huidige tijdstap (int)
+
+Bij voorkeur wordt de kalender administratie in een aparte
+C#-klasse ondergebracht, zodat hij herbruikbaar is voor andere codes
+(bv. RIBASIM). Dit vereist dat de functies om tijd informatie op te
+vragen ook voor andere model codes hanteerbaar moeten zijn
+
+- tijdsdefinitie PCRaster-script en wrapper
+   a la Fews met de units een externe of ingecompileerde XML
+   file
+    <ModelTimeUnit name="hour" seconds="3600"/>
+- full projection informatie
+- wrapper schrijven:
+   - data massaging:
+      - double to float en ander PCRaster datatypen
+      - ElementSet van mask in full grid with MV's
+        of mvcompression enablen
+      - of zelfs zlib/gzip standaard?
+   - negation ElementSet als geen AreaMap is gegeven.
+
+
+
+  void calc::ASTScript::resolve2() for OpenMI
+    - only thing it should set is d_rteSettings.setEndTime()
+      d_rteSettings.endTime() can be undetermined, callee (client) must
+        know. and can terminate.
+     - TODO
+          nu doen geen Timer setten, altijd extern:
+          see ASTTimerSection::updateTimer();
+ - alles wat in interface staat komt in lijst.
+    de lijst in een ordinal lijst.
+ - de rest heeft gewoon I/O.
+ - ExchangeItem 
+     tijdens doInitialStep doNextTimeStep hebben een array van
+     void.  met de ExchangeItem::index als index voor data.
+ - beperk interface tot Spatial (temporal/static) 
+     want XML heeft nog steeds  spatial::either
+     spatial=Either must be solved in XML!
+ - calc_astsymbolinfo.cc
+    if (d_hasInterface) {
+        if (d_dataType.stEither())
+           d_dataType.promoteToSpatial();
+    }
+
+ - XML terug kunnen sturen waarin de zaken beperkt kunnen worden:
+     - van all Variable met exchangeDirection=Input
+       - spatial: Either -> Non/Yes
+       - DataType: VS-set naar kleiner VS-set
+ - TODO DimensionParser error checking:
+         - unknown symbols DONE
+         - duplicate symbols
+         - similar symbols (g and kg)
+ - bool calc::XmlReflection::ambiguous()
+    does not yet check on 1 DataType, DTD of Variable ondersteund dat
+     ook nog niet.
+ -  must output symbol have single point of assignment (d_firstAss)?
+
+* try merging ClientInterface and RunTimeEngine
+* Cool: check XML/symboltable op ambiguous
+  as in bool calc::XmlReflection::ambiguous()
+
+\section refactoring1
+
+RF1 tag
+  Idee 
+   - ioTypes() call IN ctor van BuildTypesVisitor
+   - maak setFirstIsCreation overbodig
+  Vereiste:
+   - ioTypes() moet ook op Expr kunne werken, nu heeft
+     het nog een BlockEntrance als begin nodig
+     - niet alleen blocks (487)
+        PRECOND(dynamic_cast<BlockEntrance*>(current()));
+
+ UNDO  insert ioTypes algo in BuildTypesVisitor.
+ remove void calc::BuildTypesVisitorTest::testIOTypes()
+ was een slecht idee
+
+  TEST IT by puttin stuff in BuildTypesVisitor and the
+   comment out ioTypes call in calc_astscript.cc
+
+end RF1
+
+
+\section MultipleReadsBug
+
+- probleem: meerdere hacks all: zie vip d_readOnlyReferenceBug
+- calc::IoCsfFieldStrategy::createField() // DEBUG_DEVELOP PART:
+                       multiple read bug trough binding, (and areamap?)
+- calc::ExecutorTest::testBugs()  DEBUG_DEVELOP PART
+- calc::RunTimeEnv::transferIfCached() // multiple delete problem
+   see /home/userModels/lisfloodMar2005  runapp pcrcalc -mf *.mod
+
+
+refactor bool calc::MessagesTestDB::equalsFile( 
+ whitespace handling pcrcalc13c
+
+
+\section changingTimeSteps
+
+
+- grep pcrcalc6 for timeStepHack to get correct spot to comment
+- docs are in $OLDPCRTREE/docs/pcrmanual/manual_updates/timerAndTssFormat.sxw
+
+
+\section currentConcerns
+
+
+
+\verbatim
+
+
+
+REFACTORING
+
+* verder verkopen: swatre link met testbed for testen
+                     van punt operaties
+                    double precision met of zonder
+                     geheugen vermeerdering
+                    Itanium extensions (sse ready)
+
+Field::
+  use of resetVs trick
+ ObjectLink
+  VS_STR argument kan ook in data-table/symboltable met
+    key en value identiek (= de string zelf)
+
+
+* alle ldd's op moment van 1e invocatie in functie
+   checken op sound ( dus maar 1 keer) 
+   see @P4:/home/userModels/ldd
+
+Niet in pcrmanual documentatie:
+ "&&"  {RETURN_TOK(TOK_AND); }
+ "||"   {RETURN_TOK(TOK_OR); }
+ "!"  { RETURN_OP(OP_NOT_, TOK_NOT);   }
+droppen of documenteren
+
+table refactoring:
+- generiek idee staat in LookupTable class documentatie
+- optimalisatie uit oude pcrcalc opnemen (see aldaar lookupOptimalisaties.txt)
+- columns that are part of MWF lookup MUST be checked on increasing
+    and non overlapping. This requirement opnemen in de ASTSymbolInfo
+     en checken in BuildTypesVisitor?
+
+\endverbatim
+
+\section classNotes Dingen per klasse
+<dl>
+<dt>Misc</dt>
+<dd>
+  - dan ALLE d_impl != 0; ?? NO index stuff/ stub for timeoutput
+  - pcrcalc45 heeft rare error message
+</dd>
+<dt>BindingTable / RunDirectory</dt>
+<dd>
+ - setPriority lijkt niet meer nodig, maar vervangen door setErrorPosition, punt in external binding of in script? was t.b.v external bindings.
+ - RunDirectory, beslis of met -r geen absolute paden gegeven mogen worden.
+ -  binding.ipcr hierachy later doen (d_runSettings.addNewOnly(mrsElement))
+</dd>
+<dt>BuildTypesVisitor</dt>
+<dd>
+ - Out tss type vs bepalen gebeurt nu runtime in createTssOutputValue
+ - TODO pcrcalc44 BELANGRIJK! both in and out tss
+ - reset d_nrChanges in visit(), changes per visit (START)
+ - voeg tests in BuildTypesVisitorTest toe die path type van Expr bepalen
+ - resetFunctie -> om alle updates in AST ongedaan te maken.
+ - alle messages argSTError,etc naar DataTypeClash hierarchy refactoren.
+ - eigenlijk moet DataTypeClash erven van com::Exception
+</dd>
+<dt>Executor</dt>
+<dd>
+ - pcrcalc247  runtimeError with SymException not generated, virtual not seen!
+ - d_progressCallBack must be owned/copied in a mthread env.
+</dd>
+<dt>BasicBlock</dt>
+<dd>
+ - illnamed? lees boek!
+ - Code/DynamicSection/RepeatUntil template i.p.v. subclass?
+</dd>
+<dt>ASTSymbolInfo</dt>
+<dd>
+ - if (isConstant() || !d_firstCodePresenceIsUse)
+   firstIsCreation vervangen door kennis uit d_ioType.
+   patch for isConstant()
+ - Splits StackInput in:
+   <ol>
+   <li>
+    \code
+    StackInputOp {
+    class MapStack d_mapstack;
+    Field* d_cachedField;
+    Field* read()
+   }
+   \endcode
+   </li>
+   <li> MapStack (o.i.d.), wat nu ook in ASTSymbolInfo wordt gebruikt
+   </li>
+   ASTSymbolInfo heeft dan alleen MapStack
+</dd>
+<dt>RunTimeEnv</dt>
+<dd>
+<ul>
+<li>calc::RunTimeEnv::assignResult. Still unsure if tss is written ok with a sparse report
+</li>
+<li>void calc::RunTimeEnv::pushValue(const Field *f):
+  maak Operator::argResultOverwrite(  ) const; in python link om
+  te kijke of een veld een copy nodig heeft
+   -> SAME_UN, SAME_BIN</li>
+<li>resetVs() is wat wacky met SpatialRef!
+</li>
+<li> CachedObjects zit nu onder -m, zou een andere flag moeten zijn?</li>
+</ul>
+</dd>
+
+<dt>TssOutputValue</dt>
+<dd>
+What do when id-map is MV in first timestep, now, not created! Maybe add later, fill up
+with MV
+</dd>
+
+
+<dt>CFGVisitor / ASTVisitor</dt>
+<dd>
+  -  CFGVisitor is an ASTVisitor??? do not inherit from anything
+  -  CFG is a chain instead of a tree like an AST
+</dd>
+<dt>PointCodeBlockReplacer</dt>
+<dd>
+\verbatim
+* lift exclusion of reported symbols
+    probleem met reports in block:
+      report a= ... # 1
+             a=...  # 2
+    bij reporten na block word waarde 2 weggeschreven
+    Oplossing: insert unique-symbol:
+      report "a#report"= ... #  ==
+             a="a#report"    # 1
+             a=...           # 2
+* remove blocks that only calculate nonspatials?
+    - ASTSymbolTable.resolve() eerst
+      en PointCodeBlockReplacer check of current par
+         info().d_pars allen non-spatial
+    - nie handig voor llditterate/cellfocus?
+* zowel de only non-spatial clause als de only assighments kan ook
+  ook als head-tail-trimming van een block gebeuren.
+
+  -  args van f kunnen door domain restriction MV aan a geven
+
+\endverbatim
+</dd>
+</dl>
+
+\section operationClassification Operation classification
+
+
+  Classification of operation is needed to implement transformations of the code to execute,
+  such as MV compression. compiled point-sub models and ldd transformations and code executing
+  on formats such as vectors or tables. Also if a (series of) statements has a particular classification.
+  These statements may be used yes or no in other situations such as <i>cellfocus</i>.
+  The latter leads to the definition of the term <B>computing unit</B>: a point where the result
+  of computation must be stored: a raster cell, a polygon (vector) a record (table).
+  <B>(data) container</B>: a collection,  a set of computing units. <b>Check OpenMI  definitions in system spec doc (Elements etc.)</b>
+  <table cols="2">
+   <tr>
+    <td>collection</td><td>computing unit</td><td>length/area</td>
+   </tr>
+   <tr>
+    <td>raster</td><td>cell</td><td>cellsize</td>
+   </tr>
+   <tr>
+    <td>vector</td><td>polygon (single polygon)</td><td>polygon area</td>
+   </tr>
+   <tr>
+    <td>table</td><td>record (no geo referencing)</td><td>1</td>
+   </tr>
+   <tr>
+    <td>points</td><td>point (data with geo referencing)</td><td>area=0, 1 for counting</td>
+   </tr>
+  </table>
+  </p>
+
+  <p>
+  The above classification is OrderOperationClassification: 
+  see class hierarchy concept::OrderOC
+
+  <p>
+  Classification 2: context information needed. A collection is internally just some data structure (array,
+  list) storing the computing unit. Some operation however need context, such as location, area (support) of
+  the computing unit. Context information seems to be a list of items that the operation needs yes or no.
+  <dl>
+   <dt>area:</dt><dd>the area (oppervlakte) of each computing unit is part of the operation, areaarea,
+       cellarea</dd>
+   <dt>length:</dt><dd>the length of a computing unit is part of the operation, ldddist.</dd>
+   <dt>location:</dt><dd>the location of a computing unit is part of the operation, xcoordinate, move.</dd>
+   <dt>random:</dt><dd>uses the random generator</dd>
+  </dl>
+  Operaties die een aantal van bovenstaande items gebruiken, staan
+  in de manual met --cellunit (area,length), --coorul (location), enzo.
+
+  \verbatim
+  tricky:
+   (1/4)*maptotal(jan),
+    resultaat is nonSpatial
+    maar expr gebruikt een spatial -> mv maptotal uit de expr
+  \endverbatim
+
+  For all types of collections a value for these items can be chosen, they are not all sensible but will
+  create a running system. For example, points have a location, choosing the value 1 for area and length, will
+  make areaarea a sort of point counting operation, and ldddist a non sensable operation.
+ 
+  \section misc miscNotes
+  \verbatim
+
+Opimizer:
+  - RAM saving: write each item in the data table to disk meteen.  zet een tainted bit in the data-table, als input en niet tainted dan hoeven we hem niet weg te schrijven: het origineel kan opnieuw gelezen worden.  Als het geheugen in de knel komt, dan dingen uit de datatable wegschrijven.  wegschrijven: als item ge-report meot worden dan onder originele naam anders een tijdelijke naam ofzo (switch RAM saving set "swap" directory naam?". In welke volgorde wegscrhijven?: 
+        - simple fifo
+        - beter:  elke par-node heeft d.m.v. last-use algorithm een next-use distance schrijf degene weg die het verst weg is van het huidige punt.
+
+Optimilisaties:
+ - do domainTests op constanten compile time
+ - constant Number binding in code plaatsen?! constant propagation
+   kan ook in aparte visitor samen met strength reduction?
+      pow(a,2)  a*a
+ - guarded div if (a gt 0, b/a, 1) rewrite als een 
+    div met geen domain check. in point models
+    common sub-expr ellimn kan hier helpen:
+    RWS=if((WCrit1-WWP1) gt 0.0, (W1-WWP1)/(WCrit1-WWP1), 1.0)
+ - compile code pas als intial gedraait is.
+    dan onstaan er nieuwe constanten (zoals afg. van cellsize()); dan wel check of die "constanten" niet in de dynamic worden geupdate
+ - nog mooier:
+    nextMV = if (a[+1] ...)
+    if (!prevMV)
+      r = a[1]..
+ - void calc::PointCodeBlockDll::compile() const  creating
+    libraray using com::DynamicLibrary::nativeLibName()
+ - ifthenelse wordt niet geinlined!
+    mischien expliciete instantie for UINT1/INT4/REAL4?
+    see -finline-limit=n (default 600)
+ - virtual void setPointFunction(const char *)
+    genPointCode kan allemaal weg
+    alles uit IOpImpl/ en calc_operator.h
+
+ * a = f(b,c,d,e)
+   a = MV
+   aRemainsMV = isMV(b);
+   aRemainsMV = isMV(c);
+   aRemainsMV = isMV(d);
+   aRemainsMV = isMV(e);
+   if (!aRemainsMV)
+    a=f(b,c,d,e)
+
+
+ * compiler flags:
+     -ffast-math
+     is OK,
+     -march=pentium4
+     breaks setMV code in com_csfcelltest.cc (allignment
+         in combo with sse?)
+     alles compileren met float-allign 16 byte?
+     and break Kinemati code in LF feb 2004
+ * check math.h voor builtin maths suchs as gt,ge
+   isgreater, sommige funcs mischien C99 mandated but not
+   faster?
+
+ - meet maat is aan regels in .s
+  - check gcc manual on vector operations, see C99 restrict keyword
+    __restrict__ ( ook in calc_fopointimpl.h  / calc_opimpl.cc )
+  - check of f() in point space geen runtime penalty geeft
+    performanc of valarray in gcc
+    -strict aliasing  type-running  
+    "Non stop" IEEE 
+    -funsafe-math-optimizations zou kunnen want dat checken
+     we zelf!
+  -fprefetch-loop-arrays
+  __builtin_prefetch  builtin
+ * static branch prediction pragma's in gcc?
+    if (domain or MV)
+      not-likely
+    else
+      likely
+ * niet compileren maar cache slicing / striping (google)?
+   working set
+
+
+==============
+
+NOTE
+ IoFieldStrategy::checkInputMap(vs,fileName)
+ geeft strategy terug voor een per symbol/strategy,
+ is dat wijs?
+
+
+ IfThenElse    te simpel nog, zie oude pcrcalc met eerst conditie
+                executuren en dan kijken welke branches uitgevoerd
+                moeten worden.-> CFG volgorde is dan anders!
+                mischie gaat de nn -case van IIfThenElse ook weer weg
+                ??? Nodig voor lisflood
+              probleem was dat er b.v. een onnodig /0 kan gebeuren,
+                kan die ook catchen?
+
+ assert d_impl != 0 inbouwen?
+
+ class ASTScript verder uitwerken
+ in modelprolog.g staat nog te activeren code
+
+----------
+
+    Als men dan ev.rasterspace op 1*1 dimensie zet, dan hebben we
+    een (hele simpele) punt-evaluator!
+
+    Dynamic sections/initial/foreach-repeat blocks hebben allen wel
+    of niet een bepaald iteratitie mechanisme:
+    IterNodes:
+    <pre>
+     dynamic     time
+     initial     geen
+     foreach     array
+     repeat      stop-criteria
+     ldd-iterate ...
+     cellfocus   ...
+    </pre>
+
+  Alles wat uit ANTLR moet komen moet een auto_ptr o.i.d. zijn: geen leaks
+
+  Alles moet losstaand zonder context te parsen zijn want:
+   - dat is het idee van AST's
+   - eenvoudig tests te schrijven
+
+  Dus Element mag GEEN referentie naar script() of scriptConst() meer
+  hebben.  AST structuur is geen doel op zichzelf, doel is het bundelen van
+  identieke functionaliteit, door middel van visitors.  Zet ASTNode boven
+  op de bestaande Statement, FieldExpr e.d. klassen en refactor hun
+  inhoud naar de visitors.
+
+  type visitors:
+  - postOrder (or up) visit
+    all children evaluated before parent node.
+    children set to *synthesized* attribute of parent.
+    - used to collect information from (tree fragment) data.
+     * collection-type --> sub-typed clone/RasterSpace
+  - preOrder (or down) visits
+     distribute (context) information over tree.
+     children attributes are set, using the *inherited* attributes of parent
+
+  Control Flow Graph (CFG), is meestal handiger dan een AST pur sang, men kan
+  ook "dummy" AST nodes aanbrengen, zoals END_IF om algortimes makkelijker
+  te maken.
+
+  <h3>ldd ordening</h3>
+
+  ldd ordening is the topological ordening
+  ldd ordening als verfijning verbetering van maskpacking. Als de areamap een
+  ldd is dan wordt die ordening aangehouden. Bedenk hoe de verschillende
+  ldd's in elkaar kunnen zitten.
+
+  <H3>Andere punten</H3>
+
+  Legends doorerven (sub-classing, Nominal, ordinal, boolean)
+
+  Tag kaarten om te kijken of ze runtime veranderen: date stamping
+
+  iterators:
+  - whole map
+  - voor een locatie de 4 of 8 buurcellen, incl/excl cell zelf. zie ook Kor's filter code
+  - voor een locatie met ldd, de upstream of de downstream cellen.
+    ldd transformatie: cellen in 1d-array zodat bovenstroomse cellen altijd
+    een lager index hebben dan hun beneden stroomse (zie rflow executable)
+  - alle andere kaarten zouden ook in deze volgorde kunnen.
+  - Is de optimale volgorde  als de afstand in de 1d-array tussen de door de
+    ldd verbonden cellen zo klein mogelijk is (> cache hits)?
+
+  <p>
+    UIT Voorheen calc_fieldtype.h: the type hierarchy of data items is:
+     - Field (being boolean,scalar,nominal,ordinal,ldd, directional)
+       - Spatial (map)
+       - NonSpatial (number)
+     - Table having a sub type:
+        If table is used in a lookup... operation the operation returns
+        a result of type Field (Spatial is one of the arguments is spatial,
+        NonSpatial otherwise).
+        The new extended version (indextble) can return actually any type,
+        but the only subtype needed so far is Table
+     - Tss (short for timeseries), Field subtypes:
+       - Tss NonSpatial, A timeseries with 1 column
+       - Tss Spatial A.k.a a map stack
+       - Tss Multiple Columns:
+         - In combination with a classified map,it transforms a multiple
+           column tss to map stack (timeinput)
+         - In combination with a classified map,it transforms a map
+           stack to a multiple column tss (timeoutput)
+     - Array having a sub-type
+        - ArrayIndex
+     -String (External hook)
+
+   Thus, some types have <B>sub</B> types, all others are <B>end</B> types.<BR>
+    All types are dynamically build during the parsing and type building phases. This happens
+    by repetive restrictment. On each involvement of the data item in these phases, more is known
+    from it's context.
+
+*/
+
+
+/*! \page todo Todo
+
+--BEGIN WLAPRIL2007 --
+
+   EDITE ldd diagonal seed fix als TODO for linux
+
+   prepare op linux:
+      - docs                  DONE
+      - license file          DONE
+   - review docs doxygen generated docs DONE
+   win32:
+      - send dev API (doc op ESRI)
+         was libs/pcrxsd/xmlApi.odt
+   send pcrseal
+   create shipment
+   fix pcrcitd for developers license init
+
+   In boodschap
+   sein veilig Schema veranderingen
+
+   vertel van example: compression.xml -> zet een 
+
+   werkt niet volledig InMEM want:
+    - geen cells definitions (string van 1 en 0)
+    - of fieldReference die gelezen kan worden (sowieso slecht idee)
+    - als we het goed doen, kunnen we ook het reeds
+      gecomprimeerd doorgeven.
+
+   Version number and release date in PCRaster.xsd staat in comments
+   werkt met zowel mem als bil, maar mem kan nog beter: doorgeven
+   als packed.
+
+   on request of Klass Jan Heering seed vanuit XML zetbaar
+
+
+   Na oplevering is er wel nog een inspanning van jullie nodig:
+    - De java-wrapper moet een extra call naar pcraster doen om de licentie te installeren.
+     - En er moeten natuurlijk een aantal extra XML elementen worden aangemaakt om de optimizer aan te sturen.
+   Dat zijn:
+
+--END WLAPRIL2007 --
+
+  PCRasterLicense
+ \todo
+  <p>DLL REFACTORING
+   <pre>
+   refactoring ClientInterface EINDDOEL: 
+     Dan kan license check of scriptName in ASTScript
+
+  better way to find license file
+
+  - DONE: unix/linux:  ~/.pcraster/PCRasterLicense
+  - win32
+     the binary directory: not the best place
+     %USERPROFILE% better? YES IT IS
+      on Win95 and so on if not that find Personal
+      of explore shell in registry, if that does not work
+      make subdirectory in PCRaster dir-tree.
+ \todo
+  1) license structure, give LicensedFeatures and SealedScript "harmless"
+  names like Windows98 and WindowsNT and make sure none of the method
+  resemble something from the PCR DTD, This to prevent cracking by dumping 
+  the Dll and looking for names then.
+  2) strip the .lib of pcrcalcl.dll for bare essentials
+  3) scramble all errors message related to license issues
+
+
+
+get rid of  static in any of the following modules:
+ - calc_arcviewextapi.cc
+        static char *errStr(0);
+
+ make a difference in fail between 
+
+
+clients of pcrcalcl.dll:
+C++  - pcrcalc.exe
+C++  - calcui.exe       (ClientInterface)
+C    - arcView extension
+C    - DelftShell
+
+init DLL with a license that Allows calling the dll.
+
+
+Member calc::EsriGridIO::EsriGridIO()
+  - lib not found, is ArcView installed? 
+  - sym not found, do we have correct version of av-dll 
+ Raymond script had bug on areamap, if that is ESRI?
+  aan Raymond vragen.
+
+
+Member calc::IoEsriFieldStrategy::setStackInfo(const StackInfo &s) const 
+   update delphi-DLL for new PCRaster DTD.  (CHECK OF AL GEDAAN)
+   do dataType in directoryStackInfo 
+   assure that float read correct in Delphi "," or "." issue
+
+REVIEW again what claas must be exported (PCR_DLL_EXP)
+   </pre>
+    END OF DLL REFACTORING
+    </p>
+
+
+ \todo
+   when model terminates because of numerical error, -e or whatever
+   does it write all timeseries, adjust maps/min/max's etc..?
+   It seems it does, put that behavior in  tests
+
+ \todo
+   optimizations:
+    sse staat in sse.zip (en in /home/cees/pcrtreeNonCvs)
+    some sse code:
+      http://www.cs.helsinki.fi/linux/linux-kernel/2003-05/0318.html
+http://www.jlab.org/~edwards/qcdapi/code/level2/qdp++/include/qdp_scalarvecsite_sse.h
+http://www.jlab.org/~edwards/(qcdapi/)
+
+     for marking non-shadowd ptrs.
+     Intel C++, has 2 refs into linuxjournal (16 byte allignment):
+     http://www.linuxjournal.com/article.php?sid=6766
+
+SSE support for valgrind:
+ http://developer.kde.org/~sewardj/docs-2.0.0/NEWS.txt
+Also check the GNU Scientific Library (gsl-1.4) if it has SSE optimizations
+
+Evaluate Intel Math kernel library
+
+   <ul>
+    <li>kijk naar mplayer code for CPU detetection e.d.</li>
+    <li><pre>
+    MV test:
+     (!(v+1)  : UINT* REAL*
+     (!(v<<1) : INT*
+    Lees AMD Opt guide:
+      - prefeching
+      - elk field heeft:
+        - een bitmap voor MV's
+          die bitmap is geshared indien hetzelfde
+          vanuit de bitmap, per 4 bit-strip de mogelijkheden bekijken, voor
+           maximal pipelining.
+
+   </pre></li>
+    stel C code genereren en dan per dataset met een #define N 400 voor fixed
+     array per dataset, geeft dat veel meer optimalisaties?
+  </ul>
+
+ \bug
+   Check "dynmod\\plants\\scen.mod"
+    als naam is newplants (9 chars)
+     dan result zonder punt, dus newplants001
+
+  \bug
+     pcrcalc/test230, tan(180), solution tan(pi()/2:--radians) ???
+
+ \bug
+   lookup...() met arg 1 as a field, geeft assertion failed
+
+ <H3>Binding issues</H3>
+   - calcui, maakt binding.ipcr aan
+     met daarin NumericSetting
+   - als -r in een pad een directory AANMAAKT dan check parent voor
+      een binding.ipcr waarin een child moet worden toegevoegd!
+   - zet ModelRunStatus/ResultLastRun voor begin run op Cancel
+      dan:
+       - bij completion op Done
+       - bij error op Error (eigenlijk Incomplete als input not found)
+   - voeg in MRO manual toe, dat binding.ipcr wordt gebruikt.
+   - ModelRunStatus in binding.ipcr is ook zinnig buiten calcui
+
+   Externe bindings
+     - bindings in volgorde van definitie presenteren (wil Ad ook)
+     - externe bindings mogen overschrijven/dubbel zijn (test375)
+     - de externe bindings moet ook reeds in het script voorkomen
+       PROBLEEM, calcui doet niet alleen de bindings maar kan nieuwe
+        bindings generern die niet in de binding staan.
+     - maak opties:
+        - -b set external bindings
+        - om binding.ipcr te generen ?
+        - -R as -r but tells how run is/will be done:
+           - where input files are found
+           - numerical values
+        - diffs of two scenarios
+     - pcrseal moet zetten welke bindings aangepast mogen worden.
+             en evt. ranges/interval
+
+
+   rundirectories/freebie: -i inputDir -o outputDir
+    d.m.v. het rundirectory mechanisme, geen zoekpad ALLEEN die directories
+    gebruiken.
+
+
+  <H3>Binding</H3>
+   NumericSetting,FileSetting --> BindingRewriter moet in pcrxml-library
+
+  refactor non-working symbolSequenceNr()
+
+  Refactor Pos:
+   - Pos kan ook naar een binding.ipcr wijzen?
+      --> yep, reimplement posError for a bindedSymbol!
+
+!  bij refactoren van pcrcalc, als Pos meer flexibel is dan foutmelding altijd
+!  op de externe binding, die is voor de gebruiker zichtbaar
+
+   - context in ModelBuilder kan ook xml file zijn
+     posError is een rare naam
+
+   <H3>Parameter bescrijvingen</H3>
+   Twee interval definities:
+    allow-interval: set on input, give assertion if computation goes outside
+    adjust-interval: set to this interval, if computation goes outside
+  \endverbatim
+*/
+
+namespace concept {
+
+//! CellIterator for lddrouting
+/*!
+   Dit is een  generalisatie voor lddrouting.
+   envisioned syntax construct:
+   \code
+     newState,flux=
+       lddrouting(ldd, routeId, nrOfSlices,oldState) {
+        # arg1 = VS_L/spatial
+        # arg2 = VS_NO/either
+        # arg3 = VS_NO/nonspatial
+        # arg4 = VS_S/either
+
+        # body of routing like a switch statement
+        # must be checked on duplicate ID's
+        1 : _flux = _state * f(E5,...En)
+        2 : dynamicwave(En+1...Ep);
+        4 : dynamicwave(Ep+1...Eq);
+      }
+   \endcode
+    functie lddrouting(ldd,routeId,nrOfSlices, oldState,P5...Pz)
+     P5...Pz is de set van globals die in de Expr's E5-Eq voorkomen.
+     dat gegeneerde functie voorschrift wordt in de liveAnalysis gebruikt.
+
+    routing is an <b>inline</b> function, that can *read* global scope, 
+    i.t.t. predefined function i.h.g. van modules
+
+    Modify Executor::visitCellIterator() of (CellIterator::exec subclass of IOpImpl):
+    \code
+       pop all args
+       get/compute LddGraph
+       check args for MV within LddGraph
+        if MV's found use modified LddGraph
+       calc::DownstreamVisitor van LddGraph // eigenlijk een iterator dus
+       rte->setCellIterator(&dv);
+
+       IN rekenen:
+       initieer lddGraphVisitor met rte als arg
+        in visitor
+         on "discover vertext ofzo"
+          rte->setCellIterator(vertex);
+
+       rte->setCellIterator(0);
+       delete dv;
+   \endcode
+
+OPTIMALISATIES nodig voor celliteratie:
+ - zie calc::CellOp::getCell,
+   erg trage interface met Field::getCell
+    switch van Field::cr niet nodig als
+    logCellSize expliciet in Field is opgeslagen:
+     T cellVale= *(array + index<<logCellSize)
+ - alle Pars gebruikt met een index-integer i.p.v. std::map.
+    ASTPar krijgt dan een integer veld d_ordinal (Dll heeft ook ordinal's)
+ - AST net voor executie aanpassen, zodat b.v. _cellfocus,_ldddownstreamcell
+     nooit op een nonspatial worden aangeroepen.
+*/
+class ASTCellIterator : public ASTExpr {
+   /*!
+      - transferFunctionArgs    -> ldd, routeId, nrOfSlices,oldState
+      - transferBody            -> idem,P5...Pz
+    */
+   ASTNodeVector*   d_args;
+   Operator*        d_op;
+public:
+   ASTCellIterator(Position const* pos);
+
+   ~ASTCellIterator() {
+     delete d_op; // owned
+   }
+
+   void transferBody() {
+   /*
+     Got all code now:
+      CellIteratorAdaptor: visit body to
+        - add P5...Pz to d_args
+        - wrap ASTPar's with _cellfocus
+           _cellfocus in exec select current cell and put it back
+            on stack as NonSpatial.
+        - replace downstream(x) with _ldddownstreamcell(x) function
+          _ldddownstreamcell(x) if x is spatial get downstream-location
+        - only allow point operations (in any case no cover/if-no-else
+      can we now visit body "std BuildTypesVisitor"?
+       - pre-insert _flux,_state,_potential (VS_S/nonspatial)
+          (maybe even global!)
+    */
+   }
+};
+
+//!  Generic graph stuff. Stub to discern Concepts
+/*!
+ *  already operational:
+ *    - LddGraph
+ *    - mldd::Mldd
+ */
+struct GraphConcept : public RasterGraph {
+  GraphConcept(size_t nrVertices):
+    RasterGraph(nrVertices)
+  {}
+};
+
+//!  [0-8] edges depending on border and MV issues
+/*!
+  A per cell iterator with maximal 8 values, but MV's and
+  borders are already discarded, so some have less than 8.
+
+  Islands (with MV's around) are all processed indepent.
+
+  Multi-pass algorithms (like spread) may "intersect" the topology with
+  the topology of its parameters (like fraction) befor the
+  algorithm starts, so no MV checking on any parameters is needed within the
+  algorithm!
+
+  Should hold collections of FieldId taggs as either:
+    - MV (RasterGraph)
+    - non-0 valued, with that value
+    - 0'ed values
+*/
+class Full8Edges : public GraphConcept {
+ typedef struct VertexEdges {
+   FieldId d_sourceVertex;
+   //! computed from d_sourceVertex and d_rd
+   Byte    d_targetVertices;
+ };
+ std::vector<VertexEdges>  d_ve;
+public:
+ Full8Edges(size_t nrVert): GraphConcept(nrVert) {
+   POSTCOND(d_mv.size()+d_ve.size() == nrVertices());
+ }
+};
+
+/*!
+  \brief Operation Classification (OC) hierarchy based on the required 
+          ordering of the data
+  suppose all data has a number of different "iterators"/"visitors"
+ */
+class OrderOC{};
+
+/*! All operands have a common iterator; e.g. grouped by iterator, there
+ *  is a mechanism to get a value for the same location at a certain point.
+ *  computation order is not relevant. A value can be computed for a unit
+ *  before the whole collection is computed.
+ */
+class GroupedOC:
+    public OrderOC{};
+//! pure point
+/*!(a*b)+2 is computable in many ways, per computing unit 
+    or a*b for whole collection and then add 2 for whole collection. 
+    Only the inputs of the same computing unit are needed.
+
+    <pre>
+      expr = expr1 op expr2 | op(expr1,...,exprN)
+      expr.PointOC = op.PointOC && expr1.PointOC && ... && exprN.PointOC
+    </pre>
+ */
+class PointOC:
+    public GroupedOC{};
+//! e.g. areaaverage, maptotal
+/*! the operation can access the collection in any order, (.e.g areaaverage, maptotal), but MUST access the whole collection before the answer can
+    be computed.
+ */
+class AggregateOC:
+    public GroupedOC{};
+
+/*! data/operands must have knowledge how to navigate to a particular
+ *  neigbour. the operation needs the whole collection.</dd>
+ */
+class NeigbourOC:
+    public OrderOC{};
+/*!
+ *  need access to whole 8-cell neigbour topology, e.g spread/clump, e.g.
+ *  the map. Writing to output also belongs to this category!
+ *  Random access iterator, no knowledge how to access.
+ */
+class FullNeigbourOC:
+    public NeigbourOC{};
+/*! locations are sorted in a certain order known as the topological order
+ *  that visits each cell once. (ldd, mldd). Nested ldd's
+ */
+class TopologicalSortOC:
+    public NeigbourOC{};
+
+
+
+} // namespace concept
+
+/*!
+   \page genericFormats Using multiple raster formats in a PCRaster Modelling Script
+
+   (source apps/PCRasterModelEngine/documentation.dox)
+
+   Voorstel om meerdere formaten aan te kunnen. Aanleiding van deze poging zijn de concrete
+   behoeften van Ton de Nijs (RIVM). Hij werkt in een omgeving met een ESRI grid database,
+   IDRISI bestanden van RIKS software en gebruikt (of wil gebruikt) PCRaster. RIKS software
+   kan ook ArcAscii aan (op www gelezen).
+
+   In principe lijkt het allemaal niet zo moeilijk, gdal biedt een transparante API voor
+   meerdere formaten, Kor's dal library doet daar nog wat PCRaster specifiek spul in. We zouden
+   dus een mechanisme invoer formaat detectie, b.v. a.h.v. van bestand extensie,
+   en uitvoer formaat selectie moeten toevoegen. Gegeven onze first-class users lijkt de volgende doel lijst voor de hand liggend:
+
+   - pcraster: het csf formaat
+   - esri: native ESRI binary grid d.m.v. a(v|i)gridio.dll
+   - idrisi: .rst data met .rdc header, .img met .doc header
+   - bil: .bil data met .hdr header
+   - asc: "classic ArcGrid" format.
+   - "memory": geen bestanden, maar data pointers t.b.v OpenMI en andere embedded DLL toepassingen.
+   - ?ILWIS?
+   - freebies d.m.v. Gdal: Grass Rasters?, mischien alleen als invoer.
+
+   Van de bovenstaande lijst heeft pcraster t/m asc onze aandacht, OpenMI zit meer in de architecture van PCRasterModelEngine. In praktijk zijn er de volgende problemen:
+
+   - Gdal ondersteunt nog niet het IDRISI formaat. (Kor heeft wel idr2pcr geschreven).
+   - ESRI grids hebben geen extensie, PCRaster heeft geen vaste extensie al is .map de defacto standaard.
+   - Het BIL formaat dat WL van ons wenst lijkt anders met IEEE float om te gaan dan Gdal (dit definitief goed uitzoeken).
+   - Dynamic map stacks zijn in elk formaat fiks anders.
+
+   \section inventarisatie Inventarisatie
+
+   Dynamic map stacks niet al te veel alleen op tijd-dimensie fixeren, andere dimensies kunnen net zo relevant zijn/worden.
+   per type: hoe mapstacks, wat hebben we waar welke software: gdal/oldcalc/etc
+
+   - PCRaster
+      - extension:  no fixed extension, .map is de facto, .pcr is beter
+      - format/API: Csf lib misc wrappers within pcrtree
+   - BIL
+      - description: part of BandMap familly: BIL,BIP,BSQ etc.
+      - extension: .bil, with .hdr companion file
+      - format/API: apps/pcrcalc, pcrgeo/geo_bandmap.cc (WL flavor), Gdal
+      - mapstack: zie par 2.4 Demis Mapper 5 manual: in single BIL file all maps are stored, WL/DEMIS specific?
+     in .hdr additonal nBlocks parameter for the number of time blocks.
+   - ESRI
+      - extension: none, name is directory, containing a  number of *.adf files.
+      - format/API: apps/pcrcalc, Gdal, user needs Spatial Analyste license, a{vi}gridio.dll.
+      - mapstack: PCRaster invented a mapstack for ESRI data, tracking analyst does not support mapstacks.
+   - IDRISI
+      - extension: data/header pairs: rst/rdc, img/doc
+      - format/API: gstat, apps/idr2pcr, N/A in Gdal
+      - mapstack: check IDRISI docs, AFAIK, there is something like a file with for each time step a name.
+   - Asc, Ascii with GridAscii header
+      - format/API: gstat, apps/asc2map|apps/map2asc, Gdal
+      - extension: ESRI suggests .asc
+      - mapstack: non
+
+
+   \section aanpak Users Manual
+
+   \code
+     set PCROPTIONS="--overwrite=yes --format=idrisi"
+     set PCROPTIONS="--overwrite=yes --format=esrigrid"
+
+     # backward compat. identical to:
+
+     set PCROPTIONS="--overwrite=yes --esrigrid"
+   \endcode
+
+   \code
+     binding {
+       # allow/disallow/interactive overwriting
+       overwrite = yes/no
+       format = pcraster/esrigrid/idrisi/ascii
+     }
+   \endcode
+
+   If a format (as global option or in binding) is specified, pcrcalc
+   has the following behaviour:
+    - output is written in the format specified by default, if the output name has an extension, the format associated with the extension is used.
+    - extensions are implicitly assumed if the name contains none.
+    - a search at input is done for all supported formats.
+
+   If no format (as global option or in binding) is specified, pcrcalc 
+   has the following behaviour:
+    - All input and output maps are expected to be in the PCRaster format.
+    - When writing, no .map is implictly appended to the result file.
+    - search at input for all supported formats is disabled.
+    - selection of output format by extension is disabled.
+
+   multiple formats in and out, by explicit and implicit format specification:
+   \code
+     binding {
+       format = pcraster;
+     }
+     # write cost of Idrisi grid, explicit
+     # input ldd is search for ldd.map,ldd.rst, ldd (esri grid), etc.
+     cost.rst = accuflux(ldd, 1.3);
+     # write risk to Asc, explicit:
+
+     risk.asc = ............;
+
+     # write mean to (pcraster) mean.map, implicit:
+
+     mean = ............;
+   \endcode
+
+   \section fb feedback
+
+   willem:
+
+   in geval van zo'n soort aktie zou ik willen proberen alle (of de meeste) door GDAL ondersteunde grids in te lezen. Ik weet niet precies wat GDAL kan lezen, maar er is een aantal bruikbare grids in omloop wat als input goed voor PCRaster geschikt zou zijn (voornamelijk DEM formaten, zoals USGS DEM, DTED, en SRTM, GTOPO formats ed, Surfer en Erdas grids) die erg interressant zouden kunnen zijn. (Hiermee wordt pcrcalc tevens een goede convertor van grid formats.....)
+
+   Wegschrijven hoeft wat mij betreft niet in die formats, omdat de formats slecht de gehele range van PCRaster formats ondersteunen: het zijn primair DEM formats. Wegschrijven dus alleen in ESRI, Idrisi en PCR formats, al zou ik bij zowel lezen als schrijven graag de binaire ESRI export grids zien, de zgn FLT files (header filetje zoals in Ascii grids, verder gewoon een stream van 32 of 64 bits floats, zijn goed beschreven grids).
+
+   \section dsp DataStoragePort
+      uit te werken generiek concept, intern C++ code (zie concepts)
+
+ */
+
+/*!
+   \page pcraster3 Concepts of PCRaster Modelling Script
+
+   Nieuwe poging om alle concepten goed te krijgen (Oct 2004)
+
+   \section Variable
+    Symbol that is used to represent a (model) variable quantity. It can be assigned a value.
+    It can <b>only</b> be a Field (Spatial or NonSpatial).
+
+   \subsection VariableCharacteristics
+   Characteristics of the Variable's role in a Model can be expressed
+   in both input and output (IOType). The role's are identified solely by the type of use of the variable in the script. Wether a variable is really dynamic
+   or static is defined at model instance with data.
+   - output: All variable's are possible output.
+      - Fixed: the model does not assign a new value by computation
+               to the variable
+      - Initial: the model computes a new value in the initial only.
+      - Dynamic: the model computes a new value in the dynamic section
+                 and may compute a value in the initial section.
+      .
+   - input
+      - Constant: simple numeric value or a computation depending
+                  on other Constants only: pi=3.14; halfPi=pi/2;
+        - None:  first appearance in model is an (left hand) assignment
+                e.g. a computation that uses non-Constant in the expression.
+        - Initial: initial value as input needed, value is never
+           referenced in dynamic section or subsequent values are computed
+           in dynamic section.
+        - Dynamic: different input for each timestep possible,
+           only rhs-use in dynamic, no lhs or rhs reference in initial.
+           user may supply a value once OR at every timestep.
+        .
+
+
+     \section Model
+      List of statements. Statements consisting of only Variable's, assignments and expressions of
+      functions and operators. The Model has no knowledge of DataStorage's, InputPolicy's or OutputPolicy's.
+      Analyzing a Model (= parsing a model script's initial and dynamic section) will yield a list of used Variable's. Variable's are input if their first appearance in a model is a right hand side use.
+      (see inputSet(CFGNode *model). 
+
+      \subsection initialSection InitialSection
+       There is no concept of current time in the initial section. The only relation with time
+       is that all statements will be executed before <i>T</i><sub>0</sub>.
+
+      \subsection dynamicSection DynamicSection
+      DynamicSection is a list of statements computed a N times.
+      The first time the statements are computed at T<sub>0</sub>: CurrentTime=StartTime.
+      The last time the statements are computed at T<sub>N</sub>: CurrentTime>=EndTime.
+
+      \subsection timeDefinition TimeDefinition
+      Definitie van tijd is momenteel ruk in pcrcalc. Bij introductie van echte tijd nu
+      goed doen. \n
+      The TimeSpan of a dynamic model is defined by: \n
+      StartTime EndTime TimeStep. \n
+      The dynamic section has the notion of CurrentTime.
+      TODO: tijdstap definitie voor en na 1 dynamic sectie.
+     <dl>
+      <dt>InitialTime</dt>
+      <dd>
+        The initial section has NO notion of time. For the sake of an OutputPolicy
+        a Timestamp might needed for a Variable's value in the initial section.
+        That Timestamp is the InitialTime T<sub>initial</sub>: \n
+        InitialTime &lt; StartTime, but StartTime-InitialTime ~= 0
+      </dd>
+      <dt>StartTime</dt>
+      <dd>
+      Define StartTime <i>T</i><sub>0</sub> is the CurrentTime the first time
+      the DynamicSection is visited.
+      </dd>
+      <dt>EndTime</dt>
+      <dd>EndTime ( &gt; StartTime) is a TimeStamp that must be reached by the model.
+      </dd>
+      <dt>TimeStep</dt>
+      <dd>The TimeStep is the timeslice taken at each iteration of the dynamic section.
+      </dd>
+      <dt>EndTimeCriteria</dt>
+      <dd>CurrentTime is incremented by TimeStep until CurrentTime >=  EndTime.
+     </dl>
+
+      \section DataStorage
+      Symbol that is used to identify an entity from which data can be retrieved from 
+      (input/source) or data can be send to (output/destination). Examples are:
+      - files
+      - directory
+      - tss's
+      - ascii tables (LookupTable)
+      - some naming convention (StackInput)
+      - URL
+      - SQL-statement?,
+      - range of cells in a spreadsheet
+      - id for a shared memory segment (QtSharedMemory),
+      - ID in OpenMI framework.
+      .
+      All these examples always have silent/implied conventions around them. For example, a spreadsheet
+      has alphabetic row id's and numeric column id's; ascii-table may not have explicit row and 
+      column nrs, but they follow from their place: line 1 is row 1
+
+      \section DataStoragePort
+        Uitwerken: een genest concept van DataStoragePort per script, DataStorage,
+         write each timestep. Iedere nesting heeft zijn open/close en read/write.
+         daardoor mogelijk alles in 1 grootte XML/database beuken of verschillende.
+        resolve meerdere a=piet.map;b=piet.map hier? Nee dat moet in script, 1 load
+        per datatable.
+
+      \section TableRelation
+      Special "function" stored in a table concept with addressable rows and columns. The concept
+      might be materialized in a DataStorage such as a db-table, LookupTable.
+
+      I am confused between function:"get something from a table" and DataStorage:"how is a table structured".
+
+      current examples are:
+      - lookupscalar, lookupVS.
+      - Db-table
+      - lookuplinear
+      - DynamicWave table
+      - timeinputscalar, timeinputVS: special case, row-cursor is current timestep, column cursor is the id
+
+      LookupTable has extensive documentation on a new relation notation proposal.
+
+      \section OutputPolicy
+      Couple Variable(s) to a DataStorage using some mechanism/policy on what to store in the
+      DataStorages about the Variable(s).
+
+      Things to express in the policy:
+      - tss format (TimeoutputWriter) as now
+      - selective reports
+      - video
+      - statistics (WL-Habitat StatTable pcrcalc 2003 version) for map or area:
+         - total,sum (maptotal, areatotal)
+         - min, max (mapminimum, areaminimum)
+         - average, sd, other moments
+         - median, modus
+         - count, N
+
+      Time issues in the OutputPolicy:
+      Variable's with output=Dynamic that have an initialValue may have a 
+      different value at InitialTime and StartTime but both TimeStamps are 
+      not distinguishable.
+      Variable's that spring into existence in the DynamicSection do NOT have a value at InitialTime
+
+      some scenario's:
+      - Simple: 1 Variable to 1 DataStorage: interface section?
+      - Complicated: more than 1 Variable in 1 DataStorage: (WL-Habitat: StatTable) Cross
+        table of Variable's.
+      - Advanced: coupling some expression to a DataStorage:
+        e.g. bla.tss = timeoutput(spreadzone(...), 3*f(...));
+      .
+
+      Conclusions:
+      - interface section is not always a clear place for defining an OutputPolicy.
+         Simple(1to1)Output vs. CrossOutput?
+      - all Variables's may be output, setting output in interface might restrict the
+        set of output Variables's/ all Variables's may be output, setting output in interface might restrict the set of output Variables's.
+
+      \section InputPolicy
+      How to feed the Model input requirements.
+
+      \section ManagedScript
+
+      \section ExtraTypering
+
+      Intensieve waarde (gem. bomen per m2) vs extensieve waarde: bomen per cell.
+
+      \section DataTransformations
+
+      To transform data (DataStorage's) in
+       - an acceptable form for the Model
+       - compute values needed as input for a Model: 
+          - tss operations like (a.tss * 1.1)
+       - digest Model (output) variables after as post-processing activity (e.g.
+         CrossOutput) this may yield all kinds of reports. Report are all kind of 
+         exotic tabular outputs.
+         
+
+      \section TryExceptTypeCalculations
+
+      \code
+        function calculateC
+          result = c
+          try {
+            # a, b locals
+            # this block only succeeds if x is present
+            a=f(x)
+            b=d(x,a)
+            c=h(a,b)
+          } except {
+            # x is not there
+            c=0;
+          }
+       \endcode
+
+   */
+} // namespace calc

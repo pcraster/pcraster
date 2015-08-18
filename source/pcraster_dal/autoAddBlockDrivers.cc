@@ -1,0 +1,1 @@
+    autoAddDriver(new PCRBlockDriver());

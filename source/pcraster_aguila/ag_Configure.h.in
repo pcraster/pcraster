@@ -1,0 +1,42 @@
+#ifndef INCLUDED_AG_CONFIGURE
+#define INCLUDED_AG_CONFIGURE
+
+
+
+// External headers.
+#ifndef INCLUDED_BOOST_CONFIG
+#include <boost/config.hpp>
+#define INCLUDED_BOOST_CONFIG
+#endif
+
+// Project headers.
+
+// Module headers.
+
+
+
+#ifdef BOOST_HAS_DECLSPEC
+#  if defined(PCR_AG_SHARED_LINK)
+#    ifdef PCR_AG_SOURCE
+#      define PCR_AG_DECL __declspec(dllexport)
+#    else
+#      define PCR_AG_DECL __declspec(dllimport)
+#    endif
+#  endif
+#endif
+
+#ifndef PCR_AG_DECL
+#  define PCR_AG_DECL
+#endif
+
+// Versions of the library.
+#define AGUILA_MAJOR_VERSION ${AGUILA_MAJOR_VERSION}
+#define AGUILA_MINOR_VERSION ${AGUILA_MINOR_VERSION}
+#define AGUILA_PATCH_VERSION ${AGUILA_PATCH_VERSION}
+#define AG_VERSION "${AGUILA_VERSION}"
+
+namespace ag {
+
+} // namespace ag
+
+#endif

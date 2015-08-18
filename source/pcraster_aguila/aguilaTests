@@ -1,0 +1,337 @@
+#!/bin/bash
+
+# TODO Add test with xml and two data sets with the same name but different
+# TODO data space. This will fail for the reason described in DataConfiguration
+# TODO constructor.
+# TODO Add test with time series and time mapper. Doesn't work yet, see
+# TODO DataConfiguration constructor.
+
+testExecDir=$TESTS/Aguila/PCRasterAguila
+testDataDir=$AGUILA/data/test/PCRasterAguila
+
+cd $testExecDir
+mkdir -p tests
+cd tests
+
+testExecDir=$testExecDir/tests
+
+echo "Running tests in `pwd`"
+
+if [ ! -e volcano ]; then
+  # Install volcano data set.
+  mkdir volcano
+  cd volcano
+  cp $testDataDir/volcano/cone.pcrmap .
+  pcrcalc -f $testDataDir/volcano/volcano.pcrmod
+  cd ..
+fi
+
+if [ ! -e northsea ]; then
+  # Install northsea data set.
+  cp -r $testDataDir/northsea .
+fi
+
+if [ ! -e data ]; then
+  # Install data data set.
+  cp -r $testDataDir/data .
+fi
+
+# # make the aguila distribution directory
+# make -C data/aguilaXML
+
+# ------------------------------------------------------------------------------
+# ONLY BUGS IN THIS SECTION
+# ------------------------------------------------------------------------------
+
+# echo "BUG: click outside the map and than zoom in: map gone"
+# echo "Must show selected area of the map ofcourse."
+# aguila volcano/lava0000.090
+# 
+# echo "BUG: Gives an error about volcano/dem not being found."
+# echo "Must show the whole volcano data set."
+# aguila volcano/dem
+# 
+# echo "Must show the whole volcano data set and an additional slice."
+# aguila volcano/dem00000.090 + volcano/dem
+# 
+# 
+# echo "--quantiles [0.01,0.99] doesn't work whereas [0.01,0.99,0.01] does."
+# echo "without the stepsize should also work"
+# aguila --quantiles '[0.01,0.99]' northsea/0/PCB153os_1986
+# 
+# echo "programming error"
+# echo "should just work"
+# echo "zit 'm in het nummer waar het pad mee begint"
+# echo "northsea/0/PCB153os werkt wel"
+# cd northsea
+# aguila --quantiles '[0.01,0.99,0.01]' --timesteps '[1986,2003,1]' 0/PCB153os
+# cd ..
+# 
+# # INIT
+# cp volcano/dem00000.060 staticInTss.map
+# echo KAN NIET OP CMD LINE zie bug in unit test 
+# echo MOET 1 timeGraphView tonen, niet 2 aparte
+# aguila --timesteps [1,3] --mapView volcano/dem --timeGraphView volcano/dem + staticInTss
+# 
+# # INIT/FUNC
+# echo "Must show dem00000.043 twice in one mapView."
+# echo "BUG: but doesn't"
+# aguila volcano/dem00000.043 + volcano/dem00000.043
+# 
+# # INIT
+# echo "TODO set runoff in shiftedLogarithmic, y axis plots doesn't rescale."
+# echo "DONE set current x,y to value retrieved when pressing get"
+# echo "DONE check if cursorValueMonitorFile is written, todo Kor in ag_viewer.cc"
+# echo "DONE dateMapper in the searchSpace"
+# echo "DONE set runoff in shiftedLogarithmic then animation yields the 0 value"
+# echo "DONE colour"
+# echo "DONE order of views is honored in value matrix, dem before runoff"
+# echo "DONE background colour of 2D and 3D view does not change"
+# cd data/aguilaXML; aguila -x example1.xml; cat example.xml; cd -
+# 
+# # INIT/FUNC
+# # "DONE pick up the dateMappers: lava 8*6hours dem 2*1day"
+# # "DONE for dem: pick up the cutoffs 0-700"
+# # "DONE second raster was shown at first while not configged."
+# # "DONE in tijdstap 2 wordt dem niet getoond."
+# # "DONE aantal tijdstappen in anim. dialoog te klein (9 ipv 13)."
+# # "DONE tijdseries tijdstappen x-as niet vertaald van lokaal naar globaal."
+# # "DONE legend is not shown at first"
+# echo "dem    : timesteps [1, 3, 1], 10-2-2005, 18:15, 24hr"
+# echo "lava   : timesteps [1, 9, 1], 11-2-2005, 18:15,  6hr"
+# echo "13 timesteps of 6hr, first 10-2-2005, 18:15, last 13-2-2005, 18:15"
+# echo "10-2-2005, 18:15: dem_1"
+# echo "11-2-2005, 24:15: dem_1"
+# echo "11-2-2005, 06:15: dem_1"
+# echo "11-2-2005, 12:15: dem_1"
+# echo "11-2-2005, 18:15: dem_2, lava_1"
+# echo "12-2-2005, 24:15: dem_2, lava_2"
+# echo "12-2-2005, 06:15: dem_2, lava_3"
+# echo "12-2-2005, 12:15: dem_2, lava_4"
+# echo "12-2-2005, 18:15: dem_3, lava_5"
+# echo "13-2-2005, 24:15: dem_3, lava_6"
+# echo "13-2-2005, 06:15: dem_3, lava_7"
+# echo "13-2-2005, 12:15: dem_3, lava_8"
+# echo "13-2-2005, 18:15:            lava_9 (dem not shown because of dimension config)"
+# echo "Must show maps as shown above."
+# echo "Must show timeseries when selected from legend."
+# echo "TODO show address match in CursorValueMatrix zie CW1 notes.dox "
+# aguila -x data/development/withDataElements.xml
+# 
+# # ------------------------------------------------------------------------------
+# # FUNC
+# echo basic drape
+# echo TODO the manual heeft over een right click Properties in the view
+# echo TODO is dat nog relevant? per ongeluk uitgezet? of kan weg uit manual?
+# aguila --drapeView volcano/dem00000.090 + volcano/lava0000.090
+# 
+# # FUNC
+# # CW begrijp ik dat?
+# # echo "verschil is dat we hier met een andere dataSpace voor volcano werken"
+# # echo "KDJ: De resulterende data space van alle data sets tezamen bevat geen"
+# # echo "KDJ: tijd. Statische data naast temporele begrijp ik maar alleen"
+# # echo "KDJ: statische data laden en die in een tijdserie zien lijkt me zinloos"
+# echo REQA2 show both static and dynamic data in a tss view
+# echo MOET 1 timeGraphView tonen, niet 2 aparte
+# echo "BUG: gooit exceptie"
+# aguila -x data/development/bugREQA2.xml
+# 
+# # TODO aguila --scenarios '{elev,elev2}' --timesteps '[1,100]' --timeGraphView elev
+# # TODO aguila --scenarios '{elev,elev2}' --timesteps '[1,100]' --mapView elev
+# 
+# # FUNC
+# echo "BUG1 aguila -f northsea/northsea.cfg werkt niet: huidige dir wordt niet"
+# echo "BUG1 voor data paden gezet. cd northsea && aguila -f northsea.cfg gaat"
+# echo "BUG1 wel goed."
+# echo "BUG2 in Cursor Dialog moet cumulative probabilities nu veranderen in"
+# echo "BUG2 threshold level, en een legenda geven zoals op de x-as van de"
+# echo "BUG2 cumulative probability plot"
+# echo "scenarios   = {0, 5000, 10000, 25000}" >  northsea/northsea.cfg
+# echo "quantiles   = [0.01, 0.99, 0.01]"      >> northsea/northsea.cfg
+# echo "timesteps   = [1986, 2003, 1]"         >> northsea/northsea.cfg
+# echo "defaultView = PCB153os"                >> northsea/northsea.cfg
+# echo "multi       = 2x2"                     >> northsea/northsea.cfg
+# # aguila -f northsea/northsea.cfg
+# cd northsea && aguila -f northsea.cfg && cd -
+# 
+# # ------------------------------------------------------------------------------
+# # MINOR BUGS
+# # ------------------------------------------------------------------------------
+# 
+# # "moved from cfg/tss.cfg"
+# echo "scenarios   = { data/workspace/Demo }"      > t.cfg
+# echo one view:
+# echo "timeGraphView  = rain.tss{1,2}              " >> t.cfg
+# echo one view with two graphs:
+# echo "timeGraphView  = rain.tss{1,2} + rain.tss{1,3}" >> t.cfg
+# echo two view:
+# echo "timeGraphView  = rain.tss{1,2}  rain.tss{1,3} " >> t.cfg
+# echo "MINOR choose Edit DrawProperties, choose logaritmic, nothing happens"
+# echo "BUG: HANGS!!!"
+# aguila -f t.cfg
+
+# ------------------------------------------------------------------------------
+# NO/FIXED BUGS IN THIS SECTION
+# ------------------------------------------------------------------------------
+
+runCommand() {
+  command=$1
+  directory=$2
+  description=$3
+  mkdir -p $2
+  cd $2
+  echo $command
+  echo -e $description
+  $command
+}
+
+# INIT
+runCommand \
+  "aguila ../tests/data/development/Height.001" \
+  "." \
+  "Must handle forward slashes and parent dir placeholders."
+
+# INIT
+# Fixed, KDJ 20060623
+if [ ${TARGET_PLATFORM} == "win32" ]
+then
+  runCommand \
+    "aguila ..\\tests\\data\\development\\Height.001" \
+    "." \
+    "Must handle back slashes and parent dir placeholders."
+fi
+
+runCommand \
+  "aguila --drapeView volcano/dem00000.090 + volcano/lava0000.090" \
+  "." \
+  "Basic drape."
+
+# INIT
+# Fixed, KDJ 20060623
+runCommand \
+  "aguila --drapeView volcano/dem00000.090+volcano/lava0000.090" \
+  "." \
+  "Wrong syntax, no space around +, illegal name on linux.\nMust show message that a dataset with this name cannot be found."
+
+# rm -rf scen1 scen2
+# mkdir scen1
+# mkdir scen2
+# cp data/workspace/Demo/dem.map scen1
+# cp data/workspace/Demo/dem.map scen2
+# echo "Test the handling of the scenario dimension."
+# echo "Must show two mapViews, each showing dem.map."
+# aguila --scenarios '{scen1,scen2}' --mapView dem.map
+# 
+# echo "test range of values"
+# echo "quantiles = [0.01, 0.99, 0.01]"                > q1.cfg
+# echo "defaultView = data/examples/meuse/quantiles/q"     >> q1.cfg
+# aguila -f q1.cfg
+# 
+# echo "test set of values"
+# echo "quantiles = { 0.01, 0.02, 0.5, 0.98, 0.99 }"   > q2.cfg
+# echo "defaultView = data/examples/meuse/quantiles/q"     >> q2.cfg
+# aguila -f q2.cfg
+# 
+# echo "scenarios = { volcano }"  > s.cfg
+# echo "timesteps = [1, 99, 1]"  >> s.cfg
+# echo "mapView = lava"          >> s.cfg
+# aguila -f s.cfg
+# 
+# # Fixed, KDJ 20060315
+# #  was BUG 100 yields 10 in legend, bug in str-width algo
+# echo "DONE: setting max cutoff of topo.map to 100"
+# aguila -x data/development/mapViews.xml
+# 
+# # may be existant from old test run
+# rm -f rain.tss
+# echo DONE should find by its data dataSpace
+# aguila -x data/development/tss1.xml
+# 
+# echo See that input.map is correct with data
+# aguila --timesteps [1,3] volcano/dem --timesteps [1,3] volcano/lava volcano/input.map
+# 
+# echo display a static and a dynamic map
+# aguila volcano/input.map --timesteps [1,3] volcano/dem
+# 
+# # now works, fixed CW Feb 2 2006
+# echo Must show a version 1 file.
+# aguila data/development/roads_csfv1.csf
+# 
+# # was Now input.map gives error
+# # Fixed, KDJ 20060206
+# echo Static data set.
+# aguila volcano/input.map
+# 
+# # echo No legend shown that is within the map
+# # Fixed, KDJ 20060209
+# echo Legends can be present for nominal,ordinal,boolean and classified \(V1\).
+# aguila data/workspace/MapAlgebra/buildg.map
+# 
+# # Fixed, KDJ 20060209
+# # Fixed the commandline itself, not the source code.
+# echo Timeseries plot of a dynamic stack.
+# aguila --timesteps [1,3] volcano/dem volcano/lava volcano/input.map --timeGraphView volcano/lava
+# 
+# # Fixed, KDJ 20060228
+# echo REQA1 put one map only in value matrix
+# echo "Must show volcano in a map view and both in the value view."
+# aguila --timesteps [1,3] volcano/dem --valueOnly volcano/input.map
+# 
+# cp   volcano/dem00000.060 staticInTss.map
+# echo REQA2 show both static and dynamic data in a tss view
+# echo MOET 1 timeGraphView tonen, niet 2 aparte
+# echo "timesteps= [1,100]"                            > reqa2.cfg
+# echo "mapView= volcano/dem"                     >> reqa2.cfg
+# echo "timeGraphView= volcano/dem + staticInTss" >> reqa2.cfg
+# aguila --config reqa2.cfg
+# 
+# # echo "BUG bad::any_cast"
+# # Fixed, KDJ 20060313
+# echo "drapeView of scalar and drapeView of nominal."
+# echo "Must show error message stating that buildg.map cannot be used as height."
+# aguila --drapeView data/workspace/MapAlgebra/topo.map data/workspace/MapAlgebra/buildg.map
+# 
+# # echo Bad Stupid Data, assertion failed
+# # Fixed, KDJ 20060313
+# echo "Time column values are not unsigned integral, but floating point."
+# echo "Must show error message stating that the type of the values is wrong."
+# echo 1e31 1e31 > badData.asc
+# aguila badData.asc
+# 
+# echo "Not a bug, but message is cryptic"
+# echo "Reason for failure: cannot show map and tss in map view"
+# echo "  window type is found by first one"
+# echo "KDJ: please suggest better message"
+# echo "CW: intelligent in dataspace zoeken, canned match o.i.d"
+# # We might support this if the tss has info about its location in space.
+# aguila data/workspace/Demo/dem.map + data/workspace/Demo/rain.tss
+# 
+# echo Support old style stack name syntax.
+# echo "Must show map view with dynamic stack of 5 rasters."
+# aguila volcano/dem00000.001+5
+# 
+# # Fixed, KDJ 20060314
+# echo "Must have a time dimension configured [80, 90, 1]."
+# echo "Must show time coordinate 80 initialy."
+# cp volcano/dem00000.090 volcano/lava0000.080 .
+# aguila --mapView dem00000.090 lava0000.080
+# rm volcano/dem00000.090 volcano/lava0000.080
+# 
+# # Fixed, KDJ 20060314
+# echo Empty map, interface should work appropiate, no map, greyed out prop dial.
+# aguila data/development/empty.map
+# 
+# # Fixed, KDJ 20060315
+# echo "timeGraphView of a static raster"
+# echo "Must show an error message stating that dem.map does not contain time."
+# aguila --timeGraphView data/workspace/Demo/dem.map
+# 
+# # Fixed, KDJ 20060208
+# echo "Timeseries graph, with both DOS and UNIX formatted file."
+# aguila data/workspace/Demo/rain.tss data/development/rainUnixFmt.tss
+# 
+# # Fixed, KDJ 20060614
+# echo "Scalar raster with REAL8 values."
+# echo "Must be used as if it contained REAL4 values."
+# aguila data/development/Height.001
+

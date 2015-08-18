@@ -1,0 +1,164 @@
+TODO:
+ - crash met cycles i.p.v. exceptie?
+    ligt dat aan mldd of aan de PythonLink
+
+Rekenen met EdgeLists (a.k.a. digraphs)
+======================================
+
+Doel: verwijdering van gebruik van 8 kaarten om
+      attributen van edges op te slaan.
+
+Definities:
+ - vertex: knooppunt, hier een cell
+ - edge:   gerichte verbinding tussen 2 vertices:
+           er is een:
+             source vertex: upstream
+             target vertex: downstream
+
+Een edgelist is een lijst met de lengte van het aantal
+edges in een mldd.
+
+Een 2D kaart heeft geo::RasterSpace:  rs2D
+Een EdgeList heeft geo::RasterSpace:  rsEL
+ rsEL heeft nr. edges collumns en 1 row.
+
+alleen punt operaties zijn zinnig op rsEL kaarten. Maar
+FTTB hoeft dit niet gechecked te worden.
+
+mldd nieuwe functies:
+ rs2D -> rsEL
+   1) upstream(a)   value of source/upstream cell of edge
+   2) downstream(a) value of target/downstream cell of edge
+   3) edgelength()  length of each edge, 1 or sqrt(2)
+ rsEL -> rs2D
+   4) upstream-sum (mean, sd, min, max), sum of all edges having
+      a target in current cell.
+   5) downstream-sum (mean, sd, min, max), sum of all edges having
+      a source in current cell.
+   6) eightway, zoals nu 8 kaarten terug
+
+ * NB operaties upstream,downstream,eightway  voor alle datatypen, dat ondersteunt
+      ObjectLinkWrapper nog niet.
+ * 5 en 6 zijn vaag/onhandig mischien toch een kaart met lists.
+
+
+mldd functies die het de edge/vertex configuratie modificeren zijn setStream,
+addStream en removeStream. die functies moeten een reorganisatie van de edgeLists
+triggeren.
+Daartoe moeten de edgeLists bekend zijn in een lijstje/catalog.
+Acties bij reorganisatie zijn:
+  - verwijder edgeList, neem aan dat modeleur altijd op nieuw berekent of,
+  - set nieuwe edges op waarde V of MV. B.v. waarde 0 of 1 voor age attribuut.
+
+PROBLEMEN/UITDAGINGEN:
+ De RunTimeEnv van pcrme krijgt 2 verschillende geo::RasterSpace voor zijn kiezen.
+ Twee verschillende rte's geen optie, tables etc. moeten in 1 bekend zijn.
+oplossingsrichting:
+  tag elk Field met een ID-ptr (0) mag die zijn rasterSpace o.i.d. beschrijft.
+  tag: FieldConfigurationID: maakt een Field in iets zoals een RasterSpace uniek, maar
+       het hoeft geen RasterSpace te zijn; special ID voor nonspatial, zoals return
+        van mapnormal()/timeslice()
+schijnoplossing?:
+ het lijkt er op dat alle operaties (pcrme/operation.xml) tenminste 1 field als
+ invoer hebben als ze een spatial terruggeven, b.v. normal, maar dat masker argument
+ van b.v. normal wil ik er eigenlijk uithebben (impliciet de areamap).
+
+
+
+-------------------------------------------
+Hieronder oude meuk, 1e versie mldd:
+
+De mldd (= multi ldd) is een ldd met multiple directions en op splitspunten in meerdere richtingen, een gewicht voor elke richting.
+
+
+De mldd datastructuur wordt omgezet in een object met de volgende onderdelen:
+   - modificatie functies:
+     - initialisatie
+     - toevoegen van takken
+     - aanpassen gewichten
+     - verwijderen van takken
+     - diffuse (modifies interne dem)
+   - return interne structuur
+     - toLdd,toWeight
+   - analyse functies (modificeren mldd niet)
+     geven alle kaarten terug met MV's buiten de mldd
+     - sedflowOpt (diffuse)
+     - accuflux
+
+
+De mldd datastructuur
+---------------------
+slaat intern het multi flow netwerk, en een DEM.
+Gewichten zijn een functie (slope) van de DEM.
+
+Modificatie functies
+--------------------
+
+Het mldd oject heeft volgende 4 modificatie functies. De mldd kan
+op geen enkele andere manier worden aangepast.
+
+- init()
+
+- setStream(8*Ldd's) // kan ook variabel
+- addStream(ldd)      // voegt toe
+- setDem(dem)         // set het dem
+- upstream(material)  // transporteer
+
+
+
+- init(8*Ldd's,Dem)
+
+  maakt een complete nieuwe mldd structuur met deze 8 ldd, 
+   conform bestaande code Derek.  initialiseert de interne DEM
+   1) maak een inflow en outflow lddBitCode map.
+   2) definieer een (begin) vertex for alle cellen
+      zonder inflow
+   3) doe voor alle begin vertices:
+      4) volg elk outflow-pad en stop het in een edge 
+        tot een (stop-)cell met nr-inflow > 1
+       definieer die stop-cell ook als een vertex en doe stap 4 voor
+       de nieuwe vertex
+
+- add(newStream)
+
+    newStream is een ldd bevat met 1 nieuwe tak. 
+    Deze nieuwe tak wordt aan de bestaande mlld toegevoegd.
+    daarna worden de gewichten opnieuw berekend a.h.v. huidig DEM
+    1) doe hetzelfde als in init met een inflow en outflow gedoe
+    2) "merge" nu de bestaande en de andere door te kijken "waar" ze
+       snijden.
+
+- dem(DEM)
+    zet de dem in de mldd en bereken de nieuwe gewichten, als slope
+     waarde.
+
+[ WAS NU OVERBODIG
+- weights(8*weight)
+
+   weight is afh. van de verandering in het DEM, en die verandert iedere tijdstap. Deze functie herschikt de gewichten om de bestande mldd structuur, Mischien is het handiger/efficienter om de functie dem2Weight(dem) zelf in mldd te bakken (efficientie) hoe ziet die er dan uit?
+]
+
+- remove(booleanMap)
+
+   verwijdert delen van de mldd, voorlopig als de booleanMap true is op een cel dan wordt de hele tak waar de cel toehoort verwijdert. Verder of nadenken, heeft geen prioriteit, als laatste doen
+   Daarna worden de gewichten opnieuw bereknd a.h.v. huidig DEM
+
+Zowel add als remove laten passen de mldd zodanig aan dat de weight aangepast moeten worden.  Daarom is het mischien zinnig om de weight aanpassing in mldd te bakken, en de argumenten daarvan (DEM en wat nog meer?) bij aanpassing door te geven.
+
+Analyse functies
+----------------
+
+- toLdd, toWeight
+   'terug conversie' van de data structuur naar 8 losse ldd's en weight's
+
+- Elevation, TotSl = sedflowOpt(PreviousHeight,InputCubePerYear,
+      Diffusion, WidthStream, FixedHead, Duration, Discretisation)
+
+De huidige python implementatie wordt in ieder geval zoverre vervangen dat het transport alleen op de takken zelf en niet op de hele kaart hoeft, Het aantal benodigde iteraties wordt bepaald door de hoeveelheid transport die optreedt (vergelijkbaar met de kinematic functie). Waar de optimalisatie vooral in zou moeten zitten is in de upstreamsperdir, slopedownstreamOptiOpti componenten.
+
+- amount = accuflux(amount)
+    'proof of concept' implementatie, mischien 1 andere ldd functie.
+
+Implementatie
+-------------
+Code wordt een zogenaamde calc::UserModelLink en kan dan aangeroepen worden vanuit pcrcalc. Kor maakt de python wrapper om een calc::UserModelLink object te kunnen gebruiken in python.

@@ -1,0 +1,2 @@
+areamap area.map;
+cb.map = example1::checkerBoard();

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+     Example only that is linked in unit tests: calc_objectlinktest.cc
+ -->
+<!DOCTYPE ObjectLinkMeta
+  PUBLIC "-//PCRaster//DTD PCRasterNone V1.0//EN" "operation.dtd"
+[
+ <!ENTITY SpatialS "<Field spatial='Yes'>&VS_S;</Field>">
+ ]>
+<!-- Tester9 just a make up class
+ -->
+<ObjectLinkMeta
+  className="CalcLibDemoObjectLink"
+>
+<ObjectLinkCpp
+  className="calc::CalcLibDemoObjectLink"
+  type="1"/>
+<!-- <ObjectLinkCtor/> -->
+<ObjectLinkMethod name="setDem">
+ <Input contextName="dem">&SpatialS;</Input>
+</ObjectLinkMethod>
+<ObjectLinkMethod name="testOrder">
+ <Result>&SpatialS;</Result>
+ <Input contextName="dems[]">&SpatialS;</Input>
+ <Input contextName="dems[]">&SpatialS;</Input>
+ <Input contextName="singleLdd">
+       <Field spatial='Non'>&VS_L;</Field></Input>
+</ObjectLinkMethod>
+<ObjectLinkMethod name="testOrder2">
+ <Result contextName="results[]">&SpatialS;</Result>
+ <Result contextName="results[]">&SpatialS;</Result>
+ <Input contextName="dems[]">&SpatialS;</Input>
+ <Input contextName="dems[]">&SpatialS;</Input>
+ <Input contextName="singleLdd">
+       <Field spatial='Non'>&VS_L;</Field></Input>
+</ObjectLinkMethod>
+<ObjectLinkMethod name="getDem">
+ <Result>&SpatialS;</Result>
+</ObjectLinkMethod>
+   <ObjectLinkMethod name="noArguments"/>
+</ObjectLinkMeta>

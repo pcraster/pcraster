@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<script xmlns="http://www.pcraster.nl/pcrxml"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.pcraster.nl/pcrxml PCRaster.xsd">
+<executionOptions>
+  <outputMapFormat>
+   <unsupportElementName/>
+  </outputMapFormat>
+</executionOptions>
+<!--
+  ioStrategy="bandMap"
+   compute result.bil = lookupnominal(inLinetable,a.bil)
+  where inLineTable is specified within the XML
+  -->
+<definition name="a">
+  <scriptInput><external>a.bil</external></scriptInput>
+</definition>
+<definition name="inLineTable">
+ <relation>
+  <lookupTable>
+  <!-- identical in having an external ascii file with:
+   < ,0.4>   1
+   [0.4,0.8> 2
+   [0.8,>    3
+   -->
+   <lookupRow><lookupColumn>&lt; ,0.4>  </lookupColumn>  <lookupColumn>1</lookupColumn></lookupRow>
+   <lookupRow><lookupColumn>[0.4,0.8></lookupColumn>  <lookupColumn>2</lookupColumn></lookupRow>
+   <lookupRow><lookupColumn>[0.8,>   </lookupColumn>  <lookupColumn>3</lookupColumn></lookupRow>
+  </lookupTable>
+ </relation>
+</definition>
+<definition name="r">
+  <scriptOutput><external>result.bil</external></scriptOutput>
+</definition>
+<model>
+ <statement>
+   r = lookupnominal(inLineTable,a)
+ </statement>
+</model>
+</script>

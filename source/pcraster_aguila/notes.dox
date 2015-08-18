@@ -1,0 +1,1174 @@
+// vim: syntax=cpp
+/* doxygen docs only, NO code
+ */
+// enclosing in namespace to link class names within text
+namespace ag {
+
+/*!
+   \page agNotes Aguila / Vizualization notes
+
+   Spring naar sectie:
+   - <a href="#design">Design/Requirements</a>
+   - <a href="#xml">XML archictecture</a>
+   - <a href="#basic">Basale Functionaliteit</a>
+   - <a href="#vervelend">Vervelende dingetjes</a>
+   - <a href="#uiSect">User Interface</a>
+   - <a href="#XXXX">XXXX Viewer</a>
+   - <a href="#wishes">wensen algemeen</a>
+   - <a href="#todoKor">Todo Kor</a>
+   .
+
+Wat moeten we doen t.b.v. XXXX (XXX) opdracht:
+1) alle basale functionaliteit
+op orde brengen met redelijke performance en in tests onderbrengen 2) de XML architectuur maken en alle visualisatie wensen zoals in XXXX offerte staan.
+
+ - Officiele spec: CVS: projects-cees/XXXXX/OfferJuly2005.doc
+ - Intentie/wensen: projects-cees/XXXX/PCRasterTechAnnexMarch2005.doc
+ .
+
+Wat we NIET gaan doen:
+ - alle functionaliteit die in XML mogelijk is perse vanaf commando regel of cfg files mogelijk maken. Andersom, vermoed ik (Cees) dat dat de command regel reeds een subset is van de XML
+
+Inzet van iedereeen is ongeveer Kor 1 maand en Cees en Willem samen 1 maand, precies
+uitgangspunt in notes.dox versie d.d. XXXXXXXXXX. Resultaat is:
+
+\code
+A: saving and reloading settings
+B: linking time and maps
+   - flip white and back
+   - export timeGraphView to ascii
+C: bookmarks
+D: calendar dates
+E: saving more settings (mag later)
+F: transmitting state info see REQF5
+        A  B  C D E F  XXXXXX
+XXXX    4  8  3 2 4 1  = 22
+XXXX    10 4  2 2 0 1  = 19
+\endcode
+
+\section design  Design and Requirements
+
+Werkwijze Aguila zoals het zou moeten:
+
+\verbatim
+  1. Creeer Aguila application object.
+  2. Indien van toepassing (R) schuif data die al in geheugen is in de
+     MemoryPool
+  3. Creeer een visualisation opdracht in XML vanuit b.v:
+     - Vertaal commando regel en configuratie bestand naar opdracht.
+     - Creeer vanuit R een opdracht.
+     - Python klassen die XML representatie voorstellen.
+     - Windows explorer (right mouse context menu) Willem heeft hier prototypes van.
+  4. Geef de opdracht aan het Aguila applicatie object.
+  5. Ga de event loop in door run() aan te roepen op het applicatie object.
+  6. Eventueel nieuwe data aan MemoryPool toevoegen. Eventueel nieuwe
+     visualisaties starten.
+\endverbatim
+
+De XML interface is dus volledig en de enige aansturing van ag::Aguila.
+
+Voor XXXX zijn bepaalde workflows met Exploratory Data Analyses (EDA) zeer belangrijk. "The most important wish is that as most as possible settings of a visualisation session can be saved/remembered to allow to visualise again with other data but some of the same settings. For example show in a certain view data with the same panning, zoom detail as yesterday.": Dit is vooral om:
+ - snel naar hetzelfde punt in tijd en ruimte maar in een ander "scenario" te gaan (Extension A).
+ - een screen dump van een grafiek of kaart moet er hetzelfde als gisteren uitzien (Extension E).
+
+XXXX REQuirements niet in huidige aguila en waarvan Cees architectuur issues verwacht. Cijfer achter Klaar: geeft aan in welke mate Aguila hier klaar voor is, 0: helemaal niet, 10: af. Cijfer achter Moeite geeft aan in welke mate het energie/tijd kost om het te maken, 0: niets, 10: veel. Sommige van deze waardes gelden alleen als bepaalde andere stappen al gemaakt zijn.
+
+\b REQA1 (DONE)
+Niet alle data hoeft een view te hebben, sommige data alleen in de ValueMatrix opnemen.
+
+\b REQA2 (DONE)
+Combine dynamic and static data in Timeseries graphs. Graph consists
+of horizontal time axis and vertical value axis with for that x, y
+coordinate a series of connected point at T1-Tn for a dynamic mapstack
+data item or straight line for static data (e.g. a critical value map)
+
+\b REQA3
+Opstarten van een View in een Window van X * Y pixels, met de volgende
+uitsnede van de kaart: (X0,Y0,Xx,Yx). Dat soort informatie ook kunnen
+bewaren. Cursor op een bepaald dimensie coordinaat (X,Y,T) kunnen zetten
+door intypen coordinaten of ophalen bookmark (Extensie C).
+
+\verbatim
+Venster:
+Klaar: 5
+Moeite: 3
+dal::Dimension uitbreiden met cutoff waardes voor assen. Via deze
+setting kan pannen en zoomen lopen, voor alle visualisaties, dus ook
+grafieken. Tijdvenster, ruimtevenster.
+
+Dimensie is een as van de data space en kan dmv cutoffs een venster op
+een geselecteerde sectie van de dimension bevatten.
+
+Info over window grootte hoort in de view setting, niet bij de data space setting.
+
+Cursor:
+Prioriteit: 10
+Klaar: 8
+Moeite: 7
+Cursor and Value View uitbreiden met edits om coordinaten in te tikken.
+\endverbatim
+
+\b REQA4
+De integer tijd-dimensie 1,2,3,... gemapped naar een werkelijke tijd, met een epoch, een tijdstap grootte. Verschillende mappings kunnen gebruiken. B.v een stack van 10  per 24-uurs kaarten en een stack van 40 6-uurs kaarten. Ook een Dal issue. Wrsl. de Dal concepts The <a href="TODO_LINK">Analyse/Requirement of Data Abstraction Layer</a> meenemen in de XML architectuur: dal krijgt ook een XML mapping.
+
+XXXX voorbeeld zowel: dag als 6 uurs data te vinden:
+ - begin  2005-02-10T00:00:00
+ - temp temperature op dag basis in 10 tijdstappen (map-stack).
+ - Q    discharge op 6 uur basis in 40 tijdstappen (map-stack).
+ - geef temperature en discharge op  2005-02-13T18:00:00
+
+\verbatim
+Klaar: 10
+Moeite: 8
+
+Iha moeten dimensies gemapped kunnen worden naar een andere range van
+waardes. Ruimte dimensies moeten geprojecteerd kunnen worden (lineair
+of mbv een projectie), tijdsdimensies moet gemapped kunnen worden naar
+werkelijke tijd, attribuut waardes naar een andere eenheid: radialen
+-> graden.
+Ik stel me een algemene Mapper klasse voor die gegeven een
+map/conversie/projectie algorithme, waardes/coordinaten omfietst naar
+een andere schaal.
+De Mapper hoeft niet verbonden te zijn aan de Dimension klasse, dit kan
+de aanroepende code zelf regelen. Misschien dat applicaties graag met
+de ruwe dimensies willen blijven werken en alleen naar de gebruiker toe
+coordinaten willen kunnen mappen. Maar igv ruimtelijke coordinaten wil
+een app misschien mappen naar werkelijke wereld coordinaten volgens een
+bepaalde projectie. Oftewel, het hangt van de situatie af.
+
+CW: Wel zou het handig zijn (of noodzakelijk?) als de aguila kan laten zijn
+uit welke fysieke data waarden komen b.v.op 2005-02-13T18:00:00
+ - temp0000.003
+ - Q0000000.015
+ .
+
+Opmerking: Quantiles b.v. worden als ze "missen" geinterpoleerd, dag-data op
+een 6 uurs increment tijdschaal zou als "interpolatie-method" de "neem de laatste voor dit tijdstip (clampBack)"
+
+\endverbatim
+
+XXXX REQuirements niet in huidige aguila en waarvan Cees denkt dat ze
+in de huidige architectuur geen verandering brengen, m.a.w. features:
+
+\b REQF1
+Flippen black or white background alle windows on-the-fly. Nodig omdat
+op het scherm b.v. zwart handig is, maar om even een screen dump te maken
+is wit fijn. In principe alleen voor graphs (timeseries) nodig. Crosshair
+and such should be toggled on/and off to exclude from screen dump.
+
+\verbatim
+Prioriteit: 10
+Klaar: 8
+Moeite: 2
+Suggestie voor interface. Edit | Properties item die een dialoog geeft
+met deze optie. Deze dialoog bevat de properties van de visualisatie die
+gewijzigd kunnen worden, heeft niets met data / kleurtjes whatever te maken.
+
+Aguila settings, Visualisation group settings, View settings, View
+type settings.
+\endverbatim
+
+\b REQF2
+Have a title in tss plot denoting what data is shown, real date? and
+x/y location. Doel: een screen dump van de plot moet alle info bevatten.
+
+\verbatim
+Klaar: 8
+Moeite: 2
+Mooi grafisch ontwerp regel: Een screendump van een view moet all info
+bevatten om te snappen wat er precies wordt gevisualiseerd.
+\endverbatim
+
+\b REQF3
+Exporting graph data to ASCII. Heeft zelfde functionaliteit als de "view widget"
+maar schrijft naar file i.p.v. plot widget.
+
+\verbatim
+Prioriteit: 10
+Klaar: 9
+Moeite: 4
+Optie om bij het schrijven rekening te houden met de current selection
+(windows in the various dimensions) of gewoon alles te bewaren?
+In ieder geval alles bewaren. Belangrijker is volledigheid: 1) als real date dan 2 tijdkolomen:
+integer en echte mapping. 2) X,Y, CursorMark naam in header.
+\endverbatim
+
+\b REQF4
+Record and fetch bookmark (Extensie C): huidige cursor kunnen opslaan en ophalen
+van cursor uit een lijst.
+
+\verbatim
+Klaar: 0
+Moeite: 7
+
+Cursor = DataSpaceAddress (huidige cursor) + label
+\endverbatim
+
+\b REQF5
+Extensie F: Dump van de value-matrix interface in XML: de huidige cursor en
+een lijst van data-waarden op die cursor. Simpel: schrijf XML string naar
+schijf. Andere applicatie kijkt voor updates.
+
+\verbatim
+Klaar: 0
+Moeite: 3
+
+Save vanuit ValueMatrix interface. Auto save when cursor changes?
+\endverbatim
+
+\b REQF6
+When changing the cursor assure the new position is visible in each view. For Map views it might be handy have a mode that will position the view such that the cursor is at the center. When changing the cursor, the map view is updated for this center requirement.
+
+Discussie: In ELK geval moet de map view zijn "panning" zo kunnen plaatsen dat
+de cross hair na ophalen cursor, ergens in beeld staat.
+Er zijn sowieso twee opties: 
+ - data pannen en cross hair fixed i/h midden houden.
+ - cross hair kan overal in huidige view
+ .
+Kor: Hier moet een optimaal schema voor bedacht kunnen worden lijkt me,
+bijv: houden zoals het nu is, maar verschuif de data zodra de crosshair
+buiten beeld verdwijnt. Misschien met een marge werken zodat er altijd
+data rondom de crosshair te zien is. Ik ben er ook niet tegen om altijd
+de data onder de crosshair door te laten schuiven. Misschien werkt dit
+nog wel het best of is dit in alle situaties een goede manier. Ik kan me
+voorstellen dat wanneer je van bookmark naar bookmark springt je altijd
+de nieuwe cursor positie in het centrum van de visualisatie wilt hebben.
+
+\verbatim
+Klaar: 6
+Moeite: 5
+
+Bookmarks ophalen: crosshairs in centrum, tenzij volledig uitgezoomd.
+
+Cursor veranderen (slides, klikken, ...): crosshairs in beeld houden, niet perse in het centrum, maar pannen indien nodig.
+\endverbatim
+
+\b REFF7
+Saving of bookmarks:
+The labelling might be so imporant, that adding a label must always trigger a write to disk of all current settings. Accentdently quitting or crashing will then not result in the loss of this important data.
+
+\verbatim
+Klaar: 0
+Moeite: 4
+IDEE 1: save alleen bookmarks expliciet in bestand, append, overwrite etc.
+
+IDEE 2: Algemene optie aan Aguila toevoegen: Auto save oid waarmee aangegeven
+kan worden dat Aguila zelf mag bepalen wanneer het staat wil bewaren. Dit
+wil je ook uit kunnen hebben staan lijkt me (default uit).
+
+Auto save werkt alleen nadat er voor het eerst bewaard is.
+\endverbatim
+
+\b REFF8
+"Rechter muis knop" huidige cursor in mapstack mapView, geeft tijdserie view
+voor die locatie.  KLAAR
+
+
+Wat in de XXXX offerte staat maar geen hoge prioriteits heeft:
+
+ - high quality printing (out of box what Qt/qwt offers), graph export to EPS, er staat "OR exporting to EPS"
+
+\section xml XML Architectuur
+
+ - Wat moet in dal wat in aguila? zie ook XML van gdal vrt datasets.
+ - Kijk naar de FEWS (WL) XML Schema's voor palette's etc.
+ - Begin met schema die bevat:
+    - alle settingss waarmee Aguila wordt opgestart.
+    - alle dialogen waarmee on-the-fly dingen worden aangepast: pallette, cut-of,
+      classifier.
+    - palletten mogen naar interne paletten wijzen uitschrijven palleten hoeft
+      nog niet.
+    - de NameValue matrix dump voor extensie F.
+    .
+ - Extensie D: intelligente mapping van integers naar echte tijd datum. zie
+   xml schema standaard date mappings en boost::date_time.
+ - in XML hoeft alles maar 1 keer beschreven te worden: als views instellingen
+   delen dan referentie naar 1 definitie van die instellingen.
+ - Extensie E: QSettings is nix spannend's daarmee kan je niet snel een hele window state vragen en dumpen, moet je item voor item doen. Kunnen we dus net zo goed
+   zelf in XML doen.
+ - Maak duidelijk onderscheid tussen 1) Data configuration 
+   en 2) Application configuration. Data is "hard" moet er zijn anders fout, Application (zoom level in view etc., window sizes) zijn hints hoe de applicatie zich
+   moet tonen.
+
+Opties:
+
+  - CW TODO: loop coordinaat syntax van Kor na op wiskundige correctheid:
+     ranges, intervals, sets, etc.
+
+  De opties definieren dus assen en een aantal views, maar introduceren
+  geen symbolen die we kunnen gebruiken. FTTB introduceren ze default namen,
+  zoals scenarios, timesteps, view-1, etc. o.i.d.
+  De XML kan wel en indien nodig symbolen definieren.
+
+ dimensions specificatie: definieert waarbij default gevonden worden
+   in de (start) data-sources. b.v X en Y range uit kaarten en increment
+   uit cell-size.
+
+ Definieren van van zaken als cutoff, palette, classifiere, etc in ag::DataObject.
+ Dit mappen naar een element  DrawProperties?
+
+ wip Schema in $PCRTREE/xml/Aguila.xsd
+
+\section uiSect User Interface
+
+see CursorValueDialog.ui
+
+Design principle: met zo weinig mogelijk zoveel mogelijk laten zien.
+
+/home/cees/pcrtree/docs/aguila/addToManual.xml
+
+\b Values 
+
+Lijst van datasets. Volgorde exact als opgegeven, gebruiker heeft daar een bedoeling mee.
+
+CW1:
+ - in dataset lijst een kolom met de "match" in de dataSpace. 
+ - Als precies gevonden niets in deze kolom.
+ - als de match een berekening nodig had die erin zetten b.v:
+   1) voor quantile=0.83  waar 0.8 en 0.9 aanwezig is.
+        interpolate-quantiles(0.8, 0.9)
+   2) op tijdstip A als A er niet is maar A-x wel
+        previous-date(A-x)
+   1-2) beide 
+        interpolate-quantiles(0.8, 0.9), previous-date(A-x)
+- kan dit als methode op de dataSpace?
+
+
+WENS?: Per dataset-view combo kunnen instellen of het meebeweegt met cursor, of dat het bepaalde of alle dimensies heeft vaststaan.
+
+\b Dimensions
+
+ - 1e regel: Lock en "Cursor recordings (voorheen bookmark)"
+   - Cursor Recording:
+     - Record: sla huidige cursor op onder naam, bij bestaande naam
+       overwrite yes/no
+     - Fetch: selecteer reeds recorded cursor.
+     - label: read-only naam van geselecteerde cursor, als cursor
+        weer bewogen wordt, grijs i.p.v. zwart maken.
+     - Alternatief1: Fetch en Label  samen in ComboBox, als ie maar
+        grijs kan worden.
+     - Alternatief2: Record, Fetch en Label  samen in ComboBox met
+       1 special entry &lt;Record>
+     .
+   - Lock: cursor vastzetten, zodat door per ongeluk klikken in een view
+     of dimension slider niet de cursor verloren gaat. Na een Fetch altijd
+     op aan zetten. mischien ook lock per dimensie ? Lock in de toolbar van
+     alle views?
+ - volgende regels de dimensies, NB maak van time timestep. timestep is de
+   integer mapping. Elke dimensie heeft een slider en een spinbox en een 
+   presentie kolom.
+   - presentie: of die dimensie in "de huidige dataset-view" voorkomt. 
+     Huidige dataset-view
+     is wat er in de Value List is geselecteerd. B.v een static map, heeft X,Y yes
+     time No. Een tijdserie file geen X,Y, wel Time. (Yes/No lelijk pixmap?).
+     Alternatief (beter): geen kolom, maar muis over Value regel vergrijst de spinbox
+     van dimensies die er niet zijn.
+   .
+ - als er een werkelijke date epoch is gegeven: een DateTimeEdit of TimeEdit
+   Met SetOrder op YMD?
+ - Achter de time slider en evt. (Date)TimeEdit hangt een dal::Clock die aangeeft:
+    - wat de increment is bij pijltjes en/of (Date)TimeEdit controls.
+    - of er voor een DateTimeEdit of TimeEdit gekozen moet worden en of alle velden daarin geedit kunnen worden, cq gereset worden. b.v geen seconden als increment in minuten of uren is.
+
+
+\verbatim
+KLAD:
+Drag en drop van tijd? etc.
+ van partiele dimensies etc. Altijd kunne droppen naar View met gelijk of minder
+ dimensies!
+ wizard: bij droppen naar bepaalde views:
+   b.v. lock dimensies, niet meer veranderen in b.v tijdserie
+   als 2e kaart op een 2D view wordt gezet, drop als contour,etc.
+ wizard aanmaken view: gegeven dat we de dimensie weten kan je zo wat in
+ elkaar knallen: geen tijd, geen tijdserie, wel kaarten: 2D of 3D view, etc.
+\endverbatim
+
+
+
+\section basic Basale Functionaliteit
+
+pcrag/aguilaTests is een test script die wat tests draait.
+
+Bugs en showstoppers vooraan:
+
+  - Bezig aan: testen in test-scripts en het liefst distribueerbare aanroep voorbeelden.
+  - warning: QSqlDatabaseManager::database: unable to open database: FATAL:  database "volcano" does not exist MOET WEG
+  - AguilaProgramOptions::obtainProgramOptions(): syntax werkt niet zoals gewenst  +, defaultView, composing/multitoken etc.
+  - cursor dialog: noem space dimensies X en Y i.p.v. space of X:space[blabla] o.i.d.
+
+ - dal library: is er nog een groot performance probleem met tables en dus tijdseries parsen? KDJ: ja, maar dit kunnen we deels opvangen door van de MemoryCache gebruik te gaan maken. Igv tijdseries lezen gaat die dan als volgt:
+   - bewaar huidige setting gebruik cache
+   - zet gebruik cache aan
+   - lees hele tabel in, deze belandt in de cache, doe niets met het resultaat van TableDriver::read()
+   - lees per attribuut de tijdskolom en de attribuut kolom. Deze worden uit de reeds gelezen tabel in de MemoryCache gehaald.
+   - verwijder de tabel uit de cache.
+   - zet gebruik cache terug in oude setting
+
+\section vervelend Vervelende dingetjes
+  - Cursor and Values: 
+     - focus in Dimensions niet logisch:
+       - rechts of links van schuif klikken beweegt de schuif, maar geeft de
+          dimensie geen focus.
+       - als value matrix focus heeft, krijgt Dimensions nooit meer focus!
+       -  OPLOSSING: de klik moet focus geven.
+     - Verbeter: Up and down pijltjes door dimensies heen scrollen.
+
+  - timeGraphView: show layer on/off werkt niet
+
+\section wishes wensen algemeen
+
+Geen vereisten om Aguila releasebaar te maken of XXXX opdracht rond te krijgen:
+
+ - in eerdere versies van drape/aguila (van Harm,Victor of Kor?) konden 3D instelling
+   bewaart worden: viewpoint, camera positie. etc. Dat moet weer terug. 
+   Spec hiervan maken wat in versies van Victor en Harm zaten.
+
+ - show maximum of 1-2-3 neighbouring window, for b.v. discharge kaarten: toon vooral accumulatie IN kanaal, die slechts 1 cell breed zijn.
+ 
+ - cursor navigatie o.b.v. data waarden ( Extension G (HOTSPOTS) in
+   projects-cees/XXXX/PCRasterTechAnnexMarch2005.doc
+   Value cell can change in value cursor, 3 value cursor modes:
+   - off   (default)
+   - <  >  - up goes to value less then present value.
+           - down goes to value higher then present value.
+           .
+   - <= => - up goes to value less or equal then present value.
+           - down goes to value higher or equal then present value.
+           .
+   .
+   search is default in X,Y raster-space, where this space is linearized
+   in row-col major ordering.
+   Can also search in time, with X,Y fixed! So then we have possible 5 modes:
+   - off,  <>XY, <>T, <==>XY, <==>T
+
+ - toon non-zero values as symbols: b.v. station lokaties.
+
+ - Aguila moet kaarten kunnen lezen waarin transectlijnen staan (boolean). Deze kaarten moeten gekoppeld kunnen worden aan andere kaarten (bijv dem) en tezamen geven ze genoeg informatie voor een doorsnede grafiek. Alles moet dynamisch kunnen zijn. Transecten moeten ook interactief in te stellen zijn (dwars doorsnedes).
+
+ - Statistics viewer: eerst dacht ik dat de cursor-value matrix, veel kolomnen kan
+hebben, zoals min, max een andere statistieken. Nu geloof ik dat de matrix alleen
+de essentie moet bevatten die navigeerbaar is en de interface naar het aanpassen
+van kleuren etc. En apart Stat-viewer lijkt me duidelijker, maar dat is
+natuurlijk persoonlijk.
+
+\section todoKor Todo Kor
+
+was eerst apps/aguila/todo.txt
+
+\verbatim
+
+- aguila --timesteps=[50,10000,50] --multi=2x2 scen2/1/Belt + scen2/1/EL +
+scen2/1/QStr scen18/1/Belt + scen18/1/EL + scen18/1/QStr
+geeft ie wrong format for stack name
+zonder multi gaat het goed
+
+- het lijkt erop dat bij het verplaatsen van de cursor in de kaart de
+kaart nog een keer getekend wordt tewwijl alleen de quantielen plot
+opneiuwe getkend hoeft te worden.
+
+multiplot -> alle legenda types ondersteunen en samen nemen: 20 boolean
+kaartjes levert nu 20 boolean legenda's op
+
+Multiplot -> legend toont titel van een van de twee datasets ->
+combineer titles?
+
+Multiplot -> tijdsersie opvragen levert 1 lijn op -> moet alle datasets
+in de tijdserie stoppen.
+
+Hij plot over elkaar in een window, a la arcview. (Lastig dat je niet
+ziet waar je naar kijkt als je een "show layer" uit-checkt.)
+
+
+value-as van de cumulatieve prob. plot moet reageren op legenda
+wijzigingen, inclusief overgangen van lineair naar log schaal ed.
+Als je in de legenda de min/max value aanpast, moet dit ook de min/max
+in de cumulative probability plot worden.
+
+quantiles=[0.1,0.9,0.1] laat geen goeie plot zien: eind gaat omlaag richting 0
+
+legenda min 0, max 100; wordt getekend met levels 0 20 40 60 80 10.
+10 ipv 100 (0 geclipped).
+
+Op het moment dat je de lijn vertikaal hebt en verschuift, wordt "value"
+in het cursor widget de cumulatieve probability. Er is geen mogelijkheid
+om erachter te komen welke "value" (echte waarde, b.v. concentratie) je
+echter gekozen hebt. Opl: in het cursor widget twee kolommen opnemen,
+een met cum.prob. en een met value, en altijd beide weergeven.
+
+[Probleem doet zich voor bij lognormale verdelingen: maximum is b.v. 
+1450000, terwijl de interessante waarden zich tussen 0 en 50 bevinden.]
+
+
+- dataproperties dialoog updaten aan visualisation dialoog class
+- plot moet z'n data kunnen bewaren
+
+
+ZIE: http://pcrserver.geog.uu.nl/pcrasterwiki/Aguila daar wil CW ook
+nog een concreet voorstel voor doen
+
+TODO:
+
+  . app palette eruit halen, toggle erin voor achter/voor grond kleuren voor
+    teken procedures
+  . animatie stap grootte moet in te stellen zijn
+  . map2d: new map2d window, open raster met zelfde dimensies als reeds geladen:
+    NIET IN ZELFDE GROEP!
+  . implementeer StackDataObject in termen van dal::RasterSource ipv
+    geo::CSFStack
+  . loop alle observers af om rescan te splitsen in rescan/process/visualise
+     - LegendView
+
+  . multiview: voeg een van de multiview kaartjes toe via open file
+      -> geen legenda (wordt gemergd)
+  . BUG: palette nominale kaart in 3d wijzigen: alleen de legenda, niet de kaart
+    wordt geupdate.
+  . volgorde lagen moet te wijzigen zijn (Move up, Move down)
+    legenda context menu kan een optie up en down hebben die de volgorde van
+    de lagen veranderd.
+  . qt_animation.cc: 609 assertion faalt onder windows!!!
+  . projectie zooi kan uit de app
+  . loop alle observers af om rescan te splitsen in rescan/process/visualise
+     - LegendView
+     - DataPropertiesDialog
+     - Map2DWindow
+     - Map3DWindow
+     - ScriptEditWindow
+     - TimePlotWindow
+     - Block: eruit
+     - BlockView: eruit met alle gerelateerde spullen
+  . In het algemeen: alle veranderingen van props van visualisaties lopen
+    via het dataobject en zo indirect naar de visualisaties
+    Visualisaties hoeven dus helemaal geen setHuppelepup te hebben, maar
+    alleen te reageren op updates geinitieerd vanuit het dataobject.
+  . Misschien zo nu en dan wat extra tijd inlassen voor events om opgepikt te
+    worden? -> tijdens anitmatie worden sommige teskten tijdelijk niet
+    geupdate.
+  . roep dal::testNativePathname aan op alle binnenkomende paden.
+    nog iets slimmer: werk intern met portable paden (lees docs of dat kan
+    met windows schijven/shares e.d. en accepteer native en portable paden en
+    schrijf portable paden.
+  . aguila pcrserver:/usr/local/testdata/bugs/tss/aabl.tss dumpt
+  . don't rescan visualisations which are not visible
+    -> overload relevant events
+      -> rescan at each visible action
+      -> don't rescan when hidden/minimized
+      -> Widget.isHidden() / isShown()
+      -> QWidget::showEvent ( QShowEvent * )
+  . aguila dem.map - add view: dem.map
+    - als de windows een verschillende afmeting hebben laten ze niet hetzelfde
+      gebied zien. Dit moet met een central punt gesynchroniseerd worden
+  . aguila main moet alleen van pcrag afhangen
+  . animatiedialoog heeft geen goeie title, check alle visualisatie titles
+  . aguila moet dal gebruiken voor het lezen van data
+    - rasters
+    - tijdseries
+    - scripts / tekst bestanden
+  . animatiedialoog: play / pauze knop integreren
+  . dem in colourfill op dem in contours -> contours tekenen in naburige cellen!
+    - check op wilFill faalt in drawer of
+    - contour tekent te veel buiten de eigen cell -> ditmoet niet!
+
+- menus van visualisaties herordenen:
+  File Visualisation Help
+
+  Check alle visualisaties.
+  Zorg dat alle menuitems werken.
+
+- Shortcuts voor:
+  - Open file
+  - Animation dialog
+  - Start / Stop animation
+
+- Elke visualisatie moet een naam/titel krijgen gebaseerd op de data
+die gevisualiseerd wordt.
+
+- Animation dialog:
+  - Stap terug
+  - Edit box voor huidige tijdstap
+
+- Documentation.
+  - Introduction
+  - Verwijder spullen die we niet meer gebruiken
+  - Installation herzien
+  - Uitgebreider
+  - Concepts? Versimpelen.
+  - gif -> png
+
+- Waarom is legenda/cursor breder geworden?
+- Waarom zijn scrollbars blauw???
+
+- boolean legend komt niet door in legenda
+- change background colour (zie qt blad)
+
+- start aguila, toon anim dialoog
+  sluit vis -> anim dialoog blijft zichtbaar -> als alleen de anim dialoog nog
+  draait kan de app neer.
+
+aguila -3 dem.map + ldd.map dem.map + ldd.map laat ldd op tweede kaart
+niet zien. Alle code wordt wel goed uitgevoerd lijkt het. Zie quaddrawer,
+map3dobject
+
+Map2D:
+---
+  . aguila dem.map:
+    - save as moet weer werken.
+      - zie ag::VisualisationWindow: zit code in die omlaag moet denk ik
+      - algemene dialoog die formaat laat kiezen en vervolgens virtuele
+        functies die de conversie regelen.
+      - 0 fileformats moet ook kunnen: saveAs moet dan grijs zijn
+      . save as png
+      . save as ps
+    - modes moeten visgroup attribuut zijn: als je in de ene window query
+      kiest moeten de andere windows meegaan
+    - in query mode moet er een box naast de muis komen met x, y, en waarde van
+      bovenste cell
+    - in query mode moet de geselecteerde cel een randje krijgen -> selection
+      layer toevoegen? vgl met opzet edit layer.
+    - kleur scrollbar lijkt niet te kloppen.
+    - 'What's this' teksten toevoegen. Teksten centraliseren, alle tooltips en
+      andere hulp teksten (exepties?) op 1 plek.
+      - Legend, right click for menu.
+      - Turns on query/pan/zoom mode.
+      - Resets the 
+  . alle rasterdrawers: als er maar een klasse is: OneColourDrawer gebruiken.
+  . controleer rhine.csf -> starten: 1 keer create scene!
+  . scroll/move/pan en zoom met de muis, toolbuttons
+  . een nieuw map3d vis moet scalar hoogtes kunnen eten
+  . point data sets ontwerpen en aan dataobject toevoegen
+  . mediator stuff -> map zooi omhoog in hierarchy!
+
+--------------------------------------------------------------------------------
+
+Map3D:
+---
+  Voeg Set height menu optie toe om de hoogte te zetten of vraag daar
+  expliciet om als een lege map3d wordt gemaakt.
+
+  . aguila -t: foutmelding klopt niet
+
+  . smalle kaarten worden in 3D niet getoond (3 cellen breed, verhanglijnen)
+
+  . cursor waarde voor top kaart naast de muis pijl zetten!
+
+  . toggle map border option voor orientatie 2D kaart.
+
+  . aguila dem.csf+blabla -> kut melding
+
+  . Aguila/TimePlot -> open dem.csf -> gebeurt nix! -> moet foutmelding geven
+
+  . aguila bla.map+bla.map -> geeft exceptie, moet foutmelding geven
+    (vb: expected n umber after '+'
+
+  . pcrcalc allzero.map = dem.map  *0
+    aguila -3 allzero.map
+     levert niets op, wrsl, uitz:
+       als min==max 
+         teken 1 grote rechthoek o.i.d..
+    aguila -2 allzero.map
+     laat geen legenda zien, och nou ja
+
+    zelfde met allfive.map?
+
+    Let wel: gebeurt vaak met modelleren, script foutje,
+    alles 0 of MV, beide ) en MV zouden dus meteen duidelijk
+    moeten zijn bij visualiseren:
+
+    Miscien all MV case, 
+    alleen legenda met de tekst 
+    AllMv.map
+    "All MV"
+
+  . File/New/
+    Control Center.
+      2D Map
+      3D Map
+    't is geen map maar., meer een:
+      - window
+      - view
+      - scene
+
+  . test timeplot:
+      empty file
+      all mv's
+      holes in time steps in time series which are available in stack
+      holes in time steps in stack which are available in time series
+
+  . timeplot -> open dem.csf -> nix!
+
+  . Bij selectie van data moeten alle voorkomens van de dataguide in een vis
+    worden geselecteerd (aguila dem.csf + dem.csf + dem.csf).
+
+  . add in aguila::dataproperties
+
+  . Koppeling dataguide - dataproperty naar aparte klasse
+    - object hiervan in aguila::dataobject
+    - object hiervan in visengine
+
+  . aguila::DataObject eruit
+
+  . testen met valid triggeren.
+  . cvs committen.
+
+  . data guide -> klein houden
+               -> settings op te vragen bij data object oid (settings object).
+               -> dat kan updateDataGuide weer weg.
+
+  . bezig met addDataPropertiesDialog, visgroup, visgroupmanager, visualization
+      propdialog verzamelt alle sub dialogen in tabbladen
+      alle sub dialogen zijn via popup in legenda/cursor/controlc. ook te be-
+      vragen.
+
+  . map3dengine / 2dengine rescan stuff naar mapengine
+
+  . min == max -> legenda
+
+  . selectie:
+    - ook vanuit map2d
+    - ook vanuit control center -> signals & slots tussen control center en
+       views.
+
+  . open file in map3d!!!
+
+  . vis groups: geen data toevoegen die al geladen is
+
+  . updateWinName als in Display
+
+  . ldd onder windows werkt niet?
+
+  . open file dialog -> lijst met file types uitbreiden
+      -> zelf een file dialog maken
+      -> stacks afhandelen
+
+  . uitzonderingen regelen/testen -> rawToDisplay
+  . manual updaten
+  . testen
+    - maxlik.csf werkt niet op pcrserver
+    - alt/control werkt niet op pcrserver
+  . windows versie bakken
+  . distribueren
+
+  . reload in visualisatie en in control center (reload all)
+      reset: zet zoom/schaal etc op default waardes
+      reload: lees nieuwe waardes van schijf
+      . file id/stamp gebaseerd op file inhoud / time of last change
+
+  . logos
+  . reset zoom menu item
+  . reset knoppen in properties menus
+
+  . Aguila 2d naar Display:
+    - legenda editten (paletten, klassificaties) (5 dagen)
+
+  . foutmeldingen
+  . als een nominal een legenda heeft dan moeten de nummers ook getoond worden
+    (default) met een optie om 'm uit te zetten.
+  . angle meenemen bij het afbeelden van kaarten
+  . shortcuts 2d / 3d gelijk trekken
+  . properties menu op map2d
+    -> zoom
+  . properties menu op legenda
+    -> close
+  . control interface uitbreiden: add group
+  . opengl error achterhalen (afwezig, verkeerde resolutie, etc) en dan in
+    2d modus gaan
+    - info box
+      . opengl info: versie, depth of visual, depth of context
+  . -style optie in docs zetten (commando regel argument)
+  . 3d: +/- werken nog niet goed?
+  . save as -> dialoog duidelijker maken
+  . open file in map3d moet werken
+      indien map3d leeg is:
+        open file retourneert geen scalar:
+          foutmelding
+        open file retourneer scaler:
+          als hoogte gebruiken
+      indien map3d niet leeg is:
+        drapen (werkt al)
+  . reset werkt niet goed: kaarten die breder zijn dan hoog worden niet goed
+    neergezet. kaarten die hoger zijn dan breed wel
+  . Arjan: wellich wat uitleg toevoegen aan doc over dynamische 'dingen' -
+    animaties. Het is (na proberen - was) onduidelijk wat de syntax precies
+    in. En onjuiste commando regels levert vage foutmeldingen op (o.a. 'last
+    timestep must be larger than first timestep'????). (En afhankelijkheid
+    van 8.3 msdos bestandsnamen?)
+  -> ervoor zorgen dat het deel voor de extensie willekeurig lang kan zijn:
+    balkjdfalsdkalskdjfdf00000000000.001+3 of asdfasdfasdfasdf001+3 of
+    asas001 of asdf.1
+  -> lees vanaf het eind van de naam tot er geen nummers of extensie scheiders
+    meer staan (max 1 extensie-scheider is mogelijk) -> dat is de start tijdstap
+  -> onthoud positie van de extensie scheider en lengte van de nummers
+aguila elev/elev0000.005+100 elevsample/elev0000.005+100
+  -> optie toevoegen:
+    'Use data of previous timestep if current is not available'
+- aguila 5.csf (alle cell scaler 5)
+  -> kaart goed, maar geen legenda!
+  -> legenda ook tekenen
+- bug: 3Dmap starten met een scalar met overal dezelfde waarde -> nix te zien
+    vergelijk dit met 2Dmap die deze situatie eruit filtert en optimaliseert.
+- hoe zit dat trouwens met save as en meerdere vis's open in een groep???
+
+DONE:
+
+- Save as png in map2d.
+- Select data through legend view and cursor view.
+-
+
+--------------------------------------------------------------------------------
+
+- wat gebeurt er met save as als de vis staat te animeren?
+- QApplication commandline options komen niet door.
+- open file dialog moet stack kunnen bieden
+- file name globben?!
+
+POINT DATA
+- verder met PointDataObject
+
+- point data datastruct verzinnen met functies erop
+    GeoData -> raster
+            -> vector
+
+MISC
+- save as png/eps als commando opties
+  -> aguila als commando-regel tool voor het maken van plaatjes
+
+- Zie docs QApplication (constructor) voor vb over gui en non-gui versie in
+  een commando (png/eps processing mode oid?).
+
+
+
+
+
+
+
+
+
+- createdist
+  - html chmod nog niet goed (writable for group)
+
+-com_domlib opschonen.
+  <!DOCTYPE pcr-script PUBLIC "-//PCRaster//pcrcalc script 0.01//EN"
+  "pcrcalc.dtd" >
+  zie ook fgrep DOCTYPE *.cc in apps/pcrcalc
+
+- bug: aguila -3 dem.map + dem.map gaat heel erg mis! -> rhine
+
+- bug: Burrough: Onder win2000 werkt save as png niet(?).
+                 Als dosbox op full screen staat komt aguila niet met een
+                 switch en een scherm-> er gebeurt gewoon nix.
+
+--------------------------------------------------------------------------------
+
+Code opschonen / documenteren:
+
+Finished:
+  qt::GuiApp
+  qt::AppWindow
+  app::Aguila
+  app::VisObserver
+  app::VisSubject
+  app::VisChangeManager
+
+Todo:
+  app::Visualization
+  app::Map
+  app::Map2D
+  app::Map3D
+  app::TimePlot
+
+  app::VisGroupManager
+  app::VisGroup
+  app::StackGuide
+  app::CursorPos
+  app::DataObject
+
+--------------------------------------------------------------------------------
+
+Manual:
+---
+  . concepten versimpelen
+  . zoom met muis en ctrl | shift h j k l
+  . pan met muis en shift | h j k l
+  . query met muis
+  . zoomen met +/-
+  . animate button/dialog
+
+
+
+Aguila:
+---
+  . stack zooi uit DataObject naar StackDataObject oid.
+  . shouldn't the dataobject be more integrated with the dataobject
+    why not pass the object into the rescan function so that observers can get
+    rid of the layered dataobject
+  . shortcuts moeten werken als een vis window of z'n dialogen actief zijn
+    dus eerst de vis laten kijken naar de key en 'm dan pas teruggeven aan
+    de dialoog
+  . documentatie: configuration configurable domlib
+  . copy copy copy -> stackguide wordt invalid
+  . config saven
+  . Volgens de dtd mag een map3d geen hoogte maar wel een attribuut bevatten.
+    In de app wordt dan nix getekend. Misschien moet de app de attribs plat
+    tekenen of moet deze situatie niet voor mogen komen.
+  . Configuratie: DOM_Document helemaal wegschrijven, incl interne dtd, indien
+    aanwezig.
+  . check de syntax van een csfstackname (8 punt 3) voor het parsen
+    betere foutmelding: wat ie nu denkt en hoe het wel moet
+    bug: aguila blablabl.001+1000
+  . copieren van een visualisatie moet properties in eerste instantie ook
+    copieren -> schaal, visnet aan/uit, etc, etc
+  . set een icoon: http://doc.trolltech.com/appicon.html
+  . zandloper tijdens processing
+  . alleen op projectie checken bij toevoegen data aan object.
+  . foutmelding bij het lezen van een raster met verkeerde props
+  . positie gebruiker vanaf commando regel
+  . link met timeplot
+  . Binnen een vis group kunnen meerdere stacks als hoogte gebruiken. Er is niet
+    zoiets als een z waarde van de cursor, alleen een z waarde binnen een vis.
+    cursor: x, y, t
+    2DMap: z uit the cursor
+    ???
+  . bekijk de aanmaak van CSFStackName objecten! -> maak er een en geef 'm door
+    ander loopt steeds te scannen!
+
+
+
+ControlCenter:
+---
+  . control center moet focus volgen
+  . als vanuit de control center op een stack een nieuwe 3d view wordt geopend,
+    dan moet *die* erin komen.
+  . visualizations in een lijst, net als de data's
+  . per vis de getoonde data noemen
+  . tree anders organiseren:
+    group1
+      vis1
+        data1
+        data2
+      vis2
+        data1
+        data3
+      data1
+      data2
+      data3
+    group2
+      ...
+
+Map3D:
+---
+  . pijlen werken niet goed meer
+  . Texturen voor een ldd quad worden in een static array bijgehouden. Deze
+    texturen worden nooit meer vrijgegeven. Misschien opruimen als de laatste
+    ldd drawer gedelete wordt?
+  . Een quaddrawer moet aan een visualisatie en een raster gekoppeld zijn en
+    niet telkens aangemaakt te worden.?
+  . File|New|Map3D -> Open File -> wordt niet getekend -> als het de eerste is,
+    en het is een scalar, dan als hoogte gebruiken? Anders gewoon aan de group
+    toevoegen (zoals nu gebeurt).
+  . Arjan: na 'reset' is de camera van positie veranderd
+  . Arjan: in het geval van een kaart waarin veel MV's staan kan het gebeuren
+    dat de gegevens die er in staan buiten de virtuele ruimte worden
+    geprojekteerd bij het opstarten (zie bijlage).
+  . Arjan: een scherm grootte verandering (verticaal maximaliseren) beinvloed
+    positie camera (of is dat een fvwm2 artefact?)
+  . save as png on windows werkt niet?!
+  . is de diepte van opengl context niet te zetten zoals het opgevraagd wordt?
+  . menu items beschrijving veranderen.
+  . vraagteken in draw options dialog weghalen
+  . quadlength naar drawprops
+  . nieuwe besturing (mbv box) en cursor
+  . legenda verbeteren -> meer streepjes als het er weinig zijn -> popup als de
+    muis over de legenda gaat
+  . RESIZE!
+  . query:
+    bepaal punten onder de muis cursor
+    tranformeer ze naar wereld coordinaten
+    stel vergelijking op
+    bepaal of polygonen gesneden worden
+    kies dichtsbijzijnde polygoon
+
+    The equation of the line is
+
+    (y-y1)/(x-x1) = (y2-y1)/(x2-x1)
+    (y2-y1)*x - (x2-x1)*y = x1*y2 - x2*y1
+    A*x + B*y = C
+
+    All the points (x,y) satisfying A*x + B*y < C lie on one side of the
+    line, and all the points satisfying A*x + B*y > C lie on the other
+    side of the line. To see if the line intersects a polygon, make the
+    test for each vertex of the polygon. If all are on one side of the
+    line, there is no intersection. If you can find two vertices on
+    opposite sides of the line, there is an intersection.
+  . minimize data sent per vertex.
+  . glInterleavedArrays
+  . bepaal framerate:
+      starttime
+      render
+      glFinish
+      stoptime
+    elapsed time = starttime - stoptime
+    gebruiken voor animatie interval en perfomance checks
+    -> gemiddelde framerate tijdens animatie oid
+  . gebruik glColorMaterial ipv glMaterial in quaddrawer.
+  . probeer quadstrip te gebruiken ipv quads. eerst helemaal fillen en daarna al
+    het andere erop gooien (ldd)
+  . save as png moet weer size mee kunnen krijgen
+  . wat gebeurt er als een texture naar eps gaat?
+  . normals
+  . bounding boxes
+  . how to check memory problems in OpenGL?
+  . display list voor block maken
+  . in QuadDrawer -> Scalar wordt per cel gecontroleerd of nrClasses > 0 is.
+    Dit zou op een hoger niveau moeten om tijd te sparen.
+  . middelpunt / rotatie punt laten zien
+  . basis
+      showbase toevoegen aan option dialoog
+      block van een basis voorzien die buiten het blok uitsteekt
+      tafelkleed moet top van blok zijn -> hele blok tekenen / omlijnen
+  . default eruit slopen -> er moet expliciet worden aangegeven welke data in
+    welke vis terecht komt.
+  . roll pitch yaw editable maken? voor scene? voor camera?
+      stuk over yaw, pitch en roll in handleiding
+      roll, yaw, pitch overal doorvoeren met tekens in de docs
+  . het blok moet kantelen in de richting van de user camera, altijd. ook als
+    een static camera aan staat.
+  . na een resize wordt er soms niet goed gereset ofzo
+  . shift-= is ook plus
+  . assenstelsels door het blok en door de camera
+      createAxesLists(), deleteAxesLists()
+  . shininess van het blok wat omlaag om een grote witte vlakte te voorkomen
+  . reset knoppen om horizontaal te alignen van camera en blok
+  . scene en bounding box moeten van elkaar worden gescheiden
+    als de bounding box aanstaat moet een recreate van de scene niets doen!
+    (wel de extremen aanpassen)
+  . cursor positie
+  . alle tijdstappen moeten worden afgebeeld -> nu wordt er in de legend en in
+    de cursor view tijdstappen overgeslagen als het animeren te snel gaat
+  . kompasroot met blok en positie gebruiker
+  . paletten
+  . toolbutton animate moet shortcut zijn. animatie gelijk starten
+  . qt::DoubleSpinBox checken, nalopen en van commentaar voorzien
+
+
+Animatie:
+---
+  . animatie triggert een update van de control center -> flikkering
+  . progress bar vervangen door slider met tijdstappen erbij
+
+
+
+File dialog:
+---
+  . open file dialog aanpassen zodat meerdere bestanden geselecteerd kunnen
+    worden en zodat een stack gelezen kan worden
+
+
+
+Code:
+---
+  . datatypes opnetten
+  . controleren hoevaak data wordt gelezen en getekend
+  . docs van scene
+  . alle warnings van de libs en apps nalopen
+  . de ifdef DEBUG_DEVELOP blokken worden door de moc altijd gelezen en
+    geven dus compileer en link fouten
+
+
+
+################################################################################
+Reactions on the OpenGL newsgroup:
+
+Hi all,
+
+I'm creating an app which has some 3D graphics functionality, at this
+moment
+nothing really fancy. There is some OpenGL related stuff I can't get
+right
+and since I don't have a lot of experience using the OpenGL lib I
+wondered if
+any of you could help me out.
+
+Here's a description of the problem:
+I have a 3D scene who's position is fixed and centered in the origin.
+The user
+is looking at the scene and must be able to maneuver around it.
+
+I would like the user to be able to do at least the folowing:
+. look up, down, left and right
+. move up, down, left, right, front, back
+. rotate the scene
+The effects of these actions should closely match the real world
+variants. And
+that's the problem. A combination of rotating and moving the head ( ;-)
+) will
+cause the scene to float out of the viewport. I guess I'm calling either
+the
+wrong viewing and modeling transformation functions or I'm calling them
+in the
+wrong order or both. I would really appreciate some help about this.
+
+I've studied the OpenGL Programming Guide, 3rd and I've come up with the
+following tranformations:
+
+void myPaint()
+{
+  ... (glClear(), glPushMatrix())
+
+  // Aim the head.
+  glRotated(xRotHead, 1.0, 0.0, 0.0);
+  glRotated(yRotHead, 0.0, 1.0, 0.0);
+  glRotated(zRotHead, 0.0, 0.0, 1.0);
+
+  // Translate the head to a position in space.
+  glTranslated(-xHead, -yHead, -zHead);
+
+  // Rotate the scene.
+  glRotated(xRotScene, 1.0, 0.0, 0.0);
+  glRotated(yRotScene, 0.0, 1.0, 0.0);
+  glRotated(zRotScene, 0.0, 0.0, 1.0);
+
+  ... (glPopMatrix(), glFlush())
+}
+
+I hope some of you are able to provide me with some hints for improving
+my
+code.
+
+Thanks in advance!
+Kor
+
+################################################################################
+
+In short:
+avoid the glRotate, glTranslate stuff, and associate a
+transformation matrix with your camera instead.
+
+Then use: view mat is the inverse of camera transformation.
+And GL's modelview mat is the multiplication of the
+model transformation mat and the view mat.
+
+Read more about it at:
+http://members1.chello.nl/~b.stolk/hq/
+
+   Bram
+
+################################################################################
+
+I'm new to this, too, but I think that you have the rotations for the head
+in an order which will cause apparently odd things to happen if the angle,
+zRotHead isn't zero. If you take that rotation out, or put it on the line
+before the xRotHead rotation then it might do what you expect.
+
+I'm sure that other people will provide better answers to your problem.
+This is just the method which worked for me.
+
+Have fun,
+-- 
+David Boddie
+Solar MHD Theory Group, St Andrews
+http://www-solar.mcs.st-and.ac.uk/~davidb/index.html
+
+################################################################################
+\endverbatim
+
+*/
+}

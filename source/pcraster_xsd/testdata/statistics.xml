@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<script xmlns="http://www.pcraster.nl/pcrxml"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.pcraster.nl/pcrxml PCRaster.xsd">
+<computationMask>
+  <coordinates>
+    <xMinimum>10.0</xMinimum>
+    <xMaximum>50.0</xMaximum>
+    <yMinimum>100.0</yMinimum>
+    <yMaximum>200.0 </yMaximum>
+  </coordinates>
+</computationMask>
+<definition name="ecoClasses">
+ <scriptInput><external>ecoClasses.bil</external></scriptInput>
+</definition>
+<definition name="suitability">
+ <scriptOutput><external>suitability.bil</external></scriptOutput>
+</definition>
+<definition name="suitabilityClasses">
+ <relation>
+  <lookupTable>
+   <lookupRow><lookupColumn>[ 0 ]       </lookupColumn></lookupRow>
+   <lookupRow><lookupColumn>&lt;0  ,0.2 ] </lookupColumn></lookupRow>
+   <lookupRow><lookupColumn>&lt;0.2 ,0.4] </lookupColumn></lookupRow>
+   <lookupRow><lookupColumn>&lt;0.4 ,0.6] </lookupColumn></lookupRow>
+  </lookupTable>
+ </relation>
+</definition>
+<definition name="statisticsTable">
+<scriptOutput>
+ <external>result.txt</external>
+</scriptOutput>
+</definition>
+<textStatistics name="statisticsTable">
+   <textStatisticsSubject fieldRef="ecoClasses"/>
+   <textStatisticsSubject fieldRef="suitability" intervalRef="suitabilityClasses"/>
+</textStatistics>
+</script>

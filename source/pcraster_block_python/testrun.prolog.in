@@ -1,0 +1,2 @@
+cp @CMAKE_CURRENT_SOURCE_DIR@/{test.py,usecase01.py,usecasetest.py} .
+cp @PCRASTER_DATA_DIR@/test/pcraster_block_python/clone.map .

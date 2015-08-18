@@ -1,0 +1,132 @@
+/*!
+  \mainpage Application Programming Interface (API) for the PCRaster Model Engine
+ 
+    The API consists of a series of C functions. 
+    The <a href="globals_func.html">list of functions</a>
+    and \ref examples should be used as starting point.
+ 
+    \section deployment Deployment
+ 
+    All functions reside in the dynamic library PCRasterModelEngine.dll/libPCRasterModelEngine.so.
+    The dynamic libraries on which PCRasterModelEngine library depends are listed in the deployment.txt file in the Developer/LinkOut directory.
+    Note that for linux all the libraries PCRasterModelEngine depends on are compiled with an rpath value of ".". That means that libraries should be installed in the same directory as PCRasterModelEngine itself.
+ 
+    \section conventions API conventions
+ 
+   All functions have
+    the calling convention common to the operating system the API is compiled
+    for:
+ 
+    - linux/unix:  cdecl
+    - windows:     stdcall
+ 
+    The calling conventions rationale and the PCR_DLL_FUNC macro are present in pcrdll.h
+ 
+    Note that all strings (char *) are currently encoded as C-strings whith ANSI encoding (1 byte per char) and are not UniCode (2 bytes per char).
+ 
+    \section examples Api Examples
+ 
+    The code examples are present in:
+     - apiExamples or
+     - csharp/ScriptTest.cs collection of unit tests in a
+    class named APITest in both C# (ScriptTest.cs) and C++ 
+
+    the apiExamples directory uses the pcrcitd.exe driver to process the
+    XML files (see demo.bat). pcrcitd looks like this:
+
+    \code
+
+      #include <stdlib.h>
+      #include <stdio.h>
+
+      #include "pcrcalc.h"
+
+
+      static void checkError(PcrScript *s)
+      {
+        if (pcr_ScriptError(s)) {
+          fprintf(stderr,pcr_ScriptErrorMessage(s));
+          exit(1);
+        }
+      }
+ 
+     // change " within PCRasterLicense file to ' if neccesary
+     const char *licString =
+     "<?xml version = '1.0' encoding = 'UTF-8'?>"\
+     " <!DOCTYPE systemLicense PUBLIC '-//PCRaster//Generic' 'pcraster.dtd'>"\
+     "<systemLicense>"\
+     " <licensee value='ThisCompany inc.' />"\
+     " <licensedFeature value='DevelopersLicense' />"\
+     "  .... some elements removed .... "\
+     " <licenseKey value='741604gy6s2k9ga0pfck24jg0l3ffo' />"\
+     "</systemLicense>";
+ 
+ 
+      int main(int argc, char *argv[])
+      {
+         PcrScript* s;
+         char* installError;
+         if (argc <= 1) {
+           fprintf(stderr,"PCRaster XML client interface test driver\n");
+           fprintf(stderr,"USAGE: pcrcitd inputModelFile.xml\n");
+           exit(1);
+         }
+         const char *msg = pcr_installDevelopersLicense(licString);
+         if (msg) {
+           fprintf(stderr,msg);
+           exit(1);
+         }
+ 
+ 
+         /* argv[1] is an xml file */
+         s=pcr_createScriptFromXMLFile(argv[1]);
+         if (!s) {
+            printf("PANIC allocation of a few bytes failed");
+            abort();
+         }
+ 
+         /* typical error: case.xml is not existant */
+         checkError(s);
+ 
+         pcr_ScriptExecute(s);
+         /* typical errors:
+          * - case.xml is malformed
+          * - some inputs are not found
+          * - resource error: memory/disk full
+          */
+         checkError(s);
+ 
+         pcr_destroyScript(s);
+ 
+         return 0;
+      }
+ 
+ 
+    \endcode
+ 
+    The examples in csharp/ScriptTest.cs uses the
+     API "as-is" in respect to minimizing the use of C# language features. 
+    Therefor the code can be used as examples for other client languages
+    such as Java, Delphi or Visual Basic.
+ 
+ 
+    \section xmlDocumentation The XML vocabulary
+ 
+    A single XML vocabulary defined in PCRaster.xsd is used in two roles (in and out):
+     - in: pcr_createScriptFromXMLFile(), pcr_createScriptFromXMLString() to create a script.
+     - out: pcr_ScriptXmlReflection() to retrieve meta information from a script.
+ 
+    Within the PCRaster.xsd schema the XML nodes are documented within an
+    xs:annotation element (view XML source in Visual Studio).
+    The difference in application of the [in] and [out] case of certain nodes is
+    clearly stated.  Note that not all nodes present in PCRaster.xsd are used in the current API.
+ 
+    \section errorHandling Error Handling
+ 
+    All functions will store a possible error description in the PcrScript object.
+    The success of all functions can be checked of the function call by evaluating
+    the result of pcr_ScriptError() and/or pcr_ScriptErrorMessage().
+    Errors on a PcrScript object are NOT recoverable; All successive calls on
+    the same PcrScript will do nothing. A PcrScript object in error state should
+    still be deleted with pcr_destroyScript().
+ */

@@ -1,0 +1,8 @@
+/*!
+\page pcrraster PCRaster Raster Library
+
+\section intro Introduction
+This library contains algorithms related to the raster discretisation and data
+from the \ref pcrdiscr library.
+*/
+

@@ -1,0 +1,10 @@
+INSTALL(
+    FILES
+        dynamicModel.xml
+        LinkOutTestDriver.py
+        PCRasterLinkOut.py
+        PCRasterLinkOutTest.py
+        test.py
+    DESTINATION
+        doc/developer/linkout/examples
+)

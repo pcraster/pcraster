@@ -1,0 +1,8 @@
+for i in `ls test?.zip`
+do
+ dir=`basename $i .zip`
+ mkdir -p $dir
+ cd $dir
+ unzip ../$i
+ cd ..
+done

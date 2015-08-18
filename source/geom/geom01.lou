@@ -1,0 +1,154 @@
+@Section
+@Title{Introduction}
+{@PP
+
+Geom is a library containing functions for manipulation of 
+entities in two dimensional space such as points, lines, cords, rectangles 
+and polygons.
+
+@PP
+
+Most of the algorithms used are from simple geometry books. The polygon
+stuff is (mainly) taken from {@Cite{monmonier82}}. 
+
+@PP
+
+Function prototypes and structure definitions are given in @Code
+geometry.h .  The structure definitions are explained in the below. Note
+that @Code geometry.h contains more definitions than given below and
+some stuff to change the co-ordinate representation from floating point
+to integer. All stuff not documented here is from old projects and
+temporary obsolete. Co-ordinate representation is now always floating
+point.
+
+} # Section Introduction
+
+@Section
+@Title{How to describe the entities}
+{@PP
+
+@BeginSubSections
+
+@SubSection
+@Title{Point}
+{@PP
+
+A point is defined by the following structure:
+
+@ID @Code{
+typedef struct POINT
+"{"
+	double x,y;
+"}" POINT;
+}
+
+} # SubSection Point
+
+@SubSection
+@Title{Line}
+{@PP
+
+@ID @Code {
+typedef struct LINE 
+"{"
+	int parY;
+	double slope;
+	union "{"
+	 double yInt;
+	 double xInt;
+	"}"
+"}" LINE;
+}
+
+A line is described by it's intersection point trough the Y or X axis
+and it's slope. Normally the intersection with the Y axis is stored in
+the field @Code yInt, except if the line is parallel to the Y axis. The
+boolean field @Code parY is true (nonzero) if the line is parallel to
+the Y axis. In that case the @Code xInt field defines the intersection 
+with the X axis. The @Code slope field contains the slope of the line.
+
+} # SubSection Line
+
+@SubSection
+@Title{Cord}
+{@PP
+
+A cord is defined here as that piece of a line between two specified points
+on that line (dutch: lijnstuk). Functions for cords accept the two points
+as the representation of a cord.
+
+} # SubSection Cord
+
+@SubSection
+@Title{Polygon}
+{@PP
+
+A polygon is a closed shape represented by N corner points giving N
+sides. In this library a polygon of N sides is represented in an array
+of N+1 POINT structures. The last array item is equal to the first array
+item.  In this way we can process all sides by addressing point i and i+1
+(0 <= i < N). Most polygon function test this precondition (point 0
+equal point N) at function entrance in DEBUG mode.
+
+} # SubSection Polygon
+
+} # Section How to describe the entities
+
+@Section
+@Title{Library contents}
+{@PP
+
+@BeginSubSections
+@SubSection
+@Title{Global variables}
+{@PP
+
+@ID @Code {int geomPointOnPolygonIsIn;} See PointInPolygon().
+@ID @Code {double geomFittingRectangleStep;} See SmallestFittingRectangleCentre().
+
+} # Global variables
+
+@SubSection
+@Title{Functions}
+{@PP
+
+The following functions are documented in man pages:
+
+@PP
+
+@TaggedList
+@DTI{AddPoint} {add two points}
+@DTI{AreaOfPolygon} {compute area of polygon}
+@DTI{AreaRectangle} {compute area of rectangle}
+@DTI{CWAngle} {clockwise angle of a point with the x-axis}
+@DTI{CalcLine} {create a line from 2 points on that line}
+@DTI{CentroidOfPolygon} {compute the centroid of polygon pol}
+@DTI{CmpPoints} {compare two points}
+@DTI{CopyPoint} {Copy point}
+@DTI{Dist} {distance between two points}
+@DTI{IntersectCords} {compute intersection on 2 cords}
+@DTI{IntersectLineCord} {compute intersection on a cord and a line}
+@DTI{IntersectLines} {compute intersection of 2 lines}
+@DTI{IntersectRectangles} {intersection of 2 rectangles}
+@DTI{IntersectAllignedRectangles} {special case rectangle intersection}
+@DTI{MaxXPolygon} {maximum X co-ordinate of polygon}
+@DTI{MaxYPolygon} {maximum Y co-ordinate of polygon}
+@DTI{MiddleOnLine} {compute the middle point of 3 points on a line}
+@DTI{MinXPolygon} {minimum X co-ordinate of polygon}
+@DTI{MinYPolygon} {minimum Y co-ordinate of polygon}
+@DTI{MulPoint_0} {multiply point by a constant given an origin}
+@DTI{MultiplyPoint} {multiply point by a constant}
+@DTI{PerpLine} {compute line perpendicular to line l going through point k}
+@DTI{PerpOnCord} {compute perpendicular line going through point p and perpendicular to cord c1-c2}
+@DTI{PointInPolygon} {test if a point p is in polygon pol}
+@DTI{PointOnLine} {test if a point p in on line l}
+@DTI{PointOnLineAlsoOnCord} {test if a point of a line through a cord is on the cord}
+@DTI{RotPoint} {rotate a point}
+@DTI{SmallestFittingRectangleCentre} {compute the centre of the smallest fitting rectangle enclosing a polygon}
+@DTI{SubtrPoint} {Subtract two points}
+@DTI{XgivenY} {compute X co-ordinate of point on line l given Y co-ordinate}
+@DTI{YgivenX} {compute Y co-ordinate of point on line l given X co-ordinate}
+@EndList
+} # SubSection Functions
+
+} # Section Library contents

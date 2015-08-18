@@ -1,0 +1,208 @@
+// vim: syntax=cpp.doxygen
+/*
+   ideas:
+
+    TODO:
+      - check if I disabled polymorphism on types. I should not
+         support passsing UINT1, INT4 and float in one argument
+      - linux compile as did for zengtoa
+         gcc -I../include -olibexamples1.so -I../include -shared
+
+-  It accepts strings as inputs and spatials and nonspatials as inputs and outputs.
+
+
+As explained in the paper the LinkIn functionality uses an XML based manifest and a simple scheme for the entry point in the dynamic link library. In principle the library can be programmed in any language. However, writing the code may be challenging also because currently  the documentation is lacking and/or assumes a lot of programming knowledge. We are seeking development partners to develop this functionality further to a level where the learning curve is less steep.
+
+
+
+- combineer teksten uit alle mails
+  incl. referntie naar paper Oliver
+
+  - vertel dat het een gelaagde architectuur is:
+     - het is niet de bedoeling dat ontwikkelaars direct op de xml programmeren
+
+     $OLDPCRTREE/include/linkInDocsMain:
+
+     Out of source generation ook voor doxygen en manual generation
+      doxygen van source is al 479 MB!
+       uitzondering voor manual examples? of zelfs dat niet?
+
+  $PCRTREE2/Sources/include/pcrlinkin.h
+
+ */
+
+
+/*!
+
+ \mainpage LinkIn: API to add functionality to the PCRaster Model Engine
+
+
+ \section introduction Introduction
+This document documents the Application Programming Interface (API) for
+adding new functionality to the pcrcalc modelling engine.
+
+
+The API enables programmers to write a shared library
+in their preferred programming language and expose the
+functionality to the PCRaster model engine (pcrcalc or PCRasterPython).
+Functionality can be exposed as simple (stateless) functions with a number of input and output arguments or statefull objects with methods changing the object state. State full objects allows to link your model script with:
+ - other complex pieces of software such as other models (See Linking external components to a spatio-temporal modelling framework: Coupling MODFLOW and PCRaster: http://dx.doi.org/10.1016/j.envsoft.2009.02.018).
+ - use your own data structures beyond raster maps and nonspatials inside the object.
+
+
+The following PCRaster script uses a library to implement a function that generates
+a boolean checker board true/false pattern:
+
+\verbatim
+areamap area.map;
+checkerBoard.map = example1::checkerBoard();
+\endverbatim
+
+When executed, pcrcalc expects to find a library named example1 (example1.dll or libexample1.so). That
+library will implement the function checkerBoard. The library should be
+accompanied by a manifest XML file with the same name and the extension
+.xml (example1.xml ). The XML file describes which functions and classes are present in the library.
+
+The API allows for two use modes:
+- simple mode: implement a single function in one library requiring minimal knowledge of XML.
+- advanced mode: anything beyond the simple mode.
+
+\section StatusQuo Status Quo
+
+The API presented in this document is a new API to be used with the 2006 and more recent versions of pcrcalc (not oldcalc.exe) and is not compatible with the C-API used in oldcalc.exe ( http://pcraster.geog.uu.nl/pcrcalcapi.html).
+
+The new LinkIn API is very much work in progress. Therefor this documentation and the code samples are not yet part of the PCRaster distribution.
+
+As a final product a layered architecture is envisioned:
+ - Protocol layer
+ - optional RPC layer to allow distributed computing
+ - Language Runtime layer
+
+On the lowest level there is the LinkIn Protocol layer that only deals with memory transfer of data and an XML string that describes the request to the library called. The protocol assumes very little except a handful of C linkable routines to be present in the library created.
+
+The LinkIn Language Runtime Layer is a programming language (C, C++, Fortran, etc.) specific library that should provide:
+
+ - Wrappers around the Protocol routines with embedded XML processing. When using the Language Runtime layer no XML processing should be needed by the library developer.
+ - Convenience wrapper objects/functions for maps as 2D array in either Row or Column-major order.
+ - NoData/Missing Value utilities
+ - error messaging or exceptions in the way described (best practice) by the language.
+
+Currently only the Protocol layer is implemented and successfully deployed in complex situations by the PCRaster development team self.
+<!--
+      May provide:
+       - stub generation tool with XML as input.
+          - as interfaces (Java, .Net, C++ pure virtual class)
+       - if introspection can generate the XML from the user
+         implemented part it can do that.
+ -->
+
+
+\section SimpleMode Simple mode
+
+The checkerBoard function above is the most simple and can be found in the linkinexamples/example1 directory. For the introduction of simple mode  the linkinexamples/example2 directory is used with
+the function addSpatialToNonSpatial
+
+Simple mode can implement a single function f in one library of the form:
+
+ r = f(a1,a2,...,an)
+
+With result r and n (0 or more) input arguments a<i>i</i>. Both r and a<i>i</i> can only have a single
+datatype (e.g. boolean or scalar) and should be either Spatial or NonSpatial (not Either).
+For the implementation of the function addSpatialToNonSpatial we would write an XML manifest (example2.xml) like:
+
+\verbatim
+<linkInLibraryManifest ... >
+<function>
+ <name>addSpatialToNonSpatial</name>
+ <result>
+  <dataType><scalar/></dataType>
+  <spatialType>Spatial</spatialType>
+ </result>
+ <argument>
+   <dataType><scalar/></dataType>
+   <spatialType>Spatial</spatialType>
+ </argument>
+ <argument>
+   <dataType><scalar/></dataType>
+   <spatialType>NonSpatial</spatialType>
+ </argument>
+</function>
+</linkInLibraryManifest>
+\endverbatim
+
+This manifest tells pcrcalc that the function addSpatialToNonSpatial will return a spatial of scalar
+type and takes two input arguments: the first one is a scalar spatial and the second one a scalar nonspatial. To create your own manifests, simply copy the example2.xml and:
+- change addSpatialToNonSpatial to the name of your function,
+- for each result copy a result element,
+- for each argument copy an argument element,
+- set each dataType element to one of the following values: scalar, directional, boolean, nominal, ordinal or ldd,
+- set each spatialType element to Spatial or NonSpatial.
+
+In case of typing errors the PCRaster modelling engine will point out the position of the error by line and column (char) number.
+
+To implement this function in the library the library should have a function named pcr_LinkInExecute().
+This function will pass an LinkInTransferArray[] containing memory space for both the result and the 2 arguments. The pcr_LinkInExecute() function of example 2 contains the code needed for the addSpatialToNonSpatial function. Since all dataTypes and spatialTypes are known in the XML manifest, the example2.c code can simply use the correct types known at compile time.
+
+In simple mode, no XML processing for the first argument of pcr_LinkInExecute() is needed. This argument does however encode the nrRows and nrCols that is needed to determine the size of the spatial buffers. But this information is also passed to the library, if the library implements the function pcr_LinkInRunContext().
+
+
+
+
+\section AdvancedModeIntro Advanced Mode Introduction
+
+More advanced libraries are possible by passing information encoded in XML back and forth between the engine and the library. The XML messages are documented by the schema PCRaster.xsd.
+The XML elements used in the LinkIn communication scheme are defined in PCRaster.xsd. In this document they are identified by the prefix pcrxml::.
+
+The communication scheme is as follows:
+- on start up the XML Manifest is read (pcrxml::linkInLibraryManifest),
+- when parsing the script the engine asks type information from the library by calling pcr_LinkInCheck(),
+- when executing the engine passes type information in the first argument of 
+pcr_LinkInExecute().
+
+This scheme allows for implementation of more powerful functions than simple mode. For example the pcrcalc cover operator since it allows:
+
+- multiple data types as dataType,
+- pcrxml::SpatialType Either as spatialType,
+- variable number of input arguments.
+
+The LinkIn library uses the Object-Oriented paradigm that defines classes with constructors and methods. A script using objects (e.g. instance of a class) may look like this:
+
+\verbatim
+
+# a class constructor
+object obj1 = aLinkInLibrary::Class1("initObj1.txt", ...);
+# a class constructor
+object obj2 = aLinkInLibrary::Class1("initObj2.txt", ...);
+
+# a method call
+value = obj1::method1(dem)*3;
+
+\endverbatim
+
+The example above demonstrates a number of features of the LinkIn libraries:
+- the keyword object defines a constructor.
+- all functions, constructors and methods may have a first optional string argument that will be passed in pcrxml::stringArgument.
+- a method call is identified by the object name plus the method name.
+
+\section AdvancedModeImpl Advanced Mode Implementation
+
+A C++ example of advanced mode is provided in the exampleCpp directory.
+This example uses xsd, http://codesynthesis.com/projects/xsd/, an XML-C++ data binding tool to do the XML processing.
+
+Since the API consists only of a few C functions, a LinkIn library should implement all logic.
+The pcr_LinkInCheck() and pcr_LinkInExecute() functions are merely dispatchers that will call the correct functions and methods. Also note that the construction and destruction of objects is the responsibility of the library. Objects are only identified by name.
+
+As one can see from this example, a lot of code is involved for doing the dispatch to the correct function and method. For that we envision the Language Runtime Layer that will hide all the XML details from the developer.
+
+\section BuildingAndInstalling Build and Install Libraries
+
+You can use any programming language that:
+ - can create a shared library (dll in Windows, shared .so library on linux)
+ - allows to define functions with C style linkage
+
+The library must always contain the function pcr_LinkInExecute().
+
+The code libraries plus their XML manifest can be installed in the same place as pcrcalc, or one can install the libraries and manifests in a different place based on the PATH (Windows) or LD_LIBRARY_PATH (linux) setting.
+
+
+*/

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pcr:script xmlns:pcr="http://www.pcraster.nl/pcrxml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.pcraster.nl/pcrxml PCRaster.xsd">
+   <pcr:executionOptions>
+        <pcr:outputMapFormat>
+               <pcr:pcrasterMapFormat></pcr:pcrasterMapFormat>
+          </pcr:outputMapFormat>
+     </pcr:executionOptions>
+   <pcr:areaMap>
+        <pcr:nrRows>200</pcr:nrRows>
+        <pcr:nrCols>200</pcr:nrCols>
+        <pcr:cellSize>0.01</pcr:cellSize>
+        <pcr:xLowerLeftCorner>-79.195</pcr:xLowerLeftCorner>
+        <pcr:yLowerLeftCorner>42.885000000000005</pcr:yLowerLeftCorner>
+    </pcr:areaMap>
+   <pcr:definition name="blnmap">
+        <pcr:field>
+            <pcr:dataType>
+                <pcr:boolean></pcr:boolean>
+            </pcr:dataType>
+            <pcr:spatialType>Spatial</pcr:spatialType>
+        </pcr:field>
+    </pcr:definition>
+   <pcr:definition name="blankMap">
+        <pcr:field>
+            <pcr:dataType>
+                <pcr:scalar></pcr:scalar>
+            </pcr:dataType>
+            <pcr:spatialType>Spatial</pcr:spatialType>
+        </pcr:field>
+        <pcr:scriptInput>
+            <pcr:external>blankMap.map</pcr:external>
+        </pcr:scriptInput>
+    </pcr:definition>
+   <pcr:definition name="SRS">
+        <pcr:field>
+            <pcr:dataType>
+                <pcr:scalar></pcr:scalar>
+            </pcr:dataType>
+            <pcr:spatialType>Spatial</pcr:spatialType>
+        </pcr:field>
+        <pcr:scriptOutput>
+            <pcr:memoryExchange>0</pcr:memoryExchange>
+        </pcr:scriptOutput>
+    </pcr:definition>
+   <pcr:timer>
+        <pcr:integer>
+               <pcr:start>1</pcr:start>
+               <pcr:end>365</pcr:end>
+          </pcr:integer>
+     </pcr:timer>
+     <pcr:model>
+        <pcr:textModel>
+dynamic
+
+                        # there is no dynamic section
+                        #initial
+                        blnmap  = defined(blankMap);
+
+
+                </pcr:textModel>
+    </pcr:model>
+</pcr:script>

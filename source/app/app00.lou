@@ -1,0 +1,10 @@
+@Report
+   @Title { Functions for PCRaster applications}
+   @Author { C.G. Wesseling }
+   @Institution {Department of Physical Geography, University of Utrecht}
+   @DateLine { Yes }
+//
+
+@Abstract { 
+To be used in combination with the man pages.
+}

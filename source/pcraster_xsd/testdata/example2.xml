@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<script
+        xmlns="http://www.pcraster.nl/pcrxml"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.pcraster.nl/pcrxml PCRaster.xsd">
+<definition name="FireStat">
+  <description><text>Map of fire station locations</text></description>
+</definition>
+<definition name="Zone">
+  <description><text>Map of area covered by each fire station</text></description>
+</definition>
+<model>
+  <textModel>Zone = spreadzone(FireStation,0,1);
+   </textModel>
+  </model>
+</script>

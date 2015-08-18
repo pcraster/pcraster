@@ -1,0 +1,11 @@
+/*!
+\page pcrblock PCRaster Block Library
+
+\section intro Introduction
+This library contains algorithms related to the block discretisation and data
+from the \ref pcrdiscr library.
+
+\todo Create a factory for blocks and block data which can be used by test code.
+\todo Add a function for reporting in a format acceptable to slicer.
+*/
+

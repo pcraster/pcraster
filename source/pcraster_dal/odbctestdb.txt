@@ -1,0 +1,35 @@
+# This file is used to modify $HOME/.odbc.ini in such a way that the ODBC
+# driver is able to find the table required by some of the unit tests.
+# See testrun.prolog.
+[daltest]
+Description        = Example database used by dal tests
+# Driver             = PostgreSQL Unicode
+Driver             = SQLite3
+Trace              = No
+TraceFile          =
+Database           = daltest
+Servername         = localhost
+Username           =
+Password           =
+Port               = 5432
+Protocol           = 6.4
+ReadOnly           = No
+RowVersioning      = No
+ShowSystemTables   = No
+ShowOidColumn      = No
+FakeOidIndex       = No
+ConnSettings       =
+[MyTable]
+Description        = Example database used by dal tests
+Driver             = SQLite3
+Trace              = No
+TraceFile          =
+Database           = MyTable
+Servername         = localhost
+Username           =
+Password           =
+Port               = 5432
+Protocol           = 6.4
+ReadOnly           = No
+RowVersioning      = No
+ShowSystemTables   = No

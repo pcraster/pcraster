@@ -1,0 +1,581 @@
+// enclosing in namespace to link class names within text
+namespace dal {
+
+/*!
+\page dal Data Abstraction Layer
+
+\section introduction Introduction
+One of the goals of this library is to provide a software layer through which data sources we use can be read and/or written. The interface for performing I/O of a certain dataset type should not be dependent on the actual format used to store the data. For example, this library provides access to different table formats through one interface, defined by the dal::TableDriver class.
+
+TODO ... modeling, dimensions...
+
+Concluding, clients of DAL:
+- Are independent of dataformats, they communicate with format drivers through one or more high-level classes (see DataSource, Dal, RasterDal, TableDal).
+- Are able to handle multi-dimensional data, again using high-level classes that hide data format issues (see DataSpace, DataSpaceAddress, DataSpaceIterator).
+
+Theme's:
+- \subpage dimensions Data space, dimensions and addresses.
+- \subpage formatsAndDimensions Formats and dimensions.
+- \subpage coordinatMapping Mapping coordinates to the real world.
+- \subpage caching Caching data to improve performance.
+- \subpage todo List of todo's.
+
+
+
+Dataset types this library supports are: 2D spatio-temporal grids, 3D spatio-temporal grids, tables.
+
+Dimension types this library supports are: scenarios, (Monte Carlo) samples, cumulative probability, time and space.
+
+The assumption this library makes is that no i/o related state information is required after opening, reading or writing data. Opening and reading a dataset provides the caller with information about the dataset but no i/o related state (eg a database connection, file pointer) is retained. Similar, writing a dataset out is a 'one shot' operation which takes an equal effort the second time you do it (eg setting op the connection with the database, opening the file).
+
+Popular, high level classes are:
+- Classes for data input and output:
+  - DataSource Combines all other classes in the library.
+  - Dal Layers Driver subclasses.
+  - RasterDal Layers RasterDriver subclasses.
+  - TableDal Layers TableDriver subclasses.
+  - Driver Base class for individual drivers.
+- Data set classes:
+  - Matrix, Raster, CSFRaster
+  - Table
+- Classes related to data space and dimensions:
+  - DataSpace Dimensions in which the data is defined.
+  - Dimension Data dimension.
+  - DataSpaceAddress Address in a DataSpace.
+  - DataSpaceIterator Iterator in a DataSpace.
+
+This library should depend on as little other pcrtree libraries as possible. Currently, it depends on boost, csf, odbc, qt and gdal. The idea is that the code for this library can be distributed without other sources from our PCRTREE source tree except for PCRTREE/include/pcrtypes.h
+
+See the \ref styleguide for some conventions used in this library.
+
+\warning Some member functions which use a rasterdriver have a DataSpace argument. In case such a function does not work with/on individual cells, the space argument should not have Dimension::SPACE dimensions. This is tested in DEVELOP mode. Having Dimension::SPACE dimensions is an indication of an iteration over individual cells by the caller where this is not needed, this takes way to much time. The caller should erase the irrelevant dimensions before iterating over the space. In the future we might want to add support for selections in space in which case the space dimensions become relevant and this behaviour should be changed.
+
+\section examples Examples
+
+\code
+// must initialise dal
+dal::Library::initialise();
+std::string name;
+
+// Use Dal::open(std::string const&) to find out the type of data pointed to
+// by name and query the dataset properties. See the Dataset driver class to
+// see what properties are set by the open function.
+dal::Dataset* dataset = dal.open(name);
+
+if(dataset) {
+  // Query dataset object for type.
+  // ...
+
+  // Cast dataset object to sub type.
+  // ...
+
+  // Query dataset for properties.
+  // ...
+}
+
+// Use Dal::read(std::string const&) for all the things open allows for,
+// include query the data.
+dal::Dataset* dataset = dal.read(name);
+
+if(dataset) {
+  // Query dataset object for type, cast to sub type.
+  // ...
+
+  // Query dataset for properties and data.
+  // ...
+}
+
+// Use Dal::remove(std::string const&) to remove a dataset.
+bool successful = dal.remove(name);
+
+if(!successful) {
+  // ...
+}
+
+// The above examples assume that you know nothing about the data. If your
+// application only supports certain types of datasets, for example Raster
+// datasets, than you can speed things up by explicitly asking Dal to use
+// a RasterDriver driver:
+dal::Dataset* dataset = dal.read(name, dal::RASTER);
+
+if(dataset) {
+  // Cast to Raster and use object.
+  // ...
+}
+
+// Uses like the example above can also be implemented using a specialized
+// *Dal object. In this case you would use the RasterDal class to use only
+// RasterDriver's to query, read and/or write the data.
+
+\endcode
+
+- \subpage dalNamingRationale Dal naming rationale.
+- \subpage dalAnalyse Original ideas, outdated, might still be useful.
+*/
+
+//------------------------------------------------------------------------------
+
+/*!
+\page dimensions Data space, dimensions and addresses.
+*/
+
+//------------------------------------------------------------------------------
+
+/*!
+\page formatsAndDimensions Formats and dimensions.
+*/
+
+//------------------------------------------------------------------------------
+
+/*!
+\page caching Caching data to improve performance.
+*/
+
+//------------------------------------------------------------------------------
+
+/*!
+\page coordinatMapping Mapping coordinates to the real world.
+*/
+
+//------------------------------------------------------------------------------
+
+/*!
+\page todo List of todo's.
+- Python bindings.
+- Let CSFMap and also gdal add "driver" specific message to error such as MstrError().
+- Refactor all throw functions from dal_utils to something "smaller" function objects? Make DataSourceError an object? See void dal::CSFMapTest::testError().
+- boost::any is an implementation detail (handy to store different types), try to remove all occurences from the interfaces from the classes.
+- Table moet met std::vector werken, dal::Array kwijtraken.
+- add bool Raster::geoReferenced() const; krijgt, true als cellsSize en north() expliciet uit formaat te halen zijn, false als ze defaults hebben. Rationale: Overigens zijn  cellSize(), norht(), west(),east(),south() en soort default props: hebben default een setting cellSize()=1,  (south,east)=(0,0) maar heeft het formaat het ook b.v. een gif file?  Nee, maar ik wil  een gif bij een csf kunnen optellen als nrRows en nrCols identiek zijn, maar als 2 fiels geoReferenced zijn dan wil ook checken op gelijke cellSize(0 en north().
+- lees legenda voor gdal rasters (char ** GDALRasterBand::GetCategoryNames()), schrijf legendas vanuit alle RasterDrivers,  GDALRasterAttributeTable *GetDefaultRAT()
+- doe iets met het character van de waardes die in een raster zitten (RGB, attribuut, ...): GDALColorInterp GDALRasterBand::GetColorInterpretation()
+- doe iets met de verschillende banden die in een raster kunnen zitten.
+- maak een testset van data in allerlei formaten en gebruik die in dal tests.
+- Voeg optie toe dat drivers gelezen data in de memory cache kunnen zetten. Deze cache wordt gebruikt als de data nog een keer gebruikt moet worden. Alleen relevant bij gebruik van *Dal objecten, dus misschien dat het op dat niveau geregeld moet worden. Library moet naast memory data pool voor externe data ook een data cache hebben voor spullen die weg mogen als het geheugen vol raakt, dus alleen ter optimalisatie. MemoryForSpeed (win geheugen ten kost van snelheid), SpeedForMemory (win snelheid ten kost van geheugen).
+- Maak gebruik MemoryCache mogelijk en configureerbaar. Test met lezen grote tijdserie (veel kolommen) en met speedForMemory en memoryForSpeed opties.
+- Rename Dal and derived classes to DriverManager, RasterDriverManager, etc.
+- KDJ: Stuff from TableDriver, MatrixDriver, RasterDriver, BlockDriver can be moved up to Driver as template member functions I think.
+- Block data set class is created as seperate from Raster but ideally should be merged, block is a raster of voxels.
+*/
+
+//------------------------------------------------------------------------------
+
+/*!
+\page dalNamingRationale Dal Naming Rationale
+
+\section names Names to use for types and variables:
+- An array has elements.
+- A table has columns, records and cells.
+- A matrix has rows, columns and cells.
+- A raster has rows, columns and cells.
+
+Numbers which are used as indices are called indexes. So, functions accepting numbers which are positions in a sequential data structure should be called index, eg:
+
+\code
+Table::col(size_t index)
+Array::element(size_t index)
+Raster::cell(size_t row, size_t col)   // Describe row and col in terms of row
+                                       // index and col index, instead of row
+                                       // number and col number.
+\endcode
+
+\section pathName std::string and boost::filesystem::path
+Dataset names are of type std::string and contains a description how to access the dataset. An overload for boost::filesystem::path is only provided if the name can ONLY denote an object on a filesystem (file, directory, pipe, etc).
+
+\section misc Miscellaneous
+Indices always start with 0 and range until size - 1.
+
+A \b set of values is delimited by {curly braces}, whereas a \b rang of values is delimeted by [straight braces].
+
+\section nameAndSpace Dataset name and data space
+A lot of functions in the library take a name and data space argument. Depending on the context the data space argument means different things.
+-> searchSpace and contextSpace
+
+\todo explain, move to seperate page.
+*/
+
+//------------------------------------------------------------------------------
+
+/*!
+\page dalAnalyse Analyse/Requirement of Data Abstraction Layer
+
+\section intro Introduction
+
+We do expect to be able to develop a Data Abstraction Layer (DAL) that is able to unify lots of different data configurations, dataset formats, file-formats, etc.
+The key challenge is that scientific data is by nature highly multi dimensional. How to easily work with different and possible user-configurable dimensions needs good design while remaining practical that it should work for our data at least.
+
+\subsection requirement Requirements
+
+ - easy to use (nog meer open deuren?)
+ - win32/unix compatible, self containing: DAL software code should be library with simple depencies,it should not pull in half of pcrtree.
+ - extendible, support added later for more formats, should be possible without recompiling client apps of DAL.
+ - efficient, avoid copying data around if possible.
+ - efficiency trade offs should always be made in favor of fast Raster access. Being a "raster gis", raster/gis are our most natural and often used data entity. E.g. operations should not get excessively slow on increasing raster dimensions (nr. of cells).
+
+\subsection whatNot What not to expect from DAL
+
+Limitations or false expectations are listed here. They may also be things not considered yet.
+
+ - no interpolation, only indexing: if only t1 and t3 are available, and the client want a t2 value the return is "not available". No guess algorithms are part of DAL. Note that "not available" (may) differ from MV, if t2 is encoded as a MV, it means that index t2 is available but the value is encoded as MV. "not available" means there is no encoding at all.
+ - no computation such as matrix algebra, timeseries analyses, etc.
+ - DAL is not a database system, it has no SQL engine but data stored in a database may be made accessible trough DAL.
+
+\subsection idea The idea
+
+Our assumption is that all basic data has some most logical way of expression by a collection of arrays, tables and/or graphs. These arrays, tables and graphs can be nested, e.g. a graph with at each node a table consisting of 2 arrays. In theory all three can be expressed in each other. But that is a very academic excercise, while DAL is meant to give us a class library of code that fits a pratical application domain.
+
+\subsection terminology Terminology
+
+
+Lots of the terminology and ideas are inspired or copied verbatim from HDF5: http://hdf.ncsa.uiuc.edu/HDF5/doc/. Other terminology and ideas are inspired by databases, e.g. table and relations. For databases we adhere to the terminology of "An introduction to database systems" [C.J. Date, 8th edition]. For graphs, see the Boost Graph Library (BGL).
+
+HDF5 is a file-format, we do however copy HDF5 concepts as they apply to a more generic data model. And HDF5 has cool words like hyperslab.
+HDF5 is about getting stuff into a single file, encoding datatype like enumerations while DAL is about interfaces, a bunch of
+abstract classes that may for example have an enumerated type or that make possible to \b decorate an integer set 1,2,3 with the enumeration sand,soil,peat.
+Terms are introduced in \b bold.
+
+HDF5 files are organized in a hierarchical structure, with two primary structures: groups and datasets.
+
+ - HDF5 \b group : a grouping structure containing instances of zero or more groups or datasets, together with supporting metadata. Groups provide a mechanism for organizing meaningful and extendible sets of datasets within an HDF5 file. Other definition: An HDF5 group is a structure containing zero or more HDF5 objects.  Objects are datatypes, datasets, dataspaces, etc.
+ - HDF5 \b dataset : a multidimensional array of data elements, together with supporting metadata. Verderop in de DAL analyse wordt ik steeds ongelukkiger met de term dataset zoals in HDF5 gebruikt, omdat database tables iets anders zijn, wrls komen we uit op  dataset = HFD5-dataset of table. Hieronder blijven we echter voorlopig met dataset een HDF5 dataset bedoelen.
+
+Since group is a recursive definition (group of groups of ... of datasets), the first question rised is: why is a group set not a dimension, and thus why is a file not ONE big multidimensional array? The answer is that a dataset only has a single datatype, dataset A is a MDA of floats, dataset B is a MDA of bool. For example if a model writes float maps f1 and f2 and boolean map b1, we may choose to encode f1 and f2 in a single MDA/dataset (with f1,f2 being a dimension), code f1,f2,b1 in a single dataset is not possible. If such a choice is possible, data items in a single dataset or spreading data items in group, access patterns such be considered. If we anticipate never to make hyperslab selection that wil combine the data items in the selection result MDA we are better of putting them in groups since combining them in a dataset will yield larger strides when mapping the dataset to the selection result MDA.
+
+
+Working with groups and group members is similar in many ways to working with directories and files in UNIX. As with UNIX directories and files, objects in an HDF5 file are often described by giving their full (or absolute) path names. The end node maybe either a dataset or a group, inner nodes are always groups. We define such a path a the \b datapath .
+
+ - / signifies the \b root group. 
+ - /foo signifies a member (group or dataset) of the root group called foo.
+ - /foo/zoo signifies a member named zoo (group or dataset) of the group foo, which in turn is a member of the root group.
+
+The tree is called the <b>data tree</b>. Hence a data tree is our highest object in the hierarchy having a \b root.
+An interesting remark is that if we have a <b>fixed balanced data tree</b>, e.g. no members can be added and all end nodes are at the same depth, and all names are unique in the tree (e.g. if /foo/zoo exists there is no node named /zoo/foo) we may permute in addressing a tree member. /foo/zoo and /zoo/foo will address the same node, one is the original tree path the other is a <b>permuted datapath</b>. This may give the client (= application, end-user) some freedom in addressing a datapath.
+The fixed requirement may be relaxed, as long as the names remain unique.
+
+An often used tree in modelling applications is a tree with 3 levels: Model, Scenario, Parameters. For example a modelling database for the Rhineflow model, may have paths such as /rflow2/ukhi2050/discharge, /rflow2/reference/snowCover. A <b>data tree type</b> is a notation for a certain type of tree where each tree level/depth is denoted by a name. That notation of tree is derived from set theory using {} symbols. Reversed }{ symbols denote a set name. Thus the example tree type is named 
+/}Model{/}Scenario{/}Parameter{. A Rhineflow instance may have a tree instance written as /{rflow}/{ukhi2050,reference}/{discharge,snowcover}. Note that if inner nodes of a tree instance contains more than 1 element the sub-tree below must be "balanced fixed", all elements of the inner node must support/have the sub-tree below. Other notations are neccessary to define the other cases, e.g. rflow2 has some other parameters than rflow1. We might need to work with references there and the practical use of such trees needs more thought.
+
+Inserting logical groups might be useful for categorizing purposes. For example
+/}Model{/}Scenario{/}IOType{}Parameter{ where IOType = {input,output}}.
+
+Multiple overlapping categories are possible. ?Not possible by inserting logical groups?
+
+- formal datapath : not permuted, not shortened.
+
+Note: PES wrote the scenario manager that used a tree to manage scenarios. Requiring all input to be in a tree seemed however cumbersome for users. Not everything is perfectly modelled as a tree. We did made 2 errors: 1) not pushing and documenting hard enough that a lot CAN be modelled as a tree 2) the problem might be diminished by allowing references (pointers) to outside the tree, that can point to other locations.
+
+
+[
+Any HDF5 group or dataset may have an associated attribute list. An HDF5 \b attribute is a user-defined HDF5 structure that provides extra information about an HDF5 object. They are in themselves small dataset with for example an integer to string pair to encode an enumeration. I think they are not imporant to us. Maybe reserver the term \b attribute for things we can tag to a dataset, for example name.
+]
+
+Among other things a HDF5 dataset has a datatype, a dataspace and a data array. The <b>data array</b> is the MDA of values, as in the C++ sense: <tt> float name[][]...[] </tt>. \b Datatype is the type of the \b value , e.g. integer,float, string or struct.
+ HDF5 allows one to define many different kinds of datatypes. There are two categories of datatypes: atomic datatypes and compound datatypes. All datatypes can be named:
+
+ - Atomic datatypes are those that are not decomposed at the datatype interface level, such as integers and floats, strings, references (= pointers?).
+ - Compound datatypes are made up of atomic datatypes, such as structs, for example com::Interval.
+ - Named datatypes are either atomic or compound datatypes that have been specifically designated to be shared across datasets. A sort of reference pointer. Needed in HDF5 to avoid multiple definitions across groups/datasets within the file.
+
+A dataset \b dataspace describes the dimensionality of the dataset. The dimensions of a dataset can be fixed (unchanging), or they may be unlimited, which means that they are extendible (i.e. they can grow larger). Properties of a dataspace consist of the \b rank (number of dimensions) of the data array, the actual sizes of the dimensions of the array, etc. HFD5 has both maximum and actual dimension sizes, not relevant for us. The term dataspace nicely fits the term geo::RasterSpace we have.
+ 
+In HDF5 A dataspace can also describe portions of a dataset, making it possible to do partial I/O operations on selections. \b Selection is supported by the dataspace interface. Given an n-dimensional dataset, there are a number of ways to get hyperslabs selected.
+
+A dataspace describes the locations that dataset elements are located at. A dataspace is either a regular N-dimensional array of data points, called a \b simple dataspace, or a more general collection of data points organized in another manner, called a \b complex dataspace. A \b scalar dataspace is a special case of the simple data space and is defined to be a 0-dimensional single data point in size. Currently only scalar and simple dataspaces are supported with this version of the H5S interface. Complex dataspaces will be defined and implemented in a future version. Complex dataspaces are intended to be used for such structures which are <i>awkward</i> to express in simple dataspaces, such as irregularly gridded data, adaptive mesh refinement data, TIN's, trees, polygon's. Note the word awkward here, virtually everything is storable in an MDA, given enough space with lots of N/A en MV encodings (e.g. Codd's table theory) and no efficiency concerns. Will geographic data polygon's lines fall in this category?
+
+[ TODO coordinate is uit 2D wereld co-ordinate, see Linear Algebra for generic term ]
+A \b coordinate can (only) address a single value in the data array. The range of valid coordinates is described in the dataspace by means of the extent. The \b extent of a dataspace is the range of coordinates over which dataset elements are defined and stored. For example in C:
+
+\code
+ // data has the extent: "5 by 10".
+ // data has a rank of 2
+ float data[5][10];
+ // 4,3 is a valid coordinate in data.
+ data[4][3] = 3.4;
+\endcode
+
+Note that coordinate is commonly known in the geographic language. Geographic coordinates are in DAL formally named XY-coordinates, XYZ-coordinate, row-col-coordinates etc.
+
+We now leave the HDF5 world and enter the world of database tables.
+
+A table is not a dataset, a table is a table in the database sense: each column may have a distinct datatype, while each row denote a \b relation. Each column of a table IS a dataset. Then is a table a relation of datasets?
+
+First the terminilogy. In databases we have 3 alternative names of 3 concepts:
+
+\code
+ file    table  relation
+ record  row    tuple
+ field   column attribute
+\endcode
+
+key-index-coordinate
+coordinate 
+<b>simple candidate key</b>
+
+\verbatim
+HMM ongelukkig met het HDF woord dataset, te algemeen, kan ook table zijn, mischien dataset door MDA vervangen? MATRIX? Of data array. Waar we in principe alleen efficient iets voor of achter kunnen zetten, stl::vector achtig? Het woord array is in computer talen heel erg synoniem met iets van allemaal het zelfde type (e.g. float array[]).
+
+Leg aan Kor rflow/rgraph syntax uit, i.p.v. percentielen dingen.
+
+\endverbatim
+
+\section remarks Remarks
+
+Of course the data tree is a graph. However here we use the term data tree is some grant unifying concept that we want to keep distinct from "lower" concept.
+
+\section conclusion Conclusion
+
+data tree with groups as inner nodes and one of the following as end nodes:
+
+- (HDF5) dataset
+- table
+- graph
+
+All three can recurse:
+- (HDF5) dataset may have references as the atomic type. A reference can yield a table or graph.
+- a table may have fields holding a dataset or graph, either containing or referencing.
+- a graph may have property tags holding a dataset or table, either containing or referencing.
+
+Ik denk dat het hier heen gaat:
+
+Gebruik (HDF5) datasets (of data array wrsl.) voor fixed dimensional data. Nadat een dataset aangemaakt mogen de dimensies niet meer veranderen. Natuurlijk tijdens het aanmaken (Factory class?) wel met m.b.v. pushBack, append enzo de dataset aangemaakt worden. De waarden van de array kunnen wel aangepast worden.
+
+Gebruik tables als updates op zowel de waarden als de dimensies nodig zijn.
+
+Nee, bovenstaande is een stom onderscheid. Kijk naar het onderscheid tussen Missing value en absentie. Bij toevoeging van 1 waarde (absicca?) op  1 dimensie wordt er fysiek ruimte gemaakt in een dataset, met MV's. bij een table is de waarde v/d dimensie integraal onderdeel (heeft een non-MV!, is een key)
+
+eigenschappen: mda is regular, table is (sparse) relation, graph 1 to many relation, irregular, sparse.
+
+\section functionality Functionality
+
+Functionality expected from DAL in terms of acting classes:
+
+ - \b Detector : given some description (most likely a string) return information on possibly:
+     - the physical format  (e.g CSF raster, Excel sheet, specific cell-range in spread sheet, etc.)
+     - the dataspace.
+     - acces information: file permissions, read-only, writable/updatable, insertable (can I insert t2 bewteen exisiting t1 and t3), appendable as in stream, random access Y/N (is random access optimal?,see STL iterator classes)
+ - \b Creator : create a dataset with specific layout, backed up Y/N by a physical format, etc.
+ - \b Convertor : copy (parts of) datasets to other (parts of) datasets.
+
+\section notesBrainstorm notesBrainstorm
+
+\verbatim
+  Dimension has a Base class with only size(): 0..n-1;
+  The following Dimension are derived from that Base:
+   Time: timestamp decoration
+   (Geo?)Location: x,y row.col decoration
+   Realisation: name decoration, (e.g. "1","2",...)
+   boomsoort,Scenario: name decoration, (e.g. "eik", "beuk", "iep"  "BussinessAsAsual","Co2incr5perc", etc.)
+
+   - forspace: categories space (is a tree!).
+     b.v Dier X Plant X ShrubLayer
+        hert   eik      wortels
+        koe    conifeer stam
+        geit            kruin
+        per combo b.v. een Kjouls consumptie scalar kaart
+
+  Think in dimension suffixes, when x,y implicit in "Raster-tail" of "Dataspace".
+
+  Dataspace can have query method such as:
+   - hasRaster
+   - isXY
+   - isNonSpatial
+   - isNumber (datatype is atomic numeric)
+   - isAreal (datatype has area support)
+\endverbatim
+
+\section notesKor notesKor
+
+\verbatim
+
+ik zit zelf op het idee wat je had gisteren van een klasse (DataSource)
+die voor alle dataset types een interface biedt met dimensies ed waarmee
+de gebruiker kan achterhalen wat voor type data er in de dataset zit
+en waarmee ook data geschreven kan worden. Afhankelijk van de dimensie
+argumenten van write() komt dit in een raster, een stack van rasters, een
+tijdserie, etc.  Dit maakt het relatief eenvoudig
+om op basis van bijv de naam van een stack van rasters en de naam van
+een tss file tijdseries te maken: 2 DataSource objecten die tijdserie
+data kunnen genereren, de een op basis van een stack de ander op basis
+van een tabel, maar da's een i/o detail.
+
+\endverbatim
+
+\section Polygons
+Some notes regarding support for polygons. Terminology found in OGR and OpenGIS docs:
+
+  - datasource has a set of layers
+  - layer has a set of features, per layer one feature definition describing a set of field definitions
+  - feature has a geometry and a set of fields
+  - field is a feature attribute value union
+
+Feature is een attribuut met bepaald type, feature layer bevat collectie van geometrieën: punten, lijnen en polygonen die allen een attribuut waarde hebben. Feature driver heeft aditionele functionaliteit om selecties te maken.
+
+Some notes regarding putting OGR lib in dal:
+
+  - Use OGR only as I/O driver: OGRFeatureDriver which reads one feature from one datasource into a FeatureLayer. FeatureLayer is the Dataset subclass for vector data.
+  - Use CGAL for geometric types and algorithms. FeatureLayer contains objects typed by CGAL types and which can by analysed/querried by CGAL functions.
+  - FeatureLayer -> VectorLayer? feature algemener, nodig?
+
+\section timeDimension TimeDimension / Clock Design only
+    references:
+     - boost::date_time
+     - XML Schema Date and Time Datatypes (v/d Vlist page 34) is ISO 8601
+     - ISO 8601 spec: http://www.uic.edu/depts/accc/software/isodates/datefmt.html#ISO
+     .
+    goals (niet alleen deze class, maar tijd in dal):
+     - map TimeDimension op een Dimension with Meaning Time met als er geen echte tijd
+        in de input source zit.
+     - definieer de duur van een tijdstap in een user specified unit.
+     - goed doordacht verhaal voor heel PCRaster
+     .
+
+     Dimensie is temperature
+     Unit     is C (graden celsius)
+
+    Note: Time heeft default de RegularDiscretisation (zie Dimension ctor), prima
+    maar voor EFAS/aguila willen we wel een 6 uur en 1 dag interval op 1 dimensie
+    mappen.
+
+    known units and its hierarchy:
+      - 1 or - an unknown or unspecified unit
+      - time
+        - nano second
+        - milli second
+        - second (s)
+        - minute (m)
+        - hour (h)
+        .
+      - date
+        - day (D)
+        - month (M)
+        - year  (Y)
+        - century  (C)
+        .
+      - ? week (w) ?
+
+   Accepteer alleen ISO 8601:
+      - date: CCYY-MM-DD
+      - time: hh:mm:ss
+      - dateTime: CCYY-MM-DDThh:mm:ss
+      - en alles wat correct geparsed kan worden door boost of eenduidig in
+        XML Schema type vast staat.
+      - dus niet: 12-10-2005, zonder local setting is dat nou 
+         12 october of 10 december?
+      - maar mischien vreet boost Dec-10-2005 wel.
+
+   boost en XML Schema  maken een duidelijk onderscheid in date en time,
+   en een volledig punt in tijd als dateTime.
+
+   Voorstel: leg vast 1) begin tijd 2) duur/lengte van tijdstap
+
+   Begin tijd
+      - bij omissie een timestamp van 0 in de units van de duration.
+      - NIET (zie klok) xs:date     , fixed point on gregorian calendar
+      - xs:dateTime , fixed point gregorian calendar
+      - NIET (zie klok) xs:time     , fixed point on day, e.g. 13:30
+      - een float of integer (en evt. user specified unit) b.v.
+
+   Lengte van tijdstap, fijnste tijdstap, increment :
+      - incrementen als in xs:duration, de lengte van een tijdstap. Heeft een
+        "T-part" als T erin voorkomt. b.v:
+        - P1Y     1  year
+        - PT15S   15 seconds
+        - PT0.01S  100 milli seconds
+        - P1DT12H 1.5 dag (1 dag en 12 uur)
+        .
+      - Alternatief/extra moet een increment dus ook als float met een 
+        user specified unit. Die unit kan alles modelleren wat 
+        niet in xs:duration kan: week, decade, etc.
+      - bij omissie, de unit Time als integer met waarde 1
+
+   Klok/Tijdschaal: Na vastleggen begin en duur kan een klok worden gemaakt,
+   problemen:
+
+   1) niet elk tijdstip op een klok met een xs:time begin levert is een geldige
+   xs:time. b.v. begin 13:30  + 14 increments van PT1H  (1 uur), zou wrappen naar
+   naar 3:30 of een ongeldige xs:time geven. Dus volledige xs:dateTime als start
+   waarbij gebruiker op 0000-00-00T13:30:00 kan beginnen. In schema opnemen
+   of begin referenced is op gregorian of niet
+
+   2) een klok met xs:date als begin maar een unit met 'T-part' heeft impliceert
+      begin op middernacht op die xs:date. onhandig, xs:date niet gebruiken als
+      begin.
+
+   3) Tijdstip en tijdspannen van tijdstap in een PCRaster model
+   (zie ook \ref pcraster3, dit stuk ter review naar Derek en Willem)
+   - Initial sectie heeft geen concept van tijd, zet data klaar, of
+      InitialTime-FirstTimeStep is 0 in limiet.
+   - Gebruiker zet begin op  01-04-2004T08:00 en increment op PT1H (1 uur).
+     Moet Tijdstap 1 overeenkomen met:
+       - 08:00
+       - 08:30
+       - 09:00
+       - of tijdspanne 08:00 - 09:00 ?
+       .
+      Wrsl. te definieren enums by mapping/presentatie:
+        begin,middle,end,timespan
+   .
+
+
+   Conclusie tot zo ver, werk 1) met een virtuele klok/tijdschaal zonder enige
+   referentie op de gregorian calendar 2) of met reference
+   volledige gregrorian calendar.
+
+   virtualClock:
+     - description
+     - beginDescription
+     - unit as string
+     - scaleType
+         - integer based
+           - begin as integer
+           - increment as integer
+         - float based
+           - begin as float
+           - increment as float
+
+   bij ommissie, c.q. voorbeeld PCRaster model, een virtual clock:
+   \verbatim
+    <virtualClock>
+     <description>pcrcalc model timer section</description>
+     <unit>Time</unit> <!-- no reference to SI Unit  ! -->
+     <scaleType>
+      <integer>
+       <begin>0</begin> <!-- of 1? see note enum: begin,end etc. -->
+       <increment>1</increment>
+      </integer>
+     </scaleType>
+    </virtualClock>
+   \endverbatim
+
+   referencedClock:
+     - gregorianReference as bool (default yes)
+     - begin as xs:dateTime
+     - increment as xs:duration
+     .
+
+   Een clock heeft in principe alleen een begin. De clock kan teruggedraait
+   worden voorbij het begin. Er hoeft geen einde te zijn.
+   Bij de clock als iterator:
+    - increment geeft aan wat er gebeurt bij -- en ++.
+    - er is een iterator::begin
+    - iterator zou random access moeten hebben: gegeven een tijdstip initialiseer een iterator op tijd die voorkomt cq er het meeste op lijkt (gegeven begin, en increment).
+    .
+
+   Mapping of Dimension:Time of time data to Clock
+
+   Doel is om de Clock te gebruiken in DataSpace als interface naar de
+   Dimension:Time.
+   Doel for EFAS is om zowel dag als 6 uurs data te vinden. Bijvoorbeeld:
+   - begin  2005-02-10T00:00:00
+   - temperature op dag basis in 10 tijdstappen (map-stack).
+   - discharge op 6 uur basis in 40 tijdstappen (map-stack).
+   - geef temperature en discharge op  2005-02-13T18:00:00
+   - laat Clock in stappen van 6 uur itereren.
+   .
+
+   Ik zie een soort clock merge ding voor me. Voor EFAS vallen dingen lekker in elkaar 4*6 = 24. Maar in het hele generiek geval zijn er een hoop issues. Onderander dat Dimension::Time nu als regular interval is. In hele algemen geval kan je gewoon wat time events (vector) in een mapping willen gebruiken. De Clock/mapping zoekt maar naar een bestaand punt op of voor een willekeurig tijd. De increment gaat bij een algemene merge  vaag worden. Hoewel, dan alle punten op de verschillende RegularDiscretisation intervals plus de events naar een serie events vertalen en daarin itereren.
+
+class Clock  {
+}
+*/
+}

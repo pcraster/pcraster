@@ -1,0 +1,5 @@
+	bb32
+aa23	area	sum	minimum	maximum	average	standard deviation	median
+1	900	0.9	0.1	0.1	0.1	0	0.1
+2	0
+3	900	0	0	0	0	0	0

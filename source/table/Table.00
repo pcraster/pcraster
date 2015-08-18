@@ -1,0 +1,120 @@
+New global option:
+-2dmatrix, -2dtable (default)
+ -2dmatrix means that lookup tables with 2 keys that are
+           nominal,ordinal,boolean or ldd are always read and written
+           in matrix form.
+
+The matrix is a compressed form of a lookup table Keys are the row
+column indices of the matrix. Ranges (like [3, 9]) are not allowed.
+Items/numbers must be separated by a comma or white space.
+
+calc jan = lookupnominal(lookup.tab, nominal.map, boolean.map)
+Where nominal.map has a minimum of -2 and a max of 4
+and boolean.map value 0 and 1.
+Suppose that lookup.tab in table form is like:
+[-2, 2] 0 1
+[-2, 2] 1 2
+[ 3, 4] 0 3
+then the matrix form is:
+-0  -2 -1 0 1 2 3 4
+ 0   1  1 1 1 1 3 3
+ 1   2  2 2 2 2 0 0
+Both will do exactly the same except that the matrix form will assign
+0 to { [3,4] 1 } where the table form assigns a missing value.
+This is because in matrix form only whole columns or rows can be omitted,
+and no MV's can be identified in the matrix (lookup table).
+For example, removing the column with -1 as index will assign a MV to
+all cells that have -1 in nominal.map.
+The entry on the first row and first column has no purpose; Write a -0
+and read anything.
+
+Read a matrix
+When:
+ - if the global option is set to 2dmatrix and
+      the number of input maps of ReadLookUp or maketbl (see below) is
+   2 and they are both element of  {ldd,bool.nom,ord} then expect a matrix
+   Otherwise read a table.
+How:
+   Parse the matrix and make for each row.col combination a lookup entry.
+
+Write a matrix 
+ - if the global option is set to 2dmatrix and
+      the number of input maps of maketbl (see below) is
+   2 and they are both element of  {ldd,bool.nom,ord} then write a matrix
+   Otherwise write a table.
+How:
+   First  map is column index, make columns for min to max value of that map
+   Second map is row index, make row for min to max value of that map
+
+Maketbl OutputTable InputMaps (n = number of inputmaps, n >= 1).
+
+maketbl creates lookup tables.
+The value column (is the last column) gets the score.
+Where score is the number of cells that match the combined key of the first
+columns. Note that there can be one inputmap also.
+If no input table is given (no -t or -T) then the keys are determined as follows
+{ldd,bool,nom,ord}  a 1 number key, no range
+scalar              NrIntervals ranges between min and max value.
+                    or NrIntervals ranges that are Histogram-stretched
+direction           NrIntervals ranges between 0 and 2 PI.
+                    or NrIntervals ranges that are Histogram-stretched
+
+options are:
+ -t * :inputTable has n-columns in lookup table (or matrix) format
+                which are the keys (combinations) to count score for.
+ -T * : same as -t but table has n+1 columns. The (n+1)th column
+                 is ignored.
+ -i # : nrOfIntervals for scalar or direction, ignored if -t or -T is given.
+        default number of intervals is 8.
+ -h   : scalar and direction intervals are histogram stretched
+ -H # : same as -h: 
+        number of count slots for histogram option (default 1024).
+        a value of 0 means nrRows*nrCols as number of count slots.
+
+Histogram stretched means that the nrIntervals ranges are defined in such
+a way that each range for a key has approximately the same number of pixels.
+the algorithm for computing histogram stretched ranges goes (something like) 
+like:
+
+int histoSlots[nrHistogramSlots]; /* a malloc actually */
+set all histo slots to 0;
+minVal = RgetMinVal();
+maxVal = RgetMaxVal();
+total=0;
+for all pixels do
+      get pixelValue
+      if (not MV)
+      {
+       total++;
+       slotIndex = (int)((pixelValue-minVal)/nrHistogramSlots);
+       histoSLots[slotIndex]++;
+      }
+perInterVal = total/nrInterVals; /* integer division!, think of remainder */
+j = 0;
+for(i = 0; i < nrInterVals; i++)
+{
+      startInterVal = j;
+      inThisInterVal = 0;
+      while (inThisInterVal < perInterVal)
+      {
+             inThisInterVal += histoslots[j];
+             j++;
+      }
+      range[i].start = minVal + (startInterVal* ((maxVal-minVal)/nrHistoGramSLots));
+      range[i].end = minVal + (j* ((maxVal-minVal)/nrHistoGramSLots));
+}
+/* is this the way to patch for the remainder? */
+range[0].start = minVal;
+range[nrInterVals-1].end = maxVal;
+
+The order of the lookup entries in the output table must be same as in the
+input table or if not given the order must be sorted from left to right.
+
+Note that when creating ranges for scalar and direction that incl ([]) or excl.
+(<>) must be written as in the next example where minVal, maxVal is 0,10 and
+the nrInterVals 8.
+
+[0   , 2.5>
+[2.5 , 5.0>
+[5.0 , 7.5>
+[5.0 , 10.0]

@@ -1,0 +1,6 @@
+/*! \page glossary Glossary
+\li \c View
+         Widget which visualizes data. Examples: app::LegendView::LegendView(), app::Map3DView, app::BlockView
+\li \c Visualization
+         Widget containing one or more views on data.
+*/

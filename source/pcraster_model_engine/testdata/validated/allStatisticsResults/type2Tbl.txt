@@ -1,0 +1,10 @@
+Klassen/Grenzen Onderwerp:	niet opgegeven
+BEGIN	WERKELIJKE	TABEL:
+	habschik
+area	3300
+sum	9.73
+minimum	0
+maximum	1
+average	0.294848
+standard deviation	0.365386
+median	0.1

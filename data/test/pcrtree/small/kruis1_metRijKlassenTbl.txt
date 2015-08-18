@@ -1,0 +1,19 @@
+Naam bestand: kruis1_metRijKlassenTbl.txt
+Klassen/Grenzen Onderwerp:
+0
+1
+2
+3
+4
+5
+
+Klassen/Grenzen Indeling:	niet opgegeven
+BEGIN	WERKELIJKE	TABEL:
+	ecotoop2
+ecotoop	1	2	3	4
+0	0	0	0	0
+1	900	0	0	0
+2	0	900	0	0
+3	0	0	1100	0
+4	0	0	0	300
+5	0	0	0	0

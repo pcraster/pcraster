@@ -1,0 +1,39 @@
+INCLUDE(UseLoki-0.1)
+
+SET(LINK_LIBRARIES
+    ${QWT_LIBRARIES}
+    ${QT_LIBRARIES}
+    ${LOKI_LIBRARY}
+)
+SET(LIB_SOURCES
+    AttributeDrawProperties.cc
+    DrawProperties.cc
+    NominalDrawProperties.cc
+    Palette.cc
+    RangeDrawProperties.cc
+    ScalarDrawProperties.cc
+)
+SET(LIBRARY_SOURCES
+    ${LIB_SOURCES}
+)
+ADD_LIBRARY(DrawProperties
+    STATIC
+    ${LIBRARY_SOURCES}
+)
+
+SET(TEST_SOURCES
+    DrawPropertiesFactoryTest.cc
+    DrawPropertiesManagerTest.cc
+    DrawPropertiesTest.cc
+    PaletteTest.cc
+    Test.cc
+)
+ADD_EXECUTABLE(testDrawProperties
+    ${TEST_SOURCES}
+)
+TARGET_LINK_LIBRARIES(testDrawProperties
+    DrawProperties
+    ${LINK_LIBRARIES}
+)
+CONFIGURE_TEST(testDrawProperties)
+ADD_TEST(DrawProperties ${EXECUTABLE_OUTPUT_PATH}/testDrawProperties)

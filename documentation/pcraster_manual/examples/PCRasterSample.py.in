@@ -1,0 +1,563 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+"""
+Usage:
+  PCRasterSample.py script --format=FORMAT OUTPUT
+  PCRasterSample.py -h | --help
+
+  script           Create a script.
+  --format=FORMAT  Format of output. Choose from makefile, python or cpp.
+  OUTPUT           Output file.
+"""
+import os.path
+import sys
+import docopt
+
+
+# NOTE: no imports from DEVENV, PCRTREE2 and asorted
+# because the Sample creation tools must be easy to install for authors
+
+
+_sample_collection = { }
+
+
+def newSample(operation, resultName, resultExt="map"):
+    key = operation+"_"+resultName
+    assert not _sample_collection.has_key(key), "Duplicate key found"
+    s = Sample(operation, resultName, resultExt)
+    _sample_collection[key] = s
+    return s
+
+
+class DataFile(object):
+    def __init__(self, operation, userName, ext):
+        self._operation = operation
+        self._userName  = userName
+        self._ext  = ext
+
+    def _getExt(self, ext):
+        if not ext:
+            return self._ext
+        return ext
+
+    def isMap(self):
+        return self._ext == "map"
+
+    def userName(self):
+        """this is the single word verb of it
+           as maybe used a Python/pcrcalc variable
+        """
+        return self._userName
+
+    def userFileName(self, ext=None):
+        """this is the file name as the user will
+           see it in the sample text
+           while the real fileName has the operation prefix
+        """
+        return ".".join( [ self._userName, self._getExt(ext) ] )
+
+    def fileName(self, ext=None):
+        """a userFileName but with the operation prefix
+        """
+        return "%s_%s.%s" % ( self._operation, self._userName, self._getExt(ext) )
+
+    def manualInclusionFile(self):
+        return self.fileName("png" if (self._ext == "map") else "txt")
+
+    def restType(self):
+        if self._ext == "map":
+            return "image"
+        else:
+            return "literalinclude"
+
+    # return a list of text lines that must go into the Rest table Element
+    def manualTableElement(self):
+      contents = [
+        self.userFileName(),
+        ".. %s:: ../examples/%s" % (self.restType(),self.manualInclusionFile())
+        ]
+      maxLength = 0
+      for l in contents:
+        maxLength = max(maxLength,len(l))
+      contents = [ l.ljust(maxLength," ") for l in contents ]
+      seperator = "="*maxLength
+      contents.insert(0,seperator)
+      contents.append(seperator)
+      return contents
+
+
+def userFileNameOfDataFile(dataFile):
+    return dataFile.userFileName()
+
+
+def fileNameOfDataFile(dataFile):
+    return dataFile.fileName()
+
+
+class Expr(object):
+    """base class only"""
+    def __init__(self):
+        self.pcrcalcIsExpr = True
+        self.pythonIsExpr = True
+
+
+class ExprPcrcalcPython(Expr):
+    def __init__(self, pcrcalcCode, pythonCode):
+        Expr.__init__(self)
+        self._pcrcalcCode = pcrcalcCode
+        self._pythonCode = pythonCode
+
+    def pcrcalc(self):
+        return self._pcrcalcCode
+
+    def python(self):
+        return self._pythonCode
+
+
+class ExprIdentical(Expr):
+    def __init__(self, code):
+        Expr.__init__(self)
+        self._code = code
+
+    def pcrcalc(self):
+        return self._code
+
+    def python(self):
+        return self._code
+
+
+class CalcExprPythonScript(Expr):
+   def __init__(self, pcrcalcCode, pythonCode):
+       Expr.__init__(self)
+       self._pcrcalcCode = pcrcalcCode
+       self._pythonCode = pythonCode
+       self.pythonIsExpr = False
+
+   def pcrcalc(self):
+       return self._pcrcalcCode
+
+   def python(self):
+       return self._pythonCode
+
+
+class Scripts(Expr):
+    def __init__(self, pcrcalcCode, pythonCode):
+        Expr.__init__(self)
+        self._pcrcalcCode = pcrcalcCode
+        self._pythonCode = pythonCode
+        self.pythonIsExpr = False
+        self.pcrcalcIsExpr = False
+
+    def pcrcalc(self):
+        return self._pcrcalcCode
+
+    def python(self):
+        return self._pythonCode
+
+
+class CalcFullScript(Expr):
+    def __init__(self, pcrcalcCode):
+        Expr.__init__(self)
+        self._pcrcalcCode = pcrcalcCode
+        self.pcrcalcIsExpr = False
+
+    def pcrcalc(self):
+        return self._pcrcalcCode
+
+    def python(self):
+      return ""
+
+
+class Cmd(object):
+    def __init__(self, args):
+        self._args = args
+
+    def args(self):
+        return self._args
+
+
+class DataFileReplacer(object):
+    def __init__(self, sample):
+        self._var2DataFile = {}
+
+        # the code of Samples can have both inputs and results
+        # in its text
+        for d in sample._results+sample._inputs:
+            key = "$"+d.userName()
+            assert not self._var2DataFile.has_key(key), \
+               "combined set of results and inputs must be unique"
+            self._var2DataFile[key] = d
+
+        # do replacement with largest strings first
+        # so var that are substrings of other vars is done
+        # correct when replacing
+        self._largestFirst = self._var2DataFile.keys()
+        self._largestFirst.sort(self._longerFirst)
+
+    @staticmethod
+    def _longerFirst(w1, w2):
+        return len(w2) - len(w1)
+
+    def replace(self, text, createFileName):
+        for dollarVar in self._largestFirst:
+            fileName = createFileName(self._var2DataFile[dollarVar])
+            text = text.replace(dollarVar, fileName)
+
+        # after all keys are visited, no $ sign should be left
+        assert text.find("$") == -1, "$ variable not matched"
+        return text
+
+
+class Sample(object):
+
+    def __init__(self, operation, userResultName, resultExt="map"):
+        assert len(operation)
+        self._operation = operation
+        self.globalOptions = []
+        self.execPostProcessing=None
+        self._results = []
+        self.appendResult(userResultName, resultExt)
+        self._inputs = []
+        self._clone = -1
+        self.random = False
+
+    def _id(self):
+        """unique id of the Sample within all samples"""
+        return self._operation+"."+self._results[0].userName()
+
+    def operation(self):
+        return self._operation
+
+    def testName(self):
+        return self._operation+"_"+self._results[0].userName()
+
+    def _fileName(self, prefix):
+        """unique fileName for sample: _id().prefix"""
+        return self._id()+"."+prefix
+
+    def appendResult(self, userName, ext="map"):
+        """ append a result in addition to the one given in Sample constructor"""
+
+        assert len(userName)
+        d = DataFile(self._operation, userName, ext)
+        # TODO for Result:operation.userName must be unique in entire sample collection
+        self._results.append(d)
+
+    def appendInput(self, name, useFrom="", ext="map", autoCreatedInput=False):
+        assert len(name)
+        if not len(useFrom):
+            useFrom = self._operation
+        d = DataFile(useFrom,name, ext)
+        if ext == "map":
+            fileExpectedPresent = d.fileName('itxt')
+        else:
+            # txt files: NOTE on out-of-tree build we may
+            #            need to copy this input to the build directory
+            fileExpectedPresent = d.fileName()
+        if d._operation != "mapattr" and not autoCreatedInput:
+            # mapattr files do not have an .itxt, generated by a Cmd
+            assert os.path.exists(fileExpectedPresent), fileExpectedPresent + \
+            """ does not exists.
+               If this file is created by another Sample or explicit make target
+               then set autoCreatedInput to True, see sample map2col.ColFile3 """
+        self._inputs.append(d)
+
+    def setClone(self, inputNr):
+        self._clone = inputNr
+
+    def shellScript(self, createFileName):
+        txt = "@EXECUTABLE_OUTPUT_PATH@/CMAKE_CFG_INTDIR/{}".format(
+            self._operation)
+
+        if len(self.globalOptions):
+            txt += " --"+(" --".join(self.globalOptions))
+
+        if self._clone >= 0:
+            txt += " --clone %s" % createFileName(self._inputs[self._clone])
+
+        r = DataFileReplacer(self)
+        txt += " "+r.replace(self.code.args(), createFileName)
+        txt += "\n"
+
+        if createFileName == fileNameOfDataFile:
+            # creating the *.exec.sh script
+            if self.execPostProcessing:
+                txt += r.replace(self.execPostProcessing, createFileName)
+                txt += "\n"
+
+        return txt
+
+    def pcrcalcScript(self, createFileName):
+
+        if isinstance(self.code, CalcFullScript):
+            return self.code.pcrcalc()
+
+        txt = ""
+
+        if len(self.globalOptions):
+            txt += "#! --"
+            txt += " --".join(self.globalOptions) + "\n"
+
+        txt += "binding\n"
+        for d in self._results+self._inputs:
+            txt += " %s = %s;\n" % (d.userName(), createFileName(d))
+
+        if self._clone >= 0:
+            txt += "areamap\n %s;\n" % createFileName(self._inputs[self._clone])
+
+        txt += "initial\n"
+
+        resultVars = map(lambda v: v.userName(), self._results)
+        code = self.code.pcrcalc().replace("$","")
+        if self.code.pcrcalcIsExpr:
+            txt += " report %s = %s;\n" % (", ".join(resultVars), code)
+        else:
+            txt += code
+
+        return txt
+
+    def pythonScript(self, createFileName):
+
+        txt = ""
+
+        for g in self.globalOptions:
+            txt += 'setglobaloption("%s")\n' % g
+        for d in self._inputs:
+            # TODO does not work for tables, timeseries
+            input_ = '"%s"' % createFileName(d)
+            if d.isMap():
+                input_ = "readmap(%s)" % input_
+            txt += '%s = %s\n' % (d.userName(), input_)
+        if self._clone >= 0:
+            txt += 'setclone("%s");\n' % createFileName(self._inputs[self._clone])
+
+        code = self.code.python().replace("$","")
+        # remove some ;
+        code = code.replace(";","")
+        if self.code.pythonIsExpr:
+            txt += "%s = %s" % (self._results[0].userName(), code)
+        else:
+            txt += "%s" % code
+
+        return txt
+
+    # def createManualExample(self):
+
+    #     def script(indentLevel, header, code):
+    #         # | = line block
+    #         lines = [ "%s|   %s" % (indentLevel*" ", l) for l in code.split("\n") ]
+    #         lines.insert(0,"%s| • %s"% (indentLevel*" ", header))
+    #         return "\n".join(lines)
+
+    #     print("#. ")
+    #     #      1234567
+    #     print(script(3, "pcrcalc", self.pcrcalcScript(userFileNameOfDataFile)))
+    #     print(script(3, "python", self.pythonScript(userFileNameOfDataFile)))
+    #     print()
+
+    #     dataItems = []
+    #     for data in (self._results + self._inputs):
+    #         dataItems.append(data.manualTableElement())
+    #     for lineno in range(len(dataItems[0])):
+    #         print "%s" %" "*(3-1),
+    #         for data in dataItems:
+    #             # all equal lenght
+    #             assert len(data) == len(dataItems[0])
+    #             print data[lineno],
+    #         print
+
+    #      # ../sphinx/abs.rst
+    #      # ../sphinx/accucapacity.rst
+    #      # ../sphinx/lookup.rst
+
+    #     # extra empty line block at end to create space between examples
+    #     print "\n%s| \n" % (" "*3)
+
+    def createCppTest(self,
+            stream,
+            createFileName):
+        if len(self.code.pcrcalc()): # has a pcrcalc version
+            text = self.pcrcalcScript(createFileName)
+            # break up each line as  "line contents\n"
+            lines = text.split("\n")
+            lines = [("\"{}\\n\"".format(l)) for l in lines]
+            stream.write("et.push_back(ManualExampleTester({}));\n".format(
+                "\n".join(lines)))
+            for r in self._results:
+                stream.write("et.back().addResult(\"{}\");\n".format(
+                    r.fileName()))
+
+    def createPythonTest(self,
+            stream,
+            createFileName):
+        if len(self.code.python()): # has a python version #234567
+          script = self.pythonScript(createFileName)
+          script = script.replace("\n","\n"+(" "*12))
+          stream.write("""
+    def test_{}(self):
+        try:
+            {} 
+""".format(self.testName(), script))
+          for r in self._results:
+              stream.write("""\
+            self.failUnless(self.mapEqualsValidated({}, "{}"), "{}:Result != validated")
+""".format(r.userName(), r.fileName(), r.fileName()))
+          stream.write("""\
+        except Exception, exception:
+            self.failUnless(False, str(exception))
+""")
+
+    def makefileSnippet(self, invoker, scriptToExecute):
+
+        resultFiles = map(lambda v: v.fileName(), self._results)
+        inputFiles = map(lambda v: v.fileName(), self._inputs)
+
+        # mapattr is the clone creator, it can not depend on the clones
+        # clones="$(CLONES) " if self._operation!="mapattr" else ""
+        # clones=""
+
+        txt = " ".join(resultFiles)+": "+ \
+              " ".join(inputFiles)+"\n"
+        txt+= "\t%s %s\n" % (invoker, scriptToExecute)
+        txt+= "clean::\n"
+        txt+= "\trm -f %s\n" % " ".join(resultFiles)
+
+        manInclFiles = map(lambda v: v.manualInclusionFile(),
+                           self._results + self._inputs)
+        txt+= "MANUAL_INCLUSION_FILES+=%s\n" % " ".join(manInclFiles)
+        testInputFiles = map(lambda v: v.fileName(), self._inputs)
+        txt+= "TEST_INPUT_FILES+=%s\n" % " ".join(testInputFiles)
+        return txt
+
+    def createMakefileAction(self,
+            stream):
+        """Returns a string containing actions for
+           the Makefile.
+           As a side effect it may create files (*exec.mod and/or *exec.sh)"""
+        pcrCmdPrefix="export PCROPTIONS=--nothing;"
+        if isinstance(self.code, Expr):
+            # open binary (b) to create unix text format needed by sh
+            scriptToExecute = self._fileName("exec.mod")
+            open(scriptToExecute,"wb").write(
+                self.pcrcalcScript(fileNameOfDataFile))
+            stream.write(self.makefileSnippet(pcrCmdPrefix +
+                "@EXECUTABLE_OUTPUT_PATH@/CMAKE_CFG_INTDIR/pcrcalc -f",
+                    scriptToExecute))
+        elif isinstance(self.code, Cmd):
+            scriptToExecute = self._fileName("exec.sh")
+            open(scriptToExecute,"wb").write(
+                self.shellScript(fileNameOfDataFile))
+            stream.write(self.makefileSnippet(pcrCmdPrefix + "sh",
+                scriptToExecute))
+        else:
+            assert False
+
+# # create manual examples for 1 operation page
+# def createManualExamples(opName):
+#     for k in _sample_collection.keys():
+#         s = _sample_collection[k]
+#         if s.operation() == opName:
+#             s.createManualExample()
+
+def createCppTestDriver(
+        stream):
+    stream.write("""\
+// DO NOT EDIT
+// Created by $PCRTREE2's PCRasterSample.py.
+""")
+    for k in _sample_collection.keys():
+        s = _sample_collection[k]
+        if not s.random:
+            s.createCppTest(stream, fileNameOfDataFile)
+
+def createPythonTestDriver(
+        stream):
+    stream.write("""\
+# DO NOT EDIT
+# Created by $PCRTREE2's PCRasterSample.py.
+import os, os.path
+import testcase
+from pcraster import *
+# from PCRaster.operations import *
+class TestExamples(testcase.TestCase):
+    def testProlog(self):
+        print "[skipped: inputTailRepeat of argorder* bugzilla 134]"
+        assert(True)
+        return
+""")
+    for k in _sample_collection.keys():
+        s = _sample_collection[k]
+        if not s.random:
+            # TODO implement these:
+            if s.code.pcrcalc().find("argorder") == -1 : # not a inputTailRepeat
+                 s.createPythonTest(stream, fileNameOfDataFile)
+
+def createMakefileAndScripts(
+        stream):
+    clones = []
+    for k in _sample_collection.keys():
+        s = _sample_collection[k]
+        s.createMakefileAction(stream)
+        if s._operation == "mapattr":
+            clones.append(s._results[0].fileName())
+    if clones:
+        stream.write("CLONES = {}\n".format(" ".join(clones)))
+    stream.write("""
+dynamicwave_Table.txt: make_table.py
+	$(EXEC) @PYTHON_EXECUTABLE@ $< > $@
+clean::
+	rm -f dynamicwave_Table.txt
+MANUAL_INCLUSION_FILES+=dynamicwave_Table.txt
+TEST_INPUT_FILES+=dynamicwave_Table.txt
+
+# sort will remove duplicates
+
+manualInclusionFiles: $(sort ${MANUAL_INCLUSION_FILES})
+
+testInputFiles: $(sort ${TEST_INPUT_FILES})
+
+# depended on all CLONES because the .itxt's have
+# a clone name inside. We just create all CLONES in
+# advance to be sure we can operate
+VPATH=.
+EXEC:=@PROJECT_SOURCE_DIR@/environment/script/execWithNativePathArgs.sh
+%.map: %.itxt $(CLONES)
+	${EXEC} ${VPATH}/AscHeader2map $< $@
+
+# make png's
+%.png: %.map
+	export PCROPTIONS=--nothing;@PYTHON_EXECUTABLE@ @PROJECT_SOURCE_DIR@/environment/script/rasterToPNG.py $< $@
+# %.rst: %.txt
+# 	@PYTHON_EXECUTABLE@ txt2rst.py $< $@
+""")
+
+
+def create_cpp_module(
+        stream):
+    execfile("ScriptSamples.py")
+    createCppTestDriver(stream)
+
+
+def create_makefile(
+        stream):
+    execfile("ScriptSamples.py")
+    execfile("CmdSamples.py")
+    createMakefileAndScripts(stream)
+
+
+def create_python_module(
+        stream):
+    execfile("ScriptSamples.py")
+    createPythonTestDriver(stream)
+
+
+if __name__ == "__main__":
+    create_script_by_format = {
+        "cpp": create_cpp_module,
+        "makefile": create_makefile,
+        "python": create_python_module
+    }
+    arguments = docopt.docopt(__doc__)
+    assert "script" in arguments
+    stream = open(arguments["OUTPUT"], "w")
+    create_script_by_format[arguments["--format"]](stream)

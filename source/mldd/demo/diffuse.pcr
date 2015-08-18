@@ -1,0 +1,44 @@
+#! --dynamiclibraries:/home/kor/pcrtree/bin/develop/mldd
+
+
+
+areamap DemIn;
+
+initial
+  modellink m = mldd();
+
+  # NOTE de operaties met bogusBool krijgen GEEN
+  # zinnige boolean kaart terug, maar zo zit de syntax
+  # van de model link er nu eenmaal uit
+
+  # re-initialize stream network
+  bogusBool = m::setStream( NLdd0000.200,
+      NELdd000.200,
+      ELdd0000.200,
+      SELdd000.200,
+      SLdd0000.200,
+      SWLdd000.200,
+      WLdd0000.200,
+      NWLdd000.200);
+  bogusBool = m::setDem(DemIn);
+
+  # fixedHead moet scalar zijn FTTB
+  # alle argumententen m.u.v nrIterations moeten spatial zijn
+  # return total outflow
+  #  test zoals met area=1 geeft identieke DEM
+  #  maar andere total Outflow, dit is de werkelijke sum (niet *200)
+  #   maar er is ook nog een issue over total outflow waar we het over 
+  #   moeten hebben.
+  report totCW = m::diffuse(Input,Area,scalar(FixedHead),
+  DiffusionValue,
+  DiffusionValue,
+  DiffusionValue,
+  DiffusionValue,
+  DiffusionValue,
+  DiffusionValue,
+  DiffusionValue,
+  DiffusionValue, 200);
+  # return dem:
+  #  niet aangepast (maar ook geen MV!) buiten het mldd netwerk
+  #  aangepast binnen het mldd netwerk
+  report demCW = m::getDem();

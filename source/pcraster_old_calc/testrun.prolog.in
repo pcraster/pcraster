@@ -1,0 +1,19 @@
+
+# FTTB HabitatTest
+cp @PCRASTER_DATA_DIR@/test/pcrtree/clientinterface/* .
+
+cp @PCRASTER_DATA_DIR@/test/pcrtree/small/* .
+rm -rf rundir_*
+rm -rf ModelBuilder*
+mkdir -p rundir_dir1/dir2/dir3
+cp binding.ipcr rundir_dir1
+rm -rf stackReader
+mkdir  stackReader
+cp inp5s.map stackReader/tmp00000.001
+
+# calc_manualexampletestertest.cc
+mkdir -p validated
+cp inp5s.map validated/TesterTest.map
+cp inp1s.map validated/TesterTest1s.map
+cp inp1s.map validated/TesterOption.map
+cp inp5s_all.map validated/TesterClone.map

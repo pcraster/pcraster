@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE ObjectLinkMeta
+  PUBLIC "-//PCRaster//DTD PCRasterNone V1.0//EN" "operation.dtd"
+>
+<ObjectLinkMeta
+  className="mldd"
+>
+<ObjectLinkCpp
+  className="mldd::Mldd"
+  type="1"/>
+<!-- <ObjectLinkCtor/> -->
+<ObjectLinkMethod name="setDem">
+ <Input><Field spatial='Yes'>&VS_S;</Field></Input>
+</ObjectLinkMethod>
+
+<ObjectLinkMethod name="getDem">
+ <Result><Field spatial='Yes'>&VS_S;</Field></Result>
+</ObjectLinkMethod>
+
+<ObjectLinkMethod name="addStream">
+ <Input><Field spatial='Yes'>&VS_L;</Field></Input>
+</ObjectLinkMethod>
+<ObjectLinkMethod name="setStream">
+ <Input contextName="stream[]"><Field spatial='Yes'>&VS_L;</Field></Input>
+ <Input contextName="stream[]"><Field spatial='Yes'>&VS_L;</Field></Input>
+ <Input contextName="stream[]"><Field spatial='Yes'>&VS_L;</Field></Input>
+ <Input contextName="stream[]"><Field spatial='Yes'>&VS_L;</Field></Input>
+ <Input contextName="stream[]"><Field spatial='Yes'>&VS_L;</Field></Input>
+ <Input contextName="stream[]"><Field spatial='Yes'>&VS_L;</Field></Input>
+ <Input contextName="stream[]"><Field spatial='Yes'>&VS_L;</Field></Input>
+ <Input contextName="stream[]"><Field spatial='Yes'>&VS_L;</Field></Input>
+</ObjectLinkMethod>
+<ObjectLinkMethod name="removeStream">
+ <Input contextName="stream[]"><Field spatial='Yes'>&VS_B;</Field></Input>
+ <Input contextName="stream[]"><Field spatial='Yes'>&VS_B;</Field></Input>
+ <Input contextName="stream[]"><Field spatial='Yes'>&VS_B;</Field></Input>
+ <Input contextName="stream[]"><Field spatial='Yes'>&VS_B;</Field></Input>
+ <Input contextName="stream[]"><Field spatial='Yes'>&VS_B;</Field></Input>
+ <Input contextName="stream[]"><Field spatial='Yes'>&VS_B;</Field></Input>
+ <Input contextName="stream[]"><Field spatial='Yes'>&VS_B;</Field></Input>
+ <Input contextName="stream[]"><Field spatial='Yes'>&VS_B;</Field></Input>
+</ObjectLinkMethod>
+<ObjectLinkMethod name="getStream">
+ <Result contextName="stream[]"><Field spatial='Yes'>&VS_L;</Field></Result>
+ <Result contextName="stream[]"><Field spatial='Yes'>&VS_L;</Field></Result>
+ <Result contextName="stream[]"><Field spatial='Yes'>&VS_L;</Field></Result>
+ <Result contextName="stream[]"><Field spatial='Yes'>&VS_L;</Field></Result>
+ <Result contextName="stream[]"><Field spatial='Yes'>&VS_L;</Field></Result>
+ <Result contextName="stream[]"><Field spatial='Yes'>&VS_L;</Field></Result>
+ <Result contextName="stream[]"><Field spatial='Yes'>&VS_L;</Field></Result>
+ <Result contextName="stream[]"><Field spatial='Yes'>&VS_L;</Field></Result>
+</ObjectLinkMethod>
+<ObjectLinkMethod name="getWeight">
+ <Result contextName="weight[]"><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Result contextName="weight[]"><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Result contextName="weight[]"><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Result contextName="weight[]"><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Result contextName="weight[]"><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Result contextName="weight[]"><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Result contextName="weight[]"><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Result contextName="weight[]"><Field spatial='Yes'>&VS_S;</Field></Result>
+</ObjectLinkMethod>
+
+<ObjectLinkMethod name="upstream">
+ <Result contextName="out"><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Input contextName="in"><Field spatial='Yes'>&VS_S;</Field></Input>
+</ObjectLinkMethod>
+<ObjectLinkMethod name="accuflux">
+ <Result contextName="out"><Field spatial='Yes'>&VS_S;</Field></Result>
+ <Input contextName="in"><Field spatial='Yes'>&VS_S;</Field></Input>
+</ObjectLinkMethod>
+
+<ObjectLinkMethod name="diffuse">
+ <Result contextName="totalOutflow"><Field spatial='Yes'>&VS_S;</Field></Result>
+
+ <Input contextName="oldState"><Field spatial='Yes'>&VS_S;</Field></Input>
+ <Input contextName="area"><Field spatial='Yes'>&VS_S;</Field></Input>
+ <Input contextName="fixedHead"><Field spatial='Yes'>&VS_S;</Field></Input>
+ <Input contextName="diffusionValueInArgOrder[]">
+    <Field spatial='Yes'>&VS_S;</Field></Input>
+ <Input contextName="diffusionValueInArgOrder[]">
+    <Field spatial='Yes'>&VS_S;</Field></Input>
+ <Input contextName="diffusionValueInArgOrder[]">
+    <Field spatial='Yes'>&VS_S;</Field></Input>
+ <Input contextName="diffusionValueInArgOrder[]">
+    <Field spatial='Yes'>&VS_S;</Field></Input>
+ <Input contextName="diffusionValueInArgOrder[]">
+    <Field spatial='Yes'>&VS_S;</Field></Input>
+ <Input contextName="diffusionValueInArgOrder[]">
+    <Field spatial='Yes'>&VS_S;</Field></Input>
+ <Input contextName="diffusionValueInArgOrder[]">
+    <Field spatial='Yes'>&VS_S;</Field></Input>
+ <Input contextName="diffusionValueInArgOrder[]">
+    <Field spatial='Yes'>&VS_S;</Field></Input>
+ <Input contextName="nrIterations">
+    <Field spatial='Non'>&VS_N;</Field></Input>
+</ObjectLinkMethod>
+
+</ObjectLinkMeta>

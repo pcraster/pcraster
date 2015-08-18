@@ -1,0 +1,21 @@
+#vim:syntax=sh
+# this is ran with testdir as cwd
+set -e
+
+echo "Running resample test cases..."
+
+# remove input and output maps
+rm -fr *map validated
+
+# obtain input
+cp -f @PCRASTER_DATA_DIR@/test/resample/*.map .
+cp -fr @PCRASTER_DATA_DIR@/test/resample/validated .
+
+exe_pathname="@EXECUTABLE_OUTPUT_PATH@/CMAKE_CFG_INTDIR"
+# sf463
+$exe_pathname/resample --clone sf463_mask.map sf463_outlet.map sf463_output.map
+$exe_pathname/mapdiff validated/sf463_outlet_mask.map sf463_output.map
+
+# sf485
+$exe_pathname/resample -C sf485_dem.map sf485_output.map
+$exe_pathname/mapdiff validated/sf485_dem_cropped.map sf485_output.map

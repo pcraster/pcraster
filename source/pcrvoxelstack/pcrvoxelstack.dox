@@ -1,0 +1,7 @@
+/*!
+\page pcrvoxelstack PCRaster Voxel Stack Library
+
+\section intro Introduction
+This library contains algorithms related to the voxel stack discretisation from the \ref pcrdiscr library.
+*/
+

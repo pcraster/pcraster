@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<script
+        xmlns="http://www.pcraster.nl/pcrxml"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.pcraster.nl/pcrxml PCRaster.xsd">
+<definition name="zone.map">
+ <field>
+  <dataType>
+    <boolean/>
+    <nominal/>
+    <ordinal/>
+  </dataType>
+ </field>
+ <scriptOutput>
+  <external>zone.map</external>
+ </scriptOutput>
+</definition>
+<definition name="firestat.map">
+ <field>
+  <dataType>
+    <boolean/>
+    <nominal/>
+    <ordinal/>
+  </dataType>
+ </field>
+ <scriptInput>
+  <external>firestat.map</external>
+ </scriptInput>
+</definition>
+<model>
+  <textModel>zone.map = spreadzone(firestat.map,0,1);
+   </textModel>
+  </model>
+</script>

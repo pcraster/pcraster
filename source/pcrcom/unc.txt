@@ -1,0 +1,34 @@
+
+ Can anyone out there help me with a crystal clear definition of the
+Microsoft UNC format (Silver Star)
+2) Can you point me to an official Microsoft resource which contains said
+definition (Gold Star!)
+
+I am aware of \\servername\sharename etc... What I want to know is, is this
+THE format, or not?  For example I have seen a Microsoft knowledge base
+article which says...
+
+" the universal naming convention (UNC) for accessing shared resources in
+Windows NT is as follows:
+
+\\<servername>\<sharename>\<path>\<file name>"
+
+
+ok it is simple.
+
+let's say we have a computer named 'lapdog', that computer has 1
+hard-drive - C - which is shared as 'Q', on that machine you have a file
+called 'ping.exe' which resides in the 'c:\windows' directory.
+
+Then to access the ping.exe file from another machine on the network you
+would type
+
+\\lapdog\q\windows\ping.exe
+
+infact you could do the same thing from the machine named lapdog and it
+would work equally well.
+
+so from the lapdog machine the following would be equivalent
+
+c:\windows\ping.exe
+\\lapdog\q\windows\ping.exe

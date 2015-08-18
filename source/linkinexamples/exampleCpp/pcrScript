@@ -1,0 +1,5 @@
+areamap area.map;
+
+cb.map = exampleCpp::checkerBoard();
+object obj1 = exampleCpp::Class1(0.01);
+div.map = obj1::operation("div",uniform(1));

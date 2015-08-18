@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<pcr:script xmlns:pcr="http://www.pcraster.nl/pcrxml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.pcraster.nl/pcrxml PCRaster.xsd">
+  <pcr:definition name="area.map"/>
+  <pcr:definition name="innerMap">
+    <pcr:field>
+      <pcr:dataType>
+        <pcr:scalar/>
+      </pcr:dataType>
+      <pcr:spatialType>Either</pcr:spatialType>
+    </pcr:field>
+    <pcr:modelExchange input="None" output="Initial"/>
+  </pcr:definition>
+  <pcr:definition name="inputMap">
+    <pcr:description>
+      <pcr:text>Provide any input map here for this algorithm</pcr:text>
+    </pcr:description>
+    <pcr:field>
+      <pcr:dataType>
+        <pcr:scalar>
+          <pcr:length>3</pcr:length>
+          <pcr:time>-1</pcr:time>
+        </pcr:scalar>
+      </pcr:dataType>
+      <pcr:spatialType>Either</pcr:spatialType>
+    </pcr:field>
+    <pcr:modelExchange input="Initial" output="Fixed"/>
+  </pcr:definition>
+  <pcr:definition name="outputMap">
+    <pcr:description>
+      <pcr:text>This is the output of the algorithm</pcr:text>
+    </pcr:description>
+    <pcr:field>
+      <pcr:dataType>
+        <pcr:scalar/>
+      </pcr:dataType>
+      <pcr:spatialType>Either</pcr:spatialType>
+    </pcr:field>
+    <pcr:modelExchange input="None" output="Initial"/>
+  </pcr:definition>
+</pcr:script>

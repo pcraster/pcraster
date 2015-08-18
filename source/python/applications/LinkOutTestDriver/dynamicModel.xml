@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  Dynamic model that is used in the example
+      testDynamicModel() of PCRasterLinkOutTest.py
+  -->
+<script xmlns="http://www.pcraster.nl/pcrxml"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.pcraster.nl/pcrxml PCRaster.xsd">
+<areaMap>
+  <nrRows>2</nrRows>
+  <nrCols>2</nrCols>
+</areaMap>
+
+<definition name="initialInput">
+  <field>
+   <spatialType>NonSpatial</spatialType>
+  </field>
+  <scriptInput><memoryExchange>0</memoryExchange></scriptInput>
+</definition>
+
+<definition name="dynamicInput">
+  <field>
+   <spatialType>Spatial</spatialType>
+  </field>
+  <scriptInput><memoryExchange>1</memoryExchange></scriptInput>
+</definition>
+
+<definition name="memInputRelation">
+  <relation>
+   <indexedArray>
+     <dimensionDataType>unsignedInt</dimensionDataType>
+     <valueDataType>float</valueDataType>
+   </indexedArray>
+  </relation>
+  <scriptInput><memoryExchange>2</memoryExchange></scriptInput>
+</definition>
+
+<definition name="memOutputDynamic">
+  <scriptOutput><memoryExchange>3</memoryExchange></scriptOutput>
+</definition>
+
+<definition name="memOutputInitial">
+  <scriptOutput><memoryExchange>4</memoryExchange></scriptOutput>
+</definition>
+
+<definition name="rainZone">
+  <field>
+      <dataType><nominal/></dataType>
+      <spatialType>Spatial</spatialType>
+  </field>
+  <scriptInput><memoryExchange>5</memoryExchange></scriptInput>
+</definition>
+
+<timer>
+ <integer>
+   <start>1</start>
+   <end>3</end>
+ </integer>
+</timer>
+
+<model>
+ <textModel>
+  initial
+    memOutputInitial  = initialInput * 2;
+   dynamic
+    memOutputDynamic = dynamicInput + lookupscalar(memInputRelation, rainZone);
+ </textModel>
+</model>
+</script>

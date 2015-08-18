@@ -1,0 +1,6 @@
+<!DOCTYPE ModelRunSettings >
+<ModelRunSettings name="scenarioName1" >
+ <NumericSetting value="0.9778" name="Afrost" />
+ <NumericSetting value="0.58" name="B" />
+ <FileSetting externalFileName="/home/cees/pcrtree/apps/ceesqt/piet" name="CloudTSS" />
+</ModelRunSettings>

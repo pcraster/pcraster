@@ -1,0 +1,12 @@
+# this is ran with testdir as cwd
+set -e
+
+cp @CMAKE_CURRENT_SOURCE_DIR@/../demo/* .
+cp -fR @CMAKE_CURRENT_SOURCE_DIR@/../demoValidatedOutput .
+
+cp @CMAKE_CURRENT_SOURCE_DIR@/../tests/* .
+
+# In debug builds, the unit tests require these schema's to be available.
+cp @CMAKE_CURRENT_SOURCE_DIR@/../../xmlschema/commonTypes.xsd .
+cp @CMAKE_CURRENT_SOURCE_DIR@/../../pcraster_model_engine/PCRaster.xsd .
+

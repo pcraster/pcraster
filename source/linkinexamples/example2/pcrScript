@@ -1,0 +1,4 @@
+areamap area.map;
+
+             v = uniform(1);
+report add.map = example2::addSpatialToNonSpatial(v,0.3);

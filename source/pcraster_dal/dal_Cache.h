@@ -1,4 +1,5 @@
 #pragma once
+#include <cassert>
 #include <map>
 #include <boost/bimap.hpp>
 #include <boost/noncopyable.hpp>

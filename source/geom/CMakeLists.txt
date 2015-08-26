@@ -20,7 +20,6 @@ TARGET_LINK_LIBRARIES(geom
 SET(TEST_SOURCES
     geom_test.cc
     geom_pointtest.cc
-    geom_pointtest.h
 )
 ADD_EXECUTABLE(test_geom
     ${TEST_SOURCES}

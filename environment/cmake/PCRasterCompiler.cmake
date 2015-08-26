@@ -1,13 +1,21 @@
+# Set a default build type for single-configuration CMake generators (like
+# GNU Makefile) if build type is not already set. In that case a release
+# build is configured.
+if(NOT CMAKE_CONFIGURATION_TYPES AND NOT CMAKE_BUILD_TYPE)
+    SET(CMAKE_BUILD_TYPE Release)
+endif()
+
+
 set(CMAKE_CXX_FLAGS_DEBUG
     "${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG -DDEBUG_BUILD -DDEBUG_DEVELOP"
 )
 set(CMAKE_C_FLAGS_DEBUG
-    "${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG -DDEBUG_BUILD -DDEBUG_DEVELOP"
+    "${CMAKE_C_FLAGS_DEBUG} -DDEBUG -DDEBUG_BUILD -DDEBUG_DEVELOP"
 )
 
 # https://svn.boost.org/trac/boost/ticket/6455
 set(CMAKE_CXX_FLAGS
-    "${CMAKE_CXX_FLAGS_DEBUG} -DQT_NO_KEYWORDS -DGDAL_LIBRARY_HAS_OGR_SUPPORT"
+    "${CMAKE_CXX_FLAGS} -DQT_NO_KEYWORDS -DGDAL_LIBRARY_HAS_OGR_SUPPORT"
 )
 
 

@@ -7,7 +7,7 @@ endif()
 
 
 # Get rid of these after refactoring. ------------------------------------------
-# ADD_CUSTOM_TARGET(tests ALL)
+ADD_CUSTOM_TARGET(tests)
 
 SET(LIBRARY_OUTPUT_PATH
     ${PROJECT_BINARY_DIR}/bin

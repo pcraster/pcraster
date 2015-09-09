@@ -160,6 +160,12 @@ endif()
 
 if(PCRASTER_LIB_XSLT_REQUIRED)
     FIND_PACKAGE(LibXslt REQUIRED)
+
+    if(PCRASTER_LIB_XSLT_XSLTPROC_REQUIRED)
+        if(NOT LIBXSLT_XSLTPROC_EXECUTABLE)
+            message(FATAL_ERROR "xsltproc executable not found")
+        endif()
+    endif()
 endif()
 
 

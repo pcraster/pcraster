@@ -15,6 +15,7 @@ set(${PROJECT_NAME}_VERSION
 
 set(CMAKE_MODULE_PATH
     $ENV{CMAKE_MODULE_PATH}
+    ${CMAKE_CURRENT_SOURCE_DIR}/devbase/cmake
     ${CMAKE_CURRENT_SOURCE_DIR}/environment/cmake
 )
 include(PCRaster)

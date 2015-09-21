@@ -1,3 +1,4 @@
+#define BOOST_TEST_MODULE pcrxsd test suite
 // #ifndef INCLUDED_STDDEFX
 // #include "stddefx.h"
 // #define INCLUDED_STDDEFX

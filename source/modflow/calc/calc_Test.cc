@@ -1,3 +1,4 @@
+#define BOOST_TEST_MODULE modflow_calc test suite
 #include "stddefx.h"
 
 

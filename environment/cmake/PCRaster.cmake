@@ -1,9 +1,33 @@
 # https://github.com/geoneric/peacock/blob/master/cmake/PeacockPlatform.cmake
 include(PeacockPlatform) # This one first. Other modules use the variables.
 
-if(WIN32)
-    set(CMAKE_DEBUG_POSTFIX "d")
+include(DevBaseCompiler)  # This one first. Configuration uses the compiler.
+
+set(CMAKE_CXX_FLAGS_DEBUG
+    "${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG -DDEBUG_BUILD -DDEBUG_DEVELOP"
+)
+set(CMAKE_C_FLAGS_DEBUG
+    "${CMAKE_C_FLAGS_DEBUG} -DDEBUG -DDEBUG_BUILD -DDEBUG_DEVELOP"
+)
+# https://svn.boost.org/trac/boost/ticket/6455
+set(CMAKE_CXX_FLAGS
+    "${CMAKE_CXX_FLAGS} -DQT_NO_KEYWORDS -DGDAL_LIBRARY_HAS_OGR_SUPPORT"
+)
+
+
+include(PCRasterConfiguration)
+include(DevBaseExternal)
+include(DevBaseMacro)
+include(PCRasterMacro)
+
+if(PCRASTER_BUILD_TEST)
+    enable_testing()
 endif()
+
+set(PCRASTER_DATA_DIR ${PROJECT_SOURCE_DIR}/data)
+
+
+force_out_of_tree_build()
 
 
 # Get rid of these after refactoring. ------------------------------------------
@@ -25,23 +49,3 @@ MARK_AS_ADVANCED(
     EXECUTABLE_OUTPUT_PATH
 )
 # /Get rid of these after refactoring. -----------------------------------------
-
-
-
-
-
-
-include(PCRasterCompiler)  # This one first. Configuration uses the compiler.
-include(PCRasterConfiguration)
-include(PCRasterExternal)
-include(PCRasterMacro)
-
-if(PCRASTER_BUILD_TEST)
-    enable_testing()
-endif()
-
-force_out_of_tree_build()
-
-set(PCRASTER_DATA_DIR ${PROJECT_SOURCE_DIR}/data)
-
-# TODO Print status information about the current build.

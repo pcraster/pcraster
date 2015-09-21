@@ -1,3 +1,4 @@
+#define BOOST_TEST_MODULE calc test suite
 #include "stddefx.h"
 
 

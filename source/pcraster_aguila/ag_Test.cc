@@ -1,3 +1,4 @@
+#define BOOST_TEST_MODULE aguila test suite
 #include <boost/test/included/unit_test.hpp>
 #include <QApplication>
 #include "dev_FilesystemUtils.h"

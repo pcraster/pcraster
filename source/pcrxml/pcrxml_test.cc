@@ -1,3 +1,4 @@
+#define BOOST_TEST_MODULE pcrxml test suite
 #include "stddefx.h"
 
 

@@ -1,4 +1,6 @@
-SET(SPHINX_SOURCES
+include(SphinxDoc)
+
+set(SPHINX_SOURCES
     app_asc2map.rst
     app_col2map.rst
     app_legend.rst
@@ -160,13 +162,18 @@ SET(SPHINX_SOURCES
     secpcrcalcscriptfeatures.rst
     secstat.rst
 )
-SET(SPHINX_TARGET manual)
-INCLUDE(SphinxDoc)
-ADD_DEPENDENCIES(manual
+
+create_sphinx_docs(
+    TARGET manual
+    SOURCES ${SPHINX_SOURCES}
+)
+
+add_dependencies(manual
     examples.sentinel
     preprocessFigures
 )
-INSTALL(
+
+install(
     DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/_build/html/
     DESTINATION doc/manual
 )

@@ -19,4 +19,4 @@ macro(add_file_dependency TARGET)
     # SET(${TARGET}_deps ${${TARGET}_deps} ${ARGN})
     # SET_SOURCE_FILES_PROPERTIES(${TARGET}
     #   PROPERTIES OBJECT_DEPENDS "${${TARGET}_deps}")
-endmacro(ADD_FILE_DEPENDENCY)
+endmacro(add_file_dependency)

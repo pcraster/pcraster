@@ -1,79 +1,13 @@
-#ifndef INCLUDED_DEV_QTCLIENTTEST
-#include "dev_QtClientTest.h"
-#define INCLUDED_DEV_QTCLIENTTEST
-#endif
-
-// External headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-#ifndef INCLUDED_QCOREAPPLICATION
+#define BOOST_TEST_MODULE pcraster qt_client
+#include <boost/test/unit_test.hpp>
 #include <QCoreApplication>
-#define INCLUDED_QCOREAPPLICATION
-#endif
-
-// Project headers.
-
-// Module headers.
-#ifndef INCLUDED_DEV_QTCLIENT
 #include "dev_QtClient.h"
-#define INCLUDED_DEV_QTCLIENT
-#endif
 
 
-
-/*!
-  \file
-  This file contains the implementation of the QtClientTest class.
-*/
-
-
-
-namespace dev {
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC QTCLIENTTEST MEMBERS
-//------------------------------------------------------------------------------
-
-//! Suite.
-boost::unit_test::test_suite* QtClientTest::suite()
+BOOST_AUTO_TEST_CASE(is_initialized)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<QtClientTest> instance(
-         new QtClientTest());
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &QtClientTest::test, instance));
+  using namespace dev;
 
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF QTCLIENTTEST MEMBERS
-//------------------------------------------------------------------------------
-
-//! Constructor.
-QtClientTest::QtClientTest()
-{
-}
-
-
-
-void QtClientTest::test()
-{
   struct Client: public dev::QtClient<QCoreApplication>
   {
     Client(
@@ -91,6 +25,3 @@ void QtClientTest::test()
 
   BOOST_CHECK(client.isInitialized());
 }
-
-} // namespace dev
-

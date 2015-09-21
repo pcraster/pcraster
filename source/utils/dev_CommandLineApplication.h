@@ -57,8 +57,6 @@ namespace dev {
 class CommandLineApplication: private boost::noncopyable
 {
 
-  friend class CommandLineApplicationTest;
-
 private:
 
   unsigned short   _argc;

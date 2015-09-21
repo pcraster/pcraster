@@ -1,76 +1,12 @@
-#ifndef INCLUDED_DEV_UTILSTEST
-#include "dev_UtilsTest.h"
-#define INCLUDED_DEV_UTILSTEST
-#endif
-
-// External headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// Project headers.
-
-// Module headers.
-#ifndef INCLUDED_DEV_UTILS
+#define BOOST_TEST_MODULE pcraster utils
+#include <boost/test/unit_test.hpp>
 #include "dev_Utils.h"
-#define INCLUDED_DEV_UTILS
-#endif
 
 
-
-/*!
-  \file
-  This file contains the implementation of the UtilsTest class.
-*/
-
-
-
-namespace dev {
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC UTILSTEST MEMBERS
-//------------------------------------------------------------------------------
-
-//! Suite.
-boost::unit_test::test_suite* UtilsTest::suite()
+BOOST_AUTO_TEST_CASE(unique_)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<UtilsTest> instance(
-         new UtilsTest());
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &UtilsTest::testUnique, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &UtilsTest::testEnvironmentVariables, instance));
+  using namespace dev;
 
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF UTILSTEST MEMBERS
-//------------------------------------------------------------------------------
-
-//! Constructor.
-UtilsTest::UtilsTest()
-{
-}
-
-
-
-void UtilsTest::testUnique()
-{
   {
     std::vector<int> container;
     unique(container);
@@ -108,12 +44,13 @@ void UtilsTest::testUnique()
 }
 
 
-
-void UtilsTest::testEnvironmentVariables()
+BOOST_AUTO_TEST_CASE(environment_variable)
 {
+  using namespace dev;
+
   BOOST_REQUIRE(!environmentVariableSet("BLA"));
 
- #ifdef _WIN32
+#ifdef _WIN32
   BOOST_WARN_MESSAGE(false, "Environment handling does not work on windows(?)");
 #else
   // Unset non-existing variable.
@@ -140,6 +77,3 @@ void UtilsTest::testEnvironmentVariables()
   BOOST_CHECK(!environmentVariableSet("BLA"));
 #endif
 }
-
-} // namespace dev
-

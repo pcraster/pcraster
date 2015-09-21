@@ -1,79 +1,13 @@
-#ifndef INCLUDED_DEV_COMMANDLINEAPPLICATIONTEST
-#include "dev_CommandLineApplicationTest.h"
-#define INCLUDED_DEV_COMMANDLINEAPPLICATIONTEST
-#endif
-
-// External headers.
-#ifndef INCLUDED_SSTREAM
+#define BOOST_TEST_MODULE pcraster command_line_application
 #include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// Project headers.
-
-// Module headers.
-#ifndef INCLUDED_DEV_COMMANDLINEAPPLICATION
+#include <boost/test/unit_test.hpp>
+#define protected public  // Testing protected members.
 #include "dev_CommandLineApplication.h"
-#define INCLUDED_DEV_COMMANDLINEAPPLICATION
-#endif
 
 
-
-/*!
-  \file
-  This file contains the implementation of the CommandLineApplicationTest class.
-*/
-
-
-
-namespace dev {
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC COMMANDLINEAPPLICATIONTEST MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite* CommandLineApplicationTest::suite()
+BOOST_AUTO_TEST_CASE(command_line_application_)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<CommandLineApplicationTest> instance(
-         new CommandLineApplicationTest());
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &CommandLineApplicationTest::test, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF COMMANDLINEAPPLICATIONTEST MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-CommandLineApplicationTest::CommandLineApplicationTest()
-{
-}
-
-
-
-void CommandLineApplicationTest::test()
-{
+  using namespace dev;
   namespace po = boost::program_options;
 
   {
@@ -111,6 +45,3 @@ void CommandLineApplicationTest::test()
     BOOST_CHECK_EQUAL(stream.str(), result.str());
   }
 }
-
-} // namespace dev
-

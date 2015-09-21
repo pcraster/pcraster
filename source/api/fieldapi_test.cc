@@ -1,3 +1,4 @@
+#define BOOST_TEST_MODULE field_api test suite
 #include "stddefx.h"
 
 

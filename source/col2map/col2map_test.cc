@@ -1,3 +1,4 @@
+#define BOOST_TEST_MODULE col2map test suite
 #ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
 #define INCLUDED_STDDEFX

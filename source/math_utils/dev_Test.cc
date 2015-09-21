@@ -1,3 +1,4 @@
+#define BOOST_TEST_MODULE math_utils test suite
 #ifndef INCLUDED_BOOST_TEST_INCLUDED_UNIT_TEST
 #include <boost/test/included/unit_test.hpp>
 #define INCLUDED_BOOST_TEST_INCLUDED_UNIT_TEST

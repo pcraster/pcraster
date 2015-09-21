@@ -1,3 +1,4 @@
+#define BOOST_TEST_MODULE oldcalc test suite
 #include "stddefx.h"
 
 /*! \page design Design

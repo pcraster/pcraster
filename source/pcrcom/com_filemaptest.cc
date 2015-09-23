@@ -1,103 +1,14 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_COM_FILEMAPTEST
-#include "com_filemaptest.h"
-#define INCLUDED_COM_FILEMAPTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_COM_FILEMAP
+#define BOOST_TEST_MODULE pcraster com file_map
+#include <boost/test/unit_test.hpp>
 #include "com_filemap.h"
-#define INCLUDED_COM_FILEMAP
-#endif
-#ifndef INCLUDED_COM_PATHNAME
 #include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
-#ifndef INCLUDED_COM_STRLIB
 #include "com_strlib.h"
-#define INCLUDED_COM_STRLIB
-#endif
-#ifndef INCLUDED_COM_FILE
 #include "com_file.h"
-#define INCLUDED_COM_FILE
-#endif
-#ifndef INCLUDED_COM_MATH
 #include "com_math.h"
-#define INCLUDED_COM_MATH
-#endif
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-/*!
-  \file
-  This file contains the implementation of the FileMapTest class.
-*/
 
 
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC FILEMAP MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*com::FileMapTest::suite()
-{
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<FileMapTest> instance(new FileMapTest());
-
-  suite->add(BOOST_CLASS_TEST_CASE(&FileMapTest::testEmptyFile, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&FileMapTest::testIterators, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&FileMapTest::fileMapToLarge, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF FILEMAP MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-com::FileMapTest::FileMapTest(){
-}
-
-
-
-//! setUp
-void com::FileMapTest::setUp()
-{
-}
-
-//! tearDown
-void com::FileMapTest::tearDown()
-{
-}
-
-void com::FileMapTest::testEmptyFile()
+BOOST_AUTO_TEST_CASE(empty_file)
 {
     com::PathName pn("empty.filemap");
     com::create(pn);
@@ -119,7 +30,8 @@ void com::FileMapTest::testEmptyFile()
 #endif
 }
 
-void com::FileMapTest::testIterators()
+
+BOOST_AUTO_TEST_CASE(iterators)
 {
 
   // read some stuff
@@ -151,8 +63,11 @@ void com::FileMapTest::testIterators()
   }
 }
 
-void com::FileMapTest::fileMapToLarge()
+
+BOOST_AUTO_TEST_CASE(file_map_to_large)
 {
+  using namespace com;
+
 #ifdef WIN32
   com::PathName big("E:\\gam_allXL.xyz");
 #else

@@ -1,70 +1,9 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_COM_INTERVALMAPTEST
-#include "com_intervalmaptest.h"
-#define INCLUDED_COM_INTERVALMAPTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_COM_INTERVALMAP
+#define BOOST_TEST_MODULE pcraster com clone
+#include <boost/test/unit_test.hpp>
 #include "com_intervalmap.h"
-#define INCLUDED_COM_INTERVALMAP
-#endif
-#ifndef INCLUDED_COM_INTERVALTYPES
 #include "com_intervaltypes.h"
-#define INCLUDED_COM_INTERVALTYPES
-#endif
-#ifndef INCLUDED_COM_CLONE
 #include "com_clone.h"
-#define INCLUDED_COM_CLONE
-#endif
 
-/*!
-  \file
-  This file contains the implementation of the IntervalMapTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC INTERVALMAP MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*com::IntervalMapTest::suite()
-{
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<IntervalMapTest> instance(new IntervalMapTest());
-
-  suite->add(BOOST_CLASS_TEST_CASE(&IntervalMapTest::testFind, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&IntervalMapTest::testVisit, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&IntervalMapTest::testOverlap, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&IntervalMapTest::testMultiMap, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&IntervalMapTest::testNoOverlap, instance));
-
-  return suite;
-}
 
 namespace com {
  namespace intervalMapTest {
@@ -78,27 +17,6 @@ namespace com {
  }
 }
 
-
-//------------------------------------------------------------------------------
-// DEFINITION OF INTERVALMAP MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-com::IntervalMapTest::IntervalMapTest()
-{
-}
-
-
-
-//! setUp
-void com::IntervalMapTest::setUp()
-{
-}
-
-//! tearDown
-void com::IntervalMapTest::tearDown()
-{
-}
 
 namespace com {
  namespace intervalMapTest {
@@ -114,8 +32,10 @@ namespace com {
  }
 }
 
-void com::IntervalMapTest::testFind()
+
+BOOST_AUTO_TEST_CASE(find)
 {
+  using namespace com;
 
   typedef IntervalMap<int> M;
   M m;
@@ -150,8 +70,11 @@ void com::IntervalMapTest::testFind()
   }
 }
 
-void com::IntervalMapTest::testVisit()
+
+BOOST_AUTO_TEST_CASE(visit)
 {
+  using namespace com;
+
   typedef IntervalMap<intervalMapTest::FO_MM> M;
   M m;
   m.insertInterval(BetweenLimits<>(GreaterThan<>(3),LessThanEqualTo<>(4)));
@@ -193,10 +116,13 @@ void com::IntervalMapTest::testVisit()
   BOOST_CHECK(val[0] == 2);
 }
 
-void com::IntervalMapTest::testOverlap()
+
+BOOST_AUTO_TEST_CASE(overlap)
 {
+  using namespace com;
+
   IntervalMap<int> m;
-  typedef IntervalMap<int>::iterator I;
+  // typedef IntervalMap<int>::iterator I;
   BOOST_CHECK( m.insertInterval(GreaterThan<>(4)));
   BOOST_CHECK(!m.insertInterval(GreaterThan<>(5)));
 
@@ -215,12 +141,13 @@ void com::IntervalMapTest::testOverlap()
 }
 
 
-
-void com::IntervalMapTest::testMultiMap()
+BOOST_AUTO_TEST_CASE(multi_map)
 {
+  using namespace com;
+
   typedef IntervalMultiMap<intervalMapTest::FO_MM> M;
   M m;
-  typedef IntervalMap<int>::iterator I;
+  // typedef IntervalMap<int>::iterator I;
 
   // as long as implemented as vector this
   // is a very simple test to write;
@@ -266,8 +193,11 @@ void com::IntervalMapTest::testMultiMap()
 
 }
 
-void com::IntervalMapTest::testNoOverlap()
+
+BOOST_AUTO_TEST_CASE(no_overlap)
 {
+  using namespace com;
+
   std::vector<const com::Interval<float> *> v;
   v.push_back(new com::LessThan<float>(4));
   v.push_back(new com::GreaterThan<float>(4));

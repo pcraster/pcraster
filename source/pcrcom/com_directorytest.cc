@@ -1,83 +1,17 @@
-#ifndef INCLUDED_STDDEFX
+#define BOOST_TEST_MODULE pcraster com directory
+#include <boost/test/unit_test.hpp>
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_COM_DIRECTORYTEST
-#include "com_directorytest.h"
-#define INCLUDED_COM_DIRECTORYTEST
-#endif
-
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-#ifndef INCLUDED_COM_EXCEPTION
+#include "com_directory.h"
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-
-#ifndef INCLUDED_COM_PATHINFO
 #include "com_pathinfo.h"
-#define INCLUDED_COM_PATHINFO
-#endif
-
-#ifndef INCLUDED_COM_PATHNAME
 #include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
-
-#ifndef INCLUDED_IOSTREAM
 #include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
 
 
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC CLASS MEMBERS
-//------------------------------------------------------------------------------
-
-boost::unit_test::test_suite*com::DirectoryTest::suite()
+BOOST_AUTO_TEST_CASE(create_directory)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<DirectoryTest> instance(new DirectoryTest());
+  using namespace com;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&DirectoryTest::testCreateDirectory, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&DirectoryTest::testEraseDirectory, instance));
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
-//------------------------------------------------------------------------------
-
-com::DirectoryTest::DirectoryTest()
-{
-}
-
-void com::DirectoryTest::setUp()
-{
-}
-
-void com::DirectoryTest::tearDown()
-{
-}
-
-void com::DirectoryTest::testCreateDirectory()
-{
   try
   {
     PathName pn;
@@ -141,9 +75,10 @@ void com::DirectoryTest::testCreateDirectory()
 }
 
 
-
-void com::DirectoryTest::testEraseDirectory()
+BOOST_AUTO_TEST_CASE(erase_directory)
 {
+  using namespace com;
+
   try {
     PathName pn;
     PathInfo pi;

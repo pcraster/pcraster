@@ -1,80 +1,11 @@
-#ifndef INCLUDED_STDDEFX
+#define BOOST_TEST_MODULE pcraster com csf_cell
+#include <boost/test/unit_test.hpp>
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_ALGORITHM
 #include <algorithm>
-#define INCLUDED_ALGORITHM
-#endif
-
-#ifndef INCLUDED_COM_CSFCELLTEST
-#include "com_csfcelltest.h"
-#define INCLUDED_COM_CSFCELLTEST
-#endif
-
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-#ifndef INCLUDED_COM_CSFCELL
 #include "com_csfcell.h"
-#define INCLUDED_COM_CSFCELL
-#endif
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC CLASS MEMBERS
-//------------------------------------------------------------------------------
-
-boost::unit_test::test_suite*com::CSFCellTest::suite()
-{
-  /*
-   * also tests aspects of pcrtypes.h
-   */
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<CSFCellTest> instance(new CSFCellTest());
-  suite->add(BOOST_CLASS_TEST_CASE(&CSFCellTest::testCsfSizes, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&CSFCellTest::testCastAndCopyCells, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&CSFCellTest::testSetMV, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&CSFCellTest::testAlterToStdMV, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&CSFCellTest::testGetMinMax, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&CSFCellTest::testFromStdMV, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&CSFCellTest::testEndianSwap, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&CSFCellTest::testCsfCellMax, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&CSFCellTest::testIsType, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&CSFCellTest::testLessMV, instance));
-  return suite;
-}
 
 
-//------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS
-//------------------------------------------------------------------------------
-
-com::CSFCellTest::CSFCellTest()
-{
-}
-
-void com::CSFCellTest::setUp()
-{
-}
-
-void com::CSFCellTest::tearDown()
-{
-}
-
-void com::CSFCellTest::testCsfSizes()
+BOOST_AUTO_TEST_CASE(csf_sizes)
 {
   BOOST_CHECK(sizeof(UINT1) == 1);
   BOOST_CHECK(sizeof( INT1) == 1);
@@ -86,9 +17,12 @@ void com::CSFCellTest::testCsfSizes()
   BOOST_CHECK(sizeof(REAL8) == 8);
 }
 
+
 //! does also CastCell, since copy is no more than a loop around CastCell
-void com::CSFCellTest::testCastAndCopyCells()
+BOOST_AUTO_TEST_CASE(cast_and_copy_cells)
 {
+  using namespace com;
+
   #define NR 10
   INT4  *int4 = new INT4[NR];
 
@@ -145,7 +79,8 @@ void com::CSFCellTest::testCastAndCopyCells()
   }
 }
 
-void com::CSFCellTest::testSetMV()
+
+BOOST_AUTO_TEST_CASE(set_mv)
 {
   // a generic
   INT4 int4[10];
@@ -188,8 +123,11 @@ void com::CSFCellTest::testSetMV()
   }
 }
 
-void com::CSFCellTest::testGetMinMax()
+
+BOOST_AUTO_TEST_CASE(get_min_max)
 {
+  using namespace com;
+
 {
   UINT1 v[3]={0,3,MV_UINT1};
   GetMinMax<UINT1> g(MV_UINT1);
@@ -236,7 +174,8 @@ void com::CSFCellTest::testGetMinMax()
 }
 }
 
-void com::CSFCellTest::testAlterToStdMV()
+
+BOOST_AUTO_TEST_CASE(alter_to_std_mv)
 {
   {
     UINT1 v[3]={0,3,MV_UINT1};
@@ -256,7 +195,8 @@ void com::CSFCellTest::testAlterToStdMV()
   }
 }
 
-void com::CSFCellTest::testFromStdMV()
+
+BOOST_AUTO_TEST_CASE(from_std_mv)
 {
   {
     UINT1 v[3]={0,3,MV_UINT1};
@@ -277,8 +217,11 @@ void com::CSFCellTest::testFromStdMV()
   }
 }
 
-void com::CSFCellTest::testCsfCellMax()
+
+BOOST_AUTO_TEST_CASE(csf_cell_max)
 {
+    using namespace com;
+
     REAL4 v[3]={0,3,-1};
     pcr::setMV(v[0]);
     BOOST_CHECK(pcr::isMV(v[0]));
@@ -298,8 +241,11 @@ void com::CSFCellTest::testCsfCellMax()
     BOOST_CHECK(max==v);
 }
 
-void com::CSFCellTest::testEndianSwap()
+
+BOOST_AUTO_TEST_CASE(endian_swap)
 {
+  using namespace com;
+
   {
     INT2 v[3]={0,3,MV_INT2};
     std::for_each(v,v+3,EndianSwapINT2());
@@ -316,8 +262,11 @@ void com::CSFCellTest::testEndianSwap()
   }
 }
 
-void com::CSFCellTest::testIsType()
+
+BOOST_AUTO_TEST_CASE(is_type)
 {
+  using namespace com;
+
   BOOST_CHECK(isUINT1(0));
   BOOST_CHECK(isUINT1(UINT1_MIN));
   BOOST_CHECK(isUINT1(UINT1_MAX));
@@ -340,8 +289,11 @@ void com::CSFCellTest::testIsType()
 
 }
 
-void com::CSFCellTest::testLessMV()
+
+BOOST_AUTO_TEST_CASE(less_mv)
 {
+  using namespace com;
+
  {
   UINT1  u1(1);
   UINT1  u5(5);

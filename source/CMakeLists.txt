@@ -22,9 +22,9 @@ add_subdirectory(pcraster_dal)
 
 
 add_subdirectory(app)  # OK
-add_subdirectory(mathx)
-add_subdirectory(curr)
-add_subdirectory(misc)
+add_subdirectory(mathx)  # OK
+add_subdirectory(curr)  # OK
+add_subdirectory(misc)  # OK
 ### add_subdirectory(pcraster_moc)
 ### add_subdirectory(pcrblock)
 ### add_subdirectory(pcraster_block_python)
@@ -37,7 +37,7 @@ add_subdirectory(pcrcom)
 ### add_subdirectory(pcrvoxelstack)
 ### 
 ### add_subdirectory(api)
-add_subdirectory(tab)
+add_subdirectory(tab)  # OK
 ### add_subdirectory(geom)
 ### add_subdirectory(calc)
 ### add_subdirectory(pccts)

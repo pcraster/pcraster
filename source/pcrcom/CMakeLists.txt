@@ -100,51 +100,13 @@ SET(SOURCES
     com_uniquestringgenerator.cc
     com_unorderedcrosstable.cc
 )
-SET(TEST_SOURCES
-    com_algorithmtest.cc
-    com_anypointerstest.cc
-    com_binaryoperatorstest.cc
-    com_clonetest.cc
-    # mam only
-    # com_commandlineargumentstest.cc
-    # com_commandlineargumenttest.cc
-    # com_commandlinetest.cc
-    # com_argumentparsertest.cc
-    com_appargstest.cc
-    com_cpucyclecountertest.cc
-    com_csfcelltest.cc
-    com_directorytest.cc
-    com_filemaptest.cc
-    com_filetest.cc
-    com_functionstest.cc
-    com_intervalmaptest.cc
-    com_intervaltest.cc
-    com_irastertest.cc
-    com_keyvaluetabletest.cc
-    com_labeledprogresstrackertest.cc
-    com_mathtest.cc
-    com_mvgenerictest.cc
-    com_mvoptest.cc
-    com_parserstest.cc
-    com_pathinfotest.cc
-    com_pathnametest.cc
-    com_progressbartest.cc
-    com_rastertest.cc
-    com_rleptrvectortest.cc
-    com_singlevaluedrastertest.cc
-    com_spawntest.cc
-    # deprecated, see InTableStream docs
-    # com_intablestreamtest.cc
-    # com_tableinfotest.cc
-    # com_spiritfilelineparsertest.cc
-    com_spiritfileparsertest.cc
-    com_statisticstest.cc
-    com_strlibtest.cc
-    com_tabletest.cc
-    com_tempdirectorytest.cc
-    com_test.cc
-    com_unorderedcrosstabletest.cc
-)
+
+
+
+
+
+
+
 
 # # LSB does not define mallopt
 # IF(CMAKE_COMPILER_IS_GNUCC)
@@ -163,13 +125,9 @@ SET(TEST_SOURCES
 IF(WIN32)
     # Registry API WIN32 LIB.
     SET(SOURCES ${SOURCES} com_win32.cc com_win32registrykey.cc)
-    SET(TEST_SOURCES ${TEST_SOURCES} com_win32registrykeytest.cc)
 ENDIF(WIN32)
 ADD_LIBRARY(pcrcom
     ${SOURCES}
-)
-ADD_EXECUTABLE(test_pcrcom
-    ${TEST_SOURCES}
 )
 TARGET_LINK_LIBRARIES(pcrcom
     ${Boost_FILESYSTEM_LIBRARY}
@@ -183,15 +141,129 @@ IF(UNIX)
     TARGET_LINK_LIBRARIES(pcrcom dl)
 ENDIF(UNIX)
 
-TARGET_LINK_LIBRARIES(test_pcrcom
-    pcrcom
-)
 
-ADD_CUSTOM_TARGET(run_test_pcrcom
-    COMMAND bash ./testrun.prolog
-    COMMAND test_pcrcom --detect_memory_leaks=0
-    COMMAND bash ./testrun.epilog
-    DEPENDS test_pcrcom
-    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-)
-ADD_DEPENDENCIES(tests run_test_pcrcom)
+if(PCRASTER_BUILD_TEST)
+    set(TEST_NAMES
+        com_algorithmtest
+        com_anypointerstest
+        com_binaryoperatorstest
+        com_clonetest
+        ### # mam only
+        ### # com_commandlineargumentstest
+        ### # com_commandlineargumenttest
+        ### # com_commandlinetest
+        ### # com_argumentparsertest
+        com_appargstest
+        com_cpucyclecountertest
+        com_csfcelltest
+        com_directorytest
+        com_filemaptest
+        com_filetest
+        com_functionstest
+        com_intervalmaptest
+        com_intervaltest
+        ### com_irastertest
+        ### com_keyvaluetabletest
+        ### com_labeledprogresstrackertest
+        ### com_mathtest
+        ### com_mvgenerictest
+        ### com_mvoptest
+        ### com_parserstest
+        ### com_pathinfotest
+        ### com_pathnametest
+        ### com_progressbartest
+        ### com_rastertest
+        ### com_rleptrvectortest
+        ### com_singlevaluedrastertest
+        ### com_spawntest
+        ### # deprecated, see InTableStream docs
+        ### # com_intablestreamtest
+        ### # com_tableinfotest
+        ### # com_spiritfilelineparsertest
+        ### com_spiritfileparsertest
+        ### com_statisticstest
+        ### com_strlibtest
+        ### com_tabletest
+        ### com_tempdirectorytest
+        ### com_test
+        ### com_unorderedcrosstabletest
+    )
+    add_unit_tests(
+        SCOPE pcrcom
+        NAMES ${TEST_NAMES}
+        LINK_LIBRARIES
+            pcrcom
+    )
+endif()
+
+
+
+
+
+
+
+### SET(TEST_SOURCES
+###     com_algorithmtest.cc
+###     com_anypointerstest.cc
+###     com_binaryoperatorstest.cc
+###     com_clonetest.cc
+###     # mam only
+###     # com_commandlineargumentstest.cc
+###     # com_commandlineargumenttest.cc
+###     # com_commandlinetest.cc
+###     # com_argumentparsertest.cc
+###     com_appargstest.cc
+###     com_cpucyclecountertest.cc
+###     com_csfcelltest.cc
+###     com_directorytest.cc
+###     com_filemaptest.cc
+###     com_filetest.cc
+###     com_functionstest.cc
+###     com_intervalmaptest.cc
+###     com_intervaltest.cc
+###     com_irastertest.cc
+###     com_keyvaluetabletest.cc
+###     com_labeledprogresstrackertest.cc
+###     com_mathtest.cc
+###     com_mvgenerictest.cc
+###     com_mvoptest.cc
+###     com_parserstest.cc
+###     com_pathinfotest.cc
+###     com_pathnametest.cc
+###     com_progressbartest.cc
+###     com_rastertest.cc
+###     com_rleptrvectortest.cc
+###     com_singlevaluedrastertest.cc
+###     com_spawntest.cc
+###     # deprecated, see InTableStream docs
+###     # com_intablestreamtest.cc
+###     # com_tableinfotest.cc
+###     # com_spiritfilelineparsertest.cc
+###     com_spiritfileparsertest.cc
+###     com_statisticstest.cc
+###     com_strlibtest.cc
+###     com_tabletest.cc
+###     com_tempdirectorytest.cc
+###     com_test.cc
+###     com_unorderedcrosstabletest.cc
+### )
+### IF(WIN32)
+###     SET(TEST_SOURCES ${TEST_SOURCES} com_win32registrykeytest.cc)
+### ENDIF(WIN32)
+### 
+### ADD_EXECUTABLE(test_pcrcom
+###     ${TEST_SOURCES}
+### )
+### 
+### TARGET_LINK_LIBRARIES(test_pcrcom
+###     pcrcom
+### )
+### 
+### ADD_CUSTOM_TARGET(run_test_pcrcom
+###     COMMAND bash ./testrun.prolog
+###     COMMAND test_pcrcom --detect_memory_leaks=0
+###     COMMAND bash ./testrun.epilog
+###     DEPENDS test_pcrcom
+###     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+### )
+### ADD_DEPENDENCIES(tests run_test_pcrcom)

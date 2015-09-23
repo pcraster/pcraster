@@ -1,92 +1,15 @@
-#ifndef INCLUDED_STDDEFX
+#define BOOST_TEST_MODULE pcraster com clone
+#include <boost/test/unit_test.hpp>
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_COM_CLONETEST
-#include "com_clonetest.h"
-#define INCLUDED_COM_CLONETEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_COM_INTERVALTYPES
 #include "com_intervaltypes.h"
-#define INCLUDED_COM_INTERVALTYPES
-#endif
-#ifndef INCLUDED_COM_CLONE
 #include "com_clone.h"
-#define INCLUDED_COM_CLONE
-#endif
 
 
-/*!
-  \file
-  This file contains the implementation of the CloneTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC CLONE MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*com::CloneTest::suite()
+BOOST_AUTO_TEST_CASE(reset_clone)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<CloneTest> instance(new CloneTest());
+  using namespace com;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&CloneTest::testResetClone, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF CLONE MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-com::CloneTest::CloneTest()
-{
-}
-
-
-
-//! setUp
-void com::CloneTest::setUp()
-{
-}
-
-//! tearDown
-void com::CloneTest::tearDown()
-{
-}
-
-
-
-void com::CloneTest::testResetClone()
-{
-  typedef Interval<float> I; // virtual base of I
+  // typedef Interval<float> I; // virtual base of I
   typedef EqualTo<float>  E;
   {
     E* dest=new E(4);

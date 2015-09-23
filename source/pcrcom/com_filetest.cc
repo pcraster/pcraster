@@ -1,90 +1,16 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_COM_FILETEST
-#include "com_filetest.h"
-#define INCLUDED_COM_FILETEST
-#endif
-
-#ifndef INCLUDED_SSTREAM
+#define BOOST_TEST_MODULE pcraster com file
+#include <boost/test/unit_test.hpp>
 #include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-
-#ifndef INCLUDED_COM_PATHNAME
+#include "com_file.h"
 #include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
-
-#ifndef  INCLUDED_COM_EXCEPTION
-# include "com_exception.h"
-#define  INCLUDED_COM_EXCEPTION
-#endif
-
-#ifndef  INCLUDED_COM_PATHINFO
-# include "com_pathinfo.h"
-#define  INCLUDED_COM_PATHINFO
-#endif
-
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
+#include "com_exception.h"
+#include "com_pathinfo.h"
 
 
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC CLASS MEMBERS
-//------------------------------------------------------------------------------
-
-boost::unit_test::test_suite*com::FileTest::suite()
+BOOST_AUTO_TEST_CASE(open_ifstream)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<FileTest> instance(new FileTest());
+  using namespace com;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&FileTest::testMove, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&FileTest::testRemoveFile, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&FileTest::testOpenIfStream, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&FileTest::testOpenOfStream, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&FileTest::testFilesEqual, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&FileTest::testCopy, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&FileTest::testReadWriteSize, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&FileTest::testSkipWhiteSpace, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
-//------------------------------------------------------------------------------
-
-com::FileTest::FileTest(){
-}
-
-void com::FileTest::setUp()
-{
-}
-
-void com::FileTest::tearDown()
-{
-}
-
-void com::FileTest::testOpenIfStream()
-{
   bool visit;
 
   visit=false;
@@ -126,8 +52,10 @@ void com::FileTest::testOpenIfStream()
   BOOST_CHECK(!visit);
 }
 
-void com::FileTest::testOpenOfStream()
+
+BOOST_AUTO_TEST_CASE(open_ofstream)
 {
+  using namespace com;
 
   bool visit;
 
@@ -207,9 +135,10 @@ void com::FileTest::testOpenOfStream()
 }
 
 
-
-void com::FileTest::testMove()
+BOOST_AUTO_TEST_CASE(move_)
 {
+  using namespace com;
+
   bool moveFailed;
 
   // + Move existing regular file.
@@ -314,9 +243,10 @@ void com::FileTest::testMove()
 }
 
 
-
-void com::FileTest::testRemoveFile()
+BOOST_AUTO_TEST_CASE(remove_file)
 {
+  using namespace com;
+
  try {
   PathName f1("rm_file");
   com::remove(f1);
@@ -345,16 +275,22 @@ void com::FileTest::testRemoveFile()
  BOOST_CHECK(visit);
 }
 
-void com::FileTest::testFilesEqual()
+
+BOOST_AUTO_TEST_CASE(files_equal)
 {
+  using namespace com;
+
   BOOST_CHECK(filesEqual("fe_one","fe_one"));
   BOOST_CHECK(!filesEqual("fe_one","fe_two"));
   BOOST_CHECK(!filesEqual("fe_empty","fe_one"));
   BOOST_CHECK(filesEqual("fe_empty","fe_empty"));
 }
 
-void com::FileTest::testCopy()
+
+BOOST_AUTO_TEST_CASE(copy_)
 {
+  using namespace com;
+
  {
   remove("result.tmp");
   copy("fe_one","result.tmp");
@@ -391,8 +327,10 @@ void com::FileTest::testCopy()
 }
 
 //! test both read and write
-void com::FileTest::testReadWriteSize()
+BOOST_AUTO_TEST_CASE(read_write_size)
 {
+  using namespace com;
+
  {
   std::string c;
   PathName pn("fe_empty");
@@ -427,8 +365,11 @@ void com::FileTest::testReadWriteSize()
  }
 }
 
-void com::FileTest::testSkipWhiteSpace()
+
+BOOST_AUTO_TEST_CASE(skip_white_space)
 {
+  using namespace com;
+
   // Mmm, doesn't work.
   std::stringstream stream("   a\n\t ");
   stream.seekg(0);

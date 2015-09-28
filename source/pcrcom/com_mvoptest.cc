@@ -1,78 +1,10 @@
-#ifndef INCLUDED_STDDEFX
+#define BOOST_TEST_MODULE pcraster com mv_op
+#include <boost/test/unit_test.hpp>
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_COM_MVOPTEST
-#include "com_mvoptest.h"
-#define INCLUDED_COM_MVOPTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_STATIC_ASSERT
-#include <boost/static_assert.hpp>
-#define INCLUDED_BOOST_STATIC_ASSERT
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-#ifndef INCLUDED_BITSET
 #include <bitset>
-#define INCLUDED_BITSET
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_COM_MVOP
 #include "com_mvop.h"
-#define INCLUDED_COM_MVOP
-#endif
-#ifndef INCLUDED_COM_CSFCELL
 #include "com_csfcell.h"
-#define INCLUDED_COM_CSFCELL
-#endif
 
-/*!
-  \file
-  This file contains the implementation of the MVOpTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC MVOP MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*com::MVOpTest::suite()
-{
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<MVOpTest> instance(new MVOpTest());
-
-  suite->add(BOOST_CLASS_TEST_CASE(&MVOpTest::testStaticAsserts, instance));
-#ifndef PCRASTER_LSB
-  suite->add(BOOST_CLASS_TEST_CASE(&MVOpTest::testOp<float>, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&MVOpTest::testOp<double>, instance));
-#endif
-  suite->add(BOOST_CLASS_TEST_CASE(&MVOpTest::testImplicitCastStaticAsserts, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&MVOpTest::testStaticAss, instance));
-
-  return suite;
-}
 
 #ifndef PCRASTER_LSB
 template<typename T>
@@ -91,33 +23,12 @@ static std::string asStr(char const* bits)
 }
 #endif
 
-//------------------------------------------------------------------------------
-// DEFINITION OF MVOP MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-com::MVOpTest::MVOpTest()
-{
-}
-
-
-
-//! setUp
-void com::MVOpTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void com::MVOpTest::tearDown()
-{
-}
-
 
 template<typename T>
-void com::MVOpTest::testOp()
+void testOp()
 {
+  using namespace com;
+
   typedef MVOp<T> R;
 
   {
@@ -206,8 +117,19 @@ void com::MVOpTest::testOp()
 }
 
 
-void com::MVOpTest::testStaticAss()
+#ifndef PCRASTER_LSB
+BOOST_AUTO_TEST_CASE(test_op)
 {
+  testOp<float>();
+  testOp<double>();
+}
+#endif
+
+
+BOOST_AUTO_TEST_CASE(static_ass)
+{
+  using namespace com;
+
   typedef MVOp<float> R;
   float dest=1;
   float src =3;
@@ -226,8 +148,10 @@ void com::MVOpTest::testStaticAss()
 #define STATIC_ASSERT_OFF(statement)
 
 
-void com::MVOpTest::testStaticAsserts()
+BOOST_AUTO_TEST_CASE(static_asserts)
 {
+  using namespace com;
+
   struct Test {
   // no object size bloat allowed, only size of single value d_v
     BOOST_STATIC_ASSERT(sizeof(float) ==sizeof(MVOp<float>));
@@ -245,8 +169,11 @@ void com::MVOpTest::testStaticAsserts()
   STATIC_ASSERT_OFF(MVOp<long double> l);
 }
 
-void com::MVOpTest::testImplicitCastStaticAsserts()
+
+BOOST_AUTO_TEST_CASE(implicit_cast_static_asserts)
 {
+  using namespace com;
+
  { // cannot stick float into double
   float w4=3;
   MVOp<double> v8(1.0);

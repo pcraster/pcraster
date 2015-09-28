@@ -1,101 +1,47 @@
-#ifndef INCLUDED_STDDEFX
+#define BOOST_TEST_MODULE pcraster com path_name
+#include <boost/test/unit_test.hpp>
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_COM_PATHNAMETEST
-#include "com_pathnametest.h"
-#define INCLUDED_COM_PATHNAMETEST
-#endif
-
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-#ifndef INCLUDED_COM_PATHNAME
 #include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
-#ifndef INCLUDED_COM_PATHINFO
 #include "com_pathinfo.h"
-#define INCLUDED_COM_PATHINFO
-#endif
 
 
+// These are the mothers of all tests in path name.
+// Test if we get back what we put in.
+//   testCtor
+//   testToString
+//
+// Test if we get the right parts of what we put in.
+//   testSplitFor
+//
+// First the tests which query the path name.
+//   testIsEmpty
+//   testIsRelative
+//   testExtension
+//   testRemoveExtension
+//
+// Then the functions which need those query functions of PathName.
+//   testAdd
+//   testUp
+//   testMakeNative
+//   testMakeAbsolute
+//
+// The mother test of all path name comparisons.
+//   testCompare
+//
+// then the brilliant tests of Cees
+//   testEquals
+//   testClear
+//
+//   testUnc
 
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC CLASS MEMBERS
-//------------------------------------------------------------------------------
 
-boost::unit_test::test_suite*com::PathNameTest::suite()
+static std::string d_slash(com::PathName::dirPathDelimNative());
+
+
+BOOST_AUTO_TEST_CASE(constructor)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<PathNameTest> instance(new PathNameTest());
+  using namespace com;
 
-  // These are the mothers of all tests in path name.
-  // Test if we get back what we put in.
-  suite->add(BOOST_CLASS_TEST_CASE(&PathNameTest::testCtor, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&PathNameTest::testToString, instance));
-  // Test if we get the right parts of what we put in.
-  suite->add(BOOST_CLASS_TEST_CASE(&PathNameTest::testSplitFor, instance));
-
-  // Order matters! First the tests which query the path name.
-  suite->add(BOOST_CLASS_TEST_CASE(&PathNameTest::testIsEmpty, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&PathNameTest::testIsRelative, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&PathNameTest::testExtension, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&PathNameTest::testRemoveExtension, instance));
-
-  // Then the functions which need those query functions of PathName.
-  suite->add(BOOST_CLASS_TEST_CASE(&PathNameTest::testAdd, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&PathNameTest::testUp, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&PathNameTest::testMakeNative, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&PathNameTest::testMakeAbsolute, instance));
-
-  // The mother test of all path name comparisons.
-  suite->add(BOOST_CLASS_TEST_CASE(&PathNameTest::testCompare, instance));
-
-  // then the brilliant tests of Cees
-  suite->add(BOOST_CLASS_TEST_CASE(&PathNameTest::testEquals, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&PathNameTest::testClear, instance));
-
-  suite->add(BOOST_CLASS_TEST_CASE(&PathNameTest::testUnc, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS
-//------------------------------------------------------------------------------
-
-com::PathNameTest::PathNameTest()
-
-  :    d_slash(PathName::dirPathDelimNative())
-{
-}
-
-void com::PathNameTest::setUp()
-{
-}
-
-void com::PathNameTest::tearDown()
-{
-}
-
-void com::PathNameTest::testCtor()
-{
   com::PathName pn("../messagestest.xml");
   BOOST_CHECK(!pn.isAbsolute());
 
@@ -107,8 +53,11 @@ void com::PathNameTest::testCtor()
   BOOST_WARN(todoHaatQuoteInNaam);
 }
 
-void com::PathNameTest::testToString()
+
+BOOST_AUTO_TEST_CASE(to_string)
 {
+  using namespace com;
+
   PathName pn;
   std::string result;
 
@@ -195,8 +144,10 @@ void com::PathNameTest::testToString()
 }
 
 
-void com::PathNameTest::testSplitFor()
+BOOST_AUTO_TEST_CASE(split_for)
 {
+  using namespace com;
+
   PathName pn;
 #ifdef WIN32
   std::string drive;
@@ -352,11 +303,10 @@ void com::PathNameTest::testSplitFor()
 }
 
 
-
-
-
-void com::PathNameTest::testIsEmpty()
+BOOST_AUTO_TEST_CASE(is_empty)
 {
+  using namespace com;
+
   PathName pn;
   BOOST_CHECK(pn.isEmpty());
 
@@ -373,9 +323,10 @@ void com::PathNameTest::testIsEmpty()
 }
 
 
-
-void com::PathNameTest::testIsRelative()
+BOOST_AUTO_TEST_CASE(is_relative)
 {
+  using namespace com;
+
   PathName pn;
 
   // ""
@@ -433,9 +384,10 @@ void com::PathNameTest::testIsRelative()
 }
 
 
-
-void com::PathNameTest::testMakeAbsolute()
+BOOST_AUTO_TEST_CASE(make_absolute)
 {
+  using namespace com;
+
   PathName pathName;
 
   pathName = PathName("bla");
@@ -444,8 +396,11 @@ void com::PathNameTest::testMakeAbsolute()
   BOOST_CHECK(pathName.isAbsolute());
 }
 
-void com::PathNameTest::testExtension()
+
+BOOST_AUTO_TEST_CASE(extension)
 {
+  using namespace com;
+
   PathName pn("bla.txt");
   BOOST_CHECK(pn.hasExtension());
   BOOST_CHECK_EQUAL(pn.extension(), "txt");
@@ -520,8 +475,11 @@ void com::PathNameTest::testExtension()
   BOOST_CHECK(pn == PathName("bla.txt"));
 }
 
-void com::PathNameTest::testRemoveExtension()
+
+BOOST_AUTO_TEST_CASE(remove_extension)
 {
+  using namespace com;
+
   {
     PathName pn("bla");
     pn.addExtension("txt");
@@ -547,9 +505,10 @@ void com::PathNameTest::testRemoveExtension()
 }
 
 
-
-void com::PathNameTest::testAdd()
+BOOST_AUTO_TEST_CASE(add)
 {
+  using namespace com;
+
   PathName pn;
   std::string result;
 
@@ -673,9 +632,10 @@ void com::PathNameTest::testAdd()
 }
 
 
-
-void com::PathNameTest::testUp()
+BOOST_AUTO_TEST_CASE(up)
 {
+  using namespace com;
+
   std::string result;
   PathName pn;
 
@@ -769,8 +729,11 @@ void com::PathNameTest::testUp()
 #endif
 }
 
-void com::PathNameTest::testMakeNative()
+
+BOOST_AUTO_TEST_CASE(make_native)
 {
+  using namespace com;
+
   std::string result;
   PathName pn;
 
@@ -782,8 +745,11 @@ void com::PathNameTest::testMakeNative()
   BOOST_CHECK(pn == result);
 }
 
-void com::PathNameTest::testCompare()
+
+BOOST_AUTO_TEST_CASE(compare)
 {
+  using namespace com;
+
   PathName path1("abc");
   PathName path2("def");
   PathName path3("DEF");
@@ -801,8 +767,11 @@ void com::PathNameTest::testCompare()
 #endif
 }
 
-void com::PathNameTest::testClear()
+
+BOOST_AUTO_TEST_CASE(clear)
 {
+  using namespace com;
+
 #ifdef WIN32
   PathName pn("C:\\pcrcalc\\testdir");
 #else
@@ -814,8 +783,10 @@ void com::PathNameTest::testClear()
 }
 
 
-void com::PathNameTest::testEquals()
+BOOST_AUTO_TEST_CASE(equals)
 {
+  using namespace com;
+
 #ifdef WIN32
   PathName dirNoEndSlash("C:\\pcrcalc\\testdir");
   PathName dirEndSlash("C:\\pcrcalc\\testdir\\");
@@ -835,18 +806,19 @@ void com::PathNameTest::testEquals()
   BOOST_CHECK(cd.equals(travel));
 }
 
-void com::PathNameTest::testUnc()
+
+BOOST_AUTO_TEST_CASE(unc)
 {
-  #ifndef WIN32
+  using namespace com;
+
+#ifndef WIN32
   bool notWin32=true;
   if (notWin32)
      return;
-  #endif
+#endif
 
   PathName pn("\\\\P4\\bin");
   boost::filesystem::path bp("//P4/bin");
   BOOST_CHECK_EQUAL(bp.root_name(), "//P4");
   BOOST_CHECK_EQUAL(pn.directoryName(), "\\\\P4\\");
-
-
 }

@@ -1,82 +1,23 @@
-#ifndef INCLUDED_STDDEFX
+#define BOOST_TEST_MODULE pcraster com statistics
+#include <boost/test/unit_test.hpp>
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_COM_STATISTICSTEST
-#include "com_statisticstest.h"
-#define INCLUDED_COM_STATISTICSTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_CMATH
 #include <cmath>
-#define INCLUDED_CMATH
-#endif
-
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_ALGORITHM
 #include "com_algorithm.h"
-#define INCLUDED_COM_ALGORITHM
-#endif
-
-// Module headers.
-#ifndef INCLUDED_COM_STATISTICS
 #include "com_statistics.h"
-#define INCLUDED_COM_STATISTICS
-#endif
 
 
+// KDJ, 20150928: Some tests used to be excluded on certain platforms:
 
-/*!
-  \file
-  This file contains the implementation of the StatisticsTest class.
-*/
+// #ifndef __x86_64__
+//   // bugzilla #80
+//   suite->add(BOOST_CLASS_TEST_CASE(&StatisticsTest::testVariance1, instance));
+//   suite->add(BOOST_CLASS_TEST_CASE(&StatisticsTest::testVariance2, instance));
+//   suite->add(BOOST_CLASS_TEST_CASE(&StatisticsTest::testStandardDeviation, instance));
+//   suite->add(BOOST_CLASS_TEST_CASE(&StatisticsTest::testPercentile, instance));
+// #else
+//   suite->add(BOOST_CLASS_TEST_CASE(&StatisticsTest::testSuse, instance));
+// #endif
 
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC STATISTICS MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*com::StatisticsTest::suite()
-{
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<StatisticsTest> instance(new StatisticsTest());
-
-  suite->add(BOOST_CLASS_TEST_CASE(&StatisticsTest::testSum, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&StatisticsTest::testSumNr, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&StatisticsTest::testAverage, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&StatisticsTest::testAverageMinMax, instance));
-
-#ifndef __x86_64__
-  // bugzilla #80
-  suite->add(BOOST_CLASS_TEST_CASE(&StatisticsTest::testVariance1, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&StatisticsTest::testVariance2, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&StatisticsTest::testStandardDeviation, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&StatisticsTest::testPercentile, instance));
-#else
-  suite->add(BOOST_CLASS_TEST_CASE(&StatisticsTest::testSuse, instance));
-#endif
-  suite->add(BOOST_CLASS_TEST_CASE(&StatisticsTest::testAverageSdMinMax, instance));
-  return suite;
-}
 
 namespace com {
  namespace statisticsTest {
@@ -90,30 +31,10 @@ namespace com {
 }
 
 
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATISTICS MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-com::StatisticsTest::StatisticsTest()
+BOOST_AUTO_TEST_CASE(sum)
 {
-}
+  using namespace com;
 
-
-
-//! setUp
-void com::StatisticsTest::setUp()
-{
-}
-
-//! tearDown
-void com::StatisticsTest::tearDown()
-{
-}
-
-void com::StatisticsTest::testSum()
-{
   int values[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
   const size_t nrValues = ARRAY_SIZE(values);
 
@@ -123,8 +44,11 @@ void com::StatisticsTest::testSum()
   BOOST_CHECK(sum.sum() == 55);
 }
 
-void com::StatisticsTest::testSumNr()
+
+BOOST_AUTO_TEST_CASE(sum_nr)
 {
+  using namespace com;
+
   int values[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
   const size_t nrValues = ARRAY_SIZE(values);
   SumNr<int> sum = std::for_each(values, values + nrValues, SumNr<int>());
@@ -133,8 +57,11 @@ void com::StatisticsTest::testSumNr()
   BOOST_CHECK(sum.nr() ==  nrValues);
 }
 
-void com::StatisticsTest::testAverage()
+
+BOOST_AUTO_TEST_CASE(average)
 {
+  using namespace com;
+
   double values[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
   const size_t nrValues = ARRAY_SIZE(values);
   Average<> a = std::for_each(values, values + nrValues, 
@@ -149,8 +76,11 @@ void com::StatisticsTest::testAverage()
   BOOST_CHECK(empty.average(-1)==-1);
 }
 
-void com::StatisticsTest::testAverageMinMax()
+
+BOOST_AUTO_TEST_CASE(average_min_max)
 {
+  using namespace com;
+
   {
     double values[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
     const size_t nrValues = ARRAY_SIZE(values);
@@ -177,8 +107,11 @@ void com::StatisticsTest::testAverageMinMax()
   }
 }
 
-void com::StatisticsTest::testVariance1()
+
+BOOST_AUTO_TEST_CASE(variance_1)
 {
+  using namespace com;
+
   // Empty collection.
   {
     double *values = 0;
@@ -208,9 +141,10 @@ void com::StatisticsTest::testVariance1()
 }
 
 
-
-void com::StatisticsTest::testVariance2()
+BOOST_AUTO_TEST_CASE(variance_2)
 {
+  using namespace com;
+
   // Empty collection.
   {
     double *values = 0;
@@ -240,9 +174,10 @@ void com::StatisticsTest::testVariance2()
 }
 
 
-
-void com::StatisticsTest::testStandardDeviation()
+BOOST_AUTO_TEST_CASE(standard_deviation)
 {
+  using namespace com;
+
   // Empty collection.
   {
     double *values = 0;
@@ -271,8 +206,10 @@ void com::StatisticsTest::testStandardDeviation()
   }
 }
 
-void com::StatisticsTest::testAverageSdMinMax()
+
+BOOST_AUTO_TEST_CASE(average_sd_min_max)
 {
+  using namespace com;
 
   // Collection with different values.
   {
@@ -310,8 +247,12 @@ void com::StatisticsTest::testAverageSdMinMax()
   }
 }
 
-void com::StatisticsTest::testPercentile()
+
+BOOST_AUTO_TEST_CASE(percentile_)
 {
+#ifndef __x86_64__
+  using namespace com;
+
   typedef std::vector<double> T;
   typedef T::iterator         I;
  {
@@ -376,10 +317,14 @@ void com::StatisticsTest::testPercentile()
   BOOST_CHECK(*percentile<I>(e.begin(),e.end(),1)      == 4);
   BOOST_CHECK(*percentile<I>(e.begin(),e.end(),0.9994) == 4);
  }
+#endif
 }
 
-void com::StatisticsTest::testSuse()
+
+BOOST_AUTO_TEST_CASE(suse)
 {
+  using namespace com;
+
   bool suse64FailsALot=false;
   BOOST_WARN(suse64FailsALot);
 }

@@ -1,105 +1,13 @@
-#ifndef INCLUDED_DAL_DIMENSIONTEST
-#include "dal_DimensionTest.h"
-#define INCLUDED_DAL_DIMENSIONTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_DIMENSION
+#define BOOST_TEST_MODULE pcraster dal dimension
+#include <boost/test/unit_test.hpp>
 #include "dal_Dimension.h"
-#define INCLUDED_DAL_DIMENSION
-#endif
-
-#ifndef INCLUDED_DAL_RASTERDIMENSIONS
 #include "dal_RasterDimensions.h"
-#define INCLUDED_DAL_RASTERDIMENSIONS
-#endif
 
 
-
-/*!
-  \file
-  This file contains the implementation of the DimensionTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC DIMENSION MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*dal::DimensionTest::suite()
+BOOST_AUTO_TEST_CASE(test_)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<DimensionTest> instance(new DimensionTest());
+  using namespace dal;
 
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &DimensionTest::test, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &DimensionTest::testContainsValueInRange, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &DimensionTest::testClamp, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &DimensionTest::testIndexOfValueOf, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &DimensionTest::testMerge, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &DimensionTest::testIntersect, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &DimensionTest::testNrCoordinates, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &DimensionTest::testIsWide, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF DIMENSION MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-dal::DimensionTest::DimensionTest()
-{
-}
-
-
-
-//! setUp
-void dal::DimensionTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void dal::DimensionTest::tearDown()
-{
-}
-
-
-
-void dal::DimensionTest::test()
-{
   {
     std::set<std::string> scenarios;
     scenarios.insert("aap");
@@ -113,9 +21,10 @@ void dal::DimensionTest::test()
 }
 
 
-
-void dal::DimensionTest::testContainsValueInRange()
+BOOST_AUTO_TEST_CASE(contains_value_in_range)
 {
+  using namespace dal;
+
   {
     std::vector<size_t> values;
     values.push_back(2);
@@ -190,9 +99,10 @@ void dal::DimensionTest::testContainsValueInRange()
 }
 
 
-
-void dal::DimensionTest::testClamp()
+BOOST_AUTO_TEST_CASE(clamp)
 {
+  using namespace dal;
+
   std::vector<float> values;
   values.push_back(0.01f);
   values.push_back(0.99f);
@@ -202,10 +112,10 @@ void dal::DimensionTest::testClamp()
 }
 
 
-
-
-void dal::DimensionTest::testIndexOfValueOf()
+BOOST_AUTO_TEST_CASE(index_of_value_of)
 {
+  using namespace dal;
+
   float first = 0.01f;
   float last = 0.99f;
   float interval = 0.01f;
@@ -226,9 +136,10 @@ void dal::DimensionTest::testIndexOfValueOf()
 }
 
 
-
-void dal::DimensionTest::testMerge()
+BOOST_AUTO_TEST_CASE(merge)
 {
+  using namespace dal;
+
   {
     std::vector<size_t> values1, values2;
 
@@ -312,17 +223,19 @@ void dal::DimensionTest::testMerge()
 }
 
 
-
-void dal::DimensionTest::testIntersect()
+BOOST_AUTO_TEST_CASE(intersect)
 {
+  using namespace dal;
+
   bool testIntersectImplemented = false;
   BOOST_WARN(testIntersectImplemented);
 }
 
 
-
-void dal::DimensionTest::testNrCoordinates()
+BOOST_AUTO_TEST_CASE(nr_coordinates)
 {
+  using namespace dal;
+
   {
     RasterDimensions dimensions(3, 4, 1.5);
     Dimension dimension(Space, RegularDiscretisation, dimensions);
@@ -344,9 +257,10 @@ void dal::DimensionTest::testNrCoordinates()
 }
 
 
-
-void dal::DimensionTest::testIsWide()
+BOOST_AUTO_TEST_CASE(is_wide)
 {
+  using namespace dal;
+
   {
     Dimension dimension(Time, size_t(5), size_t(5), size_t(1));
     BOOST_CHECK(!dimension.isWide());
@@ -367,5 +281,3 @@ void dal::DimensionTest::testIsWide()
     BOOST_CHECK(dimension.isWide());
   }
 }
-
-

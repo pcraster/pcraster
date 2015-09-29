@@ -1,115 +1,15 @@
-#ifndef INCLUDED_DAL_DATASPACETEST
-#include "dal_DataSpaceTest.h"
-#define INCLUDED_DAL_DATASPACETEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_DATASPACE
+#define BOOST_TEST_MODULE pcraster dal data_space_test
+#include <boost/test/unit_test.hpp>
 #include "dal_DataSpace.h"
-#define INCLUDED_DAL_DATASPACE
-#endif
-
-#ifndef INCLUDED_DAL_DATASPACEADDRESS
 #include "dal_DataSpaceAddress.h"
-#define INCLUDED_DAL_DATASPACEADDRESS
-#endif
-
-#ifndef INCLUDED_DAL_DIMENSION
 #include "dal_Dimension.h"
-#define INCLUDED_DAL_DIMENSION
-#endif
-
-#ifndef INCLUDED_DAL_RASTERDIMENSIONS
 #include "dal_RasterDimensions.h"
-#define INCLUDED_DAL_RASTERDIMENSIONS
-#endif
 
 
-
-/*!
-  \file
-  This file contains the implementation of the DataSpaceTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC DATASPACE MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*dal::DataSpaceTest::suite()
+BOOST_AUTO_TEST_CASE(test_)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<DataSpaceTest> instance(new DataSpaceTest());
+  using namespace dal;
 
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &DataSpaceTest::test, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &DataSpaceTest::testMerge, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &DataSpaceTest::testIntersect, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &DataSpaceTest::testTrim, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &DataSpaceTest::testInitialiseInvalidCoordinates, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &DataSpaceTest::testEquals, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &DataSpaceTest::testReplaceDimension, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &DataSpaceTest::testContains, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF DATASPACE MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-dal::DataSpaceTest::DataSpaceTest()
-{
-}
-
-
-
-//! setUp
-void dal::DataSpaceTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void dal::DataSpaceTest::tearDown()
-{
-}
-
-
-
-void dal::DataSpaceTest::test()
-{
   {
     // scenario / time / space / space
 
@@ -163,9 +63,10 @@ void dal::DataSpaceTest::test()
 }
 
 
-
-void dal::DataSpaceTest::testMerge()
+BOOST_AUTO_TEST_CASE(merge)
 {
+  using namespace dal;
+
   std::set<std::string> scenarios;
   scenarios.insert("aap");
 
@@ -511,9 +412,10 @@ void dal::DataSpaceTest::testMerge()
 }
 
 
-
-void dal::DataSpaceTest::testIntersect()
+BOOST_AUTO_TEST_CASE(intersect)
 {
+  using namespace dal;
+
   std::set<std::string> scenarios;
   scenarios.insert("aap");
   scenarios.insert("noot");
@@ -628,9 +530,10 @@ void dal::DataSpaceTest::testIntersect()
 }
 
 
-
-void dal::DataSpaceTest::testTrim()
+BOOST_AUTO_TEST_CASE(trim)
 {
+  using namespace dal;
+
   std::set<std::string> scenarios;
   std::vector<size_t> timeSteps;
   scenarios.insert("aap");
@@ -842,9 +745,10 @@ void dal::DataSpaceTest::testTrim()
 }
 
 
-
-void dal::DataSpaceTest::testInitialiseInvalidCoordinates()
+BOOST_AUTO_TEST_CASE(initialise_invalid_coordinates)
 {
+  using namespace dal;
+
   DataSpace space;
   DataSpaceAddress address;
 
@@ -1017,9 +921,10 @@ void dal::DataSpaceTest::testInitialiseInvalidCoordinates()
 }
 
 
-
-void dal::DataSpaceTest::testEquals()
+BOOST_AUTO_TEST_CASE(equals)
 {
+  using namespace dal;
+
   DataSpace space1, space2;
 
   RasterDimensions rasterDimensions(96, 95, 3.0, 5.5, 6.6);
@@ -1037,11 +942,10 @@ void dal::DataSpaceTest::testEquals()
 }
 
 
-
-namespace dal {
-
-void DataSpaceTest::testReplaceDimension()
+BOOST_AUTO_TEST_CASE(replace_dimension)
 {
+  using namespace dal;
+
   DataSpace space;
 
   std::vector<size_t> timeSteps;
@@ -1059,9 +963,10 @@ void DataSpaceTest::testReplaceDimension()
 }
 
 
-
-void DataSpaceTest::testContains()
+BOOST_AUTO_TEST_CASE(contains)
 {
+  using namespace dal;
+
   {
     std::vector<size_t> timeSteps;
     timeSteps.push_back( 9);
@@ -1139,6 +1044,4 @@ void DataSpaceTest::testContains()
     address.setCoordinate<float>(0, 0.1f);
     BOOST_CHECK(space.contains(address));
   }
-}
-
 }

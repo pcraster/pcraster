@@ -38,6 +38,12 @@
 #endif
 
 
+  Table*           d_table1;
+
+  Table*           d_table2;
+
+  Table*           d_table3;
+
 
 /*!
   \file

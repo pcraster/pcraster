@@ -1,121 +1,27 @@
-#ifndef INCLUDED_DAL_CSFRASTERDRIVERTEST
-#include "dal_CSFRasterDriverTest.h"
-#define INCLUDED_DAL_CSFRASTERDRIVERTEST
-#endif
-
-// Library headers.
-#include <boost/shared_ptr.hpp>
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_CSFRASTERDRIVER
+#define BOOST_TEST_MODULE pcraster dal csf_raster_driver
+#include <boost/test/unit_test.hpp>
 #include "dal_CSFRasterDriver.h"
-#define INCLUDED_DAL_CSFRASTERDRIVER
-#endif
-
-#ifndef INCLUDED_DAL_EXCEPTION
 #include "dal_Exception.h"
-#define INCLUDED_DAL_EXCEPTION
-#endif
-
-#ifndef INCLUDED_DAL_FILESYSTEMUTILS
 #include "dal_FilesystemUtils.h"
-#define INCLUDED_DAL_FILESYSTEMUTILS
-#endif
+#define protected public
+#include "dal_Client.h"
+
+static dal::Client client("/my/path/csf_raster_driver_test", true);
 
 
-
-/*!
-  \file
-  This file contains the implementation of the CSFRasterDriverTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-
-
-namespace dal {
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC CSFRASTERDRIVER MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite* CSFRasterDriverTest::suite()
+BOOST_AUTO_TEST_CASE(description)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<CSFRasterDriverTest> instance(new CSFRasterDriverTest());
+  using namespace dal;
 
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &CSFRasterDriverTest::testDescription, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &CSFRasterDriverTest::testUnexisting, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &CSFRasterDriverTest::testEmpty, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &CSFRasterDriverTest::testDtmSmall, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &CSFRasterDriverTest::testAccuLddIMap, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &CSFRasterDriverTest::testNames, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &CSFRasterDriverTest::testWrite, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &CSFRasterDriverTest::testProperties, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &CSFRasterDriverTest::testQuery, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF CSFRASTERDRIVER MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-CSFRasterDriverTest::CSFRasterDriverTest()
-{
-}
-
-
-
-//! setUp
-void CSFRasterDriverTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void CSFRasterDriverTest::tearDown()
-{
-}
-
-
-
-void CSFRasterDriverTest::testDescription()
-{
   CSFRasterDriver driver;
   BOOST_CHECK_EQUAL(driver.description(), "CSF-2.0 raster file format");
 }
 
 
-
-void CSFRasterDriverTest::testUnexisting()
+BOOST_AUTO_TEST_CASE(unexisting)
 {
+  using namespace dal;
+
   std::string filename = "unexisting";
   CSFRasterDriver driver;
 
@@ -139,9 +45,10 @@ void CSFRasterDriverTest::testUnexisting()
 }
 
 
-
-void CSFRasterDriverTest::testEmpty()
+BOOST_AUTO_TEST_CASE(empty)
 {
+  using namespace dal;
+
   std::string filename = "emptyfile";
   CSFRasterDriver driver;
 
@@ -163,9 +70,10 @@ void CSFRasterDriverTest::testEmpty()
 }
 
 
-
-void CSFRasterDriverTest::testDtmSmall()
+BOOST_AUTO_TEST_CASE(dtm_small)
 {
+  using namespace dal;
+
   std::string filename = "dtmsmall.map";
   CSFRasterDriver driver;
   Raster* raster;
@@ -224,8 +132,10 @@ void CSFRasterDriverTest::testDtmSmall()
 }
 
 
-void CSFRasterDriverTest::testAccuLddIMap()
+BOOST_AUTO_TEST_CASE(accu_ldd_i_map)
 {
+  using namespace dal;
+
   std::string filename = "accu.Ldd.imap";
   CSFRasterDriver driver;
   Raster* raster;
@@ -296,9 +206,10 @@ void CSFRasterDriverTest::testAccuLddIMap()
 }
 
 
-
-void CSFRasterDriverTest::testNames()
+BOOST_AUTO_TEST_CASE(names)
 {
+  using namespace dal;
+
   std::string filename = "sillyname";
   CSFRasterDriver driver;
   Raster* raster;
@@ -353,9 +264,10 @@ void CSFRasterDriverTest::testNames()
 }
 
 
-
-void CSFRasterDriverTest::testWrite()
+BOOST_AUTO_TEST_CASE(write_)
 {
+  using namespace dal;
+
   // Create a raster to write.
   size_t nrRows = 2;
   size_t nrCols = 3;
@@ -389,9 +301,10 @@ void CSFRasterDriverTest::testWrite()
 }
 
 
-
-void CSFRasterDriverTest::testProperties()
+BOOST_AUTO_TEST_CASE(properties)
 {
+  using namespace dal;
+
   std::string name = "d83.map";
 
   CSFRasterDriver driver;
@@ -451,9 +364,10 @@ void CSFRasterDriverTest::testProperties()
 }
 
 
-
-void CSFRasterDriverTest::testQuery()
+BOOST_AUTO_TEST_CASE(query)
 {
+  using namespace dal;
+
   // Test whether the space of the query result is correct.
 
   CSFRasterDriver driver;
@@ -490,5 +404,3 @@ void CSFRasterDriverTest::testQuery()
     BOOST_CHECK_EQUAL(address.coordinate<size_t>(0), size_t(10));
   }
 }
-
-} // namespace dal

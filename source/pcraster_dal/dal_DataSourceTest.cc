@@ -1,62 +1,11 @@
-#ifndef INCLUDED_DAL_DATASOURCETEST
-#include "dal_DataSourceTest.h"
-#define INCLUDED_DAL_DATASOURCETEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_FILESYSTEM_PATH
-#include <boost/filesystem/path.hpp>
-#define INCLUDED_BOOST_FILESYSTEM_PATH
-#endif
-
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_DATASOURCE
+#define BOOST_TEST_MODULE pcraster dal data_source
+#include <boost/test/unit_test.hpp>
 #include "dal_DataSource.h"
-#define INCLUDED_DAL_DATASOURCE
-#endif
-
-#ifndef INCLUDED_DAL_EXCEPTION
 #include "dal_Exception.h"
-#define INCLUDED_DAL_EXCEPTION
-#endif
-
-#ifndef INCLUDED_DAL_RASTER
 #include "dal_Raster.h"
-#define INCLUDED_DAL_RASTER
-#endif
-
-#ifndef INCLUDED_DAL_SPATIALCOORDINATE
 #include "dal_SpatialCoordinate.h"
-#define INCLUDED_DAL_SPATIALCOORDINATE
-#endif
-
-#ifndef INCLUDED_DAL_STACKINFO
 #include "dal_StackInfo.h"
-#define INCLUDED_DAL_STACKINFO
-#endif
-
-#ifndef INCLUDED_DAL_TABLE
 #include "dal_Table.h"
-#define INCLUDED_DAL_TABLE
-#endif
-
 #ifdef _MSC_VER
 #ifdef _WIN64
 // compiler hangs otherwise
@@ -64,75 +13,33 @@
 #pragma warning(once: 4748)
 #endif
 #endif
+#define protected public
+#include "dal_Client.h"
 
-/*!
-  \file
-  This file contains the implementation of the DataSourceTest class.
-*/
 
-// NOTE use string failureExpected in files expected to fail, see style guide
+static dal::Client client("/my/path/csf_raster_driver_test", true);
 
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC DATASOURCE MEMBERS
-//------------------------------------------------------------------------------
 
-//! suite
-boost::unit_test::test_suite*dal::DataSourceTest::suite()
+struct Fixture
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<DataSourceTest> instance(new DataSourceTest());
 
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &DataSourceTest::testUnexisting, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &DataSourceTest::test, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &DataSourceTest::testSoil, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &DataSourceTest::testUniqueValues, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &DataSourceTest::testRaster, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &DataSourceTest::testDataset1, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &DataSourceTest::testDataset1Quantiles, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &DataSourceTest::testUncertainTemporalFeatureLayer, instance));
+    Fixture()
+    {
+        dal::Driver::datasetProperties().clear();
+    }
 
-  return suite;
-}
+    ~Fixture()
+    {
+    }
+
+};
 
 
+BOOST_FIXTURE_TEST_SUITE(data_source, Fixture)
 
-//------------------------------------------------------------------------------
-// DEFINITION OF DATASOURCE MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-dal::DataSourceTest::DataSourceTest()
+BOOST_AUTO_TEST_CASE(unexisting)
 {
-}
-
-
-
-//! setUp
-void dal::DataSourceTest::setUp()
-{
-  Driver::datasetProperties().clear();
-}
-
-
-
-//! tearDown
-void dal::DataSourceTest::tearDown()
-{
-}
-
-
-
-void dal::DataSourceTest::testUnexisting()
-{
-  setUp();
+  using namespace dal;
 
   std::string name = "doesnotexist";
   bool exceptionCaught = false;
@@ -149,15 +56,13 @@ void dal::DataSourceTest::testUnexisting()
     }
     BOOST_CHECK(exceptionCaught);
   }
-
-  tearDown();
 }
 
 
-
-void dal::DataSourceTest::test()
+BOOST_AUTO_TEST_CASE(test_)
 {
-  setUp();
+  using namespace dal;
+
   std::string name = "dtmsmall.map";
 
   {
@@ -171,14 +76,12 @@ void dal::DataSourceTest::test()
     boost::shared_ptr<Raster> raster(source.raster());
     BOOST_CHECK(raster);
   }
-  tearDown();
 }
 
 
-
-void dal::DataSourceTest::testSoil()
+BOOST_AUTO_TEST_CASE(soil)
 {
-  setUp();
+  using namespace dal;
 
   std::string name;
 
@@ -245,14 +148,13 @@ void dal::DataSourceTest::testSoil()
     //   BOOST_CHECK(exceptionCaught);
     // }
   }
-  tearDown();
 }
 
 
-
-void dal::DataSourceTest::testUniqueValues()
+BOOST_AUTO_TEST_CASE(unique_values)
 {
-  setUp();
+  using namespace dal;
+
   std::string name;
 
   {
@@ -293,14 +195,13 @@ void dal::DataSourceTest::testUniqueValues()
     it = --values.end();
     BOOST_CHECK_EQUAL(*it++, 100);
   }
-  tearDown();
 }
 
 
-
-void dal::DataSourceTest::testRaster()
+BOOST_AUTO_TEST_CASE(raster)
 {
-  setUp();
+  using namespace dal;
+
   // Create data source.
   {
     std::string name = "values";
@@ -533,14 +434,13 @@ void dal::DataSourceTest::testRaster()
     // BOOST_CHECK(comparable(raster->cell<REAL4>(4), REAL4(11.0)));
     // BOOST_CHECK(comparable(raster->cell<REAL4>(5), REAL4(11.0)));
   }
-  tearDown();
 }
 
 
-
-void dal::DataSourceTest::testDataset1()
+BOOST_AUTO_TEST_CASE(dataset_1)
 {
-  setUp();
+  using namespace dal;
+
   // Empty data space (apart from the raster cells).
   {
     // TODO
@@ -815,14 +715,13 @@ void dal::DataSourceTest::testDataset1()
 
   bool emptyDataSpaceTestCreated = false;
   BOOST_WARN(emptyDataSpaceTestCreated);
-  tearDown();
 }
 
 
-
-void dal::DataSourceTest::testDataset1Quantiles()
+BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
 {
-  setUp();
+  using namespace dal;
+
   // Data space with quantiles.
   {
     std::string datasetName = (boost::filesystem::path("dataset1")
@@ -1607,19 +1506,14 @@ void dal::DataSourceTest::testDataset1Quantiles()
       BOOST_CHECK(pcr::isMV(table.col<REAL4>(0)[10]));
     }
   }
-  tearDown();
 }
 
 
-
-void dal::DataSourceTest::testUncertainTemporalFeatureLayer()
+BOOST_AUTO_TEST_CASE(uncertain_temporal_feature_layer)
 {
-  setUp();
+  using namespace dal;
 
   BOOST_WARN(false);
-
-  tearDown();
 }
 
-
-
+BOOST_AUTO_TEST_SUITE_END()

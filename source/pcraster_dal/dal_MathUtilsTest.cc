@@ -1,103 +1,12 @@
-#ifndef INCLUDED_DAL_MATHUTILSTEST
-#include "dal_MathUtilsTest.h"
-#define INCLUDED_DAL_MATHUTILSTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_MATHUTILS
+#define BOOST_TEST_MODULE pcraster dal array
+#include <boost/test/unit_test.hpp>
 #include "dal_MathUtils.h"
-#define INCLUDED_DAL_MATHUTILS
-#endif
 
 
-
-/*!
-  \file
-  This file contains the implementation of the MathUtilsTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-
-
-namespace dal {
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC MATHUTILSTEST MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*MathUtilsTest::suite()
+BOOST_AUTO_TEST_CASE(clamp_)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<MathUtilsTest> instance(new MathUtilsTest());
+  using namespace dal;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&MathUtilsTest::testClamp, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&MathUtilsTest::testIsRegularIncreasingRange, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &MathUtilsTest::testIsIncreasingRange, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&MathUtilsTest::testComparable, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&MathUtilsTest::testInterpolate, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&MathUtilsTest::testFillUsingPreviousValue, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&MathUtilsTest::testMergeRanges, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&MathUtilsTest::testRound, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&MathUtilsTest::testRintf, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &MathUtilsTest::testValueInRange, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &MathUtilsTest::testClockwiseAngle, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF MATHUTILSTEST MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-MathUtilsTest::MathUtilsTest(
-         )
-{
-}
-
-
-
-//! setUp
-void MathUtilsTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void MathUtilsTest::tearDown()
-{
-}
-
-
-
-void MathUtilsTest::testClamp()
-{
   size_t first, last, interval;
 
   {
@@ -196,9 +105,10 @@ void MathUtilsTest::testClamp()
 }
 
 
-
-void MathUtilsTest::testIsRegularIncreasingRange()
+BOOST_AUTO_TEST_CASE(is_regular_increasing_range)
 {
+  using namespace dal;
+
   {
     int range[] = { 1, 2, 3, 4, 5 };
     int first, last, interval;
@@ -282,9 +192,10 @@ void MathUtilsTest::testIsRegularIncreasingRange()
 }
 
 
-
-void MathUtilsTest::testIsIncreasingRange()
+BOOST_AUTO_TEST_CASE(is_increasing_range)
 {
+  using namespace dal;
+
   {
     int range[] = { 1, 2, 3, 4, 5 };
     int first, last, interval;
@@ -414,16 +325,18 @@ void MathUtilsTest::testIsIncreasingRange()
 }
 
 
-
-void MathUtilsTest::testComparable()
+BOOST_AUTO_TEST_CASE(comparable_)
 {
+  using namespace dal;
+
   BOOST_CHECK(comparable<float>(0.0f, 0.0f));
 }
 
 
-
-void MathUtilsTest::testInterpolate()
+BOOST_AUTO_TEST_CASE(interpolate_)
 {
+  using namespace dal;
+
   {
     Array<double> array;
     BOOST_CHECK(array.empty());
@@ -477,17 +390,19 @@ void MathUtilsTest::testInterpolate()
 }
 
 
-
-void MathUtilsTest::testFillUsingPreviousValue()
+BOOST_AUTO_TEST_CASE(fill_using_previous_value)
 {
+  using namespace dal;
+
   bool testImplemented = false;
   BOOST_WARN(testImplemented);
 }
 
 
-
-void MathUtilsTest::testMergeRanges()
+BOOST_AUTO_TEST_CASE(merge_ranges)
 {
+  using namespace dal;
+
   {
     // Integral tests.
     size_t first, last, step;
@@ -698,9 +613,10 @@ void MathUtilsTest::testMergeRanges()
 }
 
 
-
-void MathUtilsTest::testRound()
+BOOST_AUTO_TEST_CASE(round_)
 {
+  using namespace dal;
+
   BOOST_CHECK_EQUAL((round<float, int>(0.0f )), 0);
   BOOST_CHECK_EQUAL((round<float, int>(0.4f )), 0);
   BOOST_CHECK_EQUAL((round<float, int>(0.5f )), 0);
@@ -723,9 +639,10 @@ void MathUtilsTest::testRound()
 }
 
 
-
-void MathUtilsTest::testRintf()
+BOOST_AUTO_TEST_CASE(rintf_)
 {
+  using namespace dal;
+
 #ifdef _MSC_VER
   bool seeIfVS2005HasRintfC99=false;
   BOOST_WARN(seeIfVS2005HasRintfC99);
@@ -733,9 +650,10 @@ void MathUtilsTest::testRintf()
 }
 
 
-
-void MathUtilsTest::testValueInRange()
+BOOST_AUTO_TEST_CASE(value_in_range)
 {
+  using namespace dal;
+
   BOOST_CHECK(valueInRange(0, 10, 2, 4));
   BOOST_CHECK(!valueInRange(0, 10, 2, 5));
 
@@ -747,9 +665,10 @@ void MathUtilsTest::testValueInRange()
 }
 
 
-
-void MathUtilsTest::testClockwiseAngle()
+BOOST_AUTO_TEST_CASE(clockwise_angle)
 {
+  using namespace dal;
+
   BOOST_CHECK_CLOSE(clockwiseAngle( 3.0,  4.0),         36.8699, 0.001);
   BOOST_CHECK_CLOSE(clockwiseAngle( 4.0, -3.0),  90.0 + 36.8699, 0.001);
   BOOST_CHECK_CLOSE(clockwiseAngle(-3.0, -4.0), 180.0 + 36.8699, 0.001);
@@ -762,6 +681,3 @@ void MathUtilsTest::testClockwiseAngle()
 
   BOOST_CHECK_CLOSE(clockwiseAngle(0.0, 0.0), 0.0, 0.001);
 }
-
-} // namespace dal
-

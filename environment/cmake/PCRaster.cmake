@@ -17,6 +17,17 @@ set(CMAKE_CXX_FLAGS
 
 include(PCRasterConfiguration)
 include(DevBaseExternal)
+
+if(DEVBASE_SQLITE_EXECUTABLE_REQUIRED)
+    find_program(SQLITE3_EXECUTABLE
+        sqlite3
+        HINTS ${SQLITE3_INCLUDE_DIRS}/../bin
+    )
+    if(NOT SQLITE3_EXECUTABLE)
+        message(FATAL_ERROR "sqlite3 executable not found")
+    endif()
+endif()
+
 include(DevBaseMacro)
 include(PCRasterMacro)
 

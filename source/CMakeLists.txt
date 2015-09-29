@@ -28,7 +28,7 @@ add_subdirectory(misc)  # OK
 ### add_subdirectory(pcraster_moc)
 ### add_subdirectory(pcrblock)
 ### add_subdirectory(pcraster_block_python)
-add_subdirectory(pcrcom)
+add_subdirectory(pcrcom)  # OK
 ### add_subdirectory(pcrdiscr)
 ### add_subdirectory(pcrfunc)
 ### add_subdirectory(pcrgeo)

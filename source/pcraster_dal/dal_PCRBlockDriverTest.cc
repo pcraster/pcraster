@@ -33,6 +33,8 @@
 #endif
 
 
+Block*           d_blockDiscretisation;
+
 
 /*!
   \file

@@ -1,94 +1,14 @@
-#ifndef INCLUDED_DAL_CONNECTIONINFOTEST
-#include "dal_ConnectionInfoTest.h"
-#define INCLUDED_DAL_CONNECTIONINFOTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_DEV_UTILS
+#define BOOST_TEST_MODULE pcraster dal connection_info
+#include <boost/test/unit_test.hpp>
 #include "dev_Utils.h"
-#define INCLUDED_DEV_UTILS
-#endif
-
-// Module headers.
-#ifndef INCLUDED_DAL_CONNECTIONINFO
 #include "dal_ConnectionInfo.h"
-#define INCLUDED_DAL_CONNECTIONINFO
-#endif
-
-#ifndef INCLUDED_DAL_EXCEPTION
 #include "dal_Exception.h"
-#define INCLUDED_DAL_EXCEPTION
-#endif
 
 
-
-/*!
-  \file
-  This file contains the implementation of the ConnectionInfoTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC CONNECTIONINFO MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*dal::ConnectionInfoTest::suite()
+BOOST_AUTO_TEST_CASE(test_)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<ConnectionInfoTest> instance(new ConnectionInfoTest());
+  using namespace dal;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&ConnectionInfoTest::test, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF CONNECTIONINFO MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-dal::ConnectionInfoTest::ConnectionInfoTest()
-{
-}
-
-
-
-//! setUp
-void dal::ConnectionInfoTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void dal::ConnectionInfoTest::tearDown()
-{
-}
-
-
-
-void dal::ConnectionInfoTest::test()
-{
   std::string user;
 
   if(dev::environmentVariableSet("USER")) {
@@ -306,4 +226,3 @@ void dal::ConnectionInfoTest::test()
     BOOST_CHECK(!info.isValid());
   }
 }
-

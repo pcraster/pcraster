@@ -47,6 +47,7 @@
 #endif
 
 
+  std::string      d_user;
 
 /*!
   \file

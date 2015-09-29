@@ -1,87 +1,19 @@
-#ifndef INCLUDED_DAL_FEATURELAYERTEST
-#include "dal_FeatureLayerTest.h"
-#define INCLUDED_DAL_FEATURELAYERTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-#ifndef INCLUDED_OGR_FEATURE
+#define BOOST_TEST_MODULE pcraster dal feature_layer
+#include <boost/test/unit_test.hpp>
 #include <ogr_feature.h>
-#define INCLUDED_OGR_FEATURE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_CLIENT
-#include "dal_Client.h"
-#define INCLUDED_DAL_CLIENT
-#endif
-
-#ifndef INCLUDED_DAL_LIBRARY
 #include "dal_Library.h"
-#define INCLUDED_DAL_LIBRARY
-#endif
-
-#ifndef INCLUDED_DAL_FEATURELAYER
 #include "dal_FeatureLayer.h"
-#define INCLUDED_DAL_FEATURELAYER
-#endif
+#define protected public
+#include "dal_Client.h"
 
 
-
-/*!
-  \file
-  This file contains the implementation of the FeatureLayerTest class.
-*/
+static dal::Client client("/my/path/feature_layer_test", true);
 
 
-
-namespace dal {
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC FEATURELAYERTEST MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite* FeatureLayerTest::suite()
+BOOST_AUTO_TEST_CASE(test_)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<FeatureLayerTest> instance(new FeatureLayerTest());
-  suite->add(BOOST_CLASS_TEST_CASE(&FeatureLayerTest::test, instance));
+  using namespace dal;
 
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF FEATURELAYERTEST MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-FeatureLayerTest::FeatureLayerTest()
-{
-}
-
-
-
-void FeatureLayerTest::test()
-{
   Client::library().geometriesCache().clear();
 
   {
@@ -135,6 +67,3 @@ void FeatureLayerTest::test()
   BOOST_CHECK(!Client::library().geometriesCache().contains("bla"));
   BOOST_CHECK(Client::library().geometriesCache().empty());
 }
-
-} // namespace dal
-

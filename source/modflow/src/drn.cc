@@ -223,7 +223,8 @@ bool DRN::writeDRN() const{
 
   // MXACTD IDRNB
   content << std::setw(10) << mfCount;
-  content << std::setw(10) << d_fortran_unit_number << std::endl;
+  content << std::setw(10) << d_fortran_unit_number;
+  content << std::setw(10) << "NOPRINT" << std::endl;
   // ITMP NP
   content << std::setw(10) << mfCount;
   content << std::setw(10) << 0 << std::endl;

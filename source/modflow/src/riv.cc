@@ -120,7 +120,8 @@ bool RIV::writeRIV() const{
     mfLayer++;
   }
   content << std::setw(10) << mfCount;
-  content << std::setw(10) << d_fortran_unit_number << std::endl;  // mf2k will write binary to fort.150
+  content << std::setw(10) << d_fortran_unit_number;
+  content << std::setw(10) << "NOPRINT" << std::endl;
   content << std::setw(10) << mfCount;
   content << std::setw(10) << 0 << std::endl;
   content << rivStr.str();

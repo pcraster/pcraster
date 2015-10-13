@@ -23,12 +23,12 @@ SET(OLDSOURCES
     gridcheck.cc
     hfb.cc
     pcg.cc
-    pcrmodflow.cc
     rch.cc
     riv.cc
     sip.cc
     sor.cc
     wel.cc
+    pcrmodflow.cc
 )
 ADD_LIBRARY(pcrmf
     STATIC

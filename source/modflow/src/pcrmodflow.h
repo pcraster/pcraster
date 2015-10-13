@@ -72,6 +72,15 @@ class SOR;
 class WEL;
 class HFB;
 
+
+enum Solver {
+  NO_SOLVER = 0,
+  PCG_SOLVER,
+  SOR_SOLVER,
+  SIP_SOLVER,
+  DSP_SOLVER
+};
+
 class PCRModflow : public dal::Client
 
 {
@@ -192,7 +201,7 @@ class PCRModflow : public dal::Client
 	  bool d_isSteadyState;
 	  bool d_baseElev;
 	  // flag to test if one solver is specified
-	  bool d_solver;
+	  bool d_solver; /// 20151006 todo remove this
 	  // flag to test if geometry changed
 	  bool d_gridIsFixed;
 	  // test if two confining layer are specified
@@ -232,6 +241,7 @@ class PCRModflow : public dal::Client
   size_t           get_modflow_layernr (size_t layer);
   void             modflow_converged   ();
   bool             d_modflow_converged;
+  Solver           d_solver_used;
 public:
 	    ~PCRModflow();
 

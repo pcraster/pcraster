@@ -1,26 +1,18 @@
 #ifndef INCLUDED_PCG
 #define INCLUDED_PCG
 
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
 
 // Library headers.
+#include<ostream>
 
 // PCRaster library headers.
 
 // Module headers.
 
 
-class PCRModflow;
-
 class PCG {
 
 private:
-
-  PCRModflow       *d_mf;
 
   size_t           d_mxiter;
 
@@ -42,21 +34,30 @@ private:
 
   double           d_damp;
 
+  bool             d_updated;
+
 public:
 
                    ~PCG                ();
 
-                   PCG                 (PCRModflow *mf,
-                                        size_t mxiter,
+                   PCG                 ();
+
+  void             setPCG              (size_t mxiter,
                                         size_t iteri,
                                         size_t npcond,
                                         double hclose,
                                         double rclose,
                                         double relax,
                                         double nbpol,
-                                        double damp);
+                                        double damp,
+                                        bool updated);
 
-  bool             writePCG            () const;
+  void             update              ();
+
+  bool             modified            () const;
+
+  friend std::ostream& operator<<      (std::ostream& os,
+                                        const PCG& pcg);
 };
 
 

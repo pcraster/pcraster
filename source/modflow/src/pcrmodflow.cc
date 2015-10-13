@@ -154,11 +154,11 @@ PCRModflow::PCRModflow(const geo::RasterSpace &raster)
 {
   d_nrOfRows = raster.nrRows();
   d_nrOfColumns = raster.nrCols();
-  
+
   d_nrOfCells = d_nrOfRows * d_nrOfColumns;
   d_west = raster.west();
   d_north = raster.north();
-  
+
 
   d_widthRows = raster.cellSize();
   d_widthColumns = raster.cellSize();
@@ -183,8 +183,8 @@ PCRModflow::PCRModflow(size_t nrRows, size_t nrCols, double cellsize, double wes
   : dal::Client("", false)
 {
   d_nrOfRows = nrRows;
-  d_nrOfColumns = nrCols;  
-  
+  d_nrOfColumns = nrCols;
+
   d_nrOfCells = d_nrOfRows * d_nrOfColumns;
   d_west = west;
   d_north = north;
@@ -214,6 +214,9 @@ void PCRModflow::initDataStructures(){
   assert(dal::Client::isInitialized());
 
   d_modflow_converged = true;
+  d_solver_used = NO_SOLVER;
+
+
   d_nrOfLayer = -1;
   d_baseElev = true;
   d_baseLayer = NULL;
@@ -229,17 +232,17 @@ void PCRModflow::initDataStructures(){
   d_layer = NULL;
   d_hCond = NULL;
   d_vCond = NULL;
-  
+
   d_dis = NULL;
   d_bas = NULL;
   d_bcf = NULL;
-  
+
   d_riv = NULL;
   d_rivStage = NULL;
   d_rivBottom = NULL;
   d_rivCond = NULL;
-  
-  
+
+
   d_primaryStorage = NULL;
   d_secondaryStorage = NULL;
   d_rch = NULL;
@@ -321,12 +324,12 @@ void PCRModflow::resetGrid(bool final) {
     delete d_ibound;
     d_ibound = NULL;
   }
-  
+
   delete d_hCond;
   d_hCond = NULL;
   delete d_vCond;
   d_vCond = NULL;
-  
+
   delete d_dis;
   d_dis = NULL;
   delete d_layer;
@@ -524,22 +527,23 @@ bool PCRModflow::writeNAM() {
   // 0,5,6,100,101 seem to be sometimes used
   // by compilers for stdout/stderr,...
   //
-  // from 230 the 
+  // from 230 the
   //
   content << "LIST  206 pcrmf.lst" << std::endl;
   content << "BAS6  207 pcrmf.ba6" << std::endl;
   content << "BCF6  208 pcrmf.bc6" << std::endl;
   content << "DIS   209 pcrmf.dis" << std::endl;
-  if(d_pcg != NULL) {
+
+  if(d_solver_used == PCG_SOLVER) {
     content << "PCG  210 pcrmf.pcg" << std::endl;
   }
-  if(d_sip != NULL) {
+  if(d_solver_used == SIP_SOLVER) {
     content << "SIP  210 pcrmf.sip" << std::endl;
   }
-  if(d_sor != NULL) {
+  if(d_solver_used == SOR_SOLVER) {
     content << "SOR  210 pcrmf.sor" << std::endl;
   }
-  if(d_dsp != NULL) {
+  if(d_solver_used == DSP_SOLVER) {
     content << "DE4  210 pcrmf.de4" << std::endl;
   }
   content << "OC   220 pcrmf.oc" << std::endl;
@@ -928,7 +932,7 @@ bool PCRModflow::runModflow() {
   if (d_modflow_converged == false) {
     exit(1);
   }
-  
+
   if(d_dis == NULL) {
     std::string stmp("Can not execute Modflow: No grid specified. Use createBottomLayer and addLayer");
     d_cmethods->error(stmp, "run");
@@ -942,12 +946,18 @@ bool PCRModflow::runModflow() {
     std::string stmp("Can not execute Modflow: No BCF package specified");
     d_cmethods->error(stmp, "run");
   }
-  
+
+  // at least one solver package must be specified
+  if (d_solver_used == NO_SOLVER) {
+    std::string stmp("Can not execute Modflow: No solver package specified");
+    d_cmethods->error(stmp, "run");
+  }
+
 
   // remove previous MF ouput files
   // old listing file
   removeTextFiles("pcrmf.lst");
-  
+
 
 
   // do tests only if grid specification has changed since the
@@ -961,11 +971,6 @@ bool PCRModflow::runModflow() {
     }
     // tickness of layer must be greater than 0
     d_gridCheck->testElevation();
-    // at least one solver package must be specified
-    if(d_solver == false) {
-      std::string stmp("Can not execute Modflow: No solver package specified");
-      d_cmethods->error(stmp, "run");
-    }
   }
   bool result = true;
 
@@ -980,23 +985,44 @@ bool PCRModflow::runModflow() {
 
     d_bcf->writeBCF();
 
-    if(d_pcg != NULL) {
-      result = d_pcg->writePCG();
-    }
-    if(d_sip != NULL) {
-      result = d_sip->writeSIP();
-    }
-    if(d_sor != NULL) {
-      result = d_sor->writeSOR();
-    }
-    if(d_dsp != NULL) {
-      result = d_dsp->writeDSP();
-    }
   }
 
   d_bas->writeBAS();
-  
 
+///==============================================
+  if(d_pcg != NULL) {
+    if(d_pcg->modified()){
+      std::stringstream content;
+      content << *d_pcg;
+      d_cmethods->writeToFile("pcrmf.pcg",content.str());
+      d_pcg->update();
+    }
+  }
+  if(d_sip != NULL) {
+    if(d_sip->modified()){
+      std::stringstream content;
+      content << *d_sip;
+      d_cmethods->writeToFile("pcrmf.sip",content.str());
+      d_sip->update();
+    }
+  }
+  if(d_sor != NULL) {
+    if(d_sor->modified()){
+      std::stringstream content;
+      content << *d_sor;
+      d_cmethods->writeToFile("pcrmf.sor",content.str());
+      d_sor->update();
+    }
+  }
+  if(d_dsp != NULL) {
+    if(d_dsp->modified()){
+      std::stringstream content;
+      content << *d_dsp;
+      d_cmethods->writeToFile("pcrmf.de4",content.str());
+      d_dsp->update();
+    }
+  }
+///==============================================
   if(d_drn != NULL) {
     if(d_drn->drainUpdated()){
       result = d_drn->writeDRN();
@@ -1048,7 +1074,7 @@ bool PCRModflow::runModflow() {
   // get MF output
   d_bas->getHeadsFromBinary();
   d_bas->getBASBlockData(*d_ibound);
-  
+
 //  if(d_riv != NULL) {
 //	   d_riv->getRivLeakFromBinary();
 //  }
@@ -1293,59 +1319,66 @@ void PCRModflow::setWell(discr::BlockData<REAL4> &well) {
 // Solver packages
 //
 void PCRModflow::setSOR(size_t mxiter, double accl, double hclose) {
-  if(d_solver == true) {
-    std::string stmp("A solver package is already specified");
+
+  if(d_solver_used != NO_SOLVER && d_solver_used != SOR_SOLVER){
+    std::string stmp("A solver package different to SOR was previously specified");
     d_cmethods->error(stmp, "setSOR");
   }
-  if(d_gridIsFixed == true) {
-    resetGrid(false);
-    d_gridIsFixed = false;
+
+  if(d_solver_used == NO_SOLVER){
+    d_solver_used = SOR_SOLVER;
+    d_sor = new SOR();
   }
-  d_solver = true;
-  d_sor = new SOR(this, mxiter, accl, hclose);
+
+  d_sor->setSOR(mxiter, accl, hclose, true);
 }
 
 
 void PCRModflow::setSIP(size_t mxiter, size_t nparam, double accl, double hclose, size_t ipcalc, double wseed) {
-  if(d_solver == true) {
-    std::string stmp("A solver package is already specified");
+
+  if(d_solver_used != NO_SOLVER && d_solver_used != SIP_SOLVER){
+    std::string stmp("A solver package different to SIP was previously specified");
     d_cmethods->error(stmp, "setSIP");
   }
-  if(d_gridIsFixed == true) {
-    resetGrid(false);
-    d_gridIsFixed = false;
-  }
-  d_solver = true;
-  d_sip = new SIP(this, mxiter, nparam, accl, hclose, ipcalc, wseed);
 
+  if(d_solver_used == NO_SOLVER){
+    d_solver_used = SIP_SOLVER;
+    d_sip = new SIP();
+  }
+
+  d_sip->setSIP(mxiter, nparam, accl, hclose, ipcalc, wseed, true);
 }
 
 
 void PCRModflow::setPCG(size_t mxiter, size_t iteri,  size_t npcond, double hclose, double rclose, double relax,  double nbpol, double damp) {
-  if(d_solver == true) {
-    std::string stmp("A solver package is already specified");
+
+  if(d_solver_used != NO_SOLVER && d_solver_used != PCG_SOLVER){
+    std::string stmp("A solver package different to PCG was previously specified");
     d_cmethods->error(stmp, "setPCG");
   }
-  if(d_gridIsFixed == true) {
-    resetGrid(false);
-    d_gridIsFixed = false;
+
+  if(d_solver_used == NO_SOLVER){
+    d_solver_used = PCG_SOLVER;
+    d_pcg = new PCG();
   }
-  d_solver = true;
-  d_pcg = new PCG(this, mxiter, iteri, npcond, hclose, rclose, relax, nbpol, damp);
+
+  d_pcg->setPCG(mxiter, iteri, npcond, hclose, rclose, relax, nbpol, damp, true);
 }
 
 
 void PCRModflow::setDSP(size_t itmx, size_t mxup, size_t mxlow, size_t mxbw, size_t ifreq, double accl, double hclose) {
-  if(d_solver == true) {
-    std::string stmp("A solver package is already specified");
+
+  if(d_solver_used != NO_SOLVER && d_solver_used != DSP_SOLVER){
+    std::string stmp("A solver package different to DSP was previously specified");
     d_cmethods->error(stmp, "setDSP");
   }
-  if(d_gridIsFixed == true) {
-    resetGrid(false);
-    d_gridIsFixed = false;
+
+  if(d_solver_used == NO_SOLVER){
+    d_solver_used = DSP_SOLVER;
+    d_dsp = new DSP();
   }
-  d_solver = true;
-  d_dsp = new DSP(this, itmx, mxup, mxlow, mxbw, ifreq, accl, hclose);
+
+  d_dsp->setDSP(itmx, mxup, mxlow, mxbw, ifreq, accl, hclose, true);
 }
 
 
@@ -1391,7 +1424,7 @@ void PCRModflow::setIBound(const std::string & values, size_t layer){
    dal::RasterDal rasterdal(true);
   boost::shared_ptr<dal::Raster> raster1(rasterdal.read(hcond, dal::TI_REAL4));
   boost::shared_ptr<dal::Raster> raster2(rasterdal.read(vcond, dal::TI_REAL4));
-  
+
   setHCond(static_cast<REAL4 const*>(raster1->cells()),  layer, laycon);
   setVCond(static_cast<REAL4 const*>(raster2->cells()),  layer);
 }
@@ -1409,14 +1442,14 @@ void PCRModflow::setIBound(const std::string & values, size_t layer){
   setRechargeLay(static_cast<REAL4 const*>(raster1->cells()), static_cast<INT4 const*>(raster2->cells()));
 }
 
- 
+
   void PCRModflow::setWetting(const std::string & values, size_t mfLayer){
      dal::RasterDal rasterdal(true);
   boost::shared_ptr<dal::Raster> raster(rasterdal.read(values, dal::TI_REAL4));
   setWetting(static_cast<REAL4 const*>(raster->cells()), mfLayer);
 }
- 
- 
+
+
   void PCRModflow::setWell(const std::string & values, size_t mfLayer){
      dal::RasterDal rasterdal(true);
   boost::shared_ptr<dal::Raster> raster(rasterdal.read(values, dal::TI_REAL4));
@@ -1430,7 +1463,7 @@ void PCRModflow::setIBound(const std::string & values, size_t layer){
     dal::RasterDal rasterdal(true);
   boost::shared_ptr<dal::Raster> raster1(rasterdal.read(prim, dal::TI_REAL4));
   boost::shared_ptr<dal::Raster> raster2(rasterdal.read(second, dal::TI_REAL4));
-  
+
   setPrimaryStorage(static_cast<REAL4 const*>(raster1->cells()), layer);
   setSecondaryStorage(static_cast<REAL4 const*>(raster2->cells()), layer);
 }
@@ -1440,7 +1473,7 @@ void PCRModflow::setIBound(const std::string & values, size_t layer){
   boost::shared_ptr<dal::Raster> raster1(rasterdal.read(rivH, dal::TI_REAL4));
   boost::shared_ptr<dal::Raster> raster2(rasterdal.read(rivB, dal::TI_REAL4));
   boost::shared_ptr<dal::Raster> raster3(rasterdal.read(rivC, dal::TI_REAL4));
-      
+
   setRiver(static_cast<REAL4 const*>(raster1->cells()), static_cast<REAL4 const*>(raster2->cells()), static_cast<REAL4 const*>(raster3->cells()), layer);
 }
 
@@ -1449,7 +1482,7 @@ void PCRModflow::setIBound(const std::string & values, size_t layer){
      dal::RasterDal rasterdal(true);
   boost::shared_ptr<dal::Raster> raster1(rasterdal.read(elevation, dal::TI_REAL4));
   boost::shared_ptr<dal::Raster> raster2(rasterdal.read(conductance, dal::TI_REAL4));
-  
+
   setDrain(static_cast<REAL4 const*>(raster1->cells()), static_cast<REAL4 const*>(raster2->cells()), layer);
 }
 

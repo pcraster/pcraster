@@ -17,7 +17,7 @@ add_subdirectory(math_utils)  # OK
 add_subdirectory(string_utils)  # OK
 add_subdirectory(utils)  # OK
 ### add_subdirectory(pcraster_aguila)
-add_subdirectory(pcraster_dal)
+add_subdirectory(pcraster_dal)  # OK
 ### add_subdirectory(pcraster_xsd)
 
 

@@ -1,110 +1,22 @@
-#ifndef INCLUDED_DAL_MEMORYRASTERDRIVERTEST
-#include "dal_MemoryRasterDriverTest.h"
-#define INCLUDED_DAL_MEMORYRASTERDRIVERTEST
-#endif
-
-// Library headers.
+#define BOOST_TEST_MODULE pcraster dal memory_raster_driver
+#include <boost/test/unit_test.hpp>
 #include <boost/scoped_array.hpp>
-#include <boost/shared_ptr.hpp>
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_DEF
 #include "dal_Def.h"
-#define INCLUDED_DAL_DEF
-#endif
-
-#ifndef INCLUDED_DAL_EXCEPTION
 #include "dal_Exception.h"
-#define INCLUDED_DAL_EXCEPTION
-#endif
-
-#ifndef INCLUDED_DAL_LIBRARY
 #include "dal_Library.h"
-#define INCLUDED_DAL_LIBRARY
-#endif
-
-#ifndef INCLUDED_DAL_MEMORYRASTERDATA
 #include "dal_MemoryRasterData.h"
-#define INCLUDED_DAL_MEMORYRASTERDATA
-#endif
-
-#ifndef INCLUDED_DAL_MEMORYRASTERDRIVER
 #include "dal_MemoryRasterDriver.h"
-#define INCLUDED_DAL_MEMORYRASTERDRIVER
-#endif
+#define protected public
+#include "dal_Client.h"
 
 
-
-/*!
-  \file
-  This file contains the implementation of the MemoryRasterDriverTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
+static dal::Client client("/my/path/memory_raster_driver_test", true);
 
 
-
-namespace dal {
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC MEMORYRASTERDRIVER MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*MemoryRasterDriverTest::suite()
+BOOST_AUTO_TEST_CASE(empty_data_space)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<MemoryRasterDriverTest> instance(new MemoryRasterDriverTest());
+  using namespace dal;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&MemoryRasterDriverTest::testEmptyDataSpace, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&MemoryRasterDriverTest::testSameName, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&MemoryRasterDriverTest::test, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF MEMORYRASTERDRIVER MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-MemoryRasterDriverTest::MemoryRasterDriverTest(
-         )
-{
-}
-
-
-
-//! setUp
-void MemoryRasterDriverTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void MemoryRasterDriverTest::tearDown()
-{
-}
-
-
-
-void MemoryRasterDriverTest::testEmptyDataSpace()
-{
   boost::scoped_array<REAL4> cells(new REAL4[6]);
   cells[0] =  1.0;
   cells[1] =  3.0;
@@ -150,18 +62,20 @@ void MemoryRasterDriverTest::testEmptyDataSpace()
 }
 
 
-
-void MemoryRasterDriverTest::testSameName()
+BOOST_AUTO_TEST_CASE(same_name)
 {
+  using namespace dal;
+
   bool testImplemented = false;
   BOOST_WARN(testImplemented);
 }
 
 
-
-void MemoryRasterDriverTest::test()
+BOOST_AUTO_TEST_CASE(test_)
 {
-  // Doesn't work anymore after getting rid for suppor of ExactDiscretisation
+  using namespace dal;
+
+  // Doesn't work anymore after getting rid for support of ExactDiscretisation
   // for quantiles.
   BOOST_WARN(false);
   return;
@@ -246,8 +160,3 @@ void MemoryRasterDriverTest::test()
 
   library()->memoryDataPool().remove("data1", space);
 }
-
-
-
-} // namespace dal
-

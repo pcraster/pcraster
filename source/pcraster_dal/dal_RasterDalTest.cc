@@ -1,100 +1,20 @@
-#ifndef INCLUDED_DAL_RASTERDALTEST
-#include "dal_RasterDalTest.h"
-#define INCLUDED_DAL_RASTERDALTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_RASTER
+#define BOOST_TEST_MODULE pcraster dal raster_dal
+#include <boost/test/unit_test.hpp>
 #include "dal_Raster.h"
-#define INCLUDED_DAL_RASTER
-#endif
-
-#ifndef INCLUDED_DAL_RASTERDAL
 #include "dal_RasterDal.h"
-#define INCLUDED_DAL_RASTERDAL
-#endif
+#define protected public
+#include "dev_GDalClient.h"
+#include "dal_Client.h"
 
 
-
-/*!
-  \file
-  This file contains the implementation of the RasterDalTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
+static dev::GDalClient gdal_client;
+static dal::Client client("/my/path/raster_dal_test", true);
 
 
-
-namespace dal {
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC RASTERDAL MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*RasterDalTest::suite()
+BOOST_AUTO_TEST_CASE(supported_drivers)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<RasterDalTest> instance(new RasterDalTest());
+  using namespace dal;
 
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &RasterDalTest::testSupportedDrivers, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &RasterDalTest::testESRIASCIIGrid1, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &RasterDalTest::testHDF4Image1, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF RASTERDAL MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-RasterDalTest::RasterDalTest(
-         )
-{
-}
-
-
-
-//! setUp
-void RasterDalTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void RasterDalTest::tearDown()
-{
-}
-
-
-
-void RasterDalTest::testSupportedDrivers()
-{
   RasterDal dal(true);
 
   BOOST_CHECK(!dal.driverByName("NoSuchDriver"));
@@ -113,9 +33,10 @@ void RasterDalTest::testSupportedDrivers()
 }
 
 
-
-void RasterDalTest::testESRIASCIIGrid1()
+BOOST_AUTO_TEST_CASE(esri_ascii_grid1)
 {
+  using namespace dal;
+
   std::string filename = "esriasciigrid1.asc";
   RasterDal dal(true);
   boost::shared_ptr<Raster> raster;
@@ -153,14 +74,10 @@ void RasterDalTest::testESRIASCIIGrid1()
 }
 
 
-
-void RasterDalTest::testHDF4Image1()
+BOOST_AUTO_TEST_CASE(hdf4_image1)
 {
+  using namespace dal;
+
   bool testImplemented = false;
   BOOST_WARN(testImplemented);
 }
-
-
-
-} // namespace dal
-

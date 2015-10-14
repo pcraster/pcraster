@@ -1,87 +1,12 @@
-#ifndef INCLUDED_DAL_MEMORYTABLEDATATEST
-#include "dal_MemoryTableDataTest.h"
-#define INCLUDED_DAL_MEMORYTABLEDATATEST
-#endif
-
-// Library headers.
-#include <boost/shared_ptr.hpp>
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_MEMORYTABLEDATA
+#define BOOST_TEST_MODULE pcraster dal memory_table_data
+#include <boost/test/unit_test.hpp>
 #include "dal_MemoryTableData.h"
-#define INCLUDED_DAL_MEMORYTABLEDATA
-#endif
 
 
-
-/*!
-  \file
-  This file contains the implementation of the MemoryTableDataTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-
-
-namespace dal {
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC MEMORYTABLEDATA MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*MemoryTableDataTest::suite()
+BOOST_AUTO_TEST_CASE(constructor)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<MemoryTableDataTest> instance(new MemoryTableDataTest());
+  using namespace dal;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&MemoryTableDataTest::testConstructor, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF MEMORYTABLEDATA MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-MemoryTableDataTest::MemoryTableDataTest(
-         )
-{
-}
-
-
-
-//! setUp
-void MemoryTableDataTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void MemoryTableDataTest::tearDown()
-{
-}
-
-
-
-void MemoryTableDataTest::testConstructor()
-{
   std::vector<std::string> titles;
   titles.push_back("col1");
   titles.push_back("col2");
@@ -164,6 +89,3 @@ void MemoryTableDataTest::testConstructor()
     BOOST_CHECK(!data.exists(address));
   }
 }
-
-} // namespace dal
-

@@ -1,96 +1,13 @@
-#ifndef INCLUDED_DAL_STEPCOORDINATEMAPPERTEST
-#include "dal_StepCoordinateMapperTest.h"
-#define INCLUDED_DAL_STEPCOORDINATEMAPPERTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_DATASPACE
+#define BOOST_TEST_MODULE pcraster dal step_coordinate_mapper
+#include <boost/test/unit_test.hpp>
 #include "dal_DataSpace.h"
-#define INCLUDED_DAL_DATASPACE
-#endif
-
-#ifndef INCLUDED_DAL_STEPCOORDINATEMAPPER
 #include "dal_StepCoordinateMapper.h"
-#define INCLUDED_DAL_STEPCOORDINATEMAPPER
-#endif
 
 
-
-/*!
-  \file
-  This file contains the implementation of the StepCoordinateMapperTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-
-
-namespace dal {
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC STEPCOORDINATEMAPPER MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*StepCoordinateMapperTest::suite()
+BOOST_AUTO_TEST_CASE(test)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<StepCoordinateMapperTest> instance(
-         new StepCoordinateMapperTest());
+  using namespace dal;
 
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &StepCoordinateMapperTest::test, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STEPCOORDINATEMAPPER MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-StepCoordinateMapperTest::StepCoordinateMapperTest()
-{
-}
-
-
-
-//! setUp
-void StepCoordinateMapperTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void StepCoordinateMapperTest::tearDown()
-{
-}
-
-
-
-void StepCoordinateMapperTest::test()
-{
   {
     // Catsop:
     size_t nrCols = 80;
@@ -204,8 +121,4 @@ void StepCoordinateMapperTest::test()
     mapper.mapToDestination(space, address, 0);
     BOOST_CHECK_EQUAL(address.coordinate<size_t>(0),  size_t(9));
   }
-
 }
-
-} // namespace dal
-

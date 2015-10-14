@@ -1,130 +1,21 @@
-#ifndef INCLUDED_DAL_UTILSTEST
-#include "dal_UtilsTest.h"
-#define INCLUDED_DAL_UTILSTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_BIND
-#include <boost/bind.hpp>
-#define INCLUDED_BOOST_BIND
-#endif
-
-#ifndef INCLUDED_BOOST_FUNCTION
-#include <boost/function.hpp>
-#define INCLUDED_BOOST_FUNCTION
-#endif
-
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_CSFRASTERDRIVER
+#define BOOST_TEST_MODULE pcraster dal utils
+#include <boost/test/unit_test.hpp>
 #include "dal_CSFRasterDriver.h"
-#define INCLUDED_DAL_CSFRASTERDRIVER
-#endif
-
-#ifndef INCLUDED_DAL_DAL
 #include "dal_Dal.h"
-#define INCLUDED_DAL_DAL
-#endif
-
-#ifndef INCLUDED_DAL_DATASPACE
 #include "dal_DataSpace.h"
-#define INCLUDED_DAL_DATASPACE
-#endif
-
-#ifndef INCLUDED_DAL_DATASPACEADDRESS
 #include "dal_DataSpaceAddress.h"
-#define INCLUDED_DAL_DATASPACEADDRESS
-#endif
-
-#ifndef INCLUDED_DAL_EXCEPTION
 #include "dal_Exception.h"
-#define INCLUDED_DAL_EXCEPTION
-#endif
-
-#ifndef INCLUDED_DAL_UTILS
 #include "dal_Utils.h"
-#define INCLUDED_DAL_UTILS
-#endif
+#define protected public
+#include "dal_Client.h"
+
+static dal::Client client("/my/path/utils_test", true);
 
 
-
-/*!
-  \file
-  This file contains the implementation of the UtilsTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-namespace dal {
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC UTILS MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*UtilsTest::suite()
+BOOST_AUTO_TEST_CASE(dataset_type)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<UtilsTest> instance(new UtilsTest());
+  using namespace dal;
 
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &UtilsTest::testDatasetType, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &UtilsTest::testSplitNameAndSelection, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &UtilsTest::testDataSpaceToString, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &UtilsTest::testDataSpaceToFieldNames, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &UtilsTest::testDataSpaceAddressToSqlQuery, instance));
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF UTILS MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-UtilsTest::UtilsTest()
-{
-}
-
-
-
-//! setUp
-void UtilsTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void UtilsTest::tearDown()
-{
-}
-
-
-
-void UtilsTest::testDatasetType()
-{
   DatasetType type;
   std::string name;
   DataSpace space;
@@ -156,9 +47,10 @@ void UtilsTest::testDatasetType()
 }
 
 
-
-void UtilsTest::testSplitNameAndSelection()
+BOOST_AUTO_TEST_CASE(split_name_and_selection)
 {
+  using namespace dal;
+
   {
     std::string name = "table{1,3,q}";
     boost::tuple<std::string, std::vector<std::string> > tuple =
@@ -235,9 +127,10 @@ void UtilsTest::testSplitNameAndSelection()
 }
 
 
-
-void UtilsTest::testDataSpaceToString()
+BOOST_AUTO_TEST_CASE(data_space_to_string)
 {
+  using namespace dal;
+
   DataSpace space;
   std::vector<size_t> timeSteps;
   timeSteps.push_back(1);
@@ -249,9 +142,10 @@ void UtilsTest::testDataSpaceToString()
 }
 
 
-
-void UtilsTest::testDataSpaceToFieldNames()
+BOOST_AUTO_TEST_CASE(data_space_to_field_names)
 {
+  using namespace dal;
+
   DataSpace space;
   std::set<std::string> fieldNames;
 
@@ -316,9 +210,10 @@ void UtilsTest::testDataSpaceToFieldNames()
 }
 
 
-
-void UtilsTest::testDataSpaceAddressToSqlQuery()
+BOOST_AUTO_TEST_CASE(data_space_address_to_sql_query)
 {
+  using namespace dal;
+
   DataSpace space;
   DataSpaceAddress address;
   std::string tableName = "MyTable";
@@ -417,6 +312,3 @@ void UtilsTest::testDataSpaceAddressToSqlQuery()
               "WHERE scenario='aap' AND date=3 AND quantile=0.5");
   }
 }
-
-} // namespace dal
-

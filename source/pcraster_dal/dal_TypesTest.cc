@@ -1,85 +1,12 @@
-#ifndef INCLUDED_DAL_TYPESTEST
-#include "dal_TypesTest.h"
-#define INCLUDED_DAL_TYPESTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_DAL_TYPES
+#define BOOST_TEST_MODULE pcraster dal types
+#include <boost/test/unit_test.hpp>
 #include "dal_Types.h"
-#define INCLUDED_DAL_TYPES
-#endif
 
 
-
-
-/*!
-  \file
-  This file contains the implementation of the TypesTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC TYPES MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*dal::TypesTest::suite()
+BOOST_AUTO_TEST_CASE(id_of_smallest_type)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<TypesTest> instance(new TypesTest());
+  using namespace dal;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&TypesTest::testIdOfSmallestType, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&TypesTest::testIdOfLargestType, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF TYPES MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-dal::TypesTest::TypesTest()
-{
-}
-
-
-
-//! setUp
-void dal::TypesTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void dal::TypesTest::tearDown()
-{
-}
-
-
-
-void dal::TypesTest::testIdOfSmallestType()
-{
   {
     // unsigned integers:
     // 1 byte  2^8  = 0 -        255
@@ -112,9 +39,10 @@ void dal::TypesTest::testIdOfSmallestType()
 }
 
 
-
-void dal::TypesTest::testIdOfLargestType()
+BOOST_AUTO_TEST_CASE(id_of_largest_type)
 {
+  using namespace dal;
+
   Types types;
   BOOST_CHECK_EQUAL(types.idOfLargestType(TI_UINT1, TI_UINT2), TI_UINT2);
 

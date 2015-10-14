@@ -11,7 +11,7 @@ set(CMAKE_C_FLAGS_DEBUG
 )
 # https://svn.boost.org/trac/boost/ticket/6455
 set(CMAKE_CXX_FLAGS
-    "${CMAKE_CXX_FLAGS} -DQT_NO_KEYWORDS -DGDAL_LIBRARY_HAS_OGR_SUPPORT"
+    "${CMAKE_CXX_FLAGS} -DQT_NO_KEYWORDS"
 )
 
 

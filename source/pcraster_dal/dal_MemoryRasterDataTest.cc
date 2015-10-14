@@ -1,97 +1,14 @@
-#ifndef INCLUDED_DAL_MEMORYRASTERDATATEST
-#include "dal_MemoryRasterDataTest.h"
-#define INCLUDED_DAL_MEMORYRASTERDATATEST
-#endif
-
-// Library headers.
-#include <boost/shared_ptr.hpp>
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_DATASPACE
+#define BOOST_TEST_MODULE pcraster dal memory_raster_data
+#include <boost/test/unit_test.hpp>
 #include "dal_DataSpace.h"
-#define INCLUDED_DAL_DATASPACE
-#endif
-
-#ifndef INCLUDED_DAL_MEMORYRASTERDATA
 #include "dal_MemoryRasterData.h"
-#define INCLUDED_DAL_MEMORYRASTERDATA
-#endif
-
-#ifndef INCLUDED_DAL_RASTER
 #include "dal_Raster.h"
-#define INCLUDED_DAL_RASTER
-#endif
 
 
-
-/*!
-  \file
-  This file contains the implementation of the MemoryRasterDataTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-
-
-namespace dal {
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC MEMORYRASTERDATA MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*MemoryRasterDataTest::suite()
+BOOST_AUTO_TEST_CASE(test_)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<MemoryRasterDataTest> instance(new MemoryRasterDataTest());
+  using namespace dal;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&MemoryRasterDataTest::test, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF MEMORYRASTERDATA MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-MemoryRasterDataTest::MemoryRasterDataTest(
-         )
-{
-}
-
-
-
-//! setUp
-void MemoryRasterDataTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void MemoryRasterDataTest::tearDown()
-{
-}
-
-
-
-void MemoryRasterDataTest::test()
-{
   // Doesn't work anymore after getting rid for suppor of ExactDiscretisation
   // for quantiles.
   BOOST_WARN(false);
@@ -172,6 +89,3 @@ void MemoryRasterDataTest::test()
     BOOST_CHECK(comparable<REAL4>(raster->cell<REAL4>(5), 17.0));
   }
 }
-
-} // namespace dal
-

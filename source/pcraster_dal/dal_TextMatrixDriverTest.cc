@@ -1,105 +1,22 @@
-#ifndef INCLUDED_DAL_TEXTMATRIXDRIVERTEST
-#include "dal_TextMatrixDriverTest.h"
-#define INCLUDED_DAL_TEXTMATRIXDRIVERTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_EXCEPTION
+#define BOOST_TEST_MODULE pcraster dal text_matrix_driver
+#include <boost/test/unit_test.hpp>
 #include "dal_Exception.h"
-#define INCLUDED_DAL_EXCEPTION
-#endif
-
-#ifndef INCLUDED_DAL_TEXTMATRIXDRIVER
 #include "dal_TextMatrixDriver.h"
-#define INCLUDED_DAL_TEXTMATRIXDRIVER
-#endif
 
 
-
-/*!
-  \file
-  This file contains the implementation of the TextMatrixDriverTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC TEXTMATRIXDRIVER MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*dal::TextMatrixDriverTest::suite()
+BOOST_AUTO_TEST_CASE(description)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<TextMatrixDriverTest> instance(new TextMatrixDriverTest());
+  using namespace dal;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&TextMatrixDriverTest::testDescription, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&TextMatrixDriverTest::testUnexisting, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&TextMatrixDriverTest::testEmpty, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&TextMatrixDriverTest::testInvalidGrammar, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&TextMatrixDriverTest::testMatrix1, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&TextMatrixDriverTest::testMatrix2, instance));
-  // // suite->add(BOOST_CLASS_TEST_CASE(&TextMatrixDriverTest::testMatrix3, instance));
-  // // suite->add(BOOST_CLASS_TEST_CASE(&TextMatrixDriverTest::testMatrix4, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF TEXTMATRIXDRIVER MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-dal::TextMatrixDriverTest::TextMatrixDriverTest()
-{
-}
-
-
-
-//! setUp
-void dal::TextMatrixDriverTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void dal::TextMatrixDriverTest::tearDown()
-{
-}
-
-
-
-void dal::TextMatrixDriverTest::testDescription()
-{
   TextMatrixDriver driver;
   BOOST_CHECK_EQUAL(driver.description(), "Text matrix file format");
 }
 
 
-
-void dal::TextMatrixDriverTest::testUnexisting()
+BOOST_AUTO_TEST_CASE(unexisting)
 {
+  using namespace dal;
+
   std::string filename = "unexisting";
   TextMatrixDriver driver;
   bool exceptionCaught;
@@ -121,9 +38,10 @@ void dal::TextMatrixDriverTest::testUnexisting()
 }
 
 
-
-void dal::TextMatrixDriverTest::testEmpty()
+BOOST_AUTO_TEST_CASE(empty)
 {
+  using namespace dal;
+
   std::string filename = "emptyfile";
   TextMatrixDriver driver;
   bool exceptionCaught;
@@ -145,9 +63,10 @@ void dal::TextMatrixDriverTest::testEmpty()
 }
 
 
-
-void dal::TextMatrixDriverTest::testInvalidGrammar()
+BOOST_AUTO_TEST_CASE(invalid_grammar)
 {
+  using namespace dal;
+
   std::string filename = ":/:/:/:/:";
   TextMatrixDriver driver;
   bool exceptionCaught;
@@ -169,9 +88,10 @@ void dal::TextMatrixDriverTest::testInvalidGrammar()
 }
 
 
-
-void dal::TextMatrixDriverTest::testMatrix1()
+BOOST_AUTO_TEST_CASE(matrix1)
 {
+  using namespace dal;
+
   std::string filename;
   TextMatrixDriver driver;
   Matrix* matrix;
@@ -213,9 +133,10 @@ void dal::TextMatrixDriverTest::testMatrix1()
 }
 
 
-
-void dal::TextMatrixDriverTest::testMatrix2()
+BOOST_AUTO_TEST_CASE(matrix2)
 {
+  using namespace dal;
+
   std::string filename;
   TextMatrixDriver driver;
   Matrix* matrix;
@@ -248,9 +169,10 @@ void dal::TextMatrixDriverTest::testMatrix2()
 }
 
 
-
-void dal::TextMatrixDriverTest::testMatrix3()
+BOOST_AUTO_TEST_CASE(matrix3)
 {
+  using namespace dal;
+
   /*
   std::string filename;
   TextMatrixDriver driver;
@@ -284,9 +206,10 @@ void dal::TextMatrixDriverTest::testMatrix3()
 }
 
 
-
-void dal::TextMatrixDriverTest::testMatrix4()
+BOOST_AUTO_TEST_CASE(matrix4)
 {
+  using namespace dal;
+
   std::string filename;
   TextMatrixDriver driver;
   Matrix* matrix;

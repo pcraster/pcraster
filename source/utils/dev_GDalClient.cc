@@ -69,7 +69,7 @@ GDalClient::GDalClient()
       // GDal library is not initialized yet.
       GDALAllRegister();
 
-#ifdef GDAL_LIBRARY_HAS_OGR_SUPPORT
+#ifdef DEVBASE_GDAL_LIBRARY_HAS_OGR_SUPPORT
       OGRRegisterAll();
 #endif
 
@@ -91,7 +91,7 @@ GDalClient::~GDalClient()
     // Last GDalClient object is being destructed.
     if(_weInitializedGdal) {
       // We initialized the GDal library, so we need to clean up again.
-#ifdef GDAL_LIBRARY_HAS_OGR_SUPPORT
+#ifdef DEVBASE_GDAL_LIBRARY_HAS_OGR_SUPPORT
       OGRCleanupAll();
 #endif
 

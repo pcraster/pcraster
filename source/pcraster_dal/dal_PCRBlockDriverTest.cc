@@ -1,137 +1,71 @@
-#ifndef INCLUDED_DAL_PCRBLOCKDRIVERTEST
-#include "dal_PCRBlockDriverTest.h"
-#define INCLUDED_DAL_PCRBLOCKDRIVERTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_EXCEPTION
+#define BOOST_TEST_MODULE pcraster dal pcr_block_driver
+#include <boost/test/unit_test.hpp>
 #include "dal_Exception.h"
-#define INCLUDED_DAL_EXCEPTION
-#endif
-
-#ifndef INCLUDED_DAL_PCRBLOCKDRIVER
 #include "dal_PCRBlockDriver.h"
-#define INCLUDED_DAL_PCRBLOCKDRIVER
-#endif
 
 
-Block*           d_blockDiscretisation;
-
-
-/*!
-  \file
-  This file contains the implementation of the PCRBlockDriverTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-
-
-namespace dal {
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC PCRBLOCKDRIVER MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*PCRBlockDriverTest::suite()
+struct Fixture
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<PCRBlockDriverTest> instance(new PCRBlockDriverTest());
 
-  suite->add(BOOST_CLASS_TEST_CASE(&PCRBlockDriverTest::testOpen, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&PCRBlockDriverTest::testRead, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&PCRBlockDriverTest::testWrite, instance));
+    Fixture()
+    {
+        using namespace dal;
 
-  return suite;
-}
+        // Write some block data to have something to play with in the tests.
+        // Yes, bootstrapping problem. We need write to be able to test open and
+        // read, but write might not be ok. Assume that when all tests succeed all
+        // is fine.
+        size_t nrRows = 3;
+        size_t nrCols = 2;
+        double cellSize = 1.0;
+        double west = 4.0;
+        double north = 5.0;
+
+        d_blockDiscretisation = new Block(nrRows, nrCols, cellSize, west, north);
+        d_blockDiscretisation->createCells();
+        Raster* elevation = new Raster(nrRows, nrCols, cellSize, west, north,
+               TI_REAL4);
+        elevation->createCells();
+
+        for(size_t i = 0; i < elevation->nrCells(); ++i) {
+          elevation->cell<REAL4>(i) = REAL4(i);
+          REAL4_VECTOR& stack(d_blockDiscretisation->cell<REAL4_VECTOR>(i));
+          stack.insert(stack.end(), i, REAL4(i));
+        }
+
+        // elevation:
+        // 0 1
+        // 2 3
+        // 4 5
+
+        // thicknesses:
+        // - [1]
+        // [2,2] [3,3,3]
+        // [4,4,4,4] [5,5,5,5,5]
+
+        d_blockDiscretisation->setBaseElevation(elevation);
+
+        PCRBlockDriver driver;
+        static_cast<BlockDriver&>(driver).write(
+               *d_blockDiscretisation, "discretisation.pcrblock");
+    }
+
+    ~Fixture()
+    {
+        delete d_blockDiscretisation;
+    }
+
+    dal::Block* d_blockDiscretisation;
+
+};
 
 
+BOOST_FIXTURE_TEST_SUITE(pcr_block_driver, Fixture)
 
-//------------------------------------------------------------------------------
-// DEFINITION OF PCRBLOCKDRIVER MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-PCRBlockDriverTest::PCRBlockDriverTest()
+BOOST_AUTO_TEST_CASE(open)
 {
-}
+  using namespace dal;
 
-
-
-//! setUp
-void PCRBlockDriverTest::setUp()
-{
-  // Write some block data to have something to play with in the tests.
-  // Yes, bootstrapping problem. We need write to be able to test open and
-  // read, but write might not be ok. Assume that when all tests succeed all
-  // is fine.
-  size_t nrRows = 3;
-  size_t nrCols = 2;
-  double cellSize = 1.0;
-  double west = 4.0;
-  double north = 5.0;
-
-  d_blockDiscretisation = new Block(nrRows, nrCols, cellSize, west, north);
-  d_blockDiscretisation->createCells();
-  Raster* elevation = new Raster(nrRows, nrCols, cellSize, west, north,
-         TI_REAL4);
-  elevation->createCells();
-
-  for(size_t i = 0; i < elevation->nrCells(); ++i) {
-    elevation->cell<REAL4>(i) = REAL4(i);
-    REAL4_VECTOR& stack(d_blockDiscretisation->cell<REAL4_VECTOR>(i));
-    stack.insert(stack.end(), i, REAL4(i));
-  }
-
-  // elevation:
-  // 0 1
-  // 2 3
-  // 4 5
-
-  // thicknesses:
-  // - [1]
-  // [2,2] [3,3,3]
-  // [4,4,4,4] [5,5,5,5,5]
-
-  d_blockDiscretisation->setBaseElevation(elevation);
-
-  PCRBlockDriver driver;
-  static_cast<BlockDriver&>(driver).write(
-         *d_blockDiscretisation, "discretisation.pcrblock");
-}
-
-
-
-//! tearDown
-void PCRBlockDriverTest::tearDown()
-{
-  delete d_blockDiscretisation;
-}
-
-
-
-void PCRBlockDriverTest::testOpen()
-{
-  setUp();
   PCRBlockDriver driver;
   Block* block;
 
@@ -156,14 +90,13 @@ void PCRBlockDriverTest::testOpen()
 
     delete block;
   }
-  tearDown();
 }
 
 
-
-void PCRBlockDriverTest::testRead()
+BOOST_AUTO_TEST_CASE(read_)
 {
-  setUp();
+  using namespace dal;
+
   PCRBlockDriver driver;
   Block* block;
 
@@ -216,16 +149,15 @@ void PCRBlockDriverTest::testRead()
 
     delete block;
   }
-  tearDown();
 }
 
 
-
-void PCRBlockDriverTest::testWrite()
+BOOST_AUTO_TEST_CASE(write_)
 {
+  using namespace dal;
+
   // setUp() uses write, if testOpen and testRead succeed, than write is ok
   // too.
 }
 
-} // namespace dal
-
+BOOST_AUTO_TEST_SUITE_END()

@@ -1,98 +1,13 @@
-#ifndef INCLUDED_DAL_TYPETEST
-#include "dal_TypeTest.h"
-#define INCLUDED_DAL_TYPETEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_TYPE
+#define BOOST_TEST_MODULE pcraster dal type
+#include <boost/test/unit_test.hpp>
 #include "dal_Type.h"
-#define INCLUDED_DAL_TYPE
-#endif
-#ifndef INCLUDED_DAL_BASICTYPES
 #include "dal_BasicTypes.h"
-#define INCLUDED_DAL_BASICTYPES
-#endif
 
 
-/*!
-  \file
-  This file contains the implementation of the TypeTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC TYPE MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*dal::TypeTest::suite()
+BOOST_AUTO_TEST_CASE(id)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<TypeTest> instance(new TypeTest());
+  using namespace dal;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&TypeTest::testId, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&TypeTest::testCanParseUint1, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&TypeTest::testCanParseUint2, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&TypeTest::testCanParseUint4, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&TypeTest::testCanParseInt1, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&TypeTest::testCanParseInt2, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&TypeTest::testCanParseInt4, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&TypeTest::testCanParseReal4, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&TypeTest::testCanParseReal8, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&TypeTest::testTypeTraits, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&TypeTest::testBasicType, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF TYPE MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-dal::TypeTest::TypeTest()
-{
-}
-
-
-
-//! setUp
-void dal::TypeTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void dal::TypeTest::tearDown()
-{
-}
-
-
-
-void dal::TypeTest::testId()
-{
   {
     Uint1Type type;
     BOOST_CHECK_EQUAL(type.id(), TI_UINT1);
@@ -147,9 +62,10 @@ void dal::TypeTest::testId()
 }
 
 
-
-void dal::TypeTest::testCanParseUint1()
+BOOST_AUTO_TEST_CASE(can_parse_uint1)
 {
+  using namespace dal;
+
   Uint1Type type;
 
   BOOST_CHECK(!type.canParse("-1"));
@@ -203,9 +119,10 @@ void dal::TypeTest::testCanParseUint1()
 }
 
 
-
-void dal::TypeTest::testCanParseUint2()
+BOOST_AUTO_TEST_CASE(can_parse_uint2)
 {
+  using namespace dal;
+
   Uint2Type type;
 
   BOOST_CHECK(!type.canParse("-1"));
@@ -221,9 +138,10 @@ void dal::TypeTest::testCanParseUint2()
 }
 
 
-
-void dal::TypeTest::testCanParseUint4()
+BOOST_AUTO_TEST_CASE(can_parse_uint4)
 {
+  using namespace dal;
+
   Uint4Type type;
 
   BOOST_CHECK(!type.canParse("-1"));
@@ -241,9 +159,10 @@ void dal::TypeTest::testCanParseUint4()
 }
 
 
-
-void dal::TypeTest::testCanParseInt1()
+BOOST_AUTO_TEST_CASE(can_parse_int1)
 {
+  using namespace dal;
+
   Int1Type type;
 
   BOOST_CHECK(!type.canParse("-129"));
@@ -262,9 +181,10 @@ void dal::TypeTest::testCanParseInt1()
 }
 
 
-
-void dal::TypeTest::testCanParseInt2()
+BOOST_AUTO_TEST_CASE(can_parse_int2)
 {
+  using namespace dal;
+
   Int2Type type;
 
   BOOST_CHECK(!type.canParse("-32769"));
@@ -283,9 +203,10 @@ void dal::TypeTest::testCanParseInt2()
 }
 
 
-
-void dal::TypeTest::testCanParseInt4()
+BOOST_AUTO_TEST_CASE(can_parse_int4)
 {
+  using namespace dal;
+
   Int4Type type;
 
   BOOST_CHECK(!type.canParse("-2147483649"));
@@ -304,9 +225,10 @@ void dal::TypeTest::testCanParseInt4()
 }
 
 
-
-void dal::TypeTest::testCanParseReal4()
+BOOST_AUTO_TEST_CASE(can_parse_real4)
 {
+  using namespace dal;
+
   Real4Type type;
 
   BOOST_CHECK(type.canParse("5.0"));
@@ -331,9 +253,10 @@ void dal::TypeTest::testCanParseReal4()
 }
 
 
-
-void dal::TypeTest::testCanParseReal8()
+BOOST_AUTO_TEST_CASE(can_parse_real8)
 {
+  using namespace dal;
+
   Real8Type type;
 
   BOOST_CHECK(type.canParse("5.0"));
@@ -356,8 +279,11 @@ void dal::TypeTest::testCanParseReal8()
   BOOST_CHECK(!type.canParse("5,"));
 }
 
-void dal::TypeTest::testTypeTraits()
+
+BOOST_AUTO_TEST_CASE(type_traits)
 {
+  using namespace dal;
+
   BOOST_CHECK_EQUAL(TypeTraits<UINT1>::typeId, TI_UINT1);
   BOOST_CHECK_EQUAL(TypeTraits<UINT1>::csfCr, CR_UINT1);
   BOOST_CHECK(TypeTraits<std::string>::typeId != TI_UINT1);
@@ -367,11 +293,13 @@ void dal::TypeTest::testTypeTraits()
   BOOST_CHECK_EQUAL(sizeof(v), size_t(1));
 }
 
-void dal::TypeTest::testBasicType()
+
+BOOST_AUTO_TEST_CASE(basic_type)
 {
+  using namespace dal;
+
   Type const& i2(Type::get(TI_INT2));
   BOOST_CHECK_EQUAL(i2.size(), size_t(2));
   BOOST_CHECK_EQUAL(i2.id(), TI_INT2);
   BOOST_CHECK(i2.hasTrivialCopy());
 }
-

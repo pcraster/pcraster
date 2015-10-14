@@ -1,79 +1,13 @@
-#ifndef INCLUDED_DAL_SPACESTEPMAPPERTEST
-#include "dal_SpaceStepMapperTest.h"
-#define INCLUDED_DAL_SPACESTEPMAPPERTEST
-#endif
-
-// External headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// Project headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_MATHUTILS
+#define BOOST_TEST_MODULE pcraster dal space step mapper
+#include <boost/test/unit_test.hpp>
 #include "dal_MathUtils.h"
-#define INCLUDED_DAL_MATHUTILS
-#endif
-
-#ifndef INCLUDED_DAL_SPACESTEPMAPPER
 #include "dal_SpaceStepMapper.h"
-#define INCLUDED_DAL_SPACESTEPMAPPER
-#endif
 
 
-
-/*!
-  \file
-  This file contains the implementation of the SpaceStepMapperTest class.
-*/
-
-
-
-namespace dal {
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC SPACESTEPMAPPERTEST MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite* SpaceStepMapperTest::suite()
+BOOST_AUTO_TEST_CASE(test)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<SpaceStepMapperTest> instance(
-         new SpaceStepMapperTest());
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &SpaceStepMapperTest::test, instance));
+  using namespace dal;
 
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF SPACESTEPMAPPERTEST MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-SpaceStepMapperTest::SpaceStepMapperTest()
-{
-}
-
-
-
-void SpaceStepMapperTest::test()
-{
   {
     SpaceStepMapper mapper;
     BOOST_CHECK(!mapper.isValid());
@@ -121,6 +55,3 @@ void SpaceStepMapperTest::test()
     BOOST_CHECK(comparable(mapper.source(75.0), 0.5));
   }
 }
-
-} // namespace dal
-

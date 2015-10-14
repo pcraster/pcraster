@@ -1,95 +1,14 @@
-#ifndef INCLUDED_DAL_STEPMAPPERTEST
-#include "dal_StepMapperTest.h"
-#define INCLUDED_DAL_STEPMAPPERTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_STEPMAPPER
-#include "dal_StepMapper.h"
-#define INCLUDED_DAL_STEPMAPPER
-#endif
-
-#ifndef INCLUDED_DAL_MATHUTILS
+#define BOOST_TEST_MODULE pcraster dal step_mapper
+#include <boost/test/unit_test.hpp>
 #include "dal_MathUtils.h"
-#define INCLUDED_DAL_MATHUTILS
-#endif
+#define private public
+#include "dal_StepMapper.h"
 
 
-
-/*!
-  \file
-  This file contains the implementation of the StepMapperTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-
-
-namespace dal {
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC STEPMAPPER MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*StepMapperTest::suite()
+BOOST_AUTO_TEST_CASE(step_mapper)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<StepMapperTest> instance(new StepMapperTest());
+  using namespace dal;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&StepMapperTest::test, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STEPMAPPER MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-StepMapperTest::StepMapperTest(
-         )
-{
-}
-
-
-
-//! setUp
-void StepMapperTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void StepMapperTest::tearDown()
-{
-}
-
-
-
-void StepMapperTest::test()
-{
   {
     StepMapper mapper(1.0, 2.0, 100.0, 200.0);
     BOOST_CHECK(comparable(mapper.destination(-1.0), -100.0));
@@ -106,6 +25,3 @@ void StepMapperTest::test()
     BOOST_CHECK(comparable(std::fmod(mapper.destination(167.0), 1.0), 0.0));
   }
 }
-
-} // namespace dal
-

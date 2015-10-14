@@ -302,7 +302,7 @@ void OgrFeatureDriver::registerOgrDrivers()
 {
   assert(detail::drivers.empty());
 
-#ifdef GDAL_LIBRARY_HAS_OGR_SUPPORT
+#ifdef DEVBASE_GDAL_LIBRARY_HAS_OGR_SUPPORT
   OGRSFDriverRegistrar& manager(*OGRSFDriverRegistrar::GetRegistrar());
 
   for(int i = 0; i < manager.GetDriverCount(); ++i) {

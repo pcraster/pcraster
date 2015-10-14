@@ -196,41 +196,40 @@ if(PCRASTER_BUILD_TEST)
         dal_MatrixDimensionsTest
         dal_MatrixDriverTest
         dal_MemoryDataPoolTest
-        ### dal_MemoryRasterDataTest
-        ### dal_MemoryRasterDriverTest
-        ### dal_MemoryTableDataTest
-        ### dal_MemoryTableDriverTest
-        ### # dal_NetCDFRasterDriverTest
-        ### dal_OgrFeatureDriverTest
-        ### dal_PCRBlockDriverTest
-        ### dal_PropertiesTest
-        ### dal_RasterDalTest
-        ### dal_RasterDimensionsTest
-        ### dal_RegularExpressionsTest
-        ### dal_ResampleTest
-        ### dal_SpaceStepMapperTest
-        ### dal_SpaceStepCoordinateMapperTest
-        ### dal_SpatialCoordinateTest
-        ### dal_SQLTableDriverTest
-        ### dal_StackInfoTest
-        ### dal_StepCoordinateMapperTest
-        ### dal_StepMapperTest
-        ### dal_TableDalTest
-        ### dal_TableDriverTest
-        ### dal_TableTest
-        ### dal_Test
-        ### dal_TextConstantDriverTest
-        ### dal_TextFileDriverTest
-        ### dal_TextMatrixDriverTest
-        ### dal_TextTableDriverTest
-        ### dal_TimeStepCoordinateMapperTest
-        ### dal_TimeStepMapperTest
-        ### dal_TypesTest
-        ### dal_TypeTest
-        ### dal_UseCasesTest
-        ### dal_UtilsTest
-        ### dal_VectorDriverTest
-        ### dal_VTKBlockDriverTest
+        dal_MemoryRasterDataTest
+        dal_MemoryRasterDriverTest
+        dal_MemoryTableDataTest
+        dal_MemoryTableDriverTest
+        # dal_NetCDFRasterDriverTest
+        dal_OgrFeatureDriverTest
+        dal_PCRBlockDriverTest
+        dal_PropertiesTest
+        dal_RasterDalTest
+        dal_RasterDimensionsTest
+        dal_RegularExpressionsTest
+        dal_ResampleTest
+        dal_SpaceStepMapperTest
+        # dal_SpaceStepCoordinateMapperTest   # <--------- TODO!!!!
+        dal_SpatialCoordinateTest
+        # dal_SQLTableDriverTest    # <--------- TODO!!!!
+        dal_StackInfoTest
+        # dal_StepCoordinateMapperTest  # <---------- TODO!!!!!
+        dal_StepMapperTest
+        dal_TableDalTest
+        dal_TableDriverTest
+        dal_TableTest
+        dal_TextConstantDriverTest
+        dal_TextFileDriverTest
+        # dal_TextMatrixDriverTest   # <------- TODO!!!
+        dal_TextTableDriverTest
+        dal_TimeStepCoordinateMapperTest
+        dal_TimeStepMapperTest
+        dal_TypesTest
+        dal_TypeTest
+        dal_UseCasesTest
+        dal_UtilsTest
+        dal_VectorDriverTest
+        dal_VTKBlockDriverTest
     )
     add_unit_tests(
         SCOPE pcraster_dal

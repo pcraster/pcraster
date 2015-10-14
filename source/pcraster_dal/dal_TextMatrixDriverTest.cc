@@ -169,64 +169,64 @@ BOOST_AUTO_TEST_CASE(matrix2)
 }
 
 
-BOOST_AUTO_TEST_CASE(matrix3)
-{
-  using namespace dal;
+/// BOOST_AUTO_TEST_CASE(matrix3)
+/// {
+///   using namespace dal;
+/// 
+///   /*
+///   std::string filename;
+///   TextMatrixDriver driver;
+///   Matrix* matrix;
+/// 
+///   {
+///     filename = "matrix3.txt";
+///     matrix = driver.open(filename);
+///     BOOST_CHECK(matrix);
+///     BOOST_CHECK_EQUAL(matrix->nrRows(), size_t(0));
+///     BOOST_CHECK_EQUAL(matrix->nrCols(), size_t(3));
+///     BOOST_CHECK_EQUAL(matrix->typeId(), TI_STRING);
+/// 
+///     driver.read(filename, *matrix);
+///     BOOST_CHECK_EQUAL(matrix->nrRows(), size_t(3));
+/// 
+///     Array<std::string> const& cells = matrix->cells<std::string>();
+///     BOOST_CHECK_EQUAL(cells[0],  "1");
+///     BOOST_CHECK_EQUAL(cells[1],  "1.0");
+///     BOOST_CHECK_EQUAL(cells[2],  "1");
+///     BOOST_CHECK_EQUAL(cells[3],  "1");
+///     BOOST_CHECK_EQUAL(cells[4],  "0");
+///     BOOST_CHECK_EQUAL(cells[5],  "1");
+///     BOOST_CHECK_EQUAL(cells[6],  "1");
+///     BOOST_CHECK_EQUAL(cells[7],  "1");
+///     BOOST_CHECK_EQUAL(cells[8],  "a");
+/// 
+///     delete matrix;
+///   }
+///   */
+/// }
 
-  /*
-  std::string filename;
-  TextMatrixDriver driver;
-  Matrix* matrix;
 
-  {
-    filename = "matrix3.txt";
-    matrix = driver.open(filename);
-    BOOST_CHECK(matrix);
-    BOOST_CHECK_EQUAL(matrix->nrRows(), size_t(0));
-    BOOST_CHECK_EQUAL(matrix->nrCols(), size_t(3));
-    BOOST_CHECK_EQUAL(matrix->typeId(), TI_STRING);
-
-    driver.read(filename, *matrix);
-    BOOST_CHECK_EQUAL(matrix->nrRows(), size_t(3));
-
-    Array<std::string> const& cells = matrix->cells<std::string>();
-    BOOST_CHECK_EQUAL(cells[0],  "1");
-    BOOST_CHECK_EQUAL(cells[1],  "1.0");
-    BOOST_CHECK_EQUAL(cells[2],  "1");
-    BOOST_CHECK_EQUAL(cells[3],  "1");
-    BOOST_CHECK_EQUAL(cells[4],  "0");
-    BOOST_CHECK_EQUAL(cells[5],  "1");
-    BOOST_CHECK_EQUAL(cells[6],  "1");
-    BOOST_CHECK_EQUAL(cells[7],  "1");
-    BOOST_CHECK_EQUAL(cells[8],  "a");
-
-    delete matrix;
-  }
-  */
-}
-
-
-BOOST_AUTO_TEST_CASE(matrix4)
-{
-  using namespace dal;
-
-  std::string filename;
-  TextMatrixDriver driver;
-  Matrix* matrix;
-
-  {
-    filename = "matrix4.txt";
-    matrix = dynamic_cast<Matrix*>(
-           dynamic_cast<Driver&>(driver).open(filename));
-    /*
-    BOOST_CHECK(matrix);
-    BOOST_CHECK_EQUAL(matrix->nrRows(), size_t(0));
-    BOOST_CHECK_EQUAL(matrix->nrCols(), size_t(3));
-    BOOST_CHECK_EQUAL(matrix->typeId(), TI_REAL4);
-
-    driver.read(filename, *matrix);
-    */
-
-    delete matrix;
-  }
-}
+/// BOOST_AUTO_TEST_CASE(matrix4)
+/// {
+///   using namespace dal;
+/// 
+///   std::string filename;
+///   TextMatrixDriver driver;
+///   Matrix* matrix;
+/// 
+///   {
+///     filename = "matrix4.txt";
+///     matrix = dynamic_cast<Matrix*>(
+///            dynamic_cast<Driver&>(driver).open(filename));
+///     /*
+///     BOOST_CHECK(matrix);
+///     BOOST_CHECK_EQUAL(matrix->nrRows(), size_t(0));
+///     BOOST_CHECK_EQUAL(matrix->nrCols(), size_t(3));
+///     BOOST_CHECK_EQUAL(matrix->typeId(), TI_REAL4);
+/// 
+///     driver.read(filename, *matrix);
+///     */
+/// 
+///     delete matrix;
+///   }
+/// }

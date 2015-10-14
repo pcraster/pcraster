@@ -11,6 +11,8 @@
 #include "dal_Exception.h"
 #include "dal_GDALRasterDriver.h"
 #include "dal_Utils.h"
+#define protected public
+#include "dal_Client.h"
 
 
 namespace detail {
@@ -318,12 +320,14 @@ void testTemporalRaster(
 
 
 struct Fixture:
-    private dev::GDalClient
+    private dev::GDalClient,
+    private dal::Client
 
 {
 
     Fixture()
-        : dev::GDalClient()
+        : dev::GDalClient(),
+          dal::Client("/my/path/gdal_raster_driver_test", true)
     {
         GetGDALDriverManager()->AutoLoadDrivers();
     }

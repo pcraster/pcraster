@@ -174,10 +174,10 @@ if(PCRASTER_BUILD_TEST)
         dal_ConnectionInfoTest
         dal_ConstantTest
         dal_CoordinateMapperTest
-        # dal_CSFMapTest  # <-------- TODO!!!!!
+        dal_CSFMapTest
         dal_CSFRasterDriverTest
         dal_DataSourceTest
-        # dal_DataSpaceAddressMapperTest  # <-------- TODO!!!!!!
+        # dal_DataSpaceAddressMapperTest  # TODO
         dal_DataSpaceAddressTest
         dal_DataSpaceIteratorTest
         dal_DataSpaceTest
@@ -187,10 +187,10 @@ if(PCRASTER_BUILD_TEST)
         dal_FeatureLayerTest
         dal_FeaturePathTest
         dal_FilesystemUtilsTest
-        # dal_GDALRasterDriverTest  # <----------- TODO!!!!!
+        dal_GDALRasterDriverTest
         dal_GeoEASTableDriverTest
         # dal_HDF5RasterDriverTest
-        # dal_MapperUtilsTest  # <------------ TODO!!!!!!!
+        # dal_MapperUtilsTest  # TODO
         dal_MathUtilsTest
         dal_MatrixTest
         dal_MatrixDimensionsTest
@@ -209,18 +209,18 @@ if(PCRASTER_BUILD_TEST)
         dal_RegularExpressionsTest
         dal_ResampleTest
         dal_SpaceStepMapperTest
-        # dal_SpaceStepCoordinateMapperTest   # <--------- TODO!!!!
+        # dal_SpaceStepCoordinateMapperTest  # TODO
         dal_SpatialCoordinateTest
-        # dal_SQLTableDriverTest    # <--------- TODO!!!!
+        # dal_SQLTableDriverTest  # TODO
         dal_StackInfoTest
-        # dal_StepCoordinateMapperTest  # <---------- TODO!!!!!
+        # dal_StepCoordinateMapperTest  # TODO
         dal_StepMapperTest
         dal_TableDalTest
         dal_TableDriverTest
         dal_TableTest
         dal_TextConstantDriverTest
         dal_TextFileDriverTest
-        # dal_TextMatrixDriverTest   # <------- TODO!!!
+        dal_TextMatrixDriverTest
         dal_TextTableDriverTest
         dal_TimeStepCoordinateMapperTest
         dal_TimeStepMapperTest
@@ -238,104 +238,6 @@ if(PCRASTER_BUILD_TEST)
             pcraster_dal
     )
 endif()
-
-
-
-### SET(TEST_SOURCES
-###     dal_ArrayTest.cc
-###     dal_BinaryTableDriverTest.cc
-###     dal_BlockTest.cc
-###     dal_ClientTest.cc
-###     dal_ConnectionInfoTest.cc
-###     dal_ConstantTest.cc
-###     dal_CoordinateMapperTest.cc
-###     dal_CSFMapTest.cc
-###     dal_CSFRasterDriverTest.cc
-###     dal_DalTest.cc
-###     dal_DataSourceTest.cc
-###     dal_DataSpaceAddressMapperTest.cc
-###     dal_DataSpaceAddressTest.cc
-###     dal_DataSpaceIteratorTest.cc
-###     dal_DataSpaceTest.cc
-###     dal_DefTest.cc
-###     dal_DimensionTest.cc
-###     dal_EnvironmentTest.cc
-###     dal_FeatureLayerTest.cc
-###     dal_FeaturePathTest.cc
-###     dal_FilesystemUtilsTest.cc
-###     dal_GDALRasterDriverTest.cc
-###     dal_GeoEASTableDriverTest.cc
-###     # dal_HDF5RasterDriverTest.cc
-###     dal_MapperUtilsTest.cc
-###     dal_MathUtilsTest.cc
-###     dal_MatrixTest.cc
-###     dal_MatrixDimensionsTest.cc
-###     dal_MatrixDriverTest.cc
-###     dal_MemoryDataPoolTest.cc
-###     dal_MemoryRasterDataTest.cc
-###     dal_MemoryRasterDriverTest.cc
-###     dal_MemoryTableDataTest.cc
-###     dal_MemoryTableDriverTest.cc
-###     # dal_NetCDFRasterDriverTest.cc
-###     dal_OgrFeatureDriverTest.cc
-###     dal_PCRBlockDriverTest.cc
-###     dal_PropertiesTest.cc
-###     dal_RasterDalTest.cc
-###     dal_RasterDimensionsTest.cc
-###     dal_RegularExpressionsTest.cc
-###     dal_ResampleTest.cc
-###     dal_SpaceStepMapperTest.cc
-###     dal_SpaceStepCoordinateMapperTest.cc
-###     dal_SpatialCoordinateTest.cc
-###     dal_SQLTableDriverTest.cc
-###     dal_StackInfoTest.cc
-###     dal_StepCoordinateMapperTest.cc
-###     dal_StepMapperTest.cc
-###     dal_TableDalTest.cc
-###     dal_TableDriverTest.cc
-###     dal_TableTest.cc
-###     dal_Test.cc
-###     dal_TextConstantDriverTest.cc
-###     dal_TextFileDriverTest.cc
-###     dal_TextMatrixDriverTest.cc
-###     dal_TextTableDriverTest.cc
-###     dal_TimeStepCoordinateMapperTest.cc
-###     dal_TimeStepMapperTest.cc
-###     dal_TypesTest.cc
-###     dal_TypeTest.cc
-###     dal_UseCasesTest.cc
-###     dal_UtilsTest.cc
-###     dal_VectorDriverTest.cc
-###     dal_VTKBlockDriverTest.cc
-### )
-### ADD_EXECUTABLE(test_pcraster_dal
-###     ${TEST_SOURCES}
-### )
-### # IF(WIN32)
-### #     TARGET_LINK_LIBRARIES(test_pcraster_dal
-### #         pcraster_dal_static
-### #     )
-### # ELSE()
-###     TARGET_LINK_LIBRARIES(test_pcraster_dal
-###         pcraster_dal
-###     )
-### # ENDIF()
-### ### TARGET_LINK_LIBRARIES(test_pcraster_dal
-### ###     # ${LINK_LIBRARIES}
-### ### )
-### 
-### # TODO Bug in d83.map test? Legend detection seems wrong.
-### ADD_CUSTOM_TARGET(run_test_pcraster_dal
-###     COMMAND ${CMAKE_COMMAND} -E env
-###         LD_LIBRARY_PATH=${GDAL_INCLUDE_DIR}/../lib:$ENV{LD_LIBRARY_PATH}
-###         bash ${CMAKE_CURRENT_BINARY_DIR}/testrun.prolog
-###     COMMAND test_pcraster_dal --detect_memory_leaks=0
-###     # COMMAND vcexpress.exe /debugexe test_pcraster_dal
-###     COMMAND bash ${CMAKE_CURRENT_BINARY_DIR}/testrun.epilog
-###     DEPENDS test_pcraster_dal
-###     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-### )
-### # TODO Uncomment!!! ADD_DEPENDENCIES(tests run_test_pcraster_dal)
 # ------------------------------------------------------------------------------
 SET(DALAPP_SOURCES
     dal_Application.cc
@@ -350,7 +252,6 @@ SET_TARGET_PROPERTIES(dal
 )
 TARGET_LINK_LIBRARIES(dal
     pcraster_dal
-    # ${BOOST_PROGRAM_OPTIONS_LIBRARY}
 )
 # ------------------------------------------------------------------------------
 # Install rules for all components.

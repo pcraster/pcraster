@@ -148,12 +148,10 @@ calc::Field*     (PCRModflow::*get_lower_facePy)      (size_t) = &PCRModflow::ge
 
 
 void (PCRModflow::*setCondPS)(size_t, const std::string &, const std::string &, size_t) = &PCRModflow::setCond;
-  
 
-      
+
+
 void (PCRModflow::*setCondPy)(size_t, const calc::Field *, const calc::Field *, size_t) = &PCRModflow::setCond;
-  
-    
 
 
 BOOST_PYTHON_MODULE(_pcraster_modflow){
@@ -169,6 +167,8 @@ BOOST_PYTHON_MODULE(_pcraster_modflow){
     .def("addConfinedLayer", addConfinedPy)
     .def("addConfinedLayer", addConfinedPS)
     .def("setDISParameter", &PCRModflow::setDISParams)
+    .def("setRowWidth", &PCRModflow::set_row_width)
+    .def("setColumnWidth", &PCRModflow::set_col_width)
     // BAS
     .def("setBoundary", setBoundaryPy)
     .def("setBoundary", setBoundaryPS)
@@ -249,7 +249,7 @@ BOOST_PYTHON_MODULE(_pcraster_modflow){
 
     .def("getLowerFace", get_lower_facePy,
          boost::python::return_value_policy<boost::python::manage_new_object>())
-    
+
     ;
 
 }

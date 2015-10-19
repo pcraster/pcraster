@@ -18,6 +18,11 @@
 #define INCLUDED_VECTOR
 #endif
 
+#ifndef INCLUDED_BOOST_PYTHON
+#include <boost/python.hpp>
+#define INCLUDED_BOOST_PYTHON
+#endif
+
 
 // PCRaster library headers.
 #ifndef INCLUDED_GEO_RASTERSPACE
@@ -97,7 +102,7 @@ class PCRModflow : public dal::Client
 
 
 */
-  
+
   friend class Common;
   friend class GridCheck;
   friend class BCF;
@@ -261,6 +266,11 @@ public:
 	    void addConfinedLayer(const calc::Field *values);
 	    void setLayer(const discr::Block &thickness, const discr::BlockData<INT4> &conf);
 
+  void             set_row_width       (boost::python::list const& arguments);
+
+  void             set_col_width       (boost::python::list const& arguments);
+
+
 	    //
 	    void setDISParams(size_t timeUnits, size_t lentghUnits, float stressPeriodLength, size_t nrOfTimesteps, float timeStepMultiplier, bool isSteadyState);
 	    // BAS
@@ -333,13 +343,13 @@ public:
 	    void getRiverLeakage(float *result, size_t mfLayer);
 //	    discr::BlockData<REAL4>* getBlockRiverLeakage();
 	    calc::Field* getRiverLeakage(size_t layer);
-	    
-            
+
+
   void             get_storage         (float *values,
                                         size_t mfLayer);
 
   calc::Field*     get_storage         (size_t layer);
-            
+
   void             get_constand_head   (float *values,
                                         size_t mfLayer);
 
@@ -361,13 +371,13 @@ public:
   calc::Field*     get_lower_face      (size_t layer);
 
 
-            
+
   // workaround?
   void createBottomPS(const std::string & lower, const std::string & upper);
   void addLayerPS(const std::string & values);
   void addConfinedLayerPS(const std::string & values);
-  
- 
+
+
   void setIBound(const std::string & values, size_t layer);
   void setInitialHead(const std::string & values, size_t layer);
   void setCond(size_t laycon, const std::string & hcond, const std::string & vcond, size_t layer);
@@ -378,6 +388,6 @@ public:
   void setRiver(const std::string & rivH, const std::string & rivB, const std::string & rivC, size_t layer);
   void setDrain(const std::string & elevation, const std::string & conductance, size_t layer);
   void setWell(const std::string & well, size_t mfLayer);
-};  
+};
 
 #endif // INCLUDED_PCRMODFLOW

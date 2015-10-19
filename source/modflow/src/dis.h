@@ -9,7 +9,7 @@
 
 // Library headers.
 #ifndef INCLUDED_STRING
-#include <string>
+#include <sstream>
 #define INCLUDED_STRING
 #endif
 
@@ -42,9 +42,20 @@ private:
   size_t d_lenuni;
   float d_perlen;
   size_t d_nstp;
-  float d_tsmult;
+  float            d_tsmult;
   std::string d_sstr;
+
+  std::vector<float> d_row_width;
+
+  std::vector<float> d_col_width;
+
   bool addLayer(const float *values, bool confined);
+
+  void             write_row_width     (std::stringstream& content) const;
+
+  void             write_col_width     (std::stringstream& content) const;
+
+
 public:
   ~DIS();
   DIS(PCRModflow *mf);
@@ -58,6 +69,15 @@ public:
   bool writeDIS() const;
   void setParams(size_t itmuni, size_t lenuni, float perlen, size_t nstp, float tsmult, bool sstr);
   size_t getTimeSteps() const;
+
+
+  void             reset_row_width     ();
+
+  void             append_row_width    (float width);
+
+  void             reset_col_width     ();
+
+  void             append_col_width    (float width);
 };
 
 #endif // INCLUDED_DIS

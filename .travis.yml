@@ -34,9 +34,17 @@ addons:
             # - clang-3.5
             - g++-4.9
             - gdal-bin
+            - imagemagick
             - libgdal-dev
-            - libgeos-dev
+            - libgeos++-dev
             - libboost1.55-all-dev
+            - libqt4-dev
+            - libqt4-dev-bin
+            - libqwt-dev
+            - libxml2-dev
+            - libxslt1-dev
+            - python-dev
+            - xsltproc
             # - libc++-dev
 
 before_install:

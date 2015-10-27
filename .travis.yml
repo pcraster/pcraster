@@ -39,8 +39,8 @@ addons:
             - libgeos++-dev
             - libboost1.55-all-dev
             - libqt4-dev
-            - libqt4-dev-bin
-            - libqwt-dev
+            # - libqt4-dev-bin
+            # - libqwt-dev
             - libxml2-dev
             - libxslt1-dev
             - python-dev
@@ -51,7 +51,12 @@ before_install:
     - wget http://www.cmake.org/files/v3.2/cmake-3.2.3-Linux-x86_64.tar.gz
     - if [ "$CC" = "clang" ]; then export CC="clang-3.5" CXX="clang++-3.5"; fi
     - if [ "$CC" = "gcc" ]; then export CC="gcc-4.9" CXX="g++-4.9"; fi
-    - git clone git://git.code.sf.net/p/pcraster/rasterformat pcraster_raster_format
+
+    # Travis doesn't have
+    # - PCRaster's raster format library
+    # - Qwt library
+    # We build and install those ourselves using Peacock.
+    - git clone git@github.com:geoneric/peacock.git
 
 install:
     - mkdir $TRAVIS_BUILD_DIR/local
@@ -60,12 +65,11 @@ install:
     - tar zxf ../cmake-3.2.3-Linux-x86_64.tar.gz
     - export PATH=$TRAVIS_BUILD_DIR/local/cmake-3.2.3-Linux-x86_64/bin:$PATH
 
-    - cd $TRAVIS_BUILD_DIR/pcraster_raster_format
+    - cd $TRAVIS_BUILD_DIR/peacock
     - mkdir build
     - cd build
-    - cmake -G"${TRAVIS_CMAKE_GENERATOR}" -DCMAKE_INSTALL_PREFIX:PATH=$TRAVIS_BUILD_DIR/local ..
+    - cmake -G"${TRAVIS_CMAKE_GENERATOR}" -Dpeacock_prefix=$TRAVIS_BUILD_DIR/local -Dbuild_pcraster_raster_format=true -Dpcraster_raster_format_version=1.3.1 -Dbuild_qwt=true -Dqwt_version=6.0.2 ..
     - cmake --build . --target all
-    - cmake --build . --target install
 
 before_script:
     - mkdir $TRAVIS_BUILD_DIR/build

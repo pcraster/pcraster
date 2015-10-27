@@ -1,91 +1,8 @@
-#ifndef INCLUDED_STDDEFX
+#define BOOST_TEST_MODULE pcraster com mv_generic
+#include <boost/test/unit_test.hpp>
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_COM_MVGENERICTEST
-#include "com_mvgenerictest.h"
-#define INCLUDED_COM_MVGENERICTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_NUMERIC
 #include <numeric>
-#define INCLUDED_NUMERIC
-#endif
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_COM_MVGENERIC
 #include "com_mvgeneric.h"
-#define INCLUDED_COM_MVGENERIC
-#endif
-
-
-/*!
-  \file
-  This file contains the implementation of the MVGenericTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC MVGENERIC MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*com::MVGenericTest::suite()
-{
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<MVGenericTest> instance(new MVGenericTest());
-
-  // these 2 first, for copyCount check!
-  suite->add(BOOST_CLASS_TEST_CASE(&MVGenericTest::testVisitNonMV, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&MVGenericTest::testIterator, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&MVGenericTest::testSpatialNonSpatialIterate, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&MVGenericTest::testSpatialNonSpatialForEach, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF MVGENERIC MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-com::MVGenericTest::MVGenericTest()
-{
-}
-
-
-
-//! setUp
-void com::MVGenericTest::setUp()
-{
-}
-
-//! tearDown
-void com::MVGenericTest::tearDown()
-{
-}
-
 
 
 namespace com {
@@ -138,8 +55,11 @@ namespace com {
   } // mvGenericTest
 } // com
 
-void com::MVGenericTest::testVisitNonMV()
+
+BOOST_AUTO_TEST_CASE(visit_non_mv)
 {
+  using namespace com;
+
   {
     UINT1 d[]={ 1, 4, MV_UINT1};
     mvGenericTest::UP up;
@@ -161,10 +81,13 @@ void com::MVGenericTest::testVisitNonMV()
   }
 }
 
-void com::MVGenericTest::testIterator()
+
+BOOST_AUTO_TEST_CASE(iterator)
 {
+  using namespace com;
+
   typedef NonSpatialContainer<INT4> NSC;
-  typedef NonSpatialIterator<INT4> NSI;
+  // typedef NonSpatialIterator<INT4> NSI;
   NSC  c(12,5);
 
   size_t n=0;
@@ -198,8 +121,11 @@ void com::MVGenericTest::testIterator()
   BOOST_CHECK(mso.sum==(5*12*12));
 }
 
-void com::MVGenericTest::testSpatialNonSpatialIterate()
+
+BOOST_AUTO_TEST_CASE(spatial_non_spatial_iterate)
 {
+  using namespace com;
+
  {
   UINT1  c[1] ={12};
   INT4 cs[5]={ 1, 0, MV_INT4, 1, 0 };
@@ -238,8 +164,11 @@ void com::MVGenericTest::testSpatialNonSpatialIterate()
  }
 }
 
-void com::MVGenericTest::testSpatialNonSpatialForEach()
+
+BOOST_AUTO_TEST_CASE(spatial_non_spatial_for_each)
 {
+  using namespace com;
+
  typedef mvGenericTest::SetSum SS;
  {
   UINT1  c[1] ={12};

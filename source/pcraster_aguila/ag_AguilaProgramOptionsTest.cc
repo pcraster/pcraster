@@ -1,74 +1,14 @@
-#include "ag_AguilaProgramOptionsTest.h"
-
-// Library headers.
-#include <boost/foreach.hpp>
-#include <boost/shared_ptr.hpp>
-#include <boost/test/test_tools.hpp>
-#include <boost/test/unit_test_suite.hpp>
-
-// PCRaster library headers.
+#define BOOST_TEST_MODULE pcraster aguila program_options
+#include <boost/test/unit_test.hpp>
 #include "AguilaXSD.h"
 #include "com_exception.h"
-
-// Module headers.
 #include "ag_AguilaProgramOptions.h"
 
 
-
-/*!
-  \file
-  This file contains the implementation of the AguilaProgramOptionsTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-
-
-namespace ag {
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC AGUILAPROGRAMOPTIONS MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*AguilaProgramOptionsTest::suite()
+BOOST_AUTO_TEST_CASE(view_plus_syntax_to_view_constructor)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<AguilaProgramOptionsTest> instance(
-         new AguilaProgramOptionsTest());
+  using namespace ag;
 
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &AguilaProgramOptionsTest::testViewPlusSyntaxToViewCtor, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &AguilaProgramOptionsTest::testBoostOptions, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &AguilaProgramOptionsTest::testBoostOptions2XML, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &AguilaProgramOptionsTest::testStacknameFix, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &AguilaProgramOptionsTest::testDrapeSyntax, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &AguilaProgramOptionsTest::testMultipleViews, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF AGUILAPROGRAMOPTIONS MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-AguilaProgramOptionsTest::AguilaProgramOptionsTest(
-         )
-{
-}
-
-
-
-void AguilaProgramOptionsTest::testViewPlusSyntaxToViewCtor()
-{
   {
     // + is a string on its own
     // if viewValues is   a + b c + d + e f
@@ -149,9 +89,10 @@ void AguilaProgramOptionsTest::testViewPlusSyntaxToViewCtor()
 }
 
 
-
-void AguilaProgramOptionsTest::testBoostOptions()
+BOOST_AUTO_TEST_CASE(boost_options)
 {
+  using namespace ag;
+
   // char c1[7] = "aguila";
   // char c2[10] = "--mapView";
   // char c3[13] = "volcano0.090";
@@ -172,8 +113,11 @@ void AguilaProgramOptionsTest::testBoostOptions()
   // BOOST_CHECK(views[1].map().present());
 }
 
-void AguilaProgramOptionsTest::testBoostOptions2XML()
+
+BOOST_AUTO_TEST_CASE(boost_options_to_xml)
 {
+  using namespace ag;
+
   {
     char c1[7] = "aguila";
     char c2[10] = "--mapView";
@@ -205,9 +149,10 @@ void AguilaProgramOptionsTest::testBoostOptions2XML()
 }
 
 
-
-void AguilaProgramOptionsTest::testStacknameFix()
+BOOST_AUTO_TEST_CASE(stackname_fix)
 {
+  using namespace ag;
+
   {
     char c1[7] = "aguila";
     char c2[17] = "volcano0.001+090";
@@ -255,9 +200,10 @@ void AguilaProgramOptionsTest::testStacknameFix()
 }
 
 
-
-void AguilaProgramOptionsTest::testDrapeSyntax()
+BOOST_AUTO_TEST_CASE(drape_syntax)
 {
+  using namespace ag;
+
   {
     char c1[7]  = "aguila";
     char c2[2] = "a";
@@ -321,9 +267,10 @@ void AguilaProgramOptionsTest::testDrapeSyntax()
 }
 
 
-
-void AguilaProgramOptionsTest::testMultipleViews()
+BOOST_AUTO_TEST_CASE(multiple_views)
 {
+  using namespace ag;
+
   // {
   //   char c1[7]  = "aguila";
   //   char c2[12] = "--timesteps";
@@ -358,8 +305,3 @@ void AguilaProgramOptionsTest::testMultipleViews()
   //   BOOST_CHECK_EQUAL(space.timesteps()[0].range()->increment(), size_t(1));
   // }
 }
-
-
-
-} // namespace ag
-

@@ -1,97 +1,16 @@
-#ifndef INCLUDED_STDDEFX
+#define BOOST_TEST_MODULE pcraster com rle_ptr_vector_test
+#include <boost/test/unit_test.hpp>
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_COM_RLEPTRVECTORTEST
-#include "com_rleptrvectortest.h"
-#define INCLUDED_COM_RLEPTRVECTORTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_ALGORITHM
 #include <algorithm>
-#define INCLUDED_ALGORITHM
-#endif
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_COM_RLEPTRVECTOR
 #include "com_rleptrvector.h"
-#define INCLUDED_COM_RLEPTRVECTOR
-#endif
 
 
-
-/*!
-  \file
-  This file contains the implementation of the RLEPtrVectorTest class.
-*/
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC RLEPTRVECTOR MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*com::RLEPtrVectorTest::suite()
+BOOST_AUTO_TEST_CASE(rle_item)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<RLEPtrVectorTest> instance(new RLEPtrVectorTest());
 #ifndef __x86_64__
-  suite->add(BOOST_CLASS_TEST_CASE(&RLEPtrVectorTest::testRLEItem, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&RLEPtrVectorTest::testPushBack, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&RLEPtrVectorTest::testIterator, instance));
-#endif
+  using namespace com;
 
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF RLEPTRVECTOR MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-com::RLEPtrVectorTest::RLEPtrVectorTest()
-{
-}
-
-
-
-//! setUp
-void com::RLEPtrVectorTest::setUp()
-{
-}
-
-//! tearDown
-void com::RLEPtrVectorTest::tearDown()
-{
-}
-
-
-#ifndef __x86_64__
-
-void com::RLEPtrVectorTest::testRLEItem()
-{
-{
+  {
   typedef RLEItem<int,4> I4;
   int data;
   int *ptr=&data;
@@ -141,10 +60,15 @@ void com::RLEPtrVectorTest::testRLEItem()
     BOOST_CHECK((int *)(i.basePtr(ptrWithCount))==(((int *)ptr)+1));
     BOOST_CHECK(i.count(ptrWithCount)==0);
   }
+#endif
 }
 
-void com::RLEPtrVectorTest::testPushBack()
+
+BOOST_AUTO_TEST_CASE(push_back)
 {
+#ifndef __x86_64__
+  using namespace com;
+
     typedef RLEPtrVector<int> RLEPV;
     int elem[] = { 7,9,10};
    { // order for full rle
@@ -177,6 +101,7 @@ void com::RLEPtrVectorTest::testPushBack()
       BOOST_CHECK(d.capacity()<=8);
      }
    }
+#endif
 }
 
 namespace com {
@@ -189,8 +114,12 @@ struct TEST_PERM4 {
 
 }
 
-void com::RLEPtrVectorTest::testIterator()
+
+BOOST_AUTO_TEST_CASE(iterator)
 {
+#ifndef __x86_64__
+  using namespace com;
+
    { // EMPTY container
     RLEPtrVector<int> empty;
     RLEPtrVector<int>::const_iterator i(empty);
@@ -277,5 +206,5 @@ void com::RLEPtrVectorTest::testIterator()
         BOOST_CHECK(p==nrElems);
      } while(std::next_permutation(ptrPerm.begin(),ptrPerm.end()));
    }
-}
 #endif
+}

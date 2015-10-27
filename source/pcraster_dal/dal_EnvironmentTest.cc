@@ -1,80 +1,13 @@
-#ifndef INCLUDED_DAL_ENVIRONMENTTEST
-#include "dal_EnvironmentTest.h"
-#define INCLUDED_DAL_ENVIRONMENTTEST
-#endif
-
-// External headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// Project headers.
-#ifndef INCLUDED_DEV_UTILS
+#define BOOST_TEST_MODULE pcraster dal environment
+#include <boost/test/unit_test.hpp>
 #include "dev_Utils.h"
-#define INCLUDED_DEV_UTILS
-#endif
-
-// Module headers.
-#ifndef INCLUDED_DAL_ENVIRONMENT
 #include "dal_Environment.h"
-#define INCLUDED_DAL_ENVIRONMENT
-#endif
 
 
-
-/*!
-  \file
-  This file contains the implementation of the EnvironmentTest class.
-*/
-
-
-
-namespace dal {
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC ENVIRONMENTTEST MEMBERS
-//------------------------------------------------------------------------------
-
-//! Suite.
-boost::unit_test::test_suite* EnvironmentTest::suite()
+BOOST_AUTO_TEST_CASE(dal_formats)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<EnvironmentTest> instance(
-         new EnvironmentTest());
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &EnvironmentTest::testDalFormats, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &EnvironmentTest::testGdalData, instance));
+  using namespace dal;
 
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF ENVIRONMENTTEST MEMBERS
-//------------------------------------------------------------------------------
-
-//! Constructor.
-EnvironmentTest::EnvironmentTest()
-{
-}
-
-
-
-void EnvironmentTest::testDalFormats()
-{
 #ifdef _WIN32
   BOOST_WARN_MESSAGE(false, "Environment handling does not work on Windows");
 #else
@@ -106,9 +39,10 @@ void EnvironmentTest::testDalFormats()
 }
 
 
-
-void EnvironmentTest::testGdalData()
+BOOST_AUTO_TEST_CASE(gdal_data)
 {
+  using namespace dal;
+
 #ifdef _WIN32
   BOOST_WARN_MESSAGE(false, "Environment handling does not work on Windows");
 #else
@@ -134,6 +68,3 @@ void EnvironmentTest::testGdalData()
   }
 #endif
 }
-
-} // namespace dal
-

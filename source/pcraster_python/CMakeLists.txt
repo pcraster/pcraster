@@ -105,67 +105,71 @@ ADD_CUSTOM_TARGET(
         ${_TARGET_BIN}/pcraster/__init__.py
 )
 
-# Unit testing stuff ----------------------------------------------------------
-# Python extension is renamed and linking the unit test executable fails because
-# of this. Dunno how to solve this. For now, just make a static lib to link
-# the unit test against.
-ADD_LIBRARY(pcraster_python_static STATIC
-    ${PCRASTER_SOURCES}
-    ${CORE_SOURCES}
-)
-SET(TEST_SOURCES
-    pcrcalcpy_test.cc
-    pcrcalcpy_pythonunittest.cc
-)
 
-ADD_FILE_DEPENDENCY(pcrcalcpy_pythonunittest.cc ${CMAKE_CURRENT_SOURCE_DIR}/test.py)
-ADD_FILE_DEPENDENCY(pcrcalcpy_pythonunittest.cc ${CMAKE_CURRENT_SOURCE_DIR}/testcase.py)
-### ADD_FILE_DEPENDENCY(pcrcalcpy_pythonunittest.cc ${CMAKE_CURRENT_SOURCE_DIR}/testexamples.py) # generated
+if(FALSE AND PCRASTER_BUILD_TEST)
+    # Unit testing stuff ----------------------------------------------------------
+    # Python extension is renamed and linking the unit test executable fails because
+    # of this. Dunno how to solve this. For now, just make a static lib to link
+    # the unit test against.
+    ADD_LIBRARY(pcraster_python_static STATIC
+        ${PCRASTER_SOURCES}
+        ${CORE_SOURCES}
+    )
+    SET(TEST_SOURCES
+        pcrcalcpy_test.cc
+        pcrcalcpy_pythonunittest.cc
+    )
+
+    ADD_FILE_DEPENDENCY(pcrcalcpy_pythonunittest.cc ${CMAKE_CURRENT_SOURCE_DIR}/test.py)
+    ADD_FILE_DEPENDENCY(pcrcalcpy_pythonunittest.cc ${CMAKE_CURRENT_SOURCE_DIR}/testcase.py)
+    ### ADD_FILE_DEPENDENCY(pcrcalcpy_pythonunittest.cc ${CMAKE_CURRENT_SOURCE_DIR}/testexamples.py) # generated
 
 
-### SET(_EXAMPLES_DIR ${PROJECT_SOURCE_DIR}/Documentation/PCRasterManual/examples)
-### ADD_CUSTOM_COMMAND(
-###   OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/testexamples.py
-###   DEPENDS
-###     ${_EXAMPLES_DIR}/ScriptSamples.py
-###     ${_EXAMPLES_DIR}/PCRasterSample.py
-###     ${_EXAMPLES_DIR}/Makefile
-###   COMMAND make -C ${_EXAMPLES_DIR} PythonTests OUTPUT=${CMAKE_CURRENT_SOURCE_DIR}/testexamples.py
-### )
+    ### SET(_EXAMPLES_DIR ${PROJECT_SOURCE_DIR}/Documentation/PCRasterManual/examples)
+    ### ADD_CUSTOM_COMMAND(
+    ###   OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/testexamples.py
+    ###   DEPENDS
+    ###     ${_EXAMPLES_DIR}/ScriptSamples.py
+    ###     ${_EXAMPLES_DIR}/PCRasterSample.py
+    ###     ${_EXAMPLES_DIR}/Makefile
+    ###   COMMAND make -C ${_EXAMPLES_DIR} PythonTests OUTPUT=${CMAKE_CURRENT_SOURCE_DIR}/testexamples.py
+    ### )
 
-ADD_EXECUTABLE(test_pcraster_python
-    ${TEST_SOURCES}
-)
+    ADD_EXECUTABLE(test_pcraster_python
+        ${TEST_SOURCES}
+    )
 
-ADD_DEPENDENCIES(test_pcraster_python
-    examples.sentinel)
+    ADD_DEPENDENCIES(test_pcraster_python
+        examples.sentinel)
 
-# input files from _EXAMPLES_DIR need these apps:
-ADD_DEPENDENCIES(test_pcraster_python mapattr asc2map)
+    # input files from _EXAMPLES_DIR need these apps:
+    ADD_DEPENDENCIES(test_pcraster_python mapattr asc2map)
 
-TARGET_LINK_LIBRARIES(test_pcraster_python
-    pcraster_python_static
-    # ${_LIBRARIES_TO_LINK}
-    ${Boost_PYTHON_LIBRARY}
-    # ${Boost_SYSTEM_LIBRARY}
-    ${PYTHON_LIBRARIES}
-)
+    TARGET_LINK_LIBRARIES(test_pcraster_python
+        pcraster_python_static
+        # ${_LIBRARIES_TO_LINK}
+        ${Boost_PYTHON_LIBRARY}
+        # ${Boost_SYSTEM_LIBRARY}
+        ${PYTHON_LIBRARIES}
+    )
 
-ADD_CUSTOM_TARGET(run_test_pcraster_python
-    COMMAND bash ./testrun.prolog
-    COMMAND test_pcraster_python --detect_memory_leaks=0
-    DEPENDS test_pcraster_python fill_python_directory_structure
-    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-)
-IF(NOT (WIN32 AND (CMAKE_BUILD_TYPE STREQUAL Debug)))
-    # This won't work unless a debug numpy is installed.
-    ADD_DEPENDENCIES(tests run_test_pcraster_python)
-ENDIF()
+    ADD_CUSTOM_TARGET(run_test_pcraster_python
+        COMMAND bash ./testrun.prolog
+        COMMAND test_pcraster_python --detect_memory_leaks=0
+        DEPENDS test_pcraster_python fill_python_directory_structure
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    )
+    IF(NOT (WIN32 AND (CMAKE_BUILD_TYPE STREQUAL Debug)))
+        # This won't work unless a debug numpy is installed.
+        ADD_DEPENDENCIES(tests run_test_pcraster_python)
+    ENDIF()
 
-ADD_DEPENDENCIES(pcraster_python_static
-    _pcraster
-    pcraster_model_engine
-)
+    ADD_DEPENDENCIES(pcraster_python_static
+        _pcraster
+        pcraster_model_engine
+    )
+endif()
+
 
 #----------------------------------------------------------
 #INSTALL(

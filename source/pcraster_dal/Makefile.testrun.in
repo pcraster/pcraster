@@ -192,7 +192,7 @@ TemporalVectorData: TemporalVectorDataCreated
 # ------------------------------------------------------------------------------
 
 MyDatabase.sql3:
-	@SQLITE3@ MyDatabase.sql3 "\
+	@SQLITE3_EXECUTABLE@ MyDatabase.sql3 "\
   create table timesteps(\
     'date' INTEGER,\
     'co2' REAL,\
@@ -200,7 +200,7 @@ MyDatabase.sql3:
   insert into timesteps values(1, 1.1);\
   insert into timesteps values(2, 2.2);\
   insert into timesteps values(3, 3.3);"
-	@SQLITE3@ MyDatabase.sql3 "\
+	@SQLITE3_EXECUTABLE@ MyDatabase.sql3 "\
   create table quantiles(\
     'quantile' REAL,\
     'co2' REAL,\

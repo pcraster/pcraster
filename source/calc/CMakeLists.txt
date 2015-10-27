@@ -68,13 +68,6 @@ SET(SOURCES
     window.c
     vf.c
 )
-SET(TEST_SOURCES
-    calc_test.cc
-    calc_downstreamvisitortest.cc
-    calc_marktest.cc
-    calc_kinematictest.cc
-    calc_transienttest.cc
-)
 ADD_LIBRARY(calc
     ${SOURCES}
 )
@@ -89,27 +82,38 @@ TARGET_LINK_LIBRARIES(calc
     misc
     # ${Boost_MATH_C99_LIBRARY}
 )
-ADD_EXECUTABLE(test_calc
-    ${TEST_SOURCES}
-)
 
-TARGET_LINK_LIBRARIES(test_calc
-    calc
-    # api
-    # pcrgeo
-    # app
-    # mathx
-    # pcrcom
-    # tab
-    # geom
-    # misc
-    # ${BOOST_SYSTEM_LIBRARY}
-    # ${BOOST_FILESYSTEM_LIBRARY}
-)
 
-ADD_CUSTOM_TARGET(run_test_calc
-    COMMAND test_calc --detect_memory_leaks=0
-    DEPENDS test_calc
-    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-)
-ADD_DEPENDENCIES(tests run_test_calc)
+if(FALSE AND PCRASTER_BUILD_TEST)
+    SET(TEST_SOURCES
+        calc_test.cc
+        calc_downstreamvisitortest.cc
+        calc_marktest.cc
+        calc_kinematictest.cc
+        calc_transienttest.cc
+    )
+    ADD_EXECUTABLE(test_calc
+        ${TEST_SOURCES}
+    )
+
+    TARGET_LINK_LIBRARIES(test_calc
+        calc
+        # api
+        # pcrgeo
+        # app
+        # mathx
+        # pcrcom
+        # tab
+        # geom
+        # misc
+        # ${BOOST_SYSTEM_LIBRARY}
+        # ${BOOST_FILESYSTEM_LIBRARY}
+    )
+
+    ADD_CUSTOM_TARGET(run_test_calc
+        COMMAND test_calc --detect_memory_leaks=0
+        DEPENDS test_calc
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    )
+    ADD_DEPENDENCIES(tests run_test_calc)
+endif()

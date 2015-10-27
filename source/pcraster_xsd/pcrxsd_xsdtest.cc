@@ -1,99 +1,21 @@
-// #ifndef INCLUDED_STDDEFX
-// #include "stddefx.h"
-// #define INCLUDED_STDDEFX
-// #endif
-
-#ifndef INCLUDED_PCRXSD_XSDTEST
-#include "pcrxsd_xsdtest.h"
-#define INCLUDED_PCRXSD_XSDTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-#ifndef INCLUDED_SSTREAM
+#define BOOST_TEST_MODULE pcraster xsd xsd
+#include <boost/test/unit_test.hpp>
 #include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-
-
-// PCRaster library headers.
-// Module headers.
-#ifndef INCLUDED_PCRXSD_PCRASTERXSD
 #include "PCRasterXSD.h"
-#define INCLUDED_PCRXSD_PCRASTERXSD
-#endif
-#ifndef INCLUDED_PCRXSD_DOMINPUT
 #include "pcrxsd_dominput.h"
-#define INCLUDED_PCRXSD_DOMINPUT
-#endif
-/*!
- *  some tests to test/evaluate the xsd tool
- */
+#include "pcrxsd_library.h"
+
 
 XERCES_CPP_NAMESPACE_USE
 
-namespace pcrxsd {
+using Fixture = pcrxsd::Library;
 
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC XSD MEMBERS
-//------------------------------------------------------------------------------
+BOOST_GLOBAL_FIXTURE(Fixture)
 
-//! suite
-boost::unit_test::test_suite*XsdTest::suite()
+
+BOOST_AUTO_TEST_CASE(xml_to_class)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<XsdTest> instance(new XsdTest());
-
-  suite->add(BOOST_CLASS_TEST_CASE(&XsdTest::testValidation, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&XsdTest::testNoSchema, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&XsdTest::testXML2Class, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&XsdTest::testClass2XML, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF XSD MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-XsdTest::XsdTest(
-         )
-{
-}
-
-
-
-//! setUp
-void XsdTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void XsdTest::tearDown()
-{
-}
-
-
-void XsdTest::testXML2Class()
-{
+  using namespace pcrxsd;
 
   // should not throw errors
   std::istringstream s("<definition name='a'                            \
@@ -116,8 +38,11 @@ void XsdTest::testXML2Class()
   BOOST_CHECK(des=="Haskell sucks");
 }
 
-void XsdTest::testClass2XML()
+
+BOOST_AUTO_TEST_CASE(class_to_xml)
 {
+  using namespace pcrxsd;
+
   pcrxml::Definition d("nameValue");
   d.field(pcrxml::FieldValueOrType());
 
@@ -126,8 +51,11 @@ void XsdTest::testClass2XML()
   BOOST_CHECK(true);
 }
 
-void XsdTest::testValidation()
+
+BOOST_AUTO_TEST_CASE(validation)
 {
+  using namespace pcrxsd;
+
   pcrxml::script("habitat1.xml");
 
   std::istringstream s("<pcr:definition name='a'                            \
@@ -155,8 +83,11 @@ void XsdTest::testValidation()
   }
 }
 
-void XsdTest::testNoSchema()
+
+BOOST_AUTO_TEST_CASE(no_schema)
 {
+  using namespace pcrxsd;
+
  {/// no validate
   // set to schema PCRasterXX.xsd that should not be found
   std::string s(
@@ -273,6 +204,3 @@ Both in this chapter and the schema documentation the elements are explained in 
  * IN: how the element instructs the API when passed in by pcr_createScriptFromString()
  * OUT: what the element tells about the script definition when it is retrieved from pcr_ScriptXMLReflection()
 */
-
-} // namespace pcrxsd
-

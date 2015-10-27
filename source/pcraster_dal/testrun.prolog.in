@@ -381,7 +381,7 @@ echo "\"Integer\",\"String\",\"Real\",\"Real\"" > polygons.csvt
 # Note the reordering of the records. This will make sure that the join on
 # fid works.
 rm -f polygons.sql3
-@SQLITE3@ polygons.sql3 <<EOF
+@SQLITE3_EXECUTABLE@ polygons.sql3 <<EOF
   create table polygons(
     'fid' INTEGER,
     'date' INTEGER,
@@ -461,7 +461,7 @@ EOF
 # - Test exceedence chances for unavailable temporal values
 
 rm -f dimensions.sql3
-@SQLITE3@ dimensions.sql3 <<EOF
+@SQLITE3_EXECUTABLE@ dimensions.sql3 <<EOF
   create table date(
     'date' INTEGER,
     'co2' REAL,
@@ -471,7 +471,7 @@ rm -f dimensions.sql3
   insert into date values(3, 3.33);
 EOF
 
-@SQLITE3@ dimensions.sql3 <<EOF
+@SQLITE3_EXECUTABLE@ dimensions.sql3 <<EOF
   create table scenario(
     'scenario' STRING,
     'co2' REAL,
@@ -480,7 +480,7 @@ EOF
   insert into scenario values("noot", -2.22);
 EOF
 
-@SQLITE3@ dimensions.sql3 <<EOF
+@SQLITE3_EXECUTABLE@ dimensions.sql3 <<EOF
   create table scenario_date(
     'scenario' STRING,
     'date' INTEGER,
@@ -492,7 +492,7 @@ EOF
   insert into scenario_date values("noot", 2, 2.02);
 EOF
 
-@SQLITE3@ dimensions.sql3 <<EOF
+@SQLITE3_EXECUTABLE@ dimensions.sql3 <<EOF
   create table quantile(
     'quantile' REAL,
     'co2' REAL,
@@ -504,7 +504,7 @@ EOF
   insert into quantile values(0.99, 1.99);
 EOF
 
-@SQLITE3@ dimensions.sql3 <<EOF
+@SQLITE3_EXECUTABLE@ dimensions.sql3 <<EOF
   create table scenario_date_quantile(
     'scenario' STRING,
     'date' INTEGER,

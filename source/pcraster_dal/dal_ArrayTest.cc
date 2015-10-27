@@ -1,86 +1,12 @@
-#ifndef INCLUDED_DAL_ARRAYTEST
-#include "dal_ArrayTest.h"
-#define INCLUDED_DAL_ARRAYTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_ARRAY
+#define BOOST_TEST_MODULE pcraster dal array
+#include <boost/test/unit_test.hpp>
 #include "dal_Array.h"
-#define INCLUDED_DAL_ARRAY
-#endif
 
 
-
-/*!
-  \file
-  This file contains the implementation of the ArrayTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC ARRAY MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*dal::ArrayTest::suite()
+BOOST_AUTO_TEST_CASE(constructor)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<ArrayTest> instance(new ArrayTest());
+  using namespace dal;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&ArrayTest::testConstructor, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ArrayTest::testIndexOf, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF ARRAY MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-dal::ArrayTest::ArrayTest()
-{
-}
-
-
-
-//! setUp
-void dal::ArrayTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void dal::ArrayTest::tearDown()
-{
-}
-
-
-
-void dal::ArrayTest::testConstructor()
-{
   {
     Array<int> array;
     BOOST_CHECK(array.empty());
@@ -114,8 +40,10 @@ void dal::ArrayTest::testConstructor()
 }
 
 
-void dal::ArrayTest::testIndexOf()
+BOOST_AUTO_TEST_CASE(index_of)
 {
+  using namespace dal;
+
   {
     Array<int> array;
     BOOST_CHECK_EQUAL(indexOf(array, 5), 0);
@@ -140,4 +68,3 @@ void dal::ArrayTest::testIndexOf()
     BOOST_CHECK_EQUAL(indexOf(array, 6), 5);
   }
 }
-

@@ -1,83 +1,13 @@
-#ifndef INCLUDED_DAL_REGULAREXPRESSIONSTEST
-#include "dal_RegularExpressionsTest.h"
-#define INCLUDED_REGULAREXPRESSIONSTEST
-#endif
-
-// External headers.
-#ifndef INCLUDED_IOSTREAM
+#define BOOST_TEST_MODULE pcraster dal regular_expressions
+#include <boost/test/unit_test.hpp>
 #include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// Project headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_REGULAREXPRESSIONS
 #include "dal_RegularExpressions.h"
-#define INCLUDED_DAL_REGULAREXPRESSIONS
-#endif
 
 
-
-/*!
-  \file
-  This file contains the implementation of the RegularExpressionsTest class.
-*/
-
-namespace {
-
-} // Anonymous namespace
-
-
-
-namespace dal {
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC REGULAREXPRESSIONSTEST MEMBERS
-//------------------------------------------------------------------------------
-
-//! Suite.
-boost::unit_test::test_suite* RegularExpressionsTest::suite()
+BOOST_AUTO_TEST_CASE(quantile_of_raster_regex)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<RegularExpressionsTest> instance(
-         new RegularExpressionsTest());
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &RegularExpressionsTest::testQuantileOfRasterRegex, instance));
+  using namespace dal;
 
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF REGULAREXPRESSIONSTEST MEMBERS
-//------------------------------------------------------------------------------
-
-//! Constructor.
-RegularExpressionsTest::RegularExpressionsTest()
-{
-}
-
-
-
-void RegularExpressionsTest::testQuantileOfRasterRegex()
-{
   boost::smatch match;
   std::string name;
 
@@ -97,6 +27,3 @@ void RegularExpressionsTest::testQuantileOfRasterRegex()
     BOOST_CHECK(std::string(match[2].first, match[2].second) == "0.001");
   }
 }
-
-} // namespace dal
-

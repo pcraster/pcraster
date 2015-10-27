@@ -1,99 +1,17 @@
-#ifndef INCLUDED_STDDEFX
+#define BOOST_TEST_MODULE pcraster com spirit_file_parser
+#include <boost/test/unit_test.hpp>
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_COM_SPIRITFILEPARSERTEST
-#include "com_spiritfileparsertest.h"
-#define INCLUDED_COM_SPIRITFILEPARSERTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_PATHNAME
 #include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
-#ifndef INCLUDED_COM_FILE
 #include "com_file.h"
-#define INCLUDED_COM_FILE
-#endif
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-
-// Module headers.
-#ifndef INCLUDED_COM_SPIRITFILEPARSER
 #include "com_spiritfileparser.h"
-#define INCLUDED_COM_SPIRITFILEPARSER
-#endif
-
-
-
-/*!
-  \file
-  This file contains the implementation of the SpiritFileParserTest class.
-*/
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC SPIRITFILEPARSER MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*com::SpiritFileParserTest::suite()
-{
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<SpiritFileParserTest> instance(new SpiritFileParserTest());
-
-  suite->add(BOOST_CLASS_TEST_CASE(&SpiritFileParserTest::testCurrent, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&SpiritFileParserTest::fileMapTooLarge, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF SPIRITFILEPARSER MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-com::SpiritFileParserTest::SpiritFileParserTest()
-{
-}
-
-//! setUp
-void com::SpiritFileParserTest::setUp()
-{
-}
-
-//! tearDown
-void com::SpiritFileParserTest::tearDown()
-{
-}
 
 
 //! test the idea of saving the current position to resume later
-void com::SpiritFileParserTest::testCurrent()
+BOOST_AUTO_TEST_CASE(current)
 {
+  using namespace com;
+
   com::PathName pn("testparser.txt");
   com::write("1 2 3 4\n \n 5 A6",pn);
   std::vector<int> parsed;
@@ -129,8 +47,11 @@ void com::SpiritFileParserTest::testCurrent()
   BOOST_CHECK(catched);
 }
 
-void com::SpiritFileParserTest::fileMapTooLarge()
+
+BOOST_AUTO_TEST_CASE(file_map_too_large)
 {
+  using namespace com;
+
 #ifdef WIN32
   com::PathName big("E:\\gam_allXL.xyz");
 #else

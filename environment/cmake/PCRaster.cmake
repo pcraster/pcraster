@@ -1,7 +1,5 @@
-# https://github.com/geoneric/peacock/blob/master/cmake/PeacockPlatform.cmake
-include(PeacockPlatform) # This one first. Other modules use the variables.
-
-include(DevBaseCompiler)  # This one first. Configuration uses the compiler.
+include(PeacockPlatform)
+include(DevBaseCompiler)
 
 set(CMAKE_CXX_FLAGS_DEBUG
     "${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG -DDEBUG_BUILD -DDEBUG_DEVELOP"
@@ -11,12 +9,23 @@ set(CMAKE_C_FLAGS_DEBUG
 )
 # https://svn.boost.org/trac/boost/ticket/6455
 set(CMAKE_CXX_FLAGS
-    "${CMAKE_CXX_FLAGS} -DQT_NO_KEYWORDS -DGDAL_LIBRARY_HAS_OGR_SUPPORT"
+    "${CMAKE_CXX_FLAGS} -DQT_NO_KEYWORDS"
 )
 
 
 include(PCRasterConfiguration)
 include(DevBaseExternal)
+
+if(DEVBASE_SQLITE_EXECUTABLE_REQUIRED)
+    find_program(SQLITE3_EXECUTABLE
+        sqlite3
+        HINTS ${SQLITE3_INCLUDE_DIRS}/../bin
+    )
+    if(NOT SQLITE3_EXECUTABLE)
+        message(FATAL_ERROR "sqlite3 executable not found")
+    endif()
+endif()
+
 include(DevBaseMacro)
 include(PCRasterMacro)
 

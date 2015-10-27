@@ -1,77 +1,12 @@
-#ifndef INCLUDED_PCRXSD_COMMONTYPESTEST
-#include "pcrxsd_commontypestest.h"
-#define INCLUDED_PCRXSD_COMMONTYPESTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-#ifndef INCLUDED_SSTREAM
+#define BOOST_TEST_MODULE pcraster xsd common_types
+#include <boost/test/unit_test.hpp>
 #include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-
-#ifndef INCLUDED_BOOST_DATE_TIME_POSIX_TIME_PTIME
 #include "boost/date_time/posix_time/ptime.hpp"
-#define INCLUDED_BOOST_DATE_TIME_POSIX_TIME_PTIME
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_COMMONTYPESXSD
 #include "commonTypesXSD.h"
-#define INCLUDED_COMMONTYPESXSD
-#endif
-#ifndef INCLUDED_UNITTESTXSD
 #include "unitTestXSD.h"
-#define INCLUDED_UNITTESTXSD
-#endif
-#ifndef INCLUDED_PCRXSD_UTILS
+#include "pcrxsd_library.h"
 #include "pcrxsd_utils.h"
-#define INCLUDED_PCRXSD_UTILS
-#endif
 
-/*!
-  \file
-  This file contains the implementation of the CommonTypesTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-
-
-namespace pcrxsd {
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC COMMONTYPES MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*CommonTypesTest::suite()
-{
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<CommonTypesTest> instance(new CommonTypesTest());
-
-  suite->add(BOOST_CLASS_TEST_CASE(&CommonTypesTest::testToBoostPosixTime, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&CommonTypesTest::testTimeDurationAssumption, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&CommonTypesTest::testTimeDuration, instance));
-
-  return suite;
-}
 
 //! make a date_time and validate first
 static xml_schema::date_time makeDateTime(const std::string& date)
@@ -86,6 +21,7 @@ static xml_schema::date_time makeDateTime(const std::string& date)
   std::auto_ptr<xml_schema::date_time> d(pcrxml::clock(i));
   return *d;
 }
+
 
 //! make a date_time and validate first
 static pcrxml::TimeDuration makeTimeDuration(
@@ -102,34 +38,15 @@ static pcrxml::TimeDuration makeTimeDuration(
   return *d;
 }
 
-//------------------------------------------------------------------------------
-// DEFINITION OF COMMONTYPES MEMBERS
-//------------------------------------------------------------------------------
 
-//! ctor
-CommonTypesTest::CommonTypesTest(
-         )
+using Fixture = pcrxsd::Library;
+
+BOOST_GLOBAL_FIXTURE(Fixture)
+
+BOOST_AUTO_TEST_CASE(to_boost_posix_time)
 {
-}
+  using namespace pcrxsd;
 
-
-
-//! setUp
-void CommonTypesTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void CommonTypesTest::tearDown()
-{
-}
-
-
-
-void CommonTypesTest::testToBoostPosixTime()
-{
   {
   boost::posix_time::ptime p1= toPosixTime(
       makeDateTime("2005-02-10T18:15:00"));
@@ -165,8 +82,10 @@ void CommonTypesTest::testToBoostPosixTime()
   // toPosixTime(makeDateTime("2005-02-10T18:15:00.345Z"));
 }
 
-void CommonTypesTest::testTimeDurationAssumption()
+
+BOOST_AUTO_TEST_CASE(time_duration_assumption)
 {
+    using namespace pcrxsd;
     using namespace boost::posix_time;
     namespace bg = boost::gregorian;
 
@@ -203,8 +122,11 @@ void CommonTypesTest::testTimeDurationAssumption()
   }
 }
 
-void CommonTypesTest::testTimeDuration()
+
+BOOST_AUTO_TEST_CASE(time_duration)
 {
+  using namespace pcrxsd;
+
   {
   boost::posix_time::time_duration p =
     toPosixTimeDuration(makeTimeDuration("<pcr:hours>10</pcr:hours>"));
@@ -229,6 +151,3 @@ void CommonTypesTest::testTimeDuration()
   BOOST_CHECK(p.seconds()==40);
   }
 }
-
-} // namespace pcrxsd
-

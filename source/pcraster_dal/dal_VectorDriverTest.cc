@@ -1,91 +1,17 @@
-#ifndef INCLUDED_DAL_VECTORDRIVERTEST
-#include "dal_VectorDriverTest.h"
-#define INCLUDED_DAL_VECTORDRIVERTEST
-#endif
-
-// External headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// Project headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_EXCEPTION
+#define BOOST_TEST_MODULE pcraster dal vector_driver
+#include <boost/test/unit_test.hpp>
 #include "dal_Exception.h"
-#define INCLUDED_DAL_EXCEPTION
-#endif
-
-#ifndef INCLUDED_DAL_VECTORDRIVER
 #include "dal_VectorDriver.h"
-#define INCLUDED_DAL_VECTORDRIVER
-#endif
+#define protected public
+#include "dal_Client.h"
+
+static dal::Client client("/my/path/vector_driver_test", true);
 
 
-
-/*!
-  \file
-  This file contains the implementation of the VectorDriverTest class.
-*/
-
-namespace {
-
-} // Anonymous namespace
-
-
-
-namespace dal {
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC VECTORDRIVERTEST MEMBERS
-//------------------------------------------------------------------------------
-
-//! Suite.
-boost::unit_test::test_suite* VectorDriverTest::suite()
+BOOST_AUTO_TEST_CASE(exists)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<VectorDriverTest> instance(
-         new VectorDriverTest());
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &VectorDriverTest::testExists, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &VectorDriverTest::testOpen, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &VectorDriverTest::testDataSpace, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &VectorDriverTest::testRead, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &VectorDriverTest::testExtremes, instance));
+  using namespace dal;
 
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF VECTORDRIVERTEST MEMBERS
-//------------------------------------------------------------------------------
-
-//! Constructor.
-VectorDriverTest::VectorDriverTest()
-{
-}
-
-
-
-void VectorDriverTest::testExists()
-{
   VectorDriver driver;
 
   // Static data.
@@ -130,9 +56,10 @@ void VectorDriverTest::testExists()
 }
 
 
-
-void VectorDriverTest::testOpen()
+BOOST_AUTO_TEST_CASE(open)
 {
+  using namespace dal;
+
   VectorDriver driver;
   boost::shared_ptr<Vector> vector;
 
@@ -177,9 +104,10 @@ void VectorDriverTest::testOpen()
 }
 
 
-
-void VectorDriverTest::testDataSpace()
+BOOST_AUTO_TEST_CASE(data_space)
 {
+  using namespace dal;
+
   VectorDriver driver;
   DataSpace space;
 
@@ -239,9 +167,10 @@ void VectorDriverTest::testDataSpace()
 }
 
 
-
-void VectorDriverTest::testRead()
+BOOST_AUTO_TEST_CASE(read_)
 {
+  using namespace dal;
+
   VectorDriver driver;
   boost::shared_ptr<Vector> vector;
 
@@ -331,9 +260,10 @@ void VectorDriverTest::testRead()
 }
 
 
-
-void VectorDriverTest::testExtremes()
+BOOST_AUTO_TEST_CASE(extremes)
 {
+  using namespace dal;
+
   VectorDriver driver;
   boost::shared_ptr<Vector> vector;
   boost::any min, max;
@@ -345,6 +275,3 @@ void VectorDriverTest::testExtremes()
          REAL4(0.001));
   }
 }
-
-} // namespace dal
-

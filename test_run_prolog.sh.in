@@ -1,0 +1,14 @@
+set -e
+
+directories_with_prolog_scripts="
+    source/pcrcom
+    source/pcraster_dal
+    source/pcraster_aguila
+"
+
+
+for directory_pathname in $directories_with_prolog_scripts; do
+    cd @CMAKE_CURRENT_BINARY_DIR@/$directory_pathname
+    bash ./testrun.prolog
+    cd -
+done

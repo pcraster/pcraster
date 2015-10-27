@@ -1,104 +1,25 @@
-#ifndef INCLUDED_STDDEFX
+#define BOOST_TEST_MODULE pcraster com algorithm
+#include <boost/test/unit_test.hpp>
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_COM_ALGORITHMTEST
-#include "com_algorithmtest.h"
-#define INCLUDED_COM_ALGORITHMTEST
-#endif
-
-#ifndef INCLUDED_COM_ALGORITHM
 #include "com_algorithm.h"
-#define INCLUDED_COM_ALGORITHM
-#endif
-
-// Library headers.
-#ifndef INCLUDED_VECTOR
 #include <vector>
-#define INCLUDED_VECTOR
-#endif
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
 
 
-
-/*!
-  \file
-  This file contains the implementation of the AlgorithmTest class.
-*/
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC ALGORITHM MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*com::AlgorithmTest::suite()
+BOOST_AUTO_TEST_CASE(has_element)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<AlgorithmTest> instance(new AlgorithmTest());
+  using namespace com;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&AlgorithmTest::testHasElement, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&AlgorithmTest::testSeq0123etc, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&AlgorithmTest::testFindValue, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF ALGORITHM MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-com::AlgorithmTest::AlgorithmTest(
-         )
-{
-}
-
-
-
-//! setUp
-void com::AlgorithmTest::setUp()
-{
-}
-
-//! tearDown
-void com::AlgorithmTest::tearDown()
-{
-}
-
-
-
-void com::AlgorithmTest::testHasElement()
-{
   std::vector<int> v1;
   BOOST_CHECK(!hasElement(v1,9));
   v1.push_back(9);
   BOOST_CHECK(hasElement(v1,9));
 }
 
-void com::AlgorithmTest::testSeq0123etc()
+
+BOOST_AUTO_TEST_CASE(seq_0123_etc)
 {
+  using namespace com;
+
   {
     size_t buf[6];
     std::generate_n(buf,6, SeqInc<size_t>());
@@ -130,8 +51,11 @@ void com::AlgorithmTest::testSeq0123etc()
   }
 }
 
-void com::AlgorithmTest::testFindValue()
+
+BOOST_AUTO_TEST_CASE(find_value)
 {
+  using namespace com;
+
   std::map<std::string,std::string> str;
   FindValue<std::string,std::string> fStr("xx");
 

@@ -1,85 +1,13 @@
-#ifndef INCLUDED_DAL_FEATUREPATHTEST
-#include "dal_FeaturePathTest.h"
-#define INCLUDED_DAL_FEATUREPATHTEST
-#endif
-
-// External headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// Project headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_EXCEPTION
+#define BOOST_TEST_MODULE pcraster dal feature_path
+#include <boost/test/unit_test.hpp>
 #include "dal_Exception.h"
-#define INCLUDED_DAL_EXCEPTION
-#endif
-
-#ifndef INCLUDED_DAL_FEATUREPATH
 #include "dal_FeaturePath.h"
-#define INCLUDED_DAL_FEATUREPATH
-#endif
 
 
-
-/*!
-  \file
-  This file contains the implementation of the FeaturePathTest class.
-*/
-
-
-
-namespace dal {
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC FEATUREPATHTEST MEMBERS
-//------------------------------------------------------------------------------
-
-//! Suite.
-boost::unit_test::test_suite* FeaturePathTest::suite()
+BOOST_AUTO_TEST_CASE(test_)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<FeaturePathTest> instance(
-         new FeaturePathTest());
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &FeaturePathTest::test, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &FeaturePathTest::testCompare, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &FeaturePathTest::testAssignment, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &FeaturePathTest::testCopy, instance));
+  using namespace dal;
 
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF FEATUREPATHTEST MEMBERS
-//------------------------------------------------------------------------------
-
-//! Constructor.
-FeaturePathTest::FeaturePathTest()
-{
-}
-
-
-
-void FeaturePathTest::test()
-{
   {
     FeaturePath path;
     BOOST_CHECK(!path.isValid());
@@ -170,9 +98,10 @@ void FeaturePathTest::test()
 }
 
 
-
-void FeaturePathTest::testCompare()
+BOOST_AUTO_TEST_CASE(compare)
 {
+  using namespace dal;
+
   {
     FeaturePath path1, path2;
     BOOST_CHECK(path1 == path2);
@@ -188,9 +117,10 @@ void FeaturePathTest::testCompare()
 }
 
 
-
-void FeaturePathTest::testAssignment()
+BOOST_AUTO_TEST_CASE(assignment)
 {
+  using namespace dal;
+
   {
     FeaturePath path1;
     FeaturePath path2 = path1;
@@ -206,9 +136,10 @@ void FeaturePathTest::testAssignment()
 }
 
 
-
-void FeaturePathTest::testCopy()
+BOOST_AUTO_TEST_CASE(copy)
 {
+  using namespace dal;
+
   {
     FeaturePath path1;
     FeaturePath path2(path1);
@@ -222,6 +153,3 @@ void FeaturePathTest::testCopy()
     BOOST_CHECK(path1 == path2);
   }
 }
-
-} // namespace dal
-

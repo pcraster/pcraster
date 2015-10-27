@@ -1,52 +1,9 @@
-#ifndef INCLUDED_STDDEFX
+#define BOOST_TEST_MODULE pcraster com clone
+#include <boost/test/unit_test.hpp>
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_COM_INTERVALTEST
-#include "com_intervaltest.h"
-#define INCLUDED_COM_INTERVALTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-#ifndef INCLUDED_MEMORY
 #include <memory>
-#define INCLUDED_MEMORY
-#endif
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_COM_INTERVALTYPES
 #include "com_intervaltypes.h"
-#define INCLUDED_COM_INTERVALTYPES
-#endif
 
-
-
-/*!
-  \file
-  This file contains the implementation of the IntervalTest class.
-*/
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC INTERVAL MEMBERS
-//------------------------------------------------------------------------------
 
 namespace com {
 
@@ -59,52 +16,11 @@ namespace com {
   typedef std::auto_ptr< com::Interval<double> > IVap;
 }
 
-//! suite
-boost::unit_test::test_suite*com::IntervalTest::suite()
+
+BOOST_AUTO_TEST_CASE(from_lookup_table_key_correct_format)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<IntervalTest> instance(new IntervalTest());
+  using namespace com;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&IntervalTest::testBetweenLimits, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&IntervalTest::testLessDoubleOperator, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&IntervalTest::testLessOperator, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&IntervalTest::testEqOperator, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&IntervalTest::testMinMax, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&IntervalTest::testFromLookupTableKeyCorrectFormat, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&IntervalTest::testFromLookupTableKeyWrongFormat, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&IntervalTest::testEqualTo, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&IntervalTest::testLimit, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&IntervalTest::testRoundError, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF INTERVAL MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-com::IntervalTest::IntervalTest()
-{
-}
-
-
-
-//! setUp
-void com::IntervalTest::setUp()
-{
-}
-
-//! tearDown
-void com::IntervalTest::tearDown()
-{
-}
-
-
-void com::IntervalTest::testFromLookupTableKeyCorrectFormat()
-{
  {
   IVap a(create("[ ,]"));
   BOOST_CHECK(a->min() == a->minLimit());
@@ -195,8 +111,11 @@ void com::IntervalTest::testFromLookupTableKeyCorrectFormat()
  }
 }
 
-void com::IntervalTest::testFromLookupTableKeyWrongFormat()
+
+BOOST_AUTO_TEST_CASE(from_lookup_table_key_wrong_format)
 {
+  using namespace com;
+
   const char *fmts[] = {
     "[ , ",
     "a6",
@@ -224,8 +143,10 @@ void com::IntervalTest::testFromLookupTableKeyWrongFormat()
   }
 }
 
-void com::IntervalTest::testEqualTo()
+BOOST_AUTO_TEST_CASE(test_equal_to)
 {
+  using namespace com;
+
  {
   IVap a(create("2"));
   BOOST_CHECK(a->equalTo());
@@ -244,8 +165,11 @@ void com::IntervalTest::testEqualTo()
  }
 }
 
-void com::IntervalTest::testMinMax()
+
+BOOST_AUTO_TEST_CASE(test_min_max)
 {
+  using namespace com;
+
   {// docs of virtual double  min()const=0;
    GreaterThanEqualTo<> ge(0);
    BOOST_CHECK( ge.valid(ge.min()));
@@ -326,8 +250,10 @@ void com::IntervalTest::testMinMax()
 }
 
 
-void com::IntervalTest::testBetweenLimits()
+BOOST_AUTO_TEST_CASE(between_limits)
 {
+  using namespace com;
+
   BetweenLimits<> b(GreaterThanEqualTo<>(0),LessThan<>(4));
   BOOST_CHECK(!b.valid(-1));
   BOOST_CHECK( b.valid(0));
@@ -345,8 +271,11 @@ void com::IntervalTest::testBetweenLimits()
   BOOST_CHECK( assignTo.valid(2));
 }
 
-void com::IntervalTest::testLessDoubleOperator()
+
+BOOST_AUTO_TEST_CASE(less_double_operator)
 {
+  using namespace com;
+
 // Anything
 
   BOOST_CHECK(! (AnythingInterval<>()   < 2));
@@ -454,8 +383,11 @@ void com::IntervalTest::testLessDoubleOperator()
 
 }
 
-void com::IntervalTest::testLessOperator()
+
+BOOST_AUTO_TEST_CASE(less_operator)
 {
+  using namespace com;
+
   BOOST_CHECK(!(GreaterThan<>(0).less(LessThanEqualTo<>(4))));
 
   // < 0   vs.  >= 4
@@ -478,8 +410,11 @@ void com::IntervalTest::testLessOperator()
   BOOST_CHECK(!GreaterThan<>(4).less(GreaterThan<>(5)));
 }
 
-void com::IntervalTest::testEqOperator()
+
+BOOST_AUTO_TEST_CASE(eq_operator)
 {
+  using namespace com;
+
   BOOST_CHECK((GreaterThan<>(0)!= (LessThanEqualTo<>(4))));
   BOOST_CHECK(GreaterThan<>(0) == GreaterThan<>(0));
   BOOST_CHECK(LessThanEqualTo<>(4) != AnythingInterval<>());
@@ -488,8 +423,11 @@ void com::IntervalTest::testEqOperator()
   BOOST_CHECK(EqualTo<>(4)         != EqualTo<>(10));
 }
 
-void com::IntervalTest::testRoundError()
+
+BOOST_AUTO_TEST_CASE(round_error)
 {
+  using namespace com;
+
   double v(0.2);
   float  vf(0.2F);
   // assumptions:
@@ -531,8 +469,11 @@ void com::IntervalTest::testRoundError()
   }
 }
 
-void com::IntervalTest::testLimit()
+
+BOOST_AUTO_TEST_CASE(limit)
 {
+  using namespace com;
+
   {
    typedef Interval<double> D; // choose template
    BOOST_CHECK(D::maxLimit()+D::minLimit()==0);

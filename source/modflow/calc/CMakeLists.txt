@@ -71,48 +71,51 @@ ELSE(WIN32)
     )
 ENDIF(WIN32)
 
-SET(TEST_SOURCES
-    calc_Test.cc
-    calc_DemoTest.cc
-)
-ADD_EXECUTABLE(test_pcraster_modflow
-    ${TEST_SOURCES}
-)
 
-# the pcraster_modflow dll must be build first
-ADD_DEPENDENCIES(test_pcraster_modflow pcraster_modflow)
+if(FALSE AND PCRASTER_BUILD_TEST)
+    SET(TEST_SOURCES
+        calc_Test.cc
+        calc_DemoTest.cc
+    )
+    ADD_EXECUTABLE(test_pcraster_modflow
+        ${TEST_SOURCES}
+    )
 
-TARGET_LINK_LIBRARIES(test_pcraster_modflow
-    pcraster_model_engine
-    pcrgeo
-    ${Boost_PYTHON_LIBRARY}
-    ${PYTHON_LIBRARIES}
-)
+    # the pcraster_modflow dll must be build first
+    ADD_DEPENDENCIES(test_pcraster_modflow pcraster_modflow)
 
-ADD_CUSTOM_TARGET(run_test_pcraster_modflow
-    COMMAND bash ./testrun.prolog
-    COMMAND test_pcraster_modflow
-    DEPENDS test_pcraster_modflow
-    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-)
+    TARGET_LINK_LIBRARIES(test_pcraster_modflow
+        pcraster_model_engine
+        pcrgeo
+        ${Boost_PYTHON_LIBRARY}
+        ${PYTHON_LIBRARIES}
+    )
 
-# modflow binary must be copied to bin directory for unit tests
-MATH(EXPR NR_BITS "${CMAKE_SIZEOF_VOID_P} * 8")
+    ADD_CUSTOM_TARGET(run_test_pcraster_modflow
+        COMMAND bash ./testrun.prolog
+        COMMAND test_pcraster_modflow
+        DEPENDS test_pcraster_modflow
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    )
 
-IF(WIN32)
-  SET(EXE_EXTENSION ".exe")
-ELSE(WIN32)
-  SET(EXE_EXTENSION "")
-ENDIF(WIN32)
+    # modflow binary must be copied to bin directory for unit tests
+    MATH(EXPR NR_BITS "${CMAKE_SIZEOF_VOID_P} * 8")
 
-SET(MF_BINARY ${PROJECT_SOURCE_DIR}/external/${CMAKE_SYSTEM_NAME}/${NR_BITS}/pcrmf2k${EXE_EXTENSION})
+    IF(WIN32)
+      SET(EXE_EXTENSION ".exe")
+    ELSE(WIN32)
+      SET(EXE_EXTENSION "")
+    ENDIF(WIN32)
 
-ADD_CUSTOM_COMMAND(
-    TARGET
-        test_pcraster_modflow
-    COMMAND ${CMAKE_COMMAND}
-        ARGS -E copy ${MF_BINARY} ${EXECUTABLE_OUTPUT_PATH}/${CMAKE_CFG_INTDIR}/
-)
-ADD_DEPENDENCIES(run_test_pcraster_modflow test_pcraster_modflow)
-ADD_DEPENDENCIES(run_test_pcraster_modflow fill_python_directory_structure)
-ADD_DEPENDENCIES(tests run_test_pcraster_modflow)
+    SET(MF_BINARY ${PROJECT_SOURCE_DIR}/external/${CMAKE_SYSTEM_NAME}/${NR_BITS}/pcrmf2k${EXE_EXTENSION})
+
+    ADD_CUSTOM_COMMAND(
+        TARGET
+            test_pcraster_modflow
+        COMMAND ${CMAKE_COMMAND}
+            ARGS -E copy ${MF_BINARY} ${EXECUTABLE_OUTPUT_PATH}/${CMAKE_CFG_INTDIR}/
+    )
+    ADD_DEPENDENCIES(run_test_pcraster_modflow test_pcraster_modflow)
+    ADD_DEPENDENCIES(run_test_pcraster_modflow fill_python_directory_structure)
+    ADD_DEPENDENCIES(tests run_test_pcraster_modflow)
+endif()

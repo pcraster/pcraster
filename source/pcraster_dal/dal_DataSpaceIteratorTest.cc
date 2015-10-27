@@ -1,156 +1,81 @@
-#ifndef INCLUDED_DAL_DATASPACEITERATORTEST
-#include "dal_DataSpaceIteratorTest.h"
-#define INCLUDED_DAL_DATASPACEITERATORTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_IOSTREAM
+#define BOOST_TEST_MODULE pcraster dal data_space_iterator
+#include <boost/test/unit_test.hpp>
 #include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_DATASPACEITERATOR
+#include "dal_DataSpace.h"
 #include "dal_DataSpaceIterator.h"
-#define INCLUDED_DAL_DATASPACEITERATOR
-#endif
-
-#ifndef INCLUDED_DAL_RASTERDIMENSIONS
+#include "dal_Dimension.h"
 #include "dal_RasterDimensions.h"
-#define INCLUDED_DAL_RASTERDIMENSIONS
-#endif
-
-#ifndef INCLUDED_DAL_UTILS
 #include "dal_Utils.h"
-#define INCLUDED_DAL_UTILS
-#endif
 
 
-
-/*!
-  \file
-  This file contains the implementation of the DataSpaceIteratorTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC DATASPACEITERATOR MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*dal::DataSpaceIteratorTest::suite()
+struct Fixture
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<DataSpaceIteratorTest> instance(new DataSpaceIteratorTest());
 
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &DataSpaceIteratorTest::testEmptySpace, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &DataSpaceIteratorTest::testScenarios, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &DataSpaceIteratorTest::testRangeOfCumProbabilities, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &DataSpaceIteratorTest::testSamples, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &DataSpaceIteratorTest::testTime, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &DataSpaceIteratorTest::testSpace, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &DataSpaceIteratorTest::testFeatureSpace, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &DataSpaceIteratorTest::testScenariosSamples, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &DataSpaceIteratorTest::testScenarioCumProbabilities, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &DataSpaceIteratorTest::testSpaceWithEmptyDimensions, instance));
+    Fixture()
+    {
+        using namespace dal;
 
-  return suite;
-}
+        std::set<std::string> scenarios;
+        scenarios.insert("aap");
+        scenarios.insert("noot");
+        scenarios.insert("mies");
+        d_scenarios = Dimension(Scenarios, scenarios);
+
+        std::vector<float> quantiles;
+        quantiles.push_back(0.01f);
+        quantiles.push_back(0.99f);
+        quantiles.push_back(0.01f);
+        d_quantiles = Dimension(CumulativeProbabilities, quantiles);
+
+        std::vector<size_t> samples;
+        samples.push_back(3);
+        samples.push_back(9);
+        samples.push_back(2);
+        d_samples = Dimension(Samples, samples);
+
+        std::vector<size_t> timeSteps;
+        timeSteps.push_back(1);
+        timeSteps.push_back(10);
+        timeSteps.push_back(1);
+        d_timeSteps = Dimension(Time, timeSteps);
+
+        d_raster = Dimension(Space, RegularDiscretisation, RasterDimensions(3, 2));
+
+        d_feature = Dimension(Space, BorderedDiscretisation,
+            SpaceDimensions(6.6, -5.5, 6.6, -5.5));
+    }
+
+    ~Fixture()
+    {
+        // d_space.clear();
+    }
+
+    dal::Dimension d_scenarios;
+    dal::Dimension d_quantiles;
+    dal::Dimension d_samples;
+    dal::Dimension d_timeSteps;
+    dal::Dimension d_raster;
+    dal::Dimension d_feature;
+    dal::DataSpace d_space;
+
+};
 
 
+BOOST_FIXTURE_TEST_SUITE(data_space_iterator, Fixture)
 
-//------------------------------------------------------------------------------
-// DEFINITION OF DATASPACEITERATOR MEMBERS
-//------------------------------------------------------------------------------
 
-//! ctor
-dal::DataSpaceIteratorTest::DataSpaceIteratorTest()
+BOOST_AUTO_TEST_CASE(empty_space)
 {
-}
+  using namespace dal;
 
-
-
-//! setUp
-void dal::DataSpaceIteratorTest::setUp()
-{
-  std::set<std::string> scenarios;
-  scenarios.insert("aap");
-  scenarios.insert("noot");
-  scenarios.insert("mies");
-  d_scenarios = Dimension(Scenarios, scenarios);
-
-  std::vector<float> quantiles;
-  quantiles.push_back(0.01f);
-  quantiles.push_back(0.99f);
-  quantiles.push_back(0.01f);
-  d_quantiles = Dimension(CumulativeProbabilities, quantiles);
-
-  std::vector<size_t> samples;
-  samples.push_back(3);
-  samples.push_back(9);
-  samples.push_back(2);
-  d_samples = Dimension(Samples, samples);
-
-  std::vector<size_t> timeSteps;
-  timeSteps.push_back(1);
-  timeSteps.push_back(10);
-  timeSteps.push_back(1);
-  d_timeSteps = Dimension(Time, timeSteps);
-
-  d_raster = Dimension(Space, RegularDiscretisation, RasterDimensions(3, 2));
-
-  d_feature = Dimension(Space, BorderedDiscretisation,
-         SpaceDimensions(6.6, -5.5, 6.6, -5.5));
-}
-
-
-
-//! tearDown
-void dal::DataSpaceIteratorTest::tearDown()
-{
-  d_space.clear();
-}
-
-
-
-void dal::DataSpaceIteratorTest::testEmptySpace()
-{
   BOOST_CHECK(d_space.begin() == d_space.end());
 }
 
 
-
-void dal::DataSpaceIteratorTest::testScenarios()
+BOOST_AUTO_TEST_CASE(scenarios)
 {
-  setUp();
+  using namespace dal;
+
   d_space.addDimension(d_scenarios);
 
   DataSpaceIterator it;
@@ -191,14 +116,13 @@ void dal::DataSpaceIteratorTest::testScenarios()
   BOOST_CHECK(d_space.equal(*it, address));
   BOOST_CHECK(it == d_space.begin());
   BOOST_CHECK(it != d_space.end());
-  tearDown();
 }
 
 
-
-void dal::DataSpaceIteratorTest::testRangeOfCumProbabilities()
+BOOST_AUTO_TEST_CASE(range_of_cum_probabilities)
 {
-  setUp();
+  using namespace dal;
+
   d_space.addDimension(d_quantiles);
 
   DataSpaceIterator it;
@@ -226,14 +150,13 @@ void dal::DataSpaceIteratorTest::testRangeOfCumProbabilities()
   --it;
   address.setCoordinate<float>(0, 0.99f);
   BOOST_CHECK(d_space.equal(*it, address));
-  tearDown();
 }
 
 
-
-void dal::DataSpaceIteratorTest::testSamples()
+BOOST_AUTO_TEST_CASE(samples)
 {
-  setUp();
+  using namespace dal;
+
   d_space.addDimension(d_samples);
 
   DataSpaceIterator it;
@@ -280,14 +203,13 @@ void dal::DataSpaceIteratorTest::testSamples()
   BOOST_CHECK(d_space.equal(*it, address));
   BOOST_CHECK(it == d_space.begin());
   BOOST_CHECK(it != d_space.end());
-  tearDown();
 }
 
 
-
-void dal::DataSpaceIteratorTest::testTime()
+BOOST_AUTO_TEST_CASE(time)
 {
-  setUp();
+  using namespace dal;
+
   d_space.addDimension(d_timeSteps);
 
   DataSpaceIterator it;
@@ -384,14 +306,13 @@ void dal::DataSpaceIteratorTest::testTime()
   BOOST_CHECK(d_space.equal(*it, address));
   BOOST_CHECK(it == d_space.begin());
   BOOST_CHECK(it != d_space.end());
-  tearDown();
 }
 
 
-
-void dal::DataSpaceIteratorTest::testSpace()
+BOOST_AUTO_TEST_CASE(space)
 {
-  setUp();
+  using namespace dal;
+
   d_space.addDimension(d_raster);
 
   DataSpaceIterator it;
@@ -462,14 +383,13 @@ void dal::DataSpaceIteratorTest::testSpace()
   BOOST_CHECK(d_space.equal(*it, address));
   BOOST_CHECK(it == d_space.begin());
   BOOST_CHECK(it != d_space.end());
-  tearDown();
 }
 
 
-
-void dal::DataSpaceIteratorTest::testFeatureSpace()
+BOOST_AUTO_TEST_CASE(feature_space)
 {
-  setUp();
+  using namespace dal;
+
   d_space.addDimension(d_feature);
 
   DataSpaceIterator it;
@@ -491,15 +411,13 @@ void dal::DataSpaceIteratorTest::testFeatureSpace()
   BOOST_CHECK(d_space.equal(*it, address));
   BOOST_CHECK(it == d_space.begin());
   BOOST_CHECK(it != d_space.end());
-
-  tearDown();
 }
 
 
-
-void dal::DataSpaceIteratorTest::testScenariosSamples()
+BOOST_AUTO_TEST_CASE(scenarios_samples)
 {
-  setUp();
+  using namespace dal;
+
   d_space.addDimension(d_scenarios);
   d_space.addDimension(d_samples);
 
@@ -619,14 +537,13 @@ void dal::DataSpaceIteratorTest::testScenariosSamples()
   BOOST_CHECK(d_space.equal(*it, address));
   BOOST_CHECK(it == d_space.begin());
   BOOST_CHECK(it != d_space.end());
-  tearDown();
 }
 
 
-
-void dal::DataSpaceIteratorTest::testScenarioCumProbabilities()
+BOOST_AUTO_TEST_CASE(scenario_cum_probabilities)
 {
-  setUp();
+  using namespace dal;
+
   d_space.addDimension(d_scenarios);
   d_space.addDimension(d_quantiles);
 
@@ -764,14 +681,13 @@ void dal::DataSpaceIteratorTest::testScenarioCumProbabilities()
   BOOST_CHECK(d_space.equal(*it, address));
   BOOST_CHECK(it == d_space.begin());
   BOOST_CHECK(it != d_space.end());
-  tearDown();
 }
 
 
-
-void dal::DataSpaceIteratorTest::testSpaceWithEmptyDimensions()
+BOOST_AUTO_TEST_CASE(space_with_empty_dimensions)
 {
-  setUp();
+  using namespace dal;
+
   DataSpace space;
 
   std::vector<size_t> timeSteps;
@@ -930,6 +846,6 @@ void dal::DataSpaceIteratorTest::testSpaceWithEmptyDimensions()
 
   ++it;
   BOOST_CHECK(it == space.end());
-  tearDown();
 }
 
+BOOST_AUTO_TEST_SUITE_END()

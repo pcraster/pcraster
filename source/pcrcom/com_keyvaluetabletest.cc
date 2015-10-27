@@ -1,93 +1,14 @@
-#ifndef INCLUDED_STDDEFX
+#define BOOST_TEST_MODULE pcraster com key_value_table
+#include <boost/test/unit_test.hpp>
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_COM_KEYVALUETABLETEST
-#include "com_keyvaluetabletest.h"
-#define INCLUDED_COM_KEYVALUETABLETEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_KEYVALUETABLE
 #include "com_keyvaluetable.h"
-#define INCLUDED_COM_KEYVALUETABLE
-#endif
-#ifndef INCLUDED_COM_INTERVALTYPES
 #include "com_intervaltypes.h"
-#define INCLUDED_COM_INTERVALTYPES
-#endif
-
-// Module headers.
 
 
-
-/*!
-  \file
-  This file contains the implementation of the KeyValueTableTest class.
-*/
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC KEYVALUETABLE MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*com::KeyValueTableTest::suite()
+BOOST_AUTO_TEST_CASE(required)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<KeyValueTableTest> instance(new KeyValueTableTest());
+  using namespace com;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&KeyValueTableTest::testAdd, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&KeyValueTableTest::testEnum, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&KeyValueTableTest::testInteger, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&KeyValueTableTest::testDouble, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&KeyValueTableTest::testRequired, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF KEYVALUETABLE MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-com::KeyValueTableTest::KeyValueTableTest()
-{
-}
-
-//! setUp
-void com::KeyValueTableTest::setUp()
-{
-}
-
-//! tearDown
-void com::KeyValueTableTest::tearDown()
-{
-
-}
-
-void com::KeyValueTableTest::testRequired()
-{
   KeyValueDouble kvd("key1");
 
   KeyValueTable kvt;
@@ -121,8 +42,11 @@ void com::KeyValueTableTest::testRequired()
   BOOST_CHECK(succes);
 }
 
-void com::KeyValueTableTest::testDouble()
+
+BOOST_AUTO_TEST_CASE(double_)
 {
+  using namespace com;
+
   KeyValueDouble kvd("key1");
 
   KeyValueTable kvt;
@@ -170,8 +94,11 @@ void com::KeyValueTableTest::testDouble()
   BOOST_CHECK(kvgt4.value(kvt) == 45);
 }
 
-void com::KeyValueTableTest::testInteger()
+
+BOOST_AUTO_TEST_CASE(integer_)
 {
+  using namespace com;
+
   KeyValueInteger kvi("key1");
   KeyValueInteger kvNotSet("keyNotSet");
 
@@ -246,8 +173,11 @@ void com::KeyValueTableTest::testInteger()
   BOOST_CHECK(kvgt4.value(kvt) == 45);
 }
 
-void com::KeyValueTableTest::testEnum()
+
+BOOST_AUTO_TEST_CASE(enum_)
 {
+  using namespace com;
+
   KeyValueEnum kve1("key1");
   kve1.insert("e1");
   kve1.insert("e2");
@@ -276,8 +206,10 @@ void com::KeyValueTableTest::testEnum()
 }
 
 
-void com::KeyValueTableTest::testAdd()
+BOOST_AUTO_TEST_CASE(add)
 {
+  using namespace com;
+
   KeyValueString kvs1("key1");
   KeyValueString kvs2("key2");
   KeyValueTable kvt;

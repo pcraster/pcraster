@@ -1,61 +1,19 @@
-#ifndef INCLUDED_DAL_GDALRASTERDRIVERTEST
-#include "dal_GDALRasterDriverTest.h"
-#define INCLUDED_DAL_GDALRASTERDRIVERTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-#ifndef INCLUDED_GDAL_PRIV
+#define BOOST_TEST_MODULE pcraster dal gdal_raster_driver
+#include <boost/test/unit_test.hpp>
 #include <gdal_priv.h>
-#define INCLUDED_GDAL_PRIV
-#endif
-
-// PCRaster library headers.
 #ifdef _MSC_VER
   #ifndef INCLUDED_ENVIRON
   #include "environ.h" // M_PI
   #define INCLUDED_ENVIRON
   #endif
 #endif
-
-// Module headers.
-#ifndef INCLUDED_DAL_EXCEPTION
+#include "dev_GDalClient.h"
 #include "dal_Exception.h"
-#define INCLUDED_DAL_EXCEPTION
-#endif
-
-#ifndef INCLUDED_DAL_GDALRASTERDRIVER
 #include "dal_GDALRasterDriver.h"
-#define INCLUDED_DAL_GDALRASTERDRIVER
-#endif
-
-#ifndef INCLUDED_DAL_UTILS
 #include "dal_Utils.h"
-#define INCLUDED_DAL_UTILS
-#endif
+#define protected public
+#include "dal_Client.h"
 
-
-
-/*!
-  \file
-  This file contains the implementation of the GDALRasterDriverTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
 
 namespace detail {
 
@@ -90,7 +48,6 @@ void testUInt1Raster1(
   BOOST_CHECK_EQUAL(cells[7], 1);
   BOOST_CHECK_EQUAL(cells[8], 0);
 }
-
 
 
 void testInt4Raster1(
@@ -142,7 +99,6 @@ void testInt4Raster1(
 }
 
 
-
 void testInt4Raster2(
          dal::RasterDriver& driver,
          std::string const& name)
@@ -174,7 +130,6 @@ void testInt4Raster2(
   BOOST_CHECK(pcr::isMV(cells[7]));
   BOOST_CHECK_EQUAL(cells[8], 9);
 }
-
 
 
 void testReal4Raster1(
@@ -210,7 +165,6 @@ void testReal4Raster1(
 }
 
 
-
 void testReal4Raster2(
          dal::RasterDriver& driver,
          std::string const& name)
@@ -243,7 +197,6 @@ void testReal4Raster2(
 // BOOST_CHECK(dal::comparable(REAL4(cells[7] * 180.0 / M_PI), REAL4(-1.0)));
   BOOST_CHECK(dal::comparable(REAL4(cells[8] * 180.0 / M_PI), REAL4(7.0)));
 }
-
 
 
 void testUInt1Raster2(
@@ -299,7 +252,6 @@ void testUInt1Raster2(
 }
 
 
-
 void testAllMVRaster(
          dal::RasterDriver& driver,
          std::string const& name)
@@ -327,7 +279,6 @@ void testAllMVRaster(
   BOOST_CHECK(pcr::isMV(cells[4]));
   BOOST_CHECK(pcr::isMV(cells[5]));
 }
-
 
 
 void testTemporalRaster(
@@ -367,86 +318,33 @@ void testTemporalRaster(
 
 } // namespace detail
 
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC GDALRASTERDRIVER MEMBERS
-//------------------------------------------------------------------------------
 
-//! suite
-boost::unit_test::test_suite*dal::GDALRasterDriverTest::suite()
+struct Fixture:
+    private dev::GDalClient,
+    private dal::Client
+
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<GDALRasterDriverTest> instance(new GDALRasterDriverTest());
 
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &GDALRasterDriverTest::testDescription, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &GDALRasterDriverTest::testUnexisting, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &GDALRasterDriverTest::testEmpty, instance));
+    Fixture()
+        : dev::GDalClient(),
+          dal::Client("/my/path/gdal_raster_driver_test", true)
+    {
+        GetGDALDriverManager()->AutoLoadDrivers();
+    }
 
-  if(GDALRasterDriver::driverIsAvailable("PCRaster")) {
-    suite->add(BOOST_CLASS_TEST_CASE(
-           &GDALRasterDriverTest::testPCRaster, instance));
-  }
+    ~Fixture()
+    {
+    }
 
-  // if(GDALRasterDriver::driverIsAvailable("HDF4Image")) {
-  //   suite->add(BOOST_CLASS_TEST_CASE(
-  //          &GDALRasterDriverTest::testHdf4Image, instance));
-  // }
-
-  // TODO
-  // if(GDALRasterDriver::driverIsAvailable("HDF5")) {
-  //   suite->add(BOOST_CLASS_TEST_CASE(
-  //          &GDALRasterDriverTest::testHdf5, instance));
-  // }
-
-  if(GDALRasterDriver::driverIsAvailable("GTiff")) {
-    suite->add(BOOST_CLASS_TEST_CASE(
-           &GDALRasterDriverTest::testGeoTiff, instance));
-  }
-
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &GDALRasterDriverTest::testESRIASCIIGrid1, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &GDALRasterDriverTest::testWrite, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &GDALRasterDriverTest::testDefaultExtension, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &GDALRasterDriverTest::testRectangularCells, instance));
-
-  return suite;
-}
+};
 
 
+BOOST_GLOBAL_FIXTURE(Fixture)
 
-//------------------------------------------------------------------------------
-// DEFINITION OF GDALRASTERDRIVER MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-dal::GDALRasterDriverTest::GDALRasterDriverTest()
+BOOST_AUTO_TEST_CASE(description)
 {
-}
+  using namespace dal;
 
-
-
-//! setUp
-void dal::GDALRasterDriverTest::setUp()
-{
-  GetGDALDriverManager()->AutoLoadDrivers();
-}
-
-
-
-//! tearDown
-void dal::GDALRasterDriverTest::tearDown()
-{
-}
-
-
-
-void dal::GDALRasterDriverTest::testDescription()
-{
   GDALDriverManager* manager = GetGDALDriverManager();
   assert(manager->GetDriverCount() > 0);
   GDALDriver* gdalDriver = manager->GetDriver(0);
@@ -457,9 +355,10 @@ void dal::GDALRasterDriverTest::testDescription()
 }
 
 
-
-void dal::GDALRasterDriverTest::testUnexisting()
+BOOST_AUTO_TEST_CASE(unexisting)
 {
+  using namespace dal;
+
   std::string filename = "unexisting";
   GDALRasterDriver driver("PCRaster");
 
@@ -481,9 +380,10 @@ void dal::GDALRasterDriverTest::testUnexisting()
 }
 
 
-
-void dal::GDALRasterDriverTest::testEmpty()
+BOOST_AUTO_TEST_CASE(empty)
 {
+  using namespace dal;
+
   std::string filename = "emptyfile";
   GDALRasterDriver driver("PCRaster");
 
@@ -506,33 +406,30 @@ void dal::GDALRasterDriverTest::testEmpty()
 }
 
 
-
-//!
-/*!
-  \param     .
-  \return    .
-  \exception .
-  \warning   Only works when a gdal library including the PCRaster driver is
-             installed!
-  \sa        .
-*/
-void dal::GDALRasterDriverTest::testPCRaster()
+// Only works when a gdal library including the PCRaster driver is
+// installed!
+BOOST_AUTO_TEST_CASE(pcraster)
 {
-  // Try to open and read all kinds (boolean, ordinal, nominal, scalar,
-  // directional, ldd) of rasters. Test values, including missing values.
-  GDALRasterDriver driver("PCRaster");
-  detail::testUInt1Raster1(driver, "boolean.Result.map");
-  detail::testUInt1Raster2(driver, "accu.Ldd.imap");
-  detail::testInt4Raster1(driver, "areaarea.Class.imap");
-  detail::testInt4Raster2(driver, "map2col.PCRmap2.imap");
-  detail::testReal4Raster1(driver, "abs.Expr.imap");
-  detail::testReal4Raster2(driver, "nodirection.Expr.imap");
-  detail::testAllMVRaster(driver, "allmv.pcrmap");
-  detail::testTemporalRaster(driver, "soil");
+  using namespace dal;
+
+  if(GDALRasterDriver::driverIsAvailable("PCRaster")) {
+    // Try to open and read all kinds (boolean, ordinal, nominal, scalar,
+    // directional, ldd) of rasters. Test values, including missing values.
+    GDALRasterDriver driver("PCRaster");
+    detail::testUInt1Raster1(driver, "boolean.Result.map");
+    detail::testUInt1Raster2(driver, "accu.Ldd.imap");
+    detail::testInt4Raster1(driver, "areaarea.Class.imap");
+    detail::testInt4Raster2(driver, "map2col.PCRmap2.imap");
+    detail::testReal4Raster1(driver, "abs.Expr.imap");
+    detail::testReal4Raster2(driver, "nodirection.Expr.imap");
+    detail::testAllMVRaster(driver, "allmv.pcrmap");
+    detail::testTemporalRaster(driver, "soil");
+  }
 }
 
 
 
+//   // if(GDALRasterDriver::driverIsAvailable("HDF4Image")) {
 // void dal::GDALRasterDriverTest::testHdf4Image()
 // {
 //   GDALRasterDriver driver("HDF4Image");
@@ -548,6 +445,7 @@ void dal::GDALRasterDriverTest::testPCRaster()
 
 
 
+//   // if(GDALRasterDriver::driverIsAvailable("HDF5")) {
 // void dal::GDALRasterDriverTest::testHdf5()
 // {
 //   GDALRasterDriver driver("HDF5Image");
@@ -563,24 +461,29 @@ void dal::GDALRasterDriverTest::testPCRaster()
 
 
 
-void dal::GDALRasterDriverTest::testGeoTiff()
+BOOST_AUTO_TEST_CASE(geotiff)
 {
-  // Check results from converting boolean PCRaster raster to GeoTiff.
-  GDALRasterDriver driver("GTiff");
-  detail::testUInt1Raster1(driver, "boolean.tiff");
-  detail::testUInt1Raster2(driver, "ldd.tiff");
-  detail::testInt4Raster1(driver, "nominal.tiff");
-  detail::testInt4Raster2(driver, "ordinal.tiff");
-  detail::testReal4Raster1(driver, "scalar.tiff");
-  detail::testReal4Raster2(driver, "directional.tiff");
-  detail::testAllMVRaster(driver, "allmv.tiff");
-  detail::testTemporalRaster(driver, "soil.tiff");
+  using namespace dal;
+
+  if(GDALRasterDriver::driverIsAvailable("GTiff")) {
+      // Check results from converting boolean PCRaster raster to GeoTiff.
+      GDALRasterDriver driver("GTiff");
+      detail::testUInt1Raster1(driver, "boolean.tiff");
+      detail::testUInt1Raster2(driver, "ldd.tiff");
+      detail::testInt4Raster1(driver, "nominal.tiff");
+      detail::testInt4Raster2(driver, "ordinal.tiff");
+      detail::testReal4Raster1(driver, "scalar.tiff");
+      detail::testReal4Raster2(driver, "directional.tiff");
+      detail::testAllMVRaster(driver, "allmv.tiff");
+      detail::testTemporalRaster(driver, "soil.tiff");
+  }
 }
 
 
-
-void dal::GDALRasterDriverTest::testESRIASCIIGrid1()
+BOOST_AUTO_TEST_CASE(esri_ascii_grid1)
 {
+  using namespace dal;
+
   std::string filename = "esriasciigrid1.asc";
   GDALRasterDriver driver("AAIGrid");
   Raster *raster;
@@ -627,9 +530,10 @@ void dal::GDALRasterDriverTest::testESRIASCIIGrid1()
 }
 
 
-
-void dal::GDALRasterDriverTest::testWrite()
+BOOST_AUTO_TEST_CASE(write_)
 {
+  using namespace dal;
+
   GDALRasterDriver driver("EHdr");
 
   Raster raster(2, 2, 10, 0.0, 0.0, TI_REAL4);
@@ -646,9 +550,10 @@ void dal::GDALRasterDriverTest::testWrite()
 }
 
 
-
-void dal::GDALRasterDriverTest::testDefaultExtension()
+BOOST_AUTO_TEST_CASE(default_extension)
 {
+  using namespace dal;
+
   std::string filename = "esriasciigrid1";
   GDALRasterDriver driver("AAIGrid");
   Raster* raster;
@@ -673,12 +578,11 @@ void dal::GDALRasterDriverTest::testDefaultExtension()
 }
 
 
-
-void dal::GDALRasterDriverTest::testRectangularCells()
+BOOST_AUTO_TEST_CASE(rectangular_cells)
 {
+  using namespace dal;
+
   // TODO create raster with rectangular cells. Use GDAL Python extension.
   // TODO Make sure the detailed error message gets out.
   BOOST_WARN(false);
 }
-
-

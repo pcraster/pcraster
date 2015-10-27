@@ -1,98 +1,20 @@
-#ifndef INCLUDED_PCRXSD_DOMINPUTTEST
-#include "pcrxsd_dominputtest.h"
-#define INCLUDED_PCRXSD_DOMINPUTTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
+#define BOOST_TEST_MODULE pcraster xsd dom_input
+#include <boost/test/unit_test.hpp>
 #include <xercesc/dom/DOMDocument.hpp>
 #include <xercesc/dom/DOMElement.hpp>
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_PCRXSD_DOMINPUT
 #include "pcrxsd_dominput.h"
-#define INCLUDED_PCRXSD_DOMINPUT
-#endif
-#ifndef INCLUDED_PCRXSD_UTILS
+#include "pcrxsd_library.h"
 #include "pcrxsd_utils.h"
-#define INCLUDED_PCRXSD_UTILS
-#endif
 
 
-/*!
-  \file
-  This file contains the implementation of the DOMInputTest class.
-*/
+using Fixture = pcrxsd::Library;
 
-// NOTE use string failureExpected in files expected to fail, see style guide
+BOOST_GLOBAL_FIXTURE(Fixture)
 
-
-
-namespace pcrxsd {
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC DOMINPUT MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*DOMInputTest::suite()
+BOOST_AUTO_TEST_CASE(validate)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<DOMInputTest> instance(new DOMInputTest());
+  using namespace pcrxsd;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&DOMInputTest::testValidate, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&DOMInputTest::testNotWellFormed, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&DOMInputTest::testEntityResolver, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF DOMINPUT MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-DOMInputTest::DOMInputTest(
-         )
-{
-}
-
-
-
-//! setUp
-void DOMInputTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void DOMInputTest::tearDown()
-{
-}
-
-
-
-void DOMInputTest::testValidate()
-{
   {
     DOMInput di;
     di.setValidate(true);
@@ -119,8 +41,11 @@ void DOMInputTest::testValidate()
   }
 }
 
-void DOMInputTest::testEntityResolver()
+
+BOOST_AUTO_TEST_CASE(entity_resolver)
 {
+  using namespace pcrxsd;
+
  { // catch the external entity PCRaster_X_X_X.xsd
   std::string s(
     "<definition name='a'                                   \
@@ -154,8 +79,11 @@ void DOMInputTest::testEntityResolver()
  }
 }
 
-void DOMInputTest::testNotWellFormed()
+
+BOOST_AUTO_TEST_CASE(not_well_formed)
 {
+  using namespace pcrxsd;
+
   DOMInput di;
   di.setValidate(true);
   di.setFile("notWellFormed.xml");
@@ -167,5 +95,3 @@ void DOMInputTest::testNotWellFormed()
   }
   BOOST_CHECK(catched);
 }
-
-} // namespace pcrxsd

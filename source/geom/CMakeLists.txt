@@ -17,21 +17,24 @@ TARGET_LINK_LIBRARIES(geom
     misc
 )
 
-SET(TEST_SOURCES
-    geom_test.cc
-    geom_pointtest.cc
-)
-ADD_EXECUTABLE(test_geom
-    ${TEST_SOURCES}
-)
 
-TARGET_LINK_LIBRARIES(test_geom
-    geom
-)
+if(FALSE AND PCRASTER_BUILD_TEST)
+    SET(TEST_SOURCES
+        geom_test.cc
+        geom_pointtest.cc
+    )
+    ADD_EXECUTABLE(test_geom
+        ${TEST_SOURCES}
+    )
 
-ADD_CUSTOM_TARGET(run_test_geom
-    COMMAND test_geom
-    DEPENDS test_geom
-    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-)
-ADD_DEPENDENCIES(tests run_test_geom)
+    TARGET_LINK_LIBRARIES(test_geom
+        geom
+    )
+
+    ADD_CUSTOM_TARGET(run_test_geom
+        COMMAND test_geom
+        DEPENDS test_geom
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    )
+    ADD_DEPENDENCIES(tests run_test_geom)
+endif()

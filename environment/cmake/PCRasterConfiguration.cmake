@@ -10,6 +10,15 @@ option(PCRASTER_BUILD_DOCUMENTATION "Build documentation" FALSE)
 option(PCRASTER_BUILD_TEST "Build tests" FALSE)
 
 
+if(NOT PCRASTER_BUILD_ALL)
+    # Default build.
+    # TODO Fine-tune this.
+    set(PCRASTER_BUILD_ALL TRUE)
+    set(PCRASTER_BUILD_DOCUMENTATION FALSE)
+    set(PCRASTER_BUILD_TEST FALSE)
+endif()
+
+
 if(PCRASTER_BUILD_ALL)
     set(PCRASTER_BUILD_DOCUMENTATION TRUE)
     set(PCRASTER_BUILD_TEST TRUE)
@@ -22,13 +31,17 @@ if(PCRASTER_BUILD_DOCUMENTATION)
 endif()
 
 
+if(PCRASTER_BUILD_ALL)
+    set(DEVBASE_BOOST_REQUIRED TRUE)
+    list(APPEND DEVBASE_REQUIRED_BOOST_COMPONENTS
+        date_time filesystem math_c99 program_options python regex system)
+endif()
+
 if(PCRASTER_BUILD_TEST)
     set(DEVBASE_BOOST_REQUIRED TRUE)
     list(APPEND DEVBASE_REQUIRED_BOOST_COMPONENTS
-        date_time filesystem math_c99 program_options python regex system
         unit_test_framework)
 endif()
-
 
 set(DEVBASE_CURL_REQUIRED TRUE)
 set(DEVBASE_CURSES_REQUIRED TRUE)
@@ -52,9 +65,15 @@ set(QT4_NO_LINK_QTMAIN TRUE)
 set(QT_USE_QTSQL TRUE)  # Dal, Aguila
 set(QT_USE_QTOPENGL TRUE)  # Aguila
 set(QT_USE_QTXML TRUE)  # Aguila, pcrxml
-set(CMAKE_AUTOMOC ON)
+# set(CMAKE_AUTOMOC ON)
 
 set(DEVBASE_QWT_REQUIRED TRUE)
+
 set(DEVBASE_SQLITE_REQUIRED TRUE)
+if(PCRASTER_TEST_REQUIRED)
+    # Used by dal's testrun.prolog.
+    set(DEVBASE_SQLITE_EXECUTABLE_REQUIRED TRUE)
+endif()
+
 set(DEVBASE_XERCES_REQUIRED TRUE)
 set(DEVBASE_XSD_REQUIRED TRUE)

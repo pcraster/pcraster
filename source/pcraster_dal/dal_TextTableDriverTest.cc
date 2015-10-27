@@ -1,109 +1,22 @@
-#ifndef INCLUDED_DAL_TEXTTABLEDRIVERTEST
-#include "dal_TextTableDriverTest.h"
-#define INCLUDED_DAL_TEXTTABLEDRIVERTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_EXCEPTION
+#define BOOST_TEST_MODULE pcraster dal text_table_driver
+#include <boost/test/unit_test.hpp>
 #include "dal_Exception.h"
-#define INCLUDED_DAL_EXCEPTION
-#endif
-
-#ifndef INCLUDED_DAL_TEXTTABLEDRIVER
 #include "dal_TextTableDriver.h"
-#define INCLUDED_DAL_TEXTTABLEDRIVER
-#endif
 
 
-
-/*!
-  \file
-  This file contains the implementation of the TextTableDriverTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC TEXTTABLEDRIVER MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*dal::TextTableDriverTest::suite()
+BOOST_AUTO_TEST_CASE(description)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<TextTableDriverTest> instance(new TextTableDriverTest());
+  using namespace dal;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&TextTableDriverTest::testDescription, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&TextTableDriverTest::testUnexisting, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&TextTableDriverTest::testEmpty, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&TextTableDriverTest::testInvalidGrammar, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&TextTableDriverTest::testTable1, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&TextTableDriverTest::testTable2, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&TextTableDriverTest::testTable5, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&TextTableDriverTest::testTable6, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&TextTableDriverTest::testTable2eas, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&TextTableDriverTest::testDOSFormattedTable, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&TextTableDriverTest::testColumnWithEmptyValues, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&TextTableDriverTest::testColumnWithQuiteSomeZeros, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF TEXTTABLEDRIVER MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-dal::TextTableDriverTest::TextTableDriverTest()
-{
-}
-
-
-
-//! setUp
-void dal::TextTableDriverTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void dal::TextTableDriverTest::tearDown()
-{
-}
-
-
-
-void dal::TextTableDriverTest::testDescription()
-{
   TextTableDriver driver;
   BOOST_CHECK_EQUAL(driver.description(), "Text table file format");
 }
 
 
-
-void dal::TextTableDriverTest::testUnexisting()
+BOOST_AUTO_TEST_CASE(unexisting)
 {
+  using namespace dal;
+
   std::string filename = "unexisting";
   TextTableDriver driver;
   bool exceptionCaught;
@@ -124,9 +37,10 @@ void dal::TextTableDriverTest::testUnexisting()
 }
 
 
-
-void dal::TextTableDriverTest::testEmpty()
+BOOST_AUTO_TEST_CASE(empty)
 {
+  using namespace dal;
+
   std::string filename = "emptyfile";
   TextTableDriver driver;
   bool exceptionCaught;
@@ -147,9 +61,10 @@ void dal::TextTableDriverTest::testEmpty()
 }
 
 
-
-void dal::TextTableDriverTest::testInvalidGrammar()
+BOOST_AUTO_TEST_CASE(invalid_grammar)
 {
+  using namespace dal;
+
   std::string filename = ":/:/:/:/:";
   TextTableDriver driver;
   bool exceptionCaught=false;
@@ -178,9 +93,10 @@ void dal::TextTableDriverTest::testInvalidGrammar()
 }
 
 
-
-void dal::TextTableDriverTest::testTable1()
+BOOST_AUTO_TEST_CASE(table1)
 {
+  using namespace dal;
+
   std::string filename = "table1.col";
   TextTableDriver driver;
   Table* table;
@@ -237,9 +153,6 @@ void dal::TextTableDriverTest::testTable1()
 }
 
 
-
-void dal::TextTableDriverTest::testTable2()
-{
 /*
 cola colb colc
  1  2  3
@@ -249,6 +162,10 @@ cola colb colc
 13 14 15.5
 16 17 18
 */
+BOOST_AUTO_TEST_CASE(table2)
+{
+  using namespace dal;
+
   std::string filename = "table2.col";
   TextTableDriver driver;
   Table* table = driver.open(boost::filesystem::path(filename));
@@ -304,10 +221,11 @@ cola colb colc
 }
 
 
-
 // 1 2 3 4 5
-void dal::TextTableDriverTest::testTable5()
+BOOST_AUTO_TEST_CASE(table5)
 {
+  using namespace dal;
+
   std::string filename = "table5.col";
   Table* table;
 
@@ -400,9 +318,10 @@ void dal::TextTableDriverTest::testTable5()
 }
 
 
-
-void dal::TextTableDriverTest::testTable6()
+BOOST_AUTO_TEST_CASE(table6)
 {
+  using namespace dal;
+
   std::string filename;
   TextTableDriver driver;
   Table* table;
@@ -460,9 +379,10 @@ void dal::TextTableDriverTest::testTable6()
 }
 
 
-
-void dal::TextTableDriverTest::testTable2eas()
+BOOST_AUTO_TEST_CASE(table2_eas)
 {
+  using namespace dal;
+
   std::string filename = "table2.eas";
   TextTableDriver driver;
   bool exceptionCaught;
@@ -484,9 +404,10 @@ void dal::TextTableDriverTest::testTable2eas()
 }
 
 
-
-void dal::TextTableDriverTest::testDOSFormattedTable()
+BOOST_AUTO_TEST_CASE(dos_formatted)
 {
+  using namespace dal;
+
   // GRID	PC4	X	Y	KANTOREN	TOTARB	JOB30CAR	POP30CAR	GEOEDU
   // 1	1458	116	506	1	21	620464	1443475	0
   // 2	1458	117	506	1	21	620464	1443475	0
@@ -527,10 +448,11 @@ void dal::TextTableDriverTest::testDOSFormattedTable()
   BOOST_CHECK_EQUAL(col1[3], 4);
 }
 
-namespace dal {
 
-void TextTableDriverTest::testColumnWithEmptyValues()
+BOOST_AUTO_TEST_CASE(column_with_empty_values)
 {
+  using namespace dal;
+
   // For example, columns separated by tabs, some values given, some absent.
   // Should be possible, by splitting the record on the seperator. Empty value
   // is a missing value.
@@ -539,8 +461,10 @@ void TextTableDriverTest::testColumnWithEmptyValues()
 }
 
 
-void TextTableDriverTest::testColumnWithQuiteSomeZeros()
+BOOST_AUTO_TEST_CASE(column_with_quite_some_zeros)
 {
+  using namespace dal;
+
   std::string filename = "table7.col";
   TextTableDriver driver;
   boost::shared_ptr<Table> table(driver.open(
@@ -551,5 +475,3 @@ void TextTableDriverTest::testColumnWithQuiteSomeZeros()
   BOOST_CHECK_EQUAL(table->typeId(0), TI_UINT1);
   BOOST_CHECK_EQUAL(table->typeId(1), TI_REAL4);
 }
-
-} // namespace dal

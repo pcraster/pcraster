@@ -1,103 +1,17 @@
-#ifndef INCLUDED_STDDEFX
+#define BOOST_TEST_MODULE pcraster com str_lib
+#include <boost/test/unit_test.hpp>
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_COM_STRLIBTEST
-#include "com_strlibtest.h"
-#define INCLUDED_COM_STRLIBTEST
-#endif
-
-#ifndef INCLUDED_STDEXCEP
 #include <stdexcept>
-#define INCLUDED_STDEXCEP
-#endif
-
-#ifndef INCLUDED_FUNCTIONAL
 #include <functional>
-#define INCLUDED_FUNCTIONAL
-#endif
-
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-#ifndef INCLUDED_COM_STRLIB
 #include "com_strlib.h"
-#define INCLUDED_COM_STRLIB
-#endif
-
-#ifndef INCLUDED_COM_STRCONV
 #include "com_strconv.h"
-#define INCLUDED_COM_STRCONV
-#endif
 
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC CLASS MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*com::StrLibTest::suite()
-{
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<StrLibTest> instance(new StrLibTest());
-
-  suite->add(BOOST_CLASS_TEST_CASE(&StrLibTest::testToString, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&StrLibTest::testIsNumber, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&StrLibTest::testCompareNoCase, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&StrLibTest::testRemoveFrontEndSpace, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&StrLibTest::testRemoveAllSpace, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&StrLibTest::testReplaceChars, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&StrLibTest::testReplaceStrByStr, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&StrLibTest::testRemoveFrontEndChar, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&StrLibTest::testRemoveFrontEndString, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&StrLibTest::testSplitAndJoin, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&StrLibTest::testSplitAtChar, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&StrLibTest::testDuplicateAsCStr, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&StrLibTest::testEqualNoSpace, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&StrLibTest::testStringLess, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&StrLibTest::testFormat, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&StrLibTest::testFromString, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
-//------------------------------------------------------------------------------
-
-//! ctor
-com::StrLibTest::StrLibTest()
-{
-}
-
-//! setUp
-void com::StrLibTest::setUp()
-{
-}
-
-//! tearDown
-void com::StrLibTest::tearDown()
-{
-}
 
 //! test all strTo* funcs
-void com::StrLibTest::testFromString()
+BOOST_AUTO_TEST_CASE(from_string)
 {
+  using namespace com;
+
   size_t v(strToSize_t(std::string("000001")));
   BOOST_CHECK(v == 1);
 
@@ -218,10 +132,11 @@ void com::StrLibTest::testFromString()
 }
 
 
-
 //! test all *ToStr funcs
-void com::StrLibTest::testToString()
+BOOST_AUTO_TEST_CASE(to_string)
 {
+  using namespace com;
+
   std::string s(intToStr(-34));
   BOOST_CHECK(s.compare(std::string("-34")) == 0);
 
@@ -240,8 +155,11 @@ void com::StrLibTest::testToString()
   BOOST_CHECK(doubleToStr(doubleV) == "122");
 }
 
-void com::StrLibTest::testIsNumber()
+
+BOOST_AUTO_TEST_CASE(is_number)
 {
+  using namespace com;
+
   BOOST_CHECK( isDouble("3.4"));
   BOOST_CHECK( isDouble(" \t4\n"));
   BOOST_CHECK(!isDouble(""));
@@ -251,8 +169,10 @@ void com::StrLibTest::testIsNumber()
 
 
 //! test compareNoCase()
-void com::StrLibTest::testCompareNoCase()
+BOOST_AUTO_TEST_CASE(compare_no_case)
 {
+  using namespace com;
+
   BOOST_CHECK(compareNoCase("xFg","XFG") == 0);
 
   BOOST_CHECK(compareNoCase("xFg","XF")  != 0);
@@ -269,9 +189,12 @@ void com::StrLibTest::testCompareNoCase()
   BOOST_CHECK(!lnc("b","a"));
 }
 
+
 //! test RemoveFrontEndSpace()
-void com::StrLibTest::testRemoveFrontEndSpace()
+BOOST_AUTO_TEST_CASE(remove_front_end_space)
 {
+  using namespace com;
+
   std::string in1("no whe at end"),out1(in1);
   removeFrontEndSpace(out1);
   BOOST_CHECK(in1==out1);
@@ -289,9 +212,12 @@ void com::StrLibTest::testRemoveFrontEndSpace()
   BOOST_CHECK(out4 == "");
 }
 
+
 //! test RemoveAllSpace()
-void com::StrLibTest::testRemoveAllSpace()
+BOOST_AUTO_TEST_CASE(remove_all_space)
 {
+  using namespace com;
+
   std::string in1("no whe at end"),out1(in1);
   removeAllSpace(out1);
   BOOST_CHECK(out1 == "nowheatend");
@@ -310,8 +236,10 @@ void com::StrLibTest::testRemoveAllSpace()
 }
 
 //! test split() and join()
-void com::StrLibTest::testSplitAndJoin()
+BOOST_AUTO_TEST_CASE(split_and_join)
 {
+  using namespace com;
+
  {
   std::string in1("no whe at end");
   std::vector<std::string> s1(split(in1));
@@ -365,9 +293,12 @@ void com::StrLibTest::testSplitAndJoin()
  }
 }
 
+
 //! test split(string, splitChar)
-void com::StrLibTest::testSplitAtChar()
+BOOST_AUTO_TEST_CASE(split_at_char)
 {
+  using namespace com;
+
  {
   std::string in1("no whe at end");
   std::vector<std::string> s1(split(in1,' '));
@@ -399,9 +330,12 @@ void com::StrLibTest::testSplitAtChar()
  }
 }
 
+
 //! test createAsCStr()
-void com::StrLibTest::testDuplicateAsCStr()
+BOOST_AUTO_TEST_CASE(duplicate_as_c_str)
 {
+  using namespace com;
+
   std::string s1in("this in");
   char *s1out = createAsCStr(s1in);
   BOOST_CHECK(s1in == s1out);
@@ -418,18 +352,22 @@ void com::StrLibTest::testDuplicateAsCStr()
   delete [] s3out;
 }
 
+
 //! test equalNoSpace
-void com::StrLibTest::testEqualNoSpace()
+BOOST_AUTO_TEST_CASE(equal_no_space)
 {
+  using namespace com;
+
   std::string s1("this in\n\nand becomes out");
   std::string s2("this in andbecomes out");
   BOOST_CHECK(equalNoSpace(s1,s2));
 }
 
 
-
-void com::StrLibTest::testRemoveFrontEndChar()
+BOOST_AUTO_TEST_CASE(remove_front_end_char)
 {
+  using namespace com;
+
   std::string str;
 
   str = "";
@@ -473,8 +411,11 @@ void com::StrLibTest::testRemoveFrontEndChar()
   BOOST_CHECK(str == "b");
 }
 
-void com::StrLibTest::testReplaceChars()
+
+BOOST_AUTO_TEST_CASE(replace_chars)
 {
+  using namespace com;
+
   std::string str;
 
   str = "";
@@ -495,8 +436,11 @@ void com::StrLibTest::testReplaceChars()
 
 }
 
-void com::StrLibTest::testReplaceStrByStr()
+
+BOOST_AUTO_TEST_CASE(replace_str_by_str)
 {
+  using namespace com;
+
   std::string str;
 
   str = "";
@@ -517,9 +461,10 @@ void com::StrLibTest::testReplaceStrByStr()
 }
 
 
-
-void com::StrLibTest::testRemoveFrontEndString()
+BOOST_AUTO_TEST_CASE(remove_front_end_string)
 {
+  using namespace com;
+
   std::string str;
 
   str = "";
@@ -560,8 +505,10 @@ void com::StrLibTest::testRemoveFrontEndString()
 }
 
 
-void com::StrLibTest::testStringLess()
+BOOST_AUTO_TEST_CASE(string_less)
 {
+  using namespace com;
+
   std::string str1("a");
   std::string str2("b");
   std::string str3("c");
@@ -574,9 +521,10 @@ void com::StrLibTest::testStringLess()
 }
 
 
-
-void com::StrLibTest::testFormat()
+BOOST_AUTO_TEST_CASE(format_)
 {
+  using namespace com;
+
   std::string unformatted, formatted;
 
   // Empty input.

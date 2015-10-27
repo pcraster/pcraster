@@ -28,20 +28,6 @@ ADD_EXECUTABLE(resample
 )
 
 
-# Unit testing stuff ----------------------------------------------------------
-# run resample from the command line and compare output maps,
-# done in testrun.prolog
-ADD_CUSTOM_TARGET(run_test_resample
-    COMMAND sed -i.tmp "s/CMAKE_CFG_INTDIR/${CMAKE_CFG_INTDIR}/g"
-        ./testrun.prolog
-    COMMAND bash ./testrun.prolog
-    DEPENDS resample mapdiff
-    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-)
-ADD_DEPENDENCIES(tests run_test_resample)
-
-
-# Install ---------------------------------------------------------------------
 # IF(WIN32)
 #     TARGET_LINK_LIBRARIES(resample
 #         api
@@ -72,3 +58,17 @@ INSTALL(
     TARGETS resample
     RUNTIME DESTINATION bin COMPONENT Runtime
 )
+
+
+if(FALSE AND PCRASTER_BUILD_TEST)
+    # run resample from the command line and compare output maps,
+    # done in testrun.prolog
+    ADD_CUSTOM_TARGET(run_test_resample
+        COMMAND sed -i.tmp "s/CMAKE_CFG_INTDIR/${CMAKE_CFG_INTDIR}/g"
+            ./testrun.prolog
+        COMMAND bash ./testrun.prolog
+        DEPENDS resample mapdiff
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    )
+    ADD_DEPENDENCIES(tests run_test_resample)
+endif()

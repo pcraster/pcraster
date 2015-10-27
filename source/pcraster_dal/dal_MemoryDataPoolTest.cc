@@ -1,100 +1,14 @@
-#ifndef INCLUDED_DAL_MEMORYDATAPOOLTEST
-#include "dal_MemoryDataPoolTest.h"
-#define INCLUDED_DAL_MEMORYDATAPOOLTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_MEMORYDATAPOOL
+#define BOOST_TEST_MODULE pcraster dal memory_data_pool
+#include <boost/test/unit_test.hpp>
 #include "dal_MemoryDataPool.h"
-#define INCLUDED_DAL_MEMORYDATAPOOL
-#endif
 
 
-
-/*!
-  \file
-  This file contains the implementation of the MemoryDataPoolTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-
-
-namespace dal {
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC MEMORYDATAPOOL MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*MemoryDataPoolTest::suite()
+// TODO Implement.
+// TODO Think life cycle through of the data added.
+BOOST_AUTO_TEST_CASE(filling_of_data_space)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<MemoryDataPoolTest> instance(new MemoryDataPoolTest());
+  using namespace dal;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&MemoryDataPoolTest::testFillingOfDataSpace, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF MEMORYDATAPOOL MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-MemoryDataPoolTest::MemoryDataPoolTest(
-         )
-{
-}
-
-
-
-//! setUp
-void MemoryDataPoolTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void MemoryDataPoolTest::tearDown()
-{
-}
-
-
-
-//!
-/*!
-  \param     .
-  \return    .
-  \exception .
-  \warning   .
-  \sa        .
-  \todo      Implement.
-  \todo      Think life cycle through of the data added.
-*/
-void MemoryDataPoolTest::testFillingOfDataSpace()
-{
   {
     MemoryDataPool pool;
 
@@ -170,6 +84,3 @@ void MemoryDataPoolTest::testFillingOfDataSpace()
     // Check co-existence of data sets with the same name but different spaces.
   }
 }
-
-} // namespace dal
-

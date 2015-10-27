@@ -1,89 +1,12 @@
-#ifndef INCLUDED_DAL_MATRIXTEST
-#include "dal_MatrixTest.h"
-#define INCLUDED_DAL_MATRIXTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_MATRIX
+#define BOOST_TEST_MODULE pcraster dal matrix
+#include <boost/test/unit_test.hpp>
 #include "dal_Matrix.h"
-#define INCLUDED_DAL_MATRIX
-#endif
 
 
-/*!
-  \file
-  This file contains the implementation of the MatrixTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-
-
-namespace dal {
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC MATRIX MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite* MatrixTest::suite()
+BOOST_AUTO_TEST_CASE(extremes)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<MatrixTest> instance(new MatrixTest());
+  using namespace dal;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&MatrixTest::testExtremes, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF MATRIX MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-MatrixTest::MatrixTest(
-         )
-{
-}
-
-
-
-//! setUp
-void MatrixTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void MatrixTest::tearDown()
-{
-}
-
-
-
-void MatrixTest::testExtremes()
-{
   { // setExtremes on no cells does not nothing
     Matrix matrix(2,2,TI_UINT1);
     BOOST_CHECK(!matrix.cellsAreCreated());
@@ -132,8 +55,3 @@ void MatrixTest::testExtremes()
     BOOST_CHECK_EQUAL(boost::any_cast<UINT1>(matrix.max()), 5);
   }
 }
-
-
-
-} // namespace dal
-

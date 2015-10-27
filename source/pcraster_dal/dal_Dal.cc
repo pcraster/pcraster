@@ -180,7 +180,7 @@ Dal::Dal(
 
   if(addAllDrivers) {
     #include "autoAddRasterDrivers.cc"
-#ifdef GDAL_LIBRARY_HAS_OGR_SUPPORT
+#ifdef DEVBASE_GDAL_LIBRARY_HAS_OGR_SUPPORT
     #include "autoAddFeatureDrivers.cc"
 #endif
     #include "autoAddTableDrivers.cc"

@@ -121,10 +121,6 @@ namespace dal {
 class PCR_DAL_DECL Dimension
 {
 
-  friend class DimensionTest;
-
-public:
-
 private:
 
   static CoordinateType meaningToCoordinateType(Meaning meaning);

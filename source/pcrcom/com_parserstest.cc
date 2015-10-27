@@ -1,94 +1,13 @@
-#ifndef INCLUDED_STDDEFX
+#define BOOST_TEST_MODULE pcraster com parsers
+#include <boost/test/unit_test.hpp>
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_COM_PARSERSTEST
-#include "com_parserstest.h"
-#define INCLUDED_COM_PARSERSTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_COM_PARSERS
 #include "com_parsers.h"
-#define INCLUDED_COM_PARSERS
-#endif
 
 
-
-/*!
-  \file
-  This file contains the implementation of the ParsersTest class.
-*/
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC PARSERS MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*com::ParsersTest::suite()
+BOOST_AUTO_TEST_CASE(comment_parser)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<ParsersTest> instance(new ParsersTest());
+  using namespace com;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&ParsersTest::testCommentParser, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ParsersTest::testSectionHeaderParser, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ParsersTest::testNumberParser, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ParsersTest::testVariableNameParser, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ParsersTest::testFileNameParser, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ParsersTest::testFunctionCallParser, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ParsersTest::testExpressionParser, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF PARSERS MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-com::ParsersTest::ParsersTest()
-{
-}
-
-
-
-//! setUp
-void com::ParsersTest::setUp()
-{
-}
-
-//! tearDown
-void com::ParsersTest::tearDown()
-{
-}
-
-
-
-void com::ParsersTest::testCommentParser()
-{
   CommentGrammar parser;
 
   std::vector<std::string> valid, invalid;
@@ -123,9 +42,10 @@ void com::ParsersTest::testCommentParser()
 }
 
 
-
-void com::ParsersTest::testSectionHeaderParser()
+BOOST_AUTO_TEST_CASE(section_header_parser)
 {
+  using namespace com;
+
   SectionHeaderGrammar parser;
 
   std::vector<std::string> valid, invalid;
@@ -152,9 +72,10 @@ void com::ParsersTest::testSectionHeaderParser()
 }
 
 
-
-void com::ParsersTest::testNumberParser()
+BOOST_AUTO_TEST_CASE(number_parser)
 {
+  using namespace com;
+
   NumberGrammar parser;
 
   std::vector<std::string> valid, invalid;
@@ -180,9 +101,10 @@ void com::ParsersTest::testNumberParser()
 }
 
 
-
-void com::ParsersTest::testVariableNameParser()
+BOOST_AUTO_TEST_CASE(variable_name_parser)
 {
+  using namespace com;
+
   VariableNameGrammar parser;
 
   std::vector<std::string> valid, invalid;
@@ -215,9 +137,10 @@ void com::ParsersTest::testVariableNameParser()
 }
 
 
-
-void com::ParsersTest::testFileNameParser()
+BOOST_AUTO_TEST_CASE(filename_parser)
 {
+  using namespace com;
+
   FileNameGrammar parser;
 
   std::vector<std::string> valid, invalid;
@@ -246,9 +169,10 @@ void com::ParsersTest::testFileNameParser()
 }
 
 
-
-void com::ParsersTest::testFunctionCallParser()
+BOOST_AUTO_TEST_CASE(function_call_parser)
 {
+  using namespace com;
+
 /*
   // boost::spirit::rule<> parser = functionCallParser();
   boost::spirit::rule<> funNameParser = variableNameGrammar();
@@ -292,10 +216,6 @@ void com::ParsersTest::testFunctionCallParser()
 }
 
 
-
-void com::ParsersTest::testExpressionParser()
+BOOST_AUTO_TEST_CASE(expression_parser)
 {
 }
-
-
-

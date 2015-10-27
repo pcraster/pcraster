@@ -1,73 +1,13 @@
-#ifndef INCLUDED_DAL_CLIENTTEST
-#include "dal_ClientTest.h"
-#define INCLUDED_DAL_CLIENTTEST
-#endif
-
-// External headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// Project headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_CLIENT
+#define BOOST_TEST_MODULE pcraster dal client
+#include <boost/test/unit_test.hpp>
+#define protected public
 #include "dal_Client.h"
-#define INCLUDED_DAL_CLIENT
-#endif
 
 
-
-/*!
-  \file
-  This file contains the implementation of the ClientTest class.
-*/
-
-
-
-namespace dal {
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC CLIENTTEST MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite* ClientTest::suite()
+BOOST_AUTO_TEST_CASE(test_)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<ClientTest> instance(new ClientTest());
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &ClientTest::test, instance));
+  using namespace dal;
 
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF CLIENTTEST MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-ClientTest::ClientTest()
-{
-}
-
-
-
-void ClientTest::test()
-{
   // These statements should work without a problem.
 
   // Instantiate clients in sequence.
@@ -90,6 +30,3 @@ void ClientTest::test()
     BOOST_CHECK(client2.isInitialized());
   }
 }
-
-} // namespace dal
-

@@ -1,66 +1,12 @@
-#include "com_fileformatinfotest.h"
-
-// Library headers.
-#include <boost/shared_ptr.hpp>
-#include <boost/test/test_tools.hpp>
-#include <boost/test/unit_test_suite.hpp>
-
-// PCRaster library headers.
-
-// Module headers.
+#define BOOST_TEST_MODULE pcraster aguila file_format_info
+#include <boost/test/unit_test.hpp>
 #include "com_fileformatinfo.h"
 
 
-
-/*!
-  \file
-  This file contains the implementation of the FileFormatInfoTest class.
-*/
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC FILEFORMATINFO MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*com::FileFormatInfoTest::suite()
+BOOST_AUTO_TEST_CASE(constructor)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<FileFormatInfoTest> instance(new FileFormatInfoTest());
+  using namespace com;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&FileFormatInfoTest::testConstructor, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF FILEFORMATINFO MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-com::FileFormatInfoTest::FileFormatInfoTest()
-{
-}
-
-
-
-//! setUp
-void com::FileFormatInfoTest::setUp()
-{
-}
-
-//! tearDown
-void com::FileFormatInfoTest::tearDown()
-{
-}
-
-
-
-void com::FileFormatInfoTest::testConstructor()
-{
   FileFormatInfo myFileInfo("My file format", "fmt|frm|mtf");
 
   BOOST_CHECK(myFileInfo.description() == std::string("My file format"));

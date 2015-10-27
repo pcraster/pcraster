@@ -132,35 +132,38 @@ TARGET_LINK_LIBRARIES(pcrxml
     Qt4::QtXml
 )
 
-SET(TEST_SOURCES
-    pcrxml_test.cc
-    pcrxml_attributetest.cc
-    pcrxml_bindoubleletest.cc
-    pcrxml_childelementvisitortest.cc
-    pcrxml_documenttest.cc
-    pcrxml_domalgorithmtest.cc
-    pcrxml_domtest.cc
-    pcrxml_elementtest.cc
-    pcrxml_enumnmtokentest.cc
-    pcrxml_interspacedsentencetest.cc
-    pcrxml_pcdataelementtest.cc
-    pcrxml_simpleattrtest.cc
-    pcrxml_wordtest.cc
-)
 
-ADD_EXECUTABLE(test_pcrxml
-    ${TEST_SOURCES}
-)
+if(FALSE AND PCRASTER_BUILD_TEST)
+    SET(TEST_SOURCES
+        pcrxml_test.cc
+        pcrxml_attributetest.cc
+        pcrxml_bindoubleletest.cc
+        pcrxml_childelementvisitortest.cc
+        pcrxml_documenttest.cc
+        pcrxml_domalgorithmtest.cc
+        pcrxml_domtest.cc
+        pcrxml_elementtest.cc
+        pcrxml_enumnmtokentest.cc
+        pcrxml_interspacedsentencetest.cc
+        pcrxml_pcdataelementtest.cc
+        pcrxml_simpleattrtest.cc
+        pcrxml_wordtest.cc
+    )
 
-TARGET_LINK_LIBRARIES(test_pcrxml
-    pcrxml
-)
+    ADD_EXECUTABLE(test_pcrxml
+        ${TEST_SOURCES}
+    )
 
-ADD_CUSTOM_TARGET(run_test_pcrxml
-    COMMAND bash testrun.prolog
-    COMMAND test_pcrxml --detect_memory_leaks=0
-    COMMAND bash testrun.epilog
-    DEPENDS test_pcrxml
-    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-)
-ADD_DEPENDENCIES(tests run_test_pcrxml)
+    TARGET_LINK_LIBRARIES(test_pcrxml
+        pcrxml
+    )
+
+    ADD_CUSTOM_TARGET(run_test_pcrxml
+        COMMAND bash testrun.prolog
+        COMMAND test_pcrxml --detect_memory_leaks=0
+        COMMAND bash testrun.epilog
+        DEPENDS test_pcrxml
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    )
+    ADD_DEPENDENCIES(tests run_test_pcrxml)
+endif()

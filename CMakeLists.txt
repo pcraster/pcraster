@@ -20,5 +20,20 @@ set(CMAKE_MODULE_PATH
 )
 include(PCRaster)
 
+
+configure_file(
+    ${CMAKE_CURRENT_SOURCE_DIR}/CTestCustom.cmake.in
+    ${CMAKE_CURRENT_BINARY_DIR}/CTestCustom.cmake
+)
+configure_file(
+    ${CMAKE_CURRENT_SOURCE_DIR}/test_run_prolog.sh.in
+    ${CMAKE_CURRENT_BINARY_DIR}/test_run_prolog.sh
+)
+configure_file(
+    ${CMAKE_CURRENT_SOURCE_DIR}/test_run_epilog.sh.in
+    ${CMAKE_CURRENT_BINARY_DIR}/test_run_epilog.sh
+)
+
+
 add_subdirectory(source)
 add_subdirectory(documentation)

@@ -1,55 +1,12 @@
-#include "com_matrixtest.h"
-#include <boost/shared_ptr.hpp>
-#include <boost/test/test_tools.hpp>
-#include <boost/test/unit_test_suite.hpp>
+#define BOOST_TEST_MODULE pcraster aguila matrix
+#include <boost/test/unit_test.hpp>
 #include "com_matrix.h"
 
 
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC CLASS MEMBERS
-//------------------------------------------------------------------------------
-
-boost::unit_test::test_suite*com::MatrixTest::suite()
+BOOST_AUTO_TEST_CASE(equality)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<MatrixTest> instance(new MatrixTest());
+  using namespace com;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&MatrixTest::testIdentity, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&MatrixTest::testTranspose, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&MatrixTest::testEquality, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&MatrixTest::testInequality, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&MatrixTest::testInvert, instance));
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
-//------------------------------------------------------------------------------
-
-com::MatrixTest::MatrixTest()
-
-{
-}
-
-
-
-void com::MatrixTest::setUp()
-{
-}
-
-
-
-void com::MatrixTest::tearDown()
-{
-}
-
-
-
-void com::MatrixTest::testEquality()
-{
   // Create two 2x3 matrices.
   Matrix<double> m1(2, 3);
   Matrix<double> m2(2, 3);
@@ -73,9 +30,10 @@ void com::MatrixTest::testEquality()
 }
 
 
-
-void com::MatrixTest::testInequality()
+BOOST_AUTO_TEST_CASE(inequality)
 {
+  using namespace com;
+
   // Create two 2x3 matrices.
   Matrix<double> m1(2, 3);
   Matrix<double> m2(2, 3);
@@ -99,9 +57,10 @@ void com::MatrixTest::testInequality()
 }
 
 
-
-void com::MatrixTest::testIdentity()
+BOOST_AUTO_TEST_CASE(identity)
 {
+  using namespace com;
+
   // Create a 3x3 identity matrix.
   Matrix<double> m(Matrix<double>::identity(3));
 
@@ -119,10 +78,11 @@ void com::MatrixTest::testIdentity()
 }
 
 
+BOOST_AUTO_TEST_CASE(invert)
+{
+  using namespace com;
 
 // yepyep: weird stuff 1 != 1 ...
-void com::MatrixTest::testInvert()
-{
   // Create a 3x4 matrix.
   Matrix<double> m(3, 3);
 
@@ -161,9 +121,10 @@ void com::MatrixTest::testInvert()
 }
 
 
-
-void com::MatrixTest::testTranspose()
+BOOST_AUTO_TEST_CASE(transpose)
 {
+  using namespace com;
+
   // Create a 2x3 matrix.
   Matrix<double> m(2, 3);
 
@@ -188,35 +149,3 @@ void com::MatrixTest::testTranspose()
   BOOST_CHECK(m.element(1, 3) == transpose.element(3, 1));
   BOOST_CHECK(m.element(2, 3) == transpose.element(3, 2));
 }
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF FREE OPERATORS 
-//------------------------------------------------------------------------------
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF FREE FUNCTIONS 
-//------------------------------------------------------------------------------
-
-
-
-//------------------------------------------------------------------------------
-// DOCUMENTATION OF ENUMERATIONS
-//------------------------------------------------------------------------------
-
-
-
-//------------------------------------------------------------------------------
-// DOCUMENTATION OF INLINE FUNCTIONS
-//------------------------------------------------------------------------------
-
-
-
-//------------------------------------------------------------------------------
-// DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
-//------------------------------------------------------------------------------
-
-

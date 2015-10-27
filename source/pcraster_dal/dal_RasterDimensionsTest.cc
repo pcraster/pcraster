@@ -1,87 +1,13 @@
-#ifndef INCLUDED_DAL_RASTERDIMENSIONSTEST
-#include "dal_RasterDimensionsTest.h"
-#define INCLUDED_DAL_RASTERDIMENSIONSTEST
-#endif
-
-// External headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// Project headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_MATHUTILS
+#define BOOST_TEST_MODULE pcraster dal raster_dimensions
+#include <boost/test/unit_test.hpp>
 #include "dal_MathUtils.h"
-#define INCLUDED_DAL_MATHUTILS
-#endif
-
-#ifndef INCLUDED_DAL_RASTERDIMENSIONS
 #include "dal_RasterDimensions.h"
-#define INCLUDED_DAL_RASTERDIMENSIONS
-#endif
 
 
-
-/*!
-  \file
-  This file contains the implementation of the RasterDimensionsTest class.
-*/
-
-
-
-namespace dal {
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC RASTERDIMENSIONSTEST MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite* RasterDimensionsTest::suite()
+BOOST_AUTO_TEST_CASE(test_)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<RasterDimensionsTest> instance(new RasterDimensionsTest());
-  suite->add(BOOST_CLASS_TEST_CASE(&RasterDimensionsTest::test, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &RasterDimensionsTest::testAssignment, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &RasterDimensionsTest::testIndex, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &RasterDimensionsTest::testCoordinates, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &RasterDimensionsTest::testAreaDimensions, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &RasterDimensionsTest::testOverlap, instance));
+  using namespace dal;
 
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF RASTERDIMENSIONSTEST MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-RasterDimensionsTest::RasterDimensionsTest()
-{
-}
-
-
-
-void RasterDimensionsTest::test()
-{
   // Default.
   {
     RasterDimensions raster;
@@ -130,9 +56,10 @@ void RasterDimensionsTest::test()
 }
 
 
-
-void RasterDimensionsTest::testAssignment()
+BOOST_AUTO_TEST_CASE(assignment)
 {
+  using namespace dal;
+
   {
     RasterDimensions raster1(3, 4, 5.0, 1.0, 2.0);
     RasterDimensions raster2(3, 5, 5.0, 1.0, 2.0);
@@ -149,9 +76,10 @@ void RasterDimensionsTest::testAssignment()
 }
 
 
-
-void RasterDimensionsTest::testIndex()
+BOOST_AUTO_TEST_CASE(index_)
 {
+  using namespace dal;
+
   {
     RasterDimensions raster(3, 4, 5.0, 1.0, 2.0);
 
@@ -167,9 +95,10 @@ void RasterDimensionsTest::testIndex()
 }
 
 
-
-void RasterDimensionsTest::testCoordinates()
+BOOST_AUTO_TEST_CASE(coordinates)
 {
+  using namespace dal;
+
   {
     RasterDimensions raster(3, 4, 5.0, 1.0, 2.0);
     double x, y;
@@ -185,9 +114,10 @@ void RasterDimensionsTest::testCoordinates()
 }
 
 
-
-void RasterDimensionsTest::testAreaDimensions()
+BOOST_AUTO_TEST_CASE(area_dimensions)
 {
+  using namespace dal;
+
   // Empty area.
   {
     RasterDimensions raster(3, 4, 5.0, 1.0, 2.0);
@@ -234,9 +164,10 @@ void RasterDimensionsTest::testAreaDimensions()
 }
 
 
-
-void RasterDimensionsTest::testOverlap()
+BOOST_AUTO_TEST_CASE(overlap)
 {
+  using namespace dal;
+
   RasterDimensions area1, area2;
 
   // Empty raster dimensions.
@@ -340,6 +271,3 @@ void RasterDimensionsTest::testOverlap()
     }
   }
 }
-
-} // namespace dal
-

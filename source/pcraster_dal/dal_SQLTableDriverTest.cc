@@ -1,141 +1,701 @@
-#ifndef INCLUDED_DAL_SQLTABLEDRIVERTEST
-#include "dal_SQLTableDriverTest.h"
-#define INCLUDED_DAL_SQLTABLEDRIVERTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_FILESYSTEM
+#define BOOST_TEST_MODULE pcraster dal sql_table_driver
+#include <boost/test/unit_test.hpp>
 #include <boost/filesystem.hpp>
-#define INCLUDED_BOOST_FILESYSTEM
-#endif
-
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_DEV_UTILS
+#include <QCoreApplication>
 #include "dev_Utils.h"
-#define INCLUDED_DEV_UTILS
-#endif
-
-// Module headers.
-#ifndef INCLUDED_DAL_DEF
 #include "dal_Def.h"
-#define INCLUDED_DAL_DEF
-#endif
-
-#ifndef INCLUDED_DAL_EXCEPTION
 #include "dal_Exception.h"
-#define INCLUDED_DAL_EXCEPTION
-#endif
-
-#ifndef INCLUDED_DAL_SQLTABLEDRIVER
 #include "dal_SQLTableDriver.h"
-#define INCLUDED_DAL_SQLTABLEDRIVER
-#endif
+#define protected public
+#include "dev_QtClient.h"
+#include "dal_Client.h"
 
 
-
-/*!
-  \file
-  This file contains the implementation of the SQLTableDriverTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC SQLTABLEDRIVER MEMBERS
-//------------------------------------------------------------------------------
-
+static int argc = 1;
+static char const* argv[1] = {"/my/path/sql_table_driver_test"};
+static dev::QtClient<QCoreApplication> qt_client(argc,
+    const_cast<char**>(argv));
+static dal::Client client("/my/path/sql_table_driver_test", true);
 
 
 #ifndef QT_NO_SQL
 
-//! suite
-boost::unit_test::test_suite*dal::SQLTableDriverTest::suite()
+struct Fixture
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<SQLTableDriverTest> instance(new SQLTableDriverTest());
 
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &SQLTableDriverTest::testUserVar, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &SQLTableDriverTest::testDriverIsAvailable, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&SQLTableDriverTest::testConstructor,
-         instance));
+    Fixture()
+        : d_user(dev::environmentVariableSet("USER")
+            ? dev::environmentVariable("USER")
+            : dev::environmentVariable("LOGNAME"))
+    {
+        BOOST_REQUIRE(!d_user.empty());
+    }
 
-  if(SQLTableDriver::driverIsAvailable("QSQLITE")) {
-    suite->add(BOOST_CLASS_TEST_CASE(&SQLTableDriverTest::testSQLite,
-         instance));
-  }
-
-  // TODO uncomment. first figure out this odbc data set naming stuff again.
-  // if(SQLTableDriver::driverIsAvailable("QODBC3")) {
-  //   suite->add(BOOST_CLASS_TEST_CASE(&SQLTableDriverTest::testODBC,
-  //        instance));
-  // }
-
-  // if(SQLTableDriver::driverIsAvailable("QPSQL7")) {
-  //   suite->add(BOOST_CLASS_TEST_CASE(&SQLTableDriverTest::testPostgreSQL,
-  //        instance));
-  // }
-
-  return suite;
-}
+    ~Fixture()
+    {
+    }
 
 
+    void test(
+        std::string const& driverName)
+    {
+      // createDatabase(driverName, "MyTable");
+      testUnexisting(driverName);
+      testWrite(driverName);
 
-namespace dal {
+      if(driverName == "QSQLITE") {
+        testReadTemporal(driverName);
+        testReadScenario(driverName);
+        testReadScenarioTemporal(driverName);
+        testReadQuantile(driverName);
+      }
 
-//------------------------------------------------------------------------------
-// DEFINITION OF SQLTABLEDRIVER MEMBERS
-//------------------------------------------------------------------------------
+      // removeDatabase(driverName, "MyTable");
+    }
 
-//! ctor
-SQLTableDriverTest::SQLTableDriverTest()
 
- : d_user(dev::environmentVariableSet("USER")
-     ? dev::environmentVariable("USER")
-     : dev::environmentVariable("LOGNAME"))
+    // void createDatabase(
+    //          std::string const& driverName,
+    //          std::string const& databaseName)
+    // {
+    //   SQLTableDriver driver(driverName);
+    //
+    //   BOOST_CHECK(!driver.databaseExists(databaseName));
+    //   driver.addDatabase(databaseName);
+    //   BOOST_CHECK(driver.databaseExists(databaseName));
+    // }
+    //
+    //
+    //
+    // void removeDatabase(
+    //          std::string const& driverName,
+    //          std::string const& databaseName)
+    // {
+    //   SQLTableDriver driver(driverName);
+    //
+    //   BOOST_CHECK(driver.databaseExists(databaseName));
+    //   driver.removeDatabase(databaseName);
+    //   BOOST_CHECK(!driver.databaseExists(databaseName));
+    // }
 
+
+    void testUnexisting(
+        std::string const& driverName)
+    {
+      using namespace dal;
+
+      std::string name;
+      SQLTableDriver driver(driverName);
+      Table* table;
+
+      {
+        name = "";
+        table = dynamic_cast<Table*>(dynamic_cast<Driver&>(driver).open(name));
+        BOOST_CHECK(!table);
+      }
+
+      {
+        name = "unexisting";
+        table = dynamic_cast<Table*>(dynamic_cast<Driver&>(driver).open(name));
+        BOOST_CHECK(!table);
+      }
+
+      {
+        name = "DSN=unexisting;UID=" + d_user;
+        table = dynamic_cast<Table*>(dynamic_cast<Driver&>(driver).open(name));
+        BOOST_CHECK(!table);
+      }
+    }
+
+
+    void testWrite(
+        std::string const& driverName)
+    {
+      using namespace dal;
+
+      // Creates MyTable/Example
+      std::string name(d_user + ":MyTable/Example");
+      SQLTableDriver driver(driverName);
+      boost::shared_ptr<Table> outputTable;
+      boost::shared_ptr<Table> inputTable;
+
+      {
+        std::vector<std::string> titles;
+        std::vector<TypeId> typeIds;
+
+        titles.push_back("name");
+        typeIds.push_back(TI_STRING);
+
+        titles.push_back("age");
+        typeIds.push_back(TI_INT4);
+
+        titles.push_back("room");
+        typeIds.push_back(TI_INT4);
+
+        titles.push_back("height");
+        typeIds.push_back(TI_REAL8);
+
+        outputTable.reset(new Table(titles, typeIds));
+        outputTable->createCols();
+        outputTable->col<std::string>(0).push_back("Piet-Jaapje");
+        outputTable->col<std::string>(0).push_back("Fritz");
+        outputTable->col<INT4>(1).push_back(0);
+        outputTable->col<INT4>(1).push_back(50);
+        outputTable->col<INT4>(2).push_back(1);
+        outputTable->col<INT4>(2).push_back(2);
+        outputTable->col<REAL8>(3).push_back(1.92);
+        outputTable->col<REAL8>(3).push_back(1.85);
+
+        BOOST_REQUIRE_NO_THROW(
+          dynamic_cast<TableDriver&>(driver).write(*outputTable, name);
+        )
+
+        BOOST_WARN_MESSAGE(false, "Busy with SQLTableDriver...");
+        /// BOOST_REQUIRE_NO_THROW(
+        ///   inputTable.reset(dynamic_cast<TableDriver&>(driver).read(name));
+        /// )
+        /// BOOST_REQUIRE(inputTable);
+        /// BOOST_CHECK(*inputTable == *outputTable);
+
+        /// inputTable.reset(new Table(titles, typeIds));
+        /// inputTable->createCols();
+        /// dynamic_cast<TableDriver&>(driver).read(*inputTable, name);
+        /// BOOST_CHECK(*inputTable == *outputTable);
+        /// inputTable.reset();
+
+        /// outputTable->clear();
+        /// outputTable->col<std::string>(0).push_back("Reus");
+        /// outputTable->col<INT4>(1).push_back(2);
+        /// outputTable->col<INT4>(2).push_back(5);
+        /// outputTable->col<REAL8>(3).push_back(2.11);
+
+        /// BOOST_REQUIRE_NO_THROW(
+        ///   dynamic_cast<TableDriver&>(driver).append(name, *outputTable);
+        /// )
+
+        /// BOOST_REQUIRE_NO_THROW(
+        ///   inputTable.reset(dynamic_cast<TableDriver&>(driver).read(name));
+        /// )
+        /// BOOST_REQUIRE(inputTable);
+        /// BOOST_CHECK_EQUAL(inputTable->nrCols(), size_t(4));
+        /// BOOST_CHECK_EQUAL(inputTable->nrRecs(), size_t(3));
+
+        /// Array<std::string> const* col1 = 0;
+        /// BOOST_REQUIRE_NO_THROW(col1 = &inputTable->col<std::string>(0));
+        /// BOOST_CHECK_EQUAL((*col1)[0], "Piet-Jaapje");
+        /// BOOST_CHECK_EQUAL((*col1)[1], "Fritz");
+        /// BOOST_CHECK_EQUAL((*col1)[2], "Reus");
+
+        /// Array<INT4> const* col2 = 0;
+        /// BOOST_REQUIRE_NO_THROW(col2 = &inputTable->col<INT4>(1));
+        /// BOOST_CHECK_EQUAL((*col2)[0], 0);
+        /// BOOST_CHECK_EQUAL((*col2)[1], 50);
+        /// BOOST_CHECK_EQUAL((*col2)[2], 2);
+
+        /// Array<INT4> const* col3 = 0;
+        /// BOOST_REQUIRE_NO_THROW(col3 = &inputTable->col<INT4>(2));
+        /// BOOST_CHECK_EQUAL((*col3)[0], 1);
+        /// BOOST_CHECK_EQUAL((*col3)[1], 2);
+        /// BOOST_CHECK_EQUAL((*col3)[2], 5);
+
+        /// Array<REAL8> const* col4 = 0;
+        /// BOOST_REQUIRE_NO_THROW(col4 = &inputTable->col<REAL8>(3));
+        /// BOOST_CHECK(comparable((*col4)[0], 1.92));
+        /// BOOST_CHECK(comparable((*col4)[1], 1.85));
+        /// BOOST_CHECK(comparable((*col4)[2], 2.11));
+      }
+
+      // Selective read.
+      {
+        BOOST_WARN_MESSAGE(false, "Busy with SQLTableDriver...");
+        // boost::shared_ptr<Table> table(dynamic_cast<Table*>(
+        //      dynamic_cast<Driver&>(driver).open(name)));
+        // BOOST_REQUIRE(table);
+
+        // // We are not interested in the second column.
+        // table->setTypeId(1, TI_NR_TYPES);
+        // table->createCols();
+        // dynamic_cast<TableDriver&>(driver).read(*table, name);
+        // BOOST_CHECK_EQUAL(table->nrRecs(), size_t(3));
+
+        // // Second column is not available.
+        // BOOST_CHECK_THROW(table->col<INT4>(1), boost::bad_any_cast);
+
+        // // Other columns are.
+        // Array<std::string> const* col1 = 0;
+        // BOOST_REQUIRE_NO_THROW(col1 = &table->col<std::string>(0));
+        // BOOST_CHECK_EQUAL((*col1)[0], "Piet-Jaapje");
+        // BOOST_CHECK_EQUAL((*col1)[1], "Fritz");
+        // BOOST_CHECK_EQUAL((*col1)[2], "Reus");
+
+        // Array<INT4> const* col3 = 0;
+        // BOOST_REQUIRE_NO_THROW(col3 = &table->col<INT4>(2));
+        // BOOST_CHECK_EQUAL((*col3)[0], 1);
+        // BOOST_CHECK_EQUAL((*col3)[1], 2);
+        // BOOST_CHECK_EQUAL((*col3)[2], 5);
+
+        // Array<REAL8> const* col4 = 0;
+        // BOOST_REQUIRE_NO_THROW(col4 = &table->col<REAL8>(3));
+        // BOOST_CHECK(comparable((*col4)[0], 1.92));
+        // BOOST_CHECK(comparable((*col4)[1], 1.85));
+        // BOOST_CHECK(comparable((*col4)[2], 2.11));
+      }
+    }
+
+
+    void testReadTemporal(
+        std::string const& driverName)
+    {
+      using namespace dal;
+
+      SQLTableDriver driver(driverName);
+
+      std::string name = "dimensions/date/co2";
+      DataSpace space;
+      DataSpaceAddress address;
+      boost::shared_ptr<Table> table;
+      size_t dateId, attrId;
+
+      {
+        space.clear();
+        address = space.address();
+        BOOST_CHECK(driver.exists(name, space, address));
+
+        // Read all.
+        table.reset(driver.open(name, space, address));
+        BOOST_REQUIRE(table);
+        BOOST_CHECK_EQUAL(table->nrCols(), size_t(2));
+        BOOST_CHECK_EQUAL(table->nrRecs(), size_t(0));
+
+        dateId = table->indexOf("date");
+        BOOST_REQUIRE(dateId < table->nrCols());
+        BOOST_CHECK_EQUAL(table->typeId(dateId), TI_INT4);
+        BOOST_CHECK_EQUAL(table->title(dateId), "date");
+
+        attrId = table->indexOf("co2");
+        BOOST_REQUIRE(attrId < table->nrCols());
+        BOOST_CHECK_EQUAL(table->typeId(attrId), TI_REAL4);
+        BOOST_CHECK_EQUAL(table->title(attrId), "co2");
+
+        BOOST_REQUIRE_NO_THROW(
+          driver.read(*table, name, space, address);
+        )
+
+        BOOST_CHECK_EQUAL(table->nrRecs(), size_t(3));
+
+        BOOST_CHECK_EQUAL(table->col<INT4>(dateId)[0], INT4(1));
+        BOOST_CHECK_EQUAL(table->col<INT4>(dateId)[1], INT4(2));
+        BOOST_CHECK_EQUAL(table->col<INT4>(dateId)[2], INT4(3));
+
+        BOOST_CHECK_CLOSE(table->col<REAL4>(attrId)[0], REAL4(1.11), REAL4(0.001));
+        BOOST_CHECK_CLOSE(table->col<REAL4>(attrId)[1], REAL4(2.22), REAL4(0.001));
+        BOOST_CHECK_CLOSE(table->col<REAL4>(attrId)[2], REAL4(3.33), REAL4(0.001));
+
+        // Read selection.
+        space.addDimension(Dimension(Time, size_t(1), size_t(3), size_t(1)));
+        address = space.address();
+        address.setCoordinate<size_t>(0, 2);
+
+        BOOST_REQUIRE_NO_THROW(
+          table.reset(driver.read(name, space, address));
+        )
+
+        BOOST_CHECK_EQUAL(table->nrRecs(), size_t(1));
+        BOOST_CHECK_CLOSE(table->col<REAL4>(1)[0], REAL4(2.22), REAL4(0.001));
+      }
+    }
+
+
+    void testReadQuantile(
+        std::string const& driverName)
+    {
+      using namespace dal;
+
+      SQLTableDriver driver(driverName);
+
+      std::string name = "dimensions/quantile/co2";
+      DataSpace space;
+      DataSpaceAddress address;
+      boost::shared_ptr<Table> table;
+      size_t quantileId, attrId;
+
+      {
+        space.clear();
+        address = space.address();
+        BOOST_CHECK(driver.exists(name, space, address));
+      }
+
+      {
+        BOOST_REQUIRE(driver.exists(name, space, address));
+
+        // Read all.
+        space.clear();
+        address = space.address();
+
+        table.reset(driver.open(name, space, address));
+        BOOST_REQUIRE(table);
+        BOOST_CHECK_EQUAL(table->nrCols(), size_t(2));
+        BOOST_CHECK_EQUAL(table->nrRecs(), size_t(0));
+
+        quantileId = table->indexOf("quantile");
+        BOOST_REQUIRE(quantileId < table->nrCols());
+        BOOST_CHECK_EQUAL(table->typeId(quantileId), TI_REAL4);
+        BOOST_CHECK_EQUAL(table->title(quantileId), "quantile");
+
+        attrId = table->indexOf("co2");
+        BOOST_REQUIRE(attrId < table->nrCols());
+        BOOST_CHECK_EQUAL(table->typeId(attrId), TI_REAL4);
+        BOOST_CHECK_EQUAL(table->title(attrId), "co2");
+
+        BOOST_REQUIRE_NO_THROW(
+          driver.read(*table, name, space, address);
+        )
+
+        BOOST_CHECK_EQUAL(table->nrRecs(), size_t(5));
+
+        BOOST_CHECK_EQUAL(table->col<REAL4>(quantileId)[0], REAL4(0.01));
+        BOOST_CHECK_EQUAL(table->col<REAL4>(quantileId)[1], REAL4(0.05));
+        BOOST_CHECK_EQUAL(table->col<REAL4>(quantileId)[2], REAL4(0.50));
+        BOOST_CHECK_EQUAL(table->col<REAL4>(quantileId)[3], REAL4(0.95));
+        BOOST_CHECK_EQUAL(table->col<REAL4>(quantileId)[4], REAL4(0.99));
+
+        BOOST_CHECK_EQUAL(table->col<REAL4>(attrId)[0], REAL4(1.01));
+        BOOST_CHECK_EQUAL(table->col<REAL4>(attrId)[1], REAL4(1.05));
+        BOOST_CHECK_EQUAL(table->col<REAL4>(attrId)[2], REAL4(1.50));
+        BOOST_CHECK_EQUAL(table->col<REAL4>(attrId)[3], REAL4(1.95));
+        BOOST_CHECK_EQUAL(table->col<REAL4>(attrId)[4], REAL4(1.99));
+
+        // Read selection.
+        space.addDimension(Dimension(CumulativeProbabilities, float(0.01),
+             float(0.99), float(0.01)));
+        address = space.address();
+        address.setCoordinate<float>(0, 0.95f);
+
+        table.reset(driver.open(name, space, address));
+        BOOST_REQUIRE(table);
+        BOOST_CHECK_EQUAL(table->nrCols(), size_t(2));
+        BOOST_CHECK_EQUAL(table->nrRecs(), size_t(0));
+
+        quantileId = table->indexOf("quantile");
+        BOOST_REQUIRE(quantileId < table->nrCols());
+        BOOST_CHECK_EQUAL(table->typeId(quantileId), TI_REAL4);
+        BOOST_CHECK_EQUAL(table->title(quantileId), "quantile");
+
+        attrId = table->indexOf("co2");
+        BOOST_REQUIRE(attrId < table->nrCols());
+        BOOST_CHECK_EQUAL(table->typeId(attrId), TI_REAL4);
+        BOOST_CHECK_EQUAL(table->title(attrId), "co2");
+
+        BOOST_REQUIRE_NO_THROW(
+          driver.read(*table, name, space, address);
+        )
+
+        BOOST_CHECK_EQUAL(table->nrRecs(), size_t(1));
+        BOOST_CHECK_CLOSE(table->col<REAL4>(attrId)[0], REAL4(1.95), REAL4(0.001));
+      }
+    }
+
+
+    void testReadScenario(
+        std::string const& driverName)
+    {
+      using namespace dal;
+
+      SQLTableDriver driver(driverName);
+
+      std::string name = "dimensions/scenario/co2";
+      DataSpace space;
+      DataSpaceAddress address;
+      boost::shared_ptr<Table> table;
+      size_t scenarioId, attrId;
+
+      {
+        space.clear();
+        address = space.address();
+
+        BOOST_CHECK(driver.exists(name, space, address));
+
+        // Read all.
+        table.reset(driver.open(name, space, address));
+        BOOST_REQUIRE(table);
+        BOOST_CHECK_EQUAL(table->nrCols(), size_t(2));
+        BOOST_CHECK_EQUAL(table->nrRecs(), size_t(0));
+
+        scenarioId = table->indexOf("scenario");
+        BOOST_REQUIRE(scenarioId < table->nrCols());
+        BOOST_CHECK_EQUAL(table->typeId(scenarioId), TI_STRING);
+        BOOST_CHECK_EQUAL(table->title(scenarioId), "scenario");
+
+        attrId = table->indexOf("co2");
+        BOOST_REQUIRE(attrId < table->nrCols());
+        BOOST_CHECK_EQUAL(table->typeId(attrId), TI_REAL4);
+        BOOST_CHECK_EQUAL(table->title(attrId), "co2");
+
+        BOOST_REQUIRE_NO_THROW(
+          table.reset(driver.read(name, space, address));
+        )
+
+        BOOST_CHECK_EQUAL(table->nrRecs(), size_t(2));
+        BOOST_CHECK_EQUAL(table->col<std::string>(scenarioId)[0],
+             std::string("aap"));
+        BOOST_CHECK_EQUAL(table->col<std::string>(scenarioId)[1],
+             std::string("noot"));
+
+        BOOST_CHECK_EQUAL(table->col<REAL4>(attrId)[0], REAL4(-1.11));
+        BOOST_CHECK_EQUAL(table->col<REAL4>(attrId)[1], REAL4(-2.22));
+
+        // Read selection.
+        std::set<std::string> scenarios;
+        scenarios.insert("aap");
+        scenarios.insert("noot");
+
+        space.addDimension(Dimension(Scenarios, scenarios));
+        address = space.address();
+        address.setCoordinate<std::string>(0, "noot");
+
+        BOOST_REQUIRE_NO_THROW(
+          table.reset(driver.read(name, space, address));
+        )
+
+        BOOST_CHECK_EQUAL(table->nrRecs(), size_t(1));
+        BOOST_CHECK_CLOSE(table->col<REAL4>(1)[0], REAL4(-2.22), REAL4(0.001));
+      }
+    }
+
+
+    void testReadScenarioTemporal(
+             std::string const& driverName)
+    {
+      using namespace dal;
+
+      SQLTableDriver driver(driverName);
+
+      std::string name = "dimensions/scenario_date/co2";
+      DataSpace space;
+      DataSpaceAddress address;
+      boost::shared_ptr<Table> table;
+      size_t scenarioId, dateId, attrId;
+
+      {
+        space.clear();
+        address = space.address();
+        BOOST_CHECK(driver.exists(name, space, address));
+      }
+
+      {
+        space.clear();
+        std::set<std::string> scenarios;
+        scenarios.insert("aap");
+        scenarios.insert("noot");
+        space.addDimension(Dimension(Scenarios, scenarios));
+        address = space.address();
+        address.setCoordinate<std::string>(0, "noot");
+
+        BOOST_CHECK(driver.exists(name, space, address));
+      }
+
+      {
+        space.clear();
+        space.addDimension(Dimension(Time, size_t(1), size_t(3), size_t(1)));
+        address = space.address();
+        address.setCoordinate<size_t>(0, 2);
+
+        BOOST_CHECK(driver.exists(name, space, address));
+      }
+
+      {
+        space.clear();
+        std::set<std::string> scenarios;
+        scenarios.insert("aap");
+        scenarios.insert("noot");
+        space.addDimension(Dimension(Scenarios, scenarios));
+        space.addDimension(Dimension(Time, size_t(1), size_t(3), size_t(1)));
+        address = space.address();
+        address.setCoordinate<std::string>(0, "noot");
+        address.setCoordinate<size_t>(1, 2);
+
+        BOOST_REQUIRE(driver.exists(name, space, address));
+
+        // Read selection.
+        // Read one time step from one scenario.
+        table.reset(driver.open(name, space, address));
+        BOOST_REQUIRE(table);
+        BOOST_CHECK_EQUAL(table->nrCols(), size_t(3));
+        BOOST_CHECK_EQUAL(table->nrRecs(), size_t(0));
+
+        scenarioId = table->indexOf("scenario");
+        BOOST_REQUIRE(scenarioId < table->nrCols());
+        BOOST_CHECK_EQUAL(table->typeId(scenarioId), TI_STRING);
+        BOOST_CHECK_EQUAL(table->title(scenarioId), "scenario");
+
+        dateId = table->indexOf("date");
+        BOOST_REQUIRE(dateId < table->nrCols());
+        BOOST_CHECK_EQUAL(table->typeId(dateId), TI_INT4);
+        BOOST_CHECK_EQUAL(table->title(dateId), "date");
+
+        attrId = table->indexOf("co2");
+        BOOST_REQUIRE(attrId < table->nrCols());
+        BOOST_CHECK_EQUAL(table->typeId(attrId), TI_REAL4);
+        BOOST_CHECK_EQUAL(table->title(attrId), "co2");
+
+        BOOST_REQUIRE_NO_THROW(
+          driver.read(*table, name, space, address);
+        )
+
+        BOOST_CHECK_EQUAL(table->nrRecs(), size_t(1));
+        BOOST_CHECK_CLOSE(table->col<REAL4>(2)[0], REAL4(2.02), REAL4(0.001));
+
+        // Read selection.
+        // Get values per scenario for a timestep.
+        address.unsetCoordinate(0);
+
+        table.reset(driver.open(name, space, address));
+        BOOST_REQUIRE(table);
+        BOOST_CHECK_EQUAL(table->nrCols(), size_t(3));
+        BOOST_CHECK_EQUAL(table->nrRecs(), size_t(0));
+
+        scenarioId = table->indexOf("scenario");
+        BOOST_REQUIRE(scenarioId < table->nrCols());
+        BOOST_CHECK_EQUAL(table->typeId(scenarioId), TI_STRING);
+        BOOST_CHECK_EQUAL(table->title(scenarioId), "scenario");
+
+        dateId = table->indexOf("date");
+        BOOST_REQUIRE(dateId < table->nrCols());
+        BOOST_CHECK_EQUAL(table->typeId(dateId), TI_INT4);
+        BOOST_CHECK_EQUAL(table->title(dateId), "date");
+
+        attrId = table->indexOf("co2");
+        BOOST_REQUIRE(attrId < table->nrCols());
+        BOOST_CHECK_EQUAL(table->typeId(attrId), TI_REAL4);
+        BOOST_CHECK_EQUAL(table->title(attrId), "co2");
+
+        BOOST_REQUIRE_NO_THROW(
+          driver.read(*table, name, space, address);
+        )
+
+        BOOST_CHECK_EQUAL(table->nrRecs(), size_t(2));
+
+        BOOST_CHECK_EQUAL(table->col<std::string>(scenarioId)[0], "aap");
+        BOOST_CHECK_EQUAL(table->col<std::string>(scenarioId)[1], "noot");
+
+        BOOST_CHECK_CLOSE(table->col<REAL4>(attrId)[0], REAL4(2.01), REAL4(0.001));
+        BOOST_CHECK_CLOSE(table->col<REAL4>(attrId)[1], REAL4(2.02), REAL4(0.001));
+
+        // Read selection.
+        // Get values per time step for a scenario.
+        address.setCoordinate<std::string>(0, "noot");
+        address.unsetCoordinate(1);
+
+        table.reset(driver.open(name, space, address));
+        BOOST_REQUIRE(table);
+        BOOST_CHECK_EQUAL(table->nrCols(), size_t(3));
+        BOOST_CHECK_EQUAL(table->nrRecs(), size_t(0));
+
+        scenarioId = table->indexOf("scenario");
+        BOOST_REQUIRE(scenarioId < table->nrCols());
+        BOOST_CHECK_EQUAL(table->typeId(scenarioId), TI_STRING);
+        BOOST_CHECK_EQUAL(table->title(scenarioId), "scenario");
+
+        dateId = table->indexOf("date");
+        BOOST_REQUIRE(dateId < table->nrCols());
+        BOOST_CHECK_EQUAL(table->typeId(dateId), TI_INT4);
+        BOOST_CHECK_EQUAL(table->title(dateId), "date");
+
+        attrId = table->indexOf("co2");
+        BOOST_REQUIRE(attrId < table->nrCols());
+        BOOST_CHECK_EQUAL(table->typeId(attrId), TI_REAL4);
+        BOOST_CHECK_EQUAL(table->title(attrId), "co2");
+
+        BOOST_REQUIRE_NO_THROW(
+          driver.read(*table, name, space, address);
+        )
+
+        BOOST_CHECK_EQUAL(table->nrRecs(), size_t(2));
+
+        BOOST_CHECK_EQUAL(table->col<INT4>(dateId)[0], 1);
+        BOOST_CHECK_EQUAL(table->col<INT4>(dateId)[1], 2);
+
+        BOOST_CHECK_CLOSE(table->col<REAL4>(attrId)[0], REAL4(1.02), REAL4(0.001));
+        BOOST_CHECK_CLOSE(table->col<REAL4>(attrId)[1], REAL4(2.02), REAL4(0.001));
+      }
+    }
+
+    std::string d_user;
+
+};
+
+
+// //! suite
+// boost::unit_test::test_suite*dal::SQLTableDriverTest::suite()
+// {
+//   boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
+//   boost::shared_ptr<SQLTableDriverTest> instance(new SQLTableDriverTest());
+//
+//   suite->add(BOOST_CLASS_TEST_CASE(
+//          &SQLTableDriverTest::testUserVar, instance));
+//   suite->add(BOOST_CLASS_TEST_CASE(
+//          &SQLTableDriverTest::testDriverIsAvailable, instance));
+//   suite->add(BOOST_CLASS_TEST_CASE(&SQLTableDriverTest::testConstructor,
+//          instance));
+//
+//   if(SQLTableDriver::driverIsAvailable("QSQLITE")) {
+//     suite->add(BOOST_CLASS_TEST_CASE(&SQLTableDriverTest::testSQLite,
+//          instance));
+//   }
+//
+//   // TODO uncomment. first figure out this odbc data set naming stuff again.
+//   // if(SQLTableDriver::driverIsAvailable("QODBC3")) {
+//   //   suite->add(BOOST_CLASS_TEST_CASE(&SQLTableDriverTest::testODBC,
+//   //        instance));
+//   // }
+//
+//   // if(SQLTableDriver::driverIsAvailable("QPSQL7")) {
+//   //   suite->add(BOOST_CLASS_TEST_CASE(&SQLTableDriverTest::testPostgreSQL,
+//   //        instance));
+//   // }
+//
+//   return suite;
+// }
+
+
+// //! ctor
+// SQLTableDriverTest::SQLTableDriverTest()
+//
+//  : d_user(dev::environmentVariableSet("USER")
+//      ? dev::environmentVariable("USER")
+//      : dev::environmentVariable("LOGNAME"))
+//
+// {
+// }
+
+
+BOOST_FIXTURE_TEST_SUITE(sql_table_driver, Fixture)
+
+// BOOST_AUTO_TEST_CASE(user_var)
+// {
+//   using namespace dal;
+//
+//   BOOST_REQUIRE(!d_user.empty());
+// }
+
+
+BOOST_AUTO_TEST_CASE(driver_is_available)
 {
-}
+  using namespace dal;
 
-
-
-void SQLTableDriverTest::testUserVar()
-{
-  BOOST_REQUIRE(!d_user.empty());
-}
-
-
-
-void SQLTableDriverTest::testDriverIsAvailable()
-{
   // Some drivers we always want to support.
   BOOST_REQUIRE(SQLTableDriver::driverIsAvailable("QSQLITE"));
-  BOOST_REQUIRE(SQLTableDriver::driverIsAvailable("QODBC3"));
+  // BOOST_REQUIRE(SQLTableDriver::driverIsAvailable("QODBC3"));
 
   // One that does not exist.
   BOOST_CHECK(!SQLTableDriver::driverIsAvailable("QDOESNOTEXIST"));
 }
 
 
-
-void SQLTableDriverTest::testConstructor()
+BOOST_AUTO_TEST_CASE(constructor)
 {
+  using namespace dal;
+
   BOOST_CHECK_NO_THROW(SQLTableDriver("QSQLITE"));
 
   bool exceptionThrown;
@@ -154,597 +714,29 @@ void SQLTableDriverTest::testConstructor()
 }
 
 
-
-void SQLTableDriverTest::test(
-         std::string const& driverName)
+BOOST_AUTO_TEST_CASE(odbc)
 {
-  // createDatabase(driverName, "MyTable");
-  testUnexisting(driverName);
-  testWrite(driverName);
+  using namespace dal;
 
-  if(driverName == "QSQLITE") {
-    testReadTemporal(driverName);
-    testReadScenario(driverName);
-    testReadScenarioTemporal(driverName);
-    testReadQuantile(driverName);
+  // TODO Fix. first figure out this odbc data set naming stuff again.
+  return;
+
+  if(!SQLTableDriver::driverIsAvailable("QODBC3")) {
+      return;
   }
 
-  // removeDatabase(driverName, "MyTable");
-}
-
-
-
-// void SQLTableDriverTest::createDatabase(
-//          std::string const& driverName,
-//          std::string const& databaseName)
-// {
-//   SQLTableDriver driver(driverName);
-// 
-//   BOOST_CHECK(!driver.databaseExists(databaseName));
-//   driver.addDatabase(databaseName);
-//   BOOST_CHECK(driver.databaseExists(databaseName));
-// }
-// 
-// 
-// 
-// void SQLTableDriverTest::removeDatabase(
-//          std::string const& driverName,
-//          std::string const& databaseName)
-// {
-//   SQLTableDriver driver(driverName);
-// 
-//   BOOST_CHECK(driver.databaseExists(databaseName));
-//   driver.removeDatabase(databaseName);
-//   BOOST_CHECK(!driver.databaseExists(databaseName));
-// }
-
-
-
-void SQLTableDriverTest::testUnexisting(
-         std::string const& driverName)
-{
-  std::string name;
-  SQLTableDriver driver(driverName);
-  Table* table;
-
-  {
-    name = "";
-    table = dynamic_cast<Table*>(dynamic_cast<Driver&>(driver).open(name));
-    BOOST_CHECK(!table);
-  }
-
-  {
-    name = "unexisting";
-    table = dynamic_cast<Table*>(dynamic_cast<Driver&>(driver).open(name));
-    BOOST_CHECK(!table);
-  }
-
-  {
-    name = "DSN=unexisting;UID=" + d_user;
-    table = dynamic_cast<Table*>(dynamic_cast<Driver&>(driver).open(name));
-    BOOST_CHECK(!table);
-  }
-}
-
-
-
-void SQLTableDriverTest::testWrite(
-         std::string const& driverName)
-{
-  // Creates MyTable/Example
-  std::string name(d_user + ":MyTable/Example");
-  SQLTableDriver driver(driverName);
-  boost::shared_ptr<Table> outputTable;
-  boost::shared_ptr<Table> inputTable;
-
-  {
-    std::vector<std::string> titles;
-    std::vector<TypeId> typeIds;
-
-    titles.push_back("name");
-    typeIds.push_back(TI_STRING);
-
-    titles.push_back("age");
-    typeIds.push_back(TI_INT4);
-
-    titles.push_back("room");
-    typeIds.push_back(TI_INT4);
-
-    titles.push_back("height");
-    typeIds.push_back(TI_REAL8);
-
-    outputTable.reset(new Table(titles, typeIds));
-    outputTable->createCols();
-    outputTable->col<std::string>(0).push_back("Piet-Jaapje");
-    outputTable->col<std::string>(0).push_back("Fritz");
-    outputTable->col<INT4>(1).push_back(0);
-    outputTable->col<INT4>(1).push_back(50);
-    outputTable->col<INT4>(2).push_back(1);
-    outputTable->col<INT4>(2).push_back(2);
-    outputTable->col<REAL8>(3).push_back(1.92);
-    outputTable->col<REAL8>(3).push_back(1.85);
-
-    BOOST_REQUIRE_NO_THROW(
-      dynamic_cast<TableDriver&>(driver).write(*outputTable, name);
-    )
-
-    BOOST_WARN_MESSAGE(false, "Busy with SQLTableDriver...");
-    /// BOOST_REQUIRE_NO_THROW(
-    ///   inputTable.reset(dynamic_cast<TableDriver&>(driver).read(name));
-    /// )
-    /// BOOST_REQUIRE(inputTable);
-    /// BOOST_CHECK(*inputTable == *outputTable);
-
-    /// inputTable.reset(new Table(titles, typeIds));
-    /// inputTable->createCols();
-    /// dynamic_cast<TableDriver&>(driver).read(*inputTable, name);
-    /// BOOST_CHECK(*inputTable == *outputTable);
-    /// inputTable.reset();
-
-    /// outputTable->clear();
-    /// outputTable->col<std::string>(0).push_back("Reus");
-    /// outputTable->col<INT4>(1).push_back(2);
-    /// outputTable->col<INT4>(2).push_back(5);
-    /// outputTable->col<REAL8>(3).push_back(2.11);
-
-    /// BOOST_REQUIRE_NO_THROW(
-    ///   dynamic_cast<TableDriver&>(driver).append(name, *outputTable);
-    /// )
-
-    /// BOOST_REQUIRE_NO_THROW(
-    ///   inputTable.reset(dynamic_cast<TableDriver&>(driver).read(name));
-    /// )
-    /// BOOST_REQUIRE(inputTable);
-    /// BOOST_CHECK_EQUAL(inputTable->nrCols(), size_t(4));
-    /// BOOST_CHECK_EQUAL(inputTable->nrRecs(), size_t(3));
-
-    /// Array<std::string> const* col1 = 0;
-    /// BOOST_REQUIRE_NO_THROW(col1 = &inputTable->col<std::string>(0));
-    /// BOOST_CHECK_EQUAL((*col1)[0], "Piet-Jaapje");
-    /// BOOST_CHECK_EQUAL((*col1)[1], "Fritz");
-    /// BOOST_CHECK_EQUAL((*col1)[2], "Reus");
-
-    /// Array<INT4> const* col2 = 0;
-    /// BOOST_REQUIRE_NO_THROW(col2 = &inputTable->col<INT4>(1));
-    /// BOOST_CHECK_EQUAL((*col2)[0], 0);
-    /// BOOST_CHECK_EQUAL((*col2)[1], 50);
-    /// BOOST_CHECK_EQUAL((*col2)[2], 2);
-
-    /// Array<INT4> const* col3 = 0;
-    /// BOOST_REQUIRE_NO_THROW(col3 = &inputTable->col<INT4>(2));
-    /// BOOST_CHECK_EQUAL((*col3)[0], 1);
-    /// BOOST_CHECK_EQUAL((*col3)[1], 2);
-    /// BOOST_CHECK_EQUAL((*col3)[2], 5);
-
-    /// Array<REAL8> const* col4 = 0;
-    /// BOOST_REQUIRE_NO_THROW(col4 = &inputTable->col<REAL8>(3));
-    /// BOOST_CHECK(comparable((*col4)[0], 1.92));
-    /// BOOST_CHECK(comparable((*col4)[1], 1.85));
-    /// BOOST_CHECK(comparable((*col4)[2], 2.11));
-  }
-
-  // Selective read.
-  {
-    BOOST_WARN_MESSAGE(false, "Busy with SQLTableDriver...");
-    // boost::shared_ptr<Table> table(dynamic_cast<Table*>(
-    //      dynamic_cast<Driver&>(driver).open(name)));
-    // BOOST_REQUIRE(table);
-
-    // // We are not interested in the second column.
-    // table->setTypeId(1, TI_NR_TYPES);
-    // table->createCols();
-    // dynamic_cast<TableDriver&>(driver).read(*table, name);
-    // BOOST_CHECK_EQUAL(table->nrRecs(), size_t(3));
-
-    // // Second column is not available.
-    // BOOST_CHECK_THROW(table->col<INT4>(1), boost::bad_any_cast);
-
-    // // Other columns are.
-    // Array<std::string> const* col1 = 0;
-    // BOOST_REQUIRE_NO_THROW(col1 = &table->col<std::string>(0));
-    // BOOST_CHECK_EQUAL((*col1)[0], "Piet-Jaapje");
-    // BOOST_CHECK_EQUAL((*col1)[1], "Fritz");
-    // BOOST_CHECK_EQUAL((*col1)[2], "Reus");
-
-    // Array<INT4> const* col3 = 0;
-    // BOOST_REQUIRE_NO_THROW(col3 = &table->col<INT4>(2));
-    // BOOST_CHECK_EQUAL((*col3)[0], 1);
-    // BOOST_CHECK_EQUAL((*col3)[1], 2);
-    // BOOST_CHECK_EQUAL((*col3)[2], 5);
-
-    // Array<REAL8> const* col4 = 0;
-    // BOOST_REQUIRE_NO_THROW(col4 = &table->col<REAL8>(3));
-    // BOOST_CHECK(comparable((*col4)[0], 1.92));
-    // BOOST_CHECK(comparable((*col4)[1], 1.85));
-    // BOOST_CHECK(comparable((*col4)[2], 2.11));
-  }
-}
-
-
-
-void SQLTableDriverTest::testReadTemporal(
-         std::string const& driverName)
-{
-  SQLTableDriver driver(driverName);
-
-  std::string name = "dimensions/date/co2";
-  DataSpace space;
-  DataSpaceAddress address;
-  boost::shared_ptr<Table> table;
-  size_t dateId, attrId;
-
-  {
-    space.clear();
-    address = space.address();
-    BOOST_CHECK(driver.exists(name, space, address));
-
-    // Read all.
-    table.reset(driver.open(name, space, address));
-    BOOST_REQUIRE(table);
-    BOOST_CHECK_EQUAL(table->nrCols(), size_t(2));
-    BOOST_CHECK_EQUAL(table->nrRecs(), size_t(0));
-
-    dateId = table->indexOf("date");
-    BOOST_REQUIRE(dateId < table->nrCols());
-    BOOST_CHECK_EQUAL(table->typeId(dateId), TI_INT4);
-    BOOST_CHECK_EQUAL(table->title(dateId), "date");
-
-    attrId = table->indexOf("co2");
-    BOOST_REQUIRE(attrId < table->nrCols());
-    BOOST_CHECK_EQUAL(table->typeId(attrId), TI_REAL4);
-    BOOST_CHECK_EQUAL(table->title(attrId), "co2");
-
-    BOOST_REQUIRE_NO_THROW(
-      driver.read(*table, name, space, address);
-    )
-
-    BOOST_CHECK_EQUAL(table->nrRecs(), size_t(3));
-
-    BOOST_CHECK_EQUAL(table->col<INT4>(dateId)[0], INT4(1));
-    BOOST_CHECK_EQUAL(table->col<INT4>(dateId)[1], INT4(2));
-    BOOST_CHECK_EQUAL(table->col<INT4>(dateId)[2], INT4(3));
-
-    BOOST_CHECK_CLOSE(table->col<REAL4>(attrId)[0], REAL4(1.11), REAL4(0.001));
-    BOOST_CHECK_CLOSE(table->col<REAL4>(attrId)[1], REAL4(2.22), REAL4(0.001));
-    BOOST_CHECK_CLOSE(table->col<REAL4>(attrId)[2], REAL4(3.33), REAL4(0.001));
-
-    // Read selection.
-    space.addDimension(Dimension(Time, size_t(1), size_t(3), size_t(1)));
-    address = space.address();
-    address.setCoordinate<size_t>(0, 2);
-
-    BOOST_REQUIRE_NO_THROW(
-      table.reset(driver.read(name, space, address));
-    )
-
-    BOOST_CHECK_EQUAL(table->nrRecs(), size_t(1));
-    BOOST_CHECK_CLOSE(table->col<REAL4>(1)[0], REAL4(2.22), REAL4(0.001));
-  }
-}
-
-
-
-void SQLTableDriverTest::testReadQuantile(
-         std::string const& driverName)
-{
-  SQLTableDriver driver(driverName);
-
-  std::string name = "dimensions/quantile/co2";
-  DataSpace space;
-  DataSpaceAddress address;
-  boost::shared_ptr<Table> table;
-  size_t quantileId, attrId;
-
-  {
-    space.clear();
-    address = space.address();
-    BOOST_CHECK(driver.exists(name, space, address));
-  }
-
-  {
-    BOOST_REQUIRE(driver.exists(name, space, address));
-
-    // Read all.
-    space.clear();
-    address = space.address();
-
-    table.reset(driver.open(name, space, address));
-    BOOST_REQUIRE(table);
-    BOOST_CHECK_EQUAL(table->nrCols(), size_t(2));
-    BOOST_CHECK_EQUAL(table->nrRecs(), size_t(0));
-
-    quantileId = table->indexOf("quantile");
-    BOOST_REQUIRE(quantileId < table->nrCols());
-    BOOST_CHECK_EQUAL(table->typeId(quantileId), TI_REAL4);
-    BOOST_CHECK_EQUAL(table->title(quantileId), "quantile");
-
-    attrId = table->indexOf("co2");
-    BOOST_REQUIRE(attrId < table->nrCols());
-    BOOST_CHECK_EQUAL(table->typeId(attrId), TI_REAL4);
-    BOOST_CHECK_EQUAL(table->title(attrId), "co2");
-
-    BOOST_REQUIRE_NO_THROW(
-      driver.read(*table, name, space, address);
-    )
-
-    BOOST_CHECK_EQUAL(table->nrRecs(), size_t(5));
-
-    BOOST_CHECK_EQUAL(table->col<REAL4>(quantileId)[0], REAL4(0.01));
-    BOOST_CHECK_EQUAL(table->col<REAL4>(quantileId)[1], REAL4(0.05));
-    BOOST_CHECK_EQUAL(table->col<REAL4>(quantileId)[2], REAL4(0.50));
-    BOOST_CHECK_EQUAL(table->col<REAL4>(quantileId)[3], REAL4(0.95));
-    BOOST_CHECK_EQUAL(table->col<REAL4>(quantileId)[4], REAL4(0.99));
-
-    BOOST_CHECK_EQUAL(table->col<REAL4>(attrId)[0], REAL4(1.01));
-    BOOST_CHECK_EQUAL(table->col<REAL4>(attrId)[1], REAL4(1.05));
-    BOOST_CHECK_EQUAL(table->col<REAL4>(attrId)[2], REAL4(1.50));
-    BOOST_CHECK_EQUAL(table->col<REAL4>(attrId)[3], REAL4(1.95));
-    BOOST_CHECK_EQUAL(table->col<REAL4>(attrId)[4], REAL4(1.99));
-
-    // Read selection.
-    space.addDimension(Dimension(CumulativeProbabilities, float(0.01),
-         float(0.99), float(0.01)));
-    address = space.address();
-    address.setCoordinate<float>(0, 0.95f);
-
-    table.reset(driver.open(name, space, address));
-    BOOST_REQUIRE(table);
-    BOOST_CHECK_EQUAL(table->nrCols(), size_t(2));
-    BOOST_CHECK_EQUAL(table->nrRecs(), size_t(0));
-
-    quantileId = table->indexOf("quantile");
-    BOOST_REQUIRE(quantileId < table->nrCols());
-    BOOST_CHECK_EQUAL(table->typeId(quantileId), TI_REAL4);
-    BOOST_CHECK_EQUAL(table->title(quantileId), "quantile");
-
-    attrId = table->indexOf("co2");
-    BOOST_REQUIRE(attrId < table->nrCols());
-    BOOST_CHECK_EQUAL(table->typeId(attrId), TI_REAL4);
-    BOOST_CHECK_EQUAL(table->title(attrId), "co2");
-
-    BOOST_REQUIRE_NO_THROW(
-      driver.read(*table, name, space, address);
-    )
-
-    BOOST_CHECK_EQUAL(table->nrRecs(), size_t(1));
-    BOOST_CHECK_CLOSE(table->col<REAL4>(attrId)[0], REAL4(1.95), REAL4(0.001));
-  }
-}
-
-
-
-void SQLTableDriverTest::testReadScenario(
-         std::string const& driverName)
-{
-  SQLTableDriver driver(driverName);
-
-  std::string name = "dimensions/scenario/co2";
-  DataSpace space;
-  DataSpaceAddress address;
-  boost::shared_ptr<Table> table;
-  size_t scenarioId, attrId;
-
-  {
-    space.clear();
-    address = space.address();
-
-    BOOST_CHECK(driver.exists(name, space, address));
-
-    // Read all.
-    table.reset(driver.open(name, space, address));
-    BOOST_REQUIRE(table);
-    BOOST_CHECK_EQUAL(table->nrCols(), size_t(2));
-    BOOST_CHECK_EQUAL(table->nrRecs(), size_t(0));
-
-    scenarioId = table->indexOf("scenario");
-    BOOST_REQUIRE(scenarioId < table->nrCols());
-    BOOST_CHECK_EQUAL(table->typeId(scenarioId), TI_STRING);
-    BOOST_CHECK_EQUAL(table->title(scenarioId), "scenario");
-
-    attrId = table->indexOf("co2");
-    BOOST_REQUIRE(attrId < table->nrCols());
-    BOOST_CHECK_EQUAL(table->typeId(attrId), TI_REAL4);
-    BOOST_CHECK_EQUAL(table->title(attrId), "co2");
-
-    BOOST_REQUIRE_NO_THROW(
-      table.reset(driver.read(name, space, address));
-    )
-
-    BOOST_CHECK_EQUAL(table->nrRecs(), size_t(2));
-    BOOST_CHECK_EQUAL(table->col<std::string>(scenarioId)[0],
-         std::string("aap"));
-    BOOST_CHECK_EQUAL(table->col<std::string>(scenarioId)[1],
-         std::string("noot"));
-
-    BOOST_CHECK_EQUAL(table->col<REAL4>(attrId)[0], REAL4(-1.11));
-    BOOST_CHECK_EQUAL(table->col<REAL4>(attrId)[1], REAL4(-2.22));
-
-    // Read selection.
-    std::set<std::string> scenarios;
-    scenarios.insert("aap");
-    scenarios.insert("noot");
-
-    space.addDimension(Dimension(Scenarios, scenarios));
-    address = space.address();
-    address.setCoordinate<std::string>(0, "noot");
-
-    BOOST_REQUIRE_NO_THROW(
-      table.reset(driver.read(name, space, address));
-    )
-
-    BOOST_CHECK_EQUAL(table->nrRecs(), size_t(1));
-    BOOST_CHECK_CLOSE(table->col<REAL4>(1)[0], REAL4(-2.22), REAL4(0.001));
-  }
-}
-
-
-
-void SQLTableDriverTest::testReadScenarioTemporal(
-         std::string const& driverName)
-{
-  SQLTableDriver driver(driverName);
-
-  std::string name = "dimensions/scenario_date/co2";
-  DataSpace space;
-  DataSpaceAddress address;
-  boost::shared_ptr<Table> table;
-  size_t scenarioId, dateId, attrId;
-
-  {
-    space.clear();
-    address = space.address();
-    BOOST_CHECK(driver.exists(name, space, address));
-  }
-
-  {
-    space.clear();
-    std::set<std::string> scenarios;
-    scenarios.insert("aap");
-    scenarios.insert("noot");
-    space.addDimension(Dimension(Scenarios, scenarios));
-    address = space.address();
-    address.setCoordinate<std::string>(0, "noot");
-
-    BOOST_CHECK(driver.exists(name, space, address));
-  }
-
-  {
-    space.clear();
-    space.addDimension(Dimension(Time, size_t(1), size_t(3), size_t(1)));
-    address = space.address();
-    address.setCoordinate<size_t>(0, 2);
-
-    BOOST_CHECK(driver.exists(name, space, address));
-  }
-
-  {
-    space.clear();
-    std::set<std::string> scenarios;
-    scenarios.insert("aap");
-    scenarios.insert("noot");
-    space.addDimension(Dimension(Scenarios, scenarios));
-    space.addDimension(Dimension(Time, size_t(1), size_t(3), size_t(1)));
-    address = space.address();
-    address.setCoordinate<std::string>(0, "noot");
-    address.setCoordinate<size_t>(1, 2);
-
-    BOOST_REQUIRE(driver.exists(name, space, address));
-
-    // Read selection.
-    // Read one time step from one scenario.
-    table.reset(driver.open(name, space, address));
-    BOOST_REQUIRE(table);
-    BOOST_CHECK_EQUAL(table->nrCols(), size_t(3));
-    BOOST_CHECK_EQUAL(table->nrRecs(), size_t(0));
-
-    scenarioId = table->indexOf("scenario");
-    BOOST_REQUIRE(scenarioId < table->nrCols());
-    BOOST_CHECK_EQUAL(table->typeId(scenarioId), TI_STRING);
-    BOOST_CHECK_EQUAL(table->title(scenarioId), "scenario");
-
-    dateId = table->indexOf("date");
-    BOOST_REQUIRE(dateId < table->nrCols());
-    BOOST_CHECK_EQUAL(table->typeId(dateId), TI_INT4);
-    BOOST_CHECK_EQUAL(table->title(dateId), "date");
-
-    attrId = table->indexOf("co2");
-    BOOST_REQUIRE(attrId < table->nrCols());
-    BOOST_CHECK_EQUAL(table->typeId(attrId), TI_REAL4);
-    BOOST_CHECK_EQUAL(table->title(attrId), "co2");
-
-    BOOST_REQUIRE_NO_THROW(
-      driver.read(*table, name, space, address);
-    )
-
-    BOOST_CHECK_EQUAL(table->nrRecs(), size_t(1));
-    BOOST_CHECK_CLOSE(table->col<REAL4>(2)[0], REAL4(2.02), REAL4(0.001));
-
-    // Read selection.
-    // Get values per scenario for a timestep.
-    address.unsetCoordinate(0);
-
-    table.reset(driver.open(name, space, address));
-    BOOST_REQUIRE(table);
-    BOOST_CHECK_EQUAL(table->nrCols(), size_t(3));
-    BOOST_CHECK_EQUAL(table->nrRecs(), size_t(0));
-
-    scenarioId = table->indexOf("scenario");
-    BOOST_REQUIRE(scenarioId < table->nrCols());
-    BOOST_CHECK_EQUAL(table->typeId(scenarioId), TI_STRING);
-    BOOST_CHECK_EQUAL(table->title(scenarioId), "scenario");
-
-    dateId = table->indexOf("date");
-    BOOST_REQUIRE(dateId < table->nrCols());
-    BOOST_CHECK_EQUAL(table->typeId(dateId), TI_INT4);
-    BOOST_CHECK_EQUAL(table->title(dateId), "date");
-
-    attrId = table->indexOf("co2");
-    BOOST_REQUIRE(attrId < table->nrCols());
-    BOOST_CHECK_EQUAL(table->typeId(attrId), TI_REAL4);
-    BOOST_CHECK_EQUAL(table->title(attrId), "co2");
-
-    BOOST_REQUIRE_NO_THROW(
-      driver.read(*table, name, space, address);
-    )
-
-    BOOST_CHECK_EQUAL(table->nrRecs(), size_t(2));
-
-    BOOST_CHECK_EQUAL(table->col<std::string>(scenarioId)[0], "aap");
-    BOOST_CHECK_EQUAL(table->col<std::string>(scenarioId)[1], "noot");
-
-    BOOST_CHECK_CLOSE(table->col<REAL4>(attrId)[0], REAL4(2.01), REAL4(0.001));
-    BOOST_CHECK_CLOSE(table->col<REAL4>(attrId)[1], REAL4(2.02), REAL4(0.001));
-
-    // Read selection.
-    // Get values per time step for a scenario.
-    address.setCoordinate<std::string>(0, "noot");
-    address.unsetCoordinate(1);
-
-    table.reset(driver.open(name, space, address));
-    BOOST_REQUIRE(table);
-    BOOST_CHECK_EQUAL(table->nrCols(), size_t(3));
-    BOOST_CHECK_EQUAL(table->nrRecs(), size_t(0));
-
-    scenarioId = table->indexOf("scenario");
-    BOOST_REQUIRE(scenarioId < table->nrCols());
-    BOOST_CHECK_EQUAL(table->typeId(scenarioId), TI_STRING);
-    BOOST_CHECK_EQUAL(table->title(scenarioId), "scenario");
-
-    dateId = table->indexOf("date");
-    BOOST_REQUIRE(dateId < table->nrCols());
-    BOOST_CHECK_EQUAL(table->typeId(dateId), TI_INT4);
-    BOOST_CHECK_EQUAL(table->title(dateId), "date");
-
-    attrId = table->indexOf("co2");
-    BOOST_REQUIRE(attrId < table->nrCols());
-    BOOST_CHECK_EQUAL(table->typeId(attrId), TI_REAL4);
-    BOOST_CHECK_EQUAL(table->title(attrId), "co2");
-
-    BOOST_REQUIRE_NO_THROW(
-      driver.read(*table, name, space, address);
-    )
-
-    BOOST_CHECK_EQUAL(table->nrRecs(), size_t(2));
-
-    BOOST_CHECK_EQUAL(table->col<INT4>(dateId)[0], 1);
-    BOOST_CHECK_EQUAL(table->col<INT4>(dateId)[1], 2);
-
-    BOOST_CHECK_CLOSE(table->col<REAL4>(attrId)[0], REAL4(1.02), REAL4(0.001));
-    BOOST_CHECK_CLOSE(table->col<REAL4>(attrId)[1], REAL4(2.02), REAL4(0.001));
-  }
-}
-
-
-
-void SQLTableDriverTest::testODBC()
-{
   test("QODBC3");
 }
 
 
-
-void SQLTableDriverTest::testSQLite()
+BOOST_AUTO_TEST_CASE(sqlite)
 {
+  using namespace dal;
+
+  if(!SQLTableDriver::driverIsAvailable("QSQLITE")) {
+      return;
+  }
+
   test("QSQLITE");
 
   SQLTableDriver driver("QSQLITE");
@@ -863,12 +855,20 @@ void SQLTableDriverTest::testSQLite()
 }
 
 
-
-void SQLTableDriverTest::testPostgreSQL()
+BOOST_AUTO_TEST_CASE(postgresql)
 {
+  using namespace dal;
+
+  // TODO Fix.
+  return;
+
+  if(!SQLTableDriver::driverIsAvailable("QPSQL7")) {
+      return;
+  }
+
   test("QPSQL7");
 }
 
-} // namespace dal
+BOOST_AUTO_TEST_SUITE_END()
 
 #endif // QT_NO_SQL

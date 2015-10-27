@@ -1,95 +1,13 @@
-#ifndef INCLUDED_DAL_TIMESTEPMAPPERTEST
-#include "dal_TimeStepMapperTest.h"
-#define INCLUDED_DAL_TIMESTEPMAPPERTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_TIMESTEPMAPPER
+#define BOOST_TEST_MODULE pcraster dal time_step_mapper
+#include <boost/test/unit_test.hpp>
 #include "dal_TimeStepMapper.h"
-#define INCLUDED_DAL_TIMESTEPMAPPER
-#endif
-
-#ifndef INCLUDED_DAL_MATHUTILS
 #include "dal_MathUtils.h"
-#define INCLUDED_DAL_MATHUTILS
-#endif
 
 
-
-/*!
-  \file
-  This file contains the implementation of the TimeStepMapperTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-
-
-namespace dal {
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC TIMESTEPMAPPER MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*TimeStepMapperTest::suite()
+BOOST_AUTO_TEST_CASE(test)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<TimeStepMapperTest> instance(new TimeStepMapperTest());
+  using namespace dal;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&TimeStepMapperTest::test, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF TIMESTEPMAPPER MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-TimeStepMapperTest::TimeStepMapperTest(
-         )
-{
-}
-
-
-
-//! setUp
-void TimeStepMapperTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void TimeStepMapperTest::tearDown()
-{
-}
-
-
-
-void TimeStepMapperTest::test()
-{
   // Dataset A:
   // 1 - 28
   // 20060201 - 20060228 (days)
@@ -138,5 +56,3 @@ void TimeStepMapperTest::test()
          bg::date(2006, boost::gregorian::Dec, 31),
          bp::time_duration(0, 0, 0, 0))), 365.0));
 }
-
-} // namespace dal

@@ -35,33 +35,40 @@ TARGET_LINK_LIBRARIES(pcraster_moc
     ${TARGET_LINK_LIBS}
 )
 
-SET(TEST_SOURCES
-    pt_ParticleTest.cc
-    pt_Test.cc
-)
+
 ADD_LIBRARY(pcraster_moc_static
     STATIC
     ${SOURCES}
 )
-ADD_EXECUTABLE(test_pcraster_moc
-    ${TEST_SOURCES}
-)
-TARGET_LINK_LIBRARIES(test_pcraster_moc
-    pcraster_moc_static
-)
 
-ADD_CUSTOM_TARGET(run_test_pcraster_moc
-    COMMAND test_pcraster_moc --detect_memory_leaks=0
-    DEPENDS test_pcraster_moc
-    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-)
-ADD_DEPENDENCIES(tests run_test_pcraster_moc)
 
 INSTALL(
     TARGETS pcraster_moc
     RUNTIME DESTINATION lib COMPONENT Runtime
     LIBRARY DESTINATION lib COMPONENT Runtime
 )
+
+
+if(FALSE AND PCRASTER_BUILD_TEST)
+    SET(TEST_SOURCES
+        pt_ParticleTest.cc
+        pt_Test.cc
+    )
+    ADD_EXECUTABLE(test_pcraster_moc
+        ${TEST_SOURCES}
+    )
+    TARGET_LINK_LIBRARIES(test_pcraster_moc
+        pcraster_moc_static
+    )
+
+    ADD_CUSTOM_TARGET(run_test_pcraster_moc
+        COMMAND test_pcraster_moc --detect_memory_leaks=0
+        DEPENDS test_pcraster_moc
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    )
+    ADD_DEPENDENCIES(tests run_test_pcraster_moc)
+endif()
+
 
 # run:
 # 	runapp pcrcalc -f track.pcr

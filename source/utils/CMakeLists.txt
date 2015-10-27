@@ -15,27 +15,24 @@ endif(GDAL_FOUND)
 add_library(utils
     ${SOURCES}
 )
-
-set(TEST_SOURCES
-    dev_Test.cc
-    dev_CommandLineApplicationTest.cc
-    dev_QtClientTest.cc
-    dev_UtilsTest.cc
-)
-add_executable(test_utils
-    ${TEST_SOURCES}
-)
-target_link_libraries(test_utils
-    utils
+target_link_libraries(utils
     ${Boost_FILESYSTEM_LIBRARY}
     ${Boost_PROGRAM_OPTIONS_LIBRARY}
     ${Boost_SYSTEM_LIBRARY}
-    Qt4::QtCore
 )
-add_test(utils ${EXECUTABLE_OUTPUT_PATH}/test_utils)
-add_custom_target(run_test_utils
-    test_utils
-    DEPENDS test_utils
-    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-)
-add_dependencies(tests run_test_utils)
+
+
+if(PCRASTER_BUILD_TEST)
+    set(TEST_NAMES
+        dev_CommandLineApplicationTest
+        dev_QtClientTest
+        dev_UtilsTest
+    )
+    add_unit_tests(
+        SCOPE utils
+        NAMES ${TEST_NAMES}
+        LINK_LIBRARIES
+            utils
+            Qt4::QtCore
+    )
+endif()

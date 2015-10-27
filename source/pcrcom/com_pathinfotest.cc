@@ -1,85 +1,15 @@
-#ifndef INCLUDED_STDDEFX
+#define BOOST_TEST_MODULE pcraster com path_info
+#include <boost/test/unit_test.hpp>
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_COM_PATHINFOTEST
-#include "com_pathinfotest.h"
-#define INCLUDED_COM_PATHINFOTEST
-#endif
-
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-#ifndef INCLUDED_COM_PATHINFO
 #include "com_pathinfo.h"
-#define INCLUDED_COM_PATHINFO
-#endif
-
-#ifndef INCLUDED_COM_PATHNAME
 #include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
-
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
 
 
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC CLASS MEMBERS
-//------------------------------------------------------------------------------
-
-boost::unit_test::test_suite*com::PathInfoTest::suite()
+BOOST_AUTO_TEST_CASE(temp_directory_name)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<PathInfoTest> instance(new PathInfoTest());
-  suite->add(BOOST_CLASS_TEST_CASE(&PathInfoTest::testExists, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&PathInfoTest::testIsDirectory, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&PathInfoTest::testIsFile, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&PathInfoTest::testIsReadable, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&PathInfoTest::testTestCaseSensitiveName, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&PathInfoTest::testIsWritable, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&PathInfoTest::testTempDirectoryName, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&PathInfoTest::testChangeWorkingDirectory, instance));
-  return suite;
-}
+  using namespace com;
 
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS
-//------------------------------------------------------------------------------
-
-com::PathInfoTest::PathInfoTest()
-{
-}
-
-void com::PathInfoTest::setUp()
-{
-}
-
-void com::PathInfoTest::tearDown()
-{
-}
-
-
-
-void com::PathInfoTest::testTempDirectoryName()
-{
   PathName pn = tempDirectoryName();
 
   PathInfo pi(pn);
@@ -92,9 +22,10 @@ void com::PathInfoTest::testTempDirectoryName()
 }
 
 
-
-void com::PathInfoTest::testExists()
+BOOST_AUTO_TEST_CASE(exists)
 {
+  using namespace com;
+
   PathName pn;
   PathInfo pi;
 
@@ -117,8 +48,11 @@ void com::PathInfoTest::testExists()
 #endif
 }
 
-void com::PathInfoTest::testIsDirectory()
+
+BOOST_AUTO_TEST_CASE(is_directory)
 {
+  using namespace com;
+
   PathName pn;
   PathInfo pi;
 
@@ -138,8 +72,11 @@ void com::PathInfoTest::testIsDirectory()
  BOOST_CHECK(!PathInfo("pi_not_existent_file").isDirectory());
 }
 
-void com::PathInfoTest::testIsFile()
+
+BOOST_AUTO_TEST_CASE(is_file)
 {
+  using namespace com;
+
  BOOST_CHECK(PathInfo("pi_file").isFile());
  BOOST_CHECK(!PathInfo("pi_not_existent_file").isFile());
 #ifdef WIN32
@@ -148,8 +85,11 @@ void com::PathInfoTest::testIsFile()
 #endif
 }
 
-void com::PathInfoTest::testIsReadable()
+
+BOOST_AUTO_TEST_CASE(is_readable)
 {
+  using namespace com;
+
   BOOST_CHECK(!PathInfo("pi_not_existent_file").isReadable());
 #ifdef WIN32
   BOOST_WARN(!PathInfo("if_notreadable").isReadable()); // WindowsPerm Bugzilla #284
@@ -159,8 +99,11 @@ void com::PathInfoTest::testIsReadable()
   BOOST_CHECK( PathInfo("if_okreadable").isReadable());
 }
 
-void com::PathInfoTest::testIsWritable()
+
+BOOST_AUTO_TEST_CASE(is_writable)
 {
+  using namespace com;
+
   BOOST_CHECK(!PathInfo("pi_not_existent_file").isWritable());
 #ifdef WIN32
   BOOST_WARN(!PathInfo("if_notwritable"      ).isWritable()); // WindowsPerm Bugzilla #284
@@ -170,8 +113,11 @@ void com::PathInfoTest::testIsWritable()
   BOOST_CHECK( PathInfo("if_okwritable"       ).isWritable());
 }
 
-void com::PathInfoTest::testTestCaseSensitiveName()
+
+BOOST_AUTO_TEST_CASE(case_sensitive_name)
 {
+  using namespace com;
+
  bool noExcep(true);
 
  try {
@@ -240,8 +186,10 @@ void com::PathInfoTest::testTestCaseSensitiveName()
 
 
 // depends on testTestCaseSensitiveName() files
-void com::PathInfoTest::testChangeWorkingDirectory()
+BOOST_AUTO_TEST_CASE(change_working_directory)
 {
+    using namespace com;
+
     const PathName nwd("if_UpcaseDirectory");
     changeWorkingDirectory(nwd);
     PathInfo pi("readableFile");

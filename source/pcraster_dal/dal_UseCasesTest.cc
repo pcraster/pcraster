@@ -1,105 +1,40 @@
-#ifndef INCLUDED_DAL_USECASESTEST
-#include "dal_UseCasesTest.h"
-#define INCLUDED_DAL_USECASESTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_EXCEPTION
-#include "dal_Exception.h"
-#define INCLUDED_DAL_EXCEPTION
-#endif
-
-
-
-/*!
-  \file
-  This file contains the implementation of the UseCasesTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC USECASES MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite* dal::UseCasesTest::suite()
-{
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<UseCasesTest> instance(new UseCasesTest());
-
-  suite->add(BOOST_CLASS_TEST_CASE(&UseCasesTest::test1, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&UseCasesTest::testBilFormat, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF USECASES MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-dal::UseCasesTest::UseCasesTest(
-         )
-{
-}
-
-
-
-//! setUp
-void dal::UseCasesTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void dal::UseCasesTest::tearDown()
-{
-}
-
-
-#ifndef INCLUDED_DAL_LIBRARY
-#include "dal_Library.h"
-#define INCLUDED_DAL_LIBRARY
-#endif
-
-#ifndef INCLUDED_DAL_RASTERDAL
-#include "dal_RasterDal.h"
-#define INCLUDED_DAL_RASTERDAL
-#endif
-
-#ifndef INCLUDED_BOOST_FILESYSTEM_OPERATIONS
+#define BOOST_TEST_MODULE pcraster dal use_cases
+#include <boost/test/unit_test.hpp>
 #include <boost/filesystem/operations.hpp>
-#define INCLUDED_BOOST_FILESYSTEM_OPERATIONS
-#endif
+#include "dev_GDalClient.h"
+#include "dal_Exception.h"
+#include "dal_Library.h"
+#include "dal_RasterDal.h"
+#include "dal_Client.h"
+
+// static dal::Client client("/my/path/use_cases_test", true);
 
 
+struct Fixture:
+    private dev::GDalClient,
+    private dal::Client
 
-void dal::UseCasesTest::test1()
 {
+
+    Fixture()
+        : dev::GDalClient(),
+          dal::Client("/my/path/use_cases_test", true)
+    {
+    }
+
+    ~Fixture()
+    {
+    }
+
+};
+
+
+BOOST_FIXTURE_TEST_SUITE(use_cases, Fixture)
+
+BOOST_AUTO_TEST_CASE(test1)
+{
+  using namespace dal;
+
   dal::RasterDal rasterDal(true);
 
   // TODO verschil tussen "not existing" en "mallformed"/"unsupported format"
@@ -164,8 +99,11 @@ void dal::UseCasesTest::test1()
   }
 }
 
-void dal::UseCasesTest::testBilFormat()
+
+BOOST_AUTO_TEST_CASE(bil_format)
 {
+  using namespace dal;
+
   dal::RasterDal rasterDal(true);
   {
     // TEST SWAPPING
@@ -500,3 +438,5 @@ void dal::UseCasesTest::testBilFormat()
 *}
 *
 */
+
+BOOST_AUTO_TEST_SUITE_END()

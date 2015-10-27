@@ -1,90 +1,12 @@
-#ifndef INCLUDED_DAL_PROPERTIESTEST
-#include "dal_PropertiesTest.h"
-#define INCLUDED_DAL_PROPERTIESTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_PROPERTIES
+#define BOOST_TEST_MODULE pcraster dal properties
+#include <boost/test/unit_test.hpp>
 #include "dal_Properties.h"
-#define INCLUDED_DAL_PROPERTIES
-#endif
 
 
-
-/*!
-  \file
-  This file contains the implementation of the PropertiesTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-
-
-namespace dal {
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC PROPERTIES MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*PropertiesTest::suite()
+BOOST_AUTO_TEST_CASE(test_)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<PropertiesTest> instance(new PropertiesTest());
+  using namespace dal;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&PropertiesTest::test, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF PROPERTIES MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-PropertiesTest::PropertiesTest(
-         )
-{
-}
-
-
-
-//! setUp
-void PropertiesTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void PropertiesTest::tearDown()
-{
-}
-
-
-
-void PropertiesTest::test()
-{
   Properties properties;
   BOOST_CHECK_EQUAL(properties.size(), size_t(0));
   BOOST_CHECK(!properties.hasValue("string"));
@@ -125,8 +47,3 @@ void PropertiesTest::test()
     BOOST_CHECK_EQUAL(dest.size(), size_t(1));
   }
 }
-
-
-
-} // namespace dal
-

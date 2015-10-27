@@ -1,133 +1,24 @@
-#ifndef INCLUDED_DAL_FILESYSTEMUTILSTEST
-#include "dal_FilesystemUtilsTest.h"
-#define INCLUDED_DAL_FILESYSTEMUTILSTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_DATE_TIME_GREGORIAN_GREGORIAN
-#include <boost/date_time/gregorian/gregorian.hpp>
-#define INCLUDED_BOOST_DATE_TIME_GREGORIAN_GREGORIAN
-#endif
-
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_EXCEPTION
+#define BOOST_TEST_MODULE pcraster dal filesystem_utils
+#include <boost/test/unit_test.hpp>
+#include <boost/date_time.hpp>
+#include <boost/function.hpp>
 #include "dal_Exception.h"
-#define INCLUDED_DAL_EXCEPTION
-#endif
-
-#ifndef INCLUDED_DAL_FILESYSTEMUTILS
 #include "dal_FilesystemUtils.h"
-#define INCLUDED_DAL_FILESYSTEMUTILS
-#endif
 
 
-
-/*!
-  \file
-  This file contains the implementation of the FilesystemUtilsTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-
-
-namespace dal {
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC FILESYSTEMUTILSTEST MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*FilesystemUtilsTest::suite()
+BOOST_AUTO_TEST_CASE(path_is_readable)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<FilesystemUtilsTest> instance(new FilesystemUtilsTest());
+  using namespace dal;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&FilesystemUtilsTest::testTestPathIsReadable, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&FilesystemUtilsTest::testTestPathIsWritable, instance));
-  // suite->add(BOOST_CLASS_TEST_CASE(&FilesystemUtilsTest::testTestNativePathname, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&FilesystemUtilsTest::testTimeStepPath83, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&FilesystemUtilsTest::testTimeStepPath, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&FilesystemUtilsTest::testPathFor, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&FilesystemUtilsTest::testPathForTime, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &FilesystemUtilsTest::testPathForSample, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&FilesystemUtilsTest::testPathForQuantile, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &FilesystemUtilsTest::testPathForScenario, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&FilesystemUtilsTest::testPathForSampleTime, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&FilesystemUtilsTest::testPathForQuantileTime, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&FilesystemUtilsTest::testPathForQuantileSample, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&FilesystemUtilsTest::testPathForScenarioTime, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&FilesystemUtilsTest::testPathForScenarioSample, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&FilesystemUtilsTest::testPathForScenarioSampleTime, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&FilesystemUtilsTest::testPathForScenarioQuantile, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&FilesystemUtilsTest::testPathForQuantileSampleTime, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&FilesystemUtilsTest::testPathForScenarioQuantileTime, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&FilesystemUtilsTest::testPathForScenarioQuantileSample, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&FilesystemUtilsTest::testPathForScenarioQuantileSampleTime, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&FilesystemUtilsTest::testPathForDataSpaceAddress, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&FilesystemUtilsTest::testAddExtensionIfNeeded, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&FilesystemUtilsTest::testOldStackName2NameSpaceTuple, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF FILESYSTEMUTILSTEST MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-FilesystemUtilsTest::FilesystemUtilsTest(
-         )
-{
-}
-
-
-
-//! setUp
-void FilesystemUtilsTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void FilesystemUtilsTest::tearDown()
-{
-}
-
-
-
-void FilesystemUtilsTest::testTestPathIsReadable()
-{
   bool testImplemented = false;
   BOOST_WARN(testImplemented);
 }
 
 
-
-void FilesystemUtilsTest::testTestPathIsWritable()
+BOOST_AUTO_TEST_CASE(path_is_writable)
 {
+  using namespace dal;
+
   bool testImplemented = false;
   BOOST_WARN(testImplemented);
 }
@@ -165,6 +56,9 @@ void FilesystemUtilsTest::testTestPathIsWritable()
 // }
 
 
+typedef boost::function<boost::filesystem::path
+    (boost::filesystem::path const&, size_t)> TimeStepPathVariant;
+
 
 //! Tests \a variant.
 /*!
@@ -175,8 +69,8 @@ void FilesystemUtilsTest::testTestPathIsWritable()
   called timeStepPath. All tests written for timeStepPath83 should also run
   with timeStepPath and are collected in this function.
 */
-void FilesystemUtilsTest::testTimeStepPathVariant(
-         TimeStepPathVariant variant)
+void testTimeStepPathVariant(
+    TimeStepPathVariant variant)
 {
   {
     boost::filesystem::path path("n");
@@ -299,20 +193,15 @@ void FilesystemUtilsTest::testTimeStepPathVariant(
 }
 
 
-
-//!
-/*!
-  \param     .
-  \return    .
-  \exception .
-  \warning   I don't believe there is a reason for this function to contain
-             individual tests. Put them all in testTimeStepPathVariant.
-  \sa        .
-*/
-void FilesystemUtilsTest::testTimeStepPath83()
+// I don't believe there is a reason for this function to contain
+// individual tests. Put them all in testTimeStepPathVariant.
+BOOST_AUTO_TEST_CASE(time_step_path_83)
 {
+  using namespace dal;
+
   // Select correct overload.
-  boost::filesystem::path (*variant)(boost::filesystem::path const&, size_t) = timeStepPath83;
+  boost::filesystem::path (*variant)(boost::filesystem::path const&, size_t) =
+      timeStepPath83;
   testTimeStepPathVariant(variant);
 }
 
@@ -324,9 +213,10 @@ void FilesystemUtilsTest::testTimeStepPath83()
 // }
 
 
-
-void FilesystemUtilsTest::testTimeStepPath()
+BOOST_AUTO_TEST_CASE(time_step_path)
 {
+  using namespace dal;
+
   // Check whether the original behaviour of timeStepPath (timeStepPath83) is
   // still supported by timeStepPath.
   // testTimeStepPathVariant(f);
@@ -372,10 +262,11 @@ void FilesystemUtilsTest::testTimeStepPath()
 }
 
 
-
-void FilesystemUtilsTest::testPathForScenarioQuantileSampleTime()
+BOOST_AUTO_TEST_CASE(path_for_scenario_quantile_sample_time)
 {
-  typedef boost::filesystem::path path;
+  using namespace dal;
+
+  // typedef boost::filesystem::path path;
 
   bool exceptionThrown;
 
@@ -398,10 +289,11 @@ void FilesystemUtilsTest::testPathForScenarioQuantileSampleTime()
 }
 
 
-
-void FilesystemUtilsTest::testPathForScenarioQuantileSample()
+BOOST_AUTO_TEST_CASE(path_for_scenario_quantile_sample)
 {
-  typedef boost::filesystem::path path;
+  using namespace dal;
+
+  // typedef boost::filesystem::path path;
 
   bool exceptionThrown;
 
@@ -424,10 +316,11 @@ void FilesystemUtilsTest::testPathForScenarioQuantileSample()
 }
 
 
-
-void FilesystemUtilsTest::testPathForScenarioQuantileTime()
+BOOST_AUTO_TEST_CASE(path_for_scenario_quantile_time)
 {
-  typedef boost::filesystem::path path;
+  using namespace dal;
+
+  // typedef boost::filesystem::path path;
 
   bool exceptionThrown;
 
@@ -450,10 +343,11 @@ void FilesystemUtilsTest::testPathForScenarioQuantileTime()
 }
 
 
-
-void FilesystemUtilsTest::testPathForScenarioQuantile()
+BOOST_AUTO_TEST_CASE(path_for_scenario_quantile)
 {
-  typedef boost::filesystem::path path;
+  using namespace dal;
+
+  // typedef boost::filesystem::path path;
 
   bool exceptionThrown;
 
@@ -476,10 +370,11 @@ void FilesystemUtilsTest::testPathForScenarioQuantile()
 }
 
 
-
-void FilesystemUtilsTest::testPathForScenarioSampleTime()
+BOOST_AUTO_TEST_CASE(path_for_scenario_sample_time)
 {
-  typedef boost::filesystem::path path;
+  using namespace dal;
+
+  // typedef boost::filesystem::path path;
 
   bool exceptionThrown;
 
@@ -502,10 +397,11 @@ void FilesystemUtilsTest::testPathForScenarioSampleTime()
 }
 
 
-
-void FilesystemUtilsTest::testPathForScenarioSample()
+BOOST_AUTO_TEST_CASE(path_for_scenario_sample)
 {
-  typedef boost::filesystem::path path;
+  using namespace dal;
+
+  // typedef boost::filesystem::path path;
 
   bool exceptionThrown;
 
@@ -528,10 +424,11 @@ void FilesystemUtilsTest::testPathForScenarioSample()
 }
 
 
-
-void FilesystemUtilsTest::testPathForScenarioTime()
+BOOST_AUTO_TEST_CASE(path_for_scenario_time)
 {
-  typedef boost::filesystem::path path;
+  using namespace dal;
+
+  // typedef boost::filesystem::path path;
 
   bool exceptionThrown;
 
@@ -554,10 +451,11 @@ void FilesystemUtilsTest::testPathForScenarioTime()
 }
 
 
-
-void FilesystemUtilsTest::testPathForScenario()
+BOOST_AUTO_TEST_CASE(path_for_scenario)
 {
-  typedef boost::filesystem::path path;
+  using namespace dal;
+
+  // typedef boost::filesystem::path path;
 
   bool exceptionThrown;
 
@@ -606,10 +504,11 @@ void FilesystemUtilsTest::testPathForScenario()
 }
 
 
-
-void FilesystemUtilsTest::testPathForQuantileSampleTime()
+BOOST_AUTO_TEST_CASE(path_for_quantile_sample_time)
 {
-  typedef boost::filesystem::path path;
+  using namespace dal;
+
+  // typedef boost::filesystem::path path;
 
   bool exceptionThrown;
 
@@ -632,10 +531,11 @@ void FilesystemUtilsTest::testPathForQuantileSampleTime()
 }
 
 
-
-void FilesystemUtilsTest::testPathForQuantileSample()
+BOOST_AUTO_TEST_CASE(path_for_quantile_sample)
 {
-  typedef boost::filesystem::path path;
+  using namespace dal;
+
+  // typedef boost::filesystem::path path;
 
   bool exceptionThrown;
 
@@ -658,10 +558,11 @@ void FilesystemUtilsTest::testPathForQuantileSample()
 }
 
 
-
-void FilesystemUtilsTest::testPathForQuantileTime()
+BOOST_AUTO_TEST_CASE(path_for_quantile_time)
 {
-  typedef boost::filesystem::path path;
+  using namespace dal;
+
+  // typedef boost::filesystem::path path;
 
   BOOST_CHECK_EQUAL(pathForQuantileTime("bla", 0.75f, 5).string(),
          "bla_5_0.75");
@@ -687,10 +588,11 @@ void FilesystemUtilsTest::testPathForQuantileTime()
 }
 
 
-
-void FilesystemUtilsTest::testPathForQuantile()
+BOOST_AUTO_TEST_CASE(path_for_quantile)
 {
-  typedef boost::filesystem::path path;
+  using namespace dal;
+
+  // typedef boost::filesystem::path path;
 
   bool exceptionThrown;
 
@@ -713,10 +615,11 @@ void FilesystemUtilsTest::testPathForQuantile()
 }
 
 
-
-void FilesystemUtilsTest::testPathForSampleTime()
+BOOST_AUTO_TEST_CASE(path_for_sample_time)
 {
-  typedef boost::filesystem::path path;
+  using namespace dal;
+
+  // typedef boost::filesystem::path path;
 
   bool exceptionThrown;
 
@@ -739,9 +642,10 @@ void FilesystemUtilsTest::testPathForSampleTime()
 }
 
 
-
-void FilesystemUtilsTest::testPathForSample()
+BOOST_AUTO_TEST_CASE(path_for_sample)
 {
+  using namespace dal;
+
   typedef boost::filesystem::path path;
 
   BOOST_CHECK(pathForSample("bla", 5) == path("5/bla"));
@@ -781,9 +685,10 @@ void FilesystemUtilsTest::testPathForSample()
 }
 
 
-
-void FilesystemUtilsTest::testPathForTime()
+BOOST_AUTO_TEST_CASE(path_for_time)
 {
+  using namespace dal;
+
   using namespace boost::filesystem;
 
   // TODO
@@ -863,9 +768,10 @@ void FilesystemUtilsTest::testPathForTime()
 }
 
 
-
-void FilesystemUtilsTest::testPathFor()
+BOOST_AUTO_TEST_CASE(path_for)
 {
+  using namespace dal;
+
   BOOST_CHECK(boost::filesystem::path("data") == pathFor("data"));
   BOOST_CHECK(boost::filesystem::path("data.col") == pathFor("data.col"));
   BOOST_CHECK(boost::filesystem::path("12345") == pathFor("12345"));
@@ -906,8 +812,10 @@ void FilesystemUtilsTest::testPathFor()
   \sa        .
   \todo      Add more tests here.
 */
-void FilesystemUtilsTest::testPathForDataSpaceAddress()
+BOOST_AUTO_TEST_CASE(path_for_data_space_address)
 {
+  using namespace dal;
+
   using namespace boost::filesystem;
 
 // #ifdef WIN32
@@ -1052,9 +960,10 @@ void FilesystemUtilsTest::testPathForDataSpaceAddress()
 }
 
 
-
-void FilesystemUtilsTest::testAddExtensionIfNeeded()
+BOOST_AUTO_TEST_CASE(add_extension_if_needed)
 {
+  using namespace dal;
+
   std::string name;
   std::string extension;
   boost::filesystem::path path;
@@ -1096,9 +1005,10 @@ void FilesystemUtilsTest::testAddExtensionIfNeeded()
 }
 
 
-
-void FilesystemUtilsTest::testOldStackName2NameSpaceTuple()
+BOOST_AUTO_TEST_CASE(old_stack_name_2_name_space_tuple)
 {
+  using namespace dal;
+
 #ifdef WIN32
   boost::tuple<std::string, DataSpace> result;
   std::string name;
@@ -1118,7 +1028,3 @@ void FilesystemUtilsTest::testOldStackName2NameSpaceTuple()
   }
 #endif
 }
-
-
-} // namespace dal
-

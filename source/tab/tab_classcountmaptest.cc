@@ -1,78 +1,14 @@
-#ifndef INCLUDED_STDDEFX
+#define BOOST_TEST_MODULE pcraster tab class_count_map
+#include <boost/test/unit_test.hpp>
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_TAB_CLASSCOUNTMAPTEST
-#include "tab_classcountmaptest.h"
-#define INCLUDED_TAB_CLASSCOUNTMAPTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_TAB_CLASSCOUNTMAP
 #include "tab_classcountmap.h"
-#define INCLUDED_TAB_CLASSCOUNTMAP
-#endif
-#ifndef INCLUDED_TAB_CLASSCLASSCOUNTMAP
 #include "tab_classclasscountmap.h"
-#define INCLUDED_TAB_CLASSCLASSCOUNTMAP
-#endif
 
 
-/*!
-  \file
-  This file contains the implementation of the ClassCountMapTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC CLASSCOUNTMAP MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*tab::ClassCountMapTest::suite()
+BOOST_AUTO_TEST_CASE(count_map)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<ClassCountMapTest> instance(new ClassCountMapTest());
+  using namespace tab;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&ClassCountMapTest::testCountMap, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ClassCountMapTest::testClassClassCountMap, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF CLASSCOUNTMAP MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-tab::ClassCountMapTest::ClassCountMapTest()
-{
-}
-
-void tab::ClassCountMapTest::testCountMap()
-{
   ClassCountMap<> m;
   std::set<int>   s;
 
@@ -112,8 +48,11 @@ void tab::ClassCountMapTest::testCountMap()
   BOOST_CHECK(m.getCount(9)==0);
 }
 
-void tab::ClassCountMapTest::testClassClassCountMap()
+
+BOOST_AUTO_TEST_CASE(class_class_count_map)
 {
+  using namespace tab;
+
   ClassClassCountMap<> m;
   std::set<int>   row,col;
 

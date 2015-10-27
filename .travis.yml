@@ -56,7 +56,7 @@ before_install:
     # - PCRaster's raster format library
     # - Qwt library
     # We build and install those ourselves using Peacock.
-    - git clone https://github.com/geoneric/peacock.git
+    - git clone --recursive https://github.com/geoneric/peacock.git
 
 install:
     - mkdir $TRAVIS_BUILD_DIR/local

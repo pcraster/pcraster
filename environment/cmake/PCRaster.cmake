@@ -1,7 +1,5 @@
-# https://github.com/geoneric/peacock/blob/master/cmake/PeacockPlatform.cmake
-include(PeacockPlatform) # This one first. Other modules use the variables.
-
-include(DevBaseCompiler)  # This one first. Configuration uses the compiler.
+include(PeacockPlatform)
+include(DevBaseCompiler)
 
 set(CMAKE_CXX_FLAGS_DEBUG
     "${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG -DDEBUG_BUILD -DDEBUG_DEVELOP"

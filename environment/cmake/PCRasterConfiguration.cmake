@@ -22,11 +22,11 @@ if(PCRASTER_BUILD_DOCUMENTATION)
 endif()
 
 
-if(PCRASTER_BUILD_ALL)
+# if(PCRASTER_BUILD_ALL)
     set(DEVBASE_BOOST_REQUIRED TRUE)
     list(APPEND DEVBASE_REQUIRED_BOOST_COMPONENTS
         date_time filesystem math_c99 program_options python regex system)
-endif()
+# endif()
 
 if(PCRASTER_BUILD_TEST)
     set(PCRASTER_TEST_REQUIRED TRUE)

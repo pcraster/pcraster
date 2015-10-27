@@ -33,6 +33,8 @@ addons:
         packages:
             # - clang-3.5
             - g++-4.9
+            - libgdal-dev
+            - gdal-bin
             - libboost1.55-all-dev
             # - libc++-dev
 

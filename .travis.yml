@@ -54,14 +54,13 @@ before_install:
     - git clone git://git.code.sf.net/p/pcraster/rasterformat pcraster_raster_format
 
 install:
-    - echo $TRAVIS_BUILD_DIR
-    - echo $PWD
     - mkdir $TRAVIS_BUILD_DIR/local
+
     - cd $TRAVIS_BUILD_DIR/local
-    - tar zxf $TRAVIS_BUILD_DIR/cmake-3.2.3-Linux-x86_64.tar.gz
-    - cd -
+    - tar zxf ../cmake-3.2.3-Linux-x86_64.tar.gz
     - export PATH=$TRAVIS_BUILD_DIR/local/cmake-3.2.3-Linux-x86_64/bin:$PATH
-    - cd pcraster_raster_format
+
+    - cd $TRAVIS_BUILD_DIR/pcraster_raster_format
     - mkdir build
     - cd build
     - cmake -G"${TRAVIS_CMAKE_GENERATOR}" -DCMAKE_INSTALL_PREFIX:PATH=$TRAVIS_BUILD_DIR/local ..
@@ -69,13 +68,12 @@ install:
     - cmake --build . --target install
 
 before_script:
-    - mkdir build
-    - cd build
+    - mkdir $TRAVIS_BUILD_DIR/build
+    - cd $TRAVIS_BUILD_DIR/build
     - cmake -G"${TRAVIS_CMAKE_GENERATOR}" -DCMAKE_PREFIX_PATH:PATH=$TRAVIS_BUILD_DIR/local -DCMAKE_BUILD_TYPE=${TRAVIS_BUILD_TYPE} -DPCRASTER_BUILD_TEST:BOOL=TRUE ..
-    - cd ..
 
 script:
-    - cd build
+    - cd $TRAVIS_BUILD_DIR/build
     - cmake --build . --config ${TRAVIS_BUILD_TYPE} --target all
     - cmake --build . --config ${TRAVIS_BUILD_TYPE} --target test
     - cd ..

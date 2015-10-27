@@ -40,9 +40,6 @@ ADD_LIBRARY(pcraster_moc_static
     STATIC
     ${SOURCES}
 )
-ADD_EXECUTABLE(test_pcraster_moc
-    ${TEST_SOURCES}
-)
 
 
 INSTALL(
@@ -56,6 +53,9 @@ if(FALSE AND PCRASTER_BUILD_TEST)
     SET(TEST_SOURCES
         pt_ParticleTest.cc
         pt_Test.cc
+    )
+    ADD_EXECUTABLE(test_pcraster_moc
+        ${TEST_SOURCES}
     )
     TARGET_LINK_LIBRARIES(test_pcraster_moc
         pcraster_moc_static

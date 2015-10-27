@@ -10,8 +10,6 @@ include_directories(
 SET(SOURCES
     mf_Modflow.cc
 )
-SET(TEST_SOURCES
-)
 SET(OLDSOURCES
     mf_BinaryReader.cc
     bas.cc
@@ -33,6 +31,10 @@ SET(OLDSOURCES
 ADD_LIBRARY(pcrmf
     STATIC
     ${OLDSOURCES}
+)
+target_link_libraries(pcrmf
+    ${Boost_PYTHON_LIBRARY}
+    ${PYTHON_LIBRARIES}
 )
 
 ADD_DEPENDENCIES(pcrmf pcrcalc)

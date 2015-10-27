@@ -201,65 +201,6 @@ SET(SOURCES
     calc_map2csf.cc
 )
 
-SET(TEST_SOURCES
-    calc_test.cc
-    # utils of unittets
-    calc_modelbuilder.cc
-    calc_asttestfactory.cc
-    calc_astcfgtester.cc
-    calc_messagestestdb.cc
-    calc_p5stack.cc
-    calc_modelerrortester.cc
-    calc_comparefilewithvalidated.cc
-    # unit tests
-    calc_areamaptest.cc
-    calc_xmlreflectiontest.cc
-    calc_datatypetest.cc
-    calc_dimensionparsertest.cc
-    calc_scripttest.cc
-    calc_clientinterfacetest.cc
-    calc_objectlinkmetatest.cc
-    calc_objectlinktest.cc
-    calc_vfieldtest.cc
-    calc_dynamicwavetest.cc
-    calc_lddgraphtest.cc
-    calc_averagemaptest.cc
-    calc_areaoperationstest.cc
-    calc_argordertest.cc
-    calc_astpathtest.cc
-    calc_bindingtabletest.cc
-    calc_buildtypesvisitortest.cc
-    calc_usedefanalyzertest.cc
-    calc_pointcodeblockreplacertest.cc
-    calc_pointcodeblockdlltest.cc
-    calc_rundirectorytest.cc
-    calc_iocsffieldstrategytest.cc
-    calc_cmdlinecalctest.cc
-    calc_runtimeenvtest.cc
-    calc_runtimeenginetest.cc
-    calc_executortest.cc
-    calc_tssoutputvaluetest.cc
-    calc_manualexampletester.cc
-    calc_manualexampletestertest.cc
-    calc_manualexamplestest.cc
-    calc_nonspatialtest.cc
-    calc_reportvisitortest.cc
-    calc_spatialtest.cc
-    calc_maskpackingtest.cc
-    calc_fieldtest.cc
-    calc_opimpltest.cc
-    calc_fopointarraytest.cc
-    calc_cfgcreatortest.cc
-    calc_astpartest.cc
-    calc_reporttest.cc
-    calc_lexinputtest.cc
-    calc_parsertest.cc
-    calc_operatortest.cc
-    calc_astsymboltabletest.cc
-    calc_lookuptabletest.cc
-    calc_findsymboltest.cc
-)
-
 # actually newcalc.l
 ADD_FILE_DEPENDENCY(lexnewcalc.cc
 ${CMAKE_CURRENT_BINARY_DIR}/major_op.h)
@@ -391,18 +332,6 @@ ADD_LIBRARY(pcraster_model_engine
     #sourcesLibDummy.cc
 )
 
-ADD_EXECUTABLE(test_pcraster_model_engine
-    ${TEST_SOURCES}
-)
-
-ADD_DEPENDENCIES(test_pcraster_model_engine examples.sentinel)
-
-# input files from _EXAMPLES_DIR need these apps:
-ADD_DEPENDENCIES(test_pcraster_model_engine mapattr asc2map)
-
-# the linkin libraries used
-ADD_DEPENDENCIES(test_pcraster_model_engine example1 example2 exampleCpp)
-
 TARGET_LINK_LIBRARIES(pcraster_model_engine
     # ${TARGET_LINK_LIBS}
     pccts
@@ -430,21 +359,97 @@ TARGET_LINK_LIBRARIES(pcraster_model_engine
     # ${BOOST_MATH_C99_LIBRARY}
     ${XercesC_LIBRARIES}
 )
-TARGET_LINK_LIBRARIES(test_pcraster_model_engine
-    pcraster_model_engine  # _static
-    # ${TARGET_LINK_LIBS}
-)
 
-ADD_CUSTOM_TARGET(run_test_pcraster_model_engine
-    COMMAND sed -i.tmp "s/CMAKE_CFG_INTDIR/${CMAKE_CFG_INTDIR}/g"
-        ./testrun.prolog
-    COMMAND bash ./testrun.prolog
-    COMMAND test_pcraster_model_engine --detect_memory_leaks=0
-    COMMAND bash ./testrun.epilog
-    DEPENDS test_pcraster_model_engine
-    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-)
-ADD_DEPENDENCIES(tests run_test_pcraster_model_engine)
+
+if(FALSE AND PCRASTER_BUILD_TEST)
+    SET(TEST_SOURCES
+        calc_test.cc
+        # utils of unittets
+        calc_modelbuilder.cc
+        calc_asttestfactory.cc
+        calc_astcfgtester.cc
+        calc_messagestestdb.cc
+        calc_p5stack.cc
+        calc_modelerrortester.cc
+        calc_comparefilewithvalidated.cc
+        # unit tests
+        calc_areamaptest.cc
+        calc_xmlreflectiontest.cc
+        calc_datatypetest.cc
+        calc_dimensionparsertest.cc
+        calc_scripttest.cc
+        calc_clientinterfacetest.cc
+        calc_objectlinkmetatest.cc
+        calc_objectlinktest.cc
+        calc_vfieldtest.cc
+        calc_dynamicwavetest.cc
+        calc_lddgraphtest.cc
+        calc_averagemaptest.cc
+        calc_areaoperationstest.cc
+        calc_argordertest.cc
+        calc_astpathtest.cc
+        calc_bindingtabletest.cc
+        calc_buildtypesvisitortest.cc
+        calc_usedefanalyzertest.cc
+        calc_pointcodeblockreplacertest.cc
+        calc_pointcodeblockdlltest.cc
+        calc_rundirectorytest.cc
+        calc_iocsffieldstrategytest.cc
+        calc_cmdlinecalctest.cc
+        calc_runtimeenvtest.cc
+        calc_runtimeenginetest.cc
+        calc_executortest.cc
+        calc_tssoutputvaluetest.cc
+        calc_manualexampletester.cc
+        calc_manualexampletestertest.cc
+        calc_manualexamplestest.cc
+        calc_nonspatialtest.cc
+        calc_reportvisitortest.cc
+        calc_spatialtest.cc
+        calc_maskpackingtest.cc
+        calc_fieldtest.cc
+        calc_opimpltest.cc
+        calc_fopointarraytest.cc
+        calc_cfgcreatortest.cc
+        calc_astpartest.cc
+        calc_reporttest.cc
+        calc_lexinputtest.cc
+        calc_parsertest.cc
+        calc_operatortest.cc
+        calc_astsymboltabletest.cc
+        calc_lookuptabletest.cc
+        calc_findsymboltest.cc
+    )
+
+    ADD_EXECUTABLE(test_pcraster_model_engine
+        ${TEST_SOURCES}
+    )
+
+    ADD_DEPENDENCIES(test_pcraster_model_engine examples.sentinel)
+
+    # input files from _EXAMPLES_DIR need these apps:
+    ADD_DEPENDENCIES(test_pcraster_model_engine mapattr asc2map)
+
+    # the linkin libraries used
+    ADD_DEPENDENCIES(test_pcraster_model_engine example1 example2 exampleCpp)
+
+    TARGET_LINK_LIBRARIES(test_pcraster_model_engine
+        pcraster_model_engine  # _static
+        # ${TARGET_LINK_LIBS}
+    )
+
+    ADD_CUSTOM_TARGET(run_test_pcraster_model_engine
+        COMMAND sed -i.tmp "s/CMAKE_CFG_INTDIR/${CMAKE_CFG_INTDIR}/g"
+            ./testrun.prolog
+        COMMAND bash ./testrun.prolog
+        COMMAND test_pcraster_model_engine --detect_memory_leaks=0
+        COMMAND bash ./testrun.epilog
+        DEPENDS test_pcraster_model_engine
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    )
+    ADD_DEPENDENCIES(tests run_test_pcraster_model_engine)
+endif()
+
 
 INSTALL(
     TARGETS pcraster_model_engine

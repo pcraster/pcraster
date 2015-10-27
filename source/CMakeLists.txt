@@ -25,43 +25,43 @@ add_subdirectory(app)
 add_subdirectory(mathx)
 add_subdirectory(curr)
 add_subdirectory(misc)
-add_subdirectory(pcraster_moc)  # TODO
-add_subdirectory(pcrblock)  # TODO
-add_subdirectory(pcraster_block_python)  # TODO
+add_subdirectory(pcraster_moc)  # TODO unit tests
+add_subdirectory(pcrblock)  # TODO unit tests
+add_subdirectory(pcraster_block_python)  # TODO unit tests
 add_subdirectory(pcrcom)
-add_subdirectory(pcrdiscr)  # TODO
-add_subdirectory(pcrfunc)  # TODO
-add_subdirectory(pcrgeo)  # TODO
+add_subdirectory(pcrdiscr)  # TODO unit tests
+add_subdirectory(pcrfunc)  # TODO unit tests
+add_subdirectory(pcrgeo)  # TODO unit tests
 add_subdirectory(pcrgeom)
-add_subdirectory(pcrraster)  # TODO
-add_subdirectory(pcrvoxelstack)  # TODO
+add_subdirectory(pcrraster)  # TODO unit tests
+add_subdirectory(pcrvoxelstack)  # TODO unit tests
 
-add_subdirectory(api)  # TODO
+add_subdirectory(api)  # TODO unit tests
 add_subdirectory(tab)
-add_subdirectory(geom)  # TODO
-add_subdirectory(calc)  # TODO
+add_subdirectory(geom)  # TODO unit tests
+add_subdirectory(calc)  # TODO unit tests
 add_subdirectory(pccts)
-add_subdirectory(pcrxml)  # TODO
-add_subdirectory(modflow)
-### add_subdirectory(linkinexamples)
-### add_subdirectory(pcraster_model_engine)
-### add_subdirectory(pcraster_old_calc)
-### add_subdirectory(pcraster_python)
-### add_subdirectory(mldd)
-### 
+add_subdirectory(pcrxml)  # TODO unit tests
+add_subdirectory(modflow)  # TODO unit tests
+add_subdirectory(linkinexamples)
+add_subdirectory(pcraster_model_engine)  # TODO unit tests
+add_subdirectory(pcraster_old_calc)  # TODO unit tests
+add_subdirectory(pcraster_python)  # TODO unit tests
+add_subdirectory(mldd)  # TODO unit tests
+
 add_subdirectory(asc2map)
-### add_subdirectory(pcrcalc)
-### add_subdirectory(oldcalc)
+add_subdirectory(pcrcalc)
+add_subdirectory(oldcalc)
 add_subdirectory(col2map)
 add_subdirectory(map2asc)
 add_subdirectory(map2col)
 add_subdirectory(mapattr)
-### add_subdirectory(resample)
-### add_subdirectory(table)
-### add_subdirectory(legend)
-### 
-### # Used in unit tests.
-### add_subdirectory(mapdiff)
+add_subdirectory(resample)  # TODO unit tests
+add_subdirectory(table)
+add_subdirectory(legend)
+
+# Used in unit tests.
+add_subdirectory(mapdiff)
 
 
 install(

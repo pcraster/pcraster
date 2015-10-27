@@ -185,27 +185,6 @@ SET(SOURCES
     sunfunc.c
 )
 
-SET(TEST_SOURCES
-    calc_test.cc
-    calc_tssoutputvaluetest.cc
-    calc_maskcompressortest.cc
-    calc_manualexampletestertest.cc
-    calc_manualexamplestest.cc
-    calc_nonspatialtest.cc
-    calc_spatialtest.cc
-    calc_lookuptabletest.cc
-    calc_lookuplineartest.cc
-    # calc_clientinterfacetest.cc
-    calc_rundirectorytest.cc
-    calc_iocsffieldstrategytest.cc
-    # calc_iobandfieldstrategytest.cc
-    # calc_iobandtest.cc
-    calc_parsertest.cc
-    calc_lexinputtest.cc
-    calc_modelbuildertest.cc
-    # calc_wldelfthabitattest.cc
-)
-
 # SET(TARGET_LINK_LIBS
 #     calc
 #     pcrgeo
@@ -231,20 +210,8 @@ ADD_LIBRARY(pcraster_old_calc
     ${SOURCES}
 )
 
-# ADD_LIBRARY(pcraster_old_calc_static
-#     STATIC
-#     ${SOURCES}
-# )
-ADD_EXECUTABLE(test_pcraster_old_calc
-    ${TEST_SOURCES}
-)
-
 # IF(WIN32)
 #     TARGET_LINK_LIBRARIES(pcraster_old_calc
-#         ${TARGET_LINK_LIBS}
-#     )
-#     TARGET_LINK_LIBRARIES(test_pcraster_old_calc
-#         pcraster_old_calc_static
 #         ${TARGET_LINK_LIBS}
 #     )
 # ELSE(WIN32)
@@ -255,23 +222,62 @@ ADD_EXECUTABLE(test_pcraster_old_calc
         pccts
         # ${Boost_MATH_C99_LIBRARY}
     )
-    TARGET_LINK_LIBRARIES(test_pcraster_old_calc
-        pcraster_old_calc # _static
-        # ${TARGET_LINK_LIBS}
-    )
 # ENDIF(WIN32)
-
-ADD_CUSTOM_TARGET(run_test_pcraster_old_calc
-    COMMAND bash ./testrun.prolog
-    COMMAND test_pcraster_old_calc --detect_memory_leaks=0
-    COMMAND bash ./testrun.epilog
-    DEPENDS test_pcraster_old_calc
-    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-)
-ADD_DEPENDENCIES(tests run_test_pcraster_old_calc)
 
 INSTALL(
     TARGETS pcraster_old_calc
     RUNTIME DESTINATION lib COMPONENT Runtime
     LIBRARY DESTINATION lib COMPONENT Runtime
 )
+
+if(FALSE AND PCRASTER_BUILD_TEST)
+    SET(TEST_SOURCES
+        calc_test.cc
+        calc_tssoutputvaluetest.cc
+        calc_maskcompressortest.cc
+        calc_manualexampletestertest.cc
+        calc_manualexamplestest.cc
+        calc_nonspatialtest.cc
+        calc_spatialtest.cc
+        calc_lookuptabletest.cc
+        calc_lookuplineartest.cc
+        # calc_clientinterfacetest.cc
+        calc_rundirectorytest.cc
+        calc_iocsffieldstrategytest.cc
+        # calc_iobandfieldstrategytest.cc
+        # calc_iobandtest.cc
+        calc_parsertest.cc
+        calc_lexinputtest.cc
+        calc_modelbuildertest.cc
+        # calc_wldelfthabitattest.cc
+    )
+
+    # ADD_LIBRARY(pcraster_old_calc_static
+    #     STATIC
+    #     ${SOURCES}
+    # )
+    ADD_EXECUTABLE(test_pcraster_old_calc
+        ${TEST_SOURCES}
+    )
+
+    # IF(WIN32)
+    #     TARGET_LINK_LIBRARIES(test_pcraster_old_calc
+    #         pcraster_old_calc_static
+    #         ${TARGET_LINK_LIBS}
+    #     )
+    # ELSE(WIN32)
+        TARGET_LINK_LIBRARIES(test_pcraster_old_calc
+            pcraster_old_calc # _static
+            # ${TARGET_LINK_LIBS}
+        )
+    # ENDIF(WIN32)
+
+    ADD_CUSTOM_TARGET(run_test_pcraster_old_calc
+        COMMAND bash ./testrun.prolog
+        COMMAND test_pcraster_old_calc --detect_memory_leaks=0
+        COMMAND bash ./testrun.epilog
+        DEPENDS test_pcraster_old_calc
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    )
+    ADD_DEPENDENCIES(tests run_test_pcraster_old_calc)
+endif()

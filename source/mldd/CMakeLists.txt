@@ -1,5 +1,7 @@
 ADD_SUBDIRECTORY(python)
-ADD_SUBDIRECTORY(Tests)
+if(FALSE AND PCRASTER_BUILD_TEST)
+    ADD_SUBDIRECTORY(Tests)
+endif()
 
 SET(SOURCES
     mldd_accuflux.cc

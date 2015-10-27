@@ -147,52 +147,50 @@ ADD_LIBRARY(pcraster_xsd
     STATIC
     ${SOURCES}
 )
+target_link_libraries(pcraster_xsd
+    utils
+    ${XercesC_LIBRARIES}
+    ${Boost_SYSTEM_LIBRARY}
+)
 # ------------------------------------------------------------------------------
 IF(${PCRTREE2_BUILD})
-    # TODO allmost all test depend on PCRasterXSD they have to
-    # be rewritten...................
-    ADD_CUSTOM_COMMAND(
-      OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/unitTestXSD.cc
-      DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/unitTest.xsd ${XSD_EPILOGUE}
-      WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-      COMMENT Generating ${CMAKE_CURRENT_BINARY_DIR}/unitTestXSD.cc
-      COMMAND ${XSD_EXECUTABLE} ${XSD_OPTIONS}
-          ${CMAKE_CURRENT_SOURCE_DIR}/unitTest.xsd
-    )
-    SET(TEST_SOURCES
-      pcrxsd_commontypestest.cc
-      pcrxsd_dominputtest.cc
-      pcrxsd_DomAlgorithmTest.cc
-      pcrxsd_test.cc
-      pcrxsd_utilstest.cc
-      pcrxsd_xsdtest.cc
-      ${CMAKE_CURRENT_BINARY_DIR}/unitTestXSD.cc
-    )
-    ADD_EXECUTABLE(test_pcraster_xsd
-        ${TEST_SOURCES}
-    )
-    TARGET_LINK_LIBRARIES(test_pcraster_xsd
-        pcraster_xsd
-        utils
-        ${XercesC_LIBRARIES}
-        ${Boost_SYSTEM_LIBRARY}
-    )
-    ADD_CUSTOM_TARGET(run_test_pcraster_xsd
-        COMMAND ${CMAKE_COMMAND} -E copy_directory
-            ${CMAKE_CURRENT_SOURCE_DIR}/testdata
-            ${CMAKE_CURRENT_BINARY_DIR}
-        COMMAND ${CMAKE_COMMAND} -E copy
-            ${CMAKE_CURRENT_SOURCE_DIR}/unitTest.xsd
-            ${CMAKE_CURRENT_BINARY_DIR}
-        COMMAND ${CMAKE_COMMAND} -E copy
-            ${CMAKE_CURRENT_SOURCE_DIR}/../xmlschema/commonTypes.xsd
-            ${CMAKE_CURRENT_BINARY_DIR}
-        COMMAND test_pcraster_xsd
-        DEPENDS test_pcraster_xsd
-        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-        COMMENT "Running pcraster_xsd unit tests" VERBATIM
-    )
-    ADD_DEPENDENCIES(tests
-        run_test_pcraster_xsd
-    )
+    if(PCRASTER_BUILD_TEST)
+        # TODO allmost all test depend on PCRasterXSD they have to
+        # be rewritten...................
+        ADD_CUSTOM_COMMAND(
+          OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/unitTestXSD.cc
+          DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/unitTest.xsd ${XSD_EPILOGUE}
+          WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+          COMMAND ${XSD_EXECUTABLE} ${XSD_OPTIONS}
+              ${CMAKE_CURRENT_SOURCE_DIR}/unitTest.xsd
+        )
+        set(TEST_NAMES
+            pcrxsd_commontypestest
+            pcrxsd_dominputtest
+            pcrxsd_DomAlgorithmTest
+            pcrxsd_utilstest
+            pcrxsd_xsdtest
+        )
+        add_unit_tests(
+            SCOPE pcraster_xsd
+            NAMES ${TEST_NAMES}
+            SUPPORT_NAMES
+                ${CMAKE_CURRENT_BINARY_DIR}/unitTestXSD.cc
+            LINK_LIBRARIES
+                pcraster_xsd
+            DEPENDENCIES
+                pcraster_xsd_test_run_epilog
+        )
+        add_custom_target(pcraster_xsd_test_run_epilog
+            COMMAND ${CMAKE_COMMAND} -E copy_directory
+                ${CMAKE_CURRENT_SOURCE_DIR}/testdata
+                ${CMAKE_CURRENT_BINARY_DIR}
+            COMMAND ${CMAKE_COMMAND} -E copy
+                ${CMAKE_CURRENT_SOURCE_DIR}/unitTest.xsd
+                ${CMAKE_CURRENT_BINARY_DIR}
+            COMMAND ${CMAKE_COMMAND} -E copy
+                ${CMAKE_CURRENT_SOURCE_DIR}/../xmlschema/commonTypes.xsd
+                ${CMAKE_CURRENT_BINARY_DIR}
+        )
+    endif()
 ENDIF()

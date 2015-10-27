@@ -54,31 +54,33 @@ CONFIGURE_PYTHON_EXTENSION(pcraster_block_python
 )
 
 
-# Unit testing stuff --------------------------------------------------------
-ADD_LIBRARY(pcraster_block_python_static
-    STATIC
-    ${SOURCES}
-)
-SET(TEST_SOURCES
-    blockpy_pythonunittest.cc
-    blockpy_test.cc
-)
-ADD_EXECUTABLE(test_pcraster_block_python
-    ${TEST_SOURCES}
-)
+if(FALSE AND PCRASTER_BUILD_TEST)
+    ADD_LIBRARY(pcraster_block_python_static
+        STATIC
+        ${SOURCES}
+    )
+    SET(TEST_SOURCES
+        blockpy_pythonunittest.cc
+        blockpy_test.cc
+    )
+    ADD_EXECUTABLE(test_pcraster_block_python
+        ${TEST_SOURCES}
+    )
 
-TARGET_LINK_LIBRARIES(test_pcraster_block_python
-    pcraster_block_python_static
-    # ${_LIBRARIES_TO_LINK}
-)
+    TARGET_LINK_LIBRARIES(test_pcraster_block_python
+        pcraster_block_python_static
+        # ${_LIBRARIES_TO_LINK}
+    )
 
-ADD_CUSTOM_TARGET(run_test_pcraster_block_python
-    COMMAND bash ./testrun.prolog
-    COMMAND test_pcraster_block_python --detect_memory_leaks=0
-    DEPENDS test_pcraster_block_python
-    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-)
-ADD_DEPENDENCIES(tests run_test_pcraster_block_python)
+    ADD_CUSTOM_TARGET(run_test_pcraster_block_python
+        COMMAND bash ./testrun.prolog
+        COMMAND test_pcraster_block_python --detect_memory_leaks=0
+        DEPENDS test_pcraster_block_python
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    )
+    ADD_DEPENDENCIES(tests run_test_pcraster_block_python)
+endif()
+
 
 #----------------------------------------------------------
 #INSTALL(

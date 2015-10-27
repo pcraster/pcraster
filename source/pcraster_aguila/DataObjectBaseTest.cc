@@ -1,61 +1,38 @@
-#include "DataObjectBaseTest.h"
-
-// External headers.
-#include <boost/shared_ptr.hpp>
-#include <boost/test/test_tools.hpp>
-#include <boost/test/unit_test_suite.hpp>
-
-// Project headers.
-
-// Module headers.
+#define BOOST_TEST_MODULE pcraster aguila data_object_base
+#include <boost/test/unit_test.hpp>
+#include <QCoreApplication>
+#include "dev_GDalClient.h"
+#include "dev_QtClient.h"
+#include "dal_Client.h"
+#define private public
 #include "ag_RasterDataSources.h"
 
 
+static int argc = 1;
+static char const* argv[1] = { "/my/path/data_object_base_test" };
 
-/*!
-  \file
-  This file contains the implementation of the DataObjectBaseTest class.
-*/
-
-namespace {
-
-} // Anonymous namespace
-
-
-
-namespace ag {
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC DATAOBJECTBASETEST MEMBERS
-//------------------------------------------------------------------------------
-
-//! Suite.
-boost::unit_test::test_suite* DataObjectBaseTest::suite()
+struct Fixture:
+    private dev::GDalClient,
+    private dev::QtClient<QCoreApplication>,
+    private dal::Client
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<DataObjectBaseTest> instance(
-         new DataObjectBaseTest());
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &DataObjectBaseTest::test, instance));
 
-  return suite;
-}
+    Fixture()
+        : dev::GDalClient(),
+          dev::QtClient<QCoreApplication>(argc, const_cast<char**>(argv)),
+          dal::Client(argv[0], true)
+    {
+    }
+
+};
 
 
+BOOST_GLOBAL_FIXTURE(Fixture)
 
-//------------------------------------------------------------------------------
-// DEFINITION OF DATAOBJECTBASETEST MEMBERS
-//------------------------------------------------------------------------------
-
-//! Constructor.
-DataObjectBaseTest::DataObjectBaseTest()
+BOOST_AUTO_TEST_CASE(test)
 {
-}
+  using namespace ag;
 
-
-
-void DataObjectBaseTest::test()
-{
   std::string name("dataset1/aap/scalar");
   dal::DataSpace space;
   space.addDimension(dal::Dimension(dal::Time, size_t(10), size_t(20),
@@ -81,6 +58,3 @@ void DataObjectBaseTest::test()
 
   BOOST_CHECK(dataSources._manager.empty());
 }
-
-} // namespace ag
-

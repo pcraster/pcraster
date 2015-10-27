@@ -1,6 +1,6 @@
 #vim:syntax=bash
 
-gdalTranslate="$GDAL_ROOT/bin/gdal_translate -quiet"
+gdalTranslate="@GDAL_TRANSLATE@ -quiet"
 
 west=100000.0
 south=199850.0
@@ -70,4 +70,3 @@ do
     createRaster $v `printf "dataset1/mies/scalar_%d" $t`
   fi
 done
-

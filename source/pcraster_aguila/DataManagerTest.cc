@@ -1,62 +1,40 @@
-#include "DataManagerTest.h"
-
-// External headers.
-#include <boost/shared_ptr.hpp>
-#include <boost/test/test_tools.hpp>
-#include <boost/test/unit_test_suite.hpp>
-
-// Project headers.
-
-// Module headers.
+#define BOOST_TEST_MODULE pcraster aguila data_manager
+#include <boost/test/unit_test.hpp>
+#include <QCoreApplication>
+#include "dev_GDalClient.h"
+#include "dev_QtClient.h"
+#include "dal_Client.h"
 #include "ag_DataManager.h"
 #include "ag_Raster.h"
 
 
+static int argc = 1;
+static char const* argv[1] = { "/my/path/data_manager_test" };
 
-/*!
-  \file
-  This file contains the implementation of the DataManagerTest class.
-*/
-
-namespace {
-
-} // Anonymous namespace
-
-
-
-namespace ag {
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC DATAMANAGERTEST MEMBERS
-//------------------------------------------------------------------------------
-
-//! Suite.
-boost::unit_test::test_suite* DataManagerTest::suite()
+struct Fixture:
+    private dev::GDalClient,
+    private dev::QtClient<QCoreApplication>,
+    private dal::Client
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<DataManagerTest> instance(
-         new DataManagerTest());
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &DataManagerTest::test, instance));
 
-  return suite;
-}
+    Fixture()
+        : dev::GDalClient(),
+          dev::QtClient<QCoreApplication>(argc, const_cast<char**>(argv)),
+          dal::Client(argv[0], true)
+    {
+    }
+
+    ~Fixture()=default;
+
+};
 
 
+BOOST_GLOBAL_FIXTURE(Fixture)
 
-//------------------------------------------------------------------------------
-// DEFINITION OF DATAMANAGERTEST MEMBERS
-//------------------------------------------------------------------------------
-
-//! Constructor.
-DataManagerTest::DataManagerTest()
+BOOST_AUTO_TEST_CASE(test)
 {
-}
+  using namespace ag;
 
-
-
-void DataManagerTest::test()
-{
   std::string name("dataset1/aap/scalar");
   dal::DataSpace space;
   space.addDimension(dal::Dimension(dal::Time, size_t(10), size_t(20),
@@ -89,6 +67,3 @@ void DataManagerTest::test()
   BOOST_CHECK_EQUAL(manager.size(), size_t(0));
   BOOST_CHECK(manager.empty());
 }
-
-} // namespace ag
-

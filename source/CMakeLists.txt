@@ -13,36 +13,36 @@ if(PCRASTER_BUILD_DOCUMENTATION)
 endif()
 
 
-add_subdirectory(math_utils)  # OK
-add_subdirectory(string_utils)  # OK
-add_subdirectory(utils)  # OK
-### add_subdirectory(pcraster_aguila)
-add_subdirectory(pcraster_dal)  # OK
-### add_subdirectory(pcraster_xsd)
+add_subdirectory(math_utils)
+add_subdirectory(string_utils)
+add_subdirectory(utils)
+add_subdirectory(pcraster_aguila)
+add_subdirectory(pcraster_dal)
+add_subdirectory(pcraster_xsd)
 
 
-add_subdirectory(app)  # OK
-add_subdirectory(mathx)  # OK
-add_subdirectory(curr)  # OK
-add_subdirectory(misc)  # OK
-### add_subdirectory(pcraster_moc)
-### add_subdirectory(pcrblock)
-### add_subdirectory(pcraster_block_python)
-add_subdirectory(pcrcom)  # OK
-### add_subdirectory(pcrdiscr)
-### add_subdirectory(pcrfunc)
-### add_subdirectory(pcrgeo)
-### add_subdirectory(pcrgeom)
-### add_subdirectory(pcrraster)
-### add_subdirectory(pcrvoxelstack)
-### 
-### add_subdirectory(api)
-add_subdirectory(tab)  # OK
-### add_subdirectory(geom)
-### add_subdirectory(calc)
-### add_subdirectory(pccts)
-### add_subdirectory(pcrxml)
-### add_subdirectory(modflow)
+add_subdirectory(app)
+add_subdirectory(mathx)
+add_subdirectory(curr)
+add_subdirectory(misc)
+add_subdirectory(pcraster_moc)  # TODO
+add_subdirectory(pcrblock)  # TODO
+add_subdirectory(pcraster_block_python)  # TODO
+add_subdirectory(pcrcom)
+add_subdirectory(pcrdiscr)  # TODO
+add_subdirectory(pcrfunc)  # TODO
+add_subdirectory(pcrgeo)  # TODO
+add_subdirectory(pcrgeom)
+add_subdirectory(pcrraster)  # TODO
+add_subdirectory(pcrvoxelstack)  # TODO
+
+add_subdirectory(api)  # TODO
+add_subdirectory(tab)
+add_subdirectory(geom)  # TODO
+add_subdirectory(calc)  # TODO
+add_subdirectory(pccts)
+add_subdirectory(pcrxml)  # TODO
+add_subdirectory(modflow)
 ### add_subdirectory(linkinexamples)
 ### add_subdirectory(pcraster_model_engine)
 ### add_subdirectory(pcraster_old_calc)

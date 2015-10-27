@@ -3,6 +3,7 @@ set -e
 directories_with_prolog_scripts="
     source/pcrcom
     source/pcraster_dal
+    source/pcraster_aguila
 "
 
 

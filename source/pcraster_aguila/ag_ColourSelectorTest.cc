@@ -1,58 +1,15 @@
-#include "ag_ColourSelectorTest.h"
-
-// External headers.
-#include <boost/shared_ptr.hpp>
-#include <boost/test/test_tools.hpp>
-#include <boost/test/unit_test_suite.hpp>
-
-// Project headers.
-
-// Module headers.
+#define BOOST_TEST_MODULE pcraster aguila colour_selector
+#include <boost/test/unit_test.hpp>
 #include "ag_ColourSelector.h"
 
 
-
-/*!
-  \file
-  This file contains the implementation of the ColourSelectorTest class.
-*/
-
-
-
-namespace ag {
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC COLOURSELECTORTEST MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite* ColourSelectorTest::suite()
+BOOST_AUTO_TEST_CASE(test)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<ColourSelectorTest> instance(new ColourSelectorTest());
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &ColourSelectorTest::test, instance));
+  using namespace ag;
+  using namespace com;
 
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF COLOURSELECTORTEST MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-ColourSelectorTest::ColourSelectorTest()
-{
-}
-
-
-
-void ColourSelectorTest::test()
-{
   std::vector<QColor> selection;
-  com::RawPalette palette(*com::RawPalette::nominalPalette());
+  RawPalette palette(*RawPalette::nominalPalette());
   size_t nrClasses;
 
   // Non empty palette, 0 classes.
@@ -69,6 +26,3 @@ void ColourSelectorTest::test()
     BOOST_CHECK_EQUAL(selection.size(), nrClasses);
   }
 }
-
-} // namespace ag
-

@@ -4,9 +4,16 @@ set(AGUILA_PATCH_VERSION 3)
 set(AGUILA_VERSION
     "${AGUILA_MAJOR_VERSION}.${AGUILA_MINOR_VERSION}.${AGUILA_PATCH_VERSION}")
 
+set(CMAKE_AUTOMOC ON)
+
 CONFIGURE_FILE(
     ${CMAKE_CURRENT_SOURCE_DIR}/ag_Configure.h.in
     ${CMAKE_CURRENT_BINARY_DIR}/../include/ag_Configure.h
+)
+CONFIGURE_FILE(
+    ${CMAKE_CURRENT_SOURCE_DIR}/testrun.prolog.in
+    ${CMAKE_CURRENT_BINARY_DIR}/testrun.prolog
+    @ONLY
 )
 
 include_directories(
@@ -222,13 +229,11 @@ SET_TARGET_PROPERTIES(pcraster_aguila
         COMPILE_FLAGS "-DPCR_AG_SOURCE -DPCR_AG_SHARED_LINK"
 )
 TARGET_LINK_LIBRARIES(pcraster_aguila
-    utils
     pcraster_dal
     pcraster_xsd
     Qt4::QtGui
     Qt4::QtOpenGL
     ${QWT_LIBRARY}
-    ${XercesC_LIBRARIES}
     ${OPENGL_LIBRARIES}
 )
 # ADD_CUSTOM_COMMAND(
@@ -260,56 +265,35 @@ SET_TARGET_PROPERTIES(aguila
 )
 TARGET_LINK_LIBRARIES(aguila
     pcraster_aguila
-    ${QT_QTMAIN_LIBRARY} # Contains WinMain.
+    ${QT_QTMAIN_LIBRARY}  # Contains WinMain.
 )
 INSTALL(
     TARGETS aguila
     RUNTIME DESTINATION bin COMPONENT Runtime
 )
 
-### SET(TEST_SOURCES
-###   ag_AguilaTest.cc
-###   ag_AguilaGuiTest.cc
-###   ag_AguilaProgramOptionsTest.cc
-###   ag_ClassifierTest.cc
-###   ag_ColourSelectorTest.cc
-###   DataObjectBaseTest.cc
-###   DataManagerTest.cc
-###   ag_Test.cc
-###   com_fileformatinfotest.cc
-###   com_matrixtest.cc
-###   com_rangemaptest.cc
-###   com_rgbtupletest.cc
-###   com_utiltest.cc
-###   com_userdefinedclassifiertest.cc
-###   com_vectortest.cc
-### )
-### QT4_WRAP_CPP(TEST_MOC_SOURCES
-###   ag_AguilaGuiTest.h
-### )
-### ADD_EXECUTABLE(testPCRasterAguila
-###   ${TEST_SOURCES}
-###   ${TEST_MOC_SOURCES}
-### )
-### IF(WIN32)
-###   TARGET_LINK_LIBRARIES(testPCRasterAguila
-###     pcraster_aguila_static
-###   )
-### ELSE()
-###   TARGET_LINK_LIBRARIES(testPCRasterAguila
-###     pcraster_aguila
-###   )
-### ENDIF()
-### TARGET_LINK_LIBRARIES(testPCRasterAguila
-###   ${LINK_LIBRARIES}
-###   ${QT_QTTEST_LIBRARY}
-### )
-### ADD_TEST(pcraster_aguila ${EXECUTABLE_OUTPUT_PATH}/testPCRasterAguila)
-### ADD_CUSTOM_TARGET(runTestPCRasterAguila
-###   COMMAND bash ${CMAKE_CURRENT_SOURCE_DIR}/testrun.prolog
-###   # TODO COMMAND testPCRasterAguila
-###   DEPENDS testPCRasterAguila
-###   WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-###   COMMENT "Running pcraster_aguila unit tests" VERBATIM
-### )
-### ADD_DEPENDENCIES(tests runTestPCRasterAguila)
+if(PCRASTER_BUILD_TEST)
+    set(TEST_NAMES
+        # ag_AguilaTest  # Requires an X-server.
+        ag_AguilaProgramOptionsTest
+        ag_ClassifierTest
+        ag_ColourSelectorTest
+        DataObjectBaseTest
+        DataManagerTest
+        com_fileformatinfotest
+        com_matrixtest
+        com_rangemaptest
+        com_rgbtupletest
+        com_utiltest
+        com_userdefinedclassifiertest
+        com_vectortest
+    )
+    add_unit_tests(
+        SCOPE pcraster_aguila
+        NAMES ${TEST_NAMES}
+        # SUPPORT_NAMES ag_AguilaGuiTest  # Only needed for AguilaTest.
+        LINK_LIBRARIES
+            pcraster_aguila
+            ${QT_QTTEST_LIBRARY}
+    )
+endif()

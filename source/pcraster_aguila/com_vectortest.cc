@@ -1,74 +1,31 @@
-#include "com_vectortest.h"
-#include <boost/shared_ptr.hpp>
-#include <boost/test/test_tools.hpp>
-#include <boost/test/unit_test_suite.hpp>
+#define BOOST_TEST_MODULE pcraster aguila vector
+#include <boost/test/unit_test.hpp>
 #include "com_vector.h"
 
 
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC CLASS MEMBERS
-//------------------------------------------------------------------------------
-
-boost::unit_test::test_suite*com::VectorTest::suite()
+BOOST_AUTO_TEST_CASE(size)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<VectorTest> instance(new VectorTest());
+  using namespace com;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&VectorTest::testSetElement, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&VectorTest::testSize, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&VectorTest::testScale, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&VectorTest::testAdd, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&VectorTest::testMagnitude, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&VectorTest::testDot, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&VectorTest::testCross, instance));
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
-//------------------------------------------------------------------------------
-
-com::VectorTest::VectorTest()
-
-{
-}
-
-
-
-void com::VectorTest::setUp()
-{
-}
-
-
-
-void com::VectorTest::tearDown()
-{
-}
-
-
-
-void com::VectorTest::testSize()
-{
   Vector<double> v(5);
   BOOST_CHECK(v.size() == 5);
 }
 
 
-
-void com::VectorTest::testSetElement()
+BOOST_AUTO_TEST_CASE(set_element)
 {
+  using namespace com;
+
   Vector<double> v(5);
   v.setElement(1, 12345.6789);
   BOOST_CHECK(v.element(1) == 12345.6789);
 }
 
 
-
-void com::VectorTest::testScale()
+BOOST_AUTO_TEST_CASE(scale)
 {
+  using namespace com;
+
   Vector<double> v(5);
   v.setElement(1, 1.2345);
   v.scale(2.0);
@@ -76,9 +33,10 @@ void com::VectorTest::testScale()
 }
 
 
-
-void com::VectorTest::testAdd()
+BOOST_AUTO_TEST_CASE(add)
 {
+  using namespace com;
+
   Vector<int> v1(3);
   Vector<int> v2(3);
 
@@ -97,9 +55,10 @@ void com::VectorTest::testAdd()
 }
 
 
-
-void com::VectorTest::testMagnitude()
+BOOST_AUTO_TEST_CASE(magnitude)
 {
+  using namespace com;
+
   Vector<double> v(5);
   v.setElement(1, 1.0);
   v.setElement(1, 2.0);
@@ -110,9 +69,10 @@ void com::VectorTest::testMagnitude()
 }
 
 
-
-void com::VectorTest::testDot()
+BOOST_AUTO_TEST_CASE(dot)
 {
+  using namespace com;
+
   Vector<int> v1(5);
   Vector<int> v2(5);
 
@@ -132,9 +92,10 @@ void com::VectorTest::testDot()
 }
 
 
-
-void com::VectorTest::testCross()
+BOOST_AUTO_TEST_CASE(cross)
 {
+  using namespace com;
+
   Vector<int> v1(3);
   Vector<int> v2(3);
 
@@ -151,35 +112,3 @@ void com::VectorTest::testCross()
   BOOST_CHECK(v3.element(2) == -7);
   BOOST_CHECK(v3.element(3) == -6);
 }
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF FREE OPERATORS 
-//------------------------------------------------------------------------------
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF FREE FUNCTIONS 
-//------------------------------------------------------------------------------
-
-
-
-//------------------------------------------------------------------------------
-// DOCUMENTATION OF ENUMERATIONS
-//------------------------------------------------------------------------------
-
-
-
-//------------------------------------------------------------------------------
-// DOCUMENTATION OF INLINE FUNCTIONS
-//------------------------------------------------------------------------------
-
-
-
-//------------------------------------------------------------------------------
-// DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
-//------------------------------------------------------------------------------
-
-

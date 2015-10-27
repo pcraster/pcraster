@@ -34,5 +34,6 @@ if(PCRASTER_BUILD_TEST)
         LINK_LIBRARIES
             utils
             Qt4::QtCore
+            ${Boost_PROGRAM_OPTIONS_LIBRARY}
     )
 endif()

@@ -1,6 +1,6 @@
 language: cpp
 
-sudo: true
+### sudo: true
 
 os:
     - linux
@@ -15,45 +15,48 @@ env:
     - TRAVIS_BUILD_TYPE=Release TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
 
 # matrix:
-#     - exclude:
-#         - os: osx
-#           compiler: gcc
+#     # - exclude:
+#     #     - os: osx
+#     #       compiler: gcc
 #     - allow_failures:
-#         - os: osx
-#         - compiler: clang
+#         - os: linux
+#         - compiler: gcc
+#         - env: QT_BASE=48
 
 # https://github.com/travis-ci/apt-source-whitelist/blob/master/ubuntu.json
 # https://github.com/travis-ci/apt-package-whitelist/blob/master/ubuntu-precise
 # https://github.com/hicknhack-software/Twofold-Qt/blob/develop/.travis.yml
-addons:
-    apt:
-        sources:
-            - boost-latest
-            # - llvm-toolchain-precise-3.5
-            - ubuntu-toolchain-r-test
-            # - beineri/opt-qt487
-        packages:
-            # - clang-3.5
-            - g++-4.9
-            - gdal-bin
-            - imagemagick
-            - libgdal-dev
-            - libgeos++-dev
-            - libboost1.55-all-dev
-            # - libqt4-dev
-            # - libqt4-dev-bin
-            # - libqwt-dev
-            - libxml2-dev
-            - libxslt1-dev
-            - python-dev
-            # - opt-qt4-qmake
-            # - opt-qt4-dev-tools  # source /opt/qt-4.8/bin/qt-4.8-env.sh
-            # - opt-libqt4-dev  # source /opt/qt-4.8/bin/qt-4.8-env.sh
-            - xsdcxx
-            - xsltproc
-            # - libc++-dev
+### addons:
+###     apt:
+###         sources:
+###             - boost-latest
+###             # - llvm-toolchain-precise-3.5
+###             - ubuntu-toolchain-r-test
+###             # - beineri/opt-qt487
+###         packages:
+###             # - clang-3.5
+###             - g++-4.9
+###             - gdal-bin
+###             - imagemagick
+###             - libgdal-dev
+###             - libgeos++-dev
+###             - libboost1.55-all-dev
+###             # - libqt4-dev
+###             # - libqt4-dev-bin
+###             # - libqwt-dev
+###             - libxml2-dev
+###             - libxslt1-dev
+###             - python-dev
+###             # - opt-qt4-qmake
+###             # - opt-qt4-dev-tools  # source /opt/qt-4.8/bin/qt-4.8-env.sh
+###             # - opt-libqt4-dev  # source /opt/qt-4.8/bin/qt-4.8-env.sh
+###             - xsdcxx
+###             - xsltproc
+###             # - libc++-dev
 
 before_install:
+    - sudo add-apt-repository ppa:boost-latest/ppa -y
+    - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
     - sudo add-apt-repository ppa:beineri/opt-qt487 -y
     - wget http://www.cmake.org/files/v3.2/cmake-3.2.3-Linux-x86_64.tar.gz
     - if [ "$CC" = "clang" ]; then export CC="clang-3.5" CXX="clang++-3.5"; fi

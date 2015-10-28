@@ -31,6 +31,7 @@ addons:
             # - beineri/opt-qt487
         packages:
             # - clang-3.5
+            - doxygen
             - g++-4.9
             - gdal-bin
             - imagemagick

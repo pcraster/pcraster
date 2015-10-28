@@ -75,12 +75,8 @@ install:
     # - sudo apt-get install -qq qt48base qt48script  # ; source /opt/qt48/bin/qt48-env.sh
     # - sudo apt-get install -qq opt-libqt4-dev opt-libqt4-dev-bin
     # - source /opt/qt48/bin/qt48-env.sh
-    - sudo apt-cache search qt4
     - sudo apt-get install opt-qt4-qmake opt-qt4-dev-tools
-    - ls /opt
-    - ls /opt/qt-4.8
-    - ls /opt/qt-4.8/bin
-    - source /opt/qt-4.8/bin/qt-4.8-env.sh
+    - cat /opt/qt-4.8/bin/qt-4.8-env.sh
 
     - mkdir $TRAVIS_BUILD_DIR/local
 
@@ -91,14 +87,14 @@ install:
     - cd $TRAVIS_BUILD_DIR/peacock
     - mkdir build
     - cd build
-    - cmake -G"${TRAVIS_CMAKE_GENERATOR}" -Dpeacock_prefix=$TRAVIS_BUILD_DIR/local -Dbuild_pcraster_raster_format=true -Dpcraster_raster_format_version=1.3.1 -Dbuild_qwt=true -Dqwt_version=6.0.2 ..
+    - cmake -G"${TRAVIS_CMAKE_GENERATOR}" -DQT_ROOT=/opt/qt-4.8 -Dpeacock_prefix=$TRAVIS_BUILD_DIR/local -Dbuild_pcraster_raster_format=true -Dpcraster_raster_format_version=1.3.1 -Dbuild_qwt=true -Dqwt_version=6.0.2 ..
       # -Dbuild_qt=true -Dqt_version=4.8.6 
     - cmake --build . --target all
 
 before_script:
     - mkdir $TRAVIS_BUILD_DIR/build
     - cd $TRAVIS_BUILD_DIR/build
-    - cmake -G"${TRAVIS_CMAKE_GENERATOR}" -DPEACOCK_PREFIX:PATH=$TRAVIS_BUILD_DIR/local -DCMAKE_BUILD_TYPE=${TRAVIS_BUILD_TYPE} -DPCRASTER_BUILD_TEST:BOOL=TRUE ..
+    - cmake -G"${TRAVIS_CMAKE_GENERATOR}" -DQT_ROOT=/opt/qt-4.8 -DPEACOCK_PREFIX:PATH=$TRAVIS_BUILD_DIR/local -DCMAKE_BUILD_TYPE=${TRAVIS_BUILD_TYPE} -DPCRASTER_BUILD_TEST:BOOL=TRUE ..
 
 script:
     - set -e  # Don't run the tests if the build fails.

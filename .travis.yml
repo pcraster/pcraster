@@ -22,9 +22,6 @@ env:
 #         - os: osx
 #         - compiler: clang
 
-# https://github.com/travis-ci/apt-source-whitelist/blob/master/ubuntu.json
-# https://github.com/travis-ci/apt-package-whitelist/blob/master/ubuntu-precise
-# https://github.com/hicknhack-software/Twofold-Qt/blob/develop/.travis.yml
 addons:
     apt:
         sources:
@@ -90,7 +87,7 @@ install:
     - cd $TRAVIS_BUILD_DIR/local
     # - tar jxf ../xsd-3.3.0-x86_64-linux-gnu.tar.bz2
     # - export PATH=$TRAVIS_BUILD_DIR/local/xsd-3.3.0-x86_64-linux-gnu/bin:$PATH
-    - dpkg --install ./xsd_3.3.0-1_amd64.deb
+    - sudo dpkg --install ./xsd_3.3.0-1_amd64.deb
 
     - cd $TRAVIS_BUILD_DIR/peacock
     - mkdir build

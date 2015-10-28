@@ -31,7 +31,7 @@ addons:
             - boost-latest
             # - llvm-toolchain-precise-3.5
             - ubuntu-toolchain-r-test
-            - beineri/opt-qt487
+            # - beineri/opt-qt487
         packages:
             # - clang-3.5
             - g++-4.9
@@ -73,6 +73,7 @@ install:
     # - sudo apt-get install -qq qt48base qt48script  # ; source /opt/qt48/bin/qt48-env.sh
     # - sudo apt-get install -qq opt-libqt4-dev opt-libqt4-dev-bin
     # - source /opt/qt48/bin/qt48-env.sh
+    - sudo apt-cache search qt4
     - sudo apt-get install opt-qt4-qmake opt-qt4-dev-tools
     - ls /opt
     - ls /opt/qt-4.8

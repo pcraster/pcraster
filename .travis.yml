@@ -54,7 +54,11 @@ before_install:
     - sudo add-apt-repository ppa:beineri/opt-qt487 -y
     - sudo apt-get update -qq
 
+    # Update CMake.
     - wget http://www.cmake.org/files/v3.2/cmake-3.2.3-Linux-x86_64.tar.gz
+
+    # We need to patch xsd because of:
+    # http://www.codesynthesis.com/pipermail/xsd-users/2014-February/004196.html
     - wget http://www.codesynthesis.com/download/xsd/3.3/linux-gnu/x86_64/xsd-3.3.0-x86_64-linux-gnu.tar.bz2
     # - wget http://www.codesynthesis.com/download/xsd/3.3/linux-gnu/x86_64/xsd_3.3.0-1_amd64.deb
     - wget http://codesynthesis.com/~boris/tmp/xsd/xsd-3.3.0-gcc-4.7-clang.patch
@@ -69,12 +73,9 @@ before_install:
 
 install:
     - set -e
-    # - sudo apt-get install -qq opt-qt4-qmake opt-qt4-dev-tools; source /opt/qt-4.8/bin/qt-487-env.sh
-    # - sudo apt-get install -qq opt-libqt4-dev  # ; source /opt/qt-4.8/bin/qt-487-env.sh
-    #                            opt-libqt4-dev
-    # - sudo apt-get install -qq qt48base qt48script  # ; source /opt/qt48/bin/qt48-env.sh
-    # - sudo apt-get install -qq opt-libqt4-dev opt-libqt4-dev-bin
-    # - source /opt/qt48/bin/qt48-env.sh
+
+    - pip install numpy
+
     - sudo apt-get install opt-qt4-qmake opt-qt4-dev-tools
     - export PATH=/opt/qt-4.8/bin:$PATH
     - cat /opt/qt-4.8/bin/qt-4.8-env.sh

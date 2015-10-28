@@ -30,6 +30,7 @@ addons:
             - boost-latest
             # - llvm-toolchain-precise-3.5
             - ubuntu-toolchain-r-test
+            - beineri/opt-qt487
         packages:
             # - clang-3.5
             - g++-4.9
@@ -44,6 +45,9 @@ addons:
             - libxml2-dev
             - libxslt1-dev
             - python-dev
+            # - opt-qt4-qmake
+            # - opt-qt4-dev-tools  # source /opt/qt-4.8/bin/qt-4.8-env.sh
+            - opt-libqt4-dev  # source /opt/qt-4.8/bin/qt-4.8-env.sh
             - xsdcxx
             - xsltproc
             # - libc++-dev
@@ -69,7 +73,8 @@ install:
     - cd $TRAVIS_BUILD_DIR/peacock
     - mkdir build
     - cd build
-    - cmake -G"${TRAVIS_CMAKE_GENERATOR}" -Dpeacock_prefix=$TRAVIS_BUILD_DIR/local -Dbuild_pcraster_raster_format=true -Dpcraster_raster_format_version=1.3.1 -Dbuild_qt=true -Dqt_version=4.8.6 -Dbuild_qwt=true -Dqwt_version=6.0.2 ..
+    - cmake -G"${TRAVIS_CMAKE_GENERATOR}" -Dpeacock_prefix=$TRAVIS_BUILD_DIR/local -Dbuild_pcraster_raster_format=true -Dpcraster_raster_format_version=1.3.1 -Dbuild_qwt=true -Dqwt_version=6.0.2 ..
+      # -Dbuild_qt=true -Dqt_version=4.8.6 
     - cmake --build . --target all
 
 before_script:

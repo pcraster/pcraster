@@ -66,11 +66,13 @@ before_install:
     - git clone --recursive https://github.com/geoneric/peacock.git
 
 install:
+    - set -e
     # - sudo apt-get install -qq opt-qt4-qmake opt-qt4-dev-tools; source /opt/qt-4.8/bin/qt-487-env.sh
     # - sudo apt-get install -qq opt-libqt4-dev  # ; source /opt/qt-4.8/bin/qt-487-env.sh
     #                            opt-libqt4-dev
     # - sudo apt-get install -qq qt48base qt48script  # ; source /opt/qt48/bin/qt48-env.sh
-    - sudo apt-get install -qq opt-qt4-x11; source /opt/qt48/bin/qt48-env.sh
+    - sudo apt-get install -qq opt-libqt4-dev
+    - source /opt/qt48/bin/qt48-env.sh
 
     - mkdir $TRAVIS_BUILD_DIR/local
 
@@ -100,4 +102,4 @@ script:
 notifications:
     email:
         - k.dejong1@uu.nl
-        - o.schmitz@uu.nl
+        # - o.schmitz@uu.nl

@@ -87,7 +87,7 @@ install:
 
     - cd $TRAVIS_BUILD_DIR/local
     - tar jxf ../xsd-3.3.0-x86_64-linux-gnu.tar.bz2
-    - patch ../xsd-3.3.0-gcc-4.7-clang.patch
+    - patch < ../xsd-3.3.0-gcc-4.7-clang.patch
     - export PATH=$TRAVIS_BUILD_DIR/local/xsd-3.3.0-x86_64-linux-gnu/bin:$PATH
     # - sudo dpkg --install ./xsd_3.3.0-1_amd64.deb
 

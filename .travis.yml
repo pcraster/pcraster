@@ -81,8 +81,9 @@ install:
     - cd $TRAVIS_BUILD_DIR
     # - virtualenv --system-site-packages my_python
     # - source my_python/bin/activate
-    - pip install --upgrade docopt
-    - pip install --upgrade sphinx
+    - sudo pip install --upgrade pip
+    - sudo pip install --upgrade docopt
+    - sudo pip install --upgrade sphinx
     # - pip install numpy
 
     - sudo apt-get install opt-qt4-qmake opt-qt4-dev-tools

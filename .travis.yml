@@ -84,7 +84,7 @@ install:
     - sudo pip install --upgrade pip
     - sudo pip install --upgrade docopt
     - sudo pip install --upgrade sphinx
-    # - pip install numpy
+    - sudo pip install pillow
 
     - sudo apt-get install opt-qt4-qmake opt-qt4-dev-tools
     - export PATH=/opt/qt-4.8/bin:$PATH

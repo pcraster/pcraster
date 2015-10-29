@@ -11,6 +11,7 @@
 // #define INCLUDED_STDDEFX
 // #endif
 // Library headers.
+#include <cassert>
 #include <xercesc/dom/DOMNodeList.hpp>
 #include <xercesc/dom/DOMElement.hpp>
 #include <xercesc/dom/DOMNamedNodeMap.hpp>

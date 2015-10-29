@@ -117,6 +117,9 @@ before_script:
 script:
     - set -e  # Don't run the tests if the build fails.
     - cd $TRAVIS_BUILD_DIR/build
+
+    # Split the build, make all takes > 50 minutes.
+    - cmake --build . --config ${TRAVIS_BUILD_TYPE} --target pcraster_aguila
     - cmake --build . --config ${TRAVIS_BUILD_TYPE} --target all
     - cmake --build . --config ${TRAVIS_BUILD_TYPE} --target test
     - cd ..

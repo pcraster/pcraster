@@ -79,8 +79,8 @@ install:
     - set -e
 
     - cd $TRAVIS_BUILD_DIR
-    - virtualenv --system-site-packages my_python
-    - source my_python/bin/activate
+    # - virtualenv --system-site-packages my_python
+    # - source my_python/bin/activate
     - pip install --upgrade docopt
     - pip install --upgrade sphinx
     # - pip install numpy
@@ -116,9 +116,10 @@ before_script:
 
 script:
     - set -e  # Don't run the tests if the build fails.
+    # - source my_python/bin/activate
     - cd $TRAVIS_BUILD_DIR/build
 
-    # Split the build, make all takes > 50 minutes.
+    # Split the build, 'make all' takes > 50 minutes, which is not allowed.
     - cmake --build . --config ${TRAVIS_BUILD_TYPE} --target pcraster_aguila
     - cmake --build . --config ${TRAVIS_BUILD_TYPE} --target all
     - cmake --build . --config ${TRAVIS_BUILD_TYPE} --target test

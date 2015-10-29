@@ -4,6 +4,7 @@
 #endif
 
 // Library headers.
+#include <cassert>
 #ifndef INCLUDED_BOOST_FORMAT
 #include <boost/format.hpp>
 #define INCLUDED_BOOST_FORMAT

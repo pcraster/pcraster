@@ -45,6 +45,7 @@ addons:
             - libxslt1-dev
             - python-dev
             # - python-docopt
+            - python-gdal
             - python-numpy
             - python-virtualenv
             # - opt-qt4-qmake

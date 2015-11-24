@@ -1,127 +1,17 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_BLOCK_BLOCKTEST
-#include "block_blocktest.h"
-#define INCLUDED_BLOCK_BLOCKTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SCOPED_PTR
-#include <boost/scoped_ptr.hpp>
-#define INCLUDED_BOOST_SCOPED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_DAL_MATHUTILS
+#define BOOST_TEST_MODULE pcrblock block
+#include <boost/test/unit_test.hpp>
 #include "dal_MathUtils.h"
-#define INCLUDED_DAL_MATHUTILS
-#endif
-
-#ifndef INCLUDED_DISCR_BLOCK
 #include "discr_block.h"
-#define INCLUDED_DISCR_BLOCK
-#endif
-
-#ifndef INCLUDED_DISCR_BLOCKDATA
 #include "discr_blockdata.h"
-#define INCLUDED_DISCR_BLOCKDATA
-#endif
-
-#ifndef INCLUDED_DISCR_RASTER
 #include "discr_raster.h"
-#define INCLUDED_DISCR_RASTER
-#endif
-
-#ifndef INCLUDED_DISCR_RASTERDATA
 #include "discr_rasterdata.h"
-#define INCLUDED_DISCR_RASTERDATA
-#endif
-
-// Module headers.
-#ifndef INCLUDED_BLOCK_FUNCTIONS
 #include "block_functions.h"
-#define INCLUDED_BLOCK_FUNCTIONS
-#endif
 
 
-
-/*!
-  \file
-  This file contains the implementation of the BlockTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-
-
-namespace block {
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC BLOCK MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*BlockTest::suite()
+BOOST_AUTO_TEST_CASE(create_)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<BlockTest> instance(new BlockTest());
+  using namespace block;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&BlockTest::testCreate, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&BlockTest::testBaseElevation, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&BlockTest::testSurfaceElevation, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&BlockTest::testSetDefaultValue, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF BLOCK MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-BlockTest::BlockTest(
-         )
-{
-}
-
-
-
-//! setUp
-void BlockTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void BlockTest::tearDown()
-{
-}
-
-
-
-void BlockTest::testCreate()
-{
   discr::Raster raster(3, 1, 1.0, 0.0, 0.0);
   discr::RasterData<REAL4> elevation(&raster);
   elevation.cell(0) = REAL4(1.0);
@@ -138,9 +28,10 @@ void BlockTest::testCreate()
 }
 
 
-
-void BlockTest::testBaseElevation()
+BOOST_AUTO_TEST_CASE(base_elevation)
 {
+  using namespace block;
+
   typedef discr::Block::ThicknessType T;
   discr::Raster raster(3, 1);
 
@@ -163,9 +54,10 @@ void BlockTest::testBaseElevation()
 }
 
 
-
-void BlockTest::testSurfaceElevation()
+BOOST_AUTO_TEST_CASE(surface_elevation)
 {
+  using namespace block;
+
   typedef discr::Block::ThicknessType T;
   discr::Raster raster(3, 1);
 
@@ -196,10 +88,11 @@ void BlockTest::testSurfaceElevation()
 }
 
 
-
-void BlockTest::testSetDefaultValue()
+BOOST_AUTO_TEST_CASE(set_default_value)
 {
-  typedef discr::Block::ThicknessType T;
+  using namespace block;
+
+  // typedef discr::Block::ThicknessType T;
   discr::Raster raster(3, 1);
 
   {
@@ -246,8 +139,3 @@ void BlockTest::testSetDefaultValue()
     BOOST_CHECK( pcr::isMV(sediment.cell(2)[1]));
   }
 }
-
-
-
-} // namespace block
-

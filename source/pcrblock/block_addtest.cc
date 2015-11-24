@@ -1,131 +1,19 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_BLOCK_ADDTEST
-#include "block_addtest.h"
-#define INCLUDED_BLOCK_ADDTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_DAL_MATHUTILS
+#define BOOST_TEST_MODULE pcrblock add
+#include <boost/test/unit_test.hpp>
 #include "dal_MathUtils.h"
-#define INCLUDED_DAL_MATHUTILS
-#endif
-
-#ifndef INCLUDED_DISCR_BLOCK
 #include "discr_block.h"
-#define INCLUDED_DISCR_BLOCK
-#endif
-
-#ifndef INCLUDED_DISCR_BLOCKDATA
 #include "discr_blockdata.h"
-#define INCLUDED_DISCR_BLOCKDATA
-#endif
-
-#ifndef INCLUDED_DISCR_RASTER
 #include "discr_raster.h"
-#define INCLUDED_DISCR_RASTER
-#endif
-
-#ifndef INCLUDED_DISCR_RASTERDATA
 #include "discr_rasterdata.h"
-#define INCLUDED_DISCR_RASTERDATA
-#endif
-
-// Module headers.
-#ifndef INCLUDED_BLOCK_COMPACTORS
 #include "block_compactors.h"
-#define INCLUDED_BLOCK_COMPACTORS
-#endif
-
-#ifndef INCLUDED_BLOCK_DUMMYCOMPACTOR
 #include "block_dummycompactor.h"
-#define INCLUDED_BLOCK_DUMMYCOMPACTOR
-#endif
-
-#ifndef INCLUDED_BLOCK_FUNCTIONS
 #include "block_functions.h"
-#define INCLUDED_BLOCK_FUNCTIONS
-#endif
 
 
-
-/*!
-  \file
-  This file contains the implementation of the AddTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-
-
-namespace block {
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC ADD MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*AddTest::suite()
+BOOST_AUTO_TEST_CASE(no_compaction_add)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<AddTest> instance(new AddTest());
+  using namespace block;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&AddTest::testNoCompactionAdd, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&AddTest::testMackyBridgeAdd, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&AddTest::testDeHaanAdd, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF ADD MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-AddTest::AddTest(
-         )
-{
-}
-
-
-
-//! setUp
-void AddTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void AddTest::tearDown()
-{
-}
-
-
-
-void AddTest::testNoCompactionAdd()
-{
   {
     // Create block.
     // Create raster with thicknesses.
@@ -159,9 +47,10 @@ void AddTest::testNoCompactionAdd()
 }
 
 
-
-void AddTest::testMackyBridgeAdd()
+BOOST_AUTO_TEST_CASE(macky_bridge_add)
 {
+  using namespace block;
+
   size_t nrRows = 3;
   size_t nrCols = 4;
   double cellSize = 1.5;
@@ -209,9 +98,10 @@ void AddTest::testMackyBridgeAdd()
 }
 
 
-
-void AddTest::testDeHaanAdd()
+BOOST_AUTO_TEST_CASE(de_haan_add)
 {
+  using namespace block;
+
   size_t nrRows = 1;
   size_t nrCols = 1;
   double cellSize = 1.0;
@@ -273,5 +163,3 @@ void AddTest::testDeHaanAdd()
   BOOST_CHECK(dal::comparable(stack[nrTimeSteps - 1], REAL4(1.377602705)));
   BOOST_CHECK(dal::comparable(stack[0], REAL4(1.684692206)));
 }
-
-} // namespace block

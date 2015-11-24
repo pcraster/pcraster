@@ -53,51 +53,38 @@ ADD_EXECUTABLE(col2map
 #     )
 # ELSE(WIN32)
     TARGET_LINK_LIBRARIES(col2map
-        # ${LIBRARIES_TO_LINK}
+        ### # ${LIBRARIES_TO_LINK}
         app
         pcrcom
         tab
         mathx
         misc
         pcraster_dal
-        # ${PCRASTER_RASTER_FORMAT_LIBRARIES}
-        # ${DEVENV_UTILS_LIBRARY}
-        # ${QT_QTCORE_LIBRARIES}
+        ### # ${PCRASTER_RASTER_FORMAT_LIBRARIES}
+        ### # ${DEVENV_UTILS_LIBRARY}
+        ### # ${QT_QTCORE_LIBRARIES}
     )
 # ENDIF(WIN32)
 
 SET_TARGET_PROPERTIES(col2map PROPERTIES LINKER_LANGUAGE CXX)
 
-
-SET(TEST_SOURCES
-    col2map_test.cc
-    col2map_col2maptest.cc
-)
-
-# this test just test some general properties of the underlying
-# things
-ADD_EXECUTABLE(test_col2map
-    ${TEST_SOURCES}
-)
-
-ADD_DEPENDENCIES(test_col2map mapattr col2map)
-
-TARGET_LINK_LIBRARIES(test_col2map
-    pcraster_dal
-    # ${LIBRARIES_TO_LINK}
-    # ${BOOST_FILESYSTEM_LIBRARY}
-    ${Boost_SYSTEM_LIBRARY}
-)
-
-ADD_CUSTOM_TARGET(run_test_col2map
-    COMMAND bash ./testrun.prolog
-    COMMAND test_col2map
-    DEPENDS test_col2map
-    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-)
-ADD_DEPENDENCIES(tests run_test_col2map)
-
 INSTALL(
     TARGETS col2map
     RUNTIME DESTINATION bin COMPONENT Runtime
 )
+
+
+if(PCRASTER_BUILD_TEST)
+    set(TEST_NAMES
+        col2map_col2maptest
+    )
+
+    add_unit_tests(
+        SCOPE col2map
+        NAMES ${TEST_NAMES}
+        LINK_LIBRARIES
+            pcraster_dal
+        DEPENDENCIES
+            mapattr col2map
+    )
+endif()

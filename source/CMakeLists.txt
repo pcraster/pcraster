@@ -56,7 +56,7 @@ add_subdirectory(col2map)
 add_subdirectory(map2asc)
 add_subdirectory(map2col)
 add_subdirectory(mapattr)
-add_subdirectory(resample)  # TODO unit tests
+add_subdirectory(resample)
 add_subdirectory(table)
 add_subdirectory(legend)
 

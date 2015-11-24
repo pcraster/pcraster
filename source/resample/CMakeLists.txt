@@ -1,10 +1,3 @@
-CONFIGURE_FILE(
-    ${CMAKE_CURRENT_SOURCE_DIR}/testrun.prolog.in
-    ${CMAKE_CURRENT_BINARY_DIR}/testrun.prolog
-    @ONLY
-    NEWLINE_STYLE UNIX
-)
-
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/../app
     ${CMAKE_CURRENT_SOURCE_DIR}/../geom
@@ -60,15 +53,30 @@ INSTALL(
 )
 
 
-if(FALSE AND PCRASTER_BUILD_TEST)
+if(FALSE PCRASTER_BUILD_TEST)
+    # TODO Turn this test into a real unit test with system calls or so.
+
+    # Running resample test cases...
+    # ./testrun.prolog: line 16: .../pcraster/bin/CMAKE_CFG_INTDIR/resample: No such file or directory
+    # Problem running command: ./test_run_prolog.sh
+    # Problem executing pre-test command(s).
+    # Errors while running CTest
+
+    configure_file(
+        ${CMAKE_CURRENT_SOURCE_DIR}/testrun.prolog.in
+        ${CMAKE_CURRENT_BINARY_DIR}/testrun.prolog
+        @ONLY
+        NEWLINE_STYLE UNIX
+    )
+
     # run resample from the command line and compare output maps,
     # done in testrun.prolog
-    ADD_CUSTOM_TARGET(run_test_resample
+    add_custom_target(run_test_resample
         COMMAND sed -i.tmp "s/CMAKE_CFG_INTDIR/${CMAKE_CFG_INTDIR}/g"
             ./testrun.prolog
         COMMAND bash ./testrun.prolog
         DEPENDS resample mapdiff
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     )
-    ADD_DEPENDENCIES(tests run_test_resample)
+    add_dependencies(tests run_test_resample)
 endif()

@@ -6,6 +6,8 @@ directories_with_prolog_scripts="
     source/pcraster_aguila
     source/col2map
 "
+# TODO See resample's CMakeLists.txt
+# source/resample
 
 
 for directory_pathname in $directories_with_prolog_scripts; do

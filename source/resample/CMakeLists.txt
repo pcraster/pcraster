@@ -53,7 +53,7 @@ INSTALL(
 )
 
 
-if(FALSE PCRASTER_BUILD_TEST)
+if(FALSE OR PCRASTER_BUILD_TEST)
     # TODO Turn this test into a real unit test with system calls or so.
 
     # Running resample test cases...

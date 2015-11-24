@@ -25,7 +25,7 @@ add_subdirectory(app)
 add_subdirectory(mathx)
 add_subdirectory(curr)
 add_subdirectory(misc)
-add_subdirectory(pcraster_moc)  # TODO unit tests
+add_subdirectory(pcraster_moc)
 add_subdirectory(pcrblock)  # TODO unit tests
 add_subdirectory(pcraster_block_python)  # TODO unit tests
 add_subdirectory(pcrcom)

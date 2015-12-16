@@ -1,109 +1,14 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_DISCR_BLOCKDATATEST
-#include "discr_blockdatatest.h"
-#define INCLUDED_DISCR_BLOCKDATATEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DISCR_BLOCK
+#define BOOST_TEST_MODULE pcraster discr block_data
+#include <boost/test/unit_test.hpp>
 #include "discr_block.h"
-#define INCLUDED_DISCR_BLOCK
-#endif
-
-#ifndef INCLUDED_DISCR_RASTER
 #include "discr_raster.h"
-#define INCLUDED_DISCR_RASTER
-#endif
-
-#ifndef INCLUDED_DISCR_BLOCKDATA
 #include "discr_blockdata.h"
-#define INCLUDED_DISCR_BLOCKDATA
-#endif
 
 
-
-/*!
-  \file
-  This file contains the implementation of the BlockDataTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-
-
-namespace discr {
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC BLOCKDATA MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*BlockDataTest::suite()
+BOOST_AUTO_TEST_CASE(constructor)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<BlockDataTest> instance(new BlockDataTest());
+  using namespace discr;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&BlockDataTest::testConstructor, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&BlockDataTest::testSetDefaultValue, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&BlockDataTest::testAddVoxels, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&BlockDataTest::testRemoveVoxels, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&BlockDataTest::testCutVoxels, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF BLOCKDATA MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-BlockDataTest::BlockDataTest(
-         )
-{
-}
-
-
-
-//! setUp
-void BlockDataTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void BlockDataTest::tearDown()
-{
-}
-
-
-
-void BlockDataTest::testConstructor()
-{
   size_t nrRows = 2;
   size_t nrCols = 1;
   double cellSize = 1.0;
@@ -155,9 +60,10 @@ void BlockDataTest::testConstructor()
 }
 
 
-
-void BlockDataTest::testSetDefaultValue()
+BOOST_AUTO_TEST_CASE(set_default_value)
 {
+  using namespace discr;
+
   Raster raster(2, 1, 1.0, 0.0, 0.0);
   RasterData<REAL4> baseElevation(&raster, 5.0);
   Block block(baseElevation);
@@ -174,9 +80,10 @@ void BlockDataTest::testSetDefaultValue()
 }
 
 
-
-void BlockDataTest::testAddVoxels()
+BOOST_AUTO_TEST_CASE(add_voxels)
 {
+  using namespace discr;
+
   Raster raster(2, 1, 1.0, 0.0, 0.0);
 
   {
@@ -206,21 +113,20 @@ void BlockDataTest::testAddVoxels()
 }
 
 
-
-void BlockDataTest::testRemoveVoxels()
+BOOST_AUTO_TEST_CASE(remove_voxels)
 {
+  using namespace discr;
+
   bool testImplemented = false;
   BOOST_WARN(testImplemented);
 }
 
 
-
-void BlockDataTest::testCutVoxels()
+BOOST_AUTO_TEST_CASE(cut_voxels)
 {
+  using namespace discr;
+
   // Test for all supported value types. Cut behaviour differs per value type.
   bool testImplemented = false;
   BOOST_WARN(testImplemented);
 }
-
-} // namespace discr
-

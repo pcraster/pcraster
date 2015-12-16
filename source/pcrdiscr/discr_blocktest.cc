@@ -1,115 +1,14 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_DISCR_BLOCKTEST
-#include "discr_blocktest.h"
-#define INCLUDED_DISCR_BLOCKTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_DAL_MATHUTILS
+#define BOOST_TEST_MODULE pcraster discr block
+#include <boost/test/unit_test.hpp>
 #include "dal_MathUtils.h"
-#define INCLUDED_DAL_MATHUTILS
-#endif
-
-// Module headers.
-#ifndef INCLUDED_DISCR_BLOCK
 #include "discr_block.h"
-#define INCLUDED_DISCR_BLOCK
-#endif
-
-#ifndef INCLUDED_DISCR_RASTER
 #include "discr_raster.h"
-#define INCLUDED_DISCR_RASTER
-#endif
 
 
-
-/*!
-  \file
-  This file contains the implementation of the BlockTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-
-
-namespace discr {
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC BLOCK MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*BlockTest::suite()
+BOOST_AUTO_TEST_CASE(constructor)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<BlockTest> instance(new BlockTest());
+  using namespace discr;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&BlockTest::testConstructor, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&BlockTest::testAddVoxels, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&BlockTest::testNrVoxels, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&BlockTest::testRemoveVoxels, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&BlockTest::testCutVoxels, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&BlockTest::testSetMV, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&BlockTest::testEquals, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&BlockTest::testIsEmpty, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&BlockTest::testIsRegular, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&BlockTest::testBottomELevation, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&BlockTest::testTopElevation, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&BlockTest::testExtremeElevations, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF BLOCK MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-BlockTest::BlockTest(
-         )
-{
-}
-
-
-
-//! setUp
-void BlockTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void BlockTest::tearDown()
-{
-}
-
-
-
-void BlockTest::testConstructor()
-{
   size_t nrRows = 3;
   size_t nrCols = 4;
   double cellSize = 1.5;
@@ -191,9 +90,10 @@ void BlockTest::testConstructor()
 }
 
 
-
-void BlockTest::testAddVoxels()
+BOOST_AUTO_TEST_CASE(add_voxels)
 {
+  using namespace discr;
+
   // Two rows, one column.
   Raster raster(2, 1);
   typedef Block::ThicknessType T;
@@ -236,12 +136,12 @@ void BlockTest::testAddVoxels()
 }
 
 
-
-void BlockTest::testNrVoxels()
+BOOST_AUTO_TEST_CASE(nr_voxels)
 {
+  using namespace discr;
+
   // Two rows, one column.
   Raster raster(2, 1, 1.0, 0.0, 0.0);
-  typedef Block::ThicknessType T;
 
   {
     Block block(raster, 5.0);
@@ -262,9 +162,10 @@ void BlockTest::testNrVoxels()
 }
 
 
-
-void BlockTest::testRemoveVoxels()
+BOOST_AUTO_TEST_CASE(remove_voxels)
 {
+  using namespace discr;
+
   // Two rows, one column.
   Raster raster(2, 1, 1.0, 0.0, 0.0);
   typedef Block::ThicknessType T;
@@ -299,9 +200,10 @@ void BlockTest::testRemoveVoxels()
 }
 
 
-
-void BlockTest::testCutVoxels()
+BOOST_AUTO_TEST_CASE(cut_voxels)
 {
+  using namespace discr;
+
   // Two rows, one column.
   Raster raster(2, 1, 1.0, 0.0, 0.0);
   typedef Block::ThicknessType T;
@@ -318,12 +220,12 @@ void BlockTest::testCutVoxels()
 }
 
 
-
-void BlockTest::testSetMV()
+BOOST_AUTO_TEST_CASE(set_mv)
 {
+  using namespace discr;
+
   // Two rows, one column.
   Raster raster(2, 1, 1.0, 0.0, 0.0);
-  typedef Block::ThicknessType T;
 
   {
     Block block(raster, 5.0);
@@ -348,12 +250,12 @@ void BlockTest::testSetMV()
 }
 
 
-
-void BlockTest::testEquals()
+BOOST_AUTO_TEST_CASE(equals)
 {
+  using namespace discr;
+
   // Two rows, one column.
   Raster raster(2, 1, 1.0, 0.0, 0.0);
-  typedef Block::ThicknessType T;
 
   {
     Block block1(raster, 5.0);
@@ -380,12 +282,12 @@ void BlockTest::testEquals()
 }
 
 
-
-void BlockTest::testIsEmpty()
+BOOST_AUTO_TEST_CASE(is_empty)
 {
+  using namespace discr;
+
   // Two rows, one column.
   Raster raster(2, 1, 1.0, 0.0, 0.0);
-  typedef Block::ThicknessType T;
 
   {
     Block block(raster, 5.0);
@@ -407,12 +309,12 @@ void BlockTest::testIsEmpty()
 }
 
 
-
-void BlockTest::testIsRegular()
+BOOST_AUTO_TEST_CASE(is_regular)
 {
+  using namespace discr;
+
   // Two rows, one column.
   Raster raster(2, 1, 1.0, 0.0, 0.0);
-  typedef Block::ThicknessType T;
 
   {
     // empty block
@@ -439,9 +341,10 @@ void BlockTest::testIsRegular()
 }
 
 
-
-void BlockTest::testBottomELevation()
+BOOST_AUTO_TEST_CASE(bottom_elevation)
 {
+  using namespace discr;
+
   // Two rows, one column.
   Raster raster(2, 1, 1.0, 0.0, 0.0);
   bool isValid;
@@ -491,9 +394,10 @@ void BlockTest::testBottomELevation()
 }
 
 
-
-void BlockTest::testTopElevation()
+BOOST_AUTO_TEST_CASE(top_elevation)
 {
+  using namespace discr;
+
   // Two rows, one column.
   Raster raster(2, 1, 1.0, 0.0, 0.0);
   bool isValid;
@@ -543,9 +447,10 @@ void BlockTest::testTopElevation()
 }
 
 
-
-void BlockTest::testExtremeElevations()
+BOOST_AUTO_TEST_CASE(extreme_elevations)
 {
+  using namespace discr;
+
   // Two rows, one column.
   Raster raster(2, 1, 1.0, 0.0, 0.0);
   bool isValid;
@@ -599,6 +504,3 @@ void BlockTest::testExtremeElevations()
     BOOST_CHECK(dal::comparable(bottom, T(5.0)));
   }
 }
-
-} // namespace discr
-

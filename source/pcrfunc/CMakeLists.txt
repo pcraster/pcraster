@@ -9,21 +9,15 @@ include_directories(
 # )
 
 
-if(FALSE AND PCRASTER_BUILD_TEST)
-    SET(TEST_SOURCES
-        func_assigntest.cc
-        func_booleanoperatorstest.cc
-        func_setmvtest.cc
-        func_summarystatisticstest.cc
-        func_test.cc
+if(PCRASTER_BUILD_TEST)
+    SET(TEST_NAMES
+        func_assigntest
+        func_booleanoperatorstest
+        func_setmvtest
+        func_summarystatisticstest
     )
-    ADD_EXECUTABLE(test_pcrfunc
-        ${TEST_SOURCES}
+    add_unit_tests(
+        SCOPE pcrfunc
+        NAMES ${TEST_NAMES}
     )
-    ADD_CUSTOM_TARGET(run_test_pcrfunc
-        COMMAND test_pcrfunc
-        DEPENDS test_pcrfunc
-        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-    )
-    ADD_DEPENDENCIES(tests run_test_pcrfunc)
 endif()

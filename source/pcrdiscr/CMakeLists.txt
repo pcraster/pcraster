@@ -26,18 +26,4 @@ if(PCRASTER_BUILD_TEST)
         LINK_LIBRARIES
             pcrdiscr
     )
-
-
-###     ADD_EXECUTABLE(test_pcrdiscr
-###         ${TEST_NAMES}
-###     )
-###     TARGET_LINK_LIBRARIES(test_pcrdiscr
-###         pcrdiscr
-###     )
-###     ADD_CUSTOM_TARGET(run_test_pcrdiscr
-###         COMMAND test_pcrdiscr --detect_memory_leaks=0
-###         DEPENDS test_pcrdiscr
-###         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-###     )
-###     ADD_DEPENDENCIES(tests run_test_pcrdiscr)
 endif()

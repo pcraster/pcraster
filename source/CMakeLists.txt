@@ -31,7 +31,7 @@ add_subdirectory(pcraster_block_python)  # TODO unit tests
 add_subdirectory(pcrcom)
 add_subdirectory(pcrdiscr)
 add_subdirectory(pcrfunc)
-add_subdirectory(pcrgeo)  # TODO unit tests
+add_subdirectory(pcrgeo)
 add_subdirectory(pcrgeom)
 add_subdirectory(pcrraster)  # TODO unit tests
 add_subdirectory(pcrvoxelstack)  # TODO unit tests

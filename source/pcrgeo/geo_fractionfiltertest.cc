@@ -1,109 +1,15 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_GEO_FRACTIONFILTERTEST
-#include "geo_fractionfiltertest.h"
-#define INCLUDED_GEO_FRACTIONFILTERTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_DAL_MATHUTILS
+#define BOOST_TEST_MODULE pcraster geo fraction_filter
+#include <boost/test/unit_test.hpp>
 #include "dal_MathUtils.h"
-#define INCLUDED_DAL_MATHUTILS
-#endif
-
-// Module headers.
-#ifndef INCLUDED_GEO_MOORENEIGHBOURHOOD
 #include "geo_mooreneighbourhood.h"
-#define INCLUDED_GEO_MOORENEIGHBOURHOOD
-#endif
-
-#ifndef INCLUDED_GEO_FILTERENGINE
 #include "geo_filterengine.h"
-#define INCLUDED_GEO_FILTERENGINE
-#endif
-
-#ifndef INCLUDED_GEO_FRACTIONFILTER
 #include "geo_fractionfilter.h"
-#define INCLUDED_GEO_FRACTIONFILTER
-#endif
 
 
-
-/*!
-  \file
-  This file contains the implementation of the FractionFilterTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-
-
-namespace geo {
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC FRACTIONFILTER MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*FractionFilterTest::suite()
+BOOST_AUTO_TEST_CASE(test)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<FractionFilterTest> instance(new FractionFilterTest());
+  using namespace geo;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&FractionFilterTest::test, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF FRACTIONFILTER MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-FractionFilterTest::FractionFilterTest(
-         )
-{
-}
-
-
-
-//! setUp
-void FractionFilterTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void FractionFilterTest::tearDown()
-{
-}
-
-
-
-void FractionFilterTest::test()
-{
   // Fraction of true cells in a filter.
 
   // 1 0 0
@@ -141,8 +47,3 @@ void FractionFilterTest::test()
   BOOST_CHECK(dal::comparable(destination.cell(7), 2.0 / 5.0));
   BOOST_CHECK(dal::comparable(destination.cell(8), 2.0 / 3.0));
 }
-
-
-
-} // namespace geo
-

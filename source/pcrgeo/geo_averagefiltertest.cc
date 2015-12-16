@@ -1,93 +1,13 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_GEO_AVERAGEFILTERTEST
-#include "geo_averagefiltertest.h"
-#define INCLUDED_GEO_AVERAGEFILTERTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_GEO_AVERAGEFILTER
+#define BOOST_TEST_MODULE pcraster geo average_filter
+#include <boost/test/unit_test.hpp>
 #include "geo_averagefilter.h"
-#define INCLUDED_GEO_AVERAGEFILTER
-#endif
-
-#ifndef INCLUDED_GEO_FILTERENGINE
 #include "geo_filterengine.h"
-#define INCLUDED_GEO_FILTERENGINE
-#endif
-
-// Module headers.
 
 
-
-/*!
-  \file
-  This file contains the implementation of the AverageFilterTest class.
-*/
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC AVERAGEFILTER MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*geo::AverageFilterTest::suite()
+BOOST_AUTO_TEST_CASE(test)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<AverageFilterTest> instance(new AverageFilterTest());
+  using namespace geo;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&AverageFilterTest::test, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF AVERAGEFILTER MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-geo::AverageFilterTest::AverageFilterTest()
-{
-}
-
-
-
-//! setUp
-void geo::AverageFilterTest::setUp()
-{
-}
-
-//! tearDown
-void geo::AverageFilterTest::tearDown()
-{
-}
-
-
-
-void geo::AverageFilterTest::test()
-{
   //  1  2  3  4  5
   //  6  7  8  9 10
   // 11 12 13 14 15
@@ -244,7 +164,3 @@ void geo::AverageFilterTest::test()
     BOOST_CHECK(pcr::isMV(destination.cell(2, 2)));
   }
 }
-
-
-
-

@@ -1,77 +1,13 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_GEO_CELLLOCVISITORTEST
-#include "geo_celllocvisitortest.h"
-#define INCLUDED_GEO_CELLLOCVISITORTEST
-#endif
-
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-#ifndef INCLUDED_VECTOR
+#define BOOST_TEST_MODULE pcraster geo cell_loc_visitor
+#include <boost/test/unit_test.hpp>
 #include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-#ifndef INCLUDED_GEO_CELLLOCVISITOR
 #include "geo_celllocvisitor.h"
-#define INCLUDED_GEO_CELLLOCVISITOR
-#endif
 
 
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC CLASS MEMBERS
-//------------------------------------------------------------------------------
-
-boost::unit_test::test_suite*geo::CellLocVisitorTest::suite()
+BOOST_AUTO_TEST_CASE(all)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<CellLocVisitorTest> instance(new CellLocVisitorTest());
+  using namespace geo;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&CellLocVisitorTest::testAll, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&CellLocVisitorTest::testDownstream, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
-//------------------------------------------------------------------------------
-
-geo::CellLocVisitorTest::CellLocVisitorTest(){
-}
-
-
-
-void geo::CellLocVisitorTest::setUp()
-{
-}
-
-
-
-void geo::CellLocVisitorTest::tearDown()
-{
-}
-
-void geo::CellLocVisitorTest::testAll()
-{
   const size_t nrRows=2;
   const size_t nrCols=3;
 
@@ -98,8 +34,11 @@ void geo::CellLocVisitorTest::testAll()
  BOOST_CHECK(j == 6);
 }
 
-void geo::CellLocVisitorTest::testDownstream()
+
+BOOST_AUTO_TEST_CASE(down_stream)
 {
+  using namespace geo;
+
   {
     CellLocVisitor cv(1,1);
     for(size_t l=1; l <=9; l++) {
@@ -116,15 +55,3 @@ void geo::CellLocVisitorTest::testDownstream()
       BOOST_CHECK((l>5||l==3)|| cv.downstream(c,l));
   }
 }
-
-//------------------------------------------------------------------------------
-// DEFINITION OF FREE OPERATORS 
-//------------------------------------------------------------------------------
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF FREE FUNCTIONS 
-//------------------------------------------------------------------------------
-
-

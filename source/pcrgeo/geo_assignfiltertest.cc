@@ -1,95 +1,13 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_GEO_ASSIGNFILTERTEST
-#include "geo_assignfiltertest.h"
-#define INCLUDED_GEO_ASSIGNFILTERTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_GEO_ASSIGNFILTER
+#define BOOST_TEST_MODULE pcraster geo assign_filter
+#include <boost/test/unit_test.hpp>
 #include "geo_assignfilter.h"
-#define INCLUDED_GEO_ASSIGNFILTER
-#endif
-
-#ifndef INCLUDED_GEO_FILTERENGINE
 #include "geo_filterengine.h"
-#define INCLUDED_GEO_FILTERENGINE
-#endif
 
 
-
-/*!
-  \file
-  This file contains the implementation of the AssignFilterTest class.
-*/
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC ASSIGNFILTER MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*geo::AssignFilterTest::suite()
+BOOST_AUTO_TEST_CASE(test)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<AssignFilterTest> instance(new AssignFilterTest());
+  using namespace geo;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&AssignFilterTest::test, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF ASSIGNFILTER MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-geo::AssignFilterTest::AssignFilterTest()
-{
-}
-
-
-
-//! setUp
-void geo::AssignFilterTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void geo::AssignFilterTest::tearDown()
-{
-}
-
-
-
-void geo::AssignFilterTest::test()
-{
   // Create filter. Weight matrix won't be used.
   SimpleRaster<double> weights(5, 5, 1.0);
   AssignFilter filter(weights);

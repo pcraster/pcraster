@@ -1,89 +1,12 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_GEO_SQUARETEST
-#include "geo_squaretest.h"
-#define INCLUDED_GEO_SQUARETEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_GEO_SQUARE
+#define BOOST_TEST_MODULE pcraster geo square
+#include <boost/test/unit_test.hpp>
 #include "geo_square.h"
-#define INCLUDED_GEO_SQUARE
-#endif
 
 
-
-/*!
-  \file
-  This file contains the implementation of the SquareTest class.
-*/
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC SQUARE MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*geo::SquareTest::suite()
+BOOST_AUTO_TEST_CASE(quad_square_at)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<SquareTest> instance(new SquareTest());
+  using namespace geo;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&SquareTest::testQuadSquareAt, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&SquareTest::testContains, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&SquareTest::testIntersects, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF SQUARE MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-geo::SquareTest::SquareTest()
-{
-}
-
-
-//! setUp
-void geo::SquareTest::setUp()
-{
-}
-
-//! tearDown
-void geo::SquareTest::tearDown()
-{
-}
-
-
-
-void geo::SquareTest::testQuadSquareAt()
-{
   typedef Point<float,2> Punt;
   Punt c;
   c[0]=20; c[1]=20;
@@ -114,8 +37,11 @@ void geo::SquareTest::testQuadSquareAt()
   BOOST_CHECK(q.centre()==c); // d
 }
 
-void geo::SquareTest::testContains()
+
+BOOST_AUTO_TEST_CASE(contains)
 {
+  using namespace geo;
+
   typedef Point<float,2> Punt;
   Punt c; c[0]=20; c[1]=20;
 
@@ -164,8 +90,10 @@ void geo::SquareTest::testContains()
 }
 
 
-void geo::SquareTest::testIntersects()
+BOOST_AUTO_TEST_CASE(intersects)
 {
+  using namespace geo;
+
   typedef Point<float,2> Punt;
   Punt c(20,20);
   // default boundary, closed

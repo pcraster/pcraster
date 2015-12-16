@@ -1,99 +1,18 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_GEO_FILECREATETESTERTEST
-#include "geo_filecreatetestertest.h"
-#define INCLUDED_GEO_FILECREATETESTERTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_EXCEPTION
+#define BOOST_TEST_MODULE pcraster geo file_create_tester
+#include <boost/test/unit_test.hpp>
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-#ifndef INCLUDED_COM_FILE
 #include "com_file.h"
-#define INCLUDED_COM_FILE
-#endif
-// Module headers.
-#ifndef INCLUDED_GEO_FILECREATETESTER
 #include "geo_filecreatetester.h"
-#define INCLUDED_GEO_FILECREATETESTER
-#endif
-
-
-
-/*!
-  \file
-  This file contains the implementation of the FileCreateTesterTest class.
-*/
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC FILECREATETESTER MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*geo::FileCreateTesterTest::suite()
-{
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<FileCreateTesterTest> instance(new FileCreateTesterTest());
-
-   suite->add(BOOST_CLASS_TEST_CASE(&FileCreateTesterTest::testEqualToCsf, instance));
-   suite->add(BOOST_CLASS_TEST_CASE(&FileCreateTesterTest::testEqualToTss, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF FILECREATETESTER MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-geo::FileCreateTesterTest::FileCreateTesterTest()
-{
-}
-
-
-
-//! setUp
-void geo::FileCreateTesterTest::setUp()
-{
-}
-
-//! tearDown
-void geo::FileCreateTesterTest::tearDown()
-{
-}
 
 
 //! test equal to
 /*!
    \todo compare outn2.map to constant 2
  */
-void geo::FileCreateTesterTest::testEqualToCsf()
+BOOST_AUTO_TEST_CASE(test_equal_to_csf)
 {
+  using namespace geo;
+
   {
     FileCreateTester m("failureExpected.map");
     BOOST_CHECK(!m.equalTo("dtmsmall.map",false));
@@ -149,8 +68,11 @@ void geo::FileCreateTesterTest::testEqualToCsf()
  BOOST_CHECK(o2.equalTo("out2n.map"));
 }
 
-void geo::FileCreateTesterTest::testEqualToTss()
+
+BOOST_AUTO_TEST_CASE(test_equal_to_tss)
 {
+  using namespace geo;
+
   {
     com::PathName p1("FileCreateTesterTest1.tss");
     FileCreateTester m(p1,false);

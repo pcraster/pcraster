@@ -1,89 +1,13 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_GEO_SCANCONVERSIONTEST
-#include "geo_scanconversiontest.h"
-#define INCLUDED_GEO_SCANCONVERSIONTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-#ifndef INCLUDED_ALGORITHM
+#define BOOST_TEST_MODULE pcraster geo scan_conversion
+#include <boost/test/unit_test.hpp>
 #include <algorithm>
-#define INCLUDED_ALGORITHM
-#endif
-// PCRaster library headers.
-
-// Module headers.
+#include "geo_scanconversion.h"
 
 
-
-/*!
-  \file
-  This file contains the implementation of the ScanConversionTest class.
-*/
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC SCANCONVERTING MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*geo::ScanConversionTest::suite()
+BOOST_AUTO_TEST_CASE(midpoint_line)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<ScanConversionTest> instance(new ScanConversionTest());
+  using namespace geo;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&ScanConversionTest::testMidpointLine, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ScanConversionTest::testMidpointCircleNrPoints, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ScanConversionTest::testMidpointCircle, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF SCANCONVERTING MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-geo::ScanConversionTest::ScanConversionTest()
-{
-}
-
-
-
-//! setUp
-void geo::ScanConversionTest::setUp()
-{
-}
-
-//! tearDown
-void geo::ScanConversionTest::tearDown()
-{
-}
-
-
-
-void geo::ScanConversionTest::testMidpointLine()
-{
   {
     // N line.
     RememberPoints<size_t> points;
@@ -252,8 +176,8 @@ void geo::ScanConversionTest::testMidpointLine()
 
 
 template<class Integral>
-void geo::ScanConversionTest::testCirclePoints(
-         const RememberPoints<Integral>& points,
+void testCirclePoints(
+         const geo::RememberPoints<Integral>& points,
          const std::pair<Integral, Integral>& point) {
   typedef std::pair<Integral, Integral> Point;
   Integral x = point.first;
@@ -278,9 +202,10 @@ void geo::ScanConversionTest::testCirclePoints(
 }
 
 
-
-void geo::ScanConversionTest::testMidpointCircleNrPoints()
+BOOST_AUTO_TEST_CASE(midpoint_circle_nr_points)
 {
+  using namespace geo;
+
   {
     RememberPoints<int> points;
     points = midpointCircle(0, 0, 0, points);
@@ -319,9 +244,10 @@ void geo::ScanConversionTest::testMidpointCircleNrPoints()
 }
 
 
-
-void geo::ScanConversionTest::testMidpointCircle()
+BOOST_AUTO_TEST_CASE(midpoint_circle)
 {
+  using namespace geo;
+
   typedef std::pair<int, int> Point;
 
   {
@@ -478,6 +404,3 @@ void geo::ScanConversionTest::testMidpointCircle()
     }
   }
 }
-
-
-

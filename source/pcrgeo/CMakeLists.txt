@@ -65,51 +65,43 @@ TARGET_LINK_LIBRARIES(pcrgeo
 )
 
 
-if(FALSE AND PCRASTER_BUILD_TEST)
-    SET(TEST_SOURCES
-        geo_addfiltertest.cc
-        geo_algorithmtest.cc
-        geo_assignfiltertest.cc
-        geo_averagefiltertest.cc
-        geo_bandmaptest.cc
-        geo_celllocvisitortest.cc
-        geo_circularneighbourhoodtest.cc
-        geo_countfiltertest.cc
-        geo_csfmaptest.cc
-        geo_csfstacknametest.cc
-        geo_filecreatetestertest.cc
-        geo_fractionfiltertest.cc
-        geo_griddedpointstest.cc
-        geo_mooreneighbourhoodtest.cc
-        geo_neighbourhoodtest.cc
-        geo_neighbourtest.cc
-        geo_pointtest.cc
-        geo_pointvaluetest.cc
-        geo_rasterboundariestest.cc
-        geo_rasterdimtest.cc
-        geo_rasterfileconvertertest.cc
-        geo_rasterspacetest.cc
-        geo_rastertest.cc
-        geo_riksneighbourhoodtest.cc
-        geo_scanconversiontest.cc
-        geo_simplerastertest.cc
-        geo_squaretest.cc
-        geo_test.cc
-        geo_utiltest.cc
+if(PCRASTER_BUILD_TEST)
+    SET(TEST_NAMES
+        geo_addfiltertest
+        geo_algorithmtest
+        geo_assignfiltertest
+        geo_averagefiltertest
+        geo_bandmaptest
+        geo_celllocvisitortest
+        geo_circularneighbourhoodtest
+        geo_countfiltertest
+        geo_csfmaptest
+        geo_csfstacknametest
+        geo_filecreatetestertest
+        geo_fractionfiltertest
+        geo_griddedpointstest
+        geo_mooreneighbourhoodtest
+        geo_neighbourhoodtest
+        geo_neighbourtest
+        geo_pointtest
+        geo_pointvaluetest
+        geo_rasterboundariestest
+        geo_rasterdimtest
+        geo_rasterfileconvertertest
+        geo_rasterspacetest
+        geo_rastertest
+        geo_riksneighbourhoodtest
+        geo_scanconversiontest
+        geo_simplerastertest
+        geo_squaretest
+        geo_utiltest
     )
-    ADD_EXECUTABLE(test_pcrgeo
-        ${TEST_SOURCES}
+    add_unit_tests(
+        SCOPE pcrgeo
+        NAMES ${TEST_NAMES}
+        LINK_LIBRARIES
+            pcrgeo
+            pcrcom
+            pcraster_dal
     )
-    TARGET_LINK_LIBRARIES(test_pcrgeo
-        pcrgeo
-        pcrcom
-        pcraster_dal
-    )
-    ADD_CUSTOM_TARGET(run_test_pcrgeo
-        COMMAND bash ./testrun.prolog
-        COMMAND test_pcrgeo
-        DEPENDS test_pcrgeo
-        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-    )
-    ADD_DEPENDENCIES(tests run_test_pcrgeo)
 endif()

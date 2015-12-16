@@ -1,92 +1,13 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_GEO_RASTERBOUNDARIESTEST
-#include "geo_rasterboundariestest.h"
-#define INCLUDED_GEO_RASTERBOUNDARIESTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_GEO_RASTERBOUNDARIES
+#define BOOST_TEST_MODULE pcraster geo raster_boundaries
+#include <boost/test/unit_test.hpp>
+#define private public
 #include "geo_rasterboundaries.h"
-#define INCLUDED_GEO_RASTERBOUNDARIES
-#endif
 
 
-
-/*!
-  \file
-  This file contains the implementation of the RasterBoundariesTest class.
-*/
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC RASTERBOUNDARIES MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*geo::RasterBoundariesTest::suite()
+BOOST_AUTO_TEST_CASE(index_left)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<RasterBoundariesTest> instance(new RasterBoundariesTest());
+  using namespace geo;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&RasterBoundariesTest::testBoundaries, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&RasterBoundariesTest::testIndexLeft, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&RasterBoundariesTest::testIndexTop, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&RasterBoundariesTest::testIndexRight, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&RasterBoundariesTest::testIndexBottom, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF RASTERBOUNDARIES MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-geo::RasterBoundariesTest::RasterBoundariesTest()
-{
-}
-
-
-
-//! setUp
-void geo::RasterBoundariesTest::setUp()
-{
-}
-
-//! tearDown
-void geo::RasterBoundariesTest::tearDown()
-{
-}
-
-
-
-void geo::RasterBoundariesTest::testIndexLeft()
-{
   RasterBoundaries<size_t> boundaries(3, 2);
   BOOST_CHECK(boundaries.indexLeft(0, 0) == 2);
   BOOST_CHECK(boundaries.indexLeft(0, 1) == 3);
@@ -97,9 +18,10 @@ void geo::RasterBoundariesTest::testIndexLeft()
 }
 
 
-
-void geo::RasterBoundariesTest::testIndexTop()
+BOOST_AUTO_TEST_CASE(index_top)
 {
+  using namespace geo;
+
   RasterBoundaries<size_t> boundaries(3, 2);
   BOOST_CHECK(boundaries.indexTop(0, 0) == 0);
   BOOST_CHECK(boundaries.indexTop(0, 1) == 1);
@@ -110,9 +32,10 @@ void geo::RasterBoundariesTest::testIndexTop()
 }
 
 
-
-void geo::RasterBoundariesTest::testIndexRight()
+BOOST_AUTO_TEST_CASE(index_right)
 {
+  using namespace geo;
+
   RasterBoundaries<size_t> boundaries(3, 2);
   BOOST_CHECK(boundaries.indexRight(0, 0) == 3);
   BOOST_CHECK(boundaries.indexRight(0, 1) == 4);
@@ -123,9 +46,10 @@ void geo::RasterBoundariesTest::testIndexRight()
 }
 
 
-
-void geo::RasterBoundariesTest::testIndexBottom()
+BOOST_AUTO_TEST_CASE(index_bottom)
 {
+  using namespace geo;
+
   RasterBoundaries<size_t> boundaries(3, 2);
   BOOST_CHECK(boundaries.indexBottom(0, 0) == 5);
   BOOST_CHECK(boundaries.indexBottom(0, 1) == 6);
@@ -136,9 +60,10 @@ void geo::RasterBoundariesTest::testIndexBottom()
 }
 
 
-
-void geo::RasterBoundariesTest::testBoundaries()
+BOOST_AUTO_TEST_CASE(boundaries)
 {
+  using namespace geo;
+
   RasterBoundaries<size_t> boundaries(3, 2);
 
   boundaries.leftBoundary(0, 0) = 2;
@@ -175,4 +100,3 @@ void geo::RasterBoundariesTest::testBoundaries()
   BOOST_CHECK(boundaries.rightBoundary(2, 0) == boundaries.leftBoundary(2, 1));
   BOOST_CHECK(boundaries.topBoundary(2, 0) == boundaries.bottomBoundary(1, 0));
 }
-

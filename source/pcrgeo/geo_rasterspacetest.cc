@@ -1,144 +1,68 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_GEO_RASTERSPACETEST
-#include "geo_rasterspacetest.h"
-#define INCLUDED_GEO_RASTERSPACETEST
-#endif
-
-#ifndef INCLUDED_SSTREAM
+#define BOOST_TEST_MODULE pcraster geo raster_space
+#include <boost/test/unit_test.hpp>
 #include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
+#include "geo_rasterspace.h"
 
 
-
-/*!
-  \file
-  brief
-
-  more elaborated
-*/
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC CLASS MEMBERS
-//------------------------------------------------------------------------------
-
-boost::unit_test::test_suite*geo::RasterSpaceTest::suite()
+struct Fixture
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<RasterSpaceTest> instance(new RasterSpaceTest());
-  suite->add(BOOST_CLASS_TEST_CASE(&RasterSpaceTest::testEquality, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&RasterSpaceTest::testNrRows, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&RasterSpaceTest::testNrCols, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&RasterSpaceTest::testNrCells, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&RasterSpaceTest::testQuadrant, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&RasterSpaceTest::testIO, instance));
-  return suite;
-}
+
+    Fixture()
+    {
+      using namespace geo;
+
+      d_rs1 = new RasterSpace(11, 12, 13.0, 14.0, 15.0);
+    }
+
+    ~Fixture()
+    {
+      delete d_rs1;
+    }
+
+    geo::RasterSpace* d_rs1;
+
+};
 
 
+BOOST_FIXTURE_TEST_SUITE(raster_space, Fixture)
 
-//------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
-//------------------------------------------------------------------------------
-
-geo::RasterSpaceTest::RasterSpaceTest()
-
-  :    d_rs1(0), d_rs2(0)
-
+BOOST_AUTO_TEST_CASE(equality)
 {
-}
-
-
-
-void geo::RasterSpaceTest::setUp()
-{
-  d_rs1 = new RasterSpace(11, 12, 13.0, 14.0, 15.0);
-}
-
-
-
-void geo::RasterSpaceTest::tearDown()
-{
-  delete d_rs1;
-  delete d_rs2;
-}
-
-
-
-void geo::RasterSpaceTest::testEquality()
-{
-  setUp();
+  using namespace geo;
 
   BOOST_CHECK(RasterSpace(1, 2, 3.0, 4.0, 5.0, geo::YIncrB2T, 6.0) ==
             RasterSpace(1, 2, 3.0, 4.0, 5.0, geo::YIncrB2T, 6.0));
-
-  tearDown();
 }
 
 
-
-void geo::RasterSpaceTest::testNrRows()
+BOOST_AUTO_TEST_CASE(nr_rows)
 {
-  setUp();
+  using namespace geo;
 
   BOOST_CHECK(d_rs1->nrRows() == 11);
-
-  tearDown();
 }
 
 
-
-void geo::RasterSpaceTest::testNrCols()
+BOOST_AUTO_TEST_CASE(nr_cols)
 {
-  setUp();
+  using namespace geo;
 
   BOOST_CHECK(d_rs1->nrCols() == 12);
-
-  tearDown();
 }
 
 
-
-void geo::RasterSpaceTest::testNrCells()
+BOOST_AUTO_TEST_CASE(nr_cells)
 {
-  setUp();
+  using namespace geo;
 
   BOOST_CHECK(d_rs1->nrCells() == 11 * 12);
-
-  tearDown();
 }
 
 
-
-void geo::RasterSpaceTest::testQuadrant()
+BOOST_AUTO_TEST_CASE(quadrant)
 {
-  setUp();
+  using namespace geo;
 
   {
     RasterSpace space(3, 3, 1.0, 0.0, 0.0, geo::YIncrT2B);
@@ -169,15 +93,12 @@ void geo::RasterSpaceTest::testQuadrant()
 
     BOOST_CHECK(space.quadrant(1.5, -1.5) == SouthEast);
   }
-
-  tearDown();
 }
 
 
-
-void geo::RasterSpaceTest::testIO()
+BOOST_AUTO_TEST_CASE(io)
 {
-  setUp();
+  using namespace geo;
 
   bool stuffReadDoesntEqualStuffWritten;
 
@@ -222,38 +143,6 @@ void geo::RasterSpaceTest::testIO()
   }
 
   BOOST_CHECK(stuffReadDoesntEqualStuffWritten);
-
-  tearDown();
 }
 
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF FREE OPERATORS 
-//------------------------------------------------------------------------------
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF FREE FUNCTIONS 
-//------------------------------------------------------------------------------
-
-
-
-//------------------------------------------------------------------------------
-// DOCUMENTATION OF ENUMERATIONS
-//------------------------------------------------------------------------------
-
-
-
-//------------------------------------------------------------------------------
-// DOCUMENTATION OF INLINE FUNCTIONS
-//------------------------------------------------------------------------------
-
-
-
-//------------------------------------------------------------------------------
-// DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
-//------------------------------------------------------------------------------
-
-
+BOOST_AUTO_TEST_SUITE_END()

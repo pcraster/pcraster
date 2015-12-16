@@ -1,109 +1,24 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_GEO_GRIDDEDPOINTSTEST
-#include "geo_griddedpointstest.h"
-#define INCLUDED_GEO_GRIDDEDPOINTSTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_GEO_GRIDDEDPOINTS
+#define BOOST_TEST_MODULE pcraster geo gridded_points
+#include <boost/test/unit_test.hpp>
 #include "geo_griddedpoints.h"
-#define INCLUDED_GEO_GRIDDEDPOINTS
-#endif
-
-#ifndef INCLUDED_GEO_RASTERSPACE
 #include "geo_rasterspace.h"
-#define INCLUDED_GEO_RASTERSPACE
-#endif
-
-#ifndef INCLUDED_GEO_POINT
 #include "geo_point.h"
-#define INCLUDED_GEO_POINT
-#endif
-
-/*!
-  \file
-  This file contains the implementation of the GriddedPointsTest class.
-*/
 
 
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC GRIDDEDPOINTS MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*geo::GriddedPointsTest::suite()
+BOOST_AUTO_TEST_CASE(constructor)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<GriddedPointsTest> instance(new GriddedPointsTest());
+  using namespace geo;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&GriddedPointsTest::testConstructor, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&GriddedPointsTest::testNrPoints, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&GriddedPointsTest::testPoints, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&GriddedPointsTest::testCopy, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF GRIDDEDPOINTS MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-geo::GriddedPointsTest::GriddedPointsTest()
-{
-}
-
-
-
-//! setUp
-void geo::GriddedPointsTest::setUp()
-{
-}
-
-//! tearDown
-void geo::GriddedPointsTest::tearDown()
-{
-}
-
-
-
-
-void geo::GriddedPointsTest::testConstructor()
-{
   RasterSpace space(5, 6, 10.0, 0.0, 1.0, YIncrB2T);
   GriddedPoints<Point<double, 2> > points(space);
   // BOOST_CHECK(false);
 }
 
 
-
-void geo::GriddedPointsTest::testNrPoints()
+BOOST_AUTO_TEST_CASE(nr_points)
 {
+  using namespace geo;
+
   // Raster with one row and two columns.
   RasterSpace space(1, 2, 1.0, 0.0, 0.0, YIncrB2T);
   GriddedPoints<Point<double, 2> > points(space);
@@ -127,9 +42,10 @@ void geo::GriddedPointsTest::testNrPoints()
 }
 
 
-
-void geo::GriddedPointsTest::testPoints()
+BOOST_AUTO_TEST_CASE(points)
 {
+  using namespace geo;
+
   std::vector<Point<double, 2> > points;
 
   {
@@ -183,9 +99,10 @@ void geo::GriddedPointsTest::testPoints()
 }
 
 
-
-void geo::GriddedPointsTest::testCopy()
+BOOST_AUTO_TEST_CASE(copy)
 {
+  using namespace geo;
+
   // Create and fill an object.
     RasterSpace space(3, 3, 1.0, 0.0, 0.0, YIncrT2B);
     GriddedPoints<Point<double, 2> > source(space);
@@ -200,7 +117,4 @@ void geo::GriddedPointsTest::testCopy()
 
   // Compare source and target objects.
     BOOST_CHECK(source.size() == target.size());
-
 }
-
-

@@ -1,91 +1,45 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_GEO_SIMPLERASTERTEST
-#include "geo_simplerastertest.h"
-#define INCLUDED_GEO_SIMPLERASTERTEST
-#endif
-
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
+#define BOOST_TEST_MODULE pcraster geo simple_raster
+#include <boost/test/unit_test.hpp>
+#include "geo_simpleraster.h"
 
 
-
-/*!
-  \file
-  This file contains the implementation of the SimpleRasterTest class.
-*/
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC CLASS MEMBERS
-//------------------------------------------------------------------------------
-
-boost::unit_test::test_suite*geo::SimpleRasterTest::suite()
+struct Fixture
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<SimpleRasterTest> instance(new SimpleRasterTest());
 
-  suite->add(BOOST_CLASS_TEST_CASE(&SimpleRasterTest::testProperties, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&SimpleRasterTest::testContents, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&SimpleRasterTest::testAssignment, instance));
+    Fixture()
+    {
+      using namespace geo;
 
-  return suite;
-}
+      // Empty raster.
+      d_raster1 = new SimpleRaster<int>(0, 0);
+
+      // 5 x 5 raster with cell values 8.
+      d_raster2 = new SimpleRaster<int>(5, 5, 8);
+
+      // 5 x 5 raster with undefined cell values.
+      d_raster3 = new SimpleRaster<int>(5, 5);
+    }
+
+    ~Fixture()
+    {
+      delete d_raster3;
+      delete d_raster2;
+      delete d_raster1;
+    }
+
+    geo::SimpleRaster<int>* d_raster1;
+    geo::SimpleRaster<int>* d_raster2;
+    geo::SimpleRaster<int>* d_raster3;
+
+};
 
 
+BOOST_FIXTURE_TEST_SUITE(simple_raster, Fixture)
 
-//------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS
-//------------------------------------------------------------------------------
-
-geo::SimpleRasterTest::SimpleRasterTest()
+BOOST_AUTO_TEST_CASE(properties)
 {
-}
+  using namespace geo;
 
-
-
-void geo::SimpleRasterTest::setUp()
-{
-  // Empty raster.
-  d_raster1 = new SimpleRaster<int>(0, 0);
-
-  // 5 x 5 raster with cell values 8.
-  d_raster2 = new SimpleRaster<int>(5, 5, 8);
-
-  // 5 x 5 raster with undefined cell values.
-  d_raster3 = new SimpleRaster<int>(5, 5);
-}
-
-
-
-void geo::SimpleRasterTest::tearDown()
-{
-  delete d_raster3;
-  delete d_raster2;
-  delete d_raster1;
-}
-
-
-
-void geo::SimpleRasterTest::testProperties()
-{
-  setUp();
   BOOST_CHECK(d_raster1->nrRows() == 0);
   BOOST_CHECK(d_raster1->nrCols() == 0);
   BOOST_CHECK(d_raster1->nrCells() == 0);
@@ -93,14 +47,13 @@ void geo::SimpleRasterTest::testProperties()
   BOOST_CHECK(d_raster2->nrRows() == 5);
   BOOST_CHECK(d_raster2->nrCols() == 5);
   BOOST_CHECK(d_raster2->nrCells() == 25);
-  tearDown();
 }
 
 
-
-void geo::SimpleRasterTest::testContents()
+BOOST_AUTO_TEST_CASE(contents)
 {
-  setUp();
+  using namespace geo;
+
   BOOST_CHECK(d_raster2->end() - d_raster2->begin() ==
                    static_cast<int>(d_raster2->nrCells()));
 
@@ -126,14 +79,13 @@ void geo::SimpleRasterTest::testContents()
       BOOST_CHECK(d_raster3->cell(r, c) == static_cast<int>((r + 1) * (c + 1)));
     }
   }
-  tearDown();
 }
 
 
-
-void geo::SimpleRasterTest::testAssignment()
+BOOST_AUTO_TEST_CASE(assignment)
 {
-  setUp();
+  using namespace geo;
+
   SimpleRaster<int>::const_iterator it2, it3;
 
   bool result = true;
@@ -164,9 +116,6 @@ void geo::SimpleRasterTest::testAssignment()
 
   // The rasters should be equal.
   BOOST_CHECK(result);
-  tearDown();
 }
 
-
-
-
+BOOST_AUTO_TEST_SUITE_END()

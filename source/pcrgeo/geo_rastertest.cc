@@ -1,78 +1,11 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_GEO_RASTERTEST
-#include "geo_rastertest.h"
-#define INCLUDED_GEO_RASTERTEST
-#endif
-
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
+#define BOOST_TEST_MODULE pcraster geo raster
+#include <boost/test/unit_test.hpp>
 
 
-
-/*!
-  \file
-  brief
-
-  more elaborated
-*/
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC CLASS MEMBERS
-//------------------------------------------------------------------------------
-
-boost::unit_test::test_suite*geo::RasterTest::suite()
+BOOST_AUTO_TEST_CASE(cell)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<RasterTest> instance(new RasterTest());
-  suite->add(BOOST_CLASS_TEST_CASE(&RasterTest::testCell, instance));
-  return suite;
-}
+  // using namespace geo;
 
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
-//------------------------------------------------------------------------------
-
-geo::RasterTest::RasterTest()
-
-{
-}
-
-
-
-void geo::RasterTest::setUp()
-{
-}
-
-
-
-void geo::RasterTest::tearDown()
-{
-}
-
-
-
-void geo::RasterTest::testCell()
-{
   BOOST_CHECK(true);
 }
 

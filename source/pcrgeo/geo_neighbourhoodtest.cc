@@ -1,95 +1,13 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_GEO_NEIGHBOURHOODTEST
-#include "geo_neighbourhoodtest.h"
-#define INCLUDED_GEO_NEIGHBOURHOODTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_GEO_NEIGHBOURHOOD
+#define BOOST_TEST_MODULE pcraster geo neighbourhood
+#include <boost/test/unit_test.hpp>
+#define protected public
 #include "geo_neighbourhood.h"
-#define INCLUDED_GEO_NEIGHBOURHOOD
-#endif
 
 
-
-/*!
-  \file
-  This file contains the implementation of the NeighbourhoodTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-
-
-namespace geo {
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC NEIGHBOURHOOD MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*NeighbourhoodTest::suite()
+BOOST_AUTO_TEST_CASE(random_cell_locations)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<NeighbourhoodTest> instance(new NeighbourhoodTest());
+  using namespace geo;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&NeighbourhoodTest::testRandomCellLocations, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF NEIGHBOURHOOD MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-NeighbourhoodTest::NeighbourhoodTest(
-         )
-{
-}
-
-
-
-//! setUp
-void NeighbourhoodTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void NeighbourhoodTest::tearDown()
-{
-}
-
-
-
-void NeighbourhoodTest::testRandomCellLocations()
-{
   {
     // If the number of cells we request equals the number of non zero values
     // in the neighbourhood, than we excpect to get all cells within the
@@ -160,8 +78,3 @@ void NeighbourhoodTest::testRandomCellLocations()
     BOOST_CHECK(locations.size() == 4);
   }
 }
-
-
-
-} // namespace geo
-

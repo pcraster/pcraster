@@ -24,33 +24,20 @@ ADD_LIBRARY(api
 )
 
 
-if(FALSE AND PCRASTER_BUILD_TEST)
-    SET(TEST_SOURCES
-        fieldapi_test.cc
-        fieldapi_interfacetest.cc
-        fieldapi_readonlynonspatialtest.cc
-        fieldapi_readonlyspatialtest.cc
-        fieldapi_readwritedatatest.cc
+if(PCRASTER_BUILD_TEST)
+    set(TEST_NAMES
+        fieldapi_interfacetest
+        fieldapi_readonlynonspatialtest
+        fieldapi_readonlyspatialtest
+        fieldapi_readwritedatatest
     )
-    ADD_EXECUTABLE(test_api
-        ${TEST_SOURCES}
+    add_unit_tests(
+        SCOPE api
+        NAMES ${TEST_NAMES}
+        LINK_LIBRARIES
+            api
+            pcrgeo
     )
-
-    TARGET_LINK_LIBRARIES(test_api
-        api
-        app
-        tab
-        pcrcom
-        pcrgeo
-        misc
-    )
-
-    ADD_CUSTOM_TARGET(run_test_api
-        COMMAND test_api
-        DEPENDS test_api
-        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-    )
-    ADD_DEPENDENCIES(tests run_test_api)
 endif()
 
 

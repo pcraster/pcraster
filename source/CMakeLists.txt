@@ -38,7 +38,7 @@ add_subdirectory(pcrvoxelstack)
 
 add_subdirectory(api)
 add_subdirectory(tab)
-add_subdirectory(geom)  # TODO unit tests
+add_subdirectory(geom)
 add_subdirectory(calc)  # TODO unit tests
 add_subdirectory(pccts)
 add_subdirectory(pcrxml)  # TODO unit tests

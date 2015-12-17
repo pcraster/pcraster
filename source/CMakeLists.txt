@@ -33,7 +33,7 @@ add_subdirectory(pcrdiscr)
 add_subdirectory(pcrfunc)
 add_subdirectory(pcrgeo)
 add_subdirectory(pcrgeom)
-add_subdirectory(pcrraster)  # TODO unit tests
+add_subdirectory(pcrraster)
 add_subdirectory(pcrvoxelstack)  # TODO unit tests
 
 add_subdirectory(api)  # TODO unit tests

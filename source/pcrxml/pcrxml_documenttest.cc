@@ -1,88 +1,17 @@
-#include "stddefx.h"
-#include "pcrxml_documenttest.h"
-#include "pcrxml_document.h"
-
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-#ifndef INCLUDED_QDOM
-#include <qdom.h>
-#define INCLUDED_QDOM
-#endif
-
-#ifndef INCLUDED_COM_EXCEPTION
+#define BOOST_TEST_MODULE pcraster pcrxml document
+#include <boost/test/unit_test.hpp>
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-#ifndef INCLUDED_COM_PATHNAME
-#include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
-#ifndef INCLUDED_COM_FILE
 #include "com_file.h"
-#define INCLUDED_COM_FILE
-#endif
-#ifndef INCLUDED_PCRXML_DOMDIFF
+#include "com_pathname.h"
+#include "pcrxml_document.h"
 #include "pcrxml_domdiff.h"
-#define INCLUDED_PCRXML_DOMDIFF
-#endif
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
+#include <qdom.h>
 
 
-/*!
-  \file
-  This file contains the implementation of the DocumentTest class.
-*/
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC CLASS MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*pcrxml::DocumentTest::suite()
+BOOST_AUTO_TEST_CASE(pcr_document)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<DocumentTest> instance(new DocumentTest());
+  using namespace pcrxml;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&DocumentTest::testPcrDocument, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&DocumentTest::testNotExistant, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&DocumentTest::testCtorAndParser, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&DocumentTest::testFirstMatchByTagName, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&DocumentTest::testNameSpaceStuff, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-pcrxml::DocumentTest::DocumentTest()
-{
-}
-
-void pcrxml::DocumentTest::testPcrDocument()
-{
   { // only document Element name
     Document doc(createPcrDocument("ExchangeModel"));
     DomDiff diff(doc.toStdString(),
@@ -120,8 +49,11 @@ void pcrxml::DocumentTest::testPcrDocument()
   }
 }
 
-void pcrxml::DocumentTest::testNotExistant()
+
+BOOST_AUTO_TEST_CASE(non_existant)
 {
+  using namespace pcrxml;
+
   bool catchedExpectedException(false);
 
   try {
@@ -137,9 +69,11 @@ void pcrxml::DocumentTest::testNotExistant()
 
 
 
-//! test the Ctor and documentElement
-void pcrxml::DocumentTest::testCtorAndParser()
+// test the Ctor and documentElement
+BOOST_AUTO_TEST_CASE(ctor_and_parser)
 {
+  using namespace pcrxml;
+
  QDomNode el; // element document
 
  bool catchedExpectedException(false);
@@ -206,9 +140,12 @@ void pcrxml::DocumentTest::testCtorAndParser()
  }
 }
 
+
 //! test pcrxml::Document::firstMatchByTagName()
-void pcrxml::DocumentTest::testFirstMatchByTagName()
+BOOST_AUTO_TEST_CASE(first_match_by_tag_name)
 {
+  using namespace pcrxml;
+
  {
    Document head("<E1><E2/></E1>");
    QDomElement el=head.firstMatchByTagName("E1");
@@ -229,6 +166,8 @@ void pcrxml::DocumentTest::testFirstMatchByTagName()
  }
 }
 
-void pcrxml::DocumentTest::testNameSpaceStuff()
+
+BOOST_AUTO_TEST_CASE(namespace_stuff)
 {
+  // using namespace pcrxml;
 }

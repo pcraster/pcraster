@@ -55,7 +55,8 @@ namespace block {
   This class inherits from std::map::INT4, Compactor>.
 */
 template<class Compactor>
-class Compactors: std::map<INT4, Compactor>
+class Compactors:
+    public std::map<INT4, Compactor>
 {
 
   friend class CompactorsTest;

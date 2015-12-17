@@ -1,91 +1,14 @@
-#ifndef INCLUDED_STDDEFX
+#define BOOST_TEST_MODULE pcraster mldd vertex_iterator
+#include <boost/test/unit_test.hpp>
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_MLDD_VERTEXITERATORTEST
-#include "mldd_vertexiteratortest.h"
-#define INCLUDED_MLDD_VERTEXITERATORTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_MLDD_VERTEXITERATOR
 #include "mldd_vertexiterator.h"
-#define INCLUDED_MLDD_VERTEXITERATOR
-#endif
-#ifndef INCLUDED_MLDD_DAGRASTER
 #include "mldd_dagraster.h"
-#define INCLUDED_MLDD_DAGRASTER
-#endif
 
-/*!
-  \file
-  This file contains the implementation of the VertexIteratorTest class.
-*/
 
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC VERTEXITERATOR MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*mldd::VertexIteratorTest::suite()
+BOOST_AUTO_TEST_CASE(test)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<VertexIteratorTest> instance(new VertexIteratorTest());
+  using namespace mldd;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&VertexIteratorTest::test, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF VERTEXITERATOR MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-mldd::VertexIteratorTest::VertexIteratorTest(){
-}
-
-
-
-//! setUp
-void mldd::VertexIteratorTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void mldd::VertexIteratorTest::tearDown()
-{
-}
-
-
-
-void mldd::VertexIteratorTest::test()
-{
   geo::RasterDim rd(2,3);
   DagRaster g(rd);
   // initially empty graph; no cells set

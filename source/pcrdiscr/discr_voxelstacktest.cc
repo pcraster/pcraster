@@ -1,107 +1,13 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_DISCR_VOXELSTACKTEST
-#include "discr_voxelstacktest.h"
-#define INCLUDED_DISCR_VOXELSTACKTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_DAL_MATHUTILS
+#define BOOST_TEST_MODULE pcraster discr voxel_stack
+#include <boost/test/unit_test.hpp>
 #include "dal_MathUtils.h"
-#define INCLUDED_DAL_MATHUTILS
-#endif
-
-// Module headers.
-#ifndef INCLUDED_DISCR_VOXELSTACK
 #include "discr_voxelstack.h"
-#define INCLUDED_DISCR_VOXELSTACK
-#endif
 
 
-
-/*!
-  \file
-  This file contains the implementation of the VoxelStackTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-
-
-namespace discr {
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC VOXELSTACK MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*VoxelStackTest::suite()
+BOOST_AUTO_TEST_CASE(constructor)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<VoxelStackTest> instance(new VoxelStackTest());
+  using namespace discr;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&VoxelStackTest::testConstructor, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&VoxelStackTest::testSetMV, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&VoxelStackTest::testSetBaseElevation, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&VoxelStackTest::testThickness, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&VoxelStackTest::testIsRegular, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&VoxelStackTest::testSurfaceElevation, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&VoxelStackTest::testBottomElevation, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&VoxelStackTest::testTopElevation, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&VoxelStackTest::testEquals, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF VOXELSTACK MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-VoxelStackTest::VoxelStackTest(
-         )
-{
-}
-
-
-
-//! setUp
-void VoxelStackTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void VoxelStackTest::tearDown()
-{
-}
-
-
-
-void VoxelStackTest::testConstructor()
-{
   {
     VoxelStack stack;
     BOOST_CHECK(!stack.isMV());
@@ -135,9 +41,10 @@ void VoxelStackTest::testConstructor()
 }
 
 
-
-void VoxelStackTest::testSetMV()
+BOOST_AUTO_TEST_CASE(set_mv)
 {
+  using namespace discr;
+
   {
     VoxelStack stack;
     BOOST_CHECK(!stack.isMV());
@@ -147,9 +54,10 @@ void VoxelStackTest::testSetMV()
 }
 
 
-
-void VoxelStackTest::testSetBaseElevation()
+BOOST_AUTO_TEST_CASE(set_base_elevation)
 {
+  using namespace discr;
+
   {
     VoxelStack stack;
     stack.setBaseElevation(3.0);
@@ -158,9 +66,10 @@ void VoxelStackTest::testSetBaseElevation()
 }
 
 
-
-void VoxelStackTest::testThickness()
+BOOST_AUTO_TEST_CASE(thickness)
 {
+  using namespace discr;
+
   {
     VoxelStack stack;
     BOOST_CHECK(stack.thickness() == VoxelStack::value_type(0.0));
@@ -172,9 +81,10 @@ void VoxelStackTest::testThickness()
 }
 
 
-
-void VoxelStackTest::testIsRegular()
+BOOST_AUTO_TEST_CASE(is_regular)
 {
+  using namespace discr;
+
   {
     VoxelStack stack;
     BOOST_CHECK(stack.isRegular());
@@ -194,9 +104,10 @@ void VoxelStackTest::testIsRegular()
 }
 
 
-
-void VoxelStackTest::testSurfaceElevation()
+BOOST_AUTO_TEST_CASE(surface_elevation)
 {
+  using namespace discr;
+
   {
     VoxelStack stack;
     BOOST_CHECK(dal::comparable(stack.surfaceElevation(),
@@ -221,9 +132,10 @@ void VoxelStackTest::testSurfaceElevation()
 }
 
 
-
-void VoxelStackTest::testBottomElevation()
+BOOST_AUTO_TEST_CASE(bottom_elevation)
 {
+  using namespace discr;
+
   {
     std::vector<REAL4> thicknesses;
     thicknesses.push_back(1.2F);
@@ -240,9 +152,10 @@ void VoxelStackTest::testBottomElevation()
 }
 
 
-
-void VoxelStackTest::testTopElevation()
+BOOST_AUTO_TEST_CASE(top_elevation)
 {
+  using namespace discr;
+
   {
     std::vector<REAL4> thicknesses;
     thicknesses.push_back(1.2F);
@@ -259,9 +172,10 @@ void VoxelStackTest::testTopElevation()
 }
 
 
-
-void VoxelStackTest::testEquals()
+BOOST_AUTO_TEST_CASE(equals)
 {
+  using namespace discr;
+
   {
     VoxelStack stack1;
     VoxelStack stack2;
@@ -308,6 +222,3 @@ void VoxelStackTest::testEquals()
     BOOST_CHECK(stack2 == stack1);
   }
 }
-
-} // namespace discr
-

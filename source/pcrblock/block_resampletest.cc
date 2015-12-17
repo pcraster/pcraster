@@ -1,123 +1,23 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_BLOCK_RESAMPLETEST
-#include "block_resampletest.h"
-#define INCLUDED_BLOCK_RESAMPLETEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_DAL_MATHUTILS
+#define BOOST_TEST_MODULE pcrblock resample
+#include <boost/test/unit_test.hpp>
 #include "dal_MathUtils.h"
-#define INCLUDED_DAL_MATHUTILS
-#endif
-
-#ifndef INCLUDED_DISCR_BLOCK
 #include "discr_block.h"
-#define INCLUDED_DISCR_BLOCK
-#endif
-
-#ifndef INCLUDED_DISCR_BLOCKDATA
 #include "discr_blockdata.h"
-#define INCLUDED_DISCR_BLOCKDATA
-#endif
-
-#ifndef INCLUDED_DISCR_RASTER
 #include "discr_raster.h"
-#define INCLUDED_DISCR_RASTER
-#endif
-
-// Module headers.
-#ifndef INCLUDED_BLOCK_FUNCTIONS
 #include "block_functions.h"
-#define INCLUDED_BLOCK_FUNCTIONS
-#endif
 
 
-
-/*!
-  \file
-  This file contains the implementation of the ResampleTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-
-
-namespace block {
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC RESAMPLE MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*ResampleTest::suite()
-{
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<ResampleTest> instance(new ResampleTest());
-
-  suite->add(BOOST_CLASS_TEST_CASE(&ResampleTest::testResampleBlock, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ResampleTest::testResampleBlockData, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF RESAMPLE MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-ResampleTest::ResampleTest(
-         )
-{
-}
-
-
-
-//! setUp
-void ResampleTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void ResampleTest::tearDown()
-{
-}
-
-
-
-void ResampleTest::testResampleBlock()
+BOOST_AUTO_TEST_CASE(resample_block)
 {
   bool testImplemented = false;
   BOOST_WARN(testImplemented);
 }
 
 
-
-void ResampleTest::testResampleBlockData()
+BOOST_AUTO_TEST_CASE(resample_block_data)
 {
+  using namespace block;
+
   size_t nrRows = 1;
   size_t nrCols = 1;
   double cellSize = 1.5;
@@ -817,6 +717,3 @@ void ResampleTest::testResampleBlockData()
   //   BOOST_CHECK((*it)[0] == 4.0);
   // }
 }
-
-} // namespace block
-

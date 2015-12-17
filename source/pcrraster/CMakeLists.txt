@@ -13,19 +13,13 @@ ADD_LIBRARY(pcrraster
 )
 
 
-if(FALSE AND PCRASTER_BUILD_TEST)
-    SET(TEST_SOURCES
-        raster_iotest.cc
+if(PCRASTER_BUILD_TEST)
+    set(TEST_NAMES
+        raster_iotest
         raster_rastertest.cc
-        raster_test.cc
     )
-    ADD_EXECUTABLE(test_pcrraster
-        ${TEST_SOURCES}
+    add_unit_tests(
+        SCOPE pcrraster
+        NAMES ${TEST_NAMES}
     )
-    ADD_CUSTOM_TARGET(run_test_pcrraster
-        COMMAND test_pcrraster
-        DEPENDS test_pcrraster
-        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-    )
-    ADD_DEPENDENCIES(tests run_test_pcrraster)
 endif()

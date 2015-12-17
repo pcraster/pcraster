@@ -1,86 +1,13 @@
-#ifndef INCLUDED_STDDEFX
+#define BOOST_TEST_MODULE pcraster mldd out_edge_iterator
+#include <boost/test/unit_test.hpp>
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_MLDD_OUTEDGEITERATORTEST
-#include "mldd_outedgeiteratortest.h"
-#define INCLUDED_MLDD_OUTEDGEITERATORTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_MLDD_OUTEDGEITERATOR
 #include "mldd_outedgeiterator.h"
-#define INCLUDED_MLDD_OUTEDGEITERATOR
-#endif
-
-// Module headers.
 
 
-
-/*!
-  \file
-  This file contains the implementation of the OutEdgeIteratorTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC OUTEDGEITERATOR MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*mldd::OutEdgeIteratorTest::suite()
+BOOST_AUTO_TEST_CASE(constructor)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<OutEdgeIteratorTest> instance(new OutEdgeIteratorTest());
+  using namespace mldd;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&OutEdgeIteratorTest::testCtor, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF OUTEDGEITERATOR MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-mldd::OutEdgeIteratorTest::OutEdgeIteratorTest()
-{
-}
-
-
-
-//! setUp
-void mldd::OutEdgeIteratorTest::setUp()
-{
-}
-
-//! tearDown
-void mldd::OutEdgeIteratorTest::tearDown()
-{
-}
-
-void mldd::OutEdgeIteratorTest::testCtor()
-{
  {
   OutEdgeIterator begin(Vertex(1,1),0,0);
   OutEdgeIterator end  (Vertex(1,1));

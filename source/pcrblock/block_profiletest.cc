@@ -1,109 +1,15 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_BLOCK_PROFILETEST
-#include "block_profiletest.h"
-#define INCLUDED_BLOCK_PROFILETEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_DAL_MATHUTILS
+#define BOOST_TEST_MODULE pcrblock profile
+#include <boost/test/unit_test.hpp>
 #include "dal_MathUtils.h"
-#define INCLUDED_DAL_MATHUTILS
-#endif
-
-#ifndef INCLUDED_DISCR_BLOCK
 #include "discr_block.h"
-#define INCLUDED_DISCR_BLOCK
-#endif
-
-#ifndef INCLUDED_DISCR_BLOCKDATA
 #include "discr_blockdata.h"
-#define INCLUDED_DISCR_BLOCKDATA
-#endif
-
-// Module headers.
-#ifndef INCLUDED_BLOCK_FUNCTIONS
 #include "block_functions.h"
-#define INCLUDED_BLOCK_FUNCTIONS
-#endif
 
 
-
-/*!
-  \file
-  This file contains the implementation of the ProfileTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-
-
-namespace block {
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC PROFILE MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*ProfileTest::suite()
+BOOST_AUTO_TEST_CASE(test)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<ProfileTest> instance(new ProfileTest());
+  using namespace block;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&ProfileTest::test, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF PROFILE MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-ProfileTest::ProfileTest(
-         )
-{
-}
-
-
-
-//! setUp
-void ProfileTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void ProfileTest::tearDown()
-{
-}
-
-
-
-void ProfileTest::test()
-{
   // Create a block.
   discr::Raster raster(3, 2);
   discr::Block block(raster);
@@ -160,6 +66,3 @@ void ProfileTest::test()
     }
   }
 }
-
-} // namespace block
-

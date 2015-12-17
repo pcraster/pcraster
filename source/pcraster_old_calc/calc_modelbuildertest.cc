@@ -1,129 +1,20 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_MODELBUILDERTEST
-#include "calc_modelbuildertest.h"
-#define INCLUDED_CALC_MODELBUILDERTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_COM_ALGORITHM
+#define BOOST_TEST_MODULE pcraster old_calc model_builder
+#include <boost/test/unit_test.hpp>
 #include "com_algorithm.h"
-#define INCLUDED_COM_ALGORITHM
-#endif
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_GEO_FILECREATETESTER
 #include "geo_filecreatetester.h"
-#define INCLUDED_GEO_FILECREATETESTER
-#endif
-#ifndef INCLUDED_COM_PATHINFO
 #include "com_pathinfo.h"
-#define INCLUDED_COM_PATHINFO
-#endif
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-#ifndef INCLUDED_COM_INTERVAL
 #include "com_interval.h"
-#define INCLUDED_COM_INTERVAL
-#endif
-#ifndef INCLUDED_COM_FILE
 #include "com_file.h"
-#define INCLUDED_COM_FILE
-#endif
-// Module headers.
-#ifndef INCLUDED_CALC_MODELBUILDER
 #include "calc_modelbuilder.h"
-#define INCLUDED_CALC_MODELBUILDER
-#endif
-
-#ifndef INCLUDED_CALC_POSEXCEPTION
 #include "calc_posexception.h"
-#define INCLUDED_CALC_POSEXCEPTION
-#endif
-#ifndef INCLUDED_CALC_LOOKUPTABLE
 #include "calc_lookuptable.h"
-#define INCLUDED_CALC_LOOKUPTABLE
-#endif
-
-/*!
-  \file
-  This file contains the implementation of the ModelBuilderTest class.
-*/
 
 
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC MODELBUILDER MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*calc::ModelBuilderTest::suite()
+BOOST_AUTO_TEST_CASE(single_statement)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<ModelBuilderTest> instance(new ModelBuilderTest());
+  using namespace calc;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&ModelBuilderTest::testSingleStatement, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ModelBuilderTest::testFieldExpr, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ModelBuilderTest::testMultipleStatements, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ModelBuilderTest::testMultipleStatementsWithError, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ModelBuilderTest::testMultipleStatementsWithBinding, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ModelBuilderTest::testSetValuescale, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ModelBuilderTest::testAddLookupTable, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ModelBuilderTest::testExternalBindings, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF MODELBUILDER MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-calc::ModelBuilderTest::ModelBuilderTest()
-{
-}
-
-
-
-//! setUp
-void calc::ModelBuilderTest::setUp()
-{
-}
-
-//! tearDown
-void calc::ModelBuilderTest::tearDown()
-{
-}
-
-
-
-void calc::ModelBuilderTest::testSingleStatement()
-{
   ModelBuilder mb;
   geo::FileCreateTester mt("ModelBuildertestSS.res");
   mb.addStatement("ModelBuildertestSS.res = inp1s.map + 4;");
@@ -131,8 +22,11 @@ void calc::ModelBuilderTest::testSingleStatement()
   BOOST_CHECK(mt.equalTo("inp5s.map",false));
 }
 
-void calc::ModelBuilderTest::testFieldExpr()
+
+BOOST_AUTO_TEST_CASE(field_expr)
 {
+  using namespace calc;
+
   try {
   ModelBuilder mb;
   FieldExpr* e= mb.addFieldExpr("inp1s.map + 4;");
@@ -147,8 +41,11 @@ void calc::ModelBuilderTest::testFieldExpr()
   }
 }
 
-void calc::ModelBuilderTest::testMultipleStatements()
+
+BOOST_AUTO_TEST_CASE(multiple_statements)
 {
+  using namespace calc;
+
   try {
   ModelBuilder mb;
   // test order by dependency, and selective report!
@@ -165,8 +62,11 @@ void calc::ModelBuilderTest::testMultipleStatements()
   }
 }
 
-void calc::ModelBuilderTest::testMultipleStatementsWithBinding()
+
+BOOST_AUTO_TEST_CASE(multiple_statements_with_binding)
 {
+  using namespace calc;
+
   try {
   ModelBuilder mb;
   geo::FileCreateTester mt("ModelBuilderBind5.res");
@@ -185,8 +85,10 @@ void calc::ModelBuilderTest::testMultipleStatementsWithBinding()
 }
 
 
-void calc::ModelBuilderTest::testMultipleStatementsWithError()
+BOOST_AUTO_TEST_CASE(multiple_statements_with_error)
 {
+  using namespace calc;
+
   bool failure=false;
   try {
   ModelBuilder mb;
@@ -205,8 +107,11 @@ void calc::ModelBuilderTest::testMultipleStatementsWithError()
   BOOST_CHECK(failure);
 }
 
-void calc::ModelBuilderTest::testSetValuescale()
+
+BOOST_AUTO_TEST_CASE(set_value_scale)
 {
+  using namespace calc;
+
     { // avoid this for habitat
       bool failure=false;
       try {
@@ -246,8 +151,11 @@ void calc::ModelBuilderTest::testSetValuescale()
   }
 }
 
-void calc::ModelBuilderTest::testAddLookupTable()
+
+BOOST_AUTO_TEST_CASE(add_lookup_table)
 {
+  using namespace calc;
+
   ModelBuilder mb;
 
   LookupTable::Records lr;
@@ -273,8 +181,11 @@ void calc::ModelBuilderTest::testAddLookupTable()
 
 }
 
-void calc::ModelBuilderTest::testExternalBindings()
+
+BOOST_AUTO_TEST_CASE(external_bindings)
 {
+  using namespace calc;
+
  // SYNTAX ERROR
  bool catched(false);
  try {

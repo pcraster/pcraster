@@ -1,96 +1,14 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_GEO_CSFSTACKNAMETEST
-#include "geo_csfstacknametest.h"
-#define INCLUDED_GEO_CSFSTACKNAMETEST
-#endif
-
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-#ifndef INCLUDED_COM_PATHNAME
+#define BOOST_TEST_MODULE pcraster geo csf_stack_name
+#include <boost/test/unit_test.hpp>
 #include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-
-#ifndef INCLUDED_GEO_CSFSTACKNAME
 #include "geo_csfstackname.h"
-#define INCLUDED_GEO_CSFSTACKNAME
-#endif
 
 
-
-/*!
-  \file
-  brief
-
-  more elaborated
-*/
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC CLASS MEMBERS
-//------------------------------------------------------------------------------
-
-boost::unit_test::test_suite*geo::CSFStackNameTest::suite()
+BOOST_AUTO_TEST_CASE(base_name)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<CSFStackNameTest> instance(new CSFStackNameTest());
-  suite->add(BOOST_CLASS_TEST_CASE(&CSFStackNameTest::testConstructor, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&CSFStackNameTest::testBadFormats, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&CSFStackNameTest::testBaseName, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&CSFStackNameTest::testFileName, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&CSFStackNameTest::testAsAguilaArgument, instance));
-  return suite;
-}
+  using namespace geo;
 
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
-//------------------------------------------------------------------------------
-
-geo::CSFStackNameTest::CSFStackNameTest()
-
-{
-}
-
-
-
-void geo::CSFStackNameTest::setUp()
-{
-}
-
-
-
-void geo::CSFStackNameTest::tearDown()
-{
-}
-
-
-
-void geo::CSFStackNameTest::testBaseName()
-{
   com::PathName pn;
 
   // Static stack in current dir.
@@ -122,9 +40,9 @@ void geo::CSFStackNameTest::testBaseName()
 }
 
 
-
-void geo::CSFStackNameTest::testFileName()
+BOOST_AUTO_TEST_CASE(filename)
 {
+  using namespace geo;
 
  {
   // Static stack in current dir.
@@ -172,9 +90,10 @@ void geo::CSFStackNameTest::testFileName()
 }
 
 
-
-void geo::CSFStackNameTest::testNrLayers()
+BOOST_AUTO_TEST_CASE(nr_layers)
 {
+  using namespace geo;
+
   com::PathName pn;
 
   // Static stack in current dir.
@@ -189,9 +108,10 @@ void geo::CSFStackNameTest::testNrLayers()
 }
 
 
-
-void geo::CSFStackNameTest::testConstructor()
+BOOST_AUTO_TEST_CASE(constructor)
 {
+  using namespace geo;
+
   com::PathName pn;
 
   // Static stack in current dir.
@@ -219,8 +139,11 @@ void geo::CSFStackNameTest::testConstructor()
 
 }
 
-void geo::CSFStackNameTest::testBadFormats()
+
+BOOST_AUTO_TEST_CASE(bad_formats)
 {
+  using namespace geo;
+
   bool catchWrongFormat;
   
   // stupid error
@@ -275,39 +198,11 @@ void geo::CSFStackNameTest::testBadFormats()
 
 }
 
-void geo::CSFStackNameTest::testAsAguilaArgument()
+
+BOOST_AUTO_TEST_CASE(as_aguila_argument)
 {
+  using namespace geo;
+
   std::string r(CSFStackName::asAguilaArgument("prefix",1,100));
   BOOST_CHECK(r == "prefix00.001+100");
 }
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF FREE OPERATORS 
-//------------------------------------------------------------------------------
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF FREE FUNCTIONS 
-//------------------------------------------------------------------------------
-
-
-
-//------------------------------------------------------------------------------
-// DOCUMENTATION OF ENUMERATIONS
-//------------------------------------------------------------------------------
-
-
-
-//------------------------------------------------------------------------------
-// DOCUMENTATION OF INLINE FUNCTIONS
-//------------------------------------------------------------------------------
-
-
-
-//------------------------------------------------------------------------------
-// DOCUMENTATION OF PURE VIRTUAL FUNCTIONS
-//------------------------------------------------------------------------------
-
-

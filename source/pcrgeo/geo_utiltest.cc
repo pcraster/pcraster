@@ -1,103 +1,15 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_GEO_UTILTEST
-#include "geo_utiltest.h"
-#define INCLUDED_GEO_UTILTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_MATH
+#define BOOST_TEST_MODULE pcraster geo utils
+#include <boost/test/unit_test.hpp>
 #include "com_math.h"
-#define INCLUDED_COM_MATH
-#endif
-
-// Module headers.
-#ifndef INCLUDED_GEO_RASTERBOUNDARIES
 #include "geo_rasterboundaries.h"
-#define INCLUDED_GEO_RASTERBOUNDARIES
-#endif
-
-#ifndef INCLUDED_GEO_SIMPLERASTER
 #include "geo_simpleraster.h"
-#define INCLUDED_GEO_SIMPLERASTER
-#endif
-
-#ifndef INCLUDED_GEO_UTIL
 #include "geo_util.h"
-#define INCLUDED_GEO_UTIL
-#endif
 
 
-
-/*!
-  \file
-  This file contains the implementation of the UtilTest class.
-*/
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC UTIL MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*geo::UtilTest::suite()
+BOOST_AUTO_TEST_CASE(raster2boundaries)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<UtilTest> instance(new UtilTest());
+  using namespace geo;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&UtilTest::testRaster2Boundaries, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&UtilTest::testMagnitude, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF UTIL MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-geo::UtilTest::UtilTest()
-{
-}
-
-
-
-//! setUp
-void geo::UtilTest::setUp()
-{
-}
-
-//! tearDown
-void geo::UtilTest::tearDown()
-{
-}
-
-
-
-void geo::UtilTest::testRaster2Boundaries()
-{
   {
     // Create raster:
     // 1 2 3
@@ -270,9 +182,10 @@ void geo::UtilTest::testRaster2Boundaries()
 }
 
 
-
-void geo::UtilTest::testMagnitude()
+BOOST_AUTO_TEST_CASE(magnitude)
 {
+  using namespace geo;
+
   RasterBoundaries<double> velocity(3, 3);
 
   velocity.leftBoundary(0, 0) = 1.0;

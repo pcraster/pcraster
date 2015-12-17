@@ -1,100 +1,11 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_LOOKUPTABLETEST
-#include "calc_lookuptabletest.h"
-#define INCLUDED_CALC_LOOKUPTABLETEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_PATHNAME
+#define BOOST_TEST_MODULE pcraster old_calc lookup_table
+#include <boost/test/unit_test.hpp>
 #include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-#ifndef INCLUDED_COM_FILE
 #include "com_file.h"
-#define INCLUDED_COM_FILE
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_LOOKUPTABLE
 #include "calc_lookuptable.h"
-#define INCLUDED_CALC_LOOKUPTABLE
-#endif
-#ifndef INCLUDED_CALC_VS
 #include "calc_vs.h"
-#define INCLUDED_CALC_VS
-#endif
 
-/*!
-  \file
-  This file contains the implementation of the LookupTableTest class.
-*/
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC LOOKUPTABLE MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*calc::LookupTableTest::suite()
-{
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<LookupTableTest> instance(new LookupTableTest());
-
-  suite->add(BOOST_CLASS_TEST_CASE(&LookupTableTest::testOldStyleCtor, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&LookupTableTest::testAllIntervals, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&LookupTableTest::testMultipleKeys, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&LookupTableTest::testMultipleRecords, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF LOOKUPTABLE MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-calc::LookupTableTest::LookupTableTest()
-{
-}
-
-
-
-//! setUp
-void calc::LookupTableTest::setUp()
-{
-}
-
-//! tearDown
-void calc::LookupTableTest::tearDown()
-{
-}
 
 void createTestTable(
     calc::LookupTable& t,
@@ -106,6 +17,7 @@ void createTestTable(
   t.setRecords(name,inKeys);
 }
 
+
 static std::vector<double> makeKey(double v1, double v2=-1024)
 {
  std::vector<double> k(1,v1);
@@ -115,8 +27,10 @@ static std::vector<double> makeKey(double v1, double v2=-1024)
 }
 
 
-void calc::LookupTableTest::testOldStyleCtor()
+BOOST_AUTO_TEST_CASE(old_style_constructor)
 {
+  using namespace calc;
+
   std::vector<VS> inKeys(1,VS_S);
   double r;
 
@@ -151,8 +65,11 @@ void calc::LookupTableTest::testOldStyleCtor()
 
 }
 
-void calc::LookupTableTest::testAllIntervals()
+
+BOOST_AUTO_TEST_CASE(all_intervales)
 {
+  using namespace calc;
+
   std::vector<VS> inKeys(1,VS_S);
   double r;
 
@@ -311,8 +228,11 @@ void calc::LookupTableTest::testAllIntervals()
  }
 }
 
-void calc::LookupTableTest::testMultipleKeys()
+
+BOOST_AUTO_TEST_CASE(multiple_keys)
 {
+  using namespace calc;
+
   std::vector<VS> inKeys(2,VS_S);
   double r;
   LookupTable t(VS_S);
@@ -331,8 +251,11 @@ void calc::LookupTableTest::testMultipleKeys()
   BOOST_CHECK( r==-2);
 }
 
-void calc::LookupTableTest::testMultipleRecords()
+
+BOOST_AUTO_TEST_CASE(multiple_records)
 {
+  using namespace calc;
+
   std::vector<VS> inKeys(2,VS_S);
   double r;
   LookupTable t(VS_S);

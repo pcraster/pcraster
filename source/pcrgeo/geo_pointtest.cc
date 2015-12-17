@@ -1,93 +1,13 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_GEO_POINTTEST
-#include "geo_pointtest.h"
-#define INCLUDED_GEO_POINTTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-#ifndef INCLUDED_ALGORITHM
+#define BOOST_TEST_MODULE pcraster geo point
+#include <boost/test/unit_test.hpp>
 #include <algorithm>
-#define INCLUDED_ALGORITHM
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_GEO_POINT
 #include "geo_point.h"
-#define INCLUDED_GEO_POINT
-#endif
-// Module headers.
 
 
-
-/*!
-  \file
-  This file contains the implementation of the PointTest class.
-*/
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC POINT MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*geo::PointTest::suite()
+BOOST_AUTO_TEST_CASE(layout)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<PointTest> instance(new PointTest());
+  using namespace geo;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&PointTest::testLayout, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&PointTest::testIndexDirection, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&PointTest::testCloser, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&PointTest::testDistance, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF POINT MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-geo::PointTest::PointTest()
-{
-}
-
-
-
-//! setUp
-void geo::PointTest::setUp()
-{
-}
-
-//! tearDown
-void geo::PointTest::tearDown()
-{
-}
-
-void geo::PointTest::testLayout()
-{
   // assure size of point is equal to
   // the vector of coordinates
  {
@@ -101,8 +21,10 @@ void geo::PointTest::testLayout()
 }
 
 
-void geo::PointTest::testIndexDirection()
+BOOST_AUTO_TEST_CASE(index_direction)
 {
+  using namespace geo;
+
  {
   //  1D:
   //          0
@@ -149,8 +71,11 @@ void geo::PointTest::testIndexDirection()
  }
 }
 
-void geo::PointTest::testCloser()
+
+BOOST_AUTO_TEST_CASE(closer)
 {
+  using namespace geo;
+
   typedef Point<float,2> P;
   typedef Closer<P>      C;
 
@@ -174,8 +99,11 @@ void geo::PointTest::testCloser()
   BOOST_CHECK(l[1][X]==1);
 }
 
-void geo::PointTest::testDistance()
+
+BOOST_AUTO_TEST_CASE(distance)
 {
+  using namespace geo;
+
   typedef Point<float,2> P;
 
   // test compilation of enum

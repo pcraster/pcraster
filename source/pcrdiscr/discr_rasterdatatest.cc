@@ -1,101 +1,13 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_DISCR_RASTERDATATEST
-#include "discr_rasterdatatest.h"
-#define INCLUDED_DISCR_RASTERDATATEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_PCRTYPES
+#define BOOST_TEST_MODULE pcraster discr raster_data
+#include <boost/test/unit_test.hpp>
 #include "pcrtypes.h"
-#define INCLUDED_PCRTYPES
-#endif
-
-// Module headers.
-#ifndef INCLUDED_DISCR_RASTERDATA
 #include "discr_rasterdata.h"
-#define INCLUDED_DISCR_RASTERDATA
-#endif
 
 
-
-/*!
-  \file
-  This file contains the implementation of the RasterDataTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-
-
-namespace discr {
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC RASTERDATA MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*RasterDataTest::suite()
+BOOST_AUTO_TEST_CASE(constructor)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<RasterDataTest> instance(new RasterDataTest());
+  using namespace discr;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&RasterDataTest::testConstructor, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&RasterDataTest::testEquals, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&RasterDataTest::testAssignmentOperator, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF RASTERDATA MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-RasterDataTest::RasterDataTest(
-         )
-{
-}
-
-
-
-//! setUp
-void RasterDataTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void RasterDataTest::tearDown()
-{
-}
-
-
-
-void RasterDataTest::testConstructor()
-{
   size_t nrRows = 3;
   size_t nrCols = 4;
   double cellSize = 1.5;
@@ -159,9 +71,10 @@ void RasterDataTest::testConstructor()
 }
 
 
-
-void RasterDataTest::testEquals()
+BOOST_AUTO_TEST_CASE(equals)
 {
+  using namespace discr;
+
   Raster raster(3, 4, 1.5, 1.0, 0.0);
 
   REAL4 values[12] = {
@@ -197,9 +110,10 @@ void RasterDataTest::testEquals()
 }
 
 
-
-void RasterDataTest::testAssignmentOperator()
+BOOST_AUTO_TEST_CASE(assignment_operator)
 {
+  using namespace discr;
+
   Raster raster(3, 4, 1.5, 1.0, 0.0);
   RasterData<REAL4> dem1(&raster);
 
@@ -215,6 +129,3 @@ void RasterDataTest::testAssignmentOperator()
   dem1 = dem2;
   BOOST_CHECK(dem1 == dem2);
 }
-
-} // namespace discr
-

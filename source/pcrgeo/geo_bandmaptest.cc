@@ -1,134 +1,53 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_GEO_BANDMAPTEST
-#include "geo_bandmaptest.h"
-#define INCLUDED_GEO_BANDMAPTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_GEO_BANDMAP
+#define BOOST_TEST_MODULE pcraster geo band_map
+#include <boost/test/unit_test.hpp>
 #include "geo_bandmap.h"
-#define INCLUDED_GEO_BANDMAP
-#endif
-#ifndef INCLUDED_COM_FILE
 #include "com_file.h"
-#define INCLUDED_COM_FILE
-#endif
-#ifndef INCLUDED_GEO_CSFMAP
 #include "geo_csfmap.h"
-#define INCLUDED_GEO_CSFMAP
-#endif
-#ifndef INCLUDED_COM_CSFCELL
 #include "com_csfcell.h"
-#define INCLUDED_COM_CSFCELL
-#endif
-#ifndef INCLUDED_GEO_RASTERSPACE
 #include "geo_rasterspace.h"
-#define INCLUDED_GEO_RASTERSPACE
-#endif
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-#ifndef INCLUDED_COM_ALGORITHM
 #include "com_algorithm.h"
-#define INCLUDED_COM_ALGORITHM
-#endif
 
 
-/*!
-  \file
-  This file contains the implementation of the BandMapTest class.
-*/
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC BANDMAP MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*geo::BandMapTest::suite()
+struct Fixture
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<BandMapTest> instance(new BandMapTest());
 
-  suite->add(BOOST_CLASS_TEST_CASE(&BandMapTest::testOpen, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&BandMapTest::testOpen2, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&BandMapTest::testCreate, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&BandMapTest::testRasterSpace, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&BandMapTest::testMultiBand, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&BandMapTest::testRead, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&BandMapTest::testPutCells, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&BandMapTest::testHeader, instance));
+    Fixture()
+    {
+      { // create a minimal 4*5 UINT1 map
+        com::write("NROWS 4\nNCOLS 5\n",
+        com::PathName("uint1minimal.hdr"));
+        UINT1 buf[20];
+        std::generate_n(buf,20,com::SeqInc<UINT1>());
+        com::write(buf,20,com::PathName("uint1minimal.bil"));
+      }
+      { // create a  4*5 INT2 map with first and last cell a MV of 0
+        // above 8 bits always set byteorder!
+        com::write("NROWS 4\nNCOLS 5\nNBITS 16\nNODATA 0\nBYTEORDER I",
+        com::PathName("int2mv0.hdr"));
+        INT2 buf[20];
+        std::generate_n(buf,20,com::SeqInc<INT2>());
+        buf[19]=0;
+        com::write(buf,20*sizeof(INT2),com::PathName("int2mv0.bil"));
+      }
+    }
 
-  return suite;
-}
+    ~Fixture()
+    {
+    }
+
+};
 
 
-
-//------------------------------------------------------------------------------
-// DEFINITION OF BANDMAP MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-geo::BandMapTest::BandMapTest()
-{
-}
-
-//! setUp
-void geo::BandMapTest::setUp()
-{
-  { // create a minimal 4*5 UINT1 map
-    com::write("NROWS 4\nNCOLS 5\n",
-    com::PathName("uint1minimal.hdr"));
-    UINT1 buf[20];
-    std::generate_n(buf,20,com::SeqInc<UINT1>());
-    com::write(buf,20,com::PathName("uint1minimal.bil"));
-  }
-  { // create a  4*5 INT2 map with first and last cell a MV of 0
-    // above 8 bits always set byteorder!
-    com::write("NROWS 4\nNCOLS 5\nNBITS 16\nNODATA 0\nBYTEORDER I",
-    com::PathName("int2mv0.hdr"));
-    INT2 buf[20];
-    std::generate_n(buf,20,com::SeqInc<INT2>());
-    buf[19]=0;
-    com::write(buf,20*sizeof(INT2),com::PathName("int2mv0.bil"));
-  }
-}
-
-//! tearDown
-void geo::BandMapTest::tearDown()
-{
-}
+BOOST_FIXTURE_TEST_SUITE(band_map, Fixture)
 
 // TODO make test to 
 //    - reads data from a file not big enough
 
-void geo::BandMapTest::testOpen()
+
+BOOST_AUTO_TEST_CASE(open)
 {
-  setUp();
+  using namespace geo;
 
   UINT1 *buf=0;;
   try {
@@ -151,24 +70,18 @@ void geo::BandMapTest::testOpen()
      std::cerr << e.messages();
   }
   delete [] buf ;
-
-  tearDown();
 }
 
-/*!
- * \todo reads and write and cmp default setting of ULYMAP and mapping that to RasterSpace
- */
-void geo::BandMapTest::testRasterSpace()
+
+// reads and write and cmp default setting of ULYMAP and mapping that to RasterSpace
+BOOST_AUTO_TEST_CASE(raster_space)
 {
-  setUp();
-
-
-  tearDown();
 }
 
-void geo::BandMapTest::testMultiBand()
+
+BOOST_AUTO_TEST_CASE(multi_band)
 {
-  setUp();
+  using namespace geo;
 
   { // create a multiband 4*5 REAL4 map
     com::write("NROWS 4\nNCOLS 10\nNBANDS 3\nNBITS 32\n",
@@ -185,13 +98,12 @@ void geo::BandMapTest::testMultiBand()
  BOOST_CHECK(real4[20]==60);
  BOOST_CHECK(real4[39]==99);
  delete [] real4;
-
-  tearDown();
 }
 
-void geo::BandMapTest::testOpen2()
+
+BOOST_AUTO_TEST_CASE(open2)
 {
-  setUp();
+  using namespace geo;
 
  BandMap bm("int2mv0");
  BOOST_CHECK( bm.nrRows() ==4);
@@ -220,13 +132,12 @@ void geo::BandMapTest::testOpen2()
  delete [] bufi4;
  delete [] bufi2;
  delete [] real4;
-
-  tearDown();
 }
 
-void geo::BandMapTest::testRead()
+
+BOOST_AUTO_TEST_CASE(read)
 {
-  setUp();
+  using namespace geo;
 
    // TEST SWAPPING
    // big endian, csf map with value
@@ -243,13 +154,12 @@ void geo::BandMapTest::testRead()
    BOOST_CHECK(buf[bm.nrCells()-1]== 1);
 
   delete [] buf ;
-
-  tearDown();
 }
 
-void geo::BandMapTest::testCreate()
+
+BOOST_AUTO_TEST_CASE(create)
 {
-  setUp();
+  using namespace geo;
 
    CSFMap  in("inp1b.map");
    RasterSpace rs(in.rasterSpace());
@@ -284,13 +194,12 @@ void geo::BandMapTest::testCreate()
    delete [] bufI4;
 
   delete [] buf ;
-
-  tearDown();
 }
 
-void geo::BandMapTest::testPutCells()
+
+BOOST_AUTO_TEST_CASE(put_cells)
 {
-  setUp();
+  using namespace geo;
 
  {
   RasterSpace rs(4,5);
@@ -344,13 +253,12 @@ void geo::BandMapTest::testPutCells()
   com::read(stxContents,stx);
   BOOST_CHECK(stxContents == "1 1 19\n");
  }
-
-  tearDown();
 }
 
-void geo::BandMapTest::testHeader()
+
+BOOST_AUTO_TEST_CASE(header)
 {
-  setUp();
+  using namespace geo;
 
   UINT1 buf[20];
   std::generate_n(buf,20,com::SeqInc<UINT1>());
@@ -415,6 +323,6 @@ void geo::BandMapTest::testHeader()
     failure=true;
   }
   BOOST_CHECK(failure);
-
-  tearDown();
 }
+
+BOOST_AUTO_TEST_SUITE_END()

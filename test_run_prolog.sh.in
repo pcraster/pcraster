@@ -1,10 +1,16 @@
 set -e
 
 directories_with_prolog_scripts="
-    source/pcrcom
-    source/pcraster_dal
+    source/col2map
     source/pcraster_aguila
+    source/pcraster_dal
+    source/pcraster_old_calc
+    source/pcrcom
+    source/pcrgeo
+    source/pcrxml
 "
+# TODO See resample's CMakeLists.txt
+# source/resample
 
 
 for directory_pathname in $directories_with_prolog_scripts; do

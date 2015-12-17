@@ -133,37 +133,25 @@ TARGET_LINK_LIBRARIES(pcrxml
 )
 
 
-if(FALSE AND PCRASTER_BUILD_TEST)
-    SET(TEST_SOURCES
-        pcrxml_test.cc
-        pcrxml_attributetest.cc
-        pcrxml_bindoubleletest.cc
-        pcrxml_childelementvisitortest.cc
-        pcrxml_documenttest.cc
-        pcrxml_domalgorithmtest.cc
-        pcrxml_domtest.cc
-        pcrxml_elementtest.cc
-        pcrxml_enumnmtokentest.cc
-        pcrxml_interspacedsentencetest.cc
-        pcrxml_pcdataelementtest.cc
-        pcrxml_simpleattrtest.cc
-        pcrxml_wordtest.cc
+if(PCRASTER_BUILD_TEST)
+    set(TEST_NAMES
+        pcrxml_attributetest
+        pcrxml_bindoubleletest
+        pcrxml_childelementvisitortest
+        pcrxml_documenttest
+        pcrxml_domalgorithmtest
+        pcrxml_domtest
+        pcrxml_elementtest
+        pcrxml_enumnmtokentest
+        pcrxml_interspacedsentencetest
+        pcrxml_pcdataelementtest
+        pcrxml_simpleattrtest
+        pcrxml_wordtest
     )
-
-    ADD_EXECUTABLE(test_pcrxml
-        ${TEST_SOURCES}
+    add_unit_tests(
+        SCOPE pcrxml
+        NAMES ${TEST_NAMES}
+        LINK_LIBRARIES
+            pcrxml
     )
-
-    TARGET_LINK_LIBRARIES(test_pcrxml
-        pcrxml
-    )
-
-    ADD_CUSTOM_TARGET(run_test_pcrxml
-        COMMAND bash testrun.prolog
-        COMMAND test_pcrxml --detect_memory_leaks=0
-        COMMAND bash testrun.epilog
-        DEPENDS test_pcrxml
-        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-    )
-    ADD_DEPENDENCIES(tests run_test_pcrxml)
 endif()

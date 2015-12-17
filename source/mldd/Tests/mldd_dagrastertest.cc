@@ -1,97 +1,49 @@
-#ifndef INCLUDED_STDDEFX
+#define BOOST_TEST_MODULE pcraster mldd dag_raster
+#include <boost/test/unit_test.hpp>
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_MLDD_DAGRASTERTEST
-#include "mldd_dagrastertest.h"
-#define INCLUDED_MLDD_DAGRASTERTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_MLDD_DAGRASTER
-#include "mldd_dagraster.h"
-#define INCLUDED_MLDD_DAGRASTER
-#endif
-#ifndef INCLUDED_MLDD_UPSTREAM
 #include "mldd_upstream.h"
-#define INCLUDED_MLDD_UPSTREAM
-#endif
-#ifndef INCLUDED_MLDD_WEIGHTMAP
 #include "mldd_weightmap.h"
-#define INCLUDED_MLDD_WEIGHTMAP
-#endif
+#define private public
+#include "mldd_dagraster.h"
 
-/*!
-  \file
-  This file contains the implementation of the DagRasterTest class.
-*/
 
-// NOTE use string failureExpected in files expected to fail, see style guide
+#define CASE1_NR  6
 
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC DAGRASTER MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*mldd::DagRasterTest::suite()
+struct Fixture
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<DagRasterTest> instance(new DagRasterTest());
 
-  suite->add(BOOST_CLASS_TEST_CASE(&DagRasterTest::testUpdateOrder, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&DagRasterTest::testDownstreamVisit, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&DagRasterTest::testCycle, instance));
+    Fixture()
+    {
+      using namespace mldd;
 
-  return suite;
-}
+      // more realistic RIVM-37 case 1
+      d_case1 = new DagRaster(geo::RasterDim(3,2));
+      d_case1->addFlowNB(0,0,2);
+      d_case1->addFlowNB(0,1,2);
+      d_case1->addFlowNB(0,1,1);
+      d_case1->addFlowNB(1,0,2);
+      d_case1->addFlowNB(1,1,1);
+      d_case1->updateOrder();
+    }
 
 
+    ~Fixture()
+    {
+      delete d_case1;
+      d_case1 = 0;
+    }
 
-//------------------------------------------------------------------------------
-// DEFINITION OF DAGRASTER MEMBERS
-//------------------------------------------------------------------------------
+    mldd::DagRaster *d_case1;
 
-//! ctor
-mldd::DagRasterTest::DagRasterTest()
+};
+
+
+BOOST_FIXTURE_TEST_SUITE(dag_raster, Fixture)
+
+BOOST_AUTO_TEST_CASE(update_order)
 {
-# define CASE1_NR  6
-  // more realistic RIVM-37 case 1
-  d_case1 = new DagRaster(geo::RasterDim(3,2));
-  d_case1->addFlowNB(0,0,2);
-  d_case1->addFlowNB(0,1,2);
-  d_case1->addFlowNB(0,1,1);
-  d_case1->addFlowNB(1,0,2);
-  d_case1->addFlowNB(1,1,1);
-  d_case1->updateOrder();
-}
+  using namespace mldd;
 
-mldd::DagRasterTest::~DagRasterTest()
-{
-  delete d_case1;
-  d_case1 = 0;
-}
-
-void mldd::DagRasterTest::testUpdateOrder()
-{
   { // None
     DagRaster dr(geo::RasterDim(1,2));
     dr.updateOrder();
@@ -146,8 +98,10 @@ void mldd::DagRasterTest::testUpdateOrder()
   }
 }
 
-void mldd::DagRasterTest::testDownstreamVisit()
+
+BOOST_AUTO_TEST_CASE(downstream_visit)
 {
+  using namespace mldd;
 /*
   // DefineGraph is the most simple fo on here
   { // one out of map
@@ -208,8 +162,10 @@ void mldd::DagRasterTest::testDownstreamVisit()
 }
 
 
-void mldd::DagRasterTest::testCycle()
+BOOST_AUTO_TEST_CASE(cylcle)
 {
+  using namespace mldd;
+
   // DefineGraph is the most simple fo on here
   /*{ // one out of map
     DagRaster dr(geo::RasterDim(1,1));
@@ -253,3 +209,5 @@ void mldd::DagRasterTest::testCycle()
     BOOST_CHECK(pcr::isMV(out[5]));
   }
 }
+
+BOOST_AUTO_TEST_SUITE_END()

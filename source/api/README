@@ -1,1 +1,29 @@
 NOTE THAT I ASSUME THAT m->Get() ASSIGNS MV ALWAYS 
+
+
+/*!
+ \namespace fieldapi
+ \brief api for fields, in support of calc library
+
+  Used in the implemtation of global operators.
+  Currently only in the new stuff such as dynamicwave and inversedistance.
+  Someday it must replace the Ansi-C MAP_* interface from api.h
+
+  <ul>
+   <li>improve maybe to have 'scalar only types' that
+       have REAL4 in and out. In general, if we manage to have pcrcalc/oplist.tcl
+       to generate ALL interfaces, we can deduce if we need a polomorphic interface,
+       as implemented now, are a straigth single type
+    <li>implement a check func that checks for MV without getting the value.
+       Can be done on higher level, so we can make generic array of maps to
+        check indepent of map type
+    <li>in the long run, drop MAP_* interface totally, redesign
+        C/Pascal/Com interface on top of new api
+  </ul>
+
+  \todo
+    CW do we still have float/double promotion problem (spread/view or whatever)?
+  \todo
+    put of UINT1 had in Ansi-C a unsigned int value type
+    check if needed here
+*/

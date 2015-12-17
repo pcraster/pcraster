@@ -5,6 +5,7 @@
 #include "com_file.h"
 #include "calc_lookuptable.h"
 #include "calc_vs.h"
+#include "calc_calc.h"  // globalInit()
 
 
 void createTestTable(
@@ -12,9 +13,9 @@ void createTestTable(
     const char *contents,
     const std::vector<VS>& inKeys)
 {
-  std::string name("LookupTableTest.tbl");
-  com::write(contents,name);
-  t.setRecords(name,inKeys);
+    std::string name("LookupTableTest.tbl");
+    com::write(contents,name);
+    t.setRecords(name,inKeys);
 }
 
 
@@ -27,46 +28,63 @@ static std::vector<double> makeKey(double v1, double v2=-1024)
 }
 
 
+struct Fixture
+{
+
+    Fixture()
+    {
+        calc::globalInit();
+    }
+
+
+    ~Fixture()=default;
+
+};
+
+
+BOOST_GLOBAL_FIXTURE(Fixture)
+
 BOOST_AUTO_TEST_CASE(old_style_constructor)
 {
-  using namespace calc;
+    using namespace calc;
 
-  std::vector<VS> inKeys(1,VS_S);
-  double r;
+    std::vector<VS> inKeys(1, VS_S);
+    double r;
 
- { // OK
-  LookupTable t(VS_S);
-  createTestTable(t,"[3 , 5 ] 2.4",inKeys);
+    { // OK
+        LookupTable t(VS_S);
+        createTestTable(t,"[3 , 5 ] 2.4",inKeys);
 
-  r=-2;
-  BOOST_CHECK( t.find(r,makeKey(3)));
-  BOOST_CHECK( r==2.4); r=-2;
-  BOOST_CHECK( t.find(r,makeKey(4)));
-  BOOST_CHECK( r==2.4); r=-2;
-  BOOST_CHECK( t.find(r,makeKey(5)));
-  BOOST_CHECK( r==2.4); r=-2;
-  BOOST_CHECK(!t.find(r,makeKey(0)));
-  BOOST_CHECK( r==-2);
-  BOOST_CHECK(!t.find(r,makeKey(5.1)));
-  BOOST_CHECK( r==-2);
- }
+        r=-2;
+        BOOST_CHECK( t.find(r,makeKey(3)));
+        BOOST_CHECK( r==2.4); r=-2;
+        BOOST_CHECK( t.find(r,makeKey(4)));
+        BOOST_CHECK( r==2.4); r=-2;
+        BOOST_CHECK( t.find(r,makeKey(5)));
+        BOOST_CHECK( r==2.4); r=-2;
+        BOOST_CHECK(!t.find(r,makeKey(0)));
+        BOOST_CHECK( r==-2);
+        BOOST_CHECK(!t.find(r,makeKey(5.1)));
+        BOOST_CHECK( r==-2);
+    }
 
- bool failure=false;
- try { // 2.4 not a nominal
-  LookupTable t(VS_N);
-  createTestTable(t,"[3 , 5 ] 2.4",inKeys);
- } catch (const com::Exception& e) {
-   BOOST_CHECK(e.messages().find("2.4")     != std::string::npos &&
-             e.messages().find("nominal") != std::string::npos );
-   failure=true;
- }
- BOOST_CHECK(failure);
-
-
+    // 2.4 not a nominal
+    bool failure=false;
+    try {
+        LookupTable t(VS_N);
+        createTestTable(t,"[3 , 5 ] 2.4", inKeys);
+    }
+    catch(com::Exception const& exception) {
+        BOOST_CHECK(
+            exception.messages().find("2.4") != std::string::npos &&
+            exception.messages().find("nominal") != std::string::npos);
+        failure=true;
+    }
+    BOOST_CHECK(failure);
 }
 
 
-BOOST_AUTO_TEST_CASE(all_intervales)
+BOOST_AUTO_TEST_CASE(all_intervals)
 {
   using namespace calc;
 

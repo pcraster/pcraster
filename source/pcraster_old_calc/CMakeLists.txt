@@ -251,7 +251,7 @@ if(PCRASTER_BUILD_TEST)
         # calc_wldelfthabitattest.cc  No longer supported.
     )
     add_unit_tests(
-        SCOPE pcrdiscr
+        SCOPE oldcalc
         NAMES ${TEST_NAMES}
         LINK_LIBRARIES
             pcraster_old_calc

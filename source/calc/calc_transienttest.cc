@@ -1,99 +1,16 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_TRANSIENTTEST
-#include "calc_transienttest.h"
-#define INCLUDED_CALC_TRANSIENTTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_ALGORITHM
+#define BOOST_TEST_MODULE pcraster calc transient
+#include <boost/test/unit_test.hpp>
 #include <algorithm>
-#define INCLUDED_ALGORITHM
-#endif
-
-#ifndef INCLUDED_FUNCTIONAL
 #include <functional>
-#define INCLUDED_FUNCTIONAL
-#endif
-
-#ifndef INCLUDED_NUMERIC
 #include <numeric>
-#define INCLUDED_NUMERIC
-#endif
-
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_API
+#include "stddefx.h"
 #include "api.h"
-#define INCLUDED_API
-#endif
-
-#ifndef INCLUDED_CSFTYPES
 #include "csftypes.h"
-#define INCLUDED_CSFTYPES
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC
 #include "calc.h"
-#define INCLUDED_CALC
-#endif
 
-
-
-/*!
-  \file
-  This file contains the implementation of the TransientTest class.
-*/
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC DIFFUSE MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*calc::TransientTest::suite()
-{
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<TransientTest> instance(new TransientTest());
-
-  suite->add(BOOST_CLASS_TEST_CASE(&TransientTest::testFixedHead, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&TransientTest::testBudget, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF DIFFUSE MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-calc::TransientTest::TransientTest()
-{
-}
 
 // Test if fixed head cells stay constant.
-void calc::TransientTest::testFixedHead()
+BOOST_AUTO_TEST_CASE(fixed_head)
 {
   size_t nrRows = 3;
   size_t nrCols = 3;
@@ -155,8 +72,7 @@ void calc::TransientTest::testFixedHead()
 }
 
 
-
-void calc::TransientTest::testBudget()
+BOOST_AUTO_TEST_CASE(budget)
 {
   size_t nrRows = 3;
   size_t nrCols = 3;

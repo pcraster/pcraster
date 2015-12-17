@@ -84,36 +84,26 @@ TARGET_LINK_LIBRARIES(calc
 )
 
 
-if(FALSE AND PCRASTER_BUILD_TEST)
-    SET(TEST_SOURCES
-        calc_test.cc
-        calc_downstreamvisitortest.cc
-        calc_marktest.cc
-        calc_kinematictest.cc
-        calc_transienttest.cc
+if(PCRASTER_BUILD_TEST)
+    set(TEST_NAMES
+        calc_downstreamvisitortest
+        calc_marktest
+        calc_kinematictest
+        calc_transienttest
     )
-    ADD_EXECUTABLE(test_calc
-        ${TEST_SOURCES}
+    add_unit_tests(
+        SCOPE calc
+        NAMES ${TEST_NAMES}
+        LINK_LIBRARIES
+            calc
     )
-
-    TARGET_LINK_LIBRARIES(test_calc
-        calc
-        # api
-        # pcrgeo
-        # app
-        # mathx
-        # pcrcom
-        # tab
-        # geom
-        # misc
-        # ${BOOST_SYSTEM_LIBRARY}
-        # ${BOOST_FILESYSTEM_LIBRARY}
-    )
-
-    ADD_CUSTOM_TARGET(run_test_calc
-        COMMAND test_calc --detect_memory_leaks=0
-        DEPENDS test_calc
-        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-    )
-    ADD_DEPENDENCIES(tests run_test_calc)
 endif()
+
+
+# /*!
+#    \namespace calc
+#    \brief global field functions of pcrcalc
+# 
+#    Calc is a bad name for the namespace;
+#    In the long run, merge this lib and api, to be named globfieldfunc ??
+# */

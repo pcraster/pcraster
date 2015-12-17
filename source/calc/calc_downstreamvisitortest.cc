@@ -1,87 +1,14 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_DOWNSTREAMVISITORTEST
-#include "calc_downstreamvisitortest.h"
-#define INCLUDED_CALC_DOWNSTREAMVISITORTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_FIELDAPI_TESTFIELD
+#define BOOST_TEST_MODULE pcraster calc downstream_visitor
+#include <boost/test/unit_test.hpp>
 #include "fieldapi_testfield.h"
-#define INCLUDED_FIELDAPI_TESTFIELD
-#endif
-#ifndef INCLUDED_FIELDAPI_INTERFACE
 #include "fieldapi_interface.h"
-#define INCLUDED_FIELDAPI_INTERFACE
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_DOWNSTREAMVISITOR
 #include "calc_downstreamvisitor.h"
-#define INCLUDED_CALC_DOWNSTREAMVISITOR
-#endif
 
 
-
-/*!
-  \file
-  This file contains the implementation of the DownStreamVisitorTest class.
-*/
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC DOWNSTREAMVISITOR MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*calc::DownStreamVisitorTest::suite()
+BOOST_AUTO_TEST_CASE(realistic_ldd)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<DownStreamVisitorTest> instance(new DownStreamVisitorTest());
+  using namespace calc;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&DownStreamVisitorTest::testPitOnly, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&DownStreamVisitorTest::testAllDirs, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&DownStreamVisitorTest::testKnownOrder, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&DownStreamVisitorTest::testRealisticLdd, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF DOWNSTREAMVISITOR MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-calc::DownStreamVisitorTest::DownStreamVisitorTest()
-{
-}
-
-
-//! a realistic ldd
-void calc::DownStreamVisitorTest::testRealisticLdd()
-{
  {
   UINT1 mask1[]={ MV_UINT1, 2,        2, MV_UINT1, 1,
                   5,        4,        4,        4, MV_UINT1,
@@ -111,9 +38,12 @@ void calc::DownStreamVisitorTest::testRealisticLdd()
  }
 }
 
-//! ldd's with single upstream neighbour: known order
-void calc::DownStreamVisitorTest::testKnownOrder()
+
+// ldd's with single upstream neighbour: known order
+BOOST_AUTO_TEST_CASE(known_order)
 {
+  using namespace calc;
+
  {
   UINT1 d1[]={ 5, 4, 4 };
   fieldapi::TestField<UINT1,1,3> d2(d1);
@@ -168,9 +98,11 @@ void calc::DownStreamVisitorTest::testKnownOrder()
  }
 }
 
-//! check all directions
-void calc::DownStreamVisitorTest::testAllDirs()
+
+BOOST_AUTO_TEST_CASE(all_directions)
 {
+  using namespace calc;
+
  {
   UINT1 d1[]={ 3, 2, 1,
                6, 5, 4,
@@ -202,9 +134,10 @@ void calc::DownStreamVisitorTest::testAllDirs()
 }
 
 
-//! test case of pit only
-void calc::DownStreamVisitorTest::testPitOnly()
+BOOST_AUTO_TEST_CASE(pit_only)
 {
+  using namespace calc;
+
  {
   UINT1 d1[]={ 5 };
   fieldapi::TestField<UINT1,1,1> d2(d1);
@@ -239,4 +172,3 @@ void calc::DownStreamVisitorTest::testPitOnly()
  test with   1*1 -> pit
  */
 }
-

@@ -11,21 +11,12 @@ ADD_LIBRARY(pcrvoxelstack
 )
 
 
-if(FALSE AND PCRASTER_BUILD_TEST)
-    SET(TEST_SOURCES
-        voxelstack_voxelstacktest.cc
-        voxelstack_test.cc
+if(PCRASTER_BUILD_TEST)
+    set(TEST_NAMES
+        voxelstack_voxelstacktest
     )
-    ADD_EXECUTABLE(test_pcrvoxelstack
-        ${TEST_SOURCES}
+    add_unit_tests(
+        SCOPE voxelstack
+        NAMES ${TEST_NAMES}
     )
-    TARGET_LINK_LIBRARIES(test_pcrvoxelstack
-        pcrvoxelstack
-    )
-    ADD_CUSTOM_TARGET(run_test_pcrvoxelstack
-        COMMAND test_pcrvoxelstack
-        DEPENDS test_pcrvoxelstack
-        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-    )
-    ADD_DEPENDENCIES(tests run_test_pcrvoxelstack)
 endif()

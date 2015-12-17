@@ -1,99 +1,20 @@
-#include "stddefx.h"
-#include "pcrxml_elementtest.h"
-
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-#ifndef INCLUDED_PCRGENXML_VISUALISATIONCONFIGURATION
+#define BOOST_TEST_MODULE pcraster pcrxml element
+#include <boost/test/unit_test.hpp>
 #include "pcrgenxml_visualisationconfiguration.h"
-#define INCLUDED_PCRGENXML_VISUALISATIONCONFIGURATION
-#endif
-#ifndef INCLUDED_PCRGENXML_DATA
 #include "pcrgenxml_data.h"
-#define INCLUDED_PCRGENXML_DATA
-#endif
-
-
-#ifndef INCLUDED_PCRXML_DOCUMENT
 #include "pcrxml_document.h"
-#define INCLUDED_PCRXML_DOCUMENT
-#endif
-
-#ifndef  INCLUDED_QDOM
 #include <qdom.h>
-#define  INCLUDED_QDOM
-#endif
-
-#ifndef INCLUDED_PCRXML_OSTREAM
 #include "pcrxml_ostream.h"
-#define INCLUDED_PCRXML_OSTREAM
-#endif
-
-#ifndef INCLUDED_SSTREAM
 #include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-
-#ifndef INCLUDED_COM_PATHINFO
 #include "com_pathinfo.h"
-#define INCLUDED_COM_PATHINFO
-#endif
-
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
 
-/*!
-  \file
-  This file contains the implementation of the ElementTest class.
-*/
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC CLASS MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*pcrxml::ElementTest::suite()
-{
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<ElementTest> instance(new ElementTest());
-
-  suite->add(BOOST_CLASS_TEST_CASE(&ElementTest::testToDomDocument, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ElementTest::testWriteToFile, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ElementTest::testRequired, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-pcrxml::ElementTest::ElementTest()
-{
-}
 
 //! test write and writeToFile method
-void pcrxml::ElementTest::testWriteToFile()
+BOOST_AUTO_TEST_CASE(write_to_file)
 {
+  using namespace pcrxml;
+
  { // do write
   pcrxml::VisualisationConfiguration vc;
 
@@ -114,15 +35,21 @@ void pcrxml::ElementTest::testWriteToFile()
  }
 }
 
+
 //! test both toDomDocument and appendTo method
 /*!
  * NOTE did not work with ostringstream on gcc 2.96 !
  */
-void pcrxml::ElementTest::testToDomDocument()
+BOOST_AUTO_TEST_CASE(to_dom_document)
 {
+  // using namespace pcrxml;
 }
-void pcrxml::ElementTest::testRequired()
+
+
+BOOST_AUTO_TEST_CASE(required)
 {
+  using namespace pcrxml;
+
  { // misses required attribute name
   bool catched(false);
   try {
@@ -181,5 +108,4 @@ void pcrxml::ElementTest::testRequired()
   }
   BOOST_WARN(doesNotTellRequiredChoiseIsMissing);
  }
-
 }

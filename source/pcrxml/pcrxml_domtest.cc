@@ -1,91 +1,15 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_PCRXML_DOMTEST
-#include "pcrxml_domtest.h"
-#define INCLUDED_PCRXML_DOMTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_EXCEPTION
+#define BOOST_TEST_MODULE pcraster pcrxml dom
+#include <boost/test/unit_test.hpp>
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-// Module headers.
-#ifndef INCLUDED_PCRXML_DOMDIFF
 #include "pcrxml_domdiff.h"
-#define INCLUDED_PCRXML_DOMDIFF
-#endif
-#ifndef INCLUDED_PCRXML_DOM
 #include "pcrxml_dom.h"
-#define INCLUDED_PCRXML_DOM
-#endif
-#ifndef INCLUDED_PCRXML_DOCUMENT
 #include "pcrxml_document.h"
-#define INCLUDED_PCRXML_DOCUMENT
-#endif
 
 
-/*!
-  \file
-  This file contains the implementation of the DomTest class.
-*/
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC DOM MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*pcrxml::DomTest::suite()
+BOOST_AUTO_TEST_CASE(first_match_by_tag_name)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<DomTest> instance(new DomTest());
+  using namespace pcrxml;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&DomTest::testFirstMatchByTagName, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&DomTest::testChildrenByTagName, instance));
-
-  suite->add(BOOST_CLASS_TEST_CASE(&DomTest::testChangeAttrName, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&DomTest::testTextOnlyContents, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&DomTest::testDomEquality, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF DOM MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-pcrxml::DomTest::DomTest()
-{
-}
-
-
-
-void pcrxml::DomTest::testFirstMatchByTagName()
-{
   // this is the assumption made by firstMatchByTagName
   QDomElement d;
   BOOST_CHECK(d.isNull());
@@ -102,8 +26,11 @@ void pcrxml::DomTest::testFirstMatchByTagName()
   }
 }
 
-void pcrxml::DomTest::testChildrenByTagName()
+
+BOOST_AUTO_TEST_CASE(children_by_tag_name)
 {
+  using namespace pcrxml;
+
   {
    Document doc("<Main b='c'> abdef </Main>");
    BOOST_CHECK(childrenByTagName(doc.documentElement(),"Na").empty());
@@ -123,8 +50,11 @@ void pcrxml::DomTest::testChildrenByTagName()
   }
 }
 
-void pcrxml::DomTest::testChangeAttrName()
+
+BOOST_AUTO_TEST_CASE(change_attr_name)
 {
+  using namespace pcrxml;
+
  Document doc("<Main b='change'/>");
  QDomElement e(doc.documentElement());
 
@@ -144,8 +74,11 @@ void pcrxml::DomTest::testChangeAttrName()
 
 }
 
-void pcrxml::DomTest::testTextOnlyContents()
+
+BOOST_AUTO_TEST_CASE(text_only_contents)
 {
+  using namespace pcrxml;
+
   {
    Document doc("<Main b='c'> abdef </Main>");
    BOOST_CHECK(textOnlyContents(doc.documentElement()) == " abdef ");
@@ -156,15 +89,14 @@ void pcrxml::DomTest::testTextOnlyContents()
   }
 }
 
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
+
 /*!
  * generic testing of Qt Dom how to compare a DOM tree
  */
-void pcrxml::DomTest::testDomEquality()
+BOOST_AUTO_TEST_CASE(dom_equality)
 {
+  using namespace pcrxml;
+
   { // exact the same
      DomDiff d("<Main b='c'>x<T/> </Main>",
                "<Main b='c'>x<T/> </Main>");

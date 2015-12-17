@@ -41,7 +41,7 @@ add_subdirectory(tab)
 add_subdirectory(geom)
 add_subdirectory(calc)  # TODO unit tests
 add_subdirectory(pccts)
-add_subdirectory(pcrxml)  # TODO unit tests
+add_subdirectory(pcrxml)
 add_subdirectory(modflow)  # TODO unit tests
 add_subdirectory(linkinexamples)
 add_subdirectory(pcraster_model_engine)  # TODO unit tests

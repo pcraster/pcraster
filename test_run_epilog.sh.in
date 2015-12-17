@@ -3,6 +3,7 @@ set -e
 directories_with_epilog_scripts="
     source/pcrcom
     source/pcraster_dal
+    source/pcraster_old_calc
     source/pcrxml
 "
 

@@ -1,65 +1,14 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_LOOKUPLINEARTEST
-#include "calc_lookuplineartest.h"
-#define INCLUDED_CALC_LOOKUPLINEARTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_PATHNAME
+#define BOOST_TEST_MODULE pcraster old_calc lookup_linear
+#include <boost/test/unit_test.hpp>
 #include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-#ifndef INCLUDED_COM_FILE
 #include "com_file.h"
-#define INCLUDED_COM_FILE
-#endif
-#ifndef INCLUDED_COM_MATH
 #include "com_math.h"
-#define INCLUDED_COM_MATH
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_LOOKUPLINEAR
 #include "calc_lookuplinear.h"
-#define INCLUDED_CALC_LOOKUPLINEAR
-#endif
-#ifndef INCLUDED_CALC_VS
 #include "calc_vs.h"
-#define INCLUDED_CALC_VS
-#endif
 
-/*!
-  \file
-  This file contains the implementation of the LookupLinearTest class.
-*/
 
-namespace calc {
-
-class LookupLinearCtor : public LookupLinear {
+class LookupLinearCtor : public calc::LookupLinear {
  public:
   LookupLinearCtor(
         const char *contents,
@@ -71,49 +20,7 @@ class LookupLinearCtor : public LookupLinear {
        com::write(contents,name);
        setRecords(name,in);
     }
- };
-}
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC LOOKUPLINEAR MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*calc::LookupLinearTest::suite()
-{
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<LookupLinearTest> instance(new LookupLinearTest());
-
-  suite->add(BOOST_CLASS_TEST_CASE(&LookupLinearTest::testOldStyleCtor, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&LookupLinearTest::testAllIntervals, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&LookupLinearTest::testMultipleRecords, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF LOOKUPLINEAR MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-calc::LookupLinearTest::LookupLinearTest()
-{
-}
-
-
-
-//! setUp
-void calc::LookupLinearTest::setUp()
-{
-}
-
-//! tearDown
-void calc::LookupLinearTest::tearDown()
-{
-}
+};
 
 
 static std::vector<double> makeKey(double v1, double v2=-1024)
@@ -125,8 +32,10 @@ static std::vector<double> makeKey(double v1, double v2=-1024)
 }
 
 
-void calc::LookupLinearTest::testOldStyleCtor()
+BOOST_AUTO_TEST_CASE(old_style_constructor)
 {
+  using namespace calc;
+
   std::vector<VS> inKeys(1,VS_S);
   double r;
 
@@ -159,8 +68,11 @@ void calc::LookupLinearTest::testOldStyleCtor()
 
 }
 
-void calc::LookupLinearTest::testAllIntervals()
+
+BOOST_AUTO_TEST_CASE(all_intervals)
 {
+  using namespace calc;
+
   std::vector<VS> inKeys(1,VS_S);
   double r;
 
@@ -309,8 +221,11 @@ void calc::LookupLinearTest::testAllIntervals()
  }
 }
 
-void calc::LookupLinearTest::testMultipleRecords()
+
+BOOST_AUTO_TEST_CASE(multiple_records)
 {
+  using namespace calc;
+
  {
   std::vector<VS> inKeys(1,VS_S);
   double r;

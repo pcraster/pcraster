@@ -1,128 +1,23 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_MASKCOMPRESSORTEST
-#include "calc_maskcompressortest.h"
-#define INCLUDED_CALC_MASKCOMPRESSORTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_ALGORITHM
+#define BOOST_TEST_MODULE pcraster old_calc mask_compressor
+#include <boost/test/unit_test.hpp>
 #include "com_algorithm.h"
-#define INCLUDED_COM_ALGORITHM
-#endif
-#ifndef INCLUDED_COM_CSFCELL
 #include "com_csfcell.h"
-#define INCLUDED_COM_CSFCELL
-#endif
-#ifndef INCLUDED_COM_NEW
+#include "com_exception.h"
 #include "com_new.h"
-#define INCLUDED_COM_NEW
-#endif
-#ifndef INCLUDED_GEO_CSFMAP
 #include "geo_csfmap.h"
-#define INCLUDED_GEO_CSFMAP
-#endif
-#ifndef INCLUDED_GEO_FILECREATETESTER
 #include "geo_filecreatetester.h"
-#define INCLUDED_GEO_FILECREATETESTER
-#endif
-// Module headers.
-#ifndef INCLUDED_CALC_MASKCOMPRESSOR
 #include "calc_maskcompressor.h"
-#define INCLUDED_CALC_MASKCOMPRESSOR
-#endif
-#ifndef INCLUDED_CALC_NULLCOMPRESSOR
 #include "calc_nullcompressor.h"
-#define INCLUDED_CALC_NULLCOMPRESSOR
-#endif
-#ifndef INCLUDED_CALC_COMPRESSIONINPUT
 #include "calc_compressioninput.h"
-#define INCLUDED_CALC_COMPRESSIONINPUT
-#endif
-#ifndef INCLUDED_CALC_SPATIAL
 #include "calc_spatial.h"
-#define INCLUDED_CALC_SPATIAL
-#endif
-#ifndef INCLUDED_CALC_DECOMPRESSEDDATA
 #include "calc_decompresseddata.h"
-#define INCLUDED_CALC_DECOMPRESSEDDATA
-#endif
-#ifndef INCLUDED_CALC_MODELBUILDER
 #include "calc_modelbuilder.h"
-#define INCLUDED_CALC_MODELBUILDER
-#endif
-
-/*!
-  \file
-  This file contains the implementation of the MaskCompressorTest class.
-*/
 
 
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC MASKCOMPRESSOR MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*calc::MaskCompressorTest::suite()
+BOOST_AUTO_TEST_CASE(compressor)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<MaskCompressorTest> instance(new MaskCompressorTest());
+  using namespace calc;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&MaskCompressorTest::testCompressor, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&MaskCompressorTest::testScript, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&MaskCompressorTest::test0Option, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF MASKCOMPRESSOR MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-calc::MaskCompressorTest::MaskCompressorTest()
-{
-}
-
-
-
-//! setUp
-void calc::MaskCompressorTest::setUp()
-{
-}
-
-//! tearDown
-void calc::MaskCompressorTest::tearDown()
-{
-}
-
-
-
-
-void calc::MaskCompressorTest::testCompressor()
-{
  {
   geo::RasterSpace rs(2,3);
   UINT1 mask[6]= { 1, 1, 1, 1, 1, 1 };
@@ -144,14 +39,14 @@ void calc::MaskCompressorTest::testCompressor()
     Spatial *s=cs[i]->createSpatial(ci);
     BOOST_CHECK(s->nrValues() == cs[i]->nrCellsCompressed());
     ci.detachData(); // do not call [] delete => stack data
-    REAL4 *compressed= (REAL4 *)s->srcValue();
+    REAL4 *compressed= (REAL4 *)const_cast<void*>(s->srcValue());
     BOOST_CHECK(compressed[0]==1);
     BOOST_CHECK(compressed[2]==3);
     BOOST_CHECK(compressed[5]==6);
 
     DecompressedData dd(VS_S);
     cs[i]->decompress(dd,s->srcValue());
-    REAL4 *dCopy = (REAL4 *)dd.decompressed();
+    REAL4 *dCopy = (REAL4 *)const_cast<void*>(dd.decompressed());
     BOOST_CHECK(dCopy[0]==1);
     BOOST_CHECK(dCopy[2]==3);
     BOOST_CHECK(dCopy[4]==5);
@@ -175,14 +70,14 @@ void calc::MaskCompressorTest::testCompressor()
   Spatial *s=mc.createSpatial(ci);
   BOOST_CHECK(s->nrValues() == mc.nrCellsCompressed());
   ci.detachData(); // do not call [] delete => stack data
-  REAL4 *compressed= (REAL4 *)s->srcValue();
+  REAL4 *compressed= (REAL4 *)const_cast<void*>(s->srcValue());
   BOOST_CHECK(compressed[0]==1);
   BOOST_CHECK(compressed[2]==4);
   BOOST_CHECK(compressed[3]==6);
 
   DecompressedData dd(VS_S);
   mc.decompress(dd,s->srcValue());
-  REAL4 *dCopy = (REAL4 *)dd.decompressed();
+  REAL4 *dCopy = (REAL4 *)const_cast<void*>(dd.decompressed());
   BOOST_CHECK(dCopy[0]==1);
   BOOST_CHECK(pcr::isMV(dCopy[2]));
   BOOST_CHECK(pcr::isMV(dCopy[4]));
@@ -192,18 +87,11 @@ void calc::MaskCompressorTest::testCompressor()
  }
 }
 
-#ifndef INCLUDED_COM_EXCEPTION
-#include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
 
-
-void calc::MaskCompressorTest::testScript()
+BOOST_AUTO_TEST_CASE(script)
 {
+  using namespace calc;
+
   geo::RasterSpace rs(80,50);
   /* make boolean mask with:
    *  - triangle of 1, where mask is defined
@@ -268,8 +156,11 @@ void calc::MaskCompressorTest::testScript()
 
 }
 
-void calc::MaskCompressorTest::test0Option()
+
+BOOST_AUTO_TEST_CASE(_0_option)
 {
+  using namespace calc;
+
   geo::RasterSpace rs(8,8);
   UINT1 **mask   = com::new2d<UINT1>(rs.nrRows(),rs.nrCols());
   REAL4 **result = com::new2d<REAL4>(rs.nrRows(),rs.nrCols());

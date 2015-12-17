@@ -45,7 +45,7 @@ add_subdirectory(pcrxml)
 add_subdirectory(modflow)  # TODO unit tests
 add_subdirectory(linkinexamples)
 add_subdirectory(pcraster_model_engine)  # TODO unit tests
-add_subdirectory(pcraster_old_calc)  # TODO unit tests
+add_subdirectory(pcraster_old_calc)
 add_subdirectory(pcraster_python)  # TODO unit tests
 add_subdirectory(mldd)
 

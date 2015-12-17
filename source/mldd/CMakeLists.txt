@@ -1,6 +1,7 @@
 ADD_SUBDIRECTORY(python)
-if(FALSE AND PCRASTER_BUILD_TEST)
-    ADD_SUBDIRECTORY(Tests)
+
+if(PCRASTER_BUILD_TEST)
+    add_subdirectory(Tests)
 endif()
 
 SET(SOURCES
@@ -19,13 +20,6 @@ SET(SOURCES
     # modellinks.cc
 )
 
-
-SET(TEST_SOURCES
-    mldd_test.cc
-    mldd_dagrastertest.cc
-    mldd_outedgeiteratortest.cc
-    mldd_vertexiteratortest.cc
-)
 
 # ADD_CUSTOM_COMMAND(
 #   OUTPUT  ${CMAKE_CURRENT_BINARY_DIR}/operationExpanded.xml

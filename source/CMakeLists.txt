@@ -47,7 +47,7 @@ add_subdirectory(linkinexamples)
 add_subdirectory(pcraster_model_engine)  # TODO unit tests
 add_subdirectory(pcraster_old_calc)  # TODO unit tests
 add_subdirectory(pcraster_python)  # TODO unit tests
-add_subdirectory(mldd)  # TODO unit tests
+add_subdirectory(mldd)
 
 add_subdirectory(asc2map)
 add_subdirectory(pcrcalc)

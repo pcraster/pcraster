@@ -6,6 +6,7 @@ directories_with_prolog_scripts="
     source/pcraster_dal
     source/pcrcom
     source/pcrgeo
+    source/pcrxml
 "
 # TODO See resample's CMakeLists.txt
 # source/resample

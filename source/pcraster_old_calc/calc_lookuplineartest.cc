@@ -6,6 +6,7 @@
 #include "com_math.h"
 #include "calc_lookuplinear.h"
 #include "calc_vs.h"
+#include "calc_calc.h"  // globalInit()
 
 
 class LookupLinearCtor : public calc::LookupLinear {
@@ -31,6 +32,22 @@ static std::vector<double> makeKey(double v1, double v2=-1024)
  return k;
 }
 
+
+struct Fixture
+{
+
+    Fixture()
+    {
+        calc::globalInit();
+    }
+
+
+    ~Fixture()=default;
+
+};
+
+
+BOOST_GLOBAL_FIXTURE(Fixture)
 
 BOOST_AUTO_TEST_CASE(old_style_constructor)
 {

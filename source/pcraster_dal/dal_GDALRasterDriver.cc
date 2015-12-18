@@ -4,6 +4,8 @@
 #endif
 
 // Library headers.
+#include<vector>
+
 #ifndef INCLUDED_BOOST_FILESYSTEM_PATH
 #include <boost/filesystem/path.hpp>
 #define INCLUDED_BOOST_FILESYSTEM_PATH
@@ -503,21 +505,64 @@ void GDALRasterDriver::registerGDALDrivers()
 {
   assert(d_drivers.empty());
 
-  for(int i = 0; i < GetGDALDriverManager()->GetDriverCount(); ++i) {
-    d_drivers.push_back(GetGDALDriverManager()->GetDriver(i));
+  auto* manager = GetGDALDriverManager();
+
+  for(int i = 0; i < manager->GetDriverCount(); ++i) {
+    auto* driver = manager->GetDriver(i);
+    auto metadata = driver->GetMetadata();
+
+    if(CSLFetchBoolean(metadata, GDAL_DCAP_RASTER, FALSE)) {
+      d_drivers.push_back(driver);
+    }
   }
 }
 
 
+namespace detail {
+
+std::vector<GDALDriver*> rasterDrivers()
+{
+  auto* manager = GetGDALDriverManager();
+  std::vector<GDALDriver*> drivers;
+
+  for(int i = 0; i < manager->GetDriverCount(); ++i) {
+    auto* driver = manager->GetDriver(i);
+    auto metadata = driver->GetMetadata();
+
+    if(CSLFetchBoolean(metadata, GDAL_DCAP_RASTER, FALSE)) {
+        drivers.emplace_back(driver);
+    }
+  }
+
+  return drivers;
+}
+
+
+size_t rasterDriverCount()
+{
+    return rasterDrivers().size();
+}
+
+
+void deregisterGDALDrivers()
+{
+  // Deregister currently registered raster drivers.
+  auto registeredDrivers = rasterDrivers();
+  auto* manager = GetGDALDriverManager();
+
+  for(auto* driver: registeredDrivers) {
+    manager->DeregisterDriver(driver);
+  }
+
+  assert(rasterDriverCount() == 0);
+}
+
+} // namespace detail
+
 
 void GDALRasterDriver::deregisterGDALDrivers()
 {
-  GDALDriverManager* manager = GetGDALDriverManager();
-
-  // Remove currently registered drivers.
-  while(manager->GetDriverCount()) {
-    manager->DeregisterDriver(manager->GetDriver(0));
-  }
+  detail::deregisterGDALDrivers();
 
   // Remove drivers from memory.
   BOOST_FOREACH(GDALDriver* driver, d_drivers) {
@@ -775,14 +820,10 @@ void GDALRasterDriver::registerGDALDriverToUse() const
 {
   assert(d_driver);
 
-  GDALDriverManager* manager = GetGDALDriverManager();
-
-  // Remove currently registered drivers.
-  while(manager->GetDriverCount()) {
-    manager->DeregisterDriver(manager->GetDriver(0));
-  }
+  detail::deregisterGDALDrivers();
 
   // Register driver.
+  GDALDriverManager* manager = GetGDALDriverManager();
   manager->RegisterDriver(d_driver);
 
   // Hack for HDF4Image driver. It seems it depends on the HDF4 driver also
@@ -795,7 +836,7 @@ void GDALRasterDriver::registerGDALDriverToUse() const
       }
     }
 
-    assert(manager->GetDriverCount() == 2);
+    assert(detail::rasterDriverCount() == 2);
   }
   // The WCS driver depends on VRT and format drivers. The data is stored in
   // memory in a certain format. Currently we only add the GeoTiff driver
@@ -811,11 +852,11 @@ void GDALRasterDriver::registerGDALDriverToUse() const
       }
     }
 
-    assert(manager->GetDriverCount() == 3);
+    assert(detail::rasterDriverCount() == 3);
   }
 #ifdef DEBUG_DEVELOP
   else {
-    assert(manager->GetDriverCount() == 1);
+    assert(detail::rasterDriverCount() == 1);
   }
 #endif
 }

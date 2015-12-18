@@ -2,7 +2,7 @@
     autoAddDriver(new MemoryRasterDriver(&(library()->memoryDataPool())));
     autoAddDriver(new CSFRasterDriver());
 
-    // Add all drivers supported by the current gdal installation.
+    // Add all raster drivers supported by the current gdal installation.
     for(GDALRasterDriver::iterator it = GDALRasterDriver::begin();
            it != GDALRasterDriver::end(); ++it) {
 

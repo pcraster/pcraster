@@ -21,7 +21,7 @@
 
 class OGRDataSource;
 class OGRLayer;
-class OGRSFDriver;
+class GDALDriver;
 namespace dal {
   // OgrFeatureDriver declarations.
   class FeaturePath;
@@ -55,11 +55,14 @@ class OgrFeatureDriver: public FeatureDriver
 private:
 
   //! Ogr driver used for I/O.
-  OGRSFDriver*     _driver;
+  GDALDriver*      _driver;
+
+  //! List containing name of driver;
+  char**           _driver_names;
 
   static bool      driverIsAvailable   (std::string const& name);
 
-  static OGRSFDriver* driverByName     (std::string const& name);
+  static GDALDriver* driverByName      (std::string const& name);
 
   static std::set<OGRDataSource*> _dataSources;
 
@@ -142,7 +145,7 @@ public:
 
                    OgrFeatureDriver    (std::string const& name);
 
-                   OgrFeatureDriver    (OGRSFDriver* driver);
+                   OgrFeatureDriver    (GDALDriver* driver);
 
   /* virtual */    ~OgrFeatureDriver   ();
 

@@ -86,8 +86,13 @@ PlotVisualisation::PlotVisualisation(
 
   QwtPlotGrid* grid = new QwtPlotGrid();
   grid->attach(this);
+#if QWT_VERSION >= 0x060100
+  grid->setMajorPen(QPen(Qt::lightGray, 0, Qt::DotLine));
+  grid->setMinorPen(QPen(Qt::lightGray, 0, Qt::DotLine));
+#else
   grid->setMajPen(QPen(Qt::lightGray, 0, Qt::DotLine));
   grid->setMinPen(QPen(Qt::lightGray, 0, Qt::DotLine));
+#endif
   grid->enableX(true);
   grid->enableY(true);
   grid->enableXMin(true);
@@ -373,13 +378,25 @@ bool PlotVisualisation::intersectMarker(
 
   if(marker == _xMarkerId) {
     markerLine = QLineF(
+#if QWT_VERSION >= 0x060100
+         QPointF(_xMarker->xValue(), axisScaleDiv(yLeft).lowerBound()),
+         QPointF(_xMarker->xValue(), axisScaleDiv(yLeft).upperBound())
+#else
          QPointF(_xMarker->xValue(), axisScaleDiv(yLeft)->lowerBound()),
-         QPointF(_xMarker->xValue(), axisScaleDiv(yLeft)->upperBound()));
+         QPointF(_xMarker->xValue(), axisScaleDiv(yLeft)->upperBound())
+#endif
+    );
   }
   else if(marker == _yMarkerId) {
     markerLine = QLineF(
+#if QWT_VERSION >= 0x060100
+         QPointF(axisScaleDiv(xBottom).lowerBound(), _yMarker->yValue()),
+         QPointF(axisScaleDiv(xBottom).upperBound(), _yMarker->yValue())
+#else
          QPointF(axisScaleDiv(xBottom)->lowerBound(), _yMarker->yValue()),
-         QPointF(axisScaleDiv(xBottom)->upperBound(), _yMarker->yValue()));
+         QPointF(axisScaleDiv(xBottom)->upperBound(), _yMarker->yValue())
+#endif
+    );
   }
 
   QPointF point1, point2, intersection;

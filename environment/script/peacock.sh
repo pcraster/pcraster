@@ -76,7 +76,7 @@ function build_software()
 
     # Qwt
     options+=("-Dbuild_qwt=true")
-    options+=("-Dqwt_version=6.0.2")
+    options+=("-Dqwt_version=6.1.2")
 
 
     cmake "${options[@]}" $source

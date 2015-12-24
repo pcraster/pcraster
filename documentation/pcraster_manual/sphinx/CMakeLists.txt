@@ -1,5 +1,3 @@
-include(SphinxDoc)
-
 set(SPHINX_SOURCES
     app_asc2map.rst
     app_col2map.rst

@@ -1,4 +1,4 @@
-SET(SPHINX_SOURCES
+set(SPHINX_SOURCES
     ../../../data/demo/example.py
     differences.rst
     index.rst
@@ -6,9 +6,13 @@ SET(SPHINX_SOURCES
     known_bugs.rst
     quickstart.rst
 )
-SET(SPHINX_TARGET pcraster_python_manual)
-INCLUDE(SphinxDoc)
-INSTALL(
+
+create_sphinx_docs(
+    TARGET pcraster_python_manual
+    SOURCES ${SPHINX_SOURCES}
+)
+
+install(
     DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/_build/html/
     DESTINATION doc/python/pcraster
 )

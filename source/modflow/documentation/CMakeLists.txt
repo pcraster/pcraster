@@ -1,4 +1,4 @@
-SET(SPHINX_SOURCES
+set(SPHINX_SOURCES
     ../demo/example.mod
     ../demo/example.py
     bas.rst
@@ -20,9 +20,13 @@ SET(SPHINX_SOURCES
     wel.rst
     modflow2000.rst
 )
-SET(SPHINX_TARGET pcraster_modflow_manual)
-INCLUDE(SphinxDoc)
-INSTALL(
+
+create_sphinx_docs(
+    TARGET pcraster_modflow_manual
+    SOURCES ${SPHINX_SOURCES}
+)
+
+install(
     DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/_build/html/
     DESTINATION doc/modflow
 )

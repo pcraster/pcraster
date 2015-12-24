@@ -4,7 +4,7 @@
 #include "api.h"
 #include "csftypes.h"
 #include "calc.h"
-// #include <iostream>
+#include <iostream>
 
 
 class MarkTestPrivate {

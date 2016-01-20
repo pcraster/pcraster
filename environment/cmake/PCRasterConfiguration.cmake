@@ -4,9 +4,9 @@
 # Options for selecting features.
 # PCRASTER_WITH_<feature>
 
-option(PCRASTER_BUILD_ALL
-    "Build everything, except for documentation and tests" FALSE)
-option(PCRASTER_WITH_ALL "Support all features" FALSE)
+# option(PCRASTER_BUILD_ALL
+#     "Build everything, except for documentation and tests" FALSE)
+# option(PCRASTER_WITH_ALL "Support all features" FALSE)
 option(PCRASTER_BUILD_DOCUMENTATION "Build documentation" FALSE)
 option(PCRASTER_BUILD_TEST "Build tests" FALSE)
 

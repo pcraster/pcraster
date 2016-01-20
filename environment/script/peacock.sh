@@ -38,6 +38,17 @@ function parse_commandline()
 
 function build_software()
 {
+    hostname=`hostname`
+
+    if [[ $hostname == "sonic.geo.uu.nl" ]]; then
+        skip_build_qt=1
+        skip_build_qwt=1
+    fi
+
+    `python -c "import gdal"` >/dev/null 2>&1 && \
+        skip_build_gdal_python_package=1
+
+
     if [[ $OSTYPE == "cygwin" ]]; then
         options+=("-GUnix Makefiles")
         options+=("-DCMAKE_MAKE_PROGRAM=mingw32-make")
@@ -64,19 +75,25 @@ function build_software()
     # GDAL.
     options+=("-Dbuild_gdal=true")
     options+=("-Dgdal_version=2.0.1")
-    options+=("-Dgdal_build_python_package=true")
+    if [ ! "$skip_build_gdal_python_package" ]; then
+        options+=("-Dgdal_build_python_package=true")
+    fi
 
     # PCRaster raster format.
     options+=("-Dbuild_pcraster_raster_format=true")
     options+=("-Dpcraster_raster_format_version=1.3.1")
 
     # Qt
-    options+=("-Dbuild_qt=true")
-    options+=("-Dqt_version=4.8.6")
+    if [ ! "$skip_build_qt" ]; then
+        options+=("-Dbuild_qt=true")
+        options+=("-Dqt_version=4.8.6")
+    fi
 
     # Qwt
-    options+=("-Dbuild_qwt=true")
-    options+=("-Dqwt_version=6.1.2")
+    if [ ! "$skip_build_qwt" ]; then
+        options+=("-Dbuild_qwt=true")
+        options+=("-Dqwt_version=6.1.2")
+    fi
 
 
     cmake "${options[@]}" $source

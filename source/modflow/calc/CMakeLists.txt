@@ -4,18 +4,6 @@ CONFIGURE_FILE(
     @ONLY
 )
 
-include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../include
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../pcraster_model_engine
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../pcrdiscr
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../pcrgeo
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../pcrcom
-    ${CMAKE_CURRENT_BINARY_DIR}/../../pcraster_xsd
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../pcraster_xsd
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../pcraster_dal
-)
-
 SET(SOURCES
     xml.cc
     pcr_mflink.cc
@@ -24,6 +12,19 @@ SET(SOURCES
 ADD_LIBRARY(pcraster_modflow
     SHARED
     ${SOURCES}
+)
+
+target_include_directories(pcraster_modflow
+  PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../src
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../pcraster_model_engine
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../pcrdiscr
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../pcrgeo
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../pcrcom
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../pcraster_xsd
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../pcraster_dal
+    ${CMAKE_CURRENT_BINARY_DIR}/../../pcraster_xsd
 )
 
 SET_TARGET_PROPERTIES(pcraster_modflow
@@ -35,7 +36,6 @@ TARGET_LINK_LIBRARIES(pcraster_modflow
     pcrmf
     pcrdiscr
     pcraster_model_engine
-    # ${Boost_SIGNALS_LIBRARY}
 )
 
 ADD_CUSTOM_COMMAND(
@@ -72,33 +72,34 @@ ELSE(WIN32)
 ENDIF(WIN32)
 
 
-if(FALSE AND PCRASTER_BUILD_TEST)
-    SET(TEST_SOURCES
-        calc_Test.cc
-        calc_DemoTest.cc
-    )
-    ADD_EXECUTABLE(test_pcraster_modflow
-        ${TEST_SOURCES}
-    )
+if(PCRASTER_BUILD_TEST)
 
-    # the pcraster_modflow dll must be build first
-    ADD_DEPENDENCIES(test_pcraster_modflow pcraster_modflow)
+  set(TEST_NAMES
+    calc_DemoTest
+  )
 
-    TARGET_LINK_LIBRARIES(test_pcraster_modflow
-        pcraster_model_engine
-        pcrgeo
-        ${Boost_PYTHON_LIBRARY}
-        ${PYTHON_LIBRARIES}
-    )
+  add_unit_tests(
+    SCOPE modflow
+    NAMES ${TEST_NAMES}
+    LINK_LIBRARIES
+      pcraster_model_engine
+      pcrgeo
+      ${Boost_PYTHON_LIBRARY}
+      ${PYTHON_LIBRARIES}
+  )
 
-    ADD_CUSTOM_TARGET(run_test_pcraster_modflow
-        COMMAND bash ./testrun.prolog
-        COMMAND test_pcraster_modflow
-        DEPENDS test_pcraster_modflow
-        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-    )
+  target_include_directories(modflow_calc_DemoTest
+    PRIVATE
+      ${CMAKE_CURRENT_SOURCE_DIR}/../../pcraster_model_engine
+      ${CMAKE_CURRENT_SOURCE_DIR}/../../pcrgeo
+      ${CMAKE_CURRENT_SOURCE_DIR}/../../pcrcom
+  )
 
-    # modflow binary must be copied to bin directory for unit tests
+  # the pcraster_modflow dll must be build first
+  ADD_DEPENDENCIES(modflow_calc_DemoTest pcraster_modflow)
+  ADD_DEPENDENCIES(modflow_calc_DemoTest fill_python_directory_structure)
+
+    # modflow binary must be copied to execute unit tests
     MATH(EXPR NR_BITS "${CMAKE_SIZEOF_VOID_P} * 8")
 
     IF(WIN32)
@@ -111,11 +112,20 @@ if(FALSE AND PCRASTER_BUILD_TEST)
 
     ADD_CUSTOM_COMMAND(
         TARGET
-            test_pcraster_modflow
+          modflow_calc_DemoTest
         COMMAND ${CMAKE_COMMAND}
-            ARGS -E copy ${MF_BINARY} ${EXECUTABLE_OUTPUT_PATH}/${CMAKE_CFG_INTDIR}/
+            ARGS -E copy ${MF_BINARY} ${CMAKE_CURRENT_BINARY_DIR}/
     )
-    ADD_DEPENDENCIES(run_test_pcraster_modflow test_pcraster_modflow)
-    ADD_DEPENDENCIES(run_test_pcraster_modflow fill_python_directory_structure)
-    ADD_DEPENDENCIES(tests run_test_pcraster_modflow)
+
+  if(WIN32)
+    # argument is a 'cmake' ; separated list of values, therefore escape the environment path separator
+    set_tests_properties(modflow_calc_DemoTest PROPERTIES
+      ENVIRONMENT "PATH=${CMAKE_CURRENT_BINARY_DIR}/\\;$ENV{PATH};PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}\\;${EXECUTABLE_OUTPUT_PATH}"
+    )
+  else()
+    set_tests_properties(modflow_calc_DemoTest PROPERTIES
+      ENVIRONMENT "PATH=${CMAKE_CURRENT_BINARY_DIR}/:$ENV{PATH};PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:${EXECUTABLE_OUTPUT_PATH}"
+    )
+  endif()
+
 endif()

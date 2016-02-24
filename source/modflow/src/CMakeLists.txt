@@ -1,16 +1,4 @@
-include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../include
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../pcrdiscr
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../pcraster_dal
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../pcraster_model_engine
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../pcrgeo
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../utils
-)
-
-SET(SOURCES
-    mf_Modflow.cc
-)
-SET(OLDSOURCES
+set(OLDSOURCES
     mf_BinaryReader.cc
     bas.cc
     bcf.cc
@@ -28,13 +16,25 @@ SET(OLDSOURCES
     wel.cc
     pcrmodflow.cc
 )
-ADD_LIBRARY(pcrmf
+
+add_library(pcrmf
     STATIC
     ${OLDSOURCES}
 )
+
+target_include_directories(pcrmf
+  PRIVATE
+#    ${CMAKE_CURRENT_SOURCE_DIR}/../../include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../pcrdiscr
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../pcraster_dal
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../pcraster_model_engine
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../pcrgeo
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../utils
+)
+
 target_link_libraries(pcrmf
     ${Boost_PYTHON_LIBRARY}
     ${PYTHON_LIBRARIES}
 )
 
-ADD_DEPENDENCIES(pcrmf pcrcalc)
+add_dependencies(pcrmf pcrcalc)

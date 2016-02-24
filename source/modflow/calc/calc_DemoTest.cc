@@ -1,112 +1,31 @@
-// External headers.
-#ifndef INCLUDED_PYTHON
+#define BOOST_TEST_MODULE pcraster modflow calc_demo
+#include <boost/test/unit_test.hpp>
 #include <Python.h>
-#define INCLUDED_PYTHON
-#endif
-
-#ifndef INCLUDED_BOOST_SHARED_PTR
 #include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_PYTHON
 #include <boost/python.hpp>
-#define INCLUDED_BOOST_PYTHON
-#endif
 
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// Project headers.
-#ifndef INCLUDED_PCRCALC
 #include "pcrcalc.h"
-#define INCLUDED_PCRCALC
-#endif
-
-#ifndef INCLUDED_CALC_DEMOTEST
-#include "calc_DemoTest.h"
-#define INCLUDED_CALC_DEMOTEST
-#endif
-
-#ifndef INCLUDED_GEO_FILECREATETESTER
 #include "geo_filecreatetester.h"
-#define INCLUDED_GEO_FILECREATETESTER
-#endif
-
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
 
-// Module headers.
-
-
-
-/*!
-  \file
-  This file contains the implementation of the DemoTest class.
-*/
-
-namespace {
-
-} // Anonymous namespace
-
-
-
-namespace calc {
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC DEMOTEST MEMBERS
-//------------------------------------------------------------------------------
-
-//! Suite.
-boost::unit_test::test_suite* DemoTest::suite()
-{
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<DemoTest> instance(
-         new DemoTest());
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &DemoTest::test_demo, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(
-         &DemoTest::test_bcf2ss, instance));
+// OLS: stuff below as a reminder for work on windows build later on...
   // Python tests must be run after pcrcalc tests
   // as input maps are generated in the calc script;
   // and do not run debug tests on Windows
   // or figure out how calling Python_d.exe from here works
-#ifdef _WIN32
-  #ifndef _DEBUG
-    suite->add(BOOST_CLASS_TEST_CASE(
-         &DemoTest::test_python_scripts, instance));
-  #endif
-#else
-    suite->add(BOOST_CLASS_TEST_CASE(
-         &DemoTest::test_python_scripts, instance));
-#endif
-
-  return suite;
-}
+// #ifdef _WIN32
+//   #ifndef _DEBUG
+//     suite->add(BOOST_CLASS_TEST_CASE(
+//          &DemoTest::test_python_scripts, instance));
+//   #endif
+// #else
+//     suite->add(BOOST_CLASS_TEST_CASE(
+//          &DemoTest::test_python_scripts, instance));
+// #endif
 
 
 
-//------------------------------------------------------------------------------
-// DEFINITION OF DEMOTEST MEMBERS
-//------------------------------------------------------------------------------
-
-//! Constructor.
-DemoTest::DemoTest()
-{
-
-}
-
-
-void DemoTest::test_demo()
+BOOST_AUTO_TEST_CASE(test_demo)
 {
   PcrScript* s=pcr_createScriptFromTextFile("example.mod");
   BOOST_REQUIRE(s);
@@ -161,7 +80,8 @@ void DemoTest::test_demo()
   }
 }
 
-void DemoTest::test_bcf2ss() {
+
+BOOST_AUTO_TEST_CASE(test_bcf2ss) {
   PcrScript* s=pcr_createScriptFromTextFile("bcf2ss.mod");
   BOOST_REQUIRE(s);
 
@@ -246,7 +166,12 @@ void DemoTest::test_bcf2ss() {
   }
 }
 
-void DemoTest::test_python_scripts() {
+
+// Python tests must be run after pcrcalc tests
+// as input maps are generated in the calc script;
+// and do not run debug tests on Windows
+// or figure out how calling Python_d.exe from here works
+BOOST_AUTO_TEST_CASE(test_python_scripts){
   // using Py_Main will not work in combination with BOOST_CHECK
   // due to sys.exit value not forwarded properly
   int passed = 1;
@@ -264,5 +189,3 @@ void DemoTest::test_python_scripts() {
   }
   BOOST_CHECK(passed == 0);
 }
-
-} // namespace calc

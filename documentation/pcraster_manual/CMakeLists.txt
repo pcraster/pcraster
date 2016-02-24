@@ -1,3 +1,5 @@
 add_subdirectory(examples)
-add_subdirectory(figures)
-add_subdirectory(sphinx)
+if(PCRASTER_BUILD_DOCUMENTATION)
+  add_subdirectory(figures)
+  add_subdirectory(sphinx)
+endif()

@@ -110,6 +110,10 @@ script:
     # Split the build, 'make all' takes > 50 minutes, which is not allowed.
     - cmake --build . --config ${TRAVIS_BUILD_TYPE} --target pcraster_aguila
     - cmake --build . --config ${TRAVIS_BUILD_TYPE} --target all
+
+    # own GDAL 2.x library needs to be found to execute unit tests
+    - export LD_LIBRARY_PATH=$TRAVIS_BUILD_DIR/local/linux/linux/gcc-4/x86_64/lib
+
     - cmake --build . --config ${TRAVIS_BUILD_TYPE} --target test
     - cd ..
 

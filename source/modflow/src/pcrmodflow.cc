@@ -662,6 +662,12 @@ void PCRModflow::setIBound(const calc::Field *values, size_t layer){
   d_bas->setIBound(values, layer);
 }
 void PCRModflow::setInitialHead(const calc::Field *values, size_t layer){
+
+  if(d_bas == 0){
+    std::string stmp("Layers need to be specified at first!");
+    d_cmethods->error(stmp, "setInitialHead");
+  }
+
   d_bas->setInitialHead(values, layer);
 }
 
@@ -743,12 +749,23 @@ bool PCRModflow::setInitialHead(const float *values, size_t layer) {
 
 
 bool PCRModflow::setInitialHead(const discr::BlockData<REAL4> &values){
+
+  if(d_bas == 0){
+    std::string stmp("Layers need to be specified at first!");
+    d_cmethods->error(stmp, "setInitialHead");
+  }
   d_bas->setBASBlockData(values, *d_initialHead);
   return true;
 }
 
 
 void PCRModflow::setStorage(const calc::Field *primary, const calc::Field *secondary, size_t layer){
+
+  if(d_bcf == 0){
+    std::string stmp("Layers need to be specified at first!");
+    d_cmethods->error(stmp, "setStorage");
+  }
+
   if(d_primaryStorage == NULL) {
     d_primaryStorage = new discr::BlockData<REAL4>(d_baseArea);
     d_secondaryStorage = new discr::BlockData<REAL4>(d_baseArea);
@@ -794,6 +811,12 @@ bool PCRModflow::setSecondaryStorage(const float *values, size_t layer){
 
 
 void PCRModflow::setWettingParameter(float wetfct, size_t iwetit, float ihdwet){
+
+  if(d_bcf == 0){
+    std::string stmp("Layers need to be specified at first!");
+    d_cmethods->error(stmp, "setWettingParameter");
+  }
+
   if(d_wetting == NULL) {
     d_wetting = new discr::BlockData<REAL4>(d_baseArea);
   }
@@ -818,6 +841,12 @@ bool PCRModflow::setWetting(const float *values, size_t layer){
 }
 
 void PCRModflow::setWetting(const calc::Field *values, size_t layer){
+
+  if(d_bcf == 0){
+    std::string stmp("Layers need to be specified at first!");
+    d_cmethods->error(stmp, "setWetting");
+  }
+
   if(d_wetting == NULL) {
     d_wetting = new discr::BlockData<REAL4>(d_baseArea);
   }
@@ -825,6 +854,12 @@ void PCRModflow::setWetting(const calc::Field *values, size_t layer){
 }
 
 void PCRModflow::setWetting(const discr::BlockData<REAL4> &values){
+
+  if(d_bcf == 0){
+    std::string stmp("Layers need to be specified at first!");
+    d_cmethods->error(stmp, "setWetting");
+  }
+
   if(d_wetting==NULL) {
     d_wetting = new discr::BlockData<REAL4>(d_baseArea);
   }
@@ -930,6 +965,8 @@ void PCRModflow::removeTextFiles(std::string const & fileName) const
 
 bool PCRModflow::runModflow() {
   if (d_modflow_converged == false) {
+    std::string stmp("The previous execution of Modflow failed to converge");
+    d_cmethods->error(stmp, "run");
     exit(1);
   }
 
@@ -1132,6 +1169,12 @@ void PCRModflow::printList() {
 }
 
 void PCRModflow::setDISParams(size_t timeUnits, size_t lentghUnits, float stressPeriodLength, size_t nrOfTimesteps, float timeStepMultiplier, bool isSteadyState) {
+
+  if(d_dis == 0){
+    std::string stmp("Layers need to be specified at first!");
+    d_cmethods->error(stmp, "setDISParameter");
+  }
+
   d_isSteadyState = isSteadyState;
   if(isSteadyState == false) {
     if(d_primaryStorage == NULL) {
@@ -1147,6 +1190,12 @@ void PCRModflow::setDISParams(size_t timeUnits, size_t lentghUnits, float stress
 }
 
 void PCRModflow::setNoFlowConstant(float value) {
+
+  if(d_bas == 0){
+    std::string stmp("Layers need to be specified at first!");
+    d_cmethods->error(stmp, "setNoFlowHead");
+  }
+
   d_bas->setNoFlowConstant(value);
 }
 
@@ -1212,6 +1261,12 @@ void PCRModflow::get_lower_face(float *values, size_t layer) {
 // DRN package
 //
 void PCRModflow::initDRN() {
+
+  if(d_dis == 0){
+    std::string stmp("Layers need to be specified at first!");
+    d_cmethods->error(stmp, "setDrain");
+  }
+
   REAL4 init = 0.0;
   d_drn = new DRN(this);
   d_drnElev = new discr::BlockData<REAL4>(d_baseArea, init);
@@ -1286,6 +1341,12 @@ calc::Field* PCRModflow::getDrain(size_t layer){
 // WEL package
 //
 void PCRModflow::initWEL() {
+
+  if(d_dis == 0){
+    std::string stmp("Layers need to be specified at first!");
+    d_cmethods->error(stmp, "setWell");
+  }
+
   d_wel = new WEL(this);
   d_welValues = new discr::BlockData<REAL4>(d_baseArea, 0.0);
 }
@@ -1331,6 +1392,7 @@ void PCRModflow::setSOR(size_t mxiter, double accl, double hclose) {
   }
 
   d_sor->setSOR(mxiter, accl, hclose, true);
+  d_modflow_converged = true;
 }
 
 
@@ -1347,6 +1409,7 @@ void PCRModflow::setSIP(size_t mxiter, size_t nparam, double accl, double hclose
   }
 
   d_sip->setSIP(mxiter, nparam, accl, hclose, ipcalc, wseed, true);
+  d_modflow_converged = true;
 }
 
 
@@ -1363,6 +1426,7 @@ void PCRModflow::setPCG(size_t mxiter, size_t iteri,  size_t npcond, double hclo
   }
 
   d_pcg->setPCG(mxiter, iteri, npcond, hclose, rclose, relax, nbpol, damp, true);
+  d_modflow_converged = true;
 }
 
 
@@ -1379,6 +1443,7 @@ void PCRModflow::setDSP(size_t itmx, size_t mxup, size_t mxlow, size_t mxbw, siz
   }
 
   d_dsp->setDSP(itmx, mxup, mxlow, mxbw, ifreq, accl, hclose, true);
+  d_modflow_converged = true;
 }
 
 
@@ -1444,6 +1509,12 @@ void PCRModflow::setIBound(const std::string & values, size_t layer){
 
 
   void PCRModflow::setWetting(const std::string & values, size_t mfLayer){
+
+  if(d_bcf == 0){
+    std::string stmp("Layers need to be specified at first!");
+    d_cmethods->error(stmp, "setWetting");
+  }
+
      dal::RasterDal rasterdal(true);
   boost::shared_ptr<dal::Raster> raster(rasterdal.read(values, dal::TI_REAL4));
   setWetting(static_cast<REAL4 const*>(raster->cells()), mfLayer);
@@ -1460,6 +1531,11 @@ void PCRModflow::setIBound(const std::string & values, size_t layer){
 
 
  void PCRModflow::setStorage(const std::string & prim, const std::string & second, size_t layer){
+
+  if(d_bcf == 0){
+    std::string stmp("Layers need to be specified at first!");
+    d_cmethods->error(stmp, "setStorage");
+  }
     dal::RasterDal rasterdal(true);
   boost::shared_ptr<dal::Raster> raster1(rasterdal.read(prim, dal::TI_REAL4));
   boost::shared_ptr<dal::Raster> raster2(rasterdal.read(second, dal::TI_REAL4));
@@ -1549,4 +1625,8 @@ void PCRModflow::set_col_width(boost::python::list const& arguments){
     d_dis->append_col_width(boost::python::extract<float>(arguments[idx]));
   }
 
+}
+
+bool PCRModflow::converged(){
+  return d_modflow_converged;
 }

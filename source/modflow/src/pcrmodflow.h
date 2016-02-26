@@ -370,6 +370,8 @@ public:
 
   calc::Field*     get_lower_face      (size_t layer);
 
+  bool             converged           ();
+
 
 
   // workaround?

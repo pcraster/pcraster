@@ -8,7 +8,7 @@ PCRaster Modflow executable
 The Modflow executable (pcrmf2k) shipped with our PCRasterModflow extension is based on the USGS version 1.19.01.
 We made minor modifications to suppress Modflow's output to the command prompt.
 You can obtain the original source code from the USGS |usgs_modflow|.
-A copy of the original code and the source code with our modifications can be found at our SourceForge |pcr_sf|.
+A copy of the original code and the source code with our modifications can be found at our GitHub |pcr_sf|.
 
 We used gfortran 4.6.3 to compile the code.
 In case you want to use your own Modflow executable (e.g. due to using own Modflow versions, different compiler optimisation flags, or other Fortran compilers) you simply can replace the pcrmf2k executable with your own one.
@@ -17,7 +17,7 @@ In case you want to use your own Modflow executable (e.g. due to using own Modfl
 
 .. |pcr_sf| raw:: html
 
-   <a href="http://sourceforge.net/projects/pcraster/" target="_blank">PCRaster project page</a>
+   <a href="https://github.com/pcraster/pcraster" target="_blank">PCRaster project page</a>
 
 .. |usgs_modflow| raw:: html
 

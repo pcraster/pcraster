@@ -4,9 +4,9 @@ The DIS package specifies the grid used for the groundwater model. The grid spec
 
 The operation for the specification of the bottom layer is
 
-.. code-block:: c
+.. code-block:: python
 
-   res = mf::createBottomLayer(bottomElevation, topElevation);
+   mf.createBottomLayer(bottomElevation, topElevation)
 
 where
 
@@ -18,9 +18,9 @@ topElevation
 
 The operation to add a layer is
 
-.. code-block:: c
+.. code-block:: python
 
-   res = mf::addLayer(elevation);
+   mf.addLayer(elevation)
 
 where
 
@@ -29,9 +29,9 @@ elevation
 
 The operation to add a confined layer is
 
-.. code-block:: c
+.. code-block:: python
 
-   res = mf::addConfinedLayer(elevation);
+   mf.addConfinedLayer(elevation)
 
 where
 
@@ -42,35 +42,35 @@ elevation
 
    Layer numbering in Modflow and the PCRasterModflow extension
 
-The figure shows two grid specifications. The left side of the figure represents a four layer system that is specified in a PCRcalc script as follows:
+The figure shows two grid specifications. The left side of the figure represents a four layer system that is specified in a Python script as follows:
 
-.. code-block:: c
+.. code-block:: python
 
-   res = mf::createBottomLayer(bottom.map, l4top.map);
-   res = mf::addLayer(l3top.map);
-   res = mf::addLayer(l2top.map);
-   res = mf::addLayer(l1top.map);
+   mf.createBottomLayer("bottom.map", "l4top.map")
+   mf.addLayer("l3top.map")
+   mf.addLayer("l2top.map")
+   mf.addLayer("l1top.map")
 
 The right side of the figure shows a three layer system with a confining bed below layer 2:
 
-.. code-block:: c
+.. code-block:: python
 
-   res = mf::createBottomLayer(bottom.map, l4top.map);
-   res = mf::addConfinedLayer(l3top.map);
-   res = mf::addLayer(l2top.map);
-   res = mf::addLayer(l1top.map);
+   mf.createBottomLayer("bottom.map", "l4top.map")
+   mf.addConfinedLayer("l3top.map")
+   mf.addLayer"(l2top.map")
+   mf.addLayer("l1top.map")
 
-The PCRasterModflow extension uses an opposite layer numbering to the Modflow convention. Furthermore quasi-3D confining beds obtain a layer number. Layer numbering always starts with layer number 1 for the bottom layer and increases for each added confined or unconfined layer.
+The PCRasterModflow extension uses an opposite layer numbering to the Modflow convention. Furthermore, quasi-3D confining beds obtain a layer number as well. Layer numbering always starts with layer number 1 for the bottom layer and increases for each added confined or unconfined layer.
 
 Except for setting the conductivity values all commands operate on layers which are not specified as confining beds. Attempts to set or retrieve values from confining beds will result in an error.
 
-Optional operation
-~~~~~~~~~~~~~~~~~~
+Optional operations
+~~~~~~~~~~~~~~~~~~~
 The options for the DIS package can be specified with
 
-.. code-block:: c
+.. code-block:: python
 
-   res = mf::setDISParameter(ITMUNI,LENUNI,PERLEN,NSTP,TSMULT,SSTR);
+   mf.setDISParameter(ITMUNI,LENUNI,PERLEN,NSTP,TSMULT,SSTR)
 
 where
 
@@ -93,3 +93,17 @@ SSTR
    0 - transient, 1 - steady state. If the simulation is set to transient, primary and secondary storage coeffiecents must be set in the BCF package.
 
 All input values are non spatial values. If this operation is not used the simulation will be set to the default values of (undefined, undefined, 1.0, 1, 1.0, 1).
+
+By default, the row and column widths are obtained from the clone map. In case you want to specify widths yourself use
+
+.. code-block:: python
+
+   mf.setRowWidth(values)
+
+and
+
+.. code-block:: python
+
+   mf.setColumnWidth(values)
+
+where values is a Python list containing the widths for each row or column, respectively.

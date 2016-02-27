@@ -2,9 +2,9 @@ RCH package
 ^^^^^^^^^^^
 The RCH package specifies the areally distributed recharge. To enable the recharge package either use
 
-.. code-block:: c
+.. code-block:: python
 
-   res = mf::setRecharge(recharge, NRCHOP);
+   mf.setRecharge(recharge, NRCHOP)
 
 where
 
@@ -16,9 +16,9 @@ NRCHOP [:math:`-`]
 
 or to indicate the layer number where recharge is applied to use
 
-.. code-block:: c
+.. code-block:: python
 
-   res = mf::setIndicatedRecharge(recharge, layer);
+   mf.setIndicatedRecharge(recharge, layer)
 
 where
 

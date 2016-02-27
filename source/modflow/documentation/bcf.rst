@@ -12,9 +12,9 @@ The BCF package specifies the input for the block-centered flow package.
 
 The operation for the specification of the conductivity values is
 
-.. code-block:: c
+.. code-block:: python
 
-   res = mf::setConductivity(LAYTYPE, hConductivity, vConductivity, LAYER);
+   mf.setConductivity(LAYTYPE, hConductivity, vConductivity, LAYER)
 
 where
 
@@ -37,9 +37,9 @@ Transient simulations
 ~~~~~~~~~~~~~~~~~~~~~
 If the simulation state is set to transient the specification of the storage coefficients is required. The operation is
 
-.. code-block:: c
+.. code-block:: python
 
-   res = mf::setStorage(primary, secondary, LAYER);
+   mf.setStorage(primary, secondary, LAYER)
 
 where
 
@@ -56,9 +56,9 @@ Wetting capability
 ~~~~~~~~~~~~~~~~~~
 To activate the wetting capability the following operations must be used. The non-spatial parameters are set with
 
-.. code-block:: c
+.. code-block:: python
 
-   res = mf::setWettingParameter(WETFCT, IWETIT, IHDWET);
+   mf.setWettingParameter(WETFCT, IWETIT, IHDWET)
 
 where
 
@@ -73,9 +73,9 @@ IHDWET
 
 The wetting threshold and flag values are specified with
 
-.. code-block:: c
+.. code-block:: python
 
-   res = mf::setWetting(map, LAYER);
+   mf.setWetting(map, LAYER)
 
 where
 
@@ -89,9 +89,9 @@ Optional operations
 ~~~~~~~~~~~~~~~~~~~
 The head value that is assigned to cells that are converted to dry during a simulation (HDRY) can be specified with
 
-.. code-block:: c
+.. code-block:: python
 
-   res = mf::setDryHead(VALUE);
+   mf.setDryHead(VALUE)
 
 where
 
@@ -102,9 +102,9 @@ If this operation is not used the value will be set to a default value of -999.9
 
 The variable containing the horizontal anisotropy factor (TPRY) can be specified with
 
-.. code-block:: c
+.. code-block:: python
 
-   res = mf::setHorizontalAnisotropy(VALUE, LAYER);
+   mf.setHorizontalAnisotropy(VALUE, LAYER)
 
 where
 

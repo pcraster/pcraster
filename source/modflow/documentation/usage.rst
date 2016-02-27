@@ -20,14 +20,19 @@ The next step is the grid specification using the operations described in the DI
 
 The DIS, BAS, BCF and a solver package must be set in the initial section of a script. Stress packages (RIV, DRN, RCH and WEL) can be activated and modified in the dynamic section.
 
-.. note::
 
-   One timestep in PCRaster represents one stress period in Modflow.
+The differences of Python operations to the PCRcalc syntax is minimal and therefor only brief explained: The Python extension operations have the same name and take the same arguments as the PCRcalc operations. Setting for example boundary values in Python is done by
 
-   In the following non-spatial arguments are written capitalised.
+.. code-block:: python
 
-.. toctree::
-   :maxdepth: 1
+   mf.setBoundary(boundaryValues, LAYER)
 
-   mfin
-   mfout
+and in PCRcalc by
+
+.. code-block:: c
+
+   res = mf::setBoundary(boundaryValues, LAYER);
+
+where ``boundaryValues`` is either a string holding a filename to a spatial, scalar PCRaster map or a variable holding an object returned by the readmap operation.
+
+See the PCRcalc example script for further operations.

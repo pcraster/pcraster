@@ -2,13 +2,19 @@ Solver packages
 ^^^^^^^^^^^^^^^
 One of the following solvers must be specified for a model run. All arguments for the solver are non-spatial values.
 
+You can check whether a Modflow run converged or not with
+
+.. code-block:: python
+
+   res = mf.converged()
+
 PCG package
 ~~~~~~~~~~~
 The preconditioned conjugate-gradient package can be enabled with
 
-.. code-block:: c
+.. code-block:: python
 
-   res = mf::setPCG(MXITER, ITERI, NPCOND, HCLOSE, RCLOSE, RELAX, NBPOL, DAMP);
+   mf.setPCG(MXITER, ITERI, NPCOND, HCLOSE, RCLOSE, RELAX, NBPOL, DAMP)
 
 where
 
@@ -40,9 +46,9 @@ SOR package
 ~~~~~~~~~~~
 The slice-successive overrelaxation package can be enabled with
 
-.. code-block:: c
+.. code-block:: python
 
-   res = mf::setSOR(MXITER, ACCL, HCLOSE);
+   mf.setSOR(MXITER, ACCL, HCLOSE)
 
 where
 
@@ -59,9 +65,9 @@ SIP package
 ~~~~~~~~~~~
 The strongly implicit procedure package can be enabled with
 
-.. code-block:: c
+.. code-block:: python
 
-   res = mf::setSIP(MXITER, NPARAM, ACCL, HCLOSE, IPCALC, WSEED);
+   mf.setSIP(MXITER, NPARAM, ACCL, HCLOSE, IPCALC, WSEED)
 
 where
 
@@ -84,9 +90,9 @@ DSP package
 ~~~~~~~~~~~
 The direct solver package can be enabled with
 
-.. code-block:: c
+.. code-block:: python
 
-   res = mf::setDSP(ITMX, MXUP, MXLOW, MXBW, IFREQ, ACCL, HCLOSE);
+   mf.setDSP(ITMX, MXUP, MXLOW, MXBW, IFREQ, ACCL, HCLOSE)
 
 where
 

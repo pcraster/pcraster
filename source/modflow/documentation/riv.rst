@@ -2,9 +2,9 @@ RIV package
 ^^^^^^^^^^^
 The RIV package specifies the contribution or drainage of the rivers to/from the aquifer. To enable the river package use
 
-.. code-block:: c
+.. code-block:: python
 
-   res = mf::setRiver(head, bottom, conductance, LAYER);
+   mf.setRiver(head, bottom, conductance, LAYER)
 
 where
 

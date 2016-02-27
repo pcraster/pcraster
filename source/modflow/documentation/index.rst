@@ -1,5 +1,5 @@
-PCRasterModflow
-===============
+PCRaster Modflow
+================
 
 Contents:
 
@@ -8,7 +8,7 @@ Contents:
 
    introduction
    quickstart
-   usage
    usagepy
+   usage
    example
    modflow2000

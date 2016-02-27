@@ -2,9 +2,9 @@ WEL package
 ^^^^^^^^^^^
 The WEL package specifies the the use of wells in a simulation.  To enable the well package use
 
-.. code-block:: c
+.. code-block:: python
 
-   res = mf::setWell(rates, LAYER);
+   mf.setWell(rates, LAYER)
 
 where
 

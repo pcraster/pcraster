@@ -2,9 +2,9 @@ DRN package
 ^^^^^^^^^^^
 The DRN package specifies the use of drains in a simulation. To enable the drain package use
 
-.. code-block:: c
+.. code-block:: python
 
-   res = mf::setDrain(elevation, conductance, LAYER);
+   mf.setDrain(elevation, conductance, LAYER)
 
 where
 

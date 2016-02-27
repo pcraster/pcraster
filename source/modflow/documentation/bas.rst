@@ -4,9 +4,9 @@ The BAS package specifies the input for the basic package. It is necessary both 
 
 The operation for the boundary specification is
 
-.. code-block:: c
+.. code-block:: python
 
-   res = mf::setBoundary(boundaryValues, LAYER);
+   mf.setBoundary(boundaryValues, LAYER)
 
 where
 
@@ -18,9 +18,9 @@ LAYER
 
 The operation for the specification of the starting or initial head values
 
-.. code-block:: c
+.. code-block:: python
 
-   res = mf::setInitialHead(initialValues, LAYER);
+   mf.setInitialHead(initialValues, LAYER)
 
 where
 
@@ -34,9 +34,9 @@ Optional operation
 ~~~~~~~~~~~~~~~~~~
 The options for the BAS package can be specified with
 
-.. code-block:: c
+.. code-block:: python
 
-   res = mf::setNoFlowHead(VALUE);
+   mf.setNoFlowHead(VALUE)
 
 where
 

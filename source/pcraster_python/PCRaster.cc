@@ -540,15 +540,20 @@ calc::Field* closeAtTolerance(calc::Field const * result,
   for(size_t i = 0; i < nrCells; ++i) {
     double validatedValue;
     validated->getCell(validatedValue, static_cast<size_t>(i));
+    double resultValue;
+    result->getCell(resultValue, static_cast<size_t>(i));
+
     if(!pcr::isMV(validatedValue)){
-      double resultValue;
-      result->getCell(resultValue, static_cast<size_t>(i));
-      if(tester(static_cast<REAL4>(resultValue),static_cast<REAL4>(validatedValue))){
-        cells[i] = 1;
+      if(!pcr::isMV(resultValue)){
+        if(tester(static_cast<REAL4>(resultValue),static_cast<REAL4>(validatedValue))){
+          cells[i] = 1;
+        }
       }
     }
     else{
-      pcr::setMV(cells[i]);
+      if(pcr::isMV(resultValue)){
+        cells[i] = 1;
+      }
     }
   }
 

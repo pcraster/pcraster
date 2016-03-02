@@ -117,6 +117,9 @@ if(PCRASTER_BUILD_TEST)
             ARGS -E copy ${MF_BINARY} ${CMAKE_CURRENT_BINARY_DIR}/
     )
 
+
+  # add path of project's unit test related files to PYTHONPATH
+  # required to execute this unit test via ctest properly
   if(WIN32)
     # argument is a 'cmake' ; separated list of values, therefore escape the environment path separator
     set_tests_properties(modflow_calc_DemoTest PROPERTIES

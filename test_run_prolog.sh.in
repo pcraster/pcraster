@@ -9,6 +9,7 @@ directories_with_prolog_scripts="
     source/pcrgeo
     source/pcrxml
     source/modflow/calc
+    source/pcraster_python
 "
 # TODO See resample's CMakeLists.txt
 # source/resample

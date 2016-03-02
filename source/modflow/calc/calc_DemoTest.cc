@@ -174,18 +174,18 @@ BOOST_AUTO_TEST_CASE(test_bcf2ss) {
 BOOST_AUTO_TEST_CASE(test_python_scripts){
   // using Py_Main will not work in combination with BOOST_CHECK
   // due to sys.exit value not forwarded properly
-  int passed = 1;
+  int failed = 1;
   try{
     Py_Initialize();
     boost::python::object main = boost::python::import("__main__");
     boost::python::object global(main.attr("__dict__"));
     boost::python::object script = boost::python::exec_file("tests.py", global, global);
     boost::python::object result = global["test_result"];
-    passed = boost::python::extract<int>(result);
+    failed = boost::python::extract<int>(result);
     Py_Finalize();
   }
   catch(...){
      PyErr_Print();
   }
-  BOOST_CHECK(passed == 0);
+  BOOST_CHECK(failed == 0);
 }

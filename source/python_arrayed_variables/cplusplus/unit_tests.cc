@@ -7,7 +7,7 @@
 /*! \brief Run the python test framework
     All necessary .py file will be installed by testrun.prolog
  */
-BOOST_AUTO_TEST_CASE(modelling_framework)
+BOOST_AUTO_TEST_CASE(arrayed_variables)
 {
   Py_Initialize();
   boost::python::object main = boost::python::import("__main__");

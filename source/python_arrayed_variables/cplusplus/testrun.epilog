@@ -1,0 +1,5 @@
+# this is ran with testdir as cwd
+
+rm -f *.pyc
+#rm -fr maps
+

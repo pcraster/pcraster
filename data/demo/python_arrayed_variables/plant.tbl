@@ -1,0 +1,38 @@
+# TG - TallGrass
+# SG - ShortGass
+
+# initial cover, can be a spatial
+Cvr    TG     maps\CvrTG.imp
+Cvr    SG     maps\CvrSG.imp
+
+# quality of plant material [J g-1]
+QMax   TG     10000.     
+QMax   SG     15000.
+
+# maximum vegetation density [g m-2]
+kv     TG       1000.
+kv     SG       500.
+
+# maximum relative growth rate [g g-1 d-1]
+rv     TG       0.05
+rv     SG       0.1
+
+# minimum and maximum value for the average distance between patches
+AvDstPatchMin	TG	 2.
+AvDstPatchMin	SG   50.
+AvDstPatchMax	TG	 2.
+AvDstPatchMax	SG   100.
+
+# minimum and maximum value for the standard deviation for distance between patches.
+StdevDstPatchMin	TG	0.
+StdevDstPatchMin	SG  0.
+StdevDstPatchMax	TG	0.
+StdevDstPatchMax	SG  0.
+
+# 'dimension' of the grass, 2D or 3D
+Dim    TG       3.
+Dim    SG       2.
+
+# ratio stem to foliage at the end of the growing season, represents quality
+fLeaf2Stalk	TG	0.50
+fLeaf2Stalk	SG	0.95

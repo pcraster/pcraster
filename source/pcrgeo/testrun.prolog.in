@@ -1,3 +1,4 @@
+set -e
 # geo::FileCreateTesterTest::testEqualTo():
 cp @PCRASTER_DATA_DIR@/test/pcrtree/small/*.map .
 cp inp1s.map inpXs.map

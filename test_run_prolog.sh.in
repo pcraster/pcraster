@@ -10,6 +10,8 @@ directories_with_prolog_scripts="
     source/pcrxml
     source/modflow/calc
     source/pcraster_python
+    source/python_modelling_framework/cplusplus
+    source/python_arrayed_variables/cplusplus
 "
 # TODO See resample's CMakeLists.txt
 # source/resample
@@ -17,6 +19,7 @@ directories_with_prolog_scripts="
 
 for directory_pathname in $directories_with_prolog_scripts; do
     cd @CMAKE_CURRENT_BINARY_DIR@/$directory_pathname
+    echo "running " @CMAKE_CURRENT_BINARY_DIR@/$directory_pathname/testrun.prolog
     bash ./testrun.prolog
     cd -
 done

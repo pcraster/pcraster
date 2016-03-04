@@ -1,4 +1,5 @@
 #vim:syntax=bash
+set -e
 
 gdalTranslate="@GDAL_TRANSLATE@ -quiet"
 

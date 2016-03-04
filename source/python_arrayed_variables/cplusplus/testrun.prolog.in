@@ -1,0 +1,12 @@
+# this is ran with testdir as cwd
+set -e
+
+
+cp @CMAKE_CURRENT_SOURCE_DIR@/../*.py .
+cp @CMAKE_CURRENT_SOURCE_DIR@/../UnitTests/*.py .
+
+# Copy data.
+cp @PCRASTER_DATA_DIR@/test/python_arrayed_variables/* .
+
+mkdir -p maps
+cp -r @PCRASTER_DATA_DIR@/demo/python_arrayed_variables/maps .

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 # We are in @CMAKE_CURRENT_BINARY_DIR@ now.
-
+set -e
 export PCROPTIONS="--nothing"
 
 cp -r @CMAKE_CURRENT_SOURCE_DIR@/testdata/* .

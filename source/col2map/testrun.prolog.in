@@ -1,3 +1,4 @@
+set -e
 export PCROPTIONS=--nothing
 
 # Raster with one row of 3 cells, middle cel is NaN.

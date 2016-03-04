@@ -1,5 +1,6 @@
 set -e
 
+#    source/python_arrayed_variables/cplusplus
 directories_with_prolog_scripts="
     source/col2map
     source/pcraster_aguila
@@ -10,6 +11,7 @@ directories_with_prolog_scripts="
     source/pcrxml
     source/modflow/calc
     source/pcraster_python
+    source/python_modelling_framework/cplusplus
 "
 # TODO See resample's CMakeLists.txt
 # source/resample

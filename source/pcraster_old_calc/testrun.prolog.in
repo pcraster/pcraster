@@ -1,3 +1,4 @@
+set -e
 
 # FTTB HabitatTest
 cp @PCRASTER_DATA_DIR@/test/pcrtree/clientinterface/* .

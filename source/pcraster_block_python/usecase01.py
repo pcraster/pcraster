@@ -1,12 +1,14 @@
 from pcraster import *
+from pcraster.framework import *
 from PCRasterBlock import *
 
 
 
-class UseCase01(Model):
+class UseCase01(DynamicModel):
 
-  def __init__(self, argv):
-    Model.__init__(self, argv, nrSamples=1, nrTimeSteps=10, clone="clone.map")
+  def __init__(self):
+    DynamicModel.__init__(self)
+    setclone("clone.map")
 
   def initial(self):
     self.d_raster = createRaster(clone())
@@ -24,10 +26,10 @@ class UseCase01(Model):
          real4RasterData(scalar(self.currentTimeStep()), self.d_raster))
     noCompactionAdd(self.d_block, real4RasterData(10 * uniform(1), self.d_raster))
 
-  def postdynamic(self):
-    pass
-    # write(self.d_block, self.generateName("block.pcr"))
-    # write(self.d_timeStep, self.generateName("timestep.pcr"))
+  #def postdynamic(self):
+    #pass
+    ## write(self.d_block, self.generateName("block.pcr"))
+    ## write(self.d_timeStep, self.generateName("timestep.pcr"))
 
-  def postmcloop(self):
-    pass
+  #def postmcloop(self):
+    #pass

@@ -146,7 +146,7 @@ PCR_OPERATOR_TEMPLATES(divide)
 
 
 
-BOOST_PYTHON_MODULE(PCRasterBlockPython)
+BOOST_PYTHON_MODULE(pcraster_block_python)
 {
   using namespace boost::python;
 

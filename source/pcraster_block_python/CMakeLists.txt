@@ -1,8 +1,8 @@
-CONFIGURE_FILE(
-    ${CMAKE_CURRENT_SOURCE_DIR}/testrun.prolog.in
-    ${CMAKE_CURRENT_BINARY_DIR}/testrun.prolog
-    @ONLY
-)
+# CONFIGURE_FILE(
+#     ${CMAKE_CURRENT_SOURCE_DIR}/testrun.prolog.in
+#     ${CMAKE_CURRENT_BINARY_DIR}/testrun.prolog
+#     @ONLY
+# )
 
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/../include
@@ -54,31 +54,74 @@ CONFIGURE_PYTHON_EXTENSION(pcraster_block_python
 )
 
 
-if(FALSE AND PCRASTER_BUILD_TEST)
-    ADD_LIBRARY(pcraster_block_python_static
-        STATIC
-        ${SOURCES}
-    )
-    SET(TEST_SOURCES
-        blockpy_pythonunittest.cc
-        blockpy_test.cc
-    )
-    ADD_EXECUTABLE(test_pcraster_block_python
-        ${TEST_SOURCES}
-    )
+if(PCRASTER_BUILD_TEST)
 
-    TARGET_LINK_LIBRARIES(test_pcraster_block_python
-        pcraster_block_python_static
-        # ${_LIBRARIES_TO_LINK}
-    )
+  configure_file(
+    ${CMAKE_CURRENT_SOURCE_DIR}/testrun.prolog.in
+    ${CMAKE_CURRENT_BINARY_DIR}/testrun.prolog
+    @ONLY
+  )
 
-    ADD_CUSTOM_TARGET(run_test_pcraster_block_python
-        COMMAND bash ./testrun.prolog
-        COMMAND test_pcraster_block_python --detect_memory_leaks=0
-        DEPENDS test_pcraster_block_python
-        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+  set(TEST_NAMES
+    blockpy_pythonunittest
+  )
+
+  add_unit_tests(
+    SCOPE blockpy
+    NAMES ${TEST_NAMES}
+    LINK_LIBRARIES
+      ${Boost_PYTHON_LIBRARY}
+      ${PYTHON_LIBRARIES}
+  )
+
+  # add path of project's unit test related files to PYTHONPATH
+  # required to execute this unit test via ctest properly
+  if(WIN32)
+    # argument is a 'cmake' ; separated list of values, therefore escape the environment path separator
+    set_tests_properties(blockpy_blockpy_pythonunittest PROPERTIES
+      ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}\\;${EXECUTABLE_OUTPUT_PATH}"
     )
-    ADD_DEPENDENCIES(tests run_test_pcraster_block_python)
+  else()
+    set_tests_properties(blockpy_blockpy_pythonunittest PROPERTIES
+      ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:${EXECUTABLE_OUTPUT_PATH}"
+    )
+  endif()
+
+  add_dependencies(blockpy_blockpy_pythonunittest
+    pcraster_block_python
+    python_modelling_framework_dummy
+  )
+
+
+
+# OLS: clean up the comments when refacoring for the new windows build
+# I leave them here just as info in case of troubles...
+
+#
+#     ADD_LIBRARY(pcraster_block_python_static
+#         STATIC
+#         ${SOURCES}
+#     )
+#     SET(TEST_SOURCES
+#         blockpy_pythonunittest.cc
+#         blockpy_test.cc
+#     )
+#     ADD_EXECUTABLE(test_pcraster_block_python
+#         ${TEST_SOURCES}
+#     )
+#
+#     TARGET_LINK_LIBRARIES(test_pcraster_block_python
+#         pcraster_block_python_static
+#         # ${_LIBRARIES_TO_LINK}
+#     )
+#
+#     ADD_CUSTOM_TARGET(run_test_pcraster_block_python
+#         COMMAND bash ./testrun.prolog
+#         COMMAND test_pcraster_block_python --detect_memory_leaks=0
+#         DEPENDS test_pcraster_block_python
+#         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+#     )
+#     ADD_DEPENDENCIES(tests run_test_pcraster_block_python)
 endif()
 
 

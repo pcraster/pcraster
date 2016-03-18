@@ -1,6 +1,7 @@
 import math, unittest
 import usecase01
 import PCRasterBlock
+from pcraster.framework import *
 
 
 
@@ -13,14 +14,17 @@ class UseCaseTest(unittest.TestCase):
     pass
 
   def testUseCase01(self):
-    model = usecase01.UseCase01(["usecase01"])
+    nrOfSamples = 1
+    nrOfTimeSteps = 10
+    model = usecase01.UseCase01()
     model.setQuiet(True)
-    model.execute()
+    dynamicFrw = DynamicFramework(model, nrOfTimeSteps)
+    dynamicFrw.run()
 
     block = model.d_block
     stack = PCRasterBlock.voxelStack(block, 1, 1)
 
-    # print PCRasterBlock.nrVoxels(stack), model.nrTimeSteps()
+    print PCRasterBlock.nrVoxels(stack), model.nrTimeSteps()
     self.failUnless(PCRasterBlock.nrVoxels(stack) <= model.nrTimeSteps())
 
     timeStep = model.d_timeStep

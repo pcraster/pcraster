@@ -71,6 +71,8 @@ template<class UseAsT>
 #ifdef DEBUG_DEVELOP
   PRECOND(!this->outOfRange(rowIndex,colIndex));
 #endif
+  (void)rowIndex; // Shut up compiler
+  (void)colIndex; // Shut up compiler
   value = d_value;
   return true;
 }
@@ -88,6 +90,8 @@ template<class UseAsT>
   PRECOND(!this->outOfRange(rowIndex,colIndex));
   PRECOND(!pcr::isMV(d_value));
 #endif
+  (void)rowIndex; // Shut up compiler
+  (void)colIndex; // Shut up compiler
   return d_value;
 }
 

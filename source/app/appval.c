@@ -1,3 +1,4 @@
+#include <assert.h>
 #include "stddefx.h"
 
 /********/
@@ -95,12 +96,9 @@
  		case VS_UNDEFINED:
  			 result = CnvrtREAL8(&real8Val, v);
  			break;
-# ifdef DEBUG
- 		default:
- 			PRECOND(FALSE); /* illegal value scale */
- 			result = 0;
- 			break;
-# endif
+  default:{
+    assert(0);  // Shut up compiler
+  }
  	}
 	if (!result)
 	{
@@ -112,11 +110,16 @@
  		         /* legal value but not in single */
  		          s = " in single cell representation";
  		        break;
- 		case VS_NOMINAL:
- 		case VS_ORDINAL:
- 		        if (!appLarge && CnvrtINT4(&int4Val, v))
- 		         /* legal value but not in small */
- 		          s = " in small cell representation";
+  case VS_NOMINAL:
+  case VS_ORDINAL:
+    if (!appLarge && CnvrtINT4(&int4Val, v)){
+      /* legal value but not in small */
+      s = " in small cell representation";
+    }
+    break;
+  default:{
+    assert(0);  // Shut up compiler
+  }
  		}
  		if (valueScale != VS_UNDEFINED)
 		  ErrorNested("'%s' is not a legal %s value %s",

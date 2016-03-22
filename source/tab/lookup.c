@@ -60,6 +60,9 @@ static int TestInfInf(const double *v, const LOOK_UP_KEY *k)
 {
   PRECOND(k->t == TEST_INF_INF);
 
+  (void)v;// Shut up compiler
+  (void)k;// Shut up compiler
+
   return 0;
 }
 

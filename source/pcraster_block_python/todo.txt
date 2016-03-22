@@ -1,3 +1,0 @@
-add -> mackeyBridgeAdd.
-nieuwe functie -> add, zonder compactie.
-

@@ -1,0 +1,39 @@
+set(SPHINX_SOURCES
+    Bibliography.rst
+    Introduction.rst
+    Manual.rst
+    ModellingFrameworks.rst
+    PCRasterPythonFramework.rst
+    # TodoList.rst
+    index.rst
+    # some demo example scripts included in the documentation
+    montecarloStatic.py
+    ../../data/demo/python_modelling_framework/deterministic/runoff.py
+    ../../data/demo/python_modelling_framework/deterministic/runoffStatic.py
+    ../../data/demo/python_modelling_framework/stochastic/montecarlo.py
+    ../../data/demo/python_modelling_framework/stochastic/particlefilter.py
+    ../../data/demo/python_modelling_framework/stochastic/kalmanfilter.py
+)
+
+create_sphinx_docs(
+    TARGET python_modelling_framework_documentation
+    SOURCES ${SPHINX_SOURCES}
+)
+
+add_dependencies(python_modelling_framework_documentation python_modelling_framework_dummy) #ipython_framework_manual framework)
+
+install(
+    DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/_build/html/
+    DESTINATION doc/python/pcraster/framework
+)
+
+#SET(SPHINX_TARGET python_framework_manual)
+#
+#INCLUDE(SphinxDoc)
+#
+#ADD_DEPENDENCIES(python_framework_manual framework)
+#
+#INSTALL(
+#    DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/_build/html/
+#    DESTINATION doc/python/pcraster/framework
+#)

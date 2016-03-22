@@ -51,6 +51,7 @@ BOOL  testApiInit     = FALSE;
 int TestApiInitTest(const char *whoCares)
 {
 	PRECOND(testApiInit);
+  (void)whoCares; // Shut up compiler
 	return 1;
 }
 #endif

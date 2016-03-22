@@ -168,6 +168,7 @@ void Free2d(
 	 PRECOND(array2d != NULL);
 	 Free(*array2d);
 	 Free(array2d);
+  (void)nrRows; // Shut up compiler
 } /* Free2d */
 
 /* address of continuous area representing the 2d array contents

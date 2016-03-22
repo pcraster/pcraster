@@ -81,5 +81,6 @@ int LimitedVersionCheck(
 	if (nrXYZRecs > 3600)
 	   return RetError(1,"%s only 3600 records\\tuples allowed in point data column file (not '%d')",
 	           MSG, nrXYZRecs);
+  (void)nrOps; // Shut up compiler
 	return 0;
 }

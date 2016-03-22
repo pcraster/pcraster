@@ -1,3 +1,4 @@
+#include <assert.h>
 #include "stddefx.h"
 
 
@@ -230,14 +231,19 @@ static int EditCellRepr(
 	char *options[2];
 	options[0] = op0;
 	options[1] = op1;
-        switch(currAttr->valueScale) {
-          case VS_BOOLEAN   :
-	  case VS_LDD       :
-	  case VS_SCALAR    :
-	  case VS_DIRECTION : return TRUE; /* keep it */
-          case VS_NOMINAL   :
-          case VS_ORDINAL   : cr[0] = (CSF_CR)*editValue;
-          		      cr[1] = (cr[0] == CR_UINT1) ? CR_INT4 : CR_UINT1;
+  switch(currAttr->valueScale) {
+    case VS_BOOLEAN   :
+    case VS_LDD       :
+    case VS_SCALAR    :
+    case VS_DIRECTION : return TRUE; /* keep it */
+    case VS_NOMINAL   :
+    case VS_ORDINAL   :
+      cr[0] = (CSF_CR)*editValue;
+      cr[1] = (cr[0] == CR_UINT1) ? CR_INT4 : CR_UINT1;
+      break;
+    default: {
+      assert(0);  // Shut up compiler
+    }
 	};
 	(void)strcpy(options[0], RstrCellRepr(cr[0]));
 	(void)strcpy(options[1], RstrCellRepr(cr[1]));

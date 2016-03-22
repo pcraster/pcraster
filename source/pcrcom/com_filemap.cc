@@ -178,6 +178,7 @@ class FileMapPrivate
        POSTCOND(!r);
        r = munmap(d_ptr, d_mappedLen);
        POSTCOND(!r);
+       (void)r;  // Shut up compiler
       }
       d_ptr=0;
     }

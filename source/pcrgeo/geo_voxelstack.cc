@@ -93,6 +93,7 @@ void geo::VoxelStack::clean()
 geo::VoxelStack& geo::VoxelStack::operator=(const VoxelStack& vs )
 {
   PRECOND(false);
+  (void)vs;  // Shut up compiler
   // MSC want a return value, can we live with out the = implementation?
   static VoxelStack dummy;
   return dummy;

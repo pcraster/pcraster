@@ -13,23 +13,20 @@ install(
     DESTINATION python/pcraster/collection
 )
 
+set(COLLECTION_BUILD_DIRECTORY
+    ${EXECUTABLE_OUTPUT_PATH}/${CMAKE_CFG_INTDIR}/pcraster/collection
+)
 
-# SET(PCRASTER_PACKAGE_BUILD_DIRECTORY
-#     ${PCRTREE2_OBJECTS}/bin/${CMAKE_CFG_INTDIR}/pcraster
-# )
-# SET(COLLECTION_BUILD_DIRECTORY
-#     ${PCRASTER_PACKAGE_BUILD_DIRECTORY}/collection
-# )
-#
-# # This enables us to test and use the code as if it where installed already.
-# # Dummy target that is always built, but does nothing. This enables us to
-# # attach post-build commands.
-# ADD_CUSTOM_TARGET(arrayed_variables ALL)
-# ADD_CUSTOM_COMMAND(
-#     TARGET arrayed_variables
-#     POST_BUILD
-#         COMMAND cmake -E remove_directory ${COLLECTION_BUILD_DIRECTORY}
-#         COMMAND cmake -E make_directory ${COLLECTION_BUILD_DIRECTORY}
-#         COMMAND cp ${SOURCES} ${COLLECTION_BUILD_DIRECTORY}
-#         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-# )
+# This enables us to test and use the code as if it where installed already.
+# Dummy target that is always built, but does nothing. This enables us to
+# attach post-build commands.
+add_custom_target(python_arrayed_variables_dummy)#arrayed_variables ALL)
+add_custom_command(
+    TARGET python_arrayed_variables_dummy
+    POST_BUILD
+        COMMAND cmake -E remove_directory ${COLLECTION_BUILD_DIRECTORY}
+        COMMAND cmake -E make_directory ${COLLECTION_BUILD_DIRECTORY}
+        COMMAND cp ${SOURCES} ${COLLECTION_BUILD_DIRECTORY}
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+        DEPENDS ${SOURCES}
+)

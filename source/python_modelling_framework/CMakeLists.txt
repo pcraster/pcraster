@@ -46,8 +46,8 @@ set(FRAMEWORK_BUILD_DIRECTORY
 
 # This enables us to test and use the code as if it where installed already.
 # Dummy target that does nothing. This enables us to attach post-build commands.
-ADD_CUSTOM_TARGET(python_modelling_framework_dummy)
-ADD_CUSTOM_COMMAND(
+add_custom_target(python_modelling_framework_dummy)
+add_custom_command(
     TARGET python_modelling_framework_dummy
     POST_BUILD
         COMMAND cmake -E remove_directory ${FRAMEWORK_BUILD_DIRECTORY}

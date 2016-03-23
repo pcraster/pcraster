@@ -42,7 +42,4 @@ configure_file(
 
 
 add_subdirectory(source)
-
-if(PCRASTER_BUILD_DOCUMENTATION)
-  add_subdirectory(documentation)
-endif()
+add_subdirectory(documentation)

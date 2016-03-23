@@ -1089,7 +1089,8 @@ bool PCRModflow::runModflow() {
 
   if(result == true) {
     d_gridIsFixed = true;
-    system("pcrmf2k pcrmf.nam");
+    int ignore = system("pcrmf2k pcrmf.nam");
+    (void)ignore; // Shut up compiler
 
     // modflow seems to always return 0, also in error case :(
     // check listing file

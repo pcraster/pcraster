@@ -20,20 +20,12 @@ create_sphinx_docs(
     SOURCES ${SPHINX_SOURCES}
 )
 
-add_dependencies(python_modelling_framework_documentation python_modelling_framework_dummy) #ipython_framework_manual framework)
+add_dependencies(python_modelling_framework_documentation
+    python_modelling_framework_dummy
+    fill_python_directory_structure
+)
 
 install(
     DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/_build/html/
     DESTINATION doc/python/pcraster/framework
 )
-
-#SET(SPHINX_TARGET python_framework_manual)
-#
-#INCLUDE(SphinxDoc)
-#
-#ADD_DEPENDENCIES(python_framework_manual framework)
-#
-#INSTALL(
-#    DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/_build/html/
-#    DESTINATION doc/python/pcraster/framework
-#)

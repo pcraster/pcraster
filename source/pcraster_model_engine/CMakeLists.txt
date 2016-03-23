@@ -475,59 +475,63 @@ INSTALL(FILES pcrcalc.h
 ###     doc/developer/linkout
 ### )
 
-# temporary switch comments to generate LinkIn
-# LinkIn is NOT YET part of the distro!
-SET(_DOX_LINKOUT_SOURCES
-    ${CMAKE_CURRENT_SOURCE_DIR}/pcrcalc.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/apiDocsMain
-    ${CMAKE_CURRENT_SOURCE_DIR}/../include/pcrlinkin.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/linkInDocsMain
-)
 
-# TODO make this completely working
-# SET(_DOX_LINKIN_SOURCES
-#   ${CMAKE_CURRENT_SOURCE_DIR}/pcrcalc.h
-#   ${PROJECT_SOURCE_DIR}/sources/include/pcrlinkin.h
-#   ${CMAKE_CURRENT_SOURCE_DIR}/linkInDocsMain
-# )
+if(PCRASTER_BUILD_DOCUMENTATION)
+            # temporary switch comments to generate LinkIn
+            # LinkIn is NOT YET part of the distro!            OLS: 03/2016 I think it is distributed?!
+            SET(_DOX_LINKOUT_SOURCES
+                ${CMAKE_CURRENT_SOURCE_DIR}/pcrcalc.h
+                ${CMAKE_CURRENT_SOURCE_DIR}/apiDocsMain
+                ${CMAKE_CURRENT_SOURCE_DIR}/../include/pcrlinkin.h
+                ${CMAKE_CURRENT_SOURCE_DIR}/linkInDocsMain
+            )
+            
+            # TODO make this completely working
+            # SET(_DOX_LINKIN_SOURCES
+            #   ${CMAKE_CURRENT_SOURCE_DIR}/pcrcalc.h
+            #   ${PROJECT_SOURCE_DIR}/sources/include/pcrlinkin.h
+            #   ${CMAKE_CURRENT_SOURCE_DIR}/linkInDocsMain
+            # )
+            
+            SET(_DOC_OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/html/index.html)
+            
+            ADD_CUSTOM_COMMAND(
+                OUTPUT ${_DOC_OUTPUT}
+                COMMAND ${PYTHON_EXECUTABLE} ${PROJECT_SOURCE_DIR}/environment/script/createdoxyfile.py ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile PROJECT_NAME="\\"PCRaster LinkOut API\\"" INPUT="${_DOX_LINKOUT_SOURCES}" OUTPUT_DIRECTORY="${CMAKE_CURRENT_BINARY_DIR}"
+                COMMAND doxygen ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
+                WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+                DEPENDS ${_DOX_LINKOUT_SOURCES}
+            )
+            
+            ### SET(_DEPLOYMENT_OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/deployment.txt)
+            ### GET_TARGET_PROPERTY(_PCRASTER_MODELENGINE_PATH pcraster_model_engine LOCATION)
+            ### 
+            ### ADD_CUSTOM_COMMAND(
+            ###   OUTPUT ${_DEPLOYMENT_OUTPUT}
+            ###   COMMAND ${PYTHON_EXECUTABLE} ${DEVENV}/Scripts/checkSharedLibraryDependencies.py -d ${_DEPLOYMENT_OUTPUT} ${_PCRASTER_MODELENGINE_PATH}
+            ###   COMMENT "Creating deployment.txt"
+            ###   DEPENDS pcraster_model_engine
+            ### )
+            
+            ADD_CUSTOM_TARGET(LinkOutDoxygenDocumentation ALL
+                DEPENDS
+                    ${_DOC_OUTPUT}
+                    # ${_DEPLOYMENT_OUTPUT}
+            )
+            
+            ### INSTALL(FILES
+            ###     ${_DEPLOYMENT_OUTPUT}
+            ###   DESTINATION
+            ###     doc/developer/linkout
+            ### )
+            
+            INSTALL(DIRECTORY
+                  ${CMAKE_CURRENT_BINARY_DIR}/html
+              DESTINATION
+                  doc/developer/linkout
+            )
+endif()
 
-SET(_DOC_OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/html/index.html)
-
-ADD_CUSTOM_COMMAND(
-    OUTPUT ${_DOC_OUTPUT}
-    COMMAND ${PYTHON_EXECUTABLE} ${PROJECT_SOURCE_DIR}/environment/script/createdoxyfile.py ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile PROJECT_NAME="\\"PCRaster LinkOut API\\"" INPUT="${_DOX_LINKOUT_SOURCES}" OUTPUT_DIRECTORY="${CMAKE_CURRENT_BINARY_DIR}"
-    COMMAND doxygen ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-    DEPENDS ${_DOX_LINKOUT_SOURCES}
-)
-
-### SET(_DEPLOYMENT_OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/deployment.txt)
-### GET_TARGET_PROPERTY(_PCRASTER_MODELENGINE_PATH pcraster_model_engine LOCATION)
-### 
-### ADD_CUSTOM_COMMAND(
-###   OUTPUT ${_DEPLOYMENT_OUTPUT}
-###   COMMAND ${PYTHON_EXECUTABLE} ${DEVENV}/Scripts/checkSharedLibraryDependencies.py -d ${_DEPLOYMENT_OUTPUT} ${_PCRASTER_MODELENGINE_PATH}
-###   COMMENT "Creating deployment.txt"
-###   DEPENDS pcraster_model_engine
-### )
-
-ADD_CUSTOM_TARGET(LinkOutDoxygenDocumentation ALL
-    DEPENDS
-        ${_DOC_OUTPUT}
-        # ${_DEPLOYMENT_OUTPUT}
-)
-
-### INSTALL(FILES
-###     ${_DEPLOYMENT_OUTPUT}
-###   DESTINATION
-###     doc/developer/linkout
-### )
-
-INSTALL(DIRECTORY
-      ${CMAKE_CURRENT_BINARY_DIR}/html
-  DESTINATION
-      doc/developer/linkout
-)
 
 ### # manual
 ### IF(NOT WIN32 AND NOT APPLE)

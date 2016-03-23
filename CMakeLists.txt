@@ -2,8 +2,14 @@ cmake_minimum_required(VERSION 3.1)
 
 project(pcraster)
 
+execute_process(
+    COMMAND date "+%Y"
+    OUTPUT_VARIABLE DEV_CURRENT_YEAR
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+
 set(${PROJECT_NAME}_ORGANISATION_NAME "PCRaster R&D Team")
-set(${PROJECT_NAME}_COPYRIGHT "1990-2016 PCRaster R&D Team")
+set(${PROJECT_NAME}_COPYRIGHT "1990-${DEV_CURRENT_YEAR} PCRaster R&D Team")
 set(${PROJECT_NAME}_PROJECT_NAME "${PROJECT_NAME}")
 set(${PROJECT_NAME}_HOMEPAGE "http://www.pcraster.eu")
 set(${PROJECT_NAME}_MAJOR_VERSION "5")

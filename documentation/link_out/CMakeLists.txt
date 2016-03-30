@@ -1,4 +1,4 @@
-INSTALL(
+install(
     FILES
         LinkOutAPIUserManual.pdf
     DESTINATION

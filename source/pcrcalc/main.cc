@@ -1,4 +1,4 @@
-#include "stddefx.h"
+#include "stddefx.h" 
 
 #ifndef INCLUDED_CALC_CMDLINECALC
 #include "calc_cmdlinecalc.h"
@@ -44,6 +44,7 @@ int main(
       };
       // std::auto_ptr<ClientHolder> holder(new ClientHolder(argc,argv));
       ClientHolder* holder=new ClientHolder(argc,argv);
+      (void)holder; // shut up compiler
     try {
       result = calc::executeCommandLine(argc,argv);
     } catch(...) {

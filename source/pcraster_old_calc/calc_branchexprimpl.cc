@@ -453,6 +453,7 @@ void calc::BranchExprImpl::executeDoubleAss(
 
   int nrOpds = implOp.nrArgs();
   POSTCOND(nrOpds > 0);
+  (void)nrOpds; // shut up compiler
 
   GlobResult result0(major2op(f->op[0]).vs(), resultVs[0], compressor());
   GlobResult result1(major2op(f->op[1]).vs(), resultVs[1], compressor());
@@ -529,12 +530,14 @@ static int currentTime;
 void Do_time(REAL4 *values, size_t n)
 {
     PRECOND(n==1);
+    (void)n; // shut up compiler
     *values = (REAL4)currentTime;
 }
 /* ARGSUSED */
 void Do_timeslice(REAL4 *values, size_t n)
 {
     PRECOND(n==1);
+    (void)n; // shut up compiler
     *values = (REAL4)1;
 }
 
@@ -869,6 +872,7 @@ void calc::BranchExprImpl::execGlob(
 
   int nrOpds = implOp.nrArgs();
   POSTCOND(nrOpds > 0);
+  (void) nrOpds; // shut up compiler
 
   GlobResult result(implOp.vs(),vs(),compressor());
   GlobArgs   args(implOp,compressor(),stack);

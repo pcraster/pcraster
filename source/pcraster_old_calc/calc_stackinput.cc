@@ -107,6 +107,7 @@ calc::StackInput::~StackInput()
 void calc::StackInput::buildTypesRecursive(VS resultVsSet)
 {
   POSTCOND(resultVsSet != VS_UNKNOWN);
+  (void) resultVsSet; // shut up compiler
 }
 
 calc::FieldType& calc::StackInput::restrictType()

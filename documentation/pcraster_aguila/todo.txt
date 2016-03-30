@@ -1,0 +1,68 @@
+Reorder the data part. Per data type all information:
+- Supported formats
+- Naming conventions
+  - Datasets (what the user has to supply)
+  - Datasources (the files, databases, tables, columns, ...), and file
+    structure conventions
+
+Raster data
+- Supported formats
+  - GDal
+- Naming conventions
+  - Datasets
+    - Deprecated PCRaster / old Aguila conventions
+    - Dal conventions
+  - Datasources
+    - Scenarios, timesteps, uncertainty
+
+Feature data
+- Supported formats
+  - OGR
+- Naming conventions
+  - Datasets
+    - Datasource/layer/attribute
+    - How about credentials for attribute tables?
+  - Datasources
+    - Scenarios, timesteps, uncertainty
+    - Simple attributes in feature table
+    - Other attributes in separate tables
+      - Column titles based on data space addresses
+
+Constant data
+
+
+
+
+
+Table layout
+Apart from the attribute field there must be at least one of the folowing fields present:
+- temporal data
+  - field name: 'date'
+  - field type: integer
+- uncertain data
+  - field name: 'quantile'
+  - field type: floating point
+- scenario data
+  - field name: 'scenario'
+  - field type: string
+
+If the table is to be used as an external attribute table of a feature layer, than an additional field, called 'fid' of type integer, must be present.
+
+Whatever the combination of dimensions that are present in a table, the combination of 'dimensional fields' (date, quantile, scenario) MUST be configured as the primary key of the table. This way, we are certain that any combination of a date and/or quantile and/or scenario maps to a single attribute value. Aguila checks whether the key is configured and will not open the table if it is not.
+
+In case the feature id is part of the table, than it must also be part of the primary key.
+
+The order of the fields does not matter.
+
+The order of the records does not matter.
+
+When creating tables, you will be writing <fid, scenario, date, quantile, value> to the table (in case all those fields are present).
+
+
+
+
+
+
+
+
+

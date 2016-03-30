@@ -1,4 +1,4 @@
-#include "stddefx.h" 
+#include "stddefx.h"
 
 /********/
 /* USES */
@@ -64,6 +64,8 @@ static void CalcView(
 	
 	noMV = dem->Get(&viewHght, viewr, viewc, dem);
   PRECOND(noMV);
+  (void)lastRow; // shut up compiler
+  (void)noMV; // shut up compiler
 
 	if(dem->Get(&height2, rNext, cNext, dem) &&
 	(points->Get(&nextPnt, rNext, cNext, points)))

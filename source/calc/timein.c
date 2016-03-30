@@ -1,4 +1,4 @@
-#include "stddefx.h" 
+#include "stddefx.h"
 
 
 /********/
@@ -99,6 +99,8 @@ TIME_TABLE *ReadTimeInputTable(
 	/* suppress not used warning */
 	PRECOND(nrFirstStepsToSkip >= 0);
 	PRECOND(nrStepsToRead >= 0);
+  (void)nrFirstStepsToSkip; // shut up compiler
+  (void)nrStepsToRead; // shut up compiler
 
 	if((t = NewTimeTable(vs, 0)) == NULL)
 		return NULL;

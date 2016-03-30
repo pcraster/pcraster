@@ -123,6 +123,7 @@ static void Add2Lines(
 	}
 	l[xInd].start.f = POSSIBLE_DATA_LOSS(REAL4,MIN(l[xInd].start.f, yRot));
 	l[xInd].end.f   = POSSIBLE_DATA_LOSS(REAL4,MAX(l[xInd].end.f, yRot));
+  (void)nrLines; // shut up compiler
 }
 
 

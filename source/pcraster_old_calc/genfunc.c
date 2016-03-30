@@ -36,18 +36,22 @@ extern int currentTime, endTime, startTime, timeStep; /* machine.cc */
 /* ARGSUSED */
 void Do_celllength(REAL4 *values, size_t n )
 { PRECOND(n==1); *values = (REAL4)Side(); 
+  (void)n; // shut up compiler
 }
 /* ARGSUSED */
 void Do_cellarea(REAL4 *values, size_t n)
 {  PRECOND(n==1); *values = (REAL4)Side()*(REAL4)Side(); 
+  (void)n; // shut up compiler
 }
 void Do_mapnormal(REAL4 *values, size_t n)
 {
 	PRECOND(n==1);
+  (void)n; // shut up compiler
 	*values = (REAL4)GasDev();
 }
 void Do_mapuniform(REAL4 *values, size_t n)
 {
 	PRECOND(n==1);
+  (void)n; // shut up compiler
 	*values = (REAL4)Ran();
 }

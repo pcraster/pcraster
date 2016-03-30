@@ -685,6 +685,7 @@ extern "C" int  Transient(void** out, const void** in, int nrArgs)
 {
   using namespace calc; // hack hack
   PRECOND(nrArgs == 7);
+  (void)nrArgs; // shut up compiler
 
   ReadWriteReal8_ref(resultElevation, static_cast<MAP_REAL8*>(out[0]));
   ReadOnlyReal8_ref(elevation, static_cast<const MAP_REAL8*>(in[0]));

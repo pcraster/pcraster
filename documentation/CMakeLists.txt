@@ -1,8 +1,12 @@
+# pcraster_manual required to run unit tests
 add_subdirectory(pcraster_manual)
 
+
 if(PCRASTER_BUILD_DOCUMENTATION)
+  set(SPHINX_HTML_THEME "classic")
+
   add_subdirectory(python_modelling_framework)
   add_subdirectory(python_arrayed_variables)
+  add_subdirectory(pcraster_aguila)
+  add_subdirectory(link_out)
 endif()
-
-# TODO add_subdirectory(link_out)

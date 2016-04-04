@@ -53,10 +53,10 @@ coordinate positions:
 columnnumbers
 
 -x :emphasis:`columnnumberx`
-   :emphasis:`columnnumberx`  is the column number of the x coordinate in columnfile; in append mode: the colum number of the x coordinate in the :emphasis:`inputcolumnfile` (default 1).
+   :emphasis:`columnnumberx`  is the column number of the x coordinate in columnfile; in append mode: the column number of the x coordinate in the :emphasis:`inputcolumnfile` (default 1).
 
 -y :emphasis:`columnnumbery`
-   :emphasis:`columnnumbery` is the column number of the y coordinate in columnfile; in append mode: the colum number of the y coordinate in the :emphasis:`inputcolumnfile` (default 2).
+   :emphasis:`columnnumbery` is the column number of the y coordinate in columnfile; in append mode: the column number of the y coordinate in the :emphasis:`inputcolumnfile` (default 2).
 
  
 
@@ -64,7 +64,7 @@ columnnumbers
 -m :emphasis:`nodatavalue` 
 
 
-   :emphasis:`nodatavalue` is the value in :emphasis:`columnfile` which is converted to a missing value on PCRresult. It can be one ascii character (letters, figures, symbols) or a string of ascii charaters. For instance: -m -99.98 or -m ! or -m j5w. Default, if this option is not set, 1e31 is recognized as a missing value.
+   :emphasis:`nodatavalue` is the value in :emphasis:`columnfile` which is converted to a missing value on PCRresult. It can be one ascii character (letters, figures, symbols) or a string of ascii characters. For instance: -m -99.98 or -m ! or -m j5w. Default, if this option is not set, 1e31 is recognized as a missing value.
 
  
 
@@ -78,7 +78,7 @@ columnnumbers
  
 
 
--s :emphasis:`seperator` 
+-s :emphasis:`separator` 
 
 
    By default, whitespace (one or more tabs, spaces) is recognized as separator between the values of a row in the columnfile. If the values are separated by a different separator, you can specify it with the option. The :emphasis:`separator` can be one of the ascii characters (always one). In that case, col2map recognizes the specified separator with or without whitespace as separator. For instance, if the values in columnfile are separated by a ; character followed by 5 spaces, specify -s ; in the command line (you do not need to specify the whitespace characters).

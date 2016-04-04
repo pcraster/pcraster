@@ -32,12 +32,12 @@ Options can be given for assigning a special layout to asciifile. These options 
 -m :emphasis:`nodatavalue` 
 
 
-   :emphasis:`nodatavalue` may be one ascii character (letters, figures, symbols) or a string of ascii charaters. For instance: -m -999, -m ? or -m 8kf.f. The missing values on the map will be assigned the :emphasis:`nondatavalue` on the asciifile
+   :emphasis:`nodatavalue` may be one ascii character (letters, figures, symbols) or a string of ascii characters. For instance: -m -999, -m ? or -m 8kf.f. The missing values on the map will be assigned the :emphasis:`nondatavalue` on the asciifile
 
  
 
 
--s :emphasis:`seperator` 
+-s :emphasis:`separator` 
 
 
    :emphasis:`separator` may be one ascii character (letters, figures, symbols, space, tab) or a string of ascii characters. A space or tab is specified using "\" \"", for instance: -s "\" \"" is a space as separator. The cell values which are on one row on PCRmap will be separated by :emphasis:`separator` on asciifile. Default, if -s is not set, map2asc prints one space :emphasis:`before` each cell value field. Note that if you want to convert the asciifile back to PCRaster map format with the asc2map operator, it should contain whitespace characters only or whitespace characters with only :emphasis:`one` non whitespace character as separator.
@@ -48,7 +48,7 @@ Options can be given for assigning a special layout to asciifile. These options 
 -f C :emphasis:`-typeformat` 
 
 
-   This option is used to specify the sort of format which is assigned to thencell values in asciifile. See the discussion of -f in map2col.
+   This option is used to specify the sort of format which is assigned to the cell values in asciifile. See the discussion of -f in map2col.
 
  
 

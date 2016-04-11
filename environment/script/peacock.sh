@@ -79,10 +79,6 @@ function build_software()
         options+=("-Dgdal_build_python_package=true")
     fi
 
-    # PCRaster raster format.
-    options+=("-Dbuild_pcraster_raster_format=true")
-    options+=("-Dpcraster_raster_format_version=1.3.1")
-
     # Qt
     if [ ! "$skip_build_qt" ]; then
         options+=("-Dbuild_qt=true")
@@ -94,6 +90,18 @@ function build_software()
         options+=("-Dbuild_qwt=true")
         options+=("-Dqwt_version=6.1.2")
     fi
+
+    # PCRaster raster format.
+    options+=("-Dbuild_pcraster_raster_format=true")
+    options+=("-Dpcraster_raster_format_version=1.3.1")
+
+    # Fern.
+    options+=("-Dbuild_fern=true")
+    options+=("-Dfern_git_repository=https://github.com/geoneric/fern.git")
+    options+=("-Dfern_git_tag=12fa63cb2d72e6abafbbac50f40ca2143344da6a")
+    options+=("-Dfern_build_fern_algorithm=true")
+    options+=("-Dfern_build_fern_documentation=true")
+    options+=("-Dfern_build_fern_test=true")
 
 
     cmake "${options[@]}" $source

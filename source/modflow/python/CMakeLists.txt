@@ -29,14 +29,27 @@ TARGET_LINK_LIBRARIES(_pcraster_modflow_python
     pcraster_model_engine
     pcrcom
     pcrdiscr
-    # ${PCRASTER_RASTER_FORMAT}
-    # ${GDAL_LIBRARIES}
     ${Boost_PYTHON_LIBRARY}
     ${PYTHON_LIBRARIES}
+    # ${PCRASTER_RASTER_FORMAT}
+    # ${GDAL_LIBRARIES}
     # ${BOOST_SIGNALS_LIBRARY}
     # ${BOOST_THREAD_LIBRARY}
+)
+
+add_dependencies(_pcraster_modflow_python
+    _pcraster fill_python_directory_structure
 )
 
 CONFIGURE_PYTHON_EXTENSION(_pcraster_modflow_python
     "_pcraster_modflow"
 )
+
+set(_TARGET_BIN ${EXECUTABLE_OUTPUT_PATH}/${CMAKE_CFG_INTDIR})
+
+set_target_properties(_pcraster_modflow_python
+    PROPERTIES
+        LIBRARY_OUTPUT_DIRECTORY "${_TARGET_BIN}/pcraster"
+)
+
+

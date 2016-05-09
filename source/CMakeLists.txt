@@ -65,6 +65,10 @@ add_subdirectory(legend)
 # Used in unit tests.
 add_subdirectory(mapdiff)
 
+# Build projects that are currently in development
+if(PCRASTER_BUILD_EXPERIMENTAL)
+    add_subdirectory(pcraster_multicore)
+endif()
 
 install(
     FILES

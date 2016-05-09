@@ -25,6 +25,29 @@ TARGET_LINK_LIBRARIES(_pcraster_mldd_python
 CONFIGURE_PYTHON_EXTENSION(_pcraster_mldd_python
     "_pcraster_mldd"
 )
+
+set(_TARGET_BIN ${EXECUTABLE_OUTPUT_PATH}/${CMAKE_CFG_INTDIR})
+
+set_target_properties(_pcraster_mldd_python
+    PROPERTIES
+        LIBRARY_OUTPUT_DIRECTORY "${_TARGET_BIN}/pcraster/mldd"
+)
+
+ADD_DEPENDENCIES(_pcraster_mldd_python _pcraster)
+
+ADD_CUSTOM_COMMAND(
+    TARGET _pcraster_mldd_python
+    POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E make_directory
+            ${PROJECT_BINARY_DIR}/bin/${CMAKE_CFG_INTDIR}/pcraster/mldd
+        COMMAND ${CMAKE_COMMAND} -E copy
+            ${CMAKE_CURRENT_SOURCE_DIR}/__init__.py
+            ${PROJECT_BINARY_DIR}/bin/${CMAKE_CFG_INTDIR}/pcraster/mldd
+#        COMMAND ${CMAKE_COMMAND} -E copy
+#            $<TARGET_FILE:_pcraster_mldd_python>
+#            ${PROJECT_BINARY_DIR}/bin/${CMAKE_CFG_INTDIR}/pcraster/mldd
+)
+
 ### SET_TARGET_PROPERTIES(_pcraster_mldd_python
 ###     PROPERTIES
 ###         ### SKIP_BUILD_RPATH FALSE
@@ -37,16 +60,3 @@ CONFIGURE_PYTHON_EXTENSION(_pcraster_mldd_python
 ###         # Might be needed on Windows:
 ###         # RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin/pcraster
 ### )
-ADD_DEPENDENCIES(_pcraster_mldd_python _pcraster)
-ADD_CUSTOM_COMMAND(
-    TARGET _pcraster_mldd_python
-    POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E make_directory
-            ${PROJECT_BINARY_DIR}/bin/${CMAKE_CFG_INTDIR}/pcraster/mldd
-        COMMAND ${CMAKE_COMMAND} -E copy
-            ${CMAKE_CURRENT_SOURCE_DIR}/__init__.py
-            ${PROJECT_BINARY_DIR}/bin/${CMAKE_CFG_INTDIR}/pcraster/mldd
-        COMMAND ${CMAKE_COMMAND} -E copy
-            $<TARGET_FILE:_pcraster_mldd_python>
-            ${PROJECT_BINARY_DIR}/bin/${CMAKE_CFG_INTDIR}/pcraster/mldd
-)

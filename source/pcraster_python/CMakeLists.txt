@@ -73,19 +73,28 @@ CONFIGURE_PYTHON_EXTENSION(_pcraster
 )
 
 
-SET(_TARGET_BIN ${EXECUTABLE_OUTPUT_PATH}/${CMAKE_CFG_INTDIR})
+set(_TARGET_BIN ${EXECUTABLE_OUTPUT_PATH}/${CMAKE_CFG_INTDIR})
+
+set_target_properties(_pcraster
+    PROPERTIES
+        LIBRARY_OUTPUT_DIRECTORY "${_TARGET_BIN}/pcraster"
+)
+#set_target_properties(_pcraster_modflow_python
+#    PROPERTIES
+#        LIBRARY_OUTPUT_DIRECTORY "${_TARGET_BIN}/pcraster"
+#)
 
 ADD_CUSTOM_COMMAND(
     OUTPUT ${_TARGET_BIN}/pcraster/__init__.py
 
     COMMAND ${CMAKE_COMMAND} -E copy_directory
         ${CMAKE_CURRENT_SOURCE_DIR}/pcraster ${_TARGET_BIN}/pcraster
-    COMMAND ${CMAKE_COMMAND} -E copy
-        $<TARGET_FILE:_pcraster> ${_TARGET_BIN}/pcraster
-    COMMAND ${CMAKE_COMMAND} -E copy
-        $<TARGET_FILE:_pcraster_modflow_python> ${_TARGET_BIN}/pcraster
-    COMMAND ${CMAKE_COMMAND} -E remove $<TARGET_FILE:_pcraster>
-    COMMAND ${CMAKE_COMMAND} -E remove $<TARGET_FILE:_pcraster_modflow_python>
+    # COMMAND ${CMAKE_COMMAND} -E copy
+    #     $<TARGET_FILE:_pcraster> ${_TARGET_BIN}/pcraster
+    # COMMAND ${CMAKE_COMMAND} -E copy
+    #     $<TARGET_FILE:_pcraster_modflow_python> ${_TARGET_BIN}/pcraster
+    # COMMAND ${CMAKE_COMMAND} -E remove $<TARGET_FILE:_pcraster>
+    # COMMAND ${CMAKE_COMMAND} -E remove $<TARGET_FILE:_pcraster_modflow_python>
 
 
     COMMAND ${CMAKE_COMMAND} -E copy
@@ -96,7 +105,7 @@ ADD_CUSTOM_COMMAND(
 
     DEPENDS
         _pcraster
-        _pcraster_modflow_python
+        #_pcraster_modflow_python
 )
 
 # TODO This target is used by modflow too. While this CMake file depends on

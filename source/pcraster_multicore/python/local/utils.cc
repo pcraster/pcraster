@@ -1,6 +1,7 @@
 #include <cassert>
 #include <sstream>
 
+#include <cmath>
 
 #include "calc_nonspatial.h"
 #include "calc_spatial.h"

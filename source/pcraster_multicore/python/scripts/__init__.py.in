@@ -1,2 +1,2 @@
-from pcraster5.multicore.operations import *
-from pcraster5.multicore.operators import *
+from pcraster.multicore.operations import *
+from pcraster.multicore.operators import *

@@ -28,7 +28,6 @@ public:
 
     bool           is_no_data          () const;
 
-    bool           is_no_data          (size_t index) const;  /// todo remove this!!!
 
 protected:
 
@@ -55,12 +54,3 @@ template<class T>
 inline bool NonspatialDetectNoData<T>::is_no_data() const {
   return pcr::isMV(_field.get_cells()[0]);
 }
-
-
-template<class T>
-inline bool NonspatialDetectNoData<T>::is_no_data(size_t /* index */) const {
-  // this method should not be necessary
-  // remove this with newer version of fern supporting the () in 0d_2d ops
-  return pcr::isMV(_field.get_cells()[0]);
-}
-

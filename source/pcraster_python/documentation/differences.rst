@@ -216,10 +216,6 @@ See also the example script ``runoff.py`` in the deterministic subdirectory of t
 
 Converting to and from NumPy arrays
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-.. note::
-
-   The conversion functions are no longer provided by default by importing the PCRaster module, instead use: ``from pcraster.numpy import *``.
-
 You can convert PCRaster maps to NumPy arrays and vice versa with the following conversion functions:
 
 .. code-block:: python
@@ -257,7 +253,6 @@ The following example script demonstrates the usage of the conversion functions:
 
    import numpy
    from pcraster import *
-   from pcraster.numpy import *
 
    setclone("clone.map")
 

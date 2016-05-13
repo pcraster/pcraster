@@ -45,14 +45,14 @@ void w4t(
     Value const& value,
     Result& result){
 
-    //fern::Square<INT4, 1> window_kernel({
-       // {0, 1, 0},
-      //  {1, 0, 1},
-       //{0, 1, 0}
-    fern::Square<bool, 1> window_kernel({
-       {false, true , false},
-       {true , false, true},
-       {false, true , false}
+    fern::Square<INT4, 1> window_kernel({
+       {0, 1, 0},
+       {1, 0, 1},
+       {0, 1, 0}
+//     fern::Square<bool, 1> window_kernel({
+//        {false, true , false},
+//        {true , false, true},
+//        {false, true , false}
     });
 
     fa::convolution::convolve<

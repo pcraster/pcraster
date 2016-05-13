@@ -45,6 +45,7 @@ addons:
             - python-numpy
             - python-virtualenv
             - xsltproc
+            - graphviz
             # - libc++-dev
 
 before_install:

@@ -33,9 +33,7 @@ addons:
             # - clang-3.5
             - doxygen
             - g++-4.9
-            # - gdal-bin # 02/2016 currently installs v1.x
             - imagemagick
-            - libgdal-dev
             - libgeos++-dev
             - libboost1.55-all-dev
             - libxml2-dev
@@ -47,6 +45,8 @@ addons:
             - xsltproc
             - graphviz
             # - libc++-dev
+            # - gdal-bin # 02/2016 travis vm currently installs v1.x
+            - libgdal-dev
 
 before_install:
     - sudo add-apt-repository ppa:beineri/opt-qt487 -y
@@ -110,6 +110,10 @@ script:
 
     # Split the build, 'make all' takes > 50 minutes, which is not allowed.
     - cmake --build . --config ${TRAVIS_BUILD_TYPE} --target pcraster_aguila
+    - cmake --build . --config ${TRAVIS_BUILD_TYPE} --target mapattr
+    - cmake --build . --config ${TRAVIS_BUILD_TYPE} --target oldcalc
+    - cmake --build . --config ${TRAVIS_BUILD_TYPE} --target pcrcalc
+    - cmake --build . --config ${TRAVIS_BUILD_TYPE} --target _pcraster_multicore
     - cmake --build . --config ${TRAVIS_BUILD_TYPE} --target all
 
     # own GDAL 2.x library needs to be found to execute unit tests

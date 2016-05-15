@@ -77,7 +77,8 @@ install:
     - sudo pip install --upgrade sphinx
     - sudo pip install pillow
 
-    - sudo apt-get install opt-qt4-qmake opt-qt4-dev-tools
+    #- sudo apt-get install opt-qt4-qmake opt-qt4-dev-tools
+    - sudo apt-get install opt-libqt4-dbus opt-libqt4-dev opt-libqt4-dev-bin opt-libqt4-opengl opt-libqt4-opengl-dev opt-libqt4-qt3support opt-libqt4-sql opt-libqt4-sql-sqlite opt-libqt4-svg opt-libqt4-test opt-libqt4-xml opt-libqtcore4 opt-libqtgui4 opt-qdbus opt-qt4-dev-tools opt-qt4-qmake
     - export PATH=/opt/qt-4.8/bin:$PATH
     - cat /opt/qt-4.8/bin/qt-4.8-env.sh
 
@@ -109,8 +110,8 @@ script:
     - cd $TRAVIS_BUILD_DIR/build
 
     # Split the build, 'make all' takes > 50 minutes, which is not allowed.
-    - cmake --build . --config ${TRAVIS_BUILD_TYPE} --target pcraster_aguila
     - cmake --build . --config ${TRAVIS_BUILD_TYPE} --target mapattr
+    - cmake --build . --config ${TRAVIS_BUILD_TYPE} --target pcraster_aguila
     - cmake --build . --config ${TRAVIS_BUILD_TYPE} --target oldcalc
     - cmake --build . --config ${TRAVIS_BUILD_TYPE} --target pcrcalc
     - cmake --build . --config ${TRAVIS_BUILD_TYPE} --target _pcraster_multicore

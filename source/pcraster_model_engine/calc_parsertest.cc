@@ -1,175 +1,46 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_PARSERTEST
-#include "calc_parsertest.h"
-#define INCLUDED_CALC_PARSERTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_FILE
+#define BOOST_TEST_MODULE pcraster newcalc parser
+#include <boost/test/unit_test.hpp>
+#include <string>
 #include "com_file.h"     // com::write
-#define INCLUDED_COM_FILE
-#endif
-#ifndef INCLUDED_COM_ALGORITHM
 #include "com_algorithm.h" // FindValue
-#define INCLUDED_COM_ALGORITHM
-#endif
-// Module headers.
-#ifndef INCLUDED_CALC_COMPLETEPARSER
 #include "calc_completeparser.h"
-#define INCLUDED_CALC_COMPLETEPARSER
-#endif
-#ifndef INCLUDED_CALC_ASTSCRIPT
 #include "calc_astscript.h"
-#define INCLUDED_CALC_ASTSCRIPT
-#endif
-#ifndef INCLUDED_CALC_ASTNODE
 #include "calc_astnode.h"
-#define INCLUDED_CALC_ASTNODE
-#endif
-#ifndef INCLUDED_CALC_ASTEXPR
 #include "calc_astexpr.h"
-#define INCLUDED_CALC_ASTEXPR
-#endif
-#ifndef INCLUDED_CALC_ASTPAR
 #include "calc_astpar.h"
-#define INCLUDED_CALC_ASTPAR
-#endif
-#ifndef INCLUDED_CALC_ASTASS
 #include "calc_astass.h"
-#define INCLUDED_CALC_ASTASS
-#endif
-#ifndef INCLUDED_CALC_ASTSTAT
 #include "calc_aststat.h"
-#define INCLUDED_CALC_ASTSTAT
-#endif
-#ifndef INCLUDED_CALC_ASTNUMBER
 #include "calc_astnumber.h"
-#define INCLUDED_CALC_ASTNUMBER
-#endif
-#ifndef INCLUDED_CALC_ASTNODELIST
 #include "calc_astnodelist.h"
-#define INCLUDED_CALC_ASTNODELIST
-#endif
-#ifndef INCLUDED_CALC_DYNAMICSECTION
 #include "calc_dynamicsection.h"
-#define INCLUDED_CALC_DYNAMICSECTION
-#endif
-#ifndef INCLUDED_CALC_REPEATUNTIL
 #include "calc_repeatuntil.h"
-#define INCLUDED_CALC_REPEATUNTIL
-#endif
-#ifndef INCLUDED_CALC_RUNSETTINGS
 #include "calc_runsettings.h"
-#define INCLUDED_CALC_RUNSETTINGS
-#endif
-#ifndef INCLUDED_CALC_STRINGPARSER
 #include "calc_stringparser.h"
-#define INCLUDED_CALC_STRINGPARSER
-#endif
-
-#ifndef INCLUDED_CALC_MESSAGESTESTDB
 #include "calc_messagestestdb.h"
-#define INCLUDED_CALC_MESSAGESTESTDB
-#endif
-
-#ifndef INCLUDED_CALC_MODELERRORTESTER
 #include "calc_modelerrortester.h"
-#define INCLUDED_CALC_MODELERRORTESTER
-#endif
-#ifndef INCLUDED_CALC_POSEXCEPTION
 #include "calc_posexception.h"
-#define INCLUDED_CALC_POSEXCEPTION
-#endif
-#ifndef INCLUDED_CALC_ASTPATH
 #include "calc_astpath.h"
-#define INCLUDED_CALC_ASTPATH
-#endif
 
-/*!
-  \file
-  This file contains the implementation of the ParserTest class.
-*/
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC PARSER MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*calc::ParserTest::suite()
-{
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<ParserTest> instance(new ParserTest());
-
-  suite->add(BOOST_CLASS_TEST_CASE(&ParserTest::testExpr, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ParserTest::testAssignment, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ParserTest::testStatement, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ParserTest::testCheckAndRewriteParsedAST, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ParserTest::testStatementList, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ParserTest::testCode, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ParserTest::testModel, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ParserTest::testReportSection, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ParserTest::testBinding, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ParserTest::testExternalBindings, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ParserTest::testParseErrors, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ParserTest::testNonAsciiScript, instance));
-  return suite;
-}
 
 static const calc::StringParser sp;
 
 // parsing only will fail
-#define MODEL_ERROR_TEST(x) MODEL_ERROR_TESTER(ModelErrorTester,x)
+#define MODEL_ERROR_TEST(x) MODEL_ERROR_TESTER(calc::ModelErrorTester,x)
 
-//------------------------------------------------------------------------------
-// DEFINITION OF PARSER MEMBERS
-//------------------------------------------------------------------------------
 
-//! ctor
-calc::ParserTest::ParserTest()
-{
-}
-
-std::string calc::ParserTest::model(const std::string& msgId) const
-{
-  return MessagesTestDB::instance()->model(msgId);
+namespace parsertest {
+  std::string model(const std::string& msgId)
+  {
+    return calc::MessagesTestDB::instance()->model(msgId);
+  }
 }
 
 
-//! setUp
-void calc::ParserTest::setUp()
-{
-}
 
-//! tearDown
-void calc::ParserTest::tearDown()
+BOOST_AUTO_TEST_CASE(testExpr)
 {
-}
+  using namespace calc;
 
-
-void calc::ParserTest::testExpr()
-{
   typedef std::auto_ptr<ASTNode> E;
 
   {
@@ -214,8 +85,10 @@ void calc::ParserTest::testExpr()
   }
 }
 
-void calc::ParserTest::testAssignment()
+BOOST_AUTO_TEST_CASE(testAssignment)
 {
+  using namespace calc;
+
   typedef std::auto_ptr<ASTAss> A;
   {
    A a(sp.createAssignment("a=3*5;"));
@@ -241,16 +114,18 @@ void calc::ParserTest::testAssignment()
 
 }
 
-void calc::ParserTest::testStatementList()
+BOOST_AUTO_TEST_CASE(testStatementList)
 {
+  using namespace calc;
+
  {
   typedef std::auto_ptr<ASTNodeList> S;
-  S s(sp.createStatementList(model("pcrcalc11pre")));
+  S s(sp.createStatementList(parsertest::model("pcrcalc11pre")));
   BOOST_CHECK(s->size()==2);
  }
  { // repeat
   typedef std::auto_ptr<ASTNodeList> S;
-  S s(sp.createStatementList(model("pcrcalc379")));
+  S s(sp.createStatementList(parsertest::model("pcrcalc379")));
   BOOST_REQUIRE_EQUAL(s->size(), 2U);
   ASTNodeList::const_iterator n(s->begin());
   n++;
@@ -258,11 +133,13 @@ void calc::ParserTest::testStatementList()
  }
 }
 
-void calc::ParserTest::testCode()
+BOOST_AUTO_TEST_CASE(testCode)
 {
+  using namespace calc;
+
  { // only a dynamic section
   typedef std::auto_ptr<ASTNode> B;
-  B l(sp.createCodeAsNode(model("pcrcalc8a")));
+  B l(sp.createCodeAsNode(parsertest::model("pcrcalc8a")));
   DynamicSection *d(astCast<DynamicSection>(l.get(),"C/b/0"));
   BOOST_REQUIRE(d);
   ASTNodeList    *s(dynamic_cast<ASTNodeList *>(d->statements()));
@@ -270,7 +147,7 @@ void calc::ParserTest::testCode()
  }
  { // initial plus dynamic
   typedef std::auto_ptr<ASTNode> B;
-  B b(sp.createCodeAsNode(model("pcrcalc8ab")));
+  B b(sp.createCodeAsNode(parsertest::model("pcrcalc8ab")));
   ASTNodeList *l(astCast<ASTNodeList>(b.get(),"C/b"));
   BOOST_REQUIRE(l);
 
@@ -284,8 +161,10 @@ void calc::ParserTest::testCode()
  }
 }
 
-void calc::ParserTest::testStatement()
+BOOST_AUTO_TEST_CASE(testStatement)
 {
+  using namespace calc;
+
  { // fileoutput
   MODEL_ERROR_TEST(pcrcalc9);
 /*
@@ -299,7 +178,7 @@ void calc::ParserTest::testStatement()
  }
  { // a report clause
   typedef std::auto_ptr<ASTStat> S;
-  S s(sp.createStatement(model("pcrcalc301b")));
+  S s(sp.createStatement(parsertest::model("pcrcalc301b")));
   BOOST_CHECK(dynamic_cast<ASTAss *>(s->stat()));
   BOOST_CHECK( s->reportParsed());
   BOOST_CHECK( s->reportById().empty());
@@ -325,8 +204,10 @@ void calc::ParserTest::testStatement()
  }
 }
 
-void calc::ParserTest::testCheckAndRewriteParsedAST()
+BOOST_AUTO_TEST_CASE(testCheckAndRewriteParsedAST)
 {
+  using namespace calc;
+
  { // implicit report on timeoutput fixed in checkAndRewriteParsedAST()
    typedef std::auto_ptr<ASTStat> S;
    S s(sp.createStatement("s = timeoutput(inp1b.map,1);"));
@@ -335,8 +216,10 @@ void calc::ParserTest::testCheckAndRewriteParsedAST()
  MODEL_ERROR_TEST(pcrcalc37);
 }
 
-void calc::ParserTest::testParseErrors()
+BOOST_AUTO_TEST_CASE(testParseErrors)
 {
+  using namespace calc;
+
   ASTNode *e;
   bool     catched;
 
@@ -368,7 +251,7 @@ void calc::ParserTest::testParseErrors()
    // test that StringParser checks on more input
    // then neeeded for parsing pcrcalc11pre is list of statements
    // beginning with an assignment
-   (void)sp.createAssignment(model("pcrcalc11pre"));
+   (void)sp.createAssignment(parsertest::model("pcrcalc11pre"));
   } catch(const PosException& ) {
     catched=true;
   }
@@ -391,8 +274,10 @@ BOOST_CHECK(e.messages().find("script contains no code") != std::string::npos);
  }
 }
 
-void calc::ParserTest::testModel()
+BOOST_AUTO_TEST_CASE(testModel)
 {
+  using namespace calc;
+
  struct M {
    bool cfgCode;
    M(std::string const& code):
@@ -404,11 +289,11 @@ void calc::ParserTest::testModel()
  };
 
  {
-  M m(model("pcrcalc256"));
+  M m(parsertest::model("pcrcalc256"));
   BOOST_CHECK(m.cfgCode);
  }
  {
-  M m(model("pcrcalc0"));
+  M m(parsertest::model("pcrcalc0"));
   BOOST_CHECK(m.cfgCode);
  }
  { // simple statement list
@@ -421,26 +306,28 @@ void calc::ParserTest::testModel()
  MODEL_ERROR_TEST(pcrcalc515);
  MODEL_ERROR_TEST(pcrcalc516);
  {
-  M m(model("pcrcalc509"));
+  M m(parsertest::model("pcrcalc509"));
   BOOST_CHECK(m.cfgCode);
  }
  MODEL_ERROR_TEST(pcrcalc555);
 }
 
-void calc::ParserTest::testBinding()
+BOOST_AUTO_TEST_CASE(testBinding)
 {
  MODEL_ERROR_TEST(pcrcalc41);
  MODEL_ERROR_TEST(pcrcalc42);
 }
 
-void calc::ParserTest::testReportSection()
+BOOST_AUTO_TEST_CASE(testReportSection)
 {
  MODEL_ERROR_TEST(pcrcalc238);
  MODEL_ERROR_TEST(pcrcalc239);
 }
 
-void calc::ParserTest::testExternalBindings()
+BOOST_AUTO_TEST_CASE(testExternalBindings)
 {
+  using namespace calc;
+
  // SYNTAX ERROR
  bool catched(false);
  try {
@@ -487,8 +374,10 @@ void calc::ParserTest::testExternalBindings()
 }
 }
 
-void calc::ParserTest::testNonAsciiScript()
+BOOST_AUTO_TEST_CASE(testNonAsciiScript)
 {
+  using namespace calc;
+
   {
     // cyrilic chars in comments
     // comments are stripped so that is ok

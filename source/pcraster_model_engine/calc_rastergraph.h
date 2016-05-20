@@ -42,7 +42,6 @@ typedef IFieldRDConversion::RasterId RasterId;
 */
 class RasterGraph
 {
-  friend class RasterGraphTest;
 public:
 
   typedef unsigned char                Byte;

@@ -86,8 +86,6 @@ enum  ReportPosition {
 class ASTSymbolInfo
 {
 private:
-  friend class BuildTypesVisitorTest;
-
   /**
    *  \defgroup CodeAST  Information from the actual code AST
    *                     for this symbol

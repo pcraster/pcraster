@@ -1,97 +1,18 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_USEDEFANALYZERTEST
-#include "calc_usedefanalyzertest.h"
-#define INCLUDED_CALC_USEDEFANALYZERTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_IOSTREAM
+#define BOOST_TEST_MODULE pcraster newcalc usedefanalyzer
+#include <boost/test/unit_test.hpp>
 #include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_ASTCFGTESTER
-#include "calc_astcfgtester.h"
-#define INCLUDED_CALC_ASTCFGTESTER
-#endif
-#ifndef INCLUDED_CALC_STRINGPARSER
-#include "calc_stringparser.h"
-#define INCLUDED_CALC_STRINGPARSER
-#endif
-#ifndef INCLUDED_CALC_USEDEFANALYZER
-#include "calc_usedefanalyzer.h"
-#define INCLUDED_CALC_USEDEFANALYZER
-#endif
-#ifndef INCLUDED_CALC_ASTPATH
 #include "calc_astpath.h"
-#define INCLUDED_CALC_ASTPATH
-#endif
-#ifndef INCLUDED_CALC_PARSET
+#include "calc_astcfgtester.h"
+#include "calc_stringparser.h"
+#include "calc_usedefanalyzer.h"
 #include "calc_parset.h"
-#define INCLUDED_CALC_PARSET
-#endif
-#ifndef INCLUDED_CALC_ASTPAR
 #include "calc_astpar.h"
-#define INCLUDED_CALC_ASTPAR
-#endif
-#ifndef INCLUDED_CALC_JUMPNODE
 #include "calc_jumpnode.h"
-#define INCLUDED_CALC_JUMPNODE
-#endif
-#ifndef INCLUDED_CALC_CODE
 #include "calc_code.h"
-#define INCLUDED_CALC_CODE
-#endif
-#ifndef INCLUDED_CALC_IOTYPE
 #include "calc_iotype.h"
-#define INCLUDED_CALC_IOTYPE
-#endif
-/*!
-  \file
-  This file contains the implementation of the UseDefAnalyzerTest class.
-*/
 
 // NOTE use string failureExpected in files expected to fail, see style guide
 
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC USEDEFANALYZER MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*calc::UseDefAnalyzerTest::suite()
-{
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<UseDefAnalyzerTest> instance(new UseDefAnalyzerTest());
-
-  suite->add(BOOST_CLASS_TEST_CASE(&UseDefAnalyzerTest::testLinear, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&UseDefAnalyzerTest::testLoops, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&UseDefAnalyzerTest::testBugs, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&UseDefAnalyzerTest::nestedLoops, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&UseDefAnalyzerTest::testIOTypes, instance));
-
-  return suite;
-}
 
 namespace calc {
   namespace useDefAnalyzerTest {
@@ -169,33 +90,10 @@ namespace calc {
 #define UDA_TEST(C)  useDefAnalyzerTest::Test C
 
 
-//------------------------------------------------------------------------------
-// DEFINITION OF USEDEFANALYZER MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-calc::UseDefAnalyzerTest::UseDefAnalyzerTest()
+BOOST_AUTO_TEST_CASE(testLinear)
 {
-}
+  using namespace calc;
 
-
-
-//! setUp
-void calc::UseDefAnalyzerTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void calc::UseDefAnalyzerTest::tearDown()
-{
-}
-
-
-
-void calc::UseDefAnalyzerTest::testLinear()
-{
   // use lookupscalar: unlimited args and no
   // rewriting in CFG as is the case with min/max/cover
   {
@@ -251,8 +149,10 @@ void calc::UseDefAnalyzerTest::testLinear()
   }
 }
 
-void calc::UseDefAnalyzerTest::testLoops()
+BOOST_AUTO_TEST_CASE(testLoops)
 {
+  using namespace calc;
+
   { // use of a AFTER repeat
    const char *code=
         "               # test path to assignments\n" \
@@ -321,8 +221,10 @@ void calc::UseDefAnalyzerTest::testLoops()
 }
 
 // things that f***ed up later
-void calc::UseDefAnalyzerTest::testBugs()
+BOOST_AUTO_TEST_CASE(testBugs)
 {
+  using namespace calc;
+
  typedef std::set<std::string> Set;
  {
   const char *code=
@@ -388,8 +290,10 @@ void calc::UseDefAnalyzerTest::testBugs()
  }
 }
 
-void calc::UseDefAnalyzerTest::nestedLoops()
+BOOST_AUTO_TEST_CASE(testXMLReflection)
 {
+  using namespace calc;
+
   useDefAnalyzerTest::Test::NameSet mz;
   mz.insert("m");
   mz.insert("z");
@@ -424,8 +328,10 @@ void calc::UseDefAnalyzerTest::nestedLoops()
   }
 }
 
-void calc::UseDefAnalyzerTest::testIOTypes()
+BOOST_AUTO_TEST_CASE(testIOTypes)
 {
+  using namespace calc;
+
   {
   ASTCFGTester  test(StringParser::createCodeAsNode("a=0"));
   std::map<std::string,IOType> r = ioTypes(test.cfg());

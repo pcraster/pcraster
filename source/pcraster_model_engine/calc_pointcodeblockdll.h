@@ -31,13 +31,11 @@ namespace calc {
 
 class PointCodeBlock;
 
-/*! \short Create dynamic library (dll) source, code, compile it and set 
+/*! \short Create dynamic library (dll) source, code, compile it and set
  *         the function address to the PointCodeBlock's
  */
 class PointCodeBlockDll
 {
-
-  friend class PointCodeBlockDllTest;
 
 private:
 

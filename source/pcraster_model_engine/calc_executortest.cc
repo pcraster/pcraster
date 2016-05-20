@@ -1,126 +1,40 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_EXECUTORTEST
-#include "calc_executortest.h"
-#define INCLUDED_CALC_EXECUTORTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_GEO_FILECREATETESTER
+#define BOOST_TEST_MODULE pcraster newcalc executor
+#include <boost/test/unit_test.hpp>
+#include "calc_asttestfactory.h"
 #include "geo_filecreatetester.h"
-#define INCLUDED_GEO_FILECREATETESTER
-#endif
-#ifndef INCLUDED_COM_CSFCELL
 #include "com_csfcell.h"
-#define INCLUDED_COM_CSFCELL
-#endif
-#ifndef INCLUDED_COM_DIRECTORY
 #include "com_directory.h"
-#define INCLUDED_COM_DIRECTORY
-#endif
-#ifndef INCLUDED_COM_FILE
 #include "com_file.h"
-#define INCLUDED_COM_FILE
-#endif
-// Module headers.
-#ifndef INCLUDED_CALC_EXECUTOR
 #include "calc_executor.h"
-#define INCLUDED_CALC_EXECUTOR
-#endif
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
-#ifndef INCLUDED_CALC_P5STACK
 #include "calc_p5stack.h"
-#define INCLUDED_CALC_P5STACK
-#endif
-#ifndef INCLUDED_CALC_DVAUTOPTR
 #include "calc_dvautoptr.h"
-#define INCLUDED_CALC_DVAUTOPTR
-#endif
+#include "calc_globallibdefs.h"
+#include "calc_spatial.h"
+#include "calc_globallibdefs.h"
 
-/*!
-  \file
-  This file contains the implementation of the ExecutorTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC EXECUTOR MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*calc::ExecutorTest::suite()
+struct Fixture
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<ExecutorTest> instance(new ExecutorTest());
 
-  suite->add(BOOST_CLASS_TEST_CASE(&ExecutorTest::testExpr, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ExecutorTest::testLookup, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ExecutorTest::testAss, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ExecutorTest::testErrors, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ExecutorTest::testRunTimeErrors, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ExecutorTest::testDomainErrors, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ExecutorTest::testModel, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ExecutorTest::testRunDirectory, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ExecutorTest::testUseDef, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ExecutorTest::testDynamic, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ExecutorTest::testUseDiskStorage, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ExecutorTest::testExternalBindings, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ExecutorTest::testSetStep, instance));
-
-  suite->add(BOOST_CLASS_TEST_CASE(&ExecutorTest::testBugs, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ExecutorTest::testTimeStepHack, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ExecutorTest::testLinkInLibrary, instance));
-
-  return suite;
-}
+    Fixture()
+    {
+        calc::globalInit();
+    }
 
 
-//------------------------------------------------------------------------------
-// DEFINITION OF EXECUTOR MEMBERS
-//------------------------------------------------------------------------------
+    ~Fixture()
+    {
+      //calc::globalEnd();
+    }
 
-//! ctor
-calc::ExecutorTest::ExecutorTest()
+};
+
+BOOST_FIXTURE_TEST_SUITE(executor, Fixture)
+
+BOOST_AUTO_TEST_CASE(testSetStep)
 {
-}
+  using namespace calc;
 
-
-
-//! setUp
-void calc::ExecutorTest::setUp()
-{
-}
-
-//! tearDown
-void calc::ExecutorTest::tearDown()
-{
-}
-
-void calc::ExecutorTest::testSetStep()
-{
   { // 1: both initial and dynamic
     const char *code = " timer 1 2 1; \
                          initial  \
@@ -128,7 +42,7 @@ void calc::ExecutorTest::testSetStep()
                          dynamic \
                           tmp.res=timeoutput(nominal(inp5s.map),time()*10); \
                           b      =inp5s.map+time()*a; ";
-    std::auto_ptr<ASTScript>  s(createFromIdOrStr(code));
+    std::auto_ptr<ASTScript>  s(ASTTestFactory::createFromIdOrStr(code));
     s->analyzeAndResolve();
     Executor e(s->cfgCode(),s->rteSettings(),s->symbols());
 
@@ -143,14 +57,14 @@ void calc::ExecutorTest::testSetStep()
     } while(!e.execDynamicSectionOnce());
     BOOST_CHECK(t==3);
     e.finishStepWise();
-    BOOST_CHECK(fileVerify("pcrcalc249","tmp.res"));
+    BOOST_CHECK(ASTTestFactory::fileVerify("pcrcalc249","tmp.res"));
   }
   { // 1: only dynamic
     const char *code = " timer 1 2 1; \
                          dynamic \
                           tmp.res=timeoutput(nominal(inp5s.map),time()*10); \
                           b      =inp5s.map+time(); ";
-    std::auto_ptr<ASTScript>  s(createFromIdOrStr(code));
+    std::auto_ptr<ASTScript>  s(ASTTestFactory::createFromIdOrStr(code));
     s->analyzeAndResolve();
     Executor e(s->cfgCode(),s->rteSettings(),s->symbols());
 
@@ -168,12 +82,12 @@ void calc::ExecutorTest::testSetStep()
     BOOST_CHECK(e.execDynamicSectionOnce());
     BOOST_CHECK(2 == e.runTimeEnv().timer().currentInt());
     e.finishStepWise();
-    BOOST_CHECK(fileVerify("pcrcalc249","tmp.res"));
+    BOOST_CHECK(ASTTestFactory::fileVerify("pcrcalc249","tmp.res"));
   }
 
   { // 1: only initial
     const char *code = "tmp.res=inp5s.map*1;";
-    std::auto_ptr<ASTScript>  s(createFromIdOrStr(code));
+    std::auto_ptr<ASTScript>  s(ASTTestFactory::createFromIdOrStr(code));
     s->analyzeAndResolve();
     Executor e(s->cfgCode(),s->rteSettings(),s->symbols());
 
@@ -192,8 +106,10 @@ void calc::ExecutorTest::testSetStep()
   }
 }
 
-void calc::ExecutorTest::testErrors()
+BOOST_AUTO_TEST_CASE(testErrors)
 {
+  using namespace calc;
+
   EXEC_ERROR_TEST("pcrcalc82");
   EXEC_ERROR_TEST("pcrcalc248a"); // DROPPED boolean requirement
   EXEC_ERROR_TEST("pcrcalc4");
@@ -292,8 +208,10 @@ void calc::ExecutorTest::testErrors()
   // EXEC_ERROR_TEST("pcrcalc539");
 }
 
-void calc::ExecutorTest::testRunTimeErrors()
+BOOST_AUTO_TEST_CASE(testRunTimeErrors)
 {
+  using namespace calc;
+
   EXEC_ERROR_TEST("pcrcalc225");
 
   {
@@ -312,9 +230,10 @@ void calc::ExecutorTest::testRunTimeErrors()
   // also make error in 8th argument of dynwave
 }
 
-
-void calc::ExecutorTest::testDomainErrors()
+BOOST_AUTO_TEST_CASE(testDomainErrors)
 {
+  using namespace calc;
+
  /* runtime error, then clean-up of RunTimeStack on load of AtOutflow
   * in dtor clean of RunTimeStack
   */
@@ -335,8 +254,10 @@ void calc::ExecutorTest::testDomainErrors()
   EXEC_ERROR_TEST("pcrcalc351");
 }
 
-void calc::ExecutorTest::testBugs()
+BOOST_AUTO_TEST_CASE(testBugs)
 {
+  using namespace calc;
+
 
   // bug Feb/28/2005 no syms found within loop
   std::auto_ptr<ASTScript>s(ASTTestFactory::createFromIdOrStr("pcrcalc527"));
@@ -371,8 +292,10 @@ void calc::ExecutorTest::testBugs()
 #endif
 }
 
-void calc::ExecutorTest::testExpr()
+BOOST_AUTO_TEST_CASE(testExpr)
 {
+  using namespace calc;
+
   {
     P5Stack e("inp1s.map+inp5s.map");
     DVAutoPtr<Field> f(e.popResult());
@@ -390,8 +313,10 @@ void calc::ExecutorTest::testExpr()
   }
 }
 
-void calc::ExecutorTest::testLookup()
+BOOST_AUTO_TEST_CASE(testLookup)
 {
+  using namespace calc;
+
   {
     P5Stack e("lookupnominal(inp_1.tbl,inp5s.map,8,10)");
 
@@ -411,8 +336,10 @@ void calc::ExecutorTest::testLookup()
   }
 }
 
-void calc::ExecutorTest::testAss()
+BOOST_AUTO_TEST_CASE(testAss)
 {
+  using namespace calc;
+
   {
     // Release build issue:
     /// using inp5s.map in the expr fails
@@ -470,8 +397,10 @@ void calc::ExecutorTest::testAss()
   }
 }
 
-void calc::ExecutorTest::testModel()
+BOOST_AUTO_TEST_CASE(testModel)
 {
+  using namespace calc;
+
   {
     geo::FileCreateTester fct("tmp.res");
     // test/pcrcalc5b clone as areamap
@@ -550,8 +479,10 @@ void calc::ExecutorTest::testModel()
   }
 }
 
-void calc::ExecutorTest::testRunDirectory()
+BOOST_AUTO_TEST_CASE(testRunDirectory)
 {
+  using namespace calc;
+
   {
     // pcrcalc353  write to existing dir
     com::PathName rd("tmpdirTestRunDirectory");
@@ -624,8 +555,10 @@ BOOST_CHECK(e.messages().find("IoFieldStrategy::createField") != std::string::np
 #endif
 }
 
-void calc::ExecutorTest::testDynamic()
+BOOST_AUTO_TEST_CASE(testDynamic)
 {
+  using namespace calc;
+
   {
    // pcrcalc47
    // - timer must support binded symbol
@@ -774,13 +707,10 @@ void calc::ExecutorTest::testDynamic()
   BOOST_WARN(SeriousBindingClosureProblemPlusNovJrcReport);
 }
 
-#ifndef INCLUDED_CALC_SPATIAL
-#include "calc_spatial.h"
-#define INCLUDED_CALC_SPATIAL
-#endif
-
-void calc::ExecutorTest::testUseDiskStorage()
+BOOST_AUTO_TEST_CASE(testUseDiskStorage)
 {
+  using namespace calc;
+
   try {
    Spatial::resetBPC();
    TestAsciiResult res;
@@ -791,9 +721,10 @@ void calc::ExecutorTest::testUseDiskStorage()
   }
 }
 
-
-void calc::ExecutorTest::testUseDef()
+BOOST_AUTO_TEST_CASE(testUseDef)
 {
+  using namespace calc;
+
  {
   // Due to field re-use this fails when lastUse's are set
   geo::FileCreateTester fct("tmpUseDef.res");
@@ -821,8 +752,11 @@ void calc::ExecutorTest::testUseDef()
    BOOST_CHECK(fct.equalTo("inp5s.map",false));
  }
 }
-void calc::ExecutorTest::testExternalBindings()
+
+BOOST_AUTO_TEST_CASE(testExternalBindings)
 {
+  using namespace calc;
+
   com::PathName pn("tmp.binding");
   {
     geo::FileCreateTester fct("tmp.res");
@@ -863,8 +797,10 @@ void calc::ExecutorTest::testExternalBindings()
   }
 }
 
-void calc::ExecutorTest::testTimeStepHack()
+BOOST_AUTO_TEST_CASE(testTimeStepHack)
 {
+  using namespace calc;
+
     { // check what is written
       // timer 3 6 1;
       TestAsciiResult res;
@@ -914,8 +850,10 @@ void calc::ExecutorTest::testTimeStepHack()
     }
 }
 
-void calc::ExecutorTest::testLinkInLibrary()
+BOOST_AUTO_TEST_CASE(testLinkInLibrary)
 {
+  using namespace calc;
+
     {
        TestAsciiResult res;
        try {
@@ -959,3 +897,6 @@ void calc::ExecutorTest::testLinkInLibrary()
       BOOST_CHECK(fct.equalTo("inp5s.map",false));
     }
 }
+
+
+BOOST_AUTO_TEST_SUITE_END()

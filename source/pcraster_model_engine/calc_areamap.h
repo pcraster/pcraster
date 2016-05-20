@@ -56,8 +56,6 @@ public:
   typedef std::vector<bool> Mask;
 
 private:
-  friend class AreaMapTest;
-
   //! to check the order crap AreaMap got into
   bool d_setComputationMaskCallAllowed;
 

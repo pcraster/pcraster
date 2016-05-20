@@ -48,8 +48,6 @@ struct AreaAverageMap : std::map<INT4,com::AverageMinMax< REAL4 > >
 class AverageMap
 {
 
-  friend class AverageMapTest;
-
 private:
 
   //! Assignment operator. NOT IMPLEMENTED.

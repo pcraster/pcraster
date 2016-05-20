@@ -31,8 +31,6 @@ namespace calc {
 class AreaOperations
 {
 
-  friend class AreaOperationsTest;
-
 private:
 
   //! Assignment operator. NOT IMPLEMENTED.

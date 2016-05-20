@@ -1,107 +1,18 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_RUNDIRECTORYTEST
-#include "calc_rundirectorytest.h"
-#define INCLUDED_CALC_RUNDIRECTORYTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_EXCEPTION
+#define BOOST_TEST_MODULE pcraster newcalc rundirectory
+#include <boost/test/unit_test.hpp>
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-#ifndef INCLUDED_COM_PATHINFO
 #include "com_pathinfo.h"
-#define INCLUDED_COM_PATHINFO
-#endif
-#ifndef INCLUDED_COM_FILE
 #include "com_file.h"
-#define INCLUDED_COM_FILE
-#endif
-#ifndef INCLUDED_COM_DIRECTORY
 #include "com_directory.h"
-#define INCLUDED_COM_DIRECTORY
-#endif
-
-// Module headers.
-
-#ifndef INCLUDED_CALC_RUNDIRECTORY
 #include "calc_rundirectory.h"
-#define INCLUDED_CALC_RUNDIRECTORY
-#endif
-
-
-/*!
-  \file
-  This file contains the implementation of the RunDirectoryTest class.
-*/
 
 
 
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC RUNDIRECTORY MEMBERS
-//------------------------------------------------------------------------------
 
-//! suite
-boost::unit_test::test_suite*calc::RunDirectoryTest::suite()
+BOOST_AUTO_TEST_CASE(testDefault)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<RunDirectoryTest> instance(new RunDirectoryTest());
+  using namespace calc;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&RunDirectoryTest::testDefault, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&RunDirectoryTest::testRunDir, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&RunDirectoryTest::testSearchPath, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&RunDirectoryTest::testOutputFilePath, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF RUNDIRECTORY MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-calc::RunDirectoryTest::RunDirectoryTest()
-{
-}
-
-
-
-//! setUp
-void calc::RunDirectoryTest::setUp()
-{
-}
-
-//! tearDown
-void calc::RunDirectoryTest::tearDown()
-{
-}
-
-
-
-void calc::RunDirectoryTest::testDefault()
-{
   bool found;
 
   RunDirectory r;
@@ -122,8 +33,11 @@ void calc::RunDirectoryTest::testDefault()
 
 }
 
-void calc::RunDirectoryTest::testRunDir()
+
+BOOST_AUTO_TEST_CASE(testRunDir)
 {
+  using namespace calc;
+
   RunDirectory r;
   std::string dir("rundir_baseOfRunDirNotExistantIsOk");
   r.setRunDirectory(dir,"");
@@ -139,8 +53,11 @@ void calc::RunDirectoryTest::testRunDir()
 */
 }
 
-void calc::RunDirectoryTest::testSearchPath()
+
+BOOST_AUTO_TEST_CASE(testSearchPath)
 {
+  using namespace calc;
+
   bool found;
   RunDirectory r;
   std::string runDirName("rundir_dir1/dir2/dir3");
@@ -172,8 +89,10 @@ void calc::RunDirectoryTest::testSearchPath()
   BOOST_CHECK(!found);
 }
 
-void calc::RunDirectoryTest::testOutputFilePath()
+BOOST_AUTO_TEST_CASE(testOutputFilePath)
 {
+  using namespace calc;
+
   const std::string s1("fileName");
   {
    RunDirectory rd;

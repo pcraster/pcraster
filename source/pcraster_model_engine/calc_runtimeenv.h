@@ -68,7 +68,6 @@ class MemoryExchangeItem;
 class RunTimeEnv
 {
 private:
-  friend class RunTimeEnvTest;
 
   //! Assignment operator. NOT IMPLEMENTED.
   RunTimeEnv&           operator=           (const RunTimeEnv& rhs);

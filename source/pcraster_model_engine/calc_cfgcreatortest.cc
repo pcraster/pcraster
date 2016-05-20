@@ -1,96 +1,16 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_CFGCREATORTEST
-#include "calc_cfgcreatortest.h"
-#define INCLUDED_CALC_CFGCREATORTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_CALC_POSEXCEPTION
+#define BOOST_TEST_MODULE pcraster newcalc cfgcreator
+#include <boost/test/unit_test.hpp>
 #include "calc_posexception.h"
-#define INCLUDED_CALC_POSEXCEPTION
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_ASTNODE
 #include "calc_astnode.h"
-#define INCLUDED_CALC_ASTNODE
-#endif
-#ifndef INCLUDED_CALC_CFGNODE
 #include "calc_cfgnode.h"
-#define INCLUDED_CALC_CFGNODE
-#endif
-#ifndef INCLUDED_CALC_ASTEXPR
 #include "calc_astexpr.h"
-#define INCLUDED_CALC_ASTEXPR
-#endif
-#ifndef INCLUDED_CALC_ASTPAR
 #include "calc_astpar.h"
-#define INCLUDED_CALC_ASTPAR
-#endif
-#ifndef INCLUDED_CALC_ASTASS
 #include "calc_astass.h"
-#define INCLUDED_CALC_ASTASS
-#endif
-#ifndef INCLUDED_CALC_ASTSTAT
 #include "calc_aststat.h"
-#define INCLUDED_CALC_ASTSTAT
-#endif
-#ifndef INCLUDED_CALC_ASTNODELIST
 #include "calc_astnodelist.h"
-#define INCLUDED_CALC_ASTNODELIST
-#endif
-#ifndef INCLUDED_CALC_STRINGPARSER
 #include "calc_stringparser.h"
-#define INCLUDED_CALC_STRINGPARSER
-#endif
-
-#ifndef INCLUDED_CALC_ASTCFGTESTER
 #include "calc_astcfgtester.h"
-#define INCLUDED_CALC_ASTCFGTESTER
-#endif
 
-/*!
-  \file
-  This file contains the implementation of the CFGCreatorTest class.
-*/
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC CFGCREATOR MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*calc::CFGCreatorTest::suite()
-{
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<CFGCreatorTest> instance(new CFGCreatorTest());
-
-  suite->add(BOOST_CLASS_TEST_CASE(&CFGCreatorTest::testExpr, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&CFGCreatorTest::testStatementList, instance));
-//suite->add(BOOST_CLASS_TEST_CASE(&CFGCreatorTest::testRewrites, instance));
-  return suite;
-}
 
 static const calc::StringParser sp;
 
@@ -125,29 +45,12 @@ namespace cfgCreatorTest {
   };
 }
 
-//------------------------------------------------------------------------------
-// DEFINITION OF CFGCREATOR MEMBERS
-//------------------------------------------------------------------------------
 
-//! ctor
-calc::CFGCreatorTest::CFGCreatorTest()
+
+BOOST_AUTO_TEST_CASE(testExpr)
 {
-}
+  using namespace calc;
 
-//! setUp
-void calc::CFGCreatorTest::setUp()
-{
-}
-
-//! tearDown
-void calc::CFGCreatorTest::tearDown()
-{
-}
-
-
-
-void calc::CFGCreatorTest::testExpr()
-{
   {
      ASTCFGTester e(sp.createExpr("a"));
      BOOST_CHECK(dynamic_cast<ASTPar *>(e.ast()));
@@ -222,8 +125,10 @@ void calc::CFGCreatorTest::testExpr()
   }
 }
 
-void calc::CFGCreatorTest::testStatementList()
+BOOST_AUTO_TEST_CASE(testStatementList)
 {
+  using namespace calc;
+
   {
     ASTCFGTester l(sp.createStatementList("a=(1+2)*3;b=a/5"));
     BOOST_CHECK(dynamic_cast<ASTNodeList *>(l.ast()));
@@ -258,34 +163,40 @@ void calc::CFGCreatorTest::testStatementList()
   }
 }
 
-void calc::CFGCreatorTest::testRewrites()
-{
-    ASTCFGTester l(sp.createStatementList("p=timeoutput(a,b)"));
-    BOOST_CHECK(dynamic_cast<ASTNodeList *>(l.ast()));
 
-    CFGNode* c(l.cfg());
-    const char *names[]={ "stat-start",
-                          "a","b","p","timeoutput", "ass-p"};
-    size_t ic(0);
-    const CFGNode* i=c;
-    const CFGNode* last;
-    do {
-      BOOST_CHECK(ic < ARRAY_SIZE(names));
-      cfgCreatorTest::CmpNode cn(names[ic], i);
-      BOOST_CHECK(cn.validASTNode());
-      BOOST_CHECK(cn.equal());
-      last=i;
-      i=i->succ(0);
-      ic++;
-    } while(i);
-    BOOST_CHECK(ic==ARRAY_SIZE(names));
-    // test pred
-    while(last) {
-      --ic;
-      cfgCreatorTest::CmpNode cn(names[ic], last);
-      BOOST_CHECK(cn.validASTNode());
-      BOOST_CHECK(cn.equal());
-      last=last->pred();
-    }
-    BOOST_CHECK(!ic); // all checked
-}
+//
+// OLS: this unit test was commented in the old setup ?!
+//
+// BOOST_AUTO_TEST_CASE(testRewrites)
+// {
+//   using namespace calc;
+//
+//     ASTCFGTester l(sp.createStatementList("p=timeoutput(a,b)"));
+//     BOOST_CHECK(dynamic_cast<ASTNodeList *>(l.ast()));
+//
+//     CFGNode* c(l.cfg());
+//     const char *names[]={ "stat-start",
+//                           "a","b","p","timeoutput", "ass-p"};
+//     size_t ic(0);
+//     const CFGNode* i=c;
+//     const CFGNode* last;
+//     do {
+//       BOOST_CHECK(ic < ARRAY_SIZE(names));
+//       cfgCreatorTest::CmpNode cn(names[ic], i);
+//       BOOST_CHECK(cn.validASTNode());
+//       BOOST_CHECK(cn.equal());
+//       last=i;
+//       i=i->succ(0);
+//       ic++;
+//     } while(i);
+//     BOOST_CHECK(ic==ARRAY_SIZE(names));
+//     // test pred
+//     while(last) {
+//       --ic;
+//       cfgCreatorTest::CmpNode cn(names[ic], last);
+//       BOOST_CHECK(cn.validASTNode());
+//       BOOST_CHECK(cn.equal());
+//       last=last->pred();
+//     }
+//     BOOST_CHECK(!ic); // all checked
+// }

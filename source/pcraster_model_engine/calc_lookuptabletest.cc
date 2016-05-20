@@ -1,61 +1,16 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_LOOKUPTABLETEST
-#include "calc_lookuptabletest.h"
-#define INCLUDED_CALC_LOOKUPTABLETEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_PATHNAME
+#define BOOST_TEST_MODULE pcraster newcalc lookuptable
+#include <boost/test/unit_test.hpp>
 #include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-#ifndef INCLUDED_COM_FILE
 #include "com_file.h"
-#define INCLUDED_COM_FILE
-#endif
-#ifndef INCLUDED_COM_MATH
 #include "com_math.h"
-#define INCLUDED_COM_MATH
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_LOOKUPTABLE
-#include "calc_lookuptable.h"
-#define INCLUDED_CALC_LOOKUPTABLE
-#endif
-#ifndef INCLUDED_CALC_VS
 #include "calc_vs.h"
-#define INCLUDED_CALC_VS
-#endif
+#include "calc_globallibdefs.h"
 
-/*!
-  \file
-  This file contains the implementation of the LookupTableTest class.
-*/
+#define private public
+#include "calc_lookuptable.h"
+
+
 
 
 
@@ -86,48 +41,32 @@ static LookupTable::Key makeKey(float v1, float v2=-1024)
 }
 }
 
-//! suite
-boost::unit_test::test_suite*calc::LookupTableTest::suite()
+
+
+struct Fixture
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<LookupTableTest> instance(new LookupTableTest());
 
-  suite->add(BOOST_CLASS_TEST_CASE(&LookupTableTest::testOldStyleCtor, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&LookupTableTest::testAllIntervals, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&LookupTableTest::testAllIntervalsInterpolate, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&LookupTableTest::testMultipleKeys, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&LookupTableTest::testMultipleRecords, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&LookupTableTest::testInterpolate, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&LookupTableTest::testInterpolateMWF, instance));
-
-  return suite;
-}
+    Fixture()
+    {
+        calc::globalInit();
+    }
 
 
+    ~Fixture()
+    {
+      calc::globalEnd();
+    }
 
-//------------------------------------------------------------------------------
-// DEFINITION OF LOOKUPTABLE MEMBERS
-//------------------------------------------------------------------------------
+};
 
-//! ctor
-calc::LookupTableTest::LookupTableTest()
+BOOST_FIXTURE_TEST_SUITE(lookuptable, Fixture)
+
+
+
+BOOST_AUTO_TEST_CASE(testOldStyleCtor)
 {
-}
+  using namespace calc;
 
-
-
-//! setUp
-void calc::LookupTableTest::setUp()
-{
-}
-
-//! tearDown
-void calc::LookupTableTest::tearDown()
-{
-}
-
-void calc::LookupTableTest::testOldStyleCtor()
-{
   double r;
 
  { // OK
@@ -183,8 +122,10 @@ void calc::LookupTableTest::testOldStyleCtor()
 
 }
 
-void calc::LookupTableTest::testAllIntervals()
+BOOST_AUTO_TEST_CASE(testAllIntervals)
 {
+  using namespace calc;
+
   double r;
 
  {
@@ -333,8 +274,10 @@ void calc::LookupTableTest::testAllIntervals()
 }
 
 //! this set of tests is exactly identical to testAllIntervals()
-void calc::LookupTableTest::testAllIntervalsInterpolate()
+BOOST_AUTO_TEST_CASE(testAllIntervalsInterpolate)
 {
+  using namespace calc;
+
   double r;
 
  {
@@ -482,8 +425,10 @@ void calc::LookupTableTest::testAllIntervalsInterpolate()
  }
 }
 
-void calc::LookupTableTest::testMultipleKeys()
+BOOST_AUTO_TEST_CASE(testMultipleKeys)
 {
+  using namespace calc;
+
   std::vector<VS> colVs(3,VS_S);
   double r;
   TestLookupCtor t("[3 , 5 ] [ 7, 9] 2.4",colVs);
@@ -501,8 +446,10 @@ void calc::LookupTableTest::testMultipleKeys()
   BOOST_CHECK( r==-2);
 }
 
-void calc::LookupTableTest::testMultipleRecords()
+BOOST_AUTO_TEST_CASE(testMultipleRecords)
 {
+  using namespace calc;
+
   std::vector<VS> colVs(3,VS_S);
   double r;
   TestLookupCtor t("[3 , 5 ] [ 7, 9] 2.4\n"
@@ -520,8 +467,10 @@ void calc::LookupTableTest::testMultipleRecords()
   BOOST_CHECK( r==-2);
 }
 
-void calc::LookupTableTest::testInterpolate()
+BOOST_AUTO_TEST_CASE(testInterpolate)
 {
+  using namespace calc;
+
  {
   double r;
   TestLookupCtor ts(
@@ -579,12 +528,14 @@ void calc::LookupTableTest::testInterpolate()
  }
 }
 
-void calc::LookupTableTest::testInterpolateMWF()
+BOOST_AUTO_TEST_CASE(testInterpolateMWF)
 {
+ //using namespace calc;
+
   // test only prefixKey selection here
   // prefixSize is fixed on 1
   // other in testInterpolate()
- struct MWFTest : public TestLookupCtor {
+ struct MWFTest : public calc::TestLookupCtor {
 
    calc::RelationRecord::Float d_prefixKeyValue;
    size_t                      d_keyCol;
@@ -607,6 +558,8 @@ void calc::LookupTableTest::testInterpolateMWF()
     return TestLookupCtor::interpolate(r,prefixKey,keyValue,d_keyCol,d_resultCol);
    }
  };
+
+ using namespace calc;
 
  {
   MWFTest ts(
@@ -748,3 +701,5 @@ void calc::LookupTableTest::testInterpolateMWF()
 
  }
 }
+
+BOOST_AUTO_TEST_SUITE_END()

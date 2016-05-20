@@ -105,8 +105,6 @@ typedef enum SYNTAX {
 class Operator
 {
 
-  friend class OperatorTest;
-
   //! name of operator or function
   const  std::string d_name;
   //! implementation name of operator or function, can be identical

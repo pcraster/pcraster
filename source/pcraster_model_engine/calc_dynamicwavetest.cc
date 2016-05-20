@@ -1,112 +1,22 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
+#define BOOST_TEST_MODULE pcraster newcalc dynamicwave
+#include <boost/test/unit_test.hpp>
 
-#ifndef INCLUDED_CALC_DYNAMICWAVETEST
-#include "calc_dynamicwavetest.h"
-#define INCLUDED_CALC_DYNAMICWAVETEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-#ifndef INCLUDED_BOOST_FORMAT
-#include <boost/format.hpp>
-#define INCLUDED_BOOST_FORMAT
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_GEO_FILECREATETESTER
 #include "geo_filecreatetester.h"
-#define INCLUDED_GEO_FILECREATETESTER
-#endif
-#ifndef INCLUDED_COM_CSFCELL
 #include "com_csfcell.h"
-#define INCLUDED_COM_CSFCELL
-#endif
-#ifndef INCLUDED_COM_DIRECTORY
 #include "com_directory.h"
-#define INCLUDED_COM_DIRECTORY
-#endif
-#ifndef INCLUDED_COM_FILE
 #include "com_file.h"
-#define INCLUDED_COM_FILE
-#endif
-// Module headers.
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
-#ifndef INCLUDED_CALC_P5STACK
 #include "calc_p5stack.h"
-#define INCLUDED_CALC_P5STACK
-#endif
 
-/*!
-  \file
-  This file contains the implementation of the DynamicWaveTest class.
-*/
 
 // NOTE use string failureExpected in files expected to fail, see style guide
 
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC DYNAMICWAVE MEMBERS
-//------------------------------------------------------------------------------
 
-//! suite
-boost::unit_test::test_suite*calc::DynamicWaveTest::suite()
+
+BOOST_AUTO_TEST_CASE(testSimpleInput)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<DynamicWaveTest> instance(new DynamicWaveTest());
+  using namespace calc;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&DynamicWaveTest::testRunTimeErrors, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&DynamicWaveTest::testSimpleInput, instance));
-
-  return suite;
-}
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF DYNAMICWAVE MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-calc::DynamicWaveTest::DynamicWaveTest()
-{
-}
-
-
-
-//! setUp
-void calc::DynamicWaveTest::setUp()
-{
-}
-
-//! tearDown
-void calc::DynamicWaveTest::tearDown()
-{
-}
-
-void calc::DynamicWaveTest::testRunTimeErrors()
-{
-}
-
-void calc::DynamicWaveTest::testSimpleInput()
-{
   // pcrcalc507 basic dynamicwave
   // profileId=0,H=1,A=2,P=3
   com::write("1 0 0 1\n1 1 2000 2000","tmp507.tbl");

@@ -80,17 +80,16 @@ class ObjectLink;
    delete result;
   \endcode
   Note that even though the arguments of the push methods are const,
-  some internal flags are modified when the objects are used by 
+  some internal flags are modified when the objects are used by
   RunTimeEngine. These flags are of no relevance to the class user.
 */
 class PCR_DLL_CLASS RunTimeEngine
 {
 
-  friend class RunTimeEngineTest;
-
-  RunTimeEnv   *d_rte;
 
 private:
+
+  RunTimeEnv   *d_rte;
 
   //! Assignment operator. NOT IMPLEMENTED.
   RunTimeEngine&           operator=           (RunTimeEngine const& rhs);

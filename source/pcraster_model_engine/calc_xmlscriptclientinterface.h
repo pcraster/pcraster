@@ -35,8 +35,6 @@ namespace calc {
 class XMLScriptClientInterface: public ClientInterface
 {
 
-  friend class XMLScriptClientInterfaceTest;
-
 private:
 
   std::auto_ptr<pcrxml::Script> d_xml;

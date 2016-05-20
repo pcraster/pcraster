@@ -34,8 +34,6 @@ namespace calc {
 class ICellIterator
 {
 
-  friend class ICellIteratorTest;
-
 private:
 
   //! Assignment operator. NOT IMPLEMENTED.

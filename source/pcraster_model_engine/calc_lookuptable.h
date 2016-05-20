@@ -59,7 +59,7 @@ class MemoryInputTableCreator;
    voorkomen in table is dan meegenomen.
 
 \par Generic Table Concept
- 
+
  \todo praat met Edzer of het de S equivalent van lookuptables.
 
 <ol>
@@ -157,8 +157,6 @@ private:
    detail::MemoryInputTableCreator              *d_memoryInputTableCreator;
    //! vs of each column
    std::vector<VS>                               d_vs;
-
-   friend class LookupTableTest;
 
    typedef Records::const_iterator               I;
 

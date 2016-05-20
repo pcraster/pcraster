@@ -1,97 +1,22 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_AREAOPERATIONSTEST
-#include "calc_areaoperationstest.h"
-#define INCLUDED_CALC_AREAOPERATIONSTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_CSFCELL
+#define BOOST_TEST_MODULE pcraster newcalc areaoperations
+#include <boost/test/unit_test.hpp>
 #include "com_csfcell.h"
-#define INCLUDED_COM_CSFCELL
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_AREAOPERATIONS
-#include "calc_areaoperations.h"
-#define INCLUDED_CALC_AREAOPERATIONS
-#endif
-#ifndef INCLUDED_CALC_ORDEROPERATIONS
 #include "calc_orderoperations.h"
-#define INCLUDED_CALC_ORDEROPERATIONS
-#endif
+
+#define protected public
+#include "calc_areaoperations.h"
 
 
-
-/*!
-  \file
-  This file contains the implementation of the AreaOperationsTest class.
-*/
 
 // NOTE use string failureExpected in files expected to fail, see style guide
 
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC AREAOPERATIONS MEMBERS
-//------------------------------------------------------------------------------
 
-//! suite
-boost::unit_test::test_suite*calc::AreaOperationsTest::suite()
+
+
+BOOST_AUTO_TEST_CASE(testA)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<AreaOperationsTest> instance(new AreaOperationsTest());
+  using namespace calc;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&AreaOperationsTest::test, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&AreaOperationsTest::testAreaOrder, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF AREAOPERATIONS MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-calc::AreaOperationsTest::AreaOperationsTest()
-{
-}
-
-
-
-//! setUp
-void calc::AreaOperationsTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void calc::AreaOperationsTest::tearDown()
-{
-}
-
-void calc::AreaOperationsTest::test()
-{
   {
    AreaTotalOperation ao;
    UINT1 id[1]  = { 1 };
@@ -139,8 +64,10 @@ void calc::AreaOperationsTest::test()
 */
 }
 
-void calc::AreaOperationsTest::testAreaOrder()
+BOOST_AUTO_TEST_CASE(testAreaOrder)
 {
+  using namespace calc;
+
    REAL4 exprV[9]      = { 9,2,3,4,5,6,7,8       ,-999 };
    pcr::setMV(exprV[8]);
 

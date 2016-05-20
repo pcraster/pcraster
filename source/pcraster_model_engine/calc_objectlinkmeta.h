@@ -86,8 +86,6 @@ private:
   //! key string equals ObjectLinkMethod::d_name
   MethodMap            d_methods;
 
-  friend class ObjectLinkMetaTest;
-
 public:
 
   //----------------------------------------------------------------------------

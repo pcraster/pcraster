@@ -31,8 +31,6 @@ namespace calc {
 class TextScriptClientInterface: public ClientInterface
 {
 
-  friend class TextScriptClientInterfaceTest;
-
 private:
 
   //! Assignment operator. NOT IMPLEMENTED.

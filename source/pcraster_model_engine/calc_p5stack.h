@@ -43,13 +43,11 @@ namespace calc {
  *
  * the upper left cell of the 5x5 maps is always a MV, others
  * are all equal, the map named encodes value and values scale map
- * by number and the letter of the VS; 
+ * by number and the letter of the VS;
  *   inp5stacks.map: scalar map with value 5
  *   inp1n.map: nominal map with value 1
  */
 class  P5Stack : public ASTTestFactory {
-
-  friend class P5StackTest;
 
 private:
 

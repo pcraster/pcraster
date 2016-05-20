@@ -57,8 +57,6 @@ namespace calc {
 class PCR_DLL_CLASS ObjectLink : public DataValue
 {
 
-  friend class ObjectLinkTest;
-
 private:
 
   //! Assignment operator. NOT IMPLEMENTED.

@@ -14,7 +14,7 @@ cp @CMAKE_CURRENT_SOURCE_DIR@/testdata/apiExamplesData/*.* .
 # windows problem
 chmod -R a+rwx ./*
 
-linkInBinDir=@EXECUTABLE_OUTPUT_PATH@/CMAKE_CFG_INTDIR
+linkInBinDir=@EXECUTABLE_OUTPUT_PATH@/@CMAKE_CFG_INTDIR@
 if [ ${OSTYPE} == "cygwin" ]; then
   cp ${linkInBinDir}/example1.dll ${linkInBinDir}/noXMLLinkIn.dll
 elif [ ${OSTYPE:0:6} == "darwin" ]; then

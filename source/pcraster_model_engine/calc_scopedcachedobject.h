@@ -43,8 +43,6 @@ template<typename O>
 class ScopedCachedObject
 {
 
-  friend class ICachedObjectTest;
-
 private:
 
   //! Assignment operator. NOT IMPLEMENTED.

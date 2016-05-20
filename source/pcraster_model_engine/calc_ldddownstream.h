@@ -82,8 +82,6 @@ private:
 
   void addEdge(FieldId sV, FieldId tV);
 
-  friend class LddDownstreamTest;
-
 
 private:
 

@@ -1,97 +1,36 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_IOCSFFIELDSTRATEGYTEST
-#include "calc_iocsffieldstrategytest.h"
-#define INCLUDED_CALC_IOCSFFIELDSTRATEGYTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_PATHNAME
+#define BOOST_TEST_MODULE pcraster newcalc iocsffieldstrategy
+#include <boost/test/unit_test.hpp>
 #include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
-#ifndef INCLUDED_COM_PATHINFO
 #include "com_pathinfo.h"
-#define INCLUDED_COM_PATHINFO
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_IOFIELDSTRATEGY
 #include "calc_iofieldstrategy.h"
-#define INCLUDED_CALC_IOFIELDSTRATEGY
-#endif
-#ifndef INCLUDED_CALC_RUNDIRECTORY
 #include "calc_rundirectory.h"
-#define INCLUDED_CALC_RUNDIRECTORY
-#endif
-
-/*!
-  \file
-  This file contains the implementation of the IoFieldStrategyTest class.
-*/
+#include "calc_gridmap.h"
+#include "pcrtypes.h"
+#include "calc_globallibdefs.h"
 
 
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC IOCSFFIELDSTRATEGY MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*calc::IoFieldStrategyTest::suite()
+struct Fixture
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<IoFieldStrategyTest> instance(new IoFieldStrategyTest());
 
-  suite->add(BOOST_CLASS_TEST_CASE(&IoFieldStrategyTest::testGridMap, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&IoFieldStrategyTest::testGetStackReaderDefault, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&IoFieldStrategyTest::testGetStackReaderPath, instance));
-
-  return suite;
-}
+    Fixture()
+    {
+        calc::globalInit();
+    }
 
 
+    ~Fixture()
+    {
+      //calc::globalEnd();
+    }
 
-//------------------------------------------------------------------------------
-// DEFINITION OF IOCSFFIELDSTRATEGY MEMBERS
-//------------------------------------------------------------------------------
+};
 
-//! ctor
-calc::IoFieldStrategyTest::IoFieldStrategyTest(){
-}
+BOOST_FIXTURE_TEST_SUITE(iocsffieldstrategy, Fixture)
 
-
-
-//! setUp
-void calc::IoFieldStrategyTest::setUp()
+BOOST_AUTO_TEST_CASE(testGetStackReaderDefault)
 {
-}
+  using namespace calc;
 
-//! tearDown
-void calc::IoFieldStrategyTest::tearDown()
-{
-}
-
-void calc::IoFieldStrategyTest::testGetStackReaderDefault()
-{
  {
   IoFieldStrategy s(APP_IO_PCRASTER);
   RunDirectory rd;
@@ -117,8 +56,10 @@ void calc::IoFieldStrategyTest::testGetStackReaderDefault()
  }
 }
 
-void calc::IoFieldStrategyTest::testGetStackReaderPath()
+BOOST_AUTO_TEST_CASE(testGetStackReaderPath)
 {
+  using namespace calc;
+
   IoFieldStrategy s(APP_IO_PCRASTER);
   RunDirectory rd;
   com::PathName path("stackReader");
@@ -134,16 +75,10 @@ void calc::IoFieldStrategyTest::testGetStackReaderPath()
 
 }
 
-#ifndef INCLUDED_CALC_GRIDMAP
-#include "calc_gridmap.h"
-#define INCLUDED_CALC_GRIDMAP
-#endif
-#ifndef INCLUDED_PCRTYPES
-#include "pcrtypes.h"
-#define INCLUDED_PCRTYPES
-#endif
-void calc::IoFieldStrategyTest::testGridMap()
+BOOST_AUTO_TEST_CASE(testGridMap)
 {
+  using namespace calc;
+
   {
     GridMapIn g("inp5s.map");
     BOOST_CHECK(g.nrRows()==5);
@@ -171,3 +106,5 @@ void calc::IoFieldStrategyTest::testGridMap()
     BOOST_CHECK(data[14]==1.0f);
   }
 }
+
+BOOST_AUTO_TEST_SUITE_END()

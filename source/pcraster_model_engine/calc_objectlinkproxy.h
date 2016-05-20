@@ -51,8 +51,6 @@ template<class C>
  class ObjectLinkProxy : public ObjectLink
 {
 
-  friend class ObjectLinkProxyTest;
-
   //! object doing the work
   C              *d_obj;
 
@@ -173,7 +171,7 @@ C const* ObjectLinkProxy<C>::object() const
 void tieField(UINT1& a, Field* f)
 {
   TIE_FIELD_CHECK(f,false,CRI_1);
-  a=f->src_1()[0]; 
+  a=f->src_1()[0];
 }
 void tieField(INT4& a, Field* f)
 {

@@ -40,8 +40,6 @@ namespace calc {
 class DownstreamVisitor: private boost::noncopyable
 {
 
-  friend class DownstreamVisitorTest;
-
   const LddGraph& d_graph;
 
 

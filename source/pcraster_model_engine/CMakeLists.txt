@@ -199,7 +199,11 @@ SET(SOURCES
     calc_vs.cc
     calc_file.cc
     calc_map2csf.cc
+
+    # OLS: this one was not included and is not used anywhere?
+    # calc_ldddownstream
 )
+
 
 # actually newcalc.l
 ADD_FILE_DEPENDENCY(lexnewcalc.cc
@@ -361,93 +365,110 @@ TARGET_LINK_LIBRARIES(pcraster_model_engine
 )
 
 
-if(FALSE AND PCRASTER_BUILD_TEST)
-    SET(TEST_SOURCES
-        calc_test.cc
+if(PCRASTER_BUILD_TEST)
+
+
+  add_library(pcraster_model_engine_unit_test_utils
+     STATIC
         # utils of unittets
-        calc_modelbuilder.cc
-        calc_asttestfactory.cc
-        calc_astcfgtester.cc
-        calc_messagestestdb.cc
-        calc_p5stack.cc
-        calc_modelerrortester.cc
-        calc_comparefilewithvalidated.cc
+        calc_astpath
+        calc_astcfgtester
+        calc_asttestfactory
+        calc_comparefilewithvalidated
+        calc_messagestestdb
+        calc_modelbuilder
+        calc_modelerrortester
+        calc_p5stack
+        calc_manualexampletester
+  )
+
+
+    set(TEST_NAMES
+        #calc_test
         # unit tests
-        calc_areamaptest.cc
-        calc_xmlreflectiontest.cc
-        calc_datatypetest.cc
-        calc_dimensionparsertest.cc
-        calc_scripttest.cc
-        calc_clientinterfacetest.cc
-        calc_objectlinkmetatest.cc
-        calc_objectlinktest.cc
-        calc_vfieldtest.cc
-        calc_dynamicwavetest.cc
-        calc_lddgraphtest.cc
-        calc_averagemaptest.cc
-        calc_areaoperationstest.cc
-        calc_argordertest.cc
-        calc_astpathtest.cc
-        calc_bindingtabletest.cc
-        calc_buildtypesvisitortest.cc
-        calc_usedefanalyzertest.cc
-        calc_pointcodeblockreplacertest.cc
-        calc_pointcodeblockdlltest.cc
-        calc_rundirectorytest.cc
-        calc_iocsffieldstrategytest.cc
-        calc_cmdlinecalctest.cc
-        calc_runtimeenvtest.cc
-        calc_runtimeenginetest.cc
-        calc_executortest.cc
-        calc_tssoutputvaluetest.cc
-        calc_manualexampletester.cc
-        calc_manualexampletestertest.cc
-        calc_manualexamplestest.cc
-        calc_nonspatialtest.cc
-        calc_reportvisitortest.cc
-        calc_spatialtest.cc
-        calc_maskpackingtest.cc
-        calc_fieldtest.cc
-        calc_opimpltest.cc
-        calc_fopointarraytest.cc
-        calc_cfgcreatortest.cc
-        calc_astpartest.cc
-        calc_reporttest.cc
-        calc_lexinputtest.cc
-        calc_parsertest.cc
-        calc_operatortest.cc
-        calc_astsymboltabletest.cc
-        calc_lookuptabletest.cc
-        calc_findsymboltest.cc
+        calc_areamaptest
+        calc_areaoperationstest
+        calc_argordertest
+        calc_astpartest
+        calc_astpathtest
+        calc_astsymboltabletest
+        calc_averagemaptest
+        calc_bindingtabletest
+        calc_buildtypesvisitortest
+        calc_cfgcreatortest
+        calc_clientinterfacetest
+        calc_cmdlinecalctest
+        calc_datatypetest
+        calc_dimensionparsertest
+        calc_dynamicwavetest
+        calc_executortest
+        calc_fieldtest
+        calc_findsymboltest
+        calc_fopointarraytest
+        calc_iocsffieldstrategytest
+#        calc_ldddownstreamtest         # OLS 05/2016 this one was not in this list before
+        calc_lddgraphtest
+        calc_lexinputtest
+        calc_lookuptabletest
+        calc_manualexampletestertest
+        calc_manualexamplestest
+        calc_maskpackingtest
+#        calc_modelbuildertest          # OLS 05/2016 this one is empty
+        calc_nonspatialtest
+        calc_objectlinkmetatest
+        calc_objectlinktest
+        calc_operatortest
+        calc_opimpltest
+        calc_parsertest
+        calc_pointcodeblockdlltest
+        calc_pointcodeblockreplacertest
+        calc_reporttest
+        calc_reportvisitortest
+        calc_rundirectorytest
+        calc_runtimeenginetest
+        calc_runtimeenvtest
+        calc_spatialtest
+        calc_tssoutputvaluetest
+        calc_usedefanalyzertest
+        calc_vfieldtest
+        calc_xmlreflectiontest
     )
 
-    ADD_EXECUTABLE(test_pcraster_model_engine
-        ${TEST_SOURCES}
+    add_unit_tests(
+      SCOPE newcalc
+      NAMES ${TEST_NAMES}
+      LINK_LIBRARIES
+        pcraster_model_engine_unit_test_utils
+        pcraster_model_engine
+      #pcrgeo
+      #${Boost_PYTHON_LIBRARY}
+      #${PYTHON_LIBRARIES}
     )
 
-    ADD_DEPENDENCIES(test_pcraster_model_engine examples.sentinel)
 
-    # input files from _EXAMPLES_DIR need these apps:
-    ADD_DEPENDENCIES(test_pcraster_model_engine mapattr asc2map)
-
-    # the linkin libraries used
-    ADD_DEPENDENCIES(test_pcraster_model_engine example1 example2 exampleCpp)
-
-    TARGET_LINK_LIBRARIES(test_pcraster_model_engine
-        pcraster_model_engine  # _static
-        # ${TARGET_LINK_LIBS}
+    add_dependencies(pcraster_model_engine_unit_test_utils
+        pcraster_model_engine
+        # OLS: below ones from the old setup; here just added
+        # examples.sentinel
+        # mapattr asc2map
+        # example1 example2 exampleCpp
     )
 
-    ADD_CUSTOM_TARGET(run_test_pcraster_model_engine
-        COMMAND sed -i.tmp "s/CMAKE_CFG_INTDIR/${CMAKE_CFG_INTDIR}/g"
-            ./testrun.prolog
-        COMMAND bash ./testrun.prolog
-        COMMAND test_pcraster_model_engine --detect_memory_leaks=0
-        COMMAND bash ./testrun.epilog
-        DEPENDS test_pcraster_model_engine
-        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-    )
-    ADD_DEPENDENCIES(tests run_test_pcraster_model_engine)
+#     TARGET_LINK_LIBRARIES(test_pcraster_model_engine
+#         pcraster_model_engine  # _static
+#         # ${TARGET_LINK_LIBS}
+#     )
+#
+#     ADD_CUSTOM_TARGET(run_test_pcraster_model_engine
+#         COMMAND sed -i.tmp "s/CMAKE_CFG_INTDIR/${CMAKE_CFG_INTDIR}/g"
+#             ./testrun.prolog
+#         COMMAND bash ./testrun.prolog
+#         COMMAND test_pcraster_model_engine --detect_memory_leaks=0
+#         COMMAND bash ./testrun.epilog
+#         DEPENDS test_pcraster_model_engine
+#         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+#     )
+#     ADD_DEPENDENCIES(tests run_test_pcraster_model_engine)
 endif()
 
 
@@ -468,7 +489,7 @@ INSTALL(FILES pcrcalc.h
 ###   COMMAND make -C ${PROJECT_SOURCE_DIR}/documentation/user/Developer/LinkOut LinkOutAPIUserManual.pdf
 ###   DEPENDS ${PROJECT_SOURCE_DIR}/documentation/user/Developer/LinkOut/LinkOutAPIUserManual.odt
 ### )
-### 
+###
 ### INSTALL(FILES
 ###     ../../../../documentation/user/Developer/LinkOut/LinkOutAPIUserManual.pdf
 ###   DESTINATION
@@ -485,16 +506,16 @@ if(PCRASTER_BUILD_DOCUMENTATION)
                 ${CMAKE_CURRENT_SOURCE_DIR}/../include/pcrlinkin.h
                 ${CMAKE_CURRENT_SOURCE_DIR}/linkInDocsMain
             )
-            
+
             # TODO make this completely working
             # SET(_DOX_LINKIN_SOURCES
             #   ${CMAKE_CURRENT_SOURCE_DIR}/pcrcalc.h
             #   ${PROJECT_SOURCE_DIR}/sources/include/pcrlinkin.h
             #   ${CMAKE_CURRENT_SOURCE_DIR}/linkInDocsMain
             # )
-            
+
             SET(_DOC_OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/html/index.html)
-            
+
             ADD_CUSTOM_COMMAND(
                 OUTPUT ${_DOC_OUTPUT}
                 COMMAND ${PYTHON_EXECUTABLE} ${PROJECT_SOURCE_DIR}/environment/script/createdoxyfile.py ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile PROJECT_NAME="\\"PCRaster LinkOut API\\"" INPUT="${_DOX_LINKOUT_SOURCES}" OUTPUT_DIRECTORY="${CMAKE_CURRENT_BINARY_DIR}"
@@ -502,29 +523,29 @@ if(PCRASTER_BUILD_DOCUMENTATION)
                 WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
                 DEPENDS ${_DOX_LINKOUT_SOURCES}
             )
-            
+
             ### SET(_DEPLOYMENT_OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/deployment.txt)
             ### GET_TARGET_PROPERTY(_PCRASTER_MODELENGINE_PATH pcraster_model_engine LOCATION)
-            ### 
+            ###
             ### ADD_CUSTOM_COMMAND(
             ###   OUTPUT ${_DEPLOYMENT_OUTPUT}
             ###   COMMAND ${PYTHON_EXECUTABLE} ${DEVENV}/Scripts/checkSharedLibraryDependencies.py -d ${_DEPLOYMENT_OUTPUT} ${_PCRASTER_MODELENGINE_PATH}
             ###   COMMENT "Creating deployment.txt"
             ###   DEPENDS pcraster_model_engine
             ### )
-            
+
             ADD_CUSTOM_TARGET(LinkOutDoxygenDocumentation ALL
                 DEPENDS
                     ${_DOC_OUTPUT}
                     # ${_DEPLOYMENT_OUTPUT}
             )
-            
+
             ### INSTALL(FILES
             ###     ${_DEPLOYMENT_OUTPUT}
             ###   DESTINATION
             ###     doc/developer/linkout
             ### )
-            
+
             INSTALL(DIRECTORY
                   ${CMAKE_CURRENT_BINARY_DIR}/html
               DESTINATION

@@ -1,92 +1,16 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_OPERATORTEST
-#include "calc_operatortest.h"
-#define INCLUDED_CALC_OPERATORTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_OPERATOR
-#include "calc_operator.h"
-#define INCLUDED_CALC_OPERATOR
-#endif
-#ifndef INCLUDED_CALC_FINDSYMBOL
+#define BOOST_TEST_MODULE pcraster newcalc operator
+#include <boost/test/unit_test.hpp>
 #include "calc_findsymbol.h"
-#define INCLUDED_CALC_FINDSYMBOL
-#endif
+
+#define private public
+#include "calc_operator.h"
 
 
 
-/*!
-  \file
-  This file contains the implementation of the OperatorTest class.
-*/
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC OPERATOR MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*calc::OperatorTest::suite()
+BOOST_AUTO_TEST_CASE(testFirstFieldInput)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<OperatorTest> instance(new OperatorTest());
+  using namespace calc;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&OperatorTest::testFirstFieldInput, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&OperatorTest::testActualInput, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF OPERATOR MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-calc::OperatorTest::OperatorTest()
-{
-}
-
-
-
-//! setUp
-void calc::OperatorTest::setUp()
-{
-}
-
-//! tearDown
-void calc::OperatorTest::tearDown()
-{
-}
-
-
-void calc::OperatorTest::testFirstFieldInput()
-{
   {
     const Operator *op(opName2op("lookupscalar"));
     BOOST_CHECK(op);
@@ -104,8 +28,11 @@ void calc::OperatorTest::testFirstFieldInput()
   }
 }
 
-void calc::OperatorTest::testActualInput()
+
+BOOST_AUTO_TEST_CASE(testActualInput)
 {
+  using namespace calc;
+
   {
     const Operator *op(opName2op("spread"));
     BOOST_CHECK(op->actualInput(0)==0);

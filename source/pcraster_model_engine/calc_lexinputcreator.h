@@ -30,8 +30,6 @@ class LexInput;
 class LexInputCreator
 {
 
-  friend class LexInputCreatorTest;
-
 private:
 
   //! Assignment operator. NOT IMPLEMENTED.

@@ -34,8 +34,6 @@ namespace calc {
 class CellOp : public IOpImpl
 {
 
-  friend class CellOpTest;
-
 private:
 
   //! Assignment operator. NOT IMPLEMENTED.

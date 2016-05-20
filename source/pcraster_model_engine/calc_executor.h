@@ -42,7 +42,6 @@ struct ProgressInfo;
 //! execute in CFG order
 class Executor: private CFGVisitor
 {
-  friend class ExecutorTest;
   friend class P5Stack;
 
 private:

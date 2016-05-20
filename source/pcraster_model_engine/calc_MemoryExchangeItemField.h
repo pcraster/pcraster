@@ -35,8 +35,6 @@ namespace calc {
 class MemoryExchangeItemField: public MemoryExchangeItem
 {
 
-  friend class MemoryExchangeItemFieldTest;
-
 private:
   boost::shared_ptr<Field> d_value;
 

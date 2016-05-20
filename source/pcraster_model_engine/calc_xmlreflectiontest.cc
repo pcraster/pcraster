@@ -1,119 +1,39 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_XMLREFLECTIONTEST
-#include "calc_xmlreflectiontest.h"
-#define INCLUDED_CALC_XMLREFLECTIONTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-#ifndef INCLUDED_QDOM
+#define BOOST_TEST_MODULE pcraster newcalc xmlreflection
+#include <boost/test/unit_test.hpp>
 #include <qdom.h>
-#define INCLUDED_QDOM
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_CALC_COMPAREFILEWITHVALIDATED
 #include "calc_comparefilewithvalidated.h"
-#define INCLUDED_CALC_COMPAREFILEWITHVALIDATED
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_GLOBALLIBDEFS
 #include "calc_globallibdefs.h"
-#define INCLUDED_CALC_GLOBALLIBDEFS
-#endif
-#ifndef INCLUDED_CALC_ASTTESTFACTORY
 #include "calc_asttestfactory.h"
-#define INCLUDED_CALC_ASTTESTFACTORY
-#endif
-#ifndef INCLUDED_CALC_ASTSCRIPT
 #include "calc_astscript.h"
-#define INCLUDED_CALC_ASTSCRIPT
-#endif
-#ifndef INCLUDED_CALC_XMLREFLECTION
 #include "calc_xmlreflection.h"
-#define INCLUDED_CALC_XMLREFLECTION
-#endif
-
-/*!
-  \file
-  This file contains the implementation of the XMLReflectionTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-
-#ifndef INCLUDED_COM_FILE
 #include "com_file.h"
-#define INCLUDED_COM_FILE
-#endif
 
-namespace calc {
 
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC XMLREFLECTION MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*XMLReflectionTest::suite()
+struct Fixture
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<XMLReflectionTest> instance(new XMLReflectionTest());
 
-  suite->add(BOOST_CLASS_TEST_CASE(&XMLReflectionTest::testXMLReflection, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&XMLReflectionTest::testEsriXMLReflection, instance));
-
-  return suite;
-}
+    Fixture()
+    {
+        calc::globalInit();
+    }
 
 
+    ~Fixture()
+    {
+      //calc::globalEnd();
+    }
 
-//------------------------------------------------------------------------------
-// DEFINITION OF XMLREFLECTION MEMBERS
-//------------------------------------------------------------------------------
+};
 
-//! ctor
-XMLReflectionTest::XMLReflectionTest(
-         )
+
+
+BOOST_FIXTURE_TEST_SUITE(xmlreflection, Fixture)
+
+
+BOOST_AUTO_TEST_CASE(testXMLReflection)
 {
-}
+  using namespace calc;
 
-
-
-//! setUp
-void XMLReflectionTest::setUp()
-{
- globalInit();
-}
-
-
-
-//! tearDown
-void XMLReflectionTest::tearDown()
-{
- globalEnd();
-}
-
-void XMLReflectionTest::testXMLReflection()
-{
   {
     std::auto_ptr<ASTScript>s(ASTTestFactory::createFromIdOrStr("pcrcalc510a"));
     s->analyzeNoContext();
@@ -244,8 +164,8 @@ void XMLReflectionTest::testXMLReflection()
  */
 }
 
-void XMLReflectionTest::testEsriXMLReflection()
-{
+// BOOST_AUTO_TEST_CASE(testEsriXMLReflection)
+// {
 /*
   bool esriXMLReflectionAgain=true;
   BOOST_WARN(esriXMLReflectionAgain);
@@ -278,6 +198,7 @@ void XMLReflectionTest::testEsriXMLReflection()
     BOOST_CHECK(xr.outputs()[0].id=="outputMap");
   }
 */
-}
+//}
 
-} // namespace calc
+
+BOOST_AUTO_TEST_SUITE_END()

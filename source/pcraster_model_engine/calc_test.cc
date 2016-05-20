@@ -1,3 +1,11 @@
+#error
+
+// OLS: kept this file for documentation purposes
+//      until unit tests work properly again on all platforms
+
+
+
+
 #define BOOST_TEST_MODULE calc test suite
 #include "stddefx.h"
 

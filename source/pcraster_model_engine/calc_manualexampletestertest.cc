@@ -1,91 +1,13 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_MANUALEXAMPLETESTERTEST
-#include "calc_manualexampletestertest.h"
-#define INCLUDED_CALC_MANUALEXAMPLETESTERTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_EXCEPTION
+#define BOOST_TEST_MODULE pcraster newcalc manualexampletester
+#include <boost/test/unit_test.hpp>
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_MANUALEXAMPLETESTER
 #include "calc_manualexampletester.h"
-#define INCLUDED_CALC_MANUALEXAMPLETESTER
-#endif
 
 
-
-/*!
-  \file
-  This file contains the implementation of the ManualExampleTesterTest class.
-*/
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC MANUALEXAMPLETESTER MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*calc::ManualExampleTesterTest::suite()
+BOOST_AUTO_TEST_CASE(testTest)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<ManualExampleTesterTest> instance(new ManualExampleTesterTest());
+  using namespace calc;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&ManualExampleTesterTest::testTest, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ManualExampleTesterTest::testOption, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ManualExampleTesterTest::testClone, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF MANUALEXAMPLETESTER MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-calc::ManualExampleTesterTest::ManualExampleTesterTest(){
-}
-
-
-
-//! setUp
-void calc::ManualExampleTesterTest::setUp()
-{
-}
-
-//! tearDown
-void calc::ManualExampleTesterTest::tearDown()
-{
-}
-
-void calc::ManualExampleTesterTest::testTest()
-{
  {
     ManualExampleTester mte("TesterTest.map=inp1s.map+4");
     mte.addResult("TesterTest.map");
@@ -121,8 +43,10 @@ void calc::ManualExampleTesterTest::testTest()
  }
 }
 
-void calc::ManualExampleTesterTest::testOption()
+BOOST_AUTO_TEST_CASE(testOption)
 {
+  using namespace calc;
+
  {
     ManualExampleTester mte(
       "#! --unitcell\n"
@@ -136,8 +60,10 @@ void calc::ManualExampleTesterTest::testOption()
  }
 }
 
-void calc::ManualExampleTesterTest::testClone()
+BOOST_AUTO_TEST_CASE(testClone)
 {
+  using namespace calc;
+
  { // not set but needed
     ManualExampleTester mte(
       "#! --unitcell\n"

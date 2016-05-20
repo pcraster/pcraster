@@ -51,7 +51,6 @@ typedef boost::dynamic_bitset<> BitField;
 
 template<typename T> class VField {
 private:
-  friend class VFieldTest;
 
   // have d_value and d_spatial upfront, so most accessed does not need an offset
 

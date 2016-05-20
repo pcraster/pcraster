@@ -27,8 +27,6 @@ namespace calc {
 class XMLReflection
 {
 
-  friend class XMLReflectionTest;
-
 private:
 
   //! Assignment operator. NOT IMPLEMENTED.

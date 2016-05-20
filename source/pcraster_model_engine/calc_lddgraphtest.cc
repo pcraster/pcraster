@@ -1,132 +1,28 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_LDDGRAPHTEST
-#include "calc_lddgraphtest.h"
-#define INCLUDED_CALC_LDDGRAPHTEST
-#endif
-#ifndef INCLUDED_CALC_DOWNSTREAMVISITOR
-#include "calc_downstreamvisitor.h"
-#define INCLUDED_CALC_DOWNSTREAMVISITOR
-#endif
-#ifndef INCLUDED_CALC_TIMESLICEVISITOR
-#include "calc_TimeSliceVisitor.h"
-#define INCLUDED_CALC_TIMESLICEVISITOR
-#endif
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_CSFCELL
-#include "com_csfcell.h"
-#define INCLUDED_COM_CSFCELL
-#endif
-// Module headers.
-#ifndef INCLUDED_CALC_MASKPACKING
-#include "calc_maskpacking.h"
-#define INCLUDED_CALC_MASKPACKING
-#endif
-#ifndef INCLUDED_CALC_ASISPACKING
-#include "calc_asispacking.h"
-#define INCLUDED_CALC_ASISPACKING
-#endif
-#ifndef INCLUDED_CALC_LDDGRAPH
-#include "calc_lddgraph.h"
-#define INCLUDED_CALC_LDDGRAPH
-#endif
-#ifndef INCLUDED_CALC_SPATIAL
+#define BOOST_TEST_MODULE pcraster newcalc lddgraph
+#include <boost/test/unit_test.hpp>
 #include "calc_spatial.h"
-#define INCLUDED_CALC_SPATIAL
-#endif
-#ifndef INCLUDED_CALC_NONSPATIAL
 #include "calc_nonspatial.h"
-#define INCLUDED_CALC_NONSPATIAL
-#endif
+#include "com_csfcell.h"
+#include "calc_maskpacking.h"
+#include "calc_asispacking.h"
 
 
-/*!
-  \file
-  This file contains the implementation of the LddGraphTest class.
-*/
+#define private public
+#define protected public
+#include "calc_lddgraph.h"
+#include "calc_downstreamvisitor.h"
+#include "calc_TimeSliceVisitor.h"
+
+
 
 // NOTE use string failureExpected in files expected to fail, see style guide
 
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC LDDGRAPH MEMBERS
-//------------------------------------------------------------------------------
 
-//! suite
-boost::unit_test::test_suite*calc::LddGraphTest::suite()
+
+BOOST_AUTO_TEST_CASE(testSimple)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<LddGraphTest> instance(new LddGraphTest());
+  using namespace calc;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&LddGraphTest::testSimple, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&LddGraphTest::testUpstream, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&LddGraphTest::testDownstreamIterator, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&LddGraphTest::testFieldIdToPitId, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&LddGraphTest::testDownstream, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&LddGraphTest::testInitField, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&LddGraphTest::testUnsound, instance));
-  bool skipStlIteratorBug(false);
-#if _MSC_VER == 1400
-#ifdef DEBUG_DEVELOP
-   // Bugzilla 178
-   skipStlIteratorBug=true;
-#endif
-#endif
-  if (! skipStlIteratorBug) {
-   suite->add(BOOST_CLASS_TEST_CASE(&LddGraphTest::testMVCtor, instance));
-   suite->add(BOOST_CLASS_TEST_CASE(&LddGraphTest::testVisitor, instance));
-   suite->add(BOOST_CLASS_TEST_CASE(&LddGraphTest::testTimeSliceVisitor, instance));
-  }
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF LDDGRAPH MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-calc::LddGraphTest::LddGraphTest()
-{
-}
-
-
-
-//! setUp
-void calc::LddGraphTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void calc::LddGraphTest::tearDown()
-{
-}
-
-
-void calc::LddGraphTest::testSimple()
-{
   geo::RasterDim rd_aip(1,3);
   geo::RasterDim rd_mp(2,3);
   bool maskInit[6] = {false,false,false,true,true,true};
@@ -153,8 +49,228 @@ void calc::LddGraphTest::testSimple()
   }
 }
 
-void calc::LddGraphTest::testMVCtor()
+BOOST_AUTO_TEST_CASE(testUpstream)
 {
+  using namespace calc;
+
+  geo::RasterDim rd(2,4);
+  AsIsPacking aip(rd);
+  UINT1 lddField[8]={6,5,4,4,   // -> P <-<-
+                     6,6,6,8 }; // -> ->->|^
+  REAL4  resultR[8]={1,0,1,2,
+                     6,5,4,3 };
+  // init to something detectable
+  REAL4  resultC[8]={9,9,9,9,
+                     9,9,9,9 };
+  LddGraph ld(lddField,aip);
+
+  BOOST_CHECK(ld.d_edge.size()==7);
+  BOOST_CHECK(ld.d_catchments.size()==1);
+
+  resultC[ld.d_catchments[0].d_pitId]=0;
+  for(LddGraph::UpConstIterator i=ld.upBegin();i!=ld.upEnd();++i)
+    resultC[i->up()] = resultC[i->down()]+1;
+  BOOST_CHECK(std::equal(resultC,resultC+8,resultR));
+}
+
+BOOST_AUTO_TEST_CASE(testDownstreamIterator)
+{
+  using namespace calc;
+
+  geo::RasterDim rd(2,4);
+  AsIsPacking aip(rd);
+  UINT1 lddField[8]={6,5,4,4,   // -> X <-<-
+                     6,6,6,8 }; // -> ->->|^
+  // total of upstream edges as a
+  // downstream traversal
+  REAL4  resultR[8]={0,7,5,4,
+                     0,1,2,3 };
+  REAL4  resultC[8]={0,0,0,0,
+                     0,0,0,0 };
+  LddGraph ld(lddField,aip);
+
+  BOOST_CHECK(ld.d_edge.size()==7);
+  BOOST_CHECK(ld.d_catchments.size()==1);
+
+  resultC[ld.d_catchments[0].d_pitId]=0;
+  for(LddGraph::DownConstIterator i=ld.downBegin();i!=ld.downEnd();++i)
+    resultC[i->down()] += resultC[i->up()]+1;
+  BOOST_CHECK(std::equal(resultC,resultC+8,resultR));
+}
+
+//! \todo should go into RasterGraphTest
+BOOST_AUTO_TEST_CASE(testInitField)
+{
+  using namespace calc;
+
+  geo::RasterDim rd(2,4);
+  AsIsPacking aip(rd);
+  UINT1 lddField[8]={       6,5,4,4,   // -> X <-<-
+                     MV_UINT1,6,6,8 }; // .  ->->|^
+  REAL4  result[8]={1,1,1,1,
+                    1,1,1,1 };
+
+  LddGraph ld(lddField,aip);
+
+  ld.initField<REAL4>(result,4.0);
+  BOOST_CHECK(result[0]==4);
+  BOOST_CHECK(result[3]==4);
+  BOOST_CHECK(result[6]==4);
+  BOOST_CHECK(pcr::isMV(result[4]));
+}
+
+BOOST_AUTO_TEST_CASE(testFieldIdToPitId)
+{
+/*
+  {
+    geo::RasterDim rd(2,4);
+    AsIsPacking aip(rd);
+    UINT1 lddField[8]={6,6,5,4,   // ->-> X<-
+                       9,6,6,7 }; // -/ ->->\-
+    // total of upstream edges as a
+    // downstream traversal
+    LddGraph ld(lddField,aip);
+
+    BOOST_CHECK(ld.d_edge.size()        ==7);
+    BOOST_CHECK(ld.d_catchments.size() ==1);
+    BOOST_CHECK(ld.d_catchments[0].d_pitId=2);
+
+    for(size_t i =0; i < 8; ++i)
+      BOOST_CHECK(ld.d_fieldIdToPitId[i] == 0);
+  }
+
+  {
+    geo::RasterDim rd(2,4);
+    AsIsPacking aip(rd);
+    UINT1 lddField[8]={MV_UINT1,6,5,4,   // ->-> X<-
+                       6,5,6,7 }; // - X->->\-
+    // total of upstream edges as a
+    // downstream traversal
+    LddGraph ld(lddField,aip);
+
+    BOOST_CHECK(ld.d_edge.size()          ==5);
+    BOOST_CHECK(ld.d_catchments.size()    ==2);
+    BOOST_CHECK(ld.d_catchments[0].d_pitId ==2);
+    BOOST_CHECK(ld.d_catchments[1].d_pitId ==5);
+
+    BOOST_CHECK(ld.d_fieldIdToPitId(0) >= 2);
+    BOOST_CHECK(ld.d_fieldIdToPitId(1) == 0);
+    BOOST_CHECK(ld.d_fieldIdToPitId(2) == 0);
+    BOOST_CHECK(ld.d_fieldIdToPitId(3) == 0);
+    BOOST_CHECK(ld.d_fieldIdToPitId(4) == 1);
+    BOOST_CHECK(ld.d_fieldIdToPitId(5) == 1);
+    BOOST_CHECK(ld.d_fieldIdToPitId(6) == 0);
+    BOOST_CHECK(ld.d_fieldIdToPitId(7) == 0);
+  }
+*/
+}
+
+BOOST_AUTO_TEST_CASE(testDownstream)
+{
+  using namespace calc;
+
+  geo::RasterDim rd(2,4);
+  AsIsPacking aip(rd);
+  UINT1 lddField[8]={3,5,4,4,   // \  X <-<-
+                     9,6,6,7 }; // -/ ->->\-
+                                // 0, 1, 2, 3,
+                                // 4, 5, 6, 7
+  LddGraph ld(lddField,aip);
+  BOOST_CHECK(ld.d_edge.size()==7);
+  BOOST_CHECK(ld.d_catchments.size()==1);
+}
+
+BOOST_AUTO_TEST_CASE(testUnsound)
+{
+  using namespace calc;
+
+  geo::RasterDim rd_aip(1,4);
+  AsIsPacking aip(rd_aip);
+  UINT1 lddField[4]={6,5,6,4}; // -> P -><-
+  bool catched=false;
+  try {
+    LddGraph ld(lddField,aip);
+  } catch(const LddGraph::Unsound& ) {
+    catched=true;
+  }
+  BOOST_CHECK(catched);
+}
+
+namespace calc {
+  struct DownstreamVisitorTester : public DownstreamVisitor {
+    size_t d_vertexCount;
+    size_t d_edgeCount;
+    size_t d_pitIdOfCurrentCatchment;
+    std::vector<size_t> d_pitOfMyCatchment;
+    std::vector<size_t> d_v;
+    std::vector<size_t> d_up;
+    std::vector<size_t> d_down;
+
+    DownstreamVisitorTester(LddGraph const& lg):
+      DownstreamVisitor(lg),
+      d_vertexCount(0),
+      d_edgeCount(0),
+      d_pitIdOfCurrentCatchment(10), // 10 as not visited marker
+      d_pitOfMyCatchment(9,10)       // 10 as not visited marker
+     {
+        // the anticipated order of visitation
+        d_v.push_back(1);
+        d_up.push_back(1);
+        d_down.push_back(3);
+        d_v.push_back(3); //pit
+        d_v.push_back(2);
+        d_up.push_back(2);
+        d_down.push_back(4);
+        d_v.push_back(4);
+        d_up.push_back(4);
+        d_down.push_back(6);
+        d_v.push_back(6); //pit
+        d_v.push_back(5);
+        d_up.push_back(5);
+        d_down.push_back(7);
+        d_v.push_back(7); //pit
+        d_v.push_back(8); //pit
+     }
+
+    void finishVertex(size_t v) {
+       BOOST_CHECK(d_v.size() > d_vertexCount);
+       BOOST_CHECK(d_v[d_vertexCount]==v);
+       d_vertexCount++;
+
+       // must be set
+       BOOST_CHECK(d_pitIdOfCurrentCatchment != 10);
+
+       // set only once
+       BOOST_CHECK(d_pitOfMyCatchment[v]     == 10);
+
+       // set
+       d_pitOfMyCatchment[v] = d_pitIdOfCurrentCatchment;
+    }
+    void visitEdge(size_t up, size_t down) {
+       BOOST_CHECK(d_up.size() > d_edgeCount);
+       BOOST_CHECK(d_up[d_edgeCount]  ==up);
+       BOOST_CHECK(d_down.size() > d_edgeCount);
+       BOOST_CHECK(d_down[d_edgeCount]==down);
+       d_edgeCount++;
+    }
+    void startCatchment(size_t pitId)
+    {
+     d_pitIdOfCurrentCatchment  = pitId;
+    }
+  };
+}
+
+
+
+#if _MSC_VER == 1400
+#ifdef DEBUG_DEVELOP
+   // Bugzilla 178
+
+
+BOOST_AUTO_TEST_CASE(testMVCtor)
+{
+  using namespace calc;
+
   geo::RasterDim rd(2,4);
   AsIsPacking aip(rd);
                   //        0,1,2,3
@@ -232,210 +348,10 @@ void calc::LddGraphTest::testMVCtor()
   }
 }
 
-void calc::LddGraphTest::testUpstream()
+BOOST_AUTO_TEST_CASE(testVisitor)
 {
-  geo::RasterDim rd(2,4);
-  AsIsPacking aip(rd);
-  UINT1 lddField[8]={6,5,4,4,   // -> P <-<-
-                     6,6,6,8 }; // -> ->->|^
-  REAL4  resultR[8]={1,0,1,2,
-                     6,5,4,3 };
-  // init to something detectable
-  REAL4  resultC[8]={9,9,9,9,
-                     9,9,9,9 };
-  LddGraph ld(lddField,aip);
+  using namespace calc;
 
-  BOOST_CHECK(ld.d_edge.size()==7);
-  BOOST_CHECK(ld.d_catchments.size()==1);
-
-  resultC[ld.d_catchments[0].d_pitId]=0;
-  for(LddGraph::UpConstIterator i=ld.upBegin();i!=ld.upEnd();++i)
-    resultC[i->up()] = resultC[i->down()]+1;
-  BOOST_CHECK(std::equal(resultC,resultC+8,resultR));
-}
-
-void calc::LddGraphTest::testDownstreamIterator()
-{
-  geo::RasterDim rd(2,4);
-  AsIsPacking aip(rd);
-  UINT1 lddField[8]={6,5,4,4,   // -> X <-<-
-                     6,6,6,8 }; // -> ->->|^
-  // total of upstream edges as a
-  // downstream traversal
-  REAL4  resultR[8]={0,7,5,4,
-                     0,1,2,3 };
-  REAL4  resultC[8]={0,0,0,0,
-                     0,0,0,0 };
-  LddGraph ld(lddField,aip);
-
-  BOOST_CHECK(ld.d_edge.size()==7);
-  BOOST_CHECK(ld.d_catchments.size()==1);
-
-  resultC[ld.d_catchments[0].d_pitId]=0;
-  for(LddGraph::DownConstIterator i=ld.downBegin();i!=ld.downEnd();++i)
-    resultC[i->down()] += resultC[i->up()]+1;
-  BOOST_CHECK(std::equal(resultC,resultC+8,resultR));
-}
-
-//! \todo should go into RasterGraphTest
-void calc::LddGraphTest::testInitField()
-{
-  geo::RasterDim rd(2,4);
-  AsIsPacking aip(rd);
-  UINT1 lddField[8]={       6,5,4,4,   // -> X <-<-
-                     MV_UINT1,6,6,8 }; // .  ->->|^
-  REAL4  result[8]={1,1,1,1,
-                    1,1,1,1 };
-
-  LddGraph ld(lddField,aip);
-
-  ld.initField<REAL4>(result,4.0);
-  BOOST_CHECK(result[0]==4);
-  BOOST_CHECK(result[3]==4);
-  BOOST_CHECK(result[6]==4);
-  BOOST_CHECK(pcr::isMV(result[4]));
-}
-
-void calc::LddGraphTest::testFieldIdToPitId()
-{
-/*
-  {
-    geo::RasterDim rd(2,4);
-    AsIsPacking aip(rd);
-    UINT1 lddField[8]={6,6,5,4,   // ->-> X<-
-                       9,6,6,7 }; // -/ ->->\-
-    // total of upstream edges as a
-    // downstream traversal
-    LddGraph ld(lddField,aip);
-
-    BOOST_CHECK(ld.d_edge.size()        ==7);
-    BOOST_CHECK(ld.d_catchments.size() ==1);
-    BOOST_CHECK(ld.d_catchments[0].d_pitId=2);
-
-    for(size_t i =0; i < 8; ++i)
-      BOOST_CHECK(ld.d_fieldIdToPitId[i] == 0);
-  }
-
-  {
-    geo::RasterDim rd(2,4);
-    AsIsPacking aip(rd);
-    UINT1 lddField[8]={MV_UINT1,6,5,4,   // ->-> X<-
-                       6,5,6,7 }; // - X->->\-
-    // total of upstream edges as a
-    // downstream traversal
-    LddGraph ld(lddField,aip);
-
-    BOOST_CHECK(ld.d_edge.size()          ==5);
-    BOOST_CHECK(ld.d_catchments.size()    ==2);
-    BOOST_CHECK(ld.d_catchments[0].d_pitId ==2);
-    BOOST_CHECK(ld.d_catchments[1].d_pitId ==5);
-
-    BOOST_CHECK(ld.d_fieldIdToPitId(0) >= 2);
-    BOOST_CHECK(ld.d_fieldIdToPitId(1) == 0);
-    BOOST_CHECK(ld.d_fieldIdToPitId(2) == 0);
-    BOOST_CHECK(ld.d_fieldIdToPitId(3) == 0);
-    BOOST_CHECK(ld.d_fieldIdToPitId(4) == 1);
-    BOOST_CHECK(ld.d_fieldIdToPitId(5) == 1);
-    BOOST_CHECK(ld.d_fieldIdToPitId(6) == 0);
-    BOOST_CHECK(ld.d_fieldIdToPitId(7) == 0);
-  }
-*/
-}
-
-void calc::LddGraphTest::testDownstream()
-{
-  geo::RasterDim rd(2,4);
-  AsIsPacking aip(rd);
-  UINT1 lddField[8]={3,5,4,4,   // \  X <-<-
-                     9,6,6,7 }; // -/ ->->\-
-                                // 0, 1, 2, 3,
-                                // 4, 5, 6, 7
-  LddGraph ld(lddField,aip);
-  BOOST_CHECK(ld.d_edge.size()==7);
-  BOOST_CHECK(ld.d_catchments.size()==1);
-}
-
-
-void calc::LddGraphTest::testUnsound()
-{
-  geo::RasterDim rd_aip(1,4);
-  AsIsPacking aip(rd_aip);
-  UINT1 lddField[4]={6,5,6,4}; // -> P -><-
-  bool catched=false;
-  try {
-    LddGraph ld(lddField,aip);
-  } catch(const LddGraph::Unsound& ) {
-    catched=true;
-  }
-  BOOST_CHECK(catched);
-}
-
-namespace calc {
-  struct DownstreamVisitorTester : public DownstreamVisitor {
-    size_t d_vertexCount;
-    size_t d_edgeCount;
-    size_t d_pitIdOfCurrentCatchment;
-    std::vector<size_t> d_pitOfMyCatchment;
-    std::vector<size_t> d_v;
-    std::vector<size_t> d_up;
-    std::vector<size_t> d_down;
-
-    DownstreamVisitorTester(LddGraph const& lg):
-      DownstreamVisitor(lg),
-      d_vertexCount(0),
-      d_edgeCount(0),
-      d_pitIdOfCurrentCatchment(10), // 10 as not visited marker
-      d_pitOfMyCatchment(9,10)       // 10 as not visited marker
-     {
-        // the anticipated order of visitation
-        d_v.push_back(1);
-        d_up.push_back(1);
-        d_down.push_back(3);
-        d_v.push_back(3); //pit
-        d_v.push_back(2);
-        d_up.push_back(2);
-        d_down.push_back(4);
-        d_v.push_back(4);
-        d_up.push_back(4);
-        d_down.push_back(6);
-        d_v.push_back(6); //pit
-        d_v.push_back(5);
-        d_up.push_back(5);
-        d_down.push_back(7);
-        d_v.push_back(7); //pit
-        d_v.push_back(8); //pit
-     }
-
-    void finishVertex(size_t v) {
-       BOOST_CHECK(d_v.size() > d_vertexCount);
-       BOOST_CHECK(d_v[d_vertexCount]==v);
-       d_vertexCount++;
-
-       // must be set
-       BOOST_CHECK(d_pitIdOfCurrentCatchment != 10);
-
-       // set only once
-       BOOST_CHECK(d_pitOfMyCatchment[v]     == 10);
-
-       // set
-       d_pitOfMyCatchment[v] = d_pitIdOfCurrentCatchment;
-    }
-    void visitEdge(size_t up, size_t down) {
-       BOOST_CHECK(d_up.size() > d_edgeCount);
-       BOOST_CHECK(d_up[d_edgeCount]  ==up);
-       BOOST_CHECK(d_down.size() > d_edgeCount);
-       BOOST_CHECK(d_down[d_edgeCount]==down);
-       d_edgeCount++;
-    }
-    void startCatchment(size_t pitId)
-    {
-     d_pitIdOfCurrentCatchment  = pitId;
-    }
-  };
-}
-
-void calc::LddGraphTest::testVisitor()
-{
   geo::RasterDim rd_aip(3,3);
   AsIsPacking aip(rd_aip);
   UINT1 lddField[9]={
@@ -515,8 +431,10 @@ MV_UINT1,1,1,  // 0,1,2
 */
 }
 
-void calc::LddGraphTest::testTimeSliceVisitor()
+BOOST_AUTO_TEST_CASE(testTimeSliceVisitor)
 {
+  using namespace calc;
+
   geo::RasterDim rd_aip(3,3);
   AsIsPacking aip(rd_aip);
 #define FIELD_SIZE 9
@@ -606,3 +524,7 @@ MV_UINT1,1,1,  // 3,4,5  X 0 1
   }
 #undef FIELD_SIZE
 }
+
+
+#endif //ifdef DEBUG_DEVELOP
+#endif //if _MSC_VER == 1400

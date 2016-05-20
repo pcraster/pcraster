@@ -32,8 +32,6 @@ namespace calc {
 class DataTypeChanger
 {
 
-  friend class DataTypeChangerTest;
-
 private:
 
   //! Assignment operator. NOT IMPLEMENTED.

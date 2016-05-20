@@ -43,8 +43,6 @@ class DynamicMemoryInput:
    public boost::noncopyable
 {
 
-  friend class DynamicMemoryInputTest;
-
 private:
 
   size_t            d_memoryIndexId;

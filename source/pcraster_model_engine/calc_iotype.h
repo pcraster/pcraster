@@ -38,7 +38,6 @@ public:
   typedef pcrxml::ModelOutputType Output;
 
 private:
-  friend class IOTypeTest;
 
 /* DEFAULT
 

@@ -64,10 +64,6 @@ class ASTScript
 {
   // all test classes
   friend class P5Stack; // for compile
-  friend class ParserTest;
-  friend class BindingTableTest;
-  friend class ClientInterfaceTest;
-  friend struct BindingErrorTester;
 
 private:
 

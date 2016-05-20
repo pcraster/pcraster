@@ -28,7 +28,7 @@ class ASTNodeVector;
 
 
 //! expression holding a fixed operation
-//! 
+//!
 /*!
  * Fixed operation means that:
  *  - the operation type is known at compile time

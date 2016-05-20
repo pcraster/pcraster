@@ -31,8 +31,6 @@ namespace calc {
 class TimeSliceVisitor: public DownstreamVisitor
 {
 
-  friend class TimeSliceVisitorTest;
-
 private:
 
     VField<INT4> const&     d_nrTimeSlicesField;

@@ -1,85 +1,20 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_POINTCODEBLOCKREPLACERTEST
-#include "calc_pointcodeblockreplacertest.h"
-#define INCLUDED_CALC_POINTCODEBLOCKREPLACERTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_SSTREAM
-#include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_ASTCFGTESTER
+#define BOOST_TEST_MODULE pcraster newcalc pointcodeblockreplacer
+#include <boost/test/unit_test.hpp>
+#include <iostream>
 #include "calc_astcfgtester.h"
-#define INCLUDED_CALC_ASTCFGTESTER
-#endif
-#ifndef INCLUDED_CALC_STRINGPARSER
 #include "calc_stringparser.h"
-#define INCLUDED_CALC_STRINGPARSER
-#endif
-#ifndef INCLUDED_CALC_ASTPATH
 #include "calc_astpath.h"
-#define INCLUDED_CALC_ASTPATH
-#endif
-#ifndef INCLUDED_CALC_INSERTPOINTCODEBLOCKS
-#include "calc_insertpointcodeblocks.h"
-#define INCLUDED_CALC_INSERTPOINTCODEBLOCKS
-#endif
-#ifndef INCLUDED_CALC_POINTCODEBLOCK
-#include "calc_pointcodeblock.h"
-#define INCLUDED_CALC_POINTCODEBLOCK
-#endif
-#ifndef INCLUDED_CALC_ASTSTAT
 #include "calc_aststat.h"
-#define INCLUDED_CALC_ASTSTAT
-#endif
-#ifndef INCLUDED_CALC_ASTSYMBOLTABLE
 #include "calc_astsymboltable.h"
-#define INCLUDED_CALC_ASTSYMBOLTABLE
-#endif
-/*!
-  \file
-  This file contains the implementation of the PointCodeBlockReplacerTest class.
-*/
+#include "calc_insertpointcodeblocks.h"
+
+
+#define private public
+#include "calc_pointcodeblock.h"
+
 
 // NOTE use string failureExpected in files expected to fail, see style guide
 
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC POINTCODEBLOCKREPLACER MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*calc::PointCodeBlockReplacerTest::suite()
-{
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<PointCodeBlockReplacerTest> instance(new PointCodeBlockReplacerTest());
-
-  suite->add(BOOST_CLASS_TEST_CASE(&PointCodeBlockReplacerTest::test, instance));
-
-  return suite;
-}
 
 namespace calc {
   namespace pointCodeBlockReplacerTest {
@@ -105,38 +40,10 @@ namespace calc {
 #define CASE(C)  pointCodeBlockReplacerTest::Test C
 
 
-
-//------------------------------------------------------------------------------
-// DEFINITION OF POINTCODEBLOCKREPLACER MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-calc::PointCodeBlockReplacerTest::PointCodeBlockReplacerTest()
+BOOST_AUTO_TEST_CASE(test)
 {
-}
+  using namespace calc;
 
-
-
-//! setUp
-void calc::PointCodeBlockReplacerTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void calc::PointCodeBlockReplacerTest::tearDown()
-{
-}
-
-
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-
-void calc::PointCodeBlockReplacerTest::test()
-{
   PointCodeBlock *b;
   std::set<std::string> emptyS;
   std::set<std::string> xS;

@@ -46,12 +46,12 @@ namespace calc {
     - unit = "(feet*acre)/day" ) L3T-1
     - dus conversion nodig
     .
-    
+
     \sa http://www.servocomm.freeserve.co.uk/Cpp/physical_quantity/index.html
 
   Lijst van units
 
-   - Length Meter m 
+   - Length Meter m
    - Mass Kilogram kg
    - Time Second s
    - ElectricCurrent Ampere A
@@ -64,8 +64,6 @@ namespace calc {
 */
 class Dimension : public std::vector<double>
 {
-
-  friend class DimensionTest;
 
 private:
 

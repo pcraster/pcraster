@@ -36,8 +36,6 @@ struct DynamicWaveTable {
 class DynamicWave: public IOpImpl
 {
 
-  friend class DynamicWaveTest;
-
 private:
 
   //! Assignment operator. NOT IMPLEMENTED.

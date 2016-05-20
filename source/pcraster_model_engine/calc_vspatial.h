@@ -25,14 +25,12 @@ namespace calc {
 namespace calc {
 
 /*!
- * \brief Interface of using different types (e.g. UINT1, INT4) by common larger 
+ * \brief Interface of using different types (e.g. UINT1, INT4) by common larger
  * type at runtime
  */
 template<typename OutType>
  class IVSpatial
 {
-
-  friend class VSpatialTest;
 
 private:
 

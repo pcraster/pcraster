@@ -1,95 +1,13 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_NONSPATIALTEST
-#include "calc_nonspatialtest.h"
-#define INCLUDED_CALC_NONSPATIALTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_CSFCELL
+#define BOOST_TEST_MODULE pcraster newcalc nonspatial
+#include <boost/test/unit_test.hpp>
 #include "com_csfcell.h"
-#define INCLUDED_COM_CSFCELL
-#endif
-// Module headers.
-#ifndef INCLUDED_CALC_NONSPATIAL
 #include "calc_nonspatial.h"
-#define INCLUDED_CALC_NONSPATIAL
-#endif
-#ifndef INCLUDED_CALC_DOMAINERROR
 #include "calc_domainerror.h"
-#define INCLUDED_CALC_DOMAINERROR
-#endif
 
-
-
-/*!
-  \file
-  This file contains the implementation of the NonSpatialTest class.
-*/
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC NONSPATIAL MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*calc::NonSpatialTest::suite()
+BOOST_AUTO_TEST_CASE(testSetAndGetCell)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<NonSpatialTest> instance(new NonSpatialTest());
+  using namespace calc;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&NonSpatialTest::testSetAndGetCell, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF NONSPATIAL MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-calc::NonSpatialTest::NonSpatialTest()
-{
-}
-
-
-
-//! setUp
-void calc::NonSpatialTest::setUp()
-{
-}
-
-//! tearDown
-void calc::NonSpatialTest::tearDown()
-{
-}
-
-
-
-void calc::NonSpatialTest::testSetAndGetCell()
-{
   { // set a value scalar
     NonSpatial n(VS_S,4);
     try {

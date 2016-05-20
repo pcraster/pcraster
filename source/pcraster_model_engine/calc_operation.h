@@ -37,8 +37,6 @@ namespace calc {
 class Operation
 {
 
-  friend class OperationTest;
-
   const Operator *d_builtIn;
 
 private:

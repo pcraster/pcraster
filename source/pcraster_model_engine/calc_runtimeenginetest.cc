@@ -1,138 +1,23 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_RUNTIMEENGINETEST
-#include "calc_runtimeenginetest.h"
-#define INCLUDED_CALC_RUNTIMEENGINETEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_GEO_RASTERSPACE
+#define BOOST_TEST_MODULE pcraster newcalc runtimeengine
+#include <boost/test/unit_test.hpp>
 #include "geo_rasterspace.h"
-#define INCLUDED_GEO_RASTERSPACE
-#endif
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-#ifndef INCLUDED_COM_FILE
 #include "com_file.h"
-#define INCLUDED_COM_FILE
-#endif
-// Module headers.
-#ifndef INCLUDED_CALC_RUNTIMEENGINE
-#include "calc_runtimeengine.h"
-#define INCLUDED_CALC_RUNTIMEENGINE
-#endif
-#ifndef INCLUDED_CALC_DATASTORAGEID
 #include "calc_datastorageid.h"
-#define INCLUDED_CALC_DATASTORAGEID
-#endif
-/*
-#ifndef INCLUDED_CALC_RUNTIMEENV
-#include "calc_runtimeenv.h"
-#define INCLUDED_CALC_RUNTIMEENV
-#endif
-*/
-#ifndef INCLUDED_CALC_FINDSYMBOL
 #include "calc_findsymbol.h"
-#define INCLUDED_CALC_FINDSYMBOL
-#endif
-#ifndef INCLUDED_CALC_RTTYPECHECK
 #include "calc_rttypecheck.h"
-#define INCLUDED_CALC_RTTYPECHECK
-#endif
-#ifndef INCLUDED_CALC_SPATIAL
 #include "calc_spatial.h"
-#define INCLUDED_CALC_SPATIAL
-#endif
-#ifndef INCLUDED_CALC_NONSPATIAL
 #include "calc_nonspatial.h"
-#define INCLUDED_CALC_NONSPATIAL
-#endif
-#ifndef INCLUDED_CALC_OPERATOR
 #include "calc_operator.h"
-#define INCLUDED_CALC_OPERATOR
-#endif
+
+#define private public
+#include "calc_runtimeengine.h"
 
 
-
-/*!
-  \file
-  This file contains the implementation of the RunTimeEngineTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC RUNTIMEENGINE MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*calc::RunTimeEngineTest::suite()
+BOOST_AUTO_TEST_CASE(testPopField)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<RunTimeEngineTest> instance(new RunTimeEngineTest());
+  using namespace calc;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&RunTimeEngineTest::testPopField, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&RunTimeEngineTest::testCloneSet, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&RunTimeEngineTest::testCloneDiffer, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&RunTimeEngineTest::testNrArgs, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&RunTimeEngineTest::testTypeCheck, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&RunTimeEngineTest::testResetVs, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&RunTimeEngineTest::testBuildExpr, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&RunTimeEngineTest::testLoadByStorageId, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF RUNTIMEENGINE MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-calc::RunTimeEngineTest::RunTimeEngineTest()
-{
-}
-
-
-
-//! setUp
-void calc::RunTimeEngineTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void calc::RunTimeEngineTest::tearDown()
-{
-}
-
-
-
-void calc::RunTimeEngineTest::testPopField()
-{
  { // Test that different pointers are returned
    //  and both the in and out ptrs can be deleted
    //  correctly
@@ -162,8 +47,10 @@ void calc::RunTimeEngineTest::testPopField()
 }
 
 
-void calc::RunTimeEngineTest::testCloneSet()
+BOOST_AUTO_TEST_CASE(testCloneSet)
 {
+  using namespace calc;
+
   bool catched=false;
   try {
     // 0,0 is invalid
@@ -178,8 +65,10 @@ BOOST_CHECK(e.messages().find("no clone or area map specified")
   BOOST_CHECK(catched);
 }
 
-void calc::RunTimeEngineTest::testCloneDiffer()
+BOOST_AUTO_TEST_CASE(testCloneDiffer)
 {
+  using namespace calc;
+
   bool catched=false;
   try {
     // 0,0 is invalid
@@ -198,8 +87,10 @@ BOOST_CHECK(e.messages().find(
   BOOST_CHECK(catched);
 }
 
-void calc::RunTimeEngineTest::testNrArgs()
+BOOST_AUTO_TEST_CASE(testNrArgs)
 {
+  using namespace calc;
+
   bool catched=false;
   try {
     // 0,0 is invalid
@@ -216,8 +107,10 @@ BOOST_CHECK(e.messages().find(
   BOOST_CHECK(catched);
 }
 
-void calc::RunTimeEngineTest::testTypeCheck()
+BOOST_AUTO_TEST_CASE(testTypeCheck)
 {
+  using namespace calc;
+
  { // conversion
    RunTimeEngine      rte(geo::RasterSpace(2,2));
    const Operator* o = major2op(OP_SCALAR);
@@ -276,8 +169,10 @@ void calc::RunTimeEngineTest::testTypeCheck()
  }
 }
 
-void calc::RunTimeEngineTest::testResetVs()
+BOOST_AUTO_TEST_CASE(testResetVs)
 {
+  using namespace calc;
+
  {
    RunTimeEngine      rte(geo::RasterSpace(2,2));
    const Operator* o = major2op(OP_COVER);
@@ -306,7 +201,7 @@ void calc::RunTimeEngineTest::testResetVs()
  }
 }
 
-void calc::RunTimeEngineTest::testBuildExpr()
+BOOST_AUTO_TEST_CASE(testBuildExpr)
 {
 
    bool todoCoverMaxVarArgForPython=false;
@@ -331,8 +226,10 @@ void calc::RunTimeEngineTest::testBuildExpr()
  */
 }
 
-void calc::RunTimeEngineTest::testLoadByStorageId()
+BOOST_AUTO_TEST_CASE(testLoadByStorageId)
 {
+  using namespace calc;
+
   // test how data is stored in the rte->dataTable
   //  by passing it through a DataStorageId
   // was pcrcalc09

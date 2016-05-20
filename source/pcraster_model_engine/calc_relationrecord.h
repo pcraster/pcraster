@@ -38,7 +38,6 @@ namespace calc {
 class RelationRecord : public std::vector<com::Interval<float> * >
 {
 
-   friend class RelationRecordTest;
    void        copy             (const RelationRecord& rhs);
    void        clean            ();
 

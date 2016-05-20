@@ -38,8 +38,6 @@ namespace calc {
 class Timer
 {
 
-  friend class TimerTest;
-
 private:
 
   //! 0 for initial section, > 0 for dynamic section

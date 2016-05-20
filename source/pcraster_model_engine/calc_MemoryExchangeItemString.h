@@ -31,8 +31,6 @@ namespace calc {
 class MemoryExchangeItemString: public MemoryExchangeItem
 {
 
-  friend class MemoryExchangeItemStringTest;
-
 private:
   std::string      d_value;
 

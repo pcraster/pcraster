@@ -27,8 +27,6 @@ namespace calc {
 class MemoryExchangeItem
 {
 
-  friend class MemoryExchangeItemTest;
-
 private:
   //! script symbol name
   std::string      d_name;

@@ -36,8 +36,6 @@ public:
        };
 private:
 
-  friend class UDEventTest;
-
   Type d_type;
 
   /*!  if true: a node (but not this node!) reached from here in the
@@ -140,7 +138,7 @@ public:
 
   void print() const {
    const char *names[4]= { "Def", "Use", "Jump", "Enter"};
-   std::cerr << names[(int)type()] 
+   std::cerr << names[(int)type()]
              << " d_keepLive(" << d_keepLive << ")";
    if (def()||use())
      std::cerr << " d_par->shortPosText(" << d_par->shortPosText() << ")";

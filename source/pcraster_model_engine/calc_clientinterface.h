@@ -46,8 +46,6 @@ namespace calc {
 class ClientInterface
 {
 
-  friend class ClientInterfaceTest;
-
   ASTScript*       d_script;
   //! used in the step wise functions
   Executor*        d_executor;

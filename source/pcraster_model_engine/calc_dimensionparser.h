@@ -51,8 +51,6 @@ private:
 
   std::vector<SymbolPower> d_symbols;
 
-  friend class DimensionParserTest;
-
 
   //! Assignment operator. NOT IMPLEMENTED.
   DimensionParser&           operator=           (DimensionParser const& rhs);

@@ -31,8 +31,6 @@ namespace calc {
 class CalcLibDemoObjectLink
 {
 
-  friend class CalcLibDemoObjectLinkTest;
-
 private:
 
   //! Assignment operator. NOT IMPLEMENTED.

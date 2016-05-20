@@ -36,8 +36,6 @@ namespace calc {
 class LinkInLibrary
 {
 
-  friend class LinkInLibraryTest;
-
 private:
 
   //! Assignment operator. NOT IMPLEMENTED.

@@ -1,96 +1,17 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_MANUALEXAMPLESTEST
-#include "calc_manualexamplestest.h"
-#define INCLUDED_CALC_MANUALEXAMPLESTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-#ifndef INCLUDED_VECTOR
+#define BOOST_TEST_MODULE pcraster newcalc manualexamples
+#include <boost/test/unit_test.hpp>
 #include <vector>
-#define INCLUDED_VECTOR
-#endif
-#ifndef INCLUDED_SSTREAM
 #include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-// PCRaster library headers.
-#ifndef INCLUDED_COM_PATHINFO
 #include "com_pathinfo.h"
-#define INCLUDED_COM_PATHINFO
-#endif
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-// Module headers.
-#ifndef INCLUDED_CALC_MANUALEXAMPLETESTER
 #include "calc_manualexampletester.h"
-#define INCLUDED_CALC_MANUALEXAMPLETESTER
-#endif
+#include "com_pathname.h"
 
 
-
-/*!
-  \file
-  This file contains the implementation of the ManualExamplesTest class.
-*/
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC MANUALEXAMPLES MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*calc::ManualExamplesTest::suite()
+BOOST_AUTO_TEST_CASE(testAll)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<ManualExamplesTest> instance(new ManualExamplesTest());
+  using namespace calc;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&ManualExamplesTest::testAll, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF MANUALEXAMPLES MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-calc::ManualExamplesTest::ManualExamplesTest()
-{
-}
-
-
-
-void calc::ManualExamplesTest::testAll()
-{
     std::vector<ManualExampleTester> et;
 #include "cpptest.cc"
     std::vector<std::string> failMsgs;

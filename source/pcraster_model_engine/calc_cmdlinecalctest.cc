@@ -1,101 +1,16 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_CMDLINECALCTEST
-#include "calc_cmdlinecalctest.h"
-#define INCLUDED_CALC_CMDLINECALCTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_FILE
+#define BOOST_TEST_MODULE pcraster newcalc cmdlinecalc
+#include <boost/test/unit_test.hpp>
 #include "com_file.h"
-#define INCLUDED_COM_FILE
-#endif
-#ifndef INCLUDED_GEO_FILECREATETESTER
 #include "geo_filecreatetester.h"
-#define INCLUDED_GEO_FILECREATETESTER
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_MESSAGESTESTDB
 #include "calc_messagestestdb.h"
-#define INCLUDED_CALC_MESSAGESTESTDB
-#endif
-#ifndef INCLUDED_CALC_CMDLINECALC
 #include "calc_cmdlinecalc.h"
-#define INCLUDED_CALC_CMDLINECALC
-#endif
 
 
-/*!
-  \file
-  This file contains the implementation of the CmdLineCalcTest class.
-*/
 
 // NOTE use string failureExpected in files expected to fail, see style guide
 
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC CMDLINECALC MEMBERS
-//------------------------------------------------------------------------------
 
-//! suite
-boost::unit_test::test_suite*calc::CmdLineCalcTest::suite()
-{
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<CmdLineCalcTest> instance(new CmdLineCalcTest());
-
-  suite->add(BOOST_CLASS_TEST_CASE(&CmdLineCalcTest::testScriptFile, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&CmdLineCalcTest::testModelAsArgs, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF CMDLINECALC MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-calc::CmdLineCalcTest::CmdLineCalcTest()
-{
-}
-
-
-
-//! setUp
-void calc::CmdLineCalcTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void calc::CmdLineCalcTest::tearDown()
-{
-}
-
-
-
-void calc::CmdLineCalcTest::testScriptFile()
+BOOST_AUTO_TEST_CASE(testScriptFile)
 {
   {
    // TODO test this result: "ERROR: File 'failureExpectedNotExistant.mod': No such file or directory"
@@ -106,7 +21,7 @@ void calc::CmdLineCalcTest::testScriptFile()
 
   // model outcomes are already tested in calc_executortest.cc
   // TODO NO THEY ARE NOT
-  MessagesTestDB *db=MessagesTestDB::instance();
+  calc::MessagesTestDB *db=calc::MessagesTestDB::instance();
   std::string model = db->model("pcrcalc382");
 
   com::write(model,"tmp.mod");
@@ -123,7 +38,7 @@ void calc::CmdLineCalcTest::testScriptFile()
   }
   {
    char *argv[6]= { "pcrcalc", "-m", "-r", "/home/cees/tmp/pcrtest",
-                                     "-f", "/home/cees/tmp/pcrtest/pcrtest.mod" 
+                                     "-f", "/home/cees/tmp/pcrtest/pcrtest.mod"
                   };
    bool absolutePathInRunDirectory=false;
    BOOST_WARN(absolutePathInRunDirectory);
@@ -132,7 +47,7 @@ void calc::CmdLineCalcTest::testScriptFile()
   }
 }
 
-void calc::CmdLineCalcTest::testModelAsArgs()
+BOOST_AUTO_TEST_CASE(testModelAsArgs)
 {
   {
    geo::FileCreateTester fct("tmp.res");

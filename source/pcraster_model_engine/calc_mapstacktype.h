@@ -41,8 +41,6 @@ public:
   enum Use { Unknown, Full, Sparse, Modulo, Lookup };
 private:
 
-  friend class MapStackTypeTest;
-
   // Assignment operator. DEFAULT
   // MapStackType&   operator=           (MapStackType const& rhs);
 

@@ -118,7 +118,7 @@ private:
 
   //X for each FieldId map to index in d_pitFieldIds for its downstream pit
   /*X
-   * in the case of unsound ldd's or cuts by mv mask ctor a PitId 
+   * in the case of unsound ldd's or cuts by mv mask ctor a PitId
    * equal or larger to d_pitFieldIds.size() may be assigned.
    * disabled, not needed, test commented in
    * void calc::LddGraphTest::testFieldIdToPitId()
@@ -127,8 +127,6 @@ private:
    */
 
   void addEdge(FieldId sV, FieldId tV);
-
-  friend class LddGraphTest;
 
 
 private:

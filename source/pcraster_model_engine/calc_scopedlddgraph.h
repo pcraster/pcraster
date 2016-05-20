@@ -36,8 +36,6 @@ namespace calc {
 class ScopedLddGraph
 {
 
-  friend class ScopedLddGraphTest;
-
 private:
   ScopedCachedObject<LddGraph> d_lg;
   LddGraph*                    d_modifiedLg;

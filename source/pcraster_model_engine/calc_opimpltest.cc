@@ -1,90 +1,20 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_OPIMPLTEST
-#include "calc_opimpltest.h"
-#define INCLUDED_CALC_OPIMPLTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_GEO_RASTERSPACE
+#define BOOST_TEST_MODULE pcraster newcalc opimpl
+#include <boost/test/unit_test.hpp>
 #include "geo_rasterspace.h"
-#define INCLUDED_GEO_RASTERSPACE
-#endif
-#ifndef INCLUDED_COM_FILE
 #include "com_file.h"
-#define INCLUDED_COM_FILE
-#endif
-// Module headers.
-#ifndef INCLUDED_CALC_RUNTIMEENV
 #include "calc_runtimeenv.h"
-#define INCLUDED_CALC_RUNTIMEENV
-#endif
-#ifndef INCLUDED_CALC_SPATIAL
 #include "calc_spatial.h"
-#define INCLUDED_CALC_SPATIAL
-#endif
-#ifndef INCLUDED_CALC_NONSPATIAL
 #include "calc_nonspatial.h"
-#define INCLUDED_CALC_NONSPATIAL
-#endif
-#ifndef INCLUDED_COM_CSFCELL
 #include "com_csfcell.h"
-#define INCLUDED_COM_CSFCELL
-#endif
-#ifndef INCLUDED_CALC_FINDSYMBOL
 #include "calc_findsymbol.h" // major2op
-#define INCLUDED_CALC_FINDSYMBOL
-#endif
-#ifndef INCLUDED_CALC_OPERATOR
 #include "calc_operator.h"
-#define INCLUDED_CALC_OPERATOR
-#endif
-#ifndef INCLUDED_CALC_LOOKUPTABLE
 #include "calc_lookuptable.h"
-#define INCLUDED_CALC_LOOKUPTABLE
-#endif
-#ifndef INCLUDED_CALC_TIMETABLE
 #include "calc_timetable.h"
-#define INCLUDED_CALC_TIMETABLE
-#endif
-#ifndef INCLUDED_CALC_DOMAINERROR
 #include "calc_domainerror.h"
-#define INCLUDED_CALC_DOMAINERROR
-#endif
-#ifndef INCLUDED_CALC_DVAUTOPTR
 #include "calc_dvautoptr.h"
-#define INCLUDED_CALC_DVAUTOPTR
-#endif
-
-/*!
-  \file
-  This file contains the implementation of the OpImplTest class.
-*/
 
 // NOTE use string failureExpected in files expected to fail, see style guide
 
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC OPIMPL MEMBERS
-//------------------------------------------------------------------------------
 
 namespace calc {
  //! exec all fields on stack, just a shorthand
@@ -96,56 +26,10 @@ namespace calc {
 }
 
 
-//! suite
-boost::unit_test::test_suite*calc::OpImplTest::suite()
+BOOST_AUTO_TEST_CASE(testSameBin)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<OpImplTest> instance(new OpImplTest());
+  using namespace calc;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&OpImplTest::testSameBin, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&OpImplTest::testCover, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&OpImplTest::testSameUn, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&OpImplTest::testTrig, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&OpImplTest::testDomainError, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&OpImplTest::testDiffUn, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&OpImplTest::testCompare, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&OpImplTest::testIfThen, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&OpImplTest::testIfThenElse, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&OpImplTest::testGen, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&OpImplTest::testGlobal, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&OpImplTest::testMRF, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&OpImplTest::testConversion, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&OpImplTest::testLookup, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&OpImplTest::testTimeinputTssOp, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF OPIMPL MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-calc::OpImplTest::OpImplTest()
-{
-}
-
-
-
-//! setUp
-void calc::OpImplTest::setUp()
-{
-}
-
-//! tearDown
-void calc::OpImplTest::tearDown()
-{
-}
-
-void calc::OpImplTest::testSameBin()
-{
 #define NR 3
   const geo::RasterSpace rs(1,NR);
   REAL4 v1=1;
@@ -209,8 +93,10 @@ void calc::OpImplTest::testSameBin()
   }
 }
 
-void calc::OpImplTest::testCover()
+BOOST_AUTO_TEST_CASE(testCover)
 {
+  using namespace calc;
+
 #define NR 3
   const geo::RasterSpace rs(1,NR);
   REAL4 v1=1;
@@ -273,8 +159,10 @@ void calc::OpImplTest::testCover()
   }
 }
 
-void calc::OpImplTest::testSameUn()
+BOOST_AUTO_TEST_CASE(testSameUn)
 {
+  using namespace calc;
+
 #define NR 3
   const geo::RasterSpace rs(1,NR);
   REAL4 v1=1;
@@ -310,13 +198,11 @@ void calc::OpImplTest::testSameUn()
   }
 }
 
-void calc::OpImplTest::testTrig()
-{
-  // like SameUn for sin
-}
 
-void calc::OpImplTest::testDomainError()
+BOOST_AUTO_TEST_CASE(testDomainError)
 {
+  using namespace calc;
+
 #define NR 3
   const geo::RasterSpace rs(1,NR);
   { // N SameUn
@@ -344,7 +230,7 @@ void calc::OpImplTest::testDomainError()
 
 
     const Operator* a=major2op(OP_FDIV);
- 
+
     bool catched(false);
     try {
     execAll(rte,a);
@@ -388,8 +274,10 @@ void calc::OpImplTest::testDomainError()
   }
 }
 
-void calc::OpImplTest::testDiffUn()
+BOOST_AUTO_TEST_CASE(testDiffUn)
 {
+  using namespace calc;
+
 #define NR 3
   const geo::RasterSpace rs(1,NR);
  { // Manual typed in
@@ -461,8 +349,10 @@ void calc::OpImplTest::testDiffUn()
  }
 }
 
-void calc::OpImplTest::testCompare()
+BOOST_AUTO_TEST_CASE(testCompare)
 {
+  using namespace calc;
+
 #define NR 3
   const geo::RasterSpace rs(1,NR);
   REAL4 v1=1;
@@ -523,8 +413,10 @@ void calc::OpImplTest::testCompare()
   }
 }
 
-void calc::OpImplTest::testIfThen()
+BOOST_AUTO_TEST_CASE(testIfThen)
 {
+  using namespace calc;
+
 #define NR 3
   const geo::RasterSpace rs(1,NR);
   UINT1 sCond[NR]={1,1,0};
@@ -578,8 +470,10 @@ void calc::OpImplTest::testIfThen()
   }
 }
 
-void calc::OpImplTest::testIfThenElse()
+BOOST_AUTO_TEST_CASE(testIfThenElse)
 {
+  using namespace calc;
+
 #define NR 3
   const geo::RasterSpace rs(1,NR);
   UINT1 sCond[NR] ={1,1,0};
@@ -639,8 +533,10 @@ void calc::OpImplTest::testIfThenElse()
   }
 }
 
-void calc::OpImplTest::testGen()
+BOOST_AUTO_TEST_CASE(testGen)
 {
+  using namespace calc;
+
 #define NR 3
   const geo::RasterSpace rs(1,NR);
   {
@@ -659,8 +555,10 @@ void calc::OpImplTest::testGen()
   }
 }
 
-void calc::OpImplTest::testGlobal()
+BOOST_AUTO_TEST_CASE(testGlobal)
 {
+  using namespace calc;
+
 #define NR6 6
   const geo::RasterSpace rs(1,NR6);
   const Operator* a=major2op(OP_AREAMAJORITY);
@@ -737,8 +635,10 @@ void calc::OpImplTest::testGlobal()
 }
 
 
-void calc::OpImplTest::testMRF()
+BOOST_AUTO_TEST_CASE(testMRF)
 {
+  using namespace calc;
+
 #define NR6 6
   const geo::RasterSpace rs(1,NR6);
 
@@ -802,8 +702,10 @@ void calc::OpImplTest::testMRF()
   }
 }
 
-void calc::OpImplTest::testConversion()
+BOOST_AUTO_TEST_CASE(testConversion)
 {
+  using namespace calc;
+
 #define NR6 6
   const geo::RasterSpace rs(1,NR6);
 
@@ -861,8 +763,10 @@ void calc::OpImplTest::testConversion()
 }
 
 
-void calc::OpImplTest::testLookup()
+BOOST_AUTO_TEST_CASE(testLookup)
 {
+  using namespace calc;
+
 /*
   <!-- should be non-spatial, number 1 -->
   <model>fileoutput lookupnominal(inp_1.tbl, 5, 8, 10);</model>
@@ -923,8 +827,10 @@ void calc::OpImplTest::testLookup()
 }
 
 //! test class TimeinputTssOp
-void calc::OpImplTest::testTimeinputTssOp()
+BOOST_AUTO_TEST_CASE(testTimeinputTssOp)
 {
+  using namespace calc;
+
   struct SetTimer {
     void operator()(RunTimeEnv& rte, size_t c) {
      Timer t(rte.timer());

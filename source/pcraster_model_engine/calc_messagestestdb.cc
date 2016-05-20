@@ -324,6 +324,7 @@ calc::MessagesTestDB::MessagesTestDB()
     bool badFormatOfXML=false;
     std::cerr << e.messages();
     PRECOND(badFormatOfXML);
+    (void)badFormatOfXML; // Shut up compiler
   }
 }
 

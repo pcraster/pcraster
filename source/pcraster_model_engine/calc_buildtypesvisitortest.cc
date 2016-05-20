@@ -1,80 +1,21 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_BUILDTYPESVISITORTEST
-#include "calc_buildtypesvisitortest.h"
-#define INCLUDED_CALC_BUILDTYPESVISITORTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_EXCEPTION
+#define BOOST_TEST_MODULE pcraster newcalc buildtypesvisitor
+#include <boost/test/unit_test.hpp>
+#include <vector>
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_BUILDTYPESVISITOR
-#include "calc_buildtypesvisitor.h"
-#define INCLUDED_CALC_BUILDTYPESVISITOR
-#endif
-#ifndef INCLUDED_CALC_ASTCFGTESTER
 #include "calc_astcfgtester.h"
-#define INCLUDED_CALC_ASTCFGTESTER
-#endif
-#ifndef INCLUDED_CALC_ASTPAR
-#include "calc_astpar.h"
-#define INCLUDED_CALC_ASTPAR
-#endif
-#ifndef INCLUDED_CALC_ASTNUMBER
 #include "calc_astnumber.h"
-#define INCLUDED_CALC_ASTNUMBER
-#endif
-#ifndef INCLUDED_CALC_POSITIONNAME
 #include "calc_positionname.h"
-#define INCLUDED_CALC_POSITIONNAME
-#endif
-#ifndef INCLUDED_CALC_ASTEXPR
 #include "calc_astexpr.h"
-#define INCLUDED_CALC_ASTEXPR
-#endif
-#ifndef INCLUDED_CALC_STRINGPARSER
 #include "calc_stringparser.h"
-#define INCLUDED_CALC_STRINGPARSER
-#endif
-#ifndef INCLUDED_CALC_ASTPATH
 #include "calc_astpath.h"
-#define INCLUDED_CALC_ASTPATH
-#endif
-#ifndef INCLUDED_CALC_DATATYPECLASH
 #include "calc_datatypeclash.h"
-#define INCLUDED_CALC_DATATYPECLASH
-#endif
-/*!
-  \file
-  This file contains the implementation of the BuildTypesVisitorTest class.
-*/
+#include "calc_asttestfactory.h"
+#include "calc_datatype.h"
 
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC BUILDTYPESVISITOR MEMBERS
-//------------------------------------------------------------------------------
+#define private public
+#include "calc_astpar.h"
+#include "calc_buildtypesvisitor.h"
+
 
 #define EXPECT_ERROR(v,n,msgId)  \
 {                                \
@@ -93,93 +34,71 @@
     BuildTypesVisitor btv(n.cfg());\
     btv.visit();
 
-//! suite
-boost::unit_test::test_suite*calc::BuildTypesVisitorTest::suite()
+
+struct Fixture
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<BuildTypesVisitorTest> instance(new BuildTypesVisitorTest());
 
-  suite->add(BOOST_CLASS_TEST_CASE(&BuildTypesVisitorTest::testPar, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&BuildTypesVisitorTest::testNumber, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&BuildTypesVisitorTest::testExpr, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&BuildTypesVisitorTest::testModel, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&BuildTypesVisitorTest::testReportParsed, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&BuildTypesVisitorTest::testErrorExpr, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&BuildTypesVisitorTest::testArgCombError, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&BuildTypesVisitorTest::testAssError, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&BuildTypesVisitorTest::testNonFieldError, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&BuildTypesVisitorTest::testMultipleVisits, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&BuildTypesVisitorTest::testNumberTyping, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&BuildTypesVisitorTest::testDoubleFuncRelic, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&BuildTypesVisitorTest::testRepeat, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&BuildTypesVisitorTest::testTopDownExprRestrictor, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF BUILDTYPESVISITOR MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-calc::BuildTypesVisitorTest::BuildTypesVisitorTest():
- d_inputTable(0)
-{
- setUp();
-}
-
-calc::BuildTypesVisitorTest::~BuildTypesVisitorTest()
-{
- tearDown();
-}
-
-void calc::BuildTypesVisitorTest::insertTestTable(
+  void insertTestTable(
+    calc::ASTSymbolTable *d_inputTable,
+    std::vector<calc::ASTPar *>   d_tt_pars,
     const std::string& name,
-    const DataType& ft)
+    const calc::DataType& ft)
+  {
+    using namespace calc;
+
+    ASTTestFactory tmp_ast;
+    ASTPar *p=tmp_ast.createPar(name);
+    d_tt_pars.push_back(p); // for deletion
+    PositionName pn("testTable");
+    p->setPosition(&pn);
+    (*d_inputTable)[p].dataType()=ft;
+    // act as if name is created somewhere first
+    (*d_inputTable)[p].setIoType(IOType(
+      pcrxml::ModelInputType::None,pcrxml::ModelOutputType::Fixed));
+  }
+
+
+  Fixture()
+  {
+    using namespace calc;
+    d_inputTable = new ASTSymbolTable();
+
+    insertTestTable(d_inputTable, d_tt_pars, "inp1s.map" ,DataType(VS_S,ST_SPATIAL ));
+    insertTestTable(d_inputTable, d_tt_pars, "inp90d.map" ,DataType(VS_D,ST_SPATIAL ));
+    insertTestTable(d_inputTable, d_tt_pars, "inp5s.map" ,DataType(VS_S,ST_SPATIAL ));
+    insertTestTable(d_inputTable, d_tt_pars, "inp1b.map" ,DataType(VS_B,ST_SPATIAL ));
+    insertTestTable(d_inputTable, d_tt_pars, "inp1n.map" ,DataType(VS_N,ST_SPATIAL ));
+    insertTestTable(d_inputTable, d_tt_pars, "inpxo.map" ,DataType(VS_O,ST_SPATIAL ));
+  }
+
+
+  ~Fixture()
+  {
+    delete d_inputTable;
+    d_inputTable=0;
+    for(size_t i=0; i< d_tt_pars.size(); ++i)
+      delete d_tt_pars[i];
+    d_tt_pars.clear();
+  }
+
+  calc::ASTSymbolTable *d_inputTable;
+  std::vector<calc::ASTPar *>   d_tt_pars;
+
+};
+
+
+
+BOOST_FIXTURE_TEST_SUITE(buildtypesvisitor, Fixture)
+
+
+BOOST_AUTO_TEST_CASE(testPar)
 {
-  ASTPar *p=createPar(name);
-  d_tt_pars.push_back(p); // for deletion
-  PositionName pn("testTable");
-  p->setPosition(&pn);
-  (*d_inputTable)[p].dataType()=ft;
-  // act as if name is created somewhere first
-  (*d_inputTable)[p].setIoType(IOType(
-           pcrxml::ModelInputType::None,pcrxml::ModelOutputType::Fixed));
-}
+  using namespace calc;
 
-
-//! setUp
-void calc::BuildTypesVisitorTest::setUp()
-{
-  d_inputTable = new ASTSymbolTable();
-
-  insertTestTable("inp1s.map" ,DataType(VS_S,ST_SPATIAL ));
-  insertTestTable("inp90d.map" ,DataType(VS_D,ST_SPATIAL ));
-  insertTestTable("inp5s.map" ,DataType(VS_S,ST_SPATIAL ));
-  insertTestTable("inp1b.map" ,DataType(VS_B,ST_SPATIAL ));
-  insertTestTable("inp1n.map" ,DataType(VS_N,ST_SPATIAL ));
-  insertTestTable("inpxo.map" ,DataType(VS_O,ST_SPATIAL ));
-
-}
-
-//! tearDown
-void calc::BuildTypesVisitorTest::tearDown()
-{
-  delete d_inputTable;
-  d_inputTable=0;
-  for(size_t i=0; i< d_tt_pars.size(); ++i)
-    delete d_tt_pars[i];
-  d_tt_pars.clear();
-}
-
-
-void calc::BuildTypesVisitorTest::testPar()
-{
+  ASTTestFactory tmp_ast;
 
  { // get type
-   ASTPar *p= createPar("inp1s.map");
+   ASTPar *p= tmp_ast.createPar("inp1s.map");
    ASTCFGTester n(p); // n will delete p
 
    ASTSymbolTable inputTable;
@@ -195,7 +114,7 @@ void calc::BuildTypesVisitorTest::testPar()
  }
 
  { // restrict type
-   ASTPar *p= createPar("inp1s.map");
+   ASTPar *p= tmp_ast.createPar("inp1s.map");
    ASTCFGTester n(p); // n will delete p
 
    ASTSymbolTable inputTable;
@@ -216,7 +135,7 @@ void calc::BuildTypesVisitorTest::testPar()
  }
 
  { // par can be anything
-   ASTCFGTester n(createPar("anything"));
+   ASTCFGTester n(tmp_ast.createPar("anything"));
    BuildTypesVisitor btv(n.cfg());
 
    btv.visit();
@@ -226,9 +145,12 @@ void calc::BuildTypesVisitorTest::testPar()
 
 }
 
-void calc::BuildTypesVisitorTest::testNumber()
+BOOST_AUTO_TEST_CASE(testNumber)
 {
-  ASTCFGTester n(createNumber("0.5"));
+  using namespace calc;
+
+  ASTTestFactory tmp_ast;
+  ASTCFGTester n(tmp_ast.createNumber("0.5"));
   BuildTypesVisitor btv(n.cfg());
 
  {
@@ -252,30 +174,33 @@ void calc::BuildTypesVisitorTest::testNumber()
  }
 }
 
-void calc::BuildTypesVisitorTest::testModel()
+BOOST_AUTO_TEST_CASE(testModel)
 {
+  using namespace calc;
+
+  ASTTestFactory tmp_ast;
   // misc tests on a whole script
   {
-   ASTCFGTester n(createFromId("pcrcalc376"));
+   ASTCFGTester n(tmp_ast.createFromId("pcrcalc376"));
    BuildTypesVisitor btv(n.cfg());
    // no visit no dynamic section found
    BOOST_CHECK(!btv.containsDynamicSection());
   }
   { // this is not the error message test for 376
-    ASTCFGTester n(createFromId("pcrcalc376"));
+    ASTCFGTester n(tmp_ast.createFromId("pcrcalc376"));
     BuildTypesVisitor btv(n.cfg());
    // visit, dynamic section found
     btv.visit();
     BOOST_CHECK(btv.containsDynamicSection());
   }
   {
-    ASTCFGTester n(createFromId("pcrcalc60"));
+    ASTCFGTester n(tmp_ast.createFromId("pcrcalc60"));
     BuildTypesVisitor btv(n.cfg());
     btv.visit();
     BOOST_CHECK(!btv.containsDynamicSection());
   }
   {
-    ASTCFGTester n(createFromId("pcrcalc505"));
+    ASTCFGTester n(tmp_ast.createFromId("pcrcalc505"));
     BuildTypesVisitor btv(n.cfg());
 
     for(size_t i=0; i < 4; ++i) {
@@ -306,7 +231,7 @@ void calc::BuildTypesVisitorTest::testModel()
     BOOST_CHECK(btv.table()["a"].d_firstAss          == l1);
   }
   {
-    ASTCFGTester n(createFromId("pcrcalc532"));
+    ASTCFGTester n(tmp_ast.createFromId("pcrcalc532"));
     BuildTypesVisitor btv(n.cfg());
     btv.init(*d_inputTable);
     // should not throw due to hack in
@@ -326,11 +251,14 @@ void calc::BuildTypesVisitorTest::testModel()
   }
 }
 
-
-void calc::BuildTypesVisitorTest::testExpr()
+BOOST_AUTO_TEST_CASE(testExpr)
 {
+  using namespace calc;
+
+  ASTTestFactory tmp_ast;
+
   {
-    ASTCFGTester n(createCode("<e v='+'>       \
+    ASTCFGTester n(tmp_ast.createCode("<e v='+'>       \
                                 <n v='3'/>    \
                                 <p v='inp1s.map'/>    \
                            </e>"));
@@ -341,7 +269,7 @@ void calc::BuildTypesVisitorTest::testExpr()
     BOOST_CHECK(btvRes.stSpatial());
   }
   { // no arguments
-    ASTCFGTester n(createCode("<e v='mapuniform'> \
+    ASTCFGTester n(tmp_ast.createCode("<e v='mapuniform'> \
                            </e>"));
 
     DEFAULT_BTV;
@@ -352,7 +280,7 @@ void calc::BuildTypesVisitorTest::testExpr()
   }
   { // poly arguments
     // st can be both
-    ASTCFGTester n(createCode("<e v='mapmaximum'> \
+    ASTCFGTester n(tmp_ast.createCode("<e v='mapmaximum'> \
                                 <p v='inp1s.map'/>    \
                            </e>"));
 
@@ -383,7 +311,7 @@ void calc::BuildTypesVisitorTest::testExpr()
 
   }
   {
-    ASTCFGTester n(createCode("<e v='spreadzone' p='8'>   \
+    ASTCFGTester n(tmp_ast.createCode("<e v='spreadzone' p='8'>   \
                              <e v='or'><n v='0'/><p v='inp1b.map'/></e> \
                              <n v='2'/>       \
                              <n v='3'/>       \
@@ -395,7 +323,7 @@ void calc::BuildTypesVisitorTest::testExpr()
     BOOST_CHECK(btvRes.stSpatial());
   }
   {
-    ASTCFGTester n(createCode("<e v='nodirection'>       \
+    ASTCFGTester n(tmp_ast.createCode("<e v='nodirection'>       \
                                 <p v='inp90d.map'/>    \
                                </e>"));
     DEFAULT_BTV;
@@ -405,7 +333,7 @@ void calc::BuildTypesVisitorTest::testExpr()
     BOOST_CHECK(btvRes.stSpatial());
   }
   {
-    ASTCFGTester n(createCode("<e v='nodirection'>       \
+    ASTCFGTester n(tmp_ast.createCode("<e v='nodirection'>       \
                                 <n v='1'/>    \
                                </e>"));
     DEFAULT_BTV;
@@ -425,8 +353,10 @@ void calc::BuildTypesVisitorTest::testExpr()
   }
 }
 
-void calc::BuildTypesVisitorTest::testReportParsed()
+BOOST_AUTO_TEST_CASE(testReportParsed)
 {
+  using namespace calc;
+
   {
     const char s[]="foo = succ(4); bar = if(e , a , if ( e2 , b , c));";
     N_BTV_VISIT(StringParser::createCodeAsNode(s));
@@ -439,11 +369,15 @@ void calc::BuildTypesVisitorTest::testReportParsed()
   }
 }
 
-void calc::BuildTypesVisitorTest::testErrorExpr()
+BOOST_AUTO_TEST_CASE(testErrorExpr)
 {
+  using namespace calc;
+
+
+  ASTTestFactory tmp_ast;
 
   {
-    ASTCFGTester n(createCode("<e v='spread' p='8'>   \
+    ASTCFGTester n(tmp_ast.createCode("<e v='spread' p='8'>   \
                                 <n v='1'/>        \
                                 <n v='1'/>        \
                                 <n v='1'/>        \
@@ -452,7 +386,7 @@ void calc::BuildTypesVisitorTest::testErrorExpr()
     EXPECT_ERROR(btv,n,"pcrcalc258");
   }
   {
-    ASTCFGTester n(createCode("<e v='spread' p='8'>   \
+    ASTCFGTester n(tmp_ast.createCode("<e v='spread' p='8'>   \
                                 <n p='9' v='1'/>  \
                                 <n v='1'/>        \
                            </e>"));
@@ -460,12 +394,12 @@ void calc::BuildTypesVisitorTest::testErrorExpr()
     EXPECT_ERROR(btv,n,"pcrcalc252");
   }
   {
-    ASTCFGTester n(createCode("<e v='maparea' p='8'/>"));
+    ASTCFGTester n(tmp_ast.createCode("<e v='maparea' p='8'/>"));
     DEFAULT_BTV;
     EXPECT_ERROR(btv,n,"pcrcalc252a");
   }
   {
-    ASTCFGTester n(createCode("<e v='spread' p='8'>   \
+    ASTCFGTester n(tmp_ast.createCode("<e v='spread' p='8'>   \
                                 <n p='9' v='1'/>  \
                                 <n v='1'/>        \
                                 <n v='1'/>        \
@@ -475,7 +409,7 @@ void calc::BuildTypesVisitorTest::testErrorExpr()
     EXPECT_ERROR(btv,n,"pcrcalc253");
   }
   {
-    ASTCFGTester n(createCode("<e v='spread' p='8'>   \
+    ASTCFGTester n(tmp_ast.createCode("<e v='spread' p='8'>   \
                              <e v='+'><n v='1'/><n v='1'/></e> \
                              <n v='1'/>       \
                              <n v='1'/>       \
@@ -484,31 +418,35 @@ void calc::BuildTypesVisitorTest::testErrorExpr()
     EXPECT_ERROR(btv,n,"pcrcalc500");
   }
   { // modellink
-    ASTCFGTester n(createFromId("pcrcalc548"));
+    ASTCFGTester n(tmp_ast.createFromId("pcrcalc548"));
     DEFAULT_BTV;
     EXPECT_ERROR(btv,n,"pcrcalc548");
   }
   { // unknown function
-    ASTCFGTester n(createFromId("pcrcalc549"));
+    ASTCFGTester n(tmp_ast.createFromId("pcrcalc549"));
     DEFAULT_BTV;
     EXPECT_ERROR(btv,n,"pcrcalc549");
   }
   { // unknown method
-    ASTCFGTester n(createFromId("pcrcalc550"));
+    ASTCFGTester n(tmp_ast.createFromId("pcrcalc550"));
     DEFAULT_BTV;
     EXPECT_ERROR(btv,n,"pcrcalc550");
   }
   if (0) { // nog niet noodzakelijk
-    ASTCFGTester n(createFromId("pcrcalc102a"));
+    ASTCFGTester n(tmp_ast.createFromId("pcrcalc102a"));
     DEFAULT_BTV;
     EXPECT_ERROR(btv,n,"pcrcalc102a");
   }
 }
 
-void calc::BuildTypesVisitorTest::testArgCombError()
+BOOST_AUTO_TEST_CASE(testArgCombError)
 {
+  using namespace calc;
+
+  ASTTestFactory tmp_ast;
+
   {
-    ASTCFGTester n(createCode("<e v='cover'>   \
+    ASTCFGTester n(tmp_ast.createCode("<e v='cover'>   \
                                 <p v='inp5s.map'/>        \
                                 <p v='inp5s.map'/>        \
                                 <p p='8' v='inp1b.map'/>  \
@@ -517,7 +455,7 @@ void calc::BuildTypesVisitorTest::testArgCombError()
     EXPECT_ERROR(btv,n,"pcrcalc259");
   }
   {
-    ASTCFGTester n(createCode("<e v='cover'>   \
+    ASTCFGTester n(tmp_ast.createCode("<e v='cover'>   \
                                 <p v='inp5s.map'/>        \
                                 <p p='8' v='inp1b.map'/>  \
                            </e>"));
@@ -525,7 +463,7 @@ void calc::BuildTypesVisitorTest::testArgCombError()
     EXPECT_ERROR(btv,n,"pcrcalc259a");
   }
   {
-    ASTCFGTester n(createCode("<e v='eq'>                        \
+    ASTCFGTester n(tmp_ast.createCode("<e v='eq'>                        \
                                 <p v='inp1b.map'/>           \
                                 <e v='nominal' p='8'><n v='4'/></e> \
                            </e>"));
@@ -533,28 +471,32 @@ void calc::BuildTypesVisitorTest::testArgCombError()
     EXPECT_ERROR(btv,n,"pcrcalc260");
   }
   {
-    ASTCFGTester n(createFromId("pcrcalc260a"));
+    ASTCFGTester n(tmp_ast.createFromId("pcrcalc260a"));
     DEFAULT_BTV;
     EXPECT_ERROR(btv,n,"pcrcalc260a");
   }
 }
 
-void calc::BuildTypesVisitorTest::testAssError()
+BOOST_AUTO_TEST_CASE(testAssError)
 {
+  using namespace calc;
+
+  ASTTestFactory tmp_ast;
+
   {
-    ASTCFGTester n(createFromId("pcrcalc2a"));
+    ASTCFGTester n(tmp_ast.createFromId("pcrcalc2a"));
     DEFAULT_BTV;
     EXPECT_ERROR(btv,n,"pcrcalc2a");
   }
   {
-    ASTCFGTester n(createFromId("pcrcalc2"));
+    ASTCFGTester n(tmp_ast.createFromId("pcrcalc2"));
     DEFAULT_BTV;
     EXPECT_ERROR(btv,n,"pcrcalc2");
   }
   {
     // 1st spread narrows useOnly to VS_BNO
     // 2nd spread expects useOnly to be VS_S
-    ASTCFGTester n(createCode("<l><e v='spread'>       \
+    ASTCFGTester n(tmp_ast.createCode("<l><e v='spread'>       \
                                 <p v='useOnly' p='firstUse'/>  \
                                 <p v='x'/>                     \
                                 <n v='1'/>                     \
@@ -568,38 +510,44 @@ void calc::BuildTypesVisitorTest::testAssError()
   }
 }
 
-void calc::BuildTypesVisitorTest::testNonFieldError()
+BOOST_AUTO_TEST_CASE(testNonFieldError)
 {
+  using namespace calc;
+
+  ASTTestFactory tmp_ast;
+
   {
-    ASTCFGTester n(createFromId("pcrcalc44"));
+    ASTCFGTester n(tmp_ast.createFromId("pcrcalc44"));
     DEFAULT_BTV;
     EXPECT_ERROR(btv,n,"pcrcalc44");
   }
   {
-    ASTCFGTester n(createFromId("pcrcalc257"));
+    ASTCFGTester n(tmp_ast.createFromId("pcrcalc257"));
     DEFAULT_BTV;
     EXPECT_ERROR(btv,n,"pcrcalc257");
   }
   {
-    ASTCFGTester n(createFromId("pcrcalc257a"));
+    ASTCFGTester n(tmp_ast.createFromId("pcrcalc257a"));
     DEFAULT_BTV;
     EXPECT_ERROR(btv,n,"pcrcalc257a");
   }
   {
-    ASTCFGTester n(createFromId("pcrcalc502"));
+    ASTCFGTester n(tmp_ast.createFromId("pcrcalc502"));
     DEFAULT_BTV;
     EXPECT_ERROR(btv,n,"pcrcalc502");
   }
   {
-    ASTCFGTester n(createFromId("pcrcalc503"));
+    ASTCFGTester n(tmp_ast.createFromId("pcrcalc503"));
     DEFAULT_BTV;
     EXPECT_ERROR(btv,n,"pcrcalc503");
   }
 }
 
 //! type info that can only be deduced by pushing type info down
-void calc::BuildTypesVisitorTest::testTopDownExprRestrictor()
+BOOST_AUTO_TEST_CASE(testTopDownExprRestrictor)
 {
+  using namespace calc;
+
   {
     // multiply by 1 must push VS_S as resultType of stackA
     const char *code="timer 1 1 1; dynamic a=1*timeinput(stackA)";
@@ -669,10 +617,13 @@ void calc::BuildTypesVisitorTest::testTopDownExprRestrictor()
   }
 }
 
-void calc::BuildTypesVisitorTest::testMultipleVisits()
+BOOST_AUTO_TEST_CASE(testMultipleVisits)
 {
+  using namespace calc;
 
-  ASTCFGTester n(createFromId("pcrcalc60"));
+  ASTTestFactory tmp_ast;
+
+  ASTCFGTester n(tmp_ast.createFromId("pcrcalc60"));
   BuildTypesVisitor btv(n.cfg());
   // a static model that has this problem can ook met variable
   // renaming wat dus nie kan met een dynamic model omdat er 2 paths
@@ -718,13 +669,17 @@ void calc::BuildTypesVisitorTest::testMultipleVisits()
  *  test342
  *  test83
  */
-void calc::BuildTypesVisitorTest::testNumberTyping()
+BOOST_AUTO_TEST_CASE(testNumberTyping)
 {
+  using namespace calc;
+
+  ASTTestFactory tmp_ast;
+
   { // BuildTypesVisitor does alter ASTNumber::d_vs
-    ASTNumber *nr=createNumber("1");
+    ASTNumber *nr=tmp_ast.createNumber("1");
     BOOST_CHECK(nr->vs() == VS_FIELD);
-    ASTExpr   *e=createExpr("+");
-    e->transferArg(createPar("inp1s.map"));
+    ASTExpr   *e=tmp_ast.createExpr("+");
+    e->transferArg(tmp_ast.createPar("inp1s.map"));
     e->transferArg(nr);
 
     ASTCFGTester n(e);
@@ -734,7 +689,7 @@ void calc::BuildTypesVisitorTest::testNumberTyping()
   }
   {
     std::string msgId("pcrcalc214c");
-    ASTCFGTester n(createFromId(msgId));
+    ASTCFGTester n(tmp_ast.createFromId(msgId));
     BuildTypesVisitor btv(n.cfg());
     ASTNumber *nr= astCast<ASTNumber>(n.ast(),"C/b/0/a/>/,/1/n");
     BOOST_CHECK(nr->value()==5);
@@ -747,17 +702,21 @@ void calc::BuildTypesVisitorTest::testNumberTyping()
   }
 }
 
-void calc::BuildTypesVisitorTest::testDoubleFuncRelic()
+BOOST_AUTO_TEST_CASE(testDoubleFuncRelic)
 {
+  using namespace calc;
+
+  ASTTestFactory tmp_ast;
+
   {
     std::string msgId("pcrcalc11b");
     bool  catched=false;
     try {
-      ASTCFGTester n(createFromId(msgId));
+      ASTCFGTester n(tmp_ast.createFromId(msgId));
       DEFAULT_BTV;
       btv.visit();
     } catch (const com::Exception& s) {
-      BOOST_CHECK(msgVerify(msgId,s));
+      BOOST_CHECK(tmp_ast.msgVerify(msgId,s));
       catched=true;
     }
     BOOST_CHECK(catched);
@@ -766,11 +725,11 @@ void calc::BuildTypesVisitorTest::testDoubleFuncRelic()
     std::string msgId("pcrcalc11c");
     bool  catched=false;
     try {
-      ASTCFGTester n(createFromId(msgId));
+      ASTCFGTester n(tmp_ast.createFromId(msgId));
       DEFAULT_BTV;
       btv.visit();
     } catch (const com::Exception& s) {
-      BOOST_CHECK(msgVerify(msgId,s));
+      BOOST_CHECK(tmp_ast.msgVerify(msgId,s));
       catched=true;
     }
     BOOST_CHECK(catched);
@@ -779,11 +738,11 @@ void calc::BuildTypesVisitorTest::testDoubleFuncRelic()
     bool  catched=false;
     std::string msgId("pcrcalc101");
     try {
-      ASTCFGTester n(createFromId(msgId));
+      ASTCFGTester n(tmp_ast.createFromId(msgId));
       DEFAULT_BTV;
       btv.visit();
     } catch (const com::Exception& s) {
-      BOOST_CHECK(msgVerify(msgId,s));
+      BOOST_CHECK(tmp_ast.msgVerify(msgId,s));
       catched=true;
     }
     BOOST_CHECK(catched);
@@ -823,8 +782,9 @@ void calc::BuildTypesVisitorTest::testDoubleFuncRelic()
     BOOST_CHECK(t["Z"].dataType().vs()  == VS_B);
   }
   { // dynwave
+    ASTTestFactory tmp_ast;
     std::string msgId("pcrcalc507");
-    ASTCFGTester n(createFromId(msgId));
+    ASTCFGTester n(tmp_ast.createFromId(msgId));
     DEFAULT_BTV;
 
     btv.visit();
@@ -841,8 +801,10 @@ void calc::BuildTypesVisitorTest::testDoubleFuncRelic()
   }
 }
 
-void calc::BuildTypesVisitorTest::testRepeat()
+BOOST_AUTO_TEST_CASE(testRepeat)
 {
+  using namespace calc;
+
     ASTCFGTester n(
         StringParser::createCodeAsNode(
  "tmp.res = scalar(0); repeat { tmp.res += 5; } until 1;"));
@@ -851,3 +813,5 @@ void calc::BuildTypesVisitorTest::testRepeat()
     BOOST_WARN(todoAddBoolTestPath);
 }
 
+
+BOOST_AUTO_TEST_SUITE_END()

@@ -52,7 +52,6 @@ namespace calc {
 class ASTDefinition
 {
 private:
-  friend class ASTDefinitionTest;
 
   typedef std::map<Id, Id> KeyValue;
 

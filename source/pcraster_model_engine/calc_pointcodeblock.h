@@ -44,7 +44,6 @@ class Code;
  */
 class PointCodeBlock : public ASTNode
 {
-  friend class PointCodeBlockReplacerTest;
 private:
 
   //! part of d_partOf in transferred to here and replaced by this

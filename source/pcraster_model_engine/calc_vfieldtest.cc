@@ -1,97 +1,14 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_VFIELDTEST
-#include "calc_vfieldtest.h"
-#define INCLUDED_CALC_VFIELDTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_VFIELD
+#define BOOST_TEST_MODULE pcraster newcalc vfield
+#include <boost/test/unit_test.hpp>
 #include "calc_vfield.h"
-#define INCLUDED_CALC_VFIELD
-#endif
-#ifndef INCLUDED_CALC_NONSPATIAL
 #include "calc_nonspatial.h"
-#define INCLUDED_CALC_NONSPATIAL
-#endif
-#ifndef INCLUDED_CALC_SPATIAL
 #include "calc_spatial.h"
-#define INCLUDED_CALC_SPATIAL
-#endif
 
-/*!
-  \file
-  This file contains the implementation of the VFieldTest class.
-*/
 
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC VFIELD MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*calc::VFieldTest::suite()
+BOOST_AUTO_TEST_CASE(test)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<VFieldTest> instance(new VFieldTest());
+  using namespace calc;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&VFieldTest::test, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&VFieldTest::testUpdateMV, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF VFIELD MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-calc::VFieldTest::VFieldTest()
-{
-}
-
-
-
-//! setUp
-void calc::VFieldTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void calc::VFieldTest::tearDown()
-{
-}
-
-
-
-void calc::VFieldTest::test()
-{
   {
    int ns=3;
    VField<int> vf(ns,5);
@@ -132,8 +49,10 @@ void calc::VFieldTest::test()
   }
 }
 
-void calc::VFieldTest::testUpdateMV()
+BOOST_AUTO_TEST_CASE(testUpdateMV)
 {
+  using namespace calc;
+
   BitField bf(5);
   BOOST_CHECK(bf.none());
 

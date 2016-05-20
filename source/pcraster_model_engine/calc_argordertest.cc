@@ -1,100 +1,13 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_ARGORDERTEST
-#include "calc_argordertest.h"
-#define INCLUDED_CALC_ARGORDERTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_CALC_ARGORDER
+#define BOOST_TEST_MODULE pcraster newcalc argorder
+#include <boost/test/unit_test.hpp>
 #include "calc_argorder.h"
-#define INCLUDED_CALC_ARGORDER
-#endif
-#ifndef INCLUDED_PCRTYPES
 #include "pcrtypes.h"
-#define INCLUDED_PCRTYPES
-#endif
-// Module headers.
 
 
-
-/*!
-  \file
-  This file contains the implementation of the ArgOrderTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-
-
-namespace calc {
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC ARGORDERTEST MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*ArgOrderTest::suite()
+BOOST_AUTO_TEST_CASE(testArgOrderAL)
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<ArgOrderTest> instance(new ArgOrderTest());
+  using namespace calc;
 
-  suite->add(BOOST_CLASS_TEST_CASE(&ArgOrderTest::testArgOrderAL, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ArgOrderTest::testArgOrder, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ArgOrderTest::testAddArea, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF ARGORDERTEST MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-ArgOrderTest::ArgOrderTest(
-         )
-{
-}
-
-
-
-//! setUp
-void ArgOrderTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void ArgOrderTest::tearDown()
-{
-}
-
-
-
-void ArgOrderTest::testArgOrderAL()
-{
   { // no args, does test the case
     //  where all areaLimit's are smaller then 1
     INT4  result[1]  = {-1 };
@@ -158,8 +71,10 @@ void ArgOrderTest::testArgOrderAL()
   }
 }
 
-void ArgOrderTest::testArgOrder()
+BOOST_AUTO_TEST_CASE(testArgOrder)
 {
+  using namespace calc;
+
   { // no args, can not happen with argorder
     // but safety first
     INT4  result[1]  = {-1 };
@@ -200,8 +115,10 @@ void ArgOrderTest::testArgOrder()
   }
 }
 
-void ArgOrderTest::testAddArea()
+BOOST_AUTO_TEST_CASE(testAddArea)
 {
+  using namespace calc;
+
   // SEE RIVM Notebook page 44
   // 1 -> Recreation
   // 2 -> Residential
@@ -245,4 +162,4 @@ void ArgOrderTest::testAddArea()
 6]:2
 7]:2
 */
-}
+

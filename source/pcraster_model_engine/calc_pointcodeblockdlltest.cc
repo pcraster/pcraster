@@ -1,98 +1,31 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_POINTCODEBLOCKDLLTEST
-#include "calc_pointcodeblockdlltest.h"
-#define INCLUDED_CALC_POINTCODEBLOCKDLLTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_GEO_FILECREATETESTER
+#define BOOST_TEST_MODULE pcraster newcalc pointcodeblockdll
+#include <boost/test/unit_test.hpp>
 #include "geo_filecreatetester.h"
-#define INCLUDED_GEO_FILECREATETESTER
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_P5STACK
 #include "calc_p5stack.h"
-#define INCLUDED_CALC_P5STACK
-#endif
-#ifndef INCLUDED_CALC_POINTCODEDLLHEADER
 #include "calc_pointcodedllheader.h"
-#define INCLUDED_CALC_POINTCODEDLLHEADER
-#endif
+#include "calc_globallibdefs.h"
 
 
 
-/*!
-  \file
-  This file contains the implementation of the PointCodeBlockDllTest class.
-*/
-
-// NOTE use string failureExpected in files expected to fail, see style guide
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC POINTCODEBLOCKDLL MEMBERS
-//------------------------------------------------------------------------------
-
-//! suite
-boost::unit_test::test_suite*calc::PointCodeBlockDllTest::suite()
+struct Fixture
 {
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<PointCodeBlockDllTest> instance(new PointCodeBlockDllTest());
 
-  suite->add(BOOST_CLASS_TEST_CASE(&PointCodeBlockDllTest::test_f, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&PointCodeBlockDllTest::testIfThenElse, instance));
-// DOES NOT YET COMPILE WITH Scons
-//  suite->add(BOOST_CLASS_TEST_CASE(&PointCodeBlockDllTest::testCompile, instance));
-
-  return suite;
-}
+    Fixture()
+    {
+        calc::globalInit();
+    }
 
 
+    ~Fixture()
+    {
+      //calc::globalEnd();
+    }
 
-//------------------------------------------------------------------------------
-// DEFINITION OF POINTCODEBLOCKDLL MEMBERS
-//------------------------------------------------------------------------------
+};
 
-//! ctor
-calc::PointCodeBlockDllTest::PointCodeBlockDllTest()
-{
-}
+BOOST_FIXTURE_TEST_SUITE(pointcodeblockdll, Fixture)
 
-
-
-//! setUp
-void calc::PointCodeBlockDllTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void calc::PointCodeBlockDllTest::tearDown()
-{
-}
-
-void calc::PointCodeBlockDllTest::testIfThenElse()
+BOOST_AUTO_TEST_CASE(testReportDefault)
 {
  // _ifthenelse(A &result, const UINT1& arg0, const A& arg1,const A& arg2)
  {
@@ -124,7 +57,7 @@ void calc::PointCodeBlockDllTest::testIfThenElse()
  }
 }
 
-void calc::PointCodeBlockDllTest::test_f()
+BOOST_AUTO_TEST_CASE(test_f)
 {
  {
    // SameUn
@@ -147,8 +80,10 @@ void calc::PointCodeBlockDllTest::test_f()
  }
 }
 
-void calc::PointCodeBlockDllTest::testCompile()
+BOOST_AUTO_TEST_CASE(testCompile)
 {
+  using namespace calc;
+
   struct P5StackC : public P5Stack {
     P5StackC(const char *code):
       P5Stack(CompileTest(code))
@@ -187,3 +122,5 @@ void calc::PointCodeBlockDllTest::testCompile()
   // 4) test that fails if non-spatial input/output are accumalted
   //         repeat until
 }
+
+BOOST_AUTO_TEST_SUITE_END()

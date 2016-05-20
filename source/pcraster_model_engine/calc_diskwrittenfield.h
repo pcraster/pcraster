@@ -40,8 +40,6 @@ namespace calc {
 class DiskWrittenField : public DataValue
 {
 
-  friend class DiskWrittenFieldTest;
-
   const IOStrategy& d_ios;
   std::string       d_fileName;
   VS                d_vs;

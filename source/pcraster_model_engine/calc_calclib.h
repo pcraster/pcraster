@@ -36,8 +36,6 @@ namespace calc {
 class CalcLib
 {
 
-  friend class CalcLibTest;
-
   com::DynamicLibrary *d_dl;
 
 private:

@@ -1,137 +1,23 @@
-#ifndef INCLUDED_STDDEFX
+#define BOOST_TEST_MODULE pcraster newcalc clientinterface
+#include <boost/test/unit_test.hpp>
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_CLIENTINTERFACETEST
-#include "calc_clientinterfacetest.h"
-#define INCLUDED_CALC_CLIENTINTERFACETEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-#ifndef INCLUDED_ALGORITHM
 #include <algorithm>
-#define INCLUDED_ALGORITHM
-#endif
-
-#ifndef INCLUDED_BOOST_FILESYSTEM_PATH
 #include <boost/filesystem/path.hpp>
-#define INCLUDED_BOOST_FILESYSTEM_PATH
-#endif
-#ifndef INCLUDED_BOOST_FILESYSTEM_OPERATIONS
 #include <boost/filesystem/operations.hpp>
-#define INCLUDED_BOOST_FILESYSTEM_OPERATIONS
-#endif
 namespace fs=boost::filesystem;
 
-
-// PCRaster library headers.
-#ifndef INCLUDED_APPARGS
 #include "appargs.h"
-#define INCLUDED_APPARGS
-#endif
-#ifndef INCLUDED_CALC_COMPAREFILEWITHVALIDATED
 #include "calc_comparefilewithvalidated.h"
-#define INCLUDED_CALC_COMPAREFILEWITHVALIDATED
-#endif
-#ifndef INCLUDED_CALC_STATTABLE
 #include "calc_stattable.h"
-#define INCLUDED_CALC_STATTABLE
-#endif
-#ifndef INCLUDED_GEO_FILECREATETESTER
 #include "geo_filecreatetester.h"
-#define INCLUDED_GEO_FILECREATETESTER
-#endif
-#ifndef INCLUDED_COM_FILE
 #include "com_file.h"
-#define INCLUDED_COM_FILE
-#endif
-#ifndef INCLUDED_CALC_GLOBALLIBDEFS
 #include "calc_globallibdefs.h"
-#define INCLUDED_CALC_GLOBALLIBDEFS
-#endif
-
-// Module headers.
-#ifndef INCLUDED_PCRCALC
 #include "pcrcalc.h"
-#define INCLUDED_PCRCALC
-#endif
-
-#ifndef INCLUDED_CALC_ASTTESTFACTORY
 #include "calc_asttestfactory.h"
-#define INCLUDED_CALC_ASTTESTFACTORY
-#endif
-#ifndef INCLUDED_CALC_ASTSCRIPT
 #include "calc_astscript.h"
-#define INCLUDED_CALC_ASTSCRIPT
-#endif
-#ifndef INCLUDED_CALC_ASTSYMBOLINFO
 #include "calc_astsymbolinfo.h"
-#define INCLUDED_CALC_ASTSYMBOLINFO
-#endif
-#ifndef INCLUDED_CALC_XMLREFLECTION
 #include "calc_xmlreflection.h"
-#define INCLUDED_CALC_XMLREFLECTION
-#endif
-#ifndef INCLUDED_CALC_SPATIAL
 #include "calc_spatial.h"
-#define INCLUDED_CALC_SPATIAL
-#endif
-/*!
-  \file
-  This file contains the implementation of the ClientInterfaceTest class.
-*/
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC CLIENTINTERFACE MEMBERS
-//------------------------------------------------------------------------------
-
-boost::unit_test::test_suite*calc::ClientInterfaceTest::suite()
-{
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<ClientInterfaceTest> instance(new ClientInterfaceTest());
-
-  suite->add(BOOST_CLASS_TEST_CASE(&ClientInterfaceTest::testCapi, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ClientInterfaceTest::testFromString, instance));
-
-  suite->add(BOOST_CLASS_TEST_CASE(&ClientInterfaceTest::testIOMemoryStatic, instance));
-
-  suite->add(BOOST_CLASS_TEST_CASE(&ClientInterfaceTest::testIOMemoryDynamic, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ClientInterfaceTest::testIOMemoryTimeoutput, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ClientInterfaceTest::testBil, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ClientInterfaceTest::testXML, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ClientInterfaceTest::testXMLHabitat, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ClientInterfaceTest::testXMLStatistics, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ClientInterfaceTest::testXMLSettings, instance));
-
-  return suite;
-}
-
-boost::unit_test::test_suite*calc::APIInitTest::suite()
-{
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<APIInitTest> instance(new APIInitTest());
-
-  suite->add(BOOST_CLASS_TEST_CASE(&APIInitTest::testInit, instance));
-  return suite;
-}
 
 
 namespace calc {
@@ -153,7 +39,7 @@ namespace calc {
 
 #define BOOST_CHECK_MESSAGE_ErrorMessage(s, expected) { \
      const char *msg = pcr_ScriptErrorMessage(s); \
-     BOOST_CHECK_MESSAGE(detail::pcr_ScriptErrorMessage_contains(msg,expected),msg); }
+     BOOST_CHECK_MESSAGE(calc::detail::pcr_ScriptErrorMessage_contains(msg,expected),msg); }
 
     //! \todo duplicated test code
     struct FakeDevLicense {
@@ -169,18 +55,10 @@ namespace calc {
   }
 }
 
-//------------------------------------------------------------------------------
-// DEFINITION OF CLIENTINTERFACE MEMBERS
-//------------------------------------------------------------------------------
 
-//! ctor
-calc::ClientInterfaceTest::ClientInterfaceTest()
+BOOST_AUTO_TEST_CASE(testFromString)
 {
-}
-
-void calc::ClientInterfaceTest::testFromString()
-{
-  detail::FakeDevLicense fl;
+  calc::detail::FakeDevLicense fl;
 
   geo::FileCreateTester mt("tmp.res");
   PcrScript *s= pcr_createScriptFromTextString("tmp.res = inp1s.map + 4;");
@@ -229,9 +107,9 @@ static void foo() {
 // end of verbatim piece to copy into user docs
 
 //! test the C-Api
-void calc::ClientInterfaceTest::testCapi()
+BOOST_AUTO_TEST_CASE(testCapi)
 {
-  detail::FakeDevLicense fl;
+  calc::detail::FakeDevLicense fl;
 
   { // NULL pointer to pcr_createScriptFromTextFile
     PcrScript *s=pcr_createScriptFromTextFile(0);
@@ -302,9 +180,9 @@ void calc::ClientInterfaceTest::testCapi()
   }
 }
 
-void calc::ClientInterfaceTest::testIOMemoryStatic()
+BOOST_AUTO_TEST_CASE(testIOMemoryStatic)
 {
-  detail::FakeDevLicense fl;
+  calc::detail::FakeDevLicense fl;
   // with interface
   //    ASTTestFactory::modelFromId("pcrcalc521").c_str());
 
@@ -402,7 +280,7 @@ void calc::ClientInterfaceTest::testIOMemoryStatic()
     BOOST_CHECK_EQUAL(r,0);
     BOOST_CHECK(!pcr_ScriptError(s));
 
-    ASTScript const& is(pcr_internalScript(s));
+    calc::ASTScript const& is(pcr_internalScript(s));
     BOOST_CHECK(!is.containsDynamicSection());
     BOOST_CHECK(is.symbols()["memOutput"].report() != 0);
 
@@ -426,7 +304,7 @@ void calc::ClientInterfaceTest::testIOMemoryStatic()
     BOOST_CHECK_EQUAL(output[1],7.5F);
     BOOST_CHECK_EQUAL(output[24],7.5F);
 
-    ASTScript const& is(pcr_internalScript(s));
+    calc::ASTScript const& is(pcr_internalScript(s));
     BOOST_CHECK(is.symbols().contains("memInput"));
     BOOST_CHECK(is.symbols().contains("memOutMap"));
     BOOST_CHECK(is.symbols().contains("memOutStr"));
@@ -553,14 +431,14 @@ void calc::ClientInterfaceTest::testIOMemoryStatic()
  *  pcr_destroyScript(s);
  *}
 */
-//   { // new bug 
+//   { // new bug
 //   [JIRA:Issues] (FEWS-5756) pcraster transformation crash on linux when reading external map file
 //   niet ons probleem, het werkt.
 //     REAL4 SRSbuf[40000];
 //     void  *data[2] = {SRSbuf,0};
 //     PcrScript *s=pcr_createScriptFromXMLFile("apiExamples/bug1.xml");
 //     BOOST_CHECK(!pcr_ScriptError(s));
-// 
+//
 //     int r(pcr_ScriptExecuteInitialStepMemory(s, data));
 //     BOOST_CHECK(!pcr_ScriptError(s));
 //     for(int i=0; i !=365; ++i)
@@ -574,8 +452,10 @@ void calc::ClientInterfaceTest::testIOMemoryStatic()
 //   }
 }
 
-void calc::ClientInterfaceTest::testIOMemoryDynamic()
+BOOST_AUTO_TEST_CASE(testIOMemoryDynamic)
 {
+  using namespace calc;
+
  enum {
   StaticInput=0,
   DynamicInput=1,
@@ -793,8 +673,10 @@ void calc::ClientInterfaceTest::testIOMemoryDynamic()
   }
 }
 
-void calc::ClientInterfaceTest::testIOMemoryTimeoutput()
+BOOST_AUTO_TEST_CASE(testIOMemoryTimeoutput)
 {
+  using namespace calc;
+
   detail::FakeDevLicense fl;
   {
     void  *data[1] = {0};
@@ -858,8 +740,10 @@ void calc::ClientInterfaceTest::testIOMemoryTimeoutput()
 }
 
 //! test settings from within xml
-void calc::ClientInterfaceTest::testXMLSettings()
+BOOST_AUTO_TEST_CASE(testXMLSettings)
 {
+  using namespace calc;
+
   detail::FakeDevLicense fl;
     UINT1 input[4]= { 1,0,0,1 };
     INT4 output[4] = { MV_INT4,MV_INT4,MV_INT4,MV_INT4 };
@@ -909,8 +793,10 @@ void calc::ClientInterfaceTest::testXMLSettings()
 }
 
 
-void calc::ClientInterfaceTest::testBil()
+BOOST_AUTO_TEST_CASE(testBil)
 {
+  using namespace calc;
+
   detail::FakeDevLicense fl;
   PcrScript *s(0);
   try { // execute again
@@ -936,9 +822,10 @@ void calc::ClientInterfaceTest::testBil()
  pcr_destroyScript(s);
 }
 
-
-void calc::ClientInterfaceTest::testXML()
+BOOST_AUTO_TEST_CASE(testXML)
 {
+  using namespace calc;
+
   detail::FakeDevLicense fl;
 
   {
@@ -989,8 +876,10 @@ void calc::ClientInterfaceTest::testXML()
   BOOST_WARN(skipValidatingIfSchemaIsNotFound);
 }
 
-void calc::ClientInterfaceTest::testXMLHabitat()
+BOOST_AUTO_TEST_CASE(testXMLHabitat)
 {
+  using namespace calc;
+
   detail::FakeDevLicense fl;
   { // ECOTOOP (was habitat8.xml)
     PcrScript *s=pcr_createScriptFromXMLFile("apiExamples/lookup.xml");
@@ -1013,8 +902,10 @@ void calc::ClientInterfaceTest::testXMLHabitat()
   }
 }
 
-void calc::ClientInterfaceTest::testXMLStatistics()
+BOOST_AUTO_TEST_CASE(testXMLStatistics)
 {
+  using namespace calc;
+
   detail::FakeDevLicense fl;
   { // statistics with mask
     PcrScript *s=pcr_createScriptFromXMLFile("apiExamples/statisticsMask.xml");
@@ -1064,24 +955,8 @@ void calc::ClientInterfaceTest::testXMLStatistics()
 #endif
 }
 
-//! ctor
-calc::APIInitTest::APIInitTest
-()
-{
-}
 
-//! setUp
-void calc::APIInitTest::setUp()
-{
-}
-
-//! tearDown
-void calc::APIInitTest::tearDown()
-{
-}
-
-
-void calc::APIInitTest::testInit()
+BOOST_AUTO_TEST_CASE(testInit)
 {
   {
     PcrScript *s= pcr_createScriptFromTextString("tmp.res = inp1s.map + 4;");

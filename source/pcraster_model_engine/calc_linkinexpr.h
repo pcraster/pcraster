@@ -48,8 +48,6 @@ namespace calc {
 class LinkInExpr : public BaseExpr
 {
 
-  friend class LinkInExprTest;
-
 private:
 
   //! Assignment operator. NOT IMPLEMENTED.

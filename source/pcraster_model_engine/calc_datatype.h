@@ -50,8 +50,6 @@ namespace calc {
 class DataType
 {
 
-  friend class DataTypeTest;
-
 private:
   //! current set of possible (o)vs's
   VS  d_vs;

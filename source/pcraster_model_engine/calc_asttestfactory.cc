@@ -283,14 +283,14 @@ calc::ASTNode* calc::ASTTestFactory::createCode(
 bool calc::ASTTestFactory::msgVerify(
     const std::string& id,
     const com::Exception& e,
-    const std::string prefix) const
+    const std::string prefix)// const
 {
   return db().equals(id,e,prefix);
 }
 
 bool calc::ASTTestFactory::fileVerify(
     const std::string& id,
-    const std::string& createdFile) const
+    const std::string& createdFile)// const
 {
   return db().equalsFile(id,createdFile);
 }

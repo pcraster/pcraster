@@ -34,8 +34,6 @@ namespace calc {
 class RtTypeCheck
 {
 
-  friend class rtTypeCheckTest;
-
 private:
 
   //! Assignment operator. NOT IMPLEMENTED.

@@ -11,7 +11,7 @@ rm -fr *map validated
 cp -f @PCRASTER_DATA_DIR@/test/resample/*.map .
 cp -fr @PCRASTER_DATA_DIR@/test/resample/validated .
 
-exe_pathname="@EXECUTABLE_OUTPUT_PATH@/CMAKE_CFG_INTDIR"
+exe_pathname="@EXECUTABLE_OUTPUT_PATH@/@CMAKE_CFG_INTDIR@"
 # sf463
 $exe_pathname/resample --clone sf463_mask.map sf463_outlet.map sf463_output.map
 $exe_pathname/mapdiff validated/sf463_outlet_mask.map sf463_output.map

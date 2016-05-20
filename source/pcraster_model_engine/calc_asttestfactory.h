@@ -88,11 +88,11 @@ public:
   //----------------------------------------------------------------------------
   static std::string modelFromId( const std::string& id);
   static ASTScript* createFromIdOrStr(const std::string& codeOrId);
-  bool       msgVerify(const std::string& id,
+  static bool       msgVerify(const std::string& id,
                        const com::Exception& e,
-                       const std::string prefix="") const;
-  bool       fileVerify(const std::string& id,
-                        const std::string& createdFile)const;
+                       const std::string prefix="");// const;
+  static bool       fileVerify(const std::string& id,
+                        const std::string& createdFile);//const;
 
 };
 
@@ -135,10 +135,10 @@ public:
  */
 #define CATCH_TEST_MSG(msgId)                \
    catch (const calc::PosException &p) {     \
-   BOOST_CHECK(msgVerify(msgId,p));            \
+   BOOST_CHECK(calc::ASTTestFactory::msgVerify(msgId,p));            \
    catched=true;                             \
  } catch (const com::Exception& s) {         \
-   BOOST_CHECK(msgVerify(msgId,s,"ERROR: "));  \
+   BOOST_CHECK(calc::ASTTestFactory::msgVerify(msgId,s,"ERROR: "));  \
    catched=true;                             \
  } catch (std::exception const& s) {         \
    BOOST_CHECK(s.what());                    \

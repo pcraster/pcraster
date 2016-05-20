@@ -1,122 +1,18 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_OBJECTLINKTEST
-#include "calc_objectlinktest.h"
-#define INCLUDED_CALC_OBJECTLINKTEST
-#endif
-
-// Library headers.
-#ifndef INCLUDED_STDEXCEPT
-#include <stdexcept>
-#define INCLUDED_STDEXCEPT
-#endif
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
-#include <boost/test/test_tools.hpp>
-#define INCLUDED_BOOST_TEST_TEST_TOOLS
-#endif
-
-#ifndef INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#include <boost/test/unit_test_suite.hpp>
-#define INCLUDED_BOOST_TEST_UNIT_TEST_SUITE
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_GEO_RASTERSPACE
+#define BOOST_TEST_MODULE pcraster newcalc objectlink
+#include <boost/test/unit_test.hpp>
 #include "geo_rasterspace.h"
-#define INCLUDED_GEO_RASTERSPACE
-#endif
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_FINDSYMBOL
 #include "calc_findsymbol.h"
-#define INCLUDED_CALC_FINDSYMBOL
-#endif
-#ifndef INCLUDED_CALC_OPERATIONS
 #include "calc_operations.h"
-#define INCLUDED_CALC_OPERATIONS
-#endif
-#ifndef INCLUDED_CALC_OPERATOR
 #include "calc_operator.h"
-#define INCLUDED_CALC_OPERATOR
-#endif
-#ifndef INCLUDED_CALC_RUNTIMEENV
 #include "calc_runtimeenv.h"
-#define INCLUDED_CALC_RUNTIMEENV
-#endif
-#ifndef INCLUDED_CALC_SPATIAL
 #include "calc_spatial.h"
-#define INCLUDED_CALC_SPATIAL
-#endif
-#ifndef INCLUDED_CALC_NONSPATIAL
 #include "calc_nonspatial.h"
-#define INCLUDED_CALC_NONSPATIAL
-#endif
 
-
-/*!
-  \file
-  This file contains the implementation of the ObjectLinkTest class.
-*/
 
 // NOTE use string failureExpected in files expected to fail, see style guide
 
-//------------------------------------------------------------------------------
-// DEFINITION OF STATIC OBJECTLINK MEMBERS
-//------------------------------------------------------------------------------
 
-//! suite
-boost::unit_test::test_suite*calc::ObjectLinkTest::suite()
-{
-  boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<ObjectLinkTest> instance(new ObjectLinkTest());
-
-  suite->add(BOOST_CLASS_TEST_CASE(&ObjectLinkTest::testLoadLink, instance));
-  // in this order, testLoadLink2 does the load
-  suite->add(BOOST_CLASS_TEST_CASE(&ObjectLinkTest::testLoadLink2, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ObjectLinkTest::testExec, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ObjectLinkTest::testExec2, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ObjectLinkTest::testNoArguments, instance));
-  suite->add(BOOST_CLASS_TEST_CASE(&ObjectLinkTest::testCheckAndExec, instance));
-
-  return suite;
-}
-
-
-
-//------------------------------------------------------------------------------
-// DEFINITION OF OBJECTLINK MEMBERS
-//------------------------------------------------------------------------------
-
-//! ctor
-calc::ObjectLinkTest::ObjectLinkTest()
-{
-}
-
-
-
-//! setUp
-void calc::ObjectLinkTest::setUp()
-{
-}
-
-
-
-//! tearDown
-void calc::ObjectLinkTest::tearDown()
-{
-}
 
 // getMeta()
 #include "calcLibWrapper.cc"
@@ -172,8 +68,13 @@ calc::CalcLibDemoObjectLink::~CalcLibDemoObjectLink()
   execCallMarker=77;
 }
 
-void calc::ObjectLinkTest::testLoadLink()
+
+
+
+BOOST_AUTO_TEST_CASE(testLoadLink)
 {
+  using namespace calc;
+
   ObjectLinkMeta olm=getMeta();
 
   BOOST_CHECK( olm.className()=="CalcLibDemoObjectLink");
@@ -189,8 +90,10 @@ void calc::ObjectLinkTest::testLoadLink()
   BOOST_CHECK(pos == olm.methodMap().end());
 }
 
-void calc::ObjectLinkTest::testLoadLink2()
+BOOST_AUTO_TEST_CASE(testLoadLink2)
 {
+  using namespace calc;
+
   // multiple loads harmless?
   globalOperations.load(getMeta);
 
@@ -220,13 +123,15 @@ void calc::ObjectLinkTest::testLoadLink2()
   BOOST_CHECK(globalOperations["CalcLibDemoObjectLink::failureExpected"] == 0);
 }
 
-void calc::ObjectLinkTest::testExec()
+BOOST_AUTO_TEST_CASE(testExec)
 {
+  using namespace calc;
+
  RunTimeEnv      rte(geo::RasterSpace(1,3));
  // test only the calls discarding RunTimeEnv info
  BOOST_CHECK(execCallMarker==0);
 
- ObjectLinkProxy<CalcLibDemoObjectLink>* t= 
+ ObjectLinkProxy<CalcLibDemoObjectLink>* t=
        new ObjectLinkProxy<CalcLibDemoObjectLink>("",rte.rasterSpace(),0);
 
  {
@@ -291,8 +196,10 @@ void calc::ObjectLinkTest::testExec()
  BOOST_CHECK(execCallMarker==77);
 }
 
-void calc::ObjectLinkTest::testExec2()
+BOOST_AUTO_TEST_CASE(testExec2)
 {
+  using namespace calc;
+
   {
    RunTimeEnv      rte(geo::RasterSpace(2,2));
 
@@ -324,10 +231,10 @@ BOOST_CHECK(e.messages().find( "no ObjectLink present") != std::string::npos);
   }
 }
 
-
-
-void calc::ObjectLinkTest::testNoArguments()
+BOOST_AUTO_TEST_CASE(testNoArguments)
 {
+  using namespace calc;
+
   RunTimeEnv rte(geo::RasterSpace(2,2));
   Operator const* op = opName2op("CalcLibDemoObjectLink");
   BOOST_CHECK(op);
@@ -339,10 +246,10 @@ void calc::ObjectLinkTest::testNoArguments()
   delete dv;
 }
 
-
-
-void calc::ObjectLinkTest::testCheckAndExec()
+BOOST_AUTO_TEST_CASE(testCheckAndExec)
 {
+  using namespace calc;
+
 
  RunTimeEnv      rte(geo::RasterSpace(1,3));
 

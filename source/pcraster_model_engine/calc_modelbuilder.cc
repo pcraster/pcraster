@@ -126,7 +126,7 @@ void calc::ModelBuilder::setCompile(bool enable)
 // #include "calc_usepar.h"
 // #define INCLUDED_CALC_USEPAR
 // #endif
-// 
+//
 // #ifndef INCLUDED_CALC_ASSIGNMENT
 // #include "calc_assignment.h"
 // #define INCLUDED_CALC_ASSIGNMENT
@@ -139,7 +139,7 @@ void calc::ModelBuilder::setCompile(bool enable)
 // #include "calc_runsettings.h"
 // #define INCLUDED_CALC_RUNSETTINGS
 // #endif
-// 
+//
 // //! add a statement
 //  *!
 //  * \todo this method can not parse report keyword by definition
@@ -154,9 +154,9 @@ void calc::ModelBuilder::setCompile(bool enable)
 //     d_script.setReportFound();
 //   WriteInfo wi(&d_script,write,0,false);
 // }
-// 
-// 
-// 
+//
+//
+//
 // void  calc::ModelBuilder::addLookupTable(
 //   const std::string& name,
 //   LookupTable       *table)
@@ -165,7 +165,7 @@ void calc::ModelBuilder::setCompile(bool enable)
 //   val[0]=table;
 //   d_script.addSymbol(new LookupTableParameter(usePar(name),val));
 // }
-// 
+//
 // //! add a statement of type \a par = \a expr
 // void calc::ModelBuilder::addFieldAssignment(
 //     const std::string& par,
@@ -175,11 +175,11 @@ void calc::ModelBuilder::setCompile(bool enable)
 //   if (write)
 //     d_script.setReportFound();
 //   WriteInfo wi(&d_script,write,0,false);
-// 
+//
 //   d_script.addStatement(
 //      new Assignment(&d_script, wi,usePar(par) ,expr));
 // }
-// 
+//
 // //! add an expression that yields a field
 // calc::ASTExpr* calc::ModelBuilder::addASTExpr(const std::string& expr)
 // {
@@ -191,7 +191,7 @@ void calc::ModelBuilder::setCompile(bool enable)
 // //  ASTExpr *e = parser.expr(&retsignal, &d_script);
 // //  return e;
 // }
-// 
+//
 // //! add a binding
 // void calc::ModelBuilder::addBinding(
 //     const std::string& left,
@@ -199,7 +199,7 @@ void calc::ModelBuilder::setCompile(bool enable)
 // {
 //   d_script.addBinding(symbol(left), symbol(right));
 // }
-// 
+//
 // //!  \sa  calc::Script::evaluateBindings()
 // void calc::ModelBuilder::evaluateBindings()
 // {
@@ -209,13 +209,13 @@ void calc::ModelBuilder::setCompile(bool enable)
 // {
 //   return UsePar(&d_script,symbol(par));
 // }
-// 
+//
 // calc::Symbol calc::ModelBuilder::symbol(const std::string& name)
 // {
 //   PositionName pn(d_positionName);
 //   return Symbol(&d_script,name,&pn);
 // }
-// 
+//
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS

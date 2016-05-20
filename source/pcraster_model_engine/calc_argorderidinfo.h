@@ -32,8 +32,6 @@ namespace calc {
 class ArgOrderIdInfo
 {
 
-  friend class ArgOrderIdInfoTest;
-
 private:
 
   /*

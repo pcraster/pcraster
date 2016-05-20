@@ -33,8 +33,6 @@ namespace calc {
 class DataTypeClash
 {
 
-  friend class DataTypeClashTest;
-
 private:
 
 

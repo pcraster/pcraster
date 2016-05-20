@@ -30,8 +30,6 @@ namespace calc {
 class ICachedObject
 {
 
-  friend class ICachedObjectTest;
-
 private:
 
   //! Assignment operator. NOT IMPLEMENTED.

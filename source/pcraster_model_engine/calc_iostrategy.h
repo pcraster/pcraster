@@ -76,8 +76,6 @@ namespace calc {
 class IOStrategy
 {
 
-  friend class IOStrategyTest;
-
 private:
 
   //! never 0

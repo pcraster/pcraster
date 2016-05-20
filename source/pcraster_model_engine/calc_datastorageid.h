@@ -45,8 +45,6 @@ namespace calc {
 class PCR_DLL_CLASS DataStorageId: public DataValue
 {
 
-  friend class DataStorageIdTest;
-
   std::string      d_id;
 
 

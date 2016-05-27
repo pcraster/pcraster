@@ -15,18 +15,24 @@ static fa::ExecutionPolicy _execution_policy{
 
 static size_t _nr_cpus{1};
 
-void set_nr_cpus(size_t cpus){
+void set_nr_cpus(size_t cpus)
+{
   size_t max_cpus = std::thread::hardware_concurrency();
+
   if(cpus > max_cpus){
     std::cout << "Number of CPUs requested (" << cpus << ") larger than CPUs available, limiting to " << max_cpus << " CPUs" << std::endl;
     cpus = max_cpus;
   }
-  if(cpus < 1){
-    cpus = 1;
+
+  if(cpus < 2){
+    _nr_cpus = 1;
+    _execution_policy = fa::sequential;
   }
-  _nr_cpus = cpus;
-  fa::parallel = fa::ParallelExecutionPolicy{cpus};
-  _execution_policy = fa::parallel;
+  else{
+    _nr_cpus = cpus;
+    fa::parallel = fa::ParallelExecutionPolicy{cpus};
+    _execution_policy = fa::parallel;
+  }
 }
 
 

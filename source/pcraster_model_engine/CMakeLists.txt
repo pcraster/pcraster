@@ -255,23 +255,7 @@ ADD_CUSTOM_COMMAND(
 )
 
 
-### ADD_FILE_DEPENDENCY(calc_manualexamplestest.cc
-###   ${CMAKE_CURRENT_BINARY_DIR}/cpptest.cc)
 
-### SET(_MANUAL_DIR ${PROJECT_SOURCE_DIR}/Documentation/PCRasterManual)
-### SET(_EXAMPLES_DIR ${_MANUAL_DIR}/examples)
-### SET(_MANUAL_BUILD_DIR ${_MANUAL_DIR}/sphinx/_build)
-
-### ADD_CUSTOM_COMMAND(
-###   OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/cpptest.cc
-###   DEPENDS examplesCppTests
-###   ${PROJECT_BINARY_DIR}/Documentation/PCRasterManual/examples/cpptest.cc
-###   # DEPENDS
-###   #   ${_EXAMPLES_DIR}/ScriptSamples.py
-###   #   ${_EXAMPLES_DIR}/PCRasterSample.py
-###   #   ${_EXAMPLES_DIR}/Makefile
-###   # COMMAND make -C ${_EXAMPLES_DIR} CPlusPlusTests OUTPUT=${CMAKE_CURRENT_BINARY_DIR}/cpptest.cc
-### )
 
 ADD_CUSTOM_COMMAND(
     OUTPUT  ${CMAKE_CURRENT_BINARY_DIR}/calc_fopointarrayimpl.inc
@@ -446,10 +430,34 @@ if(PCRASTER_BUILD_TEST)
     )
 
 
+# OLS start: I think the following 5 items are not necessary, cpptest.cc seems to be built by examples.sentinel alsready
+
+#   add_file_dependency(calc_manualexamplestest.cc
+#     ${CMAKE_CURRENT_BINARY_DIR}/cpptest.cc)
+
+### SET(_MANUAL_DIR ${PROJECT_SOURCE_DIR}/Documentation/PCRasterManual)
+### SET(_EXAMPLES_DIR ${_MANUAL_DIR}/examples)
+### SET(_MANUAL_BUILD_DIR ${_MANUAL_DIR}/sphinx/_build)
+
+### ADD_CUSTOM_COMMAND(
+###   OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/cpptest.cc
+###   DEPENDS examplesCppTests
+###   ${PROJECT_BINARY_DIR}/Documentation/PCRasterManual/examples/cpptest.cc
+###   # DEPENDS
+###   #   ${_EXAMPLES_DIR}/ScriptSamples.py
+###   #   ${_EXAMPLES_DIR}/PCRasterSample.py
+###   #   ${_EXAMPLES_DIR}/Makefile
+###   # COMMAND make -C ${_EXAMPLES_DIR} CPlusPlusTests OUTPUT=${CMAKE_CURRENT_BINARY_DIR}/cpptest.cc
+### )
+
+# OLS end
+
+
+
     add_dependencies(pcraster_model_engine_unit_test_utils
         pcraster_model_engine
+        examples.sentinel
         # OLS: below ones from the old setup; here just added
-        # examples.sentinel
         # mapattr asc2map
         # example1 example2 exampleCpp
     )

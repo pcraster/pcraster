@@ -114,6 +114,7 @@ inline size_t Spatial<T>::size(size_t dimension) const {
   else if (dimension == 1){
     return cols;
   }
+  assert(0); // never should reach this
   return 0;
 }
 

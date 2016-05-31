@@ -158,6 +158,7 @@ BOOST_PYTHON_MODULE(_pcraster_modflow){
 
   boost::python::class_<PCRModflow,boost::noncopyable>("initialise", boost::python::init<const geo::RasterSpace &>())
     .def("run", &PCRModflow::runModflow)
+    .def("converged", &PCRModflow::converged)
     // DIS
     .def("setLayer", &PCRModflow::setLayer)
     .def("createBottomLayer", createBottomPy)

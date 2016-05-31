@@ -77,8 +77,8 @@ install:
     - sudo pip install --upgrade sphinx
     - sudo pip install pillow
 
-    #- sudo apt-get install opt-qt4-qmake opt-qt4-dev-tools
-    - sudo apt-get install opt-libqt4-dbus opt-libqt4-dev opt-libqt4-dev-bin opt-libqt4-opengl opt-libqt4-opengl-dev opt-libqt4-qt3support opt-libqt4-sql opt-libqt4-sql-sqlite opt-libqt4-svg opt-libqt4-test opt-libqt4-xml opt-libqtcore4 opt-libqtgui4 opt-qdbus opt-qt4-dev-tools opt-qt4-qmake
+    - sudo apt-get install opt-qt4-qmake opt-qt4-dev-tools
+    #- sudo apt-get install opt-libqt4-dbus opt-libqt4-dev opt-libqt4-dev-bin opt-libqt4-opengl opt-libqt4-opengl-dev opt-libqt4-qt3support opt-libqt4-sql opt-libqt4-sql-sqlite opt-libqt4-svg opt-libqt4-test opt-libqt4-xml opt-libqtcore4 opt-libqtgui4 opt-qdbus opt-qt4-dev-tools opt-qt4-qmake
     - export PATH=/opt/qt-4.8/bin:$PATH
     - cat /opt/qt-4.8/bin/qt-4.8-env.sh
 
@@ -95,6 +95,7 @@ install:
     - export PATH=$TRAVIS_BUILD_DIR/local/xsd-3.3.0-x86_64-linux-gnu/bin:$PATH
 
     - cd $TRAVIS_BUILD_DIR/peacock
+    - export MAKEFLAGS='-j2'
     - mkdir build
     - cd build
     - cmake -G"${TRAVIS_CMAKE_GENERATOR}" -Dpeacock_prefix=$TRAVIS_BUILD_DIR/local -Dbuild_pcraster_raster_format=true -Dpcraster_raster_format_version=1.3.1 -Dbuild_qwt=true -Dqwt_version=6.1.2 -Dbuild_gdal=true -Dgdal_version=2.0.1 -Dbuild_fern=true -Dfern_git_repository=https://github.com/geoneric/fern.git -Dfern_git_tag=12fa63cb2d72e6abafbbac50f40ca2143344da6a -Dfern_build_fern_algorithm=true -Dfern_build_fern_documentation=false -Dfern_build_fern_test=false ..
@@ -108,6 +109,7 @@ before_script:
 script:
     - set -e  # Don't run the tests if the build fails.
     - cd $TRAVIS_BUILD_DIR/build
+    - export MAKEFLAGS='-j2'
 
     # Split the build, 'make all' takes > 50 minutes, which is not allowed.
     - cmake --build . --config ${TRAVIS_BUILD_TYPE} --target mapattr

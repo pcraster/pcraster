@@ -41,17 +41,34 @@ configure_file(
 )
 
 
-if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR
-        CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+# this one should be removed after compiler warnings are fixed
+include(PCRasterCompilerConfiguration)
 
-    set(CMAKE_C_FLAGS
-        "${CMAKE_C_FLAGS} -Wno-cpp -Wno-parentheses -Wno-cast-qual -Wno-maybe-uninitialized -Wno-unused-parameter -Wno-empty-body -Wno-unused-but-set-variable -Wno-unused-function -Wno-format -Wno-switch -Wno-empty-body -Wno-sign-compare"
-    )
-    set(CMAKE_CXX_FLAGS
-        "${CMAKE_CXX_FLAGS} -Wno-cpp -Wno-parentheses -Wno-cast-qual -Wno-maybe-uninitialized -Wno-unused-parameter -Wno-empty-body -Wno-unused-but-set-variable -Wno-deprecated-declarations -Wno-ignored-qualifiers -Wno-switch -Wno-pedantic -Wno-write-strings -Wno-unused-variable -Wno-unused-local-typedefs -Wno-delete-non-virtual-dtor -Wno-unused-label -Wno-sign-compare"
-    )
-
-endif()
 
 add_subdirectory(source)
 add_subdirectory(documentation)
+
+# Create version information file
+# Dummy target that does nothing. This enables us to attach build commands.
+add_custom_target(version_info_dummy_target ALL)
+
+add_custom_command(
+    TARGET
+      version_info_dummy_target
+    PRE_BUILD
+    COMMAND
+      "${CMAKE_COMMAND}" -DVER=${pcraster_VERSION} -DSRC_DIR=${CMAKE_CURRENT_SOURCE_DIR} -P "${CMAKE_CURRENT_SOURCE_DIR}/environment/cmake/PCRasterVersionInformation.cmake"
+)
+
+
+# execute_process(
+#   COMMAND
+#     "${CMAKE_COMMAND}" -DVER=${pcraster_VERSION} -DSRC_DIR=${CMAKE_CURRENT_SOURCE_DIR} -P "${CMAKE_CURRENT_SOURCE_DIR}/environment/cmake/PCRasterVersionInformation.cmake"
+# )
+
+install(
+  FILES
+    ${CMAKE_CURRENT_BINARY_DIR}/pcraster_version.txt
+  DESTINATION
+    doc
+)

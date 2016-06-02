@@ -1,13 +1,31 @@
-#define BOOST_TEST_MODULE pcraster newcalc cmdlinecalc
+#define BOOST_TEST_MODULE pcraster model_engine cmdlinecalc
 #include <boost/test/unit_test.hpp>
 #include "com_file.h"
 #include "geo_filecreatetester.h"
 #include "calc_messagestestdb.h"
 #include "calc_cmdlinecalc.h"
+#include "calc_LibraryClass.h"
 
 
 
 // NOTE use string failureExpected in files expected to fail, see style guide
+
+
+struct Fixture : public calc::LibraryClassNoQt
+{
+
+    Fixture() : calc::LibraryClassNoQt("cmdlinecalc")
+    {
+    }
+
+
+    ~Fixture()
+    {
+    }
+
+};
+
+BOOST_GLOBAL_FIXTURE(Fixture)
 
 
 BOOST_AUTO_TEST_CASE(testScriptFile)

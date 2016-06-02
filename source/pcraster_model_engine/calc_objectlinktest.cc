@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE pcraster newcalc objectlink
+#define BOOST_TEST_MODULE pcraster model_engine objectlink
 #include <boost/test/unit_test.hpp>
 #include "geo_rasterspace.h"
 #include "com_exception.h"

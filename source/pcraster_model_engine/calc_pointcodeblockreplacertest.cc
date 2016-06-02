@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE pcraster newcalc pointcodeblockreplacer
+#define BOOST_TEST_MODULE pcraster model_engine pointcodeblockreplacer
 #include <boost/test/unit_test.hpp>
 #include <iostream>
 #include "calc_astcfgtester.h"

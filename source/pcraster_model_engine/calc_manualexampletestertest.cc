@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE pcraster newcalc manualexampletester
+#define BOOST_TEST_MODULE pcraster model_engine manualexampletester
 #include <boost/test/unit_test.hpp>
 #include "com_exception.h"
 #include "calc_manualexampletester.h"

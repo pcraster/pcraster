@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE pcraster newcalc argorder
+#define BOOST_TEST_MODULE pcraster model_engine argorder
 #include <boost/test/unit_test.hpp>
 #include "calc_argorder.h"
 #include "pcrtypes.h"

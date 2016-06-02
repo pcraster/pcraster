@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE pcraster newcalc reportvisitor
+#define BOOST_TEST_MODULE pcraster model_engine reportvisitor
 #include <boost/test/unit_test.hpp>
 #include "calc_reportvisitor.h"
 #include "calc_stringparser.h"

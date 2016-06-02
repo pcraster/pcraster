@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE pcraster newcalc datatype
+#define BOOST_TEST_MODULE pcraster model_engine datatype
 #include <boost/test/unit_test.hpp>
 #include "calc_datatype.h"
 #include "calc_datatypeclash.h"

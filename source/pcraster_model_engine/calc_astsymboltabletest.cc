@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE pcraster newcalc astsymboltable
+#define BOOST_TEST_MODULE pcraster model_engine astsymboltable
 #include <boost/test/unit_test.hpp>
 #include "calc_asttestfactory.h"
 #include "calc_astscript.h"

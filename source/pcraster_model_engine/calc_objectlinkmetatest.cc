@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE pcraster newcalc objectlinkmeta
+#define BOOST_TEST_MODULE pcraster model_engine objectlinkmeta
 #include <boost/test/unit_test.hpp>
 
 #define private public

@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE pcraster newcalc operator
+#define BOOST_TEST_MODULE pcraster model_engine operator
 #include <boost/test/unit_test.hpp>
 #include "calc_findsymbol.h"
 

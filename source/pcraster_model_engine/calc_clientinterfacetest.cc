@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE pcraster newcalc clientinterface
+#define BOOST_TEST_MODULE pcraster model_engine clientinterface
 #include <boost/test/unit_test.hpp>
 #include "stddefx.h"
 #include <algorithm>

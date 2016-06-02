@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE pcraster newcalc field
+#define BOOST_TEST_MODULE pcraster model_engine field
 #include <boost/test/unit_test.hpp>
 #include "calc_nonspatial.h"
 #include "calc_spatial.h"

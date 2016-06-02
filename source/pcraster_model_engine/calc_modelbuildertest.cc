@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE pcraster newcalc modelbuilder
+#define BOOST_TEST_MODULE pcraster model_engine modelbuilder
 #include <boost/test/unit_test.hpp>
 #include "geo_filecreatetester.h"
 #include "com_pathinfo.h"

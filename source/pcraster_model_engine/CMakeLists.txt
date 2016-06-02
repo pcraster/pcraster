@@ -419,7 +419,7 @@ if(PCRASTER_BUILD_TEST)
     )
 
     add_unit_tests(
-      SCOPE newcalc
+      SCOPE model_engine
       NAMES ${TEST_NAMES}
       LINK_LIBRARIES
         pcraster_model_engine_unit_test_utils

@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE pcraster newcalc buildtypesvisitor
+#define BOOST_TEST_MODULE pcraster model_engine buildtypesvisitor
 #include <boost/test/unit_test.hpp>
 #include <vector>
 #include "com_exception.h"
@@ -11,6 +11,7 @@
 #include "calc_datatypeclash.h"
 #include "calc_asttestfactory.h"
 #include "calc_datatype.h"
+#include "calc_LibraryClass.h"
 
 #define private public
 #include "calc_astpar.h"
@@ -35,7 +36,7 @@
     btv.visit();
 
 
-struct Fixture
+struct Fixture : public calc::LibraryClassNoQt
 {
 
   void insertTestTable(
@@ -58,7 +59,7 @@ struct Fixture
   }
 
 
-  Fixture()
+  Fixture() : calc::LibraryClassNoQt("buildtypesvisitor")
   {
     using namespace calc;
     d_inputTable = new ASTSymbolTable();
@@ -85,7 +86,6 @@ struct Fixture
   std::vector<calc::ASTPar *>   d_tt_pars;
 
 };
-
 
 
 BOOST_FIXTURE_TEST_SUITE(buildtypesvisitor, Fixture)

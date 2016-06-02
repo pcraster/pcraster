@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE pcraster newcalc bindingtable
+#define BOOST_TEST_MODULE pcraster model_engine bindingtable
 #include <boost/test/unit_test.hpp>
 #include "calc_asttestfactory.h"
 

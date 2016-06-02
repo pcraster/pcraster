@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE pcraster newcalc manualexamples
+#define BOOST_TEST_MODULE pcraster model_engine manualexamples
 #include <boost/test/unit_test.hpp>
 #include <vector>
 #include <sstream>

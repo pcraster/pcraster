@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE pcraster newcalc astpath
+#define BOOST_TEST_MODULE pcraster model_engine astpath
 #include <boost/test/unit_test.hpp>
 #include <sstream>
 #include "calc_astpath.h"

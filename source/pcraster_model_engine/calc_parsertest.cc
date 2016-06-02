@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE pcraster newcalc parser
+#define BOOST_TEST_MODULE pcraster model_engine parser
 #include <boost/test/unit_test.hpp>
 #include <string>
 #include "com_file.h"     // com::write

@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE pcraster newcalc spatial
+#define BOOST_TEST_MODULE pcraster model_engine spatial
 #include <boost/test/unit_test.hpp>
 #include "com_csfcell.h"
 #include "calc_spatial.h"

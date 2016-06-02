@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE pcraster newcalc runtimeenv
+#define BOOST_TEST_MODULE pcraster model_engine runtimeenv
 #include <boost/test/unit_test.hpp>
 #include "geo_rasterspace.h"
 #include "calc_runtimeenv.h"

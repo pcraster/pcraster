@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE pcraster newcalc ldddownstream
+#define BOOST_TEST_MODULE pcraster model_engine ldddownstream
 #include <boost/test/unit_test.hpp>
 #include "stddefx.h"
 #include "calc_asispacking.h"

@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE pcraster newcalc report
+#define BOOST_TEST_MODULE pcraster model_engine report
 #include <boost/test/unit_test.hpp>
 #include "calc_reporttable.h"
 

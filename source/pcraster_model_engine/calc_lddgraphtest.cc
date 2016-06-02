@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE pcraster newcalc lddgraph
+#define BOOST_TEST_MODULE pcraster model_engine lddgraph
 #include <boost/test/unit_test.hpp>
 #include "calc_spatial.h"
 #include "calc_nonspatial.h"

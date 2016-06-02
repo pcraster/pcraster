@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE pcraster newcalc areaoperations
+#define BOOST_TEST_MODULE pcraster model_engine areaoperations
 #include <boost/test/unit_test.hpp>
 #include "com_csfcell.h"
 #include "calc_orderoperations.h"

@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE pcraster newcalc iocsffieldstrategy
+#define BOOST_TEST_MODULE pcraster model_engine iocsffieldstrategy
 #include <boost/test/unit_test.hpp>
 #include "com_pathname.h"
 #include "com_pathinfo.h"

@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE pcraster newcalc dynamicwave
+#define BOOST_TEST_MODULE pcraster model_engine dynamicwave
 #include <boost/test/unit_test.hpp>
 
 #include "geo_filecreatetester.h"

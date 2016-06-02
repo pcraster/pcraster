@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE pcraster newcalc executor
+#define BOOST_TEST_MODULE pcraster model_engine executor
 #include <boost/test/unit_test.hpp>
 #include "calc_asttestfactory.h"
 #include "geo_filecreatetester.h"

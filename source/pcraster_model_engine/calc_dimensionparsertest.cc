@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE pcraster newcalc dimensionparser
+#define BOOST_TEST_MODULE pcraster model_engine dimensionparser
 #include <boost/test/unit_test.hpp>
 #include "com_exception.h"
 

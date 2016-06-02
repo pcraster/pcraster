@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE pcraster newcalc cfgcreator
+#define BOOST_TEST_MODULE pcraster model_engine cfgcreator
 #include <boost/test/unit_test.hpp>
 #include "calc_posexception.h"
 #include "calc_astnode.h"

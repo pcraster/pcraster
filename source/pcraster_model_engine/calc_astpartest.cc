@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE pcraster newcalc astpar
+#define BOOST_TEST_MODULE pcraster model_engine astpar
 #include <boost/test/unit_test.hpp>
 #include "calc_astpar.h"
 #include "calc_parset.h"

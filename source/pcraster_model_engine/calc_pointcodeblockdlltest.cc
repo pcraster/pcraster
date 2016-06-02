@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE pcraster newcalc pointcodeblockdll
+#define BOOST_TEST_MODULE pcraster model_engine pointcodeblockdll
 #include <boost/test/unit_test.hpp>
 #include "geo_filecreatetester.h"
 #include "calc_p5stack.h"

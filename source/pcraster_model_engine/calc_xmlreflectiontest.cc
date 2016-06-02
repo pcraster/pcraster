@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE pcraster newcalc xmlreflection
+#define BOOST_TEST_MODULE pcraster model_engine xmlreflection
 #include <boost/test/unit_test.hpp>
 #include <qdom.h>
 #include "calc_comparefilewithvalidated.h"

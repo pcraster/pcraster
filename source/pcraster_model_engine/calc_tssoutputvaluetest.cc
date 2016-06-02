@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE pcraster newcalc tssoutputvalue
+#define BOOST_TEST_MODULE pcraster model_engine tssoutputvalue
 #include <boost/test/unit_test.hpp>
 #include <iomanip>
 #include <sstream>

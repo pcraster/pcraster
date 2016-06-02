@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE pcraster newcalc areamap
+#define BOOST_TEST_MODULE pcraster model_engine areamap
 #include <boost/test/unit_test.hpp>
 #include "geo_rasterspace.h"
 #include "PCRasterXSD.h"

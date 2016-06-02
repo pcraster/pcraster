@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE pcraster newcalc maskpacking
+#define BOOST_TEST_MODULE pcraster model_engine maskpacking
 #include <boost/test/unit_test.hpp>
 #include "com_algorithm.h"
 #include "com_csfcell.h"

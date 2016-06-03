@@ -10,6 +10,7 @@
 option(PCRASTER_BUILD_DOCUMENTATION "Build documentation" FALSE)
 option(PCRASTER_BUILD_TEST "Build tests" FALSE)
 option(PCRASTER_BUILD_EXPERIMENTAL "Build experimental features" FALSE)
+option(PCRASTER_BUILD_BLOCKPYTHON "Build blockpython module" FALSE)
 
 
 if(PCRASTER_BUILD_DOCUMENTATION)

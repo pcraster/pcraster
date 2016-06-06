@@ -27,6 +27,10 @@ set(CMAKE_MODULE_PATH
 include(PCRaster)
 
 
+# Optional packages
+if(PCRASTER_BUILD_BLOCKPYTHON)
+    set(TEST_RUN_PROLOG_BLOCK_PYTHON "source/pcraster_block_python")
+endif()
 configure_file(
     ${CMAKE_CURRENT_SOURCE_DIR}/CTestCustom.cmake.in
     ${CMAKE_CURRENT_BINARY_DIR}/CTestCustom.cmake
@@ -60,11 +64,6 @@ add_custom_command(
       "${CMAKE_COMMAND}" -DVER=${pcraster_VERSION} -DSRC_DIR=${CMAKE_CURRENT_SOURCE_DIR} -P "${CMAKE_CURRENT_SOURCE_DIR}/environment/cmake/PCRasterVersionInformation.cmake"
 )
 
-
-# execute_process(
-#   COMMAND
-#     "${CMAKE_COMMAND}" -DVER=${pcraster_VERSION} -DSRC_DIR=${CMAKE_CURRENT_SOURCE_DIR} -P "${CMAKE_CURRENT_SOURCE_DIR}/environment/cmake/PCRasterVersionInformation.cmake"
-# )
 
 install(
   FILES

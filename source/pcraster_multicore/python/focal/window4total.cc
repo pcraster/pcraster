@@ -55,6 +55,7 @@ void w4t(
         fa::convolve::SkipNoData,
         fa::convolve::DontDivideByWeights,
         fa::convolve::SkipOutOfImage,
+        fa::convolve::ReplaceNoDataFocusElement,
         fa::convolve::OutOfRangePolicy>(
            input_no_data_policy, output_no_data_policy,
            execution_policy, value, window_kernel, result);

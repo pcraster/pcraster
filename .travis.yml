@@ -45,8 +45,8 @@ addons:
             - xsltproc
             - graphviz
             # - libc++-dev
-            #- gdal-bin
-            #- libgdal-dev
+            #- gdal-bin # 02/2016 travis vm currently installs v1.x
+            - libgdal-dev
 
 before_install:
     - sudo add-apt-repository ppa:beineri/opt-qt487 -y

@@ -126,9 +126,22 @@ Vagrant.configure(2) do |config|
 
     config.vm.provider "virtualbox" do |virtual_box|
         # virtual_box.name = "{box_name}"  # TODO Not unique
-        virtual_box.cpus = "{nr_cpus}"
-        virtual_box.memory = "{amount_of_memory}"
+        #virtual_box.cpus = "{nr_cpus}"
+        #virtual_box.memory = "{amount_of_memory}"
         # virtual_box.gui = true
+
+        virtual_box.customize [
+          "modifyvm", :id,
+          "--cpus", "{nr_cpus}",
+          "--memory", "{amount_of_memory}",
+          "--ioapic", "on",
+          "--nictype1", "virtio",
+          "--nictype2", "virtio",
+          "--natdnshostresolver1", "on",
+          "--natdnsproxy1", "on",
+          "--ioapic", "on"
+        ]
+
     end
 
     {provisions}

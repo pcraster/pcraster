@@ -1,4 +1,22 @@
 {
     "solutions": [
+        {
+            "label": "Ubuntu 16.04 64bit PCRaster no options selected",
+            "box": "ubuntu/xenial64",
+            "provisions": [
+                "add-apt-repository -y ppa:ubuntugis/ubuntugis-unstable",
+                "apt -y update",
+                "apt -y upgrade",
+                "apt -y autoremove",
+                "apt -y install libgdal-dev gdal-bin",
+                "apt -y install cmake gcc g++ git libboost-all-dev libgdal-dev libpython2.7-dev libncurses5-dev libgeos++-dev imagemagick libxslt1-dev xsltproc qt4-dev-tools qt4-qmake libqwt-dev xsdcxx libxml2 libxml2-utils python-numpy"
+            ],
+            "commands": [
+                "uname -a",
+                "wget http://pcraster.geo.uu.nl/download/build_pcraster.py",
+                "sed -i.tmp \"s/\\\"make\\\"/\\\"make -j10\\\"/\" build_pcraster.py",
+                "python ./build_pcraster.py pcraster_4_2_beta"
+            ]
+        }
     ]
 }

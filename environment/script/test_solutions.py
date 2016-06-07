@@ -65,7 +65,7 @@ def execute_command(
     try:
         log_debug(logger, "execute: {}".format(command))
         messages = subprocess.check_output(shlex.split(command),
-            stderr=subprocess.STDOUT)
+            stderr=subprocess.STDOUT, universal_newlines=True)
         log_debug(logger, messages)
     except subprocess.CalledProcessError, exception:
         log_error(logger, exception.output)
@@ -126,20 +126,20 @@ Vagrant.configure(2) do |config|
 
     config.vm.provider "virtualbox" do |virtual_box|
         # virtual_box.name = "{box_name}"  # TODO Not unique
-        #virtual_box.cpus = "{nr_cpus}"
-        #virtual_box.memory = "{amount_of_memory}"
+        # virtual_box.cpus = "{nr_cpus}"
+        # virtual_box.memory = "{amount_of_memory}"
         # virtual_box.gui = true
 
         virtual_box.customize [
-          "modifyvm", :id,
-          "--cpus", "{nr_cpus}",
-          "--memory", "{amount_of_memory}",
-          "--ioapic", "on",
-          "--nictype1", "virtio",
-          "--nictype2", "virtio",
-          "--natdnshostresolver1", "on",
-          "--natdnsproxy1", "on",
-          "--ioapic", "on"
+            "modifyvm", :id,
+            "--cpus", "{nr_cpus}",
+            "--memory", "{amount_of_memory}",
+            "--ioapic", "on",
+            "--nictype1", "virtio",
+            "--nictype2", "virtio",
+            "--natdnshostresolver1", "on",
+            "--natdnsproxy1", "on",
+            "--ioapic", "on"
         ]
 
     end
@@ -212,6 +212,15 @@ def halt_vagrant_box(
     execute_command(logger, command)
 
 
+def reboot_vagrant_box(
+        logger,
+        box_name):
+
+    log_info(logger, "reboot vagrant box")
+    halt_vagrant_box(logger, box_name)
+    start_vagrant_box(logger, box_name)
+
+
 def destroy_vagrant_box(
         logger,
         box_name):
@@ -246,7 +255,13 @@ def test_solution(
 
         try:
 
+            # Start and reboot the virtual machine. Starting it the first
+            # time may install a new kernel, which should be allowed to
+            # start.
             start_vagrant_box(logger, box_name)
+            reboot_vagrant_box(logger, box_name)
+
+            # Run the user-commands obtained from the solution.
             run_commands(logger, box_name, commands)
 
             # All is well: get rid of the virtual machine.

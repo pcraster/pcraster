@@ -1,21 +1,6 @@
 {
     "solutions": [
         {
-            "label": "Ubuntu 14.04 64 gcc-4.9",
-            "box": "ubuntu/trusty64",
-            "provisions": [
-                "apt-get -y update",
-                "apt-get -y upgrade",
-                "apt-get -y autoremove",
-                "apt-get -y install cmake gcc g++ git"
-            ],
-            "commands": [
-                "uname -a",
-                "wget http://pcraster.geo.uu.nl/download/build_pcraster.py",
-                "python ./build_pcraster.py pcraster_4_2_beta"
-            ]
-        },
-        {
             "label": "Ubuntu 14.04 32 gcc-4.9",
             "box": "ubuntu/trusty32",
             "provisions": [

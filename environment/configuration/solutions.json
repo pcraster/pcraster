@@ -33,6 +33,23 @@
                 "wget http://pcraster.geo.uu.nl/download/build_pcraster.py",
                 "PATH=/opt/cmake-3.5.2-Linux-x86_64/bin:$PATH CC=gcc-4.9 CXX=g++-4.9 python ./build_pcraster.py pcraster_4_2_beta"
             ]
+        },
+        {
+            "label": "Ubuntu 14.04 x86_32 gcc-4.9 default build",
+            "box": "ubuntu/trusty32",
+            "provisions": [
+                "add-apt-repository -y ppa:ubuntu-toolchain-r/test",
+                "add-apt-repository -y ppa:ubuntugis/ubuntugis-testing",
+                "apt-get -y update",
+                "apt-get -y upgrade",
+                "apt-get -y autoremove",
+                "apt-get -y install doxygen gcc-4.9 g++-4.9 git graphviz imagemagick libboost-all-dev libcurlpp-dev libgdal-dev libgeos++-dev libgl1-mesa-dev libncurses5-dev libqwt-dev libxerces-c-dev libxml2 libxml2-dev libxml2-utils libxslt1-dev python-dev python-numpy-dev python-sphinx sqlite3 xsdcxx xsltproc",
+                "cd /opt && wget https://cmake.org/files/v3.5/cmake-3.5.2-Linux-i386.tar.gz && tar zxf cmake-3.5.2-Linux-i386.tar.gz"
+            ],
+            "commands": [
+                "wget http://pcraster.geo.uu.nl/download/build_pcraster.py",
+                "PATH=/opt/cmake-3.5.2-Linux-i386/bin:$PATH CC=gcc-4.9 CXX=g++-4.9 python ./build_pcraster.py pcraster_4_2_beta"
+            ]
         }
     ]
 }

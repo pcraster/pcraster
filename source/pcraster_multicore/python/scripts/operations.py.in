@@ -3,7 +3,10 @@ import pcraster as pcr
 import pcraster._pcraster as _pcraster
 
 import _pcraster_multicore as _pmc
-from _pcraster_multicore import set_nr_cpus
+
+
+def set_nr_cpus(arg):
+    _pmc.set_nr_cpus(arg)
 
 
 # just get a spatial or nonspatial
@@ -291,10 +294,10 @@ def mapminimum(arg1):
         raise RuntimeError("pcraster_multicore.mapminimum: {}".format(str(exception)))
 
 
-def maptotal(arg1):
+def maptotal4(arg1):
     try:
         arg1 = get_field(arg1)
-        return _pmc.maptotal(arg1)
+        return _pmc.slope(arg1)#############################maptotal(arg1)
     except RuntimeError as exception:
         raise RuntimeError("pcraster_multicore.maptotal: {}".format(str(exception)))
 

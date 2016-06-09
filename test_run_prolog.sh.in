@@ -14,6 +14,7 @@ directories_with_prolog_scripts="
     source/python_arrayed_variables/cplusplus
     source/pcraster_model_engine
     @TEST_RUN_PROLOG_BLOCK_PYTHON@
+    @TEST_RUN_PROLOG_PYTHON_MULTICORE@
 "
 # TODO See resample's CMakeLists.txt
 # source/resample

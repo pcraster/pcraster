@@ -1,4 +1,5 @@
 #include <boost/python.hpp>
+#include <boost/python/docstring_options.hpp>
 #include "pcraster_multicore/python/execution_policy.h"
 #include "pcraster_multicore/python/local/local.h"
 #include "pcraster_multicore/python/focal/focal.h"
@@ -12,6 +13,9 @@ namespace pmcpy = pcraster_multicore::python;
 
 
 BOOST_PYTHON_MODULE(_pcraster_multicore){
+
+  // disables the C++ signatures in docstrings
+  bp::docstring_options doc_options(true, false);
 
   bp::def("set_nr_cpus", &pmcpy::set_nr_cpus,
     "Set the number of CPUs to be used in the PCRaster multicore algorithms");

@@ -6,7 +6,7 @@ Usage:
   PCRasterSample.py -h | --help
 
   script           Create a script.
-  --format=FORMAT  Format of output. Choose from makefile, python or cpp.
+  --format=FORMAT  Format of output. Choose from makefile, python, multicore or cpp.
   OUTPUT           Output file.
 """
 import os.path
@@ -396,7 +396,7 @@ class Sample(object):
           stream.write("""
     def test_{}(self):
         try:
-            {} 
+            {}
 """.format(self.testName(), script))
           for r in self._results:
               stream.write("""\
@@ -471,20 +471,22 @@ def createCppTestDriver(
             s.createCppTest(stream, fileNameOfDataFile)
 
 def createPythonTestDriver(
-        stream):
+        stream,
+        import_module=""):
     stream.write("""\
 # DO NOT EDIT
 # Created by $PCRTREE2's PCRasterSample.py.
 import os, os.path
 import testcase
 from pcraster import *
+{}
 # from PCRaster.operations import *
 class TestExamples(testcase.TestCase):
     def testProlog(self):
         print "[skipped: inputTailRepeat of argorder* bugzilla 134]"
         assert(True)
         return
-""")
+""".format(import_module))
     for k in _sample_collection.keys():
         s = _sample_collection[k]
         if not s.random:
@@ -551,11 +553,18 @@ def create_python_module(
     createPythonTestDriver(stream)
 
 
+def create_python_multicore_module(
+        stream):
+    execfile("ScriptSamples.py")
+    createPythonTestDriver(stream, "from pcraster.multicore import *")
+
+
 if __name__ == "__main__":
     create_script_by_format = {
         "cpp": create_cpp_module,
         "makefile": create_makefile,
-        "python": create_python_module
+        "python": create_python_module,
+        "multicore": create_python_multicore_module
     }
     arguments = docopt.docopt(__doc__)
     assert "script" in arguments

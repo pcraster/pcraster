@@ -31,6 +31,9 @@ include(PCRaster)
 if(PCRASTER_BUILD_BLOCKPYTHON)
     set(TEST_RUN_PROLOG_BLOCK_PYTHON "source/pcraster_block_python")
 endif()
+if(PCRASTER_WITH_PYTHON_MULTICORE)
+    set(TEST_RUN_PROLOG_PYTHON_MULTICORE "source/pcraster_multicore/tests")
+endif()
 configure_file(
     ${CMAKE_CURRENT_SOURCE_DIR}/CTestCustom.cmake.in
     ${CMAKE_CURRENT_BINARY_DIR}/CTestCustom.cmake

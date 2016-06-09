@@ -1,10 +1,12 @@
 try:
     import pcraster._pcraster as _pcraster
+    #import _pcraster
 except:
     # we rely on a correct PCRaster setup
     raise ImportError("Failed to import the module '_pcraster'")
 
-from . import operations as pmcop
+#from . import operations as pmcop
+import operations as pmcop
 
 
 def pcrmcAnd(self, field):

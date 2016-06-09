@@ -66,13 +66,16 @@ add_subdirectory(legend)
 add_subdirectory(mapdiff)
 
 # Conditional builds...
-if(PCRASTER_BUILD_EXPERIMENTAL)
+if(PCRASTER_WITH_PYTHON_MULTICORE)
     add_subdirectory(pcraster_multicore)
 endif()
 
 if(PCRASTER_BUILD_BLOCKPYTHON)
     add_subdirectory(pcraster_block_python)
 endif()
+
+
+
 
 install(
     FILES

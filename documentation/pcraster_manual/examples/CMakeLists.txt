@@ -5,7 +5,7 @@
 #         all manual example input are created and kept as .itxt
 #         in the test commands they are input as .imap
 #         make will pick up all .itxt files in this directory (MAP_INPUTS)
-# .txt    a number of input tables, set here to TEXT_INPUTS, 
+# .txt    a number of input tables, set here to TEXT_INPUTS,
 #         except for those generated in this Makefile as defined by TEXT_OUTPUTS
 
 CONFIGURE_FILE(
@@ -65,6 +65,10 @@ ADD_CUSTOM_COMMAND(
         ${CMAKE_CURRENT_BINARY_DIR}/PCRasterSample.py script
         --format=python
         ${CMAKE_CURRENT_BINARY_DIR}/testexamples.py
+    COMMAND ${PYTHON_EXECUTABLE}
+        ${CMAKE_CURRENT_BINARY_DIR}/PCRasterSample.py script
+        --format=multicore
+        ${CMAKE_CURRENT_BINARY_DIR}/testexamples_multicore.py
 
     COMMAND touch ${CMAKE_CURRENT_BINARY_DIR}/examples.sentinel
     DEPENDS

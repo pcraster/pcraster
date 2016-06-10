@@ -108,6 +108,13 @@ void assert_boolean_valuescale(const calc::Field& aField, const std::string& msg
 }
 
 void assert_scalar_valuescale(const calc::Field& aField, const std::string& msg){
+
+  if( !aField.isSpatial() ){
+    // Nonspatials will be implicitly casted from e.g. nominal to scalar
+    return;
+  }
+
+  // Spatials need to comply to the PCRaster model engine rules fttb
   PCR_VS field_vs = VS_UNKNOWN;
   field_vs = aField.vs();
 

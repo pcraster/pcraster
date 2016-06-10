@@ -8,11 +8,20 @@
 #include "pcrtypes.h"
 
 // Field wrapper
+#include "pcraster_multicore/wrapper/datatype_customization_points/multicore_spatial.h"
+#include "pcraster_multicore/wrapper/datatype_traits/multicore_spatial.h"
+#include "pcraster_multicore/wrapper/argument_traits/multicore_spatial.h"
+
+#include "pcraster_multicore/wrapper/datatype_customization_points/multicore_nonspatial.h"
+#include "pcraster_multicore/wrapper/datatype_traits/multicore_nonspatial.h"
+#include "pcraster_multicore/wrapper/argument_traits/multicore_nonspatial.h"
+
 #include "pcraster_multicore/python/execution_policy.h"
 #include "pcraster_multicore/python/local/utils.h"
 
 // Fern
-#include "fern/core/thread_pool.h"
+#include "fern/algorithm/policy/policies.h"
+#include "fern/algorithm/core/unary_local_operation.h"
 
 
 
@@ -24,68 +33,40 @@ namespace python {
 namespace detail {
 
 
+template<
+    typename Value>
+struct Algorithm
+{
 
-template<class T>
-void boolean_nonspatial(double cell_value, calc::Field * res_cells){
-
-  double res;
-  if(!pcr::isMV(cell_value)) {
-    res = cell_value != static_cast<T>(0) ? 1 : 0;
-  }
-  else{
-    pcr::setMV(res);
-  }
-  res_cells->setCell(res, 0);
-}
-
-
-
-template<class T>
-void to_bool(const T* in_cells, UINT1* res_cells, size_t start, size_t end){
-
-  UINT1 res = 255;
-  T cell_value = static_cast<T>(0);
-
-  for (size_t c = start; c < end; ++c){
-    cell_value = in_cells[c];
-    if(!pcr::isMV(cell_value)) {
-      res = static_cast<UINT1>(cell_value != static_cast<T>(0) ? 1 : 0);
+    inline void operator()(
+        Value const& value,
+        UINT1& result) const
+    {
+        result = value != static_cast<Value>(0) ? 1 : 0;
     }
-    else{
-      pcr::setMV(res);
-    }
-    res_cells[c] = res;
-  }
-}
 
-template<class T>
-void boolean_spatial(const T* in_cells, UINT1* res_cells){
+};
 
-  size_t nr_threads = nr_cpus();
-  fern::ThreadPool pool(nr_threads);
 
-  std::vector<std::future<void>> futures;
-  futures.reserve(nr_threads);
-
-  auto arg = std::cref(in_cells);
-  auto res = std::ref(res_cells);
-
-  std::lldiv_t interval = std::div(static_cast<long long>(nr_cells()), static_cast<long long>(nr_threads));
-  size_t segment_size = interval.quot;
-
-  for(size_t segments = 0; segments < nr_threads; ++segments){
-    size_t segment_start = segments * segment_size;
-    size_t segment_end = segment_start + segment_size;
-    if(segments == nr_threads - 1){
-      segment_end = nr_cells();
-    }
-    auto function = std::bind(to_bool<T>, arg, res, segment_start, segment_end);
-    futures.emplace_back(pool.submit(function));
-  }
-
-  for(auto& future: futures){
-    future.get();
-  }
+template<
+    typename InputNoDataPolicy,
+    typename OutputNoDataPolicy,
+    typename ExecutionPolicy,
+    typename Value,
+    typename Result
+>
+void cast_to_boolean(
+    InputNoDataPolicy const& input_no_data_policy,
+    OutputNoDataPolicy& output_no_data_policy,
+    ExecutionPolicy& execution_policy,
+    Value const& value,
+    Result& result)
+{
+    fa::unary_local_operation<Algorithm,
+        fa::unary::DiscardDomainErrors, fa::unary::DiscardRangeErrors>(
+            input_no_data_policy, output_no_data_policy,
+            execution_policy,
+            value, result);
 }
 
 
@@ -108,55 +89,68 @@ calc::Field* boolean(
 
   if(field->isSpatial() == false){
     res_field = new calc::NonSpatial(VS_B);
-    double in_value = 0.0;
-    field->getCell(in_value, 0);
+    multicore_field::Nonspatial<UINT1> result(res_field);
+    NonspatialSetNoData<UINT1> output_no_data_policy(result);
 
     switch(cell_representation) {
-      case CR_UINT1:{
-        detail::boolean_nonspatial<UINT1>(in_value, res_field);
-        break;
-      }
       case CR_INT4:{
-        detail::boolean_nonspatial<INT4>(in_value, res_field);
+        const multicore_field::Nonspatial<INT4> arg(field);
+
+        using InputNoDataPolicy = fa::InputNoDataPolicies<NonspatialDetectNoData<INT4>>;
+        InputNoDataPolicy input_no_data_policy{{arg}};
+
+        detail::cast_to_boolean(input_no_data_policy, output_no_data_policy, fa::sequential, arg, result);
         break;
       }
       case CR_REAL4:{
-        detail::boolean_nonspatial<REAL4>(in_value, res_field);
+        const multicore_field::Nonspatial<REAL4> arg(field);
+
+        using InputNoDataPolicy = fa::InputNoDataPolicies<NonspatialDetectNoData<REAL4>>;
+        InputNoDataPolicy input_no_data_policy{{arg}};
+
+        detail::cast_to_boolean(input_no_data_policy, output_no_data_policy, fa::sequential, arg, result);
         break;
       }
       default: {
-        throw std::runtime_error("internal error: unable to perform operation");
+        throw std::runtime_error("internal error: unable to perform nonspatial  operation");
       }
     }
-    return res_field;
+
+    return result.getField();
   }
 
   res_field = new calc::Spatial(VS_B, calc::CRI_1, nr_cells());
-  UINT1* res_cells = res_field->dest_1();
+  multicore_field::Spatial<UINT1> result(res_field);
+  SpatialSetNoData<UINT1> output_no_data_policy(result);
+
 
   switch(cell_representation) {
-    case CR_UINT1:{
-      const UINT1* in_cells = field->src_1();
-      detail::boolean_spatial<UINT1>(in_cells, res_cells);
-      break;
-    }
     case CR_INT4:{
-      const INT4* in_cells = field->src_4();
-      detail::boolean_spatial<INT4>(in_cells, res_cells);
+      fa::ExecutionPolicy epol = execution_policy();
+      const multicore_field::Spatial<INT4> arg(field);
+
+      using InputNoDataPolicy = fa::InputNoDataPolicies<SpatialDetectNoData<INT4>>;
+      InputNoDataPolicy input_no_data_policy{{arg}};
+
+      detail::cast_to_boolean(input_no_data_policy, output_no_data_policy, epol, arg, result);
       break;
     }
     case CR_REAL4:{
-      const REAL4* in_cells = field->src_f();
-      detail::boolean_spatial<REAL4>(in_cells, res_cells);
+      fa::ExecutionPolicy epol = execution_policy();
+      const multicore_field::Spatial<REAL4> arg(field);
+
+      using InputNoDataPolicy = fa::InputNoDataPolicies<SpatialDetectNoData<REAL4>>;
+      InputNoDataPolicy input_no_data_policy{{arg}};
+
+      detail::cast_to_boolean(input_no_data_policy, output_no_data_policy, epol, arg, result);
       break;
     }
     default: {
       throw std::runtime_error("internal error: unable to perform operation");
-      break;
     }
   }
 
-  return res_field;
+  return result.getField();
 }
 
 

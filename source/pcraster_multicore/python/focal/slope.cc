@@ -43,6 +43,10 @@ calc::Field* slope(
     throw std::runtime_error("argument is non-spatial, only spatial is allowed\n");
   }
 
+  if(boolean_valuescale(*field_dem)){
+    throw std::runtime_error("argument nr. 1 of function 'slope': type is boolean, legal type is scalar\n");
+  }
+
   calc::Spatial* field_result = new calc::Spatial(VS_S, calc::CRI_f, nr_cells());
   multicore_field::Spatial<REAL4> result(field_result);
 

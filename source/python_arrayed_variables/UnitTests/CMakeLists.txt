@@ -15,8 +15,7 @@ if(NOT (WIN32 AND (${CMAKE_BUILD_TYPE} STREQUAL Debug)))
 
   set_tests_properties(python_arrayed_variables_unit_tests PROPERTIES
     DEPENDS
-      #examples.sentinel
-      _pcraster
+      examples.sentinel
       mapattr col2map
       fill_python_directory_structure
       python_modelling_framework_dummy

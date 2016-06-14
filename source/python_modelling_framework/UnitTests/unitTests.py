@@ -26,5 +26,7 @@ suites.append(unittest.makeSuite(particleFilterFrameworkTest.ParticleFilterFrame
 suites.append(unittest.makeSuite(TimeoutputTest.TimeoutputTest))
 suites = unittest.TestSuite(suites)
 
-result = unittest.TextTestRunner(verbosity=1).run(suites)
+result = unittest.TextTestRunner(verbosity=3).run(suites)
 test_result = (0 if result.wasSuccessful() else 1)
+
+sys.exit(test_result)

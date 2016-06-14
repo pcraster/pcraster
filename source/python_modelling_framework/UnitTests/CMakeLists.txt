@@ -6,24 +6,39 @@ if(NOT (WIN32 AND (${CMAKE_BUILD_TYPE} STREQUAL Debug)))
     @ONLY
   )
 
-  set(TEST_NAMES
-    unit_tests
+  add_test(
+    NAME
+         python_modelling_framework_unit_tests
+    COMMAND
+        ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/unitTests.py
   )
 
-  add_unit_tests(
-    SCOPE python_modelling_framework
-    NAMES ${TEST_NAMES}
-    LINK_LIBRARIES
-      ${Boost_PYTHON_LIBRARY}
-      ${PYTHON_LIBRARIES}
+  set_tests_properties(python_modelling_framework_unit_tests PROPERTIES
+    DEPENDS
+      examples.sentinel
+      mapattr col2map
+      fill_python_directory_structure
+      python_modelling_framework_dummy
   )
 
-  add_dependencies(python_modelling_framework_unit_tests
-    examples.sentinel
-    mapattr col2map
-    fill_python_directory_structure
-    python_modelling_framework_dummy
-  )
+#   set(TEST_NAMES
+#     unit_tests
+#   )
+#
+#   add_unit_tests(
+#     SCOPE python_modelling_framework
+#     NAMES ${TEST_NAMES}
+#     LINK_LIBRARIES
+#       ${Boost_PYTHON_LIBRARY}
+#       ${PYTHON_LIBRARIES}
+#   )
+#
+#   add_dependencies(python_modelling_framework_unit_tests
+#     examples.sentinel
+#     mapattr col2map
+#     fill_python_directory_structure
+#     python_modelling_framework_dummy
+#   )
 
   # add path of project's unit test related files to PYTHONPATH
   # required to execute this unit test via ctest properly

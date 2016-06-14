@@ -10,7 +10,7 @@ directories_with_prolog_scripts="
     source/pcrxml
     source/modflow/calc
     source/pcraster_python
-    source/python_modelling_framework/cplusplus
+    source/python_modelling_framework/UnitTests
     source/python_arrayed_variables/UnitTests
     source/pcraster_model_engine
     @TEST_RUN_PROLOG_BLOCK_PYTHON@

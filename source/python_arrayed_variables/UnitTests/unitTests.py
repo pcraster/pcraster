@@ -16,5 +16,8 @@ suites.append(unittest.makeSuite(IndexTest.IndexUnitTests))
 suites.append(unittest.makeSuite(VariableCollectionTest.CollectionUnitTests))
 suites = unittest.TestSuite(suites)
 
-result = unittest.TextTestRunner(verbosity=1).run(suites)
+result = unittest.TextTestRunner(verbosity=3).run(suites)
 test_result = (0 if result.wasSuccessful() else 1)
+
+sys.exit(test_result)
+

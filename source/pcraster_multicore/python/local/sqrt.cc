@@ -1,5 +1,4 @@
 #include "pcraster_multicore/python/local/sqrt.h"
-#include "pcraster_multicore/python/local/utils.h"
 
 // PCRaster
 #include "calc_spatial.h"
@@ -39,11 +38,11 @@ calc::Field* sqrt(
          calc::Field* field){
 
   assert_equal_location_attributes(*field);
-  assert_scalar_valuescale(*field, "argument");
 
   calc::Field* field_result = nullptr;
 
   if(field->isSpatial() == false){
+    field = to_scalar(field);
     const multicore_field::Nonspatial<REAL4> arg(field);
 
     field_result = new calc::NonSpatial(VS_S);
@@ -59,6 +58,8 @@ calc::Field* sqrt(
 
     return result.getField();
   }
+
+  assert_scalar_valuescale(*field, "argument");
 
   const multicore_field::Spatial<REAL4> arg(field);
 

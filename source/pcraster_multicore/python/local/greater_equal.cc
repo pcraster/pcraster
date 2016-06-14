@@ -162,12 +162,17 @@ calc::Field* greater_equal(
 
   assert_equal_location_attributes(*field_a);
   assert_equal_location_attributes(*field_b);
-  assert_equal_valuescale(*field_a, *field_b, "one operand");
+  //assert_equal_valuescale(*field_a, *field_b, "one operand");
 
   if(ordinal_valuescale(*field_a) == true){
+    assert_ordinal_valuescale(*field_b, " second argument");
     return detail::greater_equal<INT4>(field_a, field_b);
   }
   else if(scalar_valuescale(*field_a) == true){
+    if(field_b->isSpatial() == false){
+      field_b = to_scalar(field_b);
+    }
+    assert_scalar_valuescale(*field_b, " second argument");
     return detail::greater_equal<REAL4>(field_a, field_b);
   }
   else{

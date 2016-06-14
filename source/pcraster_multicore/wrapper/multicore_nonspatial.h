@@ -42,7 +42,7 @@ private:
 template<class T>
 Nonspatial<T>::Nonspatial(calc::Field* field){
   pcr_field = field;
-  the_cells = static_cast<T*>(pcr_field->dest());
+  the_cells = static_cast<T*>(field->dest());
 }
 
 

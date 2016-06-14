@@ -6,27 +6,36 @@ import os
 import unittest
 import test_import
 import testexamples_multicore
-
+import warnings
 
 import pcraster
 from pcraster.multicore import *
+
+import pcraster.multicore.operators as mcop
 
 
 # Class contains some tests extracted from the Python tests
 # that only apply for the multicore module as well
 class TestMulticore(unittest.TestCase):
 
-  #def testComException(self):
-    #exceptionThrown = False
-    #try:
-      ## Calculating the slope of a boolean map sucks.
-      #pcraster.setclone("and_Expr1.map")
-      #res = slope("and_Expr1.map")
-    #except RuntimeError, exception:
-      #message = str(exception)
-      #self.assert_(string.find(message, "argument nr. 1 of function 'slope': type is boolean, legal type is scalar") != -1)
-      #exceptionThrown = True
-    #self.assert_(exceptionThrown)
+  def testComException(self):
+    exceptionThrown = False
+    try:
+      # Calculating the slope of a boolean map sucks.
+      pcraster.setclone("and_Expr1.map")
+      res = slope("and_Expr1.map")
+    except RuntimeError, exception:
+      message = str(exception)
+      self.assert_(string.find(message, "argument nr. 1 of function 'slope': type is boolean, legal type is scalar") != -1)
+      exceptionThrown = True
+    self.assert_(exceptionThrown)
+
+  def valueTest(self, readValue, readValidValue, trueValidValue, type, trueValue):
+    self.assert_(isinstance(readValidValue, types.IntType))
+    self.assertEqual(readValidValue, trueValidValue)
+    if readValidValue:
+      self.assert_(isinstance(readValue, type))
+      self.assertEqual(readValue, trueValue)
 
   def testIfThenElse(self):
     pcraster.setclone("and_Expr1.map")
@@ -65,6 +74,7 @@ class TestMulticore(unittest.TestCase):
     self.valueTest(value, isValid, True, types.IntType, False)
 
   def testCellValueNominal(self):
+    pcraster.setclone("areaarea_Class.map")
     raster = nominal(pcraster.readmap("areaarea_Class.map"))
     value, isValid = pcraster.cellvalue(raster, 1)
     self.assertEqual(isValid, True)
@@ -100,6 +110,7 @@ class TestMulticore(unittest.TestCase):
     self.assertEqual(isValid, False)
 
   def testCellValueScalar(self):
+    pcraster.setclone("abs_Expr.map")
     raster = scalar(pcraster.readmap("abs_Expr.map"))
     value, isValid = pcraster.cellvalue(raster, 1)
     self.assertEqual(isValid, True)
@@ -185,7 +196,11 @@ class TestMulticore(unittest.TestCase):
     pcraster.setclone("accu_Ldd.map")
     ldd = pcraster.readmap("accu_Ldd.map")
     nonSpatial = pcraster.newNonSpatialField(5)
-    raster = pcrmcNE("accu_Ldd.map", 5)
+    # we need to explicitly cast PODs to ldd (or directional)
+    # when using the multicore module
+    #raster = mcop.pcrmcNE("accu_Ldd.map", 5)
+    raster = mcop.pcrmcNE("accu_Ldd.map", pcr.ldd(5))
+    warnings.warn("Difference between pcraster and multicore module...")
     value, isValid = pcraster.cellvalue(raster, 1)
     self.assertEqual(isValid, True)
     self.assertEqual(value, True)
@@ -264,27 +279,30 @@ class TestMulticore(unittest.TestCase):
       self.assertEqual(pcraster.cellvalue(nonSpatial, 1)[0], value)
 
   def testNonSpatialConversions(self):
-    # Ordinal.
+
     pcraster.setclone("map2asc_PCRmap.map")
-    nonSpatial = mapmaximum(pcraster.readmap("map2asc_PCRmap.map"))
+    nonSpatialValue = mapmaximum(pcraster.readmap("map2asc_PCRmap.map"))
+
+    # Ordinal.
+    nonSpatial = ordinal(nonSpatialValue)
     self.assertEqual(bool(nonSpatial), True)
     self.assertEqual(int(nonSpatial), 124)
     self.assertEqual(float(nonSpatial), 124.0)
 
     # Nominal.
-    nonSpatial = nominal(nonSpatial)
+    nonSpatial = nominal(nonSpatialValue)
     self.assertEqual(bool(nonSpatial), True)
     self.assertEqual(int(nonSpatial), 124)
     self.assertEqual(float(nonSpatial), 124)
 
     # Boolean.
-    nonSpatial = boolean(nonSpatial)
+    nonSpatial = boolean(nonSpatialValue)
     self.assertEqual(bool(nonSpatial), True)
     self.assertEqual(int(nonSpatial), 1)
     self.assertEqual(float(nonSpatial), 1.0)
 
     # Scalar.
-    nonSpatial = mapmaximum("abs_Expr.map")
+    nonSpatial = scalar(mapmaximum("abs_Expr.map"))
     self.assertEqual(bool(nonSpatial), True)
     self.assertEqual(int(nonSpatial), 14)
     self.assertEqual(float(nonSpatial), 14.0)
@@ -306,7 +324,8 @@ class TestMulticore(unittest.TestCase):
     try:
      raster += None
     except Exception, e:
-      msg = "right operand of operator '+': type is Python None, legal type is scalar"
+      #msg = "right operand of operator '+': type is Python None, legal type is scalar"
+      msg = "pcraster.multicore add: conversion of argument with type 'NoneType' to PCRaster not possible"
       self.assert_(str(e).find(msg) != -1, str(e))
       exceptionThrown = True
     self.assert_(exceptionThrown)
@@ -316,16 +335,11 @@ class TestMulticore(unittest.TestCase):
 
 
 
-
-# com exception segfaults
-
-
-
 suite = unittest.TestSuite()
 
 suite.addTest(unittest.makeSuite(test_import.ImportTest))
-suite.addTest(unittest.makeSuite(testexamples_multicore.TestExamples))
 suite.addTest(unittest.makeSuite(TestMulticore))
+suite.addTest(unittest.makeSuite(testexamples_multicore.TestExamples))
 
 result = unittest.TextTestRunner(verbosity=3).run(suite)
 test_result = (0 if result.wasSuccessful() else 1)

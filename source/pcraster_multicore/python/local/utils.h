@@ -47,12 +47,6 @@ calc::Field* degrees_to_radians(const multicore_field::Spatial<REAL4>* aField,  
 
 
 
-calc::Field* newNonSpatialScalar(double value);
-
-calc::Field* newNonSpatialNominal(int value);
-
-calc::Field* newNonSpatialBoolean(bool value);
-
 bool global_option_degrees();
 
 void assert_equal_valuescale(const calc::Field& field_a, const calc::Field& field_b, const std::string& msg);
@@ -60,6 +54,9 @@ void assert_equal_valuescale(const calc::Field& field_a, const calc::Field& fiel
 /// simple test if location attributes of field match the clone ones
 void assert_equal_location_attributes(const calc::Field& field_a);
 
+calc::Field* to_scalar(calc::Field* nonspatial);
+calc::Field* to_boolean(calc::Field* nonspatial);
+calc::Field* to_ordinal(calc::Field* nonspatial);
 
 } // namespace python
 } // namespace pcraster_multicore

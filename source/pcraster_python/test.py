@@ -401,26 +401,27 @@ class Test(testcase.TestCase):
     self.assertEqual(mv, True)
 
   def testNonSpatialConversions(self):
+    nonSpatialValue = pcraster.mapmaximum(pcraster.readmap("map2asc_PCRmap.map"))
     # Ordinal.
-    nonSpatial = pcraster.mapmaximum(pcraster.readmap("map2asc_PCRmap.map"))
+    nonSpatial = pcraster.ordinal(nonSpatialValue)
     self.assertEqual(bool(nonSpatial), True)
     self.assertEqual(int(nonSpatial), 124)
     self.assertEqual(float(nonSpatial), 124.0)
 
     # Nominal.
-    nonSpatial = pcraster.nominal(nonSpatial)
+    nonSpatial = pcraster.nominal(nonSpatialValue)
     self.assertEqual(bool(nonSpatial), True)
     self.assertEqual(int(nonSpatial), 124)
     self.assertEqual(float(nonSpatial), 124)
 
     # Boolean.
-    nonSpatial = pcraster.boolean(nonSpatial)
+    nonSpatial = pcraster.boolean(nonSpatialValue)
     self.assertEqual(bool(nonSpatial), True)
     self.assertEqual(int(nonSpatial), 1)
     self.assertEqual(float(nonSpatial), 1.0)
 
     # Scalar.
-    nonSpatial = pcraster.mapmaximum("abs_Expr.map")
+    nonSpatial = pcraster.scalar(pcraster.mapmaximum("abs_Expr.map"))
     self.assertEqual(bool(nonSpatial), True)
     self.assertEqual(int(nonSpatial), 14)
     self.assertEqual(float(nonSpatial), 14.0)

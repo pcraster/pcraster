@@ -3,6 +3,7 @@ set(_SOURCES
     nominal
     ordinal
     scalar
+    nonspatial_field
 )
 
 add_library(multicore_field_python_type_conversions

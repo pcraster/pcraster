@@ -40,11 +40,11 @@ calc::Field* abs(
          calc::Field* field){
 
   assert_equal_location_attributes(*field);
-  assert_scalar_valuescale(*field, "argument");
 
   calc::Field* field_result = nullptr;
 
   if(field->isSpatial() == false){
+    field = to_scalar(field);
     const multicore_field::Nonspatial<REAL4> arg(field);
 
     field_result = new calc::NonSpatial(VS_S);
@@ -61,6 +61,7 @@ calc::Field* abs(
     return result.getField();
   }
 
+  assert_scalar_valuescale(*field, "argument");
   const multicore_field::Spatial<REAL4> arg(field);
 
   field_result = new calc::Spatial(VS_S, calc::CRI_f, nr_cells());

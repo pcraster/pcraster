@@ -11,6 +11,7 @@
 
 #include "fern/algorithm/policy/execution_policy.h"
 
+#include "pcraster_multicore/python/type_conversion/type_conversion.h"
 #include "pcraster_multicore/python/local/mul.h"
 #include "pcraster_multicore/python/execution_policy.h"
 #include "pcraster_multicore/wrapper/multicore_spatial.h"
@@ -97,6 +98,7 @@ void assert_equal_valuescale(const calc::Field& field_a, const calc::Field& fiel
 
 
 void assert_boolean_valuescale(const calc::Field& aField, const std::string& msg){
+
   PCR_VS field_vs = VS_UNKNOWN;
   field_vs = aField.vs();
 
@@ -109,12 +111,6 @@ void assert_boolean_valuescale(const calc::Field& aField, const std::string& msg
 
 void assert_scalar_valuescale(const calc::Field& aField, const std::string& msg){
 
-  if( !aField.isSpatial() ){
-    // Nonspatials will be implicitly casted from e.g. nominal to scalar
-    return;
-  }
-
-  // Spatials need to comply to the PCRaster model engine rules fttb
   PCR_VS field_vs = VS_UNKNOWN;
   field_vs = aField.vs();
 
@@ -127,6 +123,7 @@ void assert_scalar_valuescale(const calc::Field& aField, const std::string& msg)
 
 
 void assert_ordinal_valuescale(const calc::Field& aField, const std::string& msg){
+
   PCR_VS field_vs = VS_UNKNOWN;
   field_vs = aField.vs();
 
@@ -164,21 +161,6 @@ bool global_option_degrees(){
 }
 
 
-// the PCRaster newnonspatialfield return with multiple valuescales based on the input value
-// that will break the value scale checking in the multicore algorithms
-// just make our own ones
-calc::Field* newNonSpatialScalar(double value){
-  return new calc::NonSpatial(VS_S, value);
-}
-
-calc::Field* newNonSpatialNominal(int value){
-  return new calc::NonSpatial(VS_N, static_cast<double>(value));
-}
-
-calc::Field* newNonSpatialBoolean(bool value){
-  return new calc::NonSpatial(VS_B, static_cast<double>(value));
-}
-
 
 void assert_equal_location_attributes(const calc::Field& field){
   // this is a rather weak test, we should add methods to the PCRaster calc::Field
@@ -189,6 +171,38 @@ void assert_equal_location_attributes(const calc::Field& field){
     throw std::runtime_error("Number of cells is different from clone map");
   }
 }
+
+
+
+calc::Field* to_scalar(calc::Field* nonspatial){
+  if(scalar_valuescale(*nonspatial)){
+    return nonspatial;
+  }
+  else{
+    return scalar(nonspatial);
+  }
+}
+
+
+calc::Field* to_boolean(calc::Field* nonspatial){
+  if(boolean_valuescale(*nonspatial)){
+    return nonspatial;
+  }
+  else{
+    return boolean(nonspatial);
+  }
+}
+
+
+calc::Field* to_ordinal(calc::Field* nonspatial){
+  if(ordinal_valuescale(*nonspatial)){
+    return nonspatial;
+  }
+  else{
+    return ordinal(nonspatial);
+  }
+}
+
 
 
 

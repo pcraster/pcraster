@@ -339,7 +339,7 @@ suite = unittest.TestSuite()
 
 suite.addTest(unittest.makeSuite(test_import.ImportTest))
 suite.addTest(unittest.makeSuite(TestMulticore))
-#suite.addTest(unittest.makeSuite(testexamples_multicore.TestExamples))
+suite.addTest(unittest.makeSuite(testexamples_multicore.TestExamples))
 
 result = unittest.TextTestRunner(verbosity=3).run(suite)
 test_result = (0 if result.wasSuccessful() else 1)

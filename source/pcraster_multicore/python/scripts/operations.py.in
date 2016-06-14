@@ -93,6 +93,63 @@ def ifthenelse(arg1, arg2, arg3):
 
 
 
+def boolean(arg1):
+
+    # Fallback to model_engine
+    if isinstance(arg1, _pcraster.Field):
+        if arg1.dataType() ==  _pcraster.VALUESCALE.Directional:
+            return pcr.scalar(arg1)
+
+    try:
+        arg1 = get_field(arg1)
+        return _pmc.boolean(arg1)
+    except RuntimeError as exception:
+        raise RuntimeError("pcraster.multicore boolean: {}".format(str(exception)))
+
+
+def nominal(arg1):
+
+    # Fallback to model_engine
+    if isinstance(arg1, _pcraster.Field):
+        if arg1.dataType() ==  _pcraster.VALUESCALE.Directional:
+            return pcr.scalar(arg1)
+
+    try:
+        arg1 = get_field(arg1)
+        return _pmc.nominal(arg1)
+    except RuntimeError as exception:
+        raise RuntimeError("pcraster.multicore nominal: {}".format(str(exception)))
+
+
+def ordinal(arg1):
+
+    # Fallback to model_engine
+    if isinstance(arg1, _pcraster.Field):
+        if arg1.dataType() ==  _pcraster.VALUESCALE.Directional:
+            return pcr.scalar(arg1)
+
+    try:
+        arg1 = get_field(arg1)
+        return _pmc.ordinal(arg1)
+    except RuntimeError as exception:
+        raise RuntimeError("pcraster.multicore ordinal: {}".format(str(exception)))
+
+
+def scalar(arg1):
+
+    # Fallback to model_engine
+    if isinstance(arg1, _pcraster.Field):
+        if arg1.dataType() ==  _pcraster.VALUESCALE.Directional:
+            return pcr.scalar(arg1)
+    try:
+        arg1 = get_field(arg1)
+        return _pmc.scalar(arg1)
+    except RuntimeError as exception:
+        raise RuntimeError("pcraster.multicore scalar: {}".format(str(exception)))
+
+
+
+
 
 
 # these ones below here can be generated?!
@@ -313,36 +370,6 @@ def mapminimum(arg1):
         raise RuntimeError("pcraster.multicore mapminimum: {}".format(str(exception)))
 
 
-def boolean(arg1):
-    try:
-        arg1 = get_field(arg1)
-        return _pmc.boolean(arg1)
-    except RuntimeError as exception:
-        raise RuntimeError("pcraster.multicore boolean: {}".format(str(exception)))
-
-
-def nominal(arg1):
-    try:
-        arg1 = get_field(arg1)
-        return _pmc.nominal(arg1)
-    except RuntimeError as exception:
-        raise RuntimeError("pcraster.multicore nominal: {}".format(str(exception)))
-
-
-def ordinal(arg1):
-    try:
-        arg1 = get_field(arg1)
-        return _pmc.ordinal(arg1)
-    except RuntimeError as exception:
-        raise RuntimeError("pcraster.multicore ordinal: {}".format(str(exception)))
-
-
-def scalar(arg1):
-    try:
-        arg1 = get_field(arg1)
-        return _pmc.scalar(arg1)
-    except RuntimeError as exception:
-        raise RuntimeError("pcraster.multicore scalar: {}".format(str(exception)))
 
 
 def acos(arg1):

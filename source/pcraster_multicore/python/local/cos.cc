@@ -133,10 +133,14 @@ calc::Field* cos_directional(
 
     if(global_option_degrees()){
       // fist convert input to radians...
-      multicore_field::Spatial<REAL4> deg_rad(degrees_to_radians(&arg, &result));
+      //multicore_field::Spatial<REAL4> deg_rad(degrees_to_radians(&arg, &result));
 
+      //fa::trigonometry::cos<OutOfDirectionalDomainPolicy>(input_no_data_policy,
+      //  output_no_data_policy, epol, deg_rad, result);
+
+      // no conversion only due to match the PCRaster behaviour...
       fa::trigonometry::cos<OutOfDirectionalDomainPolicy>(input_no_data_policy,
-        output_no_data_policy, epol, deg_rad, result);
+        output_no_data_policy, epol, arg, result);
     }
     else{
       fa::trigonometry::cos<OutOfDirectionalDomainPolicy>(input_no_data_policy,

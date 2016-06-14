@@ -180,3 +180,4 @@ calc::Field* ordinal(
 
 } // namespace python
 } // namespace pcraster_multicore
+

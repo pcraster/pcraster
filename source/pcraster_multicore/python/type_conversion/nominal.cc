@@ -180,3 +180,4 @@ calc::Field* nominal(
 
 } // namespace python
 } // namespace pcraster_multicore
+

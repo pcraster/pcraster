@@ -69,12 +69,12 @@ void w4t(
 calc::Field* window4total(
          calc::Field * field){
 
-  assert_equal_location_attributes(*field);
-  assert_scalar_valuescale(*field, "argument");
-
   if(field->isSpatial() == false){
     throw std::runtime_error("argument is non-spatial, only spatial is allowed\n");
   }
+
+  assert_equal_location_attributes(*field);
+  assert_scalar_valuescale(*field, "argument");
 
   const multicore_field::Spatial<REAL4> arg(field);
 

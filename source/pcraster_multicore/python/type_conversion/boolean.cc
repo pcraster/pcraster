@@ -83,6 +83,10 @@ calc::Field* boolean(
     return res_field;
   }
 
+  if(directional_valuescale(*field)){
+    throw std::runtime_error("operation not implemented for type 'directional'");
+  }
+
   calc::Field* res_field = nullptr;
 
   CSF_CR cell_representation = field->cr();

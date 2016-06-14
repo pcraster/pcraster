@@ -16,6 +16,7 @@
 
 #include "pcraster_multicore/python/execution_policy.h"
 #include "pcraster_multicore/python/local/utils.h"
+#include "pcraster_multicore/python/local/policies.h"
 
 
 // Fern
@@ -42,7 +43,7 @@ calc::Field* power_number_number(
 
   NonspatialSetNoData<REAL4> output_no_data_policy(*res);
 
-  fa::algebra::pow<fa::pow::OutOfDomainPolicy,
+  fa::algebra::pow<OutOfPowerDomainPolicy,//fa::pow::OutOfDomainPolicy,
     fa::pow::OutOfRangePolicy>(input_no_data_policy,
     output_no_data_policy, fa::sequential, *arg1, *arg2, *res);
 
@@ -62,7 +63,7 @@ calc::Field* power_field_field(
 
   SpatialSetNoData<REAL4> output_no_data_policy(*res);
 
-  fa::algebra::pow<fa::pow::OutOfDomainPolicy,
+  fa::algebra::pow<OutOfPowerDomainPolicy,//fa::pow::OutOfDomainPolicy,
     fa::pow::OutOfRangePolicy>(input_no_data_policy,
     output_no_data_policy, epol, *arg1, *arg2, *res);
 
@@ -82,7 +83,7 @@ calc::Field* power_field_number(
   InputNoDataPolicy input_no_data_policy{{*arg1},{*arg2}};
   SpatialSetNoData<REAL4> output_no_data_policy(*res);
 
-  fa::algebra::pow<fa::pow::OutOfDomainPolicy,
+  fa::algebra::pow<OutOfPowerDomainPolicy,//fa::pow::OutOfDomainPolicy,
     fa::pow::OutOfRangePolicy>(input_no_data_policy,
     output_no_data_policy, epol, *arg1, *arg2, *res);
 
@@ -102,7 +103,7 @@ calc::Field* power_number_field(
   InputNoDataPolicy input_no_data_policy{{*arg1},{*arg2}};
   SpatialSetNoData<REAL4> output_no_data_policy(*res);
 
-  fa::algebra::pow<fa::pow::OutOfDomainPolicy,
+  fa::algebra::pow<OutOfPowerDomainPolicy,//fa::pow::OutOfDomainPolicy,
     fa::pow::OutOfRangePolicy>(input_no_data_policy,
     output_no_data_policy, epol, *arg1, *arg2, *res);
 
@@ -116,6 +117,14 @@ calc::Field* power_number_field(
 calc::Field* power(
          calc::Field* field_a,
          calc::Field* field_b){
+
+  // type casting of nonspatials
+  if(field_a->isSpatial() == false){
+    field_a = to_scalar(field_a);
+  }
+  if(field_b->isSpatial() == false){
+    field_b = to_scalar(field_b);
+  }
 
   assert_equal_location_attributes(*field_a);
   assert_equal_location_attributes(*field_b);

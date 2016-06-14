@@ -180,3 +180,4 @@ calc::Field* scalar(
 
 } // namespace python
 } // namespace pcraster_multicore
+

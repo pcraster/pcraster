@@ -168,25 +168,27 @@ BOOST_AUTO_TEST_CASE(test_bcf2ss) {
 }
 
 
+// this can be removed when ctest executes well on all platforms
+//
 // Python tests must be run after pcrcalc tests
 // as input maps are generated in the calc script;
 // and do not run debug tests on Windows
 // or figure out how calling Python_d.exe from here works
-BOOST_AUTO_TEST_CASE(test_python_scripts){
-  // using Py_Main will not work in combination with BOOST_CHECK
-  // due to sys.exit value not forwarded properly
-  int failed = 1;
-  try{
-    Py_Initialize();
-    boost::python::object main = boost::python::import("__main__");
-    boost::python::object global(main.attr("__dict__"));
-    boost::python::object script = boost::python::exec_file("tests.py", global, global);
-    boost::python::object result = global["test_result"];
-    failed = boost::python::extract<int>(result);
-    Py_Finalize();
-  }
-  catch(...){
-     PyErr_Print();
-  }
-  BOOST_CHECK(failed == 0);
-}
+// BOOST_AUTO_TEST_CASE(test_python_scripts){
+//   // using Py_Main will not work in combination with BOOST_CHECK
+//   // due to sys.exit value not forwarded properly
+//   int failed = 1;
+//   try{
+//     Py_Initialize();
+//     boost::python::object main = boost::python::import("__main__");
+//     boost::python::object global(main.attr("__dict__"));
+//     boost::python::object script = boost::python::exec_file("tests.py", global, global);
+//     boost::python::object result = global["test_result"];
+//     failed = boost::python::extract<int>(result);
+//     Py_Finalize();
+//   }
+//   catch(...){
+//      PyErr_Print();
+//   }
+//   BOOST_CHECK(failed == 0);
+// }

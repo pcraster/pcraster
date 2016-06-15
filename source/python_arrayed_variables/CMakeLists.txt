@@ -1,5 +1,5 @@
 if(PCRASTER_BUILD_TEST)
-  add_subdirectory(cplusplus)
+  add_subdirectory(UnitTests)
 endif()
 
 set(SOURCES
@@ -25,7 +25,6 @@ add_custom_target(python_arrayed_variables_dummy)
 add_dependencies(python_arrayed_variables_dummy
     _pcraster_modflow_python
 )
-
 
 add_custom_command(
     TARGET python_arrayed_variables_dummy

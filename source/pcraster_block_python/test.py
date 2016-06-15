@@ -1,5 +1,7 @@
 #!/usr/bin/env python
+import sys
 import unittest
+
 
 try:
   import usecasetest
@@ -14,5 +16,7 @@ suite = unittest.TestSuite()
 suite.addTest(unittest.makeSuite( \
          usecasetest.UseCaseTest))
 
-result = unittest.TextTestRunner(verbosity=2).run(suite)
+result = unittest.TextTestRunner(verbosity=3).run(suite)
 test_result = (0 if result.wasSuccessful() else 1)
+
+sys.exit(test_result)

@@ -119,20 +119,29 @@ ADD_CUSTOM_TARGET(
 
 if(PCRASTER_BUILD_TEST)
 
+
+  add_test(
+    NAME
+         python_pcrcalcpy_pythonunittest
+    COMMAND
+        ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test.py
+  )
+
+
 # OLS: clean up the comments when refacoring for the new windows build
 # I leave them here just as info in case of troubles...
 
-   set(TEST_NAMES
-     pcrcalcpy_pythonunittest
-   )
-
-   add_unit_tests(
-     SCOPE python
-     NAMES ${TEST_NAMES}
-     LINK_LIBRARIES
-       ${Boost_PYTHON_LIBRARY}
-       ${PYTHON_LIBRARIES}
-   )
+#    set(TEST_NAMES
+#      pcrcalcpy_pythonunittest
+#    )
+#
+#    add_unit_tests(
+#      SCOPE python
+#      NAMES ${TEST_NAMES}
+#      LINK_LIBRARIES
+#        ${Boost_PYTHON_LIBRARY}
+#        ${PYTHON_LIBRARIES}
+#    )
 
    # add path of project's unit test related files to PYTHONPATH
    # required to execute this unit test via ctest properly
@@ -148,11 +157,11 @@ if(PCRASTER_BUILD_TEST)
    endif()
 
 
-   add_dependencies(python_pcrcalcpy_pythonunittest
-     examples.sentinel
-     mapattr asc2map col2map
-     _pcraster fill_python_directory_structure
-   )
+#    add_dependencies(python_pcrcalcpy_pythonunittest
+#      examples.sentinel
+#      mapattr asc2map col2map
+#      _pcraster fill_python_directory_structure
+#    )
 
 
  # do not run debug tests on Windows

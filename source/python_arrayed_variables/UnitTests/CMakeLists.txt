@@ -16,8 +16,13 @@ if(NOT (WIN32 AND (${CMAKE_BUILD_TYPE} STREQUAL Debug)))
   set_tests_properties(python_arrayed_variables_unit_tests PROPERTIES
     DEPENDS
       examples.sentinel
-      mapattr col2map
+    DEPENDS
+      mapattr
+    DEPENDS
+      col2map
+    DEPENDS
       fill_python_directory_structure
+    DEPENDS
       python_modelling_framework_dummy
   )
 

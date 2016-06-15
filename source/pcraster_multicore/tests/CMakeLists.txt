@@ -12,6 +12,11 @@ add_test(
         ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test.py
 )
 
+set_tests_properties(python_multicore_unit_tests PROPERTIES
+  DEPENDS
+      _pcraster_multicore
+)
+
 # add path of project's unit test related files to PYTHONPATH
 # required to execute this unit test via ctest properly
 if(WIN32)

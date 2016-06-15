@@ -89,7 +89,7 @@ ADD_CUSTOM_COMMAND(
 ADD_CUSTOM_TARGET(examples.sentinel
     DEPENDS
         check_man_pages
-        #${CMAKE_CURRENT_BINARY_DIR}/examples.sentinel
+        ${CMAKE_CURRENT_BINARY_DIR}/examples.sentinel
 )
 
 ADD_CUSTOM_TARGET(check_man_pages

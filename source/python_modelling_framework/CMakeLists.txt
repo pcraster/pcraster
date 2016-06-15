@@ -46,7 +46,7 @@ set(FRAMEWORK_BUILD_DIRECTORY
 
 # This enables us to test and use the code as if it where installed already.
 # Dummy target that does nothing. This enables us to attach post-build commands.
-add_custom_target(python_modelling_framework_dummy)
+add_custom_target(python_modelling_framework_dummy ALL)
 
 add_dependencies(python_modelling_framework_dummy
     _pcraster_modflow_python

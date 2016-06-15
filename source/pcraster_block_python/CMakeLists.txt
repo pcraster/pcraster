@@ -71,17 +71,33 @@ if(PCRASTER_BUILD_TEST)
     @ONLY
   )
 
-  set(TEST_NAMES
-    blockpy_pythonunittest
+  add_test(
+    NAME
+         blockpy_blockpy_pythonunittest
+    COMMAND
+        ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test.py
   )
 
-  add_unit_tests(
-    SCOPE blockpy
-    NAMES ${TEST_NAMES}
-    LINK_LIBRARIES
-      ${Boost_PYTHON_LIBRARY}
-      ${PYTHON_LIBRARIES}
-  )
+
+
+#   set_tests_properties(blockpy_blockpy_pythonunittest PROPERTIES
+#     DEPENDS
+#       _pcraster_block_python
+#       python_modelling_framework_dummy
+#   )
+
+
+#   set(TEST_NAMES
+#     blockpy_pythonunittest
+#   )
+#
+#   add_unit_tests(
+#     SCOPE blockpy
+#     NAMES ${TEST_NAMES}
+#     LINK_LIBRARIES
+#       ${Boost_PYTHON_LIBRARY}
+#       ${PYTHON_LIBRARIES}
+#   )
 
   # add path of project's unit test related files to PYTHONPATH
   # required to execute this unit test via ctest properly
@@ -96,10 +112,6 @@ if(PCRASTER_BUILD_TEST)
     )
   endif()
 
-  add_dependencies(blockpy_blockpy_pythonunittest
-    _pcraster_block_python
-    python_modelling_framework_dummy
-  )
 
 
 

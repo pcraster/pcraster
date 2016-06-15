@@ -29,8 +29,8 @@ add_dependencies(python_arrayed_variables_dummy
 add_custom_command(
     TARGET python_arrayed_variables_dummy
     POST_BUILD
-        COMMAND cmake -E remove_directory ${COLLECTION_BUILD_DIRECTORY}
-        COMMAND cmake -E make_directory ${COLLECTION_BUILD_DIRECTORY}
+        COMMAND ${CMAKE_COMMAND} -E remove_directory ${COLLECTION_BUILD_DIRECTORY}
+        COMMAND ${CMAKE_COMMAND} -E make_directory ${COLLECTION_BUILD_DIRECTORY}
         COMMAND cp ${SOURCES} ${COLLECTION_BUILD_DIRECTORY}
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
         DEPENDS ${SOURCES}

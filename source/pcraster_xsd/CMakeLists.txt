@@ -90,10 +90,10 @@ IF(${AGUILA_BUILD})
         DEPENDS ${_AGUILA_XSD} ${XSD_EPILOGUE}
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
         COMMENT Generating ${CMAKE_CURRENT_BINARY_DIR}/AguilaXSD.cc
-        COMMAND cmake -E copy ${_AGUILA_XSD} ${CMAKE_CURRENT_BINARY_DIR}
-        COMMAND cmake -E copy ${XSD_SRC_DIR}/commonTypes.xsd
+        COMMAND ${CMAKE_COMMAND} -E copy ${_AGUILA_XSD} ${CMAKE_CURRENT_BINARY_DIR}
+        COMMAND ${CMAKE_COMMAND} -E copy ${XSD_SRC_DIR}/commonTypes.xsd
             ${CMAKE_CURRENT_BINARY_DIR}
-        COMMAND cmake -E copy ${CMAKE_CURRENT_SOURCE_DIR}/xsdEpilogue.txt
+        COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/xsdEpilogue.txt
             ${CMAKE_CURRENT_BINARY_DIR}
         COMMAND ${XSD_EXECUTABLE} ${XSD_OPTIONS} ${AGUILA_RES}
             --hxx-epilogue-file xsdEpilogue.txt Aguila.xsd
@@ -122,10 +122,10 @@ IF(${PCRTREE2_BUILD})
         DEPENDS ${_PCRASTER_XSD} ${XSD_EPILOGUE}
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
         COMMENT Generating ${CMAKE_CURRENT_BINARY_DIR}/PCRasterXSD.cc
-        COMMAND cmake -E copy ${_PCRASTER_XSD} ${CMAKE_CURRENT_BINARY_DIR}
-        COMMAND cmake -E copy ${XSD_SRC_DIR}/commonTypes.xsd
+        COMMAND ${CMAKE_COMMAND} -E copy ${_PCRASTER_XSD} ${CMAKE_CURRENT_BINARY_DIR}
+        COMMAND ${CMAKE_COMMAND} -E copy ${XSD_SRC_DIR}/commonTypes.xsd
             ${CMAKE_CURRENT_BINARY_DIR}
-        COMMAND cmake -E copy ${CMAKE_CURRENT_SOURCE_DIR}/xsdEpilogue.txt
+        COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/xsdEpilogue.txt
             ${CMAKE_CURRENT_BINARY_DIR}
         COMMAND ${XSD_EXECUTABLE} ${XSD_OPTIONS} --root-element-all
             --cxx-suffix XSD.cc --hxx-epilogue-file xsdEpilogue.txt PCRaster.xsd

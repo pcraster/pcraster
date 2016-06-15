@@ -55,8 +55,8 @@ add_dependencies(python_modelling_framework_dummy
 add_custom_command(
     TARGET python_modelling_framework_dummy
     POST_BUILD
-        COMMAND cmake -E remove_directory ${FRAMEWORK_BUILD_DIRECTORY}
-        COMMAND cmake -E make_directory ${FRAMEWORK_BUILD_DIRECTORY}
+        COMMAND ${CMAKE_COMMAND} -E remove_directory ${FRAMEWORK_BUILD_DIRECTORY}
+        COMMAND ${CMAKE_COMMAND} -E make_directory ${FRAMEWORK_BUILD_DIRECTORY}
         COMMAND cp ${SOURCES} ${FRAMEWORK_BUILD_DIRECTORY}
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
         DEPENDS ${SOURCES}

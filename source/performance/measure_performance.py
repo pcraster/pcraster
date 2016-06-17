@@ -14,7 +14,8 @@ a database
 
 Usage:
     {command} [--repeat=<count>] [--print | --database=<name>]
-        [--skip-classic] <data_prefix>
+        [--skip-classic] [--skip-multicore] [--skip-scalability]
+        <data_prefix>
 
 Options:
     -h --help               Show this screen
@@ -23,6 +24,8 @@ Options:
     --print                 Output results to screen instead of database
     --database=<name>       Overwrite default database name
     --skip-classic          Skip measurements for classic operations
+    --skip-multicore        Skip measurements for multicore operations
+    --skip-scalability      Skip scalability measurements
     data_prefix             Pathname of directory containing input data
 
 By default
@@ -53,12 +56,14 @@ def measure_operation_performance(
         data_prefix,
         repeat,
         runner,
-        skip_classic):
+        skip_classic,
+        skip_multicore):
 
     if not skip_classic:
         measure_classic_operation_performance(data_prefix, repeat, runner)
 
-    measure_multicore_operation_performance(data_prefix, repeat, runner)
+    if not skip_multicore:
+        measure_multicore_operation_performance(data_prefix, repeat, runner)
 
 
 def measure_multicore_operation_scalability(
@@ -81,10 +86,14 @@ def measure_performance(
         data_prefix,
         repeat,
         runner,
-        skip_classic):
+        skip_classic,
+        skip_multicore,
+        skip_scalability):
     measure_operation_performance(data_prefix, repeat, runner,
-        skip_classic=skip_classic)
-    measure_operation_scalability(data_prefix, repeat, runner)
+        skip_classic, skip_multicore)
+
+    if not skip_scalability:
+        measure_operation_scalability(data_prefix, repeat, runner)
 
 
 if __name__ == '__main__':
@@ -92,6 +101,8 @@ if __name__ == '__main__':
     data_prefix = arguments["<data_prefix>"]
     repeat = int(arguments["--repeat"])
     skip_classic = arguments["--skip-classic"]
+    skip_multicore = arguments["--skip-multicore"]
+    skip_scalability = arguments["--skip-scalability"]
     print_to_screen = arguments["--print"]
 
     if print_to_screen:
@@ -109,4 +120,5 @@ if __name__ == '__main__':
     runner = pa.CompositeTimerRunner([output_runner, progress_runner])
 
     sys.exit(measure_performance(data_prefix, repeat, runner,
-        skip_classic=skip_classic))
+        skip_classic=skip_classic, skip_multicore=skip_multicore,
+        skip_scalability=skip_scalability))

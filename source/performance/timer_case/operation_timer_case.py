@@ -31,7 +31,7 @@ class OperationTimerCase(timer_case_base.TimerCase):
 
 
     @classmethod
-    def timer_case_names(cls):
+    def case_names(cls):
         return ["{}_{}".format(cls.__name__, tuple[0]) for tuple in
             inspect.getmembers(cls, inspect.ismethod)
                 if tuple[0].find("time_") == 0]

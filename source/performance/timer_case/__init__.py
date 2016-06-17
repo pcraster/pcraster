@@ -54,3 +54,13 @@ def measure_multicore_operation_scalability(
         runner):
 
     hack_settings_in(data_prefix, repeat)
+
+    loader = pa.TimerLoader()
+
+    names = [
+        "scalability_timer_case.ScalabilityTimerCase"
+    ]
+    cases = [loader.load_timers_from_name(name, [os.path.split(__file__)[0]])
+        for name in names]
+    suites = pa.TimerSuite(cases)
+    runner.run(suites)

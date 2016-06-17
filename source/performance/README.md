@@ -30,6 +30,16 @@ The requirements for the measurement scripts and process are:
 - For each performance measurement, it must be known what version of PCRaster was used, including the Git commit-id.
 
 
+## Requirements
+The code requires the folowing packages:
+- [Performance analyst](https://github.com/pcraster/performance_analyst) (≥ 0.0.13)
+- GDAL 2.x Python package
+- Numpy Python package
+- Matplotlib Python package
+- [psutil](https://github.com/giampaolo/psutil)
+
+
+
 ## Input data
 Performance measurements require input data. These can be large datasets. We need a script that generates data when necessary. The performance measurements can then load this data. This prevents the generation of data sets each time the measurements are run.
 

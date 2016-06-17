@@ -40,7 +40,10 @@ function build_software()
 {
     hostname=`hostname`
 
-    if [[ $hostname == "sonic.geo.uu.nl" ]]; then
+    if [[ \
+                $hostname == "sonic.geo.uu.nl" || \
+                $hostname == "gransasso" \
+            ]]; then
         skip_build_qt=1
         skip_build_qwt=1
     fi
@@ -98,7 +101,7 @@ function build_software()
     # Fern.
     options+=("-Dbuild_fern=true")
     options+=("-Dfern_git_repository=https://github.com/geoneric/fern.git")
-    options+=("-Dfern_git_tag=09563b761cf29b08a5a479d9ff90850bb12917eb")
+    options+=("-Dfern_git_tag=01fa4270b82cd8b9e0cbfc8b3c3ef5cd5f6aa752")
     options+=("-Dfern_build_fern_algorithm=true")
     options+=("-Dfern_build_fern_documentation=true")
     options+=("-Dfern_build_fern_test=true")

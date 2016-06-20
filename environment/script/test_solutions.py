@@ -96,7 +96,7 @@ def vagrant_box_exists(
 def add_vagrant_box(
         logger,
         box_name):
-    command = "vagrant box add {}".format(box_name)
+    command = "vagrant box add --provider virtualbox {}".format(box_name)
     log_info(logger, "add vagrant box")
     execute_command(logger, command)
 
@@ -177,7 +177,7 @@ def start_vagrant_box(
         logger,
         box_name):
 
-    command = "vagrant up --destroy-on-error"
+    command = "vagrant up --provider virtualbox --destroy-on-error"
     log_info(logger, "start vagrant box")
     execute_command(logger, command)
 

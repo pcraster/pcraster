@@ -26,13 +26,12 @@ target_link_libraries(_pcraster_multicore
     multicore_field_python_focals
     multicore_field_python_locals
     multicore_field_python_type_conversions
-    fern_algorithm
-    fern_core
     pcraster_model_engine
     _pcraster
     ${Boost_PYTHON_LIBRARY}
     ${Boost_SYSTEM_LIBRARY}
     ${PYTHON_LIBRARIES}
+    ${FERN_LIBRARIES}
 )
 
 set_target_properties(_pcraster_multicore

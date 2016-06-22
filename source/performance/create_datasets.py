@@ -2,6 +2,7 @@
 import os
 import sys
 import docopt
+import gdal
 import devbase
 import performance.timer_data
 
@@ -28,6 +29,8 @@ def create_datasets(
 
 
 if __name__ == '__main__':
+    gdal.UseExceptions()
+
     arguments = docopt.docopt(doc_string)
 
     data_prefix = arguments["<data_prefix>"]

@@ -1,3 +1,4 @@
+import multiprocessing
 import os
 import performance_analyst as pa
 import performance.timer_data
@@ -6,10 +7,13 @@ import performance.timer_case.timer_case_base
 
 def hack_settings_in(
         data_prefix,
-        repeat):
+        repeat,
+        max_nr_threads=multiprocessing.cpu_count()):
 
     performance.timer_data.TimerData.data_prefix = data_prefix
     performance.timer_case.timer_case_base.TimerCase.repeat = repeat
+    performance.timer_case.timer_case_base.TimerCase.max_nr_threads = \
+        max_nr_threads
 
 
 def measure_classic_operation_performance(
@@ -51,9 +55,10 @@ def measure_multicore_operation_performance(
 def measure_multicore_operation_scalability(
         data_prefix,
         repeat,
-        runner):
+        runner,
+        max_nr_threads):
 
-    hack_settings_in(data_prefix, repeat)
+    hack_settings_in(data_prefix, repeat, max_nr_threads)
 
     loader = pa.TimerLoader()
 

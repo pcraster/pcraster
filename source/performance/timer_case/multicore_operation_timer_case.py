@@ -10,7 +10,5 @@ class MulticoreOperationTimerCase(operation_timer_case.OperationTimerCase):
         operation_timer_case.OperationTimerCase.set_up(self)
 
 
-operation_timer_case.add_unary_operation_timer_cases(
-    MulticoreOperationTimerCase, pcrmc, multicore_operation.unary_operations)
-operation_timer_case.add_binary_operation_timer_cases(
-    MulticoreOperationTimerCase, pcrmc, multicore_operation.binary_operations)
+operation_timer_case.add_operation_timer_cases(
+    MulticoreOperationTimerCase, pcrmc, multicore_operation.operations)

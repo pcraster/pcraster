@@ -9,25 +9,34 @@ class OperationTimerCase(timer_case_base.TimerCase):
     @classmethod
     def set_up_class(cls):
         format_ = "pcraster"
-        dtype = numpy.float32
 
-        cls.f32_random_1_raster = pcr.readmap(
-            cls.data.dataset_pathname(format_, dtype, "random_1"))
-        cls.f32_random_2_raster = pcr.readmap(
-            cls.data.dataset_pathname(format_, dtype, "random_2"))
+        cls.bool8_random_1_raster = pcr.readmap(
+            cls.data.dataset_pathname(format_, numpy.bool8, "random_1"))
+        cls.int32_random_1_raster = pcr.readmap(
+            cls.data.dataset_pathname(format_, numpy.int32, "random_1"))
+        cls.float32_random_1_raster = pcr.readmap(
+            cls.data.dataset_pathname(format_, numpy.float32, "random_1"))
+        cls.float32_random_2_raster = pcr.readmap(
+            cls.data.dataset_pathname(format_, numpy.float32, "random_2"))
 
         cls.raster_by_value_scale = {
+            pcr.VALUESCALE.Boolean: [
+                cls.bool8_random_1_raster],
+            pcr.VALUESCALE.Nominal: [
+                cls.int32_random_1_raster],
             pcr.VALUESCALE.Scalar: [
-                cls.f32_random_1_raster,
-                cls.f32_random_2_raster]
+                cls.float32_random_1_raster,
+                cls.float32_random_2_raster]
         }
 
 
     @classmethod
     def tear_down_class(cls):
         del cls.raster_by_value_scale
-        del cls.f32_random_2_raster
-        del cls.f32_random_1_raster
+        del cls.float32_random_2_raster
+        del cls.float32_random_1_raster
+        del cls.int32_random_1_raster
+        del cls.bool8_random_1_raster
 
 
     @classmethod
@@ -42,52 +51,40 @@ def operation_timer_name(
     return "time_{}".format(operation.name)
 
 
-def create_unary_operation_timer_case(
+def create_operation_timer_case(
         operation,
         function):
 
+    value_scales = [argument.value_scale for argument in operation.arguments]
+    indices = []
+
+    for i in xrange(len(value_scales)):
+        indices.append(value_scales[:i].count(value_scales[i]))
+
+
     def method(self):
-        result = function(
-            self.raster_by_value_scale[operation.arguments[0].value_scale][0])
+        rasters = []
+
+        for i in xrange(len(value_scales)):
+            rasters.append(
+                self.raster_by_value_scale[value_scales[i]][indices[i]])
+
+        result = function(*rasters)
+
 
     method.__name__ = operation_timer_name(operation)
     method.repeat = timer_case_base.TimerCase.repeat
 
-    return method
-
-
-def create_binary_operation_timer_case(
-        operation,
-        function):
-
-    def method(self):
-        result = function(
-            self.raster_by_value_scale[operation.arguments[0].value_scale][0],
-            self.raster_by_value_scale[operation.arguments[1].value_scale][1])
-
-    method.__name__ = operation_timer_name(operation)
-    method.repeat = timer_case_base.TimerCase.repeat
 
     return method
 
 
-def add_unary_operation_timer_cases(
+def add_operation_timer_cases(
     timer_suite,
     operation_module,
     operations):
 
     for operation in operations:
         function = getattr(operation_module, operation.name)
-        timer_suite.add_method(create_unary_operation_timer_case(
-            operation, function))
-
-
-def add_binary_operation_timer_cases(
-    timer_suite,
-    operation_module,
-    operations):
-
-    for operation in operations:
-        function = getattr(operation_module, operation.name)
-        timer_suite.add_method(create_binary_operation_timer_case(
-            operation, function))
+        timer_suite.add_method(create_operation_timer_case(operation,
+            function))

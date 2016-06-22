@@ -47,25 +47,77 @@ def plot_multicore_operations(
 def plot_alternative_operations(
         database_name):
 
+    # patterns: (classic, multicore)
+    patterns = [
+        ("abs", "abs"),
+        ("acos", "acos"),
+        ("pcrbadd", "add"),
+        ("asin", "asin"),
+        ("atan", "atan"),
+        # ("boolean", "boolean"),
+        ("_cos", "_cos"),
+        # ("cover", "cover"),
+        # ("defined", "defined"),
+        # ("pcrfdiv", "div"),
+        # ("equal", "equal"),
+        # ("fac", "fac"),
+        # ("pcrgt", "greater"),
+        # ("pcrge", "greater_equal"),
+        ("ifthen", "ifthen"),
+        ("ifthenelse", "ifthenelse"),
+        # ("pcrlt", "less"),
+        # ("pcrle", "less_equal"),
+        # ("ln", "ln"),
+        # ("log10", "log10"),
+        # ("mapmaximum", "mapmaximum"),
+        # ("mapminimum", "mapminimum"),
+        # ("max", "max"),
+        # ("min", "min"),
+        ("pcrmul", "mul"),
+        # ("nominal", "nominal"),
+        # ("ordinal", "ordinal"),
+        ("pcrpow", "power"),
+        # ("rounddown", "rounddown"),
+        # ("roundoff", "roundoff"),
+        # ("roundup", "roundup"),
+        # ("scalar", "scalar"),
+        # ("_sin", "_sin"),
+        ("slope", "slope"),
+        # ("sqr", "sqr"),
+        ("sqrt", "sqrt"),
+        ("pcrbmin", "sub"),
+        # ("_tan", "_tan"),
+        # ("pcrne", "unequal"),
+        ("window4total", "window4total"),
+    ]
+
+
     classic_operation_timer_case_names = \
         ClassicOperationTimerCase.case_names()
     multicore_operation_timer_case_names = \
         MulticoreOperationTimerCase.case_names()
 
-    patterns = [ "abs", "acos", "asin", "atan", "_cos", "slope", "sqrt",
-        "window4total"]
 
     for pattern in patterns:
+        classic_pattern = pattern[0]
+        multicore_pattern = pattern[1]
+
         classic_names = [name for name in
-            classic_operation_timer_case_names if pattern in name]
-        assert len(classic_names) == 1, classic_names
+            classic_operation_timer_case_names if name.endswith(
+                classic_pattern) ]
+        assert len(classic_names) == 1, "{}: {}".format(classic_pattern,
+            classic_names)
+
         multicore_names = [name for name in
-            multicore_operation_timer_case_names if pattern in name]
-        assert len(multicore_names) == 1, multicore_names
+            multicore_operation_timer_case_names if name.endswith(
+                multicore_pattern)]
+        assert len(multicore_names) == 1, "{}: {}".format(multicore_pattern,
+            multicore_names)
 
         command = "pa.py plot --real {plot}.pdf {database} " \
+                "--timestamp=2016-01-01 " \
                 "{classic_timer_case} {multicore_timer_case}".format(
-            plot=pattern,
+            plot=multicore_pattern.lstrip("_"),
             database=database_name,
             classic_timer_case=classic_names[0],
             multicore_timer_case=multicore_names[0])
@@ -73,7 +125,8 @@ def plot_alternative_operations(
 
 
 def plot_scalability(
-        database_name):
+        database_name,
+        max_nr_threads):
 
     connection = sqlite3.connect(database_name)
     cursor = connection.cursor()
@@ -83,6 +136,7 @@ def plot_scalability(
     # Per operation the number of threads for which we have data.
     timer_cases = {}
 
+
     for name in ScalabilityTimerCase.case_names():
         match = re.match(expression, name)
         assert match, name
@@ -90,17 +144,25 @@ def plot_scalability(
         operation_name = match.group(1)
         nr_threads = int(match.group(2))
 
-        timestamps = pa_util.timestamps(cursor, name)
-        assert timestamps
+        if nr_threads <= max_nr_threads:
 
-        timestamp = timestamps[-1]
+            timestamps = pa_util.timestamps(cursor, name)
+            assert timestamps
 
-        real_times, _ = pa_util.timings(cursor, name, timestamp)
+            # Pick most recent timings.
+            timestamp = timestamps[-1]
+            real_times, _ = pa_util.timings(cursor, name, timestamp)
 
-        timer_cases.setdefault(operation_name, [[], []])
+            timer_cases.setdefault(operation_name, [])
 
-        timer_cases[operation_name][0].append(nr_threads)
-        timer_cases[operation_name][1].append(min(real_times))
+            timer_cases[operation_name].append((nr_threads, min(real_times)))
+
+
+    for name in timer_cases:
+
+        # Sort coordinates by nr_threads.
+        timer_cases[name] = sorted(timer_cases[name], key=lambda tpl: tpl[0])
+
 
     for name in timer_cases:
 
@@ -108,13 +170,18 @@ def plot_scalability(
         axis = figure.add_subplot(111)
 
         nr_plots = 1
-        # colormap = pyplot.cm.brg
-        # colors = [colormap(i) for i in numpy.linspace(0, 0.9, nr_plots)]
         labels = [name]
 
-        axis.plot(timer_cases[name][0], timer_cases[name][1], "o--")
-            # colors=colors[0],
-            # label="threads")
+        sorted_coordinates = timer_cases[name]
+        nr_threads = [tpl[0] for tpl in sorted_coordinates]
+        real_times = [tpl[1] for tpl in sorted_coordinates]
+
+        assert nr_threads[0] == 1
+        theoretical_times = [real_times[0] / nr_threads[t] for t in
+            xrange(len(nr_threads))]
+
+        axis.plot(nr_threads, real_times, "o--")
+        axis.plot(nr_threads, theoretical_times)
 
         axis.set_title("{}: {} (real)".format(database_name, name))
 
@@ -129,9 +196,10 @@ def plot_scalability(
 
 
 def create_plots(
-        database_name):
+        database_name,
+        max_nr_threads):
 
     plot_classic_operations(database_name)
     plot_multicore_operations(database_name)
     plot_alternative_operations(database_name)
-    plot_scalability(database_name)
+    plot_scalability(database_name, max_nr_threads)

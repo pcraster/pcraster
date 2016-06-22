@@ -44,7 +44,7 @@ The code requires the folowing packages:
 Performance measurements require input data. These can be large datasets. We need a script that generates data when necessary. The performance measurements can then load this data. This prevents the generation of data sets each time the measurements are run.
 
 ```bash
-create_datasets.py
+create_datasets.py /data/pcraster/performance
 ```
 
 
@@ -52,7 +52,7 @@ create_datasets.py
 To perform measurements, just run the `measure_performance.py` script:
 
 ```bash
-measure_performance.py
+measure_performance.py /data/pcraster/performance
 ```
 
 By default, this script will run all performance tests and store them in a platform-specific database. See `measure_performance.py --help` for help about this command, especially about overriding the name and location of the platform-specific database.
@@ -72,6 +72,32 @@ This command will read the platform specific database with the results and creat
 - For each set of alternative operations a pdf with evolution of performance over time. These pdfs are named after the operations.
 
 
+## Results
+
+### Classic versus multicore
+Comparison of performance of classic versus multicore algorithm, using a single thread (the main thread: sequential execution).
+
+The performance of the new algorithms must be as good as the current ones.
+
+Multicore algorithms that must be improved:
+- (add)
+- ifthen
+- (multiply)
+- (power)
+- (slope)
+- (subtract)
+
+
+### Scalability
+Comparison of performance of multicore algorithms using a different number of worker threads.
+
+The performance must scale with the number of threads. Using twice the number of threads should half the amount of time needed to calculate the result.
+
+Multicore algorithms that must be improved:
+
+- max
+- min
+- window4total
 
 
 ## Links

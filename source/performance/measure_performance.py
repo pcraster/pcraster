@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import multiprocessing
 import os
 import sys
 import docopt
@@ -13,20 +14,22 @@ Measure the performance of a PCRaster installation and store the results in
 a database
 
 Usage:
-    {command} [--repeat=<count>] [--print | --database=<name>]
+    {command} [--repeat=<count>] [--max-nr-threads=<count>]
+        [--print | --database=<name>]
         [--skip-classic] [--skip-multicore] [--skip-scalability]
         <data_prefix>
 
 Options:
-    -h --help               Show this screen
-    --version               Show version
-    --repeat=<count>        Number of times to run each timer case [default: 3]
-    --print                 Output results to screen instead of database
-    --database=<name>       Overwrite default database name
-    --skip-classic          Skip measurements for classic operations
-    --skip-multicore        Skip measurements for multicore operations
-    --skip-scalability      Skip scalability measurements
-    data_prefix             Pathname of directory containing input data
+    -h --help                 Show this screen
+    --version                 Show version
+    --repeat=<count>          Number of times to run each case [default: 3]
+    --max-nr-threads=<count>  Max number of threads to use for scalability
+    --print                   Output results to screen instead of database
+    --database=<name>         Overwrite default database name
+    --skip-classic            Skip measurements for classic operations
+    --skip-multicore          Skip measurements for multicore operations
+    --skip-scalability        Skip scalability measurements
+    data_prefix               Pathname of directory containing input data
 
 By default
 - All performance measurements will be run
@@ -69,16 +72,19 @@ def measure_operation_performance(
 def measure_multicore_operation_scalability(
         data_prefix,
         repeat,
-        runner):
+        runner,
+        max_nr_threads):
     timer_case.measure_multicore_operation_scalability(data_prefix, repeat,
-        runner)
+        runner, max_nr_threads)
 
 
 def measure_operation_scalability(
         data_prefix,
         repeat,
-        runner):
-    measure_multicore_operation_scalability(data_prefix, repeat, runner)
+        runner,
+        max_nr_threads):
+    measure_multicore_operation_scalability(data_prefix, repeat, runner,
+        max_nr_threads)
 
 
 @devbase.checked_call
@@ -86,6 +92,7 @@ def measure_performance(
         data_prefix,
         repeat,
         runner,
+        max_nr_threads,
         skip_classic,
         skip_multicore,
         skip_scalability):
@@ -93,13 +100,15 @@ def measure_performance(
         skip_classic, skip_multicore)
 
     if not skip_scalability:
-        measure_operation_scalability(data_prefix, repeat, runner)
+        measure_operation_scalability(data_prefix, repeat, runner,
+            max_nr_threads)
 
 
 if __name__ == '__main__':
     arguments = docopt.docopt(doc_string)
     data_prefix = arguments["<data_prefix>"]
     repeat = int(arguments["--repeat"])
+    max_nr_threads = multiprocessing.cpu_count()
     skip_classic = arguments["--skip-classic"]
     skip_multicore = arguments["--skip-multicore"]
     skip_scalability = arguments["--skip-scalability"]
@@ -115,10 +124,17 @@ if __name__ == '__main__':
 
         output_runner = pa.SQLiteTimerRunner(database_name)
 
+    if arguments["--max-nr-threads"] is not None:
+        max_nr_threads = min(max_nr_threads,
+            int(arguments["--max-nr-threads"]))
+
+    assert 0 < max_nr_threads <= multiprocessing.cpu_count(), max_nr_threads
+
     progress_runner = pa.ProgressTimerRunner()
 
     runner = pa.CompositeTimerRunner([output_runner, progress_runner])
 
     sys.exit(measure_performance(data_prefix, repeat, runner,
+        max_nr_threads,
         skip_classic=skip_classic, skip_multicore=skip_multicore,
         skip_scalability=skip_scalability))

@@ -4,7 +4,7 @@
             "label": "Ubuntu 16.04 x86_64 PCRaster no options selected",
             "box": "ubuntu/xenial64",
             "provisions": [
-                "add-apt-repository -y ppa:ubuntugis/ubuntugis-unstable",
+                "add-apt-repository -y ppa:ubuntugis/ubuntugis-testing",
                 "apt -y update",
                 "apt -y upgrade",
                 "apt -y autoremove",
@@ -13,7 +13,6 @@
             ],
             "commands": [
                 "wget http://pcraster.geo.uu.nl/download/build_pcraster.py",
-                "sed -i.tmp \"s/\\\"make\\\"/\\\"make -j10\\\"/\" build_pcraster.py",
                 "python ./build_pcraster.py pcraster_4_2_beta"
             ]
         },
@@ -49,6 +48,25 @@
             "commands": [
                 "wget http://pcraster.geo.uu.nl/download/build_pcraster.py",
                 "PATH=/opt/cmake-3.5.2-Linux-i386/bin:$PATH CC=gcc-4.9 CXX=g++-4.9 python ./build_pcraster.py pcraster_4_2_beta"
+            ]
+        },
+        {
+            "label": "Centos 7 64bit gcc-5 default build",
+            "box": "centos/7",
+            "provisions": [
+                "sudo yum -y install git wget ImageMagick libxslt libxml2 numpy",
+                "sudo yum -y install ncurses-devel libxslt-devel libxml2-devel libcurl-devel xerces-c-devel python-devel qt-devel",
+                "sudo yum -y install epel-release",
+                "sudo yum -y update",
+                "sudo yum -y upgrade",
+                "sudo yum -y install cmake3 xsd geos-devel qwt-devel",
+                "sudo yum -y install centos-release-scl",
+                "sudo yum -y install devtoolset-4-gcc devtoolset-4-gcc-c++"
+            ],
+            "commands": [
+                "wget http://pcraster.geo.uu.nl/download/build_pcraster.py",
+                "sed -i.tmp \"s/cmake/cmake3/\" build_pcraster.py",
+                "scl enable devtoolset-4 \"python ./build_pcraster.py pcraster_4_2_beta --build-gdal --build-boost \""
             ]
         }
     ]

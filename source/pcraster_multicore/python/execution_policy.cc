@@ -13,24 +13,25 @@ namespace python {
 static fa::ExecutionPolicy _execution_policy{
     fa::parallel};
 
-static size_t _nr_cpus{1};
 
-void set_nr_cpus(size_t cpus)
-{
-  size_t max_cpus = std::thread::hardware_concurrency();
+static size_t _nr_worker_threads{0};
 
-  if(cpus > max_cpus){
-    std::cout << "Number of CPUs requested (" << cpus << ") larger than CPUs available, limiting to " << max_cpus << " CPUs" << std::endl;
-    cpus = max_cpus;
+
+void set_nr_worker_threads(size_t threads){
+  size_t max_threads = std::thread::hardware_concurrency();
+
+  if(threads > max_threads){
+    std::cout << "Amount of worker threads requested (" << threads << ") exceeds maximum number of threads; limiting to " << max_threads << " threads.\n";
+    threads = max_threads;
   }
 
-  if(cpus < 2){
-    _nr_cpus = 1;
+  if(threads < 1){
+    _nr_worker_threads = 0;
     _execution_policy = fa::sequential;
   }
   else{
-    _nr_cpus = cpus;
-    fa::parallel = fa::ParallelExecutionPolicy{cpus};
+    _nr_worker_threads = threads;
+    fa::parallel = fa::ParallelExecutionPolicy{threads};
     _execution_policy = fa::parallel;
   }
 }
@@ -40,9 +41,11 @@ fa::ExecutionPolicy const& execution_policy(){
   return _execution_policy;
 }
 
-size_t nr_cpus(){
-  return _nr_cpus;
+
+size_t nr_worker_threads(){
+  return _nr_worker_threads;
 }
+
 
 } // namespace python
 } // namespace pcraster_multicore

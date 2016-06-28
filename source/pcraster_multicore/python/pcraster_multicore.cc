@@ -14,11 +14,14 @@ namespace pmcpy = pcraster_multicore::python;
 
 BOOST_PYTHON_MODULE(_pcraster_multicore){
 
-  // disables the C++ signatures in docstrings
-  bp::docstring_options doc_options(true, false);
+  // show user defined docstrings and Python signatures, disable the C++ signatures
+  bp::docstring_options doc_options(true, true, false);
 
-  bp::def("set_nr_cpus", &pmcpy::set_nr_cpus,
-    "Set the number of CPUs to be used in the PCRaster multicore algorithms");
+  bp::def("set_nr_worker_threads", &pmcpy::set_nr_worker_threads,
+    "Set the number of worker threads to be used in the PCRaster multicore algorithms",
+    bp::args("nr_threads"));
+  bp::def("nr_worker_threads", &pmcpy::nr_worker_threads,
+    "Returns the number of worker threads currently used in the PCRaster multicore algorithms");
 
   bp::def("_newNonSpatialScalar", &pmcpy::newNonSpatialScalar,
     bp::return_value_policy<bp::manage_new_object>());

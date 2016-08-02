@@ -2,12 +2,11 @@
 # Do not edit!
 try:
     import pcraster._pcraster as _pcraster
-    #import _pcraster
 except:
     # we rely on a correct PCRaster setup
     raise ImportError("Failed to import the module '_pcraster'")
 
-import operations as pmcop
+import _operations as pmcop
 
 
 def pcrmcAnd(self, field):
@@ -102,9 +101,9 @@ def pcrmcRPow(self, number):
 # These operators should overwrite the ones from the PCRaster module.
 _pcraster.Field.__and__ = pcrmcAnd      # &
 _pcraster.Field.__rand__ = pcrmcRAnd
-_pcraster.Field.__or__ = pcrmcOr       # |
+_pcraster.Field.__or__ = pcrmcOr        # |
 _pcraster.Field.__ror__ = pcrmcROr
-_pcraster.Field.__invert__ = pcrmcNot      # ~
+_pcraster.Field.__invert__ = pcrmcNot   # ~
 _pcraster.Field.__xor__ = pcrmcXOr      # ^
 _pcraster.Field.__ne__ = pcrmcNE
 _pcraster.Field.__eq__ = pcrmcEQ

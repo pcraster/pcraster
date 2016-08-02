@@ -31,7 +31,7 @@ class ImportTest(unittest.TestCase):
         self.assertEqual(name, "multicore", name)
 
         self._test_functions_in_module(module, [
-            "slope", "cover", "set_nr_cpus"
+            "slope", "cover", "set_nr_worker_threads"
         ])
 
 

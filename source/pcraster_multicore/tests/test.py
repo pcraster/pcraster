@@ -11,7 +11,7 @@ import warnings
 import pcraster
 from pcraster.multicore import *
 
-import pcraster.multicore.operators as mcop
+import pcraster.multicore._operators as mcop
 
 
 # Class contains some tests extracted from the Python tests
@@ -199,7 +199,7 @@ class TestMulticore(unittest.TestCase):
     # we need to explicitly cast PODs to ldd (or directional)
     # when using the multicore module
     #raster = mcop.pcrmcNE("accu_Ldd.map", 5)
-    raster = mcop.pcrmcNE("accu_Ldd.map", pcr.ldd(5))
+    raster = mcop.pcrmcNE("accu_Ldd.map", pcraster.ldd(5))
     warnings.warn("Difference between pcraster and multicore module...")
     value, isValid = pcraster.cellvalue(raster, 1)
     self.assertEqual(isValid, True)

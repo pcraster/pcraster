@@ -8,8 +8,8 @@ execute_process(
     OUTPUT_STRIP_TRAILING_WHITESPACE
 )
 
-set(${PROJECT_NAME}_ORGANISATION_NAME "PCRaster R&D Team")
-set(${PROJECT_NAME}_COPYRIGHT "1990-${DEV_CURRENT_YEAR} PCRaster R&D Team")
+set(${PROJECT_NAME}_ORGANISATION_NAME "PCRaster Research and Development Team")
+set(${PROJECT_NAME}_COPYRIGHT "1990-${DEV_CURRENT_YEAR} PCRaster Research and Development Team")
 set(${PROJECT_NAME}_PROJECT_NAME "${PROJECT_NAME}")
 set(${PROJECT_NAME}_HOMEPAGE "http://www.pcraster.eu")
 set(${PROJECT_NAME}_MAJOR_VERSION "4")

@@ -1,9 +1,7 @@
 # This file was generated during the PCRaster build.
 # Do not edit!
-import types
-import pcraster as pcr
-import pcraster._pcraster as _pcraster
-
+import types as _types
+import pcraster as _pcraster
 import _pcraster_multicore as _pmc
 
 
@@ -21,16 +19,16 @@ def nr_worker_threads():
 # just get a spatial or nonspatial
 # assign a valuescale if necessary
 # correct SV of an operation should be checked in the C++ code
-def get_field(arg):
+def _get_field(arg):
     if isinstance(arg, _pcraster.Field):
         return(arg)
-    elif isinstance(arg, types.StringTypes):
+    elif isinstance(arg, _types.StringTypes):
         return(_pcraster.readmap(arg))
-    elif isinstance(arg, types.BooleanType):
+    elif isinstance(arg, _types.BooleanType):
         return(_pmc._newNonSpatialBoolean(arg))
-    elif isinstance(arg, types.IntType) or isinstance(arg, types.LongType):
+    elif isinstance(arg, _types.IntType) or isinstance(arg, _types.LongType):
         return(_pmc._newNonSpatialNominal(arg))
-    elif isinstance(arg, types.FloatType):
+    elif isinstance(arg, _types.FloatType):
         return(_pmc._newNonSpatialScalar(arg))
     else:
         msg = "conversion of argument with type '{}' to PCRaster not possible".format(type(arg).__name__)
@@ -41,7 +39,7 @@ def cover(*args):
     try:
         fields = list(args)
         for i, field in enumerate(fields):
-            fields[i] = get_field(field)
+            fields[i] = _get_field(field)
         return _pmc.cover(fields)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore cover: {}".format(str(exception)))
@@ -51,7 +49,7 @@ def max(*args):
     try:
         fields = list(args)
         for i, field in enumerate(fields):
-            fields[i] = get_field(field)
+            fields[i] = _get_field(field)
         return _pmc.maximum(fields)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore maximum: {}".format(str(exception)))
@@ -61,7 +59,7 @@ def min(*args):
     try:
         fields = list(args)
         for i, field in enumerate(fields):
-            fields[i] = get_field(field)
+            fields[i] = _get_field(field)
         return _pmc.minimum(fields)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore minimum: {}".format(str(exception)))
@@ -76,8 +74,8 @@ def ifthen(arg1, arg2):
         raise RuntimeError("Use a conversion function to pick a data type")
 
     try:
-        arg1 = get_field(arg1)
-        arg2 = get_field(arg2)
+        arg1 = _get_field(arg1)
+        arg2 = _get_field(arg2)
         return _pmc.ifthen(arg1, arg2)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore ifthen: {}".format(str(exception)))
@@ -89,9 +87,9 @@ def ifthenelse(arg1, arg2, arg3):
     if not ( isinstance(arg2, _pcraster.Field) or isinstance(arg3, _pcraster.Field) ):
         raise RuntimeError("Use a conversion function to pick a data type")
     try:
-        arg1 = get_field(arg1)
-        arg2 = get_field(arg2)
-        arg3 = get_field(arg3)
+        arg1 = _get_field(arg1)
+        arg2 = _get_field(arg2)
+        arg3 = _get_field(arg3)
         return _pmc.ifthenelse(arg1, arg2, arg3)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore ifthenelse: {}".format(str(exception)))
@@ -104,10 +102,10 @@ def boolean(arg1):
     # Fallback to model_engine
     if isinstance(arg1, _pcraster.Field):
         if arg1.dataType() ==  _pcraster.VALUESCALE.Directional:
-            return pcr.scalar(arg1)
+            return _pcraster.scalar(arg1)
 
     try:
-        arg1 = get_field(arg1)
+        arg1 = _get_field(arg1)
         return _pmc.boolean(arg1)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore boolean: {}".format(str(exception)))
@@ -118,10 +116,10 @@ def nominal(arg1):
     # Fallback to model_engine
     if isinstance(arg1, _pcraster.Field):
         if arg1.dataType() ==  _pcraster.VALUESCALE.Directional:
-            return pcr.scalar(arg1)
+            return _pcraster.scalar(arg1)
 
     try:
-        arg1 = get_field(arg1)
+        arg1 = _get_field(arg1)
         return _pmc.nominal(arg1)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore nominal: {}".format(str(exception)))
@@ -132,10 +130,10 @@ def ordinal(arg1):
     # Fallback to model_engine
     if isinstance(arg1, _pcraster.Field):
         if arg1.dataType() ==  _pcraster.VALUESCALE.Directional:
-            return pcr.scalar(arg1)
+            return _pcraster.scalar(arg1)
 
     try:
-        arg1 = get_field(arg1)
+        arg1 = _get_field(arg1)
         return _pmc.ordinal(arg1)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore ordinal: {}".format(str(exception)))
@@ -146,9 +144,9 @@ def scalar(arg1):
     # Fallback to model_engine
     if isinstance(arg1, _pcraster.Field):
         if arg1.dataType() ==  _pcraster.VALUESCALE.Directional:
-            return pcr.scalar(arg1)
+            return _pcraster.scalar(arg1)
     try:
-        arg1 = get_field(arg1)
+        arg1 = _get_field(arg1)
         return _pmc.scalar(arg1)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore scalar: {}".format(str(exception)))
@@ -159,16 +157,10 @@ def scalar(arg1):
 
 
 # these ones below here can be generated?!
-# assume type checking in the C++ code
-#
-
-set_nr_worker_threads.__doc__ = _pmc.set_nr_worker_threads.__doc__
-nr_worker_threads.__doc__ = _pmc.nr_worker_threads.__doc__
-
 
 def slope(arg1):
     try:
-        arg1 = get_field(arg1)
+        arg1 = _get_field(arg1)
         return _pmc.slope(arg1)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore slope: {}".format(str(exception)))
@@ -176,8 +168,8 @@ def slope(arg1):
 
 def equal(arg1, arg2):
     try:
-        arg1 = get_field(arg1)
-        arg2 = get_field(arg2)
+        arg1 = _get_field(arg1)
+        arg2 = _get_field(arg2)
         return _pmc.equal(arg1, arg2)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore equal: {}".format(str(exception)))
@@ -185,8 +177,8 @@ def equal(arg1, arg2):
 
 def unequal(arg1, arg2):
     try:
-        arg1 = get_field(arg1)
-        arg2 = get_field(arg2)
+        arg1 = _get_field(arg1)
+        arg2 = _get_field(arg2)
         return _pmc.unequal(arg1, arg2)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore unequal: {}".format(str(exception)))
@@ -194,8 +186,8 @@ def unequal(arg1, arg2):
 
 def greater(arg1, arg2):
     try:
-        arg1 = get_field(arg1)
-        arg2 = get_field(arg2)
+        arg1 = _get_field(arg1)
+        arg2 = _get_field(arg2)
         return _pmc.greater(arg1, arg2)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore greater: {}".format(str(exception)))
@@ -203,8 +195,8 @@ def greater(arg1, arg2):
 
 def greater_equal(arg1, arg2):
     try:
-        arg1 = get_field(arg1)
-        arg2 = get_field(arg2)
+        arg1 = _get_field(arg1)
+        arg2 = _get_field(arg2)
         return _pmc.greater_equal(arg1, arg2)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore greater_equal: {}".format(str(exception)))
@@ -212,8 +204,8 @@ def greater_equal(arg1, arg2):
 
 def less(arg1, arg2):
     try:
-        arg1 = get_field(arg1)
-        arg2 = get_field(arg2)
+        arg1 = _get_field(arg1)
+        arg2 = _get_field(arg2)
         return _pmc.less(arg1, arg2)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore less: {}".format(str(exception)))
@@ -221,8 +213,8 @@ def less(arg1, arg2):
 
 def less_equal(arg1, arg2):
     try:
-        arg1 = get_field(arg1)
-        arg2 = get_field(arg2)
+        arg1 = _get_field(arg1)
+        arg2 = _get_field(arg2)
         return _pmc.less_equal(arg1, arg2)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore less_equal: {}".format(str(exception)))
@@ -230,8 +222,8 @@ def less_equal(arg1, arg2):
 
 def _and(arg1, arg2):
     try:
-        arg1 = get_field(arg1)
-        arg2 = get_field(arg2)
+        arg1 = _get_field(arg1)
+        arg2 = _get_field(arg2)
         return _pmc._and(arg1, arg2)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore and: {}".format(str(exception)))
@@ -239,8 +231,8 @@ def _and(arg1, arg2):
 
 def _or(arg1, arg2):
     try:
-        arg1 = get_field(arg1)
-        arg2 = get_field(arg2)
+        arg1 = _get_field(arg1)
+        arg2 = _get_field(arg2)
         return _pmc._or(arg1, arg2)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore or: {}".format(str(exception)))
@@ -248,8 +240,8 @@ def _or(arg1, arg2):
 
 def _xor(arg1, arg2):
     try:
-        arg1 = get_field(arg1)
-        arg2 = get_field(arg2)
+        arg1 = _get_field(arg1)
+        arg2 = _get_field(arg2)
         return _pmc._xor(arg1, arg2)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore xor: {}".format(str(exception)))
@@ -257,7 +249,7 @@ def _xor(arg1, arg2):
 
 def _not(arg1):
     try:
-        arg1 = get_field(arg1)
+        arg1 = _get_field(arg1)
         return _pmc._not(arg1)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore not: {}".format(str(exception)))
@@ -265,7 +257,7 @@ def _not(arg1):
 
 def defined(arg1):
     try:
-        arg1 = get_field(arg1)
+        arg1 = _get_field(arg1)
         return _pmc.defined(arg1)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore defined: {}".format(str(exception)))
@@ -273,8 +265,8 @@ def defined(arg1):
 
 def add(arg1, arg2):
     try:
-        arg1 = get_field(arg1)
-        arg2 = get_field(arg2)
+        arg1 = _get_field(arg1)
+        arg2 = _get_field(arg2)
         return _pmc.add(arg1, arg2)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore add: {}".format(str(exception)))
@@ -282,8 +274,8 @@ def add(arg1, arg2):
 
 def sub(arg1, arg2):
     try:
-        arg1 = get_field(arg1)
-        arg2 = get_field(arg2)
+        arg1 = _get_field(arg1)
+        arg2 = _get_field(arg2)
         return _pmc.sub(arg1, arg2)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore sub: {}".format(str(exception)))
@@ -291,8 +283,8 @@ def sub(arg1, arg2):
 
 def mul(arg1, arg2):
     try:
-        arg1 = get_field(arg1)
-        arg2 = get_field(arg2)
+        arg1 = _get_field(arg1)
+        arg2 = _get_field(arg2)
         return _pmc.mul(arg1, arg2)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore mul: {}".format(str(exception)))
@@ -300,8 +292,8 @@ def mul(arg1, arg2):
 
 def div(arg1, arg2):
     try:
-        arg1 = get_field(arg1)
-        arg2 = get_field(arg2)
+        arg1 = _get_field(arg1)
+        arg2 = _get_field(arg2)
         return _pmc.div(arg1, arg2)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore div: {}".format(str(exception)))
@@ -309,7 +301,7 @@ def div(arg1, arg2):
 
 def sqrt(arg1):
     try:
-        arg1 = get_field(arg1)
+        arg1 = _get_field(arg1)
         return _pmc.sqrt(arg1)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore sqrt: {}".format(str(exception)))
@@ -317,8 +309,8 @@ def sqrt(arg1):
 
 def power(arg1, arg2):
     try:
-        arg1 = get_field(arg1)
-        arg2 = get_field(arg2)
+        arg1 = _get_field(arg1)
+        arg2 = _get_field(arg2)
         return _pmc.power(arg1, arg2)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore power: {}".format(str(exception)))
@@ -326,7 +318,7 @@ def power(arg1, arg2):
 
 def abs(arg1):
     try:
-        arg1 = get_field(arg1)
+        arg1 = _get_field(arg1)
         return _pmc.abs(arg1)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore abs: {}".format(str(exception)))
@@ -334,7 +326,7 @@ def abs(arg1):
 
 def cos(arg1):
     try:
-        arg1 = get_field(arg1)
+        arg1 = _get_field(arg1)
         return _pmc.cos(arg1)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore cos: {}".format(str(exception)))
@@ -342,7 +334,7 @@ def cos(arg1):
 
 def sin(arg1):
     try:
-        arg1 = get_field(arg1)
+        arg1 = _get_field(arg1)
         return _pmc.sin(arg1)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore sin: {}".format(str(exception)))
@@ -350,7 +342,7 @@ def sin(arg1):
 
 def tan(arg1):
     try:
-        arg1 = get_field(arg1)
+        arg1 = _get_field(arg1)
         return _pmc.tan(arg1)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore tan: {}".format(str(exception)))
@@ -358,7 +350,7 @@ def tan(arg1):
 
 def sqr(arg1):
     try:
-        arg1 = get_field(arg1)
+        arg1 = _get_field(arg1)
         return _pmc.sqr(arg1)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore sqr: {}".format(str(exception)))
@@ -367,7 +359,7 @@ def sqr(arg1):
 
 def mapmaximum(arg1):
     try:
-        arg1 = get_field(arg1)
+        arg1 = _get_field(arg1)
         return _pmc.mapmaximum(arg1)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore mapmaximum: {}".format(str(exception)))
@@ -375,7 +367,7 @@ def mapmaximum(arg1):
 
 def mapminimum(arg1):
     try:
-        arg1 = get_field(arg1)
+        arg1 = _get_field(arg1)
         return _pmc.mapminimum(arg1)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore mapminimum: {}".format(str(exception)))
@@ -385,7 +377,7 @@ def mapminimum(arg1):
 
 def acos(arg1):
     try:
-        arg1 = get_field(arg1)
+        arg1 = _get_field(arg1)
         return _pmc.acos(arg1)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore acos: {}".format(str(exception)))
@@ -393,7 +385,7 @@ def acos(arg1):
 
 def asin(arg1):
     try:
-        arg1 = get_field(arg1)
+        arg1 = _get_field(arg1)
         return _pmc.asin(arg1)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore asin: {}".format(str(exception)))
@@ -401,7 +393,7 @@ def asin(arg1):
 
 def atan(arg1):
     try:
-        arg1 = get_field(arg1)
+        arg1 = _get_field(arg1)
         return _pmc.atan(arg1)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore atan: {}".format(str(exception)))
@@ -409,7 +401,7 @@ def atan(arg1):
 
 def fac(arg1):
     try:
-        arg1 = get_field(arg1)
+        arg1 = _get_field(arg1)
         return _pmc.fac(arg1)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore fac: {}".format(str(exception)))
@@ -417,7 +409,7 @@ def fac(arg1):
 
 def window4total(arg1):
     try:
-        arg1 = get_field(arg1)
+        arg1 = _get_field(arg1)
         return _pmc.window4total(arg1)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore window4total: {}".format(str(exception)))
@@ -425,7 +417,7 @@ def window4total(arg1):
 
 def ln(arg1):
     try:
-        arg1 = get_field(arg1)
+        arg1 = _get_field(arg1)
         return _pmc.ln(arg1)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore ln: {}".format(str(exception)))
@@ -433,7 +425,7 @@ def ln(arg1):
 
 def log10(arg1):
     try:
-        arg1 = get_field(arg1)
+        arg1 = _get_field(arg1)
         return _pmc.log10(arg1)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore log10: {}".format(str(exception)))
@@ -441,7 +433,7 @@ def log10(arg1):
 
 def rounddown(arg1):
     try:
-        arg1 = get_field(arg1)
+        arg1 = _get_field(arg1)
         return _pmc.rounddown(arg1)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore rounddown: {}".format(str(exception)))
@@ -449,7 +441,7 @@ def rounddown(arg1):
 
 def roundup(arg1):
     try:
-        arg1 = get_field(arg1)
+        arg1 = _get_field(arg1)
         return _pmc.roundup(arg1)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore roundup: {}".format(str(exception)))
@@ -457,7 +449,54 @@ def roundup(arg1):
 
 def roundoff(arg1):
     try:
-        arg1 = get_field(arg1)
+        arg1 = _get_field(arg1)
         return _pmc.roundoff(arg1)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore roundoff: {}".format(str(exception)))
+
+
+
+# to be generated...
+
+abs.__doc__ = _pmc.abs.__doc__
+acos.__doc__ = _pmc.acos.__doc__
+add.__doc__ = _pmc.add.__doc__
+asin.__doc__ = _pmc.asin.__doc__
+atan.__doc__ = _pmc.atan.__doc__
+boolean.__doc__ = _pmc.boolean.__doc__
+cos.__doc__ = _pmc.cos.__doc__
+cover.__doc__ = _pmc.cover.__doc__
+defined.__doc__ = _pmc.defined.__doc__
+div.__doc__ = _pmc.div.__doc__
+equal.__doc__ = _pmc.equal.__doc__
+fac.__doc__ = _pmc.fac.__doc__
+greater.__doc__ = _pmc.greater.__doc__
+greater_equal.__doc__ = _pmc.greater_equal.__doc__
+ifthen.__doc__ = _pmc.ifthen.__doc__
+ifthenelse.__doc__ = _pmc.ifthenelse.__doc__
+less.__doc__ = _pmc.less.__doc__
+less_equal.__doc__ = _pmc.less_equal.__doc__
+ln.__doc__ = _pmc.ln.__doc__
+log10.__doc__ = _pmc.log10.__doc__
+mapmaximum.__doc__ = _pmc.mapmaximum.__doc__
+mapminimum.__doc__ = _pmc.mapminimum.__doc__
+max.__doc__ = _pmc.maximum.__doc__
+min.__doc__ = _pmc.minimum.__doc__
+mul.__doc__ = _pmc.mul.__doc__
+nominal.__doc__ = _pmc.nominal.__doc__
+nr_worker_threads.__doc__ = _pmc.nr_worker_threads.__doc__
+ordinal.__doc__ = _pmc.ordinal.__doc__
+power.__doc__ = _pmc.power.__doc__
+rounddown.__doc__ = _pmc.rounddown.__doc__
+roundoff.__doc__ = _pmc.roundoff.__doc__
+roundup.__doc__ = _pmc.roundup.__doc__
+scalar.__doc__ = _pmc.scalar.__doc__
+set_nr_worker_threads.__doc__ = _pmc.set_nr_worker_threads.__doc__
+sin.__doc__ = _pmc.sin.__doc__
+slope.__doc__ = _pmc.slope.__doc__
+sqr.__doc__ = _pmc.sqr.__doc__
+sqrt.__doc__ = _pmc.sqrt.__doc__
+sub.__doc__ = _pmc.sub.__doc__
+tan.__doc__ = _pmc.tan.__doc__
+unequal.__doc__ = _pmc.unequal.__doc__
+window4total.__doc__ = _pmc.window4total.__doc__

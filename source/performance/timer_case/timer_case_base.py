@@ -9,4 +9,4 @@ class TimerCase(pa.TimerCase):
 
     repeat = 3
 
-    max_nr_threads = multiprocessing.cpu_count()
+    max_nr_worker_threads = multiprocessing.cpu_count()

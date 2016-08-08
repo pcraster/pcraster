@@ -126,7 +126,7 @@ def plot_alternative_operations(
 
 def plot_scalability(
         database_name,
-        max_nr_threads):
+        max_nr_worker_threads):
 
     connection = sqlite3.connect(database_name)
     cursor = connection.cursor()
@@ -142,9 +142,9 @@ def plot_scalability(
         assert match, name
 
         operation_name = match.group(1)
-        nr_threads = int(match.group(2))
+        nr_worker_threads = int(match.group(2))
 
-        if nr_threads <= max_nr_threads:
+        if nr_worker_threads <= max_nr_worker_threads:
 
             timestamps = pa_util.timestamps(cursor, name)
             assert timestamps
@@ -155,12 +155,12 @@ def plot_scalability(
 
             timer_cases.setdefault(operation_name, [])
 
-            timer_cases[operation_name].append((nr_threads, min(real_times)))
+            timer_cases[operation_name].append((nr_worker_threads, min(real_times)))
 
 
     for name in timer_cases:
 
-        # Sort coordinates by nr_threads.
+        # Sort coordinates by nr_worker_threads.
         timer_cases[name] = sorted(timer_cases[name], key=lambda tpl: tpl[0])
 
 
@@ -173,15 +173,15 @@ def plot_scalability(
         labels = [name]
 
         sorted_coordinates = timer_cases[name]
-        nr_threads = [tpl[0] for tpl in sorted_coordinates]
+        nr_worker_threads = [tpl[0] for tpl in sorted_coordinates]
         real_times = [tpl[1] for tpl in sorted_coordinates]
 
-        assert nr_threads[0] == 1
-        theoretical_times = [real_times[0] / nr_threads[t] for t in
-            xrange(len(nr_threads))]
+        assert nr_worker_threads[0] == 1
+        theoretical_times = [real_times[0] / nr_worker_threads[t] for t in
+            xrange(len(nr_worker_threads))]
 
-        axis.plot(nr_threads, real_times, "o--")
-        axis.plot(nr_threads, theoretical_times)
+        axis.plot(nr_worker_threads, real_times, "o--")
+        axis.plot(nr_worker_threads, theoretical_times)
 
         axis.set_title("{}: {} (real)".format(database_name, name))
 
@@ -197,9 +197,9 @@ def plot_scalability(
 
 def create_plots(
         database_name,
-        max_nr_threads):
+        max_nr_worker_threads):
 
     plot_classic_operations(database_name)
     plot_multicore_operations(database_name)
     plot_alternative_operations(database_name)
-    plot_scalability(database_name, max_nr_threads)
+    plot_scalability(database_name, max_nr_worker_threads)

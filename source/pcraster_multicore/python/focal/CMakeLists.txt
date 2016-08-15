@@ -1,6 +1,7 @@
 set(_SOURCES
     slope
     window4total
+    windowtotal
 )
 
 add_library(multicore_field_python_focals

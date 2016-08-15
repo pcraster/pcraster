@@ -48,6 +48,7 @@ calc::Field* degrees_to_radians(const multicore_field::Spatial<REAL4>* aField,  
 
 
 bool global_option_degrees();
+bool global_option_unittrue();
 
 void assert_equal_valuescale(const calc::Field& field_a, const calc::Field& field_b, const std::string& msg);
 

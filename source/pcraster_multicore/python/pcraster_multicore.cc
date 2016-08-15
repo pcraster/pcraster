@@ -30,6 +30,7 @@ BOOST_PYTHON_MODULE(_pcraster_multicore){
     bp::return_value_policy<bp::manage_new_object>());
   bp::def("_newNonSpatialBoolean", &pmcpy::newNonSpatialBoolean,
     bp::return_value_policy<bp::manage_new_object>());
+  bp::def("_unittrue", &pmcpy::global_option_unittrue);
 
 
   // Local operations
@@ -250,6 +251,12 @@ BOOST_PYTHON_MODULE(_pcraster_multicore){
   bp::def("window4total", &pmcpy::window4total,
     "Cell-wise, sums the values of the four cells which lie above, below, left and right of the cell.",
     bp::args("expression"),
+    bp::return_value_policy<bp::manage_new_object>());
+
+
+  bp::def("windowtotal", &pmcpy::windowtotal,
+   // "Cell-wise, sums the values of the four cells which lie above, below, left and right of the cell.",
+   // bp::args("expression"),
     bp::return_value_policy<bp::manage_new_object>());
 
 

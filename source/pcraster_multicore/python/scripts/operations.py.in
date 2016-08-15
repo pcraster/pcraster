@@ -35,6 +35,27 @@ def _get_field(arg):
         raise RuntimeError(msg)
 
 
+
+
+def windowtotal(arg1, arg2):
+    # Specialisation only for global option unitcell
+    if _pmc._unittrue():
+      return _pcraster.windowtotal(arg1, arg2)
+
+    # For particular window sizes use multicore
+    if isinstance(arg2, _types.IntType) or isinstance(arg2, _types.LongType):
+      if arg2 in [3, 5, 7]:
+        try:
+          arg1 = _get_field(arg1)
+          return _pmc.windowtotal(arg1, arg2)
+        except RuntimeError as exception:
+          raise RuntimeError("pcraster.multicore windowtotal: {}".format(str(exception)))
+
+    # otherwise fall back to PCRaster model engine
+    return _pcraster.windowtotal(arg1, arg2)
+
+
+
 def cover(*args):
     try:
         fields = list(args)

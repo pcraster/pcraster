@@ -14,7 +14,7 @@ static fa::ExecutionPolicy _execution_policy{
     fa::parallel};
 
 
-static size_t _nr_worker_threads{0};
+static size_t _nr_worker_threads{std::thread::hardware_concurrency()};
 
 
 void set_nr_worker_threads(size_t threads){

@@ -38,20 +38,23 @@ def _get_field(arg):
 
 
 def windowtotal(arg1, arg2):
-    # Specialisation only for global option unitcell
-    if _pmc._unittrue():
+    # Field as window length argument: use default implementation
+    if isinstance(arg2, _pcraster.Field):
       return _pcraster.windowtotal(arg1, arg2)
 
-    # For particular window sizes use multicore
-    if isinstance(arg2, _types.IntType) or isinstance(arg2, _types.LongType):
-      if arg2 in [3, 5, 7]:
-        try:
-          arg1 = _get_field(arg1)
-          return _pmc.windowtotal(arg1, arg2)
-        except RuntimeError as exception:
-          raise RuntimeError("pcraster.multicore windowtotal: {}".format(str(exception)))
+    # Test whether we can use the multicore version
+    cellSize = _pcraster.cellvalue(_pcraster.celllength(), 1)[0]
+    # Calculate windows length as number of cells
+    window_length = arg2 / cellSize
 
-    # otherwise fall back to PCRaster model engine
+    if window_length == 3.0 or window_length == 5.0 or window_length == 7.0:
+      try:
+        arg1 = _get_field(arg1)
+        return _pmc.windowtotal(arg1, int(window_length))
+      except RuntimeError as exception:
+        raise RuntimeError("pcraster.multicore windowtotal: {}".format(str(exception)))
+
+    # Otherwise,  fall back to the default implementation
     return _pcraster.windowtotal(arg1, arg2)
 
 

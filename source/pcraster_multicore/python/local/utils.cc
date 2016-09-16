@@ -161,6 +161,9 @@ bool global_option_degrees(){
 }
 
 
+bool global_option_unittrue(){
+  return appUnitTrue == TRUE ? true : false;
+}
 
 void assert_equal_location_attributes(const calc::Field& field){
   // this is a rather weak test, we should add methods to the PCRaster calc::Field

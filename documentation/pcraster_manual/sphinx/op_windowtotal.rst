@@ -31,7 +31,7 @@ Options
 =======
 :literal:`--unittrue` or :literal:`--unitcell`
 
-:literal:`--unitcell`
+:literal:`--unittrue`
    windowlength is measured in true length (default)
 
 :literal:`--unitcell`

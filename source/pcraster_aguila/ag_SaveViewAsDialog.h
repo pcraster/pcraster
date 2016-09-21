@@ -8,8 +8,12 @@
 #include <QDialog>
 
 // PCRaster library headers.
+#if QT_VERSION < 0x050000
+#ifndef Q_MOC_RUN
 #include "dal_DataSpace.h"
 #include "com_fileformatinfo.h"
+#endif
+#endif
 
 // Module headers.
 #include "ui_SaveViewAsDialogBase.h"

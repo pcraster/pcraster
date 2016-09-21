@@ -5,10 +5,14 @@
 
 #include <string>
 #include <vector>
+#if QT_VERSION < 0x050000
+#ifndef Q_MOC_RUN
 #include <boost/filesystem/path.hpp>
 #include "dal_DataSpace.h"
 #include "com_fileformatinfo.h"
 #include "geo_dataguide.h"
+#endif
+#endif
 
 #ifndef INCLUDED_AG_VISOBSERVER
 #include "ag_VisObserver.h"

@@ -10,7 +10,7 @@ XERCES_CPP_NAMESPACE_USE
 
 using Fixture = pcrxsd::Library;
 
-BOOST_GLOBAL_FIXTURE(Fixture)
+BOOST_GLOBAL_FIXTURE(Fixture);
 
 
 BOOST_AUTO_TEST_CASE(xml_to_class)

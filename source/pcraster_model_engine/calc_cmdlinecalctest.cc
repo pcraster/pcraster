@@ -25,7 +25,7 @@ struct Fixture : public calc::LibraryClassNoQt
 
 };
 
-BOOST_GLOBAL_FIXTURE(Fixture)
+BOOST_GLOBAL_FIXTURE(Fixture);
 
 
 BOOST_AUTO_TEST_CASE(testScriptFile)

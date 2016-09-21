@@ -28,7 +28,7 @@ struct Fixture
 
 };
 
-BOOST_FIXTURE_TEST_SUITE(astsymboltable, Fixture)
+BOOST_FIXTURE_TEST_SUITE(astsymboltable, Fixture);
 
 
 /// \todo move to ASTScriptTest

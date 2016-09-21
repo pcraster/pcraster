@@ -66,7 +66,7 @@ struct ChangeTagName {
 
 using Fixture = pcrxsd::Library;
 
-BOOST_GLOBAL_FIXTURE(Fixture)
+BOOST_GLOBAL_FIXTURE(Fixture);
 
 BOOST_AUTO_TEST_CASE(for_each_node)
 {

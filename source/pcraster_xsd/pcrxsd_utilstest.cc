@@ -6,7 +6,7 @@
 
 using Fixture = pcrxsd::Library;
 
-BOOST_GLOBAL_FIXTURE(Fixture)
+BOOST_GLOBAL_FIXTURE(Fixture);
 
 BOOST_AUTO_TEST_CASE(contents_is_xml_or_pcraster_file_format)
 {

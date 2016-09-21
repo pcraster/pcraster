@@ -29,7 +29,7 @@ struct Fixture
 
 };
 
-BOOST_FIXTURE_TEST_SUITE(executor, Fixture)
+BOOST_FIXTURE_TEST_SUITE(executor, Fixture);
 
 BOOST_AUTO_TEST_CASE(testSetStep)
 {

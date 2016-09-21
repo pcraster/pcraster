@@ -1,4 +1,4 @@
-#include "stddefx.h" 
+#include "stddefx.h"
 #include "geometry.h"
 
 /********/
@@ -11,9 +11,14 @@
 #include "mathx.h"
 #include "misc.h"
 #include <float.h>
-#include <boost/test/floating_point_comparison.hpp>
 
-/* headers of this app. modules called */ 
+#if BOOST_VERSION > 105800
+#include <boost/test/tools/floating_point_comparison.hpp>
+#else
+#include <boost/test/floating_point_comparison.hpp>
+#endif
+
+/* headers of this app. modules called */
 
 /***************/
 /* EXTERNALS   */
@@ -32,14 +37,14 @@ int geomPointOnPolygonIsIn = 1;
  */
 double geomFittingRectangleStep = 16;
 
-/**********************/ 
+/**********************/
 /* LOCAL DECLARATIONS */
-/**********************/ 
+/**********************/
 #define LENGTH(p1,p2)		(fabs((p1)-(p2)))
 #define IN_BETWEEN(p1, b, p2)	(LENGTH((p1),(b)) + LENGTH((p2),(b)) <= \
 					LENGTH((p1),(p2)))
 				/* NOTE the macro IN_BETWEEN compares
-				   at <= instead of ( the mathematicall 
+				   at <= instead of ( the mathematicall
 				   justifiable) ==. This implementation will
 				   hold better if the parameters are floats */
 
@@ -51,9 +56,9 @@ double geomFittingRectangleStep = 16;
 #define ON_POLYGON (geomPointOnPolygonIsIn)
 
 
-/*********************/ 
+/*********************/
 /* LOCAL DEFINITIONS */
-/*********************/ 
+/*********************/
 
 /******************/
 /* IMPLEMENTATION */
@@ -61,8 +66,8 @@ double geomFittingRectangleStep = 16;
 
 /*
  * FLT_EPSILON is to precise for testcase in
- * void geom::PointTest::testPerpOnCord() 
- * TODO 
+ * void geom::PointTest::testPerpOnCord()
+ * TODO
  *  make all this a C++ template class
  *   with types and a certains EPS approiate
  *     in certains conditions
@@ -74,7 +79,7 @@ static BOOL CompEps(
 	double a, /* r- value to compare against b */
 	double b) /* r- value to compare against a */
 {
-  /* void geom::PointTest::testPerpOnCord() 
+  /* void geom::PointTest::testPerpOnCord()
    * really streches this one
    * found this code on the NET
    */
@@ -97,8 +102,8 @@ return a-eps <= b && b <= a+eps;
  */
 LINE  *CalcLine(
 	LINE *l,    /* write-only, line created */
-	const POINT2D *a, /* first point on the line */   
-	const POINT2D *b) /* second point on the line */   
+	const POINT2D *a, /* first point on the line */
+	const POINT2D *b) /* second point on the line */
 {
 	if(PointsEq(a,b))
   	PRECOND(! PointsEq(a,b));
@@ -132,7 +137,7 @@ LINE *PerpLine(
 		perp->parY  = FALSE;
 		perp->yInt  = k->y;
 	}
-	else 
+	else
 	{
 	if (l->slope == 0) /* horizontal */
 	     {
@@ -140,7 +145,7 @@ LINE *PerpLine(
 		perp->slope = 0;  /* actually undefined */
 		perp->parY  = TRUE;
 		perp->xInt  = k->x;
-	     }	
+	     }
 	 else
 	    { /* not vertical or horizontal */
 		perp->slope = -1 / l->slope;
@@ -155,9 +160,9 @@ LINE *PerpLine(
     */
 	 return(perp);
 }
-       
+
 /* compute intersection of 2 lines
- * returns argument p if lines intersect or 
+ * returns argument p if lines intersect or
  * NULL if lines are parallel
  */
 POINT2D *IntersectLines(
@@ -167,7 +172,7 @@ POINT2D *IntersectLines(
 	const LINE *l1, /* line 1 */
 	const LINE *l2) /* line 2 */
 {
-	if (l1->parY && l2->parY) 
+	if (l1->parY && l2->parY)
 		return(NULL);
 
 	if (l1->parY) /* l2 not */
@@ -190,18 +195,18 @@ POINT2D *IntersectLines(
 }
 
 /* compute intersection on 2 cords
- * returns argument i if cords intersect or 
+ * returns argument i if cords intersect or
  * NULL if not or if parallel
  */
 POINT2D *IntersectCords(
-	POINT2D *i, /* write-only, point of intersection. 
+	POINT2D *i, /* write-only, point of intersection.
 	           * Undefined if cords do not intersect
 	           */
 	const POINT2D *l1p1,  /* first end of cord 1 */
 	const POINT2D *l1p2,  /* second end of cord 1 */
 	const POINT2D *l2p1,  /* first end of cord 2 */
 	const POINT2D *l2p2)  /* second end of cord 2 */
-{	
+{
 	LINE l1, l2;
 
 	(void)CalcLine(&l1, l1p1, l1p2);
@@ -210,8 +215,8 @@ POINT2D *IntersectCords(
 	if (! IntersectLines(i, &l1, &l2))
 		return(NULL);
 	/* else there is an intersection,
-	 *  So point i is on both lines, 
-	 *  now test if that intersection falls on both cords: 
+	 *  So point i is on both lines,
+	 *  now test if that intersection falls on both cords:
 	 */
 	if (
 	     PointOnLineAlsoOnCord(i, l1p1, l1p2) &&
@@ -221,7 +226,7 @@ POINT2D *IntersectCords(
 }
 
 /* compute intersection on a cord and a line
- * returns argument i if cord and line intersect or 
+ * returns argument i if cord and line intersect or
  * NULL if not
  */
 POINT2D *IntersectLineCord(
@@ -231,7 +236,7 @@ POINT2D *IntersectLineCord(
 	const LINE  *l,     /* line  */
 	const POINT2D *c1,    /* first end of cord */
 	const POINT2D *c2)    /* second end of cord */
-{	
+{
 	LINE cordLine;
 
 	(void)CalcLine(&cordLine, c1, c2);
@@ -239,8 +244,8 @@ POINT2D *IntersectLineCord(
 	if (! IntersectLines(i, l, &cordLine))
 		return(NULL);
 	/* else there is an intersection,
-	 *  So point i is on both lines, 
-	 *  now test if that intersection falls on the cord: 
+	 *  So point i is on both lines,
+	 *  now test if that intersection falls on the cord:
 	 */
 	if ( PointOnLineAlsoOnCord(i, c1, c2))
 		return(i);
@@ -252,20 +257,20 @@ POINT2D *IntersectLineCord(
  * This precondition is tested in DEBUG mode.
  * Behaviour is undefined if this precondition fails
  * returns 0 if point p is not on cord c1-c2
- * non-zero if point p is on cord c1-c2       
+ * non-zero if point p is on cord c1-c2
  */
 int PointOnLineAlsoOnCord(
 	const POINT2D *p,     /* point that is on the line through
 	                     the cord  c2,c2 */
 	const POINT2D *c1,  /* first end of cord */
 	const POINT2D *c2)  /* second end of cord  */
-{	
+{
 	PTYPE maxX ,minX, maxY, minY;
 	IFDEBUG(LINE lineThroughCord);
 
 	PRECOND(PointOnLine(CalcLine(&lineThroughCord,c1,c2), p));
 
-	/* maxX, minX, maxY, minY defines the  
+	/* maxX, minX, maxY, minY defines the
 	rectangle of the 2 points c1 and c2 */
 	maxX = MAX(c1->x, c2->x);
 	minX = MIN(c1->x, c2->x);
@@ -283,10 +288,10 @@ int PointOnLineAlsoOnCord(
  * NULL otherwise.
  */
 POINT2D *PerpOnCord(
-	POINT2D *cut,   /* write-only. Cutting point of perp and *line through* 
+	POINT2D *cut,   /* write-only. Cutting point of perp and *line through*
 	               * cord c1-c2. Even if the function returns NULL!
 	               */
-	LINE  *perp,  /* write-only. perpendicular line on *line through* 
+	LINE  *perp,  /* write-only. perpendicular line on *line through*
 	               * cord c1-c2 going through point p. Even if the function
 	               * returns NULL!
 	               */
@@ -326,15 +331,15 @@ double DistPointLine(
   return Dist(&projected,p);
 }
 
-/* compute the middle point of 3 points on a line 
+/* compute the middle point of 3 points on a line
  * Points p1, p2 and p3 are assumed to be on the line.
  * This precondition is tested in DEBUG mode.
- * returns 
- * 
+ * returns
+ *
  * 1 if p1 is between p2 and p3 on the line,
  *
  * 2 if p2 is between p1 and p3 on the line,
- * 
+ *
  * 3 if p3 is between p1 and p2 on the line.
  */
 int MiddleOnLine(
@@ -348,7 +353,7 @@ int MiddleOnLine(
 	PRECOND(PointOnLine(l, p1));
 	PRECOND(PointOnLine(l, p2));
 	PRECOND(PointOnLine(l, p3));
-	
+
 	if (l->parY)
 	{
 	   /* test on Y-value */
@@ -381,12 +386,12 @@ int MiddleOnLine(
 	}
 }
 
-/* compute X co-ordinate of point on line l given Y co-ordinate 
- * Line l is assumed 
+/* compute X co-ordinate of point on line l given Y co-ordinate
+ * Line l is assumed
  * .B not
  * to be of type 'x = constantValue'.
  * This precondition is tested in DEBUG mode.
- * returns X co-ordinate belonging to Y co-ordinate on line l 
+ * returns X co-ordinate belonging to Y co-ordinate on line l
  */
 double	XgivenY(
 	const LINE *l, /* the line  */
@@ -396,16 +401,16 @@ double	XgivenY(
 
 	if (l->parY)
 		return(l->xInt);
-	else	
+	else
 		return( (y - l->yInt) / l->slope );
 }
-		
-/* compute Y co-ordinate of point on line l given X co-ordinate 
- * Line l is assumed 
+
+/* compute Y co-ordinate of point on line l given X co-ordinate
+ * Line l is assumed
  * .B not
  * to be of type 'y = constantValue'.
  * This precondition is tested in DEBUG mode.
- * returns Y co-ordinate belonging to X co-ordinate on line l 
+ * returns Y co-ordinate belonging to X co-ordinate on line l
  */
 double	YgivenX(
 	const LINE *l, /* the line  */
@@ -417,10 +422,10 @@ double	YgivenX(
 }
 
 /* test if a point p in on line l
- * returns 
+ * returns
  *
  * 0 if point is not on line,
- * 
+ *
  * non-zero if point is on line.
  */
 int PointOnLine(
@@ -438,13 +443,13 @@ int PointOnLine(
 
 /* test if a point p is in polygon pol
  * whether a point on
- * the cords of a polygon 
+ * the cords of a polygon
  * is regarded as in the polygon is defined by
  * the global variable geomPointOnPolygonIsIn.
  * If it is 0 then a point on a cord is not in polygon,
  * otherwise point on a cord is in polygon (default)
- * 
- * returns 
+ *
+ * returns
  *
  * 0 if point is not in polygon,
  * non-zero if point is in polygon
@@ -459,7 +464,7 @@ int  PointInPolygon(
  const POINT2D 	*p,   /* point  */
  const POINT2D *pol,     /* polygon */
  int	nr)           /* number of points defining the polygon  */
-{	
+{
         /* algorithm used is plumb-line-algorithm described
          * in Monmonier's Computer Assisted Cartography
          * Revision 1.2  and earlier was wrong for edges that were
@@ -504,7 +509,7 @@ int  PointInPolygon(
 		          /* rev 1.2 and earlier */
 			   /* DEAD WRONG:
 			     edge is parallel to plumb-line: NO INTERSECTION */
-				if (  (maxY < p->y) &&	
+				if (  (maxY < p->y) &&
 				      /* i-1 -> (i ? nr:i)-1   */
 				    IN_BETWEEN(pol[(i?nr:i)-1].x , p->x ,
 				      pol[(i+2)%nr].x ))
@@ -513,7 +518,7 @@ int  PointInPolygon(
 		        }
 		}
 	}  /* eoif (p->x == pol[i].x )) */
-	else 
+	else
 	  if ( minX < p->x && p->x < maxX )
 	  {
 	     /* intersection is possible */
@@ -554,7 +559,7 @@ int CentroidOfPolygon(
        POINT2D 	*c,   /* write-only. the centroid  */
  const POINT2D *pol,    /* polygon */
  int	nr)           /* number of points defining the polygon  */
-{	
+{
 	register int	i;
 	register long double up,low;
 
@@ -589,7 +594,7 @@ int CentroidOfPolygon(
  * the smallest fitting rectangle is found by rotating the polygon
  * in steps of pi/geomFittingRectangleStep and computing the area.
  * the centre of the smallest fitting rectangle that has a centre in
- * the polygon is returned. geomFittingRectangleStep 
+ * the polygon is returned. geomFittingRectangleStep
  * (double) is a global variable with default value 16.
  *
  * returns
@@ -598,9 +603,9 @@ int CentroidOfPolygon(
  * non-zero if such a rectangle is found.
  */
 int  SmallestFittingRectangleCentre(
-	POINT2D *c,   /* write-only. the centre of the smallest rectangle that 
+	POINT2D *c,   /* write-only. the centre of the smallest rectangle that
 	             * surrounds polygon pol, lying in polygon pol.
-	             * undefined if return value is 0. 
+	             * undefined if return value is 0.
 	             */
 	const POINT2D *pol, /* the polygon */
 	int nr)           /* number of points in the polygon */
@@ -663,9 +668,9 @@ int  SmallestFittingRectangleCentre(
  * Flagged with a PRECOND(FALSE)
  */
 double AreaRectangle(
-double	maxX, 
-double  minX, 
-double  maxY, 
+double	maxX,
+double  minX,
+double  maxY,
 double  minY)
 {
 	PRECOND(FALSE);
@@ -678,7 +683,7 @@ double  minY)
 double	AreaOfPolygon(
 	const POINT2D *p, /* the polygon */
 	int	nr)     /* number of points defining the polygon */
-{	
+{
 	int	i;
 	long double	a=0;
 
@@ -749,8 +754,8 @@ double CWAngle(
 	return(angle);
 }
 
-/* distance between two points 
- * returns the distance between the two points 
+/* distance between two points
+ * returns the distance between the two points
  */
 double Dist(
 	const POINT2D *p1,
@@ -766,8 +771,8 @@ double Dist(
 }
 
 /* compare two points
- * returns 0 if they are not equal 
- *         non-zero they are equal 
+ * returns 0 if they are not equal
+ *         non-zero they are equal
  */
 int PointsEq(
 	const POINT2D *p1, /* point 1 */
@@ -779,7 +784,7 @@ int PointsEq(
 /* compare two points in qsort fashion
  * CmpPoints is for qsort-type comparison
  *
- * returns 
+ * returns
  *
  * 0 if they are equal,
  *
@@ -871,11 +876,11 @@ POINT2D *CopyPoint(
 	return(d);
 }
 
-/* rotate a point 
+/* rotate a point
  * Rotate a point by a counter clockwise
  * angle. For example rotating (x=1,y=0) by
- * pi/4 (45 degrees) results in (x=0.7,y=0.7). 
- * returns argument p 
+ * pi/4 (45 degrees) results in (x=0.7,y=0.7).
+ * returns argument p
  */
 POINT2D *RotPoint(
 	POINT2D *p, /* read-write, point to rotated */
@@ -963,7 +968,7 @@ double MaxYPolygon(
  * returns number of points in resulting polygon:
  *
  * 0 if rectangles do not intersect,
- * 
+ *
  * 4 if rectangles do intersect
  */
 int IntersectAllignedRectangles(
@@ -992,9 +997,15 @@ int IntersectAllignedRectangles(
   // that represents the line between R1 and R2.
   // Such a line/polygon may incorrectly get a very
   // small area assigned due to floating point operations
+#if BOOST_VERSION > 105800
+  static boost::math::fpc::close_at_tolerance<double> tester(
+         boost::math::fpc::fpc_detail::fraction_tolerance<double>(double(1e-8)),
+         boost::math::fpc::FPC_STRONG);
+#else
   boost::test_tools::close_at_tolerance<double>
          tester(boost::test_tools::fraction_tolerance_t<double>(double(1e-8)),
          boost::test_tools::FPC_STRONG);
+#endif
 
   if(tester(static_cast<double>(yMax), static_cast<double>(yMin)) ||
          tester(static_cast<double>(xMax), static_cast<double>(xMin))){

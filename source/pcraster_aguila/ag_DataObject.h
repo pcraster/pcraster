@@ -6,12 +6,16 @@
 // Library headers.
 #include <cassert>
 #include <vector>
-#include <boost/noncopyable.hpp>
 #include <QObject>
+#if QT_VERSION < 0x050000
+#ifndef Q_MOC_RUN
+#include <boost/noncopyable.hpp>
 
 // PCRaster library headers.
 #include "dal_MapperUtils.h"
 #include "dal_Utils.h"
+#endif
+#endif
 
 // Module headers.
 #include "ag_Configure.h"
@@ -32,10 +36,10 @@
 #if QT_VERSION < 0x050000
 #ifndef Q_MOC_RUN
 #include "ag_TableDataSources.h"
+#include "ag_VectorDataSources.h"
 #endif
 #endif
 #include "ag_Types.h"
-#include "ag_VectorDataSources.h"
 #include "ag_VisSubject.h"
 
 
@@ -443,9 +447,9 @@ public Q_SLOTS:
 // {
 //   assert(guide.type() == geo::STACK || guide.type() == geo::FEATURE);
 //   assert(guide.valueScale() == VS_SCALAR);
-// 
+//
 //   T result;
-// 
+//
 //   switch(guide.type()) {
 //     case geo::STACK: {
 //       result = rasterDataSources().data(guide).selectedValue<T>();
@@ -460,7 +464,7 @@ public Q_SLOTS:
 //       break;
 //     }
 //   }
-// 
+//
 //   return result;
 // }
 
@@ -472,7 +476,7 @@ public Q_SLOTS:
 // {
 //   assert(guide.type() == geo::STACK || guide.type() == geo::FEATURE);
 //   assert(guide.valueScale() == VS_SCALAR);
-// 
+//
 //   if(!hasSelectedValue(guide) ||
 //          !dal::comparable<T>(selectedValue<T>(guide), value)) {
 //     switch(guide.type()) {
@@ -489,10 +493,10 @@ public Q_SLOTS:
 //         break;
 //       }
 //     }
-// 
+//
 //     setNotifyNeeded(true);
 //   }
-// 
+//
 //   if(notify) {
 //     this->notify();
 //   }

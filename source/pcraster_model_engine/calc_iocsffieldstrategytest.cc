@@ -25,7 +25,7 @@ struct Fixture
 
 };
 
-BOOST_FIXTURE_TEST_SUITE(iocsffieldstrategy, Fixture)
+BOOST_FIXTURE_TEST_SUITE(iocsffieldstrategy, Fixture);
 
 BOOST_AUTO_TEST_CASE(testGetStackReaderDefault)
 {

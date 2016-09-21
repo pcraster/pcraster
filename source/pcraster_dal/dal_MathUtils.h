@@ -2,6 +2,12 @@
 #define INCLUDED_DAL_MATHUTILS
 
 
+#if BOOST_VERSION > 105800
+#include <boost/test/tools/floating_point_comparison.hpp>
+#else
+#include <boost/test/floating_point_comparison.hpp>
+#endif
+
 
 // Library headers.
 #ifndef INCLUDED_CASSERT
@@ -29,10 +35,6 @@
 #define INCLUDED_BOOST_STATIC_ASSERT
 #endif
 
-#ifndef INCLUDED_BOOST_TEST_FLOATING_POINT_COMPARISON
-#include <boost/test/floating_point_comparison.hpp>
-#define INCLUDED_BOOST_TEST_FLOATING_POINT_COMPARISON
-#endif
 
 #ifndef INCLUDED_BOOST_TYPE_TRAITS
 #include <boost/type_traits.hpp>
@@ -107,7 +109,6 @@ inline bool comparable(
 }
 
 
-
 //! Compares two floating point values.
 /*!
   \param     lhs First value.
@@ -136,6 +137,11 @@ inline bool comparable(
          REAL4 const& lhs,
          REAL4 const& rhs)
 {
+#if BOOST_VERSION > 105800
+  static boost::math::fpc::close_at_tolerance<REAL4> tester(
+         boost::math::fpc::fpc_detail::fraction_tolerance<REAL4>(REAL4(1e-4)),
+         boost::math::fpc::FPC_STRONG);
+#else
   static boost::test_tools::close_at_tolerance<REAL4> tester(
 #if BOOST_VERSION < 103401
          REAL4(1e-4),
@@ -143,6 +149,7 @@ inline bool comparable(
          boost::test_tools::fraction_tolerance_t<REAL4>(REAL4(1e-4)),
 #endif
          boost::test_tools::FPC_STRONG);
+#endif
 
   return tester(lhs, rhs);
 }
@@ -152,6 +159,12 @@ inline bool comparable(
          REAL8 const& lhs,
          REAL8 const& rhs)
 {
+
+#if BOOST_VERSION > 105800
+  static boost::math::fpc::close_at_tolerance<REAL8> tester(
+         boost::math::fpc::fpc_detail::fraction_tolerance<REAL8>(REAL8(1e-6)),
+         boost::math::fpc::FPC_STRONG);
+#else
   static boost::test_tools::close_at_tolerance<REAL8> tester(
 #if BOOST_VERSION < 103401
          REAL8(1e-6),
@@ -159,6 +172,7 @@ inline bool comparable(
          boost::test_tools::fraction_tolerance_t<REAL8>(REAL8(1e-6)),
 #endif
          boost::test_tools::FPC_STRONG);
+#endif
 
   return tester(lhs, rhs);
 }
@@ -207,28 +221,28 @@ inline bool greaterOrComparable(
 // {
 //   if(begin != end) {
 //     first = *begin++;
-// 
+//
 //     if(begin != end && *begin > first) {
 //       interval = *begin++ - first;
-// 
+//
 //       if(begin == end) {
 //         last = *(begin - 1);
 //         return true;
 //       }
-// 
+//
 //       while(begin != end - 1) {
 //         if(*begin + interval != *(begin + 1)) {
 //           return false;
 //         }
-// 
+//
 //         ++begin;
 //       }
-// 
+//
 //       last = *begin;
 //       return true;
 //     }
 //   }
-// 
+//
 //   return false;
 // }
 

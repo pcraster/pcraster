@@ -42,7 +42,7 @@ struct Fixture
 };
 
 
-BOOST_GLOBAL_FIXTURE(Fixture)
+BOOST_GLOBAL_FIXTURE(Fixture);
 
 BOOST_AUTO_TEST_CASE(old_style_constructor)
 {

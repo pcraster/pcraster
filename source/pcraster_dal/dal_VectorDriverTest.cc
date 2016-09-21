@@ -115,7 +115,7 @@ BOOST_AUTO_TEST_CASE(data_space)
   {
     BOOST_REQUIRE_NO_THROW(
       space = dynamic_cast<Driver&>(driver).dataSpace("vector");
-    )
+    );
 
     BOOST_CHECK_EQUAL(space.size(), size_t(1));
 
@@ -145,7 +145,7 @@ BOOST_AUTO_TEST_CASE(data_space)
 
     BOOST_REQUIRE_NO_THROW(
       space = dynamic_cast<Driver&>(driver).dataSpace("vector", space, address);
-    )
+    );
 
     BOOST_CHECK_EQUAL(space.size(), size_t(1));
 
@@ -179,7 +179,7 @@ BOOST_AUTO_TEST_CASE(read_)
     BOOST_REQUIRE_NO_THROW(
       vector.reset(dynamic_cast<Vector*>(
            dynamic_cast<Driver&>(driver).read("vector")));
-    )
+    );
 
     BOOST_REQUIRE(vector);
 
@@ -215,7 +215,7 @@ BOOST_AUTO_TEST_CASE(read_)
 
     BOOST_REQUIRE_NO_THROW(
       driver.read(*vector, "vector", DataSpace(), DataSpaceAddress());
-    )
+    );
 
     BOOST_CHECK_EQUAL(vector->nrRows(), size_t(3));
     BOOST_CHECK_EQUAL(vector->nrCols(), size_t(2));

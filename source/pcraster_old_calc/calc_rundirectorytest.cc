@@ -117,8 +117,8 @@ BOOST_AUTO_TEST_CASE(search_path)
   pnFf.makeAbsolute();
   com::create(pnFf);
 
-  BOOST_MESSAGE(pnFf.toString()); //
-  BOOST_MESSAGE(r.inputFilePath(found,"inFile")); // //
+  BOOST_TEST_MESSAGE(pnFf.toString()); //
+  BOOST_TEST_MESSAGE(r.inputFilePath(found,"inFile")); // //
   BOOST_CHECK(pnFf.toString() == r.inputFilePath(found,"inFile"));
   BOOST_CHECK(found);
 

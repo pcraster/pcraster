@@ -27,7 +27,7 @@ struct Fixture
 
 
 
-BOOST_FIXTURE_TEST_SUITE(xmlreflection, Fixture)
+BOOST_FIXTURE_TEST_SUITE(xmlreflection, Fixture);
 
 
 BOOST_AUTO_TEST_CASE(testXMLReflection)

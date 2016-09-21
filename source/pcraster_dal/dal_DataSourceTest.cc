@@ -35,7 +35,7 @@ struct Fixture
 };
 
 
-BOOST_FIXTURE_TEST_SUITE(data_source, Fixture)
+BOOST_FIXTURE_TEST_SUITE(data_source, Fixture);
 
 BOOST_AUTO_TEST_CASE(unexisting)
 {
@@ -91,7 +91,7 @@ BOOST_AUTO_TEST_CASE(soil)
     BOOST_CHECK_NO_THROW(
       DataSource dataSource(name);
       BOOST_CHECK(dataSource.enclosingDataSpace() == DataSpace());
-    )
+    );
   }
 
   {

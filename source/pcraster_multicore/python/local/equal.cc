@@ -160,6 +160,19 @@ calc::Field* equal(
          calc::Field* field_a,
          calc::Field* field_b){
 
+  // type casting of nonspatials
+  // in case of int we can cast to scalar iff other argument is scalar
+  if(field_a->isSpatial() == false){
+    if(scalar_valuescale(*field_b)){
+      field_a = to_scalar(field_a);
+    }
+  }
+  if(field_b->isSpatial() == false){
+    if(scalar_valuescale(*field_a)){
+      field_b = to_scalar(field_b);
+    }
+  }
+
   assert_equal_location_attributes(*field_a);
   assert_equal_location_attributes(*field_b);
   assert_equal_valuescale(*field_a, *field_b, "one operand");

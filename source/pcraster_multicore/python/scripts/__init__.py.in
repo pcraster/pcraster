@@ -14,7 +14,7 @@ of several PCRaster operations. The following operators and operations
 are able to exploit multiple processors:
 
   + - * /
-  < <= > >+ == !=
+  < <= > >= == !=
   **
   & | ! ^
   defined, cover

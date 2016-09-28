@@ -101,23 +101,33 @@ def pcrmcRPow(self, number):
 # These operators should overwrite the ones from the PCRaster module.
 _pcraster.Field.__and__ = pcrmcAnd      # &
 _pcraster.Field.__rand__ = pcrmcRAnd
+
 _pcraster.Field.__or__ = pcrmcOr        # |
 _pcraster.Field.__ror__ = pcrmcROr
+
 _pcraster.Field.__invert__ = pcrmcNot   # ~
 _pcraster.Field.__xor__ = pcrmcXOr      # ^
+
 _pcraster.Field.__ne__ = pcrmcNE
 _pcraster.Field.__eq__ = pcrmcEQ
+
 _pcraster.Field.__gt__ = pcrmcGT
 _pcraster.Field.__ge__ = pcrmcGE
+
 _pcraster.Field.__lt__ = pcrmcLT
 _pcraster.Field.__le__ = pcrmcLE
+
 _pcraster.Field.__add__ = pcrmcAdd
 _pcraster.Field.__radd__ = pcrmcRAdd
+
 _pcraster.Field.__sub__ = pcrmcSub
 _pcraster.Field.__rsub__ = pcrmcRSub
+
 _pcraster.Field.__mul__ = pcrmcMul
 _pcraster.Field.__rmul__ = pcrmcRMul
+
 _pcraster.Field.__div__ = pcrmcDiv
 _pcraster.Field.__rdiv__ = pcrmcRDiv
+
 _pcraster.Field.__pow__ = pcrmcPow
 _pcraster.Field.__rpow__ = pcrmcRPow

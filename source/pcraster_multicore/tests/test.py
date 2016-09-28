@@ -332,6 +332,89 @@ class TestMulticore(unittest.TestCase):
 
     self.assertRaises(RuntimeError, pcraster.report, None, "testReportWithNone.map")
 
+  def test_1(self):
+    """ test nonspatials nominal in ifthenelse with scalar raster"""
+    pcraster.setclone("and_Expr1.map")
+
+    result = ifthenelse(boolean(1.0 == 2.0), \
+         scalar(3.0), 4.0)
+    self.assertEqual(pcraster.cellvalue(result, 1)[0], 4.0)
+
+    result = ifthenelse(boolean(1.0 == 2.0), \
+         scalar(3.0), 4)
+    self.assertEqual(pcraster.cellvalue(result, 1)[0], 4.0)
+
+
+    result = ifthenelse(boolean(2.0 == 2.0), \
+         3.0, scalar(4.0))
+    self.assertEqual(pcraster.cellvalue(result, 1)[0], 3.0)
+    result = ifthenelse(boolean(2.0 == 2.0), \
+         3, scalar(4.0))
+    self.assertEqual(pcraster.cellvalue(result, 1)[0], 3.0)
+
+  def test_2(self):
+    """ test nonspatials nominals in == with scalar raster """
+    raster = pcraster.readmap("abs_Expr.map")
+
+    result = raster == -7
+    value, isValid = pcraster.cellvalue(result, 1)
+    self.assertEqual(isValid, True)
+    self.assertEqual(value, 0)
+    value, isValid = pcraster.cellvalue(result, 2)
+    self.assertEqual(isValid, True)
+    self.assertEqual(value, 1)
+    value, isValid = pcraster.cellvalue(result, 3)
+    self.assertEqual(isValid, True)
+    self.assertEqual(value, 0)
+    value, isValid = pcraster.cellvalue(result, 4)
+    self.assertEqual(isValid, True)
+    self.assertEqual(value, 0)
+    value, isValid = pcraster.cellvalue(result, 5)
+    self.assertEqual(isValid, True)
+    self.assertEqual(value, 0)
+    value, isValid = pcraster.cellvalue(result, 6)
+    self.assertEqual(isValid, False)
+    value, isValid = pcraster.cellvalue(result, 7)
+    self.assertEqual(isValid, True)
+    self.assertEqual(value, 0)
+    value, isValid = pcraster.cellvalue(result, 8)
+    self.assertEqual(isValid, True)
+    self.assertEqual(value, 0)
+    value, isValid = pcraster.cellvalue(result, 9)
+    self.assertEqual(isValid, True)
+    self.assertEqual(value, 0)
+
+  def test_3(self):
+    """ test nonspatials nominals in != with scalar raster"""
+    raster = pcraster.readmap("abs_Expr.map")
+
+    result = raster != -7
+    value, isValid = pcraster.cellvalue(result, 1)
+    self.assertEqual(isValid, True)
+    self.assertEqual(value, 1)
+    value, isValid = pcraster.cellvalue(result, 2)
+    self.assertEqual(isValid, True)
+    self.assertEqual(value, 0)
+    value, isValid = pcraster.cellvalue(result, 3)
+    self.assertEqual(isValid, True)
+    self.assertEqual(value, 1)
+    value, isValid = pcraster.cellvalue(result, 4)
+    self.assertEqual(isValid, True)
+    self.assertEqual(value, 1)
+    value, isValid = pcraster.cellvalue(result, 5)
+    self.assertEqual(isValid, True)
+    self.assertEqual(value, 1)
+    value, isValid = pcraster.cellvalue(result, 6)
+    self.assertEqual(isValid, False)
+    value, isValid = pcraster.cellvalue(result, 7)
+    self.assertEqual(isValid, True)
+    self.assertEqual(value, 1)
+    value, isValid = pcraster.cellvalue(result, 8)
+    self.assertEqual(isValid, True)
+    self.assertEqual(value, 1)
+    value, isValid = pcraster.cellvalue(result, 9)
+    self.assertEqual(isValid, True)
+    self.assertEqual(value, 1)
 
 
 

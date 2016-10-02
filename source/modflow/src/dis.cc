@@ -547,10 +547,10 @@ void DIS::write_dis(std::string const& path) const {
 
 void DIS::write_dis_array(std::string const& path) const {
 
-  std::ofstream content("pcrmf_dis.asc");
+  std::ofstream content("pcrmf_elev.asc");
 
   if(!content.is_open()){
-    std::cerr << "Can not write " << "pcrmf_dis.asc" << std::endl;
+    std::cerr << "Can not write " << "pcrmf_elev.asc" << std::endl;
 
     exit(1);
   }

@@ -563,7 +563,9 @@ bool PCRModflow::writeNAM() {
   if(d_wel != NULL) {
     content << "WEL   224 pcrmf.wel" << std::endl;
   }
-  content << "DATA  300 pcrmf_dis.asc" << std::endl;
+  content << "DATA  300 pcrmf_elev.asc" << std::endl;
+  content << "DATA  400 pcrmf_heads.asc" << std::endl;
+  content << "DATA  401 pcrmf_bounds.asc" << std::endl;
 
   return d_cmethods->writeToFile("pcrmf.nam", content.str());
 }
@@ -1036,7 +1038,10 @@ bool PCRModflow::runModflow() {
 
   }
 
-  d_bas->writeBAS();
+  //d_bas->writeBAS();
+  d_bas->write(run_directory());
+  d_bas->write_head_array(run_directory());
+  d_bas->write_bound_array(run_directory());
 
 ///==============================================
   if(d_pcg != NULL) {

@@ -48,6 +48,12 @@ private:
   int              d_fortran_unit_number_heads;
 
   int              d_fortran_unit_number_bounds;
+
+
+  int              d_external_unit_number_heads;
+
+  int              d_external_unit_number_bounds;
+
 public:
   ~BAS();
   BAS(PCRModflow *mf);
@@ -68,6 +74,12 @@ public:
   int              fortran_unit_number_heads() const;
 
   int              fortran_unit_number_bounds() const;
+
+  void             write               (std::string const& path) const;
+
+  void             write_head_array    (std::string const& path) const;
+
+  void             write_bound_array   (std::string const& path) const;
 };
 
 #endif // INCLUDED_BAS

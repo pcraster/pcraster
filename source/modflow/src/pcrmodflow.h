@@ -247,6 +247,7 @@ class PCRModflow : public dal::Client
   void             modflow_converged   ();
   bool             d_modflow_converged;
   Solver           d_solver_used;
+  std::string      run_directory       ();
 public:
 	    ~PCRModflow();
 

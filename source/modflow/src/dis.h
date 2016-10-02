@@ -49,11 +49,13 @@ private:
 
   std::vector<float> d_col_width;
 
+  size_t           d_external_unit;
+
   bool addLayer(const float *values, bool confined);
 
-  void             write_row_width     (std::stringstream& content) const;
+  void             write_row_width     (std::ostringstream& content) const;
 
-  void             write_col_width     (std::stringstream& content) const;
+  void             write_col_width     (std::ostringstream& content) const;
 
 
 public:
@@ -66,7 +68,7 @@ public:
   void createBottom(const calc::Field *lower, const calc::Field *upper);
   void addLayer(const calc::Field *values);
   void addConfinedLayer(const calc::Field *values);
-  bool writeDIS() const;
+  //bool writeDIS() const;
   void setParams(size_t itmuni, size_t lenuni, float perlen, size_t nstp, float tsmult, bool sstr);
   size_t getTimeSteps() const;
 
@@ -78,6 +80,10 @@ public:
   void             reset_col_width     ();
 
   void             append_col_width    (float width);
+
+  void             write_dis           (std::string const& path) const;
+
+  void             write_dis_array     (std::string const& path) const;
 };
 
 #endif // INCLUDED_DIS

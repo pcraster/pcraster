@@ -17,6 +17,7 @@
 
 #include "pcraster_multicore/python/execution_policy.h"
 #include "pcraster_multicore/python/local/utils.h"
+#include "pcraster_multicore/python/type_conversion/scalar.h"
 
 // Fern
 #include "fern/algorithm/policy/policies.h"
@@ -110,44 +111,71 @@ calc::Field* maximum(boost::python::list const& arguments){
 
   std::vector<calc::Field *> field_arguments;
 
+  // Casting of POD to a PCRaster data type
+  // To determine the intended datatype, we check the spatial arguments
+  // as POD are just mapped to nominal or scalars in the Python wrapper.
+  // Depending on the spatial data types, we cast int where appropriate
+  bool is_ordinal = false;
+  bool is_scalar = false;
+  bool all_nonspatial = true;
+
   for(size_t idx = 0; idx < nr_args; ++idx){
     field_arguments.push_back(boost::python::extract<calc::Field*>(arguments[idx]));
     // arguments must have same extent as clone
     assert_equal_location_attributes(*field_arguments.at(idx));
+
+    // Just test the spatials
+    if(field_arguments.at(idx)->isSpatial() == true){
+      if(ordinal_valuescale(*field_arguments.at(idx))){
+        is_ordinal = true;
+        all_nonspatial = false;
+      }
+      else if(scalar_valuescale(*field_arguments.at(idx))) {
+        is_scalar = true;
+        all_nonspatial = false;
+      }
+
+      if(directional_valuescale(*field_arguments.at(idx))){
+        throw std::runtime_error("argument " + std::to_string(idx + 1) + " is of type 'directional'; allowed type is 'scalar' or 'ordinal'");
+      }
+      if(ldd_valuescale(*field_arguments.at(idx))){
+        throw std::runtime_error("argument " + std::to_string(idx + 1) + " is of type 'ldd'; allowed type is 'scalar' or 'ordinal'");
+      }
+      if(nominal_valuescale(*field_arguments.at(idx))){
+        throw std::runtime_error("argument " + std::to_string(idx + 1) + " is of type 'nominal'; allowed type is 'scalar' or 'ordinal'");
+      }
+      if(boolean_valuescale(*field_arguments.at(idx))){
+        throw std::runtime_error("argument " + std::to_string(idx + 1) + " is of type 'boolean'; allowed type is 'scalar' or 'ordinal'");
+      }
+    }
   }
 
-  if(directional_valuescale(*field_arguments.at(0))){
-    throw std::runtime_error("operation not implemented for type 'directional'");
-  }
-  if(ldd_valuescale(*field_arguments.at(0))){
-    throw std::runtime_error("operation not implemented for type 'ldd'");
-  }
-  if(nominal_valuescale(*field_arguments.at(0))){
-    throw std::runtime_error("operation not implemented for type 'nominal'");
-  }
-  if(boolean_valuescale(*field_arguments.at(0))){
-    throw std::runtime_error("operation not implemented for type 'boolean'");
+  // In case someone runs into this: modify the wrapper and forward this to the PCRaster max
+  if(all_nonspatial == true){
+    throw std::runtime_error("non-spatial result type is not implemented; use at least one spatial argument");
   }
 
-  // implement this when requested
-  // note: there are some checks later on that require the first argument
-  // being spatial, this needs to be adapted
-  if(field_arguments.at(0)->isSpatial() == false){
-    throw std::runtime_error("non-spatial result type is not implemented for this operation");
-  }
-
-  // first argument will determine result type
-  // all remaining arguments need to have that type as well...
-  for(size_t idx = 0; idx < nr_args - 1; ++idx){
-    std::stringstream msg{};
-    msg << "argument " << idx + 2; // + 2 due to second argument tested, and human indexing
-    assert_equal_valuescale(*field_arguments.at(idx), *field_arguments.at(idx + 1), msg.str());
-  }
-
-  if(ordinal_valuescale(*field_arguments.at(0))){
+  if(is_ordinal == true){
+    for(size_t idx = 0; idx < nr_args; ++idx){
+      // Data type mixing is not allowed
+      if(scalar_valuescale(*field_arguments.at(idx))){
+        throw std::runtime_error("argument " + std::to_string(idx + 1) + " is of type 'scalar'; allowed type is 'ordinal'");
+       }
+    }
     return detail::maximum<INT4>(field_arguments);
   }
-  else if(scalar_valuescale(*field_arguments.at(0))){
+  else if(is_scalar == true){
+    for(size_t idx = 0; idx < nr_args; ++idx){
+      // Data type mixing is not allowed
+      if(ordinal_valuescale(*field_arguments.at(idx))){
+        throw std::runtime_error("argument " + std::to_string(idx + 1) + " is of type 'ordinal'; allowed type is 'scalar'");
+      }
+      // In case we got an integer (nominal) as argument we can cast to scalar
+      if(nominal_valuescale(*field_arguments.at(idx))){
+        field_arguments.at(idx) = to_scalar(field_arguments.at(idx));
+      }
+    }
+
     return detail::maximum<REAL4>(field_arguments);
   }
 

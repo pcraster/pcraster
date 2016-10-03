@@ -3,6 +3,7 @@
 import types as _types
 import pcraster as _pcraster
 import _pcraster_multicore as _pmc
+import __builtin__
 
 
 def set_nr_worker_threads(arg1):
@@ -11,9 +12,6 @@ def set_nr_worker_threads(arg1):
 
 def nr_worker_threads():
     return _pmc.nr_worker_threads()
-
-
-
 
 
 # just get a spatial or nonspatial
@@ -35,6 +33,29 @@ def _get_field(arg):
         raise RuntimeError(msg)
 
 
+def _all_python_pod(*arguments):
+    # Helper function used to determine wheter we can call
+    # builtin functions or the overloaded PCRaster ones
+    for argument in arguments:
+        if isinstance(argument, _pcraster.Field):
+            return False
+    return True
+
+
+
+def _sort(*args):
+    # Places PCRaster spatial fields at the start of the list
+    # min/max need spatials as first argument
+    values = []
+    for item in args:
+        if isinstance(item, _pcraster.Field):
+            if item.isSpatial():
+                values.insert(0, item)
+            else:
+                values.append(item)
+        else:
+            values.append(item)
+    return values
 
 
 def windowtotal(arg1, arg2):
@@ -58,7 +79,6 @@ def windowtotal(arg1, arg2):
     return _pcraster.windowtotal(arg1, arg2)
 
 
-
 def cover(*args):
     try:
         fields = list(args)
@@ -70,25 +90,41 @@ def cover(*args):
 
 
 def max(*args):
+    # Use the builtin Python max in case of non-PCRaster data types
+    if _all_python_pod(*args):
+        return __builtin__.max(args)
     try:
-        fields = list(args)
+        fields = _sort(*args)
+        all_nonspatial = True
         for i, field in enumerate(fields):
             fields[i] = _get_field(field)
-        return _pmc.maximum(fields)
+            if fields[i].isSpatial():
+                all_nonspatial = False
+        if all_nonspatial == False:
+            return _pmc.maximum(fields)
+        else:
+            return _pcraster.operations.max(*args)
     except RuntimeError as exception:
-        raise RuntimeError("pcraster.multicore maximum: {}".format(str(exception)))
+        raise RuntimeError("pcraster.multicore max: {}".format(str(exception)))
 
 
 def min(*args):
+    # Use the builtin Python max in case of non-PCRaster data types
+    if _all_python_pod(*args):
+        return __builtin__.min(args)
     try:
-        fields = list(args)
+        fields = _sort(*args)
+        all_nonspatial = True
         for i, field in enumerate(fields):
             fields[i] = _get_field(field)
-        return _pmc.minimum(fields)
+            if fields[i].isSpatial():
+                all_nonspatial = False
+        if all_nonspatial == False:
+            return _pmc.minimum(fields)
+        else:
+            return _pcraster.operations.min(*args)
     except RuntimeError as exception:
-        raise RuntimeError("pcraster.multicore minimum: {}".format(str(exception)))
-
-
+        raise RuntimeError("pcraster.multicore min: {}".format(str(exception)))
 
 
 def ifthen(arg1, arg2):

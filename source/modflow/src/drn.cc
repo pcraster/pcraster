@@ -65,7 +65,9 @@ DRN::~DRN(){
 DRN::DRN(PCRModflow *mf) :
   d_mf(mf),
   d_drainUpdated(false),
-  d_fortran_unit_number(270) {
+  d_nr_drain_cells(0),
+  d_output_unit_number(271),
+  d_input_unit_number(270){
 }
 
 
@@ -125,25 +127,25 @@ void DRN::setDrain(const discr::BlockData<REAL4> &elevation, const discr::BlockD
 //     d_mf->d_cmethods->errorMessage(stmp.str(), "run");
 //     exit(1);
 //   }
-// 
+//
 //   char header[mf::recordMarkerSize];
 //   int headerSizeBytes = 0;
 //   file.read(header, mf::recordMarkerSize);
 //   std::memcpy(&headerSizeBytes, &(header[0]), 4);
 //   assert(headerSizeBytes == 36);
-// 
+//
 //   // read the header data inclusive
 //   // header information is already known, dummy read
 //   char *headerData = new char[headerSizeBytes];
 //   file.read(headerData, headerSizeBytes );
-// 
+//
 //   // tail of header
 //   char tailHeader[mf::recordMarkerSize + 4];
 //   int tailSizeBytes = 0;
 //   file.read(tailHeader, mf::recordMarkerSize);
 //   std::memcpy(&tailSizeBytes, &(tailHeader[0]), 4);
 //   assert(tailSizeBytes == 36);
-// 
+//
 //   // data header
 //   char dataHeader[mf::recordMarkerSize + 4];
 //   int dataSizeBytes = 0;
@@ -153,7 +155,7 @@ void DRN::setDrain(const discr::BlockData<REAL4> &elevation, const discr::BlockD
 //   char *charData = new char[dataSizeBytes];
 //   file.read(charData, dataSizeBytes);
 //   float *floatData = reinterpret_cast<float *>(charData);
-// 
+//
 //   const size_t cellMax = d_mf->d_nrOfCells;
 //   size_t pos = 0;
 //   for(size_t layer = 0; layer < d_mf->d_nrMFLayer; layer++){
@@ -189,61 +191,61 @@ void DRN::setDrain(const discr::BlockData<REAL4> &elevation, const discr::BlockD
 /**
 * writing DRN to file
 */
-bool DRN::writeDRN() const{
-  size_t count = 0;
-  float val = -1.0;
-  int mfLayer = 1;
-  int mfCount = 0;
-  std::stringstream content;
-  std::stringstream drnStr;
-
-  for(size_t layer = 1; layer <= d_mf->d_nrMFLayer; layer++){
-    count = 0;
-    size_t size = d_mf->d_layer2BlockLayer.size();
-    size_t blockLayer = d_mf->d_layer2BlockLayer.at(size - layer);
-    for (size_t row = 0; row < d_mf->d_nrOfRows; row++){
-      for (size_t col=0; col < d_mf->d_nrOfColumns; col++){
-        val = d_mf->d_drnCond->cell(count)[blockLayer];
-        if(val>0.0){
-          drnStr << std::setw(10) << mfLayer;
-          drnStr << std::setw(10) << (row + 1);
-          drnStr << std::setw(10) << (col + 1);
-          drnStr << " ";
-          drnStr << std::setw(10) << d_mf->d_drnElev->cell(count)[blockLayer];
-          drnStr << " ";
-          drnStr << std::setw(10) << val;
-          drnStr << std::endl;
-          mfCount++;
-        }
-        count++;
-      }
-    }
-    mfLayer++;
-  }
-
-  // MXACTD IDRNB
-  content << std::setw(10) << mfCount;
-  content << std::setw(10) << d_fortran_unit_number;
-  content << std::setw(10) << "NOPRINT" << std::endl;
-  // ITMP NP
-  content << std::setw(10) << mfCount;
-  content << std::setw(10) << 0 << std::endl;
-
-  content << drnStr.str();
-
-  return d_mf->d_cmethods->writeToFile("pcrmf.drn", content.str());
-
-}
+// bool DRN::writeDRN() const{
+//   size_t count = 0;
+//   float val = -1.0;
+//   int mfLayer = 1;
+//   int mfCount = 0;
+//   std::stringstream content;
+//   std::stringstream drnStr;
+//
+//   for(size_t layer = 1; layer <= d_mf->d_nrMFLayer; layer++){
+//     count = 0;
+//     size_t size = d_mf->d_layer2BlockLayer.size();
+//     size_t blockLayer = d_mf->d_layer2BlockLayer.at(size - layer);
+//     for (size_t row = 0; row < d_mf->d_nrOfRows; row++){
+//       for (size_t col=0; col < d_mf->d_nrOfColumns; col++){
+//         val = d_mf->d_drnCond->cell(count)[blockLayer];
+//         if(val>0.0){
+//           drnStr << std::setw(10) << mfLayer;
+//           drnStr << std::setw(10) << (row + 1);
+//           drnStr << std::setw(10) << (col + 1);
+//           drnStr << " ";
+//           drnStr << std::setw(10) << d_mf->d_drnElev->cell(count)[blockLayer];
+//           drnStr << " ";
+//           drnStr << std::setw(10) << val;
+//           drnStr << std::endl;
+//           mfCount++;
+//         }
+//         count++;
+//       }
+//     }
+//     mfLayer++;
+//   }
+//
+//   // MXACTD IDRNB
+//   content << std::setw(10) << mfCount;
+//   content << std::setw(10) << d_output_unit_number;
+//   content << std::setw(10) << "NOPRINT" << std::endl;
+//   // ITMP NP
+//   content << std::setw(10) << mfCount;
+//   content << std::setw(10) << 0 << std::endl;
+//
+//   content << drnStr.str();
+//
+//   return d_mf->d_cmethods->writeToFile("pcrmf.drn", content.str());
+//
+// }
 
 
 // calc::Field* DRN::getDrain(size_t layer){
 //   layer--;
 //   d_mf->d_gridCheck->isGrid(layer, "getDrain");
 //   d_mf->d_gridCheck->isConfined(layer, "getDrain");
-// 
+//
 //   calc::Spatial* spatial = new calc::Spatial(VS_S, calc::CRI_f, d_mf->d_nrOfCells);
 //   REAL4* cells = static_cast<REAL4*>(spatial->dest());
-// 
+//
 //   for(size_t pos = 0; pos < d_mf->d_nrOfCells; pos++){
 //     REAL4 value = d_mf->d_drnResult->cell(pos)[layer];
 //       cells[pos] = static_cast<REAL4>(value);
@@ -270,7 +272,7 @@ void DRN::getDrain(float *values, size_t layer) const {
   int pos_multiplier = d_mf->get_modflow_layernr(layer);
 
   mf::BinaryReader reader;
-  reader.read(stmp.str(), d_fortran_unit_number, values, desc, pos_multiplier);
+  reader.read(stmp.str(), d_output_unit_number, values, desc, pos_multiplier);
 }
 
 
@@ -292,8 +294,77 @@ calc::Field* DRN::getDrain(size_t layer) const {
   REAL4* cells = static_cast<REAL4*>(spatial->dest());
 
   mf::BinaryReader reader;
-  reader.read(stmp.str(), d_fortran_unit_number, cells, desc, pos_multiplier);
+  reader.read(stmp.str(), d_output_unit_number, cells, desc, pos_multiplier);
 
   return spatial;
 }
 
+
+
+
+void DRN::write(std::string const& path) const{
+
+  // # drn cells is calculated by write_list
+  assert(d_nr_drain_cells != 0);
+
+
+  std::ofstream content("pcrmf.drn");
+
+  if(!content.is_open()){
+    std::cerr << "Can not write " << "pcrmf.drn" << std::endl;
+    exit(1);
+  }
+
+
+  content << "# Generated by PCRaster Modflow" << std::endl;
+
+
+  // MXACTD IDRNB
+  content << d_nr_drain_cells;
+  content << " " << d_output_unit_number;
+  content << " " << "NOPRINT\n";
+  // ITMP NP
+  content << d_nr_drain_cells << " 0\n";
+  content << "EXTERNAL " << d_input_unit_number << "\n";
+
+}
+
+
+void DRN::write_list(std::string const& path) {
+
+
+  std::ofstream content("pcrmf_drn.asc");
+
+  if(!content.is_open()){
+    std::cerr << "Can not write " << "pcrmf_drn.asc" << std::endl;
+
+    exit(1);
+  }
+
+
+  size_t count = 0;
+  float val = -1.0;
+  int mfLayer = 1;
+
+  for(size_t layer = 1; layer <= d_mf->d_nrMFLayer; layer++){
+    count = 0;
+    size_t size = d_mf->d_layer2BlockLayer.size();
+    size_t blockLayer = d_mf->d_layer2BlockLayer.at(size - layer);
+    for (size_t row = 0; row < d_mf->d_nrOfRows; row++){
+      for (size_t col=0; col < d_mf->d_nrOfColumns; col++){
+        val = d_mf->d_drnCond->cell(count)[blockLayer];
+        if(val>0.0){
+          content << mfLayer;
+          content << " " << (row + 1);
+          content << " " << (col + 1);
+          content << " " << d_mf->d_drnElev->cell(count)[blockLayer];
+          content << " " << val;
+          content << "\n";
+          d_nr_drain_cells++;
+        }
+        count++;
+      }
+    }
+    mfLayer++;
+  }
+}

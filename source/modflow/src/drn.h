@@ -40,11 +40,18 @@ protected:
 private:
   PCRModflow *d_mf;
   bool d_drainUpdated;
-  int              d_fortran_unit_number;
+
+  size_t           d_nr_drain_cells;
+
+  int              d_output_unit_number;
+
+  int              d_input_unit_number;
+
+
 public:
   DRN(PCRModflow *mf);
   ~DRN();
-  bool writeDRN() const;
+  //bool writeDRN() const;
   bool drainUpdated() const;
   void setDrainUpdated(bool value);
   bool setDrain(const float *elevation, const float *conductance, size_t mfLayer);
@@ -53,10 +60,14 @@ public:
   //void getDrainFromBinary();
   //discr::BlockData<REAL4>* getBlockCellByCellFlow();
 
-  
+
   void getDrain(float *values, size_t mfLayer) const;
-  
+
   calc::Field* getDrain(size_t layer) const;
+
+  void             write               (std::string const& path) const;
+
+  void             write_list          (std::string const& path);
 };
 
 #endif // INCLUDED_DRN

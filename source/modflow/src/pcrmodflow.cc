@@ -558,8 +558,10 @@ bool PCRModflow::writeNAM() {
     content << "RIV   221 pcrmf.riv" << std::endl;
   if(d_rch!=NULL)
     content << "RCH   222 pcrmf.rch" << std::endl;
-  if(d_drn != NULL)
+  if(d_drn != NULL){
     content << "DRN   223 pcrmf.drn" << std::endl;
+    content << "DATA  270 pcrmf_drn.asc" << std::endl;
+  }
   if(d_wel != NULL) {
     content << "WEL   224 pcrmf.wel" << std::endl;
   }
@@ -1079,7 +1081,8 @@ bool PCRModflow::runModflow() {
 ///==============================================
   if(d_drn != NULL) {
     if(d_drn->drainUpdated()){
-      result = d_drn->writeDRN();
+      d_drn->write_list(run_directory());
+      d_drn->write(run_directory());
       d_drn->setDrainUpdated(false);
     }
   }

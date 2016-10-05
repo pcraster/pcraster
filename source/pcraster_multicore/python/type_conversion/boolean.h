@@ -14,6 +14,10 @@ calc::Field* boolean(
          calc::Field* field);
 
 
+calc::Field* safe_boolean(
+         calc::Field* field);
+
+
 } // namespace python
 } // namespace pcraster_multicore
 

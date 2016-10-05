@@ -5,6 +5,8 @@
 // PCRaster
 #include "calc_spatial.h"
 #include "calc_nonspatial.h"
+#include "calc_vs.h"
+
 
 // Field wrapper
 #include "pcraster_multicore/wrapper/datatype_customization_points/multicore_spatial.h"
@@ -17,6 +19,7 @@
 
 #include "pcraster_multicore/python/execution_policy.h"
 #include "pcraster_multicore/python/local/utils.h"
+#include "pcraster_multicore/python/type_conversion/boolean.h"
 
 // Fern
 #include "fern/algorithm/policy/policies.h"
@@ -90,6 +93,46 @@ calc::Field* cover(std::vector<calc::Field*> const&  field_arguments){
 }
 
 
+calc::Field* spatial_safe_bool(calc::Field* argument){
+  double value = 0;
+  argument->getCell(value, 0);
+
+  INT4 nominal_val = static_cast<INT4>(value);
+
+  if(!(0 <= nominal_val && nominal_val <= 1)){
+    throw std::runtime_error("value '" + std::to_string(nominal_val) + "' is of type nominal or ordinal, must be boolean");
+
+  }
+
+  UINT1 cellvalue = nominal_val != static_cast<UINT1>(0) ? 1 : 0;
+
+  calc::Field* res_field = new calc::Spatial(VS_B, calc::CRI_1, nr_cells());
+
+  UINT1* cells = static_cast<UINT1*>(res_field->dest());
+  std::memset(cells, cellvalue, nr_cells());
+
+  return res_field;
+
+}
+
+
+calc::Field* spatial_int4(calc::Field* argument, VS vs){
+  double value = 0;
+  argument->getCell(value, 0);
+
+  INT4 cellvalue = static_cast<INT4>(value);
+
+  calc::Field* res_field = new calc::Spatial(VS_O, calc::CRI_4, nr_cells());
+
+  for(size_t idx = 0; idx < nr_cells(); ++idx){
+    res_field->setCell(cellvalue, idx);
+  }
+
+  return res_field;
+
+}
+
+
 } // namespace detail
 
 
@@ -114,39 +157,93 @@ calc::Field* cover(boost::python::list const& arguments){
     assert_equal_location_attributes(*field_arguments.at(idx));
   }
 
-  // implement this when requested
-  if(directional_valuescale(*field_arguments.at(0))){
-    throw std::runtime_error("operation not implemented for type 'directional'");
+  bool is_boolean = false;
+  bool is_nominal = false;
+  bool is_ordinal = false;
+  bool is_scalar = false;
+
+  // First spatial argument will determine the return datatype
+  for(size_t idx = 0; idx < nr_args; ++idx){
+    if(field_arguments.at(idx)->isSpatial() == true && boolean_valuescale(*field_arguments.at(idx))){
+      is_boolean = true;
+      break;
+    }
+    if(field_arguments.at(idx)->isSpatial() == true && nominal_valuescale(*field_arguments.at(idx))){
+      is_nominal = true;
+      break;
+    }
+    if(field_arguments.at(idx)->isSpatial() == true && ordinal_valuescale(*field_arguments.at(idx))){
+      is_ordinal = true;
+      break;
+    }
+    if(field_arguments.at(idx)->isSpatial() == true && scalar_valuescale(*field_arguments.at(idx))){
+      is_scalar = true;
+      break;
+    }
   }
 
-  // implement this when requested, see remark cover ldd in manpage...
-  if(ldd_valuescale(*field_arguments.at(0))){
-    throw std::runtime_error("operation not implemented for type 'ldd'");
+  if(is_scalar) {
+    // cast nonspatial nominals (integers) to scalar
+    for(size_t idx = 0; idx < nr_args; ++idx){
+      if(field_arguments.at(idx)->isSpatial() == false){
+        if(nominal_valuescale(*field_arguments.at(idx))){
+          field_arguments.at(idx) = to_scalar(field_arguments.at(idx));
+        }
+      }
+      assert_scalar_valuescale(*field_arguments.at(idx), "argument nr " + std::to_string(idx + 1));
+    }
+    return detail::cover<REAL4>(field_arguments);
   }
-
-  // implement this when requested
-  // note: there are some checks later on that require the first argument
-  // being spatial, this needs to be adapted
-  if(field_arguments.at(0)->isSpatial() == false){
-    throw std::runtime_error("non-spatial result type is not implemented for this operation");
-  }
-
-  // first argument will determine result type
-  // all remaining arguments need to have that type as well...
-  for(size_t idx = 0; idx < nr_args - 1; ++idx){
-    std::stringstream msg{};
-    msg << "argument " << idx + 2; // + 2 due to second argument tested, and human indexing
-    assert_equal_valuescale(*field_arguments.at(idx), *field_arguments.at(idx + 1), msg.str());
-  }
-
-  if(boolean_valuescale(*field_arguments.at(0))){
-    return detail::cover<UINT1>(field_arguments);
-  }
-  else if(nominal_valuescale(*field_arguments.at(0)) || ordinal_valuescale(*field_arguments.at(0))){
+  else if(is_nominal){
+    if(field_arguments.at(0)->isSpatial() == false){
+      field_arguments.at(0) = detail::spatial_int4(field_arguments.at(0), VS_N);
+    }
+    for(size_t idx = 0; idx < nr_args; ++idx){
+      assert_nominal_valuescale(*field_arguments.at(idx), "argument nr " + std::to_string(idx + 1));
+    }
     return detail::cover<INT4>(field_arguments);
   }
-  else if(scalar_valuescale(*field_arguments.at(0)) || directional_valuescale(*field_arguments.at(0))){
-    return detail::cover<REAL4>(field_arguments);
+  else if(is_ordinal) {
+    // If first argument is nonspatial nominal: cast to spatial ordinal
+    if(field_arguments.at(0)->isSpatial() == false){
+      if(nominal_valuescale(*field_arguments.at(0))){
+          field_arguments.at(0) = detail::spatial_int4(field_arguments.at(0), VS_O);
+      }
+    }
+    for(size_t idx = 0; idx < nr_args; ++idx){
+      // Nominal nonspatials (integers) can be casted to ordinals
+      if(field_arguments.at(idx)->isSpatial() == false){
+        if(nominal_valuescale(*field_arguments.at(idx))){
+          field_arguments.at(idx) = to_ordinal(field_arguments.at(idx));
+        }
+      }
+      assert_ordinal_valuescale(*field_arguments.at(idx), "argument nr " + std::to_string(idx + 1));
+    }
+    return detail::cover<INT4>(field_arguments);
+  }
+  else if(is_boolean) {
+    // If first argument is nonspatial nominal (either 0 or 1): cast to boolean spatial
+    if(field_arguments.at(0)->isSpatial() == false){
+      if(nominal_valuescale(*field_arguments.at(0))){
+          field_arguments.at(0) = detail::spatial_safe_bool(field_arguments.at(0));
+      }
+    }
+    // Cast nonspatial nominal arguments to boolean where possible
+    for(size_t idx = 0; idx < nr_args; ++idx){
+      if(field_arguments.at(idx)->isSpatial() == false){
+        // only 0 and 1 may be casted to boolean
+        if(nominal_valuescale(*field_arguments.at(idx))){
+          field_arguments.at(idx) = safe_boolean(field_arguments.at(idx));
+        }
+      }
+      assert_boolean_valuescale(*field_arguments.at(idx), "argument nr " + std::to_string(idx + 1));
+    }
+    return detail::cover<UINT1>(field_arguments);
+  }
+  else if(directional_valuescale(*field_arguments.at(0))){
+    // directional should be covered by wrapper
+    // just bail out to be sure
+    throw std::runtime_error("internal error: unable to perform operation");
   }
 
   assert(false);

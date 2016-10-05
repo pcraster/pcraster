@@ -29,13 +29,13 @@ class TestCase(unittest.TestCase):
 
     if((result.dataType() == _pcraster.Scalar) | \
          (result.dataType() == _pcraster.Directional)):
-      result = _pcraster._closeAtTolerance(result, validatedMap)
+      diff = _pcraster._closeAtTolerance(result, validatedMap)
     else:
-      result = pcraster.pcreq(result, validatedMap)
+      diff = pcraster.pcreq(result, validatedMap)
 
 
-    min = pcraster.mapminimum(pcraster.scalar(result))
-    value, isValid = pcraster.cellvalue(min, 1)
+    diff_value = pcraster.mapminimum(pcraster.scalar(diff))
+    value, isValid = pcraster.cellvalue(diff_value, 1)
     assert isValid
     return floatEquals(value, 1.0)
 

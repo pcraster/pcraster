@@ -84,6 +84,10 @@ def cover(*args):
         fields = list(args)
         for i, field in enumerate(fields):
             fields[i] = _get_field(field)
+        if fields[0].dataType() == _pcraster.VALUESCALE.Ldd:
+            return _pcraster.operations.cover(*args)
+        if fields[0].dataType() == _pcraster.VALUESCALE.Directional:
+            return _pcraster.operations.cover(*args)
         return _pmc.cover(fields)
     except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore cover: {}".format(str(exception)))

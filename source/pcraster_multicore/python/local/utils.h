@@ -35,10 +35,10 @@ bool directional_valuescale(const calc::Field& aField);
 
 void assert_boolean_valuescale(const calc::Field& aField, const std::string& msg);
 //void assert_ldd_valuescale(const calc::Field& aField, const std::string& msg);
-//void assert_nominal_valuescale(const calc::Field& aField, const std::string& msg);
+void assert_nominal_valuescale(const calc::Field& aField, const std::string& msg);
 void assert_ordinal_valuescale(const calc::Field& aField, const std::string& msg);
 void assert_scalar_valuescale(const calc::Field& aField, const std::string& msg);
-//void assert_scalar_valuescale(const calc::Field& aField, const std::string& msg);
+//void assert_directional_valuescale(const calc::Field& aField, const std::string& msg);
 
 
 calc::Field* degrees_to_radians(const multicore_field::Nonspatial<REAL4>* aField,  multicore_field::Nonspatial<REAL4>* result);

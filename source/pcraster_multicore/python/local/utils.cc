@@ -135,6 +135,18 @@ void assert_ordinal_valuescale(const calc::Field& aField, const std::string& msg
 }
 
 
+void assert_nominal_valuescale(const calc::Field& aField, const std::string& msg){
+
+  PCR_VS field_vs = VS_UNKNOWN;
+  field_vs = aField.vs();
+
+  if(field_vs != VS_N){
+    std::stringstream err_msg{};
+    err_msg << msg << " is of type '" << field_vs << "', legal type is 'nominal'\n";
+    throw std::runtime_error(err_msg.str());
+  }
+}
+
 
 calc::Field* degrees_to_radians(const multicore_field::Nonspatial<REAL4>* aField,  multicore_field::Nonspatial<REAL4>* result){
   double conversion_factor = M_PI/180.0;

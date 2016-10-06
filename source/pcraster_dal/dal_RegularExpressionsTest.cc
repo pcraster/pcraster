@@ -8,13 +8,13 @@ BOOST_AUTO_TEST_CASE(quantile_of_raster_regex)
 {
   using namespace dal;
 
-  boost::smatch match;
+  std::smatch match;
   std::string name;
 
   {
     // Sanity check.
     name = "cd_0.001";
-    BOOST_REQUIRE(boost::regex_match(name, match, quantileOfRasterRegex));
+    BOOST_REQUIRE(std::regex_match(name, match, quantileOfRasterRegex));
     BOOST_CHECK(std::string(match[1].first, match[1].second) == "cd");
     BOOST_CHECK(std::string(match[2].first, match[2].second) == "0.001");
   }
@@ -22,7 +22,7 @@ BOOST_AUTO_TEST_CASE(quantile_of_raster_regex)
   {
     // Embedding an underscore must be possible.
     name = "cd_trend_0.001";
-    BOOST_REQUIRE(boost::regex_match(name, match, quantileOfRasterRegex));
+    BOOST_REQUIRE(std::regex_match(name, match, quantileOfRasterRegex));
     BOOST_CHECK(std::string(match[1].first, match[1].second) == "cd_trend");
     BOOST_CHECK(std::string(match[2].first, match[2].second) == "0.001");
   }

@@ -51,39 +51,39 @@ std::string const pcrStackPattern =
   - time step
   - extension
 */
-boost::regex const temporalVectorXRegex(
+std::regex const temporalVectorXRegex(
        (boost::format("(%1%)_x_(%2%)(%3%)?")
         % attributeNamePattern
         % timeStepPattern
         % extensionPattern).str());
 
-boost::regex const vectorXRegex(
+std::regex const vectorXRegex(
        (boost::format("(%1%)_x(%2%)?")
        % attributeNamePattern
        % extensionPattern).str());
 
-boost::regex const quantileOfTemporalRasterRegex(
+std::regex const quantileOfTemporalRasterRegex(
        (boost::format("(%1%)_(%2%)_(%3%)(%4%)?")
        % attributeNamePattern
        % timeStepPattern
        % quantilePattern
        % extensionPattern).str());
 
-boost::regex const temporalRasterRegex(
+std::regex const temporalRasterRegex(
        (boost::format("(%1%)_(%2%)(%3%)?")
        % attributeNamePattern
        % timeStepPattern
        % extensionPattern).str());
 
-boost::regex const quantileOfRasterRegex(
+std::regex const quantileOfRasterRegex(
        (boost::format("(%1%)_(%2%)(%3%)?")
        % attributeNamePattern
        % quantilePattern
        % extensionPattern).str());
 
-boost::regex dosRegex(dosFileNamePattern);
+std::regex dosRegex(dosFileNamePattern);
 
-boost::regex stackRegex(pcrStackPattern);
+std::regex stackRegex(pcrStackPattern);
 
 } // namespace dal
 

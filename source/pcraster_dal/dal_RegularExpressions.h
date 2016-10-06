@@ -5,10 +5,7 @@
 
 // External headers.
 #include <string>
-#ifndef INCLUDED_BOOST_REGEX
-#include <boost/regex.hpp>
-#define INCLUDED_BOOST_REGEX
-#endif
+#include <regex>
 
 // Project headers.
 
@@ -43,19 +40,19 @@ extern std::string const dosFileNamePattern;
 
 extern std::string const pcrStackPattern;
 
-extern boost::regex const temporalVectorXRegex;
+extern std::regex const temporalVectorXRegex;
 
-extern boost::regex const vectorXRegex;
+extern std::regex const vectorXRegex;
 
-extern boost::regex const quantileOfTemporalRasterRegex;
+extern std::regex const quantileOfTemporalRasterRegex;
 
-extern boost::regex const temporalRasterRegex;
+extern std::regex const temporalRasterRegex;
 
-extern boost::regex const quantileOfRasterRegex;
+extern std::regex const quantileOfRasterRegex;
 
-extern boost::regex dosRegex;
+extern std::regex dosRegex;
 
-extern boost::regex stackRegex;
+extern std::regex stackRegex;
 
 } // namespace dal
 

@@ -630,8 +630,8 @@ void VectorDriver::browse(
   std::string name, step, extension;
   std::vector<size_t> ids;
   std::set<size_t> steps;
-  boost::regex regex;
-  boost::smatch match;
+  std::regex regex;
+  std::smatch match;
   Vector* vector;
 
   std::vector<std::string> const& extensions(format().extensions());
@@ -639,13 +639,13 @@ void VectorDriver::browse(
   // Temporal vector.
   for(int i = 0; i < int(leaves.size()); ++i) {
     // First find x component.
-    if(boost::regex_match(leaves[i], match, temporalVectorXRegex)) {
+    if(std::regex_match(leaves[i], match, temporalVectorXRegex)) {
       name = std::string(match[1].first, match[1].second);
       step = std::string(match[2].first, match[2].second);
       extension = match[3].matched ?
          std::string(match[3].first, match[3].second) : "";
 
-      regex = boost::regex((boost::format(
+      regex = std::regex((boost::format(
          "%1%_y_%2%%3%")
          % name
          % step
@@ -653,11 +653,11 @@ void VectorDriver::browse(
 
       for(int j = i + 1; j < int(leaves.size()); ++j) {
         // See whether there is a matching y component.
-        if(boost::regex_match(leaves[j], match, regex)) {
+        if(std::regex_match(leaves[j], match, regex)) {
           // Vector found.
           // Find the ids of all members of the stack.
 
-          regex = boost::regex((boost::format(
+          regex = std::regex((boost::format(
               "%1%_(?:x|y)_(%2%)%3%")
               % name
               % timeStepPattern
@@ -667,7 +667,7 @@ void VectorDriver::browse(
           ids.clear();
 
           for(int k = i; k < int(leaves.size()); ++k) {
-            if(boost::regex_match(leaves[k], match, regex)) {
+            if(std::regex_match(leaves[k], match, regex)) {
               step = std::string(match[1].first, match[1].second);
               steps.insert(boost::lexical_cast<size_t>(step));
               ids.push_back(k);
@@ -719,18 +719,18 @@ void VectorDriver::browse(
 
   // Vector.
   for(int i = 0; i < int(leaves.size()); ++i) {
-    if(boost::regex_match(leaves[i], match, vectorXRegex)) {
+    if(std::regex_match(leaves[i], match, vectorXRegex)) {
       name = std::string(match[1].first, match[1].second);
       extension = match[2].matched ?
          std::string(match[2].first, match[2].second) : "";
 
-      regex = boost::regex((boost::format(
+      regex = std::regex((boost::format(
          "%1%_y%2%")
          % name
          % extension).str());
 
       for(int j = i + 1; j < int(leaves.size()); ++j) {
-        if(boost::regex_match(leaves[j], match, regex)) {
+        if(std::regex_match(leaves[j], match, regex)) {
 
           if(std::find(extensions.begin(), extensions.end(),
               extension) == extensions.end()) {

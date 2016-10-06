@@ -386,7 +386,7 @@ bool RasterDriver::extremes(
 ///   \todo      Test whether only time or cum probs is defined and the other
 ///              dimensions are empty or contain only one coordinate.
 ///   \todo      Create and call template versions of read.
-/// 
+///
 ///   This function resizes the table before all values are written.
 /// */
 /// void RasterDriver::read(
@@ -398,23 +398,23 @@ bool RasterDriver::extremes(
 ///   assert(space.hasRaster());
 ///   assert(table.nrCols() == 1);
 ///   assert(table.typeId(0) == TI_REAL4);
-/// 
+///
 ///   // if(space.hasScenarios()) {
 ///   //   assert(space.dimension(
 ///   //        space.indexOf(Scenarios)).nrValues() == 1);
 ///   // }
-/// 
+///
 ///   // assert(!space.hasSamples());
 ///   // assert(!(space.hasTime() && space.hasCumProbabilities()));
-/// 
+///
 ///   table.resize(space.dimension(space.indexOfWideDimension()).nrCoordinates());
 ///   Array<REAL4>& array = table.col<REAL4>(0);
-/// 
+///
 ///   size_t rec = 0;
-/// 
+///
 ///   for(DataSpaceIterator it = space.begin(); it != space.end(); ++it, ++rec) {
 ///     assert(rec < array.size());
-/// 
+///
 ///     if(!exists(name, space, *it)) {
 ///       pcr::setMV(array[rec]);
 ///     }
@@ -422,7 +422,7 @@ bool RasterDriver::extremes(
 ///       read(&(array[rec]), table.typeId(0), name, space, *it);
 ///     }
 ///   }
-/// 
+///
 ///   assert(rec == array.size());
 /// }
 
@@ -501,8 +501,8 @@ void RasterDriver::browseFileBasedRasterAttributes(
   std::set<size_t> steps;
   std::set<float> quantiles;
   std::string name, step, quantile, extension;
-  boost::regex regex;
-  boost::smatch match;
+  std::regex regex;
+  std::smatch match;
   Raster* raster;
 
   std::vector<std::string> const& extensions(format().extensions());
@@ -510,7 +510,7 @@ void RasterDriver::browseFileBasedRasterAttributes(
   // Quantiles of temporal rasters.
   // <name>_<step>_<quantile>.{extension}
   for(int i = 0; i < int(leaves.size()); ++i) {
-    if(boost::regex_match(leaves[i], match,
+    if(std::regex_match(leaves[i], match,
          quantileOfTemporalRasterRegex)) {
       name = std::string(match[1].first, match[1].second);
       step = std::string(match[2].first, match[2].second);
@@ -520,7 +520,7 @@ void RasterDriver::browseFileBasedRasterAttributes(
 
       // Find all members of the data set.
 
-      regex = boost::regex((boost::format(
+      regex = std::regex((boost::format(
          "%1%_(%2%)_(%3%)%4%")
          % name
          % timeStepPattern
@@ -535,7 +535,7 @@ void RasterDriver::browseFileBasedRasterAttributes(
       ids.push_back(i);
 
       for(size_t j = i + 1; j < leaves.size(); ++j) {
-        if(boost::regex_match(leaves[j], match, regex)) {
+        if(std::regex_match(leaves[j], match, regex)) {
           step = std::string(match[1].first, match[1].second);
           steps.insert(boost::lexical_cast<size_t>(step));
           quantile = std::string(match[2].first, match[2].second);
@@ -605,14 +605,14 @@ void RasterDriver::browseFileBasedRasterAttributes(
   // Quantiles of rasters.
   // <name>_<quantile>.{extension}
   for(int i = 0; i < int(leaves.size()); ++i) {
-    if(boost::regex_match(leaves[i], match, quantileOfRasterRegex)) {
+    if(std::regex_match(leaves[i], match, quantileOfRasterRegex)) {
       name = std::string(match[1].first, match[1].second);
       quantile = std::string(match[2].first, match[2].second);
       extension = match[3].matched ?
          std::string(match[3].first, match[3].second) : "";
 
       // Find all members of the data set.
-      regex = boost::regex((boost::format(
+      regex = std::regex((boost::format(
          "%1%_(%2%)%3%")
          % name
          % quantilePattern
@@ -624,7 +624,7 @@ void RasterDriver::browseFileBasedRasterAttributes(
       ids.push_back(i);
 
       for(size_t j = i + 1; j < leaves.size(); ++j) {
-        if(boost::regex_match(leaves[j], match, regex)) {
+        if(std::regex_match(leaves[j], match, regex)) {
           quantile = std::string(match[1].first, match[1].second);
           quantiles.insert(boost::lexical_cast<float>(quantile));
           ids.push_back(j);
@@ -676,14 +676,14 @@ void RasterDriver::browseFileBasedRasterAttributes(
   // Temporal rasters.
   // <name>_<timestep>{.extension}
   for(int i = 0; i < int(leaves.size()); ++i) {
-    if(boost::regex_match(leaves[i], match, temporalRasterRegex)) {
+    if(std::regex_match(leaves[i], match, temporalRasterRegex)) {
       name = std::string(match[1].first, match[1].second);
       step = std::string(match[2].first, match[2].second);
       extension = match[3].matched ?
          std::string(match[3].first, match[3].second) : "";
 
       // Find all members of the stack.
-      regex = boost::regex((boost::format("%1%_(%2%)%3%")
+      regex = std::regex((boost::format("%1%_(%2%)%3%")
          % name
          % timeStepPattern
          % extension).str());
@@ -694,7 +694,7 @@ void RasterDriver::browseFileBasedRasterAttributes(
       ids.push_back(i);
 
       for(size_t j = i + 1; j < leaves.size(); ++j) {
-        if(boost::regex_match(leaves[j], match, regex)) {
+        if(std::regex_match(leaves[j], match, regex)) {
           step = std::string(match[1].first, match[1].second);
           steps.insert(boost::lexical_cast<size_t>(step));
           ids.push_back(j);
@@ -748,12 +748,12 @@ void RasterDriver::browseFileBasedRasterAttributes(
     // 8.3 Dos convention.
     // <name><timestep>
     for(int i = 0; i < int(leaves.size()); ++i) {
-      if(boost::regex_match(leaves[i], match, dosRegex)) {
+      if(std::regex_match(leaves[i], match, dosRegex)) {
         std::string fileName(leaves[i]);
         assert(fileName[8] == '.');
         fileName.erase(8, 1);
 
-        if(boost::regex_match(fileName, match, stackRegex)) {
+        if(std::regex_match(fileName, match, stackRegex)) {
           name = std::string(match[1].first, match[1].second);
           step = std::string(match[2].first, match[2].second);
 
@@ -761,7 +761,7 @@ void RasterDriver::browseFileBasedRasterAttributes(
               "%1%([[:digit:]]{%2%}.[[:digit:]]{3})")
               % name
               % (8 - name.size())).str();
-          regex = boost::regex(pattern);
+          regex = std::regex(pattern);
 
           steps.clear();
           ids.clear();
@@ -769,7 +769,7 @@ void RasterDriver::browseFileBasedRasterAttributes(
           ids.push_back(i);
 
           for(int j = i + 1; j < int(leaves.size()); ++j) {
-            if(boost::regex_match(leaves[j], match, regex)) {
+            if(std::regex_match(leaves[j], match, regex)) {
               step = std::string(match[1].first, match[1].second);
 
               if(name.size() < 8) {

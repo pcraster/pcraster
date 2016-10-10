@@ -30,17 +30,27 @@ class WEL{
  protected:
  private:
   PCRModflow *d_mf;
-  int              d_fortran_unit_number;
+  size_t           d_nr_wel_cells;
+
+  int              d_output_unit_number;
+
+  int              d_input_unit_number;
+
+  //int              d_fortran_unit_number;
  public:
   WEL(PCRModflow *mf);
   ~WEL();
-  void writeWEL() const;
+  //void writeWEL() const;
   bool setWell(const float *values, size_t mfLayer);
   void setWell(const discr::BlockData<REAL4> &well);
   void setWell(const calc::Field *well, size_t layer);
 
 
   calc::Field*     get_well            (size_t layer);
+
+  void             write               (std::string const& path);
+
+  void             write_list          (std::string const& path);
 };
 
 #endif // INCLUDED_WEL

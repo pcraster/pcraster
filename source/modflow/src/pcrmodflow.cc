@@ -554,10 +554,13 @@ bool PCRModflow::writeNAM() {
     content << "DE4   210 pcrmf.de4" << std::endl;
   }
   content << "OC    220 pcrmf.oc" << std::endl;
-  if(d_riv!=NULL)
+  if(d_riv!=NULL){
     content << "RIV   221 pcrmf.riv" << std::endl;
-  if(d_rch!=NULL)
+    content << "DATA  251 pcrmf_riv.asc" << std::endl;
+  }
+  if(d_rch!=NULL){
     content << "RCH   222 pcrmf.rch" << std::endl;
+  }
   if(d_drn != NULL){
     content << "DRN   223 pcrmf.drn" << std::endl;
     content << "DATA  270 pcrmf_drn.asc" << std::endl;
@@ -1089,7 +1092,9 @@ bool PCRModflow::runModflow() {
 
   if(d_riv!=NULL) {
     if(d_riv->riverUpdated()){
-      d_riv ->writeRIV();
+      //d_riv ->writeRIV();
+      d_riv->write_list(run_directory());
+      d_riv->write(run_directory());
       d_riv->setRiverUpdated(false);
     }
   }

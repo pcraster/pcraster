@@ -38,23 +38,35 @@ class RIV{
  private:
   PCRModflow *d_mf;
   bool d_riverUpdated;
-  int              d_fortran_unit_number;
+
+  size_t           d_nr_river_cells;
+
+  int              d_output_unit_number;
+
+  int              d_input_unit_number;
+
+  //int              d_fortran_unit_number;
+
  public:
   ~RIV();
   RIV(PCRModflow *mf);
-  bool writeRIV() const;
+  //bool writeRIV() const;
   bool riverUpdated() const;
   void setRiverUpdated(bool value);
   bool setRiver(const float *rivH, const float *rivB, const float *rivC, size_t layer);
   void setRiver(const calc::Field *rivH, const calc::Field *rivB, const calc::Field *rivC, size_t layer);
   void setRiver(const discr::BlockData<REAL4> &stage, const discr::BlockData<REAL4> &bottom, const discr::BlockData<REAL4> &cond);
   //discr::BlockData<REAL4>* getBlockCellByCellFlow();
-  
+
   calc::Field* getRiverLeakage(size_t layer) const;
   void getRiverLeakage(float *result, size_t layer) const;
-  
+
   //void getRivLeakFromBinary();
-  
+
+  void             write               (std::string const& path);
+
+  void             write_list          (std::string const& path);
+
 };
 
 #endif // INCLUDED_RIV

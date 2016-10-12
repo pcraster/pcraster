@@ -30,7 +30,6 @@
 #include "ag_MultiMap2DWindow.h"
 #include "ag_Map3DWindow.h"
 #include "ag_PlotVisualisation.h"
-#include "ag_ScriptEditWindow.h"
 #include "ag_TimePlotWindow.h"
 #include "ag_VisGroupManager.h"
 

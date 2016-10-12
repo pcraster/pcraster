@@ -68,7 +68,6 @@ SET(LIB_SOURCES
     ag_FeatureLayer.cc
     ag_FeatureLayerDrawer.cc
     ag_Feedback.cc
-    # ag_FileIconProvider.cc
     ag_GeneralDataPropertiesWidget.cc
     ag_GeneralPreferencesWidget.cc
     ag_GeometryLegendBody.cc

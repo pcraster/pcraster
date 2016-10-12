@@ -47,7 +47,6 @@ namespace ag {
   class VisGroupManager;
   class IVisualisation;
   class PlotVisualisation;
-  class ScriptEditWindow;
   class VisualisationWindow;
 }
 

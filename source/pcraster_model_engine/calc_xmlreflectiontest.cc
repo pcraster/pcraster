@@ -1,6 +1,5 @@
 #define BOOST_TEST_MODULE pcraster model_engine xmlreflection
 #include <boost/test/unit_test.hpp>
-#include <qdom.h>
 #include "calc_comparefilewithvalidated.h"
 #include "calc_globallibdefs.h"
 #include "calc_asttestfactory.h"

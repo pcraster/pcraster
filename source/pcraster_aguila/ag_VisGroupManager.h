@@ -33,7 +33,6 @@ namespace ag {
   class Map2DWindow;
   class Map3DWindow;
   class MultiMap2DWindow;
-  class ScriptEditWindow;
   class TimePlotWindow;
   class VisGroupManagerPrivate;
   class IVisualisation;

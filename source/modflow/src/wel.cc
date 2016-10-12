@@ -5,6 +5,11 @@
 
 
 // Library headers.
+#ifndef INCLUDED_FSTREAM
+#include <fstream>
+#define INCLUDED_FSTREAM
+#endif
+
 #ifndef INCLUDED_SSTREAM
 #include <sstream>
 #define INCLUDED_SSTREAM

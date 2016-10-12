@@ -48,7 +48,7 @@ class DialogPrivate
 
 
 
-Dialog::Dialog(QWidget *p, bool m, Qt::WFlags f)
+Dialog::Dialog(QWidget *p, bool m, Qt::WindowFlags f)
 
   : QDialog(p, f), d_data(0)
 

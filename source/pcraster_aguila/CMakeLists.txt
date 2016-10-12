@@ -120,9 +120,6 @@ SET(LIB_SOURCES
     ag_Scene.cc
     ag_SceneObject.cc
     ag_SceneView.cc
-    ag_ScriptEdit.cc
-    ag_ScriptEditWindow.cc
-    ag_ScriptSyntaxHighlighter.cc
     ag_SpatialDataset.cc
     ag_Table.cc
     ag_TableDataSources.cc
@@ -187,7 +184,7 @@ SET(LIB_SOURCES
     # Plots/ag_TimeSeriesPlot.cc
     # Plots/ag_ValueTimeSeriesPlot.cc
 )
-QT4_WRAP_UI(
+QT5_WRAP_UI(
     UI_SOURCES
     # CursorValueDialog.ui
     GeneralPreferencesWidgetBase.ui
@@ -231,8 +228,9 @@ SET_TARGET_PROPERTIES(pcraster_aguila
 TARGET_LINK_LIBRARIES(pcraster_aguila
     pcraster_dal
     pcraster_xsd
-    Qt4::QtGui
-    Qt4::QtOpenGL
+    Qt5::Gui
+    Qt5::OpenGL
+    Qt5::Xml
     ${QWT_LIBRARY}
     ${OPENGL_LIBRARIES}
 )

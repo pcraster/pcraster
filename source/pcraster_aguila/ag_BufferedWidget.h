@@ -90,7 +90,7 @@ protected:
 
                    BufferedWidget      (Alignment alignment,
                                         QWidget* parent=0,
-                                        Qt::WFlags flags=0);
+                                        Qt::WindowFlags flags=Qt::Widget);
 
   Alignment        alignment           () const;
 

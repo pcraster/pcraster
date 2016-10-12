@@ -65,7 +65,7 @@ public:
                    PreferencesDialog   (DataObject* dataObject,
                                         QWidget* parent=0,
                                         bool model=false,
-                                        Qt::WFlags flags=0);
+                                        Qt::WindowFlags flags=Qt::Widget);
 
   /* virtual */    ~PreferencesDialog  ();
 

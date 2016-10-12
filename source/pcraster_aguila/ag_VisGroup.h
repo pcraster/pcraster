@@ -155,8 +155,6 @@ public:
 
   CursorWindow*    addCursorWindow     ();
 
-  ScriptEditWindow* addScriptEditWindow();
-
   // ag::DataPropertiesDialog* addDataPropertiesDialog(
   //                                       const ag::DataGuide& dataGuide);
 

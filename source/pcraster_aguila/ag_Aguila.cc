@@ -88,7 +88,7 @@ Aguila::Aguila(
 
   init(qt::AppWindowProperties("Aguila", "", version(),
          detail::DEVELOPERMESSAGE + "\n\n" + license(),
-         (char const **)pcr_16x16_xpm));
+         QPixmap(pcr_16x16_xpm)));
 }
 
 

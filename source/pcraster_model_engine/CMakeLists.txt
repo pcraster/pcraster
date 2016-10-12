@@ -345,6 +345,7 @@ TARGET_LINK_LIBRARIES(pcraster_model_engine
     # ${BOOST_SYSTEM_LIBRARY}
     # ${BOOST_FILESYSTEM_LIBRARY}
     # ${BOOST_MATH_C99_LIBRARY}
+    Qt5::Xml
     ${XercesC_LIBRARIES}
 )
 
@@ -364,6 +365,10 @@ if(PCRASTER_BUILD_TEST)
         calc_modelerrortester
         calc_p5stack
         calc_manualexampletester
+  )
+
+  target_link_libraries(pcraster_model_engine_unit_test_utils
+      Qt5::Xml
   )
 
 

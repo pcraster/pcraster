@@ -54,7 +54,7 @@ namespace ag {
 VisualisationWindow::VisualisationWindow(
          const qt::AppWindowProperties& props,
          const std::string& visualisationName,
-         DataObject* object, Qt::WFlags flags)
+         DataObject* object, Qt::WindowFlags flags)
 
   : qt::AppWindow(props, visualisationName, 0, flags),
     IVisualisation(object, visualisationName),

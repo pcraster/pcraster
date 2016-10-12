@@ -42,7 +42,7 @@ Visualisation<Widget>::Visualisation(
          DataObject* object,
          const std::string& visualisationName,
          QWidget* parent,
-         Qt::WFlags flags)
+         Qt::WindowFlags flags)
 
   : Widget(parent),
     IVisualisation(object, visualisationName)

@@ -129,7 +129,7 @@ ADD_LIBRARY(pcrxml
 )
 TARGET_LINK_LIBRARIES(pcrxml
     pcrcom
-    Qt4::QtXml
+    Qt5::Xml
 )
 
 

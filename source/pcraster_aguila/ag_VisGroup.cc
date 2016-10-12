@@ -409,17 +409,6 @@ ag::CumDistributionFunctionWindow* ag::VisGroup::addProbabilityGraphWindow()
 
 
 
-ag::ScriptEditWindow* ag::VisGroup::addScriptEditWindow()
-{
-  ScriptEditWindow* edit = new ScriptEditWindow(d_data->d_winProps,
-                   &(d_data->d_dataObject));
-  addVisualisation(edit);
-  // edit->resize(600, 400);
-  return edit;
-}
-
-
-
 // ag::DataPropertiesDialog* ag::VisGroup::addDataPropertiesDialog(
 //          const ag::DataGuide& dataGuide)
 // {

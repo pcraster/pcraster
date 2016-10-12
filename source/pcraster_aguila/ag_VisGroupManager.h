@@ -195,8 +195,6 @@ public Q_SLOTS:
   CumDistributionFunctionWindow* addProbabilityGraphWindow(
                                         VisGroup* group);
 
-  ScriptEditWindow* addScriptEditWindow(ag::VisGroup* visGroup);
-
   // ag::DataPropertiesDialog* addDataPropertiesDialog(
   //                                       ag::DataObject& dataObject,
   //                                       const ag::DataGuide& dataGuide);

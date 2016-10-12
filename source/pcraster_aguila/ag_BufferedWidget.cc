@@ -43,7 +43,7 @@ namespace ag {
 BufferedWidget::BufferedWidget(
          Alignment alignment,
          QWidget* parent,
-         Qt::WFlags flags)
+         Qt::WindowFlags flags)
 
   : QWidget(parent, flags),
     _alignment(alignment),

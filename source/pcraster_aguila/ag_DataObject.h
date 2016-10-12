@@ -7,7 +7,6 @@
 #include <cassert>
 #include <vector>
 #include <QObject>
-#if QT_VERSION < 0x050000
 #ifndef Q_MOC_RUN
 #include <boost/noncopyable.hpp>
 
@@ -15,29 +14,21 @@
 #include "dal_MapperUtils.h"
 #include "dal_Utils.h"
 #endif
-#endif
 
 // Module headers.
 #include "ag_Configure.h"
 #include "ag_DataGuide.h"
 #include "ag_DataProperties.h"
-// https://bugreports.qt.io/browse/QTBUG-22829
-#if QT_VERSION < 0x050000
 #ifndef Q_MOC_RUN
 #include "ag_FeatureDataSources.h"
 #endif
-#endif
 #include "ag_RangeDrawProps.h"
-#if QT_VERSION < 0x050000
 #ifndef Q_MOC_RUN
 #include "ag_RasterDataSources.h"
 #endif
-#endif
-#if QT_VERSION < 0x050000
 #ifndef Q_MOC_RUN
 #include "ag_TableDataSources.h"
 #include "ag_VectorDataSources.h"
-#endif
 #endif
 #include "ag_Types.h"
 #include "ag_VisSubject.h"

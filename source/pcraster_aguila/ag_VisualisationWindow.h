@@ -71,7 +71,7 @@ protected:
                    VisualisationWindow (const qt::AppWindowProperties& props,
                                         const std::string& visualisationName,
                                         ag::DataObject* object,
-                                        Qt::WFlags flags);
+                                        Qt::WindowFlags flags);
 
   void             createInterface     ();
 

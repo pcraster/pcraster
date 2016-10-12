@@ -60,7 +60,7 @@ public:
   //! Constructor.
                    Dialog              (QWidget *   p = 0,
                                         bool        m = true,
-                                        Qt::WFlags  f = 0);
+                                        Qt::WindowFlags  f = Qt::Widget);
 
   //! Destructor.
   virtual          ~Dialog          ();

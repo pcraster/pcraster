@@ -147,7 +147,7 @@ TARGET_LINK_LIBRARIES(pcraster_dal
     #${Boost_FILESYSTEM_LIBRARY}
     ${Boost_PROGRAM_OPTIONS_LIBRARY}
     ${Boost_SYSTEM_LIBRARY}
-    Qt4::QtSql
+    Qt5::Sql
 )
 ADD_CUSTOM_COMMAND(
     TARGET pcraster_dal

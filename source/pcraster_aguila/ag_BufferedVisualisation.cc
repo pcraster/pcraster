@@ -54,7 +54,7 @@ ag::BufferedVisualisation::BufferedVisualisation(
          std::string const& visualisationName,
          Alignment alignment,
          QWidget* parent,
-         Qt::WFlags flags)
+         Qt::WindowFlags flags)
 
   : BufferedWidget(alignment, parent, flags),
     IVisualisation(object, visualisationName)

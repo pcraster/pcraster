@@ -63,7 +63,7 @@ public:
              parent 0 and we'll reparent it to this dialog.
 */
 qt::PropertiesDialog::PropertiesDialog(PropertiesWidget* widget,
-                   QWidget* parent, bool modal, Qt::WFlags flags)
+                   QWidget* parent, bool modal, Qt::WindowFlags flags)
 
   : QDialog(parent, flags),
     d_data(new PropertiesDialogPrivate())

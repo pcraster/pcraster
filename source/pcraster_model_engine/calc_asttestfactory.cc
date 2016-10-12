@@ -9,9 +9,9 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_QDOM
-#include <qdom.h>
-#define INCLUDED_QDOM
+#ifndef INCLUDED_QDOMELEMENT
+#include <QDomElement>
+#define INCLUDED_QDOMELEMENT
 #endif
 #ifndef INCLUDED_COM_FILE
 #include "com_file.h"

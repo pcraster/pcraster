@@ -48,7 +48,7 @@ protected:
                                         std::string const& visualisationName,
                                         Alignment alignment,
                                         QWidget* parent=0,
-                                        Qt::WFlags flags=0);
+                                        Qt::WindowFlags flags=Qt::Widget);
 
 public:
 

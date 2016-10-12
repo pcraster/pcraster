@@ -53,13 +53,6 @@
 // Module headers.
 
 
-// generates many errors if it is in the library headers section...
-#ifndef INCLUDED_QAPPLICATION
-#include <qapplication.h>
-#define INCLUDED_QAPPLICATION
-#endif
-
-
 // level = elevation level/pcraster map
 
 class Common;
@@ -254,8 +247,6 @@ public:
 	    //PCRModflow();
 	    PCRModflow(const geo::RasterSpace &raster);
 	    PCRModflow(size_t rows, size_t cols, double cellsize, double xll, double yll);
-
-	    QApplication *app;
 
 
 	    // DIS

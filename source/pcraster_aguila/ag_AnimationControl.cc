@@ -1,7 +1,7 @@
 #include "ag_AnimationControl.h"
 
 // Library headers.
-#include <QtGui>
+#include <QtWidgets>
 
 // PCRaster library headers.
 #include "dal_DataSpace.h"

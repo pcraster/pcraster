@@ -40,10 +40,11 @@ function build_software()
 {
     hostname=`hostname`
 
-    if [[ \
-                $hostname == "sonic.geo.uu.nl" || \
-                $hostname == "gransasso" \
-            ]]; then
+    if [[ $hostname == "sonic.geo.uu.nl" ]]; then
+        skip_build_qt=1
+    fi
+
+    if [[ $hostname == "gransasso" ]]; then
         skip_build_qt=1
         skip_build_qwt=1
     fi

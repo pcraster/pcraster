@@ -34,7 +34,7 @@ PreferencesDialog::PreferencesDialog   (
          DataObject* dataObject,
          QWidget* parent,
          bool modal,
-         Qt::WFlags flags)
+         Qt::WindowFlags flags)
 
   : QDialog(parent, flags),
     d_dataObject(dataObject),

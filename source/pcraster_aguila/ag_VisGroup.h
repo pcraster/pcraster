@@ -47,7 +47,6 @@ namespace ag {
   class VisGroupManager;
   class IVisualisation;
   class PlotVisualisation;
-  class ScriptEditWindow;
   class VisualisationWindow;
 }
 
@@ -154,8 +153,6 @@ public:
   AnimationControl* addAnimationDialog ();
 
   CursorWindow*    addCursorWindow     ();
-
-  ScriptEditWindow* addScriptEditWindow();
 
   // ag::DataPropertiesDialog* addDataPropertiesDialog(
   //                                       const ag::DataGuide& dataGuide);

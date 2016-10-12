@@ -118,16 +118,16 @@ public:
                                         const std::string& version,
                                         const QPixmap& icon,
                                         QWidget* parent = 0,
-                                        Qt::WFlags flags = Qt::Window);
+                                        Qt::WindowFlags flags = Qt::Window);
 
                    AppWindow           (const AppWindowProperties& properties,
                                         QWidget* parent = 0,
-                                        Qt::WFlags flags = Qt::Window);
+                                        Qt::WindowFlags flags = Qt::Window);
 
                    AppWindow           (const AppWindowProperties& properties,
                                         const std::string& windowName,
                                         QWidget* parent = 0,
-                                        Qt::WFlags flags = Qt::Window);
+                                        Qt::WindowFlags flags = Qt::Window);
 
   virtual          ~AppWindow          ();
 

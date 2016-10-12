@@ -9,10 +9,6 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_QDOM
-#include <qdom.h>
-#define INCLUDED_QDOM
-#endif
 #ifndef INCLUDED_BOOST_FOREACH
 #include <boost/foreach.hpp>
 #define INCLUDED_BOOST_FOREACH

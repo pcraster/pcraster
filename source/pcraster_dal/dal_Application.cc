@@ -96,7 +96,7 @@ Application::Application(
   : dev::GDalClient(),
     dev::QtClient<QCoreApplication>(argc, argv),
     dal::Client(dev::prefix(argv[0]), true),
-    dev::CommandLineApplication(application().argc(), application().argv())
+    dev::CommandLineApplication(argc, argv)
 
 {
   assert(dev::GDalClient::isInitialized());

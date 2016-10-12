@@ -265,17 +265,6 @@ ag::VisGroupManager::addProbabilityGraphWindow(
 }
 
 
-
-ag::ScriptEditWindow* ag::VisGroupManager::addScriptEditWindow(
-         VisGroup* visGroup)
-{
-  assert(visGroup);
-  ScriptEditWindow* edit = visGroup->addScriptEditWindow();
-  return edit;
-}
-
-
-
 void ag::VisGroupManager::newMap2DWindow(ag::VisualisationWindow *v)
 {
   VisGroup* vg = newGroup();

@@ -8,11 +8,9 @@
 #include <QDialog>
 
 // PCRaster library headers.
-#if QT_VERSION < 0x050000
 #ifndef Q_MOC_RUN
 #include "dal_DataSpace.h"
 #include "com_fileformatinfo.h"
-#endif
 #endif
 
 // Module headers.
@@ -84,7 +82,7 @@ public:
                                         // std::string const& defaultName,
                                         QWidget* parent = 0,
                                         bool modal = false,
-                                        Qt::WFlags flags = 0);
+                                        Qt::WindowFlags flags = Qt::Widget);
 
   /* virtual */    ~SaveViewAsDialog   ();
 

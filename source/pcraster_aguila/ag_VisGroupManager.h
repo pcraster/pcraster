@@ -33,7 +33,6 @@ namespace ag {
   class Map2DWindow;
   class Map3DWindow;
   class MultiMap2DWindow;
-  class ScriptEditWindow;
   class TimePlotWindow;
   class VisGroupManagerPrivate;
   class IVisualisation;
@@ -194,8 +193,6 @@ public Q_SLOTS:
 
   CumDistributionFunctionWindow* addProbabilityGraphWindow(
                                         VisGroup* group);
-
-  ScriptEditWindow* addScriptEditWindow(ag::VisGroup* visGroup);
 
   // ag::DataPropertiesDialog* addDataPropertiesDialog(
   //                                       ag::DataObject& dataObject,

@@ -187,7 +187,7 @@ void qt::AppWindow::showError(QWidget* p, const std::string& caption,
 qt::AppWindow::AppWindow(const std::string& appName,
                    const std::string& winName, const std::string& version,
                    const QPixmap& icon, QWidget* parent,
-                   Qt::WFlags flags)
+                   Qt::WindowFlags flags)
 
   : QMainWindow(parent, flags),
     d_winProps(appName, winName, version, icon)
@@ -208,7 +208,7 @@ qt::AppWindow::AppWindow(const std::string& appName,
 */
 qt::AppWindow::AppWindow(const AppWindowProperties& properties,
                    QWidget* parent,
-                   Qt::WFlags flags)
+                   Qt::WindowFlags flags)
 
   : QMainWindow(parent, flags),
     d_winProps(properties)
@@ -233,7 +233,7 @@ qt::AppWindow::AppWindow(const AppWindowProperties& properties,
 qt::AppWindow::AppWindow(const AppWindowProperties& properties,
                    const std::string& winName,
                    QWidget* parent,
-                   Qt::WFlags flags)
+                   Qt::WindowFlags flags)
 
   : QMainWindow(parent, flags),
     d_winProps(properties)

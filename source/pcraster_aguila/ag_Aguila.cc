@@ -88,7 +88,7 @@ Aguila::Aguila(
 
   init(qt::AppWindowProperties("Aguila", "", version(),
          detail::DEVELOPERMESSAGE + "\n\n" + license(),
-         (char const **)pcr_16x16_xpm));
+         QPixmap(pcr_16x16_xpm)));
 }
 
 
@@ -111,7 +111,6 @@ void Aguila::init(
 
   // old PCRaster C lib error handler (lib misc)
   // errorHandler = ag::showError;
-  // Q3FileDialog::setIconProvider(new FileIconProvider(this));
 
   // // Don't create the viewer before calling dal::Library::initialise().
   // dal::Library::initialise();
@@ -180,22 +179,6 @@ Viewer& Aguila::viewer()
 //   init();
 //   assert(d_data);
 //   assert(d_viewer);
-// }
-// void Aguila::createScriptEditVisualisations()
-// {
-//   typedef com::OptionList<std::string> Arguments;
-//   typedef std::vector<Arguments> ArgumentLists;
-//
-//   for(ArgumentLists::const_iterator listIt =
-//                    d_data->d_editorArguments.begin();
-//                    listIt != d_data->d_editorArguments.end(); ++listIt) {
-//
-//     for(Arguments::const_iterator argIt = (*listIt).begin();
-//                    argIt != (*listIt).end(); ++argIt) {
-//
-//       // d_data->d_viewer->displayScriptEdit(*argIt, 0, false);
-//     }
-//   }
 // }
 
 // void Aguila::createLockFile()

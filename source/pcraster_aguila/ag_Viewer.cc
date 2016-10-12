@@ -790,8 +790,6 @@ VisGroup* Viewer::groupFor(
 //   \param     sync Whether the data sets will be sunken in the group.
 //   \return    Visualisation group to which the visualisation is added.
 //   \sa        display(const com::PathName&, VisGroup*, bool)
-//   \warning   ScriptEditWindow object cannot be created using this function
-//              since an editor can only show one data file.
 // */
 // VisGroup* Viewer::display(
 //          dal::DataSpace const& searchSpace,

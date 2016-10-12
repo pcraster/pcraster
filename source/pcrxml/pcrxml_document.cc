@@ -131,7 +131,7 @@ void pcrxml::Document::initFromStr(const QString&       content)
    QString errMsg;
    bool success = setContent(content,false,&errMsg);
    if (!success) {
-     QByteArray asciiData = errMsg.toAscii();
+     QByteArray asciiData = errMsg.toLatin1();
      const char *goodData = asciiData.constData();
      throw com::BadStreamFormat(goodData);
      }
@@ -186,7 +186,7 @@ pcrxml::Document::Document(const com::PathName& file)
   QString errMsg;
   success = setContent(&f,false,&errMsg);
   if (!success) {
-     QByteArray asciiData = errMsg.toAscii();
+     QByteArray asciiData = errMsg.toLatin1();
      const char *goodData = asciiData.constData();
      throw com::BadStreamFormat(goodData);
   }

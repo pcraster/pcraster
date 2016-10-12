@@ -30,7 +30,6 @@
 #include "ag_MultiMap2DWindow.h"
 #include "ag_Map3DWindow.h"
 #include "ag_PlotVisualisation.h"
-#include "ag_ScriptEditWindow.h"
 #include "ag_TimePlotWindow.h"
 #include "ag_VisGroupManager.h"
 
@@ -405,17 +404,6 @@ ag::CumDistributionFunctionWindow* ag::VisGroup::addProbabilityGraphWindow()
          d_data->d_winProps, &(d_data->d_dataObject));
   addVisualisation(window);
   return window;
-}
-
-
-
-ag::ScriptEditWindow* ag::VisGroup::addScriptEditWindow()
-{
-  ScriptEditWindow* edit = new ScriptEditWindow(d_data->d_winProps,
-                   &(d_data->d_dataObject));
-  addVisualisation(edit);
-  // edit->resize(600, 400);
-  return edit;
 }
 
 

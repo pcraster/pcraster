@@ -43,7 +43,7 @@ SaveViewAsDialog::SaveViewAsDialog(
          // std::string const& defaultName,
          QWidget* parent,
          bool modal,
-         Qt::WFlags flags)
+         Qt::WindowFlags flags)
 
   : QDialog(parent, flags),
     d_applicationName(applicationName), d_formats(formats),

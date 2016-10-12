@@ -33,6 +33,6 @@ if(PCRASTER_BUILD_TEST)
         NAMES ${TEST_NAMES}
         LINK_LIBRARIES
             utils
-            Qt4::QtCore
+            Qt5::Core
     )
 endif()

@@ -7,11 +7,6 @@
 #define INCLUDED_PCRCALC
 #endif
 
-#ifndef INCLUDED_QDOM
-#include <qdom.h>
-#define INCLUDED_QDOM
-#endif
-
 #ifndef INCLUDED_APPARGS
 #include "appargs.h" // APP_IO_STRATEGY
 #define INCLUDED_APPARGS

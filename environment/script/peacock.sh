@@ -38,19 +38,21 @@ function parse_commandline()
 
 function build_software()
 {
-    hostname=`hostname`
+    # Prefer version of libraries installed by the package manager. In
+    # case the correct (major) version is not available, we can build one.
+    local hostname=`hostname`
 
     if [[ $hostname == "sonic.geo.uu.nl" ]]; then
+        # CentOS 7
         skip_build_qt=1
     fi
 
     if [[ $hostname == "gransasso" ]]; then
+        # Ubuntu 16.04
+        skip_build_boost=1
         skip_build_qt=1
         skip_build_qwt=1
     fi
-
-    `python -c "import gdal"` >/dev/null 2>&1 && \
-        skip_build_gdal_python_package=1
 
 
     if [[ $OSTYPE == "cygwin" ]]; then
@@ -64,30 +66,41 @@ function build_software()
 
 
     # Boost.
-    options+=("-Dbuild_boost=true")
-    options+=("-Dboost_version=1.57.0")
-    options+=("-Dboost_build_boost_date_time=true")
-    options+=("-Dboost_build_boost_filesystem=true")
-    options+=("-Dboost_build_boost_math=true")
-    options+=("-Dboost_build_boost_program_options=true")
-    options+=("-Dboost_build_boost_python=true")
-    options+=("-Dboost_build_boost_regex=true")
-    options+=("-Dboost_build_boost_system=true")
-    options+=("-Dboost_build_boost_test=true")
-    options+=("-Dboost_build_boost_timer=true")
+    if [ ! "$skip_build_boost" ]; then
+        options+=("-Dbuild_boost=true")
+        options+=("-Dboost_version=1.57.0")
+        options+=("-Dboost_build_boost_date_time=true")
+        options+=("-Dboost_build_boost_filesystem=true")
+        options+=("-Dboost_build_boost_math=true")
+        options+=("-Dboost_build_boost_program_options=true")
+        options+=("-Dboost_build_boost_python=true")
+        options+=("-Dboost_build_boost_regex=true")
+        options+=("-Dboost_build_boost_system=true")
+        options+=("-Dboost_build_boost_test=true")
+        options+=("-Dboost_build_boost_timer=true")
+    fi
+
 
     # GDAL.
-    options+=("-Dbuild_gdal=true")
-    options+=("-Dgdal_version=2.0.1")
-    if [ ! "$skip_build_gdal_python_package" ]; then
-        options+=("-Dgdal_build_python_package=true")
+    if [ ! "$skip_build_gdal" ]; then
+        `python -c "import gdal"` >/dev/null 2>&1 && \
+            skip_build_gdal_python_package=1
+
+        options+=("-Dbuild_gdal=true")
+        options+=("-Dgdal_version=2.0.1")
+        if [ ! "$skip_build_gdal_python_package" ]; then
+            options+=("-Dgdal_build_python_package=true")
+        fi
     fi
+
 
     # Qt
     if [ ! "$skip_build_qt" ]; then
         options+=("-Dbuild_qt=true")
-        options+=("-Dqt_version=4.8.6")
+        # TODO Not supported yet: https://github.com/geoneric/peacock/issues/53
+        options+=("-Dqt_version=5.6.2")
     fi
+
 
     # Qwt
     if [ ! "$skip_build_qwt" ]; then
@@ -95,9 +108,11 @@ function build_software()
         options+=("-Dqwt_version=6.1.2")
     fi
 
+
     # PCRaster raster format.
     options+=("-Dbuild_pcraster_raster_format=true")
     options+=("-Dpcraster_raster_format_version=1.3.1")
+
 
     # Fern.
     options+=("-Dbuild_fern=true")

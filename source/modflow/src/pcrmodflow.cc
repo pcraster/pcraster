@@ -563,7 +563,7 @@ bool PCRModflow::writeNAM() {
     content << "RCH   222 pcrmf.rch\n";
     content << "DATA  261 pcrmf_rch.asc\n";
     if(d_rch->indicated_recharge()){
-      content << "DATA  262 pcrmf_rch.asc\n";
+      content << "DATA  262 pcrmf_irch.asc\n";
     }
   }
 

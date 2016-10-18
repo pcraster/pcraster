@@ -254,7 +254,7 @@ void RCH::getRecharge(float *values, size_t layer) const {
 
 void RCH::write(std::string const& path){
 
-  std::ofstream content("pcrmf.rch1");
+  std::ofstream content("pcrmf.rch");
 
   if(!content.is_open()){
     std::cerr << "Can not write " << "pcrmf.wel" << std::endl;
@@ -282,7 +282,7 @@ void RCH::write(std::string const& path){
 
 void RCH::write_array(std::string const& path){
 
-  std::ofstream content("pcrmf.rch2");
+  std::ofstream content("pcrmf_rch.asc");
 
   if(!content.is_open()){
     std::cerr << "Can not write " << "pcrmf.wel" << std::endl;
@@ -305,7 +305,7 @@ void RCH::write_array(std::string const& path){
 
 void RCH::write_indicated(std::string const& path){
 
-  std::ofstream content("pcrmf.rch3");
+  std::ofstream content("pcrmf_irch.asc");
 
   if(!content.is_open()){
     std::cerr << "Can not write " << "pcrmf.wel" << std::endl;
@@ -327,5 +327,5 @@ void RCH::write_indicated(std::string const& path){
 
 
 bool RCH::indicated_recharge() const {
-  return d_nrchop == 1 ? true : false;
+  return d_nrchop == 2 ? true : false;
 }

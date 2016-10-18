@@ -232,7 +232,7 @@ void RIV::getRiverLeakage(float *values, size_t layer) const {
 void RIV::write(std::string const& path){
 
 
-  // # drn cells is calculated by write_list
+  // # riv cells is calculated by write_list
   assert(d_nr_river_cells != 0);
 
   std::ofstream content("pcrmf.riv");

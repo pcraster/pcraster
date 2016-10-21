@@ -33,6 +33,7 @@ addons:
             # - clang-3.5
             - doxygen
             - g++-4.9
+            - graphviz
             - imagemagick
             - libgeos++-dev
             - libboost1.55-all-dev
@@ -42,8 +43,8 @@ addons:
             # - python-gdal
             - python-numpy
             - python-virtualenv
+            - xerces-c-devel
             - xsltproc
-            - graphviz
             # - libc++-dev
             #- gdal-bin # 02/2016 travis vm currently installs v1.x
             # - libgdal-dev

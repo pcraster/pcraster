@@ -39,13 +39,20 @@ class RCH{
   //short d_irchcb;
   short d_inrech;
   short d_inirch;
-  int              d_fortran_unit_number;
+  //int              d_fortran_unit_number;
+
+  int              d_output_unit_number;
+
+  int              d_array_unit_number;
+
+  int              d_indicated_unit_number;
+
  public:
   ~RCH();
   RCH(PCRModflow *mf, size_t option);
   void setRecharge(const calc::Field *rch, size_t optCode);
   void setIndicatedRecharge(const calc::Field *rch, const calc::Field *layer);
-  void writeRCH() const;
+  //void writeRCH() const;
 
   //void getFlowFromBinary();
 //  discr::BlockData<REAL4>* getBlockCellByCellFlow();
@@ -53,6 +60,14 @@ class RCH{
   void             getRecharge         (float * values, size_t mfLayer) const;
 
   calc::Field*     getRecharge         (size_t layer) const;
+
+  void             write               (std::string const& path);
+
+  void             write_array         (std::string const& path);
+
+  void             write_indicated     (std::string const& path);
+
+  bool             indicated_recharge  () const;
 };
 
 #endif // INCLUDED_RCH

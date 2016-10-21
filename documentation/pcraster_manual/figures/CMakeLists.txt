@@ -1,6 +1,9 @@
 # files are just hardcoded here
 # actually they should be 'grepped' from the manual xml
 # FTTB we assume no changes in the set of files
+#
+# Manually update the PNGs in case you modify the EPS files!
+#
 SET(EPS_FIGURES
     block.eps
     demldd.eps
@@ -21,17 +24,36 @@ SET(EPS_FIGURES
     stack.eps
     stackrel.eps
 )
-SET(PNG_FIGURES)
-FOREACH(EPS_FIGURE IN LISTS EPS_FIGURES)
-    GET_FILENAME_COMPONENT(FILENAME ${EPS_FIGURE} NAME_WE)
-    SET(PNG_FIGURE ${CMAKE_CURRENT_BINARY_DIR}/${FILENAME}.png)
-    ADD_CUSTOM_COMMAND(
-        OUTPUT ${PNG_FIGURE}
-        COMMAND ${ImageMagick_convert_EXECUTABLE}
-            ${CMAKE_CURRENT_SOURCE_DIR}/${EPS_FIGURE} ${PNG_FIGURE}
-        DEPENDS ${EPS_FIGURE}
+
+SET(PNG_FIGURES
+    block.png
+    demldd.png
+    dynvb1.png
+    dynvb2.png
+    fric.png
+    lddcode.png
+    locattr.png
+    opaccu.png
+    opalg.png
+    oparea.png
+    opmap.png
+    oppath.png
+    oppoint.png
+    opsysacc.png
+    opwin.png
+    seqconc.png
+    stack.png
+    stackrel.png
+)
+
+FOREACH(FILENAME IN LISTS PNG_FIGURES)
+    SET(PNG_FIGURE ${CMAKE_CURRENT_BINARY_DIR}/${FILENAME})
+    ADD_CUSTOM_COMMAND (
+        OUTPUT  ${PNG_FIGURE}
+        COMMAND ${CMAKE_COMMAND}
+        ARGS    -E copy ${CMAKE_CURRENT_SOURCE_DIR}/${FILENAME}
+            ${CMAKE_CURRENT_BINARY_DIR}/${in_file}
     )
-    LIST(APPEND PNG_FIGURES ${PNG_FIGURE})
 ENDFOREACH()
 
 ADD_CUSTOM_TARGET(preprocessFigures

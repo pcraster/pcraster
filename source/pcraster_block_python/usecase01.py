@@ -21,6 +21,7 @@ class UseCase01(DynamicModel):
     noCompactionAdd(self.d_block, real4RasterData(10 * uniform(1), self.d_raster))
 
   def dynamic(self):
+    # Remove thin layer from block.
     remove(self.d_block, real4RasterData(uniform(1), self.d_raster))
     setDefaultValue(self.d_timeStep,
          real4RasterData(scalar(self.currentTimeStep()), self.d_raster))

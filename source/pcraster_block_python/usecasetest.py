@@ -24,8 +24,12 @@ class UseCaseTest(unittest.TestCase):
     block = model.d_block
     stack = PCRasterBlock.voxelStack(block, 1, 1)
 
-    print PCRasterBlock.nrVoxels(stack), model.nrTimeSteps()
-    self.failUnless(PCRasterBlock.nrVoxels(stack) <= model.nrTimeSteps())
+    # In the initial a layer is added to the block.
+    # In the dynamic, a *thin* layer is removed from the block and a
+    # layer is added to the block. The max number of layers is 11 but
+    # depending on the actual layer thicknesses, this number can be
+    # smaller.
+    self.failUnless(PCRasterBlock.nrVoxels(stack) <= model.nrTimeSteps() + 1)
 
     timeStep = model.d_timeStep
     timeStepStack = PCRasterBlock.real4VoxelStackData(timeStep, 1, 1)

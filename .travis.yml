@@ -37,13 +37,13 @@ addons:
             - imagemagick
             - libgeos++-dev
             - libboost1.55-all-dev
+            - libxerces-c-dev
             - libxml2-dev
             - libxslt1-dev
             - python-dev
             # - python-gdal
             - python-numpy
             - python-virtualenv
-            - xerces-c-devel
             - xsltproc
             # - libc++-dev
             #- gdal-bin # 02/2016 travis vm currently installs v1.x

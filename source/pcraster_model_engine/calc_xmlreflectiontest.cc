@@ -6,6 +6,7 @@
 #include "calc_astscript.h"
 #include "calc_xmlreflection.h"
 #include "com_file.h"
+#include <boost/algorithm/string/replace.hpp>
 
 
 struct Fixture
@@ -37,7 +38,17 @@ BOOST_AUTO_TEST_CASE(testXMLReflection)
     std::auto_ptr<ASTScript>s(ASTTestFactory::createFromIdOrStr("pcrcalc510a"));
     s->analyzeNoContext();
     XMLReflection xr(*s);
-    com::write(xr.toString(),"pcrcalc510a.xml");
+
+    // Reflection uses Xsd serialization, which by default pretty prints the
+    // XML. Pretty printing is handled differently by different versions of
+    // Xsd (Xerces?). On some platforms additional newlines are inserted,
+    // which makes comparing contents not portable. The file the validated/
+    // directory doesn't contain the additional newlines, so we just remove
+    // them here. Now comparison works on all platforms again.
+    auto string = xr.toString();
+    boost::algorithm::replace_all(string, "\n\n", "\n");
+
+    com::write(string, "pcrcalc510a.xml");
     BOOST_CHECK(compareFileWithValidated("pcrcalc510a.xml"));
 /*
 *   std::string xmlStr=s->xmlReflection();

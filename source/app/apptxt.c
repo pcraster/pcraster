@@ -51,7 +51,7 @@ int AppDetectColumnFile(
 
 	if(f == NULL)
 	{
-		Error("can not open: %s\n", fileName);
+		ErrorNested("can not open: %s\n", fileName);
 		return 0;
 	}
 	while( (c = fgetc(f)) != EOF )

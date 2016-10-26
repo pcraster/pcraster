@@ -1050,6 +1050,9 @@ bool PCRModflow::runModflow() {
 
     d_bcf->writeBCF();
 
+    d_bcf->write(run_directory());
+    d_bcf->write_hy(run_directory());
+
   }
 
   //d_bas->writeBAS();

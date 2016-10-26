@@ -83,7 +83,7 @@ BCF::BCF(PCRModflow *mf):
   d_wetfct(0.0),
   d_ihdwet(0.0),
   d_trpy(1.0),
-  d_iwetit(0),  
+  d_iwetit(0),
   d_hdry(-999.0),
   d_fortran_unit_number(240),
   d_mf(mf)
@@ -99,7 +99,7 @@ void BCF::writeBCF(){
   std::stringstream content;
   //size_t count_old = d_mf->d_layerType.size();
   size_t count = d_mf->d_layer2BlockLayer.size();
-  
+
   //
   // Item 1: IBCFCB HDRY IWDFLG WETFCT IWETIT IHDWET
   //
@@ -116,19 +116,19 @@ void BCF::writeBCF(){
     size_t mfLayer = count - i;
     size_t size = d_mf->d_layer2BlockLayer.size();
     size_t blockLayer = d_mf->d_layer2BlockLayer.at(size - mfLayer);
-    
+
     content <<  " " << d_mf->d_layerType.at(blockLayer);
   }
-  
-  
+
+
   /*
   std::vector<int>::reverse_iterator ri = d_mf->d_layerType.rbegin();
   while(ri != d_mf->d_layerType.rend()) {
     content <<  " " << *ri;
     ++ri;
   }*/
-  
-  
+
+
   content << std::endl;
   //
   // TRPY
@@ -143,12 +143,12 @@ void BCF::writeBCF(){
   }
   //
   // for each layer
-  //  
+  //
   for(int i = count-1; i >= 0; i--){
     size_t mfLayer = count - i;
     size_t size = d_mf->d_layer2BlockLayer.size();
     size_t blockLayer = d_mf->d_layer2BlockLayer.at(size - mfLayer);
-    
+
     // determine layer type
     size_t lcon = getLaycon(d_mf->d_layerType.at(blockLayer));
     //
@@ -185,7 +185,7 @@ void BCF::writeBCF(){
       std::string s = boost::str(boost::format("INTERNAL  1.00000E+00  (FREE)  %1%    VCONT layer %2%") % -1 %mfLayer);
       calcVCond(content, blockLayer, s);
     }
-    
+
     //
     // transient simulation, secondary storage, if laycon is 2 or 3
     //
@@ -218,7 +218,7 @@ void BCF::writeBCF(){
 //   size_t cols = d_mf->d_nrOfColumns;
 //   size_t rowWrap = d_mf->d_nrOfColumns - 1;
 //   aStream << msg << std::endl;
-// 
+//
 //   for(size_t j = 0; j < d_mf->d_nrOfCells; ++j){
 //     // sf1 = height * storage
 //     float sf1 = d_mf->d_baseArea->cell(j)[layer] * d_mf->d_primaryStorage->cell(j)[layer];
@@ -274,7 +274,7 @@ void BCF::calcVCond(std::stringstream &aStream, size_t layer, const std::string 
 //   size_t cols = d_mf->d_nrOfColumns;
 //   size_t rowWrap = d_mf->d_nrOfColumns - 1;
 //   aStream << msg << std::endl;
-// 
+//
 //   for(size_t i = 0; i < d_mf->d_nrOfCells; ++i){
 //     aStream  << " " << d_mf->d_vCond->cell(i)[layer] ;
 //     if((i % cols) == rowWrap){
@@ -305,9 +305,9 @@ void BCF::calcVCond(std::stringstream &aStream, size_t layer, const std::string 
         stmp << "Can not calculate VCOND in row " << row << " cell " << col << ", divsion by 0? " << std::endl;
         d_mf->d_cmethods->error(stmp.str(), "run");
       }
-      
+
       float vcond = 1.0f / denominator;
-      
+
       aStream << " " << vcond;
       if((i % cols) == rowWrap){
         aStream << std::endl;
@@ -329,7 +329,7 @@ void BCF::calcVCond(std::stringstream &aStream, size_t layer, const std::string 
         stmp << "Can not calculate VCOND in row " << row << " cell " << col << ", divsion by 0? " << std::endl;
         d_mf->d_cmethods->error(stmp.str(), "run");
       }
-                                 
+
       float vcond = 1.0f / denominator;
       aStream  << " " << vcond ;
       if((i % cols) == rowWrap){
@@ -456,11 +456,11 @@ size_t  BCF::getLaycon(size_t lcon){
 
 
 void BCF::get_binary(float *values, const std::string description, size_t start, size_t multiplier) const{
-  // see also flow data description at faq how to read binary 
+  // see also flow data description at faq how to read binary
   // http://water.usgs.gov/nrp/gwsoftware/modflow2000/Guide/index.html
-  
+
   std::string filename("fort." + boost::lexical_cast<std::string>(d_fortran_unit_number));
-  
+
   std::ifstream file(filename.c_str(), std::ios::in | std::ios::binary);
   if(!file.is_open()){
     std::stringstream stmp;
@@ -471,7 +471,7 @@ void BCF::get_binary(float *values, const std::string description, size_t start,
   size_t nr_cells = d_mf->d_nrOfCells;
   int nr_result_layer = d_mf->nr_modflow_layer();
   int nr_bytes = sizeof(float);
-  
+
   // first we should check if the requested content is at 'that' position...
   // 36 metadata; 16 2 * block markers
   int skip_bytes_until_block = mf::recordMarkerSize + start * (36 + 16 + nr_cells * nr_result_layer * nr_bytes);
@@ -481,11 +481,11 @@ void BCF::get_binary(float *values, const std::string description, size_t start,
   char tmp[4];
   file.read(tmp, 4);  // dummy read kstep
   file.read(tmp, 4);  // dummy read kper
-  
+
   char* desc = new char[17];  // desc contains the array description
   file.read(desc, 16);
   desc[16] = '\0';
-  
+
    if(description.compare(desc) != 0){
      std::stringstream stmp;
      stmp << "Cannot find " << description << " in the BCF output file " << filename << std::endl;
@@ -495,8 +495,8 @@ void BCF::get_binary(float *values, const std::string description, size_t start,
   // jump to the right block and position, skip the metadata, block marker;
   // multiplier holds layer number of the layer we are interested in
   size_t new_pos = skip_bytes_until_block + 36 + 8 + nr_cells * multiplier * nr_bytes;
-  file.seekg(new_pos);  
-  
+  file.seekg(new_pos);
+
   char *charData = new char[nr_cells * nr_bytes];
   file.read(charData, nr_cells * nr_bytes);
   float *floatData = reinterpret_cast<float *>(charData);
@@ -504,9 +504,9 @@ void BCF::get_binary(float *values, const std::string description, size_t start,
   for(size_t pos = 0; pos < nr_cells; ++pos){
       values[pos] = floatData[pos];
   }
-  
+
   file.close();
-  
+
   delete[] desc;
   desc = NULL;
 
@@ -532,12 +532,12 @@ calc::Field* BCF::get_storage(size_t layer) const {
   // modflow reports from top to bottom, thus
   // get the 'inverse' layer number to start from the right position
   int pos_multiplier = d_mf->get_modflow_layernr(layer);
-  
+
   calc::Spatial* spatial = new calc::Spatial(VS_S, calc::CRI_f, d_mf->d_nrOfCells);
   REAL4* cells = static_cast<REAL4*>(spatial->dest());
 
   get_binary(cells, desc, start_pos, pos_multiplier);
-  
+
   return spatial;
 }
 
@@ -570,7 +570,7 @@ calc::Field* BCF::get_constand_head(size_t layer) const {
   layer--;
   d_mf->d_gridCheck->isGrid(layer, "get_constand_head");
   d_mf->d_gridCheck->isConfined(layer, "get_constand_head");
-  
+
   size_t start_pos = 1;    // 'second' entry
   const std::string desc("   CONSTANT HEAD");
 
@@ -581,12 +581,12 @@ calc::Field* BCF::get_constand_head(size_t layer) const {
   // modflow reports from top to bottom, thus
   // get the 'inverse' layer number to start from the right position
   int pos_multiplier = d_mf->get_modflow_layernr(layer);
-  
+
   calc::Spatial* spatial = new calc::Spatial(VS_S, calc::CRI_f, d_mf->d_nrOfCells);
   REAL4* cells = static_cast<REAL4*>(spatial->dest());
-  
+
   get_binary(cells, desc, start_pos, pos_multiplier);
-  
+
   return spatial;
 }
 
@@ -669,16 +669,16 @@ calc::Field* BCF::get_front_face(size_t layer) const {
   if(d_mf->d_isSteadyState == true){
      start_pos--;
   }
-  
+
   // modflow reports from top to bottom, thus
   // get the 'inverse' layer number to start from the right position
   int pos_multiplier = d_mf->get_modflow_layernr(layer);
-  
+
   calc::Spatial* spatial = new calc::Spatial(VS_S, calc::CRI_f, d_mf->d_nrOfCells);
   REAL4* cells = static_cast<REAL4*>(spatial->dest());
 
   get_binary(cells, desc, start_pos, pos_multiplier);
-  
+
   return spatial;
 }
 
@@ -711,7 +711,7 @@ calc::Field* BCF::get_lower_face(size_t layer) const {
     stmp << "Cannot obtain flow lower face for bottom layer (layer "<< layer + 1 << ")";
     d_mf->d_cmethods->error(stmp.str(), "get_lower_face");
   }
-  
+
   d_mf->d_gridCheck->isGrid(layer, "get_lower_face");
   d_mf->d_gridCheck->isConfined(layer, "get_lower_face");
 
@@ -725,12 +725,12 @@ calc::Field* BCF::get_lower_face(size_t layer) const {
   // modflow reports from top to bottom, thus
   // get the 'inverse' layer number to start from the right position
   int pos_multiplier = d_mf->get_modflow_layernr(layer);
-  
+
   calc::Spatial* spatial = new calc::Spatial(VS_S, calc::CRI_f, d_mf->d_nrOfCells);
   REAL4* cells = static_cast<REAL4*>(spatial->dest());
 
   get_binary(cells, desc, start_pos, pos_multiplier);
-  
+
   return spatial;
 }
 
@@ -760,3 +760,275 @@ void BCF::get_lower_face(float *values, size_t layer) const {
   get_binary(values, desc, start_pos, pos_multiplier);
 }
 
+
+
+
+void BCF::write(std::string const& path) const {
+
+  std::ofstream content("pcrmf_bcf2.asc");
+
+  if(!content.is_open()){
+    std::cerr << "Can not write " << "pcrmf_wel.asc" << std::endl;
+    exit(1);
+  }
+}
+
+void BCF::write_hy(std::string const& path)  {
+
+  std::ofstream content("pcrmf_bcf_hy.asc");
+
+  if(!content.is_open()){
+    std::cerr << "Can not write " << "pcrmf_wel.asc" << std::endl;
+    exit(1);
+  }
+
+  //std::stringstream content;
+  //size_t count_old = d_mf->d_layerType.size();
+  size_t count = d_mf->d_layer2BlockLayer.size();
+
+  //
+  // Item 1: IBCFCB HDRY IWDFLG WETFCT IWETIT IHDWET
+  //
+//   content << " " << d_fortran_unit_number;
+//   content << " " << d_hdry;
+//   content << " " << d_iwdflg;
+//   content << " " << d_wetfct;
+//   content << " " << d_iwetit;
+//   content << " " << d_ihdwet << std::endl;
+//   //
+//   // NLAY layer type
+//   //
+//   for(int i = count-1; i >= 0; i--){
+//     size_t mfLayer = count - i;
+//     size_t size = d_mf->d_layer2BlockLayer.size();
+//     size_t blockLayer = d_mf->d_layer2BlockLayer.at(size - mfLayer);
+//
+//     content <<  " " << d_mf->d_layerType.at(blockLayer);
+//   }
+
+
+  /*
+  std::vector<int>::reverse_iterator ri = d_mf->d_layerType.rbegin();
+  while(ri != d_mf->d_layerType.rend()) {
+    content <<  " " << *ri;
+    ++ri;
+  }*/
+
+
+  //content << std::endl;
+  //
+  // TRPY
+  //content << "CONSTANT " << d_trpy << " TRPY" << std::endl;
+  // in case of wetting values must be set
+//   if((d_iwdflg<0.0)||(d_iwdflg>0.0)){
+//     std::stringstream stmp;
+//     if(d_mf->d_wetting==NULL){
+//       stmp << "Writing BCF data failed: Wetting enabled, but no layer values defined";
+//       d_mf->d_cmethods->error(stmp.str(), "run");
+//     }
+//   }
+  //
+  // for each layer
+  //
+  for(int i = count-1; i >= 0; i--){
+    size_t mfLayer = count - i;
+    size_t size = d_mf->d_layer2BlockLayer.size();
+    size_t blockLayer = d_mf->d_layer2BlockLayer.at(size - mfLayer);
+
+    // determine layer type
+    size_t lcon = getLaycon(d_mf->d_layerType.at(blockLayer));
+    //
+    // transient simulation, primary storage
+    //
+
+//     if(d_mf->d_isSteadyState==false){
+//       std::stringstream stmp;
+//       stmp << "INTERNAL  1.00000E+00  (FREE)  -1     Sf1 layer " << mfLayer;
+//       d_mf->d_cmethods->writeMatrix(content, stmp.str(), d_mf->d_layer2BlockLayer, *(d_mf->d_primaryStorage), blockLayer);
+//     }
+    //
+    // Transmissivity, if laycon is 0 or 2
+    //
+    // if((d_mf->d_layerType.at(blockLayer)==0)||(d_mf->d_layerType.at(blockLayer)==2)){
+//     if((lcon == 0) || (lcon == 2)){
+//       std::stringstream s;
+//       s << "INTERNAL  1.00000E+00  (FREE)  -1    TRAN layer " << mfLayer;
+//       calcTran(content, blockLayer, s.str());
+//     }
+    //
+    // Hydraulic conductivity, if laycon is 1 or 3
+    //
+    // hydraulic conductivity along rows
+    // if((d_mf->d_layerType.at(blockLayer)==1)||(d_mf->d_layerType.at(blockLayer)==3)){
+// // //     if((lcon == 1) || (lcon == 3)){
+// // //       std::string s = boost::str(boost::format("INTERNAL  1.00000E+00  (FREE)  %1%    HY layer %2%") % -1 %mfLayer);
+// // //       d_mf->d_cmethods->writeMatrix(content, s, d_mf->d_layer2BlockLayer, *(d_mf->d_hCond), blockLayer);
+// // //     }
+
+
+  size_t count = 0;
+
+  for(size_t r = 0; r < d_mf->d_nrOfRows; ++r){
+    for(size_t c = 0; c < d_mf->d_nrOfColumns ; ++c){
+      content << d_mf->d_hCond->cell(count)[blockLayer] << " ";
+      count++;
+    }
+    content << "\n";
+  }
+
+
+    // vertical  conductivity along rows
+    // cannot be specified for the bottom layer
+    //  if( (i!=0) && ((d_mf->d_layerType.at(i)==1)||(d_mf->d_layerType.at(i)==3)) ){
+//     if((i!=0) && (blockLayer!=0)){// not for bottom layer, check this again...
+//       std::string s = boost::str(boost::format("INTERNAL  1.00000E+00  (FREE)  %1%    VCONT layer %2%") % -1 %mfLayer);
+//       calcVCond(content, blockLayer, s);
+//     }
+
+    //
+    // transient simulation, secondary storage, if laycon is 2 or 3
+    //
+//     if(d_mf->d_isSteadyState==false){
+//       if((lcon == 2) || (lcon == 3)){
+//         std::stringstream stmp;
+//         stmp << "INTERNAL  1.00000E+00  (FREE)  -1     Sf2 layer " << mfLayer;
+//         d_mf->d_cmethods->writeMatrix(content, stmp.str(), d_mf->d_layer2BlockLayer, *(d_mf->d_secondaryStorage), blockLayer);
+//       }
+//     }
+    //
+    // if wetting enabled and laycon is 1 or 3
+    //
+//     if((d_iwdflg<0.0)||(d_iwdflg>0.0)){
+//       //if((d_mf->d_layerType.at(i)==1) || (d_mf->d_layerType.at(i)==3)){
+//       if( (lcon == 1) || (lcon == 3) ){
+//         std::stringstream stmp;
+//         stmp << "INTERNAL  1.00000E+00  (FREE)  -1     WETDRY layer " << mfLayer;
+//         d_mf->d_cmethods->writeMatrix(content, stmp.str(), d_mf->d_layer2BlockLayer, *(d_mf->d_wetting), blockLayer);
+//       }
+//     }
+  }
+  //d_mf->d_cmethods->writeToFile("pcrmf.bc6", content.str());
+}
+
+
+
+
+
+
+
+// /*
+//
+//
+//   std::stringstream content;
+//   //size_t count_old = d_mf->d_layerType.size();
+//   size_t count = d_mf->d_layer2BlockLayer.size();
+//
+//   //
+//   // Item 1: IBCFCB HDRY IWDFLG WETFCT IWETIT IHDWET
+//   //
+//   content << " " << d_fortran_unit_number;
+//   content << " " << d_hdry;
+//   content << " " << d_iwdflg;
+//   content << " " << d_wetfct;
+//   content << " " << d_iwetit;
+//   content << " " << d_ihdwet << std::endl;
+//   //
+//   // NLAY layer type
+//   //
+//   for(int i = count-1; i >= 0; i--){
+//     size_t mfLayer = count - i;
+//     size_t size = d_mf->d_layer2BlockLayer.size();
+//     size_t blockLayer = d_mf->d_layer2BlockLayer.at(size - mfLayer);
+//
+//     content <<  " " << d_mf->d_layerType.at(blockLayer);
+//   }
+//
+//
+//   /*
+//   std::vector<int>::reverse_iterator ri = d_mf->d_layerType.rbegin();
+//   while(ri != d_mf->d_layerType.rend()) {
+//     content <<  " " << *ri;
+//     ++ri;
+//   }*/
+//
+//
+//   content << std::endl;
+//   //
+//   // TRPY
+//   content << "CONSTANT " << d_trpy << " TRPY" << std::endl;
+//   // in case of wetting values must be set
+//   if((d_iwdflg<0.0)||(d_iwdflg>0.0)){
+//     std::stringstream stmp;
+//     if(d_mf->d_wetting==NULL){
+//       stmp << "Writing BCF data failed: Wetting enabled, but no layer values defined";
+//       d_mf->d_cmethods->error(stmp.str(), "run");
+//     }
+//   }
+//   //
+//   // for each layer
+//   //
+//   for(int i = count-1; i >= 0; i--){
+//     size_t mfLayer = count - i;
+//     size_t size = d_mf->d_layer2BlockLayer.size();
+//     size_t blockLayer = d_mf->d_layer2BlockLayer.at(size - mfLayer);
+//
+//     // determine layer type
+//     size_t lcon = getLaycon(d_mf->d_layerType.at(blockLayer));
+//     //
+//     // transient simulation, primary storage
+//     //
+//
+//     if(d_mf->d_isSteadyState==false){
+//       std::stringstream stmp;
+//       stmp << "INTERNAL  1.00000E+00  (FREE)  -1     Sf1 layer " << mfLayer;
+//       d_mf->d_cmethods->writeMatrix(content, stmp.str(), d_mf->d_layer2BlockLayer, *(d_mf->d_primaryStorage), blockLayer);
+//     }
+//     //
+//     // Transmissivity, if laycon is 0 or 2
+//     //
+//     // if((d_mf->d_layerType.at(blockLayer)==0)||(d_mf->d_layerType.at(blockLayer)==2)){
+//     if((lcon == 0) || (lcon == 2)){
+//       std::stringstream s;
+//       s << "INTERNAL  1.00000E+00  (FREE)  -1    TRAN layer " << mfLayer;
+//       calcTran(content, blockLayer, s.str());
+//     }
+//     //
+//     // Hydraulic conductivity, if laycon is 1 or 3
+//     //
+//     // hydraulic conductivity along rows
+//     // if((d_mf->d_layerType.at(blockLayer)==1)||(d_mf->d_layerType.at(blockLayer)==3)){
+//     if((lcon == 1) || (lcon == 3)){
+//       std::string s = boost::str(boost::format("INTERNAL  1.00000E+00  (FREE)  %1%    HY layer %2%") % -1 %mfLayer);
+//       d_mf->d_cmethods->writeMatrix(content, s, d_mf->d_layer2BlockLayer, *(d_mf->d_hCond), blockLayer);
+//     }
+//     // vertical  conductivity along rows
+//     // cannot be specified for the bottom layer
+//     //  if( (i!=0) && ((d_mf->d_layerType.at(i)==1)||(d_mf->d_layerType.at(i)==3)) ){
+//     if((i!=0) && (blockLayer!=0)){// not for bottom layer, check this again...
+//       std::string s = boost::str(boost::format("INTERNAL  1.00000E+00  (FREE)  %1%    VCONT layer %2%") % -1 %mfLayer);
+//       calcVCond(content, blockLayer, s);
+//     }
+//
+//     //
+//     // transient simulation, secondary storage, if laycon is 2 or 3
+//     //
+//     if(d_mf->d_isSteadyState==false){
+//       if((lcon == 2) || (lcon == 3)){
+//         std::stringstream stmp;
+//         stmp << "INTERNAL  1.00000E+00  (FREE)  -1     Sf2 layer " << mfLayer;
+//         d_mf->d_cmethods->writeMatrix(content, stmp.str(), d_mf->d_layer2BlockLayer, *(d_mf->d_secondaryStorage), blockLayer);
+//       }
+//     }
+//     //
+//     // if wetting enabled and laycon is 1 or 3
+//     //
+//     if((d_iwdflg<0.0)||(d_iwdflg>0.0)){
+//       //if((d_mf->d_layerType.at(i)==1) || (d_mf->d_layerType.at(i)==3)){
+//       if( (lcon == 1) || (lcon == 3) ){
+//         std::stringstream stmp;
+//         stmp << "INTERNAL  1.00000E+00  (FREE)  -1     WETDRY layer " << mfLayer;
+//         d_mf->d_cmethods->writeMatrix(content, stmp.str(), d_mf->d_layer2BlockLayer, *(d_mf->d_wetting), blockLayer);
+//       }
+//     }
+//   }
+//   d_mf->d_cmethods->writeToFile("pcrmf.bc6", content.str());*/

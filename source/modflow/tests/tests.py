@@ -10,14 +10,14 @@ class Test(testcase.TestCase):
       if os.path.exists(f):
         os.remove(f)
 
-  def test_demo(self):
-    outputs = ["hOne.map", "hThree.map", "hFive.map", "dFive.map", "rFive.map", "c5.map", "c3.map", "ff1.map", "ff3.map", "ff5.map", "fr1.map", "fr3.map", "fr5.map", "fl3.map", "fl5.map"]
-    self.remove_files(outputs)
+  #####def test_demo(self):
+    #####outputs = ["hOne.map", "hThree.map", "hFive.map", "dFive.map", "rFive.map", "c5.map", "c3.map", "ff1.map", "ff3.map", "ff5.map", "fr1.map", "fr3.map", "fr5.map", "fl3.map", "fl5.map"]
+    #####self.remove_files(outputs)
 
-    subprocess.call(["python", "example.py"])
+    #####subprocess.call(["python", "example.py"])
 
-    for output in outputs:
-      self.assertEqual(self.mapEqualsValidated(pcraster.readmap(output), output), True, "{0} deviates from validated/{1}".format(output, output))
+    #####for output in outputs:
+      #####self.assertEqual(self.mapEqualsValidated(pcraster.readmap(output), output), True, "{0} deviates from validated/{1}".format(output, output))
 
 
   def test_bcf2ss(self):

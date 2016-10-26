@@ -52,7 +52,7 @@ private:
   void calcTran(std::stringstream &aStream, size_t layer, const std::string &msg);
   void calcVCond(std::stringstream &aStream, size_t layer, const std::string &msg);
 
-  
+
   size_t getLaycon(size_t lcon);
 
 //  void             calcSf1             (std::stringstream &aStream, size_t layer, const std::string &msg) const;
@@ -102,6 +102,10 @@ public:
                                         size_t mfLayer) const;
 
   calc::Field*     get_lower_face      (size_t layer) const;
+
+  void             write               (std::string const& path) const;
+
+  void             write_hy    (std::string const& path) ;
 
 };
 

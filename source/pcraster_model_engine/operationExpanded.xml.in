@@ -1,0 +1,4082 @@
+<?xml version="1.0"?>
+<Operations>
+  <!-- # Name_of_field syntax resultType spatialresult nrInput -->
+  <!-- # followed by  arguments: -->
+  <!-- # no operation -->
+  <!-- Obsolete ?????
+<Operation name='nop'
+           syntax='None'
+           exec='MISC'>
+ <Result><Field>&VS_FIELD;</Field></Result>
+</Operation>
+ -->
+  <!-- # if/mif looks like function but it is -->
+  <!-- # a grammar construction, do not insert in symbol table -->
+  <!-- # if without an else clause is a spatial mask -->
+  <!-- # normal use assumes one of the argument to be spatial -->
+  <!-- # hence the result is spatial -->
+  <Operation name="if" implName="ifthen" syntax="None" exec="IFTHEN" commutative="false" inputTailRepeat="0">
+    <Manual/>
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+      </Field>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="if" implName="ifthenelse" syntax="None" exec="IFTHENELSE" commutative="false" inputTailRepeat="0">
+    <Manual/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+      </Field>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+  </Operation>
+  <!-- # special rule (obsolete?), all arguments equal type  -->
+  <!-- # but result is always boolean -->
+  <Operation name="ne" syntax="Operator" commutative="true" exec="POLY" inputTailRepeat="0">
+    <DiffBin foTypes="14f" function="a1!=a2"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="eq" syntax="Operator" commutative="true" exec="POLY" inputTailRepeat="0">
+    <DiffBin foTypes="14f" function="a1==a2"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="gt" syntax="Operator" exec="POLY" commutative="false" inputTailRepeat="0">
+    <DiffBin foTypes="4f" function="a1&gt;a2"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="ge" syntax="Operator" exec="POLY" commutative="false" inputTailRepeat="0">
+    <DiffBin foTypes="4f" function="a1&gt;=a2"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="lt" syntax="Operator" exec="POLY" commutative="false" inputTailRepeat="0">
+    <DiffBin foTypes="4f" function="a1&lt;a2"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="le" syntax="Operator" exec="POLY" commutative="false" inputTailRepeat="0">
+    <DiffBin foTypes="4f" function="a1&lt;=a2"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <!-- # derived rule, all arguments equal type and result is that type -->
+  <!-- # syntax of min,max,cover: -->
+  <!-- # implementation of unlimited arguments ( CG_VARARG) -->
+  <!-- # as binary operators (min,max,cover) -->
+  <!-- # and functions that have implementation for different cellrepresentations -->
+  <Operation name="min" exec="POLY" syntax="Function" commutative="false" inputTailRepeat="0">
+    <SameBin foTypes="4f" function="std::min&lt;&gt;(a1,a2)"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input repeat="true">
+      <Field spatial="Either">
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="max" exec="POLY" syntax="Function" commutative="false" inputTailRepeat="0">
+    <SameBin foTypes="4f" function="std::max&lt;&gt;(a1,a2)"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input repeat="true">
+      <Field spatial="Either">
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="cover" exec="POLY" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Manual/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+    <Input repeat="true">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="timeinput" exec="MISC" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Manual/>
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <MapStack/>
+    </Input>
+  </Operation>
+  <Operation name="timeinputsparse" exec="MISC" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Manual/>
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <MapStack/>
+    </Input>
+  </Operation>
+  <Operation name="timeinputmodulo" exec="MISC" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Manual/>
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <MapStack/>
+    </Input>
+    <Input contextName="highestTimestepAvailable" repeat="false">
+      <Field spatial="Non">
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="lookupmapstack" exec="MISC" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Manual/>
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <MapStack/>
+    </Input>
+    <Input contextName="index" repeat="false">
+      <Field spatial="Non">
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+  </Operation>
+  <!-- THERE CAN BE NO OPERATORS WITH WITH MORE THAN RESULT 1 VS TYPE BELOW THIS LINE
+     Other than the rule that the first multi argument will set the result type
+  -->
+  <Operation name="spreadmax" syntax="MRF" exec="MRF" commutative="false" inputTailRepeat="0">
+    <Result functionSuffix="">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Result functionSuffix="zone">
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+      </Field>
+    </Result>
+    <Input contextName="points" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+    <Input contextName="initial costs" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="friction" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="max" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="spread" syntax="MRF" exec="MRF" commutative="false" inputTailRepeat="0">
+    <Result functionSuffix="">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Result functionSuffix="zone">
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+      </Field>
+    </Result>
+    <Input contextName="points" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+    <Input contextName="initial costs" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="friction" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="spreadldd" syntax="MRF" exec="MRF" commutative="false" inputTailRepeat="0">
+    <Result functionSuffix="">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Result functionSuffix="zone">
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+      </Field>
+    </Result>
+    <Input contextName="ldd" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+    <Input contextName="points" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+    <Input contextName="initial costs" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="friction" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="dynamicwave" syntax="MRF" exec="MRF" commutative="false" inputTailRepeat="0">
+    <!--
+    documentation is in docs/pcrmanual/manual_updates/DynWave_msw.doc
+ -->
+    <Result functionSuffix="q">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Result functionSuffix="h">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input contextName="ldd" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+    <Input contextName="inQ" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="inH" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="bottomHeight" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="roughness" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="channelLength" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="channelBottomWidth" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="channelDepth" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="channelForm" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="floodplainWidth" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="timeStepInSeconds" repeat="false">
+      <Field spatial="Non">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <!-- Ooohps wrong order of timeStepInSeconds and nrTimeSlices
+     in all other routines the other way around
+  -->
+    <Input contextName="nrTimeSlices" repeat="false">
+      <Field spatial="Non">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="structures" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+      </Field>
+    </Input>
+    <Input contextName="structureA" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="structureB" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="structureCrestLevel" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="order" exec="Direct" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="areaorder" exec="Direct" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input contextName="expr" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="areaClass" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="argorder" exec="Direct" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Ordinal"/>
+      </Field>
+    </Result>
+    <Input repeat="true" contextName="chances">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="argorderwithid" exec="Direct" inputTailRepeat="2" syntax="Function" commutative="false">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Ordinal"/>
+      </Field>
+    </Result>
+    <Input contextName="chances" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="id" repeat="false">
+      <Field spatial="Non">
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="argorderarealimited" exec="Direct" inputTailRepeat="2" syntax="Function" commutative="false">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Ordinal"/>
+      </Field>
+    </Result>
+    <Input contextName="chances" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="areaLimit" repeat="false">
+      <Field spatial="Non">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="argorderwithidarealimited" exec="Direct" inputTailRepeat="3" syntax="Function" commutative="false">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Ordinal"/>
+      </Field>
+    </Result>
+    <Input contextName="chances" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="id" repeat="false">
+      <Field spatial="Non">
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+    <Input contextName="areaLimit" repeat="false">
+      <Field spatial="Non">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="argorderaddarealimited" exec="Direct" inputTailRepeat="2" syntax="Function" commutative="false">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Ordinal"/>
+      </Field>
+    </Result>
+    <Input contextName="currentId" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+    <Input contextName="chances" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="areaLimit" repeat="false">
+      <Field spatial="Non">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="argorderwithidaddarealimited" exec="Direct" inputTailRepeat="3" syntax="Function" commutative="false">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Ordinal"/>
+      </Field>
+    </Result>
+    <Input contextName="currentId" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+    <Input contextName="chances" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="id" repeat="false">
+      <Field spatial="Non">
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+    <Input contextName="areaLimit" repeat="false">
+      <Field spatial="Non">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="windowminimum" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="windowSize" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="brenner" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+      </Field>
+    </Result>
+    <Input contextName="nrBirds" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="cost" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="friction" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="maxCost" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="dispRange" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="habQual" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="windowmaximum" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="windowSize" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="windowdiversity" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+    <Input contextName="windowSize" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="areadiversity" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+    <Input contextName="classes" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="areamajority" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+    <Input contextName="classes" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="windowmajority" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+    <Input contextName="windowSize" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="_ldddownstreamcell" exec="Direct" syntax="None" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Non">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+  </Operation>
+  <!-- # become special rules concerning combination of scalar and vector -->
+  <!-- # if vector is implemented -->
+  <Operation name="*" implName="mul" syntax="Operator" commutative="true" exec="SAME_BIN" inputTailRepeat="0">
+    <SameBin function="a1*a2" foTypes="f"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="/" implName="fdiv" syntax="Operator" exec="SAME_BIN" commutative="false" inputTailRepeat="0">
+    <SameBin rightDomainIll="r==0" function="a1/a2" foTypes="f"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="**" implName="pow" syntax="Operator" exec="SAME_BIN" commutative="false" inputTailRepeat="0">
+    <SameBin combDomainIll="special::pow_domainIll(l,r)" function="std::pow(a1,a2)" foTypes="f"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="mod" syntax="Operator" exec="SAME_BIN" commutative="false" inputTailRepeat="0">
+    <SameBin rightDomainIll="r==0" function="std::fmod(a1,a2)" foTypes="f"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="idiv" syntax="Operator" exec="SAME_BIN" commutative="false" inputTailRepeat="0">
+    <SameBin rightDomainIll="r==0" function="(T)Fdiv(a1,a2)" foTypes="f"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="+" implName="uadd" syntax="Operator" exec="SAME_UN" commutative="false" inputTailRepeat="0">
+    <SameUn function="v" foTypes="f"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="-" implName="umin" syntax="Operator" exec="SAME_UN" commutative="false" inputTailRepeat="0">
+    <SameUn function="-v" foTypes="f"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="+" implName="badd" syntax="Operator" commutative="true" exec="SAME_BIN" inputTailRepeat="0">
+    <SameBin function="a1+a2" foTypes="f"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="-" implName="bmin" syntax="Operator" exec="SAME_BIN" commutative="false" inputTailRepeat="0">
+    <SameBin function="a1-a2" foTypes="f"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="timeinputscalar" exec="T_IN" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Manual/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <TimeSeries/>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="timeinputdirectional" exec="T_IN" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Manual/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Directional"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <TimeSeries/>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="timeinputboolean" exec="T_IN" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Manual/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <TimeSeries/>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="timeinputldd" exec="T_IN" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Manual/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Ldd"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <TimeSeries/>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="timeinputnominal" exec="T_IN" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Manual/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Nominal"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <TimeSeries/>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="timeinputordinal" exec="T_IN" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Manual/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Ordinal"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <TimeSeries/>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="lookupnominal" exec="Direct" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Nominal"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Table/>
+    </Input>
+    <Input repeat="true">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="lookupboolean" exec="Direct" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Table/>
+    </Input>
+    <Input repeat="true">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="lookupordinal" exec="Direct" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Ordinal"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Table/>
+    </Input>
+    <Input repeat="true">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="lookupscalar" exec="Direct" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Table/>
+    </Input>
+    <Input repeat="true">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="lookuplinear" exec="Direct" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Table/>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="lookupdirectional" exec="Direct" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Directional"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Table/>
+    </Input>
+    <Input repeat="true">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="lookupldd" exec="Direct" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Ldd"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Table/>
+    </Input>
+    <Input repeat="true">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="indexnominal" exec="INDEX" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Non">
+        <DataType value="Nominal"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <IndexTable/>
+    </Input>
+  </Operation>
+  <Operation name="indexboolean" exec="INDEX" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Non">
+        <DataType value="Boolean"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <IndexTable/>
+    </Input>
+  </Operation>
+  <Operation name="indexordinal" exec="INDEX" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Non">
+        <DataType value="Ordinal"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <IndexTable/>
+    </Input>
+  </Operation>
+  <Operation name="indexscalar" exec="INDEX" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Non">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <IndexTable/>
+    </Input>
+  </Operation>
+  <Operation name="indexdirectional" exec="INDEX" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Non">
+        <DataType value="Directional"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <IndexTable/>
+    </Input>
+  </Operation>
+  <Operation name="indexldd" exec="INDEX" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Non">
+        <DataType value="Ldd"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <IndexTable/>
+    </Input>
+  </Operation>
+  <Operation name="indextable" exec="INDEX" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <IndexTable/>
+    </Result>
+    <Input repeat="false">
+      <IndexTable/>
+    </Input>
+  </Operation>
+  <Operation name="index" exec="INDEX" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <IndexTable/>
+    </Input>
+  </Operation>
+  <!-- # type conversions: -->
+  <!-- # clean ones: -->
+  <!-- #vector SYNTAX_FUNC VS_V ST_DERIVED 2 EXEC_TYPE_CONV CG_PLAIN -->
+  <!-- # VS_S ST_DERIVED -->
+  <!-- # VS_S ST_DERIVED -->
+  <Operation name="ldd" exec="CONV" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Manual/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Ldd"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="directional" exec="CONV" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Manual/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Directional"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+  </Operation>
+  <!-- #dirty ones, or neccessary for numbers: -->
+  <Operation name="scalar" exec="CONV" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Manual/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="boolean" implName="boolean_" exec="CONV" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Manual/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="nominal" exec="CONV" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Manual/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Nominal"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="ordinal" exec="CONV" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Manual/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Ordinal"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+  </Operation>
+  <!-- # boolean operands: -->
+  <Operation name="and" implName="and_" syntax="Operator" commutative="true" exec="SAME_BIN" inputTailRepeat="0">
+    <SameBin foTypes="1" function="a1 &amp; a2"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+      </Field>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="or" implName="or_" syntax="Operator" commutative="true" exec="SAME_BIN" inputTailRepeat="0">
+    <SameBin foTypes="1" function="a1 | a2"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+      </Field>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="xor" implName="xor_" syntax="Operator" commutative="true" exec="SAME_BIN" inputTailRepeat="0">
+    <SameBin foTypes="1" function="a1 ^ a2"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+      </Field>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="not" implName="not_" syntax="Operator" exec="SAME_UN" commutative="false" inputTailRepeat="0">
+    <SameUn foTypes="1" function="!v"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="test_until" syntax="None" exec="MISC" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+      </Field>
+    </Input>
+  </Operation>
+  <!-- trigonimetric funcs for directional and scalar input
+     SameUn is the case for VS_D, VS_S needs pre-conversion
+     thus the generated sin/cos/tan_f code is the VS_D case
+
+     sin/cos/tan are dealt with special in createOperatorCppCode
+      they are tagged SameUn but they are not!
+  -->
+  <Operation name="sin" exec="TRIG" syntax="Function" commutative="false" inputTailRepeat="0">
+    <SameUn onlyDomainIll="v==-1" function="std::sin(v)" foTypes="f"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="cos" exec="TRIG" syntax="Function" commutative="false" inputTailRepeat="0">
+    <SameUn onlyDomainIll="v==-1" function="std::cos(v)" foTypes="f"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="tan" exec="TRIG" syntax="Function" commutative="false" inputTailRepeat="0">
+    <!-- flat, 90 or 180 degrees, rounded problem conver from degrees to radians -->
+    <SameUn onlyDomainIll="(v==-1||com::equal_epsilon(M_PI*0.5,(double)v)||com::equal_epsilon(M_PI*1.5,(double)v))" function="std::tan(v)" foTypes="f"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="asin" exec="SAME_UN" syntax="Function" commutative="false" inputTailRepeat="0">
+    <SameUn onlyDomainIll="std::fabs(v)&gt;1" function="(T)ScaleRad(std::asin(v))" foTypes="f"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Directional"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="acos" exec="SAME_UN" syntax="Function" commutative="false" inputTailRepeat="0">
+    <SameUn onlyDomainIll="std::fabs(v)&gt;1" function="(T)std::acos(v)" foTypes="f"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Directional"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="atan" exec="SAME_UN" syntax="Function" commutative="false" inputTailRepeat="0">
+    <SameUn function="(T)ScaleRad(std::atan(v))" foTypes="f"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Directional"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="abs" exec="SAME_UN" syntax="Function" commutative="false" inputTailRepeat="0">
+    <SameUn function="std::fabs(v)" foTypes="f"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="exp" exec="SAME_UN" syntax="Function" commutative="false" inputTailRepeat="0">
+    <SameUn function="std::exp(v)" foTypes="f"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <!-- # faculty factorial -->
+  <Operation name="fac" exec="SAME_UN" syntax="Function" commutative="false" inputTailRepeat="0">
+    <SameUn onlyDomainIll="special::fac_domainIll(v)" function="special::fac_impl(v)" foTypes="f"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="rounddown" exec="SAME_UN" syntax="Function" commutative="false" inputTailRepeat="0">
+    <SameUn function="std::floor(v)" foTypes="f"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="ln" exec="SAME_UN" syntax="Function" commutative="false" inputTailRepeat="0">
+    <SameUn onlyDomainIll="v&lt;=0 " function="std::log(v)" foTypes="f"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="log10" exec="SAME_UN" syntax="Function" commutative="false" inputTailRepeat="0">
+    <SameUn onlyDomainIll="v&lt;=0 " function="std::log10(v)" foTypes="f"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="roundup" exec="SAME_UN" syntax="Function" commutative="false" inputTailRepeat="0">
+    <SameUn function="std::ceil(v)" foTypes="f"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="roundoff" exec="SAME_UN" syntax="Function" commutative="false" inputTailRepeat="0">
+    <SameUn function="boost::math::round(v)" foTypes="f"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="sqrt" exec="SAME_UN" syntax="Function" commutative="false" inputTailRepeat="0">
+    <SameUn onlyDomainIll="v &lt; 0" function="std::sqrt(v)" foTypes="f"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="sqr" exec="SAME_UN" syntax="Function" commutative="false" inputTailRepeat="0">
+    <SameUn function="v*v" foTypes="f"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <!-- # map creation:  -->
+  <Operation name="normal" exec="GEN_SP" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Manual/>
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="uniform" exec="GEN_SP" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Manual/>
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="xcoordinate" exec="GEN_SP" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Manual/>
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="ycoordinate" exec="GEN_SP" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Manual/>
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="uniqueid" exec="GEN_SP" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Manual/>
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="move" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+      </Field>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="shift" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Non">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Non">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="shift0" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Non">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Non">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <!-- # constants: -->
+  <Operation name="celllength" exec="GEN_NS" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Manual/>
+    <Result>
+      <Field spatial="Non">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+  </Operation>
+  <Operation name="cellarea" exec="GEN_NS" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Manual/>
+    <Result>
+      <Field spatial="Non">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+  </Operation>
+  <Operation name="time" exec="GEN_NS" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Manual/>
+    <Result>
+      <Field spatial="Non">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+  </Operation>
+  <Operation name="timeslice" exec="GEN_NS" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Manual/>
+    <Result>
+      <Field spatial="Non">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+  </Operation>
+  <Operation name="mapnormal" exec="GEN_NS" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Manual/>
+    <Result>
+      <Field spatial="Non">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+  </Operation>
+  <Operation name="mapuniform" exec="GEN_NS" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Manual/>
+    <Result>
+      <Field spatial="Non">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+  </Operation>
+  <!-- # misc -->
+  <Operation name="succ" exec="SAME_UN" syntax="Function" commutative="false" inputTailRepeat="0">
+    <SameUn foTypes="4" function="v+(v&lt;INT4_MAX)"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Ordinal"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="pred" exec="SAME_UN" syntax="Function" commutative="false" inputTailRepeat="0">
+    <SameUn foTypes="4" function="v-(v&gt;INT4_MIN)"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Ordinal"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="pit" exec="DIFF_UN" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Manual/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Nominal"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="nodirection" exec="DIFF_UN" syntax="Function" commutative="false" inputTailRepeat="0">
+    <DiffUn foResultType="1" foTypes="f" function="i==-1"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Directional"/>
+      </Field>
+    </Input>
+  </Operation>
+  <!-- # mapminimum, mapmaximum is also solved by first and only operand -->
+  <Operation name="mapminimum" exec="POLY" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Manual/>
+    <Result>
+      <Field spatial="Non">
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="mapmaximum" exec="POLY" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Manual/>
+    <Result>
+      <Field spatial="Non">
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="defined" exec="POLY" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Manual/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="maparea" exec="POLY" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Manual/>
+    <Result>
+      <Field spatial="Non">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="spatial" exec="POLY" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Manual/>
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+  </Operation>
+  <!-- single function -->
+  <!-- # in case of the routing expression of a storage: -->
+  <Operation name="accu" syntax="MRF" exec="MRF" commutative="false" inputTailRepeat="0">
+    <Result functionSuffix="state">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Result functionSuffix="flux">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="muskingum" exec="Direct" syntax="Function" commutative="false" inputTailRepeat="0">
+    <!-- parked muskingtimestep in muskingum.h -->
+    <Result contextName="flowRate">
+      <!-- m3/sec -->
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input contextName="Ldd" repeat="false">
+      <!-- 0 m3/sec -->
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+    <Input contextName="prevFlowRate" repeat="false">
+      <!-- 1 m3/sec -->
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="prevInflow" repeat="false">
+      <!-- 2 m3/sec -->
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="Inflow" repeat="false">
+      <!-- 3 m3/sec -->
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="kPerUnitSegmentLength" repeat="false">
+      <!-- 4 sec > 0 -->
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="x" repeat="false">
+      <!-- 5 interval in [0,1] -->
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="segmentLength" repeat="false">
+      <!-- 6 L -->
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="nrTimeSlices" repeat="false">
+      <!-- 7 > 0 -->
+      <Field spatial="Either">
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+    <Input contextName="timestepInSecs" repeat="false">
+      <!-- 8 > 0 -->
+      <Field spatial="Non">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <!-- dynwave/lookupstate/lookuppotential:
+    table always as first argument is a current limitation
+    enum   LookupColumns { profileId=0,H=1,A=2,P=3 };
+    documentation is in docs/pcrmanual/manual_updates/dynWaveRouting.doc
+ -->
+  <Operation name="dynwave" syntax="MRF" exec="MRF" commutative="false" inputTailRepeat="0">
+    <Result functionSuffix="state">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Result functionSuffix="flux">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Table/>
+    </Input>
+    <!-- field 0: -->
+    <Input contextName="profileId" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+    <!-- field 1: -->
+    <Input contextName="ldd" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+    <!-- field 2: -->
+    <Input contextName="oldState" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <!-- field 3: -->
+    <Input contextName="inflow" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <!-- field 4: -->
+    <Input contextName="bottomLevel" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <!-- field 5: -->
+    <Input contextName="roughness" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <!-- field 6: -->
+    <Input contextName="segmentLength" repeat="false">
+      <!-- or channelLength -->
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <!-- field 7: -->
+    <Input contextName="nrTimeSlices" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+    <!-- field 8: -->
+    <Input contextName="timestepInSecs" repeat="false">
+      <Field spatial="Non">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <!-- field 9: -->
+    <Input contextName="constantState" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="lookupstate" exec="Direct" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Table/>
+    </Input>
+    <!-- field 0: -->
+    <Input contextName="profileId" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+    <!-- field 1: -->
+    <Input contextName="bottomLevel" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <!-- field 2: -->
+    <Input contextName="segmentLength" repeat="false">
+      <!-- or channelLength -->
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <!-- field 3: -->
+    <Input contextName="potential" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="lookuppotential" exec="Direct" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Table/>
+    </Input>
+    <!-- field 0: -->
+    <Input contextName="profileId" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+    <!-- field 1: -->
+    <Input contextName="bottomLevel" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <!-- field 2: -->
+    <Input contextName="segmentLength" repeat="false">
+      <!-- or channelLength -->
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <!-- field 3: -->
+    <Input contextName="state" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="accucapacity" syntax="MRF" exec="MRF" commutative="false" inputTailRepeat="0">
+    <Result functionSuffix="state">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Result functionSuffix="flux">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="accuthreshold" syntax="MRF" exec="MRF" commutative="false" inputTailRepeat="0">
+    <Result functionSuffix="state">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Result functionSuffix="flux">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="accufraction" syntax="MRF" exec="MRF" commutative="false" inputTailRepeat="0">
+    <Result functionSuffix="state">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Result functionSuffix="flux">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="accutrigger" syntax="MRF" exec="MRF" commutative="false" inputTailRepeat="0">
+    <Result functionSuffix="state">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Result functionSuffix="flux">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="accutraveltime" syntax="MRF" exec="MRF" commutative="false" inputTailRepeat="0">
+    <Result functionSuffix="state">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Result functionSuffix="flux">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input contextName="ldd" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+    <Input contextName="material" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="velocity" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="accutraveltimefractionremoved" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input contextName="ldd" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+    <Input contextName="material" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="velocity" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="fraction" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="accutraveltimefraction" syntax="MRF" exec="MRF" commutative="false" inputTailRepeat="0">
+    <Result functionSuffix="state">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Result functionSuffix="flux">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input contextName="ldd" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+    <Input contextName="material" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="velocity" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="fraction" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="diffuse" syntax="MRF" exec="MRF" commutative="false" inputTailRepeat="0">
+    <Result functionSuffix="state">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Result functionSuffix="flux">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input contextName="direction" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Directional"/>
+      </Field>
+    </Input>
+    <Input contextName="in" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="fluxIn" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <!-- kinwavestate kinwaveflux -->
+  <Operation name="kinwave" syntax="MRF" exec="MRF" commutative="false" inputTailRepeat="0">
+    <Result functionSuffix="state">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Result functionSuffix="flux">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input contextName="ldd" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+    <Input contextName="previousState" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="qTimestep" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="alpha" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <!-- arg nr 4 -->
+    <Input contextName="beta" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <!-- arg nr 5 -->
+    <Input contextName="nrTimeSlices" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+    <!-- should map to the real dt of the timeslice, hence
+      non spatial
+   -->
+    <!-- arg nr 6 -->
+    <Input contextName="timestepInSecs" repeat="false">
+      <Field spatial="Non">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <!-- arg nr 7 -->
+    <Input contextName="deltaX" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="kinematic" exec="Direct" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <!-- arg nr 0 -->
+    <Input contextName="ldd" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+    <!-- arg nr 1 -->
+    <Input contextName="Qold" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <!-- arg nr 2 -->
+    <Input contextName="q" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <!-- arg nr 3 -->
+    <Input contextName="alpha" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <!-- arg nr 4 -->
+    <Input contextName="beta" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <!-- arg nr 5
+      value on Pit is used for whole catchment
+   -->
+    <Input contextName="nrTimeSlices" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+    <!-- arg nr 6 -->
+    <Input contextName="timestepInSecs" repeat="false">
+      <Field spatial="Non">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <!-- arg nr 7: -->
+    <Input contextName="deltaX" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="_cellfocus" exec="Direct" syntax="None" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Non">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="timeoutput" exec="MISC" syntax="Function" commutative="false" inputTailRepeat="0">
+    <!-- tricked void calc::Executor::visitExpr(ASTExpr   *e)
+  -->
+    <Result>
+      <TimeSeries/>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+  </Operation>
+  <!-- Not supported
+<Operation name='mapsummary'
+           exec='MISC'>
+ <Result><TimeSeries/></Result>
+ <Input><Field spatial='Yes'>&VS_FIELD;</Field></Input>
+</Operation>
+-->
+  <Operation name="maptotal" exec="DIFF_UN" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Manual/>
+    <Result>
+      <Field spatial="Non">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="mapand" exec="DIFF_UN" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Manual/>
+    <Result>
+      <Field spatial="Non">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="mapor" exec="DIFF_UN" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Manual/>
+    <Result>
+      <Field spatial="Non">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="areaarea" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="clump" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Nominal"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="drain" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="path" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="aspect" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Directional"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="slope" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="window4total" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="profcurv" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="plancurv" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="view" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="extentofview" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Non">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="inversedistance" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+      </Field>
+    </Input>
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="power" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="max.  search radius (unit-cell)" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="max. points in neigbourhood" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="catchment" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+      </Field>
+    </Result>
+    <Input contextName="ldd" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+    <Input contextName="points" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="subcatchment" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+      </Field>
+    </Result>
+    <Input contextName="ldd" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+    <Input contextName="points" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="windowaverage" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="windowSize" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="markwhilesumle" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+      </Field>
+    </Result>
+    <Input contextName="order" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="amount" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="threshold" repeat="false">
+      <Field spatial="Non">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="markwhilesumge" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+      </Field>
+    </Result>
+    <Input contextName="order" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="amount" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="threshold" repeat="false">
+      <Field spatial="Non">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="ellipseaverage" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="xmajor" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="ymajor" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="angle" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Directional"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="influencesimplegauss" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input contextName="input" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="range" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="eps" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="distributesimplegauss" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input contextName="amount" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="range" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="eps" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="ibngauss" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input contextName="units" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="range" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="packages" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="horizontan" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input contextName="dem" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="viewAngle" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Directional"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="catchmenttotal" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="ldd" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="areamaximum" exec="Direct" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="classes" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="areaminimum" exec="Direct" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="classes" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="areaaverage" exec="Direct" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="classes" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="areatotal" exec="Direct" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="classes" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="areauniform" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input contextName="classes" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="areanormal" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input contextName="classes" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="windowtotal" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="windowsize" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="windowhighpass" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="windowSize" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="ldddist" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input contextName="ldd" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+    <Input contextName="points" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+      </Field>
+    </Input>
+    <Input contextName="frictionMaterial" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="upstream" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input contextName="ldd" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+    <Input contextName="frictionMaterial" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="streamorder" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Ordinal"/>
+      </Field>
+    </Result>
+    <Input contextName="ldd" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="transient" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input contextName="dem" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="recharge" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="transmissivity" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="flow condition" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Nominal"/>
+      </Field>
+    </Input>
+    <Input contextName="storage coeff." repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="interval" repeat="false">
+      <Field spatial="Non">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="tolerance" repeat="false">
+      <Field spatial="Non">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="downstream" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Result>
+    <Input contextName="ldd" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+    <Input contextName="transportvalue" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="downstreamdist" exec="DIFF_UN" syntax="Function" commutative="false" inputTailRepeat="0">
+    <DiffUn foResultType="f" foTypes="1" function="special::impl_downstreamdist(i)"/>
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input contextName="ldd" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="lddmask" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Result>
+    <Input contextName="ldd" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+    <Input contextName="points" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="lddrepair" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Result>
+    <Input contextName="ldd" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="slopelength" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input contextName="ldd" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+    <Input contextName="frictionMaterial" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="lddcreate" syntax="MRF" exec="MRF" commutative="false" inputTailRepeat="0">
+    <Result functionSuffix="">
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Result>
+    <Result functionSuffix="dem">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input contextName="dem" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="depth" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="volume" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="area" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="volumeArea" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="lddcreatend" syntax="MRF" exec="MRF" commutative="false" inputTailRepeat="0">
+    <Result functionSuffix="">
+      <Field spatial="Yes">
+        <DataType value="Ldd"/>
+      </Field>
+    </Result>
+    <Result functionSuffix="dem">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input contextName="dem" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="depth" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="volume" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="area" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="volumeArea" repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <!-- # implementation functions for execution -->
+  <!-- # Non spatial timeoutput:  not used anymore -->
+  <!-- # timeoutput SYNTAX_NONE VS_tss ST_NA 1 EXEC_TYPE_TOUT CG_PLAIN timeoutput_n -->
+  <!-- # VS_FIELD   ST_NONSPATIAL -->
+  <!--
+<Operation name='timeoutput'
+           implName='timeoutput_4'
+           syntax='None'
+           exec='TOUT'>
+ <Result><TimeSeries/></Result>
+ <Input><Field spatial='Yes'>&VS_BNO;</Field></Input>
+ <Input><Field>&VS_BLNO;</Field></Input>
+</Operation>
+<Operation name='timeoutput'
+           implName='timeoutput_s'
+           syntax='None'
+           exec='TOUT'>
+ <Result><TimeSeries/></Result>
+ <Input><Field spatial='Yes'>&VS_BNO;</Field></Input>
+ <Input><Field>&VS_SD;</Field></Input>
+</Operation>
+
+
+# ?TO? conv. based on cell representation
+    IS THIS USED?
+<Operation name='4to1'
+           syntax='None'
+           exec='DIFF_UN'>
+ <Result><Field>&VS_BL;</Field></Result>
+ <Input><Field>&VS_NO;</Field></Input>
+</Operation>
+<Operation name='sto1'
+           syntax='None'
+           exec='DIFF_UN'>
+ <Result><Field>&VS_BL;</Field></Result>
+ <Input><Field>&VS_SD;</Field></Input>
+</Operation>
+ checked version of c_s_2_4
+<Operation name='sto4'
+           syntax='None'
+           exec='DIFF_UN'>
+ <Result><Field>&VS_NO;</Field></Result>
+ <Input><Field>&VS_SD;</Field></Input>
+</Operation>
+-->
+  <!-- # conversion stuff -->
+  <!-- # ?_2_? conv. based on value scale -->
+  <Operation name="c_1_2_b" syntax="None" exec="SAME_UN" commutative="false" inputTailRepeat="0">
+    <SameUn foTypes="1" function="v!= 0"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="c_4_2_b" syntax="None" exec="DIFF_UN" commutative="false" inputTailRepeat="0">
+    <DiffUn foResultType="1" foTypes="4" function="i!= 0"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="c_s_2_b" syntax="None" exec="DIFF_UN" commutative="false" inputTailRepeat="0">
+    <DiffUn foResultType="1" foTypes="f" function="i!= 0"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+        <DataType value="Directional"/>
+      </Field>
+    </Input>
+  </Operation>
+  <!-- c_1_2_o and c_1_2_n only differ in result type -->
+  <Operation name="c_1_2_o" syntax="None" exec="DIFF_UN" commutative="false" inputTailRepeat="0">
+    <DiffUn foResultType="4" foTypes="1" function="i"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Ordinal"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="c_1_2_n" syntax="None" exec="DIFF_UN" commutative="false" inputTailRepeat="0">
+    <DiffUn foResultType="4" foTypes="1" function="i"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Nominal"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+  </Operation>
+  <!-- c_s_2_O and c_s_2_N only differ in result type -->
+  <Operation name="c_s_2_o" syntax="None" exec="DIFF_UN" commutative="false" inputTailRepeat="0">
+    <DiffUn foResultType="4" foTypes="f" function="std::max&lt;&gt;(((INT4)i), INT4_MIN)"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Ordinal"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="c_s_2_n" syntax="None" exec="DIFF_UN" commutative="false" inputTailRepeat="0">
+    <DiffUn foResultType="4" foTypes="f" function="std::max&lt;&gt;(((INT4)i), INT4_MIN)"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Nominal"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="c_1_2_s" syntax="None" exec="DIFF_UN" commutative="false" inputTailRepeat="0">
+    <DiffUn foResultType="f" foTypes="1" function="i"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="c_4_2_s" syntax="None" exec="DIFF_UN" commutative="false" inputTailRepeat="0">
+    <DiffUn foResultType="f" foTypes="4" function="(ResultType)i"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="c_s_2_d" syntax="None" exec="SAME_UN" commutative="false" inputTailRepeat="0">
+    <SameUn function="special::impl_s_2_d(v)" foTypes="f"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Directional"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="c_d_2_s" syntax="None" exec="SAME_UN" commutative="false" inputTailRepeat="0">
+    <SameUn onlyDomainIll="v==-1" function="(T)(appDirection==APP_DEGREES?Rad2Deg(v):v)" foTypes="f"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Directional"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="c_d_2_n" syntax="None" exec="DIFF_UN" commutative="false" inputTailRepeat="0">
+    <SameUn onlyDomainIll="v==-1" function="(T)(appDirection==APP_DEGREES?Rad2Deg(v):v)" foTypes="f"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Nominal"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Directional"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="c_d_2_o" syntax="None" exec="DIFF_UN" commutative="false" inputTailRepeat="0">
+    <SameUn onlyDomainIll="v==-1" function="(T)(appDirection==APP_DEGREES?Rad2Deg(v):v)" foTypes="f"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Ordinal"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Directional"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="c_1_2_d" syntax="None" exec="DIFF_UN" commutative="false" inputTailRepeat="0">
+    <DiffUn foResultType="f" foTypes="1" function="special::impl_1_2_d(i)"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Directional"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Boolean"/>
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="c_4_2_d" syntax="None" exec="DIFF_UN" commutative="false" inputTailRepeat="0">
+    <DiffUn foResultType="f" foTypes="4" function="special::impl_4_2_d(i)"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Directional"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="c_l_2_d" syntax="None" exec="DIFF_UN" commutative="false" inputTailRepeat="0">
+    <DiffUn foResultType="f" foTypes="1" function="special::impl_l_2_d(i)"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Directional"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Ldd"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="c_4_2_l" syntax="None" exec="DIFF_UN" commutative="false" inputTailRepeat="0">
+    <DiffUn foResultType="1" foTypes="4" function="special::impl_4_2_l(i)"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Ldd"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Nominal"/>
+        <DataType value="Ordinal"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="c_s_2_l" syntax="None" exec="DIFF_UN" commutative="false" inputTailRepeat="0">
+    <DiffUn foResultType="1" foTypes="f" function="special::impl_s_2_l(i)"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Ldd"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="c_d_2_l" syntax="None" exec="DIFF_UN" commutative="false" inputTailRepeat="0">
+    <DiffUn foResultType="1" foTypes="f" function="special::impl_d_2_l(i)"/>
+    <Result>
+      <Field spatial="Either">
+        <DataType value="Ldd"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Either">
+        <DataType value="Directional"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="riksfraction" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+      </Field>
+    </Input>
+    <Input contextName="innerRadius" repeat="false">
+      <Field spatial="Non">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="outerRadius" repeat="false">
+      <Field spatial="Non">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="squarefraction" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Boolean"/>
+      </Field>
+    </Input>
+    <Input contextName="innerRadius" repeat="false">
+      <Field spatial="Non">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="outerRadius" repeat="false">
+      <Field spatial="Non">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="gradx" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input contextName="scalar" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="grady" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input contextName="scalar" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="divergence" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input contextName="vectorX" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="vectorY" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="diver" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input contextName="vectorX" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="vectorY" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="deltaX" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="deltaY" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+  <Operation name="lax" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input contextName="input" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <Input contextName="fraction" repeat="false">
+      <Field spatial="Non">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+    <!--    defaults to 0.5 in code -->
+  </Operation>
+  <Operation name="laplacian" exec="GLOBAL" syntax="Function" commutative="false" inputTailRepeat="0">
+    <Result>
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Result>
+    <Input contextName="input" repeat="false">
+      <Field spatial="Yes">
+        <DataType value="Scalar"/>
+      </Field>
+    </Input>
+  </Operation>
+</Operations>

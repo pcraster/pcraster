@@ -49,14 +49,15 @@ include_directories(
 # operations.inc and operations.py were previously generated each time at a build.
 # Due to removal of xsltproc dependency this file needs to be
 # regenerated when one of the source files change
-if( (${CMAKE_CURRENT_SOURCE_DIR}/OperationsToWrappers.xsl IS_NEWER_THAN ${CMAKE_CURRENT_SOURCE_DIR}/operations.inc.in) OR
-    (${CMAKE_CURRENT_SOURCE_DIR}/OperationToWrapper.xsl IS_NEWER_THAN ${CMAKE_CURRENT_SOURCE_DIR}/operations.inc.in) OR
-    (${CMAKE_CURRENT_SOURCE_DIR}/../pcraster_model_engine/operation.xml IS_NEWER_THAN ${CMAKE_CURRENT_SOURCE_DIR}/operations.inc.in) OR
-    (${CMAKE_CURRENT_SOURCE_DIR}/OperationsToWrappers.xsl IS_NEWER_THAN ${CMAKE_CURRENT_SOURCE_DIR}/operations.py.in) OR
-    (${CMAKE_CURRENT_SOURCE_DIR}/OperationToWrapper.xsl IS_NEWER_THAN ${CMAKE_CURRENT_SOURCE_DIR}/operations.py.in) OR
-    (${CMAKE_CURRENT_SOURCE_DIR}/../pcraster_model_engine/operation.xml IS_NEWER_THAN ${CMAKE_CURRENT_SOURCE_DIR}/operations.py.in)
-    )
-    message(FATAL_ERROR "The operations.inc or operations.py files are older than one of their dependencies. Update operations.inc.in or operations.py.in first; or contact the PCRaster Research and Development team in case you don't know how to proceed.")
+file(SHA1 ${CMAKE_CURRENT_SOURCE_DIR}/../pcraster_model_engine/operation.xml xml_checksum)
+file(SHA1 ${CMAKE_CURRENT_SOURCE_DIR}/OperationsToWrappers.xsl operations_checksum)
+file(SHA1 ${CMAKE_CURRENT_SOURCE_DIR}/OperationToWrapper.xsl operation_checksum)
+
+if( ( NOT ${xml_checksum} STREQUAL "9b2c0b0c77c204ff4820646800bdc26e59112861" ) OR
+    ( NOT ${operations_checksum} STREQUAL "6d488ea177aea78f54950448f3e02911e489a05e" ) OR
+    ( NOT ${operation_checksum} STREQUAL "bc9f241ecb501ac80c42f5e8322e061968e006de" )
+  )
+    message(FATAL_ERROR "The files operations.inc or operations.py are older than one of their dependencies. Update operations.inc.in or operations.py.in first; or contact the PCRaster Research and Development team in case you don't know how to proceed.")
     # This is the previously executed command, results in something similar to this:
     # xsltproc --path ~/development/projects/pcraster/source/pcraster_python/../xslt ~/development/objects/source/pcraster_python/OperationsToWrappers.xsl ~/development/projects/pcraster/source/pcraster_python/../pcraster_model_engine/operation.xml
     #

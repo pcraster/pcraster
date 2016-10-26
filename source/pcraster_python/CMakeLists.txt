@@ -9,6 +9,13 @@ CONFIGURE_FILE(
     NEWLINE_STYLE UNIX
 )
 
+CONFIGURE_FILE(
+    ${CMAKE_CURRENT_SOURCE_DIR}/operations.inc.in
+    ${CMAKE_CURRENT_BINARY_DIR}/operations.inc
+    @ONLY
+    NEWLINE_STYLE UNIX
+)
+
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/../include
     ${CMAKE_CURRENT_SOURCE_DIR}/../app
@@ -32,26 +39,42 @@ include_directories(
 #     ${PYTHON_LIBRARIES}
 # )
 
-ADD_CUSTOM_COMMAND(
-    OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/operations.inc
-    DEPENDS
-        ${CMAKE_CURRENT_SOURCE_DIR}/OperationsToWrappers.xsl
-        ${CMAKE_CURRENT_SOURCE_DIR}/OperationToWrapper.xsl
-        ${CMAKE_CURRENT_SOURCE_DIR}/../pcraster_model_engine/operation.xml
-        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-        # why does ${CMAKE_COMMAND} -E copy not work here?
-        COMMAND cp ${CMAKE_CURRENT_SOURCE_DIR}/*.xsl ${CMAKE_CURRENT_BINARY_DIR}
-        COMMAND ${LIBXSLT_XSLTPROC_EXECUTABLE} --path ${CMAKE_CURRENT_SOURCE_DIR}/../xslt ${CMAKE_CURRENT_BINARY_DIR}/OperationsToWrappers.xsl ${CMAKE_CURRENT_SOURCE_DIR}/../pcraster_model_engine/operation.xml
-)
+
+# operations.inc was previously generated each time at build.
+# Due to removal of xsltproc dependency this file needs to be
+# regenerated when one of the source files change
+if( (${CMAKE_CURRENT_SOURCE_DIR}/OperationsToWrappers.xsl IS_NEWER_THAN ${CMAKE_CURRENT_SOURCE_DIR}/operations.inc.in) OR
+    (${CMAKE_CURRENT_SOURCE_DIR}/OperationToWrapper.xsl IS_NEWER_THAN ${CMAKE_CURRENT_SOURCE_DIR}/operations.inc.in) OR
+    (${CMAKE_CURRENT_SOURCE_DIR}/../pcraster_model_engine/operation.xml IS_NEWER_THAN ${CMAKE_CURRENT_SOURCE_DIR}/operations.inc.in) )
+    message(FATAL_ERROR "The operations.inc file is older than one of its dependencies. Update operations.inc.in first; or contact the PCRaster Research and Development team in case you don't know how to proceed.")
+    # This is the previously executed command, results in something similar to this:
+    # xsltproc --path ~/development/projects/pcraster/source/pcraster_python/../xslt ~/development/objects/source/pcraster_python/OperationsToWrappers.xsl ~/development/projects/pcraster/source/pcraster_python/../pcraster_model_engine/operation.xml
+    #
+    # ADD_CUSTOM_COMMAND(
+    #     OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/operations.inc
+    #     DEPENDS
+    #         ${CMAKE_CURRENT_SOURCE_DIR}/OperationsToWrappers.xsl
+    #         ${CMAKE_CURRENT_SOURCE_DIR}/OperationToWrapper.xsl
+    #         ${CMAKE_CURRENT_SOURCE_DIR}/../pcraster_model_engine/operation.xml
+    #         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    #         # why does ${CMAKE_COMMAND} -E copy not work here?
+    #         COMMAND cp ${CMAKE_CURRENT_SOURCE_DIR}/*.xsl ${CMAKE_CURRENT_BINARY_DIR}
+    #         COMMAND ${LIBXSLT_XSLTPROC_EXECUTABLE} --path ${CMAKE_CURRENT_SOURCE_DIR}/../xslt ${CMAKE_CURRENT_BINARY_DIR}/OperationsToWrappers.xsl ${CMAKE_CURRENT_SOURCE_DIR}/../pcraster_model_engine/operation.xml
+    # )
+endif()
+
 
 SET(PCRASTER_SOURCES
     Globals.cc
     numpy_conversion
-    operations.inc
     PCRaster.cc
     pcrcalcpy_util.cc
     value_scale_traits
     pickle
+    # operations.inc needs to be manually updated in case the
+    # operation.xml, OperationToWrapper.xsl or
+    # OperationsToWrappers.xsl change
+    operations.inc
 )
 ADD_LIBRARY(_pcraster
     SHARED

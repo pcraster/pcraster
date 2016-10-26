@@ -46,13 +46,17 @@ include_directories(
 # )
 
 
-# operations.inc was previously generated each time at build.
+# operations.inc and operations.py were previously generated each time at a build.
 # Due to removal of xsltproc dependency this file needs to be
 # regenerated when one of the source files change
 if( (${CMAKE_CURRENT_SOURCE_DIR}/OperationsToWrappers.xsl IS_NEWER_THAN ${CMAKE_CURRENT_SOURCE_DIR}/operations.inc.in) OR
     (${CMAKE_CURRENT_SOURCE_DIR}/OperationToWrapper.xsl IS_NEWER_THAN ${CMAKE_CURRENT_SOURCE_DIR}/operations.inc.in) OR
-    (${CMAKE_CURRENT_SOURCE_DIR}/../pcraster_model_engine/operation.xml IS_NEWER_THAN ${CMAKE_CURRENT_SOURCE_DIR}/operations.inc.in) )
-    message(FATAL_ERROR "The operations.inc file is older than one of its dependencies. Update operations.inc.in first; or contact the PCRaster Research and Development team in case you don't know how to proceed.")
+    (${CMAKE_CURRENT_SOURCE_DIR}/../pcraster_model_engine/operation.xml IS_NEWER_THAN ${CMAKE_CURRENT_SOURCE_DIR}/operations.inc.in) OR
+    (${CMAKE_CURRENT_SOURCE_DIR}/OperationsToWrappers.xsl IS_NEWER_THAN ${CMAKE_CURRENT_SOURCE_DIR}/operations.py.in) OR
+    (${CMAKE_CURRENT_SOURCE_DIR}/OperationToWrapper.xsl IS_NEWER_THAN ${CMAKE_CURRENT_SOURCE_DIR}/operations.py.in) OR
+    (${CMAKE_CURRENT_SOURCE_DIR}/../pcraster_model_engine/operation.xml IS_NEWER_THAN ${CMAKE_CURRENT_SOURCE_DIR}/operations.py.in)
+    )
+    message(FATAL_ERROR "The operations.inc or operations.py files are older than one of their dependencies. Update operations.inc.in or operations.py.in first; or contact the PCRaster Research and Development team in case you don't know how to proceed.")
     # This is the previously executed command, results in something similar to this:
     # xsltproc --path ~/development/projects/pcraster/source/pcraster_python/../xslt ~/development/objects/source/pcraster_python/OperationsToWrappers.xsl ~/development/projects/pcraster/source/pcraster_python/../pcraster_model_engine/operation.xml
     #

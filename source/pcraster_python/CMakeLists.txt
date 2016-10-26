@@ -12,9 +12,15 @@ CONFIGURE_FILE(
 CONFIGURE_FILE(
     ${CMAKE_CURRENT_SOURCE_DIR}/operations.inc.in
     ${CMAKE_CURRENT_BINARY_DIR}/operations.inc
-    @ONLY
-    NEWLINE_STYLE UNIX
+    COPYONLY
 )
+
+CONFIGURE_FILE(
+    ${CMAKE_CURRENT_SOURCE_DIR}/operations.py.in
+    ${CMAKE_CURRENT_BINARY_DIR}/operations.py
+    COPYONLY
+)
+
 
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/../include

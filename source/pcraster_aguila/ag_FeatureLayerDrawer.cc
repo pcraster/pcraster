@@ -3,7 +3,6 @@
 // External headers.
 #include <QPainter>
 #include <qwt_scale_map.h>
-#include <geos/geom/Envelope.h>
 #include <ogr_core.h>
 #include <ogr_feature.h>
 #include <ogr_geometry.h>
@@ -171,10 +170,26 @@ void FeatureLayerDrawer::draw(
   north = yMapper.invTransform(dirtyMapAreaInPixels.top());
   south = yMapper.invTransform(dirtyMapAreaInPixels.bottom());
 
-  geos::geom::Envelope envelope(west, east, north, south);
+  using Box = dal::FeatureLayerGeometries::Box;
+  using Point = dal::FeatureLayerGeometries::Point;
+
+  // Extent the box a little bit to allow geometries that are positioned
+  // very close to the box' edges to be selected. Otherwise these geometries
+  // might not be selected, possibly due to floating point rounding
+  // errors.
+  Box box(
+    Point(
+        west - std::abs(0.01 * west),
+        south - std::abs(0.01 * south)
+    ),
+    Point(
+        east + std::abs(0.01 * east),
+        north + std::abs(0.01 * north)
+    )
+  );
 
   std::set<long int> featureIds;
-  d_layer.featureIds(envelope, std::inserter(featureIds, featureIds.begin()));
+  d_layer.featureIds(box, std::inserter(featureIds, featureIds.begin()));
 
   // Default painter settings.
   painter.setRenderHint(QPainter::Antialiasing, false);

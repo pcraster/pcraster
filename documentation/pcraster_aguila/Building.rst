@@ -22,7 +22,6 @@ Make sure these projects are configured and built.
 Make sure the folowing 3rd party libraries and tools are installed (see DevEnv's `configuration/Versions.sh` for verion information):
 
 * Boost
-* Geos
 * Gdal
 * Qwt
 * Icu

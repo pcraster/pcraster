@@ -9,11 +9,6 @@
 #define INCLUDED_IOSTREAM
 #endif
 
-#ifndef INCLUDED_GEOS_GEOM_ENVELOPE
-#include <geos/geom/Envelope.h>
-#define INCLUDED_GEOS_GEOM_ENVELOPE
-#endif
-
 #ifndef INCLUDED_OGR_GEOMETRY
 #include <ogr_geometry.h>
 #define INCLUDED_OGR_GEOMETRY
@@ -66,7 +61,7 @@ FeatureLayerGeometries::FeatureLayerGeometries(
 
 FeatureLayerGeometries::~FeatureLayerGeometries()
 {
-  typedef std::map<long int, OGRGeometry*>::value_type value_type;
+  typedef std::map<FeatureId, OGRGeometry*>::value_type value_type;
 
   BOOST_FOREACH(value_type pair, _geometryByFeatureId) {
     OGRGeometryFactory::destroyGeometry(pair.second);
@@ -76,7 +71,7 @@ FeatureLayerGeometries::~FeatureLayerGeometries()
 
 
 void FeatureLayerGeometries::insert(
-         long int featureId,
+         FeatureId featureId,
          OGRGeometry* geometry)
 {
   assert(featureId != OGRNullFID);
@@ -89,10 +84,10 @@ void FeatureLayerGeometries::insert(
   OGREnvelope ogrEnvelope;
   geometry->getEnvelope(&ogrEnvelope);
 
-  geos::geom::Envelope envelope(ogrEnvelope.MinX, ogrEnvelope.MaxX,
-         ogrEnvelope.MinY, ogrEnvelope.MaxY);
-
-  _geometryByLocation.insert(&envelope, geometry);
+  Box box(
+    Point(ogrEnvelope.MinX, ogrEnvelope.MinY),
+    Point(ogrEnvelope.MaxX, ogrEnvelope.MaxY));
+  _geometryByLocation2.insert(std::make_pair(box, featureId));
 }
 
 
@@ -107,9 +102,7 @@ SpaceDimensions const& FeatureLayerGeometries::envelope() const
 size_t FeatureLayerGeometries::size() const
 {
   assert(_geometryByFeatureId.size() == _featureIdByGeometry.size());
-  assert(_featureIdByGeometry.size() == static_cast<size_t>(
-         const_cast<geos::index::quadtree::Quadtree&>(
-              _geometryByLocation).size()));
+  assert(_featureIdByGeometry.size() == _geometryByLocation2.size());
 
   return _featureIdByGeometry.size();
 }
@@ -117,9 +110,9 @@ size_t FeatureLayerGeometries::size() const
 
 
 OGRGeometry const& FeatureLayerGeometries::geometry(
-         long int featureId) const
+         FeatureId featureId) const
 {
-  std::map<long int, OGRGeometry*>::const_iterator it =
+  std::map<FeatureId, OGRGeometry*>::const_iterator it =
          _geometryByFeatureId.find(featureId);
 
   assert(it != _geometryByFeatureId.end());
@@ -129,10 +122,10 @@ OGRGeometry const& FeatureLayerGeometries::geometry(
 
 
 
-long int FeatureLayerGeometries::featureId(
+FeatureId FeatureLayerGeometries::featureId(
          OGRGeometry const* geometry) const
 {
-  std::map<OGRGeometry*, long int>::const_iterator it =
+  std::map<OGRGeometry*, FeatureId>::const_iterator it =
          _featureIdByGeometry.find(const_cast<OGRGeometry*>(geometry));
   assert(it != _featureIdByGeometry.end());
 
@@ -141,11 +134,11 @@ long int FeatureLayerGeometries::featureId(
 
 
 
-long int FeatureLayerGeometries::featureId(
+FeatureId FeatureLayerGeometries::featureId(
          double x,
          double y) const
 {
-  long int result = OGRNullFID;
+  FeatureId result = OGRNullFID;
 
   OGRGeometry const* geometry = this->geometry(x, y);
 
@@ -162,25 +155,23 @@ OGRGeometry const* FeatureLayerGeometries::geometry(
          double x,
          double y) const
 {
-  geos::geom::Envelope envelope;
-  envelope.init(geos::geom::Coordinate(x, y));
+  Point point(x, y);
+  Box box(point, point);
 
-  std::vector<void*> items;
-
-  const_cast<geos::index::quadtree::Quadtree&>(_geometryByLocation).query(
-         &envelope, items);
+  std::vector<Value> values;
+  _geometryByLocation2.query(boost::geometry::index::intersects(box),
+      std::back_inserter(values));
 
   OGRGeometry const* result = 0;
 
-  if(!items.empty()) {
+  if(!values.empty()) {
     OGRPoint point;
     point.setX(x);
     point.setY(y);
     OGRGeometry const* geometry;
 
-    BOOST_FOREACH(void* item, items) {
-      geometry = static_cast<OGRGeometry const*>(item);
-
+    for(auto const& value: values) {
+      geometry = _geometryByFeatureId.at(value.second);
       if(geometry->Contains(&point)) {
         result = geometry;
         break;

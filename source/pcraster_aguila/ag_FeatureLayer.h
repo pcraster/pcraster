@@ -87,7 +87,8 @@ public:
   /// const_iterator   end                 () const;
 
   template<class InsertIterator>
-  void             featureIds          (geos::geom::Envelope const& envelope,
+  void             featureIds          (dal::FeatureLayerGeometries::Box
+                                            const& box,
                                         InsertIterator inserter) const;
 
   OGRGeometry const& geometry          (long int featureId) const;
@@ -113,10 +114,10 @@ public:
 
 template<class InsertIterator>
 void FeatureLayer::featureIds(
-         geos::geom::Envelope const& envelope,
+         dal::FeatureLayerGeometries::Box const& box,
          InsertIterator inserter) const
 {
-  d_layer->featureIds(envelope, inserter);
+  d_layer->featureIds(box, inserter);
 }
 
 

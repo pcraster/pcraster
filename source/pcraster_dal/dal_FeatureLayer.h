@@ -159,7 +159,7 @@ public:
   void             featureIds         (InsertIterator inserter) const;
 
   template<class InsertIterator>
-  void             featureIds         (geos::geom::Envelope const& envelope,
+  void             featureIds          (FeatureLayerGeometries::Box const& box,
                                         InsertIterator inserter) const;
 
   OGRGeometry const& geometry          (long int featureId) const;
@@ -218,10 +218,10 @@ void FeatureLayer::featureIds(
 
 template<class InsertIterator>
 void FeatureLayer::featureIds(
-         geos::geom::Envelope const& envelope,
+         FeatureLayerGeometries::Box const& box,
          InsertIterator inserter) const
 {
-  _geometries->featureIds<InsertIterator>(envelope, inserter);
+  _geometries->featureIds<InsertIterator>(box, inserter);
 }
 
 

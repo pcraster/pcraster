@@ -559,8 +559,8 @@ FeaturePath OgrFeatureDriver::featurePathFor(
         return result;
     };
 
-    // First, assume attribute name is present.
-    strategy = FeaturePath::WithAttribute;
+    // First, assume attribute name is not present.
+    strategy = FeaturePath::WithoutAttribute;
     result = FeaturePath(name, strategy);
 
     if(result.isValid()) {
@@ -571,8 +571,8 @@ FeaturePath OgrFeatureDriver::featurePathFor(
     }
 
     if(!found) {
-      // Second, assume attribute name is not present.
-      strategy = FeaturePath::WithoutAttribute;
+      // Second, assume attribute name is present.
+      strategy = FeaturePath::WithAttribute;
       result = FeaturePath(name, strategy);
 
       if(result.isValid()) {

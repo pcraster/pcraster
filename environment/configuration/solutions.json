@@ -1,19 +1,18 @@
+// See solutions_readme.txt for general information about this file.
 {
     "solutions": [
         {
             "label": "Ubuntu 16.04 x86_64 PCRaster no options selected",
             "box": "ubuntu/xenial64",
             "provisions": [
-                "add-apt-repository -y ppa:ubuntugis/ubuntugis-testing",
                 "apt -y update",
                 "apt -y upgrade",
                 "apt -y autoremove",
-                "apt -y install libgdal-dev gdal-bin",
-                "apt -y install cmake gcc g++ git libboost-all-dev libgdal-dev libpython2.7-dev libncurses5-dev libgeos++-dev imagemagick libxslt1-dev xsltproc qt4-dev-tools qt4-qmake libqwt-dev xsdcxx libxml2 libxml2-utils python-numpy"
+                "apt -y install cmake gcc g++ git imagemagick libboost-all-dev libgeos++-dev libncurses5-dev libpython-dev libqwt-qt5-dev libxml2 libxml2-utils libxslt1-dev python-numpy qtbase5-dev xsdcxx xsltproc"
             ],
             "commands": [
                 "wget http://pcraster.geo.uu.nl/download/build_pcraster.py",
-                "python ./build_pcraster.py pcraster_4_2_beta"
+                "python ./build_pcraster.py pcraster_4_2_beta --build-gdal"
             ]
         },
         {
@@ -21,16 +20,15 @@
             "box": "ubuntu/trusty64",
             "provisions": [
                 "add-apt-repository -y ppa:ubuntu-toolchain-r/test",
-                "add-apt-repository -y ppa:ubuntugis/ubuntugis-testing",
                 "apt-get -y update",
                 "apt-get -y upgrade",
                 "apt-get -y autoremove",
-                "apt-get -y install doxygen gcc-4.9 g++-4.9 git graphviz imagemagick libboost-all-dev libcurlpp-dev libgdal-dev libgeos++-dev libgl1-mesa-dev libncurses5-dev libqwt-dev libxerces-c-dev libxml2 libxml2-dev libxml2-utils libxslt1-dev python-dev python-numpy-dev python-sphinx sqlite3 xsdcxx xsltproc",
+                "apt-get -y install gcc-4.9 g++-4.9 git imagemagick libboost-all-dev libgeos++-dev libncurses5-dev libpython-dev libxml2 libxml2-utils libxslt1-dev python-numpy qt5-default qtbase5-dev xsdcxx xsltproc",
                 "cd /opt && wget https://cmake.org/files/v3.5/cmake-3.5.2-Linux-x86_64.tar.gz && tar zxf cmake-3.5.2-Linux-x86_64.tar.gz"
             ],
             "commands": [
                 "wget http://pcraster.geo.uu.nl/download/build_pcraster.py",
-                "PATH=/opt/cmake-3.5.2-Linux-x86_64/bin:$PATH CC=gcc-4.9 CXX=g++-4.9 python ./build_pcraster.py pcraster_4_2_beta"
+                "PATH=/opt/cmake-3.5.2-Linux-x86_64/bin:$PATH CC=gcc-4.9 CXX=g++-4.9 python ./build_pcraster.py pcraster_4_2_beta --build-gdal --build-qwt"
             ]
         },
         {
@@ -38,16 +36,15 @@
             "box": "ubuntu/trusty32",
             "provisions": [
                 "add-apt-repository -y ppa:ubuntu-toolchain-r/test",
-                "add-apt-repository -y ppa:ubuntugis/ubuntugis-testing",
                 "apt-get -y update",
                 "apt-get -y upgrade",
                 "apt-get -y autoremove",
-                "apt-get -y install doxygen gcc-4.9 g++-4.9 git graphviz imagemagick libboost-all-dev libcurlpp-dev libgdal-dev libgeos++-dev libgl1-mesa-dev libncurses5-dev libqwt-dev libxerces-c-dev libxml2 libxml2-dev libxml2-utils libxslt1-dev python-dev python-numpy-dev python-sphinx sqlite3 xsdcxx xsltproc",
+                "apt-get -y install gcc-4.9 g++-4.9 git imagemagick libboost-all-dev libgeos++-dev libncurses5-dev libpython-dev libxml2 libxml2-utils libxslt1-dev python-numpy qt5-default qtbase5-dev xsdcxx xsltproc",
                 "cd /opt && wget https://cmake.org/files/v3.5/cmake-3.5.2-Linux-i386.tar.gz && tar zxf cmake-3.5.2-Linux-i386.tar.gz"
             ],
             "commands": [
                 "wget http://pcraster.geo.uu.nl/download/build_pcraster.py",
-                "PATH=/opt/cmake-3.5.2-Linux-i386/bin:$PATH CC=gcc-4.9 CXX=g++-4.9 python ./build_pcraster.py pcraster_4_2_beta"
+                "PATH=/opt/cmake-3.5.2-Linux-i386/bin:$PATH CC=gcc-4.9 CXX=g++-4.9 python ./build_pcraster.py pcraster_4_2_beta --build-gdal --build-qwt"
             ]
         },
         {
@@ -55,18 +52,18 @@
             "box": "centos/7",
             "provisions": [
                 "sudo yum -y install git wget ImageMagick libxslt libxml2 numpy",
-                "sudo yum -y install ncurses-devel libxslt-devel libxml2-devel libcurl-devel xerces-c-devel python-devel qt-devel",
+                "sudo yum -y install freeglut-devel ncurses-devel libxslt-devel libxml2-devel libcurl-devel xerces-c-devel python-devel",
                 "sudo yum -y install epel-release",
                 "sudo yum -y update",
-                "sudo yum -y upgrade",
-                "sudo yum -y install cmake3 xsd geos-devel qwt-devel",
+                // "sudo yum -y upgrade",
+                "sudo yum -y install cmake3 xsd geos-devel qt5-qtbase-devel",
                 "sudo yum -y install centos-release-scl",
                 "sudo yum -y install devtoolset-4-gcc devtoolset-4-gcc-c++"
             ],
             "commands": [
                 "wget http://pcraster.geo.uu.nl/download/build_pcraster.py",
                 "sed -i.tmp \"s/cmake/cmake3/\" build_pcraster.py",
-                "scl enable devtoolset-4 \"python ./build_pcraster.py pcraster_4_2_beta --build-gdal --build-boost \""
+                "scl enable devtoolset-4 \"python ./build_pcraster.py pcraster_4_2_beta --build-gdal --build-boost --build-qwt \""
             ]
         }
     ]

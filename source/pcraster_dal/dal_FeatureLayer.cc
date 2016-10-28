@@ -493,12 +493,6 @@ InstantiateTemplateMembers(std::string)
 
 
 
-// void FeatureLayer::featureIds<type>(InsertIterator) const
-// void FeatureLayer::featureIds<type>(geos::geom::Envelope const&, InsertIterator) const
-
-
-
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------

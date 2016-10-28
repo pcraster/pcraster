@@ -35,7 +35,6 @@ addons:
             - g++-4.9
             - graphviz
             - imagemagick
-            - libgeos++-dev
             - libboost1.55-all-dev
             - libxerces-c-dev
             - libxml2-dev

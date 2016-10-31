@@ -1,6 +1,5 @@
 set(SOURCES
     dev_CommandLineApplication.cc
-    dev_CurlClient.cc
     dev_FilesystemUtils.cc
     dev_PythonClient.cc
     dev_Utils.cc

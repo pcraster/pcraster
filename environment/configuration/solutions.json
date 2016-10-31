@@ -8,7 +8,7 @@
                 "apt -y update",
                 "apt -y upgrade",
                 "apt -y autoremove",
-                "apt -y install cmake gcc g++ git imagemagick libboost-all-dev libgeos++-dev libncurses5-dev libpython-dev libqwt-qt5-dev libxml2 libxml2-utils libxslt1-dev python-numpy qtbase5-dev xsdcxx xsltproc"
+                "apt -y install cmake gcc g++ git libboost-all-dev libncurses5-dev libpython-dev libqwt-qt5-dev libxml2 libxml2-utils libxslt1-dev python-numpy qtbase5-dev xsdcxx"
             ],
             "commands": [
                 "wget http://pcraster.geo.uu.nl/download/build_pcraster.py",
@@ -23,7 +23,7 @@
                 "apt-get -y update",
                 "apt-get -y upgrade",
                 "apt-get -y autoremove",
-                "apt-get -y install gcc-4.9 g++-4.9 git imagemagick libboost-all-dev libgeos++-dev libncurses5-dev libpython-dev libxml2 libxml2-utils libxslt1-dev python-numpy qt5-default qtbase5-dev xsdcxx xsltproc",
+                "apt-get -y install gcc-4.9 g++-4.9 git libboost-all-dev libncurses5-dev libpython-dev libxml2 libxml2-utils libxslt1-dev python-numpy qt5-default qtbase5-dev xsdcxx",
                 "cd /opt && wget https://cmake.org/files/v3.5/cmake-3.5.2-Linux-x86_64.tar.gz && tar zxf cmake-3.5.2-Linux-x86_64.tar.gz"
             ],
             "commands": [
@@ -39,7 +39,7 @@
                 "apt-get -y update",
                 "apt-get -y upgrade",
                 "apt-get -y autoremove",
-                "apt-get -y install gcc-4.9 g++-4.9 git imagemagick libboost-all-dev libgeos++-dev libncurses5-dev libpython-dev libxml2 libxml2-utils libxslt1-dev python-numpy qt5-default qtbase5-dev xsdcxx xsltproc",
+                "apt-get -y install gcc-4.9 g++-4.9 git libboost-all-dev libncurses5-dev libpython-dev libxml2 libxml2-utils libxslt1-dev python-numpy qt5-default qtbase5-dev xsdcxx",
                 "cd /opt && wget https://cmake.org/files/v3.5/cmake-3.5.2-Linux-i386.tar.gz && tar zxf cmake-3.5.2-Linux-i386.tar.gz"
             ],
             "commands": [
@@ -51,12 +51,12 @@
             "label": "Centos 7 64bit gcc-5 default build",
             "box": "centos/7",
             "provisions": [
-                "sudo yum -y install git wget ImageMagick libxslt libxml2 numpy",
+                "sudo yum -y install git wget libxslt libxml2 numpy",
                 "sudo yum -y install freeglut-devel ncurses-devel libxslt-devel libxml2-devel libcurl-devel xerces-c-devel python-devel",
                 "sudo yum -y install epel-release",
                 "sudo yum -y update",
                 // "sudo yum -y upgrade",
-                "sudo yum -y install cmake3 xsd geos-devel qt5-qtbase-devel",
+                "sudo yum -y install cmake3 xsd qt5-qtbase-devel",
                 "sudo yum -y install centos-release-scl",
                 "sudo yum -y install devtoolset-4-gcc devtoolset-4-gcc-c++"
             ],

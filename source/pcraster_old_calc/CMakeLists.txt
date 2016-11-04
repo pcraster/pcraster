@@ -9,20 +9,20 @@ CONFIGURE_FILE(
     @ONLY
 )
 include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/../include
-    ${CMAKE_CURRENT_SOURCE_DIR}/../api
-    ${CMAKE_CURRENT_SOURCE_DIR}/../app
-    ${CMAKE_CURRENT_SOURCE_DIR}/../calc
-    ${CMAKE_CURRENT_SOURCE_DIR}/../geom
-    ${CMAKE_CURRENT_SOURCE_DIR}/../mathx
-    ${CMAKE_CURRENT_SOURCE_DIR}/../misc
-    ${CMAKE_CURRENT_SOURCE_DIR}/../pccts
-    ${CMAKE_CURRENT_SOURCE_DIR}/../pcraster_dal
-    ${CMAKE_CURRENT_SOURCE_DIR}/../pcrgeo
-    ${CMAKE_CURRENT_SOURCE_DIR}/../pcrcom
-    ${CMAKE_CURRENT_SOURCE_DIR}/../pcrdiscr
-    ${CMAKE_CURRENT_SOURCE_DIR}/../pcrxml
-    ${CMAKE_CURRENT_SOURCE_DIR}/../tab
+#     ${CMAKE_CURRENT_SOURCE_DIR}/../include
+     ${CMAKE_CURRENT_SOURCE_DIR}/../api
+     ${CMAKE_CURRENT_SOURCE_DIR}/../app
+     ${CMAKE_CURRENT_SOURCE_DIR}/../calc
+#     ${CMAKE_CURRENT_SOURCE_DIR}/../geom
+     ${CMAKE_CURRENT_SOURCE_DIR}/../mathx
+     ${CMAKE_CURRENT_SOURCE_DIR}/../misc
+     ${CMAKE_CURRENT_SOURCE_DIR}/../pccts
+     ${CMAKE_CURRENT_SOURCE_DIR}/../pcraster_dal
+     ${CMAKE_CURRENT_SOURCE_DIR}/../pcrgeo
+     ${CMAKE_CURRENT_SOURCE_DIR}/../pcrcom
+#     ${CMAKE_CURRENT_SOURCE_DIR}/../pcrdiscr
+     ${CMAKE_CURRENT_SOURCE_DIR}/../pcrxml
+     ${CMAKE_CURRENT_SOURCE_DIR}/../tab
 )
 
 ADD_DEFINITIONS(-DUSE_IN_PCRCALC -DYY_NO_UNISTD_H -DYY_NEVER_INTERACTIVE)
@@ -216,7 +216,7 @@ ADD_LIBRARY(pcraster_old_calc
 #     )
 # ELSE(WIN32)
     TARGET_LINK_LIBRARIES(pcraster_old_calc
-        pcraster_dal
+        # pcraster_dal
         calc
         pcrxml
         pccts
@@ -325,7 +325,7 @@ endif()
 #  *  <dt>location:</dt><dd>the location of a computing unit is part of the operation, xcoordinate, move.</dd>
 #  *  <dt>random:</dt><dd>uses the random generator</dd>
 #  * </dl>
-#  * Operaties die items gebruiken, staan in de manual met --cellunit (area,length), --coorul (location) 
+#  * Operaties die items gebruiken, staan in de manual met --cellunit (area,length), --coorul (location)
 #  * enzo.
 #  * For all types of collections a value for these items can be chosen, they are not all sensible but will
 #  * create a running system. For example, points have a location, choosing the value 1 for area and length, will
@@ -345,7 +345,7 @@ endif()
 #   - alle andere kaarten zouden ook in deze volgorde kunnen.
 #   - Is de optimale volgorde  als de afstand in de 1d-array tussen de door de
 #     ldd verbonden cellen zo klein mogelijk is (> cache hits)?
-# 
+#
 #   comp. sub point models:
 #    - genereer C(++) code, die wordt gecompileerd naar een DDL die runtime
 #      wordt gebonden, zoals ik dat ook reeds doe met de gridio.dll en de
@@ -354,51 +354,51 @@ endif()
 #        - linux: gcc
 #        - win32: gcc-mingw probably (of de gratis borland C++ compiler)
 #   </pre>
-# 
-# 
+#
+#
 #  */
-# 
+#
 # /*!
 #  \namespace calc
 #  \brief The pcrcalc application
-# 
+#
 #  \todo
 #   <p>DLL REFACTORING
 #    <pre>
-# 
+#
 # get rid of  static in any of the following modules:
 #  - calc_arcviewextapi.cc
 #         static char *errStr(0);
-# 
+#
 # clients of pcrcalcl.dll:
 # C++  - pcrcalc.exe
 # C++  - calcui.exe       (ClientInterface)
 # C    - arcView extension
 # C    - DelftShell
-# 
+#
 # Member calc::EsriGridIO::EsriGridIO()
-#  make a difference in fail between - lib not found, is ArcView installed? 
-#   - sym not found, do we have correct version of av-dll 
-# 
-# 
-# Member calc::IoEsriFieldStrategy::setStackInfo(const StackInfo &s) const 
+#  make a difference in fail between - lib not found, is ArcView installed?
+#   - sym not found, do we have correct version of av-dll
+#
+#
+# Member calc::IoEsriFieldStrategy::setStackInfo(const StackInfo &s) const
 #    update delphi-DLL for new PCRaster DTD.  (CHECK OF AL GEDAAN)
-#    do dataType in directoryStackInfo 
+#    do dataType in directoryStackInfo
 #    assure that float read correct in Delphi "," or "." issue
-# 
+#
 # REVIEW again what classes must be exported (PCR_DLL_EXP/PCRAPI)
 #    </pre>
 #     END OF DLL REFACTORING
 #     </p>
-# 
+#
 #  \todo
 #   2) strip the .lib of pcrcalcl.dll for bare essentials
-# 
+#
 #  \todo
 #    when model terminates because of numerical error, -e or whatever
 #    does it write all timeseries, adjust maps/min/max's etc..?
 #    It seems it does, put that behavior in  tests
-# 
+#
 #  \todo
 #    optimizations:
 #    <pre>
@@ -413,18 +413,18 @@ endif()
 #           vanuit de bitmap, per 4 bit-strip de mogelijkheden bekijken, voor
 #            maximal pipelining.
 #    </pre>
-# 
+#
 #  \bug
 #    Check "dynmod\\plants\\scen.mod"
 #     als naam is newplants (9 chars)
 #      dan result zonder punt, dus newplants001
-# 
+#
 #   \bug
 #      pcrcalc/test230, tan(180), solution tan(pi()/2:--radians) ???
-# 
+#
 #  \bug
 #    lookup...() met arg 1 as a field, geeft assertion failed
-# 
+#
 #  <H1>Binding issues</H1>
 #    - calcui, maakt binding.ipcr aan
 #      met daarin NumericSetting
@@ -436,7 +436,7 @@ endif()
 #        - bij error op Error (eigenlijk Incomplete als input not found)
 #    - voeg in MRO manual toe, dat binding.ipcr wordt gebruikt.
 #    - ModelRunStatus in binding.ipcr is ook zinnig buiten calcui
-# 
+#
 #    Externe bindings
 #      - bindings in volgorde van definitie presenteren (wil Ad ook)
 #      - externe bindings mogen overschrijven/dubbel zijn (test375)
@@ -450,27 +450,27 @@ endif()
 #            - where input files are found
 #            - numerical values
 #         - diffs of two scenarios
-# 
-# 
+#
+#
 #    rundirectories/freebie: -i inputDir -o outputDir
 #     d.m.v. het rundirectory mechanisme, geen zoekpad ALLEEN die directories
 #     gebruiken.
-# 
+#
 #   <H1>Binding</H1>
 #    NumericSetting,FileSetting --> BindingRewriter moet in pcrxml-library
-# 
+#
 #   refactor non-working symbolSequenceNr()
-# 
+#
 #   Refactor Pos:
 #    - Pos kan ook naar een binding.ipcr wijzen?
 #       --> yep, reimplement posError for a bindedSymbol!
-# 
+#
 # !  bij refactoren van pcrcalc, als Pos meer flexibel is dan foutmelding altijd
 # !  op de externe binding, die is voor de gebruiker zichtbaar
-# 
+#
 #    - context in ModelBuilder kan ook xml file zijn
 #      posError is een rare naam
-# 
+#
 #    <H1>Parameter bescrijvingen</H1>
 #    Twee interval definities:
 #     allow-interval: set on input, give assertion if computation goes outside

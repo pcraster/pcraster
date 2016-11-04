@@ -5,7 +5,7 @@ CONFIGURE_FILE(
 )
 
 include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/../include
+    # ${CMAKE_CURRENT_SOURCE_DIR}/../include
     ${CMAKE_CURRENT_SOURCE_DIR}/../app
     ${CMAKE_CURRENT_SOURCE_DIR}/../pcraster_dal
     ${CMAKE_CURRENT_SOURCE_DIR}/../pcrcom
@@ -60,6 +60,8 @@ ADD_LIBRARY(pcrgeo
     ${SOURCES}
 )
 TARGET_LINK_LIBRARIES(pcrgeo
+    pcrcom
+    pcraster_dal
     ${PCRASTER_RASTER_FORMAT_LIBRARIES}
     ${Boost_MATH_C99_LIBRARY}
 )

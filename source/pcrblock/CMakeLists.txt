@@ -21,7 +21,9 @@ SET(SOURCES
 ADD_LIBRARY(pcrblock
     ${SOURCES}
 )
-
+target_link_libraries(pcrblock
+    pcrdiscr
+)
 
 if(PCRASTER_BUILD_TEST)
     set(TEST_NAMES

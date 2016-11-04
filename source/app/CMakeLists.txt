@@ -31,5 +31,7 @@ ADD_LIBRARY(app
     ${SOURCES}
 )
 TARGET_LINK_LIBRARIES(app
+    mathx
+    pcrcom
     ${PCRASTER_RASTER_FORMAT_LIBRARIES}
 )

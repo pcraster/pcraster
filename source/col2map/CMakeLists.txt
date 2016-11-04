@@ -6,13 +6,13 @@ CONFIGURE_FILE(
 )
 
 include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/../include
+    # ${CMAKE_CURRENT_SOURCE_DIR}/../include
     ${CMAKE_CURRENT_SOURCE_DIR}/../app
     ${CMAKE_CURRENT_SOURCE_DIR}/../mathx
     ${CMAKE_CURRENT_SOURCE_DIR}/../misc
     ${CMAKE_CURRENT_SOURCE_DIR}/../pcraster_dal
     ${CMAKE_CURRENT_SOURCE_DIR}/../tab
-    ${CMAKE_CURRENT_SOURCE_DIR}/../utils
+    # ${CMAKE_CURRENT_SOURCE_DIR}/../utils
 )
 
 # INCLUDE_DIRECTORIES(
@@ -55,11 +55,11 @@ ADD_EXECUTABLE(col2map
     TARGET_LINK_LIBRARIES(col2map
         ### # ${LIBRARIES_TO_LINK}
         app
-        pcrcom
+        # pcrcom
         tab
         mathx
-        misc
-        pcraster_dal
+        # misc
+        # pcraster_dal
         ### # ${PCRASTER_RASTER_FORMAT_LIBRARIES}
         ### # ${DEVENV_UTILS_LIBRARY}
         ### # ${QT_QTCORE_LIBRARIES}

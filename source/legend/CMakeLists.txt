@@ -28,12 +28,13 @@ ENDIF()
 #     )
 # ELSE(WIN32)
     TARGET_LINK_LIBRARIES(legend
-        ncurses
+        # ncurses
         app
-        pcrcom
-        misc
+        # pcrcom
+        # misc
         curr
         ${PCRASTER_RASTER_FORMAT_LIBRARIES}
+        ${CURSES_LIBRARIES}
     )
     SET_TARGET_PROPERTIES(legend PROPERTIES LINKER_LANGUAGE CXX)
 # ENDIF(WIN32)

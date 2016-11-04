@@ -16,7 +16,7 @@ CONFIGURE_FILE(
 )
 
 include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/../include
+    # ${CMAKE_CURRENT_SOURCE_DIR}/../include
     ${CMAKE_CURRENT_SOURCE_DIR}/../pcrcom
 )
 # INCLUDE_DIRECTORIES(

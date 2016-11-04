@@ -27,11 +27,11 @@ ADD_EXECUTABLE(table
 #     )
 # ELSE(WIN32)
     TARGET_LINK_LIBRARIES(table
-        api
+        # api
         tab
         app
-        pcrcom
-        mathx
+        # pcrcom
+        # mathx
         misc
         ${PCRASTER_RASTER_FORMAT_LIBRARIES}
     )

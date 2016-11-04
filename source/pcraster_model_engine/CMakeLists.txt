@@ -17,7 +17,7 @@ CONFIGURE_FILE(
 )
 
 include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/../include
+    # ${CMAKE_CURRENT_SOURCE_DIR}/../include
     ${CMAKE_CURRENT_BINARY_DIR} # some code creation (createOperatorCppCode.py and cpptest.cc)
     ${PROJECT_BINARY_DIR}/documentation/pcraster_manual/examples # cpptest.cc
     ${CMAKE_CURRENT_SOURCE_DIR}  # needed to include from BINARY into SOURCE
@@ -344,17 +344,17 @@ TARGET_LINK_LIBRARIES(pcraster_model_engine
     calc
     api
     app
-    geom
-    mathx
+    # geom
+    # mathx
     pcrgeo
-    pcrcom
+    # pcrcom
     pcrdiscr
     pcraster_xsd
-    tab
-    misc
+    # tab
+    # misc
     pcrxml
-    pcraster_dal
-    utils
+    # pcraster_dal
+    # utils
     # ${PCRASTER_RASTER_FORMAT_LIBRARIES}
     # ${DEVENV_UTILS_LIBRARY}
     # ${GDAL_LIBRARIES}

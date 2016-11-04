@@ -1,10 +1,10 @@
 include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../include
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../pcrdiscr
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../pcraster_dal
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../pcraster_model_engine
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../pcrgeo
+    # ${CMAKE_CURRENT_SOURCE_DIR}/../../include
+     ${CMAKE_CURRENT_SOURCE_DIR}/../src
+     ${CMAKE_CURRENT_SOURCE_DIR}/../../pcrdiscr
+     ${CMAKE_CURRENT_SOURCE_DIR}/../../pcraster_dal
+     ${CMAKE_CURRENT_SOURCE_DIR}/../../pcraster_model_engine
+     ${CMAKE_CURRENT_SOURCE_DIR}/../../pcrgeo
 )
 
 SET(SOURCES
@@ -23,12 +23,12 @@ ADD_LIBRARY(_pcraster_modflow_python
 )
 
 TARGET_LINK_LIBRARIES(_pcraster_modflow_python
-    pcrmf
-    pcrgeo
-    pcrblock
-    pcraster_model_engine
-    pcrcom
-    pcrdiscr
+     pcrmf
+     pcrgeo
+#     pcrblock
+     pcraster_model_engine
+#     pcrcom
+#     pcrdiscr
     ${Boost_PYTHON_LIBRARY}
     ${PYTHON_LIBRARIES}
     # ${PCRASTER_RASTER_FORMAT}

@@ -1,5 +1,5 @@
 include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/../include
+    # ${CMAKE_CURRENT_SOURCE_DIR}/../include
     ${CMAKE_CURRENT_SOURCE_DIR}/../api
     ${CMAKE_CURRENT_SOURCE_DIR}/../pcrgeo
     ${CMAKE_CURRENT_SOURCE_DIR}/../app
@@ -75,11 +75,11 @@ TARGET_LINK_LIBRARIES(calc
     api
     pcrgeo
     app
-    mathx
-    pcrcom
+    # mathx
+    # pcrcom
     tab
     geom
-    misc
+    # misc
     # ${Boost_MATH_C99_LIBRARY}
 )
 
@@ -103,7 +103,7 @@ endif()
 # /*!
 #    \namespace calc
 #    \brief global field functions of pcrcalc
-# 
+#
 #    Calc is a bad name for the namespace;
 #    In the long run, merge this lib and api, to be named globfieldfunc ??
 # */

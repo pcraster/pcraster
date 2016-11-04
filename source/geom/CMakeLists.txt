@@ -14,7 +14,7 @@ ADD_LIBRARY(geom
     ${SOURCES}
 )
 TARGET_LINK_LIBRARIES(geom
-    misc
+    mathx
 )
 
 

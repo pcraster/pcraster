@@ -1,5 +1,5 @@
 include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/../include
+    # ${CMAKE_CURRENT_SOURCE_DIR}/../include
     ${CMAKE_CURRENT_SOURCE_DIR}/../app
     ${CMAKE_CURRENT_SOURCE_DIR}/../misc
 )
@@ -27,8 +27,8 @@ ADD_EXECUTABLE(asc2map
 # ELSE()
 TARGET_LINK_LIBRARIES(asc2map
     app
-    pcrcom
-    mathx
+    # pcrcom
+    # mathx
     misc
     ${PCRASTER_RASTER_FORMAT_LIBRARIES}
 )

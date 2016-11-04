@@ -36,13 +36,13 @@ ADD_EXECUTABLE(resample
 #     )
 # ELSE(WIN32)
     TARGET_LINK_LIBRARIES(resample
-        api
+        # api
         app
-        pcrcom
+        # pcrcom
         geom
         tab
         mathx
-        misc
+        # misc
         ${PCRASTER_RASTER_FORMAT_LIBRARIES}
     )
 # ENDIF(WIN32)

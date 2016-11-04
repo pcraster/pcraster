@@ -12,6 +12,9 @@ SET(SOURCES
 ADD_LIBRARY(mathx
     ${SOURCES}
 )
+TARGET_LINK_LIBRARIES(mathx
+    misc
+)
 
 
 if(PCRASTER_BUILD_TEST)

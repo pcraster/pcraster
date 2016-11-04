@@ -1,10 +1,10 @@
 if(PCRASTER_BUILD_TEST)
     include_directories(
-        ${CMAKE_CURRENT_SOURCE_DIR}/../app
-        ${CMAKE_CURRENT_SOURCE_DIR}/../mathx
-        ${CMAKE_CURRENT_SOURCE_DIR}/../misc
-        ${CMAKE_CURRENT_SOURCE_DIR}/../pcrcom
-        ${CMAKE_CURRENT_SOURCE_DIR}/../pcrgeo
+         ${CMAKE_CURRENT_SOURCE_DIR}/../app
+         ${CMAKE_CURRENT_SOURCE_DIR}/../mathx
+         ${CMAKE_CURRENT_SOURCE_DIR}/../misc
+         ${CMAKE_CURRENT_SOURCE_DIR}/../pcrcom
+         ${CMAKE_CURRENT_SOURCE_DIR}/../pcrgeo
     )
 
     SET(SOURCES
@@ -17,10 +17,10 @@ if(PCRASTER_BUILD_TEST)
 
     TARGET_LINK_LIBRARIES(mapdiff
         pcrgeo
-        pcrcom
+        # pcrcom
         app
-        misc
-        pcraster_dal
+        # misc
+        # pcraster_dal
         ${PCRASTER_RASTER_FORMAT_LIBRARIES}
         # ${Boost_MATH_C99_LIBRARY}
     )

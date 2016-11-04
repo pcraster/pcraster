@@ -10,7 +10,9 @@ SET(SOURCES
 ADD_LIBRARY(pcrdiscr
     ${SOURCES}
 )
-
+target_link_libraries(pcrdiscr
+    pcraster_dal
+)
 
 if(PCRASTER_BUILD_TEST)
     set(TEST_NAMES

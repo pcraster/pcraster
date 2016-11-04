@@ -16,10 +16,10 @@ ADD_LIBRARY(_pcraster_moc_python
     ${SOURCES}
 )
 TARGET_LINK_LIBRARIES(_pcraster_moc_python
-    pcraster_moc
-    pcraster_model_engine
-    pcrcom
-    pcrgeo
+     pcraster_moc
+     pcraster_model_engine
+     # pcrcom
+     # pcrgeo
     ${Boost_PYTHON_LIBRARY}
     ${PYTHON_LIBRARIES}
 )
@@ -54,7 +54,7 @@ ADD_CUSTOM_COMMAND(
 #         ### BUILD_WITH_INSTALL_RPATH TRUE
 #         ### INSTALL_RPATH "$ORIGIN/../../../lib"
 #         ### INSTALL_RPATH_USE_LINK_PATH FALSE
-# 
+#
 #         # Write the extension to the pcraster sub directory.
 #         LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin/${CMAKE_CFG_INTDIR}/pcraster/moc
 #         # Might be needed on Windows:

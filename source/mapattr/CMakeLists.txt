@@ -1,5 +1,5 @@
 include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/../include
+    # ${CMAKE_CURRENT_SOURCE_DIR}/../include
     ${CMAKE_CURRENT_SOURCE_DIR}/../misc
     ${CMAKE_CURRENT_SOURCE_DIR}/../app
     ${CMAKE_CURRENT_SOURCE_DIR}/../curr
@@ -34,8 +34,8 @@ ENDIF()
     TARGET_LINK_LIBRARIES(mapattr
         mathx
         app
-        pcrcom
-        misc
+        # pcrcom
+        # misc
         curr
         ${PCRASTER_RASTER_FORMAT_LIBRARIES}
         ${CURSES_LIBRARIES}

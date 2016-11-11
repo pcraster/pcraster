@@ -55,6 +55,8 @@
                 "sudo yum -y install freeglut-devel ncurses-devel libxslt-devel libxml2-devel libcurl-devel xerces-c-devel python-devel",
                 "sudo yum -y install epel-release",
                 "sudo yum -y update",
+                // Skip this, it may update all kinds of packages to
+                // non-standard versions.
                 // "sudo yum -y upgrade",
                 "sudo yum -y install cmake3 xsd qt5-qtbase-devel",
                 "sudo yum -y install centos-release-scl",

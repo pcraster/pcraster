@@ -45,14 +45,20 @@ private:
   double           d_trpy;
   size_t           d_iwetit;
   float            d_hdry;
-  int              d_fortran_unit_number;
+  int              d_output_unit_number;
+  int              d_hy_unit_number;
+  int              d_vcond_unit_number;
+  int              d_tran_unit_number;
+  int              d_sf1_unit_number;
+  int              d_sf2_unit_number;
+  int              d_wet_unit_number;
   PCRModflow       *d_mf;
 
   bool hasConfinedSubLayer(size_t layer);
   void calcTran(std::stringstream &aStream, size_t layer, const std::string &msg);
   void calcVCond(std::stringstream &aStream, size_t layer, const std::string &msg);
 
-  
+
   size_t getLaycon(size_t lcon);
 
 //  void             calcSf1             (std::stringstream &aStream, size_t layer, const std::string &msg) const;
@@ -103,6 +109,26 @@ public:
 
   calc::Field*     get_lower_face      (size_t layer) const;
 
+  void             write               (std::string const& path);
+
+  void             write_hy    (std::string const& path);
+  void             write_sf1    (std::string const& path) ;
+  void             write_sf2    (std::string const& path);
+  void             write_vcond    (std::string const& path);
+  void             write_tran    (std::string const& path);
+  void             write_wetdry    (std::string const& path);
+
+  bool             transient           () const;
+
+  bool             rewetting           () const;
+
+
+  int              hy_unit_number() const;
+  int              vcond_unit_number() const;
+  int              wet_unit_number() const;
+  int              tran_unit_number() const;
+  int              sf1_unit_number() const;
+  int              sf2_unit_number() const;
 };
 
 #endif // INCLUDED_BCF

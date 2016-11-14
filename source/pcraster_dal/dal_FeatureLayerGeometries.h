@@ -26,8 +26,8 @@
 #include <boost/geometry/geometries/box.hpp>
 #include <boost/geometry/geometries/point.hpp>
 // iostream required due to boost geometry
-#if __GNUC__ > 5
-  #if BOOST_VERSION > 106000
+#if __GNUC__ > 4
+  #if BOOST_VERSION > 106000 && BOOST_VERSION < 106300
   #include <iostream>
   #endif
 #endif

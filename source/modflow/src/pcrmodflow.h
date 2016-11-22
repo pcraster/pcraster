@@ -265,6 +265,8 @@ public:
 
 	    //
 	    void setDISParams(size_t timeUnits, size_t lentghUnits, float stressPeriodLength, size_t nrOfTimesteps, float timeStepMultiplier, bool isSteadyState);
+
+      void         update_dis_parameter(float stressPeriodLength, size_t nrOfTimesteps, float timeStepMultiplier);
 	    // BAS
 	    void setNoFlowConstant(float constVal);
 	    bool setIBound(const int *values, size_t layer);

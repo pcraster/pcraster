@@ -94,6 +94,14 @@ SSTR
 
 All input values are non spatial values. If this operation is not used the simulation will be set to the default values of (undefined, undefined, 1.0, 1, 1.0, 1).
 
+In transient simulations you can use
+
+.. code-block:: python
+
+   mf.updateDISParameter(PERLEN,NSTP,TSMULT)
+
+to change the length of a stress period.
+
 By default, the row and column widths are obtained from the clone map. In case you want to specify widths yourself use
 
 .. code-block:: python

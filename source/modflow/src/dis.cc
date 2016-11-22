@@ -586,4 +586,9 @@ void DIS::write_dis_array(std::string const& path) const {
 }
 
 
+void DIS::update_parameter(float stressPeriodLength, size_t nrOfTimesteps, float timeStepMultiplier){
+  d_perlen = stressPeriodLength;
+  d_nstp = nrOfTimesteps;
+  d_tsmult = timeStepMultiplier;
+}
 

@@ -84,6 +84,8 @@ public:
   void             write_dis           (std::string const& path) const;
 
   void             write_dis_array     (std::string const& path) const;
+
+  void             update_parameter    (float stressPeriodLength, size_t nrOfTimesteps, float timeStepMultiplier);
 };
 
 #endif // INCLUDED_DIS

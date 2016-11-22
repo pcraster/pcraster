@@ -1057,9 +1057,9 @@ bool PCRModflow::runModflow() {
   // the following files do not change without grid modification
   // just write them once
   if(d_gridIsFixed == false) {
-    result = writeNAM();
+    //result = writeNAM();
 
-    result = writeOC();
+    //result = writeOC();
 
     //result = d_dis->writeDIS();
 
@@ -1159,6 +1159,11 @@ bool PCRModflow::runModflow() {
   // to make sure that wel/riv/etc packages can be activated after the first
   // time step, always write the nam file
   result = writeNAM();
+  // Always write the DIS file as stress period lenghts etc can change per PCRaster time step
+  d_dis->write_dis(run_directory());
+  // Always write the OC file as stress period lenghts etc can change per PCRaster time step
+  result = writeOC();
+
 
   if(result == true) {
     d_gridIsFixed = true;
@@ -1708,3 +1713,11 @@ bool PCRModflow::converged(){
 std::string PCRModflow::run_directory(){
   return "sdf";
 }
+
+
+void PCRModflow::update_dis_parameter(float stressPeriodLength, size_t nrOfTimesteps, float timeStepMultiplier){
+  d_dis->update_parameter(stressPeriodLength, nrOfTimesteps, timeStepMultiplier);
+}
+
+
+

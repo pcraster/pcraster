@@ -66,7 +66,7 @@ function build_software()
 
 
     # Boost.
-    if [ ! "$skip_build_boost" ]; then
+    if [[ ! -v skip_build_boost || $skip_build_boost != 1 ]]; then
         options+=("-Dbuild_boost=true")
         options+=("-Dboost_version=1.57.0")
         options+=("-Dboost_build_boost_date_time=true")
@@ -82,28 +82,29 @@ function build_software()
 
 
     # GDAL.
-    if [ ! "$skip_build_gdal" ]; then
+    if [[ ! -v skip_build_gdal || $skip_build_gdal != 1 ]]; then
         `python -c "import gdal"` >/dev/null 2>&1 && \
             skip_build_gdal_python_package=1
 
         options+=("-Dbuild_gdal=true")
         options+=("-Dgdal_version=2.0.1")
-        if [ ! "$skip_build_gdal_python_package" ]; then
+        if [[ ! -v skip_build_gdal_python_package || \
+                $skip_build_gdal_python_package != 1 ]]; then
             options+=("-Dgdal_build_python_package=true")
         fi
     fi
 
 
     # Qt
-    if [ ! "$skip_build_qt" ]; then
+    if [[ ! -v skip_build_qt || $skip_build_qt != 1 ]]; then
         options+=("-Dbuild_qt=true")
         # TODO Not supported yet: https://github.com/geoneric/peacock/issues/53
-        options+=("-Dqt_version=5.6.2")
+        options+=("-Dqt_version=5.7.0")
     fi
 
 
     # Qwt
-    if [ ! "$skip_build_qwt" ]; then
+    if [[ ! -v skip_build_qwt || $skip_build_qwt != 1 ]]; then
         options+=("-Dbuild_qwt=true")
         options+=("-Dqwt_version=6.1.2")
     fi

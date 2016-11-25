@@ -16,3 +16,15 @@ jump through hoops to be able to build and use PCRaster. So:
 
 Solutions can be build using the test_solutions.py command. It is located
 in the devbase project, which is a submodule of the PCRaster source tree.
+
+
+Workflow, example:
+# List outdated Vagrant boxes
+vagrant box outdated --global
+
+# Update outdated Vagrant boxes
+vagrant box update --box <box_name>
+
+# Run all solutions, use 4 CPUs and 4Gb RAM.
+mkdir -p /tmp/solutions && rm -fr /tmp/solutions/*
+$PCRASTER/devbase/script/test_solutions.py --prefix /tmp/solutions --cpus 4 --memory 4000 $PCRASTER/environment/configuration/solutions.json

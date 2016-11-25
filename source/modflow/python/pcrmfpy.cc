@@ -170,6 +170,7 @@ BOOST_PYTHON_MODULE(_pcraster_modflow){
     .def("setDISParameter", &PCRModflow::setDISParams)
     .def("setRowWidth", &PCRModflow::set_row_width)
     .def("setColumnWidth", &PCRModflow::set_col_width)
+    .def("updateDISParameter", &PCRModflow::update_dis_parameter)
     // BAS
     .def("setBoundary", setBoundaryPy)
     .def("setBoundary", setBoundaryPS)

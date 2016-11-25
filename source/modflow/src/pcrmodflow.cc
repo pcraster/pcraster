@@ -538,8 +538,29 @@ bool PCRModflow::writeNAM() {
 
 
   content << "BAS6  207 pcrmf.ba6\n";
-  content << "BCF6  208 pcrmf.bc6\n";
-  content << "DIS   209 pcrmf.dis\n";
+  content << "DIS   208 pcrmf.dis\n";
+  content << "DATA  300 pcrmf_elev.asc\n";
+  content << "DATA  400 pcrmf_heads.asc\n";
+  content << "DATA  401 pcrmf_bounds.asc\n";
+
+  content << "BCF6  209 pcrmf.bc6\n";
+  content << "DATA  " << d_bcf->hy_unit_number() << " pcrmf_bcf_hy.asc\n";
+  content << "DATA  " << d_bcf->vcond_unit_number() << " pcrmf_bcf_vcond.asc\n";
+  content << "DATA  " << d_bcf->tran_unit_number() << " pcrmf_bcf_tran.asc\n";
+
+  if(d_bcf->transient()){
+    content << "DATA  " << d_bcf->sf1_unit_number() << " pcrmf_bcf_sf1.asc\n";
+    content << "DATA  " << d_bcf->sf2_unit_number() << " pcrmf_bcf_sf2.asc\n";
+  }
+
+  if(d_bcf->rewetting()){
+    content << "DATA  " << d_bcf->wet_unit_number() << " pcrmf_bcf_wetdry.asc\n";
+  }
+
+
+
+
+
 
   if(d_solver_used == PCG_SOLVER) {
     content << "PCG   210 pcrmf.pcg\n";
@@ -577,9 +598,6 @@ bool PCRModflow::writeNAM() {
     content << "DATA  280 pcrmf_wel.asc\n";
   }
 
-  content << "DATA  300 pcrmf_elev.asc\n";
-  content << "DATA  400 pcrmf_heads.asc\n";
-  content << "DATA  401 pcrmf_bounds.asc\n";
 
   return d_cmethods->writeToFile("pcrmf.nam", content.str());
 }
@@ -1039,16 +1057,29 @@ bool PCRModflow::runModflow() {
   // the following files do not change without grid modification
   // just write them once
   if(d_gridIsFixed == false) {
-    result = writeNAM();
+    //result = writeNAM();
 
-    result = writeOC();
+    //result = writeOC();
 
     //result = d_dis->writeDIS();
 
     d_dis->write_dis(run_directory());
     d_dis->write_dis_array(run_directory());
 
-    d_bcf->writeBCF();
+    //d_bcf->writeBCF();
+
+    d_bcf->write(run_directory());
+    d_bcf->write_hy(run_directory());
+    d_bcf->write_tran(run_directory());
+    d_bcf->write_vcond(run_directory());
+
+    if(d_bcf->transient()){
+      d_bcf->write_sf1(run_directory());
+      d_bcf->write_sf2(run_directory());
+    }
+    if(d_bcf->rewetting()){
+     d_bcf->write_wetdry(run_directory());
+    }
 
   }
 
@@ -1128,6 +1159,11 @@ bool PCRModflow::runModflow() {
   // to make sure that wel/riv/etc packages can be activated after the first
   // time step, always write the nam file
   result = writeNAM();
+  // Always write the DIS file as stress period lenghts etc can change per PCRaster time step
+  d_dis->write_dis(run_directory());
+  // Always write the OC file as stress period lenghts etc can change per PCRaster time step
+  result = writeOC();
+
 
   if(result == true) {
     d_gridIsFixed = true;
@@ -1677,3 +1713,11 @@ bool PCRModflow::converged(){
 std::string PCRModflow::run_directory(){
   return "sdf";
 }
+
+
+void PCRModflow::update_dis_parameter(float stressPeriodLength, size_t nrOfTimesteps, float timeStepMultiplier){
+  d_dis->update_parameter(stressPeriodLength, nrOfTimesteps, timeStepMultiplier);
+}
+
+
+

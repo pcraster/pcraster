@@ -62,10 +62,10 @@ public:
   void setBASBlockData(const discr::BlockData<INT4> &source, discr::BlockData<INT4> &result);
   void setBASBlockData(const discr::BlockData<REAL4> &source, discr::BlockData<REAL4> &result);
 
-  void getBASBlockData(discr::BlockData<INT4> &bdata);
+  void getBASBlockData(discr::BlockData<INT4> &bdata, std::string const& path);
   //void getBASBlockData(const std::string &filename, discr::BlockData<REAL4> &bdata);
   void getHeads(float *result, size_t mfLayer);
-  void getHeadsFromBinary();
+  void getHeadsFromBinary(std::string const& path);
   calc::Field* getHeads(size_t mfLayer);
   discr::BlockData<REAL4>* getHeads();
   void setIBound(const calc::Field *values, size_t layer);

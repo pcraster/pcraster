@@ -58,6 +58,9 @@
 #include "mf_BinaryReader.h"
 #define INCLUDED_MF_BINARYREADER
 #endif
+
+#include "mf_utils.h"
+
 /**
  * Destructor
  */
@@ -205,7 +208,7 @@ void RCH::setIndicatedRecharge(const calc::Field *rch, const calc::Field *layer)
 //   return resultRch;
 // }
 
-calc::Field* RCH::getRecharge(size_t layer) const {
+calc::Field* RCH::getRecharge(size_t layer, std::string const& path) const {
   layer--; // layer number passed by user starts with 1
   d_mf->d_gridCheck->isGrid(layer, "getRiverLeakage");
   d_mf->d_gridCheck->isConfined(layer, "getRiverLeakage");
@@ -222,7 +225,8 @@ calc::Field* RCH::getRecharge(size_t layer) const {
   REAL4* cells = static_cast<REAL4*>(spatial->dest());
 
   mf::BinaryReader reader;
-  reader.read(stmp.str(), d_output_unit_number, cells, desc, pos_multiplier);
+  const std::string filename(mf::execution_path(path, "fort." + boost::lexical_cast<std::string>(d_output_unit_number)));
+  reader.read(stmp.str(), filename, cells, desc, pos_multiplier);
 
   return spatial;
 }
@@ -231,7 +235,7 @@ calc::Field* RCH::getRecharge(size_t layer) const {
 /**
  * writing rch cbc flow to PCR map
  */
-void RCH::getRecharge(float *values, size_t layer) const {
+void RCH::getRecharge(float *values, size_t layer, std::string const& path) const {
   layer--; // layer number passed by user starts with 1
   d_mf->d_gridCheck->isGrid(layer, "getRecharge");
   d_mf->d_gridCheck->isConfined(layer, "getRecharge");
@@ -247,17 +251,20 @@ void RCH::getRecharge(float *values, size_t layer) const {
 
   //get_binary(cells, desc, start_pos, pos_multiplier);
   mf::BinaryReader reader;
-  reader.read(stmp.str(), d_output_unit_number, values, desc, pos_multiplier);
+  const std::string filename(mf::execution_path(path, "fort." + boost::lexical_cast<std::string>(d_output_unit_number)));
+  reader.read(stmp.str(), filename, values, desc, pos_multiplier);
 }
 
 
 
 void RCH::write(std::string const& path){
 
-  std::ofstream content("pcrmf.rch");
+  std::string filename = mf::execution_path(path, "pcrmf.rch");
+
+  std::ofstream content(filename);
 
   if(!content.is_open()){
-    std::cerr << "Can not write " << "pcrmf.wel" << std::endl;
+    std::cerr << "Can not write " << filename << std::endl;
     exit(1);
   }
 
@@ -282,10 +289,12 @@ void RCH::write(std::string const& path){
 
 void RCH::write_array(std::string const& path){
 
-  std::ofstream content("pcrmf_rch.asc");
+  std::string filename = mf::execution_path(path, "pcrmf_rch.asc");
+
+  std::ofstream content(filename);
 
   if(!content.is_open()){
-    std::cerr << "Can not write " << "pcrmf.wel" << std::endl;
+    std::cerr << "Can not write " << filename << std::endl;
     exit(1);
   }
 
@@ -305,10 +314,12 @@ void RCH::write_array(std::string const& path){
 
 void RCH::write_indicated(std::string const& path){
 
-  std::ofstream content("pcrmf_irch.asc");
+  std::string filename = mf::execution_path(path, "pcrmf_irch.asc");
+
+  std::ofstream content(filename);
 
   if(!content.is_open()){
-    std::cerr << "Can not write " << "pcrmf.wel" << std::endl;
+    std::cerr << "Can not write " << filename << std::endl;
     exit(1);
   }
 

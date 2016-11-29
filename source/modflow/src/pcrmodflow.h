@@ -190,6 +190,8 @@ class PCRModflow : public dal::Client
 	size_t dd_nrLayer;                 // contains the amount of internal layer
 	size_t dd_nrModflowLayer;          // contains the amount of modflow layer (without confined)
 
+	std::string modflow_directory;     // here mf will be executed
+
 
 	/// \todo replace quasiconf level with vector cont layer
 
@@ -319,7 +321,7 @@ public:
 	    void setPCG(size_t mxiter, size_t iteri, size_t npcond, double hclose, double rclose, double relax, double nbpol,  double damp);
 	    void setDSP(size_t itmx, size_t mxup, size_t mxlow, size_t mxbw, size_t ifreq, double accl,  double hclose);
 
-	    bool runModflow();
+	    bool runModflow(const std::string & working_directory="");
 
 	    // retrieving the MODFLOW 2000 output
 	    void getDrain(float *values, size_t mfLayer);

@@ -31,7 +31,8 @@ bcf2ss.setDISParameter(4, 0, 1, 1, 1, 1);
 bcf2ss.setPCG(40, 20, 1, 0.001, 1000.0, 1, 2, 1);
 
 # time step 1
-bcf2ss.run();
+# execute in subdirectory 1
+bcf2ss.run("1");
 report(bcf2ss.getHeads(1), "hTwo_1.map")
 report(bcf2ss.getHeads(3), "hOne_1.map")
 report(bcf2ss.getRecharge(1), "rTwo_1.map")
@@ -48,7 +49,7 @@ report(bcf2ss.getLowerFace(3), "lfOne_1.map")
 
 # time step 2
 bcf2ss.setWell("bcf2ss_wel.map", 1)
-bcf2ss.run()
+bcf2ss.run("1")
 report(bcf2ss.getHeads(1), "hTwo_2.map")
 report(bcf2ss.getHeads(3), "hOne_2.map")
 report(bcf2ss.getRecharge(1), "rTwo_2.map")

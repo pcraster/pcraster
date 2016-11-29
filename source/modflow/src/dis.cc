@@ -39,6 +39,8 @@
 #define INCLUDED_PCRMODFLOW
 #endif
 
+#include "mf_utils.h"
+
 
 #include <fstream>
 
@@ -539,7 +541,7 @@ void DIS::write_dis(std::string const& path) const {
   // Item 7:  PERLEN NSTP TSMULT SS/TR
   content << d_perlen  << " " << d_nstp << " " << d_tsmult << " " << d_sstr << std::endl;
 
-  d_mf->d_cmethods->writeToFile("pcrmf.dis",content.str());
+  d_mf->d_cmethods->writeToFile(mf::execution_path(path, "pcrmf.dis"),content.str());
 }
 
 
@@ -547,10 +549,12 @@ void DIS::write_dis(std::string const& path) const {
 
 void DIS::write_dis_array(std::string const& path) const {
 
-  std::ofstream content("pcrmf_elev.asc");
+  std::string filename = mf::execution_path(path, "pcrmf_elev.asc");
+
+  std::ofstream content(filename);
 
   if(!content.is_open()){
-    std::cerr << "Can not write " << "pcrmf_elev.asc" << std::endl;
+    std::cerr << "Can not write " << filename << std::endl;
 
     exit(1);
   }

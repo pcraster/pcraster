@@ -58,8 +58,8 @@ class RIV{
   void setRiver(const discr::BlockData<REAL4> &stage, const discr::BlockData<REAL4> &bottom, const discr::BlockData<REAL4> &cond);
   //discr::BlockData<REAL4>* getBlockCellByCellFlow();
 
-  calc::Field* getRiverLeakage(size_t layer) const;
-  void getRiverLeakage(float *result, size_t layer) const;
+  calc::Field* getRiverLeakage(size_t layer, std::string const& path) const;
+  void getRiverLeakage(float *result, size_t layer, std::string const& path) const;
 
   //void getRivLeakFromBinary();
 

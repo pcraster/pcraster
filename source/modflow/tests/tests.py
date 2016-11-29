@@ -2,6 +2,7 @@ import os, math, string, types, unittest, warnings, sys
 import testcase
 import pcraster
 import subprocess
+import shutil
 
 
 class Test(testcase.TestCase):
@@ -34,6 +35,9 @@ class Test(testcase.TestCase):
 #     "ffTwo_1.map", "ffTwo_2.map", "ffOne_1.map", "ffOne_2.map", "rfOne_2.map" \
 ]
     self.remove_files(outputs)
+    # 'Timesteps' will be executed in subdirectory
+    shutil.rmtree("1", ignore_errors=True)
+    os.mkdir("1")
 
     subprocess.call(["python", "bcf2ss.py"])
 

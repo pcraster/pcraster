@@ -72,7 +72,7 @@
 #define INCLUDED_MF_BINARYREADER
 #endif
 
-
+#include "mf_utils.h"
 
 #include <fstream>
 
@@ -195,13 +195,15 @@ void BAS::setNoFlowConstant(float value){
  * rec2 : head values
  * rec3 : tail
  */
-void BAS::getHeadsFromBinary(){
-  std::string filename("fort." + boost::lexical_cast<std::string>(d_fortran_unit_number_heads));
+void BAS::getHeadsFromBinary(std::string const& path){
+
+  const std::string filename(mf::execution_path(path, "fort." + boost::lexical_cast<std::string>(d_fortran_unit_number_heads)));
+  //std::string filename("fort." + boost::lexical_cast<std::string>(d_fortran_unit_number_heads));
 
   std::ifstream file(filename.c_str(), std::ios::in | std::ios::binary);
   if(!file.is_open()){
     std::stringstream stmp;
-    stmp << "Can not open head value result file";
+    stmp << "Can not open head value result file " << filename;
     d_mf->d_cmethods->error(stmp.str(), "run");
   }
 
@@ -248,14 +250,15 @@ void BAS::getHeadsFromBinary(){
 /**
  * retrieving bounds from MF
  */
-void BAS::getBASBlockData(discr::BlockData<INT4> &bdata){
+void BAS::getBASBlockData(discr::BlockData<INT4> &bdata, std::string const& path){
 
-  std::string filename("fort." + boost::lexical_cast<std::string>(d_fortran_unit_number_bounds));
+  const std::string filename(mf::execution_path(path, "fort." + boost::lexical_cast<std::string>(d_fortran_unit_number_bounds)));
+  //std::string filename("fort." + boost::lexical_cast<std::string>(d_fortran_unit_number_bounds));
 
   std::ifstream file(filename.c_str());
   if(!file.is_open()){
     std::stringstream stmp;
-    stmp << "Can not open BAS result file";
+    stmp << "Can not open BAS result file " << filename;
     d_mf->d_cmethods->error(stmp.str(), "run");
   }
   else{
@@ -418,7 +421,7 @@ void BAS::write(std::string const& path) const {
       nrLayer++;
     }
   }
-  d_mf->d_cmethods->writeToFile("pcrmf.ba6", content.str());
+  d_mf->d_cmethods->writeToFile(mf::execution_path(path, "pcrmf.ba6"), content.str());
 }
 
 
@@ -442,7 +445,7 @@ void BAS::write_bound_array(std::string const& path) const {
       nrLayer++;
     }
   }
-  d_mf->d_cmethods->writeToFile("pcrmf_bounds.asc", content.str());
+  d_mf->d_cmethods->writeToFile(mf::execution_path(path, "pcrmf_bounds.asc"), content.str());
 }
 
 
@@ -453,7 +456,7 @@ void BAS::write_head_array(std::string const& path) const {
   for(int i = d_mf->dd_nrLayer - 1; i >= 0; i--){
     d_mf->d_cmethods->writeMatrix2(content, d_mf->d_layer2BlockLayer, *(d_mf->d_initialHead), i);
   }
-  d_mf->d_cmethods->writeToFile("pcrmf_heads.asc", content.str());
+  d_mf->d_cmethods->writeToFile(mf::execution_path(path, "pcrmf_heads.asc"), content.str());
 }
 
 

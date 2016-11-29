@@ -74,12 +74,12 @@ BinaryReader::BinaryReader()
 BinaryReader::~BinaryReader()
 {
 }
-
-void BinaryReader::read(const std::string & err_mgs, int unit_number, float *values, const std::string description, size_t multiplier) const {
+void BinaryReader::read(const std::string & err_mgs, const std::string & filename, float *values, const std::string description, size_t multiplier) const {
+//void BinaryReader::read(const std::string & err_mgs, int unit_number, float *values, const std::string description, size_t multiplier) const {
   // see also flow data description at faq how to read binary
   // http://water.usgs.gov/nrp/gwsoftware/modflow2000/Guide/index.html
 
-  std::string filename("fort." + boost::lexical_cast<std::string>(unit_number));
+  //std::string filename("fort." + boost::lexical_cast<std::string>(unit_number));
 
   std::ifstream file(filename.c_str(), std::ios::in | std::ios::binary);
   if(!file.is_open()){
@@ -110,7 +110,7 @@ void BinaryReader::read(const std::string & err_mgs, int unit_number, float *val
 
   //std::cout << desc << std::endl;
   //std::cout << description << std::endl;
-  
+
    if(description.compare(desc) != 0){
      std::cerr << "Error in PCRasterModflow: " << std::endl;
      //std::stringstream stmp;
@@ -122,11 +122,11 @@ void BinaryReader::read(const std::string & err_mgs, int unit_number, float *val
   int col = 0;
   file.read(tmp, 4);
   std::memcpy(&col, &(tmp[0]), 4);
-  
+
   int row = 0;
   file.read(tmp, 4);
   std::memcpy(&row, &(tmp[0]), 4);
-  
+
   int lay= 0;
   file.read(tmp, 4);
   std::memcpy(&lay, &(tmp[0]), 4);

@@ -1,5 +1,6 @@
 set(OLDSOURCES
     mf_BinaryReader.cc
+    mf_utils.cc
     bas.cc
     bcf.cc
     common.cc
@@ -35,6 +36,7 @@ target_include_directories(pcrmf
 target_link_libraries(pcrmf
     ${Boost_PYTHON_LIBRARY}
     ${PYTHON_LIBRARIES}
+    Qt5::Core
 )
 
 add_dependencies(pcrmf pcrcalc)

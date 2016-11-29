@@ -46,7 +46,7 @@ class WEL{
   void setWell(const calc::Field *well, size_t layer);
 
 
-  calc::Field*     get_well            (size_t layer);
+  calc::Field*     get_well            (size_t layer, std::string const& path);
 
   void             write               (std::string const& path);
 

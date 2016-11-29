@@ -53,6 +53,9 @@
 #define INCLUDED_MF_BINARYREADER
 #endif
 
+#include "mf_utils.h"
+
+
 /**
 * Destructor
 */
@@ -259,7 +262,7 @@ void DRN::setDrain(const discr::BlockData<REAL4> &elevation, const discr::BlockD
 /**
 * writing drain output to PCR map
 */
-void DRN::getDrain(float *values, size_t layer) const {
+void DRN::getDrain(float *values, size_t layer, std::string const& path) const {
   d_mf->d_gridCheck->isGrid(layer, "getDrain");
   d_mf->d_gridCheck->isConfined(layer, "getDrain");
 
@@ -272,12 +275,13 @@ void DRN::getDrain(float *values, size_t layer) const {
   int pos_multiplier = d_mf->get_modflow_layernr(layer);
 
   mf::BinaryReader reader;
-  reader.read(stmp.str(), d_output_unit_number, values, desc, pos_multiplier);
+  const std::string filename(mf::execution_path(path, "fort." + boost::lexical_cast<std::string>(d_output_unit_number)));
+  reader.read(stmp.str(), filename, values, desc, pos_multiplier);
 }
 
 
 
-calc::Field* DRN::getDrain(size_t layer) const {
+calc::Field* DRN::getDrain(size_t layer, std::string const& path) const {
   layer--;
   d_mf->d_gridCheck->isGrid(layer, "getDrain");
   d_mf->d_gridCheck->isConfined(layer, "getDrain");
@@ -294,7 +298,8 @@ calc::Field* DRN::getDrain(size_t layer) const {
   REAL4* cells = static_cast<REAL4*>(spatial->dest());
 
   mf::BinaryReader reader;
-  reader.read(stmp.str(), d_output_unit_number, cells, desc, pos_multiplier);
+  const std::string filename(mf::execution_path(path, "fort." + boost::lexical_cast<std::string>(d_output_unit_number)));
+  reader.read(stmp.str(), filename, cells, desc, pos_multiplier);
 
   return spatial;
 }

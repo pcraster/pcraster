@@ -65,7 +65,7 @@ private:
 
 public:
   void             get_binary          (float *values, const std::string, size_t type,
-                                        size_t layer) const;
+                                        size_t layer, std::string const& path) const;
                    ~BCF                ();
                    BCF                 (PCRModflow *mf);
 
@@ -85,29 +85,29 @@ public:
   double           getHDRY             () const;
 
   void             get_storage         (float *values,
-                                        size_t mfLayer) const;
+                                        size_t mfLayer, std::string const& path) const;
 
-  calc::Field*     get_storage         (size_t layer) const;
+  calc::Field*     get_storage         (size_t layer, std::string const& path) const;
 
   void             get_constand_head   (float *values,
-                                        size_t mfLayer) const;
+                                        size_t mfLayer, std::string const& path) const;
 
-  calc::Field*     get_constand_head   (size_t layer) const;
+  calc::Field*     get_constand_head   (size_t layer, std::string const& path) const;
 
   void             get_right_face      (float *values,
-                                        size_t mfLayer) const;
+                                        size_t mfLayer, std::string const& path) const;
 
-  calc::Field*     get_right_face      (size_t layer) const;
+  calc::Field*     get_right_face      (size_t layer, std::string const& path) const;
 
   void             get_front_face      (float *values,
-                                        size_t mfLayer) const;
+                                        size_t mfLayer, std::string const& path) const;
 
-  calc::Field*     get_front_face      (size_t layer) const;
+  calc::Field*     get_front_face      (size_t layer, std::string const& path) const;
 
   void             get_lower_face      (float *values,
-                                        size_t mfLayer) const;
+                                        size_t mfLayer, std::string const& path) const;
 
-  calc::Field*     get_lower_face      (size_t layer) const;
+  calc::Field*     get_lower_face      (size_t layer, std::string const& path) const;
 
   void             write               (std::string const& path);
 

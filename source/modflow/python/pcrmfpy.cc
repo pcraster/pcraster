@@ -154,10 +154,18 @@ void (PCRModflow::*setCondPS)(size_t, const std::string &, const std::string &, 
 void (PCRModflow::*setCondPy)(size_t, const calc::Field *, const calc::Field *, size_t) = &PCRModflow::setCond;
 
 
+BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(
+    run_cwd, PCRModflow::runModflow, 0, 0)
+BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(
+    run_subdirectory, PCRModflow::runModflow, 1, 1)
+
+
 BOOST_PYTHON_MODULE(_pcraster_modflow){
 
   boost::python::class_<PCRModflow,boost::noncopyable>("initialise", boost::python::init<const geo::RasterSpace &>())
-    .def("run", &PCRModflow::runModflow)
+    //.def("run", &PCRModflow::runModflow)
+    .def("run",&PCRModflow::runModflow, run_cwd())
+    .def("run",&PCRModflow::runModflow, run_subdirectory())
     .def("converged", &PCRModflow::converged)
     // DIS
     .def("setLayer", &PCRModflow::setLayer)

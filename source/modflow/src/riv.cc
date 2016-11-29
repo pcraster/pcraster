@@ -58,6 +58,8 @@
 #define INCLUDED_MF_BINARYREADER
 #endif
 
+#include "mf_utils.h"
+
 
 /**
  * Destructor
@@ -183,7 +185,7 @@ void RIV::setRiver(const discr::BlockData<REAL4> &stage, const discr::BlockData<
 /**
  *
  */
-calc::Field* RIV::getRiverLeakage(size_t layer) const {
+calc::Field* RIV::getRiverLeakage(size_t layer, std::string const& path) const {
   layer--; // layer number passed by user starts with 1
   d_mf->d_gridCheck->isGrid(layer, "getRiverLeakage");
   d_mf->d_gridCheck->isConfined(layer, "getRiverLeakage");
@@ -200,7 +202,8 @@ calc::Field* RIV::getRiverLeakage(size_t layer) const {
   REAL4* cells = static_cast<REAL4*>(spatial->dest());
 
   mf::BinaryReader reader;
-  reader.read(stmp.str(), d_output_unit_number, cells, desc, pos_multiplier);
+  const std::string filename(mf::execution_path(path, "fort." + boost::lexical_cast<std::string>(d_output_unit_number)));
+  reader.read(stmp.str(), filename, cells, desc, pos_multiplier);
 
   return spatial;
 }
@@ -209,7 +212,7 @@ calc::Field* RIV::getRiverLeakage(size_t layer) const {
 /**
 * writing river output to PCR map
 */
-void RIV::getRiverLeakage(float *values, size_t layer) const {
+void RIV::getRiverLeakage(float *values, size_t layer, std::string const& path) const {
   layer--; // layer number passed by user starts with 1
   d_mf->d_gridCheck->isGrid(layer, "getRiverLeakage");
   d_mf->d_gridCheck->isConfined(layer, "getRiverLeakage");
@@ -224,21 +227,23 @@ void RIV::getRiverLeakage(float *values, size_t layer) const {
 
   //get_binary(cells, desc, start_pos, pos_multiplier);
   mf::BinaryReader reader;
-  reader.read(stmp.str(), d_output_unit_number, values, desc, pos_multiplier);
+  const std::string filename(mf::execution_path(path, "fort." + boost::lexical_cast<std::string>(d_output_unit_number)));
+  reader.read(stmp.str(), filename, values, desc, pos_multiplier);
 }
 
 
 
 void RIV::write(std::string const& path){
 
-
   // # riv cells is calculated by write_list
   assert(d_nr_river_cells != 0);
 
-  std::ofstream content("pcrmf.riv");
+  std::string filename = mf::execution_path(path, "pcrmf.riv");
+
+  std::ofstream content(filename);
 
   if(!content.is_open()){
-    std::cerr << "Can not write " << "pcrmf.riv" << std::endl;
+    std::cerr << "Can not write " << filename << std::endl;
     exit(1);
   }
 
@@ -258,10 +263,11 @@ void RIV::write(std::string const& path){
 void RIV::write_list(std::string const& path){
   // This method also calculates the nr of river cells,
   // needs to be called before write
-  std::ofstream content("pcrmf_riv.asc");
+  std::string filename = mf::execution_path(path, "pcrmf_riv.asc");
+  std::ofstream content(filename);
 
   if(!content.is_open()){
-    std::cerr << "Can not write " << "pcrmf_riv.asc" << std::endl;
+    std::cerr << "Can not write " << filename << std::endl;
     exit(1);
   }
 

@@ -59,6 +59,8 @@
 #define INCLUDED_MF_BINARYREADER
 #endif
 
+#include "mf_utils.h"
+
 /**
 * Destructor
 */
@@ -147,7 +149,7 @@ d_mf->d_cmethods->setDiscrBlockData(well, *(d_mf->d_welValues));
 // }
 
 
-calc::Field* WEL::get_well(size_t layer){
+calc::Field* WEL::get_well(size_t layer, std::string const& path){
   layer--;
   d_mf->d_gridCheck->isGrid(layer, "get_well");
   d_mf->d_gridCheck->isConfined(layer, "get_well");
@@ -164,7 +166,8 @@ calc::Field* WEL::get_well(size_t layer){
   REAL4* cells = static_cast<REAL4*>(spatial->dest());
 
   mf::BinaryReader reader;
-  reader.read(stmp.str(), d_output_unit_number, cells, desc, pos_multiplier);
+  const std::string filename(mf::execution_path(path, "fort." + boost::lexical_cast<std::string>(d_output_unit_number)));
+  reader.read(stmp.str(), filename, cells, desc, pos_multiplier);
 
   return spatial;
 }
@@ -172,10 +175,12 @@ calc::Field* WEL::get_well(size_t layer){
 
 void WEL::write_list(std::string const& path){
 
-  std::ofstream content("pcrmf_wel.asc");
+  std::string filename = mf::execution_path(path, "pcrmf_wel.asc");
+
+  std::ofstream content(filename);
 
   if(!content.is_open()){
-    std::cerr << "Can not write " << "pcrmf_wel.asc" << std::endl;
+    std::cerr << "Can not write " << filename << std::endl;
     exit(1);
   }
 
@@ -208,10 +213,12 @@ void WEL::write(std::string const& path){
   // # wel cells is calculated by write_list
   assert(d_nr_wel_cells != 0);
 
-  std::ofstream content("pcrmf.wel");
+  std::string filename = mf::execution_path(path, "pcrmf.wel");
+
+  std::ofstream content(filename);
 
   if(!content.is_open()){
-    std::cerr << "Can not write " << "pcrmf.wel" << std::endl;
+    std::cerr << "Can not write " << filename << std::endl;
     exit(1);
   }
 

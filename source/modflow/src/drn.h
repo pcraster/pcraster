@@ -61,9 +61,9 @@ public:
   //discr::BlockData<REAL4>* getBlockCellByCellFlow();
 
 
-  void getDrain(float *values, size_t mfLayer) const;
+  void getDrain(float *values, size_t mfLayer, std::string const& path) const;
 
-  calc::Field* getDrain(size_t layer) const;
+  calc::Field* getDrain(size_t layer, std::string const& path) const;
 
   void             write               (std::string const& path) const;
 

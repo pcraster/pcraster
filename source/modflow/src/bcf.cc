@@ -69,6 +69,8 @@
 #define INCLUDED_MF_BINARYREADER
 #endif
 
+#include "mf_utils.h"
+
 /**
  * Destructor
  */
@@ -461,11 +463,13 @@ size_t  BCF::getLaycon(size_t lcon){
 
 
 
-void BCF::get_binary(float *values, const std::string description, size_t start, size_t multiplier) const{
+void BCF::get_binary(float *values, const std::string description, size_t start, size_t multiplier, std::string const& path) const{
   // see also flow data description at faq how to read binary
   // http://water.usgs.gov/nrp/gwsoftware/modflow2000/Guide/index.html
 
-  std::string filename("fort." + boost::lexical_cast<std::string>(d_output_unit_number));
+
+  const std::string filename(mf::execution_path(path, "fort." + boost::lexical_cast<std::string>(d_output_unit_number)));
+  //std::string filename("fort." + boost::lexical_cast<std::string>(d_output_unit_number));
 
   std::ifstream file(filename.c_str(), std::ios::in | std::ios::binary);
   if(!file.is_open()){
@@ -521,7 +525,7 @@ void BCF::get_binary(float *values, const std::string description, size_t start,
 }
 
 /// python
-calc::Field* BCF::get_storage(size_t layer) const {
+calc::Field* BCF::get_storage(size_t layer, std::string const& path) const {
   layer--;
   d_mf->d_gridCheck->isGrid(layer, "get_storage");
   d_mf->d_gridCheck->isConfined(layer, "get_storage");
@@ -542,14 +546,14 @@ calc::Field* BCF::get_storage(size_t layer) const {
   calc::Spatial* spatial = new calc::Spatial(VS_S, calc::CRI_f, d_mf->d_nrOfCells);
   REAL4* cells = static_cast<REAL4*>(spatial->dest());
 
-  get_binary(cells, desc, start_pos, pos_multiplier);
+  get_binary(cells, desc, start_pos, pos_multiplier, path);
 
   return spatial;
 }
 
 
 /// pcrcalc
-void BCF::get_storage(float *values, size_t layer) const {
+void BCF::get_storage(float *values, size_t layer, std::string const& path) const {
   layer--;
   d_mf->d_gridCheck->isGrid(layer, "get_storage");
   d_mf->d_gridCheck->isConfined(layer, "get_storage");
@@ -567,12 +571,12 @@ void BCF::get_storage(float *values, size_t layer) const {
   // get the 'inverse' layer number to start from the right position
   int pos_multiplier = d_mf->get_modflow_layernr(layer);
 
-  get_binary(values, desc, start_pos, pos_multiplier);
+  get_binary(values, desc, start_pos, pos_multiplier, path);
 }
 
 
 /// python
-calc::Field* BCF::get_constand_head(size_t layer) const {
+calc::Field* BCF::get_constand_head(size_t layer, std::string const& path) const {
   layer--;
   d_mf->d_gridCheck->isGrid(layer, "get_constand_head");
   d_mf->d_gridCheck->isConfined(layer, "get_constand_head");
@@ -591,13 +595,13 @@ calc::Field* BCF::get_constand_head(size_t layer) const {
   calc::Spatial* spatial = new calc::Spatial(VS_S, calc::CRI_f, d_mf->d_nrOfCells);
   REAL4* cells = static_cast<REAL4*>(spatial->dest());
 
-  get_binary(cells, desc, start_pos, pos_multiplier);
+  get_binary(cells, desc, start_pos, pos_multiplier, path);
 
   return spatial;
 }
 
 /// pcrcalc
-void BCF::get_constand_head(float *values, size_t layer) const {
+void BCF::get_constand_head(float *values, size_t layer, std::string const& path) const {
   layer--;
   d_mf->d_gridCheck->isGrid(layer, "get_constand_head");
   d_mf->d_gridCheck->isConfined(layer, "get_constand_head");
@@ -613,12 +617,12 @@ void BCF::get_constand_head(float *values, size_t layer) const {
   // get the 'inverse' layer number to start from the right position
   int pos_multiplier = d_mf->get_modflow_layernr(layer);
 
-  get_binary(values, desc, start_pos, pos_multiplier);
+  get_binary(values, desc, start_pos, pos_multiplier, path);
 }
 
 
 /// python
-calc::Field* BCF::get_right_face(size_t layer) const {
+calc::Field* BCF::get_right_face(size_t layer, std::string const& path) const {
   layer--;
   d_mf->d_gridCheck->isGrid(layer, "get_right_face");
   d_mf->d_gridCheck->isConfined(layer, "get_right_face");
@@ -637,13 +641,13 @@ calc::Field* BCF::get_right_face(size_t layer) const {
   calc::Spatial* spatial = new calc::Spatial(VS_S, calc::CRI_f, d_mf->d_nrOfCells);
   REAL4* cells = static_cast<REAL4*>(spatial->dest());
 
-  get_binary(cells, desc, start_pos, pos_multiplier);
+  get_binary(cells, desc, start_pos, pos_multiplier, path);
 
   return spatial;
 }
 
 /// pcrcalc
-void BCF::get_right_face(float *values, size_t layer) const {
+void BCF::get_right_face(float *values, size_t layer, std::string const& path) const {
   layer--;
   d_mf->d_gridCheck->isGrid(layer, "get_right_face");
   d_mf->d_gridCheck->isConfined(layer, "get_right_face");
@@ -659,12 +663,12 @@ void BCF::get_right_face(float *values, size_t layer) const {
   // get the 'inverse' layer number to start from the right position
   int pos_multiplier = d_mf->get_modflow_layernr(layer);
 
-  get_binary(values, desc, start_pos, pos_multiplier);
+  get_binary(values, desc, start_pos, pos_multiplier, path);
 }
 
 
 /// python
-calc::Field* BCF::get_front_face(size_t layer) const {
+calc::Field* BCF::get_front_face(size_t layer, std::string const& path) const {
   layer--;
   d_mf->d_gridCheck->isGrid(layer, "get_front_face");
   d_mf->d_gridCheck->isConfined(layer, "get_front_face");
@@ -683,13 +687,13 @@ calc::Field* BCF::get_front_face(size_t layer) const {
   calc::Spatial* spatial = new calc::Spatial(VS_S, calc::CRI_f, d_mf->d_nrOfCells);
   REAL4* cells = static_cast<REAL4*>(spatial->dest());
 
-  get_binary(cells, desc, start_pos, pos_multiplier);
+  get_binary(cells, desc, start_pos, pos_multiplier, path);
 
   return spatial;
 }
 
 /// pcrcalc
-void BCF::get_front_face(float *values, size_t layer) const {
+void BCF::get_front_face(float *values, size_t layer, std::string const& path) const {
   layer--;
   d_mf->d_gridCheck->isGrid(layer, "get_front_face");
   d_mf->d_gridCheck->isConfined(layer, "get_front_face");
@@ -705,12 +709,12 @@ void BCF::get_front_face(float *values, size_t layer) const {
   // get the 'inverse' layer number to start from the right position
   int pos_multiplier = d_mf->get_modflow_layernr(layer);
 
-  get_binary(values, desc, start_pos, pos_multiplier);
+  get_binary(values, desc, start_pos, pos_multiplier, path);
 }
 
 
 /// python
-calc::Field* BCF::get_lower_face(size_t layer) const {
+calc::Field* BCF::get_lower_face(size_t layer, std::string const& path) const {
   layer--;
   if(layer == 0){
     std::stringstream stmp;
@@ -735,13 +739,13 @@ calc::Field* BCF::get_lower_face(size_t layer) const {
   calc::Spatial* spatial = new calc::Spatial(VS_S, calc::CRI_f, d_mf->d_nrOfCells);
   REAL4* cells = static_cast<REAL4*>(spatial->dest());
 
-  get_binary(cells, desc, start_pos, pos_multiplier);
+  get_binary(cells, desc, start_pos, pos_multiplier, path);
 
   return spatial;
 }
 
 /// pcrcalc
-void BCF::get_lower_face(float *values, size_t layer) const {
+void BCF::get_lower_face(float *values, size_t layer, std::string const& path) const {
   layer--;
   if(layer == 0){
     std::stringstream stmp;
@@ -763,7 +767,7 @@ void BCF::get_lower_face(float *values, size_t layer) const {
   // get the 'inverse' layer number to start from the right position
   int pos_multiplier = d_mf->get_modflow_layernr(layer);
 
-  get_binary(values, desc, start_pos, pos_multiplier);
+  get_binary(values, desc, start_pos, pos_multiplier, path);
 }
 
 
@@ -774,10 +778,12 @@ bool BCF::transient() const {
 
 void BCF::write(std::string const& path) {
 
-  std::ofstream content("pcrmf.bc6");
+  std::string filename = mf::execution_path(path, "pcrmf.bc6");
+
+  std::ofstream content(filename);
 
   if(!content.is_open()){
-    std::cerr << "Can not write " << "pcrmf.bc6" << std::endl;
+    std::cerr << "Can not write " << filename << std::endl;
     exit(1);
   }
 
@@ -877,10 +883,12 @@ void BCF::write(std::string const& path) {
 
 void BCF::write_hy(std::string const& path)  {
 
-  std::ofstream content("pcrmf_bcf_hy.asc");
+  std::string filename = mf::execution_path(path, "pcrmf_bcf_hy.asc");
+
+  std::ofstream content(filename);
 
   if(!content.is_open()){
-    std::cerr << "Can not write " << "pcrmf_bcf_hy.asc" << std::endl;
+    std::cerr << "Can not write " << filename << std::endl;
     exit(1);
   }
 
@@ -915,10 +923,12 @@ void BCF::write_hy(std::string const& path)  {
 
 void BCF::write_tran(std::string const& path)  {
 
-  std::ofstream content("pcrmf_bcf_tran.asc");
+  std::string filename = mf::execution_path(path, "pcrmf_bcf_tran.asc");
+
+  std::ofstream content(filename);
 
   if(!content.is_open()){
-    std::cerr << "Can not write " << "pcrmf_bcf_tran.asc" << std::endl;
+    std::cerr << "Can not write " << filename << std::endl;
     exit(1);
   }
 
@@ -956,10 +966,12 @@ void BCF::write_tran(std::string const& path)  {
 
 void BCF::write_vcond(std::string const& path)  {
 
-  std::ofstream content("pcrmf_bcf_vcond.asc");
+  std::string filename = mf::execution_path(path, "pcrmf_bcf_vcond.asc");
+
+  std::ofstream content(filename);
 
   if(!content.is_open()){
-    std::cerr << "Can not write " << "pcrmf_bcf_vcond.asc" << std::endl;
+    std::cerr << "Can not write " << filename << std::endl;
     exit(1);
   }
 
@@ -1048,10 +1060,12 @@ bool BCF::rewetting() const {
 
 void BCF::write_wetdry(std::string const& path)  {
 
-  std::ofstream content("pcrmf_bcf_wetdry.asc");
+  std::string filename = mf::execution_path(path, "pcrmf_bcf_wetdry.asc");
+
+  std::ofstream content(filename);
 
   if(!content.is_open()){
-    std::cerr << "Can not write " << "pcrmf_bcf_wetdry.asc" << std::endl;
+    std::cerr << "Can not write " << filename << std::endl;
     exit(1);
   }
 
@@ -1086,10 +1100,12 @@ void BCF::write_wetdry(std::string const& path)  {
 
 void BCF::write_sf1(std::string const& path){
 
-  std::ofstream content("pcrmf_bcf_sf1.asc");
+  std::string filename = mf::execution_path(path, "pcrmf_bcf_sf1.asc");
+
+  std::ofstream content(filename);
 
   if(!content.is_open()){
-    std::cerr << "Can not write " << "pcrmf_bcf_sf1.asc" << std::endl;
+    std::cerr << "Can not write " << filename << std::endl;
     exit(1);
   }
 
@@ -1119,10 +1135,12 @@ void BCF::write_sf1(std::string const& path){
 
 void BCF::write_sf2(std::string const& path){
 
-  std::ofstream content("pcrmf_bcf_sf2.asc");
+  std::string filename = mf::execution_path(path, "pcrmf_bcf_sf2.asc");
+
+  std::ofstream content(filename);
 
   if(!content.is_open()){
-    std::cerr << "Can not write " << "pcrmf_bcf_sf2.asc" << std::endl;
+    std::cerr << "Can not write " << filename << std::endl;
     exit(1);
   }
 

@@ -24,7 +24,7 @@ ModflowLink::~ModflowLink(){
 }
 
 void ModflowLink::run(){
-  d_pcrmf->runModflow();
+  d_pcrmf->runModflow("");
 }
 
 /**

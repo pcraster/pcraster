@@ -57,9 +57,9 @@ class RCH{
   //void getFlowFromBinary();
 //  discr::BlockData<REAL4>* getBlockCellByCellFlow();
 
-  void             getRecharge         (float * values, size_t mfLayer) const;
+  void             getRecharge         (float * values, size_t mfLayer, std::string const& path) const;
 
-  calc::Field*     getRecharge         (size_t layer) const;
+  calc::Field*     getRecharge         (size_t layer, std::string const& path) const;
 
   void             write               (std::string const& path);
 

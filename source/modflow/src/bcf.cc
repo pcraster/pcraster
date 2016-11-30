@@ -839,25 +839,25 @@ void BCF::write(std::string const& path) {
     //
 
     if(d_mf->d_isSteadyState==false){
-      content << "EXTERNAL " << d_sf1_unit_number << " 1.0 (FREE) 0 Sf1 layer " << mfLayer << "\n";
+      content << "EXTERNAL " << d_sf1_unit_number << " 1.0 (FREE) -1 Sf1 layer " << mfLayer << "\n";
     }
     //
     // Transmissivity, if laycon is 0 or 2
     //
     if((lcon == 0) || (lcon == 2)){
-      content << "EXTERNAL " << d_tran_unit_number << " 1.0 (FREE) 0 TRAN layer " << mfLayer << "\n";
+      content << "EXTERNAL " << d_tran_unit_number << " 1.0 (FREE) -1 TRAN layer " << mfLayer << "\n";
     }
     //
     // Hydraulic conductivity, if laycon is 1 or 3
     //
     // hydraulic conductivity along rows
     if((lcon == 1) || (lcon == 3)){
-      content << "EXTERNAL " << d_hy_unit_number << " 1.0 (FREE) 0 HY layer " << mfLayer << "\n";
+      content << "EXTERNAL " << d_hy_unit_number << " 1.0 (FREE) -1 HY layer " << mfLayer << "\n";
     }
     // vertical  conductivity along rows
     // cannot be specified for the bottom layer
     if((i!=0) && (blockLayer!=0)){// not for bottom layer, check this again...
-      content << "EXTERNAL " << d_vcond_unit_number << " 1.0 (FREE) 0 VCONT layer " << mfLayer << "\n";
+      content << "EXTERNAL " << d_vcond_unit_number << " 1.0 (FREE) -1 VCONT layer " << mfLayer << "\n";
     }
 
     //
@@ -865,7 +865,7 @@ void BCF::write(std::string const& path) {
     //
     if(d_mf->d_isSteadyState==false){
       if((lcon == 2) || (lcon == 3)){
-        content << "EXTERNAL " << d_sf2_unit_number << " 1.0 (FREE) 0 Sf2 layer " << mfLayer << "\n";
+        content << "EXTERNAL " << d_sf2_unit_number << " 1.0 (FREE) -1 Sf2 layer " << mfLayer << "\n";
       }
     }
     //
@@ -873,7 +873,7 @@ void BCF::write(std::string const& path) {
     //
     if((d_iwdflg<0.0)||(d_iwdflg>0.0)){
       if( (lcon == 1) || (lcon == 3) ){
-        content << "EXTERNAL " << d_wet_unit_number << " 1.0 (FREE) 0 WETDRY layer " << mfLayer << "\n";
+        content << "EXTERNAL " << d_wet_unit_number << " 1.0 (FREE) -1 WETDRY layer " << mfLayer << "\n";
       }
     }
   }

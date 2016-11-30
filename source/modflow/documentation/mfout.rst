@@ -8,6 +8,12 @@ Afterwards the specification of the grid Modflow can be called with
 
 After a successful Modflow run the results of a stress period can be reported with the commands described in this section. If the run fails the end of the Modflow list file is displayed, the execution of the script ends.
 
+In Python you can also specify a directory where the Modflow run will be executed, for example in ``1``:
+
+.. code-block:: python
+
+   mf.run("1")
+
 The head and boundary values are retrieved automatically and must not be set again for the next stress period. Applying the operations to layer specified as quasi-3D confining beds will result in an error.
 
 .. code-block:: python

@@ -1043,7 +1043,7 @@ bool PCRModflow::runModflow(const std::string & working_directory) {
 
   // remove previous MF ouput files
   // old listing file
-  removeTextFiles("pcrmf.lst");
+  removeTextFiles(mf::execution_path(run_directory(), "pcrmf.lst"));
 
 
 
@@ -1188,7 +1188,7 @@ bool PCRModflow::runModflow(const std::string & working_directory) {
     QStringList arg{"pcrmf.nam"};
     process.start(program, arg);
 
-    process.waitForFinished();
+    process.waitForFinished(-1);
 
     process.setWorkingDirectory(working_directory);
     //working_directory =  process.workingDirectory();
@@ -1228,7 +1228,14 @@ bool PCRModflow::runModflow(const std::string & working_directory) {
 }
 
 void PCRModflow::modflow_converged() {
-  std::ifstream fileInput("pcrmf.lst");
+
+  std::string filename = mf::execution_path(run_directory(), "pcrmf.lst");
+
+  if(!boost::filesystem::exists(filename)) {
+    std::cerr << "  Error in PCRasterModflow: can not open global list file" << filename << std::endl;
+    exit(1);
+  }
+  std::ifstream fileInput(filename);
   size_t offset;
   std::string line;
   std::string search("****FAILED TO CONVERGE IN TIME STEP ");
@@ -1247,14 +1254,17 @@ void PCRModflow::modflow_converged() {
 }
 
 void PCRModflow::printList() {
-  if(!boost::filesystem::exists("pcrmf.lst")) {
-    std::cerr << "  Can not open global list file" << std::endl;
-    return;
+
+  std::string filename = mf::execution_path(run_directory(), "pcrmf.lst");
+
+  if(!boost::filesystem::exists(filename)) {
+    std::cerr << "  Error in PCRasterModflow: can not open global list file" << filename << std::endl;
+    exit(1);
   }
-  std::cout << "  Tail of global list file:" << std::endl;
+  std::cout << "  Tail of global list file " << filename << ":" << std::endl;
   std::ifstream file;  // Datei-Handle
   std::string line;
-  file.open("pcrmf.lst", std::ios::in);
+  file.open(filename, std::ios::in);
   file.seekg(0, std::ios::end);
   size_t len = file.tellg();
   size_t last = 3000;

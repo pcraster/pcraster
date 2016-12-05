@@ -42,17 +42,23 @@ function build_software()
     # case the correct (major) version is not available, we can build one.
     local hostname=`hostname`
 
-    if [[ $hostname == "sonic.geo.uu.nl" ]]; then
-        # CentOS 7
-        skip_build_qt=1
-    fi
-
     if [[ $hostname == "gransasso" ]]; then
         # Ubuntu 16.04
         skip_build_boost=1
         skip_build_qt=1
         skip_build_qwt=1
+    elif [[ $hostname == "sonic.geo.uu.nl" ]]; then
+        # CentOS 7
+        skip_build_qt=1
+    elif [[ $hostname == "triklav" ]]; then
+        # macOS 10.12.1 Sierra / macports
+        skip_build_boost=1
+        skip_build_gdal=1
+        skip_build_qt=1
+        # Bug in 'port install qwt61 +qt5' (seen on 20161205), so build
+        skip_build_qwt=0
     fi
+
 
 
     if [[ $OSTYPE == "cygwin" ]]; then
@@ -118,7 +124,7 @@ function build_software()
     # Fern.
     options+=("-Dbuild_fern=true")
     options+=("-Dfern_git_repository=https://github.com/geoneric/fern.git")
-    options+=("-Dfern_git_tag=f1114c8ccd2629686e38eee8059b39477e428bc6")
+    options+=("-Dfern_git_tag=5052b888b626fd3b38219dabfa7ff844d83e4ce7")
     options+=("-Dfern_build_fern_algorithm=true")
     options+=("-Dfern_build_fern_documentation=true")
     options+=("-Dfern_build_fern_test=true")

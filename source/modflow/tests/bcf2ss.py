@@ -49,6 +49,7 @@ report(bcf2ss.getLowerFace(3), "lfOne_1.map")
 
 # time step 2
 bcf2ss.setWell("bcf2ss_wel.map", 1)
+bcf2ss._set_run_command("pcrmf2k", "pcrmf.nam")
 bcf2ss.run("1")
 report(bcf2ss.getHeads(1), "hTwo_2.map")
 report(bcf2ss.getHeads(3), "hOne_2.map")

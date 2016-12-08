@@ -167,6 +167,7 @@ BOOST_PYTHON_MODULE(_pcraster_modflow){
     .def("run",&PCRModflow::runModflow, run_cwd())
     .def("run",&PCRModflow::runModflow, run_subdirectory())
     .def("converged", &PCRModflow::converged)
+    .def("_set_run_command", &PCRModflow::set_run_command)
     // DIS
     .def("setLayer", &PCRModflow::setLayer)
     .def("createBottomLayer", createBottomPy)

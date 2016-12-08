@@ -7,7 +7,6 @@ set(SPHINX_SOURCES
     drn.rst
     example.rst
     index.rst
-    introduction.rst
     layerdesc.png
     mfin.rst
     mfout.rst

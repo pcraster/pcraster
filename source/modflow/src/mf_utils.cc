@@ -28,5 +28,6 @@ std::string execution_path(const std::string& directory, const std::string& file
   p /= filename;
 
   return p.string();
-  }
+}
+
 }

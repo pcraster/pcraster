@@ -191,6 +191,8 @@ class PCRModflow : public dal::Client
 	size_t dd_nrModflowLayer;          // contains the amount of modflow layer (without confined)
 
 	std::string modflow_directory;     // here mf will be executed
+	std::string run_command;           // user specified execution command
+	std::string run_arguments;         // user specified execution command
 
 
 	/// \todo replace quasiconf level with vector cont layer
@@ -243,6 +245,7 @@ class PCRModflow : public dal::Client
   bool             d_modflow_converged;
   Solver           d_solver_used;
   std::string      run_directory       ();
+
 public:
 	    ~PCRModflow();
 
@@ -322,6 +325,8 @@ public:
 	    void setDSP(size_t itmx, size_t mxup, size_t mxlow, size_t mxbw, size_t ifreq, double accl,  double hclose);
 
 	    bool runModflow(const std::string & working_directory="");
+
+      void set_run_command(const std::string & command, const std::string & arguments);
 
 	    // retrieving the MODFLOW 2000 output
 	    void getDrain(float *values, size_t mfLayer);

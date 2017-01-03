@@ -3,8 +3,6 @@ add_subdirectory(pcraster_manual)
 
 
 if(PCRASTER_BUILD_DOCUMENTATION)
-  set(SPHINX_HTML_THEME "classic")
-
   add_subdirectory(python_modelling_framework)
   add_subdirectory(python_arrayed_variables)
   add_subdirectory(pcraster_aguila)

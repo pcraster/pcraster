@@ -275,6 +275,8 @@ void PCRModflow::initDataStructures(){
   d_gridCheck = new GridCheck(this);
 
   modflow_directory = "";
+  run_command = "";
+  run_arguments = "";
 }
 
 
@@ -1179,19 +1181,27 @@ bool PCRModflow::runModflow(const std::string & working_directory) {
     //int ignore = system("pcrmf2k pcrmf.nam");
     //(void)ignore; // Shut up compiler
 
-
     QProcess process;
     QString working_directory = process.workingDirectory();
     process.setWorkingDirectory(QString::fromStdString(run_directory()));
 
-    QString program{"pcrmf2k"};
-    QStringList arg{"pcrmf.nam"};
-    process.start(program, arg);
+    // Standard execution
+    if(run_command.empty()){
+      QString program{"pcrmf2k"};
+      QStringList arg{"pcrmf.nam"};
+      process.start(program, arg);
+      process.waitForFinished(-1);
+    }
+    // User provided string
+    else{
+      QString program{QString::fromStdString(run_command)};
+      QStringList arg{QString::fromStdString(run_arguments)};
+      process.start(program, arg);
+      process.waitForFinished(-1);
 
-    process.waitForFinished(-1);
+    }
 
     process.setWorkingDirectory(working_directory);
-    //working_directory =  process.workingDirectory();
 
     // modflow seems to always return 0, also in error case :(
     // check listing file
@@ -1752,5 +1762,8 @@ void PCRModflow::update_dis_parameter(float stressPeriodLength, size_t nrOfTimes
   d_dis->update_parameter(stressPeriodLength, nrOfTimesteps, timeStepMultiplier);
 }
 
-
+void PCRModflow::set_run_command(const std::string & command, const std::string & arguments){
+  run_command = command;
+  run_arguments = arguments;
+}
 

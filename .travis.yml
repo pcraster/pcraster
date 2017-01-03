@@ -49,7 +49,7 @@ addons:
             # - imagemagick
 
 before_install:
-    - sudo add-apt-repository ppa:beineri/opt-qt561 -y
+    - sudo add-apt-repository ppa:beineri/opt-qt562 -y
     - sudo apt-get update -qq
 
     # - sudo add-apt-repository ppa:ubuntugis/ubuntugis-testing -y

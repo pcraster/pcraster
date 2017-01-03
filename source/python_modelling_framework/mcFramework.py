@@ -37,7 +37,7 @@ class MonteCarloFramework(frameworkBase.FrameworkBase, forkscript.ForkScript):
     assert isinstance(nrSamples, int)
     try:
       self._setSampleNumbers(1, nrSamples)
-    except Exception, msg:
+    except Exception as msg:
       sys.stderr.write('Error: %s\n' % str(msg))
       sys.exit(1)
 

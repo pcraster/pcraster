@@ -34,9 +34,9 @@ concentration, particlesPerCell = moc.transport(flux, flowX, flowY,
 changeInConcentration = (raster / raster) + 1.5
 concentration = moc.adjust(changeInConcentration)
 
-print type(concentration)
+print(type(concentration))
 
 pcraster.report(concentration, "concentration.map")
 
-print "Ok"
+print("Ok")
 

@@ -86,7 +86,7 @@ class ValueFromParameterTable(object):
           else:
             msg = "Conversion to %s failed" % (self._dataType)
             raise Exception(msg)
-        except ValueError, e:
+        except ValueError as e:
           try:
             tmp = float(variableValue)
             if self._dataType == pcraster.Scalar:
@@ -97,13 +97,13 @@ class ValueFromParameterTable(object):
               msg = "Conversion to %s failed" % (self._dataType)
               raise Exception(msg)
 
-          except ValueError,e:
+          except ValueError as e:
             variableValue = re.sub("\\\\","/",variableValue)
             variableValue = variableValue.strip()
             path = os.path.normpath(variableValue)
             try:
               tmp = pcraster.readmap(path)
-            except RuntimeError, e:
+            except RuntimeError as e:
               msg = "Error reading %s line %d, %s" %(self._fileName, lineNumber, e)
               raise ValueError(msg)
 
@@ -121,7 +121,7 @@ class ValueFromParameterTable(object):
 
         key = tuple(transformedKeys)
 
-        if not keyDict.has_key(key):
+        if not key in keyDict:
           tmp = re.sub("\(|\)|,","",str(key))
           msg = "Error reading %s line %d, %s unknown collection index" %(self._fileName, lineNumber, tmp)
           raise ValueError(msg)
@@ -244,7 +244,7 @@ class VariableCollection(object):
     # block adding a new one
     if isinstance(key, str):
       key = tuple([key])
-    if not self._impl.has_key(key):
+    if not key in self._impl:
        raise ValueError("cannot add elements to a VariableCollection")
     self._impl[key] = value
 

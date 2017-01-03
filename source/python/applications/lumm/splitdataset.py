@@ -452,12 +452,9 @@ initial
     except Exception, exception:
       utils.raiseException(u"error dermining amount of cells", exception)
 
-    assert scores.has_key(constants.validationSetClass), \
-         "Validation set is empty"
-    assert scores.has_key(constants.modelSetClass), \
-         "Model set is empty"
-    assert scores.has_key(constants.modelSetSampleClass), \
-         "Model set sample is empty"
+    assert constants.validationSetClass in scores, "Validation set is empty"
+    assert constants.modelSetClass in scores, "Model set is empty"
+    assert constants.modelSetSampleClass in scores, "Model set sample is empty"
     validationSetSize = scores[constants.validationSetClass]
     modelSetSize = scores[constants.modelSetClass]
     modelSetSampleSize = scores[constants.modelSetSampleClass]

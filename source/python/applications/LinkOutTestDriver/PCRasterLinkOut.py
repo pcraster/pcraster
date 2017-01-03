@@ -20,10 +20,10 @@ elif platform.system() == "Windows":
    _libraryName = "pcraster_model_engine"
    c = WinDLL(_libraryName)
 else:
-  raise Exception, "Platform %s not supported" % platform.system()
+  raise Exception("Platform %s not supported" % platform.system())
 
 if not c:
-  raise Exception, "%s not found" % _libraryName
+  raise Exception("%s not found" % _libraryName)
 
 c.pcr_createScriptFromTextFile.argtypes = [ c_char_p ]
 c.pcr_createScriptFromTextFile.restype = c_void_p

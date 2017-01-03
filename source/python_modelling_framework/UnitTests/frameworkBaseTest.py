@@ -24,22 +24,22 @@ class frameworkBaseTestScript(unittest.TestCase):
 
     try:
       name = frameworkBase.generateNameT("pietje.map" , 5)
-    except FrameworkError, e:
+    except FrameworkError as e:
       self.assertEqual(str(e), "File extension given in 'pietje.map' not allowed")
 
     try:
       name = frameworkBase.generateNameT("" , 5)
-    except FrameworkError, e:
+    except FrameworkError as e:
       self.assertEqual(str(e), "No filename specified")
 
     try:
       name = frameworkBase.generateNameT("verylongname" , 5)
-    except FrameworkError, e:
+    except FrameworkError as e:
       self.assertEqual(str(e), "Filename 'verylongname' must be shorter than 8 characters")
 
     try:
       name = frameworkBase.generateNameT("neg" , -5)
-    except FrameworkError, e:
+    except FrameworkError as e:
       self.assertEqual(str(e), "Timestep must be larger than 0")
 
 

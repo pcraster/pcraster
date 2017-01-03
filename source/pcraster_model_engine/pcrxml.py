@@ -4,7 +4,6 @@ import DomUtils
 import pcr
 
 import xml.dom.minidom
-import sets
 import string
 
 # read Dom and return the documentElement
@@ -29,7 +28,7 @@ class DataType:
   def __init__(self,e):
     assert e.nodeName in [ 'Result','Input' ]
 
-    self.d_argTypeSet = sets.Set()
+    self.d_argTypeSet = set()
     self.d_repeat     = "false"
     self.d_st         = "ST_NON"
     self.d_result     = e.nodeName == 'Result'
@@ -63,7 +62,7 @@ class DataType:
        self.d_argTypeSet.add(self.d_argType)
 
     a=e.getAttribute("contextName")
-    self.d_vector=string.find(a,"[]") != -1
+    self.d_vector=a.find("[]") != -1
     self.d_vectorName=a;
 
   # pair with , for struct init for Operator

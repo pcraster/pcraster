@@ -6,7 +6,7 @@ import os
 # Do not print in regression
 # testing
 _enablePrintInExamples = True
-if os.environ.has_key('PCRTREE2'):
+if "PCRTREE2" in os.environ:
   _enablePrintInExamples = False
 
 class PCRasterLinkOutTest(unittest.TestCase):
@@ -97,15 +97,15 @@ class PCRasterLinkOutTest(unittest.TestCase):
       status = c.pcr_ScriptExecuteNextTimeStepMemory(script, data)
       self.failUnless(status >= 0)
       if status == 0 and _enablePrintInExamples:
-        print "last timestep executed"
+        print("last timestep executed")
 
       if _enablePrintInExamples:
-        print "memOutputDynamic at step %d: (\n%f, %f,\n%f, %f ) \n " % \
+        print("memOutputDynamic at step %d: (\n%f, %f,\n%f, %f ) \n " % \
                                    (step,
                                     memOutputDynamic[0],
                                     memOutputDynamic[1],
                                     memOutputDynamic[2],
-                                    memOutputDynamic[3])
+                                    memOutputDynamic[3]))
 
       # update the dynamicInput
       # multiply the value by 10

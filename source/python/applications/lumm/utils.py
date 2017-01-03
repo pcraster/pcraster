@@ -260,7 +260,7 @@ def testRasterHasValueScale(filename, valueScales):
 
   if not valueScaleFound:
     raise Exception(u"file %s must have a valid value scale (%s)" %
-         (filename, string.join(valueScales, ",")))
+         (filename, ",".join(valueScales)))
 
 def testRasterIsCategorical(filename):
   testRasterHasValueScale(filename, ["nominal"])
@@ -296,7 +296,7 @@ def executeRScript(
     if fileIsReadable(outputFilename):
       message = u"last 10 lines from %s:\n%s" % \
          (outputFilename,
-         string.join(file(outputFilename).readlines()[-10:]).rstrip(u"\n"))
+         " ".join(file(outputFilename).readlines()[-10:]).rstrip(u"\n"))
 
     raiseException(u"error executing R script %s:\n%s" %
          (scriptFilename, message), exception)

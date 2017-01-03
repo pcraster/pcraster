@@ -38,7 +38,7 @@ class dynamicFrameworkTestScript(testcase.TestCase):
     myModel = dynamicTestModels.T1()
     try:
       dynModelFw = df.DynamicFramework(myModel, 10)
-    except pcraster.framework.frameworkBase.FrameworkError, e:
+    except pcraster.framework.frameworkBase.FrameworkError as e:
       self.assertEqual(str(e),"Cannot run dynamic framework: Implement \
 dynamic method")
 
@@ -109,7 +109,7 @@ dynamic method")
     try:
       result = pcraster.readmap("static.map")
       self.failUnless(self.mapEquals(result, "plus.Result.map"), "test_04: %s" % ("Result and validated result are not the same"))
-    except Exception, exception:
+    except Exception as exception:
       self.failUnless(False, "test1: %s" % (str(exception)))
 
     for timestep in myModel.timeSteps():
@@ -117,7 +117,7 @@ dynamic method")
         name = pcraster.framework.frameworkBase.generateNameT("dyna", timestep)
         result = pcraster.readmap(name)
         self.failUnless(self.mapEquals(result, "plus.Result.map"), "test04: %s" % ("Result and validated result are not the same"))
-      except Exception, exception:
+      except Exception as exception:
         self.failUnless(False, "test1: %s" % (str(exception)))
 
   def test_8(self):

@@ -62,4 +62,4 @@ pcraster.report(weightSW, "weightSW.map")
 pcraster.report(weightW , "weightW.map")
 pcraster.report(weightNW, "weightNW.map")
 
-print "Ok"
+print("Ok")

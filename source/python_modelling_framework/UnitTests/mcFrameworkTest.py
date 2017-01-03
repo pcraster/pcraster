@@ -21,7 +21,7 @@ class mcFrameworkTestScript(unittest.TestCase):
     myModel = mcTestModels.T0()
     try:
       mcFw = mf.MonteCarloFramework(myModel, 5)
-    except fb.FrameworkError, e:
+    except fb.FrameworkError as e:
       self.assertEqual(str(e),"Cannot run MonteCarlo framework: User model must be type of StaticFramework or DynamicFramework")
 
   def test_2(self):

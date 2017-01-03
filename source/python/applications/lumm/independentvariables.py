@@ -147,7 +147,7 @@ class IndependentVariables(task.Task):
       # Create a name for the new raster. In createSelectionMaps this raster
       # will be created.
       selectionMapFilename = os.path.join(self.tempDirectoryName(),
-         "%s.%s" % (os.path.basename(filename), string.join(selection, ".")))
+         "%s.%s" % (os.path.basename(filename), ".".join(selection)))
 
     return [filename, selection, selectionMapFilename]
 
@@ -272,11 +272,11 @@ initial
     try:
       os.chdir(self.validationTempDirectoryName())
       utils.executeMap2Col("--unittrue --coorcentre -g %s %s" %
-         (string.join(map(os.path.basename,
+         (" ".join(map(os.path.basename,
          self.variables())), self.validationTableFilename()), logFilename=self.logFilename())
       os.chdir(self.modelTempDirectoryName())
       utils.executeMap2Col("--unittrue --coorcentre -g %s %s" %
-         (string.join(map(os.path.basename,
+         (" ".join(map(os.path.basename,
          self.variables())), self.modelTableFilename()), logFilename=self.logFilename())
     except AssertionError, exception:
       raise
@@ -299,7 +299,7 @@ initial
   #   scriptFile.write("""\
   # catVars = c(%s)
   # percentageUnchangedCellsInModelSampleSet = %g
-  # """ % (string.join(map(quote, self.categoricalVariables())),
+  # """ % (" ".join(map(quote, self.categoricalVariables())),
   #        self.percentageUnchangedCellsInModelSampleSet()))
 
   def run(self):

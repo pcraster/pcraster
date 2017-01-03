@@ -84,7 +84,7 @@ class TimeoutputTest(testcase.TestCase):
     errorCatched=False
     try:
       dynModelFw.run()
-    except AttributeError, e:
+    except AttributeError as e:
       errorCatched=True
       self.assertEqual(str(e), "Argument must be a PCRaster map, type 'float' given. If necessary use data conversion functions like scalar()")
     self.assert_(errorCatched)
@@ -123,7 +123,7 @@ class TimeoutputTest(testcase.TestCase):
      m = Model("mask.map")
      dynModelFw = DynamicFramework(m, lastTimeStep=4)
      dynModelFw.run()
-    except Exception, e:
+    except Exception as e:
      errorCatched=True
      self.assertEqual(str(e), "idMap must be of type Nominal, Ordinal or Boolean")
     self.assert_(errorCatched)

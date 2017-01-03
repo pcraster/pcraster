@@ -9,6 +9,7 @@ Usage:
   --format=FORMAT  Format of output. Choose from makefile, python, multicore or cpp.
   OUTPUT           Output file.
 """
+from functools import cmp_to_key
 import os.path
 import sys
 import docopt
@@ -23,7 +24,7 @@ _sample_collection = { }
 
 def newSample(operation, resultName, resultExt="map"):
     key = operation+"_"+resultName
-    assert not _sample_collection.has_key(key), "Duplicate key found"
+    assert not key in _sample_collection, "Duplicate key found"
     s = Sample(operation, resultName, resultExt)
     _sample_collection[key] = s
     return s
@@ -184,15 +185,15 @@ class DataFileReplacer(object):
         # in its text
         for d in sample._results+sample._inputs:
             key = "$"+d.userName()
-            assert not self._var2DataFile.has_key(key), \
+            assert not key in self._var2DataFile, \
                "combined set of results and inputs must be unique"
             self._var2DataFile[key] = d
 
         # do replacement with largest strings first
         # so var that are substrings of other vars is done
         # correct when replacing
-        self._largestFirst = self._var2DataFile.keys()
-        self._largestFirst.sort(self._longerFirst)
+        self._largestFirst = sorted(self._var2DataFile.keys(), key=cmp_to_key(
+            self._longerFirst))
 
     @staticmethod
     def _longerFirst(w1, w2):
@@ -438,14 +439,14 @@ class Sample(object):
         if isinstance(self.code, Expr):
             # open binary (b) to create unix text format needed by sh
             scriptToExecute = self._fileName("exec.mod")
-            open(scriptToExecute,"wb").write(
+            open(scriptToExecute,"w").write(
                 self.pcrcalcScript(fileNameOfDataFile))
             stream.write(self.makefileSnippet(pcrCmdPrefix +
                 "@EXECUTABLE_OUTPUT_PATH@/CMAKE_CFG_INTDIR/pcrcalc -f",
                     scriptToExecute))
         elif isinstance(self.code, Cmd):
             scriptToExecute = self._fileName("exec.sh")
-            open(scriptToExecute,"wb").write(
+            open(scriptToExecute,"w").write(
                 self.shellScript(fileNameOfDataFile))
             stream.write(self.makefileSnippet(pcrCmdPrefix + "sh",
                 scriptToExecute))
@@ -536,26 +537,26 @@ EXEC:=@PROJECT_SOURCE_DIR@/environment/script/execWithNativePathArgs.sh
 
 def create_cpp_module(
         stream):
-    execfile("ScriptSamples.py")
+    exec(open("ScriptSamples.py").read())
     createCppTestDriver(stream)
 
 
 def create_makefile(
         stream):
-    execfile("ScriptSamples.py")
-    execfile("CmdSamples.py")
+    exec(open("ScriptSamples.py").read())
+    exec(open("CmdSamples.py").read())
     createMakefileAndScripts(stream)
 
 
 def create_python_module(
         stream):
-    execfile("ScriptSamples.py")
+    exec(open("ScriptSamples.py").read())
     createPythonTestDriver(stream)
 
 
 def create_python_multicore_module(
         stream):
-    execfile("ScriptSamples.py")
+    exec(open("ScriptSamples.py").read())
     createPythonTestDriver(stream, "from pcraster.multicore import *")
 
 

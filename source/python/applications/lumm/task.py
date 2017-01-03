@@ -267,7 +267,7 @@ class Task:
 
   def hasSection(self,
          section):
-    return self.configurationItems().has_key(section)
+    return section in self.configurationItems()
 
   def hasOption(self,
          name):

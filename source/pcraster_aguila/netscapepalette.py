@@ -13,13 +13,13 @@
 # that are not in the following list, then Netscape Navigator on Windows
 # will dither them, sometimes with undesirable results.
 
-print "static const size_t netscapePaletteSize = 216;"
-print "static const UINT2 netscapePaletteMaxVal = 255;"
-print "static UINT2 netscapePalette[][3] = \n{"
+print("static const size_t netscapePaletteSize = 216;")
+print("static const UINT2 netscapePaletteMaxVal = 255;")
+print("static UINT2 netscapePalette[][3] = \n{")
 
 for red in range(0, 256, 51):
   for green in range(0, 256, 51):
     for blue in range(0, 256, 51):
-      print "  { %d, %d, %d }," % (red, green, blue)
+      print("  { %d, %d, %d }," % (red, green, blue))
 
-print "};"
+print("};")

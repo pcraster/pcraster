@@ -36,7 +36,7 @@ class CollectionUnitTests(testcase.TestCase):
     Coll = vcMod.VariableCollection([PlantSpecies], value=None)
     try:
       Coll["Species4"] = 5
-    except Exception, e:
+    except Exception as e:
       self.assertEqual(str(e), "cannot add elements to a VariableCollection")
       exceptionThrown = True
     self.assert_(exceptionThrown)
@@ -297,7 +297,7 @@ class CollectionUnitTests(testcase.TestCase):
 
     try:
       QMax1 = vcMod.VariableCollection([Plants], value=vcMod.ValueFromParameterTable("QMax1", "parameterFile.tbl", pcraster.Scalar))
-    except ValueError, e:
+    except ValueError as e:
       self.assertEqual(str(e), "Error reading parameterFile.tbl line 21, QMax1 'TG' already initialised")
       exceptionThrown = True
     self.assert_(exceptionThrown)
@@ -310,7 +310,7 @@ class CollectionUnitTests(testcase.TestCase):
 
     try:
       QMax2 = vcMod.VariableCollection([Plants], value=vcMod.ValueFromParameterTable("QMax2", "parameterFile.tbl", pcraster.Scalar))
-    except ValueError, e:
+    except ValueError as e:
       self.assertEqual(str(e), "Error reading parameterFile.tbl line 26, 'sG' unknown collection index")
       exceptionThrown = True
     self.assert_(exceptionThrown)

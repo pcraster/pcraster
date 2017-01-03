@@ -19,9 +19,9 @@ class Test(testcase.TestCase):
     try:
       # Calculating the slope of a boolean map sucks.
       slope = pcraster.slope("and_Expr1.map")
-    except RuntimeError, exception:
+    except(RuntimeError, exception):
       message = str(exception)
-      self.assert_(string.find(message, "argument nr. 1 of function 'slope': type is boolean, legal type is scalar") != -1)
+      self.assert_(message.find("argument nr. 1 of function 'slope': type is boolean, legal type is scalar") != -1)
       exceptionThrown = True
     self.assert_(exceptionThrown)
 
@@ -30,9 +30,9 @@ class Test(testcase.TestCase):
     try:
       # Trying to read a map that is not there should fail.
       pcraster.readmap("notThere.map")
-    except RuntimeError, exception:
+    except(RuntimeError, exception):
       message = str(exception)
-      self.assert_(string.find(message, "Raster notThere.map: can not be opened") != -1)
+      self.assert_(message.find("Raster notThere.map: can not be opened") != -1)
       exceptionThrown = True
     self.assert_(exceptionThrown)
 
@@ -41,9 +41,9 @@ class Test(testcase.TestCase):
     exceptionThrown = False
     try:
       result = pcraster.ifthenelse(1.0 == 2.0, 3.0, 4.0)
-    except RuntimeError, exception:
+    except(RuntimeError, exception):
       message = str(exception)
-      self.assert_(string.find(message, "conversion function to pick a data type") != -1)
+      self.assert_(message.find("conversion function to pick a data type") != -1)
       exceptionThrown = True
     self.assert_(exceptionThrown)
 
@@ -273,7 +273,7 @@ class Test(testcase.TestCase):
     # Not OK
     bugzilla144 = False
     if not bugzilla144:
-      print "skipped bugzilla144"
+      print("skipped bugzilla144")
     else:
       value = 198329008
       i = 0
@@ -305,9 +305,9 @@ class Test(testcase.TestCase):
     ambiguousSpatialMsg = "The truth value for PCRaster spatial data types is ambiguous. "
     try:
       bool(raster1)
-    except Exception, exception:
+    except(Exception, exception):
       message = str(exception)
-      self.assert_(string.find(message, ambiguousSpatialMsg) != -1)
+      self.assert_(message.find(ambiguousSpatialMsg) != -1)
     exceptionThrown = True
     self.assert_(exceptionThrown)
 
@@ -315,19 +315,19 @@ class Test(testcase.TestCase):
     try:
       if raster1 == raster2:
         pass
-    except Exception, exception:
+    except(Exception, exception):
       message = str(exception)
-      self.assert_(string.find(message, ambiguousSpatialMsg) != -1)
+      self.assert_(message.find(ambiguousSpatialMsg) != -1)
       exceptionThrown = True
     self.assert_(exceptionThrown)
 
     exceptionThrown = False
     try:
       while raster1:
-        print "this will run forever"
-    except Exception, exception:
+        print("this will run forever")
+    except(Exception, exception):
       message = str(exception)
-      self.assert_(string.find(message, ambiguousSpatialMsg) != -1)
+      self.assert_(message.find(ambiguousSpatialMsg) != -1)
       exceptionThrown = True
     self.assert_(exceptionThrown)
 
@@ -335,36 +335,36 @@ class Test(testcase.TestCase):
     try:
       if raster1:
         pass
-    except Exception, exception:
+    except(Exception, exception):
       message = str(exception)
-      self.assert_(string.find(message, ambiguousSpatialMsg) != -1)
+      self.assert_(message.find(ambiguousSpatialMsg) != -1)
       exceptionThrown = True
     self.assert_(exceptionThrown)
 
     exceptionThrown = False
     try:
       tmp = raster1 and raster2
-    except Exception, exception:
+    except(Exception, exception):
       message = str(exception)
-      self.assert_(string.find(message, ambiguousSpatialMsg) != -1)
+      self.assert_(message.find(ambiguousSpatialMsg) != -1)
       exceptionThrown = True
     self.assert_(exceptionThrown)
 
     exceptionThrown = False
     try:
       tmp = raster1 or raster2
-    except Exception, exception:
+    except(Exception, exception):
       message = str(exception)
-      self.assert_(string.find(message, ambiguousSpatialMsg) != -1)
+      self.assert_(message.find(ambiguousSpatialMsg) != -1)
       exceptionThrown = True
     self.assert_(exceptionThrown)
 
     exceptionThrown = False
     try:
       tmp = not raster1
-    except Exception, exception:
+    except(Exception, exception):
       message = str(exception)
-      self.assert_(string.find(message, ambiguousSpatialMsg) != -1)
+      self.assert_(message.find(ambiguousSpatialMsg) != -1)
       exceptionThrown = True
     self.assert_(exceptionThrown)
 
@@ -441,7 +441,7 @@ class Test(testcase.TestCase):
     exceptionThrown = False
     try:
      raster += None
-    except Exception, e:
+    except(Exception, e):
       msg = "right operand of operator '+': type is Python None, legal type is scalar"
       self.assert_(str(e).find(msg) != -1, str(e))
       exceptionThrown = True
@@ -521,7 +521,7 @@ class Test(testcase.TestCase):
     exceptionThrown = False
     try:
       tmp = copy.copy(raster)
-    except Exception, e:
+    except(Exception, e):
       self.assertEqual(str(e), "Shallow copy of PCRaster objects not supported\n")
       exceptionThrown = True
     self.assert_(exceptionThrown)
@@ -531,7 +531,7 @@ class Test(testcase.TestCase):
     exceptionThrown = False
     try:
       tmp = copy.copy(raster)
-    except Exception, e:
+    except(Exception, e):
       self.assertEqual(str(e), "Shallow copy of PCRaster objects not supported\n")
       exceptionThrown = True
     self.assert_(exceptionThrown)
@@ -540,7 +540,7 @@ class Test(testcase.TestCase):
     exceptionThrown = False
     try:
       tmp = copy.copy(raster)
-    except Exception, e:
+    except(Exception, e):
       self.assertEqual(str(e), "Shallow copy of PCRaster objects not supported\n")
       exceptionThrown = True
     self.assert_(exceptionThrown)
@@ -549,7 +549,7 @@ class Test(testcase.TestCase):
     exceptionThrown = False
     try:
       tmp = copy.copy(raster)
-    except Exception, e:
+    except(Exception, e):
       self.assertEqual(str(e), "Shallow copy of PCRaster objects not supported\n")
       exceptionThrown = True
     self.assert_(exceptionThrown)
@@ -558,7 +558,7 @@ class Test(testcase.TestCase):
     exceptionThrown = False
     try:
       tmp = copy.copy(raster)
-    except Exception, e:
+    except(Exception, e):
       self.assertEqual(str(e), "Shallow copy of PCRaster objects not supported\n")
       exceptionThrown = True
     self.assert_(exceptionThrown)
@@ -567,7 +567,7 @@ class Test(testcase.TestCase):
     exceptionThrown = False
     try:
       tmp = copy.copy(raster)
-    except Exception, e:
+    except(Exception, e):
       self.assertEqual(str(e), "Shallow copy of PCRaster objects not supported\n")
       exceptionThrown = True
     self.assert_(exceptionThrown)
@@ -577,7 +577,7 @@ class Test(testcase.TestCase):
     exceptionThrown = False
     try:
       result = pcraster.uniform(1)
-    except Exception, e:
+    except(Exception, e):
       self.assertEqual(str(e), "uniform: no clone or area map specified, use setclone()\n")
       exceptionThrown = True
     self.assert_(exceptionThrown)

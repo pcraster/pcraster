@@ -13,7 +13,8 @@ CONFIGURE_FILE(
 CONFIGURE_FILE(
     ${CMAKE_CURRENT_SOURCE_DIR}/operationExpanded.xml.in
     ${CMAKE_CURRENT_BINARY_DIR}/operationExpanded.xml
-    COPYONLY
+    @ONLY
+    NEWLINE_STYLE UNIX
 )
 
 include_directories(
@@ -243,9 +244,10 @@ ${CMAKE_CURRENT_BINARY_DIR}/calc_builtinops.inc)
 # operationExpanded.xml was previously generated each time at a build.
 # Due to removal of xsltproc dependency this file needs to be
 # regenerated when the source files change
-file(SHA1 ${CMAKE_CURRENT_SOURCE_DIR}/operation.xml operation_checksum)
+# Hash the copied file in build directory rather than the source due to different UNIX/WIN line endings
+file(SHA1 ${CMAKE_CURRENT_BINARY_DIR}/operationExpanded.xml operation_expanded)
 
-if( NOT ${operation_checksum} STREQUAL "9b2c0b0c77c204ff4820646800bdc26e59112861" )
+if( NOT ${operation_expanded} STREQUAL "c1d7687a22a7e88a3637515554dd54e4f3779c2d" )
     message(FATAL_ERROR "The operationExpanded.xml file is older than one of its dependencies. Update operationExpanded.xml.in first; or contact the PCRaster Research and Development team in case you don't know how to proceed.")
     # The previous command was part of the custom command below
     # COMMAND ${LIBXSLT_XSLTPROC_EXECUTABLE} --nonet --output ${CMAKE_CURRENT_BINARY_DIR}/operationExpanded.xml ${CMAKE_CURRENT_SOURCE_DIR}/../xslt/expand.xsl ${CMAKE_CURRENT_SOURCE_DIR}/operation.xml

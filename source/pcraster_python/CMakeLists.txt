@@ -12,13 +12,15 @@ CONFIGURE_FILE(
 CONFIGURE_FILE(
     ${CMAKE_CURRENT_SOURCE_DIR}/operations.inc.in
     ${CMAKE_CURRENT_BINARY_DIR}/operations.inc
-    COPYONLY
+    @ONLY
+    NEWLINE_STYLE UNIX
 )
 
 CONFIGURE_FILE(
     ${CMAKE_CURRENT_SOURCE_DIR}/operations.py.in
     ${CMAKE_CURRENT_BINARY_DIR}/operations.py
-    COPYONLY
+    @ONLY
+    NEWLINE_STYLE UNIX
 )
 
 
@@ -49,13 +51,17 @@ include_directories(
 # operations.inc and operations.py were previously generated each time at a build.
 # Due to removal of xsltproc dependency this file needs to be
 # regenerated when one of the source files change
-file(SHA1 ${CMAKE_CURRENT_SOURCE_DIR}/../pcraster_model_engine/operation.xml xml_checksum)
-file(SHA1 ${CMAKE_CURRENT_SOURCE_DIR}/OperationsToWrappers.xsl operations_checksum)
-file(SHA1 ${CMAKE_CURRENT_SOURCE_DIR}/OperationToWrapper.xsl operation_checksum)
+# Hash the copied file in build directory rather than the source due to different UNIX/WIN line endings
 
-if( ( NOT ${xml_checksum} STREQUAL "9b2c0b0c77c204ff4820646800bdc26e59112861" ) OR
-    ( NOT ${operations_checksum} STREQUAL "6d488ea177aea78f54950448f3e02911e489a05e" ) OR
-    ( NOT ${operation_checksum} STREQUAL "bc9f241ecb501ac80c42f5e8322e061968e006de" )
+# check operationExpanded.xml as it's originating from operations.xml
+file(SHA1 ${CMAKE_CURRENT_BINARY_DIR}/../pcraster_model_engine/operationExpanded.xml op_expanded)
+# and these related to the Operation*xsl ...
+file(SHA1 ${CMAKE_CURRENT_BINARY_DIR}/operations.inc operations_inc_checksum)
+file(SHA1 ${CMAKE_CURRENT_BINARY_DIR}/operations.py operations_py_checksum)
+
+if( ( NOT ${op_expanded} STREQUAL "c1d7687a22a7e88a3637515554dd54e4f3779c2d" ) OR
+    ( NOT ${operations_inc_checksum} STREQUAL "a7f4dc5eabd251bc6b12c1489f49dc68d7be9aa4" ) OR
+    ( NOT ${operations_py_checksum} STREQUAL "ab41e1c20eccb576cbab185df47cc81f6f684f91" )
   )
     message(FATAL_ERROR "The files operations.inc or operations.py are older than one of their dependencies. Update operations.inc.in or operations.py.in first; or contact the PCRaster Research and Development team in case you don't know how to proceed.")
     # This is the previously executed command, results in something similar to this:

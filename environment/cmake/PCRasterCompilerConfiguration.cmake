@@ -1,7 +1,11 @@
+# work in progress file for compiler flags
+
 # disabling compiler warnings
 # these ones should be fixed eventually...
 # some of these flags are covered by github issue
 # some of these need to be ticketed
+
+# move useful warnings to devbase later on
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 
@@ -22,5 +26,22 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     # to make flto work set ar and ranlib
     # SET(CMAKE_AR gcc-ar)
     # SET(CMAKE_RANLIB gcc-ranlib)
+
+endif()
+
+if(MSVC)
+
+    # Get rid of the min and max macros.
+    add_definition(
+        -DNOMINMAX
+    )
+
+    set(CMAKE_C_FLAGS
+        "${CMAKE_C_FLAGS} "
+    )
+
+    set(CMAKE_CXX_FLAGS
+        "${CMAKE_CXX_FLAGS} "
+    )
 
 endif()

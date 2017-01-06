@@ -30,18 +30,23 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 endif()
 
 if(MSVC)
+    # TODO add debug/release flags?
 
     # Get rid of the min and max macros.
-    add_definition(
+    add_definitions(
         -DNOMINMAX
+        -D_SCL_SECURE_NO_WARNINGS
+        -D_USE_MATH_DEFINES
     )
 
     set(CMAKE_C_FLAGS
         "${CMAKE_C_FLAGS} "
     )
 
+    # add /w3 
+    # disable these warnings? /wd4251
     set(CMAKE_CXX_FLAGS
-        "${CMAKE_CXX_FLAGS} "
+        "${CMAKE_CXX_FLAGS} /std:c++14 "
     )
 
 endif()

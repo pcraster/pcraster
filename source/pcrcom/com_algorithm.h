@@ -1,25 +1,13 @@
-#ifndef INCLUDED_COM_ALGORITHM
-#define INCLUDED_COM_ALGORITHM
+#pragma once
 
 #ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
 #define INCLUDED_STDDEFX
 #endif
 
-// Library headers.
-#ifndef INCLUDED_ALGORITHM
 #include <algorithm>
-#define INCLUDED_ALGORITHM
-#endif
-
-#ifndef INCLUDED_MAP
+#include <iterator>
 #include <map>
-#define INCLUDED_MAP
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
 
 /*!
   \file
@@ -275,5 +263,3 @@ RandomAccessIterator randomSample(InputIterator first, InputIterator last,
 
 
 } // namespace com
-
-#endif

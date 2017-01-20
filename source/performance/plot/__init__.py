@@ -178,7 +178,7 @@ def plot_scalability(
 
         assert nr_worker_threads[0] == 1
         theoretical_times = [real_times[0] / nr_worker_threads[t] for t in
-            xrange(len(nr_worker_threads))]
+            range(len(nr_worker_threads))]
 
         axis.plot(nr_worker_threads, real_times, "o--")
         axis.plot(nr_worker_threads, theoretical_times)

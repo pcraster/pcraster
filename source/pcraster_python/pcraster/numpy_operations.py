@@ -10,7 +10,7 @@
 
 
 import numpy
-import _pcraster
+from . import _pcraster
 
 
 def pcr2numpy(

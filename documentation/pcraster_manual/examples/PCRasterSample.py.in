@@ -404,7 +404,7 @@ class Sample(object):
             self.failUnless(self.mapEqualsValidated({}, "{}"), "{}:Result != validated")
 """.format(r.userName(), r.fileName(), r.fileName()))
           stream.write("""\
-        except Exception, exception:
+        except Exception as exception:
             self.failUnless(False, str(exception))
 """)
 
@@ -484,7 +484,7 @@ from pcraster import *
 # from PCRaster.operations import *
 class TestExamples(testcase.TestCase):
     def testProlog(self):
-        print "[skipped: inputTailRepeat of argorder* bugzilla 134]"
+        print("[skipped: inputTailRepeat of argorder* bugzilla 134]")
         assert(True)
         return
 """.format(import_module))

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import sys
-import frameworkBase
+from . import frameworkBase
 
 
 class DynamicFramework(frameworkBase.FrameworkBase):

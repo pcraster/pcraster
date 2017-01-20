@@ -2,8 +2,8 @@
 import os
 import re
 import pcraster
-import frameworkBase
-import pfBase
+from . import frameworkBase
+from . import pfBase
 
 
 

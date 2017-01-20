@@ -30,45 +30,7 @@
 namespace pcraster {
 namespace python {
 
-#if PY_MAJOR_VERSION >= 3
-#define DEFINE_INIT_NUMPY()  \
-static void* init_numpy()    \
-{                            \
-    import_array();          \
-    return NULL;             \
-}
-#else
-#define DEFINE_INIT_NUMPY()  \
-static void init_numpy()     \
-{                            \
-    import_array();          \
-}
-#endif
-
-
-void call_import_array()
-{
-    assert(!PyErr_Occurred());
-    init_numpy();
-}
-
-
-bool init_numpy()
-{
-    assert(!PyErr_Occurred());
-
-    static bool import_array_called = false;
-
-    if(!import_array_called) {
-        call_import_array();
-        import_array_called = true;
-        return !PyErr_Occurred();
-    }
-
-    assert(!PyErr_Occurred());
-
-    return true;
-}
+DEFINE_INIT_NUMPY()
 
 
 //!

@@ -126,17 +126,17 @@
         <!-- Varargs are tuples which can't be mutated: convert to list. -->
         <xsl:value-of select="concat($indentation, '    ', $argumentName, ' = list(', $argumentName, ')&#xa;')"/>
         <xsl:value-of select="concat($indentation, '    for i in range(len(', $argumentName, ')):&#xa;')"/>
-        <xsl:value-of select="concat($indentation, '      if isinstance(', $argumentName, '[i], types.StringTypes):&#xa;')"/>
+        <xsl:value-of select="concat($indentation, '      if isinstance(', $argumentName, '[i], str):&#xa;')"/>
         <xsl:value-of select="concat($indentation, '        ', $argumentName, '[i] = _pcraster.readmap(', $argumentName, '[i])&#xa;')"/>
-        <xsl:value-of select="concat($indentation, '      elif isinstance(', $argumentName, '[i], types.IntType) or isinstance(', $argumentName, '[i], types.LongType) or isinstance(', $argumentName, '[i], types.FloatType):&#xa;')"/>
+        <xsl:value-of select="concat($indentation, '      elif isinstance(', $argumentName, '[i], int) or isinstance(', $argumentName, '[i], float):&#xa;')"/>
         <xsl:value-of select="concat($indentation, '        ', $argumentName, '[i] = _pcraster.newNonSpatialField(', $argumentName, '[i])&#xa;')"/>
       </xsl:when>
       <xsl:otherwise>
         <xsl:choose>
           <xsl:when test="Field">
-            <xsl:value-of select="concat($indentation, '    if isinstance(', $argumentName, ', types.StringTypes):&#xa;')"/>
+            <xsl:value-of select="concat($indentation, '    if isinstance(', $argumentName, ', str):&#xa;')"/>
             <xsl:value-of select="concat($indentation, '      ', $argumentName, ' = _pcraster.readmap(', $argumentName, ')&#xa;')"/>
-            <xsl:value-of select="concat($indentation, '    elif isinstance(', $argumentName, ', types.IntType) or isinstance(', $argumentName, ', types.LongType) or isinstance(', $argumentName, ', types.FloatType):&#xa;')"/>
+            <xsl:value-of select="concat($indentation, '    elif isinstance(', $argumentName, ', int) or isinstance(', $argumentName, ', float):&#xa;')"/>
             <xsl:value-of select="concat($indentation, '      ', $argumentName, ' = _pcraster.newNonSpatialField(', $argumentName, ')&#xa;')"/>
           </xsl:when>
           <xsl:otherwise>
@@ -394,7 +394,7 @@
         </xsl:call-template>
 
         <xsl:value-of select="$indentation"/>
-        <xsl:text>  except RuntimeError, exception:&#xA;</xsl:text>
+        <xsl:text>  except RuntimeError as exception:&#xA;</xsl:text>
         <xsl:value-of select="concat($indentation, '    raise RuntimeError(&quot;', $operationName, ': %s&quot; % (str(exception)))&#xA;')"/>
       </xsl:otherwise>
     </xsl:choose>
@@ -471,7 +471,7 @@
       </xsl:call-template>
 
       <xsl:value-of select="$indentation"/>
-      <xsl:text>  except RuntimeError, exception:&#xA;</xsl:text>
+      <xsl:text>  except RuntimeError as exception:&#xA;</xsl:text>
       <xsl:value-of select="concat($indentation, '    raise RuntimeError(&quot;', $className, '::', $operationName, ': %s&quot; % (str(exception)))&#xA;')"/>
     </xsl:otherwise>
   </xsl:choose>

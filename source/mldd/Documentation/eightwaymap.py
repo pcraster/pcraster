@@ -48,7 +48,9 @@ class EightWayMap:
 
   def sum(self):
     # check nieuw lambda/apply spul of dit korten kan
-    return sum of all
+    # return sum of all
+    assert(False)
+    pass
 
 
 def eachWay():
@@ -121,7 +123,7 @@ def dispflux(Input,NScal,NEScal,EScal,SEScal,SScal,SWScal,WScal,NWScal):
       x = x+1
       Tmp = upstreams(Tmp,NScal,NEScal,EScal,SEScal,SScal,SWScal,WScal,NWScal)
       Flux=Flux+Tmp
-      print 'displfux loop: ', x
+      print('displfux loop: {}'.format(x))
     return Flux
 
 def dispfluxperdir(Input,NScal,NEScal,EScal,SEScal,SScal,SWScal,WScal,NWScal):
@@ -273,7 +275,7 @@ def sedflow(PreviousHeight,InputCubePerYear, Diffusion, WidthStream, FixedHead, 
     
        #Elevation = cover(FixedHead,InputTS+Elevation+upstreamsperdir(NSl,NESl,ESl,SESl,SSl,SWSl,WSl,NWSl,LddN,LddNE,LddE,LddSE,LddS,LddSW,LddW,LddNW)-TotSl)
        Elevation = cover(FixedHead,InputTS+Elevation+upstreamsperdir(NSl,NESl,ESl,SESl,SSl,SWSl,WSl,NWSl,NLdd,NELdd,ELdd,SELdd,SLdd,SWLdd,WLdd,NWLdd)-TotSl)
-       print x
+       print(x)
 
     return Elevation
 

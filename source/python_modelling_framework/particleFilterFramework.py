@@ -6,8 +6,8 @@ import random
 import shutil
 import sys
 import numpy
-import frameworkBase
-import mcFramework
+from . import frameworkBase
+from . import mcFramework
 
 
 

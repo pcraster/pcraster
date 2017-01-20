@@ -15,7 +15,21 @@ namespace geo {
 namespace pcraster {
 namespace python {
 
-bool               init_numpy          ();
+#if PY_MAJOR_VERSION >= 3
+#define DEFINE_INIT_NUMPY()  \
+static void* init_numpy()    \
+{                            \
+    import_array();          \
+    return NULL;             \
+}
+#else
+#define DEFINE_INIT_NUMPY()  \
+static void init_numpy()     \
+{                            \
+    import_array();          \
+}
+#endif
+
 
 boost::python::numeric::array field_to_array(
                                         geo::RasterSpace const& space,

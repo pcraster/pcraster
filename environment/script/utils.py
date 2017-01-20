@@ -93,7 +93,7 @@ def environmentVariableAsNativePath(environmentVariable):
 
   On Windows the value is converted according to the Windows pathnaming conventions.
   """
-  assert(environmentVariable in os.environ, environmentVariable)
+  assert environmentVariable in os.environ, environmentVariable
   return nativePath(os.environ[environmentVariable])
 
 def duration(

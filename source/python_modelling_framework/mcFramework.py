@@ -3,11 +3,11 @@ import os
 import shutil
 import sys
 import time
-import dynamicFramework
-import forkscript
-import frameworkBase
-import staticFramework
-import system
+from . import dynamicFramework
+from . import forkscript
+from . import frameworkBase
+from . import staticFramework
+from . import system
 
 
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import pcraster
-import frameworkBase
-import mcBase
+from . import frameworkBase
+from . import mcBase
 
 
 

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import pcraster._pcraster as pcr
-import dynamicBase
+from . import dynamicBase
 
 
 

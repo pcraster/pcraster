@@ -6,8 +6,8 @@ import string
 import numpy
 import numpy.ma
 from pcraster import *
-from frameworkBase import generateNameS, generateNameT, generateNameST
-import generalfunctions, regression
+from .frameworkBase import generateNameS, generateNameT, generateNameST
+from . import generalfunctions, regression
 
 
 
@@ -124,7 +124,7 @@ class PercentileCalculator:
 
   def run(self,
     arrays):
-    for c in xrange(clone().nrRows() * clone().nrCols()):
+    for c in range(clone().nrRows() * clone().nrCols()):
       if len(arrays[c]) > 0:
         arrays[c].sort()
         for p in range(len(self.d_percentiles)):

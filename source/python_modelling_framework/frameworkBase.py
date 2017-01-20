@@ -5,7 +5,7 @@ import re
 import sys
 import weakref
 try:
-  import shellscript
+  from . import shellscript
 except ImportError as error:
   print("PCRaster modelling framework error: {}".format(error))
   raise SystemExit
@@ -20,8 +20,13 @@ class WeakCallback (object):
     """
     def __init__(self, mcallback):
         """Create a new Weak Callback calling the method @mcallback"""
-        obj = mcallback.im_self
-        attr = mcallback.im_func.__name__
+        if sys.version_info.major == 2:
+            obj = mcallback.im_self
+            attr = mcallback.im_func.__name__
+        else:
+            obj = mcallback.__self__
+            attr = mcallback.__func__.__name__
+
         self.wref = weakref.ref(obj, self.object_deleted)
         self.callback_attr = attr
 

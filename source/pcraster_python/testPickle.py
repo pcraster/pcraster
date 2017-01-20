@@ -33,7 +33,7 @@ class TestPickle(testcase.TestCase):
 
       raster_ldd = pcraster.readmap(os.path.join("validated", "ldd_Result.map"))
       pickle.dump(raster_ldd, open("pickle_ldd.pkl", "w"))
-    except(Exception, e):
+    except Exception as e:
       print(e)
       no_assertion_raised = True
 
@@ -87,7 +87,7 @@ class TestPickle(testcase.TestCase):
     try:
       p = TestClass()
       pickle.dump(p, open("pickle_class.pkl", "w"))
-    except(Exception, e):
+    except Exception as e:
       print(e)
       no_assertion_raised = True
 

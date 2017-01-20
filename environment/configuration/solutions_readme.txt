@@ -14,16 +14,12 @@ jump through hoops to be able to build and use PCRaster. So:
   Geoneric to add it, or add support for building it yourself and send
   them a pull request.)
 
-Solutions can be build using the test_solutions.py command. It is located
+Solutions can be built using the test_solutions.py command. It is located
 in the devbase project, which is a submodule of the PCRaster source tree.
 
+Vagrant boxes used in solutions are automatically updated by the
+test_solutions.py script.
 
-Workflow, example:
-# List outdated Vagrant boxes
-vagrant box outdated --global
-
-# Update outdated Vagrant boxes
-vagrant box update --box <box_name>
 
 # Run all solutions, use 4 CPUs and 4Gb RAM.
 mkdir -p /tmp/solutions && rm -fr /tmp/solutions/*

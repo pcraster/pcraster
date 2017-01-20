@@ -123,7 +123,7 @@ def rasterToPNG(
   _drawGrid(array, cellWidth, image, draw)
 
   metadata = dataset.GetMetadata()
-  if metadata.has_key("PCRASTER_VALUESCALE") and \
+  if "PCRASTER_VALUESCALE" in metadata and \
       metadata["PCRASTER_VALUESCALE"] == "VS_LDD":
     _drawLdd(array, cellWidth, image, draw)
   else:

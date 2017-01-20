@@ -61,11 +61,12 @@ file(SHA1 ${CMAKE_CURRENT_BINARY_DIR}/operations.py operations_py_checksum)
 
 if( ( NOT ${op_expanded} STREQUAL "c1d7687a22a7e88a3637515554dd54e4f3779c2d" ) OR
     ( NOT ${operations_inc_checksum} STREQUAL "a7f4dc5eabd251bc6b12c1489f49dc68d7be9aa4" ) OR
-    ( NOT ${operations_py_checksum} STREQUAL "ab41e1c20eccb576cbab185df47cc81f6f684f91" )
+    ( NOT ${operations_py_checksum} STREQUAL "6827dcdd46a9848aa4b80d3f0cfac1d2335dce1f" )
   )
     message(FATAL_ERROR "The files operations.inc or operations.py are older than one of their dependencies. Update operations.inc.in or operations.py.in first; or contact the PCRaster Research and Development team in case you don't know how to proceed.")
-    # This is the previously executed command, results in something similar to this:
-    # xsltproc --path ~/development/projects/pcraster/source/pcraster_python/../xslt ~/development/objects/source/pcraster_python/OperationsToWrappers.xsl ~/development/projects/pcraster/source/pcraster_python/../pcraster_model_engine/operation.xml
+    # This is the previously executed command, results in something
+    # similar to this:
+    # xsltproc --path ../xslt OperationsToWrappers.xsl ../pcraster_model_engine/operation.xml
     #
     # ADD_CUSTOM_COMMAND(
     #     OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/operations.inc

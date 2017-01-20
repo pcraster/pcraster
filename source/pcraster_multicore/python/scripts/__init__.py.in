@@ -32,8 +32,8 @@ To set or query the number of worker threads use:
   set_nr_worker_threads, nr_threads
 
 """
-from _operations import *
-import _operators
+from ._operations import *
+from . import _operators
 
 from .__about__ import (
     __version__, __author__, __uri__, __license__, __copyright__

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import frameworkBase
+from . import frameworkBase
 
 
 

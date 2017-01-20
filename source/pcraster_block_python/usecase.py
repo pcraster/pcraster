@@ -25,7 +25,7 @@ sediment = INT4BlockData(block, 3)
 
 
 for i in range(block.nrCells()):
-  print i
+  print(i)
   sediment.setDefaultValue(i)
   compactors.setCompactor(i, DummyCompactor())
   setMVREAL4(thickness, i)
@@ -98,4 +98,4 @@ for i in range(nrLayers):
 # d_sampleData.d_block.resample(0.4) -> changed interface
 # d_sampleData.d_block.saveAsBinary() -> use profile which returns a raster
 
-print "done"
+print("done")

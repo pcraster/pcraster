@@ -3,11 +3,11 @@ import os
 import shutil
 import sys
 import time
-import dynamicFramework
-import forkscript
-import frameworkBase
-import staticFramework
-import system
+from . import dynamicFramework
+from . import forkscript
+from . import frameworkBase
+from . import staticFramework
+from . import system
 
 
 
@@ -37,7 +37,7 @@ class MonteCarloFramework(frameworkBase.FrameworkBase, forkscript.ForkScript):
     assert isinstance(nrSamples, int)
     try:
       self._setSampleNumbers(1, nrSamples)
-    except Exception, msg:
+    except Exception as msg:
       sys.stderr.write('Error: %s\n' % str(msg))
       sys.exit(1)
 

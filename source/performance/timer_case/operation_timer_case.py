@@ -58,14 +58,14 @@ def create_operation_timer_case(
     value_scales = [argument.value_scale for argument in operation.arguments]
     indices = []
 
-    for i in xrange(len(value_scales)):
+    for i in range(len(value_scales)):
         indices.append(value_scales[:i].count(value_scales[i]))
 
 
     def method(self):
         rasters = []
 
-        for i in xrange(len(value_scales)):
+        for i in range(len(value_scales)):
             rasters.append(
                 self.raster_by_value_scale[value_scales[i]][indices[i]])
 

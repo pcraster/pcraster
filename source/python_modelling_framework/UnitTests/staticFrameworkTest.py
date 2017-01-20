@@ -25,7 +25,7 @@ class staticFrameworkTestScript(testcase.TestCase):
     myModel = staticTestModels.T1()
     try:
       staticModel = sf.StaticFramework(myModel)
-    except FrameworkError, e:
+    except FrameworkError as e:
       self.assertEqual(str(e),"Cannot run static framework: Implement either an initial or a run method in the user class")
 
 
@@ -46,7 +46,7 @@ class staticFrameworkTestScript(testcase.TestCase):
     try:
       result = pcraster.readmap("static.map")
       self.failUnless(self.mapEquals(result, "plus.Result.map"), "test_4: %s" % ("Result and validated result are not the same"))
-    except Exception, exception:
+    except Exception as exception:
       self.failUnless(False, "test4: %s" % (str(exception)))
 
 

@@ -235,9 +235,9 @@ def _paragraphToRest(
     # elif child.tag == "entry":
     # elif child.tag == "tbody":
     elif child.tag == "xref":
-      assert not child.attrib.has_key("role") or \
+      assert not "role" in child.attrib or \
         child.attrib["role"] == "bibRef", child.attrib["role"]
-      if child.attrib.has_key("role") and child.attrib["role"] == "bibRef":
+      if "role" in child.attrib and child.attrib["role"] == "bibRef":
         result += ":ref:`%s <bibliography>`" % (child.attrib["linkend"])
       else:
         result += ":ref:`%s`" % (child.attrib["linkend"])
@@ -245,14 +245,14 @@ def _paragraphToRest(
       result += "\n\n.. _%s:\n\n" % (child.attrib["id"])
       assert not child.find("title") is None
       if child.find("graphic") is None:
-        print "Warning: figure with title \"%s\" has no graphic" % (
-          child.findtext("title").strip().replace("\n", " "))
+        print("Warning: figure with title \"%s\" has no graphic" % (
+          child.findtext("title").strip().replace("\n", " ")))
       else:
         result += ".. figure:: ../%s\n\n" % (
           child.find("graphic").attrib["fileref"])
       result += "   %s" % (_paragraphToRest(child.find("title")).strip().replace("\n", " "))
     elif child.tag == "graphic":
-      print "Warning: graphic outside of figure: %s" % (child.attrib["fileref"])
+      print("Warning: graphic outside of figure: %s" % (child.attrib["fileref"]))
     elif child.tag == "emphasis":
       result += ":emphasis:`%s`" % (_paragraphToRest(child))
     elif child.tag == "subscript":
@@ -359,7 +359,7 @@ def _paragraphToRest(
       result += _itemizedListToRest(child)
 
     elif child.tag == "glossseealso":
-      print "Warning: skipping 'glossseealso' of {0}".format(child.attrib["otherterm"])
+      print("Warning: skipping 'glossseealso' of {0}".format(child.attrib["otherterm"]))
     else:
       assert False, child.tag
 
@@ -483,7 +483,7 @@ class Section(Element):
 
     result = ""
 
-    if self.element.attrib.has_key("id"):
+    if "id" in self.element.attrib:
       result = "\n\n.. _%s:\n\n" % (self.element.attrib["id"])
 
     result += "%s\n%s\n" % (self.title, len(self.title) * underline[self.depth])
@@ -677,7 +677,7 @@ class Synopsis(Element):
         ## dataType = _paragraphToRest(entries[0]).strip().replace("\n", " ")
         ## valueType = None
         ## assert len(entries) == 3, len(entries)
-        print "Warning: skipped doc (%s) in synopsis of %s" % (_paragraphToRest(entries[0]).strip().replace("\n", " "), name)
+        print("Warning: skipped doc (%s) in synopsis of %s" % (_paragraphToRest(entries[0]).strip().replace("\n", " "), name))
         i += 1
         continue
       else:
@@ -726,7 +726,7 @@ class Synopsis(Element):
         # assert variable in parameters, "%s: %s" % (
         #  variable, parameters.keys())
         if not variable in parameters:
-          print "Warning: input parameter %s not documented" % (variable)
+          print("Warning: input parameter %s not documented" % (variable))
           inputs.append(Synopsis.Parameter(variable, [], []))
         else:
           inputs.append(parameters[variable])
@@ -735,7 +735,7 @@ class Synopsis(Element):
         # assert variable in parameters, "%s: %s" % (
         #  variable, parameters.keys())
         if not variable in parameters:
-          print "Warning: output parameter %s not documented" % (variable)
+          print("Warning: output parameter %s not documented" % (variable))
           outputs.append(Synopsis.Parameter(variable, [], []))
         else:
           outputs.append(parameters[variable])
@@ -805,7 +805,7 @@ class RefEntry(Element):
     ### print self.title
 
     if self.id in ["map2asc", "map2col", "table"]:
-      print "Warning: skipping refentry for %s" % (self.id)
+      print("Warning: skipping refentry for %s" % (self.id))
       return
 
     file_ = openFile(os.path.join(root, self.fileName()), "w")
@@ -867,8 +867,8 @@ class GlossEntry(Element):
     Element.__init__(self, element)
 
   def asRest(self):
-    print "Warning: glossary terms must be referred by using 'term', %s" % (
-      self.element.findtext("glossterm"))
+    print("Warning: glossary terms must be referred by using 'term', %s" % (
+      self.element.findtext("glossterm")))
     return "{0}\n   {1}\n".format(self.element.findtext("glossterm"),
       _paragraphToRest(self.element.find("glossdef")).strip().replace(
         "\n", " "))

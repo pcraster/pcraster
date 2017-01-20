@@ -93,10 +93,10 @@ ADD_CUSTOM_TARGET(examples.sentinel
 )
 
 ADD_CUSTOM_TARGET(check_man_pages
-    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/../../../source/pcraster_model_engine/operation.xml ${CMAKE_CURRENT_BINARY_DIR}/man_page.xml
-    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/../../../source/pcraster_model_engine/operation.dtd ${CMAKE_CURRENT_BINARY_DIR}/
-    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-    # pass directory path containing restructured text files
-    COMMAND ${PYTHON_EXECUTABLE} check_man_pages.py
-      ${CMAKE_CURRENT_SOURCE_DIR}/../sphinx
+    # COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/../../../source/pcraster_model_engine/operation.xml ${CMAKE_CURRENT_BINARY_DIR}/man_page.xml
+    # COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/../../../source/pcraster_model_engine/operation.dtd ${CMAKE_CURRENT_BINARY_DIR}/
+    # WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    # # pass directory path containing restructured text files
+    # COMMAND ${PYTHON_EXECUTABLE} check_man_pages.py
+    #   ${CMAKE_CURRENT_SOURCE_DIR}/../sphinx
 )

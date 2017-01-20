@@ -1,11 +1,11 @@
 import os, string, re
-import pcr
+from . import pcr
 
 def nrCPUs():
   nrCPUs = 0
   pattern = "^processor[ \t]*:[ \t][0-9]+$"
   matchObject = re.compile(pattern)
-  for line in file("/proc/cpuinfo", "r").readlines():
+  for line in open("/proc/cpuinfo", "r").readlines():
     if matchObject.match(line):
       nrCPUs += 1
   assert nrCPUs > 0

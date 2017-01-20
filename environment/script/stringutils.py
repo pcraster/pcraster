@@ -43,7 +43,7 @@ def replaceIdentifiers( str, replaceDict):
 
   def replaceId(matchObj):
      match = matchObj.string[matchObj.start():matchObj.end()]
-     if replaceDict.has_key(match):
+     if match in replaceDict:
        return replaceDict[match]
      return match
 

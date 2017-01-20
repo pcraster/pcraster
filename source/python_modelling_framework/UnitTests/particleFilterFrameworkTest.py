@@ -19,7 +19,7 @@ class ParticleFilterFrameworkTestScript(testcase.TestCase):
     staticModelFrw = sf.StaticFramework(staticModel)
     try:
       pfModel = pf.SequentialImportanceResamplingFramework(staticModelFrw)
-    except fb.FrameworkError, e:
+    except fb.FrameworkError as e:
       self.assertEqual(str(e),"Model must be instance of MonteCarloFramework")
 
 
@@ -29,11 +29,11 @@ class ParticleFilterFrameworkTestScript(testcase.TestCase):
     staticMcFrw = mc.MonteCarloFramework(staticModelFrw, 5)
     try:
       pfModel = pf.SequentialImportanceResamplingFramework(staticMcFrw)
-    except fb.FrameworkError, e:
+    except fb.FrameworkError as e:
       self.assertEqual(str(e),"Cannot run particle filter framework: Implement 'updateWeight' method")
     try:
       pfModel = pf.ResidualResamplingFramework(staticMcFrw)
-    except fb.FrameworkError, e:
+    except fb.FrameworkError as e:
       self.assertEqual(str(e),"Cannot run particle filter framework: Implement 'updateWeight' method")
 
     dynamicModel = pfTestModels.DynamicWithoutAll()
@@ -41,11 +41,11 @@ class ParticleFilterFrameworkTestScript(testcase.TestCase):
     dynamicMcFrw = mc.MonteCarloFramework(dynamicModelFrw, 5)
     try:
       pfModel = pf.SequentialImportanceResamplingFramework(dynamicMcFrw)
-    except fb.FrameworkError, e:
+    except fb.FrameworkError as e:
       self.assertEqual(str(e),"Cannot run particle filter framework: Implement 'updateWeight' method")
     try:
       pfModel = pf.ResidualResamplingFramework(dynamicMcFrw)
-    except fb.FrameworkError, e:
+    except fb.FrameworkError as e:
       self.assertEqual(str(e),"Cannot run particle filter framework: Implement 'updateWeight' method")
 
 
@@ -55,11 +55,11 @@ class ParticleFilterFrameworkTestScript(testcase.TestCase):
     staticMcFrw = mc.MonteCarloFramework(staticModelFrw, 5)
     try:
       pfModel = pf.SequentialImportanceResamplingFramework(staticMcFrw)
-    except fb.FrameworkError, e:
+    except fb.FrameworkError as e:
       self.assertEqual(str(e),"Cannot run particle filter framework: Implement 'suspend' method")
     try:
       pfModel = pf.ResidualResamplingFramework(staticMcFrw)
-    except fb.FrameworkError, e:
+    except fb.FrameworkError as e:
       self.assertEqual(str(e),"Cannot run particle filter framework: Implement 'suspend' method")
 
     dynamicModel = pfTestModels.DynamicWithoutSuspend()
@@ -67,11 +67,11 @@ class ParticleFilterFrameworkTestScript(testcase.TestCase):
     dynamicMcFrw = mc.MonteCarloFramework(dynamicModelFrw, 5)
     try:
       pfModel = pf.SequentialImportanceResamplingFramework(dynamicMcFrw)
-    except fb.FrameworkError, e:
+    except fb.FrameworkError as e:
       self.assertEqual(str(e),"Cannot run particle filter framework: Implement 'suspend' method")
     try:
       pfModel = pf.ResidualResamplingFramework(dynamicMcFrw)
-    except fb.FrameworkError, e:
+    except fb.FrameworkError as e:
       self.assertEqual(str(e),"Cannot run particle filter framework: Implement 'suspend' method")
 
 
@@ -81,11 +81,11 @@ class ParticleFilterFrameworkTestScript(testcase.TestCase):
     staticMcFrw = mc.MonteCarloFramework(staticModelFrw, 5)
     try:
       pfModel = pf.SequentialImportanceResamplingFramework(staticMcFrw)
-    except fb.FrameworkError, e:
+    except fb.FrameworkError as e:
       self.assertEqual(str(e),"Cannot run particle filter framework: Implement 'resume' method")
     try:
       pfModel = pf.ResidualResamplingFramework(staticMcFrw)
-    except fb.FrameworkError, e:
+    except fb.FrameworkError as e:
       self.assertEqual(str(e),"Cannot run particle filter framework: Implement 'resume' method")
 
     dynamicModel = pfTestModels.DynamicWithoutResume()
@@ -93,11 +93,11 @@ class ParticleFilterFrameworkTestScript(testcase.TestCase):
     dynamicMcFrw = mc.MonteCarloFramework(dynamicModelFrw, 5)
     try:
       pfModel = pf.SequentialImportanceResamplingFramework(dynamicMcFrw)
-    except fb.FrameworkError, e:
+    except fb.FrameworkError as e:
       self.assertEqual(str(e),"Cannot run particle filter framework: Implement 'resume' method")
     try:
       pfModel = pf.ResidualResamplingFramework(dynamicMcFrw)
-    except fb.FrameworkError, e:
+    except fb.FrameworkError as e:
       self.assertEqual(str(e),"Cannot run particle filter framework: Implement 'resume' method")
 
 

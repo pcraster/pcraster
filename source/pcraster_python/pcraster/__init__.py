@@ -14,12 +14,12 @@ if sys.platform == "win32":
         os.environ["PATH"] = pcraster_dll_pathname + os.pathsep + path_
 
 try:
-    from operations import *
-    import operators
-    from _pcraster import *
-    from _pcraster_modflow import *
-    from aguila import *
-    from numpy_operations import *
+    from .operations import *
+    from . import operators
+    from ._pcraster import *
+    from ._pcraster_modflow import *
+    from .aguila import *
+    from .numpy_operations import *
 
     try:
         _var = "PCRASTER_NR_WORKER_THREADS"

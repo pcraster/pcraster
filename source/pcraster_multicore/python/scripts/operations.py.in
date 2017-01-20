@@ -1,9 +1,14 @@
 # This file was generated during the PCRaster build.
 # Do not edit!
+import sys
 import types as _types
 import pcraster as _pcraster
-import _pcraster_multicore as _pmc
-import __builtin__
+from . import _pcraster_multicore as _pmc
+
+if sys.version_info.major == 2:
+    import __builtin__ as builtins
+else:
+    import builtins
 
 
 def set_nr_worker_threads(arg1):
@@ -96,7 +101,7 @@ def cover(*args):
 def max(*args):
     # Use the builtin Python max in case of non-PCRaster data types
     if _all_python_pod(*args):
-        return __builtin__.max(args)
+        return builtins.max(args)
     try:
         fields = _sort(*args)
         all_nonspatial = True
@@ -115,7 +120,7 @@ def max(*args):
 def min(*args):
     # Use the builtin Python max in case of non-PCRaster data types
     if _all_python_pod(*args):
-        return __builtin__.min(args)
+        return builtins.min(args)
     try:
         fields = _sort(*args)
         all_nonspatial = True

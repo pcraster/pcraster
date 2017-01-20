@@ -11,7 +11,7 @@ def getCellValue(Map, Row, Column):
   if Valid:
     return Value
   else:
-    print 'missing value in input of getCellValue'
+    print('missing value in input of getCellValue')
 
 def getCellValueAtBooleanLocation(location,map):
   # map can be any type, return value always float
@@ -21,7 +21,7 @@ def getCellValueAtBooleanLocation(location,map):
 
 def printCellValue(self, mapVariable, variableNameToPrint, unit, row, column):
   cellValue=getCellValue(mapVariable,row,column)
-  print variableNameToPrint + ' (' + unit + ') at row ' + str(row) + ', column: ' + str(column) + ' is: ' + str(cellValue)
+  print(variableNameToPrint + ' (' + unit + ') at row ' + str(row) + ', column: ' + str(column) + ' is: ' + str(cellValue))
 
 def onePeriod(self, startTime, endTime, timeStepDuration, currentTimeStep):
   # this could be separated in two functions, one converting hours to

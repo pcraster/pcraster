@@ -1,17 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import frameworkBase
-import mcFramework
+from . import frameworkBase
+from . import mcFramework
 import os
 import random
 import sys
 import shutil
-import dynamicFramework
+from . import dynamicFramework
 import numpy
 from numpy import linalg
 import pickle
-from frameworkBase import generateNameT, generateNameS, generateNameST
+from .frameworkBase import generateNameT, generateNameS, generateNameST
 
 ## \brief Framework for particle filter runs
 class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):

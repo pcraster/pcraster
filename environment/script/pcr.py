@@ -12,9 +12,9 @@ warnings.filterwarnings(u"ignore",
 
 Error = 'Exception raised in pcr.py library'
 
-class Exception(StandardError):
+class Exception(Exception):
   def __init__(self, message):
-    StandardError.__init__(self, message)
+    Exception.__init__(self, message)
 
 # copy all output printed also to file
 # like unix tee(1)
@@ -34,9 +34,9 @@ class StdoutTee:
 
 
 # Some constants.
-EXEMODE  = 0755
-DIRMODE  = 0755
-FILEMODE = 0444
+EXEMODE  = 0o755
+DIRMODE  = 0o755
+FILEMODE = 0o444
 
 
 
@@ -118,13 +118,13 @@ def createArchive(dir):
 # caseType can be a list of chars: c(orrect case) u(pper case) l(ower case)
 def replaceCase(caseTypes, str, wordToReplace, replaceWithWord):
   newStr = str;
-  for i in string.lower(caseTypes):
+  for i in caseTypes.lower():
    if i == 'c':
-     newStr = string.replace(newStr,wordToReplace,replaceWithWord)
+     newStr = newStr.replace(wordToReplace,replaceWithWord)
    elif i == 'u':
-     newStr = string.replace(newStr,string.upper(wordToReplace),string.upper(replaceWithWord))
+     newStr = newStr.replace(wordToReplace.upper(),replaceWithWord.upper())
    elif i == 'l':
-     newStr = string.replace(newStr,string.lower(wordToReplace),string.lower(replaceWithWord))
+     newStr = newStr.replace(wordToReplace.lower(),replaceWithWord.lower())
    else:
      assert i in "ulc"
 
@@ -138,10 +138,10 @@ def normalizeText(str,nl="\n"):
        lines = string.split(str,"\n")
        l   = []
        for i in lines:
-         str = string.join(string.split(i))
+         str = " ".join(string.split(i))
          if (str != ""):
            l.append(str)
-       return string.join(l,nl)
+       return nl.join(l)
 
 # Returns 1 if str contains whitespace characters.
 def containsWhiteSpace(str):
@@ -153,7 +153,7 @@ def containsWhiteSpace(str):
 # with arg: return os.path.join(PCRTREE,arg0,arg1,...)
 def pcrtree( *path ):
   def getEnv():
-    assert(os.environ.has_key('PCRTREE2'))
+    assert("PCRTREE2" in os.environ)
     return os.environ['PCRTREE2']
     # if os.name == 'posix':
     #   assert(os.environ.has_key('PCRTREE'))
@@ -171,7 +171,7 @@ def pcrtree( *path ):
 # returns value of DEVENV environment variable
 def devenv( *path ):
   def getEnv():
-    assert(os.environ.has_key('DEVENV'))
+    assert("DEVENV" in os.environ)
     return os.environ['DEVENV']
   p=getEnv()
   return p
@@ -237,11 +237,11 @@ else:
     def stdoutLines(self):
      return self.d_stdoutLines
     def stdoutText(self):
-     return string.join(self.d_stdoutLines)
+     return " ".join(self.d_stdoutLines)
     def stderrLines(self):
      return self.d_stderrLines
     def stderrText(self):
-     return string.join(self.d_stderrLines)
+     return " ".join(self.d_stderrLines)
     def exitStatus(self):
      return self.d_exitStatus
 
@@ -283,14 +283,14 @@ else:
        try:
          # linux requires string as 1st arg!
          if type(cmd) == list:
-          cmdStr=string.join(cmd)
+          cmdStr=" ".join(cmd)
          else:
           cmdStr=cmd
          process = subprocess.Popen(cmdStr,
               shell=True, bufsize=bufferSize,
               stdout=sOut.createFile(), stderr=sErr.createFile() )
          self.exitcode = process.wait()
-       except OSError, exception:
+       except OSError as exception:
          sOut.close()
          sErr.close()
          raise Exception(str(exception))
@@ -349,7 +349,7 @@ def pathNameToUrl(pathName):
   url = pathName
 
   if os.sep != '/':
-    url = string.replace(url, os.sep, '/')
+    url = url.replace(os.sep, '/')
 
   return url
 
@@ -418,11 +418,11 @@ def expandEnvVars(path):
   match = re.search(expression, path)
   while match != None:
     variable = match.group()
-    if not os.environ.has_key(variable[1:]):
+    if not variable[1:] in os.environ:
       start = start + len(variable)
     else:
       value = os.environ[variable[1:]]
-      path = string.replace(path, variable, value)
+      path = path.replace(variable, value)
       start = start + len(value)
     match = re.search(expression, path[start:end])
 
@@ -455,7 +455,7 @@ def replaceFromString(sourceString, searchStrings, replaceStrings):
   assert len(searchStrings) == len(replaceStrings)
   result = sourceString
   for i in range(len(searchStrings)):
-    result = string.replace(result, searchStrings[i], replaceStrings[i])
+    result = result.replace(searchStrings[i], replaceStrings[i])
   return result
 
 # Removes duplicate occurences in list. Returns new list.
@@ -468,7 +468,7 @@ def removeDuplicates(oldList):
 
 # Checks if address contains a valid email address.
 def isValidEmailAddress(address):
-  if string.find(address, "@") == -1:
+  if address.find("@") == -1:
     return 0
   return 1
 
@@ -513,7 +513,7 @@ def discover(dirsWithMakefile, path, names):
 # Returns the relative path from the directory to the top.
 def relPathUp(directory):
   directory = os.path.normpath(string.strip(directory))
-  if not directory or directory == "." or string.find(directory, "..") != -1:
+  if not directory or directory == "." or directory.find("..") != -1:
     return directory
 
   path = "."
@@ -586,4 +586,4 @@ def clVimFilter(msgs):
    # :cw gives me all messages in window
    output.append(reformat(l))
 
- return string.join(output,"\n")
+ return "\n".join(output)

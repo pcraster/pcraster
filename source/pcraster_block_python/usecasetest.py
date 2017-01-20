@@ -34,6 +34,6 @@ class UseCaseTest(unittest.TestCase):
     timeStep = model.d_timeStep
     timeStepStack = PCRasterBlock.real4VoxelStackData(timeStep, 1, 1)
 
-    for i in xrange(1, PCRasterBlock.nrVoxels(stack) + 1):
+    for i in range(1, PCRasterBlock.nrVoxels(stack) + 1):
       self.failUnlessEqual(math.fmod(
          PCRasterBlock.real4VoxelValue(timeStepStack, i), 1.0), 0.0)

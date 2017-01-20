@@ -229,22 +229,22 @@ Stuff
 """
 
 try:
-  from staticPCRasterBase import *
-  from dynamicPCRasterBase import *
-  from mcPCRasterBase import *
-  from pfPCRasterBase import *
-  from kfPCRasterBase import *
+  from .staticPCRasterBase import *
+  from .dynamicPCRasterBase import *
+  from .mcPCRasterBase import *
+  from .pfPCRasterBase import *
+  from .kfPCRasterBase import *
 
-  from staticFramework import *
-  from dynamicFramework import *
-  from mcFramework import *
-  from particleFilterFramework import *
-  from kalmanFilterFramework import *
-  from generalfunctions import *
-  from aggregationfunctions import *
-  from Timeoutput import *
+  from .staticFramework import *
+  from .dynamicFramework import *
+  from .mcFramework import *
+  from .particleFilterFramework import *
+  from .kalmanFilterFramework import *
+  from .generalfunctions import *
+  from .aggregationfunctions import *
+  from .Timeoutput import *
   # for backwards compatibility: generateNameXY
-  from frameworkBase import *
+  from .frameworkBase import *
 except ImportError as error:
   print("PCRaster modelling framework error: {}".format(error))
   raise SystemExit

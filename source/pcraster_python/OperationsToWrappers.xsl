@@ -18,7 +18,6 @@
     omit-xml-declaration="yes"
   >
     <xsl:text># &doNotEdit;
-import types
 import pcraster._pcraster as _pcraster&#xA;</xsl:text>
 <!--
     <xsl:apply-templates select="Operation[@syntax!='None'] | Operation[@name='if']" mode="py"/>

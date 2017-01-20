@@ -14,7 +14,7 @@ class IndexUnitTests(testcase.TestCase):
     exceptionThrown = False
     try:
       PlantSpecies = Index.Index([ "Species1", "Species1", "Species3" ])
-    except Exception, e:
+    except Exception as e:
       self.assertEqual(str(e), "Error in initialisation of class Index: array indices must be unique, Species1 already used")
       exceptionThrown = True
     self.assert_(exceptionThrown)
@@ -27,7 +27,7 @@ class IndexUnitTests(testcase.TestCase):
     PlantSpecies = Index.Index([ "Species1", "Species2", "Species3" ])
     try:
       PlantSpecies.Species1 = 5
-    except Exception, e:
+    except Exception as e:
       self.assertEqual(str(e), "Modification of an Index attribute not permitted")
       exceptionThrown = True
     self.assert_(exceptionThrown)
@@ -40,7 +40,7 @@ class IndexUnitTests(testcase.TestCase):
     PlantSpecies = Index.Index([ "Species1", "Species2", "Species3" ])
     try:
       PlantSpecies.__setattr__("Species4", 4)
-    except Exception, e:
+    except Exception as e:
       self.assertEqual(str(e), "Modification of an Index attribute not permitted")
       exceptionThrown = True
     self.assert_(exceptionThrown)
@@ -53,7 +53,7 @@ class IndexUnitTests(testcase.TestCase):
     PlantSpecies = Index.Index([ "Species1", "Species2", "Species3" ])
     try:
       PlantSpecies.__delattr__("Species3")
-    except Exception, e:
+    except Exception as e:
       self.assertEqual(str(e), "Removal of an Index attribute not permitted")
       exceptionThrown = True
     self.assert_(exceptionThrown)
@@ -64,7 +64,7 @@ class IndexUnitTests(testcase.TestCase):
     exceptionThrown = False
     try:
       PlantSpecies = Index.Index([])
-    except Exception, e:
+    except Exception as e:
       self.assertEqual(str(e), "Error in initialisation of class Index: no array indices provided")
       exceptionThrown = True
     self.assert_(exceptionThrown)
@@ -75,7 +75,7 @@ class IndexUnitTests(testcase.TestCase):
     exceptionThrown = False
     try:
       PlantSpecies = Index.Index(["TG=Tall=Grass", "SG=ShortGass"])
-    except Exception, e:
+    except Exception as e:
       self.assertEqual(str(e), "Error in initialisation of class Index: format of TG=Tall=Grass does not match Modelname = Externalname")
       exceptionThrown = True
     self.assert_(exceptionThrown)

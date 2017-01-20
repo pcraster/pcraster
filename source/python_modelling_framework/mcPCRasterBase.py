@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import pcraster
-import frameworkBase
-import mcBase
+from . import frameworkBase
+from . import mcBase
 
 
 
@@ -11,10 +11,10 @@ class MonteCarloModel(mcBase.MonteCarloBase):
     mcBase.MonteCarloBase.__init__(self)
 
   def premcloop(self):
-    print "premcloop not implemented"
+    print("premcloop not implemented")
 
   def postmcloop(self):
-    print "postmcloop not implemented"
+    print("postmcloop not implemented")
 
   def report(self,
     variable,

@@ -72,7 +72,7 @@ def makeDirectories(
   for subTree in directoryNameTree:
     if len(subTree) > 0:
       directoryName = os.path.join(root, subTree[0])
-      print "mkdir %s" % (os.path.join(directoryName))
+      print("mkdir %s" % (os.path.join(directoryName)))
       os.mkdir(os.path.join(directoryName))
       makeDirectories(directoryName, subTree[1:])
 

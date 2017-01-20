@@ -1,4 +1,5 @@
-import operations, pcraster, _pcraster
+import pcraster
+from . import operations, _pcraster
 
 def pcrAnd(self, field):
   return operations.pcrand(self, field)

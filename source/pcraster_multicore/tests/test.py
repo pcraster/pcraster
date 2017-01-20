@@ -24,9 +24,9 @@ class TestMulticore(unittest.TestCase):
       # Calculating the slope of a boolean map sucks.
       pcraster.setclone("and_Expr1.map")
       res = slope("and_Expr1.map")
-    except RuntimeError, exception:
+    except RuntimeError as exception:
       message = str(exception)
-      self.assert_(string.find(message, "argument nr. 1 of function 'slope': type is boolean, legal type is scalar") != -1)
+      self.assert_(message.find("argument nr. 1 of function 'slope': type is boolean, legal type is scalar") != -1)
       exceptionThrown = True
     self.assert_(exceptionThrown)
 
@@ -42,9 +42,9 @@ class TestMulticore(unittest.TestCase):
     exceptionThrown = False
     try:
       result = ifthenelse(1.0 == 2.0, 3.0, 4.0)
-    except RuntimeError, exception:
+    except RuntimeError as exception:
       message = str(exception)
-      self.assert_(string.find(message, "conversion function to pick a data type") != -1)
+      self.assert_(message.find("conversion function to pick a data type") != -1)
       exceptionThrown = True
     self.assert_(exceptionThrown)
 
@@ -257,7 +257,7 @@ class TestMulticore(unittest.TestCase):
     # Not OK
     bugzilla144 = False
     if not bugzilla144:
-      print "skipped bugzilla144"
+      print("skipped bugzilla144")
     else:
       value = 198329008
       i = 0
@@ -323,7 +323,7 @@ class TestMulticore(unittest.TestCase):
     exceptionThrown = False
     try:
      raster += None
-    except Exception, e:
+    except Exception as e:
       #msg = "right operand of operator '+': type is Python None, legal type is scalar"
       msg = "pcraster.multicore add: conversion of argument with type 'NoneType' to PCRaster not possible"
       self.assert_(str(e).find(msg) != -1, str(e))

@@ -93,7 +93,7 @@ class TimeoutputTimeseries(object):
       # store the data type for tss file header
       if self._spatialDatatype == None:
         self._spatialDatatype = str(expression.dataType())
-    except AttributeError, e:
+    except AttributeError as e:
       datatype, sep, tail = str(e).partition(" ")
       msg = "Argument must be a PCRaster map, type %s given. If necessary use data conversion functions like scalar()" % (datatype)
       raise AttributeError(msg)

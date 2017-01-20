@@ -26,7 +26,7 @@ def create_operation_timer_case(
     value_scales = [argument.value_scale for argument in operation.arguments]
     indices = []
 
-    for i in xrange(len(value_scales)):
+    for i in range(len(value_scales)):
         indices.append(value_scales[:i].count(value_scales[i]))
 
 
@@ -35,7 +35,7 @@ def create_operation_timer_case(
 
         rasters = []
 
-        for i in xrange(len(value_scales)):
+        for i in range(len(value_scales)):
             rasters.append(
                 self.raster_by_value_scale[value_scales[i]][indices[i]])
 
@@ -58,7 +58,7 @@ def add_operation_timer_cases():
     for operation in operations:
         function = getattr(operation_module, operation.name)
 
-        for n in xrange(1, nr_worker_threads + 1):
+        for n in range(1, nr_worker_threads + 1):
             timer_suite.add_method(create_operation_timer_case(
                 operation, function, n))
 

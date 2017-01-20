@@ -105,7 +105,7 @@ def buildType():
 # directory is returned.
 def objectsBuildTypeRoot(
          pathName=""):
-  assert(os.environ.has_key("OBJECTS"))
+  assert("OBJECTS" in os.environ)
   result = utils.environmentVariableAsNativePath("OBJECTS")
 
   if pathName:
@@ -125,7 +125,7 @@ def objectsBuildTypeRoot(
 # The root of the tests directory is the directory under which the project
 # specific tests directories are put.
 def testsRoot():
-  assert(os.environ.has_key("TESTS"))
+  assert("TESTS" in os.environ)
   return utils.environmentVariableAsNativePath("TESTS")
 
 
@@ -176,7 +176,7 @@ def newProject(
   def writeFile(
          fileName,
          content):
-    print "create %s" % (fileName)
+    print("create %s" % (fileName))
     file(fileName, "w").write(content)
 
   # Nested list of lists.
@@ -416,7 +416,7 @@ def reconfigureProject(
         return
 
     # Still here? Dunno how to fix this.
-    raise excinfo[0], excinfo[1]
+    raise excinfo[0](excinfo[1])
 
   os.chdir(objectsBuildTypeRoot())
   baseName = projectBaseName(name)

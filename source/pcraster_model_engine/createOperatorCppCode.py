@@ -26,7 +26,7 @@ def exec_(e):
    return e.getAttribute('exec')
 
 def opEnum(opName):
-  return "OP_%s" % string.upper(opName)
+  return "OP_%s" % opName.upper()
 
 def cr2Type(cr):
   Cr2Type = { '1':'UINT1', '4':'INT4', 'f':'REAL4' }
@@ -175,7 +175,7 @@ class Generator:
       templArgs="T"
       if self.domainFunction(e) != "":
         templArgs = "T, point::%s<T>" % name
-      template=string.replace(template,"T_A",templArgs)
+      template=template.replace("T_A",templArgs)
 
     self.pntImplH.write(template % (
          name,
@@ -266,7 +266,7 @@ class Generator:
        else: # GLOBAL
          ctorArgs= [ 'Do_'+name ]
      if len(ctorArgs):
-       self.biInc.write("static %s(%s);" % (typeAndName,string.join(ctorArgs,",")))
+       self.biInc.write("static %s(%s);" % (typeAndName,",".join(ctorArgs)))
 
 
   # create operationsInit.inc

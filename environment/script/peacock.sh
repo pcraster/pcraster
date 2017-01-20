@@ -7,11 +7,15 @@ function print_usage()
     echo -e "\
 usage: $0 [-h] <download_dir> <prefix> <source>
 
--h              Show (this) usage information.
+-h              Show (this) usage information
 
-download_dir    Directory to store downloaded files.
-prefix          Directory to install the resulting files.
-source          Directory of Peacock sources."
+download_dir    Directory to store downloaded files
+prefix          Directory to install the resulting files
+source          Directory of Peacock sources
+
+Additional CMake arguments can be passed by setting the variable
+CMAKE_ARGUMENTS before calling this script, e.g.:
+$ CMAKE_ARGUMENTS="-DPython_ADDITIONAL_VERSIONS=3" peacock.sh"
 }
 
 
@@ -130,7 +134,8 @@ function build_software()
     options+=("-Dfern_build_fern_test=true")
 
 
-    cmake "${options[@]}" $source
+    # printf '%s\n' "${options[@]}"
+    cmake $CMAKE_ARGUMENTS "${options[@]}" $source
     cmake --build . --target all
 }
 

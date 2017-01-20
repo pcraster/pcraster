@@ -6,8 +6,8 @@ import string
 import numpy
 import numpy.ma
 from pcraster import *
-from frameworkBase import generateNameS, generateNameT, generateNameST
-import generalfunctions, regression
+from .frameworkBase import generateNameS, generateNameT, generateNameST
+from . import generalfunctions, regression
 
 
 
@@ -124,7 +124,7 @@ class PercentileCalculator:
 
   def run(self,
     arrays):
-    for c in xrange(clone().nrRows() * clone().nrCols()):
+    for c in range(clone().nrRows() * clone().nrCols()):
       if len(arrays[c]) > 0:
         arrays[c].sort()
         for p in range(len(self.d_percentiles)):
@@ -489,7 +489,7 @@ def createtimeseriesnewfileformat(names,locations,sampleNumbers,timeSteps, quant
           tssFile.write("%d %g\n" % (step, value))
         tssFile.close()
   else:
-    print 'timeseries for monte carlo loops not yet available'
+    print('timeseries for monte carlo loops not yet available')
 
 
 
@@ -501,7 +501,7 @@ def createGstatRealizations(setOfRealizations, nameCommandFile, nameOutMapList):
   gstatTemplate=file(nameCommandFile + '.gst','r')
   gstatTemplateString=gstatTemplate.read()
   gstatTemplate.close()
-  gstatString=string.replace(gstatTemplateString,'NSIM',str(nSim))
+  gstatString=gstatTemplateString.replace('NSIM',str(nSim))
   gstatFile=file('tmpGstat.gst','w')
   gstatFile.write(gstatString)
   gstatFile.close()

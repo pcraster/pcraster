@@ -1,6 +1,7 @@
 """
 Utilities related to source code.
 """
+from __future__ import print_function
 import glob
 import os.path
 import re
@@ -82,7 +83,7 @@ def setDefaultsEnvSettingsAndSourceDotDevenv():
 
   _home = utils.environmentVariableAsNativePath("HOME")
 
-  if os.environ.has_key("DEVENVRC"):
+  if "DEVENVRC" in os.environ:
     _dotDevenvFile = utils.environmentVariableAsNativePath("DEVENVRC")
   else:
     _dotDevenvFile = os.path.join(_home, ".devenvrc")
@@ -91,19 +92,19 @@ def setDefaultsEnvSettingsAndSourceDotDevenv():
       _dotDevenvFile = os.path.join(_home, ".devenv")
 
   if os.path.exists(_dotDevenvFile):
-     execfile(_dotDevenvFile)
+     exec(open(_dotDevenvFile).read())
      for i in locals().keys():
        if i[0] != "_":
          if not i in _dotDevenv.keys():
-           print "Warning $HOME/.devenv:",i,"is not a recognized setting"
+           print("Warning $HOME/.devenv:",i,"is not a recognized setting")
          elif type(_dotDevenv[i]) != type(locals()[i]):
-           print "Warning $HOME/.devenv:",i,"does not have correct type"
+           print("Warning $HOME/.devenv:",i,"does not have correct type")
          else:
            _dotDevenv[i] = locals()[i]
 
        if i == "unitTestLogLevel" and _dotDevenv[i] not in \
           ["all","success","test_suite","message","warning","error","cpp_exception","system_error","fatal_error","nothing"]:
-           print "Warning $HOME/.devenv: unitTestLogLevel does not have a recognized value"
+           print("Warning $HOME/.devenv: unitTestLogLevel does not have a recognized value")
 
   return _dotDevenv
 
@@ -567,14 +568,14 @@ def cppPropertyCode(
       def d_(self):
         return "d_"+self.d_name
       def set(self):
-        return "set"+string.upper(self.d_name[0])+self.d_name[1:]
+        return "set"+self.d_name[0].upper()+self.d_name[1:]
       # as passed i/o to the object
       def typePass(self, outNs=0):
         if self.d_type in basicTypes:
           return self.d_type
         t = self.d_type
         # if outNs: # outside of namespace
-        #   if t[0] == string.upper(t[0]):
+        #   if t[0] == t[0].upper():
         #     # looks like a class with no ns
         #     # so it the guessed namespace
         #     t = ns+"::"+t
@@ -588,21 +589,21 @@ def cppPropertyCode(
         l = max(16,len(s))
         return "%-*s" % (l,s)
       def memberDef(self):
-        print "  %-*s %s;" % (self.d_typeLen,self.d_type,self.d_())
+        print("  %-*s %s;" % (self.d_typeLen,self.d_type,self.d_()))
       def getDecl(self):
-        print "  %s %-20s() const;" % (self.typePassFmt(),self.d_name)
+        print("  %s %-20s() const;" % (self.typePassFmt(),self.d_name))
       def setDecl(self):
-        print "  %-17s%-20s(%s %s);" % \
-          ("void",self.set(),self.typePass(),self.d_name)
+        print("  %-17s%-20s(%s %s);" %
+          ("void",self.set(),self.typePass(),self.d_name))
       def getDef(self):
-        print "//! get value of %s" % self.d_name
-        print "%s %s::%s() const\n{" % (self.typePass(1),className(),self.d_name)
-        print "  return %s;\n}\n" % (self.d_())
+        print("//! get value of %s" % self.d_name)
+        print("%s %s::%s() const\n{" % (self.typePass(1),className(),self.d_name))
+        print("  return %s;\n}\n" % (self.d_()))
       def setDef(self):
-        print "//! set value of %s" % self.d_name
-        print "void %s::%s(%s %s)\n{" % \
-           (className(),self.set(),self.typePass(),self.d_name)
-        print "  %s=%s;\n}\n" % (self.d_(),self.d_name)
+        print("//! set value of %s" % self.d_name)
+        print("void %s::%s(%s %s)\n{" %
+           (className(),self.set(),self.typePass(),self.d_name))
+        print("  %s=%s;\n}\n" % (self.d_(),self.d_name))
 
 
     # TODO implement generic C++ comment stripping
@@ -614,9 +615,9 @@ def cppPropertyCode(
       if len(line) == 0:
         continue
       if line[0] == '=':
-         print _cppCopyAndAssignmentCode(className())
+         print(_cppCopyAndAssignmentCode(className()))
          continue
-      type= string.join(string.split(line)[:-1])
+      type= " ".join(string.split(line)[:-1])
       name= string.split(line)[-1]
       members.append(Member(type,name))
 
@@ -856,13 +857,13 @@ def _buildVSProject(
          not "Project " in line and \
          not "warning MSB4098:" in line and \
          not "Done building project " in line:
-         print line,
+         print(line, end="")
 
 
 
 def _buildVSObject(
          name):
-  print "Building VS objects is not supported yet..."
+  print("Building VS objects is not supported yet...")
 
 
 
@@ -1107,7 +1108,7 @@ def _buildCMakeTarget(
 
   cwd = os.getcwd()
   os.chdir(objectsDirectory)
-  if os.environ.has_key("MAKEFLAGS"):
+  if "MAKEFLAGS" in os.environ:
     # Gnu make controls most makefiles in project directories. On windows we
     # use nmake to build targets for C++ code. When nmake is (indirectly)
     # called from gnu make it complains about the MAKEFLAGS set by gnu make.
@@ -1163,7 +1164,7 @@ def _buildSconsProject(
   status, stdout, stderr = utils.execute("pythonwrapper scons %s" % (options))
 
   assert len(stderr) == 0
-  print stdout
+  print(stdout)
 
 
 
@@ -1174,7 +1175,7 @@ def _buildSconsObject(
   status, stdout, stderr = utils.execute("pythonwrapper scons %s" % (options))
 
   assert len(stderr) == 0
-  print stdout
+  print(stdout)
 
 
 
@@ -1193,8 +1194,8 @@ def _buildMakeObject(
   options = "-C %s" % (os.path.split(name)[0])
   status, stdout, stderr = utils.execute(
          "make %s %s" % (options, os.path.split(name)[1]))
-  print stdout
-  print stderr
+  print(stdout)
+  print(stderr)
 
 
 
@@ -1254,7 +1255,7 @@ def buildProject(
     result = _buildMakeProject(path)
   else:
     assert type == ""
-    print "I don't now what to do..., add logic to codeutils.py:buildProject"
+    print("I don't now what to do..., add logic to codeutils.py:buildProject")
 
   return result
 
@@ -1271,7 +1272,7 @@ def cleanProject(
     result = _cleanCMakeProject(path)
   else:
     assert type == ""
-    print "I don't now what to do..., add logic to codeutils.py:cleanProject"
+    print("I don't now what to do..., add logic to codeutils.py:cleanProject")
 
   return result
 
@@ -1297,7 +1298,7 @@ def buildObject(
     result = _buildMakeObject(path)
   else:
     assert type == ""
-    print "I don't now what to do..., add logic to codeutils.py:buildObject"
+    print("I don't now what to do..., add logic to codeutils.py:buildObject")
 
   return result
 
@@ -1379,15 +1380,15 @@ def rename(
   currentNamespace, currentName = splitName(currentName)
   newNamespace, newName = splitName(newName)
 
-  print "renaming %s::%s to %s::%s..." % (
-         currentNamespace, currentName, newNamespace, newName)
+  print("renaming %s::%s to %s::%s..." % (
+         currentNamespace, currentName, newNamespace, newName))
 
   for filename in filenames:
     # Determine namespace in file.
     contents = file(filename).read().decode("utf-8")
     namespace = guessNamespace(filename=filename, contents=contents)
     className = guessClassName(contents=contents)
-    print "%s (%s::%s)" % (filename, namespace, className)
+    print("%s (%s::%s)" % (filename, namespace, className))
 
     # Rename NAMESPACE_NAME symbols.
     contents = stringutils.replaceCase("u", contents,
@@ -1642,7 +1643,7 @@ def updateProjects(
   result = 0
 
   for name in names:
-    print name
+    print(name)
     result = updateProject(name)
 
     if result != 0:
@@ -1723,7 +1724,7 @@ class CppFileGenerator:
 
     self.write('/*!\n\\note\nDo not edit, generated from %s\n*/' % generatedFrom)
     if self.d_type == '.h':
-      umn=string.upper(moduleName)
+      umn=moduleName.upper()
       self.write('#ifndef INCLUDED_%s\n#define INCLUDED_%s\n\n' % (umn,umn))
     elif self.d_type == '.cc':
       self.write('#ifndef INCLUDED_STDDEFX\n#include "stddefx.h"\n'+\

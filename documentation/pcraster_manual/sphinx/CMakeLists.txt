@@ -167,7 +167,7 @@ create_sphinx_docs(
 )
 
 add_dependencies(manual
-    examples.sentinel
+    generate_examples.sentinel
     preprocessFigures
 )
 

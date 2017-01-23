@@ -481,7 +481,7 @@ if(PCRASTER_BUILD_TEST)
 
     add_dependencies(pcraster_model_engine_unit_test_utils
         pcraster_model_engine
-        examples.sentinel
+        generate_examples.sentinel
         # OLS: below ones from the old setup; here just added
         # mapattr asc2map
         # example1 example2 exampleCpp

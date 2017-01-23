@@ -15,7 +15,7 @@ if(NOT (WIN32 AND (${CMAKE_BUILD_TYPE} STREQUAL Debug)))
 
   set_tests_properties(python_modelling_framework_unit_tests PROPERTIES
     DEPENDS
-      examples.sentinel
+      generate_examples.sentinel
     DEPENDS
       mapattr
     DEPENDS

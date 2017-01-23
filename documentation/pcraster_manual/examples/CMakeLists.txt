@@ -86,7 +86,7 @@ ADD_CUSTOM_COMMAND(
         ${CMAKE_CURRENT_SOURCE_DIR}/ScriptSamples.py
 )
 
-ADD_CUSTOM_TARGET(examples.sentinel
+ADD_CUSTOM_TARGET(generate_examples.sentinel
     DEPENDS
         check_man_pages
         ${CMAKE_CURRENT_BINARY_DIR}/examples.sentinel

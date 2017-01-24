@@ -54,8 +54,6 @@ ADD_CUSTOM_COMMAND(
         --format=makefile ${CMAKE_CURRENT_BINARY_DIR}/generatedMakefile
 
     COMMAND make -f ${CMAKE_CURRENT_BINARY_DIR}/generatedMakefile
-        manualInclusionFiles
-    COMMAND make -f ${CMAKE_CURRENT_BINARY_DIR}/generatedMakefile
         testInputFiles
 
     COMMAND ${PYTHON_EXECUTABLE}
@@ -100,3 +98,15 @@ ADD_CUSTOM_TARGET(check_man_pages
     # COMMAND ${PYTHON_EXECUTABLE} check_man_pages.py
     #   ${CMAKE_CURRENT_SOURCE_DIR}/../sphinx
 )
+
+
+if(PCRASTER_BUILD_DOCUMENTATION)
+
+    ADD_CUSTOM_COMMAND(
+        TARGET generate_examples.sentinel
+        POST_BUILD
+        COMMAND make -f ${CMAKE_CURRENT_BINARY_DIR}/generatedMakefile
+            manualInclusionFiles
+    )
+
+endif()

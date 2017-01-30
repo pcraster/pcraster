@@ -43,7 +43,7 @@ if(MSVC)
         "${CMAKE_C_FLAGS} "
     )
 
-    # add /w3 
+    # add /w3
     # disable these warnings? /wd4251
     set(CMAKE_CXX_FLAGS
         "${CMAKE_CXX_FLAGS} /std:c++14 "

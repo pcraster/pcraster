@@ -262,7 +262,8 @@ namespace calc {
 
 
 
-#if _MSC_VER == 1400
+#if _MSC_VER // == 1400
+#error // check _MSC_VER
 #ifdef DEBUG_DEVELOP
    // Bugzilla 178
 

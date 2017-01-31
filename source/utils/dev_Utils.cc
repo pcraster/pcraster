@@ -68,7 +68,8 @@ namespace detail {
 */
 void end(std::ostringstream& stream)
 {
-#if _MSC_VER != 1400
+#if _MSC_VER // != 1400
+  #error // check _MSC_VER
   stream << std::ends;
 #endif
 }

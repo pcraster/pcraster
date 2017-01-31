@@ -40,7 +40,8 @@ BOOST_AUTO_TEST_CASE(testAll)
      }
      msgs << failMsgs.size() << " MANUAL EXAMPLES FAILURES OUT OF " << et.size() << "\n";
     }
-#if _MSC_VER == 1400
+#if _MSC_VER // == 1400
+#error // check _MSC_VER
 #ifdef DEBUG_DEVELOP
    // Bugzilla 178
    nrFailuresAllowed=2;

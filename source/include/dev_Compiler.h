@@ -5,7 +5,8 @@
   // Prepend each pragma with the warning message.
 
   #if defined(_MSC_VER)
-    #if _MSC_VER == 1400 || _MSC_VER == 1500
+    #error // check _MSC_VER
+    //#if _MSC_VER == 1400 || _MSC_VER == 1500
 
       // class 'A' needs to have dll interface for to be used by clients of
       // class 'B'.
@@ -15,6 +16,6 @@
       // DLL-interface classkey 'identifier'.
       #pragma warning(disable: 4275)
 
-    #endif
+    //#endif
   #endif
 #endif

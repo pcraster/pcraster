@@ -10,7 +10,8 @@
 #endif
 
 #if defined(_MSC_VER)
-  #if _MSC_VER == 1500
+  #if _MSC_VER // == 1500
+    #error // check _MSC_VER
     #pragma warning(disable: 4244)
   #endif
 #endif
@@ -19,7 +20,7 @@
 #define INCLUDED_BOOST_SPIRIT_INCLUDE_CLASSIC
 #endif
 #if defined(_MSC_VER)
-  #if _MSC_VER == 1500
+  #if _MSC_VER // == 1500
     #pragma warning(default: 4244)
   #endif
 #endif

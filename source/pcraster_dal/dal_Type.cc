@@ -44,7 +44,29 @@ namespace dal {
  static Real8Type  real8Type;
  static StringType stringType;
 
-#if _MSC_VER != 1400
+#if _MSC_VER // != 1400
+  #error // check _MSC_VER
+  TypeId const TypeTraits<UINT1>::typeId = TI_UINT1;
+  CSF_CR const TypeTraits<UINT1>::csfCr  = CR_UINT1;
+  TypeId const TypeTraits<UINT2>::typeId = TI_UINT2;
+  CSF_CR const TypeTraits<UINT2>::csfCr  = CR_UINT2;
+  TypeId const TypeTraits<UINT4>::typeId = TI_UINT4;
+  CSF_CR const TypeTraits<UINT4>::csfCr  = CR_UINT4;
+  TypeId const TypeTraits<INT1>::typeId = TI_INT1;
+  CSF_CR const TypeTraits<INT1>::csfCr  = CR_INT1;
+  TypeId const TypeTraits<INT2>::typeId = TI_INT2;
+  CSF_CR const TypeTraits<INT2>::csfCr  = CR_INT2;
+  TypeId const TypeTraits<INT4>::typeId = TI_INT4;
+  CSF_CR const TypeTraits<INT4>::csfCr  = CR_INT4;
+  TypeId const TypeTraits<REAL4>::typeId = TI_REAL4;
+  CSF_CR const TypeTraits<REAL4>::csfCr  = CR_REAL4;
+  TypeId const TypeTraits<REAL8>::typeId = TI_REAL8;
+  CSF_CR const TypeTraits<REAL8>::csfCr  = CR_REAL8;
+  TypeId const TypeTraits<std::string>::typeId = TI_STRING;
+  TypeId const TypeTraits<std::vector<UINT1> >::typeId = TI_UINT1_VECTOR;
+  TypeId const TypeTraits<std::vector<INT4> >::typeId = TI_INT4_VECTOR;
+  TypeId const TypeTraits<std::vector<REAL4> >::typeId = TI_REAL4_VECTOR;
+#else
   TypeId const TypeTraits<UINT1>::typeId = TI_UINT1;
   CSF_CR const TypeTraits<UINT1>::csfCr  = CR_UINT1;
   TypeId const TypeTraits<UINT2>::typeId = TI_UINT2;

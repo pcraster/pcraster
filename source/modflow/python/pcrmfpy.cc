@@ -38,7 +38,17 @@
 
 // Module headers.
 
-
+#if _MSC_VER == 1900
+  // Workaround wrt Boost Python and VS2015v3
+  namespace boost
+  {
+    template <>
+    calc::Field const volatile * get_pointer(class calc::Field const volatile *f)
+    {
+        return f;
+    }
+  }
+#endif
 
 
 

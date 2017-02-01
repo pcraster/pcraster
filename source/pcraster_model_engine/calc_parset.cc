@@ -21,6 +21,8 @@
 #define INCLUDED_CALC_ASTPAR
 #endif
 
+#include <iterator>
+
 //! find or return 0
 /*!
  * hides std::set<>::find.

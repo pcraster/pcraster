@@ -26,6 +26,7 @@
 #define INCLUDED_CALC_CELLUNION
 #endif
 
+#include <algorithm>
 
 /*!
   \file

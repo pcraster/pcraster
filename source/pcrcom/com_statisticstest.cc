@@ -64,7 +64,7 @@ BOOST_AUTO_TEST_CASE(average)
 
   double values[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
   const size_t nrValues = ARRAY_SIZE(values);
-  Average<> a = std::for_each(values, values + nrValues, 
+  Average<> a = std::for_each(values, values + nrValues,
       Average<>());
 
   BOOST_CHECK(a.sum() == 55);
@@ -84,7 +84,7 @@ BOOST_AUTO_TEST_CASE(average_min_max)
   {
     double values[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
     const size_t nrValues = ARRAY_SIZE(values);
-    AverageMinMax<double> a = std::for_each(values, values + nrValues, 
+    AverageMinMax<double> a = std::for_each(values, values + nrValues,
         AverageMinMax<double>());
 
     BOOST_CHECK(a.sum() == 55);
@@ -96,7 +96,7 @@ BOOST_AUTO_TEST_CASE(average_min_max)
   {
     double values[] = { 6, 2, 10, 4, 5, 1, 7, 8, 9, 3 };
     const size_t nrValues = ARRAY_SIZE(values);
-    AverageMinMax<double> a = std::for_each(values, values + nrValues, 
+    AverageMinMax<double> a = std::for_each(values, values + nrValues,
         AverageMinMax<double>());
 
     BOOST_CHECK(a.sum() == 55);
@@ -274,12 +274,13 @@ BOOST_AUTO_TEST_CASE(percentile_)
   BOOST_CHECK(*percentile<I>(val.begin(),val.end(),0.9994) == val.size()-1);
   BOOST_CHECK( percentile<I>(val.begin(),val.end(),0.9994) == val.end()-1);
 
-#ifdef _MSC_VER
-  // bugzilla #80
-  BOOST_WARN(*percentile<I>(val.begin(),val.end(),0.6)  == 5);
-#else
+// OLS: check again with the new windows build...
+// #ifdef _MSC_VER
+//   // bugzilla #80
+//   BOOST_WARN(*percentile<I>(val.begin(),val.end(),0.6)  == 5);
+// #else
   BOOST_CHECK(*percentile<I>(val.begin(),val.end(),0.6)  == 5);
-#endif
+// #endif
 
   BOOST_CHECK(*percentile<I>(val.begin(),val.end(),0.47) == 4);
 
@@ -288,14 +289,14 @@ BOOST_AUTO_TEST_CASE(percentile_)
   BOOST_CHECK(*percentile<I>(val.begin(),val.end(),1,
                          statisticsTest::Reverse())  == 0);
 
-#ifdef _MSC_VER
-  // bugzilla #80
-  BOOST_WARN(*percentile<I>(val.begin(),val.end(),0.6,
-                         statisticsTest::Reverse())  == 4);
-#else
+// #ifdef _MSC_VER
+//   // bugzilla #80
+//   BOOST_WARN(*percentile<I>(val.begin(),val.end(),0.6,
+//                          statisticsTest::Reverse())  == 4);
+// #else
   BOOST_CHECK(*percentile<I>(val.begin(),val.end(),0.6,
                          statisticsTest::Reverse())  == 4);
-#endif
+// #endif
  }
  {
   T e;

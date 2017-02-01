@@ -24,6 +24,8 @@
 #define INCLUDED_COM_ALGORITHM
 #endif
 
+#include <functional>
+
 // Module headers.
 
 

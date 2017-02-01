@@ -84,6 +84,8 @@
 #define INCLUDED_CALC_DOUBLEASS
 #endif
 
+#include <algorithm>
+
 extern "C" {
 /* implementation of the operations */
 #include "dassfunc.h"

@@ -60,12 +60,13 @@ private:
   //! Command name as used on the command line.
   const std::string d_command;
 
-  #if _MSC_VER == 1400
+  #if _MSC_VER // == 1400
+    #error // check _MSC_VER
     #pragma warning(disable:4251)
   #endif
   //! Command line arguments.
   CommandLineArguments d_arguments;
-  #if _MSC_VER == 1400
+  #if _MSC_VER // == 1400
     #pragma warning(default:4251)
   #endif
 

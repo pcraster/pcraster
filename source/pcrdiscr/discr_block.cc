@@ -62,14 +62,16 @@ Block::Block(
          double north)
 
   : Raster(nrRows, nrCols, cellSize, west, north),
-#if _MSC_VER == 1400
+#if _MSC_VER // == 1400
+  #error // check _MSC_VER
+  // more 1400 in this file...
   #pragma warning(disable:4355)
 #endif
     // Yes, in general not a good idea to pass the this pointer to a base
     // class since the object is not construted yet. But we only pass the
     // Raster base stuff to the RasterData base and Raster base IS constructed.
     RasterData<VoxelStack>(static_cast<Raster const*>(this))
-#if _MSC_VER == 1400
+#if _MSC_VER // == 1400
   #pragma warning(default:4355)
 #endif
 

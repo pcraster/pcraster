@@ -79,30 +79,31 @@ private:
   //! Argument vector.
   char**           d_argv;
 
-  #if _MSC_VER == 1400
+  #if _MSC_VER // == 1400
+    #error // check _MSC_VER
     #pragma warning(disable:4251)
   #endif
   //! Command line argument for help about the command.
   Option           d_helpArg;
-  #if _MSC_VER == 1400
+  #if _MSC_VER // == 1400
     #pragma warning(default:4251)
   #endif
 
-  #if _MSC_VER == 1400
+  #if _MSC_VER // == 1400
     #pragma warning(disable:4251)
   #endif
   //! Command line argument for version of the command.
   Option           d_versionArg;
-  #if _MSC_VER == 1400
+  #if _MSC_VER // == 1400
     #pragma warning(default:4251)
   #endif
 
-  #if _MSC_VER == 1400
+  #if _MSC_VER // == 1400
     #pragma warning(disable:4251)
   #endif
   //! Command line argument for license information.
   Option           d_licenseArg;
-  #if _MSC_VER == 1400
+  #if _MSC_VER // == 1400
     #pragma warning(default:4251)
   #endif
 

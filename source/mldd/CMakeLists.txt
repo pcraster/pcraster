@@ -59,6 +59,7 @@ include_directories(
 
 ADD_LIBRARY(mldd
     SHARED
+    STATIC
     ${SOURCES}
     #sourcesLibDummy.cc
 )

@@ -193,17 +193,13 @@ class TimeoutputTimeseries(object):
     appends timeseries file extension if necessary
     prepends sample directory if used in stochastic
     """
+    assert not os.path.isabs(filename), filename
 
-    # test if suffix or path is given
-    head, tail = os.path.split(filename)
+    if not os.path.splitext(filename)[1]:
+      filename += ".tss"
 
-    if not re.search("\.tss", tail):
-      # content,sep,comment = filename.partition("-")
-      # filename = content + "Tss" + sep + comment + ".tss"
-      filename = tail + ".tss"
-
-    # for stochastic add sample directory
     if hasattr(self._userModel, "nrSamples"):
-      filename = os.path.join(str(self._userModel.currentSampleNumber()), filename)
+      filename = os.path.join(str(self._userModel.currentSampleNumber()),
+        filename)
 
     return filename

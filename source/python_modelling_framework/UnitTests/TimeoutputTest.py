@@ -136,14 +136,46 @@ class TimeoutputTest(testcase.TestCase):
 
       def initial(self):
         # initialise timeoutput
+        os.mkdir("dirForTest8")
         self.tss = TimeoutputTimeseries(os.path.join("dirForTest8","test8"), self, "mask.map")
 
       def dynamic(self):
         self.tss.sample(spatial(scalar(1)))
 
-    os.mkdir("dirForTest8")
     m = Model("mask.map")
     dynModelFw = DynamicFramework(m, lastTimeStep=4)
     dynModelFw.run()
-    # self.assert_(os.path.exists(os.path.join("dirForTest8","test8.tss")))
+    self.assert_(os.path.exists(os.path.join("dirForTest8","test8.tss")))
 
+  def test9(self):
+    class Model(DynamicModel, MonteCarloModel):
+      def __init__(self, cloneMap):
+        DynamicModel.__init__(self)
+        MonteCarloModel.__init__(self)
+        setclone(cloneMap)
+
+      def premcloop(self):
+          pass
+
+      def initial(self):
+        # initialise timeoutput
+        os.mkdir("{}/{}".format(self.currentSampleNumber(), "dirForTest9"))
+        self.tss = TimeoutputTimeseries(os.path.join("dirForTest9","test9"),
+            self, "mask.map")
+
+      def dynamic(self):
+        self.tss.sample(spatial(scalar(1)))
+
+      def postmcloop(self):
+          pass
+
+    m = Model("mask.map")
+    dynModelFw = DynamicFramework(m, lastTimeStep=4)
+    mcModelFw = MonteCarloFramework(dynModelFw, nrSamples=2)
+    mcModelFw.run()
+    self.assertTrue(os.path.exists(os.path.join("1", "dirForTest9",
+      "test9.tss")))
+    self.assertTrue(os.path.exists(os.path.join("2", "dirForTest9",
+      "test9.tss")))
+    self.assertFalse(os.path.exists(os.path.join("3", "dirForTest9",
+      "test9.tss")))

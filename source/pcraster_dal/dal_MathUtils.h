@@ -2,13 +2,6 @@
 #define INCLUDED_DAL_MATHUTILS
 
 
-#if BOOST_VERSION > 105800
-#include <boost/test/tools/floating_point_comparison.hpp>
-#else
-#include <boost/test/floating_point_comparison.hpp>
-#endif
-
-
 // Library headers.
 #ifndef INCLUDED_CASSERT
 #include <cassert>
@@ -49,6 +42,12 @@
 #ifndef INCLUDED_BOOST_VERSION
 #include <boost/version.hpp>
 #define INCLUDED_BOOST_VERSION
+#endif
+
+#if BOOST_VERSION > 105800
+#include <boost/test/tools/floating_point_comparison.hpp>
+#else
+#include <boost/test/floating_point_comparison.hpp>
 #endif
 
 // PCRaster library headers.

@@ -109,7 +109,7 @@ function build_software()
     if [[ ! -v skip_build_qt || $skip_build_qt != 1 ]]; then
         options+=("-Dbuild_qt=true")
         # TODO Not supported yet: https://github.com/geoneric/peacock/issues/53
-        options+=("-Dqt_version=5.7.0")
+        options+=("-Dqt_version=5.7.1")
     fi
 
 

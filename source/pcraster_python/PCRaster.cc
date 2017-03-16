@@ -1,6 +1,11 @@
 // This header first!
 #include <boost/python.hpp>
 
+#ifndef INCLUDED_BOOST_VERSION
+#include <boost/version.hpp>
+#define INCLUDED_BOOST_VERSION
+#endif
+
 #if BOOST_VERSION > 105800
 #include <boost/test/tools/floating_point_comparison.hpp>
 #else

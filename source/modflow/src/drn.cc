@@ -312,11 +312,12 @@ void DRN::write(std::string const& path) const{
   // # drn cells is calculated by write_list
   assert(d_nr_drain_cells != 0);
 
+  std::string filename = mf::execution_path(path, "pcrmf.drn");
 
-  std::ofstream content("pcrmf.drn");
+  std::ofstream content(filename);
 
   if(!content.is_open()){
-    std::cerr << "Can not write " << "pcrmf.drn" << std::endl;
+    std::cerr << "Can not write " << filename << std::endl;
     exit(1);
   }
 
@@ -337,11 +338,12 @@ void DRN::write(std::string const& path) const{
 
 void DRN::write_list(std::string const& path) {
 
+  std::string filename = mf::execution_path(path, "pcrmf_drn.asc");
 
-  std::ofstream content("pcrmf_drn.asc");
+  std::ofstream content(filename);
 
   if(!content.is_open()){
-    std::cerr << "Can not write " << "pcrmf_drn.asc" << std::endl;
+    std::cerr << "Can not write " << filename << std::endl;
 
     exit(1);
   }

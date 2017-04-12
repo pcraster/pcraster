@@ -111,13 +111,13 @@ install:
     - export MAKEFLAGS='-j2'
     - mkdir build
     - cd build
-    - cmake -G"${TRAVIS_CMAKE_GENERATOR}" -Dpeacock_prefix=$TRAVIS_BUILD_DIR/local -Dbuild_pcraster_raster_format=true -Dpcraster_raster_format_version=1.3.1 -Dbuild_qwt=true -Dqwt_version=6.1.2 -Dbuild_gdal=true -Dgdal_version=2.0.1 -Dbuild_fern=true -Dfern_git_repository=https://github.com/geoneric/fern.git -Dfern_git_tag=f67bdc78b21932025dd85b085c9bcf3464979de9 -Dfern_build_fern_algorithm=true -Dfern_build_fern_documentation=false -Dfern_build_fern_test=false ..
+    - cmake -G"${TRAVIS_CMAKE_GENERATOR}" -DCMAKE_C_COMPILER=gcc-4.9 -DCMAKE_CXX_COMPILER=g++-4.9 -Dpeacock_prefix=$TRAVIS_BUILD_DIR/local -Dbuild_pcraster_raster_format=true -Dpcraster_raster_format_version=1.3.1 -Dbuild_qwt=true -Dqwt_version=6.1.2 -Dbuild_gdal=true -Dgdal_version=2.0.1 -Dbuild_fern=true -Dfern_git_repository=https://github.com/geoneric/fern.git -Dfern_git_tag=f67bdc78b21932025dd85b085c9bcf3464979de9 -Dfern_build_fern_algorithm=true -Dfern_build_fern_documentation=false -Dfern_build_fern_test=false ..
     - cmake --build . --target all
 
 before_script:
     - mkdir $TRAVIS_BUILD_DIR/build
     - cd $TRAVIS_BUILD_DIR/build
-    - cmake -G"${TRAVIS_CMAKE_GENERATOR}" -DPEACOCK_PREFIX:PATH=$TRAVIS_BUILD_DIR/local -DCMAKE_BUILD_TYPE=${TRAVIS_BUILD_TYPE} -DPCRASTER_WITH_PYTHON_MULTICORE:BOOL=TRUE -DPCRASTER_BUILD_TEST:BOOL=TRUE ..
+    - cmake -G"${TRAVIS_CMAKE_GENERATOR}" -DCMAKE_C_COMPILER=gcc-4.9 -DCMAKE_CXX_COMPILER=g++-4.9 -DPEACOCK_PREFIX:PATH=$TRAVIS_BUILD_DIR/local -DCMAKE_BUILD_TYPE=${TRAVIS_BUILD_TYPE} -DPCRASTER_WITH_PYTHON_MULTICORE:BOOL=TRUE -DPCRASTER_BUILD_TEST:BOOL=TRUE ..
 
 script:
     - set -e  # Don't run the tests if the build fails.

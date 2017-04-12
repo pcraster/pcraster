@@ -1,5 +1,6 @@
 language: cpp
 
+dist: trusty
 sudo: true
 
 os:
@@ -26,21 +27,29 @@ env:
 addons:
     apt:
         sources:
-            - boost-latest
+            # - boost-latest
             # - llvm-toolchain-precise-3.5
             - ubuntu-toolchain-r-test
         packages:
             # - clang-3.5
             - g++-4.9
-            - libboost1.55-all-dev
+            # - libboost1.55-all-dev
             - libxerces-c-dev
-            - libxml2-dev
+            # - libxml2-dev
             - libxslt1-dev
-            - python-dev
-            - python-gdal
+            # - python-dev
+            # - python-gdal
             - python-numpy
             - python-virtualenv
-            - xsltproc
+            # - xsltproc
+            - libboost-all-dev
+            - libncurses5-dev
+            - libpython-dev
+            - libxml2
+            - libxml2-utils
+            - qt5-default
+            - qtbase5-dev
+            - xsdcxx
             # - libc++-dev
             # - gdal-bin # 02/2016 travis vm currently installs v1.x
             # - libgdal-dev
@@ -49,22 +58,22 @@ addons:
             # - imagemagick
 
 before_install:
-    - sudo add-apt-repository ppa:beineri/opt-qt562 -y
-    - sudo apt-get update -qq
+    # - sudo add-apt-repository ppa:beineri/opt-qt562 -y
+    # - sudo apt-get update -qq
 
     # - sudo add-apt-repository ppa:ubuntugis/ubuntugis-testing -y
     # - sudo apt-get update -q
     # - sudo apt-get install gdal-bin libgdal-dev
 
     # Update CMake.
-    - wget --no-check-certificate http://www.cmake.org/files/v3.2/cmake-3.2.3-Linux-x86_64.tar.gz
+    - wget --no-check-certificate http://www.cmake.org/files/v3.7/cmake-3.7.2-Linux-x86_64.tar.gz
 
     # We need to patch xsd because of:
     # http://www.codesynthesis.com/pipermail/xsd-users/2014-February/004196.html
-    - wget --no-check-certificate http://www.codesynthesis.com/download/xsd/3.3/linux-gnu/x86_64/xsd-3.3.0-x86_64-linux-gnu.tar.bz2
-    - wget --no-check-certificate http://codesynthesis.com/~boris/tmp/xsd/xsd-3.3.0-gcc-4.7-clang.patch
-    - if [ "$CC" = "clang" ]; then export CC="clang-3.5" CXX="clang++-3.5"; fi
-    - if [ "$CC" = "gcc" ]; then export CC="gcc-4.9" CXX="g++-4.9"; fi
+    # - wget --no-check-certificate http://www.codesynthesis.com/download/xsd/3.3/linux-gnu/x86_64/xsd-3.3.0-x86_64-linux-gnu.tar.bz2
+    # - wget --no-check-certificate http://codesynthesis.com/~boris/tmp/xsd/xsd-3.3.0-gcc-4.7-clang.patch
+    # - if [ "$CC" = "clang" ]; then export CC="clang-3.5" CXX="clang++-3.5"; fi
+    # - if [ "$CC" = "gcc" ]; then export CC="gcc-4.9" CXX="g++-4.9"; fi
 
     # Travis doesn't have
     # - PCRaster's raster format library
@@ -82,21 +91,21 @@ install:
     - sudo pip install pillow
 
     # - sudo apt-get install opt-qt4-qmake opt-qt4-dev-tools
-    - sudo apt-get install qt56base
-    - export PATH=/opt/qt56/bin:$PATH
     # - cat /opt/qt-4.8/bin/qt-4.8-env.sh
+    # - sudo apt-get install qt56base
+    # - export PATH=/opt/qt56/bin:$PATH
 
     - mkdir $TRAVIS_BUILD_DIR/local
 
     - cd $TRAVIS_BUILD_DIR/local
-    - tar zxf ../cmake-3.2.3-Linux-x86_64.tar.gz
-    - export PATH=$TRAVIS_BUILD_DIR/local/cmake-3.2.3-Linux-x86_64/bin:$PATH
+    - tar zxf ../cmake-3.7.2-Linux-x86_64.tar.gz
+    - export PATH=$TRAVIS_BUILD_DIR/local/cmake-3.7.2-Linux-x86_64/bin:$PATH
 
-    - cd $TRAVIS_BUILD_DIR/local
-    - tar jxf ../xsd-3.3.0-x86_64-linux-gnu.tar.bz2
-    - cd xsd-3.3.0-x86_64-linux-gnu
-    - patch -p1 < ../../xsd-3.3.0-gcc-4.7-clang.patch
-    - export PATH=$TRAVIS_BUILD_DIR/local/xsd-3.3.0-x86_64-linux-gnu/bin:$PATH
+    # - cd $TRAVIS_BUILD_DIR/local
+    # - tar jxf ../xsd-3.3.0-x86_64-linux-gnu.tar.bz2
+    # - cd xsd-3.3.0-x86_64-linux-gnu
+    # - patch -p1 < ../../xsd-3.3.0-gcc-4.7-clang.patch
+    # - export PATH=$TRAVIS_BUILD_DIR/local/xsd-3.3.0-x86_64-linux-gnu/bin:$PATH
 
     - cd $TRAVIS_BUILD_DIR/peacock
     - export MAKEFLAGS='-j2'

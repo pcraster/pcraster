@@ -47,8 +47,8 @@ addons:
             - libpython-dev
             - libxml2
             - libxml2-utils
-            - qt5-default
-            - qtbase5-dev
+            # - qt5-default
+            # - qtbase5-dev
             - xsdcxx
             # - libc++-dev
             # - gdal-bin # 02/2016 travis vm currently installs v1.x
@@ -58,8 +58,8 @@ addons:
             # - imagemagick
 
 before_install:
-    # - sudo add-apt-repository ppa:beineri/opt-qt562 -y
-    # - sudo apt-get update -qq
+    - sudo add-apt-repository ppa:beineri/opt-qt562 -y
+    - sudo apt-get update -qq
 
     # - sudo add-apt-repository ppa:ubuntugis/ubuntugis-testing -y
     # - sudo apt-get update -q
@@ -92,8 +92,8 @@ install:
 
     # - sudo apt-get install opt-qt4-qmake opt-qt4-dev-tools
     # - cat /opt/qt-4.8/bin/qt-4.8-env.sh
-    # - sudo apt-get install qt56base
-    # - export PATH=/opt/qt56/bin:$PATH
+    - sudo apt-get install qt56base
+    - export PATH=/opt/qt56/bin:$PATH
 
     - mkdir $TRAVIS_BUILD_DIR/local
 

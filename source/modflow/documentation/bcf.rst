@@ -26,7 +26,7 @@ hConductivity
    layer type 0 or 2  to calculate the transmissivity along rows as :math:`TRAN = hConductivity * thickness`, for layer type 1 or 3 as :math:`HY = hConductivity`
 
 vConductivity
-   is the name of a spatial, scalar PCRaster map containing the vertical conductivity values. VCOND for a layer l will be calculated for each cell either as :math:`VCOND=\frac{1}{\frac{0.5 thick(l)}{vConductivity(l)} + \frac{0.5thick(l+1)}{vConductivity(l+1)}}` or as :math:`VCOND=\frac{1}{\frac{0.5thick(l)}{vConductivity(l)} + \frac{thick(cb)}{vConductivity(cb)} + \frac{0.5thick(l+1)}{vConductivity(l+1)} + }` when there is a Quasi-3D confining bed cb.
+   is the name of a spatial, scalar PCRaster map containing the vertical conductivity values. VCONT for a layer l will be calculated for each cell either as :math:`VCONT=\frac{1}{\frac{0.5 thick(l)}{vConductivity(l)} + \frac{0.5thick(l+1)}{vConductivity(l+1)}}` or as :math:`VCONT=\frac{1}{\frac{0.5thick(l)}{vConductivity(l)} + \frac{thick(cb)}{vConductivity(cb)} + \frac{0.5thick(l+1)}{vConductivity(l+1)} + }` when there is a Quasi-3D confining bed cb.
 
 LAYER
    is the layer number the map values will be assigned to.

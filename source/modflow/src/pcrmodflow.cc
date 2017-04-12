@@ -551,7 +551,7 @@ bool PCRModflow::writeNAM() {
 
   content << "BCF6  209 pcrmf.bc6\n";
   content << "DATA  " << d_bcf->hy_unit_number() << " pcrmf_bcf_hy.asc\n";
-  content << "DATA  " << d_bcf->vcond_unit_number() << " pcrmf_bcf_vcond.asc\n";
+  content << "DATA  " << d_bcf->vcond_unit_number() << " pcrmf_bcf_vcont.asc\n";
   content << "DATA  " << d_bcf->tran_unit_number() << " pcrmf_bcf_tran.asc\n";
 
   if(d_bcf->transient()){

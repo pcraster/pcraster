@@ -310,7 +310,7 @@ void BCF::calcVCond(std::stringstream &aStream, size_t layer, const std::string 
         int row = 1 + i / d_mf->d_nrOfColumns;
         int col = 1 + i % d_mf->d_nrOfColumns;
         std::stringstream stmp;
-        stmp << "Can not calculate VCOND in row " << row << " cell " << col << ", divsion by 0? " << std::endl;
+        stmp << "Can not calculate VCONT in row " << row << " cell " << col << ", divsion by 0? " << std::endl;
         d_mf->d_cmethods->error(stmp.str(), "run");
       }
 
@@ -334,7 +334,7 @@ void BCF::calcVCond(std::stringstream &aStream, size_t layer, const std::string 
         int row = 1 + i / d_mf->d_nrOfColumns;
         int col = 1 + i % d_mf->d_nrOfColumns;
         std::stringstream stmp;
-        stmp << "Can not calculate VCOND in row " << row << " cell " << col << ", divsion by 0? " << std::endl;
+        stmp << "Can not calculate VCONT in row " << row << " cell " << col << ", divsion by 0? " << std::endl;
         d_mf->d_cmethods->error(stmp.str(), "run");
       }
 
@@ -966,7 +966,7 @@ void BCF::write_tran(std::string const& path)  {
 
 void BCF::write_vcond(std::string const& path)  {
 
-  std::string filename = mf::execution_path(path, "pcrmf_bcf_vcond.asc");
+  std::string filename = mf::execution_path(path, "pcrmf_bcf_vcont.asc");
 
   std::ofstream content(filename);
 
@@ -1011,7 +1011,7 @@ void BCF::write_vcond(std::string const& path)  {
             int row = 1 + i / d_mf->d_nrOfColumns;
             int col = 1 + i % d_mf->d_nrOfColumns;
             std::stringstream stmp;
-            stmp << "Can not calculate VCOND in row " << row << " cell " << col << ", divsion by 0? " << std::endl;
+            stmp << "Can not calculate VCONT in row " << row << " cell " << col << ", divsion by 0? " << std::endl;
             d_mf->d_cmethods->error(stmp.str(), "run");
           }
 
@@ -1035,7 +1035,7 @@ void BCF::write_vcond(std::string const& path)  {
             int row = 1 + i / d_mf->d_nrOfColumns;
             int col = 1 + i % d_mf->d_nrOfColumns;
             std::stringstream stmp;
-            stmp << "Can not calculate VCOND in row " << row << " cell " << col << ", divsion by 0? " << std::endl;
+            stmp << "Can not calculate VCONT in row " << row << " cell " << col << ", divsion by 0? " << std::endl;
             d_mf->d_cmethods->error(stmp.str(), "run");
           }
 

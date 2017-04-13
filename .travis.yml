@@ -35,13 +35,13 @@ addons:
             - g++-4.9
             # - libboost1.55-all-dev
             - libxerces-c-dev
-            # - libxml2-dev
+            - libxml2-dev
             - libxslt1-dev
             # - python-dev
             # - python-gdal
             - python-numpy
             - python-virtualenv
-            # - xsltproc
+            - xsltproc
             - libboost-all-dev
             - libncurses5-dev
             - libpython-dev

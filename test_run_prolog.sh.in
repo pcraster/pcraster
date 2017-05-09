@@ -1,7 +1,6 @@
 set -e
 
 directories_with_prolog_scripts="
-    source/col2map
     source/pcraster_aguila
     source/pcraster_dal
     source/pcraster_old_calc

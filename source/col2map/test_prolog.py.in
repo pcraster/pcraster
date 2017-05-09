@@ -1,0 +1,21 @@
+import os
+import glob
+import shutil
+
+
+dest_dir = "@CMAKE_CURRENT_BINARY_DIR@"
+
+try:
+    os.remove(os.path.join(dest_dir, "nanclone.map"))
+    os.remove(os.path.join(dest_dir, "nan.map"))
+    os.remove(os.path.join(dest_dir, "nan.col"))
+except OSError:
+    pass
+
+
+# Raster with one row of 3 cells, middle cel is NaN.
+#    X   Y   V
+with open(os.path.join(dest_dir, "nan.col"), "w") as f:
+    f.write("0.5 -0.5 1\n")
+    f.write("1.5 -0.5 Nan\n")
+    f.write("2.5 -0.5 3")

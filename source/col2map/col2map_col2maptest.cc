@@ -34,9 +34,9 @@ BOOST_AUTO_TEST_CASE(NaN)
   // output.
   // Status not yet correct: also test under DIFFERENT compilers if the file
   // reading already detets a string nan as a NAN, seems not standarized
-#ifdef _MSC_VER
-  BOOST_WARN_MESSAGE( 0, "MSC does not read Nan (std? or gcc non-std)?");
-#else
+//  #ifdef _MSC_VER
+//    BOOST_WARN_MESSAGE( 0, "MSC does not read Nan (std? or gcc non-std)?");
+//  #else
   dal::CSFRasterDriver driver;
   std::string filename("nan.map");
   dal::Raster* raster = dynamic_cast<dal::RasterDriver&>(driver).read(filename);
@@ -50,5 +50,5 @@ BOOST_AUTO_TEST_CASE(NaN)
   BOOST_WARN(pcr::isMV(raster->cell<REAL4>(1)));
   BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(2)));
   BOOST_CHECK_EQUAL(raster->cell<REAL4>(2), 3.0F);
-#endif
+//  #endif
 }

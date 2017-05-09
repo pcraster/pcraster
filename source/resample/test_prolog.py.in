@@ -1,0 +1,21 @@
+import os
+import glob
+import shutil
+
+
+src_dir = os.path.join("@PCRASTER_DATA_DIR@", "test", "resample")
+dest_dir = "@CMAKE_CURRENT_BINARY_DIR@"
+
+
+# remove input and output maps
+for f in glob.glob(os.path.join(dest_dir, "*.map")):
+    os.remove(f)
+
+shutil.rmtree(os.path.join(os.getcwd(), "validated"), ignore_errors=True)
+
+
+# obtain input
+for f in glob.glob(os.path.join(src_dir, "*.map")):
+    shutil.copy(f, dest_dir)
+
+shutil.copytree(os.path.join(src_dir, "validated"), os.path.join(dest_dir, "validated"))

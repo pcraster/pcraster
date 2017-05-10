@@ -411,9 +411,9 @@ class TestNumPy(testcase.TestCase):
 
       with self.assertRaises(Exception) as context_manager:
           raster = pcraster.numpy2pcr(pcraster.Nominal, numpy.array([
-          [int32_min+1,         2],
-          [  int32_min,        15],
-          [          8, int32_max]], numpy.int64), 15)
+              [int32_min+1,         2],
+              [  int32_min,        15],
+              [          8, int32_max]], numpy.int64), 15)
       self.assertEqual(str(context_manager.exception),
           "Incorrect value -2147483648 at input array [1][0] for Nominal map")
 
@@ -423,8 +423,26 @@ class TestNumPy(testcase.TestCase):
       # uint64 TODO
 
       # float16 TODO
-      # float32 TODO
-      # float64 TODO
+
+      # float32 -> Scalar (float32)
+      raster = pcraster.numpy2pcr(pcraster.Scalar, numpy.array([
+          [-2,        -1],
+          [ 0, numpy.nan],
+          [ 1,         2]], numpy.float32), numpy.nan)
+      self.assertEqual(pcraster.cellvalue(raster, 1, 1), (-2, True))
+      self.assertEqual(pcraster.cellvalue(raster, 2, 1), ( 0, True))
+      self.assertEqual(pcraster.cellvalue(raster, 2, 2)[1], False)
+      self.assertEqual(pcraster.cellvalue(raster, 3, 2),  (2, True))
+
+      # float64 -> Scalar (float32)
+      raster = pcraster.numpy2pcr(pcraster.Scalar, numpy.array([
+          [-2,        -1],
+          [ 0, numpy.nan],
+          [ 1,         2]], numpy.float64), numpy.nan)
+      self.assertEqual(pcraster.cellvalue(raster, 1, 1), (-2, True))
+      self.assertEqual(pcraster.cellvalue(raster, 2, 1), ( 0, True))
+      self.assertEqual(pcraster.cellvalue(raster, 2, 2)[1], False)
+      self.assertEqual(pcraster.cellvalue(raster, 3, 2),  (2, True))
 
       # complex64: Not supported.
       with self.assertRaises(Exception) as context_manager:

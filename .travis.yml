@@ -39,6 +39,7 @@ addons:
             - libxslt1-dev
             # - python-dev
             # - python-gdal
+            - python-docopt
             - python-numpy
             - python-virtualenv
             - xsltproc
@@ -86,7 +87,7 @@ install:
 
     - cd $TRAVIS_BUILD_DIR
     - sudo pip install --upgrade pip
-    - sudo pip install --upgrade docopt
+    # - sudo pip install --upgrade docopt
     - sudo pip install --upgrade sphinx
     - sudo pip install pillow
 

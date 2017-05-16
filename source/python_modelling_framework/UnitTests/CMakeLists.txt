@@ -1,17 +1,32 @@
 if(NOT (WIN32 AND (${CMAKE_BUILD_TYPE} STREQUAL Debug)))
 
+#   configure_file(
+#     ${CMAKE_CURRENT_SOURCE_DIR}/testrun.prolog.in
+#     ${CMAKE_CURRENT_BINARY_DIR}/testrun.prolog
+#     @ONLY
+#   )
+
   configure_file(
-    ${CMAKE_CURRENT_SOURCE_DIR}/testrun.prolog.in
-    ${CMAKE_CURRENT_BINARY_DIR}/testrun.prolog
+    ${CMAKE_CURRENT_SOURCE_DIR}/test_prolog.py.in
+    ${CMAKE_CURRENT_BINARY_DIR}/test_prolog.py
     @ONLY
   )
 
-  add_test(
-    NAME
+    add_test(
+        NAME setup_python_modelling_framework
+        COMMAND ${PYTHON_EXECUTABLE} test_prolog.py
+    )
+
+    add_test(
+      NAME
          python_modelling_framework_unit_tests
-    COMMAND
+      COMMAND
         ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/unitTests.py
-  )
+    )
+
+    set_tests_properties(setup_python_modelling_framework
+        PROPERTIES FIXTURES_SETUP FixturePythonModellingFramework
+    )
 
   set_tests_properties(python_modelling_framework_unit_tests PROPERTIES
     DEPENDS
@@ -24,7 +39,12 @@ if(NOT (WIN32 AND (${CMAKE_BUILD_TYPE} STREQUAL Debug)))
       fill_python_directory_structure
     DEPENDS
       python_modelling_framework_dummy
+    FIXTURES_REQUIRED
+      FixturePythonModellingFramework
   )
+
+
+
 
 #   set(TEST_NAMES
 #     unit_tests

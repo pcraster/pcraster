@@ -1,0 +1,116 @@
+import os
+import shutil
+import subprocess
+
+dest_dir = "@CMAKE_CURRENT_BINARY_DIR@"
+
+nrRealisations=99
+
+
+# Cleanup files
+# -------------
+
+shutil.rmtree(os.path.join(dest_dir, "validated"), ignore_errors=True)
+shutil.rmtree(os.path.join(dest_dir, "dirForTest8"), ignore_errors=True)
+
+# Remove realisation directories
+for i in range(1, nrRealisations + 1):
+    shutil.rmtree(os.path.join(dest_dir, str(i)), ignore_errors=True)
+
+
+# Prepare unit test files
+# -----------------------
+
+test_data_dir = os.path.join("@PCRASTER_DATA_DIR@", "test", "python_modelling_framework")
+
+shutil.copytree(os.path.join(test_data_dir, "validated"), os.path.join(dest_dir, "validated"))
+
+shutil.copy(os.path.join(test_data_dir, "validated", "plus.Result.map"), os.path.join(dest_dir, "plus.map"))
+
+files = ["clone.map", "runoff.py", "samples2.map", "timeseries.tss"]
+for f in files:
+    shutil.copy(os.path.join(test_data_dir, f), dest_dir)
+
+
+test_src_dir = os.path.join("@CMAKE_CURRENT_SOURCE_DIR@", "..", "UnitTests")
+files = ["dynamicFrameworkTest.py", "dynamicTestModels.py", "frameworkBaseTest.py", "mcFrameworkTest.py", "mcTestModels.py", "particleFilterFrameworkTest.py", "PercentileTests.py", "pfTestModels.py", "staticFrameworkTest.py", "staticTestModels.py", "testcase.py", "TimeoutputTest.py", "unitTests.py"]
+for f in files:
+    shutil.copy(os.path.join(test_src_dir, f), dest_dir)
+
+
+demo_data_dir = os.path.join("@PCRASTER_DATA_DIR@", "demo", "python_modelling_framework", "deterministic")
+files = ["rainstat.map", "mask.map", "soil.map", "dem.map", "infilcap.tbl", "rain.tss", "samples.map"]
+for f in files:
+    shutil.copy(os.path.join(demo_data_dir, f), dest_dir)
+
+
+gdalTranslate="@GDAL_TRANSLATE@ -quiet"
+
+west=0.0
+south=0.0
+cellSize=5.0
+nrCols=2
+nrRows=3
+nodataValue=999
+
+asciiGridHeader="""NCOLS {}
+NROWS {}
+XLLCORNER {}
+YLLCORNER {}
+CELLSIZE {}
+""".format(nrCols, nrRows, west, south, cellSize)
+
+
+with open(os.path.join(dest_dir, "clone-2x3.col"), "w") as f:
+    f.write(asciiGridHeader)
+    f.write("NODATA_VALUE {}.0\n".format(nodataValue))
+    f.write("{} {}\n".format(nodataValue, nodataValue))
+    f.write("{} {}\n".format(nodataValue, nodataValue))
+    f.write("{} {}".format(nodataValue, nodataValue))
+
+cmd = '{} -ot Int32 -mo "PCRASTER_VALUESCALE=VS_BOOLEAN" -of PCRaster {} {}'.format(gdalTranslate, os.path.join(dest_dir, "clone-2x3.col"), os.path.join(dest_dir, "clone-2x3.map"))
+subprocess.check_call(cmd, shell=True)
+
+for i in range(1, nrRealisations + 1):
+    # Create directory.
+    os.mkdir(str(i))
+
+    # +-----+-----+    +---+---+
+    # |  99 | 100 |    | 1 | 2 |
+    # +-----+-----+    +---+---+
+    # | 101 | 102 | -> | 3 | 4 |
+    # +-----+-----+    +---+---+
+    # | 103 | 104 |    | 5 | 6 |
+    # +-----+-----+    +---+---+
+    value=i
+    v1=nrRealisations+1-value
+    v2=nrRealisations+2-value
+    v3=nrRealisations+3-value
+    v4=nrRealisations+4-value
+    v5=nrRealisations+5-value
+    v6=nrRealisations+6-value
+
+    with open(os.path.join(dest_dir, str(i), "concentration.col"), "w") as f:
+      f.write(asciiGridHeader)
+      f.write("NODATA_VALUE {}.0\n".format(nodataValue))
+      f.write("{} {}\n".format(v1, v2))
+      f.write("{} {}\n".format(v3, v4))
+      f.write("{} {}".format(v5, v6))
+
+    cmd = '{} -ot Float32 -mo "PCRASTER_VALUESCALE=VS_SCALAR" -of PCRaster {} {}'.format(gdalTranslate, os.path.join(dest_dir, str(i), "concentration.col"), os.path.join(dest_dir, str(i), "concentration_without_mv.map"))
+    subprocess.check_call(cmd, shell=True)
+
+
+    # Insert missing value in one cell in one realisation.
+    if v1 != 50:
+      shutil.copy(os.path.join(dest_dir, str(i), "concentration_without_mv.map"), os.path.join(dest_dir, str(i), "concentration_with_mv.map"))
+    else:
+      with open(os.path.join(dest_dir, str(i), "concentration.col"), "w") as f:
+        f.write(asciiGridHeader)
+        f.write("NODATA_VALUE {}.0\n".format(nodataValue))
+        f.write("{} {}\n".format(nodataValue, nodataValue))
+        f.write("{} {}\n".format(nodataValue, nodataValue))
+        f.write("{} {}".format(nodataValue, nodataValue))
+
+      cmd = '{} -ot Float32 -mo "PCRASTER_VALUESCALE=VS_SCALAR" -of PCRaster {} {}'.format(gdalTranslate, os.path.join(dest_dir, str(i), "concentration.col"), os.path.join(dest_dir, str(i), "concentration_with_mv.map"))
+      subprocess.check_call(cmd, shell=True)

@@ -1,10 +1,26 @@
 if(NOT (WIN32 AND (${CMAKE_BUILD_TYPE} STREQUAL Debug)))
+#
+#   configure_file(
+#     ${CMAKE_CURRENT_SOURCE_DIR}/testrun.prolog.in
+#     ${CMAKE_CURRENT_BINARY_DIR}/testrun.prolog
+#     @ONLY
+#   )
 
-  configure_file(
-    ${CMAKE_CURRENT_SOURCE_DIR}/testrun.prolog.in
-    ${CMAKE_CURRENT_BINARY_DIR}/testrun.prolog
-    @ONLY
-  )
+    configure_file(
+        ${CMAKE_CURRENT_SOURCE_DIR}/test_prolog.py.in
+        ${CMAKE_CURRENT_BINARY_DIR}/test_prolog.py
+        @ONLY
+    )
+
+    add_test(
+        NAME setup_arrayed_variables
+        COMMAND ${PYTHON_EXECUTABLE} test_prolog.py
+    )
+
+    set_tests_properties(setup_arrayed_variables
+        PROPERTIES FIXTURES_SETUP FixturesArrayedVariables
+    )
+
 
   add_test(
     NAME
@@ -24,6 +40,8 @@ if(NOT (WIN32 AND (${CMAKE_BUILD_TYPE} STREQUAL Debug)))
       fill_python_directory_structure
     DEPENDS
       python_modelling_framework_dummy
+    FIXTURES_REQUIRED
+      FixturesArrayedVariables
   )
 
 

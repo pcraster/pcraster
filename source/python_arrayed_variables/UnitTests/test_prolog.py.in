@@ -1,0 +1,32 @@
+import os
+import shutil
+
+
+dest_dir = "@CMAKE_CURRENT_BINARY_DIR@"
+src_dir = "@CMAKE_CURRENT_SOURCE_DIR@"
+
+
+shutil.rmtree(os.path.join(dest_dir, "maps"), ignore_errors=True)
+
+
+array_dir = os.path.join("@CMAKE_CURRENT_SOURCE_DIR@", "..")
+
+files = ["Index.py", "__init__.py", "VariableCollection.py"]
+for f in files:
+    shutil.copy(os.path.join(array_dir, f),  os.path.join(dest_dir, f))
+
+
+test_files_dir = os.path.join("@CMAKE_CURRENT_SOURCE_DIR@") #, "test", "python_modelling_framework")
+files = ["IndexTest.py", "testcase.py", "unitTests.py", "VariableCollectionTest.py"]
+for f in files:
+    shutil.copy(os.path.join(test_files_dir, f), os.path.join(dest_dir, f))
+
+
+test_data_dir = os.path.join("@PCRASTER_DATA_DIR@", "test", "python_arrayed_variables")
+files = ["clone.map", "input1.imap", "input2.imap", "parameterFile.tbl"]
+for f in files:
+    shutil.copy(os.path.join(test_data_dir, f),  os.path.join(dest_dir, f))
+
+
+demo_data_dir = os.path.join("@PCRASTER_DATA_DIR@", "demo", "python_arrayed_variables")
+shutil.copytree(os.path.join(demo_data_dir, "maps"), os.path.join(dest_dir, "maps"))

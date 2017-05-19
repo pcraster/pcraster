@@ -4,17 +4,6 @@
 
 # ADD_DEFINITIONS(-DQT3_SUPPORT)
 
-CONFIGURE_FILE(
-    ${CMAKE_CURRENT_SOURCE_DIR}/testrun.prolog.in
-    ${CMAKE_CURRENT_BINARY_DIR}/testrun.prolog
-    @ONLY
-)
-CONFIGURE_FILE(
-    ${CMAKE_CURRENT_SOURCE_DIR}/testrun.epilog.in
-    ${CMAKE_CURRENT_BINARY_DIR}/testrun.epilog
-    @ONLY
-)
-
 include_directories(
     # ${CMAKE_CURRENT_SOURCE_DIR}/../include
     ${CMAKE_CURRENT_SOURCE_DIR}/../pcrcom
@@ -134,6 +123,13 @@ TARGET_LINK_LIBRARIES(pcrxml
 
 
 if(PCRASTER_BUILD_TEST)
+
+    configure_file(
+        ${CMAKE_CURRENT_SOURCE_DIR}/test_prolog.py.in
+        ${CMAKE_CURRENT_BINARY_DIR}/test_prolog.py
+        @ONLY
+    )
+
     set(TEST_NAMES
         pcrxml_attributetest
         pcrxml_bindoubleletest
@@ -148,10 +144,30 @@ if(PCRASTER_BUILD_TEST)
         pcrxml_simpleattrtest
         pcrxml_wordtest
     )
+
+    add_test(
+        NAME setup_pcrxml
+        COMMAND ${PYTHON_EXECUTABLE} test_prolog.py
+    )
+
+    set_tests_properties(setup_pcrxml
+        PROPERTIES FIXTURES_SETUP FixturePcrXml
+    )
+
     add_unit_tests(
         SCOPE pcrxml
         NAMES ${TEST_NAMES}
         LINK_LIBRARIES
             pcrxml
     )
+
+    set_tests_properties(setup_pcrxml
+        PROPERTIES FIXTURES_SETUP FixturePcrXml
+    )
+
+    set_tests_properties(pcrxml_pcrxml_attributetest PROPERTIES
+        FIXTURES_REQUIRED
+          FixturePcrXml
+    )
+
 endif()

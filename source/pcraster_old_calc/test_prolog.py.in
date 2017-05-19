@@ -1,0 +1,55 @@
+import os
+import shutil
+import glob
+
+
+dest_dir = "@CMAKE_CURRENT_BINARY_DIR@"
+
+
+
+shutil.rmtree(os.path.join(dest_dir, "validated"), ignore_errors=True)
+shutil.rmtree(os.path.join(dest_dir, "stackReader"), ignore_errors=True)
+shutil.rmtree(os.path.join(dest_dir, "rundir_dir1"), ignore_errors=True)
+
+# rm -rf ModelBuilder*
+
+
+
+paths = glob.glob(os.path.join(dest_dir, "run*"))
+#paths += glob.glob(os.path.join(dest_dir, "run_dir*"))
+
+
+for p in paths:
+    if os.path.isdir(p):
+        shutil.rmtree(p, ignore_errors=True)
+    else:
+        os.remove(p)
+
+
+# FTTB HabitatTest
+filenames = glob.glob(os.path.join("@PCRASTER_DATA_DIR@", "test", "pcrtree", "clientinterface", "*"))
+filenames += glob.glob(os.path.join("@PCRASTER_DATA_DIR@", "test", "pcrtree", "small", "*.map"))
+filenames += glob.glob(os.path.join("@PCRASTER_DATA_DIR@", "test", "pcrtree", "small", "all1_float.*"))
+filenames += glob.glob(os.path.join("@PCRASTER_DATA_DIR@", "test", "pcrtree", "small", "*.tbl"))
+filenames += glob.glob(os.path.join("@PCRASTER_DATA_DIR@", "test", "pcrtree", "small", "*.tss"))
+filenames += glob.glob(os.path.join("@PCRASTER_DATA_DIR@", "test", "pcrtree", "small", "*.ipcr"))
+for f in filenames:
+    shutil.copy(f, dest_dir)
+
+
+os.makedirs(os.path.join(dest_dir, "rundir_dir1", "dir2", "dir3"))
+
+shutil.copy(os.path.join(dest_dir, "binding.ipcr"), os.path.join(dest_dir, "rundir_dir1"))
+
+
+os.mkdir(os.path.join(dest_dir, "stackReader"))
+
+shutil.copy(os.path.join(dest_dir, "inp5s.map"), os.path.join(dest_dir, "stackReader", "tmp00000.001"))
+
+
+# calc_manualexampletestertest.cc
+os.mkdir(os.path.join(dest_dir, "validated"))
+shutil.copy(os.path.join(dest_dir, "inp5s.map"), os.path.join(dest_dir, "validated", "TesterTest.map"))
+shutil.copy(os.path.join(dest_dir, "inp1s.map"), os.path.join(dest_dir, "validated", "TesterTest1s.map"))
+shutil.copy(os.path.join(dest_dir, "inp1s.map"), os.path.join(dest_dir, "validated", "TesterOption.map"))
+shutil.copy(os.path.join(dest_dir, "inp5s_all.map"), os.path.join(dest_dir, "validated", "TesterClone.map"))

@@ -1,0 +1,74 @@
+import os
+import shutil
+import glob
+import subprocess
+
+
+dest_dir = "@CMAKE_CURRENT_BINARY_DIR@"
+gdalTranslate="@GDAL_TRANSLATE@ -quiet"
+
+
+shutil.rmtree(os.path.join(dest_dir, "dataset1"), ignore_errors=True)
+
+
+def createRaster(value, output_filename):
+    value1=value
+    value2=value1+1
+
+    with open(os.path.join(dest_dir, "tmp.col"), "w") as f:
+        f.write("""NCOLS 2
+NROWS 3
+XLLCORNER {}
+YLLCORNER {}
+CELLSIZE {}
+NODATA_VALUE -1.0
+{} -1.0
+-1.0    -1.0
+-1.0    {}""".format(west, south, cellSize, value1, value2)
+        )
+
+    cmd = '{} -ot Float32 -mo "PCRASTER_VALUESCALE=VS_SCALAR" -of PCRaster {} {}'.format(gdalTranslate, os.path.join(dest_dir, "tmp.col"), os.path.join(dest_dir, output_filename))
+    subprocess.check_call(cmd, shell=True)
+
+
+west=100000.0
+south=199850.0
+cellSize=50.0
+
+with open(os.path.join(dest_dir, "tmp.col"), "w") as f:
+    f.write("""NCOLS 2
+NROWS 3
+XLLCORNER {}
+YLLCORNER {}
+CELLSIZE {}
+NODATA_VALUE -1.0
+5.0     -1.0
+-1.0    -1.0
+-1.0    -1.0""".format(west, south, cellSize)
+    )
+
+cmd = '{} -ot Float32 -mo "PCRASTER_VALUESCALE=VS_SCALAR" -of PCRaster {} {}'.format(gdalTranslate, os.path.join(dest_dir, "tmp.col"), os.path.join(dest_dir, "MinMaxEqual.map"))
+subprocess.check_call(cmd, shell=True)
+
+
+
+os.mkdir(os.path.join(dest_dir, "dataset1"))
+scenario = ["aap", "noot", "mies"]
+
+for s in scenario:
+    os.mkdir(os.path.join(dest_dir, "dataset1", s))
+
+for t in range(10, 21):
+    # Upper left cell of scalar equals the time step.
+    # Some time steps are missing.
+    # All other cells are missing values for the time being.
+    # 0: 10, 11, 12, 13, 14, 15
+    if t != 15:
+        fname = os.path.join(dest_dir, "dataset1", "aap", "scalar_{}".format(str(t)))
+        createRaster(t, fname)
+    if t != 16:
+        fname = os.path.join(dest_dir, "dataset1", "noot", "scalar_{}".format(str(t)))
+        createRaster(t, fname)
+    if t != 17:
+        fname = os.path.join(dest_dir, "dataset1", "mies", "scalar_{}".format(str(t)))
+        createRaster(t, fname)

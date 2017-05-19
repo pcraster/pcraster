@@ -3,16 +3,6 @@ CONFIGURE_FILE(
     ${CMAKE_CURRENT_BINARY_DIR}/../include/dal_Configure.h
 )
 CONFIGURE_FILE(
-    ${CMAKE_CURRENT_SOURCE_DIR}/testrun.prolog.in
-    ${CMAKE_CURRENT_BINARY_DIR}/testrun.prolog
-    @ONLY
-)
-CONFIGURE_FILE(
-    ${CMAKE_CURRENT_SOURCE_DIR}/testrun.epilog.in
-    ${CMAKE_CURRENT_BINARY_DIR}/testrun.epilog
-    @ONLY
-)
-CONFIGURE_FILE(
     ${CMAKE_CURRENT_SOURCE_DIR}/Makefile.testrun.in
     ${CMAKE_CURRENT_BINARY_DIR}/Makefile.testrun
     @ONLY
@@ -163,6 +153,11 @@ INSTALL(
 # ------------------------------------------------------------------------------
 
 if(PCRASTER_BUILD_TEST)
+    configure_file(
+        ${CMAKE_CURRENT_SOURCE_DIR}/test_prolog.py.in
+        ${CMAKE_CURRENT_BINARY_DIR}/test_prolog.py
+        @ONLY
+    )
     set(TEST_NAMES
         dal_ArrayTest
         dal_BinaryTableDriverTest
@@ -233,6 +228,17 @@ if(PCRASTER_BUILD_TEST)
         NAMES ${TEST_NAMES}
         LINK_LIBRARIES
             pcraster_dal
+    )
+    add_test(
+        NAME setup_pcraster_dal
+        COMMAND ${PYTHON_EXECUTABLE} test_prolog.py
+    )
+    set_tests_properties(setup_pcraster_dal
+        PROPERTIES FIXTURES_SETUP FixturePCRasterDal
+    )
+    set_tests_properties(pcraster_dal_dal_ArrayTest PROPERTIES
+        FIXTURES_REQUIRED
+          FixturePCRasterDal
     )
 endif()
 # ------------------------------------------------------------------------------

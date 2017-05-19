@@ -1,0 +1,7 @@
+import os
+import shutil
+
+
+dest_dir = "@CMAKE_CURRENT_BINARY_DIR@"
+
+shutil.copy(os.path.join("@CMAKE_CURRENT_SOURCE_DIR@", "pcrxml_documenttest.cc"), os.path.join(dest_dir, "aNonXMLfile"))

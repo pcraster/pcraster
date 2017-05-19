@@ -1,9 +1,3 @@
-CONFIGURE_FILE(
-    ${CMAKE_CURRENT_SOURCE_DIR}/testrun.prolog.in
-    ${CMAKE_CURRENT_BINARY_DIR}/testrun.prolog
-    @ONLY
-)
-
 SET(SOURCES
     xml.cc
     pcr_mflink.cc
@@ -93,6 +87,12 @@ INSTALL(
 
 if(PCRASTER_BUILD_TEST)
 
+    configure_file(
+        ${CMAKE_CURRENT_SOURCE_DIR}/test_prolog.py.in
+        ${CMAKE_CURRENT_BINARY_DIR}/test_prolog.py
+        @ONLY
+    )
+
   set(TEST_NAMES
     calc_DemoTest
   )
@@ -126,6 +126,14 @@ if(PCRASTER_BUILD_TEST)
       ARGS -E copy ${MF_BINARY} ${CMAKE_CURRENT_BINARY_DIR}/
   )
 
+    add_test(
+        NAME setup_modflow
+        COMMAND ${PYTHON_EXECUTABLE} test_prolog.py
+    )
+
+    set_tests_properties(setup_modflow
+        PROPERTIES FIXTURES_SETUP FixtureModflow
+    )
 
   add_test(
     NAME
@@ -140,6 +148,10 @@ if(PCRASTER_BUILD_TEST)
       modflow_calc_DemoTest
   )
 
+    set_tests_properties(modflow_calc_DemoTest PROPERTIES
+        FIXTURES_REQUIRED
+          FixtureModflow
+    )
 
 
   # add path of project's unit test related files to PYTHONPATH

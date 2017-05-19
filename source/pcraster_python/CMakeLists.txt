@@ -3,13 +3,6 @@ IF(PCRASTER_BUILD_DOCUMENTATION)
 ENDIF()
 
 CONFIGURE_FILE(
-    ${CMAKE_CURRENT_SOURCE_DIR}/testrun.prolog.in
-    ${CMAKE_CURRENT_BINARY_DIR}/testrun.prolog
-    @ONLY
-    NEWLINE_STYLE UNIX
-)
-
-CONFIGURE_FILE(
     ${CMAKE_CURRENT_SOURCE_DIR}/operations.inc.in
     ${CMAKE_CURRENT_BINARY_DIR}/operations.inc
     @ONLY
@@ -160,13 +153,32 @@ ADD_CUSTOM_TARGET(
 
 if(PCRASTER_BUILD_TEST)
 
+    configure_file(
+        ${CMAKE_CURRENT_SOURCE_DIR}/test_prolog.py.in
+        ${CMAKE_CURRENT_BINARY_DIR}/test_prolog.py
+        @ONLY
+    )
 
-  add_test(
-    NAME
-         python_pcrcalcpy_pythonunittest
-    COMMAND
-        ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test.py
-  )
+    add_test(
+        NAME
+            python_pcrcalcpy_pythonunittest
+        COMMAND
+            ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test.py
+    )
+
+    add_test(
+        NAME setup_pcraster_python
+        COMMAND ${PYTHON_EXECUTABLE} test_prolog.py
+    )
+
+    set_tests_properties(setup_pcraster_python
+        PROPERTIES FIXTURES_SETUP FixturePcrasterPython
+    )
+
+    set_tests_properties(python_pcrcalcpy_pythonunittest PROPERTIES
+        FIXTURES_REQUIRED
+          FixturePcrasterPython
+    )
 
 
 # OLS: clean up the comments when refacoring for the new windows build

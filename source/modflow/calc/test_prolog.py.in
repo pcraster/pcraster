@@ -1,0 +1,29 @@
+import os
+import shutil
+import glob
+
+
+dest_dir = "@CMAKE_CURRENT_BINARY_DIR@"
+project_dir = os.path.join("@PROJECT_SOURCE_DIR@", "source")
+modflow_dir = os.path.join("@PROJECT_SOURCE_DIR@", "source", "modflow")
+
+
+shutil.rmtree(os.path.join(dest_dir, "demoValidatedOutput"), ignore_errors=True)
+
+
+filenames = glob.glob(os.path.join(modflow_dir, "demo", "*"))
+for f in filenames:
+    shutil.copy(f, dest_dir)
+
+
+shutil.copytree(os.path.join(modflow_dir, "demoValidatedOutput"), os.path.join(dest_dir, "demoValidatedOutput"))
+
+
+filenames = glob.glob(os.path.join(modflow_dir, "tests", "*"))
+for f in filenames:
+    shutil.copy(os.path.join(modflow_dir, "demo", f), dest_dir)
+
+
+# In debug builds, the unit tests require these schema's to be available.
+shutil.copy(os.path.join(project_dir, "xmlschema", "commonTypes.xsd"), dest_dir)
+shutil.copy(os.path.join(project_dir, "pcraster_model_engine", "PCRaster.xsd"), dest_dir)

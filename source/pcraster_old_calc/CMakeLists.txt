@@ -1,13 +1,3 @@
-CONFIGURE_FILE(
-    ${CMAKE_CURRENT_SOURCE_DIR}/testrun.prolog.in
-    ${CMAKE_CURRENT_BINARY_DIR}/testrun.prolog
-    @ONLY
-)
-CONFIGURE_FILE(
-    ${CMAKE_CURRENT_SOURCE_DIR}/testrun.epilog.in
-    ${CMAKE_CURRENT_BINARY_DIR}/testrun.epilog
-    @ONLY
-)
 include_directories(
 #     ${CMAKE_CURRENT_SOURCE_DIR}/../include
      ${CMAKE_CURRENT_SOURCE_DIR}/../api
@@ -231,6 +221,13 @@ INSTALL(
 )
 
 if(PCRASTER_BUILD_TEST)
+
+    configure_file(
+        ${CMAKE_CURRENT_SOURCE_DIR}/test_prolog.py.in
+        ${CMAKE_CURRENT_BINARY_DIR}/test_prolog.py
+        @ONLY
+    )
+
     SET(TEST_NAMES
         calc_tssoutputvaluetest
         calc_maskcompressortest
@@ -255,6 +252,19 @@ if(PCRASTER_BUILD_TEST)
         NAMES ${TEST_NAMES}
         LINK_LIBRARIES
             pcraster_old_calc
+    )
+    add_test(
+        NAME setup_oldcalc
+        COMMAND ${PYTHON_EXECUTABLE} test_prolog.py
+    )
+
+    set_tests_properties(setup_oldcalc
+        PROPERTIES FIXTURES_SETUP FixturePcrOldCalc
+    )
+
+    set_tests_properties(oldcalc_calc_tssoutputvaluetest PROPERTIES
+        FIXTURES_REQUIRED
+          FixturePcrOldCalc
     )
 endif()
 

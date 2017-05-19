@@ -249,6 +249,8 @@ class TestNumPy(testcase.TestCase):
       self.assertEqual(array2[0][0], 5.0)
       self.assertEqual(array2[2][1], 2.0)
 
+
+  @unittest.skip("see gh140")
   def test_numpy2pcr(self):
       nrRows, nrCols, cellSize = 3, 2, 1.0
       west, north = 0.0, 0.0

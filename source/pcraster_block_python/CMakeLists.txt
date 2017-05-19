@@ -65,11 +65,20 @@ install(
 
 if(PCRASTER_BUILD_TEST)
 
-  configure_file(
-    ${CMAKE_CURRENT_SOURCE_DIR}/testrun.prolog.in
-    ${CMAKE_CURRENT_BINARY_DIR}/testrun.prolog
-    @ONLY
-  )
+    configure_file(
+        ${CMAKE_CURRENT_SOURCE_DIR}/test_prolog.py.in
+        ${CMAKE_CURRENT_BINARY_DIR}/test_prolog.py
+        @ONLY
+    )
+
+    add_test(
+        NAME setup_block_python
+        COMMAND ${PYTHON_EXECUTABLE} test_prolog.py
+    )
+
+    set_tests_properties(setup_block_python
+        PROPERTIES FIXTURES_SETUP FixtureBlockPython
+    )
 
   add_test(
     NAME
@@ -77,6 +86,12 @@ if(PCRASTER_BUILD_TEST)
     COMMAND
         ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test.py
   )
+
+    set_tests_properties(blockpy_blockpy_pythonunittest PROPERTIES
+        FIXTURES_REQUIRED
+          FixtureBlockPython
+    )
+
 
 
 

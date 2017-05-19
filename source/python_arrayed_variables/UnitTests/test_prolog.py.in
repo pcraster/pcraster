@@ -16,7 +16,7 @@ for f in files:
     shutil.copy(os.path.join(array_dir, f),  os.path.join(dest_dir, f))
 
 
-test_files_dir = os.path.join("@CMAKE_CURRENT_SOURCE_DIR@") #, "test", "python_modelling_framework")
+test_files_dir = os.path.join("@CMAKE_CURRENT_SOURCE_DIR@")
 files = ["IndexTest.py", "testcase.py", "unitTests.py", "VariableCollectionTest.py"]
 for f in files:
     shutil.copy(os.path.join(test_files_dir, f), os.path.join(dest_dir, f))

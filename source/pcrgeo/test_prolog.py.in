@@ -1,0 +1,58 @@
+import os
+import shutil
+import glob
+
+
+dest_dir = "@CMAKE_CURRENT_BINARY_DIR@"
+
+
+test_data_dir = os.path.join("@PCRASTER_DATA_DIR@", "test", "pcrtree", "small")
+filenames = glob.glob(os.path.join(test_data_dir, "*.map"))
+
+for f in filenames:
+    shutil.copy(os.path.join(test_data_dir, f), dest_dir)
+
+shutil.copy(os.path.join(dest_dir, "inp1s.map"), os.path.join(dest_dir, "inpXs.map"))
+shutil.copy(os.path.join(dest_dir, "dtmsmall.map"), os.path.join(dest_dir, "all1_float.bil"))
+
+
+with open(os.path.join(dest_dir, "all1_float.hdr"), "w") as f:
+    f.write("nrows     4\n")
+    f.write("ncols     4\n")
+    f.write("byteorder M\n")
+    f.write("nbits    32\n")
+    f.write("skipbytes 256")
+
+with open(os.path.join(dest_dir, "FileCreateTesterTest1.tss"), "w") as f:
+    f.write("text\n")
+    f.write("2\n")
+    f.write("c1\n")
+    f.write("c2\n")
+    f.write("1 1\n")
+    f.write("2 2")
+
+with open(os.path.join(dest_dir, "FileCreateTesterTest1v.tss"), "w") as f:
+    f.write("text\n")
+    f.write("2\n")
+    f.write("c1\n")
+    f.write("c2\n")
+    f.write("1 1\n")
+    f.write("2 2.3")
+
+
+with open(os.path.join(dest_dir, "FileCreateTesterTest1e.tss"), "w") as f:
+    f.write("text\n")
+    f.write("2\n")
+    f.write("c1\n")
+    f.write("c2\n")
+    f.write("1 1\n")
+    f.write("2 2.0000003")
+
+with open(os.path.join(dest_dir, "FileCreateTesterTest2.tss"), "w") as f:
+    f.write("text\n")
+    f.write("2\n")
+    f.write("c1\n")
+    f.write("c2\n")
+    f.write("1 1\n")
+    f.write("2 2\n")
+    f.write("3 2")

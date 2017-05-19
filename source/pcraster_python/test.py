@@ -619,3 +619,5 @@ suite.addTest(unittest.makeSuite(testPickle.TestPickle))
 
 result = unittest.TextTestRunner(verbosity=3).run(suite)
 test_result = (0 if result.wasSuccessful() else 1)
+
+sys.exit(test_result)

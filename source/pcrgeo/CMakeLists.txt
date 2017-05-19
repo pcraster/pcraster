@@ -1,9 +1,3 @@
-CONFIGURE_FILE(
-    ${CMAKE_CURRENT_SOURCE_DIR}/testrun.prolog.in
-    ${CMAKE_CURRENT_BINARY_DIR}/testrun.prolog
-    @ONLY
-)
-
 include_directories(
     # ${CMAKE_CURRENT_SOURCE_DIR}/../include
     ${CMAKE_CURRENT_SOURCE_DIR}/../app
@@ -68,6 +62,13 @@ TARGET_LINK_LIBRARIES(pcrgeo
 
 
 if(PCRASTER_BUILD_TEST)
+
+    configure_file(
+        ${CMAKE_CURRENT_SOURCE_DIR}/test_prolog.py.in
+        ${CMAKE_CURRENT_BINARY_DIR}/test_prolog.py
+        @ONLY
+    )
+
     SET(TEST_NAMES
         geo_addfiltertest
         geo_algorithmtest
@@ -98,6 +99,12 @@ if(PCRASTER_BUILD_TEST)
         geo_squaretest
         geo_utiltest
     )
+
+    add_test(
+        NAME setup_pcrgeo
+        COMMAND ${PYTHON_EXECUTABLE} test_prolog.py
+    )
+
     add_unit_tests(
         SCOPE pcrgeo
         NAMES ${TEST_NAMES}
@@ -106,4 +113,14 @@ if(PCRASTER_BUILD_TEST)
             pcrcom
             pcraster_dal
     )
+
+    set_tests_properties(setup_pcrgeo
+        PROPERTIES FIXTURES_SETUP FixturePcrGeo
+    )
+
+    set_tests_properties(pcrgeo_geo_addfiltertest PROPERTIES
+        FIXTURES_REQUIRED
+          FixturePcrGeo
+    )
+
 endif()

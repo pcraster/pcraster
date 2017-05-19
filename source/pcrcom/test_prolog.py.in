@@ -1,0 +1,155 @@
+import os
+import shutil
+import glob
+
+
+dest_dir = "@CMAKE_CURRENT_BINARY_DIR@"
+
+
+# com_pathinfotest.cc
+shutil.rmtree(os.path.join(dest_dir, "pi_dir"), ignore_errors=True)
+shutil.rmtree(os.path.join(dest_dir, "pi_failureExpectedMkDir"), ignore_errors=True)
+
+# com_directorytest.cc
+shutil.rmtree(os.path.join(dest_dir, "dir_removeSub"), ignore_errors=True)
+
+# com_filetest.cc
+shutil.rmtree(os.path.join(dest_dir, "rm_emptyDir"), ignore_errors=True)
+shutil.rmtree(os.path.join(dest_dir, "rm_nestedDir"), ignore_errors=True)
+shutil.rmtree(os.path.join(dest_dir, "mv_existingdir"), ignore_errors=True)
+shutil.rmtree(os.path.join(dest_dir, "rm_emptyDir"), ignore_errors=True)
+shutil.rmtree(os.path.join(dest_dir, "rm_failureExpectedFilledDir"), ignore_errors=True)
+
+shutil.rmtree(os.path.join(dest_dir, "if_notwritablesubdir"), ignore_errors=True)
+shutil.rmtree(os.path.join(dest_dir, "if_isdirectory"), ignore_errors=True)
+shutil.rmtree(os.path.join(dest_dir, "if_UpcaseDirectory"), ignore_errors=True)
+
+shutil.rmtree(os.path.join(dest_dir, "mv_movedexistingdir"), ignore_errors=True)
+
+
+filenames = glob.glob(os.path.join(dest_dir, "fe_*"))
+filenames += glob.glob(os.path.join(dest_dir, "pi_*"))
+filenames += glob.glob(os.path.join(dest_dir, "if_*"))
+filenames += glob.glob(os.path.join(dest_dir, "rm_*"))
+filenames += glob.glob(os.path.join(dest_dir, "mv_*"))
+for f in filenames:
+  os.remove(f)
+
+
+
+
+# com_table[info]test.cc
+filenames = glob.glob(os.path.join("@PCRASTER_DATA_DIR@", "test", "pcrcom", "*.eas"))
+for f in filenames:
+    shutil.copy(f, dest_dir)
+
+
+
+# com_pathinfotest.cc
+with open(os.path.join(dest_dir, "pi_file"), "w") as f:
+    pass
+
+with open(os.path.join(dest_dir, "pi_failureExpectedMkDir"), "w") as f:
+    pass
+
+os.mkdir(os.path.join(dest_dir, "pi_dir"))
+
+
+
+#
+#     # com_spawntest.cc
+#     echo "#!/bin/sh"                         >  spawnScript
+#     echo "echo KILLROY WAS HERE > spawn.txt" >> spawnScript
+#     chmod a+x spawnScript
+#
+#     echo "#!/bin/sh"               >  spawnScript2
+#     echo "echo \$*   > spawn.txt" >> spawnScript2
+#     echo "exit 2"                 >> spawnScript2
+#     chmod a+x spawnScript2
+#
+
+
+# com_directorytest.cc
+os.makedirs(os.path.join(dest_dir, "dir_removeSub", "rmThis"))
+
+
+
+# com_filetest.cc
+os.mkdir(os.path.join(dest_dir, "rm_emptyDir"))
+with open(os.path.join(dest_dir, "rm_file"), "w") as f:
+    pass
+
+os.mkdir(os.path.join(dest_dir, "rm_failureExpectedFilledDir"))
+
+with open(os.path.join(dest_dir, "rm_failureExpectedFilledDir", "fileFiller"), "w") as f:
+    pass
+
+os.makedirs(os.path.join(dest_dir, "rm_nestedDir", "rm_thisEmptyDir"))
+
+with open(os.path.join(dest_dir, "mv_existingfile"), "w") as f:
+    pass
+
+os.mkdir(os.path.join(dest_dir, "mv_existingdir"))
+
+
+with open(os.path.join(dest_dir, "fe_one"), "w") as f:
+    f.write("line one\nline two")
+
+with open(os.path.join(dest_dir, "fe_two"), "w") as f:
+    f.write("line only two\n")
+
+
+with open(os.path.join(dest_dir, "fe_empty"), "w") as f:
+    pass
+
+
+# com_filetest.cc com_pathinfotest.cc
+shutil.rmtree(os.path.join(dest_dir, "if_isdirectory"), ignore_errors=True)
+os.mkdir(os.path.join(dest_dir, "if_isdirectory"))
+
+with open(os.path.join(dest_dir, "if_notreadable"), "w") as f:
+    pass
+
+#     chmod a-rwx if_notreadable
+os.chmod(os.path.join(dest_dir, "if_notreadable"), 0o000)
+
+
+
+#     # WindowsPerm tried this Bugzilla #284
+#     # icacls if_notreadable /deny STIL\\Cees:\(GR\) /q
+#     # icacls if_notreadable /remove:g STIL\\Cees /q
+#     # icacls if_notreadable /remove:g STIL\\None /q
+#     # icacls if_notreadable /remove:g Everyone /q
+#     # icacls if_notreadable /remove:g BUILTIN\\Users /q
+#     # instead of
+
+
+
+
+with open(os.path.join(dest_dir, "if_okreadable"), "w") as f:
+    pass
+
+with open(os.path.join(dest_dir, "if_notwritable"), "w") as f:
+    pass
+
+
+#     # icacls if_notwritable /deny STIL\\Cees:\(GW\)
+
+#     chmod a-w if_notwritable
+os.chmod(os.path.join(dest_dir, "if_notwritable"), 0o444)
+
+
+with open(os.path.join(dest_dir, "if_okwritable"), "w") as f:
+    pass
+
+
+#     mkdir if_notwritablesubdir
+#     chmod a-w if_notwritablesubdir
+#
+
+
+shutil.rmtree(os.path.join(dest_dir, "if_UpcaseDirectory"), ignore_errors=True)
+os.mkdir(os.path.join(dest_dir, "if_UpcaseDirectory"))
+
+with open(os.path.join(dest_dir, "if_UpcaseDirectory", "readableFile"), "w") as f:
+    pass

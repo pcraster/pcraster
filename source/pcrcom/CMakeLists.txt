@@ -1,14 +1,3 @@
-CONFIGURE_FILE(
-    ${CMAKE_CURRENT_SOURCE_DIR}/testrun.prolog.in
-    ${CMAKE_CURRENT_BINARY_DIR}/testrun.prolog
-    @ONLY
-)
-CONFIGURE_FILE(
-    ${CMAKE_CURRENT_SOURCE_DIR}/testrun.epilog.in
-    ${CMAKE_CURRENT_BINARY_DIR}/testrun.epilog
-    @ONLY
-)
-
 
 # TODO move this to UseAdvApi32.cmake
 IF(WIN32)
@@ -143,6 +132,13 @@ ENDIF(UNIX)
 
 
 if(PCRASTER_BUILD_TEST)
+
+    configure_file(
+        ${CMAKE_CURRENT_SOURCE_DIR}/test_prolog.py.in
+        ${CMAKE_CURRENT_BINARY_DIR}/test_prolog.py
+        @ONLY
+    )
+
     set(TEST_NAMES
         com_algorithmtest
         com_anypointerstest
@@ -197,4 +193,19 @@ if(PCRASTER_BUILD_TEST)
         LINK_LIBRARIES
             pcrcom
     )
+
+    add_test(
+        NAME setup_pcrcom
+        COMMAND ${PYTHON_EXECUTABLE} test_prolog.py
+    )
+
+    set_tests_properties(setup_pcrcom
+        PROPERTIES FIXTURES_SETUP FixturePcrCom
+    )
+
+    set_tests_properties(pcrcom_com_algorithmtest PROPERTIES
+        FIXTURES_REQUIRED
+          FixturePcrCom
+    )
+
 endif()

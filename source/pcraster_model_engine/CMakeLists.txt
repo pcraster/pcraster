@@ -1,16 +1,4 @@
 CONFIGURE_FILE(
-    ${CMAKE_CURRENT_SOURCE_DIR}/testrun.prolog.in
-    ${CMAKE_CURRENT_BINARY_DIR}/testrun.prolog
-    @ONLY
-    NEWLINE_STYLE UNIX
-)
-CONFIGURE_FILE(
-    ${CMAKE_CURRENT_SOURCE_DIR}/testrun.epilog.in
-    ${CMAKE_CURRENT_BINARY_DIR}/testrun.epilog
-    @ONLY
-    NEWLINE_STYLE UNIX
-)
-CONFIGURE_FILE(
     ${CMAKE_CURRENT_SOURCE_DIR}/operationExpanded.xml.in
     ${CMAKE_CURRENT_BINARY_DIR}/operationExpanded.xml
     @ONLY
@@ -372,6 +360,11 @@ TARGET_LINK_LIBRARIES(pcraster_model_engine
 
 if(PCRASTER_BUILD_TEST)
 
+    configure_file(
+        ${CMAKE_CURRENT_SOURCE_DIR}/test_prolog.py.in
+        ${CMAKE_CURRENT_BINARY_DIR}/test_prolog.py
+        @ONLY
+    )
 
   add_library(pcraster_model_engine_unit_test_utils
      STATIC
@@ -486,6 +479,22 @@ if(PCRASTER_BUILD_TEST)
         # mapattr asc2map
         # example1 example2 exampleCpp
     )
+
+
+    add_test(
+        NAME setup_pcraster_model_engine
+        COMMAND ${PYTHON_EXECUTABLE} test_prolog.py
+    )
+
+    set_tests_properties(setup_pcraster_model_engine
+        PROPERTIES FIXTURES_SETUP FixturePCRasterModelEngine
+    )
+
+    set_tests_properties(model_engine_calc_areamaptest PROPERTIES
+        FIXTURES_REQUIRED
+          FixturePCRasterModelEngine
+    )
+
 
 #     TARGET_LINK_LIBRARIES(test_pcraster_model_engine
 #         pcraster_model_engine  # _static

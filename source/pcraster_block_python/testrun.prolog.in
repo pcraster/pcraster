@@ -1,4 +1,0 @@
-set -e
-
-cp @CMAKE_CURRENT_SOURCE_DIR@/*py .
-cp @PCRASTER_DATA_DIR@/test/pcraster_block_python/clone.map .

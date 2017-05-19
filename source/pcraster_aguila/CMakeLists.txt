@@ -10,11 +10,6 @@ CONFIGURE_FILE(
     ${CMAKE_CURRENT_SOURCE_DIR}/ag_Configure.h.in
     ${CMAKE_CURRENT_BINARY_DIR}/../include/ag_Configure.h
 )
-CONFIGURE_FILE(
-    ${CMAKE_CURRENT_SOURCE_DIR}/testrun.prolog.in
-    ${CMAKE_CURRENT_BINARY_DIR}/testrun.prolog
-    @ONLY
-)
 
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/../pcraster_dal
@@ -270,6 +265,12 @@ INSTALL(
 )
 
 if(PCRASTER_BUILD_TEST)
+
+    configure_file(
+        ${CMAKE_CURRENT_SOURCE_DIR}/test_prolog.py.in
+        ${CMAKE_CURRENT_BINARY_DIR}/test_prolog.py
+        @ONLY
+    )
     set(TEST_NAMES
         # ag_AguilaTest  # Requires an X-server.
         ag_AguilaProgramOptionsTest
@@ -292,5 +293,16 @@ if(PCRASTER_BUILD_TEST)
         LINK_LIBRARIES
             pcraster_aguila
             ${QT_QTTEST_LIBRARY}
+    )
+    add_test(
+        NAME setup_aguila
+        COMMAND ${PYTHON_EXECUTABLE} test_prolog.py
+    )
+    set_tests_properties(setup_aguila
+        PROPERTIES FIXTURES_SETUP FixtureAguila
+    )
+    set_tests_properties(pcraster_aguila_ag_AguilaProgramOptionsTest PROPERTIES
+        FIXTURES_REQUIRED
+          FixtureAguila
     )
 endif()

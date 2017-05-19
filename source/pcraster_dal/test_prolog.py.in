@@ -1,0 +1,835 @@
+import os
+import shutil
+import glob
+import subprocess
+
+
+
+
+west=100000.0
+south=199850.0
+cellSize=50.0
+
+
+dest_dir = "@CMAKE_CURRENT_BINARY_DIR@"
+gdalTranslate="@GDAL_TRANSLATE@ -quiet"
+
+
+
+# copy some stuff; taken from Makefile
+
+# ------------------------------------------------------------------------------
+# Copy some existing test data.
+# ------------------------------------------------------------------------------
+
+filenames = ["inp1b.map", "d83.map", "dosformat.col", "boolean.Result.map", "areaarea.Class.imap", "map2col.PCRmap2.imap", "abs.Expr.imap", "nodirection.Expr.imap", "accu.Ldd.imap", "dtmsmall.map"]
+
+
+for f in filenames:
+  shutil.copy(os.path.join("@PCRASTER_DATA_DIR@", "test", "pcraster_dal", f), dest_dir)
+
+
+filenames = glob.glob(os.path.join("@PCRASTER_DATA_DIR@", "test", "pcraster_dal", "points.*"))
+filenames += glob.glob(os.path.join("@PCRASTER_DATA_DIR@", "test", "pcraster_dal", "lines.*"))
+filenames += glob.glob(os.path.join("@PCRASTER_DATA_DIR@", "test", "pcraster_dal", "*.bil"))
+filenames += glob.glob(os.path.join("@PCRASTER_DATA_DIR@", "test", "pcraster_dal", "*.hdr"))
+
+for f in filenames:
+  shutil.copy(os.path.join("@PCRASTER_DATA_DIR@", "test", "pcraster_dal", f), dest_dir)
+
+
+# ------------------------------------------------------------------------------
+#  Text tables.
+# ------------------------------------------------------------------------------
+# Simple table with only numbers.
+with open(os.path.join(dest_dir, "table1.col"), "w") as f:
+    f.write(""" 1  2  3
+ 4 -5  6
+ 7  8  9
+10 11 12
+13 14 15.5
+16 17 18"""
+    )
+
+
+# Header of non-numbers.
+with open(os.path.join(dest_dir, "table2.col"), "w") as f:
+    f.write("""cola colb colc
+ 1  2  3
+ 4 -5  6
+ 7  8  9
+10 11 12
+13 14 15.5
+16 17 18"""
+    )
+
+# Header of non-numbers with spaces.
+with open(os.path.join(dest_dir, "table3.col"), "w") as f:
+    f.write(""""col a" "col b" "col c"
+ 1  2  3
+ 4 -5  6
+ 7  8  9
+10 11 12
+13 14 15.5
+16 17 18"""
+    )
+
+# Mixed header.
+with open(os.path.join(dest_dir, "table4.col"), "w") as f:
+    f.write("""cola "col b" colc
+ 1  2  -3
+ 4 -5  6
+ 7  8  9
+10 11 12
+13 14 15.5
+16 17 18"""
+    )
+
+
+# One line.
+with open(os.path.join(dest_dir, "table5.col"), "w") as f:
+    f.write("""1 2 3 4 5"""
+    )
+
+# Values seperated by tabs.
+with open(os.path.join(dest_dir, "table6.col"), "w") as f:
+    f.write(""" 1\t2\t3
+ 4\t-5\t6
+ 7\t8\t9
+10\t11\t12
+13\t14\t15.5
+16\t17\t18"""
+    )
+
+# Multiple lines with '0', after which a line with a floating point.
+with open(os.path.join(dest_dir, "table7.col"), "w") as f:
+    f.write(""" 1\t0
+ 2\t0
+ 3\t0
+ 4\t0
+ 5\t0
+ 7\t0
+ 8\t0
+ 9\t0.5"""
+    )
+
+
+# ------------------------------------------------------------------------------
+#  Vector data.
+# ------------------------------------------------------------------------------
+
+with open(os.path.join(dest_dir, "values_x.col"), "w") as f:
+    f.write("""NCOLS 2
+NROWS 3
+XLLCORNER {}
+YLLCORNER {}
+CELLSIZE {}
+NODATA_VALUE 5.5
+1.1  0.0
+1.1  5.5
+1.1 -1.1""".format(west, south, cellSize)
+    )
+
+cmd = '{} -ot Float32 -mo "PCRASTER_VALUESCALE=VS_SCALAR" -of PCRaster {} {}'.format(gdalTranslate, os.path.join(dest_dir, "values_x.col"), os.path.join(dest_dir, "vector_x.map"))
+subprocess.check_call(cmd, shell=True)
+
+
+with open(os.path.join(dest_dir, "values_y.col"), "w") as f:
+    f.write("""NCOLS 2
+NROWS 3
+XLLCORNER {}
+YLLCORNER {}
+CELLSIZE {}
+NODATA_VALUE 5.5
+ 0.0 -2.2
+-2.2  5.5
+ 0.0 -2.2""".format(west, south, cellSize)
+    )
+
+cmd = '{} -ot Float32 -mo "PCRASTER_VALUESCALE=VS_SCALAR" -of PCRaster {} {}'.format(gdalTranslate, os.path.join(dest_dir, "values_y.col"), os.path.join(dest_dir, "vector_y.map"))
+subprocess.check_call(cmd, shell=True)
+
+
+for i in range(1,4):
+
+    with open(os.path.join(dest_dir, "values.col"), "w") as f:
+        f.write("""NCOLS 2
+NROWS 3
+XLLCORNER {}
+YLLCORNER {}
+CELLSIZE {}
+NODATA_VALUE -5.0
+{}.00 {}.01
+{}.10 -5.0
+{}.20 {}.21""".format(west, south, cellSize, i, i, i, i, i)
+        )
+
+    cmd = '{} -ot Float32 -mo "PCRASTER_VALUESCALE=VS_SCALAR" -of PCRaster {} {}'.format(gdalTranslate, os.path.join(dest_dir, "values.col"), os.path.join(dest_dir, "vector_x_{}.map".format(i)))
+    subprocess.check_call(cmd, shell=True)
+
+
+    with open(os.path.join(dest_dir, "values.col"), "w") as f:
+        f.write("""NCOLS 2
+NROWS 3
+XLLCORNER {}
+YLLCORNER {}
+CELLSIZE {}
+NODATA_VALUE  -5.0
+-{}.00 -{}.01
+-{}.10 -5.0
+-{}.20 -{}.21""".format(west, south, cellSize, i, i, i, i, i)
+        )
+
+    cmd = '{} -ot Float32 -mo "PCRASTER_VALUESCALE=VS_SCALAR" -of PCRaster {} {}'.format(gdalTranslate, os.path.join(dest_dir, "values.col"), os.path.join(dest_dir, "vector_y_{}.map".format(i)))
+    subprocess.check_call(cmd, shell=True)
+
+
+
+
+
+
+
+
+
+
+# gdalrasterdrivertest
+
+
+with open(os.path.join(dest_dir, "values.col"), "w") as f:
+    f.write("""NCOLS 2
+NROWS 3
+XLLCORNER {}
+YLLCORNER {}
+CELLSIZE {}
+NODATA_VALUE 3.0
+3.0    3.0
+3.0    3.0
+3.0    3.0""".format(west, south, cellSize)
+    )
+
+cmd = '{} -ot Byte -mo "PCRASTER_VALUESCALE=VS_BOOLEAN" -of PCRaster {} {}'.format(gdalTranslate, os.path.join(dest_dir, "values.col"), os.path.join(dest_dir, "allmv.pcrmap"))
+subprocess.check_call(cmd, shell=True)
+
+
+#     # make --silent -f $DAL/sources/pcraster_dal/Makefile.testrun all
+#     # cp $DAL/sources/pcraster_dal/Makefile.testrun .
+# make --silent -f Makefile.testrun all
+#
+# ------------------------------------------------------------------------------
+ # MatrixDriverTest
+# Simple matrix with only numbers.
+with open(os.path.join(dest_dir, "matrix1.txt"), "w") as f:
+    f.write("""1 2 3
+4 -5 6
+7 8 9
+10 11 12
+13 14 15.5
+16 17 18"""
+    )
+
+# Weights matrix.
+with open(os.path.join(dest_dir, "matrix2.txt"), "w") as f:
+    f.write("""1 1 1
+1 0 1
+1 1 1"""
+    )
+
+# Matrix to be read as string values.
+with open(os.path.join(dest_dir, "matrix3.txt"), "w") as f:
+    f.write("""1 1.0 1
+1 0 1
+1 1 a"""
+    )
+
+# Matrix which should give a parse error.
+with open(os.path.join(dest_dir, "matrix4.txt"), "w") as f:
+    f.write("""1 2 3
+4 -5 6
+7 8 9
+10 11 12
+13 14 15.5
+16 17 a"""
+    )
+
+# ------------------------------------------------------------------------------
+# GeoEASTableDriverTest
+with open(os.path.join(dest_dir, "table1.eas"), "w") as f:
+    f.write("""Special table
+3
+One
+Two
+Three
+1 2 3
+4 -5 6
+7 8 9
+10 11 12
+13 14 15.5
+16 17 1e31"""
+    )
+
+with open(os.path.join(dest_dir, "table2.eas"), "w") as f:
+    f.write("""Attributes of the zones.
+12
+Zone number
+Number of dwellings
+Urbanity
+Less then 300 m3, 2 rooms
+Less then 300 m3, 3 rooms
+Less then 300 m3, 4 rooms
+Between 300 and 600 m3, 3 rooms
+Between 300 and 600 m3, 4 rooms
+Between 300 and 600 m3, 5 rooms
+Greater than 600 m3, 4 rooms
+Greater than 600 m3, 5 rooms
+Greater than 600 m3, 6 rooms
+1 266 2 7 7 10 8 8 10 15 15 20
+2 386 2 15 15 20 9 9 12 6 6 8
+3 372 2 21 21 28 6 6 8 3 3 4
+4 304 2 6 6 8 12 12 16 12 12 16
+5 651 5 20 15 15 12 9 9 8 6 6
+6 340 5 8 6 6 16 12 12 16 12 12
+7 136 8 20 12 8 18 11 6 13 8 4
+8 45 8 10 6 4 20 12 8 20 12 8"""
+    )
+
+#     # ------------------------------------------------------------------------------
+#     # # SQLTableDriverTest
+#     # if [ $OSTYPE = "linux-gnu" ]
+#     # then
+#     #   if [ `which isql` ] # and $LOGNAME != kor ]
+#     #   then
+#     #     # Trouble shooting:
+#     #     # - [ISQL]ERROR: Could not SQLConnect
+#     #     #   ODBC doesn't know about the daltest DSN, see odbcinst command
+#     #     # - [ISQL]ERROR: Could not SQLExecute
+#     #     #   We delete the table here in case it is still lying around. If it is
+#     #     #   already gone, this error message is printed, no worries.
+#     #
+#     #     # Update $HOME/.odbc.ini so the daltest DSN is known by the ODBC driver.
+#     #     odbcinst -i -s -f $DAL/Sources/PCRasterDal/odbctestdb.txt
+#     #
+#     #     # Table might still be around when unit tests dumped/threw/...
+#     #     # Delete it first.
+#     #
+#     #     if [ -e daltest ]; then
+#     #       cat $DAL/Sources/PCRasterDal/deleteExampleTable | isql daltest $LOGNAME -b | grep --invert "SQLRowCount returns"
+#     #     fi
+#     #
+#     #     # Create a fresh table.
+#     #     cat $DAL/Sources/PCRasterDal/createExampleTable | isql daltest $LOGNAME -b | grep --invert "SQLRowCount returns"
+#     #   fi
+#     # fi
+#
+
+
+# ------------------------------------------------------------------------------
+#
+# StackInfoTest
+# soil0000.010+100
+
+for i in range(10,101):
+
+
+    with open(os.path.join(dest_dir, "soil.col"), "w") as f:
+        f.write("""NCOLS 2
+NROWS 3
+XLLCORNER {}
+YLLCORNER {}
+CELLSIZE {}
+NODATA_VALUE -1.0
+{} 1
+2    -1.0
+{} 3""".format(west, south, cellSize, i, i)
+        )
+
+    cmd = '{} -ot Int32 -mo "PCRASTER_VALUESCALE=VS_NOMINAL" -of PCRaster {} {}'.format(gdalTranslate, os.path.join(dest_dir, "soil.col"), os.path.join(dest_dir, "soil0000.{:03d}".format(i)))
+    subprocess.check_call(cmd, shell=True)
+
+
+
+
+with open(os.path.join(dest_dir, "values.col"), "w") as f:
+    f.write("""NCOLS 2
+NROWS 3
+XLLCORNER {}
+YLLCORNER {}
+CELLSIZE {}
+NODATA_VALUE -1.0
+1.0    1.0
+1.0    1.0
+1.0    1.0""".format(west, south, cellSize)
+    )
+
+cmd = '{} -ot Float32 -mo "PCRASTER_VALUESCALE=VS_SCALAR" -of PCRaster {} {}'.format(gdalTranslate, os.path.join(dest_dir, "values.col"), os.path.join(dest_dir, "values00.010"))
+subprocess.check_call(cmd, shell=True)
+
+
+with open(os.path.join(dest_dir, "values.col"), "w") as f:
+    f.write("""NCOLS 2
+NROWS 3
+XLLCORNER {}
+YLLCORNER {}
+CELLSIZE {}
+NODATA_VALUE -1.0
+6.0    6.0
+6.0    6.0
+6.0    6.0""".format(west, south, cellSize)
+    )
+
+cmd = '{} -ot Float32 -mo "PCRASTER_VALUESCALE=VS_SCALAR" -of PCRaster {} {}'.format(gdalTranslate, os.path.join(dest_dir, "values.col"), os.path.join(dest_dir, "values00.015"))
+subprocess.check_call(cmd, shell=True)
+
+
+with open(os.path.join(dest_dir, "values.col"), "w") as f:
+    f.write("""NCOLS 2
+NROWS 3
+XLLCORNER {}
+YLLCORNER {}
+CELLSIZE {}
+NODATA_VALUE -1.0
+11.0    11.0
+11.0    11.0
+11.0    11.0""".format(west, south, cellSize)
+    )
+
+cmd = '{} -ot Float32 -mo "PCRASTER_VALUESCALE=VS_SCALAR" -of PCRaster {} {}'.format(gdalTranslate, os.path.join(dest_dir, "values.col"), os.path.join(dest_dir, "values00.020"))
+subprocess.check_call(cmd, shell=True)
+
+
+
+#     rm values.col
+
+# RasterDataSourceTest
+with open(os.path.join(dest_dir, "values.col"), "w") as f:
+    f.write("""NCOLS 2
+NROWS 3
+XLLCORNER {}
+YLLCORNER {}
+CELLSIZE {}
+NODATA_VALUE -1.0
+1 2
+4 -1.0
+7 8""".format(west, south, cellSize)
+    )
+
+cmd = '{} -ot Int32 -mo "PCRASTER_VALUESCALE=VS_NOMINAL" -of PCRaster {} {}'.format(gdalTranslate, os.path.join(dest_dir, "values.col"), os.path.join(dest_dir, "soil.map"))
+subprocess.check_call(cmd, shell=True)
+
+cmd = '{} -ot Int32 -mo "PCRASTER_VALUESCALE=VS_NOMINAL" -of PCRaster {} {}'.format(gdalTranslate, os.path.join(dest_dir, "values.col"), os.path.join(dest_dir, "sillyname"))
+subprocess.check_call(cmd, shell=True)
+
+cmd = '{} -ot Int32 -mo "PCRASTER_VALUESCALE=VS_ORDINAL" -of PCRaster {} {}'.format(gdalTranslate, os.path.join(dest_dir, "values.col"), os.path.join(dest_dir, "sillyname.map"))
+subprocess.check_call(cmd, shell=True)
+
+
+# ------------------------------------------------------------------------------
+# Complex test data set 1 for data space with dimensions:
+# Scenarios: {aap, noot, mies}
+# Time: [10, 20, 1]
+# CumulativeProbabilities: [0.1, 0.9, 0.01]
+# Space: 3
+# Space: 2
+
+# ------------------------------------------------------------------------------
+# quantile
+# aap
+# q\t  | 10   | 15   | 20
+# -------------------------
+# 0.1  |  0.0 |  1.0 |  2.0
+# 0.25 |  4.0 |  5.0 |  6.0
+# 0.5  |  5.0 |  6.0 |  7.0
+# 0.75 |  6.0 |  7.0 |  8.0
+# 0.9  | 10.0 | 11.0 | 12.0
+
+# noot
+# q\t  | 10   | 15   | 20
+# -------------------------
+# 0.1  | 10.0 | 11.0 | 12.0
+# 0.25 | 14.0 | 15.0 | 16.0
+# 0.5  | 15.0 | 16.0 | 17.0
+# 0.75 | 16.0 | 17.0 | 18.0
+# 0.9  | 20.0 | 21.0 | 22.0
+
+# mies
+# q\t  | 10   | 15   | 20
+# -------------------------
+# 0.1  | 20.0 | 21.0 | 22.0
+# 0.25 | 24.0 | 25.0 | 26.0
+# 0.5  | 25.0 | 26.0 | 27.0
+# 0.75 | 26.0 | 27.0 | 28.0
+# 0.9  | 30.0 | 31.0 | 32.0
+# ------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+# Create directories.
+
+
+shutil.rmtree(os.path.join(dest_dir, "dataset1"), ignore_errors=True)
+os.mkdir(os.path.join(dest_dir, "dataset1"))
+scenario = ["aap", "noot", "mies"]
+
+for s in scenario:
+    os.mkdir(os.path.join(dest_dir, "dataset1", s))
+
+
+
+def createRaster(value, output_filename):
+    value1=value
+
+    with open(os.path.join(dest_dir, "tmp.col"), "w") as f:
+        f.write("""NCOLS 2
+NROWS 3
+XLLCORNER {}
+YLLCORNER {}
+CELLSIZE {}
+NODATA_VALUE -1.0
+{} -1.0
+-1.0    -1.0
+-1.0    -1.0""".format(west, south, cellSize, value1)
+        )
+
+    cmd = '{} -ot Float32 -mo "PCRASTER_VALUESCALE=VS_SCALAR" -of PCRaster {} {}'.format(gdalTranslate, os.path.join(dest_dir, "tmp.col"), os.path.join(dest_dir, output_filename))
+    subprocess.check_call(cmd, shell=True)
+
+
+
+# Create rasters.
+# scalar_x
+
+
+for t in range(10, 21):
+    # Upper left cell of scalar equals the time step.
+    # Some time steps are missing.
+    # All other cells are missing values for the time being.
+    # 0: 10, 11, 12, 13, 14, 15
+    if t != 15:
+        fname = os.path.join(dest_dir, "dataset1", "aap", "scalar_{}".format(str(t)))
+        createRaster(t, fname)
+    if t != 16:
+        fname = os.path.join(dest_dir, "dataset1", "noot", "scalar_{}".format(str(t)))
+        createRaster(t, fname)
+    if t != 17:
+        fname = os.path.join(dest_dir, "dataset1", "mies", "scalar_{}".format(str(t)))
+        createRaster(t, fname)
+
+for i in range(0, 4):
+    t=10+i*5
+
+    v=0+i*1
+    fname = os.path.join(dest_dir, "dataset1", "aap", "quantile_{}_{}".format(str(t), str(0.1)))
+    createRaster(v, fname)
+    v+=10
+    fname = os.path.join(dest_dir, "dataset1", "noot", "quantile_{}_{}".format(str(t), str(0.1)))
+    createRaster(v, fname)
+    v+=10
+    fname = os.path.join(dest_dir, "dataset1", "mies", "quantile_{}_{}".format(str(t), str(0.1)))
+    createRaster(v, fname)
+
+
+    v=4+i*1
+    fname = os.path.join(dest_dir, "dataset1", "aap", "quantile_{}_{}".format(str(t), str(0.25)))
+    createRaster(v, fname)
+    v+=10
+    fname = os.path.join(dest_dir, "dataset1", "noot", "quantile_{}_{}".format(str(t), str(0.25)))
+    createRaster(v, fname)
+    v+=10
+    fname = os.path.join(dest_dir, "dataset1", "noot", "quantile_{}_{}".format(str(t), str(0.25)))
+    createRaster(v, fname)
+
+
+    v=5+i*1
+    fname = os.path.join(dest_dir, "dataset1", "aap", "quantile_{}_{}".format(str(t), str(0.5)))
+    createRaster(v, fname)
+    v+=10
+    fname = os.path.join(dest_dir, "dataset1", "noot", "quantile_{}_{}".format(str(t), str(0.5)))
+    createRaster(v, fname)
+    v+=10
+    fname = os.path.join(dest_dir, "dataset1", "mies", "quantile_{}_{}".format(str(t), str(0.5)))
+    createRaster(v, fname)
+
+
+    v=6+i*1
+    fname = os.path.join(dest_dir, "dataset1", "aap", "quantile_{}_{}".format(str(t), str(0.75)))
+    createRaster(v, fname)
+    v+=10
+    fname = os.path.join(dest_dir, "dataset1", "noot", "quantile_{}_{}".format(str(t), str(0.75)))
+    createRaster(v, fname)
+    v+=10
+    fname = os.path.join(dest_dir, "dataset1", "mies", "quantile_{}_{}".format(str(t), str(0.75)))
+    createRaster(v, fname)
+
+
+    v=10+i*1
+    fname = os.path.join(dest_dir, "dataset1", "aap", "quantile_{}_{}".format(str(t), str(0.9)))
+    createRaster(v, fname)
+    v+=10
+    fname = os.path.join(dest_dir, "dataset1", "noot", "quantile_{}_{}".format(str(t), str(0.9)))
+    createRaster(v, fname)
+    v+=10
+    fname = os.path.join(dest_dir, "dataset1", "mies", "quantile_{}_{}".format(str(t), str(0.9)))
+    createRaster(v, fname)
+
+# ------------------------------------------------------------------------------
+# GDALRasterDriverTest
+
+cmd = '{} -of GTiff {} {}'.format(gdalTranslate, os.path.join(dest_dir, "boolean.Result.map"), os.path.join(dest_dir, "boolean.tiff"))
+subprocess.check_call(cmd, shell=True)
+cmd = '{} -of GTiff {} {}'.format(gdalTranslate, os.path.join(dest_dir, "areaarea.Class.imap"), os.path.join(dest_dir, "nominal.tiff"))
+subprocess.check_call(cmd, shell=True)
+cmd = '{} -of GTiff {} {}'.format(gdalTranslate, os.path.join(dest_dir, "map2col.PCRmap2.imap"), os.path.join(dest_dir, "ordinal.tiff"))
+subprocess.check_call(cmd, shell=True)
+cmd = '{} -of GTiff {} {}'.format(gdalTranslate, os.path.join(dest_dir, "abs.Expr.imap"), os.path.join(dest_dir, "scalar.tiff"))
+subprocess.check_call(cmd, shell=True)
+cmd = '{} -of GTiff {} {}'.format(gdalTranslate, os.path.join(dest_dir, "nodirection.Expr.imap"), os.path.join(dest_dir, "directional.tiff"))
+subprocess.check_call(cmd, shell=True)
+cmd = '{} -of GTiff {} {}'.format(gdalTranslate, os.path.join(dest_dir, "accu.Ldd.imap"), os.path.join(dest_dir, "ldd.tiff"))
+subprocess.check_call(cmd, shell=True)
+cmd = '{} -of GTiff {} {}'.format(gdalTranslate, os.path.join(dest_dir, "allmv.pcrmap"), os.path.join(dest_dir, "allmv.tiff"))
+subprocess.check_call(cmd, shell=True)
+
+
+# soil0000.0xy -> soil_xy.pcrmap
+# soil0000.0xy -> soil_xy.tiff
+
+for i in range(10,101):
+    cmd = '{} -of GTiff {} {}'.format(gdalTranslate, os.path.join(dest_dir, "soil0000.{:03d}".format(i)), os.path.join(dest_dir, "soil_{}.tiff".format(str(i))))
+    subprocess.check_call(cmd, shell=True)
+
+
+
+with open(os.path.join(dest_dir, "esriasciigrid1.asc"), "w") as f:
+    f.write("""ncols 3
+nrows 4
+xllcorner 3.0
+yllcorner 4.0
+cellsize 10.0
+nodata_value -9999
+1 2 3
+4 -9999 6
+7 8 9
+10 11 12"""
+    )
+
+
+# ------------------------------------------------------------------------------
+# OgrFeatureDriverTest
+
+with open(os.path.join(dest_dir, "polygons.vrt"), "w") as f:
+    f.write("""<OGRVRTDataSource>
+  <OGRVRTLayer name="polygons">
+    <SrcDataSource>polygons.csv</SrcDataSource>
+    <GeometryType>wkbPolygon</GeometryType>
+    <LayerSRS>WGS84</LayerSRS>
+    <GeometryField encoding="WKT" field="wkt"/>
+  </OGRVRTLayer>
+</OGRVRTDataSource>"""
+    )
+
+
+with open(os.path.join(dest_dir, "polygons.csv"), "w") as f:
+    f.write("""id, wkt, attribute1, attribute2
+1, "POLYGON((2 2, 4 2, 3 4, 2 2))", 1.1, 1.2
+2, "POLYGON((4 6, 8 6, 8 8, 4 8, 4 6))", 2.1, 2.2"""
+    )
+
+
+with open(os.path.join(dest_dir, "polygons.csvt"), "w") as f:
+    f.write('"Integer","String","Real","Real"')
+
+# External table for
+# - temporal attribute (1, 2)
+# - uncertain attribute (0.01, 0.1, 0.5, 0.9, 0.99)
+# - uncertain temporal attribute (
+#   1_0.01, 1_0.1, 1_0.5, 1_0.9, 1_0.99
+#   2_0.01, 2_0.1, 2_0.5, 2_0.9, 2_0.99)
+# TODO This all works for sqlite tables stored in databases stored in files.
+#      How about databases managed by other DBMS's?
+# Note the reordering of the records. This will make sure that the join on
+# fid works.
+
+try:
+    os.remove(os.path.join(dest_dir, "polygons.sql3"))
+except OSError:
+    pass
+
+arg = """create table polygons(
+         'fid' INTEGER,
+         'date' INTEGER,
+         'attribute1' REAL,
+         PRIMARY KEY ('fid', 'date'));
+       insert into polygons values(2, 1, 12.1);
+       insert into polygons values(1, 1, 11.1);
+       insert into polygons values(2, 2, 12.2);
+       insert into polygons values(1, 2, 11.2);"""
+
+cmd = '@SQLITE3_EXECUTABLE@ polygons.sql3 "{}"'.format(arg)
+subprocess.check_call(cmd, shell=True)
+
+
+
+#       #
+#       #   "Feature id" INTEGER primary key,
+#
+#       #   "1" REAL, "2" REAL,
+#       #   "0.01" REAL, "0.1" REAL, "0.5" REAL, "0.9" REAL, "0.99" REAL,
+#       #   "1_0.01" REAL, "1_0.1" REAL, "1_0.5" REAL, "1_0.9" REAL, "1_0.99" REAL,
+#       #   "2_0.01" REAL, "2_0.1" REAL, "2_0.5" REAL, "2_0.9" REAL, "2_0.99" REAL);
+#       # insert into attribute1 values(
+#       #   1,
+#       #   11.1, 11.2,
+#       #   3.3, 4.4, 10.3, 17.5, 20.2,
+#       #   13.3, 14.4, 110.3, 117.5, 120.2,
+#       #   23.3, 24.4, 210.3, 217.5, 220.2);
+#       # insert into attribute1 values(
+#       #   2,
+#       #   12.1, 12.2,
+#       #   3.1, 4.2, 11.3, 16.6, 21.1,
+#       #   13.1, 14.2, 111.3, 116.6, 121.1,
+#       #   23.1, 24.2, 211.3, 216.6, 221.1);
+#
+
+
+
+
+
+# Uncertain attribute:
+# feature quantile value
+# 1       0.01     3.3
+# 1       0.1      4.4
+# 1       0.5      10.3
+# 1       0.9      17.5
+# 1       0.99     20.2
+#
+# 2       0.01     3.1
+# 2       0.1      4.2
+# 2       0.5      11.3
+# 2       0.9      16.6
+# 2       0.99     21.1
+#
+# - Test attribute values for available quantile levels
+# - Test attribute values for unavailable quantile levels
+# - Test exceedence chances for available values
+# - Test exceedence chances for unavailable values
+#
+# Uncertain temporal attribute
+# feature timestep quantile value
+# 1       1        0.01     13.3
+# 1       1        0.1      14.4
+# 1       1        0.5      110.3
+# 1       1        0.9      117.5
+# 1       1        0.99     120.2
+# 2       1        0.01     13.1
+# 2       1        0.1      14.2
+# 2       1        0.5      111.3
+# 2       1        0.9      116.6
+# 2       1        0.99     121.1
+# 1       2        0.01     23.3
+# 1       2        0.1      24.4
+# 1       2        0.5      210.3
+# 1       2        0.9      217.5
+# 1       2        0.99     220.2
+# 2       2        0.01     23.1
+# 2       2        0.1      24.2
+# 2       2        0.5      211.3
+# 2       2        0.9      216.6
+# 2       2        0.99     221.1
+#
+# - Test temporal attribute values for available quantile levels
+# - Test temporal attribute values for unavailable quantile levels
+# - Test exceedence chances for available temporal values
+# - Test exceedence chances for unavailable temporal values
+
+
+try:
+    os.remove(os.path.join(dest_dir, "dimensions.sql3"))
+except OSError:
+    pass
+
+arg = """create table date(
+         'date' INTEGER,
+         'co2' REAL,
+         PRIMARY KEY ('date'));
+       insert into date values(1, 1.11);
+       insert into date values(2, 2.22);
+       insert into date values(3, 3.33);
+       """
+
+cmd = '@SQLITE3_EXECUTABLE@ {} "{}"'.format(os.path.join(dest_dir, "dimensions.sql3"), arg)
+subprocess.check_call(cmd, shell=True)
+
+
+arg = """create table scenario(
+         'scenario' STRING,
+         'co2' REAL,
+         PRIMARY KEY ('scenario'));
+       insert into scenario values('aap' , -1.11);
+       insert into scenario values('noot', -2.22);"""
+
+cmd = '@SQLITE3_EXECUTABLE@ {} "{}"'.format(os.path.join(dest_dir, "dimensions.sql3"), arg)
+subprocess.check_call(cmd, shell=True)
+
+
+arg = """create table scenario_date(
+         'scenario' STRING,
+         'date' INTEGER,
+         'co2' REAL,
+         PRIMARY KEY ('scenario', 'date'));
+       insert into scenario_date values('aap' , 1, 1.01);
+       insert into scenario_date values('aap' , 2, 2.01);
+       insert into scenario_date values('noot', 1, 1.02);
+       insert into scenario_date values('noot', 2, 2.02);
+       """
+
+cmd = '@SQLITE3_EXECUTABLE@ {} "{}"'.format(os.path.join(dest_dir, "dimensions.sql3"), arg)
+subprocess.check_call(cmd, shell=True)
+
+
+arg = """create table quantile(
+         'quantile' REAL,
+         'co2' REAL,
+         PRIMARY KEY ('quantile'));
+       insert into quantile values(0.01, 1.01);
+       insert into quantile values(0.05, 1.05);
+       insert into quantile values(0.50, 1.50);
+       insert into quantile values(0.95, 1.95);
+       insert into quantile values(0.99, 1.99);
+       """
+
+cmd = '@SQLITE3_EXECUTABLE@ {} "{}"'.format(os.path.join(dest_dir, "dimensions.sql3"), arg)
+subprocess.check_call(cmd, shell=True)
+
+
+arg = """create table scenario_date_quantile(
+         'scenario' STRING,
+         'date' INTEGER,
+         'quantile' REAL,
+         'co2' REAL,
+         PRIMARY KEY ('scenario', 'date', 'quantile'));
+       insert into scenario_date_quantile values('aap', 1, 0.01, 1.01);
+       insert into scenario_date_quantile values('aap', 1, 0.05, 1.05);
+       insert into scenario_date_quantile values('aap', 1, 0.50, 1.50);
+       insert into scenario_date_quantile values('aap', 1, 0.95, 1.95);
+       insert into scenario_date_quantile values('aap', 1, 0.99, 1.99);
+       insert into scenario_date_quantile values('aap', 2, 0.01, 2.01);
+       insert into scenario_date_quantile values('aap', 2, 0.05, 2.05);
+       insert into scenario_date_quantile values('aap', 2, 0.50, 2.50);
+       insert into scenario_date_quantile values('aap', 2, 0.95, 2.95);
+       insert into scenario_date_quantile values('aap', 2, 0.99, 2.99);
+       insert into scenario_date_quantile values('aap', 3, 0.01, 3.01);
+       insert into scenario_date_quantile values('aap', 3, 0.05, 3.05);
+       insert into scenario_date_quantile values('aap', 3, 0.50, 3.50);
+       insert into scenario_date_quantile values('aap', 3, 0.95, 3.95);
+       insert into scenario_date_quantile values('aap', 3, 0.99, 3.99);
+       """
+
+cmd = '@SQLITE3_EXECUTABLE@ {} "{}"'.format(os.path.join(dest_dir, "dimensions.sql3"), arg)
+subprocess.check_call(cmd, shell=True)

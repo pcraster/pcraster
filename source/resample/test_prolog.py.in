@@ -11,7 +11,7 @@ dest_dir = "@CMAKE_CURRENT_BINARY_DIR@"
 for f in glob.glob(os.path.join(dest_dir, "*.map")):
     os.remove(f)
 
-shutil.rmtree(os.path.join(os.getcwd(), "validated"), ignore_errors=True)
+shutil.rmtree(os.path.join(dest_dir, "validated"), ignore_errors=True)
 
 
 # obtain input

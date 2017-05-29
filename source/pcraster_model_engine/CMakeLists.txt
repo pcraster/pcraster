@@ -1,4 +1,4 @@
-CONFIGURE_FILE(
+configure_file(
     ${CMAKE_CURRENT_SOURCE_DIR}/operationExpanded.xml.in
     ${CMAKE_CURRENT_BINARY_DIR}/operationExpanded.xml
     @ONLY
@@ -239,14 +239,18 @@ if( NOT ${operation_expanded} STREQUAL "c1d7687a22a7e88a3637515554dd54e4f3779c2d
     message(FATAL_ERROR "The operationExpanded.xml file is older than one of its dependencies. Update operationExpanded.xml.in first; or contact the PCRaster Research and Development team in case you don't know how to proceed.")
     # The previous command was part of the custom command below
     # COMMAND ${LIBXSLT_XSLTPROC_EXECUTABLE} --nonet --output ${CMAKE_CURRENT_BINARY_DIR}/operationExpanded.xml ${CMAKE_CURRENT_SOURCE_DIR}/../xslt/expand.xsl ${CMAKE_CURRENT_SOURCE_DIR}/operation.xml
+    # in addition, also do the xmllint check on operation.xml
 endif()
 
-# OLS: keep this command fttb; it's a dependency for the command below; refactor this when revisiting a potential xmllint removal
+# OLS: keep this command fttb; it's a dependency for the command below;
+#      also for documentation purposes in case we need to regenerate operationExpanded.xml.in
+# workaround: operationExpanded.xml in the build directory somehow gets removed, copy it again...
 ADD_CUSTOM_COMMAND(
     OUTPUT  ${CMAKE_CURRENT_BINARY_DIR}/operationExpanded.xml
     DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/operation.xml ${CMAKE_CURRENT_SOURCE_DIR}/operation.dtd
     COMMENT "Expanding XML to OBJECT directory"
-    COMMAND ${LIBXML2_XMLLINT_EXECUTABLE} --noout --nonet --nocatalogs --dtdvalid ${CMAKE_CURRENT_SOURCE_DIR}/operation.dtd ${CMAKE_CURRENT_SOURCE_DIR}/operation.xml
+    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/operationExpanded.xml.in ${CMAKE_CURRENT_BINARY_DIR}/operationExpanded.xml
+    # COMMAND ${LIBXML2_XMLLINT_EXECUTABLE} --noout --nonet --nocatalogs --dtdvalid ${CMAKE_CURRENT_SOURCE_DIR}/operation.dtd ${CMAKE_CURRENT_SOURCE_DIR}/operation.xml
     # Commented due to removal of xsltproc dependency
     # COMMAND ${LIBXSLT_XSLTPROC_EXECUTABLE} --nonet --output ${CMAKE_CURRENT_BINARY_DIR}/operationExpanded.xml ${CMAKE_CURRENT_SOURCE_DIR}/../xslt/expand.xsl ${CMAKE_CURRENT_SOURCE_DIR}/operation.xml
 )

@@ -55,12 +55,14 @@ endif()
 
 if(PCRASTER_BUILD_TEST)
     set(PCRASTER_TEST_REQUIRED TRUE)
-    set(DEVBASE_LIB_XSLT_XSLTPROC_REQUIRED TRUE)
     set(DEVBASE_BOOST_REQUIRED TRUE)
-    set(DEVBASE_LIB_XML2_REQUIRED TRUE)
-    set(DEVBASE_LIB_XSLT_REQUIRED TRUE)
     list(APPEND DEVBASE_REQUIRED_BOOST_COMPONENTS
         unit_test_framework)
+    # The ones below are required in case a developer needs to
+    # regenerate one of the pcraster_model_engine's XML files
+    # set(DEVBASE_LIB_XSLT_XSLTPROC_REQUIRED TRUE)
+    # set(DEVBASE_LIB_XML2_REQUIRED TRUE)
+    # set(DEVBASE_LIB_XSLT_REQUIRED TRUE)
 endif()
 
 

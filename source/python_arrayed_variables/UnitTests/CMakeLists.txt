@@ -1,4 +1,4 @@
-if(NOT (WIN32 AND (${CMAKE_BUILD_TYPE} STREQUAL Debug)))
+if(NOT (WIN32 AND (${CMAKE_BUILD_TYPE} STREQUAL "Debug")))
 #
 #   configure_file(
 #     ${CMAKE_CURRENT_SOURCE_DIR}/testrun.prolog.in

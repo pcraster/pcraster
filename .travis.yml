@@ -124,9 +124,8 @@ before_script:
 script:
     - set -e  # Don't run the tests if the build fails.
     - cd $TRAVIS_BUILD_DIR/build
-    - export MAKEFLAGS='-j1'
-    #- cmake --build . --config ${TRAVIS_BUILD_TYPE} --target all
-    - make VERBOSE=TRUE
+    - export MAKEFLAGS='-j2'
+    - cmake --build . --config ${TRAVIS_BUILD_TYPE} --target all
 
     # own GDAL 2.x library needs to be found to execute unit tests
     - export LD_LIBRARY_PATH=$TRAVIS_BUILD_DIR/local/linux/linux/gcc-4/x86_64/lib

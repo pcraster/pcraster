@@ -459,3 +459,29 @@ class TestNumPy(testcase.TestCase):
       # - float96/128 TODO
       # - complex64/192/256 TODO
       # ...
+
+
+
+  @unittest.skip("see gh145")
+  def test_nonspatial_to_numpy(self):
+      nrRows, nrCols, cellSize = 3, 2, 1.0
+      west, north = 0.0, 0.0
+      pcraster.setclone(nrRows, nrCols, cellSize, west, north)
+
+      value = 1.2
+      nonspatial = pcraster.scalar(1.2)
+      mv = -999.9
+      array = pcraster.pcr2numpy(nonspatial, mv)
+
+      self.assertAlmostEqual(array[0][0], value)
+      self.assertAlmostEqual(array[0][1], value)
+      self.assertAlmostEqual(array[0][2], value)
+      self.assertAlmostEqual(array[1][0], value)
+      self.assertAlmostEqual(array[1][1], value)
+      self.assertAlmostEqual(array[1][2], value)
+      self.assertAlmostEqual(array[2][0], value)
+      self.assertAlmostEqual(array[2][1], value)
+      self.assertAlmostEqual(array[2][2], value)
+
+      # todo also test nonspatial boolean, nominal, ordinal
+      # consider taking and_Expr1.map to test MV in output

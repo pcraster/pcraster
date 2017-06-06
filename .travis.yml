@@ -57,6 +57,8 @@ addons:
             # - doxygen
             # - graphviz
             # - imagemagick
+            - python-pip
+            - python-sphinx
 
 before_install:
     - sudo add-apt-repository ppa:beineri/opt-qt562-trusty -y
@@ -86,9 +88,9 @@ install:
     - set -e
 
     - cd $TRAVIS_BUILD_DIR
-    - sudo pip install --upgrade pip
-    # - sudo pip install --upgrade docopt
-    - sudo pip install --upgrade sphinx
+    # - sudo pip install --upgrade pip
+    ## - sudo pip install --upgrade docopt
+    # - sudo pip install --upgrade sphinx
     - sudo pip install pillow
 
     # - sudo apt-get install opt-qt4-qmake opt-qt4-dev-tools
@@ -124,6 +126,8 @@ before_script:
 script:
     - set -e  # Don't run the tests if the build fails.
     - cd $TRAVIS_BUILD_DIR/build
+    - which python
+    - python --version
     - export MAKEFLAGS='-j2'
     - cmake --build . --config ${TRAVIS_BUILD_TYPE} --target all
 

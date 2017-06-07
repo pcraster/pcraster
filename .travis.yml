@@ -124,6 +124,9 @@ install:
 before_script:
     - mkdir $TRAVIS_BUILD_DIR/build
     - cd $TRAVIS_BUILD_DIR/build
+    - which python
+    - python --version
+    - python -c "import numpy as n; print(n.__version__); print(n.get_include());"
     # By default, cmake picks up the Python executable from /opt which has not the additional modules installed; force to use Python in /usr
     # -DPYTHON_EXECUTABLE=/usr/bin/python2.7
     - cmake -G"${TRAVIS_CMAKE_GENERATOR}" -DCMAKE_C_COMPILER=gcc-4.9 -DCMAKE_CXX_COMPILER=g++-4.9 -DPEACOCK_PREFIX:PATH=$TRAVIS_BUILD_DIR/local -DCMAKE_BUILD_TYPE=${TRAVIS_BUILD_TYPE} -DPCRASTER_WITH_PYTHON_MULTICORE:BOOL=TRUE -DPCRASTER_BUILD_TEST:BOOL=TRUE ..
@@ -134,6 +137,7 @@ script:
     - which python
     - python --version
     - export MAKEFLAGS='-j2'
+    - python -c "import numpy as n; print(n.__version__); print(n.get_include());"
     - cmake --build . --config ${TRAVIS_BUILD_TYPE} --target all
 
     # own GDAL 2.x library needs to be found to execute unit tests

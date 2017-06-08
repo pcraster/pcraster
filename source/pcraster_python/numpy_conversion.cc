@@ -59,8 +59,8 @@ boost::python::numeric::array field_to_array(
     switch(field->cr()) {
         case CR_UINT1: {
             boost::python::object object(boost::python::handle<>(
-                PyArray_SimpleNew(2, dimensions, PyArray_UINT8)));
-            char* data = ((PyArrayObject*)object.ptr())->data;
+                PyArray_SimpleNew(2, dimensions, NPY_UINT8)));
+            char* data = static_cast<char*>(PyArray_DATA((PyArrayObject*)object.ptr()));
             field->beMemCpySrc(data);
             dal::fromStdMV<UINT1>((UINT1*)data, nr_values,
                 static_cast<UINT1>(missing_value));
@@ -70,8 +70,8 @@ boost::python::numeric::array field_to_array(
         }
         case CR_INT4: {
             boost::python::object object(boost::python::handle<>(
-                PyArray_SimpleNew(2, dimensions, PyArray_INT32)));
-            char* data = ((PyArrayObject*)object.ptr())->data;
+                PyArray_SimpleNew(2, dimensions, NPY_INT32)));
+            char* data = static_cast<char*>(PyArray_DATA((PyArrayObject*)object.ptr()));
             field->beMemCpySrc(data);
             dal::fromStdMV<INT4>((INT4*)data, nr_values, static_cast<INT4>(
                 missing_value));
@@ -83,8 +83,8 @@ boost::python::numeric::array field_to_array(
         default: {
             assert(field->cr() == CR_REAL4);
             boost::python::object object(boost::python::handle<>(
-                PyArray_SimpleNew(2, dimensions, PyArray_FLOAT32)));
-            char *data = ((PyArrayObject*)object.ptr())->data;
+                PyArray_SimpleNew(2, dimensions, NPY_FLOAT32)));
+            char *data = static_cast<char*>(PyArray_DATA((PyArrayObject*)object.ptr()));
             field->beMemCpySrc(data);
             dal::fromStdMV<REAL4>((REAL4*)data, nr_values, static_cast<REAL4>(
                 missing_value));
@@ -780,7 +780,7 @@ calc::Spatial* array_to_field(
 
     typedef typename ValueScaleTraits<value_scale>::Type Destination;
     Source const* source = static_cast<Source const*>(
-        PyArray_DATA(array.ptr()));
+        PyArray_DATA((PyArrayObject*)array.ptr()));
     Destination* destination = static_cast<Destination*>(field->dest());
 
     try {
@@ -835,14 +835,14 @@ calc::Field* array_to_field(
         throw std::logic_error(
             "No valid raster defined: Set clone or load map from file");
     }
-    if((((PyArrayObject*)array.ptr())->nd) != 2) {
+    if(PyArray_NDIM((PyArrayObject*)array.ptr()) != 2) {
         throw std::logic_error(
             "Dimension error: Rank of input array must be 2");
     }
 
     size_t const nr_cells_in_array =
-        ((PyArrayObject*)array.ptr())->dimensions[0] *
-        ((PyArrayObject*)array.ptr())->dimensions[1];
+        PyArray_DIM((PyArrayObject*)array.ptr(), 0) *
+        PyArray_DIM((PyArrayObject*)array.ptr(), 1);
     size_t const nr_cells_in_field = space.nrCells();
 
     if(nr_cells_in_array != nr_cells_in_field){
@@ -853,7 +853,7 @@ calc::Field* array_to_field(
             % nr_cells_in_field).str().c_str());
     }
 
-    int const type = PyArray_TYPE(array.ptr());
+    int const type = PyArray_TYPE((PyArrayObject*)array.ptr());
     calc::Spatial* field = NULL;
 
     // http://docs.scipy.org/doc/numpy/reference/c-api.dtype.html
@@ -944,27 +944,31 @@ boost::python::numeric::array field_as_array(
 
     switch(field->cr()) {
       case CR_UINT1: {
-        array = PyArray_SimpleNewFromData(2, dimensions, PyArray_UINT8,
+        array = PyArray_SimpleNewFromData(2, dimensions, NPY_UINT8,
             const_cast<void*>(field->src()));
         break;
       }
       case CR_INT4: {
-        array = PyArray_SimpleNewFromData(2, dimensions, PyArray_INT32,
+        array = PyArray_SimpleNewFromData(2, dimensions, NPY_INT32,
             const_cast<void*>(field->src()));
         break;
       }
       case CR_REAL4:
       default: {
         assert(field->cr() == CR_REAL4);
-        array = PyArray_SimpleNewFromData(2, dimensions, PyArray_FLOAT32,
+        array = PyArray_SimpleNewFromData(2, dimensions, NPY_FLOAT32,
             const_cast<void*>(field->src()));
         break;
       }
     }
 
     assert(array);
-    PyArray_BASE(array) = field_object;
+
+    auto result = PyArray_SetBaseObject((PyArrayObject*)array, field_object);
+    assert(result == 0);
+
     Py_INCREF(field_object);
+
     return boost::python::extract<boost::python::numeric::array>(array);
 }
 

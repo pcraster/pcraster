@@ -28,57 +28,27 @@ env:
 addons:
     apt:
         sources:
-            # - boost-latest
-            # - llvm-toolchain-precise-3.5
             - ubuntu-toolchain-r-test
         packages:
             # - clang-3.5
             - g++-4.9
-            # - libboost1.55-all-dev
             - libxerces-c-dev
             - libxml2-dev
             - libxslt1-dev
-            # - python-dev
-            # - python-gdal
             - xsltproc
             - libboost-all-dev
             - libncurses5-dev
             - libpython-dev
             - libxml2
             - libxml2-utils
-            # - qt5-default
-            # - qtbase5-dev
             - xsdcxx
-            # - libc++-dev
-            # - gdal-bin # 02/2016 travis vm currently installs v1.x
-            # - libgdal-dev
-            # - doxygen
-            # - graphviz
-            # - imagemagick
-            #
-            # - python-pip
-            # - python-sphinx
-            # - python-docopt
-            # - python-numpy
-            # - python-virtualenv
 
 before_install:
     - sudo add-apt-repository ppa:beineri/opt-qt562-trusty -y
     - sudo apt-get update -qq
 
-    # - sudo add-apt-repository ppa:ubuntugis/ubuntugis-testing -y
-    # - sudo apt-get update -q
-    # - sudo apt-get install gdal-bin libgdal-dev
-
     # Update CMake.
     - wget --no-check-certificate http://www.cmake.org/files/v3.7/cmake-3.7.2-Linux-x86_64.tar.gz
-
-    # We need to patch xsd because of:
-    # http://www.codesynthesis.com/pipermail/xsd-users/2014-February/004196.html
-    # - wget --no-check-certificate http://www.codesynthesis.com/download/xsd/3.3/linux-gnu/x86_64/xsd-3.3.0-x86_64-linux-gnu.tar.bz2
-    # - wget --no-check-certificate http://codesynthesis.com/~boris/tmp/xsd/xsd-3.3.0-gcc-4.7-clang.patch
-    # - if [ "$CC" = "clang" ]; then export CC="clang-3.5" CXX="clang++-3.5"; fi
-    # - if [ "$CC" = "gcc" ]; then export CC="gcc-4.9" CXX="g++-4.9"; fi
 
     # Travis doesn't have
     # - PCRaster's raster format library
@@ -91,14 +61,11 @@ install:
 
     - cd $TRAVIS_BUILD_DIR
     - pip install --upgrade pip
-    # - sudo pip install --upgrade virtualenv
     - pip install --upgrade numpy
     - pip install --upgrade docopt
     - pip install --upgrade sphinx
     - pip install --upgrade pillow
 
-    # - sudo apt-get install opt-qt4-qmake opt-qt4-dev-tools
-    # - cat /opt/qt-4.8/bin/qt-4.8-env.sh
     - sudo apt-get install qt56base
     - export PATH=/opt/qt56/bin:$PATH
 
@@ -107,12 +74,6 @@ install:
     - cd $TRAVIS_BUILD_DIR/local
     - tar zxf ../cmake-3.7.2-Linux-x86_64.tar.gz
     - export PATH=$TRAVIS_BUILD_DIR/local/cmake-3.7.2-Linux-x86_64/bin:$PATH
-
-    # - cd $TRAVIS_BUILD_DIR/local
-    # - tar jxf ../xsd-3.3.0-x86_64-linux-gnu.tar.bz2
-    # - cd xsd-3.3.0-x86_64-linux-gnu
-    # - patch -p1 < ../../xsd-3.3.0-gcc-4.7-clang.patch
-    # - export PATH=$TRAVIS_BUILD_DIR/local/xsd-3.3.0-x86_64-linux-gnu/bin:$PATH
 
     - cd $TRAVIS_BUILD_DIR/peacock
     - export MAKEFLAGS='-j2'
@@ -124,18 +85,11 @@ install:
 before_script:
     - mkdir $TRAVIS_BUILD_DIR/build
     - cd $TRAVIS_BUILD_DIR/build
-    - which python
-    - python --version
-    - python -c "import numpy as n; print(n.__version__); print(n.get_include());"
-    # By default, cmake picks up the Python executable from /opt which has not the additional modules installed; force to use Python in /usr
-    # -DPYTHON_EXECUTABLE=/usr/bin/python2.7
     - cmake -G"${TRAVIS_CMAKE_GENERATOR}" -DCMAKE_C_COMPILER=gcc-4.9 -DCMAKE_CXX_COMPILER=g++-4.9 -DPEACOCK_PREFIX:PATH=$TRAVIS_BUILD_DIR/local -DCMAKE_BUILD_TYPE=${TRAVIS_BUILD_TYPE} -DPCRASTER_WITH_PYTHON_MULTICORE:BOOL=TRUE -DPCRASTER_BUILD_TEST:BOOL=TRUE ..
 
 script:
     - set -e  # Don't run the tests if the build fails.
     - cd $TRAVIS_BUILD_DIR/build
-    - which python
-    - python --version
     - export MAKEFLAGS='-j2'
     - python -c "import numpy as n; print(n.__version__); print(n.get_include());"
     - cmake --build . --config ${TRAVIS_BUILD_TYPE} --target all
@@ -143,8 +97,7 @@ script:
     # own GDAL 2.x library needs to be found to execute unit tests
     - export LD_LIBRARY_PATH=$TRAVIS_BUILD_DIR/local/linux/linux/gcc-4/x86_64/lib
     - export MAKEFLAGS='-j1'
-    # - cmake --build . --config ${TRAVIS_BUILD_TYPE} --target test
-    - ctest -VV
+    - cmake --build . --config ${TRAVIS_BUILD_TYPE} --target test
     - cd ..
 
 notifications:

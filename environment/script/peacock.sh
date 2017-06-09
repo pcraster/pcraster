@@ -122,7 +122,7 @@ function build_software()
 
     # PCRaster raster format.
     options+=("-Dbuild_pcraster_raster_format=true")
-    options+=("-Dpcraster_raster_format_version=1.3.1")
+    options+=("-Dpcraster_raster_format_version=1.3.2")
 
 
     # Fern.

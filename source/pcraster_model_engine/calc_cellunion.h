@@ -29,10 +29,10 @@ namespace calc {
 struct CellPtr {
     //! ptr to spatial or nonspatial buffers
     union {
-       void   /* RESTRICT */ *v; // generic access
-       UINT1     RESTRICT       *b; // byte, VS_B,VS_L
-       INT4      RESTRICT       *i; // int,  VS_N,VS_O
-       REAL4     RESTRICT       *f; // float, VS_S,VS_D
+       void  * /* RESTRICT */  v; // generic access
+       UINT1 *    RESTRICT     b; // byte, VS_B,VS_L
+       INT4  *    RESTRICT     i; // int,  VS_N,VS_O
+       REAL4 *    RESTRICT     f; // float, VS_S,VS_D
     };
 };
 

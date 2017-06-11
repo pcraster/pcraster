@@ -67,8 +67,8 @@ template<class O>
 template<class O>
  //! process array of n elements
  struct DiffUnArray: public IDiffUn {
-     typedef       typename O::ResultType RESTRICT* Result; // (out-only)
-     typedef const typename O::InputType  RESTRICT* Input;
+     typedef       typename O::ResultType * RESTRICT Result; // (out-only)
+     typedef const typename O::InputType  * RESTRICT Input;
 
      CRIndex cri() const {
         return crIndex<typename O::InputType>();
@@ -93,8 +93,8 @@ template<class O>
  struct SameBinArray: public ISameBin {
      typedef typename O::Type T;
 
-     typedef const T RESTRICT * Input; // Input
-     typedef       T RESTRICT * Result; // Result (and input)
+     typedef const T * RESTRICT Input; // Input
+     typedef       T * RESTRICT Result; // Result (and input)
 
      CRIndex cri() const {
         return crIndex<T>();

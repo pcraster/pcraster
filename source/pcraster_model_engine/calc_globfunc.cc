@@ -8,10 +8,8 @@
 #include "calc_types.h"
 #include "calc.h"
 
-#ifndef INCLUDED_STDEXCEPT
+#include <new>
 #include <stdexcept>
-#define INCLUDED_STDEXCEPT
-#endif
 
 namespace calc {
 
@@ -290,7 +288,7 @@ int Do_transient(void *out, const void **ins)
 {
   return Transient(&out,ins,7);
 #ifdef EFFE_NIET
- return Transient((MAP_INT4 *)out, 
+ return Transient((MAP_INT4 *)out,
      (const MAP_REAL8 *)ins[0], /* dem */
      (const MAP_REAL8 *)ins[1], /* recharge */
      (const MAP_REAL8 *)ins[2], /* transmissivity */

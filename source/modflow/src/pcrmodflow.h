@@ -1,11 +1,16 @@
 #ifndef INCLUDED_PCRMODFLOW
 #define INCLUDED_PCRMODFLOW
 
+// This header first!
+#ifndef INCLUDED_BOOST_PYTHON
+#include <boost/python.hpp>
+#define INCLUDED_BOOST_PYTHON
+#endif
+
 #ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
 #define INCLUDED_STDDEFX
 #endif
-
 
 // Library headers.
 #ifndef INCLUDED_STRING
@@ -16,11 +21,6 @@
 #ifndef INCLUDED_VECTOR
 #include <vector>
 #define INCLUDED_VECTOR
-#endif
-
-#ifndef INCLUDED_BOOST_PYTHON
-#include <boost/python.hpp>
-#define INCLUDED_BOOST_PYTHON
 #endif
 
 

@@ -21,7 +21,7 @@ if(PCRASTER_BUILD_TEST)
         app
         # misc
         # pcraster_dal
-        ${PCRASTER_RASTER_FORMAT_LIBRARIES}
+        pcraster_raster_format
         # ${Boost_MATH_C99_LIBRARY}
     )
 endif()

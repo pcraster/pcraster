@@ -29,7 +29,7 @@ ADD_EXECUTABLE(map2col
         # pcrcom
         # mathx
         misc
-        ${PCRASTER_RASTER_FORMAT_LIBRARIES}
+        pcraster_raster_format
     )
     SET_TARGET_PROPERTIES(map2col PROPERTIES LINKER_LANGUAGE CXX)
 # ENDIF(WIN32)

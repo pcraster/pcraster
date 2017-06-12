@@ -349,7 +349,7 @@ TARGET_LINK_LIBRARIES(pcraster_model_engine
     pcrxml
     # pcraster_dal
     # utils
-    # ${PCRASTER_RASTER_FORMAT_LIBRARIES}
+    # pcraster_raster_format
     # ${DEVENV_UTILS_LIBRARY}
     # ${GDAL_LIBRARIES}
     # ${QT_QTXML_LIBRARY}

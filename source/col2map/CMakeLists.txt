@@ -53,7 +53,7 @@ ADD_EXECUTABLE(col2map
         mathx
         # misc
         # pcraster_dal
-        ### # ${PCRASTER_RASTER_FORMAT_LIBRARIES}
+        ### # pcraster_raster_format
         ### # ${DEVENV_UTILS_LIBRARY}
         ### # ${QT_QTCORE_LIBRARIES}
     )

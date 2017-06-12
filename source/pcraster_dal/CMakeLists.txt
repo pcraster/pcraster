@@ -130,7 +130,7 @@ SET_TARGET_PROPERTIES(pcraster_dal
 TARGET_LINK_LIBRARIES(pcraster_dal
     utils
     ${GDAL_LIBRARIES}
-    ${PCRASTER_RASTER_FORMAT_LIBRARIES}
+    pcraster_raster_format
     ${Boost_DATE_TIME_LIBRARY}
     #${Boost_FILESYSTEM_LIBRARY}
     ${Boost_PROGRAM_OPTIONS_LIBRARY}

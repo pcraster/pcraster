@@ -30,7 +30,7 @@ TARGET_LINK_LIBRARIES(asc2map
     # pcrcom
     # mathx
     misc
-    ${PCRASTER_RASTER_FORMAT_LIBRARIES}
+    pcraster_raster_format
 )
 SET_TARGET_PROPERTIES(asc2map PROPERTIES LINKER_LANGUAGE CXX)
 # ENDIF()

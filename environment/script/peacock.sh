@@ -120,11 +120,6 @@ function build_software()
     fi
 
 
-    # PCRaster raster format.
-    options+=("-Dbuild_pcraster_raster_format=true")
-    options+=("-Dpcraster_raster_format_version=1.3.2")
-
-
     # Fern.
     options+=("-Dbuild_fern=true")
     options+=("-Dfern_git_repository=https://github.com/geoneric/fern.git")

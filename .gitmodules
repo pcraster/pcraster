@@ -3,4 +3,4 @@
 	url = https://github.com/geoneric/devbase.git
 [submodule "source/rasterformat"]
 	path = source/rasterformat
-	url = git@github.com:pcraster/rasterformat.git
+	url = https://github.com/pcraster/rasterformat.git

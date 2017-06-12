@@ -37,7 +37,7 @@ ENDIF()
         # pcrcom
         # misc
         curr
-        ${PCRASTER_RASTER_FORMAT_LIBRARIES}
+        pcraster_raster_format
         ${CURSES_LIBRARIES}
     )
     SET_TARGET_PROPERTIES(mapattr PROPERTIES LINKER_LANGUAGE CXX)

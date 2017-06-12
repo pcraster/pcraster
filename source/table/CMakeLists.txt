@@ -33,7 +33,7 @@ ADD_EXECUTABLE(table
         # pcrcom
         # mathx
         misc
-        ${PCRASTER_RASTER_FORMAT_LIBRARIES}
+        pcraster_raster_format
     )
     SET_TARGET_PROPERTIES(table PROPERTIES LINKER_LANGUAGE CXX)
 # ENDIF(WIN32)

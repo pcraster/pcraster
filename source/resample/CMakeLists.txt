@@ -43,7 +43,7 @@ ADD_EXECUTABLE(resample
         tab
         mathx
         # misc
-        ${PCRASTER_RASTER_FORMAT_LIBRARIES}
+        pcraster_raster_format
     )
 # ENDIF(WIN32)
 

@@ -5,6 +5,7 @@ configure_file(
 include_directories(
     ${CMAKE_CURRENT_BINARY_DIR}/include
     ${CMAKE_CURRENT_SOURCE_DIR}/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/rasterformat/sources/pcraster_raster_format
 )
 
 
@@ -12,6 +13,7 @@ if(PCRASTER_BUILD_DOCUMENTATION)
     include(DoxygenDoc)
 endif()
 
+add_subdirectory(rasterformat)
 
 add_subdirectory(math_utils)
 add_subdirectory(string_utils)

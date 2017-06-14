@@ -67,6 +67,26 @@
                 "sed -i.tmp \"s/cmake/cmake3/\" build_pcraster.py",
                 "scl enable devtoolset-4 \"python ./build_pcraster.py pcraster_4_2_beta --build-gdal --build-boost --build-qwt \""
             ]
+        },
+        {
+            "label": "Debian Stretch (testing) x86_64 PCRaster",
+            "box": "debian/testing64",
+            "provisions": [
+                "apt -y update",
+                "apt -y upgrade",
+                "apt -y autoremove",
+                "apt -y install cmake gcc g++ git libboost-all-dev libgdal-dev libncurses5-dev libpython-dev libqwt-qt5-dev libxerces-c-dev libxml2 libxml2-utils libxslt1-dev python-numpy qtbase5-dev xsdcxx"
+            ],
+            "commands": [
+                "git clone --recursive https://github.com/pcraster/pcraster.git",
+                "mkdir build",
+                "cd build && cmake ../pcraster && cmake --build ."
+
+                // Builds with tweaks can be added here, within the same
+                // machine. Just build in a new build directory, remove the
+                // build directory first.
+
+            ]
         }
     ]
 }

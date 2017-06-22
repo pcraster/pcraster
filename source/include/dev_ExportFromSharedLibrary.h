@@ -12,10 +12,10 @@
 // #  define PCR_DLL_C             __declspec(dllexport)
 #  define EXPORT_CLASS         __declspec(dllexport)
 #else
-#  define EXPORT_FUNCTION(...) __VA_ARGS__
-#  define IMPORT_FUNCTION
+#  define EXPORT_FUNCTION(...) __attribute((visibility("default"))) __VA_ARGS__
+#  define IMPORT_FUNCTION      __attribute((visibility("default")))
 // #  define PCR_DLL_C
-#  define EXPORT_CLASS
+#  define EXPORT_CLASS         __attribute((visibility("default")))
 #endif
 
 

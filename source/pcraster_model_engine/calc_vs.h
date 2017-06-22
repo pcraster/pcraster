@@ -35,7 +35,7 @@ int  nrInSet(VS set);
 PCR_DLL_FUNC(VS) vsOfNumber(double val);
 VS expectedFileType(const std::string& fileName,VS typeExpected);
 
-std::ostream &operator<<(std::ostream& s, VS vs);
+PCR_DLL_CLASS std::ostream &operator<<(std::ostream& s, VS vs);
 
 namespace calc {
    void checkOneVs(VS vsToCheck,const char* arg);

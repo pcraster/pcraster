@@ -119,27 +119,57 @@ SET(SOURCES
 #             COMPILE_FLAGS "-DPCR_DAL_SOURCE"
 #     )
 # ENDIF()
-ADD_LIBRARY(pcraster_dal
-    SHARED
-    ${SOURCES}
+
+add_library(pcraster_dal_objects
+    OBJECT
+        ${SOURCES}
 )
-SET_TARGET_PROPERTIES(pcraster_dal
+target_include_directories(pcraster_dal_objects
+    PRIVATE
+        ${Qt5Sql_INCLUDE_DIRS}
+        #${Qt5Xml_INCLUDE_DIRS}
+        #${Qt5OpenGL_INCLUDE_DIRS}
+)
+add_library(pcraster_dal
+    SHARED
+    $<TARGET_OBJECTS:pcraster_dal_objects>
+)
+
+#
+# ADD_LIBRARY(pcraster_dal
+#     SHARED
+#     ${SOURCES}
+# )
+SET_TARGET_PROPERTIES(pcraster_dal_objects
     PROPERTIES
         COMPILE_FLAGS "-DPCR_DAL_SOURCE -DPCR_DAL_SHARED_LINK"
 )
-TARGET_LINK_LIBRARIES(pcraster_dal
+
+set(_target_libraries
     utils
     ${GDAL_LIBRARIES}
     pcraster_raster_format
-#    ${Boost_DATE_TIME_LIBRARY}
-    #${Boost_FILESYSTEM_LIBRARY}
-#    ${Boost_PROGRAM_OPTIONS_LIBRARY}
-#    ${Boost_SYSTEM_LIBRARY}
     Boost::date_time
     Boost::program_options
-#    Boost::system
     Qt5::Sql
 )
+target_link_libraries(pcraster_dal
+    ${_target_libraries}
+)
+
+# TARGET_LINK_LIBRARIES(pcraster_dal
+#     utils
+#     ${GDAL_LIBRARIES}
+#     pcraster_raster_format
+# #    ${Boost_DATE_TIME_LIBRARY}
+#     #${Boost_FILESYSTEM_LIBRARY}
+# #    ${Boost_PROGRAM_OPTIONS_LIBRARY}
+# #    ${Boost_SYSTEM_LIBRARY}
+#     Boost::date_time
+#     Boost::program_options
+# #    Boost::system
+#     Qt5::Sql
+# )
 ADD_CUSTOM_COMMAND(
     TARGET pcraster_dal
     POST_BUILD
@@ -226,11 +256,16 @@ if(PCRASTER_BUILD_TEST)
         dal_VectorDriverTest
         dal_VTKBlockDriverTest
     )
+    add_library(pcraster_dal_static
+        STATIC
+        $<TARGET_OBJECTS:pcraster_dal_objects>
+    )
     add_unit_tests(
         SCOPE pcraster_dal
         NAMES ${TEST_NAMES}
         LINK_LIBRARIES
-            pcraster_dal
+            pcraster_dal_static
+            ${_target_libraries}
     )
     add_test(
         NAME setup_pcraster_dal

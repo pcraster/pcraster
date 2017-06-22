@@ -109,7 +109,7 @@ namespace calc {
 namespace pcraster {
 namespace python {
 
-Globals globals;
+PCR_DLL_CLASS Globals globals;
 
 
 //! Check an input pointer to be non 0

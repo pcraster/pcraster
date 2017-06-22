@@ -7,9 +7,22 @@
 #include "dal_Client.h"
 
 
-static dev::GDalClient gdal_client;
-static dal::Client client("/my/path/raster_dal_test", true);
+struct Fixture
+{
 
+    Fixture()
+    {
+        static dev::GDalClient gdal_client;
+        static dal::Client client("/my/path/raster_dal_test", true);
+    }
+
+    ~Fixture()
+    {
+    }
+
+};
+
+BOOST_GLOBAL_FIXTURE(Fixture);
 
 BOOST_AUTO_TEST_CASE(supported_drivers)
 {

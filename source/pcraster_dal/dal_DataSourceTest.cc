@@ -17,7 +17,7 @@
 #include "dal_Client.h"
 
 
-static dal::Client client("/my/path/csf_raster_driver_test", true);
+
 
 
 struct Fixture
@@ -26,6 +26,7 @@ struct Fixture
     Fixture()
     {
         dal::Driver::datasetProperties().clear();
+        static dal::Client client("/my/path/csf_raster_driver_test", true);
     }
 
     ~Fixture()

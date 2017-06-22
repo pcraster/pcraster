@@ -326,40 +326,70 @@ ADD_CUSTOM_COMMAND(
 #     ${SOURCES}
 # )
 
-ADD_LIBRARY(pcraster_model_engine
-    SHARED
-    ${SOURCES}
-    #sourcesLibDummy.cc
+add_library(pcraster_model_engine_objects
+    OBJECT
+        ${SOURCES}
 )
-
-TARGET_LINK_LIBRARIES(pcraster_model_engine
-    # ${TARGET_LINK_LIBS}
+target_include_directories(pcraster_model_engine_objects
+    PRIVATE
+        #${Qt5Sql_INCLUDE_DIRS}
+        ${Qt5Xml_INCLUDE_DIRS}
+        #${Qt5OpenGL_INCLUDE_DIRS}
+)
+add_library(pcraster_model_engine
+    SHARED
+    $<TARGET_OBJECTS:pcraster_model_engine_objects>
+)
+set(_target_libraries
     pccts
     calc
     api
     app
-    # geom
-    # mathx
     pcrgeo
-    # pcrcom
     pcrdiscr
     pcraster_xsd
-    # tab
-    # misc
     pcrxml
-    # pcraster_dal
-    # utils
-    # pcraster_raster_format
-    # ${DEVENV_UTILS_LIBRARY}
-    # ${GDAL_LIBRARIES}
-    # ${QT_QTXML_LIBRARY}
-    # ${QT_QTCORE_LIBRARIES}
-    # ${BOOST_SYSTEM_LIBRARY}
-    # ${BOOST_FILESYSTEM_LIBRARY}
-    # ${BOOST_MATH_C99_LIBRARY}
     Qt5::Xml
     ${XercesC_LIBRARIES}
 )
+target_link_libraries(pcraster_model_engine
+    ${_target_libraries}
+)
+
+# ADD_LIBRARY(pcraster_model_engine
+#     SHARED
+#     ${SOURCES}
+#     #sourcesLibDummy.cc
+# )
+#
+# TARGET_LINK_LIBRARIES(pcraster_model_engine
+#     # ${TARGET_LINK_LIBS}
+#     pccts
+#     calc
+#     api
+#     app
+#     # geom
+#     # mathx
+#     pcrgeo
+#     # pcrcom
+#     pcrdiscr
+#     pcraster_xsd
+#     # tab
+#     # misc
+#     pcrxml
+#     # pcraster_dal
+#     # utils
+#     # pcraster_raster_format
+#     # ${DEVENV_UTILS_LIBRARY}
+#     # ${GDAL_LIBRARIES}
+#     # ${QT_QTXML_LIBRARY}
+#     # ${QT_QTCORE_LIBRARIES}
+#     # ${BOOST_SYSTEM_LIBRARY}
+#     # ${BOOST_FILESYSTEM_LIBRARY}
+#     # ${BOOST_MATH_C99_LIBRARY}
+#     Qt5::Xml
+#     ${XercesC_LIBRARIES}
+# )
 
 
 if(PCRASTER_BUILD_TEST)
@@ -439,13 +469,18 @@ if(PCRASTER_BUILD_TEST)
         calc_vfieldtest
         calc_xmlreflectiontest
     )
+    add_library(pcraster_model_engine_static
+        STATIC
+        $<TARGET_OBJECTS:pcraster_model_engine_objects>
+    )
 
     add_unit_tests(
       SCOPE model_engine
       NAMES ${TEST_NAMES}
       LINK_LIBRARIES
         pcraster_model_engine_unit_test_utils
-        pcraster_model_engine
+        pcraster_model_engine_static
+        ${_target_libraries}
       #pcrgeo
       #${Boost_PYTHON_LIBRARY}
       #${PYTHON_LIBRARIES}

@@ -27,19 +27,27 @@ SET(TARGET_LINK_LIBS
     # ${BOOST_FILESYSTEM_LIBRARY}
     # ${Boost_MATH_C99_LIBRARY}
 )
-ADD_LIBRARY(pcraster_moc
-    SHARED
-    ${SOURCES}
+add_library(pcraster_moc_objects
+    OBJECT
+        ${SOURCES}
 )
+add_library(pcraster_moc
+    SHARED
+    $<TARGET_OBJECTS:pcraster_moc_objects>
+)
+# ADD_LIBRARY(pcraster_moc
+#     SHARED
+#     ${SOURCES}
+# )
 TARGET_LINK_LIBRARIES(pcraster_moc
     ${TARGET_LINK_LIBS}
 )
 
 
-ADD_LIBRARY(pcraster_moc_static
-    STATIC
-    ${SOURCES}
-)
+# ADD_LIBRARY(pcraster_moc_static
+#     STATIC
+#     ${SOURCES}
+# )
 
 
 INSTALL(
@@ -53,12 +61,16 @@ if(PCRASTER_BUILD_TEST)
     set(TEST_NAMES
         pt_ParticleTest
     )
-
+    add_library(pcraster_moc_static
+        STATIC
+        $<TARGET_OBJECTS:pcraster_moc_objects>
+    )
     add_unit_tests(
         SCOPE moc
         NAMES ${TEST_NAMES}
         LINK_LIBRARIES
-            pcraster_moc
+            pcraster_moc_static
+            ${_target_libraries}
     )
 endif()
 

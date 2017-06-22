@@ -195,9 +195,25 @@ SET(SOURCES
 #     ${BOOST_MATH_C99_LIBRARY}
 #     ${BOOST_SYSTEM_LIBRARY}
 # )
-ADD_LIBRARY(pcraster_old_calc
+add_library(pcraster_old_calc_objects
+    OBJECT
+        ${SOURCES}
+)
+target_include_directories(pcraster_old_calc_objects
+    PRIVATE
+        ${Qt5Xml_INCLUDE_DIRS}
+)
+add_library(pcraster_old_calc
     SHARED
-    ${SOURCES}
+    $<TARGET_OBJECTS:pcraster_old_calc_objects>
+)
+set(_target_libraries
+    calc
+    pcrxml
+    pccts
+)
+target_link_libraries(pcraster_old_calc
+    ${_target_libraries}
 )
 
 # IF(WIN32)
@@ -205,13 +221,14 @@ ADD_LIBRARY(pcraster_old_calc
 #         ${TARGET_LINK_LIBS}
 #     )
 # ELSE(WIN32)
-    TARGET_LINK_LIBRARIES(pcraster_old_calc
+    #TARGET_LINK_LIBRARIES(pcraster_old_calc
+    #${_target_libraries}
         # pcraster_dal
-        calc
-        pcrxml
-        pccts
+        #calc
+        #pcrxml
+       # pccts
         # ${Boost_MATH_C99_LIBRARY}
-    )
+    #)
 # ENDIF(WIN32)
 
 INSTALL(
@@ -247,11 +264,16 @@ if(PCRASTER_BUILD_TEST)
         calc_modelbuildertest
         # calc_wldelfthabitattest.cc  No longer supported.
     )
+    add_library(pcraster_old_calc_static
+        STATIC
+        $<TARGET_OBJECTS:pcraster_old_calc_objects>
+    )
     add_unit_tests(
         SCOPE oldcalc
         NAMES ${TEST_NAMES}
         LINK_LIBRARIES
-            pcraster_old_calc
+            pcraster_old_calc_static
+            ${_target_libraries}
     )
     add_test(
         NAME setup_oldcalc

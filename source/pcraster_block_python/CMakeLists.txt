@@ -40,7 +40,8 @@ TARGET_LINK_LIBRARIES(_pcraster_block_python
     pcrraster
     pcrvoxelstack
     pcraster_model_engine
-    ${Boost_PYTHON_LIBRARY}
+#    ${Boost_PYTHON_LIBRARY}
+    Boost::python
     ${PYTHON_LIBRARIES}
 )
 CONFIGURE_PYTHON_EXTENSION(_pcraster_block_python

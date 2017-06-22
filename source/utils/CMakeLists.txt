@@ -15,10 +15,14 @@ add_library(utils
     ${SOURCES}
 )
 target_link_libraries(utils
-    ${Boost_FILESYSTEM_LIBRARY}
-    ${Boost_PROGRAM_OPTIONS_LIBRARY}
-    ${Boost_SYSTEM_LIBRARY}
+#    ${Boost_FILESYSTEM_LIBRARY}
+#    ${Boost_PROGRAM_OPTIONS_LIBRARY}
+#    ${Boost_SYSTEM_LIBRARY}
+    Boost::filesystem
+    Boost::program_options
+#    Boost::system
     ${GDAL_LIBRARIES}
+
 )
 
 

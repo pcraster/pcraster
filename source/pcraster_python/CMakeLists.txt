@@ -98,8 +98,10 @@ TARGET_LINK_LIBRARIES(_pcraster
     pcraster_model_engine
     # pcraster_dal
     # ${PCRASTER_DAL_LIBRARY}
-    ${Boost_PYTHON_LIBRARY}
-    ${Boost_SYSTEM_LIBRARY}
+#    ${Boost_PYTHON_LIBRARY}
+#    ${Boost_SYSTEM_LIBRARY}
+    Boost::python
+#    Boost::system
     ${PYTHON_LIBRARIES}
 )
 CONFIGURE_PYTHON_EXTENSION(_pcraster

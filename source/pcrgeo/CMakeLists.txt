@@ -57,7 +57,8 @@ TARGET_LINK_LIBRARIES(pcrgeo
     pcrcom
     pcraster_dal
     pcraster_raster_format
-    ${Boost_MATH_C99_LIBRARY}
+#    ${Boost_MATH_C99_LIBRARY}
+    Boost::math_c99
 )
 
 

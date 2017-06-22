@@ -28,10 +28,12 @@ target_link_libraries(_pcraster_multicore
     multicore_field_python_type_conversions
     pcraster_model_engine
     _pcraster
-    ${Boost_PYTHON_LIBRARY}
-    ${Boost_SYSTEM_LIBRARY}
+#    ${Boost_PYTHON_LIBRARY}
+#    ${Boost_SYSTEM_LIBRARY}
     ${PYTHON_LIBRARIES}
     ${FERN_LIBRARIES}
+    Boost::python
+#    Boost::system
 )
 
 set_target_properties(_pcraster_multicore

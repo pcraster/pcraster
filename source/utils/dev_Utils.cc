@@ -66,13 +66,12 @@ namespace detail {
   std::string("bla");
   \endcode
 */
-void end(std::ostringstream& stream)
-{
-#if _MSC_VER // != 1400
-  #error // check _MSC_VER
-  stream << std::ends;
-#endif
-}
+// void end(std::ostringstream& stream)
+// {
+// #if _MSC_VER // != 1400
+//   stream << std::ends;
+// #endif
+// }
 
 
 

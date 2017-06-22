@@ -29,12 +29,13 @@ TARGET_LINK_LIBRARIES(_pcraster_modflow_python
      pcraster_model_engine
 #     pcrcom
 #     pcrdiscr
-    ${Boost_PYTHON_LIBRARY}
+#    ${Boost_PYTHON_LIBRARY}
     ${PYTHON_LIBRARIES}
     # ${PCRASTER_RASTER_FORMAT}
     # ${GDAL_LIBRARIES}
     # ${BOOST_SIGNALS_LIBRARY}
     # ${BOOST_THREAD_LIBRARY}
+    Boost::python
 )
 
 add_dependencies(_pcraster_modflow_python

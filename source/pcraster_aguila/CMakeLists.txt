@@ -211,20 +211,35 @@ SET(LIBRARY_SOURCES
 ###     ADD_DEPENDENCIES(pcraster_aguila_static pcraster_aguila)
 ### ENDIF()
 
-ADD_LIBRARY(pcraster_aguila
-    SHARED
-    ${LIBRARY_SOURCES}
+add_library(pcraster_aguila_objects
+    OBJECT
+        ${LIBRARY_SOURCES}
 )
+target_include_directories(pcraster_aguila_objects
+    PRIVATE
+        ${Qt5Gui_INCLUDE_DIRS}
+        ${Qt5Xml_INCLUDE_DIRS}
+        ${Qt5OpenGL_INCLUDE_DIRS}
+)
+add_library(pcraster_aguila
+    SHARED
+    $<TARGET_OBJECTS:pcraster_aguila_objects>
+)
+# ADD_LIBRARY(pcraster_aguila
+#     SHARED
+#     ${LIBRARY_SOURCES}
+# )
 if(WIN32)
   set(_AGUILA_COMPILE_FLAGS "-DPCR_AG_SOURCE -DPCR_AG_SHARED_LINK -DQWT_DLL")
 else()
   set(_AGUILA_COMPILE_FLAGS "-DPCR_AG_SOURCE -DPCR_AG_SHARED_LINK")
 endif()
-SET_TARGET_PROPERTIES(pcraster_aguila
+set_target_properties(pcraster_aguila_objects
     PROPERTIES
         COMPILE_FLAGS ${_AGUILA_COMPILE_FLAGS}
+        LINK_LIBRARIES "pcraster_xsd"
 )
-TARGET_LINK_LIBRARIES(pcraster_aguila
+set(_target_libraries
     pcraster_dal
     pcraster_xsd
     Qt5::Gui
@@ -232,6 +247,9 @@ TARGET_LINK_LIBRARIES(pcraster_aguila
     Qt5::Xml
     ${QWT_LIBRARY}
     ${OPENGL_LIBRARIES}
+)
+target_link_libraries(pcraster_aguila
+    ${_target_libraries}
 )
 # ADD_CUSTOM_COMMAND(
 #     TARGET pcraster_aguila
@@ -291,13 +309,18 @@ if(PCRASTER_BUILD_TEST)
         com_userdefinedclassifiertest
         com_vectortest
     )
+    add_library(pcraster_aguila_static
+        STATIC
+        $<TARGET_OBJECTS:pcraster_aguila_objects>
+    )
     add_unit_tests(
         SCOPE pcraster_aguila
         NAMES ${TEST_NAMES}
         # SUPPORT_NAMES ag_AguilaGuiTest  # Only needed for AguilaTest.
         LINK_LIBRARIES
-            pcraster_aguila
-            ${QT_QTTEST_LIBRARY}
+            pcraster_aguila_static
+            ${_target_libraries}
+            #${QT_QTTEST_LIBRARY}
     )
     add_test(
         NAME setup_aguila

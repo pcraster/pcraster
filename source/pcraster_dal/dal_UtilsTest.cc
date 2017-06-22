@@ -9,8 +9,22 @@
 #define protected public
 #include "dal_Client.h"
 
-static dal::Client client("/my/path/utils_test", true);
 
+struct Fixture
+{
+
+    Fixture()
+    {
+        static dal::Client client("/my/path/utils_test", true);
+    }
+
+    ~Fixture()
+    {
+    }
+
+};
+
+BOOST_GLOBAL_FIXTURE(Fixture);
 
 BOOST_AUTO_TEST_CASE(dataset_type)
 {

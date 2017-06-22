@@ -13,6 +13,8 @@ if(PCRASTER_BUILD_DOCUMENTATION)
     include(DoxygenDoc)
 endif()
 
+include(GenerateExportHeader)
+
 add_subdirectory(rasterformat)
 
 add_subdirectory(math_utils)

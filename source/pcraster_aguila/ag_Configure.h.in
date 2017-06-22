@@ -23,6 +23,14 @@
 #      define PCR_AG_DECL __declspec(dllimport)
 #    endif
 #  endif
+#else
+#  if defined(PCR_AG_SHARED_LINK)
+#    ifdef PCR_AG_SOURCE
+#      define PCR_AG_DECL __attribute((visibility("default")))
+#    else
+#      define PCR_AG_DECL __attribute((visibility("default")))
+#    endif
+#  endif
 #endif
 
 #ifndef PCR_AG_DECL

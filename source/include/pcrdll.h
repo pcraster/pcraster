@@ -22,14 +22,14 @@
 /* seems to work like this in MSVC/MINGW/BORLANDC
  */
 /* # define PCR_DLL_FUNC(retType) __declspec(dllexport) retType __stdcall */
-# define PCR_DLL_FUNC(...) __declspec(dllexport) __VA_ARGS__ __stdcall
-# define PCR_DLL_C             __declspec(dllexport)
-# define PCR_DLL_CLASS         __declspec(dllexport)
+# define PCR_DLL_FUNC(...)   __declspec(dllexport) __VA_ARGS__ __stdcall
+# define PCR_DLL_C           __declspec(dllexport)
+# define PCR_DLL_CLASS       __declspec(dllexport)
 #else
 /* # define PCR_DLL_FUNC(retType) retType */
-# define PCR_DLL_FUNC(...) __VA_ARGS__
-# define PCR_DLL_C
-# define PCR_DLL_CLASS
+# define PCR_DLL_FUNC(...)   __attribute((visibility("default"))) __VA_ARGS__
+# define PCR_DLL_C           __attribute((visibility("default")))
+# define PCR_DLL_CLASS       __attribute((visibility("default")))
 #endif
 
 #endif

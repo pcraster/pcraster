@@ -103,8 +103,9 @@ if(PCRASTER_BUILD_TEST)
     LINK_LIBRARIES
       pcraster_model_engine
       pcrgeo
-      ${Boost_PYTHON_LIBRARY}
+#      ${Boost_PYTHON_LIBRARY}
       ${PYTHON_LIBRARIES}
+      Boost::python
   )
 
   target_include_directories(modflow_calc_DemoTest

@@ -119,8 +119,10 @@ ADD_LIBRARY(pcrcom
     ${SOURCES}
 )
 TARGET_LINK_LIBRARIES(pcrcom
-    ${Boost_FILESYSTEM_LIBRARY}
-    ${Boost_SYSTEM_LIBRARY}
+#    ${Boost_FILESYSTEM_LIBRARY}
+#    ${Boost_SYSTEM_LIBRARY}
+    Boost::filesystem
+#    Boost::system
 )
 IF(WIN32)
     TARGET_LINK_LIBRARIES(pcrcom ${ADVAPI32_LIBRARY})

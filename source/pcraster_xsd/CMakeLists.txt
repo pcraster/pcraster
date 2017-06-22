@@ -150,7 +150,9 @@ ADD_LIBRARY(pcraster_xsd
 target_link_libraries(pcraster_xsd
     utils
     ${XercesC_LIBRARIES}
-    ${Boost_SYSTEM_LIBRARY}
+    Boost::system
+    Boost::date_time
+#    ${Boost_SYSTEM_LIBRARY}
 )
 # ------------------------------------------------------------------------------
 IF(${PCRTREE2_BUILD})

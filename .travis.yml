@@ -42,6 +42,7 @@ addons:
             - libxml2
             - libxml2-utils
             - xsdcxx
+            - mesa-common-dev
 
 before_install:
     - sudo add-apt-repository ppa:beineri/opt-qt562-trusty -y

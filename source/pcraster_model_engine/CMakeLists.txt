@@ -336,6 +336,10 @@ target_include_directories(pcraster_model_engine_objects
         ${Qt5Xml_INCLUDE_DIRS}
         #${Qt5OpenGL_INCLUDE_DIRS}
 )
+set_target_properties(pcraster_model_engine_objects
+    PROPERTIES
+        LINK_LIBRARIES "pcraster_xsd"
+)
 add_library(pcraster_model_engine
     SHARED
     $<TARGET_OBJECTS:pcraster_model_engine_objects>

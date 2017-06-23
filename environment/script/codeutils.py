@@ -81,6 +81,8 @@ def setDefaultsEnvSettingsAndSourceDotDevenv():
 
     _dotDevenv['_makeTargetSlash'] = "\\"
 
+    return _dotDevenv
+
   _home = utils.environmentVariableAsNativePath("HOME")
 
   if "DEVENVRC" in os.environ:

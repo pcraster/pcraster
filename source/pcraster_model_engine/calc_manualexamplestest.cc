@@ -6,7 +6,9 @@
 #include "com_exception.h"
 #include "calc_manualexampletester.h"
 #include "com_pathname.h"
-
+#ifdef WIN32
+#include <iostream>
+#endif
 
 BOOST_AUTO_TEST_CASE(testAll)
 {
@@ -40,8 +42,7 @@ BOOST_AUTO_TEST_CASE(testAll)
      }
      msgs << failMsgs.size() << " MANUAL EXAMPLES FAILURES OUT OF " << et.size() << "\n";
     }
-#if _MSC_VER // == 1400
-#error // check _MSC_VER
+#if _MSC_VER
 #ifdef DEBUG_DEVELOP
    // Bugzilla 178
    nrFailuresAllowed=2;

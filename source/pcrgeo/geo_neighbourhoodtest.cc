@@ -1,8 +1,13 @@
 #define BOOST_TEST_MODULE pcraster geo neighbourhood
 #include <boost/test/unit_test.hpp>
-#define protected public
 #include "geo_neighbourhood.h"
 
+
+class NeighbourhoodWrapper : public geo::Neighbourhood {
+public:
+   NeighbourhoodWrapper(double fromRadius, double toRadius) : Neighbourhood(fromRadius, toRadius) {
+   };
+};
 
 BOOST_AUTO_TEST_CASE(random_cell_locations)
 {
@@ -14,7 +19,7 @@ BOOST_AUTO_TEST_CASE(random_cell_locations)
     // neighbourhood back.
     std::vector<LinearLoc> locations;
     RasterDim space(3, 3); // 3x3 raster
-    Neighbourhood neighbourhood(0, 1); // 3x3 neighbourhood
+    NeighbourhoodWrapper neighbourhood(0, 1); // 3x3 neighbourhood
     PRECOND(neighbourhood.nrRows() == 3);
     PRECOND(neighbourhood.nrCols() == 3);
     neighbourhood.fill(1.0); // all cells in neighbourhood participate

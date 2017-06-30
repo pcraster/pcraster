@@ -33,10 +33,13 @@ if(MSVC)
     # TODO add debug/release flags?
 
     # Get rid of the min and max macros.
+    # Refactor the define private/protected public stuff (allow keywords macro)
     add_definitions(
-        -DNOMINMAX
         -D_SCL_SECURE_NO_WARNINGS
+        -D_CRT_SECURE_NO_WARNINGS
         -D_USE_MATH_DEFINES
+        -DNOMINMAX
+        -D_ALLOW_KEYWORD_MACROS
     )
 
     set(CMAKE_C_FLAGS

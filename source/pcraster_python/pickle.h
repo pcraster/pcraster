@@ -1,13 +1,10 @@
 #pragma once
 #include <boost/python.hpp>
 #include "calc_field.h"
-#include "Globals.h"
 
 
 namespace pcraster {
 namespace python {
-
-  extern Globals globals;
 
   calc::Field* initField(int value_scale,
          int cri,

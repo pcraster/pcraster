@@ -9,8 +9,8 @@
 #         except for those generated in this Makefile as defined by TEXT_OUTPUTS
 
 CONFIGURE_FILE(
-    ${CMAKE_CURRENT_SOURCE_DIR}/AscHeader2map.in
-    ${CMAKE_CURRENT_BINARY_DIR}/AscHeader2map
+    ${CMAKE_CURRENT_SOURCE_DIR}/AscHeader2map.py.in
+    ${CMAKE_CURRENT_BINARY_DIR}/AscHeader2map.py
     @ONLY
     NEWLINE_STYLE UNIX
 )
@@ -29,25 +29,31 @@ CONFIGURE_FILE(
     NEWLINE_STYLE UNIX
 )
 
+
+# These files are required to create the maps used in the unit tests
+file(GLOB MANUAL_TEXT_FILES
+  ${CMAKE_CURRENT_SOURCE_DIR}/*.itxt
+  ${CMAKE_CURRENT_SOURCE_DIR}/*.txt
+)
+file(COPY ${MANUAL_TEXT_FILES} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+
+
 ADD_CUSTOM_COMMAND(
     OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/examples.sentinel
 
     # CMAKE_CFG_INTDIR is set at build-time, not at configure-time. Search
     # and replace this string at build-time.
-    COMMAND sed -i.tmp "s/CMAKE_CFG_INTDIR/${CMAKE_CFG_INTDIR}/g"
-        ${CMAKE_CURRENT_BINARY_DIR}/AscHeader2map
-    COMMAND sed -i.tmp "s/CMAKE_CFG_INTDIR/${CMAKE_CFG_INTDIR}/g"
-        ${CMAKE_CURRENT_BINARY_DIR}/PCRasterSample.py
+    COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_SOURCE_DIR}/replace.cmake $<TARGET_FILE:asc2map> $<TARGET_FILE_DIR:asc2map>
 
-    COMMAND cp ${CMAKE_CURRENT_SOURCE_DIR}/CmdSamples.py
+    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/CmdSamples.py
         ${CMAKE_CURRENT_BINARY_DIR}
-    COMMAND cp ${CMAKE_CURRENT_SOURCE_DIR}/make_table.py
+    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/make_table.py
         ${CMAKE_CURRENT_BINARY_DIR}
-    COMMAND cp ${CMAKE_CURRENT_SOURCE_DIR}/ScriptSamples.py
+    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/ScriptSamples.py
         ${CMAKE_CURRENT_BINARY_DIR}
 
-    COMMAND cp ${CMAKE_CURRENT_SOURCE_DIR}/*.itxt ${CMAKE_CURRENT_BINARY_DIR}
-    COMMAND cp ${CMAKE_CURRENT_SOURCE_DIR}/*.txt ${CMAKE_CURRENT_BINARY_DIR}
+    # COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/*.itxt ${CMAKE_CURRENT_BINARY_DIR}
+    # COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/*.txt ${CMAKE_CURRENT_BINARY_DIR}
 
     COMMAND ${PYTHON_EXECUTABLE}
         ${CMAKE_CURRENT_BINARY_DIR}/PCRasterSample.py script
@@ -68,7 +74,7 @@ ADD_CUSTOM_COMMAND(
         --format=multicore
         ${CMAKE_CURRENT_BINARY_DIR}/testexamples_multicore.py
 
-    COMMAND touch ${CMAKE_CURRENT_BINARY_DIR}/examples.sentinel
+    COMMAND ${CMAKE_COMMAND} -E touch ${CMAKE_CURRENT_BINARY_DIR}/examples.sentinel
     DEPENDS
         asc2map
         map2asc

@@ -5,11 +5,13 @@
 #include "calc_field.h"
 #include "pcrtypes.h"
 #include "calc_map2csf.h"
+#include "Globals.h"
 
 
 namespace pcraster {
 namespace python {
 
+extern Globals globals;
 
 calc::Field* initField(int value_scale,
          int cri,

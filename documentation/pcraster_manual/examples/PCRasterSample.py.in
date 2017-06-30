@@ -437,7 +437,7 @@ class Sample(object):
            the Makefile.
            As a side effect it may create files (*exec.mod and/or *exec.sh)"""
         if platform.system() == "Windows":
-            pcrCmdPrefix="set PCROPTIONS=--nothing:"
+            pcrCmdPrefix=""
         else:
             pcrCmdPrefix="export PCROPTIONS=--nothing\;"
         if isinstance(self.code, Expr):

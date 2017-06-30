@@ -11,8 +11,17 @@
 #include "dal_Exception.h"
 #include "dal_GDALRasterDriver.h"
 #include "dal_Utils.h"
-#define protected public
 #include "dal_Client.h"
+
+
+class ClientWrapper : public dal::Client {
+public:
+  ClientWrapper(boost::filesystem::path const& prefix,
+                   bool addAllDrivers=false,
+                   bool cacheDatasetInfo=true)
+  : dal::Client(prefix) {
+  }
+};
 
 
 namespace detail {
@@ -321,13 +330,13 @@ void testTemporalRaster(
 
 struct Fixture:
     private dev::GDalClient,
-    private dal::Client
+    private ClientWrapper
 
 {
 
     Fixture()
         : dev::GDalClient(),
-          dal::Client("/my/path/gdal_raster_driver_test", true)
+          ClientWrapper("/my/path/gdal_raster_driver_test", true)
     {
         GetGDALDriverManager()->AutoLoadDrivers();
     }

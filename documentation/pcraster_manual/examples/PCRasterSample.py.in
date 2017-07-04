@@ -302,17 +302,17 @@ class Sample(object):
 
         txt += "binding\n"
         for d in self._results+self._inputs:
-            txt += " %s = %s;\n" % (d.userName(), createFileName(d))
+            txt += " %s = %s\;\n" % (d.userName(), createFileName(d))
 
         if self._clone >= 0:
-            txt += "areamap\n %s;\n" % createFileName(self._inputs[self._clone])
+            txt += "areamap\n %s\;\n" % createFileName(self._inputs[self._clone])
 
         txt += "initial\n"
 
         resultVars = map(lambda v: v.userName(), self._results)
         code = self.code.pcrcalc().replace("$","")
         if self.code.pcrcalcIsExpr:
-            txt += " report %s = %s;\n" % (", ".join(resultVars), code)
+            txt += " report %s = %s\;\n" % (", ".join(resultVars), code)
         else:
             txt += code
 

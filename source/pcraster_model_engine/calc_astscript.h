@@ -119,10 +119,7 @@ private:
 
   void             rebuildCFG       ();
   void             compile          ();
-  void             applyInterface   ();
   void             setReports       ();
-
-  void             buildTypesFullClosure  ();
 
   void             callWithClashRewrite(void (ASTScript::*f)() );
   void             analyzeNoContextUnChecked();
@@ -136,7 +133,6 @@ private:
   ReportTable      d_reports;
 
   Timer timer() const;
-
 
 public:
   //----------------------------------------------------------------------------
@@ -189,6 +185,9 @@ public:
   const ReportTable&    reports            () const;
 
   bool             containsDynamicSection  () const;
+
+  void             buildTypesFullClosure  ();
+  void             applyInterface   ();
 };
 
 

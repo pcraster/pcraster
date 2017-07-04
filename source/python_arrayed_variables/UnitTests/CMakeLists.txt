@@ -1,4 +1,5 @@
-if(NOT (WIN32 AND (${CMAKE_BUILD_TYPE} STREQUAL "Debug")))
+# TODO Debug build on Windows still needs to be checked
+# if(NOT (WIN32 AND (${CMAKE_BUILD_TYPE} STREQUAL "Debug")))
 #
 #   configure_file(
 #     ${CMAKE_CURRENT_SOURCE_DIR}/testrun.prolog.in
@@ -77,4 +78,4 @@ if(NOT (WIN32 AND (${CMAKE_BUILD_TYPE} STREQUAL "Debug")))
     )
   endif()
 
-endif()
+# endif()

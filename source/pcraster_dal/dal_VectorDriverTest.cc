@@ -2,8 +2,16 @@
 #include <boost/test/unit_test.hpp>
 #include "dal_Exception.h"
 #include "dal_VectorDriver.h"
-#define protected public
 #include "dal_Client.h"
+
+class ClientWrapper : public dal::Client {
+public:
+  ClientWrapper(boost::filesystem::path const& prefix,
+                   bool addAllDrivers=false,
+                   bool cacheDatasetInfo=true)
+  : dal::Client(prefix) {
+  }
+};
 
 
 struct Fixture
@@ -11,7 +19,7 @@ struct Fixture
 
     Fixture()
     {
-        static dal::Client client("/my/path/vector_driver_test", true);
+        static ClientWrapper client("/my/path/vector_driver_test", true);
     }
 
     ~Fixture()

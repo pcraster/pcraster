@@ -1,18 +1,18 @@
-
+import platform
 # TODO, no examples are in ../apps/resample.xml
 # sample = newSample("resample", "Result1")
 # sample.appendInput("Clone1")
 # sample.appendInput("Map1", ext="txt")
 # sample.setClone(0)
 # sample.code = Cmd("-S -m mv -v 4 $ColFile1 $Result1")
-# # 
+# #
 # # # missing CLone1
 # # resample.Result1.omap: resample.Clone1.imap resample.Map1.imap
 # # 	$(resample)  resample.Clone1.imap resample.Map1.imap resample.Result2.omap
-# # 
+# #
 # # resample.Result2.omap: resample.Map12.imap resample.Map22.imap
 # # 	$(resample) -b 0 resample.Map12.imap resample.Map22.imap resample.Result2.omap
-# # 
+# #
 # # resample.Result3.omap: resample.Map12.imap
 # # 	$(resample)  -r 1 -e resample.Map12.imap resample.Result3.omap
 
@@ -68,15 +68,19 @@ sample.appendInput("PCRmap", useFrom="map2asc")
 sample.globalOptions+=["coorcentre"]
 sample.code = Cmd("-M -m -9999 -f 5.0f -g -c $PCRmap $ColFile2")
 # -g geoeas puts filename with prefix in file (use sed to fix it)
-sample.execPostProcessing="sed -i 's/map2asc.//g' $ColFile2"
+if platform.system() == "Windows":
+    sample.execPostProcessing="more + 1 $ColFile2 > $ColFile2"
+else:
+    sample.execPostProcessing="sed -i 's/map2asc.//g' $ColFile2"
 
-sample = newSample("map2col", "ColFile3", "txt")
-sample.appendInput("ColFile2", ext="txt", autoCreatedInput=True)
-sample.appendInput("PCRmap3")
-sample.globalOptions+=["coorcentre"]
-sample.code = Cmd("-a $ColFile2 $PCRmap3 $ColFile3")
-# append to a geoeas file puts filename in file (use sed to fix it)
-sample.execPostProcessing="sed -i 's/map2asc.PCRmap3/PCRmap3p/g' $ColFile3"
+# OLS 06/2017: this one is not used at all?
+# sample = newSample("map2col", "ColFile3", "txt")
+# sample.appendInput("ColFile2", ext="txt", autoCreatedInput=True)
+# sample.appendInput("PCRmap3")
+# sample.globalOptions+=["coorcentre"]
+# sample.code = Cmd("-a $ColFile2 $PCRmap3 $ColFile3")
+# # append to a geoeas file puts filename in file (use sed to fix it)
+# sample.execPostProcessing="sed -i 's/map2asc.PCRmap3/PCRmap3p/g' $ColFile3"
 
 # TODO add map2col sample with multiple input maps
 

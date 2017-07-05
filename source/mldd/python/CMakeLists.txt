@@ -31,6 +31,7 @@ set(_TARGET_BIN ${EXECUTABLE_OUTPUT_PATH}/${CMAKE_CFG_INTDIR})
 
 set_target_properties(_pcraster_mldd_python
     PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY "${_TARGET_BIN}/pcraster/mldd"
         LIBRARY_OUTPUT_DIRECTORY "${_TARGET_BIN}/pcraster/mldd"
 )
 
@@ -55,7 +56,7 @@ ADD_CUSTOM_COMMAND(
 ###         ### BUILD_WITH_INSTALL_RPATH TRUE
 ###         ### INSTALL_RPATH "$ORIGIN/../../../lib"
 ###         ### INSTALL_RPATH_USE_LINK_PATH FALSE
-### 
+###
 ###         # Write the extension to the pcraster sub directory.
 ###         LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin/${CMAKE_CFG_INTDIR}/pcraster/mldd
 ###         # Might be needed on Windows:

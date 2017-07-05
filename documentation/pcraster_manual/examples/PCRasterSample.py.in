@@ -12,6 +12,7 @@ Usage:
 from functools import cmp_to_key
 import os.path
 import sys
+import platform
 import docopt
 
 
@@ -267,7 +268,7 @@ class Sample(object):
         self._clone = inputNr
 
     def shellScript(self, createFileName):
-        txt = "@EXECUTABLE_OUTPUT_PATH@/CMAKE_CFG_INTDIR/{}".format(
+        txt = "REPLACE_EXECUTABLE_PATH/{}".format(
             self._operation)
 
         if len(self.globalOptions):
@@ -301,17 +302,17 @@ class Sample(object):
 
         txt += "binding\n"
         for d in self._results+self._inputs:
-            txt += " %s = %s;\n" % (d.userName(), createFileName(d))
+            txt += " %s = %s\;\n" % (d.userName(), createFileName(d))
 
         if self._clone >= 0:
-            txt += "areamap\n %s;\n" % createFileName(self._inputs[self._clone])
+            txt += "areamap\n %s\;\n" % createFileName(self._inputs[self._clone])
 
         txt += "initial\n"
 
         resultVars = map(lambda v: v.userName(), self._results)
         code = self.code.pcrcalc().replace("$","")
         if self.code.pcrcalcIsExpr:
-            txt += " report %s = %s;\n" % (", ".join(resultVars), code)
+            txt += " report %s = %s\;\n" % (", ".join(resultVars), code)
         else:
             txt += code
 
@@ -382,10 +383,10 @@ class Sample(object):
             # break up each line as  "line contents\n"
             lines = text.split("\n")
             lines = [("\"{}\\n\"".format(l)) for l in lines]
-            stream.write("et.push_back(ManualExampleTester({}));\n".format(
+            stream.write("et.push_back(ManualExampleTester({}))\;\n".format(
                 "\n".join(lines)))
             for r in self._results:
-                stream.write("et.back().addResult(\"{}\");\n".format(
+                stream.write("et.back().addResult(\"{}\")\;\n".format(
                     r.fileName()))
 
     def createPythonTest(self,
@@ -435,20 +436,29 @@ class Sample(object):
         """Returns a string containing actions for
            the Makefile.
            As a side effect it may create files (*exec.mod and/or *exec.sh)"""
-        pcrCmdPrefix="export PCROPTIONS=--nothing;"
+        if platform.system() == "Windows":
+            pcrCmdPrefix=""
+        else:
+            pcrCmdPrefix="export PCROPTIONS=--nothing\;"
         if isinstance(self.code, Expr):
             # open binary (b) to create unix text format needed by sh
             scriptToExecute = self._fileName("exec.mod")
             open(scriptToExecute,"w").write(
                 self.pcrcalcScript(fileNameOfDataFile))
             stream.write(self.makefileSnippet(pcrCmdPrefix +
-                "@EXECUTABLE_OUTPUT_PATH@/CMAKE_CFG_INTDIR/pcrcalc -f",
+                "REPLACE_EXECUTABLE_PATH/pcrcalc -f",
                     scriptToExecute))
         elif isinstance(self.code, Cmd):
-            scriptToExecute = self._fileName("exec.sh")
+            if platform.system() == "Windows":
+              exec_name = "exec.bat"
+              cmd = pcrCmdPrefix
+            else:
+              exec_name = "exec.sh"
+              cmd = pcrCmdPrefix + "sh"
+            scriptToExecute = self._fileName(exec_name)
             open(scriptToExecute,"w").write(
                 self.shellScript(fileNameOfDataFile))
-            stream.write(self.makefileSnippet(pcrCmdPrefix + "sh",
+            stream.write(self.makefileSnippet(cmd,
                 scriptToExecute))
         else:
             assert False
@@ -522,10 +532,11 @@ testInputFiles: $(sort ${TEST_INPUT_FILES})
 # depended on all CLONES because the .itxt's have
 # a clone name inside. We just create all CLONES in
 # advance to be sure we can operate
-VPATH=.
-EXEC:=@PROJECT_SOURCE_DIR@/environment/script/execWithNativePathArgs.sh
+# VPATH=.
+# EXEC:=@PROJECT_SOURCE_DIR@/environment/script/execWithNativePathArgs.sh
 %.map: %.itxt $(CLONES)
-	${EXEC} ${VPATH}/AscHeader2map $< $@
+	@PYTHON_EXECUTABLE@ AscHeader2map.py -i $< -o $@
+#	${EXEC} ${VPATH}/AscHeader2map $< $@
 
 # make png's
 %.png: %.map

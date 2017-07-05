@@ -164,7 +164,6 @@ private:
 
 
   // end friend interface
-  size_t           actualInput           (size_t argNr) const;
 
   VS                 argVs               (size_t a)  const;
   ST                 argSt               (size_t a)  const;
@@ -239,6 +238,8 @@ public:
   bool               hasDomainCheck       () const;
 
   bool               pointOperator        () const;
+
+  size_t             actualInput          (size_t argNr) const;
 };
 
 

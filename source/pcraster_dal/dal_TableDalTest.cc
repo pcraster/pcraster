@@ -3,17 +3,24 @@
 #include "dal_Table.h"
 #include "dal_TableDal.h"
 #include "dal_TableDriver.h"
-#define protected public
 #include "dal_Client.h"
 
 
+class ClientWrapper : public dal::Client {
+public:
+  ClientWrapper(boost::filesystem::path const& prefix,
+                   bool addAllDrivers=false,
+                   bool cacheDatasetInfo=true)
+  : dal::Client(prefix) {
+  }
+};
 
 struct Fixture
 {
 
     Fixture()
     {
-        static dal::Client client("/my/path/table_dal_test", true);
+        static ClientWrapper client("/my/path/table_dal_test", true);
     }
 
     ~Fixture()

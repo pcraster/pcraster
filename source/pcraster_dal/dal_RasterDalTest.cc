@@ -2,9 +2,25 @@
 #include <boost/test/unit_test.hpp>
 #include "dal_Raster.h"
 #include "dal_RasterDal.h"
-#define protected public
 #include "dev_GDalClient.h"
 #include "dal_Client.h"
+
+
+class ClientWrapper : public dal::Client {
+public:
+  ClientWrapper(boost::filesystem::path const& prefix,
+                   bool addAllDrivers=false,
+                   bool cacheDatasetInfo=true)
+  : dal::Client(prefix) {
+  }
+};
+
+
+class GDalClientWrapper : public dev::GDalClient {
+public:
+  GDalClientWrapper() : dev::GDalClient() {
+  }
+};
 
 
 struct Fixture
@@ -12,8 +28,8 @@ struct Fixture
 
     Fixture()
     {
-        static dev::GDalClient gdal_client;
-        static dal::Client client("/my/path/raster_dal_test", true);
+        static GDalClientWrapper gdal_client;
+        static ClientWrapper client("/my/path/raster_dal_test", true);
     }
 
     ~Fixture()

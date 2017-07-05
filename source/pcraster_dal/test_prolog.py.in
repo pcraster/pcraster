@@ -661,20 +661,11 @@ try:
 except OSError:
     pass
 
-arg = """create table polygons(
-         'fid' INTEGER,
-         'date' INTEGER,
-         'attribute1' REAL,
-         PRIMARY KEY ('fid', 'date'));
-       insert into polygons values(2, 1, 12.1);
-       insert into polygons values(1, 1, 11.1);
-       insert into polygons values(2, 2, 12.2);
-       insert into polygons values(1, 2, 11.2);"""
+arg = """create table polygons('fid' INTEGER,'date' INTEGER,'attribute1' REAL,PRIMARY KEY ('fid', 'date'));insert into polygons values(2, 1, 12.1);insert into polygons values(1, 1, 11.1);insert into polygons values(2, 2, 12.2);insert into polygons values(1, 2, 11.2);"""
 
 cmd = '@SQLITE3_EXECUTABLE@ polygons.sql3 "{}"'.format(arg)
+
 subprocess.check_call(cmd, shell=True)
-
-
 
 #       #
 #       #   "Feature id" INTEGER primary key,
@@ -754,82 +745,31 @@ try:
 except OSError:
     pass
 
-arg = """create table date(
-         'date' INTEGER,
-         'co2' REAL,
-         PRIMARY KEY ('date'));
-       insert into date values(1, 1.11);
-       insert into date values(2, 2.22);
-       insert into date values(3, 3.33);
-       """
+arg = """create table date('date' INTEGER,'co2' REAL,PRIMARY KEY ('date'));insert into date values(1, 1.11);insert into date values(2, 2.22);insert into date values(3, 3.33);"""
 
 cmd = '@SQLITE3_EXECUTABLE@ {} "{}"'.format(os.path.join(dest_dir, "dimensions.sql3"), arg)
 subprocess.check_call(cmd, shell=True)
 
 
-arg = """create table scenario(
-         'scenario' STRING,
-         'co2' REAL,
-         PRIMARY KEY ('scenario'));
-       insert into scenario values('aap' , -1.11);
-       insert into scenario values('noot', -2.22);"""
+arg = """create table scenario('scenario' STRING,'co2' REAL,PRIMARY KEY ('scenario'));insert into scenario values('aap' , -1.11);insert into scenario values('noot', -2.22);"""
 
 cmd = '@SQLITE3_EXECUTABLE@ {} "{}"'.format(os.path.join(dest_dir, "dimensions.sql3"), arg)
 subprocess.check_call(cmd, shell=True)
 
 
-arg = """create table scenario_date(
-         'scenario' STRING,
-         'date' INTEGER,
-         'co2' REAL,
-         PRIMARY KEY ('scenario', 'date'));
-       insert into scenario_date values('aap' , 1, 1.01);
-       insert into scenario_date values('aap' , 2, 2.01);
-       insert into scenario_date values('noot', 1, 1.02);
-       insert into scenario_date values('noot', 2, 2.02);
-       """
+arg = """create table scenario_date( 'scenario' STRING, 'date' INTEGER, 'co2' REAL, PRIMARY KEY ('scenario', 'date')); insert into scenario_date values('aap' , 1, 1.01); insert into scenario_date values('aap' , 2, 2.01); insert into scenario_date values('noot', 1, 1.02); insert into scenario_date values('noot', 2, 2.02); """
 
 cmd = '@SQLITE3_EXECUTABLE@ {} "{}"'.format(os.path.join(dest_dir, "dimensions.sql3"), arg)
 subprocess.check_call(cmd, shell=True)
 
 
-arg = """create table quantile(
-         'quantile' REAL,
-         'co2' REAL,
-         PRIMARY KEY ('quantile'));
-       insert into quantile values(0.01, 1.01);
-       insert into quantile values(0.05, 1.05);
-       insert into quantile values(0.50, 1.50);
-       insert into quantile values(0.95, 1.95);
-       insert into quantile values(0.99, 1.99);
-       """
+arg = """create table quantile( 'quantile' REAL, 'co2' REAL, PRIMARY KEY ('quantile')); insert into quantile values(0.01, 1.01); insert into quantile values(0.05, 1.05); insert into quantile values(0.50, 1.50); insert into quantile values(0.95, 1.95); insert into quantile values(0.99, 1.99); """
 
 cmd = '@SQLITE3_EXECUTABLE@ {} "{}"'.format(os.path.join(dest_dir, "dimensions.sql3"), arg)
 subprocess.check_call(cmd, shell=True)
 
 
-arg = """create table scenario_date_quantile(
-         'scenario' STRING,
-         'date' INTEGER,
-         'quantile' REAL,
-         'co2' REAL,
-         PRIMARY KEY ('scenario', 'date', 'quantile'));
-       insert into scenario_date_quantile values('aap', 1, 0.01, 1.01);
-       insert into scenario_date_quantile values('aap', 1, 0.05, 1.05);
-       insert into scenario_date_quantile values('aap', 1, 0.50, 1.50);
-       insert into scenario_date_quantile values('aap', 1, 0.95, 1.95);
-       insert into scenario_date_quantile values('aap', 1, 0.99, 1.99);
-       insert into scenario_date_quantile values('aap', 2, 0.01, 2.01);
-       insert into scenario_date_quantile values('aap', 2, 0.05, 2.05);
-       insert into scenario_date_quantile values('aap', 2, 0.50, 2.50);
-       insert into scenario_date_quantile values('aap', 2, 0.95, 2.95);
-       insert into scenario_date_quantile values('aap', 2, 0.99, 2.99);
-       insert into scenario_date_quantile values('aap', 3, 0.01, 3.01);
-       insert into scenario_date_quantile values('aap', 3, 0.05, 3.05);
-       insert into scenario_date_quantile values('aap', 3, 0.50, 3.50);
-       insert into scenario_date_quantile values('aap', 3, 0.95, 3.95);
-       insert into scenario_date_quantile values('aap', 3, 0.99, 3.99);
-       """
+arg = """create table scenario_date_quantile( 'scenario' STRING, 'date' INTEGER, 'quantile' REAL, 'co2' REAL, PRIMARY KEY ('scenario', 'date', 'quantile')); insert into scenario_date_quantile values('aap', 1, 0.01, 1.01); insert into scenario_date_quantile values('aap', 1, 0.05, 1.05); insert into scenario_date_quantile values('aap', 1, 0.50, 1.50); insert into scenario_date_quantile values('aap', 1, 0.95, 1.95); insert into scenario_date_quantile values('aap', 1, 0.99, 1.99); insert into scenario_date_quantile values('aap', 2, 0.01, 2.01); insert into scenario_date_quantile values('aap', 2, 0.05, 2.05); insert into scenario_date_quantile values('aap', 2, 0.50, 2.50); insert into scenario_date_quantile values('aap', 2, 0.95, 2.95); insert into scenario_date_quantile values('aap', 2, 0.99, 2.99); insert into scenario_date_quantile values('aap', 3, 0.01, 3.01); insert into scenario_date_quantile values('aap', 3, 0.05, 3.05); insert into scenario_date_quantile values('aap', 3, 0.50, 3.50); insert into scenario_date_quantile values('aap', 3, 0.95, 3.95); insert into scenario_date_quantile values('aap', 3, 0.99, 3.99); """
 
 cmd = '@SQLITE3_EXECUTABLE@ {} "{}"'.format(os.path.join(dest_dir, "dimensions.sql3"), arg)
 subprocess.check_call(cmd, shell=True)

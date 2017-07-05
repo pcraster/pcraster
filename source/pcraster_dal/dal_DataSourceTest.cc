@@ -13,10 +13,17 @@
 #pragma warning(once: 4748)
 #endif
 #endif
-#define protected public
 #include "dal_Client.h"
 
 
+class ClientWrapper : public dal::Client {
+public:
+  ClientWrapper(boost::filesystem::path const& prefix,
+                   bool addAllDrivers=false,
+                   bool cacheDatasetInfo=true)
+  : dal::Client(prefix, addAllDrivers) {
+  }
+};
 
 
 
@@ -26,7 +33,7 @@ struct Fixture
     Fixture()
     {
         dal::Driver::datasetProperties().clear();
-        static dal::Client client("/my/path/csf_raster_driver_test", true);
+        static ClientWrapper client("/my/path/csf_raster_driver_test", true);
     }
 
     ~Fixture()

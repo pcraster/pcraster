@@ -6,8 +6,17 @@
 #include "dal_Library.h"
 #include "dal_MemoryRasterData.h"
 #include "dal_MemoryRasterDriver.h"
-#define protected public
 #include "dal_Client.h"
+
+
+class ClientWrapper : public dal::Client {
+public:
+  ClientWrapper(boost::filesystem::path const& prefix,
+                   bool addAllDrivers=false,
+                   bool cacheDatasetInfo=true)
+  : dal::Client(prefix) {
+  }
+};
 
 
 struct Fixture
@@ -15,7 +24,7 @@ struct Fixture
 
     Fixture()
     {
-        static dal::Client client("/my/path/memory_raster_driver_test", true);
+        static ClientWrapper client("/my/path/memory_raster_driver_test", true);
     }
 
     ~Fixture()

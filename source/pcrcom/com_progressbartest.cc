@@ -3,8 +3,22 @@
 #include "stddefx.h"
 #include <sstream>
 #include <boost/format.hpp>
-#define protected public
 #include "com_progressbar.h"
+
+class ProgressBarWrapper : public com::ProgressBar {
+public:
+  ProgressBarWrapper(size_t nrSteps, size_t width, std::ostream& stream)
+    : com::ProgressBar(nrSteps, width, stream) {
+  }
+
+  size_t width() const {
+    return ProgressBar::width();
+  }
+
+  bool finished() const {
+    return ProgressBar::finished();
+  }
+};
 
 
 BOOST_AUTO_TEST_CASE(test)
@@ -14,7 +28,7 @@ BOOST_AUTO_TEST_CASE(test)
   std::stringstream stream;
   std::string result;
 
-  ProgressBar progressBar(10, 12, stream);
+  ProgressBarWrapper progressBar(10, 12, stream);
   BOOST_CHECK(progressBar.nrSteps() == 10);
   BOOST_CHECK(progressBar.nrFinishedSteps() == 0);
   BOOST_CHECK(progressBar.width() == 12);

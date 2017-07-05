@@ -4,18 +4,32 @@
 #include "dal_Exception.h"
 #include "dal_Library.h"
 #include "dal_OgrFeatureDriver.h"
-#define protected public
 #include "dev_GDalClient.h"
 #include "dal_Client.h"
 
+
+class ClientWrapper : public dal::Client {
+public:
+  ClientWrapper(boost::filesystem::path const& prefix,
+                   bool addAllDrivers=false,
+                   bool cacheDatasetInfo=true)
+  : dal::Client(prefix) {
+  }
+};
+
+class GDalClientWrapper : public dev::GDalClient {
+public:
+  GDalClientWrapper() : dev::GDalClient() {
+  }
+};
 
 struct Fixture
 {
 
     Fixture()
     {
-        static dev::GDalClient gdal_client;
-        static dal::Client client("/my/path/ogr_feature_driver_test", true);
+        static GDalClientWrapper gdal_client;
+        static ClientWrapper client("/my/path/ogr_feature_driver_test", true);
     }
 
     ~Fixture()

@@ -206,10 +206,10 @@ inline Compactor const& Compactors<Compactor>::compactor(
 //          REAL4 depth) const
 // {
 //   DEVELOP_PRECOND(hasCompactor(sediment));
-// 
+//
 //   return compactor(sediment)(originalThickness, depth);
 // }
-// 
+//
 // template<class Compactor>
 // inline REAL4 Compactors<Compactor>::compact(
 //          INT4 sediment,
@@ -218,7 +218,7 @@ inline Compactor const& Compactors<Compactor>::compactor(
 //          double duration) const
 // {
 //   DEVELOP_PRECOND(hasCompactor(sediment));
-// 
+//
 //   return compactor(sediment)(initialThickness, cummulativeLoad, duration);
 // }
 

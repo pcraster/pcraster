@@ -2,9 +2,22 @@
 #include <boost/test/unit_test.hpp>
 #include "stddefx.h"
 #include <sstream>
-#define protected public
 #include "com_labeledprogresstracker.h"
 #include "com_progressbar.h"
+
+
+template<typename T>
+class LabeledProgressTrackerWrapper : public com::LabeledProgressTracker<T> {
+public:
+   LabeledProgressTrackerWrapper(T& tracker, std::string const& label,size_t labelWidth)
+   : com::LabeledProgressTracker<T>(tracker, label, labelWidth)
+   {
+   }
+
+   bool finished() const {
+     return com::LabeledProgressTracker<T>::finished();
+   }
+};
 
 
 BOOST_AUTO_TEST_CASE(test)
@@ -15,7 +28,7 @@ BOOST_AUTO_TEST_CASE(test)
   std::string result;
 
   ProgressBar progressBar(15, 10, stream);
-  LabeledProgressTracker<ProgressBar> labeledTracker(progressBar, "task", 6);
+  LabeledProgressTrackerWrapper<ProgressBar> labeledTracker(progressBar, "task", 6);
   BOOST_CHECK(labeledTracker.labelWidth() == 6);
   BOOST_CHECK(labeledTracker.width() == 7);
   BOOST_CHECK(labeledTracker.nrSteps() == 15);

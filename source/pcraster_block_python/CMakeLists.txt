@@ -53,6 +53,7 @@ set(_TARGET_BIN ${EXECUTABLE_OUTPUT_PATH}/${CMAKE_CFG_INTDIR})
 
 set_target_properties(_pcraster_block_python
     PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY "${_TARGET_BIN}/pcraster"
         LIBRARY_OUTPUT_DIRECTORY "${_TARGET_BIN}/pcraster"
 )
 

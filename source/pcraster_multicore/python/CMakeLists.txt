@@ -38,5 +38,6 @@ target_link_libraries(_pcraster_multicore
 
 set_target_properties(_pcraster_multicore
     PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin/pcraster/multicore
         LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin/pcraster/multicore
 )

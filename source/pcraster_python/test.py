@@ -1,16 +1,11 @@
 #!/usr/bin/env pcrPython.sh
 # -*- coding: utf-8 -*-
 
-import os, math, string, types, unittest, warnings, sys
+import os, math, string, unittest, warnings, sys, tempfile
 import testcase, testexamples, testNumPy, testPickle
 import import_test
 import pcraster
 import copy
-
-# Filter out this warning.
-warnings.filterwarnings(u"ignore",
-         u"tempnam is a potential security risk to your program",
-         RuntimeWarning)
 
 class Test(testcase.TestCase):
 
@@ -52,7 +47,7 @@ class Test(testcase.TestCase):
     self.assertEqual(pcraster.cellvalue(result, 1)[0], 4.0)
 
   def valueTest(self, readValue, readValidValue, trueValidValue, type, trueValue):
-    self.assert_(isinstance(readValidValue, types.IntType))
+    self.assert_(isinstance(readValidValue, int))
     self.assertEqual(readValidValue, trueValidValue)
     if readValidValue:
       self.assert_(isinstance(readValue, type))
@@ -61,54 +56,54 @@ class Test(testcase.TestCase):
   def testCellValueBoolean(self):
     raster = pcraster.readmap("and_Expr1.map")
     value, isValid = pcraster.cellvalue(raster, 1)
-    self.valueTest(value, isValid, True, types.IntType, True)
+    self.valueTest(value, isValid, True, int, True)
     value, isValid = pcraster.cellvalue(raster, 2)
-    self.valueTest(value, isValid, True, types.IntType, True)
+    self.valueTest(value, isValid, True, int, True)
     value, isValid = pcraster.cellvalue(raster, 3)
-    self.valueTest(value, isValid, True, types.IntType, False)
+    self.valueTest(value, isValid, True, int, False)
     value, isValid = pcraster.cellvalue(raster, 4)
-    self.valueTest(value, isValid, True, types.IntType, False)
+    self.valueTest(value, isValid, True, int, False)
     value, isValid = pcraster.cellvalue(raster, 5)
     self.valueTest(value, isValid, False, None, None)
     value, isValid = pcraster.cellvalue(raster, 6)
-    self.valueTest(value, isValid, True, types.IntType, False)
+    self.valueTest(value, isValid, True, int, False)
     value, isValid = pcraster.cellvalue(raster, 7)
-    self.valueTest(value, isValid, True, types.IntType, True)
+    self.valueTest(value, isValid, True, int, True)
     value, isValid = pcraster.cellvalue(raster, 8)
-    self.valueTest(value, isValid, True, types.IntType, True)
+    self.valueTest(value, isValid, True, int, True)
     value, isValid = pcraster.cellvalue(raster, 9)
-    self.valueTest(value, isValid, True, types.IntType, False)
+    self.valueTest(value, isValid, True, int, False)
 
   def testCellValueNominal(self):
     raster = pcraster.readmap("areaarea_Class.map")
     value, isValid = pcraster.cellvalue(raster, 1)
     self.assertEqual(isValid, True)
-    self.assert_(isinstance(value, types.IntType))
+    self.assert_(isinstance(value, int))
     self.assertEqual(value, 2)
     value, isValid = pcraster.cellvalue(raster, 2)
     self.assertEqual(isValid, True)
-    self.assert_(isinstance(value, types.IntType))
+    self.assert_(isinstance(value, int))
     self.assertEqual(value, 6)
     value, isValid = pcraster.cellvalue(raster, 5)
     self.assertEqual(isValid, False)
     value, isValid = pcraster.cellvalue(raster, 9)
     self.assertEqual(isValid, True)
-    self.assert_(isinstance(value, types.IntType))
+    self.assert_(isinstance(value, int))
     self.assertEqual(value, 2)
     value, isValid = pcraster.cellvalue(raster, 25)
     self.assertEqual(isValid, True)
-    self.assert_(isinstance(value, types.IntType))
+    self.assert_(isinstance(value, int))
     self.assertEqual(value, 4)
 
   def testCellValueOrdinal(self):
     raster = pcraster.ordinal(pcraster.readmap("areaarea_Class.map"))
     value, isValid = pcraster.cellvalue(raster, 1)
     self.assertEqual(isValid, True)
-    self.assert_(isinstance(value, types.IntType))
+    self.assert_(isinstance(value, int))
     self.assertEqual(value, 2)
     value, isValid = pcraster.cellvalue(raster, 2)
     self.assertEqual(isValid, True)
-    self.assert_(isinstance(value, types.IntType))
+    self.assert_(isinstance(value, int))
     self.assertEqual(value, 6)
     value, isValid = pcraster.cellvalue(raster, 5)
     self.assertEqual(isValid, False)
@@ -117,80 +112,80 @@ class Test(testcase.TestCase):
     raster = pcraster.readmap("abs_Expr.map")
     value, isValid = pcraster.cellvalue(raster, 1)
     self.assertEqual(isValid, True)
-    self.assert_(isinstance(value, types.FloatType))
+    self.assert_(isinstance(value, float))
     self.assertEqual(value, 2.0)
     value, isValid = pcraster.cellvalue(raster, 2)
     self.assertEqual(isValid, True)
-    self.assert_(isinstance(value, types.FloatType))
+    self.assert_(isinstance(value, float))
     self.assertEqual(value, -7.0)
     value, isValid = pcraster.cellvalue(raster, 3)
     self.assertEqual(isValid, True)
-    self.assert_(isinstance(value, types.FloatType))
+    self.assert_(isinstance(value, float))
     self.assertEqual(value, 3.5)
     value, isValid = pcraster.cellvalue(raster, 6)
     self.assertEqual(isValid, False)
     value, isValid = pcraster.cellvalue(raster, 7)
     self.assertEqual(isValid, True)
-    self.assert_(isinstance(value, types.FloatType))
+    self.assert_(isinstance(value, float))
     self.assertEqual(value, 0.0)
     value, isValid = pcraster.cellvalue(raster, 8)
     self.assertEqual(isValid, True)
-    self.assert_(isinstance(value, types.FloatType))
+    self.assert_(isinstance(value, float))
     self.assertEqual(value, 14.0)
 
   def testCellValueDirectional(self):
     raster = pcraster.readmap("nodirection_Expr.map")
     value, isValid = pcraster.cellvalue(raster, 1)
     self.assertEqual(isValid, True)
-    self.assert_(isinstance(value, types.FloatType))
+    self.assert_(isinstance(value, float))
     self.assertAlmostEqual(value, math.radians(280))
     value, isValid = pcraster.cellvalue(raster, 2)
     self.assertEqual(isValid, True)
-    self.assert_(isinstance(value, types.FloatType))
+    self.assert_(isinstance(value, float))
     self.assertAlmostEqual(value, math.radians(25))
     value, isValid = pcraster.cellvalue(raster, 5)
     self.assertEqual(isValid, True)
-    self.assert_(isinstance(value, types.FloatType))
+    self.assert_(isinstance(value, float))
     self.assertAlmostEqual(value, -1.0)
     value, isValid = pcraster.cellvalue(raster, 7)
     self.assertEqual(isValid, False)
     value, isValid = pcraster.cellvalue(raster, 9)
     self.assertEqual(isValid, True)
-    self.assert_(isinstance(value, types.FloatType))
+    self.assert_(isinstance(value, float))
     self.assertAlmostEqual(value, math.radians(7))
 
   def testCellValueLdd(self):
     raster = pcraster.readmap("accu_Ldd.map")
     value, isValid = pcraster.cellvalue(raster, 1)
     self.assertEqual(isValid, True)
-    self.assert_(isinstance(value, types.IntType))
+    self.assert_(isinstance(value, int))
     self.assertEqual(value, 2)
     value, isValid = pcraster.cellvalue(raster, 2)
     self.assertEqual(isValid, True)
-    self.assert_(isinstance(value, types.IntType))
+    self.assert_(isinstance(value, int))
     self.assertEqual(value, 2)
     value, isValid = pcraster.cellvalue(raster, 9)
     self.assertEqual(isValid, True)
-    self.assert_(isinstance(value, types.IntType))
+    self.assert_(isinstance(value, int))
     self.assertEqual(value, 1)
     value, isValid = pcraster.cellvalue(raster, 22)
     self.assertEqual(isValid, True)
-    self.assert_(isinstance(value, types.IntType))
+    self.assert_(isinstance(value, int))
     self.assertEqual(value, 5)
     value, isValid = pcraster.cellvalue(raster, 25)
     self.assertEqual(isValid, True)
-    self.assert_(isinstance(value, types.IntType))
+    self.assert_(isinstance(value, int))
     self.assertEqual(value, 4)
 
   def testCellValueNonSpatial(self):
     raster = pcraster.readmap("abs_Expr.map")
     value, isValid = pcraster.cellvalue(pcraster.mapmaximum(raster), 1, 1)
     self.assertEqual(isValid, True)
-    self.assert_(isinstance(value, types.FloatType))
+    self.assert_(isinstance(value, float))
     self.assertEqual(value, 14.0)
     value, isValid = pcraster.cellvalue(pcraster.mapmaximum(raster), 1)
     self.assertEqual(isValid, True)
-    self.assert_(isinstance(value, types.FloatType))
+    self.assert_(isinstance(value, float))
     self.assertEqual(value, 14.0)
 
   def testNotEqualsLdd(self):
@@ -209,7 +204,7 @@ class Test(testcase.TestCase):
 
   def testReportFirstArgIsFilename(self):
     inputFilename = "and_Expr1.map"
-    outputFilename = os.tempnam()
+    outputFilename = tempfile.NamedTemporaryFile().name
     pcraster.report(inputFilename, outputFilename)
     self.failUnless(self.mapEqualsValidated(pcraster.readmap(inputFilename), outputFilename))
     os.remove(outputFilename)
@@ -218,7 +213,7 @@ class Test(testcase.TestCase):
     raster = pcraster.readmap("abs_Expr.map")
     max1 = pcraster.mapmaximum(raster)
     value, isValid = pcraster.cellvalue(max1, 1)
-    self.assert_(isinstance(value, types.FloatType))
+    self.assert_(isinstance(value, float))
     self.assertEqual(isValid, True)
     self.assertEqual(value, 14.0)
     pcraster.report(max1, "maximum.map")
@@ -227,7 +222,7 @@ class Test(testcase.TestCase):
     for i in range(1, 8):
       value, isValid = pcraster.cellvalue(max2, i)
       self.assertEqual(isValid, True)
-      self.assert_(isinstance(value, types.FloatType))
+      self.assert_(isinstance(value, float))
       self.assertEqual(value, 14.0)
 
   def testNominal2Ordinal(self):
@@ -295,9 +290,6 @@ class Test(testcase.TestCase):
       self.assertEqual(pcraster.cellvalue(nonSpatial, 1)[0], value)
 
   def testNonZero(self):
-    # behaviour of __nonzero__ changes in Python version 3.
-    assert sys.version_info[0] < 3
-
     raster1 = pcraster.readmap("abs_Expr.map")
     raster2 = pcraster.readmap("abs_Expr.map")
 
@@ -452,42 +444,42 @@ class Test(testcase.TestCase):
   def testDeepCopyRaster(self):
     raster = pcraster.readmap(os.path.join("validated", "boolean_Result.map"))
     tmp = copy.deepcopy(raster)
-    outputFilename = os.tempnam()
+    outputFilename = tempfile.NamedTemporaryFile().name
     pcraster.report(tmp, outputFilename)
     self.failUnless(self.mapEqualsValidated(tmp, "boolean_Result.map"))
     os.remove(outputFilename)
 
     raster = pcraster.readmap(os.path.join("validated", "nominal_Result.map"))
     tmp = copy.deepcopy(raster)
-    outputFilename = os.tempnam()
+    outputFilename = tempfile.NamedTemporaryFile().name
     pcraster.report(tmp, outputFilename)
     self.failUnless(self.mapEqualsValidated(tmp, "nominal_Result.map"))
     os.remove(outputFilename)
 
     raster = pcraster.readmap(os.path.join("validated", "ordinal_Result.map"))
     tmp = copy.deepcopy(raster)
-    outputFilename = os.tempnam()
+    outputFilename = tempfile.NamedTemporaryFile().name
     pcraster.report(tmp, outputFilename)
     self.failUnless(self.mapEqualsValidated(tmp, "ordinal_Result.map"))
     os.remove(outputFilename)
 
     raster = pcraster.readmap(os.path.join("validated", "scalar_Result.map"))
     tmp = copy.deepcopy(raster)
-    outputFilename = os.tempnam()
+    outputFilename = tempfile.NamedTemporaryFile().name
     pcraster.report(tmp, outputFilename)
     self.failUnless(self.mapEqualsValidated(tmp, "scalar_Result.map"))
     os.remove(outputFilename)
 
     raster = pcraster.readmap(os.path.join("validated", "directional_Result1.map"))
     tmp = copy.deepcopy(raster)
-    outputFilename = os.tempnam()
+    outputFilename = tempfile.NamedTemporaryFile().name
     pcraster.report(tmp, outputFilename)
     self.failUnless(self.mapEqualsValidated(tmp, "directional_Result1.map"))
     os.remove(outputFilename)
 
     raster = pcraster.readmap(os.path.join("validated", "ldd_Result.map"))
     tmp = copy.deepcopy(raster)
-    outputFilename = os.tempnam()
+    outputFilename = tempfile.NamedTemporaryFile().name
     pcraster.report(tmp, outputFilename)
     self.failUnless(self.mapEqualsValidated(tmp, "ldd_Result.map"))
     os.remove(outputFilename)

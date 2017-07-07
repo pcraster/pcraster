@@ -4,6 +4,7 @@ import re
 import os
 import inspect
 import copy
+import itertools
 import Index as CollIndex
 import pcraster
 
@@ -216,7 +217,7 @@ class VariableCollection(object):
         dim[externalName] = index
       self.__externalNames.append(dim)
 
-    com = list(self._product(*keys))
+    com = list(itertools.product(*keys))
 
     for key in com:
       self._impl[key] = None
@@ -281,17 +282,8 @@ class VariableCollection(object):
 
     return val
 
-
-  def _product(self, *args, **kwds):
-    # whith 2.6 this method can be replaced by product
-    pools = map(tuple, args) * kwds.get('repeat', 1)
-    result = [[]]
-    for pool in pools:
-        result = [x+[y] for x in result for y in pool]
-
-    for prod in result:
-        yield tuple(prod)
-
+  # Python 3.X compatibility
+  __next__ = next
 
 
   def __getVariableName(self, line):

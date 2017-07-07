@@ -27,13 +27,25 @@ shutil.rmtree(os.path.join(dest_dir, "if_UpcaseDirectory"), ignore_errors=True)
 shutil.rmtree(os.path.join(dest_dir, "mv_movedexistingdir"), ignore_errors=True)
 
 
+# Reset file modes, otherwise files will not be deleted on Windows
+try:
+  os.chmod(os.path.join(dest_dir, "if_notwritable"), 0o777)
+  os.chmod(os.path.join(dest_dir, "if_notreadable"), 0o777)
+except Exception as e:
+  pass
+
 filenames = glob.glob(os.path.join(dest_dir, "fe_*"))
 filenames += glob.glob(os.path.join(dest_dir, "pi_*"))
 filenames += glob.glob(os.path.join(dest_dir, "if_*"))
 filenames += glob.glob(os.path.join(dest_dir, "rm_*"))
 filenames += glob.glob(os.path.join(dest_dir, "mv_*"))
+
 for f in filenames:
-  os.remove(f)
+  try:
+    os.remove(f)
+  except Exception as e:
+    pass
+
 
 
 

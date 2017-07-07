@@ -1,3 +1,4 @@
+import sys
 import pcraster
 from . import operations, _pcraster
 
@@ -143,8 +144,6 @@ _pcraster.Field.__le__       = pcrLE
 
 _pcraster.Field.__mul__      = pcrMul
 _pcraster.Field.__rmul__     = pcrRMul
-_pcraster.Field.__div__      = pcrDiv
-_pcraster.Field.__rdiv__     = pcrRDiv
 _pcraster.Field.__floordiv__ = pcrFloorDiv
 _pcraster.Field.__rfloordiv__ = pcrRFloorDiv
 _pcraster.Field.__pow__      = pcrPow
@@ -158,9 +157,17 @@ _pcraster.Field.__rsub__     = pcrRSub
 
 _pcraster.Field.__neg__      = pcrNeg
 _pcraster.Field.__pos__      = pcrPos
-_pcraster.Field.__nonzero__  = _bool # pcrNonzero
-
 
 _pcraster.Field.__bool__ = _bool
 _pcraster.Field.__int__ = _int
 _pcraster.Field.__float__ = _float
+
+
+if sys.version_info[0] < 3:
+  _pcraster.Field.__div__  = pcrDiv
+  _pcraster.Field.__rdiv__     = pcrRDiv
+  _pcraster.Field.__nonzero__  = _bool # pcrNonzero
+else:
+  _pcraster.Field.__truediv__  = pcrDiv
+  # Instead of __nonzero__, Python 3 calls __bool__
+

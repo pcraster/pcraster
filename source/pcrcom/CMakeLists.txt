@@ -205,7 +205,7 @@ if(PCRASTER_BUILD_TEST)
         PROPERTIES FIXTURES_SETUP FixturePcrCom
     )
 
-    set_tests_properties(pcrcom_com_algorithmtest PROPERTIES
+    set_tests_properties(pcrcom_com_algorithmtest pcrcom_com_filetest PROPERTIES
         FIXTURES_REQUIRED
           FixturePcrCom
     )

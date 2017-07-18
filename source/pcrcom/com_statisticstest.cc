@@ -274,13 +274,12 @@ BOOST_AUTO_TEST_CASE(percentile_)
   BOOST_CHECK(*percentile<I>(val.begin(),val.end(),0.9994) == val.size()-1);
   BOOST_CHECK( percentile<I>(val.begin(),val.end(),0.9994) == val.end()-1);
 
-// OLS: check again with the new windows build...
-// #ifdef _MSC_VER
-//   // bugzilla #80
-//   BOOST_WARN(*percentile<I>(val.begin(),val.end(),0.6)  == 5);
-// #else
+#ifdef _MSC_VER
+  // bugzilla #80
+  BOOST_WARN(*percentile<I>(val.begin(),val.end(),0.6)  == 5);
+#else
   BOOST_CHECK(*percentile<I>(val.begin(),val.end(),0.6)  == 5);
-// #endif
+#endif
 
   BOOST_CHECK(*percentile<I>(val.begin(),val.end(),0.47) == 4);
 
@@ -289,14 +288,14 @@ BOOST_AUTO_TEST_CASE(percentile_)
   BOOST_CHECK(*percentile<I>(val.begin(),val.end(),1,
                          statisticsTest::Reverse())  == 0);
 
-// #ifdef _MSC_VER
-//   // bugzilla #80
-//   BOOST_WARN(*percentile<I>(val.begin(),val.end(),0.6,
-//                          statisticsTest::Reverse())  == 4);
-// #else
+#ifdef _MSC_VER
+  // bugzilla #80
+  BOOST_WARN(*percentile<I>(val.begin(),val.end(),0.6,
+                         statisticsTest::Reverse())  == 4);
+#else
   BOOST_CHECK(*percentile<I>(val.begin(),val.end(),0.6,
                          statisticsTest::Reverse())  == 4);
-// #endif
+#endif
  }
  {
   T e;

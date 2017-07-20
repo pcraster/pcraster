@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 import os
 import shutil
+import multiprocessing
 import sys
 import time
 from . import dynamicFramework
 from . import forkscript
 from . import frameworkBase
 from . import staticFramework
-from . import system
 
 
 
@@ -86,7 +86,7 @@ class MonteCarloFramework(frameworkBase.FrameworkBase, forkscript.ForkScript):
     else:
       # default detect nrCPUs
       if(nrCPUs == 1):
-        self._d_nrProcessors = system.nrCPUs()
+        self._d_nrProcessors = multiprocessing.cpu_count()
       else:
         self._d_nrProcessors = nrCPUs
       self._d_forkSamples = fork

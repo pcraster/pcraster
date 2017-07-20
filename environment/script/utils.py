@@ -109,10 +109,3 @@ def duration(
   """
   minsec = divmod((endTime - startTime), 60)
   return "%s min %s sec" % (str(int((minsec[0]))), str(int((minsec[1]))))
-
-
-
-  # def systemIsOccupied(self):
-  #   print "deprecated, update your script"
-  #   return system.loadPerCPU() > 150.0
-

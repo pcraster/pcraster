@@ -350,17 +350,17 @@ BOOST_AUTO_TEST_CASE(read_write_size)
  {
   std::string c;
   std::string contents("line only two\n");
-  PathName pn("fe_two");
-  BOOST_CHECK(size(pn) == contents.size());
-  read(c,pn);
-  BOOST_CHECK(c==contents);
-  write(c,"result.tmp");
-  BOOST_CHECK(filesEqual("fe_two","result.tmp"));
   size_t expectedSize=contents.size();
 #ifdef WIN32
   // newline is 2 chars
   expectedSize+=1;
 #endif
+  PathName pn("fe_two");
+  BOOST_CHECK(size(pn) == expectedSize);
+  read(c,pn);
+  BOOST_CHECK(c==contents);
+  write(c,"result.tmp");
+  BOOST_CHECK(filesEqual("fe_two","result.tmp"));
   BOOST_CHECK(size("result.tmp") == expectedSize);
  }
 }

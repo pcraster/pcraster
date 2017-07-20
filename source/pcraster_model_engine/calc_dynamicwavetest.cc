@@ -1,6 +1,7 @@
 #define BOOST_TEST_MODULE pcraster model_engine dynamicwave
 #include <boost/test/unit_test.hpp>
 
+#include "calc_globallibdefs.h"
 #include "geo_filecreatetester.h"
 #include "com_csfcell.h"
 #include "com_directory.h"
@@ -11,6 +12,25 @@
 
 // NOTE use string failureExpected in files expected to fail, see style guide
 
+struct Fixture
+{
+
+    Fixture()
+    {
+        calc::globalInit();
+    }
+
+
+    ~Fixture()
+    {
+        calc::globalEnd();
+    }
+
+};
+
+
+
+BOOST_FIXTURE_TEST_SUITE(dynamicwave, Fixture)
 
 
 BOOST_AUTO_TEST_CASE(testSimpleInput)
@@ -88,3 +108,5 @@ BOOST_AUTO_TEST_CASE(testSimpleInput)
   }
 */
 }
+
+BOOST_AUTO_TEST_SUITE_END()

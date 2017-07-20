@@ -55,6 +55,23 @@ namespace calc {
   }
 }
 
+struct Fixture
+{
+
+    Fixture()
+    {
+        calc::globalInit();
+    }
+
+
+    ~Fixture()
+    {
+        calc::globalEnd();
+    }
+
+};
+
+BOOST_GLOBAL_FIXTURE(Fixture);
 
 BOOST_AUTO_TEST_CASE(testFromString)
 {

@@ -1,5 +1,6 @@
 #define BOOST_TEST_MODULE pcraster model_engine maskpacking
 #include <boost/test/unit_test.hpp>
+#include "calc_globallibdefs.h"
 #include "com_algorithm.h"
 #include "com_csfcell.h"
 #include "com_new.h"
@@ -16,6 +17,24 @@
 #define private public
 #include "calc_maskpacking.h"
 
+struct Fixture
+{
+
+    Fixture()
+    {
+        calc::globalInit();
+    }
+
+
+    ~Fixture()
+    {
+        calc::globalEnd();
+    }
+
+};
+
+
+BOOST_FIXTURE_TEST_SUITE(maskpacking, Fixture)
 
 BOOST_AUTO_TEST_CASE(testSpatialPacking)
 {
@@ -279,3 +298,5 @@ BOOST_AUTO_TEST_CASE(testScript)
   com::delete2d<REAL4>(result);
   com::delete2d<REAL4>(area);
 }
+
+BOOST_AUTO_TEST_SUITE_END()

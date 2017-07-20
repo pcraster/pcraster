@@ -24,12 +24,12 @@ struct Fixture
 
     ~Fixture()
     {
-      //calc::globalEnd();
+        calc::globalEnd();
     }
 
 };
 
-BOOST_FIXTURE_TEST_SUITE(executor, Fixture);
+BOOST_GLOBAL_FIXTURE(Fixture);
 
 BOOST_AUTO_TEST_CASE(testSetStep)
 {
@@ -897,6 +897,3 @@ BOOST_AUTO_TEST_CASE(testLinkInLibrary)
       BOOST_CHECK(fct.equalTo("inp5s.map",false));
     }
 }
-
-
-BOOST_AUTO_TEST_SUITE_END()

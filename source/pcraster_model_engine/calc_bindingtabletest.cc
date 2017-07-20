@@ -1,13 +1,32 @@
 #define BOOST_TEST_MODULE pcraster model_engine bindingtable
 #include <boost/test/unit_test.hpp>
 #include "calc_asttestfactory.h"
-
+#include "calc_globallibdefs.h"
 #define private public
 #include "calc_astscript.h"
 
 
 // NOTE use string failureExpected in files expected to fail, see style guide
 
+struct Fixture
+{
+
+    Fixture()
+    {
+        calc::globalInit();
+    }
+
+
+    ~Fixture()
+    {
+        calc::globalEnd();
+    }
+
+};
+
+
+
+BOOST_FIXTURE_TEST_SUITE(bindingtable, Fixture)
 
 
 BOOST_AUTO_TEST_CASE(testApplyErrors)
@@ -113,3 +132,4 @@ BOOST_AUTO_TEST_CASE(testApply)
  }
 }
 
+BOOST_AUTO_TEST_SUITE_END()

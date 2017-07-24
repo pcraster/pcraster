@@ -5,10 +5,30 @@
 #include "com_pathinfo.h"
 #include "com_exception.h"
 #include "calc_manualexampletester.h"
+#include "calc_globallibdefs.h"
 #include "com_pathname.h"
 #ifdef WIN32
 #include <iostream>
 #endif
+
+struct Fixture
+{
+
+    Fixture()
+    {
+        calc::globalInit();
+    }
+
+
+    ~Fixture()
+    {
+        calc::globalEnd();
+    }
+
+};
+
+
+BOOST_GLOBAL_FIXTURE(Fixture);
 
 BOOST_AUTO_TEST_CASE(testAll)
 {

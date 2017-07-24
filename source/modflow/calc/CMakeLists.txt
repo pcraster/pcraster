@@ -87,11 +87,16 @@ INSTALL(
 
 if(PCRASTER_BUILD_TEST)
 
-    configure_file(
-        ${CMAKE_CURRENT_SOURCE_DIR}/test_prolog.py.in
-        ${CMAKE_CURRENT_BINARY_DIR}/test_prolog.py
-        @ONLY
-    )
+  configure_file(
+    ${CMAKE_CURRENT_SOURCE_DIR}/test_prolog.py.in
+    ${CMAKE_CURRENT_BINARY_DIR}/test_prolog.py
+    @ONLY
+  )
+  configure_file(
+    ${CMAKE_CURRENT_SOURCE_DIR}/../tests/tests.py.in
+    ${CMAKE_CURRENT_BINARY_DIR}/tests.py
+    @ONLY
+  )
 
   set(TEST_NAMES
     calc_DemoTest

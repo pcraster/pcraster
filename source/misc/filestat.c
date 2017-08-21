@@ -46,17 +46,27 @@ static char privateBuffer[1024];
  * 2 if the file does not exist. errno is set to ENOENT
  */
 int FileStat(
-	const char *fileName) /* the file name */
+    const char *fileName) /* the file name */
 {
-	struct stat s;
-	if ( stat(fileName, &s) )
-		return 2;
 #ifdef _MSC_VER
-        return ! (s.st_mode & _S_IFREG);
+    struct __stat64 s;
+
+    if( _stat64(fileName, &s)) {
+        return 2;
+    }
+
+    return !(s.st_mode & _S_IFREG);
 #else
-	return  ! S_ISREG(s.st_mode);
+   struct stat s;
+
+   if(stat(fileName, &s)) {
+       return 2;
+   }
+
+   return !S_ISREG(s.st_mode);
 #endif
 }
+
 
 /* stat a file, for regular file yes or no and check for valid filename
  * FileStatValid combines a call to FileStat and FileNameValid.

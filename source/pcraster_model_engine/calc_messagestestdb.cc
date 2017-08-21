@@ -90,7 +90,12 @@ namespace detail {
     }
 
     std::string toString(const std::string& id,QDomElement e) const {
+#ifdef WIN32
+      // Somehow Qt(?!) adds an additional CR in multiline elements
+      std::string s=std::string(pcrxml::textOnlyContents(e).toLatin1().replace("\r", ""));
+#else
       std::string s=std::string(pcrxml::textOnlyContents(e).toLatin1());
+#endif
       com::removeFrontEndSpace(s);
       if(s.empty()) {
        detail::AddError ae;ae.reason="EMPTY id:"+id;

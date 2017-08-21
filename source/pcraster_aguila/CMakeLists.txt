@@ -323,10 +323,10 @@ if(PCRASTER_BUILD_TEST)
             #${QT_QTTEST_LIBRARY}
     )
     add_test(
-        NAME setup_aguila
+        NAME setup_pcraster_aguila
         COMMAND ${PYTHON_EXECUTABLE} test_prolog.py
     )
-    set_tests_properties(setup_aguila
+    set_tests_properties(setup_pcraster_aguila
         PROPERTIES FIXTURES_SETUP FixtureAguila
     )
     set_tests_properties(pcraster_aguila_ag_AguilaProgramOptionsTest PROPERTIES

@@ -88,7 +88,7 @@ struct Fixture : public calc::LibraryClassNoQt
 };
 
 
-BOOST_FIXTURE_TEST_SUITE(buildtypesvisitor, Fixture);
+BOOST_FIXTURE_TEST_SUITE(buildtypesvisitor, Fixture)
 
 
 BOOST_AUTO_TEST_CASE(testPar)

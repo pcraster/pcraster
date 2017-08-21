@@ -43,7 +43,7 @@ struct Fixture
 };
 
 
-BOOST_FIXTURE_TEST_SUITE(data_source, Fixture);
+BOOST_FIXTURE_TEST_SUITE(data_source, Fixture)
 
 BOOST_AUTO_TEST_CASE(unexisting)
 {

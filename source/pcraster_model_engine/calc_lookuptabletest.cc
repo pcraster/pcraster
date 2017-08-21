@@ -59,7 +59,7 @@ struct Fixture
 
 };
 
-BOOST_FIXTURE_TEST_SUITE(lookuptable, Fixture);
+BOOST_FIXTURE_TEST_SUITE(lookuptable, Fixture)
 
 
 

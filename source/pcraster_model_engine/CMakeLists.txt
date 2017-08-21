@@ -525,17 +525,20 @@ if(PCRASTER_BUILD_TEST)
 
 
     add_test(
-        NAME setup_pcraster_model_engine
+        NAME setup_model_engine
         COMMAND ${PYTHON_EXECUTABLE} test_prolog.py
     )
 
-    set_tests_properties(setup_pcraster_model_engine
+    set_tests_properties(setup_model_engine
         PROPERTIES FIXTURES_SETUP FixturePCRasterModelEngine
     )
 
-    set_tests_properties(model_engine_calc_areamaptest PROPERTIES
-        FIXTURES_REQUIRED
-          FixturePCRasterModelEngine
+    set_tests_properties(
+          model_engine_calc_areamaptest
+          model_engine_calc_executortest
+        PROPERTIES
+          FIXTURES_REQUIRED
+            FixturePCRasterModelEngine
     )
 
 

@@ -167,7 +167,7 @@ if(PCRASTER_BUILD_TEST)
     string(REPLACE ";" "\\;" ENV_PATH "${ENV_PATH}")
     # argument is a 'cmake' ; separated list of values, therefore escape the environment path separator
     set_tests_properties(modflow_calc_DemoTest modflow_python_unit_tests PROPERTIES
-      ENVIRONMENT "PATH=${EXECUTABLE_OUTPUT_PATH}/\\;${CMAKE_CURRENT_BINARY_DIR}/\\;${ENV_PATH};PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}\\;${EXECUTABLE_OUTPUT_PATH}"
+      ENVIRONMENT "PATH=${ENV_PATH}\\;${EXECUTABLE_OUTPUT_PATH}\\;${CMAKE_CURRENT_BINARY_DIR};PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}\\;${EXECUTABLE_OUTPUT_PATH}"
     )
   else()
     set_tests_properties(modflow_calc_DemoTest modflow_python_unit_tests PROPERTIES

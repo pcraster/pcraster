@@ -72,7 +72,7 @@
     string(REPLACE ";" "\\;" ENV_PATH "${ENV_PATH}")
     # argument is a 'cmake' ; separated list of values, therefore escape the environment path separator
     set_tests_properties(python_arrayed_variables_unit_tests PROPERTIES
-      ENVIRONMENT "PATH=${EXECUTABLE_OUTPUT_PATH}/\\;${ENV_PATH};PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}\\;${EXECUTABLE_OUTPUT_PATH}"
+      ENVIRONMENT "PATH=${ENV_PATH}\\;${EXECUTABLE_OUTPUT_PATH};PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}\\;${EXECUTABLE_OUTPUT_PATH}"
     )
   else()
     set_tests_properties(python_arrayed_variables_unit_tests PROPERTIES

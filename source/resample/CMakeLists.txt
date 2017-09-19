@@ -61,7 +61,7 @@ if(PCRASTER_BUILD_TEST)
         @ONLY
         NEWLINE_STYLE UNIX
     )
-
+    add_dependencies(resample mapdiff)
     add_test(NAME setup_resample COMMAND ${PYTHON_EXECUTABLE} test_prolog.py)
 
     # sf463
@@ -75,7 +75,7 @@ if(PCRASTER_BUILD_TEST)
     set_tests_properties(setup_resample
         PROPERTIES FIXTURES_SETUP FixtureResample
     )
-    set_tests_properties(test_resample_1 test_resample_2 test_resample_3 test_resample_4
+    set_tests_properties(test_resample_1 test_resample_3
         PROPERTIES FIXTURES_REQUIRED FixtureResample
     )
 

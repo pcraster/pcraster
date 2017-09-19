@@ -540,7 +540,7 @@ testInputFiles: $(sort ${TEST_INPUT_FILES})
 
 # make png's
 %.png: %.map
-	export PCROPTIONS=--nothing;@PYTHON_EXECUTABLE@ @PROJECT_SOURCE_DIR@/environment/script/rasterToPNG.py $< $@
+	export PCROPTIONS=--nothing\;@PYTHON_EXECUTABLE@ @PROJECT_SOURCE_DIR@/environment/script/rasterToPNG.py $< $@
 # %.rst: %.txt
 # 	@PYTHON_EXECUTABLE@ txt2rst.py $< $@
 """)

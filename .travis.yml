@@ -60,11 +60,11 @@ install:
     - set -e
 
     - cd $TRAVIS_BUILD_DIR
-    - pip install --upgrade pip
-    - pip install --upgrade numpy
-    - pip install --upgrade docopt
-    - pip install --upgrade sphinx
-    - pip install --upgrade pillow
+    - pip install --user --upgrade pip
+    - pip install --user --upgrade numpy
+    - pip install --user --upgrade docopt
+    - pip install --user --upgrade sphinx
+    - pip install --user --upgrade pillow
 
     - sudo apt-get install qt56base
     - export PATH=/opt/qt56/bin:$PATH

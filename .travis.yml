@@ -70,7 +70,7 @@ install:
     - sudo apt-get install qt56base
     - export PATH=/opt/qt56/bin:$PATH
 
-    - sudo apt-get install libgdal-dev
+    - sudo apt-get install gdal-bin libgdal-dev
 
     - mkdir $TRAVIS_BUILD_DIR/local
 

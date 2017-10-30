@@ -43,8 +43,6 @@ addons:
             - libxml2-utils
             - xsdcxx
             - mesa-common-dev
-            - libqwt-dev
-            - libqwt6
 
 before_install:
     - sudo add-apt-repository ppa:beineri/opt-qt562-trusty -y
@@ -54,8 +52,7 @@ before_install:
     # Update CMake.
     - wget --no-check-certificate http://www.cmake.org/files/v3.7/cmake-3.7.2-Linux-x86_64.tar.gz
 
-    # Travis doesn't have
-    # - Qwt library
+    # Travis Qwt 6.0 does not cooperate with Qt5
     # We build and install those ourselves using Peacock.
     - git clone --recursive https://github.com/geoneric/peacock.git
 
@@ -84,8 +81,7 @@ install:
     - export MAKEFLAGS='-j2'
     - mkdir build
     - cd build
-    # - cmake -G"${TRAVIS_CMAKE_GENERATOR}" -DCMAKE_C_COMPILER=gcc-4.9 -DCMAKE_CXX_COMPILER=g++-4.9 -Dpeacock_prefix=$TRAVIS_BUILD_DIR/local -Dbuild_qwt=true -Dqwt_version=6.1.2 -Dbuild_gdal=true -Dgdal_version=2.0.1 -Dbuild_fern=true -Dfern_git_repository=https://github.com/geoneric/fern.git -Dfern_git_tag=f67bdc78b21932025dd85b085c9bcf3464979de9 -Dfern_build_fern_algorithm=true -Dfern_build_fern_documentation=false -Dfern_build_fern_test=false ..
-    - cmake -G"${TRAVIS_CMAKE_GENERATOR}" -DCMAKE_C_COMPILER=gcc-4.9 -DCMAKE_CXX_COMPILER=g++-4.9 -Dpeacock_prefix=$TRAVIS_BUILD_DIR/local -Dbuild_fern=true -Dfern_git_repository=https://github.com/geoneric/fern.git -Dfern_git_tag=f67bdc78b21932025dd85b085c9bcf3464979de9 -Dfern_build_fern_algorithm=true -Dfern_build_fern_documentation=false -Dfern_build_fern_test=false ..
+    - cmake -G"${TRAVIS_CMAKE_GENERATOR}" -DCMAKE_C_COMPILER=gcc-4.9 -DCMAKE_CXX_COMPILER=g++-4.9 -Dpeacock_prefix=$TRAVIS_BUILD_DIR/local -Dbuild_qwt=true -Dqwt_version=6.1.2 -Dbuild_fern=true -Dfern_git_repository=https://github.com/geoneric/fern.git -Dfern_git_tag=f67bdc78b21932025dd85b085c9bcf3464979de9 -Dfern_build_fern_algorithm=true -Dfern_build_fern_documentation=false -Dfern_build_fern_test=false ..
     - cmake --build . --target all
 
 before_script:
@@ -100,8 +96,6 @@ script:
     - python -c "import numpy as n; print(n.__version__); print(n.get_include());"
     - cmake --build . --config ${TRAVIS_BUILD_TYPE} --target all
 
-    # own GDAL 2.x library needs to be found to execute unit tests
-    # - export LD_LIBRARY_PATH=$TRAVIS_BUILD_DIR/local/linux/linux/gcc-4/x86_64/lib
     - export MAKEFLAGS='-j1'
     - cmake --build . --config ${TRAVIS_BUILD_TYPE} --target test
     - cd ..

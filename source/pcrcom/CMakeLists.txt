@@ -25,7 +25,6 @@ INCLUDE_DIRECTORIES(
 # com_raster.cc
 # com_repeatableargument.cc
 # com_repeatableexclusiveargument.cc
-# com_rleptrvector.cc
 # com_singlevaluedraster.cc
 # com_statistics.cc
 # com_progresstracked.cc
@@ -69,7 +68,6 @@ SET(SOURCES
     # com_raster.cc
     # com_repeatableargument.cc
     # com_repeatableexclusiveargument.cc
-    # com_rleptrvector.cc
     # com_singlevaluedraster.cc
     com_spawn.cc
     # deprecated, see InTableStream docs
@@ -171,7 +169,6 @@ if(PCRASTER_BUILD_TEST)
         com_pathnametest
         com_progressbartest
         com_rastertest
-        com_rleptrvectortest
         com_singlevaluedrastertest
         com_spawntest
         # deprecated, see InTableStream docs

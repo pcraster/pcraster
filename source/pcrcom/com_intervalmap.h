@@ -273,8 +273,7 @@ private:
 /*!
  * Implementatie als std::multimap werkte niet, intervallen zijn niet
  * eenduidig te sorteren als intervallen overlappen, echte oplossing is
- * denk ik (CW) te vinden in quadtree bijbel (Hoe heette dat boek ook alweer,
- * 2-delig, zie Geom::PRDimTree).
+ * denk ik (CW) te vinden in quadtree bijbel
  * Deze "MultiMap" is gewoon een lineaire search.
  */
 template<class T,

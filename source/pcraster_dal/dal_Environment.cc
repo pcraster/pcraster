@@ -128,7 +128,8 @@ void Environment::readFormatNames()
 
   // Remove empty names.
   _formatNames.erase(std::remove_if(_formatNames.begin(), _formatNames.end(),
-         boost::bind(&std::string::empty, _1)), _formatNames.end());
+         [](std::string const& string) { return string.empty(); }),
+         _formatNames.end());
 
   // Remove duplicate names.
   dev::unique(_formatNames);

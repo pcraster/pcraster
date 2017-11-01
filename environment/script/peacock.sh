@@ -54,13 +54,16 @@ function build_software()
     elif [[ $hostname == "sonic.geo.uu.nl" ]]; then
         # CentOS 7
         skip_build_qt=1
-    elif [[ $hostname == "triklav" ]]; then
+    elif [[
+            $hostname == "triklav.local" ||
+            $hostname == "triklav.soliscom.uu.nl"
+            ]]; then
         # macOS 10.12.1 Sierra / macports
         skip_build_boost=1
         skip_build_gdal=1
         skip_build_qt=1
         # Bug in 'port install qwt61 +qt5' (seen on 20161205), so build
-        skip_build_qwt=0
+        skip_build_qwt=1
     fi
 
 
@@ -125,8 +128,8 @@ function build_software()
     options+=("-Dfern_git_repository=https://github.com/geoneric/fern.git")
     options+=("-Dfern_git_tag=f67bdc78b21932025dd85b085c9bcf3464979de9")
     options+=("-Dfern_build_fern_algorithm=true")
-    options+=("-Dfern_build_fern_documentation=true")
-    options+=("-Dfern_build_fern_test=true")
+    options+=("-Dfern_build_fern_documentation=false")
+    options+=("-Dfern_build_fern_test=false")
 
 
     # printf '%s\n' "${options[@]}"

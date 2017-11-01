@@ -1,7 +1,6 @@
 # This file was generated during the PCRaster build.
 # Do not edit!
 import sys
-import types as _types
 import pcraster as _pcraster
 from . import _pcraster_multicore as _pmc
 
@@ -25,13 +24,13 @@ def nr_worker_threads():
 def _get_field(arg):
     if isinstance(arg, _pcraster.Field):
         return(arg)
-    elif isinstance(arg, _types.StringTypes):
+    elif isinstance(arg, str):
         return(_pcraster.readmap(arg))
-    elif isinstance(arg, _types.BooleanType):
+    elif isinstance(arg, bool):
         return(_pmc._newNonSpatialBoolean(arg))
-    elif isinstance(arg, _types.IntType) or isinstance(arg, _types.LongType):
+    elif isinstance(arg, int):  # Not in python-3.5 or isinstance(arg, long):
         return(_pmc._newNonSpatialNominal(arg))
-    elif isinstance(arg, _types.FloatType):
+    elif isinstance(arg, float):
         return(_pmc._newNonSpatialScalar(arg))
     else:
         msg = "conversion of argument with type '{}' to PCRaster not possible".format(type(arg).__name__)

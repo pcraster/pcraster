@@ -1,5 +1,5 @@
-PCRasterPython
-==============
+PCRaster Python Documentation
+=============================
 
 Contents:
 

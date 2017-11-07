@@ -252,19 +252,7 @@ calc::AccuImpl::~AccuImpl()
 void calc::AccuImpl::visitEdge(size_t up, size_t down)
 {
   // send calculated flux to down
-
-  // BUGZILLA #78
-  typedef com::MVOp<REAL4> R;
-  R::addAss(d_flux[down],d_flux[up]);
-/*
- *if (!pcr::isMV(d_flux[down]))
- *{
- *  if (!pcr::isMV(d_flux[up]))
- *     d_flux[down] += d_flux[up];
- *  else
- *    pcr::setMV(d_flux[down]);
- *}
- */
+  com::inplace_add(d_flux[down],d_flux[up]);
 }
 
 void calc::AccuImpl::finishVertex(size_t v)

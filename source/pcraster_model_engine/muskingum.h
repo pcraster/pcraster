@@ -59,9 +59,8 @@ void calc::Muskingum::exec(
      void visitEdge        (size_t up, size_t down) {
        // each iteration
        // send calculated flux to down
-       typedef com::MVOp<REAL8> R;
-       R::addAss(UpstreamSumIterationFlowRateMap[down],IterationFlowRateMap[up]);
-       R::addAss(UpstreamSumIterationPrevFlowRateMap[down],IterationPrevFlowRateMap[up]);
+       com::inplace_add(UpstreamSumIterationFlowRateMap[down],IterationFlowRateMap[up]);
+       com::inplace_add(UpstreamSumIterationPrevFlowRateMap[down],IterationPrevFlowRateMap[up]);
      }
 
      void finishVertex(size_t v) // each iteration

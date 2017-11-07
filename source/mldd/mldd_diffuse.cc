@@ -254,11 +254,8 @@ void mldd::Diffuse::addDem(size_t v)
 
 //! return < 0 if MV, >=0 otherwise
 REAL4 mldd::Diffuse::drop(const Edge& e) const {
-  typedef com::MVOp<REAL4> R;
-  R diff= R(d_dem[e.source()])-d_dem[e.target()];
-  if (diff.isMV())
-    return -1;
-  return std::max(diff(),0.0F);
+  REAL4 diff = com::subtract(d_dem[e.source()], d_dem[e.target()]);
+  return pcr::isMV(diff) ? -1 : std::max(diff, 0.0F);
 }
 
 //------------------------------------------------------------------------------

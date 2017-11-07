@@ -1,5 +1,3 @@
-// vim: fileformat=dos
-
 // #define DEBUG_DEVELOP 1
 
 #ifndef INCLUDED_STDDEFX
@@ -681,8 +679,7 @@ void calc::Kinematic::exec(
 
      void visitEdge        (size_t up, size_t down) {
        // send calculated flux to down
-       typedef com::MVOp<REAL4> R;
-       R::addAss(d_QSumDownStream[down],d_Qnew[up]);
+       com::inplace_add(d_QSumDownStream[down],d_Qnew[up]);
      }
 
      void finishVertex     (size_t v) {
@@ -773,8 +770,7 @@ void calc::KinematicWave::exec(
 
      void visitEdge        (size_t up, size_t down) {
        // send calculated flux to down
-       typedef com::MVOp<REAL4> R;
-       R::addAss(d_QSumDownStream[down],d_Qnew[up]);
+       com::inplace_add(d_QSumDownStream[down],d_Qnew[up]);
      }
 
      void finishVertex     (size_t v) {

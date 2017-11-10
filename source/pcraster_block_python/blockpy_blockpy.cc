@@ -90,6 +90,24 @@
 #endif
 
 
+#if _MSC_VER == 1900
+  // Workaround wrt Boost Python and VS2015v3
+  namespace boost
+  {
+    template <>
+    calc::Field const volatile * get_pointer(class calc::Field const volatile *f)
+    {
+      return f;
+    }
+
+    template <>
+    geo::RasterSpace const volatile * get_pointer<class geo::RasterSpace const volatile>
+      (class geo::RasterSpace const volatile *r)
+    {
+      return r;
+    }
+  }
+#endif
 
 //! Translates dal::Exception to Python RuntimeError exception.
 void translator1(dal::Exception const& exception) {

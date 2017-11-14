@@ -47,7 +47,7 @@ namespace python {
 // DEFINITION OF STATIC GLOBALS MEMBERS
 //------------------------------------------------------------------------------
 
-
+PCRASTER_PYTHON_EXPORT Globals globals;
 
 //------------------------------------------------------------------------------
 // DEFINITION OF GLOBALS MEMBERS

@@ -1,7 +1,7 @@
 #ifndef INCLUDED_PCRASTER_PYTHON_GLOBALS
 #define INCLUDED_PCRASTER_PYTHON_GLOBALS
 
-#include "pcrdll.h"
+#include "pcraster_python_export.h"
 
 // External headers.
 
@@ -79,7 +79,7 @@ public:
   // ACCESSORS
   //----------------------------------------------------------------------------
 
-  PCR_DLL_CLASS geo::RasterSpace const& cloneSpace   ();
+  PCRASTER_PYTHON_EXPORT geo::RasterSpace const& cloneSpace   ();
 
   calc::RunTimeEngine& rte             ();
 
@@ -87,7 +87,7 @@ public:
 
 };
 
-
+PCRASTER_PYTHON_EXPORT extern Globals globals;
 
 //------------------------------------------------------------------------------
 // INLINE FUNCTIONS

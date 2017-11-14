@@ -50,14 +50,14 @@ calc::NonSpatial::NonSpatial(const NonSpatial& rhs):
 namespace calc {
 //! initialization with a value
 template<>
-NonSpatial::NonSpatial(VS vs, const UINT1& value):
+PCR_DLL_CLASS NonSpatial::NonSpatial(VS vs, const UINT1& value):
    Field(vs,crIndex<UINT1>())
 {
    d_val1 = value;
 }
 //! initialization with a value
 template<>
-NonSpatial::NonSpatial(VS vs, const INT4& value):
+PCR_DLL_CLASS NonSpatial::NonSpatial(VS vs, const INT4& value):
    Field(vs,crIndex<INT4>())
 {
    d_val4 = value;
@@ -65,7 +65,7 @@ NonSpatial::NonSpatial(VS vs, const INT4& value):
 
 //! initialization with a value
 template<>
-NonSpatial::NonSpatial(VS vs, const REAL4& value):
+PCR_DLL_CLASS NonSpatial::NonSpatial(VS vs, const REAL4& value):
    Field(vs,crIndex<REAL4>())
 {
    d_vals = value;
@@ -127,7 +127,7 @@ const void *calc::NonSpatial::src() const
     case CR_INT4:  return &d_val4;
     case CR_UINT1: return &d_val1;
     default : POSTCOND(FALSE); // NEVER
-              return &d_vals; 
+              return &d_vals;
   }
 }
 
@@ -138,7 +138,7 @@ void *calc::NonSpatial::dest()
     case CR_INT4:  return &d_val4;
     case CR_UINT1: return &d_val1;
     default : POSTCOND(FALSE); // NEVER
-              return &d_vals; 
+              return &d_vals;
   }
 }
 
@@ -149,7 +149,7 @@ const void *calc::NonSpatial::voidValue() const
     case CR_INT4:  return &d_val4;
     case CR_UINT1: return &d_val1;
     default : POSTCOND(FALSE); // NEVER
-              return &d_vals; 
+              return &d_vals;
   }
 }
 

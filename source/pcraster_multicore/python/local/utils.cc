@@ -18,12 +18,6 @@
 #include "pcraster_multicore/wrapper/multicore_nonspatial.h"
 
 
-namespace pcraster {
-namespace python {
-  extern Globals globals;
-}
-}
-
 
 namespace fa = fern::algorithm;
 

@@ -36,6 +36,8 @@ include(PCRaster)
 #     ${CMAKE_CURRENT_BINARY_DIR}/CTestCustom.cmake
 # )
 
+include(GenerateExportHeader)
+
 
 # this one should be removed after compiler warnings are fixed
 include(PCRasterCompilerConfiguration)

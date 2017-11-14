@@ -7,13 +7,6 @@
 #include "Globals.h"
 
 
-namespace pcraster {
-namespace python {
-  extern Globals globals;
-}
-}
-
-
 namespace multicore_field {
 
 

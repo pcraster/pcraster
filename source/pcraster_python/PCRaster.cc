@@ -33,6 +33,7 @@
 #include "Globals.h"
 #include "numpy_conversion.h"
 #include "pickle.h"
+#include "pcraster_python_export.h"
 
 
 #if _MSC_VER == 1900
@@ -109,7 +110,7 @@ namespace calc {
 namespace pcraster {
 namespace python {
 
-PCR_DLL_CLASS Globals globals;
+PCRASTER_PYTHON_EXPORT extern Globals globals;
 
 
 //! Check an input pointer to be non 0

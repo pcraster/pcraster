@@ -43,7 +43,7 @@ class PCR_DLL_CLASS NonSpatial : public Field {
 
   //! initialization with a value
   template<typename CR>
-   NonSpatial(VS vs, const CR& value);
+  PCR_DLL_CLASS NonSpatial(VS vs, const CR& value);
 
   virtual ~NonSpatial();
 

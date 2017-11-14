@@ -91,6 +91,9 @@ ADD_LIBRARY(_pcraster
     SHARED
     ${PCRASTER_SOURCES}
 )
+generate_export_header(_pcraster
+  BASE_NAME pcraster_python
+)
 TARGET_LINK_LIBRARIES(_pcraster
     # ${_LIBRARIES_TO_LINK}
     # pcrcom

@@ -17,7 +17,7 @@ option(PCRASTER_WITH_PYTHON_MULTICORE "Build Python multicore module" FALSE)
 # if(PCRASTER_BUILD_ALL)
     set(DEVBASE_BOOST_REQUIRED TRUE)
     list(APPEND DEVBASE_REQUIRED_BOOST_COMPONENTS
-        date_time filesystem math_c99 program_options python regex system)
+        date_time filesystem math_c99 program_options python system)
 # endif()
 
 set(DEVBASE_OPENGL_REQUIRED TRUE)

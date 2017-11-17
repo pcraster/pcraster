@@ -91,6 +91,15 @@ ADD_LIBRARY(_pcraster
     SHARED
     ${PCRASTER_SOURCES}
 )
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+    # otherwise compilation with hidden visibility flags will fail
+    if(${Boost_MINOR_VERSION} EQUAL 65)
+        target_compile_definitions(
+            _pcraster
+        PUBLIC
+            -DBOOST_PYTHON_USE_GCC_SYMBOL_VISIBILITY)
+    endif()
+endif()
 generate_export_header(_pcraster
   BASE_NAME pcraster_python
 )
@@ -103,7 +112,8 @@ TARGET_LINK_LIBRARIES(_pcraster
     # ${PCRASTER_DAL_LIBRARY}
 #    ${Boost_PYTHON_LIBRARY}
 #    ${Boost_SYSTEM_LIBRARY}
-    Boost::python
+    ${PCR_BOOST_PYTHON_NUMPY}
+    #Boost::python
 #    Boost::system
     ${PYTHON_LIBRARIES}
 )

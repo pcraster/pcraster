@@ -1,21 +1,6 @@
 // This header first!
 #include <boost/python.hpp>
 
-#ifndef INCLUDED_BOOST_VERSION
-#include <boost/version.hpp>
-#define INCLUDED_BOOST_VERSION
-#endif
-
-#if BOOST_VERSION > 105800
-#include <boost/test/tools/floating_point_comparison.hpp>
-#else
-#include <boost/test/floating_point_comparison.hpp>
-#endif
-
-#include <numpy/arrayobject.h>
-#include <boost/format.hpp>
-#include <boost/python/docstring_options.hpp>
-#include <boost/shared_ptr.hpp>
 #include "stddefx.h"
 #include "com_exception.h"
 #include "com_tune.h"
@@ -34,6 +19,27 @@
 #include "numpy_conversion.h"
 #include "pickle.h"
 #include "pcraster_python_export.h"
+
+#ifndef INCLUDED_BOOST_VERSION
+#include <boost/version.hpp>
+#define INCLUDED_BOOST_VERSION
+#endif
+
+#if BOOST_VERSION > 105800
+#include <boost/test/tools/floating_point_comparison.hpp>
+#else
+#include <boost/test/floating_point_comparison.hpp>
+#endif
+
+#if BOOST_VERSION < 106500
+#include <numpy/arrayobject.h>
+#endif
+
+
+
+#include <boost/format.hpp>
+#include <boost/python/docstring_options.hpp>
+#include <boost/shared_ptr.hpp>
 
 
 #if _MSC_VER == 1900
@@ -752,7 +758,12 @@ BOOST_PYTHON_MODULE(_pcraster)
 
   /// init_numpy();
 
+#if BOOST_VERSION < 106500
   boost::python::numeric::array::set_module_and_type("numpy", "ndarray");
+#else
+  boost::python::numpy::initialize();
+#endif
+
 
   #include "operations.inc"
 

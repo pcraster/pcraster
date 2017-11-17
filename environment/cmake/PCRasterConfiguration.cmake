@@ -13,12 +13,20 @@ option(PCRASTER_BUILD_TEST "Build tests" FALSE)
 option(PCRASTER_BUILD_BLOCKPYTHON "Build blockpython module" FALSE)
 option(PCRASTER_WITH_PYTHON_MULTICORE "Build Python multicore module" FALSE)
 
+find_package(Boost)
+if(${Boost_VERSION} LESS 106500)
+  list(APPEND DEVBASE_REQUIRED_BOOST_COMPONENTS python)
+  set(PCR_BOOST_PYTHON_NUMPY Boost::python)
+else()
+  list(APPEND DEVBASE_REQUIRED_BOOST_COMPONENTS python numpy)
+  set(PCR_BOOST_PYTHON_NUMPY Boost::python Boost::numpy)
+endif()
 
-# if(PCRASTER_BUILD_ALL)
-    set(DEVBASE_BOOST_REQUIRED TRUE)
-    list(APPEND DEVBASE_REQUIRED_BOOST_COMPONENTS
-        date_time filesystem math_c99 program_options python regex system)
-# endif()
+set(DEVBASE_BOOST_REQUIRED TRUE)
+
+list(APPEND DEVBASE_REQUIRED_BOOST_COMPONENTS
+  date_time filesystem math_c99 program_options system)
+
 
 set(DEVBASE_OPENGL_REQUIRED TRUE)
 set(DEVBASE_QT_REQUIRED TRUE)

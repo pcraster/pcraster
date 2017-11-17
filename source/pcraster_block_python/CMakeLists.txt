@@ -34,6 +34,15 @@ ADD_LIBRARY(_pcraster_block_python
     SHARED
     ${SOURCES}
 )
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+    # otherwise compilation with hidden visibility flags will fail
+    if(${Boost_MINOR_VERSION} EQUAL 65)
+        target_compile_definitions(
+            _pcraster_block_python
+        PUBLIC
+            -DBOOST_PYTHON_USE_GCC_SYMBOL_VISIBILITY)
+    endif()
+endif()
 TARGET_LINK_LIBRARIES(_pcraster_block_python
     pcrdiscr
     pcrblock

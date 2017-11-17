@@ -42,7 +42,7 @@ DEFINE_INIT_NUMPY()
   \sa        .
   \todo      Implement for non-spatials.
 */
-boost::python::numeric::array field_to_array(
+bpn_array field_to_array(
     geo::RasterSpace const& space,
     calc::Field const* field,
     double const missing_value)
@@ -58,29 +58,64 @@ boost::python::numeric::array field_to_array(
 
     switch(field->cr()) {
         case CR_UINT1: {
+          #if BOOST_VERSION < 106500
             boost::python::object object(boost::python::handle<>(
                 PyArray_SimpleNew(2, dimensions, NPY_UINT8)));
             char* data = static_cast<char*>(PyArray_DATA((PyArrayObject*)object.ptr()));
             field->beMemCpySrc(data);
             dal::fromStdMV<UINT1>((UINT1*)data, nr_values,
                 static_cast<UINT1>(missing_value));
-            return boost::python::extract<boost::python::numeric::array>(
+            return boost::python::extract<bpn_array>(
                 object);
             break;
+          #else
+            char *data = new char[field->nrValues() * sizeof(UINT1)];
+            field->beMemCpySrc(data);
+
+            dal::fromStdMV<UINT1>((UINT1*)data, nr_values,
+                static_cast<UINT1>(missing_value));
+
+            bpn_array mul_data_ex = boost::python::numpy::from_data(data,
+                boost::python::numpy::dtype::get_builtin<uint8_t>(),
+                boost::python::make_tuple(field->nrValues()),
+                boost::python::make_tuple(sizeof(uint8_t)),
+                boost::python::object());
+
+            return mul_data_ex.reshape(boost::python::make_tuple(space.nrRows(), space.nrCols()));
+            break;
+          #endif
         }
         case CR_INT4: {
+          #if BOOST_VERSION < 106500
             boost::python::object object(boost::python::handle<>(
                 PyArray_SimpleNew(2, dimensions, NPY_INT32)));
             char* data = static_cast<char*>(PyArray_DATA((PyArrayObject*)object.ptr()));
             field->beMemCpySrc(data);
             dal::fromStdMV<INT4>((INT4*)data, nr_values, static_cast<INT4>(
                 missing_value));
-            return boost::python::extract<boost::python::numeric::array>(
+            return boost::python::extract<bpn_array>(
                 object);
             break;
+          #else
+            char *data = new char[field->nrValues() * sizeof(INT4)];
+            field->beMemCpySrc(data);
+
+            dal::fromStdMV<INT4>((INT4*)data, nr_values,
+                static_cast<INT4>(missing_value));
+
+            bpn_array mul_data_ex = boost::python::numpy::from_data(data,
+                boost::python::numpy::dtype::get_builtin<int32_t>(),
+                boost::python::make_tuple(field->nrValues()),
+                boost::python::make_tuple(sizeof(int32_t)),
+                boost::python::object());
+
+            return mul_data_ex.reshape(boost::python::make_tuple(space.nrRows(), space.nrCols()));
+            break;
+          #endif
         }
         case CR_REAL4:
         default: {
+          #if BOOST_VERSION < 106500
             assert(field->cr() == CR_REAL4);
             boost::python::object object(boost::python::handle<>(
                 PyArray_SimpleNew(2, dimensions, NPY_FLOAT32)));
@@ -88,9 +123,25 @@ boost::python::numeric::array field_to_array(
             field->beMemCpySrc(data);
             dal::fromStdMV<REAL4>((REAL4*)data, nr_values, static_cast<REAL4>(
                 missing_value));
-            return boost::python::extract<boost::python::numeric::array>(
+            return boost::python::extract<bpn_array>(
                 object);
             break;
+          #else
+            char *data = new char[field->nrValues() * sizeof(REAL4)];
+            field->beMemCpySrc(data);
+
+            dal::fromStdMV<REAL4>((REAL4*)data, nr_values,
+                static_cast<REAL4>(missing_value));
+
+            bpn_array mul_data_ex = boost::python::numpy::from_data(data,
+                boost::python::numpy::dtype::get_builtin<float_t>(),
+                boost::python::make_tuple(field->nrValues()),
+                boost::python::make_tuple(sizeof(float_t)),
+                boost::python::object());
+
+            return mul_data_ex.reshape(boost::python::make_tuple(space.nrRows(), space.nrCols()));
+            break;
+          #endif
         }
     }
 }
@@ -771,7 +822,7 @@ template<
     VS value_scale>
 calc::Spatial* array_to_field(
     geo::RasterSpace const& space,
-    boost::python::numeric::array const& array,
+    bpn_array const& array,
     Source const missing_value)
 {
     calc::Spatial* field = new calc::Spatial(value_scale,
@@ -826,7 +877,7 @@ calc::Spatial* array_to_field(
 calc::Field* array_to_field(
     geo::RasterSpace const& space,
     VS const value_scale,
-    boost::python::numeric::array const& array,
+    bpn_array const& array,
     double const missing_value)
 {
     init_numpy();
@@ -920,7 +971,7 @@ calc::Field* array_to_field(
   \warning   .
   \sa        .
 */
-boost::python::numeric::array field_as_array(
+bpn_array field_as_array(
     geo::RasterSpace const& space,
     PyObject* field_object)
 {
@@ -937,6 +988,7 @@ boost::python::numeric::array field_as_array(
     PRECOND(field->isSpatial());
     PRECOND(field->src());
 
+#if BOOST_VERSION < 106500
     npy_intp dimensions[2];
     dimensions[0] = space.nrRows();
     dimensions[1] = space.nrCols();
@@ -969,7 +1021,53 @@ boost::python::numeric::array field_as_array(
 
     Py_INCREF(field_object);
 
-    return boost::python::extract<boost::python::numeric::array>(array);
+    return boost::python::extract<bpn_array>(array);
+#else
+    switch(field->cr()) {
+      case CR_UINT1: {
+
+        bpn_array nparray = boost::python::numpy::from_data(field->dest(),
+                boost::python::numpy::dtype::get_builtin<uint8_t>(),
+                boost::python::make_tuple(field->nrValues()),
+                boost::python::make_tuple(sizeof(uint8_t)),
+                boost::python::object());
+        nparray.reshape(boost::python::make_tuple(space.nrRows(), space.nrCols()));
+
+        Py_INCREF(field_object);
+        return nparray.reshape(boost::python::make_tuple(space.nrRows(), space.nrCols()));
+        break;
+      }
+      case CR_INT4: {
+
+        bpn_array nparray = boost::python::numpy::from_data(field->dest(),
+                boost::python::numpy::dtype::get_builtin<int32_t>(),
+                boost::python::make_tuple(field->nrValues()),
+                boost::python::make_tuple(sizeof(int32_t)),
+                boost::python::object());
+        nparray.reshape(boost::python::make_tuple(space.nrRows(), space.nrCols()));
+
+        Py_INCREF(field_object);
+        return nparray.reshape(boost::python::make_tuple(space.nrRows(), space.nrCols()));
+        break;
+       }
+       case CR_REAL4:
+       default: {
+        assert(field->cr() == CR_REAL4);
+
+        bpn_array nparray = boost::python::numpy::from_data(field->dest(),
+                boost::python::numpy::dtype::get_builtin<float_t>(),
+                boost::python::make_tuple(field->nrValues()),
+                boost::python::make_tuple(sizeof(float_t)),
+                boost::python::object());
+        nparray.reshape(boost::python::make_tuple(space.nrRows(), space.nrCols()));
+
+
+        Py_INCREF(field_object);
+        return nparray.reshape(boost::python::make_tuple(space.nrRows(), space.nrCols()));
+        break;
+      }
+    }
+#endif
 }
 
 } // namespace python

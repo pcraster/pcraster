@@ -42,16 +42,6 @@ include(GenerateExportHeader)
 # this one should be removed after compiler warnings are fixed
 include(PCRasterCompilerConfiguration)
 
-if(PCRASTER_BUILD_TEST)
-    # These executables need to be set, empty variables will cause pain at testing
-    if(NOT GDAL_TRANSLATE)
-        message(FATAL_ERROR "Could not find application " GDAL_TRANSLATE)
-    endif()
-    if(NOT SQLITE3_EXECUTABLE)
-        message(FATAL_ERROR "Could not find application " SQLITE3_EXECUTABLE)
-    endif()
-endif()
-
 add_subdirectory(source)
 add_subdirectory(documentation)
 

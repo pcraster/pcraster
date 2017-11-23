@@ -24,7 +24,7 @@ try:
     try:
         _var = "PCRASTER_NR_WORKER_THREADS"
         _workers = int(os.environ[_var])
-        from multicore import *
+        from .multicore import *
         set_nr_worker_threads(_workers)
     except ValueError as err:
         msg = "Could not obtain the number of worker threads. The environment variable {} is set to '{}'; use an integer value instead.".format(

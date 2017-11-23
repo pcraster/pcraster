@@ -43,7 +43,8 @@ TARGET_LINK_LIBRARIES(_pcraster_modflow_python
     # ${GDAL_LIBRARIES}
     # ${BOOST_SIGNALS_LIBRARY}
     # ${BOOST_THREAD_LIBRARY}
-    Boost::python
+#    Boost::python
+    ${PCR_BOOST_PYTHON}
 )
 
 add_dependencies(_pcraster_modflow_python

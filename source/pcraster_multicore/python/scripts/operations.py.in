@@ -1,6 +1,7 @@
 # This file was generated during the PCRaster build.
 # Do not edit!
 import sys
+import pcraster.operations
 import pcraster as _pcraster
 from . import _pcraster_multicore as _pmc
 
@@ -65,7 +66,7 @@ def _sort(*args):
 def windowtotal(arg1, arg2):
     # Field as window length argument: use default implementation
     if isinstance(arg2, _pcraster.Field):
-      return _pcraster.windowtotal(arg1, arg2)
+      return pcraster.operations.windowtotal(arg1, arg2)
 
     # Test whether we can use the multicore version
     cellSize = _pcraster.cellvalue(_pcraster.celllength(), 1)[0]
@@ -80,7 +81,7 @@ def windowtotal(arg1, arg2):
         raise RuntimeError("pcraster.multicore windowtotal: {}".format(str(exception)))
 
     # Otherwise,  fall back to the default implementation
-    return _pcraster.windowtotal(arg1, arg2)
+    return pcraster.operations.windowtotal(arg1, arg2)
 
 
 def cover(*args):
@@ -170,7 +171,7 @@ def boolean(arg1):
     # Fallback to model_engine
     if isinstance(arg1, _pcraster.Field):
         if arg1.dataType() ==  _pcraster.VALUESCALE.Directional:
-            return _pcraster.boolean(arg1)
+            return pcraster.operations.boolean(arg1)
 
     try:
         arg1 = _get_field(arg1)
@@ -184,7 +185,7 @@ def nominal(arg1):
     # Fallback to model_engine
     if isinstance(arg1, _pcraster.Field):
         if arg1.dataType() ==  _pcraster.VALUESCALE.Directional:
-            return _pcraster.nominal(arg1)
+            return pcraster.operations.nominal(arg1)
 
     try:
         arg1 = _get_field(arg1)
@@ -198,7 +199,7 @@ def ordinal(arg1):
     # Fallback to model_engine
     if isinstance(arg1, _pcraster.Field):
         if arg1.dataType() ==  _pcraster.VALUESCALE.Directional:
-            return _pcraster.ordinal(arg1)
+            return pcraster.operations.ordinal(arg1)
 
     try:
         arg1 = _get_field(arg1)
@@ -212,7 +213,7 @@ def scalar(arg1):
     # Fallback to model_engine
     if isinstance(arg1, _pcraster.Field):
         if arg1.dataType() ==  _pcraster.VALUESCALE.Directional:
-            return _pcraster.scalar(arg1)
+            return pcraster.operations.scalar(arg1)
     try:
         arg1 = _get_field(arg1)
         return _pmc.scalar(arg1)

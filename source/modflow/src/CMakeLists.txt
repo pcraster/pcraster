@@ -36,7 +36,8 @@ target_include_directories(pcrmf
 target_link_libraries(pcrmf
 #    ${Boost_PYTHON_LIBRARY}
     ${PYTHON_LIBRARIES}
-    Boost::python
+#    Boost::python
+    ${PCR_BOOST_PYTHON}
     Qt5::Core
 )
 

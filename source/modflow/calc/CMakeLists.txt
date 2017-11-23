@@ -110,7 +110,8 @@ if(PCRASTER_BUILD_TEST)
       pcrgeo
 #      ${Boost_PYTHON_LIBRARY}
       ${PYTHON_LIBRARIES}
-      Boost::python
+      ${PCR_BOOST_PYTHON}
+#      Boost::python
   )
 
   target_include_directories(modflow_calc_DemoTest

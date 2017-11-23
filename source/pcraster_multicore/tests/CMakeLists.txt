@@ -31,12 +31,14 @@ set_tests_properties(python_multicore_unit_tests PROPERTIES
 # add path of project's unit test related files to PYTHONPATH
 # required to execute this unit test via ctest properly
 if(WIN32)
-    # argument is a 'cmake' ; separated list of values, therefore escape the environment path separator
-    set_tests_properties(python_multicore_unit_tests PROPERTIES
-      ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}\\;${EXECUTABLE_OUTPUT_PATH}"
+     set(ENV_PATH $ENV{PATH})
+     string(REPLACE ";" "\\;" ENV_PATH "${ENV_PATH}")
+     # argument is a 'cmake' ; separated list of values, therefore escape the environment path separator
+     set_tests_properties(python_multicore_unit_tests PROPERTIES
+       ENVIRONMENT "PATH=${ENV_PATH}\\;${EXECUTABLE_OUTPUT_PATH};PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}\\;${EXECUTABLE_OUTPUT_PATH};PCRASTER_NR_WORKER_THREADS=2"
 )
 else()
     set_tests_properties(python_multicore_unit_tests PROPERTIES
-      ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:${EXECUTABLE_OUTPUT_PATH}"
+      ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:${EXECUTABLE_OUTPUT_PATH};PCRASTER_NR_WORKER_THREADS=2"
     )
 endif()

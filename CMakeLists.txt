@@ -1,7 +1,7 @@
 if(PCRASTER_BUILD_TEST)
     cmake_minimum_required(VERSION 3.7)
 else()
-    cmake_minimum_required(VERSION 3.1)
+    cmake_minimum_required(VERSION 3.3)
 endif()
 
 project(pcraster)

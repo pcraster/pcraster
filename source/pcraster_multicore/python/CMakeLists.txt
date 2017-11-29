@@ -16,6 +16,8 @@ target_include_directories(_pcraster_multicore
   PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/../../pcraster_model_engine
     ${CMAKE_CURRENT_SOURCE_DIR}/../../pcrgeo
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../pcraster_dal
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../pcrcom
 )
 
 configure_python_extension(_pcraster_multicore

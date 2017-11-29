@@ -6,6 +6,9 @@
 #include "pcraster_multicore/python/total/total.h"
 #include "pcraster_multicore/python/local/utils.h"
 #include "pcraster_multicore/python/type_conversion/type_conversion.h"
+#include "dal_Exception.h"
+#include "com_exception.h"
+#include "fern/core/exception.h"
 
 
 #if _MSC_VER == 1900
@@ -29,11 +32,36 @@
 #endif
 
 
+namespace pcraster_multicore {
+namespace python {
+
+//! Translates dal::Exception to Python RuntimeError exception.
+void translator1(dal::Exception const& exception) {
+  PyErr_SetString(PyExc_RuntimeError, exception.message().c_str());
+}
+
+//! Translates fern::Exception to Python RuntimeError exception.
+void translator2(fern::Exception const& exception) {
+  PyErr_SetString(PyExc_RuntimeError, exception.message().c_str());
+}
+
+//! Translates com::Exception to Python RuntimeError exception.
+void translator3(com::Exception const& exception) {
+  PyErr_SetString(PyExc_RuntimeError, exception.messages().c_str());
+}
+
+} // namespace
+} // namespace
+
+
 namespace bp = boost::python;
 namespace pmcpy = pcraster_multicore::python;
 
-
 BOOST_PYTHON_MODULE(_pcraster_multicore){
+
+  bp::register_exception_translator<dal::Exception>(&pmcpy::translator1);
+  bp::register_exception_translator<fern::Exception>(&pmcpy::translator2);
+  bp::register_exception_translator<com::Exception>(&pmcpy::translator3);
 
   // show user defined docstrings and Python signatures, disable the C++ signatures
   bp::docstring_options doc_options(true, true, false);

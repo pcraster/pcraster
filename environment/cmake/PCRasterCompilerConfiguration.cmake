@@ -43,13 +43,13 @@ if(MSVC)
     )
 
     set(CMAKE_C_FLAGS
-        "${CMAKE_C_FLAGS} "
+        "${CMAKE_C_FLAGS} /wd4267"
     )
 
     # add /w3
-    # disable these warnings? /wd4251
+    # disable these warnings?
     set(CMAKE_CXX_FLAGS
-        "${CMAKE_CXX_FLAGS} /std:c++14 "
+        "${CMAKE_CXX_FLAGS} /std:c++14 /wd4267 /wd4251 /wd4244 /wd4396 /wd4305"
     )
 
 endif()

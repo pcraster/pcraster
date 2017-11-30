@@ -40,6 +40,9 @@ include(PCRasterMacro)
 
 if(PCRASTER_BUILD_TEST)
     enable_testing()
+    if(NOT GDAL_TRANSLATE)
+        message(FATAL_ERROR "gdal_translate executable not found")
+    endif()
 endif()
 
 set(PCRASTER_DATA_DIR ${PROJECT_SOURCE_DIR}/data)

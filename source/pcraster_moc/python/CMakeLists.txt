@@ -22,7 +22,8 @@ TARGET_LINK_LIBRARIES(_pcraster_moc_python
      # pcrgeo
 #    ${Boost_PYTHON_LIBRARY}
     ${PYTHON_LIBRARIES}
-    Boost::python
+#    Boost::python
+    ${PCR_BOOST_PYTHON}
 )
 CONFIGURE_PYTHON_EXTENSION(_pcraster_moc_python
     "_pcraster_moc"

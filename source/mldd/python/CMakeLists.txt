@@ -19,7 +19,8 @@ TARGET_LINK_LIBRARIES(_pcraster_mldd_python
     # misc
     # ${PCRASTER_DAL_LIBRARY}
 #    ${Boost_PYTHON_LIBRARY}
-    Boost::python
+#    Boost::python
+    ${PCR_BOOST_PYTHON}
     # ${BOOST_FILESYSTEM_LIBRARY}
     ${PYTHON_LIBRARIES}
 )

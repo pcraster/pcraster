@@ -21,7 +21,7 @@ ADD_LIBRARY(_pcraster_modflow_python
     SHARED
     ${SOURCES}
 )
-if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
     # otherwise compilation with hidden visibility flags will fail
     if(${Boost_MINOR_VERSION} EQUAL 65)
         target_compile_definitions(
@@ -43,7 +43,8 @@ TARGET_LINK_LIBRARIES(_pcraster_modflow_python
     # ${GDAL_LIBRARIES}
     # ${BOOST_SIGNALS_LIBRARY}
     # ${BOOST_THREAD_LIBRARY}
-    Boost::python
+#    Boost::python
+    ${PCR_BOOST_PYTHON}
 )
 
 add_dependencies(_pcraster_modflow_python

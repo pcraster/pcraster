@@ -21,7 +21,7 @@ ADD_LIBRARY(_pcraster_modflow_python
     SHARED
     ${SOURCES}
 )
-if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
     # otherwise compilation with hidden visibility flags will fail
     if(${Boost_MINOR_VERSION} EQUAL 65)
         target_compile_definitions(

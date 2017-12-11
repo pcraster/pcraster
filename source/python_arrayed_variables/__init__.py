@@ -1,2 +1,2 @@
-from Index import *
-from VariableCollection import *
+from .Index import *
+from .VariableCollection import *

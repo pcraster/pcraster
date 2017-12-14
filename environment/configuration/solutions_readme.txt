@@ -10,7 +10,7 @@ jump through hoops to be able to build and use PCRaster. So:
   additional packages installed on the user's machine. In case a
   requirement is not available using the platform's package manager,
   use something like Peacock to build it. (If Peacock doesn't support
-  building a specific (version of) a package, ask the friendly staff at
+  building a specific (version of a) package, ask the friendly staff at
   Geoneric to add it, or add support for building it yourself and send
   them a pull request.)
 

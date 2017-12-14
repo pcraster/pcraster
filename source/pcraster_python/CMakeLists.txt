@@ -1,45 +1,20 @@
-IF(PCRASTER_BUILD_DOCUMENTATION)
-  ADD_SUBDIRECTORY(documentation)
-ENDIF()
+if(PCRASTER_BUILD_DOCUMENTATION)
+    add_subdirectory(documentation)
+endif()
 
-CONFIGURE_FILE(
-    ${CMAKE_CURRENT_SOURCE_DIR}/operations.inc.in
-    ${CMAKE_CURRENT_BINARY_DIR}/operations.inc
+configure_file(
+    operations.inc.in
+    operations.inc
     @ONLY
     NEWLINE_STYLE UNIX
 )
 
-CONFIGURE_FILE(
-    ${CMAKE_CURRENT_SOURCE_DIR}/operations.py.in
-    ${CMAKE_CURRENT_BINARY_DIR}/operations.py
+configure_file(
+    operations.py.in
+    operations.py
     @ONLY
     NEWLINE_STYLE UNIX
 )
-
-
-include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/../include
-    ${CMAKE_CURRENT_SOURCE_DIR}/../app
-    ${CMAKE_CURRENT_SOURCE_DIR}/../mathx
-    ${CMAKE_CURRENT_SOURCE_DIR}/../pcrcom
-    ${CMAKE_CURRENT_SOURCE_DIR}/../pcrdisc
-    ${CMAKE_CURRENT_SOURCE_DIR}/../pcrgeo
-    ${CMAKE_CURRENT_SOURCE_DIR}/../pcraster_dal
-    ${CMAKE_CURRENT_SOURCE_DIR}/../pcraster_model_engine
-    ${CMAKE_CURRENT_BINARY_DIR}
-    # for major_op.h:
-    ${CMAKE_CURRENT_BINARY_DIR}/../pcraster_model_engine
-)
-
-# SET(_LIBRARIES_TO_LINK
-#     pcrcom
-#     pcrgeo
-#     pcraster_model_engine
-#     ${PCRASTER_DAL_LIBRARY}
-#     ${BOOST_PYTHON_LIBRARY}
-#     ${PYTHON_LIBRARIES}
-# )
-
 
 # operations.inc and operations.py were previously generated each time at a build.
 # Due to removal of xsltproc dependency this file needs to be
@@ -74,8 +49,7 @@ if( ( NOT ${op_expanded} STREQUAL "c1d7687a22a7e88a3637515554dd54e4f3779c2d" ) O
     # )
 endif()
 
-
-SET(PCRASTER_SOURCES
+add_library(_pcraster SHARED
     Globals.cc
     numpy_conversion
     PCRaster.cc
@@ -87,54 +61,58 @@ SET(PCRASTER_SOURCES
     # OperationsToWrappers.xsl change
     operations.inc
 )
-ADD_LIBRARY(_pcraster
-    SHARED
-    ${PCRASTER_SOURCES}
-)
-if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-    # otherwise compilation with hidden visibility flags will fail
-    if(${Boost_MINOR_VERSION} EQUAL 65)
-        target_compile_definitions(
-            _pcraster
-        PUBLIC
-            -DBOOST_PYTHON_USE_GCC_SYMBOL_VISIBILITY)
-    endif()
-endif()
+
+add_library(pcraster::python ALIAS _pcraster)
+
+### if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+###     # otherwise compilation with hidden visibility flags will fail
+###     if(${Boost_MINOR_VERSION} EQUAL 65)
+###         target_compile_definitions(
+###             _pcraster
+###         PUBLIC
+###             -DBOOST_PYTHON_USE_GCC_SYMBOL_VISIBILITY)
+###     endif()
+### endif()
+
 generate_export_header(_pcraster
   BASE_NAME pcraster_python
 )
-TARGET_LINK_LIBRARIES(_pcraster
-    # ${_LIBRARIES_TO_LINK}
-    # pcrcom
-    # pcrgeo
-    pcraster_model_engine
-    # pcraster_dal
-    # ${PCRASTER_DAL_LIBRARY}
-#    ${Boost_PYTHON_LIBRARY}
-#    ${Boost_SYSTEM_LIBRARY}
-    ${PCR_BOOST_PYTHON_NUMPY}
-    #Boost::python
-#    Boost::system
-    ${PYTHON_LIBRARIES}
-)
-CONFIGURE_PYTHON_EXTENSION(_pcraster
-    "_pcraster"
+
+target_include_directories(_pcraster
+    PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+        ${PYTHON_INCLUDE_DIR}
 )
 
+target_link_libraries(_pcraster
+    PUBLIC
+        pcraster::model_engine
+        ${PCR_BOOST_PYTHON_NUMPY}
+        ${PCR_BOOST_PYTHON}
+        ${PYTHON_LIBRARIES}
+)
+
+configure_python_extension(_pcraster
+    "_pcraster"
+)
 
 set(_TARGET_BIN ${EXECUTABLE_OUTPUT_PATH}/${CMAKE_CFG_INTDIR})
 
 set_target_properties(_pcraster
     PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY "${_TARGET_BIN}/pcraster"
-        LIBRARY_OUTPUT_DIRECTORY "${_TARGET_BIN}/pcraster"
+        RUNTIME_OUTPUT_DIRECTORY
+            "${_TARGET_BIN}/pcraster"
+        LIBRARY_OUTPUT_DIRECTORY
+            "${_TARGET_BIN}/pcraster"
 )
-#set_target_properties(_pcraster_modflow_python
-#    PROPERTIES
-#        LIBRARY_OUTPUT_DIRECTORY "${_TARGET_BIN}/pcraster"
-#)
 
-ADD_CUSTOM_COMMAND(
+### #set_target_properties(_pcraster_modflow_python
+### #    PROPERTIES
+### #        LIBRARY_OUTPUT_DIRECTORY "${_TARGET_BIN}/pcraster"
+### #)
+
+add_custom_command(
     OUTPUT ${_TARGET_BIN}/pcraster/__init__.py
 
     COMMAND ${CMAKE_COMMAND} -E copy_directory
@@ -145,7 +123,6 @@ ADD_CUSTOM_COMMAND(
     #     $<TARGET_FILE:_pcraster_modflow_python> ${_TARGET_BIN}/pcraster
     # COMMAND ${CMAKE_COMMAND} -E remove $<TARGET_FILE:_pcraster>
     # COMMAND ${CMAKE_COMMAND} -E remove $<TARGET_FILE:_pcraster_modflow_python>
-
 
     COMMAND ${CMAKE_COMMAND} -E copy
         ${CMAKE_CURRENT_BINARY_DIR}/operations.py ${_TARGET_BIN}/pcraster
@@ -160,18 +137,16 @@ ADD_CUSTOM_COMMAND(
 
 # TODO This target is used by modflow too. While this CMake file depends on
 #      modflow targets. Refactor.
-ADD_CUSTOM_TARGET(
+add_custom_target(
     fill_python_directory_structure ALL
     DEPENDS
         ${_TARGET_BIN}/pcraster/__init__.py
 )
 
-
 if(PCRASTER_BUILD_TEST)
-
     configure_file(
-        ${CMAKE_CURRENT_SOURCE_DIR}/test_prolog.py.in
-        ${CMAKE_CURRENT_BINARY_DIR}/test_prolog.py
+        test_prolog.py.in
+        test_prolog.py
         @ONLY
     )
 
@@ -188,12 +163,15 @@ if(PCRASTER_BUILD_TEST)
     )
 
     set_tests_properties(setup_pcraster_python
-        PROPERTIES FIXTURES_SETUP FixturePcrasterPython
+        PROPERTIES
+            FIXTURES_SETUP
+                FixturePcrasterPython
     )
 
-    set_tests_properties(python_pcrcalcpy_pythonunittest PROPERTIES
-        FIXTURES_REQUIRED
-          FixturePcrasterPython
+    set_tests_properties(python_pcrcalcpy_pythonunittest
+        PROPERTIES
+            FIXTURES_REQUIRED
+                FixturePcrasterPython
     )
 
 
@@ -212,20 +190,24 @@ if(PCRASTER_BUILD_TEST)
 #        ${PYTHON_LIBRARIES}
 #    )
 
-   # add path of project's unit test related files to PYTHONPATH
-   # required to execute this unit test via ctest properly
-   if(WIN32)
-     set(ENV_PATH $ENV{PATH})
-     string(REPLACE ";" "\\;" ENV_PATH "${ENV_PATH}")
-     # argument is a 'cmake' ; separated list of values, therefore escape the environment path separator
-     set_tests_properties(python_pcrcalcpy_pythonunittest PROPERTIES
-       ENVIRONMENT "PATH=${ENV_PATH}\\;${EXECUTABLE_OUTPUT_PATH};PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}\\;${EXECUTABLE_OUTPUT_PATH}"
-     )
-   else()
-     set_tests_properties(python_pcrcalcpy_pythonunittest PROPERTIES
-       ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:${EXECUTABLE_OUTPUT_PATH}"
-     )
-   endif()
+    # add path of project's unit test related files to PYTHONPATH
+    # required to execute this unit test via ctest properly
+    if(WIN32)
+        set(ENV_PATH $ENV{PATH})
+        string(REPLACE ";" "\\;" ENV_PATH "${ENV_PATH}")
+        # argument is a 'cmake' ; separated list of values, therefore escape the environment path separator
+        set_tests_properties(python_pcrcalcpy_pythonunittest
+            PROPERTIES
+                ENVIRONMENT
+                    "PATH=${ENV_PATH}\\;${EXECUTABLE_OUTPUT_PATH};PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}\\;${EXECUTABLE_OUTPUT_PATH}"
+        )
+    else()
+        set_tests_properties(python_pcrcalcpy_pythonunittest
+            PROPERTIES
+                ENVIRONMENT
+                    "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:${EXECUTABLE_OUTPUT_PATH}"
+        )
+    endif()
 
 
 #    add_dependencies(python_pcrcalcpy_pythonunittest
@@ -333,7 +315,8 @@ INSTALL(
         ${PROJECT_SOURCE_DIR}/environment/script/pcrstat.py
         ${PROJECT_SOURCE_DIR}/environment/script/shellscript.py
         ${PROJECT_SOURCE_DIR}/environment/script/utils.py
-    DESTINATION python/pcraster
+    DESTINATION
+        python/pcraster
 )
 ### # for backward compatibility
 ### INSTALL(
@@ -353,7 +336,7 @@ ELSE()
     SET(OUTPUT_PATH ${EXECUTABLE_OUTPUT_PATH})
 ENDIF()
 
-INSTALL(
+install(
     DIRECTORY
         ${OUTPUT_PATH}/pcraster
         # ${EXECUTABLE_OUTPUT_PATH}/\${CMAKE_INSTALL_CONFIG_NAME}/pcraster

@@ -1,30 +1,29 @@
-include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/../pcraster_dal
+add_library(pcrdiscr STATIC
+    discr_block
+    discr_raster
+    discr_voxelstack
 )
 
-SET(SOURCES
-    discr_block.cc
-    discr_raster.cc
-    discr_voxelstack.cc
+add_library(pcraster::pcrdiscr ALIAS pcrdiscr)
+
+target_include_directories(pcrdiscr
+    PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
 )
-ADD_LIBRARY(pcrdiscr
-    ${SOURCES}
-)
+
 target_link_libraries(pcrdiscr
-    pcraster_dal
+    pcraster::dal
 )
 
 if(PCRASTER_BUILD_TEST)
-    set(TEST_NAMES
-        discr_blocktest
-        discr_blockdatatest
-        discr_rasterdatatest
-        discr_rastertest
-        discr_voxelstacktest
-    )
     add_unit_tests(
         SCOPE pcrdiscr
-        NAMES ${TEST_NAMES}
+        NAMES
+            discr_blocktest
+            discr_blockdatatest
+            discr_rasterdatatest
+            discr_rastertest
+            discr_voxelstacktest
         LINK_LIBRARIES
             pcrdiscr
     )

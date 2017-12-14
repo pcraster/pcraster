@@ -1,5 +1,5 @@
 if(PCRASTER_BUILD_TEST)
-  add_subdirectory(UnitTests)
+    add_subdirectory(UnitTests)
 endif()
 
 set(SOURCES

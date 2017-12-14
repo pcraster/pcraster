@@ -6,14 +6,11 @@ endif()
 
 project(pcraster)
 
-execute_process(
-    COMMAND date "+%Y"
-    OUTPUT_VARIABLE DEV_CURRENT_YEAR
-    OUTPUT_STRIP_TRAILING_WHITESPACE
-)
+set(DEV_CURRENT_YEAR "2017")
 
 set(${PROJECT_NAME}_ORGANISATION_NAME "PCRaster Research and Development Team")
-set(${PROJECT_NAME}_COPYRIGHT "1990-${DEV_CURRENT_YEAR} PCRaster Research and Development Team")
+set(${PROJECT_NAME}_COPYRIGHT
+    "1990-${DEV_CURRENT_YEAR} ${${PROJECT_NAME}_ORGANISATION_NAME}")
 set(${PROJECT_NAME}_PROJECT_NAME "${PROJECT_NAME}")
 set(${PROJECT_NAME}_HOMEPAGE "http://www.pcraster.eu")
 set(${PROJECT_NAME}_MAJOR_VERSION "4")
@@ -29,18 +26,6 @@ set(CMAKE_MODULE_PATH
     ${CMAKE_CURRENT_SOURCE_DIR}/environment/cmake
 )
 include(PCRaster)
-
-
-# configure_file(
-#     ${CMAKE_CURRENT_SOURCE_DIR}/CTestCustom.cmake.in
-#     ${CMAKE_CURRENT_BINARY_DIR}/CTestCustom.cmake
-# )
-
-include(GenerateExportHeader)
-
-
-# this one should be removed after compiler warnings are fixed
-include(PCRasterCompilerConfiguration)
 
 add_subdirectory(source)
 add_subdirectory(documentation)

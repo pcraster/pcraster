@@ -1,39 +1,18 @@
-include_directories(
-    # ${CMAKE_CURRENT_SOURCE_DIR}/../include
-    ${CMAKE_CURRENT_SOURCE_DIR}/../pcrblock
-    ${CMAKE_CURRENT_SOURCE_DIR}/../pcrdiscr
-    ${CMAKE_CURRENT_SOURCE_DIR}/../pcrgeo
-    ${CMAKE_CURRENT_SOURCE_DIR}/../pcrraster
-    ${CMAKE_CURRENT_SOURCE_DIR}/../pcrvoxelstack
-    ${CMAKE_CURRENT_SOURCE_DIR}/../pcraster_model_engine
-)
-
-# SET(_LIBRARIES_TO_LINK
-#     pcrdiscr
-#     pcrblock
-#     pcrraster
-#     pcrvoxelstack
-#     pcraster_model_engine
-#     # ${PCRASTER_DAL_LIBRARY}
-#     # ${BOOST_PYTHON_LIBRARY}
-#     # ${BOOST_SIGNALS_LIBRARY}
-#     # ${PYTHON_LIBRARIES}
-# )
-SET(SOURCES
-    blockpy_blockpy.cc
-    blockpy_conversions.cc
-    blockpy_functions.cc
-)
-IF(CMAKE_COMPILER_IS_GNUCXX)
+if(CMAKE_COMPILER_IS_GNUCXX)
     SET_SOURCE_FILES_PROPERTIES(blockpy_blockpy.cc
         COMPILE_FLAGS
             "-Wno-strict-aliasing"
     )
-ENDIF()
-ADD_LIBRARY(_pcraster_block_python
-    SHARED
-    ${SOURCES}
+endif()
+
+add_library(_pcraster_block_python SHARED
+    blockpy_blockpy
+    blockpy_conversions
+    blockpy_functions
 )
+
+add_library(pcraster::block_python ALIAS _pcraster_block_python)
+
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
     # otherwise compilation with hidden visibility flags will fail
     if(${Boost_MINOR_VERSION} EQUAL 65)
@@ -43,21 +22,25 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQ
             -DBOOST_PYTHON_USE_GCC_SYMBOL_VISIBILITY)
     endif()
 endif()
-TARGET_LINK_LIBRARIES(_pcraster_block_python
-    pcrdiscr
-    pcrblock
-    pcrraster
-    pcrvoxelstack
-    pcraster_model_engine
-#    ${Boost_PYTHON_LIBRARY}
-#    Boost::python
-    ${PCR_BOOST_PYTHON}
-    ${PYTHON_LIBRARIES}
-)
-CONFIGURE_PYTHON_EXTENSION(_pcraster_block_python
-    "_pcraster_block_python"
+
+target_include_directories(_pcraster_block_python
+    PRIVATE
+        ${PYTHON_INCLUDE_DIR}
 )
 
+target_link_libraries(_pcraster_block_python
+    PRIVATE
+        pcraster::pcrblock
+        pcraster::pcrraster
+        pcraster::pcrvoxelstack
+        pcraster::model_engine
+        ${PCR_BOOST_PYTHON}
+        ${PYTHON_LIBRARIES}
+)
+
+configure_python_extension(_pcraster_block_python
+    "_pcraster_block_python"
+)
 
 set(_TARGET_BIN ${EXECUTABLE_OUTPUT_PATH}/${CMAKE_CFG_INTDIR})
 
@@ -68,18 +51,16 @@ set_target_properties(_pcraster_block_python
 )
 
 install(
-  FILES
-    PCRasterBlock.py
-  DESTINATION
-    "python/pcraster"
+    FILES
+        PCRasterBlock.py
+    DESTINATION
+        "python/pcraster"
 )
 
-
 if(PCRASTER_BUILD_TEST)
-
     configure_file(
-        ${CMAKE_CURRENT_SOURCE_DIR}/test_prolog.py.in
-        ${CMAKE_CURRENT_BINARY_DIR}/test_prolog.py
+        test_prolog.py.in
+        test_prolog.py
         @ONLY
     )
 
@@ -89,23 +70,22 @@ if(PCRASTER_BUILD_TEST)
     )
 
     set_tests_properties(setup_block_python
-        PROPERTIES FIXTURES_SETUP FixtureBlockPython
+        PROPERTIES
+            FIXTURES_SETUP FixtureBlockPython
     )
 
-  add_test(
-    NAME
-         blockpy_blockpy_pythonunittest
-    COMMAND
-        ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test.py
-  )
-
-    set_tests_properties(blockpy_blockpy_pythonunittest PROPERTIES
-        FIXTURES_REQUIRED
-          FixtureBlockPython
+    add_test(
+        NAME
+            blockpy_blockpy_pythonunittest
+        COMMAND
+            ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test.py
     )
 
-
-
+    set_tests_properties(blockpy_blockpy_pythonunittest
+        PROPERTIES
+            FIXTURES_REQUIRED
+                FixtureBlockPython
+    )
 
 #   set_tests_properties(blockpy_blockpy_pythonunittest PROPERTIES
 #     DEPENDS
@@ -126,23 +106,20 @@ if(PCRASTER_BUILD_TEST)
 #       ${PYTHON_LIBRARIES}
 #   )
 
-  # add path of project's unit test related files to PYTHONPATH
-  # required to execute this unit test via ctest properly
-  if(WIN32)
-    set(ENV_PATH $ENV{PATH})
-    string(REPLACE ";" "\\;" ENV_PATH "${ENV_PATH}")
-    # argument is a 'cmake' ; separated list of values, therefore escape the environment path separator
-    set_tests_properties(blockpy_blockpy_pythonunittest PROPERTIES
-      ENVIRONMENT "PATH=${ENV_PATH}\\;${EXECUTABLE_OUTPUT_PATH};PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}\\;${EXECUTABLE_OUTPUT_PATH}"
-    )
-  else()
-    set_tests_properties(blockpy_blockpy_pythonunittest PROPERTIES
-      ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:${EXECUTABLE_OUTPUT_PATH}"
-    )
-  endif()
-
-
-
+    # add path of project's unit test related files to PYTHONPATH
+    # required to execute this unit test via ctest properly
+    if(WIN32)
+        set(ENV_PATH $ENV{PATH})
+        string(REPLACE ";" "\\;" ENV_PATH "${ENV_PATH}")
+        # argument is a 'cmake' ; separated list of values, therefore escape the environment path separator
+        set_tests_properties(blockpy_blockpy_pythonunittest PROPERTIES
+          ENVIRONMENT "PATH=${ENV_PATH}\\;${EXECUTABLE_OUTPUT_PATH};PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}\\;${EXECUTABLE_OUTPUT_PATH}"
+        )
+    else()
+        set_tests_properties(blockpy_blockpy_pythonunittest PROPERTIES
+          ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:${EXECUTABLE_OUTPUT_PATH}"
+        )
+    endif()
 
 # OLS: clean up the comments when refacoring for the new windows build
 # I leave them here just as info in case of troubles...
@@ -181,4 +158,3 @@ endif()
 #  LIBRARY DESTINATION PCRasterPython
 #  RUNTIME DESTINATION PCRasterPython
 #)
-

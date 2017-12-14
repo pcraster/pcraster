@@ -6,179 +6,12 @@ set(AGUILA_VERSION
 
 set(CMAKE_AUTOMOC ON)
 
-CONFIGURE_FILE(
-    ${CMAKE_CURRENT_SOURCE_DIR}/ag_Configure.h.in
-    ${CMAKE_CURRENT_BINARY_DIR}/../include/ag_Configure.h
+configure_file(
+    ag_Configure.h.in
+    ../include/ag_Configure.h
 )
 
-include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/../pcraster_dal
-    ${CMAKE_CURRENT_SOURCE_DIR}/../pcraster_xsd
-    ${CMAKE_CURRENT_BINARY_DIR}/../pcraster_xsd
-    ${CMAKE_CURRENT_BINARY_DIR}/../pcraster_aguila
-    ${CMAKE_CURRENT_SOURCE_DIR}/../math_utils
-    ${CMAKE_CURRENT_SOURCE_DIR}/../string_utils
-    ${CMAKE_CURRENT_SOURCE_DIR}/../utils
-)
-
-SET(LIB_SOURCES
-    ag_Aguila.cc
-    ag_AguilaProgramOptions.cc
-    ag_AnimationControl.cc
-    ag_BooleanDrawProps.cc
-    ag_BooleanRasterDrawer.cc
-    ag_BufferedVisualisation.cc
-    ag_BufferedWidget.cc
-    ag_Camera.cc
-    ag_ClassDrawPropertiesWidget.cc
-    ag_ClassDrawProps.cc
-    ag_ClassLegendBody.cc
-    ag_ColourSelector.cc
-    ag_Configurable.cc
-    ag_Cube.cc
-    ag_CumDistributionFunction.cc
-    ag_CumDistributionFunctionView.cc
-    ag_CumDistributionFunctionWindow.cc
-    ag_CursorView.cc
-    ag_CursorWindow.cc
-    ag_DataConfiguration.cc
-    ag_DataGuide.cc
-    ag_DataInfo.cc
-    ag_DataManager.cc
-    ag_DataObjectBase.cc
-    ag_DataObject.cc
-    ag_DataProperties.cc
-    ag_DataPropertiesDialog.cc
-    ag_DataProperty.cc
-    ag_Dataset.cc
-    ag_DataSourceTable.cc
-    ag_DimensionCoordinateEdit.cc
-    ag_DirectionalRasterDrawer.cc
-    ag_DOManager.cc
-    ag_DrawPropertiesWidget.cc
-    ag_DrawProps.cc
-    ExceedanceProbabilityFeatureLayerDrawer.cc
-    ag_ExceedanceProbabilityRasterDrawer.cc
-    ag_FeatureDataSources.cc
-    ag_FeatureLayer.cc
-    ag_FeatureLayerDrawer.cc
-    ag_Feedback.cc
-    ag_GeneralDataPropertiesWidget.cc
-    ag_GeneralPreferencesWidget.cc
-    ag_GeometryLegendBody.cc
-    ag_GLVisualisation.cc
-    ag_IVisualisation.cc
-    ag_LddDrawProps.cc
-    ag_LddRasterDrawer.cc
-    ag_LegendBody.cc
-    ag_Legend.cc
-    ag_LegendView.cc
-    ag_Map2D.cc
-    ag_Map2DView.cc
-    ag_Map2DWindow.cc
-    ag_Map3D.cc
-    ag_Map3DObject.cc
-    ag_Map3DView.cc
-    ag_Map3DWindow.cc
-    ag_Map.cc
-    ag_MapDrawer.cc
-    ag_MapWindow.cc
-    ag_MouseTarget.cc
-    ag_MultiMap2D.cc
-    ag_MultiMap2DView.cc
-    ag_MultiMap2DWindow.cc
-    ag_NominalDrawProps.cc
-    ag_NominalRasterDrawer.cc
-    ag_OrdinalDrawProps.cc
-    ag_OrdinalRasterDrawer.cc
-    ag_PlotVisualisation.cc
-    ag_PlotView.cc
-    ag_PostScript.cc
-    ag_PreferencesDialog.cc
-    ag_PropertiesDialog.cc
-    ag_PropertiesWidget.cc
-    ag_QApplication.cc
-    ag_QuadDrawer.cc
-    ag_Quaternion.cc
-    ag_RangeDrawPropertiesWidget.cc
-    ag_RangeDrawProps.cc
-    ag_RangeFeatureLayerDrawer.cc
-    ag_RangeLegendBody.cc
-    ag_Raster.cc
-    ag_RasterDataset.cc
-    ag_RasterDataSources.cc
-    ag_RasterDrawer.cc
-    ag_SaveDataAsDialog.cc
-    ag_SaveViewAsDialog.cc
-    ag_ScalarRasterDrawer.cc
-    ag_Scene.cc
-    ag_SceneObject.cc
-    ag_SceneView.cc
-    ag_SpatialDataset.cc
-    ag_Table.cc
-    ag_TableDataSources.cc
-    ag_TableVisualisation.cc
-    ag_Templates.cc
-    ag_Time.cc
-    ag_TimePlot.cc
-    ag_TimePlotWindow.cc
-    ag_Util.cc
-    ag_Vector.cc
-    ag_VectorDataSources.cc
-    ag_VectorDrawer.cc
-    ag_Viewer.cc
-    ag_VisChangeManager.cc
-    ag_VisEngine.cc
-    ag_VisGroup.cc
-    ag_VisGroupManager.cc
-    ag_VisObserver.cc
-    ag_VisSubject.cc
-    ag_Visualisation.cc
-    ag_VisualisationDialog.cc
-    ag_VisualisationWindow.cc
-    ag_XMLViewItems.cc
-
-    com_classifier.cc
-    com_colour.cc
-    com_const.cc
-    com_exception.cc
-    com_fileformatinfo.cc
-    com_palette.cc
-    com_rangemap.cc
-    com_rawpalette.cc
-    com_rcobject.cc
-    com_rcsize_t.cc
-    com_rgbtuple.cc
-    com_util.cc
-
-    geo_dataguide.cc
-    geo_DataType.cc
-
-    qt_Animation.cc
-    qt_AnimationProgBar.cc
-    qt_AppWindow.cc
-    qt_AppWindowProperties.cc
-    qt_ColourLib.cc
-    qt_Dialog.cc
-    qt_EventFilterSubject.cc
-    qt_GuiApp.cc
-    qt_New.cc
-    qt_PropertiesDialog.cc
-    qt_PropertiesWidget.cc
-    # qt_SelectableWidget.cc
-    qt_Util.cc
-
-    qtd_SelectPalette.cc
-
-    qtw_PaletteBar.cc
-
-    # Plots/ag_ProbabilityPlot.cc
-    # Plots/ag_ProbabilityTimeSeriesPlot.cc
-    # Plots/ag_ProbabilityValuePlot.cc
-    # Plots/ag_TimeSeriesPlot.cc
-    # Plots/ag_ValueTimeSeriesPlot.cc
-)
-QT5_WRAP_UI(
+qt5_wrap_ui(
     UI_SOURCES
     # CursorValueDialog.ui
     GeneralPreferencesWidgetBase.ui
@@ -187,150 +20,293 @@ QT5_WRAP_UI(
     SaveViewAsDialogBase.ui
 )
 
-SET(LIBRARY_SOURCES
-    ${LIB_SOURCES}
+add_library(pcraster_aguila_objects OBJECT
+    ag_Aguila
+    ag_AguilaProgramOptions
+    ag_AnimationControl
+    ag_BooleanDrawProps
+    ag_BooleanRasterDrawer
+    ag_BufferedVisualisation
+    ag_BufferedWidget
+    ag_Camera
+    ag_ClassDrawPropertiesWidget
+    ag_ClassDrawProps
+    ag_ClassLegendBody
+    ag_ColourSelector
+    ag_Configurable
+    ag_Cube
+    ag_CumDistributionFunction
+    ag_CumDistributionFunctionView
+    ag_CumDistributionFunctionWindow
+    ag_CursorView
+    ag_CursorWindow
+    ag_DataConfiguration
+    ag_DataGuide
+    ag_DataInfo
+    ag_DataManager
+    ag_DataObjectBase
+    ag_DataObject
+    ag_DataProperties
+    ag_DataPropertiesDialog
+    ag_DataProperty
+    ag_Dataset
+    ag_DataSourceTable
+    ag_DimensionCoordinateEdit
+    ag_DirectionalRasterDrawer
+    ag_DOManager
+    ag_DrawPropertiesWidget
+    ag_DrawProps
+    ExceedanceProbabilityFeatureLayerDrawer
+    ag_ExceedanceProbabilityRasterDrawer
+    ag_FeatureDataSources
+    ag_FeatureLayer
+    ag_FeatureLayerDrawer
+    ag_Feedback
+    ag_GeneralDataPropertiesWidget
+    ag_GeneralPreferencesWidget
+    ag_GeometryLegendBody
+    ag_GLVisualisation
+    ag_IVisualisation
+    ag_LddDrawProps
+    ag_LddRasterDrawer
+    ag_LegendBody
+    ag_Legend
+    ag_LegendView
+    ag_Map2D
+    ag_Map2DView
+    ag_Map2DWindow
+    ag_Map3D
+    ag_Map3DObject
+    ag_Map3DView
+    ag_Map3DWindow
+    ag_Map
+    ag_MapDrawer
+    ag_MapWindow
+    ag_MouseTarget
+    ag_MultiMap2D
+    ag_MultiMap2DView
+    ag_MultiMap2DWindow
+    ag_NominalDrawProps
+    ag_NominalRasterDrawer
+    ag_OrdinalDrawProps
+    ag_OrdinalRasterDrawer
+    ag_PlotVisualisation
+    ag_PlotView
+    ag_PostScript
+    ag_PreferencesDialog
+    ag_PropertiesDialog
+    ag_PropertiesWidget
+    ag_QApplication
+    ag_QuadDrawer
+    ag_Quaternion
+    ag_RangeDrawPropertiesWidget
+    ag_RangeDrawProps
+    ag_RangeFeatureLayerDrawer
+    ag_RangeLegendBody
+    ag_Raster
+    ag_RasterDataset
+    ag_RasterDataSources
+    ag_RasterDrawer
+    ag_SaveDataAsDialog
+    ag_SaveViewAsDialog
+    ag_ScalarRasterDrawer
+    ag_Scene
+    ag_SceneObject
+    ag_SceneView
+    ag_SpatialDataset
+    ag_Table
+    ag_TableDataSources
+    ag_TableVisualisation
+    ag_Templates
+    ag_Time
+    ag_TimePlot
+    ag_TimePlotWindow
+    ag_Util
+    ag_Vector
+    ag_VectorDataSources
+    ag_VectorDrawer
+    ag_Viewer
+    ag_VisChangeManager
+    ag_VisEngine
+    ag_VisGroup
+    ag_VisGroupManager
+    ag_VisObserver
+    ag_VisSubject
+    ag_Visualisation
+    ag_VisualisationDialog
+    ag_VisualisationWindow
+    ag_XMLViewItems
+
+    com_classifier
+    com_colour
+    com_const
+    com_exception
+    com_fileformatinfo
+    com_palette
+    com_rangemap
+    com_rawpalette
+    com_rcobject
+    com_rcsize_t
+    com_rgbtuple
+    com_util
+
+    geo_dataguide
+    geo_DataType
+
+    qt_Animation
+    qt_AnimationProgBar
+    qt_AppWindow
+    qt_AppWindowProperties
+    qt_ColourLib
+    qt_Dialog
+    qt_EventFilterSubject
+    qt_GuiApp
+    qt_New
+    qt_PropertiesDialog
+    qt_PropertiesWidget
+    # qt_SelectableWidget
+    qt_Util
+
+    qtd_SelectPalette
+
+    qtw_PaletteBar
+
+    # Plots/ag_ProbabilityPlot
+    # Plots/ag_ProbabilityTimeSeriesPlot
+    # Plots/ag_ProbabilityValuePlot
+    # Plots/ag_TimeSeriesPlot
+    # Plots/ag_ValueTimeSeriesPlot
+
     ${UI_SOURCES}
 )
 
-### Since the sources are used by the static and shared lib, automoc seems to
-### process each file twice. This results in conflicts. Commenting out the
-### build of the static lib for now.
-### IF(WIN32)
-###     ADD_LIBRARY(pcraster_aguila_static
-###         STATIC
-###         ${LIBRARY_SOURCES}
-###     )
-###     SET_TARGET_PROPERTIES(pcraster_aguila_static
-###         PROPERTIES
-###             COMPILE_FLAGS "-DPCR_AG_SOURCE"
-###     )
-###     # Only build the static lib once the shared lib is built. Building them
-###     # together seems to result in conflicts. I think automoc may run for one
-###     # lib target while the other lib target is being build, locking the files
-###     # that are being generated.
-###     ADD_DEPENDENCIES(pcraster_aguila_static pcraster_aguila)
-### ENDIF()
-
-add_library(pcraster_aguila_objects
-    OBJECT
-        ${LIBRARY_SOURCES}
-)
 target_include_directories(pcraster_aguila_objects
     PRIVATE
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
         ${Qt5Gui_INCLUDE_DIRS}
         ${Qt5Xml_INCLUDE_DIRS}
         ${Qt5OpenGL_INCLUDE_DIRS}
+        ${QWT_INCLUDE_DIRS}
+        $<TARGET_PROPERTY:pcraster::math_utils,INTERFACE_INCLUDE_DIRECTORIES>
+        $<TARGET_PROPERTY:pcraster::string_utils,INTERFACE_INCLUDE_DIRECTORIES>
 )
-add_library(pcraster_aguila
-    SHARED
+
+target_include_directories(pcraster_aguila_objects
+    PUBLIC
+        $<TARGET_PROPERTY:pcraster::dal,INTERFACE_INCLUDE_DIRECTORIES>
+        $<TARGET_PROPERTY:pcraster::raster_format,INTERFACE_INCLUDE_DIRECTORIES>
+        $<TARGET_PROPERTY:pcraster::utils,INTERFACE_INCLUDE_DIRECTORIES>
+        $<TARGET_PROPERTY:pcraster::xsd,INTERFACE_INCLUDE_DIRECTORIES>
+)
+
+add_dependencies(pcraster_aguila_objects
+    # Some of the sources include PCRasterXSD.h, which is generated by
+    # pcraster::xsd. Since we don't link the objects library against
+    # pcraster::xsd, but only use the include directories, CMake doesn't
+    # make pcraster_aguila_objects depend on pcraster::xsd. We need
+    # to do that ourselves. If not, PCRasterXSD.h may not be there during
+    # the build of the objects in the objects library.
+    pcraster::xsd
+)
+
+target_compile_definitions(pcraster_aguila_objects
+    PRIVATE
+        PCR_AG_SOURCE
+        PCR_AG_SHARED_LINK
+        $<$<BOOL:${WIN32}>:QWT_DLL>
+)
+
+add_library(pcraster_aguila SHARED
     $<TARGET_OBJECTS:pcraster_aguila_objects>
 )
-# ADD_LIBRARY(pcraster_aguila
-#     SHARED
-#     ${LIBRARY_SOURCES}
-# )
-if(WIN32)
-  set(_AGUILA_COMPILE_FLAGS "-DPCR_AG_SOURCE -DPCR_AG_SHARED_LINK -DQWT_DLL")
-else()
-  set(_AGUILA_COMPILE_FLAGS "-DPCR_AG_SOURCE -DPCR_AG_SHARED_LINK")
-endif()
-set_target_properties(pcraster_aguila_objects
-    PROPERTIES
-        COMPILE_FLAGS ${_AGUILA_COMPILE_FLAGS}
-        LINK_LIBRARIES "pcraster_xsd"
-)
-set(_target_libraries
-    pcraster_dal
-    pcraster_xsd
-    Qt5::Gui
-    Qt5::OpenGL
-    Qt5::Xml
-    ${QWT_LIBRARY}
-    ${OPENGL_LIBRARIES}
-)
-target_link_libraries(pcraster_aguila
-    ${_target_libraries}
-)
-# ADD_CUSTOM_COMMAND(
-#     TARGET pcraster_aguila
-#     POST_BUILD
-#         COMMAND ${CMAKE_COMMAND} -E
-#              make_directory ${CMAKE_BINARY_DIR}/share/gdal
-#         COMMAND ${CMAKE_COMMAND} -E
-#              copy_directory ${GDAL_DATA} ${CMAKE_BINARY_DIR}/share/gdal
-# )
 
-INSTALL(
+add_library(pcraster::aguila ALIAS pcraster_aguila)
+
+target_link_libraries(pcraster_aguila
+    PUBLIC
+        pcraster::dal
+        pcraster::xsd
+        ${QWT_LIBRARY}
+        Qt5::Gui
+        Qt5::OpenGL
+        Qt5::Xml
+        ${OPENGL_LIBRARIES}
+)
+
+install(
     TARGETS pcraster_aguila
     RUNTIME DESTINATION lib COMPONENT Runtime
     LIBRARY DESTINATION lib COMPONENT Runtime
 )
 
-SET(APP_SOURCES
-    main.cc
+add_executable(aguila
+    WIN32 # Use WinMain instead of main. Gets rid of Dos box.
+    main
 )
 
-ADD_EXECUTABLE(aguila
-    WIN32 # Use WinMain instead of main. Gets rid of Dos box.
-    ${APP_SOURCES}
+target_compile_definitions(aguila
+    PRIVATE
+        PCR_AG_SHARED_LINK
 )
-SET_TARGET_PROPERTIES(aguila
-    PROPERTIES
-        COMPILE_FLAGS "-DPCR_AG_SHARED_LINK"
+
+target_link_libraries(aguila
+    pcraster::aguila
+    # ${QT_QTMAIN_LIBRARY}  # Contains WinMain.
 )
-TARGET_LINK_LIBRARIES(aguila
-    pcraster_aguila
-    ${QT_QTMAIN_LIBRARY}  # Contains WinMain.
-)
-INSTALL(
+
+install(
     TARGETS aguila
     RUNTIME DESTINATION bin COMPONENT Runtime
 )
 
-if(PCRASTER_BUILD_TEST)
+# ------------------------------------------------------------------------------
 
+if(PCRASTER_BUILD_TEST)
     configure_file(
-        ${CMAKE_CURRENT_SOURCE_DIR}/test_prolog.py.in
-        ${CMAKE_CURRENT_BINARY_DIR}/test_prolog.py
+        test_prolog.py.in
+        test_prolog.py
         @ONLY
-    )
-    set(TEST_NAMES
-        # ag_AguilaTest  # Requires an X-server.
-        ag_AguilaProgramOptionsTest
-        ag_ClassifierTest
-        ag_ColourSelectorTest
-        DataObjectBaseTest
-        DataManagerTest
-        com_fileformatinfotest
-        com_matrixtest
-        com_rangemaptest
-        com_rgbtupletest
-        com_utiltest
-        com_userdefinedclassifiertest
-        com_vectortest
-    )
-    add_library(pcraster_aguila_static
-        STATIC
-        $<TARGET_OBJECTS:pcraster_aguila_objects>
     )
     add_unit_tests(
         SCOPE pcraster_aguila
-        NAMES ${TEST_NAMES}
-        # SUPPORT_NAMES ag_AguilaGuiTest  # Only needed for AguilaTest.
+        NAMES
+            # ag_AguilaTest  # Requires an X-server.
+            ag_AguilaProgramOptionsTest
+            ag_ClassifierTest
+            ag_ColourSelectorTest
+            DataObjectBaseTest
+            DataManagerTest
+            com_fileformatinfotest
+            com_matrixtest
+            com_rangemaptest
+            com_rgbtupletest
+            com_utiltest
+            com_userdefinedclassifiertest
+            com_vectortest
+            # SUPPORT_NAMES ag_AguilaGuiTest  # Only needed for AguilaTest.
+        # LINK_LIBRARIES
+            # pcraster_aguila_static
+            # ${_target_libraries}
+            # #${QT_QTTEST_LIBRARY}
+        INCLUDE_DIRS
+            $<TARGET_PROPERTY:pcraster_aguila_objects,INTERFACE_INCLUDE_DIRECTORIES>
+        OBJECT_LIBRARIES
+            $<TARGET_OBJECTS:pcraster_aguila_objects>
         LINK_LIBRARIES
-            pcraster_aguila_static
-            ${_target_libraries}
-            #${QT_QTTEST_LIBRARY}
+            $<TARGET_PROPERTY:pcraster_aguila,LINK_LIBRARIES>
     )
     add_test(
         NAME setup_pcraster_aguila
         COMMAND ${PYTHON_EXECUTABLE} test_prolog.py
     )
     set_tests_properties(setup_pcraster_aguila
-        PROPERTIES FIXTURES_SETUP FixtureAguila
+        PROPERTIES
+            FIXTURES_SETUP
+                FixtureAguila
     )
-    set_tests_properties(pcraster_aguila_ag_AguilaProgramOptionsTest PROPERTIES
-        FIXTURES_REQUIRED
-          FixtureAguila
+    set_tests_properties(pcraster_aguila_ag_AguilaProgramOptionsTest
+        PROPERTIES
+            FIXTURES_REQUIRED
+                FixtureAguila
     )
 endif()

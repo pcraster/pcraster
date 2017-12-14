@@ -1,22 +1,8 @@
-# # <bad cmake practice>
-# IF(NOT "$ENV{AGUILA}" STREQUAL "")
-#     SET(AGUILA_BUILD 1)
-# ENDIF()
-# 
-# IF(NOT "$ENV{PCRTREE2}" STREQUAL "")
-#     SET(PCRTREE2_BUILD 1)
-# ENDIF()
-# </bad cmake practice>
 SET(AGUILA_BUILD 1)
 SET(PCRTREE2_BUILD 1)
 
-include_directories(
-    ${CMAKE_CURRENT_BINARY_DIR}
-    ${CMAKE_CURRENT_SOURCE_DIR}
-    ../utils
-)
-
 # ------------------------------------------------------------------------------
+
 MACRO(TEXT_TO_CHARACTER_ARRAY TEXT_FILE IDENTIFIER)
     ADD_CUSTOM_COMMAND(
         OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${IDENTIFIER}.h
@@ -32,13 +18,15 @@ ENDMACRO(TEXT_TO_CHARACTER_ARRAY)
 SET(XSD_SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../xmlschema)
 SET(XSD_EPILOGUE ${CMAKE_CURRENT_SOURCE_DIR}/xsdEpilogue.txt)
 SET(XSD_OPTIONS cxx-tree
-    # --std c++11
+    # TODO --std c++11  # unique_ptr instead of auto_ptr
     --generate-serialization
     --generate-ostream
     --hxx-suffix XSD.h
     --cxx-suffix XSD.cc
 )
+
 # ------------------------------------------------------------------------------
+
 SET(SOURCES
     pcrxsd_dominput.cc
     pcrxsd_StringDomInput.cc
@@ -68,7 +56,7 @@ ADD_CUSTOM_COMMAND(
     VERBATIM
 )
 
-IF(${AGUILA_BUILD})
+IF(AGUILA_BUILD)
     SET(SOURCES
         ${SOURCES}
         ${CMAKE_CURRENT_BINARY_DIR}/compiled_Aguila.h
@@ -105,7 +93,7 @@ IF(${AGUILA_BUILD})
     )
 ENDIF()
 
-IF(${PCRTREE2_BUILD})
+IF(PCRTREE2_BUILD)
     SET(SOURCES
         ${SOURCES}
         ${CMAKE_CURRENT_BINARY_DIR}/compiled_PCRaster.h
@@ -143,19 +131,25 @@ SET_SOURCE_FILES_PROPERTIES(pcrxsd_supportedschema.cc
     COMPILE_FLAGS "${_COMPILE_FLAGS}"
 )
 
-ADD_LIBRARY(pcraster_xsd
-    STATIC
+ADD_LIBRARY(pcraster_xsd STATIC
     ${SOURCES}
 )
-target_link_libraries(pcraster_xsd
-    utils
-    ${XercesC_LIBRARIES}
-    Boost::system
-    Boost::date_time
-#    ${Boost_SYSTEM_LIBRARY}
+
+add_library(pcraster::xsd ALIAS pcraster_xsd)
+
+target_include_directories(pcraster_xsd
+    PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
 )
+
+target_link_libraries(pcraster_xsd
+    PUBLIC
+        pcraster::utils
+)
+
 # ------------------------------------------------------------------------------
-IF(${PCRTREE2_BUILD})
+IF(PCRTREE2_BUILD)
     if(PCRASTER_BUILD_TEST)
         # TODO allmost all test depend on PCRasterXSD they have to
         # be rewritten...................
@@ -166,20 +160,18 @@ IF(${PCRTREE2_BUILD})
           COMMAND ${XSD_EXECUTABLE} ${XSD_OPTIONS}
               ${CMAKE_CURRENT_SOURCE_DIR}/unitTest.xsd
         )
-        set(TEST_NAMES
-            pcrxsd_commontypestest
-            pcrxsd_dominputtest
-            pcrxsd_DomAlgorithmTest
-            pcrxsd_utilstest
-            pcrxsd_xsdtest
-        )
         add_unit_tests(
             SCOPE pcraster_xsd
-            NAMES ${TEST_NAMES}
+            NAMES
+                pcrxsd_commontypestest
+                pcrxsd_dominputtest
+                pcrxsd_DomAlgorithmTest
+                pcrxsd_utilstest
+                pcrxsd_xsdtest
             SUPPORT_NAMES
                 ${CMAKE_CURRENT_BINARY_DIR}/unitTestXSD.cc
             LINK_LIBRARIES
-                pcraster_xsd
+                pcraster::xsd
             DEPENDENCIES
                 pcraster_xsd_test_run_epilog
         )

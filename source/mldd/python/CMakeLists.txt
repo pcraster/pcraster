@@ -1,30 +1,24 @@
-include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../include
-    ${CMAKE_CURRENT_SOURCE_DIR}/..
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../pcrcom
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../pcrgeo
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../pcraster_model_engine
-)
-
-ADD_LIBRARY(_pcraster_mldd_python
-    SHARED
+add_library(_pcraster_mldd_python SHARED
     Extension.cc
     Mldd.cc
 )
-TARGET_LINK_LIBRARIES(_pcraster_mldd_python
-    mldd # _static
-    pcraster_model_engine
-    # pcrcom
-    # pcrgeo
-    # misc
-    # ${PCRASTER_DAL_LIBRARY}
-#    ${Boost_PYTHON_LIBRARY}
-#    Boost::python
-    ${PCR_BOOST_PYTHON}
-    # ${BOOST_FILESYSTEM_LIBRARY}
-    ${PYTHON_LIBRARIES}
+
+add_library(pcraster::python_mldd ALIAS _pcraster_mldd_python)
+
+target_include_directories(_pcraster_mldd_python
+    PRIVATE
+        ${PYTHON_INCLUDE_DIR}
 )
-CONFIGURE_PYTHON_EXTENSION(_pcraster_mldd_python
+
+target_link_libraries(_pcraster_mldd_python
+    PRIVATE
+        pcraster::mldd
+        pcraster::model_engine
+        ${PCR_BOOST_PYTHON}
+        ${PYTHON_LIBRARIES}
+)
+
+configure_python_extension(_pcraster_mldd_python
     "_pcraster_mldd"
 )
 
@@ -32,13 +26,15 @@ set(_TARGET_BIN ${EXECUTABLE_OUTPUT_PATH}/${CMAKE_CFG_INTDIR})
 
 set_target_properties(_pcraster_mldd_python
     PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY "${_TARGET_BIN}/pcraster/mldd"
-        LIBRARY_OUTPUT_DIRECTORY "${_TARGET_BIN}/pcraster/mldd"
+        RUNTIME_OUTPUT_DIRECTORY
+            "${_TARGET_BIN}/pcraster/mldd"
+        LIBRARY_OUTPUT_DIRECTORY
+            "${_TARGET_BIN}/pcraster/mldd"
 )
 
-ADD_DEPENDENCIES(_pcraster_mldd_python _pcraster)
+add_dependencies(_pcraster_mldd_python _pcraster)
 
-ADD_CUSTOM_COMMAND(
+add_custom_command(
     TARGET _pcraster_mldd_python
     POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E make_directory

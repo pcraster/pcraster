@@ -1,5 +1,5 @@
 if(PCRASTER_BUILD_TEST)
-  add_subdirectory(UnitTests)
+    add_subdirectory(UnitTests)
 endif()
 
 set(SOURCES
@@ -33,10 +33,10 @@ set(SOURCES
 )
 
 install(
-  FILES
-    ${SOURCES}
-  DESTINATION
-    python/pcraster/framework
+    FILES
+        ${SOURCES}
+    DESTINATION
+        python/pcraster/framework
 )
 
 set(FRAMEWORK_BUILD_DIRECTORY

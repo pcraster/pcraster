@@ -1,38 +1,21 @@
-SET(SOURCES
-    xml.cc
-    pcr_mflink.cc
+add_library(pcraster_modflow SHARED
+    xml
+    pcr_mflink
 )
 
-ADD_LIBRARY(pcraster_modflow
-    SHARED
-    ${SOURCES}
-)
+add_library(pcraster::modflow ALIAS pcraster_modflow)
 
-target_include_directories(pcraster_modflow
-  PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../include
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../pcraster_model_engine
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../pcrdiscr
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../pcrgeo
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../pcrcom
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../pcraster_xsd
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../pcraster_dal
-    ${CMAKE_CURRENT_BINARY_DIR}/../../pcraster_xsd
-)
-
-SET_TARGET_PROPERTIES(pcraster_modflow
+set_target_properties(pcraster_modflow
     PROPERTIES
-    SOVERSION 0.1
+        SOVERSION 0.1
 )
 
-TARGET_LINK_LIBRARIES(pcraster_modflow
-    pcrmf
-    pcrdiscr
-    pcraster_model_engine
+target_link_libraries(pcraster_modflow
+    PRIVATE
+        pcraster::pcrmf
 )
 
-ADD_CUSTOM_COMMAND(
+add_custom_command(
     TARGET
         pcraster_modflow
     POST_BUILD
@@ -41,12 +24,12 @@ ADD_CUSTOM_COMMAND(
                 ${EXECUTABLE_OUTPUT_PATH}/${CMAKE_CFG_INTDIR}/
 )
 
-
-# Install rules.
-INSTALL(
+install(
     TARGETS pcraster_modflow
-    RUNTIME DESTINATION lib COMPONENT Runtime
-    LIBRARY DESTINATION lib COMPONENT Runtime
+    RUNTIME
+        DESTINATION lib COMPONENT Runtime
+    LIBRARY
+        DESTINATION lib COMPONENT Runtime
 )
 
 IF(WIN32)
@@ -64,7 +47,6 @@ ELSE(WIN32)
             lib
     )
 ENDIF(WIN32)
-
 
 
 MATH(EXPR NR_BITS "${CMAKE_SIZEOF_VOID_P} * 8")
@@ -105,20 +87,10 @@ if(PCRASTER_BUILD_TEST)
   add_unit_tests(
     SCOPE modflow
     NAMES ${TEST_NAMES}
+    INCLUDE_DIRS
+        ${PYTHON_INCLUDE_DIR}
     LINK_LIBRARIES
-      pcraster_model_engine
-      pcrgeo
-#      ${Boost_PYTHON_LIBRARY}
-      ${PYTHON_LIBRARIES}
-      ${PCR_BOOST_PYTHON}
-#      Boost::python
-  )
-
-  target_include_directories(modflow_calc_DemoTest
-    PRIVATE
-      ${CMAKE_CURRENT_SOURCE_DIR}/../../pcraster_model_engine
-      ${CMAKE_CURRENT_SOURCE_DIR}/../../pcrgeo
-      ${CMAKE_CURRENT_SOURCE_DIR}/../../pcrcom
+        pcraster::model_engine
   )
 
   # the pcraster_modflow dll must be build first

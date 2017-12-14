@@ -1,148 +1,124 @@
 # Note that a lot of generated stuff is simply put in svn
 # to recreate pull stuff from OLDPCRTREE
 # LATER DITCH PCRXML?
+add_library(pcrxml STATIC
+    pcrxml_attribute
+    pcrxml_bindoublele
+    pcrxml_childelementvisitor
+    pcrxml_csfvs2datatype
+    pcrxml_date
+    pcrxml_doctype
+    pcrxml_document
+    pcrxml_dom
+    pcrxml_domdiff
+    pcrxml_element
+    pcrxml_interspacedsentence
+    pcrxml_newdatasubtype
+    pcrxml_ostream
+    pcrxml_pcdata
+    pcrxml_pcdataelement
+    pcrxml_pcrvs2datatype
+    pcrxml_simpleattr
+    pcrxml_string
+    pcrxml_stringconv
+    pcrxml_word
 
-# ADD_DEFINITIONS(-DQT3_SUPPORT)
-
-include_directories(
-    # ${CMAKE_CURRENT_SOURCE_DIR}/../include
-    ${CMAKE_CURRENT_SOURCE_DIR}/../pcrcom
-)
-# INCLUDE_DIRECTORIES(
-#    ../mathx
-# )
-
-
-SET(SOURCES
-    pcrxml_attribute.cc
-    pcrxml_bindoublele.cc
-    pcrxml_childelementvisitor.cc
-    pcrxml_csfvs2datatype.cc
-    pcrxml_date.cc
-    pcrxml_doctype.cc
-    pcrxml_document.cc
-    pcrxml_dom.cc
-    pcrxml_domdiff.cc
-    pcrxml_element.cc
-    pcrxml_interspacedsentence.cc
-    pcrxml_newdatasubtype.cc
-    pcrxml_ostream.cc
-    pcrxml_pcdata.cc
-    pcrxml_pcdataelement.cc
-    pcrxml_pcrvs2datatype.cc
-    pcrxml_simpleattr.cc
-    pcrxml_string.cc
-    pcrxml_stringconv.cc
-    pcrxml_word.cc
-)
-# Generated but now fixed, pcrxsd supersedes
-SET(GENSOURCES
-    pcrgenxml_areamapdtd.cc
-    pcrgenxml_binding.cc
-    pcrgenxml_coefficient.cc
-    pcrgenxml_compute.cc
-    pcrgenxml_computedriveraxis.cc
-    pcrgenxml_cursor.cc
-    pcrgenxml_data.cc
-    pcrgenxml_dataenvelop.cc
-    pcrgenxml_dataenvelopencoding.cc
-    pcrgenxml_dataextend.cc
-    pcrgenxml_dataobject.cc
-    pcrgenxml_datasetconfiguration.cc
-    pcrgenxml_datatypedtd.cc
-    pcrgenxml_datatypeenum.cc
-    pcrgenxml_dateformat.cc
-    pcrgenxml_dimension.cc
-    pcrgenxml_dimensionbaseenum.cc
-    pcrgenxml_directorystackinfo.cc
-    pcrgenxml_exchangedirection.cc
-    pcrgenxml_exchangeitem.cc
-    pcrgenxml_exchangemodel.cc
-    pcrgenxml_expirationdate.cc
-    pcrgenxml_fileinput.cc
-    pcrgenxml_filesetting.cc
-    pcrgenxml_input.cc
-    pcrgenxml_inputfile.cc
-    pcrgenxml_inputlodings.cc
-    pcrgenxml_inputpoints.cc
-    pcrgenxml_inputtype.cc
-    pcrgenxml_integertimer.cc
-    pcrgenxml_interpolate.cc
-    pcrgenxml_iostrategy.cc
-    pcrgenxml_iostrategytype.cc
-    pcrgenxml_iotype.cc
-    pcrgenxml_lodinginputtype.cc
-    pcrgenxml_lodingname.cc
-    pcrgenxml_lodings.cc
-    pcrgenxml_lowerlimit.cc
-    pcrgenxml_map.cc
-    pcrgenxml_migrationdirection.cc
-    pcrgenxml_modelrunchild.cc
-    pcrgenxml_modelrunsettings.cc
-    pcrgenxml_modelrunstatus.cc
-    pcrgenxml_nonspatial.cc
-    pcrgenxml_numericinput.cc
-    pcrgenxml_numericsetting.cc
-    pcrgenxml_outputtype.cc
-    pcrgenxml_paneltype.cc
-    pcrgenxml_parameteritem.cc
-    pcrgenxml_parameterpanel.cc
-    pcrgenxml_rastermask.cc
-    pcrgenxml_rasterspace.cc
-    pcrgenxml_resultlastrun.cc
-    pcrgenxml_riveraxisfile.cc
-    pcrgenxml_rundirectory.cc
-    pcrgenxml_runtimeplatform.cc
-    pcrgenxml_script.cc
-    pcrgenxml_scriptdata.cc
-    pcrgenxml_scriptlink.cc
-    pcrgenxml_scripttype.cc
-    pcrgenxml_showdata.cc
-    pcrgenxml_spatial.cc
-    pcrgenxml_stack.cc
-    pcrgenxml_table.cc
-    pcrgenxml_testemptyelementnoattr.cc
-    pcrgenxml_timer.cc
-    pcrgenxml_timeseries.cc
-    pcrgenxml_timesteprange.cc
-    pcrgenxml_upperlimit.cc
-    pcrgenxml_userderive.cc
-    pcrgenxml_userinterfacedescription.cc
-    pcrgenxml_variable.cc
-    pcrgenxml_visualisationconfiguration.cc
-    pcrgenxml_visualisationgroup.cc
-)
-ADD_LIBRARY(pcrxml
-    ${GENSOURCES}
-    ${SOURCES}
-)
-TARGET_LINK_LIBRARIES(pcrxml
-    pcrcom
-    Qt5::Xml
+    # Generated but now fixed, pcrxsd supersedes -------------------------------
+    pcrgenxml_areamapdtd
+    pcrgenxml_binding
+    pcrgenxml_coefficient
+    pcrgenxml_compute
+    pcrgenxml_computedriveraxis
+    pcrgenxml_cursor
+    pcrgenxml_data
+    pcrgenxml_dataenvelop
+    pcrgenxml_dataenvelopencoding
+    pcrgenxml_dataextend
+    pcrgenxml_dataobject
+    pcrgenxml_datasetconfiguration
+    pcrgenxml_datatypedtd
+    pcrgenxml_datatypeenum
+    pcrgenxml_dateformat
+    pcrgenxml_dimension
+    pcrgenxml_dimensionbaseenum
+    pcrgenxml_directorystackinfo
+    pcrgenxml_exchangedirection
+    pcrgenxml_exchangeitem
+    pcrgenxml_exchangemodel
+    pcrgenxml_expirationdate
+    pcrgenxml_fileinput
+    pcrgenxml_filesetting
+    pcrgenxml_input
+    pcrgenxml_inputfile
+    pcrgenxml_inputlodings
+    pcrgenxml_inputpoints
+    pcrgenxml_inputtype
+    pcrgenxml_integertimer
+    pcrgenxml_interpolate
+    pcrgenxml_iostrategy
+    pcrgenxml_iostrategytype
+    pcrgenxml_iotype
+    pcrgenxml_lodinginputtype
+    pcrgenxml_lodingname
+    pcrgenxml_lodings
+    pcrgenxml_lowerlimit
+    pcrgenxml_map
+    pcrgenxml_migrationdirection
+    pcrgenxml_modelrunchild
+    pcrgenxml_modelrunsettings
+    pcrgenxml_modelrunstatus
+    pcrgenxml_nonspatial
+    pcrgenxml_numericinput
+    pcrgenxml_numericsetting
+    pcrgenxml_outputtype
+    pcrgenxml_paneltype
+    pcrgenxml_parameteritem
+    pcrgenxml_parameterpanel
+    pcrgenxml_rastermask
+    pcrgenxml_rasterspace
+    pcrgenxml_resultlastrun
+    pcrgenxml_riveraxisfile
+    pcrgenxml_rundirectory
+    pcrgenxml_runtimeplatform
+    pcrgenxml_script
+    pcrgenxml_scriptdata
+    pcrgenxml_scriptlink
+    pcrgenxml_scripttype
+    pcrgenxml_showdata
+    pcrgenxml_spatial
+    pcrgenxml_stack
+    pcrgenxml_table
+    pcrgenxml_testemptyelementnoattr
+    pcrgenxml_timer
+    pcrgenxml_timeseries
+    pcrgenxml_timesteprange
+    pcrgenxml_upperlimit
+    pcrgenxml_userderive
+    pcrgenxml_userinterfacedescription
+    pcrgenxml_variable
+    pcrgenxml_visualisationconfiguration
+    pcrgenxml_visualisationgroup
+    # --------------------------------------------------------------------------
 )
 
+add_library(pcraster::pcrxml ALIAS pcrxml)
+
+target_include_directories(pcrxml
+    PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+)
+
+target_link_libraries(pcrxml
+    PUBLIC
+        pcraster::pcrcom
+        Qt5::Xml
+)
 
 if(PCRASTER_BUILD_TEST)
-
     configure_file(
-        ${CMAKE_CURRENT_SOURCE_DIR}/test_prolog.py.in
-        ${CMAKE_CURRENT_BINARY_DIR}/test_prolog.py
+        test_prolog.py.in
+        test_prolog.py
         @ONLY
-    )
-
-    set(TEST_NAMES
-        pcrxml_attributetest
-        pcrxml_bindoubleletest
-        pcrxml_childelementvisitortest
-        pcrxml_documenttest
-        pcrxml_domalgorithmtest
-        pcrxml_domtest
-        pcrxml_elementtest
-        pcrxml_enumnmtokentest
-        pcrxml_interspacedsentencetest
-        pcrxml_pcdataelementtest
-        pcrxml_simpleattrtest
-        pcrxml_wordtest
     )
 
     add_test(
@@ -156,18 +132,33 @@ if(PCRASTER_BUILD_TEST)
 
     add_unit_tests(
         SCOPE pcrxml
-        NAMES ${TEST_NAMES}
+        NAMES
+            pcrxml_attributetest
+            pcrxml_bindoubleletest
+            pcrxml_childelementvisitortest
+            pcrxml_documenttest
+            pcrxml_domalgorithmtest
+            pcrxml_domtest
+            pcrxml_elementtest
+            pcrxml_enumnmtokentest
+            pcrxml_interspacedsentencetest
+            pcrxml_pcdataelementtest
+            pcrxml_simpleattrtest
+            pcrxml_wordtest
         LINK_LIBRARIES
-            pcrxml
+            pcraster::pcrxml
     )
 
     set_tests_properties(setup_pcrxml
-        PROPERTIES FIXTURES_SETUP FixturePcrXml
+        PROPERTIES
+            FIXTURES_SETUP
+                FixturePcrXml
     )
 
-    set_tests_properties(pcrxml_pcrxml_attributetest PROPERTIES
-        FIXTURES_REQUIRED
-          FixturePcrXml
+    set_tests_properties(pcrxml_pcrxml_attributetest
+        PROPERTIES
+            FIXTURES_REQUIRED
+                FixturePcrXml
     )
 
 endif()

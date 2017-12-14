@@ -1,22 +1,25 @@
-include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/../pcrdiscr
-    ${CMAKE_CURRENT_SOURCE_DIR}/../pcrfunc
+add_library(pcrvoxelstack STATIC
+    voxelstack_voxelstack
 )
 
-SET(SOURCES
-    voxelstack_voxelstack.cc
-)
-ADD_LIBRARY(pcrvoxelstack
-    ${SOURCES}
+add_library(pcraster::pcrvoxelstack ALIAS pcrvoxelstack)
+
+target_include_directories(pcrvoxelstack
+    PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
 )
 
+target_link_libraries(pcrvoxelstack
+    PUBLIC
+        pcraster::pcrdiscr
+)
 
 if(PCRASTER_BUILD_TEST)
-    set(TEST_NAMES
-        voxelstack_voxelstacktest
-    )
     add_unit_tests(
         SCOPE voxelstack
-        NAMES ${TEST_NAMES}
+        NAMES
+            voxelstack_voxelstacktest
+        LINK_LIBRARIES
+            pcraster::pcrvoxelstack
     )
 endif()

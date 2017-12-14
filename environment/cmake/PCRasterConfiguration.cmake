@@ -7,83 +7,33 @@
 # option(PCRASTER_BUILD_ALL
 #     "Build everything, except for documentation and tests" FALSE)
 # option(PCRASTER_WITH_ALL "Support all features" FALSE)
-option(PCRASTER_BUILD_DOCUMENTATION "Build documentation" FALSE)
-option(PCRASTER_BUILD_TEST "Build tests" FALSE)
-#option(PCRASTER_BUILD_EXPERIMENTAL "Build experimental features" FALSE)
-option(PCRASTER_BUILD_BLOCKPYTHON "Build blockpython module" FALSE)
-option(PCRASTER_WITH_PYTHON_MULTICORE "Build Python multicore module" FALSE)
 
+option(
+    PCRASTER_BUILD_DOCUMENTATION
+    "Build documentation"
+    FALSE)
+option(
+    PCRASTER_BUILD_TEST
+    "Build tests"
+    FALSE)
+option(
+    PCRASTER_BUILD_BLOCKPYTHON
+    "Build blockpython module"
+    FALSE)
+option(
+    PCRASTER_WITH_PYTHON_MULTICORE
+    "Build Python multicore module"
+    FALSE)
 
-find_package(PythonInterp)
-find_package(Boost)
-if(${Boost_VERSION} LESS 106500)
-  if(${PYTHON_VERSION_STRING} VERSION_LESS 3.0)
-      list(APPEND DEVBASE_REQUIRED_BOOST_COMPONENTS python)
-      set(PCR_BOOST_PYTHON Boost::python)
-      set(PCR_BOOST_PYTHON_NUMPY Boost::python)
-  else()
-      list(APPEND DEVBASE_REQUIRED_BOOST_COMPONENTS python3)
-      set(PCR_BOOST_PYTHON Boost::python3)
-      set(PCR_BOOST_PYTHON_NUMPY Boost::python3)
-  endif()
-else()
-  if(${PYTHON_VERSION_STRING} VERSION_LESS 3.0)
-      list(APPEND DEVBASE_REQUIRED_BOOST_COMPONENTS python numpy)
-      set(PCR_BOOST_PYTHON Boost::python)
-      set(PCR_BOOST_PYTHON_NUMPY Boost::python Boost::numpy)
-  else()
-      list(APPEND DEVBASE_REQUIRED_BOOST_COMPONENTS python3 numpy3)
-      set(PCR_BOOST_PYTHON Boost::python3)
-      set(PCR_BOOST_PYTHON_NUMPY Boost::python3 Boost::numpy3)
-  endif()
-endif()
 
 set(DEVBASE_BOOST_REQUIRED TRUE)
 
-list(APPEND DEVBASE_REQUIRED_BOOST_COMPONENTS
-  date_time filesystem math_c99 program_options system)
-
-
-set(DEVBASE_OPENGL_REQUIRED TRUE)
-set(DEVBASE_QT_REQUIRED TRUE)
-set(DEVBASE_REQUIRED_QT_VERSION "5")
-set(DEVBASE_REQUIRED_QT_COMPONENTS Core Gui OpenGL Sql Widgets Xml)
-
-set(DEVBASE_QWT_REQUIRED TRUE)
-
-set(DEVBASE_GDAL_REQUIRED TRUE)  # Version >= 2.0.0.
-
-set(DEVBASE_SQLITE_REQUIRED TRUE)
-
-set(DEVBASE_PYTHON_INTERP_REQUIRED TRUE)
-# if(PCRASTER_USE_PYTHON_VERSION)
-#     # 3.5 2.7
-#     set(DEVBASE_REQUIRED_PYTHON_VERSION ${PCRASTER_USE_PYTHON_VERSION})
-# endif()
-set(DEVBASE_PYTHON_LIBS_REQUIRED TRUE)
-set(DEVBASE_NUMPY_REQUIRED TRUE)
-
-set(DEVBASE_XERCES_REQUIRED TRUE)
-
-set(DEVBASE_XSD_REQUIRED TRUE)
-
-if(WIN32)
-  find_package(PDCurses REQUIRED)
-  set(CURSES_LIBRARIES ${PDCURSES_LIBRARIES})
-else()
-  set(DEVBASE_CURSES_REQUIRED TRUE)
-  set(DEVBASE_CURSES_WIDE_CHARACTER_SUPPORT_REQUIRED FALSE)
-endif()
-
-if(PCRASTER_WITH_PYTHON_MULTICORE)
-  set(DEVBASE_FERN_REQUIRED TRUE)
-endif()
 
 if(PCRASTER_BUILD_TEST)
-    set(PCRASTER_TEST_REQUIRED TRUE)
-    set(DEVBASE_BOOST_REQUIRED TRUE)
+    set(DEVBASE_BUILD_TEST TRUE)
     list(APPEND DEVBASE_REQUIRED_BOOST_COMPONENTS
-        unit_test_framework)
+        system unit_test_framework)
+
     # The ones below are required in case a developer needs to
     # regenerate one of the pcraster_model_engine's XML files
     # set(DEVBASE_LIB_XSLT_XSLTPROC_REQUIRED TRUE)
@@ -91,21 +41,96 @@ if(PCRASTER_BUILD_TEST)
     # set(DEVBASE_LIB_XSLT_REQUIRED TRUE)
 endif()
 
+list(APPEND DEVBASE_REQUIRED_BOOST_COMPONENTS
+    date_time filesystem math_c99 program_options)
+
+set(DEVBASE_OPENGL_REQUIRED TRUE)
+set(DEVBASE_QT_REQUIRED TRUE)
+set(DEVBASE_REQUIRED_QT_VERSION 5)
+set(DEVBASE_REQUIRED_QT_COMPONENTS
+    Core Gui OpenGL Sql Widgets Xml)
+set(DEVBASE_QWT_REQUIRED TRUE)
+
+set(DEVBASE_XERCES_REQUIRED TRUE)
+set(DEVBASE_XSD_REQUIRED TRUE)
+
+set(DEVBASE_GDAL_REQUIRED TRUE)  # Version >= 2.0.0.
 
 
-if(PCRASTER_TEST_REQUIRED)
-    # Used by dal's testrun.prolog.
-    set(DEVBASE_SQLITE_EXECUTABLE_REQUIRED TRUE)
+find_package(PythonInterp)
+find_package(Boost)
+if(${Boost_VERSION} LESS 106500)
+    # 'Old' boost
+    if(${PYTHON_VERSION_STRING} VERSION_LESS 3.0)
+        # Python 2
+        list(APPEND DEVBASE_REQUIRED_BOOST_COMPONENTS
+            python)
+        set(PCR_BOOST_PYTHON Boost::python)
+        set(PCR_BOOST_PYTHON_NUMPY Boost::python)
+    else()
+        # Python 3
+        list(APPEND DEVBASE_REQUIRED_BOOST_COMPONENTS
+            python3)
+        set(PCR_BOOST_PYTHON Boost::python3)
+        set(PCR_BOOST_PYTHON_NUMPY Boost::python3)
+    endif()
+else()
+    # 'Recent' boost
+    if(${PYTHON_VERSION_STRING} VERSION_LESS 3.0)
+        # Python 2
+        list(APPEND DEVBASE_REQUIRED_BOOST_COMPONENTS
+            python numpy)
+        set(PCR_BOOST_PYTHON Boost::python)
+        set(PCR_BOOST_PYTHON_NUMPY Boost::python Boost::numpy)
+    else()
+        # Python 3
+        list(APPEND DEVBASE_REQUIRED_BOOST_COMPONENTS
+            python3 numpy3)
+        set(PCR_BOOST_PYTHON Boost::python3)
+        set(PCR_BOOST_PYTHON_NUMPY Boost::python3 Boost::numpy3)
+    endif()
+endif()
+
+set(DEVBASE_PYTHON_LIBS_REQUIRED TRUE)
+set(DEVBASE_NUMPY_REQUIRED TRUE)
+
+if(WIN32)
+    find_package(PDCurses REQUIRED)
+    set(CURSES_LIBRARIES ${PDCURSES_LIBRARIES})
+else()
+    set(DEVBASE_CURSES_REQUIRED TRUE)
+    set(DEVBASE_CURSES_WIDE_CHARACTER_SUPPORT_REQUIRED FALSE)
+endif()
+
+
+if(PCRASTER_WITH_PYTHON_MULTICORE)
+    set(DEVBASE_FERN_REQUIRED TRUE)
+endif()
+
+
+if(PCRASTER_BUILD_TEST)
+    # sqlite executable is used by dal's testrun.prolog
+    find_package(SQLite3)
+
+    find_program(SQLITE3_EXECUTABLE
+        sqlite3
+        # HINTS ${SQLITE3_INCLUDE_DIRS}/../bin
+        HINTS $<$<BOOL:${SQLITE_FOUND}>:${SQLITE3_INCLUDE_DIRS}/../bin>
+    )
+
+    if(NOT SQLITE3_EXECUTABLE)
+        message(FATAL_ERROR "sqlite3 executable not found")
+    endif()
 endif()
 
 
 if(PCRASTER_BUILD_DOCUMENTATION)
     set(DEVBASE_DOXYGEN_REQUIRED TRUE)
     set(DEVBASE_SPHINX_REQUIRED TRUE)
-    set(PCRASTER_TEST_REQUIRED TRUE)
     set(SPHINX_HTML_THEME "classic")
 endif()
 
 
-set(THREADS_PREFER_PTHREAD_FLAG ON)
-find_package(Threads REQUIRED)
+# TODO KDJ: Is this needed?
+### set(THREADS_PREFER_PTHREAD_FLAG ON)
+### find_package(Threads REQUIRED)

@@ -1,4 +1,4 @@
-set(_SOURCES
+add_library(multicore_field_python_type_conversions STATIC
     boolean
     nominal
     ordinal
@@ -6,17 +6,13 @@ set(_SOURCES
     nonspatial_field
 )
 
-add_library(multicore_field_python_type_conversions
-    STATIC
-        ${_SOURCES}
+add_library(pcraster::multicore_python_type_conversion
+    ALIAS multicore_field_python_type_conversions
 )
 
 target_include_directories(multicore_field_python_type_conversions
   PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../../pcraster_dal
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../../pcrgeo
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../../app
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../../pcrcom
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../../pcraster_model_engine
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../../pcraster_python
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../../..>
+        $<TARGET_PROPERTY:pcraster::model_engine,INTERFACE_INCLUDE_DIRECTORIES>
+        $<TARGET_PROPERTY:pcraster::python,INTERFACE_INCLUDE_DIRECTORIES>
 )

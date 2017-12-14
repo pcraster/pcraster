@@ -1,31 +1,25 @@
-include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/../misc
-    ${CMAKE_CURRENT_SOURCE_DIR}/../mathx
+add_library(geom STATIC
+    point
+    rect
 )
 
-SET(SOURCES
-    point.c
-    rect.c
+add_library(pcraster::geom ALIAS geom)
+
+target_include_directories(geom
+    PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
 )
 
-set_source_files_properties(${SOURCES} PROPERTIES LANGUAGE CXX)
-
-ADD_LIBRARY(geom
-    ${SOURCES}
+target_link_libraries(geom
+    pcraster::mathx
 )
-TARGET_LINK_LIBRARIES(geom
-    mathx
-)
-
 
 if(PCRASTER_BUILD_TEST)
-    set(TEST_NAMES
-        geom_pointtest
-    )
     add_unit_tests(
         SCOPE geom
-        NAMES ${TEST_NAMES}
+        NAMES
+            geom_pointtest
         LINK_LIBRARIES
-            geom
+            pcraster::geom
     )
 endif()

@@ -1,13 +1,13 @@
-include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/../pcrcom
-    ${CMAKE_CURRENT_SOURCE_DIR}/../pcrgeo
+add_library(pcrgeom STATIC
+    geom_line
+    geom_point
+    geom_util
 )
 
-SET(SOURCES
-    geom_line.cc
-    geom_point.cc
-    geom_util.cc
-)
-ADD_LIBRARY(pcrgeom
-    ${SOURCES}
+add_library(pcraster::pcrgeom ALIAS pcrgeom)
+
+target_include_directories(pcrgeom
+    PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+        $<TARGET_PROPERTY:pcraster::pcrgeo,INTERFACE_INCLUDE_DIRECTORIES>
 )

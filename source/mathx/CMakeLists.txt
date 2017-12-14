@@ -1,30 +1,33 @@
-include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/../misc
+add_library(mathx STATIC
+    dirconv
+    dirstat
+    ran
+    recipes
+    rint
 )
 
-SET(SOURCES
-    dirconv.c
-    dirstat.c
-    ran.c
-    recipes.c
-    rint.c
-)
-ADD_LIBRARY(mathx
-    ${SOURCES}
-)
-TARGET_LINK_LIBRARIES(mathx
-    misc
+add_library(pcraster::mathx ALIAS mathx)
+
+target_include_directories(mathx
+    PRIVATE
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
 )
 
+target_include_directories(mathx
+    PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+)
+
+target_link_libraries(mathx
+    pcraster::misc
+)
 
 if(PCRASTER_BUILD_TEST)
-    set(TEST_NAMES
-        dirconvtest
-    )
     add_unit_tests(
         SCOPE mathx
-        NAMES ${TEST_NAMES}
+        NAMES
+            dirconvtest
         LINK_LIBRARIES
-            mathx
+            pcraster::mathx
     )
 endif()

@@ -1,104 +1,69 @@
-include_directories(
-    # ${CMAKE_CURRENT_SOURCE_DIR}/../include
-    ${CMAKE_CURRENT_SOURCE_DIR}/../app
-    ${CMAKE_CURRENT_SOURCE_DIR}/../pcraster_dal
-    ${CMAKE_CURRENT_SOURCE_DIR}/../pcrcom
-)
-
 # geo_csfraster.cc
 # geo_griddedpoints.cc
 # geo_kernel.cc
 # geo_kernelengine.cc
 # geo_kernelsourcebuffer.cc
 # geo_raster.cc
-SET(SOURCES
-    geo_addfilter.cc
-    geo_apprasterspace.cc
-    geo_assignfilter.cc
-    geo_averagefilter.cc
-    geo_bandmap.cc
-    geo_block.cc
-    geo_cellloc.cc
-    geo_celllocvisitor.cc
-    geo_circularneighbourhood.cc
-    geo_columnfile.cc
-    geo_const.cc
-    geo_csfmap.cc
-    # geo_csfraster.cc
-    geo_csfstack.cc
-    geo_csfstackname.cc
-    geo_exception.cc
-    geo_filecreatetester.cc
-    # geo_griddedpoints.cc
-    geo_idi.cc
-    # geo_kernel.cc
-    # geo_kernelengine.cc
-    # geo_kernelsourcebuffer.cc
-    geo_mooreneighbourhood.cc
-    geo_neighbour.cc
-    geo_neighbourhood.cc
-    geo_point.cc
-    # geo_raster.cc
-    geo_rasterfileconverter.cc
-    geo_rasterspace.cc
-    geo_rectangle.cc
-    geo_riksneighbourhood.cc
-    geo_samecellrepr.cc
-    geo_templates.cc
-    geo_util.cc
-    geo_voxel.cc
-    geo_voxelstack.cc
-    geo_wmatrix.cc
+
+add_library(pcrgeo STATIC
+    geo_addfilter
+    geo_apprasterspace
+    geo_assignfilter
+    geo_averagefilter
+    geo_bandmap
+    geo_block
+    geo_cellloc
+    geo_celllocvisitor
+    geo_circularneighbourhood
+    geo_columnfile
+    geo_const
+    geo_csfmap
+    # geo_csfraster
+    geo_csfstack
+    geo_csfstackname
+    geo_exception
+    geo_filecreatetester
+    # geo_griddedpoints
+    geo_idi
+    # geo_kernel
+    # geo_kernelengine
+    # geo_kernelsourcebuffer
+    geo_mooreneighbourhood
+    geo_neighbour
+    geo_neighbourhood
+    geo_point
+    # geo_raster
+    geo_rasterfileconverter
+    geo_rasterspace
+    geo_rectangle
+    geo_riksneighbourhood
+    geo_samecellrepr
+    geo_templates
+    geo_util
+    geo_voxel
+    geo_voxelstack
+    geo_wmatrix
 )
-ADD_LIBRARY(pcrgeo
-    ${SOURCES}
+
+add_library(pcraster::pcrgeo ALIAS pcrgeo)
+
+target_include_directories(pcrgeo
+    PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/.>
 )
-TARGET_LINK_LIBRARIES(pcrgeo
-    pcrcom
-    pcraster_dal
-    pcraster_raster_format
-#    ${Boost_MATH_C99_LIBRARY}
+
+target_link_libraries(pcrgeo
+    pcraster::app
+    pcraster::dal
+    pcraster::pcrcom
     Boost::math_c99
 )
 
-
 if(PCRASTER_BUILD_TEST)
-
     configure_file(
-        ${CMAKE_CURRENT_SOURCE_DIR}/test_prolog.py.in
-        ${CMAKE_CURRENT_BINARY_DIR}/test_prolog.py
+        test_prolog.py.in
+        test_prolog.py
         @ONLY
-    )
-
-    SET(TEST_NAMES
-        geo_addfiltertest
-        geo_algorithmtest
-        geo_assignfiltertest
-        geo_averagefiltertest
-        geo_bandmaptest
-        geo_celllocvisitortest
-        geo_circularneighbourhoodtest
-        geo_countfiltertest
-        geo_csfmaptest
-        geo_csfstacknametest
-        geo_filecreatetestertest
-        geo_fractionfiltertest
-        geo_griddedpointstest
-        geo_mooreneighbourhoodtest
-        geo_neighbourhoodtest
-        geo_neighbourtest
-        geo_pointtest
-        geo_pointvaluetest
-        geo_rasterboundariestest
-        geo_rasterdimtest
-        geo_rasterfileconvertertest
-        geo_rasterspacetest
-        geo_rastertest
-        geo_riksneighbourhoodtest
-        geo_scanconversiontest
-        geo_simplerastertest
-        geo_squaretest
-        geo_utiltest
     )
 
     add_test(
@@ -108,20 +73,48 @@ if(PCRASTER_BUILD_TEST)
 
     add_unit_tests(
         SCOPE pcrgeo
-        NAMES ${TEST_NAMES}
+        NAMES
+            geo_addfiltertest
+            geo_algorithmtest
+            geo_assignfiltertest
+            geo_averagefiltertest
+            geo_bandmaptest
+            geo_celllocvisitortest
+            geo_circularneighbourhoodtest
+            geo_countfiltertest
+            geo_csfmaptest
+            geo_csfstacknametest
+            geo_filecreatetestertest
+            geo_fractionfiltertest
+            geo_griddedpointstest
+            geo_mooreneighbourhoodtest
+            geo_neighbourhoodtest
+            geo_neighbourtest
+            geo_pointtest
+            geo_pointvaluetest
+            geo_rasterboundariestest
+            geo_rasterdimtest
+            geo_rasterfileconvertertest
+            geo_rasterspacetest
+            geo_rastertest
+            geo_riksneighbourhoodtest
+            geo_scanconversiontest
+            geo_simplerastertest
+            geo_squaretest
+            geo_utiltest
         LINK_LIBRARIES
-            pcrgeo
-            pcrcom
-            pcraster_dal
+            pcraster::pcrgeo
     )
 
     set_tests_properties(setup_pcrgeo
-        PROPERTIES FIXTURES_SETUP FixturePcrGeo
+        PROPERTIES
+            FIXTURES_SETUP
+                FixturePcrGeo
     )
 
-    set_tests_properties(pcrgeo_geo_addfiltertest PROPERTIES
-        FIXTURES_REQUIRED
-          FixturePcrGeo
+    set_tests_properties(pcrgeo_geo_addfiltertest
+        PROPERTIES
+            FIXTURES_REQUIRED
+                FixturePcrGeo
     )
-
 endif()

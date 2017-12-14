@@ -1,25 +1,20 @@
-include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../include
-    ${CMAKE_CURRENT_BINARY_DIR}/../../pcraster_xsd
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../pcraster_xsd
+add_library(exampleCpp SHARED
+    example
+    xml
 )
 
-SET(SOURCES
-    example.cc
-    xml.cc
+target_include_directories(exampleCpp
+    PRIVATE
+        $<TARGET_PROPERTY:pcraster::raster_format,INTERFACE_INCLUDE_DIRECTORIES>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../../include>
 )
 
-ADD_LIBRARY(exampleCpp
-    SHARED
-    ${SOURCES}
+target_link_libraries(exampleCpp
+    PRIVATE
+        pcraster::xsd
 )
 
-TARGET_LINK_LIBRARIES(exampleCpp
-    pcraster_xsd
-    ${XercesC_LIBRARIES}
-)
-
-ADD_CUSTOM_COMMAND(
+add_custom_command(
     TARGET
         exampleCpp
     POST_BUILD

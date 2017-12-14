@@ -1,52 +1,50 @@
-include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/../pcraster_dal
-    ${CMAKE_CURRENT_SOURCE_DIR}/../pcrdiscr
+add_library(pcrblock STATIC
+    block_add
+    block_arithmeticoperators
+    block_block
+    block_cast
+    block_claycompactor
+    block_compare
+    block_dehaancompactor
+    block_dummycompactor
+    block_io
+    block_profile
+    block_remove
+    block_resample
+    block_sandcompactor
 )
 
-SET(SOURCES
-    block_add.cc
-    block_arithmeticoperators.cc
-    block_block.cc
-    block_cast.cc
-    block_claycompactor.cc
-    block_compare.cc
-    block_dehaancompactor.cc
-    block_dummycompactor.cc
-    block_io.cc
-    block_profile.cc
-    block_remove.cc
-    block_resample.cc
-    block_sandcompactor.cc
+add_library(pcraster::pcrblock ALIAS pcrblock)
+
+target_include_directories(pcrblock
+    PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
 )
-ADD_LIBRARY(pcrblock
-    ${SOURCES}
-)
+
 target_link_libraries(pcrblock
-    pcrdiscr
+    PUBLIC
+        pcraster::dal
+        pcraster::pcrdiscr
 )
 
 if(PCRASTER_BUILD_TEST)
-    set(TEST_NAMES
-        block_addtest
-        block_arithmeticoperatorstest
-        block_blocktest
-        block_casttest
-        block_comparetest
-        block_compactorstest
-        block_dehaancompactortest
-        block_iotest
-        block_mackeybridgecompactortest
-        block_removetest
-        block_profiletest
-        block_resampletest
-        block_voxelatheighttest
-    )
     add_unit_tests(
         SCOPE pcrblock
-        NAMES ${TEST_NAMES}
+        NAMES
+            block_addtest
+            block_arithmeticoperatorstest
+            block_blocktest
+            block_casttest
+            block_comparetest
+            block_compactorstest
+            block_dehaancompactortest
+            block_iotest
+            block_mackeybridgecompactortest
+            block_removetest
+            block_profiletest
+            block_resampletest
+            block_voxelatheighttest
         LINK_LIBRARIES
-            pcrblock
-            pcrdiscr
-            pcraster_dal
+            pcraster::pcrblock
     )
 endif()

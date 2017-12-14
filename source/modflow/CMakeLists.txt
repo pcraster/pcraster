@@ -1,6 +1,7 @@
 add_subdirectory(src)
 add_subdirectory(calc)
 add_subdirectory(python)
+
 if(PCRASTER_BUILD_DOCUMENTATION)
-  add_subdirectory(documentation)
+    add_subdirectory(documentation)
 endif()

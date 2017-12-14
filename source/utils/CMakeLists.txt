@@ -1,43 +1,49 @@
-set(SOURCES
-    dev_CommandLineApplication.cc
-    dev_FilesystemUtils.cc
-    dev_PythonClient.cc
-    dev_Utils.cc
-    dev_XercesClient.cc
-)
-if(GDAL_FOUND)
-    SET(SOURCES
-        ${SOURCES}
-        dev_GDalClient.cc
-    )
-endif(GDAL_FOUND)
-add_library(utils
-    ${SOURCES}
-)
-target_link_libraries(utils
-    Boost::filesystem
-    Boost::program_options
-    XercesC::XercesC
-    ${GDAL_LIBRARIES}
-    ${PYTHON_LIBRARIES}
-#    ${Boost_FILESYSTEM_LIBRARY}
-#    ${Boost_PROGRAM_OPTIONS_LIBRARY}
-#    ${Boost_SYSTEM_LIBRARY}
-#    Boost::system
+add_library(utils STATIC
+    dev_CommandLineApplication
+    dev_FilesystemUtils
+    dev_GDalClient
+    dev_PythonClient
+    dev_Utils
+    dev_XercesClient
 )
 
+add_library(pcraster::utils ALIAS utils)
+
+target_include_directories(utils SYSTEM
+    PRIVATE
+        ${GDAL_INCLUDE_DIRS}
+        ${PYTHON_INCLUDE_DIR}
+)
+
+target_include_directories(utils
+    PRIVATE
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/../include>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
+)
+
+target_include_directories(utils
+    PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+)
+
+target_link_libraries(utils
+    PRIVATE
+        Boost::filesystem
+        Boost::program_options
+        XercesC::XercesC
+        ${GDAL_LIBRARIES}
+        ${PYTHON_LIBRARIES}
+)
 
 if(PCRASTER_BUILD_TEST)
-    set(TEST_NAMES
-        dev_CommandLineApplicationTest
-        dev_QtClientTest
-        dev_UtilsTest
-    )
     add_unit_tests(
         SCOPE utils
-        NAMES ${TEST_NAMES}
+        NAMES
+            dev_CommandLineApplicationTest
+            dev_QtClientTest
+            dev_UtilsTest
         LINK_LIBRARIES
-            utils
+            pcraster::utils
             Qt5::Core
     )
 endif()

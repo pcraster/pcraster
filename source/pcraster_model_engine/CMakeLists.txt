@@ -1,41 +1,109 @@
 configure_file(
-    ${CMAKE_CURRENT_SOURCE_DIR}/operationExpanded.xml.in
-    ${CMAKE_CURRENT_BINARY_DIR}/operationExpanded.xml
+    operationExpanded.xml.in
+    operationExpanded.xml
     @ONLY
     NEWLINE_STYLE UNIX
 )
 
-include_directories(
-    # ${CMAKE_CURRENT_SOURCE_DIR}/../include
-    ${CMAKE_CURRENT_BINARY_DIR} # some code creation (createOperatorCppCode.py and cpptest.cc)
-    ${PROJECT_BINARY_DIR}/documentation/pcraster_manual/examples # cpptest.cc
-    ${CMAKE_CURRENT_SOURCE_DIR}  # needed to include from BINARY into SOURCE
-    ${CMAKE_CURRENT_SOURCE_DIR}/../api
-    ${CMAKE_CURRENT_SOURCE_DIR}/../app
-    ${CMAKE_CURRENT_SOURCE_DIR}/../calc
-    ${CMAKE_CURRENT_SOURCE_DIR}/../geom
-    ${CMAKE_CURRENT_SOURCE_DIR}/../mathx
-    ${CMAKE_CURRENT_SOURCE_DIR}/../misc
-    ${CMAKE_CURRENT_SOURCE_DIR}/../pccts
-    ${CMAKE_CURRENT_SOURCE_DIR}/../pcrgeo
-    ${CMAKE_CURRENT_SOURCE_DIR}/../pcrcom
-    ${CMAKE_CURRENT_SOURCE_DIR}/../pcrdiscr
-    ${CMAKE_CURRENT_SOURCE_DIR}/../pcrxml
-    ${CMAKE_CURRENT_SOURCE_DIR}/../tab
-    ${CMAKE_CURRENT_SOURCE_DIR}/../utils
-    ${CMAKE_CURRENT_BINARY_DIR}/../pcraster_xsd
-    ${CMAKE_CURRENT_SOURCE_DIR}/../pcraster_xsd
-    ${CMAKE_CURRENT_SOURCE_DIR}/../pcraster_dal
+add_definitions(-DUSE_IN_PCRCALC)
+
+add_subdirectory(testdata)
+add_subdirectory(csharp)
+
+# actually newcalc.l
+ADD_FILE_DEPENDENCY(lexnewcalc.cc
+    ${CMAKE_CURRENT_BINARY_DIR}/major_op.h)
+ADD_FILE_DEPENDENCY(calc_findsymbol.h
+    ${CMAKE_CURRENT_BINARY_DIR}/major_op.h)
+ADD_FILE_DEPENDENCY(calc_operation.h
+    ${CMAKE_CURRENT_BINARY_DIR}/major_op.h)
+ADD_FILE_DEPENDENCY(calc_operations.h
+    ${CMAKE_CURRENT_BINARY_DIR}/major_op.h)
+ADD_FILE_DEPENDENCY(calc_operator.h
+    ${CMAKE_CURRENT_BINARY_DIR}/major_op.h)
+ADD_FILE_DEPENDENCY(lextoken.h
+    ${CMAKE_CURRENT_BINARY_DIR}/major_op.h)
+ADD_FILE_DEPENDENCY(calc_fopointarraytest.cc
+    ${CMAKE_CURRENT_BINARY_DIR}/calc_fopointarrayimpl.inc)
+ADD_FILE_DEPENDENCY(calc_fopointarraytest.cc
+    ${CMAKE_CURRENT_BINARY_DIR}/calc_fopointimpl.h)
+ADD_FILE_DEPENDENCY(calc_operations.cc
+    ${CMAKE_CURRENT_BINARY_DIR}/calc_fopointimpl.h)
+ADD_FILE_DEPENDENCY(calc_pointcodedllheader.h
+    ${CMAKE_CURRENT_BINARY_DIR}/calc_fopointimpl.h)
+ADD_FILE_DEPENDENCY(calc_operations.cc
+    ${CMAKE_CURRENT_BINARY_DIR}/calc_fopointarrayimpl.inc)
+ADD_FILE_DEPENDENCY(calc_operations.cc
+    ${CMAKE_CURRENT_BINARY_DIR}/calc_functiontable.h)
+ADD_FILE_DEPENDENCY(calc_operations.cc
+    ${CMAKE_CURRENT_BINARY_DIR}/operationsInit.inc)
+ADD_FILE_DEPENDENCY(calc_operations.cc
+    ${CMAKE_CURRENT_BINARY_DIR}/calc_builtinops.inc)
+
+# operationExpanded.xml was previously generated each time at a build.
+# Due to removal of xsltproc dependency this file needs to be
+# regenerated when the source files change
+# Hash the copied file in build directory rather than the source due to different UNIX/WIN line endings
+file(SHA1 ${CMAKE_CURRENT_BINARY_DIR}/operationExpanded.xml operation_expanded)
+
+if( NOT ${operation_expanded} STREQUAL "c1d7687a22a7e88a3637515554dd54e4f3779c2d" )
+    message(FATAL_ERROR "The operationExpanded.xml file is older than one of its dependencies. Update operationExpanded.xml.in first; or contact the PCRaster Research and Development team in case you don't know how to proceed.")
+    # The previous command was part of the custom command below
+    # COMMAND ${LIBXSLT_XSLTPROC_EXECUTABLE} --nonet --output ${CMAKE_CURRENT_BINARY_DIR}/operationExpanded.xml ${CMAKE_CURRENT_SOURCE_DIR}/../xslt/expand.xsl ${CMAKE_CURRENT_SOURCE_DIR}/operation.xml
+    # in addition, also do the xmllint check on operation.xml
+endif()
+
+# OLS: keep this command fttb; it's a dependency for the command below;
+#      also for documentation purposes in case we need to regenerate operationExpanded.xml.in
+# workaround: operationExpanded.xml in the build directory somehow gets removed, copy it again...
+ADD_CUSTOM_COMMAND(
+    OUTPUT  ${CMAKE_CURRENT_BINARY_DIR}/operationExpanded.xml
+    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/operation.xml ${CMAKE_CURRENT_SOURCE_DIR}/operation.dtd
+    COMMENT "Expanding XML to OBJECT directory"
+    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/operationExpanded.xml.in ${CMAKE_CURRENT_BINARY_DIR}/operationExpanded.xml
+    # COMMAND ${LIBXML2_XMLLINT_EXECUTABLE} --noout --nonet --nocatalogs --dtdvalid ${CMAKE_CURRENT_SOURCE_DIR}/operation.dtd ${CMAKE_CURRENT_SOURCE_DIR}/operation.xml
+    # Commented due to removal of xsltproc dependency
+    # COMMAND ${LIBXSLT_XSLTPROC_EXECUTABLE} --nonet --output ${CMAKE_CURRENT_BINARY_DIR}/operationExpanded.xml ${CMAKE_CURRENT_SOURCE_DIR}/../xslt/expand.xsl ${CMAKE_CURRENT_SOURCE_DIR}/operation.xml
 )
 
-ADD_SUBDIRECTORY(testdata)
-ADD_SUBDIRECTORY(csharp)
+SET(OPCODE ${CMAKE_CURRENT_BINARY_DIR}/major_op.h)
 
-ADD_DEFINITIONS(-DUSE_IN_PCRCALC -DYY_NO_UNISTD_H -DYY_NEVER_INTERACTIVE)
-# DO NOT DO -D_HAS_ITERATOR_DEBUGGING=0
-# see bugzilla 178
+ADD_CUSTOM_COMMAND(
+    OUTPUT  ${OPCODE}
+    DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/operationExpanded.xml
+    COMMENT "Generating code"
+    COMMAND ${PYTHON_EXECUTABLE}
+        ${CMAKE_CURRENT_SOURCE_DIR}/createOperatorCppCode.py
+        ${CMAKE_CURRENT_BINARY_DIR}/operationExpanded.xml
+)
 
-SET(SOURCES
+ADD_CUSTOM_COMMAND(
+    OUTPUT  ${CMAKE_CURRENT_BINARY_DIR}/calc_fopointarrayimpl.inc
+    COMMAND echo  up to date
+    DEPENDS ${OPCODE}
+)
+ADD_CUSTOM_COMMAND(
+    OUTPUT  ${CMAKE_CURRENT_BINARY_DIR}/calc_fopointimpl.h
+    COMMAND echo  up to date
+    DEPENDS ${OPCODE}
+)
+ADD_CUSTOM_COMMAND(
+    OUTPUT  ${CMAKE_CURRENT_BINARY_DIR}/calc_functiontable.h
+    COMMAND echo  up to date
+    DEPENDS ${OPCODE}
+)
+ADD_CUSTOM_COMMAND(
+    OUTPUT  ${CMAKE_CURRENT_BINARY_DIR}/operationsInit.inc
+    COMMAND echo  up to date
+    DEPENDS ${OPCODE}
+)
+ADD_CUSTOM_COMMAND(
+    OUTPUT  ${CMAKE_CURRENT_BINARY_DIR}/calc_builtinops.inc
+    COMMAND echo  up to date
+    DEPENDS ${OPCODE}
+)
+
+add_library(pcraster_model_engine_objects OBJECT
     calc_MemoryExchangeItem.cc
     calc_MemoryExchangeItemString.cc
     calc_MemoryExchangeItemField.cc
@@ -198,322 +266,176 @@ SET(SOURCES
     # calc_ldddownstream
 )
 
-
-# actually newcalc.l
-ADD_FILE_DEPENDENCY(lexnewcalc.cc
-${CMAKE_CURRENT_BINARY_DIR}/major_op.h)
-ADD_FILE_DEPENDENCY(calc_findsymbol.h
-${CMAKE_CURRENT_BINARY_DIR}/major_op.h)
-ADD_FILE_DEPENDENCY(calc_operation.h
-${CMAKE_CURRENT_BINARY_DIR}/major_op.h)
-ADD_FILE_DEPENDENCY(calc_operations.h
-${CMAKE_CURRENT_BINARY_DIR}/major_op.h)
-ADD_FILE_DEPENDENCY(calc_operator.h
-${CMAKE_CURRENT_BINARY_DIR}/major_op.h)
-ADD_FILE_DEPENDENCY(lextoken.h
-${CMAKE_CURRENT_BINARY_DIR}/major_op.h)
-ADD_FILE_DEPENDENCY(calc_fopointarraytest.cc
-${CMAKE_CURRENT_BINARY_DIR}/calc_fopointarrayimpl.inc)
-ADD_FILE_DEPENDENCY(calc_fopointarraytest.cc
-${CMAKE_CURRENT_BINARY_DIR}/calc_fopointimpl.h)
-ADD_FILE_DEPENDENCY(calc_operations.cc
-${CMAKE_CURRENT_BINARY_DIR}/calc_fopointimpl.h)
-ADD_FILE_DEPENDENCY(calc_pointcodedllheader.h
-${CMAKE_CURRENT_BINARY_DIR}/calc_fopointimpl.h)
-ADD_FILE_DEPENDENCY(calc_operations.cc
-${CMAKE_CURRENT_BINARY_DIR}/calc_fopointarrayimpl.inc)
-ADD_FILE_DEPENDENCY(calc_operations.cc
-${CMAKE_CURRENT_BINARY_DIR}/calc_functiontable.h)
-ADD_FILE_DEPENDENCY(calc_operations.cc
-${CMAKE_CURRENT_BINARY_DIR}/operationsInit.inc)
-ADD_FILE_DEPENDENCY(calc_operations.cc
-${CMAKE_CURRENT_BINARY_DIR}/calc_builtinops.inc)
-
-# operationExpanded.xml was previously generated each time at a build.
-# Due to removal of xsltproc dependency this file needs to be
-# regenerated when the source files change
-# Hash the copied file in build directory rather than the source due to different UNIX/WIN line endings
-file(SHA1 ${CMAKE_CURRENT_BINARY_DIR}/operationExpanded.xml operation_expanded)
-
-if( NOT ${operation_expanded} STREQUAL "c1d7687a22a7e88a3637515554dd54e4f3779c2d" )
-    message(FATAL_ERROR "The operationExpanded.xml file is older than one of its dependencies. Update operationExpanded.xml.in first; or contact the PCRaster Research and Development team in case you don't know how to proceed.")
-    # The previous command was part of the custom command below
-    # COMMAND ${LIBXSLT_XSLTPROC_EXECUTABLE} --nonet --output ${CMAKE_CURRENT_BINARY_DIR}/operationExpanded.xml ${CMAKE_CURRENT_SOURCE_DIR}/../xslt/expand.xsl ${CMAKE_CURRENT_SOURCE_DIR}/operation.xml
-    # in addition, also do the xmllint check on operation.xml
-endif()
-
-# OLS: keep this command fttb; it's a dependency for the command below;
-#      also for documentation purposes in case we need to regenerate operationExpanded.xml.in
-# workaround: operationExpanded.xml in the build directory somehow gets removed, copy it again...
-ADD_CUSTOM_COMMAND(
-    OUTPUT  ${CMAKE_CURRENT_BINARY_DIR}/operationExpanded.xml
-    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/operation.xml ${CMAKE_CURRENT_SOURCE_DIR}/operation.dtd
-    COMMENT "Expanding XML to OBJECT directory"
-    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/operationExpanded.xml.in ${CMAKE_CURRENT_BINARY_DIR}/operationExpanded.xml
-    # COMMAND ${LIBXML2_XMLLINT_EXECUTABLE} --noout --nonet --nocatalogs --dtdvalid ${CMAKE_CURRENT_SOURCE_DIR}/operation.dtd ${CMAKE_CURRENT_SOURCE_DIR}/operation.xml
-    # Commented due to removal of xsltproc dependency
-    # COMMAND ${LIBXSLT_XSLTPROC_EXECUTABLE} --nonet --output ${CMAKE_CURRENT_BINARY_DIR}/operationExpanded.xml ${CMAKE_CURRENT_SOURCE_DIR}/../xslt/expand.xsl ${CMAKE_CURRENT_SOURCE_DIR}/operation.xml
-)
-
-SET(OPCODE ${CMAKE_CURRENT_BINARY_DIR}/major_op.h)
-
-ADD_CUSTOM_COMMAND(
-    OUTPUT  ${OPCODE}
-    DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/operationExpanded.xml
-    COMMENT "Generating code"
-    COMMAND ${PYTHON_EXECUTABLE}
-        ${CMAKE_CURRENT_SOURCE_DIR}/createOperatorCppCode.py
-        ${CMAKE_CURRENT_BINARY_DIR}/operationExpanded.xml
-)
-
-
-
-
-ADD_CUSTOM_COMMAND(
-    OUTPUT  ${CMAKE_CURRENT_BINARY_DIR}/calc_fopointarrayimpl.inc
-    COMMAND echo  up to date
-    DEPENDS ${OPCODE}
-)
-ADD_CUSTOM_COMMAND(
-    OUTPUT  ${CMAKE_CURRENT_BINARY_DIR}/calc_fopointimpl.h
-    COMMAND echo  up to date
-    DEPENDS ${OPCODE}
-)
-ADD_CUSTOM_COMMAND(
-    OUTPUT  ${CMAKE_CURRENT_BINARY_DIR}/calc_functiontable.h
-    COMMAND echo  up to date
-    DEPENDS ${OPCODE}
-)
-ADD_CUSTOM_COMMAND(
-    OUTPUT  ${CMAKE_CURRENT_BINARY_DIR}/operationsInit.inc
-    COMMAND echo  up to date
-    DEPENDS ${OPCODE}
-)
-ADD_CUSTOM_COMMAND(
-    OUTPUT  ${CMAKE_CURRENT_BINARY_DIR}/calc_builtinops.inc
-    COMMAND echo  up to date
-    DEPENDS ${OPCODE}
-)
-
-# SET(TARGET_LINK_LIBS
-#     pccts
-#     calc
-#     api
-#     app
-#     geom
-#     mathx
-#     pcrgeo
-#     pcrcom
-#     pcrdiscr
-#     ${PCRASTER_XSD_LIBRARY}
-#     tab
-#     misc
-#     pcrxml
-#     ${PCRASTER_DAL_LIBRARY}
-#     ${PCRASTER_RASTERFORMAT_LIBRARY}
-#     ${DEVENV_UTILS_LIBRARY}
-#     ${GDAL_LIBRARIES}
-#     ${QT_QTXML_LIBRARY}
-#     ${QT_QTCORE_LIBRARIES}
-#     ${BOOST_SYSTEM_LIBRARY}
-#     ${BOOST_FILESYSTEM_LIBRARY}
-#     ${BOOST_MATH_C99_LIBRARY}
-#     ${XERCES_LIBRARIES}
-# )
-
-# ADD_LIBRARY(pcraster_model_engine_static
-#     STATIC
-#     ${SOURCES}
-# )
-
-add_library(pcraster_model_engine_objects
-    OBJECT
-        ${SOURCES}
-)
 target_include_directories(pcraster_model_engine_objects
+    PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
+        $<TARGET_PROPERTY:pcraster::calc,INTERFACE_INCLUDE_DIRECTORIES>
+        $<TARGET_PROPERTY:pcraster::pccts,INTERFACE_INCLUDE_DIRECTORIES>
+        $<TARGET_PROPERTY:pcraster::pcrdiscr,INTERFACE_INCLUDE_DIRECTORIES>
+        $<TARGET_PROPERTY:pcraster::xsd,INTERFACE_INCLUDE_DIRECTORIES>
+)
+
+add_dependencies(pcraster_model_engine_objects
+    # Some of the sources include PCRasterXSD.h, which is generated by
+    # pcraster::xsd. Since we don't link the objects library against
+    # pcraster::xsd, but only use the include directories, CMake doesn't
+    # make pcraster_model_engine_objects depend on pcraster::xsd. We need
+    # to do that ourselves. If not, PCRasterXSD.h may not be there during
+    # the build of the objects in the objects library.
+    pcraster::xsd
+)
+
+target_include_directories(pcraster_model_engine_objects
+    PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+)
+
+target_compile_definitions(pcraster_model_engine_objects
     PRIVATE
-        #${Qt5Sql_INCLUDE_DIRS}
-        ${Qt5Xml_INCLUDE_DIRS}
-        #${Qt5OpenGL_INCLUDE_DIRS}
+        USE_IN_PCRCALC
+        YY_NO_UNISTD_H
+        YY_NEVER_INTERACTIVE
+
+        # DO NOT DO _HAS_ITERATOR_DEBUGGING=0
+        # see bugzilla 178
 )
-set_target_properties(pcraster_model_engine_objects
-    PROPERTIES
-        LINK_LIBRARIES "pcraster_xsd"
-)
-add_library(pcraster_model_engine
-    SHARED
+
+add_library(pcraster_model_engine SHARED
     $<TARGET_OBJECTS:pcraster_model_engine_objects>
 )
-set(_target_libraries
-    pccts
-    calc
-    api
-    app
-    pcrgeo
-    pcrdiscr
-    pcraster_xsd
-    pcrxml
-    Qt5::Xml
-    ${XercesC_LIBRARIES}
+
+add_library(pcraster::model_engine ALIAS pcraster_model_engine)
+
+target_include_directories(pcraster_model_engine
+    PUBLIC
+        $<TARGET_PROPERTY:pcraster_model_engine_objects,INTERFACE_INCLUDE_DIRECTORIES>
 )
+
 target_link_libraries(pcraster_model_engine
-    ${_target_libraries}
+    PUBLIC
+        pcraster::calc
+        pcraster::pcrdiscr
+        pcraster::pccts
+        pcraster::tab
+        pcraster::xsd
 )
-
-# ADD_LIBRARY(pcraster_model_engine
-#     SHARED
-#     ${SOURCES}
-#     #sourcesLibDummy.cc
-# )
-#
-# TARGET_LINK_LIBRARIES(pcraster_model_engine
-#     # ${TARGET_LINK_LIBS}
-#     pccts
-#     calc
-#     api
-#     app
-#     # geom
-#     # mathx
-#     pcrgeo
-#     # pcrcom
-#     pcrdiscr
-#     pcraster_xsd
-#     # tab
-#     # misc
-#     pcrxml
-#     # pcraster_dal
-#     # utils
-#     # pcraster_raster_format
-#     # ${DEVENV_UTILS_LIBRARY}
-#     # ${GDAL_LIBRARIES}
-#     # ${QT_QTXML_LIBRARY}
-#     # ${QT_QTCORE_LIBRARIES}
-#     # ${BOOST_SYSTEM_LIBRARY}
-#     # ${BOOST_FILESYSTEM_LIBRARY}
-#     # ${BOOST_MATH_C99_LIBRARY}
-#     Qt5::Xml
-#     ${XercesC_LIBRARIES}
-# )
-
 
 if(PCRASTER_BUILD_TEST)
-
     configure_file(
-        ${CMAKE_CURRENT_SOURCE_DIR}/test_prolog.py.in
-        ${CMAKE_CURRENT_BINARY_DIR}/test_prolog.py
+        test_prolog.py.in
+        test_prolog.py
         @ONLY
     )
 
-  add_library(pcraster_model_engine_unit_test_utils
-     STATIC
-        # utils of unittets
-        calc_astpath
-        calc_astcfgtester
-        calc_asttestfactory
-        calc_comparefilewithvalidated
-        calc_messagestestdb
-        calc_modelbuilder
-        calc_modelerrortester
-        calc_p5stack
-        calc_manualexampletester
-  )
-
-  target_link_libraries(pcraster_model_engine_unit_test_utils
-      Qt5::Xml
-  )
-
-
-    set(TEST_NAMES
-        #calc_test
-        # unit tests
-        calc_areamaptest
-        calc_areaoperationstest
-        calc_argordertest
-        calc_astpartest
-        calc_astpathtest
-        calc_astsymboltabletest
-        calc_averagemaptest
-        calc_bindingtabletest
-        calc_buildtypesvisitortest
-        calc_cfgcreatortest
-        calc_clientinterfacetest
-        calc_cmdlinecalctest
-        calc_datatypetest
-        calc_dimensionparsertest
-        calc_dynamicwavetest
-        calc_executortest
-        calc_fieldtest
-        calc_findsymboltest
-        calc_fopointarraytest
-        calc_iocsffieldstrategytest
-#        calc_ldddownstreamtest         # OLS 05/2016 this one was not in this list before
-        calc_lddgraphtest
-        calc_lexinputtest
-        calc_lookuptabletest
-        calc_manualexampletestertest
-        calc_manualexamplestest
-        calc_maskpackingtest
-#        calc_modelbuildertest          # OLS 05/2016 this one is empty
-        calc_nonspatialtest
-        calc_objectlinkmetatest
-        calc_objectlinktest
-        calc_operatortest
-        calc_opimpltest
-        calc_parsertest
-        calc_pointcodeblockdlltest
-        calc_pointcodeblockreplacertest
-        calc_reporttest
-        calc_reportvisitortest
-        calc_rundirectorytest
-        calc_runtimeenginetest
-        calc_runtimeenvtest
-        calc_spatialtest
-        calc_tssoutputvaluetest
-        calc_usedefanalyzertest
-        calc_vfieldtest
-        calc_xmlreflectiontest
+    add_library(pcraster_model_engine_unit_test_utils STATIC
+          # utils of unittests
+          calc_astpath
+          calc_astcfgtester
+          calc_asttestfactory
+          calc_comparefilewithvalidated
+          calc_messagestestdb
+          calc_modelbuilder
+          calc_modelerrortester
+          calc_p5stack
+          calc_manualexampletester
     )
-    add_library(pcraster_model_engine_static
-        STATIC
-        $<TARGET_OBJECTS:pcraster_model_engine_objects>
+
+    target_include_directories(pcraster_model_engine_unit_test_utils
+        PRIVATE
+            $<TARGET_PROPERTY:pcraster_model_engine_objects,INTERFACE_INCLUDE_DIRECTORIES>
+            $<TARGET_PROPERTY:pcraster::pcrxml,INTERFACE_INCLUDE_DIRECTORIES>
+    )
+
+    target_link_libraries(pcraster_model_engine_unit_test_utils
+        PRIVATE
+            Qt5::Xml
     )
 
     add_unit_tests(
-      SCOPE model_engine
-      NAMES ${TEST_NAMES}
-      LINK_LIBRARIES
-        pcraster_model_engine_unit_test_utils
-        pcraster_model_engine_static
-        ${_target_libraries}
-      #pcrgeo
-      #${Boost_PYTHON_LIBRARY}
-      #${PYTHON_LIBRARIES}
+        SCOPE model_engine
+        NAMES
+            #calc_test
+            # unit tests
+            calc_areamaptest
+            calc_areaoperationstest
+            calc_argordertest
+            calc_astpartest
+            calc_astpathtest
+            calc_astsymboltabletest
+            calc_averagemaptest
+            calc_bindingtabletest
+            calc_buildtypesvisitortest
+            calc_cfgcreatortest
+            calc_clientinterfacetest
+            calc_cmdlinecalctest
+            calc_datatypetest
+            calc_dimensionparsertest
+            calc_dynamicwavetest
+            calc_executortest
+            calc_fieldtest
+            calc_findsymboltest
+            calc_fopointarraytest
+            calc_iocsffieldstrategytest
+            # calc_ldddownstreamtest         # OLS 05/2016 this one was not in this list before
+            calc_lddgraphtest
+            calc_lexinputtest
+            calc_lookuptabletest
+            calc_manualexampletestertest
+            calc_manualexamplestest
+            calc_maskpackingtest
+            # calc_modelbuildertest          # OLS 05/2016 this one is empty
+            calc_nonspatialtest
+            calc_objectlinkmetatest
+            calc_objectlinktest
+            calc_operatortest
+            calc_opimpltest
+            calc_parsertest
+            calc_pointcodeblockdlltest
+            calc_pointcodeblockreplacertest
+            calc_reporttest
+            calc_reportvisitortest
+            calc_rundirectorytest
+            calc_runtimeenginetest
+            calc_runtimeenvtest
+            calc_spatialtest
+            calc_tssoutputvaluetest
+            calc_usedefanalyzertest
+            calc_vfieldtest
+            calc_xmlreflectiontest
+        INCLUDE_DIRS
+            $<TARGET_PROPERTY:pcraster_model_engine_objects,INTERFACE_INCLUDE_DIRECTORIES>
+            # cpptest.cc
+            ${PROJECT_BINARY_DIR}/documentation/pcraster_manual/examples
+        OBJECT_LIBRARIES
+            $<TARGET_OBJECTS:pcraster_model_engine_objects>
+        LINK_LIBRARIES
+            pcraster_model_engine_unit_test_utils
+            $<TARGET_PROPERTY:pcraster_model_engine,LINK_LIBRARIES>
+            pcraster::pcrxml
     )
 
+    # OLS start: I think the following 5 items are not necessary,
+    #     cpptest.cc seems to be built by examples.sentinel already
 
-# OLS start: I think the following 5 items are not necessary, cpptest.cc seems to be built by examples.sentinel alsready
+    # add_file_dependency(calc_manualexamplestest.cc
+    #     ${CMAKE_CURRENT_BINARY_DIR}/cpptest.cc)
 
-#   add_file_dependency(calc_manualexamplestest.cc
-#     ${CMAKE_CURRENT_BINARY_DIR}/cpptest.cc)
+    ### SET(_MANUAL_DIR ${PROJECT_SOURCE_DIR}/Documentation/PCRasterManual)
+    ### SET(_EXAMPLES_DIR ${_MANUAL_DIR}/examples)
+    ### SET(_MANUAL_BUILD_DIR ${_MANUAL_DIR}/sphinx/_build)
 
-### SET(_MANUAL_DIR ${PROJECT_SOURCE_DIR}/Documentation/PCRasterManual)
-### SET(_EXAMPLES_DIR ${_MANUAL_DIR}/examples)
-### SET(_MANUAL_BUILD_DIR ${_MANUAL_DIR}/sphinx/_build)
+    ### ADD_CUSTOM_COMMAND(
+    ###   OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/cpptest.cc
+    ###   DEPENDS examplesCppTests
+    ###   ${PROJECT_BINARY_DIR}/Documentation/PCRasterManual/examples/cpptest.cc
+    ###   # DEPENDS
+    ###   #   ${_EXAMPLES_DIR}/ScriptSamples.py
+    ###   #   ${_EXAMPLES_DIR}/PCRasterSample.py
+    ###   #   ${_EXAMPLES_DIR}/Makefile
+    ###   # COMMAND make -C ${_EXAMPLES_DIR} CPlusPlusTests OUTPUT=${CMAKE_CURRENT_BINARY_DIR}/cpptest.cc
+    ### )
 
-### ADD_CUSTOM_COMMAND(
-###   OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/cpptest.cc
-###   DEPENDS examplesCppTests
-###   ${PROJECT_BINARY_DIR}/Documentation/PCRasterManual/examples/cpptest.cc
-###   # DEPENDS
-###   #   ${_EXAMPLES_DIR}/ScriptSamples.py
-###   #   ${_EXAMPLES_DIR}/PCRasterSample.py
-###   #   ${_EXAMPLES_DIR}/Makefile
-###   # COMMAND make -C ${_EXAMPLES_DIR} CPlusPlusTests OUTPUT=${CMAKE_CURRENT_BINARY_DIR}/cpptest.cc
-### )
-
-# OLS end
-
-
+    # OLS end
 
     add_dependencies(pcraster_model_engine_unit_test_utils
         pcraster_model_engine
@@ -523,53 +445,65 @@ if(PCRASTER_BUILD_TEST)
         # example1 example2 exampleCpp
     )
 
-
     add_test(
         NAME setup_model_engine
         COMMAND ${PYTHON_EXECUTABLE} test_prolog.py
     )
 
     set_tests_properties(setup_model_engine
-        PROPERTIES FIXTURES_SETUP FixturePCRasterModelEngine
+        PROPERTIES
+            FIXTURES_SETUP
+                FixturePCRasterModelEngine
     )
 
     set_tests_properties(
-          model_engine_calc_areamaptest
-          model_engine_calc_executortest
+            model_engine_calc_areamaptest
+            model_engine_calc_executortest
         PROPERTIES
-          FIXTURES_REQUIRED
-            FixturePCRasterModelEngine
+            FIXTURES_REQUIRED
+                FixturePCRasterModelEngine
     )
 
+    #     TARGET_LINK_LIBRARIES(test_pcraster_model_engine
+    #         pcraster_model_engine  # _static
+    #         # ${TARGET_LINK_LIBS}
+    #     )
+    #
+    #     ADD_CUSTOM_TARGET(run_test_pcraster_model_engine
+    #         COMMAND sed -i.tmp "s/CMAKE_CFG_INTDIR/${CMAKE_CFG_INTDIR}/g"
+    #             ./testrun.prolog
+    #         COMMAND bash ./testrun.prolog
+    #         COMMAND test_pcraster_model_engine --detect_memory_leaks=0
+    #         COMMAND bash ./testrun.epilog
+    #         DEPENDS test_pcraster_model_engine
+    #         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    #     )
+    #     ADD_DEPENDENCIES(tests run_test_pcraster_model_engine)
 
-#     TARGET_LINK_LIBRARIES(test_pcraster_model_engine
-#         pcraster_model_engine  # _static
-#         # ${TARGET_LINK_LIBS}
-#     )
-#
-#     ADD_CUSTOM_TARGET(run_test_pcraster_model_engine
-#         COMMAND sed -i.tmp "s/CMAKE_CFG_INTDIR/${CMAKE_CFG_INTDIR}/g"
-#             ./testrun.prolog
-#         COMMAND bash ./testrun.prolog
-#         COMMAND test_pcraster_model_engine --detect_memory_leaks=0
-#         COMMAND bash ./testrun.epilog
-#         DEPENDS test_pcraster_model_engine
-#         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-#     )
-#     ADD_DEPENDENCIES(tests run_test_pcraster_model_engine)
 endif()
 
 
-INSTALL(
+install(
     TARGETS pcraster_model_engine
-    RUNTIME DESTINATION lib COMPONENT Runtime
-    LIBRARY DESTINATION lib COMPONENT Runtime
+    RUNTIME
+        DESTINATION lib COMPONENT Runtime
+    LIBRARY
+        DESTINATION lib COMPONENT Runtime
 )
-INSTALL(FILES PCRaster.xsd ${CMAKE_CURRENT_SOURCE_DIR}/../xmlschema/commonTypes.xsd
-    DESTINATION doc/developer/xsd
+
+install(
+    FILES
+        PCRaster.xsd
+        ${CMAKE_CURRENT_SOURCE_DIR}/../xmlschema/commonTypes.xsd
+    DESTINATION
+        doc/developer/xsd
 )
-INSTALL(FILES pcrcalc.h
-    DESTINATION doc/developer/c/include
+
+install(
+    FILES
+        pcrcalc.h
+    DESTINATION
+        doc/developer/c/include
 )
 
 ### ADD_CUSTOM_TARGET(
@@ -586,59 +520,60 @@ INSTALL(FILES pcrcalc.h
 
 
 if(PCRASTER_BUILD_DOCUMENTATION)
-            # temporary switch comments to generate LinkIn
-            # LinkIn is NOT YET part of the distro!            OLS: 03/2016 I think it is distributed?!
-            SET(_DOX_LINKOUT_SOURCES
-                ${CMAKE_CURRENT_SOURCE_DIR}/pcrcalc.h
-                ${CMAKE_CURRENT_SOURCE_DIR}/apiDocsMain
-                ${CMAKE_CURRENT_SOURCE_DIR}/../include/pcrlinkin.h
-                ${CMAKE_CURRENT_SOURCE_DIR}/linkInDocsMain
-            )
+    # temporary switch comments to generate LinkIn
+    # LinkIn is NOT YET part of the distro!            OLS: 03/2016 I think it is distributed?!
+    set(_DOX_LINKOUT_SOURCES
+        ${CMAKE_CURRENT_SOURCE_DIR}/pcrcalc.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/apiDocsMain
+        ${CMAKE_CURRENT_SOURCE_DIR}/../include/pcrlinkin.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/linkInDocsMain
+    )
 
-            # TODO make this completely working
-            # SET(_DOX_LINKIN_SOURCES
-            #   ${CMAKE_CURRENT_SOURCE_DIR}/pcrcalc.h
-            #   ${PROJECT_SOURCE_DIR}/sources/include/pcrlinkin.h
-            #   ${CMAKE_CURRENT_SOURCE_DIR}/linkInDocsMain
-            # )
+    # TODO make this completely working
+    # SET(_DOX_LINKIN_SOURCES
+    #   ${CMAKE_CURRENT_SOURCE_DIR}/pcrcalc.h
+    #   ${PROJECT_SOURCE_DIR}/sources/include/pcrlinkin.h
+    #   ${CMAKE_CURRENT_SOURCE_DIR}/linkInDocsMain
+    # )
 
-            SET(_DOC_OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/html/index.html)
+    set(_DOC_OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/html/index.html)
 
-            ADD_CUSTOM_COMMAND(
-                OUTPUT ${_DOC_OUTPUT}
-                COMMAND ${PYTHON_EXECUTABLE} ${PROJECT_SOURCE_DIR}/environment/script/createdoxyfile.py ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile PROJECT_NAME="\\"PCRaster LinkOut API\\"" INPUT="${_DOX_LINKOUT_SOURCES}" OUTPUT_DIRECTORY="${CMAKE_CURRENT_BINARY_DIR}"
-                COMMAND doxygen ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
-                WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-                DEPENDS ${_DOX_LINKOUT_SOURCES}
-            )
+    add_custom_command(
+        OUTPUT ${_DOC_OUTPUT}
+        COMMAND ${PYTHON_EXECUTABLE} ${PROJECT_SOURCE_DIR}/environment/script/createdoxyfile.py ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile PROJECT_NAME="\\"PCRaster LinkOut API\\"" INPUT="${_DOX_LINKOUT_SOURCES}" OUTPUT_DIRECTORY="${CMAKE_CURRENT_BINARY_DIR}"
+        COMMAND doxygen ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+        DEPENDS ${_DOX_LINKOUT_SOURCES}
+    )
 
-            ### SET(_DEPLOYMENT_OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/deployment.txt)
-            ### GET_TARGET_PROPERTY(_PCRASTER_MODELENGINE_PATH pcraster_model_engine LOCATION)
-            ###
-            ### ADD_CUSTOM_COMMAND(
-            ###   OUTPUT ${_DEPLOYMENT_OUTPUT}
-            ###   COMMAND ${PYTHON_EXECUTABLE} ${DEVENV}/Scripts/checkSharedLibraryDependencies.py -d ${_DEPLOYMENT_OUTPUT} ${_PCRASTER_MODELENGINE_PATH}
-            ###   COMMENT "Creating deployment.txt"
-            ###   DEPENDS pcraster_model_engine
-            ### )
+    ### SET(_DEPLOYMENT_OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/deployment.txt)
+    ### GET_TARGET_PROPERTY(_PCRASTER_MODELENGINE_PATH pcraster_model_engine LOCATION)
+    ###
+    ### ADD_CUSTOM_COMMAND(
+    ###   OUTPUT ${_DEPLOYMENT_OUTPUT}
+    ###   COMMAND ${PYTHON_EXECUTABLE} ${DEVENV}/Scripts/checkSharedLibraryDependencies.py -d ${_DEPLOYMENT_OUTPUT} ${_PCRASTER_MODELENGINE_PATH}
+    ###   COMMENT "Creating deployment.txt"
+    ###   DEPENDS pcraster_model_engine
+    ### )
 
-            ADD_CUSTOM_TARGET(LinkOutDoxygenDocumentation ALL
-                DEPENDS
-                    ${_DOC_OUTPUT}
-                    # ${_DEPLOYMENT_OUTPUT}
-            )
+    add_custom_target(LinkOutDoxygenDocumentation ALL
+        DEPENDS
+            ${_DOC_OUTPUT}
+            # ${_DEPLOYMENT_OUTPUT}
+    )
 
-            ### INSTALL(FILES
-            ###     ${_DEPLOYMENT_OUTPUT}
-            ###   DESTINATION
-            ###     doc/developer/linkout
-            ### )
+    ### INSTALL(FILES
+    ###     ${_DEPLOYMENT_OUTPUT}
+    ###   DESTINATION
+    ###     doc/developer/linkout
+    ### )
 
-            INSTALL(DIRECTORY
-                  ${CMAKE_CURRENT_BINARY_DIR}/html
-              DESTINATION
-                  doc/developer/linkout
-            )
+    install(
+        DIRECTORY
+            ${CMAKE_CURRENT_BINARY_DIR}/html
+        DESTINATION
+            doc/developer/linkout
+    )
 endif()
 
 

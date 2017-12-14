@@ -1,42 +1,39 @@
-include_directories(
-    # ${CMAKE_CURRENT_SOURCE_DIR}/../include
-    ${CMAKE_CURRENT_SOURCE_DIR}/../app
-    ${CMAKE_CURRENT_SOURCE_DIR}/../pcrcom
-    ${CMAKE_CURRENT_SOURCE_DIR}/../pcrgeo
-    ${CMAKE_CURRENT_SOURCE_DIR}/../misc
+add_library(api STATIC
+    bootapi
+    ranuint1
+    ranint4
+    ranreal8
+    testapi
+    mapdim
+    ranpriv
+    fieldapi_common
+    fieldapi_scalardomaincheck
+    fieldapi_interface
+    fieldapi_templates
 )
 
-SET(SOURCES
-    bootapi.c
-    ranuint1.c
-    ranint4.c
-    ranreal8.c
-    testapi.c
-    mapdim.c
-    ranpriv.c
-    fieldapi_common.cc
-    fieldapi_scalardomaincheck.cc
-    fieldapi_interface.cc
-    fieldapi_templates.cc
-)
-ADD_LIBRARY(api
-    ${SOURCES}
+add_library(pcraster::api ALIAS api)
+
+target_include_directories(api
+    PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
 )
 
+target_link_libraries(api
+    PUBLIC
+        pcraster::pcrgeo
+)
 
 if(PCRASTER_BUILD_TEST)
-    set(TEST_NAMES
-        fieldapi_interfacetest
-        fieldapi_readonlynonspatialtest
-        fieldapi_readonlyspatialtest
-        fieldapi_readwritedatatest
-    )
     add_unit_tests(
         SCOPE api
-        NAMES ${TEST_NAMES}
+        NAMES
+            fieldapi_interfacetest
+            fieldapi_readonlynonspatialtest
+            fieldapi_readonlyspatialtest
+            fieldapi_readwritedatatest
         LINK_LIBRARIES
-            api
-            pcrgeo
+            pcraster::api
     )
 endif()
 

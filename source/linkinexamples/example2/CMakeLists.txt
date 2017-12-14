@@ -1,16 +1,14 @@
-include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../include
+add_library(example2 SHARED
+    example2
 )
 
-SET(SOURCES
-    example2.c
-)
-ADD_LIBRARY(example2
-    SHARED
-    ${SOURCES}
+target_include_directories(example2
+    PRIVATE
+        $<TARGET_PROPERTY:pcraster::raster_format,INTERFACE_INCLUDE_DIRECTORIES>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../../include>
 )
 
-ADD_CUSTOM_COMMAND(
+add_custom_command(
     TARGET
         example2
     POST_BUILD

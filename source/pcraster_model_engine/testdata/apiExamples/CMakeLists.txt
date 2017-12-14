@@ -1,5 +1,5 @@
 # everything except CMakeLists.txt
-INSTALL(
+install(
     FILES
         allStatistics.xml
         areaMap.xml

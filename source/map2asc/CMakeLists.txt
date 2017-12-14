@@ -1,40 +1,16 @@
-include_directories(
-    # ${CMAKE_CURRENT_SOURCE_DIR}/../include
-    ${CMAKE_CURRENT_SOURCE_DIR}/../app
-    ${CMAKE_CURRENT_SOURCE_DIR}/../misc
+add_executable(map2asc
+    map2asc
+    main
 )
 
-SET(SOURCES
-    map2asc.c
-    main.c
+target_link_libraries(map2asc
+    PRIVATE
+        pcraster::app
+        pcraster::raster_format
 )
 
-ADD_EXECUTABLE(map2asc
-    ${SOURCES}
-)
-
-# IF(WIN32)
-#     TARGET_LINK_LIBRARIES(map2asc
-#         app
-#         pcrcom
-#         mathx
-#         misc
-#         ${PCRASTER_RASTERFORMAT_LIBRARY}
-#         ${BOOST_FILESYSTEM_LIBRARY}
-#         ${BOOST_SYSTEM_LIBRARY}
-#     )
-# ELSE(WIN32)
-    TARGET_LINK_LIBRARIES(map2asc
-        app
-        # pcrcom
-        # mathx
-        misc
-        pcraster_raster_format
-    )
-    SET_TARGET_PROPERTIES(map2asc PROPERTIES LINKER_LANGUAGE CXX)
-# ENDIF(WIN32)
-
-INSTALL(
+install(
       TARGETS map2asc
-      RUNTIME DESTINATION bin COMPONENT Runtime
+      RUNTIME
+          DESTINATION bin COMPONENT Runtime
 )

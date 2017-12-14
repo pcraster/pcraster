@@ -1,6 +1,6 @@
 configure_file(
-    ${CMAKE_CURRENT_SOURCE_DIR}/test_prolog.py.in
-    ${CMAKE_CURRENT_BINARY_DIR}/test_prolog.py
+    test_prolog.py.in
+    test_prolog.py
     @ONLY
     NEWLINE_STYLE UNIX
 )
@@ -11,7 +11,8 @@ add_test(
 )
 
 set_tests_properties(setup_multicore
-    PROPERTIES FIXTURES_SETUP FixtureMulticore
+    PROPERTIES
+        FIXTURES_SETUP FixtureMulticore
 )
 
 add_test(
@@ -21,11 +22,12 @@ add_test(
         ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test.py
 )
 
-set_tests_properties(python_multicore_unit_tests PROPERTIES
-  DEPENDS
-      _pcraster_multicore
-  FIXTURES_REQUIRED
-      FixtureMulticore
+set_tests_properties(python_multicore_unit_tests
+    PROPERTIES
+        DEPENDS
+            _pcraster_multicore
+        FIXTURES_REQUIRED
+            FixtureMulticore
 )
 
 # add path of project's unit test related files to PYTHONPATH

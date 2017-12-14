@@ -1,175 +1,140 @@
 CONFIGURE_FILE(
-    ${CMAKE_CURRENT_SOURCE_DIR}/dal_Configure.h.in
-    ${CMAKE_CURRENT_BINARY_DIR}/../include/dal_Configure.h
-)
-CONFIGURE_FILE(
-    ${CMAKE_CURRENT_SOURCE_DIR}/Makefile.testrun.in
-    ${CMAKE_CURRENT_BINARY_DIR}/Makefile.testrun
+    Makefile.testrun.in
+    Makefile.testrun
     @ONLY
 )
 CONFIGURE_FILE(
-    ${CMAKE_CURRENT_SOURCE_DIR}/createTemporalVectorData.sh.in
-    ${CMAKE_CURRENT_BINARY_DIR}/createTemporalVectorData.sh
+    createTemporalVectorData.sh.in
+    createTemporalVectorData.sh
     @ONLY
 )
 
-include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/../utils
+add_library(pcraster_dal_objects OBJECT
+    dal_BasicTypes
+    dal_BinaryTableDriver
+    dal_Block
+    dal_BlockDriver
+    dal_BrowseInfo
+    dal_Client
+    dal_ConnectionInfo
+    dal_Constant
+    dal_ConstantDriver
+    dal_CoordinateMapper
+    dal_CSFMap
+    dal_CSFRasterDriver
+    dal_Dal
+    dal_Dataset
+    dal_DataSource
+    dal_DataSpaceAddress
+    dal_DataSpaceAddressMapper
+    dal_DataSpace
+    dal_DataSpaceIterator
+    dal_DataSpaceQueryResult
+    dal_Dimension
+    dal_Driver
+    dal_Environment
+    dal_FeatureDriver
+    dal_FeatureLayer
+    dal_FeatureLayerGeometries
+    dal_FeaturePath
+    dal_FilesystemUtils
+    dal_Format
+    dal_Formats
+    dal_GDALRasterDriver
+    dal_GeoEASTableDriver
+    dal_GSLIBBlockDriver
+    # dal_HDF5RasterDriver
+    dal_Library
+    dal_MapperUtils
+    dal_MathUtils
+    dal_Matrix
+    dal_MatrixDal
+    dal_MatrixDimensions
+    dal_MatrixDriver
+    dal_MemoryData
+    dal_MemoryDataPool
+    dal_MemoryRasterData
+    dal_MemoryRasterDriver
+    dal_MemoryTableData
+    dal_MemoryTableDriver
+    # dal_NetCDFRasterDriver
+    dal_OgrFeatureDriver
+    dal_PCRBlockDriver
+    dal_Properties
+    dal_Raster
+    dal_RasterDal
+    dal_RasterDriver
+    dal_RasterDimensions
+    dal_RegularExpressions
+    dal_SpaceDimensions
+    dal_SpaceStepMapper
+    dal_SpaceStepCoordinateMapper
+    dal_SpatialCoordinate
+    dal_SQLTableDriver
+    dal_StackInfo
+    dal_StepCoordinateMapper
+    dal_StepMapper
+    dal_TableDal
+    dal_TableDriver
+    dal_TextConstantDriver
+    dal_TextFileDriver
+    dal_TextMatrixDriver
+    dal_TextTableDriver
+    dal_TimeStepCoordinateMapper
+    dal_TimeStepMapper
+    dal_Type
+    dal_Utils
+    dal_Vector
+    dal_VectorDriver
+    dal_VTKBlockDriver
 )
 
-# SET(LINK_LIBRARIES
-#     ${PCRASTER_RASTERFORMAT_LIBRARY}
-#     ${DEVENV_UTILS_LIBRARY}
-#     ${CURL_LIBRARIES}
-#     ${GDAL_LIBRARIES}
-#     ${QT_QTSQL_LIBRARY}
-#     ${QT_QTCORE_LIBRARY}
-#     ${BOOST_FILESYSTEM_LIBRARY}
-#     ${BOOST_DATE_TIME_LIBRARY}
-#     ${BOOST_REGEX_LIBRARY}
-#     ${BOOST_SYSTEM_LIBRARY}
-# )
-
-SET(SOURCES
-    dal_BasicTypes.cc
-    dal_BinaryTableDriver.cc
-    dal_Block.cc
-    dal_BlockDriver.cc
-    dal_BrowseInfo.cc
-    dal_Client.cc
-    dal_ConnectionInfo.cc
-    dal_Constant.cc
-    dal_ConstantDriver.cc
-    dal_CoordinateMapper.cc
-    dal_CSFMap.cc
-    dal_CSFRasterDriver.cc
-    dal_Dal.cc
-    dal_Dataset.cc
-    dal_DataSource.cc
-    dal_DataSpaceAddress.cc
-    dal_DataSpaceAddressMapper.cc
-    dal_DataSpace.cc
-    dal_DataSpaceIterator.cc
-    dal_DataSpaceQueryResult.cc
-    dal_Dimension.cc
-    dal_Driver.cc
-    dal_Environment.cc
-    dal_FeatureDriver.cc
-    dal_FeatureLayer.cc
-    dal_FeatureLayerGeometries.cc
-    dal_FeaturePath.cc
-    dal_FilesystemUtils.cc
-    dal_Format.cc
-    dal_Formats.cc
-    dal_GDALRasterDriver.cc
-    dal_GeoEASTableDriver.cc
-    dal_GSLIBBlockDriver.cc
-    # dal_HDF5RasterDriver.cc
-    dal_Library.cc
-    dal_MapperUtils.cc
-    dal_MathUtils.cc
-    dal_Matrix.cc
-    dal_MatrixDal.cc
-    dal_MatrixDimensions.cc
-    dal_MatrixDriver.cc
-    dal_MemoryData.cc
-    dal_MemoryDataPool.cc
-    dal_MemoryRasterData.cc
-    dal_MemoryRasterDriver.cc
-    dal_MemoryTableData.cc
-    dal_MemoryTableDriver.cc
-    # dal_NetCDFRasterDriver.cc
-    dal_OgrFeatureDriver.cc
-    dal_PCRBlockDriver.cc
-    dal_Properties.cc
-    dal_Raster.cc
-    dal_RasterDal.cc
-    dal_RasterDriver.cc
-    dal_RasterDimensions.cc
-    dal_RegularExpressions.cc
-    dal_SpaceDimensions.cc
-    dal_SpaceStepMapper.cc
-    dal_SpaceStepCoordinateMapper.cc
-    dal_SpatialCoordinate.cc
-    dal_SQLTableDriver.cc
-    dal_StackInfo.cc
-    dal_StepCoordinateMapper.cc
-    dal_StepMapper.cc
-    dal_TableDal.cc
-    dal_TableDriver.cc
-    dal_TextConstantDriver.cc
-    dal_TextFileDriver.cc
-    dal_TextMatrixDriver.cc
-    dal_TextTableDriver.cc
-    dal_TimeStepCoordinateMapper.cc
-    dal_TimeStepMapper.cc
-    dal_Type.cc
-    dal_Utils.cc
-    dal_Vector.cc
-    dal_VectorDriver.cc
-    dal_VTKBlockDriver.cc
+target_include_directories(pcraster_dal_objects SYSTEM
+    PUBLIC
+        ${GDAL_INCLUDE_DIRS}
+        ${Qt5Sql_INCLUDE_DIRS}
 )
-# IF(WIN32)
-#     ADD_LIBRARY(pcraster_dal_static
-#         STATIC
-#         ${SOURCES}
-#     )
-#     SET_TARGET_PROPERTIES(pcraster_dal_static
-#         PROPERTIES
-#             COMPILE_FLAGS "-DPCR_DAL_SOURCE"
-#     )
-# ENDIF()
 
-add_library(pcraster_dal_objects
-    OBJECT
-        ${SOURCES}
-)
 target_include_directories(pcraster_dal_objects
     PRIVATE
-        ${Qt5Sql_INCLUDE_DIRS}
-        #${Qt5Xml_INCLUDE_DIRS}
-        #${Qt5OpenGL_INCLUDE_DIRS}
+        $<TARGET_PROPERTY:pcraster::raster_format,INTERFACE_INCLUDE_DIRECTORIES>
+        $<TARGET_PROPERTY:pcraster::utils,INTERFACE_INCLUDE_DIRECTORIES>
 )
-add_library(pcraster_dal
-    SHARED
+
+target_include_directories(pcraster_dal_objects
+    PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/../include>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+)
+
+target_compile_definitions(pcraster_dal_objects
+    PRIVATE
+        PCR_DAL_SOURCE
+        PCR_DAL_SHARED_LINK
+)
+
+add_library(pcraster_dal SHARED
     $<TARGET_OBJECTS:pcraster_dal_objects>
 )
 
-#
-# ADD_LIBRARY(pcraster_dal
-#     SHARED
-#     ${SOURCES}
-# )
-SET_TARGET_PROPERTIES(pcraster_dal_objects
-    PROPERTIES
-        COMPILE_FLAGS "-DPCR_DAL_SOURCE -DPCR_DAL_SHARED_LINK"
+add_library(pcraster::dal ALIAS pcraster_dal)
+
+target_include_directories(pcraster_dal
+    PUBLIC
+        $<TARGET_PROPERTY:pcraster_dal_objects,INTERFACE_INCLUDE_DIRECTORIES>
 )
 
-set(_target_libraries
-    utils
-    ${GDAL_LIBRARIES}
-    pcraster_raster_format
-    Boost::date_time
-    Boost::program_options
-    Qt5::Sql
-)
 target_link_libraries(pcraster_dal
-    ${_target_libraries}
+    PUBLIC
+        pcraster::raster_format
+        pcraster::utils
+        Qt5::Sql
+        ${GDAL_LIBRARIES}
+        Boost::filesystem
+        Boost::date_time
 )
 
-# TARGET_LINK_LIBRARIES(pcraster_dal
-#     utils
-#     ${GDAL_LIBRARIES}
-#     pcraster_raster_format
-# #    ${Boost_DATE_TIME_LIBRARY}
-#     #${Boost_FILESYSTEM_LIBRARY}
-# #    ${Boost_PROGRAM_OPTIONS_LIBRARY}
-# #    ${Boost_SYSTEM_LIBRARY}
-#     Boost::date_time
-#     Boost::program_options
-# #    Boost::system
-#     Qt5::Sql
-# )
 ADD_CUSTOM_COMMAND(
     TARGET pcraster_dal
     POST_BUILD
@@ -183,121 +148,127 @@ INSTALL(
     DIRECTORY ${CMAKE_BINARY_DIR}/share/gdal
     DESTINATION "share"
 )
+
 # ------------------------------------------------------------------------------
 
 if(PCRASTER_BUILD_TEST)
     configure_file(
-        ${CMAKE_CURRENT_SOURCE_DIR}/test_prolog.py.in
-        ${CMAKE_CURRENT_BINARY_DIR}/test_prolog.py
+        test_prolog.py.in
+        test_prolog.py
         @ONLY
     )
-    set(TEST_NAMES
-        dal_ArrayTest
-        dal_BinaryTableDriverTest
-        dal_BlockTest
-        dal_ClientTest
-        dal_ConnectionInfoTest
-        dal_ConstantTest
-        dal_CoordinateMapperTest
-        dal_CSFMapTest
-        dal_CSFRasterDriverTest
-        dal_DataSourceTest
-        # dal_DataSpaceAddressMapperTest  # TODO
-        dal_DataSpaceAddressTest
-        dal_DataSpaceIteratorTest
-        dal_DataSpaceTest
-        dal_DefTest
-        dal_DimensionTest
-        dal_EnvironmentTest
-        dal_FeatureLayerTest
-        dal_FeaturePathTest
-        dal_FilesystemUtilsTest
-        dal_GDALRasterDriverTest
-        dal_GeoEASTableDriverTest
-        # dal_HDF5RasterDriverTest
-        # dal_MapperUtilsTest  # TODO
-        dal_MathUtilsTest
-        dal_MatrixTest
-        dal_MatrixDimensionsTest
-        dal_MatrixDriverTest
-        dal_MemoryDataPoolTest
-        dal_MemoryRasterDataTest
-        dal_MemoryRasterDriverTest
-        dal_MemoryTableDataTest
-        dal_MemoryTableDriverTest
-        # dal_NetCDFRasterDriverTest
-        dal_OgrFeatureDriverTest
-        dal_PCRBlockDriverTest
-        dal_PropertiesTest
-        dal_RasterDalTest
-        dal_RasterDimensionsTest
-        dal_RegularExpressionsTest
-        dal_ResampleTest
-        dal_SpaceStepMapperTest
-        # dal_SpaceStepCoordinateMapperTest  # TODO
-        dal_SpatialCoordinateTest
-        # dal_SQLTableDriverTest  # TODO
-        dal_StackInfoTest
-        # dal_StepCoordinateMapperTest  # TODO
-        dal_StepMapperTest
-        dal_TableDalTest
-        dal_TableDriverTest
-        dal_TableTest
-        dal_TextConstantDriverTest
-        dal_TextFileDriverTest
-        dal_TextMatrixDriverTest
-        dal_TextTableDriverTest
-        dal_TimeStepCoordinateMapperTest
-        dal_TimeStepMapperTest
-        dal_TypesTest
-        dal_TypeTest
-        dal_UseCasesTest
-        dal_UtilsTest
-        dal_VectorDriverTest
-        dal_VTKBlockDriverTest
-    )
-    add_library(pcraster_dal_static
-        STATIC
-        $<TARGET_OBJECTS:pcraster_dal_objects>
-    )
+
     add_unit_tests(
         SCOPE pcraster_dal
-        NAMES ${TEST_NAMES}
+        NAMES
+            dal_ArrayTest
+            dal_BinaryTableDriverTest
+            dal_BlockTest
+            dal_ClientTest
+            dal_ConnectionInfoTest
+            dal_ConstantTest
+            dal_CoordinateMapperTest
+            dal_CSFMapTest
+            dal_CSFRasterDriverTest
+            dal_DataSourceTest
+            # dal_DataSpaceAddressMapperTest  # TODO
+            dal_DataSpaceAddressTest
+            dal_DataSpaceIteratorTest
+            dal_DataSpaceTest
+            dal_DefTest
+            dal_DimensionTest
+            dal_EnvironmentTest
+            dal_FeatureLayerTest
+            dal_FeaturePathTest
+            dal_FilesystemUtilsTest
+            dal_GDALRasterDriverTest
+            dal_GeoEASTableDriverTest
+            # dal_HDF5RasterDriverTest
+            # dal_MapperUtilsTest  # TODO
+            dal_MathUtilsTest
+            dal_MatrixTest
+            dal_MatrixDimensionsTest
+            dal_MatrixDriverTest
+            dal_MemoryDataPoolTest
+            dal_MemoryRasterDataTest
+            dal_MemoryRasterDriverTest
+            dal_MemoryTableDataTest
+            dal_MemoryTableDriverTest
+            # dal_NetCDFRasterDriverTest
+            dal_OgrFeatureDriverTest
+            dal_PCRBlockDriverTest
+            dal_PropertiesTest
+            dal_RasterDalTest
+            dal_RasterDimensionsTest
+            dal_RegularExpressionsTest
+            dal_ResampleTest
+            dal_SpaceStepMapperTest
+            # dal_SpaceStepCoordinateMapperTest  # TODO
+            dal_SpatialCoordinateTest
+            # dal_SQLTableDriverTest  # TODO
+            dal_StackInfoTest
+            # dal_StepCoordinateMapperTest  # TODO
+            dal_StepMapperTest
+            dal_TableDalTest
+            dal_TableDriverTest
+            dal_TableTest
+            dal_TextConstantDriverTest
+            dal_TextFileDriverTest
+            dal_TextMatrixDriverTest
+            dal_TextTableDriverTest
+            dal_TimeStepCoordinateMapperTest
+            dal_TimeStepMapperTest
+            dal_TypesTest
+            dal_TypeTest
+            dal_UseCasesTest
+            dal_UtilsTest
+            dal_VectorDriverTest
+            dal_VTKBlockDriverTest
+        INCLUDE_DIRS
+            $<TARGET_PROPERTY:pcraster_dal_objects,INTERFACE_INCLUDE_DIRECTORIES>
+        OBJECT_LIBRARIES
+            $<TARGET_OBJECTS:pcraster_dal_objects>
         LINK_LIBRARIES
-            pcraster_dal_static
-            ${_target_libraries}
+            $<TARGET_PROPERTY:pcraster_dal,LINK_LIBRARIES>
     )
     add_test(
         NAME setup_pcraster_dal
         COMMAND ${PYTHON_EXECUTABLE} test_prolog.py
     )
     set_tests_properties(setup_pcraster_dal
-        PROPERTIES FIXTURES_SETUP FixturePCRasterDal
+        PROPERTIES FIXTURES_SETUP
+            FixturePCRasterDal
     )
     set_tests_properties(pcraster_dal_dal_ArrayTest PROPERTIES
         FIXTURES_REQUIRED
-          FixturePCRasterDal
+            FixturePCRasterDal
     )
 endif()
+
 # ------------------------------------------------------------------------------
-SET(DALAPP_SOURCES
+
+add_executable(dal
     dal_Application.cc
     main.cc
 )
-ADD_EXECUTABLE(dal
-    ${DALAPP_SOURCES}
+
+target_compile_definitions(dal
+    PRIVATE
+        PCR_DAL_SHARED_LINK
 )
-SET_TARGET_PROPERTIES(dal
-    PROPERTIES
-        COMPILE_FLAGS "-DPCR_DAL_SHARED_LINK"
+
+target_link_libraries(dal
+    Boost::program_options
+    pcraster::dal
 )
-TARGET_LINK_LIBRARIES(dal
-    pcraster_dal
-)
+
 # ------------------------------------------------------------------------------
-# Install rules for all components.
-INSTALL(
-    TARGETS pcraster_dal
-    RUNTIME DESTINATION lib COMPONENT Runtime
-    LIBRARY DESTINATION lib COMPONENT Runtime
+
+install(
+    TARGETS
+        pcraster_dal
+    RUNTIME
+        DESTINATION lib COMPONENT Runtime
+    LIBRARY
+        DESTINATION lib COMPONENT Runtime
 )

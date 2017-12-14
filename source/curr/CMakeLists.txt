@@ -1,14 +1,17 @@
-include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/../misc
+add_library(curr STATIC
+    currmenu
+    keyfunc
 )
 
-SET(SOURCES
-    currmenu.c
-    keyfunc.c
+add_library(pcraster::curr ALIAS curr)
+
+target_include_directories(curr
+    PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+        ${CURSES_INCLUDE_DIR}
 )
-ADD_LIBRARY(curr
-    ${SOURCES}
-)
-TARGET_LINK_LIBRARIES(curr
-    misc
+
+target_link_libraries(curr
+    pcraster::misc
+    ${CURSES_LIBRARY}
 )

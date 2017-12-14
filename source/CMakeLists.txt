@@ -1,13 +1,7 @@
 configure_file(
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/dev_Configure.h.in
-    ${CMAKE_CURRENT_BINARY_DIR}/include/dev_Configure.h
+    include/dev_Configure.h.in
+    include/dev_Configure.h
 )
-include_directories(
-    ${CMAKE_CURRENT_BINARY_DIR}/include
-    ${CMAKE_CURRENT_SOURCE_DIR}/include
-    ${CMAKE_CURRENT_SOURCE_DIR}/rasterformat/sources/pcraster_raster_format
-)
-
 
 if(PCRASTER_BUILD_DOCUMENTATION)
     include(DoxygenDoc)
@@ -64,8 +58,9 @@ add_subdirectory(resample)
 add_subdirectory(table)
 add_subdirectory(legend)
 
-# Used in unit tests.
-add_subdirectory(mapdiff)
+if(PCRASTER_BUILD_TEST)
+    add_subdirectory(mapdiff)
+endif()
 
 # Conditional builds...
 if(PCRASTER_WITH_PYTHON_MULTICORE)
@@ -75,9 +70,6 @@ endif()
 if(PCRASTER_BUILD_BLOCKPYTHON)
     add_subdirectory(pcraster_block_python)
 endif()
-
-
-
 
 install(
     FILES

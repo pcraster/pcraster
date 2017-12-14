@@ -1,44 +1,36 @@
-set(OLDSOURCES
-    mf_BinaryReader.cc
-    mf_utils.cc
-    bas.cc
-    bcf.cc
-    common.cc
-    dis.cc
-    drn.cc
-    dsp.cc
-    gridcheck.cc
-    hfb.cc
-    pcg.cc
-    rch.cc
-    riv.cc
-    sip.cc
-    sor.cc
-    wel.cc
-    pcrmodflow.cc
+add_library(pcrmf STATIC
+    mf_BinaryReader
+    mf_utils
+    bas
+    bcf
+    common
+    dis
+    drn
+    dsp
+    gridcheck
+    hfb
+    pcg
+    rch
+    riv
+    sip
+    sor
+    wel
+    pcrmodflow
 )
 
-add_library(pcrmf
-    STATIC
-    ${OLDSOURCES}
-)
+add_library(pcraster::pcrmf ALIAS pcrmf)
 
 target_include_directories(pcrmf
-  PRIVATE
-#    ${CMAKE_CURRENT_SOURCE_DIR}/../../include
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../pcrdiscr
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../pcraster_dal
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../pcraster_model_engine
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../pcrgeo
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../utils
+    PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+        ${PYTHON_INCLUDE_DIR}
 )
 
 target_link_libraries(pcrmf
-#    ${Boost_PYTHON_LIBRARY}
-    ${PYTHON_LIBRARIES}
-#    Boost::python
-    ${PCR_BOOST_PYTHON}
-    Qt5::Core
+    PUBLIC
+        pcraster::model_engine
+        ${PCR_BOOST_PYTHON}
+        ${PYTHON_LIBRARIES}
 )
 
 add_dependencies(pcrmf pcrcalc)

@@ -1,79 +1,61 @@
 # TODO Create Documentation, PCRCalc, Python, ... subdirectories.
-ADD_SUBDIRECTORY(python)
+add_subdirectory(python)
 
-include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/../include
-    ${CMAKE_CURRENT_SOURCE_DIR}/../misc
-    ${CMAKE_CURRENT_SOURCE_DIR}/../pcrcom
-    ${CMAKE_CURRENT_SOURCE_DIR}/../pcrgeo
-    ${CMAKE_CURRENT_SOURCE_DIR}/../pcraster_old_calc
+add_library(pcraster_moc_objects OBJECT
+    pt_MOCLink
+    pt_ModelLinks
+    pt_Particle
+    pt_ParticleTracker
 )
 
-SET(SOURCES
-    pt_MOCLink.cc
-    pt_ModelLinks.cc
-    pt_Particle.cc
-    pt_ParticleTracker.cc
+target_include_directories(pcraster_moc_objects
+    PRIVATE
+        $<TARGET_PROPERTY:pcraster::old_calc,INTERFACE_INCLUDE_DIRECTORIES>
 )
-SET(TARGET_LINK_LIBS
-    pcrgeo
-    pcrcom
-    mathx
-    misc
-    pcraster_dal
-    # ${PCRASTER_DAL_LIBRARY}
-    # ${PCRASTER_RASTERFORMAT_LIBRARY}
-    # ${BOOST_SYSTEM_LIBRARY}
-    # ${BOOST_FILESYSTEM_LIBRARY}
-    # ${Boost_MATH_C99_LIBRARY}
+
+target_include_directories(pcraster_moc_objects
+    PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
 )
-add_library(pcraster_moc_objects
-    OBJECT
-        ${SOURCES}
-)
-add_library(pcraster_moc
-    SHARED
+
+add_library(pcraster_moc SHARED
     $<TARGET_OBJECTS:pcraster_moc_objects>
 )
-# ADD_LIBRARY(pcraster_moc
-#     SHARED
-#     ${SOURCES}
-# )
-TARGET_LINK_LIBRARIES(pcraster_moc
-    ${TARGET_LINK_LIBS}
+
+add_library(pcraster::moc ALIAS pcraster_moc)
+
+target_include_directories(pcraster_moc
+    PUBLIC
+        $<TARGET_PROPERTY:pcraster_moc_objects,INTERFACE_INCLUDE_DIRECTORIES>
 )
 
-
-# ADD_LIBRARY(pcraster_moc_static
-#     STATIC
-#     ${SOURCES}
-# )
-
-
-INSTALL(
-    TARGETS pcraster_moc
-    RUNTIME DESTINATION lib COMPONENT Runtime
-    LIBRARY DESTINATION lib COMPONENT Runtime
+target_link_libraries(pcraster_moc
+    PRIVATE
+        pcraster::old_calc
 )
 
+install(
+    TARGETS
+        pcraster_moc
+    RUNTIME
+        DESTINATION lib COMPONENT Runtime
+    LIBRARY
+        DESTINATION lib COMPONENT Runtime
+)
 
 if(PCRASTER_BUILD_TEST)
-    set(TEST_NAMES
-        pt_ParticleTest
-    )
-    add_library(pcraster_moc_static
-        STATIC
-        $<TARGET_OBJECTS:pcraster_moc_objects>
-    )
     add_unit_tests(
         SCOPE moc
-        NAMES ${TEST_NAMES}
+        NAMES
+            pt_ParticleTest
+        INCLUDE_DIRS
+            $<TARGET_PROPERTY:pcraster_moc_objects,INTERFACE_INCLUDE_DIRECTORIES>
+        OBJECT_LIBRARIES
+            $<TARGET_OBJECTS:pcraster_moc_objects>
         LINK_LIBRARIES
-            pcraster_moc_static
-            ${_target_libraries}
+            $<TARGET_PROPERTY:pcraster_moc,LINK_LIBRARIES>
     )
 endif()
-
 
 # run:
 # 	runapp pcrcalc -f track.pcr

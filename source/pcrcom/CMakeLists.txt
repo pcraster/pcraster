@@ -1,196 +1,168 @@
+### # TODO move this to UseAdvApi32.cmake
+### IF(WIN32)
+###     FIND_LIBRARY(ADVAPI32_LIBRARY
+###         NAMES
+###         advapi32
+###         PATHS
+###         $ENV{VSINSTALLDIR}/VC/PlatformSDK/Lib
+###     )
+###     INCLUDE_DIRECTORIES(
+###         # win32exceptiontext.inc
+###         ${CMAKE_CURRENT_SOURCE_DIR}/../include
+###     )
+### ENDIF()
 
-# TODO move this to UseAdvApi32.cmake
-IF(WIN32)
-    FIND_LIBRARY(ADVAPI32_LIBRARY
-        NAMES
-        advapi32
-        PATHS
-        $ENV{VSINSTALLDIR}/VC/PlatformSDK/Lib
-    )
-    INCLUDE_DIRECTORIES(
-        # win32exceptiontext.inc
-        ${CMAKE_CURRENT_SOURCE_DIR}/../include
-    )
-ENDIF()
+### IF(WIN32)
+###     # Registry API WIN32 LIB.
+###     SET(SOURCES ${SOURCES} com_win32.cc com_win32registrykey.cc)
+### ENDIF(WIN32)
 
-INCLUDE_DIRECTORIES(
-    ${CMAKE_CURRENT_SOURCE_DIR}/../misc
-)
-# Moduls with only template definitions, no public symbols.
-# com_exclusiveargument.cc
-# com_labeledprogresstracked.cc
-# com_labeledprogresstracker.cc
-# com_legend.cc
-# com_legendclass.cc
-# com_raster.cc
-# com_repeatableargument.cc
-# com_repeatableexclusiveargument.cc
-# com_singlevaluedraster.cc
-# com_statistics.cc
-# com_progresstracked.cc
-SET(SOURCES
-    com_appargs.cc
+add_library(pcrcom
+    com_appargs
     # mam/puma only
-    # com_app.cc
-    # com_apphelper.cc
-    # com_commandline.cc
-    # com_commandlineapp.cc
-    # com_commandlineargument.cc
-    # com_commandlinearguments.cc
-    # com_commandmodeargument.cc
-    # com_exclusiveargument.cc
-    com_basictable.cc
-    com_cliberror.cc
-    com_countedobject.cc
-    com_cpucyclecounter.cc
-    com_csfcell.cc
-    com_cumprobabilityclassifier.cc
-    com_directory.cc
-    com_dimap.cc
-    com_rimap.cc
-    com_dynamiclibrary.cc
-    com_exception.cc
-    com_file.cc
-    com_filemap.cc
-    com_icommandmode.cc
-    com_ilabeledprogresstracker.cc
-    com_interval.cc
-    com_intervalmap.cc
-    com_iprogressbar.cc
-    com_iprogresscountdown.cc
-    com_keyvaluetable.cc
-    com_math.cc
-    com_observer.cc
-    com_pathinfo.cc
-    com_pathname.cc
-    com_progressbar.cc
-    com_progresstracker.cc
-    # com_raster.cc
-    # com_repeatableargument.cc
-    # com_repeatableexclusiveargument.cc
-    # com_singlevaluedraster.cc
-    com_spawn.cc
+    # com_app
+    # com_apphelper
+    # com_commandline
+    # com_commandlineapp
+    # com_commandlineargument
+    # com_commandlinearguments
+    # com_commandmodeargument
+    # com_exclusiveargument
+    com_basictable
+    com_cliberror
+    com_countedobject
+    com_cpucyclecounter
+    com_csfcell
+    com_cumprobabilityclassifier
+    com_directory
+    com_dimap
+    com_rimap
+    com_dynamiclibrary
+    com_exception
+    com_file
+    com_filemap
+    com_icommandmode
+    com_ilabeledprogresstracker
+    com_interval
+    com_intervalmap
+    com_iprogressbar
+    com_iprogresscountdown
+    com_keyvaluetable
+    com_math
+    com_observer
+    com_pathinfo
+    com_pathname
+    com_progressbar
+    com_progresstracker
+    # com_raster
+    # com_repeatableargument
+    # com_repeatableexclusiveargument
+    # com_singlevaluedraster
+    com_spawn
     # deprecated, see InTableStream docs
-    # com_tableinfo.cc
-    # com_spiritfilelineparser.cc
-    # com_intablestream.cc
-    com_spiritfileparser.cc
-    # com_statistics.cc
-    com_streamwriter.cc
-    com_strlib.cc
-    com_subject.cc
-    com_table.cc
-    com_tempdirectory.cc
-    com_templates.cc
-    com_toggle.cc
-    com_tune.cc
-    com_uniquestringgenerator.cc
-    com_unorderedcrosstable.cc
-)
+    # com_tableinfo
+    # com_spiritfilelineparser
+    # com_intablestream
+    com_spiritfileparser
+    # com_statistics
+    com_streamwriter
+    com_strlib
+    com_subject
+    com_table
+    com_tempdirectory
+    com_templates
+    com_toggle
+    com_tune
+    com_uniquestringgenerator
+    com_unorderedcrosstable
 
-
-
-
-
-
-
-
-# # LSB does not define mallopt
-# IF(CMAKE_COMPILER_IS_GNUCC)
-#     IF(${LSB_BUILD})
-#         SET_SOURCE_FILES_PROPERTIES(
-#             com_tune.cc
-#             PROPERTIES COMPILE_FLAGS -DPCRASTER_LSB
-#         )
-#         SET_SOURCE_FILES_PROPERTIES(
-#             com_mvoptest.cc
-#             PROPERTIES COMPILE_FLAGS -DPCRASTER_LSB
-#         )
-#     ENDIF(${LSB_BUILD})
-# ENDIF(CMAKE_COMPILER_IS_GNUCC)
-
-IF(WIN32)
     # Registry API WIN32 LIB.
-    SET(SOURCES ${SOURCES} com_win32.cc com_win32registrykey.cc)
-ENDIF(WIN32)
-ADD_LIBRARY(pcrcom
-    ${SOURCES}
+    $<$<BOOL:${WIN32}>:com_win32 com_win32registrykey>
 )
-TARGET_LINK_LIBRARIES(pcrcom
-#    ${Boost_FILESYSTEM_LIBRARY}
-#    ${Boost_SYSTEM_LIBRARY}
-    Boost::filesystem
-#    Boost::system
-)
-IF(WIN32)
-    TARGET_LINK_LIBRARIES(pcrcom ${ADVAPI32_LIBRARY})
-ENDIF(WIN32)
-IF(UNIX)
-    # For dlopen in com_dynamiclibrary.
-    TARGET_LINK_LIBRARIES(pcrcom dl)
-ENDIF(UNIX)
 
+add_library(pcraster::pcrcom ALIAS pcrcom)
+
+target_include_directories(pcrcom
+    PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+)
+
+target_link_libraries(pcrcom
+    PUBLIC
+        pcraster::misc
+        Boost::filesystem
+
+        # For dlopen in com_dynamiclibrary.
+        $<$<BOOL:${UNIX}>:dl>
+)
+
+### IF(WIN32)
+###     TARGET_LINK_LIBRARIES(pcrcom ${ADVAPI32_LIBRARY})
+### ENDIF(WIN32)
 
 if(PCRASTER_BUILD_TEST)
 
     configure_file(
-        ${CMAKE_CURRENT_SOURCE_DIR}/test_prolog.py.in
-        ${CMAKE_CURRENT_BINARY_DIR}/test_prolog.py
+        test_prolog.py.in
+        test_prolog.py
         @ONLY
     )
 
-    set(TEST_NAMES
-        com_algorithmtest
-        com_anypointerstest
-        com_binaryoperatorstest
-        com_clonetest
-        # mam only
-        # com_commandlineargumentstest
-        # com_commandlineargumenttest
-        # com_commandlinetest
-        # com_argumentparsertest
-        com_appargstest
-        com_cpucyclecountertest
-        com_csfcelltest
-        com_directorytest
-        com_filemaptest
-        com_filetest
-        com_functionstest
-        com_intervalmaptest
-        com_intervaltest
-        com_irastertest
-        com_keyvaluetabletest
-        com_labeledprogresstrackertest
-        com_mathtest
-        com_mvgenerictest
-        com_mvoptest
-        com_parserstest
-        com_pathinfotest
-        com_pathnametest
-        com_progressbartest
-        com_rastertest
-        com_singlevaluedrastertest
-        com_spawntest
-        # deprecated, see InTableStream docs
-        # com_intablestreamtest
-        # com_tableinfotest
-        # com_spiritfilelineparsertest
-        com_spiritfileparsertest
-        com_statisticstest
-        com_strlibtest
-        com_tabletest
-        com_tempdirectorytest
-        com_unorderedcrosstabletest
-    )
-    IF(WIN32)
-        SET(TEST_NAMES ${TEST_NAMES}
+    if(WIN32)
+        set(additional_test_sources
             com_win32registrykeytest)
-    ENDIF(WIN32)
+    endif()
+
     add_unit_tests(
         SCOPE pcrcom
-        NAMES ${TEST_NAMES}
+        NAMES
+            com_algorithmtest
+            com_anypointerstest
+            com_binaryoperatorstest
+            com_clonetest
+            # mam only
+            # com_commandlineargumentstest
+            # com_commandlineargumenttest
+            # com_commandlinetest
+            # com_argumentparsertest
+            com_appargstest
+            com_cpucyclecountertest
+            com_csfcelltest
+            com_directorytest
+            com_filemaptest
+            com_filetest
+            com_functionstest
+            com_intervalmaptest
+            com_intervaltest
+            com_irastertest
+            com_keyvaluetabletest
+            com_labeledprogresstrackertest
+            com_mathtest
+            com_mvgenerictest
+            com_mvoptest
+            com_parserstest
+            com_pathinfotest
+            com_pathnametest
+            com_progressbartest
+            com_rastertest
+            com_singlevaluedrastertest
+            com_spawntest
+            # deprecated, see InTableStream docs
+            # com_intablestreamtest
+            # com_tableinfotest
+            # com_spiritfilelineparsertest
+            com_spiritfileparsertest
+            com_statisticstest
+            com_strlibtest
+            com_tabletest
+            com_tempdirectorytest
+            com_unorderedcrosstabletest
+
+            # Generator expressions don't work here
+            # $<$<BOOL:${WIN32}>:com_win32registrykeytest>
+            ${additional_test_sources}
         LINK_LIBRARIES
-            pcrcom
+            pcraster::pcrcom
     )
 
     add_test(
@@ -199,12 +171,14 @@ if(PCRASTER_BUILD_TEST)
     )
 
     set_tests_properties(setup_pcrcom
-        PROPERTIES FIXTURES_SETUP FixturePcrCom
+        PROPERTIES
+            FIXTURES_SETUP
+                FixturePcrCom
     )
 
-    set_tests_properties(pcrcom_com_algorithmtest pcrcom_com_filetest PROPERTIES
-        FIXTURES_REQUIRED
-          FixturePcrCom
+    set_tests_properties(pcrcom_com_algorithmtest pcrcom_com_filetest
+        PROPERTIES
+            FIXTURES_REQUIRED
+                FixturePcrCom
     )
-
 endif()

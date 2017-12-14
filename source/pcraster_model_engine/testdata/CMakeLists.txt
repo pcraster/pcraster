@@ -1,2 +1,2 @@
-ADD_SUBDIRECTORY(apiExamples)
-ADD_SUBDIRECTORY(apiExamplesData)
+add_subdirectory(apiExamples)
+add_subdirectory(apiExamplesData)

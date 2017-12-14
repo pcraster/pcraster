@@ -12,6 +12,7 @@ target_include_directories(curr
 )
 
 target_link_libraries(curr
-    pcraster::misc
-    ${CURSES_LIBRARY}
+    PUBLIC
+        pcraster::misc
+        ${CURSES_LIBRARIES}
 )

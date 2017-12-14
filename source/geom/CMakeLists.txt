@@ -11,7 +11,10 @@ target_include_directories(geom
 )
 
 target_link_libraries(geom
-    pcraster::mathx
+    PRIVATE
+        Boost::boost
+    PUBLIC
+        pcraster::mathx
 )
 
 if(PCRASTER_BUILD_TEST)

@@ -82,6 +82,7 @@ target_include_directories(_pcraster
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+        ${NUMPY_INCLUDE_DIRS}
         ${PYTHON_INCLUDE_DIR}
 )
 

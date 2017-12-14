@@ -60,5 +60,5 @@ target_include_directories(multicore_field_python_locals
         $<TARGET_PROPERTY:pcraster::model_engine,INTERFACE_INCLUDE_DIRECTORIES>
         $<TARGET_PROPERTY:pcraster::python,INTERFACE_INCLUDE_DIRECTORIES>
     PUBLIC
-        ${FERN_INCLUDE_DIR}
+        ${FERN_INCLUDE_DIRS}
 )

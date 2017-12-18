@@ -9,24 +9,24 @@
 #         except for those generated in this Makefile as defined by TEXT_OUTPUTS
 
 CONFIGURE_FILE(
-    ${CMAKE_CURRENT_SOURCE_DIR}/AscHeader2map.py.in
-    ${CMAKE_CURRENT_BINARY_DIR}/AscHeader2map.py
+    AscHeader2map.py.in
+    AscHeader2map.py
     @ONLY
-    NEWLINE_STYLE UNIX
+    # NEWLINE_STYLE UNIX
 )
 
 CONFIGURE_FILE(
     ${CMAKE_CURRENT_SOURCE_DIR}/PCRasterSample.py.in
     ${CMAKE_CURRENT_BINARY_DIR}/PCRasterSample.py
     @ONLY
-    NEWLINE_STYLE UNIX
+    # NEWLINE_STYLE UNIX
 )
 
 CONFIGURE_FILE(
     ${CMAKE_CURRENT_SOURCE_DIR}/check_man_pages.py.in
     ${CMAKE_CURRENT_BINARY_DIR}/check_man_pages.py
     @ONLY
-    NEWLINE_STYLE UNIX
+    # NEWLINE_STYLE UNIX
 )
 
 

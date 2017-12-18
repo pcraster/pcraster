@@ -24,9 +24,12 @@ struct Fixture
 {
 
     Fixture()
-        : d_user(dev::environmentVariableSet("USER")
-            ? dev::environmentVariable("USER")
-            : dev::environmentVariable("LOGNAME"))
+#if defined(WIN32)
+        : d_user(dev::environmentVariable("USERNAME"))
+#else
+        : d_user(dev::environmentVariable("LOGNAME"))
+#endif
+
     {
         BOOST_REQUIRE(!d_user.empty());
     }

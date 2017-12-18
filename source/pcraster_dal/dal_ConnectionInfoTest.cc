@@ -11,13 +11,13 @@ BOOST_AUTO_TEST_CASE(test_)
 
   std::string user;
 
-  if(dev::environmentVariableSet("USER")) {
-    user = dev::environmentVariable("USER");
-  }
-  else {
-    BOOST_REQUIRE(dev::environmentVariableSet("LOGNAME"));
-    user = dev::environmentVariable("LOGNAME");
-  }
+#if defined(WIN32)
+  BOOST_REQUIRE(dev::environmentVariableSet("USERNAME"));
+  user = dev::environmentVariable("USERNAME");
+#else
+  BOOST_REQUIRE(dev::environmentVariableSet("LOGNAME"));
+  user = dev::environmentVariable("LOGNAME");
+#endif
 
   BOOST_REQUIRE(!user.empty());
 

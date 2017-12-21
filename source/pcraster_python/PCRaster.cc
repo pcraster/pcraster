@@ -180,7 +180,7 @@ calc::Field* readField(
     case VS_CLASSIFIED:
       // CSF version 1
       valueScale = VS_NOMINAL;
-      // fall trough
+      // fall through
     case VS_NOMINAL:
     case VS_ORDINAL: {
       useTypeId = dal::TI_INT4;

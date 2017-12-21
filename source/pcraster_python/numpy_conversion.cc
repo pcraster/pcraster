@@ -1017,6 +1017,7 @@ bpn_array field_as_array(
     assert(array);
 
     auto result = PyArray_SetBaseObject((PyArrayObject*)array, field_object);
+    (void)result; // Shut up compiler
     assert(result == 0);
 
     Py_INCREF(field_object);

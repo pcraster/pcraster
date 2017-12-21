@@ -82,6 +82,10 @@ target_include_directories(_pcraster
     PRIVATE
         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+)
+# workaround to ignore warnings of these headers
+target_include_directories(_pcraster SYSTEM
+     PRIVATE
         ${NUMPY_INCLUDE_DIRS}
         ${PYTHON_INCLUDE_DIR}
 )

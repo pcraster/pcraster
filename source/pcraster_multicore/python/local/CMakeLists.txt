@@ -58,7 +58,8 @@ target_include_directories(multicore_field_python_locals
     PRIVATE
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../../..>
         $<TARGET_PROPERTY:pcraster::model_engine,INTERFACE_INCLUDE_DIRECTORIES>
-        $<TARGET_PROPERTY:pcraster::python,INTERFACE_INCLUDE_DIRECTORIES>
+        $<TARGET_PROPERTY:pcraster::python::utils,INTERFACE_INCLUDE_DIRECTORIES>
     PUBLIC
         ${FERN_INCLUDE_DIRS}
+        ${PYTHON_INCLUDE_DIR}
 )

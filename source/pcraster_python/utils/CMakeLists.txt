@@ -12,7 +12,6 @@ target_include_directories(pcraster_python_utils
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-        ${PYTHON_INCLUDE_DIR}
 )
 
 target_link_libraries(pcraster_python_utils

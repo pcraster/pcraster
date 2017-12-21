@@ -1,3 +1,5 @@
+add_subdirectory(utils)
+
 if(PCRASTER_BUILD_DOCUMENTATION)
     add_subdirectory(documentation)
 endif()
@@ -50,10 +52,9 @@ if( ( NOT ${op_expanded} STREQUAL "c1d7687a22a7e88a3637515554dd54e4f3779c2d" ) O
 endif()
 
 add_library(_pcraster SHARED
-    Globals.cc
     numpy_conversion
     PCRaster.cc
-    pcrcalcpy_util.cc
+    #pcrcalcpy_util.cc
     value_scale_traits
     pickle
     # operations.inc needs to be manually updated in case the
@@ -79,7 +80,7 @@ generate_export_header(_pcraster
 )
 
 target_include_directories(_pcraster
-    PUBLIC
+    PRIVATE
         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
         ${NUMPY_INCLUDE_DIRS}
@@ -88,7 +89,7 @@ target_include_directories(_pcraster
 
 target_link_libraries(_pcraster
     PUBLIC
-        pcraster::model_engine
+        pcraster::python::utils
         ${PCR_BOOST_PYTHON_NUMPY}
         ${PCR_BOOST_PYTHON}
         ${PYTHON_LIBRARIES}

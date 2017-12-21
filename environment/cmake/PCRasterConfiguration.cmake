@@ -106,6 +106,9 @@ endif()
 
 if(PCRASTER_WITH_PYTHON_MULTICORE)
     set(DEVBASE_FERN_REQUIRED TRUE)
+    # TODO KDJ: Is this needed?
+    set(THREADS_PREFER_PTHREAD_FLAG ON)
+    find_package(Threads REQUIRED)
 endif()
 
 
@@ -130,8 +133,3 @@ if(PCRASTER_BUILD_DOCUMENTATION)
     set(DEVBASE_SPHINX_REQUIRED TRUE)
     set(SPHINX_HTML_THEME "classic")
 endif()
-
-
-# TODO KDJ: Is this needed?
-### set(THREADS_PREFER_PTHREAD_FLAG ON)
-### find_package(Threads REQUIRED)

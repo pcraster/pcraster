@@ -116,7 +116,7 @@ namespace calc {
 namespace pcraster {
 namespace python {
 
-PCRASTER_PYTHON_EXPORT extern Globals globals;
+extern Globals globals;
 
 
 //! Check an input pointer to be non 0

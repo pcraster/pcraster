@@ -1,23 +1,8 @@
-#ifndef INCLUDED_PCRASTER_PYTHON_GLOBALS
-#define INCLUDED_PCRASTER_PYTHON_GLOBALS
+#pragma once
 
-#include "pcraster_python_export.h"
-
-// External headers.
-
-// Project headers.
-#ifndef INCLUDED_DAL_CLIENT
 #include "dal_Client.h"
-#define INCLUDED_DAL_CLIENT
-#endif
-
-#ifndef INCLUDED_GEO_RASTERSPACE
 #include "geo_rasterspace.h"
-#define INCLUDED_GEO_RASTERSPACE
-#endif
-
-// Module headers.
-
+#include "pcraster_python_utils_export.h"
 
 
 namespace dal {
@@ -26,7 +11,6 @@ namespace dal {
 namespace calc {
   class RunTimeEngine;
 }
-
 
 
 namespace pcraster {
@@ -38,10 +22,8 @@ namespace python {
 
   \sa        .
 */
-class Globals: public dal::Client
+class PCRASTER_PYTHON_UTILS_EXPORT Globals: public dal::Client
 {
-
-  friend class GlobalsTest;
 
 private:
 
@@ -79,7 +61,7 @@ public:
   // ACCESSORS
   //----------------------------------------------------------------------------
 
-  PCRASTER_PYTHON_EXPORT geo::RasterSpace const& cloneSpace   ();
+  geo::RasterSpace const& cloneSpace   ();
 
   calc::RunTimeEngine& rte             ();
 
@@ -87,7 +69,7 @@ public:
 
 };
 
-PCRASTER_PYTHON_EXPORT extern Globals globals;
+PCRASTER_PYTHON_UTILS_EXPORT extern Globals globals;
 
 //------------------------------------------------------------------------------
 // INLINE FUNCTIONS
@@ -107,5 +89,3 @@ PCRASTER_PYTHON_EXPORT extern Globals globals;
 
 } // namespace python
 } // namespace pcraster
-
-#endif

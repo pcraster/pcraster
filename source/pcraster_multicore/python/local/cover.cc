@@ -116,7 +116,7 @@ calc::Field* spatial_safe_bool(calc::Field* argument){
 }
 
 
-calc::Field* spatial_int4(calc::Field* argument, VS vs){
+calc::Field* spatial_int4(calc::Field* argument){
   double value = 0;
   argument->getCell(value, 0);
 
@@ -196,7 +196,7 @@ calc::Field* cover(boost::python::list const& arguments){
   }
   else if(is_nominal){
     if(field_arguments.at(0)->isSpatial() == false){
-      field_arguments.at(0) = detail::spatial_int4(field_arguments.at(0), VS_N);
+      field_arguments.at(0) = detail::spatial_int4(field_arguments.at(0));
     }
     for(size_t idx = 0; idx < nr_args; ++idx){
       assert_nominal_valuescale(*field_arguments.at(idx), "argument nr " + std::to_string(idx + 1));
@@ -207,7 +207,7 @@ calc::Field* cover(boost::python::list const& arguments){
     // If first argument is nonspatial nominal: cast to spatial ordinal
     if(field_arguments.at(0)->isSpatial() == false){
       if(nominal_valuescale(*field_arguments.at(0))){
-          field_arguments.at(0) = detail::spatial_int4(field_arguments.at(0), VS_O);
+          field_arguments.at(0) = detail::spatial_int4(field_arguments.at(0));
       }
     }
     for(size_t idx = 0; idx < nr_args; ++idx){

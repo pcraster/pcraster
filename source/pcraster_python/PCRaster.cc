@@ -116,7 +116,7 @@ namespace calc {
 namespace pcraster {
 namespace python {
 
-PCRASTER_PYTHON_EXPORT extern Globals globals;
+extern Globals globals;
 
 
 //! Check an input pointer to be non 0
@@ -180,7 +180,7 @@ calc::Field* readField(
     case VS_CLASSIFIED:
       // CSF version 1
       valueScale = VS_NOMINAL;
-      // fall trough
+      // fall through
     case VS_NOMINAL:
     case VS_ORDINAL: {
       useTypeId = dal::TI_INT4;

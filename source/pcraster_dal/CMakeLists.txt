@@ -239,9 +239,12 @@ if(PCRASTER_BUILD_TEST)
         PROPERTIES FIXTURES_SETUP
             FixturePCRasterDal
     )
-    set_tests_properties(pcraster_dal_dal_ArrayTest PROPERTIES
-        FIXTURES_REQUIRED
-            FixturePCRasterDal
+    set_tests_properties(
+            pcraster_dal_dal_ArrayTest
+            pcraster_dal_dal_DataSourceTest
+        PROPERTIES
+            FIXTURES_REQUIRED
+                FixturePCRasterDal
     )
 endif()
 

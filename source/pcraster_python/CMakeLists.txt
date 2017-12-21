@@ -54,7 +54,6 @@ endif()
 add_library(_pcraster SHARED
     numpy_conversion
     PCRaster.cc
-    #pcrcalcpy_util.cc
     value_scale_traits
     pickle
     # operations.inc needs to be manually updated in case the

@@ -1,3 +1,4 @@
+add_subdirectory(mf2005)
 add_subdirectory(src)
 add_subdirectory(calc)
 add_subdirectory(python)

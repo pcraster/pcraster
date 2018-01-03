@@ -1,6 +1,6 @@
 Usage in PCRCalc
 ================
-This chapter describes the usage of the PCRasterModflow extension. The first step is to create one single extension object in the script's inital section:
+This chapter describes the usage of the PCRaster Modflow extension. The first step is to create one single extension object in the script's inital section:
 
 .. code-block:: c
 

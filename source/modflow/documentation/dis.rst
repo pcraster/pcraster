@@ -40,7 +40,7 @@ elevation
 
 .. figure:: layerdesc.png
 
-   Layer numbering in Modflow and the PCRasterModflow extension
+   Layer numbering in Modflow and the PCRaster Modflow extension
 
 The figure shows two grid specifications. The left side of the figure represents a four layer system that is specified in a Python script as follows:
 
@@ -60,7 +60,7 @@ The right side of the figure shows a three layer system with a confining bed bel
    mf.addLayer"(l2top.map")
    mf.addLayer("l1top.map")
 
-The PCRasterModflow extension uses an opposite layer numbering to the Modflow convention. Furthermore, quasi-3D confining beds obtain a layer number as well. Layer numbering always starts with layer number 1 for the bottom layer and increases for each added confined or unconfined layer.
+The PCRaster Modflow extension uses an opposite layer numbering to the Modflow convention. Furthermore, quasi-3D confining beds obtain a layer number as well. Layer numbering always starts with layer number 1 for the bottom layer and increases for each added confined or unconfined layer.
 
 Except for setting the conductivity values all commands operate on layers which are not specified as confining beds. Attempts to set or retrieve values from confining beds will result in an error.
 

@@ -24,4 +24,4 @@ Contents:
    usagepy
    usage
    example
-   modflow2000
+   modflow2005

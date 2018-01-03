@@ -1187,7 +1187,7 @@ bool PCRModflow::runModflow(const std::string & working_directory) {
 
     // Standard execution
     if(run_command.empty()){
-      QString program{"pcrmf2k"};
+      QString program{"mf2005"};
       QStringList arg{"pcrmf.nam"};
       process.start(program, arg);
       process.waitForFinished(-1);
@@ -1242,7 +1242,7 @@ void PCRModflow::modflow_converged() {
   std::string filename = mf::execution_path(run_directory(), "pcrmf.lst");
 
   if(!boost::filesystem::exists(filename)) {
-    std::cerr << "  Error in PCRasterModflow: can not open global list file" << filename << std::endl;
+    std::cerr << "  Error in PCRasterModflow: can not open global list file " << filename << std::endl;
     exit(1);
   }
   std::ifstream fileInput(filename);
@@ -1268,7 +1268,7 @@ void PCRModflow::printList() {
   std::string filename = mf::execution_path(run_directory(), "pcrmf.lst");
 
   if(!boost::filesystem::exists(filename)) {
-    std::cerr << "  Error in PCRasterModflow: can not open global list file" << filename << std::endl;
+    std::cerr << "  Error in PCRasterModflow: can not open global list file " << filename << std::endl;
     exit(1);
   }
   std::cout << "  Tail of global list file " << filename << ":" << std::endl;

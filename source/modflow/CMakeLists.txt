@@ -1,6 +1,4 @@
-if(NOT WIN32) 
-    add_subdirectory(mf2005)
-endif()
+add_subdirectory(mf2005)
 add_subdirectory(src)
 add_subdirectory(calc)
 add_subdirectory(python)

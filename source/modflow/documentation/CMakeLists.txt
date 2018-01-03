@@ -17,7 +17,7 @@ set(SPHINX_SOURCES
     usage.rst
     usagepy.rst
     wel.rst
-    modflow2000.rst
+    modflow2005.rst
 )
 
 create_sphinx_docs(

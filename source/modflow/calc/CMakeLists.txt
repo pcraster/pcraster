@@ -49,22 +49,22 @@ ELSE(WIN32)
 ENDIF(WIN32)
 
 
-# MATH(EXPR NR_BITS "${CMAKE_SIZEOF_VOID_P} * 8")
-#
-# IF(WIN32)
-#   SET(EXE_EXTENSION ".exe")
-# ELSE(WIN32)
-#   SET(EXE_EXTENSION "")
-# ENDIF(WIN32)
+MATH(EXPR NR_BITS "${CMAKE_SIZEOF_VOID_P} * 8")
 
-#SET(MF_BINARY ${PROJECT_SOURCE_DIR}/external/${CMAKE_SYSTEM_NAME}/${NR_BITS}/pcrmf2k${EXE_EXTENSION})
+IF(WIN32)
+  SET(EXE_EXTENSION ".exe")
+ELSE(WIN32)
+  SET(EXE_EXTENSION "")
+ENDIF(WIN32)
 
-# INSTALL(
-#   PROGRAMS
-#     ${MF_BINARY}
-#   DESTINATION
-#     bin
-# )
+SET(MF_BINARY ${PROJECT_SOURCE_DIR}/external/${CMAKE_SYSTEM_NAME}/${NR_BITS}/pcrmf2k${EXE_EXTENSION})
+
+INSTALL(
+  PROGRAMS
+    ${MF_BINARY}
+  DESTINATION
+    bin
+)
 
 
 if(PCRASTER_BUILD_TEST)
@@ -94,15 +94,18 @@ if(PCRASTER_BUILD_TEST)
   )
 
   # the pcraster_modflow dll must be build first
-  ADD_DEPENDENCIES(modflow_calc_DemoTest pcraster_modflow mf2005 fill_python_directory_structure)
+  ADD_DEPENDENCIES(modflow_calc_DemoTest
+      pcraster_modflow
+      fill_python_directory_structure
+  )
 
   # modflow binary must be copied to execute unit tests
-#   ADD_CUSTOM_COMMAND(
-#     TARGET
-#       modflow_calc_DemoTest
-#     COMMAND ${CMAKE_COMMAND}
-#       ARGS -E copy ${MF_BINARY} ${CMAKE_CURRENT_BINARY_DIR}/
-#   )
+  ADD_CUSTOM_COMMAND(
+    TARGET
+      modflow_calc_DemoTest
+    COMMAND ${CMAKE_COMMAND}
+      ARGS -E copy ${MF_BINARY} ${CMAKE_CURRENT_BINARY_DIR}/
+  )
 
     add_test(
         NAME setup_modflow

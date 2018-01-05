@@ -1,0 +1,134 @@
+# makefile created on 2017-02-03 09:26:50.097393
+# by pymake (version 1.1.0)
+# using the gfortran fortran and cc c/c++ compilers.
+
+# Define the directories for the object and module files,
+# the executable, and the executable name and path.
+#
+# PCRaster: Modified to enable static linking
+#
+OBJDIR = ./obj_temp
+BINDIR =
+PROGRAM = mf2005
+
+SOURCEDIR1=../src
+
+VPATH = \
+${SOURCEDIR1}
+
+.SUFFIXES: .c .cpp .f .f90 .F90 .fpp .o
+
+# Define the Fortran compile flags
+F90 = gfortran-mp-7
+F90FLAGS = -O2 -fbacktrace -ffpe-summary=overflow
+
+# Define the C compile flags
+CC = gcc-mp-7
+CFLAGS = -O3
+
+# Define the libraries
+SYSLIBS = #-lc
+
+OBJECTS = \
+$(OBJDIR)/utl7.o \
+$(OBJDIR)/gwfsfrmodule.o \
+$(OBJDIR)/gwf2swr7util.o \
+$(OBJDIR)/gwf2bas7.o \
+$(OBJDIR)/gwf2rch7.o \
+$(OBJDIR)/gmg7_c_interface.o \
+$(OBJDIR)/sip7.o \
+$(OBJDIR)/gwf2res7.o \
+$(OBJDIR)/gwf2chd7.o \
+$(OBJDIR)/gwf2swt7.o \
+$(OBJDIR)/obs2bas7.o \
+$(OBJDIR)/obs2chd7.o \
+$(OBJDIR)/gwf2huf7.o \
+$(OBJDIR)/gwf2ets7.o \
+$(OBJDIR)/pcg7.o \
+$(OBJDIR)/hufutl7.o \
+$(OBJDIR)/gwf2str7.o \
+$(OBJDIR)/de47.o \
+$(OBJDIR)/gwf2ibs7.o \
+$(OBJDIR)/gwf2bcf7.o \
+$(OBJDIR)/pcgn_solve2.o \
+$(OBJDIR)/gwf2hfb7.o \
+$(OBJDIR)/gwflakmodule.o \
+$(OBJDIR)/gwfuzfmodule.o \
+$(OBJDIR)/gwf2gag7.o \
+$(OBJDIR)/gwf2evt7.o \
+$(OBJDIR)/gwf2lpf7.o \
+$(OBJDIR)/gwf2drn7.o \
+$(OBJDIR)/gwf2fhb7.o \
+$(OBJDIR)/mhc7.o \
+$(OBJDIR)/gwf2sub7.o \
+$(OBJDIR)/gwf2wel7.o \
+$(OBJDIR)/gmg7.o \
+$(OBJDIR)/gwf2drt7.o \
+$(OBJDIR)/parutl7.o \
+$(OBJDIR)/gwf2mnw27.o \
+$(OBJDIR)/gwf2ghb7.o \
+$(OBJDIR)/gwf2riv7.o \
+$(OBJDIR)/gwf2hydmod7.o \
+$(OBJDIR)/obs2str7.o \
+$(OBJDIR)/gwf2mnw2i7.o \
+$(OBJDIR)/pcgn2.o \
+$(OBJDIR)/gwf2sfr7.o \
+$(OBJDIR)/gwf2swi27.o \
+$(OBJDIR)/gwf2lak7.o \
+$(OBJDIR)/gwf2swr7.o \
+$(OBJDIR)/obs2riv7.o \
+$(OBJDIR)/obs2drn7.o \
+$(OBJDIR)/obs2ghb7.o \
+$(OBJDIR)/gwf2uzf1.o \
+$(OBJDIR)/gwf2mnw17.o \
+$(OBJDIR)/mf2005.o \
+$(OBJDIR)/lmt8.o \
+$(OBJDIR)/r_vector.o \
+$(OBJDIR)/mf2kgmg.o \
+$(OBJDIR)/solvers.o \
+$(OBJDIR)/ccfd.o
+
+# Define task functions
+
+# Compile and link the executable
+all: mf2005
+
+# Define the objects that make up mf2005
+mf2005: $(OBJECTS)
+	-$(F90) $(F90FLAGS) -static-libgfortran -lgfortran -lgcc -nodefaultlibs -lSystem /opt/local/lib/gcc7/libquadmath.a -o $(PROGRAM) $(OBJECTS) $(SYSLIBS) -I$(OBJDIR) -J$(OBJDIR)
+
+$(OBJDIR)/%.o : %.f
+	@mkdir -p $(@D)
+	$(F90) $(F90FLAGS) -c $< -o $@ -I$(OBJDIR) -J$(OBJDIR)
+
+$(OBJDIR)/%.o : %.f90
+	@mkdir -p $(@D)
+	$(F90) $(F90FLAGS) -c $< -o $@ -I$(OBJDIR) -J$(OBJDIR)
+
+$(OBJDIR)/%.o : %.F90
+	@mkdir -p $(@D)
+	$(F90) $(F90FLAGS) -c $< -o $@ -I$(OBJDIR) -J$(OBJDIR)
+
+$(OBJDIR)/%.o : %.fpp
+	@mkdir -p $(@D)
+	$(F90) $(F90FLAGS) -c $< -o $@ -I$(OBJDIR) -J$(OBJDIR)
+
+$(OBJDIR)/%.o : %.c
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJDIR)/%.o : %.cpp
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Clean the object and module files and the executable
+.PHONY : clean
+clean :
+	-rm -rf $(OBJDIR)
+	-rm -rf $(BINDIR)
+
+# Clean the object and module files
+.PHONY : cleanobj
+cleanobj :
+	-rm -rf $(OBJDIR)
+

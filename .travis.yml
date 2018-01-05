@@ -32,7 +32,6 @@ addons:
         packages:
             # - clang-3.5
             - g++-4.9
-            - gfortran-4.9
             - libxerces-c-dev
             - libxml2-dev
             - libxslt1-dev

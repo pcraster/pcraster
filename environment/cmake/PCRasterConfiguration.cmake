@@ -24,7 +24,10 @@ option(
     PCRASTER_WITH_PYTHON_MULTICORE
     "Build Python multicore module"
     FALSE)
-
+option(
+    PCRASTER_WITH_MODFLOW
+    "Build Modflow module"
+    TRUE)
 
 set(DEVBASE_BOOST_REQUIRED TRUE)
 

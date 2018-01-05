@@ -8,8 +8,8 @@ PCRaster Modflow executable
 The Modflow executable (mf2005) shipped with our PCRaster Modflow extension is based on the USGS version 1.12.00.
 You can obtain the original source code from the USGS |usgs_modflow|, or browse our GitHub page |pcr_gh|.
 
-On Unices the source code will be compiled while building the PCRaster project,
-on Windows the executable distributed by the USGS will be used.
+We used gfortran and gcc version 7.2 to compile the code on Linux and macOS.
+On Windows the executable distributed by the USGS will be used.
 
 
 .. |pcr_gh| raw:: html

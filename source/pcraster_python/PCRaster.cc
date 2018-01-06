@@ -18,7 +18,6 @@
 #include "Globals.h"
 #include "numpy_conversion.h"
 #include "pickle.h"
-#include "pcraster_python_export.h"
 
 #ifndef INCLUDED_BOOST_VERSION
 #include <boost/version.hpp>
@@ -115,8 +114,6 @@ namespace calc {
 
 namespace pcraster {
 namespace python {
-
-extern Globals globals;
 
 
 //! Check an input pointer to be non 0

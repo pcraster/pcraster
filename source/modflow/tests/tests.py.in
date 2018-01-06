@@ -28,7 +28,8 @@ class Test(testcase.TestCase):
     # so take these maps out of the comparison fttb
     if is_64bits == True:
       outputs = [ "hTwo_1.map", "hOne_1.map", "rTwo_1.map", "rOne_1.map", "riTwo_1.map", "riOne_1.map", "chTwo_1.map", "chOne_1.map",  "rfTwo_1.map", "rfOne_1.map", "lfOne_1.map", "hTwo_2.map", "hOne_2.map", "rTwo_2.map", "rOne_2.map", "riTwo_2.map", "riOne_2.map", "chTwo_2.map", "chOne_2.map",  "rfTwo_2.map", "lfOne_2.map", \
-     "ffTwo_1.map", "ffTwo_2.map", "ffOne_1.map", "ffOne_2.map", "rfOne_2.map" \
+#     "ffTwo_1.map", "ffTwo_2.map", "ffOne_1.map", "ffOne_2.map", 
+"rfOne_2.map"
 ]
     else:
       outputs = [ "hTwo_1.map", "hOne_1.map", "rTwo_1.map", "rOne_1.map", "riTwo_1.map", "riOne_1.map", "chTwo_1.map", "chOne_1.map",  "rfTwo_1.map", "rfOne_1.map", "lfOne_1.map", "hTwo_2.map", "hOne_2.map", "rTwo_2.map", "rOne_2.map", "riTwo_2.map", "riOne_2.map", "chTwo_2.map", "chOne_2.map",  "rfTwo_2.map", "lfOne_2.map"#, \

@@ -11,8 +11,6 @@
 namespace pcraster {
 namespace python {
 
-extern Globals globals;
-
 calc::Field* initField(int value_scale,
          int cri,
          size_t nr_rows,

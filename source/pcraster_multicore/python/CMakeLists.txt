@@ -97,6 +97,13 @@ target_link_libraries(_pcraster_multicore
         fern::fern_algorithm
 )
 
+add_dependencies(_pcraster_multicore
+    generate_examples.sentinel
+    _pcraster
+    fill_python_directory_structure # Refactor
+    _pcraster_modflow_python        # Refactor
+)
+
 set_target_properties(_pcraster_multicore
     PROPERTIES
         RUNTIME_OUTPUT_DIRECTORY

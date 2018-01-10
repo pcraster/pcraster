@@ -15,6 +15,5 @@ target_include_directories(multicore_field_python_type_conversions
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../../..>
         $<TARGET_PROPERTY:pcraster::model_engine,INTERFACE_INCLUDE_DIRECTORIES>
         $<TARGET_PROPERTY:pcraster::python,INTERFACE_INCLUDE_DIRECTORIES>
-    PUBLIC
-        ${FERN_INCLUDE_DIRS}
+        $<TARGET_PROPERTY:fern::fern_algorithm,INTERFACE_INCLUDE_DIRECTORIES>
 )

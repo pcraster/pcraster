@@ -28,8 +28,7 @@ target_link_libraries(_pcraster_multicore
     pcraster::python::utils
     ${PCR_BOOST_PYTHON_NUMPY}
     ${PCR_BOOST_PYTHON}
-    Threads::Threads
-    ${FERN_LIBRARIES}
+    fern::fern_algorithm
 )
 
 set_target_properties(_pcraster_multicore

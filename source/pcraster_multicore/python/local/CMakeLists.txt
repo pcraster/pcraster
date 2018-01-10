@@ -59,7 +59,12 @@ target_include_directories(multicore_field_python_locals
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../../..>
         $<TARGET_PROPERTY:pcraster::model_engine,INTERFACE_INCLUDE_DIRECTORIES>
         $<TARGET_PROPERTY:pcraster::python::utils,INTERFACE_INCLUDE_DIRECTORIES>
+        $<TARGET_PROPERTY:fern::fern_algorithm,INTERFACE_INCLUDE_DIRECTORIES>
     PUBLIC
-        ${FERN_INCLUDE_DIRS}
         ${PYTHON_INCLUDE_DIR}
 )
+
+# target_link_libraries(multicore_field_python_locals
+#     PUBLIC
+#         fern::fern_algorithm
+# )

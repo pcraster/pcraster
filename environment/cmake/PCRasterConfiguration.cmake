@@ -109,9 +109,11 @@ endif()
 
 if(PCRASTER_WITH_PYTHON_MULTICORE)
     set(DEVBASE_FERN_REQUIRED TRUE)
-    # TODO KDJ: Is this needed?
-    set(THREADS_PREFER_PTHREAD_FLAG ON)
-    find_package(Threads REQUIRED)
+
+    # For some reason fern-config.cmake is not handled correctly. It mentions
+    # the dependency on Boost::timer, but this isn't picked up...
+    list(APPEND DEVBASE_REQUIRED_BOOST_COMPONENTS
+        timer)
 endif()
 
 

@@ -9,6 +9,16 @@ add_library(_pcraster_multicore SHARED
     pcraster_multicore
 )
 
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+    # otherwise compilation with hidden visibility flags will fail
+    if(${Boost_MINOR_VERSION} EQUAL 65)
+        target_compile_definitions(
+            _pcraster_multicore
+        PUBLIC
+            -DBOOST_PYTHON_USE_GCC_SYMBOL_VISIBILITY)
+    endif()
+endif()
+
 target_include_directories(_pcraster_multicore
     PRIVATE
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../..>

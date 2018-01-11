@@ -1,12 +1,66 @@
-add_subdirectory(local)
-add_subdirectory(focal)
-add_subdirectory(total)
-add_subdirectory(type_conversion)
 add_subdirectory(scripts)
 
 add_library(_pcraster_multicore SHARED
     execution_policy
     pcraster_multicore
+
+    focal/slope
+    focal/window4total
+    focal/windowtotal
+
+    local/and
+    local/or
+    local/xor
+    local/not
+    local/defined
+
+    local/add
+    local/sub
+    local/mul
+    local/div
+
+    local/sqrt
+    local/pow
+    local/sqr
+    local/abs
+    local/fac
+    local/ln
+    local/log10
+    local/roundup
+    local/rounddown
+    local/roundoff
+
+    local/equal
+    local/unequal
+    local/less
+    local/less_equal
+    local/greater
+    local/greater_equal
+
+    local/ifthen
+    local/ifthenelse
+
+    local/cover
+    local/minimum
+    local/maximum
+
+    local/cos
+    local/sin
+    local/tan
+    local/acos
+    local/asin
+    local/atan
+
+    local/utils
+
+    total/mapmaximum
+    total/mapminimum
+
+    type_conversion/boolean
+    type_conversion/nominal
+    type_conversion/ordinal
+    type_conversion/scalar
+    type_conversion/nonspatial_field
 )
 
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
@@ -23,6 +77,7 @@ target_include_directories(_pcraster_multicore
     PRIVATE
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../..>
         ${PYTHON_INCLUDE_DIR}
+        # D:/jong0137/development/install/fern/include
 )
 
 configure_python_extension(_pcraster_multicore
@@ -30,15 +85,16 @@ configure_python_extension(_pcraster_multicore
 )
 
 target_link_libraries(_pcraster_multicore
-    pcraster::multicore_python_local
-    multicore_field_python_totals
-    multicore_field_python_focals
-    multicore_field_python_locals
-    multicore_field_python_type_conversions
-    pcraster::python::utils
-    ${PCR_BOOST_PYTHON_NUMPY}
-    ${PCR_BOOST_PYTHON}
-    fern::fern_algorithm
+    PRIVATE
+        # pcraster::multicore_python_local
+        # multicore_field_python_totals
+        # multicore_field_python_focals
+        # multicore_field_python_locals
+        # multicore_field_python_type_conversions
+        pcraster::python::utils
+        ${PCR_BOOST_PYTHON_NUMPY}
+        ${PCR_BOOST_PYTHON}
+        fern::fern_algorithm
 )
 
 set_target_properties(_pcraster_multicore

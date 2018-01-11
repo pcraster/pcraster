@@ -66,6 +66,21 @@ BOOST_PYTHON_MODULE(_pcraster_multicore){
   // show user defined docstrings and Python signatures, disable the C++ signatures
   bp::docstring_options doc_options(true, true, false);
 
+
+  try {
+      // Upon module initialization the execution policy must be constructed, not sooner
+      pmcpy::construct_execution_policy();
+
+      // Upon module finalization, the execution policy must be destructed, not later
+      bp::import("atexit").attr("register")(
+          bp::make_function(&pmcpy::destruct_execution_policy));
+  }
+  catch(bp::error_already_set&) {
+      pmcpy::destruct_execution_policy();
+      throw;
+  }
+
+
   bp::def("set_nr_worker_threads", &pmcpy::set_nr_worker_threads,
     "Set the number of worker threads to be used in the PCRaster multicore algorithms",
     bp::args("nr_threads"));

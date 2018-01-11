@@ -24,7 +24,7 @@ are able to exploit multiple processors:
   sqr, sqrt, abs, fac, ln, log10
   rounddown, roundup, roundoff
   cos, sin, tan, acos, asin, atan
-  slope, window4total
+  slope, window4total, windowtotal, windowaverage
   mapmaximum, mapminimum
 
 To set or query the number of worker threads use:

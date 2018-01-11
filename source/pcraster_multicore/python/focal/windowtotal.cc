@@ -24,9 +24,11 @@ namespace fa = fern::algorithm;
 
 namespace pcraster_multicore {
 namespace python {
+namespace detail {
 
 
-calc::Field* windowtotal(
+template<typename DivideOrNot>
+calc::Field* windowtot_avg(
          calc::Field * field,
          size_t radius){
 
@@ -53,7 +55,7 @@ calc::Field* windowtotal(
 
   fa::convolution::convolve<
     fa::convolve::SkipNoData,
-    fa::convolve::DontDivideByWeights,
+    DivideOrNot,
     fa::convolve::SkipOutOfImage,
     fa::convolve::ReplaceNoDataFocusElement,
     fa::convolve::OutOfRangePolicy>(
@@ -61,6 +63,23 @@ calc::Field* windowtotal(
       epol, arg, runtime_kernel, result);
 
   return field_result;
+}
+
+} // namespace detail
+
+
+calc::Field* windowtotal(
+         calc::Field * field,
+         size_t radius) {
+    return detail::windowtot_avg<fa::convolve::DontDivideByWeights>(field, radius);
+
+}
+
+calc::Field* windowaverage(
+         calc::Field * field,
+         size_t radius) {
+
+    return detail::windowtot_avg<fa::convolve::DivideByWeights>(field, radius);
 }
 
 

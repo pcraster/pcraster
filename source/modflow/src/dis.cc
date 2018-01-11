@@ -559,7 +559,6 @@ void DIS::write_dis_array(std::string const& path) const {
     exit(1);
   }
 
-  int nrLayer = 1;
   for(int i = d_mf->dd_nrLayer - 1; i >= 0; i--){
     size_t pos = 0;
     for(size_t j = 0; j < d_mf->d_nrOfRows; j++){

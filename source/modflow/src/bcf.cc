@@ -985,9 +985,6 @@ void BCF::write_vcond(std::string const& path)  {
     size_t size = d_mf->d_layer2BlockLayer.size();
     size_t blockLayer = d_mf->d_layer2BlockLayer.at(size - mfLayer);
 
-    // determine layer type
-    size_t lcon = getLaycon(d_mf->d_layerType.at(blockLayer));
-
 
     if((i!=0) && (blockLayer!=0)){
       // vertical  conductivity along rows
@@ -1116,9 +1113,6 @@ void BCF::write_sf1(std::string const& path){
     size_t size = d_mf->d_layer2BlockLayer.size();
     size_t blockLayer = d_mf->d_layer2BlockLayer.at(size - mfLayer);
 
-    // determine layer type
-    size_t lcon = getLaycon(d_mf->d_layerType.at(blockLayer));
-
     size_t count = 0;
 
     for(size_t r = 0; r < d_mf->d_nrOfRows; ++r){
@@ -1150,9 +1144,6 @@ void BCF::write_sf2(std::string const& path){
     size_t mfLayer = count - i;
     size_t size = d_mf->d_layer2BlockLayer.size();
     size_t blockLayer = d_mf->d_layer2BlockLayer.at(size - mfLayer);
-
-    // determine layer type
-    size_t lcon = getLaycon(d_mf->d_layerType.at(blockLayer));
 
     size_t count = 0;
 

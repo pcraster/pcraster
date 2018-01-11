@@ -27,7 +27,7 @@ const double com::DiMap::logMax = 1.0e150;
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 /*!
@@ -101,14 +101,14 @@ void com::DiMap::setDblRange(double d1, double d2, bool lg)
   if(lg)
   {
     d_log = true;
-    if(d1 < logMin) 
+    if(d1 < logMin)
       d1 = logMin;
-    else if(d1 > logMax) 
+    else if(d1 > logMax)
       d1 = logMax;
 
-    if(d2 < logMin) 
+    if(d2 < logMin)
       d2 = logMin;
-    else if (d2 > logMax) 
+    else if (d2 > logMax)
       d2 = logMax;
 
     d_x1 = std::log(d1);
@@ -170,7 +170,7 @@ int com::DiMap::transform(double x) const
 
   logarithmic mapping: d1 + (d2 - d1) / log(i2 / i1) * log(y / i1)
 */
-double com::DiMap::invTransform(int y) const 
+double com::DiMap::invTransform(int y) const
 {
   if(d_cnv == 0.0)
   {
@@ -178,10 +178,10 @@ double com::DiMap::invTransform(int y) const
   }
   else
   {
-    if(d_log) 
+    if(d_log)
       return std::exp(d_x1 + double(y - d_y1) / d_cnv);
     else
-      return (d_x1 + double(y - d_y1) / d_cnv);	
+      return (d_x1 + double(y - d_y1) / d_cnv);
   }
 }
 
@@ -216,19 +216,21 @@ int com::DiMap::limTransform(double x) const
   logarithmic mapping: i1 + (i2 - i1) / log(d2 / d1) * log(x / d1)
 
   This function is similar to transform(), but makes the integer interval
-  appear to be double. 
+  appear to be double.
 */
 //------------------------------------------------------------
 double com::DiMap::xTransform(double x) const
 {
   double rv;
-    
-  if(d_log)
-    rv = static_cast<double>(d_y1) + (std::log(x) - d_x1) * d_cnv;    
-  else
-    rv = static_cast<double>(d_y1) + (x - d_x1) * d_cnv;
 
-    return rv;
+  if(d_log) {
+    rv = static_cast<double>(d_y1) + (std::log(x) - d_x1) * d_cnv;
+  }
+  else {
+    rv = static_cast<double>(d_y1) + (x - d_x1) * d_cnv;
+  }
+
+  return rv;
 }
 
 
@@ -236,8 +238,8 @@ double com::DiMap::xTransform(double x) const
 void com::DiMap::newFactor()
 {
   if(d_x2 != d_x1)
-    d_cnv = static_cast<double>(d_y2 - d_y1) / (d_x2 - d_x1); 
-  else 
+    d_cnv = static_cast<double>(d_y2 - d_y1) / (d_x2 - d_x1);
+  else
     d_cnv = 0.0;
 }
 

@@ -1,5 +1,5 @@
 #pragma once
-
+#include <cstddef>
 
 namespace calc {
   class Field;
@@ -12,7 +12,12 @@ namespace python {
 
 calc::Field* windowtotal(
          calc::Field * field,
-         int window_length);
+         size_t radius);
+
+
+calc::Field* windowaverage(
+         calc::Field * field,
+         size_t radius);
 
 
 } // namespace python

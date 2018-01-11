@@ -1,6 +1,7 @@
 # This file was generated during the PCRaster build.
 # Do not edit!
 import sys
+import math
 import pcraster.operations
 import pcraster as _pcraster
 from . import _pcraster_multicore as _pmc
@@ -63,26 +64,87 @@ def _sort(*args):
     return values
 
 
+def _oversized_kernel(window_length):
+    # ToDo: this should be handled by Fern...
+    maximum_kernel = max(_pcraster.clone().nrRows(), _pcraster.clone().nrCols())
+
+    if window_length >= maximum_kernel:
+        return True
+    else:
+        return False
+
 def windowtotal(arg1, arg2):
-    # Field as window length argument: use default implementation
+    # Field as window length argument: use traditional PCRaster implementation
     if isinstance(arg2, _pcraster.Field):
       return pcraster.operations.windowtotal(arg1, arg2)
 
-    # Test whether we can use the multicore version
-    cellSize = _pcraster.cellvalue(_pcraster.celllength(), 1)[0]
-    # Calculate windows length as number of cells
-    window_length = arg2 / cellSize
+    radius = 0
 
-    if window_length == 3.0 or window_length == 5.0 or window_length == 7.0:
+    # Test whether we can use the multicore version
+    if _pmc._unittrue():
+        cellSize = _pcraster.cellvalue(_pcraster.celllength(), 1)[0]
+        if arg2 % cellSize == 0:
+            # Window size matches a number of cells
+            window_length_cells = int(arg2 / cellSize)
+            if (window_length_cells % 2) != 0 and window_length_cells > 2:
+                # Radius must be an odd number in Fern
+                radius = int(math.floor(window_length_cells / 2.0))
+    else:
+        # Window length given as number of cells
+        radius = int(arg2)
+
+    if _oversized_kernel(radius):
+        # ToDo: this should be handled by Fern...
+        # use the traditional PCRaster implementation
+        radius = 0
+
+    if radius > 0:
+      # Multicore window must be of size odd number of cells
       try:
         arg1 = _get_field(arg1)
-        return _pmc.windowtotal(arg1, int(window_length))
+        return _pmc.windowtotal(arg1, int(radius))
       except RuntimeError as exception:
         raise RuntimeError("pcraster.multicore windowtotal: {}".format(str(exception)))
 
-    # Otherwise,  fall back to the default implementation
+    # Otherwise,  fall back to the traditional PCRaster implementation
     return pcraster.operations.windowtotal(arg1, arg2)
 
+
+def windowaverage(arg1, arg2):
+    # Field as window length argument: use traditional PCRaster implementation
+    if isinstance(arg2, _pcraster.Field):
+      return pcraster.operations.windowaverage(arg1, arg2)
+
+    radius = 0
+
+    # Test whether we can use the multicore version
+    if _pmc._unittrue():
+        cellSize = _pcraster.cellvalue(_pcraster.celllength(), 1)[0]
+        if arg2 % cellSize == 0:
+            # Window size matches a number of cells
+            window_length_cells = int(arg2 / cellSize)
+            if (window_length_cells % 2) != 0 and window_length_cells > 2:
+                # Radius must be an odd number in Fern
+                radius = int(math.floor(window_length_cells / 2.0))
+    else:
+        # Window length given as number of cells
+        radius = int(arg2)
+
+    if _oversized_kernel(radius):
+        # ToDo: this should be handled by Fern...
+        # use the traditional PCRaster implementation
+        radius = 0
+
+    if radius > 0:
+      # Multicore window must be of size odd number of cells
+      try:
+        arg1 = _get_field(arg1)
+        return _pmc.windowaverage(arg1, int(radius))
+      except RuntimeError as exception:
+        raise RuntimeError("pcraster.multicore windowaverage: {}".format(str(exception)))
+
+    # Otherwise,  fall back to the traditional PCRaster implementation
+    return pcraster.operations.windowaverage(arg1, arg2)
 
 def cover(*args):
     try:

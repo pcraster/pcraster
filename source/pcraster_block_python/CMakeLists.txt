@@ -13,15 +13,7 @@ add_library(_pcraster_block_python SHARED
 
 add_library(pcraster::block_python ALIAS _pcraster_block_python)
 
-if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-    # otherwise compilation with hidden visibility flags will fail
-    if(${Boost_MINOR_VERSION} EQUAL 65)
-        target_compile_definitions(
-            _pcraster_block_python
-        PUBLIC
-            -DBOOST_PYTHON_USE_GCC_SYMBOL_VISIBILITY)
-    endif()
-endif()
+fix_boost_python_visibility(_pcraster_block_python)
 
 target_include_directories(_pcraster_block_python
     PRIVATE

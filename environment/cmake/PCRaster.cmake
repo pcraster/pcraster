@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)
-
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 # In general, don't set compiler options in CMake files. Here we set the
 # most general options that everybody always wants. Anything else should

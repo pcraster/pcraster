@@ -36,6 +36,8 @@ calc::Field* cos_scalar(
   calc::Field* field_result = nullptr;
 
   if(field->isSpatial() == false){
+    fa::SequentialExecutionPolicy sequential;
+
     const multicore_field::Nonspatial<REAL4> arg(field);
 
     field_result = new calc::NonSpatial(VS_S);
@@ -51,11 +53,11 @@ calc::Field* cos_scalar(
       multicore_field::Nonspatial<REAL4> deg_rad(degrees_to_radians(&arg, &result));
 
       fa::trigonometry::cos<fa::cos::OutOfDomainPolicy>(input_no_data_policy,
-        output_no_data_policy, fa::sequential, deg_rad, result);
+        output_no_data_policy, sequential, deg_rad, result);
     }
     else{
       fa::trigonometry::cos<fa::cos::OutOfDomainPolicy>(input_no_data_policy,
-        output_no_data_policy, fa::sequential, arg, result);
+        output_no_data_policy, sequential, arg, result);
     }
     return result.getField();
   }
@@ -95,6 +97,8 @@ calc::Field* cos_directional(
   calc::Field* field_result = nullptr;
 
   if(field->isSpatial() == false){
+    fa::SequentialExecutionPolicy sequential;
+
     const multicore_field::Nonspatial<REAL4> arg(field);
 
     field_result = new calc::NonSpatial(VS_S);
@@ -110,11 +114,11 @@ calc::Field* cos_directional(
       multicore_field::Nonspatial<REAL4> deg_rad(degrees_to_radians(&arg, &result));
 
       fa::trigonometry::cos<OutOfDirectionalDomainPolicy>(input_no_data_policy,
-        output_no_data_policy, fa::sequential, deg_rad, result);
+        output_no_data_policy, sequential, deg_rad, result);
     }
     else{
       fa::trigonometry::cos<OutOfDirectionalDomainPolicy>(input_no_data_policy,
-        output_no_data_policy, fa::sequential, arg, result);
+        output_no_data_policy, sequential, arg, result);
     }
     return result.getField();
   }

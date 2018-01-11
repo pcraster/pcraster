@@ -37,6 +37,8 @@ calc::Field* greater_equal_number_number(
          const multicore_field::Nonspatial<T>* arg2,
          multicore_field::Nonspatial<UINT1>* res){
 
+  fa::SequentialExecutionPolicy sequential;
+
   using InputNoDataPolicy = fa::InputNoDataPolicies<NonspatialDetectNoData<T>,
         NonspatialDetectNoData<T>>;
   InputNoDataPolicy input_no_data_policy{{*arg1},{*arg2}};
@@ -44,7 +46,7 @@ calc::Field* greater_equal_number_number(
   NonspatialSetNoData<UINT1> output_no_data_policy(*res);
 
   fa::algebra::greater_equal(input_no_data_policy,
-    output_no_data_policy, fa::sequential, *arg1, *arg2, *res);
+    output_no_data_policy, sequential, *arg1, *arg2, *res);
 
   return res->getField();
 }

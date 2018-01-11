@@ -32,6 +32,8 @@ calc::Field* div_number_number(
          const multicore_field::Nonspatial<REAL4>* arg2,
          multicore_field::Nonspatial<REAL4>* res){
 
+  fa::SequentialExecutionPolicy sequential;
+
   using InputNoDataPolicy = fa::InputNoDataPolicies<NonspatialDetectNoData<REAL4>,
         NonspatialDetectNoData<REAL4>>;
   InputNoDataPolicy input_no_data_policy{{*arg1},{*arg2}};
@@ -40,7 +42,7 @@ calc::Field* div_number_number(
 
   fa::algebra::divide<fa::divide::OutOfDomainPolicy,
     fa::divide::OutOfRangePolicy>(input_no_data_policy,
-    output_no_data_policy, fa::sequential, *arg1, *arg2, *res);
+    output_no_data_policy, sequential, *arg1, *arg2, *res);
 
   return res->getField();
 }

@@ -33,13 +33,15 @@ calc::Field* not_number(
          const multicore_field::Nonspatial<UINT1>* arg1,
          multicore_field::Nonspatial<UINT1>* res){
 
+  fa::SequentialExecutionPolicy sequential;
+
   using InputNoDataPolicy = fa::InputNoDataPolicies<NonspatialDetectNoData<UINT1>>;
   InputNoDataPolicy input_no_data_policy{{*arg1}};
 
   NonspatialSetNoData<UINT1> output_no_data_policy(*res);
 
   fa::algebra::not_(input_no_data_policy,
-    output_no_data_policy, fa::sequential, *arg1, *res);
+    output_no_data_policy, sequential, *arg1, *res);
 
   return res->getField();
 }

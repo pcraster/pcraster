@@ -11,7 +11,7 @@ namespace python {
 
 
 static fa::ExecutionPolicy _execution_policy{
-    fa::parallel};
+    fa::ParallelExecutionPolicy{}};
 
 
 static size_t _nr_worker_threads{std::thread::hardware_concurrency()};
@@ -27,12 +27,11 @@ void set_nr_worker_threads(size_t threads){
 
   if(threads < 1){
     _nr_worker_threads = 0;
-    _execution_policy = fa::sequential;
+    _execution_policy = fa::SequentialExecutionPolicy{};
   }
   else{
     _nr_worker_threads = threads;
-    fa::parallel = fa::ParallelExecutionPolicy{threads};
-    _execution_policy = fa::parallel;
+    _execution_policy = fa::ParallelExecutionPolicy{threads};
   }
 }
 

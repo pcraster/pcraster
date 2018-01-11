@@ -6,6 +6,10 @@
 namespace pcraster_multicore {
 namespace python {
 
+void               construct_execution_policy();
+
+void               destruct_execution_policy();
+
 void               set_nr_worker_threads(size_t threads);
 
 size_t             nr_worker_threads   ();

@@ -1,9 +1,7 @@
 #include "pcraster_multicore/python/focal/windowtotal.h"
 
-
 // PCRaster
 #include "calc_spatial.h"
-
 
 // Field wrapper
 #include "pcraster_multicore/wrapper/datatype_customization_points/multicore_spatial.h"
@@ -15,113 +13,22 @@
 #include "pcraster_multicore/python/local/utils.h"
 
 // Fern
-#include "fern/algorithm/convolution/neighborhood/square.h"
-#include "fern/algorithm/convolution/neighborhood/square_traits.h"
+#include <fern/algorithm/convolution/neighborhood/kernel.h>
 #include "fern/algorithm/convolution/convolve.h"
 #include "fern/algorithm/convolution/policies.h"
-#include "fern/core/data_customization_point.h"
 
 
-#include <sstream>
 
 namespace fa = fern::algorithm;
 
 
 namespace pcraster_multicore {
 namespace python {
-namespace detail {
-
-
-template<
-    typename InputNoDataPolicy,
-    typename OutputNoDataPolicy,
-    typename ExecutionPolicy,
-    typename Value,
-    typename Result
->
-void wt_3(
-    InputNoDataPolicy const& input_no_data_policy,
-    OutputNoDataPolicy& output_no_data_policy,
-    ExecutionPolicy& execution_policy,
-    Value const& value,
-    Result& result){
-
-    fern::Square<bool, 1> window_kernel({
-#include "kernel/square_3.inc"
-    });
-
-    fa::convolution::convolve<
-        fa::convolve::SkipNoData,
-        fa::convolve::DontDivideByWeights,
-        fa::convolve::SkipOutOfImage,
-        fa::convolve::ReplaceNoDataFocusElement,
-        fa::convolve::OutOfRangePolicy>(
-           input_no_data_policy, output_no_data_policy,
-           execution_policy, value, window_kernel, result);
-}
-
-template<
-    typename InputNoDataPolicy,
-    typename OutputNoDataPolicy,
-    typename ExecutionPolicy,
-    typename Value,
-    typename Result
->
-void wt_5(
-    InputNoDataPolicy const& input_no_data_policy,
-    OutputNoDataPolicy& output_no_data_policy,
-    ExecutionPolicy& execution_policy,
-    Value const& value,
-    Result& result){
-
-    fern::Square<bool, 2> window_kernel({
-#include "kernel/square_5.inc"
-    });
-
-    fa::convolution::convolve<
-        fa::convolve::SkipNoData,
-        fa::convolve::DontDivideByWeights,
-        fa::convolve::SkipOutOfImage,
-        fa::convolve::ReplaceNoDataFocusElement,
-        fa::convolve::OutOfRangePolicy>(
-           input_no_data_policy, output_no_data_policy,
-           execution_policy, value, window_kernel, result);
-}
-
-template<
-    typename InputNoDataPolicy,
-    typename OutputNoDataPolicy,
-    typename ExecutionPolicy,
-    typename Value,
-    typename Result
->
-void wt_7(
-    InputNoDataPolicy const& input_no_data_policy,
-    OutputNoDataPolicy& output_no_data_policy,
-    ExecutionPolicy& execution_policy,
-    Value const& value,
-    Result& result){
-
-    fern::Square<bool, 3> window_kernel({
-#include "kernel/square_7.inc"
-    });
-
-    fa::convolution::convolve<
-        fa::convolve::SkipNoData,
-        fa::convolve::DontDivideByWeights,
-        fa::convolve::SkipOutOfImage,
-        fa::convolve::ReplaceNoDataFocusElement,
-        fa::convolve::OutOfRangePolicy>(
-           input_no_data_policy, output_no_data_policy,
-           execution_policy, value, window_kernel, result);
-}
-
-} //namespace detail
 
 
 calc::Field* windowtotal(
          calc::Field * field,
-         int window_length){
+         size_t radius){
 
   if(field->isSpatial() == false){
     throw std::runtime_error("argument is non-spatial, only spatial is allowed\n");
@@ -142,21 +49,16 @@ calc::Field* windowtotal(
 
   SpatialSetNoData<REAL4> output_no_data_policy(result);
 
-  switch(window_length){
-    case 3:
-      detail::wt_3(input_no_data_policy, output_no_data_policy, epol, arg, result);
-      break;
-    case 5:
-      detail::wt_5(input_no_data_policy, output_no_data_policy, epol, arg, result);
-      break;
-    case 7:
-      detail::wt_7(input_no_data_policy, output_no_data_policy, epol, arg, result);
-      break;
-    default:
-      std::stringstream msg;
-      msg <<  "unrecognised window length: " << window_length;
-      throw std::runtime_error(msg.str());
-  }
+  fern::Kernel<REAL4> runtime_kernel(radius, static_cast<REAL4>(1.0));
+
+  fa::convolution::convolve<
+    fa::convolve::SkipNoData,
+    fa::convolve::DontDivideByWeights,
+    fa::convolve::SkipOutOfImage,
+    fa::convolve::ReplaceNoDataFocusElement,
+    fa::convolve::OutOfRangePolicy>(
+      input_no_data_policy, output_no_data_policy,
+      epol, arg, runtime_kernel, result);
 
   return field_result;
 }

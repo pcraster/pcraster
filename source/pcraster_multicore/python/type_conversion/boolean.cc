@@ -143,6 +143,8 @@ calc::Field* boolean(
   CSF_CR cell_representation = field->cr();
 
   if(field->isSpatial() == false){
+    fa::SequentialExecutionPolicy sequential;
+
     res_field = new calc::NonSpatial(VS_B);
     multicore_field::Nonspatial<UINT1> result(res_field);
     NonspatialSetNoData<UINT1> output_no_data_policy(result);
@@ -154,7 +156,7 @@ calc::Field* boolean(
         using InputNoDataPolicy = fa::InputNoDataPolicies<NonspatialDetectNoData<INT4>>;
         InputNoDataPolicy input_no_data_policy{{arg}};
 
-        detail::cast_to_boolean(input_no_data_policy, output_no_data_policy, fa::sequential, arg, result);
+        detail::cast_to_boolean(input_no_data_policy, output_no_data_policy, sequential, arg, result);
         break;
       }
       case CR_REAL4:{
@@ -163,7 +165,7 @@ calc::Field* boolean(
         using InputNoDataPolicy = fa::InputNoDataPolicies<NonspatialDetectNoData<REAL4>>;
         InputNoDataPolicy input_no_data_policy{{arg}};
 
-        detail::cast_to_boolean(input_no_data_policy, output_no_data_policy, fa::sequential, arg, result);
+        detail::cast_to_boolean(input_no_data_policy, output_no_data_policy, sequential, arg, result);
         break;
       }
       default: {
@@ -229,6 +231,8 @@ calc::Field* safe_boolean(
   CSF_CR cell_representation = field->cr();
 
   if(field->isSpatial() == false){
+    fa::SequentialExecutionPolicy sequential;
+
     res_field = new calc::NonSpatial(VS_B);
     multicore_field::Nonspatial<UINT1> result(res_field);
     NonspatialSetNoData<UINT1> output_no_data_policy(result);
@@ -240,7 +244,7 @@ calc::Field* safe_boolean(
         using InputNoDataPolicy = fa::InputNoDataPolicies<NonspatialDetectNoData<INT4>>;
         InputNoDataPolicy input_no_data_policy{{arg}};
 
-        detail::safe_cast_to_boolean(input_no_data_policy, output_no_data_policy, fa::sequential, arg, result);
+        detail::safe_cast_to_boolean(input_no_data_policy, output_no_data_policy, sequential, arg, result);
         break;
       }
       default: {

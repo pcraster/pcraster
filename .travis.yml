@@ -81,7 +81,7 @@ install:
     - export MAKEFLAGS='-j2'
     - mkdir build
     - cd build
-    - cmake -G"${TRAVIS_CMAKE_GENERATOR}" -DCMAKE_C_COMPILER=gcc-4.9 -DCMAKE_CXX_COMPILER=g++-4.9 -Dpeacock_prefix=$TRAVIS_BUILD_DIR/local -Dbuild_qwt=true -Dqwt_version=6.1.2 -Dbuild_fern=true -Dfern_git_repository=https://github.com/geoneric/fern.git -Dfern_git_tag==79a0e9212f6236f64888bb2c4116ef2c0835b724 -Dfern_build_fern_algorithm=true -Dfern_build_fern_documentation=false -Dfern_build_fern_test=false ..
+    - cmake -G"${TRAVIS_CMAKE_GENERATOR}" -DCMAKE_C_COMPILER=gcc-4.9 -DCMAKE_CXX_COMPILER=g++-4.9 -Dpeacock_prefix=$TRAVIS_BUILD_DIR/local -Dbuild_qwt=true -Dqwt_version=6.1.2 -Dbuild_fern=true -Dfern_git_repository=https://github.com/geoneric/fern.git -Dfern_git_tag==6698a099c369fa9f43aaaac8781e39b539ae7a2e -Dfern_build_fern_algorithm=true -Dfern_build_fern_documentation=false -Dfern_build_fern_test=false ..
     - cmake --build . --target all
 
 before_script:

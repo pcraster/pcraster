@@ -93,6 +93,8 @@ calc::Field* ordinal(
   CSF_CR cell_representation = field->cr();
 
   if(field->isSpatial() == false){
+    fa::SequentialExecutionPolicy sequential;
+
     res_field = new calc::NonSpatial(VS_O);
     multicore_field::Nonspatial<INT4> result(res_field);
     NonspatialSetNoData<INT4> output_no_data_policy(result);
@@ -104,7 +106,7 @@ calc::Field* ordinal(
         using InputNoDataPolicy = fa::InputNoDataPolicies<NonspatialDetectNoData<UINT1>>;
         InputNoDataPolicy input_no_data_policy{{arg}};
 
-        detail::cast_to_ordinal(input_no_data_policy, output_no_data_policy, fa::sequential, arg, result);
+        detail::cast_to_ordinal(input_no_data_policy, output_no_data_policy, sequential, arg, result);
         break;
       }
       case CR_INT4:{
@@ -113,7 +115,7 @@ calc::Field* ordinal(
         using InputNoDataPolicy = fa::InputNoDataPolicies<NonspatialDetectNoData<INT4>>;
         InputNoDataPolicy input_no_data_policy{{arg}};
 
-        detail::cast_to_ordinal(input_no_data_policy, output_no_data_policy, fa::sequential, arg, result);
+        detail::cast_to_ordinal(input_no_data_policy, output_no_data_policy, sequential, arg, result);
         break;
       }
       case CR_REAL4:{
@@ -122,7 +124,7 @@ calc::Field* ordinal(
         using InputNoDataPolicy = fa::InputNoDataPolicies<NonspatialDetectNoData<REAL4>>;
         InputNoDataPolicy input_no_data_policy{{arg}};
 
-        detail::cast_to_ordinal(input_no_data_policy, output_no_data_policy, fa::sequential, arg, result);
+        detail::cast_to_ordinal(input_no_data_policy, output_no_data_policy, sequential, arg, result);
         break;
       }
       default: {

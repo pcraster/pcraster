@@ -37,6 +37,8 @@ calc::Field* ifthen_number_number(
          const multicore_field::Nonspatial<T>* arg2,
          multicore_field::Nonspatial<T>* res){
 
+  fa::SequentialExecutionPolicy sequential;
+
   using InputNoDataPolicy = fa::InputNoDataPolicies<NonspatialDetectNoData<UINT1>,
         NonspatialDetectNoData<T>>;
   InputNoDataPolicy input_no_data_policy{{*arg1},{*arg2}};
@@ -44,7 +46,7 @@ calc::Field* ifthen_number_number(
   NonspatialSetNoData<T> output_no_data_policy(*res);
 
   fa::core::if_(input_no_data_policy,
-    output_no_data_policy, fa::sequential, *arg1, *arg2, *res);
+    output_no_data_policy, sequential, *arg1, *arg2, *res);
 
   return res->getField();
 }

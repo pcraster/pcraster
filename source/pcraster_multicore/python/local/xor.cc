@@ -35,6 +35,8 @@ calc::Field* xor_number_number(
          const multicore_field::Nonspatial<UINT1>* arg2,
          multicore_field::Nonspatial<UINT1>* res){
 
+  fa::SequentialExecutionPolicy sequential;
+
   using InputNoDataPolicy = fa::InputNoDataPolicies<NonspatialDetectNoData<UINT1>,
         NonspatialDetectNoData<UINT1>>;
   InputNoDataPolicy input_no_data_policy{{*arg1},{*arg2}};
@@ -42,7 +44,7 @@ calc::Field* xor_number_number(
   NonspatialSetNoData<UINT1> output_no_data_policy(*res);
 
   fa::algebra::xor_(input_no_data_policy,
-    output_no_data_policy, fa::sequential, *arg1, *arg2, *res);
+    output_no_data_policy, sequential, *arg1, *arg2, *res);
 
   return res->getField();
 }

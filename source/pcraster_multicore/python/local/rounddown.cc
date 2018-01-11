@@ -36,6 +36,8 @@ calc::Field* rounddown(
   calc::Field* field_result = nullptr;
 
   if(field->isSpatial() == false){
+    fa::SequentialExecutionPolicy sequential;
+
     const multicore_field::Nonspatial<REAL4> arg(field);
 
     field_result = new calc::NonSpatial(VS_S);
@@ -47,7 +49,7 @@ calc::Field* rounddown(
     NonspatialSetNoData<REAL4> output_no_data_policy(result);
 
     fa::algebra::floor(input_no_data_policy,
-      output_no_data_policy, fa::sequential, arg, result);
+      output_no_data_policy, sequential, arg, result);
 
     return result.getField();
   }

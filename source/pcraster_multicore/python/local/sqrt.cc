@@ -42,6 +42,8 @@ calc::Field* sqrt(
   calc::Field* field_result = nullptr;
 
   if(field->isSpatial() == false){
+    fa::SequentialExecutionPolicy sequential;
+
     field = to_scalar(field);
     const multicore_field::Nonspatial<REAL4> arg(field);
 
@@ -54,7 +56,7 @@ calc::Field* sqrt(
     NonspatialSetNoData<REAL4> output_no_data_policy(result);
 
      fa::algebra::sqrt<fa::sqrt::OutOfDomainPolicy>(input_no_data_policy,
-       output_no_data_policy, fa::sequential, arg, result);
+       output_no_data_policy, sequential, arg, result);
 
     return result.getField();
   }

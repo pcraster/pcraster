@@ -34,10 +34,12 @@ calc::Field* defined_number(
          const multicore_field::Nonspatial<T>* arg1,
          multicore_field::Nonspatial<UINT1>* res){
 
+  fa::SequentialExecutionPolicy sequential;
+
   using InputNoDataPolicy = fa::InputNoDataPolicies<NonspatialDetectNoData<T>>;
   InputNoDataPolicy input_no_data_policy{{*arg1}};
 
-  fa::algebra::defined(input_no_data_policy, fa::sequential, *res);
+  fa::algebra::defined(input_no_data_policy, sequential, *res);
 
   return res->getField();
 }

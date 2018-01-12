@@ -231,8 +231,6 @@ if(PCRASTER_BUILD_TEST)
             calc_lexinputtest
             calc_modelbuildertest
             # calc_wldelfthabitattest.cc  No longer supported.
-        INCLUDE_DIRS
-            $<TARGET_PROPERTY:pcraster_old_calc_objects,INTERFACE_INCLUDE_DIRECTORIES>
         OBJECT_LIBRARIES
             $<TARGET_OBJECTS:pcraster_old_calc_objects>
         LINK_LIBRARIES

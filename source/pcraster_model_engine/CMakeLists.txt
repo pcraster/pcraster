@@ -7,7 +7,8 @@ configure_file(
 
 add_definitions(-DUSE_IN_PCRCALC)
 
-add_subdirectory(testdata)
+add_subdirectory(testdata/apiExamples)
+add_subdirectory(testdata/apiExamplesData)
 add_subdirectory(csharp)
 
 # actually newcalc.l

@@ -1,2 +1,0 @@
-add_subdirectory(apiExamples)
-add_subdirectory(apiExamplesData)

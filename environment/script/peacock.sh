@@ -55,6 +55,7 @@ function build_software()
         # CentOS 7
         skip_build_qt=1
     elif [[
+            $hostname == "triklav" ||
             $hostname == "triklav.local" ||
             $hostname == "triklav.soliscom.uu.nl"
             ]]; then
@@ -125,7 +126,7 @@ function build_software()
     # Fern.
     options+=("-Dbuild_fern=true")
     options+=("-Dfern_git_repository=https://github.com/geoneric/fern.git")
-    options+=("-Dfern_git_tag=6698a099c369fa9f43aaaac8781e39b539ae7a2e")
+    options+=("-Dfern_git_tag=2b71ce7ce7462933724319ec7a81271fc1424b26")
     options+=("-Dfern_build_fern_algorithm=true")
     options+=("-Dfern_build_fern_documentation=false")
     options+=("-Dfern_build_fern_test=false")

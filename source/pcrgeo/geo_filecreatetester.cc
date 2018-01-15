@@ -261,7 +261,7 @@ bool geo::FileCreateTester::equalToCsf(
      CSFMap map2(eqTo);
    ThrowOrReturn tr(map1.filename(),map2.filename(),throwWhatDifferent);
 
-  if (Rcompare(static_cast<MAP *>(map1),static_cast<MAP *>(map2)) == 0)
+  if(map1.rasterSpace() != map2.rasterSpace())
     return tr.falseOrThrow("location attributes differ");
   if( map1.valueScale() != map2.valueScale() )
     return tr.falseOrThrow("data type (aka value scale) differ");

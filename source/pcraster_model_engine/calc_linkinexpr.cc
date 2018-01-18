@@ -229,7 +229,7 @@ const Operator&  LinkInExpr::op() const
 
 /*! load library if not already loaded
     before this call a setAsMethod-call may identify
-    that this is method invocation, otherwise it is 
+    that this is method invocation, otherwise it is
     a function or constructor
  */
 void LinkInExpr::loadLibrary(const LinkInLibrary *library)
@@ -369,7 +369,7 @@ const ASTPar* LinkInExpr::objectPar() const
 
 pcrxml::RunContext LinkInExpr::context(RunTimeEnv const& rte) const
 {
-  std::auto_ptr<pcrxml::RunContext> rc(rte.createXMLContext());
+  std::shared_ptr<pcrxml::RunContext> rc(rte.createXMLContext());
   return *rc;
 }
 

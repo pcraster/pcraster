@@ -11,14 +11,14 @@
 //! make a date_time and validate first
 static xml_schema::date_time makeDateTime(const std::string& date)
 {
-  std::ostringstream o; 
+  std::ostringstream o;
   o << "<pcr:clock                                                   \
     xmlns:pcr='http://www.pcraster.nl/pcrxml'                        \
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'            \
     xsi:schemaLocation='http://www.pcraster.nl/pcrxml unitTest.xsd'>";
   o << date << "</pcr:clock> ";
   std::istringstream i(o.str());
-  std::auto_ptr<xml_schema::date_time> d(pcrxml::clock(i));
+  std::unique_ptr<xml_schema::date_time> d(pcrxml::clock(i));
   return *d;
 }
 
@@ -27,14 +27,14 @@ static xml_schema::date_time makeDateTime(const std::string& date)
 static pcrxml::TimeDuration makeTimeDuration(
     const std::string& duration)
 {
-  std::ostringstream o; 
+  std::ostringstream o;
   o << "<pcr:unitTestOnlyDuration                                   \
     xmlns:pcr='http://www.pcraster.nl/pcrxml'                        \
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'            \
     xsi:schemaLocation='http://www.pcraster.nl/pcrxml commonTypes.xsd'>";
   o << duration << "</pcr:unitTestOnlyDuration> ";
   std::istringstream i(o.str());
-  std::auto_ptr<pcrxml::TimeDuration> d(pcrxml::unitTestOnlyDuration(i));
+  std::unique_ptr<pcrxml::TimeDuration> d(pcrxml::unitTestOnlyDuration(i));
   return *d;
 }
 

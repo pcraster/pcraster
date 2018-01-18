@@ -4,10 +4,6 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_BOOST_SCOPED_PTR
-#include <boost/scoped_ptr.hpp>
-#define INCLUDED_BOOST_SCOPED_PTR
-#endif
 #ifndef INCLUDED_MAP
 #include <map>
 #define INCLUDED_MAP
@@ -32,6 +28,8 @@
 #include <sstream>
 #define INCLUDED_SSTREAM
 #endif
+
+#include <memory>
 
 #include <xercesc/parsers/AbstractDOMParser.hpp>
 #include <xercesc/dom/DOMImplementationLS.hpp>
@@ -380,7 +378,7 @@ DOMDocument* DOMInput::document()
   // create our error handler and install it
   //  only have to keep live during parse
 
-  std::auto_ptr<DOMInputErrorHandler> errorHandler;
+  std::unique_ptr<DOMInputErrorHandler> errorHandler;
   if (d_errorHandlerType == Vi)
     errorHandler.reset(new ViErrorHandler());
   if (d_errorHandlerType == Verbose)
@@ -390,7 +388,7 @@ DOMDocument* DOMInput::document()
    errorHandler.get());
 
   // see http://old.nabble.com/Using-a-local-DTD-td26984671.html
-  d_parser->getDomConfig()->setParameter(XMLUni::fgDOMResourceResolver, 
+  d_parser->getDomConfig()->setParameter(XMLUni::fgDOMResourceResolver,
             d_resourceResolver);
 
   try {

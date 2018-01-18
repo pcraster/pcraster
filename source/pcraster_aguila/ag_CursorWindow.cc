@@ -131,7 +131,7 @@ void CursorWindow::get()
   d.setFile(d_fileToGetCursorValue.string().c_str());
 
   try {
-    std::auto_ptr<pcrxml::Cursor> cursor(pcrxml::aguilaCursor(*d.document()));
+    std::unique_ptr<pcrxml::Cursor> cursor(pcrxml::aguilaCursor(*d.document()));
 
     if(cursor->x().present() && cursor->y().present()) {
       dataObject().setXY(cursor->x().get(), cursor->y().get());
@@ -146,7 +146,7 @@ void CursorWindow::save()
 {
 /*
   // Ask for a filename to use.
-  QString fileName = QFileDialog::getSaveFileName(QString::null, 
+  QString fileName = QFileDialog::getSaveFileName(QString::null,
          "Cursor and Values (*.xml)", this, "save file dialog",
          "Save cursor and values as...");
 
@@ -582,7 +582,7 @@ void CursorWindow::appendToCursorValueMonitorFile()
 
   try {
     // append acv to existing file (created in setCursorIO)
-    std::auto_ptr<pcrxml::AguilaCursorValues>
+    std::unique_ptr<pcrxml::AguilaCursorValues>
       appendToThis(pcrxml::aguilaCursorValues(*d.document()));
 
     appendToThis->aguilaCursorValue().push_back(acv);

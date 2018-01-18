@@ -212,7 +212,7 @@ bool calc::Spatial::checkDebug(
       return true;
     DecompressedData dd(VS_L); // UINT1
     s.compressor().decompress(dd,mask);
-    std::auto_ptr<GridMap> debugMap(s.createMap(s.debugMapName(),VS_N));
+    std::unique_ptr<GridMap> debugMap(s.createMap(s.debugMapName(),VS_N));
     size_t nrOutValues = s.rasterSpace().nrCells();
     geo::SimpleRaster<INT4> i4(1,nrOutValues);
     com::copyCells(i4.cells(), (const UINT1 *)dd.decompressed(), nrOutValues);

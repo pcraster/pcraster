@@ -18,7 +18,7 @@ ENDMACRO(TEXT_TO_CHARACTER_ARRAY)
 SET(XSD_SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../xmlschema)
 SET(XSD_EPILOGUE ${CMAKE_CURRENT_SOURCE_DIR}/xsdEpilogue.txt)
 SET(XSD_OPTIONS cxx-tree
-    # TODO --std c++11  # unique_ptr instead of auto_ptr
+    --std c++11
     --generate-serialization
     --generate-ostream
     --hxx-suffix XSD.h

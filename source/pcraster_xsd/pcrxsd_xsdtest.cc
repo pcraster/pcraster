@@ -24,7 +24,7 @@ BOOST_AUTO_TEST_CASE(xml_to_class)
             xsi:schemaLocation='http://www.pcraster.nl/pcrxml PCRaster.xsd'>\
             <description><text>Haskell sucks</text></description>       \
             </definition>");
-  std::auto_ptr<pcrxml::Definition> d(pcrxml::definition(s));
+  std::unique_ptr<pcrxml::Definition> d(pcrxml::definition(s));
 
   std::string name(d->name());
   BOOST_CHECK(d->name()==name);
@@ -62,7 +62,7 @@ BOOST_AUTO_TEST_CASE(validation)
             xmlns:pcr='http://www.pcraster.nl/pcrxml'                       \
             xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'           \
             xsi:schemaLocation='http://www.pcraster.nl/pcrxml PCRaster.xsd'/>");
-  std::auto_ptr<pcrxml::Definition> d(pcrxml::definition(s));
+  std::unique_ptr<pcrxml::Definition> d(pcrxml::definition(s));
   BOOST_CHECK(d->name()=="a");
 
   try {
@@ -99,7 +99,7 @@ BOOST_AUTO_TEST_CASE(no_schema)
   ip.setString(s);
   ip.setValidate(true);
   try {
-    std::auto_ptr<pcrxml::Definition> d(pcrxml::definition(*ip.document()));
+    std::unique_ptr<pcrxml::Definition> d(pcrxml::definition(*ip.document()));
     std::string name("a");
     BOOST_CHECK(d->name()==name);
     BOOST_CHECK(!d->name().empty());
@@ -115,7 +115,7 @@ BOOST_AUTO_TEST_CASE(no_schema)
       xmlns='http://www.pcraster.nl/pcrxml'                 \
       xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' \
       xsi:schemaLocation='http://www.pcraster.nl/pcrxml PCRaster_X_X_X.xsd'/>");
-  std::auto_ptr<pcrxml::Definition> d(pcrxml::definition(s,
+  std::unique_ptr<pcrxml::Definition> d(pcrxml::definition(s,
                                           xml_schema::flags::dont_validate));
 
   std::string name("a");
@@ -128,7 +128,7 @@ BOOST_AUTO_TEST_CASE(no_schema)
     "<definition name='a'                                   \
       xmlns='http://www.pcraster.nl/pcrxml'                 \
       xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'/>");
-  std::auto_ptr<pcrxml::Definition> d(pcrxml::definition(s,
+  std::unique_ptr<pcrxml::Definition> d(pcrxml::definition(s,
                                           xml_schema::flags::dont_validate));
 
   std::string name("a");
@@ -143,7 +143,7 @@ BOOST_AUTO_TEST_CASE(no_schema)
       xsi:schemaLocation='http://www.pcraster.nl/pcrxml'/>");
   bool catched=false;
   try {
-   std::auto_ptr<pcrxml::Definition> d(pcrxml::definition(s));
+   std::unique_ptr<pcrxml::Definition> d(pcrxml::definition(s));
   } catch(...) {
     catched=true;
   }
@@ -167,7 +167,7 @@ BOOST_AUTO_TEST_CASE(no_schema)
 
   bool noException(true);
   try {
-   std::auto_ptr<pcrxml::Definition> d(pcrxml::definition(s,0,props));
+   std::unique_ptr<pcrxml::Definition> d(pcrxml::definition(s,0,props));
    std::string name("a");
    BOOST_CHECK(d->name()==name);
    BOOST_CHECK(!d->name().empty());

@@ -66,18 +66,18 @@ class TimeoutputTimeseries(object):
     nrCells = pcraster.clone().nrRows() * pcraster.clone().nrCols()
     found = False
     cell = 1
-    index = 0
 
     while found == False:
-      if pcraster.cellvalue(self._spatialId, cell)[1] == True and pcraster.cellvalue(self._spatialId, cell)[0] == cellId:
-        index = cell
-        found = True
-      cell += 1
       if cell > nrCells:
-        raise RuntimeError("could not find a cell with the index number %d" % (cellId))
+        raise RuntimeError("Could not find a cell with the index number {}".format(cellId))
 
-    return index
+      value = pcraster.cellvalue(self._spatialId, cell)
+      if value[0] == cellId and value[1] == True:
+        break
 
+      cell += 1
+
+    return cell
 
   def sample(self, expression):
     """

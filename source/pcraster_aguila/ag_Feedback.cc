@@ -40,7 +40,7 @@ public:
 
   ~FeedbackPrivate()
   {
-    delete d_buffer;
+    delete[] d_buffer;
   }
 
 };

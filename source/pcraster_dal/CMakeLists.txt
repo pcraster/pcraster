@@ -93,6 +93,8 @@ target_include_directories(pcraster_dal_objects SYSTEM
     PUBLIC
         ${GDAL_INCLUDE_DIRS}
         ${Qt5Sql_INCLUDE_DIRS}
+    PRIVATE
+        ${Boost_INCLUDE_DIRS}
 )
 
 target_include_directories(pcraster_dal_objects

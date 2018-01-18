@@ -183,7 +183,7 @@ static size_t maxId(const Field *id)
           }
         }
     ~MemoryExchangeItemTssRow() {
-     delete d_buffer;
+     delete[] d_buffer;
     }
     void *rawValue    () const
     {
@@ -273,7 +273,7 @@ bool calc::FileTimeoutput::reportTimeStep(size_t t) const
 }
 
 //! set row to correct position and return buffer of row
-/*! 
+/*!
  * \returns 0 if currentTimeStep does not have to be written
  */
 double *calc::FileTimeoutput::setRow(size_t currentTimeStep)

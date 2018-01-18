@@ -377,7 +377,7 @@ bool geo::isColumnFile(const com::PathName& pn)
 
 bool geo::isModelScriptFile(const com::PathName& /* pathName */)
 {
-  // Return true if 
+  // Return true if
   return true;
 }
 
@@ -386,7 +386,7 @@ bool geo::isModelScriptFile(const com::PathName& /* pathName */)
 // geo::DataType geo::dataType(const com::PathName& pathName)
 // {
 //   DataType dataType = DT_INVALID;
-// 
+//
 //   if(isCSFStack(pathName)) {
 //     dataType = STACK;
 //   }
@@ -402,26 +402,26 @@ bool geo::isModelScriptFile(const com::PathName& /* pathName */)
 //   else if(isBlock(pathName)) {
 //     dataType = BLOCK;
 //   }
-// 
+//
 //   return dataType;
 // }
-// 
-// 
-// 
+//
+//
+//
 // bool geo::isSpatial(DataType dataType)
 // {
 //   return dataType == STACK || dataType == POINTS;
 // }
-// 
-// 
-// 
+//
+//
+//
 // bool geo::isTimeSeries(DataType dataType)
 // {
 //   return dataType == TIMESERIES;
 // }
-// 
-// 
-// 
+//
+//
+//
 // bool geo::isModelScript(DataType dataType)
 // {
 //   return dataType == MODELSCRIPT;
@@ -574,40 +574,40 @@ std::string geo::valueScaleToStr(const CSF_VS& vs)
 // std::string geo::dataTypeToStr(const DataType& dataType)
 // {
 //   std::string str;
-// 
+//
 //   switch(dataType) {
-// 
+//
 //     case STACK:
 //       str = "STACK";
 //       break;
-// 
+//
 //     case BLOCK:
 //       str = "BLOCK";
 //       break;
-// 
+//
 //     case TIMESERIES:
 //       str = "TIMESERIES";
 //       break;
-// 
+//
 //     case MODELSCRIPT:
 //       str = "MODELSCRIPT";
 //       break;
-// 
+//
 //     case POINTS:
 //       str = "POINTS";
 //       break;
-// 
+//
 //     case DT_INVALID:
 //       str = "INVALID";
 //       break;
-// 
+//
 //     default:
 //       PRECOND(false);
 //       str = "UNKOWN";        // Never reached.
 //       break;
-// 
+//
 //   }
-// 
+//
 //   return str;
 // }
 
@@ -751,7 +751,7 @@ void geo::raster2Boundaries(const SimpleRaster<T>& raster,
   SimpleRaster<double> dummy(raster.nrRows(), raster.nrCols());
 
   // Engine to manage the filter.
-  std::auto_ptr<FilterEngine<T, double> > engine;
+  std::unique_ptr<FilterEngine<T, double> > engine;
 
   // Filter weights.
   SimpleRaster<double> weights(3, 3, 0.0);

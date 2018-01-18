@@ -565,8 +565,8 @@ int CentroidOfPolygon(
  const POINT2D *pol,    /* polygon */
  int	nr)           /* number of points defining the polygon  */
 {
-	register int	i;
-	register long double up,low;
+	int	i;
+	long double up,low;
 
 	PRECOND(nr > 2);
 	PRECOND(pol[0].x == pol[nr].x);

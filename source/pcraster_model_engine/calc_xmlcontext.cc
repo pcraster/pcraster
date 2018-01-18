@@ -76,7 +76,7 @@ public:
 
 pcrxml::RunContext*  createXMLRunContext  (AreaMap const& areaMap, Timer const& timer)
 {
-  std::auto_ptr<pcrxml::CheckContext> cc(areaMap.createXMLContext());
+  std::unique_ptr<pcrxml::CheckContext> cc(areaMap.createXMLContext());
   PRECOND(cc->areaMap().present());
 
   pcrxml::TimerContext t(timer.currentInt());

@@ -259,9 +259,9 @@ pcrxml::CheckContext* AreaMap::createXMLContext() const
   if (!isSet())
     return cc;
 
-  std::auto_ptr<pcrxml::AreaMap> ams(new pcrxml::AreaMap(
+  std::unique_ptr<pcrxml::AreaMap> ams(new pcrxml::AreaMap(
     d_rs.nrRows(),d_rs.nrCols()));
-  cc->areaMap(ams);
+  cc->areaMap(std::move(ams));
   PRECOND(cc->areaMap());
 
   cc->areaMap()->cellSize         (d_rs.cellSize());

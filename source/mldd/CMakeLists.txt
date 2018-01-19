@@ -42,13 +42,13 @@ target_link_libraries(mldd
         pcraster::pcrgeo
 )
 
-install(
-    TARGETS
-        mldd
-    RUNTIME
-        DESTINATION lib COMPONENT Runtime
-    LIBRARY
-        DESTINATION lib COMPONENT Runtime
-    ARCHIVE
-        DESTINATION lib COMPONENT Runtime
-)
+# install(
+#     TARGETS
+#         mldd
+#     RUNTIME
+#         DESTINATION lib COMPONENT Runtime
+#     LIBRARY
+#         DESTINATION lib COMPONENT Runtime
+#     ARCHIVE
+#         DESTINATION lib COMPONENT Runtime
+# )

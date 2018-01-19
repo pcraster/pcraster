@@ -44,10 +44,10 @@ set(CMAKE_CXX_FLAGS
 )
 
 
+include(PCRasterMacro)
 include(PCRasterConfiguration)
 include(DevBaseExternal)
 include(DevBaseMacro)
-include(PCRasterMacro)
 # include(PCRasterCompilerConfiguration)
 
 

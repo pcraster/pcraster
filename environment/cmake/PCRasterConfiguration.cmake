@@ -95,8 +95,10 @@ else()
 endif()
 
 set(DEVBASE_PYTHON_LIBS_REQUIRED TRUE)
-set(DEVBASE_NUMPY_REQUIRED TRUE)
-set(DEVBASE_DOCOPT_REQUIRED TRUE)
+# set(DEVBASE_NUMPY_REQUIRED TRUE)
+# set(DEVBASE_DOCOPT_REQUIRED TRUE)
+find_python_module(numpy REQUIRED)
+find_python_module(docopt REQUIRED)
 
 if(WIN32)
     find_package(PDCurses REQUIRED)

@@ -169,5 +169,6 @@ if sys.version_info[0] < 3:
   _pcraster.Field.__nonzero__  = _bool # pcrNonzero
 else:
   _pcraster.Field.__truediv__  = pcrDiv
+  _pcraster.Field.__rtruediv__ = pcrRDiv
   # Instead of __nonzero__, Python 3 calls __bool__
 

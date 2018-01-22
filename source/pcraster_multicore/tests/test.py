@@ -5,6 +5,7 @@ import os
 import unittest
 import test_import
 import testexamples_multicore
+import testPCRaster
 import warnings
 
 import pcraster
@@ -422,6 +423,7 @@ suite = unittest.TestSuite()
 suite.addTest(unittest.makeSuite(test_import.ImportTest))
 suite.addTest(unittest.makeSuite(TestMulticore))
 suite.addTest(unittest.makeSuite(testexamples_multicore.TestExamples))
+suite.addTest(unittest.makeSuite(testPCRaster.TestPCRaster))
 
 result = unittest.TextTestRunner(verbosity=3).run(suite)
 test_result = (0 if result.wasSuccessful() else 1)

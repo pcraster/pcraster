@@ -29,7 +29,7 @@ are able to exploit multiple processors:
 
 To set or query the number of worker threads use:
 
-  set_nr_worker_threads, nr_threads
+  set_nr_worker_threads, nr_worker_threads
 
 """
 import os

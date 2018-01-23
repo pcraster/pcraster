@@ -69,7 +69,6 @@ target_include_directories(_pcraster_multicore
     PRIVATE
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../..>
         ${PYTHON_INCLUDE_DIR}
-        # D:/jong0137/development/install/fern/include
 )
 
 configure_python_extension(_pcraster_multicore

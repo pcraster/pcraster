@@ -441,7 +441,12 @@ void VisualisationWindow::viewMenuShowCursor()
 
 void VisualisationWindow::quit()
 {
-  Q_EMIT closeAll();
+  qt_AppWindow::quit();
+
+  // 20180123 This used to crash when Exit menu option is selected (
+  //     Close menu option and Alt-Q shortcut worked fine...).
+  //     Replaced with above line.
+  // Q_EMIT closeAll();
 }
 
 

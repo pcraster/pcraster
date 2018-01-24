@@ -6,19 +6,24 @@
 #define INCLUDED_STDDEFX
 #endif
 
-// Library headers.
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
 // PCRaster library headers.
 #ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
 #define INCLUDED_COM_EXCEPTION
 #endif
 
+#ifndef INCLUDED_PCRDLL
+#include "pcrdll.h"
+#define INCLUDED_PCRDLL
+#endif
+
 // Module headers.
+
+// Library headers.
+#ifndef INCLUDED_STRING
+#include <string>
+#define INCLUDED_STRING
+#endif
 
 
 
@@ -36,7 +41,7 @@ namespace calc {
 /*! all ctors do create an understandable com::Exception object,
  *  while information can be duplicated here for even better messages
  */
-class PosException : public com::Exception
+class PCR_DLL_CLASS PosException : public com::Exception
 {
 
 private:

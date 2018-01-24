@@ -6,6 +6,11 @@
 #define INCLUDED_STDDEFX
 #endif
 
+#ifndef INCLUDED_PCRDLL
+#include "pcrdll.h"
+#define INCLUDED_PCRDLL
+#endif
+
 #ifndef INCLUDED_STRING
 #include <string>
 #define INCLUDED_STRING
@@ -44,7 +49,7 @@ enum Errno {
   \sa com_exception.cc for full details.
   \todo Help! can not get docs of com::Errno working
 */
-class Exception
+class PCR_DLL_CLASS Exception
 {
 
 private:

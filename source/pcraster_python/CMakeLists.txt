@@ -109,8 +109,19 @@ set_target_properties(_pcraster
 ### #        LIBRARY_OUTPUT_DIRECTORY "${_TARGET_BIN}/pcraster"
 ### #)
 
+
+# Determine bitness at compile time...
+MATH(EXPR NR_BITS "${CMAKE_SIZEOF_VOID_P} * 8")
+
+# ... and use this for import checks
+configure_file(
+    __init__.py.in
+    ${_TARGET_BIN}/pcraster/__init__.py
+)
+
+
 add_custom_command(
-    OUTPUT ${_TARGET_BIN}/pcraster/__init__.py
+    OUTPUT ${_TARGET_BIN}/pcraster/numpy_operations.py
 
     COMMAND ${CMAKE_COMMAND} -E copy_directory
         ${CMAKE_CURRENT_SOURCE_DIR}/pcraster ${_TARGET_BIN}/pcraster
@@ -137,7 +148,7 @@ add_custom_command(
 add_custom_target(
     fill_python_directory_structure ALL
     DEPENDS
-        ${_TARGET_BIN}/pcraster/__init__.py
+        ${_TARGET_BIN}/pcraster/numpy_operations.py
 )
 
 if(PCRASTER_BUILD_TEST)

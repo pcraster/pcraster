@@ -13,6 +13,7 @@
 #include "calc_globallibdefs.h"
 #include "calc_map2csf.h"
 #include "calc_nonspatial.h"
+#include "calc_posexception.h"
 #include "calc_runtimeengine.h"
 #include "calc_spatial.h"
 #include "Globals.h"
@@ -135,6 +136,11 @@ void translator1(dal::Exception const& exception) {
 //! Translates com::Exception to Python RuntimeError exception.
 void translator2(com::Exception const& exception) {
   PyErr_SetString(PyExc_RuntimeError, exception.messages().c_str());
+}
+
+//! Translates calc::PosException to Python RuntimeError exception.
+void translator3(calc::PosException const& exception) {
+  PyErr_SetString(PyExc_RuntimeError, exception.message().c_str());
 }
 
 
@@ -749,6 +755,7 @@ BOOST_PYTHON_MODULE(_pcraster)
 
   register_exception_translator<dal::Exception>(&pp::translator1);
   register_exception_translator<com::Exception>(&pp::translator2);
+  register_exception_translator<calc::PosException>(&pp::translator3);
 
   // disables the C++ signatures in docstrings
   docstring_options doc_options(true, false);

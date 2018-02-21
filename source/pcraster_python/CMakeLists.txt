@@ -1,9 +1,5 @@
 add_subdirectory(utils)
 
-if(PCRASTER_BUILD_DOCUMENTATION)
-    add_subdirectory(documentation)
-endif()
-
 configure_file(
     operations.inc.in
     operations.inc

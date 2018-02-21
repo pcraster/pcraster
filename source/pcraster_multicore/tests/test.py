@@ -416,10 +416,46 @@ class TestMulticore(unittest.TestCase):
     self.assertEqual(isValid, True)
     self.assertEqual(value, 1)
 
+  def test_4(self):
+      """ test windowtotal and kernel size larger than raster """
+      filename = "windowaverage_Expr.map"
+      pcraster.setclone(filename)
+      raster = pcraster.readmap(filename)
+
+      result1 = windowtotal(raster, 18)
+      result2 = mapmaximum(result1)
+      value, isValid = pcraster.cellvalue(result2, 1)
+      self.assertEqual(isValid, True)
+      self.assertEqual(value, 41)
+
+      pcraster.setglobaloption("unitcell")
+      result1 = windowtotal(raster, 9)
+      result2 = mapmaximum(result1)
+      value, isValid = pcraster.cellvalue(result2, 1)
+      self.assertEqual(isValid, True)
+      self.assertEqual(value,  41)
+
+  def test_5(self):
+      """ test windowaverage and kernel size larger than raster """
+      filename = "windowaverage_Expr.map"
+      pcraster.setclone(filename)
+      raster = pcraster.readmap(filename)
+
+      result1 = windowaverage(raster, 18)
+      result2 = mapmaximum(result1)
+      value, isValid = pcraster.cellvalue(result2, 1)
+      self.assertEqual(isValid, True)
+      self.assertAlmostEqual(value, 1.708333, places=6)
+
+      pcraster.setglobaloption("unitcell")
+      result1 = windowaverage(raster, 9)
+      result2 = mapmaximum(result1)
+      value, isValid = pcraster.cellvalue(result2, 1)
+      self.assertEqual(isValid, True)
+      self.assertAlmostEqual(value,  1.708333, places=6)
 
 
 suite = unittest.TestSuite()
-
 suite.addTest(unittest.makeSuite(test_import.ImportTest))
 suite.addTest(unittest.makeSuite(TestMulticore))
 suite.addTest(unittest.makeSuite(testexamples_multicore.TestExamples))

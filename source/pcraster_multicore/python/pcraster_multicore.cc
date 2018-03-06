@@ -319,12 +319,12 @@ BOOST_PYTHON_MODULE(_pcraster_multicore){
 
   bp::def("windowtotal", &pmcpy::windowtotal,
     "Cell-wise, sums the values of a square window defined by windowlength.",
-    bp::args("expression"),
+    bp::args("expression", "windowlength"),
     bp::return_value_policy<bp::manage_new_object>());
 
   bp::def("windowaverage", &pmcpy::windowaverage,
     "Cell-wise, averages the values of a square window defined by windowlength.",
-    bp::args("expression"),
+    bp::args("expression", "windowlength"),
     bp::return_value_policy<bp::manage_new_object>());
 
 

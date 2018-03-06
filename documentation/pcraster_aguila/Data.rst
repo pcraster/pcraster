@@ -30,7 +30,7 @@ Aguila supports visualisation of both raster and feature data. Spatial raster da
 
 Aguila offers 2D and 2.5D views for rasters and 2D views for features.
 
-.. _time:
+.. _ag_time:
 
 Time
 ----

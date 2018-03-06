@@ -172,3 +172,4 @@ else:
   _pcraster.Field.__rtruediv__ = pcrRDiv
   # Instead of __nonzero__, Python 3 calls __bool__
 
+

@@ -15,6 +15,8 @@ set(SPHINX_SOURCES
     ../../data/demo/python_modelling_framework/stochastic/kalmanfilter.py
 )
 
+prepare_pcraster_project_docs("${SPHINX_SOURCES}" "python_modelling_framework" "MODELLING_FRAMEWORK_SPHINX_SOURCES")
+
 create_sphinx_docs(
     TARGET python_modelling_framework_documentation
     SOURCES ${SPHINX_SOURCES}

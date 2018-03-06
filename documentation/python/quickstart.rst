@@ -8,7 +8,7 @@ The following sections give a detailed introduction about how to build environme
 
 *Python script example.py demonstrating the use of PCRaster functions.*
 
-.. literalinclude:: ../../../data/demo/example.py
+.. literalinclude:: ../../data/demo/example.py
    :language: python
 
 

@@ -1,6 +1,12 @@
 Changes
 =======
 
+PCRaster 4.2.0
+--------------
+* Python 3 is now the default version on Windows
+* The multicore module was added to PCRaster Python
+* On Windows, files larger than 2Gb can be processed now
+
 PCRaster 4.1.0
 --------------
 * On Windows, shared libraries are now installed in a seperate directory called ``lib``, just like on the other platforms. The path to this directory does not have to be listed in the ``$PATH`` environment variable. This has the advantage that the shared libraries shipped with PCRaster will never conflict with shared libraries shipped with other software, and visa versa.

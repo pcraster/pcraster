@@ -28,9 +28,9 @@ clean:
 	-rm -rf _build/*
 
 html:
-	cp -r ${CMAKE_CURRENT_SOURCE_DIR}/Images .
+	# cp -r ${CMAKE_CURRENT_SOURCE_DIR}/Images .
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) _build/html
-	mkdir -p _build/html/Videos && cp ${CMAKE_CURRENT_SOURCE_DIR}/Videos/* _build/html/Videos
+	# mkdir -p _build/html/Videos && cp ${CMAKE_CURRENT_SOURCE_DIR}/Videos/* _build/html/Videos
 	@echo
 	@echo "Build finished. The HTML pages are in _build/html."
 

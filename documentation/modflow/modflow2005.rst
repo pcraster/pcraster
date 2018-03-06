@@ -1,6 +1,8 @@
 The Modflow 2005 executable
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+.. versionchanged:: 4.2
+   Previously, Modflow 2000 was used.
 
 PCRaster Modflow executable
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~

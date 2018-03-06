@@ -1,6 +1,6 @@
 set(SPHINX_SOURCES
-    ../demo/example.mod
-    ../demo/example.py
+    ../../data/modflow/demo/example.mod
+    ../../data/modflow/demo/example.py
     bas.rst
     bcf.rst
     dis.rst
@@ -19,6 +19,8 @@ set(SPHINX_SOURCES
     wel.rst
     modflow2005.rst
 )
+
+prepare_pcraster_project_docs("${SPHINX_SOURCES}" "modflow" "MODFLOW_SPHINX_SOURCES")
 
 create_sphinx_docs(
     TARGET pcraster_modflow_manual

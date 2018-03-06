@@ -3,7 +3,7 @@ Welcome to PCRaster's documentation!
 
 Contents:
 
-.. toctree::
+.. .. toctree::
    :maxdepth: 1
 
    install

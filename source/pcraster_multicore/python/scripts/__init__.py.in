@@ -1,8 +1,6 @@
 """
 This is the PCRaster multicore package.
 
-PCRaster Multicore
-==================
 
 PCRaster is a collection of tools and software libraries tailored to the
 construction of spatio-temporal models. Information about the development
@@ -11,7 +9,7 @@ at http://www.pcraster.eu
 
 The multicore module provides alternative, multi-threaded implementations
 of several PCRaster operations. The following operators and operations
-are able to exploit multiple processors:
+are able to exploit multiple processors: ::
 
   + - * /
   < <= > >= == !=
@@ -27,10 +25,9 @@ are able to exploit multiple processors:
   slope, window4total, windowtotal, windowaverage
   mapmaximum, mapminimum
 
-To set or query the number of worker threads use:
+To set or query the number of worker threads use: ::
 
   set_nr_worker_threads, nr_worker_threads
-
 """
 import os
 import sys

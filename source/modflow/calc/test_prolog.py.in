@@ -6,17 +6,18 @@ import glob
 dest_dir = "@CMAKE_CURRENT_BINARY_DIR@"
 project_dir = os.path.join("@PROJECT_SOURCE_DIR@", "source")
 modflow_dir = os.path.join("@PROJECT_SOURCE_DIR@", "source", "modflow")
+data_dir = os.path.join("@PROJECT_SOURCE_DIR@", "data", "modflow")
 
 
 shutil.rmtree(os.path.join(dest_dir, "demoValidatedOutput"), ignore_errors=True)
 
 
-filenames = glob.glob(os.path.join(modflow_dir, "demo", "*"))
+filenames = glob.glob(os.path.join(data_dir, "demo", "*"))
 for f in filenames:
     shutil.copy(f, dest_dir)
 
 
-shutil.copytree(os.path.join(modflow_dir, "demoValidatedOutput"), os.path.join(dest_dir, "demoValidatedOutput"))
+shutil.copytree(os.path.join(data_dir, "demoValidatedOutput"), os.path.join(dest_dir, "demoValidatedOutput"))
 
 
 filenames = glob.glob(os.path.join(modflow_dir, "tests", "*"))

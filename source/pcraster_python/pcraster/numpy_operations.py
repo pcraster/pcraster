@@ -20,6 +20,7 @@ def pcr2numpy(
     Convert entities from PCRaster to NumPy.
 
     map -- Map you want to convert.
+
     mv -- Value to use in the result array cells as a missing value.
 
     Returns an array.
@@ -34,9 +35,10 @@ def numpy2pcr(
     """
     Convert entities from NumPy to PCRaster.
 
-    dataType -- Either Boolean, Nominal, Ordinal, Scalar, Directional or
-                Ldd.
+    dataType -- Either Boolean, Nominal, Ordinal, Scalar, Directional or Ldd.
+
     array -- Array you want to convert.
+
     mv -- Value that identifies a missing value in the array.
 
     Returns a map.

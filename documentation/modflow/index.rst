@@ -1,5 +1,5 @@
-PCRaster Modflow Documentation
-==============================
+PCRaster Modflow
+================
 
 PCRaster is an Environmental Modelling Platform using a raster based approach to analyse spatial data. The included modelling language allows to develop iterative spatial-temporal environmental models. Detailed information about PCRaster is available at `www.pcraster.eu <http://www.pcraster.eu>`_.
 
@@ -13,12 +13,13 @@ The PCRaster Modflow extension enables a modeller to embed groundwater flow calu
    <a href="http://dx.doi.org/10.1016/j.envsoft.2009.02.018" target="_blank">Schmitz et al, 2009</a>
 
 
-
-Contents:
-^^^^^^^^^
+..
+.. Contents:
+.. ^^^^^^^^^
 
 .. toctree::
    :maxdepth: 3
+   :caption: Contents:
 
    quickstart
    usagepy

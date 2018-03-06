@@ -17,6 +17,7 @@
 #include "calc_runtimeengine.h"
 #include "calc_spatial.h"
 #include "Globals.h"
+#include "docstrings.h"
 #include "numpy_conversion.h"
 #include "pickle.h"
 
@@ -758,7 +759,7 @@ BOOST_PYTHON_MODULE(_pcraster)
   register_exception_translator<calc::PosException>(&pp::translator3);
 
   // disables the C++ signatures in docstrings
-  docstring_options doc_options(true, false);
+  docstring_options doc_options(true, true, false);
 
   /// init_numpy();
 
@@ -797,7 +798,7 @@ BOOST_PYTHON_MODULE(_pcraster)
   "Set the random seed.\n"
   "\n"
   "seed -- An integer value >= 0. If the seed is 0 then the seed is taken\n"
-  "        from the current time.\n");
+  "        from the current time.\n", args("seed"));
 
   class_<geo::RasterSpace>("RasterSpace")
     .def("nrRows", &geo::RasterSpace::nrRows)
@@ -924,30 +925,13 @@ BOOST_PYTHON_MODULE(_pcraster)
   "\n"
   "filename -- Filename of a map to read.\n");
 
-  def("cellvalue", pp::fieldGetCellIndex,
-  "Return a cell value from a map.\n"
-  "\n"
-  "map -- Map you want to query.\n"
-  "index -- Linear index of a cell in the map, ranging from\n"
-  "         [1, number-of-cells].\n"
-  "\n"
-  "Returns a tuple with two elements: the first is the cell value, the second\n"
-  "is a boolean value which shows whether the first element, is valid or not.\n"
-  "If the second element is False, the cell contains a missing value.\n"
-  "See also: cellvalue(map, row, col)");
+  def("cellvalue", pp::fieldGetCellIndex, cellvalue_idx_doc.c_str(),
+    args("map", "index")
+  );
 
-  def("cellvalue", pp::fieldGetCellRowCol,
-  "Return a cell value from a map.\n"
-  "\n"
-  "map -- Map you want to query.\n"
-  "row -- Row index of a cell in the map, ranging from [1, number-of-rows].\n"
-  "col -- Col index of a cell in the map, ranging from [1, number-of-cols].\n"
-  "\n"
-  "Returns a tuple with two elements: the first is the cell value,\n"
-  "the second is a boolean value which shows whether the first element,\n"
-  "is valid or not.\n"
-  "If the second element is False, the cell contains a missing value.\n"
-  "See also: cellvalue(map, index)");
+  def("cellvalue", pp::fieldGetCellRowCol, cellvalue_rc_doc.c_str(),
+    args("map", "row", "col")
+  );
 
   def("setglobaloption", pp::setGlobalOption,
   "Set the global option. The option argument must not contain the leading\n"
@@ -962,6 +946,6 @@ BOOST_PYTHON_MODULE(_pcraster)
 
   def("pcr2numpy", pcraster::python::field_to_array);
   def("numpy2pcr", pcraster::python::array_to_field,
-      return_value_policy<manage_new_object>());
+    return_value_policy<manage_new_object>());
   def("pcr_as_numpy", pcraster::python::field_as_array);
 }

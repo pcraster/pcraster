@@ -1,5 +1,6 @@
-Welcome to Aguila's documentation!
-==================================
+PCRaster Aguila
+===============
+
 Aguila is an exploratory data analysis tool. It is capable of visualizing various types of data in different ways and it maintains interactive links between these visualisations.
 
 As an example, you can visualize a spatio-temporal attribute using a map view and a time series view. Aguila allows you to explore the temporal variation of each location on the map by clicking in the map view. This also works the other way around. You can explore the spatial distribution of each moment in time by clicking in the time series view.

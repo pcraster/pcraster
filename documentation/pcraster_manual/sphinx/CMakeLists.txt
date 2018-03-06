@@ -161,6 +161,8 @@ set(SPHINX_SOURCES
     secstat.rst
 )
 
+prepare_pcraster_project_docs("${SPHINX_SOURCES}" "pcraster_manual/sphinx" "PCRASTER_SPHINX_SOURCES")
+
 create_sphinx_docs(
     TARGET manual
     SOURCES ${SPHINX_SOURCES}

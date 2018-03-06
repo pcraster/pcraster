@@ -20,7 +20,7 @@ PCRaster documentation
    bibliography
 
 Functional list of applications and operations
-==============================================
+----------------------------------------------
 
 .. toctree::
    :maxdepth: 2
@@ -28,15 +28,15 @@ Functional list of applications and operations
    secfunclist
 
 Applications
-============
+------------
 
 .. toctree::
    :maxdepth: 2
 
    applications
 
-Operations
-==========
+Operations (Python and pcrcalc)
+-------------------------------
 
 .. toctree::
    :maxdepth: 2
@@ -44,7 +44,7 @@ Operations
    operations
 
 Index and search
-================
+----------------
 
 * :ref:`genindex`
 * :ref:`search`

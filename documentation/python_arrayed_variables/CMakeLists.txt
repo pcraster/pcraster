@@ -10,6 +10,8 @@ set(SPHINX_SOURCES
     ../../data/demo/python_arrayed_variables/simpleLoops.py
 )
 
+prepare_pcraster_project_docs("${SPHINX_SOURCES}" "python_arrayed_variables" "ARRAYED_VARIABLES_SPHINX_SOURCES")
+
 create_sphinx_docs(
     TARGET python_arrayed_variables_documentation
     SOURCES ${SPHINX_SOURCES}

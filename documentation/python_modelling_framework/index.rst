@@ -3,8 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to PCRaster Python Modelling Framework's documentation!
-===============================================================
+The PCRaster Python Modelling Framework
+=======================================
 
 Contents:
 
@@ -14,12 +14,12 @@ Contents:
    Manual <Manual>
    Package documentation <PCRasterPythonFramework>
 
-..   Todo list <TodoList>
-
 Indices and tables
-==================
+------------------
 
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
 
+
+..   Todo list <TodoList>

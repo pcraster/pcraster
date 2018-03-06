@@ -1,5 +1,5 @@
-PCRaster Python Documentation
-=============================
+The PCRaster Python module
+==========================
 
 Contents:
 
@@ -10,3 +10,4 @@ Contents:
    quickstart
    differences
    known_bugs
+   reference

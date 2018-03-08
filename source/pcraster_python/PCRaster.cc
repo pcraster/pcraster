@@ -9,6 +9,7 @@
 #include "dal_RasterDal.h"
 #include "dal_RasterDriver.h"
 #include "calc_datastorageid.h"
+#include "calc_exception.h"
 #include "calc_findsymbol.h"
 #include "calc_globallibdefs.h"
 #include "calc_map2csf.h"
@@ -20,6 +21,7 @@
 #include "docstrings.h"
 #include "numpy_conversion.h"
 #include "pickle.h"
+#include "ppu_exception.h"
 
 #ifndef INCLUDED_BOOST_VERSION
 #include <boost/version.hpp>
@@ -141,6 +143,16 @@ void translator2(com::Exception const& exception) {
 
 //! Translates calc::PosException to Python RuntimeError exception.
 void translator3(calc::PosException const& exception) {
+  PyErr_SetString(PyExc_RuntimeError, exception.message().c_str());
+}
+
+//! Translates calc::Exception to Python RuntimeError exception.
+void translator4(calc::Exception const& exception) {
+  PyErr_SetString(PyExc_RuntimeError, exception.message().c_str());
+}
+
+//! Translates calc::PosException to Python RuntimeError exception.
+void translator5(PyUtilsException const& exception) {
   PyErr_SetString(PyExc_RuntimeError, exception.message().c_str());
 }
 
@@ -757,6 +769,8 @@ BOOST_PYTHON_MODULE(_pcraster)
   register_exception_translator<dal::Exception>(&pp::translator1);
   register_exception_translator<com::Exception>(&pp::translator2);
   register_exception_translator<calc::PosException>(&pp::translator3);
+  register_exception_translator<calc::Exception>(&pp::translator4);
+  register_exception_translator<pcraster::python::PyUtilsException>(&pp::translator5);
 
   // disables the C++ signatures in docstrings
   docstring_options doc_options(true, true, false);

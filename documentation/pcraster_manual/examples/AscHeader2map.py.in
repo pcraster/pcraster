@@ -41,7 +41,7 @@ def AscHeader2map(arguments):
     if not os.path.exists(infile):
         raise RuntimeError("{} does not exist".format(clonefile))
 
-    cmd = "asc2map --large --clone {} --nothing -h 2 -{} -m mv {} {}".format(
+    cmd = "REPLACE_EXECUTABLE_PATH --large --clone {} --nothing -h 2 -{} -m mv {} {}".format(
         clonefile, valuescale, infile, outfile)
     subprocess.check_call(cmd, shell=True)
 

@@ -15,6 +15,8 @@
 #define INCLUDED_CALC_FILE
 #endif
 
+#include "calc_exception.h"
+
 #ifndef INCLUDED_GEO_CSFMAP
 #include "geo_csfmap.h"
 #define INCLUDED_GEO_CSFMAP
@@ -187,6 +189,6 @@ void calc::checkOneVs(
      std::ostringstream s;
      s << "Use a conversion function to pick "
        << typeDescr << "\npossible data type is " << vsToCheck;
-     throw com::Exception(s.str());
+     throw calc::Exception(s.str());
    }
 }

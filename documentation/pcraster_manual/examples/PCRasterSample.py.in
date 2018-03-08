@@ -302,24 +302,23 @@ class Sample(object):
 
         txt += "binding\n"
         for d in self._results+self._inputs:
-            txt += " %s = %s\;\n" % (d.userName(), createFileName(d))
+            txt += " %s = %s;\n" % (d.userName(), createFileName(d))
 
         if self._clone >= 0:
-            txt += "areamap\n %s\;\n" % createFileName(self._inputs[self._clone])
+            txt += "areamap\n %s;\n" % createFileName(self._inputs[self._clone])
 
         txt += "initial\n"
 
         resultVars = map(lambda v: v.userName(), self._results)
         code = self.code.pcrcalc().replace("$","")
         if self.code.pcrcalcIsExpr:
-            txt += " report %s = %s\;\n" % (", ".join(resultVars), code)
+            txt += " report %s = %s;\n" % (", ".join(resultVars), code)
         else:
             txt += code
 
         return txt
 
     def pythonScript(self, createFileName):
-
         txt = ""
 
         for g in self.globalOptions:
@@ -383,10 +382,10 @@ class Sample(object):
             # break up each line as  "line contents\n"
             lines = text.split("\n")
             lines = [("\"{}\\n\"".format(l)) for l in lines]
-            stream.write("et.push_back(ManualExampleTester({}))\;\n".format(
+            stream.write("et.push_back(ManualExampleTester({}));\n".format(
                 "\n".join(lines)))
             for r in self._results:
-                stream.write("et.back().addResult(\"{}\")\;\n".format(
+                stream.write("et.back().addResult(\"{}\");\n".format(
                     r.fileName()))
 
     def createPythonTest(self,
@@ -439,7 +438,7 @@ class Sample(object):
         if platform.system() == "Windows":
             pcrCmdPrefix=""
         else:
-            pcrCmdPrefix="export PCROPTIONS=--nothing\;"
+            pcrCmdPrefix="export PCROPTIONS=--nothing;"
         if isinstance(self.code, Expr):
             # open binary (b) to create unix text format needed by sh
             scriptToExecute = self._fileName("exec.mod")
@@ -540,7 +539,7 @@ testInputFiles: $(sort ${TEST_INPUT_FILES})
 
 # make png's
 %.png: %.map
-	export PCROPTIONS=--nothing\;"@PYTHON_EXECUTABLE@" @PROJECT_SOURCE_DIR@/environment/script/rasterToPNG.py $< $@
+	export PCROPTIONS=--nothing;"@PYTHON_EXECUTABLE@" @PROJECT_SOURCE_DIR@/environment/script/rasterToPNG.py $< $@
 # %.rst: %.txt
 # 	"@PYTHON_EXECUTABLE@" txt2rst.py $< $@
 """)

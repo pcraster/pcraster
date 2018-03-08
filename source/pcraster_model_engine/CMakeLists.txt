@@ -243,6 +243,7 @@ add_library(pcraster_model_engine_objects OBJECT
     calc_position.cc
     calc_positiontext.cc
     calc_positionname.cc
+    calc_exception.cc
     calc_posexception.cc
     calc_symexception.cc
     calc_astsymbolinfo.cc

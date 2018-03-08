@@ -21,12 +21,9 @@
 #define INCLUDED_CALC_RUNTIMEENGINE
 #endif
 
-#ifndef INCLUDED_COM_EXCEPTION
-#include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
 // Module headers.
 
+#include "ppu_exception.h"
 
 
 /*!
@@ -111,7 +108,7 @@ geo::RasterSpace const& Globals::cloneSpace()
 calc::RunTimeEngine& Globals::rte()
 {
   if(!_rte){
-    throw com::Exception("no clone or area map specified, use setclone()");
+    throw PyUtilsException("no clone or area map specified, use setclone()");
   }
   return *_rte;
 }

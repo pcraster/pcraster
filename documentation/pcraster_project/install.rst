@@ -58,7 +58,7 @@ TODO
 Windows
 -------
 
-Install Python version 3.5 or higher, and the NumPy module.
+Install Python version 3.6 or higher, and the NumPy module.
 
 Installing PCRaster on Windows involves these steps:
 

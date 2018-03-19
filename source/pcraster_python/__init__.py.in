@@ -49,8 +49,8 @@ try:
 
         # VS2015 and runtime components related issues
         if sys.platform == "win32":
-            if StrictVersion("{}.{}".format(major, minor)) < StrictVersion("3.5"):
-                msg += "The minimum supported version for the 'pcraster' module is Python 3.5, the version used is {}.{}.\n".format(
+            if StrictVersion("{}.{}".format(major, minor)) < StrictVersion("${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}"):
+                msg += "The minimum supported version for the 'pcraster' module is Python ${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}, the version used is {}.{}.\n".format(
                     major, minor)
 
             msg += "The 'Microsoft Visual C++ 2015 Redistributable Update 3' is required to run PCRaster, available at:\nhttps://www.microsoft.com/en-us/download/details.aspx?id=53840\n"

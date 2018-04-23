@@ -41,7 +41,7 @@ addons:
             - libpython-dev
             - libxml2
             - libxml2-utils
-            - xsdcxx
+            # - xsdcxx
             - mesa-common-dev
 
 before_install:
@@ -51,6 +51,9 @@ before_install:
 
     # Update CMake.
     - wget --no-check-certificate http://www.cmake.org/files/v3.7/cmake-3.7.2-Linux-x86_64.tar.gz
+
+    # We also need a more recent XSD to enable C++11 features
+    - wget --no-check-certificate https://codesynthesis.com/download/xsd/4.0/linux-gnu/x86_64/xsd-4.0.0-x86_64-linux-gnu.tar.bz2
 
     # Travis Qwt 6.0 does not cooperate with Qt5
     # We build and install those ourselves using Peacock.
@@ -77,6 +80,9 @@ install:
     - tar zxf ../cmake-3.7.2-Linux-x86_64.tar.gz
     - export PATH=$TRAVIS_BUILD_DIR/local/cmake-3.7.2-Linux-x86_64/bin:$PATH
 
+    - cd $TRAVIS_BUILD_DIR/local
+    - tar xf ../xsd-4.0.0-x86_64-linux-gnu.tar.bz2
+
     - cd $TRAVIS_BUILD_DIR/peacock
     - export MAKEFLAGS='-j2'
     - mkdir build
@@ -87,6 +93,7 @@ install:
 before_script:
     - mkdir $TRAVIS_BUILD_DIR/build
     - cd $TRAVIS_BUILD_DIR/build
+    - export XSDDIR=$TRAVIS_BUILD_DIR/local/xsd-4.0.0-x86_64-linux-gnu
     - cmake -G"${TRAVIS_CMAKE_GENERATOR}" -DCMAKE_C_COMPILER=gcc-4.9 -DCMAKE_CXX_COMPILER=g++-4.9 -DPEACOCK_PREFIX:PATH=$TRAVIS_BUILD_DIR/local -DCMAKE_BUILD_TYPE=${TRAVIS_BUILD_TYPE} -DPCRASTER_WITH_PYTHON_MULTICORE:BOOL=TRUE -DPCRASTER_BUILD_TEST:BOOL=TRUE ..
 
 script:

@@ -1,7 +1,7 @@
 import os
 import subprocess
 import threading
-import warnings
+import tempfile
 import pcraster
 
 
@@ -32,11 +32,7 @@ class AguilaThread(threading.Thread):
             elif isinstance(argument, list):
                 argument_list.append(" + ".join(self.parse_arguments(argument)))
             elif isinstance(argument, pcraster.Field):
-                with warnings.catch_warnings():
-                    # RuntimeWarning: tempnam is a potential security risk to
-                    # your program.
-                    warnings.simplefilter("ignore")
-                    temp_name = os.tempnam(os.getcwd())
+                temp_name = tempfile.NamedTemporaryFile(dir=os.getcwd()).name
                 pcraster.report(argument, temp_name)
                 self.created_files_names.append(temp_name)
                 argument_list.append(temp_name)

@@ -23,7 +23,7 @@ option(
 option(
     PCRASTER_WITH_PYTHON_MULTICORE
     "Build Python multicore module"
-    FALSE)
+    TRUE)
 option(
     PCRASTER_WITH_MODFLOW
     "Build Modflow module"
@@ -106,16 +106,6 @@ if(WIN32)
 else()
     set(DEVBASE_CURSES_REQUIRED TRUE)
     set(DEVBASE_CURSES_WIDE_CHARACTER_SUPPORT_REQUIRED FALSE)
-endif()
-
-
-if(PCRASTER_WITH_PYTHON_MULTICORE)
-    set(DEVBASE_FERN_REQUIRED TRUE)
-
-    # For some reason fern-config.cmake is not handled correctly. It mentions
-    # the dependency on Boost::timer, but this isn't picked up...
-    list(APPEND DEVBASE_REQUIRED_BOOST_COMPONENTS
-        timer)
 endif()
 
 

@@ -80,7 +80,7 @@ target_link_libraries(_pcraster_multicore
         pcraster::python::utils
         ${PCR_BOOST_PYTHON_NUMPY}
         ${PCR_BOOST_PYTHON}
-        fern::fern_algorithm
+        fern_algorithm
 )
 
 add_dependencies(_pcraster_multicore

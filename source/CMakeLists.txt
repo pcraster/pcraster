@@ -63,6 +63,7 @@ if(PCRASTER_WITH_MODFLOW)
 endif()
 
 if(PCRASTER_WITH_PYTHON_MULTICORE)
+    add_subdirectory(fern)
     add_subdirectory(pcraster_multicore)
 endif()
 

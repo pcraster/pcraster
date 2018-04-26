@@ -8,7 +8,7 @@
                 "apt -y update",
                 "apt -y upgrade",
                 "apt -y autoremove",
-                "apt -y install cmake gcc g++ git libboost-all-dev libncurses5-dev libpython-dev libqwt-qt5-dev libxerces-c-dev libxml2 libxml2-utils libxslt1-dev python-numpy qtbase5-dev xsdcxx"
+                "apt -y install cmake gcc g++ git libboost-all-dev libncurses5-dev libpython-dev libqwt-qt5-dev libxerces-c-dev libxml2 libxml2-utils libxslt1-dev python-numpy qtbase5-dev xsdcxx python-docopt"
             ],
             "commands": [
                 "wget http://pcraster.geo.uu.nl/download/build_pcraster.py",
@@ -23,12 +23,13 @@
                 "apt-get -y update",
                 "apt-get -y upgrade",
                 "apt-get -y autoremove",
-                "apt-get -y install gcc-4.9 g++-4.9 git libboost-all-dev libncurses5-dev libpython-dev python-numpy qt5-default qtbase5-dev libxerces-c-dev libxml2 libxml2-utils libxslt1-dev xsdcxx",
-                "cd /opt && wget https://cmake.org/files/v3.5/cmake-3.5.2-Linux-x86_64.tar.gz && tar zxf cmake-3.5.2-Linux-x86_64.tar.gz"
+                "apt-get -y install gcc-4.9 g++-4.9 git libboost-all-dev libncurses5-dev libpython-dev python-numpy qt5-default qtbase5-dev libxerces-c-dev libxml2 libxml2-utils libxslt1-dev python-docopt",
+                "cd /opt && wget https://cmake.org/files/v3.5/cmake-3.5.2-Linux-x86_64.tar.gz && tar zxf cmake-3.5.2-Linux-x86_64.tar.gz",
+                "cd /opt && wget https://codesynthesis.com/download/xsd/4.0/linux-gnu/x86_64/xsd-4.0.0-x86_64-linux-gnu.tar.bz2 && tar xf xsd-4.0.0-x86_64-linux-gnu.tar.bz2"
             ],
             "commands": [
                 "wget http://pcraster.geo.uu.nl/download/build_pcraster.py",
-                "PATH=/opt/cmake-3.5.2-Linux-x86_64/bin:$PATH CC=gcc-4.9 CXX=g++-4.9 python ./build_pcraster.py pcraster_4_2_beta --build-gdal --build-qwt"
+                "PATH=/opt/cmake-3.5.2-Linux-x86_64/bin:$PATH XSDDIR=/opt/xsd-4.0.0-x86_64-linux-gnu CC=gcc-4.9 CXX=g++-4.9 python ./build_pcraster.py pcraster_4_2_beta --build-gdal --build-qwt"
             ]
         },
         {
@@ -38,13 +39,14 @@
                 "add-apt-repository -y ppa:ubuntu-toolchain-r/test",
                 "apt-get -y update",
                 "apt-get -y upgrade",
-                "apt-get -y autoremove",
-                "apt-get -y install gcc-4.9 g++-4.9 git libboost-all-dev libncurses5-dev libpython-dev libxerces-c-dev libxml2 libxml2-utils libxslt1-dev python-numpy qt5-default qtbase5-dev xsdcxx",
-                "cd /opt && wget https://cmake.org/files/v3.5/cmake-3.5.2-Linux-i386.tar.gz && tar zxf cmake-3.5.2-Linux-i386.tar.gz"
+                "apt-get -y autoremove",,
+                "apt-get -y install gcc-4.9 g++-4.9 git libboost-all-dev libncurses5-dev libpython-dev python-numpy qt5-default qtbase5-dev libxerces-c-dev libxml2 libxml2-utils libxslt1-dev python-docopt",
+                "cd /opt && wget https://cmake.org/files/v3.5/cmake-3.5.2-Linux-i386.tar.gz && tar zxf cmake-3.5.2-Linux-i386.tar.gz",
+                "cd /opt && wget https://codesynthesis.com/download/xsd/4.0/linux-gnu/i686/xsd-4.0.0-i686-linux-gnu.tar.bz2 && tar xf xsd-4.0.0-i686-linux-gnu.tar.bz2"
             ],
             "commands": [
                 "wget http://pcraster.geo.uu.nl/download/build_pcraster.py",
-                "PATH=/opt/cmake-3.5.2-Linux-i386/bin:$PATH CC=gcc-4.9 CXX=g++-4.9 python ./build_pcraster.py pcraster_4_2_beta --build-gdal --build-qwt"
+                "PATH=/opt/cmake-3.5.2-Linux-i386/bin:$PATH XSDDIR=/opt/xsd-4.0.0-i686-linux-gnu CC=gcc-4.9 CXX=g++-4.9 python ./build_pcraster.py pcraster_4_2_beta --build-gdal --build-qwt"
             ]
         },
         {
@@ -58,7 +60,7 @@
                 // Skip this, it may update all kinds of packages to
                 // non-standard versions.
                 // "sudo yum -y upgrade",
-                "sudo yum -y install cmake3 xsd qt5-qtbase-devel",
+                "sudo yum -y install cmake3 xsd qt5-qtbase-devel python2-docopt",
                 "sudo yum -y install centos-release-scl",
                 "sudo yum -y install devtoolset-4-gcc devtoolset-4-gcc-c++"
             ],
@@ -75,12 +77,12 @@
                 "apt -y update",
                 "apt -y upgrade",
                 "apt -y autoremove",
-                "apt -y install cmake gcc g++ git libboost-all-dev libgdal-dev libncurses5-dev libpython-dev libqwt-qt5-dev libxerces-c-dev libxml2 libxml2-utils libxslt1-dev python-numpy qtbase5-dev xsdcxx"
+                "apt -y install cmake gcc g++ git libboost-all-dev libgdal-dev libncurses5-dev libpython-dev libqwt-qt5-dev libxerces-c-dev libxml2 libxml2-utils libxslt1-dev python-numpy qtbase5-dev xsdcxx python-docopt"
             ],
             "commands": [
                 "git clone --recursive https://github.com/pcraster/pcraster.git",
                 "mkdir build",
-                "cd build && cmake ../pcraster && cmake --build ."
+                "cd build && cmake -DFERN_BUILD_ALGORITHM:BOOL=TRUE ../pcraster && cmake --build ."
 
                 // Builds with tweaks can be added here, within the same
                 // machine. Just build in a new build directory, remove the

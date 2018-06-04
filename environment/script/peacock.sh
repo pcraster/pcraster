@@ -123,15 +123,6 @@ function build_software()
     fi
 
 
-    # Fern.
-    options+=("-Dbuild_fern=true")
-    options+=("-Dfern_git_repository=https://github.com/geoneric/fern.git")
-    options+=("-Dfern_git_tag=2b71ce7ce7462933724319ec7a81271fc1424b26")
-    options+=("-Dfern_build_fern_algorithm=true")
-    options+=("-Dfern_build_fern_documentation=false")
-    options+=("-Dfern_build_fern_test=false")
-
-
     # printf '%s\n' "${options[@]}"
     cmake $CMAKE_ARGUMENTS "${options[@]}" $source
     cmake --build . --target all

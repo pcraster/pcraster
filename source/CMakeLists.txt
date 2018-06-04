@@ -12,7 +12,6 @@ add_subdirectory(rasterformat)
 add_subdirectory(math_utils)
 add_subdirectory(string_utils)
 add_subdirectory(utils)
-add_subdirectory(pcraster_aguila)
 add_subdirectory(pcraster_dal)
 add_subdirectory(pcraster_xsd)
 add_subdirectory(app)
@@ -54,8 +53,8 @@ add_subdirectory(resample)
 add_subdirectory(table)
 add_subdirectory(legend)
 
-if(PCRASTER_BUILD_TEST)
-    add_subdirectory(mapdiff)
+if(PCRASTER_WITH_AGUILA)
+    add_subdirectory(pcraster_aguila)
 endif()
 
 if(PCRASTER_WITH_MODFLOW)
@@ -69,6 +68,11 @@ endif()
 
 if(PCRASTER_BUILD_BLOCKPYTHON)
     add_subdirectory(pcraster_block_python)
+endif()
+
+
+if(PCRASTER_BUILD_TEST)
+    add_subdirectory(mapdiff)
 endif()
 
 install(

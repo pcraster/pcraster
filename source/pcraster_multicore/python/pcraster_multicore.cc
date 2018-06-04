@@ -286,7 +286,7 @@ BOOST_PYTHON_MODULE(_pcraster_multicore){
     bp::return_value_policy<bp::manage_new_object>());
 
   bp::def("tan", &pmcpy::tan,
-    "Cell-wise tangens.",
+    "Cell-wise tangent.",
     bp::args("expression"),
     bp::return_value_policy<bp::manage_new_object>());
 
@@ -301,7 +301,7 @@ BOOST_PYTHON_MODULE(_pcraster_multicore){
     bp::return_value_policy<bp::manage_new_object>());
 
   bp::def("atan", &pmcpy::atan,
-    "Cell-wise inverse tangens.",
+    "Cell-wise inverse tangent.",
     bp::args("expression"),
     bp::return_value_policy<bp::manage_new_object>());
 

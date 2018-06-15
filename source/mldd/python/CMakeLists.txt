@@ -5,6 +5,8 @@ add_library(_pcraster_mldd_python SHARED
 
 add_library(pcraster::python_mldd ALIAS _pcraster_mldd_python)
 
+fix_boost_python_visibility(_pcraster_mldd_python)
+
 target_include_directories(_pcraster_mldd_python
     PRIVATE
         ${PYTHON_INCLUDE_DIR}

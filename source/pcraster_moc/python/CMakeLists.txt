@@ -5,6 +5,8 @@ add_library(_pcraster_moc_python SHARED
 
 add_library(pcraster::moc_python ALIAS _pcraster_moc_python)
 
+fix_boost_python_visibility(_pcraster_moc_python)
+
 target_include_directories(_pcraster_moc_python
     PRIVATE
         ${PYTHON_INCLUDE_DIR}

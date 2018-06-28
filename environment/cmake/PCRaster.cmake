@@ -48,7 +48,6 @@ include(PCRasterMacro)
 include(PCRasterConfiguration)
 include(DevBaseExternal)
 include(DevBaseMacro)
-include(PCRasterCompilerConfiguration)
 
 
 if(PCRASTER_BUILD_TEST)
@@ -56,7 +55,10 @@ if(PCRASTER_BUILD_TEST)
     if(NOT GDAL_TRANSLATE)
         message(FATAL_ERROR "gdal_translate executable not found")
     endif()
+#else()
+    include(PCRasterCompilerConfiguration)
 endif()
+
 
 set(PCRASTER_DATA_DIR ${PROJECT_SOURCE_DIR}/data)
 

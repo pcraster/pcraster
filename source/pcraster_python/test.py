@@ -604,11 +604,11 @@ class Test(testcase.TestCase):
 
 suite = unittest.TestSuite()
 suite.addTest(unittest.makeSuite(Test))
-#suite.addTest(unittest.makeSuite(testexamples.TestExamples))
+suite.addTest(unittest.makeSuite(testexamples.TestExamples))
 suite.addTest(unittest.makeSuite(testNumPy.TestNumPy))
-#suite.addTest(unittest.makeSuite(import_test.ImportTest))
-#suite.addTest(unittest.makeSuite(testPickle.TestPickle))
-#suite.addTest(unittest.makeSuite(testPCRaster.TestPCRaster))
+suite.addTest(unittest.makeSuite(import_test.ImportTest))
+suite.addTest(unittest.makeSuite(testPickle.TestPickle))
+suite.addTest(unittest.makeSuite(testPCRaster.TestPCRaster))
 
 result = unittest.TextTestRunner(verbosity=3).run(suite)
 test_result = (0 if result.wasSuccessful() else 1)

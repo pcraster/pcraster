@@ -240,7 +240,7 @@ class TestNumPy(testcase.TestCase):
       array2[0][0] = 5.0
       self.assertEqual(pcraster.pcr2numpy(raster, 999.0)[0][0], 5.0)
 
-      # Change the raster and verify the array changed too.
+      # Replace exising raster and verify the array still behaves.
       raster += 1.0
       self.assertEqual(array2[0][0], 5.0)
 
@@ -461,7 +461,8 @@ class TestNumPy(testcase.TestCase):
       # ...
 
 
-  def test_nonspatial_to_numpy(self):
+  def test_001(self):
+      """ nonspatial and pcr2numpy """
       nrRows, nrCols, cellSize = 5, 8, 1.0
       west, north = 0.0, 0.0
       pcraster.setclone(nrRows, nrCols, cellSize, west, north)
@@ -489,3 +490,18 @@ class TestNumPy(testcase.TestCase):
       for row in range(0, nrRows):
           for col in range(0, nrCols):
               self.assertAlmostEqual(array[row][col], value)
+
+
+  def test_002(self):
+      """ nonspatial and pcr_as_numpy """
+      nrRows, nrCols, cellSize = 3, 2, 1.0
+      west, north = 0.0, 0.0
+      pcraster.setclone(nrRows, nrCols, cellSize, west, north)
+
+      nonspatial = pcraster.nominal(5)
+
+      with self.assertRaises(Exception) as context_manager:
+          array = pcraster.pcr_as_numpy(nonspatial)
+
+      self.assertEqual(str(context_manager.exception),
+          "Argument is non-spatial, only spatial PCRaster data types are supported")

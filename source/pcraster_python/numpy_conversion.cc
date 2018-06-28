@@ -1001,7 +1001,10 @@ bpn_array field_as_array(
     calc::Field* field(field_extractor());
     assert(field);
 
-    PRECOND(field->isSpatial());
+    if(field->isSpatial() == false) {
+        throw std::runtime_error("Argument is non-spatial, only spatial PCRaster data types are supported");
+    }
+
     PRECOND(field->src());
 
 #if BOOST_VERSION < 106500

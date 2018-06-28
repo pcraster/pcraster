@@ -29,6 +29,21 @@
 
 namespace pcraster {
 namespace python {
+namespace detail {
+
+template<typename T>
+void fill_data(char * data, calc::Field const* field, bool is_spatial, size_t nr_values){
+    if (is_spatial) {
+        field->beMemCpySrc(data);
+    }
+    else {
+        for (size_t i = 0; i < nr_values; ++i){
+            std::memcpy(data + i * sizeof(T), field->src(), sizeof(T));
+        }
+    }
+}
+
+}
 
 DEFINE_INIT_NUMPY()
 
@@ -40,7 +55,6 @@ DEFINE_INIT_NUMPY()
   \exception .
   \warning   .
   \sa        .
-  \todo      Implement for non-spatials.
 */
 bpn_array field_to_array(
     geo::RasterSpace const& space,
@@ -48,7 +62,6 @@ bpn_array field_to_array(
     double const missing_value)
 {
     init_numpy();
-    PRECOND(field->isSpatial());
     PRECOND(field->src());
 
     npy_intp dimensions[2];
@@ -62,22 +75,23 @@ bpn_array field_to_array(
             boost::python::object object(boost::python::handle<>(
                 PyArray_SimpleNew(2, dimensions, NPY_UINT8)));
             char* data = static_cast<char*>(PyArray_DATA((PyArrayObject*)object.ptr()));
-            field->beMemCpySrc(data);
+            detail::fill_data<UINT1>(data, field, field->isSpatial(), nr_values);
+
             dal::fromStdMV<UINT1>((UINT1*)data, nr_values,
                 static_cast<UINT1>(missing_value));
             return boost::python::extract<bpn_array>(
                 object);
             break;
           #else
-            char *data = new char[field->nrValues() * sizeof(UINT1)];
-            field->beMemCpySrc(data);
+            char *data = new char[nr_values * sizeof(UINT1)];
+            detail::fill_data<UINT1>(data, field, field->isSpatial(), nr_values);
 
             dal::fromStdMV<UINT1>((UINT1*)data, nr_values,
                 static_cast<UINT1>(missing_value));
 
             bpn_array mul_data_ex = boost::python::numpy::from_data(data,
                 boost::python::numpy::dtype::get_builtin<uint8_t>(),
-                boost::python::make_tuple(field->nrValues()),
+                boost::python::make_tuple(nr_values),
                 boost::python::make_tuple(sizeof(uint8_t)),
                 boost::python::object());
 
@@ -90,22 +104,23 @@ bpn_array field_to_array(
             boost::python::object object(boost::python::handle<>(
                 PyArray_SimpleNew(2, dimensions, NPY_INT32)));
             char* data = static_cast<char*>(PyArray_DATA((PyArrayObject*)object.ptr()));
-            field->beMemCpySrc(data);
+            detail::fill_data<INT4>(data, field, field->isSpatial(), nr_values);
+
             dal::fromStdMV<INT4>((INT4*)data, nr_values, static_cast<INT4>(
                 missing_value));
             return boost::python::extract<bpn_array>(
                 object);
             break;
           #else
-            char *data = new char[field->nrValues() * sizeof(INT4)];
-            field->beMemCpySrc(data);
+            char *data = new char[nr_values * sizeof(INT4)];
+            detail::fill_data<INT4>(data, field, field->isSpatial(), nr_values);
 
             dal::fromStdMV<INT4>((INT4*)data, nr_values,
                 static_cast<INT4>(missing_value));
 
             bpn_array mul_data_ex = boost::python::numpy::from_data(data,
                 boost::python::numpy::dtype::get_builtin<int32_t>(),
-                boost::python::make_tuple(field->nrValues()),
+                boost::python::make_tuple(nr_values),
                 boost::python::make_tuple(sizeof(int32_t)),
                 boost::python::object());
 
@@ -120,22 +135,23 @@ bpn_array field_to_array(
             boost::python::object object(boost::python::handle<>(
                 PyArray_SimpleNew(2, dimensions, NPY_FLOAT32)));
             char *data = static_cast<char*>(PyArray_DATA((PyArrayObject*)object.ptr()));
-            field->beMemCpySrc(data);
+            detail::fill_data<REAL4>(data, field, field->isSpatial(), nr_values);
+
             dal::fromStdMV<REAL4>((REAL4*)data, nr_values, static_cast<REAL4>(
                 missing_value));
             return boost::python::extract<bpn_array>(
                 object);
             break;
           #else
-            char *data = new char[field->nrValues() * sizeof(REAL4)];
-            field->beMemCpySrc(data);
+            char *data = new char[nr_values * sizeof(REAL4)];
+            detail::fill_data<REAL4>(data, field, field->isSpatial(), nr_values);
 
             dal::fromStdMV<REAL4>((REAL4*)data, nr_values,
                 static_cast<REAL4>(missing_value));
 
             bpn_array mul_data_ex = boost::python::numpy::from_data(data,
                 boost::python::numpy::dtype::get_builtin<float_t>(),
-                boost::python::make_tuple(field->nrValues()),
+                boost::python::make_tuple(nr_values),
                 boost::python::make_tuple(sizeof(float_t)),
                 boost::python::object());
 

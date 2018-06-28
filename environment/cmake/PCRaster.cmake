@@ -48,7 +48,7 @@ include(PCRasterMacro)
 include(PCRasterConfiguration)
 include(DevBaseExternal)
 include(DevBaseMacro)
-# include(PCRasterCompilerConfiguration)
+include(PCRasterCompilerConfiguration)
 
 
 if(PCRASTER_BUILD_TEST)

@@ -461,27 +461,31 @@ class TestNumPy(testcase.TestCase):
       # ...
 
 
-
-  @unittest.skip("see gh145")
   def test_nonspatial_to_numpy(self):
-      nrRows, nrCols, cellSize = 3, 2, 1.0
+      nrRows, nrCols, cellSize = 5, 8, 1.0
       west, north = 0.0, 0.0
       pcraster.setclone(nrRows, nrCols, cellSize, west, north)
 
-      value = 1.2
-      nonspatial = pcraster.scalar(1.2)
-      mv = -999.9
-      array = pcraster.pcr2numpy(nonspatial, mv)
+      value = 1.23456
+      nonspatial = pcraster.scalar(value)
+      array = pcraster.pcr2numpy(nonspatial, numpy.nan)
 
-      self.assertAlmostEqual(array[0][0], value)
-      self.assertAlmostEqual(array[0][1], value)
-      self.assertAlmostEqual(array[0][2], value)
-      self.assertAlmostEqual(array[1][0], value)
-      self.assertAlmostEqual(array[1][1], value)
-      self.assertAlmostEqual(array[1][2], value)
-      self.assertAlmostEqual(array[2][0], value)
-      self.assertAlmostEqual(array[2][1], value)
-      self.assertAlmostEqual(array[2][2], value)
+      for row in range(0, nrRows):
+          for col in range(0, nrCols):
+              self.assertAlmostEqual(array[row][col], value)
 
-      # todo also test nonspatial boolean, nominal, ordinal
-      # consider taking and_Expr1.map to test MV in output
+      value = 3
+      nonspatial = pcraster.nominal(value)
+      array = pcraster.pcr2numpy(nonspatial, numpy.nan)
+
+      for row in range(0, nrRows):
+          for col in range(0, nrCols):
+              self.assertAlmostEqual(array[row][col], value)
+
+      value = True
+      nonspatial = pcraster.boolean(value)
+      array = pcraster.pcr2numpy(nonspatial, numpy.nan)
+
+      for row in range(0, nrRows):
+          for col in range(0, nrCols):
+              self.assertAlmostEqual(array[row][col], value)

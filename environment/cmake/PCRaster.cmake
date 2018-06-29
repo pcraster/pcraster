@@ -55,7 +55,7 @@ if(PCRASTER_BUILD_TEST)
     if(NOT GDAL_TRANSLATE)
         message(FATAL_ERROR "gdal_translate executable not found")
     endif()
-#else()
+else()
     include(PCRasterCompilerConfiguration)
 endif()
 

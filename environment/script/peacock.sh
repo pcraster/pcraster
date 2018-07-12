@@ -80,6 +80,8 @@ function build_software()
 
 
     # Boost.
+    # KDJ: In case Python headers are not found, try this:
+    #    CPLUS_INCLUDE_PATH=<path_to_headers> peacock.sh ...
     if [[ ! -v skip_build_boost || $skip_build_boost != 1 ]]; then
         options+=("-Dbuild_boost=true")
         options+=("-Dboost_version=1.57.0")
@@ -126,7 +128,7 @@ function build_software()
     # Fern.
     options+=("-Dbuild_fern=true")
     options+=("-Dfern_git_repository=https://github.com/geoneric/fern.git")
-    options+=("-Dfern_git_tag=2b71ce7ce7462933724319ec7a81271fc1424b26")
+    options+=("-Dfern_git_tag=894bb8a13d20bc39d89af30136b19f066f20c6bc")
     options+=("-Dfern_build_fern_algorithm=true")
     options+=("-Dfern_build_fern_documentation=false")
     options+=("-Dfern_build_fern_test=false")

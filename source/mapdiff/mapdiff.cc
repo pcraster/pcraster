@@ -1,4 +1,4 @@
-#include "stddefx.h" 
+#include "stddefx.h"
 
 #ifndef INCLUDED_CSF
 #include "csf.h"
@@ -34,11 +34,11 @@
  "USAGE: mapdiff [-pf differenceFile ] mapOrTss1 mapOrTss2\n" \
  " exits non-zero if differences with diagnostic on stderr\n" \
  "         -f write difference file\n" \
- "         -p write difference values as \% (0.3=30\%)\n"
+ "         -p write difference values as % (0.3=30%)\n"
 
-/*********************/ 
+/*********************/
 /* LOCAL DEFINITIONS */
-/*********************/ 
+/*********************/
 
 /******************/
 /* IMPLEMENTATION */

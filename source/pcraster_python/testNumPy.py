@@ -240,7 +240,7 @@ class TestNumPy(testcase.TestCase):
       array2[0][0] = 5.0
       self.assertEqual(pcraster.pcr2numpy(raster, 999.0)[0][0], 5.0)
 
-      # Change the raster and verify the array changed too.
+      # Replace exising raster and verify the array still behaves.
       raster += 1.0
       self.assertEqual(array2[0][0], 5.0)
 
@@ -461,27 +461,47 @@ class TestNumPy(testcase.TestCase):
       # ...
 
 
+  def test_001(self):
+      """ nonspatial and pcr2numpy """
+      nrRows, nrCols, cellSize = 5, 8, 1.0
+      west, north = 0.0, 0.0
+      pcraster.setclone(nrRows, nrCols, cellSize, west, north)
 
-  @unittest.skip("see gh145")
-  def test_nonspatial_to_numpy(self):
+      value = 1.23456
+      nonspatial = pcraster.scalar(value)
+      array = pcraster.pcr2numpy(nonspatial, numpy.nan)
+
+      for row in range(0, nrRows):
+          for col in range(0, nrCols):
+              self.assertAlmostEqual(array[row][col], value)
+
+      value = 3
+      nonspatial = pcraster.nominal(value)
+      array = pcraster.pcr2numpy(nonspatial, numpy.nan)
+
+      for row in range(0, nrRows):
+          for col in range(0, nrCols):
+              self.assertAlmostEqual(array[row][col], value)
+
+      value = True
+      nonspatial = pcraster.boolean(value)
+      array = pcraster.pcr2numpy(nonspatial, numpy.nan)
+
+      for row in range(0, nrRows):
+          for col in range(0, nrCols):
+              self.assertAlmostEqual(array[row][col], value)
+
+
+  def test_002(self):
+      """ nonspatial and pcr_as_numpy """
       nrRows, nrCols, cellSize = 3, 2, 1.0
       west, north = 0.0, 0.0
       pcraster.setclone(nrRows, nrCols, cellSize, west, north)
 
-      value = 1.2
-      nonspatial = pcraster.scalar(1.2)
-      mv = -999.9
-      array = pcraster.pcr2numpy(nonspatial, mv)
+      nonspatial = pcraster.nominal(5)
 
-      self.assertAlmostEqual(array[0][0], value)
-      self.assertAlmostEqual(array[0][1], value)
-      self.assertAlmostEqual(array[0][2], value)
-      self.assertAlmostEqual(array[1][0], value)
-      self.assertAlmostEqual(array[1][1], value)
-      self.assertAlmostEqual(array[1][2], value)
-      self.assertAlmostEqual(array[2][0], value)
-      self.assertAlmostEqual(array[2][1], value)
-      self.assertAlmostEqual(array[2][2], value)
+      with self.assertRaises(Exception) as context_manager:
+          array = pcraster.pcr_as_numpy(nonspatial)
 
-      # todo also test nonspatial boolean, nominal, ordinal
-      # consider taking and_Expr1.map to test MV in output
+      self.assertEqual(str(context_manager.exception),
+          "Argument is non-spatial, only spatial PCRaster data types are supported")

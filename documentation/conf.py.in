@@ -97,7 +97,10 @@ html_theme = '${SPHINX_HTML_THEME}'
 # further.  For a list of options available for each theme, see the
 # documentation.
 #
-# html_theme_options = {}
+html_theme_options = {
+    'sidebarwidth': '18%',
+    'body_max_width' : None
+}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,

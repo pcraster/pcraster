@@ -3,9 +3,29 @@ Changes
 
 PCRaster 4.2.0
 --------------
+
+The most relevant updates for users:
+
 * Python 3 is now the default version on Windows
 * The multicore module was added to PCRaster Python
-* On Windows, files larger than 2Gb can be processed now
+* On Windows, files larger than 2GB can be processed now
+* Handling of non-spatials and pcr2numpy was fixed in the PCRaster Python module
+* PCRaster Modflow now uses Modflow 2005
+* The documentation pages of PCRaster projects were unified into a single manual
+
+We also took measures to improve the code quality and the build system to ensure an ongoing creation of PCRaster packages, amongst others:
+
+* Porting from Qt4 to Qt5
+* Updating various dependencies (external libraries)
+* Reducing amount of dependencies
+* Building against dependencies installed by a package manager
+* Removing obsolete scripts and configuration files
+* Modernising CMake scripts
+* Modernising C and C++ code towards C11 and C++11
+* Various fixes raised by compiler warnings
+* Various improvements to support Visual Studio 2015
+* Various improvements to support clang and macOS
+
 
 PCRaster 4.1.0
 --------------

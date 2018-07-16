@@ -1,8 +1,8 @@
 set(SPHINX_SOURCES
-    #build.rst
+    # build.rst
     changes.rst
-    #develop.rst
-    index.rst
+    # develop.rst
+    # index.rst
     install.rst
     multicore.rst
     sources.rst

@@ -19,7 +19,7 @@
 
 const ANTLRChar *Parser::tokenName(int tok)   { return _token_tbl[tok]; }
 
-ANTLRChar *Parser::_token_tbl[]={
+const ANTLRChar *Parser::_token_tbl[]={
 	/* 00 */	"Invalid",
 	/* 01 */	"@",
 	/* 02 */	"TOK_DOLLAR",
@@ -101,7 +101,8 @@ ANTLRChar *Parser::_token_tbl[]={
 
 Parser::Parser(ANTLRTokenBuffer *input) : ANTLRParser(input,2,0,0,12)
 {
-	token_tbl =(ANTLRChar **) _token_tbl;
+//	token_tbl =(ANTLRChar **) _token_tbl;
+	token_tbl = _token_tbl;
 	traceOptionValueDefault=0;		// MR10 turn trace OFF
 }
 

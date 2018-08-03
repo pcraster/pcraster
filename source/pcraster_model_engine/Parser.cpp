@@ -19,7 +19,7 @@
 
 const ANTLRChar *Parser::tokenName(int tok)   { return _token_tbl[tok]; }
 
-ANTLRChar *Parser::_token_tbl[]={
+const ANTLRChar *Parser::_token_tbl[]={
 	/* 00 */	"Invalid",
 	/* 01 */	"@",
 	/* 02 */	"TOK_DOLLAR",

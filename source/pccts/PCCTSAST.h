@@ -24,7 +24,7 @@
  * Terence Parr
  * Parr Research Corporation
  * with Purdue University and AHPCRC, University of Minnesota
- * 1989-1998
+ * 1989-2000
  */
 
 #ifndef PCCTSAST_H
@@ -72,7 +72,7 @@ typedef struct _scanast {
 
 class DllExportPCCTS PCCTS_AST {
 protected:
-	static char *scan_token_tbl[];
+	static const char *scan_token_tbl[];    /* MR20 const */
 	enum {
 	__LPAREN=1,
 	__RPAREN=2,
@@ -84,7 +84,7 @@ protected:
 	__StringScanEOF=-1};
 
 protected:
-	char *scan_token_str(int t);
+	const char *scan_token_str(int t);  /* MR20 const */
 	void stringlexer_init(StringLexer *scanner, char *input);
 	void stringparser_init(StringParser *, StringLexer *);
 	ScanAST *stringparser_parse_scanast(char *templ, int *n);
@@ -112,13 +112,13 @@ public:
 	virtual void setDown(PCCTS_AST *t) = 0;
 // we define these so ANTLR doesn't have to
 	virtual int type() { return 0; }
-	virtual void setType(int t) {;}
+	virtual void setType(int /*t MR23 */) {;}
 	virtual PCCTS_AST *shallowCopy() {panic("no shallowCopy() defined"); return NULL;}
 
 	/* These are not needed by ANTLR, but are support functions */
 	virtual PCCTS_AST *deepCopy();	// used by SORCERER in transform mode
 	virtual void addChild(PCCTS_AST *t);
-	virtual void lisp_action(FILE *f) {;}
+	virtual void lisp_action(FILE * /*f MR23 */) {;}
 	virtual void lisp(FILE *f);
 	static PCCTS_AST *make(PCCTS_AST *rt, ...);
 	virtual PCCTS_AST *ast_find_all(PCCTS_AST *u, PCCTS_AST **cursor);
@@ -134,9 +134,10 @@ public:
 	virtual int nsiblings();
 	virtual PCCTS_AST *sibling_index(int i);
 
-	void require(int e,char *err){ if ( !e ) panic(err); }
-	virtual void panic(char *err)
-		{ fprintf(stderr, "PCCTS_AST: %s\n", err); exit(PCCTS_EXIT_FAILURE); }
+	void require(int e,const char *err){ if ( !e ) panic(err); } /* MR20 const */
+	virtual void panic(const char *err)     // MR20 const
+		{ /* MR23 */ printMessage(stderr, "PCCTS_AST: %s\n", err); exit(PCCTS_EXIT_FAILURE); }
+	virtual int printMessage(FILE* pFile, const char* pFormat, ...); // MR23
 };
 
 #endif /* PCCTSAST_H */

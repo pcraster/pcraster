@@ -23,7 +23,7 @@
  * Terence Parr
  * Parr Research Corporation
  * with Purdue University and AHPCRC, University of Minnesota
- * 1989-1998
+ * 1989-2000
  */
 
 #include "pcctscfg.h"
@@ -43,7 +43,7 @@
 
 #include "charptr.h"
 
-#ifdef __STDC__
+#ifdef __USE_PROTOS
 zzcr_attr(Attrib *a,int token,char *text)
 #else
 zzcr_attr(a,token,text)

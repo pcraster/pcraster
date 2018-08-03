@@ -2,7 +2,7 @@
 #define __PCCTS_STRING_H__
 
 #ifdef PCCTS_USE_NAMESPACE_STD
-#include <Cstring>
+#include <cstring>
 #else
 #include <string.h>
 #endif

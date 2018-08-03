@@ -1,4 +1,4 @@
-/* antlr.h
+/* antlr.h 
  *
  * SOFTWARE RIGHTS
  *
@@ -24,7 +24,7 @@
  * Terence Parr
  * Parr Research Corporation
  * with Purdue University and AHPCRC, University of Minnesota
- * 1989-1998
+ * 1989-2000
  */
 
 #ifndef ANTLR_H
@@ -47,6 +47,7 @@
  *		The type 'Attrib' must be defined before entry into this .h file.
  */
 
+
 #ifdef __USE_PROTOS
 #include "pccts_stdlib.h"
 #else
@@ -57,6 +58,11 @@
 #endif
 #endif
 #include "pccts_string.h"
+
+#if 0
+#include "set.h"
+#endif
+
 
 typedef int ANTLRTokenType;
 typedef unsigned char SetWordType;
@@ -79,8 +85,9 @@ typedef struct _zzjmp_buf {
 
 
 /* can make this a power of 2 for more efficient lookup */
+
 #ifndef ZZLEXBUFSIZE
-#define ZZLEXBUFSIZE	2000
+#define ZZLEXBUFSIZE	8000 /* MR22 raise from 2k to 8k */
 #endif
 
 #define zzOvfChk														\
@@ -99,24 +106,36 @@ typedef struct _zzjmp_buf {
 
 #ifndef zzfailed_pred
 #ifdef ZZCAN_GUESS
-#define zzfailed_pred(_p) \
+#define zzfailed_pred(_p,_hasuseraction,_useraction) \
   if (zzguessing) { \
     zzGUESS_FAIL; \
   } else { \
-    fprintf(stderr, "semantic error; failed predicate: '%s'\n",_p); \
+    zzfailed_pred_action(_p,_hasuseraction,_useraction); \
   }
 #else
-#define zzfailed_pred(_p)	\
-	fprintf(stderr, "semantic error; failed predicate: '%s'\n",_p)
+#define zzfailed_pred(_p,_hasuseraction,_useraction) \
+    zzfailed_pred_action(_p,_hasuseraction,_useraction);
 #endif
+#endif
+
+/*  MR23            Provide more control over failed predicate action
+                    without any need for user to worry about guessing internals.
+                    _hasuseraction == 0 => no user specified error action
+                    _hasuseraction == 1 => user specified error action
+*/
+
+#ifndef zzfailed_pred_action
+#define zzfailed_pred_action(_p,_hasuseraction,_useraction) \
+    if (_hasuseraction) { _useraction } \
+    else { fprintf(stderr, "semantic error; failed predicate: '%s'\n",_p); }
 #endif
 
 /* MR19 zzchar_t additions */
 
 #ifdef LL_K
-#define LOOKAHEAD												\
-	int zztokenLA[LL_K];										\
-	zzchar_t zztextLA[LL_K][ZZLEXBUFSIZE];						\
+#define LOOKAHEAD \
+	int zztokenLA[LL_K]; \
+	zzchar_t zztextLA[LL_K][ZZLEXBUFSIZE]; \
 	int zzlap = 0, zzlabase=0; /* labase only used for DEMAND_LOOK */
 #else
 #define LOOKAHEAD												\
@@ -290,24 +309,24 @@ extern void _inf_zzgettok();
 #ifdef LL_K
 
 #ifdef __USE_PROTOS
-#define ANTLR_INFO												\
-	Attrib zzempty_attr() {static Attrib a; return a;}		   \
-	Attrib zzconstr_attr(int _tok, char *_text)			   \
-		{Attrib a; zzcr_attr((&a),_tok,_text); return a;}	   \
-	int zzasp=ZZA_STACKSIZE;					   \
+#define ANTLR_INFO	\
+	Attrib zzempty_attr(void) {static Attrib a; return a;} \
+	Attrib zzconstr_attr(int _tok, char *_text) \
+		{Attrib a; zzcr_attr((&a),_tok,_text); return a;} \
+	int zzasp=ZZA_STACKSIZE; \
 	char zzStackOvfMsg[]="fatal: attrib/AST stack overflow %s(%d)!\n"; \
-	Attrib zzaStack[ZZA_STACKSIZE]; DemandLookData			   \
-	InfLookData                                                        \
+	Attrib zzaStack[ZZA_STACKSIZE]; DemandLookData \
+	InfLookData \
     zzGuessData
 #else
 #define ANTLR_INFO												\
 	Attrib zzempty_attr() {static Attrib a; return a;}		    \
-	Attrib zzconstr_attr(_tok, _text) int _tok; char *_text;            \
+	Attrib zzconstr_attr(_tok, _text) int _tok; char *_text;    \
 		{Attrib a; zzcr_attr((&a),_tok,_text); return a;}	    \
 	int zzasp=ZZA_STACKSIZE;					    \
 	char zzStackOvfMsg[]="fatal: attrib/AST stack overflow %s(%d)!\n";  \
 	Attrib zzaStack[ZZA_STACKSIZE]; DemandLookData			    \
-	InfLookData                                                         \
+	InfLookData                                                 \
     zzGuessData
 #endif
 
@@ -315,7 +334,7 @@ extern void _inf_zzgettok();
 
 #ifdef __USE_PROTOS
 #define ANTLR_INFO												\
-	Attrib zzempty_attr() {static Attrib a; return a;}			\
+	Attrib zzempty_attr(void) {static Attrib a; return a;}			\
 	Attrib zzconstr_attr(int _tok, char *_text)				\
 		{Attrib a; zzcr_attr((&a),_tok,_text); return a;}		\
 	int zzasp=ZZA_STACKSIZE;						\
@@ -434,28 +453,49 @@ extern void _inf_zzgettok();
 
 #define ANTLR(st, f)	zzbufsize = ZZLEXBUFSIZE;	\
 						zzenterANTLR(f);			\
-						st; ++zzasp;				\
-                        ZZAST_ADJUST                \
+            {                                            \
+              zzBLOCK(zztasp1);                          \
+						  st; /* ++zzasp; Removed MR20 G. Hobbelt */     \
+						      /* ZZAST_ADJUST Removed MR20 G. Hobbelt */ \
+              /* MR20 G. Hobbelt. Kill the top' attribute (+AST stack corr.) */  \
+              zzEXIT_ANTLR(zztasp1 + 1);                 \
+            }                                            \
 						zzleaveANTLR(f);
 						
 #define ANTLRm(st, f, _m)	zzbufsize = ZZLEXBUFSIZE;	\
-						zzmode(_m);				    \
+						zzmode(_m);				\
 						zzenterANTLR(f);			\
-						st; ++zzasp;				\
-                        ZZAST_ADJUST                \
+            {                                            \
+              zzBLOCK(zztasp1);                          \
+						  st; /* ++zzasp; Removed MR20 G. Hobbelt */     \
+						      /* ZZAST_ADJUST Removed MR20 G. Hobbelt */ \
+              /* MR20 G. Hobbelt. Kill the top' attribute (+AST stack corr.) */  \
+              zzEXIT_ANTLR(zztasp1 + 1);                 \
+            }                                            \
 						zzleaveANTLR(f);
 						
 #define ANTLRf(st, f)	zzbufsize = ZZLEXBUFSIZE;	\
 						zzenterANTLRf(f);			\
-						st; ++zzasp;				\
-                        ZZAST_ADJUST                \
+            {                                            \
+              zzBLOCK(zztasp1);                          \
+						  st; /* ++zzasp; Removed MR20 G. Hobbelt */     \
+						      /* ZZAST_ADJUST Removed MR20 G. Hobbelt */ \
+              /* MR20 G. Hobbelt. Kill the top' attribute (+AST stack corr.) */  \
+              zzEXIT_ANTLR(zztasp1 + 1);                 \
+            }                                            \
 						zzleaveANTLRf(f);
 
 #define ANTLRs(st, s)   zzbufsize = ZZLEXBUFSIZE;	\
                         zzenterANTLRs(s);           \
-                        st; ++zzasp;				\
-                        ZZAST_ADJUST                \
+            {                                            \
+              zzBLOCK(zztasp1);                          \
+						  st; /* ++zzasp; Removed MR20 G. Hobbelt */     \
+						      /* ZZAST_ADJUST Removed MR20 G. Hobbelt */ \
+              /* MR20 G. Hobbelt. Kill the top' attribute (+AST stack corr.) */  \
+              zzEXIT_ANTLR(zztasp1 + 1);                 \
+            }                                            \
                         zzleaveANTLRs(s);
+
 #ifdef LL_K
 #define zztext		(&(zztextLA[zzlap][0]))
 #else
@@ -483,8 +523,8 @@ extern void _inf_zzgettok();
 #endif
 
 
-#define zzsetmatch(_es)						\
-	if ( !_zzsetmatch(_es, &zzBadText, &zzMissText, &zzMissTok, &zzBadTok, &zzMissSet) ) goto fail;
+#define zzsetmatch(_es,_tokclassErrset)						\
+	if ( !_zzsetmatch(_es, &zzBadText, &zzMissText, &zzMissTok, &zzBadTok, &zzMissSet, _tokclassErrset) ) goto fail; /* MR23 */
 
 #ifdef ZZCAN_GUESS
 #define zzsetmatch_wsig(_es, handler)		\
@@ -495,7 +535,7 @@ extern void _inf_zzgettok();
 #endif
 
 #ifdef __USE_PROTOS
-extern int _zzsetmatch(SetWordType *, char **, char **, int *, int *, SetWordType **);
+extern int _zzsetmatch(SetWordType *, char **, char **, int *, int *, SetWordType **, SetWordType * /* MR23 */); 
 extern int _zzsetmatch_wsig(SetWordType *);
 #else
 extern int _zzsetmatch();
@@ -554,14 +594,17 @@ extern int _zzsetmatch_wdfltsig();
 #ifdef GENAST
 #define zzBLOCK(i)	int i = zzasp - 1; int zztsp = zzast_sp
 #define zzEXIT(i)	zzREL(i); zzastREL; zzNON_GUESS_MODE { zzastPush(*_root); }
+#define zzEXIT_ANTLR(i)	zzREL(i); zzastREL /* [i_a] added as we want this for the ANTLRx() macros */
 #define zzLOOP(i)	zzREL(i); zzastREL
 #else
 #define zzBLOCK(i)	int i = zzasp - 1
 #define zzEXIT(i)	zzREL(i)
+#define zzEXIT_ANTLR(i)	zzREL(i)           /* [i_a] added as we want this for the ANTLRx() macros */
 #define zzLOOP(i)	zzREL(i)
 #endif
 
 #ifdef LL_K
+
 #ifdef DEMAND_LOOK
 #define LOOK(_k)	{int i,stop=_k-(LL_K-zzdirty); for (i=1; i<=stop; i++)	\
 					zzCONSUME;}
@@ -642,7 +685,7 @@ extern int _zzsetmatch_wdfltsig();
 #define zzTRACEdata
 #else
 #ifndef zzTRACEdata
-#define zzTRACEdata     ANTLRChar *zzTracePrevRuleName;
+#define zzTRACEdata     ANTLRChar *zzTracePrevRuleName = NULL;
 #endif
 #endif
 
@@ -663,16 +706,24 @@ extern int _zzsetmatch_wdfltsig();
 #endif
 #endif
 
+
+/* MR26 */
+
+#ifdef PCCTS_USE_STDARG
+extern void zzFAIL(int k, ...);
+#else
+extern void zzFAIL();
+#endif
 				/* E x t e r n  D e f s */
 
 #ifdef __USE_PROTOS
-extern Attrib zzempty_attr();
+extern Attrib zzempty_attr(void);
 extern Attrib zzconstr_attr(int, char *);
 extern void zzsyn(char *, int, char *, SetWordType *, int, int, char *);
 extern int zzset_el(unsigned, SetWordType *);
 extern int zzset_deg(SetWordType *);
 extern void zzedecode(SetWordType *);
-extern void zzFAIL(int k, ...);
+
 extern void zzresynch(SetWordType *, SetWordType);
 extern void zzsave_antlr_state(zzantlr_state *);
 extern void zzrestore_antlr_state(zzantlr_state *);
@@ -683,8 +734,8 @@ extern void zzTraceIn(char * ruleName);                              /* MR10 */
 extern void zzTraceOut(char * ruleName);                             /* MR10 */
 extern int  zzTraceOption(int delta);                                /* MR10 */
 extern int  zzTraceGuessOption(int delta);                           /* MR10 */
-extern void zzTraceReset();                                          /* MR10 */
-extern void zzTraceGuessFail();                                      /* MR10 */
+extern void zzTraceReset(void);                                      /* MR10 */
+extern void zzTraceGuessFail(void);                                  /* MR10 */
 #ifdef EXCEPTION_HANDLING
 extern void zzdflthandlers(int, int *);
 #endif
@@ -695,7 +746,6 @@ extern void zzsyn();
 extern int zzset_el();
 extern int zzset_deg();
 extern void zzedecode();
-extern void zzFAIL();
 extern void zzresynch();
 extern void zzsave_antlr_state();
 extern void zzrestore_antlr_state();

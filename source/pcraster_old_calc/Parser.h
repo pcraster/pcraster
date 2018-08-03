@@ -81,7 +81,7 @@ class Parser : public ANTLRParser {
 public:
 	static  const ANTLRChar *tokenName(int tk);
 protected:
-	static  ANTLRChar *_token_tbl[];
+	static  const ANTLRChar *_token_tbl[];
 private:
 #line 354 "calcparser.g"
 

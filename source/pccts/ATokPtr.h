@@ -25,7 +25,7 @@
  * Adapted by Terence Parr to ANTLR stuff
  * Parr Research Corporation
  * with Purdue University and AHPCRC, University of Minnesota
- * 1989-1998
+ * 1989-2000
  */
 
 #ifndef ATokPtr_h

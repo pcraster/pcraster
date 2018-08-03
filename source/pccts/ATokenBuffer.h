@@ -24,7 +24,7 @@
  * Terence Parr
  * Parr Research Corporation
  * with Purdue University and AHPCRC, University of Minnesota
- * 1989-1998
+ * 1989-2000
  */
 
 #ifndef ATOKENBUFFER_H_GATE
@@ -93,7 +93,10 @@ public:
 	virtual int minTokens() { return k; }
 	virtual void setMinTokens(int k_new) { k = k_new; }
 
-	virtual void panic(char *) { exit(PCCTS_EXIT_FAILURE); }
+	virtual void panic(const char *msg); /* MR20 const */
+
+	virtual int printMessage(FILE* pFile, const char* pFormat, ...); // MR23
+
 protected:						// MR1
 	ANTLRParser	*parser;			// MR1
 public:							// MR1

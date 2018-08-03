@@ -28,8 +28,10 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
         "${CMAKE_C_FLAGS} -Wno-implicit-fallthrough -Wno-pedantic -Wno-cpp -Wno-parentheses -Wno-cast-qual -Wno-maybe-uninitialized -Wno-unused-parameter -Wno-empty-body -Wno-unused-but-set-variable -Wno-unused-function -Wno-format -Wno-switch -Wno-empty-body -Wno-sign-compare -Wno-float-equal -Wno-misleading-indentation"
     )
     set(CMAKE_CXX_FLAGS
-        "${CMAKE_CXX_FLAGS} -Wno-unused-result -Wno-implicit-fallthrough  -Wno-cpp -Wno-parentheses -Wno-cast-qual -Wno-maybe-uninitialized -Wno-unused-parameter -Wno-empty-body -Wno-unused-but-set-variable -Wno-ignored-qualifiers -Wno-switch -Wno-write-strings -Wno-unused-variable -Wno-unused-local-typedefs -Wno-delete-non-virtual-dtor -Wno-unused-label -Wno-sign-compare -Wno-float-equal -Wno-misleading-indentation -Wno-deprecated-declarations -Wno-pedantic"
+        "${CMAKE_CXX_FLAGS} -Wno-unused-variable -Wno-cast-function-type -Wno-catch-value -Wno-unused-result -Wno-implicit-fallthrough  -Wno-cpp -Wno-parentheses -Wno-cast-qual -Wno-maybe-uninitialized -Wno-unused-parameter -Wno-empty-body -Wno-unused-but-set-variable -Wno-ignored-qualifiers -Wno-switch -Wno-write-strings -Wno-unused-variable -Wno-unused-local-typedefs -Wno-delete-non-virtual-dtor -Wno-unused-label -Wno-sign-compare -Wno-float-equal -Wno-misleading-indentation -Wno-deprecated-declarations -Wno-pedantic"
     )
+    # -Wduplicated-cond -Wduplicated-branches -Wnull-dereference -Wrestrict -Wuseless-cast -Wold-style-cast -Wdouble-promotion -Wformat=2 -Wshadow
+
 
     # these ones should moved to devbase eventually
 #     set(CMAKE_C_FLAGS

@@ -29,7 +29,7 @@
  * Terence Parr
  * Parr Research Corporation
  * with Purdue University and AHPCRC, University of Minnesota
- * 1989-1998
+ * 1989-2000
  */
 
 #ifndef ERR_H
@@ -37,22 +37,18 @@
 
 #include "pcctscfg.h"
 #include <stdlib.h>
+#include <assert.h>
 
 /*									      */
 /*  7-Apr-97  133MR1							      */
 /*		Proper choice of STDC and cplusplus pre-processor symbols (?) */
 /*									      */
 #include "pccts_string.h"
-#ifdef __STDC__
-#include <stdarg.h>
-#endif
-#ifdef __cplusplus
+
+#ifdef PCCTS_USE_STDARG
 #include "pccts_stdarg.h"
-#endif
-#ifndef __STDC__
-#ifndef __cplusplus
+#else
 #include <varargs.h>
-#endif
 #endif
 
 #ifdef DUM
@@ -156,11 +152,11 @@ int t;
  * where the zzMiss stuff is set here to the token that did not match
  * (and which set wasn't it a member of).
  */
-void
-#ifdef __USE_PROTOS
-zzFAIL(int k, ...)
+
+#ifdef PCCTS_USE_STDARG
+void zzFAIL(int k, ...)
 #else
-zzFAIL(va_alist)
+void zzFAIL(va_alist)
 va_dcl
 #endif
 {
@@ -178,15 +174,16 @@ va_dcl
 	int *err_k;
 	int i;
 	va_list ap;
-#ifndef __USE_PROTOS
+#ifndef PCCTS_USE_STDARG			/* MR20 */
 	int k;
 #endif
-#ifdef __USE_PROTOS
+#ifdef PCCTS_USE_STDARG         /* MR20 */
 	va_start(ap, k);
 #else
 	va_start(ap);
 	k = va_arg(ap, int);	/* how many lookahead sets? */
 #endif
+    assert(k <= sizeof(f)/sizeof(f[0]));    /* MR20 G. Hobbelt */
 	text[0] = '\0';
 	for (i=1; i<=k; i++)	/* collect all lookahead sets */
 	{
@@ -761,14 +758,16 @@ int
 #ifdef __USE_PROTOS
 _zzsetmatch(SetWordType *e, char **zzBadText, char **zzMissText,
 			int *zzMissTok, int *zzBadTok,
-			SetWordType **zzMissSet)
+			SetWordType **zzMissSet,
+			SetWordType *zzTokclassErrset /* MR23 */)
 #else
-_zzsetmatch(e, zzBadText, zzMissText, zzMissTok, zzBadTok, zzMissSet)
+_zzsetmatch(e, zzBadText, zzMissText, zzMissTok, zzBadTok, zzMissSet, zzTokclassErrset /* MR23 */)
 SetWordType *e;
 char **zzBadText;
 char **zzMissText;
 int *zzMissTok, *zzBadTok;
 SetWordType **zzMissSet;
+SetWordType *zzTokclassErrset;
 #endif
 {
 #ifdef DEMAND_LOOK
@@ -781,7 +780,7 @@ SetWordType **zzMissSet;
 	if ( !zzset_el((unsigned)LA(1), e) ) {
 		*zzBadText = LATEXT(1); *zzMissText=NULL;
 		*zzMissTok= 0; *zzBadTok=LA(1);
-		*zzMissSet=e;
+		*zzMissSet=zzTokclassErrset; /* MR23 */
 		return 0;
 	}
 	zzMakeAttr           /* MR14 Ger Hobbelt (hobbelt@axa.nl) */
@@ -990,7 +989,12 @@ int *modeLevel;
 }
 #endif /* USER_ZZMODE_STACK */
 
-void zzTraceReset() {
+#ifdef __USE_PROTOS
+void zzTraceReset(void)
+#else
+void zzTraceReset()
+#endif
+{
 #ifdef zzTRACE_RULES
   zzTraceOptionValue=zzTraceOptionValueDefault;
   zzTraceGuessOptionValue=1;
@@ -999,7 +1003,12 @@ void zzTraceReset() {
 #endif
 }
 
-void zzTraceGuessFail() {
+#ifdef __USE_PROTOS
+void zzTraceGuessFail(void)
+#else
+void zzTraceGuessFail()
+#endif
+{
 
 #ifdef zzTRACE_RULES
 #ifdef ZZCAN_GUESS

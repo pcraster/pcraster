@@ -1,4 +1,7 @@
-/* DLexer.c
+/* DLexer.h (formerly DLexer.cpp)
+ *
+ * This was renamed because the use of the .cpp extension caused problems
+ * with IDEs.
  *
  * SOFTWARE RIGHTS
  *
@@ -24,7 +27,7 @@
  * Terence Parr
  * Parr Research Corporation
  * with Purdue University and AHPCRC, University of Minnesota
- * 1989-1998
+ * 1989-2000
  */
 
 #define ZZINC {if ( track_columns ) (++_endcol);}
@@ -148,24 +151,24 @@ more:
 
 /* MR1 */        if (debugLexerFlag) {
 /* MR1 */	   if (parser != NULL) {
-/* MR1 */	     printf("\ntoken name=%s",parser->parserTokenName(tk));
+/* MR1 */	     /* MR23 */ printMessage(stdout, "\ntoken name=%s",parser->parserTokenName(tk));
 /* MR1 */	   } else {
-/* MR1 */	     printf("\ntoken nnumber=%d",tk);
+/* MR1 */	     /* MR23 */ printMessage(stdout, "\ntoken nnumber=%d",tk);
 /* MR1 */	   };
-/* MR1 */	   printf(" lextext=(%s) mode=%d",
+/* MR1 */	   /* MR23 */ printMessage(stdout, " lextext=(%s) mode=%d",
 /* MR1 */		 (_lextext[0]=='\n' && _lextext[1]==0) ?
 /* MR1 */			"newline" : _lextext,
 /* MR1 */				automaton);
 /* MR1 */          if (interactive && !charfull) {
-/* MR1 */	     printf(" char=empty");
+/* MR1 */	     /* MR23 */ printMessage(stdout, " char=empty");
 /* MR1 */          } else {
 /* MR1 */	     if (ch=='\n') {
-/* MR1 */	       printf(" char=newline");
+/* MR1 */	       /* MR23 */ printMessage(stdout, " char=newline");
 /* MR1 */	     } else {
-/* MR1 */	       printf(" char=(%c)",ch);
+/* MR1 */	       /* MR23 */ printMessage(stdout, " char=(%c)",ch);
 /* MR1 */	     };
 /* MR1 */	   };
-/* MR1 */	   printf(" %s\n",
+/* MR1 */	   /* MR23 */ printMessage(stdout, " %s\n",
 /* MR1 */		 (add_erase==1 ? "skip()" :
 /* MR1 */		  add_erase==2 ? "more()" :
 /* MR1 */		  ""));

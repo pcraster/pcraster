@@ -24,7 +24,7 @@
  * Terence Parr
  * Parr Research Corporation
  * with Purdue University and AHPCRC, University of Minnesota
- * 1989-1998
+ * 1989-2000
  */
 
 #ifndef ATOKEN_H_GATE
@@ -35,6 +35,7 @@
 #include "pccts_string.h"
 #include "pccts_stdio.h"
 #include "pccts_stdlib.h"
+#include "pccts_stdarg.h" // MR23
 
 PCCTS_NAMESPACE_STD
 
@@ -81,10 +82,19 @@ public:
 	virtual void ref() {;}
 	virtual void deref() {;}
 
-	virtual void panic(const char *msg)
+	virtual void panic(const char *msg)             // MR20 const
 		{
-			fprintf(stderr, "ANTLRAbstractToken panic: %s\n", msg);
+			/* MR23 */ printMessage(stderr, "ANTLRAbstractToken panic: %s\n", msg);
 			exit(PCCTS_EXIT_FAILURE);
+		}
+
+	virtual int printMessage(FILE* pFile, const char* pFormat, ...) // MR23
+		{
+			va_list marker;
+			va_start( marker, pFormat );
+  			int iRet = vfprintf(pFile, pFormat, marker);
+			va_end( marker );
+			return iRet;
 		}
 };
 
@@ -103,7 +113,17 @@ protected:
 #endif
 
 public:
-	ANTLRRefCountToken(ANTLRTokenType , const ANTLRChar *)
+
+	// MR23 - No matter what you do, you're hammered.
+	//        Don't give names to formals something breaks.
+	//		  Give names to formals and don't use them it breaks.
+
+#ifndef DBG_REFCOUNTTOKEN
+	ANTLRRefCountToken(ANTLRTokenType /* t MR23 */, const ANTLRChar * /* s MR23 */)
+#else
+	ANTLRRefCountToken(ANTLRTokenType t, const ANTLRChar * s)
+#endif
+
 #ifndef DBG_REFCOUNTTOKEN
 		{
 			refcnt_ = 0;
@@ -114,7 +134,7 @@ public:
 		refcnt_ = 0;
 		if ( t==1 ) sprintf(object,"tok_EOF");
 		else sprintf(object,"tok_%s",s);
-		fprintf(stderr, "ctor %s #%d\n",object,ctor);
+		/* MR23 */ printMessage(stderr, "ctor %s #%d\n",object,ctor);
 	}
 #endif
 	ANTLRRefCountToken()
@@ -125,13 +145,13 @@ public:
 			ctor++;
 			refcnt_ = 0;
 			sprintf(object,"tok_blank");
-			fprintf(stderr, "ctor %s #%d\n",object,ctor);
+			/* MR23 */ printMessage(stderr, "ctor %s #%d\n",object,ctor);
 		}
 	virtual ~ANTLRRefCountToken()
 		{
 			dtor++;
-			if ( dtor>ctor ) fprintf(stderr, "WARNING: dtor>ctor\n");
-			fprintf(stderr, "dtor %s #%d\n", object, dtor);
+			if ( dtor>ctor ) /* MR23 */ printMessage(stderr, "WARNING: dtor>ctor\n");
+			/* MR23 */ printMessage(stderr, "dtor %s #%d\n", object, dtor);
 			object[0]='\0';
 		}
 #endif
@@ -144,9 +164,9 @@ public:
 	void deref()	      { refcnt_--; }
 	unsigned nref()	const { return refcnt_; }   // MR11
 
-	virtual ANTLRAbstractToken *makeToken(ANTLRTokenType ,
-										  ANTLRChar *,
-										  int )
+	virtual ANTLRAbstractToken *makeToken(ANTLRTokenType /*tt MR23*/,
+										  ANTLRChar * /*txt MR23*/,
+										  int /*line MR23*/)
 	{
 		panic("call to ANTLRRefCountToken::makeToken()\n");
 		return NULL;

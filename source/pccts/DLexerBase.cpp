@@ -24,7 +24,7 @@
  * Terence Parr
  * Parr Research Corporation
  * with Purdue University and AHPCRC, University of Minnesota
- * 1989-1998
+ * 1989-2000
  */
 
 #include "pcctscfg.h"
@@ -51,6 +51,7 @@ enum ANTLRTokenType { TER_HATES_CPP=0, ITS_UTTER_GARBAGE,		// MR1
 
 #include "pcctscfg.h"
 #include DLEXERBASE_H
+#include APARSER_H		// MR23
 
 DLGLexerBase::
 DLGLexerBase(DLGInputStream *in,
@@ -175,18 +176,28 @@ replchar(DLGChar c)
 		*(_begexpr+1) = '\0';
 	}
 	_endexpr = _begexpr;
-	nextpos = _begexpr + 1;
+	if (c != '\0') {
+		nextpos = _begexpr + 1;
+	}
+	else {
+		nextpos = _begexpr;	/* MR30 Zero terminates string. */
+	}
 }
 
 /* replace the string s for the reg. expr last matched and in the buffer */
+
+#ifdef _MSC_VER  // MR23
+//Turn off "assignment within conditional expression" warning
+#pragma warning(disable : 4706)
+#endif
 void DLGLexerBase::
-replstr(register DLGChar *s)
+replstr(const DLGChar *s) /* MR20 const */
 {
 	register DLGChar *l= &_lextext[_bufsize -1];
 
 	nextpos = _begexpr;
 	if (s){
-	 	while ((nextpos <= l) && (*(nextpos++) = *(s++))){
+		while ((nextpos <= l) && (*(nextpos++) = *(s++))){
 			/* empty */
 		}
 		/* correct for NULL at end of string */
@@ -200,12 +211,15 @@ replstr(register DLGChar *s)
 	*(nextpos) = '\0';
 	_endexpr = nextpos - 1;
 }
+#ifdef _MSC_VER  // MR23
+#pragma warning(default: 4706)
+#endif
 
 void DLGLexerBase::
-errstd(char *s)
+errstd(const char *s)                               /* MR20 const */
 {
         lexErrCount++;                              /* MR11 */
-        fprintf(stderr,
+        /* MR23 */ printMessage(stderr,
                 "%s near line %d (text was '%s')\n",
                 ((s == NULL) ? "Lexical error" : s),
                 _line,_lextext);
@@ -214,7 +228,7 @@ errstd(char *s)
 int DLGLexerBase::
 err_in()
 {
-	fprintf(stderr,"No input stream, function, or string\n");
+	/* MR23 */ printMessage(stderr,"No input stream, function, or string\n");
 	/* return eof to get out gracefully */
 	return EOF;
 }
@@ -238,13 +252,18 @@ getToken()
 }
 
 void DLGLexerBase::
-panic(char *msg)
+panic(const char *msg)      /* MR20 const */
 {
-	fprintf(stderr, "DLG panic: %s\n", msg);
-//
-//  7-Apr-97 133MR1
-//
-	exit(PCCTS_EXIT_FAILURE);					// MR1
+	if (parser)				//MR23
+		parser->panic(msg);	//MR23
+	else					//MR23
+	{
+		/* MR23 */ printMessage(stderr, "DLG panic: %s\n", msg);
+	//
+	//  7-Apr-97 133MR1
+	//
+		exit(PCCTS_EXIT_FAILURE);					// MR1
+	}
 }
 
 ANTLRParser * DLGLexerBase::						// MR1
@@ -265,3 +284,19 @@ debugLexer(int newValue) {						// MR1
   debugLexerFlag=newValue;						// MR1
   return oldValue;							// MR1
 }									// MR1
+
+//MR23
+int DLGLexerBase::printMessage(FILE* pFile, const char* pFormat, ...)
+{
+	va_list marker;
+	va_start( marker, pFormat );
+
+	int iRet = 0;
+	if (parser)
+		parser->printMessageV(pFile, pFormat, marker);
+	else
+  		iRet = vfprintf(pFile, pFormat, marker);
+
+	va_end( marker );
+	return iRet;
+}

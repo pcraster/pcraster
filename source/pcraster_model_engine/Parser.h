@@ -1,5 +1,5 @@
 /*
- * Parser: P a r s e r  H e a d e r 
+ * Parser: P a r s e r  H e a d e r
  *
  * Generated from: calcparser.g
  *
@@ -87,7 +87,7 @@ class Parser : public ANTLRParser {
 public:
 	static  const ANTLRChar *tokenName(int tk);
 protected:
-	static  ANTLRChar *_token_tbl[];
+	static  const ANTLRChar *_token_tbl[];
 private:
 
 public:

@@ -24,7 +24,7 @@
  * Terence Parr
  * Parr Research Corporation
  * with Purdue University and AHPCRC, University of Minnesota
- * 1989-1998
+ * 1989-2000
  */
 
 #ifndef ASTBase_H
@@ -78,14 +78,19 @@ public:
 	virtual ASTBase *dup();
 #endif
 	void destroy();
-	void preorder();
+	void preorder(void* pData = NULL /* MR23 */);
 	static ASTBase *tmake(ASTBase *, ...);
 	static void link(ASTBase **, ASTBase **, ASTBase **);
 	void subchild(ASTBase **, ASTBase **, ASTBase **);
 	void subroot(ASTBase **, ASTBase **, ASTBase **);
-	virtual void preorder_action() { ; }
-	virtual void preorder_before_action() { printf(" ("); }
-	virtual void preorder_after_action() { printf(" )"); }
+	virtual void preorder_action(void* /*pData*/ = NULL /* MR23 */) { ; }
+	virtual void preorder_before_action(void* /*pData*/ = NULL /* MR23 */) { /* MR23 */ printMessage(stdout, " ("); }
+	virtual void preorder_after_action(void* /*pData*/ = NULL /* MR23 */) { /* MR23 */ printMessage(stdout, " )"); }
+    virtual void panic(const char *msg);         /* MR21 */
+    virtual void reportOverwriteOfDownPointer(); /* MR21 */
+#ifdef PCCTS_NOT_USING_SOR
+	virtual int printMessage(FILE* pFile, const char* pFormat, ...); // MR23
+#endif
 };
 
 class DllExportPCCTS ASTDoublyLinkedBase : public ASTBase {

@@ -24,7 +24,7 @@
  * Will Cohen and Terence Parr
  * Parr Research Corporation
  * with Purdue University and AHPCRC, University of Minnesota
- * 1989-1998
+ * 1989-2000
  */
 
 #ifndef ZZDEFAUTO_H
@@ -52,14 +52,15 @@ static int 	zzclass;
 void	zzerrstd(const char *);
 void	(*zzerr)(const char *)=zzerrstd;/* pointer to error reporting function */
 extern int	zzerr_in(void);
+static int	(*zzfunc_in)(void) = zzerr_in;  /* MR20 */
 #else
 void	zzerrstd();
 void	(*zzerr)()=zzerrstd;	/* pointer to error reporting function */
 extern int	zzerr_in();
+static int	(*zzfunc_in)() = zzerr_in;      /* MR20 */
 #endif
 
 static FILE	*zzstream_in=0;
-static int	(*zzfunc_in)() = zzerr_in;
 static zzchar_t	*zzstr_in=0;
 
 #ifdef USER_ZZMODE_STACK
@@ -129,7 +130,7 @@ FILE *f;
 
 void
 #ifdef __USE_PROTOS
-zzrdfunc( int (*f)() )
+zzrdfunc( int (*f)(void) )
 #else
 zzrdfunc( f )
 int (*f)();
@@ -181,8 +182,11 @@ zzchar_t *s;
 }
 
 
-void
-zzclose_stream()
+#ifdef __USE_PROTOS
+void zzclose_stream(void)
+#else
+void zzclose_stream()
+#endif
 {
 #if 0
 	fclose( zzstream_in );
@@ -266,15 +270,22 @@ int m;
 }
 
 /* erase what is currently in the buffer, and get a new reg. expr */
-void
-zzskip()
+
+#ifdef __USE_PROTOS
+void zzskip(void)
+#else
+void zzskip()
+#endif
 {
 	zzadd_erase = 1;
 }
 
 /* don't erase what is in the zzlextext buffer, add on to it */
-void
-zzmore()
+#ifdef __USE_PROTOS
+void zzmore()
+#else
+void zzmore()
+#endif
 {
 	zzadd_erase = 2;
 }
@@ -295,7 +306,12 @@ zzchar_t c;
 		*(zzbegexpr+1) = '\0';
 	}
 	zzendexpr = zzbegexpr;
-	zznextpos = zzbegexpr + 1;
+	if (c != '\0') {
+		zznextpos = zzbegexpr + 1;
+	}
+	else {
+		zznextpos = zzbegexpr;	/* MR30 Zero terminates string. */
+	}
 }
 
 /* replace the string s for the reg. expr last matched and in the buffer */
@@ -326,12 +342,15 @@ register zzchar_t *s;
 	zzendexpr = zznextpos - 1;
 }
 
-void
-zzgettok()
+#ifdef __USE_PROTOS
+void zzgettok(void)
+#else
+void zzgettok()
+#endif
 {
 	register int state, newstate;
 	/* last space reserved for the null char */
-	register zzchar_t *lastpos;
+	zzchar_t *lastpos;  /* MR27 Remove register since address operator used. */
 
 skip:
 	zzreal_line = zzline;
@@ -442,8 +461,11 @@ more:
 	}
 }
 
-void
-zzadvance()
+#ifdef __USE_PROTOS
+void zzadvance(void)
+#else
+void zzadvance()
+#endif
 {
 	if (zzstream_in) { ZZGETC_STREAM; zzcharfull = 1; ZZINC;}
 	if (zzfunc_in) { ZZGETC_FUNC; zzcharfull = 1; ZZINC;}
@@ -468,8 +490,11 @@ char *s;
                 zzline,zzlextext);
 }
 
-int
-zzerr_in()
+#ifdef __USE_PROTOS
+int zzerr_in(void)
+#else
+int zzerr_in()
+#endif
 {
 	fprintf(stderr,"No input stream, function, or string\n");
 	/* return eof to get out gracefully */

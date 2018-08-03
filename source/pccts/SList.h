@@ -28,7 +28,7 @@
  * Terence Parr
  * Parr Research Corporation
  * with Purdue University and AHPCRC, University of Minnesota
- * 1992-1998
+ * 1992-2000
  */
 
 #include "pcctscfg.h"
@@ -65,7 +65,8 @@ public:
 	virtual void lfree();
 	virtual PCCTS_AST *to_ast(SList list);
 	virtual void require(int e,char *err){ if ( !e ) panic(err); }
-	virtual void panic(char *err){ fprintf(stderr, "SList panic: %s\n", err); exit(PCCTS_EXIT_FAILURE); }
+	virtual void panic(char *err){ /* MR23 */ printMessage(stderr, "SList panic: %s\n", err); exit(PCCTS_EXIT_FAILURE); }
+	virtual int printMessage(FILE* pFile, const char* pFormat, ...); // MR23
 };
 
 #endif

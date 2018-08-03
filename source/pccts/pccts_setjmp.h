@@ -2,7 +2,7 @@
 #define __PCCTS_SETJMP_H__
 
 #ifdef PCCTS_USE_NAMESPACE_STD
-#include <Csetjmp>
+#include <csetjmp>
 #else
 #include <setjmp.h>
 #endif

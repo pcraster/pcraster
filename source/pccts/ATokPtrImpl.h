@@ -1,4 +1,10 @@
-/* ATokPtr.C
+/*
+ * ATokPtrImpl.h (formerly ATokPtr.cpp)
+ *
+ * This is #included in ATokBuffer.cpp for historical reasons.
+ * It has been renamed because of problems with the .cpp extension
+ * when used with IDE.
+ *
  *
  * ANTLRToken MUST be defined before entry to this file.
  *
@@ -27,7 +33,7 @@
  * Adapted by Terence Parr to ANTLR stuff
  * Parr Research Corporation
  * with Purdue University and AHPCRC, University of Minnesota
- * 1989-1998
+ * 1989-2000
  */
 
 #include "pcctscfg.h"

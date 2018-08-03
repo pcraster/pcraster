@@ -24,7 +24,7 @@
  * Terence Parr
  * Parr Research Corporation
  * with Purdue University and AHPCRC, University of Minnesota
- * 1989-1998
+ * 1989-2000
  */
 
 #ifndef DLGX_H
@@ -156,10 +156,10 @@ public:
 	virtual ANTLRTokenType nextTokenType(void)=0;/* get next token */
 	void	replchar(DLGChar c);	/* replace last recognized reg. expr. with
 									 a character */
-	void	replstr(DLGChar *s);	/* replace last recognized reg. expr. with
-									 a string */
+	void	replstr(const DLGChar *s);	/* replace last recognized reg. expr. with
+    									 a string */ /* MR20 const */
         virtual int err_in();						// MR1
-	virtual void errstd(char *);					// MR1
+	virtual void errstd(const char *);				// MR1  MR20 const
 	int		line()		{ return _line; }
 	void	set_line(int newValue)	{ _line=newValue; };		// MR1
 	virtual void newline()	{ _line++; }
@@ -182,7 +182,7 @@ public:
 				 int track_columns=0);
 	void reset();									// MR19
 	virtual ~DLGLexerBase() { delete [] _lextext; }
-	virtual void panic(char *msg);					// MR1
+	virtual void panic(const char *msg);			// MR1  MR20 const
 	void	trackColumns() {
 				track_columns = 1;
 				this->_begcol = 0;
@@ -192,6 +192,7 @@ public:
 	virtual ANTLRParser *getParser();				// MR1
 	virtual int debugLexer(int value);				// MR1
     int     lexErrCount;                            // MR12
+	virtual int printMessage(FILE* pFile, const char* pFormat, ...); // MR23
 };
 
 #endif

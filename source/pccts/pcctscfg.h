@@ -30,7 +30,7 @@
  * Terence Parr
  * Parr Research Corporation
  * with Purdue University and AHPCRC, University of Minnesota
- * 1989-1998
+ * 1989-2000
  */
 
 /* This file knows about the following ``environments''
@@ -42,11 +42,12 @@
  */
 
 /* should test __STDC__ for 1, but some compilers don't set value, just def */
+
+#ifndef __USE_PROTOS
 #ifdef __STDC__
 #define __USE_PROTOS
 #endif
 #ifdef __cplusplus
-#ifndef __USE_PROTOS
 #define __USE_PROTOS
 #endif
 #endif
@@ -97,7 +98,7 @@
 #ifndef LONGFILENAMES
 #define ATOKEN_H			"AToken.h"
 #define ATOKPTR_H			"ATokPtr.h"
-#define ATOKPTR_C			"ATokPtr.cpp"
+#define ATOKPTR_IMPL_H		"ATokPtrIm.h"
 #define ATOKENBUFFER_H		"ATokBuf.h"
 #define ATOKENBUFFER_C      "ATokBuf.cpp"
 #define ATOKENSTREAM_H		"ATokStr.h"
@@ -109,12 +110,12 @@
 #define LIST_C              "List.cpp"
 #define DLEXERBASE_H		"DLexBase.h"
 #define DLEXERBASE_C        "DLexBase.cpp"
-#define DLEXER_C            "DLexer.cpp"
+#define DLEXER_H            "DLexer.h"
 #define STREESUPPORT_C		"STreeSup.C"
 #else
 #define ATOKEN_H			"AToken.h"
 #define ATOKPTR_H			"ATokPtr.h"
-#define ATOKPTR_C			"ATokPtr.cpp"
+#define ATOKPTR_IMPL_H		"ATokPtrImpl.h"
 #define ATOKENBUFFER_H		"ATokenBuffer.h"
 #define ATOKENBUFFER_C		"ATokenBuffer.cpp"
 #define ATOKENSTREAM_H		"ATokenStream.h"
@@ -126,7 +127,7 @@
 #define LIST_C				"List.cpp"
 #define DLEXERBASE_H		"DLexerBase.h"
 #define DLEXERBASE_C		"DLexerBase.cpp"
-#define DLEXER_C			"DLexer.cpp"
+#define DLEXER_H			"DLexer.h"
 #define STREESUPPORT_C		"STreeSupport.cpp"
 #endif
 
@@ -165,7 +166,11 @@
 #endif
 
 /* User may redefine how line information looks */     /* make it #line MR7 */
+/* MR21 Use #ifndef */
+
+#ifndef LineInfoFormatStr
 #define LineInfoFormatStr "#line %d \"%s\"\n"
+#endif
 
 #ifdef MPW	                    /* Macintosh Programmer's Workshop */
 #define ErrHdr "File \"%s\"; Line %d #"
@@ -304,6 +309,51 @@ void special_fopen_actions(char * s)
 
 #ifndef DllExportPCCTS
 #define DllExportPCCTS
+#endif
+
+#ifdef PC
+#ifndef PCCTS_CASE_INSENSITIVE_FILE_NAME
+#define PCCTS_CASE_INSENSITIVE_FILE_NAME
+#endif
+#endif
+
+#ifdef PC32
+#ifndef PCCTS_CASE_INSENSITIVE_FILE_NAME
+#define PCCTS_CASE_INSENSITIVE_FILE_NAME
+#endif
+#endif
+
+#ifdef __VMS
+#ifndef PCCTS_CASE_INSENSITIVE_FILE_NAME
+#define PCCTS_CASE_INSENSITIVE_FILE_NAME
+#endif
+#endif
+
+#ifdef __USE_PROTOS
+#ifndef PCCTS_USE_STDARG
+#define PCCTS_USE_STDARG
+#endif
+#endif
+
+#ifdef __STDC__
+#ifndef PCCTS_USE_STDARG
+#define PCCTS_USE_STDARG
+#endif
+#endif
+
+#ifdef __cplusplus
+#ifndef PCCTS_USE_STDARG
+#define PCCTS_USE_STDARG
+#endif
+#endif
+
+#ifdef _MSC_VER
+/*Turn off the warnings for:
+  unreferenced inline/local function has been removed
+*/
+#pragma warning(disable : 4514)
+/* function not expanded */
+#pragma warning(disable : 4710)
 #endif
 
 #endif

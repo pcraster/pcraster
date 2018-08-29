@@ -1,7 +1,7 @@
-#ifndef  __SAMPLE_H__ 
-#define  __SAMPLE_H__ 
+#ifndef __SAMPLE_H__
+#define __SAMPLE_H__
 
-#include "stddefx.h" 
+#include "stddefx.h"
 
 /********/
 /* USES */
@@ -15,30 +15,30 @@
 
 /* global header (opt.) and test's prototypes "" */
 
-/* headers of this app. modules called */ 
+/* headers of this app. modules called */
 
 /***************/
 /* EXTERNALS   */
 /***************/
 
-typedef struct ROW_CACHE{
-  	int rowNr;
-  	int lastCount;
-  	void *rowField;
-}ROW_CACHE;
+typedef struct ROW_CACHE {
+    int rowNr;
+    int lastCount;
+    void *rowField;
+} ROW_CACHE;
 
-typedef struct CACHE{
-  	size_t nrRows;
-  	ROW_CACHE *cache;
-}CACHE;
+typedef struct CACHE {
+    size_t nrRows;
+    ROW_CACHE *cache;
+} CACHE;
 
-/**********************/ 
+/**********************/
 /* LOCAL DECLARATIONS */
-/**********************/ 
+/**********************/
 
-/*********************/ 
+/*********************/
 /* LOCAL DEFINITIONS */
-/*********************/ 
+/*********************/
 
 /******************/
 /* IMPLEMENTATION */
@@ -49,24 +49,8 @@ typedef struct CACHE{
 extern void FreeCache(size_t nrMaps);
 extern CACHE *InitCache(const MAP *out, MAP **in, size_t nrMaps);
 extern void *CacheGetRow(MAP **in, size_t mapNr, double rowNr);
-extern int SampleClass(
-	MAP *out,
-	MAP **in,
-	double percentage,
-	size_t nrMaps,
-	size_t nrRows,
-	size_t nrCols,
-	BOOL alligned,
-	REAL8 angle);
+extern int SampleClass(MAP *out, MAP **in, double percentage, size_t nrMaps, size_t nrRows, size_t nrCols, BOOL alligned, REAL8 angle);
 
-extern int SampleCont(
-	MAP *out,
-	MAP **in,
-	double percentage,
-	size_t nrMaps,
-	size_t nrRows,
-	size_t nrCols,
-	BOOL alligned,
-	REAL8 angle);
+extern int SampleCont(MAP *out, MAP **in, double percentage, size_t nrMaps, size_t nrRows, size_t nrCols, BOOL alligned, REAL8 angle);
 
 #endif

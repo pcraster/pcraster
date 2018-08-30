@@ -10,12 +10,6 @@
 
 // Library headers.
 
-#ifndef INCLUDED_BOOST_MATH_TR1
-#include <boost/math/tr1.hpp>
-#define INCLUDED_BOOST_MATH_TR1
-#endif
-using namespace boost::math; // use then tr1
-
 // PCRaster library headers.
 #ifndef INCLUDED_COM_MATH
 #include "com_math.h"
@@ -78,11 +72,11 @@ boost::tuple<size_t, size_t> geo::RiksNeighbourhood::circleCell(double radius)
 
       if(row == 0 && col == 0) {
         // First cell handled.
-        difference = std::abs(radius - tr1::hypot<double>(row, col));
+        difference = std::abs(radius - std::hypot<double>(row, col));
         cell = boost::make_tuple(row, col);
       }
       else {
-        currentDifference = std::abs(radius - tr1::hypot<double>(row, col));
+        currentDifference = std::abs(radius - std::hypot<double>(row, col));
         if(currentDifference < difference) {
           difference = currentDifference;
           cell = boost::make_tuple(row, col);
@@ -151,9 +145,9 @@ void geo::RiksNeighbourhood::init()
 
   // Determine the radiusses of the Riks neighbourhoods of which the selected
   // cells are part.
-  double fromRadius = tr1::hypot<double>(
+  double fromRadius = std::hypot<double>(
          fromCircleCell.get<0>(), fromCircleCell.get<1>());
-  double toRadius = tr1::hypot<double>(
+  double toRadius = std::hypot<double>(
          toCircleCell.get<0>(), toCircleCell.get<1>());
 
   // Make sure the current set radius is equal of larger than the selected one.
@@ -164,7 +158,7 @@ void geo::RiksNeighbourhood::init()
   size_t offset = radius();
   for(size_t row = 0; row <= radius(); ++row) {
     for(size_t col = 0; col <= radius(); ++col) {
-      double radius = tr1::hypot<double>(row, col);
+      double radius = std::hypot<double>(row, col);
       if((radius > fromRadius && radius < toRadius) ||
           com::equal_epsilon(radius, fromRadius) ||
           com::equal_epsilon(radius, toRadius)) {

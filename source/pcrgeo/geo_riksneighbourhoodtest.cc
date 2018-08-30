@@ -1,6 +1,5 @@
 #define BOOST_TEST_MODULE pcraster geo riks_neighbourhood
 #include <boost/test/unit_test.hpp>
-#include <boost/math/tr1.hpp>
 #include "com_math.h"
 #include "geo_riksneighbourhood.h"
 
@@ -58,7 +57,7 @@ BOOST_AUTO_TEST_CASE(test)
 
   {
     // Nr 13.
-    double radius = boost::math::tr1::hypot(4.0, 2.0);
+    double radius = std::hypot(4.0, 2.0);
     RiksNeighbourhoodWrapper neighbourhood(radius, radius);
     size_t offset = neighbourhood.radius();
     BOOST_CHECK(neighbourhood.cell(offset + 4, offset + 2) == 1.0);

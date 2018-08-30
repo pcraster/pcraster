@@ -52,7 +52,7 @@ if(PCRASTER_BUILD_TEST)
 endif()
 
 list(APPEND DEVBASE_REQUIRED_BOOST_COMPONENTS
-    date_time filesystem math_c99 program_options)
+    date_time filesystem program_options timer)
 
 set(DEVBASE_OPENGL_REQUIRED TRUE)
 set(DEVBASE_QT_REQUIRED TRUE)

@@ -18,10 +18,6 @@
 #include <boost/math/special_functions/round.hpp>
 #define INCLUDED_BOOST_MATH_SPECIAL_FUNCTIONS_ROUND
 #endif
-#ifndef INCLUDED_BOOST_MATH_TR1
-#include <boost/math/tr1.hpp>
-#define INCLUDED_BOOST_MATH_TR1
-#endif
 
 
 // PCRaster library headers.
@@ -129,7 +125,7 @@ public:
       double dx = static_cast<double>(end.first - begin.first);
       double dy = static_cast<double>(end.second - begin.second);
       // Add one for current cell.
-      distance = boost::math::tr1::hypot(dx,dy) + 1.0;
+      distance = std::hypot(dx,dy) + 1.0;
     }
 
     return distance;
@@ -181,7 +177,7 @@ extern "C" int ExtentOfView(
   // Determine all direction angles.
   // Determine max distance in cells in the raster.
   double maxExtent = MAX(nrRows,nrCols);
-  int offsetX = com::ceil<int, double>(boost::math::tr1::hypot(maxExtent,maxExtent));
+  int offsetX = com::ceil<int, double>(std::hypot(maxExtent,maxExtent));
   int offsetY;
   double subAngle = 360.0 / nrDirections;
   double angle;

@@ -34,12 +34,6 @@
 #define INCLUDED_STRING
 #endif
 
-#ifndef INCLUDED_BOOST_MATH_TR1
-#include <boost/math/tr1.hpp>
-#define INCLUDED_BOOST_MATH_TR1
-#endif
-using namespace boost::math; // then use tr1
-
 // Pcr
 #ifndef INCLUDED_COM_CSFCELL
 #include "com_csfcell.h"
@@ -872,7 +866,7 @@ void geo::magnitude(const RasterBoundaries<T>& xVector,
       }
       else {
         result.rightBoundary(row, col) =
-          tr1::hypot(xVector.rightBoundary(row, col),
+          std::hypot(xVector.rightBoundary(row, col),
                      yVector.rightBoundary(row, col));
       }
 
@@ -882,7 +876,7 @@ void geo::magnitude(const RasterBoundaries<T>& xVector,
       }
       else {
         result.bottomBoundary(row, col) =
-          tr1::hypot(xVector.bottomBoundary(row, col),
+          std::hypot(xVector.bottomBoundary(row, col),
                      yVector.bottomBoundary(row, col));
       }
     }
@@ -896,7 +890,7 @@ void geo::magnitude(const RasterBoundaries<T>& xVector,
     }
     else {
       result.leftBoundary(row, 0) =
-        tr1::hypot(xVector.leftBoundary(row, 0),
+        std::hypot(xVector.leftBoundary(row, 0),
                    yVector.leftBoundary(row, 0));
     }
   }
@@ -909,7 +903,7 @@ void geo::magnitude(const RasterBoundaries<T>& xVector,
     }
     else {
       result.topBoundary(0, col) =
-        tr1::hypot(xVector.topBoundary(0, col),
+        std::hypot(xVector.topBoundary(0, col),
                    yVector.topBoundary(0, col));
     }
   }

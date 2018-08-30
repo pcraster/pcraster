@@ -56,7 +56,6 @@ target_link_libraries(pcrgeo
     pcraster::app
     pcraster::dal
     pcraster::pcrcom
-    Boost::math_c99
 )
 
 if(PCRASTER_BUILD_TEST)

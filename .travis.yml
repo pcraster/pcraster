@@ -1,7 +1,17 @@
 language: cpp
 
 dist: trusty
+
 sudo: required
+
+notifications:
+    email:
+        on_success: change
+        on_failure: always
+
+branches:
+    only:
+        - gh222
 
 os:
     - linux
@@ -99,7 +109,4 @@ script:
     - cmake --build . --config ${TRAVIS_BUILD_TYPE} --target test
     - cd ..
 
-notifications:
-    email:
-        - k.dejong1@uu.nl
-        - o.schmitz@uu.nl
+

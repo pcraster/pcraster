@@ -59,7 +59,7 @@ before_install:
     - sudo apt-get update -qq
 
     # Update CMake.
-    - wget --no-check-certificate http://www.cmake.org/files/v3.7/cmake-3.7.2-Linux-x86_64.tar.gz
+    - wget --no-check-certificate http://www.cmake.org/files/v3.12/cmake-3.12.1-Linux-x86_64.tar.gz
 
     # Travis Qwt 6.0 does not cooperate with Qt5
     # We build and install those ourselves using Peacock.
@@ -83,8 +83,8 @@ install:
     - mkdir $TRAVIS_BUILD_DIR/local
 
     - cd $TRAVIS_BUILD_DIR/local
-    - tar zxf ../cmake-3.7.2-Linux-x86_64.tar.gz
-    - export PATH=$TRAVIS_BUILD_DIR/local/cmake-3.7.2-Linux-x86_64/bin:$PATH
+    - tar zxf ../cmake-3.12.1-Linux-x86_64.tar.gz
+    - export PATH=$TRAVIS_BUILD_DIR/local/cmake-3.12.1-Linux-x86_64/bin:$PATH
 
     - cd $TRAVIS_BUILD_DIR/peacock
     - export MAKEFLAGS='-j2'

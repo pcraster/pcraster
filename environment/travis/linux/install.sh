@@ -14,8 +14,8 @@ pip install --user --upgrade pillow
 sudo apt-get install qt56base
 export PATH=/opt/qt56/bin:$PATH
 
-sudo apt-get install gdal-bin libgdal-dev libxerces-c-dev libxml2-dev libxslt1-dev xsltproc libboost-all-dev libncurses5-dev libpython-dev libxml2 libxml2-utils mesa-common-dev
-
+sudo apt-get install gdal-bin libgdal-dev libxerces-c-dev libxml2-dev libxslt1-dev libboost-all-dev libncurses5-dev libpython-dev libxml2 libxml2-utils mesa-common-dev
+# xsltproc
 
 mkdir $TRAVIS_BUILD_DIR/local
 

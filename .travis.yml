@@ -63,13 +63,14 @@ matrix:
       before_install:
          - ./environment/travis/linux/before_install.sh
       install:
-         - ./environment/travis/linux/install.sh
+         - .source environment/travis/linux/install.sh
       before_script:
          - ./environment/travis/linux/before_script.sh
 
 
     # Linux, test the latest gcc version, release build
-    - os: linux
+    - name: "Linux, gcc 8 release"
+      os: linux
       addons:
         apt:
           sources:
@@ -93,7 +94,7 @@ matrix:
       before_install:
          - ./environment/travis/linux/before_install.sh
       install:
-         - ./environment/travis/linux/install.sh
+         - source environment/travis/linux/install.sh
       before_script:
          - ./environment/travis/linux/before_script.sh
 
@@ -103,7 +104,10 @@ matrix:
       osx_image: xcode9.4
       before_install:
       - brew update
+      - brew install --with-toolchain llvm
+      - brew install boost boost-python qt5 qwt xerces-c gdal
       - clang --version
+      - clang++ --version
 
 #addons:
     #apt:

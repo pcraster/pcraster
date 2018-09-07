@@ -71,12 +71,15 @@ matrix:
         - MATRIX_EVAL="CC=gcc-8 && CXX=g++-8"
         - TRAVIS_BUILD_TYPE=Debug
         - TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
+
       before_install:
-         - ./environment/travis/linux/before_install.sh
+        - "./environment/travis/linux/before_install.sh"
+
       install:
-         - source environment/travis/linux/install.sh
+        - "source environment/travis/linux/install.sh"
+
       before_script:
-         - ./environment/travis/linux/before_script.sh
+        - "./environment/travis/linux/before_script.sh"
 
 
     # macOS, release build
@@ -84,11 +87,11 @@ matrix:
       os: osx
       osx_image: xcode9.4
       before_install:
-      - brew update
+      #- brew update
+      - clang --version
+      - clang++ --version
       #- brew install --with-toolchain llvm
-      - brew install boost boost-python qt5 qwt xerces-c gdal ncurses gcc@7
-      #- clang --version
-      #- clang++ --version
+      - brew install boost boost-python qt5 qwt xerces-c gdal ncurses gcc
       - gcc --version
       - g++ --version
 

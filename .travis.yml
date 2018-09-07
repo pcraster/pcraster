@@ -37,35 +37,25 @@ branches:
 
 matrix:
   include:
-    # Linux, test the oldest gcc version we support, debug build
-    - name: "Linux, gcc 4.9 debug"
-      os: linux
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-4.9
-            #- libxerces-c-dev
-            #- libxml2-dev
-            #- libxslt1-dev
-            #- xsltproc
-            #- libboost-all-dev
-            #- libncurses5-dev
-            #- libpython-dev
-            #- libxml2
-            #- libxml2-utils
-            #- mesa-common-dev
-      env:
-         - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9"
-         - TRAVIS_BUILD_TYPE=Debug
-         - TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
-      before_install:
-         - ./environment/travis/linux/before_install.sh
-      install:
-         - .source environment/travis/linux/install.sh
-      before_script:
-         - ./environment/travis/linux/before_script.sh
+    ## Linux, test the oldest gcc version we support, debug build
+    #- name: "Linux, gcc 4.9 debug"
+      #os: linux
+      #addons:
+        #apt:
+          #sources:
+            #- ubuntu-toolchain-r-test
+          #packages:
+            #- g++-4.9
+      #env:
+         #- MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9"
+         #- TRAVIS_BUILD_TYPE=Debug
+         #- TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
+      #before_install:
+         #- ./environment/travis/linux/before_install.sh
+      #install:
+         #- source environment/travis/linux/install.sh
+      #before_script:
+         #- ./environment/travis/linux/before_script.sh
 
 
     # Linux, test the latest gcc version, release build
@@ -77,16 +67,6 @@ matrix:
             - ubuntu-toolchain-r-test
           packages:
             - g++-8
-            #- libxerces-c-dev
-            #- libxml2-dev
-            #- libxslt1-dev
-            #- xsltproc
-            #- libboost-all-dev
-            #- libncurses5-dev
-            #- libpython-dev
-            #- libxml2
-            #- libxml2-utils
-            #- mesa-common-dev
       env:
         - MATRIX_EVAL="CC=gcc-8 && CXX=g++-8"
         - TRAVIS_BUILD_TYPE=Debug
@@ -100,14 +80,17 @@ matrix:
 
 
     # macOS, release build
-    - os: osx
+    - name: "macOS, gcc7 release"
+      os: osx
       osx_image: xcode9.4
       before_install:
       - brew update
-      - brew install --with-toolchain llvm
-      - brew install boost boost-python qt5 qwt xerces-c gdal
-      - clang --version
-      - clang++ --version
+      #- brew install --with-toolchain llvm
+      - brew install boost boost-python qt5 qwt xerces-c gdal ncurses gcc@7
+      #- clang --version
+      #- clang++ --version
+      - gcc --version
+      - g++ --version
 
 #addons:
     #apt:
@@ -180,6 +163,7 @@ matrix:
 #     #- cmake -G"${TRAVIS_CMAKE_GENERATOR}" -DCMAKE_C_COMPILER=gcc-4.9 -DCMAKE_CXX_COMPILER=g++-4.9 -DPEACOCK_PREFIX:PATH=$TRAVIS_BUILD_DIR/local -DCMAKE_BUILD_TYPE=${TRAVIS_BUILD_TYPE} -DFERN_BUILD_ALGORITHM:BOOL=TRUE -DPCRASTER_BUILD_TEST:BOOL=TRUE ..
 #     - cmake -G"${TRAVIS_CMAKE_GENERATOR}" -DPEACOCK_PREFIX:PATH=$TRAVIS_BUILD_DIR/local -DCMAKE_BUILD_TYPE=${TRAVIS_BUILD_TYPE} -DFERN_BUILD_ALGORITHM:BOOL=TRUE -DPCRASTER_BUILD_TEST:BOOL=TRUE ..
 #
+
 script:
     - set -e  # Don't run the tests if the build fails.
     - cd $TRAVIS_BUILD_DIR/build

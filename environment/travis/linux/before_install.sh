@@ -1,6 +1,6 @@
 #!/bin/bash
-
-set -ev
+set -e
+set -x
 
 sudo add-apt-repository ppa:beineri/opt-qt562-trusty -y
 sudo add-apt-repository ppa:ubuntugis/ubuntugis-unstable -y

@@ -1,8 +1,8 @@
 #!/bin/bash
+set -e
+set -x
 
-set -ev
-
-eval "${MATRIX_EVAL}"
+#eval "${MATRIX_EVAL}"
 
 cd $TRAVIS_BUILD_DIR
 pip install --user --upgrade pip

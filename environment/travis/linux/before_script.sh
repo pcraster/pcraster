@@ -1,9 +1,9 @@
 #!/bin/bash
+set -e
+set -x
 
-set -ev
 
-
-eval "${MATRIX_EVAL}"
+# eval "${MATRIX_EVAL}"
 
 mkdir $TRAVIS_BUILD_DIR/build
 cd $TRAVIS_BUILD_DIR/build

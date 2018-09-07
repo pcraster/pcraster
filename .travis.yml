@@ -79,25 +79,34 @@ matrix:
         - "source environment/travis/linux/install.sh"
 
       before_script:
-        - set -ev
-        - eval "${MATRIX_EVAL}"
-        - "./environment/travis/linux/before_install.sh"
         - "./environment/travis/linux/before_script.sh"
 
+      script:
+        - set -e  # Don't run the tests if the build fails.
+        - cd $TRAVIS_BUILD_DIR/build
+#    - export MAKEFLAGS='-j2'
+        - python -c "import numpy as n; print(n.__version__); print(n.get_include());"
+#    - cmake --build . --config ${TRAVIS_BUILD_TYPE} --target all -- -j2
 
-    # macOS, release build
-    - name: "macOS, gcc7 release"
-      os: osx
-      osx_image: xcode9.4
-      before_install:
-      #- brew update
-      - clang --version
-      - clang++ --version
-      - cmake --version
-      #- brew install --with-toolchain llvm
-      - brew install boost boost-python qt5 qwt xerces-c gdal ncurses
-      #- gcc --version
-      #- g++ --version
+#    - export MAKEFLAGS='-j1'
+#    - cmake --build . --config ${TRAVIS_BUILD_TYPE} --target test
+        - cd ..
+
+
+
+    ## macOS, release build
+    #- name: "macOS, gcc7 release"
+      #os: osx
+      #osx_image: xcode9.4
+      #before_install:
+      ##- brew update
+      #- clang --version
+      #- clang++ --version
+      #- cmake --version
+      ##- brew install --with-toolchain llvm
+      #- brew install boost boost-python qt5 qwt xerces-c gdal ncurses
+      ##- gcc --version
+      ##- g++ --version
 
 #addons:
     #apt:
@@ -171,15 +180,15 @@ matrix:
 #     - cmake -G"${TRAVIS_CMAKE_GENERATOR}" -DPEACOCK_PREFIX:PATH=$TRAVIS_BUILD_DIR/local -DCMAKE_BUILD_TYPE=${TRAVIS_BUILD_TYPE} -DFERN_BUILD_ALGORITHM:BOOL=TRUE -DPCRASTER_BUILD_TEST:BOOL=TRUE ..
 #
 
-script:
-    - set -e  # Don't run the tests if the build fails.
-    - cd $TRAVIS_BUILD_DIR/build
-#    - export MAKEFLAGS='-j2'
-    - python -c "import numpy as n; print(n.__version__); print(n.get_include());"
-#    - cmake --build . --config ${TRAVIS_BUILD_TYPE} --target all -- -j2
+#script:
+    #- set -e  # Don't run the tests if the build fails.
+    #- cd $TRAVIS_BUILD_DIR/build
+##    - export MAKEFLAGS='-j2'
+    #- python -c "import numpy as n; print(n.__version__); print(n.get_include());"
+##    - cmake --build . --config ${TRAVIS_BUILD_TYPE} --target all -- -j2
 
-#    - export MAKEFLAGS='-j1'
-#    - cmake --build . --config ${TRAVIS_BUILD_TYPE} --target test
-    - cd ..
+##    - export MAKEFLAGS='-j1'
+##    - cmake --build . --config ${TRAVIS_BUILD_TYPE} --target test
+    #- cd ..
 
 

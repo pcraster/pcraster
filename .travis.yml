@@ -73,15 +73,15 @@ matrix:
         - TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
 
       before_install:
-        - "./environment/travis/linux/before_install.sh"
+        - "source environment/travis/linux/before_install.sh"
 
       install:
-        - eval "${MATRIX_EVAL}"
+        #- eval "${MATRIX_EVAL}"
         - "source environment/travis/linux/install.sh"
 
       before_script:
-        - eval "${MATRIX_EVAL}"
-        - "./environment/travis/linux/before_script.sh"
+        #- eval "${MATRIX_EVAL}"
+        - "source environment/travis/linux/before_script.sh"
 
       script:
         - set -e  # Don't run the tests if the build fails.

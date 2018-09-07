@@ -2,7 +2,7 @@
 set -e
 set -x
 
-#eval "${MATRIX_EVAL}"
+eval "${MATRIX_EVAL}"
 
 cd $TRAVIS_BUILD_DIR
 pip install --user --upgrade pip

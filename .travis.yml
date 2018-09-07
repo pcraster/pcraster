@@ -73,15 +73,17 @@ matrix:
         - TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
 
       before_install:
-        - "source environment/travis/linux/before_install.sh"
+        - ./environment/travis/linux/before_install.sh
 
       install:
         #- eval "${MATRIX_EVAL}"
-        - "source environment/travis/linux/install.sh"
+        - ./environment/travis/linux/install.sh
+        - export PATH=$TRAVIS_BUILD_DIR/local/cmake-3.12.1-Linux-x86_64/bin:$PATH
+        - export PATH=/opt/qt56/bin:$PATH
 
       before_script:
         #- eval "${MATRIX_EVAL}"
-        - "source environment/travis/linux/before_script.sh"
+        - ./environment/travis/linux/before_script.sh
 
       script:
         - set -e  # Don't run the tests if the build fails.

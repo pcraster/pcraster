@@ -79,6 +79,9 @@ matrix:
         - "source environment/travis/linux/install.sh"
 
       before_script:
+        - set -ev
+        - eval "${MATRIX_EVAL}"
+        - "./environment/travis/linux/before_install.sh"
         - "./environment/travis/linux/before_script.sh"
 
 
@@ -90,10 +93,11 @@ matrix:
       #- brew update
       - clang --version
       - clang++ --version
+      - cmake --version
       #- brew install --with-toolchain llvm
-      - brew install boost boost-python qt5 qwt xerces-c gdal ncurses gcc
-      - gcc --version
-      - g++ --version
+      - brew install boost boost-python qt5 qwt xerces-c gdal ncurses
+      #- gcc --version
+      #- g++ --version
 
 #addons:
     #apt:

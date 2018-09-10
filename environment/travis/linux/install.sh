@@ -4,6 +4,11 @@ set -x
 
 eval "${MATRIX_EVAL}"
 
+
+cwdir=${PWD}
+
+
+
 cd $TRAVIS_BUILD_DIR
 pip install --user --upgrade pip
 pip install --user --upgrade numpy
@@ -31,3 +36,8 @@ echo $CXX
 # cmake -G"${TRAVIS_CMAKE_GENERATOR}" -DCMAKE_C_COMPILER=gcc-4.9 -DCMAKE_CXX_COMPILER=g++-4.9 -Dpeacock_prefix=$TRAVIS_BUILD_DIR/local -Dbuild_qwt=true -Dqwt_version=6.1.2 ..
 cmake -G"${TRAVIS_CMAKE_GENERATOR}" -Dpeacock_prefix=$TRAVIS_BUILD_DIR/local -Dbuild_qwt=true -Dqwt_version=6.1.2 ..
 cmake --build . --target all -- -j2
+
+
+
+# Return to initial directory
+cd ${cwdir}

@@ -12,7 +12,7 @@ pip install --user --upgrade sphinx
 pip install --user --upgrade pillow
 
 sudo apt-get install qt56base
-#export PATH=/opt/qt56/bin:$PATH
+export PATH=/opt/qt56/bin:$PATH
 
 sudo apt-get install gdal-bin libgdal-dev libxerces-c-dev libxml2-dev libxslt1-dev libboost-all-dev libncurses5-dev libpython-dev libxml2 libxml2-utils mesa-common-dev
 # xsltproc
@@ -21,7 +21,7 @@ mkdir $TRAVIS_BUILD_DIR/local
 
 cd $TRAVIS_BUILD_DIR/local
 tar zxf ../cmake-3.12.1-Linux-x86_64.tar.gz
-#export PATH=$TRAVIS_BUILD_DIR/local/cmake-3.12.1-Linux-x86_64/bin:$PATH
+export PATH=$TRAVIS_BUILD_DIR/local/cmake-3.12.1-Linux-x86_64/bin:$PATH
 
 cd $TRAVIS_BUILD_DIR/peacock
 mkdir build

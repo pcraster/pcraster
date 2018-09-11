@@ -13,95 +13,70 @@ branches:
     only:
         - gh222
 
-#os:
-    #- linux
-    ## - osx
-
-#compiler:
-    ## - clang
-    #- gcc
-
-#env:
-    ## - TRAVIS_BUILD_TYPE=Debug TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
-    ## TODO build is taking too long, split even more, see script section
-    #- TRAVIS_BUILD_TYPE=Release TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
-
-
-
-# matrix:
-#     - exclude:
-#         - os: osx
-#           compiler: gcc
-#     - allow_failures:
-#         - os: osx
-#         - compiler: clang
-
 matrix:
-  include:
-    - name: "Linux, gcc 4.9 debug"
-      os: linux
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-4.9
-      env:
-         - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9"
-         - TRAVIS_BUILD_TYPE=Debug
-         - TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
-      before_install:
-         - ./environment/travis/linux/before_install.sh
-      install:
-         - source environment/travis/linux/install.sh
-      before_script:
-         - ./environment/travis/linux/before_script.sh
-      script:
-        - ./environment/travis/script.sh
+    allow_failures:
+         - os: osx
+
+    include:
+        - name: "Linux; gcc 4.9; debug"
+          os: linux
+          addons:
+              apt:
+                  sources:
+                      - ubuntu-toolchain-r-test
+                  packages:
+                      - g++-4.9
+          env:
+              - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9"
+              - TRAVIS_BUILD_TYPE=Debug
+              - TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
+          before_install:
+              - ./environment/travis/linux/before_install.sh
+          install:
+              - source environment/travis/linux/install.sh
+          before_script:
+              - ./environment/travis/linux/before_script.sh
+          script:
+              - ./environment/travis/script.sh
 
 
-    - name: "Linux, gcc 8 release"
-      os: linux
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-8
-      env:
-        - MATRIX_EVAL="CC=gcc-8 && CXX=g++-8"
-        - TRAVIS_BUILD_TYPE=Release
-        - TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
-      before_install:
-        - ./environment/travis/linux/before_install.sh
-      install:
-        - source environment/travis/linux/install.sh
-      before_script:
-        - ./environment/travis/linux/before_script.sh
-      script:
-        - ./environment/travis/script.sh
+        - name: "Linux; gcc 8; release"
+          os: linux
+          addons:
+              apt:
+                  sources:
+                      - ubuntu-toolchain-r-test
+                  packages:
+                      - g++-8
+          env:
+              - MATRIX_EVAL="CC=gcc-8 && CXX=g++-8"
+              - TRAVIS_BUILD_TYPE=Release
+              - TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
+          before_install:
+              - ./environment/travis/linux/before_install.sh
+          install:
+              - source environment/travis/linux/install.sh
+          before_script:
+              - ./environment/travis/linux/before_script.sh
+          script:
+              - ./environment/travis/script.sh
 
-    - name: "macOS, clang 6 release"
-      os: osx
-      osx_image: xcode9.4
-      before_install:
-      #- brew update
-      - clang --version
-      - clang++ --version
-      - cmake --version
-      - brew install llvm@6 # --with-toolchain llvm
-      - brew install boost boost-python qt5 qwt xerces-c gdal ncurses
-      #- gcc --version
-      #- g++ --version
-      - clang --version
-      - clang++ --version
-      - cmake --version
-      before_script:
-        - mkdir $TRAVIS_BUILD_DIR/build
-        - cd $TRAVIS_BUILD_DIR/build
-        - cmake -G"${TRAVIS_CMAKE_GENERATOR}" -DFERN_BUILD_ALGORITHM:BOOL=TRUE -DPCRASTER_BUILD_TEST:BOOL=TRUE ..
-      script:
-        - ./environment/travis/script.sh
-
-  allow_failures:
-     -  os: osx
+        - name: "macOS; clang 6; release"
+          os: osx
+          osx_image: xcode9.4
+          before_install:
+              - brew update
+              - clang --version
+              - clang++ --version
+              - cmake --version
+              - brew install llvm@6 # --with-toolchain llvm
+              - brew install boost boost-python qt5 qwt xerces-c gdal ncurses
+              - clang --version
+              - clang++ --version
+              - cmake --version
+          before_script:
+              - mkdir $TRAVIS_BUILD_DIR/build
+              - cd $TRAVIS_BUILD_DIR/build
+              - cmake -G"${TRAVIS_CMAKE_GENERATOR}" -DFERN_BUILD_ALGORITHM:BOOL=TRUE -DPCRASTER_BUILD_TEST:BOOL=TRUE ..
+          script:
+              - ./environment/travis/script.sh

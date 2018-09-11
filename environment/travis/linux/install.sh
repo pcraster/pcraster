@@ -1,3 +1,4 @@
+# Source this script to keep settings valid for other scripts!
 #!/bin/bash
 set -e
 set -v

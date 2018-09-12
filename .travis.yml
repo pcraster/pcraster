@@ -11,7 +11,7 @@ notifications:
 
 branches:
     only:
-        - gh222
+        - master
 
 matrix:
     allow_failures:
@@ -64,12 +64,14 @@ matrix:
         - name: "macOS; clang 6; release"
           os: osx
           osx_image: xcode9.4
+          env:
+              - TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
           before_install:
               - brew update
               - clang --version
               - clang++ --version
               - cmake --version
-              - brew install llvm@6 # --with-toolchain llvm
+              - brew install llvm@6
               - clang --version
               - clang++ --version
               - brew install boost boost-python qt5 qwt xerces-c ncurses
@@ -80,6 +82,6 @@ matrix:
           before_script:
               - mkdir $TRAVIS_BUILD_DIR/build
               - cd $TRAVIS_BUILD_DIR/build
-              - cmake -G"${TRAVIS_CMAKE_GENERATOR}" -DFERN_BUILD_ALGORITHM:BOOL=TRUE -DPCRASTER_BUILD_TEST:BOOL=TRUE ..
+              - CC=/usr/local/opt/llvm/bin/clang CXX=/usr/local/opt/llvm/bin/clang++ cmake -G"${TRAVIS_CMAKE_GENERATOR}" -DFERN_BUILD_ALGORITHM:BOOL=TRUE -DPCRASTER_BUILD_TEST:BOOL=TRUE ..
           script:
               - ./environment/travis/script.sh

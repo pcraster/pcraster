@@ -7,7 +7,7 @@
 """
 import os
 import subprocess
-from docopt import docopt
+import argparse
 
 
 # used in creation of example maps
@@ -20,8 +20,8 @@ from docopt import docopt
 #  then the data with mv as mv
 
 def AscHeader2map(arguments):
-    infile = arguments["-i"]
-    outfile = arguments["-o"]
+    infile = arguments.i
+    outfile = arguments.o
 
     if not os.path.exists(infile):
         raise RuntimeError("{} does not exist".format(infile))
@@ -47,6 +47,9 @@ def AscHeader2map(arguments):
 
 
 if __name__ == '__main__':
-    arguments = docopt(__doc__)
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-i')
+    parser.add_argument('-o')
+    arguments = parser.parse_args()
 
     AscHeader2map(arguments)

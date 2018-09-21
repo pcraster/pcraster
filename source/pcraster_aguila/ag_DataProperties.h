@@ -70,7 +70,7 @@ private:
 
   typedef std::vector<DataGuide>::iterator iterator;
 
-  std::auto_ptr<DataPropertiesPrivate> _data;
+  std::unique_ptr<DataPropertiesPrivate> _data;
 
   void             assertIntegrity     ();
 

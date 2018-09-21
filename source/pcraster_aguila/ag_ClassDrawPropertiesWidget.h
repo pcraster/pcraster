@@ -35,7 +35,7 @@ private:
 
   Q_OBJECT
 
-  std::auto_ptr<ClassDrawPropertiesWidgetPrivate> d_data;
+  std::unique_ptr<ClassDrawPropertiesWidgetPrivate> d_data;
 
   //! Assignment operator. NOT IMPLEMENTED.
   ClassDrawPropertiesWidget& operator= (const ClassDrawPropertiesWidget&);

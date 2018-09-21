@@ -48,7 +48,7 @@ Raster::Raster(
     d_valueScale(VS_NOTDETERMINED) // ,
 
 {
-  std::auto_ptr<dal::Raster> raster(dataSource().open<dal::Raster>());
+  std::unique_ptr<dal::Raster> raster(dataSource().open<dal::Raster>());
   assert(raster.get());
 
   if(raster->properties().hasValue(DAL_CSF_VALUESCALE)) {

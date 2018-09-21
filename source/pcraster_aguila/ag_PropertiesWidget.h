@@ -40,7 +40,7 @@ private:
 
   Q_OBJECT
 
-  std::auto_ptr<PropertiesWidgetPrivate> d_data;
+  std::unique_ptr<PropertiesWidgetPrivate> d_data;
 
   //! Assignment operator. NOT IMPLEMENTED.
   PropertiesWidget&operator=           (const PropertiesWidget&);

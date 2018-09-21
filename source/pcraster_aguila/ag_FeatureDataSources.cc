@@ -53,7 +53,7 @@ DataInfo<FeatureLayer> FeatureDataSources::openData(
          std::string const& name,
          dal::DataSpace const& space) const
 {
-  std::auto_ptr<FeatureLayer> layer(new FeatureLayer(name, space));
+  std::unique_ptr<FeatureLayer> layer(new FeatureLayer(name, space));
   assert(layer.get());
 
   DataInfo<FeatureLayer> info(layer.get(), layer->valueScale(),

@@ -68,7 +68,7 @@ private:
 
   Q_OBJECT
 
-  std::auto_ptr<VisGroupPrivate> d_data;
+  std::unique_ptr<VisGroupPrivate> d_data;
 
   //! Assignment operator. NOT IMPLEMENTED.
   VisGroup &       operator=           (const VisGroup &);

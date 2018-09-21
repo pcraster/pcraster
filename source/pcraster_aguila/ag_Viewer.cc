@@ -719,7 +719,7 @@ VisGroup* Viewer::groupFor(
   dal::Driver const* driver(dal::Client::dal().driver(result));
   assert(driver);
 
-  std::auto_ptr<dal::Dataset> dataset(driver->open(result.name(),
+  std::unique_ptr<dal::Dataset> dataset(driver->open(result.name(),
          result.space(), result.address()));
 
   switch(dataset->type()) {

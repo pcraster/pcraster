@@ -39,7 +39,7 @@ private:
 
   Q_OBJECT
 
-  std::auto_ptr<DataPropertiesDialogPrivate> d_data;
+  std::unique_ptr<DataPropertiesDialogPrivate> d_data;
 
   //! Assignment operator. NOT IMPLEMENTED.
   DataPropertiesDialog& operator=      (const DataPropertiesDialog&);

@@ -1494,7 +1494,7 @@ void DataObject::setXML(
    }
 
    if(dp.palette().present()) {
-     std::auto_ptr<com::RawPalette> palette(new com::RawPalette());
+     std::unique_ptr<com::RawPalette> palette(new com::RawPalette());
      palette->setMaximum(255);
      pcrxml::Palette const &xp(dp.palette().get());
      for(size_t i=0; i < xp.rgb().size(); ++i) {
@@ -1525,7 +1525,7 @@ void DataObject::setDateMapper(
   assert(space.hasTime());
   size_t id = space.indexOf(dal::Time);
 
-  std::auto_ptr<dal::TimeStepCoordinateMapper> newMapper(
+  std::unique_ptr<dal::TimeStepCoordinateMapper> newMapper(
          new dal::TimeStepCoordinateMapper(dm.index(),
          pcrxsd::toPosixTime(dm.timeOfIndex()),
          pcrxsd::toPosixTimeDuration(dm.duration())));

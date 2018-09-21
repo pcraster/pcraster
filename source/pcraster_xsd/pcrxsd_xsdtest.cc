@@ -188,7 +188,7 @@ BOOST_AUTO_TEST_CASE(no_schema)
   ip.setValidate(false);
   bool noException=true;
   try {
-   std::auto_ptr<pcrxml::Definition> d(pcrxml::definition(*ip.document()));
+   std::unique_ptr<pcrxml::Definition> d(pcrxml::definition(*ip.document()));
    BOOST_CHECK(d->name()=="a");
   } catch(...) {
     noException=false;

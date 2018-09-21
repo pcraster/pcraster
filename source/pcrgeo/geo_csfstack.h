@@ -104,7 +104,7 @@ private:
   Raster<T> *      d_raster;
 
   //! Legend, if available.
-  std::auto_ptr<com::Legend<INT4> > d_legend;
+  std::unique_ptr<com::Legend<INT4> > d_legend;
 
   //! Assignment operator. NOT IMPLEMENTED.
   CSFStack &       operator=           (const CSFStack &);

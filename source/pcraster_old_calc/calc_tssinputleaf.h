@@ -26,7 +26,7 @@ class IndexSelected;
 //! manage timeinput tss parameter
 class TssInputLeaf : public Symbol {
    class TssInputParameter *d_par;
-   std::auto_ptr<IndexSelected> d_index;
+   std::unique_ptr<IndexSelected> d_index;
 public:
  TssInputLeaf(
    UsePar& par,

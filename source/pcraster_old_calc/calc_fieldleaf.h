@@ -26,7 +26,7 @@ class IndexSelected;
 //! a left expression leaf holding a field parameter
 class FieldLeaf : public FieldExpr, public UseDefNode {
  private:
-  std::auto_ptr<IndexSelected> d_index;
+  std::unique_ptr<IndexSelected> d_index;
   FieldParameter* d_par;
   void buildTypes();
   //! can value be overwritten at execution time, determined by usedef algorithm

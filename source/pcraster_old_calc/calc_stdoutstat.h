@@ -19,7 +19,7 @@ class FieldExpr;
 
 //! an expression that print to stdout
 class StdoutStatement : public Statement {
-  std::auto_ptr<FieldExpr> d_expr;
+  std::unique_ptr<FieldExpr> d_expr;
  public:
   // CREATORS
   StdoutStatement(

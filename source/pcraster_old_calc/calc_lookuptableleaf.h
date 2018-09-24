@@ -31,7 +31,7 @@ class IndexSelected;
 
 class LookupTableLeaf : public Symbol {
   class LookupTableParameter *d_par;
-  std::auto_ptr<IndexSelected> d_index;
+  std::unique_ptr<IndexSelected> d_index;
 public:
   LookupTableLeaf(
     const UsePar& par,

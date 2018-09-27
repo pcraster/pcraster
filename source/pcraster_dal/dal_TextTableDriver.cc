@@ -320,11 +320,7 @@ Table* TextTableDriver::open(
     return 0;
   }
 
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
     std::unique_ptr<Table> table(new Table());
-#else
-    std::auto_ptr<Table> table(new Table());
-#endif
 
   if(!open(*table, stream)) {
     return 0;
@@ -395,29 +391,29 @@ Table* TextTableDriver::read(std::string const& name) const
 //          DataSpaceAddress const& address) const
 // {
 //   boost::shared_ptr<Table> table(open(name, space, address));
-// 
+//
 //   if(!table) {
 //     throwCannotBeOpened(name, TABLE);
 //   }
-// 
+//
 //   DataSpace dataSpace;
-// 
+//
 //   if(isUnsignedInteger(table->typeId(0))) {
 //     // Read the time column.
 //     for(size_t i = 0; i < table->nrCols(); ++i) {
 //       table->setTypeId(i, TI_NR_TYPES);
 //     }
-// 
+//
 //     size_t timeCol = 0;
 //     table->setTypeId(timeCol, TI_INT4);       // To be able to read neg values.
 //     table->createCols();
-// 
+//
 //     read(*table, name, space, address);
 //     Array<INT4> const& timeSteps = table->col<INT4>(timeCol);
-// 
+//
 //     // Check the values.
 //     int first, last, interval;
-// 
+//
 //     if(isRegularIncreasingRange(first, last, interval,
 //        timeSteps.begin(), timeSteps.end()) && first >= 1) {
 //       // Configure the time dimension.
@@ -425,11 +421,11 @@ Table* TextTableDriver::read(std::string const& name) const
 //       timeSteps.push_back(size_t(first));
 //       timeSteps.push_back(size_t(last));
 //       timeSteps.push_back(size_t(interval));
-// 
+//
 //       dataSpace.addDimension(Dimension(Time, timeSteps));
 //     }
 //   }
-// 
+//
 //   return dataSpace;
 // }
 
@@ -679,7 +675,7 @@ Table* TextTableDriver::read(
 //         max = a;
 //         return true;
 //       }
-// 
+//
 //       break;
 //     }
 //     case TI_INT4: {
@@ -689,7 +685,7 @@ Table* TextTableDriver::read(
 //         max = a;
 //         return true;
 //       }
-// 
+//
 //       break;
 //     }
 //     case TI_REAL4: {
@@ -699,7 +695,7 @@ Table* TextTableDriver::read(
 //         max = a;
 //         return true;
 //       }
-// 
+//
 //       break;
 //     }
 //     default: {
@@ -707,7 +703,7 @@ Table* TextTableDriver::read(
 //       break;
 //     }
 //   }
-// 
+//
 //   return false;
 // }
 

@@ -76,7 +76,7 @@ struct ClientHolder : public calc::LibraryClassNoQt
      calc::LibraryClassNoQt("PCRasterModelEngine")
      {}
 };
-static std::auto_ptr<ClientHolder> s_client(0);
+static std::unique_ptr<ClientHolder> s_client(nullptr);
 
 //! all things we want to get rid off
 /*!

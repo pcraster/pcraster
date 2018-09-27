@@ -37,7 +37,7 @@ class XMLScriptClientInterface: public ClientInterface
 
 private:
 
-  std::auto_ptr<pcrxml::Script> d_xml;
+  std::unique_ptr<pcrxml::Script> d_xml;
 
   //! Assignment operator. NOT IMPLEMENTED.
   XMLScriptClientInterface&           operator=           (XMLScriptClientInterface const& rhs);

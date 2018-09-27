@@ -262,7 +262,7 @@ void calc::Options::processOptionString(const std::string& argsExclArg0)
 //! \pre processArgs called
 calc::LexInput* calc::Options::createLexInput() const {
 
-  std::auto_ptr<LexInput> l(new LexInput());
+  std::unique_ptr<LexInput> l(new LexInput());
 
   int  shellArgsStart=1; // pos in argv where shellArgs start
   switch(d_scriptType) {

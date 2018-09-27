@@ -58,8 +58,8 @@ private:
                    P5Stack               (P5Stack const& rhs);
                    P5Stack               ();
 
-  std::auto_ptr<Executor>   d_e;
-  std::auto_ptr<ASTScript>  d_as;
+  std::unique_ptr<Executor>   d_e;
+  std::unique_ptr<ASTScript>  d_as;
   bool                      d_keepLive;
 
   const Field* fieldCast    (const std::string& name) const;

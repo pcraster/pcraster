@@ -41,7 +41,7 @@ BOOST_AUTO_TEST_CASE(testExpr)
 {
   using namespace calc;
 
-  typedef std::auto_ptr<ASTNode> E;
+  typedef std::unique_ptr<ASTNode> E;
 
   {
   E e(sp.createExpr("a"));
@@ -89,7 +89,7 @@ BOOST_AUTO_TEST_CASE(testAssignment)
 {
   using namespace calc;
 
-  typedef std::auto_ptr<ASTAss> A;
+  typedef std::unique_ptr<ASTAss> A;
   {
    A a(sp.createAssignment("a=3*5;"));
    BOOST_CHECK(a->nrPars()==1);
@@ -119,12 +119,12 @@ BOOST_AUTO_TEST_CASE(testStatementList)
   using namespace calc;
 
  {
-  typedef std::auto_ptr<ASTNodeList> S;
+  typedef std::unique_ptr<ASTNodeList> S;
   S s(sp.createStatementList(parsertest::model("pcrcalc11pre")));
   BOOST_CHECK(s->size()==2);
  }
  { // repeat
-  typedef std::auto_ptr<ASTNodeList> S;
+  typedef std::unique_ptr<ASTNodeList> S;
   S s(sp.createStatementList(parsertest::model("pcrcalc379")));
   BOOST_REQUIRE_EQUAL(s->size(), 2U);
   ASTNodeList::const_iterator n(s->begin());
@@ -138,7 +138,7 @@ BOOST_AUTO_TEST_CASE(testCode)
   using namespace calc;
 
  { // only a dynamic section
-  typedef std::auto_ptr<ASTNode> B;
+  typedef std::unique_ptr<ASTNode> B;
   B l(sp.createCodeAsNode(parsertest::model("pcrcalc8a")));
   DynamicSection *d(astCast<DynamicSection>(l.get(),"C/b/0"));
   BOOST_REQUIRE(d);
@@ -146,7 +146,7 @@ BOOST_AUTO_TEST_CASE(testCode)
   BOOST_CHECK_EQUAL(s->size(), 2U);
  }
  { // initial plus dynamic
-  typedef std::auto_ptr<ASTNode> B;
+  typedef std::unique_ptr<ASTNode> B;
   B b(sp.createCodeAsNode(parsertest::model("pcrcalc8ab")));
   ASTNodeList *l(astCast<ASTNodeList>(b.get(),"C/b"));
   BOOST_REQUIRE(l);
@@ -177,7 +177,7 @@ BOOST_AUTO_TEST_CASE(testStatement)
  */
  }
  { // a report clause
-  typedef std::auto_ptr<ASTStat> S;
+  typedef std::unique_ptr<ASTStat> S;
   S s(sp.createStatement(parsertest::model("pcrcalc301b")));
   BOOST_CHECK(dynamic_cast<ASTAss *>(s->stat()));
   BOOST_CHECK( s->reportParsed());
@@ -185,7 +185,7 @@ BOOST_AUTO_TEST_CASE(testStatement)
   BOOST_CHECK(!s->reportInSitu());
  }
  { // a report clause with id
-  typedef std::auto_ptr<ASTStat> S;
+  typedef std::unique_ptr<ASTStat> S;
   S s(sp.createStatement(
    "report(rep2) tmp.res= if(inp1b.map, ldd(5));"));
   BOOST_CHECK(dynamic_cast<ASTAss *>(s->stat()));
@@ -194,7 +194,7 @@ BOOST_AUTO_TEST_CASE(testStatement)
   BOOST_CHECK(!s->reportInSitu());
  }
  { // a report clause with insitu report
-  typedef std::auto_ptr<ASTStat> S;
+  typedef std::unique_ptr<ASTStat> S;
   S s(sp.createStatement(
    "report(1,3,5,10) tmp.res= if(inp1b.map, ldd(5));"));
   BOOST_CHECK(dynamic_cast<ASTAss *>(s->stat()));
@@ -209,7 +209,7 @@ BOOST_AUTO_TEST_CASE(testCheckAndRewriteParsedAST)
   using namespace calc;
 
  { // implicit report on timeoutput fixed in checkAndRewriteParsedAST()
-   typedef std::auto_ptr<ASTStat> S;
+   typedef std::unique_ptr<ASTStat> S;
    S s(sp.createStatement("s = timeoutput(inp1b.map,1);"));
    BOOST_CHECK(s->reportParsed());
  }
@@ -265,7 +265,7 @@ BOOST_AUTO_TEST_CASE(testParseErrors)
      bool catched=false;
      try {
       CompleteParser<ASTScript,com::PathName> cp(empty);
-      std::auto_ptr<ASTScript> s(cp.parseScript());
+      std::unique_ptr<ASTScript> s(cp.parseScript());
      } catch(const com::Exception& e) {
 BOOST_CHECK(e.messages().find("script contains no code") != std::string::npos);
        catched=true;
@@ -283,7 +283,7 @@ BOOST_AUTO_TEST_CASE(testModel)
    M(std::string const& code):
      cfgCode(false)
     {
-      std::auto_ptr<ASTScript> s(StringParser::createScript(code));
+      std::unique_ptr<ASTScript> s(StringParser::createScript(code));
       cfgCode=s->cfgCode()!=0;
     }
  };
@@ -387,7 +387,7 @@ BOOST_AUTO_TEST_CASE(testNonAsciiScript)
     bool catched=false;
     // check that exception is not an unsupported char
     try {
-     std::auto_ptr<ASTScript> s(cp.parseScript());
+     std::unique_ptr<ASTScript> s(cp.parseScript());
      s->analyzeAndResolve();
     } catch (const com::Exception& e) {
       BOOST_CHECK(e.messages().find("cropf_cover.map") != std::string::npos);
@@ -404,7 +404,7 @@ BOOST_AUTO_TEST_CASE(testNonAsciiScript)
     try {
      com::PathName pn("charSetProblem.mod");
      CompleteParser<ASTScript,com::PathName> cp(pn);
-     std::auto_ptr<ASTScript> s(cp.parseScript());
+     std::unique_ptr<ASTScript> s(cp.parseScript());
      s->analyzeAndResolve();
     } catch (const com::Exception& ) {
       todoCharSet=false; // STILL TO SOLVE!

@@ -71,7 +71,7 @@
 
 namespace calc {
 
-std::auto_ptr<MessagesTestDB> MessagesTestDB::d_instance;
+std::unique_ptr<MessagesTestDB> MessagesTestDB::d_instance;
 
 namespace detail {
   struct AddError {

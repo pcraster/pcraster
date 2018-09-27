@@ -196,14 +196,14 @@ int calc::CmdLineCalc::execute()
   d_options.processCmdLineOptions(d_argc,d_argv);
 
   if (d_options.printShellExpansionOnly()) {
-    std::auto_ptr<LexInput> l(d_options.createLexInput());
+    std::unique_ptr<LexInput> l(d_options.createLexInput());
     l->printExpandedCode(d_stdOut);
     return 0;
   }
 
   CompleteParser<ASTScript,LexInputCreator> parser(d_options);
 
-  std::auto_ptr<ASTScript> script(parser.parseScript());
+  std::unique_ptr<ASTScript> script(parser.parseScript());
   script->setRteSettings(d_options);
 
   script->analyzeAndResolve();

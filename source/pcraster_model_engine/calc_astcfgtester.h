@@ -39,8 +39,8 @@ class ASTCFGTester
 
 private:
 
-  typedef std::auto_ptr<ASTNode> A;
-  typedef std::auto_ptr<CFGNode> C;
+  typedef std::unique_ptr<ASTNode> A;
+  typedef std::unique_ptr<CFGNode> C;
 
   A d_ast;
   C d_cfg;

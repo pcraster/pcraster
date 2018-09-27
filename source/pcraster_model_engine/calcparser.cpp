@@ -294,15 +294,15 @@ zzdflthandlers( int _signal, int *_retsignal )
 }
 
 
- std::auto_ptr<calc::ASTScript>  
+ std::unique_ptr<calc::ASTScript>  
 Parser::model(int *_retsignal)
 {
-	 std::auto_ptr<calc::ASTScript>  	 _retv;
+	 std::unique_ptr<calc::ASTScript>  	 _retv;
 #line 406 "calcparser.g"
 	zzRULE;
 	int _sva=1;
 	int _signal=NoSignal;
-	PURIFY(_retv,sizeof( std::auto_ptr<calc::ASTScript>  	))
+	PURIFY(_retv,sizeof( std::unique_ptr<calc::ASTScript>  	))
 	*_retsignal = NoSignal;
 #line 407 "calcparser.g"
 	_retv.reset(new ASTScript());
@@ -747,7 +747,7 @@ Parser::body(int *_retsignal)
 	*_retsignal = NoSignal;
 #line 520 "calcparser.g"
 	AP_ASTNodeList initial;
-	std::auto_ptr<DynamicSection> dynamic;
+	std::unique_ptr<DynamicSection> dynamic;
 #line 525 "calcparser.g"
 	{
 		if ( (setwd2[LA(1)]&0x80) && (setwd3[LA(2)]&0x1) ) {
@@ -793,16 +793,16 @@ Parser::body(int *_retsignal)
 #line 533 "calcparser.g"
 	if (!dynamic.get()) {
 		// no dynamic body is initial
-		_retv=initial;
+		_retv=std::move(initial);
 	} else {
 		if (!initial.get()) {
 			// no initial body is dynamic
-			_retv=dynamic;
+			_retv=std::move(dynamic);
 		} else { // both
 			AP_ASTNodeList body(new calc::ASTNodeList());
 			body->transferPushBack(initial.release());
 			body->transferPushBack(dynamic.release());
-			_retv=body;
+			_retv=std::move(body);
 		}
 	}
 	return _retv;
@@ -1539,7 +1539,7 @@ Parser::assignmentTail(int *_retsignal, const calc::ASTPar& lhs, bool& swap )
 			AP_ASTExpr e(createExpr(ass,op));
 			e->transferArg(new calc::ASTPar(lhs));
 			e->transferArg(right.release());
-			_retv=e;
+			_retv=std::move(e);
 		}
 	}
 	else {
@@ -1596,12 +1596,12 @@ Parser::assignmentTail(int *_retsignal, const calc::ASTPar& lhs, bool& swap )
 								std::swap(op1,op2);
 								std::swap(sym1,sym2);
 							}
-							std::auto_ptr<ASTExpr>
+							std::unique_ptr<ASTExpr>
 							e(new calc::ASTExpr(
 							sym1.position(),
 							calc::oneOf2Mrf(op1->opCode())));
 							e->transferFunctionArgs(args.release());
-							_retv=e;
+							_retv=std::move(e);
  consume();
 						}
 					}
@@ -1612,7 +1612,7 @@ Parser::assignmentTail(int *_retsignal, const calc::ASTPar& lhs, bool& swap )
 							 AP_ASTNode right  = expr(&_signal); if (_signal) goto _handler;
 
 #line 784 "calcparser.g"
-							_retv=right;
+							_retv=std::move(right);
 						}
 						else {
 							if (_sva) _signal=NoViableAlt;
@@ -1742,7 +1742,7 @@ Parser::expr(int *_retsignal)
 			AP_ASTExpr e(createExpr(opS,calc::major2op(OP_OR_)));
 			e->transferArg(_retv.release());
 			e->transferArg(right.release());
-			_retv=e;
+			_retv=std::move(e);
 		}
 	}
 	return _retv;
@@ -1797,7 +1797,7 @@ Parser::xor_expr(int *_retsignal)
 			AP_ASTExpr e(createExpr(opS,calc::major2op(OP_XOR_)));
 			e->transferArg(_retv.release());
 			e->transferArg(right.release());
-			_retv=e;
+			_retv=std::move(e);
 		}
 	}
 	return _retv;
@@ -1842,7 +1842,7 @@ Parser::and_expr(int *_retsignal)
 			AP_ASTExpr e(createExpr(opS,calc::major2op(OP_AND_)));
 			e->transferArg(_retv.release());
 			e->transferArg(right.release());
-			_retv=e;
+			_retv=std::move(e);
 		}
 	}
 	return _retv;
@@ -1887,7 +1887,7 @@ Parser::eq_expr(int *_retsignal)
 			AP_ASTExpr e(createExpr(opS,tokenOp(opS)));
 			e->transferArg(_retv.release());
 			e->transferArg(right.release());
-			_retv=e;
+			_retv=std::move(e);
 		}
 	}
 	return _retv;
@@ -1932,7 +1932,7 @@ Parser::comp_expr(int *_retsignal)
 			AP_ASTExpr e(createExpr(opS,tokenOp(opS)));
 			e->transferArg(_retv.release());
 			e->transferArg(right.release());
-			_retv=e;
+			_retv=std::move(e);
 		}
 	}
 	return _retv;
@@ -1979,7 +1979,7 @@ Parser::add_expr(int *_retsignal)
 			AP_ASTExpr e(createExpr(opS,op));
 			e->transferArg(_retv.release());
 			e->transferArg(right.release());
-			_retv=e;
+			_retv=std::move(e);
 		}
 	}
 	return _retv;
@@ -2025,7 +2025,7 @@ Parser::mult_expr(int *_retsignal)
 			AP_ASTExpr e(createExpr(opS,tokenOp(opS)));
 			e->transferArg(_retv.release());
 			e->transferArg(right.release());
-			_retv=e;
+			_retv=std::move(e);
 		}
 	}
 	return _retv;
@@ -2079,7 +2079,7 @@ Parser::pow_expr(int *_retsignal)
 			AP_ASTExpr e(createExpr(opS,calc::major2op(OP_POW)));
 			e->transferArg(_retv.release());
 			e->transferArg(right.release());
-			_retv=e;
+			_retv=std::move(e);
 		}
 	}
 	return _retv;
@@ -2128,7 +2128,7 @@ Parser::sign_expr(int *_retsignal)
 		signs[i].name() == "+" ? OP_UADD:OP_UMIN);
 		AP_ASTExpr e(createExpr(signs[i].position(),op));
 		e->transferArg(_retv.release());
-		_retv=e;
+		_retv=std::move(e);
 	}
 	return _retv;
 fail:
@@ -2174,7 +2174,7 @@ Parser::not_expr(int *_retsignal)
 	for(int i = (int)(signs.size()-1);i>=0; i--) {
 		AP_ASTExpr e(createExpr(signs[i].position(), calc::major2op(OP_NOT_)));
 		e->transferArg(_retv.release());
-		_retv=e;
+		_retv=std::move(e);
 	}
 	return _retv;
 fail:
@@ -2254,7 +2254,7 @@ Parser::misc_expr(int *_retsignal)
 			e->transferArg(truen.release());
 			if (c==OP_IFTHENELSE)
 			e->transferArg(falsen.release());
-			_retv=e;
+			_retv=std::move(e);
  consume();
 		}
 		else {
@@ -2296,7 +2296,7 @@ Parser::misc_expr(int *_retsignal)
 							
 							AP_ASTExpr e(createExpr(convF,tokenOp(convF)));
 							e->transferArg(a.release());
-							_retv=e;
+							_retv=std::move(e);
  consume();
 						}
 						else {
@@ -2367,7 +2367,7 @@ Parser::misc_expr(int *_retsignal)
 									
 									AP_ASTExpr e(createExpr(theId,o));
 									e->transferFunctionArgs(args.release());
-									_retv=e;
+									_retv=std::move(e);
  consume();
 								}
 								else {
@@ -2391,7 +2391,7 @@ Parser::misc_expr(int *_retsignal)
 
 #line 1017 "calcparser.g"
 										
-										std::auto_ptr<LinkInExpr> e(new LinkInExpr(nameBefore,genId(nameAfter),strArg));
+										std::unique_ptr<LinkInExpr> e(new LinkInExpr(nameBefore,genId(nameAfter),strArg));
 										// Hack a method with no args, yields a 0-ptr!
 										if (!args.get())
 										args.reset(new calc::ASTNodeVector());

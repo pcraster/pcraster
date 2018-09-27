@@ -154,7 +154,7 @@ void calc::DataTable::insert(
   if (d_table.count(i.name()))
     return;
 
-  std::auto_ptr<DataValue> dv;
+  std::unique_ptr<DataValue> dv;
   try {
     switch(i.ovs()) {
       case VS_TABLE: {

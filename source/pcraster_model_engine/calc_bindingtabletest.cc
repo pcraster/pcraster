@@ -47,7 +47,7 @@ BOOST_AUTO_TEST_CASE(testApply)
 {
   using namespace calc;
 
- typedef std::auto_ptr<ASTScript> S;
+ typedef std::unique_ptr<ASTScript> S;
  {
    const char *model=
   "binding constantNr=1;areamap inp1s.map; initial tmp.res = 5*constantNr;";

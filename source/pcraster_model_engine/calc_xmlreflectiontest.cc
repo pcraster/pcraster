@@ -34,7 +34,7 @@ BOOST_AUTO_TEST_CASE(testXMLReflection)
   using namespace calc;
 
   {
-    std::auto_ptr<ASTScript>s(ASTTestFactory::createFromIdOrStr("pcrcalc510a"));
+    std::unique_ptr<ASTScript>s(ASTTestFactory::createFromIdOrStr("pcrcalc510a"));
     s->analyzeNoContext();
     XMLReflection xr(*s);
 
@@ -62,7 +62,7 @@ BOOST_AUTO_TEST_CASE(testXMLReflection)
   }
   {
     const char *str=" initial dist = spread(cover(cone,0),0,1)+1; dem =  1/dist; report magmaPipe = dist < 300; sin45 = sin(45); dynamic network = lddcreate(dem, 1E35, 1E35, 1E35, 1E35); lavaFlow = if(magmaPipe, max(normal(1) * 5 + lavaLoad, 0), 0); sinusSlope = min(sin(atan(slope(dem))), sin45); transportCapacity = 0.9 + sinusSlope * 2 * sin45; flux = accuflux(network, lavaFlow * transportCapacity); flux *= depthConversion * if(magmaPipe, 0.15, 1); report dem += flux + windowaverage(normal(1) * 0.2, 120); report lava = if(flux > 0, flux);";
-    std::auto_ptr<ASTScript>s(ASTTestFactory::createFromIdOrStr(str));
+    std::unique_ptr<ASTScript>s(ASTTestFactory::createFromIdOrStr(str));
     s->analyzeNoContext();
     XMLReflection xr(*s);
     com::write(xr.toString(),"volcano.xml");

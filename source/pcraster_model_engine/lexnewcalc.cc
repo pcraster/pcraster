@@ -2078,7 +2078,7 @@ ANTLRAbstractToken *calc::LexGrammar::reference()
 void calc::LexGrammar::parseComment()
 {
   // save current position
-  std::auto_ptr<Position> pos(d_input.createPosition());
+  std::unique_ptr<Position> pos(d_input.createPosition());
 
   int c = yyinput();
   // if first time encountered

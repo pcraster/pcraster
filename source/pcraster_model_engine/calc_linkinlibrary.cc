@@ -108,7 +108,7 @@ class LinkInLibraryPrivate
 
   std::string                                   d_name;
   com::DynamicLibrary*                          d_dl;
-  std::auto_ptr<pcrxml::LinkInLibraryManifest>  d_manifest;
+  std::unique_ptr<pcrxml::LinkInLibraryManifest>  d_manifest;
 
   void throwException(std::string const& msg)
   {

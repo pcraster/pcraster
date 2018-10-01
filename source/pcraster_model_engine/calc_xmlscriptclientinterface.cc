@@ -254,7 +254,7 @@ void XMLScriptClientInterface::parse()
 
 ASTScript* XMLScriptClientInterface::createScriptAndAnalyzeNoContext()
 {
-  std::auto_ptr<ASTScript> script(new ASTScript());
+  std::unique_ptr<ASTScript> script(new ASTScript());
   script->setReportOnlyForXMLScriptOutput(true);
 
   try {

@@ -111,11 +111,7 @@ Constant* TextConstantDriver::open(
   std::ifstream stream;
 
   if(TextFileDriver::open(stream, path)) {
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
     std::unique_ptr<Constant> constant(new Constant());
-#else
-    std::auto_ptr<Constant> constant(new Constant());
-#endif
 
     if(open(*constant, stream)) {
       result = constant.release();

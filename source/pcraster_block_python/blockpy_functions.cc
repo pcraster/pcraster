@@ -164,7 +164,7 @@ discr::RasterData<T>* rasterData(
          calc::Field const* field,
          discr::Raster* raster)
 {
-  std::auto_ptr<discr::RasterData<T> > result;
+  std::unique_ptr<discr::RasterData<T> > result;
 
   if(!field->isSpatial()) {
     result.reset(new discr::RasterData<T>(raster, *field->src_t<T>()));

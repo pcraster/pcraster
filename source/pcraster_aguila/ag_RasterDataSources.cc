@@ -71,7 +71,7 @@ ag::DataInfo<ag::Raster> ag::RasterDataSources::openData(
          std::string const& name,
          dal::DataSpace const& space) const
 {
-  std::auto_ptr<Raster> raster(new Raster(name, space));
+  std::unique_ptr<Raster> raster(new Raster(name, space));
   assert(raster.get());
 
   /*

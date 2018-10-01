@@ -133,7 +133,7 @@ void calc::FileWriter::writeMap(
     double& maxUpdate,
     const void *data) const
 {
-  std::auto_ptr<GridMap> gm(createMap());
+  std::unique_ptr<GridMap> gm(createMap());
   DecompressedData dd(d_vs);
   d_par.scriptConst().compressor().decompress(dd,data);
   gm->writeSpatial(dd.decompressed());
@@ -151,7 +151,7 @@ void calc::FileWriter::writeMap(
 
 void calc::FileWriter::writeNonSpatialToMap(const void *dataValue) const
 {
-  std::auto_ptr<GridMap> gm(createMap());
+  std::unique_ptr<GridMap> gm(createMap());
   gm->writeNonSpatial(dataValue);
 }
 

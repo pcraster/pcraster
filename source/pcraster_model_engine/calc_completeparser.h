@@ -72,8 +72,8 @@ private:
   //! Copy constructor. NOT IMPLEMENTED.
                    CompleteParser               (const CompleteParser& rhs);
 
-  typedef  std::auto_ptr<GC>(Parser::* PMEM_AP)(int *retsignal);
-  typedef  void             (Parser::* PMEM_REF)(int *retsignal, GC& ref);
+  typedef  std::unique_ptr<GC>(Parser::* PMEM_AP)(int *retsignal);
+  typedef  void               (Parser::* PMEM_REF)(int *retsignal, GC& ref);
 
   ParserInput  d_pi;
   Parser       d_parser;
@@ -115,10 +115,10 @@ public:
    */
   GC* parse(PMEM_AP pmem) {
     int retsignal;
-    std::auto_ptr<GC> n((d_parser.*pmem)(&retsignal));
+    std::unique_ptr<GC> n((d_parser.*pmem)(&retsignal));
     finish();
     checkAndRewriteParsedAST(n.get());
-    return n.release();
+    return std::move(n.release());
   }
 
   //! parse for GC's accepting reference to GC
@@ -134,10 +134,10 @@ public:
 
   GC *parseScript() {
     int retsignal;
-    std::auto_ptr<GC> script(d_parser.model(&retsignal));
+    std::unique_ptr<GC> script(d_parser.model(&retsignal));
     checkAndRewriteParsedAST(script->astCode());
     finish();
-    return script.release();
+    return std::move(script.release());
   }
 
   //----------------------------------------------------------------------------

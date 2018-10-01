@@ -41,7 +41,7 @@ private:
 
   Q_OBJECT
 
-  std::auto_ptr<DrawPropertiesWidgetPrivate> d_data;
+  std::unique_ptr<DrawPropertiesWidgetPrivate> d_data;
 
   //! Assignment operator. NOT IMPLEMENTED.
   DrawPropertiesWidget& operator=      (const DrawPropertiesWidget&);

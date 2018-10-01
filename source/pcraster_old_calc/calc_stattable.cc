@@ -660,7 +660,7 @@ template<class IntervalMapT>
   POSTCOND(m.size()==d_subject.d_intervals.size());
 
   const REAL4* cross;
-  std::auto_ptr<FieldHandle> d;
+  std::unique_ptr<FieldHandle> d;
 
   if (!d_cross.defined())
     cross=subject;

@@ -36,7 +36,7 @@ private:
 
   Q_OBJECT
 
-  std::auto_ptr<PropertiesDialogPrivate> d_data;
+  std::unique_ptr<PropertiesDialogPrivate> d_data;
 
   //! Assignment operator. NOT IMPLEMENTED.
   PropertiesDialog& operator=          (const PropertiesDialog&);

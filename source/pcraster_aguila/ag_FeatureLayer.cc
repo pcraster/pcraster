@@ -44,7 +44,7 @@ FeatureLayer::FeatureLayer(
     d_valueScale(VS_NOTDETERMINED)
 
 {
-  std::auto_ptr<dal::FeatureLayer> layer(
+  std::unique_ptr<dal::FeatureLayer> layer(
          dataSource().open<dal::FeatureLayer>());
   assert(layer.get());
 

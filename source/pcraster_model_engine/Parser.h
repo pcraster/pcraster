@@ -92,15 +92,15 @@ private:
 
 public:
 
-    typedef std::auto_ptr<calc::ASTNumber   > AP_ASTNumber;
-typedef std::auto_ptr<calc::ASTId       > AP_ASTId;
-typedef std::auto_ptr<calc::ASTNodeVector > AP_ASTNodeVector;
-typedef std::auto_ptr<calc::ASTNodeList > AP_ASTNodeList;
-typedef std::auto_ptr<calc::ASTNode     > AP_ASTNode;
-typedef std::auto_ptr<calc::ASTPar      > AP_ASTPar;
-typedef std::auto_ptr<calc::ASTExpr     > AP_ASTExpr;
-typedef std::auto_ptr<calc::ASTStat     > AP_ASTStat;
-typedef std::auto_ptr<calc::ASTAss      > AP_ASTAss;
+typedef std::unique_ptr<calc::ASTNumber    > AP_ASTNumber;
+typedef std::unique_ptr<calc::ASTId        > AP_ASTId;
+typedef std::unique_ptr<calc::ASTNodeVector> AP_ASTNodeVector;
+typedef std::unique_ptr<calc::ASTNodeList  > AP_ASTNodeList;
+typedef std::unique_ptr<calc::ASTNode      > AP_ASTNode;
+typedef std::unique_ptr<calc::ASTPar       > AP_ASTPar;
+typedef std::unique_ptr<calc::ASTExpr      > AP_ASTExpr;
+typedef std::unique_ptr<calc::ASTStat      > AP_ASTStat;
+typedef std::unique_ptr<calc::ASTAss       > AP_ASTAss;
 
 private:
 // not const due to LT(1) use
@@ -147,7 +147,7 @@ private:
 
 public:
 	Parser(ANTLRTokenBuffer *input);
-	 std::auto_ptr<calc::ASTScript>   model(int *_retsignal);
+	 std::unique_ptr<calc::ASTScript>   model(int *_retsignal);
 	void externalBindings(int *_retsignal, calc::ASTNodeVector& l );
 	void bindingSection(int *_retsignal, calc::ASTScript *script );
 	 Parser::AP_ASTNode   bindingDefinition(int *_retsignal);

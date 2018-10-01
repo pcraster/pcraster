@@ -37,7 +37,7 @@ private:
 
   Q_OBJECT
 
-  std::auto_ptr<GeneralDataPropertiesWidgetPrivate> d_data;
+  std::unique_ptr<GeneralDataPropertiesWidgetPrivate> d_data;
 
   //! Assignment operator. NOT IMPLEMENTED.
   GeneralDataPropertiesWidget& operator=

@@ -105,7 +105,7 @@ TextScriptClientInterface& TextScriptClientInterface::operator=(
 //! parse textual version of model.
 ASTScript* TextScriptClientInterface::createScriptAndAnalyzeNoContext()
 {
-  std::auto_ptr<ASTScript> script;
+  std::unique_ptr<ASTScript> script;
   if (d_asFile) {
    CompleteParser<ASTScript,com::PathName> sp(d_scriptFileOrContents);
    script.reset(sp.parseScript());

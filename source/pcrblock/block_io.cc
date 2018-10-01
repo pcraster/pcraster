@@ -62,7 +62,7 @@ discr::Block* read(
          static_cast<dal::BlockDriver&>(driver).read(name));
   POSTCOND(blockCopy->containsDiscretisationInfo());
 
-  std::auto_ptr<discr::Block> result(new discr::Block(
+  std::unique_ptr<discr::Block> result(new discr::Block(
          blockCopy->nrRows(), blockCopy->nrCols(), blockCopy->cellSize(),
          blockCopy->west(), blockCopy->north()));
 
@@ -104,7 +104,7 @@ discr::BlockData<ValueType>* read(
          static_cast<dal::BlockDriver&>(driver).read(name));
   POSTCOND(blockCopy->containsData());
 
-  std::auto_ptr<discr::BlockData<ValueType> > result(
+  std::unique_ptr<discr::BlockData<ValueType> > result(
          new discr::BlockData<ValueType>(block));
   POSTCOND(blockCopy->nrRows() == block->nrRows());
   POSTCOND(blockCopy->nrCols() == block->nrCols());
@@ -130,7 +130,7 @@ discr::BlockData<ValueType>* read(
 static dal::Block* createBlockForDiscretisation(
          discr::Block const& block)
 {
-  std::auto_ptr<dal::Block> result(new dal::Block(
+  std::unique_ptr<dal::Block> result(new dal::Block(
          block.nrRows(), block.nrCols(), block.cellSize(),
          block.west(), block.north()));
   result->createCells();
@@ -161,7 +161,7 @@ static dal::Block* createBlockForData(
          discr::BlockData<ValueType> const& data)
 {
   discr::Block const& block(*data.block());
-  std::auto_ptr<dal::Block> result(new dal::Block(
+  std::unique_ptr<dal::Block> result(new dal::Block(
          block.nrRows(), block.nrCols(),
          dal::TypeTraits<std::vector<ValueType> >::typeId));
   result->createCells();
@@ -184,7 +184,7 @@ static void write(
          std::string const& name,
          dal::BlockDriver& driver)
 {
-  std::auto_ptr<dal::Block> blockToWrite(createBlockForDiscretisation(block));
+  std::unique_ptr<dal::Block> blockToWrite(createBlockForDiscretisation(block));
   driver.write(*blockToWrite, name);
 }
 
@@ -216,7 +216,7 @@ static void write(
          std::string const& name,
          dal::BlockDriver& driver)
 {
-  std::auto_ptr<dal::Block> blockToWrite(createBlockForData<ValueType>(data));
+  std::unique_ptr<dal::Block> blockToWrite(createBlockForData<ValueType>(data));
   DEVELOP_POSTCOND(blockToWrite->containsData());
 
   if(static_cast<dal::BlockDriver const&>(driver)

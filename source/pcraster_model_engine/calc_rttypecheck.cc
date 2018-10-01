@@ -108,7 +108,7 @@ public:
     PositionName pn("checkAndExec");
 
     ASTExpr e(&pn,d_op);
-    std::auto_ptr<ASTNodeVector> av(new ASTNodeVector());
+    std::unique_ptr<ASTNodeVector> av(new ASTNodeVector());
 
     for(size_t r=0; r < d_nrActualArgs; ++r) {
       // reverser order popping

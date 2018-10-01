@@ -121,7 +121,7 @@ void calc::execTest(const std::string& id)
 {
   globalInit(); // testing only
 
-  std::auto_ptr<ASTScript> as(ASTTestFactory::createFromIdOrStr(id));
+  std::unique_ptr<ASTScript> as(ASTTestFactory::createFromIdOrStr(id));
   as->analyzeAndResolve();
 
   Executor e(as->cfgCode(),as->rteSettings(),as->symbols());
@@ -325,7 +325,7 @@ calc::ASTScript* calc::ASTTestFactory::createFromIdOrStr(
  if (!options.empty())
    ops.processOptionString(options);
 
- std::auto_ptr<ASTScript> as;
+ std::unique_ptr<ASTScript> as;
 
  if (codeOrId.find("=") != std::string::npos) {
    as.reset(StringParser::createScript(codeOrId));

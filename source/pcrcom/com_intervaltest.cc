@@ -13,7 +13,7 @@ namespace com {
     return com::createIntervalFromLookupTableKey<double>(std::string(msg));
   }
 
-  typedef std::auto_ptr< com::Interval<double> > IVap;
+  typedef std::unique_ptr< com::Interval<double> > IVap;
 }
 
 

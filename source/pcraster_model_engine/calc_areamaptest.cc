@@ -13,7 +13,7 @@ BOOST_AUTO_TEST_CASE(testInit)
 
   AreaMap amIn(in);
 
-  std::auto_ptr<pcrxml::CheckContext> cc(amIn.createXMLContext ());
+  std::unique_ptr<pcrxml::CheckContext> cc(amIn.createXMLContext ());
 
   AreaMap amOut1(amIn.rasterSpace());
 

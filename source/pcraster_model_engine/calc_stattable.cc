@@ -509,8 +509,8 @@ void calc::StatTable::exec(
   };
   Field const * subjectField(0);
   Field const * crossField(0);
-  std::auto_ptr<I const> subjectTable;
-  std::auto_ptr<I const> crossTable;
+  std::unique_ptr<I const> subjectTable;
+  std::unique_ptr<I const> crossTable;
 
   if(d_cross.d_field)
     crossField = rte->popField();

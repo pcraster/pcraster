@@ -37,7 +37,7 @@ private:
 
   Q_OBJECT
 
-  std::auto_ptr<RangeDrawPropertiesWidgetPrivate> _data;
+  std::unique_ptr<RangeDrawPropertiesWidgetPrivate> _data;
 
   bool             _probabilitiesLoaded;
 

@@ -39,7 +39,7 @@ Vector::Vector(
   : RasterDataset(name, space)
 
 {
-  std::auto_ptr<dal::Vector> vector(dataSource().open<dal::Vector>());
+  std::unique_ptr<dal::Vector> vector(dataSource().open<dal::Vector>());
   assert(vector.get());
   assert(vector->typeId() == dal::TI_REAL4 ||
          vector->typeId() == dal::TI_REAL8);

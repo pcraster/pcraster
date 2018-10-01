@@ -62,7 +62,7 @@ Table::Table(
          dynamic_cast<dal::TableDriver*>(dataSource().reader());
   assert(driver);
 
-  std::auto_ptr<dal::Table> table(dataSource().open<dal::Table>());
+  std::unique_ptr<dal::Table> table(dataSource().open<dal::Table>());
   assert(table.get());
 
 

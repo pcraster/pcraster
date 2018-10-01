@@ -42,7 +42,7 @@ BOOST_AUTO_TEST_CASE(testSetStep)
                          dynamic \
                           tmp.res=timeoutput(nominal(inp5s.map),time()*10); \
                           b      =inp5s.map+time()*a; ";
-    std::auto_ptr<ASTScript>  s(ASTTestFactory::createFromIdOrStr(code));
+    std::unique_ptr<ASTScript>  s(ASTTestFactory::createFromIdOrStr(code));
     s->analyzeAndResolve();
     Executor e(s->cfgCode(),s->rteSettings(),s->symbols());
 
@@ -64,7 +64,7 @@ BOOST_AUTO_TEST_CASE(testSetStep)
                          dynamic \
                           tmp.res=timeoutput(nominal(inp5s.map),time()*10); \
                           b      =inp5s.map+time(); ";
-    std::auto_ptr<ASTScript>  s(ASTTestFactory::createFromIdOrStr(code));
+    std::unique_ptr<ASTScript>  s(ASTTestFactory::createFromIdOrStr(code));
     s->analyzeAndResolve();
     Executor e(s->cfgCode(),s->rteSettings(),s->symbols());
 
@@ -87,7 +87,7 @@ BOOST_AUTO_TEST_CASE(testSetStep)
 
   { // 1: only initial
     const char *code = "tmp.res=inp5s.map*1;";
-    std::auto_ptr<ASTScript>  s(ASTTestFactory::createFromIdOrStr(code));
+    std::unique_ptr<ASTScript>  s(ASTTestFactory::createFromIdOrStr(code));
     s->analyzeAndResolve();
     Executor e(s->cfgCode(),s->rteSettings(),s->symbols());
 
@@ -260,7 +260,7 @@ BOOST_AUTO_TEST_CASE(testBugs)
 
 
   // bug Feb/28/2005 no syms found within loop
-  std::auto_ptr<ASTScript>s(ASTTestFactory::createFromIdOrStr("pcrcalc527"));
+  std::unique_ptr<ASTScript>s(ASTTestFactory::createFromIdOrStr("pcrcalc527"));
   s->analyzeAndResolve();
   Executor e(s->cfgCode(),s->rteSettings(),s->symbols());
 

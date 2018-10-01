@@ -341,7 +341,7 @@ void DataConfiguration::add(
       dal::Driver const* driver(dal::Client::dal().driverByDataset(name,
          space));
       assert(driver);
-      std::auto_ptr<dal::Table const> table(dynamic_cast<dal::Table const*>(
+      std::unique_ptr<dal::Table const> table(dynamic_cast<dal::Table const*>(
          driver->open(name, result.space(), result.address())));
       assert(table.get());
 

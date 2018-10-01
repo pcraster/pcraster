@@ -49,7 +49,7 @@ private:
 
   MessagesTestDBPrivate               *d_data;
 
-  static std::auto_ptr<MessagesTestDB> d_instance;
+  static std::unique_ptr<MessagesTestDB> d_instance;
 
 private:
                    MessagesTestDB               ();

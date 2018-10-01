@@ -456,11 +456,7 @@ Vector* VectorDriver::read(
   _data->validate(name, space, address, *x, *y, true);
   _data->read(*x, *y, name, space, address);
 
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
   std::unique_ptr<Vector> result(new Vector(x->dimensions(), x->typeId()));
-#else
-  std::auto_ptr<Vector> result(new Vector(x->dimensions(), x->typeId()));
-#endif
   result->transfer(*x, *y);
 
   return result.release();

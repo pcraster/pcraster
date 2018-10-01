@@ -4,11 +4,6 @@ dist: trusty
 
 sudo: required
 
-notifications:
-    email:
-        on_success: change
-        on_failure: always
-
 branches:
     only:
         - master
@@ -74,7 +69,9 @@ matrix:
               - brew install llvm@6
               - clang --version
               - clang++ --version
-              - brew install boost boost-python qt5 qwt xerces-c ncurses
+              - brew install qt5 qwt xerces-c ncurses
+              - brew install boost
+              - brew install boost-python
               # Force the latest versions
               - brew outdated gdal || brew upgrade gdal
               - brew outdated cmake || brew upgrade cmake
@@ -85,3 +82,13 @@ matrix:
               - CC=/usr/local/opt/llvm/bin/clang CXX=/usr/local/opt/llvm/bin/clang++ cmake -G"${TRAVIS_CMAKE_GENERATOR}" -DFERN_BUILD_ALGORITHM:BOOL=TRUE -DPCRASTER_BUILD_TEST:BOOL=TRUE ..
           script:
               - ./environment/travis/script.sh
+
+
+
+notifications:
+    email:
+        recipients:
+            - k.dejong1@uu.nl
+            - o.schmitz@uu.nl
+        on_success: change
+        on_failure: always

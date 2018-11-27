@@ -49,16 +49,16 @@ try:
 
         # VS2015 and runtime components related issues
         if sys.platform == "win32":
-            if StrictVersion("{}.{}".format(major, minor)) < StrictVersion("${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}"):
-                msg += "The minimum supported version for the 'pcraster' module is Python ${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}, the version used is {}.{}.\n".format(
+            if StrictVersion("{}.{}".format(major, minor)) != StrictVersion("${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}"):
+                msg += "The 'pcraster' module was built for Python ${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}, the version used is {}.{}".format(
                     major, minor)
+                raise ImportError(msg)
 
             msg += "The 'Microsoft Visual C++ 2015 Redistributable Update 3' is required to run PCRaster, available at:\nhttps://www.microsoft.com/en-us/download/details.aspx?id=53840\n"
 
-        # Something went wrong...
-        msg += "{}".format(error)
+        # Something else went wrong...
+        msg += "{}\n".format(error)
         msg += "In case you cannot solve the issue please consult the PCRaster mailing list at:\nhttps://lists.geo.uu.nl/mailman/listinfo/pcraster-info\n"
-
         raise ImportError(msg)
 
     from .operations import *

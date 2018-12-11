@@ -1,6 +1,9 @@
 import math
 import unittest
 import numpy
+import os
+import psutil
+
 import pcraster
 import testcase
 
@@ -505,3 +508,47 @@ class TestNumPy(testcase.TestCase):
 
       self.assertEqual(str(context_manager.exception),
           "Argument is non-spatial, only spatial PCRaster data types are supported")
+
+
+  def test_003(self):
+      """ pcr2numpy should not run out of memory """
+
+      nrRows, nrCols, cellSize = 200, 200, 1.0
+      west, north = 0.0, 0.0
+      pcraster.setclone(nrRows, nrCols, cellSize, west, north)
+
+      raster = pcraster.uniform(1)
+
+      process = psutil.Process(os.getpid())
+      mem = process.memory_info()
+      init_mem = mem.rss / 2**10
+
+      nr_iterations = 50
+      mem_increase = False
+
+      for it in range(0, nr_iterations):
+        pcraster.pcr2numpy(raster, numpy.nan)
+        mem = process.memory_info()
+        curr_mem = mem.rss / 2**10
+        if curr_mem - init_mem > 0:
+          mem_increase = True
+
+      raster = pcraster.spatial(pcraster.boolean(1))
+
+      for it in range(0, nr_iterations):
+        pcraster.pcr2numpy(raster, numpy.nan)
+        mem = process.memory_info()
+        curr_mem = mem.rss / 2**10
+        if curr_mem - init_mem > 0:
+          mem_increase = True
+
+      raster = pcraster.nominal(pcraster.uniform(1) * 10)
+
+      for it in range(0, nr_iterations):
+        pcraster.pcr2numpy(raster, numpy.nan)
+        mem = process.memory_info()
+        curr_mem = mem.rss / 2**10
+        if curr_mem - init_mem > 0:
+          mem_increase = True
+
+      self.assertEqual(mem_increase, False)

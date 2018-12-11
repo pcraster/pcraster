@@ -11,7 +11,7 @@
 #include "calc_field.h"
 #include "calc_spatial.h"
 #include "value_scale_traits.h"
-
+#include <algorithm>
 
 // From the numpy reference:
 // http://docs.scipy.org/doc/numpy-1.6.0/reference/c-api.array.html#checking-the-api-version
@@ -83,19 +83,16 @@ bpn_array field_to_array(
                 object);
             break;
           #else
-            char *data = new char[nr_values * sizeof(UINT1)];
-            detail::fill_data<UINT1>(data, field, field->isSpatial(), nr_values);
+            std::unique_ptr<char[]> data = std::make_unique<char[]>(nr_values * sizeof(UINT1));
+            detail::fill_data<UINT1>(&(data[0]), field, field->isSpatial(), nr_values);
 
-            dal::fromStdMV<UINT1>((UINT1*)data, nr_values,
+            dal::fromStdMV<UINT1>((UINT1*)&(data[0]), nr_values,
                 static_cast<UINT1>(missing_value));
 
-            bpn_array mul_data_ex = boost::python::numpy::from_data(data,
-                boost::python::numpy::dtype::get_builtin<uint8_t>(),
-                boost::python::make_tuple(nr_values),
-                boost::python::make_tuple(sizeof(uint8_t)),
-                boost::python::object());
+            boost::python::numpy::ndarray numpy_raster = boost::python::numpy::zeros(boost::python::make_tuple(nr_values), boost::python::numpy::dtype::get_builtin<uint8_t>());
+            std::copy(data.get(), data.get() + nr_values * sizeof(UINT1), reinterpret_cast<char*>(numpy_raster.get_data()));
 
-            return mul_data_ex.reshape(boost::python::make_tuple(space.nrRows(), space.nrCols()));
+            return numpy_raster.reshape(boost::python::make_tuple(space.nrRows(), space.nrCols()));
             break;
           #endif
         }
@@ -112,19 +109,16 @@ bpn_array field_to_array(
                 object);
             break;
           #else
-            char *data = new char[nr_values * sizeof(INT4)];
-            detail::fill_data<INT4>(data, field, field->isSpatial(), nr_values);
+            std::unique_ptr<char[]> data = std::make_unique<char[]>(nr_values * sizeof(INT4));
+            detail::fill_data<INT4>(&(data[0]), field, field->isSpatial(), nr_values);
 
-            dal::fromStdMV<INT4>((INT4*)data, nr_values,
+            dal::fromStdMV<INT4>((INT4*)&(data[0]), nr_values,
                 static_cast<INT4>(missing_value));
 
-            bpn_array mul_data_ex = boost::python::numpy::from_data(data,
-                boost::python::numpy::dtype::get_builtin<int32_t>(),
-                boost::python::make_tuple(nr_values),
-                boost::python::make_tuple(sizeof(int32_t)),
-                boost::python::object());
+            boost::python::numpy::ndarray numpy_raster = boost::python::numpy::zeros(boost::python::make_tuple(nr_values), boost::python::numpy::dtype::get_builtin<int32_t>());
+            std::copy(data.get(), data.get() + nr_values * sizeof(INT4), reinterpret_cast<char*>(numpy_raster.get_data()));
 
-            return mul_data_ex.reshape(boost::python::make_tuple(space.nrRows(), space.nrCols()));
+            return numpy_raster.reshape(boost::python::make_tuple(space.nrRows(), space.nrCols()));
             break;
           #endif
         }
@@ -143,19 +137,16 @@ bpn_array field_to_array(
                 object);
             break;
           #else
-            char *data = new char[nr_values * sizeof(REAL4)];
-            detail::fill_data<REAL4>(data, field, field->isSpatial(), nr_values);
+            std::unique_ptr<char[]> data = std::make_unique<char[]>(nr_values * sizeof(REAL4));
+            detail::fill_data<REAL4>(&(data[0]), field, field->isSpatial(), nr_values);
 
-            dal::fromStdMV<REAL4>((REAL4*)data, nr_values,
+            dal::fromStdMV<REAL4>((REAL4*)&(data[0]), nr_values,
                 static_cast<REAL4>(missing_value));
 
-            bpn_array mul_data_ex = boost::python::numpy::from_data(data,
-                boost::python::numpy::dtype::get_builtin<float_t>(),
-                boost::python::make_tuple(nr_values),
-                boost::python::make_tuple(sizeof(float_t)),
-                boost::python::object());
+            boost::python::numpy::ndarray numpy_raster = boost::python::numpy::zeros(boost::python::make_tuple(nr_values), boost::python::numpy::dtype::get_builtin<float_t>());
+            std::copy(data.get(), data.get() + nr_values * sizeof(REAL4), reinterpret_cast<char*>(numpy_raster.get_data()));
 
-            return mul_data_ex.reshape(boost::python::make_tuple(space.nrRows(), space.nrCols()));
+            return numpy_raster.reshape(boost::python::make_tuple(space.nrRows(), space.nrCols()));
             break;
           #endif
         }

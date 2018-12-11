@@ -104,8 +104,11 @@ endif()
 
 set(DEVBASE_PYTHON_LIBS_REQUIRED TRUE)
 set(DEVBASE_NUMPY_REQUIRED TRUE)
+
 find_python_module(numpy REQUIRED)
-# find_python_module(docopt REQUIRED)
+if(PCRASTER_BUILD_TEST)
+    find_python_module(psutil REQUIRED)
+endif()
 
 if(WIN32)
     find_package(PDCurses REQUIRED)

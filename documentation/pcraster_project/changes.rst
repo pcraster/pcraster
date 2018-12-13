@@ -1,12 +1,17 @@
 Changes
 =======
 
+PCRaster 4.2.1
+--------------
+This is a bug fix release for 4.2. We fixed a memory leak in ``pcr2numpy`` and improved the error reporting at module import (`#233 <https://github.com/pcraster/pcraster/issues/233>`_, `#232 <https://github.com/pcraster/pcraster/issues/232>`_).
+
+
 PCRaster 4.2.0
 --------------
 
 The most relevant updates for users:
 
-* Python 3 is now the default version on Windows
+* Python 3.6 is now the default version on Windows
 * The multicore module was added to PCRaster Python
 * On Windows, files larger than 2GB can be processed now
 * Handling of non-spatials and pcr2numpy was fixed in the PCRaster Python module

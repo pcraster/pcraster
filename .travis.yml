@@ -1,6 +1,6 @@
 language: cpp
 
-dist: trusty
+dist: xenial
 
 sudo: required
 
@@ -13,16 +13,16 @@ matrix:
          - os: osx
 
     include:
-        - name: "Linux; gcc 4.9; debug"
+        - name: "Linux; gcc 5.4; debug"
           os: linux
           addons:
               apt:
                   sources:
                       - ubuntu-toolchain-r-test
                   packages:
-                      - g++-4.9
+                      - g++-5.4
           env:
-              - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9"
+              - MATRIX_EVAL="CC=gcc-5.4 && CXX=g++-5.4"
               - TRAVIS_BUILD_TYPE=Debug
               - TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
           before_install:

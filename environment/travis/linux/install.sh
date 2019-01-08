@@ -20,6 +20,7 @@ pip install --user --upgrade numpy
 pip install --user --upgrade docopt
 pip install --user --upgrade sphinx
 pip install --user --upgrade pillow
+pip install --user --upgrade psutil
 
 
 mkdir $TRAVIS_BUILD_DIR/local

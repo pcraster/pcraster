@@ -67,7 +67,11 @@ T gcdFloat(
          T b)
 {
   return static_cast<T>(
+#if BOOST_VERSION > 106400
+         boost::integer::gcd(
+#else
          boost::math::gcd(
+#endif
               round<T, INT4>(a * T(1e3)),
               round<T, INT4>(b * T(1e3)))
          ) / T(1e3);

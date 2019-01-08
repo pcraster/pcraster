@@ -13,11 +13,6 @@
 #define INCLUDED_IOSTREAM
 #endif
 
-#ifndef INCLUDED_BOOST_MATH_COMMON_FACTOR
-#include <boost/math/common_factor.hpp>
-#define INCLUDED_BOOST_MATH_COMMON_FACTOR
-#endif
-
 #ifndef INCLUDED_BOOST_NUMERIC_CONVERSION_CONVERTER
 #include <boost/numeric/conversion/converter.hpp>
 #define INCLUDED_BOOST_NUMERIC_CONVERSION_CONVERTER
@@ -45,10 +40,18 @@
 #endif
 
 #if BOOST_VERSION > 105800
-#include <boost/test/tools/floating_point_comparison.hpp>
+  #include <boost/test/tools/floating_point_comparison.hpp>
 #else
-#include <boost/test/floating_point_comparison.hpp>
+  #include <boost/test/floating_point_comparison.hpp>
 #endif
+
+#if BOOST_VERSION > 106400
+  #include <boost/integer/common_factor.hpp>
+#else
+  #include <boost/math/common_factor.hpp>
+#endif
+
+
 
 // PCRaster library headers.
 #ifndef INCLUDED_PCRTYPES
@@ -480,7 +483,11 @@ inline T gcd(
          T a,
          T b)
 {
+#if BOOST_VERSION > 106400
+  return boost::integer::gcd<T>(a, b);
+#else
   return boost::math::gcd<T>(a, b);
+#endif
 }
 
 template<typename T>

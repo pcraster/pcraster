@@ -530,7 +530,7 @@ class TestNumPy(testcase.TestCase):
         pcraster.pcr2numpy(raster, numpy.nan)
         mem = process.memory_info()
         curr_mem = mem.rss / 2**10
-        if curr_mem - init_mem > 0:
+        if curr_mem - init_mem > 400:
           mem_increase = True
 
       raster = pcraster.spatial(pcraster.boolean(1))
@@ -539,7 +539,7 @@ class TestNumPy(testcase.TestCase):
         pcraster.pcr2numpy(raster, numpy.nan)
         mem = process.memory_info()
         curr_mem = mem.rss / 2**10
-        if curr_mem - init_mem > 0:
+        if curr_mem - init_mem > 400:
           mem_increase = True
 
       raster = pcraster.nominal(pcraster.uniform(1) * 10)
@@ -548,7 +548,7 @@ class TestNumPy(testcase.TestCase):
         pcraster.pcr2numpy(raster, numpy.nan)
         mem = process.memory_info()
         curr_mem = mem.rss / 2**10
-        if curr_mem - init_mem > 0:
+        if curr_mem - init_mem > 400:
           mem_increase = True
 
       self.assertEqual(mem_increase, False)

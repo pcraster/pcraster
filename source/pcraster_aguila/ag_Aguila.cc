@@ -40,7 +40,7 @@ std::string const DEVELOPERMESSAGE(
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 
@@ -80,7 +80,7 @@ Aguila::Aguila(
   dal::Client::dal().favourDrivers(drivers);
 
   applyGplLicense("PCRaster R&D team");
-  setVersion(AGUILA_MAJOR_VERSION, AGUILA_MINOR_VERSION, AGUILA_PATCH_VERSION);
+  setVersion(AGUILA_MAJOR_VERSION, AGUILA_MINOR_VERSION, AGUILA_PATCH_VERSION, AGUILA_PRE_RELEASE_VERSION);
   // setBuildStage(AG_BUILD_STAGE);
 
   qt::AppWindow::setApplicationRole(role);
@@ -139,7 +139,7 @@ void Aguila::setup()
 
 /// #ifdef DEBUG_DEVELOP
 ///   // TEST
-/// 
+///
 ///   char arg1[5] = "test";
 ///   char arg2[3] = "-x";
 /// #ifdef __linux__
@@ -148,12 +148,12 @@ void Aguila::setup()
 ///   char arg3[9] = "test.xml";
 /// #endif
 ///   char *argv[3] = { arg1, arg2, arg3 };
-/// 
+///
 ///   std::ofstream f(arg3);
 ///   pcrxml::aguila(f, apo.configuration(),
 ///                  pcrxsd::namespaceInfoMap("Aguila.xsd"));
 ///   f.close();
-/// 
+///
 ///   AguilaProgramOptions p(3, argv);
 ///   viewer().createViews(p.configuration());
 /// #else
@@ -188,7 +188,7 @@ Viewer& Aguila::viewer()
 //   //   qt::GuiApp::createLockFile(d_data->d_lockFileArg.value());
 //   // }
 // }
-// 
+//
 // void Aguila::parseConfigurationFile()
 // {
 //   // if(d_data->d_configFileArg.isParsed()) {
@@ -202,13 +202,13 @@ Viewer& Aguila::viewer()
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE OPERATORS 
+// DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE FUNCTIONS 
+// DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
 

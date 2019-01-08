@@ -20,7 +20,7 @@ matrix:
                   sources:
                       - ubuntu-toolchain-r-test
                   packages:
-                      - g++-5.4
+                      - g++-5
           env:
               - MATRIX_EVAL="CC=gcc-5 && CXX=g++-5"
               - TRAVIS_BUILD_TYPE=Debug

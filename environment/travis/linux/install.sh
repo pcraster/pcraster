@@ -7,8 +7,8 @@ eval "${MATRIX_EVAL}"
 
 cwdir=${PWD}
 
-sudo apt-get install qt56base
-export PATH=/opt/qt56/bin:$PATH
+sudo apt-get install qt512base
+export PATH=/opt/qt512/bin:$PATH
 
 sudo apt-get install libqwt-qt5-dev
 

@@ -12,7 +12,7 @@ export PATH=/opt/qt512/bin:$PATH
 
 sudo apt-get install libqwt-qt5-dev
 
-sudo apt-get install gdal-bin libgdal-dev libxerces-c-dev libxml2-dev libxslt1-dev libboost-all-dev libncurses5-dev libpython-dev libxml2 libxml2-utils mesa-common-dev cmake
+sudo apt-get install gdal-bin libgdal-dev libxerces-c-dev libxml2-dev libxslt1-dev libboost-all-dev libncurses5-dev libpython-dev libxml2 libxml2-utils mesa-common-dev libglu1-mesa-dev libgl1-mesa-glx cmake
 
 
 

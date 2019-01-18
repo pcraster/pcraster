@@ -17,7 +17,7 @@ class IndexUnitTests(testcase.TestCase):
     except Exception as e:
       self.assertEqual(str(e), "Error in initialisation of class Index: array indices must be unique, Species1 already used")
       exceptionThrown = True
-    self.assert_(exceptionThrown)
+    self.assertTrue(exceptionThrown)
 
 
   def test2(self):
@@ -30,7 +30,7 @@ class IndexUnitTests(testcase.TestCase):
     except Exception as e:
       self.assertEqual(str(e), "Modification of an Index attribute not permitted")
       exceptionThrown = True
-    self.assert_(exceptionThrown)
+    self.assertTrue(exceptionThrown)
 
 
   def test3(self):
@@ -43,7 +43,7 @@ class IndexUnitTests(testcase.TestCase):
     except Exception as e:
       self.assertEqual(str(e), "Modification of an Index attribute not permitted")
       exceptionThrown = True
-    self.assert_(exceptionThrown)
+    self.assertTrue(exceptionThrown)
 
 
   def test4(self):
@@ -56,7 +56,7 @@ class IndexUnitTests(testcase.TestCase):
     except Exception as e:
       self.assertEqual(str(e), "Removal of an Index attribute not permitted")
       exceptionThrown = True
-    self.assert_(exceptionThrown)
+    self.assertTrue(exceptionThrown)
 
   def test5(self):
     """ test empty index """
@@ -67,7 +67,7 @@ class IndexUnitTests(testcase.TestCase):
     except Exception as e:
       self.assertEqual(str(e), "Error in initialisation of class Index: no array indices provided")
       exceptionThrown = True
-    self.assert_(exceptionThrown)
+    self.assertTrue(exceptionThrown)
 
   def test6(self):
     """ test wrong external names format """
@@ -78,7 +78,7 @@ class IndexUnitTests(testcase.TestCase):
     except Exception as e:
       self.assertEqual(str(e), "Error in initialisation of class Index: format of TG=Tall=Grass does not match Modelname = Externalname")
       exceptionThrown = True
-    self.assert_(exceptionThrown)
+    self.assertTrue(exceptionThrown)
 
 
   def test7(self):

@@ -16,9 +16,9 @@ class Test(testcase.TestCase):
       slope = pcraster.slope("and_Expr1.map")
     except RuntimeError as exception:
       message = str(exception)
-      self.assert_(message.find("argument nr. 1 of function 'slope': type is boolean, legal type is scalar") != -1)
+      self.assertTrue(message.find("argument nr. 1 of function 'slope': type is boolean, legal type is scalar") != -1)
       exceptionThrown = True
-    self.assert_(exceptionThrown)
+    self.assertTrue(exceptionThrown)
 
   def testDalException(self):
     exceptionThrown = False
@@ -27,9 +27,9 @@ class Test(testcase.TestCase):
       pcraster.readmap("notThere.map")
     except RuntimeError as exception:
       message = str(exception)
-      self.assert_(message.find("Raster notThere.map: can not be opened") != -1)
+      self.assertTrue(message.find("Raster notThere.map: can not be opened") != -1)
       exceptionThrown = True
-    self.assert_(exceptionThrown)
+    self.assertTrue(exceptionThrown)
 
   def testIfThenElse(self):
     pcraster.setclone("and_Expr1.map")
@@ -38,19 +38,19 @@ class Test(testcase.TestCase):
       result = pcraster.ifthenelse(1.0 == 2.0, 3.0, 4.0)
     except RuntimeError as exception:
       message = str(exception)
-      self.assert_(message.find("conversion function to pick a data type") != -1)
+      self.assertTrue(message.find("conversion function to pick a data type") != -1)
       exceptionThrown = True
-    self.assert_(exceptionThrown)
+    self.assertTrue(exceptionThrown)
 
     result = pcraster.ifthenelse(pcraster.boolean(1.0 == 2.0), \
          pcraster.scalar(3.0), pcraster.scalar(4.0))
     self.assertEqual(pcraster.cellvalue(result, 1)[0], 4.0)
 
   def valueTest(self, readValue, readValidValue, trueValidValue, type, trueValue):
-    self.assert_(isinstance(readValidValue, int))
+    self.assertTrue(isinstance(readValidValue, int))
     self.assertEqual(readValidValue, trueValidValue)
     if readValidValue:
-      self.assert_(isinstance(readValue, type))
+      self.assertTrue(isinstance(readValue, type))
       self.assertEqual(readValue, trueValue)
 
   def testCellValueBoolean(self):
@@ -78,32 +78,32 @@ class Test(testcase.TestCase):
     raster = pcraster.readmap("areaarea_Class.map")
     value, isValid = pcraster.cellvalue(raster, 1)
     self.assertEqual(isValid, True)
-    self.assert_(isinstance(value, int))
+    self.assertTrue(isinstance(value, int))
     self.assertEqual(value, 2)
     value, isValid = pcraster.cellvalue(raster, 2)
     self.assertEqual(isValid, True)
-    self.assert_(isinstance(value, int))
+    self.assertTrue(isinstance(value, int))
     self.assertEqual(value, 6)
     value, isValid = pcraster.cellvalue(raster, 5)
     self.assertEqual(isValid, False)
     value, isValid = pcraster.cellvalue(raster, 9)
     self.assertEqual(isValid, True)
-    self.assert_(isinstance(value, int))
+    self.assertTrue(isinstance(value, int))
     self.assertEqual(value, 2)
     value, isValid = pcraster.cellvalue(raster, 25)
     self.assertEqual(isValid, True)
-    self.assert_(isinstance(value, int))
+    self.assertTrue(isinstance(value, int))
     self.assertEqual(value, 4)
 
   def testCellValueOrdinal(self):
     raster = pcraster.ordinal(pcraster.readmap("areaarea_Class.map"))
     value, isValid = pcraster.cellvalue(raster, 1)
     self.assertEqual(isValid, True)
-    self.assert_(isinstance(value, int))
+    self.assertTrue(isinstance(value, int))
     self.assertEqual(value, 2)
     value, isValid = pcraster.cellvalue(raster, 2)
     self.assertEqual(isValid, True)
-    self.assert_(isinstance(value, int))
+    self.assertTrue(isinstance(value, int))
     self.assertEqual(value, 6)
     value, isValid = pcraster.cellvalue(raster, 5)
     self.assertEqual(isValid, False)
@@ -112,80 +112,80 @@ class Test(testcase.TestCase):
     raster = pcraster.readmap("abs_Expr.map")
     value, isValid = pcraster.cellvalue(raster, 1)
     self.assertEqual(isValid, True)
-    self.assert_(isinstance(value, float))
+    self.assertTrue(isinstance(value, float))
     self.assertEqual(value, 2.0)
     value, isValid = pcraster.cellvalue(raster, 2)
     self.assertEqual(isValid, True)
-    self.assert_(isinstance(value, float))
+    self.assertTrue(isinstance(value, float))
     self.assertEqual(value, -7.0)
     value, isValid = pcraster.cellvalue(raster, 3)
     self.assertEqual(isValid, True)
-    self.assert_(isinstance(value, float))
+    self.assertTrue(isinstance(value, float))
     self.assertEqual(value, 3.5)
     value, isValid = pcraster.cellvalue(raster, 6)
     self.assertEqual(isValid, False)
     value, isValid = pcraster.cellvalue(raster, 7)
     self.assertEqual(isValid, True)
-    self.assert_(isinstance(value, float))
+    self.assertTrue(isinstance(value, float))
     self.assertEqual(value, 0.0)
     value, isValid = pcraster.cellvalue(raster, 8)
     self.assertEqual(isValid, True)
-    self.assert_(isinstance(value, float))
+    self.assertTrue(isinstance(value, float))
     self.assertEqual(value, 14.0)
 
   def testCellValueDirectional(self):
     raster = pcraster.readmap("nodirection_Expr.map")
     value, isValid = pcraster.cellvalue(raster, 1)
     self.assertEqual(isValid, True)
-    self.assert_(isinstance(value, float))
+    self.assertTrue(isinstance(value, float))
     self.assertAlmostEqual(value, math.radians(280))
     value, isValid = pcraster.cellvalue(raster, 2)
     self.assertEqual(isValid, True)
-    self.assert_(isinstance(value, float))
+    self.assertTrue(isinstance(value, float))
     self.assertAlmostEqual(value, math.radians(25))
     value, isValid = pcraster.cellvalue(raster, 5)
     self.assertEqual(isValid, True)
-    self.assert_(isinstance(value, float))
+    self.assertTrue(isinstance(value, float))
     self.assertAlmostEqual(value, -1.0)
     value, isValid = pcraster.cellvalue(raster, 7)
     self.assertEqual(isValid, False)
     value, isValid = pcraster.cellvalue(raster, 9)
     self.assertEqual(isValid, True)
-    self.assert_(isinstance(value, float))
+    self.assertTrue(isinstance(value, float))
     self.assertAlmostEqual(value, math.radians(7))
 
   def testCellValueLdd(self):
     raster = pcraster.readmap("accu_Ldd.map")
     value, isValid = pcraster.cellvalue(raster, 1)
     self.assertEqual(isValid, True)
-    self.assert_(isinstance(value, int))
+    self.assertTrue(isinstance(value, int))
     self.assertEqual(value, 2)
     value, isValid = pcraster.cellvalue(raster, 2)
     self.assertEqual(isValid, True)
-    self.assert_(isinstance(value, int))
+    self.assertTrue(isinstance(value, int))
     self.assertEqual(value, 2)
     value, isValid = pcraster.cellvalue(raster, 9)
     self.assertEqual(isValid, True)
-    self.assert_(isinstance(value, int))
+    self.assertTrue(isinstance(value, int))
     self.assertEqual(value, 1)
     value, isValid = pcraster.cellvalue(raster, 22)
     self.assertEqual(isValid, True)
-    self.assert_(isinstance(value, int))
+    self.assertTrue(isinstance(value, int))
     self.assertEqual(value, 5)
     value, isValid = pcraster.cellvalue(raster, 25)
     self.assertEqual(isValid, True)
-    self.assert_(isinstance(value, int))
+    self.assertTrue(isinstance(value, int))
     self.assertEqual(value, 4)
 
   def testCellValueNonSpatial(self):
     raster = pcraster.readmap("abs_Expr.map")
     value, isValid = pcraster.cellvalue(pcraster.mapmaximum(raster), 1, 1)
     self.assertEqual(isValid, True)
-    self.assert_(isinstance(value, float))
+    self.assertTrue(isinstance(value, float))
     self.assertEqual(value, 14.0)
     value, isValid = pcraster.cellvalue(pcraster.mapmaximum(raster), 1)
     self.assertEqual(isValid, True)
-    self.assert_(isinstance(value, float))
+    self.assertTrue(isinstance(value, float))
     self.assertEqual(value, 14.0)
 
   def testNotEqualsLdd(self):
@@ -213,7 +213,7 @@ class Test(testcase.TestCase):
     raster = pcraster.readmap("abs_Expr.map")
     max1 = pcraster.mapmaximum(raster)
     value, isValid = pcraster.cellvalue(max1, 1)
-    self.assert_(isinstance(value, float))
+    self.assertTrue(isinstance(value, float))
     self.assertEqual(isValid, True)
     self.assertEqual(value, 14.0)
     pcraster.report(max1, "maximum.map")
@@ -222,7 +222,7 @@ class Test(testcase.TestCase):
     for i in range(1, 8):
       value, isValid = pcraster.cellvalue(max2, i)
       self.assertEqual(isValid, True)
-      self.assert_(isinstance(value, float))
+      self.assertTrue(isinstance(value, float))
       self.assertEqual(value, 14.0)
 
   def testNominal2Ordinal(self):
@@ -299,9 +299,9 @@ class Test(testcase.TestCase):
       bool(raster1)
     except Exception as exception:
       message = str(exception)
-      self.assert_(message.find(ambiguousSpatialMsg) != -1)
+      self.assertTrue(message.find(ambiguousSpatialMsg) != -1)
     exceptionThrown = True
-    self.assert_(exceptionThrown)
+    self.assertTrue(exceptionThrown)
 
     exceptionThrown = False
     try:
@@ -309,9 +309,9 @@ class Test(testcase.TestCase):
         pass
     except Exception as exception:
       message = str(exception)
-      self.assert_(message.find(ambiguousSpatialMsg) != -1)
+      self.assertTrue(message.find(ambiguousSpatialMsg) != -1)
       exceptionThrown = True
-    self.assert_(exceptionThrown)
+    self.assertTrue(exceptionThrown)
 
     exceptionThrown = False
     try:
@@ -319,9 +319,9 @@ class Test(testcase.TestCase):
         print("this will run forever")
     except Exception as exception:
       message = str(exception)
-      self.assert_(message.find(ambiguousSpatialMsg) != -1)
+      self.assertTrue(message.find(ambiguousSpatialMsg) != -1)
       exceptionThrown = True
-    self.assert_(exceptionThrown)
+    self.assertTrue(exceptionThrown)
 
     exceptionThrown = False
     try:
@@ -329,40 +329,40 @@ class Test(testcase.TestCase):
         pass
     except Exception as exception:
       message = str(exception)
-      self.assert_(message.find(ambiguousSpatialMsg) != -1)
+      self.assertTrue(message.find(ambiguousSpatialMsg) != -1)
       exceptionThrown = True
-    self.assert_(exceptionThrown)
+    self.assertTrue(exceptionThrown)
 
     exceptionThrown = False
     try:
       tmp = raster1 and raster2
     except Exception as exception:
       message = str(exception)
-      self.assert_(message.find(ambiguousSpatialMsg) != -1)
+      self.assertTrue(message.find(ambiguousSpatialMsg) != -1)
       exceptionThrown = True
-    self.assert_(exceptionThrown)
+    self.assertTrue(exceptionThrown)
 
     exceptionThrown = False
     try:
       tmp = raster1 or raster2
     except Exception as exception:
       message = str(exception)
-      self.assert_(message.find(ambiguousSpatialMsg) != -1)
+      self.assertTrue(message.find(ambiguousSpatialMsg) != -1)
       exceptionThrown = True
-    self.assert_(exceptionThrown)
+    self.assertTrue(exceptionThrown)
 
     exceptionThrown = False
     try:
       tmp = not raster1
     except Exception as exception:
       message = str(exception)
-      self.assert_(message.find(ambiguousSpatialMsg) != -1)
+      self.assertTrue(message.find(ambiguousSpatialMsg) != -1)
       exceptionThrown = True
-    self.assert_(exceptionThrown)
+    self.assertTrue(exceptionThrown)
 
   def testReadMap(self):
     w = pcraster.readmap("nominalUINT1.map")
-    self.assert_(w.isSpatial())
+    self.assertTrue(w.isSpatial())
 
   def testReadFieldCell(self):
     value,mv = pcraster.readFieldCell("abs_Expr.map", 1, 1)
@@ -435,9 +435,9 @@ class Test(testcase.TestCase):
      raster += None
     except Exception as e:
       msg = "right operand of operator '+': type is Python None, legal type is scalar"
-      self.assert_(str(e).find(msg) != -1, str(e))
+      self.assertTrue(str(e).find(msg) != -1, str(e))
       exceptionThrown = True
-    self.assert_(exceptionThrown)
+    self.assertTrue(exceptionThrown)
 
     self.assertRaises(RuntimeError, pcraster.report, None, "testReportWithNone.map")
 
@@ -516,7 +516,7 @@ class Test(testcase.TestCase):
     except Exception as e:
       self.assertEqual(str(e), "Shallow copy of PCRaster objects not supported\n")
       exceptionThrown = True
-    self.assert_(exceptionThrown)
+    self.assertTrue(exceptionThrown)
 
 
     raster = pcraster.readmap(os.path.join("validated","nominal_Result.map"))
@@ -526,7 +526,7 @@ class Test(testcase.TestCase):
     except Exception as e:
       self.assertEqual(str(e), "Shallow copy of PCRaster objects not supported\n")
       exceptionThrown = True
-    self.assert_(exceptionThrown)
+    self.assertTrue(exceptionThrown)
 
     raster = pcraster.readmap(os.path.join("validated","ordinal_Result.map"))
     exceptionThrown = False
@@ -535,7 +535,7 @@ class Test(testcase.TestCase):
     except Exception as e:
       self.assertEqual(str(e), "Shallow copy of PCRaster objects not supported\n")
       exceptionThrown = True
-    self.assert_(exceptionThrown)
+    self.assertTrue(exceptionThrown)
 
     raster = pcraster.readmap(os.path.join("validated","scalar_Result.map"))
     exceptionThrown = False
@@ -544,7 +544,7 @@ class Test(testcase.TestCase):
     except Exception as e:
       self.assertEqual(str(e), "Shallow copy of PCRaster objects not supported\n")
       exceptionThrown = True
-    self.assert_(exceptionThrown)
+    self.assertTrue(exceptionThrown)
 
     raster = pcraster.readmap(os.path.join("validated","directional_Result1.map"))
     exceptionThrown = False
@@ -553,7 +553,7 @@ class Test(testcase.TestCase):
     except Exception as e:
       self.assertEqual(str(e), "Shallow copy of PCRaster objects not supported\n")
       exceptionThrown = True
-    self.assert_(exceptionThrown)
+    self.assertTrue(exceptionThrown)
 
     raster = pcraster.readmap(os.path.join("validated","ldd_Result.map"))
     exceptionThrown = False
@@ -562,7 +562,7 @@ class Test(testcase.TestCase):
     except Exception as e:
       self.assertEqual(str(e), "Shallow copy of PCRaster objects not supported\n")
       exceptionThrown = True
-    self.assert_(exceptionThrown)
+    self.assertTrue(exceptionThrown)
 
   def test1(self):
     """ test clone/areamap not set """
@@ -572,7 +572,7 @@ class Test(testcase.TestCase):
     except Exception as e:
       self.assertEqual(str(e), "uniform: no clone or area map specified, use setclone()\n")
       exceptionThrown = True
-    self.assert_(exceptionThrown)
+    self.assertTrue(exceptionThrown)
 
   def testSetCloneUsingFile(self):
     pcraster.setclone(os.path.join("validated", "ordinal_Result.map"))

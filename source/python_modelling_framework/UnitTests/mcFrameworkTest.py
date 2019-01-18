@@ -29,19 +29,19 @@ class mcFrameworkTestScript(unittest.TestCase):
     myModel = mcTestModels.staticModel()
     statFrw = sf.StaticFramework(myModel)
     mcFw = mf.MonteCarloFramework(statFrw, 5)
-    self.assert_(hasattr(myModel, "nrSamples"))
-    self.assert_(hasattr(myModel, "_d_firstSampleNumber"))
-    self.assert_(hasattr(myModel, "_d_lastSampleNumber"))
-    self.assert_(hasattr(myModel, "_d_currentSampleNumber"))
-    self.assert_(hasattr(myModel, "_d_inSample"))
-    self.assert_(hasattr(myModel, "currentSampleNumber"))
-    self.assert_(hasattr(myModel, "_lastSampleNumber"))
-    self.assert_(hasattr(myModel, "_firstSampleNumber"))
-    self.assert_(hasattr(myModel, "_setCurrentSample"))
-    self.assert_(hasattr(myModel, "_inSample"))
-    self.assert_(hasattr(myModel, "sampleNumbers"))
-    self.assert_(hasattr(myModel, "report"))
-    self.assert_(hasattr(myModel, "readmap"), "todo")
+    self.assertTrue(hasattr(myModel, "nrSamples"))
+    self.assertTrue(hasattr(myModel, "_d_firstSampleNumber"))
+    self.assertTrue(hasattr(myModel, "_d_lastSampleNumber"))
+    self.assertTrue(hasattr(myModel, "_d_currentSampleNumber"))
+    self.assertTrue(hasattr(myModel, "_d_inSample"))
+    self.assertTrue(hasattr(myModel, "currentSampleNumber"))
+    self.assertTrue(hasattr(myModel, "_lastSampleNumber"))
+    self.assertTrue(hasattr(myModel, "_firstSampleNumber"))
+    self.assertTrue(hasattr(myModel, "_setCurrentSample"))
+    self.assertTrue(hasattr(myModel, "_inSample"))
+    self.assertTrue(hasattr(myModel, "sampleNumbers"))
+    self.assertTrue(hasattr(myModel, "report"))
+    self.assertTrue(hasattr(myModel, "readmap"), "todo")
 
 
 
@@ -51,7 +51,7 @@ class mcFrameworkTestScript(unittest.TestCase):
     dynFrw = df.DynamicFramework(myModel, 10)
     mcFw = mf.MonteCarloFramework(dynFrw, 5)
 
-    self.assert_(myModel.sampleNumbers() == range(1,6))
+    self.assertTrue(myModel.sampleNumbers() == range(1,6))
 
 
   def test_4(self):
@@ -63,7 +63,7 @@ class mcFrameworkTestScript(unittest.TestCase):
     for directory in range(1,6):
       if not os.path.isdir(str(directory)):
         directoriesCreated = False
-    self.assert_(directoriesCreated)
+    self.assertTrue(directoriesCreated)
 
     for directory in range(1,6):
       shutil.rmtree(str(directory))
@@ -75,7 +75,7 @@ class mcFrameworkTestScript(unittest.TestCase):
     for directory in range(1,6):
       if not os.path.isdir(str(directory)):
         directoriesCreated = False
-    self.assert_(directoriesCreated)
+    self.assertTrue(directoriesCreated)
 
     for directory in range(1,6):
       shutil.rmtree(str(directory))
@@ -104,9 +104,9 @@ class mcFrameworkTestScript(unittest.TestCase):
       if not os.path.isfile(namePost):
         filesPostmcCreated = False
 
-    self.assert_(filesInitialCreated)
-    self.assert_(filesPremcCreated)
-    self.assert_(filesPostmcCreated)
+    self.assertTrue(filesInitialCreated)
+    self.assertTrue(filesPremcCreated)
+    self.assertTrue(filesPostmcCreated)
 
 
   def test_6(self):
@@ -147,10 +147,10 @@ class mcFrameworkTestScript(unittest.TestCase):
         if not os.path.isfile(namePost):
           filesPostmcCreated = False
 
-    self.assert_(filesInitialCreated)
-    self.assert_(filesPremcCreated)
-    self.assert_(filesPostmcCreated)
-    self.assert_(filesDynamicCreated)
+    self.assertTrue(filesInitialCreated)
+    self.assertTrue(filesPremcCreated)
+    self.assertTrue(filesPostmcCreated)
+    self.assertTrue(filesDynamicCreated)
 
 
   # It is important to reset the seed values for the random number generators
@@ -158,7 +158,7 @@ class mcFrameworkTestScript(unittest.TestCase):
   # are created.
   # Reset of seed is done in the forkscript.py in DEVENV
   #
-  # forking creates clones of the processes, 
+  # forking creates clones of the processes,
   def test_7(self):
     """ test random seed reset while forking """
     myModel = mcTestModels.randomModel()

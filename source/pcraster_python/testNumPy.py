@@ -13,7 +13,7 @@ class TestNumPy(testcase.TestCase):
     raster = pcraster.readmap("and_Expr1.map")
     mv = 99
     array = pcraster.pcr2numpy(raster, mv)
-    self.assert_(isinstance(array[0][0], numpy.uint8))
+    self.assertTrue(isinstance(array[0][0], numpy.uint8))
     self.assertEqual(array[0][0], 1)
     self.assertEqual(array[0][1], 1)
     self.assertEqual(array[0][2], 0)
@@ -29,7 +29,7 @@ class TestNumPy(testcase.TestCase):
     raster = pcraster.readmap("areaarea_Class.map")
     mv = 99
     array = pcraster.pcr2numpy(raster, mv)
-    self.assert_(isinstance(array[0][0], numpy.int32))
+    self.assertTrue(isinstance(array[0][0], numpy.int32))
     self.assertEqual(array[0][0], 2)
     self.assertEqual(array[0][1], 6)
     self.assertEqual(array[0][2], 2)
@@ -61,7 +61,7 @@ class TestNumPy(testcase.TestCase):
     raster = pcraster.readmap("succ_Expr.map")
     mv = 99
     array = pcraster.pcr2numpy(raster, mv)
-    self.assert_(isinstance(array[0][0], numpy.int32))
+    self.assertTrue(isinstance(array[0][0], numpy.int32))
     self.assertEqual(array[0][0],-5)
     self.assertEqual(array[0][1], 9)
     self.assertEqual(array[0][2], 9)
@@ -84,7 +84,7 @@ class TestNumPy(testcase.TestCase):
     raster = pcraster.readmap("abs_Expr.map")
     mv = 99
     array = pcraster.pcr2numpy(raster, mv)
-    self.assert_(isinstance(array[0][0], numpy.float32))
+    self.assertTrue(isinstance(array[0][0], numpy.float32))
     self.assertEqual(array[0][0],  2.0)
     self.assertEqual(array[0][1], -7.0)
     self.assertEqual(array[0][2],  3.5)
@@ -100,7 +100,7 @@ class TestNumPy(testcase.TestCase):
     raster = pcraster.readmap("accu_Ldd.map")
     mv = 99
     array = pcraster.pcr2numpy(raster, mv)
-    self.assert_(isinstance(array[0][0], numpy.uint8))
+    self.assertTrue(isinstance(array[0][0], numpy.uint8))
     self.assertEqual(array[0][0], 2)
     self.assertEqual(array[0][1], 2)
     self.assertEqual(array[0][2], 2)

@@ -39,7 +39,7 @@ class CollectionUnitTests(testcase.TestCase):
     except Exception as e:
       self.assertEqual(str(e), "cannot add elements to a VariableCollection")
       exceptionThrown = True
-    self.assert_(exceptionThrown)
+    self.assertTrue(exceptionThrown)
 
 
   def test3(self):
@@ -106,7 +106,7 @@ class CollectionUnitTests(testcase.TestCase):
     QMax[Plants.TG] = pcraster.readmap("input1.imap")
     QMax[Plants.SG] = pcraster.readmap("input2.imap")
 
-    self.assert_(QMax[Plants.TG] is not None)
+    self.assertTrue(QMax[Plants.TG] is not None)
 
     value, valid = pcraster.cellvalue(QMax[Plants.TG], 1, 1)
     self.assertAlmostEqual(value, 1.1, 6)
@@ -146,10 +146,10 @@ class CollectionUnitTests(testcase.TestCase):
     self.assertAlmostEqual(value, 2.6, 6)
 
     tmp = copy.deepcopy(QMax)
-    self.assert_(tmp[Plants.TG] is not None)
+    self.assertTrue(tmp[Plants.TG] is not None)
 
     # should not be the same reference!!! but a fresh copy
-    self.assert_(tmp[Plants.TG] is not QMax[Plants.TG] )
+    self.assertTrue(tmp[Plants.TG] is not QMax[Plants.TG] )
 
     # tmp values should equal qmax
     value, valid = pcraster.cellvalue(tmp[Plants.TG], 1, 1)
@@ -281,8 +281,8 @@ class CollectionUnitTests(testcase.TestCase):
 
     Cvr = vcMod.VariableCollection([Plants], value=vcMod.ValueFromParameterTable("Cvr", "parameterFile.tbl", pcraster.Scalar))
 
-    self.assert_(isinstance(Cvr[Plants.TG], pcraster._pcraster.Field))
-    self.assert_(isinstance(Cvr[Plants.SG], pcraster._pcraster.Field))
+    self.assertTrue(isinstance(Cvr[Plants.TG], pcraster._pcraster.Field))
+    self.assertTrue(isinstance(Cvr[Plants.SG], pcraster._pcraster.Field))
 
     kv = vcMod.VariableCollection([Plants], value=vcMod.ValueFromParameterTable("kv", "parameterFile.tbl", pcraster.Nominal))
     self.assertEqual(kv[Plants.TG], 3)
@@ -300,7 +300,7 @@ class CollectionUnitTests(testcase.TestCase):
     except ValueError as e:
       self.assertEqual(str(e), "Error reading parameterFile.tbl line 21, QMax1 'TG' already initialised")
       exceptionThrown = True
-    self.assert_(exceptionThrown)
+    self.assertTrue(exceptionThrown)
 
   def test9(self):
     """ test initialisation with non-existing key """
@@ -313,7 +313,7 @@ class CollectionUnitTests(testcase.TestCase):
     except ValueError as e:
       self.assertEqual(str(e), "Error reading parameterFile.tbl line 26, 'sG' unknown collection index")
       exceptionThrown = True
-    self.assert_(exceptionThrown)
+    self.assertTrue(exceptionThrown)
 
 
   def test10(self):
@@ -372,7 +372,7 @@ class CollectionUnitTests(testcase.TestCase):
 
   #def test13(self):
     #""" initialize with a callable """
-    #self.assert_(False, "create this test")
+    #self.assertTrue(False, "create this test")
 
     #class TssCreator(object):
       #def __init__(self, dynamicClass):

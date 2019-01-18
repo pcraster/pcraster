@@ -77,12 +77,12 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 
 
     # these ones should moved to devbase eventually
-#     set(CMAKE_C_FLAGS
-#         "${CMAKE_C_FLAGS} -march=native" # -flto
-#     )
-#     set(CMAKE_CXX_FLAGS
-#         "${CMAKE_CXX_FLAGS} -march=native" # -flto
-#     )
+    set(CMAKE_C_FLAGS
+        "${CMAKE_C_FLAGS} -march=native" # -flto
+    )
+    set(CMAKE_CXX_FLAGS
+        "${CMAKE_CXX_FLAGS} -march=native" # -flto
+    )
     # to make flto work set ar and ranlib
     # SET(CMAKE_AR gcc-ar)
     # SET(CMAKE_RANLIB gcc-ranlib)

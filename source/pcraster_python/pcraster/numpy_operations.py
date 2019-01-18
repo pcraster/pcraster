@@ -1,15 +1,3 @@
-# try:
-#     import numpy
-# except:
-#     raise ImportError, "Import of module 'numpy' failed."
-
-
-# _minimal_numpy_version = "1.2.1"
-# if numpy.__version__[:5] < _minimal_numpy_version:
-#     raise ImportError, "NumPy needs to be of version %s or higher, %s is installed" % (_minimal_numpy_version, numpy.__version__[:5])
-
-
-import numpy
 from . import _pcraster
 
 

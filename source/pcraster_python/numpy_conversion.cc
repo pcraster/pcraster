@@ -12,6 +12,7 @@
 #include "calc_spatial.h"
 #include "value_scale_traits.h"
 #include <algorithm>
+#include <memory>
 
 // From the numpy reference:
 // http://docs.scipy.org/doc/numpy-1.6.0/reference/c-api.array.html#checking-the-api-version

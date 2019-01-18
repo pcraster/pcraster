@@ -25,7 +25,7 @@ class ImportTest(unittest.TestCase):
         self.assertTrue(inspect.ismodule(module))
 
         path, name = os.path.split(module.__file__)
-        self.assert_(name.find("__init__.py") == 0, name)
+        self.assertTrue(name.find("__init__.py") == 0, name)
 
         path, name = os.path.split(path)
         self.assertEqual(name, "multicore", name)

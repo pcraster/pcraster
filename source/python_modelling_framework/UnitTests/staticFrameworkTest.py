@@ -15,9 +15,9 @@ class staticFrameworkTestScript(testcase.TestCase):
     """test existence of added methods"""
     myModel = staticTestModels.T2()
     staticModel = sf.StaticFramework(myModel)
-    self.assert_(hasattr(myModel, "setDebug"))
-    self.assert_(hasattr(myModel, "report"))
-  #  self.assert_(hasattr(myModel, "readmap"), "Todo")
+    self.assertTrue(hasattr(myModel, "setDebug"))
+    self.assertTrue(hasattr(myModel, "report"))
+  #  self.assertTrue(hasattr(myModel, "readmap"), "Todo")
 
 
   def test_2(self):

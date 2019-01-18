@@ -36,7 +36,7 @@ class TestPickle(testcase.TestCase):
     except Exception as e:
       no_assertion_raised = False
 
-    self.assert_(no_assertion_raised)
+    self.assertTrue(no_assertion_raised)
 
 
   def test_2(self):
@@ -89,7 +89,7 @@ class TestPickle(testcase.TestCase):
     except Exception as e:
       no_assertion_raised = False
 
-    self.assert_(no_assertion_raised)
+    self.assertTrue(no_assertion_raised)
 
 
   def test_9(self):

@@ -87,7 +87,7 @@ class TimeoutputTest(testcase.TestCase):
     except AttributeError as e:
       errorCatched=True
       self.assertEqual(str(e), "Argument must be a PCRaster map, type 'float' given. If necessary use data conversion functions like scalar()")
-    self.assert_(errorCatched)
+    self.assertTrue(errorCatched)
 
   def test_06(self):
     """ bug: using a boolean map as idMap generates 1e31"""
@@ -126,7 +126,7 @@ class TimeoutputTest(testcase.TestCase):
     except Exception as e:
      errorCatched=True
      self.assertEqual(str(e), "idMap must be of type Nominal, Ordinal or Boolean")
-    self.assert_(errorCatched)
+    self.assertTrue(errorCatched)
 
   def test_08(self):
     """ bug: can not create tss in sub directory"""
@@ -145,7 +145,7 @@ class TimeoutputTest(testcase.TestCase):
     m = Model("mask.map")
     dynModelFw = DynamicFramework(m, lastTimeStep=4)
     dynModelFw.run()
-    self.assert_(os.path.exists(os.path.join("dirForTest8","test8.tss")))
+    self.assertTrue(os.path.exists(os.path.join("dirForTest8","test8.tss")))
 
   def test_09(self):
     class Model(DynamicModel, MonteCarloModel):

@@ -5,7 +5,11 @@ configure_file(
     NEWLINE_STYLE UNIX
 )
 
-add_compile_definitions(USE_IN_PCRCALC)
+if(${CMAKE_VERSION} VERSION_LESS "3.12.0")
+    add_definitions(-DUSE_IN_PCRCALC)
+else()
+    add_compile_definitions(USE_IN_PCRCALC)
+endif()
 
 add_subdirectory(testdata/apiExamples)
 add_subdirectory(testdata/apiExamplesData)

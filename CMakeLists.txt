@@ -1,4 +1,12 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.7)
+
+if(POLICY CMP0063)
+  cmake_policy(SET CMP0063 NEW)
+endif()
+
+if(POLICY CMP0072)
+  cmake_policy(SET CMP0072 NEW)
+endif()
 
 project(pcraster)
 
@@ -21,6 +29,7 @@ set(CMAKE_MODULE_PATH
     ${CMAKE_CURRENT_SOURCE_DIR}/devbase/cmake
     ${CMAKE_CURRENT_SOURCE_DIR}/environment/cmake
 )
+
 include(PCRaster)
 
 add_subdirectory(source)
@@ -45,3 +54,18 @@ install(
   DESTINATION
     doc
 )
+
+# Display configuration summary
+message(STATUS "-----------------------------------------------------------")
+message(STATUS "PCRaster configuration summary:")
+message(STATUS "  Version:                " ${${PROJECT_NAME}_VERSION})
+message(STATUS "  Build options:")
+message(STATUS "    Type:                 " ${CMAKE_BUILD_TYPE})
+message(STATUS "    Aguila:               " ${PCRASTER_WITH_AGUILA})
+message(STATUS "    Multicore:            " ${PCRASTER_WITH_PYTHON_MULTICORE})
+message(STATUS "    Modflow:              " ${PCRASTER_WITH_MODFLOW})
+message(STATUS "    Tests:                " ${PCRASTER_BUILD_TEST})
+message(STATUS "    BlockPython:          " ${PCRASTER_BUILD_BLOCKPYTHON})
+message(STATUS "    Documentation:        " ${PCRASTER_BUILD_DOCUMENTATION})
+message(STATUS "  Installation directory: " ${CMAKE_INSTALL_PREFIX} )
+message(STATUS "-------------------------------------------------")

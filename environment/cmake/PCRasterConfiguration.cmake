@@ -11,27 +11,27 @@
 option(
     PCRASTER_BUILD_DOCUMENTATION
     "Build documentation"
-    FALSE)
+    OFF)
 option(
     PCRASTER_BUILD_TEST
     "Build tests"
-    FALSE)
+    OFF)
 option(
     PCRASTER_BUILD_BLOCKPYTHON
     "Build blockpython module"
-    FALSE)
+    OFF)
 option(
     PCRASTER_WITH_PYTHON_MULTICORE
     "Build Python multicore module"
-    TRUE)
+    ON)
 option(
     PCRASTER_WITH_MODFLOW
     "Build Modflow module"
-    TRUE)
+    ON)
 option(
     PCRASTER_WITH_AGUILA
     "Build Aguila"
-    TRUE)
+    ON)
 
 set(DEVBASE_BOOST_REQUIRED TRUE)
 

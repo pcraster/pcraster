@@ -9,29 +9,42 @@
 # option(PCRASTER_WITH_ALL "Support all features" FALSE)
 
 option(
-    PCRASTER_BUILD_DOCUMENTATION
-    "Build documentation"
+    PCRASTER_BUILD_MULTICORE
+    "Build Python multicore module"
+    OFF)
+option(
+    PCRASTER_BUILD_AGUILA
+    "Build Aguila"
+    OFF)
+option(
+    PCRASTER_BUILD_MODFLOW
+    "Build Modflow module"
+    OFF)
+option(
+    PCRASTER_BUILD_OLDCALC
+    "Build oldcalc"
     OFF)
 option(
     PCRASTER_BUILD_TEST
     "Build tests"
     OFF)
 option(
+    PCRASTER_BUILD_DOCUMENTATION
+    "Build documentation"
+    OFF)
+option(
     PCRASTER_BUILD_BLOCKPYTHON
     "Build blockpython module"
     OFF)
 option(
-    PCRASTER_WITH_PYTHON_MULTICORE
-    "Build Python multicore module"
-    ON)
+    PCRASTER_BUILD_MOC
+    "Build moc"
+    OFF)
 option(
-    PCRASTER_WITH_MODFLOW
-    "Build Modflow module"
-    ON)
-option(
-    PCRASTER_WITH_AGUILA
-    "Build Aguila"
-    ON)
+    PCRASTER_BUILD_MLDD
+    "Build mldd"
+    OFF)
+
 
 set(DEVBASE_BOOST_REQUIRED TRUE)
 
@@ -59,7 +72,7 @@ set(DEVBASE_QT_REQUIRED TRUE)
 set(DEVBASE_REQUIRED_QT_VERSION 5)
 set(DEVBASE_REQUIRED_QT_COMPONENTS
     Core Gui OpenGL Sql Widgets Xml)
-if(PCRASTER_WITH_AGUILA)
+if(PCRASTER_BUILD_AGUILA)
     set(DEVBASE_QWT_REQUIRED TRUE)
 endif()
 

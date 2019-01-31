@@ -22,9 +22,6 @@ set(COLLECTION_BUILD_DIRECTORY
 # attach post-build commands.
 add_custom_target(python_arrayed_variables_dummy)
 
-add_dependencies(python_arrayed_variables_dummy
-    _pcraster_modflow_python
-)
 
 add_custom_command(
     TARGET python_arrayed_variables_dummy
@@ -35,3 +32,8 @@ add_custom_command(
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
         DEPENDS ${SOURCES}
 )
+
+# 2019
+# add_dependencies(python_arrayed_variables_dummy
+#     _pcraster_modflow_python
+# )

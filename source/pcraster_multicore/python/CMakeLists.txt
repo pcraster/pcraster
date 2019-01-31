@@ -87,7 +87,7 @@ add_dependencies(_pcraster_multicore
     generate_examples.sentinel
     _pcraster
     fill_python_directory_structure # Refactor
-    _pcraster_modflow_python        # Refactor
+    #_pcraster_modflow_python        # Refactor
 )
 
 set_target_properties(_pcraster_multicore

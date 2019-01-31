@@ -18,7 +18,6 @@
 #include "calc_runtimeengine.h"
 #include "calc_spatial.h"
 #include "Globals.h"
-#include "docstrings.h"
 #include "numpy_conversion.h"
 #include "pickle.h"
 #include "ppu_exception.h"
@@ -794,25 +793,32 @@ BOOST_PYTHON_MODULE(_pcraster)
   def("_rte", &pp::rte,
     return_value_policy<reference_existing_object>());
 
-  def("setclone", &pp::setCloneSpaceFromFilename,
-  "Set the clone properties from an existing raster.\n"
-  "\n"
-  "map -- Filename of clone map.\n");
+  def("setclone", &pp::setCloneSpaceFromFilename, R"(
+   Set the clone properties from an existing raster.
 
-  def("setclone", &pp::setCloneSpaceFromValues,
-  "Set the clone using clone properties.\n"
-  "\n"
-  "nrRows -- Number of rows.\n"
-  "nrCols -- Number of columns.\n"
-  "cellSize -- Cell size.\n"
-  "west -- Coordinate of west side of raster.\n"
-  "north -- Coordinate of north side of raster.\n");
+   map -- Filename of clone map.
+    )"
+  );
 
-  def("setrandomseed", &pp::setRandomSeed,
-  "Set the random seed.\n"
-  "\n"
-  "seed -- An integer value >= 0. If the seed is 0 then the seed is taken\n"
-  "        from the current time.\n", args("seed"));
+  def("setclone", &pp::setCloneSpaceFromValues, R"(
+   Set the clone using clone properties.
+
+   nrRows -- Number of rows.
+   nrCols -- Number of columns.
+   cellSize -- Cell size.
+   west -- Coordinate of west side of raster.
+   north -- Coordinate of north side of raster.
+    )"
+  );
+
+  def("setrandomseed", &pp::setRandomSeed, R"(
+   Set the random seed.\n"
+
+   seed -- An integer value >= 0. If the seed is 0 then the seed is taken
+           from the current time.
+     )",
+      args("seed")
+  );
 
   class_<geo::RasterSpace>("RasterSpace")
     .def("nrRows", &geo::RasterSpace::nrRows)
@@ -828,7 +834,7 @@ BOOST_PYTHON_MODULE(_pcraster)
   class_<calc::Field, boost::shared_ptr<calc::Field>, boost::noncopyable>(
          "Field", no_init)
     .def("isSpatial", &calc::Field::isSpatial)
-    .def("setCell", &calc::Field::setCell)
+    .def("_setCell", &calc::Field::setCell)
     .def("dataType", &calc::Field::vs)
     .def("__deepcopy__", pp::deepCopyField)
     .def("__copy__", pp::copyField)
@@ -893,7 +899,7 @@ BOOST_PYTHON_MODULE(_pcraster)
   class_<calc::Operator, boost::noncopyable>("Operator", no_init)
     ;
 
-  def("loadCalcLib", &calc::loadCalcLib);
+  def("_loadCalcLib", &calc::loadCalcLib);
   def("_major2op", &calc::major2op,
     return_value_policy<reference_existing_object>());
   // def("opName2op", calc::opName2op, opName2opOverloads(),
@@ -903,7 +909,7 @@ BOOST_PYTHON_MODULE(_pcraster)
 
 
   def("readFieldCell", pp::readFieldCell);
-  def("newScalarField", pp::newScalarField,
+  def("_newScalarField", pp::newScalarField,
          return_value_policy<manage_new_object>());
   def("newNonSpatialField", pp::newNonSpatialFloatField,
          return_value_policy<manage_new_object>());
@@ -921,41 +927,76 @@ BOOST_PYTHON_MODULE(_pcraster)
   // "Calling this funtion greatly improves memory management.\n"
   // "Drawback not very nice if small RAM and many processes.\n");
 
-  def("report", pp::writeFilename,
-  "Write data from a file to a file.\n"
-  "\n"
-  "filename -- Filename of data you want to open and write.\n"
-  "filename -- Filename to use.\n");
+  def("report", pp::writeFilename, R"(
+   Write data from a file to a file.
 
-  def("report", pp::writeField,
-  "Write a map to a file.\n"
-  "\n"
-  "map -- Map you want to write.\n"
-  "filename -- Filename to use.\n");
+   filename -- Filename of data you want to open and write.
+   filename -- Filename to use.
+    )"
+  );
+
+  def("report", pp::writeField, R"(
+   Write a map to a file.
+
+   map -- Map you want to write.
+   filename -- Filename to use.
+    )"
+  );
 
   def("readmap", pp::readField,
-         return_value_policy<manage_new_object>(),
-  "Read a map.\n"
-  "\n"
-  "filename -- Filename of a map to read.\n");
+         return_value_policy<manage_new_object>(), R"(
+  Read a map.
 
-  def("cellvalue", pp::fieldGetCellIndex, cellvalue_idx_doc.c_str(),
+  filename -- Filename of a map to read.
+    )"
+  );
+
+  def("cellvalue", pp::fieldGetCellIndex, R"(
+   Return a cell value from a map.
+
+   map -- Map you want to query.
+
+   index -- Linear index of a cell in the map, ranging from
+            [1, number-of-cells].
+
+   Returns a tuple with two elements: the first is the cell value, the second
+   is a boolean value which shows whether the first element, is valid or not.
+   If the second element is False, the cell contains a missing value.
+
+   See also: cellvalue(map, row, col)
+    )",
     args("map", "index")
   );
 
-  def("cellvalue", pp::fieldGetCellRowCol, cellvalue_rc_doc.c_str(),
+  def("cellvalue", pp::fieldGetCellRowCol, R"(
+   Return a cell value from a map.
+
+   map -- Map you want to query.
+
+   row -- Row index of a cell in the map, ranging from [1, number-of-rows].
+
+   col -- Col index of a cell in the map, ranging from [1, number-of-cols].
+
+   Returns a tuple with two elements: the first is the cell value,
+   the second is a boolean value which shows whether the first element,
+   is valid or not.
+   If the second element is False, the cell contains a missing value.
+
+   See also: cellvalue(map, index)
+    )",
     args("map", "row", "col")
   );
 
-  def("setglobaloption", pp::setGlobalOption,
-  "Set the global option. The option argument must not contain the leading\n"
-  "dashes as used on the command line of pcrcalc.\n"
-  "\n"
-  "Python example:\n"
-  "  setglobaloption(\"unitcell\")\n"
-  "\n"
-  "The pcrcalc equivalent:\n"
-  "  pcrcalc --unitcell -f model.mod\n"
+  def("setglobaloption", pp::setGlobalOption, R"(
+   Set the global option. The option argument must not contain the leading
+   dashes as used on the command line of pcrcalc.
+
+   Python example:
+     setglobaloption("unitcell")
+
+   The pcrcalc equivalent:
+     pcrcalc --unitcell -f model.mod
+    )"
   );
 
   def("pcr2numpy", pcraster::python::field_to_array);

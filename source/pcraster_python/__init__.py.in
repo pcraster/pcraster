@@ -19,7 +19,6 @@ if sys.platform == "win32":
 try:
     try:
         from ._pcraster import *
-        from ._pcraster_modflow import *
     except ImportError as error:
         # Test matching Python versions
         major, minor, patchlevel = platform.python_version_tuple()
@@ -65,6 +64,11 @@ try:
     from . import operators
     from .aguila import *
     from .numpy_operations import *
+
+    try:
+        from ._pcraster_modflow import *
+    except ImportError:
+        pass  # Modflow module was not installed
 
     try:
         _var = "PCRASTER_NR_WORKER_THREADS"

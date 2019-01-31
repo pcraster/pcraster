@@ -79,7 +79,7 @@ matrix:
           before_script:
               - mkdir $TRAVIS_BUILD_DIR/build
               - cd $TRAVIS_BUILD_DIR/build
-              - CC=/usr/local/opt/llvm/bin/clang CXX=/usr/local/opt/llvm/bin/clang++ cmake -G"${TRAVIS_CMAKE_GENERATOR}" -DFERN_BUILD_ALGORITHM:BOOL=TRUE -DPCRASTER_BUILD_TEST:BOOL=TRUE ..
+              - CC=/usr/local/opt/llvm/bin/clang CXX=/usr/local/opt/llvm/bin/clang++ cmake -G"${TRAVIS_CMAKE_GENERATOR}" -DPCRASTER_BUILD_TEST:BOOL=TRUE ..
           script:
               - ./environment/travis/script.sh
 

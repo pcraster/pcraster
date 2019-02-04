@@ -129,7 +129,7 @@
         <xsl:value-of select="concat($indentation, '      if isinstance(', $argumentName, '[i], str):&#xa;')"/>
         <xsl:value-of select="concat($indentation, '        ', $argumentName, '[i] = _pcraster.readmap(', $argumentName, '[i])&#xa;')"/>
         <xsl:value-of select="concat($indentation, '      elif isinstance(', $argumentName, '[i], int) or isinstance(', $argumentName, '[i], float):&#xa;')"/>
-        <xsl:value-of select="concat($indentation, '        ', $argumentName, '[i] = _pcraster.newNonSpatialField(', $argumentName, '[i])&#xa;')"/>
+        <xsl:value-of select="concat($indentation, '        ', $argumentName, '[i] = _pcraster._newNonSpatialField(', $argumentName, '[i])&#xa;')"/>
       </xsl:when>
       <xsl:otherwise>
         <xsl:choose>
@@ -137,7 +137,7 @@
             <xsl:value-of select="concat($indentation, '    if isinstance(', $argumentName, ', str):&#xa;')"/>
             <xsl:value-of select="concat($indentation, '      ', $argumentName, ' = _pcraster.readmap(', $argumentName, ')&#xa;')"/>
             <xsl:value-of select="concat($indentation, '    elif isinstance(', $argumentName, ', int) or isinstance(', $argumentName, ', float):&#xa;')"/>
-            <xsl:value-of select="concat($indentation, '      ', $argumentName, ' = _pcraster.newNonSpatialField(', $argumentName, ')&#xa;')"/>
+            <xsl:value-of select="concat($indentation, '      ', $argumentName, ' = _pcraster._newNonSpatialField(', $argumentName, ')&#xa;')"/>
           </xsl:when>
           <xsl:otherwise>
             <xsl:value-of select="concat($indentation, '    ', $argumentName, ' = _pcraster.DataStorageId(', $argumentName, ')&#xa;')"/>

@@ -190,7 +190,7 @@ class Test(testcase.TestCase):
 
   def testNotEqualsLdd(self):
     ldd = pcraster.readmap("accu_Ldd.map")
-    nonSpatial = pcraster.newNonSpatialField(5)
+    nonSpatial = pcraster._pcraster._newNonSpatialField(5)
     raster = pcraster.pcrne("accu_Ldd.map", 5)
     value, isValid = pcraster.cellvalue(raster, 1)
     self.assertEqual(isValid, True)
@@ -206,7 +206,7 @@ class Test(testcase.TestCase):
     inputFilename = "and_Expr1.map"
     outputFilename = tempfile.NamedTemporaryFile().name
     pcraster.report(inputFilename, outputFilename)
-    self.failUnless(self.mapEqualsValidated(pcraster.readmap(inputFilename), outputFilename))
+    self.assertTrue(self.mapEqualsValidated(pcraster.readmap(inputFilename), outputFilename))
     os.remove(outputFilename)
 
   def testReportNonSpatial(self):

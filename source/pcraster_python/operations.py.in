@@ -5,11 +5,11 @@ def ifthen(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_IFTHEN)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -24,15 +24,15 @@ def ifthenelse(arg1, arg2, arg3):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_IFTHENELSE)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -48,11 +48,11 @@ def pcrne(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_NE)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -67,11 +67,11 @@ def pcreq(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_EQ)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -86,11 +86,11 @@ def pcrgt(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_GT)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -105,11 +105,11 @@ def pcrge(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_GE)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -124,11 +124,11 @@ def pcrlt(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_LT)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -143,11 +143,11 @@ def pcrle(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_LE)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -162,13 +162,13 @@ def min(arg1, *arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     arg2 = list(arg2)
     for i in range(len(arg2)):
       if isinstance(arg2[i], str):
         arg2[i] = _pcraster.readmap(arg2[i])
       elif isinstance(arg2[i], int) or isinstance(arg2[i], float):
-        arg2[i] = _pcraster.newNonSpatialField(arg2[i])
+        arg2[i] = _pcraster._newNonSpatialField(arg2[i])
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_MIN)
     results = []
     for i in range(len(arg2)):
@@ -185,13 +185,13 @@ def max(arg1, *arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     arg2 = list(arg2)
     for i in range(len(arg2)):
       if isinstance(arg2[i], str):
         arg2[i] = _pcraster.readmap(arg2[i])
       elif isinstance(arg2[i], int) or isinstance(arg2[i], float):
-        arg2[i] = _pcraster.newNonSpatialField(arg2[i])
+        arg2[i] = _pcraster._newNonSpatialField(arg2[i])
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_MAX)
     results = []
     for i in range(len(arg2)):
@@ -208,13 +208,13 @@ def cover(arg1, *arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     arg2 = list(arg2)
     for i in range(len(arg2)):
       if isinstance(arg2[i], str):
         arg2[i] = _pcraster.readmap(arg2[i])
       elif isinstance(arg2[i], int) or isinstance(arg2[i], float):
-        arg2[i] = _pcraster.newNonSpatialField(arg2[i])
+        arg2[i] = _pcraster._newNonSpatialField(arg2[i])
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_COVER)
     results = []
     for i in range(len(arg2)):
@@ -254,7 +254,7 @@ def timeinputmodulo(arg1, arg2):
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_TIMEINPUTMODULO)
     results = []
     _pcraster._rte().pushDataStorageId(arg1)
@@ -270,7 +270,7 @@ def lookupmapstack(arg1, arg2):
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_LOOKUPMAPSTACK)
     results = []
     _pcraster._rte().pushDataStorageId(arg1)
@@ -285,19 +285,19 @@ def spreadmax(arg1, arg2, arg3, arg4):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     if isinstance(arg4, str):
       arg4 = _pcraster.readmap(arg4)
     elif isinstance(arg4, int) or isinstance(arg4, float):
-      arg4 = _pcraster.newNonSpatialField(arg4)
+      arg4 = _pcraster._newNonSpatialField(arg4)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_SPREADMAX)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -314,19 +314,19 @@ def spreadmaxzone(arg1, arg2, arg3, arg4):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     if isinstance(arg4, str):
       arg4 = _pcraster.readmap(arg4)
     elif isinstance(arg4, int) or isinstance(arg4, float):
-      arg4 = _pcraster.newNonSpatialField(arg4)
+      arg4 = _pcraster._newNonSpatialField(arg4)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_SPREADMAXZONE)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -343,15 +343,15 @@ def spread(arg1, arg2, arg3):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_SPREAD)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -367,15 +367,15 @@ def spreadzone(arg1, arg2, arg3):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_SPREADZONE)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -391,19 +391,19 @@ def spreadldd(arg1, arg2, arg3, arg4):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     if isinstance(arg4, str):
       arg4 = _pcraster.readmap(arg4)
     elif isinstance(arg4, int) or isinstance(arg4, float):
-      arg4 = _pcraster.newNonSpatialField(arg4)
+      arg4 = _pcraster._newNonSpatialField(arg4)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_SPREADLDD)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -420,19 +420,19 @@ def spreadlddzone(arg1, arg2, arg3, arg4):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     if isinstance(arg4, str):
       arg4 = _pcraster.readmap(arg4)
     elif isinstance(arg4, int) or isinstance(arg4, float):
-      arg4 = _pcraster.newNonSpatialField(arg4)
+      arg4 = _pcraster._newNonSpatialField(arg4)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_SPREADLDDZONE)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -449,67 +449,67 @@ def dynamicwaveq(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, ar
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     if isinstance(arg4, str):
       arg4 = _pcraster.readmap(arg4)
     elif isinstance(arg4, int) or isinstance(arg4, float):
-      arg4 = _pcraster.newNonSpatialField(arg4)
+      arg4 = _pcraster._newNonSpatialField(arg4)
     if isinstance(arg5, str):
       arg5 = _pcraster.readmap(arg5)
     elif isinstance(arg5, int) or isinstance(arg5, float):
-      arg5 = _pcraster.newNonSpatialField(arg5)
+      arg5 = _pcraster._newNonSpatialField(arg5)
     if isinstance(arg6, str):
       arg6 = _pcraster.readmap(arg6)
     elif isinstance(arg6, int) or isinstance(arg6, float):
-      arg6 = _pcraster.newNonSpatialField(arg6)
+      arg6 = _pcraster._newNonSpatialField(arg6)
     if isinstance(arg7, str):
       arg7 = _pcraster.readmap(arg7)
     elif isinstance(arg7, int) or isinstance(arg7, float):
-      arg7 = _pcraster.newNonSpatialField(arg7)
+      arg7 = _pcraster._newNonSpatialField(arg7)
     if isinstance(arg8, str):
       arg8 = _pcraster.readmap(arg8)
     elif isinstance(arg8, int) or isinstance(arg8, float):
-      arg8 = _pcraster.newNonSpatialField(arg8)
+      arg8 = _pcraster._newNonSpatialField(arg8)
     if isinstance(arg9, str):
       arg9 = _pcraster.readmap(arg9)
     elif isinstance(arg9, int) or isinstance(arg9, float):
-      arg9 = _pcraster.newNonSpatialField(arg9)
+      arg9 = _pcraster._newNonSpatialField(arg9)
     if isinstance(arg10, str):
       arg10 = _pcraster.readmap(arg10)
     elif isinstance(arg10, int) or isinstance(arg10, float):
-      arg10 = _pcraster.newNonSpatialField(arg10)
+      arg10 = _pcraster._newNonSpatialField(arg10)
     if isinstance(arg11, str):
       arg11 = _pcraster.readmap(arg11)
     elif isinstance(arg11, int) or isinstance(arg11, float):
-      arg11 = _pcraster.newNonSpatialField(arg11)
+      arg11 = _pcraster._newNonSpatialField(arg11)
     if isinstance(arg12, str):
       arg12 = _pcraster.readmap(arg12)
     elif isinstance(arg12, int) or isinstance(arg12, float):
-      arg12 = _pcraster.newNonSpatialField(arg12)
+      arg12 = _pcraster._newNonSpatialField(arg12)
     if isinstance(arg13, str):
       arg13 = _pcraster.readmap(arg13)
     elif isinstance(arg13, int) or isinstance(arg13, float):
-      arg13 = _pcraster.newNonSpatialField(arg13)
+      arg13 = _pcraster._newNonSpatialField(arg13)
     if isinstance(arg14, str):
       arg14 = _pcraster.readmap(arg14)
     elif isinstance(arg14, int) or isinstance(arg14, float):
-      arg14 = _pcraster.newNonSpatialField(arg14)
+      arg14 = _pcraster._newNonSpatialField(arg14)
     if isinstance(arg15, str):
       arg15 = _pcraster.readmap(arg15)
     elif isinstance(arg15, int) or isinstance(arg15, float):
-      arg15 = _pcraster.newNonSpatialField(arg15)
+      arg15 = _pcraster._newNonSpatialField(arg15)
     if isinstance(arg16, str):
       arg16 = _pcraster.readmap(arg16)
     elif isinstance(arg16, int) or isinstance(arg16, float):
-      arg16 = _pcraster.newNonSpatialField(arg16)
+      arg16 = _pcraster._newNonSpatialField(arg16)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_DYNAMICWAVEQ)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -538,67 +538,67 @@ def dynamicwaveh(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, ar
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     if isinstance(arg4, str):
       arg4 = _pcraster.readmap(arg4)
     elif isinstance(arg4, int) or isinstance(arg4, float):
-      arg4 = _pcraster.newNonSpatialField(arg4)
+      arg4 = _pcraster._newNonSpatialField(arg4)
     if isinstance(arg5, str):
       arg5 = _pcraster.readmap(arg5)
     elif isinstance(arg5, int) or isinstance(arg5, float):
-      arg5 = _pcraster.newNonSpatialField(arg5)
+      arg5 = _pcraster._newNonSpatialField(arg5)
     if isinstance(arg6, str):
       arg6 = _pcraster.readmap(arg6)
     elif isinstance(arg6, int) or isinstance(arg6, float):
-      arg6 = _pcraster.newNonSpatialField(arg6)
+      arg6 = _pcraster._newNonSpatialField(arg6)
     if isinstance(arg7, str):
       arg7 = _pcraster.readmap(arg7)
     elif isinstance(arg7, int) or isinstance(arg7, float):
-      arg7 = _pcraster.newNonSpatialField(arg7)
+      arg7 = _pcraster._newNonSpatialField(arg7)
     if isinstance(arg8, str):
       arg8 = _pcraster.readmap(arg8)
     elif isinstance(arg8, int) or isinstance(arg8, float):
-      arg8 = _pcraster.newNonSpatialField(arg8)
+      arg8 = _pcraster._newNonSpatialField(arg8)
     if isinstance(arg9, str):
       arg9 = _pcraster.readmap(arg9)
     elif isinstance(arg9, int) or isinstance(arg9, float):
-      arg9 = _pcraster.newNonSpatialField(arg9)
+      arg9 = _pcraster._newNonSpatialField(arg9)
     if isinstance(arg10, str):
       arg10 = _pcraster.readmap(arg10)
     elif isinstance(arg10, int) or isinstance(arg10, float):
-      arg10 = _pcraster.newNonSpatialField(arg10)
+      arg10 = _pcraster._newNonSpatialField(arg10)
     if isinstance(arg11, str):
       arg11 = _pcraster.readmap(arg11)
     elif isinstance(arg11, int) or isinstance(arg11, float):
-      arg11 = _pcraster.newNonSpatialField(arg11)
+      arg11 = _pcraster._newNonSpatialField(arg11)
     if isinstance(arg12, str):
       arg12 = _pcraster.readmap(arg12)
     elif isinstance(arg12, int) or isinstance(arg12, float):
-      arg12 = _pcraster.newNonSpatialField(arg12)
+      arg12 = _pcraster._newNonSpatialField(arg12)
     if isinstance(arg13, str):
       arg13 = _pcraster.readmap(arg13)
     elif isinstance(arg13, int) or isinstance(arg13, float):
-      arg13 = _pcraster.newNonSpatialField(arg13)
+      arg13 = _pcraster._newNonSpatialField(arg13)
     if isinstance(arg14, str):
       arg14 = _pcraster.readmap(arg14)
     elif isinstance(arg14, int) or isinstance(arg14, float):
-      arg14 = _pcraster.newNonSpatialField(arg14)
+      arg14 = _pcraster._newNonSpatialField(arg14)
     if isinstance(arg15, str):
       arg15 = _pcraster.readmap(arg15)
     elif isinstance(arg15, int) or isinstance(arg15, float):
-      arg15 = _pcraster.newNonSpatialField(arg15)
+      arg15 = _pcraster._newNonSpatialField(arg15)
     if isinstance(arg16, str):
       arg16 = _pcraster.readmap(arg16)
     elif isinstance(arg16, int) or isinstance(arg16, float):
-      arg16 = _pcraster.newNonSpatialField(arg16)
+      arg16 = _pcraster._newNonSpatialField(arg16)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_DYNAMICWAVEH)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -627,7 +627,7 @@ def order(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_ORDER)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -641,11 +641,11 @@ def areaorder(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_AREAORDER)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -662,7 +662,7 @@ def argorder(*arg1):
       if isinstance(arg1[i], str):
         arg1[i] = _pcraster.readmap(arg1[i])
       elif isinstance(arg1[i], int) or isinstance(arg1[i], float):
-        arg1[i] = _pcraster.newNonSpatialField(arg1[i])
+        arg1[i] = _pcraster._newNonSpatialField(arg1[i])
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_ARGORDER)
     results = []
     for i in range(len(arg1)):
@@ -677,11 +677,11 @@ def argorderwithid(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_ARGORDERWITHID)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -696,11 +696,11 @@ def argorderarealimited(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_ARGORDERAREALIMITED)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -715,15 +715,15 @@ def argorderwithidarealimited(arg1, arg2, arg3):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_ARGORDERWITHIDAREALIMITED)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -739,15 +739,15 @@ def argorderaddarealimited(arg1, arg2, arg3):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_ARGORDERADDAREALIMITED)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -763,19 +763,19 @@ def argorderwithidaddarealimited(arg1, arg2, arg3, arg4):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     if isinstance(arg4, str):
       arg4 = _pcraster.readmap(arg4)
     elif isinstance(arg4, int) or isinstance(arg4, float):
-      arg4 = _pcraster.newNonSpatialField(arg4)
+      arg4 = _pcraster._newNonSpatialField(arg4)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_ARGORDERWITHIDADDAREALIMITED)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -792,11 +792,11 @@ def windowminimum(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_WINDOWMINIMUM)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -811,27 +811,27 @@ def brenner(arg1, arg2, arg3, arg4, arg5, arg6):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     if isinstance(arg4, str):
       arg4 = _pcraster.readmap(arg4)
     elif isinstance(arg4, int) or isinstance(arg4, float):
-      arg4 = _pcraster.newNonSpatialField(arg4)
+      arg4 = _pcraster._newNonSpatialField(arg4)
     if isinstance(arg5, str):
       arg5 = _pcraster.readmap(arg5)
     elif isinstance(arg5, int) or isinstance(arg5, float):
-      arg5 = _pcraster.newNonSpatialField(arg5)
+      arg5 = _pcraster._newNonSpatialField(arg5)
     if isinstance(arg6, str):
       arg6 = _pcraster.readmap(arg6)
     elif isinstance(arg6, int) or isinstance(arg6, float):
-      arg6 = _pcraster.newNonSpatialField(arg6)
+      arg6 = _pcraster._newNonSpatialField(arg6)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_BRENNER)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -850,11 +850,11 @@ def windowmaximum(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_WINDOWMAXIMUM)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -869,11 +869,11 @@ def windowdiversity(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_WINDOWDIVERSITY)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -888,11 +888,11 @@ def areadiversity(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_AREADIVERSITY)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -907,11 +907,11 @@ def areamajority(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_AREAMAJORITY)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -926,11 +926,11 @@ def windowmajority(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_WINDOWMAJORITY)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -945,11 +945,11 @@ def pcrmul(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_MUL)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -964,11 +964,11 @@ def pcrfdiv(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_FDIV)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -983,11 +983,11 @@ def pcrpow(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_POW)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1002,11 +1002,11 @@ def pcrmod(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_MOD)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1021,11 +1021,11 @@ def pcridiv(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_IDIV)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1040,7 +1040,7 @@ def pcruadd(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_UADD)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1054,7 +1054,7 @@ def pcrumin(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_UMIN)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1068,11 +1068,11 @@ def pcrbadd(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_BADD)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1087,11 +1087,11 @@ def pcrbmin(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_BMIN)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1107,7 +1107,7 @@ def timeinputscalar(arg1, arg2):
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_TIMEINPUTSCALAR)
     results = []
     _pcraster._rte().pushDataStorageId(arg1)
@@ -1123,7 +1123,7 @@ def timeinputdirectional(arg1, arg2):
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_TIMEINPUTDIRECTIONAL)
     results = []
     _pcraster._rte().pushDataStorageId(arg1)
@@ -1139,7 +1139,7 @@ def timeinputboolean(arg1, arg2):
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_TIMEINPUTBOOLEAN)
     results = []
     _pcraster._rte().pushDataStorageId(arg1)
@@ -1155,7 +1155,7 @@ def timeinputldd(arg1, arg2):
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_TIMEINPUTLDD)
     results = []
     _pcraster._rte().pushDataStorageId(arg1)
@@ -1171,7 +1171,7 @@ def timeinputnominal(arg1, arg2):
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_TIMEINPUTNOMINAL)
     results = []
     _pcraster._rte().pushDataStorageId(arg1)
@@ -1187,7 +1187,7 @@ def timeinputordinal(arg1, arg2):
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_TIMEINPUTORDINAL)
     results = []
     _pcraster._rte().pushDataStorageId(arg1)
@@ -1205,7 +1205,7 @@ def lookupnominal(arg1, *arg2):
       if isinstance(arg2[i], str):
         arg2[i] = _pcraster.readmap(arg2[i])
       elif isinstance(arg2[i], int) or isinstance(arg2[i], float):
-        arg2[i] = _pcraster.newNonSpatialField(arg2[i])
+        arg2[i] = _pcraster._newNonSpatialField(arg2[i])
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_LOOKUPNOMINAL)
     results = []
     _pcraster._rte().pushDataStorageId(arg1)
@@ -1224,7 +1224,7 @@ def lookupboolean(arg1, *arg2):
       if isinstance(arg2[i], str):
         arg2[i] = _pcraster.readmap(arg2[i])
       elif isinstance(arg2[i], int) or isinstance(arg2[i], float):
-        arg2[i] = _pcraster.newNonSpatialField(arg2[i])
+        arg2[i] = _pcraster._newNonSpatialField(arg2[i])
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_LOOKUPBOOLEAN)
     results = []
     _pcraster._rte().pushDataStorageId(arg1)
@@ -1243,7 +1243,7 @@ def lookupordinal(arg1, *arg2):
       if isinstance(arg2[i], str):
         arg2[i] = _pcraster.readmap(arg2[i])
       elif isinstance(arg2[i], int) or isinstance(arg2[i], float):
-        arg2[i] = _pcraster.newNonSpatialField(arg2[i])
+        arg2[i] = _pcraster._newNonSpatialField(arg2[i])
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_LOOKUPORDINAL)
     results = []
     _pcraster._rte().pushDataStorageId(arg1)
@@ -1262,7 +1262,7 @@ def lookupscalar(arg1, *arg2):
       if isinstance(arg2[i], str):
         arg2[i] = _pcraster.readmap(arg2[i])
       elif isinstance(arg2[i], int) or isinstance(arg2[i], float):
-        arg2[i] = _pcraster.newNonSpatialField(arg2[i])
+        arg2[i] = _pcraster._newNonSpatialField(arg2[i])
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_LOOKUPSCALAR)
     results = []
     _pcraster._rte().pushDataStorageId(arg1)
@@ -1279,7 +1279,7 @@ def lookuplinear(arg1, arg2):
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_LOOKUPLINEAR)
     results = []
     _pcraster._rte().pushDataStorageId(arg1)
@@ -1297,7 +1297,7 @@ def lookupdirectional(arg1, *arg2):
       if isinstance(arg2[i], str):
         arg2[i] = _pcraster.readmap(arg2[i])
       elif isinstance(arg2[i], int) or isinstance(arg2[i], float):
-        arg2[i] = _pcraster.newNonSpatialField(arg2[i])
+        arg2[i] = _pcraster._newNonSpatialField(arg2[i])
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_LOOKUPDIRECTIONAL)
     results = []
     _pcraster._rte().pushDataStorageId(arg1)
@@ -1316,7 +1316,7 @@ def lookupldd(arg1, *arg2):
       if isinstance(arg2[i], str):
         arg2[i] = _pcraster.readmap(arg2[i])
       elif isinstance(arg2[i], int) or isinstance(arg2[i], float):
-        arg2[i] = _pcraster.newNonSpatialField(arg2[i])
+        arg2[i] = _pcraster._newNonSpatialField(arg2[i])
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_LOOKUPLDD)
     results = []
     _pcraster._rte().pushDataStorageId(arg1)
@@ -1348,7 +1348,7 @@ def ldd(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_LDD)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1362,7 +1362,7 @@ def directional(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_DIRECTIONAL)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1376,7 +1376,7 @@ def scalar(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_SCALAR)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1390,7 +1390,7 @@ def boolean(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_BOOLEAN_)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1404,7 +1404,7 @@ def nominal(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_NOMINAL)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1418,7 +1418,7 @@ def ordinal(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_ORDINAL)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1432,11 +1432,11 @@ def pcrand(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_AND_)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1451,11 +1451,11 @@ def pcror(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_OR_)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1470,11 +1470,11 @@ def pcrxor(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_XOR_)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1489,7 +1489,7 @@ def pcrnot(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_NOT_)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1503,7 +1503,7 @@ def sin(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_SIN)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1517,7 +1517,7 @@ def cos(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_COS)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1531,7 +1531,7 @@ def tan(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_TAN)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1545,7 +1545,7 @@ def asin(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_ASIN)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1559,7 +1559,7 @@ def acos(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_ACOS)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1573,7 +1573,7 @@ def atan(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_ATAN)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1587,7 +1587,7 @@ def abs(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_ABS)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1601,7 +1601,7 @@ def exp(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_EXP)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1615,7 +1615,7 @@ def fac(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_FAC)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1629,7 +1629,7 @@ def rounddown(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_ROUNDDOWN)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1643,7 +1643,7 @@ def ln(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_LN)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1657,7 +1657,7 @@ def log10(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_LOG10)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1671,7 +1671,7 @@ def roundup(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_ROUNDUP)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1685,7 +1685,7 @@ def roundoff(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_ROUNDOFF)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1699,7 +1699,7 @@ def sqrt(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_SQRT)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1713,7 +1713,7 @@ def sqr(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_SQR)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1727,7 +1727,7 @@ def normal(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_NORMAL)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1741,7 +1741,7 @@ def uniform(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_UNIFORM)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1755,7 +1755,7 @@ def xcoordinate(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_XCOORDINATE)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1769,7 +1769,7 @@ def ycoordinate(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_YCOORDINATE)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1783,7 +1783,7 @@ def uniqueid(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_UNIQUEID)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1797,15 +1797,15 @@ def move(arg1, arg2, arg3):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_MOVE)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1821,15 +1821,15 @@ def shift(arg1, arg2, arg3):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_SHIFT)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1845,15 +1845,15 @@ def shift0(arg1, arg2, arg3):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_SHIFT0)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1923,7 +1923,7 @@ def succ(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_SUCC)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1937,7 +1937,7 @@ def pred(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_PRED)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1951,7 +1951,7 @@ def pit(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_PIT)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1965,7 +1965,7 @@ def nodirection(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_NODIRECTION)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1979,7 +1979,7 @@ def mapminimum(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_MAPMINIMUM)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -1993,7 +1993,7 @@ def mapmaximum(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_MAPMAXIMUM)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -2007,7 +2007,7 @@ def defined(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_DEFINED)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -2021,7 +2021,7 @@ def maparea(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_MAPAREA)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -2035,7 +2035,7 @@ def spatial(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_SPATIAL)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -2049,11 +2049,11 @@ def accustate(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_ACCUSTATE)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -2068,11 +2068,11 @@ def accuflux(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_ACCUFLUX)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -2087,39 +2087,39 @@ def muskingum(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     if isinstance(arg4, str):
       arg4 = _pcraster.readmap(arg4)
     elif isinstance(arg4, int) or isinstance(arg4, float):
-      arg4 = _pcraster.newNonSpatialField(arg4)
+      arg4 = _pcraster._newNonSpatialField(arg4)
     if isinstance(arg5, str):
       arg5 = _pcraster.readmap(arg5)
     elif isinstance(arg5, int) or isinstance(arg5, float):
-      arg5 = _pcraster.newNonSpatialField(arg5)
+      arg5 = _pcraster._newNonSpatialField(arg5)
     if isinstance(arg6, str):
       arg6 = _pcraster.readmap(arg6)
     elif isinstance(arg6, int) or isinstance(arg6, float):
-      arg6 = _pcraster.newNonSpatialField(arg6)
+      arg6 = _pcraster._newNonSpatialField(arg6)
     if isinstance(arg7, str):
       arg7 = _pcraster.readmap(arg7)
     elif isinstance(arg7, int) or isinstance(arg7, float):
-      arg7 = _pcraster.newNonSpatialField(arg7)
+      arg7 = _pcraster._newNonSpatialField(arg7)
     if isinstance(arg8, str):
       arg8 = _pcraster.readmap(arg8)
     elif isinstance(arg8, int) or isinstance(arg8, float):
-      arg8 = _pcraster.newNonSpatialField(arg8)
+      arg8 = _pcraster._newNonSpatialField(arg8)
     if isinstance(arg9, str):
       arg9 = _pcraster.readmap(arg9)
     elif isinstance(arg9, int) or isinstance(arg9, float):
-      arg9 = _pcraster.newNonSpatialField(arg9)
+      arg9 = _pcraster._newNonSpatialField(arg9)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_MUSKINGUM)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -2142,43 +2142,43 @@ def dynwavestate(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, ar
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     if isinstance(arg4, str):
       arg4 = _pcraster.readmap(arg4)
     elif isinstance(arg4, int) or isinstance(arg4, float):
-      arg4 = _pcraster.newNonSpatialField(arg4)
+      arg4 = _pcraster._newNonSpatialField(arg4)
     if isinstance(arg5, str):
       arg5 = _pcraster.readmap(arg5)
     elif isinstance(arg5, int) or isinstance(arg5, float):
-      arg5 = _pcraster.newNonSpatialField(arg5)
+      arg5 = _pcraster._newNonSpatialField(arg5)
     if isinstance(arg6, str):
       arg6 = _pcraster.readmap(arg6)
     elif isinstance(arg6, int) or isinstance(arg6, float):
-      arg6 = _pcraster.newNonSpatialField(arg6)
+      arg6 = _pcraster._newNonSpatialField(arg6)
     if isinstance(arg7, str):
       arg7 = _pcraster.readmap(arg7)
     elif isinstance(arg7, int) or isinstance(arg7, float):
-      arg7 = _pcraster.newNonSpatialField(arg7)
+      arg7 = _pcraster._newNonSpatialField(arg7)
     if isinstance(arg8, str):
       arg8 = _pcraster.readmap(arg8)
     elif isinstance(arg8, int) or isinstance(arg8, float):
-      arg8 = _pcraster.newNonSpatialField(arg8)
+      arg8 = _pcraster._newNonSpatialField(arg8)
     if isinstance(arg9, str):
       arg9 = _pcraster.readmap(arg9)
     elif isinstance(arg9, int) or isinstance(arg9, float):
-      arg9 = _pcraster.newNonSpatialField(arg9)
+      arg9 = _pcraster._newNonSpatialField(arg9)
     if isinstance(arg10, str):
       arg10 = _pcraster.readmap(arg10)
     elif isinstance(arg10, int) or isinstance(arg10, float):
-      arg10 = _pcraster.newNonSpatialField(arg10)
+      arg10 = _pcraster._newNonSpatialField(arg10)
     if isinstance(arg11, str):
       arg11 = _pcraster.readmap(arg11)
     elif isinstance(arg11, int) or isinstance(arg11, float):
-      arg11 = _pcraster.newNonSpatialField(arg11)
+      arg11 = _pcraster._newNonSpatialField(arg11)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_DYNWAVESTATE)
     results = []
     _pcraster._rte().pushDataStorageId(arg1)
@@ -2203,43 +2203,43 @@ def dynwaveflux(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     if isinstance(arg4, str):
       arg4 = _pcraster.readmap(arg4)
     elif isinstance(arg4, int) or isinstance(arg4, float):
-      arg4 = _pcraster.newNonSpatialField(arg4)
+      arg4 = _pcraster._newNonSpatialField(arg4)
     if isinstance(arg5, str):
       arg5 = _pcraster.readmap(arg5)
     elif isinstance(arg5, int) or isinstance(arg5, float):
-      arg5 = _pcraster.newNonSpatialField(arg5)
+      arg5 = _pcraster._newNonSpatialField(arg5)
     if isinstance(arg6, str):
       arg6 = _pcraster.readmap(arg6)
     elif isinstance(arg6, int) or isinstance(arg6, float):
-      arg6 = _pcraster.newNonSpatialField(arg6)
+      arg6 = _pcraster._newNonSpatialField(arg6)
     if isinstance(arg7, str):
       arg7 = _pcraster.readmap(arg7)
     elif isinstance(arg7, int) or isinstance(arg7, float):
-      arg7 = _pcraster.newNonSpatialField(arg7)
+      arg7 = _pcraster._newNonSpatialField(arg7)
     if isinstance(arg8, str):
       arg8 = _pcraster.readmap(arg8)
     elif isinstance(arg8, int) or isinstance(arg8, float):
-      arg8 = _pcraster.newNonSpatialField(arg8)
+      arg8 = _pcraster._newNonSpatialField(arg8)
     if isinstance(arg9, str):
       arg9 = _pcraster.readmap(arg9)
     elif isinstance(arg9, int) or isinstance(arg9, float):
-      arg9 = _pcraster.newNonSpatialField(arg9)
+      arg9 = _pcraster._newNonSpatialField(arg9)
     if isinstance(arg10, str):
       arg10 = _pcraster.readmap(arg10)
     elif isinstance(arg10, int) or isinstance(arg10, float):
-      arg10 = _pcraster.newNonSpatialField(arg10)
+      arg10 = _pcraster._newNonSpatialField(arg10)
     if isinstance(arg11, str):
       arg11 = _pcraster.readmap(arg11)
     elif isinstance(arg11, int) or isinstance(arg11, float):
-      arg11 = _pcraster.newNonSpatialField(arg11)
+      arg11 = _pcraster._newNonSpatialField(arg11)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_DYNWAVEFLUX)
     results = []
     _pcraster._rte().pushDataStorageId(arg1)
@@ -2264,19 +2264,19 @@ def lookupstate(arg1, arg2, arg3, arg4, arg5):
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     if isinstance(arg4, str):
       arg4 = _pcraster.readmap(arg4)
     elif isinstance(arg4, int) or isinstance(arg4, float):
-      arg4 = _pcraster.newNonSpatialField(arg4)
+      arg4 = _pcraster._newNonSpatialField(arg4)
     if isinstance(arg5, str):
       arg5 = _pcraster.readmap(arg5)
     elif isinstance(arg5, int) or isinstance(arg5, float):
-      arg5 = _pcraster.newNonSpatialField(arg5)
+      arg5 = _pcraster._newNonSpatialField(arg5)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_LOOKUPSTATE)
     results = []
     _pcraster._rte().pushDataStorageId(arg1)
@@ -2295,19 +2295,19 @@ def lookuppotential(arg1, arg2, arg3, arg4, arg5):
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     if isinstance(arg4, str):
       arg4 = _pcraster.readmap(arg4)
     elif isinstance(arg4, int) or isinstance(arg4, float):
-      arg4 = _pcraster.newNonSpatialField(arg4)
+      arg4 = _pcraster._newNonSpatialField(arg4)
     if isinstance(arg5, str):
       arg5 = _pcraster.readmap(arg5)
     elif isinstance(arg5, int) or isinstance(arg5, float):
-      arg5 = _pcraster.newNonSpatialField(arg5)
+      arg5 = _pcraster._newNonSpatialField(arg5)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_LOOKUPPOTENTIAL)
     results = []
     _pcraster._rte().pushDataStorageId(arg1)
@@ -2325,15 +2325,15 @@ def accucapacitystate(arg1, arg2, arg3):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_ACCUCAPACITYSTATE)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -2349,15 +2349,15 @@ def accucapacityflux(arg1, arg2, arg3):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_ACCUCAPACITYFLUX)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -2373,15 +2373,15 @@ def accuthresholdstate(arg1, arg2, arg3):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_ACCUTHRESHOLDSTATE)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -2397,15 +2397,15 @@ def accuthresholdflux(arg1, arg2, arg3):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_ACCUTHRESHOLDFLUX)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -2421,15 +2421,15 @@ def accufractionstate(arg1, arg2, arg3):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_ACCUFRACTIONSTATE)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -2445,15 +2445,15 @@ def accufractionflux(arg1, arg2, arg3):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_ACCUFRACTIONFLUX)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -2469,15 +2469,15 @@ def accutriggerstate(arg1, arg2, arg3):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_ACCUTRIGGERSTATE)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -2493,15 +2493,15 @@ def accutriggerflux(arg1, arg2, arg3):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_ACCUTRIGGERFLUX)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -2517,15 +2517,15 @@ def accutraveltimestate(arg1, arg2, arg3):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_ACCUTRAVELTIMESTATE)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -2541,15 +2541,15 @@ def accutraveltimeflux(arg1, arg2, arg3):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_ACCUTRAVELTIMEFLUX)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -2565,19 +2565,19 @@ def accutraveltimefractionremoved(arg1, arg2, arg3, arg4):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     if isinstance(arg4, str):
       arg4 = _pcraster.readmap(arg4)
     elif isinstance(arg4, int) or isinstance(arg4, float):
-      arg4 = _pcraster.newNonSpatialField(arg4)
+      arg4 = _pcraster._newNonSpatialField(arg4)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_ACCUTRAVELTIMEFRACTIONREMOVED)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -2594,19 +2594,19 @@ def accutraveltimefractionstate(arg1, arg2, arg3, arg4):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     if isinstance(arg4, str):
       arg4 = _pcraster.readmap(arg4)
     elif isinstance(arg4, int) or isinstance(arg4, float):
-      arg4 = _pcraster.newNonSpatialField(arg4)
+      arg4 = _pcraster._newNonSpatialField(arg4)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_ACCUTRAVELTIMEFRACTIONSTATE)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -2623,19 +2623,19 @@ def accutraveltimefractionflux(arg1, arg2, arg3, arg4):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     if isinstance(arg4, str):
       arg4 = _pcraster.readmap(arg4)
     elif isinstance(arg4, int) or isinstance(arg4, float):
-      arg4 = _pcraster.newNonSpatialField(arg4)
+      arg4 = _pcraster._newNonSpatialField(arg4)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_ACCUTRAVELTIMEFRACTIONFLUX)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -2652,15 +2652,15 @@ def diffusestate(arg1, arg2, arg3):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_DIFFUSESTATE)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -2676,15 +2676,15 @@ def diffuseflux(arg1, arg2, arg3):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_DIFFUSEFLUX)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -2700,35 +2700,35 @@ def kinwavestate(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     if isinstance(arg4, str):
       arg4 = _pcraster.readmap(arg4)
     elif isinstance(arg4, int) or isinstance(arg4, float):
-      arg4 = _pcraster.newNonSpatialField(arg4)
+      arg4 = _pcraster._newNonSpatialField(arg4)
     if isinstance(arg5, str):
       arg5 = _pcraster.readmap(arg5)
     elif isinstance(arg5, int) or isinstance(arg5, float):
-      arg5 = _pcraster.newNonSpatialField(arg5)
+      arg5 = _pcraster._newNonSpatialField(arg5)
     if isinstance(arg6, str):
       arg6 = _pcraster.readmap(arg6)
     elif isinstance(arg6, int) or isinstance(arg6, float):
-      arg6 = _pcraster.newNonSpatialField(arg6)
+      arg6 = _pcraster._newNonSpatialField(arg6)
     if isinstance(arg7, str):
       arg7 = _pcraster.readmap(arg7)
     elif isinstance(arg7, int) or isinstance(arg7, float):
-      arg7 = _pcraster.newNonSpatialField(arg7)
+      arg7 = _pcraster._newNonSpatialField(arg7)
     if isinstance(arg8, str):
       arg8 = _pcraster.readmap(arg8)
     elif isinstance(arg8, int) or isinstance(arg8, float):
-      arg8 = _pcraster.newNonSpatialField(arg8)
+      arg8 = _pcraster._newNonSpatialField(arg8)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_KINWAVESTATE)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -2749,35 +2749,35 @@ def kinwaveflux(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     if isinstance(arg4, str):
       arg4 = _pcraster.readmap(arg4)
     elif isinstance(arg4, int) or isinstance(arg4, float):
-      arg4 = _pcraster.newNonSpatialField(arg4)
+      arg4 = _pcraster._newNonSpatialField(arg4)
     if isinstance(arg5, str):
       arg5 = _pcraster.readmap(arg5)
     elif isinstance(arg5, int) or isinstance(arg5, float):
-      arg5 = _pcraster.newNonSpatialField(arg5)
+      arg5 = _pcraster._newNonSpatialField(arg5)
     if isinstance(arg6, str):
       arg6 = _pcraster.readmap(arg6)
     elif isinstance(arg6, int) or isinstance(arg6, float):
-      arg6 = _pcraster.newNonSpatialField(arg6)
+      arg6 = _pcraster._newNonSpatialField(arg6)
     if isinstance(arg7, str):
       arg7 = _pcraster.readmap(arg7)
     elif isinstance(arg7, int) or isinstance(arg7, float):
-      arg7 = _pcraster.newNonSpatialField(arg7)
+      arg7 = _pcraster._newNonSpatialField(arg7)
     if isinstance(arg8, str):
       arg8 = _pcraster.readmap(arg8)
     elif isinstance(arg8, int) or isinstance(arg8, float):
-      arg8 = _pcraster.newNonSpatialField(arg8)
+      arg8 = _pcraster._newNonSpatialField(arg8)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_KINWAVEFLUX)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -2798,35 +2798,35 @@ def kinematic(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     if isinstance(arg4, str):
       arg4 = _pcraster.readmap(arg4)
     elif isinstance(arg4, int) or isinstance(arg4, float):
-      arg4 = _pcraster.newNonSpatialField(arg4)
+      arg4 = _pcraster._newNonSpatialField(arg4)
     if isinstance(arg5, str):
       arg5 = _pcraster.readmap(arg5)
     elif isinstance(arg5, int) or isinstance(arg5, float):
-      arg5 = _pcraster.newNonSpatialField(arg5)
+      arg5 = _pcraster._newNonSpatialField(arg5)
     if isinstance(arg6, str):
       arg6 = _pcraster.readmap(arg6)
     elif isinstance(arg6, int) or isinstance(arg6, float):
-      arg6 = _pcraster.newNonSpatialField(arg6)
+      arg6 = _pcraster._newNonSpatialField(arg6)
     if isinstance(arg7, str):
       arg7 = _pcraster.readmap(arg7)
     elif isinstance(arg7, int) or isinstance(arg7, float):
-      arg7 = _pcraster.newNonSpatialField(arg7)
+      arg7 = _pcraster._newNonSpatialField(arg7)
     if isinstance(arg8, str):
       arg8 = _pcraster.readmap(arg8)
     elif isinstance(arg8, int) or isinstance(arg8, float):
-      arg8 = _pcraster.newNonSpatialField(arg8)
+      arg8 = _pcraster._newNonSpatialField(arg8)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_KINEMATIC)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -2849,7 +2849,7 @@ def maptotal(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_MAPTOTAL)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -2863,7 +2863,7 @@ def mapand(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_MAPAND)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -2877,7 +2877,7 @@ def mapor(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_MAPOR)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -2891,7 +2891,7 @@ def areaarea(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_AREAAREA)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -2905,7 +2905,7 @@ def clump(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_CLUMP)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -2919,11 +2919,11 @@ def drain(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_DRAIN)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -2938,11 +2938,11 @@ def path(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_PATH)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -2957,7 +2957,7 @@ def aspect(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_ASPECT)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -2971,7 +2971,7 @@ def slope(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_SLOPE)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -2985,7 +2985,7 @@ def window4total(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_WINDOW4TOTAL)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -2999,7 +2999,7 @@ def profcurv(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_PROFCURV)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -3013,7 +3013,7 @@ def plancurv(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_PLANCURV)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -3027,11 +3027,11 @@ def view(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_VIEW)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -3046,11 +3046,11 @@ def extentofview(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_EXTENTOFVIEW)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -3065,23 +3065,23 @@ def inversedistance(arg1, arg2, arg3, arg4, arg5):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     if isinstance(arg4, str):
       arg4 = _pcraster.readmap(arg4)
     elif isinstance(arg4, int) or isinstance(arg4, float):
-      arg4 = _pcraster.newNonSpatialField(arg4)
+      arg4 = _pcraster._newNonSpatialField(arg4)
     if isinstance(arg5, str):
       arg5 = _pcraster.readmap(arg5)
     elif isinstance(arg5, int) or isinstance(arg5, float):
-      arg5 = _pcraster.newNonSpatialField(arg5)
+      arg5 = _pcraster._newNonSpatialField(arg5)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_INVERSEDISTANCE)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -3099,11 +3099,11 @@ def catchment(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_CATCHMENT)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -3118,11 +3118,11 @@ def subcatchment(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_SUBCATCHMENT)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -3137,11 +3137,11 @@ def windowaverage(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_WINDOWAVERAGE)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -3156,15 +3156,15 @@ def markwhilesumle(arg1, arg2, arg3):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_MARKWHILESUMLE)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -3180,15 +3180,15 @@ def markwhilesumge(arg1, arg2, arg3):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_MARKWHILESUMGE)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -3204,19 +3204,19 @@ def ellipseaverage(arg1, arg2, arg3, arg4):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     if isinstance(arg4, str):
       arg4 = _pcraster.readmap(arg4)
     elif isinstance(arg4, int) or isinstance(arg4, float):
-      arg4 = _pcraster.newNonSpatialField(arg4)
+      arg4 = _pcraster._newNonSpatialField(arg4)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_ELLIPSEAVERAGE)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -3233,15 +3233,15 @@ def influencesimplegauss(arg1, arg2, arg3):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_INFLUENCESIMPLEGAUSS)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -3257,15 +3257,15 @@ def distributesimplegauss(arg1, arg2, arg3):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_DISTRIBUTESIMPLEGAUSS)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -3281,15 +3281,15 @@ def ibngauss(arg1, arg2, arg3):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_IBNGAUSS)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -3305,11 +3305,11 @@ def horizontan(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_HORIZONTAN)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -3324,11 +3324,11 @@ def catchmenttotal(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_CATCHMENTTOTAL)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -3343,11 +3343,11 @@ def areamaximum(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_AREAMAXIMUM)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -3362,11 +3362,11 @@ def areaminimum(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_AREAMINIMUM)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -3381,11 +3381,11 @@ def areaaverage(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_AREAAVERAGE)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -3400,11 +3400,11 @@ def areatotal(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_AREATOTAL)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -3419,7 +3419,7 @@ def areauniform(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_AREAUNIFORM)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -3433,7 +3433,7 @@ def areanormal(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_AREANORMAL)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -3447,11 +3447,11 @@ def windowtotal(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_WINDOWTOTAL)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -3466,11 +3466,11 @@ def windowhighpass(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_WINDOWHIGHPASS)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -3485,15 +3485,15 @@ def ldddist(arg1, arg2, arg3):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_LDDDIST)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -3509,11 +3509,11 @@ def upstream(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_UPSTREAM)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -3528,7 +3528,7 @@ def streamorder(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_STREAMORDER)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -3542,31 +3542,31 @@ def transient(arg1, arg2, arg3, arg4, arg5, arg6, arg7):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     if isinstance(arg4, str):
       arg4 = _pcraster.readmap(arg4)
     elif isinstance(arg4, int) or isinstance(arg4, float):
-      arg4 = _pcraster.newNonSpatialField(arg4)
+      arg4 = _pcraster._newNonSpatialField(arg4)
     if isinstance(arg5, str):
       arg5 = _pcraster.readmap(arg5)
     elif isinstance(arg5, int) or isinstance(arg5, float):
-      arg5 = _pcraster.newNonSpatialField(arg5)
+      arg5 = _pcraster._newNonSpatialField(arg5)
     if isinstance(arg6, str):
       arg6 = _pcraster.readmap(arg6)
     elif isinstance(arg6, int) or isinstance(arg6, float):
-      arg6 = _pcraster.newNonSpatialField(arg6)
+      arg6 = _pcraster._newNonSpatialField(arg6)
     if isinstance(arg7, str):
       arg7 = _pcraster.readmap(arg7)
     elif isinstance(arg7, int) or isinstance(arg7, float):
-      arg7 = _pcraster.newNonSpatialField(arg7)
+      arg7 = _pcraster._newNonSpatialField(arg7)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_TRANSIENT)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -3586,11 +3586,11 @@ def downstream(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_DOWNSTREAM)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -3605,7 +3605,7 @@ def downstreamdist(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_DOWNSTREAMDIST)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -3619,11 +3619,11 @@ def lddmask(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_LDDMASK)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -3638,7 +3638,7 @@ def lddrepair(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_LDDREPAIR)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -3652,11 +3652,11 @@ def slopelength(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_SLOPELENGTH)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -3671,23 +3671,23 @@ def lddcreate(arg1, arg2, arg3, arg4, arg5):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     if isinstance(arg4, str):
       arg4 = _pcraster.readmap(arg4)
     elif isinstance(arg4, int) or isinstance(arg4, float):
-      arg4 = _pcraster.newNonSpatialField(arg4)
+      arg4 = _pcraster._newNonSpatialField(arg4)
     if isinstance(arg5, str):
       arg5 = _pcraster.readmap(arg5)
     elif isinstance(arg5, int) or isinstance(arg5, float):
-      arg5 = _pcraster.newNonSpatialField(arg5)
+      arg5 = _pcraster._newNonSpatialField(arg5)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_LDDCREATE)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -3705,23 +3705,23 @@ def lddcreatedem(arg1, arg2, arg3, arg4, arg5):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     if isinstance(arg4, str):
       arg4 = _pcraster.readmap(arg4)
     elif isinstance(arg4, int) or isinstance(arg4, float):
-      arg4 = _pcraster.newNonSpatialField(arg4)
+      arg4 = _pcraster._newNonSpatialField(arg4)
     if isinstance(arg5, str):
       arg5 = _pcraster.readmap(arg5)
     elif isinstance(arg5, int) or isinstance(arg5, float):
-      arg5 = _pcraster.newNonSpatialField(arg5)
+      arg5 = _pcraster._newNonSpatialField(arg5)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_LDDCREATEDEM)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -3739,23 +3739,23 @@ def lddcreatend(arg1, arg2, arg3, arg4, arg5):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     if isinstance(arg4, str):
       arg4 = _pcraster.readmap(arg4)
     elif isinstance(arg4, int) or isinstance(arg4, float):
-      arg4 = _pcraster.newNonSpatialField(arg4)
+      arg4 = _pcraster._newNonSpatialField(arg4)
     if isinstance(arg5, str):
       arg5 = _pcraster.readmap(arg5)
     elif isinstance(arg5, int) or isinstance(arg5, float):
-      arg5 = _pcraster.newNonSpatialField(arg5)
+      arg5 = _pcraster._newNonSpatialField(arg5)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_LDDCREATEND)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -3773,23 +3773,23 @@ def lddcreatenddem(arg1, arg2, arg3, arg4, arg5):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     if isinstance(arg4, str):
       arg4 = _pcraster.readmap(arg4)
     elif isinstance(arg4, int) or isinstance(arg4, float):
-      arg4 = _pcraster.newNonSpatialField(arg4)
+      arg4 = _pcraster._newNonSpatialField(arg4)
     if isinstance(arg5, str):
       arg5 = _pcraster.readmap(arg5)
     elif isinstance(arg5, int) or isinstance(arg5, float):
-      arg5 = _pcraster.newNonSpatialField(arg5)
+      arg5 = _pcraster._newNonSpatialField(arg5)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_LDDCREATENDDEM)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -3807,15 +3807,15 @@ def riksfraction(arg1, arg2, arg3):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_RIKSFRACTION)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -3831,15 +3831,15 @@ def squarefraction(arg1, arg2, arg3):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_SQUAREFRACTION)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -3855,7 +3855,7 @@ def gradx(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_GRADX)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -3869,7 +3869,7 @@ def grady(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_GRADY)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -3883,11 +3883,11 @@ def divergence(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_DIVERGENCE)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -3902,19 +3902,19 @@ def diver(arg1, arg2, arg3, arg4):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     if isinstance(arg3, str):
       arg3 = _pcraster.readmap(arg3)
     elif isinstance(arg3, int) or isinstance(arg3, float):
-      arg3 = _pcraster.newNonSpatialField(arg3)
+      arg3 = _pcraster._newNonSpatialField(arg3)
     if isinstance(arg4, str):
       arg4 = _pcraster.readmap(arg4)
     elif isinstance(arg4, int) or isinstance(arg4, float):
-      arg4 = _pcraster.newNonSpatialField(arg4)
+      arg4 = _pcraster._newNonSpatialField(arg4)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_DIVER)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -3931,11 +3931,11 @@ def lax(arg1, arg2):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):
       arg2 = _pcraster.readmap(arg2)
     elif isinstance(arg2, int) or isinstance(arg2, float):
-      arg2 = _pcraster.newNonSpatialField(arg2)
+      arg2 = _pcraster._newNonSpatialField(arg2)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_LAX)
     results = []
     _pcraster._rte().pushField(arg1)
@@ -3950,7 +3950,7 @@ def laplacian(arg1):
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster.newNonSpatialField(arg1)
+      arg1 = _pcraster._newNonSpatialField(arg1)
     operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_LAPLACIAN)
     results = []
     _pcraster._rte().pushField(arg1)

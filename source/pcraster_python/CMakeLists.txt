@@ -26,8 +26,8 @@ file(SHA1 ${CMAKE_CURRENT_BINARY_DIR}/operations.inc operations_inc_checksum)
 file(SHA1 ${CMAKE_CURRENT_BINARY_DIR}/operations.py operations_py_checksum)
 
 if( ( NOT ${op_expanded} STREQUAL "c1d7687a22a7e88a3637515554dd54e4f3779c2d" ) OR
-    ( NOT ${operations_inc_checksum} STREQUAL "a7f4dc5eabd251bc6b12c1489f49dc68d7be9aa4" ) OR
-    ( NOT ${operations_py_checksum} STREQUAL "6827dcdd46a9848aa4b80d3f0cfac1d2335dce1f" )
+    ( NOT ${operations_inc_checksum} STREQUAL "7243dd868783932242340c7ee7b8d582209b4eac" ) OR
+    ( NOT ${operations_py_checksum} STREQUAL "e6c8a30de233ef2a567789deeaf79239da6dc654" )
   )
     message(FATAL_ERROR "The files operations.inc or operations.py are older than one of their dependencies. Update operations.inc.in or operations.py.in first; or contact the PCRaster Research and Development team in case you don't know how to proceed.")
     # This is the previously executed command, results in something
@@ -51,7 +51,7 @@ add_library(_pcraster SHARED
     numpy_conversion
     PCRaster.cc
     value_scale_traits
-    pickle
+#    pickle
     # operations.inc needs to be manually updated in case the
     # operation.xml, OperationToWrapper.xsl or
     # OperationsToWrappers.xsl change
@@ -72,18 +72,19 @@ target_include_directories(_pcraster
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
 )
 # workaround to ignore warnings of these headers
-target_include_directories(_pcraster SYSTEM
-     PRIVATE
-        ${NUMPY_INCLUDE_DIRS}
-        ${PYTHON_INCLUDE_DIR}
-)
+# target_include_directories(_pcraster SYSTEM
+#      PRIVATE
+# #        ${NUMPY_INCLUDE_DIRS}
+# #        ${PYTHON_INCLUDE_DIR}
+# )
 
 target_link_libraries(_pcraster
     PUBLIC
         pcraster::python::utils
-        ${PCR_BOOST_PYTHON_NUMPY}
-        ${PCR_BOOST_PYTHON}
-        ${PYTHON_LIBRARIES}
+#        ${PCR_BOOST_PYTHON_NUMPY}
+#        ${PCR_BOOST_PYTHON}
+#        ${PYTHON_LIBRARIES}
+        pybind11::module
 )
 
 configure_python_extension(_pcraster

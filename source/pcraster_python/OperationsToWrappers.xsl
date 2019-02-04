@@ -37,7 +37,7 @@ import pcraster._pcraster as _pcraster&#xA;</xsl:text>
 #include "major_op.h"
 #define INCLUDED_MAJOR_OP
 #endif
-enum_&lt;MAJOR_CODE&gt;("MAJOR_CODE")&#xA;</xsl:text>
+enum_&lt;MAJOR_CODE&gt;(module, "MAJOR_CODE")&#xA;</xsl:text>
     <xsl:for-each select="Operation[@syntax!='None'] | Operation[@name='if']">
       <xsl:variable name="operation" select="."/>
       <xsl:for-each select="$operation/Result">

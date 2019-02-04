@@ -83,42 +83,42 @@ set(DEVBASE_GDAL_REQUIRED TRUE)  # Version >= 2.0.0.
 
 find_package(PythonInterp)
 find_package(Boost)
-if(${Boost_VERSION} LESS 106500)
-    # 'Old' boost
-    if(${PYTHON_VERSION_STRING} VERSION_LESS 3.0)
-        # Python 2
-        list(APPEND DEVBASE_REQUIRED_BOOST_COMPONENTS
-            python)
-        set(PCR_BOOST_PYTHON Boost::python)
-        set(PCR_BOOST_PYTHON_NUMPY Boost::python)
-    else()
-        # Python 3
-        list(APPEND DEVBASE_REQUIRED_BOOST_COMPONENTS
-            python3)
-        set(PCR_BOOST_PYTHON Boost::python3)
-        set(PCR_BOOST_PYTHON_NUMPY Boost::python3)
-    endif()
-elseif( (${Boost_VERSION} GREATER 106400) AND (${Boost_VERSION} LESS 106700))
-    if(${PYTHON_VERSION_STRING} VERSION_LESS 3.0)
-        # Python 2
-        list(APPEND DEVBASE_REQUIRED_BOOST_COMPONENTS
-            python numpy)
-        set(PCR_BOOST_PYTHON Boost::python)
-        set(PCR_BOOST_PYTHON_NUMPY Boost::python Boost::numpy)
-    else()
-        # Python 3
-        list(APPEND DEVBASE_REQUIRED_BOOST_COMPONENTS
-            python3 numpy3)
-        set(PCR_BOOST_PYTHON Boost::python3)
-        set(PCR_BOOST_PYTHON_NUMPY Boost::python3 Boost::numpy3)
-    endif()
-else()
-    list(APPEND DEVBASE_REQUIRED_BOOST_COMPONENTS
-            python${PYTHON_VERSION_MAJOR}${PYTHON_VERSION_MINOR}
-            numpy${PYTHON_VERSION_MAJOR}${PYTHON_VERSION_MINOR})
-    set(PCR_BOOST_PYTHON Boost::python${PYTHON_VERSION_MAJOR}${PYTHON_VERSION_MINOR})
-    set(PCR_BOOST_PYTHON_NUMPY Boost::python${PYTHON_VERSION_MAJOR}${PYTHON_VERSION_MINOR} Boost::numpy${PYTHON_VERSION_MAJOR}${PYTHON_VERSION_MINOR})
-endif()
+# if(${Boost_VERSION} LESS 106500)
+#     # 'Old' boost
+#     if(${PYTHON_VERSION_STRING} VERSION_LESS 3.0)
+#         # Python 2
+#         list(APPEND DEVBASE_REQUIRED_BOOST_COMPONENTS
+#             python)
+#         set(PCR_BOOST_PYTHON Boost::python)
+#         set(PCR_BOOST_PYTHON_NUMPY Boost::python)
+#     else()
+#         # Python 3
+#         list(APPEND DEVBASE_REQUIRED_BOOST_COMPONENTS
+#             python3)
+#         set(PCR_BOOST_PYTHON Boost::python3)
+#         set(PCR_BOOST_PYTHON_NUMPY Boost::python3)
+#     endif()
+# elseif( (${Boost_VERSION} GREATER 106400) AND (${Boost_VERSION} LESS 106700))
+#     if(${PYTHON_VERSION_STRING} VERSION_LESS 3.0)
+#         # Python 2
+#         list(APPEND DEVBASE_REQUIRED_BOOST_COMPONENTS
+#             python numpy)
+#         set(PCR_BOOST_PYTHON Boost::python)
+#         set(PCR_BOOST_PYTHON_NUMPY Boost::python Boost::numpy)
+#     else()
+#         # Python 3
+#         list(APPEND DEVBASE_REQUIRED_BOOST_COMPONENTS
+#             python3 numpy3)
+#         set(PCR_BOOST_PYTHON Boost::python3)
+#         set(PCR_BOOST_PYTHON_NUMPY Boost::python3 Boost::numpy3)
+#     endif()
+# else()
+#     list(APPEND DEVBASE_REQUIRED_BOOST_COMPONENTS
+#             python${PYTHON_VERSION_MAJOR}${PYTHON_VERSION_MINOR}
+#             numpy${PYTHON_VERSION_MAJOR}${PYTHON_VERSION_MINOR})
+#     set(PCR_BOOST_PYTHON Boost::python${PYTHON_VERSION_MAJOR}${PYTHON_VERSION_MINOR})
+#     set(PCR_BOOST_PYTHON_NUMPY Boost::python${PYTHON_VERSION_MAJOR}${PYTHON_VERSION_MINOR} Boost::numpy${PYTHON_VERSION_MAJOR}${PYTHON_VERSION_MINOR})
+# endif()
 
 set(DEVBASE_PYTHON_LIBS_REQUIRED TRUE)
 set(DEVBASE_NUMPY_REQUIRED TRUE)
@@ -158,4 +158,20 @@ if(PCRASTER_BUILD_DOCUMENTATION)
     set(DEVBASE_DOXYGEN_REQUIRED TRUE)
     set(DEVBASE_SPHINX_REQUIRED TRUE)
     set(SPHINX_HTML_THEME "classic")
+endif()
+
+
+
+# ToDo
+include(FetchContent)
+FetchContent_Declare(
+    pybind11
+    GIT_REPOSITORY https://github.com/pybind/pybind11
+    GIT_TAG        v2.2.3
+)
+
+FetchContent_GetProperties(pybind11)
+if(NOT pybind11_POPULATED)
+    FetchContent_Populate(pybind11)
+    add_subdirectory(${pybind11_SOURCE_DIR} ${pybind11_BINARY_DIR})
 endif()

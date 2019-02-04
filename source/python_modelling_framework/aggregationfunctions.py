@@ -9,6 +9,7 @@ from pcraster import *
 from .frameworkBase import generateNameS, generateNameT, generateNameST
 from . import generalfunctions, regression
 
+import pcraster._pcraster as _pcraster
 
 
 def _percentile(
@@ -120,7 +121,7 @@ class PercentileCalculator:
     assert isinstance(self.d_percentiles, list)
     self.d_fields = []
     for percentile in self.d_percentiles:
-      self.d_fields.append(newScalarField())
+      self.d_fields.append(_pcraster._newScalarField())
 
   def run(self,
     arrays):
@@ -129,7 +130,7 @@ class PercentileCalculator:
         arrays[c].sort()
         for p in range(len(self.d_percentiles)):
           value = _percentile(arrays[c], self.d_percentiles[p])
-          self.d_fields[p].setCell(numpy.float64(value), c)
+          self.d_fields[p]._setCell(numpy.float64(value), c)
 
   def result(self):
     assert len(self.d_fields) >= 1
@@ -147,7 +148,7 @@ def probability(name, sampleNumbers):
   name
     Name of the (boolean) raster for which each sample has a realization.
 
-  sampleNumbers 
+  sampleNumbers
     List of numbers of samples to aggregate.
 
   Returns a raster with probabilities.

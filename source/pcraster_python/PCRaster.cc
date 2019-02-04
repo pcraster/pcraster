@@ -1,5 +1,4 @@
-// This header first!
-#include <boost/python.hpp>
+#include <pybind11/pybind11.h>
 
 #include "stddefx.h"
 #include "com_exception.h"
@@ -18,7 +17,6 @@
 #include "calc_runtimeengine.h"
 #include "calc_spatial.h"
 #include "Globals.h"
-#include "docstrings.h"
 #include "numpy_conversion.h"
 #include "pickle.h"
 #include "ppu_exception.h"
@@ -34,35 +32,9 @@
 #include <boost/test/floating_point_comparison.hpp>
 #endif
 
-#if BOOST_VERSION < 106500
-#include <numpy/arrayobject.h>
-#endif
-
-
-
 #include <boost/format.hpp>
-#include <boost/python/docstring_options.hpp>
 #include <boost/shared_ptr.hpp>
-
-
-#if _MSC_VER == 1900
-  // Workaround wrt Boost Python and VS2015v3
-  namespace boost
-  {
-    template <>
-    calc::Field const volatile * get_pointer(class calc::Field const volatile *f)
-    {
-      return f;
-    }
-
-    template <>
-    geo::RasterSpace const volatile * get_pointer<class geo::RasterSpace const volatile>
-      (class geo::RasterSpace const volatile *r)
-    {
-      return r;
-    }
-  }
-#endif
+#include <boost/math/special_functions/fpclassify.hpp>
 
 
 template<
@@ -130,32 +102,6 @@ void checkNotNullPointer(void const* ptr)
     throw com::Exception("None value not allowed");
   }
 }
-
-//! Translates dal::Exception to Python RuntimeError exception.
-void translator1(dal::Exception const& exception) {
-  PyErr_SetString(PyExc_RuntimeError, exception.message().c_str());
-}
-
-//! Translates com::Exception to Python RuntimeError exception.
-void translator2(com::Exception const& exception) {
-  PyErr_SetString(PyExc_RuntimeError, exception.messages().c_str());
-}
-
-//! Translates calc::PosException to Python RuntimeError exception.
-void translator3(calc::PosException const& exception) {
-  PyErr_SetString(PyExc_RuntimeError, exception.message().c_str());
-}
-
-//! Translates calc::Exception to Python RuntimeError exception.
-void translator4(calc::Exception const& exception) {
-  PyErr_SetString(PyExc_RuntimeError, exception.message().c_str());
-}
-
-//! Translates calc::PosException to Python RuntimeError exception.
-void translator5(PyUtilsException const& exception) {
-  PyErr_SetString(PyExc_RuntimeError, exception.message().c_str());
-}
-
 
 
 //! Reads a field from a file.
@@ -272,7 +218,7 @@ calc::Field* readField(
 
 
 // row >= 1, <= nrRows, col >= 1, <= nrCols
-boost::python::object readFieldCell(
+pybind11::object readFieldCell(
          std::string const& filename,
          int row,
          int col)
@@ -301,25 +247,25 @@ boost::python::object readFieldCell(
   dal::DataSpaceAddress address(space.address());
   address.setCoordinate(0, dal::SpatialCoordinate(x, y));
 
-  boost::python::object tuple;
+  pybind11::object tuple;
 
   switch(raster->typeId()) {
     case dal::TI_UINT1: {
       UINT1 v;
       driver->read(&v, dal::TI_UINT1, filename, space, address);
-      tuple = boost::python::make_tuple(static_cast<float>(v), !static_cast<int>(pcr::isMV(v)));
+      tuple = pybind11::make_tuple(static_cast<float>(v), !static_cast<int>(pcr::isMV(v)));
       break;
     }
     case dal::TI_INT4: {
       INT4 v;
       driver->read(&v, dal::TI_INT4, filename, space, address);
-      tuple = boost::python::make_tuple(static_cast<float>(v), !static_cast<int>(pcr::isMV(v)));
+      tuple = pybind11::make_tuple(static_cast<float>(v), !static_cast<int>(pcr::isMV(v)));
       break;
     }
     case dal::TI_REAL4: {
       REAL4 v;
       driver->read(&v, dal::TI_REAL4, filename, space, address);
-      tuple = boost::python::make_tuple(static_cast<float>(v), !static_cast<int>(pcr::isMV(v)));
+      tuple = pybind11::make_tuple(static_cast<float>(v), !static_cast<int>(pcr::isMV(v)));
       break;
     }
     default: {
@@ -478,7 +424,7 @@ calc::Field* newNonSpatialIntegralField(
 
 
 
-boost::python::tuple fieldGetCellIndex(
+pybind11::tuple fieldGetCellIndex(
          calc::Field const* field,
          size_t index)
 {
@@ -493,20 +439,20 @@ boost::python::tuple fieldGetCellIndex(
   }
   --index;
 
-  boost::python::tuple tuple;
+  pybind11::tuple tuple;
   double value = 0;
   bool isValid = field->getCell(value, static_cast<size_t>(index));
 
   switch(field->vs()) {
     case VS_B: {
-      tuple = boost::python::make_tuple<bool, bool>(
+      tuple = pybind11::make_tuple(
          static_cast<bool>(value), isValid);
       break;
     }
     case VS_L:
     case VS_N:
     case VS_O: {
-      tuple = boost::python::make_tuple<int, bool>(
+      tuple = pybind11::make_tuple(
          static_cast<int>(value), isValid);
       break;
     }
@@ -516,7 +462,7 @@ boost::python::tuple fieldGetCellIndex(
       // std::cout << (float(0.4) == float(value)) << std::endl;
       // --> std::cout << (double(float(0.4)) == value) << std::endl;
       // TODO pak een selectie van bytes om de float te maken?
-      tuple = boost::python::make_tuple<float, bool>(
+      tuple = pybind11::make_tuple(
          static_cast<float>(value), isValid);
       break;
     }
@@ -531,7 +477,7 @@ boost::python::tuple fieldGetCellIndex(
 
 
 
-boost::python::tuple fieldGetCellRowCol(
+pybind11::tuple fieldGetCellRowCol(
          calc::Field const* field,
          size_t row,
          size_t col)
@@ -708,47 +654,46 @@ void initGlobals()
 }
 
 
-template<class T>
-inline PyObject * managingPyObject(
-         T *p)
-{
-  return typename boost::python::manage_new_object::apply<T *>::type()(p);
-}
+// // // // // template<class T>
+// // // // // inline PyObject * managingPyObject(
+// // // // //          T *p)
+// // // // // {
+// // // // //   return typename boost::python::manage_new_object::apply<T *>::type()(p);
+// // // // // }
 
 
-boost::python::object copyField(
+pybind11::object copyField(
           calc::Field const & /* field */)
 {
   throw com::Exception("Shallow copy of PCRaster objects not supported");
 }
 
 
-boost::python::object deepCopyField(
-          calc::Field const & field,
-          boost::python::dict /* memo */)
-{
-  calc::Field* spatial = 0;
-
-  if(field.isSpatial() == true){
-    spatial = new calc::Spatial(field.vs(), field.cri(), globals.cloneSpace().nrRows() * globals.cloneSpace().nrCols());
-    spatial->beMemCpyDest(field.src());
-  }
-  else{
-    spatial = new calc::NonSpatial(field.vs());
-    spatial->beMemCpyDest(field.src());
-  }
-
-  return boost::python::object(boost::python::detail::new_reference(managingPyObject(spatial)));
-}
+// // // // // pybind11::object deepCopyField(
+// // // // //           calc::Field const & field,
+// // // // //           boost::python::dict /* memo */)
+// // // // // {
+// // // // //   calc::Field* spatial = 0;
+// // // // //
+// // // // //   if(field.isSpatial() == true){
+// // // // //     spatial = new calc::Spatial(field.vs(), field.cri(), globals.cloneSpace().nrRows() * globals.cloneSpace().nrCols());
+// // // // //     spatial->beMemCpyDest(field.src());
+// // // // //   }
+// // // // //   else{
+// // // // //     spatial = new calc::NonSpatial(field.vs());
+// // // // //     spatial->beMemCpyDest(field.src());
+// // // // //   }
+// // // // //
+// // // // //   return boost::python::object(boost::python::detail::new_reference(managingPyObject(spatial)));
+// // // // // }
 
 } // namespace python
 } // namespace pcraster
 
 
-
-BOOST_PYTHON_MODULE(_pcraster)
+PYBIND11_MODULE(_pcraster, module)
 {
-  using namespace boost::python;
+  using namespace pybind11;
   namespace pp = pcraster::python;
 
 #ifndef NDEBUG
@@ -766,55 +711,67 @@ BOOST_PYTHON_MODULE(_pcraster)
   }
 #endif
 
-  register_exception_translator<dal::Exception>(&pp::translator1);
-  register_exception_translator<com::Exception>(&pp::translator2);
-  register_exception_translator<calc::PosException>(&pp::translator3);
-  register_exception_translator<calc::Exception>(&pp::translator4);
-  register_exception_translator<pcraster::python::PyUtilsException>(&pp::translator5);
+    pybind11::register_exception_translator([](std::exception_ptr p) {
+        try {
+            if (p) std::rethrow_exception(p);
+        }
+        catch (dal::Exception const& exception) {
+            PyErr_SetString(PyExc_RuntimeError, exception.message().c_str());
+        }
+        catch (calc::PosException const& exception) {
+            PyErr_SetString(PyExc_RuntimeError, exception.message().c_str());
+        }
+        catch (calc::Exception const& exception) {
+            PyErr_SetString(PyExc_RuntimeError, exception.message().c_str());
+        }
+        catch (pp::PyUtilsException const& exception) {
+            PyErr_SetString(PyExc_RuntimeError, exception.message().c_str());
+        }
+        catch (com::Exception const& exception) {
+            PyErr_SetString(PyExc_RuntimeError, exception.messages().c_str());
+        }
+    });
 
   // disables the C++ signatures in docstrings
-  docstring_options doc_options(true, true, false);
-
-  /// init_numpy();
-
-#if BOOST_VERSION < 106500
-  boost::python::numeric::array::set_module_and_type("numpy", "ndarray");
-#else
-  boost::python::numpy::initialize();
-#endif
+// // // // //   docstring_options doc_options(true, true, false);
 
 
   #include "operations.inc"
 
-  def("_initGlobals", &pp::initGlobals);
+  module.def("_initGlobals", &pp::initGlobals);
 
-  def("clone", &pp::cloneSpace,
-    return_value_policy<reference_existing_object>());
+  module.def("clone", &pp::cloneSpace, return_value_policy::reference);
 
-  def("_rte", &pp::rte,
-    return_value_policy<reference_existing_object>());
+  module.def("_rte", &pp::rte, return_value_policy::reference);
 
-  def("setclone", &pp::setCloneSpaceFromFilename,
-  "Set the clone properties from an existing raster.\n"
-  "\n"
-  "map -- Filename of clone map.\n");
+  module.def("setclone", &pp::setCloneSpaceFromFilename, R"(
+   Set the clone properties from an existing raster.
 
-  def("setclone", &pp::setCloneSpaceFromValues,
-  "Set the clone using clone properties.\n"
-  "\n"
-  "nrRows -- Number of rows.\n"
-  "nrCols -- Number of columns.\n"
-  "cellSize -- Cell size.\n"
-  "west -- Coordinate of west side of raster.\n"
-  "north -- Coordinate of north side of raster.\n");
+   map -- Filename of clone map.
+    )"
+  );
 
-  def("setrandomseed", &pp::setRandomSeed,
-  "Set the random seed.\n"
-  "\n"
-  "seed -- An integer value >= 0. If the seed is 0 then the seed is taken\n"
-  "        from the current time.\n", args("seed"));
+  module.def("setclone", &pp::setCloneSpaceFromValues, R"(
+   Set the clone using clone properties.
 
-  class_<geo::RasterSpace>("RasterSpace")
+   nrRows -- Number of rows.
+   nrCols -- Number of columns.
+   cellSize -- Cell size.
+   west -- Coordinate of west side of raster.
+   north -- Coordinate of north side of raster.
+    )"
+  );
+
+  module.def("setrandomseed", &pp::setRandomSeed, R"(
+   Set the random seed.\n"
+
+   seed -- An integer value >= 0. If the seed is 0 then the seed is taken
+           from the current time.
+     )",
+      arg("seed")
+  );
+
+  class_<geo::RasterSpace>(module, "RasterSpace")
     .def("nrRows", &geo::RasterSpace::nrRows)
     .def("nrCols", &geo::RasterSpace::nrCols)
     .def("north", &geo::RasterSpace::north)
@@ -825,40 +782,40 @@ BOOST_PYTHON_MODULE(_pcraster)
 
   // The shared_ptr argument is here, so functions can return in smart Field
   // pointers to pass/share ownership of the Field instance.
-  class_<calc::Field, boost::shared_ptr<calc::Field>, boost::noncopyable>(
-         "Field", no_init)
+  class_<calc::Field/*, boost::shared_ptr<calc::Field>*/>(module, "Field")
     .def("isSpatial", &calc::Field::isSpatial)
-    .def("setCell", &calc::Field::setCell)
+    .def("_setCell", &calc::Field::setCell)
     .def("dataType", &calc::Field::vs)
-    .def("__deepcopy__", pp::deepCopyField)
+    //.def("__deepcopy__", pp::deepCopyField)
     .def("__copy__", pp::copyField)
-    .def("__init__", boost::python::make_constructor(&pp::initField))
-    .def_pickle(pp::field_pickle_suite())
-    ;
-  // implicitly_convertible<discr::RasterData<REAL4>, calc::Spatial>();
-  class_<calc::DataStorageId, boost::noncopyable>("DataStorageId", init<std::string const&>())
-    ;
-  class_<calc::ObjectLink, boost::noncopyable>("ObjectLink", no_init)
+    //.def("__init__", boost::python::make_constructor(&pp::initField))
+    //.def_pickle(pp::field_pickle_suite()
     ;
 
-  class_<calc::RunTimeEngine, boost::noncopyable>("RunTimeEngine", init<geo::RasterSpace const&>())
+  // implicitly_convertible<discr::RasterData<REAL4>, calc::Spatial>();
+  class_<calc::DataStorageId>(module, "DataStorageId")
+      .def(init<std::string const&>())
+      ;
+
+  class_<calc::ObjectLink>(module, "ObjectLink");
+
+  class_<calc::RunTimeEngine>(module, "RunTimeEngine")
     // the push method's have a check in PCRasterModelEngine for passing in 0/None
     //  such that type error messages are nice
+    .def(init<geo::RasterSpace const&>())
     .def("pushField",         &calc::RunTimeEngine::pushField)
     .def("pushObjectLink",    &calc::RunTimeEngine::pushObjectLink)
     .def("pushDataStorageId", &calc::RunTimeEngine::pushDataStorageId)
-
     .def("releasePopField",       &calc::RunTimeEngine::releasePopField,
-         return_value_policy<manage_new_object>())
+         return_value_policy::automatic)
     .def("releasePopObjectLink",  &calc::RunTimeEngine::releasePopObjectLink,
-         return_value_policy<manage_new_object>())
-
+         return_value_policy::automatic)
     .def("setNrTimeSteps", &calc::RunTimeEngine::setNrTimeSteps)
     .def("setCurrentTimeStep", &calc::RunTimeEngine::setCurrentTimeStep)
     .def("checkAndExec", &calc::RunTimeEngine::checkAndExec)
     ;
 
-  enum_<PCR_VS>("VALUESCALE")
+  enum_<PCR_VS>(module, "VALUESCALE")
     .value("Boolean", VS_B)
     .value("Nominal", VS_N)
     .value("Ordinal", VS_O)
@@ -890,27 +847,24 @@ BOOST_PYTHON_MODULE(_pcraster)
 //     ;
 // #endif
 
-  class_<calc::Operator, boost::noncopyable>("Operator", no_init)
-    ;
+  class_<calc::Operator>(module, "Operator");
 
-  def("loadCalcLib", &calc::loadCalcLib);
-  def("_major2op", &calc::major2op,
-    return_value_policy<reference_existing_object>());
-  // def("opName2op", calc::opName2op, opName2opOverloads(),
-  //   return_value_policy<reference_existing_object>());
-  def("_opName2op", &calc::opName2op,
-    return_value_policy<reference_existing_object>());
+  module.def("_loadCalcLib", &calc::loadCalcLib);
+  module.def("_major2op", &calc::major2op,
+    return_value_policy::reference);
+  module.def("_opName2op", &calc::opName2op,
+    return_value_policy::reference);
 
 
-  def("readFieldCell", pp::readFieldCell);
-  def("newScalarField", pp::newScalarField,
-         return_value_policy<manage_new_object>());
-  def("newNonSpatialField", pp::newNonSpatialFloatField,
-         return_value_policy<manage_new_object>());
-  def("newNonSpatialField", pp::newNonSpatialIntegralField,
-         return_value_policy<manage_new_object>());
-  def("_closeAtTolerance", pp::closeAtTolerance,
-         return_value_policy<manage_new_object>());
+  module.def("readFieldCell", pp::readFieldCell);
+  module.def("_newScalarField", pp::newScalarField,
+         return_value_policy::automatic);
+  module.def("_newNonSpatialField", pp::newNonSpatialFloatField,
+         return_value_policy::automatic);
+  module.def("_newNonSpatialField", pp::newNonSpatialIntegralField,
+         return_value_policy::automatic);
+  module.def("_closeAtTolerance", pp::closeAtTolerance,
+         return_value_policy::automatic);
 
 
   // User functions. -----------------------------------------------------------
@@ -921,45 +875,80 @@ BOOST_PYTHON_MODULE(_pcraster)
   // "Calling this funtion greatly improves memory management.\n"
   // "Drawback not very nice if small RAM and many processes.\n");
 
-  def("report", pp::writeFilename,
-  "Write data from a file to a file.\n"
-  "\n"
-  "filename -- Filename of data you want to open and write.\n"
-  "filename -- Filename to use.\n");
+  module.def("report", pp::writeFilename, R"(
+   Write data from a file to a file.
 
-  def("report", pp::writeField,
-  "Write a map to a file.\n"
-  "\n"
-  "map -- Map you want to write.\n"
-  "filename -- Filename to use.\n");
-
-  def("readmap", pp::readField,
-         return_value_policy<manage_new_object>(),
-  "Read a map.\n"
-  "\n"
-  "filename -- Filename of a map to read.\n");
-
-  def("cellvalue", pp::fieldGetCellIndex, cellvalue_idx_doc.c_str(),
-    args("map", "index")
+   filename -- Filename of data you want to open and write.
+   filename -- Filename to use.
+    )"
   );
 
-  def("cellvalue", pp::fieldGetCellRowCol, cellvalue_rc_doc.c_str(),
-    args("map", "row", "col")
+  module.def("report", pp::writeField, R"(
+   Write a map to a file.
+
+   map -- Map you want to write.
+   filename -- Filename to use.
+    )"
   );
 
-  def("setglobaloption", pp::setGlobalOption,
-  "Set the global option. The option argument must not contain the leading\n"
-  "dashes as used on the command line of pcrcalc.\n"
-  "\n"
-  "Python example:\n"
-  "  setglobaloption(\"unitcell\")\n"
-  "\n"
-  "The pcrcalc equivalent:\n"
-  "  pcrcalc --unitcell -f model.mod\n"
+  module.def("readmap", pp::readField,
+         return_value_policy::automatic, R"(
+  Read a map.
+
+  filename -- Filename of a map to read.
+    )"
   );
 
-  def("pcr2numpy", pcraster::python::field_to_array);
-  def("numpy2pcr", pcraster::python::array_to_field,
-    return_value_policy<manage_new_object>());
-  def("pcr_as_numpy", pcraster::python::field_as_array);
+  module.def("cellvalue", pp::fieldGetCellIndex, R"(
+   Return a cell value from a map.
+
+   map -- Map you want to query.
+
+   index -- Linear index of a cell in the map, ranging from
+            [1, number-of-cells].
+
+   Returns a tuple with two elements: the first is the cell value, the second
+   is a boolean value which shows whether the first element, is valid or not.
+   If the second element is False, the cell contains a missing value.
+
+   See also: cellvalue(map, row, col)
+    )",
+    arg("map"), arg("index")
+  );
+
+  module.def("cellvalue", pp::fieldGetCellRowCol, R"(
+   Return a cell value from a map.
+
+   map -- Map you want to query.
+
+   row -- Row index of a cell in the map, ranging from [1, number-of-rows].
+
+   col -- Col index of a cell in the map, ranging from [1, number-of-cols].
+
+   Returns a tuple with two elements: the first is the cell value,
+   the second is a boolean value which shows whether the first element,
+   is valid or not.
+   If the second element is False, the cell contains a missing value.
+
+   See also: cellvalue(map, index)
+    )",
+    arg("map"), arg("row"), arg("col")
+  );
+
+  module.def("setglobaloption", pp::setGlobalOption, R"(
+   Set the global option. The option argument must not contain the leading
+   dashes as used on the command line of pcrcalc.
+
+   Python example:
+     setglobaloption("unitcell")
+
+   The pcrcalc equivalent:
+     pcrcalc --unitcell -f model.mod
+    )"
+  );
+
+  module.def("pcr2numpy", pp::field_to_array);
+  module.def("numpy2pcr", pp::array_to_field,
+    return_value_policy::automatic);
+  // module.def("pcr_as_numpy", pp::field_as_array);
 }

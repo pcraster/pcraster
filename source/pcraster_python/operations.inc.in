@@ -3,7 +3,7 @@
 #include "major_op.h"
 #define INCLUDED_MAJOR_OP
 #endif
-enum_<MAJOR_CODE>("MAJOR_CODE")
+enum_<MAJOR_CODE>(module, "MAJOR_CODE")
   .value("OP_IFTHEN", OP_IFTHEN)
   .value("OP_IFTHENELSE", OP_IFTHENELSE)
   .value("OP_NE", OP_NE)

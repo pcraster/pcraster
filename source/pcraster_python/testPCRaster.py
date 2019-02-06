@@ -36,3 +36,6 @@ class TestPCRaster(testcase.TestCase):
         value, isValid = pcraster.cellvalue(result, 9)
         self.assertEqual(isValid, True)
         self.assertAlmostEqual(value, -1.25)
+
+
+

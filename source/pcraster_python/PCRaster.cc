@@ -504,6 +504,146 @@ pybind11::tuple fieldGetCellRowCol(
 
 
 
+pybind11::tuple cellvalue_by_index(
+         calc::Field const* field,
+         size_t index)
+{
+  checkNotNullPointer(field);
+
+  if(field->isSpatial()){
+    if(index >= globals.cloneSpace().nrCells()){
+      std::ostringstream errMsg;
+      errMsg << "cellvalue index '"
+             << index
+             << "' out of range [0, "
+             << globals.cloneSpace().nrCells() - 1
+             << "]";
+      throw std::out_of_range(errMsg.str());
+    }
+  }
+
+  pybind11::tuple tuple;
+  double value = 0;
+  bool isValid = field->getCell(value, static_cast<size_t>(index));
+
+  switch(field->vs()) {
+    case VS_B: {
+      tuple = pybind11::make_tuple(
+         static_cast<bool>(value), isValid);
+      break;
+    }
+    case VS_L:
+    case VS_N:
+    case VS_O: {
+      tuple = pybind11::make_tuple(
+         static_cast<int>(value), isValid);
+      break;
+    }
+    case VS_S:
+    case VS_D: {
+      tuple = pybind11::make_tuple(
+         static_cast<float>(value), isValid);
+      break;
+    }
+    default: {
+      PRECOND(false);
+      break;
+    }
+  }
+
+  return tuple;
+}
+
+
+pybind11::tuple cellvalue_by_indices(
+         calc::Field const* field,
+         size_t row,
+         size_t col)
+{
+  checkNotNullPointer(field);
+  if(field->isSpatial()){
+    if(row >= globals.cloneSpace().nrRows()){
+      std::ostringstream errMsg;
+      errMsg << "cellvalue row index '"
+             << row
+             << "' out of range [0, "
+             << globals.cloneSpace().nrRows() - 1
+             << "]";
+      throw std::out_of_range(errMsg.str());
+    }
+    if(col >= globals.cloneSpace().nrCols()){
+      std::ostringstream errMsg;
+      errMsg << "cellvalue column index '"
+             << col
+             << "' out of range [0, "
+             << globals.cloneSpace().nrCols() - 1
+             << "]";
+      throw std::out_of_range(errMsg.str());
+    }
+  }
+
+  return cellvalue_by_index(
+         field, row * globals.cloneSpace().nrCols() + col);
+}
+
+
+pybind11::tuple cellvalue_by_coordinates(
+         calc::Field const* field,
+         double xcoordinate,
+         double ycoordinate)
+{
+  checkNotNullPointer(field);
+
+  if(!field->isSpatial()) {
+    throw std::invalid_argument("Not implemented for non-spatial arguments");
+  }
+
+  if(globals.cloneSpace().projection() == geo::YIncrT2B) {
+    throw std::invalid_argument("Not implemented for projection type 'YIncrT2B'");
+  }
+
+  double west = globals.cloneSpace().west();
+  double north = globals.cloneSpace().north();
+  size_t nr_rows = globals.cloneSpace().nrRows();
+  size_t nr_cols = globals.cloneSpace().nrCols();
+  double cellsize = globals.cloneSpace().cellSize();
+  double east = west + nr_cols * cellsize;
+  double south = north - nr_rows * cellsize;
+
+  if((xcoordinate < west) || (xcoordinate > east)){
+    std::ostringstream errMsg;
+    errMsg << "xcoordinate '"
+           << xcoordinate
+           << "' out of range ["
+           << west
+           << ", "
+           << east
+           << "]";
+    throw std::out_of_range(errMsg.str());
+  }
+
+  if((ycoordinate > north) || (ycoordinate < south)){
+    std::ostringstream errMsg;
+    errMsg << "ycoordinate '"
+           << ycoordinate
+           << "' out of range ["
+           << north
+           << ", "
+           << south
+           << "]";
+    throw std::out_of_range(errMsg.str());
+  }
+
+  double xCol = (xcoordinate - west) / cellsize;
+  double yRow = (north - ycoordinate) / cellsize;
+
+  size_t row = std::floor(yRow);
+  size_t col = std::floor(xCol);
+
+  return cellvalue_by_index(field, row * nr_cols + col);
+}
+
+
 /*
 boost::python::tuple nonSpatial2Number(calc::Field const* field)
 {
@@ -899,6 +1039,23 @@ PYBIND11_MODULE(_pcraster, module)
     )"
   );
 
+  module.def("setglobaloption", pp::setGlobalOption, R"(
+   Set the global option. The option argument must not contain the leading
+   dashes as used on the command line of pcrcalc.
+
+   Python example:
+     setglobaloption("unitcell")
+
+   The pcrcalc equivalent:
+     pcrcalc --unitcell -f model.mod
+    )"
+  );
+
+  module.def("pcr2numpy", pp::field_to_array);
+  module.def("numpy2pcr", pp::array_to_field,
+    return_value_policy::automatic);
+  // module.def("pcr_as_numpy", pp::field_as_array);
+
   module.def("cellvalue", pp::fieldGetCellIndex, R"(
    Return a cell value from a map.
 
@@ -935,20 +1092,55 @@ PYBIND11_MODULE(_pcraster, module)
     arg("map"), arg("row"), arg("col")
   );
 
-  module.def("setglobaloption", pp::setGlobalOption, R"(
-   Set the global option. The option argument must not contain the leading
-   dashes as used on the command line of pcrcalc.
+  module.def("cellvalue_by_index", pp::cellvalue_by_index, R"(
+   Return a cell value from a map.
 
-   Python example:
-     setglobaloption("unitcell")
+   map -- Map you want to query.
 
-   The pcrcalc equivalent:
-     pcrcalc --unitcell -f model.mod
-    )"
+   index -- Linear index of a cell in the map, ranging from
+            [0, number-of-cells].
+
+   Returns a tuple with two elements: the first is the cell value, the second
+   is a boolean value which shows whether the first element, is valid or not.
+   If the second element is False, the cell contains a missing value.
+    )",
+    arg("map"), arg("index")
   );
 
-  module.def("pcr2numpy", pp::field_to_array);
-  module.def("numpy2pcr", pp::array_to_field,
-    return_value_policy::automatic);
-  // module.def("pcr_as_numpy", pp::field_as_array);
+
+  module.def("cellvalue_by_indices", pp::cellvalue_by_indices, R"(
+   Return a cell value from a map.
+
+   map -- Map you want to query.
+
+   row -- Row index of a cell in the map, ranging from [0, number-of-rows].
+
+   col -- Col index of a cell in the map, ranging from [0, number-of-cols].
+
+   Returns a tuple with two elements: the first is the cell value, the second
+   is a boolean value which shows whether the first element, is valid or not.
+   If the second element is False, the cell contains a missing value.
+    )",
+    arg("map"), arg("row"), arg("col")
+  );
+
+
+  module.def("cellvalue_by_coordinates", pp::cellvalue_by_coordinates, R"(
+   Return a cell value from a map.
+
+   map -- Map you want to query.
+
+   xcoordinate -- x coordinate of the point.
+
+   ycoordinate -- y coordinate of the point.
+
+   Returns a tuple with two elements: the first is the cell value, the second
+   is a boolean value which shows whether the first element, is valid or not.
+   If the second element is False, the cell contains a missing value.
+
+   Note that no check on coordinate reference systems is performed.
+    )",
+    arg("map"), arg("xcoordinate"), arg("ycoordinate")
+  );
+
 }

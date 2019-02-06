@@ -1,6 +1,14 @@
 Changes
 =======
 
+Current development
+-------------------
+
+cellvalue by index, indices, coordinates added
+
+auto_ptr removal
+
+
 PCRaster 4.2.1
 --------------
 This is a bug fix release for 4.2. We fixed a memory leak in ``pcr2numpy`` and improved the error reporting at module import (`#233 <https://github.com/pcraster/pcraster/issues/233>`_, `#232 <https://github.com/pcraster/pcraster/issues/232>`_).

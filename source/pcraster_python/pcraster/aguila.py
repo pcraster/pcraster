@@ -40,7 +40,7 @@ class AguilaThread(threading.Thread):
         return argument_list
 
     def run(self):
-        argument_list = self.parse_arguments(self.arguments)
+        argument_list = [r'"{}"'.format(name) for name in self.parse_arguments(self.arguments)]
         command = "aguila {}".format(" ".join(argument_list))
         subprocess.call(command, shell=True)
 

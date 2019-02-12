@@ -85,8 +85,7 @@ if(${Boost_VERSION} LESS 106500)
         set(PCR_BOOST_PYTHON Boost::python3)
         set(PCR_BOOST_PYTHON_NUMPY Boost::python3)
     endif()
-else()
-    # 'Recent' boost
+elseif( (${Boost_VERSION} GREATER 106400) AND (${Boost_VERSION} LESS 106700))
     if(${PYTHON_VERSION_STRING} VERSION_LESS 3.0)
         # Python 2
         list(APPEND DEVBASE_REQUIRED_BOOST_COMPONENTS
@@ -100,6 +99,12 @@ else()
         set(PCR_BOOST_PYTHON Boost::python3)
         set(PCR_BOOST_PYTHON_NUMPY Boost::python3 Boost::numpy3)
     endif()
+else()
+    list(APPEND DEVBASE_REQUIRED_BOOST_COMPONENTS
+            python${PYTHON_VERSION_MAJOR}${PYTHON_VERSION_MINOR}
+            numpy${PYTHON_VERSION_MAJOR}${PYTHON_VERSION_MINOR})
+    set(PCR_BOOST_PYTHON Boost::python${PYTHON_VERSION_MAJOR}${PYTHON_VERSION_MINOR})
+    set(PCR_BOOST_PYTHON_NUMPY Boost::python${PYTHON_VERSION_MAJOR}${PYTHON_VERSION_MINOR} Boost::numpy${PYTHON_VERSION_MAJOR}${PYTHON_VERSION_MINOR})
 endif()
 
 set(DEVBASE_PYTHON_LIBS_REQUIRED TRUE)

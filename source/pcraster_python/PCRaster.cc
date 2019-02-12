@@ -802,23 +802,23 @@ pybind11::object copyField(
 }
 
 
-// calc::Field* deepCopyField(
-//           calc::Field const & field,
-//           pybind11::dict /* memo */)
-// {
-//   calc::Field* spatial = nullptr;
-//
-//   if(field.isSpatial() == true){
-//     spatial = new calc::Spatial(field.vs(), field.cri(), globals.cloneSpace().nrRows() * globals.cloneSpace().nrCols());
-//     spatial->beMemCpyDest(field.src());
-//   }
-//   else{
-//     spatial = new calc::NonSpatial(field.vs());
-//     spatial->beMemCpyDest(field.src());
-//   }
-//
-//   return spatial;
-// }
+calc::Field* deepCopyField(
+          calc::Field const & field,
+          pybind11::dict /* memo */)
+{
+  calc::Field* spatial = nullptr;
+
+  if(field.isSpatial() == true){
+    spatial = new calc::Spatial(field.vs(), field.cri(), globals.cloneSpace().nrRows() * globals.cloneSpace().nrCols());
+    spatial->beMemCpyDest(field.src());
+  }
+  else{
+    spatial = new calc::NonSpatial(field.vs());
+    spatial->beMemCpyDest(field.src());
+  }
+
+  return spatial;
+}
 
 } // namespace python
 } // namespace pcraster
@@ -919,7 +919,7 @@ PYBIND11_MODULE(_pcraster, module)
     .def("isSpatial", &calc::Field::isSpatial)
     .def("_setCell", &calc::Field::setCell)
     .def("dataType", &calc::Field::vs)
-    //.def("__deepcopy__", pp::deepCopyField)
+    .def("__deepcopy__", pp::deepCopyField)
     .def("__copy__", pp::copyField)
     //.def("__init__", boost::python::make_constructor(&pp::initField))
     .def(pybind11::pickle(

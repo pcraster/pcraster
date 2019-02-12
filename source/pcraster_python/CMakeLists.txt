@@ -51,7 +51,7 @@ add_library(_pcraster SHARED
     numpy_conversion
     PCRaster.cc
     value_scale_traits
-#    pickle
+    pickle
     # operations.inc needs to be manually updated in case the
     # operation.xml, OperationToWrapper.xsl or
     # OperationsToWrappers.xsl change

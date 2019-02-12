@@ -27,11 +27,11 @@ class TestCase(unittest.TestCase):
 
     validatedMap = self.readValidatedField(filename)
 
-    if((result.dataType() == _pcraster.Scalar) | \
-         (result.dataType() == _pcraster.Directional)):
-      result = _pcraster._closeAtTolerance(result, validatedMap)
-    else:
-      result = pcraster.pcreq(result, validatedMap)
+    #if((result.dataType() == _pcraster.Scalar) | \
+    #     (result.dataType() == _pcraster.Directional)):
+    result = _pcraster._closeAtTolerance(result, validatedMap)
+    #else:
+    #  result = pcraster.pcreq(result, validatedMap)
 
 
     min = pcraster.mapminimum(pcraster.scalar(result))

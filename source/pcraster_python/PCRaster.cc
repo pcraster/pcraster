@@ -35,6 +35,7 @@
 #include <boost/format.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/math/special_functions/fpclassify.hpp>
+#include <boost/math/special_functions/sign.hpp>
 
 
 template<
@@ -794,14 +795,6 @@ void initGlobals()
 }
 
 
-// // // // // template<class T>
-// // // // // inline PyObject * managingPyObject(
-// // // // //          T *p)
-// // // // // {
-// // // // //   return typename boost::python::manage_new_object::apply<T *>::type()(p);
-// // // // // }
-
-
 pybind11::object copyField(
           calc::Field const & /* field */)
 {
@@ -809,23 +802,23 @@ pybind11::object copyField(
 }
 
 
-// // // // // pybind11::object deepCopyField(
-// // // // //           calc::Field const & field,
-// // // // //           boost::python::dict /* memo */)
-// // // // // {
-// // // // //   calc::Field* spatial = 0;
-// // // // //
-// // // // //   if(field.isSpatial() == true){
-// // // // //     spatial = new calc::Spatial(field.vs(), field.cri(), globals.cloneSpace().nrRows() * globals.cloneSpace().nrCols());
-// // // // //     spatial->beMemCpyDest(field.src());
-// // // // //   }
-// // // // //   else{
-// // // // //     spatial = new calc::NonSpatial(field.vs());
-// // // // //     spatial->beMemCpyDest(field.src());
-// // // // //   }
-// // // // //
-// // // // //   return boost::python::object(boost::python::detail::new_reference(managingPyObject(spatial)));
-// // // // // }
+// calc::Field* deepCopyField(
+//           calc::Field const & field,
+//           pybind11::dict /* memo */)
+// {
+//   calc::Field* spatial = nullptr;
+//
+//   if(field.isSpatial() == true){
+//     spatial = new calc::Spatial(field.vs(), field.cri(), globals.cloneSpace().nrRows() * globals.cloneSpace().nrCols());
+//     spatial->beMemCpyDest(field.src());
+//   }
+//   else{
+//     spatial = new calc::NonSpatial(field.vs());
+//     spatial->beMemCpyDest(field.src());
+//   }
+//
+//   return spatial;
+// }
 
 } // namespace python
 } // namespace pcraster
@@ -922,14 +915,22 @@ PYBIND11_MODULE(_pcraster, module)
 
   // The shared_ptr argument is here, so functions can return in smart Field
   // pointers to pass/share ownership of the Field instance.
-  class_<calc::Field/*, boost::shared_ptr<calc::Field>*/>(module, "Field")
+  class_<calc::Field, std::shared_ptr<calc::Field>>(module, "Field")
     .def("isSpatial", &calc::Field::isSpatial)
     .def("_setCell", &calc::Field::setCell)
     .def("dataType", &calc::Field::vs)
     //.def("__deepcopy__", pp::deepCopyField)
     .def("__copy__", pp::copyField)
     //.def("__init__", boost::python::make_constructor(&pp::initField))
-    //.def_pickle(pp::field_pickle_suite()
+    .def(pybind11::pickle(
+        [](const calc::Field &field) {
+          return pp::getstate(field);
+        }
+        ,
+        [](pybind11::tuple state) {
+          return pp::setstate(state);
+        }
+    ))
     ;
 
   // implicitly_convertible<discr::RasterData<REAL4>, calc::Spatial>();

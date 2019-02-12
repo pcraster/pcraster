@@ -276,42 +276,42 @@ class Test(testcase.TestCase):
     tmp = copy.deepcopy(raster)
     outputFilename = tempfile.NamedTemporaryFile().name
     pcraster.report(tmp, outputFilename)
-    self.failUnless(self.mapEqualsValidated(tmp, "boolean_Result.map"))
+    self.assertTrue(self.mapEqualsValidated(tmp, "boolean_Result.map"))
     os.remove(outputFilename)
 
     raster = pcraster.readmap(os.path.join("validated", "nominal_Result.map"))
     tmp = copy.deepcopy(raster)
     outputFilename = tempfile.NamedTemporaryFile().name
     pcraster.report(tmp, outputFilename)
-    self.failUnless(self.mapEqualsValidated(tmp, "nominal_Result.map"))
+    self.assertTrue(self.mapEqualsValidated(tmp, "nominal_Result.map"))
     os.remove(outputFilename)
 
     raster = pcraster.readmap(os.path.join("validated", "ordinal_Result.map"))
     tmp = copy.deepcopy(raster)
     outputFilename = tempfile.NamedTemporaryFile().name
     pcraster.report(tmp, outputFilename)
-    self.failUnless(self.mapEqualsValidated(tmp, "ordinal_Result.map"))
+    self.assertTrue(self.mapEqualsValidated(tmp, "ordinal_Result.map"))
     os.remove(outputFilename)
 
     raster = pcraster.readmap(os.path.join("validated", "scalar_Result.map"))
     tmp = copy.deepcopy(raster)
     outputFilename = tempfile.NamedTemporaryFile().name
     pcraster.report(tmp, outputFilename)
-    self.failUnless(self.mapEqualsValidated(tmp, "scalar_Result.map"))
+    self.assertTrue(self.mapEqualsValidated(tmp, "scalar_Result.map"))
     os.remove(outputFilename)
 
     raster = pcraster.readmap(os.path.join("validated", "directional_Result1.map"))
     tmp = copy.deepcopy(raster)
     outputFilename = tempfile.NamedTemporaryFile().name
     pcraster.report(tmp, outputFilename)
-    self.failUnless(self.mapEqualsValidated(tmp, "directional_Result1.map"))
+    self.assertTrue(self.mapEqualsValidated(tmp, "directional_Result1.map"))
     os.remove(outputFilename)
 
     raster = pcraster.readmap(os.path.join("validated", "ldd_Result.map"))
     tmp = copy.deepcopy(raster)
     outputFilename = tempfile.NamedTemporaryFile().name
     pcraster.report(tmp, outputFilename)
-    self.failUnless(self.mapEqualsValidated(tmp, "ldd_Result.map"))
+    self.assertTrue(self.mapEqualsValidated(tmp, "ldd_Result.map"))
     os.remove(outputFilename)
 
 
@@ -429,17 +429,17 @@ class Test(testcase.TestCase):
     chances1 = pcraster.readmap("argorderwithidarealimited_Chances11.map")
     chances2 = pcraster.readmap("argorderwithidarealimited_Chances12.map")
     result = pcraster.argorder(chances1, chances2)
-    self.failUnless(self.mapEqualsValidated(result, "argorder_Result.map"))
+    self.assertTrue(self.mapEqualsValidated(result, "argorder_Result.map"))
 
 
 suite = unittest.TestSuite()
-#suite.addTest(unittest.makeSuite(Test))
+suite.addTest(unittest.makeSuite(Test))
 suite.addTest(unittest.makeSuite(test_cellvalue.CellvalueTest))
-#suite.addTest(unittest.makeSuite(testexamples.TestExamples))
+suite.addTest(unittest.makeSuite(testexamples.TestExamples))
 #suite.addTest(unittest.makeSuite(testNumPy.TestNumPy))
-#suite.addTest(unittest.makeSuite(import_test.ImportTest))
-#suite.addTest(unittest.makeSuite(testPickle.TestPickle))
-#suite.addTest(unittest.makeSuite(testPCRaster.TestPCRaster))
+suite.addTest(unittest.makeSuite(import_test.ImportTest))
+suite.addTest(unittest.makeSuite(testPickle.TestPickle))
+suite.addTest(unittest.makeSuite(testPCRaster.TestPCRaster))
 
 result = unittest.TextTestRunner(verbosity=3).run(suite)
 test_result = (0 if result.wasSuccessful() else 1)

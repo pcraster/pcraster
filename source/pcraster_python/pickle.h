@@ -1,34 +1,14 @@
 #pragma once
-#include <boost/python.hpp>
+#include <pybind11/pybind11.h>
 #include "calc_field.h"
 
 
 namespace pcraster {
 namespace python {
 
-  calc::Field* initField(int value_scale,
-         int cri,
-         size_t nr_rows,
-         size_t nr_cols,
-         double north,
-         double west,
-         double cell_size,
-         int projection,
-         int version);
+  pybind11::tuple       getstate       (calc::Field const & field);
 
-  struct field_pickle_suite : boost::python::pickle_suite {
-
-    static
-    boost::python::tuple getinitargs   (calc::Field const & w);
-
-    static
-    boost::python::tuple getstate      (calc::Field const & w);
-
-    static
-    void           setstate            (calc::Field & w,
-                                        boost::python::tuple state);
-
-  };
+  calc::Field*          setstate       (pybind11::tuple const & state);
 
 } // namespace python
 } // namespace pcraster

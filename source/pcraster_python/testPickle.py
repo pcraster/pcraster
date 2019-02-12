@@ -12,7 +12,7 @@ class TestClass(object):
 
 
 class TestPickle(testcase.TestCase):
-  def test_1(self):
+  def test_01(self):
     """ pickle PCRaster maps of all data types """
     no_assertion_raised = True
     try:
@@ -34,53 +34,55 @@ class TestPickle(testcase.TestCase):
       raster_ldd = pcraster.readmap(os.path.join("validated", "ldd_Result.map"))
       pickle.dump(raster_ldd, open("pickle_ldd.pkl", "wb"))
     except Exception as e:
+      print(e)
       no_assertion_raised = False
 
     self.assertTrue(no_assertion_raised)
 
 
-  def test_2(self):
+  def test_02(self):
     """ unpickle boolean """
     field_pkl = pickle.load(open("pickle_boolean.pkl", "rb"))
-    pcraster.report(field_pkl, "bla.map")
-    self.failUnless(self.mapEqualsValidated(field_pkl, "boolean_Result.map"))
+    pcraster.report(field_pkl, "pickle_boolean.map")
+    self.assertTrue(self.mapEqualsValidated(field_pkl, "boolean_Result.map"))
 
 
-  def test_3(self):
+  def test_03(self):
     """ unpickle nominal """
     field_pkl = pickle.load(open("pickle_nominal.pkl", "rb"))
-    pcraster.report(field_pkl, "bla_nominal.map")
-    self.failUnless(self.mapEqualsValidated(field_pkl, "nominal_Result.map"))
+    pcraster.report(field_pkl, "pickle_nominal.map")
+    self.assertTrue(self.mapEqualsValidated(field_pkl, "nominal_Result.map"))
 
 
-  def test_4(self):
+  def test_04(self):
     """ unpickle ordinal """
     field_pkl = pickle.load(open("pickle_ordinal.pkl", "rb"))
-    pcraster.report(field_pkl, "bla_ordinal.map")
-    self.failUnless(self.mapEqualsValidated(field_pkl, "ordinal_Result.map"))
+    pcraster.report(field_pkl, "pickle_ordinal.map")
+    self.assertTrue(self.mapEqualsValidated(field_pkl, "ordinal_Result.map"))
 
 
-  def test_5(self):
+  def test_05(self):
     """ unpickle scalar """
     field_pkl = pickle.load(open("pickle_scalar.pkl", "rb"))
-    pcraster.report(field_pkl, "bla_scalar.map")
-    self.failUnless(self.mapEqualsValidated(field_pkl, "sin_Result.map"))
+    pcraster.report(field_pkl, "pickle_scalar.map")
+    self.assertTrue(self.mapEqualsValidated(field_pkl, "sin_Result.map"))
 
 
-  def test_6(self):
+  def test_06(self):
     """ unpickle directional """
     field_pkl = pickle.load(open("pickle_direction.pkl", "rb"))
-    pcraster.report(field_pkl, "bla_direction.map")
-    self.failUnless(self.mapEqualsValidated(field_pkl, "directional_Result1.map"))
+    pcraster.report(field_pkl, "pickle_direction.map")
+    self.assertTrue(self.mapEqualsValidated(field_pkl, "directional_Result1.map"))
 
 
-  def test_7(self):
+  def test_07(self):
     """ unpickle ldd """
     field_pkl = pickle.load(open("pickle_ldd.pkl", "rb"))
-    self.failUnless(self.mapEqualsValidated(field_pkl, "ldd_Result.map"))
+    pcraster.report(field_pkl, "pickle_ldd.map")
+    self.assertTrue(self.mapEqualsValidated(field_pkl, "ldd_Result.map"))
 
 
-  def test_8(self):
+  def test_08(self):
     """ pickle class """
     no_assertion_raised = True
     try:
@@ -92,8 +94,29 @@ class TestPickle(testcase.TestCase):
     self.assertTrue(no_assertion_raised)
 
 
-  def test_9(self):
+  def test_09(self):
     """ unpickle class """
     p = pickle.load(open("pickle_class.pkl", "rb"))
     self.assertEqual(p.val, 5.3)
-    self.failUnless(self.mapEqualsValidated(p.field, "sin_Result.map"))
+    self.assertTrue(self.mapEqualsValidated(p.field, "sin_Result.map"))
+
+
+  def test_10(self):
+    """ unpickled differs from clonemap """
+    pcraster.setclone(25, 20, 123.4, 20, -25)
+
+    with self.assertRaises(Exception) as context_manager:
+      field_pkl = pickle.load(open("pickle_nominal.pkl", "rb"))
+    self.assertEqual(str(context_manager.exception), "number of rows and columns (3, 3) differ from currently used (25, 20)\n")
+
+    pcraster.setclone(3, 3, 123.4, 20, -25)
+
+    with self.assertRaises(Exception) as context_manager:
+      field_pkl = pickle.load(open("pickle_nominal.pkl", "rb"))
+    self.assertEqual(str(context_manager.exception), "west and north (0, 0) differ from currently used (20, -25)\n")
+
+    pcraster.setclone(3, 3, 123.4, 0, 0)
+
+    with self.assertRaises(Exception) as context_manager:
+      field_pkl = pickle.load(open("pickle_nominal.pkl", "rb"))
+    self.assertEqual(str(context_manager.exception), "cell size (1) differs from currently used (123.4)\n")

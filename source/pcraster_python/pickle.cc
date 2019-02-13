@@ -1,10 +1,12 @@
 #include "pickle.h"
-#include <boost/algorithm/string.hpp>
 #include "calc_spatial.h"
 #include "calc_field.h"
 #include "pcrtypes.h"
 #include "calc_map2csf.h"
 #include "Globals.h"
+#include <boost/algorithm/string.hpp>
+#include <sstream>
+#include <ios>
 
 
 namespace pcraster {

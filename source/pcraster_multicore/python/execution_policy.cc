@@ -1,6 +1,5 @@
-#include <iostream>
 #include "execution_policy.h"
-
+#include <iostream>
 
 namespace fa = fern::algorithm;
 

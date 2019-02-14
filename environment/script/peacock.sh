@@ -80,15 +80,12 @@ function build_software()
 
 
     # Boost.
-    # KDJ: In case Python headers are not found, try this:
-    #    CPLUS_INCLUDE_PATH=<path_to_headers> peacock.sh ...
     if [[ ! -v skip_build_boost || $skip_build_boost != 1 ]]; then
         options+=("-Dbuild_boost=true")
-        options+=("-Dboost_version=1.57.0")
+        options+=("-Dboost_version=1.65.0")
         options+=("-Dboost_build_boost_date_time=true")
         options+=("-Dboost_build_boost_filesystem=true")
         options+=("-Dboost_build_boost_program_options=true")
-        options+=("-Dboost_build_boost_python=true")
         options+=("-Dboost_build_boost_system=true")
         options+=("-Dboost_build_boost_test=true")
         options+=("-Dboost_build_boost_timer=true")

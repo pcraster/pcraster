@@ -1,12 +1,18 @@
 Changes
 =======
 
-Current development
--------------------
-
-cellvalue by index, indices, coordinates added
-
-auto_ptr removal
+.. Current development
+.. -------------------
+..
+.. The most relevant updates for users:
+..
+.. breaking change in pickle
+..
+.. cellvalue by index, indices, coordinates added
+..
+.. development notices:
+.. auto_ptr removal
+.. boost python removal
 
 
 PCRaster 4.2.1

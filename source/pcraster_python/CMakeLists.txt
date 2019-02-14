@@ -60,8 +60,6 @@ add_library(_pcraster SHARED
 
 add_library(pcraster::python ALIAS _pcraster)
 
-fix_boost_python_visibility(_pcraster)
-
 generate_export_header(_pcraster
   BASE_NAME pcraster_python
 )

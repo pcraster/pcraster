@@ -866,7 +866,8 @@ PYBIND11_MODULE(_pcraster, module)
     });
 
   // disables the C++ signatures in docstrings
-// // // // //   docstring_options doc_options(true, true, false);
+  pybind11::options options;
+  options.disable_function_signatures();
 
 
   #include "operations.inc"

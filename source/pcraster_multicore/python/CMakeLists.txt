@@ -63,8 +63,6 @@ add_library(_pcraster_multicore SHARED
     type_conversion/nonspatial_field
 )
 
-fix_boost_python_visibility(_pcraster_multicore)
-
 target_include_directories(_pcraster_multicore
     PRIVATE
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../..>
@@ -78,8 +76,7 @@ configure_python_extension(_pcraster_multicore
 target_link_libraries(_pcraster_multicore
     PRIVATE
         pcraster::python::utils
-        ${PCR_BOOST_PYTHON_NUMPY}
-        ${PCR_BOOST_PYTHON}
+        pybind11::module
         fern_algorithm
 )
 

@@ -1,10 +1,8 @@
 #pragma once
 
 
-namespace boost {
-namespace python {
+namespace pybind11 {
   class list;
-}
 }
 
 namespace calc {
@@ -17,7 +15,7 @@ namespace pcraster_multicore {
 namespace python {
 
 
-calc::Field* maximum(boost::python::list const& arguments);
+calc::Field* maximum(pybind11::list const& arguments);
 
 
 } // namespace python

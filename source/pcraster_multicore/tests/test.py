@@ -195,7 +195,7 @@ class TestMulticore(unittest.TestCase):
   def testNotEqualsLdd(self):
     pcraster.setclone("accu_Ldd.map")
     ldd = pcraster.readmap("accu_Ldd.map")
-    nonSpatial = pcraster.newNonSpatialField(5)
+    nonSpatial = pcraster._pcraster._newNonSpatialField(5)
     # we need to explicitly cast PODs to ldd (or directional)
     # when using the multicore module
     #raster = mcop.pcrmcNE("accu_Ldd.map", 5)

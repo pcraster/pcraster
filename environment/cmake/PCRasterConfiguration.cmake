@@ -11,7 +11,7 @@
 option(
     PCRASTER_BUILD_MULTICORE
     "Build Python multicore module"
-    OFF)
+    ON)
 option(
     PCRASTER_BUILD_AGUILA
     "Build Aguila"

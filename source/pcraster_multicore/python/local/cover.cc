@@ -1,7 +1,5 @@
 #include "pcraster_multicore/python/local/cover.h"
 
-#include <boost/python.hpp>
-
 // PCRaster
 #include "calc_spatial.h"
 #include "calc_nonspatial.h"
@@ -25,6 +23,7 @@
 #include "fern/algorithm/policy/policies.h"
 #include "fern/algorithm/core/cover.h"
 
+#include <pybind11/pybind11.h>
 
 namespace fa = fern::algorithm;
 
@@ -137,22 +136,22 @@ calc::Field* spatial_int4(calc::Field* argument){
 
 
 
-calc::Field* cover(boost::python::list const& arguments){
+calc::Field* cover(pybind11::list const& arguments){
 
-  size_t nr_args = boost::python::len(arguments);
+  size_t nr_args = pybind11::len(arguments);
 
   if(nr_args == 0){
     throw std::runtime_error("at least 1 argument required, 0 given\n");
   }
 
   if(nr_args == 1){
-    return (static_cast<calc::Field*>(boost::python::extract<calc::Field*>(arguments[0])))->createClone();
+    return arguments[0].cast<calc::Field*>()->createClone();
   }
 
   std::vector<calc::Field *> field_arguments;
 
   for(size_t idx = 0; idx < nr_args; ++idx){
-    field_arguments.push_back(boost::python::extract<calc::Field*>(arguments[idx]));
+    field_arguments.push_back(arguments[idx].cast<calc::Field*>());
     // arguments must have same extent as clone
     assert_equal_location_attributes(*field_arguments.at(idx));
   }

@@ -1,12 +1,6 @@
 #ifndef INCLUDED_PCRMODFLOW
 #define INCLUDED_PCRMODFLOW
 
-// This header first!
-#ifndef INCLUDED_BOOST_PYTHON
-#include <boost/python.hpp>
-#define INCLUDED_BOOST_PYTHON
-#endif
-
 #ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
 #define INCLUDED_STDDEFX
@@ -52,6 +46,9 @@
 
 // Module headers.
 
+namespace pybind11 {
+  class list;
+}
 
 // level = elevation level/pcraster map
 
@@ -263,9 +260,9 @@ public:
 	    void addConfinedLayer(const calc::Field *values);
 	    void setLayer(const discr::Block &thickness, const discr::BlockData<INT4> &conf);
 
-  void             set_row_width       (boost::python::list const& arguments);
+  void             set_row_width       (pybind11::list const& arguments);
 
-  void             set_col_width       (boost::python::list const& arguments);
+  void             set_col_width       (pybind11::list const& arguments);
 
 
 	    //

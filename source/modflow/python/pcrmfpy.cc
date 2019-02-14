@@ -9,11 +9,6 @@
 #define INCLUDED_IOSTREAM
 #endif
 
-#ifndef INCLUDED_BOOST_PYTHON
-#include <boost/python.hpp>
-#define INCLUDED_BOOST_PYTHON
-#endif
-
 
 // PCRaster library headers.
 #ifndef INCLUDED_DISCR_BLOCKDATA
@@ -35,23 +30,10 @@
 #define INCLUDED_PCRMODFLOW
 #endif
 
+#include <pybind11/pybind11.h>
+
 
 // Module headers.
-
-#if _MSC_VER == 1900
-  // Workaround wrt Boost Python and VS2015v3
-  namespace boost
-  {
-    template <>
-    calc::Field const volatile * get_pointer(class calc::Field const volatile *f)
-    {
-        return f;
-    }
-  }
-#endif
-
-
-
 
 
 
@@ -164,18 +146,12 @@ void (PCRModflow::*setCondPS)(size_t, const std::string &, const std::string &, 
 void (PCRModflow::*setCondPy)(size_t, const calc::Field *, const calc::Field *, size_t) = &PCRModflow::setCond;
 
 
-BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(
-    run_cwd, PCRModflow::runModflow, 0, 0)
-BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(
-    run_subdirectory, PCRModflow::runModflow, 1, 1)
 
+PYBIND11_MODULE(_pcraster_modflow, module){
 
-BOOST_PYTHON_MODULE(_pcraster_modflow){
-
-  boost::python::class_<PCRModflow,boost::noncopyable>("initialise", boost::python::init<const geo::RasterSpace &>())
-    //.def("run", &PCRModflow::runModflow)
-    .def("run",&PCRModflow::runModflow, run_cwd())
-    .def("run",&PCRModflow::runModflow, run_subdirectory())
+  pybind11::class_<PCRModflow>(module, "initialise")
+    .def(pybind11::init<geo::RasterSpace const&>())
+    .def("run", &PCRModflow::runModflow, pybind11::arg("working_directory")="")
     .def("converged", &PCRModflow::converged)
     .def("_set_run_command", &PCRModflow::set_run_command)
     // DIS
@@ -235,42 +211,21 @@ BOOST_PYTHON_MODULE(_pcraster_modflow){
     .def("setSOR", &PCRModflow::setSOR)
     .def("setDSP", &PCRModflow::setDSP)
     //
-    .def("getHeads", &PCRModflow::getBlockHeads,
-         boost::python::return_value_policy<boost::python::manage_new_object>())
-    .def("getHeads", getHeads2,
-         boost::python::return_value_policy<boost::python::manage_new_object>())
-
+    //.def("getHeads", &PCRModflow::getBlockHeads)
+    .def("getHeads", getHeads2)
    // .def("getRiverLeakage", &PCRModflow::getBlockRiverLeakage,
   //       boost::python::return_value_policy<boost::python::manage_new_object>())
-    .def("getRiverLeakage", getRivLeakPy,
-         boost::python::return_value_policy<boost::python::manage_new_object>())
-
+    .def("getRiverLeakage", getRivLeakPy)
     //.def("getDrain", &PCRModflow::getBlockDrain,
     //     boost::python::return_value_policy<boost::python::manage_new_object>())
-    .def("getDrain", getDrainPy,
-         boost::python::return_value_policy<boost::python::manage_new_object>())
-
-    .def("getRecharge", getRechargeCalc,
-         boost::python::return_value_policy<boost::python::manage_new_object>())
-    .def("getRecharge", getRechargePy,
-         boost::python::return_value_policy<boost::python::manage_new_object>())
-
-
-    .def("getStorage", get_storagePy,
-         boost::python::return_value_policy<boost::python::manage_new_object>())
-
-    .def("getConstantHead", get_constand_headPy,
-         boost::python::return_value_policy<boost::python::manage_new_object>())
-
-    .def("getRightFace", get_right_facePy,
-         boost::python::return_value_policy<boost::python::manage_new_object>())
-
-    .def("getFrontFace", get_front_facePy,
-         boost::python::return_value_policy<boost::python::manage_new_object>())
-
-    .def("getLowerFace", get_lower_facePy,
-         boost::python::return_value_policy<boost::python::manage_new_object>())
-
+    .def("getDrain", getDrainPy)
+    .def("getRecharge", getRechargeCalc)
+    .def("getRecharge", getRechargePy)
+    .def("getStorage", get_storagePy)
+    .def("getConstantHead", get_constand_headPy)
+    .def("getRightFace", get_right_facePy)
+    .def("getFrontFace", get_front_facePy)
+    .def("getLowerFace", get_lower_facePy)
     ;
 
 }

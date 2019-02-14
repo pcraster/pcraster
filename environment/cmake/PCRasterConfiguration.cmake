@@ -19,7 +19,7 @@ option(
 option(
     PCRASTER_BUILD_MODFLOW
     "Build Modflow module"
-    OFF)
+    ON)
 option(
     PCRASTER_BUILD_OLDCALC
     "Build oldcalc"
@@ -27,7 +27,7 @@ option(
 option(
     PCRASTER_BUILD_TEST
     "Build tests"
-    OFF)
+    ON)
 option(
     PCRASTER_BUILD_DOCUMENTATION
     "Build documentation"

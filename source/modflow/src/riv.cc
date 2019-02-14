@@ -60,6 +60,7 @@
 
 #include "mf_utils.h"
 
+#include <boost/lexical_cast.hpp>
 
 /**
  * Destructor

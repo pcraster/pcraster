@@ -30,7 +30,7 @@ target_link_libraries(pcrmf
     PUBLIC
         pcraster::model_engine
         pybind11::module
-        ${PYTHON_LIBRARIES}
+        # ${PYTHON_LIBRARIES}
 )
 
 add_dependencies(pcrmf pcrcalc)

@@ -4,8 +4,6 @@
 #endif
 
 // Library headers.
-// This one first, to prevent warnings.
-#include <boost/python.hpp>
 
 // PCRaster library headers.
 #ifndef INCLUDED_BLOCK_CLAYCOMPACTOR
@@ -89,35 +87,7 @@
 #define INCLUDED_BLOCKPY_FUNCTIONS
 #endif
 
-
-#if _MSC_VER == 1900
-  // Workaround wrt Boost Python and VS2015v3
-  namespace boost
-  {
-    template <>
-    calc::Field const volatile * get_pointer(class calc::Field const volatile *f)
-    {
-      return f;
-    }
-
-    template <>
-    geo::RasterSpace const volatile * get_pointer<class geo::RasterSpace const volatile>
-      (class geo::RasterSpace const volatile *r)
-    {
-      return r;
-    }
-  }
-#endif
-
-//! Translates dal::Exception to Python RuntimeError exception.
-void translator1(dal::Exception const& exception) {
-  PyErr_SetString(PyExc_RuntimeError, exception.message().c_str());
-}
-
-// //! Translates com::Exception to Python RuntimeError exception.
-// void translator2(com::Exception const& exception) {
-//   PyErr_SetString(PyExc_RuntimeError, exception.messages().c_str());
-// }
+#include <pybind11/pybind11.h>
 
 
 
@@ -164,97 +134,87 @@ PCR_OPERATOR_TEMPLATES(divide)
 
 
 
-BOOST_PYTHON_MODULE(_pcraster_block_python)
+PYBIND11_MODULE(_pcraster_block_python, module)
 {
-  using namespace boost::python;
+  using namespace pybind11;
 
-  // Copied from PCRaster.cc.
-  register_exception_translator<dal::Exception>(&::translator1);
-  // register_exception_translator<com::Exception>(&pp::translator2);
-  // /Copied from PCRaster.cc.
+  register_exception_translator([](std::exception_ptr p) {
+    try {
+      if (p) std::rethrow_exception(p);
+    }
+    catch (dal::Exception const& exception) {
+      PyErr_SetString(PyExc_RuntimeError, exception.message().c_str());
+    }
+  });
 
-  class_<discr::Raster, boost::noncopyable>("Raster",
-         no_init)
+  class_<discr::Raster>(module, "Raster")
          // init<size_t, size_t, double, double, double>())
          ;
-  class_<discr::RasterData<UINT1>, boost::noncopyable>("UINT1RasterData",
-         no_init)
+  class_<discr::RasterData<UINT1>>(module, "UINT1RasterData")
          // init<discr::Raster*, UINT1>())
          ;
-  class_<discr::RasterData<INT4>, boost::noncopyable>("INT4RasterData",
-         no_init)
+  class_<discr::RasterData<INT4>>(module, "INT4RasterData")
          // init<discr::Raster*, INT4>())
          ;
-  class_<discr::RasterData<REAL4>, boost::noncopyable>("REAL4RasterData",
-         no_init)
+  class_<discr::RasterData<REAL4>>(module, "REAL4RasterData")
          // init<discr::Raster*, REAL4>())
          ;
 
-  class_<discr::Block, boost::noncopyable>("Block",
-         no_init)
+  class_<discr::Block>(module, "Block")
   //        // init<discr::RasterData<REAL4> const&>())
   //        .def("nrCells", &discr::Block::nrCells)
   //        .def("cell", cell,
   //          return_value_policy<reference_existing_object>())
          ;
-  class_<discr::BlockData<UINT1>, boost::noncopyable>("UINT1BlockData",
-         no_init)
+  class_<discr::BlockData<UINT1>>(module, "UINT1BlockData")
          // init<discr::Block*, UINT1>())
          // .def("setDefaultValue", &discr::BlockData<UINT1>::setDefaultValue)
          ;
-  class_<discr::BlockData<INT4>, boost::noncopyable>("INT4BlockData",
-         no_init)
+  class_<discr::BlockData<INT4>>(module, "INT4BlockData")
          // init<discr::Block*, INT4>())
          // .def("setDefaultValue", &discr::BlockData<INT4>::setDefaultValue)
          ;
-  class_<discr::BlockData<REAL4>, boost::noncopyable>("REAL4BlockData",
-         no_init)
+  class_<discr::BlockData<REAL4>>(module, "REAL4BlockData")
          // init<discr::Block*, REAL4>())
          // .def("setDefaultValue", &discr::BlockData<REAL4>::setDefaultValue)
          ;
-  class_<discr::VoxelStack, boost::noncopyable>("VoxelStack",
-         no_init)
+  class_<discr::VoxelStack>(module, "VoxelStack")
          // .def(vector_indexing_suite<discr::VoxelStack>())
          // .def("thickness", &discr::VoxelStack::thickness)
          ;
-  class_<std::vector<UINT1>, boost::noncopyable>("UINT4VoxelStackData",
-         no_init)
+  class_<std::vector<UINT1>>(module, "UINT4VoxelStackData")
          ;
-  class_<std::vector<INT4>, boost::noncopyable>("INT4VoxelStackData",
-         no_init)
+  class_<std::vector<INT4>>(module, "INT4VoxelStackData")
          ;
-  class_<std::vector<REAL4>, boost::noncopyable>("REAL4VoxelStackData",
-         no_init)
+  class_<std::vector<REAL4>>(module, "REAL4VoxelStackData")
          ;
-  class_<block::Compactors<block::MackeyBridgeCompactor>, boost::noncopyable>("Compactors")
+  class_<block::Compactors<block::MackeyBridgeCompactor>>(module, "Compactors")
          .def("setCompactor", &block::Compactors<block::MackeyBridgeCompactor>::setCompactor)
          ;
-  class_<block::SandCompactor>("SandCompactor")
+  class_<block::SandCompactor>(module, "SandCompactor")
          ;
-  class_<block::ClayCompactor>("ClayCompactor")
+  class_<block::ClayCompactor>(module, "ClayCompactor")
          ;
-  class_<block::DummyCompactor>("DummyCompactor")
+  class_<block::DummyCompactor>(module, "DummyCompactor")
          ;
 
-  class_<block::Compactors<block::DeHaanCompactor>, boost::noncopyable>("DeHaanCompactors")
+  class_<block::Compactors<block::DeHaanCompactor>>(module, "DeHaanCompactors")
          .def("setCompactor", &block::Compactors<block::DeHaanCompactor>::setCompactor)
          ;
 
-  class_<block::DeHaanCompactor>("DeHaanCompactor",
-         init<double, double, double>())
+  class_<block::DeHaanCompactor>(module, "DeHaanCompactor")
+         .def(init<double, double, double>())
          ;
 
   // implicitly_convertible<block::DummyCompactor, block::Compactors<block::MackeyBridgeCompactor>::Compactor>();
   implicitly_convertible<block::DummyCompactor, block::MackeyBridgeCompactor>();
 
   // Create raster discretisation.
-  def("createRaster", &blockpy::createRaster,
-         return_value_policy<manage_new_object>())
+  module.def("createRaster", &blockpy::createRaster)
          ;
 
   // Create raster discretisation.
-  def("createRaster", &raster::create,
-         return_value_policy<manage_new_object>(),
+  module.def("createRaster", &raster::create,
   "Creates a new raster\n\n"
   "nrRows          Number of rows.\n"
   "nrCols          Number of columns.\n"
@@ -263,126 +223,91 @@ BOOST_PYTHON_MODULE(_pcraster_block_python)
   "west            Coordinate of the top side of the northern most cell.\n");
 
   // Create block data.
-  def("createUINT1RasterData", &blockpy::createRasterData<UINT1>,
-         return_value_policy<manage_new_object>());
-  def("createINT4RasterData", &blockpy::createRasterData<INT4>,
-         return_value_policy<manage_new_object>());
-  def("createREAL4RasterData", &blockpy::createRasterData<REAL4>,
-         return_value_policy<manage_new_object>());
+  module.def("createUINT1RasterData", &blockpy::createRasterData<UINT1>);
+  module.def("createINT4RasterData", &blockpy::createRasterData<INT4>);
+  module.def("createREAL4RasterData", &blockpy::createRasterData<REAL4>);
 
   // Create block discretisation.
-  def("createBlock", &block::create,
-         return_value_policy<manage_new_object>(),
+  module.def("createBlock", &block::create,
   "Creates a new block\n\n"
   "baseElevation   Dem to use for the base elevation.\n"
   "The lateral properties of the created block will be the same as for the\n"
   "raster passed in.");
 
   // Create block data.
-  def("createUINT1BlockData", &blockpy::createBlockData<UINT1>,
-         return_value_policy<manage_new_object>());
-  def("createINT4BlockData", &blockpy::createBlockData<INT4>,
-         return_value_policy<manage_new_object>());
-  def("createREAL4BlockData", &blockpy::createBlockData<REAL4>,
-         return_value_policy<manage_new_object>());
+  module.def("createUINT1BlockData", &blockpy::createBlockData<UINT1>);
+  module.def("createINT4BlockData", &blockpy::createBlockData<INT4>);
+  module.def("createREAL4BlockData", &blockpy::createBlockData<REAL4>);
 
   // Convert raster data to field.
 #ifdef WIN32
-  def("booleanField", &blockpy::booleanField,
-         return_value_policy<manage_new_object>());
-  def("lddField", &blockpy::lddField,
-         return_value_policy<manage_new_object>());
-  def("nominalField", &blockpy::nominalField,
-         return_value_policy<manage_new_object>());
-  def("ordinalField", &blockpy::ordinalField,
-         return_value_policy<manage_new_object>());
-  def("scalarField", &blockpy::scalarField,
-         return_value_policy<manage_new_object>());
-  def("directionalField", &blockpy::directionalField,
-         return_value_policy<manage_new_object>());
+  module.def("booleanField", &blockpy::booleanField);
+  module.def("lddField", &blockpy::lddField);
+  module.def("nominalField", &blockpy::nominalField);
+  module.def("ordinalField", &blockpy::ordinalField);
+  module.def("scalarField", &blockpy::scalarField);
+  module.def("directionalField", &blockpy::directionalField);
 #else
   // How it should work.
-  def("booleanField", &blockpy::field<VS_B>,
-         return_value_policy<manage_new_object>());
-  def("lddField", &blockpy::field<VS_L>,
-         return_value_policy<manage_new_object>());
-  def("nominalField", &blockpy::field<VS_N>,
-         return_value_policy<manage_new_object>());
-  def("ordinalField", &blockpy::field<VS_O>,
-         return_value_policy<manage_new_object>());
-  def("scalarField", &blockpy::field<VS_S>,
-         return_value_policy<manage_new_object>());
-  def("directionalField", &blockpy::field<VS_D>,
-         return_value_policy<manage_new_object>());
+  module.def("booleanField", &blockpy::field<VS_B>);
+  module.def("lddField", &blockpy::field<VS_L>);
+  module.def("nominalField", &blockpy::field<VS_N>);
+  module.def("ordinalField", &blockpy::field<VS_O>);
+  module.def("scalarField", &blockpy::field<VS_S>);
+  module.def("directionalField", &blockpy::field<VS_D>);
 #endif
 
   // Convert field to raster data.
-  def("uint1RasterData", &blockpy::rasterData<UINT1>,
-         return_value_policy<manage_new_object>());
-  def("int4RasterData", &blockpy::rasterData<INT4>,
-         return_value_policy<manage_new_object>());
-  def("real4RasterData", &blockpy::rasterData<REAL4>,
-         return_value_policy<manage_new_object>());
+  module.def("uint1RasterData", &blockpy::rasterData<UINT1>);
+  module.def("int4RasterData", &blockpy::rasterData<INT4>);
+  module.def("real4RasterData", &blockpy::rasterData<REAL4>);
 
   // Cast block data.
-  def("real4BlockData", &blockpy::cast<REAL4, UINT1>,
-         return_value_policy<manage_new_object>());
-  def("real4BlockData", &blockpy::cast<REAL4, INT4>,
-         return_value_policy<manage_new_object>());
-  def("real4BlockData", &blockpy::cast<REAL4, REAL4>,
-         return_value_policy<manage_new_object>());
+  module.def("real4BlockData", &blockpy::cast<REAL4, UINT1>);
+  module.def("real4BlockData", &blockpy::cast<REAL4, INT4>);
+  module.def("real4BlockData", &blockpy::cast<REAL4, REAL4>);
 
-  def("noCompactionAdd", noCompactionAdd1);
-  def("noCompactionAdd", noCompactionAdd2);
-  def("mackeyBridgeAdd", &block::mackeyBridgeAdd);
-  def("deHaanAdd", &block::deHaanAdd);
-  def("remove", &block::remove);
+  module.def("noCompactionAdd", noCompactionAdd1);
+  module.def("noCompactionAdd", noCompactionAdd2);
+  module.def("mackeyBridgeAdd", &block::mackeyBridgeAdd);
+  module.def("deHaanAdd", &block::deHaanAdd);
+  module.def("remove", &block::remove);
 
-  def("baseElevation", &blockpy::baseElevation,
-         return_value_policy<manage_new_object>());
-  def("surfaceElevation", &blockpy::surfaceElevation,
-         return_value_policy<manage_new_object>());
+  module.def("baseElevation", &blockpy::baseElevation);
+  module.def("surfaceElevation", &blockpy::surfaceElevation);
 
-  def("resample", resampleBlock,
-         return_value_policy<manage_new_object>());
-  def("resample", &blockpy::resample<UINT1>,
-         return_value_policy<manage_new_object>());
-  def("resample", &blockpy::resample<INT4>,
-         return_value_policy<manage_new_object>());
-  def("resample", &blockpy::resample<REAL4>,
-         return_value_policy<manage_new_object>());
+  module.def("resample", resampleBlock);
+  module.def("resample", &blockpy::resample<UINT1>);
+  module.def("resample", &blockpy::resample<INT4>);
+  module.def("resample", &blockpy::resample<REAL4>);
 
-  def("readBlock", readBlock,
-         return_value_policy<manage_new_object>());
-  def("readUINT1BlockData", &block::read<UINT1>,
-         return_value_policy<manage_new_object>());
-  def("readINT4BlockData", &block::read<INT4>,
-         return_value_policy<manage_new_object>());
-  def("readREAL4BlockData", &block::read<REAL4>,
-         return_value_policy<manage_new_object>());
+  module.def("readBlock", readBlock);
+  module.def("readUINT1BlockData", &block::read<UINT1>);
+  module.def("readINT4BlockData", &block::read<INT4>);
+  module.def("readREAL4BlockData", &block::read<REAL4>);
 
-  def("write", writeBlock);
-  def("writeVTK", writeBlockVTK);
+  module.def("write", writeBlock);
+  module.def("writeVTK", writeBlockVTK);
 
-  def("write", &block::write<UINT1>);
-  def("write",  &block::write<INT4>);
-  def("write", &block::write<REAL4>);
+  module.def("write", &block::write<UINT1>);
+  module.def("write",  &block::write<INT4>);
+  module.def("write", &block::write<REAL4>);
 
-  def("writeVTK", &block::writeVTK<UINT1>);
-  def("writeVTK",  &block::writeVTK<INT4>);
-  def("writeVTK", &block::writeVTK<REAL4>);
+  module.def("writeVTK", &block::writeVTK<UINT1>);
+  module.def("writeVTK",  &block::writeVTK<INT4>);
+  module.def("writeVTK", &block::writeVTK<REAL4>);
 
-  def("writeGSLIB", &block::writeGSLIB<UINT1>);
-  def("writeGSLIB",  &block::writeGSLIB<INT4>);
-  def("writeGSLIB", &block::writeGSLIB<REAL4>);
+  module.def("writeGSLIB", &block::writeGSLIB<UINT1>);
+  module.def("writeGSLIB",  &block::writeGSLIB<INT4>);
+  module.def("writeGSLIB", &block::writeGSLIB<REAL4>);
 
-  def("writeBinary", &raster::writeBinary<UINT1>);
-  def("writeBinary",  &raster::writeBinary<INT4>);
-  def("writeBinary", &raster::writeBinary<REAL4>);
+  module.def("writeBinary", &raster::writeBinary<UINT1>);
+  module.def("writeBinary",  &raster::writeBinary<INT4>);
+  module.def("writeBinary", &raster::writeBinary<REAL4>);
 
-  def("setMVUINT1", &raster::setMV<UINT1>);
-  def("setMVINT4",  &raster::setMV<INT4>);
-  def("setMVREAL4", &raster::setMV<REAL4>);
+  module.def("setMVUINT1", &raster::setMV<UINT1>);
+  module.def("setMVINT4",  &raster::setMV<INT4>);
+  module.def("setMVREAL4", &raster::setMV<REAL4>);
 
   // def("equals", &blockpy::equals<UINT1>,
   //        return_value_policy<manage_new_object>());
@@ -391,22 +316,17 @@ BOOST_PYTHON_MODULE(_pcraster_block_python)
   // def("equals", &blockpy::equals<REAL4>,
   //        return_value_policy<manage_new_object>());
 
-  def("voxelStack", &blockpy::voxelStack,
-         return_value_policy<manage_new_object>());
-  def("nrVoxels", &voxelstack::nrVoxels);
-  def("thickness", &voxelstack::thickness);
-  def("uint1VoxelStackData", &blockpy::voxelStackData<UINT1>,
-         return_value_policy<manage_new_object>());
-  def("int4VoxelStackData", &blockpy::voxelStackData<INT4>,
-         return_value_policy<manage_new_object>());
-  def("real4VoxelStackData", &blockpy::voxelStackData<REAL4>,
-         return_value_policy<manage_new_object>());
-  def("real4VoxelValue", &voxelstack::value<REAL4>);
+  module.def("voxelStack", &blockpy::voxelStack);
+  module.def("nrVoxels", &voxelstack::nrVoxels);
+  module.def("thickness", &voxelstack::thickness);
+  module.def("uint1VoxelStackData", &blockpy::voxelStackData<UINT1>);
+  module.def("int4VoxelStackData", &blockpy::voxelStackData<INT4>);
+  module.def("real4VoxelStackData", &blockpy::voxelStackData<REAL4>);
+  module.def("real4VoxelValue", &voxelstack::value<REAL4>);
 
 #undef PCR_OPERATOR_TEMPLATES
 #define PCR_OPERATOR_TEMPLATES(name, type)                                     \
-def(#name, &blockpy::name<type>,                                                         \
-       return_value_policy<manage_new_object>());
+module.def(#name, &blockpy::name<type>);
 // def(#name, name##BlockData<type>,
 //        return_value_policy<manage_new_object>());
 
@@ -416,26 +336,21 @@ def(#name, &blockpy::name<type>,                                                
 
 #undef PCR_OPERATOR_TEMPLATES
 #define PCR_OPERATOR_TEMPLATES(name)                                           \
-def(#name, name##Value,                                                        \
-       return_value_policy<manage_new_object>());                              \
-def(#name, name##BlockData,                                                    \
-       return_value_policy<manage_new_object>());
+module.def(#name, name##Value);                              \
+module.def(#name, name##BlockData);
 
   PCR_OPERATOR_TEMPLATES(add)
   PCR_OPERATOR_TEMPLATES(substract)
   PCR_OPERATOR_TEMPLATES(multiply)
   PCR_OPERATOR_TEMPLATES(divide)
 
-  def("profile", &blockpy::profile<UINT1>,
-         return_value_policy<manage_new_object>());
-  def("profile",  &blockpy::profile<INT4>,
-         return_value_policy<manage_new_object>());
-  def("profile", &blockpy::profile<REAL4>,
-         return_value_policy<manage_new_object>());
+  module.def("profile", &blockpy::profile<UINT1>);
+  module.def("profile",  &blockpy::profile<INT4>);
+  module.def("profile", &blockpy::profile<REAL4>);
 
-  def("setDefaultValue", &block::setDefaultValue<UINT1>);
-  def("setDefaultValue", &block::setDefaultValue<INT4>);
-  def("setDefaultValue", &block::setDefaultValue<REAL4>);
+  module.def("setDefaultValue", &block::setDefaultValue<UINT1>);
+  module.def("setDefaultValue", &block::setDefaultValue<INT4>);
+  module.def("setDefaultValue", &block::setDefaultValue<REAL4>);
 
 
 }

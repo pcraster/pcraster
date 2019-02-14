@@ -15,7 +15,7 @@ option(
 option(
     PCRASTER_BUILD_AGUILA
     "Build Aguila"
-    OFF)
+    ON)
 option(
     PCRASTER_BUILD_MODFLOW
     "Build Modflow module"
@@ -23,11 +23,11 @@ option(
 option(
     PCRASTER_BUILD_OLDCALC
     "Build oldcalc"
-    OFF)
+    ON)
 option(
     PCRASTER_BUILD_TEST
     "Build tests"
-    ON)
+    OFF)
 option(
     PCRASTER_BUILD_DOCUMENTATION
     "Build documentation"

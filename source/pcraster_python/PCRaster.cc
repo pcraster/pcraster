@@ -844,26 +844,26 @@ PYBIND11_MODULE(_pcraster, module)
   }
 #endif
 
-    pybind11::register_exception_translator([](std::exception_ptr p) {
-        try {
-            if (p) std::rethrow_exception(p);
-        }
-        catch (dal::Exception const& exception) {
-            PyErr_SetString(PyExc_RuntimeError, exception.message().c_str());
-        }
-        catch (calc::PosException const& exception) {
-            PyErr_SetString(PyExc_RuntimeError, exception.message().c_str());
-        }
-        catch (calc::Exception const& exception) {
-            PyErr_SetString(PyExc_RuntimeError, exception.message().c_str());
-        }
-        catch (pp::PyUtilsException const& exception) {
-            PyErr_SetString(PyExc_RuntimeError, exception.message().c_str());
-        }
-        catch (com::Exception const& exception) {
-            PyErr_SetString(PyExc_RuntimeError, exception.messages().c_str());
-        }
-    });
+  pybind11::register_exception_translator([](std::exception_ptr p) {
+    try {
+      if (p) std::rethrow_exception(p);
+    }
+    catch (dal::Exception const& exception) {
+      PyErr_SetString(PyExc_RuntimeError, exception.message().c_str());
+    }
+    catch (calc::PosException const& exception) {
+      PyErr_SetString(PyExc_RuntimeError, exception.message().c_str());
+    }
+    catch (calc::Exception const& exception) {
+      PyErr_SetString(PyExc_RuntimeError, exception.message().c_str());
+    }
+    catch (pp::PyUtilsException const& exception) {
+      PyErr_SetString(PyExc_RuntimeError, exception.message().c_str());
+    }
+    catch (com::Exception const& exception) {
+      PyErr_SetString(PyExc_RuntimeError, exception.messages().c_str());
+    }
+  });
 
   // disables the C++ signatures in docstrings
   pybind11::options options;

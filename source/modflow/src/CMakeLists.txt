@@ -29,7 +29,7 @@ target_include_directories(pcrmf
 target_link_libraries(pcrmf
     PUBLIC
         pcraster::model_engine
-        ${PCR_BOOST_PYTHON}
+        pybind11::module
         ${PYTHON_LIBRARIES}
 )
 

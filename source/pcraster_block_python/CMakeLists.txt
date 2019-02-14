@@ -13,8 +13,6 @@ add_library(_pcraster_block_python SHARED
 
 add_library(pcraster::block_python ALIAS _pcraster_block_python)
 
-fix_boost_python_visibility(_pcraster_block_python)
-
 target_include_directories(_pcraster_block_python
     PRIVATE
         ${PYTHON_INCLUDE_DIR}
@@ -26,8 +24,8 @@ target_link_libraries(_pcraster_block_python
         pcraster::pcrraster
         pcraster::pcrvoxelstack
         pcraster::model_engine
-        ${PCR_BOOST_PYTHON}
-        ${PYTHON_LIBRARIES}
+        pybind11::module
+        # ${PYTHON_LIBRARIES}
 )
 
 configure_python_extension(_pcraster_block_python

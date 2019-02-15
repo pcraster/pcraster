@@ -8,7 +8,7 @@ Changes
 ..
 .. breaking change in pickle
 ..
-.. cellvalue by index, indices, coordinates added
+.. added cellvalue by (index, indices, coordinates); version_tuple
 ..
 .. development notices:
 .. auto_ptr removal

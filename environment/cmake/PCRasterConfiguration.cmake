@@ -19,7 +19,7 @@ option(
 option(
     PCRASTER_BUILD_MODFLOW
     "Build Modflow module"
-    ON)
+    OFF)
 option(
     PCRASTER_BUILD_OLDCALC
     "Build oldcalc"
@@ -123,7 +123,6 @@ if(PCRASTER_BUILD_DOCUMENTATION)
     set(DEVBASE_SPHINX_REQUIRED TRUE)
     set(SPHINX_HTML_THEME "classic")
 endif()
-
 
 
 

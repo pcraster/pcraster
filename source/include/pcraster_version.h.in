@@ -1,0 +1,6 @@
+// Generated file: DO NOT EDIT
+#pragma once
+
+const int PCRASTER_VERSION_MAJOR = @pcraster_MAJOR_VERSION@;
+const int PCRASTER_VERSION_MINOR = @pcraster_MINOR_VERSION@;
+const int PCRASTER_VERSION_PATCH = @pcraster_PATCH_VERSION@;

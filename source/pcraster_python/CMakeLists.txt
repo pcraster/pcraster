@@ -14,6 +14,11 @@ configure_file(
     NEWLINE_STYLE UNIX
 )
 
+configure_file(
+    __about__.py.in
+    ${PROJECT_BINARY_DIR}/bin/pcraster/__about__.py
+)
+
 # operations.inc and operations.py were previously generated each time at a build.
 # Due to removal of xsltproc dependency this file needs to be
 # regenerated when one of the source files change
@@ -47,7 +52,7 @@ if( ( NOT ${op_expanded} STREQUAL "c1d7687a22a7e88a3637515554dd54e4f3779c2d" ) O
     # )
 endif()
 
-add_library(_pcraster SHARED
+pybind11_add_module(_pcraster MODULE
     numpy_conversion
     PCRaster.cc
     value_scale_traits
@@ -70,18 +75,18 @@ target_include_directories(_pcraster
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
 )
 # workaround to ignore warnings of these headers
-target_include_directories(_pcraster SYSTEM
-     PRIVATE
-        ${NUMPY_INCLUDE_DIRS}
-#        ${PYTHON_INCLUDE_DIR}
-)
+# target_include_directories(_pcraster SYSTEM
+#      PRIVATE
+# #        ${NUMPY_INCLUDE_DIRS}
+# #        ${PYTHON_INCLUDE_DIR}
+# )
 
 target_link_libraries(_pcraster
     PUBLIC
         pcraster::python::utils
 #        ${PCR_BOOST_PYTHON_NUMPY}
 #        ${PCR_BOOST_PYTHON}
-        ${PYTHON_LIBRARIES}
+#        ${PYTHON_LIBRARIES}
         pybind11::module
 )
 

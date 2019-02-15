@@ -46,10 +46,6 @@ if sys.platform == "win32":
 try:
     from ._operations import *
     from . import _operators
-
-    from .__about__ import (
-        __version__, __author__, __uri__, __license__, __copyright__
-    )
 finally:
     if sys.platform == "win32":
         os.environ["PATH"] = path_

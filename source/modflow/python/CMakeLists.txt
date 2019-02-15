@@ -5,13 +5,15 @@ if(CMAKE_COMPILER_IS_GNUCXX)
     )
 endif()
 
-add_library(_pcraster_modflow_python SHARED
+pybind11_add_module(_pcraster_modflow_python MODULE
     pcrmfpy.cc
 )
 
 add_library(pcraster::modflow_python ALIAS _pcraster_modflow_python)
 
 target_link_libraries(_pcraster_modflow_python
+  PUBLIC
+    pybind11::module
     pcraster::pcrmf
 )
 

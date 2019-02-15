@@ -1,6 +1,6 @@
 add_subdirectory(scripts)
 
-add_library(_pcraster_multicore SHARED
+pybind11_add_module(_pcraster_multicore MODULE
     execution_policy
     pcraster_multicore
 
@@ -66,7 +66,6 @@ add_library(_pcraster_multicore SHARED
 target_include_directories(_pcraster_multicore
     PRIVATE
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../..>
-        ${PYTHON_INCLUDE_DIR}
 )
 
 configure_python_extension(_pcraster_multicore

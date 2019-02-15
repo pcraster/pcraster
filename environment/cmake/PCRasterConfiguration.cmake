@@ -19,7 +19,7 @@ option(
 option(
     PCRASTER_BUILD_MODFLOW
     "Build Modflow module"
-    ON)
+    OFF)
 option(
     PCRASTER_BUILD_OLDCALC
     "Build oldcalc"
@@ -126,16 +126,23 @@ endif()
 
 
 
-# ToDo
-include(FetchContent)
-FetchContent_Declare(
-    pybind11
-    GIT_REPOSITORY https://github.com/pybind/pybind11
-    GIT_TAG        v2.2.3
-)
+find_package(PythonLibs)
+set (CMAKE_REQUIRED_INCLUDES "${PYTHON_INCLUDE_DIR};${CMAKE_REQUIRED_INCLUDES}")
+# Python.h needs to be known to pass the test
+check_include_file_cxx("pybind11/pybind11.h" PYBIND11_SYSTEM_INCLUDE)
 
-FetchContent_GetProperties(pybind11)
-if(NOT pybind11_POPULATED)
-    FetchContent_Populate(pybind11)
-    add_subdirectory(${pybind11_SOURCE_DIR} ${pybind11_BINARY_DIR})
+if(NOT PYBIND11_SYSTEM_INCLUDE)
+    FetchContent_Declare(
+        pybind11
+        GIT_REPOSITORY https://github.com/pybind/pybind11
+        GIT_TAG        v2.2.4
+    )
+
+    FetchContent_GetProperties(pybind11)
+    if(NOT pybind11_POPULATED)
+        FetchContent_Populate(pybind11)
+        add_subdirectory(${pybind11_SOURCE_DIR} ${pybind11_BINARY_DIR})
+    endif()
+else()
+    find_package(pybind11 REQUIRED)
 endif()

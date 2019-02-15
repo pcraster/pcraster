@@ -5,7 +5,7 @@ if(CMAKE_COMPILER_IS_GNUCXX)
     )
 endif()
 
-add_library(_pcraster_block_python SHARED
+pybind11_add_module(_pcraster_block_python MODULE
     blockpy_blockpy
     blockpy_conversions
     blockpy_functions
@@ -13,10 +13,10 @@ add_library(_pcraster_block_python SHARED
 
 add_library(pcraster::block_python ALIAS _pcraster_block_python)
 
-target_include_directories(_pcraster_block_python
-    PRIVATE
-        ${PYTHON_INCLUDE_DIR}
-)
+# target_include_directories(_pcraster_block_python
+#     PRIVATE
+#         ${PYTHON_INCLUDE_DIR}
+# )
 
 target_link_libraries(_pcraster_block_python
     PRIVATE
@@ -25,7 +25,6 @@ target_link_libraries(_pcraster_block_python
         pcraster::pcrvoxelstack
         pcraster::model_engine
         pybind11::module
-        # ${PYTHON_LIBRARIES}
 )
 
 configure_python_extension(_pcraster_block_python

@@ -1,4 +1,6 @@
 include(GenerateExportHeader)
+include(CheckIncludeFileCXX)
+include(FetchContent)
 
 include(PeacockPlatform)
 include(DevBaseCompiler)

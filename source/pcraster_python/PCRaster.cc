@@ -20,6 +20,7 @@
 #include "numpy_conversion.h"
 #include "pickle.h"
 #include "ppu_exception.h"
+#include "pcraster_version.h"
 
 #ifndef INCLUDED_BOOST_VERSION
 #include <boost/version.hpp>
@@ -1145,4 +1146,9 @@ PYBIND11_MODULE(_pcraster, module)
     arg("map"), arg("xcoordinate"), arg("ycoordinate")
   );
 
+  module.def("version_tuple", [] () {
+    return pybind11::make_tuple(PCRASTER_VERSION_MAJOR, PCRASTER_VERSION_MINOR, PCRASTER_VERSION_PATCH);
+    },
+    "Returns the PCRaster version as tuple (major, minor, patch)"
+  );
 }

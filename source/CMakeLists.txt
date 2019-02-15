@@ -3,6 +3,11 @@ configure_file(
     include/dev_Configure.h
 )
 
+configure_file(
+    include/pcraster_version.h.in
+    include/pcraster_version.h
+)
+
 add_subdirectory(rasterformat)
 add_subdirectory(math_utils)
 add_subdirectory(string_utils)

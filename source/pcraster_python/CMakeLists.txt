@@ -14,6 +14,11 @@ configure_file(
     NEWLINE_STYLE UNIX
 )
 
+configure_file(
+    __about__.py.in
+    ${PROJECT_BINARY_DIR}/bin/pcraster/__about__.py
+)
+
 # operations.inc and operations.py were previously generated each time at a build.
 # Due to removal of xsltproc dependency this file needs to be
 # regenerated when one of the source files change

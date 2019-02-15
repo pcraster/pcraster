@@ -64,6 +64,9 @@ try:
     from . import operators
     from .aguila import *
     from .numpy_operations import *
+    from .__about__ import (
+        __version__, __author__, __uri__, __license__, __copyright__
+    )
 
     try:
         from ._pcraster_modflow import *

@@ -135,7 +135,6 @@
 
 #include "mf_utils.h"
 
-#include <pybind11/pybind11.h>
 #include <QProcess>
 #include <QString>
 
@@ -1704,55 +1703,6 @@ size_t PCRModflow::get_modflow_layernr(size_t layer) {
 }
 
 
-void PCRModflow::set_row_width(pybind11::list const& arguments){
-
-  if(d_dis == 0){
-    std::string stmp("Layers need to be specified at first!");
-    d_cmethods->error(stmp, "setRowWidth");
-  }
-
-  size_t nr_args = pybind11::len(arguments);
-
-  if(nr_args != d_nrOfRows){
-    std::stringstream tmp;
-    tmp << nr_args << " row widths given while " << d_nrOfRows << " are required";
-    d_cmethods->error(tmp.str(), "setRowWidth");
-  }
-
-  d_dis->reset_row_width();
-
-  for(size_t idx = 0; idx < nr_args; ++idx){
-    //d_dis->append_row_width(boost::python::extract<float>(arguments[idx]));
-    d_dis->append_row_width(arguments[idx].cast<float>());
-  }
-
-}
-
-
-
-void PCRModflow::set_col_width(pybind11::list const& arguments){
-
-  if(d_dis == 0){
-    std::string stmp("Layers need to be specified at first!");
-    d_cmethods->error(stmp, "setColumnWidth");
-  }
-
-  size_t nr_args = pybind11::len(arguments);
-
-  if(nr_args != d_nrOfColumns){
-    std::stringstream tmp;
-    tmp << nr_args << " column widths given while " << d_nrOfColumns << " are required";
-    d_cmethods->error(tmp.str(), "setColumnWidth");
-  }
-
-  d_dis->reset_col_width();
-
-  for(size_t idx = 0; idx < nr_args; ++idx){
-    //d_dis->append_col_width(boost::python::extract<float>(arguments[idx]));
-    d_dis->append_col_width(arguments[idx].cast<float>());
-  }
-
-}
 
 bool PCRModflow::converged(){
   return d_modflow_converged;

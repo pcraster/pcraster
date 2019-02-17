@@ -12,7 +12,7 @@ set_target_properties(pcraster_modflow
 
 target_link_libraries(pcraster_modflow
     PRIVATE
-        pcraster::pcrmf
+        pcraster::pcrmf_calc
 )
 
 add_custom_command(

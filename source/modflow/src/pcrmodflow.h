@@ -46,9 +46,6 @@
 
 // Module headers.
 
-namespace pybind11 {
-  class list;
-}
 
 // level = elevation level/pcraster map
 
@@ -108,11 +105,15 @@ class PCRModflow : public dal::Client
   friend class WEL;
   friend class HFB;
 
+protected:
+  DIS *d_dis;
+  size_t d_nrOfRows;          // NROW
+  size_t d_nrOfColumns;       // NCOL
+
  private:
   GridCheck *d_gridCheck;
   SIP *d_sip;
   RIV *d_riv;
-  DIS *d_dis;
   BAS *d_bas;
   BCF *d_bcf;
   RCH *d_rch;
@@ -162,8 +163,6 @@ class PCRModflow : public dal::Client
 
     int d_nrOfLayer;         // NLAY
     /// \todo rm Of
-      size_t d_nrOfRows;          // NROW
-      size_t d_nrOfColumns;       // NCOL
   size_t           d_nrOfCells;
       /// \todo one, double and rename to cellsize...
 	float d_widthRows;
@@ -259,11 +258,6 @@ public:
 	    bool addConfinedLayer(const float *values);
 	    void addConfinedLayer(const calc::Field *values);
 	    void setLayer(const discr::Block &thickness, const discr::BlockData<INT4> &conf);
-
-  void             set_row_width       (pybind11::list const& arguments);
-
-  void             set_col_width       (pybind11::list const& arguments);
-
 
 	    //
 	    void setDISParams(size_t timeUnits, size_t lentghUnits, float stressPeriodLength, size_t nrOfTimesteps, float timeStepMultiplier, bool isSteadyState);

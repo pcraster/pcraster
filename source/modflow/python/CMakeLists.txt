@@ -9,12 +9,17 @@ pybind11_add_module(_pcraster_modflow_python MODULE
     pcrmfpy.cc
 )
 
+target_include_directories(_pcraster_modflow_python
+    PRIVATE
+        $<TARGET_PROPERTY:pcraster::pcrmf_python,INTERFACE_INCLUDE_DIRECTORIES>
+)
+
 add_library(pcraster::modflow_python ALIAS _pcraster_modflow_python)
 
 target_link_libraries(_pcraster_modflow_python
   PUBLIC
+    pcraster::pcrmf_python
     pybind11::module
-    pcraster::pcrmf
 )
 
 add_dependencies(_pcraster_modflow_python

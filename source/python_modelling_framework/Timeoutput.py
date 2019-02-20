@@ -136,7 +136,8 @@ class TimeoutputTimeseries(object):
     """
     outputFile = open(outputFilename, "w")
     # header
-    outputFile.write("timeseries " + self._spatialDatatype.lower() + "\n")
+    dtype = self._spatialDatatype.split('.')[-1]
+    outputFile.write("timeseries {}\n".format(dtype.lower()))
     outputFile.write(str(self._maxId + 1) + "\n")
     outputFile.write("timestep\n")
     for colId in range(1, self._maxId + 1):

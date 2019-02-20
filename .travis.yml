@@ -15,6 +15,7 @@ matrix:
     include:
         - name: "Linux; gcc 5.4; debug"
           os: linux
+          python: "3.6"
           addons:
               apt:
                   sources:
@@ -25,6 +26,7 @@ matrix:
               - MATRIX_EVAL="CC=gcc-5 && CXX=g++-5"
               - TRAVIS_BUILD_TYPE=Debug
               - TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
+              - TRAVIS_PYTHON_VERSION=3.6
           before_install:
               - ./environment/travis/linux/before_install.sh
           install:
@@ -37,6 +39,7 @@ matrix:
 
         - name: "Linux; gcc 8; release"
           os: linux
+          python: "3.6"
           addons:
               apt:
                   sources:
@@ -47,6 +50,7 @@ matrix:
               - MATRIX_EVAL="CC=gcc-8 && CXX=g++-8"
               - TRAVIS_BUILD_TYPE=Release
               - TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
+              - TRAVIS_PYTHON_VERSION=3.6
           before_install:
               - ./environment/travis/linux/before_install.sh
           install:

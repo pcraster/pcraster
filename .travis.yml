@@ -70,9 +70,8 @@ matrix:
               - clang --version
               - clang++ --version
               - brew install qt5 qwt xerces-c ncurses
-              - brew install boost
-              - brew install boost-python
               # Force the latest versions
+              - brew outdated boost || brew upgrade boost
               - brew outdated gdal || brew upgrade gdal
               - brew outdated cmake || brew upgrade cmake
               - cmake --version

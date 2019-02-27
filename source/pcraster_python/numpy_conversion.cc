@@ -65,50 +65,56 @@ pybind11::array field_to_array(
 
     size_t nr_values = space.nrCells();
 
+    pybind11::array nparray;
+
     switch(field->cr()) {
         case CR_UINT1: {
 
-          pybind11::array a(pybind11::dtype("uint8"), nr_values, {});
-          char* data = static_cast<char*>(a.mutable_data());
+          nparray = pybind11::array(pybind11::dtype("uint8"), nr_values, {});
+          char* data = static_cast<char*>(nparray.mutable_data());
 
           detail::fill_data<UINT1>(data, field, field->isSpatial(), nr_values);
 
           dal::fromStdMV<UINT1>((UINT1*)data, nr_values,
                 static_cast<UINT1>(missing_value));
 
-          a.resize({space.nrRows(), space.nrCols()});
-
-          return a;
+          break;
         }
         case CR_INT4: {
 
-          pybind11::array a(pybind11::dtype("int32"), nr_values, {});
-          char* data = static_cast<char*>(a.mutable_data());
+          nparray = pybind11::array(pybind11::dtype("int32"), nr_values, {});
+          char* data = static_cast<char*>(nparray.mutable_data());
 
           detail::fill_data<INT4>(data, field, field->isSpatial(), nr_values);
 
           dal::fromStdMV<INT4>((INT4*)data, nr_values,
                 static_cast<INT4>(missing_value));
 
-          a.resize({space.nrRows(), space.nrCols()});
-
-          return a;
+          break;
         }
         case CR_REAL4: {
 
-          pybind11::array a(pybind11::dtype("float32"), nr_values, {});
-          char* data = static_cast<char*>(a.mutable_data());
+          nparray = pybind11::array(pybind11::dtype("float32"), nr_values, {});
+          char* data = static_cast<char*>(nparray.mutable_data());
 
           detail::fill_data<REAL4>(data, field, field->isSpatial(), nr_values);
 
           dal::fromStdMV<REAL4>((REAL4*)data, nr_values,
                 static_cast<REAL4>(missing_value));
 
-          a.resize({space.nrRows(), space.nrCols()});
-
-          return a;
+          break;
+        }
+        default: {
+            std::ostringstream errMsg;
+            errMsg << "unable to identify data type '"
+                << field->cr()
+                << "'\n";
+            throw std::invalid_argument(errMsg.str());
         }
     }
+
+    nparray.resize({space.nrRows(), space.nrCols()});
+    return nparray;
 }
 
 
@@ -936,105 +942,64 @@ calc::Field* array_to_field(
 */
 pybind11::array field_as_array(
     geo::RasterSpace const& space,
-    PyObject* field_object)
+    pybind11::object* field_object)
 {
-//     init_numpy();
-//     boost::python::extract<calc::Field*> field_extractor(field_object);
-//
-//     if(!field_extractor.check()) {
-//          throw std::logic_error("Expecting a PCRaster field");
-//     }
-//
-//     calc::Field* field(field_extractor());
-//     assert(field);
-//
-//     if(field->isSpatial() == false) {
-//         throw std::runtime_error("Argument is non-spatial, only spatial PCRaster data types are supported");
-//     }
-//
-//     PRECOND(field->src());
-//
-// #if BOOST_VERSION < 106500
-//     npy_intp dimensions[2];
-//     dimensions[0] = space.nrRows();
-//     dimensions[1] = space.nrCols();
-//     PyObject* array = 0;
-//
-//     switch(field->cr()) {
-//       case CR_UINT1: {
-//         array = PyArray_SimpleNewFromData(2, dimensions, NPY_UINT8,
-//             const_cast<void*>(field->src()));
-//         break;
-//       }
-//       case CR_INT4: {
-//         array = PyArray_SimpleNewFromData(2, dimensions, NPY_INT32,
-//             const_cast<void*>(field->src()));
-//         break;
-//       }
-//       case CR_REAL4:
-//       default: {
-//         assert(field->cr() == CR_REAL4);
-//         array = PyArray_SimpleNewFromData(2, dimensions, NPY_FLOAT32,
-//             const_cast<void*>(field->src()));
-//         break;
-//       }
-//     }
-//
-//     assert(array);
-//
-//     auto result = PyArray_SetBaseObject((PyArrayObject*)array, field_object);
-//     (void)result; // Shut up compiler
-//     assert(result == 0);
-//
-//     Py_INCREF(field_object);
-//
-//     return boost::python::extract<bpn_array>(array);
-// #else
-//     switch(field->cr()) {
-//       case CR_UINT1: {
-//
-//         bpn_array nparray = boost::python::numpy::from_data(field->dest(),
-//                 boost::python::numpy::dtype::get_builtin<uint8_t>(),
-//                 boost::python::make_tuple(field->nrValues()),
-//                 boost::python::make_tuple(sizeof(uint8_t)),
-//                 boost::python::object());
-//         nparray.reshape(boost::python::make_tuple(space.nrRows(), space.nrCols()));
-//
-//         Py_INCREF(field_object);
-//         return nparray.reshape(boost::python::make_tuple(space.nrRows(), space.nrCols()));
-//         break;
-//       }
-//       case CR_INT4: {
-//
-//         bpn_array nparray = boost::python::numpy::from_data(field->dest(),
-//                 boost::python::numpy::dtype::get_builtin<int32_t>(),
-//                 boost::python::make_tuple(field->nrValues()),
-//                 boost::python::make_tuple(sizeof(int32_t)),
-//                 boost::python::object());
-//         nparray.reshape(boost::python::make_tuple(space.nrRows(), space.nrCols()));
-//
-//         Py_INCREF(field_object);
-//         return nparray.reshape(boost::python::make_tuple(space.nrRows(), space.nrCols()));
-//         break;
-//        }
-//        case CR_REAL4:
-//        default: {
-//         assert(field->cr() == CR_REAL4);
-//
-//         bpn_array nparray = boost::python::numpy::from_data(field->dest(),
-//                 boost::python::numpy::dtype::get_builtin<float_t>(),
-//                 boost::python::make_tuple(field->nrValues()),
-//                 boost::python::make_tuple(sizeof(float_t)),
-//                 boost::python::object());
-//         nparray.reshape(boost::python::make_tuple(space.nrRows(), space.nrCols()));
-//
-//
-//         Py_INCREF(field_object);
-//         return nparray.reshape(boost::python::make_tuple(space.nrRows(), space.nrCols()));
-//         break;
-//       }
-//     }
-// #endif
+
+    calc::Field *field = nullptr;
+
+    try {
+      field = field_object->cast<calc::Field *>();
+    }
+    catch (pybind11::cast_error) {
+      throw std::logic_error("Expecting a PCRaster field");
+    }
+    assert(field);
+
+    if(field->isSpatial() == false) {
+        throw std::runtime_error("Argument is non-spatial, only spatial PCRaster data types are supported");
+    }
+
+    PRECOND(field->src());
+
+    pybind11::array nparray;
+
+    // pass field_object as handle to keep the ownership of the data (instead of making a copy by py::array)
+    switch(field->cr()) {
+      case CR_UINT1: {
+        nparray = pybind11::array(pybind11::dtype("uint8"),
+                                   {space.nrRows(), space.nrCols()},
+                                   {sizeof(UINT1) * space.nrCols(), sizeof(UINT1)},
+                                   field->src(),
+                                   *field_object);
+        break;
+      }
+      case CR_INT4: {
+        nparray = pybind11::array(pybind11::dtype("int32"),
+                                   {space.nrRows(), space.nrCols()},
+                                   {sizeof(INT4) * space.nrCols(), sizeof(INT4)},
+                                   field->src(),
+                                   *field_object);
+        break;
+       }
+       case CR_REAL4: {
+
+        nparray = pybind11::array(pybind11::dtype("float32"),
+                                   {space.nrRows(), space.nrCols()},
+                                   {sizeof(REAL4) * space.nrCols(), sizeof(REAL4)},
+                                   field->src(),
+                                   *field_object);
+        break;
+      }
+      default: {
+        std::ostringstream errMsg;
+        errMsg << "unable to identify data type '"
+             << field->cr()
+             << "'\n";
+        throw std::invalid_argument(errMsg.str());
+       }
+    }
+
+    return nparray;
 }
 
 } // namespace python

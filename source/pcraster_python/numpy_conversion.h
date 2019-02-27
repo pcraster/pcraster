@@ -28,8 +28,8 @@ calc::Field*       array_to_field     (geo::RasterSpace const& space,
                                        pybind11::array const& array,
                                        double const missing_value);
 
-pybind11::array    field_as_array      (geo::RasterSpace const& space,
-                                        PyObject* field_object);
+pybind11::array    field_as_array     (geo::RasterSpace const& space,
+                                       pybind11::object* field_object);
 
 } // namespace python
 } // namespace pcraster

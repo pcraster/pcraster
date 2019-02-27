@@ -526,11 +526,15 @@ class TestNumPy(testcase.TestCase):
       nr_iterations = 50
       mem_increase = False
 
+      # small memory increase can occur at runtime
+      # allow for, but less than iterations * size(raster)
+      max_diff = 400
+
       for it in range(0, nr_iterations):
         pcraster.pcr2numpy(raster, numpy.nan)
         mem = process.memory_info()
         curr_mem = mem.rss / 2**10
-        if curr_mem - init_mem > 400:
+        if curr_mem - init_mem > max_diff:
           mem_increase = True
 
       raster = pcraster.spatial(pcraster.boolean(1))
@@ -539,7 +543,7 @@ class TestNumPy(testcase.TestCase):
         pcraster.pcr2numpy(raster, numpy.nan)
         mem = process.memory_info()
         curr_mem = mem.rss / 2**10
-        if curr_mem - init_mem > 400:
+        if curr_mem - init_mem > max_diff:
           mem_increase = True
 
       raster = pcraster.nominal(pcraster.uniform(1) * 10)
@@ -548,7 +552,7 @@ class TestNumPy(testcase.TestCase):
         pcraster.pcr2numpy(raster, numpy.nan)
         mem = process.memory_info()
         curr_mem = mem.rss / 2**10
-        if curr_mem - init_mem > 400:
+        if curr_mem - init_mem > max_diff:
           mem_increase = True
 
       self.assertEqual(mem_increase, False)

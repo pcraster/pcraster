@@ -898,7 +898,7 @@ PYBIND11_MODULE(_pcraster, module)
   );
 
   module.def("setrandomseed", &pp::setRandomSeed, R"(
-   Set the random seed.\n"
+   Set the random seed.
 
    seed -- An integer value >= 0. If the seed is 0 then the seed is taken
            from the current time.
@@ -1057,7 +1057,7 @@ PYBIND11_MODULE(_pcraster, module)
   module.def("pcr2numpy", pp::field_to_array);
   module.def("numpy2pcr", pp::array_to_field,
     return_value_policy::automatic);
-  // module.def("pcr_as_numpy", pp::field_as_array);
+  module.def("pcr_as_numpy", pp::field_as_array);
 
   module.def("cellvalue", pp::fieldGetCellIndex, R"(
    Return a cell value from a map.

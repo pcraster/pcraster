@@ -15,6 +15,12 @@ create_sphinx_docs(
     SOURCES ${SPHINX_SOURCES}
 )
 
+add_dependencies(
+    pcraster_python_manual
+        _pcraster
+        fill_python_directory_structure
+)
+
 install(
     DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/_build/html/
     DESTINATION doc/python/pcraster

@@ -5,7 +5,7 @@ import os
 import inspect
 import copy
 import itertools
-import Index as CollIndex
+import pcraster.collection.Index as CollIndex
 import pcraster
 
 class ValueFromParameterTable(object):

@@ -36,10 +36,15 @@ if(PCRASTER_BUILD_DOCUMENTATION)
         SOURCES ${ALL_SPHINX_SOURCES}
     )
 
-    #
-    # add_dependencies(
-    #    pcraster_documentation
-    #
-    # )
+    add_dependencies(
+        pcraster_documentation
+            preprocessFigures
+            manual
+            _pcraster
+            _pcraster_multicore
+            python_arrayed_variables_dummy
+            python_modelling_framework_dummy
+            fill_python_directory_structure
+    )
 
 endif()

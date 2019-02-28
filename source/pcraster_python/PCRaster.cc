@@ -867,15 +867,15 @@ PYBIND11_MODULE(_pcraster, module)
   });
 
   // disables the C++ signatures in docstrings
-  pybind11::options options;
-  options.disable_function_signatures();
+  //pybind11::options options;
+  //options.disable_function_signatures();
 
 
   #include "operations.inc"
 
   module.def("_initGlobals", &pp::initGlobals);
 
-  module.def("clone", &pp::cloneSpace, return_value_policy::reference);
+  module.def("clone", &pp::cloneSpace, return_value_policy::reference, "Returns the clone RasterSpace object");
 
   module.def("_rte", &pp::rte, return_value_policy::reference);
 
@@ -890,9 +890,13 @@ PYBIND11_MODULE(_pcraster, module)
    Set the clone using clone properties.
 
    nrRows -- Number of rows.
+
    nrCols -- Number of columns.
+
    cellSize -- Cell size.
+
    west -- Coordinate of west side of raster.
+
    north -- Coordinate of north side of raster.
     )"
   );
@@ -907,11 +911,11 @@ PYBIND11_MODULE(_pcraster, module)
   );
 
   class_<geo::RasterSpace>(module, "RasterSpace")
-    .def("nrRows", &geo::RasterSpace::nrRows)
-    .def("nrCols", &geo::RasterSpace::nrCols)
-    .def("north", &geo::RasterSpace::north)
-    .def("west", &geo::RasterSpace::west)
-    .def("cellSize", &geo::RasterSpace::cellSize)
+    .def("nrRows", &geo::RasterSpace::nrRows, "Returns number of rows")
+    .def("nrCols", &geo::RasterSpace::nrCols, "Returns number of columns")
+    .def("north", &geo::RasterSpace::north, "Returns north coordinate")
+    .def("west", &geo::RasterSpace::west, "Returns west coordinate")
+    .def("cellSize", &geo::RasterSpace::cellSize, "Returns cell size")
     .def("convert", pp::convert)
     ;
 
@@ -1106,6 +1110,8 @@ PYBIND11_MODULE(_pcraster, module)
    Returns a tuple with two elements: the first is the cell value, the second
    is a boolean value which shows whether the first element, is valid or not.
    If the second element is False, the cell contains a missing value.
+
+.. versionadded:: 4.3
     )",
     arg("map"), arg("index")
   );
@@ -1123,6 +1129,8 @@ PYBIND11_MODULE(_pcraster, module)
    Returns a tuple with two elements: the first is the cell value, the second
    is a boolean value which shows whether the first element, is valid or not.
    If the second element is False, the cell contains a missing value.
+
+.. versionadded:: 4.3
     )",
     arg("map"), arg("row"), arg("col")
   );
@@ -1142,6 +1150,8 @@ PYBIND11_MODULE(_pcraster, module)
    If the second element is False, the cell contains a missing value.
 
    Note that no check on coordinate reference systems is performed.
+
+.. versionadded:: 4.3
     )",
     arg("map"), arg("xcoordinate"), arg("ycoordinate")
   );
@@ -1149,6 +1159,9 @@ PYBIND11_MODULE(_pcraster, module)
   module.def("version_tuple", [] () {
     return pybind11::make_tuple(PCRASTER_VERSION_MAJOR, PCRASTER_VERSION_MINOR, PCRASTER_VERSION_PATCH);
     },
-    "Returns the PCRaster version as tuple (major, minor, patch)"
+    R"(Returns the PCRaster version as tuple (major, minor, patch)
+
+.. versionadded:: 4.3
+    )"
   );
 }

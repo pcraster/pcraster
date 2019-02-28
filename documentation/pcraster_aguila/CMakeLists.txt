@@ -1,3 +1,9 @@
+configure_file(
+        ${CMAKE_SOURCE_DIR}/source/xmlschema/Aguila.xsd
+        ${CMAKE_BINARY_DIR}/documentation/pcraster_aguila/
+    COPYONLY
+)
+
 set(SPHINX_SOURCES
     AguilaOnMac.rst
     Building.rst

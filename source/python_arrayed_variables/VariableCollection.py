@@ -5,8 +5,8 @@ import os
 import inspect
 import copy
 import itertools
-import pcraster.collection.Index as CollIndex
 import pcraster
+import pcraster.collection
 
 class ValueFromParameterTable(object):
   """
@@ -202,7 +202,7 @@ class VariableCollection(object):
     if not isinstance(keys, list):
       raise ValueError("Argument %s must be of type list" % (keys))
     for key in keys:
-      if not isinstance(key, CollIndex.Index):
+      if not isinstance(key, pcraster.collection.Index):
         msg = "Incorrect type of argument %s, must be of type Collection.Index" % (key)
         raise ValueError(msg)
 

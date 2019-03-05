@@ -1,8 +1,4 @@
 // External headers.
-#ifndef INCLUDED_BOOST_PYTHON
-#include <boost/python.hpp>
-#define INCLUDED_BOOST_PYTHON
-#endif
 
 // Project headers.
 #ifndef INCLUDED_CALC_SPATIAL
@@ -18,13 +14,12 @@
 
 
 
-BOOST_PYTHON_MODULE(_pcraster_moc) {
-  namespace bp = boost::python;
+PYBIND11_MODULE(_pcraster_moc, module) {
+  namespace py = pybind11;
   namespace mp = moc::python;
 
-  bp::class_<mp::Moc, boost::noncopyable>(
-         "initialise",
-         bp::init<geo::RasterSpace const&, double, UINT4, calc::Field const*,
+  py::class_<mp::Moc>(module, "initialise")
+    .def(py::init<geo::RasterSpace const&, double, UINT4, calc::Field const*,
               calc::Field const*, calc::Field const*>())
     .def("transport", &mp::Moc::transport)
     .def("adjust", &mp::Moc::adjust)

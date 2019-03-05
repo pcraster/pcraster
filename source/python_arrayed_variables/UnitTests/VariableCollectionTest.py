@@ -5,7 +5,7 @@ import testcase
 import pcraster
 import pcraster.framework
 import VariableCollection as vcMod
-import Index
+import pcraster.collection as Index
 
 class CollectionUnitTests(testcase.TestCase):
   def test1(self):

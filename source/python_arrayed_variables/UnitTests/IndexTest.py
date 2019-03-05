@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import testcase
 import pcraster
-import Index as Index
+import Index
 
 
 

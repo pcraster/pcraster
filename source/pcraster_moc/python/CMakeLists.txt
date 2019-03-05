@@ -5,18 +5,16 @@ add_library(_pcraster_moc_python SHARED
 
 add_library(pcraster::moc_python ALIAS _pcraster_moc_python)
 
-fix_boost_python_visibility(_pcraster_moc_python)
-
 target_include_directories(_pcraster_moc_python
     PRIVATE
         ${PYTHON_INCLUDE_DIR}
+        pybind11::module
 )
 
 target_link_libraries(_pcraster_moc_python
     PUBLIC
         pcraster::moc
         pcraster::model_engine
-        ${PCR_BOOST_PYTHON}
         ${PYTHON_LIBRARIES}
 )
 

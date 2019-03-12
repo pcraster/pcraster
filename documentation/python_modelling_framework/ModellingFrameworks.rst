@@ -15,7 +15,7 @@ The script :ref:`below <runoff.py>` is the Python version of the hydrological ru
 
 ::
 
-  python2.5 runoff.py
+  python runoff.py
 
 ..       <title>Python script <filename>runoff.py</filename> specifying a spatio-temporal model using the dynamic modelling framework.</title>
 ..       <tgroup cols="1"><tbody><row><entry>-->
@@ -50,7 +50,7 @@ The following script shows the minimal user class that fulfills the requirements
 .. code-block:: python
 
    # userModel.py
-   from PCRaster.Framework import *
+   from pcraster.framework import *
 
    class UserModel(StaticModel):
      def __init__(self):
@@ -72,7 +72,7 @@ The model class can be executed with the static framework as follows:
    # runScript.py
 
    import userModel
-   from PCRaster.Framework import *
+   from pcraster.framework import *
 
    myModel = userModel.UserModel()
    staticModel = StaticFramework(myModel)
@@ -84,7 +84,7 @@ To run the model execute
 
 ::
 
-  python2.5 runScript.py
+  python runScript.py
 
 The script `runScript.py` creates an instance of the user model which is passed to the static framework afterwards. `staticModel.run()` executes the initial section of the user model.
 
@@ -113,7 +113,7 @@ Note that the framework provides an additional report operation (`self.report`) 
 ..         <title>Methods provided by the framework</title>
 ..         <para>The following methods are added by the framework to the user class: [report not
 ..           added, but has different report locations...]
-..           
+..
 ..         </para>
 ..         <variablelist>
 ..           <varlistentry>
@@ -158,7 +158,7 @@ The following script shows the minimal user class that fulfills the requirements
 .. code-block:: python
 
    # userModel.py
-  from PCRaster.Framework import *
+  from pcraster.framework import *
 
   class UserModel(DynamicModel):
    def __init__(self):
@@ -187,7 +187,7 @@ Applying the model to the dynamic framework is done by:
    # runScript.py
 
    import userModel
-   from PCRaster.Framework import *
+   from pcraster.framework import *
 
    myModel = userModel.UserModel()
    dynModel = DynamicFramework(myModel, 50)
@@ -199,7 +199,7 @@ To run the model execute
 
 ::
 
-  python2.5 runScript.py
+  python runScript.py
 
 The script `runScript.py` creates an instance of the user model which is passed to the dynamic framework. The number of time steps is given as second argument to the framework constructor.
 
@@ -224,7 +224,7 @@ For additional operations that can be used for example in conditional expression
 ..       <!--       <sect3>
 ..         <title>Methods provided by the framework</title>
 ..         <para>The following methods are added by the framework to the user class:
-.. 
+..
 ..         </para>
 ..         <variablelist>
 ..           <varlistentry>
@@ -335,7 +335,7 @@ To run the model execute
 
 ::
 
-  python2.5 montecarlo.py
+  python montecarlo.py
 
 In the `premcloop`, the local drain direction map is created from the digital elevation map `dem.map`. As the local drain direction map is used in the initial and dynamic section later on it is defined as a member variable of the snowModel class. If maps are reported in the `premcloop` they are written into the current working directory.
 

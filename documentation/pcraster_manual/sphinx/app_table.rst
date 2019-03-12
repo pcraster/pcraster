@@ -6,7 +6,7 @@ table
 .. index::
    single: table
 .. topic:: table
-   
+
    Creates on basis of one or more maps a table with a score for each key in the table.
 
 ::
@@ -25,43 +25,43 @@ Options
 
 *--unittrue or --unitcell*
 
-*--unittrue*
-    the score is the total true area of the cells that match a key (default) 
-*--unitcell*
-    the score is the number of cells that match a key 
+:literal:`--unittrue`
+    the score is the total true area of the cells that match a key (default)
+:literal:`--unitcell`
+    the score is the number of cells that match a key
 
 *--degrees or --radians*
 
-*--degrees*
-    directions of directional data type are in degrees (default) 
+:literal:`--degrees`
+    directions of directional data type are in degrees (default)
 
-*--radians*
-    directions of directional data type are in radians 
+:literal:`--radians`
+    directions of directional data type are in radians
 
 *--columntable or --matrixtable*
 
-*--columntable*
+:literal:`--columntable`
     ResultTable will be a column table (column table format) (default)
-*--matrixtable*
-    if two maps --PCRmap1, --PCRmap2 are specified in the command line ResultTable will be a matrix in matrix table format, instead of a table. The options -i and -m are ignored. 
+:literal:`--matrixtable`
+    if two maps --PCRmap1, --PCRmap2 are specified in the command line ResultTable will be a matrix in matrix table format, instead of a table. The options -i and -m are ignored.
 
 -n nrintervals
-  the number of intervals in the key column for scalar and directional data type (default 8) 
+  the number of intervals in the key column for scalar and directional data type (default 8)
 -h
-  the intervals in the key column for scalar and directional data type are histogram stretched: intervals are chosen that result in an (almost) equal number of cells into each interval. 
+  the intervals in the key column for scalar and directional data type are histogram stretched: intervals are chosen that result in an (almost) equal number of cells into each interval.
 -H nrhistslots
   corresponds with -h, additionally the number of histogramslots (nrhistslots) can be given. With the default value 1024 the number of intervals in each interval will be almost the same, but not exactly. Choosing a larger nrhistslots will improve the accuracy the intervals are chosen, on the contrary it will take longer to determine the intervals.
 
 -i Inputtable
-  the Inputtable is an ascii table that defines the keys used for calculation of the scores. For explanation, see Operation. 
+  the Inputtable is an ascii table that defines the keys used for calculation of the scores. For explanation, see Operation.
 
 -0
-  remove keys with score zero. All keys, including these with a zero score, are printed in ResultTable. Default: keys with a zero score are not printed. 
+  remove keys with score zero. All keys, including these with a zero score, are printed in ResultTable. Default: keys with a zero score are not printed.
 
 change order of columns mode, for column tables only
 
 -m columnnrmove
-   Use in combination with -i Inputtable and do not specify input maps PCRmap1, PCRmap2,...PCRmapn. In Inputtable the column with column number columnnrmove is moved to the last column. The table with changed column order is saved as ResultTable. 
+   Use in combination with -i Inputtable and do not specify input maps PCRmap1, PCRmap2,...PCRmapn. In Inputtable the column with column number columnnrmove is moved to the last column. The table with changed column order is saved as ResultTable.
 
 Operation
 =========
@@ -92,23 +92,23 @@ For a tuple in the ResultTable, the table operator has counted the number of cel
 The ResultTable is an ordinary ascii text file. You can display the table by typing the DOS command 'type' followed by a space and the table name ResultTable. It has the following lay-out. In a row (tuple), the number of key fields equals the number of maps PCRmap1, PCRmap2,...PCRmapn. The key fields are followed by the score field. The fields are separated by one or more spaces or tabs. A key field is a single value, or a range of values, where a range of values is typed as: '[' or '<' symbol, minimum value, comma, maximum value, ']' or '>' symbol. The minimum and maximum values are included in the range if square brackets (respectively '[' and ']') are used, they are not included if '<' or '>' are used. A value which is omitted in the range definition means infinity. Examples of tuples are (assume a cellarea of 100 m2)::
 
     [ ,0.05>     37600
-    An area of 37600 (376 cells of 100 m2) has PCRmap1 values smaller than 0.05. 
+    An area of 37600 (376 cells of 100 m2) has PCRmap1 values smaller than 0.05.
     [-1.42,-0.2>     [ ,9>     20800
-    An area of 20800 (208 cells of 100 m2) has an PCRmap1 value equal to -1.42 or between -1.42 and -0.2 and an PCRmap2 value smaller than 9. 
+    An area of 20800 (208 cells of 100 m2) has an PCRmap1 value equal to -1.42 or between -1.42 and -0.2 and an PCRmap2 value smaller than 9.
 
 Default the keys are determined automatically, before the counting of cells starts. The way this is done depends on the data type of the maps PCRmap1, PCRmap2,...PCRmapn:
 
 boolean, nominal, ordinal, ldd data type
 
-    the key column consists of sets of all whole values between and including the maximum and minimum cell value on the map linked to the key column. 
+    the key column consists of sets of all whole values between and including the maximum and minimum cell value on the map linked to the key column.
 
 scalar data type
 
-    the key column consists of sets of ranges; default 8 ranges of equal width, or specified by the options -n nrintervals; -h or -H nrhistslots. 
+    the key column consists of sets of ranges; default 8 ranges of equal width, or specified by the options -n nrintervals; -h or -H nrhistslots.
 
 directional data type
 
-    the key column consists of sets of: the number -1 for the value -1 (no direction) and nrintervals-1 ranges for the directions, the number of ranges used can be specified by -n nrintervals; -h or -H nrhistslots; default, 7 ranges of equal width are used. 
+    the key column consists of sets of: the number -1 for the value -1 (no direction) and nrintervals-1 ranges for the directions, the number of ranges used can be specified by -n nrintervals; -h or -H nrhistslots; default, 7 ranges of equal width are used.
 
 
 
@@ -130,15 +130,15 @@ Each key column must contain key values in the domain of the data type of the ma
 
 boolean, nominal, ordinal, ldd data type
 
-    whole values 
+    whole values
 
 scalar data type
 
-    values or ranges; 
+    values or ranges;
 
 directional data type
 
-    the value -1; or values or ranges in the domain of the data type [0,360> (option --degrees), [0,2pi> (option --radians). 
+    the value -1; or values or ranges in the domain of the data type [0,360> (option --degrees), [0,2pi> (option --radians).
 
 operation with a matrix table (with the option --matrixtable)
 With the option --matrixtable set, with two maps PCRmap1, PCRmap2 specified in the command line, ResultTable will be a matrix table instead of a column table. If the option --matrixtable is set and a different number of PCRmap1, PCRmap2,...PCRmapn is specified, a column table is generated and the operation is performed as described above.

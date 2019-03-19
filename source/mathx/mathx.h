@@ -3,27 +3,27 @@
 
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 #include <math.h>
 
 #ifndef M_PI
-# define M_PI 3.14159265358979323846264338327
+#define M_PI 3.14159265358979323846264338327
 #endif
 
 #ifdef ALPHA_OSF
-# ifndef M_2PI
-# error "M_2PI expected to be defined on ALPHA_OSF"
-# endif
+#ifndef M_2PI
+#error "M_2PI expected to be defined on ALPHA_OSF"
+#endif
 #else
-# define M_2PI           ((double)(2*M_PI))
+#define M_2PI ((double)(2 * M_PI))
 #endif
 
-#define sqr(x)   ((x)*(x))
+#define sqr(x) ((x) * (x))
 
 /* rint.c*/
-double Rint(double x); 
+double Rint(double x);
 double Fdiv(double x, double y);
 
 /* ran.c */
@@ -33,8 +33,12 @@ extern void InitRanOnce(void);
 extern double GasDev(void);
 
 /* dirstat.c */
-extern void DirectionalMoments(double *meanBack, double *sdBack, 
-         double *skewBack, double *kurt, const double *samples, size_t n);
+extern void DirectionalMoments(double *meanBack,
+                               double *sdBack,
+                               double *skewBack,
+                               double *kurt,
+                               const double *samples,
+                               size_t n);
 extern double DirectionalMean(const double *samples, size_t n);
 
 /* dirconv.c */
@@ -58,7 +62,7 @@ extern void FreeSqrMatrix(double **m, size_t n);
 
 
 #ifdef __cplusplus
- }
+}
 #endif
 
 #endif /* MATHX__H */

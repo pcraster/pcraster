@@ -13,14 +13,14 @@
 */
 double Rint(double x) /* value to be rounded  */
 {
-	double t = fabs(x);
-	if (t-floor(t) >= (double)0.5)
-		t = ceil(t);
-	else	
-		t = floor(t);
-	if (x < (double)0.0)
-		t = -t;
-	return t;
+    double t = fabs(x);
+    if (t - floor(t) >= (double)0.5)
+        t = ceil(t);
+    else
+        t = floor(t);
+    if (x < (double)0.0)
+        t = -t;
+    return t;
 }
 
 /* integer division
@@ -31,8 +31,8 @@ double Rint(double x) /* value to be rounded  */
 *  the integer division value as a floating-point number.
 */
 double Fdiv(double x, /* x    */
-           double y) /*  y */
+            double y) /*  y */
 {
- double t = floor(fabs(x)/fabs(y)); 
- return x < 0 ? -t : t;
+    double t = floor(fabs(x) / fabs(y));
+    return x < 0 ? -t : t;
 }

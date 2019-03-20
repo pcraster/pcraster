@@ -38,7 +38,7 @@ A point is defined by the following structure:
 @ID @Code{
 typedef struct POINT
 "{"
-	double x,y;
+  double x,y;
 "}" POINT;
 }
 
@@ -51,12 +51,12 @@ typedef struct POINT
 @ID @Code {
 typedef struct LINE 
 "{"
-	int parY;
-	double slope;
-	union "{"
-	 double yInt;
-	 double xInt;
-	"}"
+  int parY;
+  double slope;
+  union "{"
+    double yInt;
+    double xInt;
+  "}"
 "}" LINE;
 }
 

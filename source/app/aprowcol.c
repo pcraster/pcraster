@@ -25,7 +25,7 @@
 /**********************/
 
 /******************/
-/* IMPLEMENTATION */ 
+/* IMPLEMENTATION */
 /******************/
 
 /* compute row, column number of an input co-ordinate.
@@ -41,26 +41,27 @@
  *  1 if inside
  * 
  */
-int AppRgetRowCol(
-	const MAP *m,	/* map handle */
-	double x,      	/* x of input co-ordinate */
-	double y,      	/* y of input co-ordinate */
-	int *row,    	/* write-only row number.  */
-	int *col)    	/* write-only column number.  */
+int AppRgetRowCol(const MAP *m, /* map handle */
+                  double x,     /* x of input co-ordinate */
+                  double y,     /* y of input co-ordinate */
+                  int *row,     /* write-only row number.  */
+                  int *col)     /* write-only column number.  */
 {
-	double r,c;
-	if(appUnitTrue)
-		Rcoords2RowCol(m,x,y,&r,&c);
-	else
-		{ r = y; c = x; }
+    double r, c;
+    if (appUnitTrue)
+        Rcoords2RowCol(m, x, y, &r, &c);
+    else {
+        r = y;
+        c = x;
+    }
 
-	(*row) = (int)floor(r);
-	(*col) = (int)floor(c);
-	if (appCoord == APP_LR && 
-	   ((double)(*row)) == r &&
-	   ((double)(*col)) == c )
-	 { (*row)--; (*col)--;}
+    (*row) = (int)floor(r);
+    (*col) = (int)floor(c);
+    if (appCoord == APP_LR && ((double)(*row)) == r && ((double)(*col)) == c) {
+        (*row)--;
+        (*col)--;
+    }
 
-	return ((*col) >= 0 && (*row) >= 0 && 
-	       (*col) < (int)RgetNrCols(m) && (*row) < (int)RgetNrRows(m));
+    return ((*col) >= 0 && (*row) >= 0 && (*col) < (int)RgetNrCols(m) &&
+            (*row) < (int)RgetNrRows(m));
 }

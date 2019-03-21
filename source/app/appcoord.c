@@ -25,7 +25,7 @@
 /**********************/
 
 /******************/
-/* IMPLEMENTATION */ 
+/* IMPLEMENTATION */
 /******************/
 
 /* Compute output co-ordinate of a pixel on base of global options.
@@ -44,25 +44,27 @@
  * Merrno
  * ILL_CELLSIZE
  */
-int AppRgetCoords(
-	const MAP *m,	/* map handle */
-	int row,      /* Row number (relates to y position). */
-	int col,      /* Column number (relates to x position). */
-	double *x,      /* write-only. Returns x of  output co-ordinate */
-	double *y)      /* write-only. Returns y of output co-ordinate */
+int AppRgetCoords(const MAP *m, /* map handle */
+                  int row,      /* Row number (relates to y position). */
+                  int col,      /* Column number (relates to x position). */
+                  double *x,    /* write-only. Returns x of  output co-ordinate */
+                  double *y)    /* write-only. Returns y of output co-ordinate */
 {
-	int result = (row >=0 && col >= 0 && row < (int)RgetNrRows(m) && col < (int)RgetNrRows(m));
-	*x = col;
-	*y = row;
-	switch(appCoord) {
-		case APP_C:  *y += 0.5;
-		             *x += 0.5;
-		             break;
-	        case APP_LR: *y += 1;
-	                     *x += 1;
-	        IFDEBUG(case APP_UL:);
-	}
-	if(appUnitTrue)
-		(void)RrowCol2Coords(m,*y,*x,x,y);
-	return result;
+    int result =
+        (row >= 0 && col >= 0 && row < (int)RgetNrRows(m) && col < (int)RgetNrRows(m));
+    *x = col;
+    *y = row;
+    switch (appCoord) {
+    case APP_C:
+        *y += 0.5;
+        *x += 0.5;
+        break;
+    case APP_LR:
+        *y += 1;
+        *x += 1;
+        IFDEBUG(case APP_UL:);
+    }
+    if (appUnitTrue)
+        (void)RrowCol2Coords(m, *y, *x, x, y);
+    return result;
 }

@@ -1,4 +1,4 @@
-#include "stddefx.h" 
+#include "stddefx.h"
 
 /********/
 /* USES */
@@ -22,7 +22,7 @@
 /**********************/
 
 /******************/
-/* IMPLEMENTATION */ 
+/* IMPLEMENTATION */
 /******************/
 
 /* test if a file exists and is a regular file
@@ -31,16 +31,17 @@
  * If not an error message is printed. 
  * returns 
  *  0 if file is OK, 1 if an error message is printed.
- */ 
-int AppInputTest(
-	const char *inputFile) /* the input file */
+ */
+int AppInputTest(const char *inputFile) /* the input file */
 {
-	/* Check input file  */
-	switch(FileStat(inputFile)) {
-	 case 1: Error("input file '%s' is not a (regular) file",inputFile);
-	         return 1;
-	 case 2: Error("input file '%s' does not exist",inputFile);
-	         return 1;
-	}
-	return 0;
+    /* Check input file  */
+    switch (FileStat(inputFile)) {
+    case 1:
+        Error("input file '%s' is not a (regular) file", inputFile);
+        return 1;
+    case 2:
+        Error("input file '%s' does not exist", inputFile);
+        return 1;
+    }
+    return 0;
 }

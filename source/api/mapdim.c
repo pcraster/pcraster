@@ -21,17 +21,17 @@
 /***************/
 
 /* (LIBRARY_INTERNAL) */
-REAL8 testApiArea     = -1;
+REAL8 testApiArea = -1;
 /* (LIBRARY_INTERNAL) */
-REAL8 testApiSide     = -1;
+REAL8 testApiSide = -1;
 /* (LIBRARY_INTERNAL) */
 REAL8 testApiDiagonal = -1;
 /* (LIBRARY_INTERNAL) */
-int   testApiYproj    =  0;
+int testApiYproj = 0;
 /* size_t   testApiNrRows   = 0; */
 /* size_t   testApiNrCols   = 0; */
 /* (LIBRARY_INTERNAL) */
-BOOL  testApiInit     = FALSE;
+BOOL testApiInit = FALSE;
 
 /**********************/
 /* LOCAL DECLARATIONS */
@@ -50,9 +50,9 @@ BOOL  testApiInit     = FALSE;
  */
 int TestApiInitTest(const char *whoCares)
 {
-	PRECOND(testApiInit);
-  (void)whoCares; // Shut up compiler
-	return 1;
+    PRECOND(testApiInit);
+    (void)whoCares; // Shut up compiler
+    return 1;
 }
 #endif
 
@@ -60,24 +60,24 @@ int TestApiInitTest(const char *whoCares)
  */
 REAL8 Area(void)
 {
-	PRECOND(TestApiInitTest("Area"));
-	return appUnitTrue ? testApiArea: 1;
+    PRECOND(TestApiInitTest("Area"));
+    return appUnitTrue ? testApiArea : 1;
 }
 
 /* cell length depending on appUnitTrue
  */
 REAL8 Side(void)
 {
-	PRECOND(TestApiInitTest("Side"));
-	return appUnitTrue ? testApiSide: 1;
+    PRECOND(TestApiInitTest("Side"));
+    return appUnitTrue ? testApiSide : 1;
 }
 
 /* diagonal cell length depending on appUnitTrue
  */
 REAL8 Diagonal(void)
 {
-	PRECOND(TestApiInitTest("Diagonal"));
-	return appUnitTrue ? testApiDiagonal: sqrt((double)2);
+    PRECOND(TestApiInitTest("Diagonal"));
+    return appUnitTrue ? testApiDiagonal : sqrt((double)2);
 }
 
 /* y projection factor
@@ -86,6 +86,6 @@ REAL8 Diagonal(void)
  */
 REAL8 YProjectionFactor(void)
 {
-	PRECOND(TestApiInitTest("YProjectionFactor"));
-	return appUnitTrue ? testApiYproj : 1;
+    PRECOND(TestApiInitTest("YProjectionFactor"));
+    return appUnitTrue ? testApiYproj : 1;
 }

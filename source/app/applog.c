@@ -92,7 +92,7 @@ static void WriteStartTag(FILE *f, const char *tagName)
     time_t timer = time(NULL);
     struct tm *tblock = localtime(&timer);
     fprintf(f,
-            "<%s time=\"%s\" time2=\"%u\" session_id=\"%u\">\n",
+            "<%s time=\"%s\" time2=\"%zu\" session_id=\"%zu\">\n",
             tagName,
             asctime(tblock),
             (size_t)timer,

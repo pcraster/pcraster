@@ -1,5 +1,5 @@
-#ifndef  __ACCU_H__ 
-#define  __ACCU_H__ 
+#ifndef __ACCU_H__
+#define __ACCU_H__
 
 /*
    $Log: accu.h,v $
@@ -27,13 +27,12 @@ typedef REAL8 (*ACCU_FUNC)(REAL8 amount, REAL8 val);
 /*******************/
 
 /* accu.c */
-extern int PerformAccu(
-	MAP_REAL8 *state,
-	MAP_REAL8 *flux,
-	const MAP_UINT1 *ldd,
-	const MAP_REAL8 *amount,
-	const MAP_REAL8 *value,
-	ACCU_FUNC f);
+extern int PerformAccu(MAP_REAL8 *state,
+                       MAP_REAL8 *flux,
+                       const MAP_UINT1 *ldd,
+                       const MAP_REAL8 *amount,
+                       const MAP_REAL8 *value,
+                       ACCU_FUNC f);
 
 #endif /* __ACCU_H__*/
 /* End of File */

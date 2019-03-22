@@ -41,6 +41,8 @@
       fill_python_directory_structure
     DEPENDS
       python_modelling_framework_dummy
+    DEPENDS
+      python_arrayed_variables_dummy
     FIXTURES_REQUIRED
       FixturesArrayedVariables
   )

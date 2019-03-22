@@ -20,7 +20,7 @@ set(COLLECTION_BUILD_DIRECTORY
 # This enables us to test and use the code as if it where installed already.
 # Dummy target that is always built, but does nothing. This enables us to
 # attach post-build commands.
-add_custom_target(python_arrayed_variables_dummy)
+add_custom_target(python_arrayed_variables_dummy ALL)
 
 
 add_custom_command(

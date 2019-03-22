@@ -1,6 +1,6 @@
 
 set(CMAKE_C_COMPILER clang-7)
-set(CMAKE_CXX_COMPILER clang-7)
+set(CMAKE_CXX_COMPILER clang++-7)
 
 
 include(${CMAKE_CURRENT_LIST_DIR}/gcc.cmake)

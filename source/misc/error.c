@@ -17,19 +17,20 @@
 static char errorBuf[BUF_SIZE];
 static char errorMsg[BUF_SIZE]; /* the complete message */
 static char *ptrs[16];
-static int  errorNestLevel = 0;
+static int errorNestLevel = 0;
 
-void ResetError() {
-  memset(errorBuf,0, BUF_SIZE);
-  memset(errorMsg,0, BUF_SIZE);
-  errorNestLevel=0;
+void ResetError()
+{
+    memset(errorBuf, 0, BUF_SIZE);
+    memset(errorMsg, 0, BUF_SIZE);
+    errorNestLevel = 0;
 }
 
-void (* appLogErrorFunc)(const char *msg)=NULL;
+void (*appLogErrorFunc)(const char *msg) = NULL;
 
 static void printStderr(const char *msg)
 {
-	fprintf(stderr, "%s", msg);
+    fprintf(stderr, "%s", msg);
 }
 
 /* controls if Error() and siblings will exit
@@ -40,7 +41,7 @@ static void printStderr(const char *msg)
  * initialized to zero.  Put exitOnError=1 in your main() for quick and dirty
  * programming.
  */
-int exitOnError=0;
+int exitOnError = 0;
 
 /* controls what Error() and siblings will print as error prefix 
  * This global variable 
@@ -48,7 +49,7 @@ int exitOnError=0;
  * then these functions use the prefix 'ERROR:'. If errorPrefixMsg is not NULL 
  * Error() and siblings will use the prefix pointed to by errorPrefixMsg.
  */
-const char *errorPrefixMsg=NULL;
+const char *errorPrefixMsg = NULL;
 
 /* controls the actions to be taken if Error and siblings are called
  * This global variable holds a pointer to a function, that will
@@ -75,67 +76,63 @@ void (*errorHandler)(const char *msg) = printStderr;
  *
  * .so examples/errout.tr
  */
-void ErrorNested(
-	const char *fmt,  /* Format control, see printf() for a description */
-	... )             /* Optional arguments */
+void ErrorNested(const char *fmt, /* Format control, see printf() for a description */
+                 ...)             /* Optional arguments */
 {
     va_list marker;
 
     /* Write text to a string and output the string. */
 
-    va_start( marker,VA_START_ARG(fmt));
-    vfErrorNested(fmt, marker );
-    va_end( marker );
+    va_start(marker, VA_START_ARG(fmt));
+    vfErrorNested(fmt, marker);
+    va_end(marker);
 }
 
 /* vfprintf-flavour of ErrorNested()
  * See ErrorNested() for full documentation.
  */
-void vfErrorNested(
-	const char *fmt,  /* Format control, see printf() for a description */
-	va_list marker )             /* Optional arguments */
+void vfErrorNested(const char *fmt, /* Format control, see printf() for a description */
+                   va_list marker)  /* Optional arguments */
 {
-        char *buf;
+    char *buf;
 
-        PRECOND (errorNestLevel < 15);
+    PRECOND(errorNestLevel < 15);
 
-        if (!errorNestLevel)
-	{ /* reset bufs */
-	  errorBuf[0] = '\0';
-	  ptrs[errorNestLevel] = errorBuf;
-	}
-	buf = ptrs[errorNestLevel];
+    if (!errorNestLevel) { /* reset bufs */
+        errorBuf[0] = '\0';
+        ptrs[errorNestLevel] = errorBuf;
+    }
+    buf = ptrs[errorNestLevel];
 
-        /* print message in buf */
-        (void)vsprintf(buf, fmt, marker );
+    /* print message in buf */
+    (void)vsprintf(buf, fmt, marker);
 
-        /* remove leading and trailing space and newlines 
+    /* remove leading and trailing space and newlines 
          */
-        (void)LeftRightTrim(buf);
+    (void)LeftRightTrim(buf);
 
-	ptrs[errorNestLevel+1] = ptrs[errorNestLevel]+strlen(buf)+1;
-	errorNestLevel++;
-	POSTCOND(ptrs[errorNestLevel] < errorBuf+BUF_SIZE);
+    ptrs[errorNestLevel + 1] = ptrs[errorNestLevel] + strlen(buf) + 1;
+    errorNestLevel++;
+    POSTCOND(ptrs[errorNestLevel] < errorBuf + BUF_SIZE);
 }
 
 /* vfprintf-flavour of Error()
  * See Error() for full documentation.
  */
-void vfError(
-	const char *fmt,  /* Format control, see printf() for a description */
-	va_list marker )             /* Optional arguments */
+void vfError(const char *fmt, /* Format control, see printf() for a description */
+             va_list marker)  /* Optional arguments */
 {
     char buf[BUF_SIZE];
     size_t msgPtr;
-    int  i;
+    int i;
     const char *pref;
 
     /* put error message in msg
-     */ 
-    (void)vsprintf(buf, fmt, marker );
+     */
+    (void)vsprintf(buf, fmt, marker);
     (void)LeftRightTrim(buf);
     pref = (errorPrefixMsg == NULL) ? "ERROR:" : errorPrefixMsg;
-    (void)sprintf(errorMsg, "%s %s\n", pref,buf);
+    (void)sprintf(errorMsg, "%s %s\n", pref, buf);
 
     /* let msgPtr point to insertion point 
      * the '\0'
@@ -143,37 +140,35 @@ void vfError(
     msgPtr = strlen(errorMsg);
     PRECOND(errorMsg[msgPtr] == '\0');
 
-    for(i = (errorNestLevel-1); i >= 0; i--)
-    {
-    	char *p = ptrs[i];
-    	int  j,id = errorNestLevel-i; /* # of indents */
-	while(*p != '\0')
-	{ 
-	  if (p == ptrs[i])  /* start */
-	   for (j = 0; j < id; j++)
-		errorMsg[msgPtr++] = INDENT;
-	  errorMsg[msgPtr++] = *p;
-	  if (*p == '\n') /*  newline in a level */
-	   for (j = 0; j < id; j++)
-		errorMsg[msgPtr++] = INDENT;
-	  p++;
-	}
-	errorMsg[msgPtr++] = '\n';
+    for (i = (errorNestLevel - 1); i >= 0; i--) {
+        char *p = ptrs[i];
+        int j, id = errorNestLevel - i; /* # of indents */
+        while (*p != '\0') {
+            if (p == ptrs[i]) /* start */
+                for (j = 0; j < id; j++)
+                    errorMsg[msgPtr++] = INDENT;
+            errorMsg[msgPtr++] = *p;
+            if (*p == '\n') /*  newline in a level */
+                for (j = 0; j < id; j++)
+                    errorMsg[msgPtr++] = INDENT;
+            p++;
+        }
+        errorMsg[msgPtr++] = '\n';
     }
     errorNestLevel = 0; /* reset NestedErrors */
 
-	
+
     if (appLogErrorFunc)
-	(*appLogErrorFunc)(errorMsg);
+        (*appLogErrorFunc)(errorMsg);
 
     /* call error handler */
     errorHandler(errorMsg);
 
     if (exitOnError)
-    	exit(exitOnError);
+        exit(exitOnError);
 #ifdef DEBUG
-    if ( getenv("PCR_ERROREXIT") != NULL)
-    		exit(1);
+    if (getenv("PCR_ERROREXIT") != NULL)
+        exit(1);
 #endif
 }
 
@@ -205,17 +200,16 @@ void vfError(
  * REMARK
  * Keep error messages short but descriptive.
  */
-void Error(
-	const char *fmt,  /* Format control, see printf() for a description */
-	... )             /* Optional arguments */
+void Error(const char *fmt, /* Format control, see printf() for a description */
+           ...)             /* Optional arguments */
 {
     va_list marker;
 
     /* Write text to a string and output the string. */
 
-    va_start( marker,VA_START_ARG(fmt));
-    vfError(fmt, marker );
-    va_end( marker );
+    va_start(marker, VA_START_ARG(fmt));
+    vfError(fmt, marker);
+    va_end(marker);
 }
 
 /* Writes error message to stderr and (optional) exits or returns
@@ -224,18 +218,17 @@ void Error(
  * RETURNS
  *  the value of returnValue.
  */
-int RetError(
-	int  returnValue, /* value to be returned */
-	const char *fmt,  /* Format control, see printf() for a description */
-	... )             /* Optional arguments */
+int RetError(int returnValue, /* value to be returned */
+             const char *fmt, /* Format control, see printf() for a description */
+             ...)             /* Optional arguments */
 {
     va_list marker;
 
     /* Write text to a string and output the string. */
 
-    va_start( marker,VA_START_ARG(fmt));
-    vfError(fmt, marker );
-    va_end( marker );
+    va_start(marker, VA_START_ARG(fmt));
+    vfError(fmt, marker);
+    va_end(marker);
     return returnValue;
 }
 
@@ -245,18 +238,17 @@ int RetError(
  * RETURNS
  *  the value of returnValue.
  */
-int RetErrorNested(
-	int  returnValue, /* value to be returned */
-	const char *fmt,  /* Format control, see printf() for a description */
-	... )             /* Optional arguments */
+int RetErrorNested(int returnValue, /* value to be returned */
+                   const char *fmt, /* Format control, see printf() for a description */
+                   ...)             /* Optional arguments */
 {
     va_list marker;
 
     /* Write text to a string and buffer the string. */
 
-    va_start( marker,VA_START_ARG(fmt));
-    vfErrorNested(fmt, marker );
-    va_end( marker );
+    va_start(marker, VA_START_ARG(fmt));
+    vfErrorNested(fmt, marker);
+    va_end(marker);
     return returnValue;
 }
 
@@ -265,43 +257,46 @@ int RetErrorNested(
  * A newline is printed if the format string has no ending
  * newline. 
  */
-void Warning(
-	const char *fmt,  /* Format control, see printf() for a description */
-	... )             /* Optional arguments */
+void Warning(const char *fmt, /* Format control, see printf() for a description */
+             ...)             /* Optional arguments */
 {
     va_list marker;
 
-    (void)fprintf(stderr,"WARNING: ");
+    (void)fprintf(stderr, "WARNING: ");
 
     /* Write text to a string and output the string. */
 
-    va_start( marker,VA_START_ARG(fmt));
-    (void)vfprintf(stderr, fmt, marker );
-    va_end( marker );
+    va_start(marker, VA_START_ARG(fmt));
+    (void)vfprintf(stderr, fmt, marker);
+    va_end(marker);
 
-    if (fmt[strlen(fmt)-1] != '\n')
-		(void)fprintf(stderr, "\n");
+    if (fmt[strlen(fmt) - 1] != '\n')
+        (void)fprintf(stderr, "\n");
 }
 
 #ifdef WIN32
 
-# include <windows.h>
+#include <windows.h>
 
 char *Win32GetLastError(void)
 {
- static char win32MsgBuf[1024];
+    static char win32MsgBuf[1024];
 
- FormatMessage(  FORMAT_MESSAGE_FROM_SYSTEM, NULL, GetLastError(),
-                 MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // Default language
-                 (LPTSTR) &win32MsgBuf, 1023, NULL);
- return win32MsgBuf;
+    FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM,
+                  NULL,
+                  GetLastError(),
+                  MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // Default language
+                  (LPTSTR)&win32MsgBuf,
+                  1023,
+                  NULL);
+    return win32MsgBuf;
 }
 
 //! return 1 for failure
 int Win32SetLastError(long errorCode)
 {
-  SetLastError(errorCode);
-  return 1;
+    SetLastError(errorCode);
+    return 1;
 }
 
 #endif

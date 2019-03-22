@@ -2,14 +2,14 @@
 #define MISC__H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
-#include <stdarg.h>   /* see error.c */
+#include <stdarg.h> /* see error.c */
 #ifdef CSF_V1
-# include "csftyp_1.h" /* see cnvrtnum.c */
+#include "csftyp_1.h" /* see cnvrtnum.c */
 #else
-# include "csftypes.h" /* see cnvrtnum.c */
+#include "csftypes.h" /* see cnvrtnum.c */
 #endif
 
 
@@ -27,30 +27,30 @@ extern void Warning(const char *fmt, ...);
 
 /* chkmem.c */
 #ifdef DEBUG_DEVELOP
- extern void Free(void *ptr);
-# define FreeFuncPtr    Free
- extern void StopLimitMalloc(void);
- extern void StartLimitMalloc(void);
-# ifdef LIMITMALLOC
-#  ifndef CHKMEM_C
-#  	  undef  free
-#  	  define free(x)   Free(x)
-#	  undef  malloc
-#	  define malloc(x) ChkMalloc(x)
-#	  undef  realloc
-#	  define realloc(p,x) ChkRealloc(p,x)
-#	  undef  calloc
-#	  define calloc(n,s)  ChkCalloc((n),(s))
-#   endif
-# endif
+extern void Free(void *ptr);
+#define FreeFuncPtr Free
+extern void StopLimitMalloc(void);
+extern void StartLimitMalloc(void);
+#ifdef LIMITMALLOC
+#ifndef CHKMEM_C
+#undef free
+#define free(x) Free(x)
+#undef malloc
+#define malloc(x) ChkMalloc(x)
+#undef realloc
+#define realloc(p, x) ChkRealloc(p, x)
+#undef calloc
+#define calloc(n, s) ChkCalloc((n), (s))
+#endif
+#endif
 #else
-# define Free(x)	free(x)
-# define FreeFuncPtr    free
+#define Free(x) free(x)
+#define FreeFuncPtr free
 #endif
 
 #ifndef __C2MAN__
-# define FREE_NULL(x)	Free(x),x=NULL
-# define CHK_MALLOC_TYPE(type,nr)   ( (type *)ChkMalloc(sizeof(type)*((size_t)(nr))))
+#define FREE_NULL(x) Free(x), x = NULL
+#define CHK_MALLOC_TYPE(type, nr) ((type *)ChkMalloc(sizeof(type) * ((size_t)(nr))))
 #endif
 
 extern void ChkRegisterNoMoreMemory(void (*f)(void));
@@ -64,8 +64,8 @@ extern int ChkReallocFree(void **ptr, size_t size);
 
 /* mallocxd.c */
 void **Malloc2d(size_t row, size_t col, size_t size);
-void **Realloc2d(void **ptr, size_t newRow, size_t newCol, 
-              size_t oldRow, size_t oldCol, size_t size);
+void **
+Realloc2d(void **ptr, size_t newRow, size_t newCol, size_t oldRow, size_t oldCol, size_t size);
 void **MallocIndex2d(size_t row, size_t col, size_t size, const void *linArray);
 void Free2d(void **array2d, size_t nrRows);
 void FreeIndex2d(void **array2d);
@@ -96,8 +96,8 @@ extern BOOL CnvrtREAL8(REAL8 *result, const char *str);
 extern BOOL CnvrtREAL4(REAL4 *result, const char *str);
 extern BOOL CnvrtDouble(double *result, const char *str);
 extern BOOL CnvrtInt(int *result, const char *str);
-extern BOOL CnvrtValueMV(REAL8 *vNum, const char *vStr, const char *mvStr, 
-                         BOOL number, double mvDbl);
+extern BOOL
+CnvrtValueMV(REAL8 *vNum, const char *vStr, const char *mvStr, BOOL number, double mvDbl);
 
 /* qsortcmp.c */
 extern int CmpUchar(const unsigned char *e1, const unsigned char *e2);
@@ -120,10 +120,9 @@ extern int BitSet(const unsigned char *set, int setBit);
 extern int FirstBitSetType(const unsigned char *set, int setByteSize);
 extern int NrBitSetType(const unsigned char *set, int setByteSize);
 
-#define FIRSTBITSET_TYPE(set, type) \
-	FirstBitSetType((const unsigned char *)(&(set)), sizeof(type))
-#define NRBITSET_TYPE(set, type) \
-	NrBitSetType((const unsigned char *)(&(set)), sizeof(type))
+#define FIRSTBITSET_TYPE(set, type)                                                           \
+    FirstBitSetType((const unsigned char *)(&(set)), sizeof(type))
+#define NRBITSET_TYPE(set, type) NrBitSetType((const unsigned char *)(&(set)), sizeof(type))
 
 /* bitset2d.c */
 extern unsigned char **NewBitMatrix(size_t nrRows, size_t nrCols);
@@ -133,12 +132,12 @@ extern int Set0BitMatrix(unsigned char **m, int r, int c);
 extern int BitMatrixSet(const unsigned char **m, int r, int c);
 
 /* simplex.c */
-#define LEX_NUMBER      300
+#define LEX_NUMBER 300
 #define LEX_FIRST_UNUSED_TOKEN_VALUE 301
-#define LEX_ILL_TOKEN   -1
-#define LEX_READ_ERROR  -2
+#define LEX_ILL_TOKEN -1
+#define LEX_READ_ERROR -2
 #define LEX_TOKEN_TOBIG -3
-extern void LexInstall( FILE *fd, const char *specialSymbols);
+extern void LexInstall(FILE *fd, const char *specialSymbols);
 const char *LexGetTokenValue(void);
 long LexGetLineNr(void);
 int LexGetToken(void);
@@ -158,11 +157,20 @@ extern void SplitFilePathName(const char *fullPathName, char **dirName, char **f
 extern char *ReplaceDirPathDelimChar(char *str);
 
 /* fileset.c */
-extern int CheckFileSets(const char **conflictFileName, const char **outputFiles, int nrOutputFiles, const char **inputFiles, int nrInputFiles);
+extern int CheckFileSets(const char **conflictFileName,
+                         const char **outputFiles,
+                         int nrOutputFiles,
+                         const char **inputFiles,
+                         int nrInputFiles);
 
 /* fileio.c */
 extern int FileRead(void *ptr, size_t size, size_t nmemb, FILE *f, BOOL shortItemCountIsError);
-extern int FileReadAtPos(void *ptr, size_t size, size_t nmemb, long pos, FILE *f, BOOL shortItemCountIsError);
+extern int FileReadAtPos(void *ptr,
+                         size_t size,
+                         size_t nmemb,
+                         long pos,
+                         FILE *f,
+                         BOOL shortItemCountIsError);
 extern int FileWrite(const void *ptr, size_t size, size_t nmemb, FILE *f);
 extern int FileWriteAtPos(const void *ptr, size_t size, size_t nmemb, long pos, FILE *f);
 extern FILE *FileOpen(const char *fileName, const char *perm);
@@ -171,33 +179,35 @@ extern int FileGetString(char *s, int size, FILE *f);
 
 /* recmem.c */
 typedef struct RECMEM_HEAP {
-# ifdef DEBUG_DEVELOP
-	long   count;       /* number of calls to FreeRecord() vs. NewRecord() 
-	                     * < 0 means more calls to FreeRecord then 
-	                     *          to NewRecord
-	                     *     (not possible since FreeRecord already checks
-	                     * > 0 vice versa
-	                     */
-# endif /* DEBUG_DEVELOP */
-	void *freeList; /* start of single linked list, 
-	                 * private type: (struct RECMEM_LINK *)
-	                 */
-	size_t	recSize;
-	void	**blocks;	/* array of allocated memory blocks */
-	size_t	nrBlocks;	/* number of blocks                 */
-	size_t blockSize;	/* number of records in a block     */
-	void    *(*Malloc)(size_t size);
-				/* function to allocate blocks      */
-	void    (*_Free)(void  *ptr);
-				/* function to free blocks          */
+#ifdef DEBUG_DEVELOP
+    long count;     /* number of calls to FreeRecord() vs. NewRecord() 
+                     * < 0 means more calls to FreeRecord then 
+                     *          to NewRecord
+                     *     (not possible since FreeRecord already checks
+                     * > 0 vice versa
+                     */
+#endif              /* DEBUG_DEVELOP */
+    void *freeList; /* start of single linked list, 
+                     * private type: (struct RECMEM_LINK *)
+                     */
+    size_t recSize;
+    void **blocks;    /* array of allocated memory blocks */
+    size_t nrBlocks;  /* number of blocks                 */
+    size_t blockSize; /* number of records in a block     */
+    void *(*Malloc)(size_t size);
+    /* function to allocate blocks      */
+    void (*_Free)(void *ptr);
+    /* function to free blocks          */
 } RECMEM_HEAP;
-extern RECMEM_HEAP *NewRecMemHeap(size_t recSize, size_t blockSize, 
-       void *(*mallocFunc)(size_t size), void (*freeFunc)(void *ptr));
+extern RECMEM_HEAP *NewRecMemHeap(size_t recSize,
+                                  size_t blockSize,
+                                  void *(*mallocFunc)(size_t size),
+                                  void (*freeFunc)(void *ptr));
 extern void *NewRecord(RECMEM_HEAP *r);
 extern void FreeRecord(void *m, RECMEM_HEAP *r);
 extern void FreeAllRecords(RECMEM_HEAP *r);
 #ifdef DEBUG
- extern BOOL VerifyRecPtr(void *m, RECMEM_HEAP *r);
+extern BOOL VerifyRecPtr(void *m, RECMEM_HEAP *r);
 #endif
 
 /* swapbyte.c */
@@ -211,7 +221,7 @@ int Win32SetLastError(long errorCode);
 #endif
 
 #ifdef __cplusplus
- }
+}
 #endif
 
 #endif /* MISC__H */

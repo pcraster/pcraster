@@ -7,8 +7,8 @@
 /* libs ext. <>, our ""  */
 #include <sys/stat.h>
 #ifndef _MSC_VER
-# include <unistd.h>
-# include <dirent.h>
+#include <unistd.h>
+#include <dirent.h>
 #endif
 
 #include <string.h>
@@ -45,25 +45,24 @@ static char privateBuffer[1024];
  *
  * 2 if the file does not exist. errno is set to ENOENT
  */
-int FileStat(
-    const char *fileName) /* the file name */
+int FileStat(const char *fileName) /* the file name */
 {
 #ifdef _MSC_VER
     struct __stat64 s;
 
-    if( _stat64(fileName, &s)) {
+    if (_stat64(fileName, &s)) {
         return 2;
     }
 
     return !(s.st_mode & _S_IFREG);
 #else
-   struct stat s;
+    struct stat s;
 
-   if(stat(fileName, &s)) {
-       return 2;
-   }
+    if (stat(fileName, &s)) {
+        return 2;
+    }
 
-   return !S_ISREG(s.st_mode);
+    return !S_ISREG(s.st_mode);
 #endif
 }
 
@@ -82,13 +81,12 @@ int FileStat(
  *
  * 3 if the file exists (in truncated form), but the fileName is not valid
  */
-int FileStatValid(
-	const char *fileName) /* the file name */
+int FileStatValid(const char *fileName) /* the file name */
 {
-	int r = FileStat(fileName);
-	if ( (!r) && (!FileNameValid(fileName)))
-		r = 3;
-	return r;
+    int r = FileStat(fileName);
+    if ((!r) && (!FileNameValid(fileName)))
+        r = 3;
+    return r;
 }
 
 /* compare filenames.
@@ -96,20 +94,19 @@ int FileStatValid(
  * conventions of the current platform (case sensitive or not).
  * returns 1 if filenames are equal, 0 of not
  */
-int FileNamesEq(
-	const char *fileName1,  /* first fileName without spaces */
-	const char *fileName2)  /* second fileName  without spaces */
+int FileNamesEq(const char *fileName1, /* first fileName without spaces */
+                const char *fileName2) /* second fileName  without spaces */
 {
-	PRECOND(fileName1 != NULL);
-	PRECOND(fileName2 != NULL);
+    PRECOND(fileName1 != NULL);
+    PRECOND(fileName2 != NULL);
 #ifdef DOS_FS
-	return StrCaseEq(fileName1, fileName2);
+    return StrCaseEq(fileName1, fileName2);
 #else
-# ifdef UNIX_FS
-	return StrEq(fileName1, fileName2);
-# else
-#       error no filesystem defined (UNIX_FS or DOS_FS)
-# endif
+#ifdef UNIX_FS
+    return StrEq(fileName1, fileName2);
+#else
+#error no filesystem defined (UNIX_FS or DOS_FS)
+#endif
 #endif
 }
 
@@ -119,18 +116,17 @@ int FileNamesEq(
  * conventions of filenames on the current platform (case sensitive or not).
  * returns 1 if fileName has that extension, 0 of not.
  */
-int FileNameExt(
-	const char *fileName,  /* fileName without spaces */
-	const char *extension) /* the extension without the period */
+int FileNameExt(const char *fileName,  /* fileName without spaces */
+                const char *extension) /* the extension without the period */
 {
-	const char *p;
-	PRECOND(fileName != NULL);
-	PRECOND(extension != NULL);
-	/* find the position of the extension
-	 */
-	if ( (p=strrchr(fileName, '.')) == NULL)
-		return 0;
-	return FileNamesEq(p+1,extension);
+    const char *p;
+    PRECOND(fileName != NULL);
+    PRECOND(extension != NULL);
+    /* find the position of the extension
+     */
+    if ((p = strrchr(fileName, '.')) == NULL)
+        return 0;
+    return FileNamesEq(p + 1, extension);
 }
 
 /* check if a filename is valid on the current platform.
@@ -139,49 +135,49 @@ int FileNameExt(
  * For all platforms:  aux/con (portability issue)
  * returns 1 if fileName is valid, 0 if not.
  */
-int FileNameValid(
-	const char *fileName)  /* fileName without spaces */
+int FileNameValid(const char *fileName) /* fileName without spaces */
 {
 #ifdef DOS_FS_8_3
-	const char *p = fileName;
-	int   l=0;
-	int   state=0; /* 0 is prefix, 1 is ext */
-	int  maxAllow[2] = {8,3};
-	PRECOND(fileName != NULL);
+    const char *p = fileName;
+    int l = 0;
+    int state = 0; /* 0 is prefix, 1 is ext */
+    int maxAllow[2] = {8, 3};
+    PRECOND(fileName != NULL);
 #endif
-	if (StrCaseEq(fileName,"aux") || StrCaseEq(fileName,"con"))
-		return 0;
+    if (StrCaseEq(fileName, "aux") || StrCaseEq(fileName, "con"))
+        return 0;
 
 #ifdef DOS_FS
 #ifdef DOS_FS_8_3
-	while (*p != '\0')
-	{
-	     if (l > maxAllow[state])
-	     	return 0;
-	     switch(*p) {
-		case DIR_PATH_DELIM_CHAR:
-			l = 0; /* new DOS_PREFIX */
-			break;
-		case '.':
-		       l = 0; state++;
-		       if (state >= 2)
-				return 0;
-		       break;
-		default: l++;
-	   }
-	   p++;
-	 }
-	return l <= maxAllow[state]; 
-#else 
-	return 1;
+    while (*p != '\0') {
+        if (l > maxAllow[state])
+            return 0;
+        switch (*p) {
+        case DIR_PATH_DELIM_CHAR:
+            l = 0; /* new DOS_PREFIX */
+            break;
+        case '.':
+            l = 0;
+            state++;
+            if (state >= 2)
+                return 0;
+            break;
+        default:
+            l++;
+        }
+        p++;
+    }
+    return l <= maxAllow[state];
+#else
+    return 1;
 #endif
 #else
-# ifdef UNIX_FS
-	PRECOND(fileName != NULL);
-	return 1;
-# else
-#        error no filesystem defined (UNIX_FS or DOS_FS)
-# endif
+#ifdef UNIX_FS
+    PRECOND(fileName != NULL);
+    return 1;
+#else
+#error no filesystem defined (UNIX_FS or DOS_FS)
+#endif
 #endif
 }
 
@@ -193,19 +189,18 @@ int FileNameValid(
  * returns
  * ptr to buf or to private buffer
  */
-char *MakeFilePathName(
-	char *buf,       /* buffer to copy result in. If NULL use 1024 char
-	                  * private buffer if NULL
-	                  */
-	const char *dirName,  /* path to file, directory name */
-	const char *fileName) /* name of file */
+char *MakeFilePathName(char *buf,            /* buffer to copy result in. If NULL use 1024 char
+                                              * private buffer if NULL
+                                              */
+                       const char *dirName,  /* path to file, directory name */
+                       const char *fileName) /* name of file */
 {
-	 char *b = (buf == NULL) ? privateBuffer : buf;
-	 if (*dirName == '\0')
-	  (void)strcpy(b,fileName);
-	 else
-	 (void)sprintf(b,"%s%c%s",dirName,DIR_PATH_DELIM_CHAR,fileName);
-	return b;
+    char *b = (buf == NULL) ? privateBuffer : buf;
+    if (*dirName == '\0')
+        (void)strcpy(b, fileName);
+    else
+        (void)sprintf(b, "%s%c%s", dirName, DIR_PATH_DELIM_CHAR, fileName);
+    return b;
 }
 
 /* split a full path name in a directory and file part
@@ -213,23 +208,22 @@ char *MakeFilePathName(
  * directory and file name part. Both returned arguments are empty
  * strings if that part is not present.
  */
-void SplitFilePathName(
-	const char *fullPathName, /* the full path name */
-	char **dirName,  /* ptr to directory part, is ptr into privateBuffer */
-	char **fileName) /* ptr to file part, is ptr into fullPathName */
+void SplitFilePathName(const char *fullPathName, /* the full path name */
+                       char **dirName,  /* ptr to directory part, is ptr into privateBuffer */
+                       char **fileName) /* ptr to file part, is ptr into fullPathName */
 {
-	 char *split = strrchr(fullPathName,DIR_PATH_DELIM_CHAR);
-	 if (split != NULL)
-	 	*fileName = split+1;
-	 else
-		*fileName = (char *)fullPathName;
-	 strcpy(privateBuffer,fullPathName);
-	 *dirName = privateBuffer;
-	 split = strrchr(privateBuffer,DIR_PATH_DELIM_CHAR);
-	 if (split != NULL)
-	 	*split = '\0';
-	 else
-	        privateBuffer[0] = '\0'; /* no dirName */
+    char *split = strrchr(fullPathName, DIR_PATH_DELIM_CHAR);
+    if (split != NULL)
+        *fileName = split + 1;
+    else
+        *fileName = (char *)fullPathName;
+    strcpy(privateBuffer, fullPathName);
+    *dirName = privateBuffer;
+    split = strrchr(privateBuffer, DIR_PATH_DELIM_CHAR);
+    if (split != NULL)
+        *split = '\0';
+    else
+        privateBuffer[0] = '\0'; /* no dirName */
 }
 
 
@@ -239,36 +233,31 @@ void SplitFilePathName(
  * returns
  *   the str argument
  */
-char *ReplaceDirPathDelimChar(
-	char *str) /* rw string to be altered */
+char *ReplaceDirPathDelimChar(char *str) /* rw string to be altered */
 {
-	size_t i,n = strlen(str);
-#	ifdef UNIX_FS
-	 int    otherDelimChar = '\\';
-#	else
-	 int    otherDelimChar = '/';
-#	endif
-	PRECOND(n >= 1); /* non-empty string plus end " */
+    size_t i, n = strlen(str);
+#ifdef UNIX_FS
+    int otherDelimChar = '\\';
+#else
+    int otherDelimChar = '/';
+#endif
+    PRECOND(n >= 1); /* non-empty string plus end " */
 
-	for (i=0; i < n; i++)
-	{
-		if (str[i] == otherDelimChar)
-		    str[i] = DIR_PATH_DELIM_CHAR;
-	}
-	return str;
+    for (i = 0; i < n; i++) {
+        if (str[i] == otherDelimChar)
+            str[i] = DIR_PATH_DELIM_CHAR;
+    }
+    return str;
 }
 
 #ifdef NEVER
-int main(
-	int argc,
-	char *argv[]
-	)
+int main(int argc, char *argv[])
 {
-	int i;
-	for(i = 1; i < argc; i++)
-	 (void)printf("%s is a %s filename\n", argv[i],
-	      FileNameValid(argv[i]) ? "VALID" : "INVALID");
-	EXIT(0);
-	return 0;
+    int i;
+    for (i = 1; i < argc; i++)
+        (void)printf(
+            "%s is a %s filename\n", argv[i], FileNameValid(argv[i]) ? "VALID" : "INVALID");
+    EXIT(0);
+    return 0;
 }
 #endif

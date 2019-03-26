@@ -122,6 +122,11 @@ add_library(pcraster_dal SHARED
 
 add_library(pcraster::dal ALIAS pcraster_dal)
 
+set_target_properties(pcraster_dal
+    PROPERTIES
+        SOVERSION ${${PROJECT_NAME}_MAJOR_VERSION}.${${PROJECT_NAME}_MINOR_VERSION}
+)
+
 target_include_directories(pcraster_dal
     PUBLIC
         $<TARGET_PROPERTY:pcraster_dal_objects,INTERFACE_INCLUDE_DIRECTORIES>

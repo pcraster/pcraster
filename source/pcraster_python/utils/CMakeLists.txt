@@ -5,6 +5,11 @@ add_library(pcraster_python_utils SHARED
 
 add_library(pcraster::python::utils ALIAS pcraster_python_utils)
 
+set_target_properties(pcraster_python_utils
+    PROPERTIES
+        SOVERSION ${${PROJECT_NAME}_MAJOR_VERSION}.${${PROJECT_NAME}_MINOR_VERSION}
+)
+
 generate_export_header(pcraster_python_utils
     BASE_NAME pcraster_python_utils
 )

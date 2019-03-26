@@ -224,6 +224,11 @@ add_library(pcraster_aguila SHARED
 
 add_library(pcraster::aguila ALIAS pcraster_aguila)
 
+set_target_properties(pcraster_aguila
+    PROPERTIES
+        SOVERSION ${${PROJECT_NAME}_MAJOR_VERSION}.${${PROJECT_NAME}_MINOR_VERSION}
+)
+
 target_link_libraries(pcraster_aguila
     PUBLIC
         pcraster::dal

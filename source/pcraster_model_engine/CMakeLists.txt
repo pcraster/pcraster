@@ -312,6 +312,11 @@ add_library(pcraster_model_engine SHARED
 
 add_library(pcraster::model_engine ALIAS pcraster_model_engine)
 
+set_target_properties(pcraster_model_engine
+    PROPERTIES
+        SOVERSION ${${PROJECT_NAME}_MAJOR_VERSION}.${${PROJECT_NAME}_MINOR_VERSION}
+)
+
 target_include_directories(pcraster_model_engine
     PUBLIC
         $<TARGET_PROPERTY:pcraster_model_engine_objects,INTERFACE_INCLUDE_DIRECTORIES>

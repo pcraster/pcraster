@@ -182,6 +182,11 @@ add_library(pcraster_old_calc SHARED
 
 add_library(pcraster::old_calc ALIAS pcraster_old_calc)
 
+set_target_properties(pcraster_old_calc
+    PROPERTIES
+        SOVERSION ${${PROJECT_NAME}_MAJOR_VERSION}.${${PROJECT_NAME}_MINOR_VERSION}
+)
+
 target_include_directories(pcraster_old_calc
     PUBLIC
         $<TARGET_PROPERTY:pcraster_old_calc_objects,INTERFACE_INCLUDE_DIRECTORIES>

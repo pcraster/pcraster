@@ -8,7 +8,6 @@ add_library(pcraster::moc_python ALIAS _pcraster_moc_python)
 target_include_directories(_pcraster_moc_python
     PRIVATE
         ${PYTHON_INCLUDE_DIR}
-        pybind11::module
 )
 
 target_link_libraries(_pcraster_moc_python

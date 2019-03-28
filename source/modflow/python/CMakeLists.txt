@@ -19,7 +19,6 @@ add_library(pcraster::modflow_python ALIAS _pcraster_modflow_python)
 target_link_libraries(_pcraster_modflow_python
   PUBLIC
     pcraster::pcrmf_python
-    pybind11::module
 )
 
 add_dependencies(_pcraster_modflow_python

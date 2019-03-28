@@ -11,6 +11,13 @@ target_include_directories(curr
         ${CURSES_INCLUDE_DIRS}
 )
 
+# Required when using pdcurses as dll,
+# otherwise showing up of menu will fail
+target_compile_definitions(curr
+    PUBLIC
+        $<$<BOOL:${WIN32}>: -DPDC_DLL_BUILD>
+)
+
 target_link_libraries(curr
     PUBLIC
         pcraster::misc

@@ -75,7 +75,6 @@ configure_python_extension(_pcraster_multicore
 target_link_libraries(_pcraster_multicore
     PRIVATE
         pcraster::python::utils
-        pybind11::module
         fern_algorithm
 )
 

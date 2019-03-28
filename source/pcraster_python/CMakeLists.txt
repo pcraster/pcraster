@@ -88,7 +88,6 @@ target_link_libraries(_pcraster
 #        ${PCR_BOOST_PYTHON_NUMPY}
 #        ${PCR_BOOST_PYTHON}
 #        ${PYTHON_LIBRARIES}
-        pybind11::module
 )
 
 configure_python_extension(_pcraster

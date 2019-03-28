@@ -45,7 +45,7 @@ public:
     inline static bool within_domain(
         Value const& value)
     {
-#if _MSC_VER == 1900
+#if _MSC_VER == 1916
       if(std::isfinite(static_cast<float>(value)) && 0 <= value && value <= 1){
 #else
       if(std::isfinite(value) && 0 <= value && value <= 1){

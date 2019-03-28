@@ -51,10 +51,11 @@ add_library(pcraster::pcrmf_python ALIAS pcrmfpy)
 target_include_directories(pcrmfpy
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+        ${pybind11_SOURCE_DIR}/include
+        ${PYTHON_INCLUDE_DIR}
 )
 
 target_link_libraries(pcrmfpy
     PUBLIC
         pcraster::model_engine
-        pybind11::module
 )

@@ -24,7 +24,6 @@ target_link_libraries(_pcraster_block_python
         pcraster::pcrraster
         pcraster::pcrvoxelstack
         pcraster::model_engine
-        pybind11::module
 )
 
 configure_python_extension(_pcraster_block_python

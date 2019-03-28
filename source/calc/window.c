@@ -39,8 +39,8 @@ typedef struct DATA {
 /******************/
 
 /* computes the number of pixelss surrounding
- * the current pixel that must 
- * be analyzed 
+ * the current pixel that must
+ * be analyzed
  */
 static int DetWindow(REAL8 *bw,     /* write-only, border weight, 0 if border pixel are
                                      * compeltely covered by window
@@ -78,7 +78,7 @@ static double Weight(int pw,    /* half pixel window size */
 }
 
 /* Determines the minimum value of a window, for each cell.
- * Returns 0 if termination is successful, 1 otherwise. 
+ * Returns 0 if termination is successful, 1 otherwise.
  */
 int WindowMin(MAP_REAL8 *min,           /* write-only output minimum map  */
               const MAP_REAL8 *val,     /* input value map */
@@ -108,11 +108,13 @@ int WindowMin(MAP_REAL8 *min,           /* write-only output minimum map  */
                 /* Calculate in window */
                 for (rWin = -pw; rWin <= pw; rWin++)
                     for (cWin = -pw; cWin <= pw; cWin++)
-                        if (val->Get(&value, rWin + r, cWin + c, val))
-                            if (IS_MV_REAL8(&winMin))
+                        if (val->Get(&value, rWin + r, cWin + c, val)) {
+                            if (IS_MV_REAL8(&winMin)) {
                                 winMin = value;
-                            else
+                            } else {
                                 winMin = MIN(winMin, value);
+                            }
+                        }
                 if (IS_MV_REAL8(&winMin))
                     min->PutMV(r, c, min);
                 else
@@ -127,7 +129,7 @@ int WindowMin(MAP_REAL8 *min,           /* write-only output minimum map  */
 }
 
 /* Determines the maximum value of a window, for each cell.
- * Returns 0 if termination is successful, 1 otherwise. 
+ * Returns 0 if termination is successful, 1 otherwise.
  */
 int WindowMax(MAP_REAL8 *max,           /* write-only output max map  */
               const MAP_REAL8 *val,     /* input value map */
@@ -157,11 +159,13 @@ int WindowMax(MAP_REAL8 *max,           /* write-only output max map  */
                 /* Calculate in window */
                 for (rWin = -pw; rWin <= pw; rWin++)
                     for (cWin = -pw; cWin <= pw; cWin++)
-                        if (val->Get(&value, rWin + r, cWin + c, val))
-                            if (IS_MV_REAL8(&winMax))
+                        if (val->Get(&value, rWin + r, cWin + c, val)) {
+                            if (IS_MV_REAL8(&winMax)) {
                                 winMax = value;
-                            else
+                            } else {
                                 winMax = MAX(winMax, value);
+                            }
+                        }
                 if (IS_MV_REAL8(&winMax))
                     max->PutMV(r, c, max);
                 else
@@ -175,7 +179,7 @@ int WindowMax(MAP_REAL8 *max,           /* write-only output max map  */
 }
 
 /* Determines the average value of a window, for each cell.
- * Returns 0 if termination is successful, 1 otherwise. 
+ * Returns 0 if termination is successful, 1 otherwise.
  */
 int WindowAverage(MAP_REAL8 *average,       /* write-only output average map  */
                   const MAP_REAL8 *val,     /* input value map */
@@ -223,7 +227,7 @@ int WindowAverage(MAP_REAL8 *average,       /* write-only output average map  */
 }
 
 /* Determines the total value of a window, for each cell.
- * Returns 0 if termination is successful, 1 otherwise. 
+ * Returns 0 if termination is successful, 1 otherwise.
  */
 int WindowTotal(MAP_REAL8 *total,         /* write-only output total map  */
                 const MAP_REAL8 *val,     /* input value map */
@@ -304,7 +308,7 @@ static int CmpRec(const DATA *e1, const DATA *e2)
 }
 
 /* Determines the majority of values of a window, for each cell.
- * Returns 0 if termination is successful, 1 otherwise. 
+ * Returns 0 if termination is successful, 1 otherwise.
  */
 int WindowMajority(MAP_INT4 *majority,       /* write-only output majority map  */
                    const MAP_INT4 *val,      /* input value map */
@@ -392,7 +396,7 @@ int WindowMajority(MAP_INT4 *majority,       /* write-only output majority map  
 }
 
 /* Determines the diversity of values of a window, for each cell.
- * Returns 0 if termination is successful, 1 otherwise. 
+ * Returns 0 if termination is successful, 1 otherwise.
  */
 int WindowDiversity(MAP_REAL8 *divM,          /* write-only output diversity map  */
                     const MAP_INT4 *val,      /* input value map */

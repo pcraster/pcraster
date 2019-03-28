@@ -34,7 +34,7 @@ namespace dal {
 template<typename T>
  struct TypeTraits;
 
-#if _MSC_VER == 1900
+#if _MSC_VER == 1916
 template<>
 struct TypeTraits<UINT1> {
    static TypeId const typeId = TI_UINT1;

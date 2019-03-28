@@ -44,7 +44,7 @@ namespace dal {
  static Real8Type  real8Type;
  static StringType stringType;
 
-#if _MSC_VER != 1900
+#if _MSC_VER != 1916
   TypeId const TypeTraits<UINT1>::typeId = TI_UINT1;
   CSF_CR const TypeTraits<UINT1>::csfCr  = CR_UINT1;
   TypeId const TypeTraits<UINT2>::typeId = TI_UINT2;

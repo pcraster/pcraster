@@ -148,7 +148,7 @@ static int InstallLocalOptions(
         localFlagsOptions = (char *)ChkCalloc((size_t)(n+1), sizeof(char)); /* 0's are defaults */
   if (localFlagsOptions == NULL)
     return 1;
-  for (i=0; i < n; i++ )
+  for (i=0; i < n; i++ ) {
    switch(o[i]) {
     case '&' :
      PRECOND(nrLocFlags > 0);
@@ -178,9 +178,10 @@ static int InstallLocalOptions(
      localFlags[nrLocFlags++] = o[i];
      groupInput[groupInputLen++] = o[i];
    }
-   localFlags[nrLocFlags] = '\0';
-   groupInput[groupInputLen] = '\0';
-   strcpy(groupResult, groupInput);
+  }
+  localFlags[nrLocFlags] = '\0';
+  groupInput[groupInputLen] = '\0';
+  strcpy(groupResult, groupInput);
   return 0;
 }
 
@@ -653,7 +654,7 @@ int InstallArgs(
 
   /*
    * AppLogStart(argc,argv);
-   * CW_MUTATE SEND: DATE,DIRECTORY,ARGS to logger 
+   * CW_MUTATE SEND: DATE,DIRECTORY,ARGS to logger
    */
 #ifdef WIN32
    if (appSaveWD)

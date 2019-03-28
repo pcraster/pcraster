@@ -615,27 +615,26 @@ BOOST_AUTO_TEST_CASE(merge_ranges)
 
 BOOST_AUTO_TEST_CASE(round_)
 {
-  using namespace dal;
 
-  BOOST_CHECK_EQUAL((round<float, int>(0.0f )), 0);
-  BOOST_CHECK_EQUAL((round<float, int>(0.4f )), 0);
-  BOOST_CHECK_EQUAL((round<float, int>(0.5f )), 0);
-  BOOST_CHECK_EQUAL((round<float, int>(0.51f)), 1);
-  BOOST_CHECK_EQUAL((round<float, int>(0.6f )), 1);
+  BOOST_CHECK_EQUAL((dal::round<float, int>(0.0f )), 0);
+  BOOST_CHECK_EQUAL((dal::round<float, int>(0.4f )), 0);
+  BOOST_CHECK_EQUAL((dal::round<float, int>(0.5f )), 0);
+  BOOST_CHECK_EQUAL((dal::round<float, int>(0.51f)), 1);
+  BOOST_CHECK_EQUAL((dal::round<float, int>(0.6f )), 1);
 
-  BOOST_CHECK_EQUAL((round<float, int>(-0.4f )),  0);
-  BOOST_CHECK_EQUAL((round<float, int>(-0.5f )),  0);
-  BOOST_CHECK_EQUAL((round<float, int>(-0.51f)), -1);
-  BOOST_CHECK_EQUAL((round<float, int>(-0.6f )), -1);
+  BOOST_CHECK_EQUAL((dal::round<float, int>(-0.4f )),  0);
+  BOOST_CHECK_EQUAL((dal::round<float, int>(-0.5f )),  0);
+  BOOST_CHECK_EQUAL((dal::round<float, int>(-0.51f)), -1);
+  BOOST_CHECK_EQUAL((dal::round<float, int>(-0.6f )), -1);
 
-  BOOST_CHECK_EQUAL((round<float, size_t>(0.0f )), size_t(0));
-  BOOST_CHECK_EQUAL((round<float, size_t>(0.4f )), size_t(0));
-  BOOST_CHECK_EQUAL((round<float, size_t>(0.5f )), size_t(0));
-  BOOST_CHECK_EQUAL((round<float, size_t>(0.51f)), size_t(1));
-  BOOST_CHECK_EQUAL((round<float, size_t>(0.6f )), size_t(1));
+  BOOST_CHECK_EQUAL((dal::round<float, size_t>(0.0f )), size_t(0));
+  BOOST_CHECK_EQUAL((dal::round<float, size_t>(0.4f )), size_t(0));
+  BOOST_CHECK_EQUAL((dal::round<float, size_t>(0.5f )), size_t(0));
+  BOOST_CHECK_EQUAL((dal::round<float, size_t>(0.51f)), size_t(1));
+  BOOST_CHECK_EQUAL((dal::round<float, size_t>(0.6f )), size_t(1));
 
-  BOOST_CHECK_EQUAL((round<float, size_t>(-0.4f )), size_t(0));
-  BOOST_CHECK_THROW((round<float, size_t>(-0.51f )), std::bad_cast);
+  BOOST_CHECK_EQUAL((dal::round<float, size_t>(-0.4f )), size_t(0));
+  BOOST_CHECK_THROW((dal::round<float, size_t>(-0.51f )), std::bad_cast);
 }
 
 

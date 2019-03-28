@@ -129,11 +129,11 @@ size_t geo::Block::nrVoxels() const
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE OPERATORS 
+// DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 //! DISABLED: Input operator for reading Block objects from an input stream.
-std::istream &geo::operator>>(std::istream &s, geo::Block &/*b*/)
+std::istream &operator>>(std::istream &s, geo::Block &/*b*/)
 {
   PRECOND(false);
 
@@ -209,7 +209,7 @@ std::istream &geo::operator>>(std::istream &s, geo::Block &/*b*/)
 
 
 //! DISABLED: Output operator for writing Block objects to an output stream.
-std::ostream &geo::operator<<(std::ostream &s, const geo::Block & /*b*/)
+std::ostream &operator<<(std::ostream &s, const geo::Block & /*b*/)
 {
   PRECOND(false);
 

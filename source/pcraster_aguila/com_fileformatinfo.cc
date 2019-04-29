@@ -5,7 +5,6 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/bind.hpp>
 #include <boost/filesystem.hpp>
-#include <boost/foreach.hpp>
 
 // PCRaster library headers.
 
@@ -125,16 +124,16 @@ const std::vector<std::string>& com::FileFormatInfo::extensions() const
 //          std::string const& extension) const
 // {
 //   bool result = false;
-// 
+//
 //   boost::filesystem::path extensionAsPath(extension);
-// 
+//
 //   BOOST_FOREACH(std::string const& candidate, d_extensions) {
 //     if(boost::filesystem::equivalent(candidate, extensionAsPath)) {
 //       result = true;
 //       break;
 //     }
 //   }
-// 
+//
 //   return result;
 // }
 

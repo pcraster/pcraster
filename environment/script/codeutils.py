@@ -180,12 +180,12 @@ def guessNamespace(
       result = match.group(1)
     elif os.path.exists("Makefile"):
       # try find in Makefile
-      # first idea was having a target namespace echoing the namespace 
+      # first idea was having a target namespace echoing the namespace
       # in Makefile and then do:
       # result = os.popen("make namespace").readlines()[-1][:-1]
       #    [-1] -> last of make output, in case of pre-depencies
       #    [:-1]  slice off newline
-      # but get's tricky (infinite recursion) if I am already called 
+      # but get's tricky (infinite recursion) if I am already called
       #   from Makefile
       # 2n idea grep NAMESPACE=namespace
       namespaceDef = ""
@@ -451,8 +451,6 @@ def guardIncludeStatement(
 
   if name == "PRINT_VAR":
     name = "std::cerr"
-  if name == "BOOST_FOREACH":
-    name = "boost::foreach"
 
   if name.find("std::") == 0:
     result = wrapStdHeader(name[5:])

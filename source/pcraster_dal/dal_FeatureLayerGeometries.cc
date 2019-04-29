@@ -63,7 +63,7 @@ FeatureLayerGeometries::~FeatureLayerGeometries()
 {
   typedef std::map<FeatureId, OGRGeometry*>::value_type value_type;
 
-  BOOST_FOREACH(value_type pair, _geometryByFeatureId) {
+  for(value_type pair : _geometryByFeatureId) {
     OGRGeometryFactory::destroyGeometry(pair.second);
   }
 }

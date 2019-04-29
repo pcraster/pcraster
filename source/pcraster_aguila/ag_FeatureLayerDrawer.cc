@@ -207,7 +207,7 @@ void FeatureLayerDrawer::draw(
          QwtScaleMap const& xMapper,
          QwtScaleMap const& yMapper) const
 {
-  BOOST_FOREACH(long int featureId, featureIds) {
+  for(long int featureId : featureIds) {
     draw(painter, featureId, xMapper, yMapper);
   }
 }

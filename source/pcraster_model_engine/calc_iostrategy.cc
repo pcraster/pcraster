@@ -13,10 +13,6 @@
 #include <sstream>
 #define INCLUDED_SSTREAM
 #endif
-#ifndef INCLUDED_BOOST_FOREACH
-#include <boost/foreach.hpp>
-#define INCLUDED_BOOST_FOREACH
-#endif
 // PCRaster library headers.
 #ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
@@ -248,7 +244,7 @@ void IOStrategy::setMemoryExchangeData(const ASTSymbolTable& symbols,
 
   const size_t noExchange(ASTSymbolInfo::noMemoryExchangeId());
   int maxIdInt=-1;
-  BOOST_FOREACH(ASTSymbolTablePair i, symbols) {
+  for(ASTSymbolTablePair i : symbols) {
     ASTSymbolInfo const& si(i.second);
     size_t ids[2];
     ids[0]=si.memoryInputId();

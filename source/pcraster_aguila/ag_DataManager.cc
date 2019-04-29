@@ -1,6 +1,5 @@
 #include "ag_DataManager.h"
 #include <boost/bind.hpp>
-#include <boost/foreach.hpp>
 #include "dev_Algorithm.h"
 
 
@@ -97,7 +96,7 @@ bool DataManager<T>::isConsistent() const
   }
 
   // Check consistency of all guides.
-  BOOST_FOREACH(DataGuide const& guide, _guides) {
+  for(DataGuide const& guide : _guides) {
     if(!isConsistent(guide)) {
       result = false;
       break;
@@ -435,7 +434,7 @@ std::set<size_t> DataManager<T>::timeSteps() const
 {
   std::set<size_t> steps, tmpSteps;
 
-  BOOST_FOREACH(DataInfo<T> const& info, _data) {
+  for(DataInfo<T> const& info : _data) {
     tmpSteps = dal::timeSteps(info.space());
     std::set_union(
          steps.begin(), steps.end(),

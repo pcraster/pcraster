@@ -24,11 +24,6 @@
 #define INCLUDED_BOOST_BIND
 #endif
 
-#ifndef INCLUDED_BOOST_FOREACH
-#include <boost/foreach.hpp>
-#define INCLUDED_BOOST_FOREACH
-#endif
-
 // PCRaster library headers.
 
 // Module headers.
@@ -81,7 +76,7 @@ void values(
 {
   values->clear();
 
-  BOOST_FOREACH(DataSpaceAddress const& address, addresses) {
+  for(DataSpaceAddress const& address : addresses) {
     values->insert(address.coordinate<T>(index));
   }
 }
@@ -102,7 +97,7 @@ void extremes(
   T minValue = addresses[0].coordinate<T>(index);
   T maxValue(minValue);
 
-  BOOST_FOREACH(DataSpaceAddress const& address, addresses) {
+  for(DataSpaceAddress const& address : addresses) {
     T value = address.coordinate<T>(index);
     minValue = std::min<T>(value, minValue);
     maxValue = std::max<T>(value, maxValue);

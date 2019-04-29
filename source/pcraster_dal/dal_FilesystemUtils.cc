@@ -40,11 +40,6 @@
 #define INCLUDED_BOOST_FILESYSTEM_OPERATIONS
 #endif
 
-#ifndef INCLUDED_BOOST_FOREACH
-#include <boost/foreach.hpp>
-#define INCLUDED_BOOST_FOREACH
-#endif
-
 #ifndef INCLUDED_BOOST_FORMAT
 #include <boost/format.hpp>
 #define INCLUDED_BOOST_FORMAT
@@ -108,7 +103,7 @@ void testPathnameIsEmpty (
 //          std::string const& pathname)
 // {
 //   // bool result = false;
-// 
+//
 //   // if(!pathname.empty()) {
 //   //   try {
 //   //     boost::filesystem::path(pathname);
@@ -117,9 +112,9 @@ void testPathnameIsEmpty (
 //   //   catch(boost::filesystem::filesystem_error const&) {
 //   //   }
 //   // }
-// 
+//
 //   // return result;
-// 
+//
 //   return boost::filesystem::native(pathname);
 // }
 
@@ -145,11 +140,11 @@ void testPathnameIsEmpty (
 //     boost::filesystem::path path(pathname);
 //     std::string rootName(path.root_path().string());
 //     std::string bla(pathname);
-// 
+//
 //     bla.erase(0, rootName.size());
-// 
+//
 //     std::cout << bla << std::endl;
-// 
+//
 //     if(!(!rootName.empty() && bla.empty())) {
 //       if(!pathnameIsNative(bla)) {
 //         throw Exception(
@@ -158,9 +153,9 @@ void testPathnameIsEmpty (
 //       }
 //     }
 //   }
-// 
-// 
-// 
+//
+//
+//
 //   // else if(!pathnameIsNative(pathname)) {
 //   //   throw Exception(
 //   //        (boost::format("Pathname '%1%': Not valid on the current platform")
@@ -1110,19 +1105,19 @@ void possibleFileBasedAttributeFileNames(
 //          std::string const& name)
 // {
 //   std::string result(name);
-// 
+//
 // #ifdef WIN32
 //   // boost filesystem lib doesn't like backslashes.
 //   while(result.find('\\') != std::string::npos) {
 //     result.replace(result.find('\\'), 1, 1, '/');
 //   }
-// 
+//
 //   // and adjacent slashes.
 //   while(result.find("//") != std::string::npos) {
 //     result.erase(result.find("//"), 1);
 //   }
 // #endif
-// 
+//
 //   return result;
 // }
 

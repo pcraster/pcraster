@@ -159,20 +159,20 @@ std::string tableName(
 //          DataSpaceAddress address)
 // {
 //   std::string result;
-// 
+//
 //   size_t indexOfScenarios = space.indexOf(Scenarios);
-// 
+//
 //   if(indexOfScenarios != space.rank()) {
 //     space.eraseDimension(indexOfScenarios);
 //     address.eraseCoordinate(indexOfScenarios);
 //   }
-// 
+//
 //   result = pathForDataSpaceAddress("x", space, address).string();
-// 
+//
 //   // Remove starting "x_".
 //   assert(result.find("x_") == 0);
 //   result.erase(0, 2);
-// 
+//
 //   return result;
 // }
 
@@ -200,7 +200,7 @@ int fieldId(
 // {
 //   int result = -1;
 //   std::string colName = detail::colName(space, address);
-// 
+//
 //   // Determine the type id of this column.
 //   for(size_t i = 0; i < table.nrCols(); ++i) {
 //     if(table.title(i) == colName) {
@@ -208,7 +208,7 @@ int fieldId(
 //       break;
 //     }
 //   }
-// 
+//
 //   return result;
 // }
 
@@ -489,19 +489,19 @@ void OgrFeatureDriver::init()
 ///   // TODO check attribute table
 ///   // TODO
 ///   return false;
-/// 
+///
 ///   // bool result = false;
-/// 
+///
 ///   // if(path.isValid()) {
 ///   //   result = dal::pathExists(path.source());
-/// 
+///
 ///   //   if(!path.attribute().empty()) {
-///   //     
+///   //
 ///   //   }
 ///   // }
-/// 
+///
 ///   // return result;
-/// 
+///
 ///   return path.isValid() && dal::pathExists(path.source(), space, address);
 /// }
 
@@ -1281,7 +1281,7 @@ void OgrFeatureDriver::filterOutUnsupportedFileNames(
   }
 
   for(size_t i = 0; i < leaves.size(); ++i) {
-    BOOST_FOREACH(std::string const& extension, extensions) {
+    for(std::string const& extension : extensions) {
       if(boost::algorithm::ends_with(leaves[i], extension)) {
         ids.push_back(i);
         break;

@@ -34,11 +34,6 @@
 #define INCLUDED_BOOST_FILESYSTEM
 #endif
 
-#ifndef INCLUDED_BOOST_FOREACH
-#include <boost/foreach.hpp>
-#define INCLUDED_BOOST_FOREACH
-#endif
-
 #ifndef INCLUDED_CPL_CONV
 #include "cpl_conv.h"
 #define INCLUDED_CPL_CONV
@@ -122,7 +117,7 @@ void Environment::readFormatNames()
   }
 
   // Trim leading and trailing whitespace.
-  BOOST_FOREACH(std::string& name, _formatNames) {
+  for(std::string& name : _formatNames) {
     ba::trim(name);
   }
 

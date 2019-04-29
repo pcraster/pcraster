@@ -34,17 +34,3 @@ set(CMAKE_C_FLAGS_DEBUG
     "${CMAKE_C_FLAGS_DEBUG} -DDEBUG -DDEBUG_BUILD -DDEBUG_DEVELOP"
 )
 
-
-# https://svn.boost.org/trac/boost/ticket/6455
-set(CMAKE_CXX_FLAGS
-    "${CMAKE_CXX_FLAGS} -DQT_NO_KEYWORDS"
-)
-
-
-
-
-
-
-
-
-

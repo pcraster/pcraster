@@ -9,10 +9,6 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_BOOST_FOREACH
-#include <boost/foreach.hpp>
-#define INCLUDED_BOOST_FOREACH
-#endif
 #ifndef INCLUDED_BOOST_NONCOPYABLE
 #include <boost/noncopyable.hpp>
 #define INCLUDED_BOOST_NONCOPYABLE
@@ -107,7 +103,7 @@ namespace calc {
        }
 
        std::vector<StatTable::InputMap> maps;
-       BOOST_FOREACH(pcrxml::TextStatisticsSubject const& i,
+       for(pcrxml::TextStatisticsSubject const& i :
                     s.textStatisticsSubject())
        {
           StatTable::InputMap in;
@@ -149,7 +145,7 @@ namespace calc {
       d_table(table),
       d_nameStatTableMap(nameStatTableMap)
     {
-      BOOST_FOREACH(NameStatTablePair i, d_nameStatTableMap)
+      for(NameStatTablePair i : d_nameStatTableMap)
       {
         std::string name(i.first);
         if (d_table.count(name)) {
@@ -274,7 +270,7 @@ ASTScript* XMLScriptClientInterface::createScriptAndAnalyzeNoContext()
   if (d_xml->model()) {
      pmp.parseTextModel(pcrxsd::toString<>(d_xml->model()->textModel()));
   }
-  BOOST_FOREACH(pcrxml::TextStatistics const& s, d_xml->textStatistics())
+  for(pcrxml::TextStatistics const& s : d_xml->textStatistics())
   {
      pmp.parseTextStatistics(s);
   }
@@ -303,7 +299,7 @@ ASTScript* XMLScriptClientInterface::createScriptAndAnalyzeNoContext()
 
   // annotate the symbols used
   detail::XMLUpdateSymbolTable ust(script->symbols(), pmp.nameStatTableMap());
-  BOOST_FOREACH(pcrxml::Definition const& d, d_xml->definition())
+  for(pcrxml::Definition const& d : d_xml->definition())
   {
     ust.updateUsedSymbols(d);
   }

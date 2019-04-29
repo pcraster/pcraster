@@ -114,7 +114,7 @@ static dal::DataSpace fixForScenario(
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 //! Constructs an Viewer application object.
@@ -302,7 +302,7 @@ VisGroup* Viewer::createProbabilityGraphView(
          VisGroup* group,
          bool sync)
 {
-  BOOST_FOREACH(std::vector<DataGuide> const& collection, collections) {
+  for(std::vector<DataGuide> const& collection : collections) {
     if(!collection.empty()) {
       group = createProbabilityGraphView(collection, group, sync);
     }
@@ -798,26 +798,26 @@ VisGroup* Viewer::groupFor(
 //          bool sync)
 // {
 //   assert(!names.empty());
-// 
+//
 //   dal::DatasetType type = dal::NR_DATASET_TYPES;
 //   std::auto_ptr<dal::Dataset> dataset;
-// 
+//
 //   // determine DataSpace for first item in view
 //   dal::DataSpaceQueryResult result = d_dal.open(names.front(), searchSpace);
 //   dataset.reset(result.dataset);
 //   if(dataset.get()) {
 //     type = dataset->type();
 //   }
-// 
+//
 //   switch(type) {
 //     case dal::RASTER: {
 //       if(!group) {
 //         group = groupFor<dal::Raster>(
 //               *dynamic_cast<dal::Raster*>(dataset.get()), searchSpace);
 //       }
-// 
+//
 //       group = displayMap2D(searchSpace, names, group, sync);
-// 
+//
 //       break;
 //     }
 //     case dal::TABLE: {
@@ -825,9 +825,9 @@ VisGroup* Viewer::groupFor(
 //         group = groupFor<dal::Table>(
 //               *dynamic_cast<dal::Table*>(dataset.get()), searchSpace);
 //       }
-// 
+//
 //       group = displayTimePlot(searchSpace, names, group, sync);
-// 
+//
 //       break;
 //     }
 //     case dal::MATRIX: case dal::FEATURE: {
@@ -839,7 +839,7 @@ VisGroup* Viewer::groupFor(
 //       break;
 //     }
 //   }
-// 
+//
 //   return group;
 // }
 
@@ -981,7 +981,7 @@ VisGroup* Viewer::displayMultiMap2D(
               queryResultsIndex < queryResults.size(); ++col) {
           std::string const& name =
                 queryResults[queryResultsIndex].name;
-          dal::DataSpace const& subSpace = 
+          dal::DataSpace const& subSpace =
                 queryResults[queryResultsIndex].space();
 
           // Current data item is constant for all scenarios.
@@ -1148,25 +1148,25 @@ VisGroup* Viewer::displayMap3D(
 //          bool sync)
 // {
 //   assert(!names.empty());
-// 
+//
 //   if(!group) {
 //     group = groupFor(names.front(), space);
 //   }
-// 
+//
 //   TestVisualisation* window = group->addTestVisualisation();
 //   window->setHeight(group->addData(names.front(), space));
-// 
+//
 //   for(std::vector<std::string>::const_iterator it = ++names.begin();
 //          it != names.end(); ++it) {
 //     window->addAttribute(group->addData(*it, space));
 //   }
-// 
+//
 //   if(sync) {
 //     group->sync();
 //   }
-// 
+//
 //   window->show();
-// 
+//
 //   return group;
 // }
 // #endif
@@ -1191,13 +1191,13 @@ VisGroup* Viewer::displayMap3D(
 //          bool sync)
 // {
 //   assert(!names.empty());
-// 
+//
 //   if(!group) {
 //     group = groupFor(names.front(), searchSpace);
 //   }
 //   DataConfiguration dc(d_dal,searchSpace,group);
 //   std::vector<DataGuide> allGuides;
-// 
+//
 //   for(std::vector<std::string>::const_iterator it = names.begin();
 //          it != names.end(); ++it) {
 //     std::vector<DataGuide> dg(dc.tableGuides(*it));
@@ -1335,20 +1335,20 @@ VisGroup* Viewer::displayValueView(
 // {
 //   assert(!guides.empty());
 //   assert(group);
-// 
+//
 //   Map2DWindow* window = d_data->d_manager->addMap2DWindow(group);
-// 
+//
 //   for(std::vector<DataGuide>::const_iterator it = guides.begin();
 //          it != guides.end(); ++it) {
 //     window->addAttribute(*it);
 //   }
-// 
+//
 //   if(sync) {
 //     group->sync();
 //   }
-// 
+//
 //   window->show();
-// 
+//
 //   return group;
 // }
 
@@ -1383,13 +1383,13 @@ bool Viewer::multiView() const
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE OPERATORS 
+// DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE FUNCTIONS 
+// DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
 

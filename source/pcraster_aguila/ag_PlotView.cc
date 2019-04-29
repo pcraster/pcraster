@@ -226,7 +226,7 @@ void PlotView::setYAxisScale()
   // bool classificationAlgorithmsAreEqual = true;
   // RangeDrawProps::Algorithm classificationAlgorithm = INVALID_ALGORITHM;
 
-  BOOST_FOREACH(DataGuide const& guide, visualisationEngine().dataGuides()) {
+  for(DataGuide const& guide : visualisationEngine().dataGuides()) {
     assert(guide.valueScale() == VS_SCALAR);
 
     RangeDrawProps const& properties(
@@ -304,7 +304,7 @@ void PlotView::drawPlots()
   size_t timeColIndex = 0; // Shut up compiler.
   size_t attrColIndex = 0; // Shut up compiler.
 
-  BOOST_FOREACH(DataGuide const& guide, visualisationEngine().dataGuides()) {
+  for(DataGuide const& guide : visualisationEngine().dataGuides()) {
     assert(guide.valueScale() == VS_SCALAR);
 
     // Set table, timeColIndex and attrColIndex.

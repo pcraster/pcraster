@@ -1,7 +1,6 @@
 #include "ag_PlotVisualisation.h"
 
 // Library headers.
-#include <boost/foreach.hpp>
 #include <QApplication>
 #include <QPainter>
 #include <qwt_picker_machine.h>
@@ -406,7 +405,7 @@ bool PlotVisualisation::intersectMarker(
          _curvesPerGuide.find(guide);
 
   if(it != _curvesPerGuide.end()) {
-    BOOST_FOREACH(QwtPlotCurve const* curve, (*it).second) {
+    for(QwtPlotCurve const* curve : (*it).second) {
       assert(curve);
       assert(curve->dataSize() > 1);
 
@@ -459,7 +458,7 @@ QPixmap PlotVisualisation::pixmap()
 //   typedef CGAL::Segment_2<CGAL::Cartesian<double> > Segment;
 //   typedef CGAL::Point_2<CGAL::Cartesian<double> > Point;
 //   Line markerLine;
-// 
+//
 //   if(marker == _xMarkerId) {
 //     markerLine = Line(
 //        Point(_xMarker->xValue(), 0.0),
@@ -470,32 +469,32 @@ QPixmap PlotVisualisation::pixmap()
 //        Point(0.0, _yMarker->yValue()),
 //        Point(1.0, _yMarker->yValue()));
 //   }
-// 
+//
 //   Segment plotSegment;
 //   Point point1, point2, intersection;
 //   CGAL::Object result;
 //   bool intersectionFound = false;
 //   QwtPlotCurve const* curve;
-// 
+//
 //   std::map<DataGuide, std::vector<QwtPlotCurve*> >::const_iterator it =
 //          _curvesPerGuide.find(guide);
-// 
+//
 //   if(it != _curvesPerGuide.end()) {
 //     std::vector<QwtPlotCurve*> const& curves = (*it).second;
-// 
+//
 //     for(size_t i = 0; i < curves.size(); ++i) {
 //       curve = curves[i];
 //       assert(curve);
 //       assert(curve->dataSize() > 1);
-// 
+//
 //       point2 = Point(curve->x(0), curve->y(0));
-// 
+//
 //       for(int j = 1; j < curve->dataSize(); ++j) {
 //         point1 = point2;
 //         point2 = Point(curve->x(j), curve->y(j));
 //         plotSegment = Segment(point1, point2);
 //         result = CGAL::intersection(markerLine, plotSegment);
-// 
+//
 //         if(CGAL::assign(intersection, result)) {
 //           *x = intersection.x();
 //           *y = intersection.y();
@@ -503,13 +502,13 @@ QPixmap PlotVisualisation::pixmap()
 //           break;
 //         }
 //       }
-// 
+//
 //       if(intersectionFound) {
 //         break;
 //       }
 //     }
 //   }
-// 
+//
 //   return intersectionFound;
 // }
 

@@ -46,7 +46,7 @@ The API enables programmers to write a shared library
 in their preferred programming language and expose the
 functionality to the PCRaster model engine (pcrcalc or PCRasterPython).
 Functionality can be exposed as simple (stateless) functions with a number of input and output arguments or statefull objects with methods changing the object state. State full objects allows to link your model script with:
- - other complex pieces of software such as other models (See Linking external components to a spatio-temporal modelling framework: Coupling MODFLOW and PCRaster: http://dx.doi.org/10.1016/j.envsoft.2009.02.018).
+ - other complex pieces of software such as other models (See Linking external components to a spatio-temporal modelling framework: Coupling MODFLOW and PCRaster: https://doi.org/10.1016/j.envsoft.2009.02.018).
  - use your own data structures beyond raster maps and nonspatials inside the object.
 
 

@@ -9,10 +9,6 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_BOOST_FOREACH
-#include <boost/foreach.hpp>
-#define INCLUDED_BOOST_FOREACH
-#endif
 
 // PCRaster library headers.
 #ifndef INCLUDED_COM_EXCEPTION
@@ -209,7 +205,7 @@ void calc::DataTable::setMemoryExchangeInputData(void **memoryExchangeData)
 {
  d_memoryExchangeData = memoryExchangeData;
 
- BOOST_FOREACH(std::string const& name, d_memoryInputLookupTables) {
+ for(std::string const& name : d_memoryInputLookupTables) {
    DTE e(dataLoad(name));
    size_t dataIndex(e.symbol().memoryInputId());
    PRECOND(dataIndex != e.symbol().noMemoryExchangeId());

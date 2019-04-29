@@ -14,11 +14,6 @@
 #define INCLUDED_BOOST_FILESYSTEM
 #endif
 
-#ifndef INCLUDED_BOOST_FOREACH
-#include <boost/foreach.hpp>
-#define INCLUDED_BOOST_FOREACH
-#endif
-
 #ifndef INCLUDED_BOOST_FORMAT
 #include <boost/format.hpp>
 #define INCLUDED_BOOST_FORMAT
@@ -236,7 +231,7 @@ void Application::handleDatasetCommandRequest(
     throw Exception("Name of dataset is missing from command");
   }
   else {
-    BOOST_FOREACH(std::string const& name,
+    for(std::string const& name :
          variables["arguments"].as< std::vector<std::string> >()) {
       showDatasetInfo(name);
     }
@@ -313,7 +308,7 @@ void Application::showDriverInfoByDatasetType(
   testDatasetType(name);
   DatasetType type = stringToDatasetType(name);
 
-  BOOST_FOREACH(Driver* driver, Client::dal().drivers()) {
+  for(Driver* driver : Client::dal().drivers()) {
     if(driver->datasetType() == type) {
       showDriverInfo(*driver);
     }
@@ -342,7 +337,7 @@ void Application::showDriverInfoByName(
 {
   // TODO throw exception when no driver exists with name, show options.
 
-  BOOST_FOREACH(Driver* driver, Client::dal().drivers()) {
+  for(Driver* driver : Client::dal().drivers()) {
     if(name.empty() || driver->name() == name) {
       showDriverInfo(*driver);
     }

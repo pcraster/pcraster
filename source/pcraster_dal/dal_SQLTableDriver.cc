@@ -14,11 +14,6 @@
 #define INCLUDED_BOOST_FILESYSTEM
 #endif
 
-#ifndef INCLUDED_BOOST_FOREACH
-#include <boost/foreach.hpp>
-#define INCLUDED_BOOST_FOREACH
-#endif
-
 #ifndef INCLUDED_BOOST_FORMAT
 #include <boost/format.hpp>
 #define INCLUDED_BOOST_FORMAT
@@ -549,7 +544,7 @@ Table* SQLTableDriver::open(
       indexFields.push_back("quantile");
       indexFields.push_back("date");
 
-      BOOST_FOREACH(std::string const name, resultFieldNames) {
+      for(std::string const name : resultFieldNames) {
         if(std::find(indexFields.begin(), indexFields.end(), name) ==
               indexFields.end()) {
           // Unsupported field is part of index.
@@ -565,7 +560,7 @@ Table* SQLTableDriver::open(
     std::vector<TypeId> typeIds;
     QSqlField field;
 
-    BOOST_FOREACH(std::string const name, resultFieldNames) {
+    for(std::string const name : resultFieldNames) {
       assert(record.contains(QString::fromUtf8(name.c_str())));
 
       field = record.field(QString::fromUtf8(name.c_str()));
@@ -1000,55 +995,55 @@ void SQLTableDriver::grantReadAccess(
 //          std::string const& name) const
 // {
 //   ConnectionInfo info(name);
-// 
+//
 //   return QSqlDatabase::contains(info.connection(this->name()).c_str());
 // }
-// 
-// 
-// 
+//
+//
+//
 // void SQLTableDriver::removeDatabase(
 //          std::string const& name) const
 // {
 //   assert(databaseExists(name));
-// 
+//
 //   ConnectionInfo info(name);
-// 
+//
 //   QSqlDatabase database = QSqlDatabase::database(
 //          QString(info.connection(this->name()).c_str()));
-// 
+//
 //   if(database.isValid()) {
 //     database.close();
 //   }
-// 
+//
 //   QSqlDatabase::removeDatabase(QString(info.connection(this->name()).c_str()));
-// 
+//
 //   assert(!databaseExists(name));
 // }
-// 
-// 
-// 
+//
+//
+//
 // void SQLTableDriver::addDatabase(
 //          std::string const& name) const
 // {
 //   assert(!databaseExists(name));
-// 
+//
 //   ConnectionInfo info(name);
-// 
+//
 //   QSqlDatabase database = QSqlDatabase::addDatabase(
 //          QString(this->name().c_str()),
 //          QString(info.connection(this->name()).c_str()));
-// 
+//
 //   if(!database.isValid()) {
 //     throw Exception((boost::format(
 //        "Database connection %1%: Can not be created")
 //        % info.connection(this->name())).str());
 //   }
-// 
+//
 //   database.setUserName(QString(info.user().c_str()));
 //   database.setPassword(QString(info.password().c_str()));
 //   database.setHostName(QString(info.host().c_str()));
 //   database.setDatabaseName(QString(info.database().c_str()));
-// 
+//
 //   assert(database.isValid());
 //   assert(databaseExists(name));
 // }

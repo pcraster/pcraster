@@ -1,7 +1,6 @@
 #include "ag_DataSourceTable.h"
 
 // Library headers.
-#include <boost/foreach.hpp>
 #include <QHeaderView>
 
 // PCRaster library headers.
@@ -39,7 +38,7 @@ DataSourceTable::DataSourceTable(
   : TableVisualisation(object, "Data source table", parent)
 
 {
-  BOOST_FOREACH(DataGuide const& guide, dataObject().dataGuides()) {
+  for(DataGuide const& guide : dataObject().dataGuides()) {
     addAttribute(guide);
   }
 
@@ -118,16 +117,16 @@ void DataSourceTable::visualise()
 //          QMouseEvent *event)
 // {
 //   std::cout << "contentsMousePressEvent" << std::endl;
-// 
+//
 //   int row = rowAt(event->y());
 //   int col = columnAt(event->x());
-// 
+//
 //   if(row < 0 || col < 0) {
 //     dataObject().setSelected(false);
 //   }
 //   else if(row >= 0) {
 //     std::vector<DataGuide> const& guides(visualisationEngine().dataGuides());
-// 
+//
 //     for(int i = 0; i < int(guides.size()); ++i) {
 //       if(i != row) {
 //         dataObject().setSelected(guides[i], false, false);
@@ -136,7 +135,7 @@ void DataSourceTable::visualise()
 //         dataObject().setSelected(guides[i], true, false);
 //       }
 //     }
-// 
+//
 //     dataObject().notify();
 //   }
 // }

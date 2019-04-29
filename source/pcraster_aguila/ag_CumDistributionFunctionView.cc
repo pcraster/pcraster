@@ -190,7 +190,7 @@ void CumDistributionFunctionView::setXAxisScale()
   bool extremesInitialised = false;
 
   if(!dataObject().hasSelectedValue()) {
-    BOOST_FOREACH(DataGuide const& guide, visualisationEngine().dataGuides()) {
+    for(DataGuide const& guide : visualisationEngine().dataGuides()) {
       assert(guide.valueScale() == VS_SCALAR);
 
       RangeDrawProps const& properties(
@@ -212,7 +212,7 @@ void CumDistributionFunctionView::setXAxisScale()
   else {
     SpatialDataset* dataset;
 
-    BOOST_FOREACH(DataGuide const& guide, visualisationEngine().dataGuides()) {
+    for(DataGuide const& guide : visualisationEngine().dataGuides()) {
       assert(guide.type() == geo::STACK || guide.type() == geo::FEATURE);
       assert(guide.valueScale() == VS_SCALAR);
       dataset = 0;
@@ -265,7 +265,7 @@ void CumDistributionFunctionView::setYAxisScale()
   if(dataObject().hasSelectedValue()) {
     bool extremesInitialised = false;
 
-    BOOST_FOREACH(DataGuide const& guide, visualisationEngine().dataGuides()) {
+    for(DataGuide const& guide : visualisationEngine().dataGuides()) {
       assert(guide.valueScale() == VS_SCALAR);
 
       RangeDrawProps const& properties(
@@ -314,7 +314,7 @@ void CumDistributionFunctionView::drawPlots()
 
   SpatialDataset* dataset;
 
-  BOOST_FOREACH(DataGuide const& guide, visualisationEngine().dataGuides()) {
+  for(DataGuide const& guide : visualisationEngine().dataGuides()) {
     assert(guide.type() == geo::STACK || guide.type() == geo::FEATURE);
     assert(guide.valueScale() == VS_SCALAR);
 

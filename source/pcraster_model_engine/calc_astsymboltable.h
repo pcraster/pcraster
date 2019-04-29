@@ -112,7 +112,7 @@ public:
 
 };
 
-//! handy for BOOST_FOREACH
+//! handy for foreach
 typedef std::pair<std::string, ASTSymbolInfo> ASTSymbolTablePair;
 
 

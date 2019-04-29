@@ -9,11 +9,6 @@
 #define INCLUDED_VECTOR
 #endif
 
-#ifndef INCLUDED_BOOST_FOREACH
-#include <boost/foreach.hpp>
-#define INCLUDED_BOOST_FOREACH
-#endif
-
 // Project headers.
 #ifndef INCLUDED_CALC_SPATIAL
 #include "calc_spatial.h"
@@ -30,7 +25,7 @@
 */
 
 // namespace {
-// 
+//
 // } // Anonymous namespace
 
 
@@ -175,7 +170,7 @@ boost::python::tuple Mldd::getStream() const
   std::vector<calc::Spatial*> spatials(8);
 
   // Overwrite pointer addresses themselves.
-  BOOST_FOREACH(calc::Spatial*& spatial, spatials) {
+  for(calc::Spatial*& spatial : spatials) {
     spatial = new calc::Spatial(VS_L, calc::CRI_1, _mldd.space().nrCells());
   }
 
@@ -205,7 +200,7 @@ boost::python::tuple Mldd::getWeight() const
   std::vector<calc::Spatial*> spatials(8);
 
   // Overwrite pointer addresses themselves.
-  BOOST_FOREACH(calc::Spatial*& spatial, spatials) {
+  for(calc::Spatial*& spatial : spatials) {
     spatial = new calc::Spatial(VS_S, calc::CRI_f, _mldd.space().nrCells());
   }
 

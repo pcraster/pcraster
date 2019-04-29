@@ -1,7 +1,6 @@
 #include "ag_TableVisualisation.h"
 
 // External headers.
-#include <boost/foreach.hpp>
 #include <QFocusEvent>
 
 // Project headers.
@@ -123,7 +122,7 @@ bool TableVisualisation::rowIsSelected(
 {
   bool result = false;
 
-  BOOST_FOREACH(QModelIndex const& index, selectedIndexes()) {
+  for(QModelIndex const& index : selectedIndexes()) {
     if(index.row() == row) {
       result = true;
       break;
@@ -191,13 +190,12 @@ void TableVisualisation::handleChangedSelection(
          QItemSelection const& selectedItems,
          QItemSelection const& deselectedItems)
 {
-  QModelIndex index;
 
-  BOOST_FOREACH(index, selectedItems.indexes()) {
+  for(QModelIndex index : selectedItems.indexes()) {
     dataObject().setSelected(d_guideMap[index.row()], true, false);
   }
 
-  BOOST_FOREACH(index, deselectedItems.indexes()) {
+  for(QModelIndex index : deselectedItems.indexes()) {
     dataObject().setSelected(d_guideMap[index.row()], false, false);
   }
 

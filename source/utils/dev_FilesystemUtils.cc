@@ -13,11 +13,6 @@
 #define INCLUDED_BOOST_ALGORITHM_STRING
 #endif
 
-#ifndef INCLUDED_BOOST_FOREACH
-#include <boost/foreach.hpp>
-#define INCLUDED_BOOST_FOREACH
-#endif
-
 #ifndef INCLUDED_DEV_CONFIGURE
 #include "dev_Configure.h"
 #define INCLUDED_DEV_CONFIGURE
@@ -78,7 +73,7 @@ boost::filesystem::path pathToExecutable(
 #endif
 
     // Loop over all directories.
-    BOOST_FOREACH(std::string const& directoryName, directoryNames) {
+    for(std::string const& directoryName : directoryNames) {
       if(boost::filesystem::exists(directoryName / path)) {
         result = boost::filesystem::system_complete(directoryName);
         break;
@@ -89,7 +84,7 @@ boost::filesystem::path pathToExecutable(
       boost::filesystem::path pathWithExtension(path);
 
       // Loop over all extensions.
-      BOOST_FOREACH(std::string const& extension, extensions) {
+      for(std::string const& extension : extensions) {
         pathWithExtension.replace_extension(extension);
 
         if(boost::filesystem::exists(directoryName / pathWithExtension)) {
@@ -124,7 +119,7 @@ boost::filesystem::path pathToPythonExtension(
     std::vector<std::string> directoryNames;
     boost::split(directoryNames, pathVariable, boost::is_any_of(":"));
 
-    BOOST_FOREACH(std::string const& directoryName, directoryNames) {
+    for(std::string const& directoryName : directoryNames) {
       if(boost::filesystem::exists(directoryName / path)) {
         result = boost::filesystem::system_complete(directoryName);
       }

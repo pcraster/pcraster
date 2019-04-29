@@ -2,7 +2,6 @@
 
 // Library headers.
 #include <fstream>
-#include <boost/foreach.hpp>
 #include <boost/program_options.hpp>
 #include <boost/algorithm/string.hpp>
 #include <boost/format.hpp>
@@ -217,7 +216,7 @@ namespace detail {
 
     if(v.size() == 2) {
       // increment
-      v.push_back(1); 
+      v.push_back(1);
     }
     if(v.size()!=3) {
       throw std::invalid_argument((

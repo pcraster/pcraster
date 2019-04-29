@@ -9,11 +9,6 @@
 #define INCLUDED_ALGORITHM
 #endif
 
-#ifndef INCLUDED_BOOST_FOREACH
-#include <boost/foreach.hpp>
-#define INCLUDED_BOOST_FOREACH
-#endif
-
 #ifndef INCLUDED_QWT_SCALE_ENGINE
 #include <qwt_scale_engine.h>
 #define INCLUDED_QWT_SCALE_ENGINE
@@ -52,7 +47,7 @@ void classifyLinear(
   QwtScaleDiv scaleDivision(scaleEngine.divideScale(min, max, nrClasses, 0));
   QwtValueList const& ticks(scaleDivision.ticks(QwtScaleDiv::MajorTick));
 
-  BOOST_FOREACH(double value, ticks) {
+  for(double value : ticks) {
     *it++ = value;
   }
 }
@@ -73,7 +68,7 @@ void classifyLog10(
   QwtScaleDiv scaleDivision(scaleEngine.divideScale(min, max, nrClasses, 0));
   QwtValueList const& ticks(scaleDivision.ticks(QwtScaleDiv::MajorTick));
 
-  BOOST_FOREACH(double value, ticks) {
+  for(double value : ticks) {
     *it++ = value;
   }
 }

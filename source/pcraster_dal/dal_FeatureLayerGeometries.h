@@ -14,11 +14,6 @@
 #define INCLUDED_MAP
 #endif
 
-#ifndef INCLUDED_BOOST_FOREACH
-#include <boost/foreach.hpp>
-#define INCLUDED_BOOST_FOREACH
-#endif
-
 #ifndef INCLUDED_BOOST_NONCOPYABLE
 #include <boost/noncopyable.hpp>
 #define INCLUDED_BOOST_NONCOPYABLE
@@ -151,7 +146,7 @@ void FeatureLayerGeometries::featureIds(
 {
   typedef std::map<OGRGeometry*, FeatureId>::value_type value_type;
 
-  BOOST_FOREACH(value_type pair, _featureIdByGeometry) {
+  for(value_type pair : _featureIdByGeometry) {
     *inserter = pair.second;
     ++inserter;
   }

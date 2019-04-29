@@ -11,11 +11,6 @@
 #define INCLUDED_BOOST_FILESYSTEM
 #endif
 
-#ifndef INCLUDED_BOOST_FOREACH
-#include <boost/foreach.hpp>
-#define INCLUDED_BOOST_FOREACH
-#endif
-
 #ifndef INCLUDED_BOOST_FORMAT
 #include <boost/format.hpp>
 #define INCLUDED_BOOST_FORMAT
@@ -371,7 +366,7 @@ VectorDriver::VectorDriver()
   // Collect the extensions of the layered raster drivers.
   std::vector<std::string> extensions;
 
-  BOOST_FOREACH(Driver const* driver, _data->dal().drivers()) {
+  for(Driver const* driver : _data->dal().drivers()) {
     Format const& format(driver->format());
     std::vector<std::string> const& formatExtensions(format.extensions());
     extensions.insert(extensions.end(), formatExtensions.begin(),

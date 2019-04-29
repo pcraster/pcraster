@@ -14,11 +14,6 @@
 #define INCLUDED_BOOST_BIND
 #endif
 
-#ifndef INCLUDED_BOOST_FOREACH
-#include <boost/foreach.hpp>
-#define INCLUDED_BOOST_FOREACH
-#endif
-
 #include <boost/shared_ptr.hpp>
 
 #ifndef INCLUDED_QSQLDATABASE
@@ -197,7 +192,7 @@ Dal::Dal(
 
   Environment const& environment(Client::library().environment());
 
-  BOOST_FOREACH(std::string const& name, environment.formatNames()) {
+  for(std::string const& name : environment.formatNames()) {
     // See if a driver by that name exists.
     Drivers::iterator it = std::find_if(_autoAddedDrivers.begin(),
          _autoAddedDrivers.end(), boost::bind(
@@ -220,7 +215,7 @@ Dal::Dal(
   }
   else {
     // Erase unneeded drivers.
-    BOOST_FOREACH(Driver* driver, _autoAddedDrivers) {
+    for(Driver* driver : _autoAddedDrivers) {
       delete driver;
     }
 
@@ -349,7 +344,7 @@ void Dal::favourDrivers(
 {
   std::vector<Driver*> drivers;
 
-  BOOST_FOREACH(std::string const& name, names) {
+  for(std::string const& name : names) {
     for(Drivers::iterator it = _drivers.begin(); it != _drivers.end(); ++it) {
       if((*it)->name() == name) {
         drivers.push_back(*it);
@@ -605,7 +600,7 @@ boost::tuple<DataSpaceQueryResult, Driver*> Dal::search(
     // TODO
 
     // Try each driver in turn.
-    BOOST_FOREACH(Driver* aDriver, drivers) {
+    for(Driver* aDriver : drivers) {
       result = search(aDriver, name, space, searchMethod, haltCondition);
 
       if(result) {
@@ -651,7 +646,7 @@ bool Dal::exists(
     // TODO
 
     // Try each driver in turn.
-    BOOST_FOREACH(Driver* driver, drivers) {
+    for(Driver* driver : drivers) {
       result = driver->exists(name, space, address);
 
       if(result) {
@@ -744,7 +739,7 @@ boost::tuple<boost::shared_ptr<Dataset>, Driver*> Dal::open(
     // TODO
 
     // Try each driver in turn.
-    BOOST_FOREACH(Driver* driver, drivers) {
+    for(Driver* driver : drivers) {
       dataset.reset(driver->open(name, space, address));
 
       if(dataset) {

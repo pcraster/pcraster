@@ -9,10 +9,7 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_BOOST_FOREACH
-#include <boost/foreach.hpp>
-#define INCLUDED_BOOST_FOREACH
-#endif
+
 // PCRaster library headers.
 
 // Module headers.
@@ -106,7 +103,7 @@ const calc::ASTSymbolInfo& calc::ASTSymbolTable::operator[](const ASTPar *p) con
   return f->second;
 }
 
-const calc::ASTSymbolInfo& 
+const calc::ASTSymbolInfo&
   calc::ASTSymbolTable::operator[](const std::string& name) const
 {
   PRECOND(contains(name));
@@ -150,7 +147,7 @@ void calc::ASTSymbolTable::checkDifferentExternalNames() const
   CheckMap checked;
 
   const calc::ASTSymbolTable& this_(*this);
-  BOOST_FOREACH(ASTSymbolTablePair i, this_) {
+  for(ASTSymbolTablePair i : this_) {
     const ASTSymbolInfo& s(i.second);
     CheckMap::const_iterator dup=checked.find(s.externalName());
     if (dup!=checked.end()) {
@@ -167,7 +164,7 @@ bool calc::ASTSymbolTable::containsMemoryExchangeSymbols() const
 {
   const size_t noExchange(ASTSymbolInfo::noMemoryExchangeId());
   const calc::ASTSymbolTable& this_(*this);
-  BOOST_FOREACH(ASTSymbolTablePair i, this_) {
+  for(ASTSymbolTablePair i : this_) {
     ASTSymbolInfo const& si(i.second);
     if (si.memoryInputId() != noExchange || si.memoryOutputId() != noExchange)
        return true;
@@ -205,7 +202,7 @@ calc::LinkInLibrary const* calc::ASTSymbolTable::linkInLibrary(std::string const
 std::ostream& calc::operator<<(std::ostream& s, const calc::ASTSymbolTable& t)
 {
   s << "\n";
-  BOOST_FOREACH(ASTSymbolTablePair pos, t) {
+  for(ASTSymbolTablePair pos : t) {
     s << "name(" << pos.first  << ")";
     s << "info(" << pos.second << ")\n";
   }

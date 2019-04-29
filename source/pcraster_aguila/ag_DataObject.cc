@@ -1834,7 +1834,7 @@ void DataObject::setSelectedValue(
 
     std::vector<DataGuide> guides(dataGuides());
 
-    BOOST_FOREACH(DataGuide const& guide, guides) {
+    for(DataGuide const& guide : guides) {
       Dataset& dataset(this->dataset(guide));
 
       if(dataset.dataSpace().hasCumProbabilities()) {
@@ -1860,7 +1860,7 @@ void DataObject::unsetSelectedValue(
 
     std::vector<DataGuide> guides(dataGuides());
 
-    BOOST_FOREACH(DataGuide const& guide, guides) {
+    for(DataGuide const& guide : guides) {
       Dataset& dataset(this->dataset(guide));
 
       if(dataset.dataSpace().hasCumProbabilities()) {
@@ -1882,7 +1882,7 @@ void DataObject::unsetSelectedValue(
 //          DataGuide const& guide) const
 // {
 //   bool result = false;
-// 
+//
 //   if(guide.valueScale() == VS_SCALAR) {
 //     if(guide.type() == geo::STACK) {
 //       result = rasterDataSources().data(guide).hasSelectedValue();
@@ -1891,7 +1891,7 @@ void DataObject::unsetSelectedValue(
 //       result = featureDataSources().data(guide).hasSelectedValue();
 //     }
 //   }
-// 
+//
 //   return result;
 // }
 
@@ -1908,10 +1908,10 @@ void DataObject::unsetSelectedValue(
 //     else if(guide.type() == geo::FEATURE) {
 //       featureDataSources().data(guide).unsetSelectedValue();
 //     }
-// 
+//
 //     setNotifyNeeded(true);
 //   }
-// 
+//
 //   if(notify) {
 //     this->notify();
 //   }

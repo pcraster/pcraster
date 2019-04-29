@@ -11,11 +11,6 @@
 #define INCLUDED_BOOST_FILESYSTEM_PATH
 #endif
 
-#ifndef INCLUDED_BOOST_FOREACH
-#include <boost/foreach.hpp>
-#define INCLUDED_BOOST_FOREACH
-#endif
-
 #ifndef INCLUDED_BOOST_FORMAT
 #include <boost/format.hpp>
 #define INCLUDED_BOOST_FORMAT
@@ -479,18 +474,18 @@ GDALDataset* GDALRasterDriver::openGDALDataset(
 //          GDALAccess access)
 // {
 //   GDALDataset* dataset = 0;
-// 
+//
 //   // Installed a non-throwing error handler, see dal_Client.cc.
 //   dataset = static_cast<GDALDataset*>(GDALOpen(
 //          this->pathFor(name, space, address).
 //          string().c_str(), access));
-// 
+//
 //   if(!dataset) {
 //     throwCannotBeOpened(name, RASTER, space, address);
 //   }
-// 
+//
 //   assert(dataset);
-// 
+//
 //   return dataset;
 // }
 
@@ -565,7 +560,7 @@ void GDALRasterDriver::deregisterGDALDrivers()
   detail::deregisterGDALDrivers();
 
   // Remove drivers from memory.
-  BOOST_FOREACH(GDALDriver* driver, d_drivers) {
+  for(GDALDriver* driver : d_drivers) {
     // Let GDal destroy the driver, prevent that a second heap manager assumes
     // the memory is from a different heap than what is used by the GDal dll.
     GDALDestroyDriver(driver);
@@ -979,25 +974,25 @@ Raster* GDALRasterDriver::read(
 ///   registerGDALDriverToUse();
 ///   boost::shared_ptr<GDALDataset> gdalDataset(openGDALDataset(name,
 ///          GA_ReadOnly), DeleteGDALDataset());
-/// 
+///
 ///   assert(gdalDataset->GetRasterCount() >= 1);
 ///   GDALRasterBand* rasterBand = gdalDataset->GetRasterBand(1);
 ///   assert(rasterBand);
-/// 
+///
 ///   if(!rasterBand) {
 ///     throwCannotBeOpened(name, RASTER);
 ///   }
-/// 
+///
 ///   // Read value.
 ///   if(rasterBand->RasterIO(GF_Read, col, row, 1, 1,
 ///       cell, 1, 1,
 ///       gdalDataType(typeId), 0, 0) != CE_None) {
 ///     throwCannotReadCell(name, RASTER);
 ///   }
-/// 
+///
 ///   int hasNoDataValue = 0;
 ///   double noDataValue = rasterBand->GetNoDataValue(&hasNoDataValue);
-/// 
+///
 ///   if(hasNoDataValue) {
 ///     toStdMV(typeId, cell, 1, noDataValue);
 ///   }

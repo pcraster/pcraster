@@ -1,0 +1,34 @@
+Copyright (C) 1990-2019 PCRaster owners. All rights reserved.
+
+PCRaster is provided by the copyright holders "as is", without warranty of any
+kind, expressed or implied, including but not limited to the warranties of
+merchantability, fitness for a particular purpose and noninfringement. In no
+event shall the authors or copyright holders be liable for any claim, damages or
+other liability, whether in an action of contract, tort or otherwise, arising
+from, out of or in connection with the software or the use or other dealings in
+the software.
+
+The PCRaster source code in this repository is provided under the terms of the
+GNU GENERAL PUBLIC LICENSE (GPL) Version 3, see the LICENSE file for more
+details.
+
+Visit http://www.pcraster.eu for more information on scientific and development
+projects.
+
+
+Notice on third party software:
+
+PCRaster uses open source software from third parties. These are to their
+individual license agreements. Any binary packages of these third party tools
+are subject to their individual licenses. PCRaster reserves the right to change
+which third party tools are used.
+
+Boost (https://www.boost.org/)
+Qt (https://www.qt.io/)
+Python (https://www.python.org/)
+Xerces (https://xerces.apache.org/xerces-c/)
+GDAL (https://www.gdal.org/)
+Modflow (https://water.usgs.gov/ogw/modflow/mf2005.html)
+PDCurses (https://pdcurses.sourceforge.io/)
+Qwt (https://qwt.sourceforge.io/)
+Pybind11 (https://github.com/pybind/pybind11)

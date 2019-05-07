@@ -154,7 +154,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
     (master_doc, 'PCRaster.tex', u'PCRaster Documentation',
-     u'The PCRaster Research and Development Team', 'manual'),
+     u'PCRaster owners', 'manual'),
 ]
 
 

@@ -10,5 +10,5 @@ Note: we migrated multi-repository SourceForge-hosted sub-projects into this sin
 
 | OS | Compilers | Status |
 |----|-----------|--------|
-| Linux, macOS | gcc-4.9, gcc-8, clang-6 | [![Linux build Status](https://travis-ci.org/pcraster/pcraster.svg?branch=master)](https://travis-ci.org/pcraster/pcraster) |
-| Windows | vs-2015 | Checked manually |
+| Linux, macOS | gcc-5, gcc-8, clang-6 | [![Linux build Status](https://travis-ci.org/pcraster/pcraster.svg?branch=master)](https://travis-ci.org/pcraster/pcraster) |
+| Windows | vs-2017 | Checked manually |

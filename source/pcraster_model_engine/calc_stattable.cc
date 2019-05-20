@@ -350,7 +350,7 @@ static double median(
     detail::CS_V::iterator end)
 {
   return com::median(begin,end,
-   std::mem_fun_ref(&detail::CS_CP::crossLess))->cross();
+   std::mem_fn(&detail::CS_CP::crossLess))->cross();
 }
 
 template< class P,
@@ -777,7 +777,7 @@ template< class    IntervalMapT,
     }
 
   // sort on subject for percentile computation
-  std::sort(r.begin(),r.end(),std::mem_fun_ref(&CP::subjectILess));
+  std::sort(r.begin(),r.end(),std::mem_fn(&CP::subjectILess));
 
   // compute percentiles per subject
   typedef detail::CS_V::iterator I;
@@ -928,7 +928,7 @@ template<typename SubjectType>
     }
 
   // sort on subject for percentile computation
-  std::sort(r.begin(),r.end(),std::mem_fun_ref(&CP::subjectILess));
+  std::sort(r.begin(),r.end(),std::mem_fn(&CP::subjectILess));
 
   // compute percentile per subject
   R::iterator start=r.begin();

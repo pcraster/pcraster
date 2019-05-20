@@ -445,7 +445,7 @@ void ag::VisGroup::addVisualisation(VisualisationWindow* visualisation)
 void ag::VisGroup::show()
 {
   dev::forWhole(d_data->d_visualisationWindows,
-         std::mem_fun(&VisualisationWindow::show));
+         std::mem_fn(&VisualisationWindow::show));
 }
 
 

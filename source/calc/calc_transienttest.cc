@@ -74,6 +74,7 @@ BOOST_AUTO_TEST_CASE(fixed_head)
 
 BOOST_AUTO_TEST_CASE(budget)
 {
+  using namespace std::placeholders;
   size_t nrRows = 3;
   size_t nrCols = 3;
   size_t nrCells = nrRows * nrCols;
@@ -141,7 +142,7 @@ BOOST_AUTO_TEST_CASE(budget)
 
   // No flow: equal amount of stuff on all cells.
   BOOST_CHECK(std::count_if(resultElevationCells, resultElevationCells + nrCells,
-         std::bind2nd(std::equal_to<REAL4>(), resultElevationCells[0])));
+         std::bind(std::equal_to<REAL4>(), _1, resultElevationCells[0])));
 
   // Test amount added to all cells.
   // yepyep

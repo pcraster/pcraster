@@ -181,7 +181,7 @@ template<class Point>
 void GriddedPoints<Point>::clear()
 {
   std::for_each(d_points.begin(), d_points.end(),
-         std::mem_fun_ref(&List::clear));
+         std::mem_fn(&List::clear));
 }
 
 

@@ -153,7 +153,7 @@ void calc::RelationRecord::copy(const RelationRecord& rhs)
 {
   DEVELOP_PRECOND(empty());
   std::transform(rhs.begin(),rhs.end(), std::back_inserter(*this),
-                  std::mem_fun(&com::Interval<Float>::createClone));
+                  std::mem_fn(&com::Interval<Float>::createClone));
 }
 
 //! delete all records of \a key and clear the vector

@@ -19,6 +19,9 @@
 #define INCLUDED_NUMERIC
 #endif
 
+#include <algorithm>
+#include <random>
+
 // PCRaster library headers.
 #ifndef INCLUDED_DAL_MATHUTILS
 #include "dal_MathUtils.h"
@@ -313,9 +316,14 @@ void selectRandomCellLocations(
          std::vector<LinearLoc>& cellIds)
 {
   if(nrCells < cellIds.size()) {
-    std::random_shuffle(cellIds.begin(), cellIds.end());
-    locations.insert(locations.end(), cellIds.begin(),
-         cellIds.begin() + nrCells);
+    std::shuffle(cellIds.begin(), cellIds.end(), []() {
+      std::mt19937::result_type seeds[std::mt19937::state_size];
+      std::random_device device;
+      std::uniform_int_distribution<typename std::mt19937::result_type> dist;
+      std::generate(std::begin(seeds), std::end(seeds), [&] { return dist(device); });
+      std::seed_seq seq(std::begin(seeds), std::end(seeds));
+      return std::mt19937(seq);
+    }());
   }
   else {
     locations.insert(locations.end(), cellIds.begin(), cellIds.end());

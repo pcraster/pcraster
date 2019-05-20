@@ -113,9 +113,9 @@ size_t ag::VisChangeManager::nrObservers() const
 */
 void ag::VisChangeManager::notify()
 {
-  dev::forWhole(d_observers, std::mem_fun(&VisObserver::rescan));
-  dev::forWhole(d_observers, std::mem_fun(&VisObserver::process));
-  dev::forWhole(d_observers, std::mem_fun(&VisObserver::visualise));
+  dev::forWhole(d_observers, std::mem_fn(&VisObserver::rescan));
+  dev::forWhole(d_observers, std::mem_fn(&VisObserver::process));
+  dev::forWhole(d_observers, std::mem_fn(&VisObserver::visualise));
 }
 
 

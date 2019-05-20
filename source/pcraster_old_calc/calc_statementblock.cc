@@ -5,7 +5,7 @@
 #define INCLUDED_COM_ALGORITHM
 #endif
 #ifndef INCLUDED_FUNCTIONAL
-#include <functional>  // mem_fun
+#include <functional>
 #define INCLUDED_FUNCTIONAL
 #endif
 
@@ -144,18 +144,18 @@ bool calc::StatementBlock::buildTypes()
 
 void calc::StatementBlock::executeStatements()
 {
-  com::forWhole(d_stats,std::mem_fun(&Statement::start));
+  com::forWhole(d_stats,std::mem_fn(&Statement::start));
 }
 
 void calc::StatementBlock::prepareExecution()
 {
-  com::forWhole(d_stats, std::mem_fun(&Statement::prepareExecution));
+  com::forWhole(d_stats, std::mem_fn(&Statement::prepareExecution));
 }
 
 void calc::StatementBlock::run()
 {
   executeBlock();
-  com::forWhole(d_valueDelete, std::mem_fun(&FieldParameter::deleteValues));
+  com::forWhole(d_valueDelete, std::mem_fn(&FieldParameter::deleteValues));
 }
 
 bool calc::operator==(

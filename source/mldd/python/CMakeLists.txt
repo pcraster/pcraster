@@ -5,19 +5,19 @@ add_library(_pcraster_mldd_python SHARED
 
 add_library(pcraster::python_mldd ALIAS _pcraster_mldd_python)
 
-fix_boost_python_visibility(_pcraster_mldd_python)
 
-target_include_directories(_pcraster_mldd_python
-    PRIVATE
-        ${PYTHON_INCLUDE_DIR}
-)
+# target_include_directories(_pcraster_mldd_python
+#     PRIVATE
+#         ${PYTHON_INCLUDE_DIR}
+# )
 
 target_link_libraries(_pcraster_mldd_python
     PRIVATE
-        pcraster::mldd
-        pcraster::model_engine
-        ${PCR_BOOST_PYTHON}
-        ${PYTHON_LIBRARIES}
+#        pcraster::mldd
+#        pcraster::model_engine
+#  make this fail fttb
+#        ${PCR_BOOST_PYTHON}
+#        ${PYTHON_LIBRARIES}
 )
 
 configure_python_extension(_pcraster_mldd_python

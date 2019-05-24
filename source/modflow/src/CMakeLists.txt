@@ -52,7 +52,7 @@ target_include_directories(pcrmfpy
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
         ${pybind11_SOURCE_DIR}/include
-        ${PYTHON_INCLUDE_DIR}
+        ${Python_INCLUDE_DIRS}
 )
 
 target_link_libraries(pcrmfpy

@@ -67,13 +67,15 @@ endif()
 list(APPEND DEVBASE_REQUIRED_BOOST_COMPONENTS
     date_time filesystem program_options timer)
 
-set(DEVBASE_OPENGL_REQUIRED TRUE)
 set(DEVBASE_QT_REQUIRED TRUE)
 set(DEVBASE_REQUIRED_QT_VERSION 5)
 set(DEVBASE_REQUIRED_QT_COMPONENTS
-    Core Gui OpenGL Sql Widgets Xml)
+    Core Gui Sql Widgets Xml)
+
 if(PCRASTER_BUILD_AGUILA)
     set(DEVBASE_QWT_REQUIRED TRUE)
+    set(DEVBASE_OPENGL_REQUIRED TRUE)
+    list(APPEND DEVBASE_REQUIRED_QT_COMPONENTS OpenGL)
 endif()
 
 set(DEVBASE_XERCES_REQUIRED TRUE)
@@ -81,11 +83,8 @@ set(DEVBASE_XERCES_REQUIRED TRUE)
 set(DEVBASE_GDAL_REQUIRED TRUE)  # Version >= 2.0.0.
 
 
-find_package(PythonInterp)
-find_package(Boost)
 
-set(DEVBASE_PYTHON_LIBS_REQUIRED TRUE)
-set(DEVBASE_NUMPY_REQUIRED TRUE)
+find_package(Python COMPONENTS Interpreter Development)
 
 find_python_module(numpy REQUIRED)
 if(PCRASTER_BUILD_TEST)
@@ -97,6 +96,7 @@ if(WIN32)
     set(CURSES_INCLUDE_DIRS ${PDCURSES_INCLUDE_DIR})
     set(CURSES_LIBRARIES ${PDCURSES_LIBRARIES})
 else()
+    set(CURSES_NEED_NCURSES TRUE)
     set(DEVBASE_CURSES_REQUIRED TRUE)
     set(DEVBASE_CURSES_WIDE_CHARACTER_SUPPORT_REQUIRED FALSE)
 endif()
@@ -126,9 +126,9 @@ endif()
 
 
 
-find_package(PythonLibs)
-set (CMAKE_REQUIRED_INCLUDES "${PYTHON_INCLUDE_DIR};${CMAKE_REQUIRED_INCLUDES}")
 # Python.h needs to be known to pass the test
+set (CMAKE_REQUIRED_INCLUDES "${Python_INCLUDE_DIRS};${CMAKE_REQUIRED_INCLUDES}")
+
 check_include_file_cxx("pybind11/pybind11.h" PYBIND11_SYSTEM_INCLUDE)
 
 if(NOT PYBIND11_SYSTEM_INCLUDE)

@@ -67,7 +67,7 @@ if(PCRASTER_BUILD_TEST)
 
     add_test(
         NAME setup_pcrgeo
-        COMMAND ${PYTHON_EXECUTABLE} test_prolog.py
+        COMMAND ${Python_EXECUTABLE} test_prolog.py
     )
 
     add_unit_tests(

@@ -237,7 +237,8 @@ target_link_libraries(pcraster_aguila
         Qt5::Gui
         Qt5::OpenGL
         Qt5::Xml
-        ${OPENGL_LIBRARIES}
+#        OpenGL::OpenGL
+        OpenGL::GLU
 )
 
 install(
@@ -304,7 +305,7 @@ if(PCRASTER_BUILD_TEST)
     )
     add_test(
         NAME setup_pcraster_aguila
-        COMMAND ${PYTHON_EXECUTABLE} test_prolog.py
+        COMMAND ${Python_EXECUTABLE} test_prolog.py
     )
     set_tests_properties(setup_pcraster_aguila
         PROPERTIES

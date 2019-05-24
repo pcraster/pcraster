@@ -76,18 +76,14 @@ target_include_directories(_pcraster
 )
 
 # workaround to ignore warnings of these headers
-target_include_directories(_pcraster SYSTEM
-     PRIVATE
-       ${NUMPY_INCLUDE_DIRS}
-#        ${PYTHON_INCLUDE_DIR}
-)
+#target_include_directories(_pcraster SYSTEM
+#     PRIVATE
+#       #${Python_NumPy_INCLUDE_DIRS}
+#)
 
 target_link_libraries(_pcraster
     PUBLIC
         pcraster::python::utils
-#        ${PCR_BOOST_PYTHON_NUMPY}
-#        ${PCR_BOOST_PYTHON}
-#        ${PYTHON_LIBRARIES}
 )
 
 configure_python_extension(_pcraster
@@ -162,12 +158,12 @@ if(PCRASTER_BUILD_TEST)
         NAME
             python_pcrcalcpy_pythonunittest
         COMMAND
-            ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test.py
+            ${Python_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test.py
     )
 
     add_test(
         NAME setup_pcraster_python
-        COMMAND ${PYTHON_EXECUTABLE} test_prolog.py
+        COMMAND ${Python_EXECUTABLE} test_prolog.py
     )
 
     set_tests_properties(setup_pcraster_python

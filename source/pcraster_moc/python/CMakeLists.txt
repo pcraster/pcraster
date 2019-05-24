@@ -7,14 +7,14 @@ add_library(pcraster::moc_python ALIAS _pcraster_moc_python)
 
 target_include_directories(_pcraster_moc_python
     PRIVATE
-        ${PYTHON_INCLUDE_DIR}
+        ${Python_INCLUDE_DIRS}
 )
 
 target_link_libraries(_pcraster_moc_python
     PUBLIC
         pcraster::moc
         pcraster::model_engine
-        ${PYTHON_LIBRARIES}
+#        ${PYTHON_LIBRARIES}
 )
 
 configure_python_extension(_pcraster_moc_python

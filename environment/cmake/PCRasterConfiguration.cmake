@@ -84,12 +84,8 @@ set(DEVBASE_GDAL_REQUIRED TRUE)  # Version >= 2.0.0.
 
 
 
-find_package(Python COMPONENTS Interpreter Development)
-
-find_python_module(numpy REQUIRED)
-if(PCRASTER_BUILD_TEST)
-    find_python_module(psutil REQUIRED)
-endif()
+find_package(Python COMPONENTS Interpreter Development NumPy)
+message(STATUS "  Interpreter ID: " ${Python_INTERPRETER_ID})
 
 if(WIN32)
     find_package(PDCurses REQUIRED)
@@ -101,8 +97,10 @@ else()
     set(DEVBASE_CURSES_WIDE_CHARACTER_SUPPORT_REQUIRED FALSE)
 endif()
 
-
 if(PCRASTER_BUILD_TEST)
+
+    find_python_module(psutil REQUIRED)
+
     # sqlite executable is used by dal's testrun.prolog
     find_package(SQLite3)
 

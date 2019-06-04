@@ -24,11 +24,12 @@ are subject to their individual licenses. PCRaster reserves the right to change
 which third party tools are used.
 
 Boost (https://www.boost.org/)
-Qt (https://www.qt.io/)
-Python (https://www.python.org/)
-Xerces (https://xerces.apache.org/xerces-c/)
 GDAL (https://www.gdal.org/)
 Modflow (https://water.usgs.gov/ogw/modflow/mf2005.html)
 PDCurses (https://pdcurses.sourceforge.io/)
-Qwt (https://qwt.sourceforge.io/)
+Python (https://www.python.org/)
 Pybind11 (https://github.com/pybind/pybind11)
+Qt (https://www.qt.io/)
+Qwt (https://qwt.sourceforge.io/)
+Xerces (https://xerces.apache.org/xerces-c/)
+XSD (https://www.codesynthesis.com/products/xsd/)

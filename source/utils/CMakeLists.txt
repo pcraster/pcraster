@@ -30,8 +30,6 @@ target_link_libraries(utils
         Boost::filesystem
         Boost::program_options
         XercesC::XercesC
-        ${GDAL_LIBRARIES}
-        # ${PYTHON_LIBRARIES}
 )
 
 if(PCRASTER_BUILD_TEST)

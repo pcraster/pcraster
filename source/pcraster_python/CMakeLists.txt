@@ -75,11 +75,10 @@ target_include_directories(_pcraster
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
 )
 
-# workaround to ignore warnings of these headers
-#target_include_directories(_pcraster SYSTEM
-#     PRIVATE
-#       #${Python_NumPy_INCLUDE_DIRS}
-#)
+target_include_directories(_pcraster #  SYSTEM
+    PRIVATE
+      ${Python_NumPy_INCLUDE_DIRS}
+)
 
 target_link_libraries(_pcraster
     PUBLIC
@@ -136,11 +135,9 @@ add_custom_command(
 
     DEPENDS
         _pcraster
-        #_pcraster_modflow_python
 )
 
-# TODO This target is used by modflow too. While this CMake file depends on
-#      modflow targets. Refactor.
+# TODO This target is used by others too.
 add_custom_target(
     fill_python_directory_structure ALL
     DEPENDS

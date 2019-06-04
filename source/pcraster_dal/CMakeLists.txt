@@ -137,7 +137,7 @@ target_link_libraries(pcraster_dal
         pcraster::raster_format
         pcraster::utils
         Qt5::Sql
-        ${GDAL_LIBRARIES}
+        GDAL::GDAL
         Boost::filesystem
         Boost::date_time
 )

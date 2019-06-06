@@ -85,9 +85,9 @@ target_link_libraries(_pcraster
         pcraster::python::utils
 )
 
-configure_python_extension(_pcraster
-    "_pcraster"
-)
+# configure_python_extension(_pcraster
+#     "_pcraster"
+# )
 
 set(_TARGET_BIN ${EXECUTABLE_OUTPUT_PATH}/${CMAKE_CFG_INTDIR})
 
@@ -97,12 +97,9 @@ set_target_properties(_pcraster
             "${_TARGET_BIN}/pcraster"
         LIBRARY_OUTPUT_DIRECTORY
             "${_TARGET_BIN}/pcraster"
+        INSTALL_RPATH
+            "\\\$ORIGIN/../../lib"
 )
-
-### #set_target_properties(_pcraster_modflow_python
-### #    PROPERTIES
-### #        LIBRARY_OUTPUT_DIRECTORY "${_TARGET_BIN}/pcraster"
-### #)
 
 
 # Determine bitness at compile time...
@@ -144,6 +141,31 @@ add_custom_target(
         ${_TARGET_BIN}/pcraster/numpy_operations.py
 )
 
+#----------------------------------------------------------
+install(
+    TARGETS _pcraster
+    LIBRARY DESTINATION python/pcraster
+    RUNTIME DESTINATION python/pcraster
+)
+
+install(
+    FILES
+        pcraster/operators.py
+        pcraster/numpy_operations.py
+        pcraster/aguila.py
+        ${CMAKE_CURRENT_BINARY_DIR}/operations.py
+        ${_TARGET_BIN}/pcraster/__init__.py
+        ${_TARGET_BIN}/pcraster/__about__.py
+        ${PROJECT_SOURCE_DIR}/environment/script/forkscript.py
+        ${PROJECT_SOURCE_DIR}/environment/script/pcr.py
+        ${PROJECT_SOURCE_DIR}/environment/script/pcrstat.py
+        ${PROJECT_SOURCE_DIR}/environment/script/shellscript.py
+        ${PROJECT_SOURCE_DIR}/environment/script/utils.py
+    DESTINATION
+        python/pcraster
+)
+
+#----------------------------------------------------------
 if(PCRASTER_BUILD_TEST)
     configure_file(
         test_prolog.py.in
@@ -307,18 +329,18 @@ endif()
 ### INSTALL_EXTERN_SHARED_LIBRARIES(
 ###   ${PYTHON_LIBRARIES}
 ###   )
-INSTALL(
-    FILES
-        pcraster/operators.py
-        ${CMAKE_CURRENT_BINARY_DIR}/operations.py
-        ${PROJECT_SOURCE_DIR}/environment/script/forkscript.py
-        ${PROJECT_SOURCE_DIR}/environment/script/pcr.py
-        ${PROJECT_SOURCE_DIR}/environment/script/pcrstat.py
-        ${PROJECT_SOURCE_DIR}/environment/script/shellscript.py
-        ${PROJECT_SOURCE_DIR}/environment/script/utils.py
-    DESTINATION
-        python/pcraster
-)
+# INSTALL(
+#     FILES
+#         pcraster/operators.py
+#         ${CMAKE_CURRENT_BINARY_DIR}/operations.py
+#         ${PROJECT_SOURCE_DIR}/environment/script/forkscript.py
+#         ${PROJECT_SOURCE_DIR}/environment/script/pcr.py
+#         ${PROJECT_SOURCE_DIR}/environment/script/pcrstat.py
+#         ${PROJECT_SOURCE_DIR}/environment/script/shellscript.py
+#         ${PROJECT_SOURCE_DIR}/environment/script/utils.py
+#     DESTINATION
+#         python/pcraster
+# )
 ### # for backward compatibility
 ### INSTALL(
 ###     FILES
@@ -331,22 +353,22 @@ INSTALL(
 # CMAKE_CONFIGURATION_TYPES is only defined if the generator supports multiple
 # build configurations. In that case the output is stored in a subdirectory
 # named after the current build configuration.
-IF(CMAKE_CONFIGURATION_TYPES)
-    SET(OUTPUT_PATH ${EXECUTABLE_OUTPUT_PATH}/\${CMAKE_INSTALL_CONFIG_NAME})
-ELSE()
-    SET(OUTPUT_PATH ${EXECUTABLE_OUTPUT_PATH})
-ENDIF()
+# IF(CMAKE_CONFIGURATION_TYPES)
+#     SET(OUTPUT_PATH ${EXECUTABLE_OUTPUT_PATH}/\${CMAKE_INSTALL_CONFIG_NAME})
+# ELSE()
+#     SET(OUTPUT_PATH ${EXECUTABLE_OUTPUT_PATH})
+# ENDIF()
 
-install(
-    DIRECTORY
-        ${OUTPUT_PATH}/pcraster
-        # ${EXECUTABLE_OUTPUT_PATH}/\${CMAKE_INSTALL_CONFIG_NAME}/pcraster
-        # ${_TARGET_BIN}/pcraster
-        # TODO This doesn't work on Windows.
-        # ${_TARGET_BIN}/${CMAKE_CFG_INTDIR}/pcraster
-        # ${_TARGET_BIN}/Release/pcraster
-    DESTINATION
-        python
-    PATTERN ".svn" EXCLUDE
-    PATTERN "*.pyc" EXCLUDE
-)
+# install(
+#     DIRECTORY
+#         ${OUTPUT_PATH}/pcraster
+#         # ${EXECUTABLE_OUTPUT_PATH}/\${CMAKE_INSTALL_CONFIG_NAME}/pcraster
+#         # ${_TARGET_BIN}/pcraster
+#         # TODO This doesn't work on Windows.
+#         # ${_TARGET_BIN}/${CMAKE_CFG_INTDIR}/pcraster
+#         # ${_TARGET_BIN}/Release/pcraster
+#     DESTINATION
+#         python
+#     PATTERN ".svn" EXCLUDE
+#     PATTERN "*.pyc" EXCLUDE
+# )

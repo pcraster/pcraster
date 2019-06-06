@@ -9,10 +9,17 @@ Changes
 .. breaking change in pickle
 ..
 .. added cellvalue by (index, indices, coordinates); version_tuple
+
+.. mapattr and legend should show menu again on windows
+
 ..
 .. development notices:
 .. auto_ptr removal
 .. boost python removal
+
+.. rpath settings fixed on unices
+
+
 
 
 PCRaster 4.2.1

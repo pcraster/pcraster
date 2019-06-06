@@ -8,6 +8,27 @@ set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
+# On Linux/macOS we set the RPATH for our libraries/executables
+# From the CMake wiki:
+
+# use, i.e. don't skip the full RPATH for the build tree
+SET(CMAKE_SKIP_BUILD_RPATH  OFF)
+
+# when building, don't use the install RPATH already
+# (but later on when installing)
+SET(CMAKE_BUILD_WITH_INSTALL_RPATH OFF)
+
+# the RPATH to be used when installing
+SET(CMAKE_INSTALL_RPATH "\\\$ORIGIN/../lib")
+
+# don't add the automatically determined parts of the RPATH
+# which point to directories outside the build tree to the install RPATH
+SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH OFF)
+
+
+
+
+
 
 # In general, don't set compiler options in CMake files. Here we set the
 # most general options that everybody always wants. Anything else should

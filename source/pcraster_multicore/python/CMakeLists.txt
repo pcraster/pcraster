@@ -1,4 +1,18 @@
-add_subdirectory(scripts)
+configure_file(scripts/__init__.py.in
+    ${PROJECT_BINARY_DIR}/bin/pcraster/multicore/__init__.py
+    COPYONLY
+)
+
+configure_file(scripts/operations.py.in
+    ${PROJECT_BINARY_DIR}/bin/pcraster/multicore/_operations.py
+    COPYONLY
+)
+
+configure_file(scripts/operators.py.in
+    ${PROJECT_BINARY_DIR}/bin/pcraster/multicore/_operators.py
+    COPYONLY
+)
+
 
 pybind11_add_module(_pcraster_multicore MODULE
     execution_policy
@@ -68,9 +82,9 @@ target_include_directories(_pcraster_multicore
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../..>
 )
 
-configure_python_extension(_pcraster_multicore
-    "_pcraster_multicore"
-)
+# configure_python_extension(_pcraster_multicore
+#     "_pcraster_multicore"
+# )
 
 target_link_libraries(_pcraster_multicore
     PRIVATE
@@ -82,7 +96,6 @@ add_dependencies(_pcraster_multicore
     generate_examples.sentinel
     _pcraster
     fill_python_directory_structure # Refactor
-    #_pcraster_modflow_python        # Refactor
 )
 
 set_target_properties(_pcraster_multicore
@@ -91,4 +104,21 @@ set_target_properties(_pcraster_multicore
             ${PROJECT_BINARY_DIR}/bin/pcraster/multicore
         LIBRARY_OUTPUT_DIRECTORY
             ${PROJECT_BINARY_DIR}/bin/pcraster/multicore
+        INSTALL_RPATH
+            "\\\$ORIGIN/../../../lib"
+)
+
+install(
+    TARGETS _pcraster_multicore
+    LIBRARY DESTINATION python/pcraster/multicore
+    RUNTIME DESTINATION python/pcraster/multicore
+)
+
+install(
+    FILES
+        ${PROJECT_BINARY_DIR}/bin/pcraster/multicore/__init__.py
+        ${PROJECT_BINARY_DIR}/bin/pcraster/multicore/_operators.py
+        ${PROJECT_BINARY_DIR}/bin/pcraster/multicore/_operations.py
+    DESTINATION
+        python/pcraster/multicore
 )

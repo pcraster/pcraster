@@ -18,6 +18,7 @@ Changes
 .. boost python removal
 
 .. rpath settings fixed on unices
+.. default flags  + ipo
 
 
 

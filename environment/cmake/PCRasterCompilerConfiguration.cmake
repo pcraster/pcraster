@@ -12,19 +12,41 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 # From the CMake wiki:
 
 # use, i.e. don't skip the full RPATH for the build tree
-SET(CMAKE_SKIP_BUILD_RPATH  OFF)
+set(CMAKE_SKIP_BUILD_RPATH  OFF)
 
 # when building, don't use the install RPATH already
 # (but later on when installing)
-SET(CMAKE_BUILD_WITH_INSTALL_RPATH OFF)
+set(CMAKE_BUILD_WITH_INSTALL_RPATH OFF)
 
 # the RPATH to be used when installing
-SET(CMAKE_INSTALL_RPATH "\\\$ORIGIN/../lib")
+set(CMAKE_INSTALL_RPATH "\\\$ORIGIN/../lib")
 
 # don't add the automatically determined parts of the RPATH
 # which point to directories outside the build tree to the install RPATH
-SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH OFF)
+set(CMAKE_INSTALL_RPATH_USE_LINK_PATH OFF)
 
+
+# Default flags without toolchain files
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Release)
+endif()
+
+if(${CMAKE_BUILD_TYPE} STREQUAL "Release")
+
+    add_compile_options(
+        "$<$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:Clang>>:-march=native;-mtune=native>"
+    )
+
+    include(CheckIPOSupported)
+    check_ipo_supported(RESULT ipo_available)
+    if(ipo_available)
+      set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
+      set(CMAKE_AR ${CMAKE_CXX_COMPILER_AR})
+      set(CMAKE_RANLIB ${CMAKE_CXX_COMPILER_RANLIB})
+    endif()
+
+
+endif()
 
 
 
@@ -42,7 +64,6 @@ SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH OFF)
 # )
 
 
-# use toolchain files to select compiler flags...
 
 
 

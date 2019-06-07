@@ -1125,12 +1125,14 @@ void GDALRasterDriver::write(
  * CPLFree( pszSRS_WKT );
  */
    GDALRasterBand *poBand=poDstDS->GetRasterBand(1);
-   poBand->RasterIO(GF_Write,
+   CPLErr err = poBand->RasterIO(GF_Write,
        0, 0,
        raster.nrCols(), raster.nrRows(),
        const_cast<void *>(raster.cells()),
        raster.nrCols(), raster.nrRows(),
        gdalDataType(raster.typeId()), 0, 0 );
+
+   assert(err == CE_None);
 
 /*
  * CSFMap map(path, raster.nrRows(), raster.nrCols(),

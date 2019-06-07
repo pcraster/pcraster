@@ -747,7 +747,8 @@ FeatureLayer* OgrFeatureDriver::open(
           else {
             // May be expensive...
             OGREnvelope extent;
-            ogrLayer->GetExtent(&extent, TRUE);
+            OGRErr err = ogrLayer->GetExtent(&extent, TRUE);
+            assert (err == OGRERR_NONE);
             double west = extent.MinX;
             double north = extent.MaxY;
             double east = extent.MaxX;

@@ -52,6 +52,14 @@ if( ( NOT ${op_expanded} STREQUAL "c1d7687a22a7e88a3637515554dd54e4f3779c2d" ) O
     # )
 endif()
 
+set_property(
+    SOURCE
+        numpy_conversion.cc
+    PROPERTY
+        COMPILE_DEFINITIONS
+            NPY_NO_DEPRECATED_API=NPY_1_7_API_VERSION
+)
+
 pybind11_add_module(_pcraster MODULE
     numpy_conversion
     PCRaster.cc

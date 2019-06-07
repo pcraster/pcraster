@@ -33,9 +33,10 @@ set(_TARGET_BIN ${EXECUTABLE_OUTPUT_PATH}/${CMAKE_CFG_INTDIR})
 
 set_target_properties(_pcraster_modflow_python
     PROPERTIES
-        LIBRARY_OUTPUT_DIRECTORY "${_TARGET_BIN}/pcraster"
-        RUNTIME_OUTPUT_DIRECTORY "${_TARGET_BIN}/pcraster"
-        INSTALL_RPATH            "\\\$ORIGIN/../../lib"
+        LIBRARY_OUTPUT_DIRECTORY  "${_TARGET_BIN}/pcraster"
+        RUNTIME_OUTPUT_DIRECTORY  "${_TARGET_BIN}/pcraster"
+        OUTPUT_NAME               "_pcraster_modflow"
+        INSTALL_RPATH             "\\\$ORIGIN/../../lib"
 )
 
 

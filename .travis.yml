@@ -67,12 +67,16 @@ matrix:
               - TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
           before_install:
               - brew update
+              - which clang
+              - which clang++
               - clang --version
               - clang++ --version
               - cmake --version
               - brew install llvm@6
               - clang --version
               - clang++ --version
+              - which clang
+              - which clang++
               - brew install qt5 qwt xerces-c ncurses
               # Force the latest versions
               - brew outdated boost || brew upgrade boost

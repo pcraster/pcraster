@@ -9,26 +9,38 @@ spreadmax
 *********
 .. topic:: spreadmax
 
-   Total friction of the shortest accumulated friction path over a map with friction values from a source cell to cell under consideration
+   Total friction of the shortest accumulated friction path over a map with friction values from a source cell to cell under consideration considering maximum spread distance
 
 ::
 
-  Result = spreadmax(expression)
+  Result = spreadmax(points, initialfrictiondist, friction, max_distance)
 
-expression
+points
+   spatial
+   boolean, nominal, ordinal
+
+initialfrictiondist
    spatial, non spatial
-   nominal, ordinal, scalar, directional, ldd
+   scalar
+
+friction
+   spatial, non spatial
+   scalar
+
+max_distance
+   spatial, non spatial
+   scalar
 
 Result
-   dimension of expression
-   boolean
+   spatial
+   scalar
 
 Operation
 =========
 
 
-Identical to spread and spreadzone but with a fourth parameter, a maximum spread distance. Areas that are not 
-reached are given the value for MV for spreadmax and 0 for spreadmaxzone. 
+Identical to spread but with a fourth parameter, a maximum spread distance. Areas that are not
+reached are given the value MV.
 
 
 

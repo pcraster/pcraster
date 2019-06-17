@@ -118,6 +118,7 @@ set(SPHINX_SOURCES
     op_spreadldd.rst
     op_spreadlddzone.rst
     op_spreadmax.rst
+    op_spreadmaxzone.rst
     op_spread.rst
     op_spreadzone.rst
     op_sqr.rst

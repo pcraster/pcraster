@@ -115,6 +115,7 @@ This chapter lists all operators and functions that can be used in a pcrcalc or 
    op_spreadldd
    op_spreadlddzone
    op_spreadmax
+   op_spreadmaxzone
    op_spreadzone
    op_sqr
    op_sqrt

@@ -95,3 +95,20 @@ install(
     DESTINATION
         doc/developer/c/include
 )
+
+if(COMPILER_HAS_IPO)
+      #set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
+
+      set_property(
+          TARGET
+              aguila asc2map col2map legend map2asc map2col mapattr
+              oldcalc pcrcalc resample table
+              pcraster_aguila pcraster_dal pcraster_model_engine pcraster_modflow pcraster_old_calc pcraster_python_utils
+              _pcraster _pcraster_modflow_python _pcraster_multicore
+          PROPERTY
+              INTERPROCEDURAL_OPTIMIZATION TRUE
+      )
+
+      set(CMAKE_AR ${CMAKE_CXX_COMPILER_AR})
+      set(CMAKE_RANLIB ${CMAKE_CXX_COMPILER_RANLIB})
+endif()

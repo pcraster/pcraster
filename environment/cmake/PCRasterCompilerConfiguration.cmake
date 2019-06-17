@@ -38,13 +38,9 @@ if(${CMAKE_BUILD_TYPE} STREQUAL "Release")
     )
 
     include(CheckIPOSupported)
-    check_ipo_supported(RESULT ipo_available)
-    if(ipo_available)
-      set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
-      set(CMAKE_AR ${CMAKE_CXX_COMPILER_AR})
-      set(CMAKE_RANLIB ${CMAKE_CXX_COMPILER_RANLIB})
-    endif()
-
+    check_ipo_supported(RESULT COMPILER_HAS_IPO)
+    # only use IPO for released targets,
+    # not for tests due to extreme link times
 
 endif()
 

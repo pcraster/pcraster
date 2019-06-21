@@ -30,6 +30,7 @@ target_link_libraries(utils
         Boost::filesystem
         Boost::program_options
         XercesC::XercesC
+        GDAL::GDAL
 )
 
 if(PCRASTER_BUILD_TEST)

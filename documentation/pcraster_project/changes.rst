@@ -1,10 +1,12 @@
 Changes
 =======
 
-.. Current development
-.. -------------------
-..
-.. The most relevant updates for users:
+Current development
+-------------------
+
+The most relevant updates for users:
+
+.. drop python2.7 ?!
 ..
 .. breaking change in pickle
 ..
@@ -12,15 +14,20 @@ Changes
 
 .. mapattr and legend should show menu again on windows
 
-..
-.. development notices:
-.. auto_ptr removal
-.. boost python removal
-
-.. rpath settings fixed on unices
-.. default flags  + ipo
 
 
+
+
+We further improved the code quality and the build system to ensure an ongoing creation of PCRaster packages, amongst others:
+
+* Replacing Boost.Python with Pybind11
+* Modernising C++ code towards C++17
+* Various improvements to support gcc9, clang7 and Visual Studio 2017
+* Reducing amount of dependencies
+* Specifically for Linux:
+
+  - RPATH settings fixed
+  - The build type 'Release' now sets flags -march=native -mtune=native, and performs interprocedual optimization in case supported by the compiler
 
 
 PCRaster 4.2.1

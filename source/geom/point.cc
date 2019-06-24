@@ -926,6 +926,9 @@ int IntersectAllignedRectangles(
 
     if (tester(static_cast<double>(yMax), static_cast<double>(yMin)) ||
         tester(static_cast<double>(xMax), static_cast<double>(xMin))) {
+        // Set a dummy value to satisfy POSTCOND
+        pol[0].x = xMin;
+        pol[0].y = yMin;
         return 0;
     }
 

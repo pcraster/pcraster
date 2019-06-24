@@ -77,7 +77,7 @@ matrix:
               - clang++ --version
               - which clang
               - which clang++
-              - brew install qt5 qwt xerces-c ncurses
+              - brew install qt5 qwt xerces-c ncurses psutils
               # Force the latest versions
               - brew outdated boost || brew upgrade boost
               - brew outdated gdal || brew upgrade gdal

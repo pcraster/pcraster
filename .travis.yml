@@ -77,12 +77,13 @@ matrix:
               - clang++ --version
               - which clang
               - which clang++
-              - brew install qt5 qwt xerces-c ncurses psutils
+              - brew install qt5 qwt xerces-c ncurses
               # Force the latest versions
               - brew outdated boost || brew upgrade boost
               - brew outdated gdal || brew upgrade gdal
               - brew outdated cmake || brew upgrade cmake
               - cmake --version
+              - pip3 install psutil
           before_script:
               - mkdir $TRAVIS_BUILD_DIR/build
               - cd $TRAVIS_BUILD_DIR/build

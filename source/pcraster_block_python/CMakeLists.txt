@@ -5,7 +5,8 @@ if(CMAKE_COMPILER_IS_GNUCXX)
     )
 endif()
 
-pybind11_add_module(_pcraster_block_python MODULE
+# pybind11_add_module
+add_library(_pcraster_block_python MODULE
     blockpy_blockpy
     blockpy_conversions
     blockpy_functions
@@ -24,11 +25,18 @@ target_link_libraries(_pcraster_block_python
         pcraster::pcrraster
         pcraster::pcrvoxelstack
         pcraster::model_engine
+        pybind11::module
 )
 
-configure_python_extension(_pcraster_block_python
-    "_pcraster_block_python"
+set_target_properties(_pcraster_block_python
+    PROPERTIES
+        PREFIX "${PYTHON_MODULE_PREFIX}"
+        SUFFIX "${PYTHON_MODULE_EXTENSION}"
 )
+
+# configure_python_extension(_pcraster_block_python
+#     "_pcraster_block_python"
+# )
 
 set(_TARGET_BIN ${EXECUTABLE_OUTPUT_PATH}/${CMAKE_CFG_INTDIR})
 

@@ -60,7 +60,8 @@ set_property(
             NPY_NO_DEPRECATED_API=NPY_1_7_API_VERSION
 )
 
-pybind11_add_module(_pcraster MODULE
+# pybind11_add_module
+add_library(_pcraster MODULE
     numpy_conversion
     PCRaster.cc
     value_scale_traits
@@ -91,6 +92,14 @@ target_include_directories(_pcraster #  SYSTEM
 target_link_libraries(_pcraster
     PUBLIC
         pcraster::python::utils
+    PRIVATE
+        pybind11::module
+)
+
+set_target_properties(_pcraster
+    PROPERTIES
+        PREFIX "${PYTHON_MODULE_PREFIX}"
+        SUFFIX "${PYTHON_MODULE_EXTENSION}"
 )
 
 # configure_python_extension(_pcraster

@@ -99,15 +99,36 @@ install(
 if(COMPILER_HAS_IPO)
       #set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
 
+      function(set_target_ipo arg1)
+          set_property(
+              TARGET
+                  ${arg1}
+              PROPERTY
+                  INTERPROCEDURAL_OPTIMIZATION TRUE
+          )
+      endfunction(set_target_ipo)
+
       set_property(
           TARGET
               aguila asc2map col2map legend map2asc map2col mapattr
               oldcalc pcrcalc resample table
               pcraster_aguila pcraster_dal pcraster_model_engine pcraster_modflow pcraster_old_calc pcraster_python_utils
-              _pcraster _pcraster_modflow_python _pcraster_multicore
+              _pcraster
           PROPERTY
               INTERPROCEDURAL_OPTIMIZATION TRUE
       )
+
+      if(PCRASTER_BUILD_MODFLOW)
+          set_target_ipo(_pcraster_modflow_python)
+      endif()
+
+      if(PCRASTER_BUILD_BLOCKPYTHON)
+          set_target_ipo(_pcraster_block_python)
+      endif()
+
+      if(PCRASTER_BUILD_MULTICORE)
+          set_target_ipo(_pcraster_multicore)
+      endif()
 
       set(CMAKE_AR ${CMAKE_CXX_COMPILER_AR})
       set(CMAKE_RANLIB ${CMAKE_CXX_COMPILER_RANLIB})

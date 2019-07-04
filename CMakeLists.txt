@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 3.14)
 
-if(POLICY CMP0063)
-  cmake_policy(SET CMP0063 NEW)
-endif()
-
-if(POLICY CMP0072)
-  cmake_policy(SET CMP0072 NEW)
-endif()
+# if(POLICY CMP0063)
+#   cmake_policy(SET CMP0063 NEW)
+# endif()
+#
+# if(POLICY CMP0072)
+#   cmake_policy(SET CMP0072 NEW)
+# endif()
 
 project(pcraster)
 

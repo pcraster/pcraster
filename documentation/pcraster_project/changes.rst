@@ -1,8 +1,8 @@
 Changes
 =======
 
-Current development
--------------------
+PCRaster 4.3.0 (Not yet released)
+---------------------------------
 
 The most relevant updates for users:
 
@@ -12,7 +12,7 @@ The most relevant updates for users:
 ..
 .. added cellvalue by (index, indices, coordinates); version_tuple
 
-.. mapattr and legend should show menu again on windows
+* On Windows, ``mapattr`` and ``legend`` show the menu again.
 
 
 
@@ -26,8 +26,8 @@ We further improved the code quality and the build system to ensure an ongoing c
 * Reducing amount of dependencies
 * Specifically for Linux:
 
-  - RPATH settings fixed
-  - The build type 'Release' now sets flags -march=native -mtune=native, and performs interprocedual optimization in case supported by the compiler
+  - RPATH settings fixed for Python modules
+  - The build type 'Release' now sets flags ``-march=native -mtune=native``, and performs interprocedural optimization in case supported by the compiler
 
 
 PCRaster 4.2.1

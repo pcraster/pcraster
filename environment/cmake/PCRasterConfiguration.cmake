@@ -44,6 +44,10 @@ option(
     PCRASTER_BUILD_MLDD
     "Build mldd"
     OFF)
+option(
+    PCRASTER_WITH_IPO
+    "Use interprocedural optimization"
+    OFF)
 
 
 set(DEVBASE_BOOST_REQUIRED TRUE)

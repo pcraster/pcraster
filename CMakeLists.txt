@@ -1,13 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
 
-# if(POLICY CMP0063)
-#   cmake_policy(SET CMP0063 NEW)
-# endif()
-#
-# if(POLICY CMP0072)
-#   cmake_policy(SET CMP0072 NEW)
-# endif()
-
 project(pcraster)
 
 set(DEV_CURRENT_YEAR "2019")
@@ -68,6 +60,7 @@ message(STATUS "    Modflow:              " ${PCRASTER_BUILD_MODFLOW})
 message(STATUS "    Oldcalc:              " ${PCRASTER_BUILD_OLDCALC})
 message(STATUS "    Tests:                " ${PCRASTER_BUILD_TEST})
 message(STATUS "    Documentation:        " ${PCRASTER_BUILD_DOCUMENTATION})
+message(STATUS "    IPO:                  " ${PCRASTER_WITH_IPO})
 message(STATUS "  Experimental:")
 message(STATUS "    BlockPython:          " ${PCRASTER_BUILD_BLOCKPYTHON})
 message(STATUS "    Moc:                  " ${PCRASTER_BUILD_MOC})

@@ -8,7 +8,6 @@ configure_file(
     include/pcraster_version.h
 )
 
-add_subdirectory(rasterformat)
 add_subdirectory(math_utils)
 add_subdirectory(string_utils)
 add_subdirectory(utils)
@@ -56,12 +55,6 @@ if(PCRASTER_BUILD_MODFLOW)
     add_subdirectory(modflow)
 endif()
 
-if(PCRASTER_BUILD_MULTICORE)
-    set(FERN_BUILD_ALGORITHM ON CACHE BOOL "Build submodule fern")
-    add_subdirectory(fern)
-    add_subdirectory(pcraster_multicore)
-endif()
-
 if(PCRASTER_BUILD_OLDCALC)
     add_subdirectory(oldcalc)
     add_subdirectory(pcraster_old_calc)
@@ -88,6 +81,15 @@ if(PCRASTER_BUILD_MLDD)
     add_subdirectory(mldd)
 endif()
 
+# Add subprojects last as they reset CMake policies
+if(PCRASTER_BUILD_MULTICORE)
+    set(FERN_BUILD_ALGORITHM ON CACHE BOOL "Build submodule fern")
+    add_subdirectory(fern)
+    add_subdirectory(pcraster_multicore)
+endif()
+
+add_subdirectory(rasterformat)
+
 
 install(
     FILES
@@ -95,41 +97,3 @@ install(
     DESTINATION
         doc/developer/c/include
 )
-
-if(COMPILER_HAS_IPO)
-      #set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
-
-      function(set_target_ipo arg1)
-          set_property(
-              TARGET
-                  ${arg1}
-              PROPERTY
-                  INTERPROCEDURAL_OPTIMIZATION TRUE
-          )
-      endfunction(set_target_ipo)
-
-      set_property(
-          TARGET
-              aguila asc2map col2map legend map2asc map2col mapattr
-              oldcalc pcrcalc resample table
-              pcraster_aguila pcraster_dal pcraster_model_engine pcraster_modflow pcraster_old_calc pcraster_python_utils
-              _pcraster
-          PROPERTY
-              INTERPROCEDURAL_OPTIMIZATION TRUE
-      )
-
-      if(PCRASTER_BUILD_MODFLOW)
-          set_target_ipo(_pcraster_modflow_python)
-      endif()
-
-      if(PCRASTER_BUILD_BLOCKPYTHON)
-          set_target_ipo(_pcraster_block_python)
-      endif()
-
-      if(PCRASTER_BUILD_MULTICORE)
-          set_target_ipo(_pcraster_multicore)
-      endif()
-
-      set(CMAKE_AR ${CMAKE_CXX_COMPILER_AR})
-      set(CMAKE_RANLIB ${CMAKE_CXX_COMPILER_RANLIB})
-endif()

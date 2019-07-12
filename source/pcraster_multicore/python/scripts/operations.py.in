@@ -168,7 +168,7 @@ def max(*args):
 
 
 def min(*args):
-    # Use the builtin Python max in case of non-PCRaster data types
+    # Use the builtin Python min in case of non-PCRaster data types
     if _all_python_pod(*args):
         return builtins.min(args)
     try:

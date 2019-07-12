@@ -7,7 +7,7 @@ add_library(pcraster::python::utils ALIAS pcraster_python_utils)
 
 set_target_properties(pcraster_python_utils
     PROPERTIES
-        SOVERSION ${${PROJECT_NAME}_MAJOR_VERSION}.${${PROJECT_NAME}_MINOR_VERSION}
+        SOVERSION ${${PROJECT_NAME}_MAJOR_VERSION}.${${PROJECT_NAME}_MINOR_VERSION}.${${PROJECT_NAME}_PATCH_VERSION}
 )
 
 generate_export_header(pcraster_python_utils

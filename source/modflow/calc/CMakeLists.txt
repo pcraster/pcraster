@@ -7,7 +7,7 @@ add_library(pcraster::modflow ALIAS pcraster_modflow)
 
 set_target_properties(pcraster_modflow
     PROPERTIES
-        SOVERSION ${${PROJECT_NAME}_MAJOR_VERSION}.${${PROJECT_NAME}_MINOR_VERSION}
+        SOVERSION ${${PROJECT_NAME}_MAJOR_VERSION}.${${PROJECT_NAME}_MINOR_VERSION}.${${PROJECT_NAME}_PATCH_VERSION}
 )
 
 target_link_libraries(pcraster_modflow

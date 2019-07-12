@@ -32,22 +32,23 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 if(${CMAKE_BUILD_TYPE} STREQUAL "Release")
-
     add_compile_options(
         "$<$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:Clang>>:-march=native;-mtune=native>"
     )
-
-    include(CheckIPOSupported)
-    check_ipo_supported(RESULT COMPILER_HAS_IPO)
-    # only use IPO for released targets,
-    # not for tests due to extreme link times
-
 endif()
-
 
 add_compile_options(
     "$<$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:Clang>>:-pipe>"
 )
+
+if(PCRASTER_WITH_IPO)
+    include(CheckIPOSupported)
+    check_ipo_supported(RESULT COMPILER_HAS_IPO)
+    # This takes long for the unit tests...
+    if(COMPILER_HAS_IPO)
+        set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
+    endif()
+endif()
 
 
 

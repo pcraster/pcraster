@@ -1,5 +1,6 @@
 # This file was generated during the PCRaster build.
 # Do not edit!
+import sys
 try:
     import pcraster._pcraster as _pcraster
 except:
@@ -126,8 +127,12 @@ _pcraster.Field.__rsub__ = pcrmcRSub
 _pcraster.Field.__mul__ = pcrmcMul
 _pcraster.Field.__rmul__ = pcrmcRMul
 
-_pcraster.Field.__div__ = pcrmcDiv
-_pcraster.Field.__rdiv__ = pcrmcRDiv
-
 _pcraster.Field.__pow__ = pcrmcPow
 _pcraster.Field.__rpow__ = pcrmcRPow
+
+if sys.version_info[0] < 3:
+    _pcraster.Field.__div__       = pcrmcDiv
+    _pcraster.Field.__rdiv__      = pcrmcRDiv
+else:
+    _pcraster.Field.__truediv__   = pcrmcDiv
+    _pcraster.Field.__rtruediv__  = pcrmcRDiv

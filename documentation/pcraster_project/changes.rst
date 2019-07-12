@@ -27,7 +27,8 @@ We further improved the code quality and the build system to ensure an ongoing c
 * Specifically for Linux:
 
   - RPATH settings fixed for Python modules
-  - The build type 'Release' now sets flags ``-march=native -mtune=native``, and performs interprocedural optimization in case supported by the compiler
+  - Shared libraries now receive version numbers and sonames
+  - The build type 'Release' now sets flags ``-march=native -mtune=native`` by default, and optional interprocedural optimization in case supported by the compiler
 
 
 PCRaster 4.2.1

@@ -17,11 +17,18 @@ class MonteCarloFramework(frameworkBase.FrameworkBase, forkscript.ForkScript):
 
   `userModel`
     Instance that models the :ref:`Monte Carlo Model Concept <monteCarloModelConcept>`.
+
+  `nrSamples`
+    Number of realisations to run.
+
+  `remove_dirs`
+    Flag whether sample directories should be removed
   """
 
   def __init__(self,
     userModel,
-    nrSamples=0):
+    nrSamples=0,
+    remove_dirs=True):
     frameworkBase.FrameworkBase.__init__(self)
     forkscript.ForkScript.__init__(self)
 
@@ -44,7 +51,7 @@ class MonteCarloFramework(frameworkBase.FrameworkBase, forkscript.ForkScript):
     # Consecutive model runs by default
     self._d_forkSamples = False
 
-    self._initialiseSampleDirectories()
+    self._initialiseSampleDirectories(remove_dirs)
 
   def setForkSamples(self,
     fork,
@@ -213,15 +220,15 @@ StaticFramework or DynamicFramework"
   ## \brief Creates the directories in which the sample data can be stored.
   #
   # \attention Already existing sample directories will be cleaned!
-  def _initialiseSampleDirectories(self):
+  def _initialiseSampleDirectories(self, remove_sample_dirs):
     sample = self._userModel()._firstSampleNumber()
     while sample <= self._userModel()._lastSampleNumber():
-      dirname = "%d" % (sample)
+      dirname = '{}'.format(sample)
 
       if not os.path.exists(dirname):
         # Create sample directory.
         os.mkdir(dirname)
-      else :
+      elif remove_sample_dirs == True:
         if not os.path.isdir(dirname):
           # Remove existing file with name of sample directory.
           os.remove(dirname)

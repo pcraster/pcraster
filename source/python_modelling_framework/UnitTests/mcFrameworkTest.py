@@ -177,3 +177,28 @@ class mcFrameworkTestScript(unittest.TestCase):
     self.assertNotEqual(pyVal1, pyVal2)
     self.assertNotEqual(pcrVal1, pcrVal2)
     self.assertNotEqual(npVal1, npVal2)
+
+
+
+  def test_8(self):
+    """ test not removing sample directories """
+
+    # Create output from a previous run
+    for directory in range(1, 6):
+      dirname = '{}'.format(directory)
+      shutil.rmtree(dirname)
+      os.mkdir('{}'.format(directory))
+      with open(os.path.join(dirname, 'sentinel.txt'), 'w') as content:
+        content.write('dummy text')
+
+    myModel = mcTestModels.dynamicModel()
+    dynFrw = df.DynamicFramework(myModel, 10)
+    mcFw = mf.MonteCarloFramework(dynFrw, 5, remove_dirs=False)
+
+    file_exists = True
+    for directory in range(1, 6):
+      dirname = '{}'.format(directory)
+      if not os.path.exists(os.path.join(dirname, 'sentinel.txt')):
+        file_exists = False
+
+    self.assertTrue(file_exists)

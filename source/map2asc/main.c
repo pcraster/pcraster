@@ -74,7 +74,7 @@ int main(
 
     strcpy(format, ""); /* empty string if not given */
 
-    if (InstallArgs(argc, argv, "n#m*s*(aRC)(rc)f*", "map2asc", __DATE__)) goto failure;
+    if (InstallArgs(argc, argv, "n#m*s*(aRC)(rc)f*", "map2asc")) goto failure;
 
     while ((c = GetOpt()) != 0)
         switch (c)

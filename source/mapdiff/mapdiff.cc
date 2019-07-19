@@ -55,7 +55,7 @@ int main(int argc,      /* number of arguments */
   /* install application */
 
   appOutput = APP_NOOUT;
-  if(InstallArgs(argc, argv, "pf*", "mapdiff", __DATE__))
+  if(InstallArgs(argc, argv, "pf*", "mapdiff"))
      exit(1);
 
   bool percentage=false;

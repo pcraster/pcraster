@@ -383,7 +383,7 @@ int main(int argc,     /* number of arguments */
     /* Initialize the arguments */
 
     /* install application */
-    if (InstallArgs(argc, argv, "(w*f*c)l#h#", "legend", __DATE__))
+    if (InstallArgs(argc, argv, "(w*f*c)l#h#", "legend"))
         goto failure;
 
     /* get all local options and arguments */

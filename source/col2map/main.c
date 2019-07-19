@@ -63,7 +63,7 @@ int main(int argc, char *argv[]) {
     int parseVal;
     int sepChar = ',';
 
-    if (InstallArgs(argc, argv, "x#y#v#m*(BLNOSDV)(atHM)(hl)s*", "col2map", __DATE__))
+    if (InstallArgs(argc, argv, "x#y#v#m*(BLNOSDV)(atHM)(hl)s*", "col2map"))
         goto failure;
     while ((c = GetOpt()) != 0)
         switch (c) {

@@ -98,8 +98,8 @@ extern int InstallArgs(
     int argc,    /* number of arguments */
     char **argv,  /* read-only input line */
     const char *options,  /* local options */
-    const char *progName,  /* name of program */
-    const char *version);  /* version of program */
+    const char *progName  /* name of program */
+    );
 
 extern void AppEnd(void);
 extern void EndGetOpt(void);

@@ -602,7 +602,7 @@ int main(int argc,     /* number of arguments */
     enum MODE { CLONE, EDIT, COPY, PRINT, SET } mode = CLONE;
 
     /* install application */
-    if (InstallArgs(argc, argv, "(ecps)dR#C#i#P*x$y$l$a$(BLNOSDV)", "mapattr", __DATE__))
+    if (InstallArgs(argc, argv, "(ecps)dR#C#i#P*x$y$l$a$(BLNOSDV)", "mapattr"))
         goto failure;
     OptNotSetAttr(&opt);
 

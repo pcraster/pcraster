@@ -135,7 +135,7 @@ int main(int argc,     /* number of arguments */
     size_t nrCountSlots = INIT_NR_SLOTS;
     size_t moveColNr = 0;
 
-    if (InstallArgs(argc, argv, "0m#i*n#hH#", "table", __DATE__))
+    if (InstallArgs(argc, argv, "0m#i*n#hH#", "table"))
         goto failure;
 
     /* Check which options are used and set externals accordingly */

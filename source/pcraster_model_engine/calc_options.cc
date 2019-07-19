@@ -37,6 +37,7 @@
 #define INCLUDED_CALC_GLOBALLIBDEFS
 #endif
 
+#include "pcraster_version.h"
 
 
 /*!
@@ -74,7 +75,6 @@ public:
 // DEFINITION OF STATIC OPTIONS MEMBERS
 //------------------------------------------------------------------------------
 
-#define VERSION __DATE__
 void calc::Options::printUsage()
 {
 
@@ -83,7 +83,7 @@ void calc::Options::printUsage()
     fprintf(stderr,"PCRTEAM VERSION, INTERNAL USE ONLY! (%s)\n", PLATFORM_TXT);
 #endif
 
-  fprintf(stderr, "pcrcalc %s (%s)\n", VERSION, PLATFORM_TXT);
+  fprintf(stderr, "pcrcalc %s (%s)\n", PCRASTER_VERSION, PLATFORM_TXT);
   fprintf(stderr,
    " USAGE: pcrcalc [options] \"expression\"\n"
    " or     pcrcalc [options] -f scriptFile\n"
@@ -170,7 +170,7 @@ void calc::Options::processArgs(
 
     appAllOptionsMostLeft = true;
     if (InstallArgs(argc, (char **)argv, "Ccd*1mleEr*s#tTf*F*X*K*b*p",
-        "pcrcalc", __DATE__))
+        "pcrcalc"))
              throwLibError();
 
     int c;

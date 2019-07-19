@@ -11,7 +11,10 @@ The most relevant updates for users:
 .. breaking change in pickle
 ..
 .. added cellvalue by (index, indices, coordinates); version_tuple
+..
+..
 
+* Command line applications now show version numbers instead of a build date.
 * On Windows, ``mapattr`` and ``legend`` show the menu again.
 
 
@@ -22,7 +25,7 @@ We further improved the code quality and the build system to ensure an ongoing c
 
 * Replacing Boost.Python with Pybind11
 * Modernising C++ code towards C++17
-* Various improvements to support gcc9, clang7 and Visual Studio 2017
+* Various improvements to support gcc-9, clang-7 and Visual Studio 2017
 * Reducing amount of dependencies
 * Specifically for Linux:
 

@@ -1,5 +1,5 @@
 #include "stddefx.h"
-
+#include "pcraster_version.h"
 
 /********/
 /* USES */
@@ -633,8 +633,8 @@ int InstallArgs(
   int argc,    /* number of arguments */
   char **argv,    /* read-only input line, actually const */
   const char *options,  /* option list */
-  const char *progName,  /* name of program */
-  const char *version)  /* version of program */
+  const char *progName  /* name of program */
+  )
 {
 
   AppSetGlobalArgsDefaults();
@@ -667,7 +667,7 @@ int InstallArgs(
   (void)fprintf(stderr,"PCRTEAM VERSION, INTERNAL USE ONLY! (%s)\n",
    PLATFORM_TXT);
 #      endif
-   (void)fprintf(stderr, VERSION, progName, version,PLATFORM_TXT);
+   (void)fprintf(stderr, VERSION, progName, PCRASTER_VERSION, PLATFORM_TXT);
    if (licenceeName != NULL)
    (void)fprintf(stderr, "licenced to %s\n\n",licenceeName);
   }

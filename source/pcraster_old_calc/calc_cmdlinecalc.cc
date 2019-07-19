@@ -38,6 +38,8 @@
 #define INCLUDED_CALC_PROGRESSCALLBACK
 #endif
 
+#include "pcraster_version.h"
+
 /***************/
 /* EXTERNALS   */
 /***************/
@@ -114,10 +116,10 @@ public:
 
         if (pi.inTimeStep > 0) {
           // overwrite this one each time
-          // std::cerr << "Executing timestep " << pi.inTimeStep << "\r" ; 
+          // std::cerr << "Executing timestep " << pi.inTimeStep << "\r" ;
           // seems to do test349 better from the commandline :-(
            std::string s(com::toString(pi.inTimeStep));
-           std::cerr << "Executing timestep " << s << "\r" ; 
+           std::cerr << "Executing timestep " << s << "\r" ;
            std::cerr.flush();
         }
         return 0;
@@ -154,7 +156,6 @@ calc::CmdLineCalc::CmdLineCalc(
 calc::CmdLineCalc::~CmdLineCalc() {
 }
 
-#define VERSION __DATE__
 static void printUsage(void)
 {
 
@@ -163,7 +164,7 @@ static void printUsage(void)
     fprintf(stderr,"PCRTEAM VERSION, INTERNAL USE ONLY! (%s)\n", PLATFORM_TXT);
 #endif
   // this is the old edition supporting arrayed variables and so on
-  fprintf(stderr,"pcrcalc (oldcalc/2003 edition) %s (%s)\n", VERSION,
+  fprintf(stderr,"pcrcalc (oldcalc/2003 edition) %s (%s)\n", PCRASTER_VERSION,
     PLATFORM_TXT);
   fprintf(stderr,
    " USAGE: pcrcalc [options] \"expression\"\n"
@@ -228,6 +229,6 @@ extern "C" PCR_DLL_FUNC(int)  executeCommandLine(int argc, char**argv)
       std::cout << std::endl;
       std::cout << "maxBPC: "  <<  calc::Spatial::maxBPC()  << std::endl;
     }
-  } 
+  }
   return r;
 }

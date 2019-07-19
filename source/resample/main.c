@@ -492,7 +492,7 @@ int main(
     BOOL onlyReal4= TRUE, contract= FALSE;
     BOOL onlyUint1= TRUE;
 
-    if (InstallArgs(argc, argv, "axmp$r$c#b#e$RBCk", "resample", __DATE__))
+    if (InstallArgs(argc, argv, "axmp$r$c#b#e$RBCk", "resample"))
         exit(1);
 
     while ((c= GetOpt()) != 0) {

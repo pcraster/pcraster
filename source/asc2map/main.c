@@ -61,7 +61,7 @@ int main(
 
     valueScale= VS_UNDEFINED;
 
-    if (InstallArgs(argc, argv, "(ag)r#h#m*(BLNOSDV)s*", "asc2map", __DATE__))
+    if (InstallArgs(argc, argv, "(ag)r#h#m*(BLNOSDV)s*", "asc2map"))
         goto failure;
 
     while ((c= GetOpt()) != 0) {

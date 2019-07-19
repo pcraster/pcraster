@@ -22,6 +22,7 @@ add_library(pcraster::app ALIAS app)
 target_include_directories(app
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>/../include
 )
 
 target_link_libraries(app

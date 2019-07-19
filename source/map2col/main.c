@@ -72,7 +72,7 @@ int main(int argc,     /* number of arguments */
     const char *inputColumnFile = NULL; /* not used */
     BOOL colWise = FALSE;
 
-    if (InstallArgs(argc, argv, "x#y#m*s*(rc)f*M(pg)a*", "map2col", __DATE__))
+    if (InstallArgs(argc, argv, "x#y#m*s*(rc)f*M(pg)a*", "map2col"))
         goto failure;
 
     while ((c = GetOpt()) != 0)

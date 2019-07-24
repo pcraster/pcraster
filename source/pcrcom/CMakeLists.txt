@@ -93,7 +93,7 @@ target_link_libraries(pcrcom
         Boost::filesystem
 
         # For dlopen in com_dynamiclibrary.
-        $<$<BOOL:${UNIX}>:dl>
+        $<$<BOOL:${UNIX}>:${CMAKE_DL_LIBS}>
 )
 
 ### IF(WIN32)

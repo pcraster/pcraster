@@ -50,7 +50,6 @@ function build_software()
         # Ubuntu 16.04
         skip_build_boost=1
         skip_build_qt=1
-        skip_build_qwt=1
     elif [[ $hostname == "sonic.geo.uu.nl" ]]; then
         # CentOS 7
         skip_build_qt=1
@@ -63,8 +62,6 @@ function build_software()
         skip_build_boost=1
         skip_build_gdal=1
         skip_build_qt=1
-        # Bug in 'port install qwt61 +qt5' (seen on 20161205), so build
-        skip_build_qwt=1
     fi
 
 
@@ -111,13 +108,6 @@ function build_software()
         options+=("-Dbuild_qt=true")
         # TODO Not supported yet: https://github.com/geoneric/peacock/issues/53
         options+=("-Dqt_version=5.7.1")
-    fi
-
-
-    # Qwt
-    if [[ ! -v skip_build_qwt || $skip_build_qwt != 1 ]]; then
-        options+=("-Dbuild_qwt=true")
-        options+=("-Dqwt_version=6.1.2")
     fi
 
 

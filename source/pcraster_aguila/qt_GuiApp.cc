@@ -47,7 +47,7 @@
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 //! Constructs a GuiApp object.
@@ -85,7 +85,6 @@ qt::GuiApp::GuiApp(
   // This sets the back ground of widgets of the named class, to white.
   // QPalette palette;
   // palette.setColor(QPalette::Window, Qt::white);
-  // QApplication::setPalette(palette, "QwtPlotCanvas");
   // QApplication::setPalette(palette, "ag::Map2DView");
 
   if(role == StandAlone) {

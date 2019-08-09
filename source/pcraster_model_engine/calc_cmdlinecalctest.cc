@@ -32,8 +32,8 @@ BOOST_AUTO_TEST_CASE(testScriptFile)
 {
   {
    // TODO test this result: "ERROR: File 'failureExpectedNotExistant.mod': No such file or directory"
-   char *argv[3]= { "pcrcalc", "-f", "failureExpectedNotExistant.mod" };
-   int r= calc::executeCommandLine(3, argv);
+   const char *argv[3]= { "pcrcalc", "-f", "failureExpectedNotExistant.mod" };
+   int r= calc::executeCommandLine(3, const_cast<char**>(argv));
    BOOST_CHECK(r==1);
   }
 
@@ -45,17 +45,17 @@ BOOST_AUTO_TEST_CASE(testScriptFile)
   com::write(model,"tmp.mod");
 
   {
-   char *argv[3]= { "pcrcalc", "-f", "tmp.mod" };
-   int r= calc::executeCommandLine(3, argv);
+   const char *argv[3]= { "pcrcalc", "-f", "tmp.mod" };
+   int r= calc::executeCommandLine(3, const_cast<char**>(argv));
    BOOST_CHECK(r==0);
   }
   {
-   char *argv[6]= { "pcrcalc", "--clone", "inp1b.map", "-m", "-f", "tmp.mod" };
-   int r= calc::executeCommandLine(6, argv);
+   const char *argv[6]= { "pcrcalc", "--clone", "inp1b.map", "-m", "-f", "tmp.mod" };
+   int r= calc::executeCommandLine(6, const_cast<char**>(argv));
    BOOST_CHECK(r==0);
   }
   {
-   char *argv[6]= { "pcrcalc", "-m", "-r", "/home/cees/tmp/pcrtest",
+   const char *argv[6]= { "pcrcalc", "-m", "-r", "/home/cees/tmp/pcrtest",
                                      "-f", "/home/cees/tmp/pcrtest/pcrtest.mod"
                   };
    bool absolutePathInRunDirectory=false;
@@ -69,15 +69,16 @@ BOOST_AUTO_TEST_CASE(testModelAsArgs)
 {
   {
    geo::FileCreateTester fct("tmp.res");
-   char *argv[2]= { "pcrcalc", "tmp.res = inp1s.map + 4" };
-   int r= calc::executeCommandLine(2, argv);
+   const char *argv[2]= { "pcrcalc", "tmp.res = inp1s.map + 4" };
+   int r= calc::executeCommandLine(2, const_cast<char**>(argv));
    BOOST_CHECK(r==0);
    BOOST_CHECK(fct.equalTo("inp5s.map",false));
   }
   {
    geo::FileCreateTester fct("tmp.res");
-   char *argv[]= { "pcrcalc", "tmp.res","=","inp1s.map","+"," 4" };
-   int r= calc::executeCommandLine(ARRAY_SIZE(argv), argv);
+
+   const char *argv[]= { "pcrcalc", "tmp.res","=","inp1s.map","+"," 4" };
+   int r= calc::executeCommandLine(ARRAY_SIZE(argv), const_cast<char**>(argv));
    BOOST_CHECK(r==0);
    BOOST_CHECK(fct.equalTo("inp5s.map",false));
   }

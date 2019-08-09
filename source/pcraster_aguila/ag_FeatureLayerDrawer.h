@@ -45,50 +45,50 @@ private:
   FeatureLayer const& d_layer;
 
   void             drawPoint           (QPainter& painter,
-                                        QwtScaleMap const& xMapper,
-                                        QwtScaleMap const& yMapper,
+                                        QTransform const& world_to_screen,
+                                        QTransform const& screen_to_world,
                                         long int featureId,
                                         OGRPoint const& point) const;
 
   void             drawLine            (QPainter& painter,
-                                        QwtScaleMap const& xMapper,
-                                        QwtScaleMap const& yMapper,
+                                        QTransform const& world_to_screen,
+                                        QTransform const& screen_to_world,
                                         long int featureId,
                                         OGRLineString const& line) const;
 
   void             drawPolygon         (QPainter& painter,
-                                        QwtScaleMap const& xMapper,
-                                        QwtScaleMap const& yMapper,
+                                        QTransform const& world_to_screen,
+                                        QTransform const& screen_to_world,
                                         long int featureId,
                                         OGRPolygon const& polygon) const;
 
   void             drawMultiPoint      (QPainter& painter,
-                                        QwtScaleMap const& xMapper,
-                                        QwtScaleMap const& yMapper,
+                                        QTransform const& world_to_screen,
+                                        QTransform const& screen_to_world,
                                         long int featureId,
                                         OGRMultiPoint const& multiPoint) const;
 
   void             drawMultiLine       (QPainter& painter,
-                                        QwtScaleMap const& xMapper,
-                                        QwtScaleMap const& yMapper,
+                                        QTransform const& world_to_screen,
+                                        QTransform const& screen_to_world,
                                         long int featureId,
                                         OGRMultiLineString const& multiLine) const;
 
   void             drawMultiPolygon    (QPainter& painter,
-                                        QwtScaleMap const& xMapper,
-                                        QwtScaleMap const& yMapper,
+                                        QTransform const& world_to_screen,
+                                        QTransform const& screen_to_world,
                                         long int featureId,
                                         OGRMultiPolygon const& multiPolygon) const;
 
   void             draw                (QPainter& painter,
                                         std::set<long int> const& featureIds,
-                                        QwtScaleMap const& xMapper,
-                                        QwtScaleMap const& yMapper) const;
+                                        QTransform const& world_to_screen,
+                                        QTransform const& screen_to_world) const;
 
   void             draw                (QPainter& painter,
                                         long int featureId,
-                                        QwtScaleMap const& xMapper,
-                                        QwtScaleMap const& yMapper) const;
+                                        QTransform const& world_to_screen,
+                                        QTransform const& screen_to_world) const;
 
   virtual void     draw                (QPainter& painter,
                                         long int featureId,
@@ -117,8 +117,8 @@ public:
 
   void             draw                (QPainter& painter,
                                         QRectF const& dirtyMapAreaInPixels,
-                                        QwtScaleMap const& xMapper,
-                                        QwtScaleMap const& yMapper) const;
+                                        QTransform const& world_to_screen,
+                                        QTransform const& screen_to_world) const;
 
   FeatureLayer const& layer            () const;
 

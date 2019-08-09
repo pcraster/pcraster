@@ -2,7 +2,6 @@
 
 // External headers.
 #include <QPainter>
-#include <qwt_scale_map.h>
 #include <ogr_core.h>
 #include <ogr_feature.h>
 #include <ogr_geometry.h>
@@ -61,13 +60,14 @@ FeatureLayerDrawer::~FeatureLayerDrawer()
 
 void FeatureLayerDrawer::drawPoint(
          QPainter& painter,
-         QwtScaleMap const& xMapper,
-         QwtScaleMap const& yMapper,
+         QTransform const& world_to_screen,
+         QTransform const& screen_to_world,
          long int /* featureId */,
          OGRPoint const& point) const
 {
-  qreal x = xMapper.transform(point.getX());
-  qreal y = yMapper.transform(point.getY());
+  QPointF p = QPointF(point.getX(), point.getY());
+  qreal x = world_to_screen.map(p).x();
+  qreal y = world_to_screen.map(p).y();
 
   painter.drawEllipse(x - 2, y - 2, 5, 5);
 }
@@ -76,20 +76,23 @@ void FeatureLayerDrawer::drawPoint(
 
 void FeatureLayerDrawer::drawLine(
          QPainter& painter,
-         QwtScaleMap const& xMapper,
-         QwtScaleMap const& yMapper,
+         QTransform const& world_to_screen,
+         QTransform const& screen_to_world,
          long int /* featureId */,
          OGRLineString const& line) const
 {
   QVector<QLineF> lines;
 
-  qreal x1 = xMapper.transform(line.getX(0));
-  qreal y1 = yMapper.transform(line.getY(0));
+  QPointF p = QPointF(line.getX(0), line.getY(0));
+  qreal x1 = world_to_screen.map(p).x();
+  qreal y1 = world_to_screen.map(p).y();
+
   qreal x2, y2;
 
   for(int i = 1; i < line.getNumPoints(); ++i) {
-    x2 = xMapper.transform(line.getX(i));
-    y2 = yMapper.transform(line.getY(i));
+    p = QPointF(line.getX(i), line.getY(i));
+    x2 = world_to_screen.map(p).x();
+    y2 = world_to_screen.map(p).y();
 
     lines.push_back(QLineF(x1, y1, x2, y2));
 
@@ -104,8 +107,8 @@ void FeatureLayerDrawer::drawLine(
 
 void FeatureLayerDrawer::drawPolygon(
          QPainter& painter,
-         QwtScaleMap const& xMapper,
-         QwtScaleMap const& yMapper,
+         QTransform const& world_to_screen,
+         QTransform const& screen_to_world,
          long int featureId,
          OGRPolygon const& polygon) const
 {
@@ -115,10 +118,9 @@ void FeatureLayerDrawer::drawPolygon(
     OGRLinearRing const& exteriorRing(*polygon.getExteriorRing());
     QPolygonF ring(exteriorRing.getNumPoints());
 
+    QPointF p;
     for(int i = 0; i < exteriorRing.getNumPoints(); ++i) {
-      ring[i] = QPointF(
-        xMapper.transform(exteriorRing.getX(i)),
-        yMapper.transform(exteriorRing.getY(i)));
+      ring[i] = world_to_screen.map(QPointF(exteriorRing.getX(i), exteriorRing.getY(i)));
     }
 
     path.addPolygon(ring);
@@ -129,9 +131,7 @@ void FeatureLayerDrawer::drawPolygon(
       hole.resize(interiorRing.getNumPoints());
 
       for(int j = 0; j < interiorRing.getNumPoints(); ++j) {
-        hole[j] = QPointF(
-           xMapper.transform(interiorRing.getX(j)),
-           yMapper.transform(interiorRing.getY(j)));
+        hole[j] = world_to_screen.map(QPointF(interiorRing.getX(j), interiorRing.getY(j)));
       }
 
       path.addPolygon(hole);
@@ -156,19 +156,24 @@ void FeatureLayerDrawer::draw(
 void FeatureLayerDrawer::draw(
          QPainter& painter,
          QRectF const& dirtyMapAreaInPixels,
-         QwtScaleMap const& xMapper,
-         QwtScaleMap const& yMapper) const
+         QTransform const& world_to_screen,
+         QTransform const& screen_to_world) const
 {
   if(!(d_layer.isRead() && !d_layer.isEmpty())) {
     return;
   }
 
   // Area of the feature layer that possibly contains features to draw.
+  QRectF dirtyMapAreaInWorldCoordinates(
+    screen_to_world.map( QPointF(dirtyMapAreaInPixels.left(), dirtyMapAreaInPixels.top()) ),
+    screen_to_world.map( QPointF(dirtyMapAreaInPixels.right(), dirtyMapAreaInPixels.bottom()) )
+  );
+
   double west, north, east, south;
-  west = xMapper.invTransform(dirtyMapAreaInPixels.left());
-  east = xMapper.invTransform(dirtyMapAreaInPixels.right());
-  north = yMapper.invTransform(dirtyMapAreaInPixels.top());
-  south = yMapper.invTransform(dirtyMapAreaInPixels.bottom());
+  west = dirtyMapAreaInWorldCoordinates.left();
+  east = dirtyMapAreaInWorldCoordinates.right();
+  north = dirtyMapAreaInWorldCoordinates.top();
+  south = dirtyMapAreaInWorldCoordinates.bottom();
 
   using Box = dal::FeatureLayerGeometries::Box;
   using Point = dal::FeatureLayerGeometries::Point;
@@ -196,7 +201,7 @@ void FeatureLayerDrawer::draw(
   painter.setPen(Qt::black);
   painter.setBrush(Qt::NoBrush);
 
-  draw(painter, featureIds, xMapper, yMapper);
+  draw(painter, featureIds, world_to_screen, screen_to_world);
 }
 
 
@@ -204,11 +209,11 @@ void FeatureLayerDrawer::draw(
 void FeatureLayerDrawer::draw(
          QPainter& painter,
          std::set<long int> const& featureIds,
-         QwtScaleMap const& xMapper,
-         QwtScaleMap const& yMapper) const
+         QTransform const& world_to_screen,
+         QTransform const& screen_to_world) const
 {
   for(long int featureId : featureIds) {
-    draw(painter, featureId, xMapper, yMapper);
+    draw(painter, featureId, world_to_screen, screen_to_world);
   }
 }
 
@@ -217,8 +222,8 @@ void FeatureLayerDrawer::draw(
 void FeatureLayerDrawer::draw(
          QPainter& painter,
          long int featureId,
-         QwtScaleMap const& xMapper,
-         QwtScaleMap const& yMapper) const
+         QTransform const& world_to_screen,
+         QTransform const& screen_to_world) const
 {
   OGRGeometry const& geometry = d_layer.geometry(featureId);
 
@@ -226,42 +231,42 @@ void FeatureLayerDrawer::draw(
     case wkbPoint:
     case wkbPoint25D: {
       OGRPoint const& point(dynamic_cast<OGRPoint const&>(geometry));
-      drawPoint(painter, xMapper, yMapper, featureId, point);
+      drawPoint(painter, world_to_screen, screen_to_world, featureId, point);
       break;
     }
     case wkbLineString:
     case wkbLineString25D: {
       OGRLineString const& line(
             dynamic_cast<OGRLineString const&>(geometry));
-      drawLine(painter, xMapper, yMapper, featureId, line);
+      drawLine(painter, world_to_screen, screen_to_world, featureId, line);
       break;
     }
     case wkbPolygon:
     case wkbPolygon25D: {
       OGRPolygon const& polygon(
             dynamic_cast<OGRPolygon const&>(geometry));
-      drawPolygon(painter, xMapper, yMapper, featureId, polygon);
+      drawPolygon(painter, world_to_screen, screen_to_world, featureId, polygon);
       break;
     }
     case wkbMultiPoint:
     case wkbMultiPoint25D: {
       OGRMultiPoint const& multiPoint(
             dynamic_cast<OGRMultiPoint const&>(geometry));
-      drawMultiPoint(painter, xMapper, yMapper, featureId, multiPoint);
+      drawMultiPoint(painter, world_to_screen, screen_to_world, featureId, multiPoint);
       break;
     }
     case wkbMultiLineString:
     case wkbMultiLineString25D: {
       OGRMultiLineString const& multiLine(
             dynamic_cast<OGRMultiLineString const&>(geometry));
-      drawMultiLine(painter, xMapper, yMapper, featureId, multiLine);
+      drawMultiLine(painter, world_to_screen, screen_to_world, featureId, multiLine);
       break;
     }
     case wkbMultiPolygon:
     case wkbMultiPolygon25D: {
       OGRMultiPolygon const& multiPolygon(
             dynamic_cast<OGRMultiPolygon const&>(geometry));
-      drawMultiPolygon(painter, xMapper, yMapper, featureId, multiPolygon);
+      drawMultiPolygon(painter, world_to_screen, screen_to_world, featureId, multiPolygon);
       break;
     }
     case wkbGeometryCollection:
@@ -279,8 +284,8 @@ void FeatureLayerDrawer::draw(
 
 void FeatureLayerDrawer::drawMultiPoint(
          QPainter& painter,
-         QwtScaleMap const& xMapper,
-         QwtScaleMap const& yMapper,
+         QTransform const& world_to_screen,
+         QTransform const& screen_to_world,
          long int featureId,
          OGRMultiPoint const& multiPoint) const
 {
@@ -289,7 +294,7 @@ void FeatureLayerDrawer::drawMultiPoint(
   for(int i = 0; i < nrGeometries; ++i) {
     OGRPoint const& point(dynamic_cast<OGRPoint const&>(
         *multiPoint.getGeometryRef(i)));
-    drawPoint(painter, xMapper, yMapper, featureId, point);
+    drawPoint(painter, world_to_screen, screen_to_world, featureId, point);
   }
 }
 
@@ -297,8 +302,8 @@ void FeatureLayerDrawer::drawMultiPoint(
 
 void FeatureLayerDrawer::drawMultiLine(
          QPainter& painter,
-         QwtScaleMap const& xMapper,
-         QwtScaleMap const& yMapper,
+         QTransform const& world_to_screen,
+         QTransform const& screen_to_world,
          long int featureId,
          OGRMultiLineString const& multiLine) const
 {
@@ -307,7 +312,7 @@ void FeatureLayerDrawer::drawMultiLine(
   for(int i = 0; i < nrGeometries; ++i) {
     OGRLineString const& line(dynamic_cast<OGRLineString const&>(
         *multiLine.getGeometryRef(i)));
-    drawLine(painter, xMapper, yMapper, featureId, line);
+    drawLine(painter, world_to_screen, screen_to_world, featureId, line);
   }
 }
 
@@ -315,8 +320,8 @@ void FeatureLayerDrawer::drawMultiLine(
 
 void FeatureLayerDrawer::drawMultiPolygon(
          QPainter& painter,
-         QwtScaleMap const& xMapper,
-         QwtScaleMap const& yMapper,
+         QTransform const& world_to_screen,
+         QTransform const& screen_to_world,
          long int featureId,
          OGRMultiPolygon const& multiPolygon) const
 {
@@ -325,7 +330,7 @@ void FeatureLayerDrawer::drawMultiPolygon(
   for(int i = 0; i < nrGeometries; ++i) {
     OGRPolygon const& polygon(dynamic_cast<OGRPolygon const&>(
         *multiPolygon.getGeometryRef(i)));
-    drawPolygon(painter, xMapper, yMapper, featureId, polygon);
+    drawPolygon(painter, world_to_screen, screen_to_world, featureId, polygon);
   }
 }
 

@@ -3,15 +3,12 @@
 // Library headers.
 #include <QApplication>
 #include <QPainter>
-#include <qwt_picker_machine.h>
-#include <qwt_plot_curve.h>
-#include <qwt_plot_grid.h>
-#include <qwt_plot_marker.h>
-#include <qwt_plot_picker.h>
-#include <qwt_scale_engine.h>
-#include "pcrtypes.h"
+#include <QtCharts/QLineSeries>
+#include <QtGui/QMouseEvent>
+
 
 // PCRaster library headers.
+#include "pcrtypes.h"
 
 // Module headers.
 #include "ag_DataObject.h"
@@ -63,16 +60,17 @@ public:
 
 namespace ag {
 
+  QT_CHARTS_USE_NAMESPACE
+
 PlotVisualisation::PlotVisualisation(
          DataObject* object,
          std::string const& visualisationName,
          QWidget* parent,
          char const* /* name */)
 
-  : QwtPlot(parent),
-    IVisualisation(object, visualisationName),
-    _xMarker(new QwtPlotMarker()),
-    _yMarker(new QwtPlotMarker())
+  :
+    QChartView(parent),
+    IVisualisation(object, visualisationName)
 
 {
   setFocusPolicy(Qt::WheelFocus);
@@ -83,41 +81,63 @@ PlotVisualisation::PlotVisualisation(
   // _xMarker->attach(this);
   // _yMarker->attach(this);
 
-  QwtPlotGrid* grid = new QwtPlotGrid();
-  grid->attach(this);
-#if QWT_VERSION >= 0x060100
-  grid->setMajorPen(QPen(Qt::lightGray, 0, Qt::DotLine));
-  grid->setMinorPen(QPen(Qt::lightGray, 0, Qt::DotLine));
-#else
-  grid->setMajPen(QPen(Qt::lightGray, 0, Qt::DotLine));
-  grid->setMinPen(QPen(Qt::lightGray, 0, Qt::DotLine));
-#endif
-  grid->enableX(true);
-  grid->enableY(true);
-  grid->enableXMin(true);
-  grid->enableYMin(true);
 
-  _xMarker->setLinePen(QPen(palette().color(QPalette::WindowText), 0,
-         Qt::SolidLine));
-  _yMarker->setLinePen(QPen(palette().color(QPalette::WindowText), 0,
-         Qt::SolidLine));
+   setDragMode(QGraphicsView::NoDrag);
+   setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+   setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
+
+    //m_chart->setMinimumSize(200, 100);
+    //m_chart->setTitle("Hover the line to show callout. Click the line to make it stay");
+
+    m_axisX = new QValueAxis;
+    m_axisY = new QValueAxis;
+
+    m_chart = new QChart;
+    m_chart->legend()->hide();
+
+
+    setRenderHint(QPainter::Antialiasing);
+    this->setChart(m_chart);
+
+
+   _xMarker = nullptr;
+
+// // // // // // // // // // // // // // // // // // // // // // // // // // //   QwtPlotGrid* grid = new QwtPlotGrid();
+// // // // // // // // // // // // // // // // // // // // // // // // // // //   grid->attach(this);
+// // // // // // // // // // // // // // // // // // // // // // // // // // // #if QWT_VERSION >= 0x060100
+// // // // // // // // // // // // // // // // // // // // // // // // // // //   grid->setMajorPen(QPen(Qt::lightGray, 0, Qt::DotLine));
+// // // // // // // // // // // // // // // // // // // // // // // // // // //   grid->setMinorPen(QPen(Qt::lightGray, 0, Qt::DotLine));
+// // // // // // // // // // // // // // // // // // // // // // // // // // // #else
+// // // // // // // // // // // // // // // // // // // // // // // // // // //   grid->setMajPen(QPen(Qt::lightGray, 0, Qt::DotLine));
+// // // // // // // // // // // // // // // // // // // // // // // // // // //   grid->setMinPen(QPen(Qt::lightGray, 0, Qt::DotLine));
+// // // // // // // // // // // // // // // // // // // // // // // // // // // #endif
+// // // // // // // // // // // // // // // // // // // // // // // // // // //   grid->enableX(true);
+// // // // // // // // // // // // // // // // // // // // // // // // // // //   grid->enableY(true);
+// // // // // // // // // // // // // // // // // // // // // // // // // // //   grid->enableXMin(true);
+// // // // // // // // // // // // // // // // // // // // // // // // // // //   grid->enableYMin(true);
+// // // // // // // // // // // // // // // // // // // // // // // // // // //
+// // // // // // // // // // // // // // // // // // // // // // // // // // //   _xMarker->setLinePen(QPen(palette().color(QPalette::WindowText), 0,
+// // // // // // // // // // // // // // // // // // // // // // // // // // //          Qt::SolidLine));
+// // // // // // // // // // // // // // // // // // // // // // // // // // //   _yMarker->setLinePen(QPen(palette().color(QPalette::WindowText), 0,
+// // // // // // // // // // // // // // // // // // // // // // // // // // //          Qt::SolidLine));
+// // // // // // // // // // // // // // // // // // // // // // // // // // //
   _xMarkerId = 1;
   _yMarkerId = 2;
-
-  _picker = new QwtPlotPicker(canvas());
-  connect(_picker, SIGNAL(selected(const QPointF&)),
-          this, SLOT(selected(const QPointF&)));
-  connect(_picker, SIGNAL(selected(const QRectF&)),
-          this, SLOT(selected(const QRectF&)));
-  connect(_picker, SIGNAL(selected(const QVector<QPointF>&)),
-          this, SLOT(selected(const QVector<QPointF>&)));
-  connect(_picker, SIGNAL(appended(const QPointF&)),
-          this, SLOT(appended(const QPointF&)));
-  connect(_picker, SIGNAL(moved(const QPointF&)),
-          this, SLOT(moved(const QPointF&)));
-
-  replot();
+// // // // // // // // // // // // // // // // // // // // // // // // // // //
+// // // // // // // // // // // // // // // // // // // // // // // // // // //   _picker = new QwtPlotPicker(canvas());
+// // // // // // // // // // // // // // // // // // // // // // // // // // //   connect(_picker, SIGNAL(selected(const QPointF&)),
+// // // // // // // // // // // // // // // // // // // // // // // // // // //           this, SLOT(selected(const QPointF&)));
+// // // // // // // // // // // // // // // // // // // // // // // // // // //   connect(_picker, SIGNAL(selected(const QRectF&)),
+// // // // // // // // // // // // // // // // // // // // // // // // // // //           this, SLOT(selected(const QRectF&)));
+// // // // // // // // // // // // // // // // // // // // // // // // // // //   connect(_picker, SIGNAL(selected(const QVector<QPointF>&)),
+// // // // // // // // // // // // // // // // // // // // // // // // // // //           this, SLOT(selected(const QVector<QPointF>&)));
+// // // // // // // // // // // // // // // // // // // // // // // // // // //   connect(_picker, SIGNAL(appended(const QPointF&)),
+// // // // // // // // // // // // // // // // // // // // // // // // // // //           this, SLOT(appended(const QPointF&)));
+// // // // // // // // // // // // // // // // // // // // // // // // // // //   connect(_picker, SIGNAL(moved(const QPointF&)),
+// // // // // // // // // // // // // // // // // // // // // // // // // // //           this, SLOT(moved(const QPointF&)));
+// // // // // // // // // // // // // // // // // // // // // // // // // // //
+// // // // // // // // // // // // // // // // // // // // // // // // // // //   replot();
 }
 
 
@@ -130,7 +150,7 @@ PlotVisualisation::~PlotVisualisation()
 
 bool PlotVisualisation::close()
 {
-  return QwtPlot::close();
+// // // // // // // // // // // // // // // // //   return QwtPlot::close();
 }
 
 
@@ -141,11 +161,11 @@ void PlotVisualisation::enableMarker(
   assert(marker == _xMarkerId || marker == _yMarkerId);
 
   if(marker == _xMarkerId) {
-    _xMarker->setLineStyle(QwtPlotMarker::VLine);
+// // // // // // // // // // // // // // //     _xMarker->setLineStyle(QwtPlotMarker::VLine);
     _xMarkerEnabled = true;
   }
   else if(marker == _yMarkerId) {
-    _yMarker->setLineStyle(QwtPlotMarker::HLine);
+// // // // // // // // // // // // // // // // // //     _yMarker->setLineStyle(QwtPlotMarker::HLine);
     _yMarkerEnabled = true;
   }
 }
@@ -157,11 +177,11 @@ void PlotVisualisation::disableMarker(long int marker)
   assert(marker == _xMarkerId || marker == _yMarkerId);
 
   if(marker == _xMarkerId) {
-    _xMarker->setLineStyle(QwtPlotMarker::NoLine);
+// // // // // // // // // // // // // // //     _xMarker->setLineStyle(QwtPlotMarker::NoLine);
     _xMarkerEnabled = false;
   }
   else if(marker == _yMarkerId) {
-    _yMarker->setLineStyle(QwtPlotMarker::NoLine);
+// // // // // // // // // // // // // // //     _yMarker->setLineStyle(QwtPlotMarker::NoLine);
     _yMarkerEnabled = false;
   }
 }
@@ -202,30 +222,30 @@ long int PlotVisualisation::yMarker() const
 
 void PlotVisualisation::setXMarker(double value)
 {
-  _xMarker->setXValue(value);
+//   _xMarker->setXValue(value);
 }
 
 
 
 void PlotVisualisation::setYMarker(double value)
 {
-  _yMarker->setYValue(value);
+//   _yMarker->setYValue(value);
 }
 
 
 
 void PlotVisualisation::attachMarkers()
 {
-  _xMarker->attach(this);
-  _yMarker->attach(this);
+//   _xMarker->attach(this);
+//   _yMarker->attach(this);
 }
 
 
 
 void PlotVisualisation::detachMarkers()
 {
-  _xMarker->detach();
-  _yMarker->detach();
+// // // // // // // // // // //   _xMarker->detach();
+// // // // // // // // // // //   _yMarker->detach();
 }
 
 
@@ -273,18 +293,21 @@ void PlotVisualisation::drawCurve(
       ++sizeOfSubRange;
     }
 
-    // Insert piece of the total curve.
-    QwtPlotCurve* item = new QwtPlotCurve();
-    item->setRenderHint(QwtPlotItem::RenderAntialiased);
-    item->attach(this);
-    item->setPen(pen);
-    item->setSamples(xSubBegin, ySubBegin, sizeOfSubRange);
+    QLineSeries *series = new QLineSeries();
 
-    // curveId = insertCurve("");
-    // assert(curveId);
-    // setCurvePen(curveId, pen);
-    // setCurveData(curveId, xSubBegin, ySubBegin, sizeOfSubRange);
-    _curvesPerGuide[guide].push_back(item);
+    // Plain inserting the values...
+    for(size_t i = 0; i < nrValues; ++i){
+      series->append(x[i], y[i]);
+    }
+
+    series->setPen(pen);
+    _curvesPerGuide[guide].push_back(series);
+    m_chart->addSeries(series);
+
+// // // // // // // // // // // // // // // // // // // // // // // // // // //     QwtPlotCurve* item = new QwtPlotCurve();
+// // // // // // // // // // // // // // // // // // // // // // // // // // //     item->setRenderHint(QwtPlotItem::RenderAntialiased);
+
+
   }
 }
 
@@ -302,32 +325,29 @@ void PlotVisualisation::drawCurve(
 */
 void PlotVisualisation::clearPlot()
 {
-  detachItems(QwtPlotItem::Rtti_PlotCurve);
+  m_chart->removeAllSeries();
   _curvesPerGuide.clear();
-  detachMarkers();
-
-  // replot();
 }
 
 
 
 void PlotVisualisation::trackClickPoint()
 {
-  _picker->setStateMachine(new QwtPickerClickPointMachine);
+// // // // // //   _picker->setStateMachine(new QwtPickerClickPointMachine);
 }
 
 
 
 void PlotVisualisation::trackDragPoint()
 {
-  _picker->setStateMachine(new QwtPickerDragPointMachine);
+// // // // // //   _picker->setStateMachine(new QwtPickerDragPointMachine);
 }
 
 
 
 void PlotVisualisation::trackDragRect()
 {
-  _picker->setStateMachine(new QwtPickerDragRectMachine);
+// // // // // //   _picker->setStateMachine(new QwtPickerDragRectMachine);
 }
 
 
@@ -373,65 +393,65 @@ bool PlotVisualisation::intersectMarker(
          long int marker,
          DataGuide const& guide) const
 {
-  QLineF markerLine;
-
-  if(marker == _xMarkerId) {
-    markerLine = QLineF(
-#if QWT_VERSION >= 0x060100
-         QPointF(_xMarker->xValue(), axisScaleDiv(yLeft).lowerBound()),
-         QPointF(_xMarker->xValue(), axisScaleDiv(yLeft).upperBound())
-#else
-         QPointF(_xMarker->xValue(), axisScaleDiv(yLeft)->lowerBound()),
-         QPointF(_xMarker->xValue(), axisScaleDiv(yLeft)->upperBound())
-#endif
-    );
-  }
-  else if(marker == _yMarkerId) {
-    markerLine = QLineF(
-#if QWT_VERSION >= 0x060100
-         QPointF(axisScaleDiv(xBottom).lowerBound(), _yMarker->yValue()),
-         QPointF(axisScaleDiv(xBottom).upperBound(), _yMarker->yValue())
-#else
-         QPointF(axisScaleDiv(xBottom)->lowerBound(), _yMarker->yValue()),
-         QPointF(axisScaleDiv(xBottom)->upperBound(), _yMarker->yValue())
-#endif
-    );
-  }
-
-  QPointF point1, point2, intersection;
-  bool intersectionFound = false;
-
-  std::map<DataGuide, std::vector<QwtPlotCurve*> >::const_iterator it =
-         _curvesPerGuide.find(guide);
-
-  if(it != _curvesPerGuide.end()) {
-    for(QwtPlotCurve const* curve : (*it).second) {
-      assert(curve);
-      assert(curve->dataSize() > 1);
-
-      point2 = curve->sample(0);
-
-      for(int j = 1; j < static_cast<int>(curve->dataSize()); ++j) {
-        point1 = point2;
-        point2 = curve->sample(j);
-
-        intersectionFound = (markerLine.intersect(QLineF(point1, point2),
-              &intersection) == QLineF::BoundedIntersection);
-
-        if(intersectionFound) {
-          *x = intersection.x();
-          *y = intersection.y();
-          break;
-        }
-      }
-
-      if(intersectionFound) {
-        break;
-      }
-    }
-  }
-
-  return intersectionFound;
+// // // // // // // // // // // // // // // // // // // // // // // //   QLineF markerLine;
+// // // // // // // // // // // // // // // // // // // // // // // //
+// // // // // // // // // // // // // // // // // // // // // // // //   if(marker == _xMarkerId) {
+// // // // // // // // // // // // // // // // // // // // // // // //     markerLine = QLineF(
+// // // // // // // // // // // // // // // // // // // // // // // // #if QWT_VERSION >= 0x060100
+// // // // // // // // // // // // // // // // // // // // // // // //          QPointF(_xMarker->xValue(), axisScaleDiv(yLeft).lowerBound()),
+// // // // // // // // // // // // // // // // // // // // // // // //          QPointF(_xMarker->xValue(), axisScaleDiv(yLeft).upperBound())
+// // // // // // // // // // // // // // // // // // // // // // // // #else
+// // // // // // // // // // // // // // // // // // // // // // // //          QPointF(_xMarker->xValue(), axisScaleDiv(yLeft)->lowerBound()),
+// // // // // // // // // // // // // // // // // // // // // // // //          QPointF(_xMarker->xValue(), axisScaleDiv(yLeft)->upperBound())
+// // // // // // // // // // // // // // // // // // // // // // // // #endif
+// // // // // // // // // // // // // // // // // // // // // // // //     );
+// // // // // // // // // // // // // // // // // // // // // // // //   }
+// // // // // // // // // // // // // // // // // // // // // // // //   else if(marker == _yMarkerId) {
+// // // // // // // // // // // // // // // // // // // // // // // //     markerLine = QLineF(
+// // // // // // // // // // // // // // // // // // // // // // // // #if QWT_VERSION >= 0x060100
+// // // // // // // // // // // // // // // // // // // // // // // //          QPointF(axisScaleDiv(xBottom).lowerBound(), _yMarker->yValue()),
+// // // // // // // // // // // // // // // // // // // // // // // //          QPointF(axisScaleDiv(xBottom).upperBound(), _yMarker->yValue())
+// // // // // // // // // // // // // // // // // // // // // // // // #else
+// // // // // // // // // // // // // // // // // // // // // // // //          QPointF(axisScaleDiv(xBottom)->lowerBound(), _yMarker->yValue()),
+// // // // // // // // // // // // // // // // // // // // // // // //          QPointF(axisScaleDiv(xBottom)->upperBound(), _yMarker->yValue())
+// // // // // // // // // // // // // // // // // // // // // // // // #endif
+// // // // // // // // // // // // // // // // // // // // // // // //     );
+// // // // // // // // // // // // // // // // // // // // // // // //   }
+// // // // // // // // // // // // // // // // // // // // // // // //
+// // // // // // // // // // // // // // // // // // // // // // // //   QPointF point1, point2, intersection;
+// // // // // // // // // // // // // // // // // // // // // // // //   bool intersectionFound = false;
+// // // // // // // // // // // // // // // // // // // // // // // //
+// // // // // // // // // // // // // // // // // // // // // // // //   std::map<DataGuide, std::vector<QwtPlotCurve*> >::const_iterator it =
+// // // // // // // // // // // // // // // // // // // // // // // //          _curvesPerGuide.find(guide);
+// // // // // // // // // // // // // // // // // // // // // // // //
+// // // // // // // // // // // // // // // // // // // // // // // //   if(it != _curvesPerGuide.end()) {
+// // // // // // // // // // // // // // // // // // // // // // // //     for(QwtPlotCurve const* curve : (*it).second) {
+// // // // // // // // // // // // // // // // // // // // // // // //       assert(curve);
+// // // // // // // // // // // // // // // // // // // // // // // //       assert(curve->dataSize() > 1);
+// // // // // // // // // // // // // // // // // // // // // // // //
+// // // // // // // // // // // // // // // // // // // // // // // //       point2 = curve->sample(0);
+// // // // // // // // // // // // // // // // // // // // // // // //
+// // // // // // // // // // // // // // // // // // // // // // // //       for(int j = 1; j < static_cast<int>(curve->dataSize()); ++j) {
+// // // // // // // // // // // // // // // // // // // // // // // //         point1 = point2;
+// // // // // // // // // // // // // // // // // // // // // // // //         point2 = curve->sample(j);
+// // // // // // // // // // // // // // // // // // // // // // // //
+// // // // // // // // // // // // // // // // // // // // // // // //         intersectionFound = (markerLine.intersect(QLineF(point1, point2),
+// // // // // // // // // // // // // // // // // // // // // // // //               &intersection) == QLineF::BoundedIntersection);
+// // // // // // // // // // // // // // // // // // // // // // // //
+// // // // // // // // // // // // // // // // // // // // // // // //         if(intersectionFound) {
+// // // // // // // // // // // // // // // // // // // // // // // //           *x = intersection.x();
+// // // // // // // // // // // // // // // // // // // // // // // //           *y = intersection.y();
+// // // // // // // // // // // // // // // // // // // // // // // //           break;
+// // // // // // // // // // // // // // // // // // // // // // // //         }
+// // // // // // // // // // // // // // // // // // // // // // // //       }
+// // // // // // // // // // // // // // // // // // // // // // // //
+// // // // // // // // // // // // // // // // // // // // // // // //       if(intersectionFound) {
+// // // // // // // // // // // // // // // // // // // // // // // //         break;
+// // // // // // // // // // // // // // // // // // // // // // // //       }
+// // // // // // // // // // // // // // // // // // // // // // // //     }
+// // // // // // // // // // // // // // // // // // // // // // // //   }
+// // // // // // // // // // // // // // // // // // // // // // // //
+// // // // // // // // // // // // // // // // // // // // // // // //   return intersectionFound;
 }
 
 
@@ -553,6 +573,35 @@ bool PlotVisualisation::onlyExceedanceProbabilitiesShown() const
 
   return result;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+void PlotVisualisation::mousePressEvent(QMouseEvent *event)
+{
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 } // namespace ag
 

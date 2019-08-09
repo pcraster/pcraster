@@ -58,10 +58,11 @@ ScalarRasterDrawer::~ScalarRasterDrawer()
 void ScalarRasterDrawer::drawSingleColour(
          QPainter& painter,
          QRect const& indices,
-         QwtScaleMap const& xMapper,
-         QwtScaleMap const& yMapper) const
+         QTransform const& world_to_screen,
+         QTransform const& screen_to_world) const
 {
-  size_t nrCellsPerPixel = this->nrCellsPerPixel(xMapper);
+  size_t nrCellsPerPixel = this->nrCellsPerPixel(world_to_screen);
+
   double leftScreen, topScreen, rightScreen, bottomScreen;
   double leftWorld, topWorld, rightWorld, bottomWorld;
 
@@ -87,8 +88,10 @@ void ScalarRasterDrawer::drawSingleColour(
 
       if(!pcr::isMV(matrix.cell<REAL4>(row, col))) {
         _raster->dimensions().coordinates(row, col, leftWorld, topWorld);
-        leftScreen = xMapper.transform(leftWorld);
-        topScreen = yMapper.transform(topWorld);
+
+        QPointF p = QPointF(leftWorld, topWorld);
+        leftScreen = world_to_screen.map(p).x();
+        topScreen = world_to_screen.map(p).y();
 
         // Determine if the next cells should be drawn in the same colour.
         col += nrCellsPerPixel;
@@ -101,8 +104,10 @@ void ScalarRasterDrawer::drawSingleColour(
 
         _raster->dimensions().coordinates(row + nrCellsPerPixel,
               col + nrCellsPerPixel, rightWorld, bottomWorld);
-        rightScreen = xMapper.transform(rightWorld);
-        bottomScreen = yMapper.transform(bottomWorld);
+
+        p = QPointF(rightWorld, bottomWorld);
+        rightScreen = world_to_screen.map(p).x();
+        bottomScreen = world_to_screen.map(p).y();
 
         painter.fillRect(leftScreen, topScreen, rightScreen - leftScreen + 1,
                  bottomScreen - topScreen + 1, colour);
@@ -112,14 +117,14 @@ void ScalarRasterDrawer::drawSingleColour(
 }
 
 
-
 void ScalarRasterDrawer::drawMultipleColours(
          QPainter& painter,
          QRect const& indices,
-         QwtScaleMap const& xMapper,
-         QwtScaleMap const& yMapper) const
+         QTransform const& world_to_screen,
+         QTransform const& screen_to_world) const
 {
-  size_t nrCellsPerPixel = this->nrCellsPerPixel(xMapper);
+  size_t nrCellsPerPixel = this->nrCellsPerPixel(world_to_screen);
+
   double leftScreen, topScreen, rightScreen, bottomScreen;
   double leftWorld, topWorld, rightWorld, bottomWorld;
 
@@ -147,8 +152,10 @@ void ScalarRasterDrawer::drawMultipleColours(
         colour = _properties.colour(matrix.cell<REAL4>(row, col));
 
         _raster->dimensions().coordinates(row, col, leftWorld, topWorld);
-        leftScreen = xMapper.transform(leftWorld);
-        topScreen = yMapper.transform(topWorld);
+
+        QPointF p = QPointF(leftWorld, topWorld);
+        leftScreen = world_to_screen.map(p).x();
+        topScreen = world_to_screen.map(p).y();
 
         col += nrCellsPerPixel;
 
@@ -161,8 +168,10 @@ void ScalarRasterDrawer::drawMultipleColours(
 
         _raster->dimensions().coordinates(row + nrCellsPerPixel,
               col + nrCellsPerPixel, rightWorld, bottomWorld);
-        rightScreen = xMapper.transform(rightWorld);
-        bottomScreen = yMapper.transform(bottomWorld);
+
+        p = QPointF(rightWorld, bottomWorld);
+        rightScreen = world_to_screen.map(p).x();
+        bottomScreen = world_to_screen.map(p).y();
 
         painter.fillRect(leftScreen, topScreen, (rightScreen - leftScreen) + 1,
               (bottomScreen - topScreen) + 1, colour);
@@ -176,14 +185,14 @@ void ScalarRasterDrawer::drawMultipleColours(
 void ScalarRasterDrawer::drawColourFill(
          QPainter& painter,
          QRect const& indices,
-         QwtScaleMap const& xMapper,
-         QwtScaleMap const& yMapper) const
+         QTransform const& world_to_screen,
+         QTransform const& screen_to_world) const
 {
   if(_properties.nrClasses() == 0) {
-    drawSingleColour(painter, indices, xMapper, yMapper);
+    drawSingleColour(painter, indices, world_to_screen, screen_to_world);
   }
   else {
-    drawMultipleColours(painter, indices, xMapper, yMapper);
+    drawMultipleColours(painter, indices, world_to_screen, screen_to_world);
   }
 }
 
@@ -192,8 +201,8 @@ void ScalarRasterDrawer::drawColourFill(
 void ScalarRasterDrawer::drawContours(
          QPainter& painter,
          QRect const& indices,
-         QwtScaleMap const& xMapper,
-         QwtScaleMap const& yMapper) const
+         QTransform const& world_to_screen,
+         QTransform const& screen_to_world) const
 {
   //  Method:
   //
@@ -217,7 +226,7 @@ void ScalarRasterDrawer::drawContours(
   //  diagonal of the middle to the bottom right of the cell with value 8, to
   //  the horizontal from the middle of 8 to the middle of 5. Etc.
 
-  size_t nrCellsPerPixel = this->nrCellsPerPixel(xMapper);
+  size_t nrCellsPerPixel = this->nrCellsPerPixel(world_to_screen);
 
   dal::Matrix matrix(_raster->dimensions().nrRows(),
          _raster->dimensions().nrCols(), dal::TypeTraits<REAL4>::typeId);
@@ -258,7 +267,7 @@ void ScalarRasterDrawer::drawContours(
   size_t index, index2;    // Loop index.
 
   // Size of cell in pixels.
-  double cellSize  = cellSizeInPixels(xMapper);
+  double cellSize  = cellSizeInPixels(world_to_screen);
   double halfCellSize = 0.5 * cellSize;
 
   painter.setRenderHint(QPainter::Antialiasing);
@@ -288,8 +297,9 @@ void ScalarRasterDrawer::drawContours(
 
         // Calculate the pixelcoordinates of the centre.
         _raster->dimensions().coordinates(row + 1, col + 1, cxWld, cyWld);
-        cxPix = xMapper.transform(cxWld);
-        cyPix = yMapper.transform(cyWld);
+        QPointF p = QPointF(cxWld, cyWld);
+        cxPix = world_to_screen.map(p).x();
+        cyPix = world_to_screen.map(p).y();
 
         // Calculate the mean of the 4 cells.
         mean = (values[0] + values[1] + values[2] + values[3]) / 4;
@@ -424,8 +434,8 @@ void ScalarRasterDrawer::drawContours(
 void ScalarRasterDrawer::draw(
          QPainter& painter,
          QRect const& indices,
-         QwtScaleMap const& xMapper,
-         QwtScaleMap const& yMapper) const
+         QTransform const& world_to_screen,
+         QTransform const& screen_to_world) const
 {
   if(!_raster->isRead() || _raster->allMV()) {
     return;
@@ -433,11 +443,11 @@ void ScalarRasterDrawer::draw(
 
   switch(_properties.drawerType()) {
     case COLOURFILL: {
-      drawColourFill(painter, indices, xMapper, yMapper);
+      drawColourFill(painter, indices, world_to_screen, screen_to_world);
       break;
     }
     case CONTOUR: {
-      drawContours(painter, indices, xMapper, yMapper);
+      drawContours(painter, indices, world_to_screen, screen_to_world);
       break;
     }
     default: {

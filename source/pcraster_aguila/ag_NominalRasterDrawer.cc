@@ -56,14 +56,14 @@ NominalRasterDrawer::~NominalRasterDrawer()
 void NominalRasterDrawer::draw(
          QPainter& painter,
          QRect const& indices,
-         QwtScaleMap const& xMapper,
-         QwtScaleMap const& yMapper) const
+         QTransform const& world_to_screen,
+         QTransform const& screen_to_world) const
 {
   if(!_raster->isRead() || _raster->allMV()) {
     return;
   }
 
-  size_t nrCellsPerPixel = this->nrCellsPerPixel(xMapper);
+  size_t nrCellsPerPixel = this->nrCellsPerPixel(world_to_screen);
   double leftScreen, topScreen, rightScreen, bottomScreen;
   double leftWorld, topWorld, rightWorld, bottomWorld;
 
@@ -91,8 +91,10 @@ void NominalRasterDrawer::draw(
               _properties.classifier().index(value));
 
         _raster->dimensions().coordinates(row, col, leftWorld, topWorld);
-        leftScreen = xMapper.transform(leftWorld);
-        topScreen = yMapper.transform(topWorld);
+
+        QPointF p = QPointF(leftWorld, topWorld);
+        leftScreen = world_to_screen.map(p).x();
+        topScreen = world_to_screen.map(p).y();
 
         // Determine if the next cells should be drawn in the same colour.
         col += nrCellsPerPixel;
@@ -107,8 +109,10 @@ void NominalRasterDrawer::draw(
 
         _raster->dimensions().coordinates(row + nrCellsPerPixel,
               col + nrCellsPerPixel, rightWorld, bottomWorld);
-        rightScreen = xMapper.transform(rightWorld);
-        bottomScreen = yMapper.transform(bottomWorld);
+
+        p = QPointF(rightWorld, bottomWorld);
+        rightScreen = world_to_screen.map(p).x();
+        bottomScreen = world_to_screen.map(p).y();
 
         painter.fillRect(leftScreen, topScreen, rightScreen - leftScreen + 1,
                  bottomScreen - topScreen + 1, colour);

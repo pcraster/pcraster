@@ -58,19 +58,19 @@ LddRasterDrawer::~LddRasterDrawer()
 void LddRasterDrawer::draw(
          QPainter& painter,
          QRect const& indices,
-         QwtScaleMap const& xMapper,
-         QwtScaleMap const& yMapper) const
+         QTransform const& world_to_screen,
+         QTransform const& screen_to_world) const
 {
   if(!_raster->isRead() || _raster->allMV()) {
     return;
   }
 
-  if(this->cellSizeInPixels(xMapper) < 3) {
-    drawCells(painter, indices, xMapper, yMapper);
+  if(this->cellSizeInPixels(world_to_screen) < 3) {
+    drawCells(painter, indices, world_to_screen, screen_to_world);
     return;
   }
 
-  size_t nrCellsPerPixel = this->nrCellsPerPixel(xMapper);
+  size_t nrCellsPerPixel = this->nrCellsPerPixel(world_to_screen);
 
   dal::Matrix matrix(_raster->dimensions().nrRows(),
          _raster->dimensions().nrCols(), dal::TypeTraits<UINT1>::typeId);
@@ -106,10 +106,10 @@ void LddRasterDrawer::draw(
   double pitSizeX, pitSizeY;     // Size of pit.
 
   pitSizeX = std::abs(0.5 * _raster->dimensions().cellSize() *
-         this->scale(xMapper));
+         this->scale(world_to_screen));
   pitSizeX = std::max(1.0, pitSizeX);
   pitSizeY = std::abs(0.5 * _raster->dimensions().cellSize() *
-         this->scale(yMapper));
+         this->scale(world_to_screen));
   pitSizeY = std::max(1.0, pitSizeY);
 
   painter.setRenderHint(QPainter::Antialiasing);
@@ -125,8 +125,10 @@ void LddRasterDrawer::draw(
 
           // Calculate the pixelcoordinates of the middle of the cell.
           _raster->dimensions().coordinates(row + 0.5, col + 0.5, cxWld, cyWld);
-          cxPix = xMapper.transform(cxWld);
-          cyPix = yMapper.transform(cyWld);
+
+          QPointF p = QPointF(cxWld, cyWld);
+          cxPix = world_to_screen.map(p).x();
+          cyPix = world_to_screen.map(p).y();
 
           if(value == 1) {
             // Next cell to the lowerleft.
@@ -177,8 +179,10 @@ void LddRasterDrawer::draw(
               ncxWld, ncyWld);
           }
 
-          ncxPix = xMapper.transform(ncxWld);
-          ncyPix = yMapper.transform(ncyWld);
+          p = QPointF(ncxWld, ncyWld);
+          ncxPix = world_to_screen.map(p).x();
+          ncyPix = world_to_screen.map(p).y();
+
           painter.drawLine(cxPix, cyPix, ncxPix, ncyPix);
         }
         else  { // *cellHandle == 5
@@ -187,8 +191,11 @@ void LddRasterDrawer::draw(
           // painter.setPen(Qt::NoPen);
           _raster->dimensions().coordinates(row + 0.25, col + 0.25,
               leftPitWld, topPitWld);
-          leftPitPix = xMapper.transform(leftPitWld);
-          topPitPix  = yMapper.transform(topPitWld);
+
+          QPointF p = QPointF(leftPitWld, topPitWld);
+          leftPitPix = world_to_screen.map(p).x();
+          topPitPix = world_to_screen.map(p).y();
+
           painter.drawRect(leftPitPix, topPitPix, pitSizeX, pitSizeY);
         }
       }

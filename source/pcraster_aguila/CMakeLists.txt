@@ -74,6 +74,7 @@ add_library(pcraster_aguila_objects OBJECT
     ag_LegendBody
     ag_Legend
     ag_LegendView
+    ag_LineMarker
     ag_Map2D
     ag_Map2DView
     ag_Map2DWindow
@@ -188,7 +189,6 @@ target_include_directories(pcraster_aguila_objects
         ${Qt5Gui_INCLUDE_DIRS}
         ${Qt5Xml_INCLUDE_DIRS}
         ${Qt5OpenGL_INCLUDE_DIRS}
-        ${QWT_INCLUDE_DIRS}
         $<TARGET_PROPERTY:pcraster::math_utils,INTERFACE_INCLUDE_DIRECTORIES>
         $<TARGET_PROPERTY:pcraster::string_utils,INTERFACE_INCLUDE_DIRECTORIES>
 )
@@ -215,7 +215,6 @@ target_compile_definitions(pcraster_aguila_objects
     PRIVATE
         PCR_AG_SOURCE
         PCR_AG_SHARED_LINK
-        $<$<BOOL:${WIN32}>:QWT_DLL>
 )
 
 add_library(pcraster_aguila SHARED
@@ -233,10 +232,10 @@ target_link_libraries(pcraster_aguila
     PUBLIC
         pcraster::dal
         pcraster::xsd
-        ${QWT_LIBRARY}
         Qt5::Gui
         Qt5::OpenGL
         Qt5::Xml
+        Qt5::Charts
 #        OpenGL::OpenGL
         OpenGL::GLU
 )

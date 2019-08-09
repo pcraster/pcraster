@@ -4,7 +4,6 @@
 
 
 // Library headers.
-#include "qwt_plot.h"
 
 // PCRaster library headers.
 

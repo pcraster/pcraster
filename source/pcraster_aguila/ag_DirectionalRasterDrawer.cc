@@ -56,14 +56,14 @@ DirectionalRasterDrawer::~DirectionalRasterDrawer()
 void DirectionalRasterDrawer::draw(
          QPainter& painter,
          QRect const& indices,
-         QwtScaleMap const& xMapper,
-         QwtScaleMap const& yMapper) const
+         QTransform const& world_to_screen,
+         QTransform const& screen_to_world) const
 {
   if(!_raster->isRead() || _raster->allMV() || _properties.nrClasses() == 0) {
     return;
   }
 
-  size_t nrCellsPerPixel = this->nrCellsPerPixel(xMapper);
+  size_t nrCellsPerPixel = this->nrCellsPerPixel(world_to_screen);
   double leftScreen, topScreen, rightScreen, bottomScreen;
   double leftWorld, topWorld, rightWorld, bottomWorld;
 
@@ -96,8 +96,10 @@ void DirectionalRasterDrawer::draw(
         }
 
         _raster->dimensions().coordinates(row, col, leftWorld, topWorld);
-        leftScreen = xMapper.transform(leftWorld);
-        topScreen = yMapper.transform(topWorld);
+
+        QPointF p = QPointF(leftWorld, topWorld);
+        leftScreen = world_to_screen.map(p).x();
+        topScreen = world_to_screen.map(p).y();
 
         if(!dal::comparable(value, REAL4(-1.0))) {
           col += nrCellsPerPixel;
@@ -113,8 +115,10 @@ void DirectionalRasterDrawer::draw(
 
         _raster->dimensions().coordinates(row + nrCellsPerPixel,
               col + nrCellsPerPixel, rightWorld, bottomWorld);
-        rightScreen = xMapper.transform(rightWorld);
-        bottomScreen = yMapper.transform(bottomWorld);
+
+        p = QPointF(rightWorld, bottomWorld);
+        rightScreen = world_to_screen.map(p).x();
+        bottomScreen = world_to_screen.map(p).y();
 
         painter.fillRect(leftScreen, topScreen, rightScreen - leftScreen + 1,
                  bottomScreen - topScreen + 1, colour);

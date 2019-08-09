@@ -6,24 +6,25 @@ PCRaster 4.3.0 (Not yet released)
 
 The most relevant updates for users:
 
+
 .. drop python2.7 ?!
 ..
 .. breaking change in pickle
 ..
 .. added cellvalue by (index, indices, coordinates); version_tuple
 ..
-..
+.. multicore fixes
 
-* Command line applications now show version numbers instead of a build date.
 * On Windows, ``mapattr`` and ``legend`` show the menu again.
+* Command line applications now show version numbers instead of a build date.
 
-
-
+Aguila was refactored to simplify the build process. The functionality remains the same. In case you experience any differences to previous Aguila versions consider it as a defect and please report it at our `issues <https://github.com/pcraster/pcraster/issues/>`_ page.
 
 
 We further improved the code quality and the build system to ensure an ongoing creation of PCRaster packages, amongst others:
 
 * Replacing Boost.Python with Pybind11
+* Replacing Qwt with Qt Charts
 * Modernising C++ code towards C++17
 * Various improvements to support gcc-9, clang-7 and Visual Studio 2017
 * Reducing amount of dependencies

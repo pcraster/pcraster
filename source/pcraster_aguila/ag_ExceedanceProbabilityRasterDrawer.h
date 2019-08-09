@@ -43,28 +43,28 @@ private:
 
   void             drawSingleColour    (QPainter& painter,
                                         QRect const& indices,
-                                        QwtScaleMap const& xMapper,
-                                        QwtScaleMap const& yMapper) const;
+                                        QTransform const& world_to_screen,
+                                        QTransform const& screen_to_world) const;
 
   void             drawMultipleColours (QPainter& painter,
                                         QRect const& indices,
-                                        QwtScaleMap const& xMapper,
-                                        QwtScaleMap const& yMapper) const;
+                                        QTransform const& world_to_screen,
+                                        QTransform const& screen_to_world) const;
 
   void             drawColourFill      (QPainter& painter,
                                         QRect const& indices,
-                                        QwtScaleMap const& xMapper,
-                                        QwtScaleMap const& yMapper) const;
+                                        QTransform const& world_to_screen,
+                                        QTransform const& screen_to_world) const;
 
   void             drawContours        (QPainter& painter,
                                         QRect const& indices,
-                                        QwtScaleMap const& xMapper,
-                                        QwtScaleMap const& yMapper) const;
+                                        QTransform const& world_to_screen,
+                                        QTransform const& screen_to_world) const;
 
   void             draw                (QPainter& painter,
                                         QRect const& indices,
-                                        QwtScaleMap const& xMapper,
-                                        QwtScaleMap const& yMapper) const;
+                                        QTransform const& world_to_screen,
+                                        QTransform const& screen_to_world) const;
 
 protected:
 

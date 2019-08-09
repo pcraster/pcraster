@@ -462,8 +462,7 @@ def guardIncludeStatement(
     result = wrapThirdPartyHeader(name, extension="hxx")
   elif   name.find("ogr") == 0 or \
          name.find("gdal") == 0 or \
-         name.find("geos") == 0 or \
-         name.find("qwt") == 0:
+         name.find("geos"):
     result = wrapThirdPartyHeader(name, extension="h")
   elif name[0] in ["q", "Q"]:
     result = wrapQtHeader(name)

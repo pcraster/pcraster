@@ -4,8 +4,6 @@
 #include <boost/smart_ptr.hpp>
 #include <QApplication>
 #include <QPen>
-#include <qwt_plot_canvas.h>
-#include <qwt_scale_div.h>
 
 // PCRaster library headers.
 #include "dal_DataSpace.h"
@@ -60,7 +58,7 @@ CumDistributionFunctionView::CumDistributionFunctionView(
 
   trackDragPoint();
 
-  canvas()->setCursor(Qt::PointingHandCursor);
+// // // // //   canvas()->setCursor(Qt::PointingHandCursor);
 }
 
 
@@ -134,7 +132,7 @@ void CumDistributionFunctionView::visualise()
          visualisationEngine().change() & VisEngine::TIME ||
          visualisationEngine().change() & VisEngine::QUANTILE ||
          visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
-    replot();
+// // // // // // // // //     replot();
   }
 
   visualisationEngine().finishedScanning(dataObject());
@@ -152,32 +150,26 @@ void CumDistributionFunctionView::addAttribute(
 
 void CumDistributionFunctionView::setXAxisTitle()
 {
-  QwtText title;
-
-  title.setFont(QApplication::font());
-  title.setText(QString("Value"));
-  setAxisTitle(xBottom, title);
+  m_axisX->setTitleFont(QApplication::font());
+  m_axisX->setTitleText(QString("Value"));
+// // // // //   xBottom
 }
 
 
 
 void CumDistributionFunctionView::setYAxisTitle()
 {
-  QwtText title;
-
-  title.setFont(QApplication::font());
+  m_axisY->setTitleFont(QApplication::font());
 
   if(onlyCumulativeProbabilitiesShown()) {
-    title.setText(QString("Cumulative probability"));
+    m_axisY->setTitleText(QString("Cumulative probability"));
   }
   else if(onlyExceedanceProbabilitiesShown()) {
-    title.setText(QString("Exceedance probability"));
+    m_axisY->setTitleText(QString("Exceedance probability"));
   }
   else {
-    title.setText(QString("Probability"));
+    m_axisY->setTitleText(QString("Probability"));
   }
-
-  setAxisTitle(yLeft, title);
 }
 
 
@@ -251,7 +243,7 @@ void CumDistributionFunctionView::setXAxisScale()
 
   if(!pcr::isMV(min) && !pcr::isMV(max)) {
     assert(min <= max);
-    setAxisScale(xBottom, min, max);
+// // // // //     setAxisScale(xBottom, min, max);
   }
 }
 
@@ -285,7 +277,7 @@ void CumDistributionFunctionView::setYAxisScale()
     }
   }
 
-  setAxisScale(yLeft, min, max);
+// // // // // // // // // // // // //   setAxisScale(yLeft, min, max);
 }
 
 
@@ -511,23 +503,23 @@ void CumDistributionFunctionView::toggleMarker()
 
     // yMarker iterates over the x-axis. Probabilities will be shown in the
     // map.
-    if(!intersectMarker(&x, &y, yMarker(), guide)) {
-      // Marker does not intersect the curve of the first guide.
-#if QWT_VERSION >= 0x060100
-      // QwtPlot::axisScaleDiv returns a reference.
-      QwtScaleDiv const& scaleDiv = axisScaleDiv(xMarker());
-#else
-      // QwtPlot::axisScaleDiv returns a pointer.
-      QwtScaleDiv const& scaleDiv = *axisScaleDiv(xMarker());
-#endif
-
-      x = scaleDiv.lowerBound();
-
-      if(scaleDiv.range() > 0.0) {
-        // Use the middle value.
-        x += scaleDiv.range() / 2.0;
-      }
-    }
+// // // // // // // // // // // // // // // // // // // // // // // //     if(!intersectMarker(&x, &y, yMarker(), guide)) {
+// // // // // // // // // // // // // // // // // // // // // // // //       // Marker does not intersect the curve of the first guide.
+// // // // // // // // // // // // // // // // // // // // // // // // #if QWT_VERSION >= 0x060100
+// // // // // // // // // // // // // // // // // // // // // // // //       // QwtPlot::axisScaleDiv returns a reference.
+// // // // // // // // // // // // // // // // // // // // // // // //       QwtScaleDiv const& scaleDiv = axisScaleDiv(xMarker());
+// // // // // // // // // // // // // // // // // // // // // // // // #else
+// // // // // // // // // // // // // // // // // // // // // // // //       // QwtPlot::axisScaleDiv returns a pointer.
+// // // // // // // // // // // // // // // // // // // // // // // //       QwtScaleDiv const& scaleDiv = *axisScaleDiv(xMarker());
+// // // // // // // // // // // // // // // // // // // // // // // // #endif
+// // // // // // // // // // // // // // // // // // // // // // // //
+// // // // // // // // // // // // // // // // // // // // // // // //       x = scaleDiv.lowerBound();
+// // // // // // // // // // // // // // // // // // // // // // // //
+// // // // // // // // // // // // // // // // // // // // // // // //       if(scaleDiv.range() > 0.0) {
+// // // // // // // // // // // // // // // // // // // // // // // //         // Use the middle value.
+// // // // // // // // // // // // // // // // // // // // // // // //         x += scaleDiv.range() / 2.0;
+// // // // // // // // // // // // // // // // // // // // // // // //       }
+// // // // // // // // // // // // // // // // // // // // // // // //     }
 
     dataObject().setSelectedValue(x, false);
 

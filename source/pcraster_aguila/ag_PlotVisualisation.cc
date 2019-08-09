@@ -90,12 +90,15 @@ PlotVisualisation::PlotVisualisation(
     //m_chart->setMinimumSize(200, 100);
     //m_chart->setTitle("Hover the line to show callout. Click the line to make it stay");
 
-    m_axisX = new QValueAxis;
-    m_axisY = new QValueAxis;
+
 
     m_chart = new QChart;
     m_chart->legend()->hide();
 
+    m_axisX = new QValueAxis;
+    m_axisY = new QValueAxis;
+    m_chart->addAxis(m_axisX, Qt::AlignBottom);
+    m_chart->addAxis(m_axisY, Qt::AlignLeft);
 
     setRenderHint(QPainter::Antialiasing);
     this->setChart(m_chart);
@@ -303,6 +306,8 @@ void PlotVisualisation::drawCurve(
     series->setPen(pen);
     _curvesPerGuide[guide].push_back(series);
     m_chart->addSeries(series);
+    series->attachAxis(m_axisY);
+    series->attachAxis(m_axisX);
 
 // // // // // // // // // // // // // // // // // // // // // // // // // // //     QwtPlotCurve* item = new QwtPlotCurve();
 // // // // // // // // // // // // // // // // // // // // // // // // // // //     item->setRenderHint(QwtPlotItem::RenderAntialiased);
@@ -325,6 +330,8 @@ void PlotVisualisation::drawCurve(
 */
 void PlotVisualisation::clearPlot()
 {
+  m_chart->removeAxis(m_axisY);
+  m_chart->removeAxis(m_axisX);
   m_chart->removeAllSeries();
   _curvesPerGuide.clear();
 }

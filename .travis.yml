@@ -90,6 +90,8 @@ matrix:
               - export PATH="/usr/local/opt/qt/bin:$PATH"
               - CC=/usr/local/opt/llvm@6/bin/clang CXX=/usr/local/opt/llvm@6/bin/clang++ cmake -G"${TRAVIS_CMAKE_GENERATOR}" -DPCRASTER_BUILD_TEST:BOOL=TRUE ..
           script:
+              - pwd
+              - cd
               - ./environment/travis/script.sh
 
 

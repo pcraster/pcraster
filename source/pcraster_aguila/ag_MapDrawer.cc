@@ -18,7 +18,6 @@
 */
 
 
-
 namespace ag {
 
 // Code that is private to this module.
@@ -71,26 +70,33 @@ QRectF MapDrawer::envelopeInPixels(
 }
 
 
+boost::tuple<QTransform, QTransform> MapDrawer::mappers(
+         QRectF const& envelopeInPixels) const{
 
-boost::tuple<QwtScaleMap, QwtScaleMap> MapDrawer::mappers(
-         QRectF const& envelopeInPixels) const
-{
-  // map -> pixels
-  QwtScaleMap xMapper, yMapper;
-  xMapper.setScaleInterval(_overallDimensions.west(), _overallDimensions.east());
-  xMapper.setPaintInterval(envelopeInPixels.left(), envelopeInPixels.right());
-  yMapper.setScaleInterval(_overallDimensions.north(), _overallDimensions.south());
-  yMapper.setPaintInterval(envelopeInPixels.top(), envelopeInPixels.bottom());
 
-  return boost::make_tuple(xMapper, yMapper);
+  double x = (_overallDimensions.east() - _overallDimensions.west()) /(envelopeInPixels.right() - envelopeInPixels.left()) ;
+  double y = -1.0 * std::fabs((_overallDimensions.south()  -_overallDimensions.north()) / (envelopeInPixels.bottom() - envelopeInPixels.top()));
+  double dx = -1*x*(envelopeInPixels.left())  + _overallDimensions.west() ;
+  double dy = -1*y*(envelopeInPixels.top()) + _overallDimensions.north();
+
+  QTransform  screen_to_world = QTransform(x, 0.0, 0.0, 0.0, y, 0.0, dx, dy, 1.0);
+  QTransform  world_to_screen= screen_to_world.inverted();
+
+  return boost::make_tuple(world_to_screen, screen_to_world);
 }
 
 
 
 double MapDrawer::scale(
-         QwtScaleMap const& mapper) const
+         QTransform const& mapper) const
 {
-  return mapper.pDist() / mapper.sDist();
+  if(mapper.m11() > 0){
+    return mapper.m11();
+  }
+  else{
+    assert (mapper.m22() > 0);
+    return mapper.m22();
+  }
 }
 
 
@@ -120,8 +126,8 @@ void MapDrawer::draw(
 
   // Mappers for translating between real world coordinates and screen
   // coordinates.
-  QwtScaleMap xMapper, yMapper;
-  boost::tie(xMapper, yMapper) = mappers(envelopeInPixels);
+  QTransform world_to_screen, screen_to_world;
+  boost::tie(world_to_screen, screen_to_world) = mappers(envelopeInPixels);
 
   // Actual area of the screen that possibly contains stuff to draw.
   // QRect dirtyMapAreaInPixels = envelopeInPixels & dirtyScreenArea;
@@ -131,30 +137,30 @@ void MapDrawer::draw(
     return;
   }
 
-  draw(painter, dirtyMapAreaInPixels, xMapper, yMapper);
+  draw(painter, dirtyMapAreaInPixels, world_to_screen, screen_to_world);
 }
 
 
 
-void MapDrawer::drawOutline(
-         QPainter& painter,
-         QwtScaleMap const& xMapper,
-         QwtScaleMap const& yMapper) const
-{
-  double westScreen = xMapper.transform(_attributeDimensions.west());
-  double eastScreen = xMapper.transform(_attributeDimensions.east());
-  double northScreen = yMapper.transform(_attributeDimensions.north());
-  double southScreen = yMapper.transform(_attributeDimensions.south());
-
-  painter.setRenderHint(QPainter::Antialiasing);
-  painter.setPen(Qt::black);
-  painter.setBrush(Qt::NoBrush);
-
-  painter.drawRect(westScreen, northScreen, eastScreen - westScreen + 1,
-         southScreen - northScreen + 1);
-  painter.drawLine(westScreen, northScreen, eastScreen, southScreen);
-  painter.drawLine(eastScreen, northScreen, westScreen, southScreen);
-}
+// void MapDrawer::drawOutline(
+//          QPainter& painter,
+//          QwtScaleMap const& xMapper,
+//          QwtScaleMap const& yMapper) const
+// {
+//   double westScreen = xMapper.transform(_attributeDimensions.west());
+//   double eastScreen = xMapper.transform(_attributeDimensions.east());
+//   double northScreen = yMapper.transform(_attributeDimensions.north());
+//   double southScreen = yMapper.transform(_attributeDimensions.south());
+//
+//   painter.setRenderHint(QPainter::Antialiasing);
+//   painter.setPen(Qt::black);
+//   painter.setBrush(Qt::NoBrush);
+//
+//   painter.drawRect(westScreen, northScreen, eastScreen - westScreen + 1,
+//          southScreen - northScreen + 1);
+//   painter.drawLine(westScreen, northScreen, eastScreen, southScreen);
+//   painter.drawLine(eastScreen, northScreen, westScreen, southScreen);
+// }
 
 
 

@@ -6,7 +6,7 @@
 // External headers.
 #include <boost/noncopyable.hpp>
 #include <boost/tuple/tuple.hpp>
-#include <qwt_scale_map.h>
+#include <QTransform>
 
 // Project headers.
 #include "dal_SpaceDimensions.h"
@@ -16,12 +16,13 @@
 
 
 class QPainter;
+class QPointF;
 class QPoint;
 class QRectF;
+
 namespace ag {
   // MapDrawer declarations.
 }
-
 
 
 namespace ag {
@@ -47,8 +48,9 @@ private:
 
   virtual void     draw                (QPainter& painter,
                                         QRectF const& dirtyMapAreaInPixels,
-                                        QwtScaleMap const& xMapper,
-                                        QwtScaleMap const& yMapper) const=0;
+                                        QTransform const& world_to_screen,
+                                        QTransform const& screen_to_world
+                                       ) const=0;
 
 protected:
 
@@ -60,14 +62,14 @@ protected:
                                         QPointF const& offset,
                                         double scale) const;
 
-  boost::tuple<QwtScaleMap, QwtScaleMap> mappers(
+  boost::tuple<QTransform, QTransform> mappers(
                                         QRectF const& envelopeInPixels) const;
 
-  double           scale               (QwtScaleMap const& mapper) const;
+  double           scale               (QTransform const& mapper) const;
 
-  void             drawOutline         (QPainter& painter,
-                                        QwtScaleMap const& xMapper,
-                                        QwtScaleMap const& yMapper) const;
+//   void             drawOutline         (QPainter& painter,
+//                                         QwtScaleMap const& xMapper,
+//                                         QwtScaleMap const& yMapper) const;
 
 public:
 

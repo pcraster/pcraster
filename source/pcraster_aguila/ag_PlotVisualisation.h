@@ -6,24 +6,24 @@
 // Library headers.
 #include <map>
 #include <boost/noncopyable.hpp>
-#include <qwt_plot.h>
+#include <QtCharts/QChartView>
+#include <QtCharts/QLineSeries>
+#include <QtCharts/QValueAxis>
+#include <QtWidgets/QGraphicsView>
 
 // PCRaster library headers.
 #include "ag_DataGuide.h"
 #include "ag_IVisualisation.h"
+#include "ag_LineMarker.h"
 
 // Module headers.
 
 
 
-class QwtPlotCurve;
-class QwtPlotMarker;
-class QwtPlotPicker;
 namespace ag {
   // PlotVisualisation declarations.
   class DataObject;
 }
-
 
 
 namespace ag {
@@ -34,7 +34,9 @@ namespace ag {
 /*!
   longer_description_HORRIBLE_LONG_STRING_TO_NOTICE_THAT_IT_SHOULD_BE_REPLACED
 */
-class PlotVisualisation: public QwtPlot,
+class PlotVisualisation: //public QWidget,//
+                         //public QGraphicsView, //
+                         public QtCharts::QChartView,
                          public ag::IVisualisation,
                          private boost::noncopyable
 {
@@ -43,9 +45,9 @@ private:
 
   Q_OBJECT
 
-  QwtPlotMarker*   _xMarker;
+  LineMarker*       _xMarker;
 
-  QwtPlotMarker*   _yMarker;
+  LineMarker*       _yMarker;
 
   long int         _xMarkerId;
 
@@ -57,9 +59,9 @@ private:
 
   long int         _selectedMarkerId;
 
-  std::map<DataGuide, std::vector<QwtPlotCurve*> > _curvesPerGuide;
+  std::map<DataGuide, std::vector<QtCharts::QLineSeries*>> _curvesPerGuide;
 
-  QwtPlotPicker*   _picker;
+// // // // //   QwtPlotPicker*   _picker;
 
 protected:
 
@@ -108,6 +110,14 @@ protected:
   bool             onlyCumulativeProbabilitiesShown() const;
 
   bool             onlyExceedanceProbabilitiesShown() const;
+
+  QtCharts::QChart *m_chart;
+
+  QtCharts::QValueAxis *m_axisX;
+
+  QtCharts::QValueAxis *m_axisY;
+
+  void             mousePressEvent(QMouseEvent *event);
 
 protected Q_SLOTS:
 

@@ -8,7 +8,6 @@
 
 
 
-class QwtScaleMap;
 namespace ag {
   class DataGuide;
   class DataObject;
@@ -58,7 +57,7 @@ private:
   void             paintVectorLegend   ();
 
   void             paintLabels         (QPainter& painter,
-                                        QwtScaleMap const& map,
+                                        QTransform const& map,
                                         std::vector<double> const& borders,
                                         bool drawTics=true) const;
 

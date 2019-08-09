@@ -7,7 +7,6 @@
 // Qt
 #include <QApplication>
 #include <QPainter>
-#include <qwt_scale_map.h>
 
 // Pcr
 #include "com_classifier.h"
@@ -34,7 +33,7 @@ size_t RangeLegendBody::_nrCreated(0);
 
 QSize RangeLegendBody::_keyBoxOffset(0, 0);
 
-int RangeLegendBody::_maxKeyBoxHeight(120);
+int RangeLegendBody::_maxKeyBoxHeight(125);
 
 
 
@@ -177,14 +176,13 @@ void RangeLegendBody::paintKeyLegend()
   assert(!borders.empty());
 
   // Values -> pixels.
-  QwtScaleMap map;
-  map.setScaleInterval(_drawProperties.maxCutoff(),
-       _drawProperties.minCutoff());
-  map.setPaintInterval(0, keyBoxHeight());
+  double y_factor = -1.0 * keyBoxHeight() / (_drawProperties.maxCutoff() - _drawProperties.minCutoff()) ;
+  double y_offset = keyBoxHeight() - _drawProperties.minCutoff() * y_factor;
 
-  assert(qRound(map.transform(_drawProperties.maxCutoff())) == 0);
-  assert(qRound(map.transform(
-       _drawProperties.minCutoff())) == keyBoxHeight());
+  QTransform map = QTransform(0, 0, 0, 0, y_factor, 0, 0, y_offset, 1);
+
+  assert(qRound(map.map(QPointF(0, _drawProperties.maxCutoff())).y()) == 0);
+  assert(qRound(map.map(QPointF(0, _drawProperties.minCutoff())).y()) == keyBoxHeight());
 
   left = keyBoxOffset().width();
 
@@ -200,14 +198,14 @@ void RangeLegendBody::paintKeyLegend()
 
     // Draw keyboxes. --------------------------------------------------------
     for(size_t i = 0; i < (borders.size() - 1); ++i) {
-      top = keyBoxOffset().height() + qRound(map.transform(borders[i]));
+      top = keyBoxOffset().height() + qRound(map.map(QPointF(0, borders[i])).y());
       painter.setPen(_drawProperties.colourByIndex(
             borders.size() - i - 2));
       painter.setBrush(_drawProperties.colourByIndex(
             borders.size() - i - 2));
       painter.drawRect(left, top, keySize().width(),
-            qRound(map.transform(borders[i + 1]) -
-                 map.transform(borders[i])));
+            qRound(map.map(QPointF(0, borders[i + 1])).y() -
+                 map.map(QPointF(0, borders[i])).y() ));
     }
 
     // Draw the box *on top of* the keys. ------------------------------------
@@ -220,7 +218,7 @@ void RangeLegendBody::paintKeyLegend()
   }
   else if(_drawProperties.drawerType() == CONTOUR) {
     for(size_t i = 0; i < (borders.size() - 1); ++i) {
-      top = keyBoxOffset().height() + qRound(map.transform(borders[i]));
+      top = keyBoxOffset().height()  + qRound(map.map(QPointF(0, borders[i])).y());
       painter.setPen(_drawProperties.colourByIndex(borders.size() - i - 2));
       painter.drawLine(left, top, left + keySize().width(), top);
     }
@@ -244,14 +242,13 @@ void RangeLegendBody::paintVectorLegend()
   std::reverse(borders.begin(), borders.end());
 
   // Values -> pixels.
-  QwtScaleMap map;
-  map.setScaleInterval(_drawProperties.maxCutoff(),
-       _drawProperties.minCutoff());
-  map.setPaintInterval(0, keyBoxHeight());
+  double delta = -1.0 * keyBoxHeight() / (_drawProperties.maxCutoff() - _drawProperties.minCutoff()) ;
+  double y_offset = keyBoxHeight() - _drawProperties.minCutoff() * delta;
 
-  assert(qRound(map.transform(_drawProperties.maxCutoff())) == 0);
-  assert(qRound(map.transform(
-       _drawProperties.minCutoff())) == keyBoxHeight());
+  QTransform map = QTransform(0, 0, 0, 0, delta, 0, 0, y_offset, 1);
+
+  assert(qRound(map.map(QPointF(0, _drawProperties.maxCutoff())).y()) == 0);
+  assert(qRound(map.map(QPointF(0, _drawProperties.minCutoff())).y()) == keyBoxHeight());
 
   QPainter painter(this);
   painter.setRenderHint(QPainter::Antialiasing);
@@ -259,14 +256,12 @@ void RangeLegendBody::paintVectorLegend()
   {
     int center, top, bottom;
     center = keyBoxOffset().width() + keySize().width();
-    bottom = keyBoxOffset().height() +
-         qRound(map.transform(*(borders.end() - 1)));
-
+    bottom = keyBoxOffset().height() + qRound(map.map(QPointF(0, *(borders.end() - 1))).y());
     painter.setPen(Qt::black);
 
     // Draw keyboxes. --------------------------------------------------------
     for(size_t i = 0; i < (borders.size() - 1); ++i) {
-      top = keyBoxOffset().height() + qRound(map.transform(borders[i]));
+      top = keyBoxOffset().height() + qRound(map.map(QPointF(0, borders[i])).y());
 
       painter.drawLine(center, bottom, center    , top    );
       painter.drawLine(center, top   , center - 3, top + 5);
@@ -291,7 +286,7 @@ void RangeLegendBody::paintVectorLegend()
 
 void RangeLegendBody::paintLabels(
          QPainter& painter,
-         QwtScaleMap const& map,
+         QTransform const& map,
          std::vector<double> const& borders,
          bool drawTics) const
 {
@@ -307,8 +302,8 @@ void RangeLegendBody::paintLabels(
 
   // Height available for drawing labels.
   int keyBoxHeightForLabels =
-       qRound(map.transform(borders.back())) -
-       qRound(map.transform(borders.front())) + 1;
+  qRound(map.map(QPointF(0, borders.back())).y()) -
+  qRound(map.map(QPointF(0, borders.front())).y()) + 1;
 
   // Determine the number of borders which can be labeled, based on the
   // height of the current font.
@@ -349,9 +344,9 @@ void RangeLegendBody::paintLabels(
             RangeDrawProps::ExceedanceProbabilities);
 
     // Lower in case of cum prob, higher in case of exceed prob.
-    double classHeightInPixels = map.transform(borders[1]) -
-       map.transform(borders[0]);
-    bottom = keyBoxOffset().height() + qRound(map.transform(borders[0]) +
+    double classHeightInPixels = map.map(QPointF(0, borders[1])).y() -
+       map.map(QPointF(0, borders[0])).y();
+    bottom = keyBoxOffset().height() + qRound(map.map(QPointF(0, borders[0])).y() +
        classHeightInPixels / 2.0);
     painter.drawText(right + labelOffset().width(),
             bottom + labelOffset().height(),
@@ -361,17 +356,17 @@ void RangeLegendBody::paintLabels(
                       : "Higher");
 
     // Not distinguishable.
-    classHeightInPixels = map.transform(borders[2]) -
-       map.transform(borders[1]);
-    bottom = keyBoxOffset().height() + qRound(map.transform(borders[1]) +
+    classHeightInPixels = map.map(QPointF(0, borders[2])).y() -
+       map.map(QPointF(0, borders[1])).y();
+    bottom = keyBoxOffset().height() + qRound(map.map(QPointF(0, borders[1])).y() +
        classHeightInPixels / 2.0);
     painter.drawText(right + labelOffset().width(),
             bottom + labelOffset().height(), "Not distinguishable");
 
     // Higher in case of cum prob, lower in case of exceed prob.
-    classHeightInPixels = map.transform(borders[3]) -
-       map.transform(borders[2]);
-    bottom = keyBoxOffset().height() + qRound(map.transform(borders[2]) +
+    classHeightInPixels = map.map(QPointF(0, borders[3])).y() -
+       map.map(QPointF(0, borders[2])).y();
+    bottom = keyBoxOffset().height() + qRound(map.map(QPointF(0, borders[2])).y() +
        classHeightInPixels / 2.0);
     painter.drawText(right + labelOffset().width(),
             bottom + labelOffset().height(),
@@ -383,7 +378,7 @@ void RangeLegendBody::paintLabels(
   else {
     // Regular legend.
     for(size_t i = 0; i < borders.size(); i += incr) {
-      top = keyBoxOffset().height() + qRound(map.transform(borders[i]));
+      top = keyBoxOffset().height() + qRound(map.map(QPointF(0, borders[i])).y());
       bottom = top;
 
       if(drawTics) {

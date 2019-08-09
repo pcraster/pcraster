@@ -5,7 +5,6 @@
 #include <boost/scoped_ptr.hpp>
 #include <QApplication>
 #include <QPen>
-#include <qwt_plot_canvas.h>
 
 // PCRaster library headers.
 #include "dal_MathUtils.h"
@@ -72,7 +71,7 @@ PlotView::PlotView(DataObject* object,
   // setAxisFont(xBottom, QApplication::font());
   // setAxisFont(yLeft, QApplication::font());
 
-  canvas()->setCursor(Qt::PointingHandCursor);
+  this->setCursor(Qt::PointingHandCursor);
 }
 
 
@@ -147,7 +146,7 @@ void PlotView::process()
 void PlotView::visualise()
 {
   if(replotRequired()) {
-    replot();
+// // // // // //     replot(); QWT QWT QWT QWT QWT
   }
 
   visualisationEngine().finishedScanning(dataObject());
@@ -168,37 +167,30 @@ void PlotView::addAttribute(
 
 void PlotView::setXAxisTitle()
 {
-  QwtText title;
-
-  title.setFont(QApplication::font());
-  title.setText(QString("Time step"));
-  setAxisTitle(xBottom, title);
+  m_axisX->setTitleFont(QApplication::font());
+  m_axisX->setTitleText(QString("Time step"));
 }
 
 
 
 void PlotView::setYAxisTitle()
 {
-  QwtText title;
-
-  title.setFont(QApplication::font());
+  m_axisY->setTitleFont(QApplication::font());
 
   if(!dataObject().hasSelectedValue()) {
-    title.setText(QString("Value"));
+    m_axisY->setTitleText(QString("Value"));
   }
   else {
     if(onlyCumulativeProbabilitiesShown()) {
-      title.setText(QString("Cumulative probability"));
+      m_axisY->setTitleText(QString("Cumulative probability"));
     }
     else if(onlyExceedanceProbabilitiesShown()) {
-      title.setText(QString("Exceedance probability"));
+      m_axisY->setTitleText(QString("Exceedance probability"));
     }
     else {
-      title.setText(QString("Probability"));
+      m_axisY->setTitleText(QString("Probability"));
     }
   }
-
-  setAxisTitle(yLeft, title);
 }
 
 
@@ -213,7 +205,11 @@ void PlotView::setXAxisScale()
   size_t last = dimension.value<size_t>(1);
   assert(last >= first);
 
-  setAxisScale(xBottom, double(first), double(last));
+  m_axisX->setRange(first, last);
+// // // // // // // // //   // m_axisX->setTickCount((last - first + 1) / 5);
+  m_axisX->setLabelFormat("%d");
+  m_chart->addAxis(m_axisX, Qt::AlignBottom);
+
 }
 
 
@@ -276,7 +272,9 @@ void PlotView::setYAxisScale()
   //   }
   // }
 
-  setAxisScale(yLeft, min, max);
+
+  m_axisY->setRange(min, max);
+  m_chart->addAxis(m_axisY, Qt::AlignLeft);
 }
 
 

@@ -38,24 +38,24 @@ private:
 
   void             draw                (QPainter& painter,
                                         QRectF const& dirtyMapAreaInPixels,
-                                        QwtScaleMap const& xMapper,
-                                        QwtScaleMap const& yMapper) const;
+                                        QTransform const& world_to_screen,
+                                        QTransform const& screen_to_world) const;
 
   virtual void     draw                (QPainter& painter,
                                         QRect const& indices,
-                                        QwtScaleMap const& xMapper,
-                                        QwtScaleMap const& yMapper) const=0;
+                                        QTransform const& world_to_screen,
+                                        QTransform const& screen_to_world) const=0;
 
-  void             draw2               (QPainter& painter,
-                                        QRect const& indices,
-                                        QwtScaleMap const& xMapper,
-                                        QwtScaleMap const& yMapper) const;
+//   void             draw2               (QPainter& painter,
+//                                         QRect const& indices,
+//                                         QwtScaleMap const& xMapper,
+//                                         QwtScaleMap const& yMapper) const;
 
   template<typename T>
   void             drawCells           (QPainter& painter,
                                         QRect const& indices,
-                                        QwtScaleMap const& xMapper,
-                                        QwtScaleMap const& yMapper) const;
+                                        QTransform const& world_to_screen,
+                                        QTransform const& screen_to_world) const;
 
 protected:
 
@@ -64,14 +64,14 @@ protected:
 
   // RasterDataset const& raster          () const;
 
-  double           cellSizeInPixels    (QwtScaleMap const& mapper) const;
+  double           cellSizeInPixels    (QTransform const& mapper) const;
 
-  size_t           nrCellsPerPixel     (QwtScaleMap const& mapper) const;
+  size_t           nrCellsPerPixel     (QTransform const& mapper) const;
 
   virtual void     drawCells           (QPainter& painter,
                                         QRect const& indices,
-                                        QwtScaleMap const& xMapper,
-                                        QwtScaleMap const& yMapper) const;
+                                        QTransform const& world_to_screen,
+                                        QTransform const& screen_to_world) const;
 
 public:
 

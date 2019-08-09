@@ -4,6 +4,8 @@
 #include <cassert>
 #include <cmath>
 #include <QPainter>
+#include <QtCharts/QtCharts>
+#include <QGraphicsView>
 
 // Project headers.
 
@@ -72,15 +74,15 @@ RasterDrawer::~RasterDrawer()
 
 
 double RasterDrawer::cellSizeInPixels(
-         QwtScaleMap const& mapper) const
+         QTransform const& mapper) const
 {
-  return scale(mapper) * _raster->dimensions().cellSize();
+  return mapper.m11() * _raster->dimensions().cellSize();
 }
 
 
 
 size_t RasterDrawer::nrCellsPerPixel(
-         QwtScaleMap const& mapper) const
+         QTransform const& mapper) const
 {
   double nrCellsPerPixel = 1.0 / cellSizeInPixels(mapper);
 
@@ -94,8 +96,8 @@ size_t RasterDrawer::nrCellsPerPixel(
 void RasterDrawer::draw(
          QPainter& painter,
          QRectF const& dirtyMapAreaInPixels,
-         QwtScaleMap const& xMapper,
-         QwtScaleMap const& yMapper) const
+         QTransform const& world_to_screen,
+         QTransform const& screen_to_world) const
 {
   // painter.setPen(Qt::black);
   // painter.setBrush(Qt::blue);
@@ -109,12 +111,10 @@ void RasterDrawer::draw(
 
   // Convert dirtyMapAreaInPixels to dirtyMapAreaInWorldCoordinates.
   QRectF dirtyMapAreaInWorldCoordinates(
-    QPointF(
-         xMapper.invTransform(dirtyMapAreaInPixels.left()),
-         yMapper.invTransform(dirtyMapAreaInPixels.top())),
-    QPointF(
-         xMapper.invTransform(dirtyMapAreaInPixels.right()),
-         yMapper.invTransform(dirtyMapAreaInPixels.bottom())));
+    screen_to_world.map( QPointF(dirtyMapAreaInPixels.left(), dirtyMapAreaInPixels.top()) ),
+    screen_to_world.map( QPointF(dirtyMapAreaInPixels.right(), dirtyMapAreaInPixels.bottom()) )
+  );
+
   // This rectangle is invalid in Qt's sense because of the y-coordinate
   // projection.
   // assert(!dirtyMapAreaInWorldCoordinates.isEmpty());
@@ -156,56 +156,56 @@ void RasterDrawer::draw(
   assert(indices.top() >= 0);
   assert(indices.bottom() < static_cast<int>(_raster->dimensions().nrRows()));
 
-  draw(painter, indices, xMapper, yMapper);
+  draw(painter, indices, world_to_screen, screen_to_world);
 }
 
 
 
-void RasterDrawer::draw2(
-         QPainter& painter,
-         QRect const& indices,
-         QwtScaleMap const& xMapper,
-         QwtScaleMap const& yMapper) const
-{
-  size_t nrCellsPerPixel = this->nrCellsPerPixel(xMapper);
-  double leftScreen, topScreen, rightScreen, bottomScreen;
-  double leftWorld, topWorld, rightWorld, bottomWorld;
-
-  size_t firstRow = static_cast<size_t>(indices.top());
-  size_t lastRow = static_cast<size_t>(indices.bottom());
-  size_t firstCol = static_cast<size_t>(indices.left());
-  size_t lastCol = static_cast<size_t>(indices.right());
-
-  painter.setRenderHint(QPainter::Antialiasing, false);
-  painter.setPen(Qt::black);
-  painter.setBrush(Qt::red);
-
-  for(size_t row = firstRow; row <= lastRow; row += nrCellsPerPixel) {
-    for(size_t col = firstCol; col <= lastCol; col += nrCellsPerPixel) {
-
-        _raster->dimensions().coordinates(row, col, leftWorld, topWorld);
-        leftScreen = xMapper.invTransform(leftWorld);
-        topScreen = yMapper.invTransform(topWorld);
-
-        // Determine if the next cells should be drawn in the same colour.
-        col += nrCellsPerPixel;
-
-        while(col <= lastCol) {
-          col += nrCellsPerPixel;
-        }
-
-        col -= nrCellsPerPixel;
-
-        _raster->dimensions().coordinates(row + nrCellsPerPixel,
-              col + nrCellsPerPixel, rightWorld, bottomWorld);
-        rightScreen = xMapper.invTransform(rightWorld);
-        bottomScreen = yMapper.invTransform(bottomWorld);
-
-        painter.drawRect(leftScreen, topScreen, rightScreen - leftScreen + 1,
-                 bottomScreen - topScreen + 1);
-    }
-  }
-}
+// void RasterDrawer::draw2(
+//          QPainter& painter,
+//          QRect const& indices,
+//          QwtScaleMap const& xMapper,
+//          QwtScaleMap const& yMapper) const
+// {
+//   size_t nrCellsPerPixel = this->nrCellsPerPixel(xMapper);
+//   double leftScreen, topScreen, rightScreen, bottomScreen;
+//   double leftWorld, topWorld, rightWorld, bottomWorld;
+//
+//   size_t firstRow = static_cast<size_t>(indices.top());
+//   size_t lastRow = static_cast<size_t>(indices.bottom());
+//   size_t firstCol = static_cast<size_t>(indices.left());
+//   size_t lastCol = static_cast<size_t>(indices.right());
+//
+//   painter.setRenderHint(QPainter::Antialiasing, false);
+//   painter.setPen(Qt::black);
+//   painter.setBrush(Qt::red);
+//
+//   for(size_t row = firstRow; row <= lastRow; row += nrCellsPerPixel) {
+//     for(size_t col = firstCol; col <= lastCol; col += nrCellsPerPixel) {
+//
+//         _raster->dimensions().coordinates(row, col, leftWorld, topWorld);
+//          leftScreen = xMapper.invTransform(leftWorld);
+//          topScreen = yMapper.invTransform(topWorld);
+//
+//         // Determine if the next cells should be drawn in the same colour.
+//         col += nrCellsPerPixel;
+//
+//         while(col <= lastCol) {
+//           col += nrCellsPerPixel;
+//         }
+//
+//         col -= nrCellsPerPixel;
+//
+//         _raster->dimensions().coordinates(row + nrCellsPerPixel,
+//               col + nrCellsPerPixel, rightWorld, bottomWorld);
+//          rightScreen = xMapper.invTransform(rightWorld);
+//          bottomScreen = yMapper.invTransform(bottomWorld);
+//
+//         painter.drawRect(leftScreen, topScreen, rightScreen - leftScreen + 1,
+//                  bottomScreen - topScreen + 1);
+//     }
+//   }
+// }
 
 
 
@@ -213,10 +213,10 @@ template<typename T>
 void RasterDrawer::drawCells(
          QPainter& painter,
          QRect const& indices,
-         QwtScaleMap const& xMapper,
-         QwtScaleMap const& yMapper) const
+         QTransform const& world_to_screen,
+         QTransform const& screen_to_world) const
 {
-  size_t nrCellsPerPixel = this->nrCellsPerPixel(xMapper);
+  size_t nrCellsPerPixel = this->nrCellsPerPixel(world_to_screen);
   double leftScreen, topScreen, rightScreen, bottomScreen;
   double leftWorld, topWorld, rightWorld, bottomWorld;
 
@@ -240,8 +240,10 @@ void RasterDrawer::drawCells(
     for(size_t col = firstCol; col <= lastCol; col += nrCellsPerPixel) {
       if(!_raster->isMV(row, col)) {
         _raster->dimensions().coordinates(row, col, leftWorld, topWorld);
-        leftScreen = xMapper.transform(leftWorld);
-        topScreen = yMapper.transform(topWorld);
+
+        QPointF p = QPointF(leftWorld, topWorld);
+        leftScreen = world_to_screen.map(p).x();
+        topScreen = world_to_screen.map(p).y();
 
         // Determine if the next cells should be drawn in the same colour.
         col += nrCellsPerPixel;
@@ -254,8 +256,10 @@ void RasterDrawer::drawCells(
 
         _raster->dimensions().coordinates(row + nrCellsPerPixel,
               col + nrCellsPerPixel, rightWorld, bottomWorld);
-        rightScreen = xMapper.transform(rightWorld);
-        bottomScreen = yMapper.transform(bottomWorld);
+
+        p = QPointF(rightWorld, bottomWorld);
+        rightScreen = world_to_screen.map(p).x();
+        bottomScreen = world_to_screen.map(p).y();
 
         painter.fillRect(leftScreen, topScreen, (rightScreen - leftScreen) + 1,
               (bottomScreen - topScreen) + 1, colour);
@@ -269,40 +273,40 @@ void RasterDrawer::drawCells(
 void RasterDrawer::drawCells(
          QPainter& painter,
          QRect const& indices,
-         QwtScaleMap const& xMapper,
-         QwtScaleMap const& yMapper) const
+         QTransform const& world_to_screen,
+         QTransform const& screen_to_world) const
 {
   switch(_raster->typeId()) {
     case dal::TI_INT1: {
-      drawCells<INT1>(painter, indices, xMapper, yMapper);
+      drawCells<INT1>(painter, indices, world_to_screen, screen_to_world);
       break;
     }
     case dal::TI_INT2: {
-      drawCells<INT2>(painter, indices, xMapper, yMapper);
+      drawCells<INT2>(painter, indices, world_to_screen, screen_to_world);
       break;
     }
     case dal::TI_INT4: {
-      drawCells<INT4>(painter, indices, xMapper, yMapper);
+      drawCells<INT4>(painter, indices, world_to_screen, screen_to_world);
       break;
     }
     case dal::TI_UINT1: {
-      drawCells<UINT1>(painter, indices, xMapper, yMapper);
+      drawCells<UINT1>(painter, indices, world_to_screen, screen_to_world);
       break;
     }
     case dal::TI_UINT2: {
-      drawCells<UINT2>(painter, indices, xMapper, yMapper);
+      drawCells<UINT2>(painter, indices, world_to_screen, screen_to_world);
       break;
     }
     case dal::TI_UINT4: {
-      drawCells<UINT4>(painter, indices, xMapper, yMapper);
+      drawCells<UINT4>(painter, indices, world_to_screen, screen_to_world);
       break;
     }
     case dal::TI_REAL4: {
-      drawCells<REAL4>(painter, indices, xMapper, yMapper);
+      drawCells<REAL4>(painter, indices, world_to_screen, screen_to_world);
       break;
     }
     case dal::TI_REAL8: {
-      drawCells<REAL8>(painter, indices, xMapper, yMapper);
+      drawCells<REAL8>(painter, indices, world_to_screen, screen_to_world);
       break;
     }
     default: {

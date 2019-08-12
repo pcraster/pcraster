@@ -145,9 +145,9 @@ void PlotView::process()
 
 void PlotView::visualise()
 {
-  if(replotRequired()) {
+// // // // // //   if(replotRequired()) {
 // // // // // //     replot(); QWT QWT QWT QWT QWT
-  }
+// // // // // //   }
 
   visualisationEngine().finishedScanning(dataObject());
 }
@@ -207,13 +207,17 @@ void PlotView::setXAxisScale()
 
   m_axisX->setRange(first, last);
 
+// TODO fix this later ...
 #if QT_VERSION >= 0x051200
-  // TODO fix this later ...
   m_axisX->setTickInterval(1);
+#else
+  m_axisX->setTickCount(4);
 #endif
 
   m_axisX->setLabelFormat("%d");
   m_chart->addAxis(m_axisX, Qt::AlignBottom);
+
+  setXMarker(first);
 
 }
 
@@ -278,6 +282,8 @@ void PlotView::setYAxisScale()
   // }
 
   m_axisY->setRange(min, max);
+
+  m_axisY->setLabelFormat("%d");
   m_chart->addAxis(m_axisY, Qt::AlignLeft);
 }
 

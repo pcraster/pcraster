@@ -2,8 +2,6 @@
 
 #include <QtGui/QPainter>
 
-
-
 #include <iostream>
 
 
@@ -34,24 +32,41 @@ QRectF LineMarker::boundingRect() const
 
 void LineMarker::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
+  QPainterPath linePath;
+  painter->setPen(QPen(Qt::gray, 2));
 
-    QPainterPath linePath;
+  linePath.moveTo(m_chart->mapToPosition(m_anchor).x(), m_chart->mapToPosition(QPointF(0, m_ymin)).y());
+  linePath.lineTo(m_chart->mapToPosition(m_anchor).x(), m_chart->mapToPosition(QPointF(0, m_ymax)).y());
 
-    linePath.moveTo(m_chart->mapToPosition(m_anchor).x(), m_chart->mapToPosition(m_anchor).y());
-    linePath.lineTo(m_chart->mapToPosition(m_anchor).x(), 120);
-     painter->drawPath(linePath);
-
+  painter->drawPath(linePath);
 }
 
 
 void LineMarker::setAnchor(QPointF point)
 {
-    m_anchor = point;
+  m_anchor = point;
+}
+
+void LineMarker::set_y_interval(double ymin, double ymax){
+  m_ymin = ymin;
+  m_ymax = ymax;
+}
+
+
+void LineMarker::setXValue(double value){
+  setAnchor(QPointF(value, 0));
+  updateGeometry();
 }
 
 void LineMarker::updateGeometry()
 {
+  prepareGeometryChange();
 }
+
+
+
+
+
 
 
 } // namespace ag

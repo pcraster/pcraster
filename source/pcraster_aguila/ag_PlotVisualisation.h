@@ -34,9 +34,7 @@ namespace ag {
 /*!
   longer_description_HORRIBLE_LONG_STRING_TO_NOTICE_THAT_IT_SHOULD_BE_REPLACED
 */
-class PlotVisualisation: //public QWidget,//
-                         //public QGraphicsView, //
-                         public QtCharts::QChartView,
+class PlotVisualisation: public QtCharts::QChartView,
                          public ag::IVisualisation,
                          private boost::noncopyable
 {
@@ -118,6 +116,10 @@ protected:
   QtCharts::QValueAxis *m_axisY;
 
   void             mousePressEvent(QMouseEvent *event);
+
+  void             mouseMoveEvent(QMouseEvent *event);
+
+
 
 protected Q_SLOTS:
 

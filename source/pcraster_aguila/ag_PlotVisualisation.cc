@@ -60,7 +60,7 @@ public:
 
 namespace ag {
 
-  QT_CHARTS_USE_NAMESPACE
+QT_CHARTS_USE_NAMESPACE
 
 PlotVisualisation::PlotVisualisation(
          DataObject* object,
@@ -75,58 +75,29 @@ PlotVisualisation::PlotVisualisation(
 {
   setFocusPolicy(Qt::WheelFocus);
 
-  // Attaching here, before calling setXValue/setYValue results in a dump.
-  // Therefore attaching markers to the plot is handled in
-  // setXMarker/setYMarker.
-  // _xMarker->attach(this);
-  // _yMarker->attach(this);
+  setDragMode(QGraphicsView::NoDrag);
+  setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+  setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
 
-   setDragMode(QGraphicsView::NoDrag);
-   setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-   setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+  m_chart = new QChart;
+  m_chart->legend()->hide();
 
+  m_axisX = new QValueAxis;
+  m_axisY = new QValueAxis;
+  m_chart->addAxis(m_axisX, Qt::AlignBottom);
+  m_chart->addAxis(m_axisY, Qt::AlignLeft);
 
-    //m_chart->setMinimumSize(200, 100);
-    //m_chart->setTitle("Hover the line to show callout. Click the line to make it stay");
+  setRenderHint(QPainter::Antialiasing);
+  this->setChart(m_chart);
 
+  _xMarker = new LineMarker(m_chart);
 
-
-    m_chart = new QChart;
-    m_chart->legend()->hide();
-
-    m_axisX = new QValueAxis;
-    m_axisY = new QValueAxis;
-    m_chart->addAxis(m_axisX, Qt::AlignBottom);
-    m_chart->addAxis(m_axisY, Qt::AlignLeft);
-
-    setRenderHint(QPainter::Antialiasing);
-    this->setChart(m_chart);
-
-
-   _xMarker = nullptr;
-
-// // // // // // // // // // // // // // // // // // // // // // // // // // //   QwtPlotGrid* grid = new QwtPlotGrid();
-// // // // // // // // // // // // // // // // // // // // // // // // // // //   grid->attach(this);
-// // // // // // // // // // // // // // // // // // // // // // // // // // // #if QWT_VERSION >= 0x060100
-// // // // // // // // // // // // // // // // // // // // // // // // // // //   grid->setMajorPen(QPen(Qt::lightGray, 0, Qt::DotLine));
-// // // // // // // // // // // // // // // // // // // // // // // // // // //   grid->setMinorPen(QPen(Qt::lightGray, 0, Qt::DotLine));
-// // // // // // // // // // // // // // // // // // // // // // // // // // // #else
-// // // // // // // // // // // // // // // // // // // // // // // // // // //   grid->setMajPen(QPen(Qt::lightGray, 0, Qt::DotLine));
-// // // // // // // // // // // // // // // // // // // // // // // // // // //   grid->setMinPen(QPen(Qt::lightGray, 0, Qt::DotLine));
-// // // // // // // // // // // // // // // // // // // // // // // // // // // #endif
-// // // // // // // // // // // // // // // // // // // // // // // // // // //   grid->enableX(true);
-// // // // // // // // // // // // // // // // // // // // // // // // // // //   grid->enableY(true);
-// // // // // // // // // // // // // // // // // // // // // // // // // // //   grid->enableXMin(true);
-// // // // // // // // // // // // // // // // // // // // // // // // // // //   grid->enableYMin(true);
-// // // // // // // // // // // // // // // // // // // // // // // // // // //
-// // // // // // // // // // // // // // // // // // // // // // // // // // //   _xMarker->setLinePen(QPen(palette().color(QPalette::WindowText), 0,
-// // // // // // // // // // // // // // // // // // // // // // // // // // //          Qt::SolidLine));
-// // // // // // // // // // // // // // // // // // // // // // // // // // //   _yMarker->setLinePen(QPen(palette().color(QPalette::WindowText), 0,
-// // // // // // // // // // // // // // // // // // // // // // // // // // //          Qt::SolidLine));
-// // // // // // // // // // // // // // // // // // // // // // // // // // //
   _xMarkerId = 1;
   _yMarkerId = 2;
+
+
+
 // // // // // // // // // // // // // // // // // // // // // // // // // // //
 // // // // // // // // // // // // // // // // // // // // // // // // // // //   _picker = new QwtPlotPicker(canvas());
 // // // // // // // // // // // // // // // // // // // // // // // // // // //   connect(_picker, SIGNAL(selected(const QPointF&)),
@@ -153,14 +124,15 @@ PlotVisualisation::~PlotVisualisation()
 
 bool PlotVisualisation::close()
 {
-// // // // // // // // // // // // // // // // //   return QwtPlot::close();
+  // return QwtPlot::close();
+  return true;
 }
 
 
 
 void PlotVisualisation::enableMarker(
          long int marker)
-{
+{printf("PlotVisualisation::enableMarker \n");
   assert(marker == _xMarkerId || marker == _yMarkerId);
 
   if(marker == _xMarkerId) {
@@ -176,7 +148,7 @@ void PlotVisualisation::enableMarker(
 
 
 void PlotVisualisation::disableMarker(long int marker)
-{
+{printf("PlotVisualisation::disableMarker \n");
   assert(marker == _xMarkerId || marker == _yMarkerId);
 
   if(marker == _xMarkerId) {
@@ -225,20 +197,22 @@ long int PlotVisualisation::yMarker() const
 
 void PlotVisualisation::setXMarker(double value)
 {
-//   _xMarker->setXValue(value);
+  _xMarker->setXValue(value);
 }
 
 
 
 void PlotVisualisation::setYMarker(double value)
-{
-//   _yMarker->setYValue(value);
+{printf("PlotVisualisation::setYMarker %f\n",value);
+  //_yMarker->setYValue(value);
 }
 
 
 
 void PlotVisualisation::attachMarkers()
-{
+{printf("PlotVisualisation::attachMarkers\n");
+
+  _xMarker->set_y_interval(m_axisY->min(), m_axisY->max());
 //   _xMarker->attach(this);
 //   _yMarker->attach(this);
 }
@@ -246,7 +220,7 @@ void PlotVisualisation::attachMarkers()
 
 
 void PlotVisualisation::detachMarkers()
-{
+{printf("PlotVisualisation::detachMarkers\n");
 // // // // // // // // // // //   _xMarker->detach();
 // // // // // // // // // // //   _yMarker->detach();
 }
@@ -308,11 +282,6 @@ void PlotVisualisation::drawCurve(
     m_chart->addSeries(series);
     series->attachAxis(m_axisY);
     series->attachAxis(m_axisX);
-
-// // // // // // // // // // // // // // // // // // // // // // // // // // //     QwtPlotCurve* item = new QwtPlotCurve();
-// // // // // // // // // // // // // // // // // // // // // // // // // // //     item->setRenderHint(QwtPlotItem::RenderAntialiased);
-
-
   }
 }
 
@@ -339,21 +308,21 @@ void PlotVisualisation::clearPlot()
 
 
 void PlotVisualisation::trackClickPoint()
-{
+{printf("PlotVisualisation::trackClickPoint\n");
 // // // // // //   _picker->setStateMachine(new QwtPickerClickPointMachine);
 }
 
 
 
 void PlotVisualisation::trackDragPoint()
-{
+{printf("PlotVisualisation::trackDragPoint\n");
 // // // // // //   _picker->setStateMachine(new QwtPickerDragPointMachine);
 }
 
 
 
 void PlotVisualisation::trackDragRect()
-{
+{printf("PlotVisualisation::trackDragRect\n");
 // // // // // //   _picker->setStateMachine(new QwtPickerDragRectMachine);
 }
 
@@ -361,35 +330,35 @@ void PlotVisualisation::trackDragRect()
 
 void PlotVisualisation::selected(
          QPointF const& /* point */)
-{
+{printf("TODO remove? PlotVisualisation::moved\n");
 }
 
 
 
 void PlotVisualisation::selected(
          QRectF const& /* rect */)
-{
+{printf("TODO remove? PlotVisualisation::moved\n");
 }
 
 
 
 void PlotVisualisation::selected(
          QVector<QPointF> const& /* array */)
-{
+{printf("TODO remove? PlotVisualisation::moved\n");
 }
 
 
 
 void PlotVisualisation::appended(
          QPointF const& /* point */)
-{
+{printf("TODO remove? PlotVisualisation::moved\n");
 }
 
 
 
 void PlotVisualisation::moved(
          QPointF const& /* point */)
-{
+{printf("TODO remove? PlotVisualisation::moved\n");
 }
 
 
@@ -399,7 +368,7 @@ bool PlotVisualisation::intersectMarker(
          double* y,
          long int marker,
          DataGuide const& guide) const
-{
+{printf("PlotVisualisation::intersectMarker\n");
 // // // // // // // // // // // // // // // // // // // // // // // //   QLineF markerLine;
 // // // // // // // // // // // // // // // // // // // // // // // //
 // // // // // // // // // // // // // // // // // // // // // // // //   if(marker == _xMarkerId) {
@@ -581,32 +550,28 @@ bool PlotVisualisation::onlyExceedanceProbabilitiesShown() const
   return result;
 }
 
-
-
-
-
-
-
-
-
-
-
-
+// Moves the marker to the corresponding axis position
 void PlotVisualisation::mousePressEvent(QMouseEvent *event)
 {
+  double xval = std::round(m_chart->mapToValue(event->pos()).x() );
 
+  xval = std::max(xval, m_axisX->min());
+  xval = std::min(xval, m_axisX->max());
+
+  _xMarker->setAnchor(QPointF(xval, 0));
+
+  dataObject().setTimeStep(xval);
+  _xMarker->updateGeometry();
 }
 
 
-
-
-
-
-
-
-
-
-
+// Drags the marker to the corresponding axis position
+void PlotVisualisation::mouseMoveEvent(QMouseEvent *event)
+{
+  if (event->buttons() & Qt::LeftButton){
+    mousePressEvent(event);
+  }
+}
 
 
 

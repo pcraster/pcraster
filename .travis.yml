@@ -67,11 +67,6 @@ matrix:
               - TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
           before_install:
               - brew update
-              - which clang
-              - which clang++
-              - clang --version
-              - clang++ --version
-              - cmake --version
               - brew install llvm@6
               - clang --version
               - clang++ --version
@@ -90,8 +85,8 @@ matrix:
               - export PATH="/usr/local/opt/qt/bin:$PATH"
               - CC=/usr/local/opt/llvm@6/bin/clang CXX=/usr/local/opt/llvm@6/bin/clang++ cmake -G"${TRAVIS_CMAKE_GENERATOR}" -DPCRASTER_BUILD_TEST:BOOL=TRUE ..
           script:
+              - cd $TRAVIS_BUILD_DIR
               - pwd
-              - cd
               - ./environment/travis/script.sh
 
 

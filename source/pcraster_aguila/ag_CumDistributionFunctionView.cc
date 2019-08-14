@@ -58,7 +58,7 @@ CumDistributionFunctionView::CumDistributionFunctionView(
 
   trackDragPoint();
 
-// // // // //   canvas()->setCursor(Qt::PointingHandCursor);
+  this->setCursor(Qt::PointingHandCursor);
 }
 
 
@@ -132,7 +132,7 @@ void CumDistributionFunctionView::visualise()
          visualisationEngine().change() & VisEngine::TIME ||
          visualisationEngine().change() & VisEngine::QUANTILE ||
          visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
-// // // // // // // // //     replot();
+    update();
   }
 
   visualisationEngine().finishedScanning(dataObject());
@@ -152,7 +152,6 @@ void CumDistributionFunctionView::setXAxisTitle()
 {
   m_axisX->setTitleFont(QApplication::font());
   m_axisX->setTitleText(QString("Value"));
-// // // // //   xBottom
 }
 
 
@@ -243,7 +242,9 @@ void CumDistributionFunctionView::setXAxisScale()
 
   if(!pcr::isMV(min) && !pcr::isMV(max)) {
     assert(min <= max);
-// // // // //     setAxisScale(xBottom, min, max);
+
+    m_axisX->setRange(min, max);
+    m_chart->addAxis(m_axisX, Qt::AlignBottom);
   }
 }
 
@@ -277,7 +278,8 @@ void CumDistributionFunctionView::setYAxisScale()
     }
   }
 
-// // // // // // // // // // // // //   setAxisScale(yLeft, min, max);
+  m_axisY->setRange(min, max);
+  m_chart->addAxis(m_axisY, Qt::AlignLeft);
 }
 
 
@@ -503,23 +505,18 @@ void CumDistributionFunctionView::toggleMarker()
 
     // yMarker iterates over the x-axis. Probabilities will be shown in the
     // map.
-// // // // // // // // // // // // // // // // // // // // // // // //     if(!intersectMarker(&x, &y, yMarker(), guide)) {
-// // // // // // // // // // // // // // // // // // // // // // // //       // Marker does not intersect the curve of the first guide.
-// // // // // // // // // // // // // // // // // // // // // // // // #if QWT_VERSION >= 0x060100
-// // // // // // // // // // // // // // // // // // // // // // // //       // QwtPlot::axisScaleDiv returns a reference.
-// // // // // // // // // // // // // // // // // // // // // // // //       QwtScaleDiv const& scaleDiv = axisScaleDiv(xMarker());
-// // // // // // // // // // // // // // // // // // // // // // // // #else
-// // // // // // // // // // // // // // // // // // // // // // // //       // QwtPlot::axisScaleDiv returns a pointer.
-// // // // // // // // // // // // // // // // // // // // // // // //       QwtScaleDiv const& scaleDiv = *axisScaleDiv(xMarker());
-// // // // // // // // // // // // // // // // // // // // // // // // #endif
-// // // // // // // // // // // // // // // // // // // // // // // //
-// // // // // // // // // // // // // // // // // // // // // // // //       x = scaleDiv.lowerBound();
-// // // // // // // // // // // // // // // // // // // // // // // //
-// // // // // // // // // // // // // // // // // // // // // // // //       if(scaleDiv.range() > 0.0) {
-// // // // // // // // // // // // // // // // // // // // // // // //         // Use the middle value.
-// // // // // // // // // // // // // // // // // // // // // // // //         x += scaleDiv.range() / 2.0;
-// // // // // // // // // // // // // // // // // // // // // // // //       }
-// // // // // // // // // // // // // // // // // // // // // // // //     }
+
+    if(!intersectMarker(&x, &y, yMarker(), guide)) {
+      // Marker does not intersect the curve of the first guide.
+
+      x = m_axisX->min();
+      double range = m_axisX->max() - m_axisX->min();
+
+      if(range > 0.0) {
+        // Use the middle value.
+        x += range / 2.0;
+      }
+    }
 
     dataObject().setSelectedValue(x, false);
 

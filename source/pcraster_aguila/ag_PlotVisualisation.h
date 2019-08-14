@@ -45,7 +45,7 @@ private:
 
   LineMarker*       _xMarker;
 
-  LineMarker*       _yMarker;
+  //LineMarker*       _yMarker;
 
   long int         _xMarkerId;
 

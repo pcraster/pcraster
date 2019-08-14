@@ -17,11 +17,7 @@ namespace ag {
   // CursorWindow declarations.
   class CursorView;
 }
-namespace boost {
- namespace filesystem {
-  class filesystem;
- }
-}
+
 class QPushButton;
 
 

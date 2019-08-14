@@ -1,7 +1,6 @@
 #include "ag_SceneView.h"
 #include <cmath>
 #include <vector>
-#include <GL/glu.h>
 #include <boost/format.hpp>
 #include <QKeyEvent>
 #include <QPoint>
@@ -12,6 +11,11 @@
 #include "ag_Camera.h"
 #include "ag_Feedback.h"
 
+#ifdef __APPLE__
+  #include <OpenGL/glu.h>
+#else
+  #include <GL/glu.h>
+#endif
 
 
 //------------------------------------------------------------------------------
@@ -88,7 +92,7 @@ GLfloat ag::SceneView::calcFOV(double w, double d, double h, double x, double y,
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 //! Constructs a SceneView object.
@@ -657,7 +661,7 @@ void ag::SceneView::keyPressEvent(QKeyEvent* event)
       }
 
       case Qt::Key_J: {
-        // Aim camera down. 
+        // Aim camera down.
         rotateHead(2.0 * com::DEG2RAD, 0.0, 0.0);
         updateGL();
         break;
@@ -853,13 +857,13 @@ void ag::SceneView::rotateScene(double x, double y, double z)
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE OPERATORS 
+// DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE FUNCTIONS 
+// DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
 

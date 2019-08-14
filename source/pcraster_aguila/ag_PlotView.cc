@@ -145,9 +145,9 @@ void PlotView::process()
 
 void PlotView::visualise()
 {
-// // // // // //   if(replotRequired()) {
-// // // // // //     replot(); QWT QWT QWT QWT QWT
-// // // // // //   }
+  if(replotRequired()) {
+    update();
+  }
 
   visualisationEngine().finishedScanning(dataObject());
 }
@@ -216,9 +216,6 @@ void PlotView::setXAxisScale()
 
   m_axisX->setLabelFormat("%d");
   m_chart->addAxis(m_axisX, Qt::AlignBottom);
-
-  setXMarker(first);
-
 }
 
 

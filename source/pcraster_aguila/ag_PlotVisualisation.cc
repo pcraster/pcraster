@@ -85,33 +85,32 @@ PlotVisualisation::PlotVisualisation(
 
   m_axisX = new QValueAxis;
   m_axisY = new QValueAxis;
-  m_chart->addAxis(m_axisX, Qt::AlignBottom);
-  m_chart->addAxis(m_axisY, Qt::AlignLeft);
 
   setRenderHint(QPainter::Antialiasing);
   this->setChart(m_chart);
+  m_chart->addAxis(m_axisX, Qt::AlignBottom);
+  m_chart->addAxis(m_axisY, Qt::AlignLeft);
 
+  // We use one line marker to mimic the old behaviour of two separate markers
   _xMarker = new LineMarker(m_chart);
 
   _xMarkerId = 1;
   _yMarkerId = 2;
 
+// // // // //
+// // // // //   _picker = new QwtPlotPicker(canvas());
+// // // // //   connect(_picker, SIGNAL(selected(const QPointF&)),
+// // // // //           this, SLOT(selected(const QPointF&)));
+// // // // //   connect(_picker, SIGNAL(selected(const QRectF&)),
+// // // // //           this, SLOT(selected(const QRectF&)));
+// // // // //   connect(_picker, SIGNAL(selected(const QVector<QPointF>&)),
+// // // // //           this, SLOT(selected(const QVector<QPointF>&)));
+// // // // //   connect(_picker, SIGNAL(appended(const QPointF&)),
+// // // // //           this, SLOT(appended(const QPointF&)));
+// // // // //   connect(_picker, SIGNAL(moved(const QPointF&)),
+// // // // //           this, SLOT(moved(const QPointF&)));
 
-
-// // // // // // // // // // // // // // // // // // // // // // // // // // //
-// // // // // // // // // // // // // // // // // // // // // // // // // // //   _picker = new QwtPlotPicker(canvas());
-// // // // // // // // // // // // // // // // // // // // // // // // // // //   connect(_picker, SIGNAL(selected(const QPointF&)),
-// // // // // // // // // // // // // // // // // // // // // // // // // // //           this, SLOT(selected(const QPointF&)));
-// // // // // // // // // // // // // // // // // // // // // // // // // // //   connect(_picker, SIGNAL(selected(const QRectF&)),
-// // // // // // // // // // // // // // // // // // // // // // // // // // //           this, SLOT(selected(const QRectF&)));
-// // // // // // // // // // // // // // // // // // // // // // // // // // //   connect(_picker, SIGNAL(selected(const QVector<QPointF>&)),
-// // // // // // // // // // // // // // // // // // // // // // // // // // //           this, SLOT(selected(const QVector<QPointF>&)));
-// // // // // // // // // // // // // // // // // // // // // // // // // // //   connect(_picker, SIGNAL(appended(const QPointF&)),
-// // // // // // // // // // // // // // // // // // // // // // // // // // //           this, SLOT(appended(const QPointF&)));
-// // // // // // // // // // // // // // // // // // // // // // // // // // //   connect(_picker, SIGNAL(moved(const QPointF&)),
-// // // // // // // // // // // // // // // // // // // // // // // // // // //           this, SLOT(moved(const QPointF&)));
-// // // // // // // // // // // // // // // // // // // // // // // // // // //
-// // // // // // // // // // // // // // // // // // // // // // // // // // //   replot();
+  update();
 }
 
 
@@ -132,31 +131,32 @@ bool PlotVisualisation::close()
 
 void PlotVisualisation::enableMarker(
          long int marker)
-{printf("PlotVisualisation::enableMarker \n");
+{
   assert(marker == _xMarkerId || marker == _yMarkerId);
 
   if(marker == _xMarkerId) {
-// // // // // // // // // // // // // // //     _xMarker->setLineStyle(QwtPlotMarker::VLine);
+    _xMarker->set_y_interval(m_axisY->min(), m_axisY->max());
+    _xMarker->set_x_interval(m_axisX->min(), m_axisX->max());
     _xMarkerEnabled = true;
   }
   else if(marker == _yMarkerId) {
-// // // // // // // // // // // // // // // // // //     _yMarker->setLineStyle(QwtPlotMarker::HLine);
+    _xMarker->set_x_interval(m_axisX->min(), m_axisX->max());
+    _xMarker->set_y_interval(0, 1);
     _yMarkerEnabled = true;
+
   }
 }
 
 
 
 void PlotVisualisation::disableMarker(long int marker)
-{printf("PlotVisualisation::disableMarker \n");
+{
   assert(marker == _xMarkerId || marker == _yMarkerId);
 
   if(marker == _xMarkerId) {
-// // // // // // // // // // // // // // //     _xMarker->setLineStyle(QwtPlotMarker::NoLine);
     _xMarkerEnabled = false;
   }
   else if(marker == _yMarkerId) {
-// // // // // // // // // // // // // // //     _yMarker->setLineStyle(QwtPlotMarker::NoLine);
     _yMarkerEnabled = false;
   }
 }
@@ -203,24 +203,22 @@ void PlotVisualisation::setXMarker(double value)
 
 
 void PlotVisualisation::setYMarker(double value)
-{printf("PlotVisualisation::setYMarker %f\n",value);
-  //_yMarker->setYValue(value);
+{
+  _xMarker->setYValue(value);
 }
 
 
 
 void PlotVisualisation::attachMarkers()
-{printf("PlotVisualisation::attachMarkers\n");
-
+{
   _xMarker->set_y_interval(m_axisY->min(), m_axisY->max());
-//   _xMarker->attach(this);
-//   _yMarker->attach(this);
+  _xMarker->set_x_interval(m_axisX->min(), m_axisX->max());
 }
 
 
 
 void PlotVisualisation::detachMarkers()
-{printf("PlotVisualisation::detachMarkers\n");
+{
 // // // // // // // // // // //   _xMarker->detach();
 // // // // // // // // // // //   _yMarker->detach();
 }
@@ -308,21 +306,21 @@ void PlotVisualisation::clearPlot()
 
 
 void PlotVisualisation::trackClickPoint()
-{printf("PlotVisualisation::trackClickPoint\n");
+{
 // // // // // //   _picker->setStateMachine(new QwtPickerClickPointMachine);
 }
 
 
 
 void PlotVisualisation::trackDragPoint()
-{printf("PlotVisualisation::trackDragPoint\n");
+{
 // // // // // //   _picker->setStateMachine(new QwtPickerDragPointMachine);
 }
 
 
 
 void PlotVisualisation::trackDragRect()
-{printf("PlotVisualisation::trackDragRect\n");
+{
 // // // // // //   _picker->setStateMachine(new QwtPickerDragRectMachine);
 }
 
@@ -330,35 +328,35 @@ void PlotVisualisation::trackDragRect()
 
 void PlotVisualisation::selected(
          QPointF const& /* point */)
-{printf("TODO remove? PlotVisualisation::moved\n");
+{
 }
 
 
 
 void PlotVisualisation::selected(
          QRectF const& /* rect */)
-{printf("TODO remove? PlotVisualisation::moved\n");
+{
 }
 
 
 
 void PlotVisualisation::selected(
          QVector<QPointF> const& /* array */)
-{printf("TODO remove? PlotVisualisation::moved\n");
+{
 }
 
 
 
 void PlotVisualisation::appended(
          QPointF const& /* point */)
-{printf("TODO remove? PlotVisualisation::moved\n");
+{
 }
 
 
 
 void PlotVisualisation::moved(
          QPointF const& /* point */)
-{printf("TODO remove? PlotVisualisation::moved\n");
+{
 }
 
 
@@ -368,66 +366,56 @@ bool PlotVisualisation::intersectMarker(
          double* y,
          long int marker,
          DataGuide const& guide) const
-{printf("PlotVisualisation::intersectMarker\n");
-// // // // // // // // // // // // // // // // // // // // // // // //   QLineF markerLine;
-// // // // // // // // // // // // // // // // // // // // // // // //
-// // // // // // // // // // // // // // // // // // // // // // // //   if(marker == _xMarkerId) {
-// // // // // // // // // // // // // // // // // // // // // // // //     markerLine = QLineF(
-// // // // // // // // // // // // // // // // // // // // // // // // #if QWT_VERSION >= 0x060100
-// // // // // // // // // // // // // // // // // // // // // // // //          QPointF(_xMarker->xValue(), axisScaleDiv(yLeft).lowerBound()),
-// // // // // // // // // // // // // // // // // // // // // // // //          QPointF(_xMarker->xValue(), axisScaleDiv(yLeft).upperBound())
-// // // // // // // // // // // // // // // // // // // // // // // // #else
-// // // // // // // // // // // // // // // // // // // // // // // //          QPointF(_xMarker->xValue(), axisScaleDiv(yLeft)->lowerBound()),
-// // // // // // // // // // // // // // // // // // // // // // // //          QPointF(_xMarker->xValue(), axisScaleDiv(yLeft)->upperBound())
-// // // // // // // // // // // // // // // // // // // // // // // // #endif
-// // // // // // // // // // // // // // // // // // // // // // // //     );
-// // // // // // // // // // // // // // // // // // // // // // // //   }
-// // // // // // // // // // // // // // // // // // // // // // // //   else if(marker == _yMarkerId) {
-// // // // // // // // // // // // // // // // // // // // // // // //     markerLine = QLineF(
-// // // // // // // // // // // // // // // // // // // // // // // // #if QWT_VERSION >= 0x060100
-// // // // // // // // // // // // // // // // // // // // // // // //          QPointF(axisScaleDiv(xBottom).lowerBound(), _yMarker->yValue()),
-// // // // // // // // // // // // // // // // // // // // // // // //          QPointF(axisScaleDiv(xBottom).upperBound(), _yMarker->yValue())
-// // // // // // // // // // // // // // // // // // // // // // // // #else
-// // // // // // // // // // // // // // // // // // // // // // // //          QPointF(axisScaleDiv(xBottom)->lowerBound(), _yMarker->yValue()),
-// // // // // // // // // // // // // // // // // // // // // // // //          QPointF(axisScaleDiv(xBottom)->upperBound(), _yMarker->yValue())
-// // // // // // // // // // // // // // // // // // // // // // // // #endif
-// // // // // // // // // // // // // // // // // // // // // // // //     );
-// // // // // // // // // // // // // // // // // // // // // // // //   }
-// // // // // // // // // // // // // // // // // // // // // // // //
-// // // // // // // // // // // // // // // // // // // // // // // //   QPointF point1, point2, intersection;
-// // // // // // // // // // // // // // // // // // // // // // // //   bool intersectionFound = false;
-// // // // // // // // // // // // // // // // // // // // // // // //
-// // // // // // // // // // // // // // // // // // // // // // // //   std::map<DataGuide, std::vector<QwtPlotCurve*> >::const_iterator it =
-// // // // // // // // // // // // // // // // // // // // // // // //          _curvesPerGuide.find(guide);
-// // // // // // // // // // // // // // // // // // // // // // // //
-// // // // // // // // // // // // // // // // // // // // // // // //   if(it != _curvesPerGuide.end()) {
-// // // // // // // // // // // // // // // // // // // // // // // //     for(QwtPlotCurve const* curve : (*it).second) {
-// // // // // // // // // // // // // // // // // // // // // // // //       assert(curve);
-// // // // // // // // // // // // // // // // // // // // // // // //       assert(curve->dataSize() > 1);
-// // // // // // // // // // // // // // // // // // // // // // // //
-// // // // // // // // // // // // // // // // // // // // // // // //       point2 = curve->sample(0);
-// // // // // // // // // // // // // // // // // // // // // // // //
-// // // // // // // // // // // // // // // // // // // // // // // //       for(int j = 1; j < static_cast<int>(curve->dataSize()); ++j) {
-// // // // // // // // // // // // // // // // // // // // // // // //         point1 = point2;
-// // // // // // // // // // // // // // // // // // // // // // // //         point2 = curve->sample(j);
-// // // // // // // // // // // // // // // // // // // // // // // //
-// // // // // // // // // // // // // // // // // // // // // // // //         intersectionFound = (markerLine.intersect(QLineF(point1, point2),
-// // // // // // // // // // // // // // // // // // // // // // // //               &intersection) == QLineF::BoundedIntersection);
-// // // // // // // // // // // // // // // // // // // // // // // //
-// // // // // // // // // // // // // // // // // // // // // // // //         if(intersectionFound) {
-// // // // // // // // // // // // // // // // // // // // // // // //           *x = intersection.x();
-// // // // // // // // // // // // // // // // // // // // // // // //           *y = intersection.y();
-// // // // // // // // // // // // // // // // // // // // // // // //           break;
-// // // // // // // // // // // // // // // // // // // // // // // //         }
-// // // // // // // // // // // // // // // // // // // // // // // //       }
-// // // // // // // // // // // // // // // // // // // // // // // //
-// // // // // // // // // // // // // // // // // // // // // // // //       if(intersectionFound) {
-// // // // // // // // // // // // // // // // // // // // // // // //         break;
-// // // // // // // // // // // // // // // // // // // // // // // //       }
-// // // // // // // // // // // // // // // // // // // // // // // //     }
-// // // // // // // // // // // // // // // // // // // // // // // //   }
-// // // // // // // // // // // // // // // // // // // // // // // //
-// // // // // // // // // // // // // // // // // // // // // // // //   return intersectionFound;
+{
+  QLineF markerLine;
+
+  if(marker == _xMarkerId) {
+    markerLine = QLineF(
+         QPointF(_xMarker->xValue(), _xMarker->xMin()),
+         QPointF(_xMarker->xValue(), _xMarker->xMax())
+    );
+  }
+  else if(marker == _yMarkerId) {
+    markerLine = QLineF(
+         QPointF(_xMarker->xMin(), _xMarker->yValue()),
+         QPointF(_xMarker->xMax(), _xMarker->yValue())
+    );
+  }
+
+  QPointF point1, point2, intersection;
+  bool intersectionFound = false;
+
+  std::map<DataGuide, std::vector<QtCharts::QLineSeries*> >::const_iterator it =
+         _curvesPerGuide.find(guide);
+
+  if(it != _curvesPerGuide.end()) {
+    for(QtCharts::QLineSeries const* curve : (*it).second) {
+      assert(curve);
+      assert(curve->pointsVector().length() > 1);
+
+      point2 = curve->at(0);
+
+      for(int j = 1; j < static_cast<int>(curve->pointsVector().length()); ++j) {
+        point1 = point2;
+        point2 = curve->at(j);
+
+        intersectionFound = (markerLine.intersect(QLineF(point1, point2),
+              &intersection) == QLineF::BoundedIntersection);
+
+        if(intersectionFound) {
+          *x = intersection.x();
+          *y = intersection.y();
+          break;
+        }
+      }
+
+      if(intersectionFound) {
+        break;
+      }
+    }
+  }
+
+  return intersectionFound;
 }
 
 
@@ -553,15 +541,23 @@ bool PlotVisualisation::onlyExceedanceProbabilitiesShown() const
 // Moves the marker to the corresponding axis position
 void PlotVisualisation::mousePressEvent(QMouseEvent *event)
 {
-  double xval = std::round(m_chart->mapToValue(event->pos()).x() );
+  double xval = m_chart->mapToValue(event->pos()).x();
+  double yval = m_chart->mapToValue(event->pos()).y();
 
-  xval = std::max(xval, m_axisX->min());
-  xval = std::min(xval, m_axisX->max());
+  if(markerEnabled(1) == true) {
+    xval = std::max(xval, m_axisX->min());
+    xval = std::min(xval, m_axisX->max());
 
-  _xMarker->setAnchor(QPointF(xval, 0));
+    moved(QPointF(xval, 0));
+  }
+  else {
+    yval = std::max(yval, 0.0);
+    yval = std::min(yval, 1.0);
 
-  dataObject().setTimeStep(xval);
-  _xMarker->updateGeometry();
+    moved(QPointF(xval,yval));
+  }
+
+  update();
 }
 
 

@@ -115,13 +115,13 @@ calc::Field* spatial_safe_bool(calc::Field* argument){
 }
 
 
-calc::Field* spatial_int4(calc::Field* argument){
+calc::Field* spatial_int4(calc::Field* argument, PCR_VS valuescale){
   double value = 0;
   argument->getCell(value, 0);
 
   INT4 cellvalue = static_cast<INT4>(value);
 
-  calc::Field* res_field = new calc::Spatial(VS_O, calc::CRI_4, nr_cells());
+  calc::Field* res_field = new calc::Spatial(valuescale, calc::CRI_4, nr_cells());
 
   for(size_t idx = 0; idx < nr_cells(); ++idx){
     res_field->setCell(cellvalue, idx);
@@ -156,33 +156,18 @@ calc::Field* cover(pybind11::list const& arguments){
     assert_equal_location_attributes(*field_arguments.at(idx));
   }
 
-  bool is_boolean = false;
-  bool is_nominal = false;
-  bool is_ordinal = false;
-  bool is_scalar = false;
+  // First argument will determine the return datatype
+  // The PCRaster model engine is a bit more generous with type casting
+  // e.g. cover(nominal, ordinal) will there work
+  // Improve type casting in the multicore module when necessary...
+  bool is_boolean = boolean_valuescale(*field_arguments.at(0));
+  bool is_nominal = nominal_valuescale(*field_arguments.at(0));
+  bool is_ordinal = ordinal_valuescale(*field_arguments.at(0));
+  bool is_scalar = scalar_valuescale(*field_arguments.at(0));
 
-  // First spatial argument will determine the return datatype
-  for(size_t idx = 0; idx < nr_args; ++idx){
-    if(field_arguments.at(idx)->isSpatial() == true && boolean_valuescale(*field_arguments.at(idx))){
-      is_boolean = true;
-      break;
-    }
-    if(field_arguments.at(idx)->isSpatial() == true && nominal_valuescale(*field_arguments.at(idx))){
-      is_nominal = true;
-      break;
-    }
-    if(field_arguments.at(idx)->isSpatial() == true && ordinal_valuescale(*field_arguments.at(idx))){
-      is_ordinal = true;
-      break;
-    }
-    if(field_arguments.at(idx)->isSpatial() == true && scalar_valuescale(*field_arguments.at(idx))){
-      is_scalar = true;
-      break;
-    }
-  }
 
   if(is_scalar) {
-    // cast nonspatial nominals (integers) to scalar
+    // cast integers to scalar
     for(size_t idx = 0; idx < nr_args; ++idx){
       if(field_arguments.at(idx)->isSpatial() == false){
         if(nominal_valuescale(*field_arguments.at(idx))){
@@ -195,7 +180,7 @@ calc::Field* cover(pybind11::list const& arguments){
   }
   else if(is_nominal){
     if(field_arguments.at(0)->isSpatial() == false){
-      field_arguments.at(0) = detail::spatial_int4(field_arguments.at(0));
+      field_arguments.at(0) = detail::spatial_int4(field_arguments.at(0), VS_N);
     }
     for(size_t idx = 0; idx < nr_args; ++idx){
       assert_nominal_valuescale(*field_arguments.at(idx), "argument nr " + std::to_string(idx + 1));
@@ -206,7 +191,7 @@ calc::Field* cover(pybind11::list const& arguments){
     // If first argument is nonspatial nominal: cast to spatial ordinal
     if(field_arguments.at(0)->isSpatial() == false){
       if(nominal_valuescale(*field_arguments.at(0))){
-          field_arguments.at(0) = detail::spatial_int4(field_arguments.at(0));
+          field_arguments.at(0) = detail::spatial_int4(field_arguments.at(0), VS_O);
       }
     }
     for(size_t idx = 0; idx < nr_args; ++idx){

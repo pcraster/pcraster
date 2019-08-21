@@ -455,6 +455,27 @@ class TestMulticore(unittest.TestCase):
       self.assertAlmostEqual(value,  1.708333, places=6)
 
 
+  def test_6(self):
+      """ test cover and nonspatial first arguments """
+
+      pcraster.setclone(3, 4, 1, 1, 1)
+      raster = pcraster.uniform(1)
+
+      msg = "pcraster.multicore cover: argument nr 2 is of type 'scalar', legal type is 'nominal'"
+
+      self.assertRaisesRegex(RuntimeError, msg, pcraster.cover, 1, 2.4)
+
+      self.assertRaisesRegex(RuntimeError, msg, pcraster.cover, 1, raster)
+
+      # Pointless cover, but previously returned a None
+      result = cover(1.2, raster)
+      value, isValid = pcraster.cellvalue(result, 1)
+      self.assertEqual(isValid, True)
+      self.assertAlmostEqual(value,  1.2)
+
+
+
+
 suite = unittest.TestSuite()
 suite.addTest(unittest.makeSuite(test_import.ImportTest))
 suite.addTest(unittest.makeSuite(TestMulticore))

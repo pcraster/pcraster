@@ -50,8 +50,6 @@ private:
 
   QRectF m_rect;
 
-  QPointF m_anchor;
-
   double m_xmin;
 
   double m_xmax;

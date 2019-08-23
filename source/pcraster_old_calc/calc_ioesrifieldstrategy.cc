@@ -159,7 +159,7 @@ calc::IoFieldStrategy* calc::IoEsriFieldStrategy::checkInputMap(
        d_prjFile=grid.prjFile();
    vs = grid.vs();
    return this;
-  } catch ( NotAnEsriGrid ) {
+  } catch ( NotAnEsriGrid& ) {
    // try next format
    d_fallBack->checkInputMap(vs, fName);
    d_fallBack->checkClone(fName);
@@ -303,7 +303,7 @@ void calc::IoEsriFieldStrategy::removeOutputObject(const std::string& objName) c
      try {
        (void)com::strToSize_t(f->path().filename().string());
        isAStack = calc::EsriMap::exists(f->path().string());
-     } catch (std::range_error) {
+     } catch (std::range_error&) {
       // a non numeric file name
        isAStack=false;
      }

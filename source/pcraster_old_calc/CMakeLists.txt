@@ -159,9 +159,14 @@ add_library(pcraster_old_calc_objects OBJECT
 target_include_directories(pcraster_old_calc_objects
     PRIVATE
         $<TARGET_PROPERTY:pcraster::calc,INTERFACE_INCLUDE_DIRECTORIES>
-        $<TARGET_PROPERTY:pcraster::pccts,INTERFACE_INCLUDE_DIRECTORIES>
         $<TARGET_PROPERTY:pcraster::pcrxml,INTERFACE_INCLUDE_DIRECTORIES>
         $<TARGET_PROPERTY:pcraster::tab,INTERFACE_INCLUDE_DIRECTORIES>
+)
+
+# We do not care much about warnings when using ...
+target_include_directories(pcraster_old_calc_objects SYSTEM
+    PRIVATE
+        $<TARGET_PROPERTY:pcraster::pccts,INTERFACE_INCLUDE_DIRECTORIES>
 )
 
 target_include_directories(pcraster_old_calc_objects

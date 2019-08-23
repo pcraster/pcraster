@@ -19,6 +19,7 @@ LineMarker::LineMarker(QtCharts::QChart *chart):
   m_ymax = -1;
   m_xmin = -1;
   m_xmax = -1;
+  // Point p1 is 'attached' to the axis
   p1 = QPointF(m_xmin, m_ymin);
   p2 = QPointF(m_xmax, m_ymax);
 
@@ -27,12 +28,11 @@ LineMarker::LineMarker(QtCharts::QChart *chart):
 
 QRectF LineMarker::boundingRect() const
 {
-  QPointF anchor = mapFromParent(m_chart->mapToPosition(m_anchor));
   QRectF rect;
-  rect.setLeft(qMin(m_rect.left(), anchor.x()));
-  rect.setRight(qMax(m_rect.right(), anchor.x()));
-  rect.setTop(qMin(m_rect.top(), anchor.y()));
-  rect.setBottom(qMax(m_rect.bottom(), anchor.y()));
+  rect.setLeft(qMin(m_rect.left(), m_chart->mapToPosition(p1).x()));
+  rect.setRight(qMax(m_rect.right(), m_chart->mapToPosition(p2).x()));
+  rect.setTop(qMin(m_rect.top(), m_chart->mapToPosition(p2).y()));
+  rect.setBottom(qMax(m_rect.bottom(), m_chart->mapToPosition(p1).y()));
   return rect;
 }
 
@@ -67,6 +67,7 @@ void LineMarker::setXValue(double value){
   p1 = QPointF(value, m_ymin);
   p2 = QPointF(value, m_ymax);
   m_xval = value;
+  updateGeometry();
 }
 
 
@@ -74,6 +75,7 @@ void LineMarker::setYValue(double value){
   p1 = QPointF(m_xmin, value);
   p2 = QPointF(m_xmax, value);
   m_yval = value;
+  updateGeometry();
 }
 
 

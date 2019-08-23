@@ -16,76 +16,82 @@ if sys.platform == "win32":
     if os.path.exists(pcraster_dll_pathname):
         os.environ["PATH"] = pcraster_dll_pathname + os.pathsep + path_
 
+# Check if we can import our compiled module
 try:
-    try:
-        from ._pcraster import *
-    except ImportError as error:
-        # Test matching Python versions
-        major, minor, patchlevel = platform.python_version_tuple()
-        major = int(major)
+    from ._pcraster import *
+except ImportError as error:
+    # Test matching Python versions
+    major, minor, patchlevel = platform.python_version_tuple()
+    major = int(major)
 
-        if major != ${PYTHON_VERSION_MAJOR}:
+    # if major != ${PYTHON_VERSION_MAJOR}:
+    if StrictVersion("{}.{}".format(major, minor)) != StrictVersion("${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}"):
+        msg = "The 'pcraster' module was built for Python ${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}, the version used is {}.{}".format(
+            major, minor)
+        raise ImportError(msg)
+
+    # Test matching bitness
+    nr_bits = 64 if sys.maxsize > 2**32 else 32
+
+    if nr_bits != ${NR_BITS}:
+        msg = "The 'pcraster' module was built for ${NR_BITS}-bit, the Python version used is {}-bit".format(
+            nr_bits)
+        raise ImportError(msg)
+
+    # Too old Python 2 versions might not work
+    if major == 2:
+        if StrictVersion("{}.{}".format(major, minor)) < StrictVersion("2.7"):
             msg = "The 'pcraster' module was built for Python ${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}, the version used is {}.{}".format(
+                major, minor)
+            warnings.warn(msg, RuntimeWarning)
+
+    msg = ""
+
+    # VS2017 and runtime components related issues
+    if sys.platform == "win32":
+        if StrictVersion("{}.{}".format(major, minor)) != StrictVersion("${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}"):
+            msg += "The 'pcraster' module was built for Python ${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}, the version used is {}.{}".format(
                 major, minor)
             raise ImportError(msg)
 
-        # Test matching bitness
-        nr_bits = 64 if sys.maxsize > 2**32 else 32
+        msg += "The 'Microsoft Visual C++ Redistributable for Visual Studio 2017' is required to run PCRaster, available at:\n"
+        msg += "https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads\n"
 
-        if nr_bits != ${NR_BITS}:
-            msg = "The 'pcraster' module was built for ${NR_BITS}-bit, the Python version used is {}-bit".format(
-                nr_bits)
-            raise ImportError(msg)
+    # Something else went wrong...
+    msg += "{}\n".format(error)
+    msg += "In case you cannot solve the issue please consult the PCRaster mailing list at:\nhttps://lists.geo.uu.nl/mailman/listinfo/pcraster-info\n"
+    raise ImportError(msg)
+except Exception as error:
+    raise error
 
-        # Too old Python 2 versions might not work
-        if major == 2:
-            if StrictVersion("{}.{}".format(major, minor)) < StrictVersion("2.7"):
-                msg = "The 'pcraster' module was built for Python ${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}, the version used is {}.{}".format(
-                    major, minor)
-                warnings.warn(msg, RuntimeWarning)
 
-        msg = ""
+# If importing the compiled module succeeds everything else should be fine as well
+from .operations import *
+from . import operators
+from .aguila import *
+from .numpy_operations import *
+from .__about__ import (
+    __version__, __author__, __uri__, __license__, __copyright__
+)
 
-        # VS2015 and runtime components related issues
-        if sys.platform == "win32":
-            if StrictVersion("{}.{}".format(major, minor)) != StrictVersion("${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}"):
-                msg += "The 'pcraster' module was built for Python ${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}, the version used is {}.{}".format(
-                    major, minor)
-                raise ImportError(msg)
+try:
+    from ._pcraster_modflow import *
+except ImportError:
+    pass  # Modflow module was not installed
 
-            msg += "The 'Microsoft Visual C++ 2015 Redistributable Update 3' is required to run PCRaster, available at:\nhttps://www.microsoft.com/en-us/download/details.aspx?id=53840\n"
-
-        # Something else went wrong...
-        msg += "{}\n".format(error)
-        msg += "In case you cannot solve the issue please consult the PCRaster mailing list at:\nhttps://lists.geo.uu.nl/mailman/listinfo/pcraster-info\n"
-        raise ImportError(msg)
-
-    from .operations import *
-    from . import operators
-    from .aguila import *
-    from .numpy_operations import *
-    from .__about__ import (
-        __version__, __author__, __uri__, __license__, __copyright__
-    )
-
-    try:
-        from ._pcraster_modflow import *
-    except ImportError:
-        pass  # Modflow module was not installed
-
-    try:
-        _var = "PCRASTER_NR_WORKER_THREADS"
-        _workers = int(os.environ[_var])
-        from .multicore import *
-        set_nr_worker_threads(_workers)
-    except ValueError as err:
-        msg = "Could not obtain the number of worker threads. The environment variable {} is set to '{}'; use an integer value instead.".format(
-            _var, os.environ[_var])
-        raise RuntimeError(msg)
-    except KeyError:
-        pass  # No multicore module use intended
-    except ImportError:
-        pass  # Multicore module was not installed
+try:
+    _var = "PCRASTER_NR_WORKER_THREADS"
+    _workers = int(os.environ[_var])
+    from .multicore import *
+    set_nr_worker_threads(_workers)
+except ValueError as err:
+    msg = "Could not obtain the number of worker threads. The environment variable {} is set to '{}'; use an integer value instead.".format(
+        _var, os.environ[_var])
+    raise RuntimeError(msg)
+except KeyError:
+    pass  # No multicore module use intended
+except ImportError:
+    pass  # Multicore module was not installed
 
 finally:
     if sys.platform == "win32":

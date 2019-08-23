@@ -111,7 +111,7 @@ struct RecordFirst : boost::noncopyable
 
 //! chain of events of a variable.
 /*!
- *  After construction (series of add() calls), Enter and Jump 
+ *  After construction (series of add() calls), Enter and Jump
  *  events are
  *  paired and nested, for the same BasicBlock each
  *  Enter event can find a first Jump event as forward
@@ -286,7 +286,7 @@ class EventChain : public std::vector<UDEvent>
       if (use.dynamic == end() ||
           def.dynamic != end())
         t.setInput(pcrxml::ModelInputType::Initial);
-      else 
+      else
         t.setInput(pcrxml::ModelInputType::Dynamic);
     }
     t.setOutput(pcrxml::ModelOutputType::Fixed);
@@ -358,7 +358,7 @@ class UseDefRecorder : std::map<std::string, EventChain>
    void pop(size_t n) {
     // UseDef for par used more than once in same expr
     // needs this order of stack evaluation
-    typedef std::vector<ASTPar *>::iterator I;
+    // typedef std::vector<ASTPar *>::iterator I;
     for(size_t i=0; i < n; ++i) {
       PRECOND(d_stack.size());
       ASTPar *p=d_stack.top();
@@ -379,7 +379,7 @@ class UseDefRecorder : std::map<std::string, EventChain>
 
      /*
       there is always an enclosing block.
-      if this fails, the UseDefAnalyzer may be accidently 
+      if this fails, the UseDefAnalyzer may be accidently
       initialized by a non BasicBlock-Node see precondition of
       UseDefAnalyzer ctor.
       */
@@ -661,13 +661,13 @@ std::map<std::string,calc::IOType>
 
 //! return the output parameters
 /*!
- * \param subCfg is a (subset of a) cfg with ASTPar::lastUse attributes 
+ * \param subCfg is a (subset of a) cfg with ASTPar::lastUse attributes
  *        already set.
  *
  * Output is here relative, subCfg is a subset of a larger cfg,
  * in that larger cfg lastUse attributes are set. The output of
  * this \a subCfg is all parameters getting
- * a value (UDEvent::Def) <i>in</i> subCfg and the value is used in the 
+ * a value (UDEvent::Def) <i>in</i> subCfg and the value is used in the
  * larger cfg after execution of this cfg
  */
 calc::ParSet calc::newLiveDefSet(CFGNode   *subCfg) {

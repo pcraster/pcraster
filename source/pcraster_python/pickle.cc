@@ -46,9 +46,6 @@ void fill_raster(calc::Field & field, const pybind11::tuple state){
 
   size_t count = 0;
 
-
-  double cellvalue;
-
   for(std::vector<std::string>::iterator it = values.begin(); it != values.end(); ++it){
     if (*it != "m") {
       // Correct direct parsing of hexstrings seems to be still discussed

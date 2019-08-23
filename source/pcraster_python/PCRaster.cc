@@ -38,6 +38,7 @@
 #include <boost/math/special_functions/fpclassify.hpp>
 #include <boost/math/special_functions/sign.hpp>
 
+#include <limits>
 
 template<
     typename T>
@@ -520,7 +521,7 @@ pybind11::tuple cellvalue_by_index(
              << "' out of range [0, "
              << globals.cloneSpace().nrCells() - 1
              << "]";
-      throw std::out_of_range(errMsg.str());
+      throw std::invalid_argument(errMsg.str());
     }
   }
 
@@ -571,7 +572,7 @@ pybind11::tuple cellvalue_by_indices(
              << "' out of range [0, "
              << globals.cloneSpace().nrRows() - 1
              << "]";
-      throw std::out_of_range(errMsg.str());
+      throw std::invalid_argument(errMsg.str());
     }
     if(col >= globals.cloneSpace().nrCols()){
       std::ostringstream errMsg;
@@ -580,7 +581,7 @@ pybind11::tuple cellvalue_by_indices(
              << "' out of range [0, "
              << globals.cloneSpace().nrCols() - 1
              << "]";
-      throw std::out_of_range(errMsg.str());
+      throw std::invalid_argument(errMsg.str());
     }
   }
 
@@ -621,7 +622,7 @@ pybind11::tuple cellvalue_by_coordinates(
            << ", "
            << east
            << "]";
-    throw std::out_of_range(errMsg.str());
+    throw std::invalid_argument(errMsg.str());
   }
 
   if((ycoordinate > north) || (ycoordinate < south)){
@@ -633,7 +634,7 @@ pybind11::tuple cellvalue_by_coordinates(
            << ", "
            << south
            << "]";
-    throw std::out_of_range(errMsg.str());
+    throw std::invalid_argument(errMsg.str());
   }
 
   double xCol = (xcoordinate - west) / cellsize;
@@ -766,6 +767,33 @@ void setCloneSpaceFromValues(
     double west,
     double north)
 {
+  int max_row_col = std::numeric_limits<int>::max();
+
+  if( (nrRows < 1) || (nrRows > max_row_col) ) {
+    std::ostringstream errMsg;
+    errMsg << "Number of rows '"
+           << nrRows
+           << "' out of range [1, (2 ^ 31) - 1]";
+    throw std::invalid_argument(errMsg.str());
+  }
+
+  if( (nrCols < 1) || (nrCols > max_row_col) ) {
+    std::ostringstream errMsg;
+    errMsg << "Number of columns '"
+           << nrCols
+           << "' out of range [1, (2 ^ 31) - 1]";
+    throw std::invalid_argument(errMsg.str());
+  }
+
+  if(cellSize <= 0.0) {
+    std::ostringstream errMsg;
+    errMsg << "Cell size '"
+           << cellSize
+           << "' must be larger than 0";
+    throw std::invalid_argument(errMsg.str());
+
+  }
+
   geo::RasterSpace space(nrRows, nrCols, cellSize, west, north, geo::YIncrB2T);
   globals.setCloneSpace(space);
 }

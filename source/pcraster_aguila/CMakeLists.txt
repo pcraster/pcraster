@@ -241,8 +241,8 @@ endif()
 
 if(PCRASTER_WITH_OPENGL)
     add_library(pcraster_aguila SHARED
-        $<TARGET_OBJECTS:pcraster_aguila_objects>
         $<TARGET_OBJECTS:pcraster_aguila_opengl_objects>
+        $<TARGET_OBJECTS:pcraster_aguila_objects>
     )
 else()
     add_library(pcraster_aguila SHARED
@@ -257,22 +257,27 @@ set_target_properties(pcraster_aguila
         SOVERSION ${${PROJECT_NAME}_MAJOR_VERSION}.${${PROJECT_NAME}_MINOR_VERSION}.${${PROJECT_NAME}_PATCH_VERSION}
 )
 
-target_link_libraries(pcraster_aguila
-    PUBLIC
-        pcraster::dal
-        pcraster::xsd
-        Qt5::Gui
-        Qt5::Widgets
-        Qt5::Xml
-        Qt5::Charts
-)
-
-
 if(PCRASTER_WITH_OPENGL)
     target_link_libraries(pcraster_aguila
         PUBLIC
+            pcraster::dal
+            pcraster::xsd
+            Qt5::Gui
+            Qt5::Widgets
+            Qt5::Xml
+            Qt5::Charts
             Qt5::OpenGL
             OpenGL::GLU
+    )
+else()
+    target_link_libraries(pcraster_aguila
+        PUBLIC
+            pcraster::dal
+            pcraster::xsd
+            Qt5::Gui
+            Qt5::Widgets
+            Qt5::Xml
+            Qt5::Charts
     )
 endif()
 
@@ -311,6 +316,37 @@ if(PCRASTER_BUILD_TEST)
         test_prolog.py
         @ONLY
     )
+if(PCRASTER_WITH_OPENGL)
+    add_unit_tests(
+        SCOPE pcraster_aguila
+        NAMES
+            # ag_AguilaTest  # Requires an X-server.
+            ag_AguilaProgramOptionsTest
+            ag_ClassifierTest
+            ag_ColourSelectorTest
+            DataObjectBaseTest
+            DataManagerTest
+            com_fileformatinfotest
+            com_matrixtest
+            com_rangemaptest
+            com_rgbtupletest
+            com_utiltest
+            com_userdefinedclassifiertest
+            com_vectortest
+            # SUPPORT_NAMES ag_AguilaGuiTest  # Only needed for AguilaTest.
+        # LINK_LIBRARIES
+            # pcraster_aguila_static
+            # ${_target_libraries}
+            # #${QT_QTTEST_LIBRARY}
+        INCLUDE_DIRS
+            $<TARGET_PROPERTY:pcraster_aguila_objects,INTERFACE_INCLUDE_DIRECTORIES>
+        OBJECT_LIBRARIES
+            $<TARGET_OBJECTS:pcraster_aguila_objects>
+            $<TARGET_OBJECTS:pcraster_aguila_opengl_objects>
+        LINK_LIBRARIES
+            $<TARGET_PROPERTY:pcraster_aguila,LINK_LIBRARIES>
+    )
+else()
     add_unit_tests(
         SCOPE pcraster_aguila
         NAMES
@@ -339,6 +375,7 @@ if(PCRASTER_BUILD_TEST)
         LINK_LIBRARIES
             $<TARGET_PROPERTY:pcraster_aguila,LINK_LIBRARIES>
     )
+endif()
     add_test(
         NAME setup_pcraster_aguila
         COMMAND ${Python_EXECUTABLE} test_prolog.py

@@ -114,6 +114,7 @@ BOOST_AUTO_TEST_CASE(boost_options)
 }
 
 
+#ifdef AGUILA_WITH_OPENGL
 BOOST_AUTO_TEST_CASE(boost_options_to_xml)
 {
   using namespace ag;
@@ -147,7 +148,7 @@ BOOST_AUTO_TEST_CASE(boost_options_to_xml)
   }
 
 }
-
+#endif
 
 BOOST_AUTO_TEST_CASE(stackname_fix)
 {
@@ -290,11 +291,11 @@ BOOST_AUTO_TEST_CASE(multiple_views)
   //   pcrxml::VisualisationGroup::view_sequence const& views(group.view());
   //   BOOST_CHECK_EQUAL(views.size(), size_t(2));
   //   // Two names in the map view.
-  //   BOOST_CHECK(views[0].map().present()); 
-  //   BOOST_CHECK_EQUAL(views[0].map().get().item().size(), size_t(2)); 
+  //   BOOST_CHECK(views[0].map().present());
+  //   BOOST_CHECK_EQUAL(views[0].map().get().item().size(), size_t(2));
   //   // One name in the time graph view.
-  //   BOOST_CHECK(views[1].timeGraph().present()); 
-  //   BOOST_CHECK_EQUAL(views[1].timeGraph().get().item().size(), size_t(1)); 
+  //   BOOST_CHECK(views[1].timeGraph().present());
+  //   BOOST_CHECK_EQUAL(views[1].timeGraph().get().item().size(), size_t(1));
 
   //   BOOST_CHECK(group.searchSpace().present());
   //   pcrxml::DataSpace const& space(group.searchSpace().get());

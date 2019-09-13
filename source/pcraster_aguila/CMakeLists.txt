@@ -30,13 +30,11 @@ add_library(pcraster_aguila_objects OBJECT
     ag_BooleanRasterDrawer
     ag_BufferedVisualisation
     ag_BufferedWidget
-    ag_Camera
     ag_ClassDrawPropertiesWidget
     ag_ClassDrawProps
     ag_ClassLegendBody
     ag_ColourSelector
     ag_Configurable
-    ag_Cube
     ag_CumDistributionFunction
     ag_CumDistributionFunctionView
     ag_CumDistributionFunctionWindow
@@ -63,11 +61,9 @@ add_library(pcraster_aguila_objects OBJECT
     ag_FeatureDataSources
     ag_FeatureLayer
     ag_FeatureLayerDrawer
-    ag_Feedback
     ag_GeneralDataPropertiesWidget
     ag_GeneralPreferencesWidget
     ag_GeometryLegendBody
-    ag_GLVisualisation
     ag_IVisualisation
     ag_LddDrawProps
     ag_LddRasterDrawer
@@ -78,10 +74,6 @@ add_library(pcraster_aguila_objects OBJECT
     ag_Map2D
     ag_Map2DView
     ag_Map2DWindow
-    ag_Map3D
-    ag_Map3DObject
-    ag_Map3DView
-    ag_Map3DWindow
     ag_Map
     ag_MapDrawer
     ag_MapWindow
@@ -95,13 +87,10 @@ add_library(pcraster_aguila_objects OBJECT
     ag_OrdinalRasterDrawer
     ag_PlotVisualisation
     ag_PlotView
-    ag_PostScript
     ag_PreferencesDialog
     ag_PropertiesDialog
     ag_PropertiesWidget
     ag_QApplication
-    ag_QuadDrawer
-    ag_Quaternion
     ag_RangeDrawPropertiesWidget
     ag_RangeDrawProps
     ag_RangeFeatureLayerDrawer
@@ -113,9 +102,6 @@ add_library(pcraster_aguila_objects OBJECT
     ag_SaveDataAsDialog
     ag_SaveViewAsDialog
     ag_ScalarRasterDrawer
-    ag_Scene
-    ag_SceneObject
-    ag_SceneView
     ag_SpatialDataset
     ag_Table
     ag_TableDataSources
@@ -181,7 +167,34 @@ add_library(pcraster_aguila_objects OBJECT
     # Plots/ag_ValueTimeSeriesPlot
 
     ${UI_SOURCES}
+
 )
+
+if(PCRASTER_WITH_OPENGL)
+    add_library(pcraster_aguila_opengl_objects OBJECT
+        ag_Camera
+        ag_Cube
+        ag_Feedback
+        ag_GLVisualisation
+        ag_Map3D
+        ag_Map3DObject
+        ag_Map3DView
+        ag_Map3DWindow
+        ag_Scene
+        ag_SceneObject
+        ag_SceneView
+        ag_PostScript
+        ag_QuadDrawer
+        ag_Quaternion
+    )
+    target_include_directories(pcraster_aguila_opengl_objects
+        PRIVATE
+            ${Qt5OpenGL_INCLUDE_DIRS}
+            $<TARGET_PROPERTY:pcraster::math_utils,INTERFACE_INCLUDE_DIRECTORIES>
+            $<TARGET_PROPERTY:pcraster::dal,INTERFACE_INCLUDE_DIRECTORIES>
+    )
+endif()
+
 
 target_include_directories(pcraster_aguila_objects
     PRIVATE
@@ -189,6 +202,7 @@ target_include_directories(pcraster_aguila_objects
         ${Qt5Gui_INCLUDE_DIRS}
         ${Qt5Xml_INCLUDE_DIRS}
         ${Qt5OpenGL_INCLUDE_DIRS}
+        ${Qt5Widgets_INCLUDE_DIRS}
         $<TARGET_PROPERTY:pcraster::math_utils,INTERFACE_INCLUDE_DIRECTORIES>
         $<TARGET_PROPERTY:pcraster::string_utils,INTERFACE_INCLUDE_DIRECTORIES>
 )
@@ -217,9 +231,24 @@ target_compile_definitions(pcraster_aguila_objects
         PCR_AG_SHARED_LINK
 )
 
-add_library(pcraster_aguila SHARED
-    $<TARGET_OBJECTS:pcraster_aguila_objects>
-)
+
+if(PCRASTER_WITH_OPENGL)
+  target_compile_definitions(pcraster_aguila_objects
+    PRIVATE
+      AGUILA_WITH_OPENGL
+  )
+endif()
+
+if(PCRASTER_WITH_OPENGL)
+    add_library(pcraster_aguila SHARED
+        $<TARGET_OBJECTS:pcraster_aguila_objects>
+        $<TARGET_OBJECTS:pcraster_aguila_opengl_objects>
+    )
+else()
+    add_library(pcraster_aguila SHARED
+        $<TARGET_OBJECTS:pcraster_aguila_objects>
+    )
+endif()
 
 add_library(pcraster::aguila ALIAS pcraster_aguila)
 
@@ -233,12 +262,20 @@ target_link_libraries(pcraster_aguila
         pcraster::dal
         pcraster::xsd
         Qt5::Gui
-        Qt5::OpenGL
+        Qt5::Widgets
         Qt5::Xml
         Qt5::Charts
-#        OpenGL::OpenGL
-        OpenGL::GLU
 )
+
+
+if(PCRASTER_WITH_OPENGL)
+    target_link_libraries(pcraster_aguila
+        PUBLIC
+            Qt5::OpenGL
+            OpenGL::GLU
+    )
+endif()
+
 
 install(
     TARGETS pcraster_aguila

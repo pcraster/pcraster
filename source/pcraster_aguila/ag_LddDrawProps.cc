@@ -31,7 +31,7 @@
 // namespace ag {
 //  class LddDrawPropsPrivate;
 // }
-// 
+//
 // namespace com {
 // template class CountedObject<ag::LddDrawPropsPrivate>;
 // }
@@ -254,6 +254,7 @@ GLuint ag::LddDrawProps::texture(unsigned char gdd, UINT1 ldd) const
     image = image.mirrored();
     image = image.rgbSwapped();
 
+#ifdef AGUILA_WITH_OPENGL
     glGenTextures(1, &_data->_textures[uniqueId]);
     glBindTexture(GL_TEXTURE_2D, _data->_textures[uniqueId]);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 64, 64, 0,
@@ -261,6 +262,7 @@ GLuint ag::LddDrawProps::texture(unsigned char gdd, UINT1 ldd) const
     glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_BLEND);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+#endif
   }
 
   assert(_data->_textures[uniqueId] != 0);

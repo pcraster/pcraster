@@ -344,7 +344,9 @@ namespace detail {
     {
       std::vector<std::string> optionNames;
       optionNames.push_back("mapView");
+#ifdef AGUILA_WITH_OPENGL
       optionNames.push_back("drapeView");
+#endif
       optionNames.push_back("timeGraphView");
       optionNames.push_back("probabilityGraphView");
       optionNames.push_back("valueOnly");
@@ -543,8 +545,10 @@ void AguilaProgramOptions::obtainProgramOptions(
       ("version,v", "show version information")
       ("mapView,2", po::value<VecOfStr>()->composing()->multitoken(),
          "show data in 2D visualisation(s)")
+#ifdef AGUILA_WITH_OPENGL
       ("drapeView,3", po::value<VecOfStr>()->composing()->multitoken(),
          "show data in 3D visualisation(s)")
+#endif
 #ifdef DEBUG_DEVELOP
       ("testVisualisation",
          po::value<VecOfStr>()->composing(),

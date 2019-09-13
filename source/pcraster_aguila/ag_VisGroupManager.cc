@@ -43,7 +43,7 @@ public:
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 ag::VisGroupManager::VisGroupManager(const qt::AppWindowProperties& props)
@@ -191,7 +191,7 @@ ag::MultiMap2DWindow* ag::VisGroupManager::addMultiMap2DWindow(
 }
 
 
-
+#ifdef AGUILA_WITH_OPENGL
 ag::Map3DWindow* ag::VisGroupManager::addMap3DWindow(ag::VisGroup* g)
 {
   assert(g);
@@ -220,7 +220,7 @@ ag::Map3DWindow* ag::VisGroupManager::addMap3DWindow(ag::VisGroup *g,
   Map3DWindow* map = g->addMap3DWindow(v);
   return map;
 }
-
+#endif
 
 
 ag::TimePlotWindow* ag::VisGroupManager::addTimePlotWindow(ag::VisGroup* visGroup)
@@ -275,9 +275,11 @@ void ag::VisGroupManager::newMap2DWindow(ag::VisualisationWindow *v)
 
 void ag::VisGroupManager::newMap3DWindow(ag::VisualisationWindow *v)
 {
+#ifdef AGUILA_WITH_OPENGL
   VisGroup* vg = newGroup();
   (void)vg->addMap3DWindow(v);
   // updateControlCenter();
+#endif
 }
 
 
@@ -553,14 +555,14 @@ ag::VisGroup *ag::VisGroupManager::findGroup(ag::DataObject& dataObject)
 //   assert(false);
 // /*
 //   const pcrxml::VisualisationConfiguration vc(n);
-// 
+//
 //   // We have the main node and checked it. Let's find some contents.
 //   // The 'pcrviscfg' has attributes: 'date', 'version', 'os' and 'cwd'.
 //   assert(vc.date.present());
 //   assert(vc.version.present()); // version is not needed
 //   assert(vc.os.present());
 //   assert(vc.cwd.present());
-// 
+//
 //   for(size_t i = 0; i < vc.visualisationGroup.size(); i++) {
 //     assert(vc.visualisationGroup[i]);
 //     newGroup(*vc.visualisationGroup[i]);
@@ -669,13 +671,13 @@ ag::CursorWindow* ag::VisGroupManager::addCursorWindow(
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE OPERATORS 
+// DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE FUNCTIONS 
+// DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
 

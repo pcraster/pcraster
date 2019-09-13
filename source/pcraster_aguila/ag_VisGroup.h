@@ -35,12 +35,10 @@ namespace ag {
   class CursorWindow;
   class DataObject;
   // class DataPropertiesDialog;
-  class GLVisualisation;
   class MapWindow;
   class Map2D;
   class Map2DView;
   class Map2DWindow;
-  class Map3DWindow;
   class MultiMap2DWindow;
   class TimePlotWindow;
   class VisGroupPrivate;
@@ -48,6 +46,10 @@ namespace ag {
   class IVisualisation;
   class PlotVisualisation;
   class VisualisationWindow;
+#ifdef AGUILA_WITH_OPENGL
+  class GLVisualisation;
+  class Map3DWindow;
+#endif
 }
 
 
@@ -135,11 +137,11 @@ public:
 
   MultiMap2DWindow* addMultiMap2DWindow(size_t nrRows,
                                         size_t nrCols);
-
+#ifdef AGUILA_WITH_OPENGL
   Map3DWindow*     addMap3DWindow      ();
 
   Map3DWindow*     addMap3DWindow      (ag::VisualisationWindow *v);
-
+#endif
 // #ifdef DEBUG_DEVELOP
 //   TestVisualisation* addTestVisualisation();
 // #endif

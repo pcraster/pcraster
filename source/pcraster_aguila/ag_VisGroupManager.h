@@ -31,7 +31,9 @@ namespace ag {
   class Map2D;
   class Map2DView;
   class Map2DWindow;
+#ifdef AGUILA_WITH_OPENGL
   class Map3DWindow;
+#endif
   class MultiMap2DWindow;
   class TimePlotWindow;
   class VisGroupManagerPrivate;
@@ -176,14 +178,14 @@ public Q_SLOTS:
   MultiMap2DWindow* addMultiMap2DWindow(ag::VisGroup* group,
                                               size_t nrRows,
                                               size_t nrCols);
-
+#ifdef AGUILA_WITH_OPENGL
   Map3DWindow*     addMap3DWindow      (ag::VisGroup* g);
 
   Map3DWindow*     addMap3DWindow      (ag::VisualisationWindow* v);
 
   Map3DWindow*     addMap3DWindow      (ag::VisGroup* g,
                                         ag::VisualisationWindow* v);
-
+#endif
   TimePlotWindow*  addTimePlotWindow   (ag::VisGroup* visGroup);
 
   TimePlotWindow*  addTimePlotWindow   (ag::VisualisationWindow* visualisation);

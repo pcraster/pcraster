@@ -532,14 +532,14 @@ VisGroup* Viewer::createDrapeView(
   // Create windows.
   std::vector<Map3DWindow*> windows;
   std::vector<std::string> scenarios; // EMPTY FTTB
-
+#ifdef AGUILA_WITH_OPENGL
   // 1 window Or for each scenario one window. (max( ))
   for(size_t i = 0; i < std::max<size_t>(1,scenarios.size()); ++i) {
      windows.push_back(d_data->d_manager->addMap3DWindow(group));
      // Use the first data source for height.
      windows.back()->setHeight(guides[0]);
   }
-
+#endif
   // Add data to windows.
   { // i == 0 already done as height
     for(size_t i=1; i < guides.size(); ++i) {
@@ -1102,14 +1102,14 @@ VisGroup* Viewer::displayMap3D(
   // Create windows.
   std::vector<Map3DWindow*> windows;
   std::vector<std::string> scenarios(findScenarios(results));
-
+#ifdef AGUILA_WITH_OPENGL
   // 1 window Or for each scenario one window. (max( ))
   for(size_t i = 0; i < std::max<size_t>(1,scenarios.size()); ++i) {
      windows.push_back(d_data->d_manager->addMap3DWindow(group));
      // Use the first data source for height.
      windows.back()->setHeight(group->addData(firstName, firstSpace));
   }
-
+#endif
   // Add data to windows.
   {
     QueryResults::const_iterator i=results.begin();

@@ -23,17 +23,19 @@
 // #include "ag_DataPropertiesDialog.h"
 // #define INCLUDED_AG_DATAPROPERTIESDIALOG
 // #endif
-#include "ag_GLVisualisation.h"
 #include "ag_Map2D.h"
 #include "ag_Map2DView.h"
 #include "ag_Map2DWindow.h"
 #include "ag_MultiMap2DWindow.h"
-#include "ag_Map3DWindow.h"
 #include "ag_PlotVisualisation.h"
 #include "ag_TimePlotWindow.h"
 #include "ag_VisGroupManager.h"
 
 
+#ifdef AGUILA_WITH_OPENGL
+  #include "ag_GLVisualisation.h"
+  #include "ag_Map3DWindow.h"
+#endif
 
 //------------------------------------------------------------------------------
 
@@ -100,7 +102,7 @@ size_t VisGroupPrivate::d_nrCreated = 0;
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 /*!
@@ -226,8 +228,10 @@ void ag::VisGroup::connectVisSignals(VisualisationWindow* visualisation)
   // Logic for new visualisations. Uses the VisGroupManager object.
   connect(visualisation, SIGNAL(newMap2DWindow(ag::VisualisationWindow *)),
          d_data->d_manager, SLOT(newMap2DWindow(ag::VisualisationWindow *)));
+#ifdef AGUILA_WITH_OPENGL
   connect(visualisation, SIGNAL(newMap3DWindow(ag::VisualisationWindow *)),
          d_data->d_manager, SLOT(newMap3DWindow(ag::VisualisationWindow *)));
+#endif
   connect(visualisation, SIGNAL(newTimePlotWindow(ag::VisualisationWindow *)),
          d_data->d_manager, SLOT(newTimePlotWindow(ag::VisualisationWindow *)));
 
@@ -241,8 +245,10 @@ void ag::VisGroup::connectVisSignals(VisualisationWindow* visualisation)
   // Logic for adding visualisations to the group. Through manager.
   connect(visualisation, SIGNAL(addMap2DWindow(ag::VisualisationWindow *)),
          d_data->d_manager, SLOT(addMap2DWindow(ag::VisualisationWindow *)));
+#ifdef AGUILA_WITH_OPENGL
   connect(visualisation, SIGNAL(addMap3DWindow(ag::VisualisationWindow *)),
          d_data->d_manager, SLOT(addMap3DWindow(ag::VisualisationWindow *)));
+#endif
   connect(visualisation, SIGNAL(addTimePlotWindow(ag::VisualisationWindow *)),
          d_data->d_manager, SLOT(addTimePlotWindow(ag::VisualisationWindow *)));
   /*
@@ -336,7 +342,7 @@ ag::MultiMap2DWindow* ag::VisGroup::addMultiMap2DWindow(
 }
 
 
-
+#ifdef AGUILA_WITH_OPENGL
 /*!
   \brief     Adds a new Drape View to the group.
 */
@@ -368,7 +374,7 @@ ag::Map3DWindow* ag::VisGroup::addMap3DWindow(VisualisationWindow *v)
     m->show();
   return m;
 }
-
+#endif
 
 
 ag::TimePlotWindow* ag::VisGroup::addTimePlotWindow()
@@ -412,7 +418,7 @@ ag::CumDistributionFunctionWindow* ag::VisGroup::addProbabilityGraphWindow()
 //          const ag::DataGuide& dataGuide)
 // {
 //   assert(d_data->d_dataObject.isValid(dataGuide));
-// 
+//
 //   ag::DataPropertiesDialog* dialog =
 //                    new ag::DataPropertiesDialog(d_data->d_winProps,
 //                    &(d_data->d_dataObject), dataGuide);
@@ -483,13 +489,13 @@ void ag::VisGroup::detach(ag::IVisualisation *visualisation)
 // void ag::VisGroup::open(ag::VisualisationWindow* window)
 // {
 //   MapWindow* mapWindow = dynamic_cast<MapWindow*>(window);
-// 
+//
 //   // mapWindow might be 0.
 //   open(mapWindow);
 // }
-// 
-// 
-// 
+//
+//
+//
 // //!
 // /*!
 //   \param     map Map visualisation, possibly 0.
@@ -500,25 +506,25 @@ void ag::VisGroup::detach(ag::IVisualisation *visualisation)
 // void ag::VisGroup::open(ag::MapWindow* window)
 // {
 //   bool opened = false;
-// 
+//
 //   std::string filename = qt::getOpenFileName(com::FileFormatInfo::csf(),
 //          window, 0);
-// 
+//
 //   if(!filename.empty()) {
-// 
+//
 //     try {
-// 
+//
 //       boost::tuple<std::string, dal::DataSpace> tuple =
 //          dal::oldStackName2NameSpaceTuple(filename);
 //       tuple.get<1>() |= d_data->d_dataObject.dataSpace();
 //       tuple.get<1>().eraseDimension(dal::Space);
-// 
+//
 //       ag::DataGuide guide = addData(tuple.get<0>(), tuple.get<1>());
-// 
+//
 //       if(window) {
 //         window->addAttribute(guide);
 //       }
-// 
+//
 //       /*
 //       if(dataObject.cursorPos().isValid()) {
 //         dataObject.notify();
@@ -528,7 +534,7 @@ void ag::VisGroup::detach(ag::IVisualisation *visualisation)
 //               dataObject.firstTimeStep()));
 //       }
 //       */
-// 
+//
 //       opened = true;
 //     }
 //     catch(dal::Exception const& exception) {
@@ -560,9 +566,9 @@ void ag::VisGroup::close()
 // {
 //   assert(!d_data->d_animationControl);
 //   ag::DataObject& dataObject = d_data->d_dataObject;
-// 
+//
 //   d_data->d_animationControl = new AnimationControl(&dataObject);
-// 
+//
 //   connect(&dataObject.animationManager(), SIGNAL(started()),
 //          d_data->d_animationControl, SLOT(updateInterface()));
 //   connect(&dataObject.animationManager(), SIGNAL(paused()),
@@ -580,7 +586,7 @@ void ag::VisGroup::close()
 // void ag::VisGroup::showAnimationControl()
 // {
 //   assert(d_data->d_animationControl);
-// 
+//
 //   if(d_data->d_animationControl->isVisible()) {
 //     d_data->d_animationControl->raise();
 //   }
@@ -797,30 +803,30 @@ ag::CursorWindow* ag::VisGroup::addCursorWindow()
 
 
 // namespace ag {
-// 
+//
 // #ifdef DEBUG_DEVELOP
 // TestVisualisation* VisGroup::addTestVisualisation()
 // {
 //   TestVisualisation* visualisation = new TestVisualisation(
 //          d_data->d_winProps, &(d_data->d_dataObject));
 //   addVisualisation(visualisation);
-// 
+//
 //   return visualisation;
 // }
 // #endif
-// 
+//
 // } // namespace
 
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE OPERATORS 
+// DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE FUNCTIONS 
+// DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
 

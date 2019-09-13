@@ -124,6 +124,9 @@ The drape view shows a scalar spatial raster attribute as a surface (or sheet) w
 
 You can change some properties of the drape view by right clicking your mouse in the map view (the one which shows the sheet) and selecting ``Properties``. The properties dialogue for the map view will be shown.
 
+.. note::
+   The drape view can only be used when Aguila was built with OpenGL support.
+
 Drape Controls
 --------------
 There's a difference between controlling the camera ('your head') and the 3D scene. You can control the position and aim of the camera (see the table below). You can only control the orientation of the scene (see the second table below). Together these controls enable you to look at every part of the scene from everywhere.

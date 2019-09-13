@@ -4,13 +4,20 @@
 
 
 #include "pcrtypes.h"
-#include <QtOpenGL>
 
 #ifndef INCLUDED_COM_CLASSCLASSIFIER
 #include "com_classclassifier.h"
 #endif
 #include "ag_ClassDrawProps.h"
 
+
+#ifdef AGUILA_WITH_OPENGL
+  #include <QtOpenGL>
+#endif
+
+#ifndef AGUILA_WITH_OPENGL
+  typedef unsigned int  GLuint;
+#endif
 
 
 namespace ag {

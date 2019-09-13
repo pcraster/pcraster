@@ -205,15 +205,8 @@ void PlotView::setXAxisScale()
   size_t last = dimension.value<size_t>(1);
   assert(last >= first);
 
+  m_axisX->applyNiceNumbers();
   m_axisX->setRange(first, last);
-
-// TODO fix this later ...
-#if QT_VERSION >= 0x051200
-  m_axisX->setTickInterval(1);
-#else
-  m_axisX->setTickCount(4);
-#endif
-
   m_axisX->setLabelFormat("%d");
   m_chart->addAxis(m_axisX, Qt::AlignBottom);
 }
@@ -279,8 +272,6 @@ void PlotView::setYAxisScale()
   // }
 
   m_axisY->setRange(min, max);
-
-  m_axisY->setLabelFormat("%d");
   m_chart->addAxis(m_axisY, Qt::AlignLeft);
 }
 

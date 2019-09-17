@@ -93,6 +93,14 @@ except KeyError:
 except ImportError:
     pass  # Multicore module was not installed
 
+
+try:
+    import matplotlib
+    from .matplotlib import plot
+
+except ImportError as e:
+    pass  # Matplotlib module was not installed
+
 finally:
     if sys.platform == "win32":
         os.environ["PATH"] = path_

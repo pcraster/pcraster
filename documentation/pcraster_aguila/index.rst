@@ -21,7 +21,7 @@ __ http://pcraster.sourceforge.net
 See for more information:
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
    Screenshots and Videos <Screenshots>
    Downloads

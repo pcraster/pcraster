@@ -15,6 +15,8 @@ The most relevant updates for users:
 ..
 .. multicore fixes
 
+* We no longer provide support for Python 2.
+* We added a function to create basic plots of PCRaster maps in case the matplotlib module is installed.
 * On Windows, ``mapattr`` and ``legend`` show the menu again.
 * Command line applications now show version numbers instead of a build date.
 
@@ -24,7 +26,7 @@ Aguila was refactored to simplify the build process. The functionality remains t
 We further improved the code quality and the build system to ensure an ongoing creation of PCRaster packages, amongst others:
 
 * Replacing Boost.Python with Pybind11
-* Replacing Qwt with Qt Charts
+* Replacing Qwt with QtCharts
 * Modernising C++ code towards C++17
 * Various improvements to support gcc-9, clang-7 and Visual Studio 2017
 * Reducing amount of dependencies

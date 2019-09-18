@@ -92,6 +92,11 @@ def plot(raster, labels=None, title=None, filename=None):
   ``filename``: Optional. If provided plot will be written to disk.
 
   Creates a plot of a PCRaster map using matplotlib. The plot is either opened in a separate window, or written to disk in case a filename is provided.
+
+.. versionadded:: 4.3
+
+.. note::
+   This function is only available when the ``matplotlib`` module is installed.
   """
 
   plot_title = None

@@ -1,6 +1,6 @@
 language: cpp
 
-dist: xenial
+dist: bionic
 
 sudo: required
 
@@ -13,20 +13,20 @@ matrix:
          - os: osx
 
     include:
-        - name: "Linux; gcc 5.4; debug"
+        - name: "Linux; gcc 7; debug"
           os: linux
-          python: "3.5"
+          python: "3.6"
           addons:
               apt:
                   sources:
                       - ubuntu-toolchain-r-test
                   packages:
-                      - g++-5
+                      - g++-7
           env:
-              - MATRIX_EVAL="CC=gcc-5 && CXX=g++-5"
+              - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
               - TRAVIS_BUILD_TYPE=Debug
               - TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
-              - TRAVIS_PYTHON_VERSION=3.5
+              - TRAVIS_PYTHON_VERSION=3.6
           before_install:
               - ./environment/travis/linux/before_install.sh
           install:
@@ -37,20 +37,20 @@ matrix:
               - ./environment/travis/script.sh
 
 
-        - name: "Linux; gcc 8; release"
+        - name: "Linux; gcc 9; release"
           os: linux
-          python: "3.5"
+          python: "3.7"
           addons:
               apt:
                   sources:
                       - ubuntu-toolchain-r-test
                   packages:
-                      - g++-8
+                      - g++-9
           env:
-              - MATRIX_EVAL="CC=gcc-8 && CXX=g++-8"
+              - MATRIX_EVAL="CC=gcc-9 && CXX=g++-9"
               - TRAVIS_BUILD_TYPE=Release
               - TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
-              - TRAVIS_PYTHON_VERSION=3.5
+              - TRAVIS_PYTHON_VERSION=3.7
           before_install:
               - ./environment/travis/linux/before_install.sh
           install:

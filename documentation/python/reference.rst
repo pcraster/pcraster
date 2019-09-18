@@ -16,5 +16,3 @@ Reference documentation
    :members: aguila
 
 .. autofunction:: pcraster.matplotlib.plot
-.. note::
-   This function is only available when the ``matplotlib`` module is installed.

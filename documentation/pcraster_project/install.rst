@@ -1,6 +1,13 @@
 Install PCRaster
 ================
 
+For a more detailed description please check the installation pages on the PCRaster |pcrasterinsturl|.
+
+.. |pcrasterinsturl| raw:: html
+
+   <a href="http://pcraster.geo.uu.nl/getting-started/" target="_blank">website</a>
+
+
 Requirements
 ------------
 
@@ -104,7 +111,12 @@ In order for the PCRaster executables and the Python package to be found, the ``
 
 .. note::
 
-   In case the PCRaster software doesn't work, verify that the `Redistributable Package for PCRaster 4, 64-bit version`_ is installed.
+   In case the PCRaster software doesn't work, verify that the |msvsredist| is installed.
+
+.. |msvsredist| raw:: html
+
+   <a href="https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads" target="_blank">Microsoft Visual C++ 2017 Redistributable Package</a>
+
 
 
 ..   Microsoft Visual C++ 2015 Redistributable Package is installed:

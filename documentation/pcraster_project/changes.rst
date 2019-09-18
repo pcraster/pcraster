@@ -6,22 +6,15 @@ PCRaster 4.3.0 (Not yet released)
 
 The most relevant updates for users:
 
-
-.. drop python2.7 ?!
-..
-.. breaking change in pickle
-..
-.. added cellvalue by (index, indices, coordinates); version_tuple
-..
-.. multicore fixes
-
 * We no longer provide support for Python 2.
-* We added a function to create basic plots of PCRaster maps in case the matplotlib module is installed.
+* We fixed a bug occuring when pickling PCRaster maps. Note that PCRaster maps pickled with previous versions cannot be opened with this version.
+* We fixed several minor inconsistencies in the ``multicore`` module.
+* We added the Python functions ``cellvalue_by_coordinates``, ``cellvalue_by_index`` and ``cellvalue_by_indices``.
+* We added a ``plot`` function to create basic plots of PCRaster maps in case the matplotlib module is installed.
 * On Windows, ``mapattr`` and ``legend`` show the menu again.
 * Command line applications now show version numbers instead of a build date.
 
 Aguila was refactored to simplify the build process. The functionality remains the same. In case you experience any differences to previous Aguila versions consider it as a defect and please report it at our `issues <https://github.com/pcraster/pcraster/issues/>`_ page.
-
 
 We further improved the code quality and the build system to ensure an ongoing creation of PCRaster packages, amongst others:
 
@@ -36,6 +29,9 @@ We further improved the code quality and the build system to ensure an ongoing c
   - Shared libraries now receive version numbers and sonames
   - The build type 'Release' now sets flags ``-march=native -mtune=native`` by default, and optional interprocedural optimization in case supported by the compiler
 
+PCRaster 4.3 is known to build with gcc (versions 7, 9), clang (version 6) or msvc 2017.
+
+For a more detailed list of solved issues see our `4.3 <https://github.com/pcraster/pcraster/milestone/6>`_ milestone.
 
 PCRaster 4.2.1
 --------------

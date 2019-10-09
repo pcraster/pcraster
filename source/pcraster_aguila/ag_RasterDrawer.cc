@@ -4,7 +4,6 @@
 #include <cassert>
 #include <cmath>
 #include <QPainter>
-#include <QtCharts/QtCharts>
 #include <QGraphicsView>
 
 // Project headers.

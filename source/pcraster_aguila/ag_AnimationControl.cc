@@ -1,7 +1,14 @@
 #include "ag_AnimationControl.h"
 
 // Library headers.
-#include <QtWidgets>
+#include <QCheckBox>
+#include <QLineEdit>
+#include <QIntValidator>
+#include <QSpinBox>
+#include <QBoxLayout>
+#include <QGroupBox>
+#include <QPushButton>
+#include <QLabel>
 
 // PCRaster library headers.
 #include "dal_DataSpace.h"

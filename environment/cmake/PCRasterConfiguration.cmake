@@ -148,7 +148,7 @@ if(NOT PYBIND11_SYSTEM_INCLUDE)
     FetchContent_Declare(
         pybind11
         GIT_REPOSITORY https://github.com/pybind/pybind11
-        GIT_TAG        v2.3.0
+        GIT_TAG        v2.4.3
     )
 
     FetchContent_GetProperties(pybind11)

@@ -5,11 +5,11 @@
 
 
 set(CMAKE_C_FLAGS
-    "${CMAKE_C_FLAGS} /W3 /wd4267 /wd4251 "
+    "${CMAKE_C_FLAGS} /DWIN32 /D_WINDOWS /W3 /O2 /wd4267 /wd4251"
 )
 
 set(CMAKE_CXX_FLAGS
-    "${CMAKE_CXX_FLAGS} /W3 /std:c++14 /EHsc /wd4267  /wd4251 "
+    "${CMAKE_CXX_FLAGS} /DWIN32 /D_WINDOWS /W3 /GR /EHsc /O2 /std:c++14 /wd4267 /wd4251"
 )
 
 
@@ -26,11 +26,11 @@ set(CMAKE_DEBUG_POSTFIX "d")
 
 
 set(CMAKE_C_FLAGS_DEBUG
-    "${CMAKE_C_FLAGS_DEBUG} /W3 "
+    "${CMAKE_C_FLAGS_DEBUG} /DWIN32 /D_WINDOWS /W3 /Od"
 )
 
 set(CMAKE_CXX_FLAGS_DEBUG
-    "${CMAKE_CXX_FLAGS_DEBUG} /W3 /std:c++14"
+    "${CMAKE_CXX_FLAGS_DEBUG} /DWIN32 /D_WINDOWS /W3 /GR /EHsc /Od /std:c++14"
 )
 
 

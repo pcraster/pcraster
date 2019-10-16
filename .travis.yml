@@ -37,7 +37,7 @@ matrix:
               - ./environment/travis/script.sh
 
 
-        - name: "Linux; gcc 9; release"
+        - name: "Linux; gcc 8; release"
           os: linux
           python: "3.7"
           addons:
@@ -45,9 +45,9 @@ matrix:
                   sources:
                       - ubuntu-toolchain-r-test
                   packages:
-                      - g++-9
+                      - g++-8
           env:
-              - MATRIX_EVAL="CC=gcc-9 && CXX=g++-9"
+              - MATRIX_EVAL="CC=gcc-8 && CXX=g++-8"
               - TRAVIS_BUILD_TYPE=Release
               - TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
               - TRAVIS_PYTHON_VERSION=3.7
@@ -75,6 +75,7 @@ matrix:
               - brew outdated cmake || brew upgrade cmake
               - cmake --version
               - pip3 install psutil
+              - which python3
           before_script:
               - mkdir $TRAVIS_BUILD_DIR/build
               - cd $TRAVIS_BUILD_DIR/build

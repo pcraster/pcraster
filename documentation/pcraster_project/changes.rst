@@ -7,7 +7,7 @@ PCRaster 4.3.0 (Not yet released)
 The most relevant updates for users:
 
 * We no longer provide support for Python 2.
-* We fixed a bug occuring when pickling PCRaster maps. Note that PCRaster maps pickled with previous versions cannot be opened with this version.
+* We fixed a bug occurring when pickling PCRaster maps. Note that PCRaster maps pickled with previous versions cannot be opened with this version.
 * We fixed several minor inconsistencies in the ``multicore`` module.
 * We added the Python functions ``cellvalue_by_coordinates``, ``cellvalue_by_index`` and ``cellvalue_by_indices``.
 * We added a ``plot`` function to create basic plots of PCRaster maps in case the matplotlib module is installed.
@@ -21,7 +21,7 @@ We further improved the code quality and the build system to ensure an ongoing c
 * Replacing Boost.Python with Pybind11
 * Replacing Qwt with QtCharts
 * Modernising C++ code towards C++17
-* Various improvements to support gcc-9, clang-7 and Visual Studio 2017
+* Various improvements to support gcc-9, clang-7, Visual Studio 2017 and Python 3.8
 * Reducing amount of dependencies
 * Specifically for Linux:
 
@@ -29,7 +29,8 @@ We further improved the code quality and the build system to ensure an ongoing c
   - Shared libraries now receive version numbers and sonames
   - The build type 'Release' now sets flags ``-march=native -mtune=native`` by default, and optional interprocedural optimization in case supported by the compiler
 
-PCRaster 4.3 is known to build with gcc (versions 7, 9), clang (version 6) or msvc 2017.
+PCRaster 4.3 is known to build with gcc (versions 7 to 9), clang (version 6) or msvc 2017.
+We recommend to no longer use gcc version 5 or 6 for building PCRaster.
 
 For a more detailed list of solved issues see our `4.3 <https://github.com/pcraster/pcraster/milestone/6>`_ milestone.
 

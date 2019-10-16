@@ -8,6 +8,9 @@ configure_file(
     include/pcraster_version.h
 )
 
+if(WIN32)
+    add_subdirectory(pdcurses)
+endif()
 add_subdirectory(math_utils)
 add_subdirectory(string_utils)
 add_subdirectory(utils)

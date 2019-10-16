@@ -102,11 +102,8 @@ set(DEVBASE_GDAL_REQUIRED TRUE)  # Version >= 2.0.0.
 find_package(Python COMPONENTS Interpreter Development NumPy)
 message(STATUS "  Interpreter ID: " ${Python_INTERPRETER_ID})
 
-if(WIN32)
-    find_package(PDCurses REQUIRED)
-    set(CURSES_INCLUDE_DIRS ${PDCURSES_INCLUDE_DIR})
-    set(CURSES_LIBRARIES ${PDCURSES_LIBRARIES})
-else()
+
+if(UNIX)
     set(CURSES_NEED_NCURSES TRUE)
     set(DEVBASE_CURSES_REQUIRED TRUE)
     set(DEVBASE_CURSES_WIDE_CHARACTER_SUPPORT_REQUIRED FALSE)

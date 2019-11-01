@@ -54,6 +54,27 @@ CMAKE_DEPENDENT_OPTION(
     ON
     "PCRASTER_BUILD_AGUILA"
     OFF)
+option(
+    PCRASTER_PACKAGE_BOOST
+    "Package shared libraries"
+    OFF)
+option(
+    PCRASTER_PACKAGE_QT
+    "Package shared libraries"
+    OFF)
+option(
+    PCRASTER_PACKAGE_XERCES
+    "Package shared libraries"
+    OFF)
+option(
+    PCRASTER_PACKAGE_GDAL
+    "Package shared libraries"
+    OFF)
+option(
+    PCRASTER_PACKAGE_NCURSES
+    "Package shared libraries"
+    OFF)
+
 
 
 set(Boost_NO_BOOST_CMAKE ON)
@@ -111,7 +132,7 @@ endif()
 
 if(PCRASTER_BUILD_TEST)
 
-    find_python_module(psutil REQUIRED)
+    find_python_module(psutil)
 
     # sqlite executable is used by dal's testrun.prolog
     find_package(SQLite3)

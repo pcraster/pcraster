@@ -23,7 +23,6 @@
 /* EXTERNALS */
 /*************/
 
-char *licenceeName=NULL;
 int   appUnitTest=FALSE;
 
 /* list of dynamic library names
@@ -668,8 +667,6 @@ int InstallArgs(
    PLATFORM_TXT);
 #      endif
    (void)fprintf(stderr, VERSION, progName, PCRASTER_VERSION, PLATFORM_TXT);
-   if (licenceeName != NULL)
-   (void)fprintf(stderr, "licenced to %s\n\n",licenceeName);
   }
   return 0;
 error:
@@ -704,7 +701,7 @@ int AppArgCountCheck(
 {
   if (argc == 1) {
     (void)fprintf(stderr, "%s", usage);
-    return 1;
+    exit(0);
   }
   if (argc < minArgc)
    return RetError(1,"Not enough arguments");

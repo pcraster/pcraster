@@ -13,6 +13,7 @@ The most relevant updates for users:
 * We added a ``plot`` function to create basic plots of PCRaster maps in case the matplotlib module is installed.
 * On Windows, ``mapattr`` and ``legend`` show the menu again.
 * Command line applications now show version numbers instead of a build date.
+* The exit value of applications only showing the usage information changed from 1 (EXIT_FAILURE) to 0 (EXIT_SUCCESS).
 
 Aguila was refactored to simplify the build process. The functionality remains the same. In case you experience any differences to previous Aguila versions consider it as a defect and please report it at our `issues <https://github.com/pcraster/pcraster/issues/>`_ page.
 

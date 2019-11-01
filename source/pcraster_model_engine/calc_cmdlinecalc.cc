@@ -147,7 +147,7 @@ public:
           // overwrite this one each time
           // seems to do test349 better from the commandline :-(
            std::string s(com::toString(pi.inTimeStep));
-           std::cerr << "Executing timestep " << s << "\r" ; 
+           std::cerr << "Executing timestep " << s << "\r" ;
            std::cerr.flush();
         }
         return 0;
@@ -191,7 +191,7 @@ int calc::CmdLineCalc::execute()
 
   if (d_argc == 1) {
       d_options.printUsage();
-      return 1;
+      exit(0);
   }
   d_options.processCmdLineOptions(d_argc,d_argv);
 

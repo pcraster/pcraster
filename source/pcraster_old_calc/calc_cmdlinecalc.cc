@@ -200,7 +200,7 @@ int calc::CmdLineCalc::execute()
 
     if (d_argc == 1) {
       printUsage();
-      return 1;
+      exit(0);
     }
 
     if (!processArgs(d_argc,d_argv))

@@ -23,7 +23,7 @@ Boolean operators
  Performs a Boolean-or operation on two expressions, on a cell-by-cell basis.
 :ref:`xor`
  Performs a Boolean-xor operation on two expressions, on a cell-by-cell basis.
- 
+
 
 
 
@@ -43,7 +43,7 @@ Comparison operators
  Performs a relational-less-than operation on two expressions, on a cell-by-cell basis.
 :ref:`ne or != <ne>`
  Performs a relational-not-equal-to operation on two expressions, on a cell-by-cell basis.
- 
+
 
 
 
@@ -57,7 +57,7 @@ Conditional statements
   Return missing values if condition is not met.
 :ref:`repeat { ...} until <secrepeatuntil>` (pcrcalc)
   Conditional iteration in pcrcalc.
- 
+
 
 
 
@@ -77,7 +77,7 @@ Missing value creation, detection, alteration
   Return missing values if condition is not met.
 :ref:`inversedistance`
  Interpolate values
- 
+
 
 
 
@@ -91,7 +91,7 @@ Relations in tables
  Assigns table key values with possible interpolation between key values.
 :ref:`table`
  Creates on basis of one or more maps a table with a score for each key in the table. The score is the total area of the cells that match the key in the table.
- 
+
 
 
 
@@ -115,7 +115,7 @@ Order
  For each cell returns an ordinal number which is the ordinal number of the next lower ordinal class (predecessor) on the expression.
 :ref:`succ`
  For each cell returns an ordinal number which is the ordinal number of the next higher ordinal class (predecessor) on the expression.
- 
+
 
 
 
@@ -127,7 +127,7 @@ Maximize, minimize
   For each cell, determines the maximum value of multiple expressions and assigns it to the corresponding cell for the result.
 :ref:`min`
  For each cell, determines the minimum value of multiple expressions and assigns it to the corresponding cell for the result.
- 
+
 
 
 
@@ -140,7 +140,7 @@ Arithmic operators, trigonometric, exponential, logarithmic functions
 :ref:`** <sterster>`
  Calculates the Nth power of the first expression, where N is the value on a second expression and sends it to the result, on a cell-by-cell basis.
 :ref:`- <minus>`
- Subtracts the value of the second expression from the value of the first expression and assigns it to the result, on a cell-by-cell basis. 
+ Subtracts the value of the second expression from the value of the first expression and assigns it to the result, on a cell-by-cell basis.
 :ref:`+ <plus>`
  Adds the values of two expressions and assigns this sum to the result, on a cell-by-cell basis.
 :ref:`/ or div <slash>`
@@ -175,7 +175,7 @@ Arithmic operators, trigonometric, exponential, logarithmic functions
  Calculates the square root of an expression, on a cell-by-cell basis.
 :ref:`tan`
  Calculates the tangent of an expression, on a cell-by-cell basis.
- 
+
 
 
 
@@ -189,7 +189,7 @@ Rounding
  For each cell, the value of an expression is rounded downwards. Values of the results will be whole numbers.
 :ref:`roundoff`
  For each cell, the value of an expression is rounded off. Values of the results will be whole numbers.
- 
+
 
 
 
@@ -211,7 +211,7 @@ Data types: Conversion and assignment
  Converts from boolean, nominal, ordinal, directional or ldd data type to a scalar data type or generates a map of scalar data type with one constant value.
 :ref:`spatial`
  Conversion of a non-spatial value to a spatial data type.
- 
+
 
 
 
@@ -223,7 +223,7 @@ Random number generation - cells
   For each cell that is TRUE on a Boolean expression, assigns a value taken from a normal distribution with mean 0 and standard deviation 1.
 :ref:`uniform`
  For each cell that is TRUE on a Boolean expression, assigns a value taken from a uniform distribution between 0 and 1.
- 
+
 
 
 
@@ -237,7 +237,7 @@ Coordinates, unique ID's
  For each cell that is TRUE on a Boolean expression, assigns the xcoordinate of the cell
 :ref:`ycoordinate`
  For each cell that is TRUE on a Boolean expression, assigns the ycoordinate of the cell
- 
+
 
 
 
@@ -269,7 +269,7 @@ Windows operations
  For each cell, finds the minimum cell value within a specified square neighbourhood and assigns it to the corresponding cell for the result
 :ref:`windowtotal`
  For each cell, finds the sum of cell values within a specified square neighbourhood and assigns it to the corresponding cell for the result
- 
+
 
 
 
@@ -291,7 +291,7 @@ Derivatives of elevation maps
  For each cell, calculates the profile curvature (i.e. curvature in the direction of the slope) using elevations from a digital elevation model.
 :ref:`slope`
  For each cell, calculates the slope using elevations from a digital elevation model.
- 
+
 
 
 
@@ -311,7 +311,7 @@ Spread operations
  For each cell, determines the shortest friction-distance path over a map with friction from an identified source cell or cells to the cell under consideration, where only paths are considered in downstream direction from the source cells. The value of the source cell at the start of this shortest material-distance path is assigned to the cell under consideration.
 :ref:`spreadzone`
  Determines for each cell the shortest friction-distance path over a map with friction material from an identified source cell or cells to the cell under consideration. The value of the source cell at the start of this shortest friction-distance is assigned to the cell under consideration.
- 
+
 
 
 
@@ -324,7 +324,7 @@ Operations with local drain direction maps
  Calculates for each cell the material-distance of the path over a map with friction from the cell under consideration to the downstream nearest TRUE cell.
 :ref:`slopelength`
  For each cell assigns the accumulative-material-distance of the longest accumulative-material-path upstream over the local drain direction network to one of the cells against the divide of its catchment.
- 
+
 
 :emphasis:`transport of material:`
 
@@ -350,7 +350,7 @@ Operations with local drain direction maps
  Kinematic Wave equation
 :ref:`kinwavestate, kinwaveflux <kinwave>`
  Kinematic Wave equation as state and flux
- 
+
 
 :emphasis:`miscellaneous operations:`
 
@@ -376,7 +376,7 @@ Operations with local drain direction maps
  Simulates transient groundwater flow according to the implicit finite difference method.
 :ref:`upstream`
  For each cell, assigns the sum of the cell values of its upstream cell(s).
- 
+
 
 
 
@@ -388,7 +388,7 @@ Operations for visibility analysis
  Determines the total length of the lines in a number of directions from the cell under consideration to the first cell with a different value.
 :ref:`view`
  Assigns a TRUE or FALSE value for each cell on the result according to the visibility of that cell from one or more viewpoint cells in a 3D landscape defined by a digital elevation model.
- 
+
 
 
 
@@ -417,8 +417,8 @@ Operations over areas
 :ref:`areatotal`
  For each cell, assigns the sum of cells of cells that belong to the same area to the cell itself. Areas are identified by cell values on a expression with classes.
 :ref:`clump`
- Identifies all continuous groups of with the same value ('clumps'); cells belonging to one clump are assigned the same new unique value.  
- 
+ Identifies all continuous groups of with the same value ('clumps'); cells belonging to one clump are assigned the same new unique value.
+
 
 
 
@@ -430,7 +430,7 @@ Random number generation - areas
  Assigns to each area one value taken from a normal distribution with a mean 0 and a standard deviation 1.
 :ref:`areauniform`
  Assigns to each area one value taken from a uniform distribution with a mean 0 and a standard deviation 1.
- 
+
 
 
 
@@ -456,7 +456,7 @@ Operations over maps
  Assigns the area of one cell.
 :ref:`celllength`
  Assigns the length which is identical in vertical and horizontal direction of one cell.
- 
+
 
 
 
@@ -468,7 +468,7 @@ Random number generation - map
  Assigns to all cells one non spatial value taken from a normal distribution with a mean 0 and a standard deviation 1.
 :ref:`mapuniform`
  Assigns to all cells one non spatial value taken from a uniform distribution with a mean 0 and a standard deviation 1.
- 
+
 
 
 
@@ -498,7 +498,7 @@ Time operations
  For each cell writes the expression value of an uniquely identified cell or cells to a time series. After a model run, the time series contains for each identified cell a list of expression cell values per time step.
 :ref:`timeslice`
  Assigns the timeslice.
- 
+
 
 
 
@@ -514,7 +514,7 @@ map creation, changing attributes
 ---------------------------------
 :ref:`mapattr`
   Generates a new PCRaster map with attributes specified by the user or changes location attributes of an existing PCRaster map.
- 
+
 
 
 
@@ -525,12 +525,12 @@ Conversion of data
 :ref:`asc2map`
  Converts from ascii file format (including ARC/INFO and GENAMAP ascii output) to PCRaster map format.
 :ref:`col2map`
- Converts from column file format (including simplified Geo-EAS format used in the GSTAT module of PCRaster) to PCRaster map format.
+ Converts from column file format (including simplified Geo-EAS format) to PCRaster map format.
 :ref:`map2asc`
  Converts from PCRaster map format to ascii file format (including ascii input format for ARC/INFO.
 :ref:`map2col`
- Converts from PCRaster map format to column file format (including simplified Geo-EAS format also used in the GSTAT module of PCRaster).
- 
+ Converts from PCRaster map format to column file format (including simplified Geo-EAS format).
+
 
 
 
@@ -540,7 +540,7 @@ Cutting and joining together PCRaster maps
 ------------------------------------------
 :ref:`resample`
  Cuts one PCRaster map or joins several PCRaster maps by resampling to the cells of the resulting PCRaster map.
- 
+
 
 
 
@@ -550,7 +550,7 @@ Generation of legends
 ---------------------
 :ref:`legend`
  Attaches a legend to or changes the legend of one or more maps.
- 
+
 
 
 
@@ -560,4 +560,4 @@ Screen output
 -------------
 
 Visualisation of maps and timeseries can be done with aguila
- 
+

@@ -110,133 +110,144 @@ install(
 #
 # gdal might pull the entire world, clean that up at some point
 
+
+function(get_dependent_so var arg)
+  # Try to obtain all *so* files
+  get_target_property(DEP_SO ${arg} LOCATION)
+  get_filename_component(DEP_SO ${DEP_SO} REALPATH)
+  get_filename_component(DEP_SO_DIR ${DEP_SO} DIRECTORY)
+  get_filename_component(DEP_SO_NAME ${DEP_SO} NAME_WE ABSOLUTE)
+
+  file(GLOB ALL_SO "${DEP_SO_DIR}/${DEP_SO_NAME}*${CMAKE_SHARED_LIBRARY_SUFFIX}*")
+
+  set (var ${ALL_SO} PARENT_SCOPE)
+endfunction()
+
+
+
+set(LIBS_PATH "")
+
+
 if(PCRASTER_PACKAGE_BOOST)
 
-  install(CODE "
-    include(GetPrerequisites)
+  get_dependent_so(var Boost::filesystem)
+  list(APPEND LIBS_PATH ${var})
 
-    # Get dependencies from some executables
-    get_prerequisites(\${CMAKE_INSTALL_PREFIX}/bin/pcrcalc FIX_SO_LIBRARIES 0 1 \"\" \"\" )
-    get_prerequisites(\${CMAKE_INSTALL_PREFIX}/bin/aguila  FIX_SO_LIBRARIES 0 1 \"\" \"\" )
-    get_prerequisites(\${CMAKE_INSTALL_PREFIX}/bin/oldcalc  FIX_SO_LIBRARIES 0 1 \"\" \"\" )
-    get_prerequisites(\${CMAKE_INSTALL_PREFIX}/bin/resample  FIX_SO_LIBRARIES 0 1 \"\" \"\" )
+  get_dependent_so(var Boost::date_time)
+  list(APPEND LIBS_PATH ${var})
 
-    list(FILTER FIX_SO_LIBRARIES INCLUDE REGEX \"boost\")
-
-    foreach(lib \${FIX_SO_LIBRARIES})
-      file(COPY \${lib} DESTINATION \${CMAKE_INSTALL_PREFIX}/lib)
-      message(STATUS \"Packaging \" \${lib})
-      get_filename_component(ABS_DIR \${lib} REALPATH)
-      file(COPY \${ABS_DIR} DESTINATION \${CMAKE_INSTALL_PREFIX}/lib)
-      message(STATUS \"Packaging \" \${ABS_DIR})
-      # Fix the rpath to our lib directory
-      get_filename_component(FILENAME \${lib} NAME)
-
-      # Using the \$ORIGIN/../lib as we did before will fail with a conda build, this should be fine...
-      execute_process(COMMAND \"patchelf\" \"--set-rpath\" \"\$ORIGIN/.\" \"\${CMAKE_INSTALL_PREFIX}/lib/\${FILENAME}\")
-    endforeach()
-  " COMPONENT Runtime)
+  get_dependent_so(var Boost::program_options)
+  list(APPEND LIBS_PATH ${var})
 
 endif()
 
-
-if(PCRASTER_PACKAGE_NCURSES)
-  install(CODE "
-    include(GetPrerequisites)
-
-    get_prerequisites(\${CMAKE_INSTALL_PREFIX}/bin/mapattr FIX_SO_LIBRARIES 0 1 \"\" \"\" )
-
-    list(FILTER FIX_SO_LIBRARIES INCLUDE REGEX \"curses|tinfo\")
-
-    foreach(lib \${FIX_SO_LIBRARIES})
-      file(COPY \${lib} DESTINATION \${CMAKE_INSTALL_PREFIX}/lib)
-      message(STATUS \"Packaging \" \${lib})
-      get_filename_component(ABS_DIR \${lib} REALPATH)
-      file(COPY \${ABS_DIR} DESTINATION \${CMAKE_INSTALL_PREFIX}/lib)
-      message(STATUS \"Packaging \" \${ABS_DIR})
-      # Fix the rpath to our lib directory
-      get_filename_component(FILENAME \${lib} NAME)
-      execute_process(COMMAND \"patchelf\" \"--set-rpath\" \"\$ORIGIN/.\" \"\${CMAKE_INSTALL_PREFIX}/lib/\${FILENAME}\")
-    endforeach()
-  " COMPONENT Runtime)
-
-endif()
 
 
 if(PCRASTER_PACKAGE_XERCES)
 
-  install(CODE "
-    include(GetPrerequisites)
-
-    get_prerequisites(\${CMAKE_INSTALL_PREFIX}/bin/pcrcalc FIX_SO_LIBRARIES 0 1 \"\" \"\" )
-
-    list(FILTER FIX_SO_LIBRARIES INCLUDE REGEX \"xerces|icu\")
-
-    foreach(lib \${FIX_SO_LIBRARIES})
-      file(COPY \${lib} DESTINATION \${CMAKE_INSTALL_PREFIX}/lib)
-      message(STATUS \"Packaging \" \${lib})
-      get_filename_component(ABS_DIR \${lib} REALPATH)
-      file(COPY \${ABS_DIR} DESTINATION \${CMAKE_INSTALL_PREFIX}/lib)
-      message(STATUS \"Packaging \" \${ABS_DIR})
-      # Fix the rpath to our lib directory
-      get_filename_component(FILENAME \${lib} NAME)
-      execute_process(COMMAND \"patchelf\" \"--set-rpath\" \"\$ORIGIN/.\" \"\${CMAKE_INSTALL_PREFIX}/lib/\${FILENAME}\")
-
-    endforeach()
-  " COMPONENT Runtime)
+  get_dependent_so(var XercesC::XercesC)
+  list(APPEND LIBS_PATH ${var})
 
 endif()
 
+if(PCRASTER_PACKAGE_GDAL)
+  get_dependent_so(var GDAL::GDAL)
+  list(APPEND LIBS_PATH ${var})
+endif()
+
+
+
+install(CODE "
+  set(LIBS_PATH \"${LIBS_PATH}\")
+
+  include(GetPrerequisites)
+
+
+  foreach(lib \${LIBS_PATH})
+
+    get_filename_component(FILENAME \${lib} NAME)
+    message(STATUS \"    Installing \" \${lib})
+    file(COPY \${lib} DESTINATION \${CMAKE_INSTALL_PREFIX}/lib)
+    execute_process(COMMAND \"patchelf\" \"--set-rpath\" \"\$ORIGIN/.\" \"\${CMAKE_INSTALL_PREFIX}/lib/\${FILENAME}\" ERROR_QUIET)
+
+
+    get_prerequisites(\${lib} FIX_SO_LIBRARIES 0 1 \"\" \"\" )
+
+    list(FILTER FIX_SO_LIBRARIES INCLUDE REGEX \"boost|xerces|icu|double-conversion|libz|gthread|glib|pcre|iconv|hdf|kea|pcre|spatial|dap|proj|png|tiff|gif|cdf|poppler|kml|jpeg|libpq|cfitsio|freexl|json-c|tiledb|crypto|geos|expat|curl\")
+
+
+    foreach(dep \${FIX_SO_LIBRARIES})
+      message(STATUS \"       Installing \" \${dep})
+
+      file(GLOB ALL_SO2 \"\${dep}*\")
+
+      foreach(dep2 \${ALL_SO2})
+
+        file(COPY \${dep2} DESTINATION \${CMAKE_INSTALL_PREFIX}/lib)
+
+        get_filename_component(FILENAME \${dep2} NAME)
+        execute_process(COMMAND \"patchelf\" \"--set-rpath\" \"\$ORIGIN/.\" \"\${CMAKE_INSTALL_PREFIX}/lib/\${FILENAME}\" ERROR_QUIET)
+
+      endforeach()
+
+    endforeach()
+
+  endforeach()
+
+
+" COMPONENT Runtime)
+
+
+
+# Do not tweak RPATH with Qt libraries, or you'll suffer endless pain
+# Just copy them
+
+set(LIBS_PATH "")
 
 if(PCRASTER_PACKAGE_QT)
 
-  install(CODE "
-    include(GetPrerequisites)
+  get_dependent_so(var Qt5::Core)
+  list(APPEND LIBS_PATH ${var})
 
-    get_prerequisites(\${CMAKE_INSTALL_PREFIX}/bin/pcrcalc FIX_SO_LIBRARIES 0 1 \"\" \"\" )
-    get_prerequisites(\${CMAKE_INSTALL_PREFIX}/bin/aguila FIX_SO_LIBRARIES 0 1 \"\" \"\" )
-    get_prerequisites(\${CMAKE_INSTALL_PREFIX}/bin/oldcalc FIX_SO_LIBRARIES 0 1 \"\" \"\" )
+  get_dependent_so(var Qt5::Sql)
+  list(APPEND LIBS_PATH ${var})
 
-    list(FILTER FIX_SO_LIBRARIES INCLUDE REGEX \"Qt5|double-conversion|libz|gthread|glib|pcre|iconv\")
+  get_dependent_so(var Qt5::Xml)
+  list(APPEND LIBS_PATH ${var})
 
-    foreach(lib \${FIX_SO_LIBRARIES})
-      file(COPY \${lib} DESTINATION \${CMAKE_INSTALL_PREFIX}/lib)
-      message(STATUS \"Packaging \" \${lib})
-      get_filename_component(ABS_DIR \${lib} REALPATH)
-      file(COPY \${ABS_DIR} DESTINATION \${CMAKE_INSTALL_PREFIX}/lib)
-      message(STATUS \"Packaging \" \${ABS_DIR})
-      # Fix the rpath to our lib directory
-      get_filename_component(FILENAME \${lib} NAME)
-      execute_process(COMMAND \"patchelf\" \"--set-rpath\" \"\$ORIGIN/.\" \"\${CMAKE_INSTALL_PREFIX}/lib/\${FILENAME}\")
-    endforeach()
-  " COMPONENT Runtime)
+  if(PCRASTER_BUILD_AGUILA)
+    get_dependent_so(var Qt5::Gui)
+    list(APPEND LIBS_PATH ${var})
 
-endif()
+    get_dependent_so(var Qt5::Widgets)
+    list(APPEND LIBS_PATH ${var})
 
+    get_dependent_so(var Qt5::Charts)
+    list(APPEND LIBS_PATH ${var})
+  endif()
 
-if(PCRASTER_PACKAGE_GDAL)
+  if(PCRASTER_WITH_OPENGL)
+    get_dependent_so(var Qt5::OpenGL)
+    list(APPEND LIBS_PATH ${var})
+  endif()
 
-  install(CODE "
-    include(GetPrerequisites)
-
-    get_prerequisites(\${CMAKE_INSTALL_PREFIX}/bin/pcrcalc FIX_SO_LIBRARIES 0 1 \"\" \"\" )
-
-    list(FILTER FIX_SO_LIBRARIES INCLUDE REGEX \$ENV{BUILD_PREFIX})
-
-    foreach(lib \${FIX_SO_LIBRARIES})
-      file(COPY \${lib} DESTINATION \${CMAKE_INSTALL_PREFIX}/lib)
-      message(STATUS \"Packaging \" \${lib})
-      get_filename_component(ABS_DIR \${lib} REALPATH)
-      file(COPY \${ABS_DIR} DESTINATION \${CMAKE_INSTALL_PREFIX}/lib)
-      message(STATUS \"Packaging \" \${ABS_DIR})
-      # Fix the rpath to our lib directory
-      get_filename_component(FILENAME \${lib} NAME)
-      execute_process(COMMAND \"patchelf\" \"--set-rpath\" \"\$ORIGIN/.\" \"\${CMAKE_INSTALL_PREFIX}/lib/\${FILENAME}\")
-    endforeach()
-  " COMPONENT Runtime)
+  #
+  get_target_property(QT_PLATFORM_DIR Qt5::Core LOCATION)
+  get_filename_component(QT_PLATFORM_DIR ${QT_PLATFORM_DIR} DIRECTORY)
+  install(DIRECTORY ${QT_PLATFORM_DIR}/../plugins/platforms DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
 
 endif()
 
+install(CODE "
+  set(LIBS_PATH \"${LIBS_PATH}\")
 
+  include(GetPrerequisites)
 
+  foreach(lib \${LIBS_PATH})
 
+    get_filename_component(FILENAME \${lib} NAME)
+    message(STATUS \"    Installing \" \${lib})
+    file(COPY \${lib} DESTINATION \${CMAKE_INSTALL_PREFIX}/lib)
+
+  endforeach()
+" COMPONENT Runtime)

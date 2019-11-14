@@ -4,9 +4,9 @@
 #endif
 
 // External headers.
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
+#ifndef INCLUDED_CASSERT
+#include <cassert>
+#define INCLUDED_CASSERT
 #endif
 
 #ifndef INCLUDED_OGR_GEOMETRY

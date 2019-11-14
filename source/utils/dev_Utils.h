@@ -4,11 +4,6 @@
 
 
 // External headers.
-#ifndef INCLUDED_ALGORITHM
-#include <algorithm>
-#define INCLUDED_ALGORITHM
-#endif
-
 #ifndef INCLUDED_SSTREAM
 #include <sstream>
 #define INCLUDED_SSTREAM

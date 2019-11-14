@@ -4,10 +4,6 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
 
 // PCRaster library headers.
 

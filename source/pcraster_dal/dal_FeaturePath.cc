@@ -9,11 +9,6 @@
 #define INCLUDED_CASSERT
 #endif
 
-#ifndef INCLUDED_BOOST_FORMAT
-#include <boost/format.hpp>
-#define INCLUDED_BOOST_FORMAT
-#endif
-
 // Project headers.
 
 // Module headers.

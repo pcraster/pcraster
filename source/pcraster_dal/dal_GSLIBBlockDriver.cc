@@ -14,11 +14,6 @@
 #define INCLUDED_BOOST_FILESYSTEM_PATH
 #endif
 
-#ifndef INCLUDED_BOOST_FORMAT
-#include <boost/format.hpp>
-#define INCLUDED_BOOST_FORMAT
-#endif
-
 // PCRaster library headers.
 
 // Module headers.

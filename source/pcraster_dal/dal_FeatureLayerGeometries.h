@@ -4,11 +4,6 @@
 
 
 // External headers.
-#ifndef INCLUDED_CASSERT
-#include <cassert>
-#define INCLUDED_CASSERT
-#endif
-
 #ifndef INCLUDED_MAP
 #include <map>
 #define INCLUDED_MAP

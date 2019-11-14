@@ -22,11 +22,6 @@
 // PCRaster library headers.
 
 // Module headers.
-#ifndef INCLUDED_DAL_EXCEPTION
-#include "dal_Exception.h"
-#define INCLUDED_DAL_EXCEPTION
-#endif
-
 #ifndef INCLUDED_DAL_TABLE
 #include "dal_Table.h"
 #define INCLUDED_DAL_TABLE
@@ -90,14 +85,14 @@ static CSF_CR typeId2CellRepresentation(
 //          DataSpaceAddress const& address)
 // {
 //   boost::filesystem::path path;
-// 
+//
 //   try {
 //     path = pathForDataSpaceAddress(name, space, address);
 //   }
 //   catch(Exception const&) {
 //     return false;
 //   }
-// 
+//
 //   if(dal::exists(path)) {
 //     return true;
 //   }

@@ -3,10 +3,6 @@
 
 
 // Library headers.
-#ifndef INCLUDED_BOOST_NONCOPYABLE
-#include <boost/noncopyable.hpp>
-#define INCLUDED_BOOST_NONCOPYABLE
-#endif
 
 // PCRaster library headers.
 #ifndef INCLUDED_DEV_XERCESCLIENT

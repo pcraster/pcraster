@@ -60,8 +60,7 @@ set_property(
             NPY_NO_DEPRECATED_API=NPY_1_7_API_VERSION
 )
 
-# pybind11_add_module
-add_library(_pcraster MODULE
+pybind11_add_module(_pcraster MODULE THIN_LTO
     numpy_conversion
     PCRaster.cc
     value_scale_traits
@@ -84,16 +83,16 @@ target_include_directories(_pcraster
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
 )
 
-target_include_directories(_pcraster #  SYSTEM
+target_include_directories(_pcraster SYSTEM
     PRIVATE
       ${Python_NumPy_INCLUDE_DIRS}
 )
 
 target_link_libraries(_pcraster
-    PUBLIC
-        pcraster::python::utils
     PRIVATE
-        pybind11::module
+        Python::Python
+        pcraster::python::utils
+
 )
 
 set_target_properties(_pcraster

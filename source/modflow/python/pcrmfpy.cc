@@ -15,10 +15,7 @@
 #include "geo_rasterspace.h"
 #define INCLUDED_GEO_RASTERSPACE
 #endif
-// #ifndef INCLUDED_DAL_CLIENT
-// #include "dal_Client.h"
-// #define INCLUDED_DAL_CLIENT
-// #endif
+
 
 #include "mf_ModflowPython.h"
 #include <pybind11/pybind11.h>

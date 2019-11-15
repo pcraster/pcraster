@@ -14,8 +14,7 @@ configure_file(scripts/operators.py.in
 )
 
 
-# pybind11_add_module
-add_library(_pcraster_multicore MODULE
+pybind11_add_module(_pcraster_multicore MODULE THIN_LTO
     execution_policy
     pcraster_multicore
 
@@ -91,7 +90,7 @@ target_link_libraries(_pcraster_multicore
     PRIVATE
         pcraster::python::utils
         fern_algorithm
-        pybind11::module
+        Python::Python
 )
 
 set_target_properties(_pcraster_multicore

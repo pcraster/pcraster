@@ -48,6 +48,18 @@ add_library(pcrmfpy STATIC
 
 add_library(pcraster::pcrmf_python ALIAS pcrmfpy)
 
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+    # It seems that clang doesn't set flag this by default yet
+    set_property(
+        SOURCE
+            mf_ModflowPython
+        PROPERTY
+            COMPILE_OPTIONS
+                -fsized-deallocation
+    )
+endif()
+
+
 target_include_directories(pcrmfpy
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>

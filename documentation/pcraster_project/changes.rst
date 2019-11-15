@@ -21,7 +21,7 @@ We further improved the code quality and the build system to ensure an ongoing c
 
 * Replacing Boost.Python with Pybind11
 * Replacing Qwt with QtCharts
-* Modernising C++ code towards C++17
+* Modernising C++ code. C11 and C++17 are now the default standards when compiling PCRaster.
 * Various improvements to support gcc-9, clang-7, Visual Studio 2017 and Python 3.8
 * Reducing amount of dependencies
 * Specifically for Linux:
@@ -30,7 +30,7 @@ We further improved the code quality and the build system to ensure an ongoing c
   - Shared libraries now receive version numbers and sonames
   - The build type 'Release' now sets flags ``-march=native -mtune=native`` by default, and optional interprocedural optimization in case supported by the compiler
 
-PCRaster 4.3 is known to build with gcc (versions 7 to 9), clang (version 6) or msvc 2017.
+PCRaster 4.3 is known to build with gcc (versions 7 to 9), clang (version 6 to 9) or msvc 2017.
 We recommend to no longer use gcc version 5 or 6 for building PCRaster.
 
 For a more detailed list of solved issues see our `4.3 <https://github.com/pcraster/pcraster/milestone/6>`_ milestone.

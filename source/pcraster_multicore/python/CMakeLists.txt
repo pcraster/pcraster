@@ -76,6 +76,20 @@ pybind11_add_module(_pcraster_multicore MODULE THIN_LTO
     type_conversion/scalar
     type_conversion/nonspatial_field
 )
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+    # It seems that clang doesn't set flag this by default yet
+    set_property(
+        SOURCE
+            pcraster_multicore
+            local/cover
+            local/minimum
+            local/maximum
+        PROPERTY
+            COMPILE_OPTIONS
+                -fsized-deallocation
+    )
+endif()
+
 
 target_include_directories(_pcraster_multicore
     PRIVATE

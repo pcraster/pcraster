@@ -5,10 +5,20 @@ if(CMAKE_COMPILER_IS_GNUCXX)
     )
 endif()
 
-# pybind11_add_module
-add_library(_pcraster_modflow_python MODULE
+pybind11_add_module(_pcraster_modflow_python MODULE THIN_LTO
     pcrmfpy.cc
 )
+
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+    # It seems that clang doesn't set flag this by default yet
+    set_property(
+        SOURCE
+            pcrmfpy
+        PROPERTY
+            COMPILE_OPTIONS
+                -fsized-deallocation
+    )
+endif()
 
 target_include_directories(_pcraster_modflow_python
     PRIVATE
@@ -21,7 +31,7 @@ target_link_libraries(_pcraster_modflow_python
   PUBLIC
     pcraster::pcrmf_python
   PRIVATE
-    pybind11::module
+    Python::Python
 )
 
 set_target_properties(_pcraster_modflow_python

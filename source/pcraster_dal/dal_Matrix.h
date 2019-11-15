@@ -9,11 +9,6 @@
 #define INCLUDED_CASSERT
 #endif
 
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-
 #ifndef INCLUDED_BOOST_ANY
 #include <boost/any.hpp>
 #define INCLUDED_BOOST_ANY
@@ -58,7 +53,7 @@ namespace dal {
   In a matrix all cell values have the same type. The dimensions of the matrix
   are nrRows() * nrCols().
 
-  Values are kept in a 1 dimensional array, with the 2 dimensional grid/raster 
+  Values are kept in a 1 dimensional array, with the 2 dimensional grid/raster
   simulated in row-major (Ansi-C style).
   The indexing equation for a row-major array with 0-based indexing as
   in C is:
@@ -276,7 +271,7 @@ public:
 //   \return    Reference to the array.
 //   \warning   The datastructure must not already be created.
 //   \sa        eraseCells()
-// 
+//
 //   The array will contain nrCells() values. Useful if the call assigns to the
 //   cells in the array.
 // */
@@ -285,17 +280,17 @@ public:
 // {
 //   std::cout << "createCells<T>" << '\t' << TypeTraits<T>::typeId << std::endl;
 //   assert(!cellsAreCreated());
-// 
+//
 //   T* pointer = new T[nrCells()];
 //   d_cells = pointer;
 //   std::cout << this << '\t' << d_cells.type().name() << std::endl;
-// 
-//   assert(cells<T>()); 
-// 
+//
+//   assert(cells<T>());
+//
 //   std::cout << "/createCells<T>" << std::endl;
 //   return pointer;
 // }
-// 
+//
 // //! Accepts the ownership of \a cells.
 // /*!
 //   \param     cells Array to adopt, if ownership==TakeOwnership then cells
@@ -314,7 +309,7 @@ public:
 //   d_cells = cells;
 //   d_ownership = ownership;
 // }
-// 
+//
 // //! Releases ownership of the layered array of cell values.
 // /*!
 //   \return    Pointer to the array of cell values.
@@ -325,18 +320,18 @@ public:
 // inline T* Matrix::release()
 // {
 //   assert(cellsAreCreated());
-// 
+//
 //   T* pointer = boost::any_cast<T*>(d_cells);
 //   d_cells = boost::any();
-// 
+//
 //   return pointer;
 // }
-// 
+//
 // //! Returns a reference to the layered array with cell values.
 // /*!
 //   \return    Array with cell values.
 //   \warning   The array for cell values must have been created.
-// 
+//
 //   This function assumes that there are cell values to return the array for.
 //   Use void const* dal::Matrix::cells() const to test whether this is the case.
 // */
@@ -344,47 +339,47 @@ public:
 // inline T const* Matrix::cells() const
 // {
 //   assert(cellsAreCreated());
-// 
+//
 //   T* pointer = boost::any_cast<T*>(d_cells);
-// 
+//
 //   return pointer;
 // }
-// 
+//
 // template<typename T>
 // inline T* Matrix::cells()
 // {
 //   std::cout << "cells" << std::endl;
 //   assert(cellsAreCreated());
-// 
+//
 //   std::cout << "cast..." << std::endl;
 //   std::cout << this << '\t' << d_cells.type().name() << std::endl;
 //   T* pointer = boost::any_cast<T*>(d_cells);
 //   std::cout << "/cast..." << std::endl;
-// 
+//
 //   std::cout << "/cells" << std::endl;
 //   return pointer;
 // }
-// 
+//
 // template<typename T>
 // inline T const& Matrix::cell(size_t index) const
 // {
 //   assert(cellsAreCreated());
-// 
+//
 //   return cells<T>()[index];
 // }
-// 
+//
 // template<typename T>
 // inline T& Matrix::cell(size_t index)
 // {
 //   assert(cellsAreCreated());
-// 
+//
 //   return cells<T>()[index];
 // }
-// 
+//
 // //! Deletes the layered array for cell values.
 // /*!
 //   \sa        createCells()
-// 
+//
 //   Nothing happens if the array has not been created.
 // */
 // template<typename T>
@@ -393,10 +388,10 @@ public:
 //   if(cellsAreCreated() && d_ownership == TakeOwnership) {
 //     delete[] cells<T>();
 //   }
-// 
+//
 //   d_cells = boost::any();
 // }
-// 
+//
 // //! Fills the matrix with MV values.
 // /*!
 //   \warning   The cells must have been created already.
@@ -406,12 +401,12 @@ public:
 // {
 //   assert(cellsAreCreated());
 //   T* pointer = cells<T>();
-// 
+//
 //   for(size_t i = 0; i < nrCells(); ++i) {
 //     pcr::setMV(pointer[i]);
 //   }
 // }
-// 
+//
 // //! Fills the matrix with \a value values.
 // /*!
 //   \warning   The cells must have been created already.
@@ -420,31 +415,31 @@ public:
 // inline void Matrix::fill(T const& value)
 // {
 //   assert(cellsAreCreated());
-// 
+//
 //   T* pointer = cells<T>();
-// 
+//
 //   for(size_t i = 0; i < nrCells(); ++i) {
 //     pointer[i] = value;
 //   }
 // }
-// 
+//
 // template<typename T>
 // inline T Matrix::min() const
 // {
 //   return boost::any_cast<T>(d_min);
 // }
-// 
+//
 // template<typename T>
 // inline T Matrix::max() const
 // {
 //   return boost::any_cast<T>(d_max);
 // }
-// 
+//
 // template<typename T>
 // inline void Matrix::copyCells(T const* cells)
 // {
 //   assert(cellsAreCreated());
-// 
+//
 //   d_cells = copyNrCells(this->cells<T>(), cells, nrCells());
 // }
 

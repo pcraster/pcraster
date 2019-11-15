@@ -15,7 +15,7 @@
 #endif
 
 #ifndef INCLUDED_BOOST_NONCOPYABLE
-#include <boost/noncopyable.hpp>
+#include <boost/core/noncopyable.hpp>
 #define INCLUDED_BOOST_NONCOPYABLE
 #endif
 

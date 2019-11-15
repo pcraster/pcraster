@@ -2,10 +2,7 @@
 #define INCLUDED_DEV_GDALCLIENT
 
 // External headers.
-#ifndef INCLUDED_CSTRING
-#include <cstring>
-#define INCLUDED_CSTRING
-#endif
+
 
 #ifndef INCLUDED_BOOST_NONCOPYABLE
 #include <boost/noncopyable.hpp>

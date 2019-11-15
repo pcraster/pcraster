@@ -54,16 +54,28 @@ endif()
 
 set_property(
     SOURCE
-        numpy_conversion.cc
+        numpy_conversion
     PROPERTY
         COMPILE_DEFINITIONS
             NPY_NO_DEPRECATED_API=NPY_1_7_API_VERSION
 )
 
-# pybind11_add_module
-add_library(_pcraster MODULE
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+    # It seems that clang doesn't set flag this by default yet
+    set_property(
+        SOURCE
+            numpy_conversion
+            PCRaster
+            pickle
+        PROPERTY
+            COMPILE_OPTIONS
+                -fsized-deallocation
+    )
+endif()
+
+pybind11_add_module(_pcraster MODULE THIN_LTO
     numpy_conversion
-    PCRaster.cc
+    PCRaster
     value_scale_traits
     pickle
     # operations.inc needs to be manually updated in case the
@@ -84,16 +96,16 @@ target_include_directories(_pcraster
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
 )
 
-target_include_directories(_pcraster #  SYSTEM
+target_include_directories(_pcraster SYSTEM
     PRIVATE
       ${Python_NumPy_INCLUDE_DIRS}
 )
 
 target_link_libraries(_pcraster
-    PUBLIC
-        pcraster::python::utils
     PRIVATE
-        pybind11::module
+        Python::Python
+        pcraster::python::utils
+
 )
 
 set_target_properties(_pcraster

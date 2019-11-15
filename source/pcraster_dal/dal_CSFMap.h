@@ -28,8 +28,8 @@
 struct MAP;
 namespace dal {
   // CSFMap declarations.
-  class DataSpace;
-  class DataSpaceAddress;
+//   class DataSpace;
+//   class DataSpaceAddress;
   class Table;
 }
 

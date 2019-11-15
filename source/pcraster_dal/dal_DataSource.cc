@@ -4,10 +4,6 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_BOOST_FILESYSTEM_PATH
-#include <boost/filesystem/path.hpp>
-#define INCLUDED_BOOST_FILESYSTEM_PATH
-#endif
 
 // PCRaster library headers.
 
@@ -970,9 +966,9 @@ PCR_DAL_DECL void DataSource::read<REAL4>(
 // {
 //   DataSpace iterSpace(dataSpace());
 //   DataSpaceAddress iterAddress(address);
-// 
+//
 //   iterSpace.eraseDimension(Time);
-// 
+//
 //   driver.read(table, d_name, iterSpace, iterAddress);
 // }
 

@@ -8,11 +8,6 @@
 #define INCLUDED_CASSERT
 #endif
 
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-
 #ifndef INCLUDED_BOOST_NUMERIC_CONVERSION_CONVERTER
 #include <boost/numeric/conversion/converter.hpp>
 #define INCLUDED_BOOST_NUMERIC_CONVERSION_CONVERTER

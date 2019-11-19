@@ -42,9 +42,10 @@ add_compile_options(
 )
 
 # Based on conda and https://developers.redhat.com/blog/2018/03/21/compiler-and-linker-flags-gcc/
-# Check https://wiki.ubuntu.com/ToolChain/CompilerFlags?action=show&redirect=CompilerFlags
+# https://wiki.ubuntu.com/ToolChain/CompilerFlags?action=show&redirect=CompilerFlags
+# https://wiki.debian.org/Hardening
 add_link_options(
-    "$<$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:Clang>>:-Wl,--no-undefined;-Wl,--as-needed;-Wl,--sort-common;-Wl,--gc-sections;-Wl,-O2;-Wl,-z,now;-Wl,-z,relro;-Wl,-z,defs>"
+    "$<$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:Clang>>:-Wl,--no-undefined;-Wl,--as-needed;-Wl,--sort-common;-Wl,--gc-sections;-Wl,-O2;-Wl,-z,now;-Wl,-z,relro;-Wl,-z,defs;-Wl,--warn-common;-Wl,--hash-style=gnu;-Wl,--no-copy-dt-needed-entries>"
 )
 
 if(PCRASTER_WITH_IPO)

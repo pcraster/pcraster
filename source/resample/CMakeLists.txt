@@ -34,7 +34,7 @@ if(PCRASTER_BUILD_TEST)
 
     add_test(
         NAME setup_resample
-        COMMAND ${Python_EXECUTABLE} test_prolog.py
+        COMMAND ${Python3_EXECUTABLE} test_prolog.py
     )
 
     # sf463

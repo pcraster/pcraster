@@ -4,7 +4,7 @@ from pcraster.framework import *
 class VegetationGrowthModel(StaticModel, MonteCarloModel):
   def __init__(self):
     StaticModel.__init__(self)
-    MonteCarlo.__init__(self)
+    MonteCarloModel.__init__(self)
     setclone("clone.map")
 
   def premcloop(self):

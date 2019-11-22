@@ -88,7 +88,7 @@ if(PCRASTER_BUILD_TEST)
     SCOPE modflow
     NAMES ${TEST_NAMES}
     INCLUDE_DIRS
-        ${Python_INCLUDE_DIRS}
+        ${Python3_INCLUDE_DIRS}
     LINK_LIBRARIES
         pcraster::model_engine
   )
@@ -109,7 +109,7 @@ if(PCRASTER_BUILD_TEST)
 
     add_test(
         NAME setup_modflow
-        COMMAND ${Python_EXECUTABLE} test_prolog.py
+        COMMAND ${Python3_EXECUTABLE} test_prolog.py
     )
 
     set_tests_properties(setup_modflow
@@ -120,7 +120,7 @@ if(PCRASTER_BUILD_TEST)
     NAME
          modflow_python_unit_tests
     COMMAND
-        ${Python_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/tests.py
+        ${Python3_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/tests.py
   )
 
   set_tests_properties(modflow_python_unit_tests PROPERTIES

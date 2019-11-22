@@ -9,9 +9,9 @@ The framework does not require to use the PCRaster environmental modelling langu
 
 Requirements
 ============
-To use the framework you need to install `Python 2.7`_ and `NumPy`_. To generate the output graphs for the particle filter you need to install `Graphviz`_.
+To use the framework you need to install `Python`_ and `NumPy`_. To generate the output graphs for the particle filter you need to install `Graphviz`_.
 
-.. _Python 2.7: http://www.python.org
+.. _Python: http://www.python.org
 .. _NumPy: http://numpy.scipy.org
 .. _Graphviz: http://www.graphviz.org
 

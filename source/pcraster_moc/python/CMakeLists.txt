@@ -7,7 +7,7 @@ add_library(pcraster::moc_python ALIAS _pcraster_moc_python)
 
 target_include_directories(_pcraster_moc_python
     PRIVATE
-        ${Python_INCLUDE_DIRS}
+        ${Python3_INCLUDE_DIRS}
 )
 
 target_link_libraries(_pcraster_moc_python

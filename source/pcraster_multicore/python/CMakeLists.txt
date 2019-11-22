@@ -104,7 +104,7 @@ target_link_libraries(_pcraster_multicore
     PRIVATE
         pcraster::python::utils
         fern_algorithm
-        Python::Python
+        Python3::Python
 )
 
 set_target_properties(_pcraster_multicore

@@ -98,12 +98,12 @@ target_include_directories(_pcraster
 
 target_include_directories(_pcraster SYSTEM
     PRIVATE
-      ${Python_NumPy_INCLUDE_DIRS}
+      ${Python3_NumPy_INCLUDE_DIRS}
 )
 
 target_link_libraries(_pcraster
     PRIVATE
-        Python::Python
+        Python3::Python
         pcraster::python::utils
 
 )
@@ -210,12 +210,12 @@ if(PCRASTER_BUILD_TEST)
         NAME
             python_pcrcalcpy_pythonunittest
         COMMAND
-            ${Python_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test.py
+            ${Python3_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test.py
     )
 
     add_test(
         NAME setup_pcraster_python
-        COMMAND ${Python_EXECUTABLE} test_prolog.py
+        COMMAND ${Python3_EXECUTABLE} test_prolog.py
     )
 
     set_tests_properties(setup_pcraster_python

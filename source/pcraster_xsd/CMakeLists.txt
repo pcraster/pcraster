@@ -56,7 +56,7 @@ MACRO(TEXT_TO_CHARACTER_ARRAY TEXT_FILE IDENTIFIER)
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
         DEPENDS ${TEXT_FILE}
         COMMENT Generating ${IDENTIFIER}.h
-        COMMAND ${Python_EXECUTABLE}
+        COMMAND ${Python3_EXECUTABLE}
             ${CMAKE_CURRENT_SOURCE_DIR}/text2CharArray.py ${TEXT_FILE}
             ${IDENTIFIER}
     )
@@ -189,6 +189,13 @@ SET_SOURCE_FILES_PROPERTIES(pcrxsd_supportedschema.cc
 ADD_LIBRARY(pcraster_xsd STATIC
     ${SOURCES}
 )
+
+if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  target_compile_definitions(pcraster_xsd
+    INTERFACE XSD_CXX11 XSD_CXX11_NULLPTR XSD_CXX11_TEMPLATE_ALIAS
+    PUBLIC XSD_CXX11 XSD_CXX11_NULLPTR XSD_CXX11_TEMPLATE_ALIAS
+  )
+endif()
 
 add_library(pcraster::xsd ALIAS pcraster_xsd)
 

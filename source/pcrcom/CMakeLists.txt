@@ -167,7 +167,7 @@ if(PCRASTER_BUILD_TEST)
 
     add_test(
         NAME setup_pcrcom
-        COMMAND ${Python_EXECUTABLE} test_prolog.py
+        COMMAND ${Python3_EXECUTABLE} test_prolog.py
     )
 
     set_tests_properties(setup_pcrcom

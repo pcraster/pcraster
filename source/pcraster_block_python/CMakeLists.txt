@@ -62,7 +62,7 @@ if(PCRASTER_BUILD_TEST)
 
     add_test(
         NAME setup_block_python
-        COMMAND ${Python_EXECUTABLE} test_prolog.py
+        COMMAND ${Python3_EXECUTABLE} test_prolog.py
     )
 
     set_tests_properties(setup_block_python
@@ -74,7 +74,7 @@ if(PCRASTER_BUILD_TEST)
         NAME
             blockpy_blockpy_pythonunittest
         COMMAND
-            ${Python_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test.py
+            ${Python3_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test.py
     )
 
     set_tests_properties(blockpy_blockpy_pythonunittest

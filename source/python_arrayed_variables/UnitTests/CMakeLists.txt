@@ -15,7 +15,7 @@
 
     add_test(
         NAME setup_arrayed_variables
-        COMMAND ${Python_EXECUTABLE} test_prolog.py
+        COMMAND ${Python3_EXECUTABLE} test_prolog.py
     )
 
     set_tests_properties(setup_arrayed_variables
@@ -27,7 +27,7 @@
     NAME
          python_arrayed_variables_unit_tests
     COMMAND
-        ${Python_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/unitTests.py
+        ${Python3_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/unitTests.py
   )
 
   set_tests_properties(python_arrayed_variables_unit_tests PROPERTIES

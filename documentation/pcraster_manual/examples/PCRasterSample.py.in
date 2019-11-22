@@ -516,7 +516,7 @@ def createMakefileAndScripts(
         stream.write("CLONES = {}\n".format(" ".join(clones)))
     stream.write("""
 dynamicwave_Table.txt: make_table.py
-	$(EXEC) "@Python_EXECUTABLE@" $< > $@
+	$(EXEC) "@Python3_EXECUTABLE@" $< > $@
 clean::
 	rm -f dynamicwave_Table.txt
 MANUAL_INCLUSION_FILES+=dynamicwave_Table.txt
@@ -534,14 +534,14 @@ testInputFiles: $(sort ${TEST_INPUT_FILES})
 # VPATH=.
 # EXEC:=@PROJECT_SOURCE_DIR@/environment/script/execWithNativePathArgs.sh
 %.map: %.itxt $(CLONES)
-	"@Python_EXECUTABLE@" AscHeader2map.py -i $< -o $@
+	"@Python3_EXECUTABLE@" AscHeader2map.py -i $< -o $@
 #	${EXEC} ${VPATH}/AscHeader2map $< $@
 
 # make png's
 %.png: %.map
-	export PCROPTIONS=--nothing;"@Python_EXECUTABLE@" @PROJECT_SOURCE_DIR@/environment/script/rasterToPNG.py $< $@
+	export PCROPTIONS=--nothing;"@Python3_EXECUTABLE@" @PROJECT_SOURCE_DIR@/environment/script/rasterToPNG.py $< $@
 # %.rst: %.txt
-# 	"@Python_EXECUTABLE@" txt2rst.py $< $@
+# 	"@Python3_EXECUTABLE@" txt2rst.py $< $@
 """)
 
 

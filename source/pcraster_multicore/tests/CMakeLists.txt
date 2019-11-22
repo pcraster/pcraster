@@ -7,7 +7,7 @@ configure_file(
 
 add_test(
     NAME setup_multicore
-    COMMAND ${Python_EXECUTABLE} test_prolog.py
+    COMMAND ${Python3_EXECUTABLE} test_prolog.py
 )
 
 set_tests_properties(setup_multicore
@@ -19,7 +19,7 @@ add_test(
     NAME
         python_multicore_unit_tests
     COMMAND
-        ${Python_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test.py
+        ${Python3_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test.py
 )
 
 set_tests_properties(python_multicore_unit_tests

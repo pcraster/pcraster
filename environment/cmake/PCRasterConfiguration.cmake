@@ -120,9 +120,8 @@ set(DEVBASE_GDAL_REQUIRED TRUE)  # Version >= 2.0.0.
 
 
 
-find_package(Python COMPONENTS Interpreter Development NumPy)
-message(STATUS "  Interpreter ID: " ${Python_INTERPRETER_ID})
-
+find_package(Python3 COMPONENTS Interpreter Development NumPy)
+message(STATUS "  Interpreter ID: " ${Python3_INTERPRETER_ID})
 
 if(UNIX)
     set(CURSES_NEED_NCURSES TRUE)

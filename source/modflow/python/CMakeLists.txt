@@ -31,7 +31,7 @@ target_link_libraries(_pcraster_modflow_python
   PUBLIC
     pcraster::pcrmf_python
   PRIVATE
-    Python::Python
+    Python3::Python
 )
 
 set_target_properties(_pcraster_modflow_python

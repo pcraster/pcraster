@@ -367,6 +367,7 @@ if(PCRASTER_BUILD_TEST)
     target_link_libraries(pcraster_model_engine_unit_test_utils
         PRIVATE
             Qt5::Xml
+            pcraster::xsd
     )
 
     add_unit_tests(
@@ -430,6 +431,7 @@ if(PCRASTER_BUILD_TEST)
             pcraster_model_engine_unit_test_utils
             $<TARGET_PROPERTY:pcraster_model_engine,LINK_LIBRARIES>
             pcraster::pcrxml
+            pcraster::xsd
     )
 
     # OLS start: I think the following 5 items are not necessary,

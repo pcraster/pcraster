@@ -24,9 +24,9 @@ except ImportError as error:
     major, minor, patchlevel = platform.python_version_tuple()
     major = int(major)
 
-    # if major != ${PYTHON_VERSION_MAJOR}:
-    if StrictVersion("{}.{}".format(major, minor)) != StrictVersion("${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}"):
-        msg = "The 'pcraster' module was built for Python ${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}, the version used is {}.{}".format(
+    # if major != ${Python3_VERSION_MAJOR}:
+    if StrictVersion("{}.{}".format(major, minor)) != StrictVersion("${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}"):
+        msg = "The 'pcraster' module was built for Python ${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}, the version used is {}.{}".format(
             major, minor)
         raise ImportError(msg)
 
@@ -41,7 +41,7 @@ except ImportError as error:
     # Too old Python 2 versions might not work
     if major == 2:
         if StrictVersion("{}.{}".format(major, minor)) < StrictVersion("2.7"):
-            msg = "The 'pcraster' module was built for Python ${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}, the version used is {}.{}".format(
+            msg = "The 'pcraster' module was built for Python ${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}, the version used is {}.{}".format(
                 major, minor)
             warnings.warn(msg, RuntimeWarning)
 
@@ -49,8 +49,8 @@ except ImportError as error:
 
     # VS2017 and runtime components related issues
     if sys.platform == "win32":
-        if StrictVersion("{}.{}".format(major, minor)) != StrictVersion("${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}"):
-            msg += "The 'pcraster' module was built for Python ${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}, the version used is {}.{}".format(
+        if StrictVersion("{}.{}".format(major, minor)) != StrictVersion("${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}"):
+            msg += "The 'pcraster' module was built for Python ${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}, the version used is {}.{}".format(
                 major, minor)
             raise ImportError(msg)
 

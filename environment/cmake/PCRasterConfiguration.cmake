@@ -157,7 +157,7 @@ endif()
 
 
 # Python.h needs to be known to pass the test
-set (CMAKE_REQUIRED_INCLUDES "${Python_INCLUDE_DIRS};${CMAKE_REQUIRED_INCLUDES}")
+set (CMAKE_REQUIRED_INCLUDES "${Python3_INCLUDE_DIRS};${CMAKE_REQUIRED_INCLUDES}")
 
 check_include_file_cxx("pybind11/pybind11.h" PYBIND11_SYSTEM_INCLUDE)
 

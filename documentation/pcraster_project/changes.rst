@@ -8,8 +8,9 @@ The most relevant updates for users:
 
 * We no longer provide support for Python 2.
 * We fixed a bug occurring when pickling PCRaster maps. Note that PCRaster maps pickled with previous versions cannot be opened with this version.
+* We fixed an incorrect return value while using a nonspatial condition in ``ifthen``.
 * We fixed several minor inconsistencies in the ``multicore`` module.
-* We added the Python functions ``cellvalue_by_coordinates``, ``cellvalue_by_index`` and ``cellvalue_by_indices``.
+* We added the Python functions ``cellvalue_by_coordinates``, ``cellvalue_by_index``, ``cellvalue_by_indices`` and ``version_tuple``.
 * We added a ``plot`` function to create basic plots of PCRaster maps in case the matplotlib module is installed.
 * On Windows, ``mapattr`` and ``legend`` show the menu again.
 * Command line applications now show version numbers instead of a build date.
@@ -19,6 +20,7 @@ Aguila was refactored to simplify the build process. The functionality remains t
 
 We further improved the code quality and the build system to ensure an ongoing creation of PCRaster packages, amongst others:
 
+* Simplified building against multiple Python 3 versions (3.6, 3.7, 3.8)
 * Replacing Boost.Python with Pybind11
 * Replacing Qwt with QtCharts
 * Modernising C++ code. C11 and C++17 are now the default standards when compiling PCRaster.

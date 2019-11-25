@@ -193,7 +193,20 @@ def ifthen(arg1, arg2):
         raise RuntimeError("Use a conversion function to pick a data type")
 
     try:
-        arg1 = _get_field(arg1)
+        if isinstance(arg1, bool):
+            arg1 = _pcraster.spatial(_pmc._newNonSpatialBoolean(arg1))
+        elif isinstance(arg1, pcraster.Field) and not arg2.isSpatial():
+            arg1 = _pcraster.spatial(_pmc._newNonSpatialBoolean(arg1))
+        elif isinstance(arg1, int):
+            if arg1 == 0:
+                arg1 = _pcraster.spatial(_pmc._newNonSpatialBoolean(0))
+            else:
+                arg1 = _pcraster.spatial(_pmc._newNonSpatialBoolean(1))
+        else:
+            # String argument should be possible
+            # Should report an error for floats or others
+            arg1 = _get_field(arg1)
+
         arg2 = _get_field(arg2)
         return _pmc.ifthen(arg1, arg2)
     except RuntimeError as exception:

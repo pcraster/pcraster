@@ -1,3 +1,6 @@
+#
+# These tests are done for the pcraster and multicore modules
+#
 import os
 import unittest
 import testcase
@@ -38,4 +41,60 @@ class TestPCRaster(testcase.TestCase):
         self.assertAlmostEqual(value, -1.25)
 
 
+    def test_02(self):
+        """  POD condition in ifthen """
+        nr_rows = 2
+        nr_cols = 3
+        nr_cells = nr_rows * nr_cols
+        pcraster.setclone(nr_rows, nr_cols, 5, 1, 1)
 
+        raster = pcraster.ifthen(1, pcraster.scalar(4.567))
+
+        for idx in range(1, nr_cells + 1):
+          value, isValid = pcraster.cellvalue(raster, idx)
+          self.assertEqual(isValid, True)
+          self.assertAlmostEqual(value, 4.567, 6)
+
+        raster = pcraster.ifthen(0, pcraster.scalar(4.567))
+
+        for idx in range(1, nr_cells + 1):
+          value, isValid = pcraster.cellvalue(raster, idx)
+          self.assertEqual(isValid, False)
+
+
+
+    def test_03(self):
+        """  nonspatial condition in ifthen """
+        nr_rows = 2
+        nr_cols = 3
+        nr_cells = nr_rows * nr_cols
+        pcraster.setclone(nr_rows, nr_cols, 5, 1, 1)
+
+
+        raster = pcraster.ifthen(pcraster.boolean(1), pcraster.scalar(4.567))
+
+        for idx in range(1, nr_cells + 1):
+          value, isValid = pcraster.cellvalue(raster, idx)
+          self.assertEqual(isValid, True)
+          self.assertAlmostEqual(value, 4.567, 6)
+
+        raster = pcraster.ifthen(pcraster.boolean(0), pcraster.scalar(4.567))
+
+        for idx in range(1, nr_cells + 1):
+          value, isValid = pcraster.cellvalue(raster, idx)
+          self.assertEqual(isValid, False)
+
+
+        raster = pcraster.ifthen(pcraster.scalar(1), pcraster.scalar(4.567))
+
+        for idx in range(1, nr_cells + 1):
+          value, isValid = pcraster.cellvalue(raster, idx)
+          self.assertEqual(isValid, True)
+          self.assertAlmostEqual(value, 4.567, 6)
+
+
+        raster = pcraster.ifthen(pcraster.scalar(0), pcraster.scalar(4.567))
+
+        for idx in range(1, nr_cells + 1):
+          value, isValid = pcraster.cellvalue(raster, idx)
+          self.assertEqual(isValid, False)

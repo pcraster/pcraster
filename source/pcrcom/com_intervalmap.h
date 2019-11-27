@@ -44,9 +44,11 @@ namespace com {
 
 namespace intervalMap {
  template<typename R>
-  class PartitionFO : public std::unary_function<R, bool> {
+  class PartitionFO {
     const com::Interval<R> *d_i;
     public:
+      typedef R argument_type;
+      typedef bool result_type;
       PartitionFO(const com::Interval<R> *i):
         d_i(i) {};
       bool operator()(R v) const {
@@ -66,7 +68,7 @@ namespace intervalMap {
   template<class IntervalMapT>
     bool insertIntervals(
         IntervalMapT &m,
-        const std::vector<const com::Interval< 
+        const std::vector<const com::Interval<
                  typename IntervalMapT::IT> * >& v) {
       for(size_t i=0; i< v.size(); ++i)
         if (!m.insertInterval(*v[i]))
@@ -112,12 +114,14 @@ private:
     for(const_iterator i=rhs.begin();i!=rhs.end();++i)
       insert(std::make_pair(i->first->createClone(),i->second));
   }
-  struct NotInInterval:public std::unary_function<IT, bool> 
+  struct NotInInterval
   {
     const IntervalMap<T,R> &d_m;
     NotInInterval(const IntervalMap<T,R>& m):
       d_m(m) {};
     public:
+      typedef IT argument_type;
+      typedef bool result_type;
       bool operator()(IT v) const {
          EqualTo<IT> key(v);
          const_iterator p(d_m.find(&key));
@@ -303,13 +307,14 @@ private:
      push_back(std::make_pair(i->first->createClone(),i->second));
   }
 
-  struct NotInInterval:
-      public std::unary_function<IT, bool>
+  struct NotInInterval
   {
     const IntervalMultiMap<T,R>* d_m;
     NotInInterval(const IntervalMultiMap<T,R>& m):
       d_m(&m) {};
     public:
+      typedef IT argument_type;
+      typedef bool result_type;
       bool operator()(IT v) const {
        for(typename Base::const_iterator i=d_m->begin();i!=d_m->end();++i)
           if (i->first->valid(v))

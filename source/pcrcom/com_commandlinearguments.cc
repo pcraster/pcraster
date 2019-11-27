@@ -55,9 +55,10 @@
 
 namespace com {
 
-struct IsWillingToParse:
-                   public std::unary_function<CommandLineArgument*, bool>
+struct IsWillingToParse
 {
+  typedef CommandLineArgument* argument_type;
+  typedef bool result_type;
   const char*      d_token;
 
   IsWillingToParse(const char* token)

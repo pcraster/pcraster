@@ -113,15 +113,16 @@ class FindValue {
  };
 
 //! function object that deletes the pointer passed to operator()
-/*! 
+/*!
  *  handy to delete container of pointers (see Effective STL item 7)
  *  \begincode
  *   com::forWhole(container,com::Delete<T>());
  *  \endcode
  */
 template <class T>
-struct Delete:
-  public std::unary_function<const T*,void> {
+struct Delete {
+    typedef const T* argument_type;
+    typedef void result_type;
     void operator()(const T *item) const {
       delete item;
     }

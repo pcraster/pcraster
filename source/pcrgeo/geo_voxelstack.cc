@@ -35,8 +35,10 @@
 
 namespace geo {
 
-struct addDepth: public std::unary_function<const Voxel &, void>
+struct addDepth
 {
+  typedef const Voxel& argument_type;
+  typedef void result_type;
   REAL8 depth;
 
   addDepth(): depth(0.0)
@@ -57,7 +59,7 @@ struct addDepth: public std::unary_function<const Voxel &, void>
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 geo::VoxelStack::VoxelStack()
@@ -142,7 +144,7 @@ REAL8 geo::VoxelStack::depth(const_iterator it) const
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE OPERATORS 
+// DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 

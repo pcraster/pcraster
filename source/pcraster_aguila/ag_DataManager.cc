@@ -14,9 +14,10 @@
 namespace {
 
 template<class T>
-struct addressOfDataGuideIs:
-         public std::binary_function<ag::DataGuide, T const*, bool> {
-
+struct addressOfDataGuideIs {
+  typedef ag::DataGuide first_argument_type;
+  typedef T const* second_argument_type;
+  typedef bool result_type;
   bool operator()(
          ag::DataGuide const& guide,
          T const* address) const
@@ -26,9 +27,10 @@ struct addressOfDataGuideIs:
 };
 
 template<class T>
-struct addressOfDataInfoIs:
-         public std::binary_function<ag::DataInfo<T>, T const*, bool> {
-
+struct addressOfDataInfoIs {
+  typedef ag::DataInfo<T> first_argument_type;
+  typedef T const* second_argument_type;
+  typedef bool result_type;
   bool operator()(
          ag::DataInfo<T> const& info,
          T const* address) const

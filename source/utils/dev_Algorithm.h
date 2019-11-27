@@ -49,8 +49,10 @@ Operation forWhole(
   \endcode
 */
 template<class T>
-struct Delete: public std::unary_function<const T*, void>
+struct Delete
 {
+  typedef const T* argument_type;
+  typedef void result_type;
   void operator()(T const* item) const {
     delete item;
   }

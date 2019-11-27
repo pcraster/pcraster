@@ -7,8 +7,10 @@
 
 namespace com {
  namespace intervalMapTest {
-   struct UnarySimplest : public std::unary_function<double,double>
+   struct UnarySimplest
    {
+     typedef double argument_type;
+     typedef double result_type;
      double operator ()(double v) const
      {
           return v;

@@ -33,12 +33,13 @@ namespace com {
  * "Easily write and format ranges and containers in C++"
  * at http://builder.com.com/article.jhtml?id=u00220020805gcn01.htm&fromtm=e601-2
  */
-class Concatenate :
- public std::unary_function<const std::string&, void> {
+class Concatenate {
   std::string d_delim;
   //! Running string concatenation
   std::string d_str;
 public:
+  typedef const std::string& argument_type;
+  typedef void result_type;
 
   //! Constructor.
   /*!

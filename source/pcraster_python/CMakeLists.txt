@@ -64,9 +64,9 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
     # It seems that clang doesn't set flag this by default yet
     set_property(
         SOURCE
-            numpy_conversion
-            PCRaster
-            pickle
+            numpy_conversion.cc
+            PCRaster.cc
+            pickle.cc
         PROPERTY
             COMPILE_OPTIONS
                 -fsized-deallocation
@@ -74,10 +74,10 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
 endif()
 
 pybind11_add_module(_pcraster MODULE THIN_LTO
-    numpy_conversion
-    PCRaster
-    value_scale_traits
-    pickle
+    numpy_conversion.cc
+    PCRaster.cc
+    value_scale_traits.cc
+    pickle.cc
     # operations.inc needs to be manually updated in case the
     # operation.xml, OperationToWrapper.xsl or
     # OperationsToWrappers.xsl change

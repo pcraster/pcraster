@@ -39,7 +39,10 @@ struct DepthIndex {
   GLfloat d_depth;
 };
 
-struct furtherThan: public std::binary_function<DepthIndex, DepthIndex, bool> {
+struct furtherThan {
+  typedef DepthIndex first_argument_type;
+  typedef DepthIndex second_argument_type;
+  typedef bool result_type;
   bool operator()(DepthIndex i1, DepthIndex i2) {
     return i1.d_depth > i2.d_depth;
   }

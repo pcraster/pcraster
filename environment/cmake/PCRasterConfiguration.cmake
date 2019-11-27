@@ -154,7 +154,17 @@ if(PCRASTER_BUILD_DOCUMENTATION)
     set(SPHINX_HTML_THEME "classic")
 endif()
 
+# pybind11
+# C++ version flags should match ours
+if(NOT CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+    set(PYBIND11_CPP_STANDARD -std=c++17)
+else()
+    set(PYBIND11_CPP_STANDARD /std:c++17)
+endif()
 
+# This variable may be set from somewhere (on Windows) leading to
+# Python version mixups. Enforce the desired one:
+set(PYTHON_EXECUTABLE ${Python3_EXECUTABLE})
 
 # Python.h needs to be known to pass the test
 set (CMAKE_REQUIRED_INCLUDES "${Python3_INCLUDE_DIRS};${CMAKE_REQUIRED_INCLUDES}")

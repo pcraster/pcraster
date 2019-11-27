@@ -15,75 +15,75 @@ configure_file(scripts/operators.py.in
 
 
 pybind11_add_module(_pcraster_multicore MODULE THIN_LTO
-    execution_policy
-    pcraster_multicore
+    execution_policy.cc
+    pcraster_multicore.cc
 
-    focal/slope
-    focal/window4total
-    focal/windowtotal
+    focal/slope.cc
+    focal/window4total.cc
+    focal/windowtotal.cc
 
-    local/and
-    local/or
-    local/xor
-    local/not
-    local/defined
+    local/and.cc
+    local/or.cc
+    local/xor.cc
+    local/not.cc
+    local/defined.cc
 
-    local/add
-    local/sub
-    local/mul
-    local/div
+    local/add.cc
+    local/sub.cc
+    local/mul.cc
+    local/div.cc
 
-    local/sqrt
-    local/pow
-    local/sqr
-    local/abs
-    local/fac
-    local/ln
-    local/log10
-    local/roundup
-    local/rounddown
-    local/roundoff
+    local/sqrt.cc
+    local/pow.cc
+    local/sqr.cc
+    local/abs.cc
+    local/fac.cc
+    local/ln.cc
+    local/log10.cc
+    local/roundup.cc
+    local/rounddown.cc
+    local/roundoff.cc
 
-    local/equal
-    local/unequal
-    local/less
-    local/less_equal
-    local/greater
-    local/greater_equal
+    local/equal.cc
+    local/unequal.cc
+    local/less.cc
+    local/less_equal.cc
+    local/greater.cc
+    local/greater_equal.cc
 
-    local/ifthen
-    local/ifthenelse
+    local/ifthen.cc
+    local/ifthenelse.cc
 
-    local/cover
-    local/minimum
-    local/maximum
+    local/cover.cc
+    local/minimum.cc
+    local/maximum.cc
 
-    local/cos
-    local/sin
-    local/tan
-    local/acos
-    local/asin
-    local/atan
+    local/cos.cc
+    local/sin.cc
+    local/tan.cc
+    local/acos.cc
+    local/asin.cc
+    local/atan.cc
 
-    local/utils
+    local/utils.cc
 
-    total/mapmaximum
-    total/mapminimum
+    total/mapmaximum.cc
+    total/mapminimum.cc
 
-    type_conversion/boolean
-    type_conversion/nominal
-    type_conversion/ordinal
-    type_conversion/scalar
-    type_conversion/nonspatial_field
+    type_conversion/boolean.cc
+    type_conversion/nominal.cc
+    type_conversion/ordinal.cc
+    type_conversion/scalar.cc
+    type_conversion/nonspatial_field.cc
 )
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
     # It seems that clang doesn't set flag this by default yet
     set_property(
         SOURCE
-            pcraster_multicore
-            local/cover
-            local/minimum
-            local/maximum
+            pcraster_multicore.cc
+            local/cover.cc
+            local/minimum.cc
+            local/maximum.cc
         PROPERTY
             COMPILE_OPTIONS
                 -fsized-deallocation

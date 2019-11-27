@@ -47,7 +47,7 @@ namespace block {
   If height equals the bottom of a voxel than this functor returns true for
   that voxel and false for the voxel whose top equals height.
 */
-struct VoxelAtHeight: public std::unary_function<REAL4, bool>
+struct VoxelAtHeight
 {
 
   friend class VoxelAtHeightTest;
@@ -60,6 +60,8 @@ private:
 protected:
 
 public:
+  typedef REAL4 argument_type;
+  typedef bool result_type;
 
   //----------------------------------------------------------------------------
   // CREATORS

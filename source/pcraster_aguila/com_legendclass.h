@@ -90,22 +90,31 @@ public:
 
 // Function object.
 template<class T>
-struct compClass1: public std::binary_function<com_LegendClass<T>, T, bool>
+struct compClass1
 {
+  typedef com_LegendClass<T> first_argument_type;
+  typedef T second_argument_type;
+  typedef bool result_type;
   bool operator() (const com_LegendClass<T> &lc, T c) const
   { return lc.value() < c; }
 };
 
 template<class T>
-struct compClass2: public std::binary_function<com_LegendClass<T>, T, bool>
+struct compClass2
 {
+  typedef com_LegendClass<T> first_argument_type;
+  typedef T second_argument_type;
+  typedef bool result_type;
   bool operator() (T c, const com_LegendClass<T> &lc) const
   { return c < lc.value(); }
 };
 
 template<class T>
-struct compClass: public std::binary_function<com_LegendClass<T>, T, bool>
+struct compClass
 {
+  typedef com_LegendClass<T> first_argument_type;
+  typedef T second_argument_type;
+  typedef bool result_type;
   bool operator() (const com_LegendClass<T> &lc, T c) const
   { return lc.value() < c; }
 
@@ -115,8 +124,11 @@ struct compClass: public std::binary_function<com_LegendClass<T>, T, bool>
 
 // Function object.
 template<class T>
-struct equalClass: public std::binary_function<com_LegendClass<T>, T, bool>
+struct equalClass
 {
+  typedef com_LegendClass<T> first_argument_type;
+  typedef T second_argument_type;
+  typedef bool result_type;
   bool operator() (const com_LegendClass<T> &lc, T c) const
   { return lc.value() == c; }
 

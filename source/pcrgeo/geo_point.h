@@ -193,9 +193,12 @@ public:
  * \sa Point
  */
 template<class P>
-class Closer : public std::binary_function<P,P,bool> {
+class Closer {
   P d_closerTo;
  public:
+  typedef P first_argument_type;
+  typedef P second_argument_type;
+  typedef bool result_type;
   Closer(const P& closerTo):
     d_closerTo(closerTo)
     {};

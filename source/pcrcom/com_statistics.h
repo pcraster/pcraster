@@ -52,8 +52,9 @@ namespace com {
 */
 
 template<class valueT, class sumT=valueT>
-struct Sum: public std::unary_function<valueT, void> {
-
+struct Sum {
+  typedef valueT argument_type;
+  typedef void result_type;
   //! Running sum.
   sumT d_sum;
 
@@ -173,7 +174,7 @@ public:
   minimize roundoff errors.
 
   s^2 = (sumOfSquaredDifferences - (sumOfDifferences^2 / N)) / (N - 1)
- 
+
   \todo rename to Variance2Pass
 */
 template<class ValueType = double, class SumType = long double>
@@ -383,7 +384,7 @@ class AverageSdMinMax: public AverageMinMax<valueT,sumT> {
      d_sd(value);
    }
   valueT sd() const {
-    if (!this->nr() || 
+    if (!this->nr() ||
         this->minimum()==this->maximum() // avoid numeric instabs close to 0
        ) return 0;
     return d_sd;

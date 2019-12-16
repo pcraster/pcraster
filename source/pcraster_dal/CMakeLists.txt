@@ -151,11 +151,12 @@ ADD_CUSTOM_COMMAND(
             -E copy_directory ${GDAL_DATA} ${CMAKE_BINARY_DIR}/share/gdal
     COMMENT "Copying GDAL shared data stuff share/gdal"
 )
-INSTALL(
-    DIRECTORY ${CMAKE_BINARY_DIR}/share/gdal
-    DESTINATION "share"
-)
-
+if(PCRASTER_INSTALL_FILES_GDAL)
+    INSTALL(
+        DIRECTORY ${CMAKE_BINARY_DIR}/share/gdal
+        DESTINATION "share"
+    )
+endif()
 # ------------------------------------------------------------------------------
 
 if(PCRASTER_BUILD_TEST)

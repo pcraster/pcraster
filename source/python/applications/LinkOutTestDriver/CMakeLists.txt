@@ -1,10 +1,12 @@
-INSTALL(
-    FILES
-        dynamicModel.xml
-        LinkOutTestDriver.py
-        PCRasterLinkOut.py
-        PCRasterLinkOutTest.py
-        test.py
-    DESTINATION
-        doc/developer/linkout/examples
-)
+if(PCRASTER_INSTALL_FILES_DEVELOPER)
+    install(
+        FILES
+            dynamicModel.xml
+            LinkOutTestDriver.py
+            PCRasterLinkOut.py
+            PCRasterLinkOutTest.py
+            test.py
+        DESTINATION
+            doc/developer/linkout/examples
+    )
+endif()

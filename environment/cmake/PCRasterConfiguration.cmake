@@ -60,6 +60,16 @@ option(
     OFF)
 
 option(
+    PCRASTER_INSTALL_FILES_DEVELOPER
+    "Install development files and documentation"
+    OFF)
+option(
+    PCRASTER_INSTALL_FILES_GDAL
+    "Install gdal share folder"
+    OFF)
+
+# Refactor these at some point? re-check bundle...
+option(
     PCRASTER_PACKAGE_BOOST
     "Package shared libraries"
     OFF)

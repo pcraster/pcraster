@@ -9,7 +9,7 @@ configure_file(
 )
 
 if(WIN32)
-    add_subdirectory(pdcurses)
+    add_subdirectory(pdcurses EXCLUDE_FROM_ALL)
 endif()
 add_subdirectory(math_utils)
 add_subdirectory(string_utils)
@@ -87,20 +87,21 @@ endif()
 # Add subprojects last as they reset CMake policies
 if(PCRASTER_BUILD_MULTICORE)
     set(FERN_BUILD_ALGORITHM ON CACHE BOOL "Build submodule fern")
-    add_subdirectory(fern)
+    add_subdirectory(fern EXCLUDE_FROM_ALL)
     add_subdirectory(pcraster_multicore)
 endif()
 
-add_subdirectory(rasterformat)
+add_subdirectory(rasterformat EXCLUDE_FROM_ALL)
 
 
-install(
-    FILES
-        ${CMAKE_CURRENT_SOURCE_DIR}/include/pcrdll.h
-    DESTINATION
-        doc/developer/c/include
-)
-
+if(PCRASTER_INSTALL_FILES_DEVELOPER)
+    install(
+        FILES
+            ${CMAKE_CURRENT_SOURCE_DIR}/include/pcrdll.h
+        DESTINATION
+            doc/developer/c/include
+    )
+endif()
 
 # Place 3rd party libraries in our lib directory to create a
 # 'bundle'

@@ -42,13 +42,14 @@ add_custom_command(
       "${CMAKE_COMMAND}" -DVER=${pcraster_VERSION} -DSRC_DIR=${CMAKE_CURRENT_SOURCE_DIR} -P "${CMAKE_CURRENT_SOURCE_DIR}/environment/cmake/PCRasterVersionInformation.cmake"
 )
 
-
-install(
-  FILES
-    ${CMAKE_CURRENT_BINARY_DIR}/pcraster_version.txt
-  DESTINATION
-    doc
-)
+if(PCRASTER_INSTALL_FILES_DEVELOPER)
+    install(
+      FILES
+        ${CMAKE_CURRENT_BINARY_DIR}/pcraster_version.txt
+      DESTINATION
+        doc
+    )
+endif()
 
 # Display configuration summary
 message(STATUS "-------------------------------------------------")

@@ -511,20 +511,22 @@ install(
         DESTINATION lib COMPONENT Runtime
 )
 
-install(
-    FILES
-        PCRaster.xsd
-        ${CMAKE_CURRENT_SOURCE_DIR}/../xmlschema/commonTypes.xsd
-    DESTINATION
-        doc/developer/xsd
-)
+if(PCRASTER_INSTALL_FILES_DEVELOPER)
+    install(
+        FILES
+            PCRaster.xsd
+            ${CMAKE_CURRENT_SOURCE_DIR}/../xmlschema/commonTypes.xsd
+        DESTINATION
+            doc/developer/xsd
+    )
 
-install(
-    FILES
-        pcrcalc.h
-    DESTINATION
-        doc/developer/c/include
-)
+    install(
+        FILES
+            pcrcalc.h
+        DESTINATION
+            doc/developer/c/include
+    )
+endif()
 
 ### ADD_CUSTOM_TARGET(
 ###   isLinkOutAPIUserManualPdfValid ALL

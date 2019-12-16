@@ -30,7 +30,8 @@ We further improved the code quality and the build system to ensure an ongoing c
 
   - RPATH settings fixed for Python modules
   - Shared libraries now receive version numbers and sonames
-  - The build type 'Release' now sets flags ``-march=native -mtune=native`` by default, and optional interprocedural optimization in case supported by the compiler
+  - The build type 'Release' now sets flags ``-march=native -mtune=native`` by default. You can disable this with ``-DPCRASTER_WITH_FLAGS_NATIVE=OFF``.
+  - Interprocedural optimisation can be used in case supported by the compiler. You can enable this with ``-DPCRASTER_WITH_FLAGS_IPO=ON``.
 
 PCRaster 4.3 is known to build with gcc (versions 7 to 9), clang (version 6 to 9) or msvc 2017.
 We recommend to no longer use gcc version 5 or 6 for building PCRaster.

@@ -44,16 +44,21 @@ option(
     PCRASTER_BUILD_MLDD
     "Build mldd"
     OFF)
-option(
-    PCRASTER_WITH_IPO
-    "Use interprocedural optimization"
-    OFF)
 CMAKE_DEPENDENT_OPTION(
     PCRASTER_WITH_OPENGL
     "Use OpenGL for 3D visualisation"
     ON
     "PCRASTER_BUILD_AGUILA"
     OFF)
+option(
+    PCRASTER_WITH_FLAGS_NATIVE
+    "Use architecture flags of host"
+    ON)
+option(
+    PCRASTER_WITH_FLAGS_IPO
+    "Use interprocedural optimization"
+    OFF)
+
 option(
     PCRASTER_PACKAGE_BOOST
     "Package shared libraries"
@@ -109,12 +114,12 @@ if(PCRASTER_BUILD_AGUILA)
 endif()
 
 if(PCRASTER_WITH_OPENGL)
-    set(DEVBASE_OPENGL_REQUIRED TRUE)
+    find_package(OpenGL REQUIRED)
     list(APPEND DEVBASE_REQUIRED_QT_COMPONENTS OpenGL)
 endif()
 
 
-set(DEVBASE_XERCES_REQUIRED TRUE)
+find_package(XercesC REQUIRED)
 
 set(DEVBASE_GDAL_REQUIRED TRUE)  # Version >= 2.0.0.
 

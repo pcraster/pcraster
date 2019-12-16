@@ -31,10 +31,13 @@ if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)
 endif()
 
-if(${CMAKE_BUILD_TYPE} STREQUAL "Release")
-    add_compile_options(
-        "$<$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:Clang>>:-march=native;-mtune=native>"
-    )
+
+if(PCRASTER_WITH_FLAGS_NATIVE)
+    if(${CMAKE_BUILD_TYPE} STREQUAL "Release")
+        add_compile_options(
+            "$<$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:Clang>>:-march=native;-mtune=native>"
+        )
+    endif()
 endif()
 
 add_compile_options(
@@ -48,7 +51,7 @@ add_link_options(
     "$<$<OR:$<CXX_COMPILER_ID:GNU>>:-Wl,--no-undefined;-Wl,--as-needed;-Wl,--sort-common;-Wl,--gc-sections;-Wl,-O2;-Wl,-z,now;-Wl,-z,relro;-Wl,-z,defs;-Wl,--warn-common;-Wl,--hash-style=gnu;-Wl,--no-copy-dt-needed-entries>"
 )
 
-if(PCRASTER_WITH_IPO)
+if(PCRASTER_WITH_FLAGS_IPO)
     include(CheckIPOSupported)
     check_ipo_supported(RESULT COMPILER_HAS_IPO)
     # This takes long for the unit tests...

@@ -12,6 +12,12 @@ option(
     PCRASTER_BUILD_MULTICORE
     "Build Python multicore module"
     ON)
+CMAKE_DEPENDENT_OPTION(
+    PCRASTER_BUILD_FERN_TEST
+    "Build Fern unit tests"
+    OFF
+    "PCRASTER_BUILD_MULTICORE"
+    OFF)
 option(
     PCRASTER_BUILD_AGUILA
     "Build Aguila"

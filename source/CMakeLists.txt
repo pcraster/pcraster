@@ -87,7 +87,14 @@ endif()
 # Add subprojects last as they reset CMake policies
 if(PCRASTER_BUILD_MULTICORE)
     set(FERN_BUILD_ALGORITHM ON CACHE BOOL "Build submodule fern")
-    add_subdirectory(fern EXCLUDE_FROM_ALL)
+    # For development/travis build the tests to catch errors early
+    if(PCRASTER_BUILD_FERN_TEST)
+      add_subdirectory(fern)
+    else()
+      # Default/when packaging PCRaster, do not install anything from Fern
+      set(DEVBASE_BUILD_TEST OFF CACHE BOOL "Disable Fern tests")
+      add_subdirectory(fern EXCLUDE_FROM_ALL)
+    endif()
     add_subdirectory(pcraster_multicore)
 endif()
 

@@ -57,8 +57,3 @@ add_custom_command(
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
         DEPENDS ${SOURCES}
 )
-
-# 2019
-# add_dependencies(python_modelling_framework_dummy
-#     _pcraster_modflow_python
-# )

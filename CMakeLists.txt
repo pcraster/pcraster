@@ -1,8 +1,18 @@
 cmake_minimum_required(VERSION 3.14)
 
+# Policies for PCRaster
+if(POLICY CMP0094)
+    cmake_policy(SET CMP0094 NEW)
+endif()
+
+if(POLICY CMP0075)
+    # Overrule subproject policies
+    set(CMAKE_POLICY_DEFAULT_CMP0075 NEW)
+endif()
+
 project(pcraster)
 
-set(DEV_CURRENT_YEAR "2019")
+set(DEV_CURRENT_YEAR "2020")
 
 set(${PROJECT_NAME}_ORGANISATION_NAME "PCRaster owners")
 set(${PROJECT_NAME}_COPYRIGHT
@@ -12,7 +22,7 @@ set(${PROJECT_NAME}_HOMEPAGE "http://www.pcraster.eu")
 set(${PROJECT_NAME}_MAJOR_VERSION "4")
 set(${PROJECT_NAME}_MINOR_VERSION "3")
 set(${PROJECT_NAME}_PATCH_VERSION "0")
-set(${PROJECT_NAME}_PRE_RELEASE_VERSION "dev")
+set(${PROJECT_NAME}_PRE_RELEASE_VERSION "rc1")
 set(${PROJECT_NAME}_VERSION
     "${${PROJECT_NAME}_MAJOR_VERSION}.${${PROJECT_NAME}_MINOR_VERSION}.${${PROJECT_NAME}_PATCH_VERSION}")
 if(NOT ${${PROJECT_NAME}_PRE_RELEASE_VERSION} STREQUAL "")
@@ -74,5 +84,5 @@ message(STATUS "    Flags:                ")
 message(STATUS "      Native:             " ${PCRASTER_WITH_FLAGS_NATIVE})
 message(STATUS "      IPO:                " ${PCRASTER_WITH_FLAGS_IPO})
 message(STATUS "    Python interpreter:   " ${Python3_EXECUTABLE})
-message(STATUS "    Python Version:       " ${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}.${Python3_VERSION_PATCH})
+message(STATUS "    Python version:       " ${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}.${Python3_VERSION_PATCH})
 message(STATUS "-------------------------------------------------")

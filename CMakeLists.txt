@@ -5,9 +5,14 @@ if(POLICY CMP0094)
     cmake_policy(SET CMP0094 NEW)
 endif()
 
-if(POLICY CMP0075)
+if(POLICY CMP0074)
     # Overrule subproject policies
-    set(CMAKE_POLICY_DEFAULT_CMP0075 NEW)
+    set(CMAKE_POLICY_DEFAULT_CMP0074 NEW)
+endif()
+
+if(POLICY CMP0075)
+   # Overrule subproject policies
+   set(CMAKE_POLICY_DEFAULT_CMP0075 NEW)
 endif()
 
 project(pcraster)

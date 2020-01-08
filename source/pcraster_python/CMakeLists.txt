@@ -73,7 +73,8 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
     )
 endif()
 
-pybind11_add_module(_pcraster MODULE THIN_LTO
+# NO_EXTRAS required for success on macOS conda build
+pybind11_add_module(_pcraster MODULE NO_EXTRAS THIN_LTO
     numpy_conversion.cc
     PCRaster.cc
     value_scale_traits.cc
@@ -101,12 +102,22 @@ target_include_directories(_pcraster SYSTEM
       ${Python3_NumPy_INCLUDE_DIRS}
 )
 
-target_link_libraries(_pcraster
-    PRIVATE
-        Python3::Python
-        pcraster::python::utils
+# TODO why is Python3::module not working on Linux?
+if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    target_link_libraries(_pcraster
+        PRIVATE
+            Python3::Python
+            pcraster::python::utils
 
-)
+    )
+else()
+    target_link_libraries(_pcraster
+        PRIVATE
+            Python3::Module
+            pcraster::python::utils
+
+    )
+endif()
 
 set_target_properties(_pcraster
     PROPERTIES

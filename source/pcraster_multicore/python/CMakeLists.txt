@@ -13,8 +13,8 @@ configure_file(scripts/operators.py.in
     COPYONLY
 )
 
-
-pybind11_add_module(_pcraster_multicore MODULE THIN_LTO
+# NO_EXTRAS required for success on macOS conda build
+pybind11_add_module(_pcraster_multicore MODULE NO_EXTRAS THIN_LTO
     execution_policy.cc
     pcraster_multicore.cc
 
@@ -100,12 +100,22 @@ target_include_directories(_pcraster_multicore
 #     "_pcraster_multicore"
 # )
 
-target_link_libraries(_pcraster_multicore
-    PRIVATE
-        pcraster::python::utils
-        fern_algorithm
-        Python3::Python
-)
+# TODO why is Python3::module not working on Linux?
+if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    target_link_libraries(_pcraster_multicore
+        PRIVATE
+            pcraster::python::utils
+            fern_algorithm
+            Python3::Python
+    )
+else()
+        target_link_libraries(_pcraster_multicore
+        PRIVATE
+            pcraster::python::utils
+            fern_algorithm
+            Python3::Module
+    )
+endif()
 
 set_target_properties(_pcraster_multicore
     PROPERTIES

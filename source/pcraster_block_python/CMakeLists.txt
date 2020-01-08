@@ -5,7 +5,8 @@ if(CMAKE_COMPILER_IS_GNUCXX)
     )
 endif()
 
-# pybind11_add_module
+# NO_EXTRAS required for success on macOS conda build
+# pybind11_add_module NO_EXTRAS
 add_library(_pcraster_block_python MODULE
     blockpy_blockpy
     blockpy_conversions

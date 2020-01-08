@@ -5,7 +5,8 @@ if(CMAKE_COMPILER_IS_GNUCXX)
     )
 endif()
 
-pybind11_add_module(_pcraster_modflow_python MODULE THIN_LTO
+# NO_EXTRAS required for success on macOS conda build
+pybind11_add_module(_pcraster_modflow_python MODULE NO_EXTRAS THIN_LTO
     pcrmfpy.cc
 )
 
@@ -27,12 +28,22 @@ target_include_directories(_pcraster_modflow_python
 
 add_library(pcraster::modflow_python ALIAS _pcraster_modflow_python)
 
-target_link_libraries(_pcraster_modflow_python
-  PUBLIC
-    pcraster::pcrmf_python
-  PRIVATE
-    Python3::Python
-)
+# TODO why is Python3::module not working on Linux?
+if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    target_link_libraries(_pcraster_modflow_python
+      PUBLIC
+        pcraster::pcrmf_python
+      PRIVATE
+        Python3::Python
+    )
+else()
+    target_link_libraries(_pcraster_modflow_python
+      PUBLIC
+        pcraster::pcrmf_python
+      PRIVATE
+        Python3::Module
+    )
+endif()
 
 set_target_properties(_pcraster_modflow_python
     PROPERTIES

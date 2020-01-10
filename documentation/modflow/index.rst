@@ -26,3 +26,4 @@ The PCRaster Modflow extension enables a modeller to embed groundwater flow calu
    usage
    example
    modflow2005
+   reference

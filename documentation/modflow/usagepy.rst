@@ -23,8 +23,6 @@ The DIS, BAS, BCF and a solver package must be set in the initial section of a s
    In the following non-spatial arguments are written capitalised.
 
 
-.. toctree::
-   :maxdepth: 1
+.. include:: mfin.rst
 
-   mfin
-   mfout
+.. include:: mfout.rst

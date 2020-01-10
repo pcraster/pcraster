@@ -1,6 +1,6 @@
 Setting Modflow's input data
 ----------------------------
-This section describes the provided operations for the input data of Modflow and how to retrieve the ouput of Modflow.
+These sections describe the provided operations for the input data of Modflow:
 
 .. toctree::
    :maxdepth: 1
@@ -12,4 +12,5 @@ This section describes the provided operations for the input data of Modflow and
    rch
    wel
    drn
+   ghb
    solver

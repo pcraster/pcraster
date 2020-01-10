@@ -1187,7 +1187,8 @@ PYBIND11_MODULE(_pcraster, module)
   module.def("version_tuple", [] () {
     return pybind11::make_tuple(PCRASTER_VERSION_MAJOR, PCRASTER_VERSION_MINOR, PCRASTER_VERSION_PATCH);
     },
-    R"(Returns the PCRaster version as tuple (major, minor, patch)
+    R"(
+   Returns the PCRaster version as tuple (major, minor, patch)
 
 .. versionadded:: 4.3
     )"

@@ -7,8 +7,11 @@ The Modflow 2005 executable
 PCRaster Modflow executable
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The Modflow executable (mf2005) shipped with our PCRaster Modflow extension is based on the USGS version 1.12.00.
-You can obtain the original source code from the USGS |usgs_modflow|, or browse our GitHub page |pcr_gh|.
+The Modflow executable (mf2005) shipped with our PCRaster Modflow extension is based on the USGS version 1.12.00:
+
+Harbaugh, A.W., Langevin, C.D., Hughes, J.D., Niswonger, R.N., and Konikow, L. F., 2017, MODFLOW-2005 version 1.12.00, the U.S. Geological Survey modular groundwater model: U.S. Geological Survey Software Release, 03 February 2017, http://dx.doi.org/10.5066/F7RF5S7G
+
+You can obtain the original source code from the USGS |usgs_modflow|, or browse our |pcr_gh|.
 
 We used gfortran and gcc version 7.2 to compile the code on Linux and macOS.
 On Windows the executable distributed by the USGS will be used.
@@ -16,7 +19,7 @@ On Windows the executable distributed by the USGS will be used.
 
 .. |pcr_gh| raw:: html
 
-   <a href="https://github.com/pcraster/pcraster/tree/master/source/modflow/mf2005" target="_blank">PCRaster project page</a>
+   <a href="https://github.com/pcraster/pcraster/tree/master/source/modflow/mf2005" target="_blank"> GitHub page</a>
 
 .. |usgs_modflow| raw:: html
 

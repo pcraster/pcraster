@@ -216,7 +216,7 @@ latex_documents = [
 # (source start file, name, description, authors, manual section).
 man_pages = [
     ('index', 'pcrasterpython', u'PCRaster Python Documentation',
-     [u'PCRaster R&D team'], 1)
+     [u'PCRaster owners'], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -230,7 +230,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
   ('index', 'PCRaster Python', u'PCRaster Python Documentation',
-   u'PCRaster R&D team', 'PCRaster Python', 'One line description of project.',
+   u'PCRaster owners', 'PCRaster Python', 'One line description of project.',
    'Miscellaneous'),
 ]
 

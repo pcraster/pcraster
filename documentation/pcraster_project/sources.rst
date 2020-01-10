@@ -1,5 +1,5 @@
-The PCRaster Sources
-====================
+The PCRaster source code
+========================
 
 PCRaster is open source software (GPLv3, as of PCRaster version 4).
 The source code is maintained on our GitHub_ page.
@@ -13,3 +13,11 @@ Questions
 Questions, ideas and discussion issues can be posted on our `mailing list`_.
 
 .. _mailing list: https://lists.geo.uu.nl/mailman/listinfo/pcraster-info
+
+
+Index
+=====
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`

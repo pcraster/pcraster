@@ -1,5 +1,6 @@
-RCH package
-^^^^^^^^^^^
+Recharge (RCH) package
+^^^^^^^^^^^^^^^^^^^^^^
+
 The RCH package specifies the areally distributed recharge. To enable the recharge package either use
 
 .. code-block:: python

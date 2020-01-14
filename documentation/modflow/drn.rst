@@ -1,5 +1,6 @@
-DRN package
-^^^^^^^^^^^
+Drain (DRN) package
+^^^^^^^^^^^^^^^^^^^
+
 The DRN package specifies the use of drains in a simulation. To enable the drain package use
 
 .. code-block:: python

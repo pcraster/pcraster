@@ -1,5 +1,6 @@
-Solver packages
-^^^^^^^^^^^^^^^
+Solver packages (PCG, SOR, SIP, DSP)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 One of the following solvers must be specified for a model run. All arguments for the solver are non-spatial values.
 
 You can check whether a Modflow run converged or not with

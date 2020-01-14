@@ -13,6 +13,7 @@ The most relevant updates for users:
 * We added the Python functions ``cellvalue_by_coordinates``, ``cellvalue_by_index``, ``cellvalue_by_indices`` and ``version_tuple``.
 * We added a ``plot`` function to create basic plots of PCRaster maps in case the matplotlib module is installed.
 * On Windows, ``mapattr`` and ``legend`` show the menu again.
+* PCRaster Modflow now supports the GHB package.
 * Command line applications now show version numbers instead of a build date.
 * The exit value of applications only showing the usage information changed from 1 (EXIT_FAILURE) to 0 (EXIT_SUCCESS).
 

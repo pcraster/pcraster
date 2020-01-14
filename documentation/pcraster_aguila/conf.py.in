@@ -177,7 +177,7 @@ html_show_sphinx = False
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
   ('Manual', 'Aguila.tex', u'Aguila Documentation',
-   u'PCRaster R&D team', 'manual'),
+   u'PCRaster owners', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of

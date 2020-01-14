@@ -1,5 +1,6 @@
-WEL package
-^^^^^^^^^^^
+Well (WEL) package
+^^^^^^^^^^^^^^^^^^
+
 The WEL package specifies the the use of wells in a simulation.  To enable the well package use
 
 .. code-block:: python

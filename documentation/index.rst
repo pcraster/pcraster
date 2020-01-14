@@ -18,11 +18,3 @@ Welcome to the PCRaster documentation!
    pcraster_project/changes
    pcraster_project/install
    pcraster_project/sources
-
-
-Indices and tables
-------------------
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`

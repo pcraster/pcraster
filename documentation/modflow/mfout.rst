@@ -1,6 +1,7 @@
-Retrieving Modflow's output
----------------------------
-Afterwards the specification of the grid Modflow can be called with
+Running Modflow
+---------------
+
+After specifying the required packages, Modflow can be called with
 
 .. code-block:: python
 
@@ -13,6 +14,9 @@ In Python you can also specify a directory where the Modflow run will be execute
 .. code-block:: python
 
    mf.run("1")
+
+Retrieving Modflow's output
+---------------------------
 
 The head and boundary values are retrieved automatically and must not be set again for the next stress period. Applying the operations to layer specified as quasi-3D confining beds will result in an error.
 

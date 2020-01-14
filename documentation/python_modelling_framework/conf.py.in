@@ -220,5 +220,5 @@ latex_documents = [
 # (source start file, name, description, authors, manual section).
 man_pages = [
     ('index', 'pcrasterpythonframework', u'PCRaster Python Framework Documentation',
-     [u'PCRaster R&D Team'], 1)
+     [u'PCRaster owners'], 1)
 ]

@@ -239,12 +239,16 @@ if(PCRASTER_PACKAGE_QT)
     list(APPEND LIBS_PATH ${var})
   endif()
 
-  #
+endif()
+
+
+if(PCRASTER_PACKAGE_QT_PLATFORMS)
   get_target_property(QT_PLATFORM_DIR Qt5::Core LOCATION)
   get_filename_component(QT_PLATFORM_DIR ${QT_PLATFORM_DIR} DIRECTORY)
-  install(DIRECTORY ${QT_PLATFORM_DIR}/../plugins/platforms DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
-
+  install(DIRECTORY ${QT_PLATFORM_DIR}/../plugins/platforms DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 endif()
+
+
 
 install(CODE "
   set(LIBS_PATH \"${LIBS_PATH}\")

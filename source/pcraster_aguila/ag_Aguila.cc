@@ -20,7 +20,7 @@ namespace ag {
 namespace detail {
 
 std::string const DEVELOPERMESSAGE(
-         "Copyright (C) PCRaster R&D team\n"
+         "Copyright (C) PCRaster owners\n"
          "Department of Physical Geography\n"
          "Faculty of Geosciences\n"
          "Utrecht University\n"
@@ -79,7 +79,7 @@ Aguila::Aguila(
   drivers.push_back("KML");
   dal::Client::dal().favourDrivers(drivers);
 
-  applyGplLicense("PCRaster R&D team");
+  applyGplLicense("PCRaster owners");
   setVersion(AGUILA_MAJOR_VERSION, AGUILA_MINOR_VERSION, AGUILA_PATCH_VERSION, AGUILA_PRE_RELEASE_VERSION);
   // setBuildStage(AG_BUILD_STAGE);
 

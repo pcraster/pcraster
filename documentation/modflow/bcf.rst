@@ -1,5 +1,6 @@
-BCF package
-^^^^^^^^^^^
+Block-Centered Flow (BCF) package
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 The BCF package specifies the input for the block-centered flow package.
 
 .. note::

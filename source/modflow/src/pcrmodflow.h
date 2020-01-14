@@ -63,6 +63,7 @@ class DSP;
 class SOR;
 class WEL;
 class HFB;
+class GHB;
 
 
 enum Solver {
@@ -104,6 +105,7 @@ class PCRModflow : public dal::Client
   friend class SOR;
   friend class WEL;
   friend class HFB;
+  friend class GHB;
 
 protected:
   DIS *d_dis;
@@ -123,6 +125,7 @@ protected:
   DSP *d_dsp;
   WEL *d_wel;
   HFB *d_hfb;
+  GHB *d_ghb;
 
   discr::Block *d_baseArea;
   /// \todo no longer used?
@@ -147,6 +150,9 @@ protected:
     discr::BlockData<REAL4> *d_primaryStorage;
     discr::BlockData<REAL4> *d_secondaryStorage;
     discr::BlockData<REAL4> *d_wetting;
+    //
+    discr::BlockData<REAL4> *d_ghbHead;
+    discr::BlockData<REAL4> *d_ghbCond;
 
     discr::Raster *d_draster;
 
@@ -210,6 +216,7 @@ protected:
 	    void initRIV();
 	    void initDRN();
 	    void initWEL();
+      void initGHB();
 	    size_t mfLayer2BlockLayer(size_t layer);
 
 
@@ -309,6 +316,10 @@ public:
 	    bool setWell(const float *well, size_t mfLayer);
 	    void setWell(const calc::Field *well, size_t layer);
 	    void setWell(discr::BlockData<REAL4> &well);
+      // GHB package
+      void setGHB(const calc::Field * head, const calc::Field * cond, size_t layer);
+      void setGHB(const std::string & head, const std::string & cond, size_t layer);
+      calc::Field* getGHBLeakage(size_t layer);
 	    // Solver packages
 	    void setSOR(size_t mxiter, double accl, double hclose);
 	    void setSIP(size_t mxiter, size_t nparam, double accl, double hclose, size_t ipcalc, double wseed);

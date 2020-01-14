@@ -6,12 +6,14 @@ set(SPHINX_SOURCES
     dis.rst
     drn.rst
     example.rst
+    ghb.rst
     index.rst
     layerdesc.png
     mfin.rst
     mfout.rst
     quickstart.rst
     rch.rst
+    reference.rst
     riv.rst
     solver.rst
     usage.rst

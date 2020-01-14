@@ -94,6 +94,9 @@ void (mf::PCRModflowPython::*setDrainPS)(const std::string &, const std::string 
 void (mf::PCRModflowPython::*setDrainPy)(const calc::Field *, const calc::Field *, size_t) = &mf::PCRModflowPython::setDrain;
 void (mf::PCRModflowPython::*setDrainPyBlock)(const discr::BlockData<REAL4> &, const discr::BlockData<REAL4> &) = &mf::PCRModflowPython::setDrain;
 
+void (mf::PCRModflowPython::*setGhbString)(const std::string &, const std::string &, size_t) = &mf::PCRModflowPython::setGHB;
+void (mf::PCRModflowPython::*setGhbField)(const calc::Field *, const calc::Field *, size_t) = &mf::PCRModflowPython::setGHB;
+
 
 void (mf::PCRModflowPython::*getHeads1)(float *, size_t) = &mf::PCRModflowPython::getHeads;
 calc::Field* (mf::PCRModflowPython::*getHeads2)(size_t) = &mf::PCRModflowPython::getHeads;
@@ -107,6 +110,8 @@ calc::Field* (mf::PCRModflowPython::*getDrainPy)(size_t) = &mf::PCRModflowPython
 
 void (mf::PCRModflowPython::*getRechargeCalc)(float *, size_t) = &mf::PCRModflowPython::getRecharge;
 calc::Field* (mf::PCRModflowPython::*getRechargePy)(size_t) = &mf::PCRModflowPython::getRecharge;
+
+
 
 
 void             (mf::PCRModflowPython::*get_storageCalc)       (float *, size_t) = &mf::PCRModflowPython::get_storage;
@@ -136,84 +141,174 @@ void (mf::PCRModflowPython::*setCondPy)(size_t, const calc::Field *, const calc:
 
 
 PYBIND11_MODULE(_pcraster_modflow, module){
+  // disables the C++ signatures in docstrings
+  pybind11::options options;
+  options.disable_function_signatures();
+
+  // Desired methods in module documentation
+  // are enforced by empty docstrings. Ugly, but fttb...
+
 
   pybind11::class_<mf::PCRModflowPython>(module, "initialise")
     .def(pybind11::init<geo::RasterSpace const&>())
-    .def("run", &mf::PCRModflowPython::runModflow, pybind11::arg("working_directory")="")
-    .def("converged", &mf::PCRModflowPython::converged)
+    .def("run", &mf::PCRModflowPython::runModflow, pybind11::arg("working_directory")="", R"(
+
+    )")
+    .def("converged", &mf::PCRModflowPython::converged, R"(
+
+    )")
     .def("_set_run_command", &mf::PCRModflowPython::set_run_command)
     // DIS
-    .def("setLayer", &mf::PCRModflowPython::setLayer)
-    .def("createBottomLayer", createBottomPy)
+    .def("setLayer", &mf::PCRModflowPython::setLayer, R"(
+
+    )")
+    .def("createBottomLayer", createBottomPy, R"(
+
+    )")
     .def("createBottomLayer", createBottomPS)
     .def("addLayer", addLayerPS)
-    .def("addLayer", addLayerPy)
-    .def("addConfinedLayer", addConfinedPy)
+    .def("addLayer", addLayerPy, R"(
+
+    )")
+    .def("addConfinedLayer", addConfinedPy, R"(
+
+    )")
     .def("addConfinedLayer", addConfinedPS)
-    .def("setDISParameter", &mf::PCRModflowPython::setDISParams)
-    .def("setRowWidth", &mf::PCRModflowPython::set_row_width)
-    .def("setColumnWidth", &mf::PCRModflowPython::set_col_width)
-    .def("updateDISParameter", &mf::PCRModflowPython::update_dis_parameter)
+    .def("setDISParameter", &mf::PCRModflowPython::setDISParams, R"(
+
+    )")
+    .def("setRowWidth", &mf::PCRModflowPython::set_row_width, R"(
+
+    )")
+    .def("setColumnWidth", &mf::PCRModflowPython::set_col_width, R"(
+
+    )")
+    .def("updateDISParameter", &mf::PCRModflowPython::update_dis_parameter, R"(
+
+    )")
     // BAS
-    .def("setBoundary", setBoundaryPy)
+    .def("setBoundary", setBoundaryPy, R"(
+
+    )")
     .def("setBoundary", setBoundaryPS)
     .def("setBoundary", setBoundaryPyBlock)
     .def("setInitialHead", setHeadPS)
-    .def("setInitialHead", setHeadPy)
+    .def("setInitialHead", setHeadPy, R"(
+
+    )")
     .def("setInitialHead", setHeadPyBlock)
-    .def("setNoFlowHead", &mf::PCRModflowPython::setNoFlowConstant)
+    .def("setNoFlowHead", &mf::PCRModflowPython::setNoFlowConstant, R"(
+
+    )")
     // BCF
     //.def("setHorizontalConductivity", setHCond)
     //.def("setVerticalConductivity", setVCond)
-    .def("setConductivity", setCondPy)
+    .def("setConductivity", setCondPy, R"(
+
+    )")
     .def("setConductivity", setCondPS)
-    .def("setDryHead", &mf::PCRModflowPython::setHDRY)
-    .def("setHorizontalAnisotropy", &mf::PCRModflowPython::setTRPY)
+    .def("setDryHead", &mf::PCRModflowPython::setHDRY, R"(
+
+    )")
+    .def("setHorizontalAnisotropy", &mf::PCRModflowPython::setTRPY, R"(
+
+    )")
     .def("setStorage", setStoragePS)
-    .def("setStorage", setStoragePy)
+    .def("setStorage", setStoragePy, R"(
+
+    )")
     .def("setStorage", setStoragePyBlock)
-    .def("setWetting", setWettingPy)
+    .def("setWetting", setWettingPy, R"(
+
+    )")
     .def("setWetting", setWettingPS)
     .def("setWetting", setWettingPyBlock)
-    .def("setWettingParameter", &mf::PCRModflowPython::setWettingParameter)
+    .def("setWettingParameter", &mf::PCRModflowPython::setWettingParameter, R"(
+
+    )")
     // RIV
-    .def("setRiver", setRiverPy)
+    .def("setRiver", setRiverPy, R"(
+
+    )")
     .def("setRiver", setRiverPS)
     .def("setRiver", setRiverPyBlock)
     // RCH
-    .def("setRecharge", setRecharge)
+    .def("setRecharge", setRecharge, R"(
+
+    )")
     .def("setRecharge", setRechargePS)
-    .def("setIndicatedRecharge", setRechargeLay)
+    .def("setIndicatedRecharge", setRechargeLay, R"(
+
+    )")
     .def("setIndicatedRecharge", setRechargeLayPS)
     // WEL
-    .def("setWell", setWellPy)
+    .def("setWell", setWellPy, R"(
+
+    )")
     .def("setWell", setWellPS)
     .def("setWell", setWellPyBlock)
     // DRN
-    .def("setDrain", setDrainPy)
+    .def("setDrain", setDrainPy, R"(
+
+    )")
     .def("setDrain", setDrainPS)
     .def("setDrain", setDrainPyBlock)
+    // GHB
+    .def("setGeneralHead", setGhbField, R"(
+
+    )")
+    .def("setGeneralHead", setGhbString, R"(
+
+    )")
+    .def("getGeneralHeadLeakage", &mf::PCRModflowPython::getGHBLeakage, R"(
+
+    )")
     // Solver
-    .def("setPCG", &mf::PCRModflowPython::setPCG)
-    .def("setSIP", &mf::PCRModflowPython::setSIP)
-    .def("setSOR", &mf::PCRModflowPython::setSOR)
-    .def("setDSP", &mf::PCRModflowPython::setDSP)
+    .def("setPCG", &mf::PCRModflowPython::setPCG, R"(
+
+    )")
+    .def("setSIP", &mf::PCRModflowPython::setSIP, R"(
+
+    )")
+    .def("setSOR", &mf::PCRModflowPython::setSOR, R"(
+
+    )")
+    .def("setDSP", &mf::PCRModflowPython::setDSP, R"(
+
+    )")
     //
     //.def("getHeads", &mf::PCRModflowPython::getBlockHeads)
-    .def("getHeads", getHeads2)
+    .def("getHeads", getHeads2, R"(
+
+    )")
    // .def("getRiverLeakage", &mf::PCRModflowPython::getBlockRiverLeakage,
   //       boost::python::return_value_policy<boost::python::manage_new_object>())
-    .def("getRiverLeakage", getRivLeakPy)
+    .def("getRiverLeakage", getRivLeakPy, R"(
+
+    )")
     //.def("getDrain", &mf::PCRModflowPython::getBlockDrain,
     //     boost::python::return_value_policy<boost::python::manage_new_object>())
-    .def("getDrain", getDrainPy)
-    .def("getRecharge", getRechargeCalc)
-    .def("getRecharge", getRechargePy)
-    .def("getStorage", get_storagePy)
-    .def("getConstantHead", get_constand_headPy)
-    .def("getRightFace", get_right_facePy)
-    .def("getFrontFace", get_front_facePy)
-    .def("getLowerFace", get_lower_facePy)
-    ;
+    .def("getDrain", getDrainPy, R"(
 
+    )")
+    .def("getRecharge", getRechargeCalc)
+    .def("getRecharge", getRechargePy, R"(
+
+    )")
+    .def("getStorage", get_storagePy, R"(
+
+    )")
+    .def("getConstantHead", get_constand_headPy, R"(
+
+    )")
+    .def("getRightFace", get_right_facePy, R"(
+
+    )")
+    .def("getFrontFace", get_front_facePy, R"(
+
+    )")
+    .def("getLowerFace", get_lower_facePy, R"(
+
+    )")
+    ;
 }

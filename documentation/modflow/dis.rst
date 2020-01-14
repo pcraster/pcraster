@@ -1,5 +1,6 @@
-DIS package
-^^^^^^^^^^^
+Discretization (DIS) package
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 The DIS package specifies the grid used for the groundwater model. The grid specification must start with the bottom layer. Afterwards confined/unconfined layer can be added. The maximum number of layers is 999.
 
 The operation for the specification of the bottom layer is

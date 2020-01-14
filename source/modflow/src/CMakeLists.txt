@@ -7,6 +7,7 @@ add_library(pcrmf_objects OBJECT
     dis
     drn
     dsp
+    ghb
     gridcheck
    #  hfb
     pcg

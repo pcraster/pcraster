@@ -1,5 +1,6 @@
-RIV package
-^^^^^^^^^^^
+River (RIV) package
+^^^^^^^^^^^^^^^^^^^
+
 The RIV package specifies the contribution or drainage of the rivers to/from the aquifer. To enable the river package use
 
 .. code-block:: python

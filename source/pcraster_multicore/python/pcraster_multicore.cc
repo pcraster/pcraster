@@ -171,22 +171,22 @@ PYBIND11_MODULE(_pcraster_multicore, module){
 
 
   module.def("add", &pmcpy::add,
-    "Add py::arguments cell-wise. Equivalent to 'expression1 + expression2'.",
+    "Add arguments cell-wise. Equivalent to 'expression1 + expression2'.",
     py::arg("expression1"), py::arg("expression2")
     );
 
   module.def("sub", &pmcpy::sub,
-    "Subtract py::arguments cell-wise. Equivalent to 'expression1 - expression2'.",
+    "Subtract arguments cell-wise. Equivalent to 'expression1 - expression2'.",
     py::arg("expression1"), py::arg("expression2")
     );
 
   module.def("mul", &pmcpy::mul,
-    "Multiply py::arguments cell-wise. Equivalent to 'expression1 * expression2'.",
+    "Multiply arguments cell-wise. Equivalent to 'expression1 * expression2'.",
     py::arg("expression1"), py::arg("expression2")
     );
 
   module.def("div", &pmcpy::div,
-    "Divide py::arguments cell-wise. Equivalent to 'expression1 / expression2'.",
+    "Divide arguments cell-wise. Equivalent to 'expression1 / expression2'.",
     py::arg("expression1"), py::arg("expression2")
     );
 

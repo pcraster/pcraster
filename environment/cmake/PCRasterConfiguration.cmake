@@ -84,6 +84,10 @@ option(
     "Package shared libraries"
     OFF)
 option(
+    PCRASTER_PACKAGE_QT_PLATFORMS
+    "Package Qt Platform Abstraction directory"
+    OFF)
+option(
     PCRASTER_PACKAGE_XERCES
     "Package shared libraries"
     OFF)
@@ -148,6 +152,9 @@ if(UNIX)
     set(CURSES_NEED_NCURSES TRUE)
     set(CURSES_NEED_WIDE FALSE)
     find_package(Curses REQUIRED)
+    message(STATUS "Found ncurses: ")
+    message(STATUS "  includes : " ${CURSES_INCLUDE_DIRS})
+    message(STATUS "  libraries: " ${CURSES_LIBRARIES})
 endif()
 
 if(PCRASTER_BUILD_TEST)

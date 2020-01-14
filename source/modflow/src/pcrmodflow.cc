@@ -133,6 +133,8 @@
 #define INCLUDED_HFB
 #endif
 
+#include "ghb.h"
+
 #include "mf_utils.h"
 
 #include <QProcess>
@@ -268,6 +270,8 @@ void PCRModflow::initDataStructures(){
   // well
   d_wel = NULL;
   d_welValues = NULL;
+
+  d_ghb = nullptr;
 
   dd_nrLayer = 0;
   dd_nrModflowLayer = 0;
@@ -605,6 +609,10 @@ bool PCRModflow::writeNAM() {
     content << "DATA  280 pcrmf_wel.asc\n";
   }
 
+  if(d_ghb != nullptr){
+    content << "GHB   225 pcrmf.ghb\n";
+    content << "DATA  256 pcrmf_ghb.asc\n";
+  }
 
   return d_cmethods->writeToFile(mf::execution_path(run_directory(), "pcrmf.nam"), content.str());
 }
@@ -1166,6 +1174,14 @@ bool PCRModflow::runModflow(const std::string & working_directory) {
     d_wel->write(run_directory());
   }
 
+  if(d_ghb != nullptr) {
+    if(d_ghb->ghbUpdated()){
+      d_ghb->write_list(run_directory());
+      d_ghb->write(run_directory());
+      d_ghb->setGhbUpdated(false);
+    }
+  }
+
   // to make sure that wel/riv/etc packages can be activated after the first
   // time step, always write the nam file
   result = writeNAM();
@@ -1722,3 +1738,40 @@ void PCRModflow::set_run_command(const std::string & command, const std::string 
   run_arguments = arguments;
 }
 
+
+
+void PCRModflow::initGHB() {
+  const REAL4 init = 0.0;
+  d_ghb = new GHB(this);
+
+  initREAL4BlockData(&d_ghbHead, init);
+  initREAL4BlockData(&d_ghbCond, init);
+}
+
+
+void PCRModflow::setGHB(const calc::Field *head, const calc::Field *cond, size_t layer){
+  if(d_ghb == nullptr) {
+    initGHB();
+  }
+  d_ghb->setGHB(head, cond, layer);
+}
+
+void PCRModflow::setGHB(const std::string & head, const std::string & cond, size_t layer){
+  if(d_ghb == nullptr) {
+    initGHB();
+  }
+  dal::RasterDal rasterdal(true);
+  boost::shared_ptr<dal::Raster> raster1(rasterdal.read(head, dal::TI_REAL4));
+  boost::shared_ptr<dal::Raster> raster2(rasterdal.read(cond, dal::TI_REAL4));
+
+  d_ghb->setGHB(static_cast<REAL4 const*>(raster1->cells()), static_cast<REAL4 const*>(raster2->cells()), layer);
+}
+
+calc::Field* PCRModflow::getGHBLeakage(size_t layer){
+  if(d_ghb == nullptr) {
+    std::stringstream stmp;
+    stmp << "No general head boundary package specified: Define head and conductance values ";
+    d_cmethods->error(stmp.str(), "getGeneralHeadLeakage");
+  }
+  return d_ghb->getGhbLeakage(layer, run_directory());
+}

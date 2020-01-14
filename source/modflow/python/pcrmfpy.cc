@@ -94,6 +94,9 @@ void (mf::PCRModflowPython::*setDrainPS)(const std::string &, const std::string 
 void (mf::PCRModflowPython::*setDrainPy)(const calc::Field *, const calc::Field *, size_t) = &mf::PCRModflowPython::setDrain;
 void (mf::PCRModflowPython::*setDrainPyBlock)(const discr::BlockData<REAL4> &, const discr::BlockData<REAL4> &) = &mf::PCRModflowPython::setDrain;
 
+void (mf::PCRModflowPython::*setGhbString)(const std::string &, const std::string &, size_t) = &mf::PCRModflowPython::setGHB;
+void (mf::PCRModflowPython::*setGhbField)(const calc::Field *, const calc::Field *, size_t) = &mf::PCRModflowPython::setGHB;
+
 
 void (mf::PCRModflowPython::*getHeads1)(float *, size_t) = &mf::PCRModflowPython::getHeads;
 calc::Field* (mf::PCRModflowPython::*getHeads2)(size_t) = &mf::PCRModflowPython::getHeads;
@@ -107,6 +110,8 @@ calc::Field* (mf::PCRModflowPython::*getDrainPy)(size_t) = &mf::PCRModflowPython
 
 void (mf::PCRModflowPython::*getRechargeCalc)(float *, size_t) = &mf::PCRModflowPython::getRecharge;
 calc::Field* (mf::PCRModflowPython::*getRechargePy)(size_t) = &mf::PCRModflowPython::getRecharge;
+
+
 
 
 void             (mf::PCRModflowPython::*get_storageCalc)       (float *, size_t) = &mf::PCRModflowPython::get_storage;
@@ -248,6 +253,16 @@ PYBIND11_MODULE(_pcraster_modflow, module){
     )")
     .def("setDrain", setDrainPS)
     .def("setDrain", setDrainPyBlock)
+    // GHB
+    .def("setGeneralHead", setGhbField, R"(
+
+    )")
+    .def("setGeneralHead", setGhbString, R"(
+
+    )")
+    .def("getGeneralHeadLeakage", &mf::PCRModflowPython::getGHBLeakage, R"(
+
+    )")
     // Solver
     .def("setPCG", &mf::PCRModflowPython::setPCG, R"(
 

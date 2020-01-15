@@ -150,7 +150,7 @@ message(STATUS "  Interpreter ID: " ${Python3_INTERPRETER_ID})
 
 if(UNIX)
     set(CURSES_NEED_NCURSES TRUE)
-    set(CURSES_NEED_WIDE FALSE)
+    set(CURSES_NEED_WIDE TRUE)
     find_package(Curses REQUIRED)
     message(STATUS "Found ncurses: ")
     message(STATUS "  includes : " ${CURSES_INCLUDE_DIRS})

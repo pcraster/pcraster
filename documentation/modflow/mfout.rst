@@ -78,3 +78,10 @@ The head and boundary values are retrieved automatically and must not be set aga
    lf = mf.getLowerFace(LAYER)
 
 ``lf`` is a scalar PCRaster map containing the resulting internal cell-by-cell flows (lower) of the layer ``LAYER``.
+
+
+.. code-block:: python
+
+   gh = mf.getGeneralHeadLeakage(LAYER)
+
+``gh`` is a scalar PCRaster map containing the resulting internal cell-by-cell flows terms of the layer ``LAYER``.

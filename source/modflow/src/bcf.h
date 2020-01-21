@@ -52,6 +52,7 @@ private:
   int              d_sf1_unit_number;
   int              d_sf2_unit_number;
   int              d_wet_unit_number;
+  bool             d_calculated;
   PCRModflow       *d_mf;
 
   bool hasConfinedSubLayer(size_t layer);
@@ -71,7 +72,7 @@ public:
 
   void             writeBCF();
 
-  void             setCond             (size_t laycon, const calc::Field *hcond, const calc::Field *vcond, size_t layer);
+  void             setCond             (size_t laycon, const calc::Field *hcond, const calc::Field *vcond, size_t layer, bool calc);
   void             setHCond            (const discr::BlockData<REAL4> &values, const discr::BlockData<INT4> &type);
   void             setVCond            (const discr::BlockData<REAL4> &values);
   void             setHDRY             (float hdry);
@@ -81,6 +82,9 @@ public:
   void             setStorage          (const calc::Field *primary, const calc::Field *secondary, size_t layer);
   void             setStorage          (const discr::BlockData<REAL4> &primary, const discr::BlockData<REAL4> &secondary);
   void             setWettingParameter (float wetfct, size_t iwetit, float ihdwet);
+
+  void             set_calculate_cond  (bool);
+  bool             calculate_cond      ();
 
   double           getHDRY             () const;
 

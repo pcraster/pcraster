@@ -284,7 +284,8 @@ public:
 
 	    bool setVCond(const float *values, size_t layer);
 	    void setVCond(const discr::BlockData<REAL4> &values);
-	    void setCond(size_t laycon, const calc::Field *hcond, const calc::Field *vcond, size_t layer);
+	    void setCond(size_t laycon, const calc::Field * hcond, const calc::Field * vcond, size_t layer, bool calc=true);
+      void setCond(size_t laycon, const std::string & hcond, const std::string & vcond, size_t layer, bool calc=true);
 
 
 	    void setTRPY(float trpy);
@@ -385,7 +386,6 @@ public:
 
   void setIBound(const std::string & values, size_t layer);
   void setInitialHead(const std::string & values, size_t layer);
-  void setCond(size_t laycon, const std::string & hcond, const std::string & vcond, size_t layer);
   void setRecharge(const std::string & , size_t optCode);
   void setRechargeLay(const std::string & , const std::string & );
   void setStorage(const std::string & , const std::string & , size_t layer);

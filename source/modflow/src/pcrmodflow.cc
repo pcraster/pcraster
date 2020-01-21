@@ -948,8 +948,8 @@ void PCRModflow::setHCond(const discr::BlockData<REAL4> &values, const discr::Bl
   d_bcf->setHCond(values, type);
 }
 
-void PCRModflow::setCond(size_t laycon, const calc::Field *hcond, const calc::Field *vcond, size_t layer){
-  d_bcf->setCond(laycon, hcond, vcond, layer);
+void PCRModflow::setCond(size_t laycon, const calc::Field *hcond, const calc::Field *vcond, size_t layer, bool calc){
+  d_bcf->setCond(laycon, hcond, vcond, layer, calc);
 }
 
 
@@ -1625,13 +1625,14 @@ void PCRModflow::setIBound(const std::string & values, size_t layer){
 
 
 
-  void PCRModflow::setCond(size_t laycon, const std::string & hcond, const std::string & vcond, size_t layer){
+  void PCRModflow::setCond(size_t laycon, const std::string & hcond, const std::string & vcond, size_t layer, bool calc){
    dal::RasterDal rasterdal(true);
   boost::shared_ptr<dal::Raster> raster1(rasterdal.read(hcond, dal::TI_REAL4));
   boost::shared_ptr<dal::Raster> raster2(rasterdal.read(vcond, dal::TI_REAL4));
 
   setHCond(static_cast<REAL4 const*>(raster1->cells()),  layer, laycon);
   setVCond(static_cast<REAL4 const*>(raster2->cells()),  layer);
+  d_bcf->set_calculate_cond(calc);
 }
 
   void PCRModflow::setRecharge(const std::string & values, size_t optCode){

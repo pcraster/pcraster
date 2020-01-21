@@ -15,7 +15,7 @@ The operation for the specification of the conductivity values is
 
 .. code-block:: python
 
-   mf.setConductivity(LAYTYPE, hConductivity, vConductivity, LAYER)
+   mf.setConductivity(LAYTYPE, hConductivity, vConductivity, LAYER, COMPUTE)
 
 where
 
@@ -31,6 +31,9 @@ vConductivity
 
 LAYER
    is the layer number the map values will be assigned to.
+
+COMPUTE
+   optional flag. If set to ``False``, values for hConductivity and vConductivity will be directly forwarded as input to Modflow instead of calculated as stated above. Default value is ``True``.
 
 Annotation: For calculations in Modflow only vertical hydraulic conductivity values for quasi-3D confining beds are used. Horizontal conductivity values must also be specified for those layer due to technical reasons.
 

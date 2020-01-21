@@ -94,11 +94,19 @@ BCF::BCF(PCRModflow *mf):
   d_sf1_unit_number(503),
   d_sf2_unit_number(504),
   d_wet_unit_number(505),
+  d_calculated(true),
   d_mf(mf)
 {
 }
 
 
+void BCF::set_calculate_cond(bool calc) {
+  d_calculated = calc;
+}
+
+bool BCF::calculate_cond() {
+  return d_calculated;
+}
 
 /**
  * write BCF to file
@@ -414,7 +422,7 @@ double BCF::getHDRY() const{
 }
 
 
-void BCF::setCond(size_t laycon, const calc::Field *hcond, const calc::Field *vcond, size_t layer){
+void BCF::setCond(size_t laycon, const calc::Field *hcond, const calc::Field *vcond, size_t layer, bool calc){
   layer--; // layer number passed by user starts with 1
   d_mf->d_gridCheck->isGrid(layer, "setConductivity");
   d_mf->d_gridCheck->testMV(hcond->src_f(), "setConductivity (horizontal)");
@@ -426,6 +434,7 @@ void BCF::setCond(size_t laycon, const calc::Field *hcond, const calc::Field *vc
   d_mf->d_gridCheck->testMV(vcond->src_f(), "setConductivity");
   d_mf->d_gridCheck->setVCond(layer, "setConductivity (vertical)");
   d_mf->setBlockData(*(d_mf->d_vCond), vcond->src_f(), layer);
+  set_calculate_cond(calc);
 }
 
 
@@ -952,7 +961,10 @@ void BCF::write_tran(std::string const& path)  {
 
       for(size_t j = 0; j < d_mf->d_nrOfCells; ++j){
         // tran = height * hcond
-        float tran = d_mf->d_baseArea->cell(j)[blockLayer] * d_mf->d_hCond->cell(j)[blockLayer];
+        float tran = d_mf->d_hCond->cell(j)[blockLayer];
+        if(calculate_cond()) {
+          tran = tran * d_mf->d_baseArea->cell(j)[blockLayer];
+        }
         content << " " << tran;
         if((j % cols) == rowWrap){
           content << "\n";
@@ -996,23 +1008,28 @@ void BCF::write_vcond(std::string const& path)  {
       if(res==true){
 
         for(size_t i = 0; i < d_mf->d_nrOfCells; ++i){
-          float thickUpper = 0.5f * d_mf->d_baseArea->cell(i)[blockLayer];
-          float thickMid   =       d_mf->d_baseArea->cell(i)[blockLayer-1];
-          float thickLower = 0.5f * d_mf->d_baseArea->cell(i)[blockLayer-2];
 
-          float denominator = (thickUpper / d_mf->d_vCond->cell(i)[blockLayer])
-                              + (thickMid / d_mf->d_vCond->cell(i)[blockLayer-1])
-                              + (thickLower / d_mf->d_vCond->cell(i)[blockLayer-2]);
+          float vcond = d_mf->d_vCond->cell(i)[blockLayer];
 
-          if(boost::math::isfinite(denominator) == 0){
-            int row = 1 + i / d_mf->d_nrOfColumns;
-            int col = 1 + i % d_mf->d_nrOfColumns;
-            std::stringstream stmp;
-            stmp << "Can not calculate VCONT in row " << row << " cell " << col << ", divsion by 0? " << std::endl;
-            d_mf->d_cmethods->error(stmp.str(), "run");
+          if(calculate_cond()) {
+            float thickUpper = 0.5f * d_mf->d_baseArea->cell(i)[blockLayer];
+            float thickMid   =       d_mf->d_baseArea->cell(i)[blockLayer-1];
+            float thickLower = 0.5f * d_mf->d_baseArea->cell(i)[blockLayer-2];
+
+            float denominator = (thickUpper / d_mf->d_vCond->cell(i)[blockLayer])
+                                + (thickMid / d_mf->d_vCond->cell(i)[blockLayer-1])
+                                + (thickLower / d_mf->d_vCond->cell(i)[blockLayer-2]);
+
+            if(boost::math::isfinite(denominator) == 0){
+              int row = 1 + i / d_mf->d_nrOfColumns;
+              int col = 1 + i % d_mf->d_nrOfColumns;
+              std::stringstream stmp;
+              stmp << "Can not calculate VCONT in row " << row << " cell " << col << ", divsion by 0? " << std::endl;
+              d_mf->d_cmethods->error(stmp.str(), "run");
+            }
+
+            vcond = 1.0f / denominator;
           }
-
-          float vcond = 1.0f / denominator;
 
           content << " " << vcond;
           if((i % cols) == rowWrap){
@@ -1022,21 +1039,26 @@ void BCF::write_vcond(std::string const& path)  {
       }
       else{
         for(size_t i = 0; i < d_mf->d_nrOfCells; i++){
-          float thickUpper = 0.5f * d_mf->d_baseArea->cell(i)[blockLayer];
-          float thickLower = 0.5f * d_mf->d_baseArea->cell(i)[blockLayer-1];
 
-          float denominator = (thickUpper/d_mf->d_vCond->cell(i)[blockLayer])
-                              + (thickLower/d_mf->d_vCond->cell(i)[blockLayer-1]);
+          float vcond = d_mf->d_vCond->cell(i)[blockLayer];
 
-          if(boost::math::isfinite(denominator) == 0){
-            int row = 1 + i / d_mf->d_nrOfColumns;
-            int col = 1 + i % d_mf->d_nrOfColumns;
-            std::stringstream stmp;
-            stmp << "Can not calculate VCONT in row " << row << " cell " << col << ", divsion by 0? " << std::endl;
-            d_mf->d_cmethods->error(stmp.str(), "run");
+          if(calculate_cond()) {
+            float thickUpper = 0.5f * d_mf->d_baseArea->cell(i)[blockLayer];
+            float thickLower = 0.5f * d_mf->d_baseArea->cell(i)[blockLayer-1];
+
+            float denominator = (thickUpper/d_mf->d_vCond->cell(i)[blockLayer])
+                                + (thickLower/d_mf->d_vCond->cell(i)[blockLayer-1]);
+
+            if(boost::math::isfinite(denominator) == 0){
+              int row = 1 + i / d_mf->d_nrOfColumns;
+              int col = 1 + i % d_mf->d_nrOfColumns;
+              std::stringstream stmp;
+              stmp << "Can not calculate VCONT in row " << row << " cell " << col << ", divsion by 0? " << std::endl;
+              d_mf->d_cmethods->error(stmp.str(), "run");
+            }
+
+            vcond = 1.0f / denominator;
           }
-
-          float vcond = 1.0f / denominator;
           content  << " " << vcond ;
           if((i % cols) == rowWrap){
             content << std::endl;

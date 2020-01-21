@@ -21,6 +21,9 @@
 #include <pybind11/pybind11.h>
 
 
+using namespace pybind11::literals;
+
+
 // Module headers.
 
 
@@ -132,11 +135,11 @@ calc::Field*     (mf::PCRModflowPython::*get_lower_facePy)      (size_t) = &mf::
 
 
 
-void (mf::PCRModflowPython::*setCondPS)(size_t, const std::string &, const std::string &, size_t) = &mf::PCRModflowPython::setCond;
+void (mf::PCRModflowPython::*setCondPS)(size_t, const std::string &, const std::string &, size_t, bool) = &mf::PCRModflowPython::setCond;
 
 
 
-void (mf::PCRModflowPython::*setCondPy)(size_t, const calc::Field *, const calc::Field *, size_t) = &mf::PCRModflowPython::setCond;
+void (mf::PCRModflowPython::*setCondPy)(size_t, const calc::Field *, const calc::Field *, size_t, bool) = &mf::PCRModflowPython::setCond;
 
 
 
@@ -203,10 +206,21 @@ PYBIND11_MODULE(_pcraster_modflow, module){
     // BCF
     //.def("setHorizontalConductivity", setHCond)
     //.def("setVerticalConductivity", setVCond)
-    .def("setConductivity", setCondPy, R"(
+    .def("setConductivity", setCondPy,
+         "laycon"_a,
+         "hcond"_a,
+         "vcond"_a,
+         "layer"_a,
+         "calc"_a=true, /*pybind11::arg("laycon"),pybind11::arg("hcond"),pybind11::arg("vcond"),pybind11::arg("layer"),*/ /*pybind11::arg("calc")=true,*/ R"(
 
     )")
-    .def("setConductivity", setCondPS)
+    .def("setConductivity", setCondPS,
+         "laycon"_a,
+         "hcond"_a,
+         "vcond"_a,
+         "layer"_a,
+         "calc"_a=true
+    )
     .def("setDryHead", &mf::PCRModflowPython::setHDRY, R"(
 
     )")

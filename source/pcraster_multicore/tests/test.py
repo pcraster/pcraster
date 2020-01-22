@@ -472,8 +472,24 @@ class TestMulticore(unittest.TestCase):
       value, isValid = pcraster.cellvalue(result, 1)
       self.assertEqual(isValid, True)
       self.assertAlmostEqual(value,  1.2)
+      value, isValid = pcraster.cellvalue(result, 4)
+      self.assertEqual(isValid, True)
+      self.assertAlmostEqual(value,  1.2)
 
 
+  def test_7(self):
+      """ test cover and nonspatial arguments """
+
+      pcraster.setclone(3, 4, 1, 1, 1)
+
+      # Pointless cover, but previously returned a None
+      result = cover(1.3, 2.3)
+      value, isValid = pcraster.cellvalue(result, 1)
+      self.assertEqual(isValid, True)
+      self.assertAlmostEqual(value,  1.3)
+      value, isValid = pcraster.cellvalue(result, 4)
+      self.assertEqual(isValid, True)
+      self.assertAlmostEqual(value,  1.3)
 
 
 suite = unittest.TestSuite()

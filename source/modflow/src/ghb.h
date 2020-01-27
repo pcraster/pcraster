@@ -32,7 +32,7 @@ class GHB{
 
   PCRModflow *d_mf;
 
-  bool d_ghbUpdated;
+  bool             d_ghbUpdated;
 
   size_t           d_nr_ghb_cells;
 

@@ -27,6 +27,8 @@ def ifthen(arg1, arg2):
       arg1 = _pcraster.readmap(arg1)
     elif (isinstance(arg1, int) or isinstance(arg1, float)) and not arg2.isSpatial():
       arg1 = pcraster.spatial(pcraster.boolean(arg1))
+    elif isinstance(arg1, pcraster.Field) and not arg2.isSpatial():
+      arg1 = pcraster.spatial(pcraster.boolean(arg1))
     elif isinstance(arg1, int) or isinstance(arg1, float):
       arg1 = _pcraster._newNonSpatialField(arg1)
     if isinstance(arg2, str):

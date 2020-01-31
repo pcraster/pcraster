@@ -32,7 +32,7 @@ file(SHA1 ${CMAKE_CURRENT_BINARY_DIR}/operations.py operations_py_checksum)
 
 if( ( NOT ${op_expanded} STREQUAL "c1d7687a22a7e88a3637515554dd54e4f3779c2d" ) OR
     ( NOT ${operations_inc_checksum} STREQUAL "7243dd868783932242340c7ee7b8d582209b4eac" ) OR
-    ( NOT ${operations_py_checksum} STREQUAL "86e67ea98ef063fe8da3beed3783303aeb437ee8" )
+    ( NOT ${operations_py_checksum} STREQUAL "d613279307b57a8b3b99f24b6f799144cf5e40ea" )
   )
     message(FATAL_ERROR "The files operations.inc or operations.py are older than one of their dependencies. Update operations.inc.in or operations.py.in first; or contact the PCRaster Research and Development team in case you don't know how to proceed.")
     # This is the previously executed command, results in something

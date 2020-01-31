@@ -4,7 +4,6 @@ import pcraster
 
 def ifthen(arg1, arg2):
   try:
-    print(type(arg1))
     if isinstance(arg1, str):
       arg1 = _pcraster.readmap(arg1)
     elif (isinstance(arg1, int) or isinstance(arg1, float)) and not arg2.isSpatial():

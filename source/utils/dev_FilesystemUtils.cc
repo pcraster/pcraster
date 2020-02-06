@@ -61,8 +61,7 @@ boost::filesystem::path pathToExecutable(
   else if(!path.is_absolute()) {
     std::string pathVariable(std::getenv("PATH"));
     std::vector<std::string> directoryNames;
-    boost::split(directoryNames, pathVariable, boost::is_any_of(
-         DEV_PATH_VARIABLE_SEPARATOR));
+    boost::split(directoryNames, pathVariable, boost::is_any_of(":;"));
 
 #ifdef _WIN32
     // http://support.microsoft.com/kb/35284

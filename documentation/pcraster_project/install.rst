@@ -1,5 +1,8 @@
-Install PCRaster
-================
+Installing PCRaster
+===================
+
+Installing binaries
+-------------------
 
 For a more detailed description please check the installation pages on the PCRaster |pcrasterinsturl|.
 
@@ -8,15 +11,27 @@ For a more detailed description please check the installation pages on the PCRas
    <a href="http://pcraster.geo.uu.nl/getting-started/" target="_blank">website</a>
 
 
-Requirements
-------------
+.. note::
 
-The PCRaster Python package depends on Python (http://www.python.org/download/) and NumPy (http://www.numpy.org/).
+   A brief instruction to install PCRaster will follow within a short time.
 
 
-Linux
------
-TODO
+
+
+PCRaster can be installed using conda. To install, first download and install miniconda. Then
+
+
+
+..
+.. Requirements
+.. ------------
+..
+.. The PCRaster Python package depends on Python (http://www.python.org/download/) and NumPy (http://www.numpy.org/).
+..
+..
+.. Linux
+.. -----
+.. TODO
 
 .. Installing PCRaster on Linux involves these steps:
 
@@ -55,25 +70,25 @@ TODO
 
    .. _Cartesius: https://www.surfsara.nl/systems/cartesius
 
-
-
-macOS
------
-TODO
-
-
-Windows
--------
-
-Install Python version 3.6, and the NumPy module.
-
-Installing PCRaster on Windows involves these steps:
-
-   * Unzip the zip file containing the software, e.g. to ``C:\pcraster-4.2``.
-   * Update the ``PATH`` and ``PYTHONPATH`` environment variables.
-
-
-In order for the PCRaster executables and the Python package to be found, the ``PATH`` and ``PYTHONPATH`` environment variables must be updated with the paths to the executables (bin) and Python package (python), respectively.
+..
+..
+.. macOS
+.. -----
+.. TODO
+..
+..
+.. Windows
+.. -------
+..
+.. Install Python version 3.6, and the NumPy module.
+..
+.. Installing PCRaster on Windows involves these steps:
+..
+..    * Unzip the zip file containing the software, e.g. to ``C:\pcraster-4.2``.
+..    * Update the ``PATH`` and ``PYTHONPATH`` environment variables.
+..
+..
+.. In order for the PCRaster executables and the Python package to be found, the ``PATH`` and ``PYTHONPATH`` environment variables must be updated with the paths to the executables (bin) and Python package (python), respectively.
 
 .. PCRaster can be installed anywhere you want. Typical locations are ``%PROGRAMFILES%``, ``%PROGRAMFILES(X86)%`` and ``C:\``.
 
@@ -108,14 +123,14 @@ In order for the PCRaster executables and the Python package to be found, the ``
       set pcraster_version=
 
    PCRaster is now installed and ready to be used.
-
-.. note::
-
-   In case the PCRaster software doesn't work, verify that the |msvsredist| is installed.
-
-.. |msvsredist| raw:: html
-
-   <a href="https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads" target="_blank">Microsoft Visual C++ 2017 Redistributable Package</a>
+..
+.. .. note::
+..
+..    In case the PCRaster software doesn't work, verify that the |msvsredist| is installed.
+..
+.. .. |msvsredist| raw:: html
+..
+..    <a href="https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads" target="_blank">Microsoft Visual C++ 2017 Redistributable Package</a>
 
 
 
@@ -125,4 +140,14 @@ In order for the PCRaster executables and the Python package to be found, the ``
 
 
 .. _Redistributable Package for PCRaster 4, 64-bit version: https://www.microsoft.com/en-us/download/details.aspx?id=53840
+
+
+
+
+
+
+
+
+
+.. include:: build.rst
 

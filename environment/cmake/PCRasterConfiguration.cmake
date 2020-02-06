@@ -76,6 +76,10 @@ option(
 
 # Refactor these at some point? re-check bundle...
 option(
+    PCRASTER_LINK_STATIC_BOOST
+    "Static linking of Boost"
+    OFF)
+option(
     PCRASTER_PACKAGE_BOOST
     "Package shared libraries"
     OFF)
@@ -101,28 +105,53 @@ option(
     OFF)
 
 
+# Ugly workaround to enforce working wrt conda-build
+# TODO: Refactor when all platforms support std filesystem
+#       Consider to move to Qt command line options as well
+#       to remove (release package) dependency on Boost
+if(PCRASTER_LINK_STATIC_BOOST)
 
-set(Boost_NO_BOOST_CMAKE ON)
-set(DEVBASE_BOOST_REQUIRED TRUE)
+    set(DEVBASE_BOOST_REQUIRED TRUE)
 
+    set(Boost_NO_BOOST_CMAKE ON)
+    set(Boost_USE_STATIC_LIBS ON)
+    set(Boost_USE_STATIC_RUNTIME OFF)
 
-if(PCRASTER_BUILD_TEST)
-    set(DEVBASE_BUILD_TEST TRUE)
+    find_package(Boost COMPONENTS system unit_test_framework date_time filesystem program_options timer)
+
+    if(NOT Boost_FOUND)
+        message(FATAL_ERROR "Boost not found")
+    else()
+        message(STATUS "  includes : ${Boost_INCLUDE_DIRS}")
+        message(STATUS "  libraries: ${Boost_LIBRARIES}")
+    endif()
+
+    add_definitions(-DBOOST_FILESYSTEM_NO_DEPRECATED)
+
+else()
+
+    set(DEVBASE_BOOST_REQUIRED TRUE)
+
+    set(Boost_NO_BOOST_CMAKE ON)
+
+    if(PCRASTER_BUILD_TEST)
+        set(DEVBASE_BUILD_TEST TRUE)
+        list(APPEND DEVBASE_REQUIRED_BOOST_COMPONENTS
+            system unit_test_framework)
+
+        # The ones below are required in case a developer needs to
+        # regenerate one of the pcraster_model_engine's XML files
+        # set(DEVBASE_LIB_XSLT_XSLTPROC_REQUIRED TRUE)
+        # set(DEVBASE_LIB_XML2_REQUIRED TRUE)
+        # set(DEVBASE_LIB_XSLT_REQUIRED TRUE)
+        #
+        # ... or XSD
+        # set(DEVBASE_XSD_REQUIRED TRUE)
+    endif()
+
     list(APPEND DEVBASE_REQUIRED_BOOST_COMPONENTS
-        system unit_test_framework)
-
-    # The ones below are required in case a developer needs to
-    # regenerate one of the pcraster_model_engine's XML files
-    # set(DEVBASE_LIB_XSLT_XSLTPROC_REQUIRED TRUE)
-    # set(DEVBASE_LIB_XML2_REQUIRED TRUE)
-    # set(DEVBASE_LIB_XSLT_REQUIRED TRUE)
-    #
-    # ... or XSD
-    # set(DEVBASE_XSD_REQUIRED TRUE)
+        date_time filesystem program_options timer)
 endif()
-
-list(APPEND DEVBASE_REQUIRED_BOOST_COMPONENTS
-    date_time filesystem program_options timer)
 
 set(DEVBASE_QT_REQUIRED TRUE)
 set(DEVBASE_REQUIRED_QT_VERSION 5)

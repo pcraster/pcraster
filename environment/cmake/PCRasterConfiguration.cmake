@@ -13,7 +13,7 @@ option(
     "Build Python multicore module"
     ON)
 CMAKE_DEPENDENT_OPTION(
-    PCRASTER_BUILD_FERN_TEST
+    PCRASTER_BUILD_TEST_FERN
     "Build Fern unit tests"
     OFF
     "PCRASTER_BUILD_MULTICORE"

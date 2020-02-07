@@ -18,6 +18,9 @@ if(POLICY CMP0075)
    set(CMAKE_POLICY_DEFAULT_CMP0075 NEW)
 endif()
 
+# This must be set before project()
+set(CMAKE_OSX_DEPLOYMENT_TARGET "10.14" CACHE STRING "Minimum OS X deployment version")
+
 project(pcraster)
 
 set(DEV_CURRENT_YEAR "2020")

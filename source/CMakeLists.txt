@@ -88,7 +88,7 @@ endif()
 if(PCRASTER_BUILD_MULTICORE)
     set(FERN_BUILD_ALGORITHM ON CACHE BOOL "Build submodule fern")
     # For development/travis build the tests to catch errors early
-    if(PCRASTER_BUILD_FERN_TEST)
+    if(PCRASTER_BUILD_TEST_FERN)
       add_subdirectory(fern)
     else()
       # Default/when packaging PCRaster, do not install anything from Fern

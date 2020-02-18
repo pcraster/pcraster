@@ -141,8 +141,8 @@ set_target_properties(_pcraster_multicore
 
 install(
     TARGETS _pcraster_multicore
-    LIBRARY DESTINATION python/pcraster/multicore
-    RUNTIME DESTINATION python/pcraster/multicore
+    LIBRARY DESTINATION ${PCRASTER_PYTHON_INSTALL_PREFIX}/pcraster/multicore
+    RUNTIME DESTINATION ${PCRASTER_PYTHON_INSTALL_PREFIX}/pcraster/multicore
 )
 
 install(
@@ -151,5 +151,5 @@ install(
         ${PROJECT_BINARY_DIR}/bin/pcraster/multicore/_operators.py
         ${PROJECT_BINARY_DIR}/bin/pcraster/multicore/_operations.py
     DESTINATION
-        python/pcraster/multicore
+        ${PCRASTER_PYTHON_INSTALL_PREFIX}/pcraster/multicore
 )

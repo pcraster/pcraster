@@ -10,7 +10,7 @@ set(SOURCES
 
 install(
     FILES ${SOURCES}
-    DESTINATION python/pcraster/collection
+    DESTINATION ${PCRASTER_PYTHON_INSTALL_PREFIX}/pcraster/collection
 )
 
 set(COLLECTION_BUILD_DIRECTORY

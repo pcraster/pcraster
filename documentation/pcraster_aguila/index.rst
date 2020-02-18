@@ -26,7 +26,6 @@ See for more information:
    Screenshots and Videos <Screenshots>
    Downloads
    Manual
-   Building
    Support
    Publications
    Links

@@ -6,7 +6,7 @@ configure_file(
 
 set(SPHINX_SOURCES
     AguilaOnMac.rst
-    Building.rst
+#    Building.rst
     Data.rst
     Dialogs.rst
     Downloads.rst

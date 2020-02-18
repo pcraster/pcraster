@@ -1,8 +1,8 @@
 Changes
 =======
 
-PCRaster 4.3.0 (Almost released)
---------------------------------
+PCRaster 4.3.0
+--------------
 
 The most relevant updates for users:
 

@@ -19,9 +19,9 @@ Building PCRaster depends on various software tools, development packages and li
   * Python > 3.5
   * Boost > 1.66
   * NumPy
-  * GDAL > 2.0
+  * GDAL >= 2.0
   * Qt > 5.7
-  * XercesC
+  * XercesC 3.2
 
 You will need to build libraries yourself in case they are not available on your system or those versions are too old.
 
@@ -35,7 +35,8 @@ You can obtain a source package as follows:
 
 .. code-block:: bash
 
-   To be completed
+   $ # sha256:
+   $ wget
 
 
 It is also possible to obtain the PCRaster sources from our code repository, e.g. in case you want to test the latest developments:

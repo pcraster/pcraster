@@ -208,7 +208,7 @@ endif()
 if(PCRASTER_BUILD_DOCUMENTATION)
     set(DEVBASE_DOXYGEN_REQUIRED TRUE)
     set(DEVBASE_SPHINX_REQUIRED TRUE)
-    set(SPHINX_HTML_THEME "classic")
+    set(SPHINX_HTML_THEME "pyramid")
 endif()
 
 # pybind11

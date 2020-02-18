@@ -105,6 +105,11 @@ option(
     OFF)
 
 
+if(NOT PCRASTER_PYTHON_INSTALL_PREFIX)
+    set(PCRASTER_PYTHON_INSTALL_PREFIX python)
+endif()
+
+
 # Ugly workaround to enforce working wrt conda-build
 # TODO: Refactor when all platforms support std filesystem
 #       Consider to move to Qt command line options as well

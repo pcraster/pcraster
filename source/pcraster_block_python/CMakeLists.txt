@@ -51,7 +51,7 @@ install(
     FILES
         PCRasterBlock.py
     DESTINATION
-        "python/pcraster"
+       ${PCRASTER_PYTHON_INSTALL_PREFIX}/pcraster
 )
 
 if(PCRASTER_BUILD_TEST)

@@ -73,6 +73,6 @@ set_target_properties(_pcraster_modflow_python
 #----------------------------------------------------------
 install(
     TARGETS _pcraster_modflow_python
-    LIBRARY DESTINATION python/pcraster
-    RUNTIME DESTINATION python/pcraster
+    LIBRARY DESTINATION ${PCRASTER_PYTHON_INSTALL_PREFIX}/pcraster
+    RUNTIME DESTINATION ${PCRASTER_PYTHON_INSTALL_PREFIX}/pcraster
 )

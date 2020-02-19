@@ -242,10 +242,18 @@ if(PCRASTER_PACKAGE_QT)
 endif()
 
 
+# OLS: I think this is only required in case there is no Qt installed on a system in a default location
+# by a package manager (apt, conda et al.)
+# The standalone PCRaster package required to ship the platforms directory
 if(PCRASTER_PACKAGE_QT_PLATFORMS)
-  get_target_property(QT_PLATFORM_DIR Qt5::Core LOCATION)
-  get_filename_component(QT_PLATFORM_DIR ${QT_PLATFORM_DIR} DIRECTORY)
-  install(DIRECTORY ${QT_PLATFORM_DIR}/../plugins/platforms DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
+  if(CMAKE_SYSTEM_NAME STREQUAL Windows)
+    install(FILES $<TARGET_FILE:Qt5::QWindowsIntegrationPlugin> DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/platforms)
+    install(FILES $<TARGET_FILE:Qt5::QWindowsDirect2DIntegrationPlugin> DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/platforms)
+  elseif(CMAKE_SYSTEM_NAME STREQUAL Linux)
+    install(FILES $<TARGET_FILE:Qt5::QXcbIntegrationPlugin> DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/platforms)
+  elseif(CMAKE_SYSTEM_NAME STREQUAL Darwin)
+    install(FILES $<TARGET_FILE:Qt5::QCocoaIntegrationPlugin> DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/platforms)
+  endif()
 endif()
 
 

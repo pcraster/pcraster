@@ -33,7 +33,7 @@ Afterwards you can create a new environment and install PCRaster, e.g. with:
 
 
 
-Always use the conda-forge channel when installing further packages into your environment.
+Always use the conda-forge channel when installing further packages into your environment. If you installed previous versions of PCRaster you need to remove their entries from the PATH and PYTHONPATH environment variables.
 
 
 .. |miniconda| raw:: html

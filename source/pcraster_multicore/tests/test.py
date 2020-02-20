@@ -7,6 +7,7 @@ import test_import
 import testexamples_multicore
 import testPCRaster
 import warnings
+import numpy
 
 import pcraster
 from pcraster.multicore import *
@@ -222,7 +223,6 @@ class TestMulticore(unittest.TestCase):
     ordinalMap = ordinal(pcraster.readmap("areaarea_Class.map"))
     self.assertEqual(ordinalMap.dataType(), pcraster.VALUESCALE.Ordinal)
     nominalMap = nominal(ordinalMap)
-    pcraster.report(nominalMap, "nominal.map")
     self.assertEqual(nominalMap.dataType(), pcraster.VALUESCALE.Nominal)
 
   def testNominal2Scalar(self):
@@ -490,6 +490,89 @@ class TestMulticore(unittest.TestCase):
       value, isValid = pcraster.cellvalue(result, 4)
       self.assertEqual(isValid, True)
       self.assertAlmostEqual(value,  1.3)
+
+  def test_8(self):
+      """ test ifthen and nonspatial arguments (gh297) """
+
+      pcraster.setclone(1, 3, 1, 1, 1)
+
+      cond = pcraster.numpy2pcr(pcraster.Boolean, numpy.array([[1,  0,  5]], numpy.int8), 5)
+
+      # Test some Python data types in condition
+      res = ifthen(True, pcraster.boolean(1.0))
+      self.assertEqual(pcraster.cellvalue(res, 1, 1), (True, True))
+      self.assertEqual(pcraster.cellvalue(res, 1, 2), (True, True))
+      self.assertEqual(pcraster.cellvalue(res, 1, 3), (True, True))
+
+      res = ifthen(False, pcraster.boolean(1.0))
+      self.assertEqual(pcraster.cellvalue(res, 1, 1)[1], False)
+      self.assertEqual(pcraster.cellvalue(res, 1, 2)[1], False)
+      self.assertEqual(pcraster.cellvalue(res, 1, 3)[1], False)
+
+      res = ifthen(5.0, pcraster.boolean(1.0))
+      self.assertEqual(pcraster.cellvalue(res, 1, 1), (True, True))
+      self.assertEqual(pcraster.cellvalue(res, 1, 2), (True, True))
+      self.assertEqual(pcraster.cellvalue(res, 1, 3), (True, True))
+
+      res = ifthen(0, pcraster.boolean(1.0))
+      self.assertEqual(pcraster.cellvalue(res, 1, 1)[1], False)
+      self.assertEqual(pcraster.cellvalue(res, 1, 2)[1], False)
+      self.assertEqual(pcraster.cellvalue(res, 1, 3)[1], False)
+
+      # Spatial condition
+      res = ifthen(cond, pcraster.boolean(1.0))
+      self.assertEqual(pcraster.cellvalue(res, 1, 1), (True, True))
+      self.assertEqual(pcraster.cellvalue(res, 1, 2)[1], False)
+      self.assertEqual(pcraster.cellvalue(res, 1, 3)[1], False)
+
+      # Non-spatial condition
+      res = ifthen(pcraster.boolean(1.0), pcraster.nominal(3.0))
+      self.assertEqual(pcraster.cellvalue(res, 1, 1), (3, True))
+      self.assertEqual(pcraster.cellvalue(res, 1, 2), (3, True))
+      self.assertEqual(pcraster.cellvalue(res, 1, 3), (3, True))
+
+
+  def test_9(self):
+      """ test ifthenelse and nonspatial arguments """
+
+      pcraster.setclone(1, 3, 1, 1, 1)
+
+      cond = pcraster.numpy2pcr(pcraster.Boolean, numpy.array([[1,  0,  5]], numpy.int8), 5)
+
+      # Test some Python data types in condition
+      res = ifthenelse(True, pcraster.boolean(1.0), pcraster.boolean(0))
+      self.assertEqual(pcraster.cellvalue(res, 1, 1), (True, True))
+      self.assertEqual(pcraster.cellvalue(res, 1, 2), (True, True))
+      self.assertEqual(pcraster.cellvalue(res, 1, 3), (True, True))
+
+      res = ifthenelse(False, pcraster.boolean(1.0), pcraster.boolean(0))
+      self.assertEqual(pcraster.cellvalue(res, 1, 1), (False, True))
+      self.assertEqual(pcraster.cellvalue(res, 1, 2), (False, True))
+      self.assertEqual(pcraster.cellvalue(res, 1, 3), (False, True))
+
+      res = ifthenelse(5, pcraster.boolean(1.0), pcraster.boolean(0))
+      self.assertEqual(pcraster.cellvalue(res, 1, 1), (True, True))
+      self.assertEqual(pcraster.cellvalue(res, 1, 2), (True, True))
+      self.assertEqual(pcraster.cellvalue(res, 1, 3), (True, True))
+
+      res = ifthenelse(0, pcraster.boolean(1.0), pcraster.boolean(0))
+      self.assertEqual(pcraster.cellvalue(res, 1, 1), (False, True))
+      self.assertEqual(pcraster.cellvalue(res, 1, 2), (False, True))
+      self.assertEqual(pcraster.cellvalue(res, 1, 3), (False, True))
+
+      # Spatial condition
+      res = ifthenelse(cond, pcraster.boolean(1.0), pcraster.boolean(0))
+      self.assertEqual(pcraster.cellvalue(res, 1, 1), (True, True))
+      self.assertEqual(pcraster.cellvalue(res, 1, 2), (False, True))
+      self.assertEqual(pcraster.cellvalue(res, 1, 3)[1], False)
+
+      # Non-spatial condition
+      res = ifthenelse(pcraster.boolean(1.0), pcraster.nominal(3.0), pcraster.nominal(2))
+      self.assertEqual(pcraster.cellvalue(res, 1, 1), (3, True))
+      self.assertEqual(pcraster.cellvalue(res, 1, 2), (3, True))
+      self.assertEqual(pcraster.cellvalue(res, 1, 3), (3, True))
+
+
 
 
 suite = unittest.TestSuite()

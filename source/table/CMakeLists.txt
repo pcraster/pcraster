@@ -13,5 +13,5 @@ target_link_libraries(table
 install(
     TARGETS table
     RUNTIME
-        DESTINATION bin COMPONENT Runtime
+        DESTINATION ${PCRASTER_BIN_INSTALL_DIR} COMPONENT Runtime
 )

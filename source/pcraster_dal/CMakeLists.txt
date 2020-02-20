@@ -279,7 +279,7 @@ install(
     TARGETS
         pcraster_dal
     RUNTIME
-        DESTINATION lib COMPONENT Runtime
+        DESTINATION ${PCRASTER_BIN_INSTALL_DIR} COMPONENT Runtime
     LIBRARY
-        DESTINATION lib COMPONENT Runtime
+        DESTINATION ${PCRASTER_LIB_INSTALL_DIR} COMPONENT Runtime
 )

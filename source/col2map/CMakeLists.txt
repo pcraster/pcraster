@@ -10,17 +10,11 @@ target_link_libraries(col2map
         pcraster::tab
 )
 
-INSTALL(
+install(
     TARGETS
         col2map
     RUNTIME
-        DESTINATION bin COMPONENT Runtime
-)
-
-install(
-    TARGETS col2map
-    RUNTIME
-        DESTINATION bin COMPONENT Runtime
+        DESTINATION ${PCRASTER_BIN_INSTALL_DIR} COMPONENT Runtime
 )
 
 

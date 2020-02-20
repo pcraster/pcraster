@@ -10,5 +10,5 @@ target_link_libraries(oldcalc
 install(
     TARGETS oldcalc
     RUNTIME
-        DESTINATION bin COMPONENT Runtime
+        DESTINATION ${PCRASTER_BIN_INSTALL_DIR} COMPONENT Runtime
 )

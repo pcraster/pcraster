@@ -17,7 +17,7 @@ target_link_libraries(resample
 install(
     TARGETS resample
     RUNTIME
-        DESTINATION bin COMPONENT Runtime
+        DESTINATION ${PCRASTER_BIN_INSTALL_DIR} COMPONENT Runtime
 )
 
 if(PCRASTER_BUILD_TEST)

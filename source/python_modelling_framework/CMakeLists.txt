@@ -36,7 +36,7 @@ install(
     FILES
         ${SOURCES}
     DESTINATION
-        ${PCRASTER_PYTHON_INSTALL_PREFIX}/pcraster/framework
+        ${PCRASTER_PYTHON_INSTALL_DIR}/pcraster/framework
 )
 
 set(FRAMEWORK_BUILD_DIRECTORY

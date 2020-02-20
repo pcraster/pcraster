@@ -14,5 +14,5 @@ INSTALL(
     TARGETS
         asc2map
     RUNTIME
-        DESTINATION bin COMPONENT Runtime
+        DESTINATION ${PCRASTER_BIN_INSTALL_DIR} COMPONENT Runtime
 )

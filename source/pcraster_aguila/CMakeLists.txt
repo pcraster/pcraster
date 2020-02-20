@@ -289,8 +289,8 @@ endif()
 
 install(
     TARGETS pcraster_aguila
-    RUNTIME DESTINATION lib COMPONENT Runtime
-    LIBRARY DESTINATION lib COMPONENT Runtime
+    RUNTIME DESTINATION ${PCRASTER_BIN_INSTALL_DIR} COMPONENT Runtime
+    LIBRARY DESTINATION ${PCRASTER_LIB_INSTALL_DIR} COMPONENT Runtime
 )
 
 add_executable(aguila
@@ -310,7 +310,7 @@ target_link_libraries(aguila
 
 install(
     TARGETS aguila
-    RUNTIME DESTINATION bin COMPONENT Runtime
+    RUNTIME DESTINATION ${PCRASTER_BIN_INSTALL_DIR} COMPONENT Runtime
 )
 
 # ------------------------------------------------------------------------------

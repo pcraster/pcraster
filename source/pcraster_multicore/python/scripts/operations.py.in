@@ -195,13 +195,15 @@ def ifthen(arg1, arg2):
     try:
         if isinstance(arg1, bool):
             arg1 = _pcraster.spatial(_pmc._newNonSpatialBoolean(arg1))
-        elif isinstance(arg1, pcraster.Field) and not arg2.isSpatial():
+        elif isinstance(arg1, float):
             arg1 = _pcraster.spatial(_pmc._newNonSpatialBoolean(arg1))
         elif isinstance(arg1, int):
             if arg1 == 0:
                 arg1 = _pcraster.spatial(_pmc._newNonSpatialBoolean(0))
             else:
                 arg1 = _pcraster.spatial(_pmc._newNonSpatialBoolean(1))
+        elif isinstance(arg1, pcraster.Field) and not arg1.isSpatial():
+            arg1 = _pcraster.spatial(_pmc.boolean(arg1))
         else:
             # String argument should be possible
             # Should report an error for floats or others
@@ -219,7 +221,7 @@ def ifthenelse(arg1, arg2, arg3):
     if not ( isinstance(arg2, _pcraster.Field) or isinstance(arg3, _pcraster.Field) ):
         raise RuntimeError("Use a conversion function to pick a data type")
     try:
-        arg1 = _get_field(arg1)
+        arg1 = _pmc.boolean(_get_field(arg1))
         arg2 = _get_field(arg2)
         arg3 = _get_field(arg3)
         return _pmc.ifthenelse(arg1, arg2, arg3)

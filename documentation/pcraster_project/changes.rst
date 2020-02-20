@@ -6,6 +6,7 @@ PCRaster 4.3.0
 
 The most relevant updates for users:
 
+* PCRaster can be installed using conda. Supported platforms are Linux, macOS and Windows. Supported Python versions are 3.6 and 3.7.
 * We no longer provide support for Python 2.
 * We fixed a bug occurring when pickling PCRaster maps. Note that PCRaster maps pickled with previous versions cannot be opened with this version.
 * We fixed an incorrect return value while using a nonspatial condition in ``ifthen``.

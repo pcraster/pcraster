@@ -105,8 +105,7 @@ void DirectionalRasterDrawer::draw(
           col += nrCellsPerPixel;
 
           while(col <= lastCol && !pcr::isMV(matrix.cell<REAL4>(row, col)) &&
-                _properties.colour(_properties.rawClassIndex(
-                     matrix.cell<REAL4>(row, col))) == colour) {
+                _properties.colour(matrix.cell<REAL4>(row, col)) == colour) {
             col += nrCellsPerPixel;
           }
 

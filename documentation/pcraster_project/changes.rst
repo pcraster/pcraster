@@ -14,6 +14,7 @@ The most relevant updates for users:
 * We added the Python functions ``cellvalue_by_coordinates``, ``cellvalue_by_index``, ``cellvalue_by_indices`` and ``version_tuple``.
 * We added a ``plot`` function to create basic plots of PCRaster maps in case the matplotlib module is installed.
 * On Windows, ``mapattr`` and ``legend`` show the menu again.
+* We fixed the incorrect rendering of directional rasters in Aguila.
 * PCRaster Modflow now supports the GHB package.
 * PCRaster Modflow BCF package received an optional flag to directly pass hcond and vcond values to Modflow.
 * Command line applications now show version numbers instead of a build date.

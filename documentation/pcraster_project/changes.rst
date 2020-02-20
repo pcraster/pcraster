@@ -18,7 +18,7 @@ The most relevant updates for users:
 * PCRaster Modflow BCF package received an optional flag to directly pass hcond and vcond values to Modflow.
 * Command line applications now show version numbers instead of a build date.
 * The exit value of applications only showing the usage information changed from 1 (EXIT_FAILURE) to 0 (EXIT_SUCCESS).
-* You can now set a path to specify the install location of the Python files. You can enable this with ``-DPCRASTER_PYTHON_INSTALL_PREFIX=<path>``, default is ``python``.
+* You can now set a path to specify the install directory of the Python files. You can enable this with ``-DPCRASTER_PYTHON_INSTALL_DIR=<path>``, default is ``python``.
 
 Aguila was refactored to simplify the build process. The functionality remains the same. In case you experience any differences to previous Aguila versions consider it as a defect and please report it at our `issues <https://github.com/pcraster/pcraster/issues/>`_ page.
 

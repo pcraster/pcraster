@@ -12,5 +12,5 @@ target_link_libraries(map2asc
 install(
       TARGETS map2asc
       RUNTIME
-          DESTINATION bin COMPONENT Runtime
+          DESTINATION ${PCRASTER_BIN_INSTALL_DIR} COMPONENT Runtime
 )

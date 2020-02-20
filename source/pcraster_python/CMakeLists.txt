@@ -187,8 +187,8 @@ add_custom_target(
 #----------------------------------------------------------
 install(
     TARGETS _pcraster
-    LIBRARY DESTINATION ${PCRASTER_PYTHON_INSTALL_PREFIX}/pcraster
-    RUNTIME DESTINATION ${PCRASTER_PYTHON_INSTALL_PREFIX}/pcraster
+    LIBRARY DESTINATION ${PCRASTER_PYTHON_INSTALL_DIR}/pcraster
+    RUNTIME DESTINATION ${PCRASTER_PYTHON_INSTALL_DIR}/pcraster
 )
 
 install(
@@ -206,7 +206,7 @@ install(
         ${PROJECT_SOURCE_DIR}/environment/script/shellscript.py
         ${PROJECT_SOURCE_DIR}/environment/script/utils.py
     DESTINATION
-        ${PCRASTER_PYTHON_INSTALL_PREFIX}/pcraster
+        ${PCRASTER_PYTHON_INSTALL_DIR}/pcraster
 )
 
 #----------------------------------------------------------

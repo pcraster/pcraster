@@ -17,5 +17,5 @@ target_link_libraries(legend
 install(
     TARGETS legend
     RUNTIME
-        DESTINATION bin COMPONENT Runtime
+        DESTINATION ${PCRASTER_BIN_INSTALL_DIR} COMPONENT Runtime
 )

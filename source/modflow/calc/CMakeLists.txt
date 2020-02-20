@@ -27,9 +27,9 @@ add_custom_command(
 install(
     TARGETS pcraster_modflow
     RUNTIME
-        DESTINATION lib COMPONENT Runtime
+        DESTINATION ${PCRASTER_BIN_INSTALL_DIR} COMPONENT Runtime
     LIBRARY
-        DESTINATION lib COMPONENT Runtime
+        DESTINATION ${PCRASTER_LIB_INSTALL_DIR} COMPONENT Runtime
 )
 
 IF(WIN32)
@@ -37,14 +37,14 @@ IF(WIN32)
         FILES
             pcraster_modflow.xml
         DESTINATION
-            bin
+            ${PCRASTER_BIN_INSTALL_DIR}
     )
 ELSE(WIN32)
     INSTALL(
         FILES
             pcraster_modflow.xml
         DESTINATION
-            lib
+            ${PCRASTER_LIB_INSTALL_DIR}
     )
 ENDIF(WIN32)
 
@@ -63,7 +63,7 @@ INSTALL(
   PROGRAMS
     ${MF_BINARY}
   DESTINATION
-    bin
+    ${PCRASTER_BIN_INSTALL_DIR}
 )
 
 

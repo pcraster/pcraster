@@ -9,7 +9,7 @@
 
 #ifndef INCLUDED_BOOST_DATE_TIME_POSIX_TIME_PTIME
 #define INCLUDED_BOOST_DATE_TIME_POSIX_TIME_PTIME
-#include "boost/date_time/posix_time/ptime.hpp"
+#include <boost/date_time/posix_time/ptime.hpp>
 #endif
 
 namespace pcrxsd {

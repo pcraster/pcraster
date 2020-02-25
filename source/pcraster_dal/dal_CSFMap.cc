@@ -4,9 +4,9 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_BOOST_FILESYSTEM_CONVENIENCE
-#include <boost/filesystem/convenience.hpp>
-#define INCLUDED_BOOST_FILESYSTEM_CONVENIENCE
+#ifndef INCLUDED_BOOST_FILESYSTEM
+#include <boost/filesystem.hpp>
+#define INCLUDED_BOOST_FILESYSTEM
 #endif
 
 #ifndef INCLUDED_BOOST_SCOPED_ARRAY

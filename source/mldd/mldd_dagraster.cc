@@ -15,7 +15,7 @@
 #endif
 
 #ifndef INCLUDED_BOOST_GRAPH_TOPOLOGICAL_SORT
-#include "boost/graph/topological_sort.hpp"
+#include <boost/graph/topological_sort.hpp>
 #define INCLUDED_BOOST_GRAPH_TOPOLOGICAL_SORT
 #endif
 

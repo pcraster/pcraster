@@ -4,7 +4,7 @@
 
 
 #include <iostream>
-#include <boost/filesystem/path.hpp>
+#include <boost/filesystem.hpp>
 
 #ifndef INCLUDED_AG_FEEDBACK
 #include "ag_Feedback.h"

@@ -23,9 +23,9 @@
 #define INCLUDED_SET
 #endif
 
-#ifndef INCLUDED_BOOST_FILESYSTEM_OPERATIONS
-#include "boost/filesystem/operations.hpp"
-#define INCLUDED_BOOST_FILESYSTEM_OPERATIONS
+#ifndef INCLUDED_BOOST_FILESYSTEM
+#include <boost/filesystem.hpp>
+#define INCLUDED_BOOST_FILESYSTEM
 #endif
 
 #ifdef WIN32
@@ -347,7 +347,7 @@ bool com::PathInfo::isFile() const
   // MISCHIEN, WEET NIET TEST CASE MAKEN
   // DWORD attrs = GetFileAttributes(d_pathName.toString().c_str());
   // of _stat van MSC
-  // FTTB: 
+  // FTTB:
   return !isDirectory();
 #endif
 }
@@ -406,7 +406,7 @@ void com::PathInfo::testValidName() const
       - Not a valid file Name
 
   \bug
-    It does not throw if on win32 if other process already opened 
+    It does not throw if on win32 if other process already opened
     the file for writing. (see pcrxml::Document::Document())
 
   \todo

@@ -1,6 +1,6 @@
 #define BOOST_TEST_MODULE pcraster dal use_cases
 #include <boost/test/unit_test.hpp>
-#include <boost/filesystem/operations.hpp>
+#include <boost/filesystem.hpp>
 #include "dev_GDalClient.h"
 #include "dal_Exception.h"
 #include "dal_Library.h"

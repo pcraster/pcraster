@@ -9,9 +9,9 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_BOOST_FILESYSTEM_OPERATIONS
-#include "boost/filesystem/operations.hpp"
-#define INCLUDED_BOOST_FILESYSTEM_OPERATIONS
+#ifndef INCLUDED_BOOST_FILESYSTEM
+#include <boost/filesystem.hpp>
+#define INCLUDED_BOOST_FILESYSTEM
 #endif
 
 #ifndef INCLUDED_MAP

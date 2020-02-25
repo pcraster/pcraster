@@ -4,9 +4,9 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_BOOST_FILESYSTEM_PATH
-#include <boost/filesystem/path.hpp>
-#define INCLUDED_BOOST_FILESYSTEM_PATH
+#ifndef INCLUDED_BOOST_FILESYSTEM
+#include <boost/filesystem.hpp>
+#define INCLUDED_BOOST_FILESYSTEM
 #endif
 
 #ifndef INCLUDED_NETCDFCPP
@@ -269,7 +269,7 @@ Raster* NetCDFRasterDriver::read(
 
 using namespace std;
 
-// We are reading 2D data, a 6 x 12 grid. 
+// We are reading 2D data, a 6 x 12 grid.
 static const int NDIMS = 2;
 static const int NX = 6;
 static const int NY = 12;
@@ -280,7 +280,7 @@ static const int NC_ERR = 2;
 int main(void)
 {
    // This is the array we will read.
-   int dataIn[NX][NY]; 
+   int dataIn[NX][NY];
 
    // Open the file. The ReadOnly parameter tells netCDF we want
    // read-only access to the file.
@@ -293,24 +293,24 @@ int main(void)
       cout << "Couldn't open file!\n";
       return NC_ERR;
    }
-  
+
    // For other method calls, the default behavior of the C++ API is
    // to exit with a message if there is an error.  If that behavior
    // is OK, there is no need to check return values in simple cases
    // like the following.
-      
+
    // Retrieve the variable named "data"
    NcVar *data = dataFile.get_var("data");
 
-   // Read all the values from the "data" variable into memory. 
+   // Read all the values from the "data" variable into memory.
    data->get(&dataIn[0][0], NX, NY);
 
-   // Check the values. 
+   // Check the values.
    for (int i = 0; i < NX; i++)
       for (int j = 0; j < NY; j++)
 	 if (dataIn[i][j] != i * NY + j)
 	    return NC_ERR;
-    
+
    // The netCDF file is automatically closed by the NcFile destructor
    cout << "*** SUCCESS reading example file simple_xy.nc!" << endl;
 
@@ -431,7 +431,7 @@ void NetCDFRasterDriver::write(
 
 using namespace std;
 
-// We are writing 2D data, a 6 x 12 grid. 
+// We are writing 2D data, a 6 x 12 grid.
 static const int NDIMS = 2;
 static const int NX = 6;
 static const int NY = 12;
@@ -439,16 +439,16 @@ static const int NY = 12;
 // Return this in event of a problem.
 static const int NC_ERR = 2;
 
-int 
+int
 main(void)
 {
    // This is the data array we will write. It will just be filled
    // with a progression of numbers for this example.
    int dataOut[NX][NY];
-  
+
    // Create some pretend data. If this wasn't an example program, we
    // would have some real data to write, for example, model output.
-   for(int i = 0; i < NX; i++) 
+   for(int i = 0; i < NX; i++)
       for(int j = 0; j < NY; j++)
 	 dataOut[i][j] = i * NY + j;
 
@@ -463,7 +463,7 @@ main(void)
       cout << "Couldn't open file!\n";
       return NC_ERR;
    }
-  
+
    // For other method calls, the default behavior of the C++ API is
    // to exit with a message if there is an error.  If that behavior
    // is OK, there is no need to check return values in simple cases
@@ -473,11 +473,11 @@ main(void)
    // NcDim for each one.
    NcDim* xDim = dataFile.add_dim("x", NX);
    NcDim* yDim = dataFile.add_dim("y", NY);
-  
+
    // Define a netCDF variable. The type of the variable in this case
    // is ncInt (32-bit integer).
    NcVar *data = dataFile.add_var("data", ncInt, xDim, yDim);
-     
+
    // Write the pretend data to the file. Although netCDF supports
    // reading and writing subsets of data, in this case we write all
    // the data in one operation.

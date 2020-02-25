@@ -4,9 +4,8 @@
 #include <new>
 #include <string>
 #include <sstream>
-#include <boost/filesystem/exception.hpp>
 #include <boost/filesystem/fstream.hpp>
-#include <boost/filesystem/operations.hpp>
+#include <boost/filesystem.hpp>
 #include <boost/format.hpp>
 
 /*

@@ -13,9 +13,9 @@
 #define INCLUDED_ALGORITHM
 #endif
 
-#ifndef INCLUDED_BOOST_FILESYSTEM_OPERATIONS
-#include "boost/filesystem/operations.hpp"
-#define INCLUDED_BOOST_FILESYSTEM_OPERATIONS
+#ifndef INCLUDED_BOOST_FILESYSTEM
+#include <boost/filesystem.hpp>
+#define INCLUDED_BOOST_FILESYSTEM
 #endif
 
 
@@ -105,17 +105,17 @@ public:
       wrongFormatIf(lastStr.empty());
 
       std::string firstStr;
-      do { 
+      do {
           // on break, pos is always the last char
           // to be included in d_path
           --pos;
           if (firstStr.size() == lastStr.size())
             break; // can never be longer than last
                    // because last is a bigger number
-          if(str[pos] == '.') 
+          if(str[pos] == '.')
              continue; // skip the . in between the DOS 8+3
           else {
-             if(std::isdigit(str[pos])) 
+             if(std::isdigit(str[pos]))
                firstStr += str[pos];
              else
                break; // break on the character being end of stackname
@@ -179,7 +179,7 @@ std::string geo::CSFStackName::asAguilaArgument(
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 /*!
@@ -203,7 +203,7 @@ std::string geo::CSFStackName::asAguilaArgument(
     <li> Structure: base name + first timestep + '+' + last timestep.<p>
          eg: dem00000.001+1000 for a stack with timestep 1 untill and
          including timestep 1000 possibly available.
-         This means a stack comprised of possibly 1000 maps, named 
+         This means a stack comprised of possibly 1000 maps, named
          dem00000.001, dem00000.002 up to dem00001.000
     <li> The name of each map (stack item) should obey the naming conventions of DOS:
          8 chars, period, 3 chars.
@@ -212,7 +212,7 @@ std::string geo::CSFStackName::asAguilaArgument(
   of the first timestep, are part of the base name. This is done on the assumption
   that the user sets the last timestep correct, the last time step denots the maximum
   number of digits for the first timestep. Thus lisw9700.001+999, yields
-  the base name lisw9700, which consistent with pcrcalc, a stack name may end with 
+  the base name lisw9700, which consistent with pcrcalc, a stack name may end with
   digits.
 */
 geo::CSFStackName::CSFStackName(const com::PathName &n, bool scanIt)
@@ -420,7 +420,7 @@ bool geo::CSFStackName::isMemberOfStack(const com::PathName& fileName) const
 
   \todo
      NOTE CEES: the directory-iterator is inefficient, waarom niet:
-     for(i=firstStep; i <= lastStep; i++) 
+     for(i=firstStep; i <= lastStep; i++)
       if (file.exists(makeName(i))
         pool.push_back;
      EN pool.size <= aantal directory entries -> kan ook last verkleinen.
@@ -643,7 +643,7 @@ size_t geo::CSFStackName::nrLayers() const
   If the stack is dynamic, then the base name is part of the file name that together
   with a timestep nr makes up a map name.
   For example, the base name of soil0000.001+100 is soil0000.
-  
+
   If the stack is not dynamic, then the base name is the file name of the static layer.
   The base name of soil.csf is soil.csf.
 

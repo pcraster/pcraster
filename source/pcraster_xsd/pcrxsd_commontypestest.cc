@@ -1,7 +1,7 @@
 #define BOOST_TEST_MODULE pcraster xsd common_types
 #include <boost/test/unit_test.hpp>
 #include <sstream>
-#include "boost/date_time/posix_time/ptime.hpp"
+#include <boost/date_time/posix_time/ptime.hpp>
 #include "commonTypesXSD.h"
 #include "unitTestXSD.h"
 #include "pcrxsd_library.h"

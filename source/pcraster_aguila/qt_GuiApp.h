@@ -4,7 +4,7 @@
 
 
 #include <string>
-#include <boost/filesystem/path.hpp>
+#include <boost/filesystem.hpp>
 #include <QObject>
 #include "dev_CommandLineApplication.h"
 #include "dev_QtClient.h"

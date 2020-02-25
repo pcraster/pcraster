@@ -6,7 +6,7 @@
 #include "ag_Visualisation.h"
 
 // Library headers.
-#include <boost/filesystem/path.hpp>
+#include <boost/filesystem.hpp>
 
 // PCRaster library headers.
 

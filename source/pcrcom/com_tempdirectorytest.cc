@@ -1,9 +1,8 @@
 #define BOOST_TEST_MODULE pcraster com temp_directory
 #include <boost/test/unit_test.hpp>
 #include "stddefx.h"
-#include "boost/filesystem/path.hpp"
-#include "boost/filesystem/operations.hpp"
-#include "boost/filesystem/fstream.hpp"
+#include <boost/filesystem.hpp>
+#include <boost/filesystem/fstream.hpp>
 #include "com_tempdirectory.h"
 #include "com_exception.h"
 

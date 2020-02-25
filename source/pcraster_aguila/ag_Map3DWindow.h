@@ -3,7 +3,7 @@
 
 
 
-#include <boost/filesystem/path.hpp>
+#include <boost/filesystem.hpp>
 #include "ag_Configure.h"
 #include "ag_MapWindow.h"
 

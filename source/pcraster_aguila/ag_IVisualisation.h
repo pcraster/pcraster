@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 #ifndef Q_MOC_RUN
-#include <boost/filesystem/path.hpp>
+#include <boost/filesystem.hpp>
 #include "dal_DataSpace.h"
 #include "com_fileformatinfo.h"
 #include "geo_dataguide.h"

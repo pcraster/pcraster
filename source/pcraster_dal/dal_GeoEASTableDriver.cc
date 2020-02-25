@@ -14,9 +14,9 @@
 #define INCLUDED_BOOST_ALGORITHM_STRING
 #endif
 
-#ifndef INCLUDED_BOOST_FILESYSTEM_PATH
-#include <boost/filesystem/path.hpp>
-#define INCLUDED_BOOST_FILESYSTEM_PATH
+#ifndef INCLUDED_BOOST_FILESYSTEM
+#include <boost/filesystem.hpp>
+#define INCLUDED_BOOST_FILESYSTEM
 #endif
 
 #ifndef INCLUDED_BOOST_SPIRIT_INCLUDE_CLASSIC
@@ -205,17 +205,17 @@ dal::DataSpace dal::GeoEASTableDriver::dataSpace(
 // {
 //   boost::shared_ptr<Table> table(TextTableDriver::open(name, space,
 //     address));
-// 
+//
 //   if(!table) {
 //     throwCannotBeOpened(name, TABLE);
 //   }
-// 
+//
 //   // If one of the column titles is "timestep" and if its values are integral
 //   // and if the values form an regular increasing range we assume that it is
 //   // the time dimension.
-// 
+//
 //   DataSpace tableSpace;
-// 
+//
 //   for(size_t i = 0; i < table->nrCols(); ++i) {
 //     if(  (table->title(i) == "time" ||
 //           table->title(i) == "timestep" ||
@@ -227,12 +227,12 @@ dal::DataSpace dal::GeoEASTableDriver::dataSpace(
 //       for(++i; i < table->nrCols(); ++i) {
 //         table->setTypeId(i, TI_NR_TYPES);
 //       }
-// 
+//
 //       table->createCols();
-// 
+//
 //       TextTableDriver::read(*table, name, space, address);
 //       Array<INT4> const& timeSteps = table->col<INT4>(timeCol);
-// 
+//
 //       // Check the values.
 //       int first, last, interval;
 //       if(isRegularIncreasingRange(first, last, interval,
@@ -242,17 +242,17 @@ dal::DataSpace dal::GeoEASTableDriver::dataSpace(
 //         timeSteps.push_back(size_t(first));
 //         timeSteps.push_back(size_t(last));
 //         timeSteps.push_back(size_t(interval));
-// 
+//
 //         tableSpace.addDimension(Dimension(Time, timeSteps));
 //       }
-// 
+//
 //       break;
 //     }
 //     else {
 //       table->setTypeId(i, TI_NR_TYPES);
 //     }
 //   }
-// 
+//
 //   return tableSpace;
 // }
 

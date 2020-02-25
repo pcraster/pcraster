@@ -10,9 +10,9 @@
 #define INCLUDED_BOOST_ANY
 #endif
 
-#ifndef INCLUDED_BOOST_FILESYSTEM_PATH
-#include <boost/filesystem/path.hpp>
-#define INCLUDED_BOOST_FILESYSTEM_PATH
+#ifndef INCLUDED_BOOST_FILESYSTEM
+#include <boost/filesystem.hpp>
+#define INCLUDED_BOOST_FILESYSTEM
 #endif
 
 // PCRaster library headers.

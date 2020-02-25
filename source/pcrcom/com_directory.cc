@@ -18,9 +18,9 @@
 #define INCLUDED_VECTOR
 #endif
 
-#ifndef INCLUDED_BOOST_FILESYSTEM_OPERATIONS
-#include "boost/filesystem/operations.hpp"
-#define INCLUDED_BOOST_FILESYSTEM_OPERATIONS
+#ifndef INCLUDED_BOOST_FILESYSTEM
+#include <boost/filesystem.hpp>
+#define INCLUDED_BOOST_FILESYSTEM
 #endif
 
 #ifndef INCLUDED_COM_EXCEPTION
@@ -54,7 +54,7 @@
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 /*!
@@ -227,7 +227,7 @@ void com::Directory::create(const PathName &pn, bool makeParentDirectories)
   PRECOND(!d_path.toString().empty());
 
   Directory dir(d_path + pn);
-  dir.create(makeParentDirectories); 
+  dir.create(makeParentDirectories);
 }
 
 
@@ -286,13 +286,13 @@ const com::PathName& com::Directory::pathName() const
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE OPERATORS 
+// DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE FUNCTIONS 
+// DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
 //! Creates a directory.
@@ -335,7 +335,7 @@ void com::createDirectory(const PathName &pn, bool makeParentDirectories)
 }
 
 //! Creates a not yet existant directory.
-/*! 
+/*!
  *  \param pn path to a directory to create, directoryName part of path must
  *            be existant.
  *   \exception com::OpenFileError If it already exists as file or directory or

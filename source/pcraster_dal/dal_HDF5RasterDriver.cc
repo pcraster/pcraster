@@ -4,9 +4,9 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_BOOST_FILESYSTEM_PATH
-#include <boost/filesystem/path.hpp>
-#define INCLUDED_BOOST_FILESYSTEM_PATH
+#ifndef INCLUDED_BOOST_FILESYSTEM
+#include <boost/filesystem.hpp>
+#define INCLUDED_BOOST_FILESYSTEM
 #endif
 
 #ifndef INCLUDED_H5CPP
@@ -217,7 +217,7 @@ void HDF5RasterDriver::read(
     // const int    NY = 7;
     // const int    NZ = 3;
     // const int    RANK_OUT = 3;
-    // 
+    //
     // int main (void)
     // {
     //    /*
@@ -233,7 +233,7 @@ void HDF5RasterDriver::read(
     //             data_out[j][i][k] = 0;
     //       }
     //    }
-    // 
+    //
 
 
 
@@ -242,48 +242,48 @@ void HDF5RasterDriver::read(
     //  */
     // H5File file( name, H5F_ACC_RDONLY );
     // DataSet dataset = file.openDataSet( "raster" );
-    // 
+    //
     // /*
     //  * Get the class of the datatype that is used by the dataset.
     //  */
     // H5T_class_t type_class = dataset.getTypeClass();
-    // 
+    //
     // /*
     //  * Get class of datatype and print message if it's an integer.
     //  */
     // if( type_class == H5T_INTEGER )
     // {
     //    cout << "Data set has INTEGER type" << endl;
-    // 
+    //
     //    /*
     //     * Get the integer datatype
     //     */
     //    IntType intype = dataset.getIntType();
-    // 
+    //
     //    /*
     //     * Get order of datatype and print message if it's a little endian.
     //     */
     //    string order_string;
     //    H5T_order_t order = intype.getOrder( order_string );
     //    cout << order_string << endl;
-    // 
+    //
     //    /*
     //     * Get size of the data element stored in file and print it.
     //     */
     //    size_t size = intype.getSize();
     //    cout << "Data size is " << size << endl;
     // }
-    // 
+    //
     // /*
     //  * Get dataspace of the dataset.
     //  */
     // DataSpace dataspace = dataset.getSpace();
-    // 
+    //
     // /*
     //  * Get the number of dimensions in the dataspace.
     //  */
     // int rank = dataspace.getSimpleExtentNdims();
-    // 
+    //
     // /*
     //  * Get the dimension size of each dimension in the dataspace and
     //  * display them.
@@ -293,7 +293,7 @@ void HDF5RasterDriver::read(
     // cout << "rank " << rank << ", dimensions " <<
     //         (unsigned long)(dims_out[0]) << " x " <<
     //         (unsigned long)(dims_out[1]) << endl;
-    // 
+    //
     // /*
     //  * Define hyperslab in the dataset; implicitly giving strike and
     //  * block NULL.
@@ -305,7 +305,7 @@ void HDF5RasterDriver::read(
     // count[0]  = NX_SUB;
     // count[1]  = NY_SUB;
     // dataspace.selectHyperslab( H5S_SELECT_SET, count, offset );
-    // 
+    //
     // /*
     //  * Define the memory dataspace.
     //  */
@@ -314,7 +314,7 @@ void HDF5RasterDriver::read(
     // dimsm[1] = NY;
     // dimsm[2] = NZ ;
     // DataSpace memspace( RANK_OUT, dimsm );
-    // 
+    //
     // /*
     //  * Define memory hyperslab.
     //  */
@@ -327,13 +327,13 @@ void HDF5RasterDriver::read(
     // count_out[1]  = NY_SUB;
     // count_out[2]  = 1;
     // memspace.selectHyperslab( H5S_SELECT_SET, count_out, offset_out );
-    // 
+    //
     // /*
     //  * Read data from hyperslab in the file into the hyperslab in
     //  * memory and display the data.
     //  */
     // dataset.read( data_out, PredType::NATIVE_INT, memspace, dataspace );
-    // 
+    //
     // for (j = 0; j < NX; j++)
     // {
     //   for (i = 0; i < NY; i++)

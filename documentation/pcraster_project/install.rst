@@ -10,9 +10,8 @@ PCRaster is available on |condaforgeurl| and can be installed using conda.
 Supported platforms are Linux, macOS and Windows.
 
 
-First download and install |miniconda|.
+We recommend to download and install |miniconda|.
 The user guide and short reference on conda can be found |minicondadoc|.
-
 After install you can check which Python versions are supported by PCRaster:
 
 .. code-block:: bash
@@ -31,9 +30,10 @@ Afterwards you can create a new environment and install PCRaster, e.g. with:
 
    conda install -c conda-forge pcraster
 
+Modifying PATH and PYTHONPATH environment variables as required for previous PCRaster versions is not necessary anymore, this is done automatically when you activate your environment.
+If you installed previous versions of PCRaster you need to remove their entries from the PATH and PYTHONPATH environment variables before activating your environment.
 
-
-Always use the conda-forge channel when installing further packages into your environment. If you installed previous versions of PCRaster you need to remove their entries from the PATH and PYTHONPATH environment variables.
+Always use the conda-forge channel when installing further packages into your PCRaster environment.
 
 
 .. |miniconda| raw:: html

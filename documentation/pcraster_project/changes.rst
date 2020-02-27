@@ -6,7 +6,7 @@ PCRaster 4.3.0
 
 The most relevant updates for users:
 
-* PCRaster can be installed using conda. Supported platforms are Linux, macOS and Windows. Supported Python versions are 3.6 and 3.7.
+* PCRaster is available on |condaforgeurl| and can be installed using conda. Supported platforms are Linux, macOS and Windows. Supported Python versions are 3.6 and 3.7.
 * We no longer provide support for Python 2.
 * We fixed a bug occurring when pickling PCRaster maps. Note that PCRaster maps pickled with previous versions cannot be opened with this version.
 * We fixed an incorrect return value while using a nonspatial condition in ``ifthen``.
@@ -19,7 +19,7 @@ The most relevant updates for users:
 * PCRaster Modflow BCF package received an optional flag to directly pass hcond and vcond values to Modflow.
 * Command line applications now show version numbers instead of a build date.
 * The exit value of applications only showing the usage information changed from 1 (EXIT_FAILURE) to 0 (EXIT_SUCCESS).
-* You can now set a path to specify the install directory of the Python files. You can enable this with ``-DPCRASTER_PYTHON_INSTALL_DIR=<path>``, default is ``python``.
+
 
 Aguila was refactored to simplify the build process. The functionality remains the same. In case you experience any differences to previous Aguila versions consider it as a defect and please report it at our `issues <https://github.com/pcraster/pcraster/issues/>`_ page.
 
@@ -31,6 +31,8 @@ We further improved the code quality and the build system to ensure an ongoing c
 * Modernising C++ code. C11 and C++17 are now the default standards when compiling PCRaster.
 * Various improvements to support gcc-9, clang-7, Visual Studio 2017 and Python 3.8
 * Reducing amount of dependencies
+* You can now set a path to specify the install directory of the Python files. You can enable this with ``-DPCRASTER_PYTHON_INSTALL_DIR=<path>``, default is ``python``.
+* We added configure options to include or exclude certain parts of the PCRaster software. You can, for example, disable building Aguila with ``-DPCRASTER_BUILD_AGUILA=OFF``.
 * Specifically for Linux:
 
   - RPATH settings fixed for Python modules
@@ -38,10 +40,15 @@ We further improved the code quality and the build system to ensure an ongoing c
   - The build type 'Release' now sets flags ``-march=native -mtune=native`` by default. You can disable this with ``-DPCRASTER_WITH_FLAGS_NATIVE=OFF``.
   - Interprocedural optimisation can be used in case supported by the compiler. You can enable this with ``-DPCRASTER_WITH_FLAGS_IPO=ON``.
 
-PCRaster 4.3 is known to build with gcc (versions 7 to 9), clang (version 6 to 9) or msvc 2017.
+PCRaster 4.3 is known to build with gcc (versions 7 to 10), clang (version 6 to 9) or msvc (2015 and 2017).
 We recommend to no longer use gcc version 5 or 6 for building PCRaster.
 
 For a more detailed list of solved issues see our `4.3 <https://github.com/pcraster/pcraster/milestone/6>`_ milestone.
+
+
+.. |condaforgeurl| raw:: html
+
+   <a href="https://conda-forge.org/" target="_blank">conda-forge</a>
 
 PCRaster 4.2.1
 --------------

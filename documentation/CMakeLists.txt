@@ -7,9 +7,10 @@ macro(prepare_pcraster_project_docs sources dirname output)
     set(${output} ${${output}} PARENT_SCOPE)
 endmacro()
 
-# pcraster_manual required to run unit tests
-add_subdirectory(pcraster_manual)
-
+if(PCRASTER_BUILD_TEST)
+  # pcraster_manual required to run unit tests
+  add_subdirectory(pcraster_manual)
+endif()
 
 if(PCRASTER_BUILD_DOCUMENTATION)
      add_subdirectory(link_out)
@@ -46,5 +47,4 @@ if(PCRASTER_BUILD_DOCUMENTATION)
             python_modelling_framework_dummy
             fill_python_directory_structure
     )
-
 endif()

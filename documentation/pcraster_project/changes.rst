@@ -6,7 +6,7 @@ PCRaster 4.3.0
 
 The most relevant updates for users:
 
-* PCRaster is available on |condaforgeurl| and can be installed using conda. Supported platforms are Linux, macOS and Windows. Supported Python versions are 3.6 and 3.7.
+* PCRaster is available on |condaforgefeedstocksurl| and can be installed using conda. Supported platforms are Linux, macOS and Windows. Supported Python versions are 3.6 and 3.7.
 * We no longer provide support for Python 2.
 * We fixed a bug occurring when pickling PCRaster maps. Note that PCRaster maps pickled with previous versions cannot be opened with this version.
 * We fixed an incorrect return value while using a nonspatial condition in ``ifthen``.
@@ -46,9 +46,9 @@ We recommend to no longer use gcc version 5 or 6 for building PCRaster.
 For a more detailed list of solved issues see our `4.3 <https://github.com/pcraster/pcraster/milestone/6>`_ milestone.
 
 
-.. |condaforgeurl| raw:: html
+.. |condaforgefeedstocksurl| raw:: html
 
-   <a href="https://conda-forge.org/" target="_blank">conda-forge</a>
+   <a href="https://conda-forge.org/feedstocks" target="_blank">conda-forge</a>
 
 PCRaster 4.2.1
 --------------

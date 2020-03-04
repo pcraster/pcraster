@@ -15,7 +15,7 @@ class Test(testcase.TestCase):
     outputs = ["hOne.map", "hThree.map", "hFive.map", "dFive.map", "rFive.map", "c5.map", "c3.map", "ff1.map", "ff3.map", "ff5.map", "fr1.map", "fr3.map", "fr5.map", "fl3.map", "fl5.map"]
     self.remove_files(outputs)
 
-    subprocess.call(["@Python3_EXECUTABLE@", "example.py"])
+    subprocess.call([r"@Python3_EXECUTABLE@", "example.py"])
 
     for output in outputs:
       self.assertEqual(self.mapEqualsValidated(pcraster.readmap(output), output), True, "{0} deviates from validated/{1}".format(output, output))
@@ -40,7 +40,7 @@ class Test(testcase.TestCase):
     shutil.rmtree("1", ignore_errors=True)
     os.mkdir("1")
 
-    subprocess.call(["@Python3_EXECUTABLE@", "bcf2ss.py"])
+    subprocess.call([r"@Python3_EXECUTABLE@", "bcf2ss.py"])
 
     for output in outputs:
       self.assertEqual(self.mapEqualsValidated(pcraster.readmap(output), "bcf2ss_" + output), True, "{0} deviates from bcf2ss_{1}".format(output, output))
@@ -66,7 +66,7 @@ class Test(testcase.TestCase):
     shutil.rmtree("1", ignore_errors=True)
     os.mkdir("1")
 
-    subprocess.call(["@Python3_EXECUTABLE@", "bcf2ss_v2.py"])
+    subprocess.call([r"@Python3_EXECUTABLE@", "bcf2ss_v2.py"])
 
     for output in outputs:
       self.assertEqual(self.mapEqualsValidated(pcraster.readmap(output), "bcf2ss_" + output), True, "{0} deviates from bcf2ss_{1}".format(output, output))

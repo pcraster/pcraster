@@ -35,8 +35,8 @@ You can obtain a source package as follows:
 
 .. code-block:: bash
 
-   $ # sha256:
-   $ wget
+   $ # sha256: 2772ae0dc228cebaf1891623526a097799ab7fe212c606f6d2fe6c3c47b70be6
+   $ wget http://pcraster.geo.uu.nl/pcraster/packages/src/pcraster-4.3.0.tar.bz2
 
 
 It is also possible to obtain the PCRaster sources from our code repository, e.g. in case you want to test the latest developments:

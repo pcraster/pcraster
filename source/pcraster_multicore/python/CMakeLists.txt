@@ -124,10 +124,16 @@ set_target_properties(_pcraster_multicore
 )
 
 add_dependencies(_pcraster_multicore
-    generate_examples.sentinel
     _pcraster
     fill_python_directory_structure # Refactor
 )
+
+
+if(PCRASTER_BUILD_TEST)
+  add_dependencies(_pcraster_multicore
+      generate_examples.sentinel
+  )
+endif()
 
 set_target_properties(_pcraster_multicore
     PROPERTIES

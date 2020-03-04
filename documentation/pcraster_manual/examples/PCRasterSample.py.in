@@ -514,7 +514,7 @@ def createMakefileAndScripts(
             clones.append(s._results[0].fileName())
     if clones:
         stream.write("CLONES = {}\n".format(" ".join(clones)))
-    stream.write("""
+    stream.write(r"""
 dynamicwave_Table.txt: make_table.py
 	$(EXEC) "@Python3_EXECUTABLE@" $< > $@
 clean::

@@ -1,13 +1,17 @@
 #ifndef INCLUDED_DAL_EXCEPTION
 #define INCLUDED_DAL_EXCEPTION
 
-
+#include "dal_Configure.h"
 
 // Library headers.
+#include <exception>
+
 #ifndef INCLUDED_STRING
 #include <string>
 #define INCLUDED_STRING
 #endif
+
+
 
 // PCRaster library headers.
 
@@ -26,11 +30,7 @@ namespace dal {
 
 
 //! Base exception class for the DAL library.
-/*!
-  \todo Base this class on std::exception? See
-        http://www.boost.org/more/error_handling.html.
-*/
-class Exception
+class PCR_DAL_DECL Exception : public virtual std::exception
 {
 
   friend class ExceptionTest;
@@ -59,6 +59,8 @@ public:
   //----------------------------------------------------------------------------
 
   std::string const& message           () const;
+
+  const char*      what                () const noexcept override;
 
 };
 
@@ -93,7 +95,14 @@ inline std::string const& Exception::message() const
   return d_message;
 }
 
-
+//! Returns the message.
+/*!
+  \return    Message.
+*/
+inline const char* Exception::what() const noexcept
+{
+  return d_message.c_str();
+}
 
 //------------------------------------------------------------------------------
 // FREE OPERATORS

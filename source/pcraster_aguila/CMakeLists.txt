@@ -170,6 +170,11 @@ add_library(pcraster_aguila_objects OBJECT
 
 )
 
+target_compile_definitions(pcraster_aguila_objects
+    PRIVATE
+        PCR_DAL_SHARED_LINK
+)
+
 if(PCRASTER_WITH_OPENGL)
     add_library(pcraster_aguila_opengl_objects OBJECT
         ag_Camera
@@ -186,6 +191,10 @@ if(PCRASTER_WITH_OPENGL)
         ag_PostScript
         ag_QuadDrawer
         ag_Quaternion
+    )
+    target_compile_definitions(pcraster_aguila_opengl_objects
+        PRIVATE
+            PCR_DAL_SHARED_LINK
     )
     target_include_directories(pcraster_aguila_opengl_objects
         PRIVATE

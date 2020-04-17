@@ -132,11 +132,11 @@ protected:
   void             showUnhandledException(
                                         std::string const& message="");
 
-  virtual void     showInfo            (std::string const& message);
+  virtual void     showInfo            (std::string const& message) const;
 
-  virtual void     showWarning         (std::string const& message);
+  virtual void     showWarning         (std::string const& message) const;
 
-  virtual void     showError           (std::string const& message);
+  virtual void     showError           (std::string const& message) const;
 
 public:
 

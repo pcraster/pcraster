@@ -308,6 +308,7 @@ target_compile_definitions(pcraster_model_engine_objects
         USE_IN_PCRCALC
         YY_NO_UNISTD_H
         YY_NEVER_INTERACTIVE
+        PCR_DAL_SHARED_LINK
 
         # DO NOT DO _HAS_ITERATOR_DEBUGGING=0
         # see bugzilla 178

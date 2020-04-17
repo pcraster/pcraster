@@ -114,10 +114,17 @@ target_compile_definitions(pcraster_dal_objects
     PRIVATE
         PCR_DAL_SOURCE
         PCR_DAL_SHARED_LINK
+    INTERFACE
+        PCR_DAL_SHARED_LINK
 )
 
 add_library(pcraster_dal SHARED
     $<TARGET_OBJECTS:pcraster_dal_objects>
+)
+
+target_compile_definitions(pcraster_dal
+    PUBLIC
+        PCR_DAL_SHARED_LINK
 )
 
 add_library(pcraster::dal ALIAS pcraster_dal)
@@ -165,79 +172,85 @@ if(PCRASTER_BUILD_TEST)
         test_prolog.py
         @ONLY
     )
-
+    set(DAL_TEST_SOURCES
+        dal_ArrayTest
+        dal_BinaryTableDriverTest
+        dal_BlockTest
+        dal_ClientTest
+        dal_ConnectionInfoTest
+        dal_ConstantTest
+        dal_CoordinateMapperTest
+        dal_CSFMapTest
+        dal_CSFRasterDriverTest
+        dal_DataSourceTest
+        # dal_DataSpaceAddressMapperTest  # TODO
+        dal_DataSpaceAddressTest
+        dal_DataSpaceIteratorTest
+        dal_DataSpaceTest
+        dal_DefTest
+        dal_DimensionTest
+        dal_EnvironmentTest
+        dal_FeatureLayerTest
+        dal_FeaturePathTest
+        dal_FilesystemUtilsTest
+        dal_GDALRasterDriverTest
+        dal_GeoEASTableDriverTest
+        # dal_HDF5RasterDriverTest
+        # dal_MapperUtilsTest  # TODO
+        dal_MathUtilsTest
+        dal_MatrixTest
+        dal_MatrixDimensionsTest
+        dal_MatrixDriverTest
+        dal_MemoryDataPoolTest
+        dal_MemoryRasterDataTest
+        dal_MemoryRasterDriverTest
+        dal_MemoryTableDataTest
+        dal_MemoryTableDriverTest
+        # dal_NetCDFRasterDriverTest
+        dal_OgrFeatureDriverTest
+        dal_PCRBlockDriverTest
+        dal_PropertiesTest
+        dal_RasterDalTest
+        dal_RasterDimensionsTest
+        dal_RegularExpressionsTest
+        dal_ResampleTest
+        dal_SpaceStepMapperTest
+        # dal_SpaceStepCoordinateMapperTest  # TODO
+        dal_SpatialCoordinateTest
+        # dal_SQLTableDriverTest  # TODO
+        dal_StackInfoTest
+        # dal_StepCoordinateMapperTest  # TODO
+        dal_StepMapperTest
+        dal_TableDalTest
+        dal_TableDriverTest
+        dal_TableTest
+        dal_TextConstantDriverTest
+        dal_TextFileDriverTest
+        dal_TextMatrixDriverTest
+        dal_TextTableDriverTest
+        dal_TimeStepCoordinateMapperTest
+        dal_TimeStepMapperTest
+        dal_TypesTest
+        dal_TypeTest
+        dal_UseCasesTest
+        dal_UtilsTest
+        dal_VectorDriverTest
+        dal_VTKBlockDriverTest
+    )
     add_unit_tests(
         SCOPE pcraster_dal
         NAMES
-            dal_ArrayTest
-            dal_BinaryTableDriverTest
-            dal_BlockTest
-            dal_ClientTest
-            dal_ConnectionInfoTest
-            dal_ConstantTest
-            dal_CoordinateMapperTest
-            dal_CSFMapTest
-            dal_CSFRasterDriverTest
-            dal_DataSourceTest
-            # dal_DataSpaceAddressMapperTest  # TODO
-            dal_DataSpaceAddressTest
-            dal_DataSpaceIteratorTest
-            dal_DataSpaceTest
-            dal_DefTest
-            dal_DimensionTest
-            dal_EnvironmentTest
-            dal_FeatureLayerTest
-            dal_FeaturePathTest
-            dal_FilesystemUtilsTest
-            dal_GDALRasterDriverTest
-            dal_GeoEASTableDriverTest
-            # dal_HDF5RasterDriverTest
-            # dal_MapperUtilsTest  # TODO
-            dal_MathUtilsTest
-            dal_MatrixTest
-            dal_MatrixDimensionsTest
-            dal_MatrixDriverTest
-            dal_MemoryDataPoolTest
-            dal_MemoryRasterDataTest
-            dal_MemoryRasterDriverTest
-            dal_MemoryTableDataTest
-            dal_MemoryTableDriverTest
-            # dal_NetCDFRasterDriverTest
-            dal_OgrFeatureDriverTest
-            dal_PCRBlockDriverTest
-            dal_PropertiesTest
-            dal_RasterDalTest
-            dal_RasterDimensionsTest
-            dal_RegularExpressionsTest
-            dal_ResampleTest
-            dal_SpaceStepMapperTest
-            # dal_SpaceStepCoordinateMapperTest  # TODO
-            dal_SpatialCoordinateTest
-            # dal_SQLTableDriverTest  # TODO
-            dal_StackInfoTest
-            # dal_StepCoordinateMapperTest  # TODO
-            dal_StepMapperTest
-            dal_TableDalTest
-            dal_TableDriverTest
-            dal_TableTest
-            dal_TextConstantDriverTest
-            dal_TextFileDriverTest
-            dal_TextMatrixDriverTest
-            dal_TextTableDriverTest
-            dal_TimeStepCoordinateMapperTest
-            dal_TimeStepMapperTest
-            dal_TypesTest
-            dal_TypeTest
-            dal_UseCasesTest
-            dal_UtilsTest
-            dal_VectorDriverTest
-            dal_VTKBlockDriverTest
+            ${DAL_TEST_SOURCES}
         INCLUDE_DIRS
             $<TARGET_PROPERTY:pcraster_dal_objects,INTERFACE_INCLUDE_DIRECTORIES>
         OBJECT_LIBRARIES
             $<TARGET_OBJECTS:pcraster_dal_objects>
         LINK_LIBRARIES
             $<TARGET_PROPERTY:pcraster_dal,LINK_LIBRARIES>
+    )
+    set_property(
+        SOURCE ${DAL_TEST_SOURCES}
+        PROPERTY COMPILE_DEFINITIONS PCR_DAL_SHARED_LINK
     )
     add_test(
         NAME setup_pcraster_dal

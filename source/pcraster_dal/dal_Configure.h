@@ -34,7 +34,7 @@
 #endif
 
 #ifndef PCR_DAL_DECL
-#  define PCR_DAL_DECL
+#  define PCR_DAL_DECL error
 #endif
 
 

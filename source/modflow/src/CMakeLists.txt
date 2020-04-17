@@ -19,6 +19,11 @@ add_library(pcrmf_objects OBJECT
     pcrmodflow
 )
 
+target_compile_definitions(pcrmf_objects
+    PRIVATE
+        PCR_DAL_SHARED_LINK
+)
+
 target_include_directories(pcrmf_objects
     PRIVATE
         $<TARGET_PROPERTY:pcraster::model_engine,INTERFACE_INCLUDE_DIRECTORIES>

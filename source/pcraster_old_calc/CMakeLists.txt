@@ -179,6 +179,7 @@ target_compile_definitions(pcraster_old_calc_objects
         USE_IN_PCRCALC
         YY_NO_UNISTD_H
         YY_NEVER_INTERACTIVE
+        PCR_DAL_SHARED_LINK
 )
 
 add_library(pcraster_old_calc SHARED

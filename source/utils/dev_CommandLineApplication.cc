@@ -402,7 +402,7 @@ void CommandLineApplication::showUnhandledException(
 
 
 void CommandLineApplication::showInfo(
-         std::string const& message)
+         std::string const& message) const
 {
   std::cout << message;
 
@@ -414,7 +414,7 @@ void CommandLineApplication::showInfo(
 
 
 void CommandLineApplication::showWarning(
-         std::string const& message)
+         std::string const& message) const
 {
   std::cout << message;
 
@@ -426,7 +426,7 @@ void CommandLineApplication::showWarning(
 
 
 void CommandLineApplication::showError(
-         std::string const& message)
+         std::string const& message) const
 {
   std::cerr << message;
 

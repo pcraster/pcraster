@@ -561,7 +561,7 @@ class FrameworkBase(shellscript.ShellScript):
         newName = generateNameT(name, timestep)
 
     path = os.path.join(directoryPrefix, newName)
-    assert path is not ""
+    assert path != ""
     import pcraster
     return pcraster.readmap(path)
 

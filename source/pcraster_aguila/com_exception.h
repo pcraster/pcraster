@@ -1,6 +1,9 @@
 #ifndef INCLUDED_COM_EXCEPTION
 #define INCLUDED_COM_EXCEPTION
 
+#include "ag_Configure.h"
+
+#include <exception>
 #include <string>
 #include <vector>
 
@@ -30,7 +33,7 @@ enum Errno {
   \sa com_exception.cc for full details.
   \todo Help! can not get docs of com::Errno working
 */
-class Exception
+class PCR_AG_DECL Exception : public virtual std::exception
 {
 
 private:
@@ -87,6 +90,8 @@ public:
   std::string      getMessages         () const;
 
   std::string      messages            () const;
+
+  const char*      what                () const noexcept override;
 
   std::string const& operator[]        (size_t i) const;
 

@@ -34,7 +34,7 @@
 #endif
 
 #ifndef PCR_AG_DECL
-#  define PCR_AG_DECL
+#  define PCR_AG_DECL error
 #endif
 
 // Versions of the library.

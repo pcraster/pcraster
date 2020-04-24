@@ -205,9 +205,20 @@ void PlotView::setXAxisScale()
   size_t last = dimension.value<size_t>(1);
   assert(last >= first);
 
-  m_axisX->applyNiceNumbers();
+  size_t nr_timesteps = last - first + 1;
+
   m_axisX->setRange(first, last);
-  m_axisX->setLabelFormat("%d");
+
+  if(nr_timesteps < 13) {
+    m_axisX->setTickType(QtCharts::QValueAxis::TicksDynamic);
+    m_axisX->setTickAnchor(first);
+    m_axisX->setTickInterval(1);
+  }
+  else {
+    m_axisX->setTickType(QtCharts::QValueAxis::TicksFixed);
+  }
+
+  m_axisX->setLabelFormat("%g");
   m_chart->addAxis(m_axisX, Qt::AlignBottom);
 }
 

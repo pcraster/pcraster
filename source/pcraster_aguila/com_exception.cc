@@ -44,7 +44,7 @@ public:
 
 /*!
   Constructor takes man error message.
-  Note that that all messages put into the Exception should be 
+  Note that that all messages put into the Exception should be
   sensible, and non empty . The Exception formatter removes all
   leading and trailing spaces
 */
@@ -108,6 +108,15 @@ std::string com::Exception::getMessages() const
   return messages();
 }
 
+//! Returns the error message.
+/*!
+  \return    Message.
+*/
+inline const char* com::Exception::what() const noexcept
+{
+  return messages().c_str();
+}
+
 /*!
   \return A string containing all messages
   A newline is printed after each message.
@@ -127,9 +136,9 @@ std::string com::Exception::messages() const
   }
 
   // a least one char and newline :-)
-  assert(m.size() > 2); 
+  assert(m.size() > 2);
   // ending newline
-  assert(m[m.size()-1] == '\n'); 
+  assert(m[m.size()-1] == '\n');
 
   return m;
 }

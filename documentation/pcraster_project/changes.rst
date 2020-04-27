@@ -1,6 +1,15 @@
 Changes
 =======
 
+.. PCRaster 4.3.1
+.. --------------
+..
+.. This is a bug fix release for 4.3. We fixed:
+..
+.. * Aguila, incorrect x-axis display for timeseres (`#303 <https://github.com/pcraster/pcraster/issues/303>`_)
+.. * Aguila, unhandled exception thrown instead of error messages on macOS (`#302 <https://github.com/pcraster/pcraster/issues/302>`_)
+
+
 PCRaster 4.3.0
 --------------
 

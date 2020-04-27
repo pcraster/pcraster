@@ -6,6 +6,7 @@ set(SPHINX_SOURCES
     install.rst
     multicore.rst
     sources.rst
+    pcraster_python_aguila_conda.png
 )
 
 prepare_pcraster_project_docs("${SPHINX_SOURCES}" "pcraster_project" "PROJECT_SPHINX_SOURCES")

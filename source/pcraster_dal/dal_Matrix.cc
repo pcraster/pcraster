@@ -4,6 +4,7 @@
 #endif
 
 // Library headers.
+#include <algorithm>
 
 // PCRaster library headers.
 

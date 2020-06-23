@@ -30,11 +30,24 @@
 // Module headers.
 
 
-
 namespace dev {
 
 // Code that is private to this module.
 namespace detail {
+
+bool accessible(boost::filesystem::path const& path) {
+  try{
+    boost::filesystem::file_status s = boost::filesystem::status(path);
+    if((s.permissions() & (boost::filesystem::perms::owner_exe | boost::filesystem::perms::group_exe | boost::filesystem::perms::others_exe)) != boost::filesystem::perms::no_perms){
+      return true;
+    }
+  }
+  catch(boost::filesystem::filesystem_error const& e){
+    // permission denied
+    return false;
+  }
+  return false;
+}
 
 } // namespace detail
 
@@ -73,7 +86,7 @@ boost::filesystem::path pathToExecutable(
 
     // Loop over all directories.
     for(std::string const& directoryName : directoryNames) {
-      if(boost::filesystem::exists(directoryName / path)) {
+      if(detail::accessible(directoryName) && boost::filesystem::exists(directoryName / path)) {
         result = boost::filesystem::system_complete(directoryName);
         break;
       }
@@ -116,10 +129,10 @@ boost::filesystem::path pathToPythonExtension(
   else if(!path.is_absolute()) {
     std::string pathVariable(std::getenv("PYTHONPATH"));
     std::vector<std::string> directoryNames;
-    boost::split(directoryNames, pathVariable, boost::is_any_of(":"));
+    boost::split(directoryNames, pathVariable, boost::is_any_of(":;"));
 
     for(std::string const& directoryName : directoryNames) {
-      if(boost::filesystem::exists(directoryName / path)) {
+      if(detail::accessible(directoryName) && boost::filesystem::exists(directoryName / path)) {
         result = boost::filesystem::system_complete(directoryName);
       }
     }

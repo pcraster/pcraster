@@ -272,7 +272,8 @@ if(PCRASTER_BUILD_TEST)
         set_tests_properties(python_pcrcalcpy_pythonunittest
             PROPERTIES
                 ENVIRONMENT
-                    "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:${EXECUTABLE_OUTPUT_PATH}"
+                    # Also set a non-accessible path for default user (gh134)
+                    "PATH=/root/bin:$ENV{PATH};PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:${EXECUTABLE_OUTPUT_PATH}"
         )
     endif()
 

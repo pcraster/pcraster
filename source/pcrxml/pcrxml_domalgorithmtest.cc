@@ -2,7 +2,7 @@
 #include <boost/test/unit_test.hpp>
 #include "pcrxml_document.h"
 #include "pcrxml_domalgorithm.h"
-
+#include <QtGlobal>
 
 //! count nodes that are attributes
 struct CountNodeAttrs {
@@ -17,7 +17,11 @@ struct ConcatNodeValues {
   QString val;
   ConcatNodeValues() {};
   void operator()(QDomNode n) {
+#if QT_VERSION < QT_VERSION_CHECK(5, 9, 0)
     if (n.nodeValue() != QString::null)
+#else
+    if (n.nodeValue() != QString())
+#endif
       val += n.nodeValue();
   }
 };

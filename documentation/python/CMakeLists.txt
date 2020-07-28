@@ -18,7 +18,6 @@ create_sphinx_docs(
 add_dependencies(
     pcraster_python_manual
         _pcraster
-        fill_python_directory_structure
 )
 
 install(

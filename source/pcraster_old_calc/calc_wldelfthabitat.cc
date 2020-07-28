@@ -88,7 +88,7 @@
 #define INCLUDED_CALC_STATTABLE
 #endif
 
-
+#include <QtGlobal>
 
 /*!
   \file
@@ -115,11 +115,15 @@ namespace calc {
       const QDomElement& e,
       const QString& attrName) {
     QString value=e.attribute(attrName);
+#if QT_VERSION < QT_VERSION_CHECK(5, 9, 0)
     if (value == QString::null) {
+#else
+    if (value == QString()) {
+#endif
       std::ostringstream os;
       os << "expect element '"
          << std::string(e.tagName().toLatin1())
-         << "' to have attribute '" 
+         << "' to have attribute '"
          << std::string(attrName.toLatin1()) << "'";
       throw com::BadStreamFormat(os.str());
     }
@@ -133,8 +137,8 @@ namespace calc {
   {
     return expectAttr(e,"value");
   }
-  /*! return atttribute value of attribute \a attrName of 
-   * first sibling of the first matching descendant element with 
+  /*! return atttribute value of attribute \a attrName of
+   * first sibling of the first matching descendant element with
    * tagName \a subTagName
    * <pre>
    *  <tree>
@@ -569,7 +573,7 @@ static LookupTable* fillTable(
 }
 
 }
-  
+
 /*! \brief generate an unique id
  *  only works if al external parameters names are already known
  *  a priori

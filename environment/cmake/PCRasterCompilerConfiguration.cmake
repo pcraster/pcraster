@@ -28,16 +28,17 @@ set(CMAKE_INSTALL_RPATH_USE_LINK_PATH OFF)
 
 # Default flags without toolchain files
 if(NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE Release)
+   set(CMAKE_BUILD_TYPE Release)
 endif()
 
 
 if(PCRASTER_WITH_FLAGS_NATIVE)
-    if(${CMAKE_BUILD_TYPE} STREQUAL "Release")
-        add_compile_options(
-            "$<$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:Clang>>:-march=native;-mtune=native>"
-        )
-    endif()
+    add_compile_options(
+        "$<$<CONFIG:Release>:$<$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:Clang>>:-march=native;-mtune=native>>"
+    )
+    add_compile_options(
+        "$<$<CONFIG:RelWithDebInfo>:$<$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:Clang>>:-march=native;-mtune=native>>"
+    )
 endif()
 
 add_compile_options(

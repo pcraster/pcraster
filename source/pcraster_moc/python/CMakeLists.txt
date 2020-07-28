@@ -21,7 +21,7 @@ configure_python_extension(_pcraster_moc_python
     "_pcraster_moc"
 )
 
-set(_TARGET_BIN ${EXECUTABLE_OUTPUT_PATH}/${CMAKE_CFG_INTDIR})
+set(_TARGET_BIN $<TARGET_FILE_DIR:_pcraster_moc_python>)
 
 set_target_properties(_pcraster_moc_python
     PROPERTIES

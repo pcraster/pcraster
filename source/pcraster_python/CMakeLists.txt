@@ -16,7 +16,7 @@ configure_file(
 
 configure_file(
     __about__.py.in
-    ${PROJECT_BINARY_DIR}/bin/pcraster/__about__.py
+    __about__.py
 )
 
 # operations.inc and operations.py were previously generated each time at a build.
@@ -129,14 +129,14 @@ set_target_properties(_pcraster
 #     "_pcraster"
 # )
 
-set(_TARGET_BIN ${EXECUTABLE_OUTPUT_PATH}/${CMAKE_CFG_INTDIR})
+#set(_TARGET_BIN ${EXECUTABLE_OUTPUT_PATH}/${CMAKE_CFG_INTDIR})
 
 set_target_properties(_pcraster
     PROPERTIES
         RUNTIME_OUTPUT_DIRECTORY
-            "${_TARGET_BIN}/pcraster"
+            $<TARGET_FILE_DIR:pcrcalc>/pcraster
         LIBRARY_OUTPUT_DIRECTORY
-            "${_TARGET_BIN}/pcraster"
+            $<TARGET_FILE_DIR:pcrcalc>/pcraster
         INSTALL_RPATH
             "\\\$ORIGIN/../../lib"
 )
@@ -148,15 +148,17 @@ MATH(EXPR NR_BITS "${CMAKE_SIZEOF_VOID_P} * 8")
 # ... and use this for import checks
 configure_file(
     __init__.py.in
-    ${_TARGET_BIN}/pcraster/__init__.py
+    __init__.py
 )
 
 
 add_custom_command(
-    OUTPUT ${_TARGET_BIN}/pcraster/numpy_operations.py
+    TARGET _pcraster POST_BUILD
+
+    #OUTPUT ${_TARGET_BIN}/pcraster/numpy_operations.py
 
     COMMAND ${CMAKE_COMMAND} -E copy_directory
-        ${CMAKE_CURRENT_SOURCE_DIR}/pcraster ${_TARGET_BIN}/pcraster
+        ${CMAKE_CURRENT_SOURCE_DIR}/pcraster $<TARGET_FILE_DIR:pcrcalc>/pcraster
     # COMMAND ${CMAKE_COMMAND} -E copy
     #     $<TARGET_FILE:_pcraster> ${_TARGET_BIN}/pcraster
     # COMMAND ${CMAKE_COMMAND} -E copy
@@ -164,25 +166,30 @@ add_custom_command(
     # COMMAND ${CMAKE_COMMAND} -E remove $<TARGET_FILE:_pcraster>
     # COMMAND ${CMAKE_COMMAND} -E remove $<TARGET_FILE:_pcraster_modflow_python>
 
-    COMMAND ${CMAKE_COMMAND} -E copy
-        ${CMAKE_CURRENT_BINARY_DIR}/operations.py ${_TARGET_BIN}/pcraster
-    COMMAND ${CMAKE_COMMAND} -E copy
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        ${CMAKE_CURRENT_BINARY_DIR}/operations.py $<TARGET_FILE_DIR:pcrcalc>/pcraster
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
         ${CMAKE_CURRENT_SOURCE_DIR}/pcraster/operators.py
-        ${_TARGET_BIN}/pcraster
-    COMMAND ${CMAKE_COMMAND} -E copy
+        $<TARGET_FILE_DIR:pcrcalc>/pcraster
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
         ${CMAKE_CURRENT_SOURCE_DIR}/pcraster/matplotlib.py
-        ${_TARGET_BIN}/pcraster
-
-    DEPENDS
-        _pcraster
+        $<TARGET_FILE_DIR:pcrcalc>/pcraster
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        ${CMAKE_CURRENT_BINARY_DIR}/__about__.py
+        $<TARGET_FILE_DIR:pcrcalc>/pcraster/__about__.py
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        ${CMAKE_CURRENT_BINARY_DIR}/__init__.py
+        $<TARGET_FILE_DIR:pcrcalc>/pcraster/__init__.py
+    #DEPENDS
+    #    _pcraster
 )
 
 # TODO This target is used by others too.
-add_custom_target(
-    fill_python_directory_structure ALL
-    DEPENDS
-        ${_TARGET_BIN}/pcraster/numpy_operations.py
-)
+# add_custom_target(
+#     fill_python_directory_structure ALL
+#     DEPENDS
+#         $<TARGET_FILE_DIR:pcrcalc>/pcraster/numpy_operations.py
+# )
 
 #----------------------------------------------------------
 install(
@@ -198,8 +205,8 @@ install(
         pcraster/aguila.py
         pcraster/matplotlib.py
         ${CMAKE_CURRENT_BINARY_DIR}/operations.py
-        ${_TARGET_BIN}/pcraster/__init__.py
-        ${_TARGET_BIN}/pcraster/__about__.py
+        ${CMAKE_CURRENT_BINARY_DIR}/__init__.py
+        ${CMAKE_CURRENT_BINARY_DIR}/__about__.py
         ${PROJECT_SOURCE_DIR}/environment/script/forkscript.py
         ${PROJECT_SOURCE_DIR}/environment/script/pcr.py
         ${PROJECT_SOURCE_DIR}/environment/script/pcrstat.py
@@ -266,14 +273,14 @@ if(PCRASTER_BUILD_TEST)
         set_tests_properties(python_pcrcalcpy_pythonunittest
             PROPERTIES
                 ENVIRONMENT
-                    "PATH=${ENV_PATH}\\;${EXECUTABLE_OUTPUT_PATH};PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}\\;${EXECUTABLE_OUTPUT_PATH}"
+                    "PATH=${ENV_PATH}\\;${EXECUTABLE_OUTPUT_PATH};PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}\\;$<TARGET_FILE_DIR:pcrcalc>"
         )
     else()
         set_tests_properties(python_pcrcalcpy_pythonunittest
             PROPERTIES
                 ENVIRONMENT
                     # Also set a non-accessible path for default user (gh134)
-                    "PATH=/root/bin:$ENV{PATH};PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:${EXECUTABLE_OUTPUT_PATH}"
+                    "PATH=/root/bin:$ENV{PATH};PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:$<TARGET_FILE_DIR:pcrcalc>"
         )
     endif()
 

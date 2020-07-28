@@ -5,6 +5,7 @@
 #include <QPainter>
 #include <QtCharts/QLineSeries>
 #include <QtGui/QMouseEvent>
+#include <QtGlobal>
 
 
 // PCRaster library headers.
@@ -398,8 +399,11 @@ bool PlotVisualisation::intersectMarker(
       for(int j = 1; j < static_cast<int>(curve->pointsVector().length()); ++j) {
         point1 = point2;
         point2 = curve->at(j);
-
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
         intersectionFound = (markerLine.intersect(QLineF(point1, point2),
+#else
+        intersectionFound = (markerLine.intersects(QLineF(point1, point2),
+#endif
               &intersection) == QLineF::BoundedIntersection);
 
         if(intersectionFound) {
@@ -422,8 +426,11 @@ bool PlotVisualisation::intersectMarker(
 
 QPixmap PlotVisualisation::pixmap()
 {
-
+#if QT_VERSION < QT_VERSION_CHECK(5, 13, 0)
   QPixmap pixmap(QPixmap::grabWidget(this));
+#else
+  QPixmap pixmap(QWidget::grab());
+#endif
 
   return pixmap;
 }

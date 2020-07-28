@@ -19,7 +19,7 @@ create_sphinx_docs(
 
 add_dependencies(python_arrayed_variables_documentation
     python_arrayed_variables_dummy
-    fill_python_directory_structure
+    _pcraster
 )
 
 install(

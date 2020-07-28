@@ -45,6 +45,5 @@ if(PCRASTER_BUILD_DOCUMENTATION)
             _pcraster_multicore
             python_arrayed_variables_dummy
             python_modelling_framework_dummy
-            fill_python_directory_structure
     )
 endif()

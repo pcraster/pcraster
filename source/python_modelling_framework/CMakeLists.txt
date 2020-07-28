@@ -40,7 +40,7 @@ install(
 )
 
 set(FRAMEWORK_BUILD_DIRECTORY
-    ${EXECUTABLE_OUTPUT_PATH}/${CMAKE_CFG_INTDIR}/pcraster/framework
+    $<TARGET_FILE_DIR:pcrcalc>/pcraster/framework
 )
 
 # This enables us to test and use the code as if it where installed already.

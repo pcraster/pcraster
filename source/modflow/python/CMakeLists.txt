@@ -52,19 +52,17 @@ set_target_properties(_pcraster_modflow_python
 )
 
 add_dependencies(_pcraster_modflow_python
-    _pcraster fill_python_directory_structure
+    _pcraster
 )
 
 # configure_python_extension(_pcraster_modflow_python
 #     "_pcraster_modflow"
 # )
 
-set(_TARGET_BIN ${EXECUTABLE_OUTPUT_PATH}/${CMAKE_CFG_INTDIR})
-
 set_target_properties(_pcraster_modflow_python
     PROPERTIES
-        LIBRARY_OUTPUT_DIRECTORY  "${_TARGET_BIN}/pcraster"
-        RUNTIME_OUTPUT_DIRECTORY  "${_TARGET_BIN}/pcraster"
+        LIBRARY_OUTPUT_DIRECTORY  "$<TARGET_FILE_DIR:pcrcalc>/pcraster"
+        RUNTIME_OUTPUT_DIRECTORY  "$<TARGET_FILE_DIR:pcrcalc>/pcraster"
         OUTPUT_NAME               "_pcraster_modflow"
         INSTALL_RPATH             "\\\$ORIGIN/../../lib"
 )

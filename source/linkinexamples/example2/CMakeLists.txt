@@ -14,5 +14,5 @@ add_custom_command(
     POST_BUILD
         COMMAND ${CMAKE_COMMAND}
             ARGS -E copy ${CMAKE_CURRENT_SOURCE_DIR}/example2.xml
-                ${EXECUTABLE_OUTPUT_PATH}/${CMAKE_CFG_INTDIR}
+                $<TARGET_FILE_DIR:example2>
 )

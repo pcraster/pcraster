@@ -21,7 +21,7 @@ add_custom_command(
     POST_BUILD
         COMMAND ${CMAKE_COMMAND}
             ARGS -E copy ${CMAKE_CURRENT_SOURCE_DIR}/pcraster_modflow.xml
-                ${EXECUTABLE_OUTPUT_PATH}/${CMAKE_CFG_INTDIR}/
+                $<TARGET_FILE_DIR:pcraster_modflow>
 )
 
 install(
@@ -96,7 +96,7 @@ if(PCRASTER_BUILD_TEST)
   # the pcraster_modflow dll must be build first
   ADD_DEPENDENCIES(modflow_calc_DemoTest
       pcraster_modflow
-      fill_python_directory_structure
+      _pcraster
   )
 
   # modflow binary must be copied to execute unit tests
@@ -104,7 +104,7 @@ if(PCRASTER_BUILD_TEST)
     TARGET
       modflow_calc_DemoTest
     COMMAND ${CMAKE_COMMAND}
-      ARGS -E copy ${MF_BINARY} ${EXECUTABLE_OUTPUT_PATH}
+      ARGS -E copy ${MF_BINARY} $<TARGET_FILE_DIR:pcraster_modflow>
   )
 
     add_test(
@@ -142,11 +142,11 @@ if(PCRASTER_BUILD_TEST)
     string(REPLACE ";" "\\;" ENV_PATH "${ENV_PATH}")
     # argument is a 'cmake' ; separated list of values, therefore escape the environment path separator
     set_tests_properties(modflow_calc_DemoTest modflow_python_unit_tests PROPERTIES
-      ENVIRONMENT "PATH=${ENV_PATH}\\;${EXECUTABLE_OUTPUT_PATH}\\;${CMAKE_CURRENT_BINARY_DIR};PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}\\;${EXECUTABLE_OUTPUT_PATH}"
+      ENVIRONMENT "PATH=${ENV_PATH}\\;$<TARGET_FILE_DIR:pcrcalc>\\;${CMAKE_CURRENT_BINARY_DIR};PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}\\;$<TARGET_FILE_DIR:pcrcalc>"
     )
   else()
     set_tests_properties(modflow_calc_DemoTest modflow_python_unit_tests PROPERTIES
-      ENVIRONMENT "PATH=${EXECUTABLE_OUTPUT_PATH}:${CMAKE_CURRENT_BINARY_DIR}:$ENV{PATH};PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:${EXECUTABLE_OUTPUT_PATH}"
+      ENVIRONMENT "PATH=$<TARGET_FILE_DIR:pcrcalc>:${CMAKE_CURRENT_BINARY_DIR}:$ENV{PATH};PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:$<TARGET_FILE_DIR:pcrcalc>"
     )
   endif()
 

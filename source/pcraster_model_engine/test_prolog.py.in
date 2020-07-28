@@ -64,19 +64,19 @@ for f in filenames:
 # chmod -R a+rwx ./*
 #
 
-if platform.system() == 'Windows':
-  sfile = "example1.dll"
-  dfile = "noXMLLinkIn.dll"
-elif platform.system() == 'Darwin':
-  sfile = "libexample1.dylib"
-  dfile = "libnoXMLLinkIn.dylib"
-elif platform.system() == 'Linux':
-  sfile = "libexample1.so"
-  dfile = "libnoXMLLinkIn.so"
-else:
-  raise RuntimeError("Unknown platform in model engine unit tests")
+# if platform.system() == 'Windows':
+#   sfile = "example1.dll"
+#   dfile = "noXMLLinkIn.dll"
+# elif platform.system() == 'Darwin':
+#   sfile = "libexample1.dylib"
+#   dfile = "libnoXMLLinkIn.dylib"
+# elif platform.system() == 'Linux':
+#   sfile = "libexample1.so"
+#   dfile = "libnoXMLLinkIn.so"
+# else:
+#   raise RuntimeError("Unknown platform in model engine unit tests")
 
-shutil.copy(os.path.join("@EXECUTABLE_OUTPUT_PATH@", "@CMAKE_CFG_INTDIR@", sfile), os.path.join("@EXECUTABLE_OUTPUT_PATH@", "@CMAKE_CFG_INTDIR@", dfile))
+# shutil.copy(os.path.join("@EXECUTABLE_OUTPUT_PATH@", "@CMAKE_CFG_INTDIR@", sfile), os.path.join("@EXECUTABLE_OUTPUT_PATH@", "@CMAKE_CFG_INTDIR@", dfile))
 
 
 

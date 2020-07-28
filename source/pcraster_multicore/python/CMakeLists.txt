@@ -1,15 +1,15 @@
 configure_file(scripts/__init__.py.in
-    ${PROJECT_BINARY_DIR}/bin/pcraster/multicore/__init__.py
+    __init__.py
     COPYONLY
 )
 
 configure_file(scripts/operations.py.in
-    ${PROJECT_BINARY_DIR}/bin/pcraster/multicore/_operations.py
+    _operations.py
     COPYONLY
 )
 
 configure_file(scripts/operators.py.in
-    ${PROJECT_BINARY_DIR}/bin/pcraster/multicore/_operators.py
+    _operators.py
     COPYONLY
 )
 
@@ -125,7 +125,19 @@ set_target_properties(_pcraster_multicore
 
 add_dependencies(_pcraster_multicore
     _pcraster
-    fill_python_directory_structure # Refactor
+)
+
+add_custom_command(
+    TARGET _pcraster_multicore POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            ${CMAKE_CURRENT_BINARY_DIR}/__init__.py
+            $<TARGET_FILE_DIR:pcrcalc>/pcraster/multicore/__init__.py
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            ${CMAKE_CURRENT_BINARY_DIR}/_operators.py
+            $<TARGET_FILE_DIR:pcrcalc>/pcraster/multicore/_operators.py
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            ${CMAKE_CURRENT_BINARY_DIR}/_operations.py
+            $<TARGET_FILE_DIR:pcrcalc>/pcraster/multicore/_operations.py
 )
 
 
@@ -138,9 +150,9 @@ endif()
 set_target_properties(_pcraster_multicore
     PROPERTIES
         RUNTIME_OUTPUT_DIRECTORY
-            ${PROJECT_BINARY_DIR}/bin/pcraster/multicore
+            $<TARGET_FILE_DIR:pcrcalc>/pcraster/multicore
         LIBRARY_OUTPUT_DIRECTORY
-            ${PROJECT_BINARY_DIR}/bin/pcraster/multicore
+            $<TARGET_FILE_DIR:pcrcalc>/pcraster/multicore
         INSTALL_RPATH
             "\\\$ORIGIN/../../../lib"
 )

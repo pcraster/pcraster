@@ -38,7 +38,7 @@
     DEPENDS
       col2map
     DEPENDS
-      fill_python_directory_structure
+      _pcraster
     DEPENDS
       python_modelling_framework_dummy
     DEPENDS
@@ -55,11 +55,11 @@
     string(REPLACE ";" "\\;" ENV_PATH "${ENV_PATH}")
     # argument is a 'cmake' ; separated list of values, therefore escape the environment path separator
     set_tests_properties(python_arrayed_variables_unit_tests PROPERTIES
-      ENVIRONMENT "PATH=${ENV_PATH}\\;${EXECUTABLE_OUTPUT_PATH};PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}\\;${EXECUTABLE_OUTPUT_PATH}"
+      ENVIRONMENT "PATH=${ENV_PATH}\\;$<TARGET_FILE_DIR:pcrcalc>;PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}\\;$<TARGET_FILE_DIR:pcrcalc>"
     )
   else()
     set_tests_properties(python_arrayed_variables_unit_tests PROPERTIES
-      ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:${EXECUTABLE_OUTPUT_PATH}"
+      ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:$<TARGET_FILE_DIR:pcrcalc>"
     )
   endif()
 

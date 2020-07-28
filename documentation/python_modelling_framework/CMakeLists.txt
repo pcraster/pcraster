@@ -24,7 +24,7 @@ create_sphinx_docs(
 
 add_dependencies(python_modelling_framework_documentation
     python_modelling_framework_dummy
-    fill_python_directory_structure
+    _pcraster
 )
 
 install(

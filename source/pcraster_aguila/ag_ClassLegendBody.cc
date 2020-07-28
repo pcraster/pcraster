@@ -5,6 +5,7 @@
 #include "ag_ClassDrawProps.h"
 #include "ag_DataObject.h"
 #include "ag_DataProperties.h"
+#include <QtGlobal>
 
 
 
@@ -68,7 +69,11 @@ int ClassLegendBody::maxWidthLabel() const
   for(size_t i = 0; i < d_drawProperties.nrClasses(); ++i) {
     label = d_drawProperties.label(i);
     result = std::max<int>(result,
-         qApp->fontMetrics().width(QString(label.c_str())));
+#if QT_VERSION < QT_VERSION_CHECK(5, 11, 0)
+        qApp->fontMetrics().width(QString(label.c_str())));
+#else
+        qApp->fontMetrics().horizontalAdvance(QString(label.c_str())));
+#endif
          // qApp->desktop()->fontMetrics().width(QString(label.c_str())));
   }
 
@@ -180,7 +185,11 @@ int ClassLegendBody::width() const
   switch(d_guide.valueScale()) {
     case VS_LDD: {
       result = keySize().width() + labelOffset().width() +
-         qApp->fontMetrics().width("flow direction");
+#if QT_VERSION < QT_VERSION_CHECK(5, 11, 0)
+        qApp->fontMetrics().width("flow direction");
+#else
+        qApp->fontMetrics().horizontalAdvance("flow direction");
+#endif
 
       break;
     }

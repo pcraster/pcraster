@@ -48,6 +48,11 @@ void calc::SpatialImpl::write()
 calc::SpatialImpl::~SpatialImpl()
 {
   // no bookkeeping if error state
-  if (!std::uncaught_exception())
+#if __cpp_lib_uncaught_exceptions
+  if (!std::uncaught_exceptions()) {
+#else
+  if (!std::uncaught_exception()) {
+#endif
     d_fw.adjustMinMax(d_min,d_max);
+  }
 }

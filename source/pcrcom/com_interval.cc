@@ -18,6 +18,7 @@
 #define INCLUDED_COM_MATH
 #endif
 #include <boost/spirit/include/classic_core.hpp>
+#include <boost/spirit/include/classic_assign_actor.hpp>
 #ifndef INCLUDED_BOOST_ALGORITHM_STRING_TRIM
 #include <boost/algorithm/string/trim.hpp>
 #define INCLUDED_BOOST_ALGORITHM_STRING_TRIM
@@ -30,6 +31,8 @@
 #include <string>
 #define INCLUDED_STRING
 #endif
+
+#include <optional>
 
 // PCRaster library headers.
 
@@ -317,17 +320,9 @@ std::string com::BetweenLimits<R>::msg() const
   return d_lowerLimit->msg()+" and "+d_upperLimit->msg();
 }
 
-#ifndef INCLUDED_BOOST_OPTIONAL
-#include <boost/optional.hpp>
-#define INCLUDED_BOOST_OPTIONAL
-#endif
-#ifndef INCLUDED_BOOST_BIND
-#include <boost/bind.hpp>
-#define INCLUDED_BOOST_BIND
-#endif
 
 namespace com {
-   typedef boost::optional<double> OD;
+   typedef std::optional<double> OD;
 
 static void spiritParser(
      const std::string& str,
@@ -345,9 +340,6 @@ static void spiritParser(
         | ( '[' | '<' ) real? ',' real? (']'|'>')
       )
    */
-   // TODO model this like spirt's predefined action assign
-   //      to elimninate this macro
-#define RESET(x) boost::bind(&OD::reset,&x,_1)
 
    // TODO how te define trailing space correctly in parser?
    std::string copyStr(str);
@@ -356,12 +348,12 @@ static void spiritParser(
 
    bool correct=parse(copyStr.begin(),copyStr.end(),
         //  Begin grammar
-          (   real_p[RESET(singleValue)]
+          (   real_p[assign_a(singleValue)]
               | (
                  ( ch_p('[')[append(ranges)] |
                    ch_p('<')[append(ranges)] )
-                    >> (!real_p[RESET(low)]) >> ','
-                    >>  !real_p[RESET(high)]
+                    >> (!real_p[assign_a(low)]) >> ','
+                    >>  !real_p[assign_a(high)]
                     >>
                  ( ch_p(']')[append(ranges)] |
                    ch_p('>')[append(ranges)] )

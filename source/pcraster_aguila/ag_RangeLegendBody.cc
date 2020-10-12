@@ -138,11 +138,19 @@ int RangeLegendBody::maxLengthLabel() const
 
   if(_drawProperties.rawValueClassifier()->algorithm() ==
        com::Classifier::USERDEFINED) {
+#if QT_VERSION < QT_VERSION_CHECK(5, 11, 0)
     length = qApp->fontMetrics().width(QString("Not distinguishable"));
+#else
+    length = qApp->fontMetrics().horizontalAdvance(QString("Not distinguishable"));
+#endif
   }
   else {
     for(size_t i = 0; i <= _drawProperties.nrClasses(); ++i) {
+#if QT_VERSION < QT_VERSION_CHECK(5, 11, 0)
       length = std::max<int>(length, qApp->fontMetrics().width(label(i)));
+#else
+      length = std::max<int>(length, qApp->fontMetrics().horizontalAdvance(label(i)));
+#endif
     }
   }
 
@@ -153,9 +161,12 @@ int RangeLegendBody::maxLengthLabel() const
 
 int RangeLegendBody::keyBoxHeight() const
 {
-
   return _drawProperties.drawerType() == VECTORS
+#if QT_VERSION < QT_VERSION_CHECK(5, 11, 0)
          ? qApp->fontMetrics().width(QString("Cell length"))
+#else
+         ? qApp->fontMetrics().horizontalAdvance(QString("Cell length"))
+#endif
          : _maxKeyBoxHeight;
 }
 

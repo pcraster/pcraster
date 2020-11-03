@@ -860,22 +860,25 @@ calc::Field* array_to_field(
         throw std::logic_error(
             "No valid raster defined: Set clone or load map from file");
     }
-    if(PyArray_NDIM((PyArrayObject*)array.ptr()) != 2) {
-        throw std::logic_error(
-            "Dimension error: Rank of input array must be 2");
+
+    pybind11::buffer_info info = array.request();
+
+    if(info.ndim != 2){
+      throw std::invalid_argument("Input must be two-dimensional NumPy array");
     }
 
-    size_t const nr_cells_in_array =
-        PyArray_DIM((PyArrayObject*)array.ptr(), 0) *
-        PyArray_DIM((PyArrayObject*)array.ptr(), 1);
-    size_t const nr_cells_in_field = space.nrCells();
+    if(info.shape[0] != space.nrRows()){
+      throw std::logic_error((boost::format(
+            "Number of rows from input array (%1%) and current raster (%2%) are different")
+            % info.shape[0]
+            % space.nrRows()).str().c_str());
+    }
 
-    if(nr_cells_in_array != nr_cells_in_field){
-        throw std::logic_error((boost::format(
-            "Size mismatch: Number of array elements is %1%, number of raster "
-            "cells is %2%")
-            % nr_cells_in_array
-            % nr_cells_in_field).str().c_str());
+    if(info.shape[1] != space.nrCols()){
+      throw std::logic_error((boost::format(
+            "Number of columns from input array (%1%) and current raster (%2%) are different")
+            % info.shape[1]
+            % space.nrCols()).str().c_str());
     }
 
     int const type = PyArray_TYPE((PyArrayObject*)array.ptr());

@@ -6,8 +6,10 @@ Changes
 ..
 .. This is a bug fix release for 4.3. We fixed:
 ..
-.. * Aguila, incorrect x-axis display for timeseres (`#303 <https://github.com/pcraster/pcraster/issues/303>`_)
-.. * Aguila, unhandled exception thrown instead of error messages on macOS (`#302 <https://github.com/pcraster/pcraster/issues/302>`_)
+.. * Aguila: incorrect x-axis display for timeseres (`#303 <https://github.com/pcraster/pcraster/issues/303>`_)
+.. * Aguila: unhandled exception thrown instead of error messages on macOS (`#302 <https://github.com/pcraster/pcraster/issues/302>`_)
+.. * An initialisation error when paths in PATH do not exist (`#134 <https://github.com/pcraster/pcraster/issues/134>`_)
+.. * Error checking for numpy2pcr (`#317 <https://github.com/pcraster/pcraster/issues/317>`_)
 
 
 PCRaster 4.3.0

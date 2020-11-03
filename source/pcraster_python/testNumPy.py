@@ -556,3 +556,27 @@ class TestNumPy(testcase.TestCase):
           mem_increase = True
 
       self.assertEqual(mem_increase, False)
+
+
+  def test_004(self):
+      """ numpy2pcr with different incorrect shapes """
+
+      pcraster.setclone(3, 4, 1, 0, 0)
+      a = numpy.array([12, 5, 21, 9, 9, 7, 3, 2, 20, 8, 2, -3])
+      with self.assertRaises(Exception) as context_manager:
+          n2p = pcraster.numpy2pcr(pcraster.Nominal, a, 20)
+      self.assertEqual(str(context_manager.exception),
+          "Input must be two-dimensional NumPy array")
+
+      a = numpy.array([[12, 5, 21], [9, 7, 3], [20, 8, 2], [5, 6, -3]])
+      with self.assertRaises(Exception) as context_manager:
+          n2p = pcraster.numpy2pcr(pcraster.Nominal, a, 20)
+      self.assertEqual(str(context_manager.exception),
+          "Number of rows from input array (4) and current raster (3) are different")
+
+      pcraster.setclone(3, 2, 1, 0, 0)
+      a = numpy.array([[12, 5, 21], [9, 7, 3], [20, 8, -3]])
+      with self.assertRaises(Exception) as context_manager:
+          n2p = pcraster.numpy2pcr(pcraster.Nominal, a, 20)
+      self.assertEqual(str(context_manager.exception),
+          "Number of columns from input array (3) and current raster (2) are different")

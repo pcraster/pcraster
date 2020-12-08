@@ -33,7 +33,7 @@ enum Errno {
   \sa com_exception.cc for full details.
   \todo Help! can not get docs of com::Errno working
 */
-class PCR_AG_DECL Exception : public virtual std::exception
+class PCR_AG_DECL Exception
 {
 
 private:
@@ -90,8 +90,6 @@ public:
   std::string      getMessages         () const;
 
   std::string      messages            () const;
-
-  const char*      what                () const noexcept override;
 
   std::string const& operator[]        (size_t i) const;
 

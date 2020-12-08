@@ -2,6 +2,7 @@
 
 // External headers.
 #include <QPainter>
+#include <QPainterPath>
 #include <ogr_core.h>
 #include <ogr_feature.h>
 #include <ogr_geometry.h>

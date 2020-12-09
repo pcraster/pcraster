@@ -5,7 +5,7 @@
 
 
 
-namespace bfs = boost::filesystem;
+namespace fs = boost::filesystem;
 
 
 namespace mf {
@@ -18,10 +18,10 @@ std::string execution_path(const std::string& directory, const std::string& file
     return filename;
   }
 
-  bfs::path p{directory};
-  bfs::file_status s = bfs::status(p);
+  fs::path p{directory};
+  fs::file_status s = fs::status(p);
 
-  if(bfs::is_directory(s) == false){
+  if(fs::is_directory(s) == false){
     throw std::runtime_error("Can not write file '" + filename + "', directory '" + directory + "' does not exist\n");
   }
 

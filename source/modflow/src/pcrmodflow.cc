@@ -1212,7 +1212,7 @@ bool PCRModflow::runModflow(const std::string & working_directory) {
     // User provided string
     else{
       QString program{QString::fromStdString(run_command)};
-      QStringList arg{QString::fromStdString(run_arguments)};
+      QStringList arg{QString::fromStdString(run_arguments).split(" ")};
       process.start(program, arg);
       process.waitForFinished(-1);
 
@@ -1272,12 +1272,13 @@ void PCRModflow::modflow_converged() {
       getline(fileInput, line);
       if ((offset = line.find(search, 0)) != std::string::npos) {
         d_modflow_converged = false;
-        printList();
-        std::cerr << std::endl;
-        std::cerr << "Error: MODFLOW failed to converge" << std::endl;
       }
     }
     fileInput.close();
+  }
+  if(d_modflow_converged == false){
+    printList();
+    std::cerr << "\nError: MODFLOW failed to converge" << std::endl;
   }
 }
 
@@ -1290,7 +1291,7 @@ void PCRModflow::printList() {
     exit(1);
   }
   std::cout << "  Tail of global list file " << filename << ":" << std::endl;
-  std::ifstream file;  // Datei-Handle
+  std::ifstream file;
   std::string line;
   file.open(filename, std::ios::in);
   file.seekg(0, std::ios::end);

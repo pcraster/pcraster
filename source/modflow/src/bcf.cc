@@ -124,7 +124,7 @@ void BCF::writeBCF(){
   content << " " << d_iwdflg;
   content << " " << d_wetfct;
   content << " " << d_iwetit;
-  content << " " << d_ihdwet << std::endl;
+  content << " " << d_ihdwet << "\n";
   //
   // NLAY layer type
   //
@@ -145,10 +145,10 @@ void BCF::writeBCF(){
   }*/
 
 
-  content << std::endl;
+  content << "\n";
   //
   // TRPY
-  content << "CONSTANT " << d_trpy << " TRPY" << std::endl;
+  content << "CONSTANT " << d_trpy << " TRPY\n";
   // in case of wetting values must be set
   if((d_iwdflg<0.0)||(d_iwdflg>0.0)){
     std::stringstream stmp;
@@ -252,14 +252,14 @@ void BCF::writeBCF(){
 void BCF::calcTran(std::stringstream &aStream, size_t layer, const std::string &msg){
   size_t cols = d_mf->d_nrOfColumns;
   size_t rowWrap = d_mf->d_nrOfColumns - 1;
-  aStream << msg << std::endl;
+  aStream << msg << "\n";
 
   for(size_t j = 0; j < d_mf->d_nrOfCells; ++j){
     // tran = height * hcond
     float tran = d_mf->d_baseArea->cell(j)[layer] * d_mf->d_hCond->cell(j)[layer];
     aStream << " " << tran;
     if((j % cols) == rowWrap){
-      aStream << std::endl;
+      aStream << "\n";
     }
   }
 }
@@ -299,7 +299,7 @@ void BCF::calcVCond(std::stringstream &aStream, size_t layer, const std::string 
 //   }
   size_t cols = d_mf->d_nrOfColumns;
   size_t rowWrap = d_mf->d_nrOfColumns - 1;
-  aStream << msg << std::endl;
+  aStream << msg << "\n";
   bool res = hasConfinedSubLayer(layer);
 
   // if confining bed below
@@ -326,7 +326,7 @@ void BCF::calcVCond(std::stringstream &aStream, size_t layer, const std::string 
 
       aStream << " " << vcond;
       if((i % cols) == rowWrap){
-        aStream << std::endl;
+        aStream << "\n";
       }
     }
   }
@@ -349,7 +349,7 @@ void BCF::calcVCond(std::stringstream &aStream, size_t layer, const std::string 
       float vcond = 1.0f / denominator;
       aStream  << " " << vcond ;
       if((i % cols) == rowWrap){
-        aStream << std::endl;
+        aStream << "\n";
       }
     }
   }
@@ -1033,7 +1033,7 @@ void BCF::write_vcond(std::string const& path)  {
 
           content << " " << vcond;
           if((i % cols) == rowWrap){
-            content << std::endl;
+            content << "\n";
           }
         }
       }
@@ -1061,7 +1061,7 @@ void BCF::write_vcond(std::string const& path)  {
           }
           content  << " " << vcond ;
           if((i % cols) == rowWrap){
-            content << std::endl;
+            content << "\n";
           }
         }
       }

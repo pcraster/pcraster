@@ -85,13 +85,13 @@ void Common::writeMatrix(std::stringstream& aStream, const std::string& aString,
   size_t count  = 0;
   std::vector<int>::iterator position = std::find(l2BlockLayer.begin(), l2BlockLayer.end(), static_cast<int>(layer));
   if(position != l2BlockLayer.end()){
-    aStream << aString << std::endl;
+    aStream << aString << "\n";
     for(size_t j=0;j<d_mf->d_nrOfRows;j++){
       for(size_t k = 0; k<d_mf->d_nrOfColumns; k++){
         aStream  << bdata.cell(count)[layer] << " ";
         count++;
       }
-      aStream << std::endl;
+      aStream << "\n";
     }
   }
 }
@@ -124,7 +124,7 @@ void Common::writeMatrix(std::stringstream& aStream, const std::string& aString,
       aStream << " " << bdata.cell(count)[layer];
       count++;
     }
-    aStream << std::endl;
+    aStream << "\n";
   }
 }
 

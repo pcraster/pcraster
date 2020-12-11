@@ -108,14 +108,7 @@ std::string com::Exception::getMessages() const
   return messages();
 }
 
-//! Returns the error message.
-/*!
-  \return    Message.
-*/
-inline const char* com::Exception::what() const noexcept
-{
-  return messages().c_str();
-}
+
 
 /*!
   \return A string containing all messages

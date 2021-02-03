@@ -173,6 +173,7 @@ The following script shows the minimal user class that fulfills the requirements
 In the class of the user model the following methods must be implemented:
 
 .. py:method:: initial()
+   :noindex:
 
    This method contains the code to initialise variables used in the model.
 

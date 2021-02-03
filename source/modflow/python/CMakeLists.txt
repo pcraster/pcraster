@@ -53,6 +53,7 @@ set_target_properties(_pcraster_modflow_python
 
 add_dependencies(_pcraster_modflow_python
     _pcraster
+    pcraster_modflow
 )
 
 # configure_python_extension(_pcraster_modflow_python

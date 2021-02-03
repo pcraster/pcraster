@@ -117,6 +117,3 @@ The usage information will be shown:
      l    : use less memory but more temporary disk storage
      t    : test argument substitution
 
-
-.. include:: build.rst
-

@@ -1,8 +1,15 @@
 #include "ag_DataManager.h"
-#include <boost/bind.hpp>
+  #include <boost/version.hpp>
+  #if BOOST_VERSION > 107200
+    #include <boost/bind/bind.hpp>
+  #else
+    #include <boost/bind.hpp>
+  #endif
 #include "dev_Algorithm.h"
 
-
+#if BOOST_VERSION > 107200
+  using namespace boost::placeholders;
+#endif
 
 /*!
   \file

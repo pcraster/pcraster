@@ -1,5 +1,5 @@
 Compiling from source
----------------------
+=====================
 
 .. note::
 
@@ -9,7 +9,7 @@ Compiling from source
 
 
 Requirements
-~~~~~~~~~~~~
+------------
 
 Building PCRaster depends on various software tools, development packages and libraries, at least:
 

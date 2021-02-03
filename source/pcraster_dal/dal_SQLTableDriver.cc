@@ -5,7 +5,12 @@
 
 // Library headers.
 #ifndef INCLUDED_BOOST_BIND
-#include <boost/bind.hpp>
+  #include <boost/version.hpp>
+  #if BOOST_VERSION > 107200
+    #include <boost/bind/bind.hpp>
+  #else
+    #include <boost/bind.hpp>
+  #endif
 #define INCLUDED_BOOST_BIND
 #endif
 
@@ -64,6 +69,9 @@
   This file contains the implementation of the SQLTableDriver class.
 */
 
+#if BOOST_VERSION > 107200
+  using namespace boost::placeholders;
+#endif
 
 #ifndef QT_NO_SQL
 

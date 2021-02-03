@@ -1,5 +1,4 @@
 #include "ag_RangeDrawProps.h"
-#include <boost/bind.hpp>
 #include <boost/format.hpp>
 #include <boost/lexical_cast.hpp>
 #include "dev_ToString.h"
@@ -7,7 +6,6 @@
 #include "ag_ColourSelector.h"
 #include "com_classifier.h"
 #include "com_rangemap.h"
-
 
 
 /*!

@@ -22,7 +22,12 @@
 #define INCLUDED_IOSTREAM
 #endif
 #ifndef INCLUDED_BOOST_BIND
-#include <boost/bind.hpp>
+  #include <boost/version.hpp>
+  #if BOOST_VERSION > 107200
+    #include <boost/bind/bind.hpp>
+  #else
+    #include <boost/bind.hpp>
+  #endif
 #define INCLUDED_BOOST_BIND
 #endif
 // PCRaster library headers.
@@ -33,7 +38,11 @@
 #define INCLUDED_COM_INTERVAL
 #endif
 
+#if BOOST_VERSION > 107200
+  using namespace boost::placeholders;
+#endif
 
+  
 namespace com {
   // IntervalMap declarations.
 }

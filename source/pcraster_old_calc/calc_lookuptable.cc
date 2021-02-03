@@ -24,7 +24,12 @@
 #endif
 
 #include <functional>
-#include <boost/bind.hpp>
+#include <boost/version.hpp>
+#if BOOST_VERSION > 107200
+  #include <boost/bind/bind.hpp>
+#else
+  #include <boost/bind.hpp>
+#endif
 
 #ifndef INCLUDED_CALC_LIBERROR
 #include "calc_liberror.h"
@@ -41,6 +46,9 @@
 #define INCLUDED_CALC_QUOTE
 #endif
 
+#if BOOST_VERSION > 107200
+  using namespace boost::placeholders;
+#endif
 
 LOOK_UP_TABLE *calc::LookupTable::createOldStyle(
   const std::string &fileName)

@@ -1,7 +1,12 @@
 #include "ag_Table.h"
 
 // Library headers.
-#include <boost/bind.hpp>
+#include <boost/version.hpp>
+#if BOOST_VERSION > 107200
+  #include <boost/bind/bind.hpp>
+#else
+  #include <boost/bind.hpp>
+#endif
 #include <boost/filesystem.hpp>
 #include <boost/format.hpp>
 #include <boost/lexical_cast.hpp>
@@ -17,6 +22,9 @@
 // Module headers.
 
 
+#if BOOST_VERSION > 107200
+  using namespace boost::placeholders;
+#endif
 
 /*!
   \file

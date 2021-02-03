@@ -25,10 +25,10 @@
 #define INCLUDED_BOOST_FILESYSTEM
 #endif
 
-#ifndef INCLUDED_BOOST_BIND
-#include <boost/bind.hpp>
-#define INCLUDED_BOOST_BIND
-#endif
+//#ifndef INCLUDED_BOOST_BIND
+//#include <boost/bind.hpp>
+//#define INCLUDED_BOOST_BIND
+//#endif
 
 #ifndef INCLUDED_BOOST_SHARED_PTR
 #include <boost/shared_ptr.hpp>

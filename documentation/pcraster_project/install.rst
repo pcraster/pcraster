@@ -66,14 +66,17 @@ Testing your installation
 -------------------------
 
 You can execute a few basic steps to check if PCRaster works properly in your conda environment.
-In case you have not done yet, activate your PCRaster environment and start Python:
+In case you have not done yet, activate your PCRaster environment.
+Then you can test the visualisation tool Aguila by starting it from the command prompt. It will show its help page.
+Afterwards start Python:
 
 .. code-block:: bash
 
    $ conda activate pcraster37
+   $ aguila -h
    $ python
 
-Then import the PCRaster module and create a raster with 6 rows, 4 columns, cell length 1 and 0, 0 as origin.
+Import the PCRaster module and create a raster with 6 rows, 4 columns, cell length 1 and 0, 0 as origin.
 Fill the entire raster with random values drawn from a uniform distribution and display the result:
 
 

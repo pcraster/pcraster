@@ -6,10 +6,12 @@ Changes
 ..
 .. This is a bug fix release for 4.3. We fixed:
 ..
-.. * Aguila: incorrect x-axis display for timeseres (`#303 <https://github.com/pcraster/pcraster/issues/303>`_)
+.. * Aguila: incorrect x-axis display for timeseries and less than three timesteps (`#303 <https://github.com/pcraster/pcraster/issues/303>`_)
 .. * Aguila: unhandled exception thrown instead of error messages on macOS (`#302 <https://github.com/pcraster/pcraster/issues/302>`_)
-.. * An initialisation error when paths in PATH do not exist (`#134 <https://github.com/pcraster/pcraster/issues/134>`_)
+.. * An initialisation error when paths in the environment variable PATH do not exist (`#134 <https://github.com/pcraster/pcraster/issues/134>`_)
 .. * Error checking for numpy2pcr (`#317 <https://github.com/pcraster/pcraster/issues/317>`_)
+.. * Redundant error output in PCRaster Modflow (`#321 <https://github.com/pcraster/pcraster/issues/321>`_)
+.. * Ignoring well pumping rates close to 0 in PCRaster Modflow (`#324 <https://github.com/pcraster/pcraster/issues/324>`_)
 
 
 PCRaster 4.3.0

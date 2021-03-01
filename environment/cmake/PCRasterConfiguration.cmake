@@ -183,8 +183,21 @@ endif()
 
 find_package(XercesC REQUIRED)
 
-set(DEVBASE_GDAL_REQUIRED TRUE)  # Version >= 2.0.0.
-
+find_package(GDAL 3.0 REQUIRED)
+message(STATUS "Found GDAL: ")
+message(STATUS "  includes:  " ${GDAL_INCLUDE_DIRS})
+message(STATUS "  libraries: " ${GDAL_LIBRARIES})
+message(STATUS "  version:   " ${GDAL_VERSION})
+find_program(GDAL_TRANSLATE gdal_translate
+    HINTS ${GDAL_INCLUDE_DIRS}/../bin
+)
+if(EXISTS "${GDAL_INCLUDE_DIRS}/../../share/gdal")
+    set(GDAL_DATA "${GDAL_INCLUDE_DIRS}/../../share/gdal")
+elseif(EXISTS "${GDAL_INCLUDE_DIRS}/../share/gdal")
+    set(GDAL_DATA "${GDAL_INCLUDE_DIRS}/../share/gdal")
+else()
+    message(FATAL_ERROR "GDAL data dir not found")
+endif()
 
 
 find_package(Python3 COMPONENTS Interpreter Development NumPy)

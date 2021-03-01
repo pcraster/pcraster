@@ -182,9 +182,7 @@ Dal::Dal(
 
   if(addAllDrivers) {
     #include "autoAddRasterDrivers.cc"
-#ifdef DEVBASE_GDAL_LIBRARY_HAS_OGR_SUPPORT
     #include "autoAddFeatureDrivers.cc"
-#endif
     #include "autoAddTableDrivers.cc"
     #include "autoAddVectorDrivers.cc"
     #include "autoAddMatrixDrivers.cc"

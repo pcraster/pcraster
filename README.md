@@ -22,5 +22,5 @@ conda install -c conda-forge pcraster
 
 | OS | Compilers | Status |
 |----|-----------|--------|
-| Linux, macOS | gcc-7, gcc-8, clang-6 | [![Linux build Status](https://travis-ci.org/pcraster/pcraster.svg?branch=master)](https://travis-ci.org/pcraster/pcraster) |
+| Linux, macOS | gcc-9, gcc-10, clang-11 | [![Linux build Status](https://travis-ci.org/pcraster/pcraster.svg?branch=master)](https://travis-ci.org/pcraster/pcraster) |
 | Windows | vs-2017 | Checked manually |

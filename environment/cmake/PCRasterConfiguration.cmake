@@ -183,7 +183,7 @@ endif()
 
 find_package(XercesC REQUIRED)
 
-find_package(GDAL 3.0 REQUIRED)
+find_package(GDAL 2.4 REQUIRED)
 message(STATUS "Found GDAL: ")
 message(STATUS "  includes:  " ${GDAL_INCLUDE_DIRS})
 message(STATUS "  libraries: " ${GDAL_LIBRARIES})

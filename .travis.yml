@@ -65,15 +65,15 @@ matrix:
           osx_image: xcode11.4
           env:
               - TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
-          #addons:
-              #homebrew:
-                  #packages:
-                      ##- llvm
-                      ##- qt5
-                      ##- xerces-c
-                      ##- ncurses
-                      ##- boost
-                      ##- gdal
+          addons:
+              homebrew:
+                  packages:
+                      #- llvm
+                      #- qt5
+                      #- xerces-c
+                      - ncurses
+                      #- boost
+                      #- gdal
                   #update: true
           before_install:
               #- brew update

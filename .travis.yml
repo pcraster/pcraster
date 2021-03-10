@@ -88,9 +88,13 @@ matrix:
           before_script:
               - mkdir $TRAVIS_BUILD_DIR/build
               - cd $TRAVIS_BUILD_DIR/build
+              - ls -al /usr/local/opt/
+              - ls -al /usr/local/Cellar/
+              - ls -al /opt
+              - ls -al /usr/local/opt/ncurses/
               - export PATH="/usr/local/opt/qt/bin:$PATH"
               #- CC=/usr/local/opt/llvm@6/bin/clang CXX=/usr/local/opt/llvm@6/bin/clang++
-              - cmake -G"${TRAVIS_CMAKE_GENERATOR}" -DPCRASTER_BUILD_TEST=ON -DPCRASTER_BUILD_TEST_FERN=ON -DCMAKE_PREFIX_PATH=/usr/local/Cellar/ncurses -DCMAKE_RULE_MESSAGES=OFF ..
+              - cmake -G"${TRAVIS_CMAKE_GENERATOR}" -DPCRASTER_BUILD_TEST=ON -DPCRASTER_BUILD_TEST_FERN=ON -DCMAKE_PREFIX_PATH=/usr/local/opt/ncurses -DCMAKE_RULE_MESSAGES=OFF ..
           script:
               - cd $TRAVIS_BUILD_DIR
               - pwd

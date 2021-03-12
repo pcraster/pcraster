@@ -85,6 +85,7 @@ matrix:
               #- brew outdated cmake || brew upgrade cmake
               - cmake --version
               - pip3 install psutil
+              - pip3 install numpy
               - which python3
           before_script:
               - mkdir $TRAVIS_BUILD_DIR/build

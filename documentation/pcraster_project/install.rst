@@ -73,10 +73,10 @@ Afterwards start Python:
 .. code-block:: bash
 
    $ conda activate pcraster37
-   $ aguila -h
-   $ python
+   (pcraster37) $ aguila -h
+   (pcraster37) $ python
 
-Import the PCRaster module and create a raster with 6 rows, 4 columns, cell length 1 and 0, 0 as origin.
+Import the PCRaster module, print the version number and afterwards create a raster with 6 rows, 4 columns, cell length 1 and 0, 0 as origin.
 Fill the entire raster with random values drawn from a uniform distribution and display the result:
 
 
@@ -84,6 +84,7 @@ Fill the entire raster with random values drawn from a uniform distribution and 
 
    import pcraster as pcr
 
+   pcr.__version__
    pcr.setclone(6, 4, 1, 0, 0)
    pcr.aguila(pcr.uniform(1))
 
@@ -101,7 +102,7 @@ The usage information will be shown:
 
 .. code-block:: bash
 
-   $ pcrcalc
+   (pcraster37) $ pcrcalc
    pcrcalc 4.3.0 (linux/x86_64)
     USAGE: pcrcalc [options] "expression"
     or     pcrcalc [options] -f scriptFile
@@ -119,4 +120,3 @@ The usage information will be shown:
      m    : optimize with areamap MV compression
      l    : use less memory but more temporary disk storage
      t    : test argument substitution
-

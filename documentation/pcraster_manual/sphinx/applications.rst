@@ -1,9 +1,10 @@
 .. _applications:
 
-############
-Applications
-############
-This chapter describes the usage of all applications in the PCRaster package.
+#########################
+Command line applications
+#########################
+
+This chapter describes the usage of all command line applications in the PCRaster package.
 To get a the usage on the command line type the command name without any options.
 For example, typing:
 

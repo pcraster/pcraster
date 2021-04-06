@@ -4,24 +4,21 @@ Installing PCRaster
 Installing binaries
 -------------------
 
-
-
 PCRaster is available on |condaforgefeedstocksurl| and can be installed using conda.
 Supported platforms are Linux, macOS and Windows.
-
 
 We recommend to download and install |miniconda|.
 The user guide and short reference on conda can be found |minicondadoc|.
 After install you can check which Python versions are supported by PCRaster:
 
-.. code-block:: bash
+.. code-block:: console
 
    conda search -c conda-forge pcraster
 
 
 Afterwards you can create a new environment and install PCRaster, e.g. with:
 
-.. code-block:: bash
+.. code-block:: console
 
    conda create --name pcraster37 python=3.7 -c conda-forge
 
@@ -31,7 +28,7 @@ Afterwards you can create a new environment and install PCRaster, e.g. with:
 
 You can also combine these steps and install additional packages in one go e.g. by:
 
-.. code-block:: bash
+.. code-block:: console
 
    conda create --name pcraster37 -c conda-forge python=3.7 pcraster spyder matplotlib
 
@@ -70,7 +67,7 @@ In case you have not done yet, activate your PCRaster environment.
 Then you can test the visualisation tool Aguila by starting it from the command prompt. It will show its help page.
 Afterwards start Python:
 
-.. code-block:: bash
+.. code-block:: console
 
    $ conda activate pcraster37
    (pcraster37) $ aguila -h
@@ -100,7 +97,7 @@ Exit the Python interpreter and type ``pcrcalc``.
 The usage information will be shown:
 
 
-.. code-block:: bash
+.. code-block:: console
 
    (pcraster37) $ pcrcalc
    pcrcalc 4.3.0 (linux/x86_64)
@@ -120,3 +117,33 @@ The usage information will be shown:
      m    : optimize with areamap MV compression
      l    : use less memory but more temporary disk storage
      t    : test argument substitution
+
+
+
+Troubleshooting
+---------------
+
+Import of the ``pcraster`` module fails
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+An error message such as
+
+.. code-block:: console
+
+    Traceback (most recent call last):
+      File "C:\Software\pcraster\pcraster-4.2.1\python\pcraster\__init__.py", line 21, in <module>
+        from ._pcraster import *
+    ImportError: DLL load failed while importing _pcraster: Kan opgegeven module niet vinden.
+
+    During handling of the above exception, another exception occurred:
+
+    Traceback (most recent call last):
+      File "C:\script.py", line 1, in <module>
+        import pcraster as pcr
+      File "C:\Software\pcraster\pcraster-4.2.1\python\pcraster\__init__.py", line 55, in <module>
+        raise ImportError(msg)
+    ImportError: The 'pcraster' module was built for Python 3.6, the version used is 3.8
+
+indicates that an older version of PCRaster is available on the system, here located at ``C:\Software\pcraster\pcraster-4.2.1``.
+You need to remove the corresponding PCRaster entries of the PATH and PYTHONPATH environment variables.
+After starting a new terminal you can import the ``pcraster`` module.

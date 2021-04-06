@@ -27,8 +27,8 @@ Functional list of applications and operations
 
    secfunclist
 
-Applications
-------------
+Command line applications
+-------------------------
 
 .. toctree::
    :maxdepth: 2

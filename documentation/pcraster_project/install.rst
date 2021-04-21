@@ -123,6 +123,19 @@ The usage information will be shown:
 Troubleshooting
 ---------------
 
+
+Aguila fails to start on macOS with M1 processors
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Until now there is no native build of PCRaster for the Apple M1 platform (arm-osx64 on conda).
+Users report the successful working of our osx-64 version.
+Aguila, however, fails to start up.
+This might be resolved by adding the following environment variable:
+
+.. code-block:: console
+
+    export QT_MAC_WANTS_LAYER=1
+
 Import of the ``pcraster`` module fails
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

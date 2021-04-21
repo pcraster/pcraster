@@ -1,5 +1,5 @@
-Compiling from source
-=====================
+Compiling PCRaster from source
+==============================
 
 .. note::
 

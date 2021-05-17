@@ -172,6 +172,9 @@ add_custom_command(
     COMMAND ${CMAKE_COMMAND} -E copy
         ${CMAKE_CURRENT_SOURCE_DIR}/pcraster/matplotlib.py
         ${_TARGET_BIN}/pcraster
+    COMMAND ${CMAKE_COMMAND} -E copy
+        ${CMAKE_CURRENT_SOURCE_DIR}/pcraster/aguila.py
+        ${_TARGET_BIN}/pcraster
 
     DEPENDS
         _pcraster

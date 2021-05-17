@@ -21,7 +21,7 @@
 #include "ag_TableDataSources.h"
 #include "ag_VisEngine.h"
 
-
+#include <cstdlib>
 
 /*!
   \file
@@ -209,13 +209,16 @@ void PlotView::setXAxisScale()
 
   m_axisX->setRange(first, last);
 
-  if(nr_timesteps < 13) {
-    m_axisX->setTickType(QtCharts::QValueAxis::TicksDynamic);
-    m_axisX->setTickAnchor(first);
+  m_axisX->setTickType(QtCharts::QValueAxis::TicksDynamic);
+  m_axisX->setTickAnchor(first);
+  m_axisX->setRange(first, last);
+
+  if(nr_timesteps < 11) {
     m_axisX->setTickInterval(1);
   }
   else {
-    m_axisX->setTickType(QtCharts::QValueAxis::TicksFixed);
+    auto [quotient, remainder] = std::div(nr_timesteps - 1, 4);
+    m_axisX->setTickInterval(quotient);
   }
 
   m_axisX->setLabelFormat("%g");

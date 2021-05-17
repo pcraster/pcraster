@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os, math, string, unittest, warnings, sys, tempfile
-import testcase, testexamples, testNumPy, testPickle, test_cellvalue, testPCRaster
+import testcase, testexamples, testNumPy, testPickle, test_cellvalue, testPCRaster, test_aguila
 import import_test
 import pcraster
 import copy
@@ -440,6 +440,7 @@ suite.addTest(unittest.makeSuite(testNumPy.TestNumPy))
 suite.addTest(unittest.makeSuite(import_test.ImportTest))
 suite.addTest(unittest.makeSuite(testPickle.TestPickle))
 suite.addTest(unittest.makeSuite(testPCRaster.TestPCRaster))
+suite.addTest(unittest.makeSuite(test_aguila.TestAguila))
 
 result = unittest.TextTestRunner(verbosity=3).run(suite)
 test_result = (0 if result.wasSuccessful() else 1)

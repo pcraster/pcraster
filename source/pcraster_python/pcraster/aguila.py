@@ -2,6 +2,7 @@ import os
 import subprocess
 import threading
 import tempfile
+import pathlib
 import pcraster
 
 
@@ -28,6 +29,9 @@ class AguilaThread(threading.Thread):
                 "{} has type {}".format(argument, type(argument))
 
             if isinstance(argument, str):
+                if ' ' in argument:
+                    if pathlib.Path(argument).exists():
+                        argument = r'"{}"'.format(argument)
                 argument_list.append(argument)
             elif isinstance(argument, list):
                 argument_list.append(" + ".join(self.parse_arguments(argument)))
@@ -40,9 +44,15 @@ class AguilaThread(threading.Thread):
         return argument_list
 
     def run(self):
-        argument_list = [r'"{}"'.format(name) for name in self.parse_arguments(self.arguments)]
+        argument_list = self.parse_arguments(self.arguments)
         command = "aguila {}".format(" ".join(argument_list))
-        subprocess.call(command, shell=True)
+
+        if not 'pcraster_unit_test' in self.keywords.keys():
+            subprocess.call(command, shell=True)
+        else:
+            raise RuntimeError(command)
+
+
 
 
 def aguila(
@@ -57,6 +67,10 @@ def aguila(
     from a list of rasters ends in a single visualisation window.
     """
     thread = AguilaThread(*arguments, **keywords)
-    thread.start()
+    if not 'pcraster_unit_test' in keywords.keys():
+      thread.start()
+    else:
+      # For unit testing the exception needs to be forwarded to the tester
+      thread.run()
     # Don't join. Just return to the caller.
     # thread.join()

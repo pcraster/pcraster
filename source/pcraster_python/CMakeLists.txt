@@ -167,12 +167,19 @@ add_custom_command(
     # COMMAND ${CMAKE_COMMAND} -E remove $<TARGET_FILE:_pcraster_modflow_python>
 
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        ${CMAKE_CURRENT_BINARY_DIR}/operations.py $<TARGET_FILE_DIR:pcrcalc>/pcraster
+        ${CMAKE_CURRENT_BINARY_DIR}/operations.py
+        $<TARGET_FILE_DIR:pcrcalc>/pcraster
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
         ${CMAKE_CURRENT_SOURCE_DIR}/pcraster/operators.py
         $<TARGET_FILE_DIR:pcrcalc>/pcraster
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
         ${CMAKE_CURRENT_SOURCE_DIR}/pcraster/matplotlib.py
+        $<TARGET_FILE_DIR:pcrcalc>/pcraster
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        ${CMAKE_CURRENT_SOURCE_DIR}/pcraster/numpy_operations.py
+        $<TARGET_FILE_DIR:pcrcalc>/pcraster
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        ${CMAKE_CURRENT_SOURCE_DIR}/pcraster/aguila.py
         $<TARGET_FILE_DIR:pcrcalc>/pcraster
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
         ${CMAKE_CURRENT_BINARY_DIR}/__about__.py

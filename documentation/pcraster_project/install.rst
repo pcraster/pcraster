@@ -55,7 +55,7 @@ Always use the conda-forge channel when installing further packages into your PC
 
 .. |condaforgefeedstocksurl| raw:: html
 
-   <a href="https://conda-forge.org/feedstocks" target="_blank">conda-forge</a>
+   <a href="https://conda-forge.org/feedstock-outputs/index.html" target="_blank">conda-forge</a>
 
 
 

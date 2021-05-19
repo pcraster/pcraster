@@ -22,6 +22,37 @@ qt5_wrap_ui(
     SaveViewAsDialogBase.ui
 )
 
+if(PCRASTER_WITH_OPENGL)
+    add_library(pcraster_aguila_opengl_objects OBJECT
+        ag_Camera
+        ag_Cube
+        ag_Feedback
+        ag_GLVisualisation
+        ag_Map3D
+        ag_Map3DObject
+        ag_Map3DView
+        ag_Map3DWindow
+        ag_Scene
+        ag_SceneObject
+        ag_SceneView
+        ag_PostScript
+        ag_QuadDrawer
+        ag_Quaternion
+    )
+    target_compile_definitions(pcraster_aguila_opengl_objects
+        PRIVATE
+            PCR_DAL_SHARED_LINK
+            PCR_AG_SOURCE
+            PCR_AG_SHARED_LINK
+    )
+    target_include_directories(pcraster_aguila_opengl_objects
+        PRIVATE
+            ${Qt5OpenGL_INCLUDE_DIRS}
+            $<TARGET_PROPERTY:pcraster::math_utils,INTERFACE_INCLUDE_DIRECTORIES>
+            $<TARGET_PROPERTY:pcraster::dal,INTERFACE_INCLUDE_DIRECTORIES>
+    )
+endif()
+
 add_library(pcraster_aguila_objects OBJECT
     ag_Aguila
     ag_AguilaProgramOptions
@@ -174,37 +205,6 @@ target_compile_definitions(pcraster_aguila_objects
     PRIVATE
         PCR_DAL_SHARED_LINK
 )
-
-if(PCRASTER_WITH_OPENGL)
-    add_library(pcraster_aguila_opengl_objects OBJECT
-        ag_Camera
-        ag_Cube
-        ag_Feedback
-        ag_GLVisualisation
-        ag_Map3D
-        ag_Map3DObject
-        ag_Map3DView
-        ag_Map3DWindow
-        ag_Scene
-        ag_SceneObject
-        ag_SceneView
-        ag_PostScript
-        ag_QuadDrawer
-        ag_Quaternion
-    )
-    target_compile_definitions(pcraster_aguila_opengl_objects
-        PRIVATE
-            PCR_DAL_SHARED_LINK
-            PCR_AG_SOURCE
-            PCR_AG_SHARED_LINK
-    )
-    target_include_directories(pcraster_aguila_opengl_objects
-        PRIVATE
-            ${Qt5OpenGL_INCLUDE_DIRS}
-            $<TARGET_PROPERTY:pcraster::math_utils,INTERFACE_INCLUDE_DIRECTORIES>
-            $<TARGET_PROPERTY:pcraster::dal,INTERFACE_INCLUDE_DIRECTORIES>
-    )
-endif()
 
 
 target_include_directories(pcraster_aguila_objects

@@ -258,6 +258,13 @@ endif()
 if(APPLE)
     # I don't know why the moc stuff is not linked automatically by CMake,
     # just hammer it into the library
+    set_property(
+        SOURCE
+            CMakeFiles/pcraster_aguila_opengl_objects.dir/pcraster_aguila_opengl_objects_autogen/mocs_compilation.cpp.o
+            CMakeFiles/pcraster_aguila_objects.dir/pcraster_aguila_objects_autogen/mocs_compilation.cpp.o
+        PROPERTY GENERATED true
+    )
+
     if(PCRASTER_WITH_OPENGL)
         add_library(pcraster_aguila SHARED
             $<TARGET_OBJECTS:pcraster_aguila_opengl_objects>

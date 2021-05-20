@@ -255,15 +255,34 @@ if(PCRASTER_WITH_OPENGL)
   )
 endif()
 
-if(PCRASTER_WITH_OPENGL)
-    add_library(pcraster_aguila SHARED
-        $<TARGET_OBJECTS:pcraster_aguila_opengl_objects>
-        $<TARGET_OBJECTS:pcraster_aguila_objects>
-    )
+if(APPLE)
+    # I don't know why the moc stuff is not linked automatically by CMake,
+    # just hammer it into the library
+    if(PCRASTER_WITH_OPENGL)
+        add_library(pcraster_aguila SHARED
+            $<TARGET_OBJECTS:pcraster_aguila_opengl_objects>
+            $<TARGET_OBJECTS:pcraster_aguila_objects>
+            CMakeFiles/pcraster_aguila_opengl_objects.dir/pcraster_aguila_opengl_objects_autogen/mocs_compilation.cpp.o
+            CMakeFiles/pcraster_aguila_objects.dir/pcraster_aguila_objects_autogen/mocs_compilation.cpp.o
+        )
+    else()
+        add_library(pcraster_aguila SHARED
+            $<TARGET_OBJECTS:pcraster_aguila_objects>
+            CMakeFiles/pcraster_aguila_opengl_objects.dir/pcraster_aguila_opengl_objects_autogen/mocs_compilation.cpp.o
+            CMakeFiles/pcraster_aguila_objects.dir/pcraster_aguila_objects_autogen/mocs_compilation.cpp.o
+        )
+    endif()
 else()
-    add_library(pcraster_aguila SHARED
-        $<TARGET_OBJECTS:pcraster_aguila_objects>
-    )
+    if(PCRASTER_WITH_OPENGL)
+        add_library(pcraster_aguila SHARED
+            $<TARGET_OBJECTS:pcraster_aguila_opengl_objects>
+            $<TARGET_OBJECTS:pcraster_aguila_objects>
+        )
+    else()
+        add_library(pcraster_aguila SHARED
+            $<TARGET_OBJECTS:pcraster_aguila_objects>
+        )
+    endif()
 endif()
 
 add_library(pcraster::aguila ALIAS pcraster_aguila)

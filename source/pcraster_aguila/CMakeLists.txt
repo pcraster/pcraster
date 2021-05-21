@@ -22,37 +22,6 @@ qt5_wrap_ui(
     SaveViewAsDialogBase.ui
 )
 
-if(PCRASTER_WITH_OPENGL)
-    add_library(pcraster_aguila_opengl_objects OBJECT
-        ag_Camera
-        ag_Cube
-        ag_Feedback
-        ag_GLVisualisation
-        ag_Map3D
-        ag_Map3DObject
-        ag_Map3DView
-        ag_Map3DWindow
-        ag_Scene
-        ag_SceneObject
-        ag_SceneView
-        ag_PostScript
-        ag_QuadDrawer
-        ag_Quaternion
-    )
-    target_compile_definitions(pcraster_aguila_opengl_objects
-        PRIVATE
-            PCR_DAL_SHARED_LINK
-            PCR_AG_SOURCE
-            PCR_AG_SHARED_LINK
-    )
-    target_include_directories(pcraster_aguila_opengl_objects
-        PRIVATE
-            ${Qt5OpenGL_INCLUDE_DIRS}
-            $<TARGET_PROPERTY:pcraster::math_utils,INTERFACE_INCLUDE_DIRECTORIES>
-            $<TARGET_PROPERTY:pcraster::dal,INTERFACE_INCLUDE_DIRECTORIES>
-    )
-endif()
-
 add_library(pcraster_aguila_objects OBJECT
     ag_Aguila
     ag_AguilaProgramOptions
@@ -201,6 +170,38 @@ add_library(pcraster_aguila_objects OBJECT
 
 )
 
+if(PCRASTER_WITH_OPENGL)
+    add_library(pcraster_aguila_opengl_objects OBJECT
+        ag_Camera
+        ag_Cube
+        ag_Feedback
+        ag_GLVisualisation
+        ag_Map3D
+        ag_Map3DObject
+        ag_Map3DView
+        ag_Map3DWindow
+        ag_Scene
+        ag_SceneObject
+        ag_SceneView
+        ag_PostScript
+        ag_QuadDrawer
+        ag_Quaternion
+    )
+    target_compile_definitions(pcraster_aguila_opengl_objects
+        PRIVATE
+            PCR_DAL_SHARED_LINK
+            PCR_AG_SOURCE
+            PCR_AG_SHARED_LINK
+    )
+    target_include_directories(pcraster_aguila_opengl_objects
+        PRIVATE
+            ${Qt5OpenGL_INCLUDE_DIRS}
+            $<TARGET_PROPERTY:pcraster::math_utils,INTERFACE_INCLUDE_DIRECTORIES>
+            $<TARGET_PROPERTY:pcraster::dal,INTERFACE_INCLUDE_DIRECTORIES>
+    )
+endif()
+
+
 target_compile_definitions(pcraster_aguila_objects
     PRIVATE
         PCR_DAL_SHARED_LINK
@@ -254,15 +255,41 @@ if(PCRASTER_WITH_OPENGL)
   )
 endif()
 
-if(PCRASTER_WITH_OPENGL)
-    add_library(pcraster_aguila SHARED
-        $<TARGET_OBJECTS:pcraster_aguila_opengl_objects>
-        $<TARGET_OBJECTS:pcraster_aguila_objects>
+if(APPLE)
+    # I don't know why the moc stuff is not linked automatically by CMake,
+    # just hammer it into the library
+    set_property(
+        SOURCE
+            CMakeFiles/pcraster_aguila_opengl_objects.dir/pcraster_aguila_opengl_objects_autogen/mocs_compilation.cpp.o
+            CMakeFiles/pcraster_aguila_objects.dir/pcraster_aguila_objects_autogen/mocs_compilation.cpp.o
+        PROPERTY GENERATED true
     )
+
+    if(PCRASTER_WITH_OPENGL)
+        add_library(pcraster_aguila SHARED
+            $<TARGET_OBJECTS:pcraster_aguila_opengl_objects>
+            $<TARGET_OBJECTS:pcraster_aguila_objects>
+            CMakeFiles/pcraster_aguila_opengl_objects.dir/pcraster_aguila_opengl_objects_autogen/mocs_compilation.cpp.o
+            CMakeFiles/pcraster_aguila_objects.dir/pcraster_aguila_objects_autogen/mocs_compilation.cpp.o
+        )
+    else()
+        add_library(pcraster_aguila SHARED
+            $<TARGET_OBJECTS:pcraster_aguila_objects>
+            CMakeFiles/pcraster_aguila_opengl_objects.dir/pcraster_aguila_opengl_objects_autogen/mocs_compilation.cpp.o
+            CMakeFiles/pcraster_aguila_objects.dir/pcraster_aguila_objects_autogen/mocs_compilation.cpp.o
+        )
+    endif()
 else()
-    add_library(pcraster_aguila SHARED
-        $<TARGET_OBJECTS:pcraster_aguila_objects>
-    )
+    if(PCRASTER_WITH_OPENGL)
+        add_library(pcraster_aguila SHARED
+            $<TARGET_OBJECTS:pcraster_aguila_opengl_objects>
+            $<TARGET_OBJECTS:pcraster_aguila_objects>
+        )
+    else()
+        add_library(pcraster_aguila SHARED
+            $<TARGET_OBJECTS:pcraster_aguila_objects>
+        )
+    endif()
 endif()
 
 add_library(pcraster::aguila ALIAS pcraster_aguila)

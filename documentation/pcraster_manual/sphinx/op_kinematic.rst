@@ -56,10 +56,12 @@ Operation
 =========
 
 The objective of this operator is to solve the kinematic wave.
-The kinematic wave equations are (from :ref:`Chow <chow88>`): 
+The kinematic wave equations are (from :ref:`Chow <chow88>`):
 
 
-dQ/dX + dA/dT = q    and
+dQ/dX + dA/dT = q
+
+and
 
 
 
@@ -67,23 +69,23 @@ A = alpha * Q**beta
 
 
 
-combined into:  dQ/dX + alpha*beta*Q**(beta-1) * dQ/dT = q
+combined into:
 
+dQ/dX + alpha*beta*Q**(beta-1) * dQ/dT = q
 
-
-  | Q  streamflow through channel (m3/sec)
-  | dQ delta Q
-  | q  inflow into the channel (m3/sec)
-  | dT timestep used in the model (sec)
-  | dX channel length through cell (m)
-  | alpha coefficient
-  | beta coefficient
-  | 
-
+===== ======================================
+Q     streamflow through channel [m3/sec]
+dQ    delta Q
+q     inflow into the channel segment (cell) [m3/channellength/sec]
+dT    timestep used in the model [sec]
+dX    channel length through cell [m]
+alpha coefficient
+beta  coefficient
+===== ======================================
 
 
 The objective is to solve the equations for Qnew at each point in the map,
-given the channel parameters alpha and beta, the lateral inflow q and 
+given the channel parameters alpha and beta, the lateral inflow q and
 the initial conditions Qold.
 For each cell calculates the accumulated amount of material that flows out
 of the cell into its neighbouring downstream cell. This accumulated amount
@@ -128,7 +130,7 @@ Additional sediment flux based on the channel flow calculated with this operator
 
 Group
 =====
-This operation belongs to the group of  Neighbourhood operators; local drain directions 
+This operation belongs to the group of  Neighbourhood operators; local drain directions
 
 See Also
 ========
@@ -136,7 +138,7 @@ See Also
 
 Examples
 ========
-#. 
+#.
    | • pcrcalc
    |   binding
    |    Qnew = Qnew.map;
@@ -144,16 +146,16 @@ Examples
    |    Material = Material.map;
    |   initial
    |    report Qnew = kinematic(Ldd,Material,0,1.5,0.6,1,15,10);
-   |   
+   |
    | • python
    |   Ldd = readmap("Ldd.map")
    |   Material = readmap("Material.map")
    |   Qnew = kinematic(Ldd,Material,0,1.5,0.6,1,15,10)
 
    ========================================== ==================================== =================================================
-   Qnew.map                                   Ldd.map                              Material.map                                     
+   Qnew.map                                   Ldd.map                              Material.map
    .. image::  ../examples/kinematic_Qnew.png .. image::  ../examples/accu_Ldd.png .. image::  ../examples/accufraction_Material.png
    ========================================== ==================================== =================================================
 
-   | 
+   |
 

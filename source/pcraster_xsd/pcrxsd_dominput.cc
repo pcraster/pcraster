@@ -13,7 +13,7 @@
 #define INCLUDED_STRING
 #endif
 #ifndef INCLUDED_STDLIB
-#include <stdlib.h>
+#include <cstdlib>
 #define INCLUDED_STDLIB
 #endif
 #ifndef INCLUDED_FSTREAM

@@ -28,7 +28,7 @@
 #include "tokens.h"
 
 #include "stddefx.h"
-#include <math.h>
+#include <cmath>
 #include <string>
 #include <vector>
 

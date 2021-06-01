@@ -5,8 +5,8 @@
 /********/
 
 /* libs ext. <>, our ""  */
-#include <stdio.h>    /* EOF */
 #include "misc.h"
+#include <cstdio>    /* EOF */
 /* global header (opt.) and lexinput's prototypes "" */
 #include "calc_lexinput.h"
 

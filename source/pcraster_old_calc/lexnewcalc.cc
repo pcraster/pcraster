@@ -91,10 +91,10 @@ typedef unsigned int flex_uint32_t;
 #endif /* ! FLEXINT_H */
 
 /* begin standard C++ headers. */
-#include <iostream> 
-#include <errno.h>
+#include <cerrno>
 #include <cstdlib>
 #include <cstring>
+#include <iostream> 
 /* end standard C++ headers. */
 
 #ifdef __cplusplus
@@ -524,7 +524,7 @@ goto find_rule; \
 #line 2 "newcalc.l"
 #include "stddefx.h"
 
-#include <string.h>
+#include <cstring>
 
 #ifndef INCLUDED_IOSTREAM
 #include <iostream>

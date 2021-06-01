@@ -20,7 +20,7 @@
 #ifdef BORLANDC
 #pragma warn -8004
 #endif
-#include <math.h>
+#include <cmath>
 #include <string>
 #include <vector>
 

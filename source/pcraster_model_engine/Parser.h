@@ -24,10 +24,10 @@
 #ifdef BORLANDC
 #pragma warn -8004
 #endif
-#include <math.h>
+#include <cmath>
+#include <memory>
 #include <string>
 #include <vector>
-#include <memory>
 
 /* TODO
 * vragen/opmerkingen na bestudering ANTLR 2.7.x docs:

@@ -10,7 +10,7 @@
 /* global header (opt.) and point's prototypes "" */
 #include "mathx.h"
 #include "misc.h"
-#include <float.h>
+#include <cfloat>
 
 #ifndef INCLUDED_BOOST_VERSION
 #include <boost/version.hpp>

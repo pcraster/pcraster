@@ -18,7 +18,7 @@
 #endif
 
 #ifndef INCLUDED_ASSERT
-#include <assert.h>
+#include <cassert>
 #define INCLUDED_ASSERT
 #endif
 

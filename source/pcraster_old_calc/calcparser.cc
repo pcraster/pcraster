@@ -1329,7 +1329,7 @@ Parser::codeBlocks(int *_retsignal, calc::StatementBlock *inclIn )
 	*_retsignal = NoSignal;
 #line 652 "calcparser.g"
 	{
-		while ( 1 ) {
+		while ( true ) {
 			if ( !((setwd5[LA(1)]&0x8))) break;
 			if ( (LA(1)==TOK_FOREACH) ) {
 #line 643 "calcparser.g"

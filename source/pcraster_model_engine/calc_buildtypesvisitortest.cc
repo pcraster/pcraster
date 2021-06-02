@@ -432,7 +432,7 @@ BOOST_AUTO_TEST_CASE(testErrorExpr)
     DEFAULT_BTV;
     EXPECT_ERROR(btv,n,"pcrcalc550");
   }
-  if (0) { // nog niet noodzakelijk
+  if (false) { // nog niet noodzakelijk
     ASTCFGTester n(tmp_ast.createFromId("pcrcalc102a"));
     DEFAULT_BTV;
     EXPECT_ERROR(btv,n,"pcrcalc102a");

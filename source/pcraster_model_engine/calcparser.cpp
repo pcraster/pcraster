@@ -270,7 +270,7 @@ const calc::Operator* Parser::expectFunction(const calc::Id& id) const {
 }
 
 const calc::ASTPar& Parser::expectId(const calc::ASTPar& par) const {
-	if (0 /*par.isArray() */)
+	if (false /*par.isArray() */)
 	par.posError("Illegal construct");
 	// return Id(par.name(),par.position());
 	return par;

@@ -750,7 +750,7 @@ YY_DECL
 		yy_load_buffer_state(  );
 		}
 
-	while ( 1 )		/* loops until end-of-file is reached */
+	while ( true )		/* loops until end-of-file is reached */
 		{
 		yy_cp = (yy_c_buf_p);
 

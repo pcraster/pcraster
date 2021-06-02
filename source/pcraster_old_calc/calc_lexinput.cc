@@ -279,7 +279,7 @@ void calc::LexInput::parseShellParamUse()
          if (c == '}')
            break;
          d_expInBuf += c;
-       } while(1);
+       } while(true);
    } else {
        // start of number or id (env. var.)
        do {
@@ -287,7 +287,7 @@ void calc::LexInput::parseShellParamUse()
              break;
            d_expInBuf += c;
            c = getRawCharEOFcheck();
-       } while(1);
+       } while(true);
        d_extraCharRead = c;
    }
    if (d_expInBuf.empty()) // args/test3

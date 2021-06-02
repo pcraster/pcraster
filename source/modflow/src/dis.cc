@@ -215,7 +215,7 @@ void DIS::setLayer(const discr::Block &elevation, const discr::BlockData<INT4> &
     d_mf->dd_isConfined.push_back(conf.cell(0)[i]);
   }
   // to "correct" the top of layer 1
-  d_mf->d_quasiConfined.push_back(0);
+  d_mf->d_quasiConfined.push_back(false);
 
 
   for(size_t i = 1; i < d_mf->d_quasiConfined.size(); i++){
@@ -231,14 +231,14 @@ void DIS::setLayer(const discr::Block &elevation, const discr::BlockData<INT4> &
  * adding layer on top of the grid
  */
 bool DIS::addLayer(const float *values){
-  return addLayer(values, 0);
+  return addLayer(values, false);
 }
 
 /**
  * adding confined layer on top of the grid
  */
 bool DIS::addConfinedLayer(const float *values){
-  return addLayer(values, 1);
+  return addLayer(values, true);
 }
 
 /**
@@ -268,8 +268,8 @@ bool DIS::createBottom(const float *lower, const float *upper){
     d_mf->d_baseArea->addVoxel(i, upper[i] - d_mf->d_baseArea->cell(i).baseElevation());
   }
   // base layer must not be no confining bed
-  d_mf->d_quasiConfined.push_back(0); //
-  d_mf->d_quasiConfined.push_back(0);
+  d_mf->d_quasiConfined.push_back(false); //
+  d_mf->d_quasiConfined.push_back(false);
 
   //
   d_mf->d_nrOfLayer++;
@@ -394,8 +394,8 @@ void DIS::createBottom(const calc::Field *lower, const calc::Field *upper){
     d_mf->d_baseArea->addVoxel(i, value - d_mf->d_baseArea->cell(i).baseElevation());
   }
   // base layer must not be no confining bed
-  d_mf->d_quasiConfined.push_back(0); //
-  d_mf->d_quasiConfined.push_back(0);
+  d_mf->d_quasiConfined.push_back(false); //
+  d_mf->d_quasiConfined.push_back(false);
 
   //
   d_mf->d_nrOfLayer++;
@@ -417,12 +417,12 @@ void DIS::createBottom(const calc::Field *lower, const calc::Field *upper){
 
 
 void DIS::addLayer(const calc::Field *values){
-  addLayer(values->src_f(), 0);
+  addLayer(values->src_f(), false);
 }
 
 
 void DIS::addConfinedLayer(const calc::Field *values){
-  addLayer(values->src_f(), 1);
+  addLayer(values->src_f(), true);
 }
 
 

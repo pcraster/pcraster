@@ -239,7 +239,7 @@ calc::LddGraph::LddGraph(
   if (propagateDownstream)
    for(DownConstIterator i=org.downBegin(); i!=org.downEnd(); ++i) {
     if (remove[i->up()])
-     remove[i->down()] = 1;
+     remove[i->down()] = true;
    }
   else {
    // FTTB propagateUpstream not yet tested
@@ -263,7 +263,7 @@ calc::LddGraph::LddGraph(
        // in isMV, not by propagation
       // undo propagation
       // otherwise ALL edges ending in pit will be removed to
-      remove[orgC->d_pitId]=0;
+      remove[orgC->d_pitId]=false;
      }
     }
 

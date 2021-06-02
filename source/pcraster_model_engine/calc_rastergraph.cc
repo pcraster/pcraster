@@ -113,7 +113,7 @@ void calc::RasterGraph::unsetMVField(BitField& mvField) const
 {
   PRECOND(mvField.size()==nrVertices());
   for(size_t i=0;i<d_mv.size(); ++i)
-    mvField[d_mv[i]]=0;
+    mvField[d_mv[i]]=false;
 }
 
 /*!

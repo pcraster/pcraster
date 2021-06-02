@@ -69,7 +69,7 @@ calc::ObjectLinkMeta::ObjectLinkMeta(
   // insert default ctor
   d_methods.insert(std::make_pair("",ObjectLinkMethod("")));
   // that will return an objectlink
-  pushBack("",1,VS_OBJECT,ST_NON);
+  pushBack("",true,VS_OBJECT,ST_NON);
 }
 
 

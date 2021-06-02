@@ -154,7 +154,7 @@ AreaMap& AreaMap::operator=(
 void AreaMap::syncMask()
 {
   if (d_rs.nrCells() != d_mask.size())
-    d_mask = Mask(d_rs.nrCells(),1);
+    d_mask = Mask(d_rs.nrCells(),true);
   if (hasCoordinateMask())
     setMaskOnCoordinates();
 }
@@ -199,7 +199,7 @@ void AreaMap::setMaskOnCoordinates()
 void AreaMap::transferMask(const Field* f)
 {
   PRECOND(isSet());
-  d_mask = Mask(d_rs.nrCells(),0);
+  d_mask = Mask(d_rs.nrCells(),false);
 
   bool atNonMVs= (d_computationMask                &&
                   d_computationMask->areaMap()     &&

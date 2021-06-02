@@ -156,7 +156,7 @@ void calc::VField<T>::updateMVField(BitField& mvField) const
   if (d_spatial)
     for(size_t i=0; i<d_size; ++i)
       if (pcr::isMV(d_value[i]))
-        mvField[i]=1;
+        mvField[i]=true;
 }
 
 /* NOT IMPLEMENTED

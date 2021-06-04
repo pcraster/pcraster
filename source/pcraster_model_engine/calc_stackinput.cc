@@ -91,7 +91,7 @@ calc::StackInput::StackInput(
   d_fs(fios.ioFieldStrategy()),
   d_itemToLoad(fios.timer().lastInt()+1,0),
   d_type(VS_FIELD,ST_SPATIAL),
-  d_cachedField(0),
+  d_cachedField(nullptr),
   d_cachedTimeStep(0)
 {
   // refactor this stuff

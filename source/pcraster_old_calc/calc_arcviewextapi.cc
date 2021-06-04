@@ -98,7 +98,7 @@ extern "C" PCR_DLL_FUNC(const char*) pcrCalcErrorResult()
 {
  esriArcView3Only=true;
  if (errStr.empty())
-   return 0;
+   return nullptr;
  return errStr.c_str();
 }
 

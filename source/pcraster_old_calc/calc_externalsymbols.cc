@@ -99,7 +99,7 @@ const calc::PCR_EXTERNAL_MODELLINK_CREATOR
 // DEFINITION OF STATIC EXTERNALSYMBOLS MEMBERS
 //------------------------------------------------------------------------------
 
-calc::ExternalSymbols* calc::ExternalSymbols::d_instance = 0;
+calc::ExternalSymbols* calc::ExternalSymbols::d_instance = nullptr;
 
 
 
@@ -121,7 +121,7 @@ void calc::ExternalSymbols::clear()
 {
   if(d_instance) {
     delete d_instance;
-    d_instance=0;
+    d_instance=nullptr;
   }
 }
 
@@ -231,7 +231,7 @@ const calc::Operator* calc::ExternalSymbols::find(const std::string& name) const
     std::find_if(d_table.begin(),d_table.end(),name_is(name));
   if (i != d_table.end())
     return  &(*i);
-  return 0;
+  return nullptr;
 }
 
 
@@ -247,7 +247,7 @@ const calc::ModelLinkProxy* calc::ExternalSymbols::findModelLinkProxy(
     return &(*it);
   }
 
-  return 0;
+  return nullptr;
 }
 
 

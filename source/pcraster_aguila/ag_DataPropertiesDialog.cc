@@ -40,7 +40,7 @@ public:
   DrawPropertiesWidget* d_drawProperties;
 
   DataPropertiesDialogPrivate()
-    : d_generalProperties(0), d_drawProperties(0)
+    : d_generalProperties(nullptr), d_drawProperties(nullptr)
   {
   }
 

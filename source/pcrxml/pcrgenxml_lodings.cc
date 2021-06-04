@@ -26,7 +26,7 @@ Do not edit, generated from libs/pcrxml/generate.py
 const std::string pcrxml::Lodings::d_elementName("Lodings");
 //! ctor
 pcrxml::Lodings::Lodings(const QDomElement& element):Element(element,d_elementName)
- ,dataExtend(0)
+ ,dataExtend(nullptr)
  {
   try {
    ChildElementVisitor v(element);
@@ -41,7 +41,7 @@ pcrxml::Lodings::Lodings(const QDomElement& element):Element(element,d_elementNa
   } catch (...) { clean(); throw; }
  }
 pcrxml::Lodings::Lodings():Element()
- ,dataExtend(0)
+ ,dataExtend(nullptr)
  {
  }
 const std::string& pcrxml::Lodings::elementName() const
@@ -56,7 +56,7 @@ pcrxml::Lodings::~Lodings()
 //! clean
 void pcrxml::Lodings::clean()
 {
- delete dataExtend;dataExtend=0;
+ delete dataExtend;dataExtend=nullptr;
  for(size_t i=0; i<lodingName.size(); i++) delete lodingName[i];
 lodingName.clear();
 }

@@ -82,7 +82,7 @@ public:
   {
    const_iterator f=find(systemId);
    if (f == end())
-     return 0;
+     return nullptr;
    return &(f->second);
   }
 };

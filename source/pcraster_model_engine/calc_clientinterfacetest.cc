@@ -128,7 +128,7 @@ BOOST_AUTO_TEST_CASE(testCapi)
   calc::detail::FakeDevLicense fl;
 
   { // NULL pointer to pcr_createScriptFromTextFile
-    PcrScript *s=pcr_createScriptFromTextFile(0);
+    PcrScript *s=pcr_createScriptFromTextFile(nullptr);
     BOOST_CHECK(s);
     BOOST_CHECK(pcr_ScriptError(s));
     std::string msg(pcr_ScriptErrorMessage(s));
@@ -146,7 +146,7 @@ BOOST_AUTO_TEST_CASE(testCapi)
     // should trigger error: since file is not there
     // this messes up VS2005:
     const void *result = pcr_ScriptXMLReflection(s);
-    BOOST_CHECK_EQUAL(result,(const void *)0);
+    BOOST_CHECK_EQUAL(result,(const void *)nullptr);
 
     BOOST_CHECK(pcr_ScriptError(s));
     std::string msg(pcr_ScriptErrorMessage(s));
@@ -189,9 +189,9 @@ BOOST_AUTO_TEST_CASE(testCapi)
   }
   {
     PcrScript *s=pcr_createScriptFromTextString("result=nominal(b)");
-    BOOST_CHECK(s != 0);
+    BOOST_CHECK(s != nullptr);
     const char *refl = pcr_ScriptXMLReflection(s);
-    BOOST_CHECK(refl != 0);
+    BOOST_CHECK(refl != nullptr);
     pcr_destroyScript(s);
   }
 }
@@ -203,7 +203,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryStatic)
   //    ASTTestFactory::modelFromId("pcrcalc521").c_str());
 
   // 0-ptr data, not ready to run
-  void  *data0[2] = {0,0};
+  void  *data0[2] = {nullptr,nullptr};
 
   { // 1) as is, default not memory IO, so pcr tries
     // find  input data as files
@@ -273,7 +273,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryStatic)
   { // X) Let API allocate memory
     PcrScript *s=pcr_createScriptFromXMLFile("apiExamples/memoryOnlyIO_7.xml");
     BOOST_CHECK(!pcr_ScriptError(s));
-    void *data[2] = { input, 0 }; // output 0, means allocate by API
+    void *data[2] = { input, nullptr }; // output 0, means allocate by API
     int r(pcr_ScriptExecuteInitialStepMemory(s, data));
     BOOST_CHECK_EQUAL(r,0);
     BOOST_CHECK(!pcr_ScriptError(s));
@@ -298,7 +298,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryStatic)
 
     calc::ASTScript const& is(pcr_internalScript(s));
     BOOST_CHECK(!is.containsDynamicSection());
-    BOOST_CHECK(is.symbols()["memOutput"].report() != 0);
+    BOOST_CHECK(is.symbols()["memOutput"].report() != nullptr);
 
     BOOST_CHECK_EQUAL(output[1],7.5F);
     BOOST_CHECK_EQUAL(output[24],7.5F);
@@ -308,7 +308,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryStatic)
    // TODO verify
    //       cellsize in area result
     float output[25];
-    void  *data[4] = {input,output,0 ,0}; // both 0's should be allocated
+    void  *data[4] = {input,output,nullptr ,nullptr}; // both 0's should be allocated
     std::fill(output,output+25,0.0F);
     PcrScript *s=pcr_createScriptFromXMLFile("apiExamples/memoryOnlyIO_StatisticsAsString.xml");
     BOOST_CHECK(!pcr_ScriptError(s));
@@ -358,7 +358,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryStatic)
   }
   { // type clash
     //   type check clash if memOutput is used also for a field output
-    void  *data[2] = {input,0};
+    void  *data[2] = {input,nullptr};
     PcrScript *s=pcr_createScriptFromXMLFile("apiExamples/memoryOnlyIO_Error1.xml");
     BOOST_CHECK(!pcr_ScriptError(s));
 
@@ -375,7 +375,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryStatic)
     "file.xml:ERROR: memOutput: defined as scalar type on line '1:3' and set here as statistics type");
   }
   { // TODO todoAllowModelVarsToBeUsedInStatistics
-    void  *data[2] = {input,0};
+    void  *data[2] = {input,nullptr};
     PcrScript *s=pcr_createScriptFromXMLFile("apiExamples/memoryOnlyIO_Error2.xml");
     BOOST_CHECK(!pcr_ScriptError(s));
 
@@ -389,7 +389,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryStatic)
     BOOST_WARN(todoAllowModelVarsToBeUsedInStatistics);
   }
   { // writing to same output twice
-    void  *data[2] = {input,0};
+    void  *data[2] = {input,nullptr};
     PcrScript *s=pcr_createScriptFromXMLFile("apiExamples/memoryOnlyIO_Error3.xml");
     BOOST_CHECK(!pcr_ScriptError(s));
 
@@ -496,8 +496,8 @@ BOOST_AUTO_TEST_CASE(testIOMemoryDynamic)
    std::fill(memOutputDynamic,memOutputDynamic+25,-1.0F);
 
    void  *data[NrData] = {staticInput,
-                          0, // not used in initial
-                          0, // not used in initial
+                          nullptr, // not used in initial
+                          nullptr, // not used in initial
                           memOutputDynamic,
                           memOutputInitial
                           };
@@ -532,7 +532,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryDynamic)
     //  evaluation of scripts is only done at first execute
     ASTScript const& is(pcr_internalScript(s));
     BOOST_CHECK(is.containsDynamicSection());
-    BOOST_CHECK(is.symbols()["memOutputDynamic"].report() != 0);
+    BOOST_CHECK(is.symbols()["memOutputDynamic"].report() != nullptr);
 
     pcr_ScriptExecuteNextTimeStepMemory(s, data);
     BOOST_CHECK_EQUAL(memOutputDynamic[1],13.5F);
@@ -568,8 +568,8 @@ BOOST_AUTO_TEST_CASE(testIOMemoryDynamic)
     void  *data[NrData] = {staticInput,
                            dynamicInput, // not used in initial
                            valueLookup, // not used in initial
-                          0, // output to be allocated
-                          0, // output to be allocated
+                          nullptr, // output to be allocated
+                          nullptr, // output to be allocated
                           };
 
     PcrScript *s=pcr_createScriptFromXMLFile("apiExamples/memoryOnlyIO_8.xml");
@@ -599,7 +599,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryDynamic)
     *value = 100;
     std::fill(dynamicInput,dynamicInput+25,8.0F);
 
-    data[MemOutputDynamic]=0; // reset to 0
+    data[MemOutputDynamic]=nullptr; // reset to 0
     pcr_ScriptExecuteNextTimeStepMemory(s, data);
     allocatedMemOutputDynamic = (float *)data[MemOutputDynamic];
     BOOST_CHECK(allocatedMemOutputDynamic);
@@ -630,7 +630,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryDynamic)
   { // passing 0 as array yields runtime error
     float  stub[25]; // not used because of error
     std::fill(stub,stub+25,1.0F);
-    void  *data[NrData] = {stub,stub,0,stub,stub};
+    void  *data[NrData] = {stub,stub,nullptr,stub,stub};
 
     PcrScript *s=pcr_createScriptFromXMLFile("apiExamples/memoryOnlyIO_8.xml");
 
@@ -650,7 +650,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryDynamic)
   { // calling pcr_ScriptExecuteInitialStepMemory twice
     float  stub[25]; // not used because of error
     std::fill(stub,stub+25,1.0F);
-    void  *data[NrData] = {stub,stub,0,stub,stub};
+    void  *data[NrData] = {stub,stub,nullptr,stub,stub};
 
     PcrScript *s=pcr_createScriptFromXMLFile("apiExamples/memoryOnlyIO_8.xml");
 
@@ -666,7 +666,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryDynamic)
   { //  pcr_ScriptExecuteNextTimeStepMemory() called with no prior call to pcr_ScriptExecuteInitialStepMemory
     float  stub[25]; // not used because of error
     std::fill(stub,stub+25,1.0F);
-    void  *data[NrData] = {stub,stub,0,stub,stub};
+    void  *data[NrData] = {stub,stub,nullptr,stub,stub};
 
     PcrScript *s=pcr_createScriptFromXMLFile("apiExamples/memoryOnlyIO_8.xml");
 
@@ -677,7 +677,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryDynamic)
        "pcr_ScriptExecuteNextTimeStepMemory called with no prior call to pcr_ScriptExecuteInitialStepMemory");
   }
   { // dynamic section, no timer
-    void  *data[NrData] = {0,0,0,0,0};
+    void  *data[NrData] = {nullptr,nullptr,nullptr,nullptr,nullptr};
     // testdata/apiExamples/dynamicNoTimer.xml
     PcrScript *s=pcr_createScriptFromXMLFile("apiExamples/dynamicNoTimer.xml");
 
@@ -695,7 +695,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryTimeoutput)
 
   detail::FakeDevLicense fl;
   {
-    void  *data[1] = {0};
+    void  *data[1] = {nullptr};
 
     // testdata/apiExamples/memoryOnlyIO_Timeoutput.xml
     PcrScript *s=pcr_createScriptFromXMLFile("apiExamples/memoryOnlyIO_Timeoutput.xml");
@@ -726,7 +726,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryTimeoutput)
       BOOST_CHECK_EQUAL(tss[4],5);
 
     }
-    data[0]=0;
+    data[0]=nullptr;
     r = pcr_ScriptExecuteNextTimeStepMemory(s, data);
     BOOST_CHECK_EQUAL(r,0);
     BOOST_REQUIRE(!pcr_ScriptError(s));
@@ -814,7 +814,7 @@ BOOST_AUTO_TEST_CASE(testBil)
   using namespace calc;
 
   detail::FakeDevLicense fl;
-  PcrScript *s(0);
+  PcrScript *s(nullptr);
   try { // execute again
     com::write("#! --bandmap\ntmp2.bil = inp1s.map + 4;","pcrscripttest.mod");
     // geo::FileCreateTester fct("tmp2.res");

@@ -77,22 +77,22 @@ namespace calc {
 
 AreaMap::AreaMap():
   d_setComputationMaskCallAllowed(true),
-  d_areaMap(0),
-  d_computationMask(0)
+  d_areaMap(nullptr),
+  d_computationMask(nullptr)
 {
 }
 
 AreaMap::AreaMap(const geo::RasterSpace& rs):
-  d_areaMap(0),
-  d_computationMask(0)
+  d_areaMap(nullptr),
+  d_computationMask(nullptr)
 {
   setRasterSpace(rs);
 }
 
 
 AreaMap::AreaMap(pcrxml::AreaMapScript const& am):
-  d_areaMap(0),
-  d_computationMask(0)
+  d_areaMap(nullptr),
+  d_computationMask(nullptr)
 {
   d_areaMap = new pcrxml::AreaMapScript(am);
 
@@ -117,8 +117,8 @@ AreaMap::AreaMap(pcrxml::AreaMapScript const& am):
 //! Copy constructor.
 AreaMap::AreaMap(
          AreaMap const& rhs):
-   d_areaMap(0),
-   d_computationMask(0)
+   d_areaMap(nullptr),
+   d_computationMask(nullptr)
 {
     d_rs   =rhs.d_rs;
     d_mask =rhs.d_mask;
@@ -138,8 +138,8 @@ AreaMap::~AreaMap()
 AreaMap& AreaMap::operator=(
          AreaMap const& rhs)
 {
-  d_areaMap=0;
-  d_computationMask=0;
+  d_areaMap=nullptr;
+  d_computationMask=nullptr;
   if (this != &rhs) {
     d_rs   =rhs.d_rs;
     d_mask =rhs.d_mask;

@@ -45,7 +45,7 @@ calc::LookupTableParameter::LookupTableParameter(
 calc::LookupTableParameter::LookupTableParameter(
   const calc::ParsPar& par,
   const std::vector<class LookupTable *>& val):
-  SubParameter(par,true,true), d_vals(val),d_table(0)
+  SubParameter(par,true,true), d_vals(val),d_table(nullptr)
 {
 }
 

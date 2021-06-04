@@ -117,10 +117,10 @@ public:
                                         */
 
   Map2DView*       addMap2DView        (ag::VisGroup* group,
-                                        QWidget* parent = 0);
+                                        QWidget* parent = nullptr);
 
   Map2D*           addMap2D            (ag::VisGroup* group,
-                                        QWidget* parent = 0);
+                                        QWidget* parent = nullptr);
 
   void             configure           (const QDomElement& n);
 
@@ -227,7 +227,7 @@ inline ag::VisGroup* ag::VisGroupManager::findCompatibleGroup(
          T const& dataset,
          dal::DataSpace const& space)
 {
-  VisGroup* group = 0;
+  VisGroup* group = nullptr;
 
   // Test group is reverse order.
   for(std::vector<VisGroup*>::reverse_iterator it = rbegin(); it != rend();

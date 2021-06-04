@@ -133,7 +133,7 @@ inline bool FeatureDriver::extremes(
   assert(!space.hasSpace());
 
   bool initialised = false;
-  FeatureLayer* layer = 0;
+  FeatureLayer* layer = nullptr;
 
   if(space.isEmpty()) {
     layer = open(name, typeId);

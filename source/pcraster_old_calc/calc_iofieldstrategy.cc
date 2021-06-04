@@ -76,7 +76,7 @@ calc::IoFieldStrategy* calc::IoFieldStrategy::createOnGlobalOption()
    case APP_IO_BANDMAP:  return new IoBandFieldStrategy();
  }
  PRECOND(false);
- return 0;
+ return nullptr;
 }
 
 

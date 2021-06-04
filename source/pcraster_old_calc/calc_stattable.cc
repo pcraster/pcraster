@@ -79,7 +79,7 @@
 //------------------------------------------------------------------------------
 
 calc::StatTable::InputMap::InputMap():
-  d_expr(0)
+  d_expr(nullptr)
 {
 }
 
@@ -99,7 +99,7 @@ void calc::StatTable::InputMap::swap(InputMap& rhs)
 //    InputMap& operator=(const InputMap& rhs);
 
 bool calc::StatTable::InputMap::defined() const {
-  return d_expr != 0;
+  return d_expr != nullptr;
 }
 
 bool calc::StatTable::InputMap::hasIntervals() const {

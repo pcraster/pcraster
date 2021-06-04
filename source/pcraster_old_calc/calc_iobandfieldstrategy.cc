@@ -110,7 +110,7 @@ const calc::StackReader* calc::IoBandFieldStrategy::createStackReader(
     const std::string&  /* stackName */)
 {
   PRECOND(false); // not implemented
-  return 0;
+  return nullptr;
 }
 
 //! check against clone, if not clone not yet set, set clone to mapFileName

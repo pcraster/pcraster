@@ -262,9 +262,9 @@ template<typename R>
 void com::BetweenLimits<R>::clean()
 {
   delete d_lowerLimit;
-  d_lowerLimit=0;
+  d_lowerLimit=nullptr;
   delete d_upperLimit;
-  d_upperLimit=0;
+  d_upperLimit=nullptr;
 }
 
 template<typename R>
@@ -393,8 +393,8 @@ com::Interval<R> * com::createIntervalFromLookupTableKey (
    char lowRange  = ranges[0];
    char highRange = ranges[1];
 
-   com::UpperLimit<R>* h(0);
-   com::LowerLimit<R>* l(0);
+   com::UpperLimit<R>* h(nullptr);
+   com::LowerLimit<R>* l(nullptr);
 
    if (high) {
     if (highRange == ']')
@@ -419,7 +419,7 @@ com::Interval<R> * com::createIntervalFromLookupTableKey (
    }
 
    PRECOND(l && h);
-   com::Interval<R> *v(0);
+   com::Interval<R> *v(nullptr);
    try {
     v=new com::BetweenLimits<R>(*l,*h);
    } catch(...) {

@@ -71,7 +71,7 @@ calc::Global::Global(F f):
 
 calc::Global::Global(const IOpImpl* redirect):
   OpImplRedirect(redirect),
-  d_f(0)
+  d_f(nullptr)
 {
 }
 
@@ -117,7 +117,7 @@ calc::MRF::MRF(F f):
 
 calc::MRF::MRF(const IOpImpl* redirect):
   OpImplRedirect(redirect),
-  d_f(0)
+  d_f(nullptr)
 {
 }
 

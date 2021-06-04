@@ -28,7 +28,7 @@ const std::string pcrxml::ExchangeItem::d_elementName("exchangeItem");
 pcrxml::ExchangeItem::ExchangeItem(const QDomElement& element):Element(element,d_elementName)
  ,exchangeDirection(element,"exchangeDirection",false)
  ,index(element,"index",false)
- ,variable(0)
+ ,variable(nullptr)
  {
   try {
    ChildElementVisitor v(element);
@@ -39,7 +39,7 @@ pcrxml::ExchangeItem::ExchangeItem(const QDomElement& element):Element(element,d
   } catch (...) { clean(); throw; }
  }
 pcrxml::ExchangeItem::ExchangeItem():Element()
- ,variable(0)
+ ,variable(nullptr)
  {
  }
 const std::string& pcrxml::ExchangeItem::elementName() const
@@ -54,7 +54,7 @@ pcrxml::ExchangeItem::~ExchangeItem()
 //! clean
 void pcrxml::ExchangeItem::clean()
 {
- delete variable;variable=0;
+ delete variable;variable=nullptr;
 }
 //! copy ctor
 pcrxml::ExchangeItem::ExchangeItem(const ExchangeItem& src):

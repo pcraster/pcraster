@@ -383,7 +383,7 @@ class KeyValueInteger : public KeyValueNumber {
  public:
    KeyValueInteger(
        const std::string& keyName,
-       const Interval<double>* iv=0);
+       const Interval<double>* iv=nullptr);
    ~KeyValueInteger();
 
   //----------------------------------------------------------------------------
@@ -402,7 +402,7 @@ class KeyValueDouble : public KeyValueNumber {
  public:
    KeyValueDouble(
        const std::string& keyName,
-       const Interval<double>* iv=0);
+       const Interval<double>* iv=nullptr);
    ~KeyValueDouble();
 
   //----------------------------------------------------------------------------

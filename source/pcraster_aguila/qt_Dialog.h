@@ -58,7 +58,7 @@ public:
   //----------------------------------------------------------------------------
 
   //! Constructor.
-                   Dialog              (QWidget *   p = 0,
+                   Dialog              (QWidget *   p = nullptr,
                                         bool        m = true,
                                         Qt::WindowFlags  f = Qt::Widget);
 

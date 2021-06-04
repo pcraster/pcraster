@@ -47,7 +47,7 @@ class ApiMapC : public ApiMap {
  public:
     //! ctor for read-only, GlobArg
     ApiMapC(const geo::RasterSpace& rs,const void *val,bool spatial,CSF_CR inCr):
-      d_data(0),
+      d_data(nullptr),
       d_map(d_init(rs.nrRows(),rs.nrCols(),(void *)val,(int)spatial,inCr)) {};
     //! ctor, always spatial, allocate data area
     ApiMapC(const geo::RasterSpace& rs,CSF_CR inCr):
@@ -55,9 +55,9 @@ class ApiMapC : public ApiMap {
       d_map(d_init(rs.nrRows(),rs.nrCols(),d_data,true,inCr)) {};
     ~ApiMapC() {
       d_del(d_map);
-      d_map=0;
+      d_map=nullptr;
       delete [] ((unsigned char *)d_data);
-      d_data=0;
+      d_data=nullptr;
     }
    void *getCPointer() {
     return (void *)d_map;
@@ -65,7 +65,7 @@ class ApiMapC : public ApiMap {
    void *detachData() {
      PRECOND(d_data);
      void *v=d_data;
-     d_data=0;
+     d_data=nullptr;
      return v;
    }
 };

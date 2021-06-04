@@ -95,7 +95,7 @@ public:
     if (s) {
      return s->createInputSource();
     }
-    return 0;
+    return nullptr;
   }
 };
 
@@ -235,16 +235,16 @@ bool pcrxsd::ViErrorHandler::handleError(const DOMError& domError)
  *
  */
 DOMInput::DOMInput(EntityResolverType erType):
-  d_parser(0),
-  d_document(0),
-  d_resourceResolver(0),
+  d_parser(nullptr),
+  d_document(nullptr),
+  d_resourceResolver(nullptr),
   d_errorHandlerType(Verbose),
   d_validate(false)
 {
   switch(erType) {
     case CompiledIn:  d_resourceResolver = new CompiledInResolver(); break;
  // case PCRTREE:  d_resourceResolver = new PCRTREEResolver(); break;
-    case DefaultEntityResolver: d_resourceResolver=0; break;
+    case DefaultEntityResolver: d_resourceResolver=nullptr; break;
   }
 }
 
@@ -274,8 +274,8 @@ void DOMInput::clearBuilder()
 {
   if (d_parser)
    d_parser->release();
-  d_parser=0;
-  d_document=0;
+  d_parser=nullptr;
+  d_document=nullptr;
 }
 
 
@@ -346,7 +346,7 @@ DOMDocument* DOMInput::document()
     DOMImplementationRegistry::getDOMImplementation(gLS);
 
   d_parser = ((DOMImplementationLS*)impl)->createLSParser(
-                  DOMImplementationLS::MODE_SYNCHRONOUS, 0);
+                  DOMImplementationLS::MODE_SYNCHRONOUS, nullptr);
 
   if (d_parser->getDomConfig()->canSetParameter(XMLUni::fgDOMValidateIfSchema, true))
   {

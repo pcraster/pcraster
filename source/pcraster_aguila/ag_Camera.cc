@@ -26,7 +26,7 @@ ag::Camera::Camera(GLfloat x, GLfloat y, GLfloat z,
                     GLfloat yaw, GLfloat pitch, GLfloat roll)
 
   : SceneObject(x, y, z, yaw, pitch, roll),
-    d_list(0), d_quadric(0)
+    d_list(0), d_quadric(nullptr)
 
 {
 }
@@ -173,7 +173,7 @@ void ag::Camera::deleteList()
   }
   if(d_quadric) {
     gluDeleteQuadric(d_quadric);
-    d_quadric = 0;
+    d_quadric = nullptr;
   }
 }
 

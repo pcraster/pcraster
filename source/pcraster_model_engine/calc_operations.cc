@@ -303,7 +303,7 @@ const calc::Operator* calc::Operations::operator[](const std::string& name) cons
 {
   NameOp::const_iterator i=d_nameOp.find(name);
   if (i==d_nameOp.end())
-    return 0;
+    return nullptr;
   return i->second;
 }
 
@@ -317,7 +317,7 @@ const calc::Operator* calc::Operations::operator[](const MAJOR_CODE   major)cons
 {
   CodeOp::const_iterator i=d_codeOp.find(major);
   if (i==d_codeOp.end())
-    return 0;
+    return nullptr;
   return i->second;
 }
 

@@ -10,7 +10,7 @@ BOOST_AUTO_TEST_CASE(testCtor)
 {
   using namespace calc;
 
-  ObjectLinkMeta olm("mldd",0);
+  ObjectLinkMeta olm("mldd",nullptr);
   //! ctor
   olm.pushBack("",false,VS_STRING,ST_NON);
   olm.pushBack("",false,VS_S,ST_EITHER);

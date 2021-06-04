@@ -40,7 +40,7 @@ FeatureLayer::FeatureLayer(
          dal::DataSpace const& space)
 
   : SpatialDataset(name, space),
-    d_layer(0),
+    d_layer(nullptr),
     d_valueScale(VS_NOTDETERMINED)
 
 {

@@ -71,7 +71,7 @@ calc::VField<T>::VField(const   T& valueN,
      d_spatial(false),
      d_valueNonSpatial(valueN),
      d_size(size),
-     d_owningValueSpatial(0)
+     d_owningValueSpatial(nullptr)
 {
     d_value = &d_valueNonSpatial;
 }
@@ -83,7 +83,7 @@ calc::VField<T>::VField(const   T* valueS,
      d_value(valueS),
      d_spatial(true),
      d_size(size),
-     d_owningValueSpatial(0)
+     d_owningValueSpatial(nullptr)
 {
 }
 
@@ -112,7 +112,7 @@ template<typename T>
 calc::VField<T>::VField(const Field& f,BitField& mvField):
    d_spatial(f.isSpatial()),
    d_size(mvField.size()),
-   d_owningValueSpatial(0)
+   d_owningValueSpatial(nullptr)
 {
   init(f);
   updateMVField(mvField);
@@ -127,7 +127,7 @@ template<typename T>
 calc::VField<T>::VField(const Field& f,size_t size):
    d_spatial(f.isSpatial()),
    d_size(size),
-   d_owningValueSpatial(0)
+   d_owningValueSpatial(nullptr)
 {
   init(f);
 }

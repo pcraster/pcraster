@@ -240,9 +240,9 @@ void BAS::getHeadsFromBinary(std::string const& path){
     // read the tailing bytes, discard content
     file.read(header, mf::recordMarkerSize);
     delete[] charData;
-    charData = NULL;
+    charData = nullptr;
     delete[] headerData;
-    headerData = NULL;
+    headerData = nullptr;
   }
   file.close();
 }

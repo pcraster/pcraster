@@ -33,12 +33,12 @@ calc::WriteInfo::WriteInfo(
 
 bool calc::WriteInfo::isWritten() const
 {
-  return d_report != 0 || d_script->allIsWritten();
+  return d_report != nullptr || d_script->allIsWritten();
 }
 
 const calc::Report *calc::WriteInfo::report() const
 {
-  if (d_report != 0 )
+  if (d_report != nullptr )
     return d_report;
   return d_script->reportDefault();
 }

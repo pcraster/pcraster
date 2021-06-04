@@ -1209,7 +1209,7 @@ void DataObject::remove(
 const DataGuide& DataObject::dataGuide(
          geo::DataGuide const& guide) const
 {
-  const DataGuide* result = 0;
+  const DataGuide* result = nullptr;
 
   if(guide.type() == geo::TIMESERIES) {
     result = &tableDataSources().dataGuide(guide);
@@ -1277,7 +1277,7 @@ std::vector<DataGuide> DataObject::dataGuides() const
 Dataset& DataObject::dataset(
          DataGuide const& guide)
 {
-  Dataset* result = 0;
+  Dataset* result = nullptr;
 
   switch(guide.type()) {
     case geo::STACK: {
@@ -2158,7 +2158,7 @@ dal::DataSpaceAddressMapper const& DataObject::globalToWorldMapper() const
 dal::DataSpaceAddressMapper& DataObject::localToWorldMapper(
          DataGuide const& guide) const
 {
-  dal::DataSpaceAddressMapper* result = 0;
+  dal::DataSpaceAddressMapper* result = nullptr;
 
   switch(guide.type()) {
     case geo::STACK: {
@@ -2178,7 +2178,7 @@ dal::DataSpaceAddressMapper& DataObject::localToWorldMapper(
       break;
     }
     default: {
-      result = 0;
+      result = nullptr;
       break;
     }
   }
@@ -2192,7 +2192,7 @@ dal::DataSpaceAddressMapper& DataObject::localToWorldMapper(
 dal::DataSpaceAddressMapper& DataObject::globalToLocalMapper(
          DataGuide const& guide) const
 {
-  dal::DataSpaceAddressMapper* result = 0;
+  dal::DataSpaceAddressMapper* result = nullptr;
 
   switch(guide.type()) {
     case geo::STACK: {
@@ -2212,7 +2212,7 @@ dal::DataSpaceAddressMapper& DataObject::globalToLocalMapper(
       break;
     }
     default: {
-      result = 0;
+      result = nullptr;
       break;
     }
   }

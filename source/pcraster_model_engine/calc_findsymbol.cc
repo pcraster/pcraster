@@ -78,7 +78,7 @@ PCR_DLL_C const calc::Operator* calc::opName2op(const std::string& opName, size_
 {
   const Operator* op(globalOperations[opName]);
   if (!op)
-     return 0;
+     return nullptr;
 
   // discern for binary or unary + and -
   switch(op->opCode()) {

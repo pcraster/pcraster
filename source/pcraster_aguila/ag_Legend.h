@@ -61,7 +61,7 @@ public:
                   Legend               (DataObject const& object,
                                         DataGuide const& guide,
                                         ViewerType type,
-                                        QWidget* parent = 0);
+                                        QWidget* parent = nullptr);
 
   virtual         ~Legend              ();
 

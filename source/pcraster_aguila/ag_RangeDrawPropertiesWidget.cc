@@ -51,7 +51,7 @@ public:
   QComboBox*       _drawerType;
 
   RangeDrawPropertiesWidgetPrivate()
-    : _exactBorders(0), _confidenceLevel(0)
+    : _exactBorders(nullptr), _confidenceLevel(nullptr)
   {
   }
 
@@ -116,7 +116,7 @@ void RangeDrawPropertiesWidget::createRangeDrawPropertiesInterface()
   RangeDrawProps const& drawProperties =
          dataObject().properties().rangeDrawProperties(dataGuide());
 
-  QBoxLayout* box = 0;
+  QBoxLayout* box = nullptr;
 
   _data->_exactBorders = new QCheckBox("Exact legend borders");
   _data->_exactBorders->setChecked(drawProperties.mode() ==

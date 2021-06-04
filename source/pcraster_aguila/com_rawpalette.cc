@@ -485,7 +485,7 @@ const com::RawPalette* com::defaultPalette(CSF_VS vs)
     return RawPalette::nominalPalette();
   else
     assert(false);
-    return 0;                // Never reached.
+    return nullptr;                // Never reached.
 }
 
 

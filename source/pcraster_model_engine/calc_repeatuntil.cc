@@ -79,7 +79,7 @@ public:
 
 void calc::RepeatUntil::init()
 {
-  d_condition=0;
+  d_condition=nullptr;
 }
 
 calc::RepeatUntil::RepeatUntil(

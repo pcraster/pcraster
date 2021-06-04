@@ -39,7 +39,7 @@ calc::ParsIndexName::ParsIndexName(
 }
 
 calc::ParsIndexName::ParsIndexName( bool on,const Symbol& name):
-  ParsIndex(on),d_name(name), d_extName(0)
+  ParsIndex(on),d_name(name), d_extName(nullptr)
 {}
 
 calc::ParsIndexName::~ParsIndexName()

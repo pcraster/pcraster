@@ -56,16 +56,16 @@ VisualisationWindow::VisualisationWindow(
          const std::string& visualisationName,
          DataObject* object, Qt::WindowFlags flags)
 
-  : qt::AppWindow(props, visualisationName, 0, flags),
+  : qt::AppWindow(props, visualisationName, nullptr, flags),
     IVisualisation(object, visualisationName),
-    d_fileMenu(0),
-    d_editMenu(0),
-    d_viewMenu(0),
-    d_helpMenu(0),
-    d_toolBar(0),
-    d_animateAction(0),
-    d_saveAsAction(0),
-    d_preferencesAction(0)
+    d_fileMenu(nullptr),
+    d_editMenu(nullptr),
+    d_viewMenu(nullptr),
+    d_helpMenu(nullptr),
+    d_toolBar(nullptr),
+    d_animateAction(nullptr),
+    d_saveAsAction(nullptr),
+    d_preferencesAction(nullptr)
 
 {
 }
@@ -536,7 +536,7 @@ void VisualisationWindow::saveAs(
         stream << "Overwrite existing file(s) '"
                << path.string() << "'?'";
                    // << pathInfo.pathName().baseName() << "'?";
-        bool ok = confirmOkWarning(0, appName(), stream.str());
+        bool ok = confirmOkWarning(nullptr, appName(), stream.str());
 
         if(!ok) {
           break;

@@ -143,7 +143,7 @@ dal::CSFMap::CSFMap(
          boost::filesystem::path const& path,
          bool allowUpdate)
 
-  : d_path(path), d_map(0)
+  : d_path(path), d_map(nullptr)
 
 {
   open(allowUpdate);
@@ -179,7 +179,7 @@ dal::CSFMap::CSFMap(
          CSF_VS valueScale,
          CSF_PT projectionType)
 
-  : d_path(path), d_map(0)
+  : d_path(path), d_map(nullptr)
 
 {
   // TODO
@@ -309,7 +309,7 @@ void dal::CSFMap::close()
     throwCannotBeClosed(d_path.string(), RASTER);
   }
 
-  d_map = 0;
+  d_map = nullptr;
 }
 
 

@@ -45,7 +45,7 @@ protected:
 
                    Visualisation       (DataObject* object,
                                         const std::string& visualisationName,
-                                        QWidget* parent = 0,
+                                        QWidget* parent = nullptr,
                                         Qt::WindowFlags flags = Qt::Widget);
 
   // virtual void     process             ();

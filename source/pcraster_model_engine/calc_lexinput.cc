@@ -122,7 +122,7 @@ calc::LexInput::LexInput():
   d_lineNr(1),
   d_tokenStart(1),
   d_ptrExpOutBuf(std::string::npos),
-  d_from(0),
+  d_from(nullptr),
   d_extraCharRead(EOF),
   d_substitution(true)
 {

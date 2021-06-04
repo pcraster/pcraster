@@ -51,7 +51,7 @@ calc::Assignment::Assignment(
      const WriteInfo& w,
      const UsePar&  par,
      class FieldExpr *right): 
-   Statement(par),d_left(0),d_right(right)
+   Statement(par),d_left(nullptr),d_right(right)
 {
   try {
     d_left =  new FieldLeft(b,w,par,right->vs());

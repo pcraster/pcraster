@@ -78,7 +78,7 @@ void DataSpaceAddressMapper::initMappers()
 {
   assert(_mappers.empty());
 
-  _mappers.resize(_space.rank(), 0);
+  _mappers.resize(_space.rank(), nullptr);
 
   for(size_t i = 0; i < _space.rank(); ++i) {
     // Install dummy mapper.

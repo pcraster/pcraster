@@ -71,9 +71,9 @@ public:
 
 void calc::ASTStat::init()
 {
-  d_stat=0;
+  d_stat=nullptr;
   d_reportParsed=false;
-  d_reportInSitu=0;
+  d_reportInSitu=nullptr;
 }
 
 calc::ASTStat::ASTStat()
@@ -118,7 +118,7 @@ calc::ASTStat::ASTStat(const ASTStat& rhs):
     ASTNode(rhs),
     d_reportParsed(rhs.d_reportParsed),
     d_reportById(rhs.d_reportById),
-    d_reportInSitu(0),
+    d_reportInSitu(nullptr),
     d_stat(rhs.d_stat->createClone())
 {
     if (rhs.d_reportInSitu)

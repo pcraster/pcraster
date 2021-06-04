@@ -83,8 +83,8 @@ calc::ReportVisitor::ReportVisitor(
   d_timer(timer),
   d_inDynamic(false),
   d_reportLastAssOfEverySymbol(reportLastAssOfEverySymbol),
-  d_currentReport(0),
-  d_currentStat(0)
+  d_currentReport(nullptr),
+  d_currentStat(nullptr)
 {
 }
 
@@ -116,7 +116,7 @@ void calc::ReportVisitor::visitExpr(BaseExpr *)
 void calc::ReportVisitor::visitStat(ASTStat *s)
 {
   d_currentStat=s;
-  d_currentReport=0;
+  d_currentReport=nullptr;
   if (s->reportParsed()) {
     //  reportById && reportInSitu are mutually exclusive
     if (s->reportInSitu()) {

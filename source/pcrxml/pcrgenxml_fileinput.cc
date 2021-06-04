@@ -27,10 +27,10 @@ const std::string pcrxml::FileInput::d_elementName("FileInput");
 //! ctor
 pcrxml::FileInput::FileInput(const QDomElement& element):Element(element,d_elementName)
  ,canChooseOtherFiles(element,"canChooseOtherFiles",true)
- ,map(0)
- ,stack(0)
- ,timeSeries(0)
- ,table(0)
+ ,map(nullptr)
+ ,stack(nullptr)
+ ,timeSeries(nullptr)
+ ,table(nullptr)
  {
   try {
    ChildElementVisitor v(element);
@@ -53,10 +53,10 @@ pcrxml::FileInput::FileInput(const QDomElement& element):Element(element,d_eleme
   } catch (...) { clean(); throw; }
  }
 pcrxml::FileInput::FileInput():Element()
- ,map(0)
- ,stack(0)
- ,timeSeries(0)
- ,table(0)
+ ,map(nullptr)
+ ,stack(nullptr)
+ ,timeSeries(nullptr)
+ ,table(nullptr)
  {
  }
 const std::string& pcrxml::FileInput::elementName() const
@@ -71,10 +71,10 @@ pcrxml::FileInput::~FileInput()
 //! clean
 void pcrxml::FileInput::clean()
 {
- delete map;map=0;
- delete stack;stack=0;
- delete timeSeries;timeSeries=0;
- delete table;table=0;
+ delete map;map=nullptr;
+ delete stack;stack=nullptr;
+ delete timeSeries;timeSeries=nullptr;
+ delete table;table=nullptr;
  for(size_t i=0; i<data.size(); i++) delete data[i];
 data.clear();
 }
@@ -83,10 +83,10 @@ pcrxml::FileInput::FileInput(const FileInput& src):
 pcrxml::Element(src)
 ,canChooseOtherFiles(src.canChooseOtherFiles)
 {
- map= (src.map) ? new Map(*(src.map)): 0;
- stack= (src.stack) ? new Stack(*(src.stack)): 0;
- timeSeries= (src.timeSeries) ? new TimeSeries(*(src.timeSeries)): 0;
- table= (src.table) ? new Table(*(src.table)): 0;
+ map= (src.map) ? new Map(*(src.map)): nullptr;
+ stack= (src.stack) ? new Stack(*(src.stack)): nullptr;
+ timeSeries= (src.timeSeries) ? new TimeSeries(*(src.timeSeries)): nullptr;
+ table= (src.table) ? new Table(*(src.table)): nullptr;
  for(size_t i=0; i<src.data.size(); i++) data.push_back(new Data(*(src.data[i])));
 }
 //! assignment operator
@@ -95,10 +95,10 @@ pcrxml::FileInput& pcrxml::FileInput::operator=(const FileInput& src)
  if(this != &src)
  {
    clean(); PRECOND(false);
-  map= (src.map) ? new Map(*(src.map)): 0;
-  stack= (src.stack) ? new Stack(*(src.stack)): 0;
-  timeSeries= (src.timeSeries) ? new TimeSeries(*(src.timeSeries)): 0;
-  table= (src.table) ? new Table(*(src.table)): 0;
+  map= (src.map) ? new Map(*(src.map)): nullptr;
+  stack= (src.stack) ? new Stack(*(src.stack)): nullptr;
+  timeSeries= (src.timeSeries) ? new TimeSeries(*(src.timeSeries)): nullptr;
+  table= (src.table) ? new Table(*(src.table)): nullptr;
   for(size_t i=0; i<src.data.size(); i++) data.push_back(new Data(*(src.data[i])));
  }
 return *this;

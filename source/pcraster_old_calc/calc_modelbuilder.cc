@@ -83,7 +83,7 @@ calc::ModelBuilder::ModelBuilder():
 
 calc::ModelBuilder::~ModelBuilder()
 {
-  SetClone(0);
+  SetClone(nullptr);
 }
 
 //! set name for \class calc::PositionName used to create symbols
@@ -115,7 +115,7 @@ void calc::ModelBuilder::addStatement(const std::string& statement, bool write)
 
   if (write)
     d_script.setReportFound();
-  WriteInfo wi(&d_script,write,0,false);
+  WriteInfo wi(&d_script,write,nullptr,false);
   int retsignal;
   parser.assignment(&retsignal, &d_script,wi);
 }
@@ -133,7 +133,7 @@ void calc::ModelBuilder::addFieldAssignment(
 {
   if (write)
     d_script.setReportFound();
-  WriteInfo wi(&d_script,write,0,false);
+  WriteInfo wi(&d_script,write,nullptr,false);
 
   addStatement(
      new Assignment(&d_script, wi,usePar(par) ,expr));

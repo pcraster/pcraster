@@ -310,7 +310,7 @@ void PlotView::configureYAxis()
 void PlotView::drawPlots()
 {
   boost::scoped_ptr<dal::Table> scopedTable;
-  dal::Table const* table = 0; // Shut up compiler.
+  dal::Table const* table = nullptr; // Shut up compiler.
   size_t timeColIndex = 0; // Shut up compiler.
   size_t attrColIndex = 0; // Shut up compiler.
 

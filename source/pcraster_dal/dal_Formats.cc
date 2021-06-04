@@ -122,7 +122,7 @@ namespace dal {
 Format const* Formats::formatByExtension(
          std::string const& extension) const
 {
-  Format const* result = 0;
+  Format const* result = nullptr;
 
   for(size_t i = 0; i < size(); ++i) {
     if(operator[](i).extensionMatches(extension)) {
@@ -139,7 +139,7 @@ Format const* Formats::formatByExtension(
 Format const* Formats::formatByName(
          std::string const& name) const
 {
-  Format const* result = 0;
+  Format const* result = nullptr;
 
   for(size_t i = 0; i < size(); ++i) {
     if(operator[](i).name() == name) {

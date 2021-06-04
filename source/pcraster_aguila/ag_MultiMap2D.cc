@@ -41,7 +41,7 @@ MultiMap2D::MultiMap2D(
          QWidget* parent)
 
   : Map(dataObject, "Multi 2D Map", parent),
-    d_multiMap2DView(0), d_legendView(0)
+    d_multiMap2DView(nullptr), d_legendView(nullptr)
 
 {
   createInterface(nrRows, nrCols);

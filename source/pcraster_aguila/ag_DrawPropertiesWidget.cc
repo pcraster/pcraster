@@ -38,7 +38,7 @@ public:
   qtd::SelectPalette* d_paletteDialog;
 
   DrawPropertiesWidgetPrivate()
-    : d_paletteBar(0), d_paletteDialog(0)
+    : d_paletteBar(nullptr), d_paletteDialog(nullptr)
   {
   }
 
@@ -138,7 +138,7 @@ void ag::DrawPropertiesWidget::paletteBarClicked(
 {
   if(event->button() == Qt::LeftButton) {
     if(d_data->d_paletteDialog->exec()) {
-      if(d_data->d_paletteDialog->selected() != 0 &&
+      if(d_data->d_paletteDialog->selected() != nullptr &&
          d_data->d_paletteBar->palette() !=
          d_data->d_paletteDialog->selected()) {
         d_data->d_paletteBar->setPalette((d_data->d_paletteDialog->selected()));

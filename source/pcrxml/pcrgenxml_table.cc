@@ -26,7 +26,7 @@ Do not edit, generated from libs/pcrxml/generate.py
 const std::string pcrxml::Table::d_elementName("Table");
 //! ctor
 pcrxml::Table::Table(const QDomElement& element):Element(element,d_elementName)
- ,dataTypeDTD(0)
+ ,dataTypeDTD(nullptr)
  {
   try {
    ChildElementVisitor v(element);
@@ -37,7 +37,7 @@ pcrxml::Table::Table(const QDomElement& element):Element(element,d_elementName)
   } catch (...) { clean(); throw; }
  }
 pcrxml::Table::Table():Element()
- ,dataTypeDTD(0)
+ ,dataTypeDTD(nullptr)
  {
  }
 const std::string& pcrxml::Table::elementName() const
@@ -52,7 +52,7 @@ pcrxml::Table::~Table()
 //! clean
 void pcrxml::Table::clean()
 {
- delete dataTypeDTD;dataTypeDTD=0;
+ delete dataTypeDTD;dataTypeDTD=nullptr;
 }
 //! copy ctor
 pcrxml::Table::Table(const Table& src):

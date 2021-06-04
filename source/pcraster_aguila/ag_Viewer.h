@@ -154,7 +154,7 @@ private:
 
   VisGroup*        displayMap3D        (dal::DataSpace const& searchSpace,
                                         std::vector<std::string> const& names,
-                                        VisGroup* group=0,
+                                        VisGroup* group=nullptr,
                                         bool sync=true);
 
 // #ifdef DEBUG_DEVELOP
@@ -173,12 +173,12 @@ private:
 
   VisGroup*        displayMap2D        (dal::DataSpace const& space,
                                         std::vector<std::string> const& names,
-                                        VisGroup* group=0,
+                                        VisGroup* group=nullptr,
                                         bool sync=true);
 
   VisGroup*        displayMultiMap2D   (dal::DataSpace const& space,
                                         std::vector<std::string> const& names,
-                                        VisGroup* group=0,
+                                        VisGroup* group=nullptr,
                                         size_t nrRows=1,
                                         size_t nrCols=1,
                                         bool sync=true);
@@ -191,12 +191,12 @@ private:
   VisGroup*        displayProbabilityGraphWindow(
                                         dal::DataSpace const& space,
                                         std::vector<std::string> const& names,
-                                        VisGroup* group=0,
+                                        VisGroup* group=nullptr,
                                         bool sync=true);
 
   VisGroup*        displayValueView    (dal::DataSpace const& space,
                                         std::vector<std::string> const& names,
-                                        VisGroup* group=0,
+                                        VisGroup* group=nullptr,
                                         bool sync=true);
 
   // VisGroup*        display             (std::string const& name,
@@ -208,19 +208,19 @@ private:
   //                                       bool sync=true);
 
   VisGroup*        displayMap2D        (std::string const& name,
-                                        VisGroup* group=0,
+                                        VisGroup* group=nullptr,
                                         bool sync=true);
 
   VisGroup*        displayMap2D        (std::vector<std::string> const& names,
-                                        VisGroup* group=0,
+                                        VisGroup* group=nullptr,
                                         bool sync=true);
 
   VisGroup*        displayMap3D        (std::string const& name,
-                                        VisGroup* group=0,
+                                        VisGroup* group=nullptr,
                                         bool sync=true);
 
   VisGroup*        displayMap3D        (std::vector<std::string> const& names,
-                                        VisGroup* group=0,
+                                        VisGroup* group=nullptr,
                                         bool sync=true);
 
   // VisGroup*        displayTimePlot     (std::string const& fileName,
@@ -231,7 +231,7 @@ private:
   //                                       VisGroup* group=0,
   //                                       bool sync=true);
   VisGroup*        displayMultiMap2D   (std::vector<std::string> const& names,
-                                        VisGroup* group=0,
+                                        VisGroup* group=nullptr,
                                         size_t nrRows=1,
                                         size_t nrCols=1,
                                         bool sync=true);

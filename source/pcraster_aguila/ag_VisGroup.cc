@@ -111,7 +111,7 @@ size_t VisGroupPrivate::d_nrCreated = 0;
 ag::VisGroup::VisGroup(const qt::AppWindowProperties& props,
                    VisGroupManager *m)
 
-  : QObject(0),
+  : QObject(nullptr),
     d_data(new VisGroupPrivate(props))
 
 {

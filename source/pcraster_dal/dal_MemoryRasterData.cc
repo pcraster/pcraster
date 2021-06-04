@@ -208,7 +208,7 @@ void* MemoryRasterData::cells(
 {
   assert(values.size() == 1);
 
-  void* result = 0;
+  void* result = nullptr;
 
   switch(d_typeId) {
     case TI_INT1 : { result = boost::any_cast<INT1* >(values[0]); break; }
@@ -248,7 +248,7 @@ void* MemoryRasterData::cells(
          DataSpace space,
          DataSpaceAddress address)
 {
-  void* result = 0;
+  void* result = nullptr;
 
   // Use coordinate in address to find element in values vector.
   // Determine which element of the values vector contains the stuff the
@@ -308,7 +308,7 @@ void* MemoryRasterData::cells(
   assert(space.rank() == address.size());
   assert(!values.empty());
 
-  void* result = 0;
+  void* result = nullptr;
 
   if(space.rank() == 0) {
     result = cells(values);
@@ -524,7 +524,7 @@ Raster* MemoryRasterData::raster(
   // assert(d_dataSpace.rank() == 0);
 
   // TODO Use shared_ptr and return shared_ptr.
-  Raster* raster = 0;
+  Raster* raster = nullptr;
 
   if(exists()) {
     raster = new Raster(d_nrRows, d_nrCols, d_cellSize, d_west, d_north,
@@ -571,7 +571,7 @@ Raster* MemoryRasterData::raster(
   // If typeId differs from the way the data is stored now create a copy of
   // it which may be deleted by the caller.
   // Return 0 when not available.
-  return 0;
+  return nullptr;
 }
 
 
@@ -583,7 +583,7 @@ Raster* MemoryRasterData::raster(
   // Find an object at address position.
   // Return 0 when not available.
   // TODO Use shared_ptr and return shared_ptr.
-  Raster* raster = 0;
+  Raster* raster = nullptr;
 
   if(exists(address)) {
     raster = new Raster(d_nrRows, d_nrCols, d_cellSize, d_west, d_north,
@@ -627,7 +627,7 @@ Raster* MemoryRasterData::raster(
   // If typeId differs from the way the data is stored now create a copy of
   // it which may be deleted by the caller.
   // Return 0 when not available.
-  return 0;
+  return nullptr;
 }
 
 

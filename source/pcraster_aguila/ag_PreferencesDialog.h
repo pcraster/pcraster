@@ -63,7 +63,7 @@ public:
   //----------------------------------------------------------------------------
 
                    PreferencesDialog   (DataObject* dataObject,
-                                        QWidget* parent=0,
+                                        QWidget* parent=nullptr,
                                         bool model=false,
                                         Qt::WindowFlags flags=Qt::Widget);
 

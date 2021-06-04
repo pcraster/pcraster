@@ -31,7 +31,7 @@
 */
 void qt::outOfMemoryHandler()
 {
-  switch(QMessageBox::critical(0, "",
+  switch(QMessageBox::critical(nullptr, "",
                "Your computer is unable to satisfy\n"
                "a request for memory. Close other\n"
                "applications to free memory and\n"
@@ -43,7 +43,7 @@ void qt::outOfMemoryHandler()
       break;
     }
     case QMessageBox::Abort: {    // We can't help anymore.
-      std::set_new_handler(0);
+      std::set_new_handler(nullptr);
       break;
     }
     default: {

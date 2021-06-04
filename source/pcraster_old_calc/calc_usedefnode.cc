@@ -12,7 +12,7 @@
 
 calc::UseDefNode::UseDefNode(
   calc::StatementBlock &inBlock):
-  d_next(0),d_inBlock(inBlock)
+  d_next(nullptr),d_inBlock(inBlock)
 {
 }
 

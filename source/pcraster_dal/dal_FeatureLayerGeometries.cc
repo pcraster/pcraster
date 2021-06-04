@@ -162,7 +162,7 @@ OGRGeometry const* FeatureLayerGeometries::geometry(
   _geometryByLocation2.query(boost::geometry::index::intersects(box),
       std::back_inserter(values));
 
-  OGRGeometry const* result = 0;
+  OGRGeometry const* result = nullptr;
 
   if(!values.empty()) {
     OGRPoint point;

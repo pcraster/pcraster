@@ -75,7 +75,7 @@ public:
                    MultiMap2D          (DataObject* dataObject,
                                         size_t nrRows = 1,
                                         size_t nrCols = 1,
-                                        QWidget* parent = 0);
+                                        QWidget* parent = nullptr);
 
   /* virtual */    ~MultiMap2D         ();
 

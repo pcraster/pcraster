@@ -563,7 +563,7 @@ boost::tuple<DataSpaceQueryResult, Driver*> Dal::search(
          SearchHaltCondition haltCondition) const
 {
   DataSpaceQueryResult result;
-  Driver* driver = 0;
+  Driver* driver = nullptr;
 
   if(inCache(name, space)) {
     result = queryResult(name, space);
@@ -915,7 +915,7 @@ bool Dal::hasDriverByName(
 Driver* Dal::driverByName(
          std::string const& name)
 {
-  Driver* result = 0;
+  Driver* result = nullptr;
 
   for(Drivers::iterator it = _drivers.begin(); it != _drivers.end(); ++it) {
     if((*it)->name() == name) {

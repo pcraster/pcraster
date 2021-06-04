@@ -63,12 +63,12 @@ public:
   VisEngine        d_engine;
 
   AnimationControlPrivate()
-    : d_start(0), d_pause(0), d_begin(0), d_backwards(0), d_forewards(0),
-      d_end(0),
-      d_loop(0),
-      d_stepEdit(0), d_stepValidator(0),
-      d_interval(0),
-      d_progressBar(0),
+    : d_start(nullptr), d_pause(nullptr), d_begin(nullptr), d_backwards(nullptr), d_forewards(nullptr),
+      d_end(nullptr),
+      d_loop(nullptr),
+      d_stepEdit(nullptr), d_stepValidator(nullptr),
+      d_interval(nullptr),
+      d_progressBar(nullptr),
       d_engine()
   {
   }
@@ -215,7 +215,7 @@ void AnimationControl::createInterface()
   d_data->d_loop->setToolTip("Select looping if you want continous animation");
   top->addWidget(d_data->d_loop);
 
-  QLabel* label = 0;
+  QLabel* label = nullptr;
 
   d_data->d_stepEdit = new QLineEdit(widget);
   d_data->d_stepEdit->setToolTip("Select time step to show");

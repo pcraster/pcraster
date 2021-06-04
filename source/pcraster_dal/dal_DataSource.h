@@ -275,7 +275,7 @@ inline T* DataSource::open()
   return result
          ? dynamic_cast<T*>(d_reader->open(d_name, enclosingDataSpace(),
               result.address()))
-         : 0;
+         : nullptr;
 }
 
 template<typename T>

@@ -304,7 +304,7 @@ void* dal::Matrix::release()
   assert(cellsAreCreated());
   assert(d_typeId != TI_NR_TYPES);
 
-  void* result = 0;
+  void* result = nullptr;
 
   switch(d_typeId) {
     case TI_INT1 : result = release<INT1>(); break;
@@ -387,7 +387,7 @@ void const* dal::Matrix::cells() const
 {
   assert(d_typeId != TI_NR_TYPES);
 
-  void const* result = 0;
+  void const* result = nullptr;
 
   if(cellsAreCreated()) {
     switch(d_typeId) {
@@ -419,7 +419,7 @@ void* dal::Matrix::cells()
 {
   assert(d_typeId != TI_NR_TYPES);
 
-  void* result = 0;
+  void* result = nullptr;
 
   if(cellsAreCreated()) {
     switch(d_typeId) {

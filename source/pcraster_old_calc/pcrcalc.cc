@@ -57,8 +57,8 @@ public:
   std::string                 d_errorMsg;
 
   void clean() {
-    delete d_ci; d_ci=0;
-    delete d_wl; d_wl=0;
+    delete d_ci; d_ci=nullptr;
+    delete d_wl; d_wl=nullptr;
   }
   void cleanOnError() {
     if (!errorMessage().empty())
@@ -88,7 +88,7 @@ public:
 #endif
 
 extern std::string hackMsg;
-static struct PcrScriptImpl *hackScript=0;
+static struct PcrScriptImpl *hackScript=nullptr;
 
 /*
  static void foo()
@@ -111,7 +111,7 @@ static struct PcrScriptImpl *hackScript=0;
 */
 
 PcrScriptImpl::PcrScriptImpl(const char* scriptName):
-      d_ci(0),d_wl(0)
+      d_ci(nullptr),d_wl(nullptr)
 {
     // multi-threaded, qt as shared lib needs this!
     // std::set_terminate(foo);
@@ -151,7 +151,7 @@ PcrScriptImpl::PcrScriptImpl(const char* scriptName):
 }
 
 PcrScriptImpl::~PcrScriptImpl() {
-  hackScript=0;
+  hackScript=nullptr;
   clean();
 }
 
@@ -175,7 +175,7 @@ void PcrScriptImpl::run()
  */
 extern "C" PCR_DLL_FUNC(PcrScriptImpl*) pcr_createScript(const char* scriptName)
 {
-  PcrScriptImpl *ps(0);
+  PcrScriptImpl *ps(nullptr);
   try {
    ps = new PcrScriptImpl(scriptName);
   } catch (...) {
@@ -183,7 +183,7 @@ extern "C" PCR_DLL_FUNC(PcrScriptImpl*) pcr_createScript(const char* scriptName)
     // bytes of PcrScriptImpl
     // other situs are catched with the TRY_ALL
     delete ps;
-    ps=0;
+    ps=nullptr;
   }
   return ps;
 }

@@ -449,7 +449,7 @@ void calc::BranchExprImpl::executeDoubleAss(
   } DASS_JMP;
   static const DASS_JMP jmpTableDass[] = {
   # include "dassjmp.inc"
-   {{OP_NOP, OP_NOP}, (DO_DASS)NULL}
+   {{OP_NOP, OP_NOP}, (DO_DASS)nullptr}
   };
   const DASS_JMP *f = jmpTableDass+(implOp.execId());
 
@@ -482,7 +482,7 @@ void calc::BranchExprImpl::execSameUn(
   typedef void (*DO_SAME_UN)(void *values, size_t nrValues);
   static const DO_SAME_UN jmpTableSameUn[] = {
 #   include "sunjmp.inc"
-   (DO_SAME_UN)NULL
+   (DO_SAME_UN)nullptr
   };
 
   DO_SAME_UN f = jmpTableSameUn[op.execId()];
@@ -506,7 +506,7 @@ void calc::BranchExprImpl::execDiffUn(
   typedef void (*DO_DIFF_UN)(void *result, const void *values, size_t nrValues);
   static const DO_DIFF_UN jmpTableDiffUn[] = {
 #   include "dunjmp.inc"
-   (DO_DIFF_UN)NULL
+   (DO_DIFF_UN)nullptr
   };
         DO_DIFF_UN f = jmpTableDiffUn[op.execId()];
   POSTCOND(f != NULL);
@@ -552,7 +552,7 @@ void calc::BranchExprImpl::execGenNonSpatial(
   typedef void (*DO_GEN_NS)(void *values, size_t nrvalues);
   static const DO_GEN_NS jmpTableGen[] = {
 #  include "genjmp.inc"
-   (DO_GEN_NS)NULL
+   (DO_GEN_NS)nullptr
   };
         DO_GEN_NS f = jmpTableGen[op.execId()];
   POSTCOND(f != NULL);
@@ -633,7 +633,7 @@ void calc::BranchExprImpl::execDiffBin(
 #  define Do_ne_4_sn  NULL
   static const DO_DIFF_BIN jmpTableDiffBin[][3] = {
 #  include "dbinjmp.inc"
-   {(DO_DIFF_BIN)NULL , (DO_DIFF_BIN)NULL, (DO_DIFF_BIN)NULL}
+   {(DO_DIFF_BIN)nullptr , (DO_DIFF_BIN)nullptr, (DO_DIFF_BIN)nullptr}
   };
 
   PRECOND(op.exec() == EXEC_DIFF_BIN);
@@ -685,7 +685,7 @@ void calc::BranchExprImpl::execSameBin(
 #  define Do_badd_sn  NULL
   static const DO_SAME_BIN jmpTableSameBin[][3] = {
 #  include "sbinjmp.inc"
-   {(DO_SAME_BIN)NULL , (DO_SAME_BIN)NULL, (DO_SAME_BIN)NULL}
+   {(DO_SAME_BIN)nullptr , (DO_SAME_BIN)nullptr, (DO_SAME_BIN)nullptr}
   };
 
   FIELD_ARG fa = fieldArg(leftSpatial,rightSpatial);
@@ -775,7 +775,7 @@ void calc::BranchExprImpl::execIfThen(
 
   static const DO_IFTHEN jmpTableIfThen[][3] = {
 #  include "ifthenjmp.inc"
-   {(DO_IFTHEN)NULL , (DO_IFTHEN)NULL, (DO_IFTHEN)NULL}
+   {(DO_IFTHEN)nullptr , (DO_IFTHEN)nullptr, (DO_IFTHEN)nullptr}
   };
 
   calc::FieldHandle res = createResultField();
@@ -833,8 +833,8 @@ void calc::BranchExprImpl::execIfThenElse(
 
   static const DO_IFTHENELSE jmpTableIfThenElse[][8] = {
 #  include "ifthenelsejmp.inc"
-  {(DO_IFTHENELSE)NULL,(DO_IFTHENELSE)NULL,(DO_IFTHENELSE)NULL,(DO_IFTHENELSE)NULL,
-  (DO_IFTHENELSE)NULL,(DO_IFTHENELSE)NULL,(DO_IFTHENELSE)NULL,(DO_IFTHENELSE)NULL},
+  {(DO_IFTHENELSE)nullptr,(DO_IFTHENELSE)nullptr,(DO_IFTHENELSE)nullptr,(DO_IFTHENELSE)nullptr,
+  (DO_IFTHENELSE)nullptr,(DO_IFTHENELSE)nullptr,(DO_IFTHENELSE)nullptr,(DO_IFTHENELSE)nullptr},
   };
 
   calc::FieldHandle res = createResultField();
@@ -867,7 +867,7 @@ void calc::BranchExprImpl::execGlob(
    */
   static const DO_GLOBAL jmpTableGlob[] = {
   # include "globjmp.inc"
-   (DO_GLOBAL)NULL
+   (DO_GLOBAL)nullptr
   };
   DO_GLOBAL f = jmpTableGlob[implOp.execId()];
   POSTCOND(f != NULL);

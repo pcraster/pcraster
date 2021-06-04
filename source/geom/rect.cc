@@ -97,7 +97,7 @@ int IntersectRectangles(
     /* look if sides intersect */
     for (i = 0; i < 4; i++)
         for (j = 0; j < 4; j++)
-            if (IntersectCords(p + n, r1 + i, r1 + (i + 1), r2 + j, r2 + (j + 1)) != NULL)
+            if (IntersectCords(p + n, r1 + i, r1 + (i + 1), r2 + j, r2 + (j + 1)) != nullptr)
                 n++; /* cords intersect */
 
     if (n == 0)

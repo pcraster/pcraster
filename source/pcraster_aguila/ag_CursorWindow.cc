@@ -68,9 +68,9 @@ CursorWindow::CursorWindow(
 
   : VisualisationDialog<DataObject*, CursorWindow>(object, "Cursor And Values"),
          // 0, false, Qt::WindowStaysOnTopHint),
-    d_cursorView(0),
-    d_save(0),
-    d_get(0)
+    d_cursorView(nullptr),
+    d_save(nullptr),
+    d_get(nullptr)
 
 {
   createInterface();

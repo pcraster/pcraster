@@ -80,7 +80,7 @@ void* newBuffer(
          TypeId typeId,
          size_t size)
 {
-  void* buffer = 0;
+  void* buffer = nullptr;
 
   switch(typeId) {
     case TI_UINT1: { buffer = new UINT1[size]; break; }

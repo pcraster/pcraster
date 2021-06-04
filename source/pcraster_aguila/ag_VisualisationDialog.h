@@ -63,9 +63,9 @@ protected:
 
                    VisualisationDialog (DataObject* object,
                                         std::string const& visualisationName,
-                                        QWidget* parent = 0,
+                                        QWidget* parent = nullptr,
                                         bool modal = false,
-                                        Qt::WindowFlags flags = 0);
+                                        Qt::WindowFlags flags = nullptr);
 
 public:
 

@@ -88,9 +88,9 @@ calc::ExecArguments::ExecArguments(
       d_op(op),
       d_rte(rte),
       d_fields(nrActualInputs-op.firstFieldInput()),
-      d_result(op.nrResults(),0),
+      d_result(op.nrResults(),nullptr),
       d_resultIsField(d_fields.size()), // init past a valid field
-      d_firstNonFieldInput(0)
+      d_firstNonFieldInput(nullptr)
 {
   // reverse  reversed stack arguments
   for(size_t i=0;i<d_fields.size();++i)
@@ -234,7 +234,7 @@ void calc::ExecArguments::pushResults()
   for(size_t i=0; i < d_result.size(); ++i) {
    pushResult(d_result[i]);
    d_doNotDelete.insert(d_result[i]);
-   d_result[i]=0;
+   d_result[i]=nullptr;
   }
 }
 

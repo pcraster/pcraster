@@ -496,7 +496,7 @@ PCR_DAL_DECL boost::filesystem::path timeStepPath(
          FilenameConvention convention)
 {
   size_t dateNr = static_cast<size_t>(std::strtol(
-         boost::gregorian::to_iso_string(date).c_str(), 0, 10));
+         boost::gregorian::to_iso_string(date).c_str(), nullptr, 10));
   return timeStepPath(path, dateNr, convention);
 }
 

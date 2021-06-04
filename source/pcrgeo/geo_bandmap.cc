@@ -425,7 +425,7 @@ void geo::BandMap::writeHeader()
   std::ofstream str;
   com::open(str, headerPn);
 
-  const char* pixelType=0;
+  const char* pixelType=nullptr;
   switch(d_cellRepr) {
     case CR_UINT1:
     case CR_UINT2:

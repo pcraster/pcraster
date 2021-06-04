@@ -30,11 +30,11 @@ pcrxml::Data::Data(const QDomElement& element):Element(element,d_elementName)
  ,description(element,"description",false)
  ,externalFileName(element,"externalFileName",false)
  ,ioType(element,"ioType",true)
- ,map(0)
- ,nonSpatial(0)
- ,stack(0)
- ,timeSeries(0)
- ,table(0)
+ ,map(nullptr)
+ ,nonSpatial(nullptr)
+ ,stack(nullptr)
+ ,timeSeries(nullptr)
+ ,table(nullptr)
  {
   try {
    ChildElementVisitor v(element);
@@ -57,11 +57,11 @@ pcrxml::Data::Data(const QDomElement& element):Element(element,d_elementName)
   } catch (...) { clean(); throw; }
  }
 pcrxml::Data::Data():Element()
- ,map(0)
- ,nonSpatial(0)
- ,stack(0)
- ,timeSeries(0)
- ,table(0)
+ ,map(nullptr)
+ ,nonSpatial(nullptr)
+ ,stack(nullptr)
+ ,timeSeries(nullptr)
+ ,table(nullptr)
  {
  }
 const std::string& pcrxml::Data::elementName() const
@@ -76,11 +76,11 @@ pcrxml::Data::~Data()
 //! clean
 void pcrxml::Data::clean()
 {
- delete map;map=0;
- delete nonSpatial;nonSpatial=0;
- delete stack;stack=0;
- delete timeSeries;timeSeries=0;
- delete table;table=0;
+ delete map;map=nullptr;
+ delete nonSpatial;nonSpatial=nullptr;
+ delete stack;stack=nullptr;
+ delete timeSeries;timeSeries=nullptr;
+ delete table;table=nullptr;
 }
 //! copy ctor
 pcrxml::Data::Data(const Data& src):
@@ -90,11 +90,11 @@ pcrxml::Element(src)
 ,externalFileName(src.externalFileName)
 ,ioType(src.ioType)
 {
- map= (src.map) ? new Map(*(src.map)): 0;
- nonSpatial= (src.nonSpatial) ? new NonSpatial(*(src.nonSpatial)): 0;
- stack= (src.stack) ? new Stack(*(src.stack)): 0;
- timeSeries= (src.timeSeries) ? new TimeSeries(*(src.timeSeries)): 0;
- table= (src.table) ? new Table(*(src.table)): 0;
+ map= (src.map) ? new Map(*(src.map)): nullptr;
+ nonSpatial= (src.nonSpatial) ? new NonSpatial(*(src.nonSpatial)): nullptr;
+ stack= (src.stack) ? new Stack(*(src.stack)): nullptr;
+ timeSeries= (src.timeSeries) ? new TimeSeries(*(src.timeSeries)): nullptr;
+ table= (src.table) ? new Table(*(src.table)): nullptr;
 }
 //! assignment operator
 pcrxml::Data& pcrxml::Data::operator=(const Data& src)
@@ -102,11 +102,11 @@ pcrxml::Data& pcrxml::Data::operator=(const Data& src)
  if(this != &src)
  {
    clean(); PRECOND(false);
-  map= (src.map) ? new Map(*(src.map)): 0;
-  nonSpatial= (src.nonSpatial) ? new NonSpatial(*(src.nonSpatial)): 0;
-  stack= (src.stack) ? new Stack(*(src.stack)): 0;
-  timeSeries= (src.timeSeries) ? new TimeSeries(*(src.timeSeries)): 0;
-  table= (src.table) ? new Table(*(src.table)): 0;
+  map= (src.map) ? new Map(*(src.map)): nullptr;
+  nonSpatial= (src.nonSpatial) ? new NonSpatial(*(src.nonSpatial)): nullptr;
+  stack= (src.stack) ? new Stack(*(src.stack)): nullptr;
+  timeSeries= (src.timeSeries) ? new TimeSeries(*(src.timeSeries)): nullptr;
+  table= (src.table) ? new Table(*(src.table)): nullptr;
  }
 return *this;
 }

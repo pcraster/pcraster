@@ -118,7 +118,7 @@ void calc::JumpNode::addDeleteOnForward(const std::string& parName)
 calc::JumpNode *calc::JumpNode::createClone() const
 {
   PRECOND(FALSE);
-  return new JumpNode(0);
+  return new JumpNode(nullptr);
 }
 
 //! get value of d_deletesOnForward

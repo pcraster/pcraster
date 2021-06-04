@@ -43,7 +43,7 @@ CursorView::CursorView(
          QWidget* parent)
 
   : Visualisation<>(object, "Cursor View", parent),
-    d_datasetTable(0)
+    d_datasetTable(nullptr)
 
 {
   // std::vector<DataGuide> guides(object->dataGuides());
@@ -235,7 +235,7 @@ void CursorView::createInterface()
       gridLayout->addWidget(title, i, 0);
 
       if(dimension.meaning() == dal::Space) {
-        edit = 0;
+        edit = nullptr;
         value = new QLabel(QString(
               dal::coordinateToString(space, address, i).c_str()), this);
         gridLayout->addWidget(value, i, 1);

@@ -26,8 +26,8 @@ Do not edit, generated from libs/pcrxml/generate.py
 const std::string pcrxml::Stack::d_elementName("Stack");
 //! ctor
 pcrxml::Stack::Stack(const QDomElement& element):Element(element,d_elementName)
- ,dataTypeDTD(0)
- ,timestepRange(0)
+ ,dataTypeDTD(nullptr)
+ ,timestepRange(nullptr)
  {
   try {
    ChildElementVisitor v(element);
@@ -41,8 +41,8 @@ pcrxml::Stack::Stack(const QDomElement& element):Element(element,d_elementName)
   } catch (...) { clean(); throw; }
  }
 pcrxml::Stack::Stack():Element()
- ,dataTypeDTD(0)
- ,timestepRange(0)
+ ,dataTypeDTD(nullptr)
+ ,timestepRange(nullptr)
  {
  }
 const std::string& pcrxml::Stack::elementName() const
@@ -57,15 +57,15 @@ pcrxml::Stack::~Stack()
 //! clean
 void pcrxml::Stack::clean()
 {
- delete dataTypeDTD;dataTypeDTD=0;
- delete timestepRange;timestepRange=0;
+ delete dataTypeDTD;dataTypeDTD=nullptr;
+ delete timestepRange;timestepRange=nullptr;
 }
 //! copy ctor
 pcrxml::Stack::Stack(const Stack& src):
 pcrxml::Element(src)
 {
  dataTypeDTD=new DataTypeDTD(*(src.dataTypeDTD));
- timestepRange= (src.timestepRange) ? new TimestepRange(*(src.timestepRange)): 0;
+ timestepRange= (src.timestepRange) ? new TimestepRange(*(src.timestepRange)): nullptr;
 }
 //! assignment operator
 pcrxml::Stack& pcrxml::Stack::operator=(const Stack& src)
@@ -74,7 +74,7 @@ pcrxml::Stack& pcrxml::Stack::operator=(const Stack& src)
  {
    clean(); PRECOND(false);
   dataTypeDTD=new DataTypeDTD(*(src.dataTypeDTD));
-  timestepRange= (src.timestepRange) ? new TimestepRange(*(src.timestepRange)): 0;
+  timestepRange= (src.timestepRange) ? new TimestepRange(*(src.timestepRange)): nullptr;
  }
 return *this;
 }

@@ -27,7 +27,7 @@ const std::string pcrxml::NonSpatial::d_elementName("NonSpatial");
 //! ctor
 pcrxml::NonSpatial::NonSpatial(const QDomElement& element):Element(element,d_elementName)
  ,value(element,"value",false)
- ,dataTypeDTD(0)
+ ,dataTypeDTD(nullptr)
  {
   try {
    ChildElementVisitor v(element);
@@ -38,7 +38,7 @@ pcrxml::NonSpatial::NonSpatial(const QDomElement& element):Element(element,d_ele
   } catch (...) { clean(); throw; }
  }
 pcrxml::NonSpatial::NonSpatial():Element()
- ,dataTypeDTD(0)
+ ,dataTypeDTD(nullptr)
  {
  }
 const std::string& pcrxml::NonSpatial::elementName() const
@@ -53,7 +53,7 @@ pcrxml::NonSpatial::~NonSpatial()
 //! clean
 void pcrxml::NonSpatial::clean()
 {
- delete dataTypeDTD;dataTypeDTD=0;
+ delete dataTypeDTD;dataTypeDTD=nullptr;
 }
 //! copy ctor
 pcrxml::NonSpatial::NonSpatial(const NonSpatial& src):

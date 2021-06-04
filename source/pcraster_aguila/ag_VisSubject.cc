@@ -25,7 +25,7 @@
 */
 ag::VisSubject::VisSubject()
 
-  : d_cm(0)
+  : d_cm(nullptr)
 
 {
   d_cm = new VisChangeManager(this);
@@ -42,7 +42,7 @@ ag::VisSubject::VisSubject()
 */
 ag::VisSubject::VisSubject(const VisSubject& /* rhs */)
 
-  : d_cm(0)
+  : d_cm(nullptr)
 
 {
   d_cm = new VisChangeManager(this);

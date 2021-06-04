@@ -62,7 +62,7 @@ com::RCPtr<T>::~RCPtr()
 template<class T>
 void com::RCPtr<T>::init()
 {
-  if(d_pointee == 0) return;
+  if(d_pointee == nullptr) return;
 
 /*
   if(!d_pointee->isShareable())

@@ -46,7 +46,7 @@
 //------------------------------------------------------------------------------
 
 calc::IClientInterface::IClientInterface():
-  d_ci(0)
+  d_ci(nullptr)
 {
   TRY_ALL {
     d_ci = new ClientInterface();
@@ -58,7 +58,7 @@ calc::IClientInterface::~IClientInterface()
 {
   if (d_ci) {
     delete d_ci;
-    d_ci=0;
+    d_ci=nullptr;
   }
 }
 

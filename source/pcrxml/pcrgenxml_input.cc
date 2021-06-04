@@ -29,8 +29,8 @@ pcrxml::Input::Input(const QDomElement& element):Element(element,d_elementName)
  ,flipZ(element,"flipZ",true)
  ,samplingInterval(element,"samplingInterval",true)
  ,migrDirection(element,"migrDirection",false)
- ,inputLodings(0)
- ,inputPoints(0)
+ ,inputLodings(nullptr)
+ ,inputPoints(nullptr)
  {
   try {
    ChildElementVisitor v(element);
@@ -48,8 +48,8 @@ pcrxml::Input::Input(const QDomElement& element):Element(element,d_elementName)
   } catch (...) { clean(); throw; }
  }
 pcrxml::Input::Input():Element()
- ,inputLodings(0)
- ,inputPoints(0)
+ ,inputLodings(nullptr)
+ ,inputPoints(nullptr)
  {
  }
 const std::string& pcrxml::Input::elementName() const
@@ -64,8 +64,8 @@ pcrxml::Input::~Input()
 //! clean
 void pcrxml::Input::clean()
 {
- delete inputLodings;inputLodings=0;
- delete inputPoints;inputPoints=0;
+ delete inputLodings;inputLodings=nullptr;
+ delete inputPoints;inputPoints=nullptr;
  for(size_t i=0; i<inputFile.size(); i++) delete inputFile[i];
 inputFile.clear();
 }
@@ -76,8 +76,8 @@ pcrxml::Element(src)
 ,samplingInterval(src.samplingInterval)
 ,migrDirection(src.migrDirection)
 {
- inputLodings= (src.inputLodings) ? new InputLodings(*(src.inputLodings)): 0;
- inputPoints= (src.inputPoints) ? new InputPoints(*(src.inputPoints)): 0;
+ inputLodings= (src.inputLodings) ? new InputLodings(*(src.inputLodings)): nullptr;
+ inputPoints= (src.inputPoints) ? new InputPoints(*(src.inputPoints)): nullptr;
  for(size_t i=0; i<src.inputFile.size(); i++) inputFile.push_back(new InputFile(*(src.inputFile[i])));
 }
 //! assignment operator
@@ -86,8 +86,8 @@ pcrxml::Input& pcrxml::Input::operator=(const Input& src)
  if(this != &src)
  {
    clean(); PRECOND(false);
-  inputLodings= (src.inputLodings) ? new InputLodings(*(src.inputLodings)): 0;
-  inputPoints= (src.inputPoints) ? new InputPoints(*(src.inputPoints)): 0;
+  inputLodings= (src.inputLodings) ? new InputLodings(*(src.inputLodings)): nullptr;
+  inputPoints= (src.inputPoints) ? new InputPoints(*(src.inputPoints)): nullptr;
   for(size_t i=0; i<src.inputFile.size(); i++) inputFile.push_back(new InputFile(*(src.inputFile[i])));
  }
 return *this;

@@ -27,10 +27,10 @@ const std::string pcrxml::ParameterItem::d_elementName("ParameterItem");
 //! ctor
 pcrxml::ParameterItem::ParameterItem(const QDomElement& element):Element(element,d_elementName)
  ,label(element,"label",true)
- ,scriptLink(0)
- ,numericInput(0)
- ,fileInput(0)
- ,showData(0)
+ ,scriptLink(nullptr)
+ ,numericInput(nullptr)
+ ,fileInput(nullptr)
+ ,showData(nullptr)
  {
   try {
    ChildElementVisitor v(element);
@@ -50,10 +50,10 @@ pcrxml::ParameterItem::ParameterItem(const QDomElement& element):Element(element
   } catch (...) { clean(); throw; }
  }
 pcrxml::ParameterItem::ParameterItem():Element()
- ,scriptLink(0)
- ,numericInput(0)
- ,fileInput(0)
- ,showData(0)
+ ,scriptLink(nullptr)
+ ,numericInput(nullptr)
+ ,fileInput(nullptr)
+ ,showData(nullptr)
  {
  }
 const std::string& pcrxml::ParameterItem::elementName() const
@@ -68,10 +68,10 @@ pcrxml::ParameterItem::~ParameterItem()
 //! clean
 void pcrxml::ParameterItem::clean()
 {
- delete scriptLink;scriptLink=0;
- delete numericInput;numericInput=0;
- delete fileInput;fileInput=0;
- delete showData;showData=0;
+ delete scriptLink;scriptLink=nullptr;
+ delete numericInput;numericInput=nullptr;
+ delete fileInput;fileInput=nullptr;
+ delete showData;showData=nullptr;
 }
 //! copy ctor
 pcrxml::ParameterItem::ParameterItem(const ParameterItem& src):
@@ -79,9 +79,9 @@ pcrxml::Element(src)
 ,label(src.label)
 {
  scriptLink=new ScriptLink(*(src.scriptLink));
- numericInput= (src.numericInput) ? new NumericInput(*(src.numericInput)): 0;
- fileInput= (src.fileInput) ? new FileInput(*(src.fileInput)): 0;
- showData= (src.showData) ? new ShowData(*(src.showData)): 0;
+ numericInput= (src.numericInput) ? new NumericInput(*(src.numericInput)): nullptr;
+ fileInput= (src.fileInput) ? new FileInput(*(src.fileInput)): nullptr;
+ showData= (src.showData) ? new ShowData(*(src.showData)): nullptr;
 }
 //! assignment operator
 pcrxml::ParameterItem& pcrxml::ParameterItem::operator=(const ParameterItem& src)
@@ -90,9 +90,9 @@ pcrxml::ParameterItem& pcrxml::ParameterItem::operator=(const ParameterItem& src
  {
    clean(); PRECOND(false);
   scriptLink=new ScriptLink(*(src.scriptLink));
-  numericInput= (src.numericInput) ? new NumericInput(*(src.numericInput)): 0;
-  fileInput= (src.fileInput) ? new FileInput(*(src.fileInput)): 0;
-  showData= (src.showData) ? new ShowData(*(src.showData)): 0;
+  numericInput= (src.numericInput) ? new NumericInput(*(src.numericInput)): nullptr;
+  fileInput= (src.fileInput) ? new FileInput(*(src.fileInput)): nullptr;
+  showData= (src.showData) ? new ShowData(*(src.showData)): nullptr;
  }
 return *this;
 }

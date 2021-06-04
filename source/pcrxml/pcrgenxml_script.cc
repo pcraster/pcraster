@@ -29,8 +29,8 @@ pcrxml::Script::Script(const QDomElement& element):Element(element,d_elementName
  ,scriptFileName(element,"scriptFileName",false)
  ,scriptType(element,"scriptType",true)
  ,ioStrategy(element,"ioStrategy",false)
- ,integerTimer(0)
- ,scriptData(0)
+ ,integerTimer(nullptr)
+ ,scriptData(nullptr)
  {
   try {
    ChildElementVisitor v(element);
@@ -44,8 +44,8 @@ pcrxml::Script::Script(const QDomElement& element):Element(element,d_elementName
   } catch (...) { clean(); throw; }
  }
 pcrxml::Script::Script():Element()
- ,integerTimer(0)
- ,scriptData(0)
+ ,integerTimer(nullptr)
+ ,scriptData(nullptr)
  {
  }
 const std::string& pcrxml::Script::elementName() const
@@ -60,8 +60,8 @@ pcrxml::Script::~Script()
 //! clean
 void pcrxml::Script::clean()
 {
- delete integerTimer;integerTimer=0;
- delete scriptData;scriptData=0;
+ delete integerTimer;integerTimer=nullptr;
+ delete scriptData;scriptData=nullptr;
 }
 //! copy ctor
 pcrxml::Script::Script(const Script& src):
@@ -70,7 +70,7 @@ pcrxml::Element(src)
 ,scriptType(src.scriptType)
 ,ioStrategy(src.ioStrategy)
 {
- integerTimer= (src.integerTimer) ? new IntegerTimer(*(src.integerTimer)): 0;
+ integerTimer= (src.integerTimer) ? new IntegerTimer(*(src.integerTimer)): nullptr;
  scriptData=new ScriptData(*(src.scriptData));
 }
 //! assignment operator
@@ -79,7 +79,7 @@ pcrxml::Script& pcrxml::Script::operator=(const Script& src)
  if(this != &src)
  {
    clean(); PRECOND(false);
-  integerTimer= (src.integerTimer) ? new IntegerTimer(*(src.integerTimer)): 0;
+  integerTimer= (src.integerTimer) ? new IntegerTimer(*(src.integerTimer)): nullptr;
   scriptData=new ScriptData(*(src.scriptData));
  }
 return *this;

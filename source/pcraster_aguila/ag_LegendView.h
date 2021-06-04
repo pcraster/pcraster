@@ -114,7 +114,7 @@ public:
 
                    LegendView          (DataObject* object,
                                         ViewerType type,
-                                        QWidget* parent=0);
+                                        QWidget* parent=nullptr);
 
   /* virtual */    ~LegendView         ();
 

@@ -164,7 +164,7 @@ namespace calc {
 LOOK_UP_TABLE *calc::LookupTable::createOldStyle(
   const std::string &fileName)
 {
-  LOOK_UP_TABLE *t(0);
+  LOOK_UP_TABLE *t(nullptr);
   FILE  *f = fopen(fileName.c_str(), "r");
   if (!f)
     libError("Can't open lookup table "+quote(fileName));
@@ -190,8 +190,8 @@ LOOK_UP_TABLE *calc::LookupTable::createOldStyle(
 
 
 calc::LookupTable::LookupTable():
-     d_prefixMap(0),
-     d_memoryInputTableCreator(0)
+     d_prefixMap(nullptr),
+     d_memoryInputTableCreator(nullptr)
 {
 }
 
@@ -201,8 +201,8 @@ calc::LookupTable::LookupTable():
  */
 calc::LookupTable::LookupTable(
     const ASTSymbolInfo& i):
-     d_prefixMap(0),
-     d_memoryInputTableCreator(0),
+     d_prefixMap(nullptr),
+     d_memoryInputTableCreator(nullptr),
      d_vs(i.dataType().resultType())
 {
   std::vector<VS> vs(i.dataType().tableColTypes());
@@ -226,9 +226,9 @@ void calc::LookupTable::clear()
 {
   d_records.clear();
   delete d_prefixMap;
-  d_prefixMap=0;
+  d_prefixMap=nullptr;
   delete d_memoryInputTableCreator;
-  d_memoryInputTableCreator=0;
+  d_memoryInputTableCreator=nullptr;
 }
 
 void calc::LookupTable::setXMLRecords(const pcrxml::Relation& r,

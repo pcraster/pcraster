@@ -103,7 +103,7 @@ BOOST_AUTO_TEST_CASE(read_)
   // Not existing file.
   {
     bool exceptionCaught = false;
-    block = 0;
+    block = nullptr;
 
     try {
       block = static_cast<BlockDriver&>(driver).read("notexisting");

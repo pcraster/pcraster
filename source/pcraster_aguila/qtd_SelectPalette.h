@@ -63,8 +63,8 @@ public:
   //----------------------------------------------------------------------------
 
   //! Constructor.
-                   SelectPalette       (QWidget *p = 0,
-                                        const char *n = 0);
+                   SelectPalette       (QWidget *p = nullptr,
+                                        const char *n = nullptr);
 
   //! Destructor.
   /* virtual */    ~SelectPalette      ();

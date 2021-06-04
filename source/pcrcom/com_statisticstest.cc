@@ -114,7 +114,7 @@ BOOST_AUTO_TEST_CASE(variance_1)
 
   // Empty collection.
   {
-    double *values = 0;
+    double *values = nullptr;
     const size_t nrValues = 0u;  // ARRAY_SIZE requires non-empty array.
     Variance1<double> variance = std::for_each(values, values + nrValues,
                    Variance1<double>(0.0));
@@ -147,7 +147,7 @@ BOOST_AUTO_TEST_CASE(variance_2)
 
   // Empty collection.
   {
-    double *values = 0;
+    double *values = nullptr;
     const size_t nrValues = 0u;  // ARRAY_SIZE requires non-empty array.
     Variance2<double> variance = std::for_each(values, values + nrValues,
                    Variance2<double>());
@@ -180,7 +180,7 @@ BOOST_AUTO_TEST_CASE(standard_deviation)
 
   // Empty collection.
   {
-    double *values = 0;
+    double *values = nullptr;
     const size_t nrValues = 0u;  // ARRAY_SIZE requires non-empty array.
     StandardDeviation<double> stdDev = std::for_each(values,
                    values + nrValues, StandardDeviation<double>());

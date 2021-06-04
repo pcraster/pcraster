@@ -232,7 +232,7 @@ calc::FileTimeoutput::FileTimeoutput(
   d_fileErrorOccured(false),
   d_fileCreated(false),
   d_lastStepToFile(0),
-  d_value(0)
+  d_value(nullptr)
 {
   PRECOND(nrInSet(d_stackInfo.vs()) == 1);
   PRECOND(d_nrCols > 0);
@@ -280,7 +280,7 @@ double *calc::FileTimeoutput::setRow(size_t currentTimeStep)
 {
   /* pcrcalc/test13[cd] */
   if (!reportTimeStep(currentTimeStep))
-    return 0;
+    return nullptr;
   if (d_step.size() && currentTimeStep == d_step.back()) {
     // pcrcalc/test317 writing a value twice in loop!
     return d_value[d_step.size()-1];
@@ -378,7 +378,7 @@ void calc::FileTimeoutput::flushToFile()
    if (appHeader != APP_NOHEADER) {
      // write intervening TODO last end is not written
      for(size_t j=d_lastStepToFile+1; j < d_step[i]; ++j)
-      printLine(j,0,f);
+      printLine(j,nullptr,f);
    }
    printLine(d_step[i],d_value[i],f);
    d_lastStepToFile=d_step[i];
@@ -427,7 +427,7 @@ calc::FileTimeoutput* calc::createFileTimeoutput(
   if (nrCols) {
     return new FileTimeoutput(stackInfo,nrCols);
   }
-  return 0;
+  return nullptr;
 }
 
 calc::MemoryTimeoutput::MemoryTimeoutput(
@@ -460,7 +460,7 @@ void calc::MemoryTimeoutput::timeoutput(
     throw std::runtime_error("Failed to add data to timeseries");
   }
 
-  MemoryExchangeItem *data(0);
+  MemoryExchangeItem *data(nullptr);
   switch(expr->cri()) {
    case CRI_1:
    {

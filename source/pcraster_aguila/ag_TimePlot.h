@@ -59,7 +59,7 @@ public:
   //----------------------------------------------------------------------------
 
                    TimePlot            (DataObject* object,
-                                        QWidget* parent = 0);
+                                        QWidget* parent = nullptr);
 
   /* virtual */    ~TimePlot           ();
 

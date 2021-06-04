@@ -205,7 +205,7 @@ MemoryRasterData MemoryDataPool::raster(
          std::string const& name,
          DataSpace const& space)
 {
-  MemoryRasterData* result = 0;
+  MemoryRasterData* result = nullptr;
 
   std::pair<std::multimap<std::string, MemoryRasterData>::iterator,
          std::multimap<std::string, MemoryRasterData>::iterator> range =
@@ -231,7 +231,7 @@ MemoryTableData MemoryDataPool::table(
          std::string const& name,
          DataSpace const& space)
 {
-  MemoryTableData* result = 0;
+  MemoryTableData* result = nullptr;
 
   std::pair<std::multimap<std::string, MemoryTableData>::iterator,
          std::multimap<std::string, MemoryTableData>::iterator> range =

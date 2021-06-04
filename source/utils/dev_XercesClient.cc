@@ -37,7 +37,7 @@ namespace detail {
 
 unsigned short XercesClient::_count = 0;
 
-xercesc::XMLTranscoder* XercesClient::_utf8Transcoder = 0;
+xercesc::XMLTranscoder* XercesClient::_utf8Transcoder = nullptr;
 
 
 
@@ -100,7 +100,7 @@ XercesClient::~XercesClient()
     if(_count == 1) {
       // Busy destroying the last client.
       delete _utf8Transcoder;
-      _utf8Transcoder = 0;
+      _utf8Transcoder = nullptr;
     }
 
     xercesc::XMLPlatformUtils::Terminate();

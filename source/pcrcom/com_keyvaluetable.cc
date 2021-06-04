@@ -355,7 +355,7 @@ const std::string& com::KeyValueEnum::configValue(const KeyValueTable& kvt) cons
 com::KeyValueNumber::KeyValueNumber(
     const std::string& keyName,
     const Interval<double>* iv):
- KeyValueConfig(keyName),d_iv(0)
+ KeyValueConfig(keyName),d_iv(nullptr)
 {
  if (iv)
   d_iv=iv->createClone();
@@ -363,7 +363,7 @@ com::KeyValueNumber::KeyValueNumber(
 
 com::KeyValueNumber::KeyValueNumber(const KeyValueNumber& k):
  KeyValueConfig(k.keyName()),
- d_iv(0)
+ d_iv(nullptr)
 {
  if (k.d_iv)
   d_iv=k.d_iv->createClone();
@@ -374,7 +374,7 @@ com::KeyValueNumber&  com::KeyValueNumber::operator=(const KeyValueNumber& k)
   if (this != &k) {
     *this = k;
     delete this->d_iv;
-    this->d_iv=0;
+    this->d_iv=nullptr;
     if (k.d_iv)
       this->d_iv = k.d_iv->createClone();
   }

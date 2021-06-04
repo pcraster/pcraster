@@ -23,7 +23,7 @@ class DialogPrivate
     QPushButton *  cancel;             // Cancel button.
 
     DialogPrivate()
-      : top(0), cw(0), ok(0), cancel(0)
+      : top(nullptr), cw(nullptr), ok(nullptr), cancel(nullptr)
     {
     }
 
@@ -50,7 +50,7 @@ class DialogPrivate
 
 Dialog::Dialog(QWidget *p, bool m, Qt::WindowFlags f)
 
-  : QDialog(p, f), d_data(0)
+  : QDialog(p, f), d_data(nullptr)
 
 {
   setModal(m);
@@ -96,7 +96,7 @@ Dialog::~Dialog()
 
 void Dialog::clean()
 {
-  delete d_data, d_data = 0;
+  delete d_data, d_data = nullptr;
 }
 
 

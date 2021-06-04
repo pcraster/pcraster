@@ -186,11 +186,11 @@ class EventChain : public std::vector<UDEvent>
     for(const_iterator e=beginRealRef(dummy); e!=end(); ++e)
       switch(e->type()) {
         case UDEvent::Use: return e->par();
-        case UDEvent::Def: return 0;
+        case UDEvent::Def: return nullptr;
         default:;
       }
     POSTCOND(false); // should have found a Use or Def
-    return 0;
+    return nullptr;
   }
 
   /*! returns the ASTPar node being the first Def in this chain
@@ -208,8 +208,8 @@ class EventChain : public std::vector<UDEvent>
     if (def != end())
      for(const_reverse_iterator e=rbegin(); e!=rend(); ++e)
       if (e->reference())
-        return (e->par()->lastUse()) ? 0 : def->par();
-    return 0;
+        return (e->par()->lastUse()) ? nullptr : def->par();
+    return nullptr;
   }
 
   void  print() const {
@@ -339,7 +339,7 @@ class UseDefRecorder : std::map<std::string, EventChain>
    UseDefRecorder(bool prefixFirstUseByDef):
     d_prefixFirstUseByDef(prefixFirstUseByDef),
     d_dummy("dummy"),
-    d_dynamicSection(0)
+    d_dynamicSection(nullptr)
    {
    }
    ~UseDefRecorder() {
@@ -549,7 +549,7 @@ void calc::UseDefAnalyzer::visitPar (ASTPar *p)
 
 void calc::UseDefAnalyzer::visitNumber (ASTNumber *)
 {
-   d_rec->push(0);
+   d_rec->push(nullptr);
 }
 
 void calc::UseDefAnalyzer::visitNonAssExpr(NonAssExpr   *)
@@ -562,7 +562,7 @@ void calc::UseDefAnalyzer::doExpr(BaseExpr *e)
 {
   d_rec->pop(e->nrArgs());
   for(size_t i=0; i< e->nrReturns(); ++i)
-    d_rec->push(0);
+    d_rec->push(nullptr);
 }
 
 void calc::UseDefAnalyzer::visitExpr(BaseExpr* e)

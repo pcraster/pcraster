@@ -81,7 +81,7 @@ calc::TmpId::TmpId(const std::string& name):
 }
 
 calc::Id::Id():
-  d_position(0)
+  d_position(nullptr)
 {
 }
 
@@ -110,7 +110,7 @@ calc::Id& calc::Id::operator=(const Id& rhs)
 //! Copy constructor.
 calc::Id::Id(const Id& rhs):
   d_name(rhs.d_name),
-  d_position(0)
+  d_position(nullptr)
 {
   setPosition(rhs.d_position);
 }
@@ -136,7 +136,7 @@ void calc::Id::setName(const std::string& name)
 void calc::Id::setPosition(const Position* position)
 {
   delete d_position;
-  d_position=0;
+  d_position=nullptr;
   if (position)
     d_position=position->createClone();
 }
@@ -162,7 +162,7 @@ calc::Position* calc::Id::position() const
 bool calc::Id::empty() const
 {
   PRECOND( (d_position == 0) == d_name.empty());
-  return d_position == 0;
+  return d_position == nullptr;
 }
 
 void calc::Id::posError(const std::string& msg) const

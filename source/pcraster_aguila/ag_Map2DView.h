@@ -130,7 +130,7 @@ public:
   //----------------------------------------------------------------------------
 
                    Map2DView           (DataObject* object,
-                                        QWidget* parent = 0);
+                                        QWidget* parent = nullptr);
 
   /* virtual */    ~Map2DView          ();
 

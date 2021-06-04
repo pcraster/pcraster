@@ -117,7 +117,7 @@ com::PathName com::currentWorkingDirectory()
   char buffer[2048];
   char *currentDir;
 
-  if((currentDir = ::getcwd(buffer, com::detail::MAX_PATH_LENGTH)) == 0)
+  if((currentDir = ::getcwd(buffer, com::detail::MAX_PATH_LENGTH)) == nullptr)
     throw std::logic_error(std::string(
                    "unable to determine current working directory"));
   PathName pn(currentDir);

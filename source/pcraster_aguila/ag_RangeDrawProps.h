@@ -71,7 +71,7 @@ public:
                    RangeDrawProps      (const std::string& title,
                                         const com::RawPalette* p,
                                         com::Classifier* rawValueClassifier,
-                                  com::Classifier* displayValueClassifier = 0);
+                                  com::Classifier* displayValueClassifier = nullptr);
 
                    RangeDrawProps      (RangeDrawProps const& properties);
 
@@ -119,7 +119,7 @@ public:
   void             merge               (RangeDrawProps const& properties);
 
   void             pushClassifier      (com::Classifier* rawValueClassifier,
-                                        com::Classifier* displayValueClassifier=0);
+                                        com::Classifier* displayValueClassifier=nullptr);
 
   ClassifierTuple  popClassifier       ();
 

@@ -107,7 +107,7 @@ void calc::GridMap::writeSpatial(const void *values)
  */
 calc::Spatial* calc::GridMap::readData(VS readAs, const Compressor& compressor)
 {
-  CompressionInput ci(readAs,0,compressor);
+  CompressionInput ci(readAs,nullptr,compressor);
   readInBuffer(readAs,ci.decompressedData());
   return compressor.createSpatial(ci);
 }

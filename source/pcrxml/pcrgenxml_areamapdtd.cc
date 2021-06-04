@@ -26,8 +26,8 @@ Do not edit, generated from libs/pcrxml/generate.py
 const std::string pcrxml::AreaMapDTD::d_elementName("areaMapDTD");
 //! ctor
 pcrxml::AreaMapDTD::AreaMapDTD(const QDomElement& element):Element(element,d_elementName)
- ,rasterSpace(0)
- ,rasterMask(0)
+ ,rasterSpace(nullptr)
+ ,rasterMask(nullptr)
  {
   try {
    ChildElementVisitor v(element);
@@ -41,8 +41,8 @@ pcrxml::AreaMapDTD::AreaMapDTD(const QDomElement& element):Element(element,d_ele
   } catch (...) { clean(); throw; }
  }
 pcrxml::AreaMapDTD::AreaMapDTD():Element()
- ,rasterSpace(0)
- ,rasterMask(0)
+ ,rasterSpace(nullptr)
+ ,rasterMask(nullptr)
  {
  }
 const std::string& pcrxml::AreaMapDTD::elementName() const
@@ -57,15 +57,15 @@ pcrxml::AreaMapDTD::~AreaMapDTD()
 //! clean
 void pcrxml::AreaMapDTD::clean()
 {
- delete rasterSpace;rasterSpace=0;
- delete rasterMask;rasterMask=0;
+ delete rasterSpace;rasterSpace=nullptr;
+ delete rasterMask;rasterMask=nullptr;
 }
 //! copy ctor
 pcrxml::AreaMapDTD::AreaMapDTD(const AreaMapDTD& src):
 pcrxml::Element(src)
 {
- rasterSpace= (src.rasterSpace) ? new RasterSpace(*(src.rasterSpace)): 0;
- rasterMask= (src.rasterMask) ? new RasterMask(*(src.rasterMask)): 0;
+ rasterSpace= (src.rasterSpace) ? new RasterSpace(*(src.rasterSpace)): nullptr;
+ rasterMask= (src.rasterMask) ? new RasterMask(*(src.rasterMask)): nullptr;
 }
 //! assignment operator
 pcrxml::AreaMapDTD& pcrxml::AreaMapDTD::operator=(const AreaMapDTD& src)
@@ -73,8 +73,8 @@ pcrxml::AreaMapDTD& pcrxml::AreaMapDTD::operator=(const AreaMapDTD& src)
  if(this != &src)
  {
    clean(); PRECOND(false);
-  rasterSpace= (src.rasterSpace) ? new RasterSpace(*(src.rasterSpace)): 0;
-  rasterMask= (src.rasterMask) ? new RasterMask(*(src.rasterMask)): 0;
+  rasterSpace= (src.rasterSpace) ? new RasterSpace(*(src.rasterSpace)): nullptr;
+  rasterMask= (src.rasterMask) ? new RasterMask(*(src.rasterMask)): nullptr;
  }
 return *this;
 }

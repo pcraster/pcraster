@@ -85,7 +85,7 @@ class OperatorCreator:
       if (name==d_manifest.function()[i].name())
        return &(d_manifest.function()[i]);
     }
-    return 0;
+    return nullptr;
   }
 
   const pcrxml::LinkInClassManifest* findClass(std::string const& name)  const{
@@ -93,7 +93,7 @@ class OperatorCreator:
       if (name==d_manifest.class_()[i].name())
        return &(d_manifest.class_()[i]);
     }
-    return 0;
+    return nullptr;
   }
   const pcrxml::LinkInClassMethod* findMethod(const pcrxml::LinkInClassManifest* c,
                                         std::string const& name) const
@@ -102,7 +102,7 @@ class OperatorCreator:
       if (name==c->method()[i].name())
        return &(c->method()[i]);
     }
-    return 0;
+    return nullptr;
   }
 
 public:
@@ -120,7 +120,7 @@ public:
   Operator *createConstructor(std::string const& name) const {
    const pcrxml::LinkInClassManifest* c=findClass(name);
    if (!c)
-      return 0;
+      return nullptr;
    return new Operator(name,
        std::vector<DataType>(), // empty result
        xml2DataType(c->constructor().argument()));
@@ -133,7 +133,7 @@ public:
 
    const pcrxml::LinkInFunctionManifest *f=findFunction(name);
    if (!f)
-     return 0;
+     return nullptr;
    return new Operator(name,
                        xml2DataType(f->result()),
                        xml2DataType(f->argument()));
@@ -144,10 +144,10 @@ public:
   {
     const pcrxml::LinkInClassManifest* c=findClass(className);
     if (!c)
-      return 0;
+      return nullptr;
     const pcrxml::LinkInClassMethod* m=findMethod(c,methodName);
     if (!m)
-      return 0;
+      return nullptr;
     return new Operator(className+"::"+methodName,
                         xml2DataType(m->result()),
                         xml2DataType(m->argument()));
@@ -174,13 +174,13 @@ LinkInExpr::LinkInExpr(
    d_nameBefore(nameBefore),
    d_nameAfter(nameAfter),
    d_stringArgument(stringArgument),
-   d_library(0)
+   d_library(nullptr)
 {
   // temporary no-op use shared_ptr::swap later
   d_op = boost::shared_ptr<Operator>(new Operator("0::0","0::0",
                       std::vector<OP_ARGS>(), // no results
                       std::vector<OP_ARGS>(), // no inputs
-                      0));
+                      nullptr));
 }
 
 
@@ -282,7 +282,7 @@ void LinkInExpr::exec(RunTimeEnv* rte) const
 
   if(transferArray.empty()){
     // linkin extension constructor without arguments
-    d_library->execute(li, (void **)NULL);
+    d_library->execute(li, (void **)nullptr);
   }
   else{
     d_library->execute(li,&(transferArray[0]));
@@ -358,7 +358,7 @@ bool LinkInExpr::isFunction() const
 
 bool LinkInExpr::isConstructor() const
 {
-  return d_objectPar != 0;
+  return d_objectPar != nullptr;
 }
 
 const ASTPar* LinkInExpr::objectPar() const

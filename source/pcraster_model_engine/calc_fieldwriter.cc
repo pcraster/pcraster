@@ -146,7 +146,7 @@ class TimeoutputWriter : public DynamicWriter
   TimeoutputWriter(const ASTSymbolInfo& s,
                    IOStrategy&    ios):
     DynamicWriter(s,ios,true),
-    d_tss(0)
+    d_tss(nullptr)
  {
     if (s.memoryOutputId() != s.noMemoryExchangeId()) {
       d_tss = new MemoryTimeoutput(

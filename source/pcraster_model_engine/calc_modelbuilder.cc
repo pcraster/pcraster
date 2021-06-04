@@ -54,7 +54,7 @@
 //------------------------------------------------------------------------------
 
 calc::ModelBuilder::ModelBuilder():
-  d_script(0),
+  d_script(nullptr),
   d_positionName(new std::string("??"))
 {
   globalInit();
@@ -63,7 +63,7 @@ calc::ModelBuilder::ModelBuilder():
 calc::ModelBuilder::~ModelBuilder()
 {
   delete d_script;
-  SetClone(0);
+  SetClone(nullptr);
 }
 
 //! set name for \class calc::PositionName used to create symbols

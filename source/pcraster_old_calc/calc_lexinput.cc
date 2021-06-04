@@ -126,7 +126,7 @@ calc::LexInput::LexInput():
   d_lineNr(1),
   d_tokenStart(1),
   d_ptrExpOutBuf(std::string::npos),
-  d_from(0),
+  d_from(nullptr),
   d_extraCharRead(EOF),
   d_substitution(true)
 {
@@ -211,7 +211,7 @@ void calc::LexInput::installArgvScript(
 
   int argc = argcIn;
   for (int i = 0; i < argc-1; i++)
-   if (strstr(argV[i], ";;") != NULL) {
+   if (strstr(argV[i], ";;") != nullptr) {
      // from here on the rest are d_shellArgs:
      installShellArgs(argc-i-1, argV+i+1);
      // till here it is the expression

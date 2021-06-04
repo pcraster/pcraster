@@ -106,7 +106,7 @@ calc::DataType calc::Field::type() const
 //! see only implementation: Spatial::findMVinMask
 calc::Field* calc::Field::findMVinMask(const std::vector<bool>& /* areaMask */) const
 {
-  return 0;
+  return nullptr;
 }
 
 /*! this is needed if one reuses a field, for example

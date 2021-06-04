@@ -229,7 +229,7 @@ static std::string optAttr(
 calc::ASTNode* calc::ASTTestFactory::createCode(
    QDomElement e)
 {
-  ASTNode *n(0);
+  ASTNode *n(nullptr);
   std::string v(std::string(e.attribute("v").toLatin1()));
   std::string pos(optAttr(e,"p","0"));
 

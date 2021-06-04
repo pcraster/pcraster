@@ -89,7 +89,7 @@ Raster* MemoryRasterDriver::open(
   return d_dataPool->rasterExists(name, space)
          ? d_dataPool->raster(name, space).raster(address, typeId,
               MemoryRasterData::HeaderOnly)
-         : 0;
+         : nullptr;
 }
 
 
@@ -102,7 +102,7 @@ Raster* MemoryRasterDriver::read(
 {
   assert(space.isValid(address));
 
-  Raster* result = 0;
+  Raster* result = nullptr;
 
   if(d_dataPool->rasterExists(name, space)) {
     result = d_dataPool->raster(name, space).raster(address, typeId,

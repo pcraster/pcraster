@@ -94,7 +94,7 @@ void calc::TimeTable::cleanUp()
 {
   if (d_tss)
     FreeTimeTable(d_tss);
-  d_tss = 0;
+  d_tss = nullptr;
 }
 
 //! dtor

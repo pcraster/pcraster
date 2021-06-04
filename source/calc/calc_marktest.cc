@@ -35,7 +35,7 @@ class MarkTestPrivate {
      d_result  = InitMapUINT1(d_nrRows, d_nrCols, d_resultCells,  TRUE, CR_UINT1);
      d_order   = InitMapREAL8(d_nrRows, d_nrCols, d_orderCells,  TRUE, CR_REAL4);
      d_amount  = InitMapREAL8(d_nrRows, d_nrCols, d_amountCells, TRUE, CR_REAL4);
-     d_treshold= 0;
+     d_treshold= nullptr;
    }
    ~MarkTestPrivate() {
      DeleteInternalMAP_UINT1(d_result);

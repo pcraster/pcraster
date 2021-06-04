@@ -176,7 +176,7 @@ Block* VTKBlockDriver::open(
          TypeId /* typeId */) const
 {
   assert(false);
-  return 0;
+  return nullptr;
 }
 
 
@@ -188,7 +188,7 @@ Block* VTKBlockDriver::read(
          TypeId /* typeId */) const
 {
   assert(false);
-  return 0;
+  return nullptr;
 }
 
 

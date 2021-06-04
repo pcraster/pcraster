@@ -195,8 +195,8 @@ public:
   //----------------------------------------------------------------------------
 
                    SameBin               (const ISameBin* op1,
-                                          const ISameBin* op2=0,
-                                          const ISameBin* op3=0);
+                                          const ISameBin* op2=nullptr,
+                                          const ISameBin* op3=nullptr);
 
   virtual         ~SameBin               ();
 
@@ -234,7 +234,7 @@ public:
 
                    DiffBin               (const IDiffBin* op1,
                                           const IDiffBin* op2,
-                                          const IDiffBin* op3=0);
+                                          const IDiffBin* op3=nullptr);
 
   virtual         ~DiffBin               ();
 
@@ -309,8 +309,8 @@ public:
   //----------------------------------------------------------------------------
 
                    DiffUn               (const IDiffUn* op1,
-                                         const IDiffUn* op2=0,
-                                         const IDiffUn* op3=0);
+                                         const IDiffUn* op2=nullptr,
+                                         const IDiffUn* op3=nullptr);
 
   virtual         ~DiffUn               ();
 

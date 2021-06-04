@@ -28,11 +28,11 @@ const std::string pcrxml::Binding::d_elementName("Binding");
 pcrxml::Binding::Binding(const QDomElement& element):Element(element,d_elementName)
  ,parameter(element,"parameter",true)
  ,value(element,"value",true)
- ,map(0)
- ,nonSpatial(0)
- ,stack(0)
- ,timeSeries(0)
- ,table(0)
+ ,map(nullptr)
+ ,nonSpatial(nullptr)
+ ,stack(nullptr)
+ ,timeSeries(nullptr)
+ ,table(nullptr)
  {
   try {
    ChildElementVisitor v(element);
@@ -55,11 +55,11 @@ pcrxml::Binding::Binding(const QDomElement& element):Element(element,d_elementNa
   } catch (...) { clean(); throw; }
  }
 pcrxml::Binding::Binding():Element()
- ,map(0)
- ,nonSpatial(0)
- ,stack(0)
- ,timeSeries(0)
- ,table(0)
+ ,map(nullptr)
+ ,nonSpatial(nullptr)
+ ,stack(nullptr)
+ ,timeSeries(nullptr)
+ ,table(nullptr)
  {
  }
 const std::string& pcrxml::Binding::elementName() const
@@ -74,11 +74,11 @@ pcrxml::Binding::~Binding()
 //! clean
 void pcrxml::Binding::clean()
 {
- delete map;map=0;
- delete nonSpatial;nonSpatial=0;
- delete stack;stack=0;
- delete timeSeries;timeSeries=0;
- delete table;table=0;
+ delete map;map=nullptr;
+ delete nonSpatial;nonSpatial=nullptr;
+ delete stack;stack=nullptr;
+ delete timeSeries;timeSeries=nullptr;
+ delete table;table=nullptr;
 }
 //! copy ctor
 pcrxml::Binding::Binding(const Binding& src):
@@ -86,11 +86,11 @@ pcrxml::Element(src)
 ,parameter(src.parameter)
 ,value(src.value)
 {
- map= (src.map) ? new Map(*(src.map)): 0;
- nonSpatial= (src.nonSpatial) ? new NonSpatial(*(src.nonSpatial)): 0;
- stack= (src.stack) ? new Stack(*(src.stack)): 0;
- timeSeries= (src.timeSeries) ? new TimeSeries(*(src.timeSeries)): 0;
- table= (src.table) ? new Table(*(src.table)): 0;
+ map= (src.map) ? new Map(*(src.map)): nullptr;
+ nonSpatial= (src.nonSpatial) ? new NonSpatial(*(src.nonSpatial)): nullptr;
+ stack= (src.stack) ? new Stack(*(src.stack)): nullptr;
+ timeSeries= (src.timeSeries) ? new TimeSeries(*(src.timeSeries)): nullptr;
+ table= (src.table) ? new Table(*(src.table)): nullptr;
 }
 //! assignment operator
 pcrxml::Binding& pcrxml::Binding::operator=(const Binding& src)
@@ -98,11 +98,11 @@ pcrxml::Binding& pcrxml::Binding::operator=(const Binding& src)
  if(this != &src)
  {
    clean(); PRECOND(false);
-  map= (src.map) ? new Map(*(src.map)): 0;
-  nonSpatial= (src.nonSpatial) ? new NonSpatial(*(src.nonSpatial)): 0;
-  stack= (src.stack) ? new Stack(*(src.stack)): 0;
-  timeSeries= (src.timeSeries) ? new TimeSeries(*(src.timeSeries)): 0;
-  table= (src.table) ? new Table(*(src.table)): 0;
+  map= (src.map) ? new Map(*(src.map)): nullptr;
+  nonSpatial= (src.nonSpatial) ? new NonSpatial(*(src.nonSpatial)): nullptr;
+  stack= (src.stack) ? new Stack(*(src.stack)): nullptr;
+  timeSeries= (src.timeSeries) ? new TimeSeries(*(src.timeSeries)): nullptr;
+  table= (src.table) ? new Table(*(src.table)): nullptr;
  }
 return *this;
 }

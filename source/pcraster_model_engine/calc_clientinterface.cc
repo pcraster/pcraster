@@ -84,8 +84,8 @@ calc::ClientInterface::ClientInterface()
 calc::ClientInterface::ClientInterface(
                    const std::string& scriptFileOrContents,
                    bool               asFile):
-  d_script(0),
-  d_executor(0),
+  d_script(nullptr),
+  d_executor(nullptr),
   d_scriptFileOrContents(scriptFileOrContents),
   d_asFile(asFile)
 {
@@ -113,9 +113,9 @@ calc::ClientInterface::~ClientInterface()
 void calc::ClientInterface::clean()
 {
   delete d_script;
-  d_script = 0;
+  d_script = nullptr;
   delete d_executor;
-  d_executor = 0;
+  d_executor = nullptr;
 }
 
 

@@ -49,7 +49,7 @@ BOOST_AUTO_TEST_CASE(open)
 {
   using namespace geo;
 
-  UINT1 *buf=0;;
+  UINT1 *buf=nullptr;;
   try {
    BandMap bm("uint1minimal");
    BOOST_CHECK(bm.nrRows()   == 4);

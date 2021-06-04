@@ -172,7 +172,7 @@ Raster* CSFRasterDriver::open(
          boost::filesystem::path const& path,
          TypeId typeId) const
 {
-  Raster* raster = 0;
+  Raster* raster = nullptr;
 
   try {
     CSFMap map(path);
@@ -189,7 +189,7 @@ Raster* CSFRasterDriver::open(
   catch(...) {
     // An error occured, we must make sure 0 is returned below.
     delete raster;
-    raster = 0;
+    raster = nullptr;
   }
 
   // 0 in case an error occured.
@@ -206,7 +206,7 @@ Raster* CSFRasterDriver::open(
 {
   assert(!space.hasSpace());
 
-  Raster* result = 0;
+  Raster* result = nullptr;
 
   if(/* pathnameIsNative(name) && */ exists(name, space, address)) {
     result = open(this->pathFor(name, space, address), typeId);

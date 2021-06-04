@@ -58,7 +58,7 @@ public:
 
   PostScriptPrivate(const Feedback& f, double llx, double lly, double urx,
                    double ury)
-    : d_feedback(f), d_primitives(0), d_nrPrimitives(0)
+    : d_feedback(f), d_primitives(nullptr), d_nrPrimitives(0)
   {
     d_boundingBox[0] = llx;
     d_boundingBox[1] = lly;
@@ -89,7 +89,7 @@ public:
 ag::PostScript::PostScript(const Feedback& f, double llx, double lly,
                    double urx, double ury)
 
-  : d_data(0)
+  : d_data(nullptr)
 
 {
   d_data = new PostScriptPrivate(f, llx, lly, urx, ury);
@@ -151,7 +151,7 @@ void ag::PostScript::deletePrimitivesArray()
 {
   if(d_data->d_primitives) {
     delete[] d_data->d_primitives;
-    d_data->d_primitives = 0;
+    d_data->d_primitives = nullptr;
   }
 
   d_data->d_nrPrimitives = 0;

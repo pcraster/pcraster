@@ -206,7 +206,7 @@ void CumDistributionFunctionView::setXAxisScale()
     for(DataGuide const& guide : visualisationEngine().dataGuides()) {
       assert(guide.type() == geo::STACK || guide.type() == geo::FEATURE);
       assert(guide.valueScale() == VS_SCALAR);
-      dataset = 0;
+      dataset = nullptr;
 
       switch(guide.type()) {
         case geo::STACK: {
@@ -312,7 +312,7 @@ void CumDistributionFunctionView::drawPlots()
     assert(guide.type() == geo::STACK || guide.type() == geo::FEATURE);
     assert(guide.valueScale() == VS_SCALAR);
 
-    dataset = 0;
+    dataset = nullptr;
 
     switch(guide.type()) {
       case geo::STACK: {

@@ -30,7 +30,7 @@ BOOST_AUTO_TEST_CASE(constructor)
   using namespace geo;
 
  // illegal angle
- CSFMap *map2(0);
+ CSFMap *map2(nullptr);
  bool failureExpected=false;
  try {
     map2 = new CSFMap("csfmap2.map",11, 12, VS_SCALAR, PT_YINCT2B, 3.0, 14.0, 15.0, 5.0);

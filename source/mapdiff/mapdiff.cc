@@ -49,7 +49,7 @@ int main(int argc,      /* number of arguments */
   char *argv[])      /* list of arguments */
 {
   int c;
-  char *fileName=NULL;
+  char *fileName=nullptr;
 
   exitOnError=1;
   /* install application */
@@ -72,7 +72,7 @@ int main(int argc,      /* number of arguments */
   }
 
 
-  if ( (argv = ArgArguments(&argc)) == NULL)
+  if ( (argv = ArgArguments(&argc)) == nullptr)
     exit(1);
 
   if (AppArgCountCheck(argc,3,3,USAGE))

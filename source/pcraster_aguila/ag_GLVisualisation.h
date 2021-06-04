@@ -45,7 +45,7 @@ protected:
 
                    GLVisualisation     (DataObject* object,
                                         const std::string& visualisationName,
-                                        QWidget* parent = 0);
+                                        QWidget* parent = nullptr);
 
 public:
 

@@ -147,7 +147,7 @@ void* com::DynamicLibrary::address(const std::string& symbolName) const
 #else
   void *addr = ::dlsym(d_dllHandle,symbolName.c_str());
   if(checkError()) {
-    addr = 0;
+    addr = nullptr;
   }
 #endif
 
@@ -165,7 +165,7 @@ void* com::DynamicLibrary::addressAndSetLibPath(const std::string& symbolName)
 {
   void *addr = address(symbolName);
   if (!addr)
-    return 0;
+    return nullptr;
 
   d_directory.clear();
 #ifdef WIN32
@@ -197,7 +197,7 @@ void* com::DynamicLibrary::addressAndSetLibPath(const std::string& symbolName)
 */
 bool com::DynamicLibrary::hasSymbol(const std::string& symbolName) const
 {
-  return address(symbolName) != 0;
+  return address(symbolName) != nullptr;
 }
 
 

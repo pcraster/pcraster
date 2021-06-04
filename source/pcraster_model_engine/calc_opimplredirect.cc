@@ -58,7 +58,7 @@ public:
 //------------------------------------------------------------------------------
 
 calc::OpImplRedirect::OpImplRedirect():
-   d_redirect(0)
+   d_redirect(nullptr)
 {
 }
 

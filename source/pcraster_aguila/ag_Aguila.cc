@@ -63,7 +63,7 @@ Aguila::Aguila(
     d_xsdLib(new pcrxsd::Library()),
     d_argc(argc),
     d_argv(argv),
-    d_viewer(0)
+    d_viewer(nullptr)
 
 {
   assert(dev::GDalClient::isInitialized());

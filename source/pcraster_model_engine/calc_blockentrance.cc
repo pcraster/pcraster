@@ -107,7 +107,7 @@ calc::BasicBlock* calc::BlockEntrance::block() const
 calc::BlockEntrance* calc::BlockEntrance::createClone() const
 {
   PRECOND(FALSE);
-  return new BlockEntrance(0);
+  return new BlockEntrance(nullptr);
 }
 
 //------------------------------------------------------------------------------

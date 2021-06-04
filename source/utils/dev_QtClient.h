@@ -91,7 +91,7 @@ QtClient<Application>::QtClient(
          int& argc,
          char** argv)
 
-  : _application(0)
+  : _application(nullptr)
 
 {
   assert(!_initialized); // Don't create more than one instance!!!
@@ -109,7 +109,7 @@ QtClient<Application>::~QtClient()
 
   delete _application;
 
-  _application = 0;
+  _application = nullptr;
   _initialized = false;
 }
 
@@ -119,7 +119,7 @@ template<class Application>
 bool QtClient<Application>::isInitialized() const
 {
   assert((_application != 0) == _initialized);
-  return _application != 0;
+  return _application != nullptr;
 }
 
 

@@ -33,7 +33,7 @@ public:
 
   GeneralDataPropertiesWidgetPrivate()
 
-    : d_show(0)
+    : d_show(nullptr)
 
   {
   }

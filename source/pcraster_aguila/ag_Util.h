@@ -15,7 +15,7 @@ class QWidget;
 
 namespace ag {
 
-std::string        getOpenDataFileName (QWidget* p = 0);
+std::string        getOpenDataFileName (QWidget* p = nullptr);
 
 QPixmap            pixmap              (DataGuide const& guide);
 

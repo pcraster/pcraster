@@ -41,7 +41,7 @@ private:
 
 protected:
 
-                   PropertiesWidget    (QWidget* parent = 0);
+                   PropertiesWidget    (QWidget* parent = nullptr);
 
 public:
 

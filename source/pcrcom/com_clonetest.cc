@@ -13,9 +13,9 @@ BOOST_AUTO_TEST_CASE(reset_clone)
   typedef EqualTo<float>  E;
   {
     E* dest=new E(4);
-    E* src(0);
+    E* src(nullptr);
     resetClone(dest,src);
-    BOOST_CHECK(dest==0);
+    BOOST_CHECK(dest==nullptr);
 
     dest=new E(8);
     BOOST_CHECK(dest->min()==8);

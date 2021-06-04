@@ -109,5 +109,5 @@ const char* nextSaveStrtok(SAVE_STRTOK s)
 {
   if (s.data->d_next <  s.data->d_strings.size())
    return s.data->d_strings[s.data->d_next++].c_str();
-  return 0;
+  return nullptr;
 }

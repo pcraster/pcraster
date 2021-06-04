@@ -19,7 +19,7 @@ calc::FieldValue::FieldValue(
 calc::FieldValue::FieldValue(
   const FieldParameter& p,
   size_t index):
- d_par(p),d_index(index),d_fw(d_par,d_index,p.vs()),d_val(0)
+ d_par(p),d_index(index),d_fw(d_par,d_index,p.vs()),d_val(nullptr)
 {}
 
 calc::FieldValue::~FieldValue()
@@ -45,7 +45,7 @@ calc::FieldHandle calc::FieldValue::value(bool isLastUse)
   FieldHandle f = *d_val;
   if (isLastUse) {
     delete d_val;
-    d_val= 0;
+    d_val= nullptr;
   }
   return f;
 }

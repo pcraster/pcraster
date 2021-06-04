@@ -181,7 +181,7 @@ public:
          } else
            d_rte.pushDataValue(d_args[i]);
       }
-      d_args[i]=0;
+      d_args[i]=nullptr;
     }
   }
 

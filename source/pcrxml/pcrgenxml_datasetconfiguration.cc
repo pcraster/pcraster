@@ -27,10 +27,10 @@ const std::string pcrxml::DataSetConfiguration::d_elementName("DataSetConfigurat
 //! ctor
 pcrxml::DataSetConfiguration::DataSetConfiguration(const QDomElement& element):Element(element,d_elementName)
  ,version(element,"version",true)
- ,input(0)
- ,compute(0)
- ,interpolate(0)
- ,lodings(0)
+ ,input(nullptr)
+ ,compute(nullptr)
+ ,interpolate(nullptr)
+ ,lodings(nullptr)
  {
   try {
    ChildElementVisitor v(element);
@@ -50,10 +50,10 @@ pcrxml::DataSetConfiguration::DataSetConfiguration(const QDomElement& element):E
   } catch (...) { clean(); throw; }
  }
 pcrxml::DataSetConfiguration::DataSetConfiguration():Element()
- ,input(0)
- ,compute(0)
- ,interpolate(0)
- ,lodings(0)
+ ,input(nullptr)
+ ,compute(nullptr)
+ ,interpolate(nullptr)
+ ,lodings(nullptr)
  {
  }
 const std::string& pcrxml::DataSetConfiguration::elementName() const
@@ -68,10 +68,10 @@ pcrxml::DataSetConfiguration::~DataSetConfiguration()
 //! clean
 void pcrxml::DataSetConfiguration::clean()
 {
- delete input;input=0;
- delete compute;compute=0;
- delete interpolate;interpolate=0;
- delete lodings;lodings=0;
+ delete input;input=nullptr;
+ delete compute;compute=nullptr;
+ delete interpolate;interpolate=nullptr;
+ delete lodings;lodings=nullptr;
 }
 //! copy ctor
 pcrxml::DataSetConfiguration::DataSetConfiguration(const DataSetConfiguration& src):
@@ -80,8 +80,8 @@ pcrxml::Element(src)
 {
  input=new Input(*(src.input));
  compute=new Compute(*(src.compute));
- interpolate= (src.interpolate) ? new Interpolate(*(src.interpolate)): 0;
- lodings= (src.lodings) ? new Lodings(*(src.lodings)): 0;
+ interpolate= (src.interpolate) ? new Interpolate(*(src.interpolate)): nullptr;
+ lodings= (src.lodings) ? new Lodings(*(src.lodings)): nullptr;
 }
 //! assignment operator
 pcrxml::DataSetConfiguration& pcrxml::DataSetConfiguration::operator=(const DataSetConfiguration& src)
@@ -91,8 +91,8 @@ pcrxml::DataSetConfiguration& pcrxml::DataSetConfiguration::operator=(const Data
    clean(); PRECOND(false);
   input=new Input(*(src.input));
   compute=new Compute(*(src.compute));
-  interpolate= (src.interpolate) ? new Interpolate(*(src.interpolate)): 0;
-  lodings= (src.lodings) ? new Lodings(*(src.lodings)): 0;
+  interpolate= (src.interpolate) ? new Interpolate(*(src.interpolate)): nullptr;
+  lodings= (src.lodings) ? new Lodings(*(src.lodings)): nullptr;
  }
 return *this;
 }

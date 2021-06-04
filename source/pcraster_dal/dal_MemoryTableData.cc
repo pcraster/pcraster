@@ -308,7 +308,7 @@ bool MemoryTableData::exists(
          std::vector<boost::any> const& values) const
 {
   assert(values.size() == 1);
-  return boost::any_cast<Table*>(&values[0]) != 0;
+  return boost::any_cast<Table*>(&values[0]) != nullptr;
 }
 
 
@@ -378,7 +378,7 @@ Table const* MemoryTableData::table(
 {
   assert(values.size() == 1);
 
-  Table const* result = 0;
+  Table const* result = nullptr;
 
   if(exists(values)) {
     result = *boost::any_cast<Table*>(&values[0]);
@@ -396,7 +396,7 @@ Table const* MemoryTableData::table(
 {
   assert(space.contains(address));
 
-  Table const* result = 0;
+  Table const* result = nullptr;
 
   if(space.isEmpty()) {
     result = table(values);

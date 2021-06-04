@@ -58,7 +58,7 @@ public:
 //------------------------------------------------------------------------------
 
 calc::PointImpl::PointImpl():
-   d_pointFunction(0)
+   d_pointFunction(nullptr)
 {
 }
 

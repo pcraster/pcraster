@@ -40,7 +40,7 @@ void calc::TimeTable::init(
   VS                 resultFieldVs,
   size_t nrTimeStepsExpected)
 {
-  d_tss=0;
+  d_tss=nullptr;
   try {
    d_tss=ReadTimeInputTable(fileName.c_str(), 0,0, vs2CsfVs(resultFieldVs));
    if (!d_tss)
@@ -89,7 +89,7 @@ void calc::TimeTable::clean()
 {
   if (d_tss)
     FreeTimeTable(d_tss);
-  d_tss = 0;
+  d_tss = nullptr;
 }
 
 //! dtor

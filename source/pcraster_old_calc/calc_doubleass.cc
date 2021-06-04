@@ -145,10 +145,10 @@ calc::DoubleAssignment::DoubleAssignment(
   d_swapped(NeedSwap(posFunc,f0,f1)),
   d_op0(d_swapped ? f1 : f0),
   d_op1(d_swapped ? f0 : f1),
-  d_right(0)
+  d_right(nullptr)
 {
   try {
-   d_left[0]=0; d_left[1]=0;
+   d_left[0]=nullptr; d_left[1]=nullptr;
    d_right   = new calc::BranchExprImpl(posFunc,d_op1,args);
    d_left[0] = new calc::FieldLeft(b,w,d_swapped ? p1:p0, d_op0.vs());
    d_left[1] = new calc::FieldLeft(b,w,d_swapped ? p0:p1,d_right->vs());

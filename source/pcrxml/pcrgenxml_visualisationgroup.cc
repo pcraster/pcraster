@@ -26,7 +26,7 @@ Do not edit, generated from libs/pcrxml/generate.py
 const std::string pcrxml::VisualisationGroup::d_elementName("VisualisationGroup");
 //! ctor
 pcrxml::VisualisationGroup::VisualisationGroup(const QDomElement& element):Element(element,d_elementName)
- ,dataObject(0)
+ ,dataObject(nullptr)
  {
   try {
    ChildElementVisitor v(element);
@@ -37,7 +37,7 @@ pcrxml::VisualisationGroup::VisualisationGroup(const QDomElement& element):Eleme
   } catch (...) { clean(); throw; }
  }
 pcrxml::VisualisationGroup::VisualisationGroup():Element()
- ,dataObject(0)
+ ,dataObject(nullptr)
  {
  }
 const std::string& pcrxml::VisualisationGroup::elementName() const
@@ -52,7 +52,7 @@ pcrxml::VisualisationGroup::~VisualisationGroup()
 //! clean
 void pcrxml::VisualisationGroup::clean()
 {
- delete dataObject;dataObject=0;
+ delete dataObject;dataObject=nullptr;
 }
 //! copy ctor
 pcrxml::VisualisationGroup::VisualisationGroup(const VisualisationGroup& src):

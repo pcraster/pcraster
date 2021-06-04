@@ -160,7 +160,7 @@ public:
 
   LinkInLibraryPrivate(const std::string& name):
     d_name(name),
-    d_dl(0)
+    d_dl(nullptr)
   {
 
      try {

@@ -66,7 +66,7 @@
 // DEFINITION OF STATIC GRIDMAP MEMBERS
 //------------------------------------------------------------------------------
 
-static dal::RasterDal* rasterDal(0);
+static dal::RasterDal* rasterDal(nullptr);
 
 //------------------------------------------------------------------------------
 // DEFINITION OF GRIDMAP MEMBERS

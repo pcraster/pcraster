@@ -53,7 +53,7 @@
 LOOK_UP_TABLE *calc::LookupTable::createOldStyle(
   const std::string &fileName)
 {
-  LOOK_UP_TABLE *t(0);
+  LOOK_UP_TABLE *t(nullptr);
   FILE  *f = fopen(fileName.c_str(), "r");
   if (!f)
     libError("Can't open lookup table "+quote(fileName));

@@ -217,7 +217,7 @@ std::string geo::CSFStackName::asAguilaArgument(
 */
 geo::CSFStackName::CSFStackName(const com::PathName &n, bool scanIt)
 
-  : d_data(0)
+  : d_data(nullptr)
 
 {
   try {
@@ -286,7 +286,7 @@ geo::CSFStackName::CSFStackName(const com::PathName& pn, size_t f, size_t l,
 */
 geo::CSFStackName::CSFStackName(const geo::CSFStackName &n)
 
-  : d_data(0)
+  : d_data(nullptr)
 
 {
   d_data    = new CSFStackNamePrivate(*(n.d_data));
@@ -322,7 +322,7 @@ void geo::CSFStackName::init(const com::PathName &n)
 */
 void geo::CSFStackName::clean()
 {
-  delete d_data; d_data = 0;
+  delete d_data; d_data = nullptr;
 }
 
 

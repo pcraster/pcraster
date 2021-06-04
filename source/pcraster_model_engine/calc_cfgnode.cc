@@ -59,9 +59,9 @@ public:
 
 void calc::CFGNode::init()
 {
- d_node=0;
- d_pred[0]=d_pred[1]=0;
- d_succ[0]=d_succ[1]=0;
+ d_node=nullptr;
+ d_pred[0]=d_pred[1]=nullptr;
+ d_succ[0]=d_succ[1]=nullptr;
 }
 
 calc::CFGNode::CFGNode()
@@ -79,9 +79,9 @@ calc::CFGNode::CFGNode(ASTNode *node)
 calc::CFGNode::~CFGNode()
 {
   delete d_succ[Forward];
-  d_succ[Forward]=0;
+  d_succ[Forward]=nullptr;
   // Back is ptr to an already deleted node
-  d_succ[Back]=0;
+  d_succ[Back]=nullptr;
 }
 
 /* NOT IMPLEMENTED

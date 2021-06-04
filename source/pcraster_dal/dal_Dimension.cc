@@ -681,7 +681,7 @@ bool Dimension::contains(
       break;
     }
     case Space: {
-      SpaceDimensions const* dimensions = 0;
+      SpaceDimensions const* dimensions = nullptr;
 
       switch(discretisation()) {
         case RegularDiscretisation: {

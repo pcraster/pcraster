@@ -52,7 +52,7 @@ size_t calc::Spatial::d_currentBPC=0;
 
 //! ctor with allocation by default
 calc::Spatial::Spatial(VS vs, size_t nrValues, bool doAllocation):
-  Field(vs),d_val(0),d_nrValues(nrValues)
+  Field(vs),d_val(nullptr),d_nrValues(nrValues)
 {
   if (doAllocation)
     allocate();
@@ -100,7 +100,7 @@ void calc::Spatial::loadGrid(
    POSTCOND(d_nrValues==s->d_nrValues);
    POSTCOND(vs() == s->vs());
    d_val= s->d_val;
-   s->d_val=0;
+   s->d_val=nullptr;
    delete s;
 }
 

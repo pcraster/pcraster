@@ -47,14 +47,14 @@
 //------------------------------------------------------------------------------
 
 calc::ASTAss::ASTAss():
-   d_rhs(0)
+   d_rhs(nullptr)
 {
 }
 
 //! ctor with full deepClone
 calc::ASTAss::ASTAss(const ASTPar&  par,
                      const ASTNode* rhs):
-   d_rhs(0)
+   d_rhs(nullptr)
 {
   addPar(par);
   setRhs(rhs);
@@ -69,7 +69,7 @@ void calc::ASTAss::clean()
 {
   com::clearClone(d_pars);
   delete d_rhs;
-  d_rhs=0;
+  d_rhs=nullptr;
 }
 
 //! Assignment operator.

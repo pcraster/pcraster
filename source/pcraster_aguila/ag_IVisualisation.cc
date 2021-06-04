@@ -59,7 +59,7 @@ public:
   std::vector<com::FileFormatInfo> d_fileFormats;
 
   IVisualisationPrivate()
-    : d_dataObject(0)
+    : d_dataObject(nullptr)
     /*
       d_isFullScreen(false),
       d_fullScreenTB(0) */

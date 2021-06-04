@@ -57,7 +57,7 @@ private Q_SLOTS:
 protected:
 
                    PropertiesDialog    (PropertiesWidget* widget,
-                                        QWidget* parent = 0,
+                                        QWidget* parent = nullptr,
                                         bool modal = false,
                                         Qt::WindowFlags flags = Qt::Widget);
 

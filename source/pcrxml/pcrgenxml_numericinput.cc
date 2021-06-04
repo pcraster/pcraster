@@ -26,8 +26,8 @@ Do not edit, generated from libs/pcrxml/generate.py
 const std::string pcrxml::NumericInput::d_elementName("NumericInput");
 //! ctor
 pcrxml::NumericInput::NumericInput(const QDomElement& element):Element(element,d_elementName)
- ,lowerLimit(0)
- ,upperLimit(0)
+ ,lowerLimit(nullptr)
+ ,upperLimit(nullptr)
  {
   try {
    ChildElementVisitor v(element);
@@ -41,8 +41,8 @@ pcrxml::NumericInput::NumericInput(const QDomElement& element):Element(element,d
   } catch (...) { clean(); throw; }
  }
 pcrxml::NumericInput::NumericInput():Element()
- ,lowerLimit(0)
- ,upperLimit(0)
+ ,lowerLimit(nullptr)
+ ,upperLimit(nullptr)
  {
  }
 const std::string& pcrxml::NumericInput::elementName() const
@@ -57,15 +57,15 @@ pcrxml::NumericInput::~NumericInput()
 //! clean
 void pcrxml::NumericInput::clean()
 {
- delete lowerLimit;lowerLimit=0;
- delete upperLimit;upperLimit=0;
+ delete lowerLimit;lowerLimit=nullptr;
+ delete upperLimit;upperLimit=nullptr;
 }
 //! copy ctor
 pcrxml::NumericInput::NumericInput(const NumericInput& src):
 pcrxml::Element(src)
 {
- lowerLimit= (src.lowerLimit) ? new LowerLimit(*(src.lowerLimit)): 0;
- upperLimit= (src.upperLimit) ? new UpperLimit(*(src.upperLimit)): 0;
+ lowerLimit= (src.lowerLimit) ? new LowerLimit(*(src.lowerLimit)): nullptr;
+ upperLimit= (src.upperLimit) ? new UpperLimit(*(src.upperLimit)): nullptr;
 }
 //! assignment operator
 pcrxml::NumericInput& pcrxml::NumericInput::operator=(const NumericInput& src)
@@ -73,8 +73,8 @@ pcrxml::NumericInput& pcrxml::NumericInput::operator=(const NumericInput& src)
  if(this != &src)
  {
    clean(); PRECOND(false);
-  lowerLimit= (src.lowerLimit) ? new LowerLimit(*(src.lowerLimit)): 0;
-  upperLimit= (src.upperLimit) ? new UpperLimit(*(src.upperLimit)): 0;
+  lowerLimit= (src.lowerLimit) ? new LowerLimit(*(src.lowerLimit)): nullptr;
+  upperLimit= (src.upperLimit) ? new UpperLimit(*(src.upperLimit)): nullptr;
  }
 return *this;
 }

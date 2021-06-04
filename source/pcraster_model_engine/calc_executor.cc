@@ -100,7 +100,7 @@ calc::Executor::Executor(
     const ASTSymbolTable& table):
   CFGVisitor(cfg),
   d_rte(s),
-  d_timeoutput(0),
+  d_timeoutput(nullptr),
   d_progressInfo(new ProgressInfo()),
   d_counter(COUNT_NR)
 {
@@ -306,13 +306,13 @@ void calc::Executor::visitAss (ASTAss    *a)
    // delay to reach  a->pars holding the tss
    PRECOND(a->pars().size()==1);
    d_rte.assignOutTss(a->par()->name());
-   d_timeoutput=0;
+   d_timeoutput=nullptr;
   }
 }
 
 void calc::Executor::visitStat (ASTStat   *)
 {
-  d_timeoutput=0;
+  d_timeoutput=nullptr;
 }
 
 void calc::Executor::visitPointCodeBlock(PointCodeBlock* pcb)

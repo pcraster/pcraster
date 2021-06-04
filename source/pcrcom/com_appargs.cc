@@ -44,8 +44,8 @@ com::AppArgs::AppArgs (const std::string& allArgs)
 
 void com::AppArgs::init(const std::string& args)
 {
-  d_argv=0;
-  d_buffer=0;
+  d_argv=nullptr;
+  d_buffer=nullptr;
   try {
     std::vector<std::string>argv(com::split(args));
     POSTCOND(!argv.empty());
@@ -63,7 +63,7 @@ void com::AppArgs::init(const std::string& args)
    delete [] d_argv;
    delete [] d_buffer;
   }
-  d_argv[d_argc]=0; // end 0
+  d_argv[d_argc]=nullptr; // end 0
 }
 
 com::AppArgs::~AppArgs ()

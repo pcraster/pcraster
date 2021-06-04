@@ -180,7 +180,7 @@ class FileMapPrivate
        POSTCOND(!r);
        (void)r;  // Shut up compiler
       }
-      d_ptr=0;
+      d_ptr=nullptr;
     }
    public:
 
@@ -189,7 +189,7 @@ class FileMapPrivate
       bool            update,
       size_t          offset,
       size_t          len):
-        d_fileName(fileName),d_ptr(0),d_mappedLen(0),d_fd(-1)
+        d_fileName(fileName),d_ptr(nullptr),d_mappedLen(0),d_fd(-1)
     {
       d_fd = ::open(fileName, (update ? O_RDWR:O_RDONLY)|O_NONBLOCK,0);
       if (d_fd == -1)
@@ -206,7 +206,7 @@ class FileMapPrivate
       int prot = PROT_READ;
       if (update)
         prot |= PROT_WRITE;
-      d_ptr = mmap(0,len,prot,(update?MAP_SHARED:MAP_PRIVATE),d_fd,(off_t)offset);
+      d_ptr = mmap(nullptr,len,prot,(update?MAP_SHARED:MAP_PRIVATE),d_fd,(off_t)offset);
       if (d_ptr == MAP_FAILED)
         throwError("mmap failed");
       d_mappedLen = len;

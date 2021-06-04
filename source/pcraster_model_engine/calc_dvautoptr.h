@@ -43,7 +43,7 @@ template <class T>
 
     T* get()                    { return d_ap; }
     T* operator->()             { return d_ap; }
-    T* release()                { T*p=d_ap;d_ap=0;return p;}
+    T* release()                { T*p=d_ap;d_ap=nullptr;return p;}
  };
 
 

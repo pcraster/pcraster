@@ -60,14 +60,14 @@ size_t calc::Spatial::currentBPC()
 
 //! ctor with allocation by default
 calc::Spatial::Spatial(VS vs, CRIndex cri, size_t nrValues):
-  Field(vs,cri), d_nrValues(nrValues),d_val(0)
+  Field(vs,cri), d_nrValues(nrValues),d_val(nullptr)
 {
   allocate();
 }
 
 //! copy ctor
 calc::Spatial::Spatial(const Spatial& rhs):
-  Field(rhs.vs(),rhs.cri()),d_nrValues(rhs.nrValues()),d_val(0)
+  Field(rhs.vs(),rhs.cri()),d_nrValues(rhs.nrValues()),d_val(nullptr)
 {
   allocate();
   beMemCpyDest(rhs.src());
@@ -83,7 +83,7 @@ Spatial::Spatial(
 
   : Field(vs, crIndex<UINT1>()),
     d_nrValues(data.raster()->nrCells()),
-    d_val(0)
+    d_val(nullptr)
 
 {
   allocate();
@@ -98,7 +98,7 @@ Spatial::Spatial(
 
   : Field(vs, crIndex<INT4>()),
     d_nrValues(data.raster()->nrCells()),
-    d_val(0)
+    d_val(nullptr)
 
 {
   allocate();
@@ -113,7 +113,7 @@ Spatial::Spatial(
 
   : Field(vs, crIndex<REAL4>()),
     d_nrValues(data.raster()->nrCells()),
-    d_val(0)
+    d_val(nullptr)
 
 {
   allocate();
@@ -320,7 +320,7 @@ public:
       }
     // if (!d_allZero && allIdentical)
     //  std::cout << "ident " << prevIdenticalValue << " " << me << " " << sizeof(CR) << "\n";
-    return 0;
+    return nullptr;
   }
 
   bool newMVsFound() const { return d_newMVsFound; };
@@ -349,6 +349,6 @@ calc::Spatial* calc::Spatial::findMVinMask(
    case CRI_4 : return c.check(areaMask, src_4());
    case CRI_f : return c.check(areaMask, src_f());
    default: PRECOND(FALSE);
-            return 0;
+            return nullptr;
   }
 }

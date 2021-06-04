@@ -70,14 +70,14 @@
   This constructor opens an existing csf raster file in mode \a m.
 */
 geo::CSFMap::CSFMap(const std::string &fn, bool allowUpdate)
-  : d_fn(fn), d_map(0)
+  : d_fn(fn), d_map(nullptr)
 
 {
   open(allowUpdate);
 }
 
 geo::CSFMap::CSFMap(const char *fn, bool allowUpdate)
-  : d_fn(fn), d_map(0)
+  : d_fn(fn), d_map(nullptr)
 {
   open(allowUpdate);
 }
@@ -85,7 +85,7 @@ geo::CSFMap::CSFMap(const char *fn, bool allowUpdate)
 
 
 geo::CSFMap::CSFMap(const com::PathName &fn, bool allowUpdate)
-  : d_fn(fn.toString()), d_map(0)
+  : d_fn(fn.toString()), d_map(nullptr)
 
 {
   open(allowUpdate);
@@ -95,7 +95,7 @@ geo::CSFMap::CSFMap(const com::PathName &fn, bool allowUpdate)
 
 //! Copy constructor, use only on read only!
 geo::CSFMap::CSFMap(const CSFMap &rhs)
-  : d_fn(rhs.d_fn), d_map(0)
+  : d_fn(rhs.d_fn), d_map(nullptr)
 
 {
   PRECOND(MopenPerm(rhs.d_map) == M_READ);
@@ -123,7 +123,7 @@ geo::CSFMap::CSFMap(const CSFMap &rhs)
 */
 geo::CSFMap::CSFMap(const std::string &fn, size_t nr, size_t nc,
          CSF_VS vs, CSF_PT proj, REAL8 left, REAL8 top, REAL8 a, REAL8 cs, CSF_CR cr)
-  : d_fn(fn), d_map(0)
+  : d_fn(fn), d_map(nullptr)
 
 {
   create(nr, nc, vs, proj, left, top, a, cs,cr);
@@ -133,7 +133,7 @@ geo::CSFMap::CSFMap(const std::string &fn, size_t nr, size_t nc,
 /*! \exception com::FileError as thrown by create()
  */
 geo::CSFMap::CSFMap(const std::string& name,const geo::RasterSpace& rs,
-      CSF_VS vs, CSF_CR cr): d_fn(name), d_map(0)
+      CSF_VS vs, CSF_CR cr): d_fn(name), d_map(nullptr)
 {
   create(rs.nrRows(), rs.nrCols(), vs,
     geoProjToCsf(rs.projection()), rs.left(), rs.top(), rs.angle(),
@@ -144,7 +144,7 @@ geo::CSFMap::CSFMap(const std::string& name,const geo::RasterSpace& rs,
 /*! \exception com::FileError as thrown by create()
  */
 geo::CSFMap::CSFMap(const com::PathName& name,const geo::RasterSpace& rs,
-      CSF_VS vs, CSF_CR cr): d_fn(name.toString()), d_map(0)
+      CSF_VS vs, CSF_CR cr): d_fn(name.toString()), d_map(nullptr)
 {
   create(rs.nrRows(), rs.nrCols(), vs,
     geoProjToCsf(rs.projection()), rs.left(), rs.top(), rs.angle(),
@@ -155,7 +155,7 @@ geo::CSFMap::CSFMap(const com::PathName& name,const geo::RasterSpace& rs,
 /*! \exception com::FileError as thrown by create()
  */
 geo::CSFMap::CSFMap(const std::string& name,const CSFMap& clone,
-      CSF_VS vs, CSF_CR cr): d_fn(name), d_map(0)
+      CSF_VS vs, CSF_CR cr): d_fn(name), d_map(nullptr)
 {
   RasterSpace rs(clone.rasterSpace());
   create(rs.nrRows(), rs.nrCols(), vs,
@@ -274,7 +274,7 @@ void geo::CSFMap::close()
 
   if(Mclose(d_map))
     throwFileError("error closing raster",true);
-  d_map = 0;
+  d_map = nullptr;
 }
 
 
@@ -285,7 +285,7 @@ void geo::CSFMap::close()
 */
 bool geo::CSFMap::isOpen() const
 {
-  return d_map != 0;
+  return d_map != nullptr;
 }
 
 
@@ -625,7 +625,7 @@ com::Legend<INT4> geo::CSFMap::legend() const
 
   if(hasLegend()) {
 
-    CSF_LEGEND *l = 0;
+    CSF_LEGEND *l = nullptr;
 
     try {
       size_t n = nrLegendEntries();

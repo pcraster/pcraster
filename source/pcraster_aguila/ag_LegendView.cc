@@ -171,7 +171,7 @@ void LegendView::editDrawProperties()
     return;
   }
 
-  PropertiesWidget* widget = 0;
+  PropertiesWidget* widget = nullptr;
 
   if(_contextMenuGuides.front().valueScale() == VS_BOOLEAN ||
      _contextMenuGuides.front().valueScale() == VS_NOMINAL ||
@@ -201,7 +201,7 @@ void LegendView::saveGraphData()
 
   if(dialog.exec() == QDialog::Accepted) {
     DataGuide const& guide = _contextMenuGuides.front();
-    dal::Table const* table = 0;
+    dal::Table const* table = nullptr;
     boost::scoped_ptr<dal::Table> scopedTable;
 
     // We only handle time graph data at the moment.
@@ -321,7 +321,7 @@ std::vector<Legend*> LegendView::legends(
 std::vector<DataGuide> const& LegendView::dataGuides(
        Legend const* legend) const
 {
-  std::vector<DataGuide> const* result = 0;
+  std::vector<DataGuide> const* result = nullptr;
 
   for(size_t i = 0; i < _legendTuples.size(); ++i) {
     std::vector<DataGuide> const& guides(boost::get<0>(_legendTuples[i]));
@@ -343,7 +343,7 @@ std::vector<DataGuide> const& LegendView::dataGuides(
 {
   assert(index.isValid());
 
-  std::vector<DataGuide> const* result = 0;
+  std::vector<DataGuide> const* result = nullptr;
 
   // Determine data guides connected to legend.
   Legend* legend = dynamic_cast<Legend*>(indexWidget(index));

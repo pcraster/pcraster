@@ -28,7 +28,7 @@ ag::Map2DWindow::Map2DWindow(const qt::AppWindowProperties& props,
          ag::DataObject* dataObject)
 
   : MapWindow(props, "Map Window", dataObject),
-    d_map(0)
+    d_map(nullptr)
 
 {
   std::vector<com::FileFormatInfo> fileFormats;

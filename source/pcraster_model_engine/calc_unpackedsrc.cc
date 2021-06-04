@@ -72,7 +72,7 @@ public:
  */
 calc::UnpackedSrc::UnpackedSrc( const SpatialPacking& sp,
                                 const Field* packed):
- d_sp(sp),d_packed(packed),d_unpacked(0)
+ d_sp(sp),d_packed(packed),d_unpacked(nullptr)
 {
 }
 

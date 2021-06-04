@@ -61,7 +61,7 @@ DimensionCoordinateEdit::DimensionCoordinateEdit(
 
   : QWidget(parent),
     d_dimension(dimension),
-    d_editWidget(0)
+    d_editWidget(nullptr)
 
 {
   assert(d_dimension);

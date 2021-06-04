@@ -68,7 +68,7 @@ public:
 calc::CFGVisitor::CFGVisitor(CFGNode *cfg):
   d_takeBackBranch(false),
   d_cfg(cfg),
-  d_current(0)
+  d_current(nullptr)
 {
   reset();
 }
@@ -141,7 +141,7 @@ calc::ASTNode* calc::CFGVisitor::current() const
 {
   if (d_current)
     return d_current->node();
-  return 0;
+  return nullptr;
 }
 
 

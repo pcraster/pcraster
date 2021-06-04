@@ -353,7 +353,7 @@ GDALDriver* OgrFeatureDriver::driverByName(
 {
   assert(Library::isInitialised());
 
-  GDALDriver* result = 0;
+  GDALDriver* result = nullptr;
 
   for(size_t i = 0; i < detail::drivers.size(); ++i) {
     if(detail::drivers[i]->GetDescription() == name) {
@@ -376,7 +376,7 @@ GDALDriver* OgrFeatureDriver::driverByName(
 bool OgrFeatureDriver::driverIsAvailable(
          std::string const& name)
 {
-  return driverByName(name) != 0;
+  return driverByName(name) != nullptr;
 }
 
 
@@ -398,7 +398,7 @@ OgrFeatureDriver::OgrFeatureDriver(
 
   : FeatureDriver(Format(name, std::string("OGR feature driver for ") + name,
          FEATURE, Format::File, Format::Attribute)),
-    _driver(0)
+    _driver(nullptr)
 
 {
   _driver = driverByName(name);
@@ -445,7 +445,7 @@ OgrFeatureDriver::~OgrFeatureDriver()
 
 void OgrFeatureDriver::init()
 {
-  _driver_names = CSLAddString(NULL, _driver->GetDescription());
+  _driver_names = CSLAddString(nullptr, _driver->GetDescription());
 
   DriverProperties& properties = this->properties().value<DriverProperties>(
          DAL_DRIVER_GENERAL);
@@ -561,8 +561,8 @@ FeaturePath OgrFeatureDriver::featurePathFor(
     // A function to determine wheter a dataset exists.
     auto callBack = [&](std::string const& name) {
         auto dataset = GDALOpenEx(name.c_str(), GDAL_OF_VECTOR,
-            this->_driver_names, NULL, NULL);
-        bool result = dataset != NULL;
+            this->_driver_names, nullptr, nullptr);
+        bool result = dataset != nullptr;
         GDALClose(dataset);
         return result;
     };
@@ -724,12 +724,12 @@ FeatureLayer* OgrFeatureDriver::open(
 {
   assert(!space.hasSpace());
 
-  FeatureLayer* layer = 0;
+  FeatureLayer* layer = nullptr;
   FeaturePath path(featurePathFor(name, space, address));
 
   if(path.isValid()) {
     auto dataset = static_cast<GDALDataset*>(GDALOpenEx(path.source().c_str(),
-        GDAL_OF_VECTOR, _driver_names, NULL, NULL));
+        GDAL_OF_VECTOR, _driver_names, nullptr, nullptr));
 
     if(dataset) {
       // Layer is owned by the data source.
@@ -746,7 +746,7 @@ FeatureLayer* OgrFeatureDriver::open(
           // layer.
           std::string key = (boost::filesystem::path(
               path.source()) /* .normalize() */ / path.layer()).string();
-          FeatureLayerGeometries* geometries = 0;
+          FeatureLayerGeometries* geometries = nullptr;
 
           if(Client::library().geometriesCache().contains(key)) {
             geometries = Client::library().geometriesCache().object(key);
@@ -1223,7 +1223,7 @@ void OgrFeatureDriver::read(
 
   try {
     GDALDataset* dataset = static_cast<GDALDataset*>(GDALOpenEx(
-        path.source().c_str(), GDAL_OF_VECTOR, _driver_names, NULL, NULL));
+        path.source().c_str(), GDAL_OF_VECTOR, _driver_names, nullptr, nullptr));
 
     if(!dataset) {
       throwCannotBeOpened(name, FEATURE, space, address);
@@ -1359,7 +1359,7 @@ void OgrFeatureDriver::browse(
   for(int i = 0; i < int(leaves.size()); ++i) {
     auto dataset = static_cast<GDALDataset*>(GDALOpenEx(
         (path / leaves[i]).string().c_str(), GDAL_OF_VECTOR, _driver_names,
-        NULL, NULL));
+        nullptr, nullptr));
 
     if(dataset) {
       // Ok, this is a feature layer data set.

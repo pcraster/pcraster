@@ -67,11 +67,11 @@ public:
   //----------------------------------------------------------------------------
 
   //! Constructor.
-                   PaletteBar          (QWidget* p=0);
+                   PaletteBar          (QWidget* p=nullptr);
 
   //! Constructor.
                    PaletteBar          (const com::RawPalette *pal,
-                                        QWidget *p=0);
+                                        QWidget *p=nullptr);
 
   //! Destructor.
   /* virtual */    ~PaletteBar         ();

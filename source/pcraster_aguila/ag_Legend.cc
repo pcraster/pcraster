@@ -57,7 +57,7 @@ ag::Legend::Legend(
   d_title->adjustSize();
   d_title->setToolTip(QString(object.description(guide).c_str()));
 
-  LegendBody* body = 0;
+  LegendBody* body = nullptr;
 
   switch(guide.type()) {
     case geo::STACK: {

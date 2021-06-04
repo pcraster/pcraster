@@ -43,7 +43,7 @@
 #define INCLUDED_SSTREAM
 #endif
 
-com::DynamicLibrary *calc::EsriGridIO::d_dll(0);
+com::DynamicLibrary *calc::EsriGridIO::d_dll(nullptr);
 std::string calc::EsriGridIO::d_dllName;
 
 #define STATIC_GRIDIO_FPTR(funcName) \
@@ -220,7 +220,7 @@ void calc::EsriGridIO::clean()
    (*gridIOExit)();
   }
   delete d_dll;
-  d_dll=0;
+  d_dll=nullptr;
 }
 
 calc::EsriGridIO::~EsriGridIO()

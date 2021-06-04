@@ -28,8 +28,8 @@ const std::string pcrxml::InputPoints::d_elementName("InputPoints");
 pcrxml::InputPoints::InputPoints(const QDomElement& element):Element(element,d_elementName)
  ,lodingDistance(element,"lodingDistance",true)
  ,maxPointDeviation(element,"maxPointDeviation",true)
- ,computedRiverAxis(0)
- ,riverAxisFile(0)
+ ,computedRiverAxis(nullptr)
+ ,riverAxisFile(nullptr)
  {
   try {
    ChildElementVisitor v(element);
@@ -43,8 +43,8 @@ pcrxml::InputPoints::InputPoints(const QDomElement& element):Element(element,d_e
   } catch (...) { clean(); throw; }
  }
 pcrxml::InputPoints::InputPoints():Element()
- ,computedRiverAxis(0)
- ,riverAxisFile(0)
+ ,computedRiverAxis(nullptr)
+ ,riverAxisFile(nullptr)
  {
  }
 const std::string& pcrxml::InputPoints::elementName() const
@@ -59,8 +59,8 @@ pcrxml::InputPoints::~InputPoints()
 //! clean
 void pcrxml::InputPoints::clean()
 {
- delete computedRiverAxis;computedRiverAxis=0;
- delete riverAxisFile;riverAxisFile=0;
+ delete computedRiverAxis;computedRiverAxis=nullptr;
+ delete riverAxisFile;riverAxisFile=nullptr;
 }
 //! copy ctor
 pcrxml::InputPoints::InputPoints(const InputPoints& src):
@@ -68,8 +68,8 @@ pcrxml::Element(src)
 ,lodingDistance(src.lodingDistance)
 ,maxPointDeviation(src.maxPointDeviation)
 {
- computedRiverAxis= (src.computedRiverAxis) ? new ComputedRiverAxis(*(src.computedRiverAxis)): 0;
- riverAxisFile= (src.riverAxisFile) ? new RiverAxisFile(*(src.riverAxisFile)): 0;
+ computedRiverAxis= (src.computedRiverAxis) ? new ComputedRiverAxis(*(src.computedRiverAxis)): nullptr;
+ riverAxisFile= (src.riverAxisFile) ? new RiverAxisFile(*(src.riverAxisFile)): nullptr;
 }
 //! assignment operator
 pcrxml::InputPoints& pcrxml::InputPoints::operator=(const InputPoints& src)
@@ -77,8 +77,8 @@ pcrxml::InputPoints& pcrxml::InputPoints::operator=(const InputPoints& src)
  if(this != &src)
  {
    clean(); PRECOND(false);
-  computedRiverAxis= (src.computedRiverAxis) ? new ComputedRiverAxis(*(src.computedRiverAxis)): 0;
-  riverAxisFile= (src.riverAxisFile) ? new RiverAxisFile(*(src.riverAxisFile)): 0;
+  computedRiverAxis= (src.computedRiverAxis) ? new ComputedRiverAxis(*(src.computedRiverAxis)): nullptr;
+  riverAxisFile= (src.riverAxisFile) ? new RiverAxisFile(*(src.riverAxisFile)): nullptr;
  }
 return *this;
 }

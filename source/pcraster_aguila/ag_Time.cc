@@ -22,7 +22,7 @@
 
 ag::Time::Time()
 
-  : d_time(time(0))
+  : d_time(time(nullptr))
 
 {
   assert(d_time != static_cast<std::time_t>(-1));

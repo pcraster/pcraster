@@ -64,7 +64,7 @@ public:
 template<typename ProgressTracker>
 com::ProgressTracked<ProgressTracker>::ProgressTracked()
 
-  : d_tracker(0)
+  : d_tracker(nullptr)
 
 {
 }

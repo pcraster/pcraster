@@ -72,7 +72,7 @@ template<class Container>
 template<class O>
  O *non0Clone(const O* src) {
    if (!src)
-     return 0;
+     return nullptr;
    return src->createClone();
  }
 
@@ -87,7 +87,7 @@ template<class O>
 template<class O>
  O *non0CopyCtor(const O* src) {
    if (!src)
-     return 0;
+     return nullptr;
    return new O(*src);
  }
 } // namespace com

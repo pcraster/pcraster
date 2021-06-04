@@ -47,8 +47,8 @@ calc::FieldParameter::FieldParameter(
     bool constant, bool input, VS vs, ST st) :
   calc::SubParameter(par,constant,input),
   d_type(vs,st),
-  d_firstChainNodeInDynamic(0),
-  d_chainEnd(0)
+  d_firstChainNodeInDynamic(nullptr),
+  d_chainEnd(nullptr)
 {
 }
 

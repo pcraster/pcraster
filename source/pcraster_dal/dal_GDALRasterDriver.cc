@@ -333,7 +333,7 @@ Raster* GDALDataset2Raster(
   TypeId typeId)
 {
   if(gdalDataset->GetRasterCount() < 1) {
-    return 0;
+    return nullptr;
   }
 
   GDALRasterBand* rasterBand = gdalDataset->GetRasterBand(1);
@@ -450,7 +450,7 @@ GDALDataset* GDALRasterDriver::openGDALDataset(
          boost::filesystem::path const& path,
          GDALAccess access)
 {
-  GDALDataset* dataset = 0;
+  GDALDataset* dataset = nullptr;
 
   // Installed a non-throwing error handler, see dal_Client.cc.
   dataset = static_cast<GDALDataset*>(GDALOpen(
@@ -581,7 +581,7 @@ GDALDriver* GDALRasterDriver::driverByName(
 {
   assert(Library::isInitialised());
 
-  GDALDriver* result = 0;
+  GDALDriver* result = nullptr;
 
   for(size_t i = 0; i < d_drivers.size(); ++i) {
     if(d_drivers[i]->GetDescription() == name) {
@@ -603,7 +603,7 @@ GDALDriver* GDALRasterDriver::driverByName(
 bool GDALRasterDriver::driverIsAvailable(
          std::string const& name)
 {
-  return driverByName(name) != 0;
+  return driverByName(name) != nullptr;
 }
 
 
@@ -651,7 +651,7 @@ GDALRasterDriver::GDALRasterDriver(
 
   : RasterDriver(Format(name, std::string("GDAL raster driver for ") + name,
          RASTER, Format::File, Format::Attribute)),
-    d_driver(0)
+    d_driver(nullptr)
 
 {
   if(!driverIsAvailable(name)) {
@@ -866,7 +866,7 @@ Raster* GDALRasterDriver::open(
 {
   assert(!space.hasSpace());
 
-  Raster* raster = 0;
+  Raster* raster = nullptr;
 
   try {
     registerGDALDriverToUse();
@@ -1107,7 +1107,7 @@ void GDALRasterDriver::write(
    * const char *pszFormat = "EHdr"; hmm. no create documented
    */
 
-   char **papszOptions = NULL;
+   char **papszOptions = nullptr;
 
    boost::shared_ptr<GDALDataset> poDstDS(d_driver->Create(name.c_str(),
        raster.nrCols(), raster.nrRows(), 1, gdalDataType(raster.typeId()),

@@ -127,9 +127,9 @@ public:
   ag::DataGuide    addData             (std::string const& name,
                                         dal::DataSpace const& space);
 
-  Map2DView*       addMap2DView        (QWidget* parent = 0);
+  Map2DView*       addMap2DView        (QWidget* parent = nullptr);
 
-  Map2D*           addMap2D            (QWidget* parent = 0);
+  Map2D*           addMap2D            (QWidget* parent = nullptr);
 
   Map2DWindow*     addMap2DWindow      ();
 

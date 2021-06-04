@@ -241,7 +241,7 @@ calc::ModelLink* calc::createModelLink(const std::string& name)
     loadExternalSymbols();
   }
 
-  calc::ModelLink* link = 0;
+  calc::ModelLink* link = nullptr;
 
   // Get model link proxy for the model link requested.
   const calc::ModelLinkProxy* proxy =

@@ -53,8 +53,8 @@ Globals globals;
 Globals::Globals()
 
   : dal::Client("", false, false),
-    _rte(0),
-    _rasterDal(0)
+    _rte(nullptr),
+    _rasterDal(nullptr)
 
 {
   init();

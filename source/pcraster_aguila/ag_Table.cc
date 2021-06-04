@@ -63,7 +63,7 @@ Table::Table(
          dal::DataSpace const& space)
 
   : Dataset(name, space),
-    d_table(0), d_valueScale(VS_NOTDETERMINED)
+    d_table(nullptr), d_valueScale(VS_NOTDETERMINED)
 
 {
   dal::TableDriver* driver =

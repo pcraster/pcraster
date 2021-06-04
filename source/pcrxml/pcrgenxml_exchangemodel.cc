@@ -29,8 +29,8 @@ pcrxml::ExchangeModel::ExchangeModel(const QDomElement& element):Element(element
  ,id(element,"id",false)
  ,ioStrategy(element,"ioStrategy",false)
  ,description(element,"description",false)
- ,integerTimer(0)
- ,areaMapDTD(0)
+ ,integerTimer(nullptr)
+ ,areaMapDTD(nullptr)
  {
   try {
    ChildElementVisitor v(element);
@@ -47,8 +47,8 @@ pcrxml::ExchangeModel::ExchangeModel(const QDomElement& element):Element(element
   } catch (...) { clean(); throw; }
  }
 pcrxml::ExchangeModel::ExchangeModel():Element()
- ,integerTimer(0)
- ,areaMapDTD(0)
+ ,integerTimer(nullptr)
+ ,areaMapDTD(nullptr)
  {
  }
 const std::string& pcrxml::ExchangeModel::elementName() const
@@ -63,8 +63,8 @@ pcrxml::ExchangeModel::~ExchangeModel()
 //! clean
 void pcrxml::ExchangeModel::clean()
 {
- delete integerTimer;integerTimer=0;
- delete areaMapDTD;areaMapDTD=0;
+ delete integerTimer;integerTimer=nullptr;
+ delete areaMapDTD;areaMapDTD=nullptr;
  for(size_t i=0; i<exchangeItem.size(); i++) delete exchangeItem[i];
 exchangeItem.clear();
 }
@@ -75,8 +75,8 @@ pcrxml::Element(src)
 ,ioStrategy(src.ioStrategy)
 ,description(src.description)
 {
- integerTimer= (src.integerTimer) ? new IntegerTimer(*(src.integerTimer)): 0;
- areaMapDTD= (src.areaMapDTD) ? new AreaMapDTD(*(src.areaMapDTD)): 0;
+ integerTimer= (src.integerTimer) ? new IntegerTimer(*(src.integerTimer)): nullptr;
+ areaMapDTD= (src.areaMapDTD) ? new AreaMapDTD(*(src.areaMapDTD)): nullptr;
  for(size_t i=0; i<src.exchangeItem.size(); i++) exchangeItem.push_back(new ExchangeItem(*(src.exchangeItem[i])));
 }
 //! assignment operator
@@ -85,8 +85,8 @@ pcrxml::ExchangeModel& pcrxml::ExchangeModel::operator=(const ExchangeModel& src
  if(this != &src)
  {
    clean(); PRECOND(false);
-  integerTimer= (src.integerTimer) ? new IntegerTimer(*(src.integerTimer)): 0;
-  areaMapDTD= (src.areaMapDTD) ? new AreaMapDTD(*(src.areaMapDTD)): 0;
+  integerTimer= (src.integerTimer) ? new IntegerTimer(*(src.integerTimer)): nullptr;
+  areaMapDTD= (src.areaMapDTD) ? new AreaMapDTD(*(src.areaMapDTD)): nullptr;
   for(size_t i=0; i<src.exchangeItem.size(); i++) exchangeItem.push_back(new ExchangeItem(*(src.exchangeItem[i])));
  }
 return *this;

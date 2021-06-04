@@ -54,8 +54,8 @@ Dataset::Dataset(
 
   : _name(name),
     _source(name, space),
-    _localToWorldMapper(0),
-    _globalToLocalMapper(0)
+    _localToWorldMapper(nullptr),
+    _globalToLocalMapper(nullptr)
 
 {
   assert(!name.empty());

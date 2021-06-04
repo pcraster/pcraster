@@ -74,13 +74,13 @@ calc::ASTNode::ASTNode():
 }
 
 calc::ASTNode::ASTNode(const Position* pos):
-  d_pos(0)
+  d_pos(nullptr)
 {
   setPosition(pos);
 }
 
 calc::ASTNode::ASTNode(const ASTNode& n):
-  d_pos(0),
+  d_pos(nullptr),
   d_returnDataType(n.d_returnDataType)
 {
   setPosition(n.d_pos);

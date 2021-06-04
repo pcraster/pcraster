@@ -37,7 +37,7 @@ public:
   GLfloat          d_angle;
 
   SceneViewPrivate()
-    : d_dirty(false), d_valid(true), d_staticCamera(0),
+    : d_dirty(false), d_valid(true), d_staticCamera(nullptr),
       d_step(0.0), d_angle(5.0)
   {
     d_userCamera = new ag::Camera();
@@ -740,7 +740,7 @@ void ag::SceneView::installCamera(Camera c)
   if(c == USER) {
     if(d_data->d_staticCamera) {
       delete d_data->d_staticCamera;
-      d_data->d_staticCamera = 0;
+      d_data->d_staticCamera = nullptr;
       d_data->d_dirty = true;
     }
   }

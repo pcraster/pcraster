@@ -42,7 +42,7 @@ template <>
     return new ReadOnlySpatial<UINT1,UINT1>
                 ((UINT1 **)o->spatialValue, o->nrRows,o->nrCols);
   PRECOND(FALSE);
-  return 0;
+  return nullptr;
 }
 
 template<>
@@ -57,7 +57,7 @@ template<>
           ;
   }
   PRECOND(FALSE);
-  return 0;
+  return nullptr;
 }
 
 template<>
@@ -74,7 +74,7 @@ template<>
           ;
   }
   PRECOND(FALSE);
-  return 0;
+  return nullptr;
 }
 
 
@@ -116,7 +116,7 @@ template <>
     return new ReadWriteData<UINT1,UINT1>
                 ((UINT1 **)o->spatialValue, o->nrRows,o->nrCols);
   PRECOND(FALSE);
-  return 0;
+  return nullptr;
 }
 
 template<>
@@ -132,7 +132,7 @@ template<>
           ;
   }
   PRECOND(FALSE);
-  return 0;
+  return nullptr;
 }
 
 template<>
@@ -150,7 +150,7 @@ template<>
           ;
   }
   PRECOND(FALSE);
-  return 0;
+  return nullptr;
 }
 
 //! ReadWrite conversion template, take a MAP_ struct, get a ReadWrite

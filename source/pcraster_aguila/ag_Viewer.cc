@@ -47,7 +47,7 @@ public:
 // DEFINITION OF STATIC CLASS MEMBERS
 //------------------------------------------------------------------------------
 
-Viewer* Viewer::d_instance = 0;
+Viewer* Viewer::d_instance = nullptr;
 
 Viewer* Viewer::instance(
          qt::AppWindowProperties const& properties)
@@ -80,7 +80,7 @@ void Viewer::resetInstance()
 {
   if(d_instance) {
     delete d_instance;
-    d_instance = 0;
+    d_instance = nullptr;
   }
 
   assert(!d_instance);
@@ -714,7 +714,7 @@ VisGroup* Viewer::groupFor(
 VisGroup* Viewer::groupFor(
          dal::DataSpaceQueryResult const& result)
 {
-  VisGroup* group = 0;
+  VisGroup* group = nullptr;
 
   dal::Driver const* driver(dal::Client::dal().driver(result));
   assert(driver);

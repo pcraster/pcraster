@@ -123,7 +123,7 @@ namespace calc {
 
      Code* releaseCode() {
       Code* c=d_code;
-      d_code=0;
+      d_code=nullptr;
       return c;
      }
 

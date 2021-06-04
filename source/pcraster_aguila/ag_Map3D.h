@@ -66,7 +66,7 @@ public:
   //----------------------------------------------------------------------------
 
                    Map3D               (DataObject* dataObject,
-                                        QWidget* parent = 0);
+                                        QWidget* parent = nullptr);
 
   /* virtual */    ~Map3D              ();
 

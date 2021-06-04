@@ -129,21 +129,21 @@ static ProgressCallBack defaultProgressCallBack;
 /* \brief ctor
  */
 calc::Script::Script():
-    StatementBlock(generatedSymbol("script","script"),0),
+    StatementBlock(generatedSymbol("script","script"),nullptr),
     d_progressCallBack(&defaultProgressCallBack),
     d_exitValueType(ALWAYS_0),
-    d_fileOutputStream(0),
+    d_fileOutputStream(nullptr),
     d_compression(false),
     d_0compression(false),
     d_exitVal(0),
     d_writeEachTimeStep(false),
-    d_areaMask(0),
-    d_compressor(0),
+    d_areaMask(nullptr),
+    d_compressor(nullptr),
     d_aReportFound(false),
-    d_areaMap(0)
+    d_areaMap(nullptr)
 {
  d_ioFieldStrategy = IoFieldStrategy::createOnGlobalOption();
- d_symTab          = new SymbolTable(0);
+ d_symTab          = new SymbolTable(nullptr);
  // Make sure the singleton instance is clean.
  ExternalSymbols::clear();
 }
@@ -242,7 +242,7 @@ void calc::Script::recheckIoFieldStrategy() const
   PRECOND(d_ioFieldStrategy);
   if (appIOstrategy != d_ioFieldStrategy->strategyType()) {
     delete d_ioFieldStrategy;
-    d_ioFieldStrategy=0;
+    d_ioFieldStrategy=nullptr;
     d_ioFieldStrategy = IoFieldStrategy::createOnGlobalOption();
  }
 }

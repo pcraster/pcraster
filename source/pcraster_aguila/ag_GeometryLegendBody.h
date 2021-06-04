@@ -49,7 +49,7 @@ public:
                    GeometryLegendBody  (DataObject const& object,
                                         DataGuide const& guide,
                                         ViewerType type,
-                                        QWidget* parent=0);
+                                        QWidget* parent=nullptr);
 
   /* virtual */    ~GeometryLegendBody              ();
 

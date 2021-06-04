@@ -119,7 +119,7 @@ void calc::Options::printUsage()
 
 calc::Options::Options():
   d_argc(0),
-  d_argv(0),
+  d_argv(nullptr),
   d_scriptType(SCRIPT_CMD_LINE)
 {
   AppSetGlobalArgsDefaults();

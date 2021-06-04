@@ -61,7 +61,7 @@ public:
 
 ag::Feedback::Feedback(GLint size)
 
-  : d_data(0)
+  : d_data(nullptr)
 
 {
   d_data = new FeedbackPrivate(size);

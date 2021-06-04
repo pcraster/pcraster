@@ -66,7 +66,7 @@ public:
   {};
 
   virtual const char* pointFunction() const
-  { return 0;};
+  { return nullptr;};
 
 };
 

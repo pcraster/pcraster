@@ -46,7 +46,7 @@ ApplicationRole AppWindow::applicationRole()
 */
 void qt::AppWindow::showInfo(const std::string& app, const std::string& msg)
 {
-  showInfo(0, app, msg);
+  showInfo(nullptr, app, msg);
 }
 
 
@@ -60,7 +60,7 @@ void qt::AppWindow::showInfo(const std::string& app, const std::string& msg)
 */
 void qt::AppWindow::showWarning(const std::string& caption, const std::string& msg)
 {
-  showWarning(0, caption, msg);
+  showWarning(nullptr, caption, msg);
 }
 
 
@@ -74,7 +74,7 @@ void qt::AppWindow::showWarning(const std::string& caption, const std::string& m
 */
 void qt::AppWindow::showError(const std::string& caption, const std::string& msg)
 {
-  showError(0, caption, msg);
+  showError(nullptr, caption, msg);
 }
 
 

@@ -112,7 +112,7 @@ Block* GSLIBBlockDriver::open(
          TypeId /* typeId */) const
 {
   assert(false);
-  return 0;
+  return nullptr;
 }
 
 
@@ -124,7 +124,7 @@ Block* GSLIBBlockDriver::read(
          TypeId /* typeId */) const
 {
   assert(false);
-  return 0;
+  return nullptr;
 }
 
 

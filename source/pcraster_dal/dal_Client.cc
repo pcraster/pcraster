@@ -68,7 +68,7 @@ size_t Client::_count = 0;
 
 
 
-Dal* Client::_dal(0);
+Dal* Client::_dal(nullptr);
 
 
 
@@ -139,7 +139,7 @@ Client::~Client()
 
     assert(_dal != 0);
     delete _dal;
-    _dal = 0;
+    _dal = nullptr;
   }
 
   --_count;

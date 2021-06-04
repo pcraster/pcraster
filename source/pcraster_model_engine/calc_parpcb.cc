@@ -70,7 +70,7 @@ public:
 //------------------------------------------------------------------------------
 
 calc::ParPCB::ParPCB():
-    d_input(0),d_output(0),d_field(0)
+    d_input(nullptr),d_output(nullptr),d_field(nullptr)
 {
 }
 
@@ -108,7 +108,7 @@ calc::ParPCB& calc::ParPCB::operator=(ParPCB const& rhs)
 calc::Field* calc::ParPCB::releaseField()
 {
     Field *f=d_field;
-    d_field=0;
+    d_field=nullptr;
     return f;
 }
 

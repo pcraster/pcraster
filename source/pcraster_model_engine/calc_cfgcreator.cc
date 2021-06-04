@@ -172,13 +172,13 @@ calc::ScopedCFG::ScopedCFG(ASTNode *n):
 calc::ScopedCFG::~ScopedCFG()
 {
   delete cfg;
-  cfg=0;
+  cfg=nullptr;
 }
 
 //! ctor
 calc::CFGCreatorPrivate::CFGCreatorPrivate():
-  d_last(0),d_first(0),
-  d_currentAss(0)
+  d_last(nullptr),d_first(nullptr),
+  d_currentAss(nullptr)
 {
 }
 
@@ -191,7 +191,7 @@ calc::CFGCreatorPrivate::~CFGCreatorPrivate()
 //! release the start of CFG
 calc::CFGNode* calc::CFGCreatorPrivate::releaseFirst() {
   CFGNode* first=d_first;
-  d_first=0;
+  d_first=nullptr;
   return first;
 }
 

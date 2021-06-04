@@ -49,7 +49,7 @@ calc::UserModelLink::~UserModelLink()
 {
 #ifndef WIN32
   delete d_modelInstance;
-  d_modelInstance = 0;
+  d_modelInstance = nullptr;
 #else
 #ifdef DEBUG_DEVELOP
   std::cerr << "Warning: ModelLink instance dtor not called: memory leak\n";

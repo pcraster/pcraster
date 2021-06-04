@@ -81,7 +81,7 @@ calc::UserSymbol * calc::SymbolTable::find( const std::string& name) const
   ConstIter p=d_table.find(name);
   if (p!= d_table.end())
     return p->second;
-  return 0;
+  return nullptr;
 }
 
 calc::UserSymbol *calc::SymbolTable::find(const class calc::Symbol* sym,
@@ -250,12 +250,12 @@ void calc::SymbolTable::setArcViewExtCheckData(
         else
              pn=d[i]->name();
         pn.makeAbsolute();
-        r.push_back(ArcViewExtCheckData(d[i]->stack != 0,
+        r.push_back(ArcViewExtCheckData(d[i]->stack != nullptr,
            pn.toString()));
      }
      default: ;
     }
     delete d[i];
-    d[i]=0;
+    d[i]=nullptr;
   }
 }

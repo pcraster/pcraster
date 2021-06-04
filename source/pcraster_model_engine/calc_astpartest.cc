@@ -67,7 +67,7 @@ BOOST_AUTO_TEST_CASE(testSet)
   BOOST_CHECK(  s1 == s2);
 
   ASTPar b1("b");
-  BOOST_CHECK(s2.find(&b1)==0);
+  BOOST_CHECK(s2.find(&b1)==nullptr);
 
 
   s2.insert(&b1);

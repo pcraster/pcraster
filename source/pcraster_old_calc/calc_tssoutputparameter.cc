@@ -46,7 +46,7 @@ calc::TssOutputParameter::TssOutputParameter(
     bool constant):
   calc::TssParameter(par,constant,false),
   d_vs(VS_FIELD),
-  d_value(nrElements(),0)
+  d_value(nrElements(),nullptr)
 {
   //! we must set this to get it written
   setReportPoint(par.position(),w);

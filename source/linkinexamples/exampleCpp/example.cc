@@ -183,7 +183,7 @@ PCR_DLL_FUNC (const char *) pcr_LinkInExecute(
     return xmlResultBuffer.c_str();
   }
   // no error
-  return 0;
+  return nullptr;
 }
 
 PCR_DLL_FUNC (const char *) pcr_LinkInCheck(

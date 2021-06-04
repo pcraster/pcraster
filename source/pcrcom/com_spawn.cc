@@ -113,7 +113,7 @@ int com::spawn(const char *exeName, const char **args)
 //! shorthand for spawn() with no args
 int com::spawn(const char *exeName)
 {
-  const char *args[2] = { 0, 0 };
+  const char *args[2] = { nullptr, nullptr };
   args[0]=exeName;
   return spawn(exeName,args);
 }

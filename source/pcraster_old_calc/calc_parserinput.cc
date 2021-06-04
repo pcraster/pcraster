@@ -132,9 +132,9 @@ void calc::ParserInput::clean()
 
 void calc::ParserInput::init()
 {
-  d_tokenBuffer=0;
-  d_lexer=0;
-  d_lexInput=0;
+  d_tokenBuffer=nullptr;
+  d_lexer=nullptr;
+  d_lexInput=nullptr;
 }
 
 ANTLRTokenBuffer *calc::ParserInput::tokenBuffer() const

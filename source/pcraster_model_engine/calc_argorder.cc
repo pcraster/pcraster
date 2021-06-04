@@ -263,7 +263,7 @@ void ArgOrderAndAddArea::argOrderAddAreaLimited(
  while(cellsTakenPrev!=cellsTakenNow) {
   for(CellIter findStart=cellsToSort.begin(); findStart!=cellsToSort.end();++findStart) {
    REAL4    maxValue= -std::numeric_limits<REAL4>::max();
-   ArgOrderIdInfo* maxArg=0;
+   ArgOrderIdInfo* maxArg=nullptr;
    CellIter maxCell=cellsToSort.end();
    for(CellIter cellIter=findStart; cellIter != cellsToSort.end(); ++cellIter) {
     for(ArgMap::iterator argIter=args.begin(); argIter!=args.end(); ++argIter) {

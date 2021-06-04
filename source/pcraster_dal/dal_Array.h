@@ -194,7 +194,7 @@ public:
 template<typename T>
 inline Array<T>::Array()
 
-  : d_capacity(0), d_size(0), d_elements(0)
+  : d_capacity(0), d_size(0), d_elements(nullptr)
 
 {
   reserve(100);
@@ -211,7 +211,7 @@ inline Array<T>::Array()
 template<typename T>
 inline Array<T>::Array(size_t size)
 
-  : d_capacity(0), d_size(0), d_elements(0)
+  : d_capacity(0), d_size(0), d_elements(nullptr)
 
 {
   if(size > 0) {
@@ -236,7 +236,7 @@ inline Array<T>::Array(size_t size)
 template<typename T>
 inline Array<T>::Array(size_t size, T const& value)
 
-  : d_capacity(0), d_size(0), d_elements(0)
+  : d_capacity(0), d_size(0), d_elements(nullptr)
 
 {
   reserve(size);
@@ -271,7 +271,7 @@ inline Array<T>::Array(size_t size, T* values)
 template<typename T>
 inline Array<T>::Array(Array const& rhs)
 
-  : d_capacity(0), d_size(0), d_elements(0)
+  : d_capacity(0), d_size(0), d_elements(nullptr)
 
 {
   reserve(rhs.d_capacity);
@@ -381,7 +381,7 @@ template<typename T>
 inline T* Array<T>::release()
 {
   T* result = d_elements;
-  d_elements = 0;
+  d_elements = nullptr;
 
   return result;
 }

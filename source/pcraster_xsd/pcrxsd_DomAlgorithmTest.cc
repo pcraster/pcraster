@@ -29,7 +29,7 @@ struct ConcatNodeValues {
   QString val;
   ConcatNodeValues() {};
   void operator()(DOMNode* n) {
-    if (n->getNodeValue() != 0)
+    if (n->getNodeValue() != nullptr)
       val += pcrxsd::toString(n->getNodeValue());
   }
 };

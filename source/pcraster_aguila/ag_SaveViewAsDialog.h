@@ -80,7 +80,7 @@ public:
                                         dal::DataSpaceAddress const& address,
                                         std::vector<com::FileFormatInfo> const& formats,
                                         // std::string const& defaultName,
-                                        QWidget* parent = 0,
+                                        QWidget* parent = nullptr,
                                         bool modal = false,
                                         Qt::WindowFlags flags = Qt::Widget);
 

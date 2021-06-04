@@ -94,7 +94,7 @@ public:
 
   //! Constructor.
                    Map3DView           (DataObject* object,
-                                        QWidget* parent = 0);
+                                        QWidget* parent = nullptr);
 
   //! Destructor.
   /* virtual */    ~Map3DView          ();

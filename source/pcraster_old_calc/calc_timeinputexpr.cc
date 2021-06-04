@@ -61,7 +61,7 @@ calc::TimeinputExpr::TimeinputExpr(
         UsePar &tss,
         FieldExprArgs& keyArgs):
   MixedExpr(pos,op, keyArgs),
-  d_tss(0)
+  d_tss(nullptr)
 {
   try {
     d_tss = new TssInputLeaf(tss,fieldType().vs());

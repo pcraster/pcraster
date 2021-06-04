@@ -105,11 +105,11 @@ namespace calc {
 
 void calc::ASTSymbolInfo::init()
 {
-  d_firstAss               =0;
+  d_firstAss               =nullptr;
   d_dataType               = DataType();
   d_firstCodePresence      = &detail::parDefaultCtor;
-  d_stackInput             =0;
-  d_objectLinkConstructor  =0;
+  d_stackInput             =nullptr;
+  d_objectLinkConstructor  =nullptr;
   d_hasInterface           =false;
   d_definitionRole         =NotSpecified;
 
@@ -117,9 +117,9 @@ void calc::ASTSymbolInfo::init()
     =IOType(pcrxml::ModelInputType::Initial,pcrxml::ModelOutputType::Fixed);
 
   d_reportPosition         =RPNone;
-  d_reportPar              =0;
-  d_report                 =0;
-  d_definition             =0;
+  d_reportPar              =nullptr;
+  d_report                 =nullptr;
+  d_definition             =nullptr;
   d_definitionCreation     =NotCreated;
 }
 
@@ -531,7 +531,7 @@ pcrxml::Relation const* calc::ASTSymbolInfo::lookupTable() const
   }
 //  X_IF_PRESENT_RETURN2(relation,lookupTable,
 //   &(d_definition->relation()->lookupTable().get()));
-  return 0;
+  return nullptr;
 }
 
 size_t calc::ASTSymbolInfo::memoryInputId() const
@@ -742,7 +742,7 @@ const calc::IOType& calc::ASTSymbolInfo::ioType() const
  */
 pcrxml::Definition* calc::ASTSymbolInfo::createDefinition() const
 {
-  pcrxml::Definition *d(0);
+  pcrxml::Definition *d(nullptr);
   if (d_definition) {
    d = new pcrxml::Definition(*d_definition);
   } else {

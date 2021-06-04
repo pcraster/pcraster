@@ -66,8 +66,8 @@ Block::Block(
          TypeId typeId)
 
   : Raster(BLOCK, nrRows, nrCols, 1.0, 0.0, 0.0, typeId),
-    d_baseElevation(0),
-    d_voxels(0),
+    d_baseElevation(nullptr),
+    d_voxels(nullptr),
     d_isRegular(false)
 
 {
@@ -93,7 +93,7 @@ Block::Block(
   : Raster(BLOCK, nrRows, nrCols, cellSize, west, north, TI_REAL4_VECTOR),
     d_baseElevation(
          new Raster(nrRows, nrCols, cellSize, west, north, TI_REAL4)),
-    d_voxels(0),
+    d_voxels(nullptr),
     d_isRegular(false)
 
 {
@@ -119,7 +119,7 @@ Block::Block(
 
   : Raster(BLOCK, nrRows, nrCols, cellSize, west, north, TI_REAL4_VECTOR),
     d_baseElevation(baseElevation),
-    d_voxels(0),
+    d_voxels(nullptr),
     d_isRegular(false)
 
 {
@@ -225,7 +225,7 @@ bool Block::containsDiscretisationInfo() const
   checkIntegrity();
 #endif
 
-  return d_baseElevation != 0 && d_voxels == 0;
+  return d_baseElevation != nullptr && d_voxels == nullptr;
 }
 
 
@@ -246,7 +246,7 @@ bool Block::containsData() const
   checkIntegrity();
 #endif
 
-  return d_baseElevation == 0 && d_voxels == 0;
+  return d_baseElevation == nullptr && d_voxels == nullptr;
 }
 
 
@@ -267,7 +267,7 @@ bool Block::containsDiscretisationInfoAndData() const
   checkIntegrity();
 #endif
 
-  return d_baseElevation == 0 && d_voxels != 0;
+  return d_baseElevation == nullptr && d_voxels != nullptr;
 }
 
 

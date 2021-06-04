@@ -58,8 +58,8 @@
 
 calc::SubParameter::SubParameter(const calc::ParsPar& par, bool constant, bool input):
   calc::Parameter(par,constant),
-  d_reportPoint(0),
-  d_writeInfo(0),
+  d_reportPoint(nullptr),
+  d_writeInfo(nullptr),
   d_subscript(par.descriptor()),
   d_input(input)
 {
@@ -203,7 +203,7 @@ const calc::WriteInfo *calc::SubParameter::writeInfo() const
 pcrxml::Data *calc::SubParameter::createXmlData() const
 {
    if (nrInSet(symbolType()) != 1)
-     return 0;
+     return nullptr;
    pcrxml::Data *d= new pcrxml::Data();
    setDataSubType(d);
    setName(d);

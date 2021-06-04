@@ -26,7 +26,7 @@ calc::RepeatUntil::RepeatUntil(
     const Element& pos,
     StatementBlock *parentBlock):
     InnerStatementBlock(pos,parentBlock),
-    d_condition(0)
+    d_condition(nullptr)
 {
 }
 

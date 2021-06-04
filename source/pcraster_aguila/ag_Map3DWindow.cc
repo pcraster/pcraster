@@ -215,7 +215,7 @@ std::string ag::Map3DWindow::windowName() const
 
 bool ag::Map3DWindow::dataVisualised() const
 {
-  return visualisationEngine().heightDataGuide() != 0;
+  return visualisationEngine().heightDataGuide() != nullptr;
 }
 
 

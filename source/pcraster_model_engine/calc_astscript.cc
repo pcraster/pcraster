@@ -162,17 +162,17 @@ namespace calc {
 //------------------------------------------------------------------------------
 
 calc::ASTScript::ASTScript():
-  d_code(0),
-  d_cfgCode(0),
-  d_cfgBody(0),
-  d_areaMap(0),
-  d_externalTimer(0),
-  d_timerStartOrTss(0),
-  d_timerEnd(0),
-  d_timerStep(0),
+  d_code(nullptr),
+  d_cfgCode(nullptr),
+  d_cfgBody(nullptr),
+  d_areaMap(nullptr),
+  d_externalTimer(nullptr),
+  d_timerStartOrTss(nullptr),
+  d_timerEnd(nullptr),
+  d_timerStep(nullptr),
   d_containsDynamicSection(false),
   d_hasStatementWithReportKeyword(false),
-  d_pointCodeBlockDll(0),
+  d_pointCodeBlockDll(nullptr),
   d_reportOnlyForXMLScriptOutput(false)
 {
   if (appClone)

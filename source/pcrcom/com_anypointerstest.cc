@@ -30,7 +30,7 @@ BOOST_AUTO_TEST_CASE(test_)
   BOOST_CHECK(pointers.size() == 1);
   BOOST_CHECK(pointers.size<Doubles>() == 1);
 
-  Doubles* doublesPointer = 0;
+  Doubles* doublesPointer = nullptr;
 
   try {
     doublesPointer = pointers.pointer<Doubles>(idDoubles);
@@ -80,7 +80,7 @@ BOOST_AUTO_TEST_CASE(test_)
     idIntegers2 = 5;
     pointers.insert(&integers2, 5);
 
-    Integers* integersPointer = 0;
+    Integers* integersPointer = nullptr;
 
     try {
       integersPointer = pointers.pointer<Integers>(idIntegers2);

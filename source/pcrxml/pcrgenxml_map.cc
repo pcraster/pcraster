@@ -26,7 +26,7 @@ Do not edit, generated from libs/pcrxml/generate.py
 const std::string pcrxml::Map::d_elementName("Map");
 //! ctor
 pcrxml::Map::Map(const QDomElement& element):Element(element,d_elementName)
- ,dataTypeDTD(0)
+ ,dataTypeDTD(nullptr)
  {
   try {
    ChildElementVisitor v(element);
@@ -37,7 +37,7 @@ pcrxml::Map::Map(const QDomElement& element):Element(element,d_elementName)
   } catch (...) { clean(); throw; }
  }
 pcrxml::Map::Map():Element()
- ,dataTypeDTD(0)
+ ,dataTypeDTD(nullptr)
  {
  }
 const std::string& pcrxml::Map::elementName() const
@@ -52,7 +52,7 @@ pcrxml::Map::~Map()
 //! clean
 void pcrxml::Map::clean()
 {
- delete dataTypeDTD;dataTypeDTD=0;
+ delete dataTypeDTD;dataTypeDTD=nullptr;
 }
 //! copy ctor
 pcrxml::Map::Map(const Map& src):

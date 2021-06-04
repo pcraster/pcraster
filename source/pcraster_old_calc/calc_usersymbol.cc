@@ -58,7 +58,7 @@ int calc::UserSymbol::symbolSequenceNr() const
 calc::UserSymbol *calc::UserSymbol::copyContents(
  const calc::ParsPar& ) const
 {
- return 0;
+ return nullptr;
 }
 
 void calc::UserSymbol::print(calc::InfoScript& i)const
@@ -85,5 +85,5 @@ void calc::UserSymbol::printSpecific(calc::InfoScript& )const
  */
 pcrxml::Data *calc::UserSymbol::createXmlData() const
 {
-  return 0;
+  return nullptr;
 }

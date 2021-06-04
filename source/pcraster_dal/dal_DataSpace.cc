@@ -1411,7 +1411,7 @@ DataSpaceAddress DataSpace::initialiseInvalidCoordinates(
         case Space: {
           // if(!dimension.isEmpty()) {
             // Initialise address with nort west corner of the space.
-            SpaceDimensions const* dimensions = 0;
+            SpaceDimensions const* dimensions = nullptr;
 
             switch(dimension.discretisation()) {
               case RegularDiscretisation: {

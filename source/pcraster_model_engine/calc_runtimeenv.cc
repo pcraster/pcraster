@@ -126,7 +126,7 @@ void calc::RunTimeEnv::init(const RunTimeEnvSettings& s)
   d_enableCache      =d_ioStrategy->mvCompression();
 
   DataTable::d_useDiskStorage   =s.useDiskStorage();
-  d_swapDir=0;
+  d_swapDir=nullptr;
   if (DataTable::d_useDiskStorage) {
     // does not work, will invalidate cache
     // seee mark2 model
@@ -139,7 +139,7 @@ void calc::RunTimeEnv::init(const RunTimeEnvSettings& s)
 
   d_timer            =d_ioStrategy->timer();
 
-  d_cellIterator=0;
+  d_cellIterator=nullptr;
 }
 
 //! elaborate ctor
@@ -206,9 +206,9 @@ void calc::RunTimeEnv::clean()
   deleteAllValues();
 
   delete d_ioStrategy;
-  d_ioStrategy = 0;
+  d_ioStrategy = nullptr;
   delete d_swapDir;
-  d_swapDir = 0;
+  d_swapDir = nullptr;
 }
 
 void calc::RunTimeEnv::cleanOnException()
@@ -300,7 +300,7 @@ void calc::RunTimeEnv::finish() {
   for(i=d_writers.begin(); i != d_writers.end(); ++i)
     i->second->finish();
   delete d_swapDir;
-  d_swapDir=0;
+  d_swapDir=nullptr;
 }
 
 //! check if value of \a name is already loaded if not, read it
@@ -320,7 +320,7 @@ calc::DataValue* calc::RunTimeEnv::load(
   // not loaded, FTTB only possible in case of fields
   PRECOND(isIn(e.symbol().vs(),VS_FIELD));
   // not yet loaded, read it external
-  Field *s(0);
+  Field *s(nullptr);
   try {
    s=d_ioStrategy->createReadField(externalName, e.symbol().dataType());
   } catch(const com::Exception& ex) {
@@ -433,7 +433,7 @@ void calc::RunTimeEnv::deleteValue(
     deleteCacheEntry(f->src());
   }
   deleteAlways(e.dataValue());
-  e.dataValue()=0;
+  e.dataValue()=nullptr;
 }
 
 
@@ -444,7 +444,7 @@ const calc::ICachedObject* calc::RunTimeEnv::cachedObject(
     Cache::const_iterator pos=d_cache.find(fieldSrcValue);
     if (pos != d_cache.end())
       return pos->second;
-    return 0;
+    return nullptr;
 }
 
 //! update and transfer \a obj in cache if cached is enabled

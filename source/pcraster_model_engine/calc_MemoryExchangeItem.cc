@@ -70,7 +70,7 @@ std::string const& MemoryExchangeItem::name() const
 //! if base instantiated 0 return
 void* MemoryExchangeItem::rawValue() const
 {
- return 0;
+ return nullptr;
 }
 
 //! should not be called, only sub classed ones (guard by rawValue !=0)

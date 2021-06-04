@@ -535,7 +535,7 @@ void calc::Order::exec (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const
     ExecArguments args(op, rte, nrArgs);
 
     REAL4 *r = (REAL4 *)args.dest();
-    boost::scoped_ptr< IVSpatial<double> > expr(0);
+    boost::scoped_ptr< IVSpatial<double> > expr(nullptr);
 
     switch(args[0].cri()) {
       case CRI_4:
@@ -556,8 +556,8 @@ void calc::AreaOrder::exec (RunTimeEnv* rte,const Operator& op,size_t nrArgs) co
     ExecArguments args(op, rte, nrArgs);
 
     REAL4 *r = (REAL4 *)args.dest();
-    boost::scoped_ptr< IVSpatial<double> > expr(0);
-    boost::scoped_ptr< IVSpatial<INT4> >   areaClass(0);
+    boost::scoped_ptr< IVSpatial<double> > expr(nullptr);
+    boost::scoped_ptr< IVSpatial<INT4> >   areaClass(nullptr);
 
     switch(args[0].cri()) {
       case CRI_4:

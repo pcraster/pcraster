@@ -56,7 +56,7 @@ void calc::createObjectLink(
 {
   // PRECOND(stringArg.empty()); // not yet implemented
   // PRECOND(!nrFieldArgs); // not yet implemented
-  ObjectLink *o(0);
+  ObjectLink *o(nullptr);
   o = olf("",rte->rasterSpace(),0);
   rte->pushDataValue(o);
 }
@@ -87,7 +87,7 @@ void calc::execObjectLinkMethod(
     // reverse input part
     std::reverse(data.begin()+op.nrResults(),data.end());
 
-    ObjectLink* o(0);
+    ObjectLink* o(nullptr);
     if (rte->stackSize())
       o=dynamic_cast<ObjectLink *>(rte->popDataValue());
     if (!o)
@@ -101,7 +101,7 @@ void calc::execObjectLinkMethod(
     size_t in=0;
     for (;in < op.nrResults(); ++in) {
       rte->pushField(data[in]);
-      data[in]=0;
+      data[in]=nullptr;
     }
     // delete inputs
     for (;in < op.nrResults()+nrFieldArgs; ++in)

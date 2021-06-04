@@ -26,8 +26,8 @@ Do not edit, generated from libs/pcrxml/generate.py
 const std::string pcrxml::RunDirectory::d_elementName("RunDirectory");
 //! ctor
 pcrxml::RunDirectory::RunDirectory(const QDomElement& element):Element(element,d_elementName)
- ,modelRunSettings(0)
- ,modelRunStatus(0)
+ ,modelRunSettings(nullptr)
+ ,modelRunStatus(nullptr)
  {
   try {
    ChildElementVisitor v(element);
@@ -41,8 +41,8 @@ pcrxml::RunDirectory::RunDirectory(const QDomElement& element):Element(element,d
   } catch (...) { clean(); throw; }
  }
 pcrxml::RunDirectory::RunDirectory():Element()
- ,modelRunSettings(0)
- ,modelRunStatus(0)
+ ,modelRunSettings(nullptr)
+ ,modelRunStatus(nullptr)
  {
  }
 const std::string& pcrxml::RunDirectory::elementName() const
@@ -57,15 +57,15 @@ pcrxml::RunDirectory::~RunDirectory()
 //! clean
 void pcrxml::RunDirectory::clean()
 {
- delete modelRunSettings;modelRunSettings=0;
- delete modelRunStatus;modelRunStatus=0;
+ delete modelRunSettings;modelRunSettings=nullptr;
+ delete modelRunStatus;modelRunStatus=nullptr;
 }
 //! copy ctor
 pcrxml::RunDirectory::RunDirectory(const RunDirectory& src):
 pcrxml::Element(src)
 {
- modelRunSettings= (src.modelRunSettings) ? new ModelRunSettings(*(src.modelRunSettings)): 0;
- modelRunStatus= (src.modelRunStatus) ? new ModelRunStatus(*(src.modelRunStatus)): 0;
+ modelRunSettings= (src.modelRunSettings) ? new ModelRunSettings(*(src.modelRunSettings)): nullptr;
+ modelRunStatus= (src.modelRunStatus) ? new ModelRunStatus(*(src.modelRunStatus)): nullptr;
 }
 //! assignment operator
 pcrxml::RunDirectory& pcrxml::RunDirectory::operator=(const RunDirectory& src)
@@ -73,8 +73,8 @@ pcrxml::RunDirectory& pcrxml::RunDirectory::operator=(const RunDirectory& src)
  if(this != &src)
  {
    clean(); PRECOND(false);
-  modelRunSettings= (src.modelRunSettings) ? new ModelRunSettings(*(src.modelRunSettings)): 0;
-  modelRunStatus= (src.modelRunStatus) ? new ModelRunStatus(*(src.modelRunStatus)): 0;
+  modelRunSettings= (src.modelRunSettings) ? new ModelRunSettings(*(src.modelRunSettings)): nullptr;
+  modelRunStatus= (src.modelRunStatus) ? new ModelRunStatus(*(src.modelRunStatus)): nullptr;
  }
 return *this;
 }

@@ -139,7 +139,7 @@ namespace calc {
 IOStrategy::IOStrategy():
   d_fs(new IoFieldStrategy(appIOstrategy)),
   d_areaMap(new AreaMap()),
-  d_spatialPacking(0),
+  d_spatialPacking(nullptr),
   d_mvCompression(false),
   d_writeEachTimeStep(false)
 {
@@ -267,7 +267,7 @@ void IOStrategy::setMemoryExchangeData(const ASTSymbolTable& symbols,
   {
     d_dataTransferArrayUser0 = std::vector<bool>(maxIdInt+1);
     for(size_t i=0; i < d_dataTransferArrayUser0.size(); ++i)
-      d_dataTransferArrayUser0[i] = d_dataTransferArray[i] == 0;
+      d_dataTransferArrayUser0[i] = d_dataTransferArray[i] == nullptr;
   }
 }
 
@@ -444,7 +444,7 @@ Field* IOStrategy::createReadField(const std::string& mapName,
     default:;
   }
   POSTCOND(false);
-  return 0;
+  return nullptr;
 }
 
 /*! return 0 if not in d_memoryData
@@ -471,7 +471,7 @@ MemoryExchangeItem* IOStrategy::memoryValue(std::string const& name) const {
     PRECOND(i->second.get()); // always has a value
     return i->second.get();
   }
-  return 0;
+  return nullptr;
 }
 
 void IOStrategy::transferMemoryExchangeItemIntoDataTransferArray(
@@ -676,7 +676,7 @@ StackInput* IOStrategy::createStackInput(
     return new StackInput(*this,inPath,type);
 
   if (timer().lastInt()==0)
-    return 0;
+    return nullptr;
   return new StackInput(*this,inPath,type);
 }
 

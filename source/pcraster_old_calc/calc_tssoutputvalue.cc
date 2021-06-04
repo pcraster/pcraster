@@ -80,7 +80,7 @@ double *calc::TssOutputValue::getValueBuffer(size_t &nrVals)
 {
   /* pcrcalc/test13[cd] */
   if ( (!d_fw.writeCurrentTimeStep()) && (appHeader == APP_NOHEADER) )
-    return 0;
+    return nullptr;
   size_t t = d_fw.currentTimeStep();
   if (t == d_timeStepLastAdded) {
     // pcrcalc/test317 writing a value twice in loop!

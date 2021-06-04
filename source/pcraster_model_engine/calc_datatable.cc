@@ -68,7 +68,7 @@ bool calc::DataTable::d_useDiskStorage=true;
 //------------------------------------------------------------------------------
 
 calc::DataTable::DataTable():
-  d_memoryExchangeData(0)
+  d_memoryExchangeData(nullptr)
 {
 }
 
@@ -83,7 +83,7 @@ void calc::DataTable::clean()
   for (Table::iterator i =d_table.begin();
                        i!=d_table.end(); ++i) {
     deleteAlways(i->second.d_dv);
-    i->second.d_dv=0;
+    i->second.d_dv=nullptr;
   }
   d_table.clear();
   d_memoryInputLookupTables.clear();
@@ -265,14 +265,14 @@ bool calc::DataTable::allNoValue() const
 calc::DataValue *calc::DataTable::DTE::getOrReleaseValue(bool lastUse)
 {
   if (!dataValue())
-    return 0; // not yet loaded
+    return nullptr; // not yet loaded
 
   DataValue *dv(dataValue());
   if (lastUse) {
    // lastUse: release value to caller,
    //  this will have d_value reset to 0
    dv->setReadOnlyReference(false);
-   dataValue()=0;
+   dataValue()=nullptr;
   }
 // BEGIN HACKED_UP
   else if (
@@ -281,7 +281,7 @@ calc::DataValue *calc::DataTable::DTE::getOrReleaseValue(bool lastUse)
    Spatial *s=dynamic_cast<Spatial *>(dv);
    if (s) {
     dv->setReadOnlyReference(false);
-    dataValue()=0;
+    dataValue()=nullptr;
    }
  }
 // END HACKED_UP

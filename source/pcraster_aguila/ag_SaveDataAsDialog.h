@@ -65,7 +65,7 @@ public:
   //----------------------------------------------------------------------------
 
                    SaveDataAsDialog    (dal::Formats const& formats,
-                                        QWidget* parent = 0,
+                                        QWidget* parent = nullptr,
                                         bool modal = false,
                                         Qt::WindowFlags flags = Qt::Widget);
 

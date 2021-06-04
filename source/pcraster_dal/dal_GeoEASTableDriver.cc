@@ -141,14 +141,14 @@ dal::Table* dal::GeoEASTableDriver::open(
   std::ifstream stream;
 
   if(!TextFileDriver::open(stream, path)) {
-    return 0;
+    return nullptr;
   }
 
   Table* table(new Table());
 
   if(!readHeader(*table, stream) || !TextTableDriver::open(*table, stream)) {
     delete table;
-    table = 0;
+    table = nullptr;
   }
 
   return table;
@@ -403,7 +403,7 @@ dal::Table* dal::GeoEASTableDriver::read(
          DataSpaceAddress const& /* address */) const
 {
   assert(false);
-  return 0;
+  return nullptr;
 }
 
 

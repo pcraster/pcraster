@@ -62,11 +62,11 @@ calc::BindingTable::~BindingTable()
 
 const calc::Symbol* calc::BindingTable::find(const std::string& name) const
 {
-    calc::Symbol s(0,name,0);
+    calc::Symbol s(nullptr,name,nullptr);
     Table::const_iterator p=d_table.find(s);
     if (p != d_table.end())
         return &(p->second.d_value);
-    return 0;
+    return nullptr;
 }
 
 void calc::BindingTable::setExternalBindings(

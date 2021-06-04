@@ -48,7 +48,7 @@ public:
 
 ag::VisGroupManager::VisGroupManager(const qt::AppWindowProperties& props)
 
-  : QObject(0),
+  : QObject(nullptr),
     // ag::Configurable(),
     d_data(new VisGroupManagerPrivate(props))
 
@@ -416,7 +416,7 @@ ag::VisGroup* ag::VisGroupManager::findCompatibleGroup(
          std::string const& name,
          dal::DataSpace const& space)
 {
-  VisGroup* group = 0;
+  VisGroup* group = nullptr;
 
   // Test group is reverse order.
   for(std::vector<VisGroup*>::reverse_iterator it = d_data->d_groups.rbegin();
@@ -520,7 +520,7 @@ void ag::VisGroupManager::updateControlCenter()
 
 ag::VisGroup *ag::VisGroupManager::findGroup(IVisualisation *v)
 {
-  VisGroup* group = 0;
+  VisGroup* group = nullptr;
   for(iterator groupIt = begin(); groupIt != end(); ++ groupIt) {
     if((*groupIt)->contains(v)) {
       group = *groupIt;
@@ -536,7 +536,7 @@ ag::VisGroup *ag::VisGroupManager::findGroup(IVisualisation *v)
 
 ag::VisGroup *ag::VisGroupManager::findGroup(ag::DataObject& dataObject)
 {
-  VisGroup* group = 0;
+  VisGroup* group = nullptr;
   for(iterator groupIt = begin(); groupIt != end(); ++ groupIt) {
     if(&(*groupIt)->dataObject() == &dataObject) {
       group = *groupIt;
@@ -644,7 +644,7 @@ void ag::VisGroupManager::sync()
 
 ag::VisGroup* ag::VisGroupManager::group(IVisualisation const* visualisation)
 {
-  VisGroup* group = 0;
+  VisGroup* group = nullptr;
 
   for(iterator it = begin(); it != end(); ++ it) {
     if((*it)->contains(visualisation)) {

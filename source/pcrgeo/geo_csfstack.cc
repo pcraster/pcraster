@@ -84,7 +84,7 @@ geo::CSFStack<T>::CSFStack(std::string const& name, CSF_CR useType)
 
   : d_name(CSFStackName(name)), d_step(-1),
     d_minIsValid(false), d_maxIsValid(false),
-    d_valueScale(VS_UNDEFINED), d_useType(useType), d_raster(0)
+    d_valueScale(VS_UNDEFINED), d_useType(useType), d_raster(nullptr)
 
 {
   init();
@@ -110,7 +110,7 @@ template<class T>
 geo::CSFStack<T>::CSFStack(const geo::CSFStackName &name, CSF_CR useType)
 
   : d_name(name), d_step(-1), d_minIsValid(false), d_maxIsValid(false),
-    d_valueScale(VS_UNDEFINED), d_useType(useType), d_raster(0)
+    d_valueScale(VS_UNDEFINED), d_useType(useType), d_raster(nullptr)
 
 {
   init();
@@ -142,7 +142,7 @@ geo::CSFStack<T>::CSFStack(const CSFStack &rhs)
     d_min(rhs.d_min), d_minIsValid(rhs.d_minIsValid),
     d_max(rhs.d_max), d_maxIsValid(rhs.d_maxIsValid),
     d_valueScale(rhs.d_valueScale), d_useType(rhs.d_useType),
-    d_raster(0)
+    d_raster(nullptr)
 
 {
   if(rhs.d_raster) {
@@ -167,7 +167,7 @@ geo::CSFStack<T>::~CSFStack()
 template<class T>
 void geo::CSFStack<T>::clean()
 {
-  delete d_raster; d_raster = 0;
+  delete d_raster; d_raster = nullptr;
 }
 
 
@@ -437,7 +437,7 @@ const geo::CSFStackName &geo::CSFStack<T>::name() const
 template<class T>
 const geo::RasterSpace *geo::CSFStack<T>::rasterSpace() const
 {
-  return d_raster ? &d_raster->space() : 0;
+  return d_raster ? &d_raster->space() : nullptr;
 }
 
 
@@ -462,7 +462,7 @@ CSF_VS geo::CSFStack<T>::valueScale() const
 template<class T>
 bool geo::CSFStack<T>::hasLegend() const
 {
-  return d_legend.get() != 0;
+  return d_legend.get() != nullptr;
 }
 
 

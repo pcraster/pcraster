@@ -104,7 +104,7 @@ Constant* TextConstantDriver::open(
          DataSpace const& space,
          DataSpaceAddress const& address) const
 {
-  Constant* result = 0;
+  Constant* result = nullptr;
 
   boost::filesystem::path path(pathForDataSpaceAddress(name, space, address));
 

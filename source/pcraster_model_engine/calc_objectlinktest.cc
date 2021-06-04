@@ -120,7 +120,7 @@ BOOST_AUTO_TEST_CASE(testLoadLink2)
   BOOST_CHECK(o->resultType(0).vs()== VS_S);
 
   //! unknown method
-  BOOST_CHECK(globalOperations["CalcLibDemoObjectLink::failureExpected"] == 0);
+  BOOST_CHECK(globalOperations["CalcLibDemoObjectLink::failureExpected"] == nullptr);
 }
 
 BOOST_AUTO_TEST_CASE(testExec)

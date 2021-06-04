@@ -68,7 +68,7 @@ qt::GuiApp::GuiApp(
          // com::License license,
          ApplicationRole role)
 
-  : QObject(0),
+  : QObject(nullptr),
     dev::QtClient<ag::QApplication>(argc, argv),
     dev::CommandLineApplication(argc, argv)
     // com::App(argc, argv, cmdLine, license)

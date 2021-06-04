@@ -147,7 +147,7 @@ void calc::LookupExpr::execute(FieldStack& resStack)
     }
   }
   applyFilter=applyFilter &&
-              (dynamic_cast<const LookupLinear*>(tab) ==0);
+              (dynamic_cast<const LookupLinear*>(tab) ==nullptr);
 
   try {
     if (applyFilter) {

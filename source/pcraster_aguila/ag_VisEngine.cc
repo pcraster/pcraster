@@ -59,7 +59,7 @@ public:
       _map2DOffset(),
       _quadLength(0), _map3DScale(-1e32),
       _mapAction(NR_MAP_ACTIONS),
-      _height(0),
+      _height(nullptr),
       _selectedValue(),
       _change(0)
   {
@@ -263,7 +263,7 @@ void VisEngine::rescan(
     // Check if the stack we use as height is still available.
     if(!object.rasterDataSources().isValid(*_data->_height)) {
       delete _data->_height;
-      _data->_height = 0;
+      _data->_height = nullptr;
       _data->_change |= OTHERHEIGHT;
     }
   }

@@ -34,7 +34,7 @@ calc::ASTPar* calc::ParSet::find(ASTPar *key) const
   const_iterator pos= Base::find(key);
   if (pos != end())
     return *pos;
-  return 0;
+  return nullptr;
 }
 
 //! copy set \a s into vector in ASTParPtrLessName sort order.

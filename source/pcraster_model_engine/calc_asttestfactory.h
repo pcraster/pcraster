@@ -82,7 +82,7 @@ public:
   ASTNode*   createFromId(const char *id);
   ASTNode*   createFromId(const std::string& id);
   ASTAss*    createAss(const std::string& par,ASTNode  *value,
-                       const Position *pos=0);
+                       const Position *pos=nullptr);
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------

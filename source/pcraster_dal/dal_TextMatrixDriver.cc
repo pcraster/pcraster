@@ -152,21 +152,21 @@ Matrix* TextMatrixDriver::open(
   try {
     if(!TextFileDriver::open(stream,
          pathForDataSpaceAddress(name, space, address))) {
-      return 0;
+      return nullptr;
     }
   }
   catch(Exception const&) {
-    return 0;
+    return nullptr;
   }
 
   std::string line;
   std::getline(stream, line);
 
   if(stream.fail()) {
-    return 0;
+    return nullptr;
   }
 
-  Matrix* matrix = 0;
+  Matrix* matrix = nullptr;
 
   typedef std::vector<std::string> Row;
   typedef std::vector<Row> Rows;
@@ -201,19 +201,19 @@ Matrix* TextMatrixDriver::open(
       }
 
       if(stream.fail()) {
-        return 0;
+        return nullptr;
       }
 
       row.clear();
       if(!parse(line.c_str(), rowParser).full) {
-        return 0;
+        return nullptr;
       }
 
       assert(!row.empty());
 
       // Check whether all rows read contain the same number of values.
       if(row.size() != nrCols) {
-        return 0;
+        return nullptr;
       }
 
       rows.push_back(row);
@@ -230,7 +230,7 @@ Matrix* TextMatrixDriver::open(
       determineTypeId(rows, typeId);
 
       if(typeId == TI_NR_TYPES) {
-        return 0;
+        return nullptr;
       }
 
       matrix = new Matrix(nrCols, typeId);
@@ -415,7 +415,7 @@ Matrix* TextMatrixDriver::read(
          DataSpaceAddress const& /* address */) const
 {
   assert(false);
-  return 0;
+  return nullptr;
 }
 
 

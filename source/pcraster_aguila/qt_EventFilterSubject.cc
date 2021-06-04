@@ -33,7 +33,7 @@
 */
 qt::EventFilterSubject::EventFilterSubject(QObject* filterSubject)
 
-  : d_filterSubject(filterSubject), d_filter(0)
+  : d_filterSubject(filterSubject), d_filter(nullptr)
 
 {
   assert(d_filterSubject);
@@ -113,7 +113,7 @@ void qt::EventFilterSubject::removeEventFilter()
   if(d_filter) {
     d_filterSubject->removeEventFilter(d_filter);
     removeChildEventFilter(d_filter);
-    d_filter = 0;
+    d_filter = nullptr;
   }
 }
 

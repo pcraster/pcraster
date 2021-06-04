@@ -123,7 +123,7 @@ ScopedCachedObject<O>::~ScopedCachedObject()
     d_rte->deleteCacheEntry(d_field->src());
     delete d_object;
   }
-  d_object=0;
+  d_object=nullptr;
 }
 
 //------------------------------------------------------------------------------

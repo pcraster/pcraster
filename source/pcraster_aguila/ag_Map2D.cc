@@ -42,7 +42,7 @@ namespace ag {
 Map2D::Map2D(DataObject* object, QWidget* parent)
 
   : Map(object, "2D Map", parent),
-    d_mapView(0), d_legendView(0)
+    d_mapView(nullptr), d_legendView(nullptr)
 
 {
   createInterface();

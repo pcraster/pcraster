@@ -34,7 +34,7 @@ public:
   //----------------------------------------------------------------------------
 
   //! Constructor.
-                   RCPtr               (T *realPtr = 0);
+                   RCPtr               (T *realPtr = nullptr);
 
   //! Assignment operator.
   RCPtr &          operator=           (const RCPtr &rhs);
@@ -80,7 +80,7 @@ inline T &RCPtr<T>::operator*() const
 
 template<class T>
 inline RCPtr<T>::operator void *() const
-{ return (d_pointee != 0) ? (void *)d_pointee : (void *)0; }
+{ return (d_pointee != nullptr) ? (void *)d_pointee : (void *)nullptr; }
 
 template<class T>
 inline T *RCPtr<T>::ptr() const

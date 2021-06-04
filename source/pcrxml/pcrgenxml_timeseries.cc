@@ -26,7 +26,7 @@ Do not edit, generated from libs/pcrxml/generate.py
 const std::string pcrxml::TimeSeries::d_elementName("TimeSeries");
 //! ctor
 pcrxml::TimeSeries::TimeSeries(const QDomElement& element):Element(element,d_elementName)
- ,dataTypeDTD(0)
+ ,dataTypeDTD(nullptr)
  {
   try {
    ChildElementVisitor v(element);
@@ -37,7 +37,7 @@ pcrxml::TimeSeries::TimeSeries(const QDomElement& element):Element(element,d_ele
   } catch (...) { clean(); throw; }
  }
 pcrxml::TimeSeries::TimeSeries():Element()
- ,dataTypeDTD(0)
+ ,dataTypeDTD(nullptr)
  {
  }
 const std::string& pcrxml::TimeSeries::elementName() const
@@ -52,7 +52,7 @@ pcrxml::TimeSeries::~TimeSeries()
 //! clean
 void pcrxml::TimeSeries::clean()
 {
- delete dataTypeDTD;dataTypeDTD=0;
+ delete dataTypeDTD;dataTypeDTD=nullptr;
 }
 //! copy ctor
 pcrxml::TimeSeries::TimeSeries(const TimeSeries& src):

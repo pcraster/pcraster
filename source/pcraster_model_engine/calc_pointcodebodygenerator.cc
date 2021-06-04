@@ -131,7 +131,7 @@ calc::PointCodeBodyGenerator::PointCodeBodyGenerator(
     CFGNode*      cfg,
     const ParSet& vContents):
      CFGVisitor(cfg),
-     d_curr(0)
+     d_curr(nullptr)
 {
   size_t n=0;
   for(ParSet::const_iterator i=vContents.begin(); i!=vContents.end(); ++i) {
@@ -459,7 +459,7 @@ calc::BaseExpr* calc::PointCodeSI::expr() const
 
 calc::PointCodeSI::PointCodeSI(
     const std::string& name):
-  d_expr(0),
+  d_expr(nullptr),
   d_value(name)
 {
   d_names.insert(name);

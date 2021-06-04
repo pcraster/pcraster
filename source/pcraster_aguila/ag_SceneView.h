@@ -69,7 +69,7 @@ private:
 protected:
 
   //! Constructor.
-                   SceneView           (QWidget *p = 0);
+                   SceneView           (QWidget *p = nullptr);
 
   virtual ag::SceneObject& sceneObject() const = 0;
 

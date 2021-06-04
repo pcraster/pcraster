@@ -134,7 +134,7 @@ class DiffMap : boost::noncopyable
     }
    public:
     DiffMap(bool diffMapWanted, ThrowOrReturn& tr,const RasterSpace& rs)
-      : d_values(0), d_diffMapWanted(diffMapWanted),
+      : d_values(nullptr), d_diffMapWanted(diffMapWanted),
         d_diffNoted(false), d_tr(tr) ,d_rs(rs)
     {}
     ~DiffMap() {
@@ -161,7 +161,7 @@ class DiffMap : boost::noncopyable
     {
       if (d_values)
        return d_values->cells();
-      return 0;
+      return nullptr;
     }
     bool diffNoted() const { return d_diffNoted; }
  };

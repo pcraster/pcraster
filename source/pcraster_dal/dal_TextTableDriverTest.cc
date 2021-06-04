@@ -69,7 +69,7 @@ BOOST_AUTO_TEST_CASE(invalid_grammar)
   TextTableDriver driver;
   bool exceptionCaught=false;
 
-  Table* table=0;
+  Table* table=nullptr;
 
   try {
     exceptionCaught = false;

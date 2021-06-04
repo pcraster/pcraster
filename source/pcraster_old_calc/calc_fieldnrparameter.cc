@@ -20,7 +20,7 @@ calc::FieldNrParameter::FieldNrParameter(
     const std::vector<double >& vals,
     VS    vs):
   FieldParameter(par,constant,false,vs,ST_NONSPATIAL),
-  d_vals(vals.size(),0),
+  d_vals(vals.size(),nullptr),
   d_initVals(vals)
 {
 }
@@ -32,7 +32,7 @@ calc::FieldNrParameter::FieldNrParameter(
     VS    vs):
   FieldParameter(par,true,false,vs,ST_NONSPATIAL)
 {
-  d_vals.push_back(0);
+  d_vals.push_back(nullptr);
   d_initVals.push_back(value);
 }
 

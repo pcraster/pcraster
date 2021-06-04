@@ -89,7 +89,7 @@ calc::Operator::Operator(
     d_domainIll(noDomainIll),
     d_execType(execType),
     d_impl(impl),
-    d_objectLinkFactory(0),
+    d_objectLinkFactory(nullptr),
     d_commutative(commutative)
 {
   // PRECOND(d_impl); ALL IMPLEMENTED
@@ -110,7 +110,7 @@ calc::Operator::Operator(
     d_pointOperator(false),
     d_domainIll(noDomainIll),
     d_execType(EXEC_TYPE_EXTERN),
-    d_impl(0),
+    d_impl(nullptr),
     d_objectLinkFactory(objectLinkFactory),
     d_commutative(false)
 {
@@ -135,8 +135,8 @@ calc::Operator::Operator(
     d_pointOperator(false),
     d_domainIll(noDomainIll),
     d_execType(EXEC_TYPE_EXTERN),
-    d_impl(0),
-    d_objectLinkFactory(0),
+    d_impl(nullptr),
+    d_objectLinkFactory(nullptr),
     d_commutative(false)
 {
 }

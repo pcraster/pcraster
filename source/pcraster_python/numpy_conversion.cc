@@ -882,7 +882,7 @@ calc::Field* array_to_field(
     }
 
     int const type = PyArray_TYPE((PyArrayObject*)array.ptr());
-    calc::Spatial* field = NULL;
+    calc::Spatial* field = nullptr;
 
     // http://docs.scipy.org/doc/numpy/reference/c-api.dtype.html
     switch(type) {

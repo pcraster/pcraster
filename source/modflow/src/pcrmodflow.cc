@@ -226,50 +226,50 @@ void PCRModflow::initDataStructures(){
 
   d_nrOfLayer = -1;
   d_baseElev = true;
-  d_baseLayer = NULL;
+  d_baseLayer = nullptr;
   d_nrMFLayer = 0;
   d_nrBlockLayer = 0;
   d_gridIsFixed = false;
   d_lastIsConfined = false;
   d_solver = false;
   d_isSteadyState = true;
-  d_ibound = NULL;
-  d_baseArea = NULL;
-  d_initialHead = NULL;
-  d_layer = NULL;
-  d_hCond = NULL;
-  d_vCond = NULL;
+  d_ibound = nullptr;
+  d_baseArea = nullptr;
+  d_initialHead = nullptr;
+  d_layer = nullptr;
+  d_hCond = nullptr;
+  d_vCond = nullptr;
 
-  d_dis = NULL;
-  d_bas = NULL;
-  d_bcf = NULL;
+  d_dis = nullptr;
+  d_bas = nullptr;
+  d_bcf = nullptr;
 
-  d_riv = NULL;
-  d_rivStage = NULL;
-  d_rivBottom = NULL;
-  d_rivCond = NULL;
+  d_riv = nullptr;
+  d_rivStage = nullptr;
+  d_rivBottom = nullptr;
+  d_rivCond = nullptr;
 
 
-  d_primaryStorage = NULL;
-  d_secondaryStorage = NULL;
-  d_rch = NULL;
-  d_recharge = NULL;
-  d_rechargeIrch = NULL;
+  d_primaryStorage = nullptr;
+  d_secondaryStorage = nullptr;
+  d_rch = nullptr;
+  d_recharge = nullptr;
+  d_rechargeIrch = nullptr;
  // d_rechargeResult = NULL;
-  d_wetting = NULL;
+  d_wetting = nullptr;
   // DRN
-  d_drn = NULL;
-  d_drnElev = NULL;
-  d_drnCond = NULL;
+  d_drn = nullptr;
+  d_drnElev = nullptr;
+  d_drnCond = nullptr;
 //  d_drnResult = NULL;
   // solver
-  d_pcg = NULL;
-  d_sip = NULL;
-  d_sor = NULL;
-  d_dsp = NULL;
+  d_pcg = nullptr;
+  d_sip = nullptr;
+  d_sor = nullptr;
+  d_dsp = nullptr;
   // well
-  d_wel = NULL;
-  d_welValues = NULL;
+  d_wel = nullptr;
+  d_welValues = nullptr;
 
   d_ghb = nullptr;
 
@@ -303,105 +303,105 @@ void PCRModflow::resetGrid(bool final) {
   d_quasiConfined.clear();
   d_layer2BlockLayer.clear();
   d_layerType.clear();
-  if(d_pcg!=NULL){
+  if(d_pcg!=nullptr){
     delete d_pcg;
-    d_pcg= NULL;
+    d_pcg= nullptr;
   }
-  if(d_sip!=NULL){
+  if(d_sip!=nullptr){
     delete d_sip;
-    d_sip = NULL;
+    d_sip = nullptr;
   }
-  if(d_sor!=NULL){
+  if(d_sor!=nullptr){
     delete d_sor;
-    d_sor = NULL;
+    d_sor = nullptr;
   }
   delete d_dsp;
-  d_dsp = NULL;
-   if(d_riv!=NULL){
+  d_dsp = nullptr;
+   if(d_riv!=nullptr){
 //   delete d_rivLeakage;
 //   d_rivLeakage = NULL;
     delete d_rivStage;
-    d_rivStage = NULL;
+    d_rivStage = nullptr;
     delete d_rivBottom;
-    d_rivBottom = NULL;
+    d_rivBottom = nullptr;
     delete d_rivCond;
-    d_rivCond = NULL;
+    d_rivCond = nullptr;
     delete d_riv;
-    d_riv = NULL;
+    d_riv = nullptr;
   }
-  if(d_initialHead!=NULL){
+  if(d_initialHead!=nullptr){
     delete d_initialHead;
-    d_initialHead = NULL;
+    d_initialHead = nullptr;
   }
-  if(d_ibound!=NULL){
+  if(d_ibound!=nullptr){
     delete d_ibound;
-    d_ibound = NULL;
+    d_ibound = nullptr;
   }
 
   delete d_hCond;
-  d_hCond = NULL;
+  d_hCond = nullptr;
   delete d_vCond;
-  d_vCond = NULL;
+  d_vCond = nullptr;
 
   delete d_dis;
-  d_dis = NULL;
+  d_dis = nullptr;
   delete d_layer;
-  d_layer = NULL;
+  d_layer = nullptr;
   delete d_bas;
-  d_bas = NULL;
+  d_bas = nullptr;
   delete d_bcf;
-  d_bcf = NULL;
-  if(d_rch != NULL){
+  d_bcf = nullptr;
+  if(d_rch != nullptr){
     delete d_rch;
     delete d_recharge;
     //delete d_rechargeResult;
-    d_rch = NULL;
-    d_recharge = NULL;
+    d_rch = nullptr;
+    d_recharge = nullptr;
     //d_rechargeResult = NULL;
     delete d_rechargeIrch;
-    d_rechargeIrch = NULL;
+    d_rechargeIrch = nullptr;
   }
-  if(d_drn != NULL){
+  if(d_drn != nullptr){
     delete d_drn;
     delete d_drnElev;
     delete d_drnCond;
    // delete d_drnResult;
-    d_drn = NULL;
-    d_drnElev = NULL;
-    d_drnCond = NULL;
+    d_drn = nullptr;
+    d_drnElev = nullptr;
+    d_drnCond = nullptr;
     //d_drnResult = NULL;
   }
-  if(d_primaryStorage != NULL){
+  if(d_primaryStorage != nullptr){
     delete d_primaryStorage;
     delete d_secondaryStorage;
-    d_primaryStorage = NULL;
-    d_secondaryStorage = NULL;
+    d_primaryStorage = nullptr;
+    d_secondaryStorage = nullptr;
   }
   delete d_cmethods;
-  d_cmethods = NULL;
+  d_cmethods = nullptr;
 
   delete d_draster;
-  d_draster = NULL;
+  d_draster = nullptr;
   delete d_thisbaseelev;
-  d_thisbaseelev = NULL;
-  if(d_wetting != NULL){
+  d_thisbaseelev = nullptr;
+  if(d_wetting != nullptr){
     delete d_wetting;
-    d_wetting = NULL;
+    d_wetting = nullptr;
   }
-  if(d_wel != NULL){
+  if(d_wel != nullptr){
     delete d_wel;
     delete d_welValues;
-    d_wel = NULL;
-    d_welValues = NULL;
+    d_wel = nullptr;
+    d_welValues = nullptr;
   }
   delete d_baseLayer;
-  d_baseLayer = NULL;
+  d_baseLayer = nullptr;
 
   delete d_gridCheck;
-  d_gridCheck = NULL;
+  d_gridCheck = nullptr;
 
   delete d_baseArea;
-  d_baseArea = NULL;
+  d_baseArea = nullptr;
 
   if(final == false) {
     d_cmethods = new Common(this);
@@ -435,7 +435,7 @@ discr::BlockData<REAL4>* PCRModflow::getBlockHeads(){
 
 
 void PCRModflow::getRecharge(float *result, size_t mfLayer){
-  if(NULL == d_rch) {
+  if(nullptr == d_rch) {
     std::stringstream stmp;
     stmp << "No recharge package specified ";
     d_cmethods->error(stmp.str(), "getRecharge");
@@ -444,7 +444,7 @@ void PCRModflow::getRecharge(float *result, size_t mfLayer){
 }
 
 calc::Field* PCRModflow::getRecharge(size_t layer){
-  if(NULL == d_rch) {
+  if(nullptr == d_rch) {
     std::stringstream stmp;
     stmp << "No recharge package specified ";
     d_cmethods->error(stmp.str(), "getRecharge");
@@ -468,7 +468,7 @@ calc::Field* PCRModflow::getRecharge(size_t layer){
  * \todo to riv
  */
 void PCRModflow::getRiverLeakage(float *result, size_t layer){
-  if(NULL == d_riv) {
+  if(nullptr == d_riv) {
     std::stringstream stmp;
     stmp << "No river package specified: Define river head, bottom and conductance values ";
     d_cmethods->error(stmp.str(), "getRiverLeakage");
@@ -477,7 +477,7 @@ void PCRModflow::getRiverLeakage(float *result, size_t layer){
 }
 
 calc::Field* PCRModflow::getRiverLeakage(size_t layer){
-  if(NULL == d_riv) {
+  if(nullptr == d_riv) {
     std::stringstream stmp;
     stmp << "No river package specified: Define river head, bottom and conductance values ";
     d_cmethods->error(stmp.str(), "getRiverLeakage");
@@ -586,12 +586,12 @@ bool PCRModflow::writeNAM() {
     content << "DE4   210 pcrmf.de4\n";
   }
   content << "OC    220 pcrmf.oc\n";
-  if(d_riv!=NULL){
+  if(d_riv!=nullptr){
     content << "RIV   221 pcrmf.riv\n";
     content << "DATA  251 pcrmf_riv.asc\n";
   }
 
-  if(d_rch!=NULL){
+  if(d_rch!=nullptr){
     content << "RCH   222 pcrmf.rch\n";
     content << "DATA  261 pcrmf_rch.asc\n";
     if(d_rch->indicated_recharge()){
@@ -599,12 +599,12 @@ bool PCRModflow::writeNAM() {
     }
   }
 
-  if(d_drn != NULL){
+  if(d_drn != nullptr){
     content << "DRN   223 pcrmf.drn\n";
     content << "DATA  270 pcrmf_drn.asc\n";
   }
 
-  if(d_wel != NULL) {
+  if(d_wel != nullptr) {
     content << "WEL   224 pcrmf.wel\n";
     content << "DATA  280 pcrmf_wel.asc\n";
   }
@@ -721,7 +721,7 @@ void PCRModflow::setIBound(const calc::Field *values, size_t layer){
 }
 void PCRModflow::setInitialHead(const calc::Field *values, size_t layer){
 
-  if(d_bas == 0){
+  if(d_bas == nullptr){
     std::string stmp("Layers need to be specified at first!");
     d_cmethods->error(stmp, "setInitialHead");
   }
@@ -749,7 +749,7 @@ void PCRModflow::setRiver(const calc::Field *rivH, const calc::Field *rivB, cons
   //  resetGrid(false);
   //  d_gridIsFixed = false;
   //}
-  if(d_riv == NULL) {
+  if(d_riv == nullptr) {
     initRIV();
   }
   d_riv->setRiver(rivH, rivB, rivC, layer);
@@ -761,7 +761,7 @@ bool PCRModflow::setRiver(const float *rivH, const float *rivB, const float *riv
   //  resetGrid(false);
   //  d_gridIsFixed = false;
   //}
-  if(d_riv == NULL) {
+  if(d_riv == nullptr) {
     initRIV();
   }
   bool result = d_riv->setRiver(rivH, rivB, rivC, layer);/*
@@ -783,7 +783,7 @@ void PCRModflow::setRiver(discr::BlockData<REAL4> &stage, discr::BlockData<REAL4
   //  resetGrid(false);
   //  d_gridIsFixed = false;
   //}
-  if(d_riv == NULL) {
+  if(d_riv == nullptr) {
     initRIV();
   }
   d_riv->setRiver(stage, bottom, cond);
@@ -808,7 +808,7 @@ bool PCRModflow::setInitialHead(const float *values, size_t layer) {
 
 bool PCRModflow::setInitialHead(const discr::BlockData<REAL4> &values){
 
-  if(d_bas == 0){
+  if(d_bas == nullptr){
     std::string stmp("Layers need to be specified at first!");
     d_cmethods->error(stmp, "setInitialHead");
   }
@@ -819,12 +819,12 @@ bool PCRModflow::setInitialHead(const discr::BlockData<REAL4> &values){
 
 void PCRModflow::setStorage(const calc::Field *primary, const calc::Field *secondary, size_t layer){
 
-  if(d_bcf == 0){
+  if(d_bcf == nullptr){
     std::string stmp("Layers need to be specified at first!");
     d_cmethods->error(stmp, "setStorage");
   }
 
-  if(d_primaryStorage == NULL) {
+  if(d_primaryStorage == nullptr) {
     d_primaryStorage = new discr::BlockData<REAL4>(d_baseArea);
     d_secondaryStorage = new discr::BlockData<REAL4>(d_baseArea);
   }
@@ -837,7 +837,7 @@ void PCRModflow::setStorage(const calc::Field *primary, const calc::Field *secon
  * @param layer layer number
  */
 bool PCRModflow::setPrimaryStorage(const float *values, size_t layer){
-  if(d_primaryStorage == NULL) {
+  if(d_primaryStorage == nullptr) {
     d_primaryStorage = new discr::BlockData<REAL4>(d_baseArea);
     d_secondaryStorage = new discr::BlockData<REAL4>(d_baseArea);
   }
@@ -855,7 +855,7 @@ bool PCRModflow::setPrimaryStorage(const float *values, size_t layer){
  * @param layer layer number
  */
 bool PCRModflow::setSecondaryStorage(const float *values, size_t layer){
-  if(d_primaryStorage == NULL) {
+  if(d_primaryStorage == nullptr) {
     d_primaryStorage = new discr::BlockData<REAL4>(d_baseArea);
     d_secondaryStorage = new discr::BlockData<REAL4>(d_baseArea);
   }
@@ -870,12 +870,12 @@ bool PCRModflow::setSecondaryStorage(const float *values, size_t layer){
 
 void PCRModflow::setWettingParameter(float wetfct, size_t iwetit, float ihdwet){
 
-  if(d_bcf == 0){
+  if(d_bcf == nullptr){
     std::string stmp("Layers need to be specified at first!");
     d_cmethods->error(stmp, "setWettingParameter");
   }
 
-  if(d_wetting == NULL) {
+  if(d_wetting == nullptr) {
     d_wetting = new discr::BlockData<REAL4>(d_baseArea);
   }
   d_bcf->setWettingParameter(wetfct, iwetit, ihdwet);
@@ -887,7 +887,7 @@ void PCRModflow::setWettingParameter(float wetfct, size_t iwetit, float ihdwet){
  * @param layer layer number
  */
 bool PCRModflow::setWetting(const float *values, size_t layer){
-  if(d_wetting == NULL) {
+  if(d_wetting == nullptr) {
     d_wetting = new discr::BlockData<REAL4>(d_baseArea);
   }
   layer--; // layer number passed by user starts with 1
@@ -900,12 +900,12 @@ bool PCRModflow::setWetting(const float *values, size_t layer){
 
 void PCRModflow::setWetting(const calc::Field *values, size_t layer){
 
-  if(d_bcf == 0){
+  if(d_bcf == nullptr){
     std::string stmp("Layers need to be specified at first!");
     d_cmethods->error(stmp, "setWetting");
   }
 
-  if(d_wetting == NULL) {
+  if(d_wetting == nullptr) {
     d_wetting = new discr::BlockData<REAL4>(d_baseArea);
   }
   d_bcf->setWetting(values, layer);
@@ -913,19 +913,19 @@ void PCRModflow::setWetting(const calc::Field *values, size_t layer){
 
 void PCRModflow::setWetting(const discr::BlockData<REAL4> &values){
 
-  if(d_bcf == 0){
+  if(d_bcf == nullptr){
     std::string stmp("Layers need to be specified at first!");
     d_cmethods->error(stmp, "setWetting");
   }
 
-  if(d_wetting==NULL) {
+  if(d_wetting==nullptr) {
     d_wetting = new discr::BlockData<REAL4>(d_baseArea);
   }
   d_bcf->setWetting(values);
 }
 
 void PCRModflow::setStorage(const discr::BlockData<REAL4> &primary, const discr::BlockData<REAL4> &secondary) {
-  if(d_primaryStorage == NULL) {
+  if(d_primaryStorage == nullptr) {
     d_primaryStorage = new discr::BlockData<REAL4>(d_baseArea);
     d_secondaryStorage = new discr::BlockData<REAL4>(d_baseArea);
   }
@@ -979,7 +979,7 @@ void PCRModflow::setRecharge(const float *values, size_t optCode) {
     std::string stmp("Input error: set recharge option code either to 1 or 3 or use setIndicatedRecharge");
     d_cmethods->error(stmp, "setRecharge");
   }
-  if(d_rch==NULL) {
+  if(d_rch==nullptr) {
     initRCH(optCode);
   }
   setBlockData(*d_recharge, values, 0);
@@ -987,10 +987,10 @@ void PCRModflow::setRecharge(const float *values, size_t optCode) {
 
 
 void PCRModflow::setRechargeLay(const float *rch, const int *layer) {
-  if(d_rch == NULL) {
+  if(d_rch == nullptr) {
     initRCH(2);
   }
-  if(d_rechargeIrch == NULL) {
+  if(d_rechargeIrch == nullptr) {
     d_rechargeIrch = new discr::BlockData<INT4>(d_baseArea);
   }
   /* bool result = */ setBlockData(*d_rechargeIrch, layer, 0);
@@ -999,7 +999,7 @@ void PCRModflow::setRechargeLay(const float *rch, const int *layer) {
 
 
 void PCRModflow::setRecharge(const calc::Field *rch, size_t optCode) {
-  if(d_rch == NULL) {
+  if(d_rch == nullptr) {
     initRCH(optCode);
   }
   d_rch->setRecharge(rch, optCode);
@@ -1007,7 +1007,7 @@ void PCRModflow::setRecharge(const calc::Field *rch, size_t optCode) {
 
 
 void PCRModflow::setRechargeLay(const calc::Field *rch, const calc::Field *layer) {
-  if(d_rch == NULL) {
+  if(d_rch == nullptr) {
     initRCH(2);
   }
   d_rch->setIndicatedRecharge(rch, layer);
@@ -1031,16 +1031,16 @@ bool PCRModflow::runModflow(const std::string & working_directory) {
     exit(1);
   }
 
-  if(d_dis == NULL) {
+  if(d_dis == nullptr) {
     std::string stmp("Can not execute Modflow: No grid specified. Use createBottomLayer and addLayer");
     d_cmethods->error(stmp, "run");
   }
-  if(d_bas == NULL) {
+  if(d_bas == nullptr) {
     std::string stmp("Can not execute Modflow: No BAS package specified");
     d_cmethods->error(stmp, "run");
   }
 
-  if(d_bcf == NULL) {
+  if(d_bcf == nullptr) {
     std::string stmp("Can not execute Modflow: No BCF package specified");
     d_cmethods->error(stmp, "run");
   }
@@ -1107,7 +1107,7 @@ bool PCRModflow::runModflow(const std::string & working_directory) {
   d_bas->write_bound_array(run_directory());
 
 ///==============================================
-  if(d_pcg != NULL) {
+  if(d_pcg != nullptr) {
     if(d_pcg->modified()){
       std::stringstream content;
       content << *d_pcg;
@@ -1115,7 +1115,7 @@ bool PCRModflow::runModflow(const std::string & working_directory) {
       d_pcg->update();
     }
   }
-  if(d_sip != NULL) {
+  if(d_sip != nullptr) {
     if(d_sip->modified()){
       std::stringstream content;
       content << *d_sip;
@@ -1123,7 +1123,7 @@ bool PCRModflow::runModflow(const std::string & working_directory) {
       d_sip->update();
     }
   }
-  if(d_sor != NULL) {
+  if(d_sor != nullptr) {
     if(d_sor->modified()){
       std::stringstream content;
       content << *d_sor;
@@ -1131,7 +1131,7 @@ bool PCRModflow::runModflow(const std::string & working_directory) {
       d_sor->update();
     }
   }
-  if(d_dsp != NULL) {
+  if(d_dsp != nullptr) {
     if(d_dsp->modified()){
       std::stringstream content;
       content << *d_dsp;
@@ -1140,7 +1140,7 @@ bool PCRModflow::runModflow(const std::string & working_directory) {
     }
   }
 ///==============================================
-  if(d_drn != NULL) {
+  if(d_drn != nullptr) {
     if(d_drn->drainUpdated()){
       d_drn->write_list(run_directory());
       d_drn->write(run_directory());
@@ -1148,7 +1148,7 @@ bool PCRModflow::runModflow(const std::string & working_directory) {
     }
   }
 
-  if(d_riv!=NULL) {
+  if(d_riv!=nullptr) {
     if(d_riv->riverUpdated()){
       //d_riv ->writeRIV();
       d_riv->write_list(run_directory());
@@ -1158,7 +1158,7 @@ bool PCRModflow::runModflow(const std::string & working_directory) {
   }
 
 
-  if(d_rch!=NULL) {
+  if(d_rch!=nullptr) {
       //d_rch->writeRCH();
 
     d_rch->write(run_directory());
@@ -1168,7 +1168,7 @@ bool PCRModflow::runModflow(const std::string & working_directory) {
     }
   }
 
-  if(d_wel != NULL) {
+  if(d_wel != nullptr) {
     //d_wel->writeWEL();
     d_wel->write_list(run_directory());
     d_wel->write(run_directory());
@@ -1311,14 +1311,14 @@ void PCRModflow::printList() {
 
 void PCRModflow::setDISParams(size_t timeUnits, size_t lentghUnits, float stressPeriodLength, size_t nrOfTimesteps, float timeStepMultiplier, bool isSteadyState) {
 
-  if(d_dis == 0){
+  if(d_dis == nullptr){
     std::string stmp("Layers need to be specified at first!");
     d_cmethods->error(stmp, "setDISParameter");
   }
 
   d_isSteadyState = isSteadyState;
   if(isSteadyState == false) {
-    if(d_primaryStorage == NULL) {
+    if(d_primaryStorage == nullptr) {
       d_primaryStorage = new discr::BlockData<REAL4>(d_baseArea);
       d_secondaryStorage = new discr::BlockData<REAL4>(d_baseArea);
     }
@@ -1332,7 +1332,7 @@ void PCRModflow::setDISParams(size_t timeUnits, size_t lentghUnits, float stress
 
 void PCRModflow::setNoFlowConstant(float value) {
 
-  if(d_bas == 0){
+  if(d_bas == nullptr){
     std::string stmp("Layers need to be specified at first!");
     d_cmethods->error(stmp, "setNoFlowHead");
   }
@@ -1403,7 +1403,7 @@ void PCRModflow::get_lower_face(float *values, size_t layer) {
 //
 void PCRModflow::initDRN() {
 
-  if(d_dis == 0){
+  if(d_dis == nullptr){
     std::string stmp("Layers need to be specified at first!");
     d_cmethods->error(stmp, "setDrain");
   }
@@ -1421,7 +1421,7 @@ bool PCRModflow::setDrain(const float *elevation, const float *conductance, size
   //  resetGrid(false);
   //  d_gridIsFixed = false;
   //}
-  if(d_drn == NULL) {
+  if(d_drn == nullptr) {
     initDRN();
   }
   layer--; // layer number passed by user starts with 1
@@ -1437,7 +1437,7 @@ void PCRModflow::setDrain(const calc::Field *elevation, const calc::Field *condu
   // resetGrid(false);
   //  d_gridIsFixed = false;
   //}
-  if(d_drn == NULL) {
+  if(d_drn == nullptr) {
     initDRN();
   }
   d_drn->setDrain(elevation, conductance, layer);
@@ -1449,7 +1449,7 @@ void PCRModflow::setDrain(const discr::BlockData<REAL4> &elevation, const discr:
   //  resetGrid(false);
   //  d_gridIsFixed = false;
   //}
-  if(d_drn == NULL) {
+  if(d_drn == nullptr) {
     initDRN();
   }
   d_drn->setDrain(elevation, conductance);
@@ -1460,7 +1460,7 @@ void PCRModflow::setDrain(const discr::BlockData<REAL4> &elevation, const discr:
  *
  */
 void PCRModflow::getDrain(float *values, size_t layer) {
-  if(d_drn == NULL) {
+  if(d_drn == nullptr) {
     std::string stmp("No drain values specified: Define elevation and conductance values");
     d_cmethods->error(stmp, "getDrain");
   }
@@ -1471,7 +1471,7 @@ void PCRModflow::getDrain(float *values, size_t layer) {
 }
 
 calc::Field* PCRModflow::getDrain(size_t layer){
-  if(NULL == d_drn) {
+  if(nullptr == d_drn) {
     std::string stmp("No drain values specified: Define elevation and conductance values");
     d_cmethods->error(stmp, "getDrain");
   }
@@ -1483,7 +1483,7 @@ calc::Field* PCRModflow::getDrain(size_t layer){
 //
 void PCRModflow::initWEL() {
 
-  if(d_dis == 0){
+  if(d_dis == nullptr){
     std::string stmp("Layers need to be specified at first!");
     d_cmethods->error(stmp, "setWell");
   }
@@ -1493,7 +1493,7 @@ void PCRModflow::initWEL() {
 }
 
 bool PCRModflow::setWell(const float *well, size_t layer) {
-  if(d_wel == NULL) {
+  if(d_wel == nullptr) {
     initWEL();
   }
   layer--; // layer number passed by user starts with 1
@@ -1503,14 +1503,14 @@ bool PCRModflow::setWell(const float *well, size_t layer) {
 }
 
 void PCRModflow::setWell(const calc::Field *well, size_t layer){
-  if(d_wel == NULL) {
+  if(d_wel == nullptr) {
     initWEL();
   }
   d_wel->setWell(well, layer);
 }
 
 void PCRModflow::setWell(discr::BlockData<REAL4> &well) {
-  if(d_wel == NULL) {
+  if(d_wel == nullptr) {
     initWEL();
   }
   d_wel->setWell(well);
@@ -1652,7 +1652,7 @@ void PCRModflow::setIBound(const std::string & values, size_t layer){
 
   void PCRModflow::setWetting(const std::string & values, size_t mfLayer){
 
-  if(d_bcf == 0){
+  if(d_bcf == nullptr){
     std::string stmp("Layers need to be specified at first!");
     d_cmethods->error(stmp, "setWetting");
   }
@@ -1674,7 +1674,7 @@ void PCRModflow::setIBound(const std::string & values, size_t layer){
 
  void PCRModflow::setStorage(const std::string & prim, const std::string & second, size_t layer){
 
-  if(d_bcf == 0){
+  if(d_bcf == nullptr){
     std::string stmp("Layers need to be specified at first!");
     d_cmethods->error(stmp, "setStorage");
   }

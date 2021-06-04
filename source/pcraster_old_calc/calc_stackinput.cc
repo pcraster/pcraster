@@ -40,7 +40,7 @@ calc::StackInput::StackInput(
     const BindedSymbol& stackName,
     bool  sparse):
   FieldExpr(pos),
-  d_reader(0),
+  d_reader(nullptr),
   d_itemToLoad(scriptConst().nrTimeSteps()+1),
   d_type(VS_FIELD,ST_SPATIAL)
 {

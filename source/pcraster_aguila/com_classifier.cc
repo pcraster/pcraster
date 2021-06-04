@@ -235,7 +235,7 @@ com::Classifier::~Classifier()
 */
 void com::Classifier::init()
 {
-  d_classifier = 0;
+  d_classifier = nullptr;
   d_borders.erase(d_borders.begin(), d_borders.end());
   d_algorithm  = INVALID_ALGORITHM;
   d_mode       = AUTO;
@@ -256,7 +256,7 @@ void com::Classifier::init()
 */
 void com::Classifier::clean()
 {
-  delete d_classifier; d_classifier = 0;
+  delete d_classifier; d_classifier = nullptr;
 }
 
 
@@ -407,11 +407,11 @@ void com::Classifier::installAlgorithm(Algorithm a)
 */
 com_LinClassifier<REAL8> *com::Classifier::installLin()
 {
-  delete d_classifier, d_classifier = 0;
+  delete d_classifier, d_classifier = nullptr;
   d_borders.erase(d_borders.begin(), d_borders.end());
   d_algorithm  = INVALID_ALGORITHM;
 
-  com_LinClassifier<REAL8> *c = 0;
+  com_LinClassifier<REAL8> *c = nullptr;
 
   try
   {
@@ -421,7 +421,7 @@ com_LinClassifier<REAL8> *com::Classifier::installLin()
   }
   catch(...)
   {
-    delete c; c = 0;
+    delete c; c = nullptr;
     clean();
     throw;
   }
@@ -440,11 +440,11 @@ com_LinClassifier<REAL8> *com::Classifier::installLin()
 */
 com_LogClassifier<REAL8> *com::Classifier::installLog()
 {
-  delete d_classifier, d_classifier = 0;
+  delete d_classifier, d_classifier = nullptr;
   d_borders.erase(d_borders.begin(), d_borders.end());
   d_algorithm  = INVALID_ALGORITHM;
 
-  com_LogClassifier<REAL8> *c = 0;
+  com_LogClassifier<REAL8> *c = nullptr;
 
   try
   {
@@ -454,7 +454,7 @@ com_LogClassifier<REAL8> *com::Classifier::installLog()
   }
   catch(...)
   {
-    delete c; c = 0;
+    delete c; c = nullptr;
     clean();
     throw;
   }
@@ -473,11 +473,11 @@ com_LogClassifier<REAL8> *com::Classifier::installLog()
 */
 com_TLogClassifier<REAL8> *com::Classifier::installTLog()
 {
-  delete d_classifier, d_classifier = 0;
+  delete d_classifier, d_classifier = nullptr;
   d_borders.erase(d_borders.begin(), d_borders.end());
   d_algorithm  = INVALID_ALGORITHM;
 
-  com_TLogClassifier<REAL8> *c = 0;
+  com_TLogClassifier<REAL8> *c = nullptr;
 
   try
   {
@@ -487,7 +487,7 @@ com_TLogClassifier<REAL8> *com::Classifier::installTLog()
   }
   catch(...)
   {
-    delete c; c = 0;
+    delete c; c = nullptr;
     clean();
     throw;
   }
@@ -499,11 +499,11 @@ com_TLogClassifier<REAL8> *com::Classifier::installTLog()
 
 com::UserDefinedClassifier<REAL8> *com::Classifier::installUserDefined()
 {
-  delete d_classifier, d_classifier = 0;
+  delete d_classifier, d_classifier = nullptr;
   d_borders.erase(d_borders.begin(), d_borders.end());
   d_algorithm  = INVALID_ALGORITHM;
 
-  UserDefinedClassifier<REAL8>* classifier = 0;
+  UserDefinedClassifier<REAL8>* classifier = nullptr;
 
   try {
     classifier = new UserDefinedClassifier<REAL8>();
@@ -511,7 +511,7 @@ com::UserDefinedClassifier<REAL8> *com::Classifier::installUserDefined()
     d_algorithm  = USERDEFINED;
   }
   catch(...) {
-    delete classifier; classifier = 0;
+    delete classifier; classifier = nullptr;
     clean();
     throw;
   }

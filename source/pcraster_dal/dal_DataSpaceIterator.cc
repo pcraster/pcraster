@@ -47,7 +47,7 @@ namespace dal {
 */
 DataSpaceIterator::DataSpaceIterator()
 
-  : d_space(0),
+  : d_space(nullptr),
     d_address(),
     d_setIndices(),
     d_endReached(true),
@@ -133,7 +133,7 @@ DataSpaceIterator& DataSpaceIterator::operator=(
     if(!rhs.d_space) {
       if(d_space) {
         delete d_space;
-        d_space = 0;
+        d_space = nullptr;
       }
     }
     else {

@@ -317,13 +317,13 @@ Table* TextTableDriver::open(
   std::ifstream stream;
 
   if(!TextFileDriver::open(stream, path)) {
-    return 0;
+    return nullptr;
   }
 
     std::unique_ptr<Table> table(new Table());
 
   if(!open(*table, stream)) {
-    return 0;
+    return nullptr;
   }
 
   return table.release();
@@ -361,7 +361,7 @@ Table* TextTableDriver::open(
     return open(splitNameAndSelection(name), space, address);
   }
   catch(Exception const&) {
-    return 0;
+    return nullptr;
   }
 }
 

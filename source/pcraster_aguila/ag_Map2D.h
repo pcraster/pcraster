@@ -61,7 +61,7 @@ public:
 
   //! Constructor.
                    Map2D               (DataObject* dataObject,
-                                        QWidget* parent = 0);
+                                        QWidget* parent = nullptr);
 
   //! Destructor.
   /* virtual */    ~Map2D              ();

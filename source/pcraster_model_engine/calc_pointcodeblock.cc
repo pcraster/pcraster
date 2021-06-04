@@ -88,7 +88,7 @@ calc::PointCodeBlock::PointCodeBlock(
     const ParSet& pars,
     size_t     nrOps):
    ASTNode(**begin),
-   d_pointCode(0),
+   d_pointCode(nullptr),
 #ifdef DEBUG_DEVELOP
    d_pars(pars),
 #endif
@@ -136,7 +136,7 @@ calc::PointCodeBlock::PointCodeBlock(PointCodeBlock const& rhs):
     d_output(rhs.d_output),
     d_local(rhs.d_local),
     d_nrOps(rhs.d_nrOps),
-    d_dllFunctionAddress(0)
+    d_dllFunctionAddress(nullptr)
 {
 }
 

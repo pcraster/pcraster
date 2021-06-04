@@ -197,8 +197,8 @@ namespace calc {
 //------------------------------------------------------------------------------
 
 calc::StatTable::InputMap::InputMap():
-  d_intervals(0),
-  d_field(0)
+  d_intervals(nullptr),
+  d_field(nullptr)
 {
 }
 
@@ -408,7 +408,7 @@ calc::StatTable::StatTable(
   d_copyStringToMemoryOutputId(ASTSymbolInfo::noMemoryExchangeId()),
   d_subject(subject),
   d_cross(cross),
-  d_op(0)
+  d_op(nullptr)
 {
   const OP_ARGS fieldArgType = { VS_FIELD, ST_SPATIAL};
   const OP_ARGS tableArgType = { VS_TABLE, ST_NON};
@@ -435,7 +435,7 @@ calc::StatTable::StatTable(
   }
   d_op = new Operator("statistics","statistics",
                       std::vector<OP_ARGS>(), // no results
-                      input,0);
+                      input,nullptr);
   setNrReturns(0);
 }
 
@@ -507,8 +507,8 @@ void calc::StatTable::exec(
       return iv;
     }
   };
-  Field const * subjectField(0);
-  Field const * crossField(0);
+  Field const * subjectField(nullptr);
+  Field const * crossField(nullptr);
   std::unique_ptr<I const> subjectTable;
   std::unique_ptr<I const> crossTable;
 
@@ -1035,7 +1035,7 @@ const calc::Operator&  calc::StatTable::op() const
 calc::ASTId* calc::StatTable::createClone() const
 {
   PRECOND(false);
-  return 0;
+  return nullptr;
 }
 
 calc::ASTPar* calc::StatTable::id() const

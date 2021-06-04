@@ -284,7 +284,7 @@ BOOST_AUTO_TEST_CASE(testModel)
      cfgCode(false)
     {
       std::unique_ptr<ASTScript> s(StringParser::createScript(code));
-      cfgCode=s->cfgCode()!=0;
+      cfgCode=s->cfgCode()!=nullptr;
     }
  };
 

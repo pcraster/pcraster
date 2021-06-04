@@ -94,7 +94,7 @@ private:
   void clean() {
     if (d_ci)
       delete d_ci;
-    d_ci=0;
+    d_ci=nullptr;
   }
   void cleanOnError() {
     if (!errorMessage().empty())
@@ -155,7 +155,7 @@ public:
 
 
 Pcrcalc::Pcrcalc(PcrcalcCreate const& pc):
-  d_ci(0)
+  d_ci(nullptr)
 {
   calc::globalInit(); // pcr_createScriptFrom... call
 
@@ -202,7 +202,7 @@ Pcrcalc& calc::Pcrcalc::operator=(Pcrcalc const& rhs)
 const char* Pcrcalc::pcr_ScriptXMLReflection()
 {
   if (!d_ci)
-   return 0;
+   return nullptr;
  TRY_ALL {
     const char * result = d_ci->pcr_ScriptXMLReflection();
     return result;
@@ -212,7 +212,7 @@ const char* Pcrcalc::pcr_ScriptXMLReflection()
 
   } CATCH_ALL_EXCEPTIONS(d_errorStream);
   cleanOnError();
-  return 0;
+  return nullptr;
 }
 
 void Pcrcalc::pcr_ScriptExecute()
@@ -288,7 +288,7 @@ calc::ASTScript const& Pcrcalc::pcr_internalScript() const
 
 static Pcrcalc* createScriptCommon(PcrcalcCreate const& pc)
 {
-  Pcrcalc *ps(0);
+  Pcrcalc *ps(nullptr);
   try {
    ps = new Pcrcalc(pc);
   } catch (...) {
@@ -296,7 +296,7 @@ static Pcrcalc* createScriptCommon(PcrcalcCreate const& pc)
     // bytes of Pcrcalc
     // other errors are catched with the TRY_ALL
     delete ps;
-    ps=0;
+    ps=nullptr;
   }
   return ps;
 }
@@ -326,7 +326,7 @@ extern "C" PCR_DLL_FUNC(const char *) pcr_ScriptXMLReflection(
     PcrScript *script)
 {
   if (!script)
-     return 0; // BAD!
+     return nullptr; // BAD!
   return script->pcr_ScriptXMLReflection();
 }
 

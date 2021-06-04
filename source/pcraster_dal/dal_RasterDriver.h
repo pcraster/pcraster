@@ -208,7 +208,7 @@ inline bool RasterDriver::extremes(
   assert(!space.hasSpace());
 
   bool initialised = false;
-  Raster* raster = 0;
+  Raster* raster = nullptr;
 
   if(space.isEmpty()) {
     raster = open(name, typeId);

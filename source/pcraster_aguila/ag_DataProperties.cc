@@ -1406,7 +1406,7 @@ void DataProperties::addRangeDrawProperties(DataGuide const& guide,
   RangeDrawProps const& source = properties.rangeDrawProperties(guide);
 
   // Classifiers.
-  com::Classifier* displayClassifier = 0;
+  com::Classifier* displayClassifier = nullptr;
   if(source.displayValueClassifier()) {
     displayClassifier = new com::Classifier(*(source.displayValueClassifier()));
     _data->_rangeClassifiers.push_back(displayClassifier);
@@ -2313,7 +2313,7 @@ std::string DataProperties::title(
 const com::RawPalette* DataProperties::palette(
          DataGuide const& guide) const
 {
-  const com::RawPalette* palette(0);
+  const com::RawPalette* palette(nullptr);
 
   switch(guide.type()) {
 
@@ -2525,7 +2525,7 @@ LddDrawProps& DataProperties::lddDrawProperties(
 ClassDrawProps& DataProperties::classDrawProperties(
          const DataGuide& guide) const
 {
-  ClassDrawProps* result = 0;
+  ClassDrawProps* result = nullptr;
 
   switch(guide.valueScale()) {
     case VS_BOOLEAN: { result = &booleanDrawProperties(guide); break; }
@@ -2538,7 +2538,7 @@ ClassDrawProps& DataProperties::classDrawProperties(
     case VS_SCALAR:
     case VS_DIRECTION:
     case VS_UNDEFINED: {
-      result = 0;
+      result = nullptr;
       break;
     }
   }
@@ -2587,7 +2587,7 @@ RangeDrawProps& DataProperties::rangeDrawProperties(
 DrawProps& DataProperties::drawProperties(
          DataGuide const& guide)
 {
-  DrawProps* result = 0;
+  DrawProps* result = nullptr;
 
   switch(guide.valueScale()) {
     case VS_BOOLEAN:   { result = &booleanDrawProperties(guide); break; }
@@ -2731,7 +2731,7 @@ void DataProperties::pushClassifier(
 
   com::Classifier* raw = new com::Classifier(classifier);
   _data->_rangeClassifiers.push_back(raw);
-  com::Classifier* display = 0;
+  com::Classifier* display = nullptr;
 
   RangeDrawProps::ClassifierTuple tuple(raw, display);
   properties.classifiers().push_back(tuple);

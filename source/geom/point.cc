@@ -167,7 +167,7 @@ POINT2D *IntersectLines(POINT2D *p,     /* write-only, point of intersection. Pr
                         const LINE *l2) /* line 2 */
 {
     if (l1->parY && l2->parY)
-        return (NULL);
+        return (nullptr);
 
     if (l1->parY) /* l2 not */
     {
@@ -182,7 +182,7 @@ POINT2D *IntersectLines(POINT2D *p,     /* write-only, point of intersection. Pr
         return (p);
     }
     if (l1->slope == l2->slope)
-        return (NULL);
+        return (nullptr);
     p->x = (PTYPE)((l2->yInt - l1->yInt) / (l1->slope - l2->slope));
     p->y = (PTYPE)YgivenX(l1, p->x);
     return (p);
@@ -206,14 +206,14 @@ POINT2D *IntersectCords(POINT2D *i,          /* write-only, point of intersectio
     (void)CalcLine(&l2, l2p1, l2p2);
 
     if (!IntersectLines(i, &l1, &l2))
-        return (NULL);
+        return (nullptr);
     /* else there is an intersection,
      *  So point i is on both lines,
      *  now test if that intersection falls on both cords:
      */
     if (PointOnLineAlsoOnCord(i, l1p1, l1p2) && PointOnLineAlsoOnCord(i, l2p1, l2p2))
         return (i);
-    return (NULL);
+    return (nullptr);
 }
 
 /* compute intersection on a cord and a line
@@ -232,14 +232,14 @@ POINT2D *IntersectLineCord(POINT2D *i,    /* write-only, point of intersection. 
     (void)CalcLine(&cordLine, c1, c2);
 
     if (!IntersectLines(i, l, &cordLine))
-        return (NULL);
+        return (nullptr);
     /* else there is an intersection,
      *  So point i is on both lines,
      *  now test if that intersection falls on the cord:
      */
     if (PointOnLineAlsoOnCord(i, c1, c2))
         return (i);
-    return (NULL);
+    return (nullptr);
 }
 
 /* test if a point of a line through a cord is on the cord
@@ -293,7 +293,7 @@ POINT2D *PerpOnCord(POINT2D *cut, /* write-only. Cutting point of perp and *line
 
     if (PointOnLineAlsoOnCord(cut, c1, c2))
         return (cut);
-    return (NULL);
+    return (nullptr);
 }
 
 void Projected(POINT2D *projected, const POINT2D *p, const LINE *line)

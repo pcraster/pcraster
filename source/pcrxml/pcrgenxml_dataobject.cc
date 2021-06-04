@@ -26,7 +26,7 @@ Do not edit, generated from libs/pcrxml/generate.py
 const std::string pcrxml::DataObject::d_elementName("DataObject");
 //! ctor
 pcrxml::DataObject::DataObject(const QDomElement& element):Element(element,d_elementName)
- ,cursor(0)
+ ,cursor(nullptr)
  {
   try {
    ChildElementVisitor v(element);
@@ -40,7 +40,7 @@ pcrxml::DataObject::DataObject(const QDomElement& element):Element(element,d_ele
   } catch (...) { clean(); throw; }
  }
 pcrxml::DataObject::DataObject():Element()
- ,cursor(0)
+ ,cursor(nullptr)
  {
  }
 const std::string& pcrxml::DataObject::elementName() const
@@ -55,7 +55,7 @@ pcrxml::DataObject::~DataObject()
 //! clean
 void pcrxml::DataObject::clean()
 {
- delete cursor;cursor=0;
+ delete cursor;cursor=nullptr;
  for(size_t i=0; i<data.size(); i++) delete data[i];
 data.clear();
 }

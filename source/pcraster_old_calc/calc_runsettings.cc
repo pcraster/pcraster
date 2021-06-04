@@ -95,7 +95,7 @@ void calc::RunSettings::addNewOnly(
 //! create an xml elements from its contents
 pcrxml::ModelRunSettings *calc::RunSettings::createModelRunSettings() const
 {
-  pcrxml::ModelRunSettings *m=0;
+  pcrxml::ModelRunSettings *m=nullptr;
   try {
     m=new pcrxml::ModelRunSettings();
     for (Bindings::const_iterator pos=d_bindings.begin(); 

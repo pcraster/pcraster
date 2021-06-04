@@ -66,7 +66,7 @@ public:
 
                    DimensionCoordinateEdit(
                                         dal::Dimension const* dimension,
-                                        QWidget* parent = 0);
+                                        QWidget* parent = nullptr);
 
   /* virtual */    ~DimensionCoordinateEdit();
 

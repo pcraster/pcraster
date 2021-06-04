@@ -70,7 +70,7 @@ public:
 //------------------------------------------------------------------------------
 
 calc::Code::Code(ASTNode* transferredStatements):
-  BasicBlock(0,
+  BasicBlock(nullptr,
              new BlockEntrance(this),
              transferredStatements,
              new JumpNode(this))

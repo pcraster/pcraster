@@ -51,7 +51,7 @@ void fill_raster(calc::Field & field, const pybind11::tuple state){
       // Correct direct parsing of hexstrings seems to be still discussed
       // without strtod reading hexstring will result in 0
       // see https://gcc.gnu.org/bugzilla/show_bug.cgi?id=81122#c1
-      cells[count] = static_cast<T>(std::strtod(it->c_str(), NULL));
+      cells[count] = static_cast<T>(std::strtod(it->c_str(), nullptr));
     }
     else {
       pcr::setMV(cells[count]);

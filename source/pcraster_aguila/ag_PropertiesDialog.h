@@ -50,7 +50,7 @@ public:
   //----------------------------------------------------------------------------
 
                    PropertiesDialog    (PropertiesWidget* widget,
-                                        QWidget* parent = 0);
+                                        QWidget* parent = nullptr);
 
   /* virtual */    ~PropertiesDialog();
 

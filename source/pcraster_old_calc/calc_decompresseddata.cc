@@ -34,8 +34,8 @@
 
 calc::DecompressedData::DecompressedData(VS vs):
       d_vs(vs),
-      d_originalData(0),
-      d_decompressedCopy(0)
+      d_originalData(nullptr),
+      d_decompressedCopy(nullptr)
 {
 }
 

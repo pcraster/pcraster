@@ -186,7 +186,7 @@ void RCH::setRecharge(const calc::Field *rch, size_t optCode){
 
 
 void RCH::setIndicatedRecharge(const calc::Field *rch, const calc::Field *layer){
-  if(d_mf->d_rechargeIrch == NULL){
+  if(d_mf->d_rechargeIrch == nullptr){
     d_mf->d_rechargeIrch = new discr::BlockData<INT4>(d_mf->d_baseArea);
   }
   // recharge
@@ -278,7 +278,7 @@ void RCH::write(std::string const& path){
   content << "EXTERNAL " << d_array_unit_number << " 1.0 (FREE) -1\n";
 
   if(indicated_recharge()){
-    if(d_mf->d_rechargeIrch == NULL){
+    if(d_mf->d_rechargeIrch == nullptr){
       std::stringstream stmp;
       stmp << "No layer number variables IRCH specified";
       d_mf->d_cmethods->error(stmp.str(), "run");

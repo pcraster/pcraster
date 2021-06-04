@@ -152,7 +152,7 @@ void BCF::writeBCF(){
   // in case of wetting values must be set
   if((d_iwdflg<0.0)||(d_iwdflg>0.0)){
     std::stringstream stmp;
-    if(d_mf->d_wetting==NULL){
+    if(d_mf->d_wetting==nullptr){
       stmp << "Writing BCF data failed: Wetting enabled, but no layer values defined";
       d_mf->d_cmethods->error(stmp.str(), "run");
     }
@@ -527,10 +527,10 @@ void BCF::get_binary(float *values, const std::string description, size_t start,
   file.close();
 
   delete[] desc;
-  desc = NULL;
+  desc = nullptr;
 
   delete[] charData;
-  charData = NULL;
+  charData = nullptr;
 }
 
 /// python
@@ -828,7 +828,7 @@ void BCF::write(std::string const& path) {
   // in case of wetting values must be set
   if((d_iwdflg<0.0)||(d_iwdflg>0.0)){
     std::stringstream stmp;
-    if(d_mf->d_wetting==NULL){
+    if(d_mf->d_wetting==nullptr){
       stmp << "Writing BCF data failed: Wetting enabled, but no layer values defined";
       d_mf->d_cmethods->error(stmp.str(), "run");
     }

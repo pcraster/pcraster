@@ -35,14 +35,14 @@
 //! delete value array
 void calc::deallocate(ValueBuffer& v) {
      delete [] v.d_UINT1;
-     v.d_void=0;
+     v.d_void=nullptr;
 }
 
 //! return ptr to allocated array and set v to 0
 void *calc::detach(ValueBuffer& v) 
 {
   void *d(v.d_void);
-  v.d_void=0;
+  v.d_void=nullptr;
   return d;
 }
 

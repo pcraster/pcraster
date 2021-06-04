@@ -79,7 +79,7 @@ calc::BasicBlock::BasicBlock(
       ASTNode*          transferredStatements,
       JumpNode*         transferredJumpNode):
    d_blockEntrance(transferredBlockEntrance),
-   d_statements(0),
+   d_statements(nullptr),
    d_jumpNode(transferredJumpNode)
 {
  // transferredStatements must be a ASTNodeList because we allow

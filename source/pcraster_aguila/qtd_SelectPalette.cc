@@ -114,7 +114,7 @@ public:
 qtd::SelectPalette::SelectPalette(QWidget *p, const char *n)
 
   : qt::Dialog(p, n),
-    d_cw(0)
+    d_cw(nullptr)
 
 {
   d_cw = new SelectPalettePrivate(this);
@@ -132,7 +132,7 @@ qtd::SelectPalette::~SelectPalette()
 
 void qtd::SelectPalette::clean()
 {
-  delete d_cw; d_cw = 0;
+  delete d_cw; d_cw = nullptr;
 }
 
 
@@ -173,7 +173,7 @@ void qtd::SelectPalette::selectPaletteBar(qtw::PaletteBar *pb,
 
 const com::RawPalette *qtd::SelectPalette::selected() const
 {
-  const com::RawPalette *p = 0;
+  const com::RawPalette *p = nullptr;
 
   std::vector<qtw::PaletteBar *>::const_iterator it;
   for(it = d_cw->d_pb.begin(); it != d_cw->d_pb.end(); it++)

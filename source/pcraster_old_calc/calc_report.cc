@@ -88,7 +88,7 @@ calc::ReportDefinition::~ReportDefinition()
 
 
 calc::ReportDefault::ReportDefault():
-   d_definition(0)
+   d_definition(nullptr)
 {
 }
 

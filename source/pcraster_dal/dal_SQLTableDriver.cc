@@ -499,12 +499,12 @@ Table* SQLTableDriver::open(
 {
   assert(address.nrInvalidCoordinates() <= 1);
 
-  Table* table = 0;
+  Table* table = nullptr;
 
   ConnectionInfo info(connectionInfoFor(name, space));
 
   if(!info.isValid() || info.fields().empty()) {
-    return 0;
+    return nullptr;
   }
 
   // Default, the QSQLITE driver creates a database file for non-existing
@@ -515,7 +515,7 @@ Table* SQLTableDriver::open(
   // TODO Better to use dbms specific master table property.
   if(this->name() == "QSQLITE" && !boost::filesystem::exists(
        info.database())) {
-    return 0;
+    return nullptr;
   }
 
   QSqlDatabase database = connectToDatabase(info);
@@ -525,7 +525,7 @@ Table* SQLTableDriver::open(
          info.table().c_str()));
 
     if(record.isEmpty()) {
-      return 0;
+      return nullptr;
     }
 
     QSqlIndex index(database.primaryIndex(QString::fromUtf8(
@@ -533,7 +533,7 @@ Table* SQLTableDriver::open(
 
     // All tables need to have an index.
     if(index.isEmpty()) {
-      return 0;
+      return nullptr;
     }
 
     // Primary index contains the dimensional information and, optional, a
@@ -556,7 +556,7 @@ Table* SQLTableDriver::open(
         if(std::find(indexFields.begin(), indexFields.end(), name) ==
               indexFields.end()) {
           // Unsupported field is part of index.
-          return 0;
+          return nullptr;
         }
       }
     }

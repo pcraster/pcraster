@@ -98,7 +98,7 @@ void calc::FieldLeft::cleanUp()
 void calc::FieldLeft::assign(FieldHandle f)
 {
   bool allZero(false);
-  const Spatial *s(0);
+  const Spatial *s(nullptr);
   if (f->isSpatial() &&
        (scriptConst().debugMvAssignments()
       || scriptConst().zeroCompression())) {

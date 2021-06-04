@@ -120,7 +120,7 @@ Block* PCRBlockDriver::open(
 #endif
          ) const
 {
-  Block* result(0);
+  Block* result(nullptr);
 
   char magicString[d_lengthOfMagicString + 1];
   stream.read(magicString, d_lengthOfMagicString);
@@ -179,7 +179,7 @@ Block* PCRBlockDriver::open(
          boost::filesystem::path const& path,
          TypeId typeId) const
 {
-  Block* result(0);
+  Block* result(nullptr);
 
   std::ifstream stream;
 

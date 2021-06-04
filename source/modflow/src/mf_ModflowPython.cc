@@ -56,7 +56,7 @@ PCRModflowPython::~PCRModflowPython()
 
 void PCRModflowPython::set_row_width(pybind11::list const& arguments){
 
-  if(d_dis == 0){
+  if(d_dis == nullptr){
     throw std::invalid_argument("Error in PCRasterModflow setRowWidth: Layers need to be specified at first!");
   }
 
@@ -80,7 +80,7 @@ void PCRModflowPython::set_row_width(pybind11::list const& arguments){
 
 void PCRModflowPython::set_col_width(pybind11::list const& arguments){
 
-  if(d_dis == 0){
+  if(d_dis == nullptr){
     throw std::invalid_argument("Error in PCRasterModflow setColumnWidth: Layers need to be specified at first!");
   }
 

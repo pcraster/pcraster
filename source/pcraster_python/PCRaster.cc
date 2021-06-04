@@ -171,7 +171,7 @@ calc::Field* readField(
   assert(driver);
   driver->read(*raster, name);
 
-  calc::Spatial* spatial = 0;
+  calc::Spatial* spatial = nullptr;
 
   switch(raster->typeId()) {
     case dal::TI_UINT1: {

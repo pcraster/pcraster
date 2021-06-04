@@ -406,11 +406,11 @@ Vector* VectorDriver::open(
   boost::tie(x, y) = _data->open(name, space, address, false);
 
   if(!x || !y) {
-    return 0;
+    return nullptr;
   }
 
   if(!_data->validate(name, space, address, *x, *y, false)) {
-    return 0;
+    return nullptr;
   }
 
   return new Vector(x->dimensions(), x->typeId());
@@ -509,7 +509,7 @@ bool VectorDriver::extremes(
   assert(!space.hasSpace());
 
   bool initialised = false;
-  Vector* vector = 0;
+  Vector* vector = nullptr;
 
   if(space.isEmpty()) {
     vector = open(name);

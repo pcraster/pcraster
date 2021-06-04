@@ -111,7 +111,7 @@ Table* MemoryTableDriver::open(
          dal::DataSpace const& space,
          dal::DataSpaceAddress const& address) const
 {
-  Table* result = 0;
+  Table* result = nullptr;
 
   if(d_dataPool->tableExists(name, space)) {
     Table const* table = d_dataPool->table(name, space).table(address);
@@ -133,7 +133,7 @@ Table* MemoryTableDriver::read(
 {
   assert(space.isValid(address));
 
-  Table* result = 0;
+  Table* result = nullptr;
 
   if(d_dataPool->tableExists(name, space)) {
     Table const* table = d_dataPool->table(name, space).table(address);
@@ -161,7 +161,7 @@ void MemoryTableDriver::read(
 {
   assert(space.isValid(address));
 
-  Table const* tmpTable = 0;
+  Table const* tmpTable = nullptr;
 
   if(d_dataPool->tableExists(name, space)) {
     tmpTable = d_dataPool->table(name, space).table(address);

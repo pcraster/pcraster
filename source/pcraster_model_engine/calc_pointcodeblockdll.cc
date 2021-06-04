@@ -78,7 +78,7 @@ public:
 
 
 calc::PointCodeBlockDll::PointCodeBlockDll(const Blocks& l):
-  d_dll(0)
+  d_dll(nullptr)
 {
   if (l.empty())
     return;
@@ -130,7 +130,7 @@ void calc::PointCodeBlockDll::load(const Blocks& l)
 void calc::PointCodeBlockDll::unload()
 {
   delete d_dll;
-  d_dll=0;
+  d_dll=nullptr;
 }
 
 void calc::PointCodeBlockDll::generateSource(

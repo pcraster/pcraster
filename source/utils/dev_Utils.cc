@@ -80,7 +80,7 @@ bool environmentVariableSet(
 {
   assert(!name.empty());
 
-  return std::getenv(name.c_str()) != 0;
+  return std::getenv(name.c_str()) != nullptr;
 }
 
 

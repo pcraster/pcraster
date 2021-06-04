@@ -83,7 +83,7 @@ calc::LookupTableLeaf::LookupTableLeaf(
   }
 
   // else single value
-  if (d_par == 0) { // load value
+  if (d_par == nullptr) { // load value
     std::vector <LookupTable *>tab(1);
     try {
       expectedFileType(par.externalName(),VS_TABLE);

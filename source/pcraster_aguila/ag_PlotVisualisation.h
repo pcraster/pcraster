@@ -65,8 +65,8 @@ protected:
 
                    PlotVisualisation   (DataObject* object,
                                         const std::string& visualisationName,
-                                        QWidget* parent=0,
-                                        const char* name=0);
+                                        QWidget* parent=nullptr,
+                                        const char* name=nullptr);
 
   void             enableMarker        (long int marker);
 

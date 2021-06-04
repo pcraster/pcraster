@@ -65,7 +65,7 @@ Dialog* VisualisationDialog<T, Dialog>::instance(
 {
   return instanceCreated(dataObject, object)
          ? d_dialogs[dataObject][object]
-         : 0;
+         : nullptr;
 }
 
 

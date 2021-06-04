@@ -151,7 +151,7 @@ inline bool TableDriver::extremes(
 {
   bool initialised = false;
   // boost::filesystem::path path;
-  Table* table = 0;
+  Table* table = nullptr;
 
   // Prevent iterating over time steps by removing the time dimension.
   if(space.hasTime()) {
@@ -207,7 +207,7 @@ inline bool TableDriver::extremes(
         }
 
         delete table;
-        table = 0;
+        table = nullptr;
       }
     }
   }

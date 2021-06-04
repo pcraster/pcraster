@@ -40,7 +40,7 @@
 calc::FieldNewParameter::FieldNewParameter(
     const calc::ParsPar& par, bool constant, bool input, VS vs, ST st):
    calc::FieldParameter(par,constant,input, vs,st),
-   d_value(nrElements(),0)
+   d_value(nrElements(),nullptr)
 {
 }
 

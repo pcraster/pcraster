@@ -155,7 +155,7 @@ void BinaryReader::read(const std::string & err_mgs, const std::string & filenam
   //desc = NULL;
 
   delete[] charData;
-  charData = NULL;
+  charData = nullptr;
 //}
 
 }

@@ -54,7 +54,7 @@ class ApiMapC : public ApiMap {
       d_map(d_init(rs.nrRows(),rs.nrCols(),val,true,inCr)) {};
     ~ApiMapC() {
       d_del(d_map);
-      d_map=0;
+      d_map=nullptr;
     }
    void *getCPointer() {
     return (void *)d_map;

@@ -44,7 +44,7 @@
 */
 geo::DataGuide::DataGuide()
 
-  : d_index(), d_address(0), d_type(DT_INVALID), d_valueScale(VS_UNDEFINED)
+  : d_index(), d_address(nullptr), d_type(DT_INVALID), d_valueScale(VS_UNDEFINED)
 
 {
 }

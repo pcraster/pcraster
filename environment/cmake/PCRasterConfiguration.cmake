@@ -122,7 +122,7 @@ CPMAddPackage("gh:pcraster/rasterformat#88fae8652fd36d878648f3fe303306c3dc68b7e6
 
 if(PCRASTER_BUILD_MULTICORE)
     set(FERN_BUILD_ALGORITHM ON CACHE BOOL "Build submodule fern")
-    CPMAddPackage("gh:geoneric/fern#228cb7ed2c4d2e95119a702329d3fb97f72c6a9f")
+    CPMAddPackage("gh:geoneric/fern#98c68fa27f795cb381c67505f14b64684b155d34")
     if(PCRASTER_BUILD_TEST_FERN)
       set(DEVBASE_BUILD_TEST ON CACHE BOOL "Build Fern tests")
     else()

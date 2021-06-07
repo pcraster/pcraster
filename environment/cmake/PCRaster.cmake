@@ -6,6 +6,8 @@ include(CMakeDependentOption)
 include(PeacockPlatform)
 # include(DevBaseCompiler)
 
+include(CPM)
+
 include(PCRasterMacro)
 include(PCRasterConfiguration)
 include(PCRasterCompilerConfiguration)

@@ -1,6 +1,3 @@
 [submodule "devbase"]
 	path = devbase
 	url = https://github.com/geoneric/devbase.git
-[submodule "source/fern"]
-	path = source/fern
-	url = https://github.com/geoneric/fern.git

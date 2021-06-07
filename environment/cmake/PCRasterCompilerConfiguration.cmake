@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)
+set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS OFF)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 # On Linux/macOS we set the RPATH for our libraries/executables
@@ -25,6 +26,7 @@ set(CMAKE_INSTALL_RPATH "\\\$ORIGIN/../lib")
 # which point to directories outside the build tree to the install RPATH
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH OFF)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Default flags without toolchain files
 if(NOT CMAKE_BUILD_TYPE)

@@ -118,6 +118,19 @@ if(NOT PCRASTER_LIB_INSTALL_DIR)
 endif()
 
 
+CPMAddPackage("gh:pcraster/rasterformat#88fae8652fd36d878648f3fe303306c3dc68b7e6")
+
+if(PCRASTER_BUILD_MULTICORE)
+    set(FERN_BUILD_ALGORITHM ON CACHE BOOL "Build submodule fern")
+    CPMAddPackage("gh:geoneric/fern#228cb7ed2c4d2e95119a702329d3fb97f72c6a9f")
+    if(PCRASTER_BUILD_TEST_FERN)
+      set(DEVBASE_BUILD_TEST ON CACHE BOOL "Build Fern tests")
+    else()
+      # Default/when packaging PCRaster, do not install anything from Fern
+      set(DEVBASE_BUILD_TEST OFF CACHE BOOL "Build Fern tests")
+    endif()
+endif()
+
 # Ugly workaround to enforce working wrt conda-build
 # TODO: Refactor when all platforms support std filesystem
 #       Consider to move to Qt command line options as well

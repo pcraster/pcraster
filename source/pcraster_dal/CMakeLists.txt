@@ -10,83 +10,83 @@ CONFIGURE_FILE(
 )
 
 add_library(pcraster_dal_objects OBJECT
-    dal_BasicTypes
-    dal_BinaryTableDriver
-    dal_Block
-    dal_BlockDriver
-    dal_BrowseInfo
-    dal_Client
-    dal_ConnectionInfo
-    dal_Constant
-    dal_ConstantDriver
-    dal_CoordinateMapper
-    dal_CSFMap
-    dal_CSFRasterDriver
-    dal_Dal
-    dal_Dataset
-    dal_DataSource
-    dal_DataSpaceAddress
-    dal_DataSpaceAddressMapper
-    dal_DataSpace
-    dal_DataSpaceIterator
-    dal_DataSpaceQueryResult
-    dal_Dimension
-    dal_Driver
-    dal_Environment
-    dal_FeatureDriver
-    dal_FeatureLayer
-    dal_FeatureLayerGeometries
-    dal_FeaturePath
-    dal_FilesystemUtils
-    dal_Format
-    dal_Formats
-    dal_GDALRasterDriver
-    dal_GeoEASTableDriver
-    dal_GSLIBBlockDriver
-    # dal_HDF5RasterDriver
-    dal_Library
-    dal_MapperUtils
-    dal_MathUtils
-    dal_Matrix
-    dal_MatrixDal
-    dal_MatrixDimensions
-    dal_MatrixDriver
-    dal_MemoryData
-    dal_MemoryDataPool
-    dal_MemoryRasterData
-    dal_MemoryRasterDriver
-    dal_MemoryTableData
-    dal_MemoryTableDriver
-    # dal_NetCDFRasterDriver
-    dal_OgrFeatureDriver
-    dal_PCRBlockDriver
-    dal_Properties
-    dal_Raster
-    dal_RasterDal
-    dal_RasterDriver
-    dal_RasterDimensions
-    dal_RegularExpressions
-    dal_SpaceDimensions
-    dal_SpaceStepMapper
-    dal_SpaceStepCoordinateMapper
-    dal_SpatialCoordinate
-    dal_SQLTableDriver
-    dal_StackInfo
-    dal_StepCoordinateMapper
-    dal_StepMapper
-    dal_TableDal
-    dal_TableDriver
-    dal_TextConstantDriver
-    dal_TextFileDriver
-    dal_TextMatrixDriver
-    dal_TextTableDriver
-    dal_TimeStepCoordinateMapper
-    dal_TimeStepMapper
-    dal_Type
-    dal_Utils
-    dal_Vector
-    dal_VectorDriver
-    dal_VTKBlockDriver
+    dal_BasicTypes.cc
+    dal_BinaryTableDriver.cc
+    dal_Block.cc
+    dal_BlockDriver.cc
+    dal_BrowseInfo.cc
+    dal_Client.cc
+    dal_ConnectionInfo.cc
+    dal_Constant.cc
+    dal_ConstantDriver.cc
+    dal_CoordinateMapper.cc
+    dal_CSFMap.cc
+    dal_CSFRasterDriver.cc
+    dal_Dal.cc
+    dal_Dataset.cc
+    dal_DataSource.cc
+    dal_DataSpaceAddress.cc
+    dal_DataSpaceAddressMapper.cc
+    dal_DataSpace.cc
+    dal_DataSpaceIterator.cc
+    dal_DataSpaceQueryResult.cc
+    dal_Dimension.cc
+    dal_Driver.cc
+    dal_Environment.cc
+    dal_FeatureDriver.cc
+    dal_FeatureLayer.cc
+    dal_FeatureLayerGeometries.cc
+    dal_FeaturePath.cc
+    dal_FilesystemUtils.cc
+    dal_Format.cc
+    dal_Formats.cc
+    dal_GDALRasterDriver.cc
+    dal_GeoEASTableDriver.cc
+    dal_GSLIBBlockDriver.cc
+    # dal_HDF5RasterDriver.cc
+    dal_Library.cc
+    dal_MapperUtils.cc
+    dal_MathUtils.cc
+    dal_Matrix.cc
+    dal_MatrixDal.cc
+    dal_MatrixDimensions.cc
+    dal_MatrixDriver.cc
+    dal_MemoryData.cc
+    dal_MemoryDataPool.cc
+    dal_MemoryRasterData.cc
+    dal_MemoryRasterDriver.cc
+    dal_MemoryTableData.cc
+    dal_MemoryTableDriver.cc
+    # dal_NetCDFRasterDriver.cc
+    dal_OgrFeatureDriver.cc
+    dal_PCRBlockDriver.cc
+    dal_Properties.cc
+    dal_Raster.cc
+    dal_RasterDal.cc
+    dal_RasterDriver.cc
+    dal_RasterDimensions.cc
+    dal_RegularExpressions.cc
+    dal_SpaceDimensions.cc
+    dal_SpaceStepMapper.cc
+    dal_SpaceStepCoordinateMapper.cc
+    dal_SpatialCoordinate.cc
+    dal_SQLTableDriver.cc
+    dal_StackInfo.cc
+    dal_StepCoordinateMapper.cc
+    dal_StepMapper.cc
+    dal_TableDal.cc
+    dal_TableDriver.cc
+    dal_TextConstantDriver.cc
+    dal_TextFileDriver.cc
+    dal_TextMatrixDriver.cc
+    dal_TextTableDriver.cc
+    dal_TimeStepCoordinateMapper.cc
+    dal_TimeStepMapper.cc
+    dal_Type.cc
+    dal_Utils.cc
+    dal_Vector.cc
+    dal_VectorDriver.cc
+    dal_VTKBlockDriver.cc
 )
 
 target_include_directories(pcraster_dal_objects SYSTEM
@@ -173,69 +173,69 @@ if(PCRASTER_BUILD_TEST)
         @ONLY
     )
     set(DAL_TEST_SOURCES
-        dal_ArrayTest
-        dal_BinaryTableDriverTest
-        dal_BlockTest
-        dal_ClientTest
-        dal_ConnectionInfoTest
-        dal_ConstantTest
-        dal_CoordinateMapperTest
-        dal_CSFMapTest
-        dal_CSFRasterDriverTest
-        dal_DataSourceTest
+        dal_ArrayTest.cc
+        dal_BinaryTableDriverTest.cc
+        dal_BlockTest.cc
+        dal_ClientTest.cc
+        dal_ConnectionInfoTest.cc
+        dal_ConstantTest.cc
+        dal_CoordinateMapperTest.cc
+        dal_CSFMapTest.cc
+        dal_CSFRasterDriverTest.cc
+        dal_DataSourceTest.cc
         # dal_DataSpaceAddressMapperTest  # TODO
-        dal_DataSpaceAddressTest
-        dal_DataSpaceIteratorTest
-        dal_DataSpaceTest
-        dal_DefTest
-        dal_DimensionTest
-        dal_EnvironmentTest
-        dal_FeatureLayerTest
-        dal_FeaturePathTest
-        dal_FilesystemUtilsTest
-        dal_GDALRasterDriverTest
-        dal_GeoEASTableDriverTest
-        # dal_HDF5RasterDriverTest
+        dal_DataSpaceAddressTest.cc
+        dal_DataSpaceIteratorTest.cc
+        dal_DataSpaceTest.cc
+        dal_DefTest.cc
+        dal_DimensionTest.cc
+        dal_EnvironmentTest.cc
+        dal_FeatureLayerTest.cc
+        dal_FeaturePathTest.cc
+        dal_FilesystemUtilsTest.cc
+        dal_GDALRasterDriverTest.cc
+        dal_GeoEASTableDriverTest.cc
+        # dal_HDF5RasterDriverTest.cc
         # dal_MapperUtilsTest  # TODO
-        dal_MathUtilsTest
-        dal_MatrixTest
-        dal_MatrixDimensionsTest
-        dal_MatrixDriverTest
-        dal_MemoryDataPoolTest
-        dal_MemoryRasterDataTest
-        dal_MemoryRasterDriverTest
-        dal_MemoryTableDataTest
-        dal_MemoryTableDriverTest
-        # dal_NetCDFRasterDriverTest
-        dal_OgrFeatureDriverTest
-        dal_PCRBlockDriverTest
-        dal_PropertiesTest
-        dal_RasterDalTest
-        dal_RasterDimensionsTest
-        dal_RegularExpressionsTest
-        dal_ResampleTest
-        dal_SpaceStepMapperTest
+        dal_MathUtilsTest.cc
+        dal_MatrixTest.cc
+        dal_MatrixDimensionsTest.cc
+        dal_MatrixDriverTest.cc
+        dal_MemoryDataPoolTest.cc
+        dal_MemoryRasterDataTest.cc
+        dal_MemoryRasterDriverTest.cc
+        dal_MemoryTableDataTest.cc
+        dal_MemoryTableDriverTest.cc
+        # dal_NetCDFRasterDriverTest.cc
+        dal_OgrFeatureDriverTest.cc
+        dal_PCRBlockDriverTest.cc
+        dal_PropertiesTest.cc
+        dal_RasterDalTest.cc
+        dal_RasterDimensionsTest.cc
+        dal_RegularExpressionsTest.cc
+        dal_ResampleTest.cc
+        dal_SpaceStepMapperTest.cc
         # dal_SpaceStepCoordinateMapperTest  # TODO
-        dal_SpatialCoordinateTest
+        dal_SpatialCoordinateTest.cc
         # dal_SQLTableDriverTest  # TODO
-        dal_StackInfoTest
+        dal_StackInfoTest.cc
         # dal_StepCoordinateMapperTest  # TODO
-        dal_StepMapperTest
-        dal_TableDalTest
-        dal_TableDriverTest
-        dal_TableTest
-        dal_TextConstantDriverTest
-        dal_TextFileDriverTest
-        dal_TextMatrixDriverTest
-        dal_TextTableDriverTest
-        dal_TimeStepCoordinateMapperTest
-        dal_TimeStepMapperTest
-        dal_TypesTest
-        dal_TypeTest
-        dal_UseCasesTest
-        dal_UtilsTest
-        dal_VectorDriverTest
-        dal_VTKBlockDriverTest
+        dal_StepMapperTest.cc
+        dal_TableDalTest.cc
+        dal_TableDriverTest.cc
+        dal_TableTest.cc
+        dal_TextConstantDriverTest.cc
+        dal_TextFileDriverTest.cc
+        dal_TextMatrixDriverTest.cc
+        dal_TextTableDriverTest.cc
+        dal_TimeStepCoordinateMapperTest.cc
+        dal_TimeStepMapperTest.cc
+        dal_TypesTest.cc
+        dal_TypeTest.cc
+        dal_UseCasesTest.cc
+        dal_UtilsTest.cc
+        dal_VectorDriverTest.cc
+        dal_VTKBlockDriverTest.cc
     )
     add_unit_tests(
         SCOPE pcraster_dal
@@ -261,8 +261,8 @@ if(PCRASTER_BUILD_TEST)
             FixturePCRasterDal
     )
     set_tests_properties(
-            pcraster_dal_dal_ArrayTest
-            pcraster_dal_dal_DataSourceTest
+            pcraster_dal_dal_DataSourceTest.cc
+            pcraster_dal_dal_DataSourceTest.cc
         PROPERTIES
             FIXTURES_REQUIRED
                 FixturePCRasterDal

@@ -6,43 +6,43 @@
 # geo_raster.cc
 
 add_library(pcrgeo STATIC
-    geo_addfilter
-    geo_apprasterspace
-    geo_assignfilter
-    geo_averagefilter
-    geo_bandmap
-    geo_block
-    geo_cellloc
-    geo_celllocvisitor
-    geo_circularneighbourhood
-    geo_columnfile
-    geo_const
-    geo_csfmap
-    # geo_csfraster
-    geo_csfstack
-    geo_csfstackname
-    geo_exception
-    geo_filecreatetester
-    # geo_griddedpoints
-    geo_idi
-    # geo_kernel
-    # geo_kernelengine
-    # geo_kernelsourcebuffer
-    geo_mooreneighbourhood
-    geo_neighbour
-    geo_neighbourhood
-    geo_point
-    # geo_raster
-    geo_rasterfileconverter
-    geo_rasterspace
-    geo_rectangle
-    geo_riksneighbourhood
-    geo_samecellrepr
-    geo_templates
-    geo_util
-    geo_voxel
-    geo_voxelstack
-    geo_wmatrix
+    geo_addfilter.cc
+    geo_apprasterspace.cc
+    geo_assignfilter.cc
+    geo_averagefilter.cc
+    geo_bandmap.cc
+    geo_block.cc
+    geo_cellloc.cc
+    geo_celllocvisitor.cc
+    geo_circularneighbourhood.cc
+    geo_columnfile.cc
+    geo_const.cc
+    geo_csfmap.cc
+    # geo_csfraster.cc
+    geo_csfstack.cc
+    geo_csfstackname.cc
+    geo_exception.cc
+    geo_filecreatetester.cc
+    # geo_griddedpoints.cc
+    geo_idi.cc
+    # geo_kernel.cc
+    # geo_kernelengine.cc
+    # geo_kernelsourcebuffer.cc
+    geo_mooreneighbourhood.cc
+    geo_neighbour.cc
+    geo_neighbourhood.cc
+    geo_point.cc
+    # geo_raster.cc
+    geo_rasterfileconverter.cc
+    geo_rasterspace.cc
+    geo_rectangle.cc
+    geo_riksneighbourhood.cc
+    geo_samecellrepr.cc
+    geo_templates.cc
+    geo_util.cc
+    geo_voxel.cc
+    geo_voxelstack.cc
+    geo_wmatrix.cc
 )
 
 add_library(pcraster::pcrgeo ALIAS pcrgeo)
@@ -73,34 +73,34 @@ if(PCRASTER_BUILD_TEST)
     add_unit_tests(
         SCOPE pcrgeo
         NAMES
-            geo_addfiltertest
-            geo_algorithmtest
-            geo_assignfiltertest
-            geo_averagefiltertest
-            geo_bandmaptest
-            geo_celllocvisitortest
-            geo_circularneighbourhoodtest
-            geo_countfiltertest
-            geo_csfmaptest
-            geo_csfstacknametest
-            geo_filecreatetestertest
-            geo_fractionfiltertest
-            geo_griddedpointstest
-            geo_mooreneighbourhoodtest
-            geo_neighbourhoodtest
-            geo_neighbourtest
-            geo_pointtest
-            geo_pointvaluetest
-            geo_rasterboundariestest
-            geo_rasterdimtest
-            geo_rasterfileconvertertest
-            geo_rasterspacetest
-            geo_rastertest
-            geo_riksneighbourhoodtest
-            geo_scanconversiontest
-            geo_simplerastertest
-            geo_squaretest
-            geo_utiltest
+            geo_addfiltertest.cc
+            geo_algorithmtest.cc
+            geo_assignfiltertest.cc
+            geo_averagefiltertest.cc
+            geo_bandmaptest.cc
+            geo_celllocvisitortest.cc
+            geo_circularneighbourhoodtest.cc
+            geo_countfiltertest.cc
+            geo_csfmaptest.cc
+            geo_csfstacknametest.cc
+            geo_filecreatetestertest.cc
+            geo_fractionfiltertest.cc
+            geo_griddedpointstest.cc
+            geo_mooreneighbourhoodtest.cc
+            geo_neighbourhoodtest.cc
+            geo_neighbourtest.cc
+            geo_pointtest.cc
+            geo_pointvaluetest.cc
+            geo_rasterboundariestest.cc
+            geo_rasterdimtest.cc
+            geo_rasterfileconvertertest.cc
+            geo_rasterspacetest.cc
+            geo_rastertest.cc
+            geo_riksneighbourhoodtest.cc
+            geo_scanconversiontest.cc
+            geo_simplerastertest.cc
+            geo_squaretest.cc
+            geo_utiltest.cc
         LINK_LIBRARIES
             pcraster::pcrgeo
     )
@@ -111,7 +111,7 @@ if(PCRASTER_BUILD_TEST)
                 FixturePcrGeo
     )
 
-    set_tests_properties(pcrgeo_geo_addfiltertest
+    set_tests_properties(pcrgeo_geo_addfiltertest.cc
         PROPERTIES
             FIXTURES_REQUIRED
                 FixturePcrGeo

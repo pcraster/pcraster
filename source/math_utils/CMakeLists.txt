@@ -12,7 +12,7 @@ if(PCRASTER_BUILD_TEST)
     add_unit_tests(
         SCOPE math_utils
         NAMES
-            dev_MathUtilsTest
+            dev_MathUtilsTest.cc
         LINK_LIBRARIES
             pcraster::math_utils
     )

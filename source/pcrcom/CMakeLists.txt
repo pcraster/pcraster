@@ -18,66 +18,66 @@
 ### ENDIF(WIN32)
 
 add_library(pcrcom
-    com_appargs
+    com_appargs.cc
     # mam/puma only
-    # com_app
-    # com_apphelper
-    # com_commandline
-    # com_commandlineapp
-    # com_commandlineargument
-    # com_commandlinearguments
-    # com_commandmodeargument
-    # com_exclusiveargument
-    com_basictable
-    com_cliberror
-    com_countedobject
-    com_cpucyclecounter
-    com_csfcell
-    com_cumprobabilityclassifier
-    com_directory
-    com_dimap
-    com_rimap
-    com_dynamiclibrary
-    com_exception
-    com_file
-    com_filemap
-    com_icommandmode
-    com_ilabeledprogresstracker
-    com_interval
-    com_intervalmap
-    com_iprogressbar
-    com_iprogresscountdown
-    com_keyvaluetable
-    com_math
-    com_observer
-    com_pathinfo
-    com_pathname
-    com_progressbar
-    com_progresstracker
-    # com_raster
-    # com_repeatableargument
-    # com_repeatableexclusiveargument
-    # com_singlevaluedraster
-    com_spawn
+    # com_app.cc
+    # com_apphelper.cc
+    # com_commandline.cc
+    # com_commandlineapp.cc
+    # com_commandlineargument.cc
+    # com_commandlinearguments.cc
+    # com_commandmodeargument.cc
+    # com_exclusiveargument.cc
+    com_basictable.cc
+    com_cliberror.cc
+    com_countedobject.cc
+    com_cpucyclecounter.cc
+    com_csfcell.cc
+    com_cumprobabilityclassifier.cc
+    com_directory.cc
+    com_dimap.cc
+    com_rimap.cc
+    com_dynamiclibrary.cc
+    com_exception.cc
+    com_file.cc
+    com_filemap.cc
+    com_icommandmode.cc
+    com_ilabeledprogresstracker.cc
+    com_interval.cc
+    com_intervalmap.cc
+    com_iprogressbar.cc
+    com_iprogresscountdown.cc
+    com_keyvaluetable.cc
+    com_math.cc
+    com_observer.cc
+    com_pathinfo.cc
+    com_pathname.cc
+    com_progressbar.cc
+    com_progresstracker.cc
+    # com_raster.cc
+    # com_repeatableargument.cc
+    # com_repeatableexclusiveargument.cc
+    # com_singlevaluedraster.cc
+    com_spawn.cc
     # deprecated, see InTableStream docs
-    # com_tableinfo
-    # com_spiritfilelineparser
-    # com_intablestream
-    com_spiritfileparser
-    # com_statistics
-    com_streamwriter
-    com_strlib
-    com_subject
-    com_table
-    com_tempdirectory
-    com_templates
-    com_toggle
-    com_tune
-    com_uniquestringgenerator
-    com_unorderedcrosstable
+    # com_tableinfo.cc
+    # com_spiritfilelineparser.cc
+    # com_intablestream.cc
+    com_spiritfileparser.cc
+    # com_statistics.cc
+    com_streamwriter.cc
+    com_strlib.cc
+    com_subject.cc
+    com_table.cc
+    com_tempdirectory.cc
+    com_templates.cc
+    com_toggle.cc
+    com_tune.cc
+    com_uniquestringgenerator.cc
+    com_unorderedcrosstable.cc
 
     # Registry API WIN32 LIB.
-    $<$<BOOL:${WIN32}>:com_win32 com_win32registrykey>
+    $<$<BOOL:${WIN32}>:com_win32 com_win32registrykey.cc>
 )
 
 add_library(pcraster::pcrcom ALIAS pcrcom)
@@ -116,50 +116,50 @@ if(PCRASTER_BUILD_TEST)
     add_unit_tests(
         SCOPE pcrcom
         NAMES
-            com_algorithmtest
-            com_anypointerstest
-            com_binaryoperatorstest
-            com_clonetest
+            com_algorithmtest.cc
+            com_anypointerstest.cc
+            com_binaryoperatorstest.cc
+            com_clonetest.cc
             # mam only
-            # com_commandlineargumentstest
-            # com_commandlineargumenttest
-            # com_commandlinetest
-            # com_argumentparsertest
-            com_appargstest
-            com_cpucyclecountertest
-            com_csfcelltest
-            com_directorytest
-            com_filemaptest
-            com_filetest
-            com_functionstest
-            com_intervalmaptest
-            com_intervaltest
-            com_irastertest
-            com_keyvaluetabletest
-            com_labeledprogresstrackertest
-            com_mathtest
-            com_mvgenerictest
-            com_mvoptest
-            com_parserstest
-            com_pathinfotest
-            com_pathnametest
-            com_progressbartest
-            com_rastertest
-            com_singlevaluedrastertest
-            com_spawntest
+            # com_commandlineargumentstest.cc
+            # com_commandlineargumenttest.cc
+            # com_commandlinetest.cc
+            # com_argumentparsertest.cc
+            com_appargstest.cc
+            com_cpucyclecountertest.cc
+            com_csfcelltest.cc
+            com_directorytest.cc
+            com_filemaptest.cc
+            com_filetest.cc
+            com_functionstest.cc
+            com_intervalmaptest.cc
+            com_intervaltest.cc
+            com_irastertest.cc
+            com_keyvaluetabletest.cc
+            com_labeledprogresstrackertest.cc
+            com_mathtest.cc
+            com_mvgenerictest.cc
+            com_mvoptest.cc
+            com_parserstest.cc
+            com_pathinfotest.cc
+            com_pathnametest.cc
+            com_progressbartest.cc
+            com_rastertest.cc
+            com_singlevaluedrastertest.cc
+            com_spawntest.cc
             # deprecated, see InTableStream docs
-            # com_intablestreamtest
-            # com_tableinfotest
-            # com_spiritfilelineparsertest
-            com_spiritfileparsertest
-            com_statisticstest
-            com_strlibtest
-            com_tabletest
-            com_tempdirectorytest
-            com_unorderedcrosstabletest
+            # com_intablestreamtest.cc
+            # com_tableinfotest.cc
+            # com_spiritfilelineparsertest.cc
+            com_spiritfileparsertest.cc
+            com_statisticstest.cc
+            com_strlibtest.cc
+            com_tabletest.cc
+            com_tempdirectorytest.cc
+            com_unorderedcrosstabletest.cc
 
             # Generator expressions don't work here
-            # $<$<BOOL:${WIN32}>:com_win32registrykeytest>
+            # $<$<BOOL:${WIN32}>:com_win32registrykeytest.cc>
             ${additional_test_sources}
         LINK_LIBRARIES
             pcraster::pcrcom
@@ -176,7 +176,7 @@ if(PCRASTER_BUILD_TEST)
                 FixturePcrCom
     )
 
-    set_tests_properties(pcrcom_com_algorithmtest pcrcom_com_filetest
+    set_tests_properties(pcrcom_com_algorithmtest.cc pcrcom_com_filetest.cc
         PROPERTIES
             FIXTURES_REQUIRED
                 FixturePcrCom

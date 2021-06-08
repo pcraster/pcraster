@@ -1,6 +1,6 @@
 add_executable(map2asc
-    map2asc
-    main
+    map2asc.c
+    main.c
 )
 
 target_link_libraries(map2asc

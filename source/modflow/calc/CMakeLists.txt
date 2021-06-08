@@ -1,6 +1,6 @@
 add_library(pcraster_modflow SHARED
-    xml
-    pcr_mflink
+    xml.cc
+    pcr_mflink.cc
 )
 
 add_library(pcraster::modflow ALIAS pcraster_modflow)
@@ -81,7 +81,7 @@ if(PCRASTER_BUILD_TEST)
   )
 
   set(TEST_NAMES
-    calc_DemoTest
+    calc_DemoTest.cc
   )
 
   add_unit_tests(
@@ -94,7 +94,7 @@ if(PCRASTER_BUILD_TEST)
   )
 
   # the pcraster_modflow dll must be build first
-  ADD_DEPENDENCIES(modflow_calc_DemoTest
+  ADD_DEPENDENCIES(modflow_calc_DemoTest.cc
       pcraster_modflow
       _pcraster
   )
@@ -102,7 +102,7 @@ if(PCRASTER_BUILD_TEST)
   # modflow binary must be copied to execute unit tests
   ADD_CUSTOM_COMMAND(
     TARGET
-      modflow_calc_DemoTest
+      modflow_calc_DemoTest.cc
     COMMAND ${CMAKE_COMMAND}
       ARGS -E copy ${MF_BINARY} $<TARGET_FILE_DIR:pcraster_modflow>
   )
@@ -126,10 +126,10 @@ if(PCRASTER_BUILD_TEST)
   set_tests_properties(modflow_python_unit_tests PROPERTIES
     DEPENDS
       # calc demo test builds some required inputs
-      modflow_calc_DemoTest
+      modflow_calc_DemoTest.cc
   )
 
-    set_tests_properties(modflow_calc_DemoTest PROPERTIES
+    set_tests_properties(modflow_calc_DemoTest.cc PROPERTIES
         FIXTURES_REQUIRED
           FixtureModflow
     )
@@ -145,7 +145,7 @@ if(PCRASTER_BUILD_TEST)
       ENVIRONMENT "PATH=${ENV_PATH}\\;$<TARGET_FILE_DIR:pcrcalc>\\;${CMAKE_CURRENT_BINARY_DIR};PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}\\;$<TARGET_FILE_DIR:pcrcalc>"
     )
   else()
-    set_tests_properties(modflow_calc_DemoTest modflow_python_unit_tests PROPERTIES
+    set_tests_properties(modflow_calc_DemoTest.cc modflow_python_unit_tests PROPERTIES
       ENVIRONMENT "PATH=$<TARGET_FILE_DIR:pcrcalc>:${CMAKE_CURRENT_BINARY_DIR}:$ENV{PATH};PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:$<TARGET_FILE_DIR:pcrcalc>"
     )
   endif()

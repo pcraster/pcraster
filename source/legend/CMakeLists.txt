@@ -1,6 +1,6 @@
 add_executable(legend
-    main
-    select
+    main.c
+    select.c
 )
 
 target_link_libraries(legend

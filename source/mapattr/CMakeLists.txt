@@ -1,7 +1,7 @@
 add_executable(mapattr
-    mboth
-    mclone
-    main
+    mboth.c
+    mclone.c
+    main.c
 )
 
 target_link_libraries(mapattr

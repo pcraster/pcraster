@@ -1,19 +1,19 @@
 add_library(misc STATIC
-    aterror
-    bitset2d
-    bitset
-    chkmem
-    cnvrtnum
-    error
-    exstring
-    fileio
-    fileset
-    filestat
-    mallocxd
-    qsortcmp
-    recmem
-    simplex
-    swapbyte
+    aterror.c
+    bitset2d.c
+    bitset.c
+    chkmem.c
+    cnvrtnum.c
+    error.c
+    exstring.c
+    fileio.c
+    fileset.c
+    filestat.c
+    mallocxd.c
+    qsortcmp.c
+    recmem.c
+    simplex.c
+    swapbyte.c
 )
 
 add_library(pcraster::misc ALIAS misc)

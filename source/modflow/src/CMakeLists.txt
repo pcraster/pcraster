@@ -1,22 +1,22 @@
 add_library(pcrmf_objects OBJECT
-    mf_BinaryReader
-    mf_utils
-    bas
-    bcf
-    common
-    dis
-    drn
-    dsp
-    ghb
-    gridcheck
+    mf_BinaryReader.cc
+    mf_utils.cc
+    bas.cc
+    bcf.cc
+    common.cc
+    dis.cc
+    drn.cc
+    dsp.cc
+    ghb.cc
+    gridcheck.cc
    #  hfb
-    pcg
-    rch
-    riv
-    sip
-    sor
-    wel
-    pcrmodflow
+    pcg.cc
+    rch.cc
+    riv.cc
+    sip.cc
+    sor.cc
+    wel.cc
+    pcrmodflow.cc
 )
 
 target_compile_definitions(pcrmf_objects
@@ -48,7 +48,7 @@ target_link_libraries(pcrmf
 add_dependencies(pcrmf pcrcalc)
 
 add_library(pcrmfpy STATIC
-    mf_ModflowPython
+    mf_ModflowPython.cc
     $<TARGET_OBJECTS:pcrmf_objects>
 )
 
@@ -58,7 +58,7 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
     # It seems that clang doesn't set flag this by default yet
     set_property(
         SOURCE
-            mf_ModflowPython
+            mf_ModflowPython.cc
         PROPERTY
             COMPILE_OPTIONS
                 -fsized-deallocation

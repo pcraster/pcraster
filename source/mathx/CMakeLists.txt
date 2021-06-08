@@ -1,9 +1,9 @@
 add_library(mathx STATIC
-    dirconv
-    dirstat
-    ran
-    recipes
-    rint
+    dirconv.c
+    dirstat.c
+    ran.c
+    recipes.c
+    rint.c
 )
 
 add_library(pcraster::mathx ALIAS mathx)
@@ -26,7 +26,7 @@ if(PCRASTER_BUILD_TEST)
     add_unit_tests(
         SCOPE mathx
         NAMES
-            dirconvtest
+            dirconvtest.cc
         LINK_LIBRARIES
             pcraster::mathx
     )

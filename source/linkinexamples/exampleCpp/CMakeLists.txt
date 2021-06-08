@@ -1,6 +1,6 @@
 add_library(exampleCpp SHARED
-    example
-    xml
+    example.cc
+    xml.cc
 )
 
 target_include_directories(exampleCpp

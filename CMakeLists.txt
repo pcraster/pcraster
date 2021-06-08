@@ -5,6 +5,10 @@ if(POLICY CMP0094)
     cmake_policy(SET CMP0094 NEW)
 endif()
 
+if(POLICY CMP0115)
+    cmake_policy(SET CMP0115 NEW)
+endif()
+
 # Overrule subproject policies as well
 if(POLICY CMP0069)
     set(CMAKE_POLICY_DEFAULT_CMP0069 NEW)

@@ -1,10 +1,10 @@
 add_library(tab STATIC
-    cross
-    looktab
-    lookup
-    readltab
-    table
-    writltab
+    cross.c
+    looktab.c
+    lookup.c
+    readltab.c
+    table.c
+    writltab.c
 )
 
 add_library(pcraster::tab ALIAS tab)
@@ -25,8 +25,8 @@ if(PCRASTER_BUILD_TEST)
     add_unit_tests(
         SCOPE tab
         NAMES
-            tab_classcountmaptest
-            tab_classintervalmaptest
+            tab_classcountmaptest.cc
+            tab_classintervalmaptest.cc
         LINK_LIBRARIES
             pcraster::tab
     )

@@ -1,6 +1,6 @@
 add_library(pcrraster STATIC
-    raster_io
-    raster_raster
+    raster_io.cc
+    raster_raster.cc
 )
 
 add_library(pcraster::pcrraster ALIAS pcrraster)
@@ -21,7 +21,7 @@ if(PCRASTER_BUILD_TEST)
     add_unit_tests(
         SCOPE pcrraster
         NAMES
-            raster_iotest
-            raster_rastertest
+            raster_iotest.cc
+            raster_rastertest.cc
     )
 endif()

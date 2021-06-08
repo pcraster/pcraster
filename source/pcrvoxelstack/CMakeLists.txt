@@ -1,5 +1,5 @@
 add_library(pcrvoxelstack STATIC
-    voxelstack_voxelstack
+    voxelstack_voxelstack.cc
 )
 
 add_library(pcraster::pcrvoxelstack ALIAS pcrvoxelstack)
@@ -18,7 +18,7 @@ if(PCRASTER_BUILD_TEST)
     add_unit_tests(
         SCOPE voxelstack
         NAMES
-            voxelstack_voxelstacktest
+            voxelstack_voxelstacktest.cc
         LINK_LIBRARIES
             pcraster::pcrvoxelstack
     )

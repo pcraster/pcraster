@@ -21,3 +21,4 @@ Welcome to the PCRaster documentation!
    pcraster_project/build
    pcraster_project/questions
    pcraster_project/pcraster_index
+   PCRaster project website <https://pcraster.geo.uu.nl/>

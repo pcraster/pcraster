@@ -11,7 +11,7 @@ if(PCRASTER_BUILD_TEST)
     add_unit_tests(
         SCOPE string_utils
         NAMES
-            dev_ToStringTest
+            dev_ToStringTest.cc
         LINK_LIBRARIES
             pcraster::string_utils
     )

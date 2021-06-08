@@ -1,60 +1,60 @@
 add_library(calc STATIC
-    accu
-    accufrac
-    accultc
-    accutrig
-    accutt
-    area
-    birds
+    accu.c
+    accufrac.c
+    accultc.c
+    accutrig.c
+    accutt.c
+    area.c
+    birds.c
     calc_downstreamvisitor.cc
     calc_extentofview.cc
     calc_neighbourhood.cc
-    catch
-    catcstat
-    clump
-    curv
-    delta
-    diffuse
+    catch.c
+    catcstat.c
+    clump.c
+    curv.c
+    delta.c
+    diffuse.c
     distributesimplegauss.cc
-    doaccu
-    downstreamtotal
-    drain
-    dwnstrm
+    doaccu.c
+    downstreamtotal.c
+    drain.c
+    dwnstrm.c
     dynwave.cc
-    ellipse
-    horizonangle
-    ibngauss
+    ellipse.c
+    horizonangle.c
+    ibngauss.c
     idi.cc
     influencesimplegauss.cc
-    kinemati
-    ldd
-    ldddist
-    lddlist
-    lddm
-    lddmnd
-    list
+    kinemati.c
+    ldd.c
+    ldddist.c
+    lddlist.c
+    lddm.c
+    lddmnd.c
+    list.c
     mark.cc
-    move
-    order
-    orient
-    path
-    pitrem
-    pitremnd
-    repair
-    slope
-    slopelen
-    sprdldd
-    sprdmax
-    spread
-    strorder
-    summary
-    timein
+    move.c
+    order.c
+    orient.c
+    path.c
+    pitrem.c
+    pitremnd.c
+    repair.c
+    slope.c
+    slopelen.c
+    sprdldd.c
+    sprdmax.c
+    spread.c
+    strorder.c
+    summary.c
+    timein.c
     calc_transient.cc
-    tt
-    upstream
-    view
-    window
-    vf
+    tt.c
+    upstream.c
+    view.c
+    window.c
+    vf.c
 )
 
 add_library(pcraster::calc ALIAS calc)
@@ -76,10 +76,10 @@ if(PCRASTER_BUILD_TEST)
     add_unit_tests(
         SCOPE calc
         NAMES
-            calc_downstreamvisitortest
-            calc_marktest
-            calc_kinematictest
-            calc_transienttest
+            calc_downstreamvisitortest.cc
+            calc_marktest.cc
+            calc_kinematictest.cc
+            calc_transienttest.cc
         LINK_LIBRARIES
             pcraster::calc
     )

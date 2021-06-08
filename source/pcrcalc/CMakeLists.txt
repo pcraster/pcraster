@@ -1,5 +1,5 @@
 add_executable(pcrcalc
-    main
+    main.cc
 )
 
 target_link_libraries(pcrcalc

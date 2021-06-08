@@ -1,7 +1,7 @@
 # DLexerBase.o ???
 add_library(pccts STATIC
-    AParser
-    ATokenBuffer
+    AParser.cpp
+    ATokenBuffer.cpp
 )
 
 add_library(pcraster::pccts ALIAS pccts)

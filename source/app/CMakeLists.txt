@@ -1,20 +1,20 @@
 add_library(app STATIC
-    app
-    appclone
-    appcoord
-    appcr
-    appdir
-    appinst
-    applog
-    app_options
-    apptime
-    apptxt
-    appval
-    appvers
-    aprowcol
-    inpfile
-    readcols
-    $<$<BOOL:${WIN32}>:pcrshell>
+    app.c
+    appclone.c
+    appcoord.c
+    appcr.c
+    appdir.c
+    appinst.c
+    applog.c
+    app_options.cc
+    apptime.c
+    apptxt.c
+    appval.c
+    appvers.c
+    aprowcol.c
+    inpfile.c
+    readcols.c
+    $<$<BOOL:${WIN32}>:pcrshell.cc>
 )
 
 add_library(pcraster::app ALIAS app)

@@ -1,9 +1,9 @@
 add_executable(resample
-    main
-    sample
-    samplecl
-    sampleco
-    point
+    main.c
+    sample.c
+    samplecl.c
+    sampleco.c
+    point.c
 )
 
 target_link_libraries(resample

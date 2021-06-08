@@ -1,5 +1,5 @@
 add_library(pcraster_python_utils SHARED
-    ppu_exception
+    ppu_exception.cc
     Globals.cc
 )
 

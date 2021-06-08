@@ -231,11 +231,11 @@ IF(PCRTREE2_BUILD)
         add_unit_tests(
             SCOPE pcraster_xsd
             NAMES
-                pcrxsd_commontypestest
-                pcrxsd_dominputtest
-                pcrxsd_DomAlgorithmTest
-                pcrxsd_utilstest
-                pcrxsd_xsdtest
+                pcrxsd_commontypestest.cc
+                pcrxsd_dominputtest.cc
+                pcrxsd_DomAlgorithmTest.cc
+                pcrxsd_utilstest.cc
+                pcrxsd_xsdtest.cc
             SUPPORT_NAMES
                 ${CMAKE_CURRENT_BINARY_DIR}/unitTestXSD.cc
             LINK_LIBRARIES

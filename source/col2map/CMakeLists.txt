@@ -1,6 +1,6 @@
 add_executable(col2map
-    col2map
-    main
+    col2map.c
+    main.c
 )
 
 target_link_libraries(col2map
@@ -29,7 +29,7 @@ if(PCRASTER_BUILD_TEST)
     add_unit_tests(
         SCOPE col2map
         NAMES
-            col2map_col2maptest
+            col2map_col2maptest.cc
         LINK_LIBRARIES
             pcraster::dal
         DEPENDENCIES
@@ -80,7 +80,7 @@ if(PCRASTER_BUILD_TEST)
             FIXTURES_REQUIRED FixtureCol2map_2
     )
 
-    set_tests_properties(col2map_col2map_col2maptest
+    set_tests_properties(col2map_col2map_col2maptest.cc
         PROPERTIES
             FIXTURES_REQUIRED FixtureCol2map_3
     )

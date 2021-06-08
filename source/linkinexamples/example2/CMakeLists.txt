@@ -1,5 +1,5 @@
 add_library(example2 SHARED
-    example2
+    example2.c
 )
 
 target_include_directories(example2

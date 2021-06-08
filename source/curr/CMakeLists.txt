@@ -1,6 +1,6 @@
 add_library(curr STATIC
-    currmenu
-    keyfunc
+    currmenu.c
+    keyfunc.c
 )
 
 add_library(pcraster::curr ALIAS curr)

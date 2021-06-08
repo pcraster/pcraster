@@ -1,6 +1,6 @@
 add_library(geom STATIC
-    point
-    rect
+    point.cc
+    rect.cc
 )
 
 add_library(pcraster::geom ALIAS geom)
@@ -21,7 +21,7 @@ if(PCRASTER_BUILD_TEST)
     add_unit_tests(
         SCOPE geom
         NAMES
-            geom_pointtest
+            geom_pointtest.cc
         LINK_LIBRARIES
             pcraster::geom
     )

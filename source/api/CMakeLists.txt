@@ -1,15 +1,15 @@
 add_library(api STATIC
-    bootapi
-    ranuint1
-    ranint4
-    ranreal8
-    testapi
-    mapdim
-    ranpriv
-    fieldapi_common
-    fieldapi_scalardomaincheck
-    fieldapi_interface
-    fieldapi_templates
+    bootapi.c
+    ranuint1.c
+    ranint4.c
+    ranreal8.c
+    testapi.c
+    mapdim.c
+    ranpriv.c
+    fieldapi_common.cc
+    fieldapi_scalardomaincheck.cc
+    fieldapi_interface.cc
+    fieldapi_templates.cc
 )
 
 add_library(pcraster::api ALIAS api)
@@ -28,10 +28,10 @@ if(PCRASTER_BUILD_TEST)
     add_unit_tests(
         SCOPE api
         NAMES
-            fieldapi_interfacetest
-            fieldapi_readonlynonspatialtest
-            fieldapi_readonlyspatialtest
-            fieldapi_readwritedatatest
+            fieldapi_interfacetest.cc
+            fieldapi_readonlynonspatialtest.cc
+            fieldapi_readonlyspatialtest.cc
+            fieldapi_readwritedatatest.cc
         LINK_LIBRARIES
             pcraster::api
     )

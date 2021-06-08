@@ -1,6 +1,6 @@
 add_executable(table
-    main
-    move
+    main.c
+    move.c
 )
 
 target_link_libraries(table

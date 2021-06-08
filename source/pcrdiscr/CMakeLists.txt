@@ -1,7 +1,7 @@
 add_library(pcrdiscr STATIC
-    discr_block
-    discr_raster
-    discr_voxelstack
+    discr_block.cc
+    discr_raster.cc
+    discr_voxelstack.cc
 )
 
 add_library(pcraster::pcrdiscr ALIAS pcrdiscr)
@@ -19,11 +19,11 @@ if(PCRASTER_BUILD_TEST)
     add_unit_tests(
         SCOPE pcrdiscr
         NAMES
-            discr_blocktest
-            discr_blockdatatest
-            discr_rasterdatatest
-            discr_rastertest
-            discr_voxelstacktest
+            discr_blocktest.cc
+            discr_blockdatatest.cc
+            discr_rasterdatatest.cc
+            discr_rastertest.cc
+            discr_voxelstacktest.cc
         LINK_LIBRARIES
             pcrdiscr
     )

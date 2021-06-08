@@ -348,15 +348,15 @@ if(PCRASTER_BUILD_TEST)
 
     add_library(pcraster_model_engine_unit_test_utils STATIC
           # utils of unittests
-          calc_astpath
-          calc_astcfgtester
-          calc_asttestfactory
-          calc_comparefilewithvalidated
-          calc_messagestestdb
-          calc_modelbuilder
-          calc_modelerrortester
-          calc_p5stack
-          calc_manualexampletester
+          calc_astpath.cc
+          calc_astcfgtester.cc
+          calc_asttestfactory.cc
+          calc_comparefilewithvalidated.cc
+          calc_messagestestdb.cc
+          calc_modelbuilder.cc
+          calc_modelerrortester.cc
+          calc_p5stack.cc
+          calc_manualexampletester.cc
     )
 
     target_include_directories(pcraster_model_engine_unit_test_utils
@@ -376,52 +376,52 @@ if(PCRASTER_BUILD_TEST)
         NAMES
             #calc_test
             # unit tests
-            calc_areamaptest
-            calc_areaoperationstest
-            calc_argordertest
-            calc_astpartest
-            calc_astpathtest
-            calc_astsymboltabletest
-            calc_averagemaptest
-            calc_bindingtabletest
-            calc_buildtypesvisitortest
-            calc_cfgcreatortest
-            calc_clientinterfacetest
-            calc_cmdlinecalctest
-            calc_datatypetest
-            calc_dimensionparsertest
-            calc_dynamicwavetest
-            calc_executortest
-            calc_fieldtest
-            calc_findsymboltest
-            calc_fopointarraytest
-            calc_iocsffieldstrategytest
+            calc_areamaptest.cc
+            calc_areaoperationstest.cc
+            calc_argordertest.cc
+            calc_astpartest.cc
+            calc_astpathtest.cc
+            calc_astsymboltabletest.cc
+            calc_averagemaptest.cc
+            calc_bindingtabletest.cc
+            calc_buildtypesvisitortest.cc
+            calc_cfgcreatortest.cc
+            calc_clientinterfacetest.cc
+            calc_cmdlinecalctest.cc
+            calc_datatypetest.cc
+            calc_dimensionparsertest.cc
+            calc_dynamicwavetest.cc
+            calc_executortest.cc
+            calc_fieldtest.cc
+            calc_findsymboltest.cc
+            calc_fopointarraytest.cc
+            calc_iocsffieldstrategytest.cc
             # calc_ldddownstreamtest         # OLS 05/2016 this one was not in this list before
-            calc_lddgraphtest
-            calc_lexinputtest
-            calc_lookuptabletest
-            calc_manualexampletestertest
-            calc_manualexamplestest
-            calc_maskpackingtest
+            calc_lddgraphtest.cc
+            calc_lexinputtest.cc
+            calc_lookuptabletest.cc
+            calc_manualexampletestertest.cc
+            calc_manualexamplestest.cc
+            calc_maskpackingtest.cc
             # calc_modelbuildertest          # OLS 05/2016 this one is empty
-            calc_nonspatialtest
-            calc_objectlinkmetatest
-            calc_objectlinktest
-            calc_operatortest
-            calc_opimpltest
-            calc_parsertest
-            calc_pointcodeblockdlltest
-            calc_pointcodeblockreplacertest
-            calc_reporttest
-            calc_reportvisitortest
-            calc_rundirectorytest
-            calc_runtimeenginetest
-            calc_runtimeenvtest
-            calc_spatialtest
-            calc_tssoutputvaluetest
-            calc_usedefanalyzertest
-            calc_vfieldtest
-            calc_xmlreflectiontest
+            calc_nonspatialtest.cc
+            calc_objectlinkmetatest.cc
+            calc_objectlinktest.cc
+            calc_operatortest.cc
+            calc_opimpltest.cc
+            calc_parsertest.cc
+            calc_pointcodeblockdlltest.cc
+            calc_pointcodeblockreplacertest.cc
+            calc_reporttest.cc
+            calc_reportvisitortest.cc
+            calc_rundirectorytest.cc
+            calc_runtimeenginetest.cc
+            calc_runtimeenvtest.cc
+            calc_spatialtest.cc
+            calc_tssoutputvaluetest.cc
+            calc_usedefanalyzertest.cc
+            calc_vfieldtest.cc
+            calc_xmlreflectiontest.cc
         INCLUDE_DIRS
             $<TARGET_PROPERTY:pcraster_model_engine_objects,INTERFACE_INCLUDE_DIRECTORIES>
             # cpptest.cc
@@ -478,8 +478,8 @@ if(PCRASTER_BUILD_TEST)
     )
 
     set_tests_properties(
-            model_engine_calc_areamaptest
-            model_engine_calc_executortest
+            model_engine_calc_areamaptest.cc
+            model_engine_calc_executortest.cc
         PROPERTIES
             FIXTURES_REQUIRED
                 FixturePCRasterModelEngine

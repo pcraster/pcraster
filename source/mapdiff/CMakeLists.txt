@@ -1,5 +1,5 @@
 add_executable(mapdiff
-    mapdiff
+    mapdiff.cc
 )
 
 target_link_libraries(mapdiff

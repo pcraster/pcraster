@@ -1,7 +1,7 @@
 add_library(pcrgeom STATIC
-    geom_line
-    geom_point
-    geom_util
+    geom_line.cc
+    geom_point.cc
+    geom_util.cc
 )
 
 add_library(pcraster::pcrgeom ALIAS pcrgeom)

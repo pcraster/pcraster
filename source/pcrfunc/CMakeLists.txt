@@ -11,10 +11,10 @@ if(PCRASTER_BUILD_TEST)
     add_unit_tests(
         SCOPE pcrfunc
         NAMES
-            func_assigntest
-            func_booleanoperatorstest
-            func_setmvtest
-            func_summarystatisticstest
+            func_assigntest.cc
+            func_booleanoperatorstest.cc
+            func_setmvtest.cc
+            func_summarystatisticstest.cc
         LINK_LIBRARIES
             pcraster::dal
     )

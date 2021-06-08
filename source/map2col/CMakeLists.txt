@@ -1,6 +1,6 @@
 add_executable(map2col
-    map2col
-    main
+    map2col.c
+    main.c
 )
 
 target_link_libraries(map2col

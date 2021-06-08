@@ -1,5 +1,5 @@
 add_executable(oldcalc
-    main
+    main.cc
 )
 
 target_link_libraries(oldcalc

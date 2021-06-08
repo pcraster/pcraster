@@ -1,7 +1,7 @@
 add_executable(asc2map
-    arcgrid
-    asc2map
-    main
+    arcgrid.c
+    asc2map.c
+    main.c
 )
 
 target_link_libraries(asc2map

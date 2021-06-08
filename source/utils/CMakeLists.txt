@@ -1,10 +1,10 @@
 add_library(utils STATIC
-    dev_CommandLineApplication
-    dev_FilesystemUtils
-    dev_GDalClient
-    # dev_PythonClient
-    dev_Utils
-    dev_XercesClient
+    dev_CommandLineApplication.cc
+    dev_FilesystemUtils.cc
+    dev_GDalClient.cc
+    # dev_PythonClient.cc
+    dev_Utils.cc
+    dev_XercesClient.cc
 )
 
 add_library(pcraster::utils ALIAS utils)
@@ -37,9 +37,9 @@ if(PCRASTER_BUILD_TEST)
     add_unit_tests(
         SCOPE utils
         NAMES
-            dev_CommandLineApplicationTest
-            dev_QtClientTest
-            dev_UtilsTest
+            dev_CommandLineApplicationTest.cc
+            dev_QtClientTest.cc
+            dev_UtilsTest.cc
         LINK_LIBRARIES
             pcraster::utils
             Qt5::Core

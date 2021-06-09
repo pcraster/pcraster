@@ -1,0 +1,54 @@
+name: Linux CI
+
+on: [push]
+
+jobs:
+    build:
+
+        runs-on: ubuntu-20.04
+
+        name: "Linux CI"
+
+        steps:
+
+        - name: checkout pcraster
+          uses: actions/checkout@v2
+
+        - name: configure system
+          run: |
+              sudo apt update
+              sudo apt install gcc-10 ninja-build gdal-bin libgdal-dev libxerces-c-dev libxml2-dev libxslt1-dev libboost-all-dev libncurses5-dev libxml2 libxml2-utils mesa-common-dev libglu1-mesa-dev libgl1-mesa-glx python3 libpython3-dev python3-numpy python3-psutil qtbase5-dev libqt5charts5-dev libqt5opengl5-dev cmake
+
+        - name: configure pcraster
+          shell: bash -l {0}
+          run: |
+              mkdir build
+              cmake \
+                  -S . \
+                  -B build \
+                  -G"Ninja" \
+                  -DCMAKE_BUILD_TYPE=Release \
+                  -DCMAKE_RULE_MESSAGES=OFF \
+                  -DPCRASTER_BUILD_TEST=ON \
+                  -DPCRASTER_BUILD_TEST_FERN=ON \
+                  -DPYTHON_EXECUTABLE:FILEPATH=/usr/bin/python3
+
+        - name: build
+          shell: bash
+          run: |
+              cmake --build build --target all
+
+        - name: install
+          shell: bash
+          run: |
+              cmake --install build --prefix package
+
+        - name: source package
+          shell: bash
+          run: |
+              cmake --build build --target package_source
+
+        - name: test
+          shell: bash
+          run: |
+              cmake --build build --target test

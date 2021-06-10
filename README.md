@@ -20,3 +20,4 @@ conda install -c conda-forge pcraster
 
 ## Build status
 [![Linux build status](https://github.com/pcraster/pcraster/workflows/Linux%20CI/badge.svg)](https://github.com/pcraster/pcraster/actions)
+[![macOS build status](https://github.com/pcraster/pcraster/workflows/macOS%20CI/badge.svg)](https://github.com/pcraster/pcraster/actions)

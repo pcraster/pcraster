@@ -1,13 +1,13 @@
-name: Linux CI
+name: macOS CI
 
 on: [push]
 
 jobs:
     build:
 
-        runs-on: ubuntu-20.04
+        runs-on: macos-latest
 
-        name: "Linux CI"
+        name: "macOS CI"
 
         steps:
 
@@ -16,8 +16,7 @@ jobs:
 
         - name: configure system
           run: |
-              sudo apt update
-              sudo apt install gcc-10 ninja-build gdal-bin libgdal-dev libxerces-c-dev libxml2-dev libxslt1-dev libboost-all-dev libncurses5-dev libxml2 libxml2-utils mesa-common-dev libglu1-mesa-dev libgl1-mesa-glx python3 libpython3-dev python3-numpy python3-psutil qtbase5-dev libqt5charts5-dev libqt5opengl5-dev cmake
+              brew install cmake ninja boost gdal ncurses xerces-c qt5
 
         - name: configure pcraster
           shell: bash -l {0}
@@ -27,12 +26,9 @@ jobs:
                   -S . \
                   -B build \
                   -G"Ninja Multi-Config" \
-                  -DCMAKE_C_COMPILER=gcc-10 \
-                  -DCMAKE_CXX_COMPILER=g++-10 \
                   -DCMAKE_RULE_MESSAGES=OFF \
                   -DPCRASTER_BUILD_TEST=ON \
-                  -DPCRASTER_BUILD_TEST_FERN=ON \
-                  -DPYTHON_EXECUTABLE:FILEPATH=/usr/bin/python3
+                  -DPCRASTER_BUILD_TEST_FERN=ON
 
         - name: build
           shell: bash

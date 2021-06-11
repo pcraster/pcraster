@@ -3,10 +3,15 @@ include(CheckIncludeFileCXX)
 include(FetchContent)
 include(CMakeDependentOption)
 
+include(CPM)
+
+# Get required dependencies first...
+CPMAddPackage("gh:pcraster/rasterformat#88fae8652fd36d878648f3fe303306c3dc68b7e6")
+CPMAddPackage("gh:geoneric/devbase#09bbfb89e4354bdfbb73029469aa848482e60d1a")
+
+
 include(PeacockPlatform)
 # include(DevBaseCompiler)
-
-include(CPM)
 
 include(PCRasterMacro)
 include(PCRasterConfiguration)

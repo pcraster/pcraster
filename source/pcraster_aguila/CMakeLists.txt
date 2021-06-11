@@ -251,9 +251,9 @@ if(PCRASTER_WITH_OPENGL)
   )
 endif()
 
-if(APPLE)
-    # I don't know why the moc stuff is not linked automatically by CMake,
-    # just hammer it into the library
+if(UNIX)
+    # I don't know why the moc stuff is not linked automatically by CMake 3.20,
+    # just hammer it into the library. Due to being object library?
     set_property(
         SOURCE
             CMakeFiles/pcraster_aguila_opengl_objects.dir/pcraster_aguila_opengl_objects_autogen/mocs_compilation.cpp.o

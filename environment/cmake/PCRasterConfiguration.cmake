@@ -117,9 +117,6 @@ if(NOT PCRASTER_LIB_INSTALL_DIR)
   set(PCRASTER_LIB_INSTALL_DIR lib)
 endif()
 
-
-CPMAddPackage("gh:pcraster/rasterformat#88fae8652fd36d878648f3fe303306c3dc68b7e6")
-
 if(PCRASTER_BUILD_MULTICORE)
     set(FERN_BUILD_ALGORITHM ON CACHE BOOL "Build submodule fern")
     CPMAddPackage("gh:geoneric/fern#98c68fa27f795cb381c67505f14b64684b155d34")

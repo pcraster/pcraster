@@ -45,6 +45,8 @@ endif()
 
 add_compile_options(
     "$<$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:Clang>>:-pipe>"
+    "$<$<COMPILE_LANG_AND_ID:C,GNU,Clang>:>"
+    "$<$<COMPILE_LANG_AND_ID:CXX,GNU,Clang>:>"
 )
 
 # Based on conda and https://developers.redhat.com/blog/2018/03/21/compiler-and-linker-flags-gcc/

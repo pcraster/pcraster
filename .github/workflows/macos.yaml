@@ -25,15 +25,16 @@ jobs:
               cmake \
                   -S . \
                   -B build \
-                  -G"Ninja Multi-Config" \
-                  -DCMAKE_RULE_MESSAGES=OFF \
-                  -DPCRASTER_BUILD_TEST=ON \
-                  -DPCRASTER_BUILD_TEST_FERN=ON
+                  -G "Ninja" \
+                  -D CMAKE_RULE_MESSAGES=OFF \
+                  -D PCRASTER_BUILD_TEST=ON \
+                  -D PCRASTER_BUILD_TEST_FERN=ON \
+                  -D CMAKE_PREFIX_PATH=/usr/local/opt/ncurses
 
         - name: build
           shell: bash
           run: |
-              cmake --build build --config Debug --target all
+              # cmake --build build --config Debug --target all
               cmake --build build --config Release --target all
 
         - name: install
@@ -49,5 +50,5 @@ jobs:
         - name: test
           shell: bash
           run: |
-              cmake --build build --config Debug --target test
+              # cmake --build build --config Debug --target test
               cmake --build build --config Release --target test

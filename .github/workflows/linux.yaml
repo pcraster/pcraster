@@ -26,18 +26,18 @@ jobs:
               cmake \
                   -S . \
                   -B build \
-                  -G"Ninja Multi-Config" \
-                  -DCMAKE_C_COMPILER=gcc-10 \
-                  -DCMAKE_CXX_COMPILER=g++-10 \
-                  -DCMAKE_RULE_MESSAGES=OFF \
-                  -DPCRASTER_BUILD_TEST=ON \
-                  -DPCRASTER_BUILD_TEST_FERN=ON \
-                  -DPYTHON_EXECUTABLE:FILEPATH=/usr/bin/python3
+                  -G"Ninja" \
+                  -D CMAKE_C_COMPILER=gcc-10 \
+                  -D CMAKE_CXX_COMPILER=g++-10 \
+                  -D CMAKE_RULE_MESSAGES=OFF \
+                  -D PCRASTER_BUILD_TEST=ON \
+                  -D PCRASTER_BUILD_TEST_FERN=ON \
+                  -D PYTHON_EXECUTABLE:FILEPATH=/usr/bin/python3
 
         - name: build
           shell: bash
           run: |
-              cmake --build build --config Debug --target all
+              # cmake --build build --config Debug --target all
               cmake --build build --config Release --target all
 
         - name: install
@@ -53,5 +53,5 @@ jobs:
         - name: test
           shell: bash
           run: |
-              cmake --build build --config Debug --target test
+              # cmake --build build --config Debug --target test
               cmake --build build --config Release --target test

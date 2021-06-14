@@ -1,22 +1,9 @@
-#ifndef INCLUDED_DAL_FEATURELAYERGEOMETRIES
 #include "dal_FeatureLayerGeometries.h"
-#define INCLUDED_DAL_FEATURELAYERGEOMETRIES
-#endif
 
-// External headers.
-#ifndef INCLUDED_CASSERT
-#include <cassert>
-#define INCLUDED_CASSERT
-#endif
-
-#ifndef INCLUDED_OGR_GEOMETRY
+#include <boost/geometry.hpp>
 #include <ogr_geometry.h>
-#define INCLUDED_OGR_GEOMETRY
-#endif
 
-// Project headers.
-
-// Module headers.
+#include <cassert>
 
 
 

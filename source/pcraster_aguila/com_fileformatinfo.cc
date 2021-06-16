@@ -3,7 +3,6 @@
 // Library headers.
 #include <algorithm>
 #include <boost/algorithm/string.hpp>
-// #include <boost/filesystem.hpp>
 
 // PCRaster library headers.
 

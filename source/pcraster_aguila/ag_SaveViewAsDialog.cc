@@ -1,7 +1,6 @@
 #include "ag_SaveViewAsDialog.h"
 
 // Library headers.
-#include <boost/filesystem.hpp>
 #include <QComboBox>
 #include <QLineEdit>
 #include <QPushButton>

@@ -2,14 +2,8 @@
 #define INCLUDED_AG_CURSORWINDOW
 
 
-
-// Library headers.
-#include <boost/filesystem.hpp>
-
-// PCRaster library headers.
-
-// Module headers.
 #include "ag_VisualisationDialog.h"
+#include <boost/filesystem.hpp>
 
 
 

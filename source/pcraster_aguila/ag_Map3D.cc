@@ -106,7 +106,7 @@ bool Map3D::doubleBuffer() const
 
 
 void Map3D::saveAsPNG(
-         boost::filesystem::path const& path) const
+         std::filesystem::path const& path) const
 {
   if(QPixmap::defaultDepth() != d_mapView->depthOfRenderingContext()) {
     std::string msg = (boost::format(

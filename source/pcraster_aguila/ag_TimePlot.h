@@ -5,13 +5,7 @@
 
 #include "ag_Visualisation.h"
 
-// Library headers.
-#include <boost/filesystem.hpp>
-
-// PCRaster library headers.
-
-// Module headers.
-
+#include <filesystem>
 
 
 class QSplitter;
@@ -75,7 +69,7 @@ public:
 
   QSize            sizeHint            () const;
 
-  void             saveAsPNG           (boost::filesystem::path const& path) const;
+  void             saveAsPNG           (std::filesystem::path const& path) const;
 
   // void             saveAsEPS           (com::PathName const& filename) const;
 

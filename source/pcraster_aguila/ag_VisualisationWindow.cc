@@ -30,7 +30,7 @@
 // #include "icons/openlayer.xpm"
 #include "icons/startanimation.xpm"
 
-
+#include <filesystem>
 
 /*!
   \file
@@ -241,11 +241,11 @@ void VisualisationWindow::addToMenuAndToolBar(
 /*!
  * \todo
  *   <ol>
- *    <li>A library such as pcrag may never call qApp->quit as it does 
- *        now in ag_visgroupmanager.cc: the quit application  logic must 
- *        be implemented such, that all software components agree on 
+ *    <li>A library such as pcrag may never call qApp->quit as it does
+ *        now in ag_visgroupmanager.cc: the quit application  logic must
+ *        be implemented such, that all software components agree on
  *        quitting.
- *    <li>multiple About boxes? Other textual description of 
+ *    <li>multiple About boxes? Other textual description of
  *        Kor's achievements  within other COntexts?
  *   </ol>
  */
@@ -485,9 +485,9 @@ void VisualisationWindow::saveAs(
   std::string branchPath(path.parent_path().string());
   name = path.filename().string();
 ///   size_t index = iterationSpace.indexOf(dal::Scenarios);
-/// 
+///
 /// std::cout << "has scenarios: " << (index < iterationSpace.rank()) << std::endl;
-/// 
+///
 ///   if(index < iterationSpace.rank()) {
 ///     assert(!branchPath.empty());
 ///     iterationSpace.dimension(index).setValue<std::string>(branchPath);
@@ -550,10 +550,10 @@ void VisualisationWindow::saveAs(
       dataObject().setDataSpaceAddress(boost::get<0>(addressPathTuples[i]));
 
       if(format == format.png()) {
-        saveAsPNG(path);
+        // saveAsPNG(path); todo filesystem
       }
       else if(format == format.eps()) {
-        saveAsEPS(path);
+        // saveAsEPS(path); todo filesystem
       }
       else {
         assert(false);
@@ -578,17 +578,17 @@ void VisualisationWindow::saveAs(
 // {
 //   assert(!pathName.isEmpty());
 //   assert(pathName.hasExtension());
-// 
+//
 //   dal::DataSpace space(dataObject().dataSpace());
 //   dal::DataSpaceAddress const& address(dataObject().dataSpaceAddress());
 //   size_t index;
-// 
+//
 //   typedef boost::tuple<dal::DataSpaceAddress, std::string> AddressFilenameTuple;
 //   std::vector<AddressFilenameTuple> addressFilenameTuples;
-// 
+//
 //   if(!allTimeSteps || !space.hasTime()) {
 //     dal::DataSpaceAddress tmpAddress(address);
-// 
+//
 //     if(space.hasSpace()) {
 //       index = space.indexOf(dal::Space);
 //       tmpAddress.unsetCoordinate(index);
@@ -597,7 +597,7 @@ void VisualisationWindow::saveAs(
 //            space.dimension(index).meaning() == dal::Space);
 //       tmpAddress.unsetCoordinate(index);
 //     }
-// 
+//
 //     addressFilenameTuples.push_back(
 //          AddressFilenameTuple(tmpAddress, pathName.toString()));
 //   }
@@ -610,11 +610,11 @@ void VisualisationWindow::saveAs(
 //            space.dimension(index).meaning() == dal::Space);
 //       space.dimension(index).clear();
 //     }
-// 
+//
 //     std::string filename;
 //     int width = com::intToStr(dataObject().lastTimeStep()).length();
 //     index = space.indexOf(dal::Time);
-// 
+//
 //     for(dal::DataSpaceIterator it(space.begin()); it != space.end(); ++it) {
 //       std::ostringstream number;
 //       number << std::setw(width) << std::setfill('0')
@@ -624,30 +624,30 @@ void VisualisationWindow::saveAs(
 //       addressFilenameTuples.push_back(AddressFilenameTuple(*it, filename));
 //     }
 //   }
-// 
+//
 //   QProgressDialog progress("Saving", "Cancel",
 //          static_cast<int>(addressFilenameTuples.size()), 0,
 //          "save as", true);
 //   progress.show();
 //   progress.setProgress(0);
-// 
+//
 //   bool overwrite = false;
-// 
+//
 //   for(size_t i = 0; i < addressFilenameTuples.size(); ++i) {
-// 
+//
 //     if(progress.wasCancelled()) {
 //       break;
 //     }
 //     else {
 //       com::PathInfo pathInfo(boost::get<1>(addressFilenameTuples[i]));
 //       pathInfo.testOpenForWriting();
-// 
+//
 //       if(!overwrite && pathInfo.exists()) {
 //         std::ostringstream stream;
 //         stream << "Overwrite existing file(s) '"
 //                    << pathInfo.pathName().baseName() << "'?";
 //         bool ok = confirmOkWarning(0, appName(), stream.str());
-// 
+//
 //         if(!ok) {
 //           break;
 //         }
@@ -655,9 +655,9 @@ void VisualisationWindow::saveAs(
 //           overwrite = true;
 //         }
 //       }
-// 
+//
 //       dataObject().setDataSpaceAddress(boost::get<0>(addressFilenameTuples[i]));
-// 
+//
 //       if(format == format.png()) {
 //         saveAsPNG(pathInfo.pathName());
 //       }
@@ -668,12 +668,12 @@ void VisualisationWindow::saveAs(
 //         assert(false);
 //       }
 //     }
-// 
+//
 //     progress.setProgress(static_cast<int>(i + 1));
 //   }
-// 
+//
 //   progress.setProgress(static_cast<int>(addressFilenameTuples.size()));
-// 
+//
 //   // Reset data space address.
 //   dataObject().setDataSpaceAddress(address);
 // }

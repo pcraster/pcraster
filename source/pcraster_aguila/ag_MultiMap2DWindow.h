@@ -2,15 +2,9 @@
 #define INCLUDED_AG_MULTIMAP2DWINDOW
 
 
-
-// Library headers.
-#include <boost/filesystem.hpp>
-
-// PCRaster library headers.
-
-// Module headers.
 #include "ag_MapWindow.h"
 
+#include <filesystem>
 
 
 namespace ag {
@@ -49,7 +43,7 @@ private:
   void             createInterface     (size_t nrRows,
                                         size_t nrCols);
 
-  void             saveAsPNG           (boost::filesystem::path const& path);
+  void             saveAsPNG           (std::filesystem::path const& path);
 
   // void             process             ();
 

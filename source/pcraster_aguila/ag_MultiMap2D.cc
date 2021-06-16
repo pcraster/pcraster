@@ -144,7 +144,7 @@ void MultiMap2D::resetMapView()
 
 
 void MultiMap2D::saveAsPNG(
-         boost::filesystem::path const& /* path */) const
+         std::filesystem::path const& /* path */) const
 {
   // QPixmap pixmap(d_map->pixmap());
 }

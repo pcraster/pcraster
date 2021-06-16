@@ -3,11 +3,10 @@
 
 
 
-#include <boost/filesystem.hpp>
 #include "ag_Configure.h"
 #include "ag_Map.h"
 
-
+#include <filesystem>
 
 class QSplitter;
 namespace ag {
@@ -80,7 +79,7 @@ public:
 
   const LegendView* legendView         () const;
 
-  void             saveAsPNG           (boost::filesystem::path const& path) const;
+  void             saveAsPNG           (std::filesystem::path const& path) const;
 
 public Q_SLOTS:
 

@@ -3,10 +3,10 @@
 
 
 
-#include <boost/filesystem.hpp>
 #include "ag_Configure.h"
 #include "ag_VisualisationWindow.h"
 
+#include <filesystem>
 
 
 namespace ag {
@@ -38,7 +38,7 @@ private:
 
   void             createInterface     ();
 
-  void             saveAsPNG           (boost::filesystem::path const& path);
+  void             saveAsPNG           (std::filesystem::path const& path);
 
 protected:
 

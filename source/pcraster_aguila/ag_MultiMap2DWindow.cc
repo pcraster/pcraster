@@ -188,7 +188,7 @@ bool MultiMap2DWindow::dataVisualised() const
 
 
 void MultiMap2DWindow::saveAsPNG(
-         boost::filesystem::path const& path)
+         std::filesystem::path const& path)
 {
   d_map->saveAsPNG(path);
 }
@@ -200,9 +200,9 @@ void MultiMap2DWindow::saveAsPNG(
 //   std::cout << "process" << std::endl;
 //   MapWindow::process();
 // }
-// 
-// 
-// 
+//
+//
+//
 // void MultiMap2DWindow::visualise()
 // {
 //   MapWindow::visualise();

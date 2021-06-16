@@ -91,7 +91,7 @@ QSize TimePlot::sizeHint() const
 
 
 void TimePlot::saveAsPNG(
-         boost::filesystem::path const& path) const
+         std::filesystem::path const& path) const
 {
   QPixmap pixmap(_plotView->pixmap());
   if(pixmap.isNull()) {

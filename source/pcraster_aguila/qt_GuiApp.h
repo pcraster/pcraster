@@ -4,7 +4,6 @@
 
 
 #include <string>
-#include <boost/filesystem.hpp>
 #include <QObject>
 #include "dev_CommandLineApplication.h"
 #include "dev_QtClient.h"
@@ -13,6 +12,7 @@
 #include "qt_Def.h"
 #include "ag_QApplication.h"
 
+#include <filesystem>
 
 
 namespace qt {
@@ -39,7 +39,7 @@ class PCR_AG_DECL GuiApp: public QObject,
 private:
 
   //! File name of lock file.
-  boost::filesystem::path d_lockFilename;
+  std::filesystem::path d_lockFilename;
 
   virtual void     setup               () = 0;
 

@@ -26,7 +26,7 @@ namespace ag {
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 //!
@@ -127,7 +127,7 @@ const LegendView* Map2D::legendView() const
 
 
 void Map2D::saveAsPNG(
-         boost::filesystem::path const& path) const
+         std::filesystem::path const& path) const
 {
   QPixmap const& buffer(static_cast<Map2DView const*>(d_mapView)->buffer());
 
@@ -213,13 +213,13 @@ void Map2D::visualise()
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE OPERATORS 
+// DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE FUNCTIONS 
+// DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
 

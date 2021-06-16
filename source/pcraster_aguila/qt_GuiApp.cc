@@ -4,8 +4,6 @@
 #include <new>
 #include <string>
 #include <sstream>
-#include <boost/filesystem/fstream.hpp>
-#include <boost/filesystem.hpp>
 #include <boost/format.hpp>
 
 /*
@@ -184,12 +182,12 @@ void qt::GuiApp::createLockFile(std::string const& filename)
 {
   assert(d_lockFilename.empty());
 
-  namespace bfs = boost::filesystem;
+  namespace bfs = std::filesystem;
 
   d_lockFilename = bfs::path(filename);
 
   if(!bfs::exists(d_lockFilename)) {
-    bfs::ofstream file(d_lockFilename);
+    std::ofstream file{d_lockFilename};
     assert(bfs::exists(d_lockFilename));
   }
   else {
@@ -200,10 +198,10 @@ void qt::GuiApp::createLockFile(std::string const& filename)
       throw com::FileError(d_lockFilename.string(), std::string(
                    "existing lock file is not a regular file"));
     }
-    else if(!dal::isWritable(d_lockFilename)) {
-      throw com::FileError(d_lockFilename.string(), std::string(
-                   "existing lock file is not writable and cannot be deleted"));
-    }
+//     else if(!dal::isWritable(d_lockFilename)) {
+//       throw com::FileError(d_lockFilename.string(), std::string(
+//                    "existing lock file is not writable and cannot be deleted"));
+//     } todo filesystem
   }
 }
 
@@ -215,11 +213,11 @@ void qt::GuiApp::createLockFile(std::string const& filename)
 */
 void qt::GuiApp::deleteLockFile()
 {
-  if(!d_lockFilename.empty() && boost::filesystem::exists(d_lockFilename)) {
+  if(!d_lockFilename.empty() && std::filesystem::exists(d_lockFilename)) {
     try {
-      boost::filesystem::remove(d_lockFilename);
+      std::filesystem::remove(d_lockFilename);
     }
-    catch(boost::filesystem::filesystem_error const&) {
+    catch(std::filesystem::filesystem_error const&) {
       showWarning((boost::format("Lock file %1% cannot be deleted")
          % d_lockFilename.string()).str());
     }

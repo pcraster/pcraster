@@ -6,7 +6,6 @@
 #include <string>
 #include <vector>
 #ifndef Q_MOC_RUN
-#include <boost/filesystem.hpp>
 #include "dal_DataSpace.h"
 #include "com_fileformatinfo.h"
 #include "geo_dataguide.h"
@@ -16,7 +15,7 @@
 #include "ag_VisObserver.h"
 #endif
 
-
+#include <filesystem>
 
 namespace ag {
   class DataGuide;
@@ -106,9 +105,9 @@ protected:
   void             setSaveAsFileFormats(
                          const std::vector<com::FileFormatInfo>& fileFormats);
 
-  virtual void     saveAsPNG           (boost::filesystem::path const& path);
+  virtual void     saveAsPNG           (std::filesystem::path const& path);
 
-  virtual void     saveAsEPS           (boost::filesystem::path const& path);
+  virtual void     saveAsEPS           (std::filesystem::path const& path);
 
   void             testDataGuide       (const geo::DataGuide& dataGuide) const;
 

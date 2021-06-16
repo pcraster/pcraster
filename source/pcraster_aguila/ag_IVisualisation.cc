@@ -89,7 +89,7 @@ size_t ag::IVisualisation::nrCreated()
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 //! Constructor.
@@ -359,7 +359,7 @@ void ag::IVisualisation::showDataPropertiesDialog(
 
 
 void ag::IVisualisation::saveAsPNG(
-         boost::filesystem::path const& /* path */)
+         std::filesystem::path const& /* path */)
 {
   // If we end up here, a subclass didn't call setSaveAsFileFormats() or did it
   // with the wrong arguments.
@@ -369,7 +369,7 @@ void ag::IVisualisation::saveAsPNG(
 
 
 void ag::IVisualisation::saveAsEPS(
-         boost::filesystem::path const& /* path */)
+         std::filesystem::path const& /* path */)
 {
   // If we end up here, a subclass didn't call setSaveAsFileFormats() or did it
   // with the wrong arguments.
@@ -517,13 +517,13 @@ dal::DataSpaceAddress const& IVisualisation::dataSpaceAddress() const
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE OPERATORS 
+// DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE FUNCTIONS 
+// DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
 

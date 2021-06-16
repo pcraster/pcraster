@@ -304,7 +304,7 @@ ag::Feedback::const_iterator ag::PostScript::writePrimitive(std::ostream& os,
 
 
 void ag::PostScript::save(
-         boost::filesystem::path const& path)
+         std::filesystem::path const& path)
 {
   std::ofstream fs;
 

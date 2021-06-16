@@ -3,14 +3,9 @@
 
 
 
-// Library headers.
-#include <boost/filesystem.hpp>
-
-// PCRaster library headers.
-
-// Module headers.
 #include "ag_Map.h"
 
+#include <filesystem>
 
 
 class QSplitter;
@@ -78,7 +73,7 @@ public:
 
   void             setHeight           (const DataGuide& dataGuide);
 
-  void             saveAsPNG           (boost::filesystem::path const& path) const;
+  void             saveAsPNG           (std::filesystem::path const& path) const;
 
   //----------------------------------------------------------------------------
   // ACCESSORS

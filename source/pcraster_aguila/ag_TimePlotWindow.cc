@@ -14,7 +14,7 @@
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 ag::TimePlotWindow::TimePlotWindow(const qt::AppWindowProperties& props,
@@ -104,7 +104,7 @@ bool ag::TimePlotWindow::dataVisualised() const
 
 
 void ag::TimePlotWindow::saveAsPNG(
-         boost::filesystem::path const& path)
+         std::filesystem::path const& path)
 {
   d_plot->saveAsPNG(path);
 }
@@ -152,7 +152,7 @@ ag::TimePlotWindow *ag::TimePlotWindow::copy(ag::DataObject *o) const
  *    does save the correct part of the tss
  */
  /*
-void ag::TimePlotWindow::saveAsPNG(const com::PathName& pathName) 
+void ag::TimePlotWindow::saveAsPNG(const com::PathName& pathName)
 {
   if(d_data->d_plotView->pixmap()->isNull()) {
     throw com::FileError(pathName, "Error while saving");
@@ -166,13 +166,13 @@ void ag::TimePlotWindow::saveAsPNG(const com::PathName& pathName)
 */
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE OPERATORS 
+// DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE FUNCTIONS 
+// DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
 

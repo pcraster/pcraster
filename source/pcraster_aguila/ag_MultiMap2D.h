@@ -2,15 +2,9 @@
 #define INCLUDED_AG_MULTIMAP2D
 
 
-
-// Library headers.
-#include <boost/filesystem.hpp>
-
-// PCRaster library headers.
-
-// Module headers.
 #include "ag_Map.h"
 
+#include <filesystem>
 
 
 class QSplitter;
@@ -97,7 +91,7 @@ public:
 
   size_t           nrCols              () const;
 
-  void             saveAsPNG           (boost::filesystem::path const& path) const;
+  void             saveAsPNG           (std::filesystem::path const& path) const;
 
 };
 

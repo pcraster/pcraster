@@ -7,7 +7,6 @@
 #else
   #include <boost/bind.hpp>
 #endif
-#include <boost/filesystem.hpp>
 #include <boost/format.hpp>
 #include <boost/lexical_cast.hpp>
 
@@ -20,6 +19,8 @@
 #include "com_exception.h"
 
 // Module headers.
+
+#include <filesystem>
 
 
 #if BOOST_VERSION > 107200
@@ -129,7 +130,7 @@ Table::Table(
   }
   else {
       d_attrCol = table->indexOf(
-          boost::filesystem::path(name).filename().string());
+          std::filesystem::path(name).filename().string());
       d_attrCol = d_attrCol < table->nrCols() ? d_attrCol : 1;
   }
   assert(d_attrCol < table->nrCols());

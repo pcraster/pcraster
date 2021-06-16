@@ -21,7 +21,7 @@
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 ag::Map2DWindow::Map2DWindow(const qt::AppWindowProperties& props,
@@ -124,7 +124,7 @@ bool ag::Map2DWindow::dataVisualised() const
 
 
 void ag::Map2DWindow::saveAsPNG(
-         boost::filesystem::path const& path)
+         std::filesystem::path const& path)
 {
   d_map->saveAsPNG(path);
 }
@@ -132,13 +132,13 @@ void ag::Map2DWindow::saveAsPNG(
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE OPERATORS 
+// DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE FUNCTIONS 
+// DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
 

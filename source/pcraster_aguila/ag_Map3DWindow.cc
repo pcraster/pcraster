@@ -31,7 +31,7 @@ public:
 
   LegendView *     d_legendView;       // Legend view for drape view.
 
-  CursorView *     d_cursorView;       // Cursor view for drape view 
+  CursorView *     d_cursorView;       // Cursor view for drape view
 
   // Map3DEngine      d_engine;           // Engine for manipulating the views.
 
@@ -57,7 +57,7 @@ public:
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 ag::Map3DWindow::Map3DWindow(const qt::AppWindowProperties& props,
@@ -138,7 +138,7 @@ void ag::Map3DWindow::setHeight(
 
 
 void ag::Map3DWindow::saveAsPNG(
-         boost::filesystem::path const& path)
+         std::filesystem::path const& path)
 {
   d_map->saveAsPNG(path);
 }
@@ -221,13 +221,13 @@ bool ag::Map3DWindow::dataVisualised() const
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE OPERATORS 
+// DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE FUNCTIONS 
+// DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
 

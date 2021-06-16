@@ -3,9 +3,9 @@
 
 
 
-#include <boost/filesystem.hpp>
 #include "ag_MapWindow.h"
 
+#include <filesystem>
 
 
 namespace ag {
@@ -39,7 +39,7 @@ private:
 
   void             createInterface     ();
 
-  void             saveAsPNG           (boost::filesystem::path const& path);
+  void             saveAsPNG           (std::filesystem::path const& path);
 
 protected:
 

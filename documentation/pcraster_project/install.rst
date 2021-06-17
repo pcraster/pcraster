@@ -16,21 +16,22 @@ After install you can check which Python versions are supported by PCRaster:
    conda search -c conda-forge pcraster
 
 
-Afterwards you can create a new environment and install PCRaster, e.g. with:
+Afterwards you can create a new environment and install PCRaster, e.g. with the following steps:
 
 .. code-block:: console
 
-   conda create --name pcraster37 python=3.7 -c conda-forge
+   conda create --name pcraster -c conda-forge python
 
-   conda activate pcraster37
+   conda activate pcraster
 
    conda install -c conda-forge pcraster
 
+In case you would like to use a specific Python version you can set e.g. ``python=3.8``.
 You can also combine these steps and install additional packages in one go e.g. by:
 
 .. code-block:: console
 
-   conda create --name pcraster37 -c conda-forge python=3.7 pcraster spyder matplotlib
+   conda create --name pcraster -c conda-forge python pcraster spyder matplotlib
 
 
 
@@ -40,8 +41,8 @@ Always use the conda-forge channel when installing further packages into your PC
 
 
 .. note::
-   If you installed previous versions of PCRaster you need to remove their entries from the PATH and PYTHONPATH environment variables before activating your environment.
-   Modifying PATH and PYTHONPATH environment variables as required for previous PCRaster versions is not necessary anymore, this is done automatically when you activate your environment.
+   If you installed previous versions of PCRaster (4.2 or older) you need to remove their entries from the PATH and PYTHONPATH environment variables before activating your environment.
+   Modifying PATH and PYTHONPATH environment variables as required for previous PCRaster versions is not necessary anymore starting from version 4.3, the settings are done automatically when you activate your environment.
 
 
 
@@ -69,9 +70,9 @@ Afterwards start Python:
 
 .. code-block:: console
 
-   $ conda activate pcraster37
-   (pcraster37) $ aguila -h
-   (pcraster37) $ python
+   $ conda activate pcraster
+   (pcraster) $ aguila -h
+   (pcraster) $ python
 
 Import the PCRaster module, print the version number and afterwards create a raster with 6 rows, 4 columns, cell length 1 and 0, 0 as origin.
 Fill the entire raster with random values drawn from a uniform distribution and display the result:
@@ -99,8 +100,8 @@ The usage information will be shown:
 
 .. code-block:: console
 
-   (pcraster37) $ pcrcalc
-   pcrcalc 4.3.0 (linux/x86_64)
+   (pcraster) $ pcrcalc
+   pcrcalc 4.3.1 (linux/x86_64)
     USAGE: pcrcalc [options] "expression"
     or     pcrcalc [options] -f scriptFile
      ( or #!: pcrcalc -F [options]+)

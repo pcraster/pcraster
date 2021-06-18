@@ -446,9 +446,9 @@ void geo::CSFStackName::stackNamePool(std::vector<com::PathName>& pool) const
 
   // Directory iterator to retrieve file names.
   // Loop over all file names.
-  boost::filesystem::directory_iterator end_iter;
+  std::filesystem::directory_iterator end_iter;
 
-  for (boost::filesystem::directory_iterator f(directoryName.path());
+  for (std::filesystem::directory_iterator f(directoryName.path());
        f != end_iter; ++f) {
     if(isMemberOfStack(f->path().filename()))
       pool.push_back(f->path().filename());
@@ -719,7 +719,7 @@ com::PathName geo::CSFStackName::fileName(size_t t) const
   if(isDynamic()) {
     DEVELOP_PRECOND(!d_data->d_path.toString().empty());
     DEVELOP_PRECOND(d_data->d_path.toString().find(".") != d_data->d_path.toString().size() - 1);
-    return dal::timeStepPath83(d_data->d_path.path(), t);
+//     return dal::timeStepPath83(d_data->d_path.path(), t); todo filesystem
   }
   return d_data->d_path;
 }

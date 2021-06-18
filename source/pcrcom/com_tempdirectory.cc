@@ -9,10 +9,6 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_BOOST_FILESYSTEM
-#include <boost/filesystem.hpp>
-#define INCLUDED_BOOST_FILESYSTEM
-#endif
 #ifndef INCLUDED_SSTREAM
 #include <sstream>
 #define INCLUDED_SSTREAM
@@ -88,21 +84,21 @@ TempDirectory::TempDirectory(const std::string& prefix)
   try {
     d_name=prefix; // tmp setting in case of throwFileError
 
-    boost::filesystem::path tmpDir=tempDirectoryName().path();
+    std::filesystem::path tmpDir=tempDirectoryName().path();
 
     com::UniqueStringGenerator g;
     g.setPrefix(prefix);
-    boost::filesystem::path  pname;
+    std::filesystem::path  pname;
     do {
       pname = tmpDir;
       pname /= g.generate();
-    } while (boost::filesystem::exists(pname));
+    } while (std::filesystem::exists(pname));
 
-    boost::filesystem::create_directory(pname);
+    std::filesystem::create_directory(pname);
 
     d_name=pname;
 
-  } catch(const boost::filesystem::filesystem_error& e) {
+  } catch(const std::filesystem::filesystem_error& e) {
     throwFileError("creating",e.what());
   } catch(const com::Exception& e) {
     throwFileError("creating",e.messages());
@@ -145,7 +141,7 @@ TempDirectory& TempDirectory::operator=(
 */
 
 //! return the absolute name of this temporary directory
-const boost::filesystem::path& TempDirectory::name() const
+const std::filesystem::path& TempDirectory::name() const
 {
   return d_name;
 }
@@ -155,9 +151,9 @@ const boost::filesystem::path& TempDirectory::name() const
  * Example: if name() is /tmp/pcrcalcSwap1 then fileMember called with
  * fname=piet returns /tmp/pcrcalcSwap1/piet
  */
-boost::filesystem::path TempDirectory::memberPath(const std::string& member) const
+std::filesystem::path TempDirectory::memberPath(const std::string& member) const
 {
-  boost::filesystem::path pn(d_name);
+  std::filesystem::path pn(d_name);
   pn /= member;
   return pn;
 }
@@ -169,12 +165,12 @@ boost::filesystem::path TempDirectory::memberPath(const std::string& member) con
  */
 void TempDirectory::remove()
 {
-  using namespace boost::filesystem;
+  using namespace std::filesystem;
   try {
    remove_all(d_name);
   } catch(const filesystem_error& e) {
     throwFileError("removing",
-     com::replaceStrByStr(e.what(),"boost::filesystem::remove",""));
+     com::replaceStrByStr(e.what(),"std::filesystem::remove",""));
   } catch(const com::Exception& e) {
     throwFileError("removing",e.messages());
   } catch(...) {

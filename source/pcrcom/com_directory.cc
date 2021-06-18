@@ -18,11 +18,6 @@
 #define INCLUDED_VECTOR
 #endif
 
-#ifndef INCLUDED_BOOST_FILESYSTEM
-#include <boost/filesystem.hpp>
-#define INCLUDED_BOOST_FILESYSTEM
-#endif
-
 #ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
 #define INCLUDED_COM_EXCEPTION
@@ -191,7 +186,7 @@ void com::Directory::create(bool makeParentDirectories)
     if(pi.isDirectory())
       return; // already exists as an directory, done
     try {
-      boost::filesystem::create_directory(d_path.path());
+      std::filesystem::create_directory(d_path.path());
     } catch(...) {
        throw OpenFileErrnoMsg(d_path, "can not create directory");
     }
@@ -246,10 +241,10 @@ void com::Directory::erase(bool recurse)
 {
   try {
     if (recurse)
-      boost::filesystem::remove_all(d_path.path());
+      std::filesystem::remove_all(d_path.path());
     else {
       // Erase files and empty directories.
-      boost::filesystem::remove(d_path.path());
+      std::filesystem::remove(d_path.path());
     }
   } catch (...) {
       throw FileErrnoMsg(d_path, "can not delete directory: ");

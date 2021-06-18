@@ -1,13 +1,12 @@
 #define BOOST_TEST_MODULE pcraster com temp_directory
 #include <boost/test/unit_test.hpp>
 #include "stddefx.h"
-#include <boost/filesystem.hpp>
-#include <boost/filesystem/fstream.hpp>
 #include "com_tempdirectory.h"
 #include "com_exception.h"
 
+// #include <filesystem>
 
-namespace fs=boost::filesystem;
+namespace fs=std::filesystem;
 
 
 BOOST_AUTO_TEST_CASE(constructor_destructor)
@@ -50,7 +49,7 @@ BOOST_AUTO_TEST_CASE(remove_failure)
   TempDirectory td("pcrcalcSwap");
   fs::path  toOpenForWriting=td.memberPath("toOpenForWriting");
 
-  fs::basic_ofstream<char> bofs(toOpenForWriting);
+  std::ofstream bofs{toOpenForWriting};
 
   BOOST_CHECK(bofs.is_open());
 

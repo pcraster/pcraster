@@ -47,11 +47,6 @@
 #define INCLUDED_CCTYPE
 #endif
 
-#ifndef INCLUDED_BOOST_FILESYSTEM
-#include <boost/filesystem.hpp>
-#define INCLUDED_BOOST_FILESYSTEM
-#endif
-
 #ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
 #define INCLUDED_COM_EXCEPTION
@@ -61,6 +56,8 @@
 #include "com_pathinfo.h"
 #define INCLUDED_COM_PATHINFO
 #endif
+
+// #include <filesystem>
 
 /*!
   \file
@@ -201,7 +198,7 @@ void com::move(const PathName& from, const PathName& to)
 void com::remove(const PathName &fileName)
 {
   PRECOND(!fileName.toString().empty());
-  namespace fs=boost::filesystem;
+  namespace fs=std::filesystem;
   fs::path pn(fileName.path());
 
   if(fs::exists(pn)) {

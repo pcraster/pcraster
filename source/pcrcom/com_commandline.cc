@@ -19,11 +19,6 @@
 #define INCLUDED_SSTREAM
 #endif
 
-#ifndef INCLUDED_BOOST_FILESYSTEM
-#include <boost/filesystem.hpp>
-#define INCLUDED_BOOST_FILESYSTEM
-#endif
-
 // PCRaster library headers.
 
 // Module headers.
@@ -66,7 +61,7 @@ com::CommandLine::CommandLine(const std::string& name,
                    const std::string& version, const std::string& argv0)
 
   : d_name(name), d_version(version), d_command(
-    boost::filesystem::path(argv0).filename().string())
+    std::filesystem::path(argv0).filename().string())
 
 {
 }

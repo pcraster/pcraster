@@ -515,17 +515,17 @@ BOOST_AUTO_TEST_CASE(add)
   // "" + ""
   pn = PathName("") + PathName("");
   result = "";
-  BOOST_CHECK(pn == result);
+  BOOST_CHECK_EQUAL(pn, result);
 
   // "/" + ""
   pn = PathName(d_slash) + PathName("");
   result = d_slash;
-  BOOST_CHECK(pn == result);
+  BOOST_CHECK_EQUAL(pn, result);
 
   // "" + "/"
   pn = PathName("") + PathName(d_slash);
   result = d_slash;
-  BOOST_CHECK(pn == result);
+  BOOST_CHECK_EQUAL(pn, result);
 
   // "/" + "/"
   pn = PathName(d_slash) + PathName(d_slash);
@@ -536,18 +536,18 @@ BOOST_AUTO_TEST_CASE(add)
   // "bla" + ""
   pn = PathName("bla") + PathName("");
   result = "bla";
-  BOOST_CHECK(pn == result);
+  BOOST_CHECK_EQUAL(pn, result);
 
   // "" + "bla"
   pn = PathName("") + PathName("bla");
   result = "bla";
-  BOOST_CHECK(pn == result);
+  BOOST_CHECK_EQUAL(pn, result);
 
   // "bla" + "/"
   pn = PathName("bla") + PathName(d_slash);
 #ifdef WIN32
   result = "bla" + d_slash;
-  BOOST_CHECK(pn == result);
+  BOOST_CHECK_EQUAL(pn, result);
 #else
   result = "bla";
 #endif
@@ -818,7 +818,7 @@ BOOST_AUTO_TEST_CASE(unc)
 #endif
 
   PathName pn("\\\\P4\\bin");
-  boost::filesystem::path bp("//P4/bin");
+  std::filesystem::path bp("//P4/bin");
   BOOST_CHECK_EQUAL(bp.root_name(), "//P4");
   BOOST_CHECK_EQUAL(pn.directoryName(), "\\\\P4\\");
 }

@@ -84,7 +84,7 @@ int com::PathName::compare(
 }
 
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 //! Constructor.
@@ -127,7 +127,7 @@ com::PathName::PathName(const std::string &pn)
              performed by this constructor. It is assumed that \a path already
              is valid.
 */
-com::PathName::PathName(boost::filesystem::path const& path)
+com::PathName::PathName(std::filesystem::path const& path)
 
   : d_path(path)
 
@@ -545,7 +545,7 @@ bool com::PathName::empty() const
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE OPERATORS 
+// DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 /*!
@@ -584,7 +584,7 @@ bool com::operator<(const PathName &rhs, const PathName &lhs)
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE FUNCTIONS 
+// DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
 //! Concatenates \a secondPart to \a firstPart.

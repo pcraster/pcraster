@@ -23,10 +23,6 @@
 #define INCLUDED_SET
 #endif
 
-#ifndef INCLUDED_BOOST_FILESYSTEM
-#include <boost/filesystem.hpp>
-#define INCLUDED_BOOST_FILESYSTEM
-#endif
 
 #ifdef WIN32
 
@@ -326,7 +322,7 @@ bool com::PathInfo::exists() const
 */
 bool com::PathInfo::isDirectory() const
 {
-  return exists() && boost::filesystem::is_directory(d_pathName.path());
+  return exists() && std::filesystem::is_directory(d_pathName.path());
 }
 
 

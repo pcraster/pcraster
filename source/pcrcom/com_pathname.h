@@ -23,10 +23,7 @@
 #define INCLUDED_VECTOR
 #endif
 
-#ifndef INCLUDED_BOOST_FILESYSTEM
-#include <boost/filesystem.hpp>
-#define INCLUDED_BOOST_FILESYSTEM
-#endif
+#include <filesystem>
 
 
 
@@ -42,7 +39,7 @@ extern const char DRIVE_DELIM;
 
 //! The PathName class is for objects which represent the name of a path.
 /*!
-   CVS 2.0 and up is based on boost::filesystem::path, prior (1.X is own code).
+   CVS 2.0 and up is based on std::filesystem::path, prior (1.X is own code).
 
   \sa PathInfo, Directory
 
@@ -114,7 +111,7 @@ public:
                       const std::string& pathFragment2);
 
 private:
-  typedef boost::filesystem::path  Path;
+  typedef std::filesystem::path  Path;
   Path                             d_path;
 
   void set(const std::string& path);
@@ -147,7 +144,7 @@ public:
 
                    PathName            (const std::string& pn);
 
-                   PathName            (boost::filesystem::path const& path);
+                   PathName            (std::filesystem::path const& path);
 
                    PathName            (const PathName& pn);
 

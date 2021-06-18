@@ -8,20 +8,8 @@
 #define INCLUDED_STDDEFX
 #endif
 
-// Library headers.
-#ifndef INCLUDED_STRING
+#include <filesystem>
 #include <string>
-#define INCLUDED_STRING
-#endif
-#ifndef INCLUDED_BOOST_FILESYSTEM
-#include <boost/filesystem.hpp>
-#define INCLUDED_BOOST_FILESYSTEM
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-
 
 
 namespace com {
@@ -55,7 +43,7 @@ private:
   /*!  - basename/leaf starts with ctor prefix arg
    *   - directorypart is from PathInfo::tempDirectoryName()
    */
-  boost::filesystem::path  d_name;
+  std::filesystem::path  d_name;
 
   void throwFileError(const char *when, const std::string& what) const;
 
@@ -77,8 +65,8 @@ public:
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  const boost::filesystem::path& name          () const;
-  boost::filesystem::path        memberPath    (const std::string& member) const;
+  const std::filesystem::path& name          () const;
+  std::filesystem::path        memberPath    (const std::string& member) const;
 
 };
 

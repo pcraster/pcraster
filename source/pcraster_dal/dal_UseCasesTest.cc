@@ -1,11 +1,11 @@
 #define BOOST_TEST_MODULE pcraster dal use_cases
 #include <boost/test/unit_test.hpp>
-#include <boost/filesystem.hpp>
 #include "dev_GDalClient.h"
 #include "dal_Exception.h"
 #include "dal_Library.h"
 #include "dal_RasterDal.h"
 #include "dal_Client.h"
+#include <filesystem>
 
 // static dal::Client client("/my/path/use_cases_test", true);
 
@@ -64,8 +64,8 @@ BOOST_AUTO_TEST_CASE(test1)
   }
 
   // remainder assume avtutor dataset for Spatial Analyst existing
-  boost::filesystem::path avtutor("c:/esri/av_gis30/avtutor/spatial");
-  if (!boost::filesystem::exists(avtutor))
+  std::filesystem::path avtutor("c:/esri/av_gis30/avtutor/spatial");
+  if (!std::filesystem::exists(avtutor))
     return;
 
   // TODO NEXT move test from pcrgeo bil to here, make sure .stx is written

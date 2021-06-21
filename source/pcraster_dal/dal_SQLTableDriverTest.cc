@@ -1,6 +1,5 @@
 #define BOOST_TEST_MODULE pcraster dal sql_table_driver
 #include <boost/test/unit_test.hpp>
-#include <boost/filesystem.hpp>
 #include <QCoreApplication>
 #include "dev_Utils.h"
 #include "dal_Def.h"
@@ -9,6 +8,7 @@
 #define protected public
 #include "dev_QtClient.h"
 #include "dal_Client.h"
+#include <filesystem>
 
 
 static int argc = 1;
@@ -750,20 +750,20 @@ BOOST_AUTO_TEST_CASE(sqlite)
   // This code checks whether this behaviour still works.
   {
     std::string name = "DoesNotExist";
-    BOOST_CHECK(!boost::filesystem::exists(name));
+    BOOST_CHECK(!std::filesystem::exists(name));
 
     boost::shared_ptr<Dataset> dataset(dynamic_cast<Driver const&>(
          driver).open(name));
 
     BOOST_CHECK(!dataset);
-    BOOST_CHECK(!boost::filesystem::exists(name));
+    BOOST_CHECK(!std::filesystem::exists(name));
   }
 
   // Read a time series from a table in an SQLite database.
   {
     std::string name = "MyDatabase.sql3/timesteps/co2";
 
-    BOOST_REQUIRE(boost::filesystem::exists("MyDatabase.sql3"));
+    BOOST_REQUIRE(std::filesystem::exists("MyDatabase.sql3"));
     BOOST_CHECK(dynamic_cast<Driver const&>(driver).exists(name));
 
     DataSpace space = dynamic_cast<Driver const&>(driver).dataSpace(name);
@@ -808,7 +808,7 @@ BOOST_AUTO_TEST_CASE(sqlite)
   {
     std::string name = "MyDatabase.sql3/quantiles/co2";
 
-    BOOST_REQUIRE(boost::filesystem::exists("MyDatabase.sql3"));
+    BOOST_REQUIRE(std::filesystem::exists("MyDatabase.sql3"));
     BOOST_CHECK(dynamic_cast<Driver const&>(driver).exists(name));
 
     DataSpace space = dynamic_cast<Driver const&>(driver).dataSpace(name);

@@ -470,7 +470,7 @@ void VisualisationWindow::saveAs(
   dal::DataSpaceAddress originalDataSpaceAddress(dataSpaceAddress());
 
   // Collection of (address, file name) tuples.
-  typedef boost::tuple<dal::DataSpaceAddress, boost::filesystem::path>
+  typedef boost::tuple<dal::DataSpaceAddress, std::filesystem::path>
          AddressPathTuple;
   std::vector<AddressPathTuple> addressPathTuples;
 
@@ -481,7 +481,7 @@ void VisualisationWindow::saveAs(
 ///   // If the iteration space contains scenarios, replace them with the name of
 ///   // the directory to write the output in. Otherwise add a scenario with this
 ///   // name.
-  boost::filesystem::path path(dal::pathFor(name));
+  std::filesystem::path path(dal::pathFor(name));
   std::string branchPath(path.parent_path().string());
   name = path.filename().string();
 ///   size_t index = iterationSpace.indexOf(dal::Scenarios);
@@ -525,7 +525,7 @@ void VisualisationWindow::saveAs(
       break;
     }
     else {
-      boost::filesystem::path path(boost::get<1>(addressPathTuples[i]));
+      std::filesystem::path path(boost::get<1>(addressPathTuples[i]));
       // dal::testPathIsWritable(path);
 
       // com::PathInfo pathInfo(boost::get<1>(addressPathTuples[i]));
@@ -550,10 +550,10 @@ void VisualisationWindow::saveAs(
       dataObject().setDataSpaceAddress(boost::get<0>(addressPathTuples[i]));
 
       if(format == format.png()) {
-        // saveAsPNG(path); todo filesystem
+        saveAsPNG(path);
       }
       else if(format == format.eps()) {
-        // saveAsEPS(path); todo filesystem
+        saveAsEPS(path);
       }
       else {
         assert(false);

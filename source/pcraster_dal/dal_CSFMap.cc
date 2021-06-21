@@ -4,10 +4,6 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_BOOST_FILESYSTEM
-#include <boost/filesystem.hpp>
-#define INCLUDED_BOOST_FILESYSTEM
-#endif
 
 #ifndef INCLUDED_BOOST_SCOPED_ARRAY
 #include <boost/scoped_array.hpp>
@@ -32,7 +28,7 @@
 #define INCLUDED_DAL_UTILS
 #endif
 
-
+#include <filesystem>
 
 /*!
   \file
@@ -140,7 +136,7 @@ template<typename T> static boost::any getExtremeImpl(
   \param     allowUpdate Whether or not the raster should be opened in r/w mode.
 */
 dal::CSFMap::CSFMap(
-         boost::filesystem::path const& path,
+         std::filesystem::path const& path,
          bool allowUpdate)
 
   : d_path(path), d_map(nullptr)
@@ -168,7 +164,7 @@ dal::CSFMap::CSFMap(
    extension. Should do it once, but not now
 */
 dal::CSFMap::CSFMap(
-         boost::filesystem::path const& path,
+         std::filesystem::path const& path,
          size_t nrRows,
          size_t nrCols,
          double west,

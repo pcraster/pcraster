@@ -18,7 +18,7 @@
 
 class ClientWrapper : public dal::Client {
 public:
-  ClientWrapper(boost::filesystem::path const& prefix,
+  ClientWrapper(std::filesystem::path const& prefix,
                    bool addAllDrivers=false,
                    bool cacheDatasetInfo=true)
   : dal::Client(prefix, addAllDrivers) {
@@ -456,7 +456,7 @@ BOOST_AUTO_TEST_CASE(dataset_1)
 
   // Data space with time steps. Time steps extend beyond the available steps.
   {
-    std::string datasetName = (boost::filesystem::path("dataset1")
+    std::string datasetName = (std::filesystem::path("dataset1")
          / "aap" / "scalar").string();
 
     DataSpace space;
@@ -558,7 +558,7 @@ BOOST_AUTO_TEST_CASE(dataset_1)
 
   // Data space with time steps. Time steps narrower then the available steps.
   {
-    std::string datasetName = (boost::filesystem::path("dataset1")
+    std::string datasetName = (std::filesystem::path("dataset1")
          / "aap" / "scalar").string();
 
     DataSpace space;
@@ -634,7 +634,7 @@ BOOST_AUTO_TEST_CASE(dataset_1)
 
   // Data space with time steps. Interval > 1.
   {
-    std::string datasetName = (boost::filesystem::path("dataset1")
+    std::string datasetName = (std::filesystem::path("dataset1")
          / "aap" / "scalar").string();
 
     DataSpace space;
@@ -732,7 +732,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
 
   // Data space with quantiles.
   {
-    std::string datasetName = (boost::filesystem::path("dataset1")
+    std::string datasetName = (std::filesystem::path("dataset1")
          / "aap" / "quantile_10").string();
 
     DataSpace space;
@@ -880,7 +880,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
 
   // Data space with quantiles and time.
   {
-    std::string datasetName = (boost::filesystem::path("dataset1")
+    std::string datasetName = (std::filesystem::path("dataset1")
          / "aap" / "quantile").string();
 
     DataSpace space;
@@ -1220,13 +1220,13 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
 
     std::set<std::string> scenarios;
     std::string aap(
-         (boost::filesystem::path("dataset1") / "aap").string());
+         (std::filesystem::path("dataset1") / "aap").string());
     std::string noot(
-         (boost::filesystem::path("dataset1") / "noot").string());
+         (std::filesystem::path("dataset1") / "noot").string());
     std::string mies(
-         (boost::filesystem::path("dataset1") / "mies").string());
+         (std::filesystem::path("dataset1") / "mies").string());
     std::string teun(
-         (boost::filesystem::path("dataset1") / "teun").string());
+         (std::filesystem::path("dataset1") / "teun").string());
     scenarios.insert(aap);
     scenarios.insert(noot);
     scenarios.insert(mies);
@@ -1249,11 +1249,11 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
     {
       std::set<std::string> scenarios;
       std::string aap(
-           (boost::filesystem::path("dataset1") / "aap").string());
+           (std::filesystem::path("dataset1") / "aap").string());
       std::string noot(
-           (boost::filesystem::path("dataset1") / "noot").string());
+           (std::filesystem::path("dataset1") / "noot").string());
       std::string mies(
-           (boost::filesystem::path("dataset1") / "mies").string());
+           (std::filesystem::path("dataset1") / "mies").string());
       scenarios.insert(aap);
       scenarios.insert(mies);
       scenarios.insert(noot);

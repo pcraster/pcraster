@@ -4,10 +4,6 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_BOOST_FILESYSTEM
-#include <boost/filesystem.hpp>
-#define INCLUDED_BOOST_FILESYSTEM
-#endif
 
 #ifndef INCLUDED_BOOST_FORMAT
 #include <boost/format.hpp>
@@ -26,6 +22,8 @@
 #include "dal_FilesystemUtils.h"
 #define INCLUDED_DAL_FILESYSTEMUTILS
 #endif
+
+#include <filesystem>
 
 
 
@@ -195,7 +193,7 @@ Block* VTKBlockDriver::read(
 
 void VTKBlockDriver::write(
          Block const& block,
-         boost::filesystem::path const& path) const
+         std::filesystem::path const& path) const
 {
   assert(
          block.containsDiscretisationInfo() ||

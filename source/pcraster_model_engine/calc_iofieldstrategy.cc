@@ -157,7 +157,7 @@ void calc::IoFieldStrategy::throwCloneDiffers(
     can be created after calling this methode.
     In normal Csf output it does not do anything,
     since the map and tss creation routines will simply create single
-    files, destroying old ones under that name. 
+    files, destroying old ones under that name.
     \todo
       check for read-only-ness here?
  */
@@ -294,7 +294,7 @@ std::string calc::IoFieldStrategy::makeStackItemName(
     const std::string& iname,
     int   atTimeStep) const
 {
-  boost::filesystem::path p =dal::timeStepPath83(boost::filesystem::path(iname),atTimeStep);
+  std::filesystem::path p =dal::timeStepPath83(std::filesystem::path(iname),atTimeStep);
   com::PathName pn(p.string());
   pn.makeNative();
   return pn.toString();

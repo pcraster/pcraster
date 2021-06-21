@@ -9,11 +9,6 @@
 #define INCLUDED_CASSERT
 #endif
 
-#ifndef INCLUDED_BOOST_FILESYSTEM
-#include <boost/filesystem.hpp>
-#define INCLUDED_BOOST_FILESYSTEM
-#endif
-
 // PCRaster library headers.
 
 // Module headers.
@@ -31,6 +26,8 @@
 #include "dal_Raster.h"
 #define INCLUDED_DAL_RASTER
 #endif
+
+#include <filesystem>
 
 
 namespace dal {
@@ -82,13 +79,13 @@ protected:
 
                    RasterDriver        (Format const& format);
 
-  boost::filesystem::path pathFor      (std::string const& name,
+  std::filesystem::path pathFor      (std::string const& name,
                                         DataSpace const& space,
                                         DataSpaceAddress const& address) const;
 
   void             browseFileBasedRasterAttributes(
                                         std::vector<BrowseInfo>& attributes,
-                                        boost::filesystem::path const& path,
+                                        std::filesystem::path const& path,
                                         FilenameConventions conventions) const;
 
 public:

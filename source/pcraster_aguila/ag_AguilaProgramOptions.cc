@@ -6,7 +6,6 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/format.hpp>
 #include <boost/spirit/include/classic.hpp>
-#include <boost/filesystem.hpp>
 
 // PCRaster library headers.
 #include "pcrxsd_dominput.h"
@@ -19,6 +18,7 @@
 // Module headers.
 #include "ag_XMLViewItems.h"
 
+#include <filesystem>
 
 
 /*!
@@ -632,7 +632,7 @@ void AguilaProgramOptions::obtainProgramOptions(
     if(variables.count("config")) {
       d_configFileName = variables["config"].as<std::string>();
       boost::trim(d_configFileName);
-      boost::filesystem::path path(d_configFileName);
+      std::filesystem::path path(d_configFileName);
       dal::testFileCanBeOpenedForReading(path);
       std::ifstream stream(path.string().c_str());
       po::store(parse_config_file(stream, configFileOptions), variables);
@@ -642,7 +642,7 @@ void AguilaProgramOptions::obtainProgramOptions(
     if(variables.count("xml")) {
       d_configFileName = variables["xml"].as<std::string>();
       boost::trim(d_configFileName);
-      boost::filesystem::path path(d_configFileName);
+      std::filesystem::path path(d_configFileName);
       dal::testFileCanBeOpenedForReading(path);
 
       delete d_configuration;
@@ -665,7 +665,7 @@ void AguilaProgramOptions::obtainProgramOptions(
     }
 
     if(variables.count("help")) {
-      boost::filesystem::path path(argv[0]);
+      std::filesystem::path path(argv[0]);
       std::ostringstream stream;
       stream << "<pre>" << path.filename() << " [options] defaultViews\n" << visibleOptions << "</pre>";
       d_help=stream.str();

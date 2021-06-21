@@ -34,11 +34,6 @@
 #define INCLUDED_BOOST_BIND
 #endif
 
-#ifndef INCLUDED_BOOST_FILESYSTEM
-#include <boost/filesystem.hpp>
-#define INCLUDED_BOOST_FILESYSTEM
-#endif
-
 #ifndef INCLUDED_CPL_CONV
 #include "cpl_conv.h"
 #define INCLUDED_CPL_CONV
@@ -90,7 +85,7 @@ namespace detail {
   Reads and stores relevant settings from the environment.
 */
 Environment::Environment(
-         boost::filesystem::path const& prefix)
+         std::filesystem::path const& prefix)
 {
   readFormatNames();
   handleGdalData(prefix);
@@ -155,7 +150,7 @@ void Environment::readFormatNames()
   not set correctly, the WCS driver will fail upon opening data.
 */
 void Environment::handleGdalData(
-         boost::filesystem::path const& prefix)
+         std::filesystem::path const& prefix)
 {
   std::string variable = dev::environmentVariable("GDAL_DATA");
   std::string gdalData;
@@ -164,7 +159,7 @@ void Environment::handleGdalData(
     _gdalData = dev::environmentVariable("GDAL_DATA");
   }
   else {
-    boost::filesystem::path result(prefix); // /usr
+    std::filesystem::path result(prefix); // /usr
 
     result = result / "share" / "gdal";     // /usr/share/gdal
     _gdalData = result.string();

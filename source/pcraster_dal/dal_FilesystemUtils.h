@@ -4,10 +4,6 @@
 
 
 // Library headers.
-#ifndef INCLUDED_BOOST_FILESYSTEM
-#include <boost/filesystem.hpp>
-#define INCLUDED_BOOST_FILESYSTEM
-#endif
 
 // PCRaster library headers.
 
@@ -27,6 +23,8 @@
 #define INCLUDED_DAL_DEF
 #endif
 
+#include <filesystem>
+
 
 
 namespace boost {
@@ -42,9 +40,9 @@ namespace dal {
 
 namespace dal {
 
-PCR_DAL_DECL bool  isReadable          (boost::filesystem::path const& path);
+PCR_DAL_DECL bool  isReadable          (std::filesystem::path const& path);
 
-PCR_DAL_DECL bool  isWritable          (boost::filesystem::path const& path);
+PCR_DAL_DECL bool  isWritable          (std::filesystem::path const& path);
 
 void               testPathnameIsEmpty (std::string const& pathName);
 
@@ -52,70 +50,70 @@ void               testPathnameIsEmpty (std::string const& pathName);
 
 // PCR_DAL_DECL void testPathnameIsNative(std::string const& pathname);
 
-void               testPathExists      (boost::filesystem::path const& path);
+void               testPathExists      (std::filesystem::path const& path);
 
 void               testPathIsFileOrLinkToFile(
-                                        boost::filesystem::path const& path);
+                                        std::filesystem::path const& path);
 
-void               testPathIsReadable  (boost::filesystem::path const& path);
+void               testPathIsReadable  (std::filesystem::path const& path);
 
-PCR_DAL_DECL void  testPathIsWritable  (boost::filesystem::path const& path);
+PCR_DAL_DECL void  testPathIsWritable  (std::filesystem::path const& path);
 
 PCR_DAL_DECL void  testFileCanBeOpenedForReading(
-                                        boost::filesystem::path const& path);
+                                        std::filesystem::path const& path);
 
-PCR_DAL_DECL boost::filesystem::path timeStepPath83(
+PCR_DAL_DECL std::filesystem::path timeStepPath83(
                                         std::string const& parent,
                                         std::string filename,
                                         size_t timeStep);
 
-PCR_DAL_DECL boost::filesystem::path timeStepPath83(
-                                        boost::filesystem::path const& path,
+PCR_DAL_DECL std::filesystem::path timeStepPath83(
+                                        std::filesystem::path const& path,
                                         size_t timeStep);
 
-PCR_DAL_DECL boost::filesystem::path timeStepPathNewStyle(
+PCR_DAL_DECL std::filesystem::path timeStepPathNewStyle(
                                         std::string const& parent,
                                         std::string filename,
                                         size_t timeStep);
 
-PCR_DAL_DECL boost::filesystem::path timeStepPath(
+PCR_DAL_DECL std::filesystem::path timeStepPath(
                                         std::string const& parent,
                                         std::string const& filename,
                                         size_t timeStep,
                                         FilenameConvention convention=DALConvention);
 
-PCR_DAL_DECL boost::filesystem::path timeStepPath   (boost::filesystem::path const& path,
+PCR_DAL_DECL std::filesystem::path timeStepPath   (std::filesystem::path const& path,
                                         size_t timeStep,
                                         FilenameConvention convention=DALConvention);
 
-PCR_DAL_DECL boost::filesystem::path timeStepPath   (boost::filesystem::path const& path,
+PCR_DAL_DECL std::filesystem::path timeStepPath   (std::filesystem::path const& path,
                                         boost::gregorian::date const& date,
                                         FilenameConvention convention=DALConvention);
 
-bool               canBeOpenedForReading(boost::filesystem::path const& path);
+bool               canBeOpenedForReading(std::filesystem::path const& path);
 
-PCR_DAL_DECL bool  exists              (boost::filesystem::path const& path);
+PCR_DAL_DECL bool  exists              (std::filesystem::path const& path);
 
 PCR_DAL_DECL bool  pathExists          (std::string const& name,
                                         DataSpace const& space,
                                         DataSpaceAddress const& address,
                                         FilenameConvention convention=DALConvention);
 
-bool               remove              (boost::filesystem::path const& path);
+bool               remove              (std::filesystem::path const& path);
 
-PCR_DAL_DECL boost::filesystem::path addExtensionIfNeeded(
+PCR_DAL_DECL std::filesystem::path addExtensionIfNeeded(
                                        std::string const& name,
                                        std::string const& extension);
 
-boost::filesystem::path addExtensionIfNeeded(
-                                       boost::filesystem::path const& path,
+std::filesystem::path addExtensionIfNeeded(
+                                       std::filesystem::path const& path,
                                        std::string const& extension);
 
 PCR_DAL_DECL boost::tuple<std::string, dal::DataSpace>
                    oldStackName2NameSpaceTuple(
                                         std::string const& name);
 
-PCR_DAL_DECL boost::filesystem::path pathForDataSpaceAddress(
+PCR_DAL_DECL std::filesystem::path pathForDataSpaceAddress(
                                         std::string const& name,
                                         DataSpace const& space,
                                         DataSpaceAddress const& address,
@@ -125,7 +123,7 @@ PCR_DAL_DECL boost::filesystem::path pathForDataSpaceAddress(
 //   With quantile.
 //     With sample.
 //       With time.
-boost::filesystem::path pathForScenarioQuantileSampleTime(
+std::filesystem::path pathForScenarioQuantileSampleTime(
                                         std::string const& name,
                                         std::string const& scenarioName,
                                         float quantile,
@@ -134,7 +132,7 @@ boost::filesystem::path pathForScenarioQuantileSampleTime(
                                         FilenameConvention convention=DALConvention);
 
 //       Without time.
-boost::filesystem::path pathForScenarioQuantileSample(
+std::filesystem::path pathForScenarioQuantileSample(
                                         std::string const& name,
                                         std::string const& scenarioName,
                                         float quantile,
@@ -142,7 +140,7 @@ boost::filesystem::path pathForScenarioQuantileSample(
                                         FilenameConvention convention=DALConvention);
 //     Without sample.
 //       With time.
-boost::filesystem::path pathForScenarioQuantileTime(
+std::filesystem::path pathForScenarioQuantileTime(
                                         std::string const& name,
                                         std::string const& scenarioName,
                                         float quantile,
@@ -150,7 +148,7 @@ boost::filesystem::path pathForScenarioQuantileTime(
                                         FilenameConvention convention=DALConvention);
 
 //       Without time.
-boost::filesystem::path pathForScenarioQuantile(
+std::filesystem::path pathForScenarioQuantile(
                                         std::string const& name,
                                         std::string const& scenarioName,
                                         float quantile,
@@ -159,7 +157,7 @@ boost::filesystem::path pathForScenarioQuantile(
 //   Without quantile.
 //     With sample.
 //       With time.
-boost::filesystem::path pathForScenarioSampleTime(
+std::filesystem::path pathForScenarioSampleTime(
                                         std::string const& name,
                                         std::string const& scenarioName,
                                         size_t sampleNumber,
@@ -167,7 +165,7 @@ boost::filesystem::path pathForScenarioSampleTime(
                                         FilenameConvention convention=DALConvention);
 
 //       Without time.
-boost::filesystem::path pathForScenarioSample(
+std::filesystem::path pathForScenarioSample(
                                         std::string const& name,
                                         std::string const& scenarioName,
                                         size_t sampleNumber,
@@ -175,14 +173,14 @@ boost::filesystem::path pathForScenarioSample(
 
 //     Without sample.
 //       With time.
-boost::filesystem::path pathForScenarioTime(
+std::filesystem::path pathForScenarioTime(
                                         std::string const& name,
                                         std::string const& scenarioName,
                                         size_t timeStep,
                                         FilenameConvention convention=DALConvention);
 
 //       Without time.
-boost::filesystem::path pathForScenario(std::string const& name,
+std::filesystem::path pathForScenario(std::string const& name,
                                         std::string const& scenarioName,
                                         FilenameConvention convention=DALConvention);
 
@@ -190,7 +188,7 @@ boost::filesystem::path pathForScenario(std::string const& name,
 //   With quantile.
 //     With sample.
 //       With time.
-boost::filesystem::path pathForQuantileSampleTime(
+std::filesystem::path pathForQuantileSampleTime(
                                          std::string const& name,
                                          float quantile,
                                          size_t sampleNumber,
@@ -198,7 +196,7 @@ boost::filesystem::path pathForQuantileSampleTime(
                                          FilenameConvention convention=DALConvention);
 
 //       Without time.
-boost::filesystem::path pathForQuantileSample(
+std::filesystem::path pathForQuantileSample(
                                         std::string const& name,
                                         float quantile,
                                         size_t sampleNumber,
@@ -206,39 +204,39 @@ boost::filesystem::path pathForQuantileSample(
 
 //     Without sample.
 //       With time.
-boost::filesystem::path pathForQuantileTime(
+std::filesystem::path pathForQuantileTime(
                                         std::string const& name,
                                         float quantile,
                                         size_t timeStep,
                                         FilenameConvention convention=DALConvention);
 
 //       Without time.
-boost::filesystem::path pathForQuantile(std::string const& name,
+std::filesystem::path pathForQuantile(std::string const& name,
                                         float quantile,
                                         FilenameConvention convention=DALConvention);
 
 //   Without quantile.
 //     With sample.
 //       With time.
-boost::filesystem::path pathForSampleTime(
+std::filesystem::path pathForSampleTime(
                                         std::string const& name,
                                         size_t sampleNumber,
                                         size_t timeStep,
                                         FilenameConvention convention=DALConvention);
 
 //       Without time.
-boost::filesystem::path pathForSample  (std::string const& name,
+std::filesystem::path pathForSample  (std::string const& name,
                                         size_t sampleNumber,
                                         FilenameConvention convention=DALConvention);
 
 //     Without sample.
 //       With time.
-boost::filesystem::path pathForTime    (std::string const& name,
+std::filesystem::path pathForTime    (std::string const& name,
                                         size_t timeStep,
                                         FilenameConvention convention=DALConvention);
 
 //       Without time.
-PCR_DAL_DECL boost::filesystem::path pathFor(std::string const& name);
+PCR_DAL_DECL std::filesystem::path pathFor(std::string const& name);
 
 // std::string fixPathname                (std::string const& name);
 
@@ -286,7 +284,7 @@ inline boost::tuple<bool, FilenameConvention, std::string>
   if(!space.isEmpty()) {
     // Check convention without extension.
     if(space.hasTime() &&
-      boost::filesystem::path(name).extension().string().size() < 4) {
+      std::filesystem::path(name).extension().string().size() < 4) {
       if(callBack(pathForDataSpaceAddress(name, space, address,
          PCRConvention).string())) {
         return boost::make_tuple(true, PCRConvention, std::string());
@@ -308,7 +306,7 @@ inline boost::tuple<bool, FilenameConvention, std::string>
 }
 
 void               possibleFileBasedAttributeFileNames(
-                                        boost::filesystem::path const& path,
+                                        std::filesystem::path const& path,
                                         std::vector<std::string>& leaves);
 
 } // namespace dal

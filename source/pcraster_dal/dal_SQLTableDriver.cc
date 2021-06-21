@@ -14,10 +14,6 @@
 #define INCLUDED_BOOST_BIND
 #endif
 
-#ifndef INCLUDED_BOOST_FILESYSTEM
-#include <boost/filesystem.hpp>
-#define INCLUDED_BOOST_FILESYSTEM
-#endif
 
 #ifndef INCLUDED_BOOST_FORMAT
 #include <boost/format.hpp>
@@ -62,6 +58,7 @@
 #define INCLUDED_DAL_UTILS
 #endif
 
+#include <filesystem>
 
 
 /*!
@@ -259,7 +256,7 @@ bool SQLTableDriver::databaseExists(
 
   if(database.isValid()) {
     // TODO See remarks below (search for QSQLITE).
-    if(this->name() != "QSQLITE" || boost::filesystem::exists(
+    if(this->name() != "QSQLITE" || std::filesystem::exists(
          info.database())) {
       result = database.open();
     }
@@ -315,7 +312,7 @@ ConnectionInfo dal::SQLTableDriver::connectionInfoFor(
       else {
         assert(result.isValid());
 
-        boost::filesystem::path path(pathForDataSpaceAddress(
+        std::filesystem::path path(pathForDataSpaceAddress(
               result.database() + defaultExtension(name, space),
               DataSpace(), DataSpaceAddress(),
               filenameConvention(name, space)));
@@ -513,7 +510,7 @@ Table* SQLTableDriver::open(
   // We don't want files to automagically be created.
   // This may be a general thing. A database is created when it is opened. (?)
   // TODO Better to use dbms specific master table property.
-  if(this->name() == "QSQLITE" && !boost::filesystem::exists(
+  if(this->name() == "QSQLITE" && !std::filesystem::exists(
        info.database())) {
     return nullptr;
   }

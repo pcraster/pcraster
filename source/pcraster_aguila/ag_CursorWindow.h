@@ -3,7 +3,7 @@
 
 
 #include "ag_VisualisationDialog.h"
-#include <boost/filesystem.hpp>
+#include <filesystem>
 
 
 
@@ -36,8 +36,8 @@ private:
   QPushButton*     d_save;
   QPushButton*     d_get;
 
-  boost::filesystem::path d_cursorValueMonitorPath;
-  boost::filesystem::path d_fileToGetCursorValue;
+  std::filesystem::path d_cursorValueMonitorPath;
+  std::filesystem::path d_fileToGetCursorValue;
 
   //! Assignment operator. NOT IMPLEMENTED.
   CursorWindow&    operator=           (CursorWindow const& rhs);
@@ -47,7 +47,7 @@ private:
 
   void             createInterface     ();
 
-  void             saveToText          (boost::filesystem::path const& path);
+  void             saveToText          (std::filesystem::path const& path);
 
   void             appendToCursorValueMonitorFile();
 

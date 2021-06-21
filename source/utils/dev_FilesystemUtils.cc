@@ -35,14 +35,14 @@ namespace dev {
 // Code that is private to this module.
 namespace detail {
 
-bool accessible(boost::filesystem::path const& path) {
+bool accessible(std::filesystem::path const& path) {
   try{
-    boost::filesystem::file_status s = boost::filesystem::status(path);
-    if((s.permissions() & (boost::filesystem::perms::owner_exe | boost::filesystem::perms::group_exe | boost::filesystem::perms::others_exe)) != boost::filesystem::perms::no_perms){
+    std::filesystem::file_status s = std::filesystem::status(path);
+    if((s.permissions() & (std::filesystem::perms::owner_exec | std::filesystem::perms::group_exec | std::filesystem::perms::others_exec)) != std::filesystem::perms::none){
       return true;
     }
   }
-  catch(boost::filesystem::filesystem_error const& e){
+  catch(std::filesystem::filesystem_error const& e){
     // permission denied
     return false;
   }
@@ -63,13 +63,13 @@ bool accessible(boost::filesystem::path const& path) {
   \todo      Handle extensions, platform dependent, bat, com, exe, precedence.
   \todo      Write tests.
 */
-boost::filesystem::path pathToExecutable(
-         boost::filesystem::path const& path)
+std::filesystem::path pathToExecutable(
+         std::filesystem::path const& path)
 {
-  boost::filesystem::path result;
+  std::filesystem::path result;
 
-  if(boost::filesystem::exists(path)) {
-    result = boost::filesystem::system_complete(path).parent_path();
+  if(std::filesystem::exists(path)) {
+    result = std::filesystem::absolute(path).parent_path();
   }
   else if(!path.is_absolute()) {
     std::string pathVariable(std::getenv("PATH"));
@@ -86,21 +86,21 @@ boost::filesystem::path pathToExecutable(
 
     // Loop over all directories.
     for(std::string const& directoryName : directoryNames) {
-      if(detail::accessible(directoryName) && boost::filesystem::exists(directoryName / path)) {
-        result = boost::filesystem::system_complete(directoryName);
+      if(detail::accessible(directoryName) && std::filesystem::exists(directoryName / path)) {
+        result = std::filesystem::absolute(directoryName);
         break;
       }
 
 #ifdef _WIN32
       bool found = false;
-      boost::filesystem::path pathWithExtension(path);
+      std::filesystem::path pathWithExtension(path);
 
       // Loop over all extensions.
       for(std::string const& extension : extensions) {
         pathWithExtension.replace_extension(extension);
 
-        if(boost::filesystem::exists(directoryName / pathWithExtension)) {
-          result = boost::filesystem::system_complete(directoryName);
+        if(std::filesystem::exists(directoryName / pathWithExtension)) {
+          result = std::filesystem::absolute(directoryName);
           found = true;
           break;
         }
@@ -118,13 +118,13 @@ boost::filesystem::path pathToExecutable(
 
 
 
-boost::filesystem::path pathToPythonExtension(
-         boost::filesystem::path const& path)
+std::filesystem::path pathToPythonExtension(
+         std::filesystem::path const& path)
 {
-  boost::filesystem::path result;
+  std::filesystem::path result;
 
-  if(boost::filesystem::exists(path)) {
-    result = boost::filesystem::system_complete(path).parent_path();
+  if(std::filesystem::exists(path)) {
+    result = std::filesystem::absolute(path).parent_path();
   }
   else if(!path.is_absolute()) {
     std::string pathVariable(std::getenv("PYTHONPATH"));
@@ -132,8 +132,8 @@ boost::filesystem::path pathToPythonExtension(
     boost::split(directoryNames, pathVariable, boost::is_any_of(":;"));
 
     for(std::string const& directoryName : directoryNames) {
-      if(detail::accessible(directoryName) && boost::filesystem::exists(directoryName / path)) {
-        result = boost::filesystem::system_complete(directoryName);
+      if(detail::accessible(directoryName) && std::filesystem::exists(directoryName / path)) {
+        result = std::filesystem::absolute(directoryName);
       }
     }
   }
@@ -149,11 +149,11 @@ boost::filesystem::path pathToPythonExtension(
   \return    Path to install prefix.
   \warning   \a path must exist.
 */
-boost::filesystem::path prefix(
-         boost::filesystem::path const& path)
+std::filesystem::path prefix(
+         std::filesystem::path const& path)
 {
   // /usr/bin/ls -> /usr
-  boost::filesystem::path result(pathToExecutable(path));
+  std::filesystem::path result(pathToExecutable(path));
   result.remove_filename().remove_filename();
 
   return result;

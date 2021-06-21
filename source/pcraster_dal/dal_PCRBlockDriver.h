@@ -117,14 +117,14 @@ private:
   Block*           open                (std::ifstream& stream,
                                         TypeId typeId) const;
 
-  Block*           open                (boost::filesystem::path const& path,
+  Block*           open                (std::filesystem::path const& path,
                                         TypeId typeId) const;
 
-  Block*           read                (boost::filesystem::path const& path,
+  Block*           read                (std::filesystem::path const& path,
                                         TypeId typeId) const;
 
   void             write               (Block const& block,
-                                        boost::filesystem::path const& path) const;
+                                        std::filesystem::path const& path) const;
 
 protected:
 

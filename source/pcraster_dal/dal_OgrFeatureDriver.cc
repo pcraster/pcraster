@@ -19,11 +19,6 @@
 #define INCLUDED_BOOST_BIND
 #endif
 
-#ifndef INCLUDED_BOOST_FILESYSTEM
-#include <boost/filesystem.hpp>
-#define INCLUDED_BOOST_FILESYSTEM_
-#endif
-
 #ifndef INCLUDED_BOOST_FORMAT
 #include <boost/format.hpp>
 #define INCLUDED_BOOST_FORMAT
@@ -83,6 +78,7 @@
 #define INCLUDED_DAL_TABLEDRIVER
 #endif
 
+#include <filesystem>
 
 
 /*!
@@ -147,7 +143,7 @@ std::string tableName(
   assert(!path.layer().empty());
   assert(!path.attribute().empty());
 
-  std::string result = boost::filesystem::path(path.source()).stem().string() +
+  std::string result = std::filesystem::path(path.source()).stem().string() +
     "/" + path.layer() + "/{fid," + path.attribute() + "}";
 
   /// size_t indexOfScenarios = space.indexOf(Scenarios);
@@ -611,7 +607,7 @@ FeaturePath OgrFeatureDriver::featurePathFor(
 
   if(found) {
     assert(result.isValid());
-    boost::filesystem::path path(result.source() + defaultExtension(name,
+    std::filesystem::path path(result.source() + defaultExtension(name,
          space));
     result = FeaturePath(
          (path / result.layer() / result.attribute()).generic_string(),
@@ -744,7 +740,7 @@ FeatureLayer* OgrFeatureDriver::open(
           // Determine the geometry of the layer. The geometry may already be
           // read a previous time, maybe for another attribute of the same
           // layer.
-          std::string key = (boost::filesystem::path(
+          std::string key = (std::filesystem::path(
               path.source()) /* .normalize() */ / path.layer()).string();
           FeatureLayerGeometries* geometries = nullptr;
 
@@ -1341,7 +1337,7 @@ void OgrFeatureDriver::browse(
          std::string const& location) const
 {
   // Determine list of candidate file names of files to consider.
-  boost::filesystem::path path(location);
+  std::filesystem::path path(location);
   std::vector<std::string> leaves;
   possibleFileBasedAttributeFileNames(path, leaves);
   filterOutUnsupportedFileNames(leaves);

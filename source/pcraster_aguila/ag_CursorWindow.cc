@@ -2,7 +2,6 @@
 
 // Library headers.
 #include <sstream>
-#include <boost/filesystem/fstream.hpp>
 #include <boost/lexical_cast.hpp>
 #include <QBoxLayout>
 #include <QPushButton>
@@ -20,6 +19,7 @@
 #include "ag_DataObject.h"
 #include "ag_VisEngine.h"
 
+#include <fstream>
 
 
 /*!
@@ -178,7 +178,7 @@ void CursorWindow::save()
 
 //! write cursor and values into free from text format
 void CursorWindow::saveToText(
-    boost::filesystem::path const& path)
+    std::filesystem::path const& path)
 {
   // Get the current values and cursor settings and write them out.
   DataObject const& dataObject(d_cursorView->dataObject());
@@ -361,7 +361,7 @@ void CursorWindow::saveToText(
   }
 
   dal::testPathIsWritable(path);
-  boost::filesystem::ofstream stream(path);
+  std::ofstream stream{path};
   stream << "data space:\n" << dataSpaceStream.str();
   stream << "cursor position:\n" << globalCursorStream.str();
   stream << "cursor position in world coordinates:\n"
@@ -587,7 +587,7 @@ void CursorWindow::appendToCursorValueMonitorFile()
 
     appendToThis->aguilaCursorValue().push_back(acv);
 
-    boost::filesystem::ofstream out(d_cursorValueMonitorPath);
+    std::ofstream out{d_cursorValueMonitorPath};
     pcrxml::aguilaCursorValues(out,*appendToThis,
          pcrxsd::namespaceInfoMap("Aguila.xsd"));
   }
@@ -638,17 +638,17 @@ void CursorWindow::setCursorIO(
      std::string const& fileToGetCursorValue)
 {
   if (!cursorValueMonitorFile.empty()) {
-   d_cursorValueMonitorPath = boost::filesystem::path(
+   d_cursorValueMonitorPath = std::filesystem::path(
          dal::addExtensionIfNeeded(cursorValueMonitorFile, ".xml"));
    d_save->setEnabled(true);
 
    // create file with 0 sub-elements
    pcrxml::AguilaCursorValues acv;
-   boost::filesystem::ofstream stream(d_cursorValueMonitorPath);
+   std::ofstream stream{d_cursorValueMonitorPath};
    pcrxml::aguilaCursorValues(stream,acv,pcrxsd::namespaceInfoMap("Aguila.xsd"));
   }
   if (!fileToGetCursorValue.empty()) {
-   d_fileToGetCursorValue = boost::filesystem::path(
+   d_fileToGetCursorValue = std::filesystem::path(
          dal::addExtensionIfNeeded(fileToGetCursorValue, ".xml"));
    d_get->setEnabled(true);
   }

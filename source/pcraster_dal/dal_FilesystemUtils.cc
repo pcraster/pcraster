@@ -30,11 +30,6 @@
 #define INCLUDED_BOOST_DATE_TIME_GREGORIAN_GREGORIAN
 #endif
 
-#ifndef INCLUDED_BOOST_FILESYSTEM
-#include <boost/filesystem.hpp>
-#define INCLUDED_BOOST_FILESYSTEM
-#endif
-
 #ifndef INCLUDED_BOOST_FORMAT
 #include <boost/format.hpp>
 #define INCLUDED_BOOST_FORMAT
@@ -63,6 +58,7 @@
 #define INCLUDED_DAL_STACKINFO
 #endif
 
+#include <filesystem>
 
 
 namespace dal {
@@ -161,9 +157,9 @@ void testPathnameIsEmpty (
 
 
 void testPathExists(
-         boost::filesystem::path const& path)
+         std::filesystem::path const& path)
 {
-  if(!boost::filesystem::exists(path)) {
+  if(!std::filesystem::exists(path)) {
     throw Exception(
          (boost::format("Pathname '%1%': Path does not exist")
          % path.string()).str());
@@ -183,9 +179,9 @@ void testPathExists(
              does not check whether it points to a regular file.
 */
 void testPathIsFileOrLinkToFile(
-         boost::filesystem::path const& path)
+         std::filesystem::path const& path)
 {
-  if(boost::filesystem::is_directory(path)) {
+  if(std::filesystem::is_directory(path)) {
     throw Exception(
          (boost::format("Pathname '%1%': Path is not a file or link to a file")
          % path.string()).str());
@@ -203,9 +199,9 @@ void testPathIsFileOrLinkToFile(
   \sa        Test.
 */
 PCR_DAL_DECL bool isReadable(
-         boost::filesystem::path const& path)
+         std::filesystem::path const& path)
 {
-  assert(boost::filesystem::exists(path));
+  assert(std::filesystem::exists(path));
 
   return ::
 #ifdef _MSC_VER
@@ -227,9 +223,9 @@ PCR_DAL_DECL bool isReadable(
   \sa        Test.
 */
 PCR_DAL_DECL bool isWritable(
-         boost::filesystem::path const& path)
+         std::filesystem::path const& path)
 {
-  assert(boost::filesystem::exists(path));
+  assert(std::filesystem::exists(path));
 
   return ::
 #ifdef _MSC_VER
@@ -252,7 +248,7 @@ PCR_DAL_DECL bool isWritable(
   \todo      Test.
 */
 void testPathIsReadable(
-         boost::filesystem::path const& path)
+         std::filesystem::path const& path)
 {
   if(!isReadable(path)) {
     throw Exception(
@@ -273,7 +269,7 @@ void testPathIsReadable(
   \todo      Test.
 */
 PCR_DAL_DECL void testPathIsWritable(
-         boost::filesystem::path const& path)
+         std::filesystem::path const& path)
 {
   if(!isWritable(path)) {
     throw Exception(
@@ -288,13 +284,13 @@ PCR_DAL_DECL void testPathIsWritable(
 /*!
   \param     path Path to test.
   \exception Exception When \a path is not a file or link, or can not be opened.
-  \sa        testPathExists(boost::filesystem::path const&),
-             testPathIsFileOrLinkToFile(boost::filesystem::path const&),
-             testPathIsReadable(boost::filesystem::path const&),
-             canBeOpenedForReading(boost::filesystem::path const&)
+  \sa        testPathExists(std::filesystem::path const&),
+             testPathIsFileOrLinkToFile(std::filesystem::path const&),
+             testPathIsReadable(std::filesystem::path const&),
+             canBeOpenedForReading(std::filesystem::path const&)
 */
 PCR_DAL_DECL void testFileCanBeOpenedForReading(
-         boost::filesystem::path const& path)
+         std::filesystem::path const& path)
 {
   testPathExists(path);
   testPathIsFileOrLinkToFile(path);
@@ -324,7 +320,7 @@ PCR_DAL_DECL void testFileCanBeOpenedForReading(
   When needed, \a filename will overwrite the \a timeStep information in the
   result.
 */
-PCR_DAL_DECL boost::filesystem::path timeStepPath83(
+PCR_DAL_DECL std::filesystem::path timeStepPath83(
          std::string const& parent,
          std::string filename,
          size_t timeStep)
@@ -358,12 +354,12 @@ PCR_DAL_DECL boost::filesystem::path timeStepPath83(
     filename = result;
   }
 
-  return boost::filesystem::path(parent) / filename;
+  return std::filesystem::path(parent) / filename;
 }
 
 
 
-PCR_DAL_DECL boost::filesystem::path timeStepPathNewStyle(
+PCR_DAL_DECL std::filesystem::path timeStepPathNewStyle(
          std::string const& parent,
          std::string filename,
          size_t timeStep)
@@ -408,7 +404,7 @@ PCR_DAL_DECL boost::filesystem::path timeStepPathNewStyle(
          ).str();
   }
 
-  return boost::filesystem::path(parent) / filename;
+  return std::filesystem::path(parent) / filename;
 }
 
 
@@ -427,7 +423,7 @@ PCR_DAL_DECL boost::filesystem::path timeStepPathNewStyle(
              in the path name.
   \sa        .
 */
-PCR_DAL_DECL boost::filesystem::path timeStepPath(
+PCR_DAL_DECL std::filesystem::path timeStepPath(
          std::string const& parent,
          std::string const& filename,
          size_t timeStep,
@@ -435,11 +431,11 @@ PCR_DAL_DECL boost::filesystem::path timeStepPath(
 {
   assert(!filename.empty());
 
-  boost::filesystem::path result;
+  std::filesystem::path result;
 
   switch(convention) {
     case PCRConvention: {
-      assert(boost::filesystem::path(filename).extension().string().size() < 4);
+      assert(std::filesystem::path(filename).extension().string().size() < 4);
       result = timeStepPath83(parent, filename, timeStep);
       break;
     }
@@ -454,8 +450,8 @@ PCR_DAL_DECL boost::filesystem::path timeStepPath(
 
 
 
-PCR_DAL_DECL boost::filesystem::path timeStepPath83(
-         boost::filesystem::path const& path,
+PCR_DAL_DECL std::filesystem::path timeStepPath83(
+         std::filesystem::path const& path,
          size_t timeStep)
 {
   // Split filename from the parent path.
@@ -467,8 +463,8 @@ PCR_DAL_DECL boost::filesystem::path timeStepPath83(
 
 
 
-PCR_DAL_DECL boost::filesystem::path timeStepPath(
-         boost::filesystem::path const& path,
+PCR_DAL_DECL std::filesystem::path timeStepPath(
+         std::filesystem::path const& path,
          size_t timeStep,
          FilenameConvention convention)
 {
@@ -490,8 +486,8 @@ PCR_DAL_DECL boost::filesystem::path timeStepPath(
 
 
 
-PCR_DAL_DECL boost::filesystem::path timeStepPath(
-         boost::filesystem::path const& path,
+PCR_DAL_DECL std::filesystem::path timeStepPath(
+         std::filesystem::path const& path,
          boost::gregorian::date const& date,
          FilenameConvention convention)
 {
@@ -506,22 +502,22 @@ PCR_DAL_DECL boost::filesystem::path timeStepPath(
 /*!
   \param     path Path to test.
   \return    True or false.
-  \sa        testCanBeOpenedForReading(boost::filesystem::path const&)
+  \sa        testCanBeOpenedForReading(std::filesystem::path const&)
   \todo      Add test for readability!
 */
 bool canBeOpenedForReading(
-         boost::filesystem::path const& path)
+         std::filesystem::path const& path)
 {
-  return dal::exists(path) && !boost::filesystem::is_directory(path);
+  return dal::exists(path) && !std::filesystem::is_directory(path);
     // && isReadable(path);
 }
 
 
 
 PCR_DAL_DECL bool exists(
-         boost::filesystem::path const& path)
+         std::filesystem::path const& path)
 {
-  return boost::filesystem::exists(path);
+  return std::filesystem::exists(path);
 }
 
 
@@ -561,9 +557,9 @@ PCR_DAL_DECL bool pathExists(
   \warning   This function does not check whether a file or link with name \a path exists.
 */
 bool remove(
-         boost::filesystem::path const& path)
+         std::filesystem::path const& path)
 {
-  return boost::filesystem::remove(path);
+  return std::filesystem::remove(path);
 }
 
 
@@ -624,7 +620,7 @@ oldStackName2NameSpaceTuple(
              dimensions are never present in one space I guess, see merge in
              DataSpace class.
 */
-PCR_DAL_DECL boost::filesystem::path pathForDataSpaceAddress(
+PCR_DAL_DECL std::filesystem::path pathForDataSpaceAddress(
          std::string const& name,
          DataSpace const& space,
          DataSpaceAddress const& address,
@@ -668,7 +664,7 @@ PCR_DAL_DECL boost::filesystem::path pathForDataSpaceAddress(
   //        dimension.nrCoordinates() - 1)).str().size();
   // }
 
-  boost::filesystem::path path;
+  std::filesystem::path path;
 
   if(hasScenarioName) {
     if(hasQuantile) {
@@ -759,7 +755,7 @@ PCR_DAL_DECL boost::filesystem::path pathForDataSpaceAddress(
 
 
 
-boost::filesystem::path pathForScenarioQuantileSampleTime(
+std::filesystem::path pathForScenarioQuantileSampleTime(
          std::string const& name,
          std::string const& scenarioName,
          float quantile,
@@ -778,7 +774,7 @@ boost::filesystem::path pathForScenarioQuantileSampleTime(
 
 
 
-boost::filesystem::path pathForScenarioQuantileSample(
+std::filesystem::path pathForScenarioQuantileSample(
          std::string const& name,
          std::string const& scenarioName,
          float quantile,
@@ -794,7 +790,7 @@ boost::filesystem::path pathForScenarioQuantileSample(
 
 
 
-boost::filesystem::path pathForScenarioQuantileTime(
+std::filesystem::path pathForScenarioQuantileTime(
          std::string const& name,
          std::string const& scenarioName,
          float quantile,
@@ -810,7 +806,7 @@ boost::filesystem::path pathForScenarioQuantileTime(
 
 
 
-boost::filesystem::path pathForScenarioQuantile(
+std::filesystem::path pathForScenarioQuantile(
          std::string const& name,
          std::string const& scenarioName,
          float quantile,
@@ -823,7 +819,7 @@ boost::filesystem::path pathForScenarioQuantile(
 
 
 
-boost::filesystem::path pathForScenarioSampleTime(
+std::filesystem::path pathForScenarioSampleTime(
          std::string const& name,
          std::string const& scenarioName,
          size_t sampleNumber,
@@ -839,7 +835,7 @@ boost::filesystem::path pathForScenarioSampleTime(
 
 
 
-boost::filesystem::path pathForScenarioSample(
+std::filesystem::path pathForScenarioSample(
          std::string const& name,
          std::string const& scenarioName,
          size_t sampleNumber,
@@ -852,7 +848,7 @@ boost::filesystem::path pathForScenarioSample(
 
 
 
-boost::filesystem::path pathForScenarioTime(
+std::filesystem::path pathForScenarioTime(
          std::string const& name,
          std::string const& scenarioName,
          size_t timeStep,
@@ -874,19 +870,19 @@ boost::filesystem::path pathForScenarioTime(
   \warning   .
   \sa        .
 */
-boost::filesystem::path pathForScenario(
+std::filesystem::path pathForScenario(
          std::string const& name,
          std::string const& scenarioName,
          FilenameConvention /* convention */)
 {
-  boost::filesystem::path path(name);
+  std::filesystem::path path(name);
 
   return path.parent_path() / pathFor(scenarioName) / pathFor(path.filename().string());
 }
 
 
 
-boost::filesystem::path pathForQuantileSampleTime(
+std::filesystem::path pathForQuantileSampleTime(
          std::string const& name,
          float quantile,
          size_t sampleNumber,
@@ -902,7 +898,7 @@ boost::filesystem::path pathForQuantileSampleTime(
 
 
 
-boost::filesystem::path pathForQuantileSample(
+std::filesystem::path pathForQuantileSample(
          std::string const& name,
          float quantile,
          size_t sampleNumber,
@@ -915,7 +911,7 @@ boost::filesystem::path pathForQuantileSample(
 
 
 
-boost::filesystem::path pathForQuantileTime(
+std::filesystem::path pathForQuantileTime(
          std::string const& name,
          float quantile,
          size_t timeStep,
@@ -931,25 +927,25 @@ boost::filesystem::path pathForQuantileTime(
 
 
 
-boost::filesystem::path pathForQuantile(
+std::filesystem::path pathForQuantile(
          std::string const& name,
          float quantile,
          FilenameConvention /* convention */)
 {
   testPathnameIsEmpty(name);
 
-  boost::filesystem::path result;
+  std::filesystem::path result;
   size_t lastPoint = name.find_last_of(".");
 
   if(lastPoint == std::string::npos) {
     // No extension present.
-    result = boost::filesystem::path((boost::format("%1%_%2%")
+    result = std::filesystem::path((boost::format("%1%_%2%")
          % name
          % quantile).str());
   }
   else {
     // Extension present (possibly empty).
-    result = boost::filesystem::path((boost::format("%1%_%2%.%3%")
+    result = std::filesystem::path((boost::format("%1%_%2%.%3%")
          % name.substr(0, lastPoint)
          % quantile
          % name.substr(lastPoint + 1, name.size() - lastPoint + 1)).str());
@@ -960,7 +956,7 @@ boost::filesystem::path pathForQuantile(
 
 
 
-boost::filesystem::path pathForSampleTime(
+std::filesystem::path pathForSampleTime(
          std::string const& name,
          size_t sampleNumber,
          size_t timeStep,
@@ -973,12 +969,12 @@ boost::filesystem::path pathForSampleTime(
 
 
 
-boost::filesystem::path pathForSample(
+std::filesystem::path pathForSample(
          std::string const& name,
          size_t sampleNumber,
          FilenameConvention /* convention */)
 {
-  boost::filesystem::path path(name);
+  std::filesystem::path path(name);
 
   return path.parent_path() /
          boost::lexical_cast<std::string>(sampleNumber) /
@@ -987,7 +983,7 @@ boost::filesystem::path pathForSample(
 
 
 
-boost::filesystem::path pathForTime(
+std::filesystem::path pathForTime(
          std::string const& name,
          size_t timeStep,
          FilenameConvention convention)
@@ -997,12 +993,12 @@ boost::filesystem::path pathForTime(
 
 
 
-PCR_DAL_DECL boost::filesystem::path pathFor(
+PCR_DAL_DECL std::filesystem::path pathFor(
          std::string const& name)
 {
   testPathnameIsEmpty(name);
 
-  return boost::filesystem::path(name);
+  return std::filesystem::path(name);
 }
 
 
@@ -1010,7 +1006,7 @@ PCR_DAL_DECL boost::filesystem::path pathFor(
 /*!
   \overload
 */
-PCR_DAL_DECL boost::filesystem::path addExtensionIfNeeded(
+PCR_DAL_DECL std::filesystem::path addExtensionIfNeeded(
          std::string const& name,
          std::string const& extension)
 {
@@ -1027,14 +1023,14 @@ PCR_DAL_DECL boost::filesystem::path addExtensionIfNeeded(
   \warning   It is assumed that \a path and \a extension passed in are not
              empty. Also, \a extension should start with a '.'.
 */
-boost::filesystem::path addExtensionIfNeeded(
-         boost::filesystem::path const& path,
+std::filesystem::path addExtensionIfNeeded(
+         std::filesystem::path const& path,
          std::string const& extension)
 {
   assert(!path.empty() && !extension.empty());
   assert(extension[0] == '.');
 
-  boost::filesystem::path result(path);
+  std::filesystem::path result(path);
   std::string currentExtension(path.extension().string());
 
   if(currentExtension.empty() || currentExtension == ".") {
@@ -1047,10 +1043,10 @@ boost::filesystem::path addExtensionIfNeeded(
 
 
 void possibleFileBasedAttributeFileNames(
-         boost::filesystem::path const& path,
+         std::filesystem::path const& path,
          std::vector<std::string>& leaves)
 {
-  namespace bfs = boost::filesystem;
+  namespace bfs = std::filesystem;
 
   if(!bfs::is_directory(path)) {
     return;

@@ -60,6 +60,7 @@
 #define INCLUDED_CALC_STACKREADER
 #endif
 
+#include <filesystem>
 
 /*!
   \file
@@ -172,7 +173,7 @@ std::string calc::IoCsfFieldStrategy::makeStackItemName(
     int   atTimeStep) const
 {
   return dal::timeStepPath83(
-      boost::filesystem::path(iname),
+      std::filesystem::path(iname),
       atTimeStep).string();
 }
 

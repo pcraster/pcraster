@@ -169,7 +169,7 @@ bool CSFRasterDriver::exists(
   of open(std::string const&, TypeId).
 */
 Raster* CSFRasterDriver::open(
-         boost::filesystem::path const& path,
+         std::filesystem::path const& path,
          TypeId typeId) const
 {
   Raster* raster = nullptr;
@@ -292,7 +292,7 @@ void CSFRasterDriver::read(
 */
 void CSFRasterDriver::read(
          Raster& raster,
-         boost::filesystem::path const& path) const
+         std::filesystem::path const& path) const
 {
   CSFMap map(path);
   read(raster, map);
@@ -312,7 +312,7 @@ void CSFRasterDriver::read(
   of read(std::string const&, TypeId).
 */
 Raster* CSFRasterDriver::read(
-         boost::filesystem::path const& path,
+         std::filesystem::path const& path,
          TypeId typeId) const
 {
   CSFMap map(path);
@@ -427,7 +427,7 @@ void CSFRasterDriver::read(
 */
 void CSFRasterDriver::write(
          Raster const& raster,
-         boost::filesystem::path const& path) const
+         std::filesystem::path const& path) const
 {
   Properties const& p(raster.properties());
   REAL8 angle = p.value<REAL8>(DAL_CSF_ANGLE, 0.0);
@@ -458,7 +458,7 @@ void CSFRasterDriver::browse(
          std::vector<BrowseInfo>& attributes,
          std::string const& location) const
 {
-  browseFileBasedRasterAttributes(attributes, boost::filesystem::path(
+  browseFileBasedRasterAttributes(attributes, std::filesystem::path(
          location), PCRConvention | DALConvention);
 }
 

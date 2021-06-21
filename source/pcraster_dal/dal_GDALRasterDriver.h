@@ -4,10 +4,6 @@
 
 
 // Library headers.
-#ifndef INCLUDED_BOOST_FILESYSTEM
-#include <boost/filesystem.hpp>
-#define INCLUDED_BOOST_FILESYSTEM
-#endif
 
 #ifndef INCLUDED_GDAL
 #include <gdal.h>
@@ -32,6 +28,7 @@
 #define INCLUDED_DAL_RASTERDRIVER
 #endif
 
+#include <filesystem>
 
 
 class GDALDataset;
@@ -90,7 +87,7 @@ private:
   //! Copy constructor. NOT IMPLEMENTED.
                    GDALRasterDriver    (GDALRasterDriver const& rhs);
 
-  static GDALDataset* openGDALDataset  (boost::filesystem::path const& path,
+  static GDALDataset* openGDALDataset  (std::filesystem::path const& path,
                                         GDALAccess access);
 
   // static GDALDataset* openGDALDataset  (std::string const& name,

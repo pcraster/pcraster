@@ -9,11 +9,6 @@
 #define INCLUDED_STRING
 #endif
 
-#ifndef INCLUDED_BOOST_FILESYSTEM
-#include <boost/filesystem.hpp>
-#define INCLUDED_BOOST_FILESYSTEM
-#endif
-
 #ifndef INCLUDED_BOOST_NONCOPYABLE
 #include <boost/noncopyable.hpp>
 #define INCLUDED_BOOST_NONCOPYABLE
@@ -31,6 +26,8 @@
 #define INCLUDED_DAL_CONFIGURE
 #endif
 
+
+#include <filesystem>
 
 
 namespace dal {
@@ -71,7 +68,7 @@ private:
 
 protected:
 
-                   Client              (boost::filesystem::path const& prefix,
+                   Client              (std::filesystem::path const& prefix,
                                         bool addAllDrivers=false,
                                         bool cacheDatasetInfo=true);
 

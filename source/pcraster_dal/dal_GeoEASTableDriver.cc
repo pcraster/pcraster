@@ -14,10 +14,6 @@
 #define INCLUDED_BOOST_ALGORITHM_STRING
 #endif
 
-#ifndef INCLUDED_BOOST_FILESYSTEM
-#include <boost/filesystem.hpp>
-#define INCLUDED_BOOST_FILESYSTEM
-#endif
 
 #ifndef INCLUDED_BOOST_SPIRIT_INCLUDE_CLASSIC
 #include <boost/spirit/include/classic.hpp>
@@ -42,6 +38,7 @@
 #define INCLUDED_DAL_FILESYSTEMUTILS
 #endif
 
+#include <filesystem>
 
 
 /*!
@@ -136,7 +133,7 @@ bool dal::GeoEASTableDriver::readHeader(
 
 
 dal::Table* dal::GeoEASTableDriver::open(
-         boost::filesystem::path const& path) const
+         std::filesystem::path const& path) const
 {
   std::ifstream stream;
 
@@ -330,7 +327,7 @@ void dal::GeoEASTableDriver::read(std::string const& name, Table& table) const
 
 void dal::GeoEASTableDriver::read(
          dal::Table& table,
-         boost::filesystem::path const& path) const
+         std::filesystem::path const& path) const
 {
   std::ifstream stream;
 
@@ -425,7 +422,7 @@ void GeoEASTableDriver::write(
          std::string const& name) const
 {
   std::ofstream stream;
-  boost::filesystem::path path(pathForDataSpaceAddress(name, space, address));
+  std::filesystem::path path(pathForDataSpaceAddress(name, space, address));
 
   if(!TextFileDriver::open(stream, path)) {
     throwCannotBeOpened(path.string(), TABLE);

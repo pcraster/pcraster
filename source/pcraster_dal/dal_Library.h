@@ -46,6 +46,7 @@
 #define INCLUDED_DAL_MEMORYDATAPOOL
 #endif
 
+#include <filesystem>
 
 
 namespace dal {
@@ -91,14 +92,14 @@ private:
   //! Cache for storing reusable and refcounted geometries objects.
   Cache<FeatureLayerGeometries> _geometriesCache;
 
-                   Library             (boost::filesystem::path const& prefix,
+                   Library             (std::filesystem::path const& prefix,
                                         bool cacheDatasetInfo);
 
   void             addGraphicsFormats  ();
 
   void             addAttributeFormats ();
 
-  static void      initialise          (boost::filesystem::path const& prefix,
+  static void      initialise          (std::filesystem::path const& prefix,
                                         bool cacheDatasetInfo);
 
   static void      cleanUp             ();

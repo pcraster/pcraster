@@ -171,7 +171,7 @@ void RasterDriver::cacheDatasetInfo(
   \sa        .
   \todo      See todo of determineFilenameCharacteristics.
 */
-boost::filesystem::path RasterDriver::pathFor(
+std::filesystem::path RasterDriver::pathFor(
          std::string const& name,
          DataSpace const& space,
          DataSpaceAddress const& address) const
@@ -487,7 +487,7 @@ void RasterDriver::write(
 
 void RasterDriver::browseFileBasedRasterAttributes(
          std::vector<BrowseInfo>& attributes,
-         boost::filesystem::path const& path,
+         std::filesystem::path const& path,
          FilenameConventions conventions) const
 {
   // Determine list of candidate file names of files to consider.
@@ -837,7 +837,7 @@ void RasterDriver::browseFileBasedRasterAttributes(
         ? properties.value<CSF_VS>(DAL_CSF_VALUESCALE)
         : VS_NOTDETERMINED;
 
-      boost::filesystem::path path(leaves[i]);
+      std::filesystem::path path(leaves[i]);
       name = path.stem().string();
       extension = path.extension().string();
 

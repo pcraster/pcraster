@@ -4,10 +4,6 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_BOOST_FILESYSTEM
-#include <boost/filesystem.hpp>
-#define INCLUDED_BOOST_FILESYSTEM
-#endif
 
 // PCRaster library headers.
 
@@ -17,6 +13,7 @@
 #define INCLUDED_DAL_FILESYSTEMUTILS
 #endif
 
+#include <filesystem>
 
 
 /*!
@@ -176,7 +173,7 @@ Block* PCRBlockDriver::open(
   \sa        .
 */
 Block* PCRBlockDriver::open(
-         boost::filesystem::path const& path,
+         std::filesystem::path const& path,
          TypeId typeId) const
 {
   Block* result(nullptr);
@@ -227,7 +224,7 @@ void PCRBlockDriver::readThicknesses(
 
 
 Block* PCRBlockDriver::read(
-         boost::filesystem::path const& path,
+         std::filesystem::path const& path,
          TypeId typeId) const
 {
   std::ifstream stream;
@@ -336,7 +333,7 @@ void PCRBlockDriver::writeThicknesses(
 */
 void PCRBlockDriver::write(
          Block const& block,
-         boost::filesystem::path const& path) const
+         std::filesystem::path const& path) const
 {
   std::ofstream stream;
 

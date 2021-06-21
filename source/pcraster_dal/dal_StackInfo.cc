@@ -14,10 +14,6 @@
 #define INCLUDED_CCTYPE
 #endif
 
-#ifndef INCLUDED_BOOST_FILESYSTEM
-#include <boost/filesystem.hpp>
-#define INCLUDED_BOOST_FILESYSTEM
-#endif
 
 #ifndef INCLUDED_BOOST_FORMAT
 #include <boost/format.hpp>
@@ -42,7 +38,7 @@
 #define INCLUDED_DAL_FILESYSTEMUTILS
 #endif
 
-
+#include <filesystem>
 
 /*!
   \file
@@ -102,7 +98,7 @@ dal::StackInfo::StackInfo(
 {
   // assert(name.find('\\') == std::string::npos);
   // Split filename from the parent path.
-  boost::filesystem::path path(name);
+  std::filesystem::path path(name);
   std::string parent = path.parent_path().string();
   std::string filename = path.filename().string();
 
@@ -135,7 +131,7 @@ dal::StackInfo::StackInfo(
     // Wrong format for dynamic stack: static stack.
     wrongFormatIf(pos != std::string::npos);
     // testPathnameIsNative(name);
-    d_name = boost::filesystem::path(name);
+    d_name = std::filesystem::path(name);
   }
   else {
     // Right format for dynamic stack.
@@ -149,14 +145,14 @@ dal::StackInfo::StackInfo(
       if(pos == filename.length()) {
         // Filename ends with only zero's, name of static stack.
         // testPathnameIsNative(name);
-        d_name = boost::filesystem::path(name);
+        d_name = std::filesystem::path(name);
       }
       else {
         if(!parent.empty()) {
           // testPathnameIsNative(parent);
         }
 
-        d_name = boost::filesystem::path(parent);
+        d_name = std::filesystem::path(parent);
 
         // soil0000.010
         // soil0000010
@@ -203,7 +199,7 @@ dal::StackInfo::StackInfo(
       std::reverse(firstStr.begin(), firstStr.end());
       wrongFormatIf(firstStr.empty());
 
-      d_name = boost::filesystem::path(parent);
+      d_name = std::filesystem::path(parent);
       // Add dot again, if necessary.
       // xxxxxxxx.xxx
       // 012345678
@@ -295,7 +291,7 @@ void dal::StackInfo::wrongFormatIf(bool test) const
   same filename of the layered name of the stack and whether the folowing
   characters are all digits.
 */
-bool dal::StackInfo::isMemberOfStack(boost::filesystem::path const& path) const
+bool dal::StackInfo::isMemberOfStack(std::filesystem::path const& path) const
 {
   assert(isDynamic());
 
@@ -334,7 +330,7 @@ bool dal::StackInfo::isMemberOfStack(boost::filesystem::path const& path) const
 
 
 
-size_t dal::StackInfo::step(boost::filesystem::path const& path) const
+size_t dal::StackInfo::step(std::filesystem::path const& path) const
 {
   assert(path.filename().string().length() == 12);
   std::string number = path.filename().string().substr(d_name.filename().string().size());
@@ -401,18 +397,18 @@ void dal::StackInfo::scan()
 
   d_steps.erase(d_steps.begin(), d_steps.end());
   d_isScanned = false;
-  boost::filesystem::directory_iterator iterator, end;
+  std::filesystem::directory_iterator iterator, end;
 
   try {
     if(d_name.has_parent_path()) {
-      iterator = boost::filesystem::directory_iterator(d_name.parent_path());
+      iterator = std::filesystem::directory_iterator(d_name.parent_path());
     }
     else {
-      iterator = boost::filesystem::directory_iterator(
-         boost::filesystem::current_path());
+      iterator = std::filesystem::directory_iterator(
+         std::filesystem::current_path());
     }
   }
-  catch(boost::filesystem::filesystem_error const& exception) {
+  catch(std::filesystem::filesystem_error const& exception) {
     throw Exception(exception.what());
   }
 
@@ -444,7 +440,7 @@ void dal::StackInfo::scanFirst()
     d_steps.erase(d_steps.begin(), d_steps.end());
 
     for(size_t step = d_first; step <= d_last; ++step) {
-      if(boost::filesystem::exists(timeStepPath(d_name, step, PCRConvention))) {
+      if(std::filesystem::exists(timeStepPath(d_name, step, PCRConvention))) {
         d_steps.push_back(step);
         break;
       }
@@ -540,7 +536,7 @@ std::string dal::StackInfo::name() const
   The name returned is the same name as given to the constructor.
   The name returned is a valid filename on the runtime platform.
 */
-boost::filesystem::path const& dal::StackInfo::filename() const
+std::filesystem::path const& dal::StackInfo::filename() const
 {
   assert(!isDynamic());
   return d_name;
@@ -555,7 +551,7 @@ boost::filesystem::path const& dal::StackInfo::filename() const
   \exception .
   \sa        .
 */
-boost::filesystem::path dal::StackInfo::filename(size_t item) const
+std::filesystem::path dal::StackInfo::filename(size_t item) const
 {
   assert(!d_name.empty());
   return isDynamic() ? timeStepPath(d_name, item, PCRConvention) : filename();

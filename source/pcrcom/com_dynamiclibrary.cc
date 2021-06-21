@@ -31,6 +31,9 @@
 #  include <dlfcn.h>
 #  define INCLUDED_DLFCN
 # endif
+
+#include <cassert>
+
 bool com::DynamicLibrary::checkError() const
 {
   /* see dlopen(3) all dl-funcs set dlerror

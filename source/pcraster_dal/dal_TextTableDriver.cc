@@ -9,10 +9,6 @@
 #define INCLUDED_FSTREAM
 #endif
 
-#ifndef INCLUDED_BOOST_FILESYSTEM
-#include <boost/filesystem.hpp>
-#define INCLUDED_BOOST_FILESYSTEM
-#endif
 
 // PCRaster library headers.
 
@@ -32,6 +28,7 @@
 #define INCLUDED_DAL_FILESYSTEMUTILS
 #endif
 
+#include <filesystem>
 
 
 /*!
@@ -312,7 +309,7 @@ Table* TextTableDriver::open(
   If the file contains less than 5 lines only those lines are considered.
 */
 Table* TextTableDriver::open(
-         boost::filesystem::path const& path) const
+         std::filesystem::path const& path) const
 {
   std::ifstream stream;
 
@@ -591,7 +588,7 @@ void TextTableDriver::readValues(
 
 void TextTableDriver::read(
          Table& table,
-         boost::filesystem::path const& path) const
+         std::filesystem::path const& path) const
 {
   std::ifstream stream;
 

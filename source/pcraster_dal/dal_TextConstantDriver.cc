@@ -106,7 +106,7 @@ Constant* TextConstantDriver::open(
 {
   Constant* result = nullptr;
 
-  boost::filesystem::path path(pathForDataSpaceAddress(name, space, address));
+  std::filesystem::path path(pathForDataSpaceAddress(name, space, address));
 
   std::ifstream stream;
 
@@ -129,7 +129,7 @@ void TextConstantDriver::read(
          DataSpace const& space,
          DataSpaceAddress const& address) const
 {
-  boost::filesystem::path path(pathForDataSpaceAddress(name, space, address));
+  std::filesystem::path path(pathForDataSpaceAddress(name, space, address));
   std::ifstream stream;
 
   if(!TextFileDriver::open(stream, path) || !open(constant, stream)) {

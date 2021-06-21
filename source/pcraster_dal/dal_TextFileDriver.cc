@@ -206,7 +206,7 @@ void dal::TextFileDriver::determineTypeIds(
 */
 bool dal::TextFileDriver::open(
          std::ifstream& stream,
-         boost::filesystem::path const& path,
+         std::filesystem::path const& path,
          std::ios::openmode flags) const
 {
   stream.open(path.string().c_str(), flags);
@@ -217,7 +217,7 @@ bool dal::TextFileDriver::open(
 
 bool dal::TextFileDriver::open(
          std::ofstream& stream,
-         boost::filesystem::path const& path,
+         std::filesystem::path const& path,
          std::ios::openmode flags) const
 {
   stream.open(path.string().c_str(), flags);

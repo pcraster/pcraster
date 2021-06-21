@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstddef>
+#include <cassert>
 
 #include "calc_spatial.h"
 #include "com_mvop.h"

@@ -90,7 +90,7 @@ public:
   // ACCESSORS
   //----------------------------------------------------------------------------
 
-  Table*           open                (boost::filesystem::path const& path) const;
+  Table*           open                (std::filesystem::path const& path) const;
 
   /*
   Table*           open                (std::string const& name) const;
@@ -119,7 +119,7 @@ public:
                                         */
 
   void             read                (dal::Table& table,
-                                        boost::filesystem::path const& path) const;
+                                        std::filesystem::path const& path) const;
 
   /*
   void             read                (dal::Table& table,

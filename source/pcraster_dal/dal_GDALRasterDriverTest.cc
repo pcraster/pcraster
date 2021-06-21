@@ -16,7 +16,7 @@
 
 class ClientWrapper : public dal::Client {
 public:
-  ClientWrapper(boost::filesystem::path const& prefix,
+  ClientWrapper(std::filesystem::path const& prefix,
                    bool addAllDrivers=false,
                    bool cacheDatasetInfo=true)
   : dal::Client(prefix) {

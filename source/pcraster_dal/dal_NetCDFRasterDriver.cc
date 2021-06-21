@@ -4,10 +4,6 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_BOOST_FILESYSTEM
-#include <boost/filesystem.hpp>
-#define INCLUDED_BOOST_FILESYSTEM
-#endif
 
 #ifndef INCLUDED_NETCDFCPP
 #include <netcdfcpp.h>
@@ -27,6 +23,7 @@
 #define INCLUDED_DAL_UTILS
 #endif
 
+#include <filesystem>
 
 
 /*!
@@ -500,7 +497,7 @@ void NetCDFRasterDriver::remove(
          DataSpace space) const
 {
   if(space.rank() == 0) {
-    boost::filesystem::path path(pathFor(name));
+    std::filesystem::path path(pathFor(name));
 
     if(dal::exists(path)) {
       dal::remove(path);

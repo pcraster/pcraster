@@ -10,10 +10,6 @@
 #define INCLUDED_BOOST_ANY
 #endif
 
-#ifndef INCLUDED_BOOST_FILESYSTEM
-#include <boost/filesystem.hpp>
-#define INCLUDED_BOOST_FILESYSTEM
-#endif
 
 // PCRaster library headers.
 
@@ -22,6 +18,8 @@
 #include "dal_Def.h"
 #define INCLUDED_DAL_DEF
 #endif
+
+#include <filesystem>
 
 
 
@@ -57,7 +55,7 @@ private:
   // static std::string const d_defaultExtension;
 
   //! Path to file.
-  boost::filesystem::path d_path;
+  std::filesystem::path d_path;
 
   //! Map pointer, always connected to an open file.
   MAP *            d_map;
@@ -90,10 +88,10 @@ public:
   // CREATORS
   //----------------------------------------------------------------------------
 
-                   CSFMap              (boost::filesystem::path const& path,
+                   CSFMap              (std::filesystem::path const& path,
                                         bool allowUpdate=false);
 
-                   CSFMap              (boost::filesystem::path const& path,
+                   CSFMap              (std::filesystem::path const& path,
                                         size_t nrRows,
                                         size_t nrCols,
                                         double west,

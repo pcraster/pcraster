@@ -2,6 +2,7 @@
 
 // std
 #include <new>
+#include <fstream>
 #include <string>
 #include <sstream>
 #include <boost/format.hpp>
@@ -198,10 +199,10 @@ void qt::GuiApp::createLockFile(std::string const& filename)
       throw com::FileError(d_lockFilename.string(), std::string(
                    "existing lock file is not a regular file"));
     }
-//     else if(!dal::isWritable(d_lockFilename)) {
-//       throw com::FileError(d_lockFilename.string(), std::string(
-//                    "existing lock file is not writable and cannot be deleted"));
-//     } todo filesystem
+    else if(!dal::isWritable(d_lockFilename)) {
+      throw com::FileError(d_lockFilename.string(), std::string(
+                   "existing lock file is not writable and cannot be deleted"));
+    }
   }
 }
 

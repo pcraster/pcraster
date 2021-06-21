@@ -9,15 +9,12 @@
 #define INCLUDED_IOSTREAM
 #endif
 
-#ifndef INCLUDED_BOOST_FILESYSTEM
-#include <boost/filesystem.hpp>
-#define INCLUDED_BOOST_FILESYSTEM
-#endif
-
 #ifndef INCLUDED_BOOST_FORMAT
 #include <boost/format.hpp>
 #define INCLUDED_BOOST_FORMAT
 #endif
+
+#include <filesystem>
 
 // Project headers.
 
@@ -73,10 +70,10 @@ CommandLineApplication::CommandLineApplication(
     _buildStage(buildStage)
 
 {
-  namespace bf = boost::filesystem;
+  namespace fs = std::filesystem;
 
   // Command name is argv[0] without the path and extension.
-  bf::path argv0Path(argv[0]);
+  fs::path argv0Path(argv[0]);
   _commandName = argv0Path.stem().string();
 
 

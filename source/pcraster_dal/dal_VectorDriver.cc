@@ -4,12 +4,6 @@
 #endif
 
 // External headers.
-#include <memory>
-
-#ifndef INCLUDED_BOOST_FILESYSTEM
-#include <boost/filesystem.hpp>
-#define INCLUDED_BOOST_FILESYSTEM
-#endif
 
 #ifndef INCLUDED_BOOST_FORMAT
 #include <boost/format.hpp>
@@ -64,6 +58,8 @@
 #define INCLUDED_DAL_TYPES
 #endif
 
+#include <filesystem>
+#include <memory>
 
 
 /*!
@@ -98,7 +94,7 @@ public:
   {
     assert(!name.empty());
 
-    boost::filesystem::path path(name);
+    std::filesystem::path path(name);
 
     std::string result;
     std::string basename = path.stem().string();
@@ -614,7 +610,7 @@ void VectorDriver::browse(
          std::string const& location) const
 {
   // Determine list of candidate file names of files to consider.
-  boost::filesystem::path path(location);
+  std::filesystem::path path(location);
   std::vector<std::string> leaves;
   possibleFileBasedAttributeFileNames(path, leaves);
 

@@ -14,10 +14,6 @@
 #define INCLUDED_VECTOR
 #endif
 
-#ifndef INCLUDED_BOOST_FILESYSTEM
-#include <boost/filesystem.hpp>
-#define INCLUDED_BOOST_FILESYSTEM
-#endif
 
 #ifndef INCLUDED_BOOST_NONCOPYABLE
 #include <boost/noncopyable.hpp>
@@ -28,6 +24,7 @@
 
 // Module headers.
 
+#include <filesystem>
 
 
 namespace dal {
@@ -60,7 +57,7 @@ private:
 
   void             readFormatNames     ();
 
-  void             handleGdalData      (boost::filesystem::path const& prefix);
+  void             handleGdalData      (std::filesystem::path const& prefix);
 
 protected:
 
@@ -70,7 +67,7 @@ public:
   // CREATORS
   //----------------------------------------------------------------------------
 
-                   Environment         (boost::filesystem::path const& prefix);
+                   Environment         (std::filesystem::path const& prefix);
 
   /* virtual */    ~Environment        ();
 

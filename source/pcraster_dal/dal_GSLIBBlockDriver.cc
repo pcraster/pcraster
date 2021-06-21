@@ -9,11 +9,6 @@
 #define INCLUDED_LIMITS
 #endif
 
-#ifndef INCLUDED_BOOST_FILESYSTEM
-#include <boost/filesystem.hpp>
-#define INCLUDED_BOOST_FILESYSTEM
-#endif
-
 // PCRaster library headers.
 
 // Module headers.
@@ -21,6 +16,8 @@
 #include "dal_FilesystemUtils.h"
 #define INCLUDED_DAL_FILESYSTEMUTILS
 #endif
+
+#include <filesystem>
 
 
 
@@ -203,7 +200,7 @@ void GSLIBBlockDriver::write<UINT1>(
 
 void GSLIBBlockDriver::write(
          Block const& block,
-         boost::filesystem::path const& path) const
+         std::filesystem::path const& path) const
 {
   assert(
          block.containsData());

@@ -52,7 +52,7 @@ private:
                    VTKBlockDriver      (VTKBlockDriver const& rhs);
 
   void             write               (Block const& block,
-                                        boost::filesystem::path const& path) const;
+                                        std::filesystem::path const& path) const;
 
   static void      regularBlockProperties(
                                         size_t* nrVoxelsPerStack,

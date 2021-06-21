@@ -33,7 +33,7 @@ static boost::shared_ptr<Library> libraryScope;
   After calling this function the global library object can be used.
 */
 void Library::initialise(
-         boost::filesystem::path const& prefix,
+         std::filesystem::path const& prefix,
          bool cacheDatasetInfo)
 {
   if(!libraryScope) {
@@ -94,7 +94,7 @@ bool Library::cacheDatasetInfo() const
   Initialises and configures the library.
 */
 Library::Library(
-         boost::filesystem::path const& prefix,
+         std::filesystem::path const& prefix,
          bool cacheDatasetInfo)
 
   : _environment(prefix),

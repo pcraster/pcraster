@@ -9,11 +9,6 @@
 #define INCLUDED_FSTREAM
 #endif
 
-#ifndef INCLUDED_BOOST_FILESYSTEM
-#include <boost/filesystem.hpp>
-#define INCLUDED_BOOST_FILESYSTEM
-#endif
-
 // PCRaster library headers.
 
 // Module headers.
@@ -21,6 +16,8 @@
 #include "dal_Types.h"
 #define INCLUDED_DAL_TYPES
 #endif
+
+#include <filesystem>
 
 
 
@@ -64,11 +61,11 @@ protected:
                    TextFileDriver      ();
 
   bool             open                (std::ifstream& stream,
-                                        boost::filesystem::path const& path,
+                                        std::filesystem::path const& path,
                                         std::ios::openmode flags=std::ios::in) const;
 
   bool             open                (std::ofstream& stream,
-                                        boost::filesystem::path const& path,
+                                        std::filesystem::path const& path,
                                         std::ios::openmode flags=std::ios::out) const;
 
   Types const&     types               () const;

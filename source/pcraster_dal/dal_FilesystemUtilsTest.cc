@@ -37,7 +37,7 @@ BOOST_AUTO_TEST_CASE(path_is_writable)
 //   BOOST_CHECK_NO_THROW(testPathnameIsNative("bla\\bla"));
 //   BOOST_CHECK_NO_THROW(testPathnameIsNative("/"));
 //   BOOST_CHECK_NO_THROW(testPathnameIsNative(".bla"));
-// 
+//
 //   // windows, invalid ----------------------------------------------------------
 //   BOOST_CHECK_THROW(testPathnameIsNative(""), Exception);
 //   BOOST_CHECK_THROW(testPathnameIsNative("bla."), Exception);
@@ -49,15 +49,15 @@ BOOST_AUTO_TEST_CASE(path_is_writable)
 //   BOOST_CHECK_NO_THROW(testPathnameIsNative("bla/bla"));
 //   BOOST_CHECK_NO_THROW(testPathnameIsNative(".bla"));
 //   BOOST_CHECK_NO_THROW(testPathnameIsNative("bla."));
-// 
+//
 //   // linux, invalid ------------------------------------------------------------
 //   BOOST_CHECK_THROW(testPathnameIsNative(""), Exception);
 // #endif
 // }
 
 
-typedef boost::function<boost::filesystem::path
-    (boost::filesystem::path const&, size_t)> TimeStepPathVariant;
+typedef boost::function<std::filesystem::path
+    (std::filesystem::path const&, size_t)> TimeStepPathVariant;
 
 
 //! Tests \a variant.
@@ -73,119 +73,119 @@ void testTimeStepPathVariant(
     TimeStepPathVariant variant)
 {
   {
-    boost::filesystem::path path("n");
+    std::filesystem::path path("n");
     path = variant(path, 5);
     BOOST_CHECK_EQUAL(path.string(), "n0000000.005");
   }
 
   {
-    boost::filesystem::path path("n");
+    std::filesystem::path path("n");
     path = variant(path, 50);
     BOOST_CHECK_EQUAL(path.string(), "n0000000.050");
   }
 
   {
-    boost::filesystem::path path("n");
+    std::filesystem::path path("n");
     path = variant(path, 500);
     BOOST_CHECK_EQUAL(path.string(), "n0000000.500");
   }
 
   {
-    boost::filesystem::path path("n");
+    std::filesystem::path path("n");
     path = variant(path, 5000);
     BOOST_CHECK_EQUAL(path.string(), "n0000005.000");
   }
 
   {
-    boost::filesystem::path path("n");
+    std::filesystem::path path("n");
     path = variant(path, 50000);
     BOOST_CHECK_EQUAL(path.string(), "n0000050.000");
   }
   {
-    boost::filesystem::path path("name");
+    std::filesystem::path path("name");
     path = variant(path, 50000000);
     BOOST_CHECK_EQUAL(path.string(), "name0000.000");
   }
 
   {
-    boost::filesystem::path path("name");
+    std::filesystem::path path("name");
     path = variant(path, 5);
     BOOST_CHECK_EQUAL(path.string(), "name0000.005");
   }
 
   {
-    boost::filesystem::path path("name.nam");
+    std::filesystem::path path("name.nam");
     path = variant(path, 5);
     BOOST_CHECK_EQUAL(path.string(), "name.nam");
   }
 
   {
-    boost::filesystem::path path("namename");
+    std::filesystem::path path("namename");
     path = variant(path, 5);
     BOOST_CHECK_EQUAL(path.string(), "namename.005");
   }
 
   {
-    boost::filesystem::path path("namename.n");
+    std::filesystem::path path("namename.n");
     path = variant(path, 5);
     BOOST_CHECK_EQUAL(path.string(), "namename.n05");
   }
 
   {
-    boost::filesystem::path path("namename.na");
+    std::filesystem::path path("namename.na");
     path = variant(path, 5);
     BOOST_CHECK_EQUAL(path.string(), "namename.na5");
   }
 
   {
-    boost::filesystem::path path("namename.nam");
+    std::filesystem::path path("namename.nam");
     path = variant(path, 5);
     BOOST_CHECK_EQUAL(path.string(), "namename.nam");
   }
 
   {
-    boost::filesystem::path path("namename.name");
+    std::filesystem::path path("namename.name");
     path = variant(path, 5);
     BOOST_CHECK_EQUAL(path.string(), "namename.name");
   }
 
   {
-    boost::filesystem::path path("namenamename");
+    std::filesystem::path path("namenamename");
     path = variant(path, 5);
     BOOST_CHECK_EQUAL(path.string(), "namenamename");
   }
 
   {
-    boost::filesystem::path path("namenamename.nam");
+    std::filesystem::path path("namenamename.nam");
     path = variant(path, 5);
     BOOST_CHECK_EQUAL(path.string(), "namenamename.nam");
   }
 
   {
-    boost::filesystem::path path("n.amenamename.nam");
+    std::filesystem::path path("n.amenamename.nam");
     path = variant(path, 5);
     BOOST_CHECK_EQUAL(path.string(), "n.amenamename.nam");
   }
 
 #ifdef WIN32
   {
-    boost::filesystem::path path("C:\\elev");
+    std::filesystem::path path("C:\\elev");
     path = variant(path, 5);
     BOOST_CHECK_EQUAL(path.string(), "C:\\elev0000.005");
   }
   {
-    boost::filesystem::path path("adirname\\tmp_s");
+    std::filesystem::path path("adirname\\tmp_s");
     path = variant(path, 5);
     BOOST_CHECK_EQUAL(path.string(), "adirname\\tmp_s000.005");
   }
   {
-    boost::filesystem::path path("adirname/tmp_s");
+    std::filesystem::path path("adirname/tmp_s");
     path = variant(path, 5);
     BOOST_CHECK_EQUAL(path.string(), "adirname\\tmp_s000.005");
   }
 #endif
   {
-    boost::filesystem::path path("n.n");
+    std::filesystem::path path("n.n");
     path = variant(path, 50000);
     BOOST_WARN_EQUAL(path.string(), "n.n");
   }
@@ -200,7 +200,7 @@ BOOST_AUTO_TEST_CASE(time_step_path_83)
   using namespace dal;
 
   // Select correct overload.
-  boost::filesystem::path (*variant)(boost::filesystem::path const&, size_t) =
+  std::filesystem::path (*variant)(std::filesystem::path const&, size_t) =
       timeStepPath83;
   testTimeStepPathVariant(variant);
 }
@@ -221,7 +221,7 @@ BOOST_AUTO_TEST_CASE(time_step_path)
   // still supported by timeStepPath.
   // testTimeStepPathVariant(f);
 
-  boost::filesystem::path path;
+  std::filesystem::path path;
 
   {
     boost::gregorian::date date(1971, 4, 17);
@@ -646,7 +646,7 @@ BOOST_AUTO_TEST_CASE(path_for_sample)
 {
   using namespace dal;
 
-  typedef boost::filesystem::path path;
+  typedef std::filesystem::path path;
 
   BOOST_CHECK(pathForSample("bla", 5) == path("5/bla"));
 
@@ -689,7 +689,7 @@ BOOST_AUTO_TEST_CASE(path_for_time)
 {
   using namespace dal;
 
-  using namespace boost::filesystem;
+  using namespace std::filesystem;
 
   // TODO
   // Default.
@@ -772,9 +772,9 @@ BOOST_AUTO_TEST_CASE(path_for)
 {
   using namespace dal;
 
-  BOOST_CHECK(boost::filesystem::path("data") == pathFor("data"));
-  BOOST_CHECK(boost::filesystem::path("data.col") == pathFor("data.col"));
-  BOOST_CHECK(boost::filesystem::path("12345") == pathFor("12345"));
+  BOOST_CHECK(std::filesystem::path("data") == pathFor("data"));
+  BOOST_CHECK(std::filesystem::path("data.col") == pathFor("data.col"));
+  BOOST_CHECK(std::filesystem::path("12345") == pathFor("12345"));
 
   bool exceptionThrown;
 
@@ -816,7 +816,7 @@ BOOST_AUTO_TEST_CASE(path_for_data_space_address)
 {
   using namespace dal;
 
-  using namespace boost::filesystem;
+  using namespace std::filesystem;
 
 // #ifdef WIN32
 //   bool testPathForDataSpaceAddressFails=false;
@@ -966,7 +966,7 @@ BOOST_AUTO_TEST_CASE(add_extension_if_needed)
 
   std::string name;
   std::string extension;
-  boost::filesystem::path path;
+  std::filesystem::path path;
   {
     // Extension absent.
     name = "name";

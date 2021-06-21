@@ -9,10 +9,7 @@
 #define INCLUDED_VECTOR
 #endif
 
-#ifndef INCLUDED_BOOST_FILESYSTEM
-#include <boost/filesystem.hpp>
-#define INCLUDED_BOOST_FILESYSTEM
-#endif
+#include <filesystem>
 
 // PCRaster library headers.
 
@@ -58,15 +55,15 @@ private:
   std::vector<size_t> d_steps;
 
   //! Name of the stack.
-  boost::filesystem::path d_name;
+  std::filesystem::path d_name;
 
   void             checkFirstLastOrder () const;
 
   void             wrongFormatIf       (bool test) const;
 
-  bool             isMemberOfStack     (boost::filesystem::path const& path) const;
+  bool             isMemberOfStack     (std::filesystem::path const& path) const;
 
-  size_t           step                (boost::filesystem::path const& path) const;
+  size_t           step                (std::filesystem::path const& path) const;
 
   size_t           startOfStep         (std::string const& name) const;
 
@@ -108,9 +105,9 @@ public:
 
   std::string      name                () const;
 
-  boost::filesystem::path const& filename() const;
+  std::filesystem::path const& filename() const;
 
-  boost::filesystem::path filename     (size_t item) const;
+  std::filesystem::path filename       (size_t item) const;
 
   bool             isScanned           () const;
 

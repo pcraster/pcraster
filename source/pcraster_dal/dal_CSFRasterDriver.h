@@ -4,10 +4,6 @@
 
 
 // Library headers.
-#ifndef INCLUDED_BOOST_FILESYSTEM
-#include <boost/filesystem.hpp>
-#define INCLUDED_BOOST_FILESYSTEM
-#endif
 
 // PCRaster library headers.
 
@@ -27,6 +23,7 @@
 #define INCLUDED_DAL_UTILS
 #endif
 
+#include <filesystem>
 
 
 namespace dal {
@@ -101,20 +98,20 @@ class PCR_DAL_DECL CSFRasterDriver: public RasterDriver
 
 private:
 
-  Raster*          open                (boost::filesystem::path const& path,
+  Raster*          open                (std::filesystem::path const& path,
                                         TypeId typeId) const;
 
-  Raster*          read                (boost::filesystem::path const& path,
+  Raster*          read                (std::filesystem::path const& path,
                                         TypeId typeId) const;
 
   void             read                (Raster& raster,
-                                        boost::filesystem::path const& path) const;
+                                        std::filesystem::path const& path) const;
 
   void             read                (Raster& raster,
                                         CSFMap& map) const;
 
   void             write               (Raster const& raster,
-                                        boost::filesystem::path const& path) const;
+                                        std::filesystem::path const& path) const;
 
 public:
 

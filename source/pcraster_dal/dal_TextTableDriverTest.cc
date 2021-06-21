@@ -21,7 +21,7 @@ BOOST_AUTO_TEST_CASE(unexisting)
   TextTableDriver driver;
   bool exceptionCaught;
 
-  Table* table = driver.open(boost::filesystem::path(filename));
+  Table* table = driver.open(std::filesystem::path(filename));
   BOOST_CHECK(!table);
 
   try {
@@ -45,7 +45,7 @@ BOOST_AUTO_TEST_CASE(empty)
   TextTableDriver driver;
   bool exceptionCaught;
 
-  Table* table = driver.open(boost::filesystem::path(filename));
+  Table* table = driver.open(std::filesystem::path(filename));
   BOOST_CHECK(!table);
 
   try {
@@ -73,7 +73,7 @@ BOOST_AUTO_TEST_CASE(invalid_grammar)
 
   try {
     exceptionCaught = false;
-    table = driver.open(boost::filesystem::path(filename));
+    table = driver.open(std::filesystem::path(filename));
 #ifndef WIN32
     BOOST_CHECK(!table);
 #endif
@@ -102,7 +102,7 @@ BOOST_AUTO_TEST_CASE(table1)
   Table* table;
 
   {
-    table = driver.open(boost::filesystem::path(filename));
+    table = driver.open(std::filesystem::path(filename));
     BOOST_CHECK(table);
     BOOST_CHECK_EQUAL(table->nrCols(), size_t(3));
 
@@ -168,7 +168,7 @@ BOOST_AUTO_TEST_CASE(table2)
 
   std::string filename = "table2.col";
   TextTableDriver driver;
-  Table* table = driver.open(boost::filesystem::path(filename));
+  Table* table = driver.open(std::filesystem::path(filename));
   BOOST_REQUIRE(table);
   BOOST_REQUIRE_EQUAL(table->nrCols(), size_t(3));
 
@@ -231,7 +231,7 @@ BOOST_AUTO_TEST_CASE(table5)
 
   {
     TextTableDriver driver(AUTO_HEADER);
-    table = driver.open(boost::filesystem::path(filename));
+    table = driver.open(std::filesystem::path(filename));
 
     BOOST_CHECK(table);
     BOOST_CHECK_EQUAL(table->nrCols(), size_t(5));
@@ -262,7 +262,7 @@ BOOST_AUTO_TEST_CASE(table5)
 
   {
     TextTableDriver driver(NO_HEADER);
-    table = driver.open(boost::filesystem::path(filename));
+    table = driver.open(std::filesystem::path(filename));
 
     BOOST_CHECK(table);
     BOOST_CHECK_EQUAL(table->nrCols(), size_t(5));
@@ -293,7 +293,7 @@ BOOST_AUTO_TEST_CASE(table5)
 
   {
     TextTableDriver driver(HEADER);
-    table = driver.open(boost::filesystem::path(filename));
+    table = driver.open(std::filesystem::path(filename));
 
     BOOST_CHECK(table);
     BOOST_CHECK_EQUAL(table->nrCols(), size_t(5));
@@ -328,7 +328,7 @@ BOOST_AUTO_TEST_CASE(table6)
 
   {
     filename = "table6.col";
-    table = driver.open(boost::filesystem::path(filename));
+    table = driver.open(std::filesystem::path(filename));
     BOOST_CHECK(table);
     BOOST_CHECK_EQUAL(table->nrCols(), size_t(3));
 
@@ -387,7 +387,7 @@ BOOST_AUTO_TEST_CASE(table2_eas)
   TextTableDriver driver;
   bool exceptionCaught;
 
-  boost::shared_ptr<Table> table(driver.open(boost::filesystem::path(
+  boost::shared_ptr<Table> table(driver.open(std::filesystem::path(
     filename)));
   BOOST_CHECK(!table);
 
@@ -423,7 +423,7 @@ BOOST_AUTO_TEST_CASE(dos_formatted)
   std::string filename = "dosformat.col";
   TextTableDriver driver;
   boost::shared_ptr<Table> table(driver.open(
-    boost::filesystem::path(filename)));
+    std::filesystem::path(filename)));
   BOOST_REQUIRE(table);
   BOOST_CHECK_EQUAL(table->nrCols(), size_t(9));
   BOOST_CHECK_EQUAL(table->title(4), "KANTOREN");
@@ -468,7 +468,7 @@ BOOST_AUTO_TEST_CASE(column_with_quite_some_zeros)
   std::string filename = "table7.col";
   TextTableDriver driver;
   boost::shared_ptr<Table> table(driver.open(
-    boost::filesystem::path(filename)));
+    std::filesystem::path(filename)));
   BOOST_REQUIRE(table);
   BOOST_CHECK_EQUAL(table->nrCols(), size_t(2));
 

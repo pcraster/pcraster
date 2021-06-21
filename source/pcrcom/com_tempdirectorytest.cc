@@ -4,9 +4,10 @@
 #include "com_tempdirectory.h"
 #include "com_exception.h"
 
-// #include <filesystem>
+#include <filesystem>
+#include <fstream>
 
-namespace fs=std::filesystem;
+namespace fs = std::filesystem;
 
 
 BOOST_AUTO_TEST_CASE(constructor_destructor)

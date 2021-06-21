@@ -107,7 +107,7 @@ public:
                                         DataSpace const& space,
                                         DataSpaceAddress const& address) const;
 
-  virtual Table*   open                (boost::filesystem::path const& path) const;
+  virtual Table*   open                (std::filesystem::path const& path) const;
 
   // Table*           open                (std::string const& name) const;
 
@@ -122,7 +122,7 @@ public:
   //                                       DataSpaceAddress const& address) const;
 
   virtual void     read                (Table& table,
-                                        boost::filesystem::path const& path) const;
+                                        std::filesystem::path const& path) const;
 
   // void             read                (Table& table,
   //                                       std::string const& name) const;

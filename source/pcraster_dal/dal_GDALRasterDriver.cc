@@ -4,12 +4,6 @@
 #endif
 
 // Library headers.
-#include<vector>
-
-#ifndef INCLUDED_BOOST_FILESYSTEM
-#include <boost/filesystem.hpp>
-#define INCLUDED_BOOST_FILESYSTEM
-#endif
 
 #ifndef INCLUDED_BOOST_FORMAT
 #include <boost/format.hpp>
@@ -63,6 +57,8 @@
 #define INCLUDED_DAL_RASTERDIMENSIONS
 #endif
 
+#include <vector>
+#include <filesystem>
 
 
 /*!
@@ -447,7 +443,7 @@ std::vector<GDALDriver*> GDALRasterDriver::d_drivers;
 
 
 GDALDataset* GDALRasterDriver::openGDALDataset(
-         boost::filesystem::path const& path,
+         std::filesystem::path const& path,
          GDALAccess access)
 {
   GDALDataset* dataset = nullptr;
@@ -1080,7 +1076,7 @@ void GDALRasterDriver::write(
 {
   assert(space.isEmpty());
 
-  boost::filesystem::path path(dal::pathFor(name));
+  std::filesystem::path path(dal::pathFor(name));
 
   // FROM api Tutorial
 
@@ -1149,7 +1145,7 @@ void GDALRasterDriver::browse(
          std::string const& location) const
 {
   // TODO If this driver is a remote driver (WCS), it should not be used(?).
-  browseFileBasedRasterAttributes(attributes, boost::filesystem::path(
+  browseFileBasedRasterAttributes(attributes, std::filesystem::path(
          location), DALConvention);
 }
 

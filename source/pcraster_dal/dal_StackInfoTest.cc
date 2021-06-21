@@ -8,7 +8,7 @@ BOOST_AUTO_TEST_CASE(constructor)
 {
   using namespace dal;
 
-  boost::filesystem::path filename;
+  std::filesystem::path filename;
 
   {
     // Static stack in current dir.
@@ -309,7 +309,7 @@ BOOST_AUTO_TEST_CASE(constructor)
   // Directories.
   {
     // Static stack in current dir.
-    boost::filesystem::path path(".");
+    std::filesystem::path path(".");
     path /= "soil.csf";
     StackInfo info(path.string());
     BOOST_CHECK_EQUAL(info.name(), path.string());
@@ -319,7 +319,7 @@ BOOST_AUTO_TEST_CASE(constructor)
 
   {
     // Static stack in upper dir.
-    boost::filesystem::path path("..");
+    std::filesystem::path path("..");
     path /= "soil.csf";
     StackInfo info(path.string());
     BOOST_CHECK_EQUAL(info.name(), path.string());
@@ -329,7 +329,7 @@ BOOST_AUTO_TEST_CASE(constructor)
 
   {
     // Static stack in lower dir.
-    boost::filesystem::path path("bla");
+    std::filesystem::path path("bla");
     path /= "soil.csf";
     StackInfo info(path.string());
     BOOST_CHECK_EQUAL(info.name(), path.string());
@@ -339,7 +339,7 @@ BOOST_AUTO_TEST_CASE(constructor)
 
   {
     // Static stack in root dir.
-    boost::filesystem::path path("/");
+    std::filesystem::path path("/");
     path /= "soil.csf";
     StackInfo info(path.string());
     BOOST_CHECK_EQUAL(info.name(), path.string());
@@ -349,7 +349,7 @@ BOOST_AUTO_TEST_CASE(constructor)
 
   {
     // Static stack in sub dir of roo dir.
-    boost::filesystem::path path("/");
+    std::filesystem::path path("/");
     path /= "bla";
     path /= "soil.csf";
     StackInfo info(path.string());
@@ -368,21 +368,21 @@ BOOST_AUTO_TEST_CASE(constructor)
 
   {
     StackInfo info("soilsoi0.000");
-    BOOST_CHECK_EQUAL(info.name(), boost::filesystem::path("soilsoi0.000").string());
+    BOOST_CHECK_EQUAL(info.name(), std::filesystem::path("soilsoi0.000").string());
     BOOST_CHECK(!info.isDynamic());
     BOOST_CHECK_EQUAL(info.filename().string(), "soilsoi0.000");
   }
 
   {
     StackInfo info("soilsoil.000");
-    BOOST_CHECK_EQUAL(info.name(), boost::filesystem::path("soilsoil.000").string());
+    BOOST_CHECK_EQUAL(info.name(), std::filesystem::path("soilsoil.000").string());
     BOOST_CHECK(!info.isDynamic());
     BOOST_CHECK_EQUAL(info.filename().string(), "soilsoil.000");
   }
 
   {
     StackInfo info("5");
-    BOOST_CHECK_EQUAL(info.name(), boost::filesystem::path("5").string());
+    BOOST_CHECK_EQUAL(info.name(), std::filesystem::path("5").string());
     BOOST_CHECK(!info.isDynamic());
     BOOST_CHECK_EQUAL(info.filename().string(), "5");
   }
@@ -391,12 +391,12 @@ BOOST_AUTO_TEST_CASE(constructor)
   {
     StackInfo info("../bla.map", false);
     BOOST_CHECK_EQUAL(info.name(),
-         boost::filesystem::path("../bla.map").string());
+         std::filesystem::path("../bla.map").string());
   }
 #else
   {
     StackInfo info("volcano/volcano0.090+volcano/lava0000.090", false);
-    BOOST_CHECK_EQUAL(info.name(), boost::filesystem::path(
+    BOOST_CHECK_EQUAL(info.name(), std::filesystem::path(
          "volcano/volcano0.090+volcano/lava0000.0").string());
   }
 #endif
@@ -543,12 +543,12 @@ BOOST_AUTO_TEST_CASE(copy)
     StackInfo info("soil.csf");
     StackInfo copy(info);
 
-    BOOST_CHECK_EQUAL(copy.name(), boost::filesystem::path("soil.csf").string());
+    BOOST_CHECK_EQUAL(copy.name(), std::filesystem::path("soil.csf").string());
     BOOST_CHECK(!copy.isDynamic());
     BOOST_CHECK_EQUAL(copy.filename().string(), "soil.csf");
 
     copy = info;
-    BOOST_CHECK_EQUAL(copy.name(), boost::filesystem::path("soil.csf").string());
+    BOOST_CHECK_EQUAL(copy.name(), std::filesystem::path("soil.csf").string());
     BOOST_CHECK(!copy.isDynamic());
     BOOST_CHECK_EQUAL(copy.filename().string(), "soil.csf");
   }

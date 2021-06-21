@@ -100,7 +100,7 @@ Dal& Client::dal()
 //------------------------------------------------------------------------------
 
 Client::Client(
-         boost::filesystem::path const& prefix,
+         std::filesystem::path const& prefix,
          bool addAllDrivers,
          bool cacheDatasetInfo)
 {

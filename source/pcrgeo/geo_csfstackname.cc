@@ -169,7 +169,7 @@ std::string geo::CSFStackName::asAguilaArgument(
 {
   DEVELOP_PRECOND(!stackName.empty());
   DEVELOP_PRECOND(stackName.find(".") != stackName.size() - 1);
-  std::string arg(dal::timeStepPath83(boost::filesystem::path(
+  std::string arg(dal::timeStepPath83(std::filesystem::path(
          stackName), start).string());
   arg+="+";
   arg+=com::intToStr(stop);
@@ -719,7 +719,7 @@ com::PathName geo::CSFStackName::fileName(size_t t) const
   if(isDynamic()) {
     DEVELOP_PRECOND(!d_data->d_path.toString().empty());
     DEVELOP_PRECOND(d_data->d_path.toString().find(".") != d_data->d_path.toString().size() - 1);
-//     return dal::timeStepPath83(d_data->d_path.path(), t); todo filesystem
+     return dal::timeStepPath83(d_data->d_path.path(), t);
   }
   return d_data->d_path;
 }

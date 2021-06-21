@@ -4,10 +4,6 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_BOOST_FILESYSTEM
-#include <boost/filesystem.hpp>
-#define INCLUDED_BOOST_FILESYSTEM
-#endif
 
 // PCRaster library headers.
 
@@ -17,7 +13,7 @@
 #define INCLUDED_DAL_FILESYSTEMUTILS
 #endif
 
-
+#include <filesystem>
 
 /*!
   \file
@@ -154,7 +150,7 @@ void BinaryTableDriver::write(
          std::string const& name) const
 {
   std::ofstream stream;
-  boost::filesystem::path path(pathForDataSpaceAddress(name, space, address));
+  std::filesystem::path path(pathForDataSpaceAddress(name, space, address));
 
   if(!TextFileDriver::open(stream, path, std::ios::binary)) {
     throwCannotBeCreated(path.string(), TABLE);

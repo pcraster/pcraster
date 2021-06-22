@@ -1,11 +1,11 @@
 #include "mf_utils.h"
 
-#include <boost/filesystem.hpp>
+#include <filesystem>
 #include <iostream>
 
 
 
-namespace fs = boost::filesystem;
+namespace fs = std::filesystem;
 
 
 namespace mf {

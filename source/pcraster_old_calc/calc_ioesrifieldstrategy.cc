@@ -13,10 +13,6 @@
 #include <vector>
 #define INCLUDED_VECTOR
 #endif
-#ifndef INCLUDED_BOOST_FILESYSTEM
-#include <boost/filesystem.hpp>
-#define INCLUDED_BOOST_FILESYSTEM
-#endif
 
 #ifndef INCLUDED_STDEXCEPT
 #include <stdexcept>
@@ -91,6 +87,8 @@
 #include "calc_stackinfo.h"
 #define INCLUDED_CALC_STACKINFO
 #endif
+
+#include <filesystem>
 
 /*!
   \file
@@ -286,7 +284,7 @@ void calc::IoEsriFieldStrategy::removeOutputObject(const std::string& objName) c
 
   // other directory check that
 
-  namespace fs = boost::filesystem;
+  namespace fs = std::filesystem;
   bool isAStack = true;
   fs::path infoDir;
   fs::path stack(path.pathName().path());

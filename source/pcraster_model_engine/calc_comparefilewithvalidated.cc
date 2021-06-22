@@ -16,11 +16,10 @@
 // PCRaster library headers.
 
 // Module headers.
-#ifndef INCLUDED_BOOST_FILESYSTEM
-#include <boost/filesystem.hpp>
-#define INCLUDED_BOOST_FILESYSTEM
-#endif
-namespace fs=boost::filesystem;
+
+#include <filesystem>
+
+namespace fs = std::filesystem;
 
 
 

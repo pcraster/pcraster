@@ -13,10 +13,6 @@
 #include <sstream>
 #define INCLUDED_SSTREAM
 #endif
-#ifndef INCLUDED_BOOST_FILESYSTEM
-#include <boost/filesystem.hpp>
-#define INCLUDED_BOOST_FILESYSTEM
-#endif
 // PCRaster library headers.
 
 #ifndef INCLUDED_PCRLINKIN
@@ -50,6 +46,8 @@
 #include "calc_xmldatatype.h"
 #define INCLUDED_CALC_XMLDATATYPE
 #endif
+
+#include <filesystem>
 
 /*!
   \file
@@ -183,7 +181,7 @@ public:
      if (!d_execute)
        throwException("code library does not contain pcr_LinkInExecute");
 
-     boost::filesystem::path xmlFile(d_dl->directory());
+     std::filesystem::path xmlFile(d_dl->directory());
      xmlFile /= (d_name+".xml");
      pcrxsd::DOMInput d(pcrxsd::DOMInput::CompiledIn);
      d.setValidate(true);

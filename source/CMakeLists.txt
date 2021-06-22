@@ -129,9 +129,6 @@ set(LIBS_PATH "")
 
 if(PCRASTER_PACKAGE_BOOST)
 
-  get_dependent_so(var Boost::filesystem)
-  list(APPEND LIBS_PATH ${var})
-
   get_dependent_so(var Boost::date_time)
   list(APPEND LIBS_PATH ${var})
 

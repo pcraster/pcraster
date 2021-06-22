@@ -27,7 +27,6 @@ target_include_directories(utils
 
 target_link_libraries(utils
     PRIVATE
-        Boost::filesystem
         Boost::program_options
         XercesC::XercesC
         GDAL::GDAL

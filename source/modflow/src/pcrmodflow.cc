@@ -20,10 +20,6 @@
 #define INCLUDED_FSTREAM
 #endif
 
-#ifndef INCLUDED_BOOST_FILESYSTEM
-#include <boost/filesystem.hpp>
-#define INCLUDED_BOOST_FILESYSTEM
-#endif
 
 //#ifndef INCLUDED_BOOST_BIND
 //#include <boost/bind.hpp>
@@ -139,6 +135,8 @@
 
 #include <QProcess>
 #include <QString>
+
+#include <filesystem>
 
 
 /// \todo change the confined level vector to layer vector
@@ -1016,8 +1014,8 @@ void PCRModflow::setRechargeLay(const calc::Field *rch, const calc::Field *layer
 
 void PCRModflow::removeTextFiles(std::string const & fileName) const
 {
-  if(boost::filesystem::exists(fileName)) {
-    boost::filesystem::remove(fileName);
+  if(std::filesystem::exists(fileName)) {
+    std::filesystem::remove(fileName);
   }
 }
 
@@ -1258,7 +1256,7 @@ void PCRModflow::modflow_converged() {
 
   std::string filename = mf::execution_path(run_directory(), "pcrmf.lst");
 
-  if(!boost::filesystem::exists(filename)) {
+  if(!std::filesystem::exists(filename)) {
     std::cerr << "  Error in PCRasterModflow: can not open global list file " << filename << std::endl;
     exit(1);
   }
@@ -1286,7 +1284,7 @@ void PCRModflow::printList() {
 
   std::string filename = mf::execution_path(run_directory(), "pcrmf.lst");
 
-  if(!boost::filesystem::exists(filename)) {
+  if(!std::filesystem::exists(filename)) {
     std::cerr << "  Error in PCRasterModflow: can not open global list file " << filename << std::endl;
     exit(1);
   }

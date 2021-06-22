@@ -128,19 +128,18 @@ if(PCRASTER_BUILD_MULTICORE)
     endif()
 endif()
 
+
 # Ugly workaround to enforce working wrt conda-build
-# TODO: Refactor when all platforms support std filesystem
+# TODO: Refactor when no more boost dependency required at runtime
 #       Consider to move to Qt command line options as well
 #       to remove (release package) dependency on Boost
 if(PCRASTER_LINK_STATIC_BOOST)
-
-    set(DEVBASE_BOOST_REQUIRED TRUE)
 
     set(Boost_NO_BOOST_CMAKE ON)
     set(Boost_USE_STATIC_LIBS ON)
     set(Boost_USE_STATIC_RUNTIME OFF)
 
-    find_package(Boost COMPONENTS system unit_test_framework date_time filesystem program_options timer)
+    find_package(Boost 1.60 COMPONENTS unit_test_framework date_time program_options timer)
 
     if(NOT Boost_FOUND)
         message(FATAL_ERROR "Boost not found")
@@ -149,32 +148,20 @@ if(PCRASTER_LINK_STATIC_BOOST)
         message(STATUS "  libraries: ${Boost_LIBRARIES}")
     endif()
 
-    add_definitions(-DBOOST_FILESYSTEM_NO_DEPRECATED)
-
 else()
-
-    set(DEVBASE_BOOST_REQUIRED TRUE)
-
     set(Boost_NO_BOOST_CMAKE ON)
+    list(APPEND PCR_BOOST_COMPONENTS date_time program_options timer)
 
     if(PCRASTER_BUILD_TEST)
-        set(DEVBASE_BUILD_TEST TRUE)
-        list(APPEND DEVBASE_REQUIRED_BOOST_COMPONENTS
-            system unit_test_framework)
-
-        # The ones below are required in case a developer needs to
-        # regenerate one of the pcraster_model_engine's XML files
-        # set(DEVBASE_LIB_XSLT_XSLTPROC_REQUIRED TRUE)
-        # set(DEVBASE_LIB_XML2_REQUIRED TRUE)
-        # set(DEVBASE_LIB_XSLT_REQUIRED TRUE)
-        #
-        # ... or XSD
-        # set(DEVBASE_XSD_REQUIRED TRUE)
+        enable_testing()
+        list(APPEND PCR_BOOST_COMPONENTS unit_test_framework)
     endif()
 
-    list(APPEND DEVBASE_REQUIRED_BOOST_COMPONENTS
-        date_time filesystem program_options timer)
+    find_package(Boost 1.60 REQUIRED COMPONENTS ${PCR_BOOST_COMPONENTS})
 endif()
+
+
+
 
 set(DEVBASE_QT_REQUIRED TRUE)
 set(DEVBASE_REQUIRED_QT_VERSION 5)
@@ -207,6 +194,12 @@ elseif(EXISTS "${GDAL_INCLUDE_DIRS}/../share/gdal")
     set(GDAL_DATA "${GDAL_INCLUDE_DIRS}/../share/gdal")
 else()
     message(FATAL_ERROR "GDAL data dir not found")
+endif()
+
+if(PCRASTER_BUILD_TEST)
+    if(NOT GDAL_TRANSLATE)
+        message(FATAL_ERROR "gdal_translate executable not found")
+    endif()
 endif()
 
 
@@ -279,3 +272,15 @@ if(NOT PYBIND11_SYSTEM_INCLUDE)
 else()
     find_package(pybind11 REQUIRED)
 endif()
+
+
+# >>> The ones below are required in case a developer needs to
+#     regenerate one of the pcraster_model_engine's XML files
+# set(DEVBASE_LIB_XSLT_XSLTPROC_REQUIRED TRUE)
+# set(DEVBASE_LIB_XML2_REQUIRED TRUE)
+# set(DEVBASE_LIB_XSLT_REQUIRED TRUE)
+#
+# ... or XSD
+# set(DEVBASE_XSD_REQUIRED TRUE)
+# <<<
+

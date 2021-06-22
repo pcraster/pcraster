@@ -2,8 +2,6 @@
 #include <boost/test/unit_test.hpp>
 #include "stddefx.h"
 #include <algorithm>
-#include <boost/filesystem.hpp>
-namespace fs=boost::filesystem;
 
 #include "appargs.h"
 #include "calc_comparefilewithvalidated.h"
@@ -18,6 +16,8 @@ namespace fs=boost::filesystem;
 #include "calc_xmlreflection.h"
 #include "calc_spatial.h"
 
+#include <filesystem>
+namespace fs = std::filesystem;
 
 namespace calc {
    namespace detail {

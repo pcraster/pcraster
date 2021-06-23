@@ -285,6 +285,7 @@ void com::PathName::makeAbsolute()
              We are not fixing that, if that results in a bug, use boost::filesystem
              directly and get rid of PathName where the bug occurs.
              For current behavior check the unittests of PathName
+             Test behaviour changed when moved to std filesystem
 */
 void com::PathName::up()
 {
@@ -390,6 +391,7 @@ std::string com::PathName::directoryName() const
              fixing that, if that results in a bug, use boost::filesystem
              directly and get rid of PathName where the bug occurs.
              For current behavior check the unittests of PathName
+             Test behaviour changed when moved to std filesystem
 */
 std::string com::PathName::baseName() const
 {

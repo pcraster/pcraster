@@ -17,10 +17,13 @@ jobs:
         - name: configure system
           run: |
               brew install cmake ninja boost gdal ncurses xerces-c qt@5
+              pip3 install psutil
 
         - name: configure pcraster
           shell: bash -l {0}
           run: |
+              ls -al /usr/local/Cellar/
+              ls -al /usr/local/opt/
               mkdir build
               cmake \
                   -S . \
@@ -29,7 +32,7 @@ jobs:
                   -D CMAKE_RULE_MESSAGES=OFF \
                   -D PCRASTER_BUILD_TEST=ON \
                   -D PCRASTER_BUILD_TEST_FERN=ON \
-                  -D CMAKE_PREFIX_PATH=/usr/local/opt/ncurses
+                  -D CMAKE_PREFIX_PATH=/usr/local/opt/ncurses;/usr/local/Cellar/qt5
 
         - name: build
           shell: bash

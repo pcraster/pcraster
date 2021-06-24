@@ -43,7 +43,7 @@ BOOST_AUTO_TEST_CASE(test)
 }
 
 
-BOOST_AUTO_TEST_CASE(option)
+BOOST_AUTO_TEST_CASE(test_option)
 {
   using namespace calc;
 

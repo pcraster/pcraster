@@ -14,6 +14,7 @@
 #define INCLUDED_OGR_GEOMETRY
 #endif
 
+#include <boost/geometry.hpp>
 // Project headers.
 
 // Module headers.

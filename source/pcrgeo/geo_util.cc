@@ -157,7 +157,7 @@ bool geo::geoEasFormat(std::istream &s)
   try {
     com::removeFrontEndSpace(l);
     (void)com::strToInt(l);     // Ignore result.
-  } catch (std::range_error) {
+  } catch (const std::range_error&) {
     result = false;
   }
 

@@ -62,36 +62,6 @@ static void StartTimer(void)
  POSTCOND(start != NOTIME);
 }
 
-/* Pause the stopwatch
- * Pause the stopwatch untill PauseOffTimer is called.
- * Repetive use has no effect, first call pauses till PauseOffTimer 
- */
-static void PauseOnTimer(void)
-{
- if (paused == ZERO)
-  {
-   (void)time(&paused);
-   POSTCOND(paused != NOTIME);
-  }
-}
-
-/* Continue the paused stopwatch 
- * PauseOffTimer continues the paused stopwatch.
- * Repetive use has no effect.
- */
-static void PauseOffTimer(void)
-{
- time_t now;
-
- if (paused != ZERO)
- {
-  (void)time(&now);
-  POSTCOND(now != NOTIME);
-  start += (now - paused);
-  paused = ZERO;
- }
-}
-
 /* Read stopwatch time
  * Returns
  * time in seconds since StartTimer was called minus the

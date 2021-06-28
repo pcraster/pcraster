@@ -53,30 +53,6 @@ for { set y [ expr $b +1 ] } { $y >= [ expr -$b-1] } { incr y -1 } {
 
 */
 
-/* computes the number of pixelss surrounding
- * the current pixel that must 
- * be analyzed 
- */
-static int DetWindow(REAL8 *bw,     /* write-only, border weight, 0 if border pixel are
-                                     * compeltely covered by window
-                                     */
-                     REAL8 winSize) /* window size */
-{
-    double Floor;
-    PRECOND(winSize > 0);
-    winSize /= Side();
-    if (winSize <= 1) {
-        *bw = winSize;
-        return 0;
-    }
-    winSize *= 0.5;
-    winSize -= 0.5;
-    *bw = modf(winSize, &Floor);
-    if (*bw == 1)
-        *bw = 0;
-    return (int)ceil(winSize);
-}
-
 static double Weight(int pw,    /* half pixel window size */
                      int r,     /* row delta index */
                      int c,     /* column delta index */
@@ -113,66 +89,6 @@ Add2Lines(HOR_CUT_LINE *l, int nrLines, int xCeil, REAL8 c, REAL8 s, REAL8 x, RE
     l[xInd].start.f = POSSIBLE_DATA_LOSS(REAL4, MIN(l[xInd].start.f, yRot));
     l[xInd].end.f = POSSIBLE_DATA_LOSS(REAL4, MAX(l[xInd].end.f, yRot));
     (void)nrLines; // shut up compiler
-}
-
-
-static int BuildEllipse2(REAL8 xmajor_a, REAL8 yminor_b, REAL8 angle)
-{
-    int i, nrLines, xCeil;
-    int lineStart, lineEndIncl;
-    REAL8 xIncr, c = cos(angle), s = sin(angle);
-    HOR_CUT_LINE *l;
-    PRECOND(xmajor_a != 0);
-    PRECOND(yminor_b != 0);
-    xmajor_a /= Side();
-    yminor_b /= Side();
-
-    xCeil = (size_t)ceil(xmajor_a);
-    nrLines = (xCeil * 2) + 1;
-    l = (HOR_CUT_LINE *)ChkMalloc(sizeof(HOR_CUT_LINE) * nrLines);
-    for (i = 0; i < nrLines; i++) {
-        /* mark not initialized */
-        SET_MV_REAL4(&(l[i].start.f));
-    }
-
-    for (xIncr = 0; xIncr < xCeil; xIncr += 1) {
-        REAL8 y = sqrt(fabs(1 - (sqr(xIncr) / sqr(xmajor_a))) * sqr(yminor_b));
-        Add2Lines(l, nrLines, xCeil, c, s, xIncr, y);
-        Add2Lines(l, nrLines, xCeil, c, s, xIncr, -y);
-        Add2Lines(l, nrLines, xCeil, c, s, -xIncr, y);
-        Add2Lines(l, nrLines, xCeil, c, s, -xIncr, -y);
-    }
-    if (0) {
-        REAL8 y;
-        xIncr = xmajor_a;
-        y = sqrt(fabs(1 - (sqr(xIncr) / sqr(xmajor_a))) * sqr(yminor_b));
-        Add2Lines(l, nrLines, xCeil, c, s, xIncr, y);
-        Add2Lines(l, nrLines, xCeil, c, s, xIncr, -y);
-        Add2Lines(l, nrLines, xCeil, c, s, -xIncr, y);
-        Add2Lines(l, nrLines, xCeil, c, s, -xIncr, -y);
-    }
-
-    for (i = 0; i < nrLines; i++) {
-        /* mark not initialized */
-        if (!IS_MV_REAL4(&(l[i].start.f)))
-            break;
-    }
-    POSTCOND(i < nrLines);
-    lineStart = i;
-    for (i = nrLines - 1; i >= 0; i--) {
-        /* mark not initialized */
-        if (!IS_MV_REAL4(&(l[i].start.f)))
-            break;
-    }
-    POSTCOND(i >= 0);
-    lineEndIncl = i;
-
-    for (i = lineStart; i <= lineEndIncl; i++) {
-        PRECOND(!IS_MV_REAL4(&(l[i].start.f)));
-        l[i].start.i = (int)Rint(l[i].start.f);
-        l[i].end.i = (int)Rint(l[i].end.f);
-    }
-    return 1;
 }
 
 static int BuildCircle(REAL8 radius)

@@ -18,7 +18,7 @@ include(PCRasterConfiguration)
 include(PCRasterCompilerConfiguration)
 
 include(DevBaseExternal)
-include(DevBaseMacro)
+#include(DevBaseMacro)
 
 
 

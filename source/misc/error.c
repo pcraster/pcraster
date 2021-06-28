@@ -14,8 +14,8 @@
 /* ptrs[errorNestLevel] always points in errorBuf
  * to point were the next message can be put
  */
-static char errorBuf[BUF_SIZE];
-static char errorMsg[BUF_SIZE]; /* the complete message */
+static char errorBuf[BUF_SIZE + 25];
+static char errorMsg[BUF_SIZE + 25]; /* the complete message */
 static char *ptrs[16];
 static int errorNestLevel = 0;
 
@@ -34,19 +34,19 @@ static void printStderr(const char *msg)
 }
 
 /* controls if Error() and siblings will exit
- * This global variable 
+ * This global variable
  * controls if Error(), vfError() and RetError calls exit. If exitOnError is non-zero
  * then that exit is called with that non-zero value. If exitOnError is zero then
- * Error() and siblings will return. exitOnError is 
+ * Error() and siblings will return. exitOnError is
  * initialized to zero.  Put exitOnError=1 in your main() for quick and dirty
  * programming.
  */
 int exitOnError = 0;
 
-/* controls what Error() and siblings will print as error prefix 
- * This global variable 
+/* controls what Error() and siblings will print as error prefix
+ * This global variable
  * controls what Error(), vfError() and RetError will print as prefix. If errorPrefixMsg is NULL
- * then these functions use the prefix 'ERROR:'. If errorPrefixMsg is not NULL 
+ * then these functions use the prefix 'ERROR:'. If errorPrefixMsg is not NULL
  * Error() and siblings will use the prefix pointed to by errorPrefixMsg.
  */
 const char *errorPrefixMsg = NULL;
@@ -65,14 +65,14 @@ void (*errorHandler)(const char *msg) = printStderr;
  * and messages are indended for each call to ErrorNested().
  *
  * IMPORTANT
- * Global (not static) functions that use ErrorNested() should have 
+ * Global (not static) functions that use ErrorNested() should have
  * the use of ErrorNested() documented.
  *
  * EXAMPLE
  * .so examples/errnest.tr
  *
  * will print this on stderr
- * : 
+ * :
  *
  * .so examples/errout.tr
  */
@@ -107,7 +107,7 @@ void vfErrorNested(const char *fmt, /* Format control, see printf() for a descri
     /* print message in buf */
     (void)vsprintf(buf, fmt, marker);
 
-    /* remove leading and trailing space and newlines 
+    /* remove leading and trailing space and newlines
          */
     (void)LeftRightTrim(buf);
 
@@ -134,7 +134,7 @@ void vfError(const char *fmt, /* Format control, see printf() for a description 
     pref = (errorPrefixMsg == NULL) ? "ERROR:" : errorPrefixMsg;
     (void)sprintf(errorMsg, "%s %s\n", pref, buf);
 
-    /* let msgPtr point to insertion point 
+    /* let msgPtr point to insertion point
      * the '\0'
      */
     msgPtr = strlen(errorMsg);
@@ -186,7 +186,7 @@ void vfError(const char *fmt, /* Format control, see printf() for a description 
  *
  * The global variable int exitOnError
  * controls if Error (and siblings) calls exit. If exitOnError is non-zero
- * then that exit is called with that non-zero value. exitOnError is 
+ * then that exit is called with that non-zero value. exitOnError is
  * initialized to zero. Put exitOnError=1 in your main() for quick and dirty
  * programming.
  *
@@ -252,10 +252,10 @@ int RetErrorNested(int returnValue, /* value to be returned */
     return returnValue;
 }
 
-/* Writes warning message to stderr 
+/* Writes warning message to stderr
  * The format string is prefixed by 'WARNING: '.
  * A newline is printed if the format string has no ending
- * newline. 
+ * newline.
  */
 void Warning(const char *fmt, /* Format control, see printf() for a description */
              ...)             /* Optional arguments */

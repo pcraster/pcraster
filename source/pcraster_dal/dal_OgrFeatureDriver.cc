@@ -116,6 +116,8 @@ TypeId fieldTypeToTypeId(
       result = TI_STRING;
       break;
     }
+    case OFTInteger64:
+    case OFTInteger64List:
     case OFTIntegerList:
     case OFTRealList:
     case OFTStringList:

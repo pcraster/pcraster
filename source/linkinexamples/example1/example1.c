@@ -27,6 +27,7 @@ PCR_DLL_FUNC (const char *) pcr_LinkInExecute(
       const char *xmlNotUsed,
       LinkInTransferArray linkInTransferArray)
 {
+  (void)xmlNotUsed; // shut up compiler
   unsigned char *result=(unsigned char *)linkInTransferArray[0];
   unsigned char value;
   int r,c,cell=0;

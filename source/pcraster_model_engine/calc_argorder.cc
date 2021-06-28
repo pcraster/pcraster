@@ -148,7 +148,7 @@ void ArgOrderAndAddArea::argOrderAreaLimited(
    ArgIter  maxArg=args.end();
    CellIter maxCell=cellsToSort.end();
    for(ArgIter argIter=args.begin(); argIter!=args.end(); ++argIter)
-    for(CellIter cellIter=findStart; cellIter != cellsToSort.end(); ++cellIter) 
+    for(CellIter cellIter=findStart; cellIter != cellsToSort.end(); ++cellIter)
     {
        // MV's already skipped at initialisation
        if (argIter->chance()[*cellIter] > maxValue) {
@@ -281,32 +281,33 @@ void ArgOrderAndAddArea::argOrderAddAreaLimited(
    } // eofor find max
 
    // none found, all assigned
-   if (maxValue== -std::numeric_limits<REAL4>::max())
+   if (maxValue== -std::numeric_limits<REAL4>::max()) {
      break;
-
-     result[*maxCell] = maxArg->id();
-     // do this before swap
-     ArgMap::iterator currentIdPtr= args.find(currentId[*maxCell]);
-
-     // maxCell is now done and should go before the next findStart
-     //  swap the cell indices to achieve that
-     std::swap(*findStart,*maxCell);
-     maxArg->incrementAreaAssigned();
-
-     if(currentIdPtr != args.end()) {
-       // will overwrite an id with claims
-       currentIdPtr->second.incrementAreaTaken();
-     }
-
-   } // eofor
-   cellsTakenPrev=cellsTakenNow;
-   cellsTakenNow=0;
-   // for(CellIndex c=0; c < len; ++c)
-   //   std::cerr << result << "[" << c << "]= " << result[c] << "\n";
-   for(ArgMap::iterator argIter=args.begin(); argIter!=args.end(); ++argIter) {
-     cellsTakenNow+=argIter->second.areaTaken();
-     argIter->second.resetForSweep();
    }
+
+   result[*maxCell] = maxArg->id();
+   // do this before swap
+   ArgMap::iterator currentIdPtr= args.find(currentId[*maxCell]);
+
+   // maxCell is now done and should go before the next findStart
+   //  swap the cell indices to achieve that
+   std::swap(*findStart,*maxCell);
+   maxArg->incrementAreaAssigned();
+
+   if(currentIdPtr != args.end()) {
+     // will overwrite an id with claims
+     currentIdPtr->second.incrementAreaTaken();
+   }
+
+  } // eofor
+  cellsTakenPrev=cellsTakenNow;
+  cellsTakenNow=0;
+  // for(CellIndex c=0; c < len; ++c)
+  //   std::cerr << result << "[" << c << "]= " << result[c] << "\n";
+  for(ArgMap::iterator argIter=args.begin(); argIter!=args.end(); ++argIter) {
+    cellsTakenNow+=argIter->second.areaTaken();
+    argIter->second.resetForSweep();
+  }
 
  } // eowhile claims
 }

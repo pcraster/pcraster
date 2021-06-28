@@ -45,7 +45,7 @@ endif()
 
 add_compile_options(
     "$<$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:Clang>>:-pipe>"
-    "$<$<COMPILE_LANG_AND_ID:C,GNU,Clang>:>"
+    "$<$<COMPILE_LANG_AND_ID:C,GNU,Clang>:-Wall>"
     "$<$<COMPILE_LANG_AND_ID:CXX,GNU,Clang>:>"
 )
 

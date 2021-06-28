@@ -66,7 +66,7 @@ extern int Ldddist(
   const MAP_REAL8 *weight,  /* scalar weight map */
   BOOL  useWeightedFriction); /* true -> old ldddist, false in traveltime use */
 extern int Downstreamtotal(
-     MAP_REAL8 *out,                  /* write-only output map  */ 
+     MAP_REAL8 *out,                  /* write-only output map  */
      const MAP_UINT1 *ldd,             /* ldd map            */
      const MAP_REAL8 *amount);           /* amount map */
 
@@ -338,6 +338,15 @@ extern int StreamOrder(MAP_INT4 *order, const MAP_UINT1 *ldd);
 
 /* kinemati.c */
 extern int Kinematic(MAP_REAL8 *Qnew, const MAP_UINT1 *ldd, const MAP_REAL8 *Qold, const MAP_REAL8 *q, const MAP_REAL8 *alpha, const MAP_REAL8 *beta, const MAP_REAL8 *deltaT, const MAP_REAL8 *deltaX);
+double IterateToQnew(
+    double Qin, /* summed Q new in for all sub-cachments */
+    double Qold,  /* current discharge */
+    double q,
+    double alpha,
+    double beta,
+    double deltaT,
+    double deltaX,
+    double epsilon);
 
 /* dynwave.cc */
 extern int DynamicWave(

@@ -59,7 +59,7 @@ static void InitRec(DATA *f, int id) {
     f->area= 0;
 }
 
-/* Compares a two DATA structures according to their id-field 
+/* Compares a two DATA structures according to their id-field
  * Returns integer 1, 0 or -1, according to result of equation.
  */
 static int CmpStatContVal(
@@ -106,7 +106,7 @@ static int CalcOut(
     size_t cOut,         /* column of pixel */
     SEARCH_TABLE *table) /* list of ids & areas */
 {
-    size_t cover= 0; /* total non-MV cells covering */
+//     size_t cover= 0; /* total non-MV cells covering */
     INT4 outVal;     /* the calculated output id */
     DATA *record;
 
@@ -121,12 +121,12 @@ static int CalcOut(
     if (record->area != 0) {
         outVal= record->id;
         /* Determine number of covered subpixels of output pixel */
-        if (raster != NULL)
-            cover= DetNrCoverCells(raster); /* coverage percentage */
-                                            /* CW CW CW ???????????????
-                                             * if( cover < nrCoverCells || cover == 0)
-                                             *    outVal = MV_INT4;
-                                             */
+//         if (raster != NULL)
+//             cover= DetNrCoverCells(raster); /* coverage percentage */
+//                                             /* CW CW CW ???????????????
+//                                              * if( cover < nrCoverCells || cover == 0)
+//                                              *    outVal = MV_INT4;
+//                                              */
     }
     RputCell(out, rOut, cOut, &outVal);
     return 0;

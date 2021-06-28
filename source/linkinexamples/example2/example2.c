@@ -28,6 +28,7 @@ PCR_DLL_FUNC (const char *) pcr_LinkInExecute(
       const char *xmlNotUsed,
       LinkInTransferArray linkInTransferArray)
 {
+  (void)xmlNotUsed; // shut up compiler
   float *result =  (float *)linkInTransferArray[0];
 
   const float *spatial    =(const float *)linkInTransferArray[1];

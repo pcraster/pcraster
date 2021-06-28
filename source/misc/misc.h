@@ -21,6 +21,7 @@ extern void ErrorNested(const char *fmt, ...);
 extern void vfErrorNested(const char *fmt, va_list marker);
 extern void vfError(const char *fmt, va_list marker);
 extern void Error(const char *fmt, ...);
+extern void ResetError(void);
 extern int RetError(int returnValue, const char *fmt, ...);
 extern int RetErrorNested(int returnValue, const char *fmt, ...);
 extern void Warning(const char *fmt, ...);
@@ -180,14 +181,14 @@ extern int FileGetString(char *s, int size, FILE *f);
 /* recmem.c */
 typedef struct RECMEM_HEAP {
 #ifdef DEBUG_DEVELOP
-    long count;     /* number of calls to FreeRecord() vs. NewRecord() 
-                     * < 0 means more calls to FreeRecord then 
+    long count;     /* number of calls to FreeRecord() vs. NewRecord()
+                     * < 0 means more calls to FreeRecord then
                      *          to NewRecord
                      *     (not possible since FreeRecord already checks
                      * > 0 vice versa
                      */
 #endif              /* DEBUG_DEVELOP */
-    void *freeList; /* start of single linked list, 
+    void *freeList; /* start of single linked list,
                      * private type: (struct RECMEM_LINK *)
                      */
     size_t recSize;

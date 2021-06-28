@@ -31,7 +31,7 @@ BOOST_AUTO_TEST_CASE(from_string)
   visit=false;
   try {
     strToSize_t(std::string("-0001"));
-  } catch (std::range_error) {
+  } catch (const std::range_error&) {
     visit=true;
   }
   BOOST_CHECK(visit);
@@ -42,7 +42,7 @@ BOOST_AUTO_TEST_CASE(from_string)
   visit=false;
   try {
     strToDouble(std::string(" 1 -10.7 -10.7 "));
-  } catch (std::range_error) {
+  } catch (const std::range_error&) {
     visit=true;
   }
   BOOST_CHECK(visit);
@@ -54,7 +54,7 @@ BOOST_AUTO_TEST_CASE(from_string)
     visit=true;
   }
   BOOST_CHECK(visit);
-  
+
 
   visit=false;
   try {
@@ -119,7 +119,7 @@ BOOST_AUTO_TEST_CASE(from_string)
     visit=true;
   }
   BOOST_CHECK(visit);
-  
+
   // hex must not be supported
   visit=false;
   try {

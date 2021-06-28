@@ -62,7 +62,7 @@
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 
@@ -211,7 +211,7 @@ void geo_ColumnFile::readHeader()
     {
      try {
       (void)com::strToDouble(*it);
-     } catch (std::range_error)  {
+     } catch (const std::range_error&)  {
         throw com::FileFormatError(d_fn, "expected a number");
       }
     }
@@ -398,7 +398,7 @@ bool geo_ColumnFile::geoEasFormat(std::ifstream &fs) const
   // Check if the string contains an integer and nothing more.
   try {
   com::strToInt(buf);
-	} catch (std::range_error) {
+	} catch (const std::range_error&) {
 		return false;
 	}
   return true;

@@ -6,7 +6,7 @@
  * levert geen foutmelding maar wel onzin data op
  * tweede naam moet ongelijk eerste zijn blijkbaar
  *
- * oplossing gebruik misc/filesets.c 
+ * oplossing gebruik misc/filesets.c
  */
 
 
@@ -176,7 +176,7 @@ static int CheckInputMaps(
     return 0; /* all maps have same attributes */
 }
 
-/* Determines the smallest fitting rectangle around input maps. 
+/* Determines the smallest fitting rectangle around input maps.
  * The bordervalue is added.
  * Returns x0, y0, nrRows and nrCols for out.
  */
@@ -468,7 +468,7 @@ static void EndResample(
 
 /* Function for resampling  N input maps into 1 output map.
  * Assumes a map "clone.map" and N "input.map"s present. Checks on
- * options for percentage and maximum value. 
+ * options for percentage and maximum value.
  * Determines type and characteristics of output map.
  * Returns nothing, exits with 1 in case of error.
  */
@@ -483,7 +483,6 @@ int main(
     REAL8 X0, Y0, cellSize, angleIn, angleOut;
     size_t nrRows, nrCols;
     CSF_PT projection;
-    CSF_CR cellRepr;
     CSF_VS valueScale;
     double percent= 0, errFactor= 2.5, resampleN= 0.0;
     BOOL aligned= TRUE;
@@ -555,7 +554,7 @@ int main(
     outputName= argv[argc - 1];
     nrMaps= argc - 2;
 
-    /* Read the desired specifics out of the clone map 
+    /* Read the desired specifics out of the clone map
      * or use first input as clone map
      */
     cloneName= NO_CLONE_NEEDED ? argv[1] : NULL;
@@ -585,10 +584,9 @@ int main(
     nrCols= RgetNrCols(clone);
     X0= RgetX0(clone);
     Y0= RgetY0(clone);
-    cellRepr= RgetCellRepr(clone);
     angleOut= RgetAngle(clone);
 
-    /* resample option -> cell size(inputmap) * factor 
+    /* resample option -> cell size(inputmap) * factor
      * Number of rows and columns are divided by resample
      * factor.
      */

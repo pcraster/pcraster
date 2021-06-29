@@ -118,7 +118,7 @@ calc::Executor::Executor(
 calc::Executor::~Executor()
 {
 #ifdef DEBUG_DEVELOP
-  if (!std::uncaught_exception()) {
+  if (!std::uncaught_exceptions()) {
     if (!d_rte.empty())
       DEVELOP_PRECOND(d_rte.empty());
   }

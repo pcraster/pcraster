@@ -161,24 +161,22 @@ else()
 endif()
 
 
-
-
-set(DEVBASE_QT_REQUIRED TRUE)
-set(DEVBASE_REQUIRED_QT_VERSION 5)
-set(DEVBASE_REQUIRED_QT_COMPONENTS
-    Core Sql Xml)
+list(APPEND PCR_QT_COMPONENTS Core Sql Xml)
 
 if(PCRASTER_BUILD_AGUILA)
-    list(APPEND DEVBASE_REQUIRED_QT_COMPONENTS Gui Widgets Charts)
+    list(APPEND PCR_QT_COMPONENTS Gui Widgets Charts)
 endif()
 
 if(PCRASTER_WITH_OPENGL)
     find_package(OpenGL REQUIRED)
-    list(APPEND DEVBASE_REQUIRED_QT_COMPONENTS OpenGL)
+    list(APPEND PCR_QT_COMPONENTS OpenGL)
 endif()
+
+find_package(Qt5 REQUIRED COMPONENTS ${PCR_QT_COMPONENTS})
 
 
 find_package(XercesC REQUIRED)
+
 
 find_package(GDAL 2.4 REQUIRED)
 message(STATUS "Found GDAL: ")

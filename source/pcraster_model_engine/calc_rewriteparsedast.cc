@@ -59,10 +59,11 @@ namespace calc {
      Operator const& op(e->op());
      if (op.opCode()==OP_TIMEOUTPUT)
        d_timeoutput=true;
-     if (op.isDynamicSectionOperation())
-      if (!d_inDynamicSection) {
-       // pcrcalc37
-       e->posError("function '"+e->name()+"' is only legal in the dynamic section");
+     if (op.isDynamicSectionOperation()) {
+        if (!d_inDynamicSection) {
+         // pcrcalc37
+         e->posError("function '"+e->name()+"' is only legal in the dynamic section");
+        }
       }
       e->args()->accept(*this);
     }

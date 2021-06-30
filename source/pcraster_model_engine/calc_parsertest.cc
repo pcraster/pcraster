@@ -226,6 +226,7 @@ BOOST_AUTO_TEST_CASE(testParseErrors)
   catched=false;
   try {
    e = sp.createExpr("ab*");
+   (void)e; // shut up compiler
   } catch(const PosException& ) {
     catched=true;
   }

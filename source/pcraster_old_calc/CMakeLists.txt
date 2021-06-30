@@ -156,6 +156,14 @@ add_library(pcraster_old_calc_objects OBJECT
     sunfunc.c
 )
 
+set_source_files_properties(calcparser.cc
+    PROPERTIES
+        COMPILE_OPTIONS
+            "$<$<CXX_COMPILER_ID:GNU>:-Wno-error=unused-variable;-Wno-error=unused-label;-Wno-error=maybe-uninitialized>"
+        COMPILE_OPTIONS
+            "$<$<CXX_COMPILER_ID:Clang>:-Wno-error=unused-variable;-Wno-error=unused-label;-Wno-dangling-else>"
+)
+
 target_include_directories(pcraster_old_calc_objects
     PRIVATE
         $<TARGET_PROPERTY:pcraster::calc,INTERFACE_INCLUDE_DIRECTORIES>

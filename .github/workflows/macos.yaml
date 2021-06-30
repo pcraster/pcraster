@@ -19,6 +19,9 @@ jobs:
               brew install cmake ninja boost gdal ncurses xerces-c psutils
               # pip3 install psutil
               brew install qt@5
+              cd /usr/local/opt/qt@5
+              find . -name Qt5Config.cmake
+              find . -name qt5-config.cmake
 
         - name: configure pcraster
           shell: bash -l {0}

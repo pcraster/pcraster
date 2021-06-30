@@ -65,9 +65,11 @@ void calc::FieldArgs::checkArgs()
    //   case 0:  if (op().nrArgs() != -1) break;
    //   /* if it is -1 then fall through */
    case 1:  msg = "not enough arguments specified"; break;
-   case -1: if (op().nrArgs() >= 0)
-      /* if < 0 then the last arg can be repeated many times */
-       msg = "too many arguments specified"; break; // pcrcalc/test14
+   case -1: if (op().nrArgs() >= 0) {
+         /* if < 0 then the last arg can be repeated many times */
+         msg = "too many arguments specified";
+       }
+       break; // pcrcalc/test14
   }
   if (msg != "") {
     /* pcrcalc/test25[23] */

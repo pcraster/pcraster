@@ -251,14 +251,15 @@ BOOST_AUTO_TEST_CASE(testScript)
   REAL4 **result = com::new2d<REAL4>(rs.nrRows(),rs.nrCols());
   REAL4 **area = com::new2d<REAL4>(rs.nrRows(),rs.nrCols());
   REAL4 count=1;
-  for(size_t r=0; r< rs.nrRows(); r++)
+  for(size_t r=0; r< rs.nrRows(); r++) {
    for(size_t c=0; c< rs.nrCols(); c++) {
      mask[r][c] = (r < c ) ? MV_UINT1 : (r < rs.nrCols());
      pcr::setMV(result[r][c]);
      if (mask[r][c]==1)
        result[r][c]=count++;
    }
-   std::fill_n(area[0],rs.nrCells(), count-1);
+  }
+  std::fill_n(area[0],rs.nrCells(), count-1);
 
   {
    geo::CSFMap mFile(std::string("mvComprMask.map"),rs,VS_BOOLEAN);

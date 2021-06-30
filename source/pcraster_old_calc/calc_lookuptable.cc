@@ -23,6 +23,7 @@
 #define INCLUDED_ALGORITHM
 #endif
 
+#include <cassert>
 #include <functional>
 #include <boost/version.hpp>
 #if BOOST_VERSION > 107200
@@ -192,6 +193,11 @@ calc::LookupRecord::LookupRecord(const LOOK_UP_KEY *keys,size_t nrKeys)
                               com::GreaterThan<>(l->l),
                               com::LessThan<>(l->h));                     // <l  ,h>
                           break;
+       case TEST_NOKEY  : assert(0);
+                          break;
+       case TEST_ERROR  : assert(0);
+                          break;
+
      }
    }
    POSTCOND(keys[nrKeys].t == TEST_ONE);

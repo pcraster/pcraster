@@ -55,9 +55,9 @@ BOOST_AUTO_TEST_CASE(testScriptFile)
    BOOST_CHECK(r==0);
   }
   {
-   const char *argv[6]= { "pcrcalc", "-m", "-r", "/home/cees/tmp/pcrtest",
-                                     "-f", "/home/cees/tmp/pcrtest/pcrtest.mod"
-                  };
+//    const char *argv[6]= { "pcrcalc", "-m", "-r", "/home/cees/tmp/pcrtest",
+//                                      "-f", "/home/cees/tmp/pcrtest/pcrtest.mod"
+//                   };
    bool absolutePathInRunDirectory=false;
    BOOST_WARN(absolutePathInRunDirectory);
    int r= 1; // TODO calc::executeCommandLine(6, argv); MAKE a bugzilla note

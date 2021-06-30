@@ -6,6 +6,7 @@
 // Library headers.
 #include <map>
 #include <QDialog>
+#include <QFlags>
 
 // PCRaster library headers.
 
@@ -65,7 +66,11 @@ protected:
                                         std::string const& visualisationName,
                                         QWidget* parent = nullptr,
                                         bool modal = false,
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
                                         Qt::WindowFlags flags = nullptr);
+#else
+                                        Qt::WindowFlags flags = QFlag(0));
+#endif
 
 public:
 

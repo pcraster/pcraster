@@ -958,7 +958,7 @@ pybind11::array field_as_array(
     try {
       field = field_object->cast<calc::Field *>();
     }
-    catch (pybind11::cast_error) {
+    catch (const pybind11::cast_error&) {
       throw std::logic_error("Expecting a PCRaster field");
     }
     assert(field);

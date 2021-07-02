@@ -23,7 +23,7 @@ if(POLICY CMP0075)
 endif()
 
 # This must be set before project()
-set(CMAKE_OSX_DEPLOYMENT_TARGET "10.14" CACHE STRING "Minimum OS X deployment version")
+set(CMAKE_OSX_DEPLOYMENT_TARGET "10.15" CACHE STRING "Minimum OS X deployment version")
 
 project(pcraster)
 
@@ -78,13 +78,13 @@ if(PCRASTER_INSTALL_FILES_DEVELOPER)
 endif()
 
 # Display configuration summary
-message(STATUS "-------------------------------------------------")
+message(STATUS "-----------------------------------------------------------")
 message(STATUS "PCRaster configuration summary:")
 message(STATUS "  Version:                " ${${PROJECT_NAME}_VERSION})
 message(STATUS "  Installation directories:")
-message(STATUS "    Binaries:             " ${PCRASTER_BIN_INSTALL_DIR} )
-message(STATUS "    Libraries:            " ${PCRASTER_LIB_INSTALL_DIR} )
-message(STATUS "    Python:               " ${PCRASTER_PYTHON_INSTALL_DIR} )
+message(STATUS "    Binaries:             " ${CMAKE_INSTALL_PREFIX}/${PCRASTER_BIN_INSTALL_DIR} )
+message(STATUS "    Libraries:            " ${CMAKE_INSTALL_PREFIX}/${PCRASTER_LIB_INSTALL_DIR} )
+message(STATUS "    Python:               " ${CMAKE_INSTALL_PREFIX}/${PCRASTER_PYTHON_INSTALL_DIR} )
 message(STATUS "  Build options:")
 message(STATUS "    Aguila:               " ${PCRASTER_BUILD_AGUILA})
 message(STATUS "      OpenGL support:     " ${PCRASTER_WITH_OPENGL})
@@ -102,9 +102,12 @@ message(STATUS "    Type:                 " ${CMAKE_BUILD_TYPE})
 message(STATUS "    Flags:                ")
 message(STATUS "      Native:             " ${PCRASTER_WITH_FLAGS_NATIVE})
 message(STATUS "      IPO:                " ${PCRASTER_WITH_FLAGS_IPO})
-message(STATUS "    Python interpreter:   " ${Python3_EXECUTABLE})
-message(STATUS "    Python version:       " ${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}.${Python3_VERSION_PATCH})
-message(STATUS "-------------------------------------------------")
+message(STATUS "    Python:               ")
+message(STATUS "      version:            " ${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}.${Python3_VERSION_PATCH})
+message(STATUS "      interpreter:        " ${Python3_EXECUTABLE})
+message(STATUS "      site-lib:           " ${Python3_SITELIB})
+message(STATUS "      NumPy:              " ${Python3_NumPy_INCLUDE_DIRS})
+message(STATUS "-----------------------------------------------------------")
 
 # Only configured for packaging source code required to build a package!
 # Some parts are excluded (e.g docs, 32-bit binaries, ...) to reduce file size.

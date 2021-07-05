@@ -1,19 +1,18 @@
 #include "ag_FeatureLayer.h"
 
-// External headers.
-#include <QPainter>
-#include <QPainterPath>
-#include <ogr_core.h>
-#include <ogr_feature.h>
-#include <ogr_geometry.h>
-
 // Project headers.
 #include "dal_SpaceDimensions.h"
 
 // Module headers.
 #include "ag_FeatureLayerDrawer.h"
 
-
+// External headers.
+#include <QPainter>
+#include <QPainterPath>
+#include <ogr_core.h>
+#include <ogr_feature.h>
+#include <ogr_geometry.h>
+#include <boost/geometry.hpp>
 
 /*!
   \file

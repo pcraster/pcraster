@@ -314,7 +314,7 @@ void BCF::calcVCond(std::stringstream &aStream, size_t layer, const std::string 
                            + (thickMid / d_mf->d_vCond->cell(i)[layer-1])
                            + (thickLower / d_mf->d_vCond->cell(i)[layer-2]);
 
-      if(boost::math::isfinite(denominator) == 0){
+      if(std::isfinite(denominator) == 0){
         int row = 1 + i / d_mf->d_nrOfColumns;
         int col = 1 + i % d_mf->d_nrOfColumns;
         std::stringstream stmp;
@@ -338,7 +338,7 @@ void BCF::calcVCond(std::stringstream &aStream, size_t layer, const std::string 
       float denominator = (thickUpper/d_mf->d_vCond->cell(i)[layer])
                            + (thickLower/d_mf->d_vCond->cell(i)[layer-1]);
 
-      if(boost::math::isfinite(denominator) == 0){
+      if(std::isfinite(denominator) == 0){
         int row = 1 + i / d_mf->d_nrOfColumns;
         int col = 1 + i % d_mf->d_nrOfColumns;
         std::stringstream stmp;
@@ -1020,7 +1020,7 @@ void BCF::write_vcond(std::string const& path)  {
                                 + (thickMid / d_mf->d_vCond->cell(i)[blockLayer-1])
                                 + (thickLower / d_mf->d_vCond->cell(i)[blockLayer-2]);
 
-            if(boost::math::isfinite(denominator) == 0){
+            if(std::isfinite(denominator) == 0){
               int row = 1 + i / d_mf->d_nrOfColumns;
               int col = 1 + i % d_mf->d_nrOfColumns;
               std::stringstream stmp;
@@ -1049,7 +1049,7 @@ void BCF::write_vcond(std::string const& path)  {
             float denominator = (thickUpper/d_mf->d_vCond->cell(i)[blockLayer])
                                 + (thickLower/d_mf->d_vCond->cell(i)[blockLayer-1]);
 
-            if(boost::math::isfinite(denominator) == 0){
+            if(std::isfinite(denominator) == 0){
               int row = 1 + i / d_mf->d_nrOfColumns;
               int col = 1 + i % d_mf->d_nrOfColumns;
               std::stringstream stmp;

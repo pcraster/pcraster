@@ -306,6 +306,7 @@ if(PCRASTER_WITH_OPENGL)
             Qt5::Charts
             Qt5::OpenGL
             OpenGL::GLU
+            Boost::headers
     )
 else()
     target_link_libraries(pcraster_aguila
@@ -316,6 +317,7 @@ else()
             Qt5::Widgets
             Qt5::Xml
             Qt5::Charts
+            Boost::headers
     )
 endif()
 

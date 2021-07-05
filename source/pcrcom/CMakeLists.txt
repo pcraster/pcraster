@@ -90,6 +90,7 @@ target_include_directories(pcrcom
 target_link_libraries(pcrcom
     PUBLIC
         pcraster::misc
+        Boost::headers
 
         # For dlopen in com_dynamiclibrary.
         $<$<BOOL:${UNIX}>:${CMAKE_DL_LIBS}>

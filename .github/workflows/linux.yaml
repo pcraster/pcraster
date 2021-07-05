@@ -32,7 +32,7 @@ jobs:
                   -D CMAKE_RULE_MESSAGES=OFF \
                   -D PCRASTER_BUILD_TEST=ON \
                   -D PCRASTER_BUILD_TEST_FERN=ON \
-                  -D PYTHON_EXECUTABLE:FILEPATH=/usr/bin/python3
+                  -D Python3_EXECUTABLE:FILEPATH=/usr/bin/python3
 
         - name: build
           shell: bash

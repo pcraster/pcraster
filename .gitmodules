@@ -1,9 +1,0 @@
-[submodule "devbase"]
-	path = devbase
-	url = https://github.com/geoneric/devbase.git
-[submodule "source/rasterformat"]
-	path = source/rasterformat
-	url = https://github.com/pcraster/rasterformat.git
-[submodule "source/fern"]
-	path = source/fern
-	url = https://github.com/geoneric/fern.git

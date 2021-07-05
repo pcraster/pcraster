@@ -117,6 +117,17 @@ if(NOT PCRASTER_LIB_INSTALL_DIR)
   set(PCRASTER_LIB_INSTALL_DIR lib)
 endif()
 
+if(PCRASTER_BUILD_MULTICORE)
+    set(FERN_BUILD_ALGORITHM ON CACHE BOOL "Build submodule fern")
+    CPMAddPackage("gh:geoneric/fern#98c68fa27f795cb381c67505f14b64684b155d34")
+    if(PCRASTER_BUILD_TEST_FERN)
+      set(DEVBASE_BUILD_TEST ON CACHE BOOL "Build Fern tests")
+    else()
+      # Default/when packaging PCRaster, do not install anything from Fern
+      set(DEVBASE_BUILD_TEST OFF CACHE BOOL "Build Fern tests")
+    endif()
+endif()
+
 
 # Ugly workaround to enforce working wrt conda-build
 # TODO: Refactor when all platforms support std filesystem

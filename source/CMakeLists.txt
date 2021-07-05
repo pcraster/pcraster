@@ -84,22 +84,6 @@ if(PCRASTER_BUILD_MLDD)
     add_subdirectory(mldd)
 endif()
 
-# Add subprojects last as they reset CMake policies
-if(PCRASTER_BUILD_MULTICORE)
-    set(FERN_BUILD_ALGORITHM ON CACHE BOOL "Build submodule fern")
-    # For development/travis build the tests to catch errors early
-    if(PCRASTER_BUILD_TEST_FERN)
-      add_subdirectory(fern)
-    else()
-      # Default/when packaging PCRaster, do not install anything from Fern
-      set(DEVBASE_BUILD_TEST OFF CACHE BOOL "Disable Fern tests")
-      add_subdirectory(fern EXCLUDE_FROM_ALL)
-    endif()
-    add_subdirectory(pcraster_multicore)
-endif()
-
-add_subdirectory(rasterformat EXCLUDE_FROM_ALL)
-
 
 if(PCRASTER_INSTALL_FILES_DEVELOPER)
     install(

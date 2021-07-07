@@ -9,8 +9,8 @@ import pcraster
 class AguilaThread(threading.Thread):
 
     def __init__(self,
-            *arguments,
-            **keywords):
+                 *arguments,
+                 **keywords):
         threading.Thread.__init__(self)
         self.arguments = arguments
         self.keywords = keywords
@@ -22,7 +22,7 @@ class AguilaThread(threading.Thread):
             os.remove(filename)
 
     def parse_arguments(self,
-            arguments):
+                        arguments):
         argument_list = []
         for argument in arguments:
             assert isinstance(argument, (str, list, pcraster.Field)), \
@@ -36,7 +36,12 @@ class AguilaThread(threading.Thread):
             elif isinstance(argument, list):
                 argument_list.append(" + ".join(self.parse_arguments(argument)))
             elif isinstance(argument, pcraster.Field):
-                temp_name = tempfile.NamedTemporaryFile(dir=os.getcwd()).name
+                # NamedTemporaryFile freezes on Windows in no access directory
+                test_path = pathlib.Path(os.getcwd(), 'pcraster_test_filename_for_write_access')
+                if os.access(test_path, os.W_OK):
+                    temp_name = tempfile.NamedTemporaryFile(dir=os.getcwd()).name
+                else:
+                    temp_name = tempfile.NamedTemporaryFile().name
                 pcraster.report(argument, temp_name)
                 self.created_files_names.append(temp_name)
                 argument_list.append(temp_name)
@@ -47,12 +52,10 @@ class AguilaThread(threading.Thread):
         argument_list = self.parse_arguments(self.arguments)
         command = "aguila {}".format(" ".join(argument_list))
 
-        if not 'pcraster_unit_test' in self.keywords.keys():
+        if 'pcraster_unit_test' not in self.keywords.keys():
             subprocess.call(command, shell=True)
         else:
             raise RuntimeError(command)
-
-
 
 
 def aguila(
@@ -67,10 +70,10 @@ def aguila(
     from a list of rasters ends in a single visualisation window.
     """
     thread = AguilaThread(*arguments, **keywords)
-    if not 'pcraster_unit_test' in keywords.keys():
-      thread.start()
+    if 'pcraster_unit_test' not in keywords.keys():
+        thread.start()
     else:
-      # For unit testing the exception needs to be forwarded to the tester
-      thread.run()
+        # For unit testing the exception needs to be forwarded to the tester
+        thread.run()
     # Don't join. Just return to the caller.
     # thread.join()

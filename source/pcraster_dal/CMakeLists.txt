@@ -270,20 +270,20 @@ endif()
 
 # ------------------------------------------------------------------------------
 
-add_executable(dal
-    dal_Application.cc
-    main.cc
-)
-
-target_compile_definitions(dal
-    PRIVATE
-        PCR_DAL_SHARED_LINK
-)
-
-target_link_libraries(dal
-    Boost::program_options
-    pcraster::dal
-)
+# add_executable(dal
+#     dal_Application.cc
+#     main.cc
+# )
+#
+# target_compile_definitions(dal
+#     PRIVATE
+#         PCR_DAL_SHARED_LINK
+# )
+#
+# target_link_libraries(dal
+#     Boost::program_options
+#     pcraster::dal
+# )
 
 # ------------------------------------------------------------------------------
 

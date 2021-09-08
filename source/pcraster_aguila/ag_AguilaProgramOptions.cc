@@ -1,11 +1,12 @@
 #include "ag_AguilaProgramOptions.h"
 
 // Library headers.
-#include <fstream>
 #include <boost/program_options.hpp>
 #include <boost/algorithm/string.hpp>
-#include <boost/format.hpp>
 #include <boost/spirit/include/classic.hpp>
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/ini_parser.hpp>
+#include <clipp.h>
 
 // PCRaster library headers.
 #include "pcrxsd_dominput.h"
@@ -18,7 +19,11 @@
 // Module headers.
 #include "ag_XMLViewItems.h"
 
+#include <any>
 #include <filesystem>
+#include <fstream>
+#include <iostream>
+#include <unordered_map>
 
 
 /*!
@@ -31,6 +36,7 @@
 namespace ag {
 
 typedef std::vector<std::string> VecOfStr;
+typedef std::unordered_map<std::string, std::any> variables_map;
 
 namespace detail {
 
@@ -257,26 +263,27 @@ namespace detail {
   struct DataSpaceFromXML : public pcrxml::DataSpace {
      size_t elementCount;
      DataSpaceFromXML(
-         boost::program_options::variables_map  const& v,
+         variables_map& v,
          size_t stackStepStart,
          size_t stackStepEnd):
       elementCount(0)
      {
       if(v.count("scenarios")) {
-        VecOfStr s = v["scenarios"].as<VecOfStr>();
+        VecOfStr s = std::any_cast<VecOfStr>(v["scenarios"]);
+
         for(size_t i = 0; i < s.size(); ++i)
           scenarios().push_back(SetParser<std::string>::set(s[i]));
         elementCount+=scenarios().size();
       }
       if(v.count("quantiles")) {
-        VecOfStr s = v["quantiles"].as<VecOfStr>();
+        VecOfStr s = std::any_cast<VecOfStr>(v["quantiles"]);
         for(size_t i = 0; i < s.size(); ++i)
           quantiles().push_back(SetRangeParser<float>::rangeOrSet(s[i]));
         elementCount+=quantiles().size();
       }
 
       if(v.count("timesteps")) {
-        VecOfStr s = v["timesteps"].as<VecOfStr>();
+        VecOfStr s = std::any_cast<VecOfStr>(v["timesteps"]);
         for(size_t i = 0; i < s.size(); ++i) {
           pcrxml::OneBasedIntegerRangeOrSet obirs(SetRangeParser<size_t>::rangeOrSet(s[i]));
           timesteps().push_back(pcrxml::Timesteps());
@@ -335,7 +342,7 @@ namespace detail {
      size_t stackStepEnd;
 
     ViewsFromXML(
-         boost::program_options::variables_map const& variables)
+         variables_map& variables)
 
       : elementCount(0),
         stackStepStart(std::string::npos),
@@ -357,7 +364,7 @@ namespace detail {
 
         if(variables.count(*it)) {
           std::vector<pcrxml::StringSet> stringSets(
-              toStringSet(variables[*it].as<VecOfStr>()));
+              toStringSet(std::any_cast<VecOfStr>(variables[*it])));
 
           for(size_t i = 0; i < stringSets.size(); ++i) {
             elementCount += stringSets.size();
@@ -532,115 +539,163 @@ void AguilaProgramOptions::obtainProgramOptions(
          int argc,
          char **argv)
 {
-  namespace po = boost::program_options;
+  using namespace clipp;
 
-  try {
-    po::options_description genericOptions("Command line options");
-    genericOptions.add_options()
-      // TODO make config and xml mutually exclusive ?????
-      ("config,f", po::value<std::string>(), "read configuration from file")
-      ("xml,x", po::value<std::string>(), "read configuration from XML file")
-      ("help,h", "show usage information")
-      ("license", "show license information")
-      ("version,v", "show version information")
-      ("mapView,2", po::value<VecOfStr>()->composing()->multitoken(),
-         "show data in 2D visualisation(s)")
+  bool show_help = false;
+  std::string config_filename;
+  std::string xml_filename;
+  VecOfStr unrecognised;
+  VecOfStr mapView;
+  VecOfStr drapeView;
+#ifdef DEBUG_DEVELOP
+  VecOfStr testVisualisation;
+#endif
+  VecOfStr timeGraphView;
+  VecOfStr probabilityGraphView;
+  VecOfStr valueOnly;
+
+  auto genericOptions = "Command line options:" % (
+    (option("-f", "--config") & values("config_filename", config_filename)).doc("read configuration from file"),
+    (option("-f=", "--config=") & values("config_filename=", config_filename)),
+    (option("-x", "--xml") & values("xml_filename", xml_filename)).doc("read configuration from XML file"),
+    (option("-x=", "--xml=") & values("xml_filename=", xml_filename)),
+    (option("-h", "--help").set(show_help).doc("show usage information")),
+    option("--license").set(d_license).doc("show license information"),
+    option("-v", "--version").set(d_version).doc("show version information"),
+    (repeatable(option("-2", "--mapView") & values("mapView", mapView))).doc("show data in 2D visualisation(s)"),
+    (repeatable(option("-2=", "--mapView=") & values("mapView", mapView))),
 #ifdef AGUILA_WITH_OPENGL
-      ("drapeView,3", po::value<VecOfStr>()->composing()->multitoken(),
-         "show data in 3D visualisation(s)")
+    (repeatable(option("-3", "--drapeView") & values("drapeView", drapeView))).doc("show data in 3D visualisation(s)"),
+    (repeatable(option("-3=", "--drapeView=") & values("drapeView", drapeView))),
 #endif
 #ifdef DEBUG_DEVELOP
-      ("testVisualisation",
-         po::value<VecOfStr>()->composing(),
-         "show data in test visualisation(s)")
+    (repeatable(option("--testVisualisation") & value("testVisualisation", testVisualisation))).doc("show data in test visualisation(s)"),
 #endif
-      ("timeGraphView,t", po::value<VecOfStr>()->composing()->multitoken(),
-         "show data in time series visualisation(s)")
-      ("probabilityGraphView,p", po::value<VecOfStr>()->composing()->multitoken(),
-         "show data in probability distribution visualisation(s)")
-      ("valueOnly", po::value<VecOfStr>()->composing()->multitoken(),
-         "show data only in value matrix")
-      ;
+    (repeatable(option("-t", "--timeGraphView") & values("timeGraphView", timeGraphView))).doc("show data in time series visualisation(s)"),
+    (repeatable(option("-t=", "--timeGraphView=") & values("timeGraphView", timeGraphView))),
+    (repeatable(option("-p", "--probabilityGraphView") & values("probabilityGraphView", probabilityGraphView))).doc("show data in probability distribution visualisation(s)"),
+    (repeatable(option("-p=", "--probabilityGraphView=") & values("probabilityGraphView", probabilityGraphView))),
+    (repeatable(option("--valueOnly") & values("valueOnly", valueOnly))).doc("show data only in value matrix"),
+    (repeatable(option("--valueOnly=") & values("valueOnly", valueOnly)))
+  );
 
-    po::options_description configOptions(
-         "Command line and configuration file options");
-    configOptions.add_options()
-      ("scenarios,n",
-         po::value<VecOfStr>()->composing(),
-         "scenarios available for data")
-      ("timesteps,s",
-         po::value<VecOfStr>()->composing(),
-         "time steps available for data")
-      ("quantiles,q",
-         po::value<VecOfStr>()->composing(),
-         "quantiles available for data")
-      ("lock,l",
-         po::value<std::string>(),
-         "create lock file")
-      ("multi,m",
-         po::value<std::string>(),
-         "multiple views per window")
-      ("cursorValueMonitorFile",
-         po::value<std::string>(),
-         "enable Save to cursor value monitor file")
-      ("fileToGetCursorValue",
-         po::value<std::string>(),
-         "enable Get from cursor file")
-      ;
+  VecOfStr scenarios;
+  VecOfStr timesteps;
+  VecOfStr quantiles;
+  std::string lock;
+  std::string multi;
+  std::string cursorValueMonitorFile;
+  std::string fileToGetCursorValue;
 
-    // All positional options should be translated into defaultView options.
-    po::positional_options_description positionalOptions;
-    positionalOptions.add("defaultView", -1);
+  auto configOptions = "Command line and configuration file options:" % (
+    (repeatable(option("-n", "--scenarios") & value("scenarios", scenarios))).doc("scenarios available for data"),
+    (repeatable(option("-n=", "--scenarios=") & value("scenarios", scenarios))),
+    (repeatable(option("-s", "--timesteps") & value("timesteps", timesteps))).doc("time steps available for data"),
+    (repeatable(option("-s=", "--timesteps=") & value("timesteps", timesteps))),
+    (repeatable(option("-q", "--quantiles") & value("quantiles", quantiles))).doc("quantiles available for data"),
+    (repeatable(option("-q=", "--quantiles=") & value("quantiles", quantiles))),
+    (option("-l", "--lock") & value("lock", lock)).doc("create lock file"),
+    (option("-l=", "--lock=") & value("lock", lock)),
+    (option("-m", "--multi") & value("multi", multi)).doc("multiple views per window"),
+    (option("-m=", "--multi=") & value("multi", multi)),
+    (option("--cursorValueMonitorFile") & value("cursorValueMonitorFile", cursorValueMonitorFile)).doc("enable Save to cursor value monitor file"),
+    (option("--cursorValueMonitorFile=") & value("cursorValueMonitorFile", cursorValueMonitorFile)),
+    (option("--fileToGetCursorValue") & value("fileToGetCursorValue", fileToGetCursorValue)).doc("enable Get from cursor file"),
+    (option("--fileToGetCursorValue=") & value("fileToGetCursorValue", fileToGetCursorValue))
+  );
 
-    // Options allowed both on command line and in config file, but hidden for
-    // the user.
-    po::options_description hiddenOptions("Hidden options");
-    hiddenOptions.add_options()
-      ("defaultView", po::value<VecOfStr>()->composing()->multitoken(),
-         "show data in default view type")
-      ;
+  // All positional options should be translated into defaultView options.
+  VecOfStr defaultView;
 
-    po::options_description cmdLineOptions;
-    cmdLineOptions.add(genericOptions).add(configOptions).add(hiddenOptions);
+  auto cli = (genericOptions,
+    configOptions,
+    opt_values("defaultView", defaultView),
+    any_other(unrecognised)
+  );
 
-    po::options_description configFileOptions;
-    configFileOptions.add(configOptions).add(hiddenOptions);
+  auto result = parse(argc, argv, cli);
 
-    po::options_description visibleOptions("Allowed options");
-    visibleOptions.add(genericOptions).add(configOptions);
+//   debug::print(std::cout, result);
 
-    // namespace cls = po::command_line_style;
-    // int style = (
-    //        cls::allow_short
-    //      | cls::case_insensitive     // TODO seems not to work
-    //      | cls::allow_dash_for_short
-    //      | cls::short_allow_adjacent
-    //      | cls::short_allow_next
-    //      | cls::allow_long
-    //      | cls::long_allow_adjacent
-    //      | cls::long_allow_next
-    //      | cls::allow_sticky
-    //      | cls::allow_guessing
-    //      );
+  if(show_help) {
 
-    po::variables_map variables;
-    po::store(po::command_line_parser(argc, argv). // style(style).
-           options(cmdLineOptions).positional(positionalOptions).run(),
-           variables);
-    po::notify(variables);
+    auto fmt = clipp::doc_formatting{}
+               .paragraph_spacing(0)
+               .first_column(0)
+               .doc_column(8);
 
-    if(variables.count("config")) {
-      d_configFileName = variables["config"].as<std::string>();
+    std::filesystem::path path(argv[0]);
+    std::ostringstream stream;
+    stream << "<pre>" << path.filename() << " [options] defaultViews\nAllowed options:\n\n";
+    stream << clipp::documentation(genericOptions, fmt).str();
+    stream << "\n\n";
+    stream << clipp::documentation(configOptions, fmt).str();
+    stream << "</pre>";
+    d_help=stream.str();
+    return;
+  }
+
+  if(d_license) {
+    return;
+  }
+
+  if(d_version) {
+    return;
+  }
+
+  if(result && unrecognised.empty()){
+
+    variables_map variables;
+
+    if(!config_filename.empty()) {
+      d_configFileName = config_filename;
       boost::trim(d_configFileName);
       std::filesystem::path path(d_configFileName);
       dal::testFileCanBeOpenedForReading(path);
       std::ifstream stream(path.string().c_str());
-      po::store(parse_config_file(stream, configFileOptions), variables);
-      po::notify(variables);
+
+      using boost::property_tree::ptree;
+      ptree pt;
+
+      read_ini(path.string().c_str(), pt);
+
+      for (auto& key : pt){
+        if(key.first == "defaultView"){
+          defaultView.emplace_back(key.second.get_value<std::string>());
+        }
+        else if(key.first == "scenarios"){
+          scenarios.emplace_back(key.second.get_value<std::string>());
+        }
+        else if(key.first == "timesteps"){
+          timesteps.emplace_back(key.second.get_value<std::string>());
+        }
+        else if(key.first == "quantiles"){
+          quantiles.emplace_back(key.second.get_value<std::string>());
+        }
+        else if(key.first == "lock"){
+          lock = key.second.get_value<std::string>();
+        }
+        else if(key.first == "multi"){
+          multi = key.second.get_value<std::string>();
+        }
+        else if(key.first == "cursorValueMonitorFile"){
+          cursorValueMonitorFile = key.second.get_value<std::string>();
+        }
+        else if(key.first == "fileToGetCursorValue"){
+          fileToGetCursorValue = key.second.get_value<std::string>();
+        }
+        else{
+          std::stringstream msg{};
+          msg << "unrecognised option '" << key.first << "'\n";
+          msg << "Use -h or --help for usage information";
+          com::Exception exception(msg.str());
+          throw exception;
+        }
+      }
     }
 
-    if(variables.count("xml")) {
-      d_configFileName = variables["xml"].as<std::string>();
+    if(!xml_filename.empty()) {
+      d_configFileName = xml_filename;
       boost::trim(d_configFileName);
       std::filesystem::path path(d_configFileName);
       dal::testFileCanBeOpenedForReading(path);
@@ -664,38 +719,21 @@ void AguilaProgramOptions::obtainProgramOptions(
       return;
     }
 
-    if(variables.count("help")) {
-      std::filesystem::path path(argv[0]);
-      std::ostringstream stream;
-      stream << "<pre>" << path.filename() << " [options] defaultViews\n" << visibleOptions << "</pre>";
-      d_help=stream.str();
-      return;
-    }
-
-    d_license = variables.count("license") > 0;
-
-    if(variables.count("version")) {
-      d_version=true;
-      return;
-    }
-
-    if(variables.count("lock")) {
-      d_lockFileName = variables["lock"].as<std::string>();
+    if(!lock.empty()) {
+      d_lockFileName = lock;
       boost::trim(d_lockFileName);
     }
 
-    if(variables.count("multi")) {
-      std::string fmt;
-      fmt = variables["multi"].as<std::string>();
-      boost::trim(fmt);
+    if(!multi.empty()) {
+      boost::trim(multi);
 
       using namespace boost::spirit::classic;
 
       size_t nrRows=0, nrCols=0;
       // parse nrRows x nrCols
-      com::Exception error("Multi view layout '" + fmt + "': Not valid");
+      com::Exception error("Multi view layout '" + multi + "': Not valid");
 
-      if(!parse(fmt.c_str(),
+      if(!parse(multi.c_str(),
         uint_p[assign_a(nrRows)] >> "x" >> uint_p[assign_a(nrCols)]).full) {
         throw error;
       }
@@ -707,19 +745,30 @@ void AguilaProgramOptions::obtainProgramOptions(
       d_configuration->multiView(pcrxml::NrRowsNrCols(nrRows, nrCols));
     }
 
-    if(variables.count("cursorValueMonitorFile")) {
-      std::string fileName =
-         variables["cursorValueMonitorFile"].as<std::string>();
-      boost::trim(fileName);
-      d_configuration->visualisationGroup().cursorValueMonitorFile(fileName);
+    if(!cursorValueMonitorFile.empty()) {
+      boost::trim(cursorValueMonitorFile);
+      d_configuration->visualisationGroup().cursorValueMonitorFile(cursorValueMonitorFile);
     }
 
-    if(variables.count("fileToGetCursorValue")) {
-      std::string fileName =
-         variables["fileToGetCursorValue"].as<std::string>();
-      boost::trim(fileName);
-      d_configuration->visualisationGroup().fileToGetCursorValue(fileName);
+    if(!fileToGetCursorValue.empty()) {
+      boost::trim(fileToGetCursorValue);
+      d_configuration->visualisationGroup().fileToGetCursorValue(fileToGetCursorValue);
     }
+
+    variables["defaultView"] = defaultView;
+    variables["timesteps"] = timesteps;
+    variables["scenarios"] = scenarios;
+    variables["quantiles"] = quantiles;
+    variables["mapView"] = mapView;
+    variables["timeGraphView"] = timeGraphView;
+    variables["probabilityGraphView"] = probabilityGraphView;
+    variables["valueOnly"] = valueOnly;
+#ifdef AGUILA_WITH_OPENGL
+    variables["drapeView"] = drapeView;
+#endif
+#ifdef DEBUG_DEVELOP
+    variables["testVisualisation"] = testVisualisation;
+#endif
 
     detail::ViewsFromXML xmlViews(variables);
 
@@ -734,9 +783,11 @@ void AguilaProgramOptions::obtainProgramOptions(
       d_configuration->visualisationGroup().searchSpace(xmlDataSpace);
     }
   }
-  catch(boost::program_options::error const& error) {
-    com::Exception exception(error.what());
-    exception.append("Use -h or --help for usage information");
+  else {
+    std::stringstream msg{};
+    msg << "unrecognised option '" << unrecognised[0] << "'\n";
+    msg << "Use -h or --help for usage information";
+    com::Exception exception(msg.str());
     throw exception;
   }
 }

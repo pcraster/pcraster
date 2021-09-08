@@ -1,5 +1,14 @@
 Changes
 =======
+..
+.. PCRaster 4.4.0
+.. --------------
+..
+.. Aguila was again refactored to reduce runtime library dependencies, notably the command line interface was refactored. The functionality should remain the same. In case you experience any differences to previous Aguila versions consider it as a defect and please report it at our `issues <https://github.com/pcraster/pcraster/issues/>`_ page.
+..
+.. The most relevant updates for users:
+..
+.. We further improved the code quality and the build system to ensure an ongoing creation of PCRaster packages, amongst others:
 
 PCRaster 4.3.1
 --------------

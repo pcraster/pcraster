@@ -8,12 +8,16 @@ class CommandLineApplicationWrapper : public dev::CommandLineApplication {
 public:
   CommandLineApplicationWrapper(unsigned short argc, char** argv) : CommandLineApplication( argc, argv){};
 
-  boost::program_options::options_description& genericOptions() {
+  clipp::group& genericOptions() {
     return CommandLineApplication::genericOptions();
   };
 
-  boost::program_options::options_description& hiddenOptions() {
+  clipp::group& hiddenOptions() {
     return CommandLineApplication::hiddenOptions();
+  };
+
+  clipp::group& positionalOptions() {
+    return CommandLineApplication::positionalOptions();
   };
 
   void usage(std::ostream& stream) const {
@@ -29,21 +33,20 @@ public:
 BOOST_AUTO_TEST_CASE(command_line_application_)
 {
   using namespace dev;
-  namespace po = boost::program_options;
 
   {
     char arg0[8] = "goforit";
     char* argv[] = { arg0 };
     unsigned short int argc = 1;
+    std::vector<std::string> files;
     CommandLineApplicationWrapper application(argc, argv);
 
-    application.genericOptions().add_options()
-         ("aaa", "aaa aaa aaa")
-         ("bbb", "bbb bbb bbb");
-    application.hiddenOptions().add_options()
-         ("ccc", po::value<std::vector<std::string> >());
-    application.addPositionalOption(
-         "ccc", -1, "ccc ccc ccc");
+    application.genericOptions() = application.genericOptions().push_back(
+      clipp::option("--aaa").doc("aaa aaa aaa"),
+      clipp::option("--bbb").doc("bbb bbb bbb")
+    );
+
+    application.positionalOptions() = clipp::group(clipp::values("ccc", files).doc("ccc ccc ccc"));
 
     std::ostringstream stream;
     application.usage(stream);
@@ -51,7 +54,7 @@ BOOST_AUTO_TEST_CASE(command_line_application_)
 
     std::ostringstream result;
     result <<
-         "goforit options ccc ...\n"
+         "goforit options <ccc>...\n"
          "\n"
          "options:\n"
          "  --help                Produce help message.\n"
@@ -59,7 +62,7 @@ BOOST_AUTO_TEST_CASE(command_line_application_)
          "  --aaa                 aaa aaa aaa\n"
          "  --bbb                 bbb bbb bbb\n"
          "\n"
-         "ccc: ccc ccc ccc\n"
+         "<ccc>...                ccc ccc ccc\n"
          ;
     result << std::ends;
 

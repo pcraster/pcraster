@@ -24,6 +24,7 @@ are subject to their individual licenses. PCRaster reserves the right to change
 which third party tools are used.
 
 Boost (https://www.boost.org/)
+clipp (https://github.com/muellan/clipp)
 GDAL (https://www.gdal.org/)
 Modflow (https://water.usgs.gov/ogw/modflow/mf2005.html)
 PCCTS (http://www.polhode.com/pccts.html)

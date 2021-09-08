@@ -12,12 +12,6 @@ option(
     PCRASTER_BUILD_MULTICORE
     "Build Python multicore module"
     ON)
-CMAKE_DEPENDENT_OPTION(
-    PCRASTER_BUILD_TEST_FERN
-    "Build Fern unit tests"
-    OFF
-    "PCRASTER_BUILD_MULTICORE"
-    OFF)
 option(
     PCRASTER_BUILD_AGUILA
     "Build Aguila"
@@ -76,14 +70,6 @@ option(
 
 # Refactor these at some point? re-check bundle...
 option(
-    PCRASTER_LINK_STATIC_BOOST
-    "Static linking of Boost"
-    OFF)
-option(
-    PCRASTER_PACKAGE_BOOST
-    "Package shared libraries"
-    OFF)
-option(
     PCRASTER_PACKAGE_QT
     "Package shared libraries"
     OFF)
@@ -117,47 +103,25 @@ if(NOT PCRASTER_LIB_INSTALL_DIR)
   set(PCRASTER_LIB_INSTALL_DIR lib)
 endif()
 
-if(PCRASTER_BUILD_MULTICORE)
-    set(FERN_BUILD_ALGORITHM ON CACHE BOOL "Build submodule fern")
-    CPMAddPackage("gh:geoneric/fern#98c68fa27f795cb381c67505f14b64684b155d34")
-    if(PCRASTER_BUILD_TEST_FERN)
-      set(DEVBASE_BUILD_TEST ON CACHE BOOL "Build Fern tests")
-    else()
-      # Default/when packaging PCRaster, do not install anything from Fern
-      set(DEVBASE_BUILD_TEST OFF CACHE BOOL "Build Fern tests")
-    endif()
+
+set(Boost_NO_BOOST_CMAKE ON)
+list(APPEND PCR_BOOST_COMPONENTS date_time timer)
+
+if(PCRASTER_BUILD_TEST)
+    enable_testing()
+    list(APPEND PCR_BOOST_COMPONENTS unit_test_framework)
 endif()
 
+find_package(Boost 1.60 REQUIRED COMPONENTS ${PCR_BOOST_COMPONENTS})
 
-# Ugly workaround to enforce working wrt conda-build
-# TODO: Refactor when no more boost dependency required at runtime
-#       Consider to move to Qt command line options as well
-#       to remove (release package) dependency on Boost
-if(PCRASTER_LINK_STATIC_BOOST)
 
-    set(Boost_NO_BOOST_CMAKE ON)
-    set(Boost_USE_STATIC_LIBS ON)
-    set(Boost_USE_STATIC_RUNTIME OFF)
-
-    find_package(Boost 1.60 COMPONENTS unit_test_framework date_time program_options timer)
-
-    if(NOT Boost_FOUND)
-        message(FATAL_ERROR "Boost not found")
-    else()
-        message(STATUS "  includes : ${Boost_INCLUDE_DIRS}")
-        message(STATUS "  libraries: ${Boost_LIBRARIES}")
-    endif()
-
-else()
-    set(Boost_NO_BOOST_CMAKE ON)
-    list(APPEND PCR_BOOST_COMPONENTS date_time program_options timer)
-
-    if(PCRASTER_BUILD_TEST)
-        enable_testing()
-        list(APPEND PCR_BOOST_COMPONENTS unit_test_framework)
-    endif()
-
-    find_package(Boost 1.60 REQUIRED COMPONENTS ${PCR_BOOST_COMPONENTS})
+# keep this after Boost
+if(PCRASTER_BUILD_MULTICORE)
+    CPMAddPackage(
+        GITHUB_REPOSITORY geoneric/fern
+        GIT_TAG 98c68fa27f795cb381c67505f14b64684b155d34
+        OPTIONS "FERN_BUILD_ALGORITHM ON" "DEVBASE_BUILD_TEST ${PCRASTER_BUILD_TEST}"
+    )
 endif()
 
 

@@ -1,42 +1,19 @@
 #ifndef INCLUDED_DEV_COMMANDLINEAPPLICATION
 #define INCLUDED_DEV_COMMANDLINEAPPLICATION
 
-
-
-// Library headers.
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-#ifndef INCLUDED_BOOST_NONCOPYABLE
+#include <clipp.h>
 #include <boost/core/noncopyable.hpp>
-#define INCLUDED_BOOST_NONCOPYABLE
-#endif
-
-#ifndef INCLUDED_BOOST_PROGRAM_OPTIONS
-#include <boost/program_options.hpp>
-#define INCLUDED_BOOST_PROGRAM_OPTIONS
-#endif
-
-#ifndef INCLUDED_BOOST_TUPLE_TUPLE
 #include <boost/tuple/tuple.hpp>
-#define INCLUDED_BOOST_TUPLE_TUPLE
-#endif
 
-// Project headers.
-
-// Module headers.
-
+#include <any>
+#include <string>
+#include <unordered_map>
+#include <vector>
 
 
 namespace dev {
   // CommandLineApplication declarations.
+  typedef std::unordered_map<std::string, std::any> variables_map;
 }
 
 
@@ -63,19 +40,19 @@ private:
 
   char**           _argv;
 
-  boost::program_options::command_line_parser _parser;
+  clipp::group     _parser;
 
   std::string      _commandName;
 
-  boost::program_options::options_description _genericOptions;
+  clipp::group     _genericOptions;
 
-  boost::program_options::options_description _hiddenOptions;
+  clipp::group     _hiddenOptions;
 
-  boost::program_options::positional_options_description _positionalOptions;
+  clipp::group     _positionalOptions;
 
   std::vector< boost::tuple<short, std::string> > _positionalInfo;
 
-  boost::program_options::variables_map _variablesMap;
+  variables_map    _variablesMap;
 
   //! Major version number.
   unsigned short   _major;
@@ -98,19 +75,19 @@ private:
 
 protected:
 
-  boost::program_options::command_line_parser& commandLineParser();
+  clipp::group&    commandLineParser   ();
 
-  boost::program_options::options_description& genericOptions();
+  clipp::group&    genericOptions      ();
 
-  boost::program_options::options_description& hiddenOptions();
+  clipp::group&    hiddenOptions       ();
 
-  // boost::program_options::positional_options_description positionalOptions();
+  clipp::group&    positionalOptions   ();
 
   void             addPositionalOption (std::string const& name,
                                         short maxCount,
                                         std::string description);
 
-  boost::program_options::variables_map programOptions() const;
+  variables_map    programOptions      () const;
 
   void             usage               (std::ostream& stream) const;
 

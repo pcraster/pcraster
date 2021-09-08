@@ -1,5 +1,4 @@
 #include "ag_Aguila.h"
-#include <fstream>
 #include "pcrxsd_library.h"
 #include "dev_FilesystemUtils.h"
 
@@ -12,6 +11,8 @@
 #include "ag_AguilaProgramOptions.h"
 #include "icons/pcr_16x16.xpm"
 
+#include <cstdlib>
+#include <fstream>
 
 
 namespace ag {
@@ -126,12 +127,18 @@ void Aguila::setup()
 {
   AguilaProgramOptions apo(d_argc, d_argv);
 
-  if(!apo.help().empty())
+  if(!apo.help().empty()) {
       showInfo(apo.help());
-  if(apo.license())
+      std::exit(EXIT_SUCCESS);
+  }
+  if(apo.license()) {
       showInfo(license());
-  if(apo.version())
+      std::exit(EXIT_SUCCESS);
+  }
+  if(apo.version()) {
       showInfo(version());
+      std::exit(EXIT_SUCCESS);
+  }
 
   // createLockFile();
   // parseConfigurationFile();

@@ -62,8 +62,6 @@ CommandLineApplication::CommandLineApplication(
 
   : _argc(argc),
     _argv(argv),
-    _parser(argc, argv),
-    _genericOptions("options"),
     _major(major),
     _minor(minor),
     _patch(patch),
@@ -76,11 +74,10 @@ CommandLineApplication::CommandLineApplication(
   fs::path argv0Path(argv[0]);
   _commandName = argv0Path.stem().string();
 
-
-  _genericOptions.add_options()
-         ("help", "Produce help message.")
-         ("version", "Show version.")
-         ;
+  _genericOptions = "options:" % (
+    clipp::option("--help").doc("Produce help message."),
+    clipp::option("--version").doc("Show version.")
+  );
 }
 
 
@@ -94,14 +91,14 @@ CommandLineApplication::~CommandLineApplication()
 
 
 
-boost::program_options::command_line_parser& CommandLineApplication::commandLineParser()
+clipp::group& CommandLineApplication::commandLineParser()
 {
   return _parser;
 }
 
 
 
-boost::program_options::options_description&
+clipp::group&
 CommandLineApplication::genericOptions()
 {
   return _genericOptions;
@@ -109,7 +106,7 @@ CommandLineApplication::genericOptions()
 
 
 
-boost::program_options::options_description&
+clipp::group&
 CommandLineApplication::hiddenOptions()
 {
   return _hiddenOptions;
@@ -117,11 +114,11 @@ CommandLineApplication::hiddenOptions()
 
 
 
-// boost::program_options::positional_options_description
-// CommandLineApplication::positionalOptions()
-// {
-//   return _positionalOptions;
-// }
+clipp::group&
+CommandLineApplication::positionalOptions()
+{
+  return _positionalOptions;
+}
 
 
 
@@ -133,13 +130,11 @@ void CommandLineApplication::addPositionalOption(
   assert(maxCount == -1 || maxCount > 0);
   assert(_positionalInfo.empty() || _positionalInfo.back().get<0>() > 0);
 
-  _positionalOptions.add(name.c_str(), maxCount);
   _positionalInfo.push_back(boost::make_tuple(maxCount, description));
 }
 
 
-
-boost::program_options::variables_map
+variables_map
 CommandLineApplication::programOptions() const
 {
   return _variablesMap;
@@ -171,43 +166,21 @@ std::string const& CommandLineApplication::commandName() const
 void CommandLineApplication::usage(
          std::ostream& stream) const
 {
-  stream << commandName() << " options";
+  auto fmt = clipp::doc_formatting{}
+         .line_spacing(0)
+         .indent_size(2)
+         .paragraph_spacing(1)
+         .first_column(0)
+         .doc_column(24)
+         .last_column(80);
 
-  unsigned short position = 0;
-
-  for(unsigned short i = 0; i < _positionalInfo.size(); ++i) {
-    if(_positionalInfo[i].get<0>() == -1) {
-      position += 1;
-    }
-    else {
-      position += _positionalInfo[i].get<0>();
-    }
-
-    stream << " " << _positionalOptions.name_for_position(position - 1);
-
-    // stream << " " << _positionalInfo[i].get<1>();
-
-    if(_positionalInfo[i].get<0>() == -1) {
-      stream << " ...";
-    }
-  }
+  stream << commandName() << " options " << clipp::usage_lines(_positionalOptions, fmt);
 
   stream << "\n\n"
-         << _genericOptions << std::endl;
-
-  position = 0;
-
-  for(unsigned short i = 0; i < _positionalInfo.size(); ++i) {
-    if(_positionalInfo[i].get<0>() == -1) {
-      position += 1;
-    }
-    else {
-      position += _positionalInfo[i].get<0>();
-    }
-
-    stream << _positionalOptions.name_for_position(position - 1) << ": "
-           << _positionalInfo[i].get<1>() << "\n";
-  }
+         << clipp::documentation(_genericOptions, fmt).str()
+         << "\n\n"
+         << clipp::documentation(_positionalOptions, fmt).str()
+         << "\n";
 }
 
 
@@ -234,35 +207,35 @@ void CommandLineApplication::usage(
 */
 int CommandLineApplication::parseCommandLine()
 {
-  namespace po = boost::program_options;
+//   namespace po = boost::program_options;
 
   int result = EXIT_FAILURE;
 
-  po::options_description commandlineOptions;
-  commandlineOptions.add(_genericOptions).add(_hiddenOptions);
+//   po::options_description commandlineOptions;
+//   commandlineOptions.add(_genericOptions).add(_hiddenOptions);
 
-  try {
-    po::store(_parser
-           .options(commandlineOptions)
-           .positional(_positionalOptions).run(), _variablesMap);
-    po::notify(_variablesMap);
-    result = EXIT_SUCCESS;
-  }
-  catch(boost::program_options::unknown_option const& exception) {
-    std::cerr << exception.what() << "\n";
-    usage(std::cerr);
-  }
-  catch(boost::program_options::error const& exception) {
-    std::cerr << "error: " << exception.what() << "\n";
-    std::cerr << "use -h or --help for usage information\n";
-  }
-
-  if(programOptions().count("help")) {
-    usage(std::cout);
-  }
-  else if(programOptions().count("version")) {
-    std::cout << commandName() << ' ' << version() << std::endl;
-  }
+//   try {
+//     po::store(_parser
+//            .options(commandlineOptions)
+//            .positional(_positionalOptions).run(), _variablesMap);
+//     po::notify(_variablesMap);
+//     result = EXIT_SUCCESS;
+//   }
+//   catch(boost::program_options::unknown_option const& exception) {
+//     std::cerr << exception.what() << "\n";
+//     usage(std::cerr);
+//   }
+//   catch(boost::program_options::error const& exception) {
+//     std::cerr << "error: " << exception.what() << "\n";
+//     std::cerr << "use -h or --help for usage information\n";
+//   }
+//
+//   if(programOptions().count("help")) {
+//     usage(std::cout);
+//   }
+//   else if(programOptions().count("version")) {
+//     std::cout << commandName() << ' ' << version() << std::endl;
+//   }
 
   return result;
 }

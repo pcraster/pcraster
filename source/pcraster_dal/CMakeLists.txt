@@ -262,6 +262,8 @@ if(PCRASTER_BUILD_TEST)
     set_tests_properties(
             pcraster_dal_dal_DataSourceTest.cc
             pcraster_dal_dal_DataSourceTest.cc
+            pcraster_dal_dal_CSFMapTest.cc
+            pcraster_dal_dal_CSFRasterDriverTest.cc
         PROPERTIES
             FIXTURES_REQUIRED
                 FixturePCRasterDal

@@ -26,9 +26,7 @@ jobs:
                   -S . \
                   -B build \
                   -G "Ninja" \
-                  -D CMAKE_RULE_MESSAGES=OFF \
                   -D PCRASTER_BUILD_TEST=ON \
-                  -D PCRASTER_BUILD_TEST_FERN=ON \
                   -D CMAKE_PREFIX_PATH="/usr/local/opt/ncurses;$(brew --prefix qt5)"
 
         - name: build
@@ -51,5 +49,7 @@ jobs:
           shell: bash
           run: |
               # cmake --build build --config Debug --target test
-              cmake --build build --config Release --target test
-              ctest -C build --rerun-failed --output-on-failure
+              # cmake --build build --config Release --target test
+              cd build
+              ctest
+              ctest --rerun-failed --output-on-failure

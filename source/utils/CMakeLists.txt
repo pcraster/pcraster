@@ -26,6 +26,7 @@ target_link_libraries(utils
     PRIVATE
         XercesC::XercesC
         GDAL::GDAL
+        Boost::headers
 )
 
 if(PCRASTER_BUILD_TEST)

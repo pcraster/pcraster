@@ -266,7 +266,7 @@ if(PCRASTER_BUILD_TEST)
                 FixturePcrOldCalc
     )
 
-    set_tests_properties(oldcalc_calc_tssoutputvaluetest.cc
+    set_tests_properties(oldcalc_calc_tssoutputvaluetest
         PROPERTIES
             FIXTURES_REQUIRED
                 FixturePcrOldCalc

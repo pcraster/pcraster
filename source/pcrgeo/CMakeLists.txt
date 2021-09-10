@@ -111,7 +111,7 @@ if(PCRASTER_BUILD_TEST)
                 FixturePcrGeo
     )
 
-    set_tests_properties(pcrgeo_geo_addfiltertest.cc
+    set_tests_properties(pcrgeo_geo_addfiltertest
         PROPERTIES
             FIXTURES_REQUIRED
                 FixturePcrGeo

@@ -80,7 +80,7 @@ if(PCRASTER_BUILD_TEST)
             FIXTURES_REQUIRED FixtureCol2map_2
     )
 
-    set_tests_properties(col2map_col2map_col2maptest.cc
+    set_tests_properties(col2map_col2map_col2maptest
         PROPERTIES
             FIXTURES_REQUIRED FixtureCol2map_3
     )

@@ -155,7 +155,7 @@ if(PCRASTER_BUILD_TEST)
                 FixturePcrXml
     )
 
-    set_tests_properties(pcrxml_pcrxml_attributetest.cc
+    set_tests_properties(pcrxml_pcrxml_attributetest
         PROPERTIES
             FIXTURES_REQUIRED
                 FixturePcrXml

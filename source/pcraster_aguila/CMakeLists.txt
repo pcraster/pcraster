@@ -420,7 +420,7 @@ if(PCRASTER_BUILD_TEST)
             FIXTURES_SETUP
                 FixtureAguila
     )
-    set_tests_properties(pcraster_aguila_ag_AguilaProgramOptionsTest.cc
+    set_tests_properties(pcraster_aguila_ag_AguilaProgramOptionsTest
         PROPERTIES
             FIXTURES_REQUIRED
                 FixtureAguila

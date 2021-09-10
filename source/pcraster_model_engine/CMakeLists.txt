@@ -486,8 +486,8 @@ if(PCRASTER_BUILD_TEST)
     )
 
     set_tests_properties(
-            model_engine_calc_areamaptest.cc
-            model_engine_calc_executortest.cc
+            model_engine_calc_areamaptest
+            model_engine_calc_executortest
         PROPERTIES
             FIXTURES_REQUIRED
                 FixturePCRasterModelEngine

@@ -195,12 +195,13 @@ if(PCRASTER_BUILD_TEST)
     endif()
 endif()
 
-
 if(PCRASTER_BUILD_DOCUMENTATION)
-    set(DEVBASE_DOXYGEN_REQUIRED TRUE)
-    set(DEVBASE_SPHINX_REQUIRED TRUE)
+    find_package(Doxygen REQUIRED)
+    include(SphinxDoc)
     set(SPHINX_HTML_THEME "pyramid")
 endif()
+
+
 
 # pybind11
 # C++ version flags should match ours

@@ -539,8 +539,6 @@ void AguilaProgramOptions::obtainProgramOptions(
          int argc,
          char **argv)
 {
-  using namespace clipp;
-
   bool show_help = false;
   std::string config_filename;
   std::string xml_filename;
@@ -555,28 +553,28 @@ void AguilaProgramOptions::obtainProgramOptions(
   VecOfStr valueOnly;
 
   auto genericOptions = "Command line options:" % (
-    (option("-f", "--config") & values("config_filename", config_filename)).doc("read configuration from file"),
-    (option("-f=", "--config=") & values("config_filename=", config_filename)),
-    (option("-x", "--xml") & values("xml_filename", xml_filename)).doc("read configuration from XML file"),
-    (option("-x=", "--xml=") & values("xml_filename=", xml_filename)),
-    (option("-h", "--help").set(show_help).doc("show usage information")),
-    option("--license").set(d_license).doc("show license information"),
-    option("-v", "--version").set(d_version).doc("show version information"),
-    (repeatable(option("-2", "--mapView") & values("mapView", mapView))).doc("show data in 2D visualisation(s)"),
-    (repeatable(option("-2=", "--mapView=") & values("mapView", mapView))),
+    (clipp::option("-f", "--config") & clipp::values("config_filename", config_filename)).doc("read configuration from file"),
+    (clipp::option("-f=", "--config=") & clipp::values("config_filename=", config_filename)),
+    (clipp::option("-x", "--xml") & clipp::values("xml_filename", xml_filename)).doc("read configuration from XML file"),
+    (clipp::option("-x=", "--xml=") & clipp::values("xml_filename=", xml_filename)),
+    (clipp::option("-h", "--help").set(show_help).doc("show usage information")),
+    clipp::option("--license").set(d_license).doc("show license information"),
+    clipp::option("-v", "--version").set(d_version).doc("show version information"),
+    (clipp::repeatable(clipp::option("-2", "--mapView") & clipp::values("mapView", mapView))).doc("show data in 2D visualisation(s)"),
+    (clipp::repeatable(clipp::option("-2=", "--mapView=") & clipp::values("mapView", mapView))),
 #ifdef AGUILA_WITH_OPENGL
-    (repeatable(option("-3", "--drapeView") & values("drapeView", drapeView))).doc("show data in 3D visualisation(s)"),
-    (repeatable(option("-3=", "--drapeView=") & values("drapeView", drapeView))),
+    (clipp::repeatable(clipp::option("-3", "--drapeView") & clipp::values("drapeView", drapeView))).doc("show data in 3D visualisation(s)"),
+    (clipp::repeatable(clipp::option("-3=", "--drapeView=") & clipp::values("drapeView", drapeView))),
 #endif
 #ifdef DEBUG_DEVELOP
-    (repeatable(option("--testVisualisation") & value("testVisualisation", testVisualisation))).doc("show data in test visualisation(s)"),
+    (clipp::repeatable(clipp::option("--testVisualisation") & clipp::value("testVisualisation", testVisualisation))).doc("show data in test visualisation(s)"),
 #endif
-    (repeatable(option("-t", "--timeGraphView") & values("timeGraphView", timeGraphView))).doc("show data in time series visualisation(s)"),
-    (repeatable(option("-t=", "--timeGraphView=") & values("timeGraphView", timeGraphView))),
-    (repeatable(option("-p", "--probabilityGraphView") & values("probabilityGraphView", probabilityGraphView))).doc("show data in probability distribution visualisation(s)"),
-    (repeatable(option("-p=", "--probabilityGraphView=") & values("probabilityGraphView", probabilityGraphView))),
-    (repeatable(option("--valueOnly") & values("valueOnly", valueOnly))).doc("show data only in value matrix"),
-    (repeatable(option("--valueOnly=") & values("valueOnly", valueOnly)))
+    (clipp::repeatable(clipp::option("-t", "--timeGraphView") & clipp::values("timeGraphView", timeGraphView))).doc("show data in time series visualisation(s)"),
+    (clipp::repeatable(clipp::option("-t=", "--timeGraphView=") & clipp::values("timeGraphView", timeGraphView))),
+    (clipp::repeatable(clipp::option("-p", "--probabilityGraphView") & clipp::values("probabilityGraphView", probabilityGraphView))).doc("show data in probability distribution visualisation(s)"),
+    (clipp::repeatable(clipp::option("-p=", "--probabilityGraphView=") & clipp::values("probabilityGraphView", probabilityGraphView))),
+    (clipp::repeatable(clipp::option("--valueOnly") & clipp::values("valueOnly", valueOnly))).doc("show data only in value matrix"),
+    (clipp::repeatable(clipp::option("--valueOnly=") & clipp::values("valueOnly", valueOnly)))
   );
 
   VecOfStr scenarios;
@@ -588,20 +586,20 @@ void AguilaProgramOptions::obtainProgramOptions(
   std::string fileToGetCursorValue;
 
   auto configOptions = "Command line and configuration file options:" % (
-    (repeatable(option("-n", "--scenarios") & value("scenarios", scenarios))).doc("scenarios available for data"),
-    (repeatable(option("-n=", "--scenarios=") & value("scenarios", scenarios))),
-    (repeatable(option("-s", "--timesteps") & value("timesteps", timesteps))).doc("time steps available for data"),
-    (repeatable(option("-s=", "--timesteps=") & value("timesteps", timesteps))),
-    (repeatable(option("-q", "--quantiles") & value("quantiles", quantiles))).doc("quantiles available for data"),
-    (repeatable(option("-q=", "--quantiles=") & value("quantiles", quantiles))),
-    (option("-l", "--lock") & value("lock", lock)).doc("create lock file"),
-    (option("-l=", "--lock=") & value("lock", lock)),
-    (option("-m", "--multi") & value("multi", multi)).doc("multiple views per window"),
-    (option("-m=", "--multi=") & value("multi", multi)),
-    (option("--cursorValueMonitorFile") & value("cursorValueMonitorFile", cursorValueMonitorFile)).doc("enable Save to cursor value monitor file"),
-    (option("--cursorValueMonitorFile=") & value("cursorValueMonitorFile", cursorValueMonitorFile)),
-    (option("--fileToGetCursorValue") & value("fileToGetCursorValue", fileToGetCursorValue)).doc("enable Get from cursor file"),
-    (option("--fileToGetCursorValue=") & value("fileToGetCursorValue", fileToGetCursorValue))
+    (clipp::repeatable(clipp::option("-n", "--scenarios") & clipp::value("scenarios", scenarios))).doc("scenarios available for data"),
+    (clipp::repeatable(clipp::option("-n=", "--scenarios=") & clipp::value("scenarios", scenarios))),
+    (clipp::repeatable(clipp::option("-s", "--timesteps") & clipp::value("timesteps", timesteps))).doc("time steps available for data"),
+    (clipp::repeatable(clipp::option("-s=", "--timesteps=") & clipp::value("timesteps", timesteps))),
+    (clipp::repeatable(clipp::option("-q", "--quantiles") & clipp::value("quantiles", quantiles))).doc("quantiles available for data"),
+    (clipp::repeatable(clipp::option("-q=", "--quantiles=") & clipp::value("quantiles", quantiles))),
+    (clipp::option("-l", "--lock") & clipp::value("lock", lock)).doc("create lock file"),
+    (clipp::option("-l=", "--lock=") & clipp::value("lock", lock)),
+    (clipp::option("-m", "--multi") & clipp::value("multi", multi)).doc("multiple views per window"),
+    (clipp::option("-m=", "--multi=") & clipp::value("multi", multi)),
+    (clipp::option("--cursorValueMonitorFile") & clipp::value("cursorValueMonitorFile", cursorValueMonitorFile)).doc("enable Save to cursor value monitor file"),
+    (clipp::option("--cursorValueMonitorFile=") & clipp::value("cursorValueMonitorFile", cursorValueMonitorFile)),
+    (clipp::option("--fileToGetCursorValue") & clipp::value("fileToGetCursorValue", fileToGetCursorValue)).doc("enable Get from cursor file"),
+    (clipp::option("--fileToGetCursorValue=") & clipp::value("fileToGetCursorValue", fileToGetCursorValue))
   );
 
   // All positional options should be translated into defaultView options.
@@ -609,13 +607,13 @@ void AguilaProgramOptions::obtainProgramOptions(
 
   auto cli = (genericOptions,
     configOptions,
-    opt_values("defaultView", defaultView),
-    any_other(unrecognised)
+    clipp::opt_values("defaultView", defaultView),
+    clipp::any_other(unrecognised)
   );
 
-  auto result = parse(argc, argv, cli);
+  auto result = clipp::parse(argc, argv, cli);
 
-//   debug::print(std::cout, result);
+//   clipp::debug::print(std::cout, result);
 
   if(show_help) {
 

@@ -12,11 +12,6 @@
 ###     )
 ### ENDIF()
 
-### IF(WIN32)
-###     # Registry API WIN32 LIB.
-###     SET(SOURCES ${SOURCES} com_win32.cc com_win32registrykey.cc)
-### ENDIF(WIN32)
-
 add_library(pcrcom
     com_appargs.cc
     # mam/puma only
@@ -77,7 +72,7 @@ add_library(pcrcom
     com_unorderedcrosstable.cc
 
     # Registry API WIN32 LIB.
-    $<$<BOOL:${WIN32}>:com_win32 com_win32registrykey.cc>
+    $<$<BOOL:${WIN32}>:com_win32.cc com_win32registrykey.cc>
 )
 
 add_library(pcraster::pcrcom ALIAS pcrcom)
@@ -110,7 +105,7 @@ if(PCRASTER_BUILD_TEST)
 
     if(WIN32)
         set(additional_test_sources
-            com_win32registrykeytest)
+            com_win32registrykeytest.cc)
     endif()
 
     add_unit_tests(

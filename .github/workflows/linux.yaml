@@ -54,5 +54,6 @@ jobs:
               # cmake --build build --config Debug --target test
               # cmake --build build --config Release --target test
               cd build
+              ctest -VV -R pcraster_dal_dal_ConnectionInfoTest
               ctest
               ctest --rerun-failed --output-on-failure

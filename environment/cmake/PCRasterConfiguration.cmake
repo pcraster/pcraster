@@ -114,7 +114,7 @@ if(PCRASTER_BUILD_TEST)
 endif()
 
 # >=1.73 required for header-only date_time
-find_package(Boost 1.73 REQUIRED COMPONENTS ${PCR_BOOST_COMPONENTS})
+find_package(Boost 1.71 REQUIRED COMPONENTS ${PCR_BOOST_COMPONENTS})
 
 
 # keep this after Boost

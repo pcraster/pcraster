@@ -51,5 +51,4 @@ jobs:
               # cmake --build build --config Debug --target test
               # cmake --build build --config Release --target test
               cd build
-              ctest
-              ctest --rerun-failed --output-on-failure
+              ctest --output-on-failure

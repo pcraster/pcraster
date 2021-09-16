@@ -209,7 +209,6 @@ target_include_directories(pcraster_xsd
 target_link_libraries(pcraster_xsd
     PUBLIC
         pcraster::utils
-        Boost::date_time
         XercesC::XercesC
 )
 

@@ -145,7 +145,6 @@ target_link_libraries(pcraster_dal
         pcraster::utils
         Qt5::Sql
         GDAL::GDAL
-        Boost::date_time
 )
 
 ADD_CUSTOM_COMMAND(

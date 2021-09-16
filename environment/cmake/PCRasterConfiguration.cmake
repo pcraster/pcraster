@@ -105,14 +105,16 @@ endif()
 
 
 set(Boost_NO_BOOST_CMAKE ON)
-list(APPEND PCR_BOOST_COMPONENTS date_time timer)
+# No more linking to Boost required for released components
+list(APPEND PCR_BOOST_COMPONENTS )
 
 if(PCRASTER_BUILD_TEST)
     enable_testing()
     list(APPEND PCR_BOOST_COMPONENTS unit_test_framework)
 endif()
 
-find_package(Boost 1.60 REQUIRED COMPONENTS ${PCR_BOOST_COMPONENTS})
+# >=1.73 required for header-only date_time
+find_package(Boost 1.73 REQUIRED COMPONENTS ${PCR_BOOST_COMPONENTS})
 
 
 # keep this after Boost

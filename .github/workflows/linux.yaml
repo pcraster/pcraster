@@ -26,16 +26,17 @@ jobs:
               cmake \
                   -S . \
                   -B build \
-                  -G"Ninja" \
+                  -G"Ninja Multi-Config" \
                   -D CMAKE_C_COMPILER=gcc-10 \
                   -D CMAKE_CXX_COMPILER=g++-10 \
                   -D PCRASTER_BUILD_TEST=ON \
+                  -D CMAKE_CONFIGURATION_TYPES="Release;Debug" \
                   -D Python3_EXECUTABLE:FILEPATH=/usr/bin/python3
 
         - name: build
           shell: bash
           run: |
-              # cmake --build build --config Debug --target all
+              cmake --build build --config Debug   --target all
               cmake --build build --config Release --target all
 
         - name: install
@@ -53,7 +54,6 @@ jobs:
               LOGNAME: pcrtester
           shell: bash
           run: |
-              # cmake --build build --config Debug --target test
-              # cmake --build build --config Release --target test
               cd build
-              ctest --output-on-failure
+              ctest --output-on-failure --build-config Debug
+              ctest --output-on-failure --build-config Release

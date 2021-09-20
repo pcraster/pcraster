@@ -12,6 +12,7 @@ add_library(pcraster::utils ALIAS utils)
 target_include_directories(utils SYSTEM
     PRIVATE
         ${GDAL_INCLUDE_DIRS}
+        Boost::headers
 )
 
 target_include_directories(utils
@@ -26,7 +27,6 @@ target_link_libraries(utils
     PRIVATE
         XercesC::XercesC
         GDAL::GDAL
-        Boost::headers
 )
 
 if(PCRASTER_BUILD_TEST)

@@ -254,25 +254,29 @@ endif()
 if(UNIX)
     # I don't know why the moc stuff is not linked automatically by CMake 3.20,
     # just hammer it into the library. Due to being object library?
-    set_property(
-        SOURCE
+     if(${CMAKE_GENERATOR} STREQUAL "Unix Makefiles")
+        set(MOC_WORKAROUND
             CMakeFiles/pcraster_aguila_opengl_objects.dir/pcraster_aguila_opengl_objects_autogen/mocs_compilation.cpp.o
             CMakeFiles/pcraster_aguila_objects.dir/pcraster_aguila_objects_autogen/mocs_compilation.cpp.o
-        PROPERTY GENERATED true
-    )
+        )
+
+        set_property(
+            SOURCE
+                ${MOC_WORKAROUND}
+            PROPERTY GENERATED true
+        )
+    endif()
 
     if(PCRASTER_WITH_OPENGL)
         add_library(pcraster_aguila SHARED
             $<TARGET_OBJECTS:pcraster_aguila_opengl_objects>
             $<TARGET_OBJECTS:pcraster_aguila_objects>
-            CMakeFiles/pcraster_aguila_opengl_objects.dir/pcraster_aguila_opengl_objects_autogen/mocs_compilation.cpp.o
-            CMakeFiles/pcraster_aguila_objects.dir/pcraster_aguila_objects_autogen/mocs_compilation.cpp.o
+            ${MOC_WORKAROUND}
         )
     else()
         add_library(pcraster_aguila SHARED
             $<TARGET_OBJECTS:pcraster_aguila_objects>
-            CMakeFiles/pcraster_aguila_opengl_objects.dir/pcraster_aguila_opengl_objects_autogen/mocs_compilation.cpp.o
-            CMakeFiles/pcraster_aguila_objects.dir/pcraster_aguila_objects_autogen/mocs_compilation.cpp.o
+            ${MOC_WORKAROUND}
         )
     endif()
 else()

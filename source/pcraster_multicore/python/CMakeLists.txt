@@ -165,9 +165,9 @@ install(
 
 install(
     FILES
-        ${PROJECT_BINARY_DIR}/bin/pcraster/multicore/__init__.py
-        ${PROJECT_BINARY_DIR}/bin/pcraster/multicore/_operators.py
-        ${PROJECT_BINARY_DIR}/bin/pcraster/multicore/_operations.py
+        $<TARGET_FILE_DIR:pcrcalc>/pcraster/multicore/__init__.py
+        $<TARGET_FILE_DIR:pcrcalc>/pcraster/multicore/_operators.py
+        $<TARGET_FILE_DIR:pcrcalc>/pcraster/multicore/_operations.py
     DESTINATION
         ${PCRASTER_PYTHON_INSTALL_DIR}/pcraster/multicore
 )

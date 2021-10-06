@@ -123,6 +123,7 @@ if(PCRASTER_BUILD_MULTICORE)
         GITHUB_REPOSITORY geoneric/fern
         GIT_TAG 98c68fa27f795cb381c67505f14b64684b155d34
         OPTIONS "FERN_BUILD_ALGORITHM ON" "DEVBASE_BUILD_TEST ${PCRASTER_BUILD_TEST}"
+        EXCLUDE_FROM_ALL YES
     )
 endif()
 
@@ -220,13 +221,13 @@ set(PYTHON_EXECUTABLE ${Python3_EXECUTABLE})
 # Python.h needs to be known to pass the test
 set (CMAKE_REQUIRED_INCLUDES "${Python3_INCLUDE_DIRS};${CMAKE_REQUIRED_INCLUDES}")
 
-check_include_file_cxx("pybind11/pybind11.h" PYBIND11_SYSTEM_INCLUDE)
+check_include_file_cxx("pybind11/pybind11.h" HAVE_PYBIND11)
 
-if(NOT PYBIND11_SYSTEM_INCLUDE)
+if(NOT HAVE_PYBIND11)
     FetchContent_Declare(
         pybind11
         GIT_REPOSITORY https://github.com/pybind/pybind11
-        GIT_TAG        v2.6.2
+        GIT_TAG        v2.7.1
     )
 
     FetchContent_GetProperties(pybind11)
@@ -248,4 +249,3 @@ endif()
 # ... or XSD
 # set(DEVBASE_XSD_REQUIRED TRUE)
 # <<<
-

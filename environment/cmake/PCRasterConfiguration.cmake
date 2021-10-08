@@ -106,7 +106,9 @@ endif()
 
 set(Boost_NO_BOOST_CMAKE ON)
 # No more linking to Boost required for released components
-list(APPEND PCR_BOOST_COMPONENTS )
+# all header-only  >=1.73
+# keep date_time for current CI
+list(APPEND PCR_BOOST_COMPONENTS date_time)
 
 if(PCRASTER_BUILD_TEST)
     enable_testing()
@@ -122,9 +124,10 @@ if(PCRASTER_BUILD_MULTICORE)
     CPMAddPackage(
         GITHUB_REPOSITORY geoneric/fern
         GIT_TAG 98c68fa27f795cb381c67505f14b64684b155d34
-        OPTIONS "FERN_BUILD_ALGORITHM ON" "DEVBASE_BUILD_TEST ${PCRASTER_BUILD_TEST}"
-        EXCLUDE_FROM_ALL YES
+        OPTIONS "FERN_BUILD_ALGORITHM ON" "DEVBASE_BUILD_TEST ${PCRASTER_BUILD_TEST}" "CMAKE_SKIP_INSTALL_RULES ON"
     )
+    # Just recreate an empty file to install nothing from Fern
+    file(TOUCH ${CMAKE_CURRENT_BINARY_DIR}/_deps/fern-build/cmake_install.cmake)
 endif()
 
 
@@ -208,11 +211,11 @@ endif()
 
 # pybind11
 # C++ version flags should match ours
-if(NOT CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
-    set(PYBIND11_CPP_STANDARD -std=c++17)
-else()
-    set(PYBIND11_CPP_STANDARD /std:c++17)
-endif()
+# if(NOT CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+#     set(PYBIND11_CPP_STANDARD -std=c++17)
+# else()
+#     set(PYBIND11_CPP_STANDARD /std:c++17)
+# endif()
 
 # This variable may be set from somewhere (on Windows) leading to
 # Python version mixups. Enforce the desired one:

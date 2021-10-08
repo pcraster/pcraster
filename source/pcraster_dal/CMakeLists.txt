@@ -93,7 +93,6 @@ target_include_directories(pcraster_dal_objects SYSTEM
     PUBLIC
         ${GDAL_INCLUDE_DIRS}
         ${Qt5Sql_INCLUDE_DIRS}
-    PRIVATE
         ${Boost_INCLUDE_DIRS}
 )
 
@@ -145,6 +144,7 @@ target_link_libraries(pcraster_dal
         pcraster::utils
         Qt5::Sql
         GDAL::GDAL
+        Boost::date_time
 )
 
 ADD_CUSTOM_COMMAND(

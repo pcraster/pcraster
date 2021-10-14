@@ -13,6 +13,24 @@ configure_file(
     ag_Configure.h.in
     ../include/ag_Configure.h
 )
+if(PCRASTER_WITH_OPENGL)
+    set(AGUILA_OPENGL_SOURCES
+        ag_Camera.cc
+        ag_Cube.cc
+        ag_Feedback.cc
+        ag_GLVisualisation.cc
+        ag_Map3D.cc
+        ag_Map3DObject.cc
+        ag_Map3DView.cc
+        ag_Map3DWindow.cc
+        ag_Scene.cc
+        ag_SceneObject.cc
+        ag_SceneView.cc
+        ag_PostScript.cc
+        ag_QuadDrawer.cc
+        ag_Quaternion.cc
+    )
+endif()
 
 add_library(pcraster_aguila_objects OBJECT
     # CursorValueDialog.ui
@@ -164,43 +182,8 @@ add_library(pcraster_aguila_objects OBJECT
     # Plots/ag_TimeSeriesPlot
     # Plots/ag_ValueTimeSeriesPlot
 
-)
+    ${AGUILA_OPENGL_SOURCES}
 
-if(PCRASTER_WITH_OPENGL)
-    add_library(pcraster_aguila_opengl_objects OBJECT
-        ag_Camera.cc
-        ag_Cube.cc
-        ag_Feedback.cc
-        ag_GLVisualisation.cc
-        ag_Map3D.cc
-        ag_Map3DObject.cc
-        ag_Map3DView.cc
-        ag_Map3DWindow.cc
-        ag_Scene.cc
-        ag_SceneObject.cc
-        ag_SceneView.cc
-        ag_PostScript.cc
-        ag_QuadDrawer.cc
-        ag_Quaternion.cc
-    )
-    target_compile_definitions(pcraster_aguila_opengl_objects
-        PRIVATE
-            PCR_DAL_SHARED_LINK
-            PCR_AG_SOURCE
-            PCR_AG_SHARED_LINK
-    )
-    target_include_directories(pcraster_aguila_opengl_objects
-        PRIVATE
-            ${Qt5OpenGL_INCLUDE_DIRS}
-            $<TARGET_PROPERTY:pcraster::math_utils,INTERFACE_INCLUDE_DIRECTORIES>
-            $<TARGET_PROPERTY:pcraster::dal,INTERFACE_INCLUDE_DIRECTORIES>
-    )
-endif()
-
-
-target_compile_definitions(pcraster_aguila_objects
-    PRIVATE
-        PCR_DAL_SHARED_LINK
 )
 
 target_include_directories(pcraster_aguila_objects
@@ -239,6 +222,7 @@ target_link_libraries(pcraster_aguila_objects
 
 target_compile_definitions(pcraster_aguila_objects
     PRIVATE
+        PCR_DAL_SHARED_LINK
         PCR_AG_SOURCE
         PCR_AG_SHARED_LINK
 )
@@ -251,46 +235,9 @@ if(PCRASTER_WITH_OPENGL)
   )
 endif()
 
-if(UNIX)
-    # I don't know why the moc stuff is not linked automatically by CMake 3.20,
-    # just hammer it into the library. Due to being object library?
-     if(${CMAKE_GENERATOR} STREQUAL "Unix Makefiles")
-        set(MOC_WORKAROUND
-            CMakeFiles/pcraster_aguila_opengl_objects.dir/pcraster_aguila_opengl_objects_autogen/mocs_compilation.cpp.o
-            CMakeFiles/pcraster_aguila_objects.dir/pcraster_aguila_objects_autogen/mocs_compilation.cpp.o
-        )
-
-        set_property(
-            SOURCE
-                ${MOC_WORKAROUND}
-            PROPERTY GENERATED true
-        )
-    endif()
-
-    if(PCRASTER_WITH_OPENGL)
-        add_library(pcraster_aguila SHARED
-            $<TARGET_OBJECTS:pcraster_aguila_opengl_objects>
-            $<TARGET_OBJECTS:pcraster_aguila_objects>
-            ${MOC_WORKAROUND}
-        )
-    else()
-        add_library(pcraster_aguila SHARED
-            $<TARGET_OBJECTS:pcraster_aguila_objects>
-            ${MOC_WORKAROUND}
-        )
-    endif()
-else()
-    if(PCRASTER_WITH_OPENGL)
-        add_library(pcraster_aguila SHARED
-            $<TARGET_OBJECTS:pcraster_aguila_opengl_objects>
-            $<TARGET_OBJECTS:pcraster_aguila_objects>
-        )
-    else()
-        add_library(pcraster_aguila SHARED
-            $<TARGET_OBJECTS:pcraster_aguila_objects>
-        )
-    endif()
-endif()
+add_library(pcraster_aguila SHARED
+    $<TARGET_OBJECTS:pcraster_aguila_objects>
+)
 
 add_library(pcraster::aguila ALIAS pcraster_aguila)
 
@@ -381,40 +328,21 @@ if(PCRASTER_BUILD_TEST)
             # PCR_AG_SOURCE
             PCR_AG_SHARED_LINK
     )
-    if(PCRASTER_WITH_OPENGL)
-        add_unit_tests(
-            SCOPE pcraster_aguila
-            NAMES
-                ${AGUILA_TEST_SOURCES}
-            # LINK_LIBRARIES
-                # pcraster_aguila_static
-                # ${_target_libraries}
-                # #${QT_QTTEST_LIBRARY}
-            INCLUDE_DIRS
-                $<TARGET_PROPERTY:pcraster_aguila_objects,INTERFACE_INCLUDE_DIRECTORIES>
-            OBJECT_LIBRARIES
-                $<TARGET_OBJECTS:pcraster_aguila_objects>
-                $<TARGET_OBJECTS:pcraster_aguila_opengl_objects>
-            LINK_LIBRARIES
-                $<TARGET_PROPERTY:pcraster_aguila,LINK_LIBRARIES>
-        )
-    else()
-        add_unit_tests(
-            SCOPE pcraster_aguila
-            NAMES
-                ${AGUILA_TEST_SOURCES}
-            # LINK_LIBRARIES
-                # pcraster_aguila_static
-                # ${_target_libraries}
-                # #${QT_QTTEST_LIBRARY}
-            INCLUDE_DIRS
-                $<TARGET_PROPERTY:pcraster_aguila_objects,INTERFACE_INCLUDE_DIRECTORIES>
-            OBJECT_LIBRARIES
-                $<TARGET_OBJECTS:pcraster_aguila_objects>
-            LINK_LIBRARIES
-                $<TARGET_PROPERTY:pcraster_aguila,LINK_LIBRARIES>
-        )
-    endif()
+    add_unit_tests(
+        SCOPE pcraster_aguila
+        NAMES
+            ${AGUILA_TEST_SOURCES}
+        # LINK_LIBRARIES
+            # pcraster_aguila_static
+            # ${_target_libraries}
+            # #${QT_QTTEST_LIBRARY}
+        INCLUDE_DIRS
+            $<TARGET_PROPERTY:pcraster_aguila_objects,INTERFACE_INCLUDE_DIRECTORIES>
+        OBJECT_LIBRARIES
+            $<TARGET_OBJECTS:pcraster_aguila_objects>
+        LINK_LIBRARIES
+            $<TARGET_PROPERTY:pcraster_aguila,LINK_LIBRARIES>
+    )
     add_test(
         NAME setup_pcraster_aguila
         COMMAND ${Python3_EXECUTABLE} test_prolog.py

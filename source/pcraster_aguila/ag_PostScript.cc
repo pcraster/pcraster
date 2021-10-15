@@ -2,6 +2,7 @@
 
 // Std
 #include <algorithm>
+#include <cassert>
 #include <functional>
 #include <fstream>
 

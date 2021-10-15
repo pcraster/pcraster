@@ -142,7 +142,9 @@ if(PCRASTER_WITH_OPENGL)
     list(APPEND PCR_QT_COMPONENTS OpenGL)
 endif()
 
-find_package(Qt5 REQUIRED COMPONENTS ${PCR_QT_COMPONENTS})
+find_package(Qt5 5.12 REQUIRED COMPONENTS ${PCR_QT_COMPONENTS})
+message(STATUS "Found Qt5: ")
+message(STATUS "  version:   " ${Qt5_VERSION})
 
 
 find_package(XercesC REQUIRED)
@@ -172,6 +174,7 @@ endif()
 
 
 find_package(Python3 COMPONENTS Interpreter Development NumPy)
+message(STATUS "Found Python3: ")
 message(STATUS "  Interpreter ID: " ${Python3_INTERPRETER_ID})
 
 if(UNIX)
@@ -207,19 +210,6 @@ if(PCRASTER_BUILD_DOCUMENTATION)
     set(SPHINX_HTML_THEME "pyramid")
 endif()
 
-
-
-# pybind11
-# C++ version flags should match ours
-# if(NOT CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
-#     set(PYBIND11_CPP_STANDARD -std=c++17)
-# else()
-#     set(PYBIND11_CPP_STANDARD /std:c++17)
-# endif()
-
-# This variable may be set from somewhere (on Windows) leading to
-# Python version mixups. Enforce the desired one:
-set(PYTHON_EXECUTABLE ${Python3_EXECUTABLE})
 
 # Python.h needs to be known to pass the test
 set (CMAKE_REQUIRED_INCLUDES "${Python3_INCLUDE_DIRS};${CMAKE_REQUIRED_INCLUDES}")

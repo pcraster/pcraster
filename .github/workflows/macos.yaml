@@ -31,7 +31,7 @@ jobs:
                   -D PCRASTER_BUILD_TEST=ON \
                   -D CMAKE_CONFIGURATION_TYPES="Release;Debug" \
                   -D CMAKE_PREFIX_PATH="/usr/local/opt/ncurses;$(brew --prefix qt5)" \
-                  -D Python3_EXECUTABLE:FILEPATH=/opt/local/bin/python3
+                  -D Python3_EXECUTABLE:FILEPATH=/usr/local/opt/python3
 
         - name: build
           shell: bash

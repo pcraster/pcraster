@@ -19,7 +19,7 @@ jobs:
         - name: configure system
           run: |
               brew install python@3.10 cmake ninja boost gdal ncurses xerces-c qt@5
-              $(brew --prefix)/opt/python@3.10/bin/pip3 install numpy psutils
+              $(brew --prefix)/opt/python@3.10/bin/pip3 install numpy psutil
 
         - name: configure pcraster
           shell: bash -l {0}

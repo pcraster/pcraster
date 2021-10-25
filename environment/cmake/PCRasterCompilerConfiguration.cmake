@@ -47,6 +47,7 @@ add_compile_options(
     "$<$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:AppleClang,Clang>>:-pipe>"
     "$<$<COMPILE_LANG_AND_ID:C,GNU,AppleClang,Clang>:-Wall>"
     "$<$<COMPILE_LANG_AND_ID:CXX,GNU,AppleClang,Clang>:>"
+    #"$<$<AND:$<PLATFORM_ID:Linux>,$<CXX_COMPILER_ID:Clang>>:-stdlib=libc++>" #;-lc++abi  -stdlib=libc++;-D_GLIBCXX_USE_CXX11_ABI=0
 )
 
 # Based on conda and https://developers.redhat.com/blog/2018/03/21/compiler-and-linker-flags-gcc/

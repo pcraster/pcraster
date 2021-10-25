@@ -378,7 +378,7 @@ std::string com::PathName::toString() const
 */
 std::string com::PathName::directoryName() const
 {
-  return path().parent_path().string();
+  return path().lexically_normal().parent_path().string();
 }
 
 //! Returns the name of the base as a string.

@@ -174,8 +174,14 @@ endif()
 
 
 find_package(Python3 COMPONENTS Interpreter Development NumPy)
-message(STATUS "Found Python3: ")
+message(STATUS "Found Python3:")
 message(STATUS "  Interpreter ID: " ${Python3_INTERPRETER_ID})
+message(STATUS "    version:      " ${Python3_VERSION})
+message(STATUS "    executable:   " ${Python3_EXECUTABLE})
+message(STATUS "    site-lib:     " ${Python3_SITELIB})
+message(STATUS "  NumPy:" )
+message(STATUS "    version:      " ${Python3_NumPy_VERSION})
+message(STATUS "    includes:     " ${Python3_NumPy_INCLUDE_DIRS})
 
 if(UNIX)
     set(CURSES_NEED_NCURSES TRUE)

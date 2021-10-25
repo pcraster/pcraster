@@ -36,17 +36,17 @@ endif()
 
 if(PCRASTER_WITH_FLAGS_NATIVE)
     add_compile_options(
-        "$<$<CONFIG:Release>:$<$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:Clang>>:-march=native;-mtune=native>>"
+        "$<$<CONFIG:Release>:$<$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:AppleClang,Clang>>:-march=native;-mtune=native>>"
     )
     add_compile_options(
-        "$<$<CONFIG:RelWithDebInfo>:$<$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:Clang>>:-march=native;-mtune=native>>"
+        "$<$<CONFIG:RelWithDebInfo>:$<$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:AppleClang,Clang>>:-march=native;-mtune=native>>"
     )
 endif()
 
 add_compile_options(
-    "$<$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:Clang>>:-pipe>"
-    "$<$<COMPILE_LANG_AND_ID:C,GNU,Clang>:-Wall>"
-    "$<$<COMPILE_LANG_AND_ID:CXX,GNU,Clang>:>"
+    "$<$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:AppleClang,Clang>>:-pipe>"
+    "$<$<COMPILE_LANG_AND_ID:C,GNU,AppleClang,Clang>:-Wall>"
+    "$<$<COMPILE_LANG_AND_ID:CXX,GNU,AppleClang,Clang>:>"
 )
 
 # Based on conda and https://developers.redhat.com/blog/2018/03/21/compiler-and-linker-flags-gcc/

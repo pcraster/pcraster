@@ -102,11 +102,6 @@ message(STATUS "    Type:                 " ${CMAKE_BUILD_TYPE})
 message(STATUS "    Flags:                ")
 message(STATUS "      Native:             " ${PCRASTER_WITH_FLAGS_NATIVE})
 message(STATUS "      IPO:                " ${PCRASTER_WITH_FLAGS_IPO})
-message(STATUS "    Python:               ")
-message(STATUS "      version:            " ${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}.${Python3_VERSION_PATCH})
-message(STATUS "      interpreter:        " ${Python3_EXECUTABLE})
-message(STATUS "      site-lib:           " ${Python3_SITELIB})
-message(STATUS "      NumPy:              " ${Python3_NumPy_INCLUDE_DIRS})
 message(STATUS "-----------------------------------------------------------")
 
 # Only configured for packaging source code required to build a package!

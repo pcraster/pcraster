@@ -67,6 +67,10 @@ if(PCRASTER_WITH_FLAGS_IPO)
 endif()
 
 
+if(MSVC AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
+    set(CMAKE_TOOLCHAIN_FILE "${PROJECT_SOURCE_DIR}/environment/cmake/msvs2017.cmake" CACHE PATH "toolchain file")
+endif()
+
 
 # In general, don't set compiler options in CMake files. Here we set the
 # most general options that everybody always wants. Anything else should

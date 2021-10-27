@@ -6,6 +6,7 @@ Installing binaries
 
 PCRaster is available on |condaforgefeedstocksurl| and can be installed using conda.
 Supported platforms are Linux, macOS and Windows.
+On the Apple M1 platform our osx-64 version can be used.
 
 We recommend to download and install |miniconda|.
 The user guide and short reference on conda can be found |minicondadoc|.
@@ -125,13 +126,11 @@ Troubleshooting
 ---------------
 
 
-Aguila fails to start on macOS with M1 processors
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Aguila fails to start on macOS
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Until now there is no native build of PCRaster for the Apple M1 platform (arm-osx64 on conda).
-Users report the successful working of our osx-64 version.
-Aguila, however, fails to start up.
-This might be resolved by adding the following environment variable:
+On newer macOS versions Aguila may fail to start up.
+This should be resolved by adding the following environment variable:
 
 .. code-block:: console
 

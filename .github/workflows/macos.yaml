@@ -13,15 +13,15 @@ jobs:
 
         steps:
 
-        - name: checkout pcraster
+        - name: Checkout pcraster
           uses: actions/checkout@v2
 
-        - name: configure system
+        - name: Configure system
           run: |
               brew install python@3.10 cmake ninja boost gdal ncurses xerces-c qt@5
               $(brew --prefix)/opt/python@3.10/bin/pip3 install numpy psutil
 
-        - name: configure pcraster
+        - name: Configure PCRaster
           shell: bash -l {0}
           run: |
               mkdir build
@@ -32,27 +32,41 @@ jobs:
                   -D PCRASTER_BUILD_TEST=ON \
                   -D CMAKE_CONFIGURATION_TYPES="Release;Debug" \
                   -D CMAKE_PREFIX_PATH="/usr/local/opt/ncurses;$(brew --prefix qt5)" \
-                  -D Python3_EXECUTABLE:FILEPATH=$(brew --prefix)/opt/python@3.10/bin/python3
+                  -D Python3_EXECUTABLE:FILEPATH=$(brew --prefix)/opt/python@3.10/bin/python3 \
+                  -D CMAKE_INSTALL_PREFIX=package
 
-        - name: build
+        - name: Build debug
           shell: bash
           run: |
-              cmake --build build --config Debug   --target all
+              cmake --build build --config Debug --target all
+
+        - name: Build release
+          shell: bash
+          run: |
               cmake --build build --config Release --target all
 
-        - name: install
+        - name: Install PCRaster
           shell: bash
           run: |
-              cmake --install build --config Release --prefix package
+              cmake --install build --config Release
 
-        - name: source package
+        - name: Create source package
           shell: bash
           run: |
               cmake --build build --config Release --target package_source
 
-        - name: test
+        - name: Test debug
+          env:
+              LOGNAME: pcrtester
           shell: bash
           run: |
               cd build
               ctest --output-on-failure --build-config Debug
+
+        - name: Test release
+          env:
+              LOGNAME: pcrtester
+          shell: bash
+          run: |
+              cd build
               ctest --output-on-failure --build-config Release

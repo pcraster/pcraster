@@ -13,7 +13,7 @@ jobs:
 
         steps:
 
-        - name: Checkout pcraster
+        - name: Checkout PCRaster
           uses: actions/checkout@v2
 
         - name: Configure system

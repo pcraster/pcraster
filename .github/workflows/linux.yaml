@@ -13,13 +13,15 @@ jobs:
 
         steps:
 
-        - name: Checkout pcraster
+        - name: Checkout PCRaster
           uses: actions/checkout@v2
 
         - name: Configure system
           run: |
               sudo apt update
               sudo apt install gcc-10 ninja-build gdal-bin libgdal-dev libxerces-c-dev libxml2-dev libxslt1-dev libboost-all-dev libncurses5-dev libxml2 libxml2-utils mesa-common-dev libglu1-mesa-dev libgl1-mesa-glx python3 libpython3-dev python3-numpy python3-psutil qtbase5-dev libqt5charts5-dev libqt5opengl5-dev cmake pybind11-dev
+              # Only required for documentation:
+              sudo apt install python3-sphinx doxygen
 
         - name: Configure PCRaster
           shell: bash -l {0}
@@ -32,6 +34,7 @@ jobs:
                   -D CMAKE_C_COMPILER=gcc-10 \
                   -D CMAKE_CXX_COMPILER=g++-10 \
                   -D PCRASTER_BUILD_TEST=ON \
+                  -D PCRASTER_BUILD_DOCUMENTATION=ON \
                   -D CMAKE_CONFIGURATION_TYPES="Release;Debug" \
                   -D Python3_EXECUTABLE:FILEPATH=/usr/bin/python3 \
                   -D CMAKE_INSTALL_PREFIX=package

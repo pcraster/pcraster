@@ -1,13 +1,7 @@
 #include "numpy_conversion.h"
-#include <boost/version.hpp>
 #include <boost/format.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/static_assert.hpp>
-#if BOOST_VERSION > 107000
-  #include <boost/test/tools/floating_point_comparison.hpp>
-#else
-  #include <boost/test/floating_point_comparison.hpp>
-#endif
 #include <boost/type_traits.hpp>
 #include <numpy/arrayobject.h>
 #include "pcrtypes.h"

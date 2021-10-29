@@ -13,6 +13,13 @@ Changes
 ..
 .. We further improved the code quality and the build system to ensure an ongoing creation of PCRaster packages, amongst others:
 .. AppleClang
+..
+.. PCRaster 4.3.2
+.. --------------
+..
+.. This is a bug fix release for 4.3.
+.. * pcr.setclone: improved error message for non-PCRaster file arguments (`#337 <https://github.com/pcraster/pcraster/issues/337>`_)
+
 
 PCRaster 4.3.1
 --------------

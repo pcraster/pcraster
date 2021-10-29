@@ -2,8 +2,10 @@ import glob
 import os
 import pathlib
 import shutil
+import subprocess
 
 
+gdalTranslate="@GDAL_TRANSLATE@ -quiet"
 dest_dir = "@CMAKE_CURRENT_BINARY_DIR@"
 example_raster_dir = os.path.join("@PROJECT_BINARY_DIR@", "documentation", "pcraster_manual", "examples")
 
@@ -51,3 +53,20 @@ shutil.copy(pathlib.Path(dest_dir, "validated", "ldd_Result.map"), pathlib.Path(
 shutil.copy(pathlib.Path(dest_dir, "validated", "ldd_Result.map"), path_2)
 shutil.copy(pathlib.Path(dest_dir, "validated", "cos_Result.map"), path_2)
 shutil.copy(pathlib.Path(dest_dir, "validated", "ldd_Result.map"), pathlib.Path(path_2, "ldd Result.map"))
+
+
+# Create TIFF used as clonemap input
+with open(pathlib.Path(dest_dir, "values_tiff.asc"), "w") as f:
+    f.write("""NCOLS 2
+NROWS 3
+XLLCORNER 100000.0
+YLLCORNER 199850.0
+CELLSIZE 50.0
+NODATA_VALUE -1
+1  0
+1  1
+1 -1""")
+
+cmd = f'{gdalTranslate} -ot Int32 -of GTiff {pathlib.Path(dest_dir, "values_tiff.asc")} {pathlib.Path(dest_dir, "clone.tiff")}'
+
+subprocess.run(cmd.split(), check=True)

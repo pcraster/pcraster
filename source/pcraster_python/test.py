@@ -425,6 +425,15 @@ class Test(testcase.TestCase):
     self.assertEqual(pcraster.clone().west(), west)
     self.assertEqual(pcraster.clone().north(), north)
 
+  def testSetCloneUsingTiff(self):
+    exceptionThrown = False
+    try:
+      pcraster.setclone("clone.tiff")
+    except Exception as e:
+      self.assertEqual(str(e), "Cannot use 'clone.tiff'. Only the PCRaster file format is supported as input argument.\n")
+      exceptionThrown = True
+    self.assertTrue(exceptionThrown)
+
   def testArgOrder(self):
     chances1 = pcraster.readmap("argorderwithidarealimited_Chances11.map")
     chances2 = pcraster.readmap("argorderwithidarealimited_Chances12.map")

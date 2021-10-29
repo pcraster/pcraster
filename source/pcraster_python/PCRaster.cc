@@ -1,6 +1,7 @@
 #include <pybind11/pybind11.h>
 
 #include "stddefx.h"
+#include "csf.h"
 #include "com_exception.h"
 #include "com_tune.h"
 #include "dal_Exception.h"
@@ -737,9 +738,27 @@ geo::LinearLoc (geo::RasterDim::*convert)(size_t, size_t) const =
 //   globals.setCloneSpace(raster);
 // }
 
+void check_csftype(std::string const& filename){
+  // Simple check if filename is a PCRaster map
+  MAP* raster = Mopen(filename.c_str(), M_READ);
+
+  if(!raster) {
+    std::ostringstream errMsg;
+    errMsg << "Cannot use '"
+           << filename
+           << "'. Only the PCRaster file format is supported as input argument.\n";
+    throw pybind11::type_error(errMsg.str());
+  }
+  assert(raster);
+  Mclose(raster);
+  raster = nullptr;
+}
+
 void setCloneSpaceFromFilename(
          std::string const& filename)
 {
+  check_csftype(filename);
+
   boost::shared_ptr<dal::Raster> raster(globals.rasterDal().read(filename));
   assert(raster);
 

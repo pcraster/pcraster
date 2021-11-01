@@ -16,18 +16,3 @@ set(SPHINX_SOURCES
 )
 
 prepare_pcraster_project_docs("${SPHINX_SOURCES}" "python_modelling_framework" "MODELLING_FRAMEWORK_SPHINX_SOURCES")
-
-create_sphinx_docs(
-    TARGET python_modelling_framework_documentation
-    SOURCES ${SPHINX_SOURCES}
-)
-
-add_dependencies(python_modelling_framework_documentation
-    python_modelling_framework_dummy
-    _pcraster
-)
-
-install(
-    DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/_build/html/
-    DESTINATION doc/python/pcraster/framework
-)

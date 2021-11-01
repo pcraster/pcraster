@@ -40,7 +40,9 @@ if(PCRASTER_BUILD_DOCUMENTATION)
     add_dependencies(
         pcraster_documentation
             preprocessFigures
-            manual
+            generate_examples.sentinel
+            pcraster_modflow
+            _pcraster_modflow_python
             _pcraster
             _pcraster_multicore
             python_arrayed_variables_dummy

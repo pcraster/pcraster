@@ -44,13 +44,3 @@ set(SPHINX_SOURCES
 )
 
 prepare_pcraster_project_docs("${SPHINX_SOURCES}" "pcraster_aguila" "AGUILA_SPHINX_SOURCES")
-
-create_sphinx_docs(
-    TARGET pcraster_aguila_documentation
-    SOURCES ${SPHINX_SOURCES}
-)
-
-install(
-    DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/_build/html/
-    DESTINATION doc/aguila
-)

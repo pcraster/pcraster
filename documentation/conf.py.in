@@ -22,7 +22,9 @@ import sys
 
 # add path to find pcraster module
 sys.path.insert(0, os.path.abspath('../bin'))
-
+# hack when using multi-config generator
+sys.path.insert(0, os.path.abspath('../bin/Release'))
+sys.path.insert(0, os.path.abspath('../bin/Debug'))
 
 # -- General configuration ------------------------------------------------
 

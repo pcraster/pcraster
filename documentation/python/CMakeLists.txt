@@ -9,18 +9,3 @@ set(SPHINX_SOURCES
 )
 
 prepare_pcraster_project_docs("${SPHINX_SOURCES}" "python" "PYTHON_SPHINX_SOURCES")
-
-create_sphinx_docs(
-    TARGET pcraster_python_manual
-    SOURCES ${SPHINX_SOURCES}
-)
-
-add_dependencies(
-    pcraster_python_manual
-        _pcraster
-)
-
-install(
-    DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/_build/html/
-    DESTINATION doc/python/pcraster
-)

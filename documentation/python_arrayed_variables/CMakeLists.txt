@@ -12,17 +12,3 @@ set(SPHINX_SOURCES
 
 prepare_pcraster_project_docs("${SPHINX_SOURCES}" "python_arrayed_variables" "ARRAYED_VARIABLES_SPHINX_SOURCES")
 
-create_sphinx_docs(
-    TARGET python_arrayed_variables_documentation
-    SOURCES ${SPHINX_SOURCES}
-)
-
-add_dependencies(python_arrayed_variables_documentation
-    python_arrayed_variables_dummy
-    _pcraster
-)
-
-install(
-    DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/_build/html/
-    DESTINATION doc/python/pcraster/arrayed_variables
-)

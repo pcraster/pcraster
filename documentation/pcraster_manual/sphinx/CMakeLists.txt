@@ -163,18 +163,3 @@ set(SPHINX_SOURCES
 )
 
 prepare_pcraster_project_docs("${SPHINX_SOURCES}" "pcraster_manual/sphinx" "PCRASTER_SPHINX_SOURCES")
-
-create_sphinx_docs(
-    TARGET manual
-    SOURCES ${SPHINX_SOURCES}
-)
-
-add_dependencies(manual
-    generate_examples.sentinel
-    preprocessFigures
-)
-
-install(
-    DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/_build/html/
-    DESTINATION doc/manual
-)

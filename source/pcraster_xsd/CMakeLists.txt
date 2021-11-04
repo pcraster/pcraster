@@ -204,7 +204,7 @@ target_include_directories(pcraster_xsd
         ${Boost_INCLUDE_DIRS}
         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../../external/include>
+        $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/_deps/xsd-src/libxsd>
 )
 
 target_link_libraries(pcraster_xsd

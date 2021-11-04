@@ -130,6 +130,13 @@ if(PCRASTER_BUILD_MULTICORE)
     file(TOUCH ${CMAKE_CURRENT_BINARY_DIR}/_deps/fern-build/cmake_install.cmake)
 endif()
 
+CPMAddPackage(
+  NAME xsd
+  GIT_REPOSITORY https://git.codesynthesis.com/xsd/xsd.git
+  GIT_TAG 538fb327e13c3c9d3e7ae4a7dd06098d12667f2a
+  DOWNLOAD_ONLY YES
+)
+
 
 list(APPEND PCR_QT_COMPONENTS Core Sql Xml)
 

@@ -118,7 +118,7 @@ calc::Field* readField(
   boost::tie(raster, driver) = globals.rasterDal().open(name);
 
   if(!raster) {
-    throw com::Exception((boost::format("Raster %1%: can not be opened")
+    throw com::Exception((boost::format("Raster %1%: can not be opened. Note: only the PCRaster file format is supported as input argument.\n")
          % name).str());
   }
 
@@ -232,7 +232,7 @@ pybind11::object readFieldCell(
   boost::tie(raster, driver) = globals.rasterDal().open(filename);
 
   if(!raster) {
-    throw com::Exception((boost::format("Raster %1%: can not be opened")
+    throw com::Exception((boost::format("Raster %1%: can not be opened. Note: only the PCRaster file format is supported as input argument.\n")
          % filename).str());
   }
   POSTCOND(raster);
@@ -746,7 +746,7 @@ void check_csftype(std::string const& filename){
     std::ostringstream errMsg;
     errMsg << "Cannot use '"
            << filename
-           << "'. Only the PCRaster file format is supported as input argument.\n";
+           << "'. Note: only the PCRaster file format is supported as input argument.\n";
     throw pybind11::type_error(errMsg.str());
   }
   assert(raster);
@@ -1089,7 +1089,7 @@ PYBIND11_MODULE(_pcraster, module)
          return_value_policy::automatic, R"(
   Read a map.
 
-  filename -- Filename of a map to read.
+  filename -- Filename of a PCRaster map to read.
     )"
   );
 

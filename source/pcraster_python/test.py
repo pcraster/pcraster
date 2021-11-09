@@ -430,7 +430,25 @@ class Test(testcase.TestCase):
     try:
       pcraster.setclone("clone.tiff")
     except Exception as e:
-      self.assertEqual(str(e), "Cannot use 'clone.tiff'. Only the PCRaster file format is supported as input argument.\n")
+      self.assertEqual(str(e), "Cannot use 'clone.tiff'. Note: only the PCRaster file format is supported as input argument.\n")
+      exceptionThrown = True
+    self.assertTrue(exceptionThrown)
+
+  def testSetReadmapUsingTiff(self):
+    exceptionThrown = False
+    try:
+      pcraster.readmap("clone.tiff")
+    except Exception as e:
+      self.assertEqual(str(e), "Raster clone.tiff: can not be opened. Note: only the PCRaster file format is supported as input argument.\n")
+      exceptionThrown = True
+    self.assertTrue(exceptionThrown)
+
+  def testSetReadFieldCellUsingTiff(self):
+    exceptionThrown = False
+    try:
+      pcraster.readFieldCell("clone.tiff", 5, 3)
+    except Exception as e:
+      self.assertEqual(str(e), "Raster clone.tiff: can not be opened. Note: only the PCRaster file format is supported as input argument.\n")
       exceptionThrown = True
     self.assertTrue(exceptionThrown)
 

@@ -49,7 +49,7 @@ option(
 option(
     PCRASTER_BUILD_MLDD
     "Build mldd"
-    OFF)
+    ON)
 CMAKE_DEPENDENT_OPTION(
     PCRASTER_WITH_OPENGL
     "Use OpenGL for 3D visualisation"
@@ -256,7 +256,7 @@ if(NOT PYBIND11_SYSTEM_INCLUDE)
     FetchContent_Declare(
         pybind11
         GIT_REPOSITORY https://github.com/pybind/pybind11
-        GIT_TAG        v2.4.3
+        GIT_TAG        v2.7.1
     )
 
     FetchContent_GetProperties(pybind11)

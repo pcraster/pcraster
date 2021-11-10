@@ -1,1 +1,1 @@
-from _pcraster_mldd import *
+from ._pcraster_mldd import *

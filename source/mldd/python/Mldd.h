@@ -4,10 +4,6 @@
 
 
 // External headers.
-#ifndef INCLUDED_BOOST_PYTHON_TUPLE
-#include <boost/python/tuple.hpp>
-#define INCLUDED_BOOST_PYTHON_TUPLE
-#endif
 
 #ifndef INCLUDED_BOOST_NONCOPYABLE
 #include <boost/noncopyable.hpp>
@@ -27,6 +23,8 @@
 #define INCLUDED_MLDD_MLDD
 #endif
 
+#include <pybind11/pybind11.h>
+#include <memory>
 
 
 namespace calc {
@@ -90,7 +88,7 @@ public:
                                         calc::Field const* mark7,
                                         calc::Field const* mark8);
 
-  boost::shared_ptr<calc::Field> diffuse(
+  std::shared_ptr<calc::Field> diffuse(
                                         calc::Field const* oldState,
                                         calc::Field const* area,
                                         calc::Field const* fixedHead,
@@ -108,16 +106,16 @@ public:
   // ACCESSORS
   //----------------------------------------------------------------------------
 
-  boost::python::tuple getStream       () const;
+  pybind11::tuple  getStream           () const;
 
-  boost::python::tuple getWeight       () const;
+  pybind11::tuple  getWeight           () const;
 
-  boost::shared_ptr<calc::Field> getDem() const;
+  std::shared_ptr<calc::Field> getDem  () const;
 
-  boost::shared_ptr<calc::Field> upstream(
+  std::shared_ptr<calc::Field> upstream(
                                         calc::Field const* material);
 
-  boost::shared_ptr<calc::Field> accuflux(
+  std::shared_ptr<calc::Field> accuflux(
                                         calc::Field const* material);
 
 };

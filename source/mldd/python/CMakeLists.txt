@@ -1,23 +1,16 @@
-add_library(_pcraster_mldd_python SHARED
+# NO_EXTRAS required for success on macOS conda build
+pybind11_add_module(_pcraster_mldd_python MODULE NO_EXTRAS THIN_LTO
     Extension.cc
     Mldd.cc
 )
 
 add_library(pcraster::python_mldd ALIAS _pcraster_mldd_python)
 
-
-# target_include_directories(_pcraster_mldd_python
-#     PRIVATE
-#         ${PYTHON_INCLUDE_DIR}
-# )
-
 target_link_libraries(_pcraster_mldd_python
     PRIVATE
-#        pcraster::mldd
-#        pcraster::model_engine
-#  make this fail fttb
-#        ${PCR_BOOST_PYTHON}
-#        ${PYTHON_LIBRARIES}
+        pcraster::mldd
+        pcraster::model_engine
+        Python3::Python
 )
 
 configure_python_extension(_pcraster_mldd_python
@@ -32,6 +25,10 @@ set_target_properties(_pcraster_mldd_python
             "${_TARGET_BIN}/pcraster/mldd"
         LIBRARY_OUTPUT_DIRECTORY
             "${_TARGET_BIN}/pcraster/mldd"
+        OUTPUT_NAME
+            "_pcraster_mldd"
+        INSTALL_RPATH
+            "\\\$ORIGIN/../../../lib"
 )
 
 add_dependencies(_pcraster_mldd_python _pcraster)
@@ -44,10 +41,24 @@ add_custom_command(
         COMMAND ${CMAKE_COMMAND} -E copy
             ${CMAKE_CURRENT_SOURCE_DIR}/__init__.py
             ${PROJECT_BINARY_DIR}/bin/${CMAKE_CFG_INTDIR}/pcraster/mldd
+        # unit test stuff...
+        COMMAND ${CMAKE_COMMAND} -E copy
+            ${CMAKE_CURRENT_SOURCE_DIR}/test.py
+            ${CMAKE_CURRENT_BINARY_DIR}
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+            ${CMAKE_CURRENT_SOURCE_DIR}/../demo
+            ${CMAKE_CURRENT_BINARY_DIR}/demo
 #        COMMAND ${CMAKE_COMMAND} -E copy
 #            $<TARGET_FILE:_pcraster_mldd_python>
 #            ${PROJECT_BINARY_DIR}/bin/${CMAKE_CFG_INTDIR}/pcraster/mldd
 )
+
+set_target_properties(_pcraster_mldd_python
+    PROPERTIES
+        PREFIX "${PYTHON_MODULE_PREFIX}"
+        SUFFIX "${PYTHON_MODULE_EXTENSION}"
+)
+
 
 ### SET_TARGET_PROPERTIES(_pcraster_mldd_python
 ###     PROPERTIES
@@ -61,3 +72,32 @@ add_custom_command(
 ###         # Might be needed on Windows:
 ###         # RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin/pcraster
 ### )
+
+install(
+    TARGETS _pcraster_mldd_python
+    LIBRARY DESTINATION ${PCRASTER_PYTHON_INSTALL_DIR}/pcraster/mldd
+    RUNTIME DESTINATION ${PCRASTER_PYTHON_INSTALL_DIR}/pcraster/mldd
+)
+
+install(
+    FILES
+        ${_TARGET_BIN}/pcraster/mldd/__init__.py
+    DESTINATION
+        ${PCRASTER_PYTHON_INSTALL_DIR}/pcraster/mldd
+)
+
+
+if(PCRASTER_BUILD_TEST)
+    add_test(
+        NAME
+            mldd_python_unittests
+        COMMAND
+            ${Python3_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test.py
+    )
+
+    set_tests_properties(mldd_python_unittests
+        PROPERTIES
+            ENVIRONMENT
+                "PYTHONPATH=${EXECUTABLE_OUTPUT_PATH}"
+    )
+endif()

@@ -49,7 +49,7 @@ option(
 option(
     PCRASTER_BUILD_MLDD
     "Build mldd"
-    OFF)
+    ON)
 CMAKE_DEPENDENT_OPTION(
     PCRASTER_WITH_OPENGL
     "Use OpenGL for 3D visualisation"

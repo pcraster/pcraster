@@ -22,8 +22,12 @@ if(POLICY CMP0075)
    set(CMAKE_POLICY_DEFAULT_CMP0075 NEW)
 endif()
 
-# This must be set before project()
+# These two must be set before project()
 set(CMAKE_OSX_DEPLOYMENT_TARGET "10.15" CACHE STRING "Minimum OS X deployment version")
+
+if(WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
+    set(CMAKE_TOOLCHAIN_FILE "${PROJECT_SOURCE_DIR}/environment/cmake/msvs2017.cmake" CACHE PATH "toolchain file")
+endif()
 
 project(pcraster)
 

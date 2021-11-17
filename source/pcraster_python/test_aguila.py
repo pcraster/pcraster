@@ -50,14 +50,15 @@ class TestAguila(testcase.TestCase):
 
     def test_02(self):
         """ aguila executed in directories without write permission """
+        exceptionThrown = False
 
         if sys.platform.startswith('linux'):
           test_path = pathlib.Path('/usr/')
           expected = 'aguila /tmp/tmp'
         elif sys.platform.startswith('win32'):
-          test_path = pathlib.Path('C:', 'Windows')
+          test_path = pathlib.Path('C:\\', 'Windows')
           tmp = os.environ['TEMP']
-          expected = f'aguila.exe {tmp}'
+          expected = f'aguila {tmp}'
         elif sys.platform.startswith('darwin'):
           test_path = pathlib.Path('/System/')
           tmp = os.environ['TMPDIR']
@@ -66,5 +67,10 @@ class TestAguila(testcase.TestCase):
         os.chdir(test_path)
         pcraster.setclone(5, 4, 3, 2, 1)
 
-        with self.assertRaisesRegex(Exception, expected):
+        try:
             pcraster.aguila(pcraster.uniform(1), pcraster_unit_test=True)
+        except RuntimeError as exception:
+            message = str(exception)
+            self.assertTrue(message.find(expected) != -1)
+            exceptionThrown = True
+        self.assertTrue(exceptionThrown)

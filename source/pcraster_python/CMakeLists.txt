@@ -280,7 +280,7 @@ if(PCRASTER_BUILD_TEST)
         set_tests_properties(python_pcrcalcpy_pythonunittest
             PROPERTIES
                 ENVIRONMENT
-                    "PATH=${ENV_PATH}\\;${EXECUTABLE_OUTPUT_PATH};PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}\\;$<TARGET_FILE_DIR:pcrcalc>"
+                    "PATH=${ENV_PATH}\\;$<TARGET_FILE_DIR:pcrcalc>;PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}\\;$<TARGET_FILE_DIR:pcrcalc>"
         )
     else()
         set_tests_properties(python_pcrcalcpy_pythonunittest

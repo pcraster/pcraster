@@ -13,11 +13,7 @@
 #define INCLUDED_ALGORITHM
 #endif
 
-#ifndef INCLUDED_BOOST_FILESYSTEM
-#include <boost/filesystem.hpp>
-#define INCLUDED_BOOST_FILESYSTEM
-#endif
-
+#include <filesystem>
 
 #ifndef INCLUDED_CMATH
 #include <cmath>

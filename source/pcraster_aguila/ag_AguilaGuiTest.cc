@@ -1,7 +1,7 @@
 #include "ag_AguilaGuiTest.h"
 
 // External headers.
-#include <boost/filesystem.hpp>
+#include <filesystem>
 
 // Project headers.
 #include "dal_Exception.h"
@@ -87,7 +87,7 @@ void AguilaGuiTest::testNotExisting(
   int argc = 2;
   char const* argv[2] = { "aguila", name.c_str() };
 
-  QVERIFY(!boost::filesystem::exists(name));
+  QVERIFY(!std::filesystem::exists(name));
 
   Aguila aguila(argc, const_cast<char**>(argv));
   bool rightExceptionCaught;
@@ -109,7 +109,7 @@ void AguilaGuiTest::testNotExisting(
   Viewer const& viewer(aguila.viewer());
   QCOMPARE(viewer.nrVisualisations(), static_cast<size_t>(0));
 
-  QVERIFY(!boost::filesystem::exists(name));
+  QVERIFY(!std::filesystem::exists(name));
 
   /// Viewer::resetInstance();
 }

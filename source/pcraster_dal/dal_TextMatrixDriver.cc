@@ -9,11 +9,6 @@
 #define INCLUDED_FSTREAM
 #endif
 
-#ifndef INCLUDED_BOOST_FILESYSTEM
-#include <boost/filesystem.hpp>
-#define INCLUDED_BOOST_FILESYSTEM
-#endif
-
 // PCRaster library headers.
 
 // Module headers.

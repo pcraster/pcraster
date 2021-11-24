@@ -60,13 +60,11 @@ jobs:
               LOGNAME: pcrtester
           shell: bash
           run: |
-              cd build
-              ctest --output-on-failure --build-config Debug
+              ctest --test-dir build --output-on-failure --build-config Debug
 
         - name: Test release
           env:
               LOGNAME: pcrtester
           shell: bash
           run: |
-              cd build
-              ctest --output-on-failure --build-config Release
+              ctest --test-dir build --output-on-failure --build-config Release

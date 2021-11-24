@@ -19,7 +19,7 @@ jobs:
         - name: Configure system
           run: |
               sudo apt update
-              sudo apt install gcc-10 ninja-build gdal-bin libgdal-dev libxerces-c-dev libxml2-dev libxslt1-dev libboost-all-dev libncurses5-dev libxml2 libxml2-utils mesa-common-dev libglu1-mesa-dev libgl1-mesa-glx python3 libpython3-dev python3-numpy python3-psutil qtbase5-dev libqt5charts5-dev libqt5opengl5-dev cmake pybind11-dev
+              sudo apt install gcc-10 ninja-build gdal-bin libgdal-dev libxerces-c-dev libxml2-dev libxslt1-dev libboost-dev libncurses5-dev libxml2 libxml2-utils mesa-common-dev libglu1-mesa-dev libgl1-mesa-glx python3 libpython3-dev python3-numpy python3-psutil qtbase5-dev libqt5charts5-dev libqt5opengl5-dev cmake pybind11-dev
               # Only required for documentation:
               sudo apt install python3-sphinx doxygen python3-matplotlib graphviz
 
@@ -64,13 +64,11 @@ jobs:
               LOGNAME: pcrtester
           shell: bash
           run: |
-              cd build
-              ctest --output-on-failure --build-config Debug
+              ctest --test-dir build --output-on-failure --build-config Debug
 
         - name: Test release
           env:
               LOGNAME: pcrtester
           shell: bash
           run: |
-              cd build
-              ctest --output-on-failure --build-config Release
+              ctest --test-dir build --output-on-failure --build-config Release

@@ -1,7 +1,6 @@
 #include "ag_AguilaProgramOptions.h"
 
 // Library headers.
-#include <boost/program_options.hpp>
 #include <boost/algorithm/string.hpp>
 #include <boost/spirit/include/classic.hpp>
 #include <boost/property_tree/ptree.hpp>

@@ -37,7 +37,7 @@ if(WIN32)
      string(REPLACE ";" "\\;" ENV_PATH "${ENV_PATH}")
      # argument is a 'cmake' ; separated list of values, therefore escape the environment path separator
     set_tests_properties(python_multicore_unit_tests PROPERTIES
-       ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}\\;$<TARGET_FILE_DIR:pcrcalc>;PCRASTER_NR_WORKER_THREADS=2"
+       ENVIRONMENT "${ENV_PATH}\\;$<TARGET_FILE_DIR:pcrcalc>;PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}\\;$<TARGET_FILE_DIR:pcrcalc>;PCRASTER_NR_WORKER_THREADS=2"
 )
 else()
     set_tests_properties(python_multicore_unit_tests PROPERTIES

@@ -62,13 +62,11 @@ jobs:
               cmake --build build --config Release --target package_source
 
         - name: Test debug
-          env:
           shell: bash
           run: |
               ctest --test-dir build --output-on-failure --build-config Debug
 
         - name: Test release
-          env:
           shell: bash
           run: |
               ctest --test-dir build --output-on-failure --build-config Release

@@ -513,7 +513,7 @@ class TestNumPy(testcase.TestCase):
   def test_003(self):
       """ pcr2numpy should not run out of memory """
 
-      nrRows, nrCols, cellSize = 200, 200, 1.0
+      nrRows, nrCols, cellSize = 1000, 1000, 1.0
       west, north = 0.0, 0.0
       pcraster.setclone(nrRows, nrCols, cellSize, west, north)
 

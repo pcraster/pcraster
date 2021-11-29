@@ -1,25 +1,34 @@
-name: macOS CI
+name: Windows CI
 
 on: [push]
 
 jobs:
     build:
+        strategy:
+            matrix:
+                os: [windows-2019, windows-2022]
+            fail-fast: false
 
-        runs-on: [macos-11, macos-10.15]
+        runs-on: ${{ matrix.os }}
+
+        name: ${{ matrix.os }}
 
         timeout-minutes: 120
-
-        name: "macOS CI"
 
         steps:
 
         - name: Checkout PCRaster
           uses: actions/checkout@v2
 
-        - name: Configure system
+        - uses: conda-incubator/setup-miniconda@v2
+          with:6
+              auto-update-conda: false
+              python-version: 3.9
+              channels: conda-forge
+              mamba-version: "*"
+        - shell: bash -l {0}
           run: |
-              brew install python@3.10 cmake ninja boost gdal ncurses xerces-c qt@5
-              $(brew --prefix)/opt/python@3.10/bin/pip3 install numpy psutil
+              mamba install numpy cmake ninja boost-cpp qt xerces-c libgdal psutil make
 
         - name: Configure PCRaster
           shell: bash -l {0}
@@ -28,11 +37,8 @@ jobs:
               cmake \
                   -S . \
                   -B build \
-                  -G "Ninja Multi-Config" \
+                  -G"Ninja Multi-Config" \
                   -D PCRASTER_BUILD_TEST=ON \
-                  -D CMAKE_CONFIGURATION_TYPES="Release;Debug" \
-                  -D CMAKE_PREFIX_PATH="/usr/local/opt/ncurses;$(brew --prefix qt5)" \
-                  -D Python3_EXECUTABLE:FILEPATH=$(brew --prefix)/opt/python@3.10/bin/python3 \
                   -D CMAKE_INSTALL_PREFIX=package
 
         - name: Build debug
@@ -57,14 +63,12 @@ jobs:
 
         - name: Test debug
           env:
-              LOGNAME: pcrtester
           shell: bash
           run: |
               ctest --test-dir build --output-on-failure --build-config Debug
 
         - name: Test release
           env:
-              LOGNAME: pcrtester
           shell: bash
           run: |
               ctest --test-dir build --output-on-failure --build-config Release

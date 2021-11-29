@@ -38,6 +38,8 @@ jobs:
                   -S . \
                   -B build \
                   -G"Ninja Multi-Config" \
+                  -D CMAKE_C_COMPILER=cl.exe \
+                  -D CMAKE_CXX_COMPILER=cl.exe \
                   -D PCRASTER_BUILD_TEST=ON \
                   -D CMAKE_INSTALL_PREFIX=package
 

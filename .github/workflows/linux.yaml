@@ -10,7 +10,7 @@ jobs:
                 compiler:
                     - {version: 10, cc: gcc-10  , cxx: g++-10}
                     - {version: 12, cc: clang-12, cxx: clang++-12}
-            fail-fast: false
+            fail-fast: true
 
         runs-on: ${{ matrix.os }}
 

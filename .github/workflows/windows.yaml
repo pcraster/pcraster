@@ -51,10 +51,10 @@ jobs:
               cmake \
                   -S . \
                   -B build \
-                  -G "${{ matrix.compiler.generator }}" -A x64 \
+                  -G "${{ matrix.config.generator }}" -A x64 \
                   -G"Ninja Multi-Config" \
-                  -D CMAKE_C_COMPILER=${{ matrix.compiler.cc }} \
-                  -D CMAKE_CXX_COMPILER=${{ matrix.compiler.cxx }} \
+                  -D CMAKE_C_COMPILER=${{ matrix.config.cc }} \
+                  -D CMAKE_CXX_COMPILER=${{ matrix.config.cxx }} \
                   -D PCRASTER_BUILD_TEST=ON \
                   -D CMAKE_INSTALL_PREFIX=package
 

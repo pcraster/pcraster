@@ -5,7 +5,7 @@ on: [push]
 jobs:
     build:
         strategy:
-            fail-fast: true
+            fail-fast: false
             matrix:
                 config:
                 - {
@@ -42,10 +42,14 @@ jobs:
           run: |
               mamba install numpy cmake ninja boost-cpp qt xerces-c libgdal psutil make
 
+        - name: Activate compiler
+          shell: bash -l {0}
+          run: |
+              "${{ matrix.config.environment_script }}"
+
         - name: Configure PCRaster
           shell: bash -l {0}
           run: |
-              call "${{ matrix.config.environment_script }}"
               mkdir build
               cmake \
                   -S . \

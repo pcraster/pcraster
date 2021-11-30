@@ -5,13 +5,27 @@ on: [push]
 jobs:
     build:
         strategy:
-            matrix:
-                os: [windows-2019, windows-2022]
             fail-fast: false
+            matrix:
+                config:
+                - {
+                      name: "Windows 2019",
+                      os: windows-2019,
+                      cc: "cl", cxx: "cl",
+                      generator: "Visual Studio 16 2019",
+                      environment_script: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/Build/vcvars64.bat"
+                  }
+                - {
+                      name: "Windows 2022",
+                      os: windows-2022,
+                      cc: "cl", cxx: "cl",
+                      generator: "Visual Studio 17 2022",
+                      environment_script: "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Auxiliary/Build/vcvars64.bat"
+                  }
 
-        runs-on: ${{ matrix.os }}
+        runs-on: ${{ matrix.config.os }}
 
-        name: ${{ matrix.os }}
+        name: ${{ matrix.config.name }}
 
         timeout-minutes: 120
 
@@ -37,9 +51,10 @@ jobs:
               cmake \
                   -S . \
                   -B build \
+                  -G "${{ matrix.compiler.generator }}" -A x64 \
                   -G"Ninja Multi-Config" \
-                  -D CMAKE_C_COMPILER=cl.exe \
-                  -D CMAKE_CXX_COMPILER=cl.exe \
+                  -D CMAKE_C_COMPILER=${{ matrix.compiler.cc }} \
+                  -D CMAKE_CXX_COMPILER=${{ matrix.compiler.cxx }} \
                   -D PCRASTER_BUILD_TEST=ON \
                   -D CMAKE_INSTALL_PREFIX=package
 

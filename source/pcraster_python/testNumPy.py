@@ -523,12 +523,12 @@ class TestNumPy(testcase.TestCase):
       mem = process.memory_info()
       init_mem = mem.rss / 2**10
 
-      nr_iterations = 5000
+      nr_iterations = 1000
       mem_increase = False
 
       # small memory increase can occur at runtime
       # allow for, but less than iterations * size(raster)
-      max_diff = 400
+      max_diff = 5000
 
       for it in range(0, nr_iterations):
         pcraster.pcr2numpy(raster, numpy.nan)

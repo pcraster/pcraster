@@ -49,6 +49,7 @@ jobs:
         - name: Configure PCRaster
           shell: cmd /C call {0}
           run: |
+              "${{ matrix.config.environment_script }}" && ^
               cmake ^
                   -S . ^
                   -B build ^

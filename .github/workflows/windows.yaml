@@ -41,10 +41,12 @@ jobs:
         - shell: cmd
           run: |
               mamba install numpy cmake ninja boost-cpp qt xerces-c libgdal psutil make
+              ninja -h
 
         - name: Configure PCRaster
           shell: cmd
           run: >-
+              ninja -h
               where cl
               where cmake
               conda info && conda list

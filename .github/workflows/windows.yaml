@@ -47,13 +47,13 @@ jobs:
           run: |
               start /wait /b "${{ matrix.config.environment_script }}"
               mkdir build
-              cmake \
-                  -S . \
-                  -B build \
-                  -G"Ninja Multi-Config" \
-                  -D CMAKE_C_COMPILER=${{ matrix.config.cc }} \
-                  -D CMAKE_CXX_COMPILER=${{ matrix.config.cxx }} \
-                  -D PCRASTER_BUILD_TEST=ON \
+              cmake ^
+                  -S . ^
+                  -B build ^
+                  -G"Ninja Multi-Config" ^
+                  -D CMAKE_C_COMPILER=${{ matrix.config.cc }} ^
+                  -D CMAKE_CXX_COMPILER=${{ matrix.config.cxx }} ^
+                  -D PCRASTER_BUILD_TEST=ON ^
                   -D CMAKE_INSTALL_PREFIX=package
 
         - name: Build debug

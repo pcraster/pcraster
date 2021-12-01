@@ -47,6 +47,7 @@ jobs:
           shell: cmd
           run: |
               "${{ matrix.config.environment_script }}" && ^
+              conda info && ^
               mamba install numpy cmake ninja boost-cpp qt xerces-c libgdal psutil make && ^
               cmake ^
                   -S . ^

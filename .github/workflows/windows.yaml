@@ -46,8 +46,8 @@ jobs:
         - name: Configure PCRaster
           shell: cmd
           run: |
-              start /wait /b "mamba install numpy cmake ninja boost-cpp qt xerces-c libgdal psutil make"
-              start /wait /b "${{ matrix.config.environment_script }}"
+              "mamba install numpy cmake ninja boost-cpp qt xerces-c libgdal psutil make" &&
+              "${{ matrix.config.environment_script }}" &&
               cmake ^
                   -S . ^
                   -B build ^

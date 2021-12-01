@@ -44,7 +44,7 @@ jobs:
               mamba-version: "*"
 
         - name: Configure PCRaster
-          shell: cmd
+          shell: cmd /C call {0}
           run: |
               "${{ matrix.config.environment_script }}" && ^
               conda info && ^

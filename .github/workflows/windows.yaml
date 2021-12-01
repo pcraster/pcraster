@@ -38,12 +38,12 @@ jobs:
               python-version: 3.9
               channels: conda-forge
               mamba-version: "*"
-        - shell: bash -l {0}
+        - shell: cmd
           run: |
               mamba install numpy cmake ninja boost-cpp qt xerces-c libgdal psutil make
 
         - name: Configure PCRaster
-          shell: bash -l {0}
+          shell: cmd
           run: |
               start /wait /b "${{ matrix.config.environment_script }}"
               mkdir build
@@ -57,31 +57,31 @@ jobs:
                   -D CMAKE_INSTALL_PREFIX=package
 
         - name: Build debug
-          shell: bash
+          shell: cmd
           run: |
               cmake --build build --config Debug --target all
 
         - name: Build release
-          shell: bash
+          shell: cmd
           run: |
               cmake --build build --config Release --target all
 
         - name: Install PCRaster
-          shell: bash
+          shell: cmd
           run: |
               cmake --install build --config Release
 
         - name: Create source package
-          shell: bash
+          shell: cmd
           run: |
               cmake --build build --config Release --target package_source
 
         - name: Test debug
-          shell: bash
+          shell: cmd
           run: |
               ctest --test-dir build --output-on-failure --build-config Debug
 
         - name: Test release
-          shell: bash
+          shell: cmd
           run: |
               ctest --test-dir build --output-on-failure --build-config Release

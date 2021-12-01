@@ -44,7 +44,10 @@ jobs:
 
         - name: Configure PCRaster
           shell: cmd
-          run: |
+          run: >-
+              where cl
+              where cmake
+              conda info && conda list
               start /wait /b "${{ matrix.config.environment_script }}"
               mkdir build
               cmake ^

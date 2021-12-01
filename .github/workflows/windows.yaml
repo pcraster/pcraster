@@ -29,6 +29,10 @@ jobs:
 
         steps:
 
+        - name: Create build directory
+          run: mkdir build
+          shell: cmd
+
         - name: Checkout PCRaster
           uses: actions/checkout@v2
 
@@ -38,20 +42,12 @@ jobs:
               python-version: 3.9
               channels: conda-forge
               mamba-version: "*"
-        - shell: cmd
-          run: |
-              mamba install numpy cmake ninja boost-cpp qt xerces-c libgdal psutil make
-              ninja -h
 
         - name: Configure PCRaster
           shell: cmd
-          run: >-
-              ninja -h
-              where cl
-              where cmake
-              conda info && conda list
+          run: |
+              start /wait /b "mamba install numpy cmake ninja boost-cpp qt xerces-c libgdal psutil make"
               start /wait /b "${{ matrix.config.environment_script }}"
-              mkdir build
               cmake ^
                   -S . ^
                   -B build ^

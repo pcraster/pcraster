@@ -66,6 +66,8 @@ if(PCRASTER_WITH_FLAGS_IPO)
     endif()
 endif()
 
+set(CMAKE_DEBUG_POSTFIX "_d")
+
 
 # In general, don't set compiler options in CMake files. Here we set the
 # most general options that everybody always wants. Anything else should

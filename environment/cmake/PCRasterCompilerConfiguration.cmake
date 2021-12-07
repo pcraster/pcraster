@@ -28,9 +28,13 @@ set(CMAKE_INSTALL_RPATH_USE_LINK_PATH OFF)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-# Default flags without toolchain files
-if(NOT CMAKE_BUILD_TYPE)
-   set(CMAKE_BUILD_TYPE Release)
+# When not specified: default build type set to release for single-configuration generators
+get_property(is_multiconfig GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
+
+if(NOT is_multiconfig)
+    if(NOT CMAKE_BUILD_TYPE)
+        set(CMAKE_BUILD_TYPE Release)
+    endif()
 endif()
 
 

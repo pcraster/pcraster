@@ -6,7 +6,7 @@ Installing binaries
 
 PCRaster is available on |condaforgefeedstocksurl| and can be installed using conda.
 Supported platforms are Linux, macOS and Windows.
-On the Apple M1 platform our osx-64 version can be used.
+On the Apple M1 platform our osx-64 version can be used, see below.
 
 We recommend to download and install |miniconda|.
 The user guide and short reference on conda can be found |minicondadoc|.
@@ -34,10 +34,6 @@ You can also combine these steps and install additional packages in one go e.g. 
 
    conda create --name pcraster -c conda-forge python pcraster spyder matplotlib
 
-
-
-
-
 Always use the conda-forge channel when installing further packages into your PCRaster environment.
 
 
@@ -46,20 +42,23 @@ Always use the conda-forge channel when installing further packages into your PC
    Modifying PATH and PYTHONPATH environment variables as required for previous PCRaster versions is not necessary anymore starting from version 4.3, the settings are done automatically when you activate your environment.
 
 
+Installing on Apple silicon (M series)
+--------------------------------------
 
-.. |miniconda| raw:: html
+We do not have a native build yet for the Apple M platform but our osx-64 version can be used.
+Install |miniconda| using `Miniconda3 macOS Apple M1 64-bit bash`.
+Specify the osx-64 channel when creating and installing packages into a PCRaster environment:
 
-   <a href="https://docs.conda.io/en/latest/miniconda.html" target="_blank">Miniconda</a>
+.. code-block:: console
 
-.. |minicondadoc| raw:: html
+   conda create --name pcraster -c conda-forge/osx-64 python=3.9 pcraster
 
-   <a href="https://docs.conda.io/projects/conda/en/latest/user-guide/cheatsheet.html" target="_blank">here</a>
+To allow displaying the visualisation tool Aguila it is required to set an additional environment variable after activating your environment:
 
-.. |condaforgefeedstocksurl| raw:: html
+.. code-block:: console
 
-   <a href="https://conda-forge.org/feedstock-outputs/index.html" target="_blank">conda-forge</a>
-
-
+   $ conda activate pcraster
+   (pcraster) $ export QT_MAC_WANTS_LAYER=1
 
 Testing your installation
 -------------------------
@@ -160,3 +159,18 @@ An error message such as
 indicates that an older version of PCRaster is available on the system, here located at ``C:\Software\pcraster\pcraster-4.2.1``.
 You need to remove the corresponding PCRaster entries of the PATH and PYTHONPATH environment variables.
 After starting a new terminal you can import the ``pcraster`` module.
+
+
+
+
+.. |miniconda| raw:: html
+
+   <a href="https://docs.conda.io/en/latest/miniconda.html" target="_blank">Miniconda</a>
+
+.. |minicondadoc| raw:: html
+
+   <a href="https://docs.conda.io/projects/conda/en/latest/user-guide/cheatsheet.html" target="_blank">here</a>
+
+.. |condaforgefeedstocksurl| raw:: html
+
+   <a href="https://conda-forge.org/feedstock-outputs/index.html" target="_blank">conda-forge</a>

@@ -1,4 +1,3 @@
-
 set(CMAKE_C_FLAGS
     "${CMAKE_C_FLAGS} /DWIN32 /D_WINDOWS /W3 /wd4267 /wd4251"
 )
@@ -9,20 +8,20 @@ set(CMAKE_CXX_FLAGS
 
 
 set(CMAKE_C_FLAGS_RELEASE
-    "${CMAKE_C_FLAGS_DEBUG} /O2"
+    "${CMAKE_C_FLAGS_RELEASE} /O2"
 )
 
 set(CMAKE_CXX_FLAGS_RELEASE
-    "${CMAKE_CXX_FLAGS_DEBUG} /O2"
+    "${CMAKE_CXX_FLAGS_RELEASE} /O2"
 )
 
 
 set(CMAKE_C_FLAGS_RELWITHDEBINFO
-    "${CMAKE_C_FLAGS_DEBUG} /O2"
+    "${CMAKE_C_FLAGS_RELWITHDEBINFO} /O2"
 )
 
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO
-    "${CMAKE_CXX_FLAGS_DEBUG} /O2"
+    "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} /O2"
 )
 
 
@@ -58,14 +57,11 @@ add_compile_definitions(
 #         -D_ALLOW_KEYWORD_MACROS
 #     )
 #
-#     set(CMAKE_C_FLAGS
-#         "${CMAKE_C_FLAGS} /wd4267"
-#     )
 #
 #     # add /w3
 #     # disable these warnings?
 #     set(CMAKE_CXX_FLAGS
-#         "${CMAKE_CXX_FLAGS} /std:c++14 /wd4267 /wd4251 /wd4244 /wd4396 /wd4305"
+#         "${CMAKE_CXX_FLAGS} /std:c++14 /wd4244 /wd4396 /wd4305"
 #     )
 #
 # endif()

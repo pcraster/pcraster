@@ -1,3 +1,0 @@
-PROJECT_NAME            = ${PROJECT_NAME}
-INPUT                   = .
-${DOXYGEN_TEMPLATE}

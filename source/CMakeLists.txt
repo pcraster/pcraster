@@ -89,8 +89,6 @@ if(PCRASTER_BUILD_MULTICORE)
     add_subdirectory(pcraster_multicore)
 endif()
 
-# add_subdirectory(rasterformat EXCLUDE_FROM_ALL)
-
 
 if(PCRASTER_INSTALL_FILES_DEVELOPER)
     install(

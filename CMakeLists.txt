@@ -25,9 +25,6 @@ endif()
 # These two must be set before project()
 set(CMAKE_OSX_DEPLOYMENT_TARGET "10.15" CACHE STRING "Minimum OS X deployment version")
 
-if(WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
-    set(CMAKE_TOOLCHAIN_FILE "environment/cmake/msvs2017.cmake" CACHE PATH "toolchain file")
-endif()
 
 project(pcraster)
 

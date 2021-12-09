@@ -123,6 +123,7 @@ set_target_properties(_pcraster
     PROPERTIES
         PREFIX "${PYTHON_MODULE_PREFIX}"
         SUFFIX "${PYTHON_MODULE_EXTENSION}"
+        DEBUG_POSTFIX ""
 )
 
 # configure_python_extension(_pcraster

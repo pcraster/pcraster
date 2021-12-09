@@ -1,6 +1,10 @@
 # Only generate the TODO page in Debug configurations. The idea is not to
 # install a TODO list page in the API docs when releasing a project.
 
+set(api_doc_output_dir ${PROJECT_BINARY_DIR}/api_docs)
+
+file(MAKE_DIRECTORY ${api_doc_output_dir})
+
 file (GENERATE
     OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile_$<CONFIG>
     CONTENT "
@@ -43,12 +47,12 @@ file (GENERATE
     WARN_IF_UNDOCUMENTED    = NO  # Because EXTRACT_ALL is turned on.
     WARNINGS                = YES
     WARN_NO_PARAMDOC        = YES
-    OUTPUT_DIRECTORY        = ${PROJECT_BINARY_DIR}/api_docs/$<CONFIG>
-    "
+    OUTPUT_DIRECTORY        = ${api_doc_output_dir}/$<CONFIG>
+"
 )
 
 add_custom_command(
-    OUTPUT ${PROJECT_BINARY_DIR}/api_docs/$<CONFIG>/html/index.html
+    OUTPUT ${PROJECT_BINARY_DIR}/${api_doc_output_dir}/$<CONFIG>/html/index.html
     COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile_$<CONFIG>
     DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile_$<CONFIG>
 )
@@ -56,5 +60,5 @@ add_custom_command(
 # This target should be built by default, because otherwise the results won't
 # be available when the user wants to install the generated documentation
 add_custom_target(cpp_doc ALL
-    DEPENDS ${PROJECT_BINARY_DIR}/api_docs/$<CONFIG>/html/index.html
+    DEPENDS ${PROJECT_BINARY_DIR}/${api_doc_output_dir}/$<CONFIG>/html/index.html
 )

@@ -121,6 +121,7 @@ set_target_properties(_pcraster_multicore
     PROPERTIES
         PREFIX "${PYTHON_MODULE_PREFIX}"
         SUFFIX "${PYTHON_MODULE_EXTENSION}"
+        DEBUG_POSTFIX ""
 )
 
 add_dependencies(_pcraster_multicore

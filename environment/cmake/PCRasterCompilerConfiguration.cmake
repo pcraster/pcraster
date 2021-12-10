@@ -29,6 +29,7 @@ set(CMAKE_INSTALL_RPATH_USE_LINK_PATH OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Setting postfix is disabled in several Python modules
+# and linkin related libraries
 set(CMAKE_DEBUG_POSTFIX "_d")
 
 # When not specified: default build type set to release for single-configuration generators

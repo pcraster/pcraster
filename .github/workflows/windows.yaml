@@ -67,12 +67,6 @@ jobs:
               "${{ matrix.config.environment_script }}" && ^
               cmake --build build --config Release --target all
 
-        - name: Build debug
-          shell: cmd /C call {0}
-          run: |
-              "${{ matrix.config.environment_script }}" && ^
-              cmake --build build --config Debug --target all
-
         - name: Install PCRaster
           shell: cmd /C call {0}
           run: |
@@ -85,14 +79,20 @@ jobs:
               "${{ matrix.config.environment_script }}" && ^
               cmake --build build --config Release --target package_source
 
-        - name: Test debug
-          shell: cmd /C call {0}
-          run: |
-              "${{ matrix.config.environment_script }}" && ^
-              ctest --test-dir build --output-on-failure --build-config Debug
-
         - name: Test release
           shell: cmd /C call {0}
           run: |
               "${{ matrix.config.environment_script }}" && ^
               ctest --test-dir build --output-on-failure --build-config Release
+
+        - name: Build debug
+          shell: cmd /C call {0}
+          run: |
+              "${{ matrix.config.environment_script }}" && ^
+              cmake --build build --config Debug --target all
+
+        - name: Test debug
+          shell: cmd /C call {0}
+          run: |
+              "${{ matrix.config.environment_script }}" && ^
+              ctest --test-dir build --output-on-failure --build-config Debug

@@ -7,6 +7,11 @@ target_include_directories(example1
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../../include>
 )
 
+set_target_properties(example1
+    PROPERTIES
+        DEBUG_POSTFIX ""
+)
+
 add_custom_command(
     TARGET
         example1

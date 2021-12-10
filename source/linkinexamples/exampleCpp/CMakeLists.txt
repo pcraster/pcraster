@@ -14,6 +14,11 @@ target_link_libraries(exampleCpp
         pcraster::xsd
 )
 
+set_target_properties(exampleCpp
+    PROPERTIES
+        DEBUG_POSTFIX ""
+)
+
 add_custom_command(
     TARGET
         exampleCpp

@@ -17,11 +17,13 @@ shutil.rmtree(os.path.join(dest_dir, "validated"), ignore_errors=True)
 
 filenames = glob.glob(os.path.join(example_raster_dir, "*.map"))
 for f in filenames:
-    shutil.copy(os.path.join(example_raster_dir, "demo", f), dest_dir)
+    if not "Result" in f:
+        shutil.copy(os.path.join(example_raster_dir, "demo", f), dest_dir)
 
 filenames = glob.glob(os.path.join(example_raster_dir, "*.txt"))
 for f in filenames:
-    shutil.copy(os.path.join(example_raster_dir, "demo", f), dest_dir)
+    if not "Result" in f:
+        shutil.copy(os.path.join(example_raster_dir, "demo", f), dest_dir)
 
 shutil.copytree(os.path.join("@PROJECT_SOURCE_DIR@", "documentation", "pcraster_manual", "examples", "validated"), os.path.join(dest_dir, "validated"))
 

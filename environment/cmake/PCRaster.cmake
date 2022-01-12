@@ -10,7 +10,7 @@ include(PCRasterConfiguration)
 include(PCRasterTestMacro)
 
 # Get required dependencies first...
-CPMAddPackage("gh:pcraster/rasterformat#88fae8652fd36d878648f3fe303306c3dc68b7e6")
+CPMAddPackage("gh:pcraster/rasterformat#d5d1c5199607b5ef9a12472eec5b018d5e18693f")
 
 
 set(PCRASTER_DATA_DIR ${PROJECT_SOURCE_DIR}/data)

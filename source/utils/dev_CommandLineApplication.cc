@@ -315,7 +315,7 @@ void CommandLineApplication::applyGplLicense(
          std::string const& copyrightHolder)
 {
   setLicense(
-    "Copyright (C) 2008-2021 " + copyrightHolder + "\n"
+    "Copyright (C) 2008-2022 " + copyrightHolder + "\n"
     "\n"
     "This program is free software; you can redistribute it and/or\n"
     "modify it under the terms of the GNU General Public License\n"

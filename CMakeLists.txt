@@ -28,7 +28,7 @@ set(CMAKE_OSX_DEPLOYMENT_TARGET "10.15" CACHE STRING "Minimum OS X deployment ve
 
 project(pcraster)
 
-set(DEV_CURRENT_YEAR "2021")
+set(DEV_CURRENT_YEAR "2022")
 
 set(${PROJECT_NAME}_ORGANISATION_NAME "PCRaster owners")
 set(${PROJECT_NAME}_COPYRIGHT
@@ -48,7 +48,6 @@ endif()
 set(CMAKE_MODULE_PATH
     $ENV{CMAKE_MODULE_PATH}
     ${CMAKE_CURRENT_SOURCE_DIR}/environment/cmake
-    ${CMAKE_CURRENT_BINARY_DIR}/_deps/devbase-src/cmake
 )
 
 include(PCRaster)

@@ -12,7 +12,7 @@ target_include_directories(geom
 
 target_link_libraries(geom
     PRIVATE
-        Boost::boost
+        Boost::headers
     PUBLIC
         pcraster::mathx
 )

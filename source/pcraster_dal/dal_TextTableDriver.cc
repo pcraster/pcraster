@@ -52,7 +52,7 @@ Table* TextTableDriver::markSelectedCols(
     // Set type id of not explicitly selected columns to TI_NR_TYPES.
     for(size_t i = 0; i < table->nrCols(); ++i) {
       if(std::find(selectedCols.begin(), selectedCols.end(),
-            boost::lexical_cast<std::string>(i + 1)) == selectedCols.end()) {
+            std::to_string(i + 1)) == selectedCols.end()) {
         table->setTypeId(i, TI_NR_TYPES);
       }
     }

@@ -489,8 +489,7 @@ PCR_DAL_DECL std::string coordinateToString(
     }
     case Samples:
     case Time: {
-      result = boost::lexical_cast<std::string>(
-         dimension.coordinate<size_t>(index));
+      result = std::to_string(dimension.coordinate<size_t>(index));
       break;
     }
     case Space: {
@@ -534,8 +533,7 @@ PCR_DAL_DECL std::string coordinateToString(
       }
       case Samples:
       case Time: {
-        result = boost::lexical_cast<std::string>(
-              address.coordinate<size_t>(index));
+        result = std::to_string(address.coordinate<size_t>(index));
         break;
       }
       case Space: {
@@ -1101,8 +1099,7 @@ PCR_DAL_DECL std::string timeStep<std::string>(
          DataSpace const& space,
          DataSpaceAddress const& address)
 {
-  return boost::lexical_cast<std::string>(
-         address.coordinate<size_t>(space.indexOf(Time)));
+  return std::to_string(address.coordinate<size_t>(space.indexOf(Time)));
 }
 
 

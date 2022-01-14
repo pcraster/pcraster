@@ -35,11 +35,6 @@
 #define INCLUDED_CASSERT
 #endif
 
-#ifndef INCLUDED_BOOST_LEXICAL_CAST
-#include <boost/lexical_cast.hpp>
-#define INCLUDED_BOOST_LEXICAL_CAST
-#endif
-
 // PCRaster library headers.
 #ifndef INCLUDED_CALC_SPATIAL
 #include "calc_spatial.h"
@@ -197,7 +192,7 @@ void BAS::setNoFlowConstant(float value){
  */
 void BAS::getHeadsFromBinary(std::string const& path){
 
-  const std::string filename(mf::execution_path(path, "fort." + boost::lexical_cast<std::string>(d_fortran_unit_number_heads)));
+  const std::string filename(mf::execution_path(path, "fort." + std::to_string(d_fortran_unit_number_heads)));
   //std::string filename("fort." + boost::lexical_cast<std::string>(d_fortran_unit_number_heads));
 
   std::ifstream file(filename.c_str(), std::ios::in | std::ios::binary);
@@ -252,7 +247,7 @@ void BAS::getHeadsFromBinary(std::string const& path){
  */
 void BAS::getBASBlockData(discr::BlockData<INT4> &bdata, std::string const& path){
 
-  const std::string filename(mf::execution_path(path, "fort." + boost::lexical_cast<std::string>(d_fortran_unit_number_bounds)));
+  const std::string filename(mf::execution_path(path, "fort." + std::to_string(d_fortran_unit_number_bounds)));
   //std::string filename("fort." + boost::lexical_cast<std::string>(d_fortran_unit_number_bounds));
 
   std::ifstream file(filename.c_str());

@@ -56,7 +56,6 @@
 
 #include "mf_utils.h"
 
-#include <boost/lexical_cast.hpp>
 
 
 GHB::~GHB(){
@@ -193,7 +192,7 @@ calc::Field* GHB::getGhbLeakage(size_t layer, std::string const& path) const {
   REAL4* cells = static_cast<REAL4*>(spatial->dest());
 
   mf::BinaryReader reader;
-  const std::string filename(mf::execution_path(path, "fort." + boost::lexical_cast<std::string>(d_output_unit_number)));
+  const std::string filename(mf::execution_path(path, "fort." + std::to_string(d_output_unit_number)));
   reader.read(stmp.str(), filename, cells, desc, pos_multiplier);
 
   return spatial;

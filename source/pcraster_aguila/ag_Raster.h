@@ -225,7 +225,7 @@ inline bool Raster::value<std::string>(
       UINT1 value;
 
       if(this->value<UINT1>(value, space, address)) {
-        result = boost::lexical_cast<std::string>(INT4(value));
+        result = std::to_string(INT4(value));
       }
 
       break;
@@ -234,7 +234,7 @@ inline bool Raster::value<std::string>(
       INT4 value;
 
       if(this->value<INT4>(value, space, address)) {
-        result = boost::lexical_cast<std::string>(value);
+        result = std::to_string(value);
       }
 
       break;

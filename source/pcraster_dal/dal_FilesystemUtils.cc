@@ -35,11 +35,6 @@
 #define INCLUDED_BOOST_FORMAT
 #endif
 
-#ifndef INCLUDED_BOOST_LEXICAL_CAST
-#include <boost/lexical_cast.hpp>
-#define INCLUDED_BOOST_LEXICAL_CAST
-#endif
-
 // PCRaster library headers.
 
 // Module headers.
@@ -977,7 +972,7 @@ std::filesystem::path pathForSample(
   std::filesystem::path path(name);
 
   return path.parent_path() /
-         boost::lexical_cast<std::string>(sampleNumber) /
+         std::to_string(sampleNumber) /
          pathFor(path.filename().string());
 }
 

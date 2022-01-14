@@ -35,11 +35,6 @@
 #define INCLUDED_BOOST_FORMAT
 #endif
 
-#ifndef INCLUDED_BOOST_LEXICAL_CAST
-#include <boost/lexical_cast.hpp>
-#define INCLUDED_BOOST_LEXICAL_CAST
-#endif
-
 // PCRaster library headers.
 #ifndef INCLUDED_CALC_SPATIAL
 #include "calc_spatial.h"
@@ -477,7 +472,7 @@ void BCF::get_binary(float *values, const std::string description, size_t start,
   // http://water.usgs.gov/nrp/gwsoftware/modflow2000/Guide/index.html
 
 
-  const std::string filename(mf::execution_path(path, "fort." + boost::lexical_cast<std::string>(d_output_unit_number)));
+  const std::string filename(mf::execution_path(path, "fort." + std::to_string(d_output_unit_number)));
   //std::string filename("fort." + boost::lexical_cast<std::string>(d_output_unit_number));
 
   std::ifstream file(filename.c_str(), std::ios::in | std::ios::binary);

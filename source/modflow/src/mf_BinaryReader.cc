@@ -74,7 +74,7 @@ BinaryReader::BinaryReader()
 BinaryReader::~BinaryReader()
 {
 }
-void BinaryReader::read(const std::string & err_mgs, const std::string & filename, float *values, const std::string description, size_t multiplier) const {
+void BinaryReader::read(const std::string & err_mgs, const std::string & filename, float *values, const std::string& description, size_t multiplier) const {
 //void BinaryReader::read(const std::string & err_mgs, int unit_number, float *values, const std::string description, size_t multiplier) const {
   // see also flow data description at faq how to read binary
   // http://water.usgs.gov/nrp/gwsoftware/modflow2000/Guide/index.html

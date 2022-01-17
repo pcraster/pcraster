@@ -71,7 +71,7 @@ public:
   // ACCESSORS
   //----------------------------------------------------------------------------
   bool        equals(const std::string& id, const com::Exception& e,
-                     const std::string prefix) const;
+                     const std::string& prefix) const;
   QDomElement xml   (const std::string& id)                          const;
   bool        hasXML(const std::string& id)                          const;
   std::string model (const std::string& id)                          const;

@@ -4,6 +4,8 @@
 #endif
 #ifndef INCLUDED_CALC_MEMORYEXCHANGEITEMFIELD
 #include "calc_MemoryExchangeItemField.h"
+
+#include <utility>
 #define INCLUDED_CALC_MEMORYEXCHANGEITEMFIELD
 #endif
 
@@ -53,7 +55,7 @@ MemoryExchangeItemField::MemoryExchangeItemField(
   size_t memoryId,
   boost::shared_ptr<Field> value):
     MemoryExchangeItem(name,memoryId),
-    d_value(value)
+    d_value(std::move(value))
 {
 }
 

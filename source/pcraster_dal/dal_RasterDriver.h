@@ -62,7 +62,7 @@ private:
   bool             extremes            (T& min,
                                         T& max,
                                         std::string const& name,
-                                        DataSpace space,
+                                        const DataSpace& space,
                                         TypeId typeId) const;
 
   boost::tuple<bool, FilenameConvention, std::string>
@@ -199,7 +199,7 @@ inline bool RasterDriver::extremes(
          T& min,
          T& max,
          std::string const& name,
-         DataSpace space,
+         const DataSpace& space,
          TypeId typeId) const
 {
   assert(!space.hasSpace());

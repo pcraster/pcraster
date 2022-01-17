@@ -14,7 +14,7 @@ class LookupLinearCtor : public calc::LookupLinear {
   LookupLinearCtor(
         const char *contents,
         VS out,
-        std::vector<VS> in):
+        const std::vector<VS>& in):
     LookupLinear(out)
     {
        std::string name("LookupLinearTest.tbl");

@@ -120,8 +120,8 @@ public:
                                         size_t nrCells,
                                         void const* buffer);
 
-  void             setExtremes         (boost::any min,
-                                        boost::any max);
+  void             setExtremes         (const boost::any& min,
+                                        const boost::any& max);
 
   //----------------------------------------------------------------------------
   // ACCESSORS

@@ -40,7 +40,7 @@ protected:
 public:
   virtual ~FieldValue();
 
-  void assign(FieldHandle e, const Position *assignPoint);
+  void assign(const FieldHandle& e, const Position *assignPoint);
 
   FieldHandle value(bool isLastUse);
 };

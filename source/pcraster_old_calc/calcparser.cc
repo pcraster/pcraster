@@ -234,17 +234,17 @@ calc::Script *Parser::script() const
 	return d_script;
 };
 
-calc::Element Parser::element(const ANTLRTokenPtr at) const
+calc::Element Parser::element(const ANTLRTokenPtr& at) const
 {
 	return calc::Element(script(),mytoken(at)->position());
 };
 
-calc::Symbol Parser::symbol(const ANTLRTokenPtr at) const
+calc::Symbol Parser::symbol(const ANTLRTokenPtr& at) const
 {
 	return calc::Symbol(script(), mytoken(at));
 };
 
-const calc::Operator& Parser::tokenOp(const ANTLRTokenPtr at) const
+const calc::Operator& Parser::tokenOp(const ANTLRTokenPtr& at) const
 {
 	return calc::major2op(mytoken(at)->opCode());
 }
@@ -282,7 +282,7 @@ s.posError(s.qName()+" is not a function");
 }
 
 calc::Constant Parser::createCastedConstant(
-const ANTLRTokenPtr   convF,
+const ANTLRTokenPtr&   convF,
 const calc::Symbol& nr) const
 {
 calc::Symbol s(symbol(convF));

@@ -127,9 +127,9 @@ private:
                                         DataSpace space,
                                         DataSpaceAddress address);
 
-  void*            cells               (std::vector<boost::any> values,
+  void*            cells               (const std::vector<boost::any>& values,
                                         DataSpace space,
-                                        DataSpaceAddress address);
+                                        const DataSpaceAddress& address);
 
   bool             hasExtremes         ();
 

@@ -2,6 +2,8 @@
 
 #ifndef INCLUDED_CALC_INDEXSELECTEDVECTOR
 #include "calc_indexselectedvector.h"
+
+#include <utility>
 #define INCLUDED_CALC_INDEXSELECTEDVECTOR
 #endif
 
@@ -32,7 +34,7 @@ calc::ArrayDefVector calc::IndexSelectedVector::arrayDefVector() const
 
 calc::IndexSelectedVector::IndexSelectedVector(
   std::vector<const calc::IndexParameter *>vector):
-  d_vector(vector)
+  d_vector(std::move(vector))
 {
 }
 

@@ -536,6 +536,7 @@ class TestNumPy(testcase.TestCase):
         curr_mem = mem.rss / 2**10
         if curr_mem - init_mem > max_diff:
           mem_increase = True
+          print(max_diff)
 
       raster = pcraster.spatial(pcraster.boolean(1))
 
@@ -545,6 +546,7 @@ class TestNumPy(testcase.TestCase):
         curr_mem = mem.rss / 2**10
         if curr_mem - init_mem > max_diff:
           mem_increase = True
+          print(max_diff)
 
       raster = pcraster.nominal(pcraster.uniform(1) * 10)
 
@@ -554,6 +556,7 @@ class TestNumPy(testcase.TestCase):
         curr_mem = mem.rss / 2**10
         if curr_mem - init_mem > max_diff:
           mem_increase = True
+          print(max_diff)
 
       self.assertEqual(mem_increase, False)
 

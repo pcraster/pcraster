@@ -30,7 +30,7 @@ class FieldStack {
 
   FieldHandle popReadOnly();
 
-  void push(FieldHandle v);
+  void push(const FieldHandle& v);
 };
 
 //! pop \a nr of (src)fields

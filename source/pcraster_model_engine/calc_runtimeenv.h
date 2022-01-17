@@ -155,7 +155,7 @@ public:
 
   bool             stackedCondition    ();
 
-  void             assignStackTop      (const std::vector<ASTPar *> pars);
+  void             assignStackTop      (const std::vector<ASTPar *>& pars);
   void             assignStackTop      (const ASTPar *p);
   void             deleteValue         (const std::string& parName);
   void             deleteAllValues     ();

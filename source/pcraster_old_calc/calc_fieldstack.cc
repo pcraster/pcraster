@@ -46,7 +46,7 @@ calc::FieldHandle calc::FieldStack::popReadOnly()
   return v;
 }
 
-void calc::FieldStack::push(FieldHandle v)
+void calc::FieldStack::push(const FieldHandle& v)
 {
   d_stack.push(v);
 }

@@ -31,7 +31,7 @@ namespace pcrxml {
 //------------------------------------------------------------------------------
 
 DataTypeEnum pcrVs2DataType(PCR_VS vs);
-PCR_VS       dataType2PcrVs(DataTypeEnum d);
+PCR_VS       dataType2PcrVs(const DataTypeEnum& d);
 
 
 } // namespace pcrxml

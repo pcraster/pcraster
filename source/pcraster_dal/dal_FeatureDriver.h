@@ -50,7 +50,7 @@ private:
   bool             extremes            (T& min,
                                         T& max,
                                         std::string const& name,
-                                        DataSpace space,
+                                        const DataSpace& space,
                                         TypeId typeId) const;
 
 protected:
@@ -127,7 +127,7 @@ inline bool FeatureDriver::extremes(
          T& min,
          T& max,
          std::string const& name,
-         DataSpace space,
+         const DataSpace& space,
          TypeId typeId) const
 {
   assert(!space.hasSpace());

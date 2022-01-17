@@ -182,7 +182,7 @@ DataSpace::DataSpace(
 */
 DataSpace::DataSpace(
          DataSpace const& space,
-         DataSpaceAddress address)
+         const DataSpaceAddress& address)
 
   : _dimensions(space._dimensions)
 

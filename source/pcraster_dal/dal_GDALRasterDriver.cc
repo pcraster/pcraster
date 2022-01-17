@@ -325,7 +325,7 @@ public:
 
 Raster* GDALDataset2Raster(
   /* std::string const& name, */
-  boost::shared_ptr<GDALDataset> gdalDataset,
+  const boost::shared_ptr<GDALDataset>& gdalDataset,
   TypeId typeId)
 {
   if(gdalDataset->GetRasterCount() < 1) {

@@ -57,7 +57,7 @@ public:
 // DEFINITION OF IOTYPE MEMBERS
 //------------------------------------------------------------------------------
 
-calc::IOType::IOType(Input  input, Output output):
+calc::IOType::IOType(const Input&  input, const Output& output):
   d_input(input),
   d_output(output)
 {
@@ -98,13 +98,13 @@ calc::IOType& calc::IOType::operator=(IOType const& rhs)
 */
 
 //! set value of d_input
-void calc::IOType::setInput(Input input)
+void calc::IOType::setInput(const Input& input)
 {
   d_input=input;
 }
 
 //! set value of d_output
-void calc::IOType::setOutput(Output output)
+void calc::IOType::setOutput(const Output& output)
 {
   d_output=output;
 }

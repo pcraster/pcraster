@@ -78,7 +78,7 @@ public:
   ASTNumber* createNumber(const std::string& numericString);
   ASTExpr*   createExpr(const   std::string& opName);
   ASTNode*   createCode(const char *xmlCode);
-  ASTNode*   createCode(QDomElement e);
+  ASTNode*   createCode(const QDomElement& e);
   ASTNode*   createFromId(const char *id);
   ASTNode*   createFromId(const std::string& id);
   ASTAss*    createAss(const std::string& par,ASTNode  *value,
@@ -90,7 +90,7 @@ public:
   static ASTScript* createFromIdOrStr(const std::string& codeOrId);
   static bool       msgVerify(const std::string& id,
                        const com::Exception& e,
-                       const std::string prefix="");// const;
+                       const std::string& prefix="");// const;
   static bool       fileVerify(const std::string& id,
                         const std::string& createdFile);//const;
 

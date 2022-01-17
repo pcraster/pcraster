@@ -464,7 +464,7 @@ void VisualisationWindow::quit()
 void VisualisationWindow::saveAs(
          com::FileFormatInfo const& format,
          std::string name,
-         dal::DataSpace iterationSpace)
+         const dal::DataSpace& iterationSpace)
 {
   // dal::DataSpace space(dataObject().dataSpace());
   dal::DataSpaceAddress originalDataSpaceAddress(dataSpaceAddress());

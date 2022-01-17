@@ -89,7 +89,7 @@ calc::P5Stack::P5Stack(const std::string&  codeOrId,
   init();
 }
 
-calc::P5Stack::P5Stack(CompileTest  code):
+calc::P5Stack::P5Stack(const CompileTest&  code):
   d_keepLive(true)
 {
   d_as.reset(createFromIdOrStr(code.d_code));

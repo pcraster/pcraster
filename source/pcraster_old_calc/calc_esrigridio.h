@@ -23,7 +23,7 @@ public:
   EsriGridIO();
  ~EsriGridIO();
 
-  static void throwError(const std::string msg);
+  static void throwError(const std::string& msg);
 
   // ACCESSORS
   static bool gridExists(const std::string& gridName);

@@ -301,9 +301,9 @@ void* MemoryRasterData::cells(
 
 
 void* MemoryRasterData::cells(
-         std::vector<boost::any> values,
+         const std::vector<boost::any>& values,
          DataSpace space,
-         DataSpaceAddress address)
+         const DataSpaceAddress& address)
 {
   assert(space.rank() == address.size());
   assert(!values.empty());

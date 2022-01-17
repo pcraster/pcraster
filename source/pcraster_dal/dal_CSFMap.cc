@@ -639,8 +639,8 @@ void*   dal::CSFMap::malloc(size_t nrCells) const
  * MM_KEEPTRACK mode
  */
 void dal::CSFMap::setExtremes(
-         boost::any min,
-         boost::any max)
+         const boost::any& min,
+         const boost::any& max)
 {
   switch(useTypeId()) {
     case TI_UINT1:

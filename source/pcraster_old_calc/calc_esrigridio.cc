@@ -198,7 +198,7 @@ calc::EsriGridIO::EsriGridIO()
   }
 }
 
-void calc::EsriGridIO::throwError(const std::string msg)
+void calc::EsriGridIO::throwError(const std::string& msg)
 {
    std::ostringstream str;
    str << msg << std::endl;

@@ -79,7 +79,7 @@ public:
                                   P5Stack(const std::string&  codeOrId);
                                   P5Stack(const std::string&  codeOrId,
                                      bool  keepLastUse);
-                                  P5Stack(CompileTest  code);
+                                  P5Stack(const CompileTest&  code);
 
   /* virtual */    ~P5Stack              ();
 

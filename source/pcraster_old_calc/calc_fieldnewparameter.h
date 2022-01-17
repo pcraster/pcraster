@@ -39,7 +39,7 @@ class  FieldNewParameter : public FieldParameter {
 
   virtual void goInScope();
   //! assign current stack top to parameter
-  void assign(FieldHandle f,size_t index, const Position *assignPoint);
+  void assign(const FieldHandle& f,size_t index, const Position *assignPoint);
   FieldHandle value(size_t index, bool lastUse);
 
 };

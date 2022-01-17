@@ -852,7 +852,7 @@ pybind11::object copyField(
 
 calc::Field* deepCopyField(
           calc::Field const & field,
-          pybind11::dict /* memo */)
+          const pybind11::dict& /* memo */)
 {
   calc::Field* spatial = nullptr;
 

@@ -3,6 +3,8 @@
 
 #ifndef INCLUDED_CALC_INDEXSET
 # include "calc_indexset.h"
+
+#include <utility>
 # define INCLUDED_CALC_INDEXSET
 #endif
 
@@ -21,7 +23,7 @@ calc::IndexSet::IndexSet(const calc::Symbol& name,
     bool on,
     calc::ArrayDefinition *a):
   UserSymbol(name),IndexContainer(a),
-  d_on(on),d_set(set)
+  d_on(on),d_set(std::move(set))
 {}
 
 VS calc::IndexSet::symbolType()const

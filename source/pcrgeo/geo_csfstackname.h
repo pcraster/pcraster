@@ -114,7 +114,7 @@ public:
   // ACCESSORS
   //----------------------------------------------------------------------------
 
-  static std::string asAguilaArgument  (std::string stackName,
+  static std::string asAguilaArgument  (const std::string& stackName,
                                         int start,
                                         int stop);
 

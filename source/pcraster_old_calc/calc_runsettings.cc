@@ -74,7 +74,7 @@ calc::RunSettings::~RunSettings()
 
 //! add new settings from \a mrsElement, keeping old values in case of duplicates
 void calc::RunSettings::addNewOnly(
-      QDomElement mrsElement)
+      const QDomElement& mrsElement)
 {
   BindingRewriter br;
   pcrxml::forEachChildElement(mrsElement,br);

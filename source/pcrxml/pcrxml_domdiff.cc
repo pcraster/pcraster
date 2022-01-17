@@ -62,7 +62,7 @@ namespace Private {
  *  .
  */
 struct NodeList : public std::list<QDomNode> {
-   void operator()(QDomNode n) {
+   void operator()(const QDomNode& n) {
      push_back(n);
    }
 /*
@@ -72,7 +72,7 @@ struct NodeList : public std::list<QDomNode> {
      nl.deleteEmptyTextNodes();
    }
 */
-   static bool emptyTextNode(QDomNode n) {
+   static bool emptyTextNode(const QDomNode& n) {
      QDomText t= n.toText();
      if (t.isNull())
        return false;
@@ -82,7 +82,7 @@ struct NodeList : public std::list<QDomNode> {
    void deleteEmptyTextNodes() {
      remove_if(NodeList::emptyTextNode);
    }
-   static NodeList create(QDomNode n) {
+   static NodeList create(const QDomNode& n) {
      NodeList nl;
      forEachNode(n,nl);
      // TODO seems empty are already deleted
@@ -96,7 +96,7 @@ struct NodeList : public std::list<QDomNode> {
 
      struct Equal {
        bool               d_throwOnDiff;
-       void print(QDomNode n, std::ostringstream& s) const {
+       void print(const QDomNode& n, std::ostringstream& s) const {
          QString str;
          QTextStream qs(&str);
          qs << "nodeName: "   << n.nodeName()  <<

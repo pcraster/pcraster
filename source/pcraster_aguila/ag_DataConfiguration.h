@@ -33,7 +33,7 @@ struct DataItemInformation
   DataItemInformation(
          dal::DataSpace const& _space,
          pcrxml::AguilaData const& _configuration,
-         DataGuide _guide)
+         const DataGuide& _guide)
     : space(_space),
       configuration(_configuration),
       guide(_guide) {}
@@ -86,7 +86,7 @@ private:
                                         pcrxml::AguilaData const& configuration);
 
   void             add                 (std::string const& name,
-                                        dal::DataSpace space,
+                                        const dal::DataSpace& space,
                                         dal::DataSpaceQueryResult const& result,
                                         pcrxml::AguilaData const& configuration);
 

@@ -31,7 +31,7 @@ void str_values(std::stringstream & content, calc::Field const & raster){
 
 
 template<class T>
-void fill_raster(calc::Field & field, const pybind11::tuple state){
+void fill_raster(calc::Field & field, const pybind11::tuple& state){
   // unpack the values from the state string
 
   std::vector<std::string> values;

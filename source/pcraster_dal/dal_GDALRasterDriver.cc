@@ -275,8 +275,8 @@ static CSF_VS valueScale(
 RasterDimensions rasterDimensions(
          GDALDataset& gdalDataset)
 {
-  size_t nrRows = static_cast<size_t>(gdalDataset.GetRasterYSize());
-  size_t nrCols = static_cast<size_t>(gdalDataset.GetRasterXSize());
+  auto nrRows = static_cast<size_t>(gdalDataset.GetRasterYSize());
+  auto nrCols = static_cast<size_t>(gdalDataset.GetRasterXSize());
 
   // Note that some formats don't support transformation to projection
   // coordinates. In those cases geoTransform is set to (0,1,0,0,0,1).
@@ -339,7 +339,7 @@ Raster* GDALDataset2Raster(
     typeId = dal::typeId(rasterBand->GetRasterDataType());
   }
 
-  Raster* raster = new Raster(rasterDimensions(*gdalDataset), typeId);
+  auto* raster = new Raster(rasterDimensions(*gdalDataset), typeId);
 
   int hasMinimum = 0;
   int hasMaximum = 0;
@@ -690,7 +690,7 @@ GDALRasterDriver::GDALRasterDriver(
 
 void GDALRasterDriver::init()
 {
-  DriverProperties& properties = this->properties().value<DriverProperties>(
+  auto& properties = this->properties().value<DriverProperties>(
          DAL_DRIVER_GENERAL);
   properties |= Reader;
 
@@ -1021,7 +1021,7 @@ void GDALRasterDriver::read(
   // Get x and y coordinate from address.
   // Convert x and y coordinates to row and col indices.
   assert(space.hasSpace());
-  SpatialCoordinate const& spatialCoordinate(
+  auto const& spatialCoordinate(
          address.coordinate<SpatialCoordinate>(space.indexOf(Space)));
 
   double row, col;

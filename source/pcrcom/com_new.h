@@ -17,7 +17,7 @@ namespace com {
    size_t nrRows,
    size_t nrCols)
   {
-    CellType **ptrVal = new CellType *[nrRows];
+    auto **ptrVal = new CellType *[nrRows];
     ptrVal[0] = linear;
     for (size_t i = 1; i < nrRows; i++)
       ptrVal[i] = ptrVal[i-1]+nrCols;
@@ -34,7 +34,7 @@ namespace com {
    size_t nrRows,
    size_t nrCols)
   {
-    CellType *linear = new CellType[nrRows*nrCols];
+    auto *linear = new CellType[nrRows*nrCols];
     return new2dFromLinear(linear, nrRows, nrCols);
   }
   //! as com::new2d but does 0 the values
@@ -42,7 +42,7 @@ namespace com {
    size_t nrRows,
    size_t nrCols)
   {
-    CellType *linear = new CellType[nrRows*nrCols];
+    auto *linear = new CellType[nrRows*nrCols];
     std::memset(linear,0,sizeof(CellType)*nrRows*nrCols);
     return new2dFromLinear(linear, nrRows, nrCols);
   }

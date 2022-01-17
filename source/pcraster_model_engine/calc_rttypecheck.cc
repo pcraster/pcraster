@@ -116,7 +116,7 @@ public:
       DataValue *argI =d_rte.popDataValue();
       switch(argI->ovs()) {
         case VS_STRING: {
-           DataStorageId *ds=dynamic_cast<DataStorageId *>(argI);
+           auto *ds=dynamic_cast<DataStorageId *>(argI);
            if (d_syms.contains(ds->id())) {
              // d_rte already contains a value with this name
              d_args.push_front(d_rte.dataTable()[ds->id()]);
@@ -216,7 +216,7 @@ public:
   }
 
   static Field* asField(const DataValue *dv) {
-    Field *f=dynamic_cast<Field *>(const_cast<DataValue *>(dv));
+    auto *f=dynamic_cast<Field *>(const_cast<DataValue *>(dv));
     POSTCOND(f);
     return f;
   }

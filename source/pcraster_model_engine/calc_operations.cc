@@ -339,7 +339,7 @@ void   calc::Operations::loadLib(const std::string& libName)
 {
   LibMap::const_iterator i=d_libs.find(libName);
   if (i == d_libs.end()) {
-    CalcLib *l= new CalcLib(libName);
+    auto *l= new CalcLib(libName);
     load(l->getMeta());
     d_libs.insert(std::make_pair(libName,l));
   }

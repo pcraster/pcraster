@@ -99,7 +99,7 @@ size_t FeatureLayerGeometries::size() const
 OGRGeometry const& FeatureLayerGeometries::geometry(
          FeatureId featureId) const
 {
-  std::map<FeatureId, OGRGeometry*>::const_iterator it =
+  auto it =
          _geometryByFeatureId.find(featureId);
 
   assert(it != _geometryByFeatureId.end());
@@ -112,7 +112,7 @@ OGRGeometry const& FeatureLayerGeometries::geometry(
 FeatureId FeatureLayerGeometries::featureId(
          OGRGeometry const* geometry) const
 {
-  std::map<OGRGeometry*, FeatureId>::const_iterator it =
+  auto it =
          _featureIdByGeometry.find(const_cast<OGRGeometry*>(geometry));
   assert(it != _featureIdByGeometry.end());
 

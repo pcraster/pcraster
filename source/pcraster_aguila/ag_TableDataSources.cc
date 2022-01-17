@@ -68,7 +68,7 @@ ag::DataInfo<ag::Table> ag::TableDataSources::openData(
          std::string const &name,
          dal::DataSpace const &space) const
 {
-  Table* table(new Table(name, space));
+  auto* table(new Table(name, space));
 
   return DataInfo<Table>(table, table->valueScale(), table->dataSpace());
 }

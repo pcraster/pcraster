@@ -68,7 +68,7 @@ BOOST_AUTO_TEST_CASE(testUpstream)
   BOOST_CHECK(ld.d_catchments.size()==1);
 
   resultC[ld.d_catchments[0].d_pitId]=0;
-  for(LddGraph::UpConstIterator i=ld.upBegin();i!=ld.upEnd();++i)
+  for(auto i=ld.upBegin();i!=ld.upEnd();++i)
     resultC[i->up()] = resultC[i->down()]+1;
   BOOST_CHECK(std::equal(resultC,resultC+8,resultR));
 }
@@ -93,7 +93,7 @@ BOOST_AUTO_TEST_CASE(testDownstreamIterator)
   BOOST_CHECK(ld.d_catchments.size()==1);
 
   resultC[ld.d_catchments[0].d_pitId]=0;
-  for(LddGraph::DownConstIterator i=ld.downBegin();i!=ld.downEnd();++i)
+  for(auto i=ld.downBegin();i!=ld.downEnd();++i)
     resultC[i->down()] += resultC[i->up()]+1;
   BOOST_CHECK(std::equal(resultC,resultC+8,resultR));
 }

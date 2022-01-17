@@ -402,7 +402,7 @@ void ag::SceneView::setShadeModel(GLenum m)
 GLenum ag::SceneView::shadeModel() const
 {
   // Since makeCurrent is a non-const member we have to trick the compiler.
-  SceneView * const localThis = const_cast<SceneView * const>(this);
+  auto * const localThis = const_cast<SceneView * const>(this);
   localThis->makeCurrent();
 
   int m;
@@ -440,7 +440,7 @@ void ag::SceneView::setShowLight(bool s)
 bool ag::SceneView::showLight() const
 {
   // Since makeCurrent is a non-const member we have to trick the compiler.
-  SceneView * const localThis = const_cast<SceneView * const>(this);
+  auto * const localThis = const_cast<SceneView * const>(this);
   localThis->makeCurrent();
 
   GLboolean s;
@@ -719,7 +719,7 @@ void ag::SceneView::addSceneObject(ag::SceneObject* s)
 void ag::SceneView::removeSceneObject(ag::SceneObject* s)
 {
   assert(s);
-  so_it it = std::find(d_data->d_sceneObjects.begin(),
+  auto it = std::find(d_data->d_sceneObjects.begin(),
                    d_data->d_sceneObjects.end(), s);
   assert(it != d_data->d_sceneObjects.end());
   d_data->d_sceneObjects.erase(it);

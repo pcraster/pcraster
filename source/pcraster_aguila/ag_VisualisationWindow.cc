@@ -184,7 +184,7 @@ void VisualisationWindow::createViewMenu()
 void VisualisationWindow::insertShowCursorAction()
 {
   QPixmap icon = QPixmap((const char**)cursor_xpm);
-  QAction* action = new QAction(
+  auto* action = new QAction(
          icon,
          "Show &Cursor and Values...",
          this);

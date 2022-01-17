@@ -221,7 +221,7 @@ DataSpace::DataSpace(
           break;
         }
         case Space: {
-          SpatialCoordinate const& coordinates(
+          auto const& coordinates(
               address.coordinate<SpatialCoordinate>(i));
 
           switch(_dimensions[i].discretisation()) {

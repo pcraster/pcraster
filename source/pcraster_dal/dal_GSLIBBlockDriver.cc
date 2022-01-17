@@ -47,7 +47,7 @@ GSLIBBlockDriver::GSLIBBlockDriver()
     TextFileDriver()
 
 {
-  DriverProperties& properties = this->properties().value<DriverProperties>(
+  auto& properties = this->properties().value<DriverProperties>(
          DAL_DRIVER_GENERAL);
   properties |= Writer;
 

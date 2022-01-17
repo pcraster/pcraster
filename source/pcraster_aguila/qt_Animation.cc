@@ -446,7 +446,7 @@ size_t qt::Animation::prevTimeStep() const
   if(!d_steps.empty()) {
 
     // Whe have a fixed set of steps.
-    std::set<size_t>::const_iterator it = d_steps.find(d_current);
+    auto it = d_steps.find(d_current);
 
     if(it != d_steps.begin()) {
 
@@ -498,7 +498,7 @@ size_t qt::Animation::nextTimeStep() const
   if(!d_steps.empty()) {
 
     // We have a fixed set of steps.
-    std::set<size_t>::const_iterator it = d_steps.find(d_current);
+    auto it = d_steps.find(d_current);
     assert(it != d_steps.end());
 
     if(++it != d_steps.end()) {
@@ -566,7 +566,7 @@ size_t qt::Animation::closestStep(size_t step) const
     return step;
   }
 
-  std::set<size_t>::const_iterator it = d_steps.begin();
+  auto it = d_steps.begin();
   while(*it < step) {
     ++it;
   }

@@ -112,7 +112,7 @@ void calc::RunTimeEngine::pushUnmanaged(const DataValue     *d)
     // exposed calls in PCRasterPython/PCRaster.cc are suspect to this
     d = &pythonNone;
   }
-  DataValue *dv=const_cast<DataValue *>(d);
+  auto *dv=const_cast<DataValue *>(d);
   dv->setPcrmeManaged(false);
   dv->setReadOnlyReference(true);
   d_rte->pushDataValue(dv);
@@ -154,7 +154,7 @@ calc::Field*  calc::RunTimeEngine::releasePopField()
  */
 calc::ObjectLink* calc::RunTimeEngine::releasePopObjectLink()
 {
-  ObjectLink *o= dynamic_cast<ObjectLink *>(d_rte->popDataValue());
+  auto *o= dynamic_cast<ObjectLink *>(d_rte->popDataValue());
   POSTCOND(!o->readOnlyReference());
   return o;
 }

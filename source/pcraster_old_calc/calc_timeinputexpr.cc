@@ -96,7 +96,7 @@ void calc::TimeinputExpr::execute(FieldStack& stack)
 
    FieldHandle id = stack.popReadOnly();
    if (!id->isSpatial()) {
-     const calc::NonSpatial *ns =
+     const auto *ns =
        dynamic_cast<const calc::NonSpatial *>(id.get_rep());
     int colNr = static_cast<int>(ns->getValue());
     // no such column pcrcalc/test232

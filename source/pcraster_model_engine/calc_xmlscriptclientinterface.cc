@@ -116,7 +116,7 @@ namespace calc {
        if (maps.size()==1) {
           maps.push_back(StatTable::InputMap());
        }
-       StatTable *st = new StatTable(name, maps[0],maps[1]);
+       auto *st = new StatTable(name, maps[0],maps[1]);
        d_code->transferPushBack(st);
        d_nameStatTableMap.insert(std::make_pair(name,st));
      }
@@ -167,14 +167,14 @@ namespace calc {
 
     //! only update the symbol if found in the model
     void updateUsedSymbols(pcrxml::Definition const& d) {
-      ASTSymbolTable::iterator si=d_table.find(d.name());
+      auto si=d_table.find(d.name());
       if (si == d_table.end())
         return; // not found
 
       ASTSymbolInfo& i(si->second);
       i.setDefinition(d);
 
-      NameStatTableMap::const_iterator s = d_nameStatTableMap.find(d.name());
+      auto s = d_nameStatTableMap.find(d.name());
       if (s != d_nameStatTableMap.end()) {
         // TODO now always report that is not conform scriptOutput meaning
         s->second->setIdBinding(i);

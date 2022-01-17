@@ -103,7 +103,7 @@ std::string qt::getOpenFileName(
   std::string filter;
 
   // For all file formats.
-  for(std::vector<com::FileFormatInfo>::const_iterator it = fileFormats.begin();
+  for(auto it = fileFormats.begin();
                    it != fileFormats.end(); ++it) {
 
     std::vector<std::string> const& extensions = (*it).extensions();
@@ -116,7 +116,7 @@ std::string qt::getOpenFileName(
       // Add extension(s).
       assert(!extensions.empty());
 
-      for(std::vector<std::string>::const_iterator ext_it = extensions.begin();
+      for(auto ext_it = extensions.begin();
                      ext_it != extensions.end(); ++ext_it) {
 
         filter += "*." + *ext_it;

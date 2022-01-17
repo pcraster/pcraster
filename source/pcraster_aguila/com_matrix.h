@@ -415,7 +415,7 @@ inline Matrix<T> Matrix<T>::invert(const Matrix<T> &m)
   // Create the result matrix with same dimensions as m.
   Matrix<T> inverse(m.d_nr);
 
-  size_t *indx = new size_t[m.d_nr];
+  auto *indx = new size_t[m.d_nr];
   T *col = new T[m.d_nr];
 
   try
@@ -532,7 +532,7 @@ inline void Matrix<T>::luDecompose(Matrix<T> &a, size_t *indx, double *d)
   size_t n = a.d_nr;
   size_t i, j, k;
   size_t imax = 0;
-  double *vv = new double[n];
+  auto *vv = new double[n];
   T big, dum, sum, temp;
 
   *d = 1.0;

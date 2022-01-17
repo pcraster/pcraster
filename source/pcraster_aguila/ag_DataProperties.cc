@@ -88,36 +88,36 @@ public:
          dev::Delete<com_ClassClassifier<UINT1> >());
     dev::forWhole(_rangeClassifiers, dev::Delete<com::Classifier>());
 
-    for(std::map<DataGuide, DrawProps*, ltDataGuide>::iterator it =
+    for(auto it =
          _geometryDrawProperties.begin();
          it != _geometryDrawProperties.end(); ++it) {
       delete (*it).second;
     }
 
-    for(std::map<DataGuide, BooleanDrawProps*, ltDataGuide>::iterator it =
+    for(auto it =
          _booleanDrawProperties.begin(); it != _booleanDrawProperties.end();
          ++it) {
       delete (*it).second;
     }
 
-    for(std::map<DataGuide, NominalDrawProps*, ltDataGuide>::iterator it =
+    for(auto it =
          _nominalDrawProperties.begin(); it != _nominalDrawProperties.end();
          ++it) {
       delete (*it).second;
     }
 
-    for(std::map<DataGuide, OrdinalDrawProps*, ltDataGuide>::iterator it =
+    for(auto it =
          _ordinalDrawProperties.begin(); it != _ordinalDrawProperties.end();
          ++it) {
       delete (*it).second;
     }
 
-    for(std::map<DataGuide, LddDrawProps*, ltDataGuide>::iterator it =
+    for(auto it =
          _lddDrawProperties.begin(); it != _lddDrawProperties.end(); ++it) {
       delete (*it).second;
     }
 
-    for(std::map<DataGuide, RangeDrawProps*, ltDataGuide>::iterator it =
+    for(auto it =
          _rangeDrawProperties.begin(); it != _rangeDrawProperties.end();
          ++it) {
       delete (*it).second;
@@ -126,13 +126,13 @@ public:
     {
       std::set<RangeDrawProps*> drawProperties;
 
-      for(std::map<DataGuide, RangeDrawProps*, ltDataGuide>::iterator it =
+      for(auto it =
          _mergedRangeDrawProperties.begin();
          it != _mergedRangeDrawProperties.end(); ++it) {
         drawProperties.insert((*it).second);
       }
 
-      for(std::set<RangeDrawProps*>::iterator it = drawProperties.begin();
+      for(auto it = drawProperties.begin();
               it != drawProperties.end(); ++it) {
         delete *it;
       }
@@ -141,13 +141,13 @@ public:
     {
       std::set<GeometryDrawProps*> drawProperties;
 
-      for(std::map<DataGuide, GeometryDrawProps*, ltDataGuide>::iterator it =
+      for(auto it =
          _mergedGeometryDrawProperties.begin();
          it != _mergedGeometryDrawProperties.end(); ++it) {
         drawProperties.insert((*it).second);
       }
 
-      for(std::set<GeometryDrawProps*>::iterator it = drawProperties.begin();
+      for(auto it = drawProperties.begin();
               it != drawProperties.end(); ++it) {
         delete *it;
       }
@@ -201,7 +201,7 @@ void DataProperties::assertIntegrity()
 size_t DataProperties::index(
          DataGuide const& guide) const
 {
-  iterator it = std::find(_data->_guides.begin(),
+  auto it = std::find(_data->_guides.begin(),
                    _data->_guides.end(), guide);
   assert(it != _data->_guides.end());
 
@@ -317,7 +317,7 @@ void DataProperties::addScalarTimeSeriesProperties(
     assert(_data->_nominalDrawProperties.find(guide) ==
             _data->_nominalDrawProperties.end());
 
-    com_ClassClassifier<INT4>* classClassifier = new com_ClassClassifier<INT4>();
+    auto* classClassifier = new com_ClassClassifier<INT4>();
     _data->_nominalClassifiers.push_back(classClassifier);
     classClassifier->setClasses(1, table.nrCols() - 1);
     _data->_nominalDrawProperties[guide] = new NominalDrawProps(
@@ -328,14 +328,14 @@ void DataProperties::addScalarTimeSeriesProperties(
             _data->_rangeDrawProperties.end());
 
     // Create default draw properties.
-    com::Classifier* rawValueClassifier = new com::Classifier();
+    auto* rawValueClassifier = new com::Classifier();
     _data->_rangeClassifiers.push_back(rawValueClassifier);
     rawValueClassifier->installLin();
 
     // Determine min and max of dependant variables.
     if(!table.allMV()) {
-      REAL4 min = table.min<REAL4>();
-      REAL4 max = table.max<REAL4>();
+      auto min = table.min<REAL4>();
+      auto max = table.max<REAL4>();
 
       rawValueClassifier->setNrClasses(1);
       rawValueClassifier->setExtremes(min, max);
@@ -379,7 +379,7 @@ void DataProperties::addBooleanStackProperties(
     std::string title;
 
     // Classifier.
-    com_ClassClassifier<UINT1>* classifier = new com_ClassClassifier<UINT1>();
+    auto* classifier = new com_ClassClassifier<UINT1>();
     _data->_booleanClassifiers.push_back(classifier);
 
     // Use legend if present.
@@ -446,7 +446,7 @@ void DataProperties::addNominalStackProperties(
 
     Raster const& raster = dataObject.rasterDataSources().data(guide);
 
-    com_ClassClassifier<INT4>* classifier =
+    auto* classifier =
            new com_ClassClassifier<INT4>();
     _data->_nominalClassifiers.push_back(classifier);
 
@@ -506,7 +506,7 @@ void DataProperties::addOrdinalStackProperties(
 
     title = dataObject.name(guide);
 
-    com_ClassClassifier<INT4>* classifier =
+    auto* classifier =
                    new com_ClassClassifier<INT4>();
     _data->_ordinalClassifiers.push_back(classifier);
 
@@ -559,7 +559,7 @@ void DataProperties::addScalarStackProperties(
     Raster const& raster = dataObject.rasterDataSources().data(guide);
     std::string title = dataObject.name(guide);
 
-    com::Classifier* classifier = new com::Classifier();
+    auto* classifier = new com::Classifier();
     _data->_rangeClassifiers.push_back(classifier);
     classifier->installLin();
 
@@ -596,11 +596,11 @@ void DataProperties::addDirectionalStackProperties(
     Raster const& raster = dataObject.rasterDataSources().data(guide);
     std::string title = dataObject.name(guide);
 
-    com::Classifier* displayValueClassifier = new com::Classifier();
+    auto* displayValueClassifier = new com::Classifier();
     _data->_rangeClassifiers.push_back(displayValueClassifier);
     displayValueClassifier->installLin();
 
-    com::Classifier* rawValueClassifier = new com::Classifier();
+    auto* rawValueClassifier = new com::Classifier();
     _data->_rangeClassifiers.push_back(rawValueClassifier);
     rawValueClassifier->installLin();
 
@@ -656,7 +656,7 @@ void DataProperties::addLddStackProperties(
     // Raster const& raster = dataObject.rasterDataSources().data(guide);
     std::string title = dataObject.name(guide);
 
-    com_ClassClassifier<UINT1>* classifier = new com_ClassClassifier<UINT1>();
+    auto* classifier = new com_ClassClassifier<UINT1>();
     _data->_lddClassifiers.push_back(classifier);
 
     std::vector<com_LegendClass<UINT1> > classes;
@@ -699,7 +699,7 @@ void DataProperties::addBooleanFeatureProperties(
     std::string title;
 
     // Classifier.
-    com_ClassClassifier<UINT1>* classifier = new com_ClassClassifier<UINT1>();
+    auto* classifier = new com_ClassClassifier<UINT1>();
     _data->_booleanClassifiers.push_back(classifier);
 
     /// FEATURE
@@ -759,7 +759,7 @@ void DataProperties::addNominalFeatureProperties(
 
     /// Raster const& raster = dataObject.rasterDataSources().data(guide);
 
-    com_ClassClassifier<INT4>* classifier =
+    auto* classifier =
            new com_ClassClassifier<INT4>();
     _data->_nominalClassifiers.push_back(classifier);
 
@@ -813,7 +813,7 @@ void DataProperties::addOrdinalFeatureProperties(
 
     title = dataObject.name(guide);
 
-    com_ClassClassifier<INT4>* classifier =
+    auto* classifier =
                    new com_ClassClassifier<INT4>();
     _data->_ordinalClassifiers.push_back(classifier);
 
@@ -868,7 +868,7 @@ void DataProperties::addScalarFeatureProperties(
 
     std::string title = dataObject.name(guide);
 
-    com::Classifier* classifier = new com::Classifier();
+    auto* classifier = new com::Classifier();
     _data->_rangeClassifiers.push_back(classifier);
     classifier->installLin();
 
@@ -906,7 +906,7 @@ void DataProperties::addVectorProperties(
     Vector const& vector = dataObject.vectorDataSources().data(guide);
     std::string title = dataObject.name(guide);
 
-    com::Classifier* classifier = new com::Classifier();
+    auto* classifier = new com::Classifier();
     _data->_rangeClassifiers.push_back(classifier);
     classifier->installLin();
 
@@ -1037,7 +1037,7 @@ void DataProperties::removeBooleanDrawProperties(
   BooleanDrawProps* drawProps = _data->_booleanDrawProperties[guide];
   _data->_booleanDrawProperties.erase(guide);
 
-  std::vector<com_ClassClassifier<UINT1> *>::iterator iterator =
+  auto iterator =
          std::find(_data->_booleanClassifiers.begin(),
          _data->_booleanClassifiers.end(), &drawProps->classifier());
   assert(iterator != _data->_booleanClassifiers.end());
@@ -1057,7 +1057,7 @@ void DataProperties::removeNominalDrawProperties(
   NominalDrawProps* drawProps = _data->_nominalDrawProperties[guide];
   _data->_nominalDrawProperties.erase(guide);
 
-  std::vector<com_ClassClassifier<INT4> *>::iterator iterator =
+  auto iterator =
          std::find(_data->_nominalClassifiers.begin(),
          _data->_nominalClassifiers.end(), &drawProps->classifier());
   assert(iterator != _data->_nominalClassifiers.end());
@@ -1077,7 +1077,7 @@ void DataProperties::removeOrdinalDrawProperties(
   OrdinalDrawProps* drawProps = _data->_ordinalDrawProperties[guide];
   _data->_ordinalDrawProperties.erase(guide);
 
-  std::vector<com_ClassClassifier<INT4> *>::iterator iterator =
+  auto iterator =
          std::find(_data->_ordinalClassifiers.begin(),
          _data->_ordinalClassifiers.end(), &drawProps->classifier());
   assert(iterator != _data->_ordinalClassifiers.end());
@@ -1097,7 +1097,7 @@ void DataProperties::removeLddDrawProperties(
   LddDrawProps* drawProps = _data->_lddDrawProperties[guide];
   _data->_lddDrawProperties.erase(guide);
 
-  std::vector<com_ClassClassifier<UINT1> *>::iterator iterator =
+  auto iterator =
          std::find(_data->_lddClassifiers.begin(),
          _data->_lddClassifiers.end(), &drawProps->classifier());
   assert(iterator != _data->_lddClassifiers.end());
@@ -1385,12 +1385,12 @@ void DataProperties::addNominalDrawProperties(DataGuide const& guide,
   NominalDrawProps& source = properties.nominalDrawProperties(guide);
 
   // Classifier.
-  com_ClassClassifier<INT4>* classifier =
+  auto* classifier =
          new com_ClassClassifier<INT4>(source.classifier());
   _data->_nominalClassifiers.push_back(classifier);
 
   // Draw properties.
-  NominalDrawProps* props = new NominalDrawProps(source.title(),
+  auto* props = new NominalDrawProps(source.title(),
          source.palette(), classifier);
   _data->_nominalDrawProperties[guide] = props;
 }
@@ -1413,12 +1413,12 @@ void DataProperties::addRangeDrawProperties(DataGuide const& guide,
   }
 
   assert(source.rawValueClassifier());
-  com::Classifier* rawClassifier =
+  auto* rawClassifier =
          new com::Classifier(*(source.rawValueClassifier()));
   _data->_rangeClassifiers.push_back(rawClassifier);
 
   // Draw properties.
-  RangeDrawProps* props = new RangeDrawProps(source.title(),
+  auto* props = new RangeDrawProps(source.title(),
          source.palette(), rawClassifier, displayClassifier);
   _data->_rangeDrawProperties[guide] = props;
 }
@@ -1504,7 +1504,7 @@ void DataProperties::copyRangeDrawProperties(
       assert(*targetRaw == *sourceRaw);
     }
     else {
-      com::Classifier* classifier = new com::Classifier(*(sourceRaw));
+      auto* classifier = new com::Classifier(*(sourceRaw));
       _data->_rangeClassifiers.push_back(classifier);
       boost::get<0>(targetTuple) = classifier;
       assert(*boost::get<0>(targetTuple) == *classifier);
@@ -1516,7 +1516,7 @@ void DataProperties::copyRangeDrawProperties(
         assert(*targetDisplay == *sourceDisplay);
       }
       else {
-        com::Classifier* classifier = new com::Classifier(*(sourceDisplay));
+        auto* classifier = new com::Classifier(*(sourceDisplay));
         _data->_rangeClassifiers.push_back(classifier);
         boost::get<1>(targetTuple) = classifier;
         assert(*boost::get<1>(targetTuple) == *classifier);
@@ -1617,7 +1617,7 @@ void DataProperties::copyGeometryProperties(
   DrawProps const& source = properties.geometryDrawProperties(guide);
 
   // Draw properties.
-  DrawProps* props = new DrawProps(source.title(), source.palette());
+  auto* props = new DrawProps(source.title(), source.palette());
 
   _data->_geometryDrawProperties[guide] = props;
 
@@ -1635,12 +1635,12 @@ void DataProperties::copyBooleanStackProperties(
   const BooleanDrawProps& source = properties.booleanDrawProperties(guide);
 
   // Classifier.
-  com_ClassClassifier<UINT1>* classifier =
+  auto* classifier =
          new com_ClassClassifier<UINT1>(source.classifier());
   _data->_booleanClassifiers.push_back(classifier);
 
   // Draw properties.
-  BooleanDrawProps* props = new BooleanDrawProps(source.title(),
+  auto* props = new BooleanDrawProps(source.title(),
          source.palette(), classifier);
 
   _data->_booleanDrawProperties[guide] = props;
@@ -1662,12 +1662,12 @@ void DataProperties::copyNominalStackProperties(
   const NominalDrawProps& source = properties.nominalDrawProperties(guide);
 
   // Classifier.
-  com_ClassClassifier<INT4>* classifier =
+  auto* classifier =
          new com_ClassClassifier<INT4>(source.classifier());
   _data->_nominalClassifiers.push_back(classifier);
 
   // Draw properties.
-  NominalDrawProps* props = new NominalDrawProps(source.title(),
+  auto* props = new NominalDrawProps(source.title(),
          source.palette(), classifier);
 
   _data->_nominalDrawProperties[guide] = props;
@@ -1686,12 +1686,12 @@ void DataProperties::copyOrdinalStackProperties(
   const OrdinalDrawProps& source = properties.ordinalDrawProperties(guide);
 
   // Classifier.
-  com_ClassClassifier<INT4>* classifier =
+  auto* classifier =
          new com_ClassClassifier<INT4>(source.classifier());
   _data->_ordinalClassifiers.push_back(classifier);
 
   // Draw properties.
-  OrdinalDrawProps* props = new OrdinalDrawProps(source.title(),
+  auto* props = new OrdinalDrawProps(source.title(),
          source.palette(), classifier);
 
   _data->_ordinalDrawProperties[guide] = props;
@@ -1710,12 +1710,12 @@ void DataProperties::copyLddStackProperties(
   const LddDrawProps& source = properties.lddDrawProperties(guide);
 
   // Classifier.
-  com_ClassClassifier<UINT1>* classifier =
+  auto* classifier =
          new com_ClassClassifier<UINT1>(source.classifier());
   _data->_lddClassifiers.push_back(classifier);
 
   // Draw properties.
-  LddDrawProps* props = new LddDrawProps(source.title(),
+  auto* props = new LddDrawProps(source.title(),
          source.palette(), classifier);
 
   _data->_lddDrawProperties[guide] = props;
@@ -1798,7 +1798,7 @@ void DataProperties::setEnabled(const DataGuide& guide,
 
 void DataProperties::setSelected(bool selected)
 {
-  for(iterator it = begin(); it != end(); ++it) {
+  for(auto it = begin(); it != end(); ++it) {
     commonDataProperties(*it).setSelected(selected);
   }
 }
@@ -1816,7 +1816,7 @@ void DataProperties::setSelected(const DataGuide& guide,
 void DataProperties::setSelected(
                    const std::vector<DataGuide>& guides, bool selected)
 {
-  for(std::vector<DataGuide>::const_iterator it = guides.begin();
+  for(auto it = guides.begin();
                    it != guides.end(); ++it) {
 
     setSelected(*it, selected);
@@ -1931,7 +1931,7 @@ void DataProperties::mergeGeometryDataProperties(
     _data->_mergedGeometryDrawProperties[guide1] = properties;
   }
   else {
-    GeometryDrawProps* properties =
+    auto* properties =
          new GeometryDrawProps(geometryDrawProperties(guide2));
 //     properties->merge(rangeDrawProperties(guide1));
 //     properties->resetCutoffs();
@@ -2032,7 +2032,7 @@ void DataProperties::mergeRangeDataProperties(
     _data->_mergedRangeDrawProperties[guide1] = properties;
   }
   else {
-    RangeDrawProps* properties =
+    auto* properties =
          new RangeDrawProps(rangeDrawProperties(guide2));
     properties->merge(rangeDrawProperties(guide1));
     properties->resetCutoffs();
@@ -2191,7 +2191,7 @@ bool DataProperties::hasSelectedData() const
 {
   bool result = false;
 
-  for(const_iterator it = begin(); it != end(); ++it) {
+  for(auto it = begin(); it != end(); ++it) {
     if(isSelected(*it)) {
       result = true;
       break;
@@ -2207,7 +2207,7 @@ std::vector<DataGuide> DataProperties::selectedData() const
 {
   std::vector<DataGuide> selectedData;
 
-  for(const_iterator it = begin(); it != end(); ++it) {
+  for(auto it = begin(); it != end(); ++it) {
     if(isSelected(*it)) {
       selectedData.push_back(*it);
     }
@@ -2729,7 +2729,7 @@ void DataProperties::pushClassifier(
 
   RangeDrawProps& properties(rangeDrawProperties(guide));
 
-  com::Classifier* raw = new com::Classifier(classifier);
+  auto* raw = new com::Classifier(classifier);
   _data->_rangeClassifiers.push_back(raw);
   com::Classifier* display = nullptr;
 
@@ -2788,7 +2788,7 @@ void DataProperties::popClassifiers(
 void DataProperties::eraseRangeClassifier(com::Classifier* classifier)
 {
   assert(classifier);
-  std::vector<com::Classifier*>::iterator it =
+  auto it =
          std::find(_data->_rangeClassifiers.begin(),
               _data->_rangeClassifiers.end(), classifier);
   assert(it != _data->_rangeClassifiers.end());

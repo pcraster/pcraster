@@ -639,7 +639,7 @@ com::Legend<INT4> geo::CSFMap::legend() const
       legend.setTitle(l[0].descr);
       legend.setNrClasses(n - 1);
 
-      com::Legend<INT4>::iterator it = legend.begin();
+      auto it = legend.begin();
       for(size_t i = 1; i < n; ++i) {
         (*it).setValue(static_cast<INT4>(l[i].nr));
         (*it).setDescr(l[i].descr);

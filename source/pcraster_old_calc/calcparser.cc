@@ -528,7 +528,7 @@ Parser::modelCode(int *_retsignal)
 			if (!script()->isDynamicModel()) // pcrcalc/test8a
 			p.posError("There is a dynamic section but no timer section");
 			// create and add it to the script
-			calc::DynamicSection *n= new calc::DynamicSection(p,script());
+			auto *n= new calc::DynamicSection(p,script());
 			script()->addStatement(n);
  consume();
 #line 427 "calcparser.g"
@@ -924,7 +924,7 @@ Parser::bindingRight(int *_retsignal, const calc::DefPar& par  )
 							calc::Symbol f = symbol(indF);
 							f.posError("Function "+f.qName()+" only allowed on array parameters");
 						}
-						calc::IndexTable *p =
+						auto *p =
 						dynamic_cast<calc::IndexTable *>
 						(par.block()->findSymbol(&indexTableFile,VS_INDEXTABLE,false));
 						bool firstUse = !p;
@@ -1346,7 +1346,7 @@ Parser::codeBlocks(int *_retsignal, calc::StatementBlock *inclIn )
 #line 649 "calcparser.g"
 						{
 #line 646 "calcparser.g"
-							calc::InnerStatementBlock *b =
+							auto *b =
 							new calc::InnerStatementBlock(element(LT(1)), inclIn);
 							inclIn->addStatement(b);
 #line 650 "calcparser.g"

@@ -115,7 +115,7 @@ void calc::ObjectLinkMeta::pushBack(
     PCR_ST             st)
 {
   add(methodName);
-  MethodMap::iterator pos=d_methods.find(methodName);
+  auto pos=d_methods.find(methodName);
   POSTCOND(pos!=d_methods.end());
   OP_ARGS a = { vs, st};
   if (result)

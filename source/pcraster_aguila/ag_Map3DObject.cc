@@ -364,7 +364,7 @@ void ag::Map3DObject::createDrapeScene(const ag::DataObject& dataObject,
   std::vector<QuadDrawer *> drawers;
   std::vector<QuadDrawer *>::const_iterator draw_it;
   std::vector<QuadDrawer *>::reverse_iterator rdraw_it;
-  for(std::vector<DataGuide>::const_iterator it = dataGuides.begin();
+  for(auto it = dataGuides.begin();
          it != dataGuides.end(); ++it) {
 
     if(dataObject.isEnabled(*it)) {
@@ -380,7 +380,7 @@ void ag::Map3DObject::createDrapeScene(const ag::DataObject& dataObject,
         // if(stack.min(&min) && stack.max(&max)) {
           const BooleanDrawProps& props =
                    dataObject.properties().booleanDrawProperties(guide);
-          BooleanQuadDrawer* drawer = new BooleanQuadDrawer(raster, props,
+          auto* drawer = new BooleanQuadDrawer(raster, props,
                    d_quadLength);
           drawers.push_back(drawer);
         // }
@@ -390,7 +390,7 @@ void ag::Map3DObject::createDrapeScene(const ag::DataObject& dataObject,
         // if(stack.min(&min) && stack.max(&max)) {
           const NominalDrawProps& props =
                    dataObject.properties().nominalDrawProperties(guide);
-          NominalQuadDrawer* drawer = new NominalQuadDrawer(raster, props,
+          auto* drawer = new NominalQuadDrawer(raster, props,
                    d_quadLength);
           drawers.push_back(drawer);
         // }
@@ -400,7 +400,7 @@ void ag::Map3DObject::createDrapeScene(const ag::DataObject& dataObject,
         // if(stack.min(&min) && stack.max(&max)) {
           const OrdinalDrawProps& props =
                    dataObject.properties().ordinalDrawProperties(guide);
-          OrdinalQuadDrawer* drawer = new OrdinalQuadDrawer(raster, props,
+          auto* drawer = new OrdinalQuadDrawer(raster, props,
                    d_quadLength);
           drawers.push_back(drawer);
         // }
@@ -410,7 +410,7 @@ void ag::Map3DObject::createDrapeScene(const ag::DataObject& dataObject,
         // if(stack.min(&min) && stack.max(&max)) {
           const RangeDrawProps& props =
                    dataObject.properties().rangeDrawProperties(guide);
-          ScalarQuadDrawer* drawer =
+          auto* drawer =
                    new ScalarQuadDrawer(raster, props, d_quadLength);
           drawers.push_back(drawer);
         // }
@@ -420,7 +420,7 @@ void ag::Map3DObject::createDrapeScene(const ag::DataObject& dataObject,
         // if(stack.min(&min) && stack.max(&max)) {
           const RangeDrawProps& props =
                    dataObject.properties().rangeDrawProperties(guide);
-          DirectionalQuadDrawer* drawer =
+          auto* drawer =
                    new DirectionalQuadDrawer(raster, props, d_quadLength);
           drawers.push_back(drawer);
         // }
@@ -430,7 +430,7 @@ void ag::Map3DObject::createDrapeScene(const ag::DataObject& dataObject,
         // if(stack.min(&min) && stack.max(&max)) {
           const LddDrawProps& props =
                    dataObject.properties().lddDrawProperties(guide);
-          LddQuadDrawer* drawer = new LddQuadDrawer(raster, props,
+          auto* drawer = new LddQuadDrawer(raster, props,
                    d_quadLength);
           drawers.push_back(drawer);
         // }

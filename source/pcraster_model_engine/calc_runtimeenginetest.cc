@@ -115,7 +115,7 @@ BOOST_AUTO_TEST_CASE(testTypeCheck)
    RunTimeEngine      rte(geo::RasterSpace(2,2));
    const Operator* o = major2op(OP_SCALAR);
    REAL4 bData=1.0;
-   NonSpatial* ns =new NonSpatial(VS_SD,bData);
+   auto* ns =new NonSpatial(VS_SD,bData);
    BOOST_CHECK(ns->vs()==VS_SD);
    rte.pushField(ns);
 

@@ -120,7 +120,7 @@ void calc::TimeinputTssOp::exec(RunTimeEnv* rte,const Operator& op,size_t nrArgs
   ExecArguments a(op,rte,nrArgs);
   const Field& id(a[0]);
 
-  const calc::TimeTable *tab=
+  const auto *tab=
     dynamic_cast<const calc::TimeTable *>(a.firstNonFieldInput());
   PRECOND(tab);
   const TIME_TABLE *tss=tab->tss();

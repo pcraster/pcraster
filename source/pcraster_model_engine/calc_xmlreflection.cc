@@ -77,7 +77,7 @@ calc::XMLReflection::XMLReflection(
 {
   // add all definition's of symbols that can be described
   ASTSymbolTable const& syms(script.symbols());
-  for (ASTSymbolTable::const_iterator pos=syms.begin();
+  for (auto pos=syms.begin();
             pos!=syms.end(); ++pos) {
     std::unique_ptr<pcrxml::Definition> d(pos->second.createDefinition());
     if (d.get())

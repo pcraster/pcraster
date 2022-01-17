@@ -268,7 +268,7 @@ class MaskChecker {
     const std::vector<bool>& mask,
     const CR *val)
   {
-    Spatial *debugMap = new Spatial(VS_N,CRI_4,d_n);
+    auto *debugMap = new Spatial(VS_N,CRI_4,d_n);
     INT4    *dest     = debugMap->dest_4();
 
     for(size_t i=0; i < d_n; ++i) {

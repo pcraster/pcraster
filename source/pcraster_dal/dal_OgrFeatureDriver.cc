@@ -283,7 +283,7 @@ void read(
 
   // This assumes the table is previously opened by dal and, hence, the driver
   // is known.
-  TableDriver const& driver(dynamic_cast<TableDriver const&>(
+  auto const& driver(dynamic_cast<TableDriver const&>(
          *Client::dal().driverByDataset(tableName, space)));
   driver.read(table, tableName, space, address);
 
@@ -445,7 +445,7 @@ void OgrFeatureDriver::init()
 {
   _driver_names = CSLAddString(nullptr, _driver->GetDescription());
 
-  DriverProperties& properties = this->properties().value<DriverProperties>(
+  auto& properties = this->properties().value<DriverProperties>(
          DAL_DRIVER_GENERAL);
   properties |= Reader;
 
@@ -696,7 +696,7 @@ TypeId OgrFeatureDriver::open(
   else {
     // See whether there is a column with a name corresponding to the requested
     // address.
-    Table const& table(dynamic_cast<Table const&>(*dataset));
+    auto const& table(dynamic_cast<Table const&>(*dataset));
 
     fieldId = table.indexOf(path.attribute());
 
@@ -926,7 +926,7 @@ void OgrFeatureDriver::readAttribute(
     throwCannotBeOpened(tableName, TABLE);
   }
 
-  Table& table(dynamic_cast<Table&>(*dataset));
+  auto& table(dynamic_cast<Table&>(*dataset));
 
   detail::read(table, layer, path, space, address);
 
@@ -1062,7 +1062,7 @@ void OgrFeatureDriver::updateAttribute(
     throwCannotBeOpened(tableName, TABLE);
   }
 
-  Table& table(dynamic_cast<Table&>(*dataset));
+  auto& table(dynamic_cast<Table&>(*dataset));
 
   // TODO Reserve memory based on current number of features in the layer.
   detail::read(table, layer, path, space, address);
@@ -1220,7 +1220,7 @@ void OgrFeatureDriver::read(
   GDALDataset* dataset = nullptr;
 
   try {
-    GDALDataset* dataset = static_cast<GDALDataset*>(GDALOpenEx(
+    auto* dataset = static_cast<GDALDataset*>(GDALOpenEx(
         path.source().c_str(), GDAL_OF_VECTOR, _driver_names, nullptr, nullptr));
 
     if(!dataset) {
@@ -1318,7 +1318,7 @@ void OgrFeatureDriver::read(
   assert(typeId == TI_REAL4);
   assert(space.hasSpace());
   size_t index = space.indexOf(Space);
-  SpatialCoordinate const& spatialAddress(
+  auto const& spatialAddress(
          address.coordinate<SpatialCoordinate>(index));
 
   DataSpace newSpace(space);

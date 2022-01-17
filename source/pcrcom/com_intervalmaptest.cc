@@ -62,7 +62,7 @@ BOOST_AUTO_TEST_CASE(find)
   m.insertInterval(BetweenLimits<>(GreaterThan<>(0),LessThanEqualTo<>(2)));
   BOOST_CHECK(m.size()==3);
   size_t c=0;
-  for(M::iterator i=m.begin();i!=m.end();++i) {
+  for(auto i=m.begin();i!=m.end();++i) {
     switch(c) {
       case 0: BOOST_CHECK(i->first->min()==0); break;
       case 1: BOOST_CHECK(i->first->min()==3); break;

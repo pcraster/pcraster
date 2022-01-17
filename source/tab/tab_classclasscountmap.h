@@ -73,7 +73,7 @@ class ClassClassCountMap : public std::map<Class,ClassCountMap<Class> >
 
   S rowClasses() const {
     S s;
-    for (I i=this->begin();i!=this->end();++i)
+    for (auto i=this->begin();i!=this->end();++i)
       s.insert(i->first);
     return s;
   }
@@ -81,7 +81,7 @@ class ClassClassCountMap : public std::map<Class,ClassCountMap<Class> >
   //! union set of all classes occurring in some columns
   S colClasses() const {
     S s;
-    for (I i=this->begin();i!=this->end();++i) {
+    for (auto i=this->begin();i!=this->end();++i) {
       S a(i->second.classes());
       s.insert(a.begin(),a.end());
     }
@@ -90,7 +90,7 @@ class ClassClassCountMap : public std::map<Class,ClassCountMap<Class> >
 
   //! return the count, 0 if not in map
   size_t getCount(Class r, Class c) const {
-    I i=this->find(r);
+    auto i=this->find(r);
     if (i!=this->end())
       return i->second.getCount(c);
     return 0;

@@ -129,11 +129,11 @@ void calc::FieldLeaf::analyseUseDef()
        }
     // there is a next, and is a def
     // cast to fieldleft to optimize a[i] = a[i] + f(......)
-    const calc::FieldLeft *nextDef =
+    const auto *nextDef =
      dynamic_cast<const calc::FieldLeft *>(next);
-    const calc::IndexSelectedVector *indexNextDef =
+    const auto *indexNextDef =
      dynamic_cast<const calc::IndexSelectedVector *>(nextDef->indexSelected());
-    const calc::IndexSelectedVector *index =
+    const auto *index =
     dynamic_cast<const calc::IndexSelectedVector *>(d_index.get());
     if (index->equal(indexNextDef))
             d_overWriteVal = true;

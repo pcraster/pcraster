@@ -269,7 +269,7 @@ void PlotVisualisation::drawCurve(
       ++sizeOfSubRange;
     }
 
-    QLineSeries *series = new QLineSeries();
+    auto *series = new QLineSeries();
 
     // Plain inserting the values...
     for(size_t i = 0; i < nrValues; ++i){
@@ -386,7 +386,7 @@ bool PlotVisualisation::intersectMarker(
   QPointF point1, point2, intersection;
   bool intersectionFound = false;
 
-  std::map<DataGuide, std::vector<QtCharts::QLineSeries*> >::const_iterator it =
+  auto it =
          _curvesPerGuide.find(guide);
 
   if(it != _curvesPerGuide.end()) {

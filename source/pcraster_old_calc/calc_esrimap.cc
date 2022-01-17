@@ -289,7 +289,7 @@ void calc::EsriMap::writeData(const void *allValues)
   case CR_REAL4: {
     float **outVal2d = com::new2d<float>(nrRows(),nrCols());
     try {
-    const float *inVal = static_cast<const float *>(allValues);
+    const auto *inVal = static_cast<const float *>(allValues);
     float *outVal= outVal2d[0];
     float mvVal;
     calc::EsriGridIO::getMissingFloat(&mvVal);
@@ -332,7 +332,7 @@ void calc::EsriMap::writeData(const void *allValues)
   case CR_UINT1: {
     INT4 **outVal2d = com::new2d<INT4>(nrRows(),nrCols());
     try {
-      const UINT1 *inVal=
+      const auto *inVal=
         static_cast<const UINT1 *>(allValues);
       INT4 *outVal=outVal2d[0];
       for(size_t i=0; i < nrCells(); i++) {

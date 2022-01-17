@@ -178,7 +178,7 @@ calc::ASTExpr* calc::ASTTestFactory::createExpr(
     if (!op)
      throw com::BadStreamFormat("createExpr illegal op: "+opName);
   }
-  ASTExpr *e= new ASTExpr(opN,*op);
+  auto *e= new ASTExpr(opN,*op);
   return e;
 }
 
@@ -200,7 +200,7 @@ calc::ASTAss* calc::ASTTestFactory::createAss(
     ASTNode  *value,
     const Position *pos)
 {
-  ASTAss *a= new ASTAss();
+  auto *a= new ASTAss();
   ASTPar p(parName);
   p.setPosition(pos);
   a->addPar(p);
@@ -249,7 +249,7 @@ calc::ASTNode* calc::ASTTestFactory::createCode(
               n = createAss(v, createCode(c[0]),&pn);
               } break;
     case 'l': {
-              ASTNodeVector *l = new ASTNodeVector();
+              auto *l = new ASTNodeVector();
               std::vector<QDomElement> c(pcrxml::childElements(e));
               for(size_t i=0; i<c.size(); ++i)
                 l->transferPushBack(createCode(c[i]));

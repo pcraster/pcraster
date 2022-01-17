@@ -165,7 +165,7 @@ void calc::execPCB(
   const void*          dllFunctionAddress)
 {
   typedef void (*DllFunction)(CellPtr* data,size_t n);
-  DllFunction func=(DllFunction)dllFunctionAddress;
+  auto func=(DllFunction)dllFunctionAddress;
 
   size_t nrValues=1;
   for(size_t i=0; i < data.size(); ++i)

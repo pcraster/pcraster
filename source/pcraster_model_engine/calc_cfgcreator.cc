@@ -197,7 +197,7 @@ calc::CFGNode* calc::CFGCreatorPrivate::releaseFirst() {
 
 void calc::CFGCreatorPrivate::add(ASTNode *an)
 {
-  CFGNode *n= new CFGNode(an);
+  auto *n= new CFGNode(an);
   if (d_last) {
     d_last->setForward(n);
     n->setPred(d_last);

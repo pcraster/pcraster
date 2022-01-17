@@ -227,7 +227,7 @@ struct linkNameIs {
 
 const calc::Operator* calc::ExternalSymbols::find(const std::string& name) const
 {
-  std::vector<calc::ExternalFunction>::const_iterator i =
+  auto i =
     std::find_if(d_table.begin(),d_table.end(),name_is(name));
   if (i != d_table.end())
     return  &(*i);
@@ -239,7 +239,7 @@ const calc::Operator* calc::ExternalSymbols::find(const std::string& name) const
 const calc::ModelLinkProxy* calc::ExternalSymbols::findModelLinkProxy(
                    const std::string& name) const
 {
-  std::vector<ModelLinkProxy>::const_iterator it =
+  auto it =
                    std::find_if(d_modelLinkProxies.begin(),
                    d_modelLinkProxies.end(), linkNameIs(name));
 
@@ -264,7 +264,7 @@ void calc::ExternalSymbols::loadDynamicLibrary(const std::string& extLibNoExt)
   try {
 
     // Open library.
-    com::DynamicLibrary* lib = new com::DynamicLibrary(extLibNoExt);
+    auto* lib = new com::DynamicLibrary(extLibNoExt);
     d_libraries.push_back(lib);
 
     typedef PCR_EXTERNAL_FUNCTION_LIST * (*GET_LIST_PTR)(void);

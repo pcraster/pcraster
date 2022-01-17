@@ -97,7 +97,7 @@ void MultiMap2D::createInterface(
   sizes.append(400);
   d_splitter->setSizes(sizes);
 
-  QVBoxLayout* layout = new QVBoxLayout(this);
+  auto* layout = new QVBoxLayout(this);
   layout->addWidget(d_splitter);
 }
 

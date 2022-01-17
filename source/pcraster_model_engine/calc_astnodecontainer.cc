@@ -281,7 +281,7 @@ calc::ASTNodeList::const_iterator calc::ASTNodeList::end() const
  */
 void calc::ASTNodeList::replace(ASTNode *by, iterator begin, iterator end)
 {
-  iterator i=d_container.erase(begin,end);
+  auto i=d_container.erase(begin,end);
   d_container.insert(i,by);
 }
 

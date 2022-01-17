@@ -122,8 +122,8 @@ public:
     if(size()) {
       const std::pair<T, T>& begin = d_points.front();
       const std::pair<T, T>& end = d_points.back();
-      double dx = static_cast<double>(end.first - begin.first);
-      double dy = static_cast<double>(end.second - begin.second);
+      auto dx = static_cast<double>(end.first - begin.first);
+      auto dy = static_cast<double>(end.second - begin.second);
       // Add one for current cell.
       distance = std::hypot(dx,dy) + 1.0;
     }
@@ -150,7 +150,7 @@ extern "C" int ExtentOfView(
 
   PRECOND(classes.spatial());
   PRECOND(!nrDirectionsInterface.spatial());
-  size_t nrDirections = static_cast<size_t>(nrDirectionsInterface.value(0,0));
+  auto nrDirections = static_cast<size_t>(nrDirectionsInterface.value(0,0));
 
   std::vector<fieldapi::ScalarDomainCheck> nsDomains;
   nsDomains.push_back(fieldapi::ScalarDomainCheck(nrDirectionsInterface,
@@ -231,7 +231,7 @@ extern "C" int ExtentOfView(
     points.setClass(classes[*visitor]);
 
     // Loop over each direction.
-    for(Offsets::const_iterator it = offsets.begin(); it != offsets.end();
+    for(auto it = offsets.begin(); it != offsets.end();
          ++it) {
 
       points.clear();

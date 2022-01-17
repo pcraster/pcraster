@@ -58,11 +58,11 @@ public:
                          LinkInTransferArray linkInTransferArray)
   {
     std::string objName=std::string(l.callPoint().object()->objectName());
-    Objects::iterator i=objects.find(objName);
+    auto i=objects.find(objName);
       // instance already exists, constructing again means deleting the old one
     if (i!=objects.end())
       delete i->second;
-    Class1 *c = new Class1(l,linkInTransferArray);
+    auto *c = new Class1(l,linkInTransferArray);
     objects.insert(std::make_pair(objName,c));
   }
 
@@ -71,7 +71,7 @@ public:
                           LinkInTransferArray linkInTransferArray)
   {
     std::string objName=std::string(l.callPoint().object()->objectName());
-    Objects::iterator i=objects.find(objName);
+    auto i=objects.find(objName);
     assert(i!=objects.end());
 
     std::string methodName=std::string(l.callPoint().object()->methodName().get());
@@ -106,8 +106,8 @@ public:
     if (op=="div" && firstConstructorArgument==0.0F)
       throw std::domain_error("attempting division by 0");
 
-    float       *result      = (float *)linkInTransferArray[0];
-    const float *leftOperand = (const float *)linkInTransferArray[1];
+    auto       *result      = (float *)linkInTransferArray[0];
+    const auto *leftOperand = (const float *)linkInTransferArray[1];
     size_t       len=1; // NonSpatial
     if (l.argument()[0].spatialType() == pcrxml::SpatialType::Spatial)
       len = l.context().areaMap().nrRows() *
@@ -133,7 +133,7 @@ static void checkerBoard(
 {
   assert(l.result().size()==1);
 
-  unsigned char *result=(unsigned char *)linkInTransferArray[0];
+  auto *result=(unsigned char *)linkInTransferArray[0];
 
   unsigned char value;
   size_t nrRows=l.context().areaMap().nrRows();

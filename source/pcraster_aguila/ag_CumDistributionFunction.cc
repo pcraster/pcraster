@@ -78,7 +78,7 @@ CumDistributionFunction& CumDistributionFunction::operator=(CumDistributionFunct
 void CumDistributionFunction::createInterface(DataObject* object)
 {
   d_splitter = new QSplitter(Qt::Horizontal, this);
-  QVBoxLayout* layout = new QVBoxLayout(this);
+  auto* layout = new QVBoxLayout(this);
   layout->addWidget(d_splitter);
 
   d_legendView = new LegendView(object, VT_Graph, d_splitter);

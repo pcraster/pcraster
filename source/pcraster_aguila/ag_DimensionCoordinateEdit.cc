@@ -84,7 +84,7 @@ void DimensionCoordinateEdit::createInterface()
 
   switch(d_dimension->discretisation()) {
     case dal::ExactDiscretisation: {
-      QComboBox* comboBox = new QComboBox(this);
+      auto* comboBox = new QComboBox(this);
 
       for(size_t i = 0; i < d_dimension->nrCoordinates(); ++i) {
         comboBox->addItem(
@@ -97,7 +97,7 @@ void DimensionCoordinateEdit::createInterface()
       break;
     }
     case dal::RegularDiscretisation: {
-      QSlider* slider = new QSlider(Qt::Horizontal, this);
+      auto* slider = new QSlider(Qt::Horizontal, this);
       slider->setMinimum(0);
       slider->setMaximum(d_dimension->nrCoordinates() - 1);
       slider->setPageStep(1);
@@ -113,7 +113,7 @@ void DimensionCoordinateEdit::createInterface()
     }
   }
 
-  QHBoxLayout* layout = new QHBoxLayout(this);
+  auto* layout = new QHBoxLayout(this);
   layout->addWidget(d_editWidget);
 
   assert(d_editWidget);
@@ -139,13 +139,13 @@ void DimensionCoordinateEdit::setCoordinate(
 
   switch(d_dimension->discretisation()) {
     case dal::ExactDiscretisation: {
-      QComboBox* comboBox = dynamic_cast<QComboBox*>(d_editWidget);
+      auto* comboBox = dynamic_cast<QComboBox*>(d_editWidget);
       assert(comboBox);
       comboBox->setCurrentIndex(int(index));
       break;
     }
     case dal::RegularDiscretisation: {
-      QSlider* slider = dynamic_cast<QSlider*>(d_editWidget);
+      auto* slider = dynamic_cast<QSlider*>(d_editWidget);
       assert(slider);
       slider->setValue(int(index));
       break;

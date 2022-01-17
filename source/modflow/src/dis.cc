@@ -496,7 +496,7 @@ void DIS::write_dis(std::string const& path) const {
   //
   // Item 2:  LAYCBD
   //
-  std::vector<bool>::reverse_iterator ri = d_mf->dd_isConfined.rbegin();
+  auto ri = d_mf->dd_isConfined.rbegin();
   while(ri != (d_mf->dd_isConfined.rend())) {
     if((!(ri + 1 == d_mf->dd_isConfined.rend()))&&(d_mf->dd_isConfined.at(*(ri + 1)) == true)){
       content << " 1";

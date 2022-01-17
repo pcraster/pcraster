@@ -57,7 +57,7 @@ public:
     if(layout())
       delete layout();
 
-    QVBoxLayout *vbox = new QVBoxLayout(this);
+    auto *vbox = new QVBoxLayout(this);
     vbox->addStretch(1);
 
     std::vector<qtw::PaletteBar *>::const_iterator it;
@@ -141,7 +141,7 @@ void qtd::SelectPalette::addPalette(const com::RawPalette *p)
 {
   assert(p);
 
-  qtw::PaletteBar *pb = new qtw::PaletteBar(p, d_cw);
+  auto *pb = new qtw::PaletteBar(p, d_cw);
   connect(pb, SIGNAL(mousePressed(qtw::PaletteBar *, QMouseEvent *)),
           this, SLOT(selectPaletteBar(qtw::PaletteBar *, QMouseEvent *)));
   d_cw->addPalette(pb);

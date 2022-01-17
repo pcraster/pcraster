@@ -310,7 +310,7 @@ void  IOStrategy::resolve(
   //  - Input tss and tables are always done by files. DataTable::insert not earlier
   // WARNING: this resolve calls back into this, thus symbols is NOT stable
   //          DO NOT replace this loop with a FOR_EACH construct.
-  for(ASTSymbolTable::iterator i=symbols.begin(); i!=symbols.end();++i)
+  for(auto i=symbols.begin(); i!=symbols.end();++i)
     i->second.resolve(*this);
 
   // see if we have picked up a RasterSpace from resolved symbols (Files)
@@ -432,7 +432,7 @@ Field* IOStrategy::createReadField(const std::string& mapName,
         return u.releasePacked();
     }
     case ST_NONSPATIAL: {
-        NonSpatial *ns = new NonSpatial(type.vs());
+        auto *ns = new NonSpatial(type.vs());
         try {
          readField(ns->dest(),mapName,type);
         } catch(...) {
@@ -465,7 +465,7 @@ void* IOStrategy::memoryValue(std::string const& name) const {
  *  throw com::Exception if in d_memoryData but 0 ptr.
  */
 MemoryExchangeItem* IOStrategy::memoryValue(std::string const& name) const {
-  MemoryData::const_iterator i = d_memoryData.find(name);
+  auto i = d_memoryData.find(name);
   if (i != d_memoryData.end())
   {
     PRECOND(i->second.get()); // always has a value
@@ -544,7 +544,7 @@ GridStat IOStrategy::writeFieldUnpacked(
       // user is requesting us to allocate it
       PRECOND(mem->name() == name);
       boost::shared_ptr<Field> allocatedCopy(f->createClone());
-      MemoryExchangeItemField *mei =
+      auto *mei =
        new MemoryExchangeItemField(name, mem->id(),
                                 allocatedCopy);
       d_memoryData[name] = boost::shared_ptr<MemoryExchangeItem>(mei);
@@ -574,7 +574,7 @@ GridStat calc::IOStrategy::writeField(
     const std::string& fileName,
     const Field *f) const
 {
-  IOStrategy *hack = (IOStrategy *)this;
+  auto *hack = (IOStrategy *)this;
   if (f->isSpatial()) {
     UnpackedSrc us(*d_spatialPacking, f);
     PRECOND(us.src()->nrValues()==rasterSpace().nrCells());

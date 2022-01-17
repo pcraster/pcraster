@@ -77,7 +77,7 @@ static void execLookupLookup(
     F              f)
 {
 
-  const calc::LookupTable *tab=
+  const auto *tab=
     dynamic_cast<const calc::LookupTable *>(a.firstNonFieldInput());
   PRECOND(tab);
 

@@ -65,19 +65,19 @@ BOOST_AUTO_TEST_CASE(testExpr)
        //         a3),
        //       a4)
     E eAutoPtr(sp.createExpr("min(0,1,2,3,4)"));
-    ASTExpr *e=dynamic_cast<ASTExpr *>(eAutoPtr.get());
+    auto *e=dynamic_cast<ASTExpr *>(eAutoPtr.get());
 
     for(size_t a=0; a < 4; ++a) {
       BOOST_CHECK(e);
       BOOST_CHECK(e->nrArgs()==2);
-      ASTNumber *n(dynamic_cast<ASTNumber *>(e->arg(1)));
+      auto *n(dynamic_cast<ASTNumber *>(e->arg(1)));
       BOOST_CHECK(n);
 
       BOOST_CHECK(n->value()==4-a);
-      ASTExpr *nextE=dynamic_cast<ASTExpr *>(e->arg(0));
+      auto *nextE=dynamic_cast<ASTExpr *>(e->arg(0));
       if (a==3) { // last most inner
        BOOST_CHECK(!nextE);
-       ASTNumber *n(dynamic_cast<ASTNumber *>(e->arg(0)));
+       auto *n(dynamic_cast<ASTNumber *>(e->arg(0)));
        BOOST_CHECK(n->value()==0);
       }
       e=nextE;
@@ -140,15 +140,15 @@ BOOST_AUTO_TEST_CASE(testCode)
  { // only a dynamic section
   typedef std::unique_ptr<ASTNode> B;
   B l(sp.createCodeAsNode(parsertest::model("pcrcalc8a")));
-  DynamicSection *d(astCast<DynamicSection>(l.get(),"C/b/0"));
+  auto *d(astCast<DynamicSection>(l.get(),"C/b/0"));
   BOOST_REQUIRE(d);
-  ASTNodeList    *s(dynamic_cast<ASTNodeList *>(d->statements()));
+  auto    *s(dynamic_cast<ASTNodeList *>(d->statements()));
   BOOST_CHECK_EQUAL(s->size(), 2U);
  }
  { // initial plus dynamic
   typedef std::unique_ptr<ASTNode> B;
   B b(sp.createCodeAsNode(parsertest::model("pcrcalc8ab")));
-  ASTNodeList *l(astCast<ASTNodeList>(b.get(),"C/b"));
+  auto *l(astCast<ASTNodeList>(b.get(),"C/b"));
   BOOST_REQUIRE(l);
 
   BOOST_CHECK_EQUAL(l->size(), 2U);
@@ -353,21 +353,21 @@ BOOST_AUTO_TEST_CASE(testExternalBindings)
   BOOST_CHECK(rs.size()==2); // 2 out of 3 bindings kept
 
   {
-  ASTAss *a= dynamic_cast<ASTAss *>(rs[0]);
+  auto *a= dynamic_cast<ASTAss *>(rs[0]);
   BOOST_CHECK(a);
   BOOST_CHECK(a->par()->name()=="jan");
 
-  ASTId *v= dynamic_cast<ASTId *>(a->rhs());
+  auto *v= dynamic_cast<ASTId *>(a->rhs());
   BOOST_CHECK(v);
   BOOST_CHECK(v->name()=="xx file.txt");
   }
 
   {
-  ASTAss *a= dynamic_cast<ASTAss *>(rs[1]);
+  auto *a= dynamic_cast<ASTAss *>(rs[1]);
   BOOST_CHECK(a);
   BOOST_CHECK(a->par()->name()=="n");
 
-  ASTNumber *v= dynamic_cast<ASTNumber *>(a->rhs());
+  auto *v= dynamic_cast<ASTNumber *>(a->rhs());
   BOOST_CHECK(v);
   BOOST_CHECK(v->value()==4);
   }

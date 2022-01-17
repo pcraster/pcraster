@@ -67,7 +67,7 @@ Table::Table(
     d_table(nullptr), d_valueScale(VS_NOTDETERMINED)
 
 {
-  dal::TableDriver* driver =
+  auto* driver =
          dynamic_cast<dal::TableDriver*>(dataSource().reader());
   assert(driver);
 
@@ -246,7 +246,7 @@ void Table::read(
 
       // Translate time steps in local coordinates to global coordinates.
       size_t id = dataSource().dataSpace().indexOf(dal::Time);
-      dal::StepCoordinateMapper const* mapper =
+      auto const* mapper =
          dynamic_cast<dal::StepCoordinateMapper const*>(
          globalToLocalMapper().mapper(id));
 

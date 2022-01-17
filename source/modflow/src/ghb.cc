@@ -188,8 +188,8 @@ calc::Field* GHB::getGhbLeakage(size_t layer, std::string const& path) const {
   // get the 'inverse' layer number to start from the right position
   int pos_multiplier = d_mf->get_modflow_layernr(layer);
 
-  calc::Spatial* spatial = new calc::Spatial(VS_S, calc::CRI_f, d_mf->d_nrOfCells);
-  REAL4* cells = static_cast<REAL4*>(spatial->dest());
+  auto* spatial = new calc::Spatial(VS_S, calc::CRI_f, d_mf->d_nrOfCells);
+  auto* cells = static_cast<REAL4*>(spatial->dest());
 
   mf::BinaryReader reader;
   const std::string filename(mf::execution_path(path, "fort." + std::to_string(d_output_unit_number)));

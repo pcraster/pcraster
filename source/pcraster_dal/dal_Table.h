@@ -1004,7 +1004,7 @@ inline Array<T>& Table::insertCol(
   assert(d_titles.size() == d_cols.size());
   assert(d_typeIds.size() == d_cols.size());
 
-  Array<T>* array = new Array<T>(nrRecs());
+  auto* array = new Array<T>(nrRecs());
 
   d_titles.insert(d_titles.begin() + col, title);
   d_typeIds.insert(d_typeIds.begin() + col, TypeTraits<T>::typeId);
@@ -1085,7 +1085,7 @@ inline Array<T>& Table::appendCol(
 {
   assert(d_titles.size() == d_cols.size());
 
-  Array<T>* array = new Array<T>(nrRecs());
+  auto* array = new Array<T>(nrRecs());
 
   d_titles.push_back(title);
   d_typeIds.push_back(TypeTraits<T>::typeId);
@@ -1153,7 +1153,7 @@ inline void Table::appendRec(size_t col)
 template<typename T>
 inline void Table::appendRec(size_t col)
 {
-  Array<T>* array = boost::any_cast<Array<T>*>(d_cols[col]);
+  auto* array = boost::any_cast<Array<T>*>(d_cols[col]);
   array->push_back(T());
 }
 
@@ -1233,7 +1233,7 @@ inline void Table::erase(size_t col)
   // Test whether this column is already created.
   if(col < d_cols.size()) {
     if(!d_cols[col].empty()) {
-      Array<T>* array = boost::any_cast<Array<T>*>(d_cols[col]);
+      auto* array = boost::any_cast<Array<T>*>(d_cols[col]);
       delete array;
     }
 

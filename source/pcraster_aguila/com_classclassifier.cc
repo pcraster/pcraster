@@ -90,7 +90,7 @@ void com_ClassClassifier<T>::setClasses(const std::set<T> &c)
   d_classes.resize(c.size());                                              // 1.
 
   size_t i = 0;
-  for(typename std::set<T>::const_iterator it = c.begin(); it != c.end();
+  for(auto it = c.begin(); it != c.end();
          it++, i++)
   {
     d_classes[i].setValue(*it);                                            // 2.

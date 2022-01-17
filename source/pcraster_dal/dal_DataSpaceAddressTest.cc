@@ -54,7 +54,7 @@ BOOST_AUTO_TEST_CASE(copy)
   BOOST_CHECK_CLOSE(address2.coordinate<SpatialCoordinate>(0).y(), 6.6, 0.001);
 
   boost::any const& any = address2.coordinate(0);
-  SpatialCoordinate const& coordinate(
+  auto const& coordinate(
          boost::any_cast<SpatialCoordinate const&>(any));
 
   BOOST_CHECK_CLOSE(coordinate.x(), 5.5, 0.001);

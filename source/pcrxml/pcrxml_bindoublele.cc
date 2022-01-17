@@ -84,7 +84,7 @@ double pcrxml::BinDoubleLE::hexToDouble (const std::string& hexString)
   double v;
 
   PRECOND(hexString.size() == sizeof(double)*2);
-  unsigned char *ptr=(unsigned char *)&v;
+  auto *ptr=(unsigned char *)&v;
   for(size_t i=0;i < sizeof(double); i++) {
     std::istringstream  is(hexString.substr(i*2,2));
     int value;
@@ -107,7 +107,7 @@ pcrxml::BinDoubleLE::~BinDoubleLE()
 
 std::string pcrxml::BinDoubleLE::attrValueStr() const
 {
-  const unsigned char *ptr=(const unsigned char *)&d_value;
+  const auto *ptr=(const unsigned char *)&d_value;
   std::ostringstream  o;
   for(size_t i=0;i < sizeof(double); ++i) {
     o << std::hex << std::setw(2) << std::setfill('0') <<  static_cast<int>(ptr[i]);

@@ -76,7 +76,7 @@ bool calc::NonSpatial::getCell(double& value, size_t /* i */) const
 
 calc::NonSpatial *calc::NonSpatial::copy() const
 {
-  calc::NonSpatial *n = new calc::NonSpatial(vs() /* ,true */);
+  auto *n = new calc::NonSpatial(vs() /* ,true */);
   n->d_crVal = d_crVal;
   switch(d_crVal) {
     case CR_REAL4: n->d_vals = d_vals; break;

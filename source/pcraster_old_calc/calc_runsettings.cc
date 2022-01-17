@@ -98,9 +98,9 @@ pcrxml::ModelRunSettings *calc::RunSettings::createModelRunSettings() const
   pcrxml::ModelRunSettings *m=nullptr;
   try {
     m=new pcrxml::ModelRunSettings();
-    for (Bindings::const_iterator pos=d_bindings.begin(); 
+    for (auto pos=d_bindings.begin(); 
          pos !=d_bindings.end(); ++pos) {
-            pcrxml::Binding* f(new pcrxml::Binding());
+            auto* f(new pcrxml::Binding());
             f->parameter=pos->first.name();
             f->value=pos->second.name();
             m->binding.push_back(f);

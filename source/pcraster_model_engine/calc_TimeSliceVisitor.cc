@@ -61,7 +61,7 @@ void TimeSliceVisitor::visitPerCachmentSlice()
     CurrentSliceInfo csi;
     csi.timestepInSecs = d_timestepInSecs;
 
-    for(LddGraph::Catchments::const_iterator c= graph().catchmentsBegin();
+    for(auto c= graph().catchmentsBegin();
         c != graph().catchmentsEnd(); ++c)
     {
       // set the per pit timeslice
@@ -75,7 +75,7 @@ void TimeSliceVisitor::visitPerCachmentSlice()
       csi.sliceInSecs = d_timestepInSecs/(double)csi.nrTimeSlices;
       initPerCatchmentSlice(csi);
 
-      for(LddGraph::DownConstIterator i=c->downBegin(); i != c->downEnd(); ++i)
+      for(auto i=c->downBegin(); i != c->downEnd(); ++i)
           finishVertexBeforeAllSlices(i->up());
       finishVertexBeforeAllSlices(c->d_pitId);
 
@@ -86,7 +86,7 @@ void TimeSliceVisitor::visitPerCachmentSlice()
         initPerCatchmentSlice(csi);
         visitCatchmentOfPit(c);
       }
-     for(LddGraph::DownConstIterator i=c->downBegin(); i != c->downEnd(); ++i) {
+     for(auto i=c->downBegin(); i != c->downEnd(); ++i) {
        finishVertexAfterAllSlices(i->up());
      }
      finishVertexAfterAllSlices(c->d_pitId);
@@ -99,7 +99,7 @@ void calc::TimeSliceVisitor::visitCatchmentOfPit(
 {
   POSTCOND(c < graph().catchmentsEnd());
 
-  for(LddGraph::DownConstIterator i=c->downBegin();
+  for(auto i=c->downBegin();
          i != c->downEnd(); ++i) {
        initVertexBeforeSlice(i->up());
   }
@@ -107,7 +107,7 @@ void calc::TimeSliceVisitor::visitCatchmentOfPit(
 
   visitCatchment(*c);
 
-  for(LddGraph::DownConstIterator i=c->downBegin();
+  for(auto i=c->downBegin();
          i != c->downEnd(); ++i) {
        finishVertexAfterSlice(i->up());
   }

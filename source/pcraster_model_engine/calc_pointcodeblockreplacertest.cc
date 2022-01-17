@@ -85,7 +85,7 @@ BOOST_AUTO_TEST_CASE(test)
 
    // a=0 only assignments, not a block
    BOOST_CHECK(astCast<ASTStat>(test.ast(),"C/b/l/0"));
-   ASTPar *p(astCast<ASTPar>(test.ast(), "C/b/l/0/a/<"));
+   auto *p(astCast<ASTPar>(test.ast(), "C/b/l/0/a/<"));
    BOOST_CHECK(p);
    BOOST_CHECK( p->name() == "a");
    BOOST_CHECK(!p->lastUse());

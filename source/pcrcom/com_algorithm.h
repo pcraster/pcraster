@@ -105,7 +105,7 @@ class FindValue {
    FindValue(const T& defValue):
      d_defValue(defValue) {};
    T find(const Map& m, const K& key) {
-     typename std::map<K,T>::const_iterator i=m.find(key);
+     auto i=m.find(key);
      if (i == m.end())
        return d_defValue;
      return i->second;

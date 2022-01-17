@@ -48,7 +48,7 @@ calc::ArrayDefVector::ArrayDefVector(
 
 size_t calc::ArrayDefVector::toLinear(std::vector<size_t>& ind) const
 {
-  std::map<std::vector<size_t>,size_t>::const_iterator 
+  auto 
     p = d_map2flatIndex.find(ind);
   POSTCOND(p != d_map2flatIndex.end());
   return p->second;

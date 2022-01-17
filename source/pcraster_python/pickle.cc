@@ -36,7 +36,7 @@ void fill_raster(calc::Field & field, const pybind11::tuple state){
 
   std::vector<std::string> values;
 
-  std::string s = state[0].cast<std::string>();
+  auto s = state[0].cast<std::string>();
   boost::trim(s);
   boost::split(values, s, boost::is_any_of(" "), boost::token_compress_on);
 
@@ -46,7 +46,7 @@ void fill_raster(calc::Field & field, const pybind11::tuple state){
 
   size_t count = 0;
 
-  for(std::vector<std::string>::iterator it = values.begin(); it != values.end(); ++it){
+  for(auto it = values.begin(); it != values.end(); ++it){
     if (*it != "m") {
       // Correct direct parsing of hexstrings seems to be still discussed
       // without strtod reading hexstring will result in 0
@@ -108,12 +108,12 @@ pybind11::tuple getstate(calc::Field const & raster){
 
 
 calc::Field* setstate(pybind11::tuple const & state) {
-  size_t nr_rows = state[3].cast<size_t>();
-  size_t nr_cols = state[4].cast<size_t>();
+  auto nr_rows = state[3].cast<size_t>();
+  auto nr_cols = state[4].cast<size_t>();
   size_t nr_cells = nr_rows * nr_cols;
-  double north = state[5].cast<double>();
-  double west = state[6].cast<double>();
-  double cell_size = state[7].cast<double>() ;
+  auto north = state[5].cast<double>();
+  auto west = state[6].cast<double>();
+  auto cell_size = state[7].cast<double>() ;
   int projection = state[8].cast<int>();
 
   if (!globals.cloneSpace().valid()) {

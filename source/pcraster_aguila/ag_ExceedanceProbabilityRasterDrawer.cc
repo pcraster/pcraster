@@ -70,10 +70,10 @@ void ExceedanceProbabilityRasterDrawer::drawSingleColour(
   matrix.transfer(const_cast<REAL4*>(_raster->cells<REAL4>()),
          dal::Matrix::DoNotTakeOwnerShip);
 
-  size_t firstRow = static_cast<size_t>(indices.top());
-  size_t lastRow = static_cast<size_t>(indices.bottom());
-  size_t firstCol = static_cast<size_t>(indices.left());
-  size_t lastCol = static_cast<size_t>(indices.right());
+  auto firstRow = static_cast<size_t>(indices.top());
+  auto lastRow = static_cast<size_t>(indices.bottom());
+  auto firstCol = static_cast<size_t>(indices.left());
+  auto lastCol = static_cast<size_t>(indices.right());
 
   assert(_properties.palette()->nrColours() > 0);
   QColor colour = qt::RgbTupleToQColor(*_properties.palette()->begin(),
@@ -132,10 +132,10 @@ void ExceedanceProbabilityRasterDrawer::drawMultipleColours(
   matrix.transfer(const_cast<REAL4*>(_raster->cells<REAL4>()),
          dal::Matrix::DoNotTakeOwnerShip);
 
-  size_t firstRow = static_cast<size_t>(indices.top());
-  size_t lastRow = static_cast<size_t>(indices.bottom());
-  size_t firstCol = static_cast<size_t>(indices.left());
-  size_t lastCol = static_cast<size_t>(indices.right());
+  auto firstRow = static_cast<size_t>(indices.top());
+  auto lastRow = static_cast<size_t>(indices.bottom());
+  auto firstCol = static_cast<size_t>(indices.left());
+  auto lastCol = static_cast<size_t>(indices.right());
 
   QColor colour;
 
@@ -234,10 +234,10 @@ void ExceedanceProbabilityRasterDrawer::drawContours(
   matrix.transfer(const_cast<REAL4*>(_raster->cells<REAL4>()),
          dal::Matrix::DoNotTakeOwnerShip);
 
-  size_t firstRow = static_cast<size_t>(indices.top());
-  size_t lastRow = static_cast<size_t>(indices.bottom());
-  size_t firstCol = static_cast<size_t>(indices.left());
-  size_t lastCol = static_cast<size_t>(indices.right());
+  auto firstRow = static_cast<size_t>(indices.top());
+  auto lastRow = static_cast<size_t>(indices.bottom());
+  auto firstCol = static_cast<size_t>(indices.left());
+  auto lastCol = static_cast<size_t>(indices.right());
 
   firstRow = firstRow > 1
          ? firstRow - 2

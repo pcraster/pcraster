@@ -254,7 +254,7 @@ void AreaMap::throwIfNotSet() const
  */
 pcrxml::CheckContext* AreaMap::createXMLContext() const
 {
-  pcrxml::CheckContext *cc= new pcrxml::CheckContext();
+  auto *cc= new pcrxml::CheckContext();
 
   if (!isSet())
     return cc;

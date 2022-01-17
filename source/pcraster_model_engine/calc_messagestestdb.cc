@@ -139,7 +139,7 @@ class MessagesTestDBPrivate:
     std::string idS=attrStr(e,"id");
     PRECOND(!idS.empty());
 
-    const_iterator notYetPresent=find(id);
+    auto notYetPresent=find(id);
     if(notYetPresent != end()) {
        detail::AddError ae;
        ae.reason="DUPLICATE";ae.text=id;
@@ -208,7 +208,7 @@ public:
       const detail::DBCol& subElem,
       const std::string& id) const
   {
-    const_iterator i=find(id);
+    auto i=find(id);
     if (i!=end())
       return pcrxml::firstMatchByTagName(i->second,
       QString(subElem.name().c_str()));

@@ -104,7 +104,7 @@ struct AccumTT : public MapReal8 {
 
 int Do_accutraveltime(void *s, void *f, const void **ins)
 {
- const MAP_UINT1 *ldd = (const MAP_UINT1*)ins[0];
+ const auto *ldd = (const MAP_UINT1*)ins[0];
 
  MapReal8 removed(ldd->nrRows,ldd->nrCols);
  MapReal8 constantTransportFraction(ldd->nrRows, ldd->nrCols, 1.0F);
@@ -118,7 +118,7 @@ int Do_accutraveltime(void *s, void *f, const void **ins)
 
 int Do_accutraveltimefraction(void *s, void *f, const void **ins)
 {
- const MAP_UINT1 *ldd = (const MAP_UINT1*)ins[0];
+ const auto *ldd = (const MAP_UINT1*)ins[0];
  AccumTT  accumTT(ldd,(const MAP_REAL8 *)ins[2]);
 
  MapReal8 removed(ldd->nrRows,ldd->nrCols);
@@ -130,7 +130,7 @@ int Do_accutraveltimefraction(void *s, void *f, const void **ins)
 
 int Do_accutraveltimefractionremoved(void *removed, const void **ins)
 {
- const MAP_UINT1 *ldd = (const MAP_UINT1*)ins[0];
+ const auto *ldd = (const MAP_UINT1*)ins[0];
  AccumTT  accumTT(ldd,(const MAP_REAL8 *)ins[2]);
  MapReal8 s(ldd->nrRows,ldd->nrCols);
  MapReal8 f(ldd->nrRows,ldd->nrCols);
@@ -193,7 +193,7 @@ int Do_dynamicwave(void *q, void *h, const void **in)
 
 int Do_lddcreate(void *l, void *d, const void **ins)
 {
-  MAP_UINT1* ldd=(MAP_UINT1 *)l;
+  auto* ldd=(MAP_UINT1 *)l;
   int r = Lddm(ldd, (const MAP_REAL8 *)ins[0]);
   if (r)
     return r;
@@ -210,7 +210,7 @@ int Do_lddcreate(void *l, void *d, const void **ins)
 int Do_lddcreatend(void *l, void *d, const void **ins)
 {
 
-  MAP_UINT1* ldd=(MAP_UINT1 *)l;
+  auto* ldd=(MAP_UINT1 *)l;
   int r = LddmND(ldd, (const MAP_REAL8 *)ins[0]);
   if (r)
     return r;
@@ -396,7 +396,7 @@ int Do_windowtotal(void * out, const void **ins)
 
 int Do_order(void * out, const void **ins)
 {
-  MAP_REAL8 *o= (MAP_REAL8 *)out;
+  auto *o= (MAP_REAL8 *)out;
   MapInt4 t(o->nrRows,o->nrCols);
   return Order(o, (const MAP_REAL8 *)ins[0], t.map());
 }
@@ -453,7 +453,7 @@ int Do_influencesimplegauss(void *out, const void **ins)
 }
 int Do_distributesimplegauss(void *out, const void **ins)
 {
- MAP_REAL8 *o=(MAP_REAL8 *)out;
+ auto *o=(MAP_REAL8 *)out;
  MapReal8 t(o->nrRows,o->nrCols);
  return DistributeSimpleGauss(
            o, t.map(),

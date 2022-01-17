@@ -43,7 +43,7 @@ int main(
                   {}
       };
       // std::auto_ptr<ClientHolder> holder(new ClientHolder(argc,argv));
-      ClientHolder* holder=new ClientHolder(argc,argv);
+      auto* holder=new ClientHolder(argc,argv);
       (void)holder; // shut up compiler
     try {
       result = calc::executeCommandLine(argc,argv);

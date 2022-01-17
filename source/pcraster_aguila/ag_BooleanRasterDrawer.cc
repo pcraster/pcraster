@@ -75,10 +75,10 @@ void BooleanRasterDrawer::draw(
          dal::Matrix::DoNotTakeOwnerShip);
   UINT1 value;
 
-  size_t firstRow = static_cast<size_t>(indices.top());
-  size_t lastRow = static_cast<size_t>(indices.bottom());
-  size_t firstCol = static_cast<size_t>(indices.left());
-  size_t lastCol = static_cast<size_t>(indices.right());
+  auto firstRow = static_cast<size_t>(indices.top());
+  auto lastRow = static_cast<size_t>(indices.bottom());
+  auto firstCol = static_cast<size_t>(indices.left());
+  auto lastCol = static_cast<size_t>(indices.right());
 
   QColor trueColour = _properties.colourByIndex(1);
   QColor falseColour = _properties.colourByIndex(0);

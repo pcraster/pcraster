@@ -288,7 +288,7 @@ int calc::LookupRecord::compare(const std::vector<double>& key) const
 bool calc::LookupTable::find(double& result, const std::vector<double>& key) const
 {
   PRECOND(key.size() == nrKeys());
-  Records::const_iterator p = std::find_if(d_records.begin(),d_records.end(),
+  auto p = std::find_if(d_records.begin(),d_records.end(),
                    boost::bind(&calc::LookupRecord::match,_1,boost::ref(key)));
   if (p != d_records.end()) {
     result = p->result();

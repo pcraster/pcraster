@@ -497,7 +497,7 @@ void calc::StatTable::exec(
     static I const* create(RunTimeEnv* rte) {
       DataValue *dv=rte->popDataValue();
       POSTCOND(dv);
-      LookupTable const* tab= dynamic_cast<LookupTable const*>(dv);
+      auto const* tab= dynamic_cast<LookupTable const*>(dv);
       POSTCOND(tab);
       POSTCOND(tab->nrCols()==1);
       I *iv= new I();

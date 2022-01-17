@@ -79,12 +79,12 @@ MultiMap2DView& MultiMap2DView::operator=(MultiMap2DView const& rhs)
 
 void MultiMap2DView::createInterface()
 {
-  QGridLayout* layout = new QGridLayout(this);
+  auto* layout = new QGridLayout(this);
   layout->setContentsMargins(0, 0, 0, 0);
 
   for(size_t row = 0; row < 2 * d_nrRows; row += 2) {
     for(size_t col = 0; col < d_nrCols; ++col) {
-      QLineEdit* label = new QLineEdit(this);
+      auto* label = new QLineEdit(this);
 
       QPalette palette;
       palette.setColor(label->backgroundRole(),

@@ -380,7 +380,7 @@ PCR_DAL_DECL std::string dimensionToString(
       switch(dimension.discretisation()) {
         case RegularDiscretisation: {
           assert(dimension.nrValues() == 1);
-          RasterDimensions const& rasterDimensions(
+          auto const& rasterDimensions(
               dimension.value<RasterDimensions>(0));
 
           if(dimension.nrValues() == 1) {
@@ -395,7 +395,7 @@ PCR_DAL_DECL std::string dimensionToString(
         }
         case BorderedDiscretisation: {
           assert(dimension.nrValues() == 1);
-          SpaceDimensions const& spaceDimensions(
+          auto const& spaceDimensions(
               dimension.value<SpaceDimensions>(0));
 
           if(dimension.nrValues() == 1) {
@@ -537,7 +537,7 @@ PCR_DAL_DECL std::string coordinateToString(
         break;
       }
       case Space: {
-        SpatialCoordinate const& spatialCoordinate(
+        auto const& spatialCoordinate(
            address.coordinate<SpatialCoordinate>(index));
 
         result = (boost::format("(%1%, %2%)")
@@ -1195,7 +1195,7 @@ splitNameAndSelection(
       boost::split(tokens, selection, boost::is_any_of(","));
       // std::for_each(tokens.begin(), tokens.end(), boost::trim);
 
-      for(std::vector<std::string>::iterator it = tokens.begin();
+      for(auto it = tokens.begin();
            it != tokens.end(); ++it) {
         boost::trim(*it);
       }

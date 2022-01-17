@@ -141,7 +141,7 @@ Legend* LegendView::contextMenuLegend() const
 {
   assert(_contextMenuIndex.isValid());
 
-  Legend* legend = dynamic_cast<Legend*>(indexWidget(_contextMenuIndex));
+  auto* legend = dynamic_cast<Legend*>(indexWidget(_contextMenuIndex));
   assert(legend);
 
   return legend;
@@ -155,7 +155,7 @@ void LegendView::editGeneralProperties()
 
   PropertiesWidget* widget = new GeneralDataPropertiesWidget(
          dataObject(), _contextMenuGuides.front(), this);
-  PropertiesDialog* dialog = new PropertiesDialog(widget, this);
+  auto* dialog = new PropertiesDialog(widget, this);
   dialog->setFixedSize(dialog->sizeHint());
   dialog->exec();
 }
@@ -185,7 +185,7 @@ void LegendView::editDrawProperties()
   }
 
   if(widget) {
-    PropertiesDialog* dialog = new PropertiesDialog(widget, this);
+    auto* dialog = new PropertiesDialog(widget, this);
     dialog->setFixedSize(dialog->sizeHint());
     dialog->exec();
   }
@@ -346,7 +346,7 @@ std::vector<DataGuide> const& LegendView::dataGuides(
   std::vector<DataGuide> const* result = nullptr;
 
   // Determine data guides connected to legend.
-  Legend* legend = dynamic_cast<Legend*>(indexWidget(index));
+  auto* legend = dynamic_cast<Legend*>(indexWidget(index));
   assert(legend);
   result = &dataGuides(legend);
 

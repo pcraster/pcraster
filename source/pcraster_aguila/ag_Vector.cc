@@ -51,7 +51,7 @@ Vector::Vector(
   _vector->setTypeId(useTypeId);
   _vector->createCells();
 
-  dal::VectorDriver const* driver =
+  auto const* driver =
          dynamic_cast<dal::VectorDriver const*>(dataSource().reader());
   assert(driver);
 

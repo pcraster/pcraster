@@ -72,10 +72,10 @@ void OrdinalRasterDrawer::draw(
   matrix.transfer(const_cast<INT4*>(_raster->cells<INT4>()),
          dal::Matrix::DoNotTakeOwnerShip);
 
-  size_t firstRow = static_cast<size_t>(indices.top());
-  size_t lastRow = static_cast<size_t>(indices.bottom());
-  size_t firstCol = static_cast<size_t>(indices.left());
-  size_t lastCol = static_cast<size_t>(indices.right());
+  auto firstRow = static_cast<size_t>(indices.top());
+  auto lastRow = static_cast<size_t>(indices.bottom());
+  auto firstCol = static_cast<size_t>(indices.left());
+  auto lastCol = static_cast<size_t>(indices.right());
 
   INT4 value;
   QColor colour;

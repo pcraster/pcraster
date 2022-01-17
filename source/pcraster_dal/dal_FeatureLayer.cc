@@ -406,7 +406,7 @@ void FeatureLayer::value(
 {
   assert(featureId != OGRNullFID);
 
-  std::map<long int, size_t>::const_iterator it =
+  auto it =
          _valueIdByFeatureId.find(featureId);
   assert(it != _valueIdByFeatureId.end());
   size_t valueId = (*it).second;

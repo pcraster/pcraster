@@ -394,7 +394,7 @@ DOMDocument* DOMInput::document()
   try {
     if (!d_string.empty()) {
 
-      MemBufInputSource* memBufIS = new MemBufInputSource(
+      auto* memBufIS = new MemBufInputSource(
            (const XMLByte*)d_string.c_str(), d_string.size(),
            "inMemory", false);
       Wrapper4InputSource wrp(memBufIS);

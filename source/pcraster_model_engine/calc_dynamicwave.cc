@@ -98,7 +98,7 @@ class DynamicWaveExecArguments : public ExecArguments {
       size_t nrActualArgs):
        ExecArguments(op,rte,nrActualArgs)
     {
-      const LookupTable *tab=
+      const auto *tab=
         dynamic_cast<const LookupTable *>(firstNonFieldInput());
       PRECOND(tab);
       ((LookupTable *)tab)->setPrefixStableSort(1);
@@ -407,7 +407,7 @@ void calc::DynamicWave::exec(RunTimeEnv* rte,
                              size_t nrActualInputs) const
 {
   DynamicWaveExecArguments a(op,rte,nrActualInputs);
-  const LookupTable *tab=
+  const auto *tab=
     dynamic_cast<const LookupTable *>(a.firstNonFieldInput());
 
   enum Args {
@@ -497,7 +497,7 @@ void calc::LookupState::exec(RunTimeEnv* rte,
                              size_t nrActualInputs) const
 {
   DynamicWaveExecArguments a(op,rte,nrActualInputs);
-  const LookupTable *tab=
+  const auto *tab=
     dynamic_cast<const LookupTable *>(a.firstNonFieldInput());
 
   Field& result(a.createResult());
@@ -532,7 +532,7 @@ void calc::LookupPotential::exec(RunTimeEnv* rte,
                              size_t nrActualInputs) const
 {
   DynamicWaveExecArguments a(op,rte,nrActualInputs);
-  const LookupTable *tab=
+  const auto *tab=
     dynamic_cast<const LookupTable *>(a.firstNonFieldInput());
 
   Field& result(a.createResult());

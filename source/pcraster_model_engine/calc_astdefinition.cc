@@ -98,7 +98,7 @@ const std::string& calc::ASTDefinition::name() const
 
 void calc::ASTDefinition::add(const Id& key, const Id& value)
 {
-  KeyValue::const_iterator i = d_items.find(key);
+  auto i = d_items.find(key);
   if (i != d_items.end())
     key.symError("redefinition of item");
 
@@ -147,7 +147,7 @@ calc::DefinitionRole calc::ASTDefinition::definitionRole() const
 
 calc::Dimension calc::ASTDefinition::unit() const
 {
-  KeyValue::const_iterator i = d_items.find(TmpId("unit"));
+  auto i = d_items.find(TmpId("unit"));
   if (i != d_items.end())
     return Dimension(i->second());
   return Dimension();
@@ -156,7 +156,7 @@ calc::Dimension calc::ASTDefinition::unit() const
 //! return empty if not there
 std::string calc::ASTDefinition::description() const
 {
-  KeyValue::const_iterator i = d_items.find(TmpId("description"));
+  auto i = d_items.find(TmpId("description"));
   if (i != d_items.end())
     return i->second();
   return "";

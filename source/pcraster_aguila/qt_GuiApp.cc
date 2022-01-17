@@ -255,7 +255,7 @@ void qt::GuiApp::showError(com::Exception::const_iterator begin,
 
   std::string message = *begin;
 
-  for(com::Exception::const_iterator it = ++begin; it != end; ++it) {
+  for(auto it = ++begin; it != end; ++it) {
     message += ('\n' + *it);
   }
 

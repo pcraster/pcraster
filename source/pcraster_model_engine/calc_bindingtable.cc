@@ -96,7 +96,7 @@ public:
 void BindingToSymbol::visitAss(ASTAss *a) {
   const ASTPar *par(a->par());
 
-  Defined::const_iterator i= d_defined.find(par->name());
+  auto i= d_defined.find(par->name());
   if (i != d_defined.end()) {
     // pcrcalc43[ab]
     std::ostringstream msg;
@@ -119,7 +119,7 @@ void BindingToSymbol::visitAss(ASTAss *a) {
 
 void BindingToSymbol::visitPar(ASTPar    *rhs)
 {
-  Defined::const_iterator i= d_defined.find(rhs->name());
+  auto i= d_defined.find(rhs->name());
   if (i != d_defined.end()) {
     // bindings use each other: overwrite rhs
     d_currentAss->transferRhs(i->second->rhs()->createClone());
@@ -187,9 +187,9 @@ void calc::EffectiveBindings::overwrite(
  const ASTNodeVector& e)
 {
  ASTNodeVector l;
- for(const_iterator i=begin(); i!=end(); ++i)
+ for(auto i=begin(); i!=end(); ++i)
    l.transferPushBack((*i)->createClone());
- for(const_iterator i=e.begin(); i!=e.end(); ++i)
+ for(auto i=e.begin(); i!=e.end(); ++i)
    l.transferPushBack((*i)->createClone());
  clear();
  addLastDefinition(l);
@@ -213,7 +213,7 @@ void calc::BindingTable::addLastDefinition(
   size_t i=l.size();
   while(i) {
     --i;
-    ASTAss *a= dynamic_cast<ASTAss *>(l[i]);
+    auto *a= dynamic_cast<ASTAss *>(l[i]);
     std::string name(a->par()->name());
     if (!names.count(name)) {
       add.push_back(new ASTAss(*a));

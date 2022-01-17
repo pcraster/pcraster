@@ -190,7 +190,7 @@ void calc::DiffBin::exec(RunTimeEnv* rte,const Operator& op,size_t DEBUG_ARG(nrA
   ExecArguments a(op,rte,2);
   B             b(a);
 
-  UINT1 *r = static_cast<UINT1 *>(a.dest());
+  auto *r = static_cast<UINT1 *>(a.dest());
   CRIndex i = a[1].cri(); // selection on 2nd/right operand in case of IfThenArray
   POSTCOND(d_fieldOp[i]);
   switch(b.t) {
@@ -497,7 +497,7 @@ namespace calc {
       ExecArguments args(op, rte, nrArgs);
       AreaStatisticalOperation ao;
       PRECOND(args[0].nrValues()==args[1].nrValues());
-      REAL4 *r = (REAL4 *)args.srcDest(0);
+      auto *r = (REAL4 *)args.srcDest(0);
 
       switch(args[1].cri()) {
         case CRI_1:
@@ -534,7 +534,7 @@ void calc::Order::exec (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const
 {
     ExecArguments args(op, rte, nrArgs);
 
-    REAL4 *r = (REAL4 *)args.dest();
+    auto *r = (REAL4 *)args.dest();
     boost::scoped_ptr< IVSpatial<double> > expr(nullptr);
 
     switch(args[0].cri()) {
@@ -555,7 +555,7 @@ void calc::AreaOrder::exec (RunTimeEnv* rte,const Operator& op,size_t nrArgs) co
 {
     ExecArguments args(op, rte, nrArgs);
 
-    REAL4 *r = (REAL4 *)args.dest();
+    auto *r = (REAL4 *)args.dest();
     boost::scoped_ptr< IVSpatial<double> > expr(nullptr);
     boost::scoped_ptr< IVSpatial<INT4> >   areaClass(nullptr);
 

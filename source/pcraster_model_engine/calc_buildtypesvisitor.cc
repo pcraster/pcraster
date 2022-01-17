@@ -286,7 +286,7 @@ class TopDownExprRestrictor: public ASTVisitor {
    // if 1st arg is not a field it is a DataStorage
    if (op.firstFieldInput()) {
       POSTCOND(op.firstFieldInput()==1);
-      ASTPar *p=dynamic_cast<ASTPar *>(e->arg(0));
+      auto *p=dynamic_cast<ASTPar *>(e->arg(0));
       if (!p) { // can happen if arg is incorrect for operation
         return;
       }
@@ -336,7 +336,7 @@ class TopDownExprRestrictor: public ASTVisitor {
            case OP_TIMEINPUTMODULO: {
                     mst.setUse(MapStackType::Modulo);
                     PRECOND(e->nrArgs() == 2);
-                    ASTNumber *n= dynamic_cast<ASTNumber *>(e->arg(1));
+                    auto *n= dynamic_cast<ASTNumber *>(e->arg(1));
                     // typecheck already forces n to be ordinal integer
                     if (!n || n->value() < 1)
                       e->arg(1)->posError("highestTimestepAvailable argument of "
@@ -430,7 +430,7 @@ void calc::BuildTypesVisitor::checkOnTimeinput(BaseExpr   *o)
   DataType eResult=o->op().computeResultType(o->dataTypeArgs(),0);
 
   // timeinput(sparse|modulo)
-  ASTPar *ms=dynamic_cast<ASTPar *>(o->arg(0));
+  auto *ms=dynamic_cast<ASTPar *>(o->arg(0));
   if (ms) {
       POSTCOND(d_table.contains(ms));
       DataType req(d_table[ms].dataType().resultType(),ST_SPATIAL);
@@ -453,7 +453,7 @@ void calc::BuildTypesVisitor::checkOnTimeinput(BaseExpr   *o)
  */
 void calc::BuildTypesVisitor::visitExpr(BaseExpr*        o)
 {
-  LinkInExpr *lie=dynamic_cast<LinkInExpr *>(o);
+  auto *lie=dynamic_cast<LinkInExpr *>(o);
   if (lie) {
 
    std::string libraryName;

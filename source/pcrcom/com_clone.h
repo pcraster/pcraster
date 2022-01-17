@@ -50,14 +50,14 @@ namespace com {
 template<class Container>
   void copyClone(const Container& src,Container& dest)
   {
-    for(typename Container::const_iterator i=src.begin(); i!=src.end(); ++i)
+    for(auto i=src.begin(); i!=src.end(); ++i)
       dest.push_back((*i)->createClone());
   }
 
 template<class Container>
   void deleteCloneContainer(const Container& src)
   {
-    for(typename Container::const_iterator i=src.begin(); i!=src.end(); ++i)
+    for(auto i=src.begin(); i!=src.end(); ++i)
       delete *i;
   }
 

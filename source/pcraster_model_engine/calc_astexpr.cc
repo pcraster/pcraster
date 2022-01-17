@@ -161,7 +161,7 @@ void calc::ASTExpr::transferFunctionArgs(ASTNodeVector *al)
       delete al;
 
        // f(a0,a1)
-       ASTExpr *prev =new ASTExpr(op().name(),op());
+       auto *prev =new ASTExpr(op().name(),op());
        prev->transferArg(args[0]);
        prev->transferArg(args[1]);
        // f(f(...),a2)

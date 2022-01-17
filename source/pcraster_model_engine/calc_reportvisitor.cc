@@ -167,7 +167,7 @@ void calc::ReportVisitor::jumpOutDynamicSection(DynamicSection *)
 void calc::ReportVisitor::updateReportPar(ASTPar const *p)
 {
   if (!d_reportLastAssOfEverySymbol) {
-    ReportPars::const_iterator f=d_reportPars.find(p->name());
+    auto f=d_reportPars.find(p->name());
     if (f != d_reportPars.end()) {
       // duplicate report, pcrcalc255
       p->symError("Report already done previous ("

@@ -171,7 +171,7 @@ BOOST_AUTO_TEST_CASE(unique_values)
     std::set<INT4> values;
     source.uniqueValues(values);
     BOOST_CHECK_EQUAL(values.size(), size_t(5));
-    std::set<INT4>::const_iterator it = values.begin();
+    auto it = values.begin();
     BOOST_CHECK_EQUAL(*it++, 1);
     BOOST_CHECK_EQUAL(*it++, 2);
     BOOST_CHECK_EQUAL(*it++, 4);
@@ -194,7 +194,7 @@ BOOST_AUTO_TEST_CASE(unique_values)
     std::set<INT4> values;
     source.uniqueValues(values);
     BOOST_CHECK_EQUAL(values.size(), size_t(94));
-    std::set<INT4>::const_iterator it = values.begin();
+    auto it = values.begin();
     BOOST_CHECK_EQUAL(*it++, 1);
     BOOST_CHECK_EQUAL(*it++, 2);
     BOOST_CHECK_EQUAL(*it++, 3);

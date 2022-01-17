@@ -81,7 +81,7 @@ public:
   //! string value
   std::string attrValueStr(EnumType value) const
   {
-      size_t i=static_cast<size_t>(value);
+      auto i=static_cast<size_t>(value);
       PRECOND(i < d_nrStrings);
       String str(d_strings[i]);
       return str.value();

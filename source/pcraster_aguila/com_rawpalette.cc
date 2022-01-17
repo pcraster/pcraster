@@ -282,7 +282,7 @@ com::RawPalette::RawPalette(const UINT2 *p, size_t n, UINT2 max)
 
 {
   const UINT2 *t = p;
-  for(iterator it = begin(); it != end(); it++, t += 3)
+  for(auto it = begin(); it != end(); it++, t += 3)
     (*it).setRgb(*t, *(t + 1), *(t + 2));
 }
 
@@ -302,7 +302,7 @@ com::RawPalette::RawPalette(const UINT2 p[][3], size_t n, UINT2 max)
 
 {
   const UINT2 (*t)[3] = p;   // Array of pointers to an array of rgb tuples.
-  for(iterator it = begin(); it != end(); it++, t++)
+  for(auto it = begin(); it != end(); it++, t++)
     (*it).setRgb(**t, *(*t + 1), *(*t + 2));
 }
 
@@ -542,7 +542,7 @@ void com::convert(const RawPalette &p, UINT2 max, UINT2 *a)
 
   UINT2 *c = a;              // Current colour code.
 
-  for(com::RawPalette::const_iterator it = p.begin(); it != p.end(); it++)
+  for(auto it = p.begin(); it != p.end(); it++)
   {
     *c++ = (*it).red() * max / p.max();
     *c++ = (*it).green() * max / p.max();
@@ -554,7 +554,7 @@ void com::convert(const RawPalette &p, UINT2 max, UINT2 *a)
 
 void com::write(std::ostream &s, const RawPalette &p)
 {
-  for(RawPalette::const_iterator it = p.begin(); it != p.end(); it++)
+  for(auto it = p.begin(); it != p.end(); it++)
   {
     s << (*it).red() << ' ' << (*it).green() << ' '
       << (*it).blue() << std::endl;

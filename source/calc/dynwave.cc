@@ -202,7 +202,7 @@ extern "C" int DynamicWave(
 
   ReadOnlyReal8_ref(nrTimeSlicesInterface,m_nrTimeSlices);
   POSTCOND(!nrTimeSlicesInterface.spatial());
-  size_t nrTimeSlices = static_cast<size_t>(nrTimeSlicesInterface.value(0,0));
+  auto nrTimeSlices = static_cast<size_t>(nrTimeSlicesInterface.value(0,0));
 
   // non spatial domains, check once
   std::vector<fieldapi::ScalarDomainCheck> domains,nsDomains;

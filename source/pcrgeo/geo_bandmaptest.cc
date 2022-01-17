@@ -91,7 +91,7 @@ BOOST_AUTO_TEST_CASE(multi_band)
     com::write(buf,120*sizeof(REAL4),com::PathName("mband.bil"));
   }
  BandMap bm("mband");
- REAL4 *real4 = new REAL4[bm.nrCells()];
+ auto *real4 = new REAL4[bm.nrCells()];
  bm.getCellsAsREAL4(real4);
  BOOST_CHECK(real4[0]==0);
  BOOST_CHECK(real4[10]==30);
@@ -124,7 +124,7 @@ BOOST_AUTO_TEST_CASE(open2)
  BOOST_CHECK(bufi4[0]==MV_INT4);
  BOOST_CHECK(bufi4[11]==11);
 
- REAL4 *real4 = new REAL4[bm.nrCells()];
+ auto *real4 = new REAL4[bm.nrCells()];
  bm.getCellsAsREAL4(real4);
  BOOST_CHECK(pcr::isMV(real4[0]));
  BOOST_CHECK(real4[11]==11.0);
@@ -146,7 +146,7 @@ BOOST_AUTO_TEST_CASE(read)
    BandMap bm("all1_float.bil");
    BOOST_CHECK(bm.nrRows()   == 4);
    BOOST_CHECK(bm.nrCols()   == 4);
-   REAL4 *buf= new REAL4[bm.nrCells()];
+   auto *buf= new REAL4[bm.nrCells()];
    BOOST_CHECK(bm.cellSize() == 1);
 
    bm.getCellsRaw(buf);
@@ -165,7 +165,7 @@ BOOST_AUTO_TEST_CASE(create)
    RasterSpace rs(in.rasterSpace());
 
 
-   UINT1 *buf= new UINT1[in.nrCells()];
+   auto *buf= new UINT1[in.nrCells()];
    in.getCells(buf);
 
    createBil("inp1b",rs, buf,MV_UINT1);

@@ -59,7 +59,7 @@ Map2D::~Map2D()
 void Map2D::createInterface()
 {
   d_splitter = new QSplitter(Qt::Horizontal, this);
-  QVBoxLayout* layout = new QVBoxLayout(this);
+  auto* layout = new QVBoxLayout(this);
   layout->addWidget(d_splitter);
 
   d_legendView = new LegendView(&dataObject(), VT_Map, d_splitter);

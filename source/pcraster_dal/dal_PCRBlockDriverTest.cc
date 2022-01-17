@@ -23,13 +23,13 @@ struct Fixture
 
         d_blockDiscretisation = new Block(nrRows, nrCols, cellSize, west, north);
         d_blockDiscretisation->createCells();
-        Raster* elevation = new Raster(nrRows, nrCols, cellSize, west, north,
+        auto* elevation = new Raster(nrRows, nrCols, cellSize, west, north,
                TI_REAL4);
         elevation->createCells();
 
         for(size_t i = 0; i < elevation->nrCells(); ++i) {
           elevation->cell<REAL4>(i) = REAL4(i);
-          REAL4_VECTOR& stack(d_blockDiscretisation->cell<REAL4_VECTOR>(i));
+          auto& stack(d_blockDiscretisation->cell<REAL4_VECTOR>(i));
           stack.insert(stack.end(), i, REAL4(i));
         }
 
@@ -138,7 +138,7 @@ BOOST_AUTO_TEST_CASE(read_)
     for(size_t i = 0; i < elevation.nrCells(); ++i) {
       BOOST_CHECK(dal::comparable(elevation.cell<REAL4>(i), REAL4(i)));
 
-      REAL4_VECTOR& stack(block->cell<REAL4_VECTOR>(i));
+      auto& stack(block->cell<REAL4_VECTOR>(i));
 
       BOOST_CHECK_EQUAL(stack.size(), i);
 

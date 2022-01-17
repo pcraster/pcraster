@@ -230,41 +230,41 @@ void FeatureLayerDrawer::draw(
   switch(geometry.getGeometryType()) {
     case wkbPoint:
     case wkbPoint25D: {
-      OGRPoint const& point(dynamic_cast<OGRPoint const&>(geometry));
+      auto const& point(dynamic_cast<OGRPoint const&>(geometry));
       drawPoint(painter, world_to_screen, screen_to_world, featureId, point);
       break;
     }
     case wkbLineString:
     case wkbLineString25D: {
-      OGRLineString const& line(
+      auto const& line(
             dynamic_cast<OGRLineString const&>(geometry));
       drawLine(painter, world_to_screen, screen_to_world, featureId, line);
       break;
     }
     case wkbPolygon:
     case wkbPolygon25D: {
-      OGRPolygon const& polygon(
+      auto const& polygon(
             dynamic_cast<OGRPolygon const&>(geometry));
       drawPolygon(painter, world_to_screen, screen_to_world, featureId, polygon);
       break;
     }
     case wkbMultiPoint:
     case wkbMultiPoint25D: {
-      OGRMultiPoint const& multiPoint(
+      auto const& multiPoint(
             dynamic_cast<OGRMultiPoint const&>(geometry));
       drawMultiPoint(painter, world_to_screen, screen_to_world, featureId, multiPoint);
       break;
     }
     case wkbMultiLineString:
     case wkbMultiLineString25D: {
-      OGRMultiLineString const& multiLine(
+      auto const& multiLine(
             dynamic_cast<OGRMultiLineString const&>(geometry));
       drawMultiLine(painter, world_to_screen, screen_to_world, featureId, multiLine);
       break;
     }
     case wkbMultiPolygon:
     case wkbMultiPolygon25D: {
-      OGRMultiPolygon const& multiPolygon(
+      auto const& multiPolygon(
             dynamic_cast<OGRMultiPolygon const&>(geometry));
       drawMultiPolygon(painter, world_to_screen, screen_to_world, featureId, multiPolygon);
       break;
@@ -292,7 +292,7 @@ void FeatureLayerDrawer::drawMultiPoint(
   int nrGeometries = multiPoint.getNumGeometries();
 
   for(int i = 0; i < nrGeometries; ++i) {
-    OGRPoint const& point(dynamic_cast<OGRPoint const&>(
+    auto const& point(dynamic_cast<OGRPoint const&>(
         *multiPoint.getGeometryRef(i)));
     drawPoint(painter, world_to_screen, screen_to_world, featureId, point);
   }
@@ -310,7 +310,7 @@ void FeatureLayerDrawer::drawMultiLine(
   int nrGeometries = multiLine.getNumGeometries();
 
   for(int i = 0; i < nrGeometries; ++i) {
-    OGRLineString const& line(dynamic_cast<OGRLineString const&>(
+    auto const& line(dynamic_cast<OGRLineString const&>(
         *multiLine.getGeometryRef(i)));
     drawLine(painter, world_to_screen, screen_to_world, featureId, line);
   }
@@ -328,7 +328,7 @@ void FeatureLayerDrawer::drawMultiPolygon(
   int nrGeometries = multiPolygon.getNumGeometries();
 
   for(int i = 0; i < nrGeometries; ++i) {
-    OGRPolygon const& polygon(dynamic_cast<OGRPolygon const&>(
+    auto const& polygon(dynamic_cast<OGRPolygon const&>(
         *multiPolygon.getGeometryRef(i)));
     drawPolygon(painter, world_to_screen, screen_to_world, featureId, polygon);
   }

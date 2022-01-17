@@ -60,7 +60,7 @@ void calc::StdoutStatement::run()
 
   d_expr->execute(stack);
   calc::FieldHandle fh = stack.popReadOnly();
-  const calc::NonSpatial *f = dynamic_cast<const calc::NonSpatial *>(fh.get_rep());
+  const auto *f = dynamic_cast<const calc::NonSpatial *>(fh.get_rep());
   POSTCOND(f);
 
   double val = f->getValue();

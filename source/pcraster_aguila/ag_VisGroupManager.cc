@@ -77,7 +77,7 @@ void ag::VisGroupManager::clean()
 
 ag::VisGroup *ag::VisGroupManager::newGroup()
 {
-  VisGroup *vg = new VisGroup(d_data->d_winProps, this);
+  auto *vg = new VisGroup(d_data->d_winProps, this);
   add(vg);
   // updateControlCenter();
   return vg;
@@ -419,7 +419,7 @@ ag::VisGroup* ag::VisGroupManager::findCompatibleGroup(
   VisGroup* group = nullptr;
 
   // Test group is reverse order.
-  for(std::vector<VisGroup*>::reverse_iterator it = d_data->d_groups.rbegin();
+  for(auto it = d_data->d_groups.rbegin();
                    it != d_data->d_groups.rend(); ++it)
   {
     if((*it)->dataObject().compatibleData(name, space)) {
@@ -442,7 +442,7 @@ void ag::VisGroupManager::show()
   }
   else {
   */
-    for(iterator it = begin(); it != end(); ++ it) {
+    for(auto it = begin(); it != end(); ++ it) {
       (*it)->show();
     }
     /*
@@ -499,7 +499,7 @@ size_t ag::VisGroupManager::nrGroups() const
 size_t ag::VisGroupManager::nrVisualisations() const
 {
   size_t n = 0;
-  for(const_iterator it = begin(); it != end(); ++ it) {
+  for(auto it = begin(); it != end(); ++ it) {
     n += (*it)->nrVisualisations();
   }
   return n;
@@ -521,7 +521,7 @@ void ag::VisGroupManager::updateControlCenter()
 ag::VisGroup *ag::VisGroupManager::findGroup(IVisualisation *v)
 {
   VisGroup* group = nullptr;
-  for(iterator groupIt = begin(); groupIt != end(); ++ groupIt) {
+  for(auto groupIt = begin(); groupIt != end(); ++ groupIt) {
     if((*groupIt)->contains(v)) {
       group = *groupIt;
       break;
@@ -537,7 +537,7 @@ ag::VisGroup *ag::VisGroupManager::findGroup(IVisualisation *v)
 ag::VisGroup *ag::VisGroupManager::findGroup(ag::DataObject& dataObject)
 {
   VisGroup* group = nullptr;
-  for(iterator groupIt = begin(); groupIt != end(); ++ groupIt) {
+  for(auto groupIt = begin(); groupIt != end(); ++ groupIt) {
     if(&(*groupIt)->dataObject() == &dataObject) {
       group = *groupIt;
       break;
@@ -635,7 +635,7 @@ ag::VisGroup *ag::VisGroupManager::findGroup(ag::DataObject& dataObject)
 */
 void ag::VisGroupManager::sync()
 {
-  for(iterator it = begin(); it != end(); ++it) {
+  for(auto it = begin(); it != end(); ++it) {
     (*it)->sync();
   }
 }
@@ -646,7 +646,7 @@ ag::VisGroup* ag::VisGroupManager::group(IVisualisation const* visualisation)
 {
   VisGroup* group = nullptr;
 
-  for(iterator it = begin(); it != end(); ++ it) {
+  for(auto it = begin(); it != end(); ++ it) {
     if((*it)->contains(visualisation)) {
       group = *it;
       break;

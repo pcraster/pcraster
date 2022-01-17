@@ -144,7 +144,7 @@ void RangeDrawPropertiesWidget::createRangeDrawPropertiesInterface()
   box->addWidget(_data->_nrClasses);
   groupBoxLayout()->addLayout(box);
 
-  QDoubleValidator* doubleValidator = new QDoubleValidator(groupBox());
+  auto* doubleValidator = new QDoubleValidator(groupBox());
 
   _data->_maxCutoff = new QLineEdit();
   _data->_maxCutoff->setValidator(doubleValidator);
@@ -192,7 +192,7 @@ void RangeDrawPropertiesWidget::createRangeDrawPropertiesInterface()
   box->addWidget(_data->_resetMinCutoff);
   groupBoxLayout()->addLayout(box);
 
-  QLabel* label = new QLabel("Colour assignment:");
+  auto* label = new QLabel("Colour assignment:");
   _data->_classAlg = new QComboBox();
   _data->_classAlg->insertItem(com::Classifier::LIN, "Linear");
   _data->_classAlg->insertItem(com::Classifier::LOG, "True logarithmic");

@@ -136,7 +136,7 @@ void calc::IndexTable::addRecord(const std::vector<std::string>& line,int lineNr
   if (!p.second) {
     // pcrcalc/test282
     std::ostringstream  msg;
-    Table::iterator fd =p.first; // first definition if error, or (new) position
+    auto fd =p.first; // first definition if error, or (new) position
     msg << " key already defined at line ";
     msg << fd->second.d_lineNr;
     throwError(lineNr,msg);
@@ -154,7 +154,7 @@ const calc::IndexTable::Value& calc::IndexTable::find(
     key.push_back(parExtName);
     for(size_t j=0; j < ind.size(); j++)
       key.push_back(ind[j]->externalName());
-    Table::const_iterator p=d_table.find(key);
+    auto p=d_table.find(key);
     if (p == d_table.end()) {
       std::string keyStr(parExtName);
       for(size_t j=0; j < ind.size(); j++)

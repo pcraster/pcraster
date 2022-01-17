@@ -148,9 +148,9 @@ struct ArrayCopier<Source, Destination, value_scale,
         Source const missing_value)
     {
         // Source can hold destination min/max for sure.
-        Source min = static_cast<Source>(
+        auto min = static_cast<Source>(
             ValueScaleTraits<value_scale>::minimum);
-        Source max = static_cast<Source>(
+        auto max = static_cast<Source>(
             ValueScaleTraits<value_scale>::maximum);
         Source source_value;
         size_t const nr_values = space.nrCells();
@@ -228,7 +228,7 @@ struct ArrayCopier<Source, Destination, value_scale,
     {
         // Source can hold destination max for sure.
         // (Source may not be able to hold destination min.)
-        Source max = static_cast<Source>(
+        auto max = static_cast<Source>(
             ValueScaleTraits<value_scale>::maximum);
         Source source_value;
         size_t const nr_values = space.nrCells();
@@ -795,14 +795,14 @@ calc::Spatial* array_to_field(
     pybind11::array const& array,
     Source const missing_value)
 {
-    calc::Spatial* field = new calc::Spatial(value_scale,
+    auto* field = new calc::Spatial(value_scale,
         ValueScaleTraits<value_scale>::cell_representation_index,
         space.nrCells());
 
     typedef typename ValueScaleTraits<value_scale>::Type Destination;
-    Source const* source = static_cast<Source const*>(
+    auto const* source = static_cast<Source const*>(
         PyArray_DATA((PyArrayObject*)array.ptr()));
-    Destination* destination = static_cast<Destination*>(field->dest());
+    auto* destination = static_cast<Destination*>(field->dest());
 
     try {
         // Select the minimum amount of logic to convert the array value

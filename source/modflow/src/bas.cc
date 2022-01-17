@@ -224,12 +224,12 @@ void BAS::getHeadsFromBinary(std::string const& path){
     // read the data
     char *charData = new char[dataSizeBytes];
     file.read(charData, dataSizeBytes);
-    REAL4 *floatData = reinterpret_cast<REAL4 *>(charData);
+    auto *floatData = reinterpret_cast<REAL4 *>(charData);
 
     size_t cellMax = d_mf->d_nrOfCells;
     //int k = 0;
     for(size_t pos = 0; pos < cellMax; pos++){
-      REAL4 val = static_cast<REAL4>( floatData[pos]);
+      auto val = static_cast<REAL4>( floatData[pos]);
       d_mf->d_initialHead->cell(pos)[blockLayer] =  val;
     }
     // read the tailing bytes, discard content
@@ -321,8 +321,8 @@ calc::Field* BAS::getHeads(size_t layer){
   d_mf->d_gridCheck->isGrid(layer, "getHeads");
   d_mf->d_gridCheck->isConfined(layer, "getHeads");
 
-  calc::Spatial* spatial = new calc::Spatial(VS_S, calc::CRI_f, d_mf->d_nrOfCells);
-  REAL4* cells = static_cast<REAL4*>(spatial->dest());
+  auto* spatial = new calc::Spatial(VS_S, calc::CRI_f, d_mf->d_nrOfCells);
+  auto* cells = static_cast<REAL4*>(spatial->dest());
 
 
 

@@ -73,7 +73,7 @@ std::vector<ArgOrderIdInfo> ArgOrderAndAddArea::initArgs(
   // the exec loop requires to have assignable always
   // here we check if there is something to assign
   std::vector<ArgOrderIdInfo> assignables;
-  for(ArgConstIter a=args.begin(); a!=args.end(); ++a) {
+  for(auto a=args.begin(); a!=args.end(); ++a) {
     if (a->areaLimit() >= 1)
       assignables.push_back(*a);
   }
@@ -86,7 +86,7 @@ std::vector<ArgOrderIdInfo> ArgOrderAndAddArea::initArgs(
   for(CellIndex c=0; c < len; ++c) {
    result[c]=0;
    // check if some are MV
-   for(ArgConstIter a=args.begin(); a!=args.end(); ++a)
+   for(auto a=args.begin(); a!=args.end(); ++a)
      if (pcr::isMV(a->chance()[c])) {
        pcr::setMV(result[c]);
        break;
@@ -128,7 +128,7 @@ void ArgOrderAndAddArea::argOrderAreaLimited(
  if (!args.empty())
   for(CellIndex c=0; c < len; ++c) {
     // check if some are MV
-    ArgIter argIter=args.begin();
+    auto argIter=args.begin();
     for( ; argIter!=args.end(); ++argIter)
       if (pcr::isMV(argIter->chance()[c]))
         break;
@@ -141,14 +141,14 @@ void ArgOrderAndAddArea::argOrderAreaLimited(
     }
  }
 
- CellIter findStart=cellsToSort.begin();
+ auto findStart=cellsToSort.begin();
 
  while(findStart!=cellsToSort.end()) {
    REAL4    maxValue= -std::numeric_limits<REAL4>::max();
-   ArgIter  maxArg=args.end();
-   CellIter maxCell=cellsToSort.end();
-   for(ArgIter argIter=args.begin(); argIter!=args.end(); ++argIter)
-    for(CellIter cellIter=findStart; cellIter != cellsToSort.end(); ++cellIter)
+   auto  maxArg=args.end();
+   auto maxCell=cellsToSort.end();
+   for(auto argIter=args.begin(); argIter!=args.end(); ++argIter)
+    for(auto cellIter=findStart; cellIter != cellsToSort.end(); ++cellIter)
     {
        // MV's already skipped at initialisation
        if (argIter->chance()[*cellIter] > maxValue) {
@@ -191,8 +191,8 @@ void ArgOrderAndAddArea::argOrder(
     pcr::setMV(result[c]);
 
     REAL4 maxValue = -std::numeric_limits<REAL4>::max();
-    ArgConstIter maxIter=args.end();
-    for(ArgConstIter a=args.begin(); a!=args.end(); ++a) {
+    auto maxIter=args.end();
+    for(auto a=args.begin(); a!=args.end(); ++a) {
      if (pcr::isMV(a->chance()[c])) {
        // done for this cell: one or MV's at input, keep MV in result
        maxIter=args.end();
@@ -243,7 +243,7 @@ void ArgOrderAndAddArea::argOrderAddAreaLimited(
  if (!args.empty())
   for(CellIndex c=0; c < len; ++c) {
     // check if some are MV
-    ArgIter argIter=argVector.begin();
+    auto argIter=argVector.begin();
     for( ; argIter!=argVector.end(); ++argIter)
       if (pcr::isMV(argIter->chance()[c]))
         break;
@@ -261,12 +261,12 @@ void ArgOrderAndAddArea::argOrderAddAreaLimited(
  size_t cellsTakenPrev=1;
  size_t cellsTakenNow= 0;
  while(cellsTakenPrev!=cellsTakenNow) {
-  for(CellIter findStart=cellsToSort.begin(); findStart!=cellsToSort.end();++findStart) {
+  for(auto findStart=cellsToSort.begin(); findStart!=cellsToSort.end();++findStart) {
    REAL4    maxValue= -std::numeric_limits<REAL4>::max();
    ArgOrderIdInfo* maxArg=nullptr;
-   CellIter maxCell=cellsToSort.end();
-   for(CellIter cellIter=findStart; cellIter != cellsToSort.end(); ++cellIter) {
-    for(ArgMap::iterator argIter=args.begin(); argIter!=args.end(); ++argIter) {
+   auto maxCell=cellsToSort.end();
+   for(auto cellIter=findStart; cellIter != cellsToSort.end(); ++cellIter) {
+    for(auto argIter=args.begin(); argIter!=args.end(); ++argIter) {
        // MV's already skipped at initialisation
        if (argIter->second.chance()[*cellIter] > maxValue) {
         // larger value found
@@ -287,7 +287,7 @@ void ArgOrderAndAddArea::argOrderAddAreaLimited(
 
    result[*maxCell] = maxArg->id();
    // do this before swap
-   ArgMap::iterator currentIdPtr= args.find(currentId[*maxCell]);
+   auto currentIdPtr= args.find(currentId[*maxCell]);
 
    // maxCell is now done and should go before the next findStart
    //  swap the cell indices to achieve that
@@ -304,7 +304,7 @@ void ArgOrderAndAddArea::argOrderAddAreaLimited(
   cellsTakenNow=0;
   // for(CellIndex c=0; c < len; ++c)
   //   std::cerr << result << "[" << c << "]= " << result[c] << "\n";
-  for(ArgMap::iterator argIter=args.begin(); argIter!=args.end(); ++argIter) {
+  for(auto argIter=args.begin(); argIter!=args.end(); ++argIter) {
     cellsTakenNow+=argIter->second.areaTaken();
     argIter->second.resetForSweep();
   }

@@ -93,7 +93,7 @@ static int GetMaxId(
 void calc::TssOutputParameter::AddTotss(
   size_t index, const void **args, bool isClassTss)
 {
-  const MAP_INT4 *idMap = (const MAP_INT4 *)args[0];
+  const auto *idMap = (const MAP_INT4 *)args[0];
   if (scriptConst().currentTimeStep() == 1) { // initializing, first timestep
    PRECOND(nrInSet(d_vs) == 1);
    int max = GetMaxId(idMap);

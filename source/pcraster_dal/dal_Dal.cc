@@ -199,7 +199,7 @@ Dal::Dal(
 
   for(std::string const& name : environment.formatNames()) {
     // See if a driver by that name exists.
-    Drivers::iterator it = std::find_if(_autoAddedDrivers.begin(),
+    auto it = std::find_if(_autoAddedDrivers.begin(),
          _autoAddedDrivers.end(), boost::bind(
            std::equal_to<std::string>(), boost::bind(&Driver::name, _1), name));
 
@@ -241,7 +241,7 @@ Dal::Dal(
 */
 Dal::~Dal()
 {
-  for(Drivers::iterator it = _autoAddedDrivers.begin();
+  for(auto it = _autoAddedDrivers.begin();
          it != _autoAddedDrivers.end(); ++it) {
     delete *it;
   }
@@ -321,7 +321,7 @@ void Dal::add(
 void Dal::remove(
          Driver* driver)
 {
-  Drivers::iterator it = std::find(_drivers.begin(), _drivers.end(), driver);
+  auto it = std::find(_drivers.begin(), _drivers.end(), driver);
 
   if(it != _drivers.end()) {
     _drivers.erase(it);
@@ -350,7 +350,7 @@ void Dal::favourDrivers(
   std::vector<Driver*> drivers;
 
   for(std::string const& name : names) {
-    for(Drivers::iterator it = _drivers.begin(); it != _drivers.end(); ++it) {
+    for(auto it = _drivers.begin(); it != _drivers.end(); ++it) {
       if((*it)->name() == name) {
         drivers.push_back(*it);
         _drivers.erase(it);
@@ -431,7 +431,7 @@ void Dal::addDriverToCache(
 void Dal::removeDriverFromCache(
          Driver* driver)
 {
-  for(Cache::iterator it = _driversByDataset.begin();
+  for(auto it = _driversByDataset.begin();
          it != _driversByDataset.end(); ) {
     if(boost::get<0>(it->second) == driver) {
       _driversByDataset.erase(it++);
@@ -789,7 +789,7 @@ Dal::Cache::const_iterator Dal::cacheValue(
          DataSpace const& space) const
 {
   std::string key(nameAndSpaceToString(name, space));
-  Cache::const_iterator it = _driversByDataset.find(key);
+  auto it = _driversByDataset.find(key);
 
   return it;
 }
@@ -801,7 +801,7 @@ Dal::Cache::iterator Dal::cacheValue(
          DataSpace const& space)
 {
   std::string key(nameAndSpaceToString(name, space));
-  Cache::iterator it = _driversByDataset.find(key);
+  auto it = _driversByDataset.find(key);
 
   return it;
 }
@@ -895,7 +895,7 @@ bool Dal::hasDriverByName(
 {
   bool result = false;
 
-  for(Drivers::iterator it = _drivers.begin(); it != _drivers.end(); ++it) {
+  for(auto it = _drivers.begin(); it != _drivers.end(); ++it) {
     if((*it)->name() == name) {
       result = true;
       break;
@@ -917,7 +917,7 @@ Driver* Dal::driverByName(
 {
   Driver* result = nullptr;
 
-  for(Drivers::iterator it = _drivers.begin(); it != _drivers.end(); ++it) {
+  for(auto it = _drivers.begin(); it != _drivers.end(); ++it) {
     if((*it)->name() == name) {
       result = *it;
       break;
@@ -979,7 +979,7 @@ Formats Dal::readerFormats() const
 
   for(size_t i = 0; i < _drivers.size(); ++i) {
     Driver const* driver = _drivers[i];
-    DriverProperties const& properties =
+    auto const& properties =
          driver->properties().value<DriverProperties>(DAL_DRIVER_GENERAL);
 
     if(properties & Reader) {
@@ -1014,7 +1014,7 @@ Formats Dal::writerFormats(
     if(datasetType == NR_DATASET_TYPES ||
          driver->datasetType() == datasetType) {
 
-      DriverProperties const& properties =
+      auto const& properties =
            driver->properties().value<DriverProperties>(DAL_DRIVER_GENERAL);
 
       if(properties & Writer) {

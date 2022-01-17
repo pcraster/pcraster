@@ -41,6 +41,6 @@ size_t calc::IScript::nrTimeSteps() const
  */
 void calc::IScript::cmpToClone(const std::string& mapFileName) const
 {
-  calc::IScript *nc = const_cast<calc::IScript *>(this);
+  auto *nc = const_cast<calc::IScript *>(this);
   nc->checkClone(mapFileName);
 }

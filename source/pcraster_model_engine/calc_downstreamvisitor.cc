@@ -70,8 +70,8 @@ void calc::DownstreamVisitor::visitCatchment(
     LddGraph::Catchment const& c)
 {
      startCatchment(c.d_pitId);
-     LddGraph::DownConstIterator d = c.downBegin();
-     LddGraph::DownConstIterator end = c.downEnd();
+     auto d = c.downBegin();
+     auto end = c.downEnd();
      for( ; d != end; ++d) {
        finishVertex(d->up());
        visitEdge(d->up(),d->down());
@@ -90,7 +90,7 @@ void calc::DownstreamVisitor::visitCatchment(
 //! visit entire in downstream order
 void calc::DownstreamVisitor::visitEntireLdd()
 {
-  for(LddGraph::Catchments::const_iterator i=d_graph.catchmentsBegin();
+  for(auto i=d_graph.catchmentsBegin();
          i != d_graph.catchmentsEnd(); ++i) {
     visitCatchment(*i);
   }

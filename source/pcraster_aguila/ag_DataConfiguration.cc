@@ -183,7 +183,7 @@ DataConfiguration::DataConfiguration(
          : 1;
 
   // Send properties and datemappers found to the data object.
-  for(DataMap2::const_iterator d = d_dataMap2.begin();
+  for(auto d = d_dataMap2.begin();
          d != d_dataMap2.end(); ++d) {
     DataGuide const& guide((*d).second.guide);
     pcrxml::AguilaData const& configuration((*d).second.configuration);
@@ -424,7 +424,7 @@ std::vector<std::vector<DataGuide> > DataConfiguration::guidesOfView2(
     // names. A table name is unpacked to column selections, for example.
     // Aguila is an attribute visualizer and does not handle blobs of data
     // with more than one attributes.
-    for(std::set<std::string>::const_iterator it = names.begin();
+    for(auto it = names.begin();
          it != names.end(); ++it) {
       // This is the name to handle.
       // Get data item information.

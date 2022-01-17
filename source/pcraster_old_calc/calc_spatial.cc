@@ -180,7 +180,7 @@ bool calc::Spatial::checkDebug(
     bool& allZero,
     size_t& bpc) const
 {
-  UINT1 *mask = static_cast<UINT1 *>(s.areaMask());
+  auto *mask = static_cast<UINT1 *>(s.areaMask());
   CSF_CR cr = biggestCellRepr(vs());
 
    bool   newMVsFound;
@@ -269,7 +269,7 @@ bool calc::Spatial::getCell(double& value, size_t i) const
 calc::Spatial *calc::Spatial::copy() const
 {
   makeDataAvailable();
-  calc::Spatial *c = new calc::Spatial(vs(),d_nrValues,true);
+  auto *c = new calc::Spatial(vs(),d_nrValues,true);
   CSF_CR cr = biggestCellRepr(vs());
   size_t len = CSFSIZEOF(d_nrValues,cr);
   memcpy(c->d_val,srcValue(),len);

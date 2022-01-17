@@ -530,7 +530,7 @@ T& midpointCircle(Integral xCenter, Integral yCenter, size_t fromRadius,
   midpointCircle(xCenter, yCenter, fromRadius, innerPoints);
 
   // Call op for each point on the inner circle.
-  for(typename RememberPoints<Integral>::const_iterator it =
+  for(auto it =
          innerPoints.begin(); it != innerPoints.end(); ++it) {
     op((*it).first, (*it).second);
   }
@@ -540,7 +540,7 @@ T& midpointCircle(Integral xCenter, Integral yCenter, size_t fromRadius,
   midpointCircle(xCenter, yCenter, toRadius, outerPoints);
 
   // Call op for each point on the outer circle.
-  for(typename RememberPoints<Integral>::const_iterator it =
+  for(auto it =
          outerPoints.begin(); it != outerPoints.end(); ++it) {
     op((*it).first, (*it).second);
   }

@@ -65,7 +65,7 @@ com::KeyValueTable::KeyValueTable():
 //! dtor
 com::KeyValueTable::~KeyValueTable()
 {
-  for(KeyConfigs::iterator p=d_keyConfigs.begin(); p!=d_keyConfigs.end();++p)
+  for(auto p=d_keyConfigs.begin(); p!=d_keyConfigs.end();++p)
     delete p->second;
 }
 
@@ -105,7 +105,7 @@ void com::KeyValueTable::insertKey(const KeyValueConfig& kvc, bool required)
  */
 void com::KeyValueTable::add(const std::string& key, const std::string& value)
 {
-  KeyConfigs::iterator kc=d_keyConfigs.find(key);
+  auto kc=d_keyConfigs.find(key);
   if (kc == d_keyConfigs.end()) {
     if (d_discardUnknownKeys)
        return;
@@ -125,7 +125,7 @@ void com::KeyValueTable::add(const std::string& key, const std::string& value)
 //! is \a key set in the table?
 bool com::KeyValueTable::isSet(const std::string& key) const
 {
-  KeyValues::const_iterator ka=d_keyValues.find(key);
+  auto ka=d_keyValues.find(key);
   return ka!=d_keyValues.end();
 }
 
@@ -140,7 +140,7 @@ bool com::KeyValueTable::isSet(const KeyValueConfig& key) const
 const std::string& com::KeyValueTable::value(const std::string& key) const
 {
   PRECOND(isSet(key));
-  KeyValues::const_iterator ka=d_keyValues.find(key);
+  auto ka=d_keyValues.find(key);
   PRECOND(ka!=d_keyValues.end());
   return ka->second;
 }
@@ -151,7 +151,7 @@ const std::string& com::KeyValueTable::value(const std::string& key) const
  */
 void com::KeyValueTable::checkRequired() const
 {
-  for(KeyConfigs::const_iterator p=d_keyConfigs.begin(); p!=d_keyConfigs.end();++p) {
+  for(auto p=d_keyConfigs.begin(); p!=d_keyConfigs.end();++p) {
       const KeyValueConfig* kc = p->second;
       if (kc->required() && !isSet(*kc))
         throw MissingKey(kc->keyName(), "is not present");
@@ -312,7 +312,7 @@ com::KeyValueEnum* com::KeyValueEnum::createClone() const
 void com::KeyValueEnum::validate(const std::string& value) const
 {
   PRECOND(!d_enumValues.empty());
-  EnumValues::const_iterator p = d_enumValues.find(value);
+  auto p = d_enumValues.find(value);
   if (p == d_enumValues.end())
     throw com::Exception("value not allowed");
 }
@@ -338,7 +338,7 @@ const std::string& com::KeyValueEnum::value(const com::KeyValueTable& kvt) const
 //! return value for key \a kvt with casing as inserted with insert()
 const std::string& com::KeyValueEnum::configValue(const KeyValueTable& kvt) const
 {
-  EnumValues::const_iterator p = d_enumValues.find(kvt.value(keyName()));
+  auto p = d_enumValues.find(kvt.value(keyName()));
   PRECOND(p != d_enumValues.end());
   return *p;
 }

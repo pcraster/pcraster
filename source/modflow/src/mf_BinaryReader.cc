@@ -143,7 +143,7 @@ void BinaryReader::read(const std::string & err_mgs, const std::string & filenam
 
   char *charData = new char[nr_cells * nr_bytes];
   file.read(charData, nr_cells * nr_bytes);
-  float *floatData = reinterpret_cast<float *>(charData);
+  auto *floatData = reinterpret_cast<float *>(charData);
 
   for(size_t pos = 0; pos < nr_cells; ++pos){
       values[pos] = floatData[pos];

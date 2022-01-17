@@ -322,7 +322,7 @@ Dimension& Dimension::operator|=(
 
       _values.clear();
 
-      for(std::set<std::string>::const_iterator it = values.begin();
+      for(auto it = values.begin();
           it != values.end(); ++it) {
         _values.push_back(*it);
       }
@@ -494,29 +494,29 @@ size_t Dimension::nrCoordinates() const
       break;
     }
     case CumulativeProbabilities: {
-      float first = boost::any_cast<float>(_values[0]);
-      float last = boost::any_cast<float>(_values[1]);
-      float interval = boost::any_cast<float>(_values[2]);
+      auto first = boost::any_cast<float>(_values[0]);
+      auto last = boost::any_cast<float>(_values[1]);
+      auto interval = boost::any_cast<float>(_values[2]);
       result = round<float, size_t>((last - first) / interval + float(1.0));
 
       break;
     }
     case Samples:
     case Time: {
-      size_t first = boost::any_cast<size_t>(_values[0]);
-      size_t last = boost::any_cast<size_t>(_values[1]);
-      size_t interval = boost::any_cast<size_t>(_values[2]);
+      auto first = boost::any_cast<size_t>(_values[0]);
+      auto last = boost::any_cast<size_t>(_values[1]);
+      auto interval = boost::any_cast<size_t>(_values[2]);
       result = (last - first) / interval + 1;
 
       break;
     }
     case Space: {
       if(discretisation() == RegularDiscretisation) {
-        RasterDimensions const& dimensions(value<RasterDimensions>(0));
+        auto const& dimensions(value<RasterDimensions>(0));
         result = dimensions.nrCells();
       }
       else if(discretisation() == BorderedDiscretisation) {
-        SpaceDimensions const& dimensions(value<SpaceDimensions>(0));
+        auto const& dimensions(value<SpaceDimensions>(0));
 
         if(comparable<double>(dimensions.area(), 0.0)) {
           result = 1;
@@ -698,7 +698,7 @@ bool Dimension::contains(
         }
       }
 
-      SpatialCoordinate const& spatialCoordinate(
+      auto const& spatialCoordinate(
             boost::any_cast<SpatialCoordinate const&>(coordinate));
       result = dimensions->contains(spatialCoordinate);
 

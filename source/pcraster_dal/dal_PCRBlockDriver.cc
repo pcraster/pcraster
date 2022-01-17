@@ -46,7 +46,7 @@ PCRBlockDriver::PCRBlockDriver()
     TextFileDriver()
 
 {
-  DriverProperties& properties = this->properties().value<DriverProperties>(
+  auto& properties = this->properties().value<DriverProperties>(
          DAL_DRIVER_GENERAL);
   properties |= Reader;
   properties |= Writer;

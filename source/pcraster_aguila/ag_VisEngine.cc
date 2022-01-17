@@ -284,7 +284,7 @@ void VisEngine::rescan(
   /// }
 
   // Loop over the properties.
-  for(DataProperties::const_iterator it = _data->_properties.begin();
+  for(auto it = _data->_properties.begin();
                    it != _data->_properties.end(); ++it) {
 
     // Let's see if data is selected or unselected since the last time.
@@ -309,7 +309,7 @@ void VisEngine::rescan(
   ///   }
   /// }
 
-  for(const_dataguide_iterator it = begin(); it != end(); ++it) {
+  for(auto it = begin(); it != end(); ++it) {
     if(properties().palette(*it) != object.properties().palette(*it)) {
       properties().setPalette(*it, object.properties().palette(*it));
       _data->_change |= DRAWPROPS;
@@ -365,7 +365,7 @@ void VisEngine::finishedScanning(
   _data->_backgroundColour = object.backgroundColour();
   _data->_change = 0;
 
-  for(DataProperties::const_iterator it = _data->_properties.begin();
+  for(auto it = _data->_properties.begin();
                    it != _data->_properties.end(); ++it) {
     _data->_properties.setSelected(*it, object.isSelected(*it));
     _data->_properties.setEnabled(*it, object.isEnabled(*it));

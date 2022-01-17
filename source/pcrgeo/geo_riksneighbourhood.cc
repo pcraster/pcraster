@@ -64,7 +64,7 @@ boost::tuple<size_t, size_t> geo::RiksNeighbourhood::circleCell(double radius)
 
   // Determine max radius of raster which can contain a circle with given
   // radius.
-  size_t maxRadius = static_cast<size_t>(std::ceil(radius));
+  auto maxRadius = static_cast<size_t>(std::ceil(radius));
 
   // Only handle one quarter of the circle.
   for(size_t row = 0; row <= maxRadius; ++row) {

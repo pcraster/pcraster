@@ -237,7 +237,7 @@ calc::LddGraph::LddGraph(
 
   // propagate
   if (propagateDownstream)
-   for(DownConstIterator i=org.downBegin(); i!=org.downEnd(); ++i) {
+   for(auto i=org.downBegin(); i!=org.downEnd(); ++i) {
     if (remove[i->up()])
      remove[i->down()] = true;
    }
@@ -251,7 +251,7 @@ calc::LddGraph::LddGraph(
   d_mv=org.d_mv;
 
   d_edge.reserve(org.d_edge.size()); // avoid invalidation of iters
-  for(Catchments::const_iterator orgC=org.d_catchments.begin();
+  for(auto orgC=org.d_catchments.begin();
       orgC != org.d_catchments.end(); ++orgC) {
     Catchment newC=*orgC;
     if (orgC->d_pitId != d_invalidFieldId) {
@@ -274,7 +274,7 @@ calc::LddGraph::LddGraph(
     size_t idOfBeginEdge = d_edge.size();
     // newC.d_beginEdge=d_edge.end();
 
-    for(Edges::const_iterator e=orgC->d_beginEdge; e!=orgC->d_endEdge; ++e) {
+    for(auto e=orgC->d_beginEdge; e!=orgC->d_endEdge; ++e) {
       if (remove[e->up()])
         d_mv.push_back(e->up());
       else {

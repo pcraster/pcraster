@@ -749,7 +749,7 @@ extern "C" int  Transient(void** out, const void** in, int nrArgs)
   size_t nrIterations = 0;
 
   // yepyep: fieldapi::Common::cellLength();
-  MAP_REAL8* map = static_cast<MAP_REAL8*>(out[0]);
+  auto* map = static_cast<MAP_REAL8*>(out[0]);
   double cellLength = map->CellLength(map);
   PRECOND(cellLength > 0.0);
 

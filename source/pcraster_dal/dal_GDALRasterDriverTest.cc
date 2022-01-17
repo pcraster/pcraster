@@ -45,7 +45,7 @@ void testUInt1Raster1(
   // Read.
   raster.reset(driver.read(name));
   BOOST_REQUIRE(raster);
-  UINT1 const* cells = static_cast<UINT1 const*>(raster->cells());
+  auto const* cells = static_cast<UINT1 const*>(raster->cells());
   BOOST_REQUIRE(cells);
   BOOST_CHECK_EQUAL(cells[0], 1);
   BOOST_CHECK_EQUAL(cells[1], 0);
@@ -160,7 +160,7 @@ void testReal4Raster1(
   // Read.
   raster.reset(driver.read(name));
   BOOST_REQUIRE(raster);
-  REAL4 const* cells = static_cast<REAL4 const*>(raster->cells());
+  auto const* cells = static_cast<REAL4 const*>(raster->cells());
   BOOST_REQUIRE(cells);
   BOOST_CHECK_EQUAL(cells[0], REAL4(2));
   BOOST_CHECK_EQUAL(cells[1], REAL4(-7));
@@ -193,7 +193,7 @@ void testReal4Raster2(
   // Read.
   raster.reset(driver.read(name));
   BOOST_REQUIRE(raster);
-  REAL4 const* cells = static_cast<REAL4 const*>(raster->cells());
+  auto const* cells = static_cast<REAL4 const*>(raster->cells());
   BOOST_REQUIRE(cells);
 
   BOOST_CHECK(dal::comparable(REAL4(cells[0] * 180.0 / M_PI), REAL4(280.0F)));
@@ -227,7 +227,7 @@ void testUInt1Raster2(
   // Read.
   raster.reset(driver.read(name));
   BOOST_REQUIRE(raster);
-  UINT1 const* cells = static_cast<UINT1 const*>(raster->cells());
+  auto const* cells = static_cast<UINT1 const*>(raster->cells());
   BOOST_REQUIRE(cells);
   BOOST_CHECK_EQUAL(cells[0], 2);
   BOOST_CHECK_EQUAL(cells[1], 2);
@@ -279,7 +279,7 @@ void testAllMVRaster(
 
   raster.reset(driver.read(name));
   BOOST_REQUIRE(raster);
-  UINT1 const* cells = static_cast<UINT1 const*>(raster->cells());
+  auto const* cells = static_cast<UINT1 const*>(raster->cells());
   BOOST_REQUIRE(cells);
   BOOST_CHECK(pcr::isMV(cells[0]));
   BOOST_CHECK(pcr::isMV(cells[1]));
@@ -371,7 +371,7 @@ BOOST_AUTO_TEST_CASE(unexisting)
   std::string filename = "unexisting";
   GDALRasterDriver driver("PCRaster");
 
-  Raster* raster = dynamic_cast<Raster*>(
+  auto* raster = dynamic_cast<Raster*>(
          dynamic_cast<Driver&>(driver).open(filename));
   BOOST_CHECK(!raster);
 
@@ -396,7 +396,7 @@ BOOST_AUTO_TEST_CASE(empty)
   std::string filename = "emptyfile";
   GDALRasterDriver driver("PCRaster");
 
-  Raster* raster = dynamic_cast<Raster*>(
+  auto* raster = dynamic_cast<Raster*>(
          dynamic_cast<Driver&>(driver).open(filename));
   BOOST_CHECK(!raster);
 

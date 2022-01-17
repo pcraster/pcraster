@@ -378,9 +378,9 @@ void writeFilename(
 
 calc::Field* newScalarField()
 {
-  calc::Spatial* field = new calc::Spatial(
+  auto* field = new calc::Spatial(
          VS_S, calc::CRI_f, globals.cloneSpace().nrCells());
-  REAL4* cells = static_cast<REAL4*>(field->dest());
+  auto* cells = static_cast<REAL4*>(field->dest());
 
   for(size_t i = 0; i < field->nrValues(); ++i) {
     pcr::setMV(cells[i]);
@@ -672,8 +672,8 @@ calc::Field* closeAtTolerance(calc::Field const * result,
 
   size_t nrCells = globals.cloneSpace().nrCells();
 
-  calc::Spatial* field = new calc::Spatial(VS_B, calc::CRI_1, nrCells);
-  UINT1* cells = static_cast<UINT1*>(field->dest());
+  auto* field = new calc::Spatial(VS_B, calc::CRI_1, nrCells);
+  auto* cells = static_cast<UINT1*>(field->dest());
 
   for(size_t i = 0; i < nrCells; ++i) {
     cells[i] = 0;

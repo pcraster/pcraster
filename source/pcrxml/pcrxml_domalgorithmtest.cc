@@ -1,8 +1,8 @@
 #define BOOST_TEST_MODULE pcraster pcrxml dom_algorithm
-#include "pcrxml_domalgorithm.h"
-#include "pcrxml_document.h"
-#include <QtGlobal>
 #include <boost/test/unit_test.hpp>
+#include "pcrxml_document.h"
+#include "pcrxml_domalgorithm.h"
+#include <QtGlobal>
 #include <utility>
 
 //! count nodes that are attributes

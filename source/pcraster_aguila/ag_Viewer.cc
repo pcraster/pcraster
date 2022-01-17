@@ -353,7 +353,7 @@ VisGroup* Viewer::createMapView(
 
   Map2DWindow* window = d_data->d_manager->addMap2DWindow(group);
 
-  for(std::vector<DataGuide>::const_iterator it = guides.begin();
+  for(auto it = guides.begin();
          it != guides.end(); ++it) {
     window->addAttribute(*it);
   }
@@ -573,7 +573,7 @@ VisGroup* Viewer::createTimeGraphView(
 
   TimePlotWindow* window = d_data->d_manager->addTimePlotWindow(group);
 
-  for(std::vector<DataGuide>::const_iterator it = guides.begin();
+  for(auto it = guides.begin();
          it != guides.end(); ++it) {
     window->addAttribute(*it);
   }
@@ -602,7 +602,7 @@ VisGroup* Viewer::createProbabilityGraphView(
   CumDistributionFunctionWindow* window =
          d_data->d_manager->addProbabilityGraphWindow(group);
 
-  for(std::vector<DataGuide>::const_iterator it = guides.begin();
+  for(auto it = guides.begin();
          it != guides.end(); ++it) {
     window->addAttribute(*it);
   }
@@ -887,7 +887,7 @@ VisGroup* Viewer::displayMap2D(
   }
 
   // Add data to windows.
-  for(QueryResults::const_iterator i=results.begin(); i != results.end(); ++i) {
+  for(auto i=results.begin(); i != results.end(); ++i) {
     for(size_t j = 0; j < windows.size(); ++j) {
       // subSpace copy is modified if scenarios are used
       dal::DataSpace subSpace(fixForScenario(i->space(), scenarios, j));
@@ -1112,7 +1112,7 @@ VisGroup* Viewer::displayMap3D(
 #endif
   // Add data to windows.
   {
-    QueryResults::const_iterator i=results.begin();
+    auto i=results.begin();
     ++i; // skip height layer
     for(; i != results.end(); ++i) {
       for(size_t j = 0; j < windows.size(); ++j) {
@@ -1221,7 +1221,7 @@ VisGroup* Viewer::displayProbabilityGraphWindow(
   CumDistributionFunctionWindow* window =
          d_data->d_manager->addProbabilityGraphWindow(group);
 
-  for(std::vector<std::string>::const_iterator it = names.begin();
+  for(auto it = names.begin();
          it != names.end(); ++it) {
     window->addAttribute(group->addData(*it, space));
   }

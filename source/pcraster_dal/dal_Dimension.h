@@ -317,7 +317,7 @@ inline Dimension::Dimension(
 
   _values.reserve(values.size());
 
-  for(typename std::set<T>::const_iterator it = values.begin();
+  for(auto it = values.begin();
          it != values.end(); ++it) {
     _values.push_back(boost::any(*it));
   }
@@ -450,7 +450,7 @@ inline void Dimension::setValues(
 
   size_t i = 0;
 
-  for(typename std::set<T>::const_iterator it = values.begin();
+  for(auto it = values.begin();
          it != values.end(); ++it, ++i) {
     _values[i] = boost::any(*it);
   }

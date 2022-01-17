@@ -32,7 +32,7 @@ public:
    d_msg.insert(Pair(com::E_EXIST,       "File exists"));
   };
   const std::string& operator[](Errno nr) const {
-   std::map<Errno,std::string>::const_iterator f = d_msg.find(nr);
+   auto f = d_msg.find(nr);
    assert(f != d_msg.end());
    return (*f).second;
   }

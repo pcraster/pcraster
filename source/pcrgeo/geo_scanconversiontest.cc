@@ -284,7 +284,7 @@ BOOST_AUTO_TEST_CASE(midpoint_circle)
     pointsInOctant.push_back(Point(12, 12));
     pointsInOctant.push_back(Point(17,  0));
 
-    for(std::vector<Point>::const_iterator it = pointsInOctant.begin();
+    for(auto it = pointsInOctant.begin();
          it != pointsInOctant.end(); ++it) {
       testCirclePoints(points, *it);
     }
@@ -306,7 +306,7 @@ BOOST_AUTO_TEST_CASE(midpoint_circle)
     pointsInOctant.push_back(Point( 8, 10));
     pointsInOctant.push_back(Point( 9,  9));
 
-    for(std::vector<Point>::const_iterator it = pointsInOctant.begin();
+    for(auto it = pointsInOctant.begin();
          it != pointsInOctant.end(); ++it) {
       testCirclePoints(innerPoints, *it);
     }
@@ -398,7 +398,7 @@ BOOST_AUTO_TEST_CASE(midpoint_circle)
     pointsInOctant.push_back(Point(11, 11));
     pointsInOctant.push_back(Point(11, 12));
 
-    for(std::vector<Point>::const_iterator it = pointsInOctant.begin();
+    for(auto it = pointsInOctant.begin();
          it != pointsInOctant.end(); ++it) {
       testCirclePoints(points, *it);
     }

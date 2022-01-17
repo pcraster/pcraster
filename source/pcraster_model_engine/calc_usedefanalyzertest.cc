@@ -284,7 +284,7 @@ BOOST_AUTO_TEST_CASE(testBugs)
    BOOST_CHECK(!ds->deletesOnForward().count("tmp.res"));
    JumpNode *j= test.jump("C/b/0}");
    BOOST_CHECK(!j->deletesOnForward().count("tmp.res"));
-   ASTPar *p=test.cast<ASTPar>("C/b/0/b/l/0/a/</p");
+   auto *p=test.cast<ASTPar>("C/b/0/b/l/0/a/</p");
    BOOST_CHECK(p);
    BOOST_CHECK(p->lastUse());
  }

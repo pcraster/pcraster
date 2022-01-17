@@ -298,7 +298,7 @@ void Map2DView::drawCrossHair()
     size_t index = space.indexOf(dal::Space);
 
     if(address.isValid(index)) {
-      dal::SpatialCoordinate const& spatialCoordinates(
+      auto const& spatialCoordinates(
          address.coordinate<dal::SpatialCoordinate>(index));
 
       QPointF pos;
@@ -789,7 +789,7 @@ void Map2DView::createScene(
 
   std::vector<MapDrawer*> drawers;
 
-  for(std::vector<DataGuide>::const_iterator it = dataGuides.begin();
+  for(auto it = dataGuides.begin();
          it != dataGuides.end(); ++it) {
     if(dataObject().isEnabled(*it)) {
       DataGuide guide = *it;
@@ -919,7 +919,7 @@ void Map2DView::createScene(
     typedef std::vector<MapDrawer*>::iterator iterator;
 
     // try {
-      for(iterator it = drawers.begin(); it != drawers.end(); ++it) {
+      for(auto it = drawers.begin(); it != drawers.end(); ++it) {
         (*it)->draw(painter, area, anchor(), dataObject().map2DZoom(),
               dataObject().map2DOffset(), dataObject().map2DScale());
       }
@@ -934,7 +934,7 @@ void Map2DView::createScene(
 
     painter.end();
 
-    for(iterator it = drawers.begin(); it != drawers.end(); ++it) {
+    for(auto it = drawers.begin(); it != drawers.end(); ++it) {
       delete *it;
     }
   }

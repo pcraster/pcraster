@@ -279,7 +279,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryStatic)
     BOOST_CHECK(!pcr_ScriptError(s));
 
     BOOST_CHECK(data[1]);
-    const float *output=(const float *)data[1];
+    const auto *output=(const float *)data[1];
     BOOST_CHECK_EQUAL(output[1],7.5F);
     BOOST_CHECK_EQUAL(output[24],7.5F);
     pcr_destroyScript(s);
@@ -582,13 +582,13 @@ BOOST_AUTO_TEST_CASE(testIOMemoryDynamic)
     BOOST_REQUIRE(!pcr_ScriptError(s));
 
     BOOST_CHECK(data[MemOutputInitial]);
-    float* allocatedMemOutputInitial = (float *)data[MemOutputInitial];
+    auto* allocatedMemOutputInitial = (float *)data[MemOutputInitial];
     if (allocatedMemOutputInitial)
       BOOST_CHECK_EQUAL(allocatedMemOutputInitial[0],5.0F);
 
     BOOST_CHECK(!data[MemOutputDynamic]);
     pcr_ScriptExecuteNextTimeStepMemory(s, data);
-    float *allocatedMemOutputDynamic = (float *)data[MemOutputDynamic];
+    auto *allocatedMemOutputDynamic = (float *)data[MemOutputDynamic];
     BOOST_CHECK(allocatedMemOutputDynamic);
     if (allocatedMemOutputDynamic) {
      BOOST_CHECK_EQUAL(allocatedMemOutputDynamic[1],13.5F);
@@ -712,13 +712,13 @@ BOOST_AUTO_TEST_CASE(testIOMemoryTimeoutput)
     BOOST_CHECK(data[0]);
     if (data[0])
     {
-      const UINT4 *header = (const UINT4 *)data[0];
+      const auto *header = (const UINT4 *)data[0];
       BOOST_CHECK_EQUAL(header[0],(UINT4)1); // id
       BOOST_CHECK_EQUAL(header[1],(UINT4)CR_REAL4); // value type
       BOOST_CHECK_EQUAL(header[2],(UINT4)1); // nrDim
       BOOST_CHECK_EQUAL(header[3],(UINT4)5); // lenDim1
 
-      const float *tss=(const float *)(header+4);
+      const auto *tss=(const float *)(header+4);
       BOOST_CHECK_EQUAL(tss[0],1);
       BOOST_CHECK_EQUAL(tss[1],2);
       BOOST_CHECK_EQUAL(tss[2],3);
@@ -733,13 +733,13 @@ BOOST_AUTO_TEST_CASE(testIOMemoryTimeoutput)
     BOOST_CHECK(data[0]);
     if (data[0])
     {
-      const UINT4 *header = (const UINT4 *)data[0];
+      const auto *header = (const UINT4 *)data[0];
       BOOST_CHECK_EQUAL(header[0],(UINT4)1); // id
       BOOST_CHECK_EQUAL(header[1],(UINT4)CR_REAL4); // value type
       BOOST_CHECK_EQUAL(header[2],(UINT4)1); // nrDim
       BOOST_CHECK_EQUAL(header[3],(UINT4)5); // lenDim1
 
-      const float *tss=(const float *)(header+4);
+      const auto *tss=(const float *)(header+4);
       BOOST_CHECK_EQUAL(tss[0],2);
       BOOST_CHECK_EQUAL(tss[1],4);
       BOOST_CHECK_EQUAL(tss[2],6);

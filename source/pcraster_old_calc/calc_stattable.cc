@@ -276,7 +276,7 @@ static void  crossPercentiles(
     begin=endP;
   }
 
-  for (typename M::iterator i=m.begin();i!=m.end();++i) {
+  for (auto i=m.begin();i!=m.end();++i) {
    switch(i->second.nr()) {
      case 0: break; // else d_med keeps 0
      case 1:
@@ -477,7 +477,7 @@ template<typename T>
   std::ofstream out;
   open(out);
   out << d_subject.d_name << "\t" << "opp" << "\n";
-  for(M::const_iterator i=m.begin(); i!=m.end();++i)
+  for(auto i=m.begin(); i!=m.end();++i)
       out << i->first << "\t" << area(i->second) << "\n";
 }
 
@@ -491,7 +491,7 @@ template<typename SubjectType, typename CrossType>
   this->addCrossClasses(m);
 
   FieldHandle d(stack.popReadOnly());
-  const CrossType* cross=(const CrossType *)d->srcValue();
+  const auto* cross=(const CrossType *)d->srcValue();
   for(size_t i=0; i < d->nrValues(); ++i)
     if (!pcr::isMV(subject[i]) && !pcr::isMV(cross[i]))
       m(subject[i],cross[i]);
@@ -508,13 +508,13 @@ template<typename SubjectType, typename CrossType>
   S col=m.colClasses();
   S row=m.rowClasses();
 
-  for(SI c=col.begin(); c!=col.end(); ++c)
+  for(auto c=col.begin(); c!=col.end(); ++c)
    out << "\t" << *c;
   out << "\n";
 
-  for(SI r=row.begin(); r!=row.end(); ++r) {
+  for(auto r=row.begin(); r!=row.end(); ++r) {
     out << *r;
-    for(SI c=col.begin(); c!=col.end(); ++c)
+    for(auto c=col.begin(); c!=col.end(); ++c)
      out << "\t" << area(m.getCount(*r,*c));
     out << "\n";
   }
@@ -558,7 +558,7 @@ template<typename CountMap>
  void calc::StatTable::addSubjectClasses(CountMap& m) const
 {
   const Intervals& cl(d_subject.d_intervals);
-  for(Intervals::const_iterator i=cl.begin(); i!=cl.end();++i) {
+  for(auto i=cl.begin(); i!=cl.end();++i) {
     const com::IntervalF& iv(**i);
     // normal case: PRECOND(iv.min()==iv.max());
     //  but we simple cast min to integer
@@ -578,8 +578,8 @@ template<typename CountMap>
    for(size_t i=0; i <s.size();++i)
      m.addClass(static_cast<int>(s[i]->min()));
   else
-   for(Intervals::const_iterator si=s.begin(); si!=s.end();++si)
-    for(Intervals::const_iterator ci=c.begin(); ci!=c.end();++ci) {
+   for(auto si=s.begin(); si!=s.end();++si)
+    for(auto ci=c.begin(); ci!=c.end();++ci) {
      const com::IntervalF& siv(**si);
      PRECOND(siv.min()==siv.max());
      const com::IntervalF& civ(**ci);
@@ -599,7 +599,7 @@ template< class    IntervalMapT,
   PRECOND(d_cross.hasIntervals());
 
   FieldHandle d(stack.popReadOnly());
-  const REAL4* cross=(const REAL4 *)d->srcValue();
+  const auto* cross=(const REAL4 *)d->srcValue();
 
   typedef detail::CS_CP   CP;
   detail::CS_V r;
@@ -620,9 +620,9 @@ template< class    IntervalMapT,
 
   // compute percentiles per subject
   typedef detail::CS_V::iterator I;
-  detail::CS_V::iterator start=r.begin();
-  for(typename M::iterator i=m.begin(); i!= m.end(); ++i) {
-    I end=start+i->second.nrVisits();
+  auto start=r.begin();
+  for(auto i=m.begin(); i!= m.end(); ++i) {
+    auto end=start+i->second.nrVisits();
     crossPercentiles<detail::CSPolicy>(i->second,start,end);
     start=end;
   }
@@ -630,8 +630,8 @@ template< class    IntervalMapT,
   std::ofstream out;
   open(out);
   scalarCrossHeader(out,2);
-  for(typename M::const_iterator k=m.begin(); k!=m.end();++k) {
-   for(typename IntervalMapT::const_iterator i=k->second.begin(); i!=k->second.end();++i) {
+  for(auto k=m.begin(); k!=m.end();++k) {
+   for(auto i=k->second.begin(); i!=k->second.end();++i) {
     out << k->first << "\t";
     i->second.printLine(*(i->first),area(1),out);
    }
@@ -680,7 +680,7 @@ template<class IntervalMapT>
   std::ofstream out;
   open(out);
   scalarCrossHeader(out);
-  for(typename M::const_iterator i=m.begin(); i!=m.end();++i)
+  for(auto i=m.begin(); i!=m.end();++i)
     i->second.printLine(*(i->first),area(1),out);
   if (m.outside().nr())
     m.outside().printLine("anders",area(1),out);
@@ -694,7 +694,7 @@ template<class IntervalMapT>
   PRECOND(d_cross.cr()==CR_REAL4);
 
   FieldHandle d(stack.popReadOnly());
-  const REAL4* cross=(const REAL4 *)d->srcValue();
+  const auto* cross=(const REAL4 *)d->srcValue();
 
 
   typedef detail::CS_CP   CP;
@@ -708,7 +708,7 @@ template<class IntervalMapT>
   M m;
   m.insertIntervals(d_subject.d_intervals);
   POSTCOND(m.size()==d_subject.d_intervals.size());
-  for(M::iterator i=m.begin(); i!=m.end();++i)
+  for(auto i=m.begin(); i!=m.end();++i)
     i->second.insertIntervals(d_cross.d_intervals);
 
   for(size_t i=0;i< d->nrValues(); i++)
@@ -718,13 +718,13 @@ template<class IntervalMapT>
     }
 
   // what is outside is not in any interval
-  R::iterator endOutside=
+  auto endOutside=
     m.partitionOutside(r.begin(),r.end(),
                        detail::GGPolicy::partitionValueFirst);
     crossPercentiles<detail::GGPolicy>(m.outside(),r.begin(),endOutside);
 
-  for (M::iterator i=m.begin();i!=m.end();++i) {
-   R::iterator endP=
+  for (auto i=m.begin();i!=m.end();++i) {
+   auto endP=
     m.partition(endOutside,r.end(),i,
                        detail::GGPolicy::partitionValueFirst);
     crossPercentiles<detail::GGPolicy>(i->second,endOutside,endP);
@@ -733,8 +733,8 @@ template<class IntervalMapT>
   std::ofstream out;
   open(out);
   scalarCrossHeader(out,2);
-  for(M::const_iterator k=m.begin(); k!=m.end();++k) {
-   for(MapKey::const_iterator i=k->second.begin(); i!=k->second.end();++i) {
+  for(auto k=m.begin(); k!=m.end();++k) {
+   for(auto i=k->second.begin(); i!=k->second.end();++i) {
     out << *k->first << "\t";
     i->second.printLine(*(i->first),area(1),out);
    }
@@ -746,7 +746,7 @@ template<class IntervalMapT>
 
   const MapKey& mko(m.outside());
   if (mko.nrVisits()) {
-   for(MapKey::const_iterator i=mko.begin(); i!=mko.end();++i) {
+   for(auto i=mko.begin(); i!=mko.end();++i) {
     out << "anders" << "\t";
     i->second.printLine(*(i->first),area(1),out);
    }
@@ -778,7 +778,7 @@ template<typename SubjectType>
       FieldStack& stack) const
 {
   FieldHandle d(stack.popReadOnly());
-  const REAL4* cross=(const REAL4 *)d->srcValue();
+  const auto* cross=(const REAL4 *)d->srcValue();
 
   typedef detail::CS_CP   CP;
   typedef std::vector<CP> R;
@@ -799,9 +799,9 @@ template<typename SubjectType>
   std::sort(r.begin(),r.end(),std::mem_fn(&CP::subjectILess));
 
   // compute percentile per subject
-  R::iterator start=r.begin();
-  for(M::const_iterator i=m.begin(); i!=m.end();++i) {
-    R::iterator end=start+i->second.nr();
+  auto start=r.begin();
+  for(auto i=m.begin(); i!=m.end();++i) {
+    auto end=start+i->second.nr();
     if (start!=end)
       m[i->first].d_med= median(start,end);
     start=end;
@@ -810,7 +810,7 @@ template<typename SubjectType>
   std::ofstream out;
   open(out);
   scalarCrossHeader(out);
-  for(typename M::const_iterator i=m.begin(); i!=m.end();++i)
+  for(auto i=m.begin(); i!=m.end();++i)
     i->second.printLine(i->first,area(1),out);
 }
 
@@ -862,7 +862,7 @@ void calc::StatTable::scalarSubject(
     FieldStack& stack) const
 {
   FieldHandle d(stack.popReadOnly());
-  const REAL4* r=(const REAL4 *)d->srcValue();
+  const auto* r=(const REAL4 *)d->srcValue();
 
   if (!d_cross.defined() && !d_subject.hasIntervals()) {
      scalarTable(r, r+d->nrValues());
@@ -888,7 +888,7 @@ void calc::StatTable::scalarSubject(
  } else {
      // scalarTable (met 2 kolommen)
      FieldHandle cd(stack.popReadOnly());
-     const REAL4* c=(const REAL4 *)cd->srcValue();
+     const auto* c=(const REAL4 *)cd->srcValue();
      scalarTable(r, r+d->nrValues(),c,c+cd->nrValues());
   }
 }

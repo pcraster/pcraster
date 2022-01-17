@@ -70,19 +70,19 @@ BOOST_AUTO_TEST_CASE(testExpr)
        switch(ic) {
          case 0:
           {
-           ASTPar *p(dynamic_cast<ASTPar *>(i->node()));
+           auto *p(dynamic_cast<ASTPar *>(i->node()));
            BOOST_CHECK(p);
            BOOST_CHECK(p->name()=="a");
           } break;
          case 1:
           {
-           ASTPar *p(dynamic_cast<ASTPar *>(i->node()));
+           auto *p(dynamic_cast<ASTPar *>(i->node()));
            BOOST_CHECK(p);
            BOOST_CHECK(p->name()=="b");
           } break;
          case 2:
           {
-           ASTExpr *en(dynamic_cast<ASTExpr *>(i->node()));
+           auto *en(dynamic_cast<ASTExpr *>(i->node()));
            BOOST_CHECK(en);
            BOOST_CHECK(en->name()=="*");
            BOOST_CHECK(en==e.ast());

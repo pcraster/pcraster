@@ -55,7 +55,7 @@ calc::SymbolTable::~SymbolTable()
   * to them
   */
  std::vector<calc::UserSymbol *>indexCont;
- for (Iter p = d_table.begin(); p != d_table.end(); p++) {
+ for (auto p = d_table.begin(); p != d_table.end(); p++) {
    calc::UserSymbol *u  = (*p).second;
   if (! isIn(u->symbolType(), VS_INDEX_CONTAINER))
       delete u;
@@ -68,7 +68,7 @@ calc::SymbolTable::~SymbolTable()
 void calc::SymbolTable::print(calc::InfoScript& i)const
 {
   i.stream() << "<BR>";
-  for (ConstIter p = d_table.begin(); p != d_table.end(); p++) {
+  for (auto p = d_table.begin(); p != d_table.end(); p++) {
     if ((*p).second->symbolType() != VS_INDEX) {
      (*p).second->print(i);
      i.stream() << "<HR>";
@@ -78,7 +78,7 @@ void calc::SymbolTable::print(calc::InfoScript& i)const
 
 calc::UserSymbol * calc::SymbolTable::find( const std::string& name) const
 {
-  ConstIter p=d_table.find(name);
+  auto p=d_table.find(name);
   if (p!= d_table.end())
     return p->second;
   return nullptr;
@@ -151,13 +151,13 @@ void calc::SymbolTable::goInScope()
   // std::vector<UserSymbol *> d_t; 
   // com::forWhole(d_t,std::mem_fun(&UserSymbol::goInScope));
 
-  for (Iter p = d_table.begin(); p != d_table.end(); p++)
+  for (auto p = d_table.begin(); p != d_table.end(); p++)
     p->second->goInScope();
 }
 
 void calc::SymbolTable::finalCheck()
 {
-  for (Iter p = d_table.begin(); p != d_table.end(); p++)
+  for (auto p = d_table.begin(); p != d_table.end(); p++)
     p->second->finalCheck();
 }
 
@@ -166,7 +166,7 @@ calc::SubParameter *calc::SymbolTable::findParameter(
           VS                 expectedVs,
           bool               mustExist) const
 {
-  calc::SubParameter *p = dynamic_cast<calc::SubParameter *>
+  auto *p = dynamic_cast<calc::SubParameter *>
         (find(&par,expectedVs,mustExist));
   if (p && !(par.descriptor() == p->arrayDefVector())) { // pcrcalc/test268
     std::ostringstream msg;
@@ -213,7 +213,7 @@ void calc::SymbolTable::createXmlData(
 {
   //  in order of definition
   std::vector<const UserSymbol *> inDefOrder; 
-  for (ConstIter p = d_table.begin(); p != d_table.end(); p++) 
+  for (auto p = d_table.begin(); p != d_table.end(); p++) 
     inDefOrder.push_back(p->second);
 //  std::sort(inDefOrder.begin(),inDefOrder.end(),lessThan);
 

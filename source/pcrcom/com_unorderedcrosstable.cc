@@ -75,7 +75,7 @@ void com::UnOrderedCrossTable::createIndices(size_t size)
 
   if(d_indicesMap.find(size) == d_indicesMap.end()) {
 
-    size_t ** indices = new size_t*[size];
+    auto ** indices = new size_t*[size];
 
     for(size_t i = 0; i < size; ++i) {
       indices[i] = new size_t[size];
@@ -208,7 +208,7 @@ com::UnOrderedCrossTable::~UnOrderedCrossTable()
   delete[] d_cells;
 
   if(nrObjectsCreated() == 1) {
-    for(std::map<size_t, size_t**>::iterator it = d_indicesMap.begin();
+    for(auto it = d_indicesMap.begin();
          it != d_indicesMap.end(); ++it) {
 
       size_t size = it->first;

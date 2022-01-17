@@ -155,9 +155,9 @@ inline bool Vector::value(
     // Rasters might be empty (contain no cells at all).
     if(index != space.size()) {
       if(address.isValid(index)) {
-        dal::RasterDimensions const& rasterDimensions(
+        auto const& rasterDimensions(
               space.dimension(index).value<dal::RasterDimensions>(0));
-        dal::SpatialCoordinate const& spatialAddress(
+        auto const& spatialAddress(
               address.template coordinate<dal::SpatialCoordinate>(index));
         double row, col;
 

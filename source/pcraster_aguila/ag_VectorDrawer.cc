@@ -80,10 +80,10 @@ void VectorDrawer::draw (
   REAL4 angle;
   QTransform matrix;
 
-  size_t firstRow = static_cast<size_t>(indices.top());
-  size_t lastRow = static_cast<size_t>(indices.bottom());
-  size_t firstCol = static_cast<size_t>(indices.left());
-  size_t lastCol = static_cast<size_t>(indices.right());
+  auto firstRow = static_cast<size_t>(indices.top());
+  auto lastRow = static_cast<size_t>(indices.bottom());
+  auto firstCol = static_cast<size_t>(indices.left());
+  auto lastCol = static_cast<size_t>(indices.right());
 
   firstRow = firstRow > 1
          ? firstRow - 1
@@ -106,8 +106,8 @@ void VectorDrawer::draw (
     for(size_t col = firstCol; col <= lastCol; col += nrCellsPerPixel) {
       // TODO Get pointers to the arrays and use linear indices to get at the
       // TODO value. Saves us a cast to REAL4.
-      REAL4 const& xMagnitude = _vector->x<REAL4>(row, col);
-      REAL4 const& yMagnitude = _vector->y<REAL4>(row, col);
+      auto const& xMagnitude = _vector->x<REAL4>(row, col);
+      auto const& yMagnitude = _vector->y<REAL4>(row, col);
 
       // Stop in case of missing values or when both magnitudes are zero.
       if(!pcr::isMV(xMagnitude) && !pcr::isMV(yMagnitude) &&
@@ -162,10 +162,10 @@ void VectorDrawer::drawCells(
   double leftScreen, topScreen, rightScreen, bottomScreen;
   double leftWorld, topWorld, rightWorld, bottomWorld;
 
-  size_t firstRow = static_cast<size_t>(indices.top());
-  size_t lastRow = static_cast<size_t>(indices.bottom());
-  size_t firstCol = static_cast<size_t>(indices.left());
-  size_t lastCol = static_cast<size_t>(indices.right());
+  auto firstRow = static_cast<size_t>(indices.top());
+  auto lastRow = static_cast<size_t>(indices.bottom());
+  auto firstCol = static_cast<size_t>(indices.left());
+  auto lastCol = static_cast<size_t>(indices.right());
 
   QColor colour(Qt::black);
   colour.setAlpha(100);

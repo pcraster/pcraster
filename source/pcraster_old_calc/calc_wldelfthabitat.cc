@@ -435,7 +435,7 @@ const calc::WlDelftHabitat::Parameter&
  calc::WlDelftHabitat::parameter(
     const std::string& reference) const
 {
-  Identifier2Name::const_iterator rn=d_identifier2Name.find(reference);
+  auto rn=d_identifier2Name.find(reference);
   if (rn==d_identifier2Name.end()) {
       std::ostringstream os;
       os << "reference :'" << reference << "' not found";
@@ -619,7 +619,7 @@ void calc::WlDelftHabitat::addRuleTableExpr(
 calc::StatTable *calc::WlDelftHabitat::addStatistics(
     const std::string&   subjectName)
 {
-  StatTable *st=new StatTable(addFieldExpr(subjectName));
+  auto *st=new StatTable(addFieldExpr(subjectName));
   // add intervals/etc
   addStatement(st);
   return st;

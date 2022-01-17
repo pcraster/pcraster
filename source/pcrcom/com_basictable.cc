@@ -97,7 +97,7 @@ com::BasicTable::~BasicTable()
 
 void com::BasicTable::clean()
 {
-  for(col_iterator it = d_columns.begin(); it != d_columns.end(); it++) {
+  for(auto it = d_columns.begin(); it != d_columns.end(); it++) {
     delete *it;
   }
 
@@ -132,7 +132,7 @@ void com::BasicTable::resize(size_t nrCols, size_t nrRecs)
 {
   resize(nrCols);
 
-  for(col_iterator it = d_columns.begin(); it != d_columns.end(); ++it) {
+  for(auto it = d_columns.begin(); it != d_columns.end(); ++it) {
     (*it)->resize(nrRecs);
   }
 
@@ -204,7 +204,7 @@ bool com::BasicTable::isMV(size_t col, size_t rec)
 */
 bool com::BasicTable::allMV(size_t i) const
 {
-  for(const_iterator it = begin(i); it != end(i); ++it) {
+  for(auto it = begin(i); it != end(i); ++it) {
     if(!pcr::isMV(*it)) {
       return false;
     }
@@ -220,7 +220,7 @@ double com::BasicTable::min(size_t i) const
   double min;
   pcr::setMV(min);
 
-  for(const_iterator it = begin(i); it != end(i); ++it) {
+  for(auto it = begin(i); it != end(i); ++it) {
     if(!pcr::isMV(*it)) {
       if(pcr::isMV(min)) {
         min = *it;
@@ -241,7 +241,7 @@ double com::BasicTable::max(size_t i) const
   double max;
   pcr::setMV(max);
 
-  for(const_iterator it = begin(i); it != end(i); ++it) {
+  for(auto it = begin(i); it != end(i); ++it) {
     if(!pcr::isMV(*it)) {
       if(pcr::isMV(max)) {
         max = *it;

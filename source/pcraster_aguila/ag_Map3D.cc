@@ -57,7 +57,7 @@ Map3D::~Map3D()
 void Map3D::createInterface(DataObject* object)
 {
   d_splitter = new QSplitter(Qt::Horizontal, this);
-  QVBoxLayout* layout = new QVBoxLayout(this);
+  auto* layout = new QVBoxLayout(this);
   layout->addWidget(d_splitter);
 
   d_legendView = new LegendView(object, VT_Map, d_splitter);

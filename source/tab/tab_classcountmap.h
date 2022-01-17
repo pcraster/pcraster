@@ -49,7 +49,7 @@ class ClassCountMap : public std::map<Class,size_t>
    //! return the classes in map
     S classes() const {
       S s;
-      for (I i=this->begin();i!=this->end();++i)
+      for (auto i=this->begin();i!=this->end();++i)
         s.insert(i->first);
       return s;
     }
@@ -74,7 +74,7 @@ class ClassCountMap : public std::map<Class,size_t>
 
     //! return the count, 0 if not in map
     size_t getCount(Class c) const {
-      I i=this->find(c);
+      auto i=this->find(c);
       if (i!=this->end())
         return i->second;
       return 0;

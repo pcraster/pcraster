@@ -83,7 +83,7 @@ ag::DrawPropertiesWidget::~DrawPropertiesWidget()
 void ag::DrawPropertiesWidget::createPaletteInterface()
 {
   QBoxLayout* layout = new QHBoxLayout();
-  QLabel* label = new QLabel("Palette:");
+  auto* label = new QLabel("Palette:");
   d_data->d_paletteBar = new qtw::PaletteBar();
   d_data->d_paletteBar->setFixedSize(150, 20);
   d_data->d_paletteBar->setOutline(true);
@@ -125,7 +125,7 @@ void ag::DrawPropertiesWidget::configurePaletteInterface()
 void ag::DrawPropertiesWidget::addPalettes(
          const std::vector<const com::RawPalette*>& palettes)
 {
-  for(std::vector<const com::RawPalette*>::const_iterator it =
+  for(auto it =
          palettes.begin(); it != palettes.end(); ++it) {
     d_data->d_paletteDialog->addPalette(*it);
   }

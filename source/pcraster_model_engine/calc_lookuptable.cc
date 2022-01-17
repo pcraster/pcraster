@@ -117,7 +117,7 @@ namespace calc {
        std::vector<size_t> dimensionSize;
 
        // UINT4 as xs:unsignedInt;
-       UINT4 const* dimensions((UINT4 const *)memoryArray);
+       auto const* dimensions((UINT4 const *)memoryArray);
        size_t nrDimensions = *dimensions;
        for(size_t i=0; i < nrDimensions; ++i) {
           dimensions++;
@@ -131,7 +131,7 @@ namespace calc {
        // copy the values
        // FTTB only 1-dimension
        dimensions++;
-       ArrayValueDataType const* values((ArrayValueDataType const*)dimensions);
+       auto const* values((ArrayValueDataType const*)dimensions);
        d_values.reserve(dimensionSize[0]);
        for(size_t i=0; i < dimensionSize[0]; ++i)
           d_values.push_back(values[i]);
@@ -348,7 +348,7 @@ bool calc::LookupTable::find(double& result, const Key& prefixKey) const
 
   PRECOND(prefixKey.size() == nrCols()-1);
 
-  I p=find(prefixKey);
+  auto p=find(prefixKey);
   if (p != d_records.end()) {
     result = p->back()->centre();
     return true;
@@ -378,7 +378,7 @@ bool calc::LookupTable::interpolate(
   PRECOND(d_prefixMap);
   PRECOND(prefixKey.size()==1); // FTTB
 
-  detail::LookupTablePrefixMap::const_iterator i=d_prefixMap->find(prefixKey[0]);
+  auto i=d_prefixMap->find(prefixKey[0]);
   if (i==d_prefixMap->end())
     return false;
   return interpolate(result,
@@ -424,7 +424,7 @@ bool calc::LookupTable::interpolate(
   DEVELOP_PRECOND(end <= d_records.end());
 
   // first element that has a value >= keyValue
-  I gt= std::lower_bound(begin,end,keyValue,RelationRecordColLess(keyCol));
+  auto gt= std::lower_bound(begin,end,keyValue,RelationRecordColLess(keyCol));
   if (gt == end)
     return false;
   // is keyValue equal to gt ?
@@ -437,7 +437,7 @@ bool calc::LookupTable::interpolate(
     return false; // before begin
 
   // thus value between (gt-1) and gt
-  I lt=gt-1;
+  auto lt=gt-1;
   DEVELOP_PRECOND(lt->col(keyCol).max() != com::Interval<>::maxLimit());
   DEVELOP_PRECOND(gt->col(keyCol).min() != com::Interval<>::minLimit());
   // interpolate linear
@@ -472,10 +472,10 @@ void  calc::LookupTable::setPrefixStableSort(size_t prefixLen)
                    RelationRecordColLess(0));
 
 
-  I                 begin=d_records.begin();
+  auto                 begin=d_records.begin();
   RelationRecord::Float k=begin->col(0).centre();
 
-  for(I i=begin; i != d_records.end(); ++i) {
+  for(auto i=begin; i != d_records.end(); ++i) {
     if (k!=i->col(0).centre()) {
       d_prefixMap->insert(
         std::make_pair(k,std::make_pair(begin,i)));

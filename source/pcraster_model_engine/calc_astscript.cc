@@ -130,7 +130,7 @@ namespace calc {
          const std::string& name)
      {
        PRECOND(id);
-       const ASTNumber *n=dynamic_cast<const ASTNumber *>(id);
+       const auto *n=dynamic_cast<const ASTNumber *>(id);
        double value;
        if(n) {
          value=n->value();
@@ -292,7 +292,7 @@ void calc::ASTScript::applyInterface()
 
   // 3) apply interface
   for(size_t i=0; i<d_interface.size(); ++i) {
-    ASTSymbolTable::iterator s= d_symbols.find(d_interface[i].name());
+    auto s= d_symbols.find(d_interface[i].name());
     if (s!=d_symbols.end())
       s->second.setInfo(d_interface[i]);
   }
@@ -381,9 +381,9 @@ void calc::ASTScript::analyzeNoContextUnChecked()
   // compute ioTypes
   typedef std::map<std::string,IOType> CodeTypes;
   CodeTypes codeTypes=ioTypes(d_cfgCode);
-  for (CodeTypes::const_iterator i=codeTypes.begin();
+  for (auto i=codeTypes.begin();
        i!=codeTypes.end(); ++i) {
-    ASTSymbolTable::iterator s=d_symbols.find(i->first);
+    auto s=d_symbols.find(i->first);
     PRECOND(s!=d_symbols.end());
     s->second.setIoType(i->second);
   }
@@ -464,8 +464,8 @@ void calc::ASTScript::setReports()
     d_code->accept(rv);
 
  ReportPars rps(rv.reportPars());
- for(ReportPars::const_iterator rp=rps.begin();rp!=rps.end();++rp) {
-   ASTSymbolTable::iterator s= d_symbols.find(rp->first);
+ for(auto rp=rps.begin();rp!=rps.end();++rp) {
+   auto s= d_symbols.find(rp->first);
    POSTCOND(s != d_symbols.end());
    ReportPar const& rpp(rp->second);
    s->second.setReport(rpp.d_par,rpp.d_report,rpp.d_inDynamic,

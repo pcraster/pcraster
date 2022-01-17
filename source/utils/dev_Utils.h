@@ -32,11 +32,11 @@ void unique(
          std::vector<T>& collection)
 {
   if(!collection.empty()) {
-    typename std::vector<T>::iterator end(collection.end());
-    typename std::vector<T>::iterator begin(collection.begin());
+    auto end(collection.end());
+    auto begin(collection.begin());
 
     // Position of current element being considered.
-    typename std::vector<T>::const_iterator pos = begin;
+    auto pos = begin;
 
     while(++begin != end) {
       end = std::remove(begin, end, *pos);

@@ -99,7 +99,7 @@ extern "C" int Idi(
   if ( (!maxNr.spatial()) && (!radius.spatial())) {
       double radVal=radius.value(0,0);
       double v=maxNr.value(0,0);
-      size_t maxNrP = static_cast<size_t>(v <= 0 ? 0 : v);
+      auto maxNrP = static_cast<size_t>(v <= 0 ? 0 : v);
 
      if ( (!maxNrP) && (radVal <= 0)) {
        com::auto_array_ptr<double>dist(new double[nrPoints]);
@@ -125,7 +125,7 @@ extern "C" int Idi(
           && maxNr.get(f_maxNr, *c) && radius.get(radVal, *c)
           && maskVal /* == 1 garantueed by boolean type */
           && f_maxNr >=  0 ) {
-            size_t maxNr = static_cast<size_t>(f_maxNr);
+            auto maxNr = static_cast<size_t>(f_maxNr);
             if (maxNr)
               maxNr = MIN(maxNr, nrPoints);
             else

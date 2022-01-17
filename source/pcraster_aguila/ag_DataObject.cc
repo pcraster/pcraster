@@ -1334,7 +1334,7 @@ void DataObject::setSelected(
   bool changed = false;
 
   // Loop over all data guides.
-  for(DataProperties::const_iterator it = d_data->d_properties.begin();
+  for(auto it = d_data->d_properties.begin();
                    it != d_data->d_properties.end(); ++it) {
 
     assert(isValid(*it));
@@ -1382,7 +1382,7 @@ void DataObject::setSelected(
 {
   bool changed = false;
 
-  for(std::vector<DataGuide>::const_iterator it = guides.begin();
+  for(auto it = guides.begin();
          it != guides.end(); ++it) {
 
     assert(isValid(*it));
@@ -1529,7 +1529,7 @@ void DataObject::setDateMapper(
          new dal::TimeStepCoordinateMapper(dm.index(),
          pcrxsd::toPosixTime(dm.timeOfIndex()),
          pcrxsd::toPosixTimeDuration(dm.duration())));
-  dal::TimeStepCoordinateMapper const* currentMapper =
+  auto const* currentMapper =
          dynamic_cast<dal::TimeStepCoordinateMapper const*>(
          localToWorldMapper(guide).mapper(id));
 
@@ -2259,7 +2259,7 @@ void DataObject::localStepMappings(
 
         // Data set data space has the dimension.
         if(mainDimension.meaning() == dal::Time) {
-          dal::TimeStepMapper const* mapper =
+          auto const* mapper =
               dynamic_cast<dal::TimeStepMapper const*>(
                    localToWorldMapper(guides[j]).mapper(dimensionId));
 
@@ -2276,7 +2276,7 @@ void DataObject::localStepMappings(
               assert(mainDimension.discretisation() ==
                    dal::RegularDiscretisation);
 
-              dal::SpaceStepMapper const* mapper =
+              auto const* mapper =
                    dynamic_cast<dal::SpaceStepMapper const*>(
                    localToWorldMapper(guides[j]).mapper(dimensionId));
 
@@ -2404,7 +2404,7 @@ void DataObject::setGlobalToWorldMappers(
 
         // Data set data space has the dimension.
         if(mainDimension.meaning() == dal::Time) {
-          dal::TimeStepMapper const* mapper =
+          auto const* mapper =
               dynamic_cast<dal::TimeStepMapper const*>(
                    localToWorldMapper(guides[j]).mapper(dimensionId));
 
@@ -2421,7 +2421,7 @@ void DataObject::setGlobalToWorldMappers(
               assert(mainDimension.discretisation() ==
                    dal::RegularDiscretisation);
 
-              dal::SpaceStepMapper const* mapper =
+              auto const* mapper =
                    dynamic_cast<dal::SpaceStepMapper const*>(
                         localToWorldMapper(guides[j]).mapper(dimensionId));
 
@@ -2611,7 +2611,7 @@ dal::SpatialCoordinate const& DataObject::spatialAddress() const
   assert(space.hasSpace());
 
   size_t index = space.indexOf(dal::Space);
-  dal::SpatialCoordinate const& result(
+  auto const& result(
          d_data->d_dataSpaceAddress.coordinate<dal::SpatialCoordinate>(index));
 
 #ifdef DEBUG_DEVELOP

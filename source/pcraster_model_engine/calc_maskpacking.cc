@@ -147,7 +147,7 @@ size_t  calc::MaskPacking::nrFieldCells() const
 //! creates a spatial with an unpacked version of \a f, caller must delete
 const calc::Field* calc::MaskPacking::unpack(const Field* f) const
 {
-  Spatial *r = new Spatial(f->vs(),f->cri(),rasterDim().nrCells());
+  auto *r = new Spatial(f->vs(),f->cri(),rasterDim().nrCells());
 
   switch(f->cri()) {
       case CRI_1: decompress<>(r->dest_1(),f->src_1()); break;
@@ -171,7 +171,7 @@ calc::Field* calc::MaskPacking::createSpatial(VS vs)const
  */
 calc::Field* calc::MaskPacking::pack(const Field* f)const
 {
-  Spatial *s= new Spatial(f->vs(),f->cri(),nrFieldCells());
+  auto *s= new Spatial(f->vs(),f->cri(),nrFieldCells());
   switch(f->cri()) {
       case CRI_1: compress<>(s->dest_1(),f->src_1()); break;
       case CRI_4: compress<>(s->dest_4(),f->src_4()); break;

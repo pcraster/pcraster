@@ -37,7 +37,7 @@ void calc::TimeinputStackOp::exec(RunTimeEnv* rte,const Operator& op,size_t nrAr
 {
   ExecArguments a(op,rte,nrArgs);
 
-  StackInput *stack= dynamic_cast<StackInput *>(a.firstNonFieldInput());
+  auto *stack= dynamic_cast<StackInput *>(a.firstNonFieldInput());
   POSTCOND(stack);
 
   rte->pushField(stack->read(rte->timer().currentInt()));
@@ -47,11 +47,11 @@ void calc::LookupMapStack::exec(RunTimeEnv* rte,const Operator& op,size_t nrArgs
 {
   ExecArguments a(op,rte,nrArgs);
 
-  StackInput *stack= dynamic_cast<StackInput *>(a.firstNonFieldInput());
+  auto *stack= dynamic_cast<StackInput *>(a.firstNonFieldInput());
   POSTCOND(stack);
 
   PRECOND(a.size()==1);
-  const NonSpatial *ns = dynamic_cast<const NonSpatial *>(&(a[0]));
+  const auto *ns = dynamic_cast<const NonSpatial *>(&(a[0]));
   POSTCOND(ns);
   // TODO make it VS_BNOL, then switch to get value
   POSTCOND(ns->vs()==VS_O);

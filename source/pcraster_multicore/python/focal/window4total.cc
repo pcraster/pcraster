@@ -78,7 +78,7 @@ calc::Field* window4total(
 
   const multicore_field::Spatial<REAL4> arg(field);
 
-  calc::Spatial* field_result = new calc::Spatial(VS_S, calc::CRI_f, nr_cells());
+  auto* field_result = new calc::Spatial(VS_S, calc::CRI_f, nr_cells());
   multicore_field::Spatial<REAL4> result(field_result);
 
   fa::ExecutionPolicy epol = execution_policy();

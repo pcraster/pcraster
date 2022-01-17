@@ -284,7 +284,7 @@ ag::DataGuide ag::VisGroup::addData(
 
 ag::Map2DView* ag::VisGroup::addMap2DView(QWidget* parent)
 {
-  Map2DView* view = new Map2DView(&(d_data->d_dataObject), parent);
+  auto* view = new Map2DView(&(d_data->d_dataObject), parent);
 
   return view;
 }
@@ -293,7 +293,7 @@ ag::Map2DView* ag::VisGroup::addMap2DView(QWidget* parent)
 
 ag::Map2D* ag::VisGroup::addMap2D(QWidget* parent)
 {
-  Map2D* map = new Map2D(&(d_data->d_dataObject), parent);
+  auto* map = new Map2D(&(d_data->d_dataObject), parent);
 
   return map;
 }
@@ -311,7 +311,7 @@ ag::Map2DWindow* ag::VisGroup::addMap2DWindow()
   //     state.
   //  3. Connect the signals from the visualisation to our slots.
   //  4. Add the newly created visualisation to the collection.
-  Map2DWindow *m = new Map2DWindow(d_data->d_winProps, &(d_data->d_dataObject));
+  auto *m = new Map2DWindow(d_data->d_winProps, &(d_data->d_dataObject));
   addVisualisation(m);
 
   return m;
@@ -323,7 +323,7 @@ ag::Map2DWindow* ag::VisGroup::addMap2DWindow(VisualisationWindow *v)
 {
   assert(v);
 
-  Map2DWindow *m = new Map2DWindow(d_data->d_winProps, &(d_data->d_dataObject));
+  auto *m = new Map2DWindow(d_data->d_winProps, &(d_data->d_dataObject));
   addVisualisation(m);
   m->resize(v->size());                                                   // 10.
   if(v->isVisible())
@@ -335,7 +335,7 @@ ag::Map2DWindow* ag::VisGroup::addMap2DWindow(VisualisationWindow *v)
 ag::MultiMap2DWindow* ag::VisGroup::addMultiMap2DWindow(
          size_t nrRows, size_t nrCols)
 {
-  MultiMap2DWindow* window = new MultiMap2DWindow(
+  auto* window = new MultiMap2DWindow(
          d_data->d_winProps, &(d_data->d_dataObject), nrRows, nrCols);
   addVisualisation(window);
   return window;
@@ -355,7 +355,7 @@ ag::Map3DWindow* ag::VisGroup::addMap3DWindow()
   //  3. Connect the signals from the visualisation to our slots.
   //  4. Add the newly created visualisation to the collection.
 
-  Map3DWindow *m = new Map3DWindow(d_data->d_winProps, &(d_data->d_dataObject));
+  auto *m = new Map3DWindow(d_data->d_winProps, &(d_data->d_dataObject));
   addVisualisation(m);
   // m->resize(600, 400);
   return m;
@@ -367,7 +367,7 @@ ag::Map3DWindow* ag::VisGroup::addMap3DWindow(VisualisationWindow *v)
 {
   assert(v);
 
-  Map3DWindow *m = new Map3DWindow(d_data->d_winProps, &(d_data->d_dataObject));
+  auto *m = new Map3DWindow(d_data->d_winProps, &(d_data->d_dataObject));
   addVisualisation(m);
   m->resize(v->size());                                                   // 10.
   if(v->isVisible())
@@ -379,7 +379,7 @@ ag::Map3DWindow* ag::VisGroup::addMap3DWindow(VisualisationWindow *v)
 
 ag::TimePlotWindow* ag::VisGroup::addTimePlotWindow()
 {
-  TimePlotWindow* timePlot = new TimePlotWindow(d_data->d_winProps,
+  auto* timePlot = new TimePlotWindow(d_data->d_winProps,
                    &(d_data->d_dataObject));
   addVisualisation(timePlot);
   // timePlot->resize(600, 400);
@@ -392,7 +392,7 @@ ag::TimePlotWindow* ag::VisGroup::addTimePlotWindow(ag::VisualisationWindow *vis
 {
   assert(visualisation);
 
-  TimePlotWindow* timePlot = new TimePlotWindow(d_data->d_winProps,
+  auto* timePlot = new TimePlotWindow(d_data->d_winProps,
                    &(d_data->d_dataObject));
   addVisualisation(timePlot);
   timePlot->resize(visualisation->size());
@@ -406,7 +406,7 @@ ag::TimePlotWindow* ag::VisGroup::addTimePlotWindow(ag::VisualisationWindow *vis
 
 ag::CumDistributionFunctionWindow* ag::VisGroup::addProbabilityGraphWindow()
 {
-  CumDistributionFunctionWindow* window = new CumDistributionFunctionWindow(
+  auto* window = new CumDistributionFunctionWindow(
          d_data->d_winProps, &(d_data->d_dataObject));
   addVisualisation(window);
   return window;

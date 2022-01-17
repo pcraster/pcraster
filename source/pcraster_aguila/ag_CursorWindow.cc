@@ -99,7 +99,7 @@ void CursorWindow::createInterface()
   buttonLayout->addStretch(1);
 
   // Button.
-  QPushButton* close = new QPushButton("Close", this);
+  auto* close = new QPushButton("Close", this);
   close->setDefault(true);
   // close->setFixedSize(qt::BUTTONWIDTH, qt::BUTTONHEIGHT);
   connect(close, SIGNAL(clicked()), SLOT(close()));
@@ -316,12 +316,12 @@ void CursorWindow::saveToText(
         break;
       }
       case dal::Space: {
-        dal::SpatialCoordinate const& spatialAddress(
+        auto const& spatialAddress(
               address.coordinate<dal::SpatialCoordinate>(i));
 
         switch(dimension.discretisation()) {
           case dal::RegularDiscretisation: {
-            dal::RasterDimensions const& rasterDimensions(
+            auto const& rasterDimensions(
                    space.dimension(i).value<dal::RasterDimensions>(0));
             double row, col;
             rasterDimensions.indices(spatialAddress, row, col);
@@ -538,7 +538,7 @@ void CursorWindow::appendToCursorValueMonitorFile()
 
         std::string worldStr =
            dataObject.globalToWorldMapper().toString(address, i);
-        double v = boost::lexical_cast<double>(worldStr);
+        auto v = boost::lexical_cast<double>(worldStr);
         if(i == space.indexOf(dal::Space)) {
           // First space dimension: rows, y coordinates.
           dataSpaceStream << "rows = ";

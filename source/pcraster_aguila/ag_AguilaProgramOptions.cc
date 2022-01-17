@@ -268,21 +268,21 @@ namespace detail {
       elementCount(0)
      {
       if(v.count("scenarios")) {
-        VecOfStr s = std::any_cast<VecOfStr>(v["scenarios"]);
+        auto s = std::any_cast<VecOfStr>(v["scenarios"]);
 
         for(size_t i = 0; i < s.size(); ++i)
           scenarios().push_back(SetParser<std::string>::set(s[i]));
         elementCount+=scenarios().size();
       }
       if(v.count("quantiles")) {
-        VecOfStr s = std::any_cast<VecOfStr>(v["quantiles"]);
+        auto s = std::any_cast<VecOfStr>(v["quantiles"]);
         for(size_t i = 0; i < s.size(); ++i)
           quantiles().push_back(SetRangeParser<float>::rangeOrSet(s[i]));
         elementCount+=quantiles().size();
       }
 
       if(v.count("timesteps")) {
-        VecOfStr s = std::any_cast<VecOfStr>(v["timesteps"]);
+        auto s = std::any_cast<VecOfStr>(v["timesteps"]);
         for(size_t i = 0; i < s.size(); ++i) {
           pcrxml::OneBasedIntegerRangeOrSet obirs(SetRangeParser<size_t>::rangeOrSet(s[i]));
           timesteps().push_back(pcrxml::Timesteps());
@@ -358,7 +358,7 @@ namespace detail {
       optionNames.push_back("valueOnly");
       optionNames.push_back("defaultView");
 
-      for(std::vector<std::string>::const_iterator it = optionNames.begin();
+      for(auto it = optionNames.begin();
               it != optionNames.end(); ++it) {
 
         if(variables.count(*it)) {
@@ -405,7 +405,7 @@ std::vector<std::vector<std::string> >
   typedef std::vector<std::string> SV;
   std::vector<SV> r;
 
-  for(SV::const_iterator it = viewValues.begin();
+  for(auto it = viewValues.begin();
       it != viewValues.end(); ++it) {
 
     r.push_back(SV());

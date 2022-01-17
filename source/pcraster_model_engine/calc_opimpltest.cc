@@ -783,7 +783,7 @@ BOOST_AUTO_TEST_CASE(testLookup)
 #define NR6 6
   const geo::RasterSpace rs(1,NR6);
 
-  LookupTable* l(new LookupTable());
+  auto* l(new LookupTable());
   l->setReadOnlyReference(true);
 
   std::vector<VS> colVs(4,VS_O);

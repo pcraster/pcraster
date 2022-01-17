@@ -42,7 +42,7 @@ calc::ReportTable::ReportTable()
 calc::ReportTable::~ReportTable()
 {
     delete d_reportDefault;
-    for(Table::iterator i=d_table.begin(); i != d_table.end(); i++)
+    for(auto i=d_table.begin(); i != d_table.end(); i++)
          delete i->second;
 }
 
@@ -54,7 +54,7 @@ void calc::ReportTable::insert(const ReportDefinition *r)
 {
   try {
    std::pair<Table::iterator,bool> p=d_table.insert(std::make_pair(r->name(),r));
-   Table::const_iterator fd =p.first; // first definition if error, or (new) position
+   auto fd =p.first; // first definition if error, or (new) position
    if (!p.second) { // pcrcalc/test238
        std::ostringstream msg;
        msg << r->qName() << " is used twice as report name, first use at "
@@ -74,7 +74,7 @@ const calc::Report *calc::ReportTable::find(const calc::Symbol& u) const
    if (u.name() == "reportdefault")
      return reportDefault();
 
-   Table::const_iterator p=d_table.find(u.name());
+   auto p=d_table.find(u.name());
    if (p == d_table.end()) // pcrcalc/test237
         u.posError(u.qName()+" is not a report name");
    return p->second;

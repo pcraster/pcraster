@@ -49,13 +49,13 @@ calc::StatementBlock::StatementBlock(
 
 void calc::StatementBlock::printBlock(InfoScript& i)const
 {
-  for (StatList::const_iterator it = d_stats.begin();
+  for (auto it = d_stats.begin();
          it != d_stats.end(); it++) {
     (*it)->print(i);
     i.stream() << "<BR>";
   }
   bool first=true;
-  for (FieldParList::const_iterator it=d_valueDelete.begin();
+  for (auto it=d_valueDelete.begin();
        it != d_valueDelete.end(); it++) {
     if (first)
       i.stream() << "<U>CLEAN UP</U><BR>";
@@ -80,7 +80,7 @@ void calc::StatementBlock::deleteAtExit(FieldParameter *par)
 
 calc::StatementBlock::~StatementBlock()
 {
-  for (StatList::iterator it = d_stats.begin(); it != d_stats.end(); it++)
+  for (auto it = d_stats.begin(); it != d_stats.end(); it++)
     delete *it;
 }
 

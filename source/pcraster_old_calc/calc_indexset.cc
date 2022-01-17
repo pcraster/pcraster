@@ -42,7 +42,7 @@ void calc::IndexSet::addToSet(Set& listToBeAddedTo) const
 void calc::IndexSet::printSpecific(InfoScript& is)const
 {
   is.stream() << "Contents: ";
-  for (Set::const_iterator i = d_set.begin(); i != d_set.end(); i++) {
+  for (auto i = d_set.begin(); i != d_set.end(); i++) {
     is.parTag((*i)->name());
     is.stream() << " ";
   }

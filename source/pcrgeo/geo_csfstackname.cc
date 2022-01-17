@@ -485,7 +485,7 @@ bool geo::CSFStackName::findTimeStep(std::vector<com::PathName>& pool,
     // If searchName < pool.front() than there's no such chance.
     if(!lessThen(searchName, pool.front())) {
 
-      std::vector<com::PathName>::iterator poolIter = pool.begin();
+      auto poolIter = pool.begin();
 
       // Advance through pool.
       while(poolIter != pool.end() && lessThen(*poolIter, searchName)) {

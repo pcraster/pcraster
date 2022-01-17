@@ -59,7 +59,7 @@ namespace pcrxsd {
             typename pcrxsd::RangeSetTypeTrait<T>::Set const& s)
     {
         std::vector<T> r;
-        for(typename pcrxsd::RangeSetTypeTrait<T>::Set::item_const_iterator i=s.item().begin();
+        for(auto i=s.item().begin();
                     i!=s.item().end();++i)
                 r.push_back(*i);
             return r;

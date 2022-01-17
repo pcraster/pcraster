@@ -239,7 +239,7 @@ Raster* DataSource::raster() const
   assert(!dataSpace().hasTime());
   assert(d_reader);
 
-  RasterDriver* driver = dynamic_cast<RasterDriver*>(d_reader);
+  auto* driver = dynamic_cast<RasterDriver*>(d_reader);
   assert(driver);
 
   Raster* raster = driver->read(d_name);
@@ -294,7 +294,7 @@ Raster* DataSource::raster(
 
   assert(space.contains(address));
 
-  RasterDriver* driver = dynamic_cast<RasterDriver*>(d_reader);
+  auto* driver = dynamic_cast<RasterDriver*>(d_reader);
   assert(driver);
 
   // Raster* raster = driver->read(d_name, enclosingDataSpace(),
@@ -422,7 +422,7 @@ void DataSource::read(
   space.eraseDimension(Space);
   assert(space.isValid(address));
 
-  RasterDriver* driver = dynamic_cast<RasterDriver*>(d_reader);
+  auto* driver = dynamic_cast<RasterDriver*>(d_reader);
   assert(driver);
 
   if(!space.contains(address)) {
@@ -674,7 +674,7 @@ void DataSource::read(
   upperValues.setAllMV();
 
   assert(d_reader);
-  RasterDriver* driver = dynamic_cast<RasterDriver*>(d_reader);
+  auto* driver = dynamic_cast<RasterDriver*>(d_reader);
   assert(driver);
 
   DataSpace iterSpace(space, address);
@@ -831,7 +831,7 @@ void DataSource::read(
   upperValues.setAllMV();
 
   assert(d_reader);
-  FeatureDriver* driver = dynamic_cast<FeatureDriver*>(d_reader);
+  auto* driver = dynamic_cast<FeatureDriver*>(d_reader);
   assert(driver);
 
   DataSpace iterSpace(space, address);
@@ -982,7 +982,7 @@ void DataSource::read(
   assert(d_reader);
   assert(enclosingDataSpace().isValid(address));
 
-  FeatureDriver* driver = dynamic_cast<FeatureDriver*>(d_reader);
+  auto* driver = dynamic_cast<FeatureDriver*>(d_reader);
   assert(driver);
 
   DataSpace space(enclosingDataSpace());
@@ -1163,7 +1163,7 @@ void DataSource::read(
   assert(dataSpace().contains(address));
   assert(d_reader);
 
-  TableDriver* driver = dynamic_cast<TableDriver*>(d_reader);
+  auto* driver = dynamic_cast<TableDriver*>(d_reader);
   assert(driver);
 
   DataSpace iterSpace(dataSpace());
@@ -1541,7 +1541,7 @@ void DataSource::read(
   space.eraseDimension(Space);
   assert(space.isValid(address));
 
-  VectorDriver* driver = dynamic_cast<VectorDriver*>(d_reader);
+  auto* driver = dynamic_cast<VectorDriver*>(d_reader);
   assert(driver);
 
   if(!space.contains(address)) {

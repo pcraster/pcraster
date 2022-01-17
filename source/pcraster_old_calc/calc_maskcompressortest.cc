@@ -26,7 +26,7 @@ BOOST_AUTO_TEST_CASE(compressor)
   Compressor *cs[2] = { &mc, &nc };
 
   for (size_t i=0; i < 2; i++) {
-    REAL4 *values = new REAL4[6];
+    auto *values = new REAL4[6];
     std::generate_n(values,6,com::SeqInc<REAL4>(1));
     // 1,2,3,4,5,6
 
@@ -39,14 +39,14 @@ BOOST_AUTO_TEST_CASE(compressor)
     Spatial *s=cs[i]->createSpatial(ci);
     BOOST_CHECK(s->nrValues() == cs[i]->nrCellsCompressed());
     ci.detachData(); // do not call [] delete => stack data
-    REAL4 *compressed= (REAL4 *)const_cast<void*>(s->srcValue());
+    auto *compressed= (REAL4 *)const_cast<void*>(s->srcValue());
     BOOST_CHECK(compressed[0]==1);
     BOOST_CHECK(compressed[2]==3);
     BOOST_CHECK(compressed[5]==6);
 
     DecompressedData dd(VS_S);
     cs[i]->decompress(dd,s->srcValue());
-    REAL4 *dCopy = (REAL4 *)const_cast<void*>(dd.decompressed());
+    auto *dCopy = (REAL4 *)const_cast<void*>(dd.decompressed());
     BOOST_CHECK(dCopy[0]==1);
     BOOST_CHECK(dCopy[2]==3);
     BOOST_CHECK(dCopy[4]==5);
@@ -70,14 +70,14 @@ BOOST_AUTO_TEST_CASE(compressor)
   Spatial *s=mc.createSpatial(ci);
   BOOST_CHECK(s->nrValues() == mc.nrCellsCompressed());
   ci.detachData(); // do not call [] delete => stack data
-  REAL4 *compressed= (REAL4 *)const_cast<void*>(s->srcValue());
+  auto *compressed= (REAL4 *)const_cast<void*>(s->srcValue());
   BOOST_CHECK(compressed[0]==1);
   BOOST_CHECK(compressed[2]==4);
   BOOST_CHECK(compressed[3]==6);
 
   DecompressedData dd(VS_S);
   mc.decompress(dd,s->srcValue());
-  REAL4 *dCopy = (REAL4 *)const_cast<void*>(dd.decompressed());
+  auto *dCopy = (REAL4 *)const_cast<void*>(dd.decompressed());
   BOOST_CHECK(dCopy[0]==1);
   BOOST_CHECK(pcr::isMV(dCopy[2]));
   BOOST_CHECK(pcr::isMV(dCopy[4]));

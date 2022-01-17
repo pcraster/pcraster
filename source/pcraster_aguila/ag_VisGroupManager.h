@@ -230,7 +230,7 @@ inline ag::VisGroup* ag::VisGroupManager::findCompatibleGroup(
   VisGroup* group = nullptr;
 
   // Test group is reverse order.
-  for(std::vector<VisGroup*>::reverse_iterator it = rbegin(); it != rend();
+  for(auto it = rbegin(); it != rend();
          ++it) {
     if((*it)->dataObject().compatibleData(dataset, space)) {
       group = *it;

@@ -216,8 +216,8 @@ void CursorView::createInterface()
   dal::DataSpaceAddress const& address(dataObject().dataSpaceAddress());
 
   // Box and layout for dimension edit stuff.
-  QGroupBox* dimensionEditGroupBox = new QGroupBox("Dimensions", this);
-  QGridLayout* gridLayout = new QGridLayout(dimensionEditGroupBox);
+  auto* dimensionEditGroupBox = new QGroupBox("Dimensions", this);
+  auto* gridLayout = new QGridLayout(dimensionEditGroupBox);
   gridLayout->setColumnStretch(1, 1);
   gridLayout->setColumnMinimumWidth(2, 50);
   gridLayout->setVerticalSpacing(0);

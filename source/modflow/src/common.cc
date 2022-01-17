@@ -83,7 +83,7 @@ bool Common::writeToFile(const std::string& filename, const std::string& msg){
 */
 void Common::writeMatrix(std::stringstream& aStream, const std::string& aString, std::vector<int>& l2BlockLayer, const discr::BlockData<REAL4>& bdata, size_t layer){
   size_t count  = 0;
-  std::vector<int>::iterator position = std::find(l2BlockLayer.begin(), l2BlockLayer.end(), static_cast<int>(layer));
+  auto position = std::find(l2BlockLayer.begin(), l2BlockLayer.end(), static_cast<int>(layer));
   if(position != l2BlockLayer.end()){
     aStream << aString << "\n";
     for(size_t j=0;j<d_mf->d_nrOfRows;j++){
@@ -98,7 +98,7 @@ void Common::writeMatrix(std::stringstream& aStream, const std::string& aString,
 
 void Common::writeMatrix2(std::stringstream& aStream, std::vector<int>& l2BlockLayer, const discr::BlockData<REAL4>& bdata, size_t layer){
   size_t count  = 0;
-  std::vector<int>::iterator position = std::find(l2BlockLayer.begin(), l2BlockLayer.end(), static_cast<int>(layer));
+  auto position = std::find(l2BlockLayer.begin(), l2BlockLayer.end(), static_cast<int>(layer));
   if(position != l2BlockLayer.end()){
     for(size_t j=0;j<d_mf->d_nrOfRows;j++){
       for(size_t k = 0; k<d_mf->d_nrOfColumns; k++){

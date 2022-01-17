@@ -47,7 +47,7 @@ calc::Field* slope(
     throw std::runtime_error("argument nr. 1 of function 'slope': type is boolean, legal type is scalar\n");
   }
 
-  calc::Spatial* field_result = new calc::Spatial(VS_S, calc::CRI_f, nr_cells());
+  auto* field_result = new calc::Spatial(VS_S, calc::CRI_f, nr_cells());
   multicore_field::Spatial<REAL4> result(field_result);
 
   fa::ExecutionPolicy epol = execution_policy();

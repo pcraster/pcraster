@@ -213,7 +213,7 @@ void GriddedPoints<Point>::remove(const Point& point, size_t row,
 {
   PRECOND(!isMV(row, col));
 
-  iterator it = std::find(begin(row, col), end(row, col), point);
+  auto it = std::find(begin(row, col), end(row, col), point);
   POSTCOND(it != end(row, col));
 
   d_points.cell(row, col).erase(it);
@@ -657,7 +657,7 @@ void GriddedPoints<Point>::points(const CellLoc& loc,
     for(size_t col = startCol; col <= endCol; ++col) {
       if(neighbourhood.cell(rowOffset + row, colOffset + col) > 0.0 &&
          !isMV(row, col)) {
-        for(iterator it = begin(row, col); it != end(row, col); ++it) {
+        for(auto it = begin(row, col); it != end(row, col); ++it) {
           points.push_back(&*it);
         }
       }

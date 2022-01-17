@@ -72,7 +72,7 @@ public:
 #include "operator.inc"
   }
   MAJOR_CODE findFunc(const std::string& name) {
-    FuncMap::const_iterator pos= d_funcs.find(name);
+    auto pos= d_funcs.find(name);
     if (pos != d_funcs.end())
       return pos->second;
     return OP_NOP;
@@ -191,7 +191,7 @@ static size_t GetMinor(MAJOR_CODE op)
 
 const calc::Operator& calc::major2op(MAJOR_CODE major)
 {
-  size_t maj = (size_t)major;
+  auto maj = (size_t)major;
   if (maj < nrInternalOpCodes())
     return parsArgTable.op(major);
   else

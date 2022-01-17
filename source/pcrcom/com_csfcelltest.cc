@@ -26,7 +26,7 @@ BOOST_AUTO_TEST_CASE(cast_and_copy_cells)
   #define NR 10
   INT4  *int4 = new INT4[NR];
 
-  UINT1 *uint1  = reinterpret_cast<UINT1 *>(int4);
+  auto *uint1  = reinterpret_cast<UINT1 *>(int4);
   for(size_t i=0; i < 10; i++)
    int4[i]=i;
   copyCells(uint1,int4,NR);
@@ -111,7 +111,7 @@ BOOST_AUTO_TEST_CASE(set_mv)
   {
    double real8;
    pcr::setMV(real8);
-   UINT1 *c=(UINT1 *)&real8;
+   auto *c=(UINT1 *)&real8;
    BOOST_CHECK(c[0]==MV_UINT1);
    BOOST_CHECK(c[1]==MV_UINT1);
    BOOST_CHECK(c[2]==MV_UINT1);

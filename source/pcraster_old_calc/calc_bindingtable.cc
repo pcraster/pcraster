@@ -63,7 +63,7 @@ calc::BindingTable::~BindingTable()
 const calc::Symbol* calc::BindingTable::find(const std::string& name) const
 {
     calc::Symbol s(nullptr,name,nullptr);
-    Table::const_iterator p=d_table.find(s);
+    auto p=d_table.find(s);
     if (p != d_table.end())
         return &(p->second.d_value);
     return nullptr;
@@ -91,7 +91,7 @@ std::vector<calc::UserSymbol *>
     StatementBlock *block)
 {
   std::vector<UserSymbol *> newPars;
-  for(Table::iterator i=d_table.begin(); 
+  for(auto i=d_table.begin(); 
       i!=d_table.end(); ++i) {
     const Right& r(i->second);
     if (r.d_value.isNumber()) {
@@ -99,7 +99,7 @@ std::vector<calc::UserSymbol *>
        new FieldNrParameter(UsePar(block,i->first), r.d_value.toNumber(),r.d_vs));
     }
   }
-  for(std::vector<UserSymbol *>::iterator i=newPars.begin(); 
+  for(auto i=newPars.begin(); 
       i!=newPars.end(); ++i)
        d_table.erase(**i);
   return newPars;
@@ -115,7 +115,7 @@ void calc::BindingTable::add(const Symbol& left, const Symbol& right, VS vs)
   std::pair<Table::iterator,bool> p=d_table.insert(std::make_pair(
          left,
          Right(InScript,*rightV,vs)));
-  Table::const_iterator fd =p.first;
+  auto fd =p.first;
         // first definition if duplicate, or new one if not
   if (!p.second) // duplicate: this is old one
      if (fd->second.d_definitionLevel == InScript) {

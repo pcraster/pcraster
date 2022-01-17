@@ -29,7 +29,7 @@ void calc::NonSpatialTssImpl::write()
   if (!val) // do not write this time step
     return;
   POSTCOND(dummy == 1);
-  const calc::NonSpatial *ns_val = 
+  const auto *ns_val = 
     dynamic_cast<const calc::NonSpatial *>(value());
   POSTCOND(ns_val);
   if (ns_val->isMv())

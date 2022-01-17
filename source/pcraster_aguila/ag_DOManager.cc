@@ -31,7 +31,7 @@ ag::DOManager::DOManager()
 
 ag::DOManager::~DOManager()
 {
-  for(iterator it = d_dataObjects.begin(); it != d_dataObjects.end(); ++it) {
+  for(auto it = d_dataObjects.begin(); it != d_dataObjects.end(); ++it) {
 #ifdef DEBUG_DEVELOP
     assert((*it)->nrObservers() == 0);
 #endif
@@ -51,7 +51,7 @@ ag::DOManager::~DOManager()
 */
 ag::DataObject *ag::DOManager::newDataObject()
 {
-  ag::DataObject *o = new ag::DataObject();
+  auto *o = new ag::DataObject();
   d_dataObjects.push_back(o);
   return o;
 }
@@ -69,7 +69,7 @@ void ag::DOManager::deleteDataObject(ag::DataObject *o)
   assert(o->nrObservers() == 0);
 #endif
 
-  iterator it = std::find(d_dataObjects.begin(), d_dataObjects.end(), o);
+  auto it = std::find(d_dataObjects.begin(), d_dataObjects.end(), o);
   assert(it != d_dataObjects.end());
   delete *it;
   d_dataObjects.erase(it);

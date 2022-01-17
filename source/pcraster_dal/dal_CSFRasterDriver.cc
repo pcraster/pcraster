@@ -117,7 +117,7 @@ CSFRasterDriver::CSFRasterDriver()
          RASTER, Format::File, Format::Attribute))
 
 {
-  DriverProperties& properties = this->properties().value<DriverProperties>(
+  auto& properties = this->properties().value<DriverProperties>(
          DAL_DRIVER_GENERAL);
   properties |= Reader;
   properties |= Writer;
@@ -321,7 +321,7 @@ Raster* CSFRasterDriver::read(
     map.useAs(typeId);
   }
 
-  Raster* raster = new Raster(map.nrRows(), map.nrCols(), map.cellSize(),
+  auto* raster = new Raster(map.nrRows(), map.nrCols(), map.cellSize(),
     map.west(), map.north(), map.useTypeId());
 
   try {
@@ -391,7 +391,7 @@ void CSFRasterDriver::read(
   // Get x and y coordinate from address.
   // Convert x and y coordinates to row and col indices.
   assert(space.hasSpace());
-  SpatialCoordinate const& spatialCoordinate(
+  auto const& spatialCoordinate(
          address.coordinate<SpatialCoordinate>(space.indexOf(Space)));
 
   double row, col;

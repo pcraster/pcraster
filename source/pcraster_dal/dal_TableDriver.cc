@@ -173,7 +173,7 @@ DataSpace TableDriver::dataSpace(
 Table* TableDriver::read(
          std::string const& name) const
 {
-  Table* table = dynamic_cast<Table*>(Driver::open(name));
+  auto* table = dynamic_cast<Table*>(Driver::open(name));
 
   if(!table) {
     throwCannotBeOpened(name, TABLE);
@@ -206,7 +206,7 @@ Table* TableDriver::read(
          std::string const& name,
          TypeId typeId) const
 {
-  Table* table = dynamic_cast<Table*>(Driver::open(name));
+  auto* table = dynamic_cast<Table*>(Driver::open(name));
 
   if(!table) {
     throwCannotBeOpened(name, TABLE);

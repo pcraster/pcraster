@@ -192,14 +192,14 @@ void calc::RunTimeEnv::checkConstraints(
 void calc::RunTimeEnv::deleteAllValues()
 {
   d_data.clean();
-  for(Cache::const_iterator i=d_cache.begin(); i != d_cache.end(); ++i)
+  for(auto i=d_cache.begin(); i != d_cache.end(); ++i)
    delete i->second;
   d_cache.clear();
 }
 
 void calc::RunTimeEnv::clean()
 {
-  for(Writers::const_iterator i=d_writers.begin(); i != d_writers.end(); ++i)
+  for(auto i=d_writers.begin(); i != d_writers.end(); ++i)
    delete i->second;
   d_writers.clear();
 
@@ -290,7 +290,7 @@ void calc::RunTimeEnv::start()
 {
 
   // remove old versions of the file to be written
-  for(Writers::const_iterator i=d_writers.begin(); i != d_writers.end(); ++i)
+  for(auto i=d_writers.begin(); i != d_writers.end(); ++i)
     i->second->remove();
 }
 
@@ -388,7 +388,7 @@ calc::DataValue* calc::RunTimeEnv::popDataValue()
  */
 calc::Field* calc::RunTimeEnv::popField()
 {
-  Field *f = dynamic_cast<Field *>(popDataValue());
+  auto *f = dynamic_cast<Field *>(popDataValue());
   POSTCOND(f);
   return f;
 }
@@ -415,7 +415,7 @@ void calc::RunTimeEnv::assignOutTss(
 
 void calc::RunTimeEnv::deleteCacheEntry(const void* fieldSrcValue)
 {
-  Cache::iterator pos=d_cache.find(fieldSrcValue);
+  auto pos=d_cache.find(fieldSrcValue);
   if (pos != d_cache.end()) {
     delete pos->second;
     d_cache.erase(pos);
@@ -427,7 +427,7 @@ void calc::RunTimeEnv::deleteValue(
 {
   PRECOND(d_data.contains(parName));
   DataTable::DTE e(d_data.dataLoad(parName));
-  Field *f = dynamic_cast<Field *>(e.dataValue());
+  auto *f = dynamic_cast<Field *>(e.dataValue());
   if (f) {
     // a loaded field can have cached objects
     deleteCacheEntry(f->src());
@@ -441,7 +441,7 @@ void calc::RunTimeEnv::deleteValue(
 const calc::ICachedObject* calc::RunTimeEnv::cachedObject(
     const void*    fieldSrcValue)
 {
-    Cache::const_iterator pos=d_cache.find(fieldSrcValue);
+    auto pos=d_cache.find(fieldSrcValue);
     if (pos != d_cache.end())
       return pos->second;
     return nullptr;
@@ -453,7 +453,7 @@ void calc::RunTimeEnv::transferIfCached(
     const ICachedObject *obj)
 {
   // multiple delete problem
-  Cache::iterator pos=d_cache.find(fieldSrcValue);
+  auto pos=d_cache.find(fieldSrcValue);
   if (pos != d_cache.end()) {
     // a previous update may already toke place
     if (pos->second == obj)

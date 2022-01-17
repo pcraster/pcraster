@@ -143,7 +143,7 @@ inline bool FeatureLayer::value(
     // Check if the coordinates are valid. Not valid if cursor is outside
     // the spatial area of the data.
     if(address.isValid(index)) {
-      dal::SpatialCoordinate const& spatialAddress(
+      auto const& spatialAddress(
          address.coordinate<dal::SpatialCoordinate>(index));
       d_layer->value(spatialAddress, result);
     }

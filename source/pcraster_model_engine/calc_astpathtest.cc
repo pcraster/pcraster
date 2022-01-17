@@ -51,17 +51,17 @@ BOOST_AUTO_TEST_CASE(test)
    BOOST_CHECK(astCast<RepeatUntil>(a,"l/1/r"));
   }
   {
-   ASTPar *p=astCast<ASTPar>(a,"l/2/a/<");
+   auto *p=astCast<ASTPar>(a,"l/2/a/<");
    BOOST_CHECK(p->name()=="f");
   }
   {
-   ASTExpr *e=astCast<ASTExpr>(a,"l/2/a/>/e");
+   auto *e=astCast<ASTExpr>(a,"l/2/a/>/e");
    BOOST_CHECK(e->name()=="+");
   }
   { // shortened removing what can be deduced
     //  0-9 implies a prefix l
     //  ,   implies a prefix e
-   ASTPar  *p=astCast<ASTPar>(a,"2/a/>/,/0/p");
+   auto  *p=astCast<ASTPar>(a,"2/a/>/,/0/p");
    BOOST_CHECK(p->name()=="g");
   }
   {

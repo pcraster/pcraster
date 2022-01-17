@@ -63,28 +63,28 @@ com::Classifier &com::Classifier::operator=(const Classifier &rhs)
 
     // Set d_classifier and d_algorithm.
     if(rhs.d_algorithm == LIN) {
-      com_LinClassifier<REAL8> *c =
+      auto *c =
                      dynamic_cast<com_LinClassifier<REAL8> *>(rhs.d_classifier);
       assert(c);
       d_classifier = new com_LinClassifier<REAL8>(*c);
       d_algorithm  = LIN;
     }
     else if(rhs.d_algorithm == LOG) {
-      com_LogClassifier<REAL8> *c =
+      auto *c =
                      dynamic_cast<com_LogClassifier<REAL8> *>(rhs.d_classifier);
       assert(c);
       d_classifier = new com_LogClassifier<REAL8>(*c);
       d_algorithm  = LOG;
     }
     else if(rhs.d_algorithm == TLOG) {
-      com_TLogClassifier<REAL8> *c =
+      auto *c =
                     dynamic_cast<com_TLogClassifier<REAL8> *>(rhs.d_classifier);
       assert(c);
       d_classifier = new com_TLogClassifier<REAL8>(*c);
       d_algorithm  = TLOG;
     }
     else if(rhs.d_algorithm == USERDEFINED) {
-      UserDefinedClassifier<REAL8> *c =
+      auto *c =
                    dynamic_cast<UserDefinedClassifier<REAL8> *>(rhs.d_classifier);
       assert(c);
       d_classifier = new UserDefinedClassifier<REAL8>(*c);
@@ -133,28 +133,28 @@ com::Classifier::Classifier(const Classifier &rhs)
 
   // Set d_classifier and d_algorithm.
   if(rhs.d_algorithm == LIN) {
-    com_LinClassifier<REAL8> *c =
+    auto *c =
          dynamic_cast<com_LinClassifier<REAL8> *>(rhs.d_classifier);
     assert(c);
     d_classifier = new com_LinClassifier<REAL8>(*c);
     d_algorithm  = LIN;
   }
   else if(rhs.d_algorithm == LOG) {
-    com_LogClassifier<REAL8> *c =
+    auto *c =
          dynamic_cast<com_LogClassifier<REAL8> *>(rhs.d_classifier);
     assert(c);
     d_classifier = new com_LogClassifier<REAL8>(*c);
     d_algorithm  = LOG;
   }
   else if(rhs.d_algorithm == TLOG) {
-    com_TLogClassifier<REAL8> *c =
+    auto *c =
          dynamic_cast<com_TLogClassifier<REAL8> *>(rhs.d_classifier);
     assert(c);
     d_classifier = new com_TLogClassifier<REAL8>(*c);
     d_algorithm  = TLOG;
   }
   else if(rhs.d_algorithm == USERDEFINED) {
-    UserDefinedClassifier<REAL8> *c =
+    auto *c =
          dynamic_cast<UserDefinedClassifier<REAL8> *>(rhs.d_classifier);
     assert(c);
     d_classifier = new UserDefinedClassifier<REAL8>(*c);
@@ -711,7 +711,7 @@ size_t com::Classifier::classIndex(REAL8 v) const
   assert(nrClasses() > 0);
 #endif
 
-  const_iterator it = std::upper_bound(begin() + 1, end(), v);
+  auto it = std::upper_bound(begin() + 1, end(), v);
   if(it != end())
     return it - (begin() + 1);
   else

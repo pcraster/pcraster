@@ -138,7 +138,7 @@ void AnimationControl::createInterface()
   QBoxLayout *vbox, *hbox, *top;
   QGroupBox *gb;
 
-  QWidget* widget = new QWidget(this);
+  auto* widget = new QWidget(this);
   top = new QVBoxLayout(widget);
 
   //----------------------------------------------------------------------------
@@ -254,7 +254,7 @@ void AnimationControl::createInterface()
   hbox->addWidget(d_data->d_interval);
   // hbox->addStretch(1);
 
-  QPushButton* close = new QPushButton("Close", widget);
+  auto* close = new QPushButton("Close", widget);
   close->setFixedSize(qt::BUTTONWIDTH, qt::BUTTONHEIGHT);
   connect(close, SIGNAL(clicked()), SLOT(close()));
 

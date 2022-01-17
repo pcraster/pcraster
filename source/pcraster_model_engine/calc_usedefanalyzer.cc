@@ -125,7 +125,7 @@ class EventChain : public std::vector<UDEvent>
  public:
   //! return iterator to first reference past the possible dummy
   const_iterator beginRealRef(const ASTPar *dummy) const {
-    const_iterator e=begin();
+    auto e=begin();
     while (e!=end()) {
      if (e->reference() && e->par() != dummy)
         break;
@@ -163,13 +163,13 @@ class EventChain : public std::vector<UDEvent>
     // initial, the path that start at end is not live:
     bool keepLive= false;
 
-    for(reverse_iterator e=rbegin(); e!=rend(); e++) {
+    for(auto e=rbegin(); e!=rend(); e++) {
        keepLive = e->mergeKeepLive(keepLive);
        if (e->enter() && e->block()->hasBackBranch() && keepLive) {
          // propagate this keepLive back
          // to the last event
          // before (+1 of reverse_iterator) Jump
-         reverse_iterator b=jumpOfEnter(e)+1;
+         auto b=jumpOfEnter(e)+1;
          if (!b->keepLive()) {
            // back propagation did change something
            // that need a next iteration over the chain
@@ -183,7 +183,7 @@ class EventChain : public std::vector<UDEvent>
 
   //! return the first Use or 0 if a Def preceeds the first Use
   ASTPar* firstUse(const ASTPar *dummy) const {
-    for(const_iterator e=beginRealRef(dummy); e!=end(); ++e)
+    for(auto e=beginRealRef(dummy); e!=end(); ++e)
       switch(e->type()) {
         case UDEvent::Use: return e->par();
         case UDEvent::Def: return nullptr;
@@ -201,12 +201,12 @@ class EventChain : public std::vector<UDEvent>
    *  is returned does not matter
    */
   ASTPar* newLiveDef(const ASTPar *dummy) const {
-    const_iterator def=beginRealRef(dummy);
+    auto def=beginRealRef(dummy);
     for(; def!=end(); ++def)
       if(def->def())
         break;
     if (def != end())
-     for(const_reverse_iterator e=rbegin(); e!=rend(); ++e)
+     for(auto e=rbegin(); e!=rend(); ++e)
       if (e->reference())
         return (e->par()->lastUse()) ? nullptr : def->par();
     return nullptr;
@@ -214,14 +214,14 @@ class EventChain : public std::vector<UDEvent>
 
   void  print() const {
     std::cerr << "----------" << std::endl;
-    for(const_iterator e=begin(); e!=end(); ++e)
+    for(auto e=begin(); e!=end(); ++e)
        e->print();
     std::cerr << "----------" << std::endl;
   }
 
   void  setLastUse(const std::string& name) const {
     TRACE_LOG(std::cerr << "setLastUse for " << name << std::endl);
-    for(const_iterator e=begin(); e!=end(); ++e) {
+    for(auto e=begin(); e!=end(); ++e) {
       TRACE_LOG(e->print());
       switch(e->type()) {
         case UDEvent::Use:
@@ -258,7 +258,7 @@ class EventChain : public std::vector<UDEvent>
     RecordFirst use(end()),def(end());
 
     bool inDynamicSection(false);
-    for(P e=begin(); e!=end(); ++e)
+    for(auto e=begin(); e!=end(); ++e)
       switch(e->type()) {
         case UDEvent::Use:
            use.update(e, inDynamicSection);
@@ -392,7 +392,7 @@ class UseDefRecorder : std::map<std::string, EventChain>
      if (d_prefixFirstUseByDef && e.use()) {
        // insert dummy above Enter'ing the most outer block
        // that has a loop back
-       EventChain::iterator i=prologue.begin();
+       auto i=prologue.begin();
        for( ;i != prologue.end(); ++i)
          if (i->block()->hasBackBranch()) {
            prologue.insert(i,UDEvent(UDEvent::Def,&d_dummy));
@@ -415,19 +415,19 @@ class UseDefRecorder : std::map<std::string, EventChain>
        case UDEvent::Enter:
           d_currentBlockNesting.add(e);
          // every par already recorded will enter a block
-         for(iterator i=begin(); i!=end();++i)
+         for(auto i=begin(); i!=end();++i)
             i->second.add(e);
          break;
        case UDEvent::Jump:
           d_currentBlockNesting.add(e);
          // every par already recorded will jump out of a block
-         for(iterator i=begin(); i!=end();++i)
+         for(auto i=begin(); i!=end();++i)
             i->second.add(e);
       }
    }
 
    void setKeepLive(bool keepLiveAtEnd) {
-      for(iterator i=begin(); i!=end();++i) {
+      for(auto i=begin(); i!=end();++i) {
         TRACE_LOG(std::cerr << "liveAnalysis for " << i->first << std::endl);
         if (keepLiveAtEnd)
           i->second.add(UDEvent(UDEvent::Use,&d_dummy));
@@ -436,13 +436,13 @@ class UseDefRecorder : std::map<std::string, EventChain>
    }
 
    void setLastUse() const {
-     for(const_iterator i=begin(); i!=end();++i)
+     for(auto i=begin(); i!=end();++i)
         i->second.setLastUse(i->first);
    }
 
    ParSet inputSet() const {
     ParSet s;
-    for(const_iterator i=begin(); i!=end();++i) {
+    for(auto i=begin(); i!=end();++i) {
        ASTPar *p=i->second.firstUse(&d_dummy);
        if (p)
          s.insert(p);
@@ -452,7 +452,7 @@ class UseDefRecorder : std::map<std::string, EventChain>
 
    ParSet newLiveDefSet() const {
     ParSet s;
-    for(const_iterator i=begin(); i!=end();++i) {
+    for(auto i=begin(); i!=end();++i) {
       ASTPar *p=i->second.newLiveDef(&d_dummy);
       if (p)
         s.insert(p);
@@ -461,7 +461,7 @@ class UseDefRecorder : std::map<std::string, EventChain>
    }
    std::map<std::string,IOType> ioTypes() const {
     std::map<std::string,IOType> m;
-    for(const_iterator i=begin(); i!=end();++i) {
+    for(auto i=begin(); i!=end();++i) {
       m.insert(std::make_pair(
         i->first, i->second.ioType(d_dynamicSection)));
     }
@@ -583,9 +583,9 @@ void calc::UseDefAnalyzer::visitPointCodeBlock(PointCodeBlock *b)
 {
   typedef ParSet::const_iterator I;
 
-  for(I i=b->input().begin(); i!=b->input().end(); ++i)
+  for(auto i=b->input().begin(); i!=b->input().end(); ++i)
    d_rec->add(UDEvent(UDEvent::Use,*i));
-  for(I i=b->output().begin(); i!=b->output().end(); ++i)
+  for(auto i=b->output().begin(); i!=b->output().end(); ++i)
    d_rec->add(UDEvent(UDEvent::Def,*i));
 
 }

@@ -70,7 +70,7 @@ class PCR_DLL_CLASS ModflowLink {
   static void construct(pcrxml::LinkInExecuteInput const& l) // LinkInTransferArray linkInTransferArray
   {
     std::string objName=std::string(l.callPoint().object()->objectName());
-    Objects::iterator i=objects.find(objName);
+    auto i=objects.find(objName);
     // it is only allows to construct one modflow object
     if(objects.size() > 0){
       std::cout << "Warning: only one PCRasterModflow extension object should be used, found additional object '" << objName << "'. Previous object will be deleted." << std::endl;
@@ -79,7 +79,7 @@ class PCR_DLL_CLASS ModflowLink {
     if (i!=objects.end()){
       delete i->second;
     }
-    ModflowLink *c = new ModflowLink(l);
+    auto *c = new ModflowLink(l);
     objects.insert(std::make_pair(objName,c));
   }
 
@@ -89,7 +89,7 @@ class PCR_DLL_CLASS ModflowLink {
 			 LinkInTransferArray linkInTransferArray)
     {
       std::string objName=std::string(l.callPoint().object()->objectName());
-      Objects::iterator i=objects.find(objName);
+      auto i=objects.find(objName);
       assert(i!=objects.end());
 
       std::string methodName=std::string(l.callPoint().object()->methodName().get());

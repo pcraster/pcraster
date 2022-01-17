@@ -125,10 +125,10 @@ void ag::DataPropertiesDialog::createInterface()
 
   QBoxLayout *box, *top;
 
-  QWidget* widget = new QWidget(this);
+  auto* widget = new QWidget(this);
   top = new QVBoxLayout(widget);
 
-  QTabWidget* tabWidget = new QTabWidget(widget);
+  auto* tabWidget = new QTabWidget(widget);
   top->addWidget(tabWidget);
 
   d_data->d_generalProperties = new GeneralDataPropertiesWidget(

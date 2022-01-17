@@ -115,9 +115,9 @@ namespace calc {
         if (!(c >= '0' && c <= '9'))
           throw com::Exception("Unknown path character");
         size_t pos= c-'0';
-        ASTNodeList *sl=dynamic_cast<ASTNodeList *>(d_node);
+        auto *sl=dynamic_cast<ASTNodeList *>(d_node);
         if (sl) {
-          ASTNodeList::const_iterator i=sl->begin();
+          auto i=sl->begin();
           size_t n=0;
           for( ; n!=pos && i!=sl->end(); ++i)
             n++;

@@ -48,7 +48,7 @@ BOOST_AUTO_TEST_CASE(unexisting)
   std::string filename = "unexisting";
   CSFRasterDriver driver;
 
-  Raster* raster = dynamic_cast<Raster*>(
+  auto* raster = dynamic_cast<Raster*>(
          dynamic_cast<Driver&>(driver).open(filename));
   BOOST_CHECK(!raster);
   BOOST_CHECK_THROW(dynamic_cast<Driver const&>(driver).dataSpace(filename),
@@ -75,7 +75,7 @@ BOOST_AUTO_TEST_CASE(empty)
   std::string filename = "emptyfile";
   CSFRasterDriver driver;
 
-  Raster* raster = dynamic_cast<Raster*>(
+  auto* raster = dynamic_cast<Raster*>(
          dynamic_cast<Driver&>(driver).open(filename));
   BOOST_CHECK(!raster);
 
@@ -139,7 +139,7 @@ BOOST_AUTO_TEST_CASE(dtm_small)
 
   {
     raster = dynamic_cast<RasterDriver&>(driver).read(filename);
-    REAL4 const* cells = static_cast<REAL4 const*>(raster->cells());
+    auto const* cells = static_cast<REAL4 const*>(raster->cells());
     assert(cells);
 
     for(size_t row = 0; row < raster->nrRows(); ++row) {
@@ -190,7 +190,7 @@ BOOST_AUTO_TEST_CASE(accu_ldd_i_map)
 
   {
     raster = dynamic_cast<RasterDriver&>(driver).read(filename);
-    UINT1 const* cells = static_cast<UINT1 const*>(raster->cells());
+    auto const* cells = static_cast<UINT1 const*>(raster->cells());
 
     assert(cells);
 
@@ -301,7 +301,7 @@ BOOST_AUTO_TEST_CASE(write_)
 
   Raster raster(nrRows, nrCols, cellSize, west, north, typeId);
   raster.createCells();
-  REAL4* cells = raster.cells<REAL4>();
+  auto* cells = raster.cells<REAL4>();
 
   for(size_t i = 0; i < raster.nrCells(); ++i) {
     cells[i] = REAL4(i);

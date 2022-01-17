@@ -95,8 +95,8 @@ calc::PointCodeBlock::PointCodeBlock(
    d_nrOps(nrOps)
 {
 
-  ASTNodeList *l=new ASTNodeList();
-  for(PointCodeIterator i=begin;i!=end; ++i)
+  auto *l=new ASTNodeList();
+  for(auto i=begin;i!=end; ++i)
       l->transferPushBack(*i);
   d_pointCode = new Code(l);
 
@@ -252,7 +252,7 @@ namespace calc {
   class ParPCBVector: public std::vector<ParPCB *> {
   public:
     ~ParPCBVector() {
-      for(iterator i=begin();i!=end();++i)
+      for(auto i=begin();i!=end();++i)
         delete (*i);
     }
   };
@@ -266,7 +266,7 @@ void calc::PointCodeBlock::exec(RunTimeEnv& rte)
   ParSet set(transfer());
 
 
-  for(ParSet::const_iterator i=set.begin(); i!=set.end(); ++i) {
+  for(auto i=set.begin(); i!=set.end(); ++i) {
     ASTPar* p(*i);
 
     // add new, incr size
@@ -299,7 +299,7 @@ void calc::PointCodeBlock::exec(RunTimeEnv& rte)
   execPCB(vector,d_dllFunctionAddress);
 
   // reverse order due to stack assign
-  for(ParPCBVector::reverse_iterator i=vector.rbegin(); i!=vector.rend(); ++i)
+  for(auto i=vector.rbegin(); i!=vector.rend(); ++i)
     if ((*i)->output())
       rte.pushField((*i)->releaseField());
 

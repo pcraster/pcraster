@@ -513,7 +513,7 @@ void BCF::get_binary(float *values, const std::string description, size_t start,
 
   char *charData = new char[nr_cells * nr_bytes];
   file.read(charData, nr_cells * nr_bytes);
-  float *floatData = reinterpret_cast<float *>(charData);
+  auto *floatData = reinterpret_cast<float *>(charData);
 
   for(size_t pos = 0; pos < nr_cells; ++pos){
       values[pos] = floatData[pos];
@@ -547,8 +547,8 @@ calc::Field* BCF::get_storage(size_t layer, std::string const& path) const {
   // get the 'inverse' layer number to start from the right position
   int pos_multiplier = d_mf->get_modflow_layernr(layer);
 
-  calc::Spatial* spatial = new calc::Spatial(VS_S, calc::CRI_f, d_mf->d_nrOfCells);
-  REAL4* cells = static_cast<REAL4*>(spatial->dest());
+  auto* spatial = new calc::Spatial(VS_S, calc::CRI_f, d_mf->d_nrOfCells);
+  auto* cells = static_cast<REAL4*>(spatial->dest());
 
   get_binary(cells, desc, start_pos, pos_multiplier, path);
 
@@ -596,8 +596,8 @@ calc::Field* BCF::get_constand_head(size_t layer, std::string const& path) const
   // get the 'inverse' layer number to start from the right position
   int pos_multiplier = d_mf->get_modflow_layernr(layer);
 
-  calc::Spatial* spatial = new calc::Spatial(VS_S, calc::CRI_f, d_mf->d_nrOfCells);
-  REAL4* cells = static_cast<REAL4*>(spatial->dest());
+  auto* spatial = new calc::Spatial(VS_S, calc::CRI_f, d_mf->d_nrOfCells);
+  auto* cells = static_cast<REAL4*>(spatial->dest());
 
   get_binary(cells, desc, start_pos, pos_multiplier, path);
 
@@ -642,8 +642,8 @@ calc::Field* BCF::get_right_face(size_t layer, std::string const& path) const {
   // get the 'inverse' layer number to start from the right position
   int pos_multiplier = d_mf->get_modflow_layernr(layer);
 
-  calc::Spatial* spatial = new calc::Spatial(VS_S, calc::CRI_f, d_mf->d_nrOfCells);
-  REAL4* cells = static_cast<REAL4*>(spatial->dest());
+  auto* spatial = new calc::Spatial(VS_S, calc::CRI_f, d_mf->d_nrOfCells);
+  auto* cells = static_cast<REAL4*>(spatial->dest());
 
   get_binary(cells, desc, start_pos, pos_multiplier, path);
 
@@ -688,8 +688,8 @@ calc::Field* BCF::get_front_face(size_t layer, std::string const& path) const {
   // get the 'inverse' layer number to start from the right position
   int pos_multiplier = d_mf->get_modflow_layernr(layer);
 
-  calc::Spatial* spatial = new calc::Spatial(VS_S, calc::CRI_f, d_mf->d_nrOfCells);
-  REAL4* cells = static_cast<REAL4*>(spatial->dest());
+  auto* spatial = new calc::Spatial(VS_S, calc::CRI_f, d_mf->d_nrOfCells);
+  auto* cells = static_cast<REAL4*>(spatial->dest());
 
   get_binary(cells, desc, start_pos, pos_multiplier, path);
 
@@ -740,8 +740,8 @@ calc::Field* BCF::get_lower_face(size_t layer, std::string const& path) const {
   // get the 'inverse' layer number to start from the right position
   int pos_multiplier = d_mf->get_modflow_layernr(layer);
 
-  calc::Spatial* spatial = new calc::Spatial(VS_S, calc::CRI_f, d_mf->d_nrOfCells);
-  REAL4* cells = static_cast<REAL4*>(spatial->dest());
+  auto* spatial = new calc::Spatial(VS_S, calc::CRI_f, d_mf->d_nrOfCells);
+  auto* cells = static_cast<REAL4*>(spatial->dest());
 
   get_binary(cells, desc, start_pos, pos_multiplier, path);
 

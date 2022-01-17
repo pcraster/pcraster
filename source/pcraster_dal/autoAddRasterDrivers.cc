@@ -3,7 +3,7 @@
     autoAddDriver(new CSFRasterDriver());
 
     // Add all raster drivers supported by the current gdal installation.
-    for(GDALRasterDriver::iterator it = GDALRasterDriver::begin();
+    for(auto it = GDALRasterDriver::begin();
            it != GDALRasterDriver::end(); ++it) {
 
       // We have our own for PCRaster (CSFRasterDriver).

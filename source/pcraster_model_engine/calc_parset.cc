@@ -31,7 +31,7 @@
  */
 calc::ASTPar* calc::ParSet::find(ASTPar *key) const
 {
-  const_iterator pos= Base::find(key);
+  auto pos= Base::find(key);
   if (pos != end())
     return *pos;
   return nullptr;
@@ -82,7 +82,7 @@ bool calc::operator==(const calc::ParSet& e1,
                 const std::set<std::string>& e2)
 {
   std::set<std::string> namePars;
-  for(calc::ParSet::const_iterator i=e1.begin(); i!=e1.end(); ++i)
+  for(auto i=e1.begin(); i!=e1.end(); ++i)
     namePars.insert((*i)->name());
   return namePars==e2;
 }
@@ -109,7 +109,7 @@ bool calc::operator!=(const calc::ParSet& e1,
 std::ostream& calc::operator<<(std::ostream& s,const calc::ParSet& p)
 {
   s << "(";
-  for(calc::ParSet::const_iterator i=p.begin(); i!=p.end(); ++i)
+  for(auto i=p.begin(); i!=p.end(); ++i)
       s << (*i)->name() <<",";
   s << ")";
   return s;

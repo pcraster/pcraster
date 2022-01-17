@@ -24,7 +24,7 @@
 
 pcrxml::DataTypeDTD* pcrxml::newDataType(CSF_VS vs)
 {
-  DataTypeDTD *n= new DataTypeDTD();
+  auto *n= new DataTypeDTD();
   n->value= csfVs2DataType(vs);
   return n;
 }

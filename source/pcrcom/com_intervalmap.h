@@ -114,7 +114,7 @@ private:
   size_t d_nrVisits;
 
   void clean() {
-    for(iterator i=this->begin();i!=this->end();++i)
+    for(auto i=this->begin();i!=this->end();++i)
      delete i->first;
   }
 
@@ -133,7 +133,7 @@ private:
       typedef bool result_type;
       bool operator()(IT v) const {
          EqualTo<IT> key(v);
-         const_iterator p(d_m.find(&key));
+         auto p(d_m.find(&key));
          return p == d_m.end();
       }
   };
@@ -202,7 +202,7 @@ private:
    */
   T& findValue(IT k) {
     EqualTo<IT> key(k);
-    iterator p = this->find(&key);
+    auto p = this->find(&key);
     if (p==this->end())
       return d_outside;
     // std::cout << "found at " << *(p->first) << "\n";
@@ -307,7 +307,7 @@ private:
   size_t d_nrVisits;
 
   void clean() {
-    for(iterator i=this->begin();i!=this->end();++i)
+    for(auto i=this->begin();i!=this->end();++i)
      delete i->first;
   }
   void copy(const IntervalMultiMap<T>& rhs) {
@@ -325,7 +325,7 @@ private:
       typedef IT argument_type;
       typedef bool result_type;
       bool operator()(IT v) const {
-       for(typename Base::const_iterator i=d_m->begin();i!=d_m->end();++i)
+       for(auto i=d_m->begin();i!=d_m->end();++i)
           if (i->first->valid(v))
             return false;
        return true;
@@ -388,7 +388,7 @@ private:
   void visit(IT k,IT v) {
       d_nrVisits++;
       bool intervalFound=false;
-      for(iterator i=this->begin();i!=this->end();++i) {
+      for(auto i=this->begin();i!=this->end();++i) {
           if (i->first->valid(k)) {
             intervalFound=true;
             i->second(v);
@@ -404,7 +404,7 @@ private:
   void visit2(IT k,IT v) {
       d_nrVisits++;
       bool intervalFound=false;
-      for(iterator i=this->begin();i!=this->end();++i) {
+      for(auto i=this->begin();i!=this->end();++i) {
           if (i->first->valid(k)) {
             intervalFound=true;
             i->second.visit(v);

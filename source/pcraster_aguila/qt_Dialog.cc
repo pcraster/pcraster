@@ -114,7 +114,7 @@ void Dialog::resetLayout()
   else
     d_data->top->addStretch(1);
 
-  QHBoxLayout *hbox = new QHBoxLayout();
+  auto *hbox = new QHBoxLayout();
   d_data->top->addLayout(hbox);
   hbox->addStretch();
   hbox->addWidget(d_data->ok);

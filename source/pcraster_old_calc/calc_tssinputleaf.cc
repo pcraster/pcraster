@@ -67,7 +67,7 @@ calc::TssInputLeaf::TssInputLeaf(
     posError("Array of tss not yet implemented");
 
   // first cast to more generic
-  TssParameter *p =
+  auto *p =
     dynamic_cast<TssParameter *>(script().findRightParameter(par,VS_TSS));
   d_par = dynamic_cast<TssInputParameter *>(p);
   if (d_par) // found

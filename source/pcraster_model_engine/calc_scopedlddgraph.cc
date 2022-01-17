@@ -119,7 +119,7 @@ void calc::ScopedLddGraph::setMVInput(BitField& mvAtInput)
 {
   d_lg.object()->unsetMVField(mvAtInput);
   if (mvAtInput.any()) {
-    LddGraph *n = new LddGraph(current(),mvAtInput,true);
+    auto *n = new LddGraph(current(),mvAtInput,true);
     delete d_modifiedLg;
     d_modifiedLg=n;
   }

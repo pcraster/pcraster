@@ -83,7 +83,7 @@ FeatureLayer::FeatureLayer(
 
     layer->setTypeId(useTypeId);
 
-    dal::FeatureDriver* driver =
+    auto* driver =
            dynamic_cast<dal::FeatureDriver*>(dataSource().reader());
     assert(driver);
 

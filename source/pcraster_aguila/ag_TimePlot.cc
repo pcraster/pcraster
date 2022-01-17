@@ -56,7 +56,7 @@ TimePlot::~TimePlot()
 void TimePlot::createInterface(DataObject* object)
 {
   _splitter = new QSplitter(Qt::Horizontal, this);
-  QVBoxLayout* layout = new QVBoxLayout(this);
+  auto* layout = new QVBoxLayout(this);
   layout->addWidget(_splitter);
 
   _legendView = new LegendView(object, VT_Graph, _splitter);

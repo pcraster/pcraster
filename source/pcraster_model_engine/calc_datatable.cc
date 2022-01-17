@@ -80,7 +80,7 @@ calc::DataTable::~DataTable()
 //! delete all DataValue's, set to 0
 void calc::DataTable::clean()
 {
-  for (Table::iterator i =d_table.begin();
+  for (auto i =d_table.begin();
                        i!=d_table.end(); ++i) {
     deleteAlways(i->second.d_dv);
     i->second.d_dv=nullptr;
@@ -107,7 +107,7 @@ calc::DataTable::DataTable(const DataTable& rhs):
 
 bool calc::DataTable::contains(const std::string& name) const
 {
-  Table::const_iterator i(d_table.find(name));
+  auto i(d_table.find(name));
   return i != d_table.end();
 }
 
@@ -116,7 +116,7 @@ bool calc::DataTable::contains(const std::string& name) const
  */
 const calc::DataValue*  calc::DataTable::operator[](const std::string& name) const
 {
-  Table::const_iterator i(d_table.find(name));
+  auto i(d_table.find(name));
   POSTCOND(i != d_table.end());
   return i->second.d_dv;
 }
@@ -128,7 +128,7 @@ const calc::DataValue*  calc::DataTable::operator[](const std::string& name) con
  */
 calc::DataTable::DTE calc::DataTable::dataLoad(const std::string& name)
 {
-  Table::iterator i(d_table.find(name));
+  auto i(d_table.find(name));
   PRECOND(i != d_table.end());
   return DTE(i);
 }
@@ -154,7 +154,7 @@ void calc::DataTable::insert(
   try {
     switch(i.ovs()) {
       case VS_TABLE: {
-                       LookupTable *lt(new LookupTable(i));
+                       auto *lt(new LookupTable(i));
                        dv.reset(lt);
                        if (i.memoryInputId() != i.noMemoryExchangeId()) {
                          d_memoryInputLookupTables.push_back(i.name());
@@ -210,7 +210,7 @@ void calc::DataTable::setMemoryExchangeInputData(void **memoryExchangeData)
    size_t dataIndex(e.symbol().memoryInputId());
    PRECOND(dataIndex != e.symbol().noMemoryExchangeId());
    DataValue *dv =e.getOrReleaseValue(false);
-   LookupTable* lu(dynamic_cast<LookupTable *>(dv));
+   auto* lu(dynamic_cast<LookupTable *>(dv));
    try {
     lu->setArrayValue(d_memoryExchangeData[dataIndex]);
    } catch (std::range_error const& error) {
@@ -228,7 +228,7 @@ void* calc::DataTable::memoryExchangeInputBuffer(size_t memoryIndex) const
 
 void calc::DataTable::print(std::ostream& s) const
 {
-  Table::const_iterator i=d_table.begin();
+  auto i=d_table.begin();
   for(  ; i!=d_table.end(); ++i)
     s << "symbol: " << i->second
       << " dataValue: " << i->second.d_dv << std::endl;
@@ -242,7 +242,7 @@ void calc::DataTable::print(std::ostream& s) const
  */
 bool calc::DataTable::allNoValue() const
 {
-  for (Table::const_iterator i =d_table.begin();
+  for (auto i =d_table.begin();
                              i!=d_table.end(); ++i) {
     size_t N = ASTSymbolInfo::noMemoryExchangeId();
     if(i->second.d_dv && !i->second.isConstant() && i->second.memoryInputId() == N && i->second.memoryOutputId() == N) {
@@ -278,7 +278,7 @@ calc::DataValue *calc::DataTable::DTE::getOrReleaseValue(bool lastUse)
   else if (
       DataTable::d_useDiskStorage &&
       symbol().ioType().input() != pcrxml::ModelInputType::None) {
-   Spatial *s=dynamic_cast<Spatial *>(dv);
+   auto *s=dynamic_cast<Spatial *>(dv);
    if (s) {
     dv->setReadOnlyReference(false);
     dataValue()=nullptr;
@@ -299,7 +299,7 @@ void calc::DataTable::DTE::resetValue(DataValue *value) {
     // may cause this.
     // Someone else owns, create a copy
     // FTTB only fields can be assigned, hence reset
-    Field *f=dynamic_cast<Field *>(value);
+    auto *f=dynamic_cast<Field *>(value);
     POSTCOND(f);
     value = f->createClone();
   }
@@ -320,7 +320,7 @@ void calc::DataTable::DTE::resetValue(DataValue *value) {
 std::map<std::string,calc::ASTSymbolInfo> calc::DataTable::symbols() const
 {
   std::map<std::string,calc::ASTSymbolInfo> s;
-  for(Table::const_iterator i=d_table.begin(); i!=d_table.end(); ++i)
+  for(auto i=d_table.begin(); i!=d_table.end(); ++i)
     s.insert(std::make_pair(i->first,i->second));
   return s;
 }

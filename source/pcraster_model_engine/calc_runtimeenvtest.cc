@@ -13,7 +13,7 @@ BOOST_AUTO_TEST_CASE(testPopField)
 
   RunTimeEnv      rte(geo::RasterSpace(2,2));
   REAL4 zData[4]= { 1,1,1,1};
-  Spatial *sp=new Spatial(VS_S,zData,4);
+  auto *sp=new Spatial(VS_S,zData,4);
 
   BOOST_CHECK(!sp->readOnlyReference());
 

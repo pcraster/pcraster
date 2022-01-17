@@ -99,7 +99,7 @@ calc::ASTSymbolInfo& calc::ASTSymbolTable::operator[](const ASTPar *p) {
 
 const calc::ASTSymbolInfo& calc::ASTSymbolTable::operator[](const ASTPar *p) const {
   PRECOND(contains(p->name()));
-  const_iterator f=find(p->name());
+  auto f=find(p->name());
   return f->second;
 }
 
@@ -107,13 +107,13 @@ const calc::ASTSymbolInfo&
   calc::ASTSymbolTable::operator[](const std::string& name) const
 {
   PRECOND(contains(name));
-  const_iterator f=find(name);
+  auto f=find(name);
   return f->second;
 }
 
 bool calc::ASTSymbolTable::contains(const std::string& name) const
 {
-  const_iterator f=find(name);
+  auto f=find(name);
   return f !=end();
 }
 
@@ -124,7 +124,7 @@ bool calc::ASTSymbolTable::contains(const ASTPar *p) const
 
 void calc::ASTSymbolTable::throwSym(const SymException& s) const
 {
-  const_iterator f=find(s.symbolName());
+  auto f=find(s.symbolName());
   if (f==end()) // not in table
     s.throwPos(s.symbolName());
   f->second.throwSym(s);
@@ -149,7 +149,7 @@ void calc::ASTSymbolTable::checkDifferentExternalNames() const
   const calc::ASTSymbolTable& this_(*this);
   for(ASTSymbolTablePair i : this_) {
     const ASTSymbolInfo& s(i.second);
-    CheckMap::const_iterator dup=checked.find(s.externalName());
+    auto dup=checked.find(s.externalName());
     if (dup!=checked.end()) {
       std::ostringstream str;
       str << "shares identical binding with '" << dup->second <<
@@ -178,7 +178,7 @@ bool calc::ASTSymbolTable::containsMemoryExchangeSymbols() const
  */
 calc::LinkInLibrary const* calc::ASTSymbolTable::linkInLibrary(std::string const& name)
 {
-  LinkInLibraries::const_iterator i=d_linkInLibraries.find(name);
+  auto i=d_linkInLibraries.find(name);
   if (i!=d_linkInLibraries.end())
     return i->second.get();
   else {

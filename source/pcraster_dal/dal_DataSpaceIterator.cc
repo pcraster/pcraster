@@ -300,7 +300,7 @@ void DataSpaceIterator::initialiseOnFirst(
           switch(dimension.discretisation()) {
             case RegularDiscretisation: {
               // Initialize on center of upper left cell.
-              RasterDimensions const& rasterDimensions(
+              auto const& rasterDimensions(
                    dimension.value<RasterDimensions>(0));
               double x, y;
               rasterDimensions.coordinates(0.5, 0.5, x, y);
@@ -310,7 +310,7 @@ void DataSpaceIterator::initialiseOnFirst(
             }
             case BorderedDiscretisation: {
               // Initialize on north west corner.
-              SpaceDimensions const& spaceDimensions(
+              auto const& spaceDimensions(
                    dimension.value<SpaceDimensions>(0));
               double x = spaceDimensions.west();
               double y = spaceDimensions.north();
@@ -391,7 +391,7 @@ void DataSpaceIterator::initialiseOnLast(
           switch(dimension.discretisation()) {
             case RegularDiscretisation: {
               // Initialize on center of lower right cell.
-              RasterDimensions const& rasterDimensions(
+              auto const& rasterDimensions(
                    dimension.value<RasterDimensions>(0));
               double x, y;
               rasterDimensions.coordinates(
@@ -403,7 +403,7 @@ void DataSpaceIterator::initialiseOnLast(
             }
             case BorderedDiscretisation: {
               // Initialize on south east corner.
-              SpaceDimensions const& spaceDimensions(
+              auto const& spaceDimensions(
                    dimension.value<SpaceDimensions>(0));
               double x = spaceDimensions.east();
               double y = spaceDimensions.south();

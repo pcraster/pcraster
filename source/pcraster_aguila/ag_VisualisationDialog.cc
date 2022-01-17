@@ -90,9 +90,9 @@ void VisualisationDialog<T, Dialog>::removeReference(
   typedef std::map<T, Dialog*> ObjectMap;
   typedef std::map<DataObject*, ObjectMap> DataObjectMap;
 
-  for(typename DataObjectMap::iterator it1 = d_dialogs.begin();
+  for(auto it1 = d_dialogs.begin();
          it1 != d_dialogs.end(); ++it1) {
-    for(typename ObjectMap::iterator it2 = (*it1).second.begin();
+    for(auto it2 = (*it1).second.begin();
          it2 != (*it1).second.end();) {
       if((*it2).second == dialog) {
         (*it1).second.erase(it2++); // Erase invalidates the iterator.

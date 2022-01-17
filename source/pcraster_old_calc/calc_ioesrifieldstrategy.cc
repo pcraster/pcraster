@@ -251,7 +251,7 @@ calc::GridMap *calc::IoEsriFieldStrategy::createMap(
   pn.makeAbsolute();
   // esri-grid needs fileName to be-non-existent
   removeOutputObject(pn.toString());
-  EsriMap *m = new EsriMap(pn.toString(),
+  auto *m = new EsriMap(pn.toString(),
                      rasterSpace().nrRows(), rasterSpace().nrCols(),
                      rasterSpace().cellSize(), d_bbox, vs);
   if (d_prjFile.size())

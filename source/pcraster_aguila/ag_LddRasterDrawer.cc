@@ -77,10 +77,10 @@ void LddRasterDrawer::draw(
   matrix.transfer(const_cast<UINT1*>(_raster->cells<UINT1>()),
          dal::Matrix::DoNotTakeOwnerShip);
 
-  size_t firstRow = static_cast<size_t>(indices.top());
-  size_t lastRow = static_cast<size_t>(indices.bottom());
-  size_t firstCol = static_cast<size_t>(indices.left());
-  size_t lastCol = static_cast<size_t>(indices.right());
+  auto firstRow = static_cast<size_t>(indices.top());
+  auto lastRow = static_cast<size_t>(indices.bottom());
+  auto firstCol = static_cast<size_t>(indices.left());
+  auto lastCol = static_cast<size_t>(indices.right());
 
   firstRow = firstRow > 1
          ? firstRow - 1

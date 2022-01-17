@@ -46,7 +46,7 @@ void VTKBlockDriver::regularBlockProperties(
          Raster const& voxels)
 {
   for(size_t i = 0; i < voxels.nrCells(); ++i) {
-    std::vector<REAL4> const& stack(voxels.cell<std::vector<REAL4> >(i));
+    auto const& stack(voxels.cell<std::vector<REAL4> >(i));
 
     if(!stack.empty()) {
       // Block is regular, these values are valid for the whole block.
@@ -110,7 +110,7 @@ VTKBlockDriver::VTKBlockDriver()
     TextFileDriver()
 
 {
-  DriverProperties& properties = this->properties().value<DriverProperties>(
+  auto& properties = this->properties().value<DriverProperties>(
          DAL_DRIVER_GENERAL);
   properties |= CombinesDiscretisationAndData;
   properties |= Writer;

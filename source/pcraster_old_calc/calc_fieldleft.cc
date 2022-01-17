@@ -58,7 +58,7 @@ calc::FieldLeft::FieldLeft(
   d_write(write),d_index(field.createSelector())
 {
   try {
-   FieldParameter *p = dynamic_cast<FieldParameter *>
+   auto *p = dynamic_cast<FieldParameter *>
     (script().findLeftParameter(field,vsRight));
   if (!p) {
     d_par = new FieldNewParameter(field,false, false, VS_FIELD,ST_DERIVED);

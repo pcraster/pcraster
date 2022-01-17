@@ -80,7 +80,7 @@ void forEachNode(DOMNode* node, Operation& o) {
   assert(node);
   o(node);
   NodeSet nodeSet(node->getAttributes());
-  for(NodeSet::iterator i=nodeSet.begin(); i != nodeSet.end(); ++i)
+  for(auto i=nodeSet.begin(); i != nodeSet.end(); ++i)
     o(*i);
   DOMNodeList* list = node->getChildNodes();
   assert(list);

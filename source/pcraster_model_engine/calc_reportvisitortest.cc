@@ -31,7 +31,7 @@ BOOST_AUTO_TEST_CASE(testPos)
      bool posEqual(std::string const& name, std::string const& pos) const {
      if (!d_rps.count(name))
          return false;
-     ReportPars::const_iterator i=d_rps.find(name);
+     auto i=d_rps.find(name);
      std::string parPos=i->second.d_par->shortPosText();
      return parPos.compare(pos)==0;
     }

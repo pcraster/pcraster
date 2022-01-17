@@ -65,7 +65,7 @@ dal::GeoEASTableDriver::GeoEASTableDriver()
          TABLE, Format::File, Format::Vector, Format::Attribute), NO_HEADER)
 
 {
-  DriverProperties& properties = this->properties().value<DriverProperties>(
+  auto& properties = this->properties().value<DriverProperties>(
          DAL_DRIVER_GENERAL);
   properties |= Reader;
   properties |= Writer;
@@ -114,7 +114,7 @@ bool dal::GeoEASTableDriver::readHeader(
   }
 
   std::vector<std::string> names(nrAttributes);
-  for(std::vector<std::string>::iterator it = names.begin(); it != names.end();
+  for(auto it = names.begin(); it != names.end();
          ++it) {
     std::getline(stream, line);
     if(stream.fail()) {
@@ -141,7 +141,7 @@ dal::Table* dal::GeoEASTableDriver::open(
     return nullptr;
   }
 
-  Table* table(new Table());
+  auto* table(new Table());
 
   if(!readHeader(*table, stream) || !TextTableDriver::open(*table, stream)) {
     delete table;

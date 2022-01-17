@@ -48,7 +48,7 @@ calc::ReportTable::ReportTable():
 
 calc::ReportTable::~ReportTable()
 {
-  for(Table::iterator i=d_table.begin(); i != d_table.end(); i++)
+  for(auto i=d_table.begin(); i != d_table.end(); i++)
     delete i->second;
 }
 
@@ -58,7 +58,7 @@ calc::ReportTable::~ReportTable()
  */
 void calc::ReportTable::add(const Report& r)
 {
-  Report *rs=new Report(r);
+  auto *rs=new Report(r);
   if (d_timer.lastInt() > 0)
     rs->update(d_timer);
 
@@ -67,7 +67,7 @@ void calc::ReportTable::add(const Report& r)
     d_table.insert(std::make_pair(r.name(),rs));
 
   // first definition if error, or (new) position
-  Table::const_iterator fd =p.first;
+  auto fd =p.first;
   if (!p.second) { // pcrcalc/test238
       delete rs;
       std::ostringstream msg;
@@ -90,7 +90,7 @@ const calc::Report* calc::ReportTable::find(const calc::Id& name) const
    if (name() == "reportdefault")
      return reportDefault();
 
-   Table::const_iterator p=d_table.find(name());
+   auto p=d_table.find(name());
    if (p == d_table.end()) // pcrcalc/test237
         name.posError(name.qName()+" is not a report name");
    return p->second;
@@ -124,7 +124,7 @@ void calc::ReportTable::update(const Timer& timer)
   PRECOND(timer.lastInt() > 0);
   d_timer=timer;
   d_reportDefault.update(d_timer);
-  for(Table::iterator i=d_table.begin(); i != d_table.end(); i++)
+  for(auto i=d_table.begin(); i != d_table.end(); i++)
     i->second->update(d_timer);
 }
 

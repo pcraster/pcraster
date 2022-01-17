@@ -204,7 +204,7 @@ pcrxml::Data *calc::SubParameter::createXmlData() const
 {
    if (nrInSet(symbolType()) != 1)
      return nullptr;
-   pcrxml::Data *d= new pcrxml::Data();
+   auto *d= new pcrxml::Data();
    setDataSubType(d);
    setName(d);
 

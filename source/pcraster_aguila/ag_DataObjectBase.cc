@@ -74,7 +74,7 @@ template<class T>
 typename DataObjectBase<T>::tuple_iter DataObjectBase<T>::find(
          T const* data) const
 {
-  tuple_iter result = _tuples.begin();
+  auto result = _tuples.begin();
 
   while(result != _tuples.end()) {
 
@@ -101,7 +101,7 @@ typename DataObjectBase<T>::tuple_iter DataObjectBase<T>::find(
          std::string const& name,
          dal::DataSpace const& space) const
 {
-  tuple_iter result = _tuples.begin();
+  auto result = _tuples.begin();
 
   while(result != _tuples.end()) {
 
@@ -144,7 +144,7 @@ DataGuide DataObjectBase<T>::add(
 
   assert(exists(name, space));
 
-  tuple_iter it = find(name, space);
+  auto it = find(name, space);
   DataGuide guide = _manager.add(boost::tuples::get<2>(*it));
 
   return guide;
@@ -155,7 +155,7 @@ DataGuide DataObjectBase<T>::add(
 template<class T>
 void DataObjectBase<T>::clear()
 {
-  typename DataManager<T>::const_guide_iter it = _manager.guides_begin();
+  auto it = _manager.guides_begin();
 
   while(it != _manager.guides_end()) {
     remove(*it);   // WARNING: Invalidates it.
@@ -197,7 +197,7 @@ void DataObjectBase<T>::remove(
   if(!_manager.exists(copyOfGuide.address())) {
 
     // Find the tuple with the data to remove.
-    tuple_iter it = find(static_cast<const T*>(copyOfGuide.address()));
+    auto it = find(static_cast<const T*>(copyOfGuide.address()));
     assert(it != _tuples.end());
 
     // Delete data and tuple.
@@ -243,7 +243,7 @@ std::string DataObjectBase<T>::name(
 {
   assert(isValid(guide));
 
-  const_tuple_iter it = find(static_cast<const T*>(guide.address()));
+  auto it = find(static_cast<const T*>(guide.address()));
   assert(it != _tuples.end());
 
   return boost::tuples::get<0>(*it);
@@ -330,7 +330,7 @@ template<class T>
 DataInfo<T> const* DataObjectBase<T>::dataInfo(
          DataGuide const& guide) const
 {
-  const_tuple_iter it = find(static_cast<const T*>(guide.address()));
+  auto it = find(static_cast<const T*>(guide.address()));
   assert(it != _tuples.end());
 
   return &boost::tuples::get<2>(*it);
@@ -343,7 +343,7 @@ void DataObjectBase<T>::read(
          dal::DataSpace const& space,
          dal::DataSpaceAddress const& address)
 {
-  for(data_iter it = this->data_begin(); it != this->data_end(); ++it) {
+  for(auto it = this->data_begin(); it != this->data_end(); ++it) {
     dal::DataSpace dataSpaceOfData((*it).data()->dataSpace());
 
     if(!(space.hasScenarios() && dataSpaceOfData.hasScenarios())) {
@@ -373,7 +373,7 @@ bool DataObjectBase<T>::isRead(
          dal::DataSpace const& space,
          dal::DataSpaceAddress const& address) const
 {
-  for(const_data_iter it = this->data_begin(); it != this->data_end(); ++it) {
+  for(auto it = this->data_begin(); it != this->data_end(); ++it) {
     if(!dynamic_cast<Dataset const*>((*it).data())->isRead(space, address)) {
       return false;
     }

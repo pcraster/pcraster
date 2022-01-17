@@ -66,7 +66,7 @@ calc::TimerValue::TimerValue(
   else {
     // may be a numeric binding
     // that is already set as a FieldNrParameter
-   const FieldNrParameter *nrP =
+   const auto *nrP =
      dynamic_cast<const FieldNrParameter *>(
        c.scriptConst().findSymbol(&c,VS_FIELD, false));
    if (!nrP || nrP->isArray()) {

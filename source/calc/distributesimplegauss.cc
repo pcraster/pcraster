@@ -122,8 +122,8 @@ extern "C" int DistributeSimpleGauss(
                             before taking sqrt */
     double sum=0;
 
-    size_t rStart = static_cast<size_t>(MAX(((int)c.row())-maxDistCells,0));
-    size_t cStart = static_cast<size_t>(MAX(((int)c.col())-maxDistCells,0));
+    auto rStart = static_cast<size_t>(MAX(((int)c.row())-maxDistCells,0));
+    auto cStart = static_cast<size_t>(MAX(((int)c.col())-maxDistCells,0));
     size_t rStop  = MIN(nrRows,c.row()+maxDistCells);
     size_t cStop  = MIN(nrCols,c.col()+maxDistCells);
     for(size_t rDest = rStart; rDest < rStop; rDest++)

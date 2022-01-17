@@ -27,7 +27,7 @@ BOOST_AUTO_TEST_CASE(class_interval_map)
    m.visit(3, 5);
 
    size_t c=0;
-   for(M::const_iterator i=m.begin();i!=m.end();++i) {
+   for(auto i=m.begin();i!=m.end();++i) {
      BOOST_CHECK(i->second.size()==2); // < 4  and > 4
      switch(c) {
        case 0:
@@ -62,7 +62,7 @@ BOOST_AUTO_TEST_CASE(class_interval_map)
    m.visit(3, 5);
 
    size_t c=0;
-   for(M::const_iterator i=m.begin();i!=m.end();++i) {
+   for(auto i=m.begin();i!=m.end();++i) {
      BOOST_CHECK(i->second.size()==3); // < 4, > 4 > 4.5
      switch(c) {
        case 0:

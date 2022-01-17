@@ -122,8 +122,8 @@ struct NodeList : public std::list<QDomNode> {
        }
      } equal; equal.d_throwOnDiff=throwOnDiff;
 
-     I ni =    begin();
-     I ni2=nl2.begin();
+     auto ni =    begin();
+     auto ni2=nl2.begin();
      for(  ; ni!=end() && ni2!=nl2.end(); ++ni,++ni2) {
        if (!equal(ni->nodeName()== ni2->nodeName(),ni,ni2,"nodeName"))
          return false;

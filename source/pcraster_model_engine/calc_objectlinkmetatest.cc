@@ -21,7 +21,7 @@ BOOST_AUTO_TEST_CASE(testCtor)
 
   BOOST_CHECK(olm.d_methods.size()==2);
   //! ctor
-  ObjectLinkMeta::MethodMap::iterator m=olm.d_methods.find("");
+  auto m=olm.d_methods.find("");
   BOOST_CHECK(m!=olm.d_methods.end());
   BOOST_CHECK(m->second.d_name.empty());
   BOOST_CHECK(m->second.d_input.size()==2);

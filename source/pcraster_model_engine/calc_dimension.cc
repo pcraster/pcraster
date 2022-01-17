@@ -74,7 +74,7 @@ calc::Dimension::Dimension(const std::string& str):
 
   DimensionParser dp(str);
   for(size_t i=0; i < dp.symbols().size(); ++i) {
-    Id2Base::const_iterator it=id2base.find(dp.symbols()[i].d_symbol);
+    auto it=id2base.find(dp.symbols()[i].d_symbol);
     if (it != id2base.end()) {
       PRECOND(it->second < static_cast<int>(size()));
       at(it->second)=dp.symbols()[i].d_power;
@@ -113,7 +113,7 @@ calc::Dimension& calc::Dimension::operator=(Dimension const& rhs)
 //! is this dimensionless? in other words all are 0
 bool calc::Dimension::none() const
 {
-  for(const_iterator i=begin(); i != end(); ++i)
+  for(auto i=begin(); i != end(); ++i)
     if (*i!=0)
       return false;
   return true;

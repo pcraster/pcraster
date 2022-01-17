@@ -176,7 +176,7 @@ const calc::Field* calc::P5Stack::fieldCast(const std::string& name) const
    PRECOND(contains(name));
    const DataValue* dv(d_e->runTimeEnv().dataTable()[name]);
    POSTCOND(dv);
-   const Field *f = dynamic_cast<const Field *>(dv);
+   const auto *f = dynamic_cast<const Field *>(dv);
    POSTCOND(f);
    return f;
 }

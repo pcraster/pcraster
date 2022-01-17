@@ -576,7 +576,7 @@ void calc::BranchExprImpl::execGenSpatial(
   FieldsPopped inp(stack,1);
 
   FieldHandle res = createResultField();
-  REAL4 *valRes=static_cast<REAL4 *>(res->destValue());
+  auto *valRes=static_cast<REAL4 *>(res->destValue());
 
   GenerateSpatialFunc f(
     static_cast<const UINT1 *>(inp[0]->srcValue()),inp[0]->nrValues(),

@@ -141,7 +141,7 @@ void calc::deleteFromPcrme(const DataValue *dv) {
   } else {
     // outside pcrme readOnlyReference is always false
     // so it can be deleted.
-    DataValue *unmanage=const_cast<DataValue *>(dv);
+    auto *unmanage=const_cast<DataValue *>(dv);
     unmanage->setReadOnlyReference(false);
   }
 }

@@ -55,7 +55,7 @@ calc::ForEach::ForEach(
   PRECOND(in.size() > 0);
 
   //! find the array that is controlled by this foreach
-  const calc::IndexContainer *ic =
+  const auto *ic =
     dynamic_cast<const calc::IndexContainer *>(findSymbol(&(in[0]),VS_INDEX_CONTAINER,true));
   d_loopedArray = ic->partOf();
 
@@ -100,7 +100,7 @@ void calc::ForEach::indexSet(
   const calc::IdList& list) 
 {
   for (size_t i=0; i < list.size(); i++) {
-   const calc::IndexContainer *ic = 
+   const auto *ic = 
      dynamic_cast<const calc::IndexContainer *>(findSymbol(&(list[i]),VS_INDEX_CONTAINER,true));
    POSTCOND(ic);
    if (d_loopedArray != ic->partOf())
@@ -118,11 +118,11 @@ void calc::ForEach::executeBlock()
    */
      std::set<const calc::IndexParameterConstant *>loopSet;
   std::vector<const calc::IndexParameterConstant *>loop;
-  for(Set::const_iterator i = d_in.begin(); i != d_in.end(); i++) {
+  for(auto i = d_in.begin(); i != d_in.end(); i++) {
     const calc::IndexParameterConstant *ipc = (*i)->indexParameterConstant();
     loopSet.insert(ipc);
   }
-  for(Set::const_iterator i = d_excl.begin(); i != d_excl.end(); i++) {
+  for(auto i = d_excl.begin(); i != d_excl.end(); i++) {
     const calc::IndexParameterConstant *ipc = (*i)->indexParameterConstant();
     loopSet.erase(ipc);
   }

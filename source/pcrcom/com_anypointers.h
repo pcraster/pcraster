@@ -134,7 +134,7 @@ public:
   {
     size_t id;
 
-    std::map<size_t, boost::any>::const_iterator it = std::find_if(
+    auto it = std::find_if(
          d_objects.begin(), d_objects.end(),
          valueEquals<ObjectType*>(pointer));
     if(it != d_objects.end()) {
@@ -160,7 +160,7 @@ public:
   void             insert              (ObjectType* pointer,
                                         size_t id)
   {
-    std::map<size_t, boost::any>::const_iterator it = std::find_if(
+    auto it = std::find_if(
          d_objects.begin(), d_objects.end(), valueEquals<ObjectType*>(pointer));
     if(it != d_objects.end()) {
       PRECOND((*it).first == id);

@@ -163,7 +163,7 @@ BOOST_AUTO_TEST_CASE(add_lookup_table)
   key.push_back(new com::EqualTo<double>(1));
   lr.push_back(LookupRecord(key,5));
   delete key[0];
-  LookupTable *tab = new LookupTable(VS_S);
+  auto *tab = new LookupTable(VS_S);
   std::vector<VS> readKeys(1);
   readKeys[0] = VS_N;
   tab->setRecords(lr,readKeys);

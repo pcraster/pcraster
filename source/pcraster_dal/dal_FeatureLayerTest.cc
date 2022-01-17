@@ -40,14 +40,14 @@ BOOST_AUTO_TEST_CASE(test_)
   Client::library().geometriesCache().clear();
 
   {
-    FeatureLayerGeometries* geometries = new FeatureLayerGeometries(
+    auto* geometries = new FeatureLayerGeometries(
            0.0, 10.0, 10.0, 0.0);
     Client::library().geometriesCache().insert("bla", geometries);
     FeatureLayer featureLayer(geometries);
 
-    OGRPolygon* polygon = dynamic_cast<OGRPolygon*>(
+    auto* polygon = dynamic_cast<OGRPolygon*>(
         OGRGeometryFactory::createGeometry(wkbPolygon));
-    OGRLinearRing* linearRing = dynamic_cast<OGRLinearRing*>(
+    auto* linearRing = dynamic_cast<OGRLinearRing*>(
         OGRGeometryFactory::createGeometry(wkbLinearRing));
 
     linearRing->addPoint(1.0, 1.0);

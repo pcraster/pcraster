@@ -23,7 +23,7 @@ BOOST_AUTO_TEST_CASE(write_to_file)
   vc.cwd     = "GNUPH";
   vc.os      = pcrxml::RuntimePlatform::RP_LINUX;
 
-  VisualisationGroup *gr = new VisualisationGroup();
+  auto *gr = new VisualisationGroup();
   gr->dataObject = new DataObject();
   gr->dataObject->cursor = new Cursor();
   gr->dataObject->cursor->x = 1;

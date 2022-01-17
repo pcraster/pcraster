@@ -97,7 +97,7 @@ bool maximum(Value& value, Point const& point, Radius radius,
   }
 
   // Determine maximum value.
-  typename std::vector<PointValue>::const_iterator it = subset.begin();
+  auto it = subset.begin();
 
   value = (*it).value();
 

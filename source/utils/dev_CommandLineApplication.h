@@ -85,7 +85,7 @@ protected:
 
   void             addPositionalOption (std::string const& name,
                                         short maxCount,
-                                        std::string description);
+                                        const std::string& description);
 
   variables_map    programOptions      () const;
 

@@ -5,6 +5,8 @@
 
 #ifndef INCLUDED_CALC_POSITIONNAME
 #include "calc_positionname.h"
+
+#include <utility>
 #define INCLUDED_CALC_POSITIONNAME
 #endif
 
@@ -42,7 +44,7 @@ calc::PositionName::PositionName():
 
 calc::PositionName::PositionName(
     StringSharedPtr name):
-  d_name(name)
+  d_name(std::move(name))
 {
 }
 

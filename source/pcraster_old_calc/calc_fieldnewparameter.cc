@@ -90,7 +90,7 @@ calc::Handle<calc::Field> calc::FieldNewParameter::value(
 }
 
 void calc::FieldNewParameter::assign(
-    Handle<Field> f,
+    const Handle<Field>& f,
     size_t index,
     const Position *assignPoint)
 {

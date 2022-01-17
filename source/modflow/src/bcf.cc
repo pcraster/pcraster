@@ -467,7 +467,7 @@ size_t  BCF::getLaycon(size_t lcon){
 
 
 
-void BCF::get_binary(float *values, const std::string description, size_t start, size_t multiplier, std::string const& path) const{
+void BCF::get_binary(float *values, const std::string& description, size_t start, size_t multiplier, std::string const& path) const{
   // see also flow data description at faq how to read binary
   // http://water.usgs.gov/nrp/gwsoftware/modflow2000/Guide/index.html
 

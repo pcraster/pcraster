@@ -91,7 +91,7 @@ public:
     return d_cellSize;
   }
 
-  void        setPrjFile(const std::string prjFile);
+  void        setPrjFile(const std::string& prjFile);
   std::string prjFile   () const;
   com::PathName prjFilePath() const;
 

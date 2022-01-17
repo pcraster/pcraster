@@ -51,7 +51,7 @@ BOOST_CHECK(e.messages().find("';' is not a recognized unit dimension")
  try {
   DimensionParser dp("X kg");
  } catch (const com::Exception& e) {
-BOOST_CHECK(e.messages().find("X") != std::string::npos);
+BOOST_CHECK(e.messages().find('X') != std::string::npos);
  }
 
 }

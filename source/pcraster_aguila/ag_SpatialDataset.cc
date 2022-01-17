@@ -115,7 +115,7 @@ void SpatialDataset::readTimeSeries(
   dal::Array<REAL4>& attrCol(table.col<REAL4>(1));
   assert(timeCol.size() <= timeDimension.nrCoordinates());
 
-  dal::Dimension globalTimeDimension(space.dimension(space.indexOf(dal::Time)));
+  const dal::Dimension& globalTimeDimension(space.dimension(space.indexOf(dal::Time)));
   dal::Array<UINT4> timeCol2(globalTimeDimension.nrCoordinates());
   dal::Array<REAL4> attrCol2(globalTimeDimension.nrCoordinates());
 

@@ -65,7 +65,7 @@ private:
 //  void             calcSf1             (std::stringstream &aStream, size_t layer, const std::string &msg) const;
 
 public:
-  void             get_binary          (float *values, const std::string, size_t type,
+  void             get_binary          (float *values, const std::string&, size_t type,
                                         size_t layer, std::string const& path) const;
                    ~BCF                ();
                    BCF                 (PCRModflow *mf);

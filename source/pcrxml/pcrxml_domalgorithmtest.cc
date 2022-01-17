@@ -3,12 +3,13 @@
 #include "pcrxml_document.h"
 #include "pcrxml_domalgorithm.h"
 #include <QtGlobal>
+#include <utility>
 
 //! count nodes that are attributes
 struct CountNodeAttrs {
   size_t nr;
   CountNodeAttrs():nr(0) {};
-  void operator()(QDomNode n) {
+  void operator()(const QDomNode& n) {
     if (n.isAttr())
        nr++;
   }
@@ -16,7 +17,7 @@ struct CountNodeAttrs {
 struct ConcatNodeValues {
   QString val;
   ConcatNodeValues() {};
-  void operator()(QDomNode n) {
+  void operator()(const QDomNode& n) {
 #if QT_VERSION < QT_VERSION_CHECK(5, 9, 0)
     if (n.nodeValue() != QString::null)
 #else
@@ -29,7 +30,7 @@ struct ConcatNodeValues {
 struct CountAttrsOfElement {
   size_t nr;
   CountAttrsOfElement():nr(0) {};
-  void operator()(QDomElement e) {
+  void operator()(const QDomElement& e) {
    nr+= e.attributes().count();
   }
 };
@@ -38,7 +39,7 @@ struct ChangeTagName {
   QString d_newName;
   size_t nr;
   ChangeTagName(QString oldName, QString newName):
-    d_oldName(oldName),d_newName(newName),nr(0){};
+    d_oldName(std::move(oldName)),d_newName(std::move(newName)),nr(0){};
   void operator()(QDomElement e) {
 
     PRECOND(!e.isNull());

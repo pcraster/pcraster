@@ -54,7 +54,7 @@
 
 calc::GlobArg::GlobArg(
     VS interfaceVs,
-    const FieldHandle field,
+    const FieldHandle& field,
     const Compressor& compressor):
         d_copy(field->vs())
 {

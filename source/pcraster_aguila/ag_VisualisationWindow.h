@@ -107,7 +107,7 @@ protected:
 
   void             saveAs              (com::FileFormatInfo const& format,
                                         std::string name,
-                                        dal::DataSpace iterationSpace);
+                                        const dal::DataSpace& iterationSpace);
 
   // void             createFullScreenToolButton(QToolBar* toolBar);
 

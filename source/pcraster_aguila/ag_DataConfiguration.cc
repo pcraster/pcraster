@@ -298,7 +298,7 @@ void DataConfiguration::add(
 
 void DataConfiguration::add(
          std::string const& name,
-         dal::DataSpace space,
+         const dal::DataSpace& space,
          dal::DataSpaceQueryResult const& result,
          pcrxml::AguilaData const& configuration)
 {

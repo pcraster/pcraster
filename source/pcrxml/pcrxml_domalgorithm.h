@@ -98,7 +98,7 @@ template <class Operation>
  *          call for each element.
  */
 template <class Operation>
- void forEachChildElement(QDomElement e, Operation& o) {
+ void forEachChildElement(const QDomElement& e, Operation& o) {
  QDomNodeList list = e.childNodes();
    for(size_t i=0; i < (size_t)list.count(); i++)
      if (list.item(i).isElement())

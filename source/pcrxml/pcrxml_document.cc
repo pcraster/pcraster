@@ -83,7 +83,7 @@ static Document createEmptyDocElPcrDocument(
 pcrxml::Document pcrxml::createPcrDocument(
     const std::string& contents)
 {
-  if (contents.find("<") == std::string::npos) {
+  if (contents.find('<') == std::string::npos) {
    return createEmptyDocElPcrDocument(QString(contents.c_str()));
   }
   Document contentsDoc;

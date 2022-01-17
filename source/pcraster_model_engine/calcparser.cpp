@@ -198,17 +198,17 @@ using namespace calc;
 
 typedef calc::LexToken ANTLRToken;
 
-void Parser::notImplemented(const ANTLRTokenPtr at) const
+void Parser::notImplemented(const ANTLRTokenPtr& at) const
 {
 	genId(at).posError("Sorry, this language construct is not implemented");
 }
 
-calc::Id Parser::genId(const ANTLRTokenPtr at) const
+calc::Id Parser::genId(const ANTLRTokenPtr& at) const
 {
 	return calc::Id(mytoken(at)->stringVal(),mytoken(at)->position());
 };
 
-const calc::Position* Parser::position(const ANTLRTokenPtr at) const
+const calc::Position* Parser::position(const ANTLRTokenPtr& at) const
 {
 	return mytoken(at)->position();
 }
@@ -220,14 +220,14 @@ const calc::Operator *op) const
 	return new calc::ASTExpr(pos,*op);
 }
 
-calc::ASTExpr* Parser::createExpr(const ANTLRTokenPtr   at,
+calc::ASTExpr* Parser::createExpr(const ANTLRTokenPtr&   at,
 const calc::Operator *op) const
 {
 	PRECOND(op);
 	return new calc::ASTExpr(mytoken(at)->position(),*op);
 }
 
-const calc::Operator* Parser::tokenOp(const ANTLRTokenPtr at) const
+const calc::Operator* Parser::tokenOp(const ANTLRTokenPtr& at) const
 {
 	PRECOND(calc::major2op(mytoken(at)->opCode()));
 	return calc::major2op(mytoken(at)->opCode());
@@ -277,7 +277,7 @@ const calc::ASTPar& Parser::expectId(const calc::ASTPar& par) const {
 }
 
 calc::ASTNumber* Parser::createCastedASTNumber(
-const ANTLRTokenPtr   convF,
+const ANTLRTokenPtr&   convF,
 const calc::Id& nr) const
 {
 	calc::Id s(genId(convF));

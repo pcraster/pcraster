@@ -17,8 +17,9 @@
 #include <string>
 #define INCLUDED_STRING
 #endif
-#include <xercesc/framework/MemBufInputSource.hpp>
+#include <utility>
 #include <xercesc/framework/LocalFileInputSource.hpp>
+#include <xercesc/framework/MemBufInputSource.hpp>
 #include <xercesc/framework/Wrapper4InputSource.hpp>
 #include <xercesc/util/XMLString.hpp>
 XERCES_CPP_NAMESPACE_USE
@@ -106,7 +107,7 @@ SupportedSchema::SupportedSchema(
    std::string       systemId,
    const char       *tag):
   d_contents(contents),
-  d_systemId(systemId),
+  d_systemId(std::move(systemId)),
   d_tag(tag)
 {
   assert(contents);

@@ -111,17 +111,17 @@ void                     checkParseError();
 const calc::Operator*    expectFunction(const calc::Id& id)   const;
 const calc::ASTPar&      expectId   (const calc::ASTPar& par) const;
 
-    calc::Id                 genId(const ANTLRTokenPtr at) const;
-void                     notImplemented(const ANTLRTokenPtr at) const;
-const calc::Position* position(const ANTLRTokenPtr at) const;
+    calc::Id                 genId(const ANTLRTokenPtr& at) const;
+void                     notImplemented(const ANTLRTokenPtr& at) const;
+const calc::Position* position(const ANTLRTokenPtr& at) const;
 calc::ASTExpr*            createExpr(const calc::Position  *pos,
 const calc::Operator *op) const;
-calc::ASTExpr*            createExpr(const ANTLRTokenPtr   at,
+calc::ASTExpr*            createExpr(const ANTLRTokenPtr&   at,
 const calc::Operator *op) const;
 
-    const calc::Operator*    tokenOp(const ANTLRTokenPtr at) const;
+    const calc::Operator*    tokenOp(const ANTLRTokenPtr& at) const;
 calc::ASTNumber*         createCastedASTNumber(
-const ANTLRTokenPtr   convF,
+const ANTLRTokenPtr&   convF,
 const calc::Id& nr) const;
 public:
 //! ALWAYS AS FIRST STATEMENT! should go in ctor, if we could set the Ctor

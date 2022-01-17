@@ -411,8 +411,7 @@ DataSpace SQLTableDriver::dataSpace(
   dimensionFieldNames.insert("quantile");
 
   for(size_t i = 0; i < table->nrCols(); ++i) {
-    if(std::find(dimensionFieldNames.begin(), dimensionFieldNames.end(),
-         table->title(i)) == dimensionFieldNames.end()) {
+    if(dimensionFieldNames.find(table->title(i)) == dimensionFieldNames.end()) {
       table->setTypeId(i, TI_NR_TYPES);
     }
   }
@@ -538,7 +537,8 @@ Table* SQLTableDriver::open(
     // processing.
     std::vector<std::string> resultFieldNames;
 
-    for(int i = 0; i < index.count(); ++i) {
+    resultFieldNames.reserve(index.count());
+for(int i = 0; i < index.count(); ++i) {
       resultFieldNames.push_back(index.fieldName(i).toUtf8().constData());
     }
 
@@ -549,7 +549,7 @@ Table* SQLTableDriver::open(
       indexFields.push_back("quantile");
       indexFields.push_back("date");
 
-      for(std::string const name : resultFieldNames) {
+      for(std::string const& name : resultFieldNames) {
         if(std::find(indexFields.begin(), indexFields.end(), name) ==
               indexFields.end()) {
           // Unsupported field is part of index.
@@ -565,7 +565,7 @@ Table* SQLTableDriver::open(
     std::vector<TypeId> typeIds;
     QSqlField field;
 
-    for(std::string const name : resultFieldNames) {
+    for(std::string const& name : resultFieldNames) {
       assert(record.contains(QString::fromUtf8(name.c_str())));
 
       field = record.field(QString::fromUtf8(name.c_str()));

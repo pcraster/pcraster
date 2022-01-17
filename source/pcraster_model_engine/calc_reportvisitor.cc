@@ -124,7 +124,7 @@ void calc::ReportVisitor::visitStat(ASTStat *s)
        s->reportInSitu()->update(d_timer);
        d_currentReport=s->reportInSitu();
     } else {
-       Id id(s->reportById());
+       const Id& id(s->reportById());
        if (!id.empty()) {
          // e.g. report(oneThreeFive)  a = .......;
          d_currentReport=d_reports.find(s->reportById());

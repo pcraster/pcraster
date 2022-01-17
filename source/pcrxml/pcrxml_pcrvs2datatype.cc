@@ -44,7 +44,7 @@ pcrxml::DataTypeEnum pcrxml::pcrVs2DataType(PCR_VS vs)
 }
 
 //! translates PCR_VS to pcrxml::DataTypeEnum
-PCR_VS pcrxml::dataType2PcrVs(pcrxml::DataTypeEnum d)
+PCR_VS pcrxml::dataType2PcrVs(const pcrxml::DataTypeEnum& d)
 {
   switch(d()) {
     case pcrxml::DataTypeEnum::Boolean: return VS_B;

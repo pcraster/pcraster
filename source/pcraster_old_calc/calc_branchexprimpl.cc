@@ -249,8 +249,8 @@ void calc::BranchExprImpl::execute(calc::FieldStack& stack)
 #endif
 
 static size_t nrCells(
-    const calc::FieldHandle o1,
-    const calc::FieldHandle o2)
+    const calc::FieldHandle& o1,
+    const calc::FieldHandle& o2)
 {
   DEVELOP_PRECOND(std::max<size_t>(o1->nrValues(),o2->nrValues()) > 0);
   return std::max<size_t>(o1->nrValues(),o2->nrValues());
@@ -258,7 +258,7 @@ static size_t nrCells(
 
 static void checkMv(
   const calc::Operator& op,
-  const calc::FieldHandle v)
+  const calc::FieldHandle& v)
 {
   if (v->isMv())
    throw std::runtime_error("Domain error on function/operator "+op.name());

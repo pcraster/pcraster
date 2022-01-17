@@ -2,6 +2,7 @@
 #include "dev_CommandLineApplication.h"
 #include <boost/test/unit_test.hpp>
 #include <sstream>
+#include <utility>
 
 
 class CommandLineApplicationWrapper : public dev::CommandLineApplication {
@@ -25,7 +26,7 @@ public:
   };
 
   void addPositionalOption(std::string const& name, short maxCount, std::string description){
-    CommandLineApplication::addPositionalOption(name, maxCount, description);
+    CommandLineApplication::addPositionalOption(name, maxCount, std::move(description));
   };
 };
 

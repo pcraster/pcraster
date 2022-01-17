@@ -59,15 +59,15 @@ public:
 
                    IOType               ();
 
-                   IOType               (Input  input, Output output);
+                   IOType               (const Input&  input, const Output& output);
 
   /* virtual */    ~IOType              ();
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
-  void             setInput            (Input  input);
-  void             setOutput           (Output output);
+  void             setInput            (const Input&  input);
+  void             setOutput           (const Output& output);
 
   //----------------------------------------------------------------------------
   // ACCESSORS

@@ -526,7 +526,7 @@ void CursorWindow::appendToCursorValueMonitorFile()
         std::string rt(dataObject.globalToWorldMapper().toString(address, i));
         // if not iso format then there is no real mapper
         // iso format has T seperator for date and time part
-        if(rt.find("T") != std::string::npos) {
+        if(rt.find('T') != std::string::npos) {
           // TODO XSD acv.cursor()->date(rt);
         }
 

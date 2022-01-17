@@ -401,7 +401,7 @@ void calc::EsriMap::readInt(void *val)
   delete [] ptrVal;
 }
 
-void calc::EsriMap::setPrjFile(const std::string prjFile)
+void calc::EsriMap::setPrjFile(const std::string& prjFile)
 {
     d_prjFile=prjFile;
 }

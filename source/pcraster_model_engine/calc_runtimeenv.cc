@@ -534,7 +534,7 @@ void calc::RunTimeEnv::assignStackTop(
 
 //! assign the stacked results to these \a pars
 void calc::RunTimeEnv::assignStackTop(
-    const std::vector<ASTPar *> pars)
+    const std::vector<ASTPar *>& pars)
 {
   for(size_t p=0; p < pars.size(); ++p)
     assignStackTop(pars[p]);

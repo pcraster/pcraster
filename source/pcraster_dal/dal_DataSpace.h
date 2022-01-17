@@ -155,7 +155,7 @@ public:
                    DataSpace           (Dimension const& dimension);
 
                    DataSpace           (DataSpace const& space,
-                                        DataSpaceAddress address);
+                                        const DataSpaceAddress& address);
 
                    DataSpace           (DataSpace const& space,
                                         std::vector<DataSpaceAddress> const& addresses);

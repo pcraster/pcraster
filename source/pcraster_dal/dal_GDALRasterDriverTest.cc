@@ -320,7 +320,7 @@ void testTemporalRaster(
   BOOST_CHECK_EQUAL(raster->south(), 199850.0);
   BOOST_CHECK_EQUAL(raster->typeId(), dal::TI_INT4);
 
-  dal::DataSpaceAddress address(queryResult.address());
+  const dal::DataSpaceAddress& address(queryResult.address());
   BOOST_REQUIRE_EQUAL(address.size(), size_t(1));
   BOOST_CHECK_EQUAL(address.coordinate<size_t>(0), size_t(10));
 }

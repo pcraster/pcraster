@@ -11,6 +11,7 @@
 // Library headers.
 #ifndef INCLUDED_MAP
 #include <map>
+#include <utility>
 #define INCLUDED_MAP
 #endif
 
@@ -20,6 +21,8 @@
 #define INCLUDED_COM_PATHNAME
 #endif
 #ifndef INCLUDED_COM_UNIQUESTRINGGENERATOR
+#include <utility>
+
 #include "com_uniquestringgenerator.h"
 #define INCLUDED_COM_UNIQUESTRINGGENERATOR
 #endif
@@ -60,7 +63,7 @@ private:
     //! if d_report true, then there is a binding for d_name
     const bool        d_report;
     Parameter(std::string name, bool report):
-      d_name(name),d_report(report) {}
+      d_name(std::move(name)),d_report(report) {}
   };
   //! keeps track of symbol found in xml file plus generated ones
   com::UniqueStringGenerator  d_alreadyDefinedSymbols;

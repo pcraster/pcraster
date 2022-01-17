@@ -5,6 +5,8 @@
 
 #ifndef INCLUDED_CALC_POSITIONTEXT
 #include "calc_positiontext.h"
+
+#include <utility>
 #define INCLUDED_CALC_POSITIONTEXT
 #endif
 
@@ -41,7 +43,7 @@
 calc::PositionText::PositionText(
     StringSharedPtr fileName,
     int lineNr,int charNr):
-  d_fileName(fileName),d_lineNr(lineNr),d_charNr(charNr)
+  d_fileName(std::move(fileName)),d_lineNr(lineNr),d_charNr(charNr)
 {
 }
 

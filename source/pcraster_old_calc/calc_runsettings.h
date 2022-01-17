@@ -83,7 +83,7 @@ public:
   //----------------------------------------------------------------------------
   void clear();
 
-  void addNewOnly(QDomElement mrsElement);
+  void addNewOnly(const QDomElement& mrsElement);
 
   void add(const ExtSym& name, const ExtSym& value);
 

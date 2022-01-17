@@ -97,11 +97,11 @@ void                     checkParseError();
 void                     illegalFunc(const calc::Symbol& s) const;
 void                     notAFunc(const calc::Symbol& s) const;
 
-    calc::Element            element(const ANTLRTokenPtr at) const;
-calc::Symbol             symbol(const ANTLRTokenPtr at) const;
-const calc::Operator&    tokenOp(const ANTLRTokenPtr at) const;
+    calc::Element            element(const ANTLRTokenPtr& at) const;
+calc::Symbol             symbol(const ANTLRTokenPtr& at) const;
+const calc::Operator&    tokenOp(const ANTLRTokenPtr& at) const;
 calc::Constant           createCastedConstant(
-const ANTLRTokenPtr   convF,
+const ANTLRTokenPtr&   convF,
 const calc::Symbol& nr) const;
 
 public:

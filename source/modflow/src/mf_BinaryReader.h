@@ -62,7 +62,7 @@ public:
   // ACCESSORS
   //----------------------------------------------------------------------------
   //void read(const std::string & err_mgs, int unit_number, float *values, const std::string description, size_t multiplier) const;
-  void read(const std::string & err_mgs, const std::string & filename, float *values, const std::string description, size_t multiplier) const;
+  void read(const std::string & err_mgs, const std::string & filename, float *values, const std::string& description, size_t multiplier) const;
 
 
 };

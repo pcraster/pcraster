@@ -26,11 +26,11 @@ protected:
 
                    SpatialSetNoData    (SpatialSetNoData const&)=delete;
 
-                   SpatialSetNoData    (SpatialSetNoData&&)=default;
+                   SpatialSetNoData    (SpatialSetNoData&&) noexcept =default;
 
     SpatialSetNoData&    operator=     (SpatialSetNoData const&)=delete;
 
-    SpatialSetNoData&    operator=     (SpatialSetNoData&&)=default;
+    SpatialSetNoData&    operator=     (SpatialSetNoData&&) noexcept =default;
 
 private:
 

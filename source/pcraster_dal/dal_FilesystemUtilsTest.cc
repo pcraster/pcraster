@@ -70,7 +70,7 @@ typedef boost::function<std::filesystem::path
   with timeStepPath and are collected in this function.
 */
 void testTimeStepPathVariant(
-    TimeStepPathVariant variant)
+    const TimeStepPathVariant& variant)
 {
   {
     std::filesystem::path path("n");

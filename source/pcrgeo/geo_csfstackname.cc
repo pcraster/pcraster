@@ -161,7 +161,7 @@ public:
 //------------------------------------------------------------------------------
 
 std::string geo::CSFStackName::asAguilaArgument(
-         std::string stackName, int start, int stop)
+         const std::string& stackName, int start, int stop)
 {
   DEVELOP_PRECOND(!stackName.empty());
   DEVELOP_PRECOND(stackName.find(".") != stackName.size() - 1);

@@ -70,7 +70,7 @@ calc::StringParser::~StringParser()
 calc::ASTNode* calc::StringParser::createExpr(const std::string& s)
 {
   CompleteParser<ASTNode> sp(s);
-  return std::move(sp.parse(&Parser::expr));
+  return sp.parse(&Parser::expr);
 }
 
 calc::ASTAss* calc::StringParser::createAssignment(const std::string& s)

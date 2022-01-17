@@ -187,7 +187,7 @@ void DataObjectBase<T>::remove(
   // dereferencing an iterator into the guide collection we are about to
   // modify. Make a copy of the object to be able to work with it, even after
   // the original is erased.
-  DataGuide copyOfGuide(guide);
+  const DataGuide& copyOfGuide(guide);
 
   // First remove the guide from the manager.
   _manager.remove(copyOfGuide);

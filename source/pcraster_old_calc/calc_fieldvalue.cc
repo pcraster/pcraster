@@ -51,7 +51,7 @@ calc::FieldHandle calc::FieldValue::value(bool isLastUse)
 }
 
 void calc::FieldValue::assign(
-  FieldHandle f,
+  const FieldHandle& f,
   const Position *assignPoint)
 {
   delete d_val;

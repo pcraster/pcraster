@@ -89,7 +89,7 @@ namespace detail {
       return d_name;
     }
 
-    std::string toString(const std::string& id,QDomElement e) const {
+    std::string toString(const std::string& id,const QDomElement& e) const {
 #ifdef WIN32
       // Somehow Qt(?!) adds an additional CR in multiline elements
       std::string s=std::string(pcrxml::textOnlyContents(e).toLatin1().replace("\r", ""));
@@ -134,7 +134,7 @@ class MessagesTestDBPrivate:
  // std::vector<QDomElement> c(pcrxml::childElements(e));
  // PRECOND(c.size()==1);
 
-  void addTest(const std::string& id,QDomElement e) {
+  void addTest(const std::string& id,const QDomElement& e) {
     PRECOND(e.tagName()=="test");
     std::string idS=attrStr(e,"id");
     PRECOND(!idS.empty());
@@ -163,7 +163,7 @@ class MessagesTestDBPrivate:
   }
 
 public:
-  void operator()(QDomElement e) {
+  void operator()(const QDomElement& e) {
     if (e.tagName() != "test")
       return; // skip makefile
     std::string id=attrStr(e,"id");
@@ -350,7 +350,7 @@ calc::MessagesTestDB::~MessagesTestDB()
 bool calc::MessagesTestDB::equals(
     const std::string& id,
     const com::Exception& e,
-    const std::string prefix) const
+    const std::string& prefix) const
 {
   std::string cmpTo(e.messages());
   com::removeFrontEndSpace(cmpTo);

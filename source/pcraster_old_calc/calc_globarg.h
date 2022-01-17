@@ -61,7 +61,7 @@ public:
   //----------------------------------------------------------------------------
 
                    GlobArg(VS interfaceVs,
-                           const FieldHandle field,
+                           const FieldHandle& field,
                            const Compressor& c);
 
   /* virtual */    ~GlobArg              ();

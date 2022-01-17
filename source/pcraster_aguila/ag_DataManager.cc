@@ -276,7 +276,7 @@ void DataManager<T>::remove(
   // dereferencing an iterator into the guide collection we are about to
   // modify. Make a copy of the object to be able to work with it, even after
   // the original is erased.
-  DataGuide copyOfGuide(guide);
+  const DataGuide& copyOfGuide(guide);
 
   // Remove the guide.
   auto guide_it = _guides.erase(_guides.begin() + copyOfGuide.index());

@@ -125,7 +125,7 @@ CommandLineApplication::positionalOptions()
 void CommandLineApplication::addPositionalOption(
          std::string const& name,
          short maxCount,
-         std::string description)
+         const std::string& description)
 {
   assert(maxCount == -1 || maxCount > 0);
   assert(_positionalInfo.empty() || _positionalInfo.back().get<0>() > 0);

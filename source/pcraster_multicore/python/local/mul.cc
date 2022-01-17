@@ -126,7 +126,7 @@ calc::Field* mul(
   res_field = new calc::Spatial(VS_S, calc::CRI_f, nr_cells());
   multicore_field::Spatial<REAL4> res(res_field);
 
-  fa::ExecutionPolicy epol = execution_policy();
+  const fa::ExecutionPolicy& epol = execution_policy();
 
   if(field_b->isSpatial() == false){
     const multicore_field::Spatial<REAL4> arg1(field_a);

@@ -227,7 +227,7 @@ static std::string optAttr(
 }
 
 calc::ASTNode* calc::ASTTestFactory::createCode(
-   QDomElement e)
+   const QDomElement& e)
 {
   ASTNode *n(nullptr);
   std::string v(std::string(e.attribute("v").toLatin1()));
@@ -283,7 +283,7 @@ calc::ASTNode* calc::ASTTestFactory::createCode(
 bool calc::ASTTestFactory::msgVerify(
     const std::string& id,
     const com::Exception& e,
-    const std::string prefix)// const
+    const std::string& prefix)// const
 {
   return db().equals(id,e,prefix);
 }

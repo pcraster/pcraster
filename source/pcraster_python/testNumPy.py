@@ -517,7 +517,9 @@ class TestNumPy(testcase.TestCase):
       west, north = 0.0, 0.0
       pcraster.setclone(nrRows, nrCols, cellSize, west, north)
 
-      raster = pcraster.uniform(1)
+      rasterScalar = pcraster.uniform(1)
+      rasterBoolean = pcraster.spatial(pcraster.boolean(1))
+      rasterNominal = pcraster.nominal(pcraster.uniform(1) * 10)
 
       process = psutil.Process(os.getpid())
       mem = process.memory_info()
@@ -531,25 +533,21 @@ class TestNumPy(testcase.TestCase):
       max_diff = 5000
 
       for it in range(0, nr_iterations):
-        pcraster.pcr2numpy(raster, numpy.nan)
+        pcraster.pcr2numpy(rasterScalar, numpy.nan)
         mem = process.memory_info()
         curr_mem = mem.rss / 2**10
         if curr_mem - init_mem > max_diff:
           mem_increase = True
 
-      raster = pcraster.spatial(pcraster.boolean(1))
-
       for it in range(0, nr_iterations):
-        pcraster.pcr2numpy(raster, numpy.nan)
+        pcraster.pcr2numpy(rasterBoolean, numpy.nan)
         mem = process.memory_info()
         curr_mem = mem.rss / 2**10
         if curr_mem - init_mem > max_diff:
           mem_increase = True
 
-      raster = pcraster.nominal(pcraster.uniform(1) * 10)
-
       for it in range(0, nr_iterations):
-        pcraster.pcr2numpy(raster, numpy.nan)
+        pcraster.pcr2numpy(rasterNominal, numpy.nan)
         mem = process.memory_info()
         curr_mem = mem.rss / 2**10
         if curr_mem - init_mem > max_diff:

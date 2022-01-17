@@ -411,8 +411,7 @@ DataSpace SQLTableDriver::dataSpace(
   dimensionFieldNames.insert("quantile");
 
   for(size_t i = 0; i < table->nrCols(); ++i) {
-    if(std::find(dimensionFieldNames.begin(), dimensionFieldNames.end(),
-         table->title(i)) == dimensionFieldNames.end()) {
+    if(dimensionFieldNames.find(table->title(i)) == dimensionFieldNames.end()) {
       table->setTypeId(i, TI_NR_TYPES);
     }
   }

@@ -30,8 +30,7 @@ BOOST_AUTO_TEST_CASE(constructor)
 
   {
     Array<int> rhs(5, 3);
-    Array<int> lhs(rhs);
-    /*
+       /*
     for(size_t i = 0; i < 5; ++i) {
       lhs[i] == 3;
     }

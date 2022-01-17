@@ -29,11 +29,11 @@ BOOST_AUTO_TEST_CASE(test_)
   {
     MatrixDimensions matrix1(3, 4);
 
-    MatrixDimensions matrix2(matrix1);
+    const MatrixDimensions& matrix2(matrix1);
     BOOST_CHECK_EQUAL(matrix2.nrRows(), size_t(3));
     BOOST_CHECK_EQUAL(matrix2.nrCols(), size_t(4));
 
-    MatrixDimensions matrix3 = matrix1;
+    const MatrixDimensions& matrix3 = matrix1;
     BOOST_CHECK_EQUAL(matrix3.nrRows(), size_t(3));
     BOOST_CHECK_EQUAL(matrix3.nrCols(), size_t(4));
   }

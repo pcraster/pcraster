@@ -263,7 +263,7 @@ std::string calc::IoFieldStrategy::inPathStack(
 void calc::IoFieldStrategy::checkClone(const std::string& mapFileName)
 {
     GridMapIn          map(mapFileName);
-    geo::RasterSpace mapRs(map.rasterSpace());
+    const geo::RasterSpace& mapRs(map.rasterSpace());
 
     // check some
     setAndCheckCommon(mapFileName,mapRs);

@@ -77,7 +77,7 @@ BOOST_AUTO_TEST_CASE(test_)
     DataSource source(name);
     BOOST_CHECK_EQUAL(source.name(), name);
 
-    DataSpace dataSpace = source.dataSpace();
+    const DataSpace& dataSpace = source.dataSpace();
     BOOST_CHECK(dataSpace.hasRaster());
     BOOST_CHECK(!dataSpace.hasTime());
 
@@ -120,7 +120,7 @@ BOOST_AUTO_TEST_CASE(soil)
     DataSource source(name, space);
     BOOST_CHECK_EQUAL(source.name(), info.name());
 
-    DataSpace dataSpace = source.dataSpace();
+    const DataSpace& dataSpace = source.dataSpace();
     BOOST_CHECK(dataSpace.hasTime());
     BOOST_CHECK(dataSpace.hasRaster());
 

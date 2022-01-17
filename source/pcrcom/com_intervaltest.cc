@@ -262,7 +262,7 @@ BOOST_AUTO_TEST_CASE(between_limits)
   BOOST_CHECK(!b.valid(5));
 
   // was bug, now works
-  BetweenLimits<> copy(b);
+  const BetweenLimits<>& copy(b);
   BOOST_CHECK(copy.valid(2));
 
   BetweenLimits<> assignTo(GreaterThanEqualTo<>(8),LessThan<>(12));

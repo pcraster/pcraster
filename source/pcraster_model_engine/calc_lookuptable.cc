@@ -85,7 +85,7 @@ namespace calc {
        {}
       void addCol(pcrxml::LookupColumn const& c)
       {
-        std::string cStr(c);
+        const std::string& cStr(c);
         d_records->back().push_back(
          com::createIntervalFromLookupTableKey<RelationRecord::Float>(cStr));
       }

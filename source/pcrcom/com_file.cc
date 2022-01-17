@@ -199,7 +199,7 @@ void com::remove(const PathName &fileName)
 {
   PRECOND(!fileName.toString().empty());
   namespace fs=std::filesystem;
-  fs::path pn(fileName.path());
+  const fs::path& pn(fileName.path());
 
   if(fs::exists(pn)) {
     char const* msg= "could not remove file";

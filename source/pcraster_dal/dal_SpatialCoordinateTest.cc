@@ -27,7 +27,7 @@ BOOST_AUTO_TEST_CASE(copy)
 
   {
     SpatialCoordinate coordinate1;
-    SpatialCoordinate coordinate2(coordinate1);
+    const SpatialCoordinate& coordinate2(coordinate1);
 
     BOOST_CHECK_CLOSE(coordinate2.x(), 0.0, 0.001);
     BOOST_CHECK_CLOSE(coordinate2.y(), 0.0, 0.001);
@@ -35,7 +35,7 @@ BOOST_AUTO_TEST_CASE(copy)
 
   {
     SpatialCoordinate coordinate1(5.5, 6.6);
-    SpatialCoordinate coordinate2(coordinate1);
+    const SpatialCoordinate& coordinate2(coordinate1);
 
     BOOST_CHECK_CLOSE(coordinate2.x(), 5.5, 0.001);
     BOOST_CHECK_CLOSE(coordinate2.y(), 6.6, 0.001);
@@ -49,7 +49,7 @@ BOOST_AUTO_TEST_CASE(assignment)
 
   {
     SpatialCoordinate coordinate1;
-    SpatialCoordinate coordinate2 = coordinate1;
+    const SpatialCoordinate& coordinate2 = coordinate1;
 
     BOOST_CHECK_CLOSE(coordinate2.x(), 0.0, 0.001);
     BOOST_CHECK_CLOSE(coordinate2.y(), 0.0, 0.001);
@@ -57,7 +57,7 @@ BOOST_AUTO_TEST_CASE(assignment)
 
   {
     SpatialCoordinate coordinate1(5.5, 6.6);
-    SpatialCoordinate coordinate2 = coordinate1;
+    const SpatialCoordinate& coordinate2 = coordinate1;
 
     BOOST_CHECK_CLOSE(coordinate2.x(), 5.5, 0.001);
     BOOST_CHECK_CLOSE(coordinate2.y(), 6.6, 0.001);

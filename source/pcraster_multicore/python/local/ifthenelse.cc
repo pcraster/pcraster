@@ -227,7 +227,7 @@ calc::Field* ifthenelse(
     const multicore_field::Spatial<UINT1> arg1(condition);
     res_field = new calc::Spatial(result_vs, result_cri, nr_cells());
     multicore_field::Spatial<T> res(res_field);
-    fa::ExecutionPolicy epol = execution_policy();
+    const fa::ExecutionPolicy& epol = execution_policy();
 
     if((field_a->isSpatial()) && (field_b->isSpatial())){
       const multicore_field::Spatial<T> arg2(field_a);

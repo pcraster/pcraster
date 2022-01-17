@@ -320,7 +320,7 @@ PCR_DAL_DECL std::filesystem::path timeStepPath83(
          std::string filename,
          size_t timeStep)
 {
-  size_t lastPoint = filename.find_last_of(".");
+  size_t lastPoint = filename.find_last_of('.');
 
   // CW: this is a hack, feature if a calc script
   // CW: has a dynamic report of 8+3 length then at
@@ -379,7 +379,7 @@ PCR_DAL_DECL std::filesystem::path timeStepPathNewStyle(
   */
 
 
-  size_t lastPoint = filename.find_last_of(".");
+  size_t lastPoint = filename.find_last_of('.');
 
   if(lastPoint == std::string::npos) {
     // No extension present.
@@ -930,7 +930,7 @@ std::filesystem::path pathForQuantile(
   testPathnameIsEmpty(name);
 
   std::filesystem::path result;
-  size_t lastPoint = name.find_last_of(".");
+  size_t lastPoint = name.find_last_of('.');
 
   if(lastPoint == std::string::npos) {
     // No extension present.

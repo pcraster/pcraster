@@ -294,7 +294,7 @@ void calc::LexInput::parseShellParamUse()
       throw com::Exception("no parameter name after $-symbol");
 
 
-   if (d_expInBuf.find_first_of(",") == std::string::npos) {
+   if (d_expInBuf.find_first_of(',') == std::string::npos) {
      // have parsed single argument number or id
      // single argument
      PRECOND(d_expInBuf.find_first_of("{}$") == std::string::npos);

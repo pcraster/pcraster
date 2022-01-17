@@ -549,7 +549,7 @@ Table* SQLTableDriver::open(
       indexFields.push_back("quantile");
       indexFields.push_back("date");
 
-      for(std::string const name : resultFieldNames) {
+      for(std::string const& name : resultFieldNames) {
         if(std::find(indexFields.begin(), indexFields.end(), name) ==
               indexFields.end()) {
           // Unsupported field is part of index.
@@ -565,7 +565,7 @@ Table* SQLTableDriver::open(
     std::vector<TypeId> typeIds;
     QSqlField field;
 
-    for(std::string const name : resultFieldNames) {
+    for(std::string const& name : resultFieldNames) {
       assert(record.contains(QString::fromUtf8(name.c_str())));
 
       field = record.field(QString::fromUtf8(name.c_str()));

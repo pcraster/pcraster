@@ -537,7 +537,8 @@ Table* SQLTableDriver::open(
     // processing.
     std::vector<std::string> resultFieldNames;
 
-    for(int i = 0; i < index.count(); ++i) {
+    resultFieldNames.reserve(index.count());
+for(int i = 0; i < index.count(); ++i) {
       resultFieldNames.push_back(index.fieldName(i).toUtf8().constData());
     }
 

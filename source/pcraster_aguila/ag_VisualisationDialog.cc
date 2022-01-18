@@ -87,9 +87,6 @@ template<class T, class Dialog>
 void VisualisationDialog<T, Dialog>::removeReference(
          VisualisationDialog<T, Dialog>* dialog)
 {
-  typedef std::map<T, Dialog*> ObjectMap;
-  typedef std::map<DataObject*, ObjectMap> DataObjectMap;
-
   for(auto it1 = d_dialogs.begin();
          it1 != d_dialogs.end(); ++it1) {
     for(auto it2 = (*it1).second.begin();

@@ -118,8 +118,6 @@ void ArgOrderAndAddArea::argOrderAreaLimited(
  std::vector<CellIndex>  cellsToSort;
  cellsToSort.reserve(len);
 
- typedef std::vector<CellIndex>::iterator CellIter;
-
  // initialize
  //  - MV in input -> MV in result
  //  - non-MV cells are stored in cellsToSort
@@ -232,8 +230,6 @@ void ArgOrderAndAddArea::argOrderAddAreaLimited(
  // from are swapped within cellsToSort
  std::vector<CellIndex>  cellsToSort;
  cellsToSort.reserve(len);
-
- typedef std::vector<CellIndex>::iterator CellIter;
 
  // initialize
  //  - MV in input -> MV in result

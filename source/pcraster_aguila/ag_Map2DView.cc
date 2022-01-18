@@ -519,14 +519,14 @@ void Map2DView::wheelEvent(
 #else
     int nrDegrees = event->angleDelta().y() / 8;
 #endif
-    
+
     double fraction = nrDegrees / 360.0;
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
     if(event->orientation() == Qt::Vertical) {
 #else
     if(event->angleDelta().y() != 0) {
-#endif    
+#endif
       // Zoom in to current mouse position.
       dataObject().map2DZoomBy(1.0 + fraction, true);
     }
@@ -915,8 +915,6 @@ void Map2DView::createScene(
 
   if(!buffer().isNull()) {
     QPainter painter(&buffer());
-
-    typedef std::vector<MapDrawer*>::iterator iterator;
 
     // try {
       for(auto it = drawers.begin(); it != drawers.end(); ++it) {

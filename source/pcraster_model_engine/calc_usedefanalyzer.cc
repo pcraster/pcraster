@@ -254,7 +254,6 @@ class EventChain : public std::vector<UDEvent>
   }
 
   IOType ioType(void* dynamicSectionPtr) const {
-    typedef const_iterator P;
     RecordFirst use(end()),def(end());
 
     bool inDynamicSection(false);
@@ -581,7 +580,6 @@ void calc::UseDefAnalyzer::visitAss(ASTAss *a)
 
 void calc::UseDefAnalyzer::visitPointCodeBlock(PointCodeBlock *b)
 {
-  typedef ParSet::const_iterator I;
 
   for(auto i=b->input().begin(); i!=b->input().end(); ++i)
    d_rec->add(UDEvent(UDEvent::Use,*i));

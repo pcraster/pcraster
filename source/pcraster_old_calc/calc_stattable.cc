@@ -504,7 +504,6 @@ template<typename SubjectType, typename CrossType>
   // header line 2
   out << d_subject.d_name;
   typedef typename std::set<INT4> S;
-  typedef typename S::const_iterator SI;
   S col=m.colClasses();
   S row=m.rowClasses();
 
@@ -564,7 +563,7 @@ template<typename CountMap>
     //  but we simple cast min to integer
 
     // MT() init 0, default Ctor
-    typedef typename CountMap::mapped_type MT; 
+    typedef typename CountMap::mapped_type MT;
     m.insert(std::make_pair(static_cast<int>(iv.min()),MT()));
   }
 }
@@ -619,7 +618,6 @@ template< class    IntervalMapT,
   std::sort(r.begin(),r.end(),std::mem_fn(&CP::subjectILess));
 
   // compute percentiles per subject
-  typedef detail::CS_V::iterator I;
   auto start=r.begin();
   for(auto i=m.begin(); i!= m.end(); ++i) {
     auto end=start+i->second.nrVisits();

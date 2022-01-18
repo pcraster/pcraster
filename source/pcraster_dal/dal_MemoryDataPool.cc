@@ -38,8 +38,6 @@ MemoryDataPool::MemoryDataPool()
 
 MemoryDataPool::~MemoryDataPool()
 {
-  typedef std::multimap<std::string, MemoryTableData> Map;
-
   for(auto it = d_memoryTables.begin();
          it != d_memoryTables.end(); ++it) {
     it->second.clear();

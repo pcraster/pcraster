@@ -1,44 +1,38 @@
 Installing PCRaster
 ===================
 
-Installing binaries
--------------------
-
 PCRaster is available on |condaforgefeedstocksurl| and can be installed using conda.
 Supported platforms are Linux, macOS and Windows.
 On the Apple M1 platform our osx-64 version can be used, see below.
 
+Prerequisites
+-------------
+
 We recommend to download and install |miniconda|.
-The user guide and short reference on conda can be found |minicondadoc|.
-After install you can check which Python versions are supported by PCRaster:
+The user guide and short reference on Conda can be found |minicondadoc|.
+
+Installing PCRaster
+-------------------
+
+After setting up Conda you can create a new environment and install PCRaster.
+
+To only install the latest PCRaster version use:
 
 .. code-block:: console
 
-   conda search -c conda-forge pcraster
+   conda create --name pcraster -c conda-forge pcraster
 
-
-Afterwards you can create a new environment and install PCRaster, e.g. with the following steps:
-
-.. code-block:: console
-
-   conda create --name pcraster -c conda-forge python
-
-   conda activate pcraster
-
-   conda install -c conda-forge pcraster
-
-In case you would like to use a specific Python version you can set e.g. ``python=3.8``.
-You can also combine these steps and install additional packages in one go e.g. by:
+For installing PCRaster including additional software packages used in our `on-site <https://www.uu.nl/staff/DJKarssenberg/Teaching>`_ or `online <https://pcraster.geo.uu.nl/pcraster_courses/how-to-subscribe/>`_ courses, type:
 
 .. code-block:: console
 
-   conda create --name pcraster -c conda-forge python pcraster spyder matplotlib
+   conda create --name pcraster -c conda-forge numpy matplotlib pcraster campo spyder qgis spotpy
 
 Always use the conda-forge channel when installing further packages into your PCRaster environment.
 
 
 .. note::
-   If you installed previous versions of PCRaster (4.2 or older) you need to remove their entries from the PATH and PYTHONPATH environment variables before activating your environment.
+   If you installed previous versions of PCRaster (4.2 or older) you must remove their entries from the PATH and PYTHONPATH environment variables before activating your environment.
    Modifying PATH and PYTHONPATH environment variables as required for previous PCRaster versions is not necessary anymore starting from version 4.3, the settings are done automatically when you activate your environment.
 
 
@@ -47,11 +41,11 @@ Installing on Apple silicon (M series)
 
 We do not have a native build yet for the Apple M platform but our osx-64 version can be used.
 Install |miniconda| using `Miniconda3 macOS Apple M1 64-bit bash`.
-Specify the osx-64 channel when creating and installing packages into a PCRaster environment:
+Specify the osx-64 channel when creating and installing packages into a PCRaster environment, e.g.:
 
 .. code-block:: console
 
-   conda create --name pcraster -c conda-forge/osx-64 python=3.9 pcraster
+   conda create --name pcraster -c conda-forge/osx-64 python=3.9 numpy matplotlib pcraster campo spyder qgis spotpy
 
 To allow displaying the visualisation tool Aguila it is required to set an additional environment variable after activating your environment:
 
@@ -101,7 +95,7 @@ The usage information will be shown:
 .. code-block:: console
 
    (pcraster) $ pcrcalc
-   pcrcalc 4.3.1 (linux/x86_64)
+   pcrcalc 4.3.2 (linux/x86_64)
     USAGE: pcrcalc [options] "expression"
     or     pcrcalc [options] -f scriptFile
      ( or #!: pcrcalc -F [options]+)

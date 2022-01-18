@@ -141,8 +141,11 @@ void AppLogFile(const char *asciiFile)
     int c;
     FILE *fContents = fopen(asciiFile, "r");
     FILE *f = ActiveLogFile();
-    if (f == NULL || fContents == NULL)
+    if (f == NULL || fContents == NULL){
+        fclose(f);
+        fclose(fContents);
         return;
+    }
     /* CW_MUTATE SEND: DATE,DIRECTORY,ARGS to logger */
     WriteStartTag(f, "command_file");
     while ((c = fgetc(fContents)) != EOF)

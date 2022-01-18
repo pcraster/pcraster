@@ -74,8 +74,10 @@
 
 
 #ifdef __linux__
-#ifdef __x86_64__
+#if defined(__x86_64__)
 #define PLATFORM_TXT "linux/x86_64"
+#elif defined(__aarch64__)
+#define PLATFORM_TXT "linux/aarch64"
 #else
 #define PLATFORM_TXT "linux/32"
 #endif
@@ -109,7 +111,7 @@
 
 #ifdef BORLANDC
 /* start exclusion of C-linkage
- * including standard headers complains in C type linking 
+ * including standard headers complains in C type linking
  */
 # ifdef __cplusplus
   }
@@ -124,7 +126,7 @@
 
 #ifdef BORLANDC
 /* end exclusion of C-linkage
- * including standard headers complains in C type linking 
+ * including standard headers complains in C type linking
  */
 # ifdef __cplusplus
  extern "C" {
@@ -141,7 +143,7 @@
 /***********************************************/
 
 /* COOL for gcc?
-  #define min(x, y) ({typeof (x) x_ = (x); typeof (y) y_ = (y); x_ ? y_ ? x_ : y_;}) 
+  #define min(x, y) ({typeof (x) x_ = (x); typeof (y) y_ = (y); x_ ? y_ ? x_ : y_;})
  */
 
 #ifdef MIN

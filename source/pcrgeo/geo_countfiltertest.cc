@@ -9,7 +9,7 @@ BOOST_AUTO_TEST_CASE(test)
   using namespace geo;
 
   // Create source raster.
-#ifdef __x86_64__
+#if defined(__x86_64__) || defined(__aarch64__)
   typedef unsigned int count_t;
 #else
   typedef size_t count_t;
@@ -43,7 +43,7 @@ BOOST_AUTO_TEST_CASE(test)
   BOOST_CHECK(destination.cell(2, 2) == 0.0);
 
   // see __x86_64__
-  // TODO Suse problem: 8 byte isMV template instantion for unsigned long  
+  // TODO Suse problem: 8 byte isMV template instantion for unsigned long
   bool size_tRequires8Byteonx86_64=false;
   BOOST_WARN(size_tRequires8Byteonx86_64);
 }

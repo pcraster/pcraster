@@ -25,7 +25,7 @@
 */
 ag::VisSubject::VisSubject()
 
-  : d_cm(nullptr)
+   
 
 {
   d_cm = new VisChangeManager(this);

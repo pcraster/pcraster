@@ -48,7 +48,7 @@ private:
 
   std::string      d_name;
 
-  DatasetType      d_datasetType;
+  DatasetType      d_datasetType{NR_DATASET_TYPES};
 
   //! Data space corresponding to addresses at which data was found / enclosing data space.
   DataSpace        d_space;

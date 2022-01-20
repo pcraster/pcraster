@@ -51,7 +51,7 @@
 //------------------------------------------------------------------------------
 
 calc::Element::Element():
-  d_script(nullptr),
+  
   d_pos(new PositionNone())
 {
 }

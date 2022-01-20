@@ -75,10 +75,8 @@ public:
 
 namespace calc {
 
-AreaMap::AreaMap():
-  d_setComputationMaskCallAllowed(true),
-  d_areaMap(nullptr),
-  d_computationMask(nullptr)
+AreaMap::AreaMap()
+  
 {
 }
 

@@ -32,19 +32,19 @@ class RIMap
 private:
 
   //! First real.
-  REAL8            d_r1;
+  REAL8            d_r1{0.0};
 
   //! Second real.
-  REAL8            d_r2;
+  REAL8            d_r2{0.0};
 
   //! First int.
-  int              d_i1;
+  int              d_i1{0};
 
   //! Second int.
-  int              d_i2;
+  int              d_i2{0};
 
   //! Conversion factor.
-  REAL8            d_conv;
+  REAL8            d_conv{0.0};
 
   //! Recalculate the conversion factor.
   void             recalc              ();

@@ -88,9 +88,9 @@ private:
   //! Copy constructor. NOT IMPLEMENTED.
                    CFGCreatorPrivate               (const CFGCreatorPrivate&);
 
-  CFGNode          *d_last;
-  CFGNode          *d_first;
-  ASTAss           *d_currentAss;
+  CFGNode          *d_last{nullptr};
+  CFGNode          *d_first{nullptr};
+  ASTAss           *d_currentAss{nullptr};
 
   std::stack<CFGNode *> d_blockEntrances;
 
@@ -176,9 +176,8 @@ calc::ScopedCFG::~ScopedCFG()
 }
 
 //! ctor
-calc::CFGCreatorPrivate::CFGCreatorPrivate():
-  d_last(nullptr),d_first(nullptr),
-  d_currentAss(nullptr)
+calc::CFGCreatorPrivate::CFGCreatorPrivate()
+  
 {
 }
 

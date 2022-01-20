@@ -67,7 +67,7 @@ private:
   Report           d_reportDefault;
   Timer            d_timer;
 
-  bool             d_reportFound;
+  bool             d_reportFound{false};
 
 
 public:

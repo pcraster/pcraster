@@ -91,13 +91,13 @@ public:
  //! attribute
  PositiveInteger version;
  //! child element
- Input *input;
+ Input *input{nullptr};
  //! child element
- Compute *compute;
+ Compute *compute{nullptr};
  //! child element
- Interpolate *interpolate;
+ Interpolate *interpolate{nullptr};
  //! child element
- Lodings *lodings;
+ Lodings *lodings{nullptr};
 };
 } // namespace
 

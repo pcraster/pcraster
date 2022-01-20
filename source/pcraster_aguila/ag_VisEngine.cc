@@ -32,36 +32,33 @@ public:
 
   std::vector<DataGuide> _dataGuides;   // Data guides of vis.
   DataProperties   _properties;
-  bool             _folowCursor;
+  bool             _folowCursor{true};
   dal::DataSpace   _dataSpace;
   dal::DataSpaceAddress _dataSpaceAddress;
 
-  double           _map2DZoom;
-  double           _map2DScale;
+  double           _map2DZoom{-1e32};
+  double           _map2DScale{-1e32};
   QPointF          _map2DOffset;
-  size_t           _quadLength;
-  double           _map3DScale;
+  size_t           _quadLength{0};
+  double           _map3DScale{-1e32};
 
-  MapAction        _mapAction;
+  MapAction        _mapAction{NR_MAP_ACTIONS};
 
-  DataGuide const* _height;
+  DataGuide const* _height{nullptr};
 
   boost::any       _selectedValue;
   /// std::map<DataGuide, boost::any> _selectedValues;
 
   QColor           _backgroundColour;
 
-  unsigned int     _change;
+  unsigned int     _change{0};
 
   VisEnginePrivate()
-    : _folowCursor(true),
-      _map2DZoom(-1e32), _map2DScale(-1e32),
+    : 
       _map2DOffset(),
-      _quadLength(0), _map3DScale(-1e32),
-      _mapAction(NR_MAP_ACTIONS),
-      _height(nullptr),
-      _selectedValue(),
-      _change(0)
+      
+      _selectedValue()
+      
   {
   }
 

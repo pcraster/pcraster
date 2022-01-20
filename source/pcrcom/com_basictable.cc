@@ -74,7 +74,7 @@
 
 com::BasicTable::BasicTable()
 
-  : d_nrRecs(0)
+   
 
 {
 }

@@ -53,11 +53,11 @@ private:
    * the argument of timeinput(). If only used in timeinputsparse() ops
    * then this is false;
    */
-  Use              d_use;
+  Use              d_use{Unknown};
 
 
   //! timeinputmodulo argument, 1 to d_highestTimestepAvailable must be available
-  size_t           d_highestTimestepAvailable;
+  size_t           d_highestTimestepAvailable{0};
 
   static std::string      operationName       (Use u);
 

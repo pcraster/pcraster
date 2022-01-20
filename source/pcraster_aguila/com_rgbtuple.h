@@ -25,13 +25,13 @@ class RgbTuple
 private:
 
   //! Red value.
-  UINT2            d_red;
+  UINT2            d_red{0};
 
   //! Green value.
-  UINT2            d_green;
+  UINT2            d_green{0};
 
   //! Blue value.
-  UINT2            d_blue;
+  UINT2            d_blue{0};
 
 
 public:

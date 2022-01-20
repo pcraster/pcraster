@@ -31,7 +31,7 @@ private:
   // Qt-specific.
   Q_OBJECT
 
-  DialogPrivate*   d_data;
+  DialogPrivate*   d_data{nullptr};
 
   //! Assignment operator. NOT IMPLEMENTED.
   Dialog&          operator=           (const Dialog &);

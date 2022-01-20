@@ -60,7 +60,7 @@ xercesc::XMLTranscoder& XercesClient::utf8Transcoder()
 */
 XercesClient::XercesClient()
 
-  : _initialized(false)
+   
 
 {
   try {

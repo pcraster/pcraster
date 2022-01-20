@@ -37,13 +37,13 @@ private:
   Q_OBJECT
 
   //! Palette to show.
-  const com::RawPalette *d_palette;
+  const com::RawPalette *d_palette{nullptr};
 
   //! Colours from palette.
   std::vector<QColor> d_colours;
 
   //! Draw outline or not.
-  bool             d_outline;
+  bool             d_outline{false};
 
   //! Assignment operator. NOT IMPLEMENTED.
   PaletteBar &     operator=           (const PaletteBar &);

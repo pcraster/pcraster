@@ -47,13 +47,12 @@ namespace calc {
 
   struct ASTRewriter: public ASTVisitor
   {
-    ASTRewriter():
-      d_timeoutput(false),
-      d_inDynamicSection(false)
+    ASTRewriter()
+      
     {}
   private:
-    bool d_timeoutput;
-    bool d_inDynamicSection;
+    bool d_timeoutput{false};
+    bool d_inDynamicSection{false};
     void visitExpr(BaseExpr *e)
     {
      Operator const& op(e->op());

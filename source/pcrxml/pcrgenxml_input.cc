@@ -48,8 +48,7 @@ pcrxml::Input::Input(const QDomElement& element):Element(element,d_elementName)
   } catch (...) { clean(); throw; }
  }
 pcrxml::Input::Input():Element()
- ,inputLodings(nullptr)
- ,inputPoints(nullptr)
+ 
  {
  }
 const std::string& pcrxml::Input::elementName() const

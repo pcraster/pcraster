@@ -42,7 +42,7 @@ class Element
 
 private:
   //! script it belongs to
-  IScript *d_script;
+  IScript *d_script{nullptr};
 
   //! position it has
   Position *d_pos;

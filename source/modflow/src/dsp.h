@@ -15,25 +15,25 @@ class DSP {
 
 private:
 
-  size_t           d_itmx;
+  size_t           d_itmx{0};
 
-  size_t           d_mxup;
+  size_t           d_mxup{0};
 
-  size_t           d_mxlow;
+  size_t           d_mxlow{0};
 
-  size_t           d_mxbw;
+  size_t           d_mxbw{0};
 
-  size_t           d_ifreq;
+  size_t           d_ifreq{0};
 
-  size_t           d_mutd4;
+  size_t           d_mutd4{2};
 
-  double           d_accl;
+  double           d_accl{-1.0};
 
-  double           d_hclose;
+  double           d_hclose{-1.0};
 
-  size_t           d_ipdr4;
+  size_t           d_ipdr4{999};
 
-  bool             d_updated;
+  bool             d_updated{true};
 
 public:
 

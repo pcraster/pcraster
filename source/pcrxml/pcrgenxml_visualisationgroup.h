@@ -61,7 +61,7 @@ public:
  const std::string& elementName()const;
 
  //! child element
- DataObject *dataObject;
+ DataObject *dataObject{nullptr};
 };
 } // namespace
 

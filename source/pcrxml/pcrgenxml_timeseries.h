@@ -61,7 +61,7 @@ public:
  const std::string& elementName()const;
 
  //! child element
- DataTypeDTD *dataTypeDTD;
+ DataTypeDTD *dataTypeDTD{nullptr};
 };
 } // namespace
 

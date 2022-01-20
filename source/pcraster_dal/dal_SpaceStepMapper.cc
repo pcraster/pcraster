@@ -47,9 +47,8 @@ namespace detail {
 
 SpaceStepMapper::SpaceStepMapper()
 
-  : d_index(),
-    d_coordinate(),
-    d_cellSize()
+  
+    
 
 {
   assert(!isValid());

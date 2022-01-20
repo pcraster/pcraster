@@ -16,8 +16,8 @@ typedef std::string QString;
 
 //! count nodes that are attributes
 struct CountNodeAttrs {
-  size_t nr;
-  CountNodeAttrs():nr(0) {};
+  size_t nr{0};
+  CountNodeAttrs() {};
   void operator()(DOMNode* n) {
     if (n->getNodeType() == DOMNode::ATTRIBUTE_NODE)
        nr++;
@@ -37,8 +37,8 @@ struct ConcatNodeValues {
 
 //! count nr of attributes of element
 struct CountAttrsOfElement {
-  size_t nr;
-  CountAttrsOfElement():nr(0) {};
+  size_t nr{0};
+  CountAttrsOfElement() {};
   void operator()(DOMElement* e) {
    nr+= e->getAttributes()->getLength();
   }

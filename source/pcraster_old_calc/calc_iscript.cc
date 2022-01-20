@@ -11,8 +11,7 @@ calc::IScript::~IScript()
 }
 
 //! ctor
-calc::IScript::IScript():
-  d_timeStep(0),d_timerStart(0), d_timerEnd(1), d_timerSlice(0)
+calc::IScript::IScript() 
 {
 }
 

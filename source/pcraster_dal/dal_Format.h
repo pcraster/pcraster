@@ -83,15 +83,15 @@ private:
 
   std::string      d_description;
 
-  DatasetType      d_datasetType;
+  DatasetType      d_datasetType{NR_DATASET_TYPES};
 
   std::vector<std::string> d_extensions;
 
-  StorageMedium    d_medium;
+  StorageMedium    d_medium{NrMedia};
 
-  Discretisation   d_discretisation;
+  Discretisation   d_discretisation{NrDiscretisations};
 
-  Type             d_type;
+  Type             d_type{NrTypes};
 
 public:
 

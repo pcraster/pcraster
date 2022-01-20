@@ -20,8 +20,8 @@
 #define INCLUDED_SSTREAM
 #endif
 
-calc::BlockPosition::BlockPosition():
-          d_nrChildren(0)
+calc::BlockPosition::BlockPosition()
+          
 {
 }
 

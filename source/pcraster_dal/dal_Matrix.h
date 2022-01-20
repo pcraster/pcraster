@@ -99,18 +99,18 @@ public:
 private:
 
   //! Number of rows.
-  size_t           d_nrRows;
+  size_t           d_nrRows{0};
 
   //! Number of columns.
-  size_t           d_nrCols;
+  size_t           d_nrCols{0};
 
   //! Type id of cell values.
-  TypeId           d_typeId;
+  TypeId           d_typeId{TI_NR_TYPES};
 
   //! Cell values.
   boost::any       d_cells;
 
-  Ownership        d_ownership;
+  Ownership        d_ownership{TakeOwnership};
 
   //! minimum value, if empty() then !hasExtremes() or allMV()
   boost::any       d_min;
@@ -119,10 +119,10 @@ private:
   boost::any       d_max;
 
   //! is all data MV?, unspecified if !hasExtremes()
-  bool             d_allMV;
+  bool             d_allMV{true};
 
   //! are the min,max and allMV known?
-  bool             d_hasExtremes;
+  bool             d_hasExtremes{false};
 
   void             copyCells           (void const* cells);
 

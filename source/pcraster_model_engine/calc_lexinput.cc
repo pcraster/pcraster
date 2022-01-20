@@ -117,14 +117,9 @@ std::string calc::LexInput::getParameter(
 }
 
 calc::LexInput::LexInput():
-  d_prevCallWasNewLine(false),
-  d_gettingInComment(false),
-  d_lineNr(1),
-  d_tokenStart(1),
-  d_ptrExpOutBuf(std::string::npos),
-  d_from(nullptr),
-  d_extraCharRead(EOF),
-  d_substitution(true)
+  
+  d_ptrExpOutBuf(std::string::npos)
+  
 {
 }
 

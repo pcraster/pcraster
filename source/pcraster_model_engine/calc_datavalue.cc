@@ -57,9 +57,8 @@ public:
 // DEFINITION OF DATAVALUE MEMBERS
 //------------------------------------------------------------------------------
 
-calc::DataValue::DataValue():
-  d_readOnlyReference(false),
-  d_pcrmeManaged(true)
+calc::DataValue::DataValue()
+  
 {
 }
 

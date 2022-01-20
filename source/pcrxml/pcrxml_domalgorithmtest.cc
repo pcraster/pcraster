@@ -7,8 +7,8 @@
 
 //! count nodes that are attributes
 struct CountNodeAttrs {
-  size_t nr;
-  CountNodeAttrs():nr(0) {};
+  size_t nr{0};
+  CountNodeAttrs() {};
   void operator()(const QDomNode& n) {
     if (n.isAttr())
        nr++;
@@ -28,8 +28,8 @@ struct ConcatNodeValues {
 };
 //! count nr of attributes of element
 struct CountAttrsOfElement {
-  size_t nr;
-  CountAttrsOfElement():nr(0) {};
+  size_t nr{0};
+  CountAttrsOfElement() {};
   void operator()(const QDomElement& e) {
    nr+= e.attributes().count();
   }

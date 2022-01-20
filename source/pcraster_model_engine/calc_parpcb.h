@@ -47,11 +47,11 @@ private:
                    ParPCB               (ParPCB const& rhs);
 
   //! 0 if not input
-  const ASTPar* d_input;
+  const ASTPar* d_input{nullptr};
   //! 0 if not output
-  const ASTPar* d_output;
+  const ASTPar* d_output{nullptr};
   //! data
-  Field*        d_field;
+  Field*        d_field{nullptr};
 
 public:
 

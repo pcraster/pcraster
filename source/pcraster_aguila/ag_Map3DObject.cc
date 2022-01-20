@@ -70,9 +70,8 @@ template void triangleStripInfo<double>(double const*, dal::RasterDimensions con
 ag::Map3DObject::Map3DObject(GLfloat x, GLfloat y, GLfloat z,
                    GLfloat yaw, GLfloat pitch, GLfloat roll)
 
-  : ag::SceneObject(x, y, z, yaw, pitch, roll),
-    d_quadLength(1), d_scale(1.0), d_list(0),
-    d_showFishnet(false)
+  : ag::SceneObject(x, y, z, yaw, pitch, roll)
+    
 
 {
 }

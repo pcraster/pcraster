@@ -65,7 +65,7 @@ class VoxelStack: public std::vector<REAL4>
 private:
 
   //! Elevation of the bottom of the lowest voxel (the base elevation).
-  double           d_baseElevation;
+  double           d_baseElevation{0.0};
 
 protected:
 

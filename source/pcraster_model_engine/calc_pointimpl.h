@@ -42,7 +42,7 @@ private:
   //! Copy constructor. NOT IMPLEMENTED.
                    PointImpl               (PointImpl const& rhs);
 
-  const char *     d_pointFunction;
+  const char *     d_pointFunction{nullptr};
 
 public:
 

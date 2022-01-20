@@ -39,7 +39,7 @@ public:
 
   std::string      d_visualisationName;
 
-  DataObject*      d_dataObject;
+  DataObject*      d_dataObject{nullptr};
 
   VisEngine        d_engine;
 
@@ -59,10 +59,7 @@ public:
   std::vector<com::FileFormatInfo> d_fileFormats;
 
   IVisualisationPrivate()
-    : d_dataObject(nullptr)
-    /*
-      d_isFullScreen(false),
-      d_fullScreenTB(0) */
+    
   {
   }
 

@@ -32,7 +32,7 @@ class PCR_AG_DECL VisSubject
 private:
 
   //! Change manager for managing the subject - object relationships.
-  VisChangeManager *d_cm;
+  VisChangeManager *d_cm{nullptr};
 
   //! Assignment operator. NOT IMPLEMENTED.
   VisSubject &     operator=           (const VisSubject &);

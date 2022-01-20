@@ -42,9 +42,9 @@ private:
 
   struct Interval {
     //! accumulates intervals between start and next stop
-    Uint64 d_total;
+    Uint64 d_total{0};
     //! records start time, at start
-    Uint64 d_start;
+    Uint64 d_start{0};
     Interval();
   };
 

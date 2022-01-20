@@ -40,7 +40,7 @@ private:
   //! Copy constructor. NOT IMPLEMENTED.
                    DataTypeChanger               (DataTypeChanger const& rhs);
 
-  size_t           d_nrChanges;
+  size_t           d_nrChanges{0};
 
 public:
 

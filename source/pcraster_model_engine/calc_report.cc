@@ -96,10 +96,8 @@ void calc::ParsReportMoment::check()
   throw com::Exception("report moment contains invalid range "+quote(buf));
 }
 
-calc::Report::Report():
-  // past end
-  d_startInt(1),
-  d_lastInt(1)
+calc::Report::Report()
+  
 {
 }
 

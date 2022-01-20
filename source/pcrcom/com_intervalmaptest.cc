@@ -24,8 +24,8 @@ namespace com {
  namespace intervalMapTest {
   struct FO_MM {
     std::vector<double> data;
-    int  count;
-    FO_MM(): count(0) {};
+    int  count{0};
+    FO_MM() {};
     void operator()(double v) {
         count++;
         data.push_back(v);

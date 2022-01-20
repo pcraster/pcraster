@@ -27,18 +27,17 @@ typedef std::vector<ag::SceneObject*>::iterator so_it;
 class SceneViewPrivate
 {
 public:
-  bool             d_dirty;            // If d_dirty is true, redraw is req.
-  bool             d_valid;            // If d_valid is false, recreate is req.
+  bool             d_dirty{false};            // If d_dirty is true, redraw is req.
+  bool             d_valid{true};            // If d_valid is false, recreate is req.
 
   ag::Camera*     d_userCamera;       // Controllable camera.
-  ag::Camera*     d_staticCamera;     // Static camera.
+  ag::Camera*     d_staticCamera{nullptr};     // Static camera.
   std::vector<ag::SceneObject*> d_sceneObjects;
-  GLfloat          d_step;
-  GLfloat          d_angle;
+  GLfloat          d_step{0.0};
+  GLfloat          d_angle{5.0};
 
   SceneViewPrivate()
-    : d_dirty(false), d_valid(true), d_staticCamera(nullptr),
-      d_step(0.0), d_angle(5.0)
+     
   {
     d_userCamera = new ag::Camera();
   }

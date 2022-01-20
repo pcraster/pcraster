@@ -69,8 +69,7 @@ public:
 // DEFINITION OF PARPCB MEMBERS
 //------------------------------------------------------------------------------
 
-calc::ParPCB::ParPCB():
-    d_input(nullptr),d_output(nullptr),d_field(nullptr)
+calc::ParPCB::ParPCB()
 {
 }
 

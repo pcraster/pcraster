@@ -25,8 +25,7 @@
 ag::Camera::Camera(GLfloat x, GLfloat y, GLfloat z,
                     GLfloat yaw, GLfloat pitch, GLfloat roll)
 
-  : SceneObject(x, y, z, yaw, pitch, roll),
-    d_list(0), d_quadric(nullptr)
+  : SceneObject(x, y, z, yaw, pitch, roll) 
 
 {
 }

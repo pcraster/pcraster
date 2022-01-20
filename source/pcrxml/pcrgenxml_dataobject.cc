@@ -40,7 +40,7 @@ pcrxml::DataObject::DataObject(const QDomElement& element):Element(element,d_ele
   } catch (...) { clean(); throw; }
  }
 pcrxml::DataObject::DataObject():Element()
- ,cursor(nullptr)
+ 
  {
  }
 const std::string& pcrxml::DataObject::elementName() const

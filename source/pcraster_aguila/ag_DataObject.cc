@@ -44,7 +44,7 @@ class DataObjectPrivate: private boost::noncopyable
 {
 public:
 
-  bool             d_notifyNeeded;
+  bool             d_notifyNeeded{false};
 
   TableDataSources d_tableDataSources;
 
@@ -58,13 +58,13 @@ public:
 
   dal::DataSpaceAddress d_dataSpaceAddress;
 
-  double           d_map2DZoom;
-  double           d_map2DScale;
+  double           d_map2DZoom{1.0};
+  double           d_map2DScale{0.0};
 
   QPointF          _map2DOffset;
 
-  size_t           d_quadLength;
-  double           d_map3DScale;
+  size_t           d_quadLength{1};
+  double           d_map3DScale{1.0};
 
   DataProperties   d_properties;
 
@@ -78,8 +78,7 @@ public:
   boost::any       _selectedValue;
 
   DataObjectPrivate()
-    : d_notifyNeeded(false),
-      d_map2DZoom(1.0), d_map2DScale(0.0), d_quadLength(1), d_map3DScale(1.0),
+    : 
       d_animManager(300)
   {
   }

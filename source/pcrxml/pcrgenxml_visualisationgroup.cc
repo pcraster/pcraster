@@ -37,7 +37,7 @@ pcrxml::VisualisationGroup::VisualisationGroup(const QDomElement& element):Eleme
   } catch (...) { clean(); throw; }
  }
 pcrxml::VisualisationGroup::VisualisationGroup():Element()
- ,dataObject(nullptr)
+ 
  {
  }
 const std::string& pcrxml::VisualisationGroup::elementName() const

@@ -47,8 +47,7 @@ pcrxml::ExchangeModel::ExchangeModel(const QDomElement& element):Element(element
   } catch (...) { clean(); throw; }
  }
 pcrxml::ExchangeModel::ExchangeModel():Element()
- ,integerTimer(nullptr)
- ,areaMapDTD(nullptr)
+ 
  {
  }
 const std::string& pcrxml::ExchangeModel::elementName() const

@@ -29,11 +29,8 @@ ag::SceneObject::SceneObject(GLfloat x, GLfloat y, GLfloat z,
                    GLfloat yaw, GLfloat pitch, GLfloat roll)
 
   : d_x(x), d_y(y), d_z(z),
-    d_xInit(0.0), d_yInit(0.0), d_zInit(0.0),
-    d_yaw(yaw), d_roll(roll), d_pitch(pitch),
-    d_yawInit(0.0), d_rollInit(0.0), d_pitchInit(0.0),
-    d_width(0.0), d_depth(0.0), d_height(0.0),
-    d_dirty(false), d_valid(false)
+    
+    d_yaw(yaw), d_roll(roll), d_pitch(pitch) 
 
 {
 }

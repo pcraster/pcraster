@@ -23,16 +23,16 @@ class geom_Line
 private:
 
   //! X-coordinate of start-point.
-  int              d_xStart;
+  int              d_xStart{0};
 
   //! Y-coordinate of start-point.
-  int              d_yStart;
+  int              d_yStart{0};
 
   //! X-coordinate of end-point.
-  int              d_xEnd;
+  int              d_xEnd{0};
 
   //! Y-coordinate of end-point.
-  int              d_yEnd;
+  int              d_yEnd{0};
 
 public:
 

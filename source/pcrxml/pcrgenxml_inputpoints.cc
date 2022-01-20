@@ -43,8 +43,7 @@ pcrxml::InputPoints::InputPoints(const QDomElement& element):Element(element,d_e
   } catch (...) { clean(); throw; }
  }
 pcrxml::InputPoints::InputPoints():Element()
- ,computedRiverAxis(nullptr)
- ,riverAxisFile(nullptr)
+ 
  {
  }
 const std::string& pcrxml::InputPoints::elementName() const

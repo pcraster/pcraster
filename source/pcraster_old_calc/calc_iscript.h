@@ -41,7 +41,7 @@ class Compressor;
 class IScript {
  private:
    //! the current timestep, 0 means initial part or static script
-   int    d_timeStep;
+   int    d_timeStep{0};
 
   virtual void checkClone(const std::string& mapFileName)=0/* THROW (StrErrorExcep)*/;
 
@@ -50,11 +50,11 @@ class IScript {
 
  protected:
   //! 0 for start in initial
-  size_t  d_timerStart;
+  size_t  d_timerStart{0};
   //! 1 for end of initial/static model
-  size_t  d_timerEnd;
+  size_t  d_timerEnd{1};
   //! 0 for marking, no timer section parsed
-  size_t  d_timerSlice;
+  size_t  d_timerSlice{0};
 
  public:
    // CREATORS

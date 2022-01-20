@@ -54,7 +54,7 @@
 //------------------------------------------------------------------------------
 
 calc::ModelBuilder::ModelBuilder():
-  d_script(nullptr),
+  
   d_positionName(new std::string("??"))
 {
   globalInit();

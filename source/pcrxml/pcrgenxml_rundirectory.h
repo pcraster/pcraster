@@ -68,9 +68,9 @@ public:
  const std::string& elementName()const;
 
  //! child element
- ModelRunSettings *modelRunSettings;
+ ModelRunSettings *modelRunSettings{nullptr};
  //! child element
- ModelRunStatus *modelRunStatus;
+ ModelRunStatus *modelRunStatus{nullptr};
 };
 } // namespace
 

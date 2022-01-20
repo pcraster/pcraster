@@ -40,7 +40,7 @@ private:
 
   Q_OBJECT
 
-  SelectPalettePrivate *d_cw;
+  SelectPalettePrivate *d_cw{nullptr};
 
   //! Assignment operator. NOT IMPLEMENTED.
   SelectPalette &  operator=           (const SelectPalette &);

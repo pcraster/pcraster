@@ -10,7 +10,7 @@
 */
 com_Colour::com_Colour()
 
-  : d_red(0), d_green(0), d_blue(0)
+   
 {
 }
 

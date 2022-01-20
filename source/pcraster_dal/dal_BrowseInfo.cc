@@ -36,9 +36,8 @@ namespace dal {
 
 BrowseInfo::BrowseInfo()
 
-  : _datasetType(NR_DATASET_TYPES),
-    _typeId(TI_NR_TYPES),
-    _valueScale(VS_NOTDETERMINED)
+  
+    
 
 {
 }

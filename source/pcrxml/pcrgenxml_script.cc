@@ -44,8 +44,7 @@ pcrxml::Script::Script(const QDomElement& element):Element(element,d_elementName
   } catch (...) { clean(); throw; }
  }
 pcrxml::Script::Script():Element()
- ,integerTimer(nullptr)
- ,scriptData(nullptr)
+ 
  {
  }
 const std::string& pcrxml::Script::elementName() const

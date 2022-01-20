@@ -60,7 +60,7 @@ private:
   Pars             d_pars;
 
   //! the right hand side of the assignment
-  ASTNode         *d_rhs;
+  ASTNode         *d_rhs{nullptr};
 
   void             clean();
 

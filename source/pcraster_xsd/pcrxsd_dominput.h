@@ -81,11 +81,11 @@ private:
   //! stores PCRaster.xsd
   XERCES_CPP_NAMESPACE::DOMLSResourceResolver *d_resourceResolver;
 
-  ErrorHandlerType           d_errorHandlerType;
+  ErrorHandlerType           d_errorHandlerType{Verbose};
 
 
   //! default false, check wellFormed only
-  bool             d_validate;
+  bool             d_validate{false};
 
   //! set either d_file or d_string not both
   std::string      d_file;

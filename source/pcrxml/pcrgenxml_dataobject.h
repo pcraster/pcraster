@@ -75,7 +75,7 @@ public:
  const std::string& elementName()const;
 
  //! child element
- Cursor *cursor;
+ Cursor *cursor{nullptr};
  //! child element
  std::vector<Data *> data;
 };

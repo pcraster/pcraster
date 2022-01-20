@@ -50,10 +50,7 @@ pcrxml::DataSetConfiguration::DataSetConfiguration(const QDomElement& element):E
   } catch (...) { clean(); throw; }
  }
 pcrxml::DataSetConfiguration::DataSetConfiguration():Element()
- ,input(nullptr)
- ,compute(nullptr)
- ,interpolate(nullptr)
- ,lodings(nullptr)
+ 
  {
  }
 const std::string& pcrxml::DataSetConfiguration::elementName() const

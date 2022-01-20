@@ -53,7 +53,7 @@ namespace discr {
 */
 VoxelStack::VoxelStack()
 
-  : d_baseElevation(0.0)
+   
 
 {
 }

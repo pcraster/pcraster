@@ -91,13 +91,13 @@ public:
  //! attribute
  String label;
  //! child element
- ScriptLink *scriptLink;
+ ScriptLink *scriptLink{nullptr};
  //! child element
- NumericInput *numericInput;
+ NumericInput *numericInput{nullptr};
  //! child element
- FileInput *fileInput;
+ FileInput *fileInput{nullptr};
  //! child element
- ShowData *showData;
+ ShowData *showData{nullptr};
 };
 } // namespace
 

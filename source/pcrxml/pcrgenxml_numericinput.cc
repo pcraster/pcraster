@@ -41,8 +41,7 @@ pcrxml::NumericInput::NumericInput(const QDomElement& element):Element(element,d
   } catch (...) { clean(); throw; }
  }
 pcrxml::NumericInput::NumericInput():Element()
- ,lowerLimit(nullptr)
- ,upperLimit(nullptr)
+ 
  {
  }
 const std::string& pcrxml::NumericInput::elementName() const

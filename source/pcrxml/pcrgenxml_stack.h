@@ -68,9 +68,9 @@ public:
  const std::string& elementName()const;
 
  //! child element
- DataTypeDTD *dataTypeDTD;
+ DataTypeDTD *dataTypeDTD{nullptr};
  //! child element
- TimestepRange *timestepRange;
+ TimestepRange *timestepRange{nullptr};
 };
 } // namespace
 

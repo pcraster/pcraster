@@ -14,27 +14,27 @@ class PCG {
 
 private:
 
-  size_t           d_mxiter;
+  size_t           d_mxiter{0};
 
-  size_t           d_iteri;
+  size_t           d_iteri{0};
 
-  size_t           d_npcond;
+  size_t           d_npcond{0};
 
-  double           d_hclose;
+  double           d_hclose{-1.0};
 
-  double           d_rclose;
+  double           d_rclose{-1.0};
 
-  double           d_relax;
+  double           d_relax{-1.0};
 
-  double           d_nbpol;
+  double           d_nbpol{-1.0};
 
-  double           d_iprpcg;
+  double           d_iprpcg{1};
 
-  size_t           d_mutpcg;
+  size_t           d_mutpcg{3};
 
-  double           d_damp;
+  double           d_damp{-1.0};
 
-  bool             d_updated;
+  bool             d_updated{true};
 
 public:
 

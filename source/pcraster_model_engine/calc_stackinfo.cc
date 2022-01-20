@@ -61,8 +61,8 @@ public:
 // DEFINITION OF STACKINFO MEMBERS
 //------------------------------------------------------------------------------
 
-calc::StackInfo::StackInfo():
-    d_flushTssAtEachTimeStep(false)
+calc::StackInfo::StackInfo()
+    
 {
 }
 

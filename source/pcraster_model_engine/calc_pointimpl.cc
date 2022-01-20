@@ -57,8 +57,8 @@ public:
 // DEFINITION OF POINTIMPL MEMBERS
 //------------------------------------------------------------------------------
 
-calc::PointImpl::PointImpl():
-   d_pointFunction(nullptr)
+calc::PointImpl::PointImpl()
+   
 {
 }
 

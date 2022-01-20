@@ -37,7 +37,7 @@ pcrxml::Table::Table(const QDomElement& element):Element(element,d_elementName)
   } catch (...) { clean(); throw; }
  }
 pcrxml::Table::Table():Element()
- ,dataTypeDTD(nullptr)
+ 
  {
  }
 const std::string& pcrxml::Table::elementName() const

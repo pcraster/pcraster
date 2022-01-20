@@ -75,7 +75,7 @@ public:
  const std::string& elementName()const;
 
  //! child element
- DataExtend *dataExtend;
+ DataExtend *dataExtend{nullptr};
  //! child element
  std::vector<LodingName *> lodingName;
 };

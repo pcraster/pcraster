@@ -66,7 +66,7 @@ public:
 */
 com::ProgressTracker::ProgressTracker()
 
-  : d_nrSteps(0), d_nrFinishedSteps(0)
+   
 
 {
 }

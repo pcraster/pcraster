@@ -35,24 +35,24 @@ private:
   GLfloat          d_y;
   GLfloat          d_z;
 
-  GLfloat          d_xInit;
-  GLfloat          d_yInit;
-  GLfloat          d_zInit;
+  GLfloat          d_xInit{0.0};
+  GLfloat          d_yInit{0.0};
+  GLfloat          d_zInit{0.0};
 
   GLfloat          d_yaw;
   GLfloat          d_roll;
   GLfloat          d_pitch;
 
-  GLfloat          d_yawInit;
-  GLfloat          d_rollInit;
-  GLfloat          d_pitchInit;
+  GLfloat          d_yawInit{0.0};
+  GLfloat          d_rollInit{0.0};
+  GLfloat          d_pitchInit{0.0};
 
-  GLfloat          d_width;
-  GLfloat          d_depth;
-  GLfloat          d_height;
+  GLfloat          d_width{0.0};
+  GLfloat          d_depth{0.0};
+  GLfloat          d_height{0.0};
 
-  bool             d_dirty;
-  bool             d_valid;
+  bool             d_dirty{false};
+  bool             d_valid{false};
 
   Quaternion       d_quaternion;
 

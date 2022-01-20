@@ -47,7 +47,7 @@ class StatTable : public Statement
   typedef  std::vector<const com::IntervalF *>  Intervals;
   struct InputMap {
     //! expr that generates input maps
-    FieldExpr                          *d_expr;
+    FieldExpr                          *d_expr{nullptr};
     //! name to put in table;
     std::string                         d_name;
     //! set of intervals

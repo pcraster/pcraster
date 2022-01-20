@@ -56,11 +56,11 @@ private:
                    Options               (const Options& rhs);
 
   //! size of d_argv
-  int              d_argc;
+  int              d_argc{0};
   //! d_argv (and d_argc) is only set only processCmdLineOptions to get the specified command
-  char**           d_argv;
+  char**           d_argv{nullptr};
 
-  SCRIPT_TYPE      d_scriptType;
+  SCRIPT_TYPE      d_scriptType{SCRIPT_CMD_LINE};
 
   void processArgs(int   argc, char**argv);
 

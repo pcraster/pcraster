@@ -34,7 +34,7 @@
 
 com::RIMap::RIMap()
 
-  : d_r1(0.0), d_r2(0.0), d_i1(0), d_i2(0), d_conv(0.0)
+   
 
 {
 }

@@ -60,10 +60,8 @@ public:
 // DEFINITION OF GRIDSTAT MEMBERS
 //------------------------------------------------------------------------------
 
-calc::GridStat::GridStat():
-  d_minMaxSet(false),
-  d_min(0),
-  d_max(0)
+calc::GridStat::GridStat()
+  
 {
 }
 

@@ -26,7 +26,7 @@ class Cube: public SceneObject
 
 private:
 
-  GLuint           d_list;
+  GLuint           d_list{0};
 
   //! Assignment operator. NOT IMPLEMENTED.
   Cube &           operator=           (const Cube &);

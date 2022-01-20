@@ -39,7 +39,7 @@ pcrxml::ExchangeItem::ExchangeItem(const QDomElement& element):Element(element,d
   } catch (...) { clean(); throw; }
  }
 pcrxml::ExchangeItem::ExchangeItem():Element()
- ,variable(nullptr)
+ 
  {
  }
 const std::string& pcrxml::ExchangeItem::elementName() const

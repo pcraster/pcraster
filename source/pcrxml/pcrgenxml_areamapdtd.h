@@ -68,9 +68,9 @@ public:
  const std::string& elementName()const;
 
  //! child element
- RasterSpace *rasterSpace;
+ RasterSpace *rasterSpace{nullptr};
  //! child element
- RasterMask *rasterMask;
+ RasterMask *rasterMask{nullptr};
 };
 } // namespace
 

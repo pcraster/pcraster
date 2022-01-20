@@ -20,17 +20,8 @@ DSP::~DSP(){
 /**
 * Constructor
 */
-DSP::DSP() :
-  d_itmx(0),
-  d_mxup(0),
-  d_mxlow(0),
-  d_mxbw(0),
-  d_ifreq(0),
-  d_mutd4(2),
-  d_accl(-1.0),
-  d_hclose(-1.0),
-  d_ipdr4(999),
-  d_updated(true){
+DSP::DSP() 
+  {
 }
 
 

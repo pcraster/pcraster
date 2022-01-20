@@ -47,10 +47,10 @@ class ProgressTracker
   friend class ProgressTrackerTest;
 
   //! Total number of steps to be performed.
-  size_t           d_nrSteps;
+  size_t           d_nrSteps{0};
 
   //! Number of finished steps.
-  size_t           d_nrFinishedSteps;
+  size_t           d_nrFinishedSteps{0};
 
 private:
 

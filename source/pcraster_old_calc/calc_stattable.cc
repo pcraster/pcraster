@@ -78,8 +78,8 @@
 
 //------------------------------------------------------------------------------
 
-calc::StatTable::InputMap::InputMap():
-  d_expr(nullptr)
+calc::StatTable::InputMap::InputMap()
+  
 {
 }
 
@@ -207,9 +207,9 @@ namespace calc {
   };
 
   struct ScalarStats : public com::AverageSdMinMax<REAL4> {
-      REAL4 d_med;
-      ScalarStats():
-        d_med(0) {};
+      REAL4 d_med{0};
+      ScalarStats()
+        {};
 
      template<typename KeyT>
      void printLine(

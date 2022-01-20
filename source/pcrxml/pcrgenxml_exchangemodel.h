@@ -102,9 +102,9 @@ public:
  //! attribute
  String description;
  //! child element
- IntegerTimer *integerTimer;
+ IntegerTimer *integerTimer{nullptr};
  //! child element
- AreaMapDTD *areaMapDTD;
+ AreaMapDTD *areaMapDTD{nullptr};
  //! child element
  std::vector<ExchangeItem *> exchangeItem;
 };

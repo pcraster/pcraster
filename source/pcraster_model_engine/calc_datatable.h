@@ -98,7 +98,7 @@ private:
   /*! Here, in DataTable it is only used to retrieve the inputs,
       Outputs are handled by the RunTimeEnv.
    */
-  void**                   d_memoryExchangeData;
+  void**                   d_memoryExchangeData{nullptr};
 
 public:
   static bool      d_useDiskStorage;

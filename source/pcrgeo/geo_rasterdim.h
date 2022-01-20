@@ -33,8 +33,8 @@ namespace geo {
 //! Raster dimension expressed as number of rows and columns
 class RasterDim
 {
-  size_t           d_nrRows;
-  size_t           d_nrCols;
+  size_t           d_nrRows{0};
+  size_t           d_nrCols{0};
 
 
 private:
@@ -104,8 +104,7 @@ public:
 //------------------------------------------------------------------------------
 
 //! default ctor leaving object in a invalid state (0,0), see valid()
-inline geo::RasterDim::RasterDim():
-  d_nrRows(0),d_nrCols(0)
+inline geo::RasterDim::RasterDim()
 {
 }
 

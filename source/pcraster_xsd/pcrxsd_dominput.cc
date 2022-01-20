@@ -237,9 +237,8 @@ bool pcrxsd::ViErrorHandler::handleError(const DOMError& domError)
 DOMInput::DOMInput(EntityResolverType erType):
   d_parser(nullptr),
   d_document(nullptr),
-  d_resourceResolver(nullptr),
-  d_errorHandlerType(Verbose),
-  d_validate(false)
+  d_resourceResolver(nullptr)
+  
 {
   switch(erType) {
     case CompiledIn:  d_resourceResolver = new CompiledInResolver(); break;

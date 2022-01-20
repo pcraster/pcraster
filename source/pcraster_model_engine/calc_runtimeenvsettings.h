@@ -54,11 +54,11 @@ private:
   com::PathName    d_externalBindingFile;
 
   //! print the argument expansion ($) instead of usual action
-  bool             d_printShellExpansionOnly;
+  bool             d_printShellExpansionOnly{false};
   //! only check the script on syntax and presence of all input instead of usual action
-  bool             d_testScriptRunableOnly;
+  bool             d_testScriptRunableOnly{false};
 
-  bool             d_testCaseTypeOnExistingName;
+  bool             d_testCaseTypeOnExistingName{false};
 
   //! empty if script is not created from a script file
   /*!
@@ -71,13 +71,13 @@ private:
   // needed/updated first in execution phase
 
   //! use C compiler
-  bool             d_compile;
+  bool             d_compile{false};
 
-  ExitValueType    d_exitValueType;
-  size_t           d_seed;
+  ExitValueType    d_exitValueType{ALWAYS_0};
+  size_t           d_seed{0};
 
-  bool             d_profile;
-  bool             d_useDiskStorage;
+  bool             d_profile{false};
+  bool             d_useDiskStorage{false};
 
 public:
 

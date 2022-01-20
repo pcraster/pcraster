@@ -57,8 +57,8 @@
 //------------------------------------------------------------------------------
 
 //! ctor
-com::KeyValueTable::KeyValueTable():
-  d_discardUnknownKeys(false)
+com::KeyValueTable::KeyValueTable()
+  
 {
 }
 

@@ -48,27 +48,22 @@ class AnimationControlPrivate
 {
 public:
 
-  QPushButton*     d_start;
-  QPushButton*     d_pause;
-  QPushButton*     d_begin;
-  QPushButton*     d_backwards;
-  QPushButton*     d_forewards;
-  QPushButton*     d_end;
-  QCheckBox*       d_loop;
-  QLineEdit*       d_stepEdit;
-  QIntValidator*   d_stepValidator;
-  QSpinBox*        d_interval;
+  QPushButton*     d_start{nullptr};
+  QPushButton*     d_pause{nullptr};
+  QPushButton*     d_begin{nullptr};
+  QPushButton*     d_backwards{nullptr};
+  QPushButton*     d_forewards{nullptr};
+  QPushButton*     d_end{nullptr};
+  QCheckBox*       d_loop{nullptr};
+  QLineEdit*       d_stepEdit{nullptr};
+  QIntValidator*   d_stepValidator{nullptr};
+  QSpinBox*        d_interval{nullptr};
 
-  qt::AnimationProgBar* d_progressBar;
+  qt::AnimationProgBar* d_progressBar{nullptr};
   VisEngine        d_engine;
 
   AnimationControlPrivate()
-    : d_start(nullptr), d_pause(nullptr), d_begin(nullptr), d_backwards(nullptr), d_forewards(nullptr),
-      d_end(nullptr),
-      d_loop(nullptr),
-      d_stepEdit(nullptr), d_stepValidator(nullptr),
-      d_interval(nullptr),
-      d_progressBar(nullptr),
+    : 
       d_engine()
   {
   }

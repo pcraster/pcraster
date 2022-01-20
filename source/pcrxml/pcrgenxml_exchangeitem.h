@@ -79,7 +79,7 @@ public:
  //! attribute
  PositiveInteger index;
  //! child element
- Variable *variable;
+ Variable *variable{nullptr};
 };
 } // namespace
 

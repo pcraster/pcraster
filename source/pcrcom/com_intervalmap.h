@@ -111,7 +111,7 @@ private:
   typedef std::map<const IV *,T,intervalMap::IntervalPtrLess> Base;
 
   T      d_outside;
-  size_t d_nrVisits;
+  size_t d_nrVisits{0};
 
   void clean() {
     for(auto i=this->begin();i!=this->end();++i)
@@ -142,8 +142,8 @@ private:
   // CREATORS
   //----------------------------------------------------------------------------
   IntervalMap():
-     d_outside(),
-     d_nrVisits(0)
+     d_outside()
+     
      {}
 
   virtual ~IntervalMap() {
@@ -304,7 +304,7 @@ private:
   typedef std::vector<std::pair<const IV *,T > > Base;
 
   T      d_outside;
-  size_t d_nrVisits;
+  size_t d_nrVisits{0};
 
   void clean() {
     for(auto i=this->begin();i!=this->end();++i)
@@ -337,8 +337,8 @@ private:
   // CREATORS
   //----------------------------------------------------------------------------
   IntervalMultiMap():
-     d_outside(),
-     d_nrVisits(0)
+     d_outside()
+     
      {}
 
   virtual ~IntervalMultiMap() {

@@ -34,7 +34,7 @@ const RgbTuple RgbTuple::gray50_ (128,128,128);
 */
 com::RgbTuple::RgbTuple()
 
-  : d_red(0), d_green(0), d_blue(0)
+   
 
 {
 }

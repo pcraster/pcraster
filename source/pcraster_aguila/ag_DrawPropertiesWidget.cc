@@ -34,11 +34,11 @@ class DrawPropertiesWidgetPrivate
 {
 public:
 
-  qtw::PaletteBar* d_paletteBar;
-  qtd::SelectPalette* d_paletteDialog;
+  qtw::PaletteBar* d_paletteBar{nullptr};
+  qtd::SelectPalette* d_paletteDialog{nullptr};
 
   DrawPropertiesWidgetPrivate()
-    : d_paletteBar(nullptr), d_paletteDialog(nullptr)
+     
   {
   }
 

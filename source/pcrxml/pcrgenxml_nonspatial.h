@@ -70,7 +70,7 @@ public:
  //! attribute
  Double value;
  //! child element
- DataTypeDTD *dataTypeDTD;
+ DataTypeDTD *dataTypeDTD{nullptr};
 };
 } // namespace
 

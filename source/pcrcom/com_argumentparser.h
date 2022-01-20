@@ -51,9 +51,9 @@ class ArgumentParser
 
 private:
 
-  size_t           d_length;
+  size_t           d_length{0};
 
-  bool             d_full;
+  bool             d_full{false};
 
 public:
 
@@ -62,7 +62,7 @@ public:
   //----------------------------------------------------------------------------
 
                    ArgumentParser      ()
-    : d_length(0), d_full(false)
+     
   {
   }
 

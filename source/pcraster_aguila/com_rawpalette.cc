@@ -261,7 +261,7 @@ const com::RawPalette* com::RawPalette::directionalPalette()
 
 com::RawPalette::RawPalette()
 
-  : d_max(0)
+   
 
 {
 }

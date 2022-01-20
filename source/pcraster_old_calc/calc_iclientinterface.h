@@ -48,7 +48,7 @@ private:
   //! Copy constructor. NOT IMPLEMENTED.
                    IClientInterface               (const IClientInterface&);
 
-  ClientInterface *d_ci;
+  ClientInterface *d_ci{nullptr};
   //! empty if no error;
   mutable std::ostringstream  d_errorStream;
 

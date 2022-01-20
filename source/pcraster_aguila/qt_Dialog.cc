@@ -17,13 +17,13 @@ class DialogPrivate
 {
   public:
 
-    QBoxLayout *   top;                // Toplevel layout.
-    QWidget *      cw;                 // Central widget.
-    QPushButton *  ok;                 // Ok button.
-    QPushButton *  cancel;             // Cancel button.
+    QBoxLayout *   top{nullptr};                // Toplevel layout.
+    QWidget *      cw{nullptr};                 // Central widget.
+    QPushButton *  ok{nullptr};                 // Ok button.
+    QPushButton *  cancel{nullptr};             // Cancel button.
 
     DialogPrivate()
-      : top(nullptr), cw(nullptr), ok(nullptr), cancel(nullptr)
+       
     {
     }
 
@@ -50,7 +50,7 @@ class DialogPrivate
 
 Dialog::Dialog(QWidget *p, bool m, Qt::WindowFlags f)
 
-  : QDialog(p, f), d_data(nullptr)
+  : QDialog(p, f) 
 
 {
   setModal(m);

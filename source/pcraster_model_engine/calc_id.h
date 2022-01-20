@@ -41,7 +41,7 @@ class Id
 private:
   std::string      d_name;
   //! always non-zero except if empty() is true
-  Position*        d_position;
+  Position*        d_position{nullptr};
 
 public:
   //----------------------------------------------------------------------------

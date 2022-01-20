@@ -41,8 +41,7 @@ pcrxml::RunDirectory::RunDirectory(const QDomElement& element):Element(element,d
   } catch (...) { clean(); throw; }
  }
 pcrxml::RunDirectory::RunDirectory():Element()
- ,modelRunSettings(nullptr)
- ,modelRunStatus(nullptr)
+ 
  {
  }
 const std::string& pcrxml::RunDirectory::elementName() const

@@ -109,9 +109,9 @@ public:
  //! attribute
  MigrationDirection migrDirection;
  //! child element
- InputLodings *inputLodings;
+ InputLodings *inputLodings{nullptr};
  //! child element
- InputPoints *inputPoints;
+ InputPoints *inputPoints{nullptr};
  //! child element
  std::vector<InputFile *> inputFile;
 };

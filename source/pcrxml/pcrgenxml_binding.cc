@@ -55,11 +55,7 @@ pcrxml::Binding::Binding(const QDomElement& element):Element(element,d_elementNa
   } catch (...) { clean(); throw; }
  }
 pcrxml::Binding::Binding():Element()
- ,map(nullptr)
- ,nonSpatial(nullptr)
- ,stack(nullptr)
- ,timeSeries(nullptr)
- ,table(nullptr)
+ 
  {
  }
 const std::string& pcrxml::Binding::elementName() const

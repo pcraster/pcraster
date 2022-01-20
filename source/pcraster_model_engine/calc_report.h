@@ -70,7 +70,7 @@ private:
   typedef std::vector<ParsReportMoment> PL;
   PL d_list;
 
-  size_t d_startInt, d_lastInt;
+  size_t d_startInt{1}, d_lastInt{1};
 
 public:
 

@@ -44,8 +44,8 @@
 
 //! ctor
 pcrxml::PCDATAElement::PCDATAElement():
-   Element(),
-   d_asCDATASection(false)
+   Element()
+   
 {
 }
 

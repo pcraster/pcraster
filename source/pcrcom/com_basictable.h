@@ -46,7 +46,7 @@ private:
   std::vector<std::vector<double> *> d_columns;
 
   //! Number of records in the longest column.
-  size_t           d_nrRecs;
+  size_t           d_nrRecs{0};
 
   //! Assignment operator. NOT IMPLEMENTED.
   BasicTable &     operator=           (const BasicTable &);

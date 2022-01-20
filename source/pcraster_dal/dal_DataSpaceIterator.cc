@@ -47,11 +47,10 @@ namespace dal {
 */
 DataSpaceIterator::DataSpaceIterator()
 
-  : d_space(nullptr),
+  : 
     d_address(),
-    d_setIndices(),
-    d_endReached(true),
-    d_rendReached(true)
+    d_setIndices()
+    
 
 {
 }

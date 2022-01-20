@@ -189,9 +189,8 @@ LOOK_UP_TABLE *calc::LookupTable::createOldStyle(
 }
 
 
-calc::LookupTable::LookupTable():
-     d_prefixMap(nullptr),
-     d_memoryInputTableCreator(nullptr)
+calc::LookupTable::LookupTable()
+     
 {
 }
 

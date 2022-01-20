@@ -84,7 +84,7 @@ private:
   //! never 0
   AreaMap*         d_areaMap;
 
-  SpatialPacking* d_spatialPacking;
+  SpatialPacking* d_spatialPacking{nullptr};
 
   RunDirectory    d_runDirectory;
   Timer           d_timer;
@@ -104,8 +104,8 @@ private:
    * non-empty denotes -d on
    */
   std::string     d_debugMVAssignmentsMap;
-  bool            d_mvCompression;
-  bool            d_writeEachTimeStep;
+  bool            d_mvCompression{false};
+  bool            d_writeEachTimeStep{false};
 
 
   //! Assignment operator. NOT IMPLEMENTED.

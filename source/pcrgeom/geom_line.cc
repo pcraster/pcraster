@@ -15,7 +15,7 @@
 */
 geom_Line::geom_Line()
 
-  : d_xStart(0), d_yStart(0), d_xEnd(0), d_yEnd(0)
+   
 
 {
 }

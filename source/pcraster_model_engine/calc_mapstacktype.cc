@@ -71,9 +71,8 @@ public:
 
 namespace calc {
 
-MapStackType::MapStackType():
-  d_use(Unknown),
-  d_highestTimestepAvailable(0)
+MapStackType::MapStackType()
+  
 {
 }
 

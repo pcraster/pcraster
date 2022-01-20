@@ -42,9 +42,8 @@ static com::CpuCycleCounter::Uint64 pentiumClock(void)
 #endif
 }
 
-com::CpuCycleCounter::Interval::Interval():
-    d_total(0),
-    d_start(0)
+com::CpuCycleCounter::Interval::Interval()
+    
 {
   PRECOND(sizeof(Uint64) == 8);
 }

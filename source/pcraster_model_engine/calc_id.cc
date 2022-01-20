@@ -80,8 +80,8 @@ calc::TmpId::TmpId(const std::string& name):
   setName(name);
 }
 
-calc::Id::Id():
-  d_position(nullptr)
+calc::Id::Id()
+  
 {
 }
 

@@ -37,7 +37,7 @@ pcrxml::Map::Map(const QDomElement& element):Element(element,d_elementName)
   } catch (...) { clean(); throw; }
  }
 pcrxml::Map::Map():Element()
- ,dataTypeDTD(nullptr)
+ 
  {
  }
 const std::string& pcrxml::Map::elementName() const

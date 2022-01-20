@@ -36,10 +36,8 @@ namespace dal {
 
 StepMapper::StepMapper()
 
-  : d_sourceFirstStep(),
-    d_sourceLastStep(),
-    d_destinationFirstStep(),
-    d_destinationLastStep()
+  
+    
 
 {
 }

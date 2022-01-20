@@ -59,7 +59,7 @@ class ReportDefault : public Report {
   /*! a (re-)definition is present if not 0
    * this does not own d_definition
    */
-  const ReportDefinition  *d_definition;
+  const ReportDefinition  *d_definition{nullptr};
   public:
              ReportDefault();
             ~ReportDefault();

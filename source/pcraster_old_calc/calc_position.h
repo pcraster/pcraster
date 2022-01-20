@@ -44,7 +44,7 @@ private:
   // Assignment operator. DEFAULT
   // Position&           operator=           (const Position&);
 
-  int d_priority;
+  int d_priority{0};
 
   //  Copy constructor. DEFAULT
   //              Position               (const Position&);

@@ -55,28 +55,28 @@ private:
   Q_OBJECT
 
   //! First step.
-  size_t           d_first;
+  size_t           d_first{0};
 
   //! Last step.
-  size_t           d_last;
+  size_t           d_last{0};
 
   //! Steps size between time steps.
-  size_t           d_stepInterval;
+  size_t           d_stepInterval{0};
 
   //! Current step.
-  size_t           d_current;
+  size_t           d_current{0};
 
   //! Step which has to be processed once the timer times out.
-  size_t           d_stepToProcess;
+  size_t           d_stepToProcess{0};
 
   //! Steps to visit. If empty, visit all steps between d_first and d_last.
   std::set<size_t> d_steps;
 
   //! Interval in milliseconds.
-  size_t           d_interval;
+  size_t           d_interval{0};
 
   //! Loop over the timesteps.
-  bool             d_loop;
+  bool             d_loop{false};
 
   //! Timer.
   QTimer *         d_timer;

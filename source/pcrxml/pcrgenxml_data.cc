@@ -57,11 +57,7 @@ pcrxml::Data::Data(const QDomElement& element):Element(element,d_elementName)
   } catch (...) { clean(); throw; }
  }
 pcrxml::Data::Data():Element()
- ,map(nullptr)
- ,nonSpatial(nullptr)
- ,stack(nullptr)
- ,timeSeries(nullptr)
- ,table(nullptr)
+ 
  {
  }
 const std::string& pcrxml::Data::elementName() const

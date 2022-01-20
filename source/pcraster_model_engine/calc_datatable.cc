@@ -67,8 +67,8 @@ bool calc::DataTable::d_useDiskStorage=true;
 // DEFINITION OF DATATABLE MEMBERS
 //------------------------------------------------------------------------------
 
-calc::DataTable::DataTable():
-  d_memoryExchangeData(nullptr)
+calc::DataTable::DataTable()
+  
 {
 }
 

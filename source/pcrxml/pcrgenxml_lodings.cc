@@ -41,7 +41,7 @@ pcrxml::Lodings::Lodings(const QDomElement& element):Element(element,d_elementNa
   } catch (...) { clean(); throw; }
  }
 pcrxml::Lodings::Lodings():Element()
- ,dataExtend(nullptr)
+ 
  {
  }
 const std::string& pcrxml::Lodings::elementName() const

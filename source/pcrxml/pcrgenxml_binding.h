@@ -100,15 +100,15 @@ public:
  //! attribute
  String value;
  //! child element
- Map *map;
+ Map *map{nullptr};
  //! child element
- NonSpatial *nonSpatial;
+ NonSpatial *nonSpatial{nullptr};
  //! child element
- Stack *stack;
+ Stack *stack{nullptr};
  //! child element
- TimeSeries *timeSeries;
+ TimeSeries *timeSeries{nullptr};
  //! child element
- Table *table;
+ Table *table{nullptr};
 };
 } // namespace
 

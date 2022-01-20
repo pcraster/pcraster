@@ -39,9 +39,9 @@ struct addDepth
 {
   typedef const Voxel& argument_type;
   typedef void result_type;
-  REAL8 depth;
+  REAL8 depth{0.0};
 
-  addDepth(): depth(0.0)
+  addDepth() 
   {}
 
   void operator()(const Voxel &v)
@@ -64,7 +64,7 @@ struct addDepth
 
 geo::VoxelStack::VoxelStack()
 
-  : d_bottom(0.0)
+   
 
 {
 }

@@ -13,21 +13,21 @@
 class SIP {
 
 private:
-  size_t           d_mxiter;
+  size_t           d_mxiter{0};
 
-  size_t           d_nparam;
+  size_t           d_nparam{0};
 
-  double           d_accl;
+  double           d_accl{-1.0};
 
-  double           d_hclose;
+  double           d_hclose{-1.0};
 
-  size_t           d_ipcalc;
+  size_t           d_ipcalc{0};
 
-  double           d_wseed;
+  double           d_wseed{-1.0};
 
-  size_t           d_iprsip;
+  size_t           d_iprsip{1};
 
-  bool             d_updated;
+  bool             d_updated{true};
 
  public:
 

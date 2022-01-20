@@ -40,10 +40,8 @@ namespace dal {
 */
 Format::Format()
 
-  : d_datasetType(NR_DATASET_TYPES),
-    d_medium(NrMedia),
-    d_discretisation(NrDiscretisations),
-    d_type(NrTypes)
+  
+    
 
 {
 }

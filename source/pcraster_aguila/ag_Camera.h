@@ -28,8 +28,8 @@ class Camera: public SceneObject
 
 private:
 
-  GLuint           d_list;
-  GLUquadric*      d_quadric;
+  GLuint           d_list{0};
+  GLUquadric*      d_quadric{nullptr};
 
   //! Assignment operator. NOT IMPLEMENTED.
   Camera &         operator=           (const Camera &);

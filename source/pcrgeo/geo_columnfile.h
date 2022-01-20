@@ -69,7 +69,7 @@ private:
   enum State { INITIAL, HEADER_READ, DATA_READ };
 
   //! State of object.
-  State            d_state;
+  State            d_state{INITIAL};
 
   //! Filename of geo-eas file.
   std::string      d_fn;
@@ -78,7 +78,7 @@ private:
   std::ifstream    d_fs;
 
   //! Number of variables/columns in column file.
-  size_t           d_nrVars;
+  size_t           d_nrVars{0};
 
   //! Names of the variables.
   std::vector<std::string> d_varNames;

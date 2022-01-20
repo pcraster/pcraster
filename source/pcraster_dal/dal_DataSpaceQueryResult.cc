@@ -39,7 +39,7 @@ namespace detail {
 
 DataSpaceQueryResult::DataSpaceQueryResult()
 
-  : d_datasetType(NR_DATASET_TYPES)
+   
 
 {
 }

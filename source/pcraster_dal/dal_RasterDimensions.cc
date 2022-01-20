@@ -88,8 +88,8 @@ boost::tuple<RasterDimensions, RasterDimensions> RasterDimensions::overlap(
 RasterDimensions::RasterDimensions()
 
   : MatrixDimensions(),
-    SpaceDimensions(),
-    _cellSize(1.0)
+    SpaceDimensions()
+    
 
 {
 }

@@ -41,10 +41,10 @@ class PCR_DAL_DECL SpatialCoordinate
 private:
 
   //! X-coordinate.
-  double           _x;
+  double           _x{0.0};
 
   //! Y-coordinate.
-  double           _y;
+  double           _y{0.0};
 
   bool             equals              (SpatialCoordinate const& rhs) const;
 

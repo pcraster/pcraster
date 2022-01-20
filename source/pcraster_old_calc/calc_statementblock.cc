@@ -125,8 +125,8 @@ void calc::StatementBlock::addStatement(Statement *s)
 
 namespace calc {
   struct PromotionOccured {
-    bool onceTrue;
-    PromotionOccured():onceTrue(false) {};
+    bool onceTrue{false};
+    PromotionOccured() {};
     void operator()(Statement *s) {
       if (s->buildTypes())
        onceTrue=true;

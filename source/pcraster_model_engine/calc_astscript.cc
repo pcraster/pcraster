@@ -161,19 +161,8 @@ namespace calc {
 // DEFINITION OF ASTSCRIPT MEMBERS
 //------------------------------------------------------------------------------
 
-calc::ASTScript::ASTScript():
-  d_code(nullptr),
-  d_cfgCode(nullptr),
-  d_cfgBody(nullptr),
-  d_areaMap(nullptr),
-  d_externalTimer(nullptr),
-  d_timerStartOrTss(nullptr),
-  d_timerEnd(nullptr),
-  d_timerStep(nullptr),
-  d_containsDynamicSection(false),
-  d_hasStatementWithReportKeyword(false),
-  d_pointCodeBlockDll(nullptr),
-  d_reportOnlyForXMLScriptOutput(false)
+calc::ASTScript::ASTScript()
+  
 {
   if (appClone)
     setAreaMapFromString(appClone,"--clone");

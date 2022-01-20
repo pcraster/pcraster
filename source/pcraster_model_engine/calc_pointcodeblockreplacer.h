@@ -76,12 +76,11 @@ private:
 
   class  BlockInfo {
   public:
-   bool                   d_allPoint;
+   bool                   d_allPoint{false};
    ParSet                 d_pars;
-   size_t                 d_nrPointsOps;
-   BlockInfo():
-     d_allPoint(false),
-     d_nrPointsOps(0)                  {};
+   size_t                 d_nrPointsOps{0};
+   BlockInfo()
+                      {};
    BlockInfo(BlockInfo const& rhs):
      d_allPoint(rhs.d_allPoint),
      d_pars(rhs.d_pars),

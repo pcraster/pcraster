@@ -51,7 +51,7 @@ private:
 
   RunTimeEnvSettings  d_rtes;
   //! FTTB only a single assignment in support ManualExampleTester::test
-  ASTScript   *d_script;
+  ASTScript   *d_script{nullptr};
 
   UsePar   usePar(const std::string& par);
   Symbol   symbol(const std::string& name);

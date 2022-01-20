@@ -20,7 +20,7 @@ class BlockPosition {
  private:
 	//! the root (script) has a key of size 0
 	std::vector<size_t> d_key;
-	size_t              d_nrChildren;
+	size_t              d_nrChildren{0};
  public:
 	//! constructor for script (root)
 	BlockPosition();

@@ -54,7 +54,7 @@ private:
   std::string      d_stackName;
 
   //! -1 option
-  bool             d_flushTssAtEachTimeStep;
+  bool             d_flushTssAtEachTimeStep{false};
 
   const Report* report              () const;
 

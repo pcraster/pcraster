@@ -53,15 +53,9 @@
 calc::RunTimeEnvSettings::RunTimeEnvSettings():
   d_ioStrategy(new IOStrategy()),
   d_externalBindingFile(),
-  d_printShellExpansionOnly(false),
-  d_testScriptRunableOnly(false),
-  d_testCaseTypeOnExistingName(false),
-  d_scriptFile(),
-  d_compile(false),
-  d_exitValueType(ALWAYS_0),
-  d_seed(0),  // take current time for seed
-  d_profile(false),
-  d_useDiskStorage(false)
+  
+  d_scriptFile()
+  
 {
 }
 

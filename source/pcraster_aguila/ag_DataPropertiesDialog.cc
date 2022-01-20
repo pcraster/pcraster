@@ -36,11 +36,11 @@ public:
 
   DataGuide        d_dataGuide;        // Guide to data to edit.
 
-  GeneralDataPropertiesWidget* d_generalProperties;
-  DrawPropertiesWidget* d_drawProperties;
+  GeneralDataPropertiesWidget* d_generalProperties{nullptr};
+  DrawPropertiesWidget* d_drawProperties{nullptr};
 
   DataPropertiesDialogPrivate()
-    : d_generalProperties(nullptr), d_drawProperties(nullptr)
+     
   {
   }
 

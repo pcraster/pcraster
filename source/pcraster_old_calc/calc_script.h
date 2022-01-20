@@ -101,21 +101,21 @@ class Script:
    /*! ptr to external call back class
     */
    ProgressCallBack          *d_progressCallBack;
-   ExitValueType              d_exitValueType;
+   ExitValueType              d_exitValueType{ALWAYS_0};
    //! write value of file output constructs to this stream
    /*!
     *  if 0 no output
     */
-   std::ostream              *d_fileOutputStream;
+   std::ostream              *d_fileOutputStream{nullptr};
 
    //! if missing value compression is enabled
-   bool d_compression;
+   bool d_compression{false};
 
    //! if 0 compression is enabled
-   bool d_0compression;
+   bool d_0compression{false};
 
    //! the value to exit/return application with
-   int    d_exitVal;
+   int    d_exitVal{0};
 
    RunDirectory d_runDirectory;
 
@@ -141,7 +141,7 @@ class Script:
   com::PathName       d_xmlFile;
 
   //! is tss will be written to disk at each timestep
-  bool d_writeEachTimeStep;
+  bool d_writeEachTimeStep{false};
 
   //! file to write in case of debug assertion
   /*! empty if DebugMode is off (default)
@@ -149,13 +149,13 @@ class Script:
   com::PathName       d_debugMapName;
 
   //! linear UINT1 map, for mask
-  unsigned char *d_areaMask;
+  unsigned char *d_areaMask{nullptr};
 
   //! the compressor
-  Compressor *d_compressor;
+  Compressor *d_compressor{nullptr};
 
   //! are there one or more statements prefixed with report?
-  bool       d_aReportFound;
+  bool       d_aReportFound{false};
 
   //! the report default clause
   Report *d_reportDefault;
@@ -163,7 +163,7 @@ class Script:
   BindingTable d_bindingTable;
 
   //! 0 if not defined, name is also in d_cloneNameCommon
-  FieldMapInputParameter *d_areaMap;
+  FieldMapInputParameter *d_areaMap{nullptr};
 
   void                    setupClone();
 

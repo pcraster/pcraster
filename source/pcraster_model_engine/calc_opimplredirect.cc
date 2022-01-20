@@ -57,8 +57,8 @@ public:
 // DEFINITION OF OPIMPLREDIRECT MEMBERS
 //------------------------------------------------------------------------------
 
-calc::OpImplRedirect::OpImplRedirect():
-   d_redirect(nullptr)
+calc::OpImplRedirect::OpImplRedirect()
+   
 {
 }
 

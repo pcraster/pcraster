@@ -37,14 +37,14 @@ class Position;
 class LexInput {
 private:
   //! last call to GetChar return newline
-  bool d_prevCallWasNewLine;
+  bool d_prevCallWasNewLine{false};
   //! last call to GetChar is in comment
-  bool d_gettingInComment;
+  bool d_gettingInComment{false};
 
   //! line nr is kept
-  int d_lineNr;
+  int d_lineNr{1};
   //! char nr  relative to beginning of line, begin of token
-  int d_tokenStart;
+  int d_tokenStart{1};
 
   //! buffer used to parse macro
   std::string d_expInBuf;
@@ -56,12 +56,12 @@ private:
    */
   size_t   d_ptrExpOutBuf;
 
-  LexInputSource *d_from;
+  LexInputSource *d_from{nullptr};
 
   std::vector<std::string> d_shellArgs;
 
-  int    d_extraCharRead;
-  bool   d_substitution;
+  int    d_extraCharRead{EOF};
+  bool   d_substitution{true};
 
   int getRawChar(void);
   char getRawCharEOFcheck(void);

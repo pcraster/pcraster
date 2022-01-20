@@ -20,12 +20,8 @@ SOR::~SOR(){
 /**
 * Constructor
 */
-SOR::SOR() :
-  d_mxiter(0),
-  d_accl(-1.0),
-  d_hclose(-1.0),
-  d_iprsor(0),
-  d_updated(true){
+SOR::SOR() 
+  {
 }
 
 

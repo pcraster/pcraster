@@ -37,7 +37,7 @@ pcrxml::TimeSeries::TimeSeries(const QDomElement& element):Element(element,d_ele
   } catch (...) { clean(); throw; }
  }
 pcrxml::TimeSeries::TimeSeries():Element()
- ,dataTypeDTD(nullptr)
+ 
  {
  }
 const std::string& pcrxml::TimeSeries::elementName() const

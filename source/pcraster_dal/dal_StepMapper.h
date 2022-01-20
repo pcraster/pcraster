@@ -42,13 +42,13 @@ class PCR_DAL_DECL StepMapper
 
 private:
 
-  double           d_sourceFirstStep;
+  double           d_sourceFirstStep{};
 
-  double           d_sourceLastStep;
+  double           d_sourceLastStep{};
 
-  double           d_destinationFirstStep;
+  double           d_destinationFirstStep{};
 
-  double           d_destinationLastStep;
+  double           d_destinationLastStep{};
 
   double           d_conversionFactor;
 

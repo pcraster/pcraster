@@ -79,9 +79,9 @@ public:
  //! attribute
  Double maxPointDeviation;
  //! child element
- ComputedRiverAxis *computedRiverAxis;
+ ComputedRiverAxis *computedRiverAxis{nullptr};
  //! child element
- RiverAxisFile *riverAxisFile;
+ RiverAxisFile *riverAxisFile{nullptr};
 };
 } // namespace
 

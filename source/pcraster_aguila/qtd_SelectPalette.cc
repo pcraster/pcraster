@@ -113,8 +113,8 @@ public:
 
 qtd::SelectPalette::SelectPalette(QWidget *p, const char *n)
 
-  : qt::Dialog(p, n),
-    d_cw(nullptr)
+  : qt::Dialog(p, n)
+    
 
 {
   d_cw = new SelectPalettePrivate(this);

@@ -35,7 +35,7 @@ const double com::DiMap::logMax = 1.0e150;
 */
 com::DiMap::DiMap()
 
-  : d_x1(0.0), d_x2(1.0), d_y1(0), d_y2(1), d_cnv(1.0)
+   
 
 {
 }

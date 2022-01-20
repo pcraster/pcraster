@@ -138,10 +138,8 @@ namespace calc {
 
 IOStrategy::IOStrategy():
   d_fs(new IoFieldStrategy(appIOstrategy)),
-  d_areaMap(new AreaMap()),
-  d_spatialPacking(nullptr),
-  d_mvCompression(false),
-  d_writeEachTimeStep(false)
+  d_areaMap(new AreaMap())
+  
 {
 }
 

@@ -48,13 +48,13 @@ class PCR_DAL_DECL SpaceStepMapper
 private:
 
   //! Index of cell.
-  size_t d_index;
+  size_t d_index{};
 
   //! Coordinate of cell.
-  double d_coordinate;
+  double d_coordinate{};
 
   //! Size of cell.
-  double d_cellSize;
+  double d_cellSize{};
 
 protected:
 

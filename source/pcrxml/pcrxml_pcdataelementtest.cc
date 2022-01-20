@@ -13,12 +13,11 @@ BOOST_AUTO_TEST_CASE(test)
   struct Verify {
     // test sets either str or doc
     std::string  str;
-    Document    *doc;
+    Document    *doc{nullptr};
     QDomDocument textDoc,cdataDoc;
-    DataEnvelop *s;
+    DataEnvelop *s{nullptr};
 
-    Verify():
-      doc(nullptr),s(nullptr)
+    Verify()
     {};
     ~Verify() {
       delete s;

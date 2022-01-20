@@ -58,7 +58,7 @@ private:
 
   std::string      d_contents;
   //! control output as entire CDATA section yes/no, default false
-  bool             d_asCDATASection;
+  bool             d_asCDATASection{false};
 
 
 protected:

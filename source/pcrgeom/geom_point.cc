@@ -15,7 +15,7 @@
 */
 geom_Point::geom_Point()
 
-  : d_x(0), d_y(0)
+   
 
 {
 }

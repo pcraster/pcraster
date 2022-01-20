@@ -70,10 +70,10 @@ class /* PCR_DAL_DECL */ Array
 private:
 
   //! Capacity of the array: how many values can be stored without reallocation.
-  size_t           d_capacity;
+  size_t           d_capacity{0};
 
   //! Number of values stored.
-  size_t           d_size;
+  size_t           d_size{0};
 
   //! Datastructure for actual values.
   T*               d_elements;
@@ -194,7 +194,7 @@ public:
 template<typename T>
 inline Array<T>::Array()
 
-  : d_capacity(0), d_size(0), d_elements(nullptr)
+  :  d_elements(nullptr)
 
 {
   reserve(100);

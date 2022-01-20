@@ -69,7 +69,7 @@
 
 geo_ColumnFile::geo_ColumnFile(bool autoDelete)
 
-  : d_state(INITIAL), d_nrVars(0), d_ad(autoDelete)
+  :  d_ad(autoDelete)
 
 {
 }

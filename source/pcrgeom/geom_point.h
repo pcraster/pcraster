@@ -21,10 +21,10 @@ class geom_Point
 private:
 
   //! The x-coordinate.
-  int              d_x;
+  int              d_x{0};
 
   //! The y-coordinate.
-  int              d_y;
+  int              d_y{0};
 
 public:
 

@@ -29,13 +29,13 @@ class Map3DObject: public ag::SceneObject
 
 private:
 
-  size_t           d_quadLength;
+  size_t           d_quadLength{1};
 
-  GLfloat          d_scale;
+  GLfloat          d_scale{1.0};
 
-  GLuint           d_list;
+  GLuint           d_list{0};
 
-  bool             d_showFishnet;
+  bool             d_showFishnet{false};
 
   //! Assignment operator. NOT IMPLEMENTED.
   Map3DObject&     operator=           (const Map3DObject&);

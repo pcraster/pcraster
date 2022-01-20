@@ -68,9 +68,9 @@ public:
  const std::string& elementName()const;
 
  //! child element
- LowerLimit *lowerLimit;
+ LowerLimit *lowerLimit{nullptr};
  //! child element
- UpperLimit *upperLimit;
+ UpperLimit *upperLimit{nullptr};
 };
 } // namespace
 

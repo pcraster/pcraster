@@ -159,9 +159,8 @@ DiscretisationType Dimension::meaning2DefaultDiscretisation(
 */
 Dimension::Dimension()
 
-  : _type(NrCoordinateTypes),
-    _meaning(NrMeanings),
-    _discretisation(NrDiscretisationTypes)
+  
+    
 
 {
 }

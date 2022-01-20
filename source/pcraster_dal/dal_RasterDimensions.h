@@ -55,7 +55,7 @@ class PCR_DAL_DECL RasterDimensions: public MatrixDimensions,
 private:
 
   //! Size of individual cells.
-  double           _cellSize;
+  double           _cellSize{1.0};
 
   bool             equals              (RasterDimensions const& rhs) const;
 

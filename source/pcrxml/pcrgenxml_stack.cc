@@ -41,8 +41,7 @@ pcrxml::Stack::Stack(const QDomElement& element):Element(element,d_elementName)
   } catch (...) { clean(); throw; }
  }
 pcrxml::Stack::Stack():Element()
- ,dataTypeDTD(nullptr)
- ,timestepRange(nullptr)
+ 
  {
  }
 const std::string& pcrxml::Stack::elementName() const

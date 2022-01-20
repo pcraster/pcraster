@@ -46,8 +46,8 @@
 // DEFINITION OF ASTASS MEMBERS
 //------------------------------------------------------------------------------
 
-calc::ASTAss::ASTAss():
-   d_rhs(nullptr)
+calc::ASTAss::ASTAss()
+   
 {
 }
 

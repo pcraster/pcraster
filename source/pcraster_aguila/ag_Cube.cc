@@ -23,8 +23,8 @@
 ag::Cube::Cube(GLfloat x, GLfloat y, GLfloat z,
                    GLfloat yaw, GLfloat pitch, GLfloat roll)
 
-  : SceneObject(x, y, z, yaw, pitch, roll),
-    d_list(0)
+  : SceneObject(x, y, z, yaw, pitch, roll)
+    
 
 {
   setSize(1.0, 1.0, 1.0);

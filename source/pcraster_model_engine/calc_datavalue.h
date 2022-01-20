@@ -62,11 +62,11 @@ protected:
    * true if this object can not be modified nor deleted since its value
    * may be needed later, false otherwise.
    */
-  bool             d_readOnlyReference;
+  bool             d_readOnlyReference{false};
   /*!
    * true if PCRasterModelEngine can delete, false otherwise.
    */
-  bool             d_pcrmeManaged;
+  bool             d_pcrmeManaged{true};
 
 public:
 

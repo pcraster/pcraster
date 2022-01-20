@@ -57,14 +57,14 @@ public:
 
 private:
   //! to check the order crap AreaMap got into
-  bool d_setComputationMaskCallAllowed;
+  bool d_setComputationMaskCallAllowed{true};
 
   geo::RasterSpace    d_rs;
    //! 0 means MV, 1 means value in mask
   Mask                d_mask;
 
-  pcrxml::AreaMapScript      *d_areaMap;
-  pcrxml::ComputationMask    *d_computationMask;
+  pcrxml::AreaMapScript      *d_areaMap{nullptr};
+  pcrxml::ComputationMask    *d_computationMask{nullptr};
 
 
   void             syncMask              ();

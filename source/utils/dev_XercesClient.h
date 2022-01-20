@@ -47,7 +47,7 @@ private:
   static xercesc::XMLTranscoder* _utf8Transcoder;
 
   //! Whether initialization of the Xerces library succeeded.
-  bool             _initialized;
+  bool             _initialized{false};
 
 protected:
 

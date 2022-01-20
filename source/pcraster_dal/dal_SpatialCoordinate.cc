@@ -47,8 +47,8 @@ namespace detail {
 */
 SpatialCoordinate::SpatialCoordinate()
 
-  : _x(0.0),
-    _y(0.0)
+  
+    
 
 {
 }

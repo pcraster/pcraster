@@ -27,8 +27,7 @@
 
 qtw::PaletteBar::PaletteBar(QWidget *p)
 
-  : QWidget(p),
-    d_palette(nullptr), d_outline(false)
+  : QWidget(p) 
 
 {
 }

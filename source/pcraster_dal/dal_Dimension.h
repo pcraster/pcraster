@@ -128,13 +128,13 @@ private:
   static DiscretisationType meaning2DefaultDiscretisation(Meaning meaning);
 
   //! CoordinateType of dimension.
-  CoordinateType   _type;
+  CoordinateType   _type{NrCoordinateTypes};
 
   //! Meaning of dimension.
-  Meaning          _meaning;
+  Meaning          _meaning{NrMeanings};
 
   //! Discretisation of dimension.
-  DiscretisationType _discretisation;
+  DiscretisationType _discretisation{NrDiscretisationTypes};
 
   //! Values along dimension, layout dependent on discretisation.
   std::vector<boost::any> _values;

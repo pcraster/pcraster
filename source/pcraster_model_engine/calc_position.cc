@@ -57,8 +57,8 @@ public:
 // DEFINITION OF POSITION MEMBERS
 //------------------------------------------------------------------------------
 
-calc::Position::Position():
-  d_priority(0)
+calc::Position::Position()
+  
 {
 }
 

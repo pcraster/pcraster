@@ -43,7 +43,7 @@ namespace detail {
 
 FeaturePath::FeaturePath()
 
-  : _isValid(false)
+   
 
 {
 }

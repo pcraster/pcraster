@@ -47,8 +47,8 @@ public:
   struct InputMap {
     //! name to put in table;
     std::string            d_name;
-    ASTNode*               d_intervals;
-    ASTNode*               d_field;
+    ASTNode*               d_intervals{nullptr};
+    ASTNode*               d_field{nullptr};
     InputMap();
   };
 private:

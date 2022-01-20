@@ -53,10 +53,7 @@ pcrxml::FileInput::FileInput(const QDomElement& element):Element(element,d_eleme
   } catch (...) { clean(); throw; }
  }
 pcrxml::FileInput::FileInput():Element()
- ,map(nullptr)
- ,stack(nullptr)
- ,timeSeries(nullptr)
- ,table(nullptr)
+ 
  {
  }
 const std::string& pcrxml::FileInput::elementName() const

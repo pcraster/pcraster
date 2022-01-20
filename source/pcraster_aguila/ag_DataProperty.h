@@ -30,9 +30,9 @@ class DataProperty
 
 private:
 
-  bool             d_enabled;
+  bool             d_enabled{true};
 
-  bool             d_selected;
+  bool             d_selected{false};
 
 public:
 

@@ -41,8 +41,7 @@ pcrxml::AreaMapDTD::AreaMapDTD(const QDomElement& element):Element(element,d_ele
   } catch (...) { clean(); throw; }
  }
 pcrxml::AreaMapDTD::AreaMapDTD():Element()
- ,rasterSpace(nullptr)
- ,rasterMask(nullptr)
+ 
  {
  }
 const std::string& pcrxml::AreaMapDTD::elementName() const

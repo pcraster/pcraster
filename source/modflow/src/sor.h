@@ -15,15 +15,15 @@ class SOR {
 
 private:
 
-  size_t           d_mxiter;
+  size_t           d_mxiter{0};
 
-  double           d_accl;
+  double           d_accl{-1.0};
 
-  double           d_hclose;
+  double           d_hclose{-1.0};
 
-  size_t           d_iprsor;
+  size_t           d_iprsor{0};
 
-  bool             d_updated;
+  bool             d_updated{true};
 
 public:
 

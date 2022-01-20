@@ -53,13 +53,13 @@ private:
   DataSpace        _space;
 
   //! Data set type.
-  DatasetType      _datasetType;
+  DatasetType      _datasetType{NR_DATASET_TYPES};
 
   //! Value type of the individual attribute values.
-  TypeId           _typeId;
+  TypeId           _typeId{TI_NR_TYPES};
 
   //! Value scale of attribute.
-  CSF_VS           _valueScale;
+  CSF_VS           _valueScale{VS_NOTDETERMINED};
 
   //! Name of driver that recognized the attribute.
   std::string      _driverName;

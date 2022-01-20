@@ -60,8 +60,8 @@ public:
 // DEFINITION OF DATATYPECHANGER MEMBERS
 //------------------------------------------------------------------------------
 
-calc::DataTypeChanger::DataTypeChanger():
-  d_nrChanges(0)
+calc::DataTypeChanger::DataTypeChanger()
+  
 {}
 
 

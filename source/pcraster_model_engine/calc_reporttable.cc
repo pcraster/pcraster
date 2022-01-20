@@ -41,8 +41,8 @@
 //------------------------------------------------------------------------------
 
 calc::ReportTable::ReportTable():
-  d_reportDefault(Report::reportDefault()),
-  d_reportFound(false)
+  d_reportDefault(Report::reportDefault())
+  
 {
 }
 

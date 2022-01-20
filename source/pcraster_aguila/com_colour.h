@@ -16,13 +16,13 @@ class com_Colour
 private:
 
   //! Value for red fraction of colour.
-  int              d_red;
+  int              d_red{0};
 
   //! Value for green fraction of colour.
-  int              d_green;
+  int              d_green{0};
 
   //! Value for blue fraction of colour.
-  int              d_blue;
+  int              d_blue{0};
 
 public:
 

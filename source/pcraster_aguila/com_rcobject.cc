@@ -15,7 +15,7 @@
 
 com::RCObject::RCObject()
 
-  : d_refCount(0), d_shareable(true)
+   
 
 {
 }

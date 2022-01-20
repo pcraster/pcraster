@@ -50,10 +50,7 @@ pcrxml::ParameterItem::ParameterItem(const QDomElement& element):Element(element
   } catch (...) { clean(); throw; }
  }
 pcrxml::ParameterItem::ParameterItem():Element()
- ,scriptLink(nullptr)
- ,numericInput(nullptr)
- ,fileInput(nullptr)
- ,showData(nullptr)
+ 
  {
  }
 const std::string& pcrxml::ParameterItem::elementName() const

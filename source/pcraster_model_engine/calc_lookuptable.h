@@ -153,8 +153,8 @@ public:
    typedef std::vector<RelationRecord>          Records;
    typedef Records::const_iterator              const_iterator;
 private:
-   detail::LookupTablePrefixMap                 *d_prefixMap;
-   detail::MemoryInputTableCreator              *d_memoryInputTableCreator;
+   detail::LookupTablePrefixMap                 *d_prefixMap{nullptr};
+   detail::MemoryInputTableCreator              *d_memoryInputTableCreator{nullptr};
    //! vs of each column
    std::vector<VS>                               d_vs;
 

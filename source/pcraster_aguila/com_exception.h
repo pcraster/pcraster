@@ -46,14 +46,14 @@ private:
 
 protected:
 
-  Errno       d_no;
+  Errno       d_no{E_NOSYSTEMMESSAGE};
 
   /*!
    * In order to link cppunit with catching of all exception both ctor and dtor
    * must be inline
    */
-  Exception   ():
-   d_no(E_NOSYSTEMMESSAGE) {};
+  Exception   ()
+   {};
 
 public:
 

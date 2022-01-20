@@ -29,11 +29,11 @@ class GeneralDataPropertiesWidgetPrivate
 {
 public:
 
-  QCheckBox*       d_show;
+  QCheckBox*       d_show{nullptr};
 
   GeneralDataPropertiesWidgetPrivate()
 
-    : d_show(nullptr)
+     
 
   {
   }

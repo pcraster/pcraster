@@ -90,9 +90,9 @@ template<class valueT=double, class sumT=long double>
 class SumNr: public Sum<valueT,sumT> {
 
 private:
-  size_t      d_nr;
+  size_t      d_nr{0};
 public:
-                   SumNr              (): d_nr(0) {};
+                   SumNr              () {};
   /* virtual */   ~SumNr              () {};
 
   void operator()(valueT value) {
@@ -263,7 +263,7 @@ class Variance2 {
 private:
 
   //! Number of values.
-  size_t           d_nr;
+  size_t           d_nr{};
 
   //! Sum of values.
   SumType          d_sumOfValues;
@@ -280,7 +280,7 @@ public:
   /*!
   */
                    Variance2()
-    : d_nr(), d_sumOfValues(), d_sumOfSquaredValues()
+    :  d_sumOfValues(), d_sumOfSquaredValues()
   {
   }
 

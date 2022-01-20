@@ -51,7 +51,7 @@ class FeaturePath
 private:
 
   //! Whether the path's contents are valid.
-  bool             _isValid;
+  bool             _isValid{false};
 
   //! Name of the data source.
   std::string      _source;

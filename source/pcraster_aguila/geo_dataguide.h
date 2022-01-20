@@ -47,13 +47,13 @@ private:
   com::RCPtr<com::RCSize_t> d_index;
 
   //! Generic pointer to the data, only used for addressing.
-  Address          d_address;
+  Address          d_address{nullptr};
 
   //! Type of data this guide points to.
-  DataType         d_type;
+  DataType         d_type{DT_INVALID};
 
   //! Valuescale of the data.
-  CSF_VS           d_valueScale;
+  CSF_VS           d_valueScale{VS_UNDEFINED};
 
 public:
 

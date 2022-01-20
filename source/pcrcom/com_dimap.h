@@ -63,19 +63,19 @@ class DiMap
 private:
 
   //! First double interval x boundary.
-  double           d_x1;
+  double           d_x1{0.0};
 
   //! Second double interval x boundary.
-  double           d_x2;
+  double           d_x2{1.0};
 
   //! First integer interval y boundary.
-  int              d_y1;
+  int              d_y1{0};
 
   //! Second integer interval y boundary.
-  int              d_y2;
+  int              d_y2{1};
 
   //! Conversion factor.
-  double           d_cnv;
+  double           d_cnv{1.0};
 
   //! Logarithmic scale?
   bool             d_log;

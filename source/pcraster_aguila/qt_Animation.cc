@@ -22,9 +22,7 @@
 qt::Animation::Animation()
 
   : QObject(),
-    d_first(0), d_last(0), d_stepInterval(0),
-    d_current(0), d_stepToProcess(0), d_interval(0),
-    d_loop(false), d_timer(new QTimer(this))
+     d_timer(new QTimer(this))
 
 {
   d_timer->setSingleShot(false);

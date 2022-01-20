@@ -58,10 +58,8 @@ public:
 //------------------------------------------------------------------------------
 
 //! ctor, as a static timer
-calc::Timer::Timer():
-  d_currentInt(0),
-  d_startInt(0),
-  d_lastInt(0)
+calc::Timer::Timer()
+  
 {
 }
 

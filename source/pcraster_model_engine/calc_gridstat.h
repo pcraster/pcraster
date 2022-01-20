@@ -56,8 +56,8 @@ public:
   // ACCESSORS
   //----------------------------------------------------------------------------
 
-  bool   d_minMaxSet;
-  double d_min,d_max;
+  bool   d_minMaxSet{false};
+  double d_min{0},d_max{0};
 
   void   merge(const GridStat& s);
 

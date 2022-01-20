@@ -77,10 +77,7 @@ static void findExtremes(
 */
 dal::Matrix::Matrix()
 
-  : Dataset(MATRIX),
-    d_nrRows(0), d_nrCols(0), d_typeId(TI_NR_TYPES),
-    d_ownership(TakeOwnership),
-    d_allMV(true), d_hasExtremes(false)
+  : Dataset(MATRIX) 
 
 {
 }

@@ -38,7 +38,7 @@ pcrxml::NonSpatial::NonSpatial(const QDomElement& element):Element(element,d_ele
   } catch (...) { clean(); throw; }
  }
 pcrxml::NonSpatial::NonSpatial():Element()
- ,dataTypeDTD(nullptr)
+ 
  {
  }
 const std::string& pcrxml::NonSpatial::elementName() const

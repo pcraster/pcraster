@@ -130,17 +130,8 @@ static ProgressCallBack defaultProgressCallBack;
  */
 calc::Script::Script():
     StatementBlock(generatedSymbol("script","script"),nullptr),
-    d_progressCallBack(&defaultProgressCallBack),
-    d_exitValueType(ALWAYS_0),
-    d_fileOutputStream(nullptr),
-    d_compression(false),
-    d_0compression(false),
-    d_exitVal(0),
-    d_writeEachTimeStep(false),
-    d_areaMask(nullptr),
-    d_compressor(nullptr),
-    d_aReportFound(false),
-    d_areaMap(nullptr)
+    d_progressCallBack(&defaultProgressCallBack)
+    
 {
  d_ioFieldStrategy = IoFieldStrategy::createOnGlobalOption();
  d_symTab          = new SymbolTable(nullptr);

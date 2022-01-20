@@ -42,7 +42,7 @@ class VoxelStack
 private:
 
   //! Z-coordinate of the base of the column of voxels.
-  REAL8            d_bottom;
+  REAL8            d_bottom{0.0};
 
   //! Column of voxels.
   std::vector<Voxel> d_column;

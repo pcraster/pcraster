@@ -186,7 +186,7 @@ class KeyValueTable
 
 private:
 
-  bool d_discardUnknownKeys;
+  bool d_discardUnknownKeys{false};
 
   //! keys added key -> value
   typedef std::map<std::string,std::string, com::StringLessNoCase > KeyValues;

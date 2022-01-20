@@ -20,15 +20,8 @@ SIP::~SIP(){
 /**
 * Constructor
 */
-SIP::SIP():
-  d_mxiter(0),
-  d_nparam(0),
-  d_accl(-1.0),
-  d_hclose(-1.0),
-  d_ipcalc(0),
-  d_wseed(-1.0),
-  d_iprsip(1),
-  d_updated(true){
+SIP::SIP()
+  {
 }
 
 

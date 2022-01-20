@@ -19,18 +19,8 @@ PCG::~PCG(){
 /**
 * Constructor
 */
-PCG::PCG() :
-  d_mxiter(0),
-  d_iteri(0),
-  d_npcond(0),
-  d_hclose(-1.0),
-  d_rclose(-1.0),
-  d_relax(-1.0),
-  d_nbpol(-1.0),
-  d_iprpcg(1),
-  d_mutpcg(3),  // append to pcrmf.lst only if convergence fails
-  d_damp(-1.0),
-  d_updated(true){
+PCG::PCG() 
+  {
 }
 
 

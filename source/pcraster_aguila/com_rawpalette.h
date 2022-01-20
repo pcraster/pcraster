@@ -33,7 +33,7 @@ private:
   std::vector<RgbTuple> d_tuples;
 
   //! Max value of the palette, inclusive e.g. 255 for byte rgb encodings
-  UINT2            d_max;
+  UINT2            d_max{0};
 
 public:
 

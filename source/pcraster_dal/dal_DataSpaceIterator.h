@@ -71,7 +71,7 @@ class PCR_DAL_DECL DataSpaceIterator
 private:
 
   //! Dataspace to iterate over.
-  DataSpace*       d_space;
+  DataSpace*       d_space{nullptr};
 
   //! Value of the iterator.
   DataSpaceAddress d_address;
@@ -80,10 +80,10 @@ private:
   std::vector<size_t> d_setIndices;
 
   //! Set to true when the end of the iterator range is reached.
-  bool             d_endReached;
+  bool             d_endReached{true};
 
   //! Set to true when the rend of the iterator range is reached.
-  bool             d_rendReached;
+  bool             d_rendReached{true};
 
   void             setToBegin          ();
 

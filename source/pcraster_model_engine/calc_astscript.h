@@ -74,44 +74,44 @@ private:
                    ASTScript               (const ASTScript& rhs);
 
   //! code of the model (initial and dynamic section)
-  ASTNode*         d_code;
+  ASTNode*         d_code{nullptr};
 
   //! cfg of code
-  CFGNode*         d_cfgCode;
+  CFGNode*         d_cfgCode{nullptr};
 
   //! cfg of body
   /*! body is areamap, timer, code
    */
-  CFGNode*         d_cfgBody;
+  CFGNode*         d_cfgBody{nullptr};
 
   /*!
    *  - initialized with --clone if present
    *  - overwritten if areamap section is parsed
    */
-  ASTId*           d_areaMap;
+  ASTId*           d_areaMap{nullptr};
 
   //! external timer, if present (not 0) it takens precedence over parsed timer
-  Timer*           d_externalTimer;
+  Timer*           d_externalTimer{nullptr};
 
 
   //! the parsed timer from script
   /*! if d_timerEnd and d_timerStep empty then d_timerStartOrTss is a tss
    */
-  ASTId           *d_timerStartOrTss, *d_timerEnd, *d_timerStep;
+  ASTId           *d_timerStartOrTss{nullptr}, *d_timerEnd{nullptr}, *d_timerStep{nullptr};
 
   //! does d_code contains a dynamic section?
-  bool             d_containsDynamicSection;
+  bool             d_containsDynamicSection{false};
 
   //! there are 1 or more statements prefixed by the report keyword
-  bool             d_hasStatementWithReportKeyword;
+  bool             d_hasStatementWithReportKeyword{false};
 
 
   //! a possible point code dll
-  PointCodeBlockDll* d_pointCodeBlockDll;
+  PointCodeBlockDll* d_pointCodeBlockDll{nullptr};
 
   RunTimeEnvSettings d_rteSettings;
 
-  bool             d_reportOnlyForXMLScriptOutput;
+  bool             d_reportOnlyForXMLScriptOutput{false};
 
   void             init             ();
   void             setAreaMapFromString(std::string const& value,

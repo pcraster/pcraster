@@ -48,7 +48,7 @@ private:
   //! Copy constructor. NOT IMPLEMENTED.
                    OpImplRedirect               (OpImplRedirect const& rhs);
 
-  const IOpImpl*   d_redirect;
+  const IOpImpl*   d_redirect{nullptr};
 
 public:
 

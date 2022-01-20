@@ -45,8 +45,8 @@
 // DEFINITION OF ICLIENTINTERFACE MEMBERS
 //------------------------------------------------------------------------------
 
-calc::IClientInterface::IClientInterface():
-  d_ci(nullptr)
+calc::IClientInterface::IClientInterface()
+  
 {
   TRY_ALL {
     d_ci = new ClientInterface();

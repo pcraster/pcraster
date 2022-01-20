@@ -41,11 +41,11 @@ class Timer
 private:
 
   //! 0 for initial section, > 0 for dynamic section
-  size_t           d_currentInt;
+  size_t           d_currentInt{0};
   //! the firststep to set of a dynamic model
-  size_t           d_startInt;
+  size_t           d_startInt{0};
   //! the last step to set, 0 means not a dynamic timer
-  size_t           d_lastInt;
+  size_t           d_lastInt{0};
 
   //  Assignment operator. DEFAULT
   // Timer&           operator=           (Timer const& rhs);

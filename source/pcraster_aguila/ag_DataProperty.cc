@@ -28,7 +28,7 @@
 
 ag::DataProperty::DataProperty()
 
-  : d_enabled(true), d_selected(false)
+   
 
 {
 }

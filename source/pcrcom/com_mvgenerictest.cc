@@ -8,16 +8,16 @@
 namespace com {
   namespace mvGenericTest {
     struct UP {
-     int sum;
-     UP():sum(0) {};
+     int sum{0};
+     UP() {};
      void  operator()(int v) {
        sum+=v;
      }
     };
     struct UPC {
      static int copyCount;
-     int sum;
-     UPC():sum(0) {
+     int sum{0};
+     UPC() {
          copyCount++;
      };
      void  operator()(int v) {
@@ -32,8 +32,8 @@ namespace com {
 
     struct MulSumOp {
      static int copyCount;
-     int sum;
-     MulSumOp():sum(0) {
+     int sum{0};
+     MulSumOp() {
          copyCount++;
      };
      void  operator()(INT4 e1, INT4 e2) {

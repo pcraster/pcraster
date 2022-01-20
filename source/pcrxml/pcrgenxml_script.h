@@ -95,9 +95,9 @@ public:
  //! attribute
  IoStrategy ioStrategy;
  //! child element
- IntegerTimer *integerTimer;
+ IntegerTimer *integerTimer{nullptr};
  //! child element
- ScriptData *scriptData;
+ ScriptData *scriptData{nullptr};
 };
 } // namespace
 

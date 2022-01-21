@@ -86,8 +86,8 @@ BOOST_AUTO_TEST_CASE(visit)
                   10,  // <4, >
                   4,   // <3,4]
                   5 }; // <4, >
-  for(size_t i=0; i < 4; ++i)
-    m.visit(val[i]);
+  for(double i : val)
+    m.visit(i);
 
   BOOST_CHECK(m.outside().count==1);       // 2
   BOOST_CHECK(m.outside().data[0]==2);     // 2

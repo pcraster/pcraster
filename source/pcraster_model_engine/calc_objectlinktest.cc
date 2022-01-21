@@ -168,8 +168,8 @@ BOOST_AUTO_TEST_CASE(testExec)
    BOOST_CHECK(f[0]->src_f()[0] == 10);
    BOOST_CHECK(f[0]->src_f()[1] == 20);
    BOOST_CHECK(f[0]->src_f()[2] == 5);
-   for (size_t i=0; i < f.size(); ++i)
-     delete f[i];
+   for (auto & i : f)
+     delete i;
  }
 
  bool catched=false;

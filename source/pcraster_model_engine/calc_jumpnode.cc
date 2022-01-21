@@ -131,8 +131,8 @@ void calc::JumpNode::deleteForwards(RunTimeEnv& rte) const
 {
     typedef std::set<std::string> S;
     S s(d_deletesOnForward);
-    for(auto i= s.begin(); i!=s.end(); ++i)
-      rte.deleteValue(*i);
+    for(const auto & i : s)
+      rte.deleteValue(i);
 }
 
 //------------------------------------------------------------------------------

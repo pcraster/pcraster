@@ -285,11 +285,11 @@ LegendView::LegendTuples LegendView::legendTuples(
 {
   LegendTuples result;
 
-  for(size_t i = 0; i < _legendTuples.size(); ++i) {
-    std::vector<DataGuide> const& guides(boost::get<0>(_legendTuples[i]));
+  for(auto & _legendTuple : _legendTuples) {
+    std::vector<DataGuide> const& guides(boost::get<0>(_legendTuple));
 
     if(std::find(guides.begin(), guides.end(), guide) != guides.end()) {
-      result.push_back(_legendTuples[i]);
+      result.push_back(_legendTuple);
     }
   }
 
@@ -306,8 +306,8 @@ std::vector<Legend*> LegendView::legends(
   std::vector<Legend*> result;
   LegendTuples tuples(legendTuples(guide));
 
-  for(size_t i = 0; i < tuples.size(); ++i) {
-    Legend* legend(boost::get<1>(tuples[i]));
+  for(auto & tuple : tuples) {
+    Legend* legend(boost::get<1>(tuple));
     result.push_back(legend);
   }
 
@@ -323,10 +323,10 @@ std::vector<DataGuide> const& LegendView::dataGuides(
 {
   std::vector<DataGuide> const* result = nullptr;
 
-  for(size_t i = 0; i < _legendTuples.size(); ++i) {
-    std::vector<DataGuide> const& guides(boost::get<0>(_legendTuples[i]));
+  for(const auto & _legendTuple : _legendTuples) {
+    std::vector<DataGuide> const& guides(boost::get<0>(_legendTuple));
 
-    if(legend == boost::get<1>(_legendTuples[i])) {
+    if(legend == boost::get<1>(_legendTuple)) {
       result = &guides;
     }
   }
@@ -401,20 +401,20 @@ void LegendView::recreateLegend(
     std::vector<size_t> legendIndices;
 
     // Loop over all (property, index) tuples.
-    for(size_t i = 0; i < drawPropertiesLegendIndexTuples.size(); ++i) {
+    for(auto & drawPropertiesLegendIndexTuple : drawPropertiesLegendIndexTuples) {
       // Find tuple who's properties corresponds with properties of current
       // data item, if present.
-      if(boost::get<0>(drawPropertiesLegendIndexTuples[i]) == properties) {
+      if(boost::get<0>(drawPropertiesLegendIndexTuple) == properties) {
         legendIndices.push_back(boost::get<1>(
-              drawPropertiesLegendIndexTuples[i]));
+              drawPropertiesLegendIndexTuple));
       }
     }
 
     if(!legendIndices.empty()) {
       // A legend for this guide has already been created using another guide.
-      for(size_t i = 0; i < legendIndices.size(); ++i) {
+      for(unsigned long legendIndice : legendIndices) {
         std::vector<DataGuide>& guides(boost::get<0>(
-              _legendTuples[legendIndices[i]]));
+              _legendTuples[legendIndice]));
 
         if(std::find(guides.begin(), guides.end(), guide) == guides.end()) {
           guides.push_back(guide);

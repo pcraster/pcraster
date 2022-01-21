@@ -73,9 +73,9 @@ std::vector<ArgOrderIdInfo> ArgOrderAndAddArea::initArgs(
   // the exec loop requires to have assignable always
   // here we check if there is something to assign
   std::vector<ArgOrderIdInfo> assignables;
-  for(auto a=args.begin(); a!=args.end(); ++a) {
-    if (a->areaLimit() >= 1)
-      assignables.push_back(*a);
+  for(const auto & arg : args) {
+    if (arg.areaLimit() >= 1)
+      assignables.push_back(arg);
   }
 
   if (!assignables.empty())
@@ -86,8 +86,8 @@ std::vector<ArgOrderIdInfo> ArgOrderAndAddArea::initArgs(
   for(CellIndex c=0; c < len; ++c) {
    result[c]=0;
    // check if some are MV
-   for(auto a=args.begin(); a!=args.end(); ++a)
-     if (pcr::isMV(a->chance()[c])) {
+   for(const auto & arg : args)
+     if (pcr::isMV(arg.chance()[c])) {
        pcr::setMV(result[c]);
        break;
      }
@@ -217,8 +217,8 @@ void ArgOrderAndAddArea::argOrderAddAreaLimited(
  std::vector<ArgOrderIdInfo> argVector =initArgs(argsIn,result,len);
  typedef std::map<UINT4, ArgOrderIdInfo> ArgMap;
  ArgMap args;
- for(size_t i=0; i < argVector.size(); ++i)
-   args.insert(std::make_pair(argVector[i].id(),argVector[i]));
+ for(auto & i : argVector)
+   args.insert(std::make_pair(i.id(),i));
 
  if (args.empty()) {
    // done, result set in initArgs
@@ -262,14 +262,14 @@ void ArgOrderAndAddArea::argOrderAddAreaLimited(
    ArgOrderIdInfo* maxArg=nullptr;
    auto maxCell=cellsToSort.end();
    for(auto cellIter=findStart; cellIter != cellsToSort.end(); ++cellIter) {
-    for(auto argIter=args.begin(); argIter!=args.end(); ++argIter) {
+    for(auto & arg : args) {
        // MV's already skipped at initialisation
-       if (argIter->second.chance()[*cellIter] > maxValue) {
+       if (arg.second.chance()[*cellIter] > maxValue) {
         // larger value found
-        if (argIter->second.areaLimit() >  argIter->second.areaAssigned()) {
+        if (arg.second.areaLimit() >  arg.second.areaAssigned()) {
          // areaLimit not yet reached
-         maxArg  =&(argIter->second);
-         maxValue=argIter->second.chance()[*cellIter];
+         maxArg  =&(arg.second);
+         maxValue=arg.second.chance()[*cellIter];
          maxCell =cellIter;
         }
        }
@@ -300,9 +300,9 @@ void ArgOrderAndAddArea::argOrderAddAreaLimited(
   cellsTakenNow=0;
   // for(CellIndex c=0; c < len; ++c)
   //   std::cerr << result << "[" << c << "]= " << result[c] << "\n";
-  for(auto argIter=args.begin(); argIter!=args.end(); ++argIter) {
-    cellsTakenNow+=argIter->second.areaTaken();
-    argIter->second.resetForSweep();
+  for(auto & arg : args) {
+    cellsTakenNow+=arg.second.areaTaken();
+    arg.second.resetForSweep();
   }
 
  } // eowhile claims

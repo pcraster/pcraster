@@ -51,8 +51,8 @@ calc::LookupTableParameter::LookupTableParameter(
 
 calc::LookupTableParameter::~LookupTableParameter()
 {
-  for(size_t i=0; i < d_vals.size(); i++)
-    delete d_vals[i];
+  for(auto & d_val : d_vals)
+    delete d_val;
 }
 
 class calc::LookupTable *calc::LookupTableParameter::value(size_t i)

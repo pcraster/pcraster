@@ -54,8 +54,8 @@ calc::TssOutputParameter::TssOutputParameter(
 
 calc::TssOutputParameter::~TssOutputParameter()
 {
-  for(size_t i=0; i < d_value.size(); i++)
-    delete d_value[i];
+  for(auto & i : d_value)
+    delete i;
 }
 
 //! returns the field value scale of tss result

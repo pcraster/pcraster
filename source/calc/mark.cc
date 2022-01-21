@@ -107,10 +107,10 @@ static int MarkWhileSum(
   std::sort(points.begin(),points.end(),CmpSortKey());
 
   UINT1  mark=1;
-  for(size_t i=0; i < points.size(); i++) {
-    geo::CellLoc c(points[i].cellLoc());
+  for(auto & point : points) {
+    geo::CellLoc c(point.cellLoc());
     if (mark) {
-     mark = markCondition->mark(points[i].amount());
+     mark = markCondition->mark(point.amount());
     }
     // std::cout << c << " " << (int)mark << "\n";
     result.put(mark,c);

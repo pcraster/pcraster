@@ -54,7 +54,7 @@ pcrxml::VisualisationConfiguration::~VisualisationConfiguration()
 //! clean
 void pcrxml::VisualisationConfiguration::clean()
 {
- for(size_t i=0; i<visualisationGroup.size(); i++) delete visualisationGroup[i];
+ for(auto & i : visualisationGroup) delete i;
 visualisationGroup.clear();
 }
 //! copy ctor
@@ -65,7 +65,7 @@ pcrxml::Element(src)
 ,cwd(src.cwd)
 ,os(src.os)
 {
- for(size_t i=0; i<src.visualisationGroup.size(); i++) visualisationGroup.push_back(new VisualisationGroup(*(src.visualisationGroup[i])));
+ for(auto i : src.visualisationGroup) visualisationGroup.push_back(new VisualisationGroup(*i));
 }
 //! assignment operator
 pcrxml::VisualisationConfiguration& pcrxml::VisualisationConfiguration::operator=(const VisualisationConfiguration& src)
@@ -73,7 +73,7 @@ pcrxml::VisualisationConfiguration& pcrxml::VisualisationConfiguration::operator
  if(this != &src)
  {
    clean(); PRECOND(false);
-  for(size_t i=0; i<src.visualisationGroup.size(); i++) visualisationGroup.push_back(new VisualisationGroup(*(src.visualisationGroup[i])));
+  for(auto i : src.visualisationGroup) visualisationGroup.push_back(new VisualisationGroup(*i));
  }
 return *this;
 }
@@ -83,5 +83,5 @@ void pcrxml::VisualisationConfiguration::fill(QDomElement el) const
  version.addToElement(el,"version");
  cwd.addToElement(el,"cwd");
  os.addToElement(el,"os");
- for(size_t i=0; i<visualisationGroup.size(); i++) visualisationGroup[i]->appendTo(el);
+ for(auto i : visualisationGroup) i->appendTo(el);
 }

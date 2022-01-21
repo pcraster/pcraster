@@ -251,8 +251,8 @@ calc::ASTNode* calc::ASTTestFactory::createCode(
     case 'l': {
               auto *l = new ASTNodeVector();
               std::vector<QDomElement> c(pcrxml::childElements(e));
-              for(size_t i=0; i<c.size(); ++i)
-                l->transferPushBack(createCode(c[i]));
+              for(auto & i : c)
+                l->transferPushBack(createCode(i));
               n=l;
               } break;
     case 'e': {
@@ -261,16 +261,16 @@ calc::ASTNode* calc::ASTTestFactory::createCode(
        std::string a(optAttr(e,"a",""));
        com::removeAllSpace(a);
        std::vector<std::string> args(com::split(a,','));
-       for(size_t i=0; i < args.size(); ++i) {
-         if (com::isDouble(args[i]))
-           expr->transferArg(createNumber(args[i]));
+       for(auto & arg : args) {
+         if (com::isDouble(arg))
+           expr->transferArg(createNumber(arg));
          else
-           expr->transferArg(createPar(args[i]));
+           expr->transferArg(createPar(arg));
        }
        // rest of arguments as elements
        std::vector<QDomElement> c(pcrxml::childElements(e));
-       for(size_t i=0; i<c.size(); ++i)
-         expr->transferArg(createCode(c[i]));
+       for(auto & i : c)
+         expr->transferArg(createCode(i));
        n=expr;
        break;
     }

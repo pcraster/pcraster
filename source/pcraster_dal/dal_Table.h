@@ -1317,8 +1317,8 @@ inline std::string const& Table::title(size_t col) const
 */
 inline void Table::setTypeIds(TypeId typeId)
 {
-  for(size_t col = 0; col < d_typeIds.size(); ++col) {
-    d_typeIds[col] = typeId;
+  for(auto & d_typeId : d_typeIds) {
+    d_typeId = typeId;
   }
 }
 

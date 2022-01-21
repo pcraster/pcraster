@@ -135,13 +135,13 @@ void calc::areaOrderOperation(
 
   INT4   prevClass=MV_INT4;
   REAL4  orderNr=1;
-  for(size_t i=0; i < order.size(); ++i) {
+  for(unsigned long i : order) {
     assert(order[i] < len);
-    if (areaClass[order[i]] != prevClass) {
+    if (areaClass[i] != prevClass) {
       orderNr=1;
     }
-    res[order[i]]=orderNr;
+    res[i]=orderNr;
     orderNr += 1;
-    prevClass=areaClass[order[i]];
+    prevClass=areaClass[i];
   }
 }

@@ -554,10 +554,10 @@ void com::convert(const RawPalette &p, UINT2 max, UINT2 *a)
 
 void com::write(std::ostream &s, const RawPalette &p)
 {
-  for(auto it = p.begin(); it != p.end(); it++)
+  for(const auto & it : p)
   {
-    s << (*it).red() << ' ' << (*it).green() << ' '
-      << (*it).blue() << std::endl;
+    s << it.red() << ' ' << it.green() << ' '
+      << it.blue() << std::endl;
   }
 }
 

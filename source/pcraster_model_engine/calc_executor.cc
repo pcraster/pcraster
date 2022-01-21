@@ -111,8 +111,8 @@ calc::Executor::Executor(
   d_progressInfo->inStatementLineNr=0;
 
   // will load data table
-  for( ASTSymbolTable::const_iterator i=table.begin(); i!=table.end(); ++i)
-      d_rte.load(i->second);
+  for(const auto & i : table)
+      d_rte.load(i.second);
 }
 
 calc::Executor::~Executor()

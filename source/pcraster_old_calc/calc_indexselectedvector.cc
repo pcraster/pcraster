@@ -58,8 +58,8 @@ std::string calc::IndexSelectedVector::selectedName() const
 {
   std::string str = "";
   std::vector<size_t> ind(size());
-  for(size_t i=0; i < d_vector.size(); i++)
-    str += "["+d_vector[i]->indexParameterConstant()->name() + "]";
+  for(auto i : d_vector)
+    str += "["+i->indexParameterConstant()->name() + "]";
   return str;
 }
 //! name of current invocation
@@ -67,8 +67,8 @@ std::string calc::IndexSelectedVector::variableName() const
 {
   std::string str = "";
   std::vector<size_t> ind(size());
-  for(size_t i=0; i < d_vector.size(); i++)
-    str += "["+d_vector[i]->name() + "]";
+  for(auto i : d_vector)
+    str += "["+i->name() + "]";
   return str;
 }
 

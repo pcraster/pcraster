@@ -35,8 +35,8 @@ BOOST_AUTO_TEST_CASE(testSimple)
 
   UINT1 lddField[3]={6,5,4}; // -> P <-
 
-  for (size_t i=0; i<2; ++i) {
-    LddGraph ld(lddField,*conv[i]);
+  for (auto & i : conv) {
+    LddGraph ld(lddField,*i);
 
     BOOST_CHECK(ld.d_catchments.size()==1);
     BOOST_CHECK(ld.d_catchments[0].d_pitId    ==1);

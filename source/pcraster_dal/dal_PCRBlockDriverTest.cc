@@ -142,8 +142,8 @@ BOOST_AUTO_TEST_CASE(read_)
 
       BOOST_CHECK_EQUAL(stack.size(), i);
 
-      for(size_t j = 0; j < stack.size(); ++j) {
-        BOOST_CHECK(dal::comparable(stack[j], REAL4(i)));
+      for(float & j : stack) {
+        BOOST_CHECK(dal::comparable(j, REAL4(i)));
       }
     }
 

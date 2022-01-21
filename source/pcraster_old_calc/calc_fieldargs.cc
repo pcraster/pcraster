@@ -37,8 +37,8 @@
  */
 void calc::cleanUp(const FieldExprArgs&  argsVect)
 {
-  for(size_t i=0; i< argsVect.size(); i++)
-    delete argsVect[i];
+  for(auto i : argsVect)
+    delete i;
 }
 
 /*!
@@ -48,8 +48,8 @@ void calc::cleanUp(const FieldExprArgs&  argsVect)
  */
 void calc::cleanUp(FieldExprArgs&  argsVect)
 {
-  for(size_t i=0; i< argsVect.size(); i++)
-    delete argsVect[i];
+  for(auto & i : argsVect)
+    delete i;
   argsVect.resize(0);
 }
 

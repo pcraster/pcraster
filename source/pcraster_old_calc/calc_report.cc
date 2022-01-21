@@ -54,8 +54,7 @@ calc::ReportDefinition::ReportDefinition(const calc::Symbol& s,const std::vector
   // set the report for static model
   d_reportAt[0]=false;
 
-  for(size_t l=0; l < list.size(); l++) {
-    ParsReportMoment m = list[l];
+  for(auto m : list) {
     int i;
     if (m.start > endTime) // single or range outside 1..endTime
       continue; // do not add

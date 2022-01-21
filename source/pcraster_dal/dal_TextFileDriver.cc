@@ -97,9 +97,9 @@ void dal::TextFileDriver::determineTypeId(
 {
   TypeId ti = TI_NR_TYPES;
 
-  for(size_t row = 0; row < rows.size(); ++row) {
+  for(const auto & row : rows) {
 
-    determineTypeId(rows[row], ti);
+    determineTypeId(row, ti);
 
     if(typeId == TI_NR_TYPES) {
       // No valid type id stored yet.
@@ -126,9 +126,9 @@ void dal::TextFileDriver::determineTypeId(
          std::vector<std::string> const& row,
          TypeId& typeId) const
 {
-  for(size_t col = 0; col < row.size(); ++col) {
+  for(const auto & col : row) {
 
-    TypeId ti = d_types.idOfSmallestType(row[col]);
+    TypeId ti = d_types.idOfSmallestType(col);
 
     if(typeId == TI_NR_TYPES) {
       // No valid type id stored yet.
@@ -152,9 +152,9 @@ void dal::TextFileDriver::determineTypeIds(
 {
   std::fill(typeIds.begin(), typeIds.end(), TI_NR_TYPES);
 
-  for(size_t rec = 0; rec < records.size(); ++rec) {
+  for(const auto & record : records) {
 
-    determineTypeIds(records[rec], typeIds);
+    determineTypeIds(record, typeIds);
 
     if(std::find(typeIds.begin(), typeIds.end(), TI_NR_TYPES) !=
        typeIds.end()) {

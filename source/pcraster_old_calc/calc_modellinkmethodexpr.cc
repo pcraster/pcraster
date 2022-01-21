@@ -140,8 +140,8 @@ void calc::ModelLinkMethodExpr::buildTypes()
 void calc::ModelLinkMethodExpr::buildTypesRecursive(VS resultVsSet)
 {
   PRECOND(resultVsSet != VS_UNKNOWN);
-  for(size_t i = 0; i < d_args.size(); i++)
-    d_args[i]->buildTypesRecursive(vs());
+  for(auto d_arg : d_args)
+    d_arg->buildTypesRecursive(vs());
   buildTypes();
 }
 

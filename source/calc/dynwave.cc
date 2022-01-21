@@ -266,9 +266,9 @@ extern "C" int DynamicWave(
   double iterationTime= timeStepInSeconds/nrTimeSlices; //[sec]
 
   for(size_t slice=0;slice<nrTimeSlices;slice++)
-  for(size_t catchment=0; catchment<catchmentOutlets.size(); catchment++)
+  for(auto & catchmentOutlet : catchmentOutlets)
   // WPA 2.1
-  for(calc::DownStreamVisitor v(ldd,catchmentOutlets[catchment]);v.valid();++v){
+  for(calc::DownStreamVisitor v(ldd,catchmentOutlet);v.valid();++v){
     geo::CellLoc  c=*v; // current cell
     if (resultQ.isMV(c)) // marked as MV if some inputs is MV
       break;

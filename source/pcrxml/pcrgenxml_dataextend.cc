@@ -52,7 +52,7 @@ pcrxml::DataExtend::~DataExtend()
 //! clean
 void pcrxml::DataExtend::clean()
 {
- for(size_t i=0; i<coefficient.size(); i++) delete coefficient[i];
+ for(auto & i : coefficient) delete i;
 coefficient.clear();
 }
 //! copy ctor
@@ -60,7 +60,7 @@ pcrxml::DataExtend::DataExtend(const DataExtend& src):
 pcrxml::Element(src)
 ,migrationDirection(src.migrationDirection)
 {
- for(size_t i=0; i<src.coefficient.size(); i++) coefficient.push_back(new Coefficient(*(src.coefficient[i])));
+ for(auto i : src.coefficient) coefficient.push_back(new Coefficient(*i));
 }
 //! assignment operator
 pcrxml::DataExtend& pcrxml::DataExtend::operator=(const DataExtend& src)
@@ -68,12 +68,12 @@ pcrxml::DataExtend& pcrxml::DataExtend::operator=(const DataExtend& src)
  if(this != &src)
  {
    clean(); PRECOND(false);
-  for(size_t i=0; i<src.coefficient.size(); i++) coefficient.push_back(new Coefficient(*(src.coefficient[i])));
+  for(auto i : src.coefficient) coefficient.push_back(new Coefficient(*i));
  }
 return *this;
 }
 void pcrxml::DataExtend::fill(QDomElement el) const
 {
  migrationDirection.addToElement(el,"migrationDirection");
- for(size_t i=0; i<coefficient.size(); i++) coefficient[i]->appendTo(el);
+ for(auto i : coefficient) i->appendTo(el);
 }

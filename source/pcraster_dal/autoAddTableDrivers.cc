@@ -6,16 +6,16 @@
       QStringList list = QSqlDatabase::drivers();
 
       // First add dbms specific drivers.
-      for(QStringList::Iterator it = list.begin(); it != list.end(); ++it) {
-        if(*it != "QODBC3") {
-          autoAddDriver(new SQLTableDriver((*it).toUtf8().constData()));
+      for(auto & it : list) {
+        if(it != "QODBC3") {
+          autoAddDriver(new SQLTableDriver(it.toUtf8().constData()));
         }
       }
 
       // Than the odbc driver, if available.
-      for(QStringList::Iterator it = list.begin(); it != list.end(); ++it) {
-        if(*it == "QODBC3") {
-          autoAddDriver(new SQLTableDriver((*it).toUtf8().constData()));
+      for(auto & it : list) {
+        if(it == "QODBC3") {
+          autoAddDriver(new SQLTableDriver(it.toUtf8().constData()));
         }
       }
     }

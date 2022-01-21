@@ -21,8 +21,8 @@ calc::TssInputParameter::TssInputParameter(
 
 calc::TssInputParameter::~TssInputParameter()
 {
-  for(size_t i=0; i< d_vals.size(); i++)
-    delete d_vals[i];
+  for(auto & d_val : d_vals)
+    delete d_val;
 }
 
 calc::TimeTable *calc::TssInputParameter::value(size_t i)

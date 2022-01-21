@@ -167,8 +167,8 @@ void calc::execPCB(
   auto func=(DllFunction)dllFunctionAddress;
 
   size_t nrValues=1;
-  for(size_t i=0; i < data.size(); ++i)
-    nrValues = std::max<>(nrValues,data[i]->field()->nrValues());
+  for(auto & i : data)
+    nrValues = std::max<>(nrValues,i->field()->nrValues());
 
   std::vector<CellPtr> cp(data.size());
 

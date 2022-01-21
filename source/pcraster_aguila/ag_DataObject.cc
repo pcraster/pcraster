@@ -118,8 +118,8 @@ DataObject::~DataObject()
 {
   delete d_data;
 
-  for(size_t i = 0; i < d_palettesFromXML.size(); ++i) {
-    delete d_palettesFromXML[i];
+  for(auto & i : d_palettesFromXML) {
+    delete i;
   }
 }
 
@@ -165,9 +165,7 @@ void DataObject::read()
     dal::DataSpaceAddress address(dataSpaceAddress());
 
     // Loop over all scenarios.
-    for(size_t i = 0; i < scenarios.size(); ++i) {
-      std::string const& scenario(scenarios[i]);
-
+    for(const auto & scenario : scenarios) {
       address.setCoordinate<std::string>(index, scenario);
 
       tableDataSources().read(dataSpace(), address);
@@ -461,8 +459,8 @@ dal::DataSpace DataObject::dataSpace(
 {
   dal::DataSpace result;
 
-  for(size_t i = 0; i < guides.size(); ++i) {
-    result |= dataSpace(guides[i]);
+  for(const auto & guide : guides) {
+    result |= dataSpace(guide);
   }
 
   return result;
@@ -1381,13 +1379,12 @@ void DataObject::setSelected(
 {
   bool changed = false;
 
-  for(auto it = guides.begin();
-         it != guides.end(); ++it) {
+  for(const auto & guide : guides) {
 
     assert(isValid(*it));
 
-    if(d_data->d_properties.isSelected(*it) != selected) {
-      d_data->d_properties.setSelected(*it, selected);
+    if(d_data->d_properties.isSelected(guide) != selected) {
+      d_data->d_properties.setSelected(guide, selected);
       changed = true;
     }
   }
@@ -1496,11 +1493,11 @@ void DataObject::setXML(
      std::unique_ptr<com::RawPalette> palette(new com::RawPalette());
      palette->setMaximum(255);
      pcrxml::Palette const &xp(dp.palette().get());
-     for(size_t i=0; i < xp.rgb().size(); ++i) {
+     for(const auto & i : xp.rgb()) {
        palette->insert(palette->end(), com::RgbTuple(
-         xp.rgb()[i].r(),
-         xp.rgb()[i].g(),
-         xp.rgb()[i].b()));
+         i.r(),
+         i.g(),
+         i.b()));
      }
 
      d_palettesFromXML.push_back(palette.release());
@@ -2246,10 +2243,10 @@ void DataObject::localStepMappings(
     dal::Dimension const& mainDimension(dataSpace().dimension(i));
 
     // Loop over all data guides.
-    for(size_t j = 0; j < guides.size(); ++j) {
+    for(auto & guide : guides) {
 
       // Analyse data set data space.
-      dal::DataSpace const& space(dataSpace(guides[j]));
+      dal::DataSpace const& space(dataSpace(guide));
 
       size_t dimensionId = space.indexOf(mainDimension);
 
@@ -2260,7 +2257,7 @@ void DataObject::localStepMappings(
         if(mainDimension.meaning() == dal::Time) {
           auto const* mapper =
               dynamic_cast<dal::TimeStepMapper const*>(
-                   localToWorldMapper(guides[j]).mapper(dimensionId));
+                   localToWorldMapper(guide).mapper(dimensionId));
 
           if(mapper) {
             // Possibly zero!
@@ -2277,7 +2274,7 @@ void DataObject::localStepMappings(
 
               auto const* mapper =
                    dynamic_cast<dal::SpaceStepMapper const*>(
-                   localToWorldMapper(guides[j]).mapper(dimensionId));
+                   localToWorldMapper(guide).mapper(dimensionId));
 
               if(mapper) {
                 // Possibly zero!
@@ -2394,8 +2391,8 @@ void DataObject::setGlobalToWorldMappers(
   for(size_t i = 0; i < dataSpace().rank(); ++i) {
     dal::Dimension const& mainDimension(dataSpace().dimension(i));
 
-    for(size_t j = 0; j < guides.size(); ++j) {
-      dal::DataSpace const& space(dataSpace(guides[j]));
+    for(auto & guide : guides) {
+      dal::DataSpace const& space(dataSpace(guide));
       size_t dimensionId = space.indexOf(mainDimension);
 
       if(dimensionId != space.rank()) {
@@ -2405,10 +2402,10 @@ void DataObject::setGlobalToWorldMappers(
         if(mainDimension.meaning() == dal::Time) {
           auto const* mapper =
               dynamic_cast<dal::TimeStepMapper const*>(
-                   localToWorldMapper(guides[j]).mapper(dimensionId));
+                   localToWorldMapper(guide).mapper(dimensionId));
 
           if(mapper) {
-            globalToLocalMapper(guides[j]).setMapper(dimensionId,
+            globalToLocalMapper(guide).setMapper(dimensionId,
               new dal::StepCoordinateMapper(timeStepMappers[t++],
                    dal::UsePrevious));
           }
@@ -2422,10 +2419,10 @@ void DataObject::setGlobalToWorldMappers(
 
               auto const* mapper =
                    dynamic_cast<dal::SpaceStepMapper const*>(
-                        localToWorldMapper(guides[j]).mapper(dimensionId));
+                        localToWorldMapper(guide).mapper(dimensionId));
 
               if(mapper) {
-                globalToLocalMapper(guides[j]).setMapper(dimensionId,
+                globalToLocalMapper(guide).setMapper(dimensionId,
                   new dal::StepCoordinateMapper(spaceStepMappers[s++],
                         dal::SetToMissingValue));
               }

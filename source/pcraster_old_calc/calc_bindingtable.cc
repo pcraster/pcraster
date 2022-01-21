@@ -91,17 +91,15 @@ std::vector<calc::UserSymbol *>
     StatementBlock *block)
 {
   std::vector<UserSymbol *> newPars;
-  for(auto i=d_table.begin(); 
-      i!=d_table.end(); ++i) {
-    const Right& r(i->second);
+  for(auto & i : d_table) {
+    const Right& r(i.second);
     if (r.d_value.isNumber()) {
       newPars.push_back(
-       new FieldNrParameter(UsePar(block,i->first), r.d_value.toNumber(),r.d_vs));
+       new FieldNrParameter(UsePar(block,i.first), r.d_value.toNumber(),r.d_vs));
     }
   }
-  for(auto i=newPars.begin(); 
-      i!=newPars.end(); ++i)
-       d_table.erase(**i);
+  for(auto & newPar : newPars)
+       d_table.erase(*newPar);
   return newPars;
 }
 

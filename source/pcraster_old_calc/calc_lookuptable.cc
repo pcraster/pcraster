@@ -99,9 +99,9 @@ calc::LookupTable::LookupTable(
     d_keyVs.push_back(t.d_keyVs[k]);
     keep.push_back(k);
   }
-  for(size_t i=0; i < t.d_records.size(); ++i)
-    if (t.d_records[i].match(remove,filterKeys))
-      d_records.push_back(LookupRecord(t.d_records[i],keep));
+  for(const auto & d_record : t.d_records)
+    if (d_record.match(remove,filterKeys))
+      d_records.push_back(LookupRecord(d_record,keep));
 }
 
 //! parse records from ASCII file
@@ -143,8 +143,8 @@ calc::LookupTable::~LookupTable()
 calc::LookupRecord::LookupRecord(const Key& key, double result):
   d_result(result)
 {
-  for(size_t k=0; k < key.size(); k++) {
-    d_key.push_back(key[k]->createClone());
+  for(auto k : key) {
+    d_key.push_back(k->createClone());
   }
 }
 
@@ -154,8 +154,8 @@ calc::LookupRecord::LookupRecord(
     const std::vector<size_t>& select):
   d_result(l.d_result)
 {
-  for(size_t k=0; k < select.size(); k++) {
-    d_key.push_back(l.d_key[select[k]]->createClone());
+  for(unsigned long k : select) {
+    d_key.push_back(l.d_key[k]->createClone());
   }
 }
 

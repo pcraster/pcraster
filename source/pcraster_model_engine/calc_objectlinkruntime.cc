@@ -108,8 +108,8 @@ void calc::execObjectLinkMethod(
       deleteFromPcrme(data[in]);
 
     } catch (...) {
-      for (size_t i=0;i < data.size(); ++i)
-        deleteFromPcrme(data[i]);
+      for (auto & i : data)
+        deleteFromPcrme(i);
       throw;
     }
   } catch (const std::out_of_range& ) {

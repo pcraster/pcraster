@@ -128,9 +128,9 @@ void calc::AverageMap::setResults(double *res, size_t nrVals) const
 
 void calc::AreaAverageMap::setResults(double *res, INT4 nrVals) const
 {
- for(auto i=begin(); i!=end();++i) {
-   if(i->first > 0 && i->first <= nrVals)
-      res[i->first-1]=i->second.average(); // id 1 at col 0
+ for(const auto & i : *this) {
+   if(i.first > 0 && i.first <= nrVals)
+      res[i.first-1]=i.second.average(); // id 1 at col 0
  }
 }
 

@@ -252,8 +252,8 @@ namespace calc {
   class ParPCBVector: public std::vector<ParPCB *> {
   public:
     ~ParPCBVector() {
-      for(auto i=begin();i!=end();++i)
-        delete (*i);
+      for(auto & i : *this)
+        delete i;
     }
   };
 }
@@ -266,9 +266,7 @@ void calc::PointCodeBlock::exec(RunTimeEnv& rte)
   ParSet set(transfer());
 
 
-  for(auto i=set.begin(); i!=set.end(); ++i) {
-    ASTPar* p(*i);
-
+  for(auto p : set) {
     // add new, incr size
     vector.push_back(new ParPCB());
     ParPCB& pcb(*(vector.back()));

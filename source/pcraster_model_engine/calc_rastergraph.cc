@@ -112,8 +112,8 @@ size_t calc::RasterGraph::nrVertices() const
 void calc::RasterGraph::unsetMVField(BitField& mvField) const
 {
   PRECOND(mvField.size()==nrVertices());
-  for(size_t i=0;i<d_mv.size(); ++i)
-    mvField[d_mv[i]]=false;
+  for(unsigned long i : d_mv)
+    mvField[i]=false;
 }
 
 /*!
@@ -126,8 +126,8 @@ void calc::RasterGraph::initField(D *f, const S& value) const
 {
   for(size_t i=0;i<d_nrVertices; ++i)
     f[i]=(D)value;
-  for(size_t i=0;i<d_mv.size(); ++i)
-    pcr::setMV(f[d_mv[i]]);
+  for(unsigned long i : d_mv)
+    pcr::setMV(f[i]);
 }
 
 /*!
@@ -140,8 +140,8 @@ void calc::RasterGraph::copyField(D *dest, const S* src) const
 {
   for(size_t i=0;i<d_nrVertices; ++i)
     dest[i]=(D)src[i];
-  for(size_t i=0;i<d_mv.size(); ++i)
-    pcr::setMV(dest[d_mv[i]]);
+  for(unsigned long i : d_mv)
+    pcr::setMV(dest[i]);
 }
 
 /*

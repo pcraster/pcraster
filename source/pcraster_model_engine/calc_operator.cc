@@ -114,10 +114,10 @@ calc::Operator::Operator(
     d_objectLinkFactory(objectLinkFactory),
     d_commutative(false)
 {
-  for(size_t i=0; i < result.size(); ++i)
-    pushBackResult(result[i].vs,result[i].st);
-  for(size_t i=0; i < input.size(); ++i)
-    pushBackInput(input[i].vs,input[i].st,false);
+  for(auto i : result)
+    pushBackResult(i.vs,i.st);
+  for(auto i : input)
+    pushBackInput(i.vs,i.st,false);
 }
 
 //! ctor for LinkInLibrary operators
@@ -242,8 +242,8 @@ std::string calc::Operator::syntax() const
 size_t calc::Operator::firstFieldInput() const
 {
   size_t firstFieldInput(0);
-  for (size_t i=0; i < d_inputs.size(); ++i) {
-    if (isIn(d_inputs[i].vs(),VS_FIELD))
+  for (const auto & d_input : d_inputs) {
+    if (isIn(d_input.vs(),VS_FIELD))
       break;
     firstFieldInput++;
   }

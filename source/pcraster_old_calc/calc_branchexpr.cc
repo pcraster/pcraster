@@ -130,9 +130,9 @@ void calc::BranchExpr::buildTypes()
       Args newArgs(nrArgs());
       size_t pos=0;
       bool order[2] = { false, true }; // first non-spatial then spatials
-      for(size_t o=0; o<2; o++)
+      for(bool o : order)
        for(size_t i=0; i < nrArgs(); i++)
-        if (args[i]->spatial() == order[o])
+        if (args[i]->spatial() == o)
          newArgs[pos++] = args[i];
       POSTCOND(pos == nrArgs());
       args = newArgs;

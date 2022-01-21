@@ -272,10 +272,10 @@ inline boost::tuple<bool, FilenameConvention, std::string>
   }
 
   // Check convention with extension.
-  for(size_t i = 0; i < extensions.size(); ++i) {
-    if(callBack(pathForDataSpaceAddress(name + extensions[i], space,
+  for(const auto & extension : extensions) {
+    if(callBack(pathForDataSpaceAddress(name + extension, space,
          address, DALConvention).string())) {
-      return boost::make_tuple(true, DALConvention, extensions[i]);
+      return boost::make_tuple(true, DALConvention, extension);
     }
   }
 
@@ -292,11 +292,11 @@ inline boost::tuple<bool, FilenameConvention, std::string>
     }
 
     // Check convention with extension.
-    for(size_t i = 0; i < extensions.size(); ++i) {
-      if(space.hasTime() && extensions[i].size() < 4) {
-        if(callBack(pathForDataSpaceAddress(name + extensions[i], space,
+    for(const auto & extension : extensions) {
+      if(space.hasTime() && extension.size() < 4) {
+        if(callBack(pathForDataSpaceAddress(name + extension, space,
              address, PCRConvention).string())) {
-          return boost::make_tuple(true, PCRConvention, extensions[i]);
+          return boost::make_tuple(true, PCRConvention, extension);
         }
       }
     }

@@ -187,10 +187,10 @@ void calc::EffectiveBindings::overwrite(
  const ASTNodeVector& e)
 {
  ASTNodeVector l;
- for(auto i=begin(); i!=end(); ++i)
-   l.transferPushBack((*i)->createClone());
- for(auto i=e.begin(); i!=e.end(); ++i)
-   l.transferPushBack((*i)->createClone());
+ for(auto i : *this)
+   l.transferPushBack(i->createClone());
+ for(auto i : e)
+   l.transferPushBack(i->createClone());
  clear();
  addLastDefinition(l);
 }

@@ -130,10 +130,10 @@ BOOST_AUTO_TEST_CASE(from_lookup_table_key_wrong_format)
     "[1, 1>", // <- low is larger than high
     "<1, 1]", // <- low is larger than high
   };
-  for (size_t i=0; i< ARRAY_SIZE(fmts); i++) {
+  for (auto & fmt : fmts) {
     bool catched=false;
     try {
-       IVap a(create(fmts[i]));
+       IVap a(create(fmt));
     } catch (const com::BadIntervalFormat& /*e*/) {
        catched=true;
     }

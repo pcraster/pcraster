@@ -241,9 +241,8 @@ Dal::Dal(
 */
 Dal::~Dal()
 {
-  for(auto it = _autoAddedDrivers.begin();
-         it != _autoAddedDrivers.end(); ++it) {
-    delete *it;
+  for(auto & _autoAddedDriver : _autoAddedDrivers) {
+    delete _autoAddedDriver;
   }
 }
 
@@ -895,8 +894,8 @@ bool Dal::hasDriverByName(
 {
   bool result = false;
 
-  for(auto it = _drivers.begin(); it != _drivers.end(); ++it) {
-    if((*it)->name() == name) {
+  for(auto & _driver : _drivers) {
+    if(_driver->name() == name) {
       result = true;
       break;
     }
@@ -917,9 +916,9 @@ Driver* Dal::driverByName(
 {
   Driver* result = nullptr;
 
-  for(auto it = _drivers.begin(); it != _drivers.end(); ++it) {
-    if((*it)->name() == name) {
-      result = *it;
+  for(auto & _driver : _drivers) {
+    if(_driver->name() == name) {
+      result = _driver;
       break;
     }
   }

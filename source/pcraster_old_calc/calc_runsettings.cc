@@ -86,10 +86,10 @@ void calc::RunSettings::addNewOnly(
 
   // insert does nothing if already there
   // that is exactly what we want in this order of paths
-  for (size_t i=0; i < mrs.binding.size(); i++)
+  for (auto & i : mrs.binding)
     d_bindings.insert(std::make_pair(
-         mrs.binding[i]->parameter(),
-         mrs.binding[i]->value()));
+         i->parameter(),
+         i->value()));
 }
 
 //! create an xml elements from its contents
@@ -98,11 +98,10 @@ pcrxml::ModelRunSettings *calc::RunSettings::createModelRunSettings() const
   pcrxml::ModelRunSettings *m=nullptr;
   try {
     m=new pcrxml::ModelRunSettings();
-    for (auto pos=d_bindings.begin(); 
-         pos !=d_bindings.end(); ++pos) {
+    for (const auto & d_binding : d_bindings) {
             auto* f(new pcrxml::Binding());
-            f->parameter=pos->first.name();
-            f->value=pos->second.name();
+            f->parameter=d_binding.first.name();
+            f->value=d_binding.second.name();
             m->binding.push_back(f);
     }
   } catch(...) {

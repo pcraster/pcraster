@@ -57,7 +57,7 @@ pcrxml::Lodings::~Lodings()
 void pcrxml::Lodings::clean()
 {
  delete dataExtend;dataExtend=nullptr;
- for(size_t i=0; i<lodingName.size(); i++) delete lodingName[i];
+ for(auto & i : lodingName) delete i;
 lodingName.clear();
 }
 //! copy ctor
@@ -65,7 +65,7 @@ pcrxml::Lodings::Lodings(const Lodings& src):
 pcrxml::Element(src)
 {
  dataExtend=new DataExtend(*(src.dataExtend));
- for(size_t i=0; i<src.lodingName.size(); i++) lodingName.push_back(new LodingName(*(src.lodingName[i])));
+ for(auto i : src.lodingName) lodingName.push_back(new LodingName(*i));
 }
 //! assignment operator
 pcrxml::Lodings& pcrxml::Lodings::operator=(const Lodings& src)
@@ -74,12 +74,12 @@ pcrxml::Lodings& pcrxml::Lodings::operator=(const Lodings& src)
  {
    clean(); PRECOND(false);
   dataExtend=new DataExtend(*(src.dataExtend));
-  for(size_t i=0; i<src.lodingName.size(); i++) lodingName.push_back(new LodingName(*(src.lodingName[i])));
+  for(auto i : src.lodingName) lodingName.push_back(new LodingName(*i));
  }
 return *this;
 }
 void pcrxml::Lodings::fill(QDomElement el) const
 {
  if (dataExtend) dataExtend->appendTo(el);
- for(size_t i=0; i<lodingName.size(); i++) lodingName[i]->appendTo(el);
+ for(auto i : lodingName) i->appendTo(el);
 }

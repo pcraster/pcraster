@@ -275,15 +275,15 @@ void calc::ASTScript::applyInterface()
   // 2) apply bindings
   // make set of syms defined in interface
   std::set<std::string> interfaceSyms;
-  for(size_t i=0; i<d_interface.size(); ++i)
-    interfaceSyms.insert(d_interface[i].name());
+  for(auto & i : d_interface)
+    interfaceSyms.insert(i.name());
   bt.applyToSymbols(d_symbols,interfaceSyms);
 
   // 3) apply interface
-  for(size_t i=0; i<d_interface.size(); ++i) {
-    auto s= d_symbols.find(d_interface[i].name());
+  for(auto & i : d_interface) {
+    auto s= d_symbols.find(i.name());
     if (s!=d_symbols.end())
-      s->second.setInfo(d_interface[i]);
+      s->second.setInfo(i);
   }
 }
 
@@ -370,11 +370,10 @@ void calc::ASTScript::analyzeNoContextUnChecked()
   // compute ioTypes
   typedef std::map<std::string,IOType> CodeTypes;
   CodeTypes codeTypes=ioTypes(d_cfgCode);
-  for (auto i=codeTypes.begin();
-       i!=codeTypes.end(); ++i) {
-    auto s=d_symbols.find(i->first);
+  for (auto & codeType : codeTypes) {
+    auto s=d_symbols.find(codeType.first);
     PRECOND(s!=d_symbols.end());
-    s->second.setIoType(i->second);
+    s->second.setIoType(codeType.second);
   }
 
   applyInterface();
@@ -453,10 +452,10 @@ void calc::ASTScript::setReports()
     d_code->accept(rv);
 
  ReportPars rps(rv.reportPars());
- for(auto rp=rps.begin();rp!=rps.end();++rp) {
-   auto s= d_symbols.find(rp->first);
+ for(auto & rp : rps) {
+   auto s= d_symbols.find(rp.first);
    POSTCOND(s != d_symbols.end());
-   ReportPar const& rpp(rp->second);
+   ReportPar const& rpp(rp.second);
    s->second.setReport(rpp.d_par,rpp.d_report,rpp.d_inDynamic,
                        d_reportOnlyForXMLScriptOutput);
  }

@@ -29,8 +29,8 @@
 static void cleanUpArray(
   const std::vector<calc::ParsIndex *>& index)
 {
-  for (size_t i=0; i < index.size(); i++)
-    delete index[i];
+  for (auto i : index)
+    delete i;
 }
 
 //! ind is deleted on return
@@ -40,8 +40,8 @@ calc::ArrayDefinition::ArrayDefinition(
   calc::UserSymbol(name),calc::IndexContainer(this)
 {
   try {
-  for (size_t i=0; i < index.size(); i++)
-    script().addSymbol(index[i]->addMe(this));
+  for (auto i : index)
+    script().addSymbol(i->addMe(this));
   } catch (...) {
     cleanUpArray(index);
     throw;
@@ -74,13 +74,13 @@ void calc::ArrayDefinition::addToSet(std::set<const calc::IndexParameter *>& lis
 void calc::ArrayDefinition::printSpecific(calc::InfoScript& is)const
 {
   is.stream() << "Active Indeces: ";
-  for(size_t i=0; i < d_activeIndex.size(); i++) {
-    is.parTag(d_activeIndex[i]->name());
+  for(auto i : d_activeIndex) {
+    is.parTag(i->name());
     is.stream() << " ";
   }
   is.stream() << "Off Indeces: ";
-  for(size_t i=0; i < d_offIndex.size(); i++) {
-    is.parTag(d_offIndex[i]->name());
+  for(auto i : d_offIndex) {
+    is.parTag(i->name());
     is.stream() << " ";
   }
   is.stream() << "<BR>";

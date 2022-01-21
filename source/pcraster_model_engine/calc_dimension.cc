@@ -113,8 +113,8 @@ calc::Dimension& calc::Dimension::operator=(Dimension const& rhs)
 //! is this dimensionless? in other words all are 0
 bool calc::Dimension::none() const
 {
-  for(auto i=begin(); i != end(); ++i)
-    if (*i!=0)
+  for(double i : *this)
+    if (i!=0)
       return false;
   return true;
 }

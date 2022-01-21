@@ -46,7 +46,7 @@ std::string calc::BlockPosition::asString() const
 {
   std::ostringstream stream;
   stream << "Block id:";
-  for (size_t i=0; i < d_key.size(); i++) 
-    stream << d_key[i] << "-";
+  for (unsigned long i : d_key) 
+    stream << i << "-";
   return stream.str();
 }

@@ -174,14 +174,14 @@ public:
      std::vector<QDomElement> c(pcrxml::childElements(e));
      addTest(id, e);
      // check non-emptyness now
-     for(size_t i=0;i< c.size(); ++i) {
-      if (c[i].tagName() == QString(d_dbMsg.name().c_str())) {
-        std::string result=d_dbMsg.toString(id,c[i]);
-        if (c[i].hasAttribute("resFile"))
+     for(auto & i : c) {
+      if (i.tagName() == QString(d_dbMsg.name().c_str())) {
+        std::string result=d_dbMsg.toString(id,i);
+        if (i.hasAttribute("resFile"))
           writeResFile(id,result);
       }
-      if (c[i].tagName() == QString(d_dbModel.name().c_str()))
-        (void)d_dbModel.toString(id,c[i]);
+      if (i.tagName() == QString(d_dbModel.name().c_str()))
+        (void)d_dbModel.toString(id,i);
      }
     } catch (const detail::AddError& r) {
        d_dump << "messagestest.xml: " << r.text << "\n";

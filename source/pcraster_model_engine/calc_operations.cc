@@ -120,10 +120,10 @@ calc::Operations::~Operations()
 
 void calc::Operations::clean()
 {
-  for(NameOp::iterator i=d_nameOp.begin(); i!=d_nameOp.end();++i)
-    delete i->second;
-  for(LibMap::iterator i=d_libs.begin(); i!=d_libs.end();++i)
-    delete i->second;
+  for(auto & i : d_nameOp)
+    delete i.second;
+  for(auto & d_lib : d_libs)
+    delete d_lib.second;
 }
 
 /* NOT IMPLEMENTED
@@ -360,16 +360,16 @@ void   calc::Operations::load(const CalcLib::GetMeta& gm)
     throw com::Exception(
      (boost::format("objectlink name '%1%' not unique") % className).str());
 
-  for(ObjectLinkMeta::MethodMap::const_iterator i=m.begin(); i != m.end(); ++i) {
+  for(const auto & i : m) {
      // ctor
      std::string methodName(className);
-     if (!i->first.empty()) // not ctor
-       methodName += "::" + i->first;
+     if (!i.first.empty()) // not ctor
+       methodName += "::" + i.first;
      d_nameOp.insert(std::make_pair(methodName,
            new Operator(methodName,
-                        i->first,
-                        i->second.d_result,
-                        i->second.d_input,
+                        i.first,
+                        i.second.d_result,
+                        i.second.d_input,
                         olm.objectLinkFactory())));
   }
 }

@@ -81,26 +81,26 @@ class OperatorCreator:
 
 
   const pcrxml::LinkInFunctionManifest* findFunction(std::string const& name) const {
-    for(size_t i=0; i < d_manifest.function().size(); ++i) {
-      if (name==d_manifest.function()[i].name())
-       return &(d_manifest.function()[i]);
+    for(const auto & i : d_manifest.function()) {
+      if (name==i.name())
+       return &i;
     }
     return nullptr;
   }
 
   const pcrxml::LinkInClassManifest* findClass(std::string const& name)  const{
-    for(size_t i=0; i < d_manifest.class_().size(); ++i) {
-      if (name==d_manifest.class_()[i].name())
-       return &(d_manifest.class_()[i]);
+    for(const auto & i : d_manifest.class_()) {
+      if (name==i.name())
+       return &i;
     }
     return nullptr;
   }
   const pcrxml::LinkInClassMethod* findMethod(const pcrxml::LinkInClassManifest* c,
                                         std::string const& name) const
   {
-    for(size_t i=0; i < c->method().size(); ++i) {
-      if (name==c->method()[i].name())
-       return &(c->method()[i]);
+    for(const auto & i : c->method()) {
+      if (name==i.name())
+       return &i;
     }
     return nullptr;
   }

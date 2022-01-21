@@ -65,8 +65,8 @@ com::KeyValueTable::KeyValueTable()
 //! dtor
 com::KeyValueTable::~KeyValueTable()
 {
-  for(auto p=d_keyConfigs.begin(); p!=d_keyConfigs.end();++p)
-    delete p->second;
+  for(auto & d_keyConfig : d_keyConfigs)
+    delete d_keyConfig.second;
 }
 
 //! set if unknown keys must be discarded
@@ -151,8 +151,8 @@ const std::string& com::KeyValueTable::value(const std::string& key) const
  */
 void com::KeyValueTable::checkRequired() const
 {
-  for(auto p=d_keyConfigs.begin(); p!=d_keyConfigs.end();++p) {
-      const KeyValueConfig* kc = p->second;
+  for(const auto & d_keyConfig : d_keyConfigs) {
+      const KeyValueConfig* kc = d_keyConfig.second;
       if (kc->required() && !isSet(*kc))
         throw MissingKey(kc->keyName(), "is not present");
   }

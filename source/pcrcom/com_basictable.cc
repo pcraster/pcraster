@@ -97,8 +97,8 @@ com::BasicTable::~BasicTable()
 
 void com::BasicTable::clean()
 {
-  for(auto it = d_columns.begin(); it != d_columns.end(); it++) {
-    delete *it;
+  for(auto & d_column : d_columns) {
+    delete d_column;
   }
 
   d_columns.erase(d_columns.begin(), d_columns.end());
@@ -132,8 +132,8 @@ void com::BasicTable::resize(size_t nrCols, size_t nrRecs)
 {
   resize(nrCols);
 
-  for(auto it = d_columns.begin(); it != d_columns.end(); ++it) {
-    (*it)->resize(nrRecs);
+  for(auto & d_column : d_columns) {
+    d_column->resize(nrRecs);
   }
 
   d_nrRecs = nrRecs;

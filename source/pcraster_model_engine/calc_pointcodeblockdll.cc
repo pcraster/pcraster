@@ -123,8 +123,8 @@ calc::PointCodeBlockDll& calc::PointCodeBlockDll::operator=(PointCodeBlockDll co
 void calc::PointCodeBlockDll::load(const Blocks& l)
 {
   d_dll=new com::DynamicLibrary("dlltest");
-  for(size_t i=0; i < l.size(); ++i)
-    l[i]->setDllFunctionAddress(d_dll->loadFunction(l[i]->dllFunctionName()));
+  for(auto i : l)
+    i->setDllFunctionAddress(d_dll->loadFunction(i->dllFunctionName()));
 }
 
 void calc::PointCodeBlockDll::unload()
@@ -142,8 +142,8 @@ void calc::PointCodeBlockDll::generateSource(
     << "#include \"calc_pointcodedllheader.h\"" << std::endl
     << "#define INCLUDED_CALC_POINTCODEDLLHEADER" << std::endl
     << "#endif" << std::endl;
-  for(size_t i=0; i < l.size(); ++i)
-   l[i]->genCode(s);
+  for(auto i : l)
+   i->genCode(s);
 }
 
 void calc::PointCodeBlockDll::compile() const

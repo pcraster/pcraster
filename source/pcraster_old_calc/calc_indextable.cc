@@ -152,13 +152,13 @@ const calc::IndexTable::Value& calc::IndexTable::find(
     const calc::ArrayDefVector::Index& ind(d_array.element(i));
     std::vector<std::string> key;
     key.push_back(parExtName);
-    for(size_t j=0; j < ind.size(); j++)
-      key.push_back(ind[j]->externalName());
+    for(auto j : ind)
+      key.push_back(j->externalName());
     auto p=d_table.find(key);
     if (p == d_table.end()) {
       std::string keyStr(parExtName);
-      for(size_t j=0; j < ind.size(); j++)
-        keyStr += "["+ind[j]->externalName()+"]";
+      for(auto j : ind)
+        keyStr += "["+j->externalName()+"]";
       throw com::Exception("No value found for "+keyStr); //pcrcalc/test280
     }
     return p->second;

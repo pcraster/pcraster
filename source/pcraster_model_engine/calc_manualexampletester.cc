@@ -104,8 +104,8 @@ void calc::ManualExampleTester::test() const
 
   // first remove results ----------------------------------------------------------------
   std::vector<geo::FileCreateTester> fct;
-  for(size_t i=0; i<d_result.size(); ++i)
-    fct.push_back(geo::FileCreateTester(d_result[i]));
+  for(const auto & i : d_result)
+    fct.push_back(geo::FileCreateTester(i));
 
   // create results ----------------------------------------------------------------------
   mb.execute();

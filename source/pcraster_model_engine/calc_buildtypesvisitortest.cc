@@ -77,8 +77,8 @@ struct Fixture : public calc::LibraryClassNoQt
   {
     delete d_inputTable;
     d_inputTable=nullptr;
-    for(size_t i=0; i< d_tt_pars.size(); ++i)
-      delete d_tt_pars[i];
+    for(auto & d_tt_par : d_tt_pars)
+      delete d_tt_par;
     d_tt_pars.clear();
   }
 
@@ -570,9 +570,9 @@ BOOST_AUTO_TEST_CASE(testTopDownExprRestrictor)
     } while (btv.nrChanges()!=nrChanges && nrChanges < 10);
 
     const char *v[3]={"a","b","c"};
-    for(size_t i=0;i<3;++i) {
-      BOOST_CHECK(btv.table().contains(v[i]));
-      BOOST_CHECK(btv.table()[v[i]].dataType().vs() == VS_S);
+    for(auto & i : v) {
+      BOOST_CHECK(btv.table().contains(i));
+      BOOST_CHECK(btv.table()[i].dataType().vs() == VS_S);
     }
     BOOST_CHECK(btv.table().contains("t"));
     BOOST_CHECK(btv.table()["t"].dataType().vs()==VS_S);
@@ -584,10 +584,10 @@ BOOST_AUTO_TEST_CASE(testTopDownExprRestrictor)
     DEFAULT_BTV;
     btv.visit();
     const char *v[3]={"a","b","c"};
-    for(size_t i=0;i<3;++i) {
-      BOOST_CHECK(btv.table().contains(v[i]));
-      BOOST_CHECK(btv.table()[v[i]].dataType().vs() == VS_O);
-      BOOST_CHECK(btv.table()[v[i]].dataType().stEither());
+    for(auto & i : v) {
+      BOOST_CHECK(btv.table().contains(i));
+      BOOST_CHECK(btv.table()[i].dataType().vs() == VS_O);
+      BOOST_CHECK(btv.table()[i].dataType().stEither());
     }
     BOOST_CHECK(btv.table().contains("t"));
     BOOST_CHECK(btv.table()["t"].dataType().vs()==VS_B);

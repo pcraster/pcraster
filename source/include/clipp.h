@@ -4645,8 +4645,8 @@ public:
     missing_events missed() const {
         missing_events misses;
         misses.reserve(missCand_.size());
-        for(auto i = missCand_.begin(); i != missCand_.end(); ++i) {
-            misses.emplace_back(&(i->pos->as_param()), i->index);
+        for(const auto & i : missCand_) {
+            misses.emplace_back(&(i.pos->as_param()), i.index);
         }
         return misses;
     }

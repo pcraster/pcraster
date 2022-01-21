@@ -789,10 +789,9 @@ void Map2DView::createScene(
 
   std::vector<MapDrawer*> drawers;
 
-  for(auto it = dataGuides.begin();
-         it != dataGuides.end(); ++it) {
-    if(dataObject().isEnabled(*it)) {
-      DataGuide guide = *it;
+  for(const auto & dataGuide : dataGuides) {
+    if(dataObject().isEnabled(dataGuide)) {
+      DataGuide guide = dataGuide;
       assert(dataObject().isValid(guide));
 
       switch(guide.type()) {
@@ -917,8 +916,8 @@ void Map2DView::createScene(
     QPainter painter(&buffer());
 
     // try {
-      for(auto it = drawers.begin(); it != drawers.end(); ++it) {
-        (*it)->draw(painter, area, anchor(), dataObject().map2DZoom(),
+      for(auto & drawer : drawers) {
+        drawer->draw(painter, area, anchor(), dataObject().map2DZoom(),
               dataObject().map2DOffset(), dataObject().map2DScale());
       }
     // }
@@ -932,8 +931,8 @@ void Map2DView::createScene(
 
     painter.end();
 
-    for(auto it = drawers.begin(); it != drawers.end(); ++it) {
-      delete *it;
+    for(auto & drawer : drawers) {
+      delete drawer;
     }
   }
 }

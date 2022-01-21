@@ -147,9 +147,9 @@ void MemoryTableData::initialiseValues(
       case Space: {
         values.resize(dimension.nrCoordinates(), std::vector<boost::any>());
 
-        for(size_t i = 0; i < values.size(); ++i) {
+        for(auto & value : values) {
           initialiseValues(
-             boost::any_cast<std::vector<boost::any>&>(values[i]), space);
+             boost::any_cast<std::vector<boost::any>&>(value), space);
         }
 
         break;

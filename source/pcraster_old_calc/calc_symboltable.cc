@@ -55,8 +55,8 @@ calc::SymbolTable::~SymbolTable()
   * to them
   */
  std::vector<calc::UserSymbol *>indexCont;
- for (auto p = d_table.begin(); p != d_table.end(); p++) {
-   calc::UserSymbol *u  = (*p).second;
+ for (auto & p : d_table) {
+   calc::UserSymbol *u  = p.second;
   if (! isIn(u->symbolType(), VS_INDEX_CONTAINER))
       delete u;
         else
@@ -68,9 +68,9 @@ calc::SymbolTable::~SymbolTable()
 void calc::SymbolTable::print(calc::InfoScript& i)const
 {
   i.stream() << "<BR>";
-  for (auto p = d_table.begin(); p != d_table.end(); p++) {
-    if ((*p).second->symbolType() != VS_INDEX) {
-     (*p).second->print(i);
+  for (const auto & p : d_table) {
+    if (p.second->symbolType() != VS_INDEX) {
+     p.second->print(i);
      i.stream() << "<HR>";
     }
   }
@@ -151,14 +151,14 @@ void calc::SymbolTable::goInScope()
   // std::vector<UserSymbol *> d_t; 
   // com::forWhole(d_t,std::mem_fun(&UserSymbol::goInScope));
 
-  for (auto p = d_table.begin(); p != d_table.end(); p++)
-    p->second->goInScope();
+  for (auto & p : d_table)
+    p.second->goInScope();
 }
 
 void calc::SymbolTable::finalCheck()
 {
-  for (auto p = d_table.begin(); p != d_table.end(); p++)
-    p->second->finalCheck();
+  for (auto & p : d_table)
+    p.second->finalCheck();
 }
 
 calc::SubParameter *calc::SymbolTable::findParameter(
@@ -213,12 +213,12 @@ void calc::SymbolTable::createXmlData(
 {
   //  in order of definition
   std::vector<const UserSymbol *> inDefOrder; 
-  for (auto p = d_table.begin(); p != d_table.end(); p++) 
-    inDefOrder.push_back(p->second);
+  for (const auto & p : d_table) 
+    inDefOrder.push_back(p.second);
 //  std::sort(inDefOrder.begin(),inDefOrder.end(),lessThan);
 
-  for (size_t i = 0; i < inDefOrder.size(); i++) {
-      pcrxml::Data *d = inDefOrder[i]->createXmlData();
+  for (auto & i : inDefOrder) {
+      pcrxml::Data *d = i->createXmlData();
       if (d)
         addHere.push_back(d);
   }
@@ -238,24 +238,24 @@ void calc::SymbolTable::setArcViewExtCheckData(
 {
   std::vector<pcrxml::Data *> d;
   createXmlData(d);
-  for(size_t i=0; i < d.size(); i++) {
-    switch(d[i]->ioType()) {
+  for(auto & i : d) {
+    switch(i->ioType()) {
      case pcrxml::IoType::Output:
      case pcrxml::IoType::Both: {
-        if (!(d[i]->stack || d[i]->map))
+        if (!(i->stack || i->map))
            break; // only stacks or maps can be in foreign (ArcView) format
         com::PathName pn;
-        if (d[i]->externalFileName.present())
-             pn=d[i]->externalFileName();
+        if (i->externalFileName.present())
+             pn=i->externalFileName();
         else
-             pn=d[i]->name();
+             pn=i->name();
         pn.makeAbsolute();
-        r.push_back(ArcViewExtCheckData(d[i]->stack != nullptr,
+        r.push_back(ArcViewExtCheckData(i->stack != nullptr,
            pn.toString()));
      }
      default: ;
     }
-    delete d[i];
-    d[i]=nullptr;
+    delete i;
+    i=nullptr;
   }
 }

@@ -54,7 +54,7 @@ public:
 //String&            operator=            (const std::string& value);
                      String               ();
 
-  virtual           ~String               ();
+            ~String               () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -70,7 +70,7 @@ public:
   //! the value, empty strings are allowed
   const std::string&  operator()() const { return d_value; }
 
-  std::string attrValueStr() const;
+  std::string attrValueStr() const override;
 };
 
 

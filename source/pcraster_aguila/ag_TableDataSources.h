@@ -37,7 +37,7 @@ private:
 protected:
 
   DataInfo<Table>  openData            (std::string const &name,
-                                        dal::DataSpace const &space) const;
+                                        dal::DataSpace const &space) const override;
 
 public:
 
@@ -47,7 +47,7 @@ public:
 
                    TableDataSources    ();
 
-  /* virtual */    ~TableDataSources   ();
+  /* virtual */    ~TableDataSources   () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

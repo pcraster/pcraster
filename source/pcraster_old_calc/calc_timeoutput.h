@@ -39,15 +39,15 @@ class Timeoutput : public FieldArgs, public Statement {
     const WriteInfo& w,
     const UsePar&  par,
           FieldExprArgs& args);
-  virtual ~Timeoutput();
+  ~Timeoutput() override;
   // MANIPULATORS
-  bool buildTypes();
+  bool buildTypes() override;
 
-  void prepareExecution();
-  void run();
+  void prepareExecution() override;
+  void run() override;
 
   // ACCESSORS
-  void print(InfoScript& i)const;
+  void print(InfoScript& i)const override;
 };
 
 }

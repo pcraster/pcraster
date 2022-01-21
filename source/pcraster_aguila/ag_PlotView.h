@@ -34,9 +34,9 @@ private:
 
   // void             selected            (QPointF const& point);
 
-  void             appended            (QPointF const& point);
+  void             appended            (QPointF const& point) override;
 
-  void             moved               (QPointF const& point);
+  void             moved               (QPointF const& point) override;
 
   bool             recreatePlotRequired() const;
 
@@ -58,11 +58,11 @@ private:
 
 protected:
 
-  void             rescan              ();
+  void             rescan              () override;
 
-  void             process             ();
+  void             process             () override;
 
-  void             visualise           ();
+  void             visualise           () override;
 
 public:
 
@@ -74,7 +74,7 @@ public:
                                         QWidget* parent = nullptr,
                                         const char* name = nullptr);
 
-  /* virtual */    ~PlotView           ();
+  /* virtual */    ~PlotView           () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

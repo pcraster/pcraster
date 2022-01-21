@@ -36,18 +36,18 @@ class  FieldNrParameter : public FieldParameter {
        const std::vector<double>& val, VS vs);
     FieldNrParameter(const ParsPar& par, double value, VS vs);
 
-    ~FieldNrParameter();
+    ~FieldNrParameter() override;
 
-  void goInScope();
+  void goInScope() override;
 
   //! push parameter value on stack
-  FieldHandle value(size_t index, bool lastUse);
+  FieldHandle value(size_t index, bool lastUse) override;
 
   //  ACCESSORS
 
   double initValue(size_t index) const;
 
-  double initialValue() const;
+  double initialValue() const override;
 
 };
 

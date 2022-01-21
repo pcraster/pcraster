@@ -341,7 +341,7 @@ struct Fixture:
         GetGDALDriverManager()->AutoLoadDrivers();
     }
 
-    ~Fixture()
+    ~Fixture() override
     {
     }
 

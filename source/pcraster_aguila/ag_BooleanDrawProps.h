@@ -29,7 +29,7 @@ private:
 
 protected:
 
-  void             reMapColours        ();
+  void             reMapColours        () override;
 
 public:
 
@@ -43,7 +43,7 @@ public:
 
                    BooleanDrawProps    (const BooleanDrawProps& properties);
 
-  /* virtual */    ~BooleanDrawProps   ();
+  /* virtual */    ~BooleanDrawProps   () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

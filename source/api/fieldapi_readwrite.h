@@ -56,7 +56,7 @@ public:
 
                    ReadWrite               (size_t nrRows, size_t nrCols);
 
-  virtual         ~ReadWrite              ();
+          ~ReadWrite              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

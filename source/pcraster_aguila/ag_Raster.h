@@ -54,7 +54,7 @@ private:
 
   // bool             hasExtremes         () const;
 
-  bool             isRead              (dal::DataSpaceAddress const& address) const;
+  bool             isRead              (dal::DataSpaceAddress const& address) const override;
 
 public:
 
@@ -65,7 +65,7 @@ public:
                    Raster              (std::string const& name,
                                         dal::DataSpace const& space);
 
-  /* virtual */    ~Raster             ();
+  /* virtual */    ~Raster             () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -86,16 +86,16 @@ public:
   // ACCESSORS
   //----------------------------------------------------------------------------
 
-  dal::RasterDimensions const& dimensions() const;
+  dal::RasterDimensions const& dimensions() const override;
 
   CSF_VS           valueScale          () const;
 
-  dal::TypeId      typeId              () const;
+  dal::TypeId      typeId              () const override;
 
   bool             isRead              () const;
 
   bool             isMV                (size_t row,
-                                        size_t col) const;
+                                        size_t col) const override;
 
   // bool             allMV               () const;
 

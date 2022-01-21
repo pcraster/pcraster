@@ -32,7 +32,7 @@ class DefPar : public ParsPar {
   void initError(const com::Exception& msg)const;
 public:
   DefPar(const ConstructPar& p);
-  const ArrayDefVector& descriptor() const;
+  const ArrayDefVector& descriptor() const override;
 
   SubParameter *indexTable(
     const IndexTable *it,

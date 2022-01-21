@@ -109,7 +109,7 @@ public:
 
                     VSpatial              (InType const*data);
 
-  /* virtual */    ~VSpatial              ();
+  /* virtual */    ~VSpatial              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -119,8 +119,8 @@ public:
   // ACCESSORS
   //----------------------------------------------------------------------------
   //
-  bool             isMV                    (size_t i) const;
-  OutType          operator[]              (size_t i) const;
+  bool             isMV                    (size_t i) const override;
+  OutType          operator[]              (size_t i) const override;
 
 };
 

@@ -41,29 +41,29 @@ void calc::Muskingum::exec(
 
   struct MGVisitor : public TimeSliceVisitor
   {
-     void initPerCatchmentSlice(CurrentSliceInfo const& csi)
+     void initPerCatchmentSlice(CurrentSliceInfo const& csi) override
      {
        setCurrentSliceInfo(csi);
        //BOOST_CHECK_CLOSE(csi.sliceInSecs,3600.0, 0.0001);
      }
-     void  finishVertexBeforeAllSlices(size_t v) {
+     void  finishVertexBeforeAllSlices(size_t v) override {
        IterationFlowRateMap[v]=0;
        IterationPrevFlowRateMap[v]=d_prevFlowRate[v] * d_csi.sliceInSecs;
      }
 
-     void     initVertexBeforeSlice(size_t v) {
+     void     initVertexBeforeSlice(size_t v) override {
        UpstreamSumIterationFlowRateMap[v]=0.0;
        UpstreamSumIterationPrevFlowRateMap[v]=0.0;
      }
 
-     void visitEdge        (size_t up, size_t down) {
+     void visitEdge        (size_t up, size_t down) override {
        // each iteration
        // send calculated flux to down
        com::inplace_add(UpstreamSumIterationFlowRateMap[down],IterationFlowRateMap[up]);
        com::inplace_add(UpstreamSumIterationPrevFlowRateMap[down],IterationPrevFlowRateMap[up]);
      }
 
-     void finishVertex(size_t v) // each iteration
+     void finishVertex(size_t v) override // each iteration
      {
        if (oneInputIsMV(v)|pcr::isMV(UpstreamSumIterationFlowRateMap[v])
                 |pcr::isMV(UpstreamSumIterationPrevFlowRateMap[v]))
@@ -118,12 +118,12 @@ void calc::Muskingum::exec(
 
      }
 
-     void finishVertex2(size_t v) // each iteration
+     void finishVertex2(size_t v) override // each iteration
      {
        IterationPrevFlowRateMap[v]=IterationFlowRateMap[v]; // m3/timestep
      }
 
-     void finishVertexAfterAllSlices(size_t v)
+     void finishVertexAfterAllSlices(size_t v) override
      {
       if (!pcr::isMV(MyResultMap[v]))
           MyResultMap[v] /=  d_csi.nrTimeSlices;

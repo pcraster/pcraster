@@ -40,14 +40,14 @@ class TimeTable : public DataValue {
             size_t nrTimeStepsExpected=1);
 
 
-  ~TimeTable();
+  ~TimeTable() override;
 
   size_t nrCols() const;
   size_t nrTimeSteps() const;
 
   const struct TIME_TABLE *tss() const;
 
-  OVS   ovs() const;
+  OVS   ovs() const override;
 
 };
 

@@ -47,7 +47,7 @@ private:
  ScriptData& operator=(const ScriptData&);
 
  //! in support of toDomElement and toDom
-  void       fill(QDomElement el) const;
+  void       fill(QDomElement el) const override;
 public:
  static const char* tagName() {
    return d_elementName.c_str();
@@ -63,9 +63,9 @@ public:
  //! Copy constructor.
  ScriptData(const ScriptData&);
  //! dtor
- ~ScriptData();
+ ~ScriptData() override;
  //! element name
- const std::string& elementName()const;
+ const std::string& elementName()const override;
 
  //! child element
  std::vector<Data *> data;

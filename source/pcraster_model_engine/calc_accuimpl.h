@@ -32,7 +32,7 @@ class AccuAll: public IOpImpl {
 public:
   void             exec                 (RunTimeEnv* rte,
                                          const Operator& op,
-                                         size_t nrArgs) const;
+                                         size_t nrArgs) const override;
 };
 
 extern  AccuAll         accuAll;
@@ -42,7 +42,7 @@ class AccuCapacity: public IOpImpl {
 public:
   void             exec                 (RunTimeEnv* rte,
                                          const Operator& op,
-                                         size_t nrArgs) const;
+                                         size_t nrArgs) const override;
 };
 extern AccuCapacity accuCapacity;
 #define Do_accucapacity &accuCapacity
@@ -51,7 +51,7 @@ class AccuThreshold: public IOpImpl {
 public:
   void             exec                 (RunTimeEnv* rte,
                                          const Operator& op,
-                                         size_t nrArgs) const;
+                                         size_t nrArgs) const override;
 };
 extern AccuThreshold accuThreshold;
 #define Do_accuthreshold &accuThreshold
@@ -60,7 +60,7 @@ class AccuFraction: public IOpImpl {
 public:
   void             exec                 (RunTimeEnv* rte,
                                          const Operator& op,
-                                         size_t nrArgs) const;
+                                         size_t nrArgs) const override;
 };
 extern AccuFraction accuFraction;
 #define Do_accufraction &accuFraction
@@ -69,7 +69,7 @@ class AccuTrigger: public IOpImpl {
 public:
   void             exec                 (RunTimeEnv* rte,
                                          const Operator& op,
-                                         size_t nrArgs) const;
+                                         size_t nrArgs) const override;
 };
 extern AccuTrigger accuTrigger;
 #define Do_accutrigger &accuTrigger

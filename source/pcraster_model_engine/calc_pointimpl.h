@@ -52,18 +52,18 @@ public:
 
                    PointImpl               ();
 
-  /* virtual */    ~PointImpl              ();
+  /* virtual */    ~PointImpl              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
-  void             setPointFunction    (const char * pointFunction);
+  void             setPointFunction    (const char * pointFunction) override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
 
-  const char *     pointFunction       () const;
+  const char *     pointFunction       () const override;
 };
 
 

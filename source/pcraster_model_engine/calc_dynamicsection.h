@@ -51,19 +51,19 @@ public:
                                   const Position*    posOfDynamicKeyword,
                                   ASTNode*           transferredStatements);
 
-  /* virtual */    ~DynamicSection              ();
+  /* virtual */    ~DynamicSection              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
-  void            callEnter                     (ASTVisitor& v);
-  void            callJump                      (ASTVisitor& v);
+  void            callEnter                     (ASTVisitor& v) override;
+  void            callJump                      (ASTVisitor& v) override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  DynamicSection*  createClone                  () const;
-  bool             hasBackBranch                () const;
+  DynamicSection*  createClone                  () const override;
+  bool             hasBackBranch                () const override;
 };
 
 

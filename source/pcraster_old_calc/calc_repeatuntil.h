@@ -28,15 +28,15 @@ private:
     const Element& pos,
     class StatementBlock *parentBlock);
 
-  virtual ~RepeatUntil();
+  ~RepeatUntil() override;
 
  // MANIPULATORS
-  bool buildTypes();
+  bool buildTypes() override;
 //  void prepareExecution();
-  void executeBlock();
+  void executeBlock() override;
   void addCondition(FieldExpr* condition);
 
-  void print(InfoScript& i)const;
+  void print(InfoScript& i)const override;
 };
 
 }

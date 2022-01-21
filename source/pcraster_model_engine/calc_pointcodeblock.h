@@ -93,19 +93,19 @@ public:
                                                  const ParSet& pars,
                                                  size_t     nrOps);
 
-  /* virtual */    ~PointCodeBlock              ();
+  /* virtual */    ~PointCodeBlock              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
-  virtual void    accept                   (ASTVisitor& v);
+  void    accept                   (ASTVisitor& v) override;
   void            exec                     (RunTimeEnv& rte);
   void            setDllFunctionAddress    (const void* dllFunctionAddress);
 
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  virtual PointCodeBlock*   createClone    () const;
+  PointCodeBlock*   createClone    () const override;
 
   void                      genCode        (std::ostream& s)const;
   const void*      dllFunctionAddress      () const;

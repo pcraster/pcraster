@@ -63,17 +63,17 @@ public:
                                                      DataTable const& dataTable,
                                                      IOStrategy const& ioStrategy);
 
-  /* virtual */    ~DynamicMemoryInput              ();
+  /* virtual */    ~DynamicMemoryInput              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
-  DataValue*        load                          ();
+  DataValue*        load                          () override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  virtual OVS       ovs                            () const;
+  OVS       ovs                            () const override;
 
 };
 

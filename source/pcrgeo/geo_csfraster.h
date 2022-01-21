@@ -52,7 +52,7 @@ public:
 
                    CSFRaster           (CSFMap& map);
 
-  /* virtual */    ~CSFRaster          ();
+  /* virtual */    ~CSFRaster          () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

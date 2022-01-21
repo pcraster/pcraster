@@ -43,8 +43,8 @@ private:
 
 
 protected:
-  void skipExecution();
-  const FieldType &fieldType()const;
+  void skipExecution() override;
+  const FieldType &fieldType()const override;
 public:
   //! posSymbol? should be Element
   StackInput(
@@ -52,18 +52,18 @@ public:
     const BindedSymbol& stackName,
           bool          sparse);
 
-  ~StackInput();
+  ~StackInput() override;
 
   // MANIPULATORS
-  void buildTypesRecursive(VS resultVsSet);
+  void buildTypesRecursive(VS resultVsSet) override;
 
-  FieldType& restrictType();
+  FieldType& restrictType() override;
 
-  void prepareExecution();
-  void execute(FieldStack& stack);
+  void prepareExecution() override;
+  void execute(FieldStack& stack) override;
 
   // ACCESSORS
-  void print(InfoScript &si) const;
+  void print(InfoScript &si) const override;
 };
 
 }

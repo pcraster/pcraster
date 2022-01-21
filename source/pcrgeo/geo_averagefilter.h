@@ -44,7 +44,7 @@ private:
                                         size_t rowFlt,
                                         size_t colFlt,
                                         size_t nrRows,
-                                        size_t nrCols) const;
+                                        size_t nrCols) const override;
 
 public:
 
@@ -54,7 +54,7 @@ public:
 
                    AverageFilter       (const SimpleRaster<double>& weights);
 
-  /* virtual */    ~AverageFilter      ();
+  /* virtual */    ~AverageFilter      () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

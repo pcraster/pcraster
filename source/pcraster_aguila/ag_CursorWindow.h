@@ -51,11 +51,11 @@ private:
 
   void             appendToCursorValueMonitorFile();
 
-  void             rescan              ();
+  void             rescan              () override;
 
-  void             process             ();
+  void             process             () override;
 
-  void             visualise           ();
+  void             visualise           () override;
 
 private Q_SLOTS:
 
@@ -74,7 +74,7 @@ public:
   // CREATORS
   //----------------------------------------------------------------------------
 
-  /* virtual */    ~CursorWindow       ();
+  /* virtual */    ~CursorWindow       () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

@@ -158,7 +158,7 @@ public:
 
                    Matrix              (Matrix const& rhs);
 
-  virtual          ~Matrix             ();
+           ~Matrix             () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

@@ -68,7 +68,7 @@ public:
 
                    GSLIBBlockDriver    ();
 
-  /* virtual */    ~GSLIBBlockDriver   ();
+  /* virtual */    ~GSLIBBlockDriver   () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -80,22 +80,22 @@ public:
 
   bool             exists              (std::string const& name,
                                         DataSpace const& space,
-                                        DataSpaceAddress const& address) const;
+                                        DataSpaceAddress const& address) const override;
 
   Block*           open                (std::string const& name,
                                         DataSpace const& space,
                                         DataSpaceAddress const& address,
-                                        TypeId typeId) const;
+                                        TypeId typeId) const override;
 
   Block*           read                (std::string const& name,
                                         DataSpace const& space,
                                         DataSpaceAddress const& address,
-                                        TypeId typeId) const;
+                                        TypeId typeId) const override;
 
   void             write               (Block const& block,
                                         DataSpace const& space,
                                         DataSpaceAddress const& address,
-                                        std::string const& name) const;
+                                        std::string const& name) const override;
 
 };
 

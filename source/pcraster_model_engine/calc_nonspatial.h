@@ -45,25 +45,25 @@ class PCR_DLL_CLASS NonSpatial : public Field {
   template<typename CR>
   PCR_DLL_CLASS NonSpatial(VS vs, const CR& value);
 
-  virtual ~NonSpatial();
+  ~NonSpatial() override;
 
   // ACCESSORS
 
   //! is it a mv
-  bool        isMV() const;
+  bool        isMV() const override;
 
   //! return value as double, should not be a MV
   double      getValue() const;
-  void        setCell(const double& value, size_t /* i */);
-  bool        getCell(double& value, size_t /* i */) const;
+  void        setCell(const double& value, size_t /* i */) override;
+  bool        getCell(double& value, size_t /* i */) const override;
 
-  size_t              nrValues() const;
+  size_t              nrValues() const override;
 
-  bool                isSpatial() const;
-  const void*         src() const;
-  void*               dest() ;
-  void                analyzeBoolean(bool& noneAreTrue,bool& noneAreFalse) const;
-  NonSpatial*         createClone() const;
+  bool                isSpatial() const override;
+  const void*         src() const override;
+  void*               dest() override ;
+  void                analyzeBoolean(bool& noneAreTrue,bool& noneAreFalse) const override;
+  NonSpatial*         createClone() const override;
 };
 
 

@@ -98,17 +98,17 @@ private:
   void              setBack(CFGNode *an);
 
 
-  void visitPar          (ASTPar    *p);
-  void visitNumber       (ASTNumber *n);
-  void visitStat         (ASTStat   *s);
-  void visitPointCodeBlock(PointCodeBlock *b);
-  void visitExpr         (BaseExpr   *e);
-  void visitAss          (ASTAss    *a);
+  void visitPar          (ASTPar    *p) override;
+  void visitNumber       (ASTNumber *n) override;
+  void visitStat         (ASTStat   *s) override;
+  void visitPointCodeBlock(PointCodeBlock *b) override;
+  void visitExpr         (BaseExpr   *e) override;
+  void visitAss          (ASTAss    *a) override;
 
-  void visitNonAssExpr(NonAssExpr   *e);
+  void visitNonAssExpr(NonAssExpr   *e) override;
 
-  void visitJumpNode     (JumpNode  *j);
-  void visitBlockEntrance(BlockEntrance  *e);
+  void visitJumpNode     (JumpNode  *j) override;
+  void visitBlockEntrance(BlockEntrance  *e) override;
 
 public:
 
@@ -118,7 +118,7 @@ public:
 
                    CFGCreatorPrivate               ();
 
-  /* virtual */    ~CFGCreatorPrivate              ();
+  /* virtual */    ~CFGCreatorPrivate              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

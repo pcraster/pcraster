@@ -22,7 +22,7 @@ struct Fixture:
     {
     }
 
-    ~Fixture()
+    ~Fixture() override
     {
     }
 

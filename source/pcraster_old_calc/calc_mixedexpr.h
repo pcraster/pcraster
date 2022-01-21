@@ -35,19 +35,19 @@ class MixedExpr : public FieldExpr, public FieldArgs {
    FieldType        d_type;
  protected:
   void buildTypes();
-  void skipExecution();
-  const FieldType& fieldType() const;
+  void skipExecution() override;
+  const FieldType& fieldType() const override;
  public:
   // CREATORS
   MixedExpr(const Element& pos,
       const Operator& op,
             FieldExprArgs& fieldArgs);
-  virtual ~MixedExpr() {};
+  ~MixedExpr() override {};
 
   // MANIPULATORS
-  void prepareExecution();
-  void buildTypesRecursive(VS resultVsSet);
-  FieldType& restrictType();
+  void prepareExecution() override;
+  void buildTypesRecursive(VS resultVsSet) override;
+  FieldType& restrictType() override;
   // ACCESSORS
   void printFieldArgs(InfoScript& si)const;
 

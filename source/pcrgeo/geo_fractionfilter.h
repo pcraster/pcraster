@@ -50,7 +50,7 @@ private:
                                         size_t rowFlt,
                                         size_t colFlt,
                                         size_t nrRows,
-                                        size_t nrCols) const;
+                                        size_t nrCols) const override;
 
 protected:
 
@@ -63,7 +63,7 @@ public:
                    FractionFilter      (SimpleRaster<double>& weights,
                                         SourceValueType value);
 
-  /* virtual */    ~FractionFilter     ();
+  /* virtual */    ~FractionFilter     () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

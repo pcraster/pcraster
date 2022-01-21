@@ -121,7 +121,7 @@ public:
 
                    CSFRasterDriver     ();
 
-  /* virtual */    ~CSFRasterDriver    ();
+  /* virtual */    ~CSFRasterDriver    () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -133,36 +133,36 @@ public:
 
   bool             exists              (std::string const& name,
                                         DataSpace const& space,
-                                        DataSpaceAddress const& address) const;
+                                        DataSpaceAddress const& address) const override;
 
   Raster*          open                (std::string const& name,
                                         DataSpace const& space,
                                         DataSpaceAddress const& address,
-                                        TypeId typeId) const;
+                                        TypeId typeId) const override;
 
   Raster*          read                (std::string const& name,
                                         DataSpace const& space,
                                         DataSpaceAddress const& address,
-                                        TypeId typeId) const;
+                                        TypeId typeId) const override;
 
   void             read                (Raster& raster,
                                         std::string const& name,
                                         DataSpace const& space,
-                                        DataSpaceAddress const& address) const;
+                                        DataSpaceAddress const& address) const override;
 
   void             read                (void* cell,
                                         TypeId typeId,
                                         std::string const& name,
                                         DataSpace const& space,
-                                        DataSpaceAddress const& address) const;
+                                        DataSpaceAddress const& address) const override;
 
   void             write               (Raster const& raster,
                                         DataSpace const& space,
                                         DataSpaceAddress const& address,
-                                        std::string const& name) const;
+                                        std::string const& name) const override;
 
   void             browse              (std::vector<BrowseInfo>& attributes,
-                                        std::string const& location) const;
+                                        std::string const& location) const override;
 
 };
 

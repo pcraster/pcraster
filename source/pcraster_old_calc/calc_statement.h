@@ -21,7 +21,7 @@ class Statement: public Element {
 
  public:
   // DESTRUCTORS
-  virtual ~Statement();
+  ~Statement() override;
 
   // MANIPULATORS
   //! return true if nonspatial to spatial promotion occurred

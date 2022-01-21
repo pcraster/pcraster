@@ -15,12 +15,12 @@ class InnerStatementBlock : public StatementBlock {
     StatementBlock *parentBlock);
 
   // DESTRUCTORS
-  virtual ~InnerStatementBlock();
+  ~InnerStatementBlock() override;
 
-  virtual void executeBlock();
+  void executeBlock() override;
 
   // ACCESSORS
-  virtual void print(InfoScript& i) const;
+  void print(InfoScript& i) const override;
 };
 
 }

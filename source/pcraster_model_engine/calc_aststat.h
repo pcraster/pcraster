@@ -81,12 +81,12 @@ public:
 
                    ASTStat               (ASTNode *stat);
 
-  /* virtual */    ~ASTStat              ();
+  /* virtual */    ~ASTStat              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
-  virtual void     accept              (ASTVisitor& v);
+  void     accept              (ASTVisitor& v) override;
   void             setReportParsed     (bool reportParsed);
   void             setReportById       (const Id& reportById);
   void             transferReportInSitu(Report* reportInSitu);
@@ -95,7 +95,7 @@ public:
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  ASTStat*          createClone          () const;
+  ASTStat*          createClone          () const override;
   ASTNode*          stat                 () const;
 
   bool             reportParsed        () const;

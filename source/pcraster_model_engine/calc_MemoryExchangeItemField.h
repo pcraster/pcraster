@@ -61,8 +61,8 @@ public:
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  void*             rawValue                             () const;
-  void              beMemCpySrc                          (void *dest) const;
+  void*             rawValue                             () const override;
+  void              beMemCpySrc                          (void *dest) const override;
 
 };
 

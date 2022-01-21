@@ -121,7 +121,7 @@ public:
                                         const Filter<SrcType, DstType>& filter,
                                         SimpleRaster<DstType>& destination);
 
-  inline           ~FilterEngine       ();
+  inline           ~FilterEngine       () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

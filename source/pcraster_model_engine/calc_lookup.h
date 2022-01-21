@@ -48,7 +48,7 @@ public:
 
                    Lookup               ();
 
-  virtual         ~Lookup               ();
+          ~Lookup               () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -57,7 +57,7 @@ public:
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  virtual void exec  (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const;
+  void exec  (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const override;
 };
 
 //! Operation Implementation
@@ -79,7 +79,7 @@ public:
 
                    LookupLinear               ();
 
-  virtual         ~LookupLinear               ();
+          ~LookupLinear               () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -88,7 +88,7 @@ public:
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  virtual void exec  (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const;
+  void exec  (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const override;
 };
 
 //------------------------------------------------------------------------------

@@ -44,7 +44,7 @@ public:
 
                    UserDefinedClassifier();
 
-  /* virtual */    ~UserDefinedClassifier();
+  /* virtual */    ~UserDefinedClassifier() override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -59,12 +59,12 @@ public:
   void             classify            (std::vector<T> &borders,
                                         T min,
                                         T max,
-                                        size_t numberOfClasses);
+                                        size_t numberOfClasses) override;
 
   void             autoClassify        (std::vector<T> &borders,
                                         T min,
                                         T max,
-                                        size_t numberOfClasses);
+                                        size_t numberOfClasses) override;
 
 };
 

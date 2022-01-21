@@ -30,7 +30,7 @@ public:
 
                    RCSize_t            (size_t value);
 
-  /* virtual */    ~RCSize_t           ();
+  /* virtual */    ~RCSize_t           () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

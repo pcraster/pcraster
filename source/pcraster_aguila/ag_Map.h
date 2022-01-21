@@ -49,7 +49,7 @@ public:
                                         std::string const& visualisationName,
                                         QWidget* parent);
 
-  /* virtual */    ~Map                ();
+  /* virtual */    ~Map                () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -59,7 +59,7 @@ public:
   // ACCESSORS
   //----------------------------------------------------------------------------
 
-  QSize            sizeHint            () const;
+  QSize            sizeHint            () const override;
 
 };
 

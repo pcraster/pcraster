@@ -71,11 +71,11 @@ private:
 
   void             updateCoordinates   ();
 
-  void             rescan              ();
+  void             rescan              () override;
 
-  void             process             ();
+  void             process             () override;
 
-  void             visualise           ();
+  void             visualise           () override;
 
   dal::DataSpaceAddress addressWithUpdatedCoordinate(
                                         dal::Dimension const* dimension,
@@ -98,7 +98,7 @@ public:
                    CursorView          (DataObject* object,
                                         QWidget* parent);
 
-  /* virtual */    ~CursorView        ();
+  /* virtual */    ~CursorView        () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -110,7 +110,7 @@ public:
   // ACCESSORS
   //----------------------------------------------------------------------------
 
-  QSize            sizeHint            () const;
+  QSize            sizeHint            () const override;
 
 };
 

@@ -110,7 +110,7 @@ public:
                    Animation           (const Animation &animation);
 
   //! Destructor.
-                   ~Animation          ();
+                   ~Animation          () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

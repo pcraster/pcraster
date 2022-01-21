@@ -58,11 +58,11 @@ private:
   void             setLabel            (size_t row,
                                         size_t col);
 
-  void             rescan              ();
+  void             rescan              () override;
 
-  void             process             ();
+  void             process             () override;
 
-  void             visualise           ();
+  void             visualise           () override;
 
 public:
 
@@ -75,7 +75,7 @@ public:
                                         size_t nrCols = 1,
                                         QWidget* parent = nullptr);
 
-  /* virtual */    ~MultiMap2DView     ();
+  /* virtual */    ~MultiMap2DView     () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

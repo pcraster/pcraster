@@ -63,12 +63,12 @@ public:
                    ASTNodeContainer               ();
 
 
-  /* virtual */    ~ASTNodeContainer              ();
+  /* virtual */    ~ASTNodeContainer              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
-  virtual void         accept                (ASTVisitor& v);
+  void         accept                (ASTVisitor& v) override;
   void                 visitAll              (ASTVisitor& v);
   void                 transferPushBack      (ASTNode *n);
   void                 transferPushFront     (ASTNode *n);

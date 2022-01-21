@@ -52,13 +52,13 @@ private:
 
   void             createInterface     (DataObject* object);
 
-  QSize            sizeHint            () const;
+  QSize            sizeHint            () const override;
 
-  void             rescan              ();
+  void             rescan              () override;
 
-  void             process             ();
+  void             process             () override;
 
-  void             visualise           ();
+  void             visualise           () override;
 
 public:
 
@@ -69,7 +69,7 @@ public:
                    CumDistributionFunction(DataObject* object,
                                            QWidget* parent);
 
-  /* virtual */    ~CumDistributionFunction();
+  /* virtual */    ~CumDistributionFunction() override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

@@ -95,7 +95,7 @@ public:
 
                    Vector              (Vector const& rhs);
 
-  /* virtual */    ~Vector             ();
+  /* virtual */    ~Vector             () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

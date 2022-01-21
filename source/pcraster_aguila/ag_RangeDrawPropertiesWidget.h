@@ -88,9 +88,9 @@ private Q_SLOTS:
 
 protected:
 
-  virtual void     rescan              ();
+  void     rescan              () override;
 
-  virtual void     apply               ();
+  void     apply               () override;
 
 public:
 
@@ -102,7 +102,7 @@ public:
                                        const DataGuide& dataGuide,
                                        QWidget* parent);
 
-  /* virtual */    ~RangeDrawPropertiesWidget();
+  /* virtual */    ~RangeDrawPropertiesWidget() override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

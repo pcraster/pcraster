@@ -152,7 +152,7 @@ public:
                       const boost::dynamic_bitset<>& isMV,
                       bool  propagateDownstream);
 
-  /* virtual */    ~LddGraph              ();
+  /* virtual */    ~LddGraph              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

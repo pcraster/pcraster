@@ -79,7 +79,7 @@ public:
     const double box[4], VS vs);
 
   //! close map
-    ~EsriMap();
+    ~EsriMap() override;
 
     static bool remove(const std::string& gridName);
     static bool exists(const std::string& gridName);
@@ -97,11 +97,11 @@ public:
 
   void bbox(double *setThis) const;
 
-  bool getMinMax(double& min, double& max) const;
+  bool getMinMax(double& min, double& max) const override;
 
-  void readInBuffer(VS readAs, void *val);
+  void readInBuffer(VS readAs, void *val) override;
 
-  void writeData(const void *allValues);
+  void writeData(const void *allValues) override;
 };
 
 }

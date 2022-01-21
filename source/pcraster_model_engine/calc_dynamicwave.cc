@@ -139,9 +139,9 @@ private:
    static  double qDynManning(double,double,double,double);
 
 
-   void initVertexBeforeSlice(size_t v);
-   void visitEdge        (size_t up, size_t down);
-   void finishVertex     (size_t v);
+   void initVertexBeforeSlice(size_t v) override;
+   void visitEdge        (size_t up, size_t down) override;
+   void finishVertex     (size_t v) override;
 
    double dwPotential    (size_t v) const;
    double dwFlux         (size_t up,size_t down) const;
@@ -162,9 +162,9 @@ public:
                                            const  Field&          timestepInSecs,
                                            const  VField<UINT1>&  constantState);
 
-  /* virtual */    ~DWVisitor               ();
+  /* virtual */    ~DWVisitor               () override;
 
-  void             initPerCatchmentSlice    (CurrentSliceInfo const& csi);
+  void             initPerCatchmentSlice    (CurrentSliceInfo const& csi) override;
 
 };
 
@@ -662,7 +662,7 @@ void calc::Kinematic::exec(
      const VField<float> d_beta;
      const VField<float> d_deltaX;
 
-     void     initVertexBeforeSlice(size_t v) {
+     void     initVertexBeforeSlice(size_t v) override {
        d_QSumDownStream[v]=0.0;
      }
 
@@ -672,17 +672,17 @@ void calc::Kinematic::exec(
         com::oneIsMV(d_beta[pos],d_deltaX[pos]);
      }
 
-     void initPerCatchmentSlice(CurrentSliceInfo const& csi)
+     void initPerCatchmentSlice(CurrentSliceInfo const& csi) override
      {
        d_csi = csi;
      }
 
-     void visitEdge        (size_t up, size_t down) {
+     void visitEdge        (size_t up, size_t down) override {
        // send calculated flux to down
        com::inplace_add(d_QSumDownStream[down],d_Qnew[up]);
      }
 
-     void finishVertex     (size_t v) {
+     void finishVertex     (size_t v) override {
        if (mv(v)|pcr::isMV(d_Qnew[v])) {
          pcr::setMV(d_Qnew[v]);
          return;
@@ -753,7 +753,7 @@ void calc::KinematicWave::exec(
      const VField<float> d_beta;
      const VField<float> d_deltaX;
 
-     void     initVertexBeforeSlice(size_t v) {
+     void     initVertexBeforeSlice(size_t v) override {
        d_QSumDownStream[v]=0.0;
      }
 
@@ -763,17 +763,17 @@ void calc::KinematicWave::exec(
         com::oneIsMV(d_beta[pos],d_deltaX[pos]);
      }
 
-     void initPerCatchmentSlice(CurrentSliceInfo const& csi )
+     void initPerCatchmentSlice(CurrentSliceInfo const& csi ) override
      {
        d_csi = csi;
      }
 
-     void visitEdge        (size_t up, size_t down) {
+     void visitEdge        (size_t up, size_t down) override {
        // send calculated flux to down
        com::inplace_add(d_QSumDownStream[down],d_Qnew[up]);
      }
 
-     void finishVertex     (size_t v) {
+     void finishVertex     (size_t v) override {
        if (mv(v)|pcr::isMV(d_Qnew[v])) {
          pcr::setMV(d_Qnew[v]);
          return;
@@ -840,12 +840,12 @@ void calc::KinematicWave::exec(
      VField<INT4> const& d_nrTimeSlices;
      size_t              d_pitIdOfCurrentCatchment;
 
-     void startCatchment(size_t pitIdOfCatchment)
+     void startCatchment(size_t pitIdOfCatchment) override
      {
       d_pitIdOfCurrentCatchment = pitIdOfCatchment;
      }
 
-     void     finishVertex(size_t v)
+     void     finishVertex(size_t v) override
      {
        if (! pcr::isMV(d_flux[v]))
            d_flux[v] /= d_nrTimeSlices[d_pitIdOfCurrentCatchment];

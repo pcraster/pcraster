@@ -32,15 +32,15 @@ class Assignment : public Statement {
        const UsePar&         par,
              FieldExpr*      right);
 
-  virtual ~Assignment();
+  ~Assignment() override;
 
-  bool buildTypes();
+  bool buildTypes() override;
 
-  void prepareExecution();
-  void run() ;
+  void prepareExecution() override;
+  void run() override ;
 
   // ACCESSORS
-  void print(InfoScript& i)const;
+  void print(InfoScript& i)const override;
 };
 
 }

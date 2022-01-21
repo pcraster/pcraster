@@ -50,17 +50,17 @@ class StatementBlock : public Statement {
 
  public:
   // DESTRUCTORS
-  virtual ~StatementBlock();
+  ~StatementBlock() override;
 
   //! add statement add end of block
   void addStatement(Statement *s);
 
 
-  virtual bool buildTypes();
+  bool buildTypes() override;
 
 
-  virtual void prepareExecution();
-  virtual void run();
+  void prepareExecution() override;
+  void run() override;
   void executeStatements();
   virtual void executeBlock()=0;
 

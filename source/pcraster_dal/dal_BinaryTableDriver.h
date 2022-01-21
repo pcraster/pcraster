@@ -62,7 +62,7 @@ public:
 
                    BinaryTableDriver   ();
 
-  /* virtual */    ~BinaryTableDriver  ();
+  /* virtual */    ~BinaryTableDriver  () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -74,7 +74,7 @@ public:
 
   bool             exists              (std::string const& name,
                                         DataSpace const& space,
-                                        DataSpaceAddress const& address) const;
+                                        DataSpaceAddress const& address) const override;
 
   // Table*           open                (std::string const& name,
   //                                       DataSpace const& space,
@@ -92,7 +92,7 @@ public:
   void             write               (Table const& table,
                                         DataSpace const& space,
                                         DataSpaceAddress const& address,
-                                        std::string const& name) const;
+                                        std::string const& name) const override;
 
 };
 

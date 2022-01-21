@@ -53,7 +53,7 @@ private:
 
   CSF_VS           d_valueScale;
 
-  bool             isRead              (dal::DataSpaceAddress const& address) const;
+  bool             isRead              (dal::DataSpaceAddress const& address) const override;
 
 public:
 
@@ -64,7 +64,7 @@ public:
                    Table               (std::string const& name,
                                         dal::DataSpace const& space);
 
-  /* virtual */    ~Table              ();
+  /* virtual */    ~Table              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

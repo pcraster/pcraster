@@ -68,15 +68,15 @@ private:
   class UseDefRecorder*  d_rec;
   bool                   d_keepLiveAtEnd;
 
-  void             visitNumber                  (ASTNumber *);
-  void             visitPar                     (ASTPar *);
-  void             visitAss                     (ASTAss *a);
-  void             visitJumpNode                (JumpNode *);
-  void             visitBlockEntrance           (BlockEntrance *);
-  void             visitExpr                    (BaseExpr* e);
-  void             visitPointCodeBlock          (PointCodeBlock *b);
+  void             visitNumber                  (ASTNumber *) override;
+  void             visitPar                     (ASTPar *) override;
+  void             visitAss                     (ASTAss *a) override;
+  void             visitJumpNode                (JumpNode *) override;
+  void             visitBlockEntrance           (BlockEntrance *) override;
+  void             visitExpr                    (BaseExpr* e) override;
+  void             visitPointCodeBlock          (PointCodeBlock *b) override;
 
-  void             visitNonAssExpr              (NonAssExpr   *e);
+  void             visitNonAssExpr              (NonAssExpr   *e) override;
 
   void             doExpr(BaseExpr *e);
 
@@ -90,14 +90,14 @@ public:
                                                  bool keepLiveAtEnd,
                                                  bool prefixUseByDefs);
 
-  /* virtual */    ~UseDefAnalyzer              ();
+  /* virtual */    ~UseDefAnalyzer              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
   void              setLastUse                  ();
 
-  void              enterDynamicSection         (DynamicSection* d);
+  void              enterDynamicSection         (DynamicSection* d) override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS

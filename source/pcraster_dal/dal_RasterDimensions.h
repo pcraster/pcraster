@@ -86,7 +86,7 @@ public:
 
                    RasterDimensions    (RasterDimensions const& rhs);
 
-  /* virtual */    ~RasterDimensions   ();
+  /* virtual */    ~RasterDimensions   () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

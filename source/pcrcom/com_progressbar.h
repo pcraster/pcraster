@@ -68,17 +68,17 @@ public:
                                         size_t width,
                                         std::ostream& stream);
 
-  /* virtual */    ~ProgressBar        ();
+  /* virtual */    ~ProgressBar        () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
 
-  void             clear               ();
+  void             clear               () override;
 
-  void             init                ();
+  void             init                () override;
 
-  void             update              ();
+  void             update              () override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS

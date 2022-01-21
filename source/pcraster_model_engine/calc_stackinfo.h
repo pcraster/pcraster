@@ -69,7 +69,7 @@ public:
 
                    StackInfo               ();
 
-  /* virtual */    ~StackInfo              ();
+  /* virtual */    ~StackInfo              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

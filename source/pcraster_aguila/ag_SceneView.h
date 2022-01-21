@@ -73,12 +73,12 @@ protected:
 
   virtual ag::SceneObject& sceneObject() const = 0;
 
-  virtual void     initializeGL        ();
+  void     initializeGL        () override;
 
-  virtual void     resizeGL            (int w,
-                                        int h);
+  void     resizeGL            (int w,
+                                        int h) override;
 
-  virtual void     paintGL             ();
+  void     paintGL             () override;
 
   void             checkForGLErrors    ();
 
@@ -107,7 +107,7 @@ protected:
 
   bool             dirty               () const;
 
-  void             keyPressEvent       (QKeyEvent* event);
+  void             keyPressEvent       (QKeyEvent* event) override;
 
 public:
 
@@ -118,7 +118,7 @@ public:
   //----------------------------------------------------------------------------
 
   //! Destructor.
-  virtual          ~SceneView          ();
+           ~SceneView          () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

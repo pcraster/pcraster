@@ -49,7 +49,7 @@ public:
 
                    QuitForExitOption               ();
 
-  /* virtual */    ~QuitForExitOption              ();
+  /* virtual */    ~QuitForExitOption              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

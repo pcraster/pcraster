@@ -62,17 +62,17 @@ public:
                                                    const std::string& fileName,
                                                    VS                 vs);
 
-     virtual       ~DiskWrittenField              ();
+           ~DiskWrittenField              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
-  DataValue*        load                          ();
+  DataValue*        load                          () override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  virtual OVS       ovs                            () const;
+  OVS       ovs                            () const override;
 
 };
 

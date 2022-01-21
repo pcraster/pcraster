@@ -39,7 +39,7 @@ private:
 
   dal::DataSpace   _space;
 
-  bool             isRead              (dal::DataSpaceAddress const& address) const;
+  bool             isRead              (dal::DataSpaceAddress const& address) const override;
 
 protected:
 
@@ -52,7 +52,7 @@ public:
                    Vector              (std::string const& name,
                                         dal::DataSpace const& space);
 
-  /* virtual */    ~Vector             ();
+  /* virtual */    ~Vector             () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -65,7 +65,7 @@ public:
   // ACCESSORS
   //----------------------------------------------------------------------------
 
-  dal::RasterDimensions const& dimensions() const;
+  dal::RasterDimensions const& dimensions() const override;
 
   bool             isRead              () const;
 
@@ -75,14 +75,14 @@ public:
 
   double           cellSize            () const;
 
-  dal::TypeId      typeId              () const;
+  dal::TypeId      typeId              () const override;
 
   template<typename T>
   bool             isMV                (size_t row,
                                         size_t col) const;
 
   bool             isMV                (size_t row,
-                                        size_t col) const;
+                                        size_t col) const override;
 
   template<typename T>
   T const&         x                   (size_t row,

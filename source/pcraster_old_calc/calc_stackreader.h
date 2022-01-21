@@ -111,7 +111,7 @@ template<typename MapFormat>
                                const std::string& stackName):
                      StackReader(strategy,stackName) {};
 
-     virtual       ~StackReaderT              () {};
+           ~StackReaderT              () override {};
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -126,9 +126,9 @@ template<typename MapFormat>
    *   Moet nu met specialisatie, als Esri/Band en Csf helemaal in geo zitten
    *   dan wrsl. niet meer
    */
-  VS  checkItem(size_t t, VS expectVsSet) const;
+  VS  checkItem(size_t t, VS expectVsSet) const override;
 
-  Spatial *read(size_t atTimeStep, VS readAs, const Compressor& c) const
+  Spatial *read(size_t atTimeStep, VS readAs, const Compressor& c) const override
   {
     MapFormat m(itemName(atTimeStep));
     return m.readData(readAs,c);

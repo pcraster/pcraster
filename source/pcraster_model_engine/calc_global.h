@@ -57,7 +57,7 @@ public:
                    Global               (F f);
                    Global               (const IOpImpl* redirect);
 
-  /* virtual */    ~Global              ();
+  /* virtual */    ~Global              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -66,7 +66,7 @@ public:
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  void             exec                 (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const;
+  void             exec                 (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const override;
 };
 
 //! Multiple Result Function: global functions with two results
@@ -95,7 +95,7 @@ public:
                    MRF               (F f);
                    MRF               (const IOpImpl* redirect);
 
-  /* virtual */    ~MRF              ();
+  /* virtual */    ~MRF              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -104,7 +104,7 @@ public:
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  void             exec                 (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const;
+  void             exec                 (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const override;
 };
 
 //! Single return interface to MRF type function
@@ -128,7 +128,7 @@ public:
 
                    OneOfMRF              (const MRF *mrf);
 
-  /* virtual */   ~OneOfMRF              ();
+  /* virtual */   ~OneOfMRF              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -140,7 +140,7 @@ public:
 
   void             exec                 (RunTimeEnv* rte,
                                          const Operator& op,
-                                         size_t nrArgs) const;
+                                         size_t nrArgs) const override;
 };
 
 

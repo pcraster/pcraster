@@ -29,7 +29,7 @@ private:
 
 protected:
 
-  void             reMapColours        ();
+  void             reMapColours        () override;
 
 public:
 
@@ -43,7 +43,7 @@ public:
 
                    NominalDrawProps    (const NominalDrawProps& properties);
 
-  /* virtual */    ~NominalDrawProps   ();
+  /* virtual */    ~NominalDrawProps   () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

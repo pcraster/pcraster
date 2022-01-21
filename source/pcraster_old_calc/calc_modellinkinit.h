@@ -45,12 +45,12 @@ public:
     const std::string& strArg,
           FieldExprArgs& args);
 
-  virtual ~ModelLinkInit();
+  ~ModelLinkInit() override;
 
-  bool buildTypes();
+  bool buildTypes() override;
 
-  void prepareExecution();
-  void run();
+  void prepareExecution() override;
+  void run() override;
 };
 
 }

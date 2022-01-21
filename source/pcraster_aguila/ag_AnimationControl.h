@@ -75,11 +75,11 @@ protected:
 
                    AnimationControl     (DataObject* object);
 
-  void             rescan              ();
+  void             rescan              () override;
 
-  void             process             ();
+  void             process             () override;
 
-  void             visualise           ();
+  void             visualise           () override;
 
 public:
 
@@ -89,7 +89,7 @@ public:
   // CREATORS
   //----------------------------------------------------------------------------
 
-  /* virtual */    ~AnimationControl    ();
+  /* virtual */    ~AnimationControl    () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

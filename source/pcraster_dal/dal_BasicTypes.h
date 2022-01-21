@@ -50,13 +50,13 @@ template<
   typename T>
 class BasicType : public Type {
    public:
-     size_t size() const {
+     size_t size() const override {
        return sizeof(T);
      }
-     TypeId id() const {
+     TypeId id() const override {
        return TypeTraits<T>::typeId;
      }
-     bool hasTrivialCopy() const {
+     bool hasTrivialCopy() const override {
             return boost::has_trivial_copy<T>();
      }
 };
@@ -76,7 +76,7 @@ public:
 
                    Uint1Type           ();
 
-  bool             canParse            (std::string const& string) const;
+  bool             canParse            (std::string const& string) const override;
 
 };
 
@@ -97,7 +97,7 @@ public:
 
                    Uint2Type           ();
 
-  bool             canParse            (std::string const& string) const;
+  bool             canParse            (std::string const& string) const override;
 
 };
 
@@ -118,7 +118,7 @@ public:
 
                    Uint4Type           ();
 
-  bool             canParse            (std::string const& string) const;
+  bool             canParse            (std::string const& string) const override;
 
 };
 
@@ -139,7 +139,7 @@ public:
 
                    Int1Type            ();
 
-  bool             canParse            (std::string const& string) const;
+  bool             canParse            (std::string const& string) const override;
 
 };
 
@@ -160,7 +160,7 @@ public:
 
                    Int2Type            ();
 
-  bool             canParse            (std::string const& string) const;
+  bool             canParse            (std::string const& string) const override;
 
 };
 
@@ -181,7 +181,7 @@ public:
 
                    Int4Type            ();
 
-  bool             canParse            (std::string const& string) const;
+  bool             canParse            (std::string const& string) const override;
 
 };
 
@@ -202,7 +202,7 @@ public:
 
                    Real4Type           ();
 
-  bool             canParse            (std::string const& string) const;
+  bool             canParse            (std::string const& string) const override;
 
 };
 
@@ -223,7 +223,7 @@ public:
 
                    Real8Type           ();
 
-  bool             canParse            (std::string const& string) const;
+  bool             canParse            (std::string const& string) const override;
 
 };
 
@@ -239,7 +239,7 @@ public:
 
                    StringType          ();
 
-  bool             canParse            (std::string const& string) const;
+  bool             canParse            (std::string const& string) const override;
 
 };
 

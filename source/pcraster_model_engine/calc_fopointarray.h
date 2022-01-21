@@ -70,13 +70,13 @@ template<class O>
      typedef       typename O::ResultType * RESTRICT Result; // (out-only)
      typedef const typename O::InputType  * RESTRICT Input;
 
-     CRIndex cri() const {
+     CRIndex cri() const override {
         return crIndex<typename O::InputType>();
      }
      DiffUnArray() {
        f=(F)fImpl;
      }
-     virtual ~DiffUnArray() {
+     ~DiffUnArray() override {
      }
      static void fImpl(Result r, Input val, size_t n)
      {
@@ -96,7 +96,7 @@ template<class O>
      typedef const T * RESTRICT Input; // Input
      typedef       T * RESTRICT Result; // Result (and input)
 
-     CRIndex cri() const {
+     CRIndex cri() const override {
         return crIndex<T>();
      }
 
@@ -106,7 +106,7 @@ template<class O>
        ns=(NS)nsImpl;
        sn=(SN)snImpl;
      }
-     virtual ~SameBinArray()
+     ~SameBinArray() override
      {
      }
 
@@ -162,7 +162,7 @@ template<typename T>
      typedef const T* Input; // Input
      typedef       T* Result; // Result (and input)
 
-     CRIndex cri() const {
+     CRIndex cri() const override {
         return crIndex<T>();
      }
 
@@ -206,7 +206,7 @@ template<typename T>
      typedef const T    * True;   // A2
 
      //! used for 2nd arg, A2 that equal Result
-     CRIndex cri() const {
+     CRIndex cri() const override {
         return crIndex<T>();
      }
 
@@ -263,7 +263,7 @@ template<typename T>
 
 
    //! used for 2nd arg: true branch
-   CRIndex cri() const {
+   CRIndex cri() const override {
       return crIndex<T>();
    }
 
@@ -325,7 +325,7 @@ template<class O>
      //! A1 == A2 == E
      typedef const   T*    E;
 
-     CRIndex cri() const {
+     CRIndex cri() const override {
         return crIndex<T>();
      }
      DiffBinArray() {
@@ -334,7 +334,7 @@ template<class O>
        ns=(F)nsImpl;
        sn=(F)snImpl;
      }
-     virtual ~DiffBinArray() {
+     ~DiffBinArray() override {
      }
      static void ssImpl(R res, E l, E r,size_t n)
      {
@@ -375,14 +375,14 @@ template<class O>
    typedef       typename O::AggregateType* R;
    typedef const typename O::Input*         I;
 
-   CRIndex cri() const {
+   CRIndex cri() const override {
        return crIndex<typename O::Input>();
    }
 
    AggregateArray() {
        f=(F)fImpl;
    }
-   virtual ~AggregateArray() {
+   ~AggregateArray() override {
    }
 
    static void fImpl(R r,I v, size_t n) {

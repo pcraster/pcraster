@@ -53,9 +53,9 @@ private:
                    Raster  (const Raster&);
 
 
-  T&               operator[]          (size_t index);
+  T&               operator[]          (size_t index) override;
 
-  const T&         operator[]          (size_t index) const;
+  const T&         operator[]          (size_t index) const override;
 
 public:
 
@@ -70,20 +70,20 @@ public:
                                         size_t nrCols,
                                         const T& value);
 
-  /* virtual */    ~Raster ();
+  /* virtual */    ~Raster () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
 
-  Raster<T>&       add                 (const IRaster<T>& rhs);
+  Raster<T>&       add                 (const IRaster<T>& rhs) override;
   T*               asCArray           ();
 
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
 
-  bool             isMultiValued      () const;
+  bool             isMultiValued      () const override;
   const T*         asCArray           () const;
 
 };

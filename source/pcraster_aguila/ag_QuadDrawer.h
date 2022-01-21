@@ -104,7 +104,7 @@ public:
 
                    ClassQuadDrawer     (size_t l);
 
-  virtual         ~ClassQuadDrawer     ();
+          ~ClassQuadDrawer     () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -147,7 +147,7 @@ public:
                    RangeQuadDrawer     (const RangeDrawProps& dp,
                                         size_t l);
 
-  virtual         ~RangeQuadDrawer     ();
+          ~RangeQuadDrawer     () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -201,7 +201,7 @@ public:
                                         const BooleanDrawProps& dp,
                                         size_t l);
 
-  /* virtual */    ~BooleanQuadDrawer  ();
+  /* virtual */    ~BooleanQuadDrawer  () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -212,10 +212,10 @@ public:
   //----------------------------------------------------------------------------
 
   bool             willFill            (size_t r,
-                                        size_t c) const;
+                                        size_t c) const override;
 
   void             draw                (size_t r,
-                                        size_t c) const;
+                                        size_t c) const override;
 
 };
 
@@ -258,7 +258,7 @@ public:
                                         const NominalDrawProps& dp,
                                         size_t l);
 
-  /* virtual */    ~NominalQuadDrawer  ();
+  /* virtual */    ~NominalQuadDrawer  () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -269,10 +269,10 @@ public:
   //----------------------------------------------------------------------------
 
   bool             willFill            (size_t r,
-                                        size_t c) const;
+                                        size_t c) const override;
 
   void             draw                (size_t r,
-                                        size_t c) const;
+                                        size_t c) const override;
 
 };
 
@@ -315,7 +315,7 @@ public:
                                         const OrdinalDrawProps& dp,
                                         size_t l);
 
-  /* virtual */    ~OrdinalQuadDrawer  ();
+  /* virtual */    ~OrdinalQuadDrawer  () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -326,10 +326,10 @@ public:
   //----------------------------------------------------------------------------
 
   bool             willFill            (size_t r,
-                                        size_t c) const;
+                                        size_t c) const override;
 
   void             draw                (size_t r,
-                                        size_t c) const;
+                                        size_t c) const override;
 
 };
 
@@ -369,7 +369,7 @@ public:
                                         const RangeDrawProps& dp,
                                         size_t l);
 
-  /* virtual */    ~ScalarQuadDrawer   ();
+  /* virtual */    ~ScalarQuadDrawer   () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -380,10 +380,10 @@ public:
   //----------------------------------------------------------------------------
 
   bool             willFill            (size_t r,
-                                        size_t c) const;
+                                        size_t c) const override;
 
   void             draw                (size_t r,
-                                        size_t c) const;
+                                        size_t c) const override;
 
 };
 
@@ -425,7 +425,7 @@ public:
                                         const RangeDrawProps& dp,
                                         size_t l);
 
-  /* virtual */    ~DirectionalQuadDrawer();
+  /* virtual */    ~DirectionalQuadDrawer() override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -436,10 +436,10 @@ public:
   //----------------------------------------------------------------------------
 
   bool             willFill            (size_t r,
-                                        size_t c) const;
+                                        size_t c) const override;
 
   void             draw                (size_t r,
-                                        size_t c) const;
+                                        size_t c) const override;
 
 };
 
@@ -484,7 +484,7 @@ public:
                                         const LddDrawProps& dp,
                                         size_t l);
 
-  /* virtual */    ~LddQuadDrawer      ();
+  /* virtual */    ~LddQuadDrawer      () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -495,10 +495,10 @@ public:
   //----------------------------------------------------------------------------
 
   bool             willFill            (size_t r,
-                                        size_t c) const;
+                                        size_t c) const override;
 
   void             draw                (size_t r,
-                                        size_t c) const;
+                                        size_t c) const override;
 
 };
 

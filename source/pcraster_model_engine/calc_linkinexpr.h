@@ -91,7 +91,7 @@ public:
                                              Id const& nameAfter,
                                              std::string const& stringArgument);
 
-  /* virtual */    ~LinkInExpr              ();
+  /* virtual */    ~LinkInExpr              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -115,9 +115,9 @@ public:
   std::string const&         nameBefore          () const;
   std::string const&         nameAfter           () const;
 
-  const Operator&            op                  () const;
-  ASTId*                     createClone         () const;
-  void                       exec                (RunTimeEnv*) const;
+  const Operator&            op                  () const override;
+  ASTId*                     createClone         () const override;
+  void                       exec                (RunTimeEnv*) const override;
 
 };
 

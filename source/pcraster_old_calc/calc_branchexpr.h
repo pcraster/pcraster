@@ -37,8 +37,8 @@ private:
   void defaultBuildType(VS& newVs, bool& isSpatial);
   void argCombError(int nr,VS  prevVs) const;
 protected:
-  void skipExecution();
-  const FieldType& fieldType() const;
+  void skipExecution() override;
+  const FieldType& fieldType() const override;
 
   // CREATORS
   BranchExpr(
@@ -47,12 +47,12 @@ protected:
           FieldExprArgs& fieldArgs);
 public:
   // MANIPULATORS
-  void prepareExecution();
-  void buildTypesRecursive(VS resultVsSet);
-  FieldType& restrictType();
+  void prepareExecution() override;
+  void buildTypesRecursive(VS resultVsSet) override;
+  FieldType& restrictType() override;
   // ACCESSORS
   size_t nrArgs() const;
-  void print(InfoScript& i)const;
+  void print(InfoScript& i)const override;
 };
 
 }

@@ -92,7 +92,7 @@ public:
 
                    VisGroupManager     (const qt::AppWindowProperties& props);
 
-  /* virtual */    ~VisGroupManager    ();
+  /* virtual */    ~VisGroupManager    () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

@@ -44,7 +44,7 @@ public:
                    SpatialDataset      (std::string const& name,
                                         dal::DataSpace const& space);
 
-  virtual          ~SpatialDataset     ();
+           ~SpatialDataset     () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

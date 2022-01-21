@@ -238,19 +238,19 @@ class TopDownExprRestrictor: public ASTVisitor {
      d_dt.push(r);
     };
 
-  ~TopDownExprRestrictor() {};
+  ~TopDownExprRestrictor() override {};
 
   //! update use of number
   /*!
    *  should solve pcrcalc214c: put scalar here in a 2nd run of
    *    BuildTypes
    */
-  void visitNumber(ASTNumber *n) {
+  void visitNumber(ASTNumber *n) override {
     d_dtc.restrict(n->returnDataType(0),pop());
   }
 
   //! update symbol table
-  void visitPar (ASTPar *p) {
+  void visitPar (ASTPar *p) override {
     d_dtc.restrict(d_table[p].dataType(),pop());
     d_dtc.update(p->returnDataType(0), d_table[p].dataType());
   }
@@ -258,7 +258,7 @@ class TopDownExprRestrictor: public ASTVisitor {
   size_t nrChanges() const
   { return d_dtc.nrChanges(); }
 
-  void visitExpr(BaseExpr    *e) {
+  void visitExpr(BaseExpr    *e) override {
 
    const Operator& op(e->op());
    // type description
@@ -304,10 +304,10 @@ class TopDownExprRestrictor: public ASTVisitor {
    }
 
   //! should never be visited only expressions are visited here
-  void visitAss(ASTAss   *)
+  void visitAss(ASTAss   *) override
   { PRECOND(FALSE); };
   //! should never be visited only expressions are visited here
-  void visitStat(ASTStat *)
+  void visitStat(ASTStat *) override
   { PRECOND(FALSE); };
 
   void subTypeDataStorage(ASTPar *p,

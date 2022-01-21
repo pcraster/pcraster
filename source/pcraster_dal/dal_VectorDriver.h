@@ -74,7 +74,7 @@ public:
 
                    VectorDriver        ();
 
-  /* virtual */    ~VectorDriver       ();
+  /* virtual */    ~VectorDriver       () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -86,19 +86,19 @@ public:
 
   bool             exists              (std::string const& name,
                                         DataSpace const& space=DataSpace(),
-                                        DataSpaceAddress const& address=DataSpaceAddress()) const;
+                                        DataSpaceAddress const& address=DataSpaceAddress()) const override;
 
   Vector*          open                (std::string const& name,
                                         DataSpace const& space=DataSpace(),
-                                        DataSpaceAddress const& address=DataSpaceAddress()) const;
+                                        DataSpaceAddress const& address=DataSpaceAddress()) const override;
 
   DataSpace        dataSpace           (std::string const& name,
                                         DataSpace const& space=DataSpace(),
-                                        DataSpaceAddress const& address=DataSpaceAddress()) const;
+                                        DataSpaceAddress const& address=DataSpaceAddress()) const override;
 
   Vector*          read                (std::string const& name,
                                         DataSpace const& space=DataSpace(),
-                                        DataSpaceAddress const& address=DataSpaceAddress()) const;
+                                        DataSpaceAddress const& address=DataSpaceAddress()) const override;
 
   void             read                (Vector& vector,
                                         std::string const& name,
@@ -109,7 +109,7 @@ public:
                                         TypeId typeId,
                                         std::string const& name,
                                         DataSpace const& space=DataSpace(),
-                                        DataSpaceAddress const& address=DataSpaceAddress()) const;
+                                        DataSpaceAddress const& address=DataSpaceAddress()) const override;
 
   bool             extremes            (boost::any& min,
                                         boost::any& max,
@@ -118,7 +118,7 @@ public:
                                         DataSpace const& space=DataSpace()) const;
 
   void             browse              (std::vector<BrowseInfo>& attributes,
-                                        std::string const& location) const;
+                                        std::string const& location) const override;
 
 };
 

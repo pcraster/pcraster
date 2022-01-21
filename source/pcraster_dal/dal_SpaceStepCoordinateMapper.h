@@ -57,7 +57,7 @@ public:
                    SpaceStepCoordinateMapper(
                                         SpaceStepMapper const& mapper);
 
-  /* virtual */    ~SpaceStepCoordinateMapper();
+  /* virtual */    ~SpaceStepCoordinateMapper() override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -69,7 +69,7 @@ public:
 
   std::string      toString            (DataSpace const& space,
                                         DataSpaceAddress const& address,
-                                        size_t index) const;
+                                        size_t index) const override;
 
 };
 

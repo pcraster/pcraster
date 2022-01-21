@@ -56,9 +56,9 @@ private:
 
 protected:
 
-  void             paintEvent          (QPaintEvent *e);
+  void             paintEvent          (QPaintEvent *e) override;
 
-  void             mousePressEvent     (QMouseEvent *e);
+  void             mousePressEvent     (QMouseEvent *e) override;
 
 public:
 
@@ -74,7 +74,7 @@ public:
                                         QWidget *p=nullptr);
 
   //! Destructor.
-  /* virtual */    ~PaletteBar         ();
+  /* virtual */    ~PaletteBar         () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -91,7 +91,7 @@ public:
   //----------------------------------------------------------------------------
 
   //! Returns a size hint.
-  QSize            sizeHint            () const;
+  QSize            sizeHint            () const override;
 
   //! Returns the palette.
   const com::RawPalette *palette       () const;

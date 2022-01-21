@@ -65,7 +65,7 @@ public:
                    MaskCompressor(const geo::RasterSpace& rs,
                                   const unsigned char * const mask);
 
-  /* virtual */    ~MaskCompressor              ();
+  /* virtual */    ~MaskCompressor              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -75,14 +75,14 @@ public:
   // ACCESSORS
   //----------------------------------------------------------------------------
   void              decompress(DecompressedData& d,
-                               const void * compressedData) const;
+                               const void * compressedData) const override;
   void             *compress  (VS vs,
                                void *compressedValueBuffer,
                                void *decompressedValueBuffer) const;
-  Spatial          *createSpatial(CompressionInput& ci)const;
+  Spatial          *createSpatial(CompressionInput& ci)const override;
 
-  size_t            toDecompressedIndex(size_t compressedIndex) const;
-  size_t            nrCellsCompressed() const;
+  size_t            toDecompressedIndex(size_t compressedIndex) const override;
+  size_t            nrCellsCompressed() const override;
 
 };
 

@@ -86,7 +86,7 @@ struct AccumulateFluxPar:
   AccumulateFluxPar(const VField<float>& par):
     d_par(par)
     {}
-  virtual bool mv(size_t pos) const {
+  bool mv(size_t pos) const override {
     return pcr::isMV(d_par[pos]);
   }
 };
@@ -99,7 +99,7 @@ public:
   Capacity(const VField<float>& capacity):
     AccumulateFluxPar(capacity)
     {}
-  float operator()(float interimState, size_t pos) const {
+  float operator()(float interimState, size_t pos) const override {
     return std::min(interimState,d_par[pos]);
   }
 };
@@ -110,7 +110,7 @@ public:
   Threshold(const VField<float>& threshold):
     AccumulateFluxPar(threshold)
     {}
-  float operator()(float interimState, size_t pos) const {
+  float operator()(float interimState, size_t pos) const override {
     float threshold=d_par[pos];
     if (threshold < 0)
       throw DomainError("threshold < 0");
@@ -126,7 +126,7 @@ public:
   Fraction(const VField<float>& fraction):
     AccumulateFluxPar(fraction)
     {}
-  float operator()(float interimState, size_t pos) const {
+  float operator()(float interimState, size_t pos) const override {
     float fraction=d_par[pos];
     if (0 > fraction || fraction > 1)
       throw DomainError("fraction not in [0,1] range");
@@ -140,7 +140,7 @@ public:
   Trigger(const VField<float>& trigger):
     AccumulateFluxPar(trigger)
     {}
-  float operator()(float interimState, size_t pos) const {
+  float operator()(float interimState, size_t pos) const override {
     float trigger=d_par[pos];
     if (trigger < 0)
       throw DomainError("trigger < 0");
@@ -166,8 +166,8 @@ private:
    const  VField<float>&  d_oldState;
    const  AccumulateFlux& d_fluxFo;
 
-   void visitEdge        (size_t up, size_t down);
-   void finishVertex     (size_t v);
+   void visitEdge        (size_t up, size_t down) override;
+   void finishVertex     (size_t v) override;
 
 public:
 
@@ -176,7 +176,7 @@ public:
                                            const  VField<float>&  oldState,
                                            const  AccumulateFlux& fluxFo);
 
-  /* virtual */    ~AccuImpl              ();
+  /* virtual */    ~AccuImpl              () override;
 
 };
 
@@ -301,7 +301,7 @@ void calc::AccuAll::exec(
   {
      struct All : public AccumulateFlux {
        All() {}
-     float operator()(float interimState, size_t /* pos */) const
+     float operator()(float interimState, size_t /* pos */) const override
       { return interimState; }
       ~All() {}
      };

@@ -15,9 +15,9 @@ class LineMarker : public QGraphicsItem
 public:
   LineMarker(QtCharts::QChart *parent);
 
-  QRectF boundingRect() const;
+  QRectF boundingRect() const override;
 
-  void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,QWidget *widget);
+  void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,QWidget *widget) override;
 
   void updateGeometry();
 

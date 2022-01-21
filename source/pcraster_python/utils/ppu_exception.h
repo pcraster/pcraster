@@ -23,7 +23,7 @@ public:
 
   PyUtilsException                     (const std::string& message);
 
-  /* virtual */  ~PyUtilsException     ();
+  /* virtual */  ~PyUtilsException     () override;
 
   const std::string& message           () const;
 };

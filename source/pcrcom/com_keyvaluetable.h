@@ -280,7 +280,7 @@ public:
 
                    KeyValueString(const std::string& keyName);
 
-  /* virtual */    ~KeyValueString              ();
+  /* virtual */    ~KeyValueString              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -289,9 +289,9 @@ public:
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  KeyValueString *createClone()const;
+  KeyValueString *createClone()const override;
   const std::string& value(const KeyValueTable& kvt) const;
-  void validate(const std::string& value) const;
+  void validate(const std::string& value) const override;
 
 };
 
@@ -317,7 +317,7 @@ public:
 
                    KeyValueEnum(const std::string& keyName);
 
-  /* virtual */    ~KeyValueEnum              ();
+  /* virtual */    ~KeyValueEnum              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -327,10 +327,10 @@ public:
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  KeyValueEnum *createClone()const;
+  KeyValueEnum *createClone()const override;
   const std::string& value(const KeyValueTable& kvt) const;
   const std::string& configValue(const KeyValueTable& kvt) const;
-  void validate(const std::string& value) const;
+  void validate(const std::string& value) const override;
 };
 
 //! abstract class for numeric values
@@ -363,7 +363,7 @@ public:
   // CREATORS
   //----------------------------------------------------------------------------
 
-     virtual       ~KeyValueNumber              ();
+           ~KeyValueNumber              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -373,23 +373,23 @@ public:
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  void validate(const std::string& value) const;
+  void validate(const std::string& value) const override;
 
 };
 
 class KeyValueInteger : public KeyValueNumber {
  protected:
-  double typeValidate(const std::string& value) const;
+  double typeValidate(const std::string& value) const override;
  public:
    KeyValueInteger(
        const std::string& keyName,
        const Interval<double>* iv=nullptr);
-   ~KeyValueInteger();
+   ~KeyValueInteger() override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  KeyValueInteger *createClone()const;
+  KeyValueInteger *createClone()const override;
   int    value(const KeyValueTable& kvt) const;
 
   void setConditional(int& v,   const KeyValueTable& kvt) const;
@@ -398,17 +398,17 @@ class KeyValueInteger : public KeyValueNumber {
 
 class KeyValueDouble : public KeyValueNumber {
  protected:
-  double typeValidate(const std::string& value) const;
+  double typeValidate(const std::string& value) const override;
  public:
    KeyValueDouble(
        const std::string& keyName,
        const Interval<double>* iv=nullptr);
-   ~KeyValueDouble();
+   ~KeyValueDouble() override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  KeyValueDouble *createClone()const;
+  KeyValueDouble *createClone()const override;
   double   value(const KeyValueTable& kvt) const;
   void     setConditional(double& v, const KeyValueTable& kvt) const;
 };

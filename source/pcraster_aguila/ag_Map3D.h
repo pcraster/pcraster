@@ -48,11 +48,11 @@ private:
 
   void             createInterface     (DataObject* object);
 
-  void             rescan              ();
+  void             rescan              () override;
 
-  void             process             ();
+  void             process             () override;
 
-  void             visualise           ();
+  void             visualise           () override;
 
 public:
 
@@ -63,7 +63,7 @@ public:
                    Map3D               (DataObject* dataObject,
                                         QWidget* parent = nullptr);
 
-  /* virtual */    ~Map3D              ();
+  /* virtual */    ~Map3D              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

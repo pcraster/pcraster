@@ -49,9 +49,9 @@ private:
                    SingleValuedRaster  (const SingleValuedRaster&);
 
 
-  T&               operator[]         (size_t index);
+  T&               operator[]         (size_t index) override;
 
-  const T&         operator[]         (size_t index) const;
+  const T&         operator[]         (size_t index) const override;
 
 public:
 
@@ -66,19 +66,19 @@ public:
                                         size_t nrCols,
                                         const T& value);
 
-  /* virtual */    ~SingleValuedRaster ();
+  /* virtual */    ~SingleValuedRaster () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
 
-  SingleValuedRaster<T>& add           (const IRaster<T>& rhs);
+  SingleValuedRaster<T>& add           (const IRaster<T>& rhs) override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
 
-  bool             isMultiValued      () const;
+  bool             isMultiValued      () const override;
 
 };
 

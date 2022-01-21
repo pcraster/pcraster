@@ -112,7 +112,7 @@ public:
 
   FeatureLayer&    operator=           (FeatureLayer const& rhs);
 
-  virtual          ~FeatureLayer       ();
+           ~FeatureLayer       () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

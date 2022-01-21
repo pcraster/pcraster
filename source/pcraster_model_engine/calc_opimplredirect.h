@@ -59,7 +59,7 @@ public:
                    OpImplRedirect               (const IOpImpl *redirect);
                    OpImplRedirect               ();
 
-  /* virtual */    ~OpImplRedirect              ();
+  /* virtual */    ~OpImplRedirect              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

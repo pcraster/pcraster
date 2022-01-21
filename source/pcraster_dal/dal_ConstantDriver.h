@@ -52,7 +52,7 @@ public:
   // CREATORS
   //----------------------------------------------------------------------------
 
-  /* virtual */    ~ConstantDriver     ();
+  /* virtual */    ~ConstantDriver     () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -64,31 +64,31 @@ public:
 
   bool             exists              (std::string const& name) const;
 
-  virtual bool     exists              (std::string const& name,
+  bool     exists              (std::string const& name,
                                         dal::DataSpace const& space,
-                                        dal::DataSpaceAddress const& address) const=0;
+                                        dal::DataSpaceAddress const& address) const override =0;
 
   Constant*        open                (std::string const& name) const;
 
-  virtual Constant* open               (std::string const& name,
+  Constant* open               (std::string const& name,
                                         dal::DataSpace const& space,
-                                        dal::DataSpaceAddress const& address) const=0;
+                                        dal::DataSpaceAddress const& address) const override =0;
 
   DataSpace        dataSpace           (std::string const& name,
                                         DataSpace const& space,
-                                        DataSpaceAddress const& address) const;
+                                        DataSpaceAddress const& address) const override;
 
-  Constant*        read                (std::string const& name) const;
+  Constant*        read                (std::string const& name) const override;
 
-  virtual Constant* read               (std::string const& name,
+  Constant* read               (std::string const& name,
                                         dal::DataSpace const& space,
-                                        dal::DataSpaceAddress const& address) const=0;
+                                        dal::DataSpaceAddress const& address) const override =0;
 
   void             read                (void* cell,
                                         TypeId typeId,
                                         std::string const& name,
                                         DataSpace const& space,
-                                        DataSpaceAddress const& address) const;
+                                        DataSpaceAddress const& address) const override;
 
 };
 

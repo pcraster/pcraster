@@ -39,7 +39,7 @@ private:
   void             draw                (QPainter& painter,
                                         QRectF const& dirtyMapAreaInPixels,
                                         QTransform const& world_to_screen,
-                                        QTransform const& screen_to_world) const;
+                                        QTransform const& screen_to_world) const override;
 
   virtual void     draw                (QPainter& painter,
                                         QRect const& indices,
@@ -79,7 +79,7 @@ public:
   // CREATORS
   //----------------------------------------------------------------------------
 
-  virtual          ~RasterDrawer      ();
+           ~RasterDrawer      () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

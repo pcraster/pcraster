@@ -36,7 +36,7 @@ class UserSymbol : public BindedSymbol {
  protected:
    UserSymbol(const BindedSymbol& parName);
  public:
-  virtual ~UserSymbol();
+  ~UserSymbol() override;
 
   //! overwrite if actions are needed when symbol goes in scope
   virtual void goInScope();

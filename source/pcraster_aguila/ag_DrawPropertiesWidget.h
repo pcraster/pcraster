@@ -73,7 +73,7 @@ public:
   // CREATORS
   //----------------------------------------------------------------------------
 
-  virtual          ~DrawPropertiesWidget();
+           ~DrawPropertiesWidget() override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -81,7 +81,7 @@ public:
 
   virtual void     rescan              ();
 
-  virtual void     apply               ();
+  void     apply               () override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS

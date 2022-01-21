@@ -13,7 +13,7 @@ class NotA_PCRasterMap : public com::FileFormatError
 {
 public:
        NotA_PCRasterMap(const std::string& fileName);
-  virtual ~NotA_PCRasterMap();
+  ~NotA_PCRasterMap() override;
 };
 
 }

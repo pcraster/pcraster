@@ -55,7 +55,7 @@ public:
 
                    TextConstantDriver  ();
 
-  /* virtual */    ~TextConstantDriver ();
+  /* virtual */    ~TextConstantDriver () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -67,11 +67,11 @@ public:
 
   bool             exists              (std::string const& name,
                                         DataSpace const& space,
-                                        DataSpaceAddress const& address) const;
+                                        DataSpaceAddress const& address) const override;
 
   Constant*        open                (std::string const& name,
                                         DataSpace const& space,
-                                        DataSpaceAddress const& address) const;
+                                        DataSpaceAddress const& address) const override;
 
   void             read                (Constant& constant,
                                         std::string const& name,
@@ -80,7 +80,7 @@ public:
 
   Constant*         read               (std::string const& name,
                                         DataSpace const& space,
-                                        DataSpaceAddress const& address) const;
+                                        DataSpaceAddress const& address) const override;
 
 };
 

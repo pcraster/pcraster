@@ -17,10 +17,10 @@ class DynamicSection : public InnerStatementBlock {
 	 InnerStatementBlock(p,b) {}; 
 
 	// MANIPULATORS
-	void executeBlock();
+	void executeBlock() override;
 	// ACCESSORS
- 	bool inDynamic() const;
-	void print(InfoScript& i)const;
+ 	bool inDynamic() const override;
+	void print(InfoScript& i)const override;
 };
 
 }

@@ -93,11 +93,11 @@ class FileTimeoutput : public TssOutputValue {
  public:
   FileTimeoutput(const StackInfo& stackInfo, size_t nrCols);
 
-  ~FileTimeoutput();
+  ~FileTimeoutput() override;
 
-  void    finish();
+  void    finish() override;
 
-  void timeoutput(const Field *id, const Field *expr, size_t currentTimeStep);
+  void timeoutput(const Field *id, const Field *expr, size_t currentTimeStep) override;
   void nonspatial(const Field *f,                     size_t currentTimeStep);
 };
 
@@ -112,8 +112,8 @@ public:
     size_t             memoryId,
     IOStrategy&    ios);
 
-  void    finish();
-  void timeoutput(const Field *id, const Field *expr, size_t currentTimeStep);
+  void    finish() override;
+  void timeoutput(const Field *id, const Field *expr, size_t currentTimeStep) override;
 };
 
 FileTimeoutput* createFileTimeoutput(

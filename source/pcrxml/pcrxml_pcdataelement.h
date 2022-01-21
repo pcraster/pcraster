@@ -78,7 +78,7 @@ public:
 
                     PCDATAElement(const std::string& contents);
 
-  /* virtual */    ~PCDATAElement              ();
+  /* virtual */    ~PCDATAElement              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

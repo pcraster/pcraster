@@ -66,12 +66,12 @@ public:
                    GlobArgs               (const Operator& op,
                                            RunTimeEnv *rte, size_t nrArgs);
 
-  virtual         ~GlobArgs              ();
+          ~GlobArgs              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
-  void             pushResults            ();
+  void             pushResults            () override;
   void        *    dest                   (size_t r=0);
   const void **    src                    ();
 

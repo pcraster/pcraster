@@ -67,7 +67,7 @@ private Q_SLOTS:
 
   void             nameChanged         (const QString& name);
 
-  void             accept              ();
+  void             accept              () override;
 
 public:
 
@@ -84,7 +84,7 @@ public:
                                         bool modal = false,
                                         Qt::WindowFlags flags = Qt::Widget);
 
-  /* virtual */    ~SaveViewAsDialog   ();
+  /* virtual */    ~SaveViewAsDialog   () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

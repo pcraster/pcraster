@@ -257,7 +257,7 @@ public:
   // CREATORS
   //----------------------------------------------------------------------------
 
-  virtual          ~Positional         ();
+           ~Positional         () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -267,9 +267,9 @@ public:
   // ACCESSORS
   //----------------------------------------------------------------------------
 
-  bool             canParse            (const char* token) const;
+  bool             canParse            (const char* token) const override;
 
-  bool             isPositional        () const;
+  bool             isPositional        () const override;
 
 };
 
@@ -336,16 +336,16 @@ public:
                                         const std::string& description,
                                         bool isRequired);
 
-  virtual          ~Option             ();
+           ~Option             () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
 
-  bool             operator<           (const CommandLineArgument& arg) const;
+  bool             operator<           (const CommandLineArgument& arg) const override;
 
-  virtual size_t   parse               (size_t argc,
-                                        char* const* argv);
+  size_t   parse               (size_t argc,
+                                        char* const* argv) override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS
@@ -357,15 +357,15 @@ public:
 
   const std::string& longOption        () const;
 
-  bool             canParse            (const char* token) const;
+  bool             canParse            (const char* token) const override;
 
-  virtual bool     isParsed            () const;
+  bool     isParsed            () const override;
 
-  virtual void     printSynopsis       (std::ostream& s) const;
+  void     printSynopsis       (std::ostream& s) const override;
 
-  virtual void     printDescription    (std::ostream& s,
+  void     printDescription    (std::ostream& s,
                                         size_t offset,
-                                        size_t width) const;
+                                        size_t width) const override;
 
 };
 
@@ -559,26 +559,26 @@ public:
                                         const std::string& description,
                                         bool isRequired=true);
 
-                   ~PositionalValue    ();
+                   ~PositionalValue    () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
 
   size_t           parse               (size_t argc,
-                                        char* const* argv);
+                                        char* const* argv) override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
 
-  bool             isParsed            () const;
+  bool             isParsed            () const override;
 
-  void             printSynopsis       (std::ostream& s) const;
+  void             printSynopsis       (std::ostream& s) const override;
 
   void             printDescription    (std::ostream& s,
                                         size_t offset,
-                                        size_t width) const;
+                                        size_t width) const override;
 
 };
 
@@ -613,26 +613,26 @@ public:
                                         const std::string& description,
                                         bool isRequired);
 
-                   ~PositionalList    ();
+                   ~PositionalList    () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
 
   size_t           parse               (size_t argc,
-                                        char* const* argv);
+                                        char* const* argv) override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
 
-  bool             isParsed            () const;
+  bool             isParsed            () const override;
 
-  void             printSynopsis       (std::ostream& s) const;
+  void             printSynopsis       (std::ostream& s) const override;
 
   void             printDescription    (std::ostream& s,
                                         size_t offset,
-                                        size_t width) const;
+                                        size_t width) const override;
 
 };
 
@@ -679,26 +679,26 @@ public:
                                         ValueType const& defaultValue,
                                         bool isRequired = false);
 
-                   ~OptionValue        ();
+                   ~OptionValue        () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
 
   size_t           parse               (size_t argc,
-                                        char* const* argv);
+                                        char* const* argv) override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
 
-  bool             isParsed            () const;
+  bool             isParsed            () const override;
 
-  void             printSynopsis       (std::ostream& s) const;
+  void             printSynopsis       (std::ostream& s) const override;
 
   void             printDescription    (std::ostream& s,
                                         size_t offset,
-                                        size_t width) const;
+                                        size_t width) const override;
 
 };
 
@@ -737,26 +737,26 @@ public:
                                         const std::string& description,
                                         bool isRequired);
 
-                   ~OptionList         ();
+                   ~OptionList         () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
 
   size_t           parse               (size_t argc,
-                                        char* const* argv);
+                                        char* const* argv) override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
 
-  bool             isParsed            () const;
+  bool             isParsed            () const override;
 
-  void             printSynopsis       (std::ostream& s) const;
+  void             printSynopsis       (std::ostream& s) const override;
 
   void             printDescription    (std::ostream& s,
                                         size_t offset,
-                                        size_t width) const;
+                                        size_t width) const override;
 
 };
 

@@ -98,7 +98,7 @@ public:
   //----------------------------------------------------------------------------
 
 
-  /* virtual */    ~StackInput              ();
+  /* virtual */    ~StackInput              () override;
 
 
                    StackInput               (IOStrategy&        fios,
@@ -119,7 +119,7 @@ public:
   //----------------------------------------------------------------------------
 
   VS               fieldReturnVs             () const;
-  OVS              ovs                       () const;
+  OVS              ovs                       () const override;
 
 };
 

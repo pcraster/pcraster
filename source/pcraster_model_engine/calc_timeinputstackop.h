@@ -29,11 +29,11 @@ namespace calc {
 
 //! Operation Implementation
 struct TimeinputStackOp: public IOpImpl {
-  virtual void exec  (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const;
+  void exec  (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const override;
 };
 
 struct LookupMapStack : public IOpImpl {
-  virtual void exec  (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const;
+  void exec  (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const override;
 };
 
 

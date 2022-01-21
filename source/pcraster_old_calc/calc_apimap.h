@@ -53,16 +53,16 @@ class ApiMapC : public ApiMap {
     ApiMapC(const geo::RasterSpace& rs,CSF_CR inCr):
       d_data(allocate(inCr,rs.nrCells())),
       d_map(d_init(rs.nrRows(),rs.nrCols(),d_data,true,inCr)) {};
-    ~ApiMapC() {
+    ~ApiMapC() override {
       d_del(d_map);
       d_map=nullptr;
       delete [] ((unsigned char *)d_data);
       d_data=nullptr;
     }
-   void *getCPointer() {
+   void *getCPointer() override {
     return (void *)d_map;
    }
-   void *detachData() {
+   void *detachData() override {
      PRECOND(d_data);
      void *v=d_data;
      d_data=nullptr;

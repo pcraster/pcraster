@@ -56,7 +56,7 @@ public:
 
                    MemoryTableDriver   (MemoryDataPool* dataPool);
 
-  /* virtual */    ~MemoryTableDriver  ();
+  /* virtual */    ~MemoryTableDriver  () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -68,25 +68,25 @@ public:
 
   bool             exists              (std::string const& name,
                                         DataSpace const& space,
-                                        DataSpaceAddress const& address) const;
+                                        DataSpaceAddress const& address) const override;
 
   Table*           open                (std::string const& name,
                                         dal::DataSpace const& space,
-                                        dal::DataSpaceAddress const& address) const;
+                                        dal::DataSpaceAddress const& address) const override;
 
   Table*           read                (std::string const& name,
                                         dal::DataSpace const& space,
-                                        dal::DataSpaceAddress const& address) const;
+                                        dal::DataSpaceAddress const& address) const override;
 
   void             read                (Table& table,
                                         std::string const& name,
                                         dal::DataSpace const& space,
-                                        dal::DataSpaceAddress const& address) const;
+                                        dal::DataSpaceAddress const& address) const override;
 
   void             write               (Table const& table,
                                         DataSpace const& space,
                                         DataSpaceAddress const& address,
-                                        std::string const& name) const;
+                                        std::string const& name) const override;
 
 };
 

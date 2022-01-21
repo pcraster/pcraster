@@ -50,7 +50,7 @@ public:
 
                    ZipMap               (const Spatial *f);
 
-  /* virtual */    ~ZipMap              ();
+  /* virtual */    ~ZipMap              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -59,8 +59,8 @@ public:
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  void loadExternal()     const;
-  ZipMap *copy() const;
+  void loadExternal()     const override;
+  ZipMap *copy() const override;
 
 };
 

@@ -50,7 +50,7 @@ public:
 
                    CellOp               ();
 
-  /* virtual */    ~CellOp              ();
+  /* virtual */    ~CellOp              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -65,12 +65,12 @@ public:
 
 class CellFocus : public CellOp  {
  public:
-   void exec(RunTimeEnv *rte, const Operator &op, size_t nrActualArgs) const;
+   void exec(RunTimeEnv *rte, const Operator &op, size_t nrActualArgs) const override;
 };
 
 class LddDownstreamCell : public CellOp  {
  public:
-   void exec(RunTimeEnv *rte, const Operator &op, size_t nrActualArgs) const;
+   void exec(RunTimeEnv *rte, const Operator &op, size_t nrActualArgs) const override;
 };
 
 

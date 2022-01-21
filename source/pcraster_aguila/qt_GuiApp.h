@@ -61,13 +61,13 @@ public:
   // CREATORS
   //----------------------------------------------------------------------------
 
-  virtual          ~GuiApp             ();
+           ~GuiApp             () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
 
-  int              run                 ();
+  int              run                 () override;
 
 
   void             quit                ();
@@ -76,11 +76,11 @@ public:
   // ACCESSORS
   //----------------------------------------------------------------------------
 
-  void             showInfo            (const std::string& message) const;
+  void             showInfo            (const std::string& message) const override;
 
-  void             showWarning         (const std::string& message) const;
+  void             showWarning         (const std::string& message) const override;
 
-  void             showError           (const std::string& message) const;
+  void             showError           (const std::string& message) const override;
 
   void             showError           (com::Exception::const_iterator begin,
                                         com::Exception::const_iterator end) const;

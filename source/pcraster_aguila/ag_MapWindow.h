@@ -43,7 +43,7 @@ private:
   //! Copy constructor. NOT IMPLEMENTED.
                    MapWindow           (const MapWindow &);
 
-  virtual bool     dataVisualised      () const = 0;
+  bool     dataVisualised      () const override = 0;
 
   /// void             rescanMapAction     ();
 
@@ -58,7 +58,7 @@ protected:
 
   void             createInterface     ();
 
-  void             rescan              ();
+  void             rescan              () override;
 
   /// void             addMapActionGroup   ();
 
@@ -79,13 +79,13 @@ public:
   //----------------------------------------------------------------------------
 
   //! Destructor.
-  virtual          ~MapWindow                ();
+           ~MapWindow                () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
 
-  virtual void     addAttribute        (DataGuide const& guide) = 0;
+  void     addAttribute        (DataGuide const& guide) override = 0;
 
   //----------------------------------------------------------------------------
   // ACCESSORS

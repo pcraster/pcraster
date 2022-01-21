@@ -85,12 +85,12 @@ private:
 
   void             handleDoubleClickedCell(
                                         int row,
-                                        int col);
+                                        int col) override;
 
 private Q_SLOTS:
 
   void             handleRequestedCustomContextMenu(
-                                        QPoint const& pos);
+                                        QPoint const& pos) override;
 
   void             editGeneralProperties();
 
@@ -116,7 +116,7 @@ public:
                                         ViewerType type,
                                         QWidget* parent=nullptr);
 
-  /* virtual */    ~LegendView         ();
+  /* virtual */    ~LegendView         () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -128,11 +128,11 @@ public:
 
   void             addAttribute        (const DataGuide& dataGuide);
 
-  void             rescan              ();
+  void             rescan              () override;
 
-  void             process             ();
+  void             process             () override;
 
-  void             visualise           ();
+  void             visualise           () override;
 
 };
 

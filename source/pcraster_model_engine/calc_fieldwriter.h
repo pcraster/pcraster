@@ -111,7 +111,7 @@ public:
                                               const IOStrategy&       fios);
 
 
-  virtual         ~FileWriter              ();
+          ~FileWriter              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -147,12 +147,12 @@ public:
                                               const  IOStrategy&      mios);
 
 
-  virtual         ~MemoryWriter              ();
+          ~MemoryWriter              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
-  std::string write                           (const Field* f, size_t );
+  std::string write                           (const Field* f, size_t ) override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS

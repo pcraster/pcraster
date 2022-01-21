@@ -43,17 +43,17 @@ private:
   //! Frees dynamically allocated memory.
   void             clean               ();
 
-  double           leftScene           () const;
+  double           leftScene           () const override;
 
-  double           rightScene          () const;
+  double           rightScene          () const override;
 
-  double           bottomScene         () const;
+  double           bottomScene         () const override;
 
-  double           topScene            () const;
+  double           topScene            () const override;
 
-  double           backScene           () const;
+  double           backScene           () const override;
 
-  double           frontScene          () const;
+  double           frontScene          () const override;
 
 /*
   void             setValid            (bool s);
@@ -70,21 +70,21 @@ private:
 
 protected:
 
-  void             rescan              ();
+  void             rescan              () override;
 
-  void             process             ();
+  void             process             () override;
 
-  void             visualise           ();
+  void             visualise           () override;
 
-  ag::SceneObject& sceneObject         () const;
+  ag::SceneObject& sceneObject         () const override;
 
-  void             mousePressEvent     (QMouseEvent* event);
+  void             mousePressEvent     (QMouseEvent* event) override;
 
-  void             mouseReleaseEvent   (QMouseEvent* event);
+  void             mouseReleaseEvent   (QMouseEvent* event) override;
 
-  void             mouseMoveEvent      (QMouseEvent* event);
+  void             mouseMoveEvent      (QMouseEvent* event) override;
 
-  void             keyPressEvent       (QKeyEvent* event);
+  void             keyPressEvent       (QKeyEvent* event) override;
 
 public:
 
@@ -97,7 +97,7 @@ public:
                                         QWidget* parent = nullptr);
 
   //! Destructor.
-  /* virtual */    ~Map3DView          ();
+  /* virtual */    ~Map3DView          () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

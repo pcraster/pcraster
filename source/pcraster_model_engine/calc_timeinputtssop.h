@@ -48,7 +48,7 @@ public:
 
                    TimeinputTssOp               ();
 
-  virtual         ~TimeinputTssOp               ();
+          ~TimeinputTssOp               () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -57,7 +57,7 @@ public:
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  virtual void exec  (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const;
+  void exec  (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const override;
 };
 
 //------------------------------------------------------------------------------

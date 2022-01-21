@@ -60,7 +60,7 @@ public:
                                         double fromRadius,
                                         double toRadius);
 
-  /* virtual */    ~CircularNeighbourhood();
+  /* virtual */    ~CircularNeighbourhood() override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

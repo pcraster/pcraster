@@ -71,7 +71,7 @@ public:
   // CREATORS
   //----------------------------------------------------------------------------
 
-  virtual          ~ILabeledProgressTracker();
+           ~ILabeledProgressTracker() override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

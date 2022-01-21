@@ -45,7 +45,7 @@ class  SubParameter : public Parameter {
  protected:
   // CREATORS
    SubParameter( const ParsPar& par, bool constant, bool isInput);
-  virtual ~SubParameter();
+  ~SubParameter() override;
 
   virtual void moreValidation(
       const std::string& fileName) const;
@@ -84,7 +84,7 @@ class  SubParameter : public Parameter {
   //! create correct 'sub-type' info
   virtual void setDataSubType(pcrxml::Data *d) const=0;
 
-  pcrxml::Data *createXmlData() const;
+  pcrxml::Data *createXmlData() const override;
 
 };
 

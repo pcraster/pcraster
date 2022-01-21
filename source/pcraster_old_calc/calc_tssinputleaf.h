@@ -31,7 +31,7 @@ public:
  TssInputLeaf(
    UsePar& par,
    VS resultVs);
- virtual ~TssInputLeaf();
+ ~TssInputLeaf() override;
 
   // ACCESSORS
   size_t select() const;

@@ -49,7 +49,7 @@ public:
                                                  bool validate=false,
                                                  EntityResolverType erType=DefaultEntityResolver);
 
-  virtual         ~StringDomInput              ();
+          ~StringDomInput              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

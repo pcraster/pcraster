@@ -58,7 +58,7 @@ public:
 
                    ZeroMap               (const Spatial *f);
 
-     virtual       ~ZeroMap              ();
+           ~ZeroMap              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -67,11 +67,11 @@ public:
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  void loadExternal()     const;
-  Spatial *copy() const;
+  void loadExternal()     const override;
+  Spatial *copy() const override;
 
-  void   analyzeBoolean(bool& noneAreTrue,bool& noneAreFalse) const;
-  bool   getCell(double& value, size_t i) const;
+  void   analyzeBoolean(bool& noneAreTrue,bool& noneAreFalse) const override;
+  bool   getCell(double& value, size_t i) const override;
 
 };
 

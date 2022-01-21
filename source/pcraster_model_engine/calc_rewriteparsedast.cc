@@ -53,7 +53,7 @@ namespace calc {
   private:
     bool d_timeoutput{false};
     bool d_inDynamicSection{false};
-    void visitExpr(BaseExpr *e)
+    void visitExpr(BaseExpr *e) override
     {
      Operator const& op(e->op());
      if (op.opCode()==OP_TIMEOUTPUT)
@@ -66,14 +66,14 @@ namespace calc {
       }
       e->args()->accept(*this);
     }
-    void  enterDynamicSection (DynamicSection *) {
+    void  enterDynamicSection (DynamicSection *) override {
       d_inDynamicSection=true;
     }
-    void  jumpOutDynamicSection (DynamicSection *) {
+    void  jumpOutDynamicSection (DynamicSection *) override {
       d_inDynamicSection=false;
     }
 
-    void visitStat(ASTStat *s)
+    void visitStat(ASTStat *s) override
     {
       d_timeoutput=false;
       s->stat()->accept(*this);

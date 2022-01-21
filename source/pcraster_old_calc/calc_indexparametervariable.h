@@ -25,10 +25,10 @@ class  IndexParameterVariable : public IndexParameter {
   const ForEach& forEach() const;
 
   //! the nominal nr it has in the array
-  size_t index() const;
-  const IndexParameterConstant* indexParameterConstant() const;
+  size_t index() const override;
+  const IndexParameterConstant* indexParameterConstant() const override;
 
-  bool isOn()const { return true; };
+  bool isOn()const override { return true; };
 };
 
 }

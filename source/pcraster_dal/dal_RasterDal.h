@@ -51,7 +51,7 @@ public:
 
                    RasterDal           (bool addAllDrivers=false);
 
-  /* virtual */    ~RasterDal          ();
+  /* virtual */    ~RasterDal          () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

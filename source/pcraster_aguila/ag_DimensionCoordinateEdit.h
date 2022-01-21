@@ -68,7 +68,7 @@ public:
                                         dal::Dimension const* dimension,
                                         QWidget* parent = nullptr);
 
-  /* virtual */    ~DimensionCoordinateEdit();
+  /* virtual */    ~DimensionCoordinateEdit() override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

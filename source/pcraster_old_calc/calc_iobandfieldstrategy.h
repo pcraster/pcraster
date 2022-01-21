@@ -60,31 +60,31 @@ public:
 
                    IoBandFieldStrategy               ();
 
-  /* virtual */    ~IoBandFieldStrategy              ();
+  /* virtual */    ~IoBandFieldStrategy              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
-  void                     checkClone(const std::string& mapFileName);
+  void                     checkClone(const std::string& mapFileName) override;
 
-  IoFieldStrategy*      checkInputMap(VS& vs, const std::string& fName);
+  IoFieldStrategy*      checkInputMap(VS& vs, const std::string& fName) override;
 
   const StackReader* createStackReader(
     const RunDirectory& rd,
-      const std::string& stackName);
+      const std::string& stackName) override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  APP_IO_STRATEGY strategyType() const;
+  APP_IO_STRATEGY strategyType() const override;
 
-  calc::GridMap *createMap(const std::string& fileName, VS vs) const;
+  calc::GridMap *createMap(const std::string& fileName, VS vs) const override;
 
-  Spatial* newInputMap(const std::string& mapName,VS vs, const Compressor& c)const;
+  Spatial* newInputMap(const std::string& mapName,VS vs, const Compressor& c)const override;
 
-  std::string makeStackItemName(const std::string& iname, int   atTimeStep) const;
+  std::string makeStackItemName(const std::string& iname, int   atTimeStep) const override;
 
-  void setStackInfo(const StackInfo& s) const;
+  void setStackInfo(const StackInfo& s) const override;
 
 
 

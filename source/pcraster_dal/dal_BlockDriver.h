@@ -67,7 +67,7 @@ public:
   // CREATORS
   //----------------------------------------------------------------------------
 
-  virtual          ~BlockDriver        ();
+           ~BlockDriver        () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -77,9 +77,9 @@ public:
   // ACCESSORS
   //----------------------------------------------------------------------------
 
-  virtual Block*   open                (std::string const& name,
+  Block*   open                (std::string const& name,
                                         DataSpace const& space,
-                                        DataSpaceAddress const& address) const;
+                                        DataSpaceAddress const& address) const override;
 
   virtual Block*   open                (std::string const& name,
                                         DataSpace const& space,
@@ -88,15 +88,15 @@ public:
 
   virtual DataSpace dataSpace          (std::string const& name) const;
 
-  virtual DataSpace dataSpace          (std::string const& name,
+  DataSpace dataSpace          (std::string const& name,
                                         DataSpace const& space,
-                                        DataSpaceAddress const& address) const;
+                                        DataSpaceAddress const& address) const override;
 
-  virtual Block*   read                (std::string const& name) const;
+  Block*   read                (std::string const& name) const override;
 
-  virtual Block*   read                (std::string const& name,
+  Block*   read                (std::string const& name,
                                         DataSpace const& space,
-                                        DataSpaceAddress const& address) const;
+                                        DataSpaceAddress const& address) const override;
 
   virtual Block*   read                (std::string const& name,
                                         DataSpace const& space,
@@ -107,7 +107,7 @@ public:
                                         TypeId typeId,
                                         std::string const& name,
                                         DataSpace const& space,
-                                        DataSpaceAddress const& address) const;
+                                        DataSpaceAddress const& address) const override;
 
   void             write               (Block const& block,
                                         std::string const& name) const;

@@ -64,7 +64,7 @@ protected:
 
   void             updateSelection     ();
 
-  void             focusOutEvent       (QFocusEvent* event);
+  void             focusOutEvent       (QFocusEvent* event) override;
 
 protected Q_SLOTS:
 
@@ -81,7 +81,7 @@ public:
   // CREATORS
   //----------------------------------------------------------------------------
 
-  virtual          ~TableVisualisation ();
+           ~TableVisualisation () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

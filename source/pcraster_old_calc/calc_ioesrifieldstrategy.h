@@ -81,7 +81,7 @@ private:
                    IoEsriFieldStrategy               (const IoEsriFieldStrategy&);
 
 protected:
-   IoFieldStrategy* checkInputMap(VS &vs, const std::string &fName);
+   IoFieldStrategy* checkInputMap(VS &vs, const std::string &fName) override;
 
 public:
 
@@ -91,37 +91,37 @@ public:
 
                    IoEsriFieldStrategy               ();
 
-  /* virtual */    ~IoEsriFieldStrategy              ();
+  /* virtual */    ~IoEsriFieldStrategy              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
-  void                     checkClone(const std::string& mapFileName);
+  void                     checkClone(const std::string& mapFileName) override;
 
-  void setupFormatSpecificClone();
+  void setupFormatSpecificClone() override;
 
   const StackReader* createStackReader(
     const RunDirectory& rd,
-    const std::string& stackName);
+    const std::string& stackName) override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
 
-  APP_IO_STRATEGY strategyType() const;
+  APP_IO_STRATEGY strategyType() const override;
 
-  GridMap *createMap(const std::string& fileName, VS vs) const;
+  GridMap *createMap(const std::string& fileName, VS vs) const override;
 
-  Spatial* newInputMap(const std::string& mapName,VS vs, const Compressor& c)const;
+  Spatial* newInputMap(const std::string& mapName,VS vs, const Compressor& c)const override;
 
-  void removeOutputObject(const std::string& objName) const;
+  void removeOutputObject(const std::string& objName) const override;
 
-  std::string makeStackItemName(const std::string& iname, int   atTimeStep) const;
+  std::string makeStackItemName(const std::string& iname, int   atTimeStep) const override;
 
-  void setStackInfo(const StackInfo& s) const;
+  void setStackInfo(const StackInfo& s) const override;
 
 
-  void validateFileName(const std::string& fileName) const;
+  void validateFileName(const std::string& fileName) const override;
 
 };
 

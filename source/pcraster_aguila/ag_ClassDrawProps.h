@@ -40,7 +40,7 @@ public:
 
                    ClassDrawProps      (const ClassDrawProps& properties);
 
-  virtual          ~ClassDrawProps     ();
+           ~ClassDrawProps     () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

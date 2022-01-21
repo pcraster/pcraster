@@ -40,7 +40,7 @@ private:
                    TextScriptClientInterface               (TextScriptClientInterface const& rhs);
 
 protected:
-   ASTScript*      createScriptAndAnalyzeNoContext         ();
+   ASTScript*      createScriptAndAnalyzeNoContext         () override;
 
 public:
 
@@ -51,7 +51,7 @@ public:
                    TextScriptClientInterface(const std::string& scriptFileOrContents,
                                             bool asFile);
 
-     virtual       ~TextScriptClientInterface              ();
+           ~TextScriptClientInterface              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

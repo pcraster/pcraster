@@ -56,7 +56,7 @@ public:
   // CREATORS
   //----------------------------------------------------------------------------
 
-  /* virtual */    ~MatrixDriver       ();
+  /* virtual */    ~MatrixDriver       () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -66,7 +66,7 @@ public:
   // ACCESSORS
   //----------------------------------------------------------------------------
 
-  Matrix*          read                (std::string const& name) const;
+  Matrix*          read                (std::string const& name) const override;
 
   //! Opens the matrix with name \a name and reads the data into \a matrix.
   /*!
@@ -84,7 +84,7 @@ public:
                                         TypeId typeId,
                                         std::string const& name,
                                         DataSpace const& space,
-                                        DataSpaceAddress const& address) const;
+                                        DataSpaceAddress const& address) const override;
 
 };
 

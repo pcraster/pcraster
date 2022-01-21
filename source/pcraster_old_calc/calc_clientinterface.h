@@ -30,7 +30,7 @@ private:
   //! Copy constructor. NOT IMPLEMENTED.
                    ClientInterface               (const ClientInterface&);
 
-  int execute();
+  int execute() override;
 
 public:
 
@@ -40,7 +40,7 @@ public:
 
                    ClientInterface              ();
 
-  /* virtual */   ~ClientInterface              ();
+  /* virtual */   ~ClientInterface              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

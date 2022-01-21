@@ -70,12 +70,12 @@ public:
   //----------------------------------------------------------------------------
   LexInputSourceString(int nrArgv, const char**argv);
 
-  /* virtual */    ~LexInputSourceString              ();
+  /* virtual */    ~LexInputSourceString              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
-  int getChar();
+  int getChar() override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS

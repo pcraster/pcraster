@@ -52,7 +52,7 @@ public:
 
                    DomainError               (const DomainError& rhs);
 
-  /* virtual */    ~DomainError              ();
+  /* virtual */    ~DomainError              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

@@ -48,9 +48,9 @@ private:
 
   void             resetLayout         ();
 
-  void             redirectChildEventsTo(QObject* filter);
+  void             redirectChildEventsTo(QObject* filter) override;
 
-  void             removeChildEventFilter(QObject* filter);
+  void             removeChildEventFilter(QObject* filter) override;
 
 public:
 
@@ -63,7 +63,7 @@ public:
                                         ViewerType type,
                                         QWidget* parent = nullptr);
 
-  virtual         ~Legend              ();
+          ~Legend              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

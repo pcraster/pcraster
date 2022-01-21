@@ -65,13 +65,13 @@ public:
                                              ASTNode*          transferredStatements,
                                              JumpNode*         transferredJumpNode);
 
-  /* virtual */    ~BasicBlock              ();
+  /* virtual */    ~BasicBlock              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
   void               transferPushBack       (ASTNode *n);
-  virtual void       accept                 (ASTVisitor& v);
+  void       accept                 (ASTVisitor& v) override;
   //! will call v.enter"BasicBlockSubClass"(this)
   virtual void       callEnter              (ASTVisitor& v)=0;
   //! will call v.jumpOut"BasicBlockSubClass"(this)

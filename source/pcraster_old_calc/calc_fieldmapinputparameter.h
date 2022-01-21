@@ -34,7 +34,7 @@ class  FieldMapInputParameter : public FieldNewParameter {
                       const IoFieldStrategy& s);
 
    // MANIPULATORS
-   void goInScope();
+   void goInScope() override;
 };
 
 }

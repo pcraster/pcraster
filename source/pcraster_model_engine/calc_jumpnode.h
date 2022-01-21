@@ -67,12 +67,12 @@ public:
 
                    JumpNode               (BasicBlock* block);
 
-  /* virtual */    ~JumpNode              ();
+  /* virtual */    ~JumpNode              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
-  virtual void       accept               (ASTVisitor& v);
+  void       accept               (ASTVisitor& v) override;
 
   void               addDeleteOnForward   (const std::string& parName);
 
@@ -83,7 +83,7 @@ public:
   const DeletesOnForward& deletesOnForward    () const;
   void                    deleteForwards      (RunTimeEnv& rte) const;
 
-  JumpNode               *createClone         () const;
+  JumpNode               *createClone         () const override;
 
 };
 

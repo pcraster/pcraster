@@ -48,7 +48,7 @@ public:
                    ASTNodeVector               ();
 
 
-  /* virtual */    ~ASTNodeVector              ();
+  /* virtual */    ~ASTNodeVector              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -58,7 +58,7 @@ public:
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  virtual ASTNodeVector* createClone           () const;
+  ASTNodeVector* createClone           () const override;
 
   ASTNode*             operator[]            (size_t i) const;
   ASTNode*             at                    (size_t i) const;

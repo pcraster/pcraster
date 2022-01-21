@@ -55,7 +55,7 @@ protected:
 
   virtual int      height              () const;
 
-  virtual void     paintEvent          (QPaintEvent* event);
+  void     paintEvent          (QPaintEvent* event) override;
 
 public:
 
@@ -68,7 +68,7 @@ public:
                                         ViewerType type,
                                         QWidget* parent = nullptr);
 
-  virtual          ~ClassLegendBody    ();
+           ~ClassLegendBody    () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

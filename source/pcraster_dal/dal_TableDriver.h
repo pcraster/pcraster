@@ -68,7 +68,7 @@ public:
   // CREATORS
   //----------------------------------------------------------------------------
 
-  virtual          ~TableDriver        ();
+           ~TableDriver        () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -78,15 +78,15 @@ public:
   // ACCESSORS
   //----------------------------------------------------------------------------
 
-  virtual Table*   open                (std::string const& name,
+  Table*   open                (std::string const& name,
                                         DataSpace const& space,
-                                        DataSpaceAddress const& address) const;
+                                        DataSpaceAddress const& address) const override;
 
-  virtual DataSpace dataSpace          (std::string const& name,
+  DataSpace dataSpace          (std::string const& name,
                                         DataSpace const& space,
-                                        DataSpaceAddress const& address) const;
+                                        DataSpaceAddress const& address) const override;
 
-  Table*           read                (std::string const& name) const;
+  Table*           read                (std::string const& name) const override;
 
   void             read                (Table& table,
                                         std::string const& name) const;
@@ -94,9 +94,9 @@ public:
   Table*           read                (std::string const& name,
                                         TypeId typeId) const;
 
-  virtual Table*   read                (std::string const& name,
+  Table*   read                (std::string const& name,
                                         dal::DataSpace const& space,
-                                        dal::DataSpaceAddress const& address) const;
+                                        dal::DataSpaceAddress const& address) const override;
 
   virtual void     read                (dal::Table& table,
                                         std::string const& name,
@@ -107,7 +107,7 @@ public:
                                         TypeId typeId,
                                         std::string const& name,
                                         DataSpace const& space,
-                                        DataSpaceAddress const& address) const;
+                                        DataSpaceAddress const& address) const override;
 
   void             write               (Table const& table,
                                         std::string const& name) const;

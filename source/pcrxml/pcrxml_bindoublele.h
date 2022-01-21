@@ -54,7 +54,7 @@ public:
                    BinDoubleLE            (double value);
                    BinDoubleLE            ();
 
-  /* virtual */    ~BinDoubleLE              ();
+  /* virtual */    ~BinDoubleLE              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -63,7 +63,7 @@ public:
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  std::string attrValueStr() const;
+  std::string attrValueStr() const override;
 
   double value() const      { return d_value; };
   double operator()() const { return d_value; };

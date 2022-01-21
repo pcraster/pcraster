@@ -54,13 +54,13 @@ public:
                                         GLfloat pitch = 0.0,
                                         GLfloat roll = 0.0);
 
-  /* virtual */    ~Camera             ();
+  /* virtual */    ~Camera             () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
 
-  void             renderObject        ();
+  void             renderObject        () override;
 
   void             apply               ();
 

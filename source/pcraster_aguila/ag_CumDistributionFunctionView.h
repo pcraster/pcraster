@@ -35,11 +35,11 @@ private:
 
   Q_OBJECT
 
-  void             appended            (QPointF const& point);
+  void             appended            (QPointF const& point) override;
 
-  void             moved               (QPointF const& point);
+  void             moved               (QPointF const& point) override;
 
-  QSize            minimumSizeHint     () const;
+  QSize            minimumSizeHint     () const override;
 
   void             createPlot          ();
 
@@ -59,11 +59,11 @@ private:
 
 protected:
 
-  void             rescan              ();
+  void             rescan              () override;
 
-  void             process             ();
+  void             process             () override;
 
-  void             visualise           ();
+  void             visualise           () override;
 
 public:
 
@@ -75,7 +75,7 @@ public:
                                         QWidget* parent=nullptr,
                                         const char* name=nullptr);
 
-  /* virtual */    ~CumDistributionFunctionView();
+  /* virtual */    ~CumDistributionFunctionView() override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

@@ -43,7 +43,7 @@ private:
   void             createInterface     (size_t nrRows,
                                         size_t nrCols);
 
-  void             saveAsPNG           (std::filesystem::path const& path);
+  void             saveAsPNG           (std::filesystem::path const& path) override;
 
   // void             process             ();
 
@@ -51,9 +51,9 @@ private:
 
 protected:
 
-  std::string      windowName          () const;
+  std::string      windowName          () const override;
 
-  bool             dataVisualised      () const;
+  bool             dataVisualised      () const override;
 
 public:
 
@@ -66,19 +66,19 @@ public:
                                         size_t nrRows = 1,
                                         size_t nrCols = 1);
 
-  /* virtual */    ~MultiMap2DWindow   ();
+  /* virtual */    ~MultiMap2DWindow   () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
 
-  void             rescan              ();
+  void             rescan              () override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
 
-  void             addAttribute        (DataGuide const& guide);
+  void             addAttribute        (DataGuide const& guide) override;
 
   void             addAttribute        (size_t row,
                                         size_t col,

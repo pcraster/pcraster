@@ -86,7 +86,7 @@ public:
                    Table               (com::PathName const& fileName);
 
   //! Destructor.
-  /* virtual */    ~Table              ();
+  /* virtual */    ~Table              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

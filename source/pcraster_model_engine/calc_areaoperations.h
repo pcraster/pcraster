@@ -72,7 +72,7 @@ public:
 class AreaTotalOperation : public AreaOperations
 {
   public:
-  double     statistic                    (INT4  idValue) const
+  double     statistic                    (INT4  idValue) const override
   {
     return d_map.find(idValue)->second.sum();
   }
@@ -81,7 +81,7 @@ class AreaTotalOperation : public AreaOperations
 class AreaAverageOperation : public AreaOperations
 {
   public:
-  double     statistic                    (INT4  idValue) const
+  double     statistic                    (INT4  idValue) const override
   {
     return d_map.find(idValue)->second.average();
   }
@@ -90,7 +90,7 @@ class AreaAverageOperation : public AreaOperations
 class AreaMinimumOperation : public AreaOperations
 {
   public:
-  double     statistic                    (INT4  idValue) const
+  double     statistic                    (INT4  idValue) const override
   {
     return d_map.find(idValue)->second.minimum();
   }
@@ -99,7 +99,7 @@ class AreaMinimumOperation : public AreaOperations
 class AreaMaximumOperation : public AreaOperations
 {
   public:
-  double     statistic                    (INT4  idValue) const
+  double     statistic                    (INT4  idValue) const override
   {
     return d_map.find(idValue)->second.maximum();
   }

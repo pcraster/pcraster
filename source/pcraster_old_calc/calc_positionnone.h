@@ -56,7 +56,7 @@ public:
   // Copy constructor. DEFAULT
   //               PositionNone               (const PositionNone&);
 
-  /* virtual */    ~PositionNone              ();
+  /* virtual */    ~PositionNone              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -65,9 +65,9 @@ public:
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  void throwError(const std::string& msg) const;
+  void throwError(const std::string& msg) const override;
 
-  PositionNone*    createClone() const;
+  PositionNone*    createClone() const override;
 
 };
 

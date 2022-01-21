@@ -31,9 +31,9 @@ public:
   UsePar(const ConstructPar& p);
   UsePar(StatementBlock *block, const Symbol& p);
 
-  ~UsePar();
+  ~UsePar() override;
 
-  const ArrayDefVector& descriptor() const;
+  const ArrayDefVector& descriptor() const override;
   IndexSelected* createSelector() const;
 };
 

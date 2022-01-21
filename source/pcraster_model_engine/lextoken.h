@@ -33,11 +33,11 @@ private:
 
 public:
   LexToken(ANTLRTokenType tt, MAJOR_CODE op, const char* text, Position *ownedPos);
-  virtual ~LexToken();
+  ~LexToken() override;
 
-  void setType(ANTLRTokenType t);
-  void setText(const ANTLRChar * s);
-  void setLine(int line);
+  void setType(ANTLRTokenType t) override;
+  void setText(const ANTLRChar * s) override;
+  void setLine(int line) override;
 
   void setNrValue(double val);
   void setIsKeyword(bool isKeyword);
@@ -49,9 +49,9 @@ public:
 
   const Position    *position()  const;
 
-  int                getLine()   const;
-  ANTLRTokenType     getType()   const;
-  ANTLRChar         *getText()   const;
+  int                getLine()   const override;
+  ANTLRTokenType     getType()   const override;
+  ANTLRChar         *getText()   const override;
   bool               isKeyword() const;
 
 };

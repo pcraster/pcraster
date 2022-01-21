@@ -185,11 +185,11 @@ static size_t maxId(const Field *id)
     ~MemoryExchangeItemTssRow() {
      delete[] d_buffer;
     }
-    void *rawValue    () const
+    void *rawValue    () const override
     {
       return d_buffer;
     }
-    void  beMemCpySrc (void *dest) const
+    void  beMemCpySrc (void *dest) const override
     {
       std::memcpy(d_buffer, dest, d_len);
     }

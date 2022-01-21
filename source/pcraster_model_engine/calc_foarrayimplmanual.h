@@ -17,7 +17,7 @@ namespace calc {
 
  template<typename T>
   struct IDiffUnSingleType: public IDiffUn {
-   CRIndex cri() const {
+   CRIndex cri() const override {
        return crIndex<T>();
    }
   };
@@ -47,7 +47,7 @@ namespace calc {
  };
 
  struct PitArray: public IDiffUn {
-   CRIndex cri() const { return CRI_1; }
+   CRIndex cri() const override { return CRI_1; }
    PitArray() {
        this->f=(F)fImpl;
    }

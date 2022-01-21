@@ -19,7 +19,7 @@ struct Fixture : public calc::LibraryClassNoQt
     }
 
 
-    ~Fixture()
+    ~Fixture() override
     {
     }
 

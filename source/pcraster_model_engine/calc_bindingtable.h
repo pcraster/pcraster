@@ -78,7 +78,7 @@ public:
 
                    BindingTable               ();
 
-  /* virtual */   ~BindingTable               ();
+  /* virtual */   ~BindingTable               () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

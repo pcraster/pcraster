@@ -131,7 +131,7 @@ protected:
   { assert(d_toolBar);
     return d_toolBar;  };
 
-  void             rescan              ();
+  void             rescan              () override;
 
   void             setEnableAnimation  (bool enable);
 
@@ -175,7 +175,7 @@ protected Q_SLOTS:
 
   void             viewMenuShowCursor  ();
 
-  void             quit                ();
+  void             quit                () override;
 
   // void             toggleFullScreen    ();
 
@@ -185,13 +185,13 @@ public:
   // CREATORS
   //----------------------------------------------------------------------------
 
-  virtual          ~VisualisationWindow();
+           ~VisualisationWindow() override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
 
-  bool             close               ();
+  bool             close               () override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS

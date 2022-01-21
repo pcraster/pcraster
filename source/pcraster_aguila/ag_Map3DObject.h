@@ -53,7 +53,7 @@ private:
 
 protected:
 
-  void             renderObject        ();
+  void             renderObject        () override;
 
 public:
 
@@ -68,7 +68,7 @@ public:
                                         GLfloat pitch = 0.0,
                                         GLfloat roll = 0.0);
 
-  /* virtual */    ~Map3DObject        ();
+  /* virtual */    ~Map3DObject        () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -86,7 +86,7 @@ public:
 
   void             setShowFishnet      (bool s);
 
-  void             reset               ();
+  void             reset               () override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS

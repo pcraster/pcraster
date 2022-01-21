@@ -39,7 +39,7 @@ public:
     adjustSize();
   }
 
-  ~SelectPalettePrivate()
+  ~SelectPalettePrivate() override
   {
     d_pb.erase(d_pb.begin(), d_pb.end());
   }

@@ -40,7 +40,7 @@ private:
  FileSetting& operator=(const FileSetting&);
 
  //! in support of toDomElement and toDom
-  void       fill(QDomElement el) const;
+  void       fill(QDomElement el) const override;
 public:
  static const char* tagName() {
    return d_elementName.c_str();
@@ -56,9 +56,9 @@ public:
  //! Copy constructor.
  FileSetting(const FileSetting&);
  //! dtor
- ~FileSetting();
+ ~FileSetting() override;
  //! element name
- const std::string& elementName()const;
+ const std::string& elementName()const override;
 
  //! attribute
  String name;

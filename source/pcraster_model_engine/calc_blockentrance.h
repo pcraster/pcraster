@@ -58,19 +58,19 @@ public:
 
                    BlockEntrance               (BasicBlock* block);
 
-  /* virtual */    ~BlockEntrance              ();
+  /* virtual */    ~BlockEntrance              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
-  void accept(ASTVisitor& v);
+  void accept(ASTVisitor& v) override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
   BasicBlock*      block               () const;
 
-  BlockEntrance   *createClone                 () const;
+  BlockEntrance   *createClone                 () const override;
 
 };
 

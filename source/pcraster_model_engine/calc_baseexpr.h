@@ -61,7 +61,7 @@ public:
   // CREATORS
   //----------------------------------------------------------------------------
 
-  virtual         ~BaseExpr               ();
+          ~BaseExpr               () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -69,7 +69,7 @@ public:
   void             transferArg           (ASTNode *n);
   virtual void     transferFunctionArgs  (ASTNodeVector *args);
 
-  virtual void     accept                (ASTVisitor& v);
+  void     accept                (ASTVisitor& v) override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS

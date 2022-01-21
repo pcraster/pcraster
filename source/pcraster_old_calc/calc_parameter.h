@@ -25,7 +25,7 @@ class  Parameter : public UserSymbol {
   // CREATORS
   Parameter(const BindedSymbol& name, bool constant);
 
-  virtual ~Parameter();
+  ~Parameter() override;
 
   std::string  inputFilePath(const std::string& fileName) const;
   std::string outputFilePath(const std::string& fileName) const;
@@ -34,7 +34,7 @@ class  Parameter : public UserSymbol {
 
   // ACCESSORS
   bool         isConstantBinding()            const;
-  void         printSpecific(InfoScript& i)   const;
+  void         printSpecific(InfoScript& i)   const override;
 
 };
 

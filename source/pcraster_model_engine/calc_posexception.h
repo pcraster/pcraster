@@ -74,7 +74,7 @@ public:
      const std::string& message,
      bool  positionFirst);
 
-  /* virtual */  ~PosException              ();
+  /* virtual */  ~PosException              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

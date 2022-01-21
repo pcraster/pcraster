@@ -56,7 +56,7 @@ public:
 
                    ASTNodeList               ();
 
-  /* virtual */    ~ASTNodeList              ();
+  /* virtual */    ~ASTNodeList              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -67,7 +67,7 @@ public:
                                               iterator begin,
                                               iterator end);
 
-  virtual void accept      (ASTVisitor& v);
+  void accept      (ASTVisitor& v) override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS
@@ -75,7 +75,7 @@ public:
   const_iterator       begin                 () const;
   const_iterator       end                   () const;
 
-  virtual ASTNodeList* createClone           () const;
+  ASTNodeList* createClone           () const override;
 };
 
 

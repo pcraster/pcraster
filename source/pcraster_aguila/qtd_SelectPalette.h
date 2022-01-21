@@ -67,7 +67,7 @@ public:
                                         const char *n = nullptr);
 
   //! Destructor.
-  /* virtual */    ~SelectPalette      ();
+  /* virtual */    ~SelectPalette      () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

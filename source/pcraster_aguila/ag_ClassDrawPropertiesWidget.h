@@ -47,9 +47,9 @@ private:
 
 protected:
 
-  virtual void     rescan              ();
+  void     rescan              () override;
 
-  virtual void     apply               ();
+  void     apply               () override;
 
 public:
 
@@ -61,7 +61,7 @@ public:
                                         const DataGuide& dataGuide,
                                         QWidget* parent);
 
-  /* virtual */    ~ClassDrawPropertiesWidget();
+  /* virtual */    ~ClassDrawPropertiesWidget() override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

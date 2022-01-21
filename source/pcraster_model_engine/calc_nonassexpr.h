@@ -60,18 +60,18 @@ public:
 
                    NonAssExpr               (ASTNode *transferedExpr);
 
-  /* virtual */    ~NonAssExpr              ();
+  /* virtual */    ~NonAssExpr              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
 
-  void              accept            (ASTVisitor& v);
+  void              accept            (ASTVisitor& v) override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  ASTNode*          createClone        ()const;
+  ASTNode*          createClone        ()const override;
   ASTNode*          expr               ()const;
 
 };

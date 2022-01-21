@@ -63,7 +63,7 @@ public:
 
                    PositionText              ();
 
-  /* virtual */   ~PositionText              ();
+  /* virtual */   ~PositionText              () override;
                    PositionText              (const PositionText&);
 
   //----------------------------------------------------------------------------
@@ -73,11 +73,11 @@ public:
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  void           throwError(const std::string& msg) const;
+  void           throwError(const std::string& msg) const override;
 
-  PositionText*  createClone() const;
+  PositionText*  createClone() const override;
 
-  std::string    text() const;
+  std::string    text() const override;
 
 };
 

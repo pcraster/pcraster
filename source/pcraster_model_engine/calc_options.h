@@ -72,7 +72,7 @@ public:
 
                    Options               ();
 
-  /* virtual */    ~Options              ();
+  /* virtual */    ~Options              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -87,7 +87,7 @@ public:
   // ACCESSORS
   //----------------------------------------------------------------------------
 
-  LexInput*        createLexInput        () const;
+  LexInput*        createLexInput        () const override;
   static void      printUsage            ();
 
 };

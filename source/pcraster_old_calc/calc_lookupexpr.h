@@ -33,11 +33,11 @@ class LookupExpr : public MixedExpr {
     const Operator& op,
     const UsePar &tab,
           FieldExprArgs& keyArgs);
-  virtual ~LookupExpr();
+  ~LookupExpr() override;
   // MANIPULATORS
-  void execute(FieldStack& s);
+  void execute(FieldStack& s) override;
   //ACCESSORS
-  void print(InfoScript& i)const;
+  void print(InfoScript& i)const override;
 };
 
 }

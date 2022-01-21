@@ -61,12 +61,12 @@ public:
   // CREATORS
   //----------------------------------------------------------------------------
 
-   virtual         ~Field              ();
+           ~Field              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
-  virtual  Field*   load               ();
+   Field*   load               () override;
   virtual  void*    dest               ()=0;
   UINT1*            dest_1             ();
   REAL4*            dest_f             ();
@@ -100,7 +100,7 @@ public:
 
   CRIndex               cri            () const;
   CSF_CR                cr             () const;
-  OVS                   ovs            () const;
+  OVS                   ovs            () const override;
   VS                    vs             () const;
   DataType              type           () const;
 

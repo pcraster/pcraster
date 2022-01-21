@@ -85,7 +85,7 @@ public:
                    StepCoordinateMapper(StepMapper const& mapper,
                                         MissingDataStrategy strategy);
 
-  /* virtual */    ~StepCoordinateMapper();
+  /* virtual */    ~StepCoordinateMapper() override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -97,15 +97,15 @@ public:
 
   void             mapToDestination    (DataSpace const& space,
                                         DataSpaceAddress& address,
-                                        size_t index) const;
+                                        size_t index) const override;
 
   void             mapToSource         (DataSpace const& space,
                                         DataSpaceAddress& address,
-                                        size_t index) const;
+                                        size_t index) const override;
 
   std::string      toString            (DataSpace const& space,
                                         DataSpaceAddress const& address,
-                                        size_t index) const;
+                                        size_t index) const override;
 
 };
 

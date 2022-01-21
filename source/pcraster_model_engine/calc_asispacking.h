@@ -53,7 +53,7 @@ public:
 
                    AsIsPacking               (const geo::RasterDim& rs);
 
-  /* virtual */    ~AsIsPacking              ();
+  /* virtual */    ~AsIsPacking              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -62,15 +62,15 @@ public:
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  Field*         pack                (const Field* f)const;
-  const Field*   unpack              (const Field* f)const;
-  Field*         createSpatial       (VS vs)const;
+  Field*         pack                (const Field* f)const override;
+  const Field*   unpack              (const Field* f)const override;
+  Field*         createSpatial       (VS vs)const override;
 
-  size_t         toRasterId          (size_t fieldId)  const;
-  size_t         toFieldId           (size_t rasterId) const;
-  size_t         nrFieldCells        () const;
+  size_t         toRasterId          (size_t fieldId)  const override;
+  size_t         toFieldId           (size_t rasterId) const override;
+  size_t         nrFieldCells        () const override;
 
-  AsIsPacking*   createClone         () const;
+  AsIsPacking*   createClone         () const override;
 };
 
 

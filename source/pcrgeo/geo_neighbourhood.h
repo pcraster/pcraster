@@ -96,7 +96,7 @@ public:
                    Neighbourhood       (size_t radius,
                                         double* cells);
 
-  virtual          ~Neighbourhood      ();
+           ~Neighbourhood      () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

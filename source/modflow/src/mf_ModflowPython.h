@@ -42,7 +42,7 @@ public:
 
                    PCRModflowPython    (const geo::RasterSpace &raster);
 
-  /* virtual */    ~PCRModflowPython   ();
+  /* virtual */    ~PCRModflowPython   () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

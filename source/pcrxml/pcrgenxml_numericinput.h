@@ -47,7 +47,7 @@ private:
  NumericInput& operator=(const NumericInput&);
 
  //! in support of toDomElement and toDom
-  void       fill(QDomElement el) const;
+  void       fill(QDomElement el) const override;
 public:
  static const char* tagName() {
    return d_elementName.c_str();
@@ -63,9 +63,9 @@ public:
  //! Copy constructor.
  NumericInput(const NumericInput&);
  //! dtor
- ~NumericInput();
+ ~NumericInput() override;
  //! element name
- const std::string& elementName()const;
+ const std::string& elementName()const override;
 
  //! child element
  LowerLimit *lowerLimit{nullptr};

@@ -52,11 +52,11 @@ class ApiMapC : public ApiMap {
     //! ctor for result, always spatial; GlobResult
     ApiMapC(const geo::RasterDim& rs, void *val, CSF_CR inCr):
       d_map(d_init(rs.nrRows(),rs.nrCols(),val,true,inCr)) {};
-    ~ApiMapC() {
+    ~ApiMapC() override {
       d_del(d_map);
       d_map=nullptr;
     }
-   void *getCPointer() {
+   void *getCPointer() override {
     return (void *)d_map;
    }
    MAP_API *map() const {

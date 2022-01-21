@@ -67,7 +67,7 @@ public:
                                         DataObject* dataObject,
                                         QWidget* parent);
 
-  /* virtual */    ~GeneralPreferencesWidget();
+  /* virtual */    ~GeneralPreferencesWidget() override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

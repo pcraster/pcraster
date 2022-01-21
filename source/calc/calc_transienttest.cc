@@ -142,7 +142,7 @@ BOOST_AUTO_TEST_CASE(budget)
 
   // No flow: equal amount of stuff on all cells.
   BOOST_CHECK(std::count_if(resultElevationCells, resultElevationCells + nrCells,
-         std::bind(std::equal_to<REAL4>(), _1, resultElevationCells[0])));
+         [capture0 = resultElevationCells[0]](auto && PH1) { return std::equal_to<REAL4>()(std::forward<decltype(PH1)>(PH1), capture0); }));
 
   // Test amount added to all cells.
   // yepyep

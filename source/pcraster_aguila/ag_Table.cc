@@ -259,8 +259,7 @@ void Table::read(
         // TODO this is naive, map each coordinate using the mapper.
         dal::Array<UINT4>& col(d_table->col<UINT4>(timeCol()));
         std::transform(col.begin(), col.end(), col.begin(),
-           boost::bind(std::plus<UINT4>(), _1,
-           static_cast<UINT4>(timeStepOffset)));
+           [capture0 = static_cast<UINT4>(timeStepOffset)](auto && PH1) { return std::plus<UINT4>()(std::forward<decltype(PH1)>(PH1), capture0); });
       }
 
       setAddressRead(localAddress);

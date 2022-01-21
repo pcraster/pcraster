@@ -298,7 +298,7 @@ inline void BlockData<ValueType>::createConnections()
   d_addVoxelsConnection = d_block->addVoxelsSignal().connect(
          boost::bind(addVoxels, this, _1, _2));
   d_removeVoxelsConnection = d_block->removeVoxelsSignal().connect(
-         boost::bind(&BlockData<ValueType>::removeVoxels, this, _1, _2));
+         [this](auto && PH1, auto && PH2) { removeVoxels(std::forward<decltype(PH1)>(PH1), std::forward<decltype(PH2)>(PH2)); });
   // d_cutVoxelConnection = d_block->cutVoxelSignal().connect(
   //        boost::bind(&BlockData<ValueType>::cutVoxel, this, _1, _2));
 }

@@ -127,7 +127,7 @@ TEMPLATE_DECL
 void calc::ASTNodeContainer<S>::visitAll(ASTVisitor& v)
 {
   com::forWhole(d_container,
-      boost::bind(&ASTNode::accept,_1,boost::ref(v)));
+      [&v](auto && PH1) { PH1->accept(v); });
 }
 
 TEMPLATE_DECL

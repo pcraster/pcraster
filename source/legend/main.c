@@ -1,7 +1,7 @@
 #include "stddefx.h"
 
 /*
- * maplabel.c 
+ * maplabel.c
  */
 
 
@@ -200,7 +200,7 @@ ReadMapLegends(int *nrOut,
             }
         }
 
-        /* now merge new one(= new legend and new mapsMin, mapsMax) 
+        /* now merge new one(= new legend and new mapsMin, mapsMax)
          * with the one we already have
          */
         new = NewBlankLegend(&nrNew, mapsMin, mapsMax);
@@ -319,7 +319,7 @@ ReadLegendFile(int *nrOut, const char *inputFileName, CSF_VS vs, CSF_CR cr)
             (void)strcpy(legend[0].descr, descr);
             nrLegend++;
             continue; /* next one */
-        } else {      /* not the legend name, if this is the first 
+        } else {      /* not the legend name, if this is the first
                        * one read then create empty name first
                        */
             if (nrLegend == 0) {
@@ -354,7 +354,10 @@ ReadLegendFile(int *nrOut, const char *inputFileName, CSF_VS vs, CSF_CR cr)
 
     if (SortLegend(legend, nrLegend))
         goto failure;
+
+    fclose(f);
     *nrOut = nrLegend;
+
     return legend;
 
 failure:
@@ -497,7 +500,7 @@ int main(int argc,     /* number of arguments */
     /* legend always sorted in app */
     PRECOND(!SortLegend(theLegend, nrTheLegend));
 
-    /* write legend to all files 
+    /* write legend to all files
     *  to all in non-copy mode
     *  to additional maps only in copy mode
     */

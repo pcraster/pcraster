@@ -160,8 +160,7 @@ typename DataManager<T>::guide_iter DataManager<T>::findGuide(
        DataGuide::Address const& address)
 {
   return std::find_if(_guides.begin(), _guides.end(),
-         boost::bind(addressOfDataGuideIs<T>(), _1,
-              static_cast<T const*>(address)));
+         [capture0 = static_cast<T const*>(address)](auto && PH1) { return addressOfDataGuideIs<T>()(std::forward<decltype(PH1)>(PH1), capture0); });
 }
 
 
@@ -171,8 +170,7 @@ typename DataManager<T>::const_data_iter DataManager<T>::findData(
          DataGuide::Address const& address) const
 {
   return std::find_if(_data.begin(), _data.end(),
-         boost::bind(addressOfDataInfoIs<T>(), _1,
-              static_cast<T const*>(address)));
+         [capture0 = static_cast<T const*>(address)](auto && PH1) { return addressOfDataInfoIs<T>()(std::forward<decltype(PH1)>(PH1), capture0); });
 }
 
 
@@ -182,8 +180,7 @@ typename DataManager<T>::data_iter DataManager<T>::findData(
          DataGuide::Address const& address)
 {
   return std::find_if(_data.begin(), _data.end(),
-         boost::bind(addressOfDataInfoIs<T>(), _1,
-              static_cast<T const*>(address)));
+         [capture0 = static_cast<T const*>(address)](auto && PH1) { return addressOfDataInfoIs<T>()(std::forward<decltype(PH1)>(PH1), capture0); });
 }
 
 

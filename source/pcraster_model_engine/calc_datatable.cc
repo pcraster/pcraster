@@ -5,6 +5,8 @@
 
 #ifndef INCLUDED_CALC_DATATABLE
 #include "calc_datatable.h"
+
+#include <memory>
 #define INCLUDED_CALC_DATATABLE
 #endif
 
@@ -161,10 +163,10 @@ void calc::DataTable::insert(
                      }
                      break;
       case VS_TSS:   if (i.memoryOutputId() == i.noMemoryExchangeId())
-                       dv.reset(new TimeTable(i,nrTimeStepsExpected));
+                       dv = std::make_unique<TimeTable>(i,nrTimeStepsExpected);
                      break;
       case VS_MAPSTACK:
-                     dv.reset(new StackInput(*(i.stackInput())));
+                     dv = std::make_unique<StackInput>(*(i.stackInput()));
                      break;
       case VS_STATISTICS: // StatTable ID
                      break;
@@ -173,15 +175,15 @@ void calc::DataTable::insert(
       default      : // assume field/map/constant
                      PRECOND(isIn(i.ovs(),VS_FIELD));
                      if (i.isConstant())
-                        dv.reset(new NonSpatial(i.ovs(),i.constantValue()));
+                        dv = std::make_unique<NonSpatial>(i.ovs(),i.constantValue());
                      else {
                         if (i.memoryInputId() != i.noMemoryExchangeId()) {
                            if (i.ioType().input() == pcrxml::ModelInputType::Dynamic)
-                            dv.reset(new DynamicMemoryInput(
+                            dv = std::make_unique<DynamicMemoryInput>(
                                       i.memoryInputId(),
                                       i.dataType(),
                                       *this,
-                                      ios));
+                                      ios);
                         }
                         // else
                         //  Entry::d_dv is 0, StackedValue does reading

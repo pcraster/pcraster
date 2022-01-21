@@ -5,6 +5,8 @@
 
 #ifndef INCLUDED_GEO_CSFSTACK
 #include "geo_csfstack.h"
+
+#include <memory>
 #define INCLUDED_GEO_CSFSTACK
 #endif
 
@@ -150,7 +152,7 @@ geo::CSFStack<T>::CSFStack(const CSFStack &rhs)
   }
 
   if(rhs.hasLegend()) {
-    d_legend.reset(new com::Legend<INT4>(*rhs.legend()));
+    d_legend = std::make_unique<com::Legend<INT4>>(*rhs.legend());
   }
 }
 
@@ -219,7 +221,7 @@ void geo::CSFStack<T>::init()
 
     // Legend.
     if(map->hasLegend()) {
-      d_legend.reset(new com::Legend<INT4>(map->legend()));
+      d_legend = std::make_unique<com::Legend<INT4>>(map->legend());
     }
 
     // If stack is dynamic we have to scan the whole stack to get the extremes.
@@ -231,7 +233,7 @@ void geo::CSFStack<T>::init()
       for(it = d_name.begin() + 1; it != d_name.end(); ++it) {
 
         fn = d_name.fileName(*it);
-        map.reset(new CSFMap(fn)); // READ
+        map = std::make_unique<CSFMap>(fn); // READ
         map->useAs(d_useType);
 
         if(map->min(&min)) {

@@ -87,7 +87,7 @@ PCR_DLL_FUNC(void) calc::globalInit()
 {
   // /home/cees/development/projects/DevEnv/sources/Utils/dev_XercesClient.h
   if (! s_client.get())
-    s_client.reset(new ClientHolder());
+    s_client = std::make_unique<ClientHolder>();
 
   com::tune();
 

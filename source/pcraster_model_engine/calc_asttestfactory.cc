@@ -11,6 +11,7 @@
 // Library headers.
 #ifndef INCLUDED_QDOMELEMENT
 #include <QDomElement>
+#include <memory>
 #define INCLUDED_QDOMELEMENT
 #endif
 #ifndef INCLUDED_COM_FILE
@@ -335,7 +336,7 @@ calc::ASTScript* calc::ASTTestFactory::createFromIdOrStr(
   if (codeOrId.find("pcrcalc") == 0)
      as.reset(StringParser::createScript(modelFromId(codeOrId)));
   else {
-     as.reset(new ASTScript());
+     as = std::make_unique<ASTScript>();
      ASTNode *n=StringParser::createExpr(codeOrId);
      as->transferCode(new NonAssExpr(n));
   }

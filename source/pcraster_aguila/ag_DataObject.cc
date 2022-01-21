@@ -78,7 +78,7 @@ public:
   boost::any       _selectedValue;
 
   DataObjectPrivate()
-    : 
+    :
       d_animManager(300)
   {
   }
@@ -1381,7 +1381,7 @@ void DataObject::setSelected(
 
   for(const auto & guide : guides) {
 
-    assert(isValid(*it));
+    assert(isValid(guide));
 
     if(d_data->d_properties.isSelected(guide) != selected) {
       d_data->d_properties.setSelected(guide, selected);

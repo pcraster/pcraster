@@ -201,7 +201,7 @@ void Viewer::createViews(
         createProbabilityGraphView(guideCollections, group, false);
       }
 #ifdef DEBUG_DEVELOP
-      else if(v->test().present()) {
+      else if(xmlView.test().present()) {
         assert(false);
       }
 #endif

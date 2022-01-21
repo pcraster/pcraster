@@ -303,7 +303,7 @@ void DataConfiguration::add(
   // - DataObject::add(name, space)
   //   - Needs:
   //     - DatasetType (in query result)
-  //     - 
+  //     -
   //   - Forwards to addStack(name, space), etc.
   //     - Forwards to DataObjectBase<Raster>.add(name, space)
   //       - Forwards to RasterDataSources::openData(name, space)
@@ -358,17 +358,17 @@ void DataConfiguration::add(
 //          std::string const& name) const
 // {
 //    DataMap::const_iterator i=d_dataMap.find(name);
-// 
+//
 //    if (i != d_dataMap.end() && i->second.dataSpace().present()) {
 //      return dataSpace(i->second.dataSpace().get());
 //    }
-// 
+//
 //    dal::DataSpaceQueryResult result = d_dal.open(name, d_searchSpace);
-// 
+//
 //    if(!result.dataset) {
 //       dal::throwCannotBeOpened(name, d_searchSpace);
 //    }
-// 
+//
 //    return result.dataSpace;
 // };
 
@@ -406,7 +406,7 @@ std::vector<std::vector<DataGuide> > DataConfiguration::guidesOfView2(
   for(const auto & viewItem : viewItems) {
     // Data set names can be an alias for a set of data set names. First
     // translate the name to this set and collect the guides for each of them.
-    assert(d_nameMap.find(*i) != d_nameMap.end());
+    assert(d_nameMap.find(viewItem) != d_nameMap.end());
     std::set<std::string> names((*d_nameMap.find(viewItem)).second);
     assert(!names.empty());
 
@@ -469,13 +469,13 @@ std::vector<std::vector<DataGuide> > DataConfiguration::guidesOfView2(
 //          std::string const& name) const
 // {
 //   const dal::DataSpace tableDataSpace(dataSpaceFor(name));
-// 
+//
 //   std::vector<std::string> ts(tableSelections(name));
 //   std::vector<DataGuide> dg;
-// 
+//
 //   for (size_t i=0; i < ts.size(); ++i)
 //     dg.push_back(d_group->addData(ts[i],tableDataSpace));
-// 
+//
 //   return dg;
 // }
 
@@ -485,15 +485,15 @@ std::vector<std::vector<DataGuide> > DataConfiguration::guidesOfView2(
 //          std::string const& name) const
 // {
 //   std::vector<std::string> ts;
-// 
+//
 //   // We assume that the first column in the table contains the time steps
 //   // and the subsequent ones contain the time series. Each time series is
 //   // treated as a separate attribute.
-// 
+//
 //   dal::Table* table;
 //   boost::tie(table,boost::tuples::ignore,boost::tuples::ignore) =
 //          d_dal.open<dal::Table>(name, dal::TABLE, dataSpaceFor(name));
-// 
+//
 //   if(!table || !(table->nrCols() >= 2)) {
 //     // The name does not refer to a table but some other dataset. Selections
 //     // are only supported for tables so we just add this name to the
@@ -502,7 +502,7 @@ std::vector<std::vector<DataGuide> > DataConfiguration::guidesOfView2(
 //   } else {
 //     std::vector<std::string> selection;
 //     boost::tie(boost::tuples::ignore,selection)= dal::splitNameAndSelection(name);
-// 
+//
 //     if(!selection.empty()) {
 //       // name IS A selection
 //       ts.push_back(name);
@@ -516,7 +516,7 @@ std::vector<std::vector<DataGuide> > DataConfiguration::guidesOfView2(
 //       }
 //     }
 //   }
-// 
+//
 //   return ts;
 // }
 

@@ -12,7 +12,7 @@ Changes
 .. The most relevant updates for users:
 ..
 .. We further improved the code quality and the build system to ensure an ongoing creation of PCRaster packages, amongst others:
-.. AppleClang
+.. AppleClang, gcc12, vs2019, vs2022
 ..
 
 PCRaster 4.3.2

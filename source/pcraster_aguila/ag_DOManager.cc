@@ -20,7 +20,7 @@
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 ag::DOManager::DOManager()
@@ -33,7 +33,7 @@ ag::DOManager::~DOManager()
 {
   for(auto & d_dataObject : d_dataObjects) {
 #ifdef DEBUG_DEVELOP
-    assert((*it)->nrObservers() == 0);
+    assert(d_dataObject->nrObservers() == 0);
 #endif
     delete d_dataObject;
   }
@@ -148,13 +148,13 @@ void ag::DOManager::checkIntegrity()
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE OPERATORS 
+// DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE FUNCTIONS 
+// DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
 

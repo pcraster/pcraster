@@ -109,7 +109,7 @@ std::string qt::getOpenFileName(
 
     if(!extensions.empty()) {
       // Use description.
-      assert(!(*it).description().empty());
+      assert(!fileFormat.description().empty());
       filter += fileFormat.description() + " (";
 
       // Add extension(s).

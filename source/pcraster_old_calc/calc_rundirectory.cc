@@ -88,9 +88,9 @@ public:
   {
     PRECOND(!fileName.empty());
     com::PathName fnPn(fileName);
-    for (size_t i=0; i < d_searchPaths.size(); i++) {
+    for (const auto & d_searchPath : d_searchPaths) {
       // sPn=fnPn if fnPn is absolute, that is OK.
-      com::PathName sPn(d_searchPaths[i]+fnPn);
+      com::PathName sPn(d_searchPath+fnPn);
       com::PathInfo sPi(sPn);
       if (sPi.exists()) {
         found=true;
@@ -132,8 +132,8 @@ public:
     const std::vector<com::PathName> &paths(
         d_searchPaths.size() ? d_searchPaths:cwd);
 
-    for(size_t p=0; p < paths.size(); p++)  {
-     com::PathName b = paths[p]+"binding.ipcr";
+    for(const auto & path : paths)  {
+     com::PathName b = path+"binding.ipcr";
      try {
       if (!com::PathInfo(b).isFile())
           continue;

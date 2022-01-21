@@ -56,7 +56,7 @@ pcrxml::Variable::~Variable()
 //! clean
 void pcrxml::Variable::clean()
 {
- for(size_t i=0; i<dataTypeDTD.size(); i++) delete dataTypeDTD[i];
+ for(auto & i : dataTypeDTD) delete i;
 dataTypeDTD.clear();
 }
 //! copy ctor
@@ -68,7 +68,7 @@ pcrxml::Element(src)
 ,input(src.input)
 ,output(src.output)
 {
- for(size_t i=0; i<src.dataTypeDTD.size(); i++) dataTypeDTD.push_back(new DataTypeDTD(*(src.dataTypeDTD[i])));
+ for(auto i : src.dataTypeDTD) dataTypeDTD.push_back(new DataTypeDTD(*i));
 }
 //! assignment operator
 pcrxml::Variable& pcrxml::Variable::operator=(const Variable& src)
@@ -76,7 +76,7 @@ pcrxml::Variable& pcrxml::Variable::operator=(const Variable& src)
  if(this != &src)
  {
    clean(); PRECOND(false);
-  for(size_t i=0; i<src.dataTypeDTD.size(); i++) dataTypeDTD.push_back(new DataTypeDTD(*(src.dataTypeDTD[i])));
+  for(auto i : src.dataTypeDTD) dataTypeDTD.push_back(new DataTypeDTD(*i));
  }
 return *this;
 }
@@ -87,5 +87,5 @@ void pcrxml::Variable::fill(QDomElement el) const
  spatial.addToElement(el,"spatial");
  input.addToElement(el,"input");
  output.addToElement(el,"output");
- for(size_t i=0; i<dataTypeDTD.size(); i++) dataTypeDTD[i]->appendTo(el);
+ for(auto i : dataTypeDTD) i->appendTo(el);
 }

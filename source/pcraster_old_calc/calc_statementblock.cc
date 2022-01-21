@@ -49,18 +49,16 @@ calc::StatementBlock::StatementBlock(
 
 void calc::StatementBlock::printBlock(InfoScript& i)const
 {
-  for (auto it = d_stats.begin();
-         it != d_stats.end(); it++) {
-    (*it)->print(i);
+  for (auto d_stat : d_stats) {
+    d_stat->print(i);
     i.stream() << "<BR>";
   }
   bool first=true;
-  for (auto it=d_valueDelete.begin();
-       it != d_valueDelete.end(); it++) {
+  for (auto it : d_valueDelete) {
     if (first)
       i.stream() << "<U>CLEAN UP</U><BR>";
     first=false;
-    (*it)->print(i);
+    it->print(i);
     i.stream() << "<BR>";
   }
   i.stream() << "<BR>End of block: ";
@@ -80,8 +78,8 @@ void calc::StatementBlock::deleteAtExit(FieldParameter *par)
 
 calc::StatementBlock::~StatementBlock()
 {
-  for (auto it = d_stats.begin(); it != d_stats.end(); it++)
-    delete *it;
+  for (auto & d_stat : d_stats)
+    delete d_stat;
 }
 
 calc::StatementBlock* calc::StatementBlock::parentBlock()

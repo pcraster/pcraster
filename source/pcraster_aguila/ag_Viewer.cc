@@ -180,24 +180,24 @@ void Viewer::createViews(
   // Collect in for Views loop, then display after loop.
   // std::vector<std::string> multiMap2DArgs;
 
-  for(Views::const_iterator v = xmlViews.begin(); v != xmlViews.end(); ++v) {
-    if(!v->valueOnly().present()) {
+  for(const auto & xmlView : xmlViews) {
+    if(!xmlView.valueOnly().present()) {
       std::vector<std::vector<DataGuide> > guideCollections(
-         dc.guidesOfView2(*v));
+         dc.guidesOfView2(xmlView));
 
-      if(v->default_().present()) {
+      if(xmlView.default_().present()) {
         createView(guideCollections, group, false);
       }
-      else if(v->map().present()) {
+      else if(xmlView.map().present()) {
         createMapView(guideCollections, group, false);
       }
-      else if(v->drape().present()) {
+      else if(xmlView.drape().present()) {
         createDrapeView(guideCollections, group, false);
       }
-      else if(v->timeGraph().present()) {
+      else if(xmlView.timeGraph().present()) {
         createTimeGraphView(guideCollections, group, false);
       }
-      else if(v->probabilityGraph().present()) {
+      else if(xmlView.probabilityGraph().present()) {
         createProbabilityGraphView(guideCollections, group, false);
       }
 #ifdef DEBUG_DEVELOP
@@ -253,9 +253,9 @@ VisGroup* Viewer::createMapView(
     group = createMultiMapView(guideCollections, group, sync);
   }
   else {
-    for(size_t i = 0; i < guideCollections.size(); ++i) {
-      if(!guideCollections[i].empty()) {
-        group = createMapView(guideCollections[i], group, sync);
+    for(const auto & guideCollection : guideCollections) {
+      if(!guideCollection.empty()) {
+        group = createMapView(guideCollection, group, sync);
       }
     }
   }
@@ -270,9 +270,9 @@ VisGroup* Viewer::createDrapeView(
          VisGroup* group,
          bool sync)
 {
-  for(size_t i = 0; i < guideCollections.size(); ++i) {
-    if(!guideCollections[i].empty()) {
-      group = createDrapeView(guideCollections[i], group, sync);
+  for(const auto & guideCollection : guideCollections) {
+    if(!guideCollection.empty()) {
+      group = createDrapeView(guideCollection, group, sync);
     }
   }
 
@@ -286,9 +286,9 @@ VisGroup* Viewer::createTimeGraphView(
          VisGroup* group,
          bool sync)
 {
-  for(size_t i = 0; i < guideCollections.size(); ++i) {
-    if(!guideCollections[i].empty()) {
-      group = createTimeGraphView(guideCollections[i], group, sync);
+  for(const auto & guideCollection : guideCollections) {
+    if(!guideCollection.empty()) {
+      group = createTimeGraphView(guideCollection, group, sync);
     }
   }
 
@@ -353,9 +353,8 @@ VisGroup* Viewer::createMapView(
 
   Map2DWindow* window = d_data->d_manager->addMap2DWindow(group);
 
-  for(auto it = guides.begin();
-         it != guides.end(); ++it) {
-    window->addAttribute(*it);
+  for(const auto & guide : guides) {
+    window->addAttribute(guide);
   }
 
   if(sync) {
@@ -543,8 +542,8 @@ VisGroup* Viewer::createDrapeView(
   // Add data to windows.
   { // i == 0 already done as height
     for(size_t i=1; i < guides.size(); ++i) {
-      for(size_t j = 0; j < windows.size(); ++j) {
-        windows[j]->addAttribute(guides[i]);
+      for(auto & window : windows) {
+        window->addAttribute(guides[i]);
       }
     }
   }
@@ -554,8 +553,8 @@ VisGroup* Viewer::createDrapeView(
   }
   assert(!windows.empty());
 
-  for(size_t i = 0; i < windows.size(); ++i) {
-    windows[i]->show();
+  for(auto & window : windows) {
+    window->show();
   }
 
   return group;
@@ -573,9 +572,8 @@ VisGroup* Viewer::createTimeGraphView(
 
   TimePlotWindow* window = d_data->d_manager->addTimePlotWindow(group);
 
-  for(auto it = guides.begin();
-         it != guides.end(); ++it) {
-    window->addAttribute(*it);
+  for(const auto & guide : guides) {
+    window->addAttribute(guide);
   }
 
   if(sync) {
@@ -602,9 +600,8 @@ VisGroup* Viewer::createProbabilityGraphView(
   CumDistributionFunctionWindow* window =
          d_data->d_manager->addProbabilityGraphWindow(group);
 
-  for(auto it = guides.begin();
-         it != guides.end(); ++it) {
-    window->addAttribute(*it);
+  for(const auto & guide : guides) {
+    window->addAttribute(guide);
   }
 
   if(sync) {
@@ -685,17 +682,17 @@ Viewer::QueryResults Viewer::querySearchDataSpace(
 {
   QueryResults  queryResults;
 
-  for(size_t i = 0; i < names.size(); ++i) {
+  for(const auto & name : names) {
     dal::DataSpaceQueryResult result;
     boost::tie(result, boost::tuples::ignore) = dal::Client::dal().search(
-         names[i], searchSpace, dal::NarrowSpaceWhenNeeded,
+         name, searchSpace, dal::NarrowSpaceWhenNeeded,
          dal::SearchForAllItems);
 
     if(!result) {
-      dal::throwCannotBeOpened(names[i], searchSpace);
+      dal::throwCannotBeOpened(name, searchSpace);
     }
 
-    queryResults.push_back(QueryResult(names[i], result));
+    queryResults.push_back(QueryResult(name, result));
   }
 
   return queryResults;
@@ -887,11 +884,11 @@ VisGroup* Viewer::displayMap2D(
   }
 
   // Add data to windows.
-  for(auto i=results.begin(); i != results.end(); ++i) {
+  for(const auto & result : results) {
     for(size_t j = 0; j < windows.size(); ++j) {
       // subSpace copy is modified if scenarios are used
-      dal::DataSpace subSpace(fixForScenario(i->space(), scenarios, j));
-      windows[j]->addAttribute(group->addData(i->name, subSpace));
+      dal::DataSpace subSpace(fixForScenario(result.space(), scenarios, j));
+      windows[j]->addAttribute(group->addData(result.name, subSpace));
     }
   }
 
@@ -900,8 +897,8 @@ VisGroup* Viewer::displayMap2D(
   }
 
   assert(!windows.empty());
-  for(size_t i = 0; i < windows.size(); ++i) {
-    windows[i]->show();
+  for(auto & window : windows) {
+    window->show();
   }
 
   return group;
@@ -1054,8 +1051,8 @@ VisGroup* Viewer::displayMultiMap2D(
 
     assert(!windows.empty());
 
-    for(size_t i = 0; i < windows.size(); ++i) {
-      windows[i]->show();
+    for(auto & window : windows) {
+      window->show();
     }
   }
 
@@ -1130,8 +1127,8 @@ VisGroup* Viewer::displayMap3D(
 
   assert(!windows.empty());
 
-  for(size_t i = 0; i < windows.size(); ++i) {
-    windows[i]->show();
+  for(auto & window : windows) {
+    window->show();
   }
 
   return group;
@@ -1221,9 +1218,8 @@ VisGroup* Viewer::displayProbabilityGraphWindow(
   CumDistributionFunctionWindow* window =
          d_data->d_manager->addProbabilityGraphWindow(group);
 
-  for(auto it = names.begin();
-         it != names.end(); ++it) {
-    window->addAttribute(group->addData(*it, space));
+  for(const auto & name : names) {
+    window->addAttribute(group->addData(name, space));
   }
 
   if(sync) {
@@ -1303,9 +1299,9 @@ VisGroup* Viewer::displayValueView(
 
     std::vector<std::string> scenarios(findScenarios(queryResults));
 
-    for(size_t i = 0; i < queryResults.size(); ++i) {
-      std::string const& name = queryResults[i].name;
-      dal::DataSpace const& subSpace = queryResults[i].space();
+    for(const auto & queryResult : queryResults) {
+      std::string const& name = queryResult.name;
+      dal::DataSpace const& subSpace = queryResult.space();
 
       if(scenarios.empty()) {
         group->addData(name, subSpace);

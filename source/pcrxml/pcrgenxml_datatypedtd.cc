@@ -51,7 +51,7 @@ pcrxml::DataTypeDTD::~DataTypeDTD()
 //! clean
 void pcrxml::DataTypeDTD::clean()
 {
- for(size_t i=0; i<dimension.size(); i++) delete dimension[i];
+ for(auto & i : dimension) delete i;
 dimension.clear();
 }
 //! copy ctor
@@ -59,7 +59,7 @@ pcrxml::DataTypeDTD::DataTypeDTD(const DataTypeDTD& src):
 pcrxml::Element(src)
 ,value(src.value)
 {
- for(size_t i=0; i<src.dimension.size(); i++) dimension.push_back(new Dimension(*(src.dimension[i])));
+ for(auto i : src.dimension) dimension.push_back(new Dimension(*i));
 }
 //! assignment operator
 pcrxml::DataTypeDTD& pcrxml::DataTypeDTD::operator=(const DataTypeDTD& src)
@@ -67,12 +67,12 @@ pcrxml::DataTypeDTD& pcrxml::DataTypeDTD::operator=(const DataTypeDTD& src)
  if(this != &src)
  {
    clean(); PRECOND(false);
-  for(size_t i=0; i<src.dimension.size(); i++) dimension.push_back(new Dimension(*(src.dimension[i])));
+  for(auto i : src.dimension) dimension.push_back(new Dimension(*i));
  }
 return *this;
 }
 void pcrxml::DataTypeDTD::fill(QDomElement el) const
 {
  value.addToElement(el,"value");
- for(size_t i=0; i<dimension.size(); i++) dimension[i]->appendTo(el);
+ for(auto i : dimension) i->appendTo(el);
 }

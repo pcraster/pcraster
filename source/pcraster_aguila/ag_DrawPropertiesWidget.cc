@@ -125,9 +125,8 @@ void ag::DrawPropertiesWidget::configurePaletteInterface()
 void ag::DrawPropertiesWidget::addPalettes(
          const std::vector<const com::RawPalette*>& palettes)
 {
-  for(auto it =
-         palettes.begin(); it != palettes.end(); ++it) {
-    d_data->d_paletteDialog->addPalette(*it);
+  for(auto palette : palettes) {
+    d_data->d_paletteDialog->addPalette(palette);
   }
 }
 

@@ -202,9 +202,9 @@ std::string calc::RunDirectory::inPath(
 {
     PRECOND(!fileName.empty());
     com::PathName fnPn(fileName);
-    for (size_t i=0; i < d_searchPaths.size(); i++) {
+    for (const auto & d_searchPath : d_searchPaths) {
       // sPn=fnPn if fnPn is absolute, that is OK.
-      com::PathName sPn(d_searchPaths[i]+fnPn);
+      com::PathName sPn(d_searchPath+fnPn);
       com::PathInfo sPi(sPn);
       if (sPi.exists()) {
         found=true;

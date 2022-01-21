@@ -443,8 +443,8 @@ void DIS::write_row_width(std::ostringstream& content) const {
   }
   else{
     content << "INTERNAL   1.0 (FREE)    -1    DELC\n";
-    for(size_t i = 0; i < d_row_width.size(); i++){
-      content << d_row_width[i] << " ";
+    for(float i : d_row_width){
+      content << i << " ";
     }
     content << "\n";
   }
@@ -469,8 +469,8 @@ void DIS::write_col_width(std::ostringstream& content) const {
   }
   else{
     content << "INTERNAL   1.0 (FREE)    -1    DELR\n";
-    for(size_t i = 0; i < d_col_width.size(); i++){
-      content << d_col_width[i] << " ";
+    for(float i : d_col_width){
+      content << i << " ";
     }
     content << "\n";
   }

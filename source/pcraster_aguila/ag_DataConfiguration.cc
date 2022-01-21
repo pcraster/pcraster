@@ -146,8 +146,7 @@ DataConfiguration::DataConfiguration(
 
   dal::DataSpace space;
 
-  for(size_t i = 0; i < xmlGroup.data().size(); ++i) {
-    pcrxml::AguilaData const& configuration = xmlGroup.data()[i];
+  for(const auto & configuration : xmlGroup.data()) {
     std::string name = configuration.name();
     space = configuration.dataSpace().present()
         ? dataSpace(configuration.dataSpace().get())
@@ -157,20 +156,18 @@ DataConfiguration::DataConfiguration(
   }
 
   // Loop over all views and get name / data space information.
-  for(pcrxml::VisualisationGroup::view_const_iterator view =
-         xmlGroup.view().begin(); view != xmlGroup.view().end(); ++view) {
-    XMLViewItems const& items(*view);
+  for(const auto & view : xmlGroup.view()) {
+    XMLViewItems const& items(view);
 
-    for(XMLViewItems::const_iterator name = items.begin();
-         name != items.end(); ++name) {
+    for(const auto & item : items) {
 
       // If not yet added, add now
       // TODO KDJ name is not a good identifier for a data set, the name
       // TODO space combination is. This works for as long as no two datasets
       // TODO with the same name but different space are mentioned in xmlGroup.
-      if(!d_dataMap2.count(*name)) {
+      if(!d_dataMap2.count(item)) {
         space = d_searchSpace;
-        add(*name, space, pcrxml::AguilaData(*name));
+        add(item, space, pcrxml::AguilaData(item));
       }
     }
   }
@@ -183,10 +180,9 @@ DataConfiguration::DataConfiguration(
          : 1;
 
   // Send properties and datemappers found to the data object.
-  for(auto d = d_dataMap2.begin();
-         d != d_dataMap2.end(); ++d) {
-    DataGuide const& guide((*d).second.guide);
-    pcrxml::AguilaData const& configuration((*d).second.configuration);
+  for(auto & d : d_dataMap2) {
+    DataGuide const& guide(d.second.guide);
+    pcrxml::AguilaData const& configuration(d.second.configuration);
 
     if(configuration.drawProperties().present()) {
       d_group->dataObject().setXML(
@@ -407,16 +403,15 @@ std::vector<std::vector<DataGuide> > DataConfiguration::guidesOfView2(
   XMLViewItems viewItems(view);
 
   // Loop over views items: names of data sets.
-  for(XMLViewItems::const_iterator i = viewItems.begin(); i != viewItems.end();
-         ++i) {
+  for(const auto & viewItem : viewItems) {
     // Data set names can be an alias for a set of data set names. First
     // translate the name to this set and collect the guides for each of them.
     assert(d_nameMap.find(*i) != d_nameMap.end());
-    std::set<std::string> names((*d_nameMap.find(*i)).second);
+    std::set<std::string> names((*d_nameMap.find(viewItem)).second);
     assert(!names.empty());
 
     std::pair<NameMap::const_iterator, NameMap::const_iterator> nameRange(
-         d_nameMap.equal_range(*i));
+         d_nameMap.equal_range(viewItem));
     assert(nameRange.first != nameRange.second);
 
     // For this one name we now have the data set names it corresponds to.
@@ -424,19 +419,18 @@ std::vector<std::vector<DataGuide> > DataConfiguration::guidesOfView2(
     // names. A table name is unpacked to column selections, for example.
     // Aguila is an attribute visualizer and does not handle blobs of data
     // with more than one attributes.
-    for(auto it = names.begin();
-         it != names.end(); ++it) {
+    for(const auto & name : names) {
       // This is the name to handle.
       // Get data item information.
       std::pair<DataMap2::const_iterator, DataMap2::const_iterator> range(
-         d_dataMap2.equal_range(*it));
+         d_dataMap2.equal_range(name));
       assert(range.first != range.second);
 
       if(std::distance(range.first, range.second) == 1) {
         // No scenarios available in this data set. Add this one data set to
         // all collections of guides.
-        for(size_t i = 0; i < result.size(); ++i) {
-          result[i].push_back((*range.first).second.guide);
+        for(auto & i : result) {
+          i.push_back((*range.first).second.guide);
         }
       }
       else {

@@ -114,15 +114,14 @@ bool dal::GeoEASTableDriver::readHeader(
   }
 
   std::vector<std::string> names(nrAttributes);
-  for(auto it = names.begin(); it != names.end();
-         ++it) {
+  for(auto & name : names) {
     std::getline(stream, line);
     if(stream.fail()) {
       return false;
     }
 
     boost::trim(line);
-    *it = line;
+    name = line;
   }
 
   table.setTitles(names);

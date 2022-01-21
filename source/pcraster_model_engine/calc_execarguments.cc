@@ -134,8 +134,8 @@ void  calc::ExecArguments::clean()
       d_doNotDelete.insert(d_fields[i]);
     }
   d_fields.clear();
-  for (size_t i=0; i < d_result.size(); ++i)
-       deleteFromPcrme(d_result[i]);
+  for (auto & i : d_result)
+       deleteFromPcrme(i);
   deleteFromPcrme(d_firstNonFieldInput);
 }
 
@@ -166,8 +166,8 @@ calc::DataType calc::ExecArguments::resultType(size_t r) const
 
   // actual types of fields
   //  get from popped stack items
-  for(size_t i=0; i<d_fields.size(); ++i)
-    at.push_back(d_fields[i]->type());
+  for(auto d_field : d_fields)
+    at.push_back(d_field->type());
 
   return d_op.computeResultType(at,r);
 }
@@ -231,10 +231,10 @@ const void* calc::ExecArguments::src(size_t a) const
 //! push all results on stack, check on MV
 void calc::ExecArguments::pushResults()
 {
-  for(size_t i=0; i < d_result.size(); ++i) {
-   pushResult(d_result[i]);
-   d_doNotDelete.insert(d_result[i]);
-   d_result[i]=nullptr;
+  for(auto & i : d_result) {
+   pushResult(i);
+   d_doNotDelete.insert(i);
+   i=nullptr;
   }
 }
 

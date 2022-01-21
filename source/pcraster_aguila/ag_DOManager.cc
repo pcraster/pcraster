@@ -31,11 +31,11 @@ ag::DOManager::DOManager()
 
 ag::DOManager::~DOManager()
 {
-  for(auto it = d_dataObjects.begin(); it != d_dataObjects.end(); ++it) {
+  for(auto & d_dataObject : d_dataObjects) {
 #ifdef DEBUG_DEVELOP
     assert((*it)->nrObservers() == 0);
 #endif
-    delete *it;
+    delete d_dataObject;
   }
 }
 

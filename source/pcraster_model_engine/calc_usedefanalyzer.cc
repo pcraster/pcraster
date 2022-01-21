@@ -214,8 +214,8 @@ class EventChain : public std::vector<UDEvent>
 
   void  print() const {
     std::cerr << "----------" << std::endl;
-    for(auto e=begin(); e!=end(); ++e)
-       e->print();
+    for(auto e : *this)
+       e.print();
     std::cerr << "----------" << std::endl;
   }
 
@@ -414,35 +414,35 @@ class UseDefRecorder : std::map<std::string, EventChain>
        case UDEvent::Enter:
           d_currentBlockNesting.add(e);
          // every par already recorded will enter a block
-         for(auto i=begin(); i!=end();++i)
-            i->second.add(e);
+         for(auto & i : *this)
+            i.second.add(e);
          break;
        case UDEvent::Jump:
           d_currentBlockNesting.add(e);
          // every par already recorded will jump out of a block
-         for(auto i=begin(); i!=end();++i)
-            i->second.add(e);
+         for(auto & i : *this)
+            i.second.add(e);
       }
    }
 
    void setKeepLive(bool keepLiveAtEnd) {
-      for(auto i=begin(); i!=end();++i) {
+      for(auto & i : *this) {
         TRACE_LOG(std::cerr << "liveAnalysis for " << i->first << std::endl);
         if (keepLiveAtEnd)
-          i->second.add(UDEvent(UDEvent::Use,&d_dummy));
-        i->second.setKeepLive();
+          i.second.add(UDEvent(UDEvent::Use,&d_dummy));
+        i.second.setKeepLive();
       }
    }
 
    void setLastUse() const {
-     for(auto i=begin(); i!=end();++i)
-        i->second.setLastUse(i->first);
+     for(const auto & i : *this)
+        i.second.setLastUse(i.first);
    }
 
    ParSet inputSet() const {
     ParSet s;
-    for(auto i=begin(); i!=end();++i) {
-       ASTPar *p=i->second.firstUse(&d_dummy);
+    for(const auto & i : *this) {
+       ASTPar *p=i.second.firstUse(&d_dummy);
        if (p)
          s.insert(p);
     }
@@ -451,8 +451,8 @@ class UseDefRecorder : std::map<std::string, EventChain>
 
    ParSet newLiveDefSet() const {
     ParSet s;
-    for(auto i=begin(); i!=end();++i) {
-      ASTPar *p=i->second.newLiveDef(&d_dummy);
+    for(const auto & i : *this) {
+      ASTPar *p=i.second.newLiveDef(&d_dummy);
       if (p)
         s.insert(p);
     }
@@ -460,9 +460,9 @@ class UseDefRecorder : std::map<std::string, EventChain>
    }
    std::map<std::string,IOType> ioTypes() const {
     std::map<std::string,IOType> m;
-    for(auto i=begin(); i!=end();++i) {
+    for(const auto & i : *this) {
       m.insert(std::make_pair(
-        i->first, i->second.ioType(d_dynamicSection)));
+        i.first, i.second.ioType(d_dynamicSection)));
     }
     return m;
    }
@@ -581,10 +581,10 @@ void calc::UseDefAnalyzer::visitAss(ASTAss *a)
 void calc::UseDefAnalyzer::visitPointCodeBlock(PointCodeBlock *b)
 {
 
-  for(auto i=b->input().begin(); i!=b->input().end(); ++i)
-   d_rec->add(UDEvent(UDEvent::Use,*i));
-  for(auto i=b->output().begin(); i!=b->output().end(); ++i)
-   d_rec->add(UDEvent(UDEvent::Def,*i));
+  for(auto i : b->input())
+   d_rec->add(UDEvent(UDEvent::Use,i));
+  for(auto i : b->output())
+   d_rec->add(UDEvent(UDEvent::Def,i));
 
 }
 

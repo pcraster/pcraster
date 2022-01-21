@@ -208,9 +208,8 @@ void calc::StatComputation::InputMap::verbosePrint(
     d_out << "\tniet opgegeven\n";
   } else {
     d_out << "\n";
-    for (Intervals::const_iterator i=d_intervals->begin();
-        i!=d_intervals->end();++i) {
-      d_out << **i << "\n";
+    for (auto d_interval : *d_intervals) {
+      d_out << *d_interval << "\n";
     }
     d_out << "\n";
   }
@@ -501,8 +500,8 @@ void calc::StatTable::exec(
       POSTCOND(tab->nrCols()==1);
       I *iv= new I();
       LookupTable::Records const& r(tab->records());
-      for(size_t i=0; i < r.size(); ++i)
-        iv->push_back(&(r[i].col(0)));
+      for(const auto & i : r)
+        iv->push_back(&(i.col(0)));
       return iv;
     }
   };
@@ -668,14 +667,14 @@ template<typename SubjectType, typename CrossType>
   S col=m.colClasses();
   S row=m.rowClasses();
 
-  for(SI c=col.begin(); c!=col.end(); ++c)
-   d_out << "\t" << *c;
+  for(int c : col)
+   d_out << "\t" << c;
   d_out << "\n";
 
-  for(SI r=row.begin(); r!=row.end(); ++r) {
-    d_out << *r;
-    for(SI c=col.begin(); c!=col.end(); ++c)
-     d_out << "\t" << area(m.getCount(*r,*c));
+  for(int r : row) {
+    d_out << r;
+    for(int c : col)
+     d_out << "\t" << area(m.getCount(r,c));
     d_out << "\n";
   }
 }
@@ -716,8 +715,8 @@ template<typename CountMap>
   if (!d_subject.d_intervals)
     return;
   const Intervals& cl(*d_subject.d_intervals);
-  for(Intervals::const_iterator i=cl.begin(); i!=cl.end();++i) {
-    const com::Interval<Real>& iv(**i);
+  for(auto i : cl) {
+    const com::Interval<Real>& iv(*i);
     // normal case: PRECOND(iv.minimum()==iv.maximum());
     //  but we simple cast minimum to integer
 
@@ -735,15 +734,15 @@ template<typename CountMap>
 
   const Intervals& s(*d_subject.d_intervals);
   if (!d_cross.d_intervals)
-   for(size_t i=0; i <s.size();++i)
-     m.addClass(static_cast<int>(s[i]->min()));
+   for(auto i : s)
+     m.addClass(static_cast<int>(i->min()));
   else {
    const Intervals& c(*d_cross.d_intervals);
-   for(Intervals::const_iterator si=s.begin(); si!=s.end();++si)
-    for(Intervals::const_iterator ci=c.begin(); ci!=c.end();++ci) {
-     const com::Interval<Real>& siv(**si);
+   for(auto si : s)
+    for(auto ci : c) {
+     const com::Interval<Real>& siv(*si);
      PRECOND(siv.min()==siv.max());
-     const com::Interval<Real>& civ(**ci);
+     const com::Interval<Real>& civ(*ci);
      PRECOND(civ.min()==civ.max());
      m.addClass(static_cast<int>(siv.min()),
                static_cast<int>(civ.min()));
@@ -857,8 +856,8 @@ template<class IntervalMapT>
   M m;
   m.insertIntervals(*d_subject.d_intervals);
   POSTCOND(m.size()==d_subject.d_intervals->size());
-  for(M::iterator i=m.begin(); i!=m.end();++i)
-    i->second.insertIntervals(*d_cross.d_intervals);
+  for(auto & i : m)
+    i.second.insertIntervals(*d_cross.d_intervals);
 
   for(size_t i=0;i< d_cross.d_field->nrValues(); i++)
    if (!pcr::isMV(subject[i]) && !pcr::isMV(cross[i])) {
@@ -880,22 +879,22 @@ template<class IntervalMapT>
   }
 
   scalarCrossHeader(d_out,2);
-  for(M::const_iterator k=m.begin(); k!=m.end();++k) {
-   for(MapKey::const_iterator i=k->second.begin(); i!=k->second.end();++i) {
-    d_out << *k->first << "\t";
+  for(const auto & k : m) {
+   for(MapKey::const_iterator i=k.second.begin(); i!=k.second.end();++i) {
+    d_out << *k.first << "\t";
     i->second.printLine(*(i->first),area(1),d_out);
    }
-   if (k->second.outside().nr()) {
-    d_out << *k->first << "\t";
-    k->second.outside().printLine("otherwise",area(1),d_out);
+   if (k.second.outside().nr()) {
+    d_out << *k.first << "\t";
+    k.second.outside().printLine("otherwise",area(1),d_out);
    }
   }
 
   const MapKey& mko(m.outside());
   if (mko.nrVisits()) {
-   for(MapKey::const_iterator i=mko.begin(); i!=mko.end();++i) {
+   for(const auto & i : mko) {
     d_out << "otherwise" << "\t";
-    i->second.printLine(*(i->first),area(1),d_out);
+    i.second.printLine(*(i.first),area(1),d_out);
    }
    if (mko.outside().nr()) {
     d_out << "otherwise" << "\t";

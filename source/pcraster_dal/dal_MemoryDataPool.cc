@@ -38,9 +38,8 @@ MemoryDataPool::MemoryDataPool()
 
 MemoryDataPool::~MemoryDataPool()
 {
-  for(auto it = d_memoryTables.begin();
-         it != d_memoryTables.end(); ++it) {
-    it->second.clear();
+  for(auto & d_memoryTable : d_memoryTables) {
+    d_memoryTable.second.clear();
   }
 }
 

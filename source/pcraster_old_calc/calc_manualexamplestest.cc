@@ -35,9 +35,9 @@ BOOST_AUTO_TEST_CASE(all)
   std::vector<ManualExampleTester> et;
 // #include "examples.inc"
   int nrFailures=0;
-  for(size_t i=0; i < et.size(); i++) {
+  for(auto & i : et) {
     try {
-      et[i].test();
+      i.test();
     } catch (const com::Exception& e) {
       std::cerr << e.messages();
       nrFailures++;

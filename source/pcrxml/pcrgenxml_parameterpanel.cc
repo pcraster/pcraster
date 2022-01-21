@@ -52,7 +52,7 @@ pcrxml::ParameterPanel::~ParameterPanel()
 //! clean
 void pcrxml::ParameterPanel::clean()
 {
- for(size_t i=0; i<parameterItem.size(); i++) delete parameterItem[i];
+ for(auto & i : parameterItem) delete i;
 parameterItem.clear();
 }
 //! copy ctor
@@ -61,7 +61,7 @@ pcrxml::Element(src)
 ,name(src.name)
 ,show(src.show)
 {
- for(size_t i=0; i<src.parameterItem.size(); i++) parameterItem.push_back(new ParameterItem(*(src.parameterItem[i])));
+ for(auto i : src.parameterItem) parameterItem.push_back(new ParameterItem(*i));
 }
 //! assignment operator
 pcrxml::ParameterPanel& pcrxml::ParameterPanel::operator=(const ParameterPanel& src)
@@ -69,7 +69,7 @@ pcrxml::ParameterPanel& pcrxml::ParameterPanel::operator=(const ParameterPanel& 
  if(this != &src)
  {
    clean(); PRECOND(false);
-  for(size_t i=0; i<src.parameterItem.size(); i++) parameterItem.push_back(new ParameterItem(*(src.parameterItem[i])));
+  for(auto i : src.parameterItem) parameterItem.push_back(new ParameterItem(*i));
  }
 return *this;
 }
@@ -77,5 +77,5 @@ void pcrxml::ParameterPanel::fill(QDomElement el) const
 {
  name.addToElement(el,"name");
  show.addToElement(el,"show");
- for(size_t i=0; i<parameterItem.size(); i++) parameterItem[i]->appendTo(el);
+ for(auto i : parameterItem) i->appendTo(el);
 }

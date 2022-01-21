@@ -370,10 +370,10 @@ void CursorWindow::saveToText(
 
   std::vector<DataGuide> guides(dataObject.dataGuides());
 
-  for(size_t i = 0; i < guides.size(); ++i) {
+  for(auto & guide : guides) {
     stream
-       << dataObject.name(guides[i]) << " = "
-       << dataObject.label(guides[i]) << std::endl;
+       << dataObject.name(guide) << " = "
+       << dataObject.label(guide) << std::endl;
   }
 }
 
@@ -569,11 +569,11 @@ void CursorWindow::appendToCursorValueMonitorFile()
 
   std::vector<DataGuide> guides(dataObject.dataGuides());
 
-  for(size_t i = 0; i < guides.size(); ++i) {
+  for(auto & guide : guides) {
     acv.dataValue().push_back(
         pcrxml::DataValue(
-         dataObject.name(guides[i]),
-        dataObject.label(guides[i])));
+         dataObject.name(guide),
+        dataObject.label(guide)));
   }
 
   pcrxsd::DOMInput d(pcrxsd::DOMInput::CompiledIn);

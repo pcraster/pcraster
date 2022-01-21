@@ -28,8 +28,8 @@ calc::MethodOperator::MethodOperator(
     EXEC_EXTERN,// DONT_CARE
     0,// DONT_CARE
     CG_PLAIN);// DONT_CARE
-  for (size_t i=0; i < s.d_input.size(); i++)
-    d_op->pushBackArg(s.d_input[i].vs, s.d_input[i].st);
+  for (const auto & i : s.d_input)
+    d_op->pushBackArg(i.vs, i.st);
 }
 
 calc::MethodOperator::~MethodOperator()

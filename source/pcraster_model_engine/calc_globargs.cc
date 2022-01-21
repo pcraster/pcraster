@@ -100,12 +100,12 @@ void calc::GlobArgs::init(RunTimeEnv *rte)
 
 calc::GlobArgs::~GlobArgs()
 {
-  for (size_t i=0; i < d_globArgs.size(); ++i)
-    delete d_globArgs[i];
+  for (auto & d_globArg : d_globArgs)
+    delete d_globArg;
 
   delete[] d_voidArgs;
-  for(size_t i=0;i<d_globResults.size(); ++i)
-    delete d_globResults[i];
+  for(auto & d_globResult : d_globResults)
+    delete d_globResult;
 }
 
 /* NOT IMPLEMENTED
@@ -145,8 +145,8 @@ void* calc::GlobArgs::dest(size_t r)
 
 void calc::GlobArgs::pushResults()
 {
- for(size_t i=0; i < d_globResults.size(); ++i)
-  ExecArguments::pushResult(d_globResults[i]->createField());
+ for(auto & d_globResult : d_globResults)
+  ExecArguments::pushResult(d_globResult->createField());
 }
 
 

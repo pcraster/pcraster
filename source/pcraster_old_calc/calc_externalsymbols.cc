@@ -140,8 +140,8 @@ calc::ExternalSymbols::ExternalSymbols()
 //! dtor
 calc::ExternalSymbols::~ExternalSymbols()
 {
-  for(size_t i = 0; i < d_libraries.size(); i++) {
-    delete d_libraries[i];
+  for(auto & d_librarie : d_libraries) {
+    delete d_librarie;
   }
 }
 

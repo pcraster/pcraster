@@ -64,7 +64,7 @@ void pcrxml::ExchangeModel::clean()
 {
  delete integerTimer;integerTimer=nullptr;
  delete areaMapDTD;areaMapDTD=nullptr;
- for(size_t i=0; i<exchangeItem.size(); i++) delete exchangeItem[i];
+ for(auto & i : exchangeItem) delete i;
 exchangeItem.clear();
 }
 //! copy ctor
@@ -76,7 +76,7 @@ pcrxml::Element(src)
 {
  integerTimer= (src.integerTimer) ? new IntegerTimer(*(src.integerTimer)): nullptr;
  areaMapDTD= (src.areaMapDTD) ? new AreaMapDTD(*(src.areaMapDTD)): nullptr;
- for(size_t i=0; i<src.exchangeItem.size(); i++) exchangeItem.push_back(new ExchangeItem(*(src.exchangeItem[i])));
+ for(auto i : src.exchangeItem) exchangeItem.push_back(new ExchangeItem(*i));
 }
 //! assignment operator
 pcrxml::ExchangeModel& pcrxml::ExchangeModel::operator=(const ExchangeModel& src)
@@ -86,7 +86,7 @@ pcrxml::ExchangeModel& pcrxml::ExchangeModel::operator=(const ExchangeModel& src
    clean(); PRECOND(false);
   integerTimer= (src.integerTimer) ? new IntegerTimer(*(src.integerTimer)): nullptr;
   areaMapDTD= (src.areaMapDTD) ? new AreaMapDTD(*(src.areaMapDTD)): nullptr;
-  for(size_t i=0; i<src.exchangeItem.size(); i++) exchangeItem.push_back(new ExchangeItem(*(src.exchangeItem[i])));
+  for(auto i : src.exchangeItem) exchangeItem.push_back(new ExchangeItem(*i));
  }
 return *this;
 }
@@ -97,5 +97,5 @@ void pcrxml::ExchangeModel::fill(QDomElement el) const
  description.addToElement(el,"description");
  if (integerTimer) integerTimer->appendTo(el);
  if (areaMapDTD) areaMapDTD->appendTo(el);
- for(size_t i=0; i<exchangeItem.size(); i++) exchangeItem[i]->appendTo(el);
+ for(auto i : exchangeItem) i->appendTo(el);
 }

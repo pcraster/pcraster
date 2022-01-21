@@ -251,19 +251,18 @@ calc::LddGraph::LddGraph(
   d_mv=org.d_mv;
 
   d_edge.reserve(org.d_edge.size()); // avoid invalidation of iters
-  for(auto orgC=org.d_catchments.begin();
-      orgC != org.d_catchments.end(); ++orgC) {
-    Catchment newC=*orgC;
-    if (orgC->d_pitId != d_invalidFieldId) {
-     if (isMV[orgC->d_pitId]) {
-      d_mv.push_back(orgC->d_pitId);
+  for(const auto & d_catchment : org.d_catchments) {
+    Catchment newC=d_catchment;
+    if (d_catchment.d_pitId != d_invalidFieldId) {
+     if (isMV[d_catchment.d_pitId]) {
+      d_mv.push_back(d_catchment.d_pitId);
       newC.d_pitId = d_invalidFieldId;
      } else {
        // pits are only removed if set
        // in isMV, not by propagation
       // undo propagation
       // otherwise ALL edges ending in pit will be removed to
-      remove[orgC->d_pitId]=false;
+      remove[d_catchment.d_pitId]=false;
      }
     }
 
@@ -274,7 +273,7 @@ calc::LddGraph::LddGraph(
     size_t idOfBeginEdge = d_edge.size();
     // newC.d_beginEdge=d_edge.end();
 
-    for(auto e=orgC->d_beginEdge; e!=orgC->d_endEdge; ++e) {
+    for(auto e=d_catchment.d_beginEdge; e!=d_catchment.d_endEdge; ++e) {
       if (remove[e->up()])
         d_mv.push_back(e->up());
       else {

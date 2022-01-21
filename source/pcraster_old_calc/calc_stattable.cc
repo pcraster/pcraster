@@ -118,8 +118,8 @@ void calc::StatTable::InputMap::verbosePrint(
     out << "\tniet opgegeven\n";
   } else {
     out << "\n";
-    for (size_t i=0; i!=d_intervals.size();++i) {
-      out << *d_intervals[i] << "\n";
+    for (auto d_interval : d_intervals) {
+      out << *d_interval << "\n";
     }
     out << "\n";
   }
@@ -477,8 +477,8 @@ template<typename T>
   std::ofstream out;
   open(out);
   out << d_subject.d_name << "\t" << "opp" << "\n";
-  for(auto i=m.begin(); i!=m.end();++i)
-      out << i->first << "\t" << area(i->second) << "\n";
+  for(auto & i : m)
+      out << i.first << "\t" << area(i.second) << "\n";
 }
 
 template<typename SubjectType, typename CrossType>
@@ -507,14 +507,14 @@ template<typename SubjectType, typename CrossType>
   S col=m.colClasses();
   S row=m.rowClasses();
 
-  for(auto c=col.begin(); c!=col.end(); ++c)
-   out << "\t" << *c;
+  for(int c : col)
+   out << "\t" << c;
   out << "\n";
 
-  for(auto r=row.begin(); r!=row.end(); ++r) {
-    out << *r;
-    for(auto c=col.begin(); c!=col.end(); ++c)
-     out << "\t" << area(m.getCount(*r,*c));
+  for(int r : row) {
+    out << r;
+    for(int c : col)
+     out << "\t" << area(m.getCount(r,c));
     out << "\n";
   }
 }
@@ -557,8 +557,8 @@ template<typename CountMap>
  void calc::StatTable::addSubjectClasses(CountMap& m) const
 {
   const Intervals& cl(d_subject.d_intervals);
-  for(auto i=cl.begin(); i!=cl.end();++i) {
-    const com::IntervalF& iv(**i);
+  for(auto i : cl) {
+    const com::IntervalF& iv(*i);
     // normal case: PRECOND(iv.min()==iv.max());
     //  but we simple cast min to integer
 
@@ -574,14 +574,14 @@ template<typename CountMap>
   const Intervals& s(d_subject.d_intervals);
   const Intervals& c(d_cross.d_intervals);
   if (c.empty())
-   for(size_t i=0; i <s.size();++i)
-     m.addClass(static_cast<int>(s[i]->min()));
+   for(auto i : s)
+     m.addClass(static_cast<int>(i->min()));
   else
-   for(auto si=s.begin(); si!=s.end();++si)
-    for(auto ci=c.begin(); ci!=c.end();++ci) {
-     const com::IntervalF& siv(**si);
+   for(auto si : s)
+    for(auto ci : c) {
+     const com::IntervalF& siv(*si);
      PRECOND(siv.min()==siv.max());
-     const com::IntervalF& civ(**ci);
+     const com::IntervalF& civ(*ci);
      PRECOND(civ.min()==civ.max());
      m.addClass(static_cast<int>(siv.min()),
                static_cast<int>(civ.min()));
@@ -706,8 +706,8 @@ template<class IntervalMapT>
   M m;
   m.insertIntervals(d_subject.d_intervals);
   POSTCOND(m.size()==d_subject.d_intervals.size());
-  for(auto i=m.begin(); i!=m.end();++i)
-    i->second.insertIntervals(d_cross.d_intervals);
+  for(auto & i : m)
+    i.second.insertIntervals(d_cross.d_intervals);
 
   for(size_t i=0;i< d->nrValues(); i++)
    if (!pcr::isMV(subject[i]) && !pcr::isMV(cross[i])) {
@@ -731,22 +731,22 @@ template<class IntervalMapT>
   std::ofstream out;
   open(out);
   scalarCrossHeader(out,2);
-  for(auto k=m.begin(); k!=m.end();++k) {
-   for(auto i=k->second.begin(); i!=k->second.end();++i) {
-    out << *k->first << "\t";
+  for(auto & k : m) {
+   for(auto i=k.second.begin(); i!=k.second.end();++i) {
+    out << *k.first << "\t";
     i->second.printLine(*(i->first),area(1),out);
    }
-   if (k->second.outside().nr()) {
-    out << *k->first << "\t";
-    k->second.outside().printLine("anders",area(1),out);
+   if (k.second.outside().nr()) {
+    out << *k.first << "\t";
+    k.second.outside().printLine("anders",area(1),out);
    }
   }
 
   const MapKey& mko(m.outside());
   if (mko.nrVisits()) {
-   for(auto i=mko.begin(); i!=mko.end();++i) {
+   for(const auto & i : mko) {
     out << "anders" << "\t";
-    i->second.printLine(*(i->first),area(1),out);
+    i.second.printLine(*(i.first),area(1),out);
    }
    if (mko.outside().nr()) {
     out << "anders" << "\t";
@@ -808,8 +808,8 @@ template<typename SubjectType>
   std::ofstream out;
   open(out);
   scalarCrossHeader(out);
-  for(auto i=m.begin(); i!=m.end();++i)
-    i->second.printLine(i->first,area(1),out);
+  for(auto & i : m)
+    i.second.printLine(i.first,area(1),out);
 }
 
 void calc::StatTable::scalarTable(

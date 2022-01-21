@@ -248,14 +248,14 @@ void IOStrategy::setMemoryExchangeData(const ASTSymbolTable& symbols,
     ids[0]=si.memoryInputId();
     ids[1]=si.memoryOutputId();
     if(ids[0] != noExchange || ids[1] != noExchange) {
-      for(int id=0; id<2; ++id) {
+      for(unsigned long id : ids) {
         // not both set
         PRECOND(ids[0] != noExchange || ids[1] != noExchange);
-        if(ids[id] != noExchange) {
-          maxIdInt = std::max<int>(maxIdInt,(size_t)ids[id]);
+        if(id != noExchange) {
+          maxIdInt = std::max<int>(maxIdInt,(size_t)id);
           d_memoryData.insert(std::make_pair(si.name(),
             boost::shared_ptr<MemoryExchangeItem>(
-              new MemoryExchangeItem(si.name(),ids[id]))));
+              new MemoryExchangeItem(si.name(),id))));
         }
       }
     }
@@ -308,8 +308,8 @@ void  IOStrategy::resolve(
   //  - Input tss and tables are always done by files. DataTable::insert not earlier
   // WARNING: this resolve calls back into this, thus symbols is NOT stable
   //          DO NOT replace this loop with a FOR_EACH construct.
-  for(auto i=symbols.begin(); i!=symbols.end();++i)
-    i->second.resolve(*this);
+  for(auto & symbol : symbols)
+    symbol.second.resolve(*this);
 
   // see if we have picked up a RasterSpace from resolved symbols (Files)
   //  --> e.g. implicit clone

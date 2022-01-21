@@ -116,8 +116,8 @@ void calc::ManualExampleTester::test() const
 
   mb.setClone(d_clone);
 
-  for(size_t i=0; i<d_option.size(); ++i)
-    mb.setGlobalOption(d_option[i]);
+  for(const auto & i : d_option)
+    mb.setGlobalOption(i);
 
   std::string statement;
   statement += com::join(d_result,",");
@@ -138,8 +138,8 @@ void calc::ManualExampleTester::test() const
 
   // remove results
   std::vector<geo::FileCreateTester> fct;
-  for(size_t i=0; i<d_result.size(); ++i)
-    fct.push_back(geo::FileCreateTester(d_result[i]));
+  for(const auto & i : d_result)
+    fct.push_back(geo::FileCreateTester(i));
 
   // create results
   mb.execute();

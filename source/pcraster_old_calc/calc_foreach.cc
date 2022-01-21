@@ -118,12 +118,12 @@ void calc::ForEach::executeBlock()
    */
      std::set<const calc::IndexParameterConstant *>loopSet;
   std::vector<const calc::IndexParameterConstant *>loop;
-  for(auto i = d_in.begin(); i != d_in.end(); i++) {
-    const calc::IndexParameterConstant *ipc = (*i)->indexParameterConstant();
+  for(auto i : d_in) {
+    const calc::IndexParameterConstant *ipc = i->indexParameterConstant();
     loopSet.insert(ipc);
   }
-  for(auto i = d_excl.begin(); i != d_excl.end(); i++) {
-    const calc::IndexParameterConstant *ipc = (*i)->indexParameterConstant();
+  for(auto i : d_excl) {
+    const calc::IndexParameterConstant *ipc = i->indexParameterConstant();
     loopSet.erase(ipc);
   }
   // put in array in correct order

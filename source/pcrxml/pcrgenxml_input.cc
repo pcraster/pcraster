@@ -65,7 +65,7 @@ void pcrxml::Input::clean()
 {
  delete inputLodings;inputLodings=nullptr;
  delete inputPoints;inputPoints=nullptr;
- for(size_t i=0; i<inputFile.size(); i++) delete inputFile[i];
+ for(auto & i : inputFile) delete i;
 inputFile.clear();
 }
 //! copy ctor
@@ -77,7 +77,7 @@ pcrxml::Element(src)
 {
  inputLodings= (src.inputLodings) ? new InputLodings(*(src.inputLodings)): nullptr;
  inputPoints= (src.inputPoints) ? new InputPoints(*(src.inputPoints)): nullptr;
- for(size_t i=0; i<src.inputFile.size(); i++) inputFile.push_back(new InputFile(*(src.inputFile[i])));
+ for(auto i : src.inputFile) inputFile.push_back(new InputFile(*i));
 }
 //! assignment operator
 pcrxml::Input& pcrxml::Input::operator=(const Input& src)
@@ -87,7 +87,7 @@ pcrxml::Input& pcrxml::Input::operator=(const Input& src)
    clean(); PRECOND(false);
   inputLodings= (src.inputLodings) ? new InputLodings(*(src.inputLodings)): nullptr;
   inputPoints= (src.inputPoints) ? new InputPoints(*(src.inputPoints)): nullptr;
-  for(size_t i=0; i<src.inputFile.size(); i++) inputFile.push_back(new InputFile(*(src.inputFile[i])));
+  for(auto i : src.inputFile) inputFile.push_back(new InputFile(*i));
  }
 return *this;
 }
@@ -98,5 +98,5 @@ void pcrxml::Input::fill(QDomElement el) const
  migrDirection.addToElement(el,"migrDirection");
  if (inputLodings) inputLodings->appendTo(el);
  if (inputPoints) inputPoints->appendTo(el);
- for(size_t i=0; i<inputFile.size(); i++) inputFile[i]->appendTo(el);
+ for(auto i : inputFile) i->appendTo(el);
 }

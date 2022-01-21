@@ -40,8 +40,8 @@ MultiMap2DWindow::MultiMap2DWindow(qt::AppWindowProperties const& props,
     d_map(nullptr)
 
 {
-  for(size_t i = 0; i < d_engines.size(); ++i) {
-    d_engines[i] = new VisEngine();
+  for(auto & d_engine : d_engines) {
+    d_engine = new VisEngine();
   }
 
   // std::vector<com::FileFormatInfo> fileFormats;
@@ -67,8 +67,8 @@ MultiMap2DWindow::MultiMap2DWindow(MultiMap2DWindow const& rhs)
 
 MultiMap2DWindow::~MultiMap2DWindow()
 {
-  for(size_t i = 0; i < d_engines.size(); ++i) {
-    delete d_engines[i];
+  for(auto & d_engine : d_engines) {
+    delete d_engine;
   }
 }
 
@@ -103,8 +103,8 @@ void MultiMap2DWindow::createInterface(size_t nrRows, size_t nrCols)
 
 void MultiMap2DWindow::rescan()
 {
-  for(size_t i = 0; i < d_engines.size(); ++i) {
-    d_engines[i]->rescan(dataObject());
+  for(auto & d_engine : d_engines) {
+    d_engine->rescan(dataObject());
   }
 
   // visualisationEngine().rescan(dataObject());
@@ -118,8 +118,8 @@ void MultiMap2DWindow::addAttribute(DataGuide const& guide)
 {
   d_map->addAttribute(guide);
 
-  for(size_t i = 0; i < d_engines.size(); ++i) {
-    d_engines[i]->addAttribute(dataObject(), guide);
+  for(auto & d_engine : d_engines) {
+    d_engine->addAttribute(dataObject(), guide);
   }
 
   visualisationEngine().addAttribute(dataObject(), guide);

@@ -25,19 +25,19 @@ BOOST_AUTO_TEST_CASE(compressor)
   NullCompressor nc(rs);
   Compressor *cs[2] = { &mc, &nc };
 
-  for (size_t i=0; i < 2; i++) {
+  for (auto & c : cs) {
     auto *values = new REAL4[6];
     std::generate_n(values,6,com::SeqInc<REAL4>(1));
     // 1,2,3,4,5,6
 
-    BOOST_CHECK(cs[i]->nrCellsCompressed()    == 6);
-    BOOST_CHECK(cs[i]->toDecompressedIndex(0) == 0);
-    BOOST_CHECK(cs[i]->toDecompressedIndex(2) == 2);
-    BOOST_CHECK(cs[i]->toDecompressedIndex(5) == 5);
+    BOOST_CHECK(c->nrCellsCompressed()    == 6);
+    BOOST_CHECK(c->toDecompressedIndex(0) == 0);
+    BOOST_CHECK(c->toDecompressedIndex(2) == 2);
+    BOOST_CHECK(c->toDecompressedIndex(5) == 5);
 
-    CompressionInput ci(VS_S, values, *(cs[i]));
-    Spatial *s=cs[i]->createSpatial(ci);
-    BOOST_CHECK(s->nrValues() == cs[i]->nrCellsCompressed());
+    CompressionInput ci(VS_S, values, *c);
+    Spatial *s=c->createSpatial(ci);
+    BOOST_CHECK(s->nrValues() == c->nrCellsCompressed());
     ci.detachData(); // do not call [] delete => stack data
     auto *compressed= (REAL4 *)const_cast<void*>(s->srcValue());
     BOOST_CHECK(compressed[0]==1);
@@ -45,7 +45,7 @@ BOOST_AUTO_TEST_CASE(compressor)
     BOOST_CHECK(compressed[5]==6);
 
     DecompressedData dd(VS_S);
-    cs[i]->decompress(dd,s->srcValue());
+    c->decompress(dd,s->srcValue());
     auto *dCopy = (REAL4 *)const_cast<void*>(dd.decompressed());
     BOOST_CHECK(dCopy[0]==1);
     BOOST_CHECK(dCopy[2]==3);

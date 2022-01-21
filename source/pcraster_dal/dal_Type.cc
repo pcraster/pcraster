@@ -143,9 +143,9 @@ dal::Types::~Types()
 dal::TypeId dal::Types::idOfSmallestType(
          std::string const& string) const
 {
-  for(auto it = begin(); it != end(); ++it) {
-    if((**it).canParse(string)) {
-      return (**it).id();
+  for(auto it : *this) {
+    if((*it).canParse(string)) {
+      return (*it).id();
     }
   }
 
@@ -158,12 +158,12 @@ dal::TypeId dal::Types::idOfLargestType(TypeId id1, TypeId id2) const
 {
   TypeId id = TI_NR_TYPES;
 
-  for(auto it = begin(); it != end(); ++it) {
-    if((**it).id() == id1) {
+  for(auto it : *this) {
+    if((*it).id() == id1) {
       id = id2;
       break;
     }
-    else if((**it).id() == id2) {
+    else if((*it).id() == id2) {
       id = id1;
       break;
     }

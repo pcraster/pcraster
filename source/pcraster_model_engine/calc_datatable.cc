@@ -80,10 +80,9 @@ calc::DataTable::~DataTable()
 //! delete all DataValue's, set to 0
 void calc::DataTable::clean()
 {
-  for (auto i =d_table.begin();
-                       i!=d_table.end(); ++i) {
-    deleteAlways(i->second.d_dv);
-    i->second.d_dv=nullptr;
+  for (auto & i : d_table) {
+    deleteAlways(i.second.d_dv);
+    i.second.d_dv=nullptr;
   }
   d_table.clear();
   d_memoryInputLookupTables.clear();
@@ -242,10 +241,9 @@ void calc::DataTable::print(std::ostream& s) const
  */
 bool calc::DataTable::allNoValue() const
 {
-  for (auto i =d_table.begin();
-                             i!=d_table.end(); ++i) {
+  for (const auto & i : d_table) {
     size_t N = ASTSymbolInfo::noMemoryExchangeId();
-    if(i->second.d_dv && !i->second.isConstant() && i->second.memoryInputId() == N && i->second.memoryOutputId() == N) {
+    if(i.second.d_dv && !i.second.isConstant() && i.second.memoryInputId() == N && i.second.memoryOutputId() == N) {
       // has a datavalue that is  not a constant or a memory exchange
       // both constants and  memory exchange id or NOT considered a value when checking post execution
       return false;
@@ -320,8 +318,8 @@ void calc::DataTable::DTE::resetValue(DataValue *value) {
 std::map<std::string,calc::ASTSymbolInfo> calc::DataTable::symbols() const
 {
   std::map<std::string,calc::ASTSymbolInfo> s;
-  for(auto i=d_table.begin(); i!=d_table.end(); ++i)
-    s.insert(std::make_pair(i->first,i->second));
+  for(const auto & i : d_table)
+    s.insert(std::make_pair(i.first,i.second));
   return s;
 }
 

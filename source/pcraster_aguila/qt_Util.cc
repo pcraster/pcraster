@@ -103,15 +103,14 @@ std::string qt::getOpenFileName(
   std::string filter;
 
   // For all file formats.
-  for(auto it = fileFormats.begin();
-                   it != fileFormats.end(); ++it) {
+  for(const auto & fileFormat : fileFormats) {
 
-    std::vector<std::string> const& extensions = (*it).extensions();
+    std::vector<std::string> const& extensions = fileFormat.extensions();
 
     if(!extensions.empty()) {
       // Use description.
       assert(!(*it).description().empty());
-      filter += (*it).description() + " (";
+      filter += fileFormat.description() + " (";
 
       // Add extension(s).
       assert(!extensions.empty());

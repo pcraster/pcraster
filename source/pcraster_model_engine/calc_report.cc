@@ -145,8 +145,7 @@ void calc::Report::update(const Timer& timer)
   // set the report for static model
   d_reportAt[0]=false;
 
-  for(size_t l=0; l < d_list.size(); l++) {
-    ParsReportMoment m = d_list[l];
+  for(auto m : d_list) {
     if (m.start > endTime) // single or range outside 1..endTime
       continue; // do not add
     if (m.start == -1) // keyword "endtime"

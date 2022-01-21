@@ -95,9 +95,7 @@ static const char* crType(const ASTNode* n)
 static std::string mvTest(const std::set<std::string>& names)
 {
   std::vector<std::string> s;
-  for(std::set<std::string>::const_iterator i=names.begin();
-      i != names.end(); ++i) {
-    std::string a(*i);
+  for(auto a : names) {
     if (com::isDouble(a))
       continue; // skip MV check on numbers
     if (a.find("].f[0]") != std::string::npos)
@@ -134,9 +132,8 @@ calc::PointCodeBodyGenerator::PointCodeBodyGenerator(
      d_curr(nullptr)
 {
   size_t n=0;
-  for(ParSet::const_iterator i=vContents.begin(); i!=vContents.end(); ++i) {
+  for(auto p : vContents) {
     std::ostringstream s;
-    ASTPar *p=*i;
     PRECOND(!p->returnDataType().stEither());
     s << "v[" << n << "]." << cellUnionField(p->returnDataType().vs());
     if (p->returnDataType().stSpatial())

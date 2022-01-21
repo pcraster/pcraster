@@ -44,8 +44,8 @@ BOOST_AUTO_TEST_CASE(iterators)
   header.push_back("zinc, ppm");
   header.push_back("181072 333611 1022");
 
-  for(size_t i=0; i<2; i++) {
-    com::PathName pn(files[i]);
+  for(auto & file : files) {
+    com::PathName pn(file);
     com::FileMap  fm(pn);
     std::string   contents(fm.begin(),fm.end());
     std::vector<std::string> lines(com::split(contents,'\n'));

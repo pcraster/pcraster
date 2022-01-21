@@ -59,23 +59,23 @@ pcrxml::ModelRunSettings::~ModelRunSettings()
 //! clean
 void pcrxml::ModelRunSettings::clean()
 {
- for(size_t i=0; i<numericSetting.size(); i++) delete numericSetting[i];
+ for(auto & i : numericSetting) delete i;
 numericSetting.clear();
- for(size_t i=0; i<fileSetting.size(); i++) delete fileSetting[i];
+ for(auto & i : fileSetting) delete i;
 fileSetting.clear();
- for(size_t i=0; i<binding.size(); i++) delete binding[i];
+ for(auto & i : binding) delete i;
 binding.clear();
- for(size_t i=0; i<modelRunChild.size(); i++) delete modelRunChild[i];
+ for(auto & i : modelRunChild) delete i;
 modelRunChild.clear();
 }
 //! copy ctor
 pcrxml::ModelRunSettings::ModelRunSettings(const ModelRunSettings& src):
 pcrxml::Element(src)
 {
- for(size_t i=0; i<src.numericSetting.size(); i++) numericSetting.push_back(new NumericSetting(*(src.numericSetting[i])));
- for(size_t i=0; i<src.fileSetting.size(); i++) fileSetting.push_back(new FileSetting(*(src.fileSetting[i])));
- for(size_t i=0; i<src.binding.size(); i++) binding.push_back(new Binding(*(src.binding[i])));
- for(size_t i=0; i<src.modelRunChild.size(); i++) modelRunChild.push_back(new ModelRunChild(*(src.modelRunChild[i])));
+ for(auto i : src.numericSetting) numericSetting.push_back(new NumericSetting(*i));
+ for(auto i : src.fileSetting) fileSetting.push_back(new FileSetting(*i));
+ for(auto i : src.binding) binding.push_back(new Binding(*i));
+ for(auto i : src.modelRunChild) modelRunChild.push_back(new ModelRunChild(*i));
 }
 //! assignment operator
 pcrxml::ModelRunSettings& pcrxml::ModelRunSettings::operator=(const ModelRunSettings& src)
@@ -83,17 +83,17 @@ pcrxml::ModelRunSettings& pcrxml::ModelRunSettings::operator=(const ModelRunSett
  if(this != &src)
  {
    clean(); PRECOND(false);
-  for(size_t i=0; i<src.numericSetting.size(); i++) numericSetting.push_back(new NumericSetting(*(src.numericSetting[i])));
-  for(size_t i=0; i<src.fileSetting.size(); i++) fileSetting.push_back(new FileSetting(*(src.fileSetting[i])));
-  for(size_t i=0; i<src.binding.size(); i++) binding.push_back(new Binding(*(src.binding[i])));
-  for(size_t i=0; i<src.modelRunChild.size(); i++) modelRunChild.push_back(new ModelRunChild(*(src.modelRunChild[i])));
+  for(auto i : src.numericSetting) numericSetting.push_back(new NumericSetting(*i));
+  for(auto i : src.fileSetting) fileSetting.push_back(new FileSetting(*i));
+  for(auto i : src.binding) binding.push_back(new Binding(*i));
+  for(auto i : src.modelRunChild) modelRunChild.push_back(new ModelRunChild(*i));
  }
 return *this;
 }
 void pcrxml::ModelRunSettings::fill(QDomElement el) const
 {
- for(size_t i=0; i<numericSetting.size(); i++) numericSetting[i]->appendTo(el);
- for(size_t i=0; i<fileSetting.size(); i++) fileSetting[i]->appendTo(el);
- for(size_t i=0; i<binding.size(); i++) binding[i]->appendTo(el);
- for(size_t i=0; i<modelRunChild.size(); i++) modelRunChild[i]->appendTo(el);
+ for(auto i : numericSetting) i->appendTo(el);
+ for(auto i : fileSetting) i->appendTo(el);
+ for(auto i : binding) i->appendTo(el);
+ for(auto i : modelRunChild) i->appendTo(el);
 }

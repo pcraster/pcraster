@@ -77,8 +77,8 @@ bool calc::ArrayDefVector::operator==(const calc::ArrayDefVector& a) const
 std::string calc::ArrayDefVector::name() const
 {
   std::string str = "";
-  for(size_t i=0; i < d_vector.size(); i++)
-      str += "["+d_vector[i]->name()+"]";
+  for(auto i : d_vector)
+      str += "["+i->name()+"]";
   return str;
 }
 
@@ -119,9 +119,9 @@ bool calc::ArrayDefVector::isArray() const
 
 void calc::ArrayDefVector::print(calc::InfoScript& is)const
 {
-  for(size_t i=0; i < d_vector.size(); i++) {
+  for(auto i : d_vector) {
     is.stream() << "[";
-    is.parTag(d_vector[i]->name());
+    is.parTag(i->name());
     is.stream() << "]";
   }
 }

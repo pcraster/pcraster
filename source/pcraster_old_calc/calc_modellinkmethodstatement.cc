@@ -113,8 +113,8 @@ calc::ModelLinkMethodStatement::~ModelLinkMethodStatement()
 void calc::ModelLinkMethodStatement::cleanUp()
 {
   calc::cleanUp(d_args);
-  for (size_t i=0; i < d_left.size(); i++)
-    delete d_left[i];
+  for (auto & i : d_left)
+    delete i;
 }
 
 bool calc::ModelLinkMethodStatement::buildTypes()
@@ -149,8 +149,8 @@ void calc::ModelLinkMethodStatement::prepareExecution()
   MethodOperator mop(d_par->modelTypeName(), d_sig);
   FieldArgs a(d_methodName,mop(),d_args);
   a.prepareExecution();
-  for (size_t i=0; i < d_left.size(); i++)
-    d_left[i]->prepareExecution();
+  for (auto & i : d_left)
+    i->prepareExecution();
 }
 
 void calc::ModelLinkMethodStatement::run()

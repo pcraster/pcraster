@@ -579,9 +579,9 @@ GDALDriver* GDALRasterDriver::driverByName(
 
   GDALDriver* result = nullptr;
 
-  for(size_t i = 0; i < d_drivers.size(); ++i) {
-    if(d_drivers[i]->GetDescription() == name) {
-      result = d_drivers[i];
+  for(auto & d_driver : d_drivers) {
+    if(d_driver->GetDescription() == name) {
+      result = d_driver;
       break;
     }
   }
@@ -820,9 +820,9 @@ void GDALRasterDriver::registerGDALDriverToUse() const
   // Hack for HDF4Image driver. It seems it depends on the HDF4 driver also
   // being registered.
   if(std::string(d_driver->GetDescription()) == "HDF4Image") {
-    for(size_t i = 0; i < d_drivers.size(); ++i) {
-      if(std::string(d_drivers[i]->GetDescription()) == "HDF4") {
-        manager->RegisterDriver(d_drivers[i]);
+    for(auto & d_driver : d_drivers) {
+      if(std::string(d_driver->GetDescription()) == "HDF4") {
+        manager->RegisterDriver(d_driver);
         break;
       }
     }
@@ -834,12 +834,12 @@ void GDALRasterDriver::registerGDALDriverToUse() const
   // here. This could be the full list of format drivers though, except for
   // WCS itself.
   else if(std::string(d_driver->GetDescription()) == "WCS") {
-    for(size_t i = 0; i < d_drivers.size(); ++i) {
-      if(std::string(d_drivers[i]->GetDescription()) == "VRT") {
-        manager->RegisterDriver(d_drivers[i]);
+    for(auto & d_driver : d_drivers) {
+      if(std::string(d_driver->GetDescription()) == "VRT") {
+        manager->RegisterDriver(d_driver);
       }
-      else if(std::string(d_drivers[i]->GetDescription()) == "GTiff") {
-        manager->RegisterDriver(d_drivers[i]);
+      else if(std::string(d_driver->GetDescription()) == "GTiff") {
+        manager->RegisterDriver(d_driver);
       }
     }
 

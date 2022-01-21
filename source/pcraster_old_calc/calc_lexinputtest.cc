@@ -24,6 +24,6 @@ BOOST_AUTO_TEST_CASE(install_string_script)
   std::string contents("pietpaal");
   contents.replace(contents.begin(), contents.end(), contents.size(), 0);
   BOOST_CHECK(contents.size()==8);
-  for(size_t i=0; i<contents.size(); i++)
-    BOOST_CHECK(contents[i]==0);
+  for(char content : contents)
+    BOOST_CHECK(content==0);
 }

@@ -368,8 +368,8 @@ void calc::WlDelftHabitat::parseRules(
    ruleName2Tag.add("Gebroken lineair","GebrokenLineair");   // <GebrokenLineair>+ ==> (X,Y)
 
    std::vector<QDomElement> r(findTagGetSiblings(model,tagName.c_str()));
-   for (size_t i=0; i < r.size(); i++) {
-    QDomElement soortKennis(expectTagGet1stSibling(r[i],"SoortKennis"));
+   for (auto & i : r) {
+    QDomElement soortKennis(expectTagGet1stSibling(i,"SoortKennis"));
     RuleName2Tag::const_iterator skR(ruleName2Tag.find(value(soortKennis)));
     if (skR == ruleName2Tag.end()) {
       std::ostringstream os;
@@ -377,13 +377,13 @@ void calc::WlDelftHabitat::parseRules(
       throw com::BadStreamFormat(os.str());
     }
     if (skR->first == "Univariaat" || skR->first == "Multivariaat") {
-      addExpr(r[i],skR->second);
+      addExpr(i,skR->second);
     } else {
       if (skR->first == "Klassen") {
-        addKlassen(r[i]);
+        addKlassen(i);
       } else {
         PRECOND(skR->first == "Gebroken lineair");
-        addLookuplinear(r[i]);
+        addLookuplinear(i);
       }
     }
    }
@@ -405,8 +405,8 @@ void calc::WlDelftHabitat::parseXml()
         WlDelftHabitat *w,
         const QDomElement& de) {
      std::vector<QDomElement> cmds(findTagGetSiblings(de,d_elementName));
-     for (size_t i=0; i < cmds.size(); i++)
-       (w->*d_parse)(cmds[i]);
+     for (auto & cmd : cmds)
+       (w->*d_parse)(cmd);
      return !cmds.empty();
     }
   };
@@ -493,10 +493,10 @@ static LookupRecord parseRecord(
   std::vector<QDomElement> keys(findTagGetSiblings(re,keyName.c_str()));
   LookupRecord::Key key;
   try {
-   for(size_t i=0; i < keys.size(); i++) {
+   for(auto & i : keys) {
     key.push_back(
         com::createIntervalFromLookupTableKey<double>(
-          value(keys[i])));
+          value(i)));
     XML_TRACE_LOG(std::cout << value(keys[i]) << " ");
    }
   LookupRecord lr(key,numericValueOfSubMatch(re,resultName.c_str()));
@@ -531,9 +531,9 @@ static void parseTable(
     const std::string& resultName)
 {
   std::vector<QDomElement> recs(nonEmptyContainer(containedIn,containerName));
-  for(size_t i=0; i < recs.size(); i++)
+  for(auto & rec : recs)
     try {
-     lr.push_back(parseRecord(recs[i],keyName,resultName));
+     lr.push_back(parseRecord(rec,keyName,resultName));
     } catch (com::BadIntervalFormat& e) {
        std::ostringstream msg;
        msg << "On parsing " << containerName << ":";
@@ -549,10 +549,10 @@ static void parseIntervals(
 {
   // get all records
   std::vector<QDomElement> recs(nonEmptyContainer(containedIn,containerName));
-  for(size_t i=0; i < recs.size(); i++)
+  for(auto & rec : recs)
     try {
      iv.push_back(
-        com::createIntervalFromLookupTableKey<float>(valueOfSubMatch(recs[i],"VARIABELE")));
+        com::createIntervalFromLookupTableKey<float>(valueOfSubMatch(rec,"VARIABELE")));
     } catch (com::BadIntervalFormat& e) {
        std::ostringstream msg;
        msg << "On parsing " << containerName << ":";
@@ -681,8 +681,8 @@ void calc::WlDelftHabitat::parseEcotoop(
          "number of ECOTOOPVARIA and WAARDEN elements not identical");
 
   std::vector<std::string> arg;
-  for(size_t v=0;v<inputData.size(); v++)
-    arg.push_back(parameter(inputData[v]).d_name);
+  for(auto & v : inputData)
+    arg.push_back(parameter(v).d_name);
   expr += com::join(arg,",")+ ")";
 
   addAssignment(output, expr);

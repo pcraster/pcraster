@@ -187,8 +187,8 @@ public:
 
   void clean() {
     // delete what we own, if still around here
-    for(size_t i=0; i < d_args.size(); ++i)
-      deleteFromPcrme(d_args[i]);
+    for(auto & d_arg : d_args)
+      deleteFromPcrme(d_arg);
     d_args.clear();
   }
 

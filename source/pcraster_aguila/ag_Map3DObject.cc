@@ -363,12 +363,11 @@ void ag::Map3DObject::createDrapeScene(const ag::DataObject& dataObject,
   std::vector<QuadDrawer *> drawers;
   std::vector<QuadDrawer *>::const_iterator draw_it;
   std::vector<QuadDrawer *>::reverse_iterator rdraw_it;
-  for(auto it = dataGuides.begin();
-         it != dataGuides.end(); ++it) {
+  for(const auto & dataGuide : dataGuides) {
 
-    if(dataObject.isEnabled(*it)) {
+    if(dataObject.isEnabled(dataGuide)) {
 
-      ag::DataGuide guide = *it;
+      ag::DataGuide guide = dataGuide;
       assert(dataObject.isValid(guide));
       assert(guide.type() == geo::STACK);
 

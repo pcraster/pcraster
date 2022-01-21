@@ -208,11 +208,10 @@ com::UnOrderedCrossTable::~UnOrderedCrossTable()
   delete[] d_cells;
 
   if(nrObjectsCreated() == 1) {
-    for(auto it = d_indicesMap.begin();
-         it != d_indicesMap.end(); ++it) {
+    for(auto & it : d_indicesMap) {
 
-      size_t size = it->first;
-      size_t** indices = it->second;
+      size_t size = it.first;
+      size_t** indices = it.second;
 
       for(size_t i = 0; i < size; ++i) {
         delete[] indices[i];

@@ -410,9 +410,9 @@ std::string com::removeFrontEndSpace(std::string const& str)
 void com::removeAllSpace(std::string& str)
 {
   std::string newStr;
-  for(size_t i=0; i < str.size(); i++)
-    if (!std::isspace(str[i]))
-      newStr += str[i];
+  for(char i : str)
+    if (!std::isspace(i))
+      newStr += i;
   str = newStr;
 }
 
@@ -559,9 +559,9 @@ void com::replaceChars(std::string& str, char resultChar,
 {
   std::set<char> replaceSet;
   com::insertTo(charsToBeReplaced, replaceSet);
-  for(size_t i=0; i < str.size(); i++)
-    if (replaceSet.count(str[i]))
-      str[i]=resultChar;
+  for(char & i : str)
+    if (replaceSet.count(i))
+      i=resultChar;
 }
 
 /*!
@@ -579,11 +579,11 @@ std::string com::replaceCharByStr(const std::string& str,char c,
                                const std::string& with)
 {
   std::string d;
-  for(size_t i=0; i<str.size(); i++) {
-    if (str[i] == c)
+  for(char i : str) {
+    if (i == c)
       d+=with;
     else
-      d+=str[i];
+      d+=i;
   }
   return d;
 }

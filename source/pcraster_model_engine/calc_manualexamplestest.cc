@@ -37,9 +37,9 @@ BOOST_AUTO_TEST_CASE(testAll)
     std::vector<ManualExampleTester> et;
 #include "cpptest.cc"
     std::vector<std::string> failMsgs;
-    for(size_t i=0; i < et.size(); i++)
+    for(auto & i : et)
       try {
-        et[i].test();
+        i.test();
       } catch (const com::Exception& e) {
         failMsgs.push_back(e.messages());
       }

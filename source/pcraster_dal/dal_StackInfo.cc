@@ -303,11 +303,10 @@ bool dal::StackInfo::isMemberOfStack(std::filesystem::path const& path) const
       // Check if stuff after base name is numbers and optionally one ".".
       std::string numbers = path.filename().string().substr(d_name.filename().string().size());
       bool dotSeen = false;
-      for(std::string::iterator it = numbers.begin(); it != numbers.end();
-              ++it) {
-        if(!std::isdigit(*it)) {
+      for(char & number : numbers) {
+        if(!std::isdigit(number)) {
 
-          if(*it != '.') {
+          if(number != '.') {
             // Not a digit, should be the one extension separator.
             return false;
           }

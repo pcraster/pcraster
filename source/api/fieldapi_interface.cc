@@ -191,8 +191,8 @@ bool nonMV(
     const std::vector<const fieldapi::Common*>& fields,
     const geo::CellLoc& l)
 {
-  for(size_t i=0; i< fields.size(); i++)
-    if (fields[i]->isMV(l))
+  for(auto field : fields)
+    if (field->isMV(l))
       return false;
   return true;
 }

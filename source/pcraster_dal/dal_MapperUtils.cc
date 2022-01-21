@@ -96,9 +96,9 @@ PCR_DAL_DECL void stepMap(
     double first, last;
     StepMapper const* aMapper;
 
-    for(size_t i = 0; i < mappings.size(); ++i) {
-      Dimension const& dimension = boost::get<0>(mappings[i]);
-      aMapper = boost::get<1>(mappings[i]);
+    for(const auto & mapping : mappings) {
+      Dimension const& dimension = boost::get<0>(mapping);
+      aMapper = boost::get<1>(mapping);
 
       firstStep = dimension.value<size_t>(0);
       lastStep = dimension.value<size_t>(1);
@@ -178,11 +178,11 @@ PCR_DAL_DECL void spaceStepMap(
     stepMappers->clear();
     stepMappers->reserve(mappings.size());
 
-    for(size_t i = 0; i < mappings.size(); ++i) {
-      Dimension dimension = boost::get<0>(mappings[i]);
+    for(const auto & mapping : mappings) {
+      Dimension dimension = boost::get<0>(mapping);
       size_t lowestIndex = dimension.value<size_t>(0);
       size_t highestIndex = dimension.value<size_t>(1);
-      SpaceStepMapper const* aMapper = boost::get<1>(mappings[i]);
+      SpaceStepMapper const* aMapper = boost::get<1>(mapping);
 
       lowestCoordinate = aMapper->destination(lowestIndex);
       highestCoordinate = aMapper->destination(highestIndex);
@@ -250,11 +250,11 @@ PCR_DAL_DECL void timeStepMap(
     stepMappers->clear();
     stepMappers->reserve(mappings.size());
 
-    for(size_t i = 0; i < mappings.size(); ++i) {
-      Dimension dimension = boost::get<0>(mappings[i]);
+    for(const auto & mapping : mappings) {
+      Dimension dimension = boost::get<0>(mapping);
       size_t firstStep = dimension.value<size_t>(0);
       size_t lastStep = dimension.value<size_t>(1);
-      TimeStepMapper const* aMapper = boost::get<1>(mappings[i]);
+      TimeStepMapper const* aMapper = boost::get<1>(mapping);
 
       firstTime = aMapper->destination(firstStep);
       lastTime = aMapper->destination(lastStep);

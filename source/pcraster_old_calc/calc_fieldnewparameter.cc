@@ -47,8 +47,8 @@ calc::FieldNewParameter::FieldNewParameter(
 //! dtor
 calc::FieldNewParameter::~FieldNewParameter()
 {
-  for(size_t i=0; i < d_value.size(); i++)
-    delete d_value[i];
+  for(auto & i : d_value)
+    delete i;
 }
 
 //! throw com::Exception if name validation fails

@@ -385,8 +385,8 @@ void com::PathInfo::testValidName() const
 {
    std::string base(d_pathName.baseName());
    const char *names[2] = { "aux", "con" };
-   for (size_t i=0; i < 2; i++)
-    if (base == names[i])
+   for (auto & name : names)
+    if (base == name)
        throw com::OpenFileError(d_pathName.toString(),"Not a valid filename");
 }
 

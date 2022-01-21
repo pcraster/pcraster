@@ -138,8 +138,8 @@ void MultiMap2DView::setLabel(size_t row, size_t col)
 
 void MultiMap2DView::addAttribute(DataGuide const& guide)
 {
-  for(size_t i = 0; i < d_mapViews.size(); ++i) {
-    d_mapViews[i].get<1>()->addAttribute(guide);
+  for(auto & d_mapView : d_mapViews) {
+    d_mapView.get<1>()->addAttribute(guide);
   }
 }
 
@@ -192,8 +192,8 @@ void MultiMap2DView::process()
     if(!dataObject().backgroundColour().isValid()) {
       setPalette(QPalette());
 
-      for(size_t i = 0; i < d_mapViews.size(); ++i) {
-        d_mapViews[i].get<0>()->setPalette(QPalette());
+      for(auto & d_mapView : d_mapViews) {
+        d_mapView.get<0>()->setPalette(QPalette());
       }
     }
     else {
@@ -201,8 +201,8 @@ void MultiMap2DView::process()
       palette.setColor(backgroundRole(), dataObject().backgroundColour());
       setPalette(palette);
 
-      for(size_t i = 0; i < d_mapViews.size(); ++i) {
-        QLineEdit* label = d_mapViews[i].get<0>();
+      for(auto & d_mapView : d_mapViews) {
+        QLineEdit* label = d_mapView.get<0>();
         QPalette palette;
         palette.setColor(label->backgroundRole(),
            dataObject().backgroundColour());
@@ -218,8 +218,8 @@ void MultiMap2DView::visualise()
 {
   // Done scanning, update stuff if needed.
   if(visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
-    for(size_t i = 0; i < d_mapViews.size(); ++i) {
-      d_mapViews[i].get<0>()->update();
+    for(auto & d_mapView : d_mapViews) {
+      d_mapView.get<0>()->update();
     }
   }
 

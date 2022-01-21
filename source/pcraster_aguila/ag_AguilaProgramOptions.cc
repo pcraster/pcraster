@@ -63,10 +63,10 @@ namespace detail {
     std::vector<SV> r;
     r = AguilaProgramOptions::viewPlusSyntaxToViewCtor(viewValues);
     std::vector<pcrxml::StringSet> s;
-    for(size_t v=0; v < r.size(); ++v) {
+    for(auto & v : r) {
        s.push_back(pcrxml::StringSet());
-       for(size_t i=0; i < r[v].size(); ++i)
-         s.back().item().push_back(r[v][i]);
+       for(size_t i=0; i < v.size(); ++i)
+         s.back().item().push_back(v[i]);
     }
     return s;
   }
@@ -79,8 +79,8 @@ namespace detail {
     // TODO: why do we need this. Splitting by space doesn't work for
     // TODO: names that contain spaces, eg: Program\ Files.
     // expand(t);
-    for(size_t i = 0; i < t.size(); ++i) {
-      boost::trim(t[i]);
+    for(auto & i : t) {
+      boost::trim(i);
     }
 
     return viewPlusSyntaxToStringSet(t);
@@ -251,9 +251,9 @@ namespace detail {
     std::vector<std::string> s;
     boost::split(s, value, boost::is_any_of(","));
     pcrxml::StringSet result;
-    for(size_t i=0; i < s.size(); ++i) {
-     boost::trim(s[i]);
-     result.item().push_back(s[i]);
+    for(auto & i : s) {
+     boost::trim(i);
+     result.item().push_back(i);
     }
 
     return result;
@@ -270,21 +270,21 @@ namespace detail {
       if(v.count("scenarios")) {
         auto s = std::any_cast<VecOfStr>(v["scenarios"]);
 
-        for(size_t i = 0; i < s.size(); ++i)
-          scenarios().push_back(SetParser<std::string>::set(s[i]));
+        for(auto & i : s)
+          scenarios().push_back(SetParser<std::string>::set(i));
         elementCount+=scenarios().size();
       }
       if(v.count("quantiles")) {
         auto s = std::any_cast<VecOfStr>(v["quantiles"]);
-        for(size_t i = 0; i < s.size(); ++i)
-          quantiles().push_back(SetRangeParser<float>::rangeOrSet(s[i]));
+        for(auto & i : s)
+          quantiles().push_back(SetRangeParser<float>::rangeOrSet(i));
         elementCount+=quantiles().size();
       }
 
       if(v.count("timesteps")) {
         auto s = std::any_cast<VecOfStr>(v["timesteps"]);
-        for(size_t i = 0; i < s.size(); ++i) {
-          pcrxml::OneBasedIntegerRangeOrSet obirs(SetRangeParser<size_t>::rangeOrSet(s[i]));
+        for(auto & i : s) {
+          pcrxml::OneBasedIntegerRangeOrSet obirs(SetRangeParser<size_t>::rangeOrSet(i));
           timesteps().push_back(pcrxml::Timesteps());
           if (obirs.range().present())
             timesteps().back().range(obirs.range().get());
@@ -310,8 +310,8 @@ namespace detail {
       boost::tuple<std::string, dal::DataSpace> tuple;
       std::string name;
 
-      for(size_t i=0; i < vs.item().size(); ++i) {
-        name = vs.item()[i];
+      for(auto & i : vs.item()) {
+        name = i;
         // std::cout << "-> " << name << std::endl;
         // name = dal::fixPathname(vs.item()[i]);
         tuple = dal::oldStackName2NameSpaceTuple(name);
@@ -320,7 +320,7 @@ namespace detail {
         if(!space.hasTime()) {
           // Data source name is not in old stack format, reset to the
           // original name.
-          name = vs.item()[i];
+          name = i;
         }
         else {
           dal::Dimension dimension(space.dimension(dal::Time));
@@ -331,7 +331,7 @@ namespace detail {
           name = boost::get<0>(tuple);
         }
 
-        vs.item()[i] = name;
+        i = name;
       }
     }
 
@@ -358,12 +358,11 @@ namespace detail {
       optionNames.push_back("valueOnly");
       optionNames.push_back("defaultView");
 
-      for(auto it = optionNames.begin();
-              it != optionNames.end(); ++it) {
+      for(auto & optionName : optionNames) {
 
-        if(variables.count(*it)) {
+        if(variables.count(optionName)) {
           std::vector<pcrxml::StringSet> stringSets(
-              toStringSet(std::any_cast<VecOfStr>(variables[*it])));
+              toStringSet(std::any_cast<VecOfStr>(variables[optionName])));
 
           for(size_t i = 0; i < stringSets.size(); ++i) {
             elementCount += stringSets.size();
@@ -371,7 +370,7 @@ namespace detail {
             fixStackNameSyntaxAndRecordTimesteps(stringSets[i]);
 
             pcrxml::AguilaView view;
-            XMLViewItems::setItems(view, *it, stringSets[i]);
+            XMLViewItems::setItems(view, optionName, stringSets[i]);
             push_back(view);
           }
         }

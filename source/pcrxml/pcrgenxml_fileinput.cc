@@ -72,7 +72,7 @@ void pcrxml::FileInput::clean()
  delete stack;stack=nullptr;
  delete timeSeries;timeSeries=nullptr;
  delete table;table=nullptr;
- for(size_t i=0; i<data.size(); i++) delete data[i];
+ for(auto & i : data) delete i;
 data.clear();
 }
 //! copy ctor
@@ -84,7 +84,7 @@ pcrxml::Element(src)
  stack= (src.stack) ? new Stack(*(src.stack)): nullptr;
  timeSeries= (src.timeSeries) ? new TimeSeries(*(src.timeSeries)): nullptr;
  table= (src.table) ? new Table(*(src.table)): nullptr;
- for(size_t i=0; i<src.data.size(); i++) data.push_back(new Data(*(src.data[i])));
+ for(auto i : src.data) data.push_back(new Data(*i));
 }
 //! assignment operator
 pcrxml::FileInput& pcrxml::FileInput::operator=(const FileInput& src)
@@ -96,7 +96,7 @@ pcrxml::FileInput& pcrxml::FileInput::operator=(const FileInput& src)
   stack= (src.stack) ? new Stack(*(src.stack)): nullptr;
   timeSeries= (src.timeSeries) ? new TimeSeries(*(src.timeSeries)): nullptr;
   table= (src.table) ? new Table(*(src.table)): nullptr;
-  for(size_t i=0; i<src.data.size(); i++) data.push_back(new Data(*(src.data[i])));
+  for(auto i : src.data) data.push_back(new Data(*i));
  }
 return *this;
 }
@@ -107,5 +107,5 @@ void pcrxml::FileInput::fill(QDomElement el) const
  if (stack) stack->appendTo(el);
  if (timeSeries) timeSeries->appendTo(el);
  if (table) table->appendTo(el);
- for(size_t i=0; i<data.size(); i++) data[i]->appendTo(el);
+ for(auto i : data) i->appendTo(el);
 }

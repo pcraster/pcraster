@@ -61,8 +61,8 @@ template <class Operation>
 void forEachNode(QDomNode node, Operation& o) {
   o(node);
   NodeSet attrs(node.attributes());
-  for(auto i=attrs.begin(); i != attrs.end(); ++i)
-    o(*i);
+  for(const auto & attr : attrs)
+    o(attr);
   QDomNodeList list = node.childNodes();
   for(size_t i=0; i < (size_t)list.count(); ++i)
     forEachNode(list.item(i),o);

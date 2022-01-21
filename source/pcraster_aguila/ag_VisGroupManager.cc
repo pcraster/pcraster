@@ -442,8 +442,8 @@ void ag::VisGroupManager::show()
   }
   else {
   */
-    for(auto it = begin(); it != end(); ++ it) {
-      (*it)->show();
+    for(auto & it : *this) {
+      it->show();
     }
     /*
   }
@@ -499,8 +499,8 @@ size_t ag::VisGroupManager::nrGroups() const
 size_t ag::VisGroupManager::nrVisualisations() const
 {
   size_t n = 0;
-  for(auto it = begin(); it != end(); ++ it) {
-    n += (*it)->nrVisualisations();
+  for(auto it : *this) {
+    n += it->nrVisualisations();
   }
   return n;
 }
@@ -521,9 +521,9 @@ void ag::VisGroupManager::updateControlCenter()
 ag::VisGroup *ag::VisGroupManager::findGroup(IVisualisation *v)
 {
   VisGroup* group = nullptr;
-  for(auto groupIt = begin(); groupIt != end(); ++ groupIt) {
-    if((*groupIt)->contains(v)) {
-      group = *groupIt;
+  for(auto & groupIt : *this) {
+    if(groupIt->contains(v)) {
+      group = groupIt;
       break;
     }
   }
@@ -537,9 +537,9 @@ ag::VisGroup *ag::VisGroupManager::findGroup(IVisualisation *v)
 ag::VisGroup *ag::VisGroupManager::findGroup(ag::DataObject& dataObject)
 {
   VisGroup* group = nullptr;
-  for(auto groupIt = begin(); groupIt != end(); ++ groupIt) {
-    if(&(*groupIt)->dataObject() == &dataObject) {
-      group = *groupIt;
+  for(auto & groupIt : *this) {
+    if(&groupIt->dataObject() == &dataObject) {
+      group = groupIt;
       break;
     }
   }
@@ -635,8 +635,8 @@ ag::VisGroup *ag::VisGroupManager::findGroup(ag::DataObject& dataObject)
 */
 void ag::VisGroupManager::sync()
 {
-  for(auto it = begin(); it != end(); ++it) {
-    (*it)->sync();
+  for(auto & it : *this) {
+    it->sync();
   }
 }
 
@@ -646,9 +646,9 @@ ag::VisGroup* ag::VisGroupManager::group(IVisualisation const* visualisation)
 {
   VisGroup* group = nullptr;
 
-  for(auto it = begin(); it != end(); ++ it) {
-    if((*it)->contains(visualisation)) {
-      group = *it;
+  for(auto & it : *this) {
+    if(it->contains(visualisation)) {
+      group = it;
       break;
     }
   }

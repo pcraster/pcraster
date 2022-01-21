@@ -192,15 +192,15 @@ void calc::RunTimeEnv::checkConstraints(
 void calc::RunTimeEnv::deleteAllValues()
 {
   d_data.clean();
-  for(auto i=d_cache.begin(); i != d_cache.end(); ++i)
-   delete i->second;
+  for(auto & i : d_cache)
+   delete i.second;
   d_cache.clear();
 }
 
 void calc::RunTimeEnv::clean()
 {
-  for(auto i=d_writers.begin(); i != d_writers.end(); ++i)
-   delete i->second;
+  for(auto & d_writer : d_writers)
+   delete d_writer.second;
   d_writers.clear();
 
   deleteAllValues();
@@ -290,8 +290,8 @@ void calc::RunTimeEnv::start()
 {
 
   // remove old versions of the file to be written
-  for(auto i=d_writers.begin(); i != d_writers.end(); ++i)
-    i->second->remove();
+  for(auto & d_writer : d_writers)
+    d_writer.second->remove();
 }
 
 //! finish all writers, remove possible swapDir
@@ -536,8 +536,8 @@ void calc::RunTimeEnv::assignStackTop(
 void calc::RunTimeEnv::assignStackTop(
     const std::vector<ASTPar *>& pars)
 {
-  for(size_t p=0; p < pars.size(); ++p)
-    assignStackTop(pars[p]);
+  for(auto par : pars)
+    assignStackTop(par);
 }
 
 //! load symbol \a i in DataTable and setup a FieldWriter if needed

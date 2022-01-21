@@ -321,9 +321,8 @@ Dimension& Dimension::operator|=(
 
       _values.clear();
 
-      for(auto it = values.begin();
-          it != values.end(); ++it) {
-        _values.push_back(*it);
+      for(const auto & value : values) {
+        _values.push_back(value);
       }
 
       break;

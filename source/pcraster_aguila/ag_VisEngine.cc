@@ -281,16 +281,15 @@ void VisEngine::rescan(
   /// }
 
   // Loop over the properties.
-  for(auto it = _data->_properties.begin();
-                   it != _data->_properties.end(); ++it) {
+  for(auto & _propertie : _data->_properties) {
 
     // Let's see if data is selected or unselected since the last time.
-    if(_data->_properties.isSelected(*it) != object.isSelected(*it)) {
+    if(_data->_properties.isSelected(_propertie) != object.isSelected(_propertie)) {
       // _data->_properties.setSelected(*it, object.isSelected(*it));
       _data->_change |= SELECTION;
     }
 
-    if(_data->_properties.isEnabled(*it) != object.isEnabled(*it)) {
+    if(_data->_properties.isEnabled(_propertie) != object.isEnabled(_propertie)) {
       // _data->_properties.setEnabled(*it, object.isEnabled(*it));
       _data->_change |= VISIBILITY;
     }

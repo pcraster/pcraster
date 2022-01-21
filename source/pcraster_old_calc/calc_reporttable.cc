@@ -42,8 +42,8 @@ calc::ReportTable::ReportTable()
 calc::ReportTable::~ReportTable()
 {
     delete d_reportDefault;
-    for(auto i=d_table.begin(); i != d_table.end(); i++)
-         delete i->second;
+    for(auto & i : d_table)
+         delete i.second;
 }
 
 //! add a report, error if already defined

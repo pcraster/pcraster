@@ -308,8 +308,8 @@ void calc::Script::evaluateBindings()
 {
   std::vector<UserSymbol *>
     newPars(d_bindingTable.moveConstantToParameters(this));
-  for(size_t i=0; i< newPars.size(); i++)
-    addSymbol(newPars[i]);
+  for(auto & newPar : newPars)
+    addSymbol(newPar);
 }
 
 

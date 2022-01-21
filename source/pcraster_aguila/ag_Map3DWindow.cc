@@ -203,8 +203,8 @@ std::string ag::Map3DWindow::windowName() const
     name = dataObject().name(*visualisationEngine().heightDataGuide());
     std::vector<DataGuide> dataGuides = visualisationEngine().dataGuides();
 
-    for(size_t i = 0; i < dataGuides.size(); ++i) {
-      name += " + " + dataObject().name(dataGuides[i]);
+    for(auto & dataGuide : dataGuides) {
+      name += " + " + dataObject().name(dataGuide);
     }
   }
 

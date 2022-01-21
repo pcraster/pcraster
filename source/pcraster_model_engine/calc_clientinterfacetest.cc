@@ -24,8 +24,8 @@ namespace calc {
     static bool validateBil(std::string const& name)
     {
       static const char *exts[3] = { ".bil",".hdr",".stx"};
-      for(size_t i =0; i < 3; ++i)
-        if (!compareFileWithValidated(name+exts[i]))
+      for(auto & ext : exts)
+        if (!compareFileWithValidated(name+ext))
           return false;
       return true;
     }

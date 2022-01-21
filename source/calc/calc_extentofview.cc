@@ -231,15 +231,14 @@ extern "C" int ExtentOfView(
     points.setClass(classes[*visitor]);
 
     // Loop over each direction.
-    for(auto it = offsets.begin(); it != offsets.end();
-         ++it) {
+    for(auto & offset : offsets) {
 
       points.clear();
       POSTCOND(!points.size());
 
       // Determine number of cells with same class.
       PRECOND(!classes.isMV(*visitor));
-      geo::midpointLine(x, y, x + (*it).second.first, y + (*it).second.second,
+      geo::midpointLine(x, y, x + offset.second.first, y + offset.second.second,
          points);
       POSTCOND(points.size());
 

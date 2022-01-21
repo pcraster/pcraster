@@ -1195,9 +1195,8 @@ splitNameAndSelection(
       boost::split(tokens, selection, boost::is_any_of(","));
       // std::for_each(tokens.begin(), tokens.end(), boost::trim);
 
-      for(auto it = tokens.begin();
-           it != tokens.end(); ++it) {
-        boost::trim(*it);
+      for(auto & token : tokens) {
+        boost::trim(token);
       }
     }
 

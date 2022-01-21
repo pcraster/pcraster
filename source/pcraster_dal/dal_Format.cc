@@ -262,9 +262,8 @@ bool Format::extensionMatches(std::string const& extension) const
 {
   bool result = false;
 
-  for(auto it = d_extensions.begin();
-         it != d_extensions.end(); ++it) {
-    if((*it) == extension) {
+  for(const auto & d_extension : d_extensions) {
+    if(d_extension == extension) {
       result = true;
       break;
     }

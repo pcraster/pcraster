@@ -194,8 +194,8 @@ bool SQLTableDriver::driverIsAvailable(
   bool result = false;
   QStringList list = QSqlDatabase::drivers();
 
-  for(QStringList::Iterator it = list.begin(); it != list.end(); ++it) {
-    if(*it == QString(name.c_str())) {
+  for(auto & it : list) {
+    if(it == QString(name.c_str())) {
       result = true;
       break;
     }

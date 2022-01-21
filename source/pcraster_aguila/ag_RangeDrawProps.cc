@@ -531,9 +531,8 @@ std::vector<double> RangeDrawProps::classBorders() const
 {
   std::vector<double> borders = rawClassBorders();
 
-  for(auto it = borders.begin(); it != borders.end();
-         ++it) {
-    *it = rawToDisplay(*it);
+  for(double & border : borders) {
+    border = rawToDisplay(border);
   }
 
   return borders;

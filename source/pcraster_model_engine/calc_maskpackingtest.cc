@@ -58,8 +58,8 @@ BOOST_AUTO_TEST_CASE(testSpatialPacking)
 
   SpatialPacking *cs[2] = { &mp, &ap };
 
-  for (size_t i=0; i < 2; i++) {
-    BOOST_CHECK(cs[i]->rasterDim() == rs);
+  for (auto & c : cs) {
+    BOOST_CHECK(c->rasterDim() == rs);
 
     float values[6];
     // 11,12,13,14,15,16
@@ -67,15 +67,15 @@ BOOST_AUTO_TEST_CASE(testSpatialPacking)
 
     Spatial in(VS_S,values,6);
 
-    BOOST_CHECK(cs[i]->nrFieldCells()    == 6);
-    BOOST_CHECK(cs[i]->toRasterId(0) == 0);
-    BOOST_CHECK(cs[i]->toRasterId(2) == 2);
-    BOOST_CHECK(cs[i]->toRasterId(5) == 5);
-    BOOST_CHECK(cs[i]->toFieldId(0)  == 0);
-    BOOST_CHECK(cs[i]->toFieldId(2)  == 2);
-    BOOST_CHECK(cs[i]->toFieldId(5)  == 5);
+    BOOST_CHECK(c->nrFieldCells()    == 6);
+    BOOST_CHECK(c->toRasterId(0) == 0);
+    BOOST_CHECK(c->toRasterId(2) == 2);
+    BOOST_CHECK(c->toRasterId(5) == 5);
+    BOOST_CHECK(c->toFieldId(0)  == 0);
+    BOOST_CHECK(c->toFieldId(2)  == 2);
+    BOOST_CHECK(c->toFieldId(5)  == 5);
 
-    Field   *b=cs[i]->createSpatial(VS_B);
+    Field   *b=c->createSpatial(VS_B);
     BOOST_CHECK(dynamic_cast<Spatial *>(b));
     BOOST_CHECK(b->isSpatial());
     BOOST_CHECK(b->vs()==VS_B);
@@ -85,13 +85,13 @@ BOOST_AUTO_TEST_CASE(testSpatialPacking)
 
     // TEST UnpackedSrc
 
-    const Field *f=cs[i]->unpack(&in);
+    const Field *f=c->unpack(&in);
     // unpacked src spatial
-    UnpackedSrc usS(*cs[i],&in);
+    UnpackedSrc usS(*c,&in);
 
     NonSpatial  ns(VS_N, 4);
     // unpacked src nonspatial
-    UnpackedSrc usN(*cs[i],&ns);
+    UnpackedSrc usN(*c,&ns);
 
     BOOST_CHECK(usN.src() == &ns);
     BOOST_CHECK(usN.src()->vs() == VS_N);
@@ -103,7 +103,7 @@ BOOST_AUTO_TEST_CASE(testSpatialPacking)
     const float *src=f->src_f();
     BOOST_CHECK(std::equal(values,values+6,src));
     BOOST_CHECK(std::equal(values,values+6,usS.src()->src_f()));
-    if (cs[i] == &mp) {
+    if (c == &mp) {
       BOOST_CHECK(f != &in);
       delete f;
       BOOST_CHECK(usS.src() != &in);
@@ -113,10 +113,10 @@ BOOST_AUTO_TEST_CASE(testSpatialPacking)
     }
 
     { // test SpatialPacking::pack
-      Field *packed = cs[i]->pack(&in);
+      Field *packed = c->pack(&in);
       BOOST_CHECK(packed->nrValues() == 6);
       BOOST_CHECK(std::equal(values,values+6,packed->src_f()));
-      if (cs[i] == &mp) {
+      if (c == &mp) {
         BOOST_CHECK(packed != &in);
         delete packed;
       } else
@@ -126,13 +126,13 @@ BOOST_AUTO_TEST_CASE(testSpatialPacking)
     // TEST UnpackedCreation
 
     { // automatic clean up
-      UnpackedCreation uc(*cs[i],VS_N);
+      UnpackedCreation uc(*c,VS_N);
       BOOST_CHECK(uc.unpacked()->nrValues()==6);
       BOOST_CHECK(uc.unpacked()->vs()==VS_N);
     }
 
     { //  clean up by delete
-      UnpackedCreation uc(*cs[i],VS_N);
+      UnpackedCreation uc(*c,VS_N);
       BOOST_CHECK(uc.unpacked()->nrValues()==6);
       BOOST_CHECK(uc.unpacked()->vs()==VS_N);
       Field *rPacked = uc.releasePacked();

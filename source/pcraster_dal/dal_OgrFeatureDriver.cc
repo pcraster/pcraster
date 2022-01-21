@@ -353,9 +353,9 @@ GDALDriver* OgrFeatureDriver::driverByName(
 
   GDALDriver* result = nullptr;
 
-  for(size_t i = 0; i < detail::drivers.size(); ++i) {
-    if(detail::drivers[i]->GetDescription() == name) {
-      result = detail::drivers[i];
+  for(auto & driver : detail::drivers) {
+    if(driver->GetDescription() == name) {
+      result = driver;
       break;
     }
   }
@@ -1354,9 +1354,9 @@ void OgrFeatureDriver::browse(
   OGRwkbGeometryType geometryType;
 
   // Iterate over all files.
-  for(int i = 0; i < int(leaves.size()); ++i) {
+  for(auto & leave : leaves) {
     auto dataset = static_cast<GDALDataset*>(GDALOpenEx(
-        (path / leaves[i]).string().c_str(), GDAL_OF_VECTOR, _driver_names,
+        (path / leave).string().c_str(), GDAL_OF_VECTOR, _driver_names,
         nullptr, nullptr));
 
     if(dataset) {
@@ -1387,7 +1387,7 @@ void OgrFeatureDriver::browse(
         for(int f = 0; f < featureDefinition->GetFieldCount(); ++f) {
           OGRFieldDefn* fieldDefinition = featureDefinition->GetFieldDefn(f);
 
-          name = leaves[i] + "/" + featureDefinition->GetName() + "/" +
+          name = leave + "/" + featureDefinition->GetName() + "/" +
               fieldDefinition->GetNameRef();
 
           DataSpace space;

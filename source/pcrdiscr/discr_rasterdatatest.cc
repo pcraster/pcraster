@@ -98,8 +98,8 @@ BOOST_AUTO_TEST_CASE(equals)
   BOOST_CHECK(dem1 != defaultRaster);
   BOOST_CHECK(defaultRaster != dem1);
 
-  for(size_t i = 0; i < 12; ++i) {
-    pcr::setMV(values[i]);
+  for(float & value : values) {
+    pcr::setMV(value);
   }
 
   RasterData<REAL4> mvRaster(&raster, values);

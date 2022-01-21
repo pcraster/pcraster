@@ -51,14 +51,14 @@ pcrxml::ScriptLink::~ScriptLink()
 //! clean
 void pcrxml::ScriptLink::clean()
 {
- for(size_t i=0; i<data.size(); i++) delete data[i];
+ for(auto & i : data) delete i;
 data.clear();
 }
 //! copy ctor
 pcrxml::ScriptLink::ScriptLink(const ScriptLink& src):
 pcrxml::Element(src)
 {
- for(size_t i=0; i<src.data.size(); i++) data.push_back(new Data(*(src.data[i])));
+ for(auto i : src.data) data.push_back(new Data(*i));
 }
 //! assignment operator
 pcrxml::ScriptLink& pcrxml::ScriptLink::operator=(const ScriptLink& src)
@@ -66,11 +66,11 @@ pcrxml::ScriptLink& pcrxml::ScriptLink::operator=(const ScriptLink& src)
  if(this != &src)
  {
    clean(); PRECOND(false);
-  for(size_t i=0; i<src.data.size(); i++) data.push_back(new Data(*(src.data[i])));
+  for(auto i : src.data) data.push_back(new Data(*i));
  }
 return *this;
 }
 void pcrxml::ScriptLink::fill(QDomElement el) const
 {
- for(size_t i=0; i<data.size(); i++) data[i]->appendTo(el);
+ for(auto i : data) i->appendTo(el);
 }

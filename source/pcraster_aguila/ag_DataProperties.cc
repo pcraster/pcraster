@@ -88,68 +88,51 @@ public:
          dev::Delete<com_ClassClassifier<UINT1> >());
     dev::forWhole(_rangeClassifiers, dev::Delete<com::Classifier>());
 
-    for(auto it =
-         _geometryDrawProperties.begin();
-         it != _geometryDrawProperties.end(); ++it) {
-      delete (*it).second;
+    for(auto & _geometryDrawPropertie : _geometryDrawProperties) {
+      delete _geometryDrawPropertie.second;
     }
 
-    for(auto it =
-         _booleanDrawProperties.begin(); it != _booleanDrawProperties.end();
-         ++it) {
-      delete (*it).second;
+    for(auto & _booleanDrawPropertie : _booleanDrawProperties) {
+      delete _booleanDrawPropertie.second;
     }
 
-    for(auto it =
-         _nominalDrawProperties.begin(); it != _nominalDrawProperties.end();
-         ++it) {
-      delete (*it).second;
+    for(auto & _nominalDrawPropertie : _nominalDrawProperties) {
+      delete _nominalDrawPropertie.second;
     }
 
-    for(auto it =
-         _ordinalDrawProperties.begin(); it != _ordinalDrawProperties.end();
-         ++it) {
-      delete (*it).second;
+    for(auto & _ordinalDrawPropertie : _ordinalDrawProperties) {
+      delete _ordinalDrawPropertie.second;
     }
 
-    for(auto it =
-         _lddDrawProperties.begin(); it != _lddDrawProperties.end(); ++it) {
-      delete (*it).second;
+    for(auto & _lddDrawPropertie : _lddDrawProperties) {
+      delete _lddDrawPropertie.second;
     }
 
-    for(auto it =
-         _rangeDrawProperties.begin(); it != _rangeDrawProperties.end();
-         ++it) {
-      delete (*it).second;
+    for(auto & _rangeDrawPropertie : _rangeDrawProperties) {
+      delete _rangeDrawPropertie.second;
     }
 
     {
       std::set<RangeDrawProps*> drawProperties;
 
-      for(auto it =
-         _mergedRangeDrawProperties.begin();
-         it != _mergedRangeDrawProperties.end(); ++it) {
-        drawProperties.insert((*it).second);
+      for(auto & _mergedRangeDrawPropertie : _mergedRangeDrawProperties) {
+        drawProperties.insert(_mergedRangeDrawPropertie.second);
       }
 
-      for(auto it = drawProperties.begin();
-              it != drawProperties.end(); ++it) {
-        delete *it;
+      for(auto drawPropertie : drawProperties) {
+        delete drawPropertie;
       }
     }
 
     {
       std::set<GeometryDrawProps*> drawProperties;
 
-      for(auto it =
-         _mergedGeometryDrawProperties.begin();
-         it != _mergedGeometryDrawProperties.end(); ++it) {
-        drawProperties.insert((*it).second);
+      for(auto & _mergedGeometryDrawPropertie : _mergedGeometryDrawProperties) {
+        drawProperties.insert(_mergedGeometryDrawPropertie.second);
       }
 
-      for(auto it = drawProperties.begin();
-              it != drawProperties.end(); ++it) {
-        delete *it;
+      for(auto drawPropertie : drawProperties) {
+        delete drawPropertie;
       }
     }
   }
@@ -1816,10 +1799,9 @@ void DataProperties::setSelected(const DataGuide& guide,
 void DataProperties::setSelected(
                    const std::vector<DataGuide>& guides, bool selected)
 {
-  for(auto it = guides.begin();
-                   it != guides.end(); ++it) {
+  for(const auto & guide : guides) {
 
-    setSelected(*it, selected);
+    setSelected(guide, selected);
   }
 }
 

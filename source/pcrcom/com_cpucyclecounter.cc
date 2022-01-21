@@ -142,8 +142,8 @@ std::vector<size_t>  com::CpuCycleCounter::counters(
     size_t maxCount) const
 {
   Uint64 max=0;
-  for(size_t i=0;i<d_counters.size();++i)
-    com::maximize(max,d_counters[i].d_total);
+  for(auto d_counter : d_counters)
+    com::maximize(max,d_counter.d_total);
 
   size_t skipBits=0;
   while(max > maxCount) {

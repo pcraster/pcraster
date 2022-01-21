@@ -50,14 +50,14 @@ pcrxml::ScriptData::~ScriptData()
 //! clean
 void pcrxml::ScriptData::clean()
 {
- for(size_t i=0; i<data.size(); i++) delete data[i];
+ for(auto & i : data) delete i;
 data.clear();
 }
 //! copy ctor
 pcrxml::ScriptData::ScriptData(const ScriptData& src):
 pcrxml::Element(src)
 {
- for(size_t i=0; i<src.data.size(); i++) data.push_back(new Data(*(src.data[i])));
+ for(auto i : src.data) data.push_back(new Data(*i));
 }
 //! assignment operator
 pcrxml::ScriptData& pcrxml::ScriptData::operator=(const ScriptData& src)
@@ -65,11 +65,11 @@ pcrxml::ScriptData& pcrxml::ScriptData::operator=(const ScriptData& src)
  if(this != &src)
  {
    clean(); PRECOND(false);
-  for(size_t i=0; i<src.data.size(); i++) data.push_back(new Data(*(src.data[i])));
+  for(auto i : src.data) data.push_back(new Data(*i));
  }
 return *this;
 }
 void pcrxml::ScriptData::fill(QDomElement el) const
 {
- for(size_t i=0; i<data.size(); i++) data[i]->appendTo(el);
+ for(auto i : data) i->appendTo(el);
 }

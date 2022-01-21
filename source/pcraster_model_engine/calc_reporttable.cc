@@ -48,8 +48,8 @@ calc::ReportTable::ReportTable():
 
 calc::ReportTable::~ReportTable()
 {
-  for(auto i=d_table.begin(); i != d_table.end(); i++)
-    delete i->second;
+  for(auto & i : d_table)
+    delete i.second;
 }
 
 //! add a report, error if already defined
@@ -124,8 +124,8 @@ void calc::ReportTable::update(const Timer& timer)
   PRECOND(timer.lastInt() > 0);
   d_timer=timer;
   d_reportDefault.update(d_timer);
-  for(auto i=d_table.begin(); i != d_table.end(); i++)
-    i->second->update(d_timer);
+  for(auto & i : d_table)
+    i.second->update(d_timer);
 }
 
 

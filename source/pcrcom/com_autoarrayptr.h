@@ -10,20 +10,20 @@ template<class X>
   class auto_array_ptr {
     X* p_;
   public:
-    auto_array_ptr(X* p = 0) throw() : p_(p) {}
-    auto_array_ptr(auto_array_ptr<X>& ap) throw() :
+    auto_array_ptr(X* p = 0) noexcept : p_(p) {}
+    auto_array_ptr(auto_array_ptr<X>& ap) noexcept :
       p_(ap.release()) {}
     ~auto_array_ptr() {delete[ ]p_;}
     void operator=(auto_array_ptr<X>& rhs);
 
-    X& operator*() throw() {return *p_;}
-    X& operator[ ](int i) throw() {return p_[i];}
-    X operator[ ](int i) const throw() {return p_[i];}
-    X* get() const throw() {return p_;}
+    X& operator*() noexcept {return *p_;}
+    X& operator[ ](int i) noexcept {return p_[i];}
+    X operator[ ](int i) const noexcept {return p_[i];}
+    X* get() const noexcept {return p_;}
     //! return a modifiable ptr (added CW)
-    X* ptr()       throw() {return p_;}
-    X* release() throw() {return reset(0);}
-    X* reset(X* p) throw() {X* tp = p_; p_ = p; return tp;}
+    X* ptr()       noexcept {return p_;}
+    X* release() noexcept {return reset(0);}
+    X* reset(X* p) noexcept {X* tp = p_; p_ = p; return tp;}
 
     static void remove(X*& x) {X* tp=x; x=0; delete[ ]tp;}
   };

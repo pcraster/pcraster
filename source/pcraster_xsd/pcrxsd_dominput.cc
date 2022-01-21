@@ -25,6 +25,7 @@
 #define INCLUDED_IOSTREAM
 #endif
 #ifndef INCLUDED_SSTREAM
+#include <memory>
 #include <sstream>
 #define INCLUDED_SSTREAM
 #endif
@@ -379,9 +380,9 @@ DOMDocument* DOMInput::document()
 
   std::unique_ptr<DOMInputErrorHandler> errorHandler;
   if (d_errorHandlerType == Vi)
-    errorHandler.reset(new ViErrorHandler());
+    errorHandler = std::make_unique<ViErrorHandler>();
   if (d_errorHandlerType == Verbose)
-    errorHandler.reset(new VerboseErrorHandler());
+    errorHandler = std::make_unique<VerboseErrorHandler>();
 
   d_parser->getDomConfig()->setParameter(XMLUni::fgDOMErrorHandler,
    errorHandler.get());

@@ -5,6 +5,8 @@
 
 #ifndef INCLUDED_CALC_P5STACK
 #include "calc_p5stack.h"
+
+#include <memory>
 #define INCLUDED_CALC_P5STACK
 #endif
 
@@ -66,10 +68,10 @@ void calc::P5Stack::init()
   // redo setLastUse,  keep last use for some tests
   setLastUse(d_as->cfgCode(),d_keepLive);
 
-  d_e.reset(
-      new Executor(d_as->cfgCode(),
+  d_e = std::make_unique<Executor>(
+      d_as->cfgCode(),
                    d_as->rteSettings(),
-                   d_as->symbols()));
+                   d_as->symbols());
   d_e->execAllKeep();
 }
 

@@ -6,6 +6,8 @@
 
 #ifndef INCLUDED_CALC_STATTABLE
 #include "calc_stattable.h"
+
+#include <memory>
 #define INCLUDED_CALC_STATTABLE
 #endif
 
@@ -663,7 +665,7 @@ template<class IntervalMapT>
   if (!d_cross.defined())
     cross=subject;
   else {
-    d.reset(new FieldHandle(stack.popReadOnly()));
+    d = std::make_unique<FieldHandle>(stack.popReadOnly());
     cross=(const REAL4 *)(*d)->srcValue();
   }
 

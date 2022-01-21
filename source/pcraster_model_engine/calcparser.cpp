@@ -29,6 +29,7 @@
 
 #include "stddefx.h"
 #include <cmath>
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -305,7 +306,7 @@ Parser::model(int *_retsignal)
 	PURIFY(_retv,sizeof( std::unique_ptr<calc::ASTScript>  	))
 	*_retsignal = NoSignal;
 #line 407 "calcparser.g"
-	_retv.reset(new ASTScript());
+	_retv = std::make_unique<ASTScript>();
 	AP_ASTNode b;
 #line 410 "calcparser.g"
 	{
@@ -507,7 +508,7 @@ Parser::bindingRHS(int *_retsignal, const calc::ASTPar& par )
 			 right  = qid(&_signal); if (_signal) goto _handler;
 
 #line 464 "calcparser.g"
-			n.reset(new calc::ASTPar(right));
+			n = std::make_unique<calc::ASTPar>(right);
 #line 465 "calcparser.g"
 			{
 				if ( (LA(1)==TOK_LP) ) {
@@ -527,7 +528,7 @@ Parser::bindingRHS(int *_retsignal, const calc::ASTPar& par )
 				 right  = number(&_signal); if (_signal) goto _handler;
 
 #line 467 "calcparser.g"
-				n.reset(new calc::ASTNumber(right));
+				n = std::make_unique<calc::ASTNumber>(right);
 			}
 			else {
 				if ( (LA(1)==TOK_CONV_F) ) {
@@ -560,7 +561,7 @@ Parser::bindingRHS(int *_retsignal, const calc::ASTPar& par )
 #line 474 "calcparser.g"
 	
 	if (n.get())
-	_retv.reset(new ASTAss(expectId( par),n.get()));
+	_retv = std::make_unique<ASTAss>(expectId( par),n.get());
 	// else index/array stuff
 	return _retv;
 fail:
@@ -786,8 +787,8 @@ Parser::body(int *_retsignal)
 			 dynamicStatements  = statementList(&_signal); if (_signal) goto _handler;
 
 #line 529 "calcparser.g"
-			dynamic.reset(new calc::DynamicSection(
-			position(td), dynamicStatements.release()));
+			dynamic = std::make_unique<calc::DynamicSection>(
+			position(td), dynamicStatements.release());
 		}
 	}
 #line 533 "calcparser.g"
@@ -1114,7 +1115,7 @@ Parser::statementList(int *_retsignal)
 #line 615 "calcparser.g"
 			
 			if (!_retv.get())
-			_retv.reset(new calc::ASTNodeList());
+			_retv = std::make_unique<calc::ASTNodeList>();
 			_retv->transferPushBack(s.release());
 		}
 	}
@@ -1140,7 +1141,7 @@ Parser::statement(int *_retsignal)
 	PURIFY(_retv,sizeof( Parser::AP_ASTStat  	))
 	*_retsignal = NoSignal;
 #line 624 "calcparser.g"
-	_retv.reset(new calc::ASTStat());
+	_retv = std::make_unique<calc::ASTStat>();
 #line 655 "calcparser.g"
 	{
 		if ( (setwd4[LA(1)]&0x8) ) {
@@ -1465,7 +1466,7 @@ Parser::assignment(int *_retsignal)
 	calc::ASTPar par;
 	bool         swap=false;
 	AP_ASTNode   right;
-	_retv.reset(new calc::ASTAss());
+	_retv = std::make_unique<calc::ASTAss>();
 #line 723 "calcparser.g"
 	 par  = parWithIndeces(&_signal); if (_signal) goto _handler;
 
@@ -2316,7 +2317,7 @@ Parser::misc_expr(int *_retsignal)
 					 nr  = number(&_signal); if (_signal) goto _handler;
 
 #line 987 "calcparser.g"
-					_retv.reset(new calc::ASTNumber(nr));
+					_retv = std::make_unique<calc::ASTNumber>(nr);
 				}
 				else {
 					if ( (LA(1)==TOK_REFERENCE) ) {
@@ -2327,7 +2328,7 @@ Parser::misc_expr(int *_retsignal)
 
 #line 990 "calcparser.g"
 						
-						_retv.reset(new calc::ASTPar(genId(r)));
+						_retv = std::make_unique<calc::ASTPar>(genId(r));
  consume();
 					}
 					else {
@@ -2394,7 +2395,7 @@ Parser::misc_expr(int *_retsignal)
 										std::unique_ptr<LinkInExpr> e(new LinkInExpr(nameBefore,genId(nameAfter),strArg));
 										// Hack a method with no args, yields a 0-ptr!
 										if (!args.get())
-										args.reset(new calc::ASTNodeVector());
+										args = std::make_unique<calc::ASTNodeVector>();
 										e->transferFunctionArgs(args.release());
 										_retv=AP_ASTNode(e.release());
 									}
@@ -2415,7 +2416,7 @@ Parser::misc_expr(int *_retsignal)
 											}
 #line 1030 "calcparser.g"
 											
-											_retv.reset(new calc::ASTPar(p));
+											_retv = std::make_unique<calc::ASTPar>(p);
 										}
 										else {
 											if (_sva) _signal=NoViableAlt;
@@ -2524,7 +2525,7 @@ Parser::exprList(int *_retsignal)
 	*_retsignal = NoSignal;
 #line 1052 "calcparser.g"
 	
-	_retv.reset(new calc::ASTNodeVector());
+	_retv = std::make_unique<calc::ASTNodeVector>();
 	AP_ASTNode e;
 #line 1056 "calcparser.g"
 	 e  = expr(&_signal); if (_signal) goto _handler;
@@ -2857,7 +2858,7 @@ Parser::nrOrPar(int *_retsignal)
 		 i  = number(&_signal); if (_signal) goto _handler;
 
 #line 1121 "calcparser.g"
-		_retv.reset(new ASTNumber(i));
+		_retv = std::make_unique<ASTNumber>(i);
 	}
 	else {
 		if ( (setwd10[LA(1)]&0x4) ) {
@@ -2865,7 +2866,7 @@ Parser::nrOrPar(int *_retsignal)
 			 i  = qid(&_signal); if (_signal) goto _handler;
 
 #line 1122 "calcparser.g"
-			_retv.reset(new ASTPar(i));
+			_retv = std::make_unique<ASTPar>(i);
 		}
 		else {
 			if (_sva) _signal=NoViableAlt;

@@ -201,12 +201,12 @@ T gigaByte(T nr=1) {
 template<typename T>
  struct NumericLimits : public std::numeric_limits<T> {
   //! smallest reprentable value
-  static T minValue() throw() {
+  static T minValue() noexcept {
       BOOST_STATIC_ASSERT(std::numeric_limits<T>::is_integer);
       return std::numeric_limits<T>::min();
   }
   //! largest reprentable value
-  static T maxValue() throw() {
+  static T maxValue() noexcept {
     return std::numeric_limits<T>::max();
   }
 };
@@ -214,14 +214,14 @@ template<typename T>
 template<>
  struct NumericLimits<float>: public std::numeric_limits<float> {
   //! smallest reprentable value
-  static float minValue() throw() {
+  static float minValue() noexcept {
     // floating-point values:
     // min encode smallest positive
     // value nearing 0 (in limit)
     return -std::numeric_limits<float>::max(); // this is the smallest
   }
   //! largest reprentable value
-  static float maxValue() throw() {
+  static float maxValue() noexcept {
     return std::numeric_limits<float>::max();
   }
 };
@@ -229,14 +229,14 @@ template<>
 template<>
  struct NumericLimits<double>: public std::numeric_limits<double> {
   //! smallest reprentable value
-  static double minValue() throw() {
+  static double minValue() noexcept {
     // floating-point values:
     // min encode smallest positive
     // value nearing 0 (in limit)
     return -std::numeric_limits<double>::max(); // this is the smallest
   }
   //! largest reprentable value
-  static double maxValue() throw() {
+  static double maxValue() noexcept {
     return std::numeric_limits<double>::max();
   }
 };

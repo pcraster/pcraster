@@ -74,19 +74,19 @@ private:
 
   void execOp            (BaseExpr   *o);
 
-  void visitPar          (ASTPar    *p);
-  void visitNumber       (ASTNumber *n);
-  void visitExpr         (BaseExpr  *e);
-  void visitAss          (ASTAss    *a);
-  void visitStat         (ASTStat   *s);
+  void visitPar          (ASTPar    *p) override;
+  void visitNumber       (ASTNumber *n) override;
+  void visitExpr         (BaseExpr  *e) override;
+  void visitAss          (ASTAss    *a) override;
+  void visitStat         (ASTStat   *s) override;
 
-  void visitPointCodeBlock  (PointCodeBlock* pcb);
-  void enterDynamicSection  (DynamicSection* );
-  void jumpOutDynamicSection(DynamicSection* );
-  void enterRepeatUntil     (RepeatUntil * );
-  void jumpOutRepeatUntil   (RepeatUntil * );
-  void visitJumpNode        (JumpNode* j);
-  void jumpOutCode          (Code * );
+  void visitPointCodeBlock  (PointCodeBlock* pcb) override;
+  void enterDynamicSection  (DynamicSection* ) override;
+  void jumpOutDynamicSection(DynamicSection* ) override;
+  void enterRepeatUntil     (RepeatUntil * ) override;
+  void jumpOutRepeatUntil   (RepeatUntil * ) override;
+  void visitJumpNode        (JumpNode* j) override;
+  void jumpOutCode          (Code * ) override;
 
 public:
 
@@ -98,7 +98,7 @@ public:
                                      const RunTimeEnvSettings& s,
                                      const ASTSymbolTable& table);
 
-  /* virtual */    ~Executor        ();
+  /* virtual */    ~Executor        () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

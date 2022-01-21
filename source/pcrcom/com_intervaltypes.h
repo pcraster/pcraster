@@ -40,9 +40,9 @@ class LowerLimit : public Interval<R> {
   R d_minV;
   LowerLimit(R minV): d_minV(minV) {};
  public:
-   bool    operator<(R /*v*/) const { return false; };
-   R  min() const { return d_minV;     };
-   R  max() const { return this->maxLimit(); };
+   bool    operator<(R /*v*/) const override { return false; };
+   R  min() const override { return d_minV;     };
+   R  max() const override { return this->maxLimit(); };
 };
 
 //! test value to be greater than \a minV, < l , inf
@@ -51,10 +51,10 @@ class GreaterThan : public LowerLimit<R> {
   public:
    //! ctor
    GreaterThan(R minV):LowerLimit<R>(minV){}
-   bool        valid(R v)const { return v > this->d_minV; };
-   bool    operator>(R v)const { return this->d_minV >= v;};
-   std::string msg() const;
-   virtual GreaterThan *createClone()const;
+   bool        valid(R v)const override { return v > this->d_minV; };
+   bool    operator>(R v)const override { return this->d_minV >= v;};
+   std::string msg() const override;
+   GreaterThan *createClone()const override;
 
 };
 
@@ -64,10 +64,10 @@ class GreaterThanEqualTo : public LowerLimit<R> {
   public:
    //! ctor
    GreaterThanEqualTo(R minV):LowerLimit<R>(minV){}
-   bool valid(R v)        const { return v >= this->d_minV; };
-   bool    operator>(R v) const { return this->d_minV >  v;};
-   std::string msg() const;
-   virtual GreaterThanEqualTo *createClone()const;
+   bool valid(R v)        const override { return v >= this->d_minV; };
+   bool    operator>(R v) const override { return this->d_minV >  v;};
+   std::string msg() const override;
+   GreaterThanEqualTo *createClone()const override;
 };
 
 
@@ -79,9 +79,9 @@ protected:
   R d_maxV;
   UpperLimit(R maxV): d_maxV(maxV) {};
 public:
-   bool  operator>(R /*v*/) const { return false;            };
-   R  min() const { return this->minLimit(); };
-   R  max() const { return d_maxV;     };
+   bool  operator>(R /*v*/) const override { return false;            };
+   R  min() const override { return this->minLimit(); };
+   R  max() const override { return d_maxV;     };
 };
 
 //! test value to be less than \a maxV, &lt; inf, h &gt;
@@ -90,10 +90,10 @@ class LessThan : public UpperLimit<R> {
   public:
    //! ctor
    LessThan(R maxV):UpperLimit<R>(maxV){}
-   bool valid(R v)const       { return v < this->d_maxV;   };
-   bool  operator<(R v) const { return this->d_maxV <=  v; };
-   std::string msg() const;
-   virtual LessThan *createClone()const;
+   bool valid(R v)const override       { return v < this->d_maxV;   };
+   bool  operator<(R v) const override { return this->d_maxV <=  v; };
+   std::string msg() const override;
+   LessThan *createClone()const override;
 };
 
 //! test value to be less than or equal to \a maxV, &lt; inf, h ]
@@ -102,10 +102,10 @@ class LessThanEqualTo : public UpperLimit<R> {
   public:
    //! ctor
    LessThanEqualTo(R maxV):UpperLimit<R>(maxV){}
-   bool valid(R v)const       { return v <= this->d_maxV; };
-   bool  operator<(R v) const { return this->d_maxV <  v; };
-   std::string msg() const;
-   virtual LessThanEqualTo *createClone()const;
+   bool valid(R v)const override       { return v <= this->d_maxV; };
+   bool  operator<(R v) const override { return this->d_maxV <  v; };
+   std::string msg() const override;
+   LessThanEqualTo *createClone()const override;
 };
 
 
@@ -115,13 +115,13 @@ class AnythingInterval : public Interval<R> {
   public:
    //! ctor
    AnythingInterval(){}
-   bool valid     (R /* v */) const { return true; };
-   bool  operator<(R /* v */) const { return false;};
-   bool  operator>(R /* v */) const { return false;};
-   std::string msg() const;
-   virtual AnythingInterval *createClone()const;
-   R  min() const { return this->minLimit(); };
-   R  max() const { return this->maxLimit(); };
+   bool valid     (R /* v */) const override { return true; };
+   bool  operator<(R /* v */) const override { return false;};
+   bool  operator>(R /* v */) const override { return false;};
+   std::string msg() const override;
+   AnythingInterval *createClone()const override;
+   R  min() const override { return this->minLimit(); };
+   R  max() const override { return this->maxLimit(); };
 };
 
 //! defines open or closed interval
@@ -145,19 +145,19 @@ class BetweenLimits : public Interval<R> {
   BetweenLimits(
    const LowerLimit<R>&  lowerLimit,
    const UpperLimit<R>&  upperLimit);
-  virtual ~BetweenLimits();
+  ~BetweenLimits() override;
 
   BetweenLimits&   operator=           (const BetweenLimits<R>& rhs);
 
                    BetweenLimits       (const BetweenLimits<R>& rhs);
 
-  bool valid(R v) const;
-  bool  operator<(R v) const;
-  bool  operator>(R v) const;
-  std::string msg() const;
-  virtual BetweenLimits<R> *createClone()const;
-  R  min() const { return d_lowerLimit->min(); };
-  R  max() const { return d_upperLimit->max(); };
+  bool valid(R v) const override;
+  bool  operator<(R v) const override;
+  bool  operator>(R v) const override;
+  std::string msg() const override;
+  BetweenLimits<R> *createClone()const override;
+  R  min() const override { return d_lowerLimit->min(); };
+  R  max() const override { return d_upperLimit->max(); };
 };
 
 

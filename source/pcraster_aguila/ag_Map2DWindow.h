@@ -39,13 +39,13 @@ private:
 
   void             createInterface     ();
 
-  void             saveAsPNG           (std::filesystem::path const& path);
+  void             saveAsPNG           (std::filesystem::path const& path) override;
 
 protected:
 
-  std::string      windowName          () const;
+  std::string      windowName          () const override;
 
-  bool             dataVisualised      () const;
+  bool             dataVisualised      () const override;
 
 public:
 
@@ -58,15 +58,15 @@ public:
                                         DataObject* object);
 
   //! Destructor.
-  /* virtual */    ~Map2DWindow              ();
+  /* virtual */    ~Map2DWindow              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
 
-  void             rescan              ();
+  void             rescan              () override;
 
-  void             addAttribute        (ag::DataGuide const& guide);
+  void             addAttribute        (ag::DataGuide const& guide) override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS

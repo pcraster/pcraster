@@ -38,7 +38,7 @@ private:
 
   void             draw                (QPainter& painter,
                                         long int featureId,
-                                        QPainterPath const& path) const;
+                                        QPainterPath const& path) const override;
 
 protected:
 
@@ -53,7 +53,7 @@ public:
                                         dal::SpaceDimensions const& dimensions,
                                         RangeDrawProps const& drawProperties);
 
-  /* virtual */    ~RangeFeatureLayerDrawer();
+  /* virtual */    ~RangeFeatureLayerDrawer() override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

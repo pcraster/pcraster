@@ -23,16 +23,16 @@ class  TssOutputParameter : public TssParameter {
   const ParsPar& par,
   const WriteInfo& w,
   bool constant);
-  ~TssOutputParameter();
+  ~TssOutputParameter() override;
 
   void AddTotss(size_t index, const void **args, bool isClassTss);
 
   // MANIPULATORS
   void setVs(VS vsOfOutput);
-  void goInScope();
+  void goInScope() override;
 
   // ACCESSORS
-  VS vs() const;
+  VS vs() const override;
 };
 
 }

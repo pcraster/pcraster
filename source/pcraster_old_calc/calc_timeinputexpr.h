@@ -26,11 +26,11 @@ class TimeinputExpr : public MixedExpr {
     const Operator& op,
           UsePar &tss,
           FieldExprArgs& keyArgs);
-  ~TimeinputExpr();
+  ~TimeinputExpr() override;
   // MANIPULATORS
-  void execute(FieldStack& s);
+  void execute(FieldStack& s) override;
   //ACCESSORS
-  void print(InfoScript& i)const;
+  void print(InfoScript& i)const override;
 };
 }
 

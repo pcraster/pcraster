@@ -69,7 +69,7 @@ public:
   {
   }
 
-  ~StaticWriter()
+  ~StaticWriter() override
   {
   }
 
@@ -77,7 +77,7 @@ public:
    * \param field     to write
    * \param timeStep  time step, 0 for initial/static write
    */
-  std::string write(const Field* f, size_t timeStep) {
+  std::string write(const Field* f, size_t timeStep) override {
    DEVELOP_PRECOND(!timeStep);
    if (!timeStep) { // initial
     d_fios.writeField(outputFilePath(),f);
@@ -105,10 +105,10 @@ public:
     else
       d_stackInfo.setVs(s.vs());
   }
-  virtual ~DynamicWriter() {
+  ~DynamicWriter() override {
   }
 
-  std::string write(const Field* f, size_t timeStep) {
+  std::string write(const Field* f, size_t timeStep) override {
     if (d_stackInfo.reportTimeStep(timeStep))
       return writeStep(f,timeStep);
     return "";
@@ -127,13 +127,13 @@ public:
   {
   }
 
-  std::string writeStep(const Field* f, size_t timeStep) {
+  std::string writeStep(const Field* f, size_t timeStep) override {
     std::string fileName(d_fios.makeStackItemName(d_stackInfo.stackName(),timeStep));
     GridStat s= d_fios.writeField(fileName,f);
     d_stackInfo.merge(s);
     return fileName;
   }
-  void finish() {
+  void finish() override {
     d_fios.setStackInfo(d_stackInfo);
   }
 };
@@ -153,19 +153,19 @@ class TimeoutputWriter : public DynamicWriter
          s.name(), s.memoryOutputId(),ios);
     }
  }
- ~TimeoutputWriter()
+ ~TimeoutputWriter() override
  {
    delete d_tss;
  }
  //! tss is created the first time id contains values > 0
  void writeOutTss(const Field* id, const Field* expr,
-                  size_t timeStep) {
+                  size_t timeStep) override {
    if (!d_tss)
      d_tss= createFileTimeoutput(d_stackInfo,id);
    if (d_tss)
     d_tss->timeoutput(id,expr,timeStep);
  }
- void finish() {
+ void finish() override {
     if (d_tss)
       d_tss->finish();
  }
@@ -184,21 +184,21 @@ public:
     d_tss=new FileTimeoutput(d_stackInfo, 1);
   }
 
-  ~NSTssWriter()
+  ~NSTssWriter() override
   {
     delete d_tss;
   }
 
-  std::string write(const Field* f, size_t timeStep) {
+  std::string write(const Field* f, size_t timeStep) override {
     d_tss->nonspatial(f,timeStep);
     return "";
   }
 
-  void finish() {
+  void finish() override {
     d_tss->finish();
   }
 
-  void remove() {
+  void remove() override {
     com::remove(d_stackInfo.stackName());
   }
 };

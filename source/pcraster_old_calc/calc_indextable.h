@@ -55,7 +55,7 @@ class IndexTable : public Parameter {
   // ACCESSORS
 
   //! returns VS_INDEXTABLE
-  VS symbolType() const;
+  VS symbolType() const override;
 
    ArrayDefVector arrayDefVector() const { return d_array; };
   std::string arrayDefName() const;
@@ -70,7 +70,7 @@ class IndexTable : public Parameter {
 
   void tableNameVerify(const BindedSymbol& par) const; // THROWS
 
-  void printSpecific(InfoScript& i)const;
+  void printSpecific(InfoScript& i)const override;
 };
 
 }

@@ -38,8 +38,8 @@ class ParsIndexName : public ParsIndex {
 public:
   ParsIndexName(bool on, const Symbol& name);
   ParsIndexName(bool on, const Symbol& name, const Symbol& extName);
-  ~ParsIndexName();
-  UserSymbol *addMe(ArrayDefinition *a) const;
+  ~ParsIndexName() override;
+  UserSymbol *addMe(ArrayDefinition *a) const override;
 };
 
 
@@ -50,7 +50,7 @@ public:
   //! with list of symbols
   ParsIndexSet(bool on, const Symbol& name,
     const IdList&  setList);
-  UserSymbol *addMe(ArrayDefinition *a) const;
+  UserSymbol *addMe(ArrayDefinition *a) const override;
 };
 
 }

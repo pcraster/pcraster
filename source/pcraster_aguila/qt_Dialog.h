@@ -63,7 +63,7 @@ public:
                                         Qt::WindowFlags  f = Qt::Widget);
 
   //! Destructor.
-  virtual          ~Dialog          ();
+           ~Dialog          () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

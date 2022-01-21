@@ -50,7 +50,7 @@ private:
                                         size_t rowFlt,
                                         size_t colFlt,
                                         size_t nrRows,
-                                        size_t nrCols) const;
+                                        size_t nrCols) const override;
 
 public:
 
@@ -60,7 +60,7 @@ public:
 
                    AddFilter           (const SimpleRaster<double>& weights);
 
-  /* virtual */    ~AddFilter          ();
+  /* virtual */    ~AddFilter          () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

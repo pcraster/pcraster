@@ -105,7 +105,7 @@ public:
                    FeatureLayerDrawer  (FeatureLayer const* layer,
                                         dal::SpaceDimensions const& dimensions);
 
-  virtual          ~FeatureLayerDrawer ();
+           ~FeatureLayerDrawer () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -118,7 +118,7 @@ public:
   void             draw                (QPainter& painter,
                                         QRectF const& dirtyMapAreaInPixels,
                                         QTransform const& world_to_screen,
-                                        QTransform const& screen_to_world) const;
+                                        QTransform const& screen_to_world) const override;
 
   FeatureLayer const& layer            () const;
 

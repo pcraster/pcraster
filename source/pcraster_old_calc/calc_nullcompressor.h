@@ -50,7 +50,7 @@ public:
 
                    NullCompressor               (const geo::RasterSpace& rs);
 
-  /* virtual */    ~NullCompressor              ();
+  /* virtual */    ~NullCompressor              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -60,10 +60,10 @@ public:
   // ACCESSORS
   //----------------------------------------------------------------------------
   void  decompress    (DecompressedData& d,
-                       const void *data)  const;
-  Spatial          *createSpatial (CompressionInput& ci)const;
-  size_t toDecompressedIndex(size_t linIndexCompressed) const;
-  size_t            nrCellsCompressed() const;
+                       const void *data)  const override;
+  Spatial          *createSpatial (CompressionInput& ci)const override;
+  size_t toDecompressedIndex(size_t linIndexCompressed) const override;
+  size_t            nrCellsCompressed() const override;
 
 };
 

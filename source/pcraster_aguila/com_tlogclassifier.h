@@ -36,7 +36,7 @@ public:
                    com_TLogClassifier  ();
 
   //! Destructor.
-                   ~com_TLogClassifier ();
+                   ~com_TLogClassifier () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -45,12 +45,12 @@ public:
   void             classify            (std::vector<T> &b,
                                         T               min,
                                         T               max,
-                                        size_t          n);
+                                        size_t          n) override;
 
   void             autoClassify        (std::vector<T> &b,
                                         T               min,
                                         T               max,
-                                        size_t               n);
+                                        size_t               n) override;
 
   //----------------------------------------------------------------------------
   //----------------------------------------------------------------------------

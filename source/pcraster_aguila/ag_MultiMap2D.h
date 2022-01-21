@@ -50,11 +50,11 @@ private:
   void             createInterface     (size_t nrRows,
                                         size_t nrCols);
 
-  void             rescan              ();
+  void             rescan              () override;
 
-  void             process             ();
+  void             process             () override;
 
-  void             visualise           ();
+  void             visualise           () override;
 
 protected Q_SLOTS:
 
@@ -71,7 +71,7 @@ public:
                                         size_t nrCols = 1,
                                         QWidget* parent = nullptr);
 
-  /* virtual */    ~MultiMap2D         ();
+  /* virtual */    ~MultiMap2D         () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

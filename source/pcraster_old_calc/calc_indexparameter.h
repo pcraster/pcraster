@@ -28,10 +28,10 @@ class  IndexParameter : public Parameter, public IndexContainer {
   // CREATORS
   IndexParameter(const BindedSymbol& name,bool constant,
                  const class ArrayDefinition* def);
-  void addToSet(std::set<const IndexParameter *>& setToBeAddedTo)const;
+  void addToSet(std::set<const IndexParameter *>& setToBeAddedTo)const override;
  public:
   // ACCESSORS
-  VS symbolType() const;
+  VS symbolType() const override;
 
   //! return to which IndexParameterConstant it is pointing
   virtual const IndexParameterConstant* indexParameterConstant() const=0;

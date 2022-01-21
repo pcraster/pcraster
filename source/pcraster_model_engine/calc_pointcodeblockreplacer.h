@@ -68,11 +68,11 @@ class PointCodeBlockReplacer : public ASTVisitor
 {
 
 private:
-  void visitNonAssExpr             (NonAssExpr *e);
-  void visitExpr                   (BaseExpr *o);
-  void visitAss                    (ASTAss *a);
-  void visitNodeList               (ASTNodeList *l);
-  void visitPar                    (ASTPar *p);
+  void visitNonAssExpr             (NonAssExpr *e) override;
+  void visitExpr                   (BaseExpr *o) override;
+  void visitAss                    (ASTAss *a) override;
+  void visitNodeList               (ASTNodeList *l) override;
+  void visitPar                    (ASTPar *p) override;
 
   class  BlockInfo {
   public:
@@ -127,7 +127,7 @@ public:
 
                     PointCodeBlockReplacer              (ASTSymbolTable const& symbols);
 
-  /* virtual */    ~PointCodeBlockReplacer              ();
+  /* virtual */    ~PointCodeBlockReplacer              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

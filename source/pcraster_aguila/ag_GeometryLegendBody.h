@@ -51,7 +51,7 @@ public:
                                         ViewerType type,
                                         QWidget* parent=nullptr);
 
-  /* virtual */    ~GeometryLegendBody              ();
+  /* virtual */    ~GeometryLegendBody              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

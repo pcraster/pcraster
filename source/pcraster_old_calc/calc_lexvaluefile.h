@@ -32,7 +32,7 @@ private:
   static const int IT_REF=2;
   static const int IT_INT=3;
   static const int IT_FLOAT=4;
-  int yylex();
+  int yylex() override;
   int YYcomment();
 protected:
   typedef std::vector<std::string> Line;

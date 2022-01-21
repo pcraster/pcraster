@@ -62,7 +62,7 @@ public:
 
                    LabeledProgressTracked();
 
-  /* virtual */    ~LabeledProgressTracked();
+  /* virtual */    ~LabeledProgressTracked() override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

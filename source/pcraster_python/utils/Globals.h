@@ -45,7 +45,7 @@ public:
 
                    Globals             ();
 
-                   ~Globals            ();
+                   ~Globals            () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

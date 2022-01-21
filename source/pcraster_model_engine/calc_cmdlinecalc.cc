@@ -107,13 +107,13 @@ public:
                    CmdLineCalc         (int   argc,
                                         char**argv);
 
-  /* virtual */    ~CmdLineCalc        ();
+  /* virtual */    ~CmdLineCalc        () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
 
-  int              execute             ();
+  int              execute             () override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS
@@ -128,7 +128,7 @@ public:
  */
 class  CmdLineProgressCallBack : public ProgressCallBack {
 public:
-    int update(const ProgressInfo& pi)
+    int update(const ProgressInfo& pi) override
      {
         // no progress when --nothing or static model
         if  (appOutput == APP_NOOUT || !pi.nrTimeSteps)
@@ -152,7 +152,7 @@ public:
         }
         return 0;
      }
-     ProgressPulse callAtPulse() const {
+     ProgressPulse callAtPulse() const override {
        return LoopPulse;
      }
 };

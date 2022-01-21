@@ -49,16 +49,16 @@ class  LookupTableParameter : public SubParameter {
     const ParsPar& par,
     const std::vector<LookupTable *>& val);
 
-  ~LookupTableParameter();
+  ~LookupTableParameter() override;
 
   // ACCESSORS
-  VS symbolType() const;
+  VS symbolType() const override;
   LookupTable *value(size_t i);
   //! load values from the index table, now we know the type
   void loadValuesFromIndexTable(VS result,
         const std::vector<VS>& readKeys) /* THROW (StrErrorExcep)*/;
 
-  void setDataSubType(pcrxml::Data *d) const;
+  void setDataSubType(pcrxml::Data *d) const override;
 };
 
 

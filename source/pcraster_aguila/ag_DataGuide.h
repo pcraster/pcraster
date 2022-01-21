@@ -57,7 +57,7 @@ public:
                                         geo::DataType type,
                                         CSF_VS valueScale);
 
-  /* virtual */    ~DataGuide          ();
+  /* virtual */    ~DataGuide          () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

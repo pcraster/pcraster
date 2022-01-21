@@ -55,7 +55,7 @@ public:
 
                    TimerValue               ();
 
-  /* virtual */    ~TimerValue              ();
+  /* virtual */    ~TimerValue              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

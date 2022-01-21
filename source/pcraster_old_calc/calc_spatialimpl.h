@@ -17,7 +17,7 @@ private:
   double d_min;
   double d_max;
 
-  void write();
+  void write() override;
 public:
   //! used for initialization of computed parameter
   SpatialImpl(const FieldParameter& p,size_t index);
@@ -25,7 +25,7 @@ public:
   //! used for initialization of input parameter
   SpatialImpl(const FieldParameter& p,size_t index, Spatial *initValue);
 
-  virtual ~SpatialImpl();
+  ~SpatialImpl() override;
 };
 
 }

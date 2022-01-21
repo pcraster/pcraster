@@ -40,11 +40,11 @@ private:
 
   void             createInterface     (DataObject* object);
 
-  void             rescan              ();
+  void             rescan              () override;
 
-  void             process             ();
+  void             process             () override;
 
-  void             visualise           ();
+  void             visualise           () override;
 
 public:
 
@@ -55,7 +55,7 @@ public:
                    TimePlot            (DataObject* object,
                                         QWidget* parent = nullptr);
 
-  /* virtual */    ~TimePlot           ();
+  /* virtual */    ~TimePlot           () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -67,7 +67,7 @@ public:
   // ACCESSORS
   //----------------------------------------------------------------------------
 
-  QSize            sizeHint            () const;
+  QSize            sizeHint            () const override;
 
   void             saveAsPNG           (std::filesystem::path const& path) const;
 

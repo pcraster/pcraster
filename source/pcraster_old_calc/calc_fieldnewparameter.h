@@ -30,17 +30,17 @@ class  FieldNewParameter : public FieldParameter {
   //! initialized to 0, goInScope() initializes all to non-0's
   std::vector<FieldValue *>d_value;
 
-  void moreValidation(const std::string& fileName) const;
+  void moreValidation(const std::string& fileName) const override;
  public:
    FieldNewParameter(const ParsPar& par, bool constant, bool input, VS vs, ST st);
-  ~FieldNewParameter();
+  ~FieldNewParameter() override;
 
   // MODIFIERS
 
-  virtual void goInScope();
+  void goInScope() override;
   //! assign current stack top to parameter
   void assign(const FieldHandle& f,size_t index, const Position *assignPoint);
-  FieldHandle value(size_t index, bool lastUse);
+  FieldHandle value(size_t index, bool lastUse) override;
 
 };
 

@@ -73,7 +73,7 @@ struct Fixture : public calc::LibraryClassNoQt
   }
 
 
-  ~Fixture()
+  ~Fixture() override
   {
     delete d_inputTable;
     d_inputTable=nullptr;

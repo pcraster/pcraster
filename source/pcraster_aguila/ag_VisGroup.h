@@ -118,7 +118,7 @@ public:
                                         VisGroupManager *m,
                                         const pcrxml::VisualisationGroup& vg);
 
-  /* virtual */    ~VisGroup           ();
+  /* virtual */    ~VisGroup           () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

@@ -25,12 +25,12 @@ class StdoutStatement : public Statement {
   StdoutStatement(
     FieldExpr *right);
 
-  bool buildTypes();
-  void prepareExecution();
-  void run();
+  bool buildTypes() override;
+  void prepareExecution() override;
+  void run() override;
 
   // ACCESSORS
-  void print(InfoScript& i)const;
+  void print(InfoScript& i)const override;
 };
 
 }

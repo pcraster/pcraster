@@ -70,18 +70,18 @@ public:
                                                 const ASTSymbolInfo& symbol,
                                                 bool          lastUse);
 
-  /* virtual */    ~StackedValue              ();
+  /* virtual */    ~StackedValue              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
-  DataValue*        load                           ();
+  DataValue*        load                           () override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  bool              readOnlyReference              () const;
-  OVS               ovs                            () const;
+  bool              readOnlyReference              () const override;
+  OVS               ovs                            () const override;
 
 };
 

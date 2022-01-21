@@ -45,7 +45,7 @@ private:
 
 protected:
 
-  void             reMapColours        ();
+  void             reMapColours        () override;
 
 public:
 
@@ -60,7 +60,7 @@ public:
   //! Copy constructor.
                    LddDrawProps        (const LddDrawProps& properties);
 
-  /* virtual */    ~LddDrawProps       ();
+  /* virtual */    ~LddDrawProps       () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

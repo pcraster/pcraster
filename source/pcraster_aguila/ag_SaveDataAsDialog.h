@@ -69,7 +69,7 @@ public:
                                         bool modal = false,
                                         Qt::WindowFlags flags = Qt::Widget);
 
-  /* virtual */    ~SaveDataAsDialog   ();
+  /* virtual */    ~SaveDataAsDialog   () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

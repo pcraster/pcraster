@@ -51,7 +51,7 @@ class BranchExprImpl : public BranchExpr {
     const Operator&  op,
           FieldExprArgs& fieldArgs);
   // MANIPULATORS
-  void execute(class FieldStack& stack);
+  void execute(class FieldStack& stack) override;
   //! for double assignment
   void executeDoubleAss(const Operator& implOp, FieldStack& stack, VS   resultVs[2]);
 

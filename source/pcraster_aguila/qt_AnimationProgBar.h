@@ -45,7 +45,7 @@ public:
 
                    AnimationProgBar    (QWidget* p);
 
-  /* virtual */    ~AnimationProgBar   ();
+  /* virtual */    ~AnimationProgBar   () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

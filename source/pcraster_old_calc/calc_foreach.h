@@ -49,7 +49,7 @@ private:
 
   //! parameter here
   class UserSymbol *findSymbol(const class Symbol* sym, 
-    VS typesExpected, bool mustExist) const; 
+    VS typesExpected, bool mustExist) const override; 
 
   //! add a parameter local to this block
   /*! currently only used for the index symbol
@@ -97,10 +97,10 @@ private:
 
  // MANIPULATORS
 
-  void executeBlock();
-  void print(InfoScript& i)const;
+  void executeBlock() override;
+  void print(InfoScript& i)const override;
   const IndexParameter* currentIndex() const;
-  bool isForEachBlock() const;
+  bool isForEachBlock() const override;
 };
 
 }

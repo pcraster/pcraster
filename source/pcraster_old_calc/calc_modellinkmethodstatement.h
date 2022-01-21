@@ -59,11 +59,11 @@ public:
     const std::string&            strArg,
     FieldExprArgs&                args);
 
-  virtual ~ModelLinkMethodStatement();
-  void prepareExecution();
+  ~ModelLinkMethodStatement() override;
+  void prepareExecution() override;
 
-  bool buildTypes();
-  void run();
+  bool buildTypes() override;
+  void run() override;
 };
 
 

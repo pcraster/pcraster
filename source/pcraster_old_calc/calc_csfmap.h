@@ -33,13 +33,13 @@ class CsfMap : public GridMap {
     const geo::RasterSpace& rs, VS vs);
 
   //! close map
-    ~CsfMap();
+    ~CsfMap() override;
 
-  bool getMinMax(double& min, double& max) const;
+  bool getMinMax(double& min, double& max) const override;
 
-  void readInBuffer(VS readAs, void *val);
+  void readInBuffer(VS readAs, void *val) override;
 
-  void writeData(const void *allValues);
+  void writeData(const void *allValues) override;
 
   geo::RasterSpace rasterSpace         () const;
 };

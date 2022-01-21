@@ -115,9 +115,9 @@ protected:
 
   QtCharts::QValueAxis *m_axisY;
 
-  void             mousePressEvent(QMouseEvent *event);
+  void             mousePressEvent(QMouseEvent *event) override;
 
-  void             mouseMoveEvent(QMouseEvent *event);
+  void             mouseMoveEvent(QMouseEvent *event) override;
 
 
 
@@ -139,13 +139,13 @@ public:
   // CREATORS
   //----------------------------------------------------------------------------
 
-  virtual          ~PlotVisualisation  ();
+           ~PlotVisualisation  () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
 
-  bool             close               ();
+  bool             close               () override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS

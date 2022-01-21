@@ -38,15 +38,15 @@ private:
 
   void             createInterface     ();
 
-  void             saveAsPNG           (std::filesystem::path const& path);
+  void             saveAsPNG           (std::filesystem::path const& path) override;
 
 protected:
 
   // void             showEvent           (QShowEvent* event);
 
-  std::string      windowName          () const;
+  std::string      windowName          () const override;
 
-  bool             dataVisualised      () const;
+  bool             dataVisualised      () const override;
 
 public:
 
@@ -59,15 +59,15 @@ public:
                                         ag::DataObject *o);
 
   //! Destructor.
-  /* virtual */    ~TimePlotWindow     ();
+  /* virtual */    ~TimePlotWindow     () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
 
-  void             rescan              ();
+  void             rescan              () override;
 
-  void             addAttribute        (const ag::DataGuide& dataGuide);
+  void             addAttribute        (const ag::DataGuide& dataGuide) override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS

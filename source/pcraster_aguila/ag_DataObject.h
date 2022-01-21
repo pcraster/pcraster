@@ -144,13 +144,13 @@ public:
 
                    DataObject          ();
 
-  /* virtual */    ~DataObject         ();
+  /* virtual */    ~DataObject         () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
 
-  void             notify              ();
+  void             notify              () override;
 
   void             setDataSpaceAddress (dal::DataSpaceAddress const& address,
                                         bool notify=true);

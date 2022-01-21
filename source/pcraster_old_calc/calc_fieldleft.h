@@ -43,7 +43,7 @@ class FieldLeft : public Symbol, public UseDefNode {
 
    void cleanUp();
  protected:
-  void analyseUseDef();
+  void analyseUseDef() override;
   const FieldType& fieldType();
  public:
   // CREATORS
@@ -51,7 +51,7 @@ class FieldLeft : public Symbol, public UseDefNode {
       StatementBlock *b,
       const WriteInfo& write,
       const UsePar &field,VS vsRight);
-  virtual ~FieldLeft();
+  ~FieldLeft() override;
   // MANIPULATORS
   // restrict FieldType based on assigned right expression
   bool restrictUser(const FieldExpr *right);
@@ -65,7 +65,7 @@ class FieldLeft : public Symbol, public UseDefNode {
   void print(InfoScript& i)const;
   bool spatial() const;
   VS vs() const;
-  bool isUse() const;
+  bool isUse() const override;
 
   IndexSelected *indexSelected() const { return d_index; };
 };

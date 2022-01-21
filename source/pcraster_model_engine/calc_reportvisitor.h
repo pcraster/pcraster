@@ -118,18 +118,18 @@ public:
                                                 ReportTable const& reports,
                                                 Timer const& timer);
 
-  /* virtual */    ~ReportVisitor              ();
+  /* virtual */    ~ReportVisitor              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
 
-  void              visitExpr                   (BaseExpr *e);
-  void              visitStat                   (ASTStat *s);
-  void              visitAss                    (ASTAss  *s);
+  void              visitExpr                   (BaseExpr *e) override;
+  void              visitStat                   (ASTStat *s) override;
+  void              visitAss                    (ASTAss  *s) override;
 
-  void              enterDynamicSection         (DynamicSection *);
-  void              jumpOutDynamicSection       (DynamicSection *);
+  void              enterDynamicSection         (DynamicSection *) override;
+  void              jumpOutDynamicSection       (DynamicSection *) override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS

@@ -112,7 +112,7 @@ public:
              const geo::RasterSpace& rs, VS vs);
 
 
-  virtual        ~GridMapOut              ();
+         ~GridMapOut              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -132,7 +132,7 @@ class GridMapIn : public GridMap {
   bool               d_bandMap;
 public:
   GridMapIn(std::string const& fileName);
-  ~GridMapIn();
+  ~GridMapIn() override;
   void    createSpatial(void *dest,VS vs);
 };
 

@@ -232,7 +232,7 @@ namespace calc {
         d_v.push_back(8); //pit
      }
 
-    void finishVertex(size_t v) {
+    void finishVertex(size_t v) override {
        BOOST_CHECK(d_v.size() > d_vertexCount);
        BOOST_CHECK(d_v[d_vertexCount]==v);
        d_vertexCount++;
@@ -246,14 +246,14 @@ namespace calc {
        // set
        d_pitOfMyCatchment[v] = d_pitIdOfCurrentCatchment;
     }
-    void visitEdge(size_t up, size_t down) {
+    void visitEdge(size_t up, size_t down) override {
        BOOST_CHECK(d_up.size() > d_edgeCount);
        BOOST_CHECK(d_up[d_edgeCount]  ==up);
        BOOST_CHECK(d_down.size() > d_edgeCount);
        BOOST_CHECK(d_down[d_edgeCount]==down);
        d_edgeCount++;
     }
-    void startCatchment(size_t pitId)
+    void startCatchment(size_t pitId) override
     {
      d_pitIdOfCurrentCatchment  = pitId;
     }

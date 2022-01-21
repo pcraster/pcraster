@@ -65,14 +65,14 @@ protected:
 public:
   Spatial(VS vs, size_t nrValues, bool doAllocation);
   Spatial(VS vs, size_t nrValues, void *valueBuffer);
-  virtual ~Spatial();
+  ~Spatial() override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
 
-  void       *destValue();
-  virtual void        setCell(const double& value, size_t i);
+  void       *destValue() override;
+  void        setCell(const double& value, size_t i) override;
 
   void        loadGrid(GridMap& m,
                        const Compressor& c) const;
@@ -81,15 +81,15 @@ public:
   // ACCESSORS
   //----------------------------------------------------------------------------
 
-  bool           isMv()const;
-  bool           isSpatial() const;
-  const void *   srcValue() const;
-  virtual Spatial *copy() const;
-  virtual void   analyzeBoolean(bool& noneAreTrue,bool& noneAreFalse) const;
+  bool           isMv()const override;
+  bool           isSpatial() const override;
+  const void *   srcValue() const override;
+  Spatial *copy() const override;
+  void   analyzeBoolean(bool& noneAreTrue,bool& noneAreFalse) const override;
   bool           checkDebug(const IScript& s, bool& allZero,size_t& bpc) const;
-  size_t         nrValues() const;
+  size_t         nrValues() const override;
 
-  virtual bool   getCell(double& value, size_t i) const;
+  bool   getCell(double& value, size_t i) const override;
 
   static size_t  maxBPC();
   static size_t  currentBPC();

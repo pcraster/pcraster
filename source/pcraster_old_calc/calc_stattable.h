@@ -142,7 +142,7 @@ public:
   //----------------------------------------------------------------------------
                    StatTable               (FieldExpr *subject);
 
-  /* virtual */    ~StatTable              ();
+  /* virtual */    ~StatTable              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -156,16 +156,16 @@ public:
 
   void             setCross            (FieldExpr *cross);
 
-  bool             buildTypes();
-  void             prepareExecution();
-  void             run();
+  bool             buildTypes() override;
+  void             prepareExecution() override;
+  void             run() override;
   void             setVerbose          (const bool verbose);
 
 
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  void             print(InfoScript& i)const;
+  void             print(InfoScript& i)const override;
   const com::PathName& resultTable         () const;
 
   const std::string& subjectName         () const;

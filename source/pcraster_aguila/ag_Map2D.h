@@ -46,11 +46,11 @@ private:
 
   void             createInterface     ();
 
-  void             rescan              ();
+  void             rescan              () override;
 
-  void             process             ();
+  void             process             () override;
 
-  void             visualise           ();
+  void             visualise           () override;
 
 public:
 
@@ -63,7 +63,7 @@ public:
                                         QWidget* parent = nullptr);
 
   //! Destructor.
-  /* virtual */    ~Map2D              ();
+  /* virtual */    ~Map2D              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

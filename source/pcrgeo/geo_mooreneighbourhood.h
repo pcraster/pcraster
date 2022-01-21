@@ -60,7 +60,7 @@ public:
                    MooreNeighbourhood  (double fromRadius,
                                         double toRadius);
 
-  /* virtual */    ~MooreNeighbourhood ();
+  /* virtual */    ~MooreNeighbourhood () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

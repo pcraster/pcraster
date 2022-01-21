@@ -80,7 +80,7 @@ public:
 
                    GeoEASTableDriver   ();
 
-  /* virtual */    ~GeoEASTableDriver  ();
+  /* virtual */    ~GeoEASTableDriver  () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -90,7 +90,7 @@ public:
   // ACCESSORS
   //----------------------------------------------------------------------------
 
-  Table*           open                (std::filesystem::path const& path) const;
+  Table*           open                (std::filesystem::path const& path) const override;
 
   /*
   Table*           open                (std::string const& name) const;
@@ -119,7 +119,7 @@ public:
                                         */
 
   void             read                (dal::Table& table,
-                                        std::filesystem::path const& path) const;
+                                        std::filesystem::path const& path) const override;
 
   /*
   void             read                (dal::Table& table,
@@ -135,12 +135,12 @@ public:
 
   Table*           read                (std::string const& name,
                                         DataSpace const& space,
-                                        DataSpaceAddress const& address) const;
+                                        DataSpaceAddress const& address) const override;
 
   void             write               (Table const& table,
                                         DataSpace const& space,
                                         DataSpaceAddress const& address,
-                                        std::string const& name) const;
+                                        std::string const& name) const override;
 
 };
 

@@ -84,7 +84,7 @@ public:
                                         Projection proj = YIncrB2T);
 
   //! Destructor.
-  /* virtual */    ~Block              ();
+  /* virtual */    ~Block              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

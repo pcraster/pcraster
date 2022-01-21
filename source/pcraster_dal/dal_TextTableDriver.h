@@ -93,7 +93,7 @@ public:
 
                    TextTableDriver     (HeaderType headerType=AUTO_HEADER);
 
-  /* virtual */    ~TextTableDriver    ();
+  /* virtual */    ~TextTableDriver    () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -105,7 +105,7 @@ public:
 
   bool             exists              (std::string const& name,
                                         DataSpace const& space,
-                                        DataSpaceAddress const& address) const;
+                                        DataSpaceAddress const& address) const override;
 
   virtual Table*   open                (std::filesystem::path const& path) const;
 
@@ -113,7 +113,7 @@ public:
 
   Table*           open                (std::string const& name,
                                         DataSpace const& space,
-                                        DataSpaceAddress const& address) const;
+                                        DataSpaceAddress const& address) const override;
 
   // DataSpace        dataSpace           (std::string const& name) const;
 
@@ -130,11 +130,11 @@ public:
   void             read                (Table& table,
                                         std::string const& name,
                                         DataSpace const& space,
-                                        DataSpaceAddress const& address) const;
+                                        DataSpaceAddress const& address) const override;
 
-  virtual Table*   read                (std::string const& name,
+  Table*   read                (std::string const& name,
                                         DataSpace const& space,
-                                        DataSpaceAddress const& address) const;
+                                        DataSpaceAddress const& address) const override;
 
   // bool             extremes            (boost::any& min,
   //                                       boost::any& max,

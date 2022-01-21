@@ -38,7 +38,7 @@ private:
 
   void             createInterface     ();
 
-  void             saveAsPNG           (std::filesystem::path const& path);
+  void             saveAsPNG           (std::filesystem::path const& path) override;
 
 private Q_SLOTS:
 
@@ -46,9 +46,9 @@ private Q_SLOTS:
 
 protected:
 
-  std::string      windowName          () const;
+  std::string      windowName          () const override;
 
-  bool             dataVisualised      () const;
+  bool             dataVisualised      () const override;
 
 public:
 
@@ -61,17 +61,17 @@ public:
                                         ag::DataObject* object);
 
   //! Destructor.
-  /* virtual */    ~Map3DWindow        ();
+  /* virtual */    ~Map3DWindow        () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
 
-  void             rescan              ();
+  void             rescan              () override;
 
   void             setHeight           (const DataGuide& guide);
 
-  void             addAttribute        (const DataGuide& guide);
+  void             addAttribute        (const DataGuide& guide) override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS

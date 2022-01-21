@@ -88,7 +88,7 @@ public:
       const XMLCh* const  /* namespaceUri */,
       const XMLCh* const  /* publicId */,
       const XMLCh* const    systemId,
-      const XMLCh* const  /*  baseURI */)
+      const XMLCh* const  /*  baseURI */) override
   {
     SupportedSchema const* s=SupportedSchema::findBySystemId(
         toString(systemId));
@@ -139,7 +139,7 @@ protected:
     std::ostringstream d_msg;
 public:
     DOMInputErrorHandler() {};
-    ~DOMInputErrorHandler() {};
+    ~DOMInputErrorHandler() override {};
 
     std::string error() const {
       return d_msg.str();
@@ -156,10 +156,10 @@ class VerboseErrorHandler : public DOMInputErrorHandler
 {
 public:
     VerboseErrorHandler() {};
-    ~VerboseErrorHandler() {};
+    ~VerboseErrorHandler() override {};
 
     //!  Implementation of the DOM ErrorHandler interface
-    bool handleError(const DOMError& domError);
+    bool handleError(const DOMError& domError) override;
 private :
     //!  Unimplemented constructors and operators
     VerboseErrorHandler(const VerboseErrorHandler&);
@@ -189,10 +189,10 @@ class ViErrorHandler : public DOMInputErrorHandler
 {
 public:
     ViErrorHandler() {};
-    ~ViErrorHandler() {};
+    ~ViErrorHandler() override {};
 
     //!  Implementation of the DOM ErrorHandler interface
-    bool handleError(const DOMError& domError);
+    bool handleError(const DOMError& domError) override;
 private :
     //!  Unimplemented constructors and operators
     ViErrorHandler(const VerboseErrorHandler&);

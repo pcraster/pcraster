@@ -106,7 +106,7 @@ public:
 
                    UnOrderedCrossTable (const UnOrderedCrossTable& aTable);
 
-  virtual          ~UnOrderedCrossTable();
+           ~UnOrderedCrossTable() override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

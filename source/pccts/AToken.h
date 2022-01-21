@@ -160,13 +160,13 @@ public:
 	// User should not access these; for C++ language reasons, we had
 	// to make these public.  Yuck.
 
-	void ref()		      { refcnt_++; }
-	void deref()	      { refcnt_--; }
-	unsigned nref()	const { return refcnt_; }   // MR11
+	void ref() override		      { refcnt_++; }
+	void deref() override	      { refcnt_--; }
+	unsigned nref()	const override { return refcnt_; }   // MR11
 
-	virtual ANTLRAbstractToken *makeToken(ANTLRTokenType /*tt MR23*/,
+	ANTLRAbstractToken *makeToken(ANTLRTokenType /*tt MR23*/,
 										  ANTLRChar * /*txt MR23*/,
-										  int /*line MR23*/)
+										  int /*line MR23*/) override
 	{
 		panic("call to ANTLRRefCountToken::makeToken()\n");
 		return NULL;
@@ -185,18 +185,18 @@ public:
 	ANTLRCommonNoRefCountToken()
 	{ setType((ANTLRTokenType)0); _line = 0; _text = NULL; setText(""); }
 
-	~ANTLRCommonNoRefCountToken() { if (_text) delete [] _text; }  // MR9 RJV: Added Destructor to remove string
+	~ANTLRCommonNoRefCountToken() override { if (_text) delete [] _text; }  // MR9 RJV: Added Destructor to remove string
 
-	ANTLRTokenType getType() const 	{ return _type; }
-	void setType(ANTLRTokenType t)	{ _type = t; }
-	virtual int getLine() const		{ return _line; }
-	void setLine(int line)	    	{ _line = line; }
-	ANTLRChar *getText() const   	{ return _text; }
+	ANTLRTokenType getType() const override 	{ return _type; }
+	void setType(ANTLRTokenType t) override	{ _type = t; }
+	int getLine() const override		{ return _line; }
+	void setLine(int line) override	    	{ _line = line; }
+	ANTLRChar *getText() const override   	{ return _text; }
     int getLength() const           { return strlen(getText()); }       // MR11
 
 // MR9 RJV: Added code for variable length strings to setText()
 
-	void setText(const ANTLRChar *s)
+	void setText(const ANTLRChar *s) override
 	{	if (s != _text) {
           if (_text) delete [] _text;
           if (s != NULL) {
@@ -211,9 +211,9 @@ public:
         };
 	}
 
-	virtual ANTLRAbstractToken *makeToken(ANTLRTokenType tt,
+	ANTLRAbstractToken *makeToken(ANTLRTokenType tt,
 										  ANTLRChar *txt,
-										  int line)
+										  int line) override
 		{
 			ANTLRAbstractToken *t = new ANTLRCommonNoRefCountToken;
 			t->setType(tt); t->setText(txt); t->setLine(line);
@@ -258,18 +258,18 @@ public:
 	ANTLRCommonToken()
 		{ setType((ANTLRTokenType)0); _line = 0; _text = NULL; setText(""); }   // MR9
 
-	virtual ~ANTLRCommonToken() { if (_text) delete [] _text; } // MR9 RJV: Added Destructor to remove string
+	~ANTLRCommonToken() override { if (_text) delete [] _text; } // MR9 RJV: Added Destructor to remove string
 
-	ANTLRTokenType getType() const 	{ return _type; }
-	void setType(ANTLRTokenType t)	{ _type = t; }
-	virtual int getLine() const		{ return _line; }
-	void setLine(int line)	    	{ _line = line; }
-	ANTLRChar *getText() const		{ return _text; }
+	ANTLRTokenType getType() const override 	{ return _type; }
+	void setType(ANTLRTokenType t) override	{ _type = t; }
+	int getLine() const override		{ return _line; }
+	void setLine(int line) override	    	{ _line = line; }
+	ANTLRChar *getText() const override		{ return _text; }
     int getLength() const           { return strlen(getText()); }       // MR11
 
 // MR9 RJV: Added code for variable length strings to setText()
 
-	void setText(const ANTLRChar *s)
+	void setText(const ANTLRChar *s) override
 	{	if (s != _text) {
           if (_text) delete [] _text;
           if (s != NULL) {
@@ -284,9 +284,9 @@ public:
         };
 	}
 
-	virtual ANTLRAbstractToken *makeToken(ANTLRTokenType tt,
+	ANTLRAbstractToken *makeToken(ANTLRTokenType tt,
 										  ANTLRChar *txt,
-										  int line)
+										  int line) override
 	{
 		ANTLRAbstractToken *t = new ANTLRCommonToken(tt,txt);
 		t->setLine(line);

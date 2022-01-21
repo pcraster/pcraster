@@ -32,24 +32,24 @@ class FieldLeaf : public FieldExpr, public UseDefNode {
   //! can value be overwritten at execution time, determined by usedef algorithm
   bool d_overWriteVal;
  protected:
-  void analyseUseDef();
-  void skipExecution();
-  const FieldType &fieldType() const;
+  void analyseUseDef() override;
+  void skipExecution() override;
+  const FieldType &fieldType() const override;
  public:
   // CREATORS
   FieldLeaf(UsePar &field);
   // MANIPULATORS
-  void buildTypesRecursive(VS resultVsSet);
+  void buildTypesRecursive(VS resultVsSet) override;
 
-  void prepareExecution();
+  void prepareExecution() override;
 
    //execution phase
-  void execute(FieldStack& s);
-  FieldType& restrictType();
+  void execute(FieldStack& s) override;
+  FieldType& restrictType() override;
   // ACCESSORS
-  void print(InfoScript& i)const;
-  bool isFieldLeaf() const;
-  bool isUse() const;
+  void print(InfoScript& i)const override;
+  bool isFieldLeaf() const override;
+  bool isUse() const override;
 };
 
 }

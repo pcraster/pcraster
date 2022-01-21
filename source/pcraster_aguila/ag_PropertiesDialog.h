@@ -52,7 +52,7 @@ public:
                    PropertiesDialog    (PropertiesWidget* widget,
                                         QWidget* parent = nullptr);
 
-  /* virtual */    ~PropertiesDialog();
+  /* virtual */    ~PropertiesDialog() override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

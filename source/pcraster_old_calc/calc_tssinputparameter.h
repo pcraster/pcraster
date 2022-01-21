@@ -27,10 +27,10 @@ class  TssInputParameter : public TssParameter {
     const ParsPar& par,
     bool constant,
        const std::vector<TimeTable *>& val);
-  ~TssInputParameter();
+  ~TssInputParameter() override;
   // ACCESSORS
   TimeTable *value(size_t index);
-  VS vs() const;
+  VS vs() const override;
 };
 
 

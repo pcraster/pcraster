@@ -117,19 +117,19 @@ public:
 
                    BuildTypesVisitor               (CFGNode *cfg);
 
-  /* virtual */    ~BuildTypesVisitor              ();
+  /* virtual */    ~BuildTypesVisitor              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
-  void visitExpr                                   (BaseExpr  *e);
-  void visitPar                                    (ASTPar    *p);
-  void visitNumber                                 (ASTNumber *n);
-  void visitAss                                    (ASTAss    *a);
-  void visitStat                                   (ASTStat   *s);
-  void enterDynamicSection                         (DynamicSection *);
-  void visitNonAssExpr                             (NonAssExpr   *e);
-  void jumpOutRepeatUntil                          (RepeatUntil *);
+  void visitExpr                                   (BaseExpr  *e) override;
+  void visitPar                                    (ASTPar    *p) override;
+  void visitNumber                                 (ASTNumber *n) override;
+  void visitAss                                    (ASTAss    *a) override;
+  void visitStat                                   (ASTStat   *s) override;
+  void enterDynamicSection                         (DynamicSection *) override;
+  void visitNonAssExpr                             (NonAssExpr   *e) override;
+  void jumpOutRepeatUntil                          (RepeatUntil *) override;
 
   void init                (const ASTSymbolTable&          table);
 

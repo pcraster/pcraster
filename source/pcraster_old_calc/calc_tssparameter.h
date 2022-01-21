@@ -17,16 +17,16 @@ class  TssParameter : public SubParameter {
  public:
   // CREATORS
   TssParameter(const ParsPar& par, bool constant, bool input);
-  virtual ~TssParameter() {};
+  ~TssParameter() override {};
 
   // ACCESSORS
 
-  VS symbolType() const;
+  VS symbolType() const override;
 
   //! vs of contents (as in timeinput<i>vs</i>(..))
   virtual VS vs() const=0;
 
-  void setDataSubType(pcrxml::Data *d) const;
+  void setDataSubType(pcrxml::Data *d) const override;
 };
 
 }

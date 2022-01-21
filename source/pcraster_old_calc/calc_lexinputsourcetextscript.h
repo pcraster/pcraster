@@ -54,12 +54,12 @@ public:
    */
   LexInputSourceTextScript(const com::PathName& file);
 
-  /* virtual */    ~LexInputSourceTextScript              ();
+  /* virtual */    ~LexInputSourceTextScript              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
-  int getChar();
+  int getChar() override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS

@@ -156,7 +156,7 @@ public:
 
                    CommandLineException(const Exception& exception);
 
-  virtual          ~CommandLineException();
+           ~CommandLineException() override;
 
 };
 
@@ -173,7 +173,7 @@ class OutOfRangeException: public Exception
 public:
 
                    OutOfRangeException(const std::string &m);
-  virtual          ~OutOfRangeException();
+           ~OutOfRangeException() override;
 
 };
 
@@ -191,7 +191,7 @@ class BadStreamFormat: public Exception
 public:
 
                    BadStreamFormat (const std::string &m);
-  virtual          ~BadStreamFormat();
+           ~BadStreamFormat() override;
 
 };
 
@@ -218,7 +218,7 @@ public:
                    FileError       (const PathName&    fileName,
                                     const std::string& diagnosis);
 
-  virtual          ~FileError      ();
+           ~FileError      () override;
 
   const std::string& fileName()  const { return d_fileName;  };
   const std::string& diagnosis() const { return d_diagnosis; };
@@ -243,7 +243,7 @@ public:
                                     const std::string& diagnosis);
                    OpenFileError   (const std::string& fileName,
                                     Errno nr);
-  virtual         ~OpenFileError   ();
+          ~OpenFileError   () override;
 
 };
 
@@ -264,7 +264,7 @@ public:
                                     const std::string& diagnosis);
                    FileFormatError (const PathName   & fileName,
                                     const std::string& diagnosis);
-  virtual          ~FileFormatError();
+           ~FileFormatError() override;
 
 };
 

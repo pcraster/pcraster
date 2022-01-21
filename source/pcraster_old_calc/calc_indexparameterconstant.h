@@ -25,12 +25,12 @@ class  IndexParameterConstant : public IndexParameter {
                          bool on, const ArrayDefinition *def, size_t ind);
 
 
-   bool isOn() const { return d_on; };
+   bool isOn() const override { return d_on; };
 
    //! the nominal nr it has in the array
-   size_t index() const;
+   size_t index() const override;
 
-   const IndexParameterConstant* indexParameterConstant() const;
+   const IndexParameterConstant* indexParameterConstant() const override;
 };
 
 

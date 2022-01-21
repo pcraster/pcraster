@@ -76,13 +76,13 @@ public:
                                                   const geo::RasterSpace&    rs,
                                                   size_t              nrFieldArgs);
 
-     virtual       ~ObjectLinkProxy              ();
+           ~ObjectLinkProxy              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
   void             exec1                    (const std::string&  methodName,
-                                             const std::vector<Field *>& fields);
+                                             const std::vector<Field *>& fields) override;
 
 
   //----------------------------------------------------------------------------

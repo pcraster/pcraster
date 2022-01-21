@@ -55,23 +55,23 @@ public:
                                   ASTNode*           statements);
 
 
-  /* virtual */    ~RepeatUntil              ();
+  /* virtual */    ~RepeatUntil              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
 
-  void             callEnter                 (ASTVisitor& v);
-  void             callJump                  (ASTVisitor& v);
+  void             callEnter                 (ASTVisitor& v) override;
+  void             callJump                  (ASTVisitor& v) override;
   void             transferCondition         (ASTNode* condition);
-  void             accept                    (ASTVisitor& v);
+  void             accept                    (ASTVisitor& v) override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
   ASTNode*         condition                 () const;
-  RepeatUntil*     createClone               () const;
-  bool             hasBackBranch             () const;
+  RepeatUntil*     createClone               () const override;
+  bool             hasBackBranch             () const override;
 
 };
 

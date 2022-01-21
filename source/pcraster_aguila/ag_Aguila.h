@@ -56,7 +56,7 @@ private:
 
 protected:
 
-  void             setup               ();
+  void             setup               () override;
 
 public:
 
@@ -70,7 +70,7 @@ public:
                                         char** argv,
                                         qt::ApplicationRole role=qt::StandAlone);
 
-  /* virtual */    ~Aguila             ();
+  /* virtual */    ~Aguila             () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

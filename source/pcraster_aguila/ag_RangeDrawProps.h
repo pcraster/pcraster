@@ -56,7 +56,7 @@ private:
   //! How should the data be presented. Only relevant in case uncertainty information is available.
   ProbabilityScale _probabilityScale;
 
-  void             reMapColours        ();
+  void             reMapColours        () override;
 
 public:
 
@@ -75,7 +75,7 @@ public:
 
                    RangeDrawProps      (RangeDrawProps const& properties);
 
-  /* virtual */    ~RangeDrawProps     ();
+  /* virtual */    ~RangeDrawProps     () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

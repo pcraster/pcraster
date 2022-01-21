@@ -46,7 +46,7 @@ public:
 
                    Constant            ();
 
-  /* virtual */    ~Constant           ();
+  /* virtual */    ~Constant           () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

@@ -41,7 +41,7 @@ public:
                    InterSpacedSentence               ();
     InterSpacedSentence& operator=                   (const std::string& value);
 
-     virtual      ~InterSpacedSentence               ();
+          ~InterSpacedSentence               () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

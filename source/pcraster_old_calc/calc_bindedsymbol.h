@@ -48,8 +48,8 @@ public:
 
   void  symError(const com::Exception& excep) const;
 
-  void  posError(const std::string& msg) const;
-  void  posError(const std::ostringstream& msg) const;
+  void  posError(const std::string& msg) const override;
+  void  posError(const std::ostringstream& msg) const override;
 
   void  setName(pcrxml::Data *d)const;
 

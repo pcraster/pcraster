@@ -83,7 +83,7 @@ public:
                                             InputMap const& subject,
                                             InputMap const& cross);
 
-  /* virtual */    ~StatTable              ();
+  /* virtual */    ~StatTable              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -96,9 +96,9 @@ public:
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  void             exec                (RunTimeEnv* rte)const;
-  const Operator&  op                  () const;
-  ASTId*           createClone         () const;
+  void             exec                (RunTimeEnv* rte)const override;
+  const Operator&  op                  () const override;
+  ASTId*           createClone         () const override;
   ASTPar*          id                  () const;
 
 };

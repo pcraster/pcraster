@@ -167,7 +167,7 @@ class Script:
 
   void                    setupClone();
 
-  void                    checkClone(const std::string& mapFileName);
+  void                    checkClone(const std::string& mapFileName) override;
   FieldMapInputParameter *detectExternalFieldLeaf(const ParsPar& par);
   bool                    updateExitVal(double val);
 
@@ -179,7 +179,7 @@ class Script:
   // CREATORS
   Script();
 
-  virtual ~Script();
+  ~Script() override;
 
   // MANIPULATORS
 
@@ -202,9 +202,9 @@ class Script:
   void addBinding(const Symbol& left, const Symbol& right, VS vs=VS_FIELD);
   void evaluateBindings();
 
-  void addSymbol        (UserSymbol *sym);
+  void addSymbol        (UserSymbol *sym) override;
 
-  void setReportFound   ();
+  void setReportFound   () override;
   void setAreaMap       (const Symbol&  name);
   void setTimer(size_t start, size_t end, size_t slice);
   void setTimer         (const Symbol& nameTss);
@@ -213,56 +213,56 @@ class Script:
   //! check clone existence, types, print, execute
   void buildScript();
 
-  void executeBlock();
-  void run();
+  void executeBlock() override;
+  void run() override;
 
-  void   processFileOutputValue(double val);
-  FieldMapInputParameter *addExternalFieldLeaf(const ParsPar& par);
+  void   processFileOutputValue(double val) override;
+  FieldMapInputParameter *addExternalFieldLeaf(const ParsPar& par) override;
 
   Symbol                  generatedSymbol( const std::string& context,
                                            const std::string& name);
 
-  const StackReader* createStackReader(const std::string& stackName);
+  const StackReader* createStackReader(const std::string& stackName) override;
 
   // ACCESSORS
 
 
-  bool inDynamic() const;
-  bool allIsWritten()const;
-  const Report *reportDefault()const;
+  bool inDynamic() const override;
+  bool allIsWritten()const override;
+  const Report *reportDefault()const override;
 
-  void print(InfoScript& i)const;
+  void print(InfoScript& i)const override;
   void htmlPrint() const;
   UserSymbol *findSymbol(const class Symbol* sym,
-    VS typesExpected, bool mustExist) const;
+    VS typesExpected, bool mustExist) const override;
 
-  bool   writeEachTimeStep() const;
-  bool  debugMvAssignments() const;
-  bool  zeroCompression() const;
-  std::string  debugMapName() const;
-  unsigned char *areaMask() const;
+  bool   writeEachTimeStep() const override;
+  bool  debugMvAssignments() const override;
+  bool  zeroCompression() const override;
+  std::string  debugMapName() const override;
+  unsigned char *areaMask() const override;
 
   const Report      *findReport(const Symbol& u) const;
-  const Symbol      *findBinding(const std::string& name) const;
-  SubParameter      *findRightParameter( const ParsPar& par, VS expectedVs ) const;
-  SubParameter      *findLeftParameter( const ParsPar& par, VS expectedVs) const;
+  const Symbol      *findBinding(const std::string& name) const override;
+  SubParameter      *findRightParameter( const ParsPar& par, VS expectedVs ) const override;
+  SubParameter      *findLeftParameter( const ParsPar& par, VS expectedVs) const override;
 
-  const geo::RasterSpace& rasterSpace() const;
-  const Compressor&       compressor()  const;
+  const geo::RasterSpace& rasterSpace() const override;
+  const Compressor&       compressor()  const override;
 
-  void removeOutputObject(const std::string& objName) const;
-  GridMap *createMap(const std::string& d_fileName, VS vs) const;
+  void removeOutputObject(const std::string& objName) const override;
+  GridMap *createMap(const std::string& d_fileName, VS vs) const override;
 
-  void updateProgress(ProgressPulse p, int step=-1);
+  void updateProgress(ProgressPulse p, int step=-1) override;
   int exitVal() const;
 
   void setArcViewExtCheckData(std::vector<ArcViewExtCheckData>& r) const;
 
-  bool   esriGridIO() const;
-  const IoFieldStrategy& ioFieldStrategy() const;
+  bool   esriGridIO() const override;
+  const IoFieldStrategy& ioFieldStrategy() const override;
 
-  std::string  inputFilePath(const std::string& fileName) const;
-  std::string outputFilePath(const std::string& fileName) const;
+  std::string  inputFilePath(const std::string& fileName) const override;
+  std::string outputFilePath(const std::string& fileName) const override;
 };
 
 }

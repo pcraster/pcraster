@@ -59,7 +59,7 @@ private:
 
   const Compressor&  d_compressor;
 
-  void loadExternal() const
+  void loadExternal() const override
   {
    MapFormat m(d_mapName);
    loadGrid(m,d_compressor);
@@ -77,7 +77,7 @@ public:
     d_mapName(mapName), d_compressor(c) {};
 
   //! dtor
-  virtual     ~InputSpatial              () {};
+      ~InputSpatial              () override {};
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

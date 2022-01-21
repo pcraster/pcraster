@@ -64,12 +64,12 @@ public:
 
                    ASTPar               (const Id&          id);
 
-  /* virtual */    ~ASTPar              ();
+  /* virtual */    ~ASTPar              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
-  virtual void     accept               (ASTVisitor& v);
+  void     accept               (ASTVisitor& v) override;
 
   void             pushBackIndex        (const Id& i);
   void             setLastUse          (bool lastUse);
@@ -78,9 +78,9 @@ public:
   // ACCESSORS
   //----------------------------------------------------------------------------
   void             symError             (const std::string& msg) const;
-  ASTPar          *createClone          () const;
-  virtual void     runtimeError         (size_t timeStep,
-                                         const std::string& msg) const;
+  ASTPar          *createClone          () const override;
+  void     runtimeError         (size_t timeStep,
+                                         const std::string& msg) const override;
 
   bool             lastUse             () const;
   const IdList&    index               () const;

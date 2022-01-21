@@ -64,7 +64,7 @@ private:
   void             draw                (QPainter& painter,
                                         QRect const& indices,
                                         QTransform const& world_to_screen,
-                                        QTransform const& screen_to_world) const;
+                                        QTransform const& screen_to_world) const override;
 
 protected:
 
@@ -79,7 +79,7 @@ public:
                                         dal::SpaceDimensions const& dimensions,
                                         RangeDrawProps const& properties);
 
-  /* virtual */    ~ExceedanceProbabilityRasterDrawer              ();
+  /* virtual */    ~ExceedanceProbabilityRasterDrawer              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

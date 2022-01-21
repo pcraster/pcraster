@@ -22,16 +22,16 @@ class IndexSet : public UserSymbol, public IndexContainer {
   bool d_on;
   Set d_set;
 protected:
-  void addToSet(Set& setToBeAddedTo)const;
+  void addToSet(Set& setToBeAddedTo)const override;
 public:
   IndexSet(const Symbol& name,
     Set set,
     bool d_on,
     ArrayDefinition *a);
   // ACCESSORS
-  VS symbolType() const;
-  void printSpecific(InfoScript& is)const;
-  bool isOn()const;
+  VS symbolType() const override;
+  void printSpecific(InfoScript& is)const override;
+  bool isOn()const override;
 };
 
 }

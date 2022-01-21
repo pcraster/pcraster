@@ -119,7 +119,7 @@ public:
 
                    MemoryTableData     (MemoryTableData const& rhs);
 
-  /* virtual */    ~MemoryTableData    ();
+  /* virtual */    ~MemoryTableData    () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

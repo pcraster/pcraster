@@ -62,7 +62,7 @@ public:
 
                    SpatialPacking               (const geo::RasterDim& rd);
 
-     virtual       ~SpatialPacking              ();
+           ~SpatialPacking              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -71,7 +71,7 @@ public:
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  const geo::RasterDim& rasterDim           () const;
+  const geo::RasterDim& rasterDim           () const override;
 
   virtual Field*         pack                (const Field* f)const=0;
   //! may return packed itself or a new created Field

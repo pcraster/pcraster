@@ -35,7 +35,7 @@ class VectorDataSources: public DataObjectBase<Vector>
 private:
 
   DataInfo<Vector> openData            (std::string const& name,
-                                        dal::DataSpace const& space) const;
+                                        dal::DataSpace const& space) const override;
 
 protected:
 
@@ -47,7 +47,7 @@ public:
 
                    VectorDataSources   ();
 
-  /* virtual */    ~VectorDataSources  ();
+  /* virtual */    ~VectorDataSources  () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

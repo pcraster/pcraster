@@ -147,7 +147,7 @@ public:
 
                    OgrFeatureDriver    (GDALDriver* driver);
 
-  /* virtual */    ~OgrFeatureDriver   ();
+  /* virtual */    ~OgrFeatureDriver   () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -159,31 +159,31 @@ public:
 
   bool             exists              (std::string const& name,
                                         DataSpace const& space,
-                                        DataSpaceAddress const& address) const;
+                                        DataSpaceAddress const& address) const override;
 
   FeatureLayer*    open                (std::string const& name,
                                         DataSpace const& space,
                                         DataSpaceAddress const& address,
-                                        TypeId typeId) const;
+                                        TypeId typeId) const override;
 
   FeatureLayer*    read                (std::string const& name,
                                         DataSpace const& space,
                                         DataSpaceAddress const& address,
-                                        TypeId typeId) const;
+                                        TypeId typeId) const override;
 
   void             read                (FeatureLayer& layer,
                                         std::string const& name,
                                         DataSpace const& space,
-                                        DataSpaceAddress const& address) const;
+                                        DataSpaceAddress const& address) const override;
 
   void             read                (void* cell,
                                         TypeId typeId,
                                         std::string const& name,
                                         DataSpace const& space,
-                                        DataSpaceAddress const& address) const;
+                                        DataSpaceAddress const& address) const override;
 
   void             browse              (std::vector<BrowseInfo>& attributes,
-                                        std::string const& location) const;
+                                        std::string const& location) const override;
 
 };
 

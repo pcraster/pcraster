@@ -109,29 +109,29 @@ public:
                    Spatial             (VS vs,
                                         discr::RasterData<REAL4> const& data);
 
-  virtual ~Spatial();
+  ~Spatial() override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
 
-  void        setCell(const double& value, size_t i);
-  void       *dest();
+  void        setCell(const double& value, size_t i) override;
+  void       *dest() override;
   static void resetBPC();
 
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  bool                isSpatial() const;
-  bool                isMV()      const;
-  size_t              nrValues()  const;
+  bool                isSpatial() const override;
+  bool                isMV()      const override;
+  size_t              nrValues()  const override;
 
-  const void*    src                  ()         const;
-  bool           getCell              (double& value, size_t i) const;
+  const void*    src                  ()         const override;
+  bool           getCell              (double& value, size_t i) const override;
 
-  Spatial*       createClone          () const;
-  void           analyzeBoolean       (bool& noneAreTrue,bool& noneAreFalse) const;
-  Spatial*       findMVinMask         (const std::vector<bool>& areaMask) const;
+  Spatial*       createClone          () const override;
+  void           analyzeBoolean       (bool& noneAreTrue,bool& noneAreFalse) const override;
+  Spatial*       findMVinMask         (const std::vector<bool>& areaMask) const override;
 
   static size_t  maxBPC();
   static size_t  currentBPC();

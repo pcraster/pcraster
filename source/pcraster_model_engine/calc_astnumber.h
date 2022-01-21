@@ -64,13 +64,13 @@ public:
 
 
 
-     virtual       ~ASTNumber              ();
+           ~ASTNumber              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
 
-  void             accept                  (ASTVisitor& v);
+  void             accept                  (ASTVisitor& v) override;
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
@@ -80,7 +80,7 @@ public:
 
   std::string      strRepr()  const;
   std::string      qName                   () const;
-  ASTNumber*       createClone             () const;
+  ASTNumber*       createClone             () const override;
   Field*           createNonSpatial        () const;
 
 };

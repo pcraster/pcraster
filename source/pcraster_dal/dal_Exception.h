@@ -48,7 +48,7 @@ public:
 
                    Exception           (std::string const& message);
 
-  /* virtual */    ~Exception          ();
+  /* virtual */    ~Exception          () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

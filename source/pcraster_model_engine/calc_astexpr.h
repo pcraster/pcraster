@@ -59,20 +59,20 @@ public:
   //----------------------------------------------------------------------------
                    ASTExpr               (const Position *pos, const Operator& op);
 
-  virtual         ~ASTExpr               ();
+          ~ASTExpr               () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
-  void             transferFunctionArgs  (ASTNodeVector *args);
+  void             transferFunctionArgs  (ASTNodeVector *args) override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  const Operator&       op                () const;
-  void                  exec              (RunTimeEnv* rte)  const;
+  const Operator&       op                () const override;
+  void                  exec              (RunTimeEnv* rte)  const override;
 
-  ASTExpr*              createClone       () const;
+  ASTExpr*              createClone       () const override;
 
 };
 

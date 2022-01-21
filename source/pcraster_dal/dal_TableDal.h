@@ -57,7 +57,7 @@ public:
 
                    TableDal            (bool addAllDrivers = true);
 
-  /* virtual */    ~TableDal           ();
+  /* virtual */    ~TableDal           () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

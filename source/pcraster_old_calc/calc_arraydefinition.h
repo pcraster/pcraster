@@ -43,20 +43,20 @@ class ArrayDefinition : public UserSymbol, public IndexContainer {
   IndexVector d_offIndex;
  protected:
   //! add all active indices to the set setToBeAddedTo
-  void addToSet(std::set<const IndexParameter *>& setToBeAddedTo)const;
+  void addToSet(std::set<const IndexParameter *>& setToBeAddedTo)const override;
  public:
   ArrayDefinition(
     const Symbol& name,
     const std::vector<ParsIndex *>& index);
   // ACCESSORS
-  VS symbolType() const;
+  VS symbolType() const override;
 
   //! number of active elements
   size_t activeIndexSize()const;
-  bool isOn()const { return true; };
+  bool isOn()const override { return true; };
 
   const class IndexParameterConstant* item(size_t i) const;
-  void printSpecific(InfoScript& i)const;
+  void printSpecific(InfoScript& i)const override;
 };
 
 

@@ -52,7 +52,7 @@ public:
 
                    MatrixDal           (bool addAllDrivers=false);
 
-  /* virtual */    ~MatrixDal          ();
+  /* virtual */    ~MatrixDal          () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

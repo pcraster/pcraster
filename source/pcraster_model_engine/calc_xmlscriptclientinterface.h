@@ -48,7 +48,7 @@ private:
    void            parse                                  ();
 
 protected:
-   ASTScript*      createScriptAndAnalyzeNoContext        ();
+   ASTScript*      createScriptAndAnalyzeNoContext        () override;
 
 public:
 
@@ -59,7 +59,7 @@ public:
                    XMLScriptClientInterface(const std::string& scriptFileOrContents,
                                             bool asFile);
 
-     virtual       ~XMLScriptClientInterface              ();
+           ~XMLScriptClientInterface              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

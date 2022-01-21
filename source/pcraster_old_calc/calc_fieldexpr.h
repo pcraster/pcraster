@@ -31,7 +31,7 @@ protected:
   virtual const FieldType &fieldType()const=0;
   friend class FieldLeft; // for fieldType only
 public:
-  virtual ~FieldExpr();
+  ~FieldExpr() override;
   // MANIPULATORS
 
   //! buids its own types and call for sub-expression

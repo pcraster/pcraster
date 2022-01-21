@@ -60,7 +60,7 @@ public:
 
                    PositionName              ();
 
-  /* virtual */   ~PositionName              ();
+  /* virtual */   ~PositionName              () override;
                    PositionName              (const PositionName&);
 
   //----------------------------------------------------------------------------
@@ -70,11 +70,11 @@ public:
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  void           throwError(const std::string& msg) const;
+  void           throwError(const std::string& msg) const override;
 
-  PositionName*  createClone() const;
+  PositionName*  createClone() const override;
 
-  std::string    text() const;
+  std::string    text() const override;
 
 };
 

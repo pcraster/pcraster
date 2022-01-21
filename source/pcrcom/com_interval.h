@@ -173,14 +173,14 @@ class EqualTo : public Interval<R> {
   public:
    //! ctor
    EqualTo(R thisValue):d_thisValue(thisValue){}
-   bool valid(R v)const       { return d_thisValue == v; };
-   bool  operator<(R v) const { return d_thisValue <  v;};
-   bool  operator>(R v) const { return d_thisValue >  v;};
-   std::string msg() const;
-   virtual EqualTo *createClone()const;
-   R  min() const { return d_thisValue; };
-   R  max() const { return d_thisValue; };
-   R  centre()const{ return d_thisValue; };
+   bool valid(R v)const override       { return d_thisValue == v; };
+   bool  operator<(R v) const override { return d_thisValue <  v;};
+   bool  operator>(R v) const override { return d_thisValue >  v;};
+   std::string msg() const override;
+   EqualTo *createClone()const override;
+   R  min() const override { return d_thisValue; };
+   R  max() const override { return d_thisValue; };
+   R  centre()const override{ return d_thisValue; };
 };
 
 //! may  be thrown when constructing an Interval

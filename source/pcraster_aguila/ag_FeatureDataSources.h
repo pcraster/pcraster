@@ -35,7 +35,7 @@ class FeatureDataSources: public DataObjectBase<FeatureLayer>
 private:
 
   DataInfo<FeatureLayer> openData      (std::string const& name,
-                                        dal::DataSpace const& space) const;
+                                        dal::DataSpace const& space) const override;
 
 protected:
 
@@ -47,7 +47,7 @@ public:
 
                    FeatureDataSources  ();
 
-  /* virtual */    ~FeatureDataSources ();
+  /* virtual */    ~FeatureDataSources () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

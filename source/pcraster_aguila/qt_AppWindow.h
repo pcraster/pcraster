@@ -103,7 +103,7 @@ protected Q_SLOTS:
 
 protected:
 
-  void             closeEvent          (QCloseEvent* e);
+  void             closeEvent          (QCloseEvent* e) override;
 
   void             setAbout            (const std::string& about);
 
@@ -129,7 +129,7 @@ public:
                                         QWidget* parent = nullptr,
                                         Qt::WindowFlags flags = Qt::Window);
 
-  virtual          ~AppWindow          ();
+           ~AppWindow          () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

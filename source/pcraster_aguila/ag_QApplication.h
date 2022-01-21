@@ -48,14 +48,14 @@ public:
                    QApplication        (int& argc,
                                         char** argv);
 
-  /* virtual */    ~QApplication       ();
+  /* virtual */    ~QApplication       () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
 
   bool             notify              (QObject* receiver,
-                                        QEvent* event);
+                                        QEvent* event) override;
 
   void             setName             (std::string const& name);
 

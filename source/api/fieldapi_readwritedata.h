@@ -62,50 +62,50 @@ public:
                    ReadWriteData               (
                         StoredAsT **data, size_t nrRows, size_t nrCols);
 
-   virtual         ~ReadWriteData              ();
+           ~ReadWriteData              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
 
   //! put a value
-  void put(UseAsT value, size_t rowIndex, size_t colIndex);
+  void put(UseAsT value, size_t rowIndex, size_t colIndex) override;
   //! see put(UseAsT value, size_t rowIndex, size_t colIndex);
   void put(UseAsT value, const geo::CellLoc& l) {
         put(value,l.row(),l.col());
       }
   //! put a value
-  void put(UseAsT value, int rowIndex, int colIndex)
+  void put(UseAsT value, int rowIndex, int colIndex) override
    { put(value,static_cast<size_t>(rowIndex),static_cast<size_t>(colIndex)); };
   //! put a MV value
-  void putMV(size_t rowIndex, size_t colIndex);
+  void putMV(size_t rowIndex, size_t colIndex) override;
   void putMV(const geo::CellLoc& l) {
         putMV(l.row(),l.col());
   }
   //! put a MV value
-  void putMV(int rowIndex, int colIndex)
+  void putMV(int rowIndex, int colIndex) override
    { putMV(static_cast<size_t>(rowIndex),static_cast<size_t>(colIndex)); };
 
-  void putAllMV();
+  void putAllMV() override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
 
-  bool     get(UseAsT& value,    int rowIndex,    int colIndex) const
+  bool     get(UseAsT& value,    int rowIndex,    int colIndex) const override
       { return d_ro.get(value,rowIndex,colIndex); }
-  bool     get(UseAsT& value, size_t rowIndex, size_t colIndex) const
+  bool     get(UseAsT& value, size_t rowIndex, size_t colIndex) const override
       { return d_ro.get(value,rowIndex,colIndex); }
   //! see get(UseAsT& value, size_t rowIndex, size_t colIndex);
           bool get(UseAsT& value, const geo::CellLoc& l) const {
             return get(value,l.row(),l.col());
           }
-  UseAsT value( size_t rowIndex, size_t colIndex) const
+  UseAsT value( size_t rowIndex, size_t colIndex) const override
       { return d_ro.value(rowIndex,colIndex); }
   UseAsT value( const geo::CellLoc& l) const
       { return d_ro.value(l.row(),l.col()); }
 
-  bool isMV(const geo::CellLoc& l) const;
+  bool isMV(const geo::CellLoc& l) const override;
 
 };
 

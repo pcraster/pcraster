@@ -33,7 +33,7 @@ private:
  ShowData& operator=(const ShowData&);
 
  //! in support of toDomElement and toDom
-  void       fill(QDomElement el) const;
+  void       fill(QDomElement el) const override;
 public:
  static const char* tagName() {
    return d_elementName.c_str();
@@ -49,9 +49,9 @@ public:
  //! Copy constructor.
  ShowData(const ShowData&);
  //! dtor
- ~ShowData();
+ ~ShowData() override;
  //! element name
- const std::string& elementName()const;
+ const std::string& elementName()const override;
 
 };
 } // namespace

@@ -50,7 +50,7 @@ public:
 
                    QuitForProgressCallBack               ();
 
-  /* virtual */    ~QuitForProgressCallBack              ();
+  /* virtual */    ~QuitForProgressCallBack              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

@@ -28,24 +28,24 @@ class NonSpatial : public Field {
   //! initialization with a value
   NonSpatial(VS vs, double value=0);
 
-  virtual ~NonSpatial();
+  ~NonSpatial() override;
 
   // ACCESSORS
 
   //! is it a mv
-  bool isMv() const;
+  bool isMv() const override;
   //! return value as double, should not be a MV
   double getValue() const;
-  void   setCell(const double& value, size_t /* i */);
-  bool   getCell(double& value, size_t /* i */) const;
-  NonSpatial *copy() const;
+  void   setCell(const double& value, size_t /* i */) override;
+  bool   getCell(double& value, size_t /* i */) const override;
+  NonSpatial *copy() const override;
 
-  size_t              nrValues() const;
+  size_t              nrValues() const override;
 
-  bool                isSpatial() const;
-  const void*         srcValue() const;
-  void*               destValue();
-  void                analyzeBoolean(bool& noneAreTrue,bool& noneAreFalse) const;
+  bool                isSpatial() const override;
+  const void*         srcValue() const override;
+  void*               destValue() override;
+  void                analyzeBoolean(bool& noneAreTrue,bool& noneAreFalse) const override;
 };
 
 }

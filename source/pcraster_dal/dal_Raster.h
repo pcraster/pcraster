@@ -92,7 +92,7 @@ public:
 
                    Raster              (Raster const& rhs);
 
-  virtual          ~Raster             ();
+           ~Raster             () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

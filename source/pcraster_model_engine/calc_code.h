@@ -49,19 +49,19 @@ public:
 
                    Code               (ASTNode*       transferredStatements);
 
-  /* virtual */    ~Code              ();
+  /* virtual */    ~Code              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
-  void            callEnter                     (ASTVisitor& v);
-  void            callJump                      (ASTVisitor& v);
+  void            callEnter                     (ASTVisitor& v) override;
+  void            callJump                      (ASTVisitor& v) override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  Code*           createClone                   () const;
-  bool            hasBackBranch                 () const;
+  Code*           createClone                   () const override;
+  bool            hasBackBranch                 () const override;
 };
 
 

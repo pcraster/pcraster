@@ -87,7 +87,7 @@ public:
                    MaskPacking(const geo::RasterDim& rs,
                                const Mask&           mask);
 
-  /* virtual */    ~MaskPacking              ();
+  /* virtual */    ~MaskPacking              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -96,15 +96,15 @@ public:
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  Field*         pack                (const Field* f)const;
-  const Field*   unpack              (const Field* f)const;
-  Field*         createSpatial       (VS vs)const;
+  Field*         pack                (const Field* f)const override;
+  const Field*   unpack              (const Field* f)const override;
+  Field*         createSpatial       (VS vs)const override;
 
-  size_t         toRasterId          (size_t compressedIndex) const;
-  size_t         toFieldId           (size_t compressedIndex) const;
-  size_t         nrFieldCells        () const;
+  size_t         toRasterId          (size_t compressedIndex) const override;
+  size_t         toFieldId           (size_t compressedIndex) const override;
+  size_t         nrFieldCells        () const override;
 
-  MaskPacking*   createClone         () const;
+  MaskPacking*   createClone         () const override;
 };
 
 

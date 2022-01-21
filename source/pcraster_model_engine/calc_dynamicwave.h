@@ -52,7 +52,7 @@ public:
 
                    DynamicWave               ();
 
-  /* virtual */    ~DynamicWave              ();
+  /* virtual */    ~DynamicWave              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -63,7 +63,7 @@ public:
   //----------------------------------------------------------------------------
   void         exec              (RunTimeEnv* rte,
                                   const Operator& op,
-                                  size_t nrActualArgs) const;
+                                  size_t nrActualArgs) const override;
 
 };
 
@@ -72,7 +72,7 @@ struct KinematicWave: public IOpImpl
 {
   void         exec              (RunTimeEnv* rte,
                                   const Operator& op,
-                                  size_t nrActualArgs) const;
+                                  size_t nrActualArgs) const override;
 
 };
 
@@ -80,14 +80,14 @@ class LookupPotential : public IOpImpl {
 public:
   void         exec              (RunTimeEnv* rte,
                                   const Operator& op,
-                                  size_t nrActualArgs) const;
+                                  size_t nrActualArgs) const override;
 };
 
 class LookupState : public IOpImpl {
 public:
   void         exec              (RunTimeEnv* rte,
                                   const Operator& op,
-                                  size_t nrActualArgs) const;
+                                  size_t nrActualArgs) const override;
 };
 
 
@@ -120,7 +120,7 @@ class Kinematic: public IOpImpl {
 public:
   void             exec                 (RunTimeEnv* rte,
                                          const Operator& op,
-                                         size_t nrArgs) const;
+                                         size_t nrArgs) const override;
 };
 extern Kinematic builtIn_kinematic;
 
@@ -128,7 +128,7 @@ class Muskingum: public IOpImpl {
 public:
   void             exec                 (RunTimeEnv* rte,
                                          const Operator& op,
-                                         size_t nrArgs) const;
+                                         size_t nrArgs) const override;
 };
 
 extern Muskingum builtIn_muskingumtimestep;

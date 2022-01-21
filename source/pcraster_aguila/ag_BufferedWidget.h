@@ -84,7 +84,7 @@ private:
   void             moveContents        (int dx,
                                         int dy);
 
-  void             resizeEvent         (QResizeEvent* event);
+  void             resizeEvent         (QResizeEvent* event) override;
 
 protected:
 
@@ -102,7 +102,7 @@ protected:
 
   void             setClean            ();
 
-  virtual void     paintEvent          (QPaintEvent* event);
+  void     paintEvent          (QPaintEvent* event) override;
 
   virtual void     updateBuffer        (QRectF const& area);
 
@@ -114,7 +114,7 @@ public:
   // CREATORS
   //----------------------------------------------------------------------------
 
-  virtual          ~BufferedWidget     ();
+           ~BufferedWidget     () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

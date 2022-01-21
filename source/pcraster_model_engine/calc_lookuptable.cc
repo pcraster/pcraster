@@ -108,7 +108,7 @@ namespace calc {
   class T_MemoryInputTableCreator : public MemoryInputTableCreator {
      std::vector<ArrayValueDataType> d_values;
    public:
-     void setData(void const* memoryArray) {
+     void setData(void const* memoryArray) override {
 
        d_values.clear();
        if (!memoryArray)
@@ -140,7 +140,7 @@ namespace calc {
       * \todo Checking for d_values.empty() runtime error here is not efficient.
       *       Should be done when data is loading for operation e.g. on push or pop of execution stack
       */
-     bool find(double& result, const std::vector<float>& prefixKey) const
+     bool find(double& result, const std::vector<float>& prefixKey) const override
      {
        PRECOND(!d_values.empty()); // catched in LookupTable::load()
        if (prefixKey.size() != 1)
@@ -152,7 +152,7 @@ namespace calc {
        result = d_values[i];
        return true;
      }
-     bool empty() const
+     bool empty() const override
      {
        return d_values.empty();
      }

@@ -48,9 +48,9 @@ private:
 
 private Q_SLOTS:
 
-  void             accept              ();
+  void             accept              () override;
 
-  void             reject              ();
+  void             reject              () override;
 
   void             apply               ();
 
@@ -67,7 +67,7 @@ public:
   // CREATORS
   //----------------------------------------------------------------------------
 
-  virtual          ~PropertiesDialog   ();
+           ~PropertiesDialog   () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

@@ -49,7 +49,7 @@ public:
   //----------------------------------------------------------------------------
 
 
-  virtual         ~ReadOnly              ();
+          ~ReadOnly              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -95,7 +95,7 @@ public:
   //! is it a spatial varying field
   virtual bool spatial() const=0;
 
-  bool isMV(const geo::CellLoc& l) const;
+  bool isMV(const geo::CellLoc& l) const override;
 
 };
 

@@ -18,7 +18,7 @@ class NonSpatial;
 //! spatial value owned by a parameter
 class NonSpatialImpl : public FieldValue {
 protected:
-	virtual void write();
+	void write() override;
 public:
 	//! used for initialization of computed parameter
 	NonSpatialImpl(const FieldParameter& p,size_t index);
@@ -26,7 +26,7 @@ public:
 	//! used for initialization of input parameter
 	NonSpatialImpl(const FieldParameter& p,size_t index, NonSpatial *initValue);
 
-	virtual ~NonSpatialImpl();
+	~NonSpatialImpl() override;
 
 	void assign(FieldHandle f, const class Pos *assignPoint);
 };

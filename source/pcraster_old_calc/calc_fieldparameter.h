@@ -50,11 +50,11 @@ class  FieldParameter : public SubParameter {
   FieldParameter(const ParsPar& par, bool constant, bool input,VS vs, ST st);
  public:
   //! dtor
-  virtual ~FieldParameter() {};
+  ~FieldParameter() override {};
   // MANIPULATORS
 
   //! called if parameters scope is activated
-  virtual void goInScope()=0;
+  void goInScope() override =0;
 
   FieldType& restrictType();
 
@@ -64,7 +64,7 @@ class  FieldParameter : public SubParameter {
   virtual FieldHandle value(size_t index, bool lastUse)=0;
 
   //! check if field has a (single) vs, set delete point etc.
-  void finalCheck();
+  void finalCheck() override;
 
   bool restrictUser(const FieldType& exprAssignedTo);
 
@@ -72,7 +72,7 @@ class  FieldParameter : public SubParameter {
   const FieldType &fieldType()const;
 
   VS vs() const;
-  VS symbolType() const;
+  VS symbolType() const override;
 
   const UseDefNode *firstDef() const;
 
@@ -80,10 +80,10 @@ class  FieldParameter : public SubParameter {
 
   void deleteValues();
 
-  void setDataSubType(pcrxml::Data *d) const;
+  void setDataSubType(pcrxml::Data *d) const override;
   virtual double initialValue() const;
 
-  void printSubSpecific(InfoScript& is)const;
+  void printSubSpecific(InfoScript& is)const override;
 
   //! restrictUser may return this as an exception
   class RestrictError {

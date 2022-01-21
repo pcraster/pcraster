@@ -33,7 +33,7 @@ public:
   Symbol(IScript *script, const ExtSym& s);
   Symbol(IScript *script, const std::string& name, const Position *pos);
   Symbol(IScript *script, const LexToken*    token);
-  virtual ~Symbol();
+  ~Symbol() override;
   void setName(const std::string& newName);
   // ACCESSORS
   virtual const std::string& name() const;

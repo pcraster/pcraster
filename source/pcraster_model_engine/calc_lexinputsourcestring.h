@@ -70,12 +70,12 @@ public:
   //----------------------------------------------------------------------------
   LexInputSourceString                                (const std::string& contents);
 
-  /* virtual */    ~LexInputSourceString              ();
+  /* virtual */    ~LexInputSourceString              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
-  int getChar();
+  int getChar() override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS

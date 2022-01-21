@@ -38,7 +38,7 @@ public:
     VS resultVs,
     const std::vector<VS>& readKeys,
     bool linear);
-  virtual ~LookupTableLeaf();
+  ~LookupTableLeaf() override;
 
   LookupTable *execute();
 

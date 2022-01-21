@@ -16,11 +16,11 @@ namespace calc {
 
 class IndexSelectedSingle: public IndexSelected {
  public:
-  virtual ~IndexSelectedSingle();
+  ~IndexSelectedSingle() override;
 
-  int      select()          const;
-  std::string selectedName() const;
-  std::string variableName() const;
+  int      select()          const override;
+  std::string selectedName() const override;
+  std::string variableName() const override;
 };
 
 }

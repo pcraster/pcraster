@@ -44,7 +44,7 @@ private:
 
   CSF_VS           d_valueScale;
 
-  bool             isRead              (dal::DataSpaceAddress const& address) const;
+  bool             isRead              (dal::DataSpaceAddress const& address) const override;
 
 protected:
 
@@ -59,7 +59,7 @@ public:
                    FeatureLayer        (std::string const& name,
                                         dal::DataSpace const& space);
 
-  /* virtual */    ~FeatureLayer       ();
+  /* virtual */    ~FeatureLayer       () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

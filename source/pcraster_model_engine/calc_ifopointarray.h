@@ -42,7 +42,7 @@ namespace calc {
   };
 
   struct IDiffUn : public ISelectOnCRIndex {
-   virtual ~IDiffUn() {};
+   ~IDiffUn() override {};
    typedef const void* Input;
    typedef       void* Result; // (out-only)
 
@@ -51,7 +51,7 @@ namespace calc {
   };
 
   struct ISameBin : public ISelectOnCRIndex {
-   virtual ~ISameBin() {};
+   ~ISameBin() override {};
    typedef const void* Input;  // Input
    typedef       void* Result; // Result (and input)
 
@@ -71,7 +71,7 @@ namespace calc {
    *  and a new created result type R
    */
   struct IDiffBin : public ISelectOnCRIndex {
-   virtual ~IDiffBin() {};
+   ~IDiffBin() override {};
    typedef UINT1*        R;
    typedef const void*   A1;
    typedef const void*   A2;
@@ -84,7 +84,7 @@ namespace calc {
   };
 
  struct IIfThenElse : public ISelectOnCRIndex {
-   virtual ~IIfThenElse() {};
+   ~IIfThenElse() override {};
    typedef void (*F)(void* r, const UINT1* c, const void *t, const void *f,size_t n);
 
    /*! dimension of true and false branch make different entries

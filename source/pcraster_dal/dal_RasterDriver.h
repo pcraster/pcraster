@@ -94,7 +94,7 @@ public:
   // CREATORS
   //----------------------------------------------------------------------------
 
-  virtual          ~RasterDriver       ();
+           ~RasterDriver       () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -111,7 +111,7 @@ public:
 
   Raster*          open                (std::string const& name,
                                         DataSpace const& space,
-                                        DataSpaceAddress const& address) const;
+                                        DataSpaceAddress const& address) const override;
 
   virtual Raster*  open                (std::string const& name,
                                         DataSpace const& space,
@@ -123,11 +123,11 @@ public:
                                         DataSpace const& space) const;
                                         */
 
-  virtual DataSpace dataSpace          (std::string const& name,
+  DataSpace dataSpace          (std::string const& name,
                                         DataSpace const& space,
-                                        DataSpaceAddress const& address) const;
+                                        DataSpaceAddress const& address) const override;
 
-  Raster*          read                (std::string const& name) const;
+  Raster*          read                (std::string const& name) const override;
 
   //! Reads raster \a name. Cell values are converted to \a typeId types.
   /*!
@@ -147,7 +147,7 @@ public:
 
   Raster*          read                (std::string const& name,
                                         DataSpace const& space,
-                                        DataSpaceAddress const& address) const;
+                                        DataSpaceAddress const& address) const override;
 
   virtual Raster*  read                (std::string const& name,
                                         DataSpace const& space,
@@ -166,11 +166,11 @@ public:
                                         DataSpace const& space,
                                         DataSpaceAddress const& address) const=0;
 
-  virtual void     read                (void* cell,
+  void     read                (void* cell,
                                         TypeId typeId,
                                         std::string const& name,
                                         DataSpace const& space,
-                                        DataSpaceAddress const& address) const=0;
+                                        DataSpaceAddress const& address) const override =0;
 
   void             write               (Raster const& raster,
                                         std::string const& name) const;

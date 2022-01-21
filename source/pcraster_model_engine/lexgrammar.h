@@ -50,7 +50,7 @@ private:
   LexToken *createValue(ANTLRTokenType type, double nrValue);
 
   //! overwrite gramFlexLexer::LexerInput
-  int LexerInput(char *buf, int max_size);
+  int LexerInput(char *buf, int max_size) override;
 
   ANTLRAbstractToken *idOrKeyWord();
 
@@ -66,7 +66,7 @@ public:
    *   convince myself that this will always return a an allocated token that
    *   must be deleted! Hence call it createToken!
    */
-  ANTLRAbstractToken *getToken();
+  ANTLRAbstractToken *getToken() override;
 
   LexGrammar(LexInput& input);
 

@@ -46,11 +46,11 @@ private:
   // void             contentsMousePressEvent(
   //                                       QMouseEvent *event);
 
-  void             rescan              ();
+  void             rescan              () override;
 
-  void             process             ();
+  void             process             () override;
 
-  void             visualise           ();
+  void             visualise           () override;
 
   void             fillTable           ();
 
@@ -67,7 +67,7 @@ public:
                    DataSourceTable     (DataObject *object,
                                         QWidget* parent=nullptr);
 
-  /* virtual */    ~DataSourceTable    ();
+  /* virtual */    ~DataSourceTable    () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

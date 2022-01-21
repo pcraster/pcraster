@@ -46,12 +46,12 @@ private:
 public:
   // CREATORS
   ReportDefinition(const Symbol& s,const std::vector<ParsReportMoment>& list, int endTime);
-  ~ReportDefinition();
+  ~ReportDefinition() override;
 
   // ACCESSORS
 
   //! is report set at timestep t
-  bool reportTimestep(size_t  t) const;
+  bool reportTimestep(size_t  t) const override;
 };
 
 //! how reports by default are handled
@@ -62,9 +62,9 @@ class ReportDefault : public Report {
   const ReportDefinition  *d_definition{nullptr};
   public:
              ReportDefault();
-            ~ReportDefault();
+            ~ReportDefault() override;
   void       setDefinition(const ReportDefinition *definition);
-   bool      reportTimestep(size_t  t) const;
+   bool      reportTimestep(size_t  t) const override;
 };
 
 }

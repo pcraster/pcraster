@@ -22,7 +22,7 @@ class NonSpatialTssImpl : public NonSpatialImpl {
   TssOutputValue  d_tss;
 public:
   NonSpatialTssImpl(const FieldParameter& p, size_t index);
-  void write();
+  void write() override;
 };
 
 }

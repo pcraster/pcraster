@@ -35,7 +35,7 @@ class RasterDataSources: public DataObjectBase<Raster>
 private:
 
   DataInfo<Raster> openData            (std::string const& name,
-                                        dal::DataSpace const& space) const;
+                                        dal::DataSpace const& space) const override;
 
 public:
 
@@ -45,7 +45,7 @@ public:
 
                    RasterDataSources   ();
 
-  /* virtual */    ~RasterDataSources  ();
+  /* virtual */    ~RasterDataSources  () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

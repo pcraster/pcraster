@@ -58,7 +58,7 @@ public:
 
                    TextMatrixDriver    ();
 
-  /* virtual */    ~TextMatrixDriver   ();
+  /* virtual */    ~TextMatrixDriver   () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -70,24 +70,24 @@ public:
 
   bool             exists              (std::string const& name,
                                         DataSpace const& space,
-                                        DataSpaceAddress const& address) const;
+                                        DataSpaceAddress const& address) const override;
 
   Matrix*          open                (std::string const& name,
                                         DataSpace const& space,
-                                        DataSpaceAddress const& address) const;
+                                        DataSpaceAddress const& address) const override;
 
   DataSpace        dataSpace           (std::string const& name) const;
 
   DataSpace        dataSpace           (std::string const& name,
                                         DataSpace const& space,
-                                        DataSpaceAddress const& address) const;
+                                        DataSpaceAddress const& address) const override;
 
   void             read                (std::string const& name,
-                                        Matrix& matrix) const;
+                                        Matrix& matrix) const override;
 
   Matrix*          read                (std::string const& name,
                                         DataSpace const& space,
-                                        DataSpaceAddress const& address) const;
+                                        DataSpaceAddress const& address) const override;
 
 };
 

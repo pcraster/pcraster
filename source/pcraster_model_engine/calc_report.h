@@ -88,18 +88,18 @@ public:
 
                    Report(const Id& s, const PL& list);
 
-  /* virtual */    ~Report             ();
+  /* virtual */    ~Report             () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
-  void              accept             (ASTVisitor& v);
+  void              accept             (ASTVisitor& v) override;
   void              update         (const Timer& timer);
 
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  Report*           createClone        () const;
+  Report*           createClone        () const override;
 
   bool              atInt              (size_t t) const;
   size_t            startInt           () const;

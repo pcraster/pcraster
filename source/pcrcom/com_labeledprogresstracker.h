@@ -61,7 +61,7 @@ private:
   //! Copy constructor. NOT IMPLEMENTED.
                    LabeledProgressTracker(LabeledProgressTracker const& rhs);
 
-  void             update              ();
+  void             update              () override;
 
 public:
 
@@ -76,15 +76,15 @@ public:
                                         std::string const& label,
                                         size_t labelWidth);
 
-  virtual          ~LabeledProgressTracker();
+           ~LabeledProgressTracker() override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
 
-  void             init                ();
+  void             init                () override;
 
-  void             clear               ();
+  void             clear               () override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS

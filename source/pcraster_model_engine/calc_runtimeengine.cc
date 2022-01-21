@@ -50,7 +50,7 @@ namespace calc {
 
 class  PythonNone: public DataValue {
 public:
-  OVS      ovs                        () const
+  OVS      ovs                        () const override
   {
     return VS_NULL;
   }

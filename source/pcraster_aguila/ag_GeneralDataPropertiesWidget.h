@@ -66,7 +66,7 @@ public:
                                         const DataGuide& dataGuide,
                                         QWidget* parent);
 
-  /* virtual */    ~GeneralDataPropertiesWidget();
+  /* virtual */    ~GeneralDataPropertiesWidget() override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -74,7 +74,7 @@ public:
 
   void             rescan              ();
 
-  void             apply               ();
+  void             apply               () override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS

@@ -78,12 +78,12 @@ public:
                    ASTAss               (const ASTPar&  par,
                                          const ASTNode* rhs);
 
-  /* virtual */    ~ASTAss              ();
+  /* virtual */    ~ASTAss              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
-  virtual void     accept               (ASTVisitor& v);
+  void     accept               (ASTVisitor& v) override;
 
   void             addPar               (const ASTPar&  p);
   void             transferRhs          (ASTNode*       rhs);
@@ -100,7 +100,7 @@ public:
   ASTPar*          par                  (size_t parIndex=0) const;
   const Pars&      pars                 () const;
   ASTNode*         rhs                  () const;
-  ASTAss*          createClone          () const;
+  ASTAss*          createClone          () const override;
 
 };
 

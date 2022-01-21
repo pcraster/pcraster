@@ -45,7 +45,7 @@ public:
 
                    Library               ();
 
-  /* virtual */    ~Library              ();
+  /* virtual */    ~Library              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

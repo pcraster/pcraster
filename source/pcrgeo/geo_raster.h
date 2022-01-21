@@ -55,7 +55,7 @@ public:
                    Raster              (const Raster &rhs);
 
   //! Destructor.
-  virtual          ~Raster             ();
+           ~Raster             () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

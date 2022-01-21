@@ -153,7 +153,7 @@ public:
 
                    Table               (Table const& rhs);
 
-  /* virtual */    ~Table              ();
+  /* virtual */    ~Table              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

@@ -44,7 +44,7 @@ public:
                    Date               (const QDomNode& owningElement, const std::string& name, bool required);
                    Date               ();
 
-     virtual       ~Date              ();
+           ~Date              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

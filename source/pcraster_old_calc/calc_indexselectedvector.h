@@ -33,18 +33,18 @@ class  IndexSelectedVector :public  IndexSelected {
   // CREATORS
   IndexSelectedVector(
     std::vector<const class IndexParameter *>vector);
-  virtual ~IndexSelectedVector();
+  ~IndexSelectedVector() override;
   // ACCESSORS
   //! factor an ArrayDefVector
   ArrayDefVector arrayDefVector() const;
-  int      select() const;
+  int      select() const override;
   std::string arrayDefName() const;
   //! get element
   const class IndexParameter *operator[]( size_t n) const;
   //! get element
   size_t size() const { return d_vector.size();};
-  std::string selectedName() const;
-  std::string variableName() const;
+  std::string selectedName() const override;
+  std::string variableName() const override;
   bool equal(const IndexSelectedVector *index2) const;
 };
 

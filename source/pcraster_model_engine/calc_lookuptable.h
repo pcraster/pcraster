@@ -186,7 +186,7 @@ private:
 
   LookupTable();
 
-  virtual ~LookupTable();
+  ~LookupTable() override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -200,12 +200,12 @@ private:
   void                     setPrefixStableSort  (size_t prefixLen);
 
   void                     setArrayValue        (void const* data);
-  DataValue*               load                 ();
+  DataValue*               load                 () override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  OVS                      ovs                   () const;
+  OVS                      ovs                   () const override;
 
   size_t                   nrCols                () const;
 

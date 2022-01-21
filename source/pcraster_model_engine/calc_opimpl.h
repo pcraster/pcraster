@@ -63,7 +63,7 @@ public:
 
                    SameUn               (const ISameUn* fieldOp);
 
-  virtual         ~SameUn               ();
+          ~SameUn               () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -72,8 +72,8 @@ public:
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  virtual void exec              (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const;
-  virtual void genPointCode      (PointCodeGenerator* g) const;
+  void exec              (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const override;
+  void genPointCode      (PointCodeGenerator* g) const override;
 };
 
 //! Operation Implementation
@@ -98,7 +98,7 @@ public:
 
                    Trig               (const ISameUn* fieldOp);
 
-  virtual         ~Trig               ();
+          ~Trig               () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -107,8 +107,8 @@ public:
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  virtual void exec              (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const;
-  virtual void genPointCode      (PointCodeGenerator* g) const;
+  void exec              (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const override;
+  void genPointCode      (PointCodeGenerator* g) const override;
 };
 
 //! Operation Implementation
@@ -130,7 +130,7 @@ public:
 
                    GenSpatial              ();
 
-  virtual         ~GenSpatial              ();
+          ~GenSpatial              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -139,8 +139,8 @@ public:
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  virtual void exec              (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const;
-  virtual void genPointCode      (PointCodeGenerator* g) const;
+  void exec              (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const override;
+  void genPointCode      (PointCodeGenerator* g) const override;
 };
 
 //! Operation Implementation
@@ -162,7 +162,7 @@ public:
 
                    GenNonSpatial           ();
 
-  virtual         ~GenNonSpatial           ();
+          ~GenNonSpatial           () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -171,8 +171,8 @@ public:
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  virtual void exec              (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const;
-  virtual void genPointCode      (PointCodeGenerator* g) const;
+  void exec              (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const override;
+  void genPointCode      (PointCodeGenerator* g) const override;
 };
 
 //! Operation Implementation
@@ -198,7 +198,7 @@ public:
                                           const ISameBin* op2=nullptr,
                                           const ISameBin* op3=nullptr);
 
-  virtual         ~SameBin               ();
+          ~SameBin               () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -207,8 +207,8 @@ public:
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  void exec              (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const;
-  void genPointCode      (PointCodeGenerator* g) const;
+  void exec              (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const override;
+  void genPointCode      (PointCodeGenerator* g) const override;
 };
 
 /*! two input arguments, both of the same type
@@ -236,7 +236,7 @@ public:
                                           const IDiffBin* op2,
                                           const IDiffBin* op3=nullptr);
 
-  virtual         ~DiffBin               ();
+          ~DiffBin               () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -245,8 +245,8 @@ public:
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  void exec              (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const;
-  void genPointCode      (PointCodeGenerator* g) const;
+  void exec              (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const override;
+  void genPointCode      (PointCodeGenerator* g) const override;
 };
 
 //! if then else construct only
@@ -272,7 +272,7 @@ public:
                                           const IIfThenElse* op2,
                                           const IIfThenElse* op3);
 
-  virtual         ~IfThenElse               ();
+          ~IfThenElse               () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -281,8 +281,8 @@ public:
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  void exec              (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const;
-  void genPointCode      (PointCodeGenerator* g) const;
+  void exec              (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const override;
+  void genPointCode      (PointCodeGenerator* g) const override;
 
 };
 
@@ -312,7 +312,7 @@ public:
                                          const IDiffUn* op2=nullptr,
                                          const IDiffUn* op3=nullptr);
 
-  virtual         ~DiffUn               ();
+          ~DiffUn               () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -321,8 +321,8 @@ public:
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  virtual void exec     (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const;
-  void genPointCode     (PointCodeGenerator* g) const;
+  void exec     (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const override;
+  void genPointCode     (PointCodeGenerator* g) const override;
 };
 
 /*! spatial conversion is a special case
@@ -347,7 +347,7 @@ public:
                                               const IDiffUn* op2,
                                               const IDiffUn* op3);
 
-  virtual         ~SpatialImpl               ();
+          ~SpatialImpl               () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -356,7 +356,7 @@ public:
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  void exec              (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const;
+  void exec              (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const override;
 };
 
 //! Operation Implementation
@@ -378,7 +378,7 @@ public:
 
                    Conversion           ();
 
-  virtual         ~Conversion           ();
+          ~Conversion           () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -387,46 +387,46 @@ public:
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  virtual void exec              (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const;
-  virtual void genPointCode      (PointCodeGenerator* g) const;
+  void exec              (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const override;
+  void genPointCode      (PointCodeGenerator* g) const override;
 };
 
 class AreaTotal: public IOpImpl {
- void exec (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const;
+ void exec (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const override;
 };
 class AreaAverage: public IOpImpl {
- void exec (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const;
+ void exec (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const override;
 };
 class AreaMaximum: public IOpImpl {
- void exec (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const;
+ void exec (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const override;
 };
 class AreaMinimum: public IOpImpl {
- void exec (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const;
+ void exec (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const override;
 };
 class Order: public IOpImpl {
- void exec (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const;
+ void exec (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const override;
 };
 class AreaOrder: public IOpImpl {
- void exec (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const;
+ void exec (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const override;
 };
 
 class ArgOrderAddAreaLimited: public IOpImpl {
- void exec (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const;
+ void exec (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const override;
 };
 class ArgOrderWithIdAddAreaLimited: public IOpImpl {
- void exec (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const;
+ void exec (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const override;
 };
 class ArgOrderAreaLimited: public IOpImpl {
- void exec (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const;
+ void exec (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const override;
 };
 class ArgOrderWithIdAreaLimited: public IOpImpl {
- void exec (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const;
+ void exec (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const override;
 };
 class ArgOrder: public IOpImpl {
- void exec (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const;
+ void exec (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const override;
 };
 class ArgOrderWithId: public IOpImpl {
- void exec (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const;
+ void exec (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const override;
 };
 
 //------------------------------------------------------------------------------

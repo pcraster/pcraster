@@ -87,7 +87,7 @@ public:
                                         const std::string& description,
                                         bool isRequired);
 
-  /* virtual */    ~CommandModeArgument();
+  /* virtual */    ~CommandModeArgument() override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -96,21 +96,21 @@ public:
   void             setArguments        (const CommandLineArguments& arguments);
 
   size_t           parse               (size_t argc,
-                                        char* const* argv);
+                                        char* const* argv) override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
 
-  bool             isParsed            () const;
+  bool             isParsed            () const override;
 
-  void             printSynopsis       (std::ostream& stream) const;
+  void             printSynopsis       (std::ostream& stream) const override;
 
   void             printDescription    (std::ostream& stream,
                                         size_t offset,
-                                        size_t width) const;
+                                        size_t width) const override;
 
-  void             check               () const;
+  void             check               () const override;
 
 };
 

@@ -50,7 +50,7 @@ private:
 
 private Q_SLOTS:
 
-  void             accept              ();
+  void             accept              () override;
 
   void             apply               ();
 
@@ -67,7 +67,7 @@ public:
                                         bool model=false,
                                         Qt::WindowFlags flags=Qt::Widget);
 
-  /* virtual */    ~PreferencesDialog  ();
+  /* virtual */    ~PreferencesDialog  () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

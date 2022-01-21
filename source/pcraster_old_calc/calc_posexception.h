@@ -58,7 +58,7 @@ public:
      size_t lineNr,size_t charNr,
      const std::string& message);
 
-  /* virtual */  ~PosException              ();
+  /* virtual */  ~PosException              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

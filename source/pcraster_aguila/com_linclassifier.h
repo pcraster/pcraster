@@ -37,7 +37,7 @@ public:
                    com_LinClassifier   ();
 
   //! Destructor.
-                   ~com_LinClassifier  ();
+                   ~com_LinClassifier  () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -46,12 +46,12 @@ public:
   void             classify            (std::vector<T> &b,
                                         T               min,
                                         T               max,
-                                        size_t               n);
+                                        size_t               n) override;
 
   void             autoClassify        (std::vector<T> &b,
                                         T               min,
                                         T               max,
-                                        size_t               n);
+                                        size_t               n) override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS

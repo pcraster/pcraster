@@ -68,7 +68,7 @@ private:
  ModelRunStatus& operator=(const ModelRunStatus&);
 
  //! in support of toDomElement and toDom
-  void       fill(QDomElement el) const;
+  void       fill(QDomElement el) const override;
 public:
  static const char* tagName() {
    return d_elementName.c_str();
@@ -84,9 +84,9 @@ public:
  //! Copy constructor.
  ModelRunStatus(const ModelRunStatus&);
  //! dtor
- ~ModelRunStatus();
+ ~ModelRunStatus() override;
  //! element name
- const std::string& elementName()const;
+ const std::string& elementName()const override;
 
  //! attribute
  String userInterfaceName;

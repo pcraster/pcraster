@@ -40,7 +40,7 @@ class IoStrategy : public Attribute {
         { PRECOND(present());return d_value; };
 
    //! return enum value as string, (?? empty if not present ??)
-   std::string attrValueStr() const;
+   std::string attrValueStr() const override;
 
    //! is value present and set to \a value ?
    bool operator==(EnumType value) const {

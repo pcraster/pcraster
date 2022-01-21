@@ -44,7 +44,7 @@ private:
   void             draw                (QPainter& painter,
                                         QRect const& indices,
                                         QTransform const& world_to_screen,
-                                        QTransform const& screen_to_world) const;
+                                        QTransform const& screen_to_world) const override;
 
 protected:
 
@@ -59,7 +59,7 @@ public:
                                         LddDrawProps const& properties,
                                         QColor const& penColour);
 
-  /* virtual */    ~LddRasterDrawer    ();
+  /* virtual */    ~LddRasterDrawer    () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

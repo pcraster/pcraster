@@ -131,7 +131,7 @@ class ArcViewExtCheckDataClass: public DllCalc
        arcViewExtCheckData.clear();
      }
   protected:
-     int execute()
+     int execute() override
      {
        parse();
        arcViewExtCheckData.clear();
@@ -192,7 +192,7 @@ class ArcViewExtRun : public DllCalc
      {
      }
   protected:
-     int execute()
+     int execute() override
      {
        com::AppArgs args("ArcView",d_cmdString);
        if (!processArgs(args.argc(), args.argv()))

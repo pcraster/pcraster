@@ -55,7 +55,7 @@ public:
 
                    LookupLinear(VS outType);
 
-  /* virtual */    ~LookupLinear              ();
+  /* virtual */    ~LookupLinear              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -64,7 +64,7 @@ public:
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  bool find(double& result, const std::vector<double>& key) const;
+  bool find(double& result, const std::vector<double>& key) const override;
 
 };
 

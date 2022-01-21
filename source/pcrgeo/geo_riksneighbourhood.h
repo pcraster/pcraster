@@ -62,7 +62,7 @@ public:
                    RiksNeighbourhood   (double fromRadius,
                                         double toRadius);
 
-  /* virtual */    ~RiksNeighbourhood  ();
+  /* virtual */    ~RiksNeighbourhood  () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

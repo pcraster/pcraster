@@ -44,9 +44,9 @@ private:
   //! Copy constructor. NOT IMPLEMENTED.
                    CFGVisitor               (const CFGVisitor&);
 
-  void             visitStat                (ASTStat*    s);
-  void             visitExpr                (BaseExpr*    e);
-  void             visitNonAssExpr          (NonAssExpr* e);
+  void             visitStat                (ASTStat*    s) override;
+  void             visitExpr                (BaseExpr*    e) override;
+  void             visitNonAssExpr          (NonAssExpr* e) override;
 
   //! what branch is taken? Forward (default) or Back
   bool             d_takeBackBranch;
@@ -65,7 +65,7 @@ public:
 
                    CFGVisitor               (CFGNode* cfg);
 
-  /* virtual */    ~CFGVisitor              ();
+  /* virtual */    ~CFGVisitor              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

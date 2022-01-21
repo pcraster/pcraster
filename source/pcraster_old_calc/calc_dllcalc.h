@@ -59,7 +59,7 @@ public:
 
                    DllCalc              ();
 
-  /* virtual */   ~DllCalc              ();
+  /* virtual */   ~DllCalc              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

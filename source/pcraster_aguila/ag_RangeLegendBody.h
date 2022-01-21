@@ -65,7 +65,7 @@ private:
 
 protected:
 
-  void             paintEvent          (QPaintEvent* event);
+  void             paintEvent          (QPaintEvent* event) override;
 
   void             showEvent           ();
 
@@ -80,7 +80,7 @@ public:
                                         ViewerType type,
                                         QWidget* parent = nullptr);
 
-  /* virtual */    ~RangeLegendBody    ();
+  /* virtual */    ~RangeLegendBody    () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

@@ -36,7 +36,7 @@ private:
   T d_value;
 
 protected:
-  std::string      attrValueStr() const;
+  std::string      attrValueStr() const override;
 
 public:
 
@@ -51,7 +51,7 @@ public:
 
                    SimpleAttr              ();
 
-  /* virtual */   ~SimpleAttr              ();
+  /* virtual */   ~SimpleAttr              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

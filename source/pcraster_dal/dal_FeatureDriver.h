@@ -63,7 +63,7 @@ public:
   // CREATORS
   //----------------------------------------------------------------------------
 
-  virtual          ~FeatureDriver      ();
+           ~FeatureDriver      () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -78,7 +78,7 @@ public:
 
   FeatureLayer*    open                (std::string const& name,
                                         DataSpace const& space,
-                                        DataSpaceAddress const& address) const;
+                                        DataSpaceAddress const& address) const override;
 
   virtual FeatureLayer* open           (std::string const& name,
                                         DataSpace const& space,
@@ -87,13 +87,13 @@ public:
 
   DataSpace        dataSpace           (std::string const& name,
                                         DataSpace const& space,
-                                        DataSpaceAddress const& address) const;
+                                        DataSpaceAddress const& address) const override;
 
-  FeatureLayer*    read                (std::string const& name) const;
+  FeatureLayer*    read                (std::string const& name) const override;
 
   FeatureLayer*    read                (std::string const& name,
                                         DataSpace const& space,
-                                        DataSpaceAddress const& address) const;
+                                        DataSpaceAddress const& address) const override;
 
   virtual FeatureLayer* read           (std::string const& name,
                                         DataSpace const& space,

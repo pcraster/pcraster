@@ -62,21 +62,21 @@ public:
                                         qt::AppWindowProperties const& props,
                                         DataObject* object);
 
-  /* virtual */    ~CumDistributionFunctionWindow();
+  /* virtual */    ~CumDistributionFunctionWindow() override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
 
-  void             addAttribute        (DataGuide const& guide);
+  void             addAttribute        (DataGuide const& guide) override;
 
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
 
-  bool             dataVisualised      () const;
+  bool             dataVisualised      () const override;
 
-  std::string      windowName          () const;
+  std::string      windowName          () const override;
 
 };
 

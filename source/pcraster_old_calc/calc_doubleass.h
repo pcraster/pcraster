@@ -45,14 +45,14 @@ class DoubleAssignment : public Statement {
     const Operator& f0,
     const Operator& f1,
           FieldExprArgs& args);
-  ~DoubleAssignment();
+  ~DoubleAssignment() override;
 
-  bool buildTypes() ;
-  void prepareExecution();
-  void run();
+  bool buildTypes() override ;
+  void prepareExecution() override;
+  void run() override;
 
   // ACCESSORS
-  void print(InfoScript& i)const;
+  void print(InfoScript& i)const override;
 };
 
 MAJOR_CODE dassImplementor(MAJOR_CODE op);

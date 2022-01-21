@@ -29,7 +29,7 @@ private:
 
 protected:
 
-  void             reMapColours        ();
+  void             reMapColours        () override;
 
 public:
 
@@ -44,7 +44,7 @@ public:
   //! Copy constructor.
                    OrdinalDrawProps    (const OrdinalDrawProps& properties);
 
-  /* virtual */    ~OrdinalDrawProps   ();
+  /* virtual */    ~OrdinalDrawProps   () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

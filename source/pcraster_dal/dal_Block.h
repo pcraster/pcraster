@@ -111,7 +111,7 @@ public:
                                         double north,
                                         Raster* baseElevation);
 
-  /* virtual */    ~Block              ();
+  /* virtual */    ~Block              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

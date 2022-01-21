@@ -16,10 +16,10 @@ class UserModelLink : public UserSymbol {
   ModelLink* d_modelInstance;
 public:
   //! the symbol type
-  VS symbolType() const;
+  VS symbolType() const override;
   UserModelLink(const Symbol& parName, const Symbol& modelName);
 
-  virtual ~UserModelLink();
+  ~UserModelLink() override;
 
   void initCheck(ModelLinkMethodSignature& s) const;
   void initExecute(ModelLinkMethodSignature& s) const;

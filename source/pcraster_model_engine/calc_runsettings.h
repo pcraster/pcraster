@@ -71,7 +71,7 @@ public:
 
                    RunSettings               (const com::PathName& bindingFile);
 
-  /* virtual */    ~RunSettings              ();
+  /* virtual */    ~RunSettings              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

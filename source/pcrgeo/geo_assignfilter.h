@@ -53,7 +53,7 @@ public:
 
                    AssignFilter        (const SimpleRaster<double>& weights);
 
-  /* virtual */    ~AssignFilter       ();
+  /* virtual */    ~AssignFilter       () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -65,39 +65,39 @@ public:
 
   int              calcUL              (const SimpleRaster<int>& source,
                                         size_t row,
-                                        size_t col) const;
+                                        size_t col) const override;
 
   int              calcUR              (const SimpleRaster<int>& source,
                                         size_t row,
-                                        size_t col) const;
+                                        size_t col) const override;
 
   int              calcLR              (const SimpleRaster<int>& source,
                                         size_t row,
-                                        size_t col) const;
+                                        size_t col) const override;
 
   int              calcLL              (const SimpleRaster<int>& source,
                                         size_t row,
-                                        size_t col) const;
+                                        size_t col) const override;
 
   int              calcTop             (const SimpleRaster<int>& source,
                                         size_t row,
-                                        size_t col) const;
+                                        size_t col) const override;
 
   int              calcBottom          (const SimpleRaster<int>& source,
                                         size_t row,
-                                        size_t col) const;
+                                        size_t col) const override;
 
   int              calcLeft            (const SimpleRaster<int>& source,
                                         size_t row,
-                                        size_t col) const;
+                                        size_t col) const override;
 
   int              calcRight           (const SimpleRaster<int>& source,
                                         size_t row,
-                                        size_t col) const;
+                                        size_t col) const override;
 
   int              calcInterior        (const SimpleRaster<int>& source,
                                         size_t row,
-                                        size_t col) const;
+                                        size_t col) const override;
 
 };
 

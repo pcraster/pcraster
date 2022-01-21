@@ -54,7 +54,7 @@ private:
  DataExtend& operator=(const DataExtend&);
 
  //! in support of toDomElement and toDom
-  void       fill(QDomElement el) const;
+  void       fill(QDomElement el) const override;
 public:
  static const char* tagName() {
    return d_elementName.c_str();
@@ -70,9 +70,9 @@ public:
  //! Copy constructor.
  DataExtend(const DataExtend&);
  //! dtor
- ~DataExtend();
+ ~DataExtend() override;
  //! element name
- const std::string& elementName()const;
+ const std::string& elementName()const override;
 
  //! attribute
  MigrationDirection migrationDirection;

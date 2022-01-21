@@ -170,7 +170,7 @@ public:
 
                    MemoryRasterData    (MemoryRasterData const& rhs);
 
-  /* virtual */    ~MemoryRasterData   ();
+  /* virtual */    ~MemoryRasterData   () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

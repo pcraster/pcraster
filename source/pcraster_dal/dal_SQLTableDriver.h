@@ -77,7 +77,7 @@ public:
 
                    SQLTableDriver      (std::string const& driverName);
 
-  /* virtual */    ~SQLTableDriver     ();
+  /* virtual */    ~SQLTableDriver     () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -89,34 +89,34 @@ public:
 
   bool             exists              (std::string const& name,
                                         DataSpace const& space,
-                                        DataSpaceAddress const& address) const;
+                                        DataSpaceAddress const& address) const override;
 
   DataSpace        dataSpace           (std::string const& name,
                                         DataSpace const& space,
-                                        DataSpaceAddress const& address) const;
+                                        DataSpaceAddress const& address) const override;
 
   Table*           open                (std::string const& name,
                                         DataSpace const& space,
-                                        DataSpaceAddress const& address) const;
+                                        DataSpaceAddress const& address) const override;
 
   Table*           read                (std::string const& name,
                                         DataSpace const& space,
-                                        DataSpaceAddress const& address) const;
+                                        DataSpaceAddress const& address) const override;
 
   void             read                (dal::Table& table,
                                         std::string const& name,
                                         dal::DataSpace const& space,
-                                        dal::DataSpaceAddress const& address) const;
+                                        dal::DataSpaceAddress const& address) const override;
 
   void             write               (Table const& table,
                                         DataSpace const& space,
                                         DataSpaceAddress const& address,
-                                        std::string const& name) const;
+                                        std::string const& name) const override;
 
   void             append              (std::string const& name,
                                         DataSpace const& space,
                                         DataSpaceAddress const& address,
-                                        Table const& table) const;
+                                        Table const& table) const override;
 
   // bool             databaseExists      (std::string const& name) const;
 

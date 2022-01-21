@@ -50,7 +50,7 @@ public:
                    ModelParser               (ParserInput& pi,
                                               Script& script);
 
-  /* virtual */    ~ModelParser              ();
+  /* virtual */    ~ModelParser              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

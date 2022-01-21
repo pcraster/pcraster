@@ -23,7 +23,7 @@ public:
 
   Exception                            (const std::string& message);
 
-  /* virtual */  ~Exception            ();
+  /* virtual */  ~Exception            () override;
 
   const std::string& message           () const;
 };

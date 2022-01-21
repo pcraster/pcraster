@@ -64,7 +64,7 @@ public:
 
                    DataStorageId               (const std::string& id);
 
-  /* virtual */    ~DataStorageId              ();
+  /* virtual */    ~DataStorageId              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -74,7 +74,7 @@ public:
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  OVS                ovs                       () const;
+  OVS                ovs                       () const override;
   const std::string& id                        () const;
 
 };

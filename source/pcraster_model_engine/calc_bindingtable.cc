@@ -66,9 +66,9 @@ private:
 
   ASTAss*                                  d_currentAss;
 
-  void visitPar          (ASTPar    *p);
-  void visitNumber       (ASTNumber *n);
-  void visitAss          (ASTAss    *a);
+  void visitPar          (ASTPar    *p) override;
+  void visitNumber       (ASTNumber *n) override;
+  void visitAss          (ASTAss    *a) override;
 
 public:
 
@@ -81,7 +81,7 @@ public:
     d_interfaceSyms(interfaceSyms)
     {}
 
-   ~BindingToSymbol()
+   ~BindingToSymbol() override
     {}
 
   //----------------------------------------------------------------------------

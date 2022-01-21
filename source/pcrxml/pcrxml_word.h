@@ -41,7 +41,7 @@ public:
                    Word               (const char*        value);
                    Word               ();
 
-  virtual         ~Word              ();
+          ~Word              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

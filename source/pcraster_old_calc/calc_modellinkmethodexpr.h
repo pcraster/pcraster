@@ -42,26 +42,26 @@ private:
   const FieldExprArgs      d_args;
   void buildTypes();
 protected:
-  void skipExecution();
-  const FieldType &fieldType()const;
+  void skipExecution() override;
+  const FieldType &fieldType()const override;
 public:
   ModelLinkMethodExpr(
     const Symbol& modelInstanceName,
     const Symbol& methodName,
     const std::string& strArg,
           FieldExprArgs& args);
-   virtual ~ModelLinkMethodExpr();
+   ~ModelLinkMethodExpr() override;
 
   //! buids its own types and call for sub-expression
-  void buildTypesRecursive(VS resultVsSet);
+  void buildTypesRecursive(VS resultVsSet) override;
 
-  FieldType& restrictType();
+  FieldType& restrictType() override;
 
-  void prepareExecution();
-  void execute(FieldStack& stack);
+  void prepareExecution() override;
+  void execute(FieldStack& stack) override;
 
   // ACCESSORS
-  void print(InfoScript &si) const;
+  void print(InfoScript &si) const override;
 };
 
 }

@@ -67,7 +67,7 @@ class MarkLe : public MarkCondition {
     MarkLe(double treshold):
      MarkCondition(treshold)
     {};
-   bool mark(double value) {
+   bool mark(double value) override {
      d_sum+=value;
      return d_sum <= d_treshold;
    }
@@ -77,7 +77,7 @@ class MarkGe : public MarkCondition {
     MarkGe(double treshold):
      MarkCondition(treshold)
     {};
-   bool mark(double value) {
+   bool mark(double value) override {
      bool t=  (d_sum < d_treshold);
      d_sum+=value;
      return t;

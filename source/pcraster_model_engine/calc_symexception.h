@@ -66,7 +66,7 @@ public:
                        const ASTPar*      par,
                        const std::string& message);
 
-  /* virtual */    ~SymException              ();
+  /* virtual */    ~SymException              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

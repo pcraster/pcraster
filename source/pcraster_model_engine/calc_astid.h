@@ -55,7 +55,7 @@ public:
                    ASTId               (const Id& id);
 
 
-  virtual         ~ASTId               ();
+          ~ASTId               () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -65,7 +65,7 @@ public:
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  virtual ASTId*        createClone         () const=0;
+  ASTId*        createClone         () const override =0;
 
   const std::string&    name                () const;
   bool                  debugOnlyValid      () const;

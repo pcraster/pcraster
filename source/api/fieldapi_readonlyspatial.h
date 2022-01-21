@@ -49,7 +49,7 @@ public:
                 ReadOnlySpatial               (StoredAsT **data,
                                                size_t nrRows,size_t nrCols);
 
-  virtual      ~ReadOnlySpatial               ();
+       ~ReadOnlySpatial               () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -58,10 +58,10 @@ public:
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  bool     get(UseAsT& value,    int rowIndex,    int colIndex) const;
-  bool     get(UseAsT& value, size_t rowIndex, size_t colIndex) const;
-  UseAsT value(               size_t rowIndex, size_t colIndex) const;
-  bool     spatial() const;
+  bool     get(UseAsT& value,    int rowIndex,    int colIndex) const override;
+  bool     get(UseAsT& value, size_t rowIndex, size_t colIndex) const override;
+  UseAsT value(               size_t rowIndex, size_t colIndex) const override;
+  bool     spatial() const override;
 };
 
 

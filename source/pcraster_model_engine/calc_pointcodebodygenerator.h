@@ -99,11 +99,11 @@ private:
   // VISITORS
   //----------------------------------------------------------------------------
 
-  void visitStat   (ASTStat* s);
-  void visitExpr   (BaseExpr* e);
-  void visitPar    (ASTPar*  p);
-  void visitNumber (ASTNumber*  n);
-  void visitAss    (ASTAss*  a);
+  void visitStat   (ASTStat* s) override;
+  void visitExpr   (BaseExpr* e) override;
+  void visitPar    (ASTPar*  p) override;
+  void visitNumber (ASTNumber*  n) override;
+  void visitAss    (ASTAss*  a) override;
 
   void doIfThenElse(BaseExpr* e);
   void doExpr      (BaseExpr* e);
@@ -156,7 +156,7 @@ public:
                    PointCodeBodyGenerator               (CFGNode*      cfg,
                                                          const ParSet& vContents);
 
-  /* virtual */    ~PointCodeBodyGenerator              ();
+  /* virtual */    ~PointCodeBodyGenerator              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

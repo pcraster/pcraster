@@ -33,7 +33,7 @@ static com::CpuCycleCounter::Uint64 pentiumClock(void)
 {
   typedef com::CpuCycleCounter::Uint64 UI64;
   PRECOND(sizeof(UI64) == 8);
-#ifdef GCC
+#if defined(GCC) && !defined(__aarch64__)
   unsigned long high, low;
    __asm__ __volatile__(".byte 0x0f,0x31" : "=a" (low), "=d" (high));
    return ((UI64) high << 32) + low;
@@ -43,7 +43,7 @@ static com::CpuCycleCounter::Uint64 pentiumClock(void)
 }
 
 com::CpuCycleCounter::Interval::Interval()
-    
+
 {
   PRECOND(sizeof(Uint64) == 8);
 }
@@ -118,15 +118,15 @@ void com::CpuCycleCounter::stop(size_t nr)
 //   Uint64 max=0;
 //   for(size_t i=0;i<d_counters.size();++i)
 //     com::maximize(max,d_counters[i].d_total);
-// 
+//
 //   size_t skipBits=0;
 //   while(max > 10000) {
 //     max = max >> 1;
 //     skipBits++;
 //   }
-// 
+//
 //   std::cout << "skip bits: " << skipBits  << std::endl;
-// 
+//
 //   for(size_t i=0;i<d_counters.size();++i)
 //    std::cout << "counter " << i << " : "
 //              << (d_counters[i].d_total >> skipBits) << std::endl;

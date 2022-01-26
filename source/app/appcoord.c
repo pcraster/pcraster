@@ -1,3 +1,4 @@
+#include <assert.h>
 #include "stddefx.h"
 /*
  *
@@ -31,12 +32,12 @@
 /* Compute output co-ordinate of a pixel on base of global options.
  * A row-column index is translate to a co-ordinate.
  * Which co-ordinate depends on the global options unit* and coor*.
- * The row, column co-ordinate don't have to be on the map. 
+ * The row, column co-ordinate don't have to be on the map.
  * They are just relative to top-left position.
  * For example (row,col) = (-1,0) computes the (x,y) co-ordinate of
- * the pixel that is right above top-left pixel. 
+ * the pixel that is right above top-left pixel.
  * returns:
- *  
+ *
  *  0 if the input co-ordinate (row,col) is outside the map,
  *  1 if inside,
  * -1 in case of an error
@@ -55,14 +56,16 @@ int AppRgetCoords(const MAP *m, /* map handle */
     *x = col;
     *y = row;
     switch (appCoord) {
-    case APP_C:
-        *y += 0.5;
-        *x += 0.5;
-        break;
-    case APP_LR:
-        *y += 1;
-        *x += 1;
-        IFDEBUG(case APP_UL:);
+        case APP_C:
+            *y += 0.5;
+            *x += 0.5;
+            break;
+        case APP_LR:
+            *y += 1;
+            *x += 1;
+            break;
+        case APP_UL:
+            assert(0); // Shut up compiler
     }
     if (appUnitTrue)
         (void)RrowCol2Coords(m, *y, *x, x, y);

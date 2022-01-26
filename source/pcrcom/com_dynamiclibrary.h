@@ -44,7 +44,7 @@ class DynamicLibraryException: public Exception {
  *  A (later) alternative is Qt's QLibrary. DynamicLibrary seems to
  *  have clearer exception handling.
  *
- *  \todo      Still unsure on win32 linking, FTTB  check both 
+ *  \todo      Still unsure on win32 linking, FTTB  check both
  *             (_)name. Thus do not rely on distinction on leading
  *             underscore.
  *
@@ -74,7 +74,7 @@ public:
   // CREATORS
   DynamicLibrary(const std::string& libNameNoExt);
 
-  ~DynamicLibrary(); 
+  ~DynamicLibrary();
 
   void*            addressAndSetLibPath(const std::string& symbolName);
 
@@ -88,7 +88,7 @@ public:
   const void *loadFunction(const std::string& symName) const;
 
   //! return the handle of the library
-  const DllHandle libHandle() const { return d_dllHandle; };
+  DllHandle libHandle() const { return d_dllHandle; };
 
   //! return if dll was already found in address space (STILL TO TEST!)
   bool wasAlreadyLoaded() const { return d_wasAlreadyLoaded; }

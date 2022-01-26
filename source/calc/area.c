@@ -8,7 +8,7 @@
 #include "misc.h"
 #include "mathx.h" /* GassDev */
 #include "calc.h"
-#include "table.h" /* SEARCH_TABLE, STfind, Insert, 
+#include "table.h" /* SEARCH_TABLE, STfind, Insert,
                     * STnew and STfree.
                     */
 
@@ -101,7 +101,7 @@ static void PutMinMax(MAP_REAL8 *min,        /* write-only output minimum or max
 }
 
 /* Determines minimum of an area with one class value.
- * Uses a fast list and a slow list. The fast list is already allocated, 
+ * Uses a fast list and a slow list. The fast list is already allocated,
  * on the slow list a binary search has to be done every time.
  * Returns 1 if memory allocation fails, 0 otherwise.
  */
@@ -154,7 +154,7 @@ int AreaMin(MAP_REAL8 *min,        /* write-only output minimum map  */
 }
 
 /* Determines maximum of an area with one class value.
- * Uses a fast list and a slow list. The fast list is already allocated, 
+ * Uses a fast list and a slow list. The fast list is already allocated,
  * on the slow list a binary search has to be done every time.
  * Returns 1 if memory allocation fails, 0 otherwise.
  */
@@ -282,7 +282,7 @@ static int AreaGeneration(MAP_REAL8 *result,
         return 1;
     /* use value.total to determine if it's
      *   the first time (gen a number)
-     * use count to store the number 
+     * use count to store the number
      */
 
     /* scan the map to calculate the average value of each area */
@@ -322,7 +322,7 @@ int AreaUniform(MAP_REAL8 *result,     /* write-only output  map  */
 }
 
 /* Determines average of an area with one class value.
- * Uses a fast list and a slow list. The fast list is already allocated, 
+ * Uses a fast list and a slow list. The fast list is already allocated,
  * on the slow list a binary search has to be done every time.
  * Returns 1 if memory allocation fails, 0 otherwise.
  */
@@ -364,7 +364,7 @@ int AreaAverage(MAP_REAL8 *average,    /* write-only output average map  */
 }
 
 /* Determines total of an area with one class value.
- * Uses a fast list and a slow list. The fast list is already allocated, 
+ * Uses a fast list and a slow list. The fast list is already allocated,
  * on the slow list a binary search has to be done every time.
  * Returns 1 if memory allocation fails, 0 otherwise.
  */
@@ -429,7 +429,7 @@ static void FreeRecDivMaj(DATA *e)
 }
 
 /* create table with for each a table as record
- * record table cannot be empty; 
+ * record table cannot be empty;
  * it's only created if there is a value
  */
 static SEARCH_TABLE *MajTable(const MAP_INT4 *val,   /* input value map */
@@ -451,7 +451,7 @@ static SEARCH_TABLE *MajTable(const MAP_INT4 *val,   /* input value map */
         return NULL;
     }
 
-    /* scan the map to determine the number of different values 
+    /* scan the map to determine the number of different values
      * for each area.
      */
     for (r = 0; r < nrRows; r++) {
@@ -478,7 +478,7 @@ static SEARCH_TABLE *MajTable(const MAP_INT4 *val,   /* input value map */
                     return NULL;
                 }
                 /* if first time this value found
-                 * then increment count of id 
+                 * then increment count of id
                  */
                 if (valRec->count++ == 0)
                     idRec->count++;
@@ -585,7 +585,7 @@ int AreaMajority(MAP_INT4 *majority,    /* write-only output majority map  */
 }
 
 /* Determines total area of one class value. (is areaarea)
- * Uses a fast list and a slow list. The fast list is already allocated, 
+ * Uses a fast list and a slow list. The fast list is already allocated,
  * on the slow list a binary search has to be done every time.
  * Returns 1 if memory allocation fails, 0 otherwise.
  */
@@ -640,13 +640,17 @@ int AddToTssRowREAL8(REAL8 *data,        /* write values, starts at col 1 of TIM
 {
     SEARCH_TABLE *table;
     size_t i;
+#if defined(DEBUG)
     int nrRows, nrCols;
+#endif
 
     /* Initialize settings */
     id->SetGetTest(GET_MV_TEST, id);
     expr->SetGetTest(GET_MV_TEST, expr);
+#if defined(DEBUG)
     nrRows = id->NrRows(id);
     nrCols = id->NrCols(id);
+#endif
 
     PRECOND(expr->NrRows(expr) == nrRows);
     PRECOND(expr->NrCols(expr) == nrCols);
@@ -681,13 +685,17 @@ int AddToTssRowINT4(REAL8 *data,        /* write values, starts at col 1 of TIME
 {
     SEARCH_TABLE *table;
     size_t i;
+#if defined(DEBUG)
     int nrRows, nrCols;
+#endif
 
     /* Initialize settings */
     id->SetGetTest(GET_MV_TEST, id);
     expr->SetGetTest(GET_MV_TEST, expr);
+#if defined(DEBUG)
     nrRows = id->NrRows(id);
     nrCols = id->NrCols(id);
+#endif
 
     PRECOND(expr->NrRows(expr) == nrRows);
     PRECOND(expr->NrCols(expr) == nrCols);

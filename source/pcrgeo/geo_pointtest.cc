@@ -94,7 +94,7 @@ BOOST_AUTO_TEST_CASE(closer)
   BOOST_CHECK(l[0][X]==1);
   BOOST_CHECK(l[1][X]==2);
   // reverse
-  std::sort(l.begin(),l.end(), std::not2(c));
+  std::sort(l.begin(),l.end(), std::not_fn(c));
   BOOST_CHECK(l[0][X]==2);
   BOOST_CHECK(l[1][X]==1);
 }

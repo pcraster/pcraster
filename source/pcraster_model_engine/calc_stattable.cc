@@ -197,7 +197,7 @@ namespace calc {
 //------------------------------------------------------------------------------
 
 calc::StatTable::InputMap::InputMap()
-  
+
 {
 }
 
@@ -663,7 +663,6 @@ template<typename SubjectType, typename CrossType>
   // header line 2
   d_out << d_subject.d_name;
   typedef typename std::set<INT4> S;
-  typedef typename S::const_iterator SI;
   S col=m.colClasses();
   S row=m.rowClasses();
 
@@ -721,7 +720,7 @@ template<typename CountMap>
     //  but we simple cast minimum to integer
 
     // MT() init 0, default Ctor
-    typedef typename CountMap::mapped_type MT; 
+    typedef typename CountMap::mapped_type MT;
     m.insert(std::make_pair(static_cast<int>(iv.min()),MT()));
   }
 }

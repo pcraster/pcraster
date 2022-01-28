@@ -27,6 +27,8 @@ set_target_properties(_pcraster_mldd_python
             "${_TARGET_BIN}/pcraster/mldd"
         OUTPUT_NAME
             "_pcraster_mldd"
+        DEBUG_POSTFIX
+            ""
         INSTALL_RPATH
             "\\\$ORIGIN/../../../lib"
 )

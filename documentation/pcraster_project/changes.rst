@@ -14,6 +14,8 @@ Changes
 .. We further improved the code quality and the build system to ensure an ongoing creation of PCRaster packages, amongst others:
 .. AppleClang, gcc12, vs2019, vs2022
 ..
+.. fixed memory leaks: modflow
+..
 
 PCRaster 4.3.2
 --------------

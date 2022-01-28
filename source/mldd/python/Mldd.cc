@@ -129,7 +129,7 @@ void Mldd::removeStream(
 
 
 
-boost::shared_ptr<calc::Field> Mldd::diffuse(
+std::shared_ptr<calc::Field> Mldd::diffuse(
          calc::Field const* oldState,
          calc::Field const* area,
          calc::Field const* fixedHead,
@@ -144,7 +144,7 @@ boost::shared_ptr<calc::Field> Mldd::diffuse(
          INT4 nrIterations)
 {
   // TODO Check value type.
-  boost::shared_ptr<calc::Spatial> totalOutFlow(new calc::Spatial(VS_S,
+  std::shared_ptr<calc::Spatial> totalOutFlow(new calc::Spatial(VS_S,
          calc::CRI_f, _mldd.space().nrCells()));
 
   std::vector<REAL4 const*> values;
@@ -165,7 +165,7 @@ boost::shared_ptr<calc::Field> Mldd::diffuse(
 
 
 
-boost::python::tuple Mldd::getStream() const
+pybind11::tuple Mldd::getStream() const
 {
   std::vector<calc::Spatial*> spatials(8);
 
@@ -182,20 +182,20 @@ boost::python::tuple Mldd::getStream() const
 
   _mldd.getStream(arrays);
 
-  return boost::python::make_tuple(
-         boost::shared_ptr<calc::Field>(spatials[0]),
-         boost::shared_ptr<calc::Field>(spatials[1]),
-         boost::shared_ptr<calc::Field>(spatials[2]),
-         boost::shared_ptr<calc::Field>(spatials[3]),
-         boost::shared_ptr<calc::Field>(spatials[4]),
-         boost::shared_ptr<calc::Field>(spatials[5]),
-         boost::shared_ptr<calc::Field>(spatials[6]),
-         boost::shared_ptr<calc::Field>(spatials[7]));
+  return pybind11::make_tuple(
+         std::shared_ptr<calc::Field>(spatials[0]),
+         std::shared_ptr<calc::Field>(spatials[1]),
+         std::shared_ptr<calc::Field>(spatials[2]),
+         std::shared_ptr<calc::Field>(spatials[3]),
+         std::shared_ptr<calc::Field>(spatials[4]),
+         std::shared_ptr<calc::Field>(spatials[5]),
+         std::shared_ptr<calc::Field>(spatials[6]),
+         std::shared_ptr<calc::Field>(spatials[7]));
 }
 
 
 
-boost::python::tuple Mldd::getWeight() const
+pybind11::tuple Mldd::getWeight() const
 {
   std::vector<calc::Spatial*> spatials(8);
 
@@ -212,22 +212,22 @@ boost::python::tuple Mldd::getWeight() const
 
   _mldd.getWeight(arrays);
 
-  return boost::python::make_tuple(
-         boost::shared_ptr<calc::Field>(spatials[0]),
-         boost::shared_ptr<calc::Field>(spatials[1]),
-         boost::shared_ptr<calc::Field>(spatials[2]),
-         boost::shared_ptr<calc::Field>(spatials[3]),
-         boost::shared_ptr<calc::Field>(spatials[4]),
-         boost::shared_ptr<calc::Field>(spatials[5]),
-         boost::shared_ptr<calc::Field>(spatials[6]),
-         boost::shared_ptr<calc::Field>(spatials[7]));
+  return pybind11::make_tuple(
+         std::shared_ptr<calc::Field>(spatials[0]),
+         std::shared_ptr<calc::Field>(spatials[1]),
+         std::shared_ptr<calc::Field>(spatials[2]),
+         std::shared_ptr<calc::Field>(spatials[3]),
+         std::shared_ptr<calc::Field>(spatials[4]),
+         std::shared_ptr<calc::Field>(spatials[5]),
+         std::shared_ptr<calc::Field>(spatials[6]),
+         std::shared_ptr<calc::Field>(spatials[7]));
 }
 
 
 
-boost::shared_ptr<calc::Field> Mldd::getDem() const
+std::shared_ptr<calc::Field> Mldd::getDem() const
 {
-  boost::shared_ptr<calc::Spatial> result(new calc::Spatial(VS_S, calc::CRI_f,
+  std::shared_ptr<calc::Spatial> result(new calc::Spatial(VS_S, calc::CRI_f,
          _mldd.space().nrCells()));
   _mldd.getDem(result->dest_f());
 
@@ -236,11 +236,11 @@ boost::shared_ptr<calc::Field> Mldd::getDem() const
 
 
 
-boost::shared_ptr<calc::Field> Mldd::upstream(
+std::shared_ptr<calc::Field> Mldd::upstream(
          calc::Field const* material)
 {
   // TODO Check value type.
-  boost::shared_ptr<calc::Spatial>result(new calc::Spatial(VS_S, calc::CRI_f,
+  std::shared_ptr<calc::Spatial>result(new calc::Spatial(VS_S, calc::CRI_f,
          _mldd.space().nrCells()));
   _mldd.upstream(result->dest_f(), material->src_f());
 
@@ -249,11 +249,11 @@ boost::shared_ptr<calc::Field> Mldd::upstream(
 
 
 
-boost::shared_ptr<calc::Field> Mldd::accuflux(
+std::shared_ptr<calc::Field> Mldd::accuflux(
          calc::Field const* material)
 {
   // TODO Check value type.
-  boost::shared_ptr<calc::Spatial> result(new calc::Spatial(VS_S, calc::CRI_f,
+  std::shared_ptr<calc::Spatial> result(new calc::Spatial(VS_S, calc::CRI_f,
          _mldd.space().nrCells()));
   _mldd.accuflux(result->dest_f(), material->src_f());
 

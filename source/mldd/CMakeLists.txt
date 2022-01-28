@@ -12,16 +12,16 @@ endif()
 #   COMMAND ${LIBXSLT_XSLTPROC_EXECUTABLE} --nonet --output ${CMAKE_CURRENT_BINARY_DIR}/operationExpanded.xml ${DEVENV}/sources/xslt/expand.xsl ${CMAKE_CURRENT_SOURCE_DIR}/operation.xml
 # )
 
-add_library(mldd STATIC  # SHARED
-    mldd_accuflux
-    mldd_dagraster
-    mldd_diffuse
-    mldd_downstreamvisitor
-    mldd_mldd
-    mldd_removestream
-    mldd_upstream
-    mldd_vertexiterator
-    mldd_weightmap
+add_library(mldd STATIC
+    mldd_accuflux.cc
+    mldd_dagraster.cc
+    mldd_diffuse.cc
+    mldd_downstreamvisitor.cc
+    mldd_mldd.cc
+    mldd_removestream.cc
+    mldd_upstream.cc
+    mldd_vertexiterator.cc
+    mldd_weightmap.cc
     # FILES for the oldcalc style ModelLink
     # calcLibWrapper
     # mldd_mlddlink

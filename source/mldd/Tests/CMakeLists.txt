@@ -1,9 +1,9 @@
 add_unit_tests(
     SCOPE mldd
     NAMES ${TEST_NAMES}
-        mldd_dagrastertest
-        mldd_outedgeiteratortest
-        mldd_vertexiteratortest
+        mldd_dagrastertest.cc
+        mldd_outedgeiteratortest.cc
+        mldd_vertexiteratortest.cc
     LINK_LIBRARIES
         pcraster::mldd
     DEPENDENCIES

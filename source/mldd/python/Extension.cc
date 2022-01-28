@@ -1,4 +1,4 @@
-#include <boost/python.hpp>
+#include <pybind11/pybind11.h>
 
 #include "calc_field.h"
 
@@ -6,13 +6,11 @@
 
 
 
-BOOST_PYTHON_MODULE(_pcraster_mldd){
-  namespace bp = boost::python;
+PYBIND11_MODULE(_pcraster_mldd, module){
   namespace mp = mldd::python;
 
-  bp::class_<mp::Mldd, boost::noncopyable>(
-         "initialise",
-         bp::init<geo::RasterSpace const&>())
+  pybind11::class_<mp::Mldd>(module, "initialise")
+    .def(pybind11::init<geo::RasterSpace const&>())
     .def("setDem", &mp::Mldd::setDem)
     .def("getDem", &mp::Mldd::getDem)
     .def("addStream", &mp::Mldd::addStream)

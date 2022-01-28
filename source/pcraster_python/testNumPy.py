@@ -525,7 +525,7 @@ class TestNumPy(testcase.TestCase):
       mem = process.memory_info()
       init_mem = mem.rss / 2**10
 
-      nr_iterations = 1000
+      nr_iterations = 500
       mem_increase = False
 
       # small memory increase can occur at runtime

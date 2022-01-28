@@ -20,6 +20,12 @@ option(
     PCRASTER_BUILD_MODFLOW
     "Build Modflow module"
     ON)
+CMAKE_DEPENDENT_OPTION(
+    PCRASTER_BUILD_MODFLOW_EXECUTABLE
+    "Build Modflow 2005 executable"
+    OFF
+    "PCRASTER_BUILD_MODFLOW"
+    OFF)
 option(
     PCRASTER_BUILD_OLDCALC
     "Build oldcalc"

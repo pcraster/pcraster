@@ -22,7 +22,7 @@ jobs:
 
         - name: Configure system
           run: |
-              brew install python@3.10 cmake ninja boost gdal ncurses xerces-c qt@5
+              brew install python@3.10 cmake ninja boost gdal ncurses xerces-c qt@5 gcc
               $(brew --prefix)/opt/python@3.10/bin/pip3 install numpy psutil
 
         - name: Configure PCRaster
@@ -35,6 +35,7 @@ jobs:
                   -G "Ninja Multi-Config" \
                   -D CMAKE_CONFIGURATION_TYPES="Release;Debug" \
                   -D PCRASTER_BUILD_TEST=ON \
+                  -D PCRASTER_BUILD_MODFLOW_EXECUTABLE=ON \
                   -D CMAKE_PREFIX_PATH="/usr/local/opt/ncurses;$(brew --prefix qt5)" \
                   -D Python3_EXECUTABLE:FILEPATH=$(brew --prefix)/opt/python@3.10/bin/python3 \
                   -D CMAKE_INSTALL_PREFIX=package

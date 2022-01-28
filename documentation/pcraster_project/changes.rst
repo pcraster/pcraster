@@ -7,13 +7,17 @@ Changes
 .. notable changes:
 .. Aguila was again refactored to reduce runtime library dependencies, notably the command line interface was refactored. The functionality should remain the same. In case you experience any differences to previous Aguila versions consider it as a defect and please report it at our `issues <https://github.com/pcraster/pcraster/issues/>`_ page.
 ..
-.. moved to std filesystem
+.. moved to std filesystem, removed boost runtime dependency
 ..
 .. The most relevant updates for users:
 ..
 .. We further improved the code quality and the build system to ensure an ongoing creation of PCRaster packages, amongst others:
 .. AppleClang, gcc12, vs2019, vs2022
+.. ARM support
 ..
+.. fixed memory leaks: modflow
+..
+.. build modflow exe
 
 PCRaster 4.3.2
 --------------

@@ -392,6 +392,14 @@ void PCRModflow::resetGrid(bool final) {
     d_wel = nullptr;
     d_welValues = nullptr;
   }
+  if(d_ghb != nullptr){
+    delete d_ghb;
+    delete d_ghbHead;
+    delete d_ghbCond;
+    d_ghb = nullptr;
+    d_ghbHead = nullptr;
+    d_ghbCond = nullptr;
+  }
   delete d_baseLayer;
   d_baseLayer = nullptr;
 

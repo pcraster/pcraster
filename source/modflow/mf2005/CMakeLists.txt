@@ -1,3 +1,5 @@
+# This is basically a mapping of the original Modflow makefile
+# Main difference is the static linking of the mf2005 executable
 enable_language(Fortran)
 
 set(MODFLOW_FORTRAN_SOURCES
@@ -78,9 +80,9 @@ add_executable(mf2005
 # Link statically so hopefully there is no Fortran runtime dependency
 set_target_properties(mf2005
     PROPERTIES
-        LINK_FLAGS -static
+        LINK_FLAGS "-static -lc"
+        BUILD_WITH_INSTALL_RPATH TRUE
 )
-
 
 install(
     TARGETS

@@ -17,14 +17,12 @@ configure_python_extension(_pcraster_mldd_python
     "_pcraster_mldd"
 )
 
-set(_TARGET_BIN ${EXECUTABLE_OUTPUT_PATH}/${CMAKE_CFG_INTDIR})
-
 set_target_properties(_pcraster_mldd_python
     PROPERTIES
         RUNTIME_OUTPUT_DIRECTORY
-            "${_TARGET_BIN}/pcraster/mldd"
+            $<TARGET_FILE_DIR:pcrcalc>/pcraster/mldd
         LIBRARY_OUTPUT_DIRECTORY
-            "${_TARGET_BIN}/pcraster/mldd"
+            $<TARGET_FILE_DIR:pcrcalc>/pcraster/mldd
         OUTPUT_NAME
             "_pcraster_mldd"
         DEBUG_POSTFIX
@@ -61,7 +59,6 @@ set_target_properties(_pcraster_mldd_python
         SUFFIX "${PYTHON_MODULE_EXTENSION}"
 )
 
-
 ### SET_TARGET_PROPERTIES(_pcraster_mldd_python
 ###     PROPERTIES
 ###         ### SKIP_BUILD_RPATH FALSE
@@ -83,11 +80,10 @@ install(
 
 install(
     FILES
-        ${_TARGET_BIN}/pcraster/mldd/__init__.py
+        $<TARGET_FILE_DIR:pcrcalc>/pcraster/pcraster/mldd/__init__.py
     DESTINATION
         ${PCRASTER_PYTHON_INSTALL_DIR}/pcraster/mldd
 )
-
 
 if(PCRASTER_BUILD_TEST)
     add_test(
@@ -100,6 +96,6 @@ if(PCRASTER_BUILD_TEST)
     set_tests_properties(mldd_python_unittests
         PROPERTIES
             ENVIRONMENT
-                "PYTHONPATH=${EXECUTABLE_OUTPUT_PATH}"
+                "PYTHONPATH=$<TARGET_FILE_DIR:pcrcalc>"
     )
 endif()

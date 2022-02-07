@@ -14,9 +14,10 @@ class Nonspatial {
 
 public:
 
-                   Nonspatial          (calc::Field* field);
+                   Nonspatial          (calc::Field* field,
+                                        bool const delete_upon_exit=false);
 
-                   ~Nonspatial         (){};
+                   ~Nonspatial         ();
 
   T&               get();
 
@@ -34,17 +35,29 @@ private:
 
   calc::Field*     pcr_field;
 
+  bool const       _delete_upon_exit;
+
   T*               the_cells;
 
 };
 
 
 template<class T>
-Nonspatial<T>::Nonspatial(calc::Field* field){
-  pcr_field = field;
+Nonspatial<T>::Nonspatial(calc::Field* field,
+    bool delete_upon_exit)
+    : pcr_field(field),
+      _delete_upon_exit(delete_upon_exit)
+{
   the_cells = static_cast<T*>(field->dest());
 }
 
+template<class T>
+inline Nonspatial<T>::~Nonspatial()
+{
+  if(_delete_upon_exit) {
+    delete pcr_field;
+  }
+}
 
 template<class T>
 inline calc::Field* Nonspatial<T>::getField() const {

@@ -15,7 +15,7 @@ Changes
 .. AppleClang, gcc12, vs2019, vs2022
 .. ARM support
 ..
-.. fixed memory leaks: modflow
+.. fixed memory leaks: modflow, multicore
 ..
 .. build modflow exe
 

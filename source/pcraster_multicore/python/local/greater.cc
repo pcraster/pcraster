@@ -171,9 +171,6 @@ calc::Field* greater(
     return detail::greater<INT4>(field_a, field_b);
   }
   else if(scalar_valuescale(*field_a) == true){
-    if(field_b->isSpatial() == false){
-      field_b = to_scalar(field_b);
-    }
     assert_scalar_valuescale(*field_b, " second argument");
     return detail::greater<REAL4>(field_a, field_b);
   }

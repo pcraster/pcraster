@@ -44,7 +44,6 @@ calc::Field* sqrt(
   if(field->isSpatial() == false){
     fa::SequentialExecutionPolicy sequential;
 
-    field = to_scalar(field);
     const multicore_field::Nonspatial<REAL4> arg(field);
 
     field_result = new calc::NonSpatial(VS_S);

@@ -12,7 +12,7 @@ import numpy
 import pcraster
 from pcraster.multicore import *
 
-import pcraster.multicore._operators as mcop
+import pcraster.multicore._operations as mcop
 
 
 # Class contains some tests extracted from the Python tests
@@ -200,7 +200,7 @@ class TestMulticore(unittest.TestCase):
     # we need to explicitly cast PODs to ldd (or directional)
     # when using the multicore module
     #raster = mcop.pcrmcNE("accu_Ldd.map", 5)
-    raster = mcop.pcrmcNE("accu_Ldd.map", pcraster.ldd(5))
+    raster = mcop.pcrne("accu_Ldd.map", pcraster.ldd(5))
     warnings.warn("Difference between pcraster and multicore module...")
     value, isValid = pcraster.cellvalue(raster, 1)
     self.assertEqual(isValid, True)
@@ -384,6 +384,18 @@ class TestMulticore(unittest.TestCase):
     self.assertEqual(isValid, True)
     self.assertEqual(value, 0)
 
+    result = mcop.pcreq(-7, raster)
+    zeros = [1, 3, 4, 5, 7, 8, 9]
+    for cell_idx in zeros:
+      value, isValid = pcraster.cellvalue(result, cell_idx)
+      self.assertEqual(isValid, True)
+      self.assertEqual(value, 0)
+    value, isValid = pcraster.cellvalue(result, 2)
+    self.assertEqual(isValid, True)
+    self.assertEqual(value, 1)
+    value, isValid = pcraster.cellvalue(result, 6)
+    self.assertEqual(isValid, False)
+
   def test_3(self):
     """ test nonspatials nominals in != with scalar raster"""
     raster = pcraster.readmap("abs_Expr.map")
@@ -415,6 +427,18 @@ class TestMulticore(unittest.TestCase):
     value, isValid = pcraster.cellvalue(result, 9)
     self.assertEqual(isValid, True)
     self.assertEqual(value, 1)
+
+    result = mcop.pcrne(-7, raster)
+    ones = [1, 3, 4, 5, 7, 8, 9]
+    for cell_idx in ones:
+      value, isValid = pcraster.cellvalue(result, cell_idx)
+      self.assertEqual(isValid, True)
+      self.assertEqual(value, 1)
+    value, isValid = pcraster.cellvalue(result, 2)
+    self.assertEqual(isValid, True)
+    self.assertEqual(value, 0)
+    value, isValid = pcraster.cellvalue(result, 6)
+    self.assertEqual(isValid, False)
 
   def test_4(self):
       """ test windowtotal and kernel size larger than raster """
@@ -573,6 +597,133 @@ class TestMulticore(unittest.TestCase):
       self.assertEqual(pcraster.cellvalue(res, 1, 3), (3, True))
 
 
+  def test_10(self):
+    """ test nonspatials in < > """
+    raster = pcraster.readmap("abs_Expr.map")
+
+    results = [raster < 2, mcop.pcrlt(raster, 2.0), 2 > raster, mcop.pcrgt(2.0, raster)]
+
+    for result in results:
+        value, isValid = pcraster.cellvalue(result, 1)
+        self.assertEqual(isValid, True)
+        self.assertEqual(value, 0)
+        value, isValid = pcraster.cellvalue(result, 2)
+        self.assertEqual(isValid, True)
+        self.assertEqual(value, 1)
+        value, isValid = pcraster.cellvalue(result, 3)
+        self.assertEqual(isValid, True)
+        self.assertEqual(value, 0)
+        value, isValid = pcraster.cellvalue(result, 4)
+        self.assertEqual(isValid, True)
+        self.assertEqual(value, 1)
+        value, isValid = pcraster.cellvalue(result, 5)
+        self.assertEqual(isValid, True)
+        self.assertEqual(value, 0)
+        value, isValid = pcraster.cellvalue(result, 6)
+        self.assertEqual(isValid, False)
+        value, isValid = pcraster.cellvalue(result, 7)
+        self.assertEqual(isValid, True)
+        self.assertEqual(value, 1)
+        value, isValid = pcraster.cellvalue(result, 8)
+        self.assertEqual(isValid, True)
+        self.assertEqual(value, 0)
+        value, isValid = pcraster.cellvalue(result, 9)
+        self.assertEqual(isValid, True)
+        self.assertEqual(value, 1)
+
+    results = [2 < raster, mcop.pcrlt(2.0, raster), raster > 2, mcop.pcrgt(raster, 2.0)]
+
+    for result in results:
+        value, isValid = pcraster.cellvalue(result, 1)
+        self.assertEqual(isValid, True)
+        self.assertEqual(value, 0)
+        value, isValid = pcraster.cellvalue(result, 2)
+        self.assertEqual(isValid, True)
+        self.assertEqual(value, 0)
+        value, isValid = pcraster.cellvalue(result, 3)
+        self.assertEqual(isValid, True)
+        self.assertEqual(value, 1)
+        value, isValid = pcraster.cellvalue(result, 4)
+        self.assertEqual(isValid, True)
+        self.assertEqual(value, 0)
+        value, isValid = pcraster.cellvalue(result, 5)
+        self.assertEqual(isValid, True)
+        self.assertEqual(value, 1)
+        value, isValid = pcraster.cellvalue(result, 6)
+        self.assertEqual(isValid, False)
+        value, isValid = pcraster.cellvalue(result, 7)
+        self.assertEqual(isValid, True)
+        self.assertEqual(value, 0)
+        value, isValid = pcraster.cellvalue(result, 8)
+        self.assertEqual(isValid, True)
+        self.assertEqual(value, 1)
+        value, isValid = pcraster.cellvalue(result, 9)
+        self.assertEqual(isValid, True)
+        self.assertEqual(value, 0)
+
+  def test_11(self):
+    """ test nonspatials in <= >= """
+    raster = pcraster.readmap("abs_Expr.map")
+
+    results = [raster <= 2, mcop.pcrle(raster, 2.0), 2 >= raster, mcop.pcrge(2.0, raster)]
+
+    for result in results:
+        value, isValid = pcraster.cellvalue(result, 1)
+        self.assertEqual(isValid, True)
+        self.assertEqual(value, 1)
+        value, isValid = pcraster.cellvalue(result, 2)
+        self.assertEqual(isValid, True)
+        self.assertEqual(value, 1)
+        value, isValid = pcraster.cellvalue(result, 3)
+        self.assertEqual(isValid, True)
+        self.assertEqual(value, 0)
+        value, isValid = pcraster.cellvalue(result, 4)
+        self.assertEqual(isValid, True)
+        self.assertEqual(value, 1)
+        value, isValid = pcraster.cellvalue(result, 5)
+        self.assertEqual(isValid, True)
+        self.assertEqual(value, 0)
+        value, isValid = pcraster.cellvalue(result, 6)
+        self.assertEqual(isValid, False)
+        value, isValid = pcraster.cellvalue(result, 7)
+        self.assertEqual(isValid, True)
+        self.assertEqual(value, 1)
+        value, isValid = pcraster.cellvalue(result, 8)
+        self.assertEqual(isValid, True)
+        self.assertEqual(value, 0)
+        value, isValid = pcraster.cellvalue(result, 9)
+        self.assertEqual(isValid, True)
+        self.assertEqual(value, 1)
+
+    results = [2 <= raster, mcop.pcrle(2.0, raster), raster >= 2, mcop.pcrge(raster, 2.0)]
+
+    for result in results:
+        value, isValid = pcraster.cellvalue(result, 1)
+        self.assertEqual(isValid, True)
+        self.assertEqual(value, 1)
+        value, isValid = pcraster.cellvalue(result, 2)
+        self.assertEqual(isValid, True)
+        self.assertEqual(value, 0)
+        value, isValid = pcraster.cellvalue(result, 3)
+        self.assertEqual(isValid, True)
+        self.assertEqual(value, 1)
+        value, isValid = pcraster.cellvalue(result, 4)
+        self.assertEqual(isValid, True)
+        self.assertEqual(value, 0)
+        value, isValid = pcraster.cellvalue(result, 5)
+        self.assertEqual(isValid, True)
+        self.assertEqual(value, 1)
+        value, isValid = pcraster.cellvalue(result, 6)
+        self.assertEqual(isValid, False)
+        value, isValid = pcraster.cellvalue(result, 7)
+        self.assertEqual(isValid, True)
+        self.assertEqual(value, 0)
+        value, isValid = pcraster.cellvalue(result, 8)
+        self.assertEqual(isValid, True)
+        self.assertEqual(value, 1)
+        value, isValid = pcraster.cellvalue(result, 9)
+        self.assertEqual(isValid, True)
+        self.assertEqual(value, 0)
 
 
 suite = unittest.TestSuite()
@@ -585,4 +736,3 @@ result = unittest.TextTestRunner(verbosity=3).run(suite)
 test_result = (0 if result.wasSuccessful() else 1)
 
 sys.exit(test_result)
-

@@ -80,7 +80,7 @@ install(
 
 install(
     FILES
-        $<TARGET_FILE_DIR:pcrcalc>/pcraster/pcraster/mldd/__init__.py
+        $<TARGET_FILE_DIR:pcrcalc>/pcraster/mldd/__init__.py
     DESTINATION
         ${PCRASTER_PYTHON_INSTALL_DIR}/pcraster/mldd
 )

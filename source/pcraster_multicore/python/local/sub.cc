@@ -112,14 +112,6 @@ calc::Field* sub(
          calc::Field* field_a,
          calc::Field* field_b){
 
-  // type casting of nonspatials
-  if(field_a->isSpatial() == false){
-    field_a = to_scalar(field_a);
-  }
-  if(field_b->isSpatial() == false){
-    field_b = to_scalar(field_b);
-  }
-
   assert_equal_location_attributes(*field_a);
   assert_equal_location_attributes(*field_b);
   assert_scalar_valuescale(*field_a, "left operand");

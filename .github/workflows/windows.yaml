@@ -73,12 +73,6 @@ jobs:
               "${{ matrix.config.environment_script }}" && ^
               cmake --install build --config Release
 
-        - name: Create source package
-          shell: cmd /C call {0}
-          run: |
-              "${{ matrix.config.environment_script }}" && ^
-              cmake --build build --config Release --target package_source
-
         - name: Test release
           shell: cmd /C call {0}
           run: |

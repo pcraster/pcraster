@@ -18,4 +18,3 @@ external/Windows/64/pcrmf2k.exe
 external/Darwin/pcrmf2k
 
 source/modflow/mf2k
-source/modflow/mf2005

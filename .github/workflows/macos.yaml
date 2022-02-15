@@ -22,9 +22,10 @@ jobs:
 
         - name: Configure system
           run: |
-              brew install python@3.10 cmake ninja boost gdal ncurses xerces-c qt@5 gcc
+              brew install python@3.10 cmake ninja boost gdal ncurses xerces-c qt@5 gcc@11
               $(brew --prefix)/opt/python@3.10/bin/pip3 install numpy psutil
               brew info gcc
+              ls -al $(brew --prefix)/opt/
 
         - name: Configure PCRaster
           shell: bash -l {0}
@@ -35,7 +36,7 @@ jobs:
                   -B build \
                   -G "Ninja Multi-Config" \
                   -D CMAKE_CONFIGURATION_TYPES="Release;Debug" \
-                  -D CMAKE_Fortran_COMPILER=$(brew --prefix)/bin/gfortran \
+                  -D CMAKE_Fortran_COMPILER=$(brew --prefix)/opt/gcc@11/bin/gfortran \
                   -D PCRASTER_BUILD_TEST=ON \
                   -D PCRASTER_BUILD_MODFLOW_EXECUTABLE=ON \
                   -D CMAKE_PREFIX_PATH="/usr/local/opt/ncurses;$(brew --prefix qt5)" \

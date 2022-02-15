@@ -18,6 +18,8 @@ Changes
 .. fixed memory leaks: modflow, multicore
 ..
 .. build modflow exe
+..
+.. more reliable results for maptotal and large datasets
 
 PCRaster 4.3.2
 --------------

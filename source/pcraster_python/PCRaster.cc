@@ -868,6 +868,39 @@ calc::Field* deepCopyField(
   return spatial;
 }
 
+
+calc::Field* maptotal(calc::Field const & field)
+{
+  if(field.vs() != VS_S){
+    std::ostringstream errMsg;
+    errMsg << "argument nr. 1 of function 'maptotal': type is "
+           << field.vs()
+           << ", legal type is scalar";
+    throw std::runtime_error(errMsg.str());
+  }
+
+  if(field.isSpatial() == false){
+    throw std::runtime_error("maptotal: argument nr. 1 of function 'maptotal' is non-spatial only spatial allowed");
+  }
+
+  calc::Field* result = new calc::NonSpatial(VS_S);
+  auto* result_cell = static_cast<REAL4*>(result->dest());
+
+  size_t nrCells = globals.cloneSpace().nrCells();
+  double maptotal = 0.0;
+  double cellvalue = 0.0;
+
+  for(size_t i = 0; i < nrCells; ++i) {
+    field.getCell(cellvalue, i);
+    if(!pcr::isMV(cellvalue)){
+        maptotal += cellvalue;
+    }
+  }
+  result_cell[0] = static_cast<REAL4>(maptotal);
+
+  return result;
+}
+
 } // namespace python
 } // namespace pcraster
 
@@ -1212,4 +1245,6 @@ PYBIND11_MODULE(_pcraster, module)
 .. versionadded:: 4.3
     )"
   );
+
+  module.def("maptotal", &pp::maptotal);
 }

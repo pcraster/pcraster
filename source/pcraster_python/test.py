@@ -458,6 +458,20 @@ class Test(testcase.TestCase):
     result = pcraster.argorder(chances1, chances2)
     self.assertTrue(self.mapEqualsValidated(result, "argorder_Result.map"))
 
+  def test_1(self):
+    """ test maptotal """
+
+    map_dimensions = [10, 100, 500, 1000, 2000, 3000, 4000, 5000]
+    map_value = 0.1
+
+    for map_dimension in map_dimensions:
+      pcraster.setclone(map_dimension, map_dimension, 1, 0, 0)
+
+      raster = pcraster.spatial(pcraster.scalar(map_value))
+      total, valid = pcraster.cellvalue(pcraster.maptotal(raster), 1, 1)
+      self.assertEqual(total, map_value * map_dimension ** 2, f"{total} {map_dimension ** 2}")
+
+
 
 suite = unittest.TestSuite()
 suite.addTest(unittest.makeSuite(Test))

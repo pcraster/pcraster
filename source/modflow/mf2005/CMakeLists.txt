@@ -78,9 +78,17 @@ add_executable(mf2005
 )
 
 # Link statically so hopefully there is no Fortran runtime dependency
+if(CMAKE_SYSTEM_NAME MATCHES Linux)
+    set(MODFLOW_LINK "-static -lc")
+elseif(CMAKE_SYSTEM_NAME MATCHES Darwin)
+    set(MODFLOW_LINK "")#-static-libgfortran -lgfortran -lgcc -nodefaultlibs")
+else()
+    message(FATAL_ERROR "Building Modflow executable not supported on this platform")
+endif()
+
 set_target_properties(mf2005
     PROPERTIES
-        LINK_FLAGS "-static -lc"
+        LINK_FLAGS ${MODFLOW_LINK}
         BUILD_WITH_INSTALL_RPATH TRUE
 )
 

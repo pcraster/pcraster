@@ -163,14 +163,10 @@ BOOST_AUTO_TEST_CASE(split_for)
 
   // "/"
   pn        = PathName(d_slash);
-  directory = "/"; // ""
+  directory = d_slash;
   base      = ""; // d_slash;
   BOOST_CHECK_EQUAL(pn.directoryName(), directory);
-#ifdef WIN32
-  BOOST_CHECK_EQUAL(pn.baseName(), "\\");
-#else
   BOOST_CHECK_EQUAL(pn.baseName(), base);
-#endif
 
   // "//"
   pn        = PathName(d_slash + d_slash);
@@ -206,7 +202,11 @@ BOOST_AUTO_TEST_CASE(split_for)
 
   // "//bla"
   pn        = PathName(d_slash + d_slash + "bla");
-  directory = "/"; // ""
+#if defined(__APPLE__)
+  directory = "//";
+#else
+  directory = "/";
+#endif
 #ifdef WIN32
   base      = "\\\\bla";
 #else

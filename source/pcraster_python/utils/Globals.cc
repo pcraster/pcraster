@@ -53,7 +53,7 @@ Globals globals;
 Globals::Globals()
 
   : dal::Client("", false, false)
-    
+
 
 {
   init();
@@ -66,6 +66,7 @@ Globals::~Globals()
 {
   delete _rte;
   delete _rasterDal;
+  calc::globalEnd();
 }
 
 

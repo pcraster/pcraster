@@ -1,4 +1,5 @@
 set(SPHINX_SOURCES
+    applications.rst
     build.rst
     changes.rst
     # develop.rst

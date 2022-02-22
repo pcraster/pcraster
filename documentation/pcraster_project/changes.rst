@@ -15,11 +15,21 @@ Changes
 .. AppleClang, gcc12, vs2019, vs2022
 .. ARM support
 ..
-.. fixed memory leaks: modflow, multicore
+.. fixed memory leaks: modflow
 ..
 .. build modflow exe
 ..
-.. more reliable results for maptotal and large datasets
+
+
+PCRaster 4.3.3
+--------------
+
+This is a bug fix release for 4.3.
+
+* We improved the internal precision of the ``maptotal`` operation resulting in more reliable results when using large datasets (`#336 <https://github.com/pcraster/pcraster/issues/336>`_).
+* We fixed several memory leaks in the ``multicore`` module (`#344 <https://github.com/pcraster/pcraster/issues/344>`_).
+* We fixed a segmentation fault at module exit when PCRaster and GDAL are used (`#343 <https://github.com/pcraster/pcraster/issues/343>`_).
+
 
 PCRaster 4.3.2
 --------------

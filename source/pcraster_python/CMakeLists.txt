@@ -256,6 +256,19 @@ if(PCRASTER_BUILD_TEST)
                 FixturePcrasterPython
     )
 
+    add_test(
+        NAME
+            python_pcrcalcpy_gdalimport_test
+        COMMAND
+            ${Python3_EXECUTABLE} "-c" "import pcraster;from osgeo import gdal,ogr,osr;raster = gdal.OpenEx('abs_Result.map');t = raster.GetGeoTransform();srs = osr.SpatialReference();srs.ImportFromEPSG(4326)"
+    )
+
+    set_tests_properties(python_pcrcalcpy_gdalimport_test
+        PROPERTIES
+            ENVIRONMENT
+                "PYTHONPATH=$<TARGET_FILE_DIR:pcrcalc>"
+    )
+
 
 # OLS: clean up the comments when refacoring for the new windows build
 # I leave them here just as info in case of troubles...

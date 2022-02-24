@@ -115,7 +115,7 @@ PCR_DLL_FUNC(int) calc::parseGlobalFlag(std::string const& option){
   return ParseGlobalFlag(("--" + option).c_str());
 }
 
-void calc::globalEnd()
+PCR_DLL_FUNC(void) calc::globalEnd()
 {
   AppEnd();
   s_client.reset(0);

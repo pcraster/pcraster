@@ -28,10 +28,8 @@
 #define INCLUDED_COM_EXCEPTION
 #endif
 
-#ifndef INCLUDED_IOMANIP
+#include <algorithm>
 #include <iomanip>
-#define INCLUDED_IOMANIP
-#endif
 
 const size_t calc::TssOutputValue::maxCacheSize=128;
 

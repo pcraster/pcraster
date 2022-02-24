@@ -59,7 +59,7 @@ jobs:
                   -D CMAKE_CXX_COMPILER=${{ matrix.config.cxx }} ^
                   -D PCRASTER_BUILD_TEST=ON ^
                   -D CMAKE_INSTALL_PREFIX=package ^
-                  -D CMAKE_VERBOSE_MAKEFILE=ON
+                  -D CMAKE_VERBOSE_MAKEFILE=OFF
 
         - name: Build release
           shell: cmd /C call {0}

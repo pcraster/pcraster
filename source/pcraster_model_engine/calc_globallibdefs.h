@@ -10,7 +10,7 @@
 #ifndef INCLUDED_STRING
 #include <string>
 #define INCLUDED_STRING
-#endif 
+#endif
 
 
 // PCRaster library headers.
@@ -35,7 +35,7 @@ std::string  getLibError   (void);
 PCR_DLL_FUNC(void) globalInit    ();
 PCR_DLL_FUNC(void) setRan  (size_t seed);
 PCR_DLL_FUNC(int)  parseGlobalFlag(std::string const& option);
-void         globalEnd     ();
+PCR_DLL_FUNC(void) globalEnd     ();
 
 } // namespace calc
 

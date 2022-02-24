@@ -175,6 +175,9 @@ else()
 
     list(APPEND DEVBASE_REQUIRED_BOOST_COMPONENTS
         date_time filesystem program_options timer)
+
+    add_definitions(-DBOOST_FILESYSTEM_VERSION=3)
+
 endif()
 
 set(DEVBASE_QT_REQUIRED TRUE)

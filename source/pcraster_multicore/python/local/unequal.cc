@@ -21,7 +21,11 @@ calc::Field* unequal(
          calc::Field* field_a,
          calc::Field* field_b){
 
-  return _not(equal(field_a, field_b));
+  calc::Field* eq = equal(field_a, field_b);
+  calc::Field* res = _not(eq);
+  delete eq;
+
+  return res;
 }
 
 } // namespace python

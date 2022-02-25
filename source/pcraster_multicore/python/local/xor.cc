@@ -113,7 +113,7 @@ calc::Field* _xor(
   res_field = new calc::Spatial(VS_B, calc::CRI_1, nr_cells());
   multicore_field::Spatial<UINT1> res(res_field);
 
-  fa::ExecutionPolicy epol = execution_policy();
+  const fa::ExecutionPolicy& epol = execution_policy();
 
   if(field_b->isSpatial() == false){
     const multicore_field::Spatial<UINT1> arg1(field_a);

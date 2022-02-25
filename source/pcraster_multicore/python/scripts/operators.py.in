@@ -1,9 +1,11 @@
 # This file was generated during the PCRaster build.
 # Do not edit!
+import numbers
 import sys
 try:
     import pcraster._pcraster as _pcraster
-except:
+    import pcraster as pcr
+except Exception:
     # we rely on a correct PCRaster setup
     raise ImportError("Failed to import the module '_pcraster'")
 
@@ -34,67 +36,99 @@ def pcrmcNot(self):
     return pmcop._not(self)
 
 
-def pcrmcEQ(self, field):
-    return pmcop.equal(self, field)
+def pcrmcEQ(self, arg):
+    if self.dataType() == _pcraster.Scalar and isinstance(arg, numbers.Integral):
+        arg = pcr.scalar(arg)
+    return pmcop.equal(self, arg)
 
 
-def pcrmcNE(self, field):
-    return pmcop.unequal(self, field)
+def pcrmcNE(self, arg):
+    if self.dataType() == _pcraster.Scalar and isinstance(arg, numbers.Integral):
+        arg = pcr.scalar(arg)
+    return pmcop.unequal(self, arg)
 
 
-def pcrmcGT(self, field):
-    return pmcop.greater(self, field)
+def pcrmcGT(self, arg):
+    if self.dataType() == _pcraster.Scalar and isinstance(arg, numbers.Integral):
+        arg = pcr.scalar(arg)
+    return pmcop.greater(self, arg)
 
 
-def pcrmcGE(self, field):
-    return pmcop.greater_equal(self, field)
+def pcrmcGE(self, arg):
+    if self.dataType() == _pcraster.Scalar and isinstance(arg, numbers.Integral):
+        arg = pcr.scalar(arg)
+    return pmcop.greater_equal(self, arg)
 
 
-def pcrmcLT(self, field):
-    return pmcop.less(self, field)
+def pcrmcLT(self, arg):
+    if self.dataType() == _pcraster.Scalar and isinstance(arg, numbers.Integral):
+        arg = pcr.scalar(arg)
+    return pmcop.less(self, arg)
 
 
-def pcrmcLE(self, field):
-    return pmcop.less_equal(self, field)
+def pcrmcLE(self, arg):
+    if self.dataType() == _pcraster.Scalar and isinstance(arg, numbers.Integral):
+        arg = pcr.scalar(arg)
+    return pmcop.less_equal(self, arg)
 
 
-def pcrmcAdd(self, field):
-    return pmcop.add(self, field)
+def pcrmcAdd(self, arg):
+    if isinstance(arg, numbers.Integral):
+        arg = float(arg)
+    return pmcop.add(self, arg)
 
 
 def pcrmcRAdd(self, number):
+    if isinstance(number, numbers.Integral):
+        number = float(number)
     return pmcop.add(number, self)
 
 
-def pcrmcSub(self, field):
-    return pmcop.sub(self, field)
+def pcrmcSub(self, arg):
+    if isinstance(arg, numbers.Integral):
+        arg = float(arg)
+    return pmcop.sub(self, arg)
 
 
 def pcrmcRSub(self, number):
+    if isinstance(number, numbers.Integral):
+        number = float(number)
     return pmcop.sub(number, self)
 
 
-def pcrmcMul(self, field):
-    return pmcop.mul(self, field)
+def pcrmcMul(self, arg):
+    if isinstance(arg, numbers.Integral):
+        arg = float(arg)
+    return pmcop.mul(self, arg)
 
 
 def pcrmcRMul(self, number):
+    if isinstance(number, numbers.Integral):
+        number = float(number)
     return pmcop.mul(number, self)
 
 
-def pcrmcDiv(self, field):
-    return pmcop.div(self, field)
+def pcrmcDiv(self, arg):
+    if isinstance(arg, numbers.Integral):
+        arg = float(arg)
+    return pmcop.div(self, arg)
 
 
 def pcrmcRDiv(self, number):
+    if isinstance(number, numbers.Integral):
+        number = float(number)
     return pmcop.div(number, self)
 
 
-def pcrmcPow(self, variable):
-    return pmcop.power(self, variable)
+def pcrmcPow(self, arg):
+    if isinstance(arg, numbers.Integral):
+        arg = float(arg)
+    return pmcop.power(self, arg)
 
 
 def pcrmcRPow(self, number):
+    if isinstance(number, numbers.Integral):
+        number = float(number)
     return pmcop.power(number, self)
 
 
@@ -131,8 +165,8 @@ _pcraster.Field.__pow__ = pcrmcPow
 _pcraster.Field.__rpow__ = pcrmcRPow
 
 if sys.version_info[0] < 3:
-    _pcraster.Field.__div__       = pcrmcDiv
-    _pcraster.Field.__rdiv__      = pcrmcRDiv
+    _pcraster.Field.__div__ = pcrmcDiv
+    _pcraster.Field.__rdiv__ = pcrmcRDiv
 else:
-    _pcraster.Field.__truediv__   = pcrmcDiv
-    _pcraster.Field.__rtruediv__  = pcrmcRDiv
+    _pcraster.Field.__truediv__ = pcrmcDiv
+    _pcraster.Field.__rtruediv__ = pcrmcRDiv

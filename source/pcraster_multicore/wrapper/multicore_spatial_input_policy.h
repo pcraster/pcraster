@@ -30,10 +30,10 @@ public:
     bool           is_no_data          (size_t index) const;
 
 protected:
-                   SpatialDetectNoData (SpatialDetectNoData&& other) =default;
+                   SpatialDetectNoData (SpatialDetectNoData&& other)  noexcept =default;
 
     SpatialDetectNoData&
-                   operator=           (SpatialDetectNoData&&)=default;
+                   operator=           (SpatialDetectNoData&&) noexcept =default;
 
                    SpatialDetectNoData ()=delete;
 

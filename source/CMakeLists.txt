@@ -84,6 +84,11 @@ if(PCRASTER_BUILD_MLDD)
     add_subdirectory(mldd)
 endif()
 
+# Add subprojects last as they reset CMake policies
+if(PCRASTER_BUILD_MULTICORE)
+    add_subdirectory(pcraster_multicore)
+endif()
+
 
 if(PCRASTER_INSTALL_FILES_DEVELOPER)
     install(

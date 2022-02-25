@@ -80,8 +80,7 @@ calc::Field* scalar(
   assert_equal_location_attributes(*field);
 
   if(scalar_valuescale(*field)){
-    calc::Field* res_field = field->createClone();
-    return res_field;
+    return field;
   }
 
   if(directional_valuescale(*field)){

@@ -107,7 +107,7 @@ calc::Field* spatial_safe_bool(calc::Field* argument){
 
   calc::Field* res_field = new calc::Spatial(VS_B, calc::CRI_1, nr_cells());
 
-  UINT1* cells = static_cast<UINT1*>(res_field->dest());
+  auto* cells = static_cast<UINT1*>(res_field->dest());
   std::memset(cells, cellvalue, nr_cells());
 
   return res_field;

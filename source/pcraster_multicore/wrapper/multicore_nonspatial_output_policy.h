@@ -27,11 +27,11 @@ protected:
 
                    NonspatialSetNoData (NonspatialSetNoData const&)=delete;
 
-                   NonspatialSetNoData (NonspatialSetNoData&&)=default;
+                   NonspatialSetNoData (NonspatialSetNoData&&) noexcept =default;
 
     NonspatialSetNoData&    operator=  (NonspatialSetNoData const&)=delete;
 
-    NonspatialSetNoData&    operator=  (NonspatialSetNoData&&)=default;
+    NonspatialSetNoData&    operator=  (NonspatialSetNoData&&) noexcept =default;
 
 private:
 

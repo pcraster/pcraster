@@ -227,7 +227,7 @@ calc::Field* ifthenelse(
     const multicore_field::Spatial<UINT1> arg1(condition);
     res_field = new calc::Spatial(result_vs, result_cri, nr_cells());
     multicore_field::Spatial<T> res(res_field);
-    fa::ExecutionPolicy epol = execution_policy();
+    const fa::ExecutionPolicy& epol = execution_policy();
 
     if((field_a->isSpatial()) && (field_b->isSpatial())){
       const multicore_field::Spatial<T> arg2(field_a);
@@ -297,19 +297,6 @@ calc::Field* ifthenelse(
          calc::Field* condition,
          calc::Field* field_a,
          calc::Field* field_b){
-
-  // type casting of nonspatials
-  // in case of int we can cast to scalar iff other argument is scalar
-  if(field_a->isSpatial() == false){
-    if(scalar_valuescale(*field_b)){
-      field_a = to_scalar(field_a);
-    }
-  }
-  if(field_b->isSpatial() == false){
-    if(scalar_valuescale(*field_a)){
-      field_b = to_scalar(field_b);
-    }
-  }
 
   assert_equal_location_attributes(*condition);
   assert_equal_location_attributes(*field_a);

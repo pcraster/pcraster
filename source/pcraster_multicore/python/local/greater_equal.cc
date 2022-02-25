@@ -132,7 +132,7 @@ calc::Field* greater_equal(
   res_field = new calc::Spatial(VS_B, calc::CRI_1, nr_cells());
   multicore_field::Spatial<UINT1> res(res_field);
 
-  fa::ExecutionPolicy epol = execution_policy();
+  const fa::ExecutionPolicy& epol = execution_policy();
 
   if(field_b->isSpatial() == false){
     const multicore_field::Spatial<T> arg1(field_a);
@@ -171,9 +171,6 @@ calc::Field* greater_equal(
     return detail::greater_equal<INT4>(field_a, field_b);
   }
   else if(scalar_valuescale(*field_a) == true){
-    if(field_b->isSpatial() == false){
-      field_b = to_scalar(field_b);
-    }
     assert_scalar_valuescale(*field_b, " second argument");
     return detail::greater_equal<REAL4>(field_a, field_b);
   }

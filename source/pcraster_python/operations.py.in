@@ -49,6 +49,15 @@ def ifthenelse(arg1, arg2, arg3):
     return results[0]
   except RuntimeError as exception:
     raise RuntimeError("ifthenelse: %s" % (str(exception)))
+def maptotal(arg1):
+  try:
+    if isinstance(arg1, str):
+      arg1 = _pcraster.readmap(arg1)
+    elif isinstance(arg1, int) or isinstance(arg1, float):
+      arg1 = _pcraster._newNonSpatialField(arg1)
+    return _pcraster.maptotal(arg1)
+  except RuntimeError as exception:
+    raise RuntimeError("maptotal: %s" % (str(exception)))
 def pcrne(arg1, arg2):
   try:
     if isinstance(arg1, str):
@@ -2850,20 +2859,6 @@ def kinematic(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8):
     raise RuntimeError("kinematic: %s" % (str(exception)))
 def timeoutput(arg1, arg2):
   raise RuntimeError("The timeoutput operation is not implemented. Only operations with map results are currenly supported")
-def maptotal(arg1):
-  try:
-    if isinstance(arg1, str):
-      arg1 = _pcraster.readmap(arg1)
-    elif isinstance(arg1, int) or isinstance(arg1, float):
-      arg1 = _pcraster._newNonSpatialField(arg1)
-    operator = _pcraster._major2op(_pcraster.MAJOR_CODE.OP_MAPTOTAL)
-    results = []
-    _pcraster._rte().pushField(arg1)
-    _pcraster._rte().checkAndExec(operator, 1)
-    results.append(_pcraster._rte().releasePopField())
-    return results[0]
-  except RuntimeError as exception:
-    raise RuntimeError("maptotal: %s" % (str(exception)))
 def mapand(arg1):
   try:
     if isinstance(arg1, str):

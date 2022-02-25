@@ -430,7 +430,7 @@ class Test(testcase.TestCase):
     try:
       pcraster.setclone("clone.tiff")
     except Exception as e:
-      self.assertEqual(str(e), "Cannot use 'clone.tiff'. Note: only the PCRaster file format is supported as input argument.\n")
+      self.assertEqual(str(e), "Cannot open 'clone.tiff'. Note: only the PCRaster file format is supported as input argument.\n")
       exceptionThrown = True
     self.assertTrue(exceptionThrown)
 
@@ -457,6 +457,20 @@ class Test(testcase.TestCase):
     chances2 = pcraster.readmap("argorderwithidarealimited_Chances12.map")
     result = pcraster.argorder(chances1, chances2)
     self.assertTrue(self.mapEqualsValidated(result, "argorder_Result.map"))
+
+  def test_1(self):
+    """ test maptotal """
+
+    map_dimensions = [10, 100, 500, 1000, 2000, 3000, 4000, 5000]
+    map_value = 0.1
+
+    for map_dimension in map_dimensions:
+      pcraster.setclone(map_dimension, map_dimension, 1, 0, 0)
+
+      raster = pcraster.spatial(pcraster.scalar(map_value))
+      total, valid = pcraster.cellvalue(pcraster.maptotal(raster), 1, 1)
+      self.assertAlmostEqual(total, map_value * map_dimension**2)
+
 
 
 suite = unittest.TestSuite()

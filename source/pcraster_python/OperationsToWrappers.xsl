@@ -68,15 +68,29 @@ def ifthenelse(arg1, arg2, arg3):
     return results[0]
   except RuntimeError as exception:
     raise RuntimeError("ifthenelse: %s" % (str(exception)))
+def maptotal(arg1):
+  try:
+    if isinstance(arg1, str):
+      arg1 = _pcraster.readmap(arg1)
+    elif isinstance(arg1, int) or isinstance(arg1, float):
+      arg1 = _pcraster._newNonSpatialField(arg1)
+    return _pcraster.maptotal(arg1)
+  except RuntimeError as exception:
+    raise RuntimeError("maptotal: %s" % (str(exception)))
 </xsl:text>
 <!--
     <xsl:apply-templates select="Operation[@syntax!='None'] | Operation[@name='if']" mode="py"/>
     -->
     <!--<xsl:for-each select="Operation[@syntax!='None'] | Operation[@name='if']">-->
     <xsl:for-each select="Operation[@syntax!='None']">
-      <xsl:call-template name="pythonOperation">
-        <xsl:with-param name="operation" select="."/>
-      </xsl:call-template>
+      <xsl:choose>
+        <xsl:when test="@name='maptotal'"></xsl:when>
+        <xsl:otherwise>
+          <xsl:call-template name="pythonOperation">
+            <xsl:with-param name="operation" select="."/>
+          </xsl:call-template>
+        </xsl:otherwise>
+      </xsl:choose>
     </xsl:for-each>
   </xsl:document>
 

@@ -172,7 +172,7 @@ calc::Field* readField(
   assert(driver);
   driver->read(*raster, name);
 
-  calc::Spatial* spatial = 0;
+  calc::Spatial* spatial = nullptr;
 
   switch(raster->typeId()) {
     case dal::TI_UINT1: {
@@ -378,9 +378,9 @@ void writeFilename(
 
 calc::Field* newScalarField()
 {
-  calc::Spatial* field = new calc::Spatial(
+  auto* field = new calc::Spatial(
          VS_S, calc::CRI_f, globals.cloneSpace().nrCells());
-  REAL4* cells = static_cast<REAL4*>(field->dest());
+  auto* cells = static_cast<REAL4*>(field->dest());
 
   for(size_t i = 0; i < field->nrValues(); ++i) {
     pcr::setMV(cells[i]);
@@ -672,8 +672,8 @@ calc::Field* closeAtTolerance(calc::Field const * result,
 
   size_t nrCells = globals.cloneSpace().nrCells();
 
-  calc::Spatial* field = new calc::Spatial(VS_B, calc::CRI_1, nrCells);
-  UINT1* cells = static_cast<UINT1*>(field->dest());
+  auto* field = new calc::Spatial(VS_B, calc::CRI_1, nrCells);
+  auto* cells = static_cast<UINT1*>(field->dest());
 
   for(size_t i = 0; i < nrCells; ++i) {
     cells[i] = 0;
@@ -744,7 +744,7 @@ void check_csftype(std::string const& filename){
 
   if(!raster) {
     std::ostringstream errMsg;
-    errMsg << "Cannot use '"
+    errMsg << "Cannot open '"
            << filename
            << "'. Note: only the PCRaster file format is supported as input argument.\n";
     throw pybind11::type_error(errMsg.str());
@@ -852,7 +852,7 @@ pybind11::object copyField(
 
 calc::Field* deepCopyField(
           calc::Field const & field,
-          pybind11::dict /* memo */)
+          const pybind11::dict& /* memo */)
 {
   calc::Field* spatial = nullptr;
 
@@ -866,6 +866,39 @@ calc::Field* deepCopyField(
   }
 
   return spatial;
+}
+
+
+calc::Field* maptotal(calc::Field const & field)
+{
+  if(field.vs() != VS_S){
+    std::ostringstream errMsg;
+    errMsg << "argument nr. 1 of function 'maptotal': type is "
+           << field.vs()
+           << ", legal type is scalar";
+    throw std::runtime_error(errMsg.str());
+  }
+
+  if(field.isSpatial() == false){
+    throw std::runtime_error("maptotal: argument nr. 1 of function 'maptotal' is non-spatial only spatial allowed");
+  }
+
+  calc::Field* result = new calc::NonSpatial(VS_S);
+  auto* result_cell = static_cast<REAL4*>(result->dest());
+
+  size_t nrCells = globals.cloneSpace().nrCells();
+  double maptotal = 0.0;
+  double cellvalue = 0.0;
+
+  for(size_t i = 0; i < nrCells; ++i) {
+    field.getCell(cellvalue, i);
+    if(!pcr::isMV(cellvalue)){
+        maptotal += cellvalue;
+    }
+  }
+  result_cell[0] = static_cast<REAL4>(maptotal);
+
+  return result;
 }
 
 } // namespace python
@@ -927,7 +960,7 @@ PYBIND11_MODULE(_pcraster, module)
   module.def("_rte", &pp::rte, return_value_policy::reference);
 
   module.def("setclone", &pp::setCloneSpaceFromFilename, R"(
-   Set the clone properties from an existing raster.
+   Set the clone properties from an existing raster. Only the PCRaster file format is supported as input argument.
 
    map -- Filename of clone map.
     )"
@@ -1212,4 +1245,6 @@ PYBIND11_MODULE(_pcraster, module)
 .. versionadded:: 4.3
     )"
   );
+
+  module.def("maptotal", &pp::maptotal);
 }

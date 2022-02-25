@@ -263,13 +263,6 @@ if(PCRASTER_BUILD_TEST)
             ${Python3_EXECUTABLE} "-c" "import pcraster;from osgeo import gdal,ogr,osr;raster = gdal.OpenEx('abs_Expr.map');t = raster.GetGeoTransform();srs = osr.SpatialReference();srs.ImportFromEPSG(4326)"
     )
 
-    set_tests_properties(python_pcrcalcpy_gdalimport_test
-        PROPERTIES
-            ENVIRONMENT
-                "PYTHONPATH=$<TARGET_FILE_DIR:pcrcalc>"
-    )
-
-
 # OLS: clean up the comments when refacoring for the new windows build
 # I leave them here just as info in case of troubles...
 
@@ -296,12 +289,24 @@ if(PCRASTER_BUILD_TEST)
                 ENVIRONMENT
                     "PATH=${ENV_PATH}\\;$<TARGET_FILE_DIR:pcrcalc>;PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}\\;$<TARGET_FILE_DIR:pcrcalc>"
         )
+
+        set_tests_properties(python_pcrcalcpy_gdalimport_test
+            PROPERTIES
+                ENVIRONMENT
+                    "PATH=${ENV_PATH}\\;$<TARGET_FILE_DIR:pcrcalc>;PYTHONPATH=$<TARGET_FILE_DIR:pcrcalc>"
+        )
     else()
         set_tests_properties(python_pcrcalcpy_pythonunittest
             PROPERTIES
                 ENVIRONMENT
                     # Also set a non-accessible path for default user (gh134)
                     "PATH=/root/bin:$ENV{PATH};PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:$<TARGET_FILE_DIR:pcrcalc>"
+        )
+
+        set_tests_properties(python_pcrcalcpy_gdalimport_test
+            PROPERTIES
+                ENVIRONMENT
+                    "PYTHONPATH=$<TARGET_FILE_DIR:pcrcalc>"
         )
     endif()
 

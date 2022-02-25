@@ -77,7 +77,7 @@ jobs:
           shell: cmd /C call {0}
           run: |
               "${{ matrix.config.environment_script }}" && ^
-              ctest --test-dir build --output-on-failure --build-config Release
+              ctest --verbose --test-dir build --output-on-failure --build-config Release
 
         - name: Build debug
           shell: cmd /C call {0}

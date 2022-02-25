@@ -469,7 +469,7 @@ class Test(testcase.TestCase):
 
       raster = pcraster.spatial(pcraster.scalar(map_value))
       total, valid = pcraster.cellvalue(pcraster.maptotal(raster), 1, 1)
-      self.assertEqual(total, map_value * map_dimension ** 2, f"{total} {map_dimension ** 2}")
+      self.assertAlmostEqual(total, map_value * map_dimension**2)
 
 
 

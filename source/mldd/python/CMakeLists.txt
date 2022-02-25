@@ -93,9 +93,20 @@ if(PCRASTER_BUILD_TEST)
             ${Python3_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test.py
     )
 
-    set_tests_properties(mldd_python_unittests
-        PROPERTIES
-            ENVIRONMENT
-                "PYTHONPATH=$<TARGET_FILE_DIR:pcrcalc>"
-    )
+    if(WIN32)
+        set(ENV_PATH $ENV{PATH})
+        string(REPLACE ";" "\\;" ENV_PATH "${ENV_PATH}")
+
+        set_tests_properties(mldd_python_unittests
+            PROPERTIES
+                ENVIRONMENT
+                    "PATH=${ENV_PATH}\\;$<TARGET_FILE_DIR:pcrcalc>;PYTHONPATH=$<TARGET_FILE_DIR:pcrcalc>"
+        )
+    else()
+        set_tests_properties(mldd_python_unittests
+            PROPERTIES
+                ENVIRONMENT
+                    "PYTHONPATH=$<TARGET_FILE_DIR:pcrcalc>"
+        )
+    endif()
 endif()

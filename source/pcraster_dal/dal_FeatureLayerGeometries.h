@@ -21,6 +21,7 @@
   #include <iostream>
   #endif
 #endif
+#include <boost/geometry/strategies/strategies.hpp>
 #include <boost/geometry/index/rtree.hpp>
 
 // Project headers.

@@ -39,6 +39,8 @@
 
 #include "pcraster_version.h"
 
+#include <memory>
+
 
 /*!
   \file

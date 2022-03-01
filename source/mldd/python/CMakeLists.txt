@@ -10,7 +10,7 @@ target_link_libraries(_pcraster_mldd_python
     PRIVATE
         pcraster::mldd
         pcraster::model_engine
-        Python3::Python
+        $<IF:$<CXX_COMPILER_ID:GNU>,Python3::Python,Python3::Module>
 )
 
 configure_python_extension(_pcraster_mldd_python

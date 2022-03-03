@@ -58,10 +58,16 @@ set(MODFLOW_FORTRAN_SOURCES
     lmt8.f
 )
 
+
+set(_NATIVE_FLAGS "")
+if(PCRASTER_WITH_FLAGS_NATIVE)
+    set(_NATIVE_FLAGS "-march=native -mtune=native")
+endif()
+
 foreach(source in ${MODFLOW_FORTRAN_SOURCES})
   set_source_files_properties(${source} PROPERTIES
     COMPILE_FLAGS
-      "-fbacktrace -ffpe-summary=overflow"
+      "-fbacktrace -ffpe-summary=overflow ${_NATIVE_FLAGS}"
   )
 endforeach()
 

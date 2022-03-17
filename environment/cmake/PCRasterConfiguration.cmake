@@ -226,6 +226,10 @@ endif()
 if(PCRASTER_BUILD_DOCUMENTATION)
     find_package(Doxygen REQUIRED)
     include(SphinxDoc)
+    if(NOT SPHINX_BUILD_EXECUTABLE OR NOT SPHINX_APIDOC_EXECUTABLE)
+        message(FATAL_ERROR "sphinx-build not found")
+    endif()
+
     set(SPHINX_HTML_THEME "pyramid")
 endif()
 

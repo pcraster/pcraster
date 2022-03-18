@@ -336,7 +336,8 @@ generate_export_header(pcraster_model_engine
 
 set_target_properties(pcraster_model_engine
     PROPERTIES
-        SOVERSION ${${PROJECT_NAME}_MAJOR_VERSION}.${${PROJECT_NAME}_MINOR_VERSION}.${${PROJECT_NAME}_PATCH_VERSION}
+        SOVERSION ${${PROJECT_NAME}_MAJOR_VERSION}
+        VERSION ${${PROJECT_NAME}_MAJOR_VERSION}.${${PROJECT_NAME}_MINOR_VERSION}.${${PROJECT_NAME}_PATCH_VERSION}
 )
 
 target_include_directories(pcraster_model_engine

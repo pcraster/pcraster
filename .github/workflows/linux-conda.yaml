@@ -1,0 +1,40 @@
+name: Linux Conda package
+
+on: [push]
+
+jobs:
+    build:
+
+        strategy:
+            matrix:
+                os: ["ubuntu-20.04"]
+                python-version: ["3.9"]
+            fail-fast: false
+
+        runs-on: ${{ matrix.os }}
+
+        name: ${{ matrix.os }} - ${{ matrix.python-version }}
+
+        steps:
+
+        - name: Configure system
+          run: |
+              sudo apt install mesa-common-dev libglu1-mesa-dev libgl1-mesa-glx
+
+        - name: Checkout PCRaster
+          uses: actions/checkout@v2
+
+        - uses: conda-incubator/setup-miniconda@v2
+          with:
+              auto-update-conda: false
+              python-version: ${{ matrix.python-version }}
+              channels: conda-forge
+              mamba-version: "*"
+        - shell: bash -l {0}
+          run: |
+              mamba install boa -c conda-forge
+
+        - name: Build
+          shell: bash -l {0}
+          run: |
+              conda mambabuild environment/configuration/receipe --channel conda-forge --override-channels

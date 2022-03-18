@@ -50,7 +50,7 @@ size_t calc::bytesPerCell(VS vs) {
 //! maps a calc-internal vs type to a csf vs types
 /*! \param vs must hold a single vs, not a set
  */
-PCR_DLL_FUNC(CSF_VS) calc::vs2CsfVs(VS vs)
+PCR_ME_EXPORT CSF_VS calc::vs2CsfVs(VS vs)
 {
   const CSF_VS csfVs[] = { VS_BOOLEAN,VS_NOMINAL, VS_ORDINAL,
                          VS_SCALAR, VS_DIRECTION, VS_LDD};
@@ -69,7 +69,7 @@ PCR_DLL_FUNC(CSF_VS) calc::vs2CsfVs(VS vs)
 //! maps a csf vs to a pcrcalc-internal vs type
 /*! \throws com::Exception if \a vs is VS_NOTDETERMINED
  */
-PCR_DLL_FUNC(VS) calc::csfVs2vs(
+PCR_ME_EXPORT VS calc::csfVs2vs(
   CSF_VS vs)
 {
   switch(vs)

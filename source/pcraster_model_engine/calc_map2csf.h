@@ -5,10 +5,7 @@
 #define INCLUDED_CSFTYPES
 #endif
 
-#ifndef INCLUDED_PCRDLL
-#include "pcrdll.h"
-#define INCLUDED_PCRDLL
-#endif
+#include "pcraster_model_engine_export.h"
 
 #ifndef INCLUDED_CALC_TYPES
 #include "calc_types.h"
@@ -21,9 +18,9 @@
 #endif
 
 namespace calc {
-PCR_DLL_FUNC(VS) csfVs2vs(CSF_VS vs);
+PCR_ME_EXPORT VS csfVs2vs(CSF_VS vs);
 CSF_CR biggestCellRepr(VS vsSet);
-PCR_DLL_FUNC(CSF_VS) vs2CsfVs(VS vs);
+PCR_ME_EXPORT CSF_VS vs2CsfVs(VS vs);
 size_t bytesPerCell(VS vs);
 
 }

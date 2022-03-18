@@ -150,7 +150,7 @@ int  nrInSet(VS set) { return NRBITSET_TYPE(set,VS); }
  * \bug Parser::sign_expr() does not support negative nominal or
  *      ordinals, shift and shift0 could be nominal otherwise
  */
-PCR_DLL_FUNC(VS) vsOfNumber(double value)
+PCR_ME_EXPORT VS vsOfNumber(double value)
 {
   int set = (int)VS_FIELD;
   if ( value >= (double)LONG_MIN && value <= (double)LONG_MAX )

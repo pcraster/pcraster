@@ -230,7 +230,7 @@ int calc::CmdLineCalc::execute()
   return 0;
 }
 
-extern "C" PCR_DLL_FUNC(int) calc::executeCommandLine(int argc, char**argv)
+extern "C" PCR_ME_EXPORT int calc::executeCommandLine(int argc, char**argv)
 {
   CmdLineCalc c(argc,argv);
   return c.run();

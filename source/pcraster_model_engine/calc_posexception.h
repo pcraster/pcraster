@@ -12,10 +12,7 @@
 #define INCLUDED_COM_EXCEPTION
 #endif
 
-#ifndef INCLUDED_PCRDLL
-#include "pcrdll.h"
-#define INCLUDED_PCRDLL
-#endif
+#include "pcraster_model_engine_export.h"
 
 // Module headers.
 
@@ -41,7 +38,7 @@ namespace calc {
 /*! all ctors do create an understandable com::Exception object,
  *  while information can be duplicated here for even better messages
  */
-class PCR_DLL_CLASS PosException : public com::Exception
+class PCR_ME_EXPORT PosException : public com::Exception
 {
 
 private:

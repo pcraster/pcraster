@@ -301,28 +301,28 @@ static Pcrcalc* createScriptCommon(PcrcalcCreate const& pc)
   return ps;
 }
 
-extern "C" PCR_DLL_FUNC(Pcrcalc*) pcr_createScriptFromXMLFile(
+extern "C" PCR_ME_EXPORT Pcrcalc* pcr_createScriptFromXMLFile(
     const char* fileName)
 {
   return createScriptCommon(PcrcalcCreate(true,true,fileName));
 }
 
-extern "C" PCR_DLL_FUNC(PcrScript*) pcr_createScriptFromTextFile(
+extern "C" PCR_ME_EXPORT PcrScript* pcr_createScriptFromTextFile(
     const char* scriptContents)
 {
   return createScriptCommon(PcrcalcCreate(true,false,scriptContents));
 }
-extern "C" PCR_DLL_FUNC(PcrScript*) pcr_createScriptFromXMLString(const char* scriptContents)
+extern "C" PCR_ME_EXPORT PcrScript* pcr_createScriptFromXMLString(const char* scriptContents)
 {
   return createScriptCommon(PcrcalcCreate(false,true,scriptContents));
 }
 
-extern "C" PCR_DLL_FUNC(PcrScript*) pcr_createScriptFromTextString(const char* scriptContents)
+extern "C" PCR_ME_EXPORT PcrScript* pcr_createScriptFromTextString(const char* scriptContents)
 {
   return createScriptCommon(PcrcalcCreate(false,false,scriptContents));
 }
 
-extern "C" PCR_DLL_FUNC(const char *) pcr_ScriptXMLReflection(
+extern "C" PCR_ME_EXPORT const char * pcr_ScriptXMLReflection(
     PcrScript *script)
 {
   if (!script)
@@ -330,13 +330,13 @@ extern "C" PCR_DLL_FUNC(const char *) pcr_ScriptXMLReflection(
   return script->pcr_ScriptXMLReflection();
 }
 
-extern "C" PCR_DLL_FUNC(void) pcr_ScriptExecute(Pcrcalc *script)
+extern "C" PCR_ME_EXPORT void pcr_ScriptExecute(Pcrcalc *script)
 {
   if (script)
     script->pcr_ScriptExecute();
 }
 
-extern "C" PCR_DLL_FUNC(int) pcr_ScriptExecuteInitialStepMemory(
+extern "C" PCR_ME_EXPORT int pcr_ScriptExecuteInitialStepMemory(
     PcrScript *script,
     DataTransferArray dataTransferArray)
 {
@@ -345,7 +345,7 @@ extern "C" PCR_DLL_FUNC(int) pcr_ScriptExecuteInitialStepMemory(
   return script->pcr_ScriptExecuteInitialStepMemory(dataTransferArray);
 }
 
-extern "C" PCR_DLL_FUNC(int) pcr_ScriptExecuteNextTimeStepMemory(
+extern "C" PCR_ME_EXPORT int pcr_ScriptExecuteNextTimeStepMemory(
     PcrScript *script,
     DataTransferArray dataTransferArray)
 {
@@ -364,7 +364,7 @@ extern "C" PCR_DLL_FUNC(int) pcr_ScriptReleaseAllAllocatedMemory(
 }
 */
 
-extern "C" PCR_DLL_FUNC(int) pcr_ScriptExecuteFinish(
+extern "C" PCR_ME_EXPORT int pcr_ScriptExecuteFinish(
     PcrScript *script)
 {
   if (!script)
@@ -372,21 +372,21 @@ extern "C" PCR_DLL_FUNC(int) pcr_ScriptExecuteFinish(
   return script->pcr_ScriptExecuteFinish();
 }
 
-extern "C" PCR_DLL_FUNC(int) pcr_ScriptError(Pcrcalc *script)
+extern "C" PCR_ME_EXPORT int pcr_ScriptError(Pcrcalc *script)
 {
   if (!script)
     return -1; // BAD!
   return script->errorMessage().size();
 }
 
-extern "C" PCR_DLL_FUNC(const  char*) pcr_ScriptErrorMessage(Pcrcalc *script)
+extern "C" PCR_ME_EXPORT const  char* pcr_ScriptErrorMessage(Pcrcalc *script)
 {
   if (!script)
     return "Error: called pcr_ScriptErrorMessage with 0 ptr";
  return script->errorMessage().c_str();
 }
 
-extern "C" PCR_DLL_FUNC(void) pcr_destroyScript(Pcrcalc *script)
+extern "C" PCR_ME_EXPORT void pcr_destroyScript(Pcrcalc *script)
 {
   delete script;
 }

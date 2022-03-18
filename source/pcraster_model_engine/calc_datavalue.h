@@ -11,10 +11,7 @@
 // Library headers.
 
 // PCRaster library headers.
-#ifndef INCLUDED_PCRDLL
-#include "pcrdll.h"
-#define INCLUDED_PCRDLL
-#endif
+#include "pcraster_model_engine_export.h"
 
 // Module headers.
 #ifndef INCLUDED_CALC_OVS
@@ -45,7 +42,7 @@ namespace calc {
  * be deleted using deleteFromPcrme() or deleteAlways(). DVAutoPtr is meant as
  * replacement of std::auto_ptr<>  for DataValue-based objects.
  */
-class PCR_DLL_CLASS DataValue
+class PCR_ME_EXPORT DataValue
 {
 
 protected:

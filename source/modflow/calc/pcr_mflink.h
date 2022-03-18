@@ -6,6 +6,8 @@
 #define INCLUDED_STDDEFX
 #endif
 
+#include "pcraster_modflow_export.h"
+
 // Library headers.
 #ifndef INCLUDED_STRING
 #include <string>
@@ -59,7 +61,7 @@
 
 static std::string xmlResultBuffer;
 
-class PCR_DLL_CLASS ModflowLink {
+class PCRMF_EXPORT ModflowLink {
   private:
     PCRModflow *d_pcrmf;
 
@@ -189,7 +191,7 @@ class PCR_DLL_CLASS ModflowLink {
     }
     else if(methodName == "getLowerFace"){
       i->second->getLowerFace(linkInTransferArray);
-    }    
+    }
     else{
       std::cout << "Programming error: Can not assign " << methodName << std::endl;
     }
@@ -248,9 +250,9 @@ ModflowLink::Objects ModflowLink::objects;
 
 
 
-PCR_DLL_FUNC (const char *) pcr_LinkInExecute(const char *xml,
+PCRMF_EXPORT const char * pcr_LinkInExecute(const char *xml,
                                               LinkInTransferArray linkInTransferArray){
-  
+
   try {
     pcrxml::LinkInExecuteInput l(strToLinkInExecuteInput(xml));
 
@@ -277,7 +279,7 @@ PCR_DLL_FUNC (const char *) pcr_LinkInExecute(const char *xml,
     std::cout << e.what() << std::endl;
     xmlResultBuffer= wrapToLinkInExecuteResult(e.what());
     return xmlResultBuffer.c_str();
-  } 
+  }
   catch(...) {
     xmlResultBuffer= wrapToLinkInExecuteResult("unknown exception");
     std::cerr << "unknown exception" << std::endl;
@@ -288,7 +290,7 @@ PCR_DLL_FUNC (const char *) pcr_LinkInExecute(const char *xml,
 }
 
 
-PCR_DLL_FUNC (const char *) pcr_LinkInCheck(const char *xml){
+PCRMF_EXPORT const char * pcr_LinkInCheck(const char *xml){
   pcrxml::LinkInCheckResult returnResult;
   try {
     pcrxml::LinkInCheckInput  input(strToLinkInCheckInput(xml));
@@ -309,7 +311,7 @@ PCR_DLL_FUNC (const char *) pcr_LinkInCheck(const char *xml){
   catch(std::exception const& e) {
     std::cout << e.what() << std::endl;
     returnResult.error(e.what());
-  } 
+  }
   catch(...) {
     returnResult.error("unknown exception");
   }

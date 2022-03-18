@@ -18,10 +18,8 @@
 #include "appargs.h"
 #define INCLUDED_APPARGS
 #endif
-#ifndef  INCLUDED_PCRDLL
-#include "pcrdll.h"
-#define  INCLUDED_PCRDLL
-#endif
+
+#include "pcraster_model_engine_export.h"
 
 #ifdef WIN32
 # ifndef INCLUDED_COM_WIN32
@@ -91,7 +89,7 @@ static char *errStr(0);
 
 
 //! 0 if last call OF ANY CALLS LISTED BELOW was no error
-extern "C" PCR_DLL_EXP const char  *pcrCalcErrorResult()
+extern "C" PCR_ME_EXPORT const char  *pcrCalcErrorResult()
 {
  return errStr;
 }
@@ -148,7 +146,7 @@ class ArcViewExtCheckDataClass: public DllCalc
    \param name must point to buffer with minimum size of 2048
    \return the absolute path to a map or stack directory in name
  */
-extern "C" PCR_DLL_EXP void pcrGetArcViewCheckDataItem(
+extern "C" PCR_ME_EXPORT void pcrGetArcViewCheckDataItem(
     int   itemNr,
     int  *isStack,
     char *name)
@@ -167,7 +165,7 @@ extern "C" PCR_DLL_EXP void pcrGetArcViewCheckDataItem(
     in case of error, pcrCalcErrorResult will return the message
    \returns -1 in case of error, nr of esri out grid names otherwise
  */
-extern "C" PCR_DLL_EXP int pcrArcViewScriptVerify(
+extern "C" PCR_ME_EXPORT int pcrArcViewScriptVerify(
   const char *scriptName)
 {
  initErrorResult();
@@ -221,7 +219,7 @@ class ArcViewExtRun : public DllCalc
    \returns exit code as defined by arguments
 
  */
-extern "C" PCR_DLL_EXP int pcrCalcCmd(
+extern "C" PCR_ME_EXPORT int pcrCalcCmd(
   const char *cmdString)
 {
  calc::ArcViewExtRun dc(cmdString);

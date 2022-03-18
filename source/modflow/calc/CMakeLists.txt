@@ -16,6 +16,16 @@ target_link_libraries(pcraster_modflow
         pcraster::pcrmf_calc
 )
 
+target_include_directories(pcraster_modflow
+    PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
+)
+
+generate_export_header(pcraster_modflow
+    BASE_NAME pcraster_modflow
+    EXPORT_MACRO_NAME PCRMF_EXPORT
+)
+
 add_custom_command(
     TARGET
         pcraster_modflow

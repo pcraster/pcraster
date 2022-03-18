@@ -15,10 +15,7 @@
 #endif
 
 // PCRaster library headers.
-#ifndef INCLUDED_PCRDLL
-#include "pcrdll.h"
-#define INCLUDED_PCRDLL
-#endif
+#include "pcraster_model_engine_export.h"
 
 // Module headers.
 #ifndef INCLUDED_CALC_DATAVALUE
@@ -42,7 +39,7 @@ namespace calc {
 /*!
    typically a filename
 */
-class PCR_DLL_CLASS DataStorageId: public DataValue
+class PCR_ME_EXPORT DataStorageId: public DataValue
 {
 
   std::string      d_id;

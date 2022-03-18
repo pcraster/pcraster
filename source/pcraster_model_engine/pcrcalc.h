@@ -1,10 +1,7 @@
 #ifndef INCLUDED_PCR_PCRCALC
 #define INCLUDED_PCR_PCRCALC
 
-#ifndef INCLUDED_PCRDLL
-#include "pcrdll.h"
-#define INCLUDED_PCRDLL
-#endif
+#include "pcraster_model_engine_export.h"
 
 /*
  * All rights reserved
@@ -132,14 +129,14 @@ typedef void *DataTransferArray[];
  *  pcr_createScriptFromTextFile allocates some internal memory to set up error handling.
  *  No other actions, such as checking if the fileName exists or the script has a valid syntax,
  *  are taken here. All these actions are deferred
- *  to a next call that needs the script such as pcr_ScriptExecute() 
+ *  to a next call that needs the script such as pcr_ScriptExecute()
  *  or pcr_ScriptXMLReflection().
  *
  * \param fileName  C-string (Ansi 1-byte char set) with name of script file.
  *
  */
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
- PCR_DLL_FUNC(PcrScript*)
+ PCR_ME_EXPORT PcrScript*
 #else
  PcrScript*
 #endif
@@ -150,13 +147,13 @@ typedef void *DataTransferArray[];
  *  pcr_createScriptFromXMLFile allocates some internal memory to set up error handling.
  *  No other actions, such as checking if the file exists or the script has a valid syntax,
  *  are taken here. All these actions are deferred
- *  to a next call that needs the script such as pcr_ScriptExecute() 
+ *  to a next call that needs the script such as pcr_ScriptExecute()
  *  or pcr_ScriptXMLReflection().
  *
  * \param fileName  C-string (Ansi 1-byte char set) with name of script file
  */
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
- PCR_DLL_FUNC(PcrScript*)
+ PCR_ME_EXPORT PcrScript*
 #else
  PcrScript*
 #endif
@@ -167,13 +164,13 @@ typedef void *DataTransferArray[];
  *  pcr_createScriptFromTextFile allocates some internal memory to set up error handling.
  *  No other actions, such as checking if the script has a valid syntax,
  *  are taken here. Al these actions are deferred
- *  to a next call that needs the script such as pcr_ScriptExecute() 
+ *  to a next call that needs the script such as pcr_ScriptExecute()
  *  or pcr_ScriptXMLReflection().
  *
  * \param scriptContents  C-string (Ansi 1-byte char set) with script contents
  */
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
- PCR_DLL_FUNC(PcrScript*)
+ PCR_ME_EXPORT PcrScript*
 #else
  PcrScript*
 #endif
@@ -184,13 +181,13 @@ typedef void *DataTransferArray[];
  *  pcr_createScriptFromXMLString allocates some internal memory to set up error handling.
  *  No other actions, such as checking if the script has a valid syntax,
  *  are taken here. Al these actions are deferred
- *  to a next call that needs the script such as pcr_ScriptExecute() 
+ *  to a next call that needs the script such as pcr_ScriptExecute()
  *  or pcr_ScriptXMLReflection().
  *
  * \param xmlString  C-string (Ansi 1-byte char set) with script contents
  */
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
- PCR_DLL_FUNC(PcrScript*)
+ PCR_ME_EXPORT PcrScript*
 #else
  PcrScript*
 #endif
@@ -201,7 +198,7 @@ typedef void *DataTransferArray[];
  *  cleans up all dynamic data kept for \a script
  */
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
- PCR_DLL_FUNC(void)
+ PCR_ME_EXPORT void
 #else
  void
 #endif
@@ -217,7 +214,7 @@ typedef void *DataTransferArray[];
  *             pcr_ScriptErrorMessage()
  */
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
- PCR_DLL_FUNC(int)
+ PCR_ME_EXPORT int
 #else
  int
 #endif
@@ -231,7 +228,7 @@ typedef void *DataTransferArray[];
  * \returns a C-string (Ansi 1-byte char set), empty string if no error present for \a script, otherwise the error message.
  */
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
- PCR_DLL_FUNC(const char*)
+ PCR_ME_EXPORT const char*
 #else
  const char*
 #endif
@@ -245,7 +242,7 @@ typedef void *DataTransferArray[];
  * \returns 0 in case of error, C-string (Ansi 1-byte char set) with document otherwise.
  */
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
- PCR_DLL_FUNC(const char*)
+ PCR_ME_EXPORT const char*
 #else
  const char*
 #endif
@@ -257,7 +254,7 @@ typedef void *DataTransferArray[];
  * to the pcr_ScriptExecuteInitialStepMemory() and pcr_ScriptExecuteNextTimeStepMemory() setup.
  */
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
- PCR_DLL_FUNC(void)
+ PCR_ME_EXPORT void
 #else
  void
 #endif
@@ -304,7 +301,7 @@ typedef void *DataTransferArray[];
     \endverbatim
  */
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
- PCR_DLL_FUNC(int)
+ PCR_ME_EXPORT int
 #else
   int
 #endif
@@ -327,7 +324,7 @@ typedef void *DataTransferArray[];
      .
  */
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
- PCR_DLL_FUNC(int)
+ PCR_ME_EXPORT int
 #else
  int
 #endif
@@ -349,7 +346,7 @@ typedef void *DataTransferArray[];
  * not know the number of timesteps itself.
  */
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
- PCR_DLL_FUNC(int)
+ PCR_ME_EXPORT int
 #else
  int
 #endif

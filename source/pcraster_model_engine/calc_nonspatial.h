@@ -6,10 +6,7 @@
 #define INCLUDED_CSFTYPES
 #endif
 
-#ifndef INCLUDED_PCRDLL
-#include "pcrdll.h"
-#define INCLUDED_PCRDLL
-#endif
+#include "pcraster_model_engine_export.h"
 
 #ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
@@ -19,7 +16,7 @@
 namespace calc {
 
 //! holds data for a non-spatial value
-class PCR_DLL_CLASS NonSpatial : public Field {
+class PCR_ME_EXPORT NonSpatial : public Field {
 
   union {
   REAL4  d_valS[1];
@@ -43,7 +40,7 @@ class PCR_DLL_CLASS NonSpatial : public Field {
 
   //! initialization with a value
   template<typename CR>
-  PCR_DLL_CLASS NonSpatial(VS vs, const CR& value);
+  PCR_ME_EXPORT NonSpatial(VS vs, const CR& value);
 
   ~NonSpatial() override;
 

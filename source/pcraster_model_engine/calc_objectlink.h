@@ -19,10 +19,7 @@
 #endif
 
 // PCRaster library headers.
-#ifndef INCLUDED_PCRDLL
-#include "pcrdll.h"
-#define INCLUDED_PCRDLL
-#endif
+#include "pcraster_model_engine_export.h"
 
 // Module headers.
 #ifndef INCLUDED_CALC_DATAVALUE
@@ -54,7 +51,7 @@ namespace calc {
 
 
 //! external interface
-class PCR_DLL_CLASS ObjectLink : public DataValue
+class PCR_ME_EXPORT ObjectLink : public DataValue
 {
 
 private:

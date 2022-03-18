@@ -31,10 +31,7 @@
 #define INCLUDED_PCRDATATYPE
 #endif
 
-#ifndef INCLUDED_PCRDLL
-#include "pcrdll.h"
-#define INCLUDED_PCRDLL
-#endif
+#include "pcraster_model_engine_export.h"
 
 // Module headers.
 #ifndef INCLUDED_CALC_OBJECTLINKRUNTIME
@@ -72,7 +69,7 @@ struct ObjectLinkMethod {
 #endif
 
 //! describes interface from xml spec
-class PCR_DLL_CLASS ObjectLinkMeta
+class PCR_ME_EXPORT ObjectLinkMeta
 {
 public:
   typedef std::map<std::string, ObjectLinkMethod> MethodMap;

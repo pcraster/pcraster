@@ -6,10 +6,9 @@ Do not edit, generated from devbin/calcLibWrap
 #include "stddefx.h"
 #define INCLUDED_STDDEFX
 #endif
-#ifndef INCLUDED_PCRDLL
-#include "pcrdll.h"
-#define INCLUDED_PCRDLL
-#endif
+
+#include "pcraster_model_engine_export.h"
+
 #ifndef INCLUDED_CALC_OBJECTLINKMETA
 #include "calc_objectlinkmeta.h"
 #define INCLUDED_CALC_OBJECTLINKMETA
@@ -29,7 +28,7 @@ namespace calc {
                    const std::string&  methodName,
                    const std::vector<Field *>& fields)
             {
-             
+
 
        if(methodName == "setDem") {
          const REAL4 *  a0;
@@ -95,10 +94,10 @@ tieProxyArgument(a4,fields.at(4));
               return false;
             }
 
-            extern "C" PCR_DLL_C ObjectLinkMeta getMeta() {
+            extern "C" PCR_ME_EXPORT ObjectLinkMeta getMeta() {
               ObjectLinkMeta olm("CalcLibDemoObjectLink",
               ObjectLinkProxy<calc::CalcLibDemoObjectLink>::create);
-            
+
 olm.add("setDem");
 olm.pushBack("setDem",false,VS_S,ST_SPATIAL);
 olm.add("testOrder");

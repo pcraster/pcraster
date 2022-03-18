@@ -317,6 +317,7 @@ target_compile_definitions(pcraster_model_engine_objects
         YY_NO_UNISTD_H
         YY_NEVER_INTERACTIVE
         PCR_DAL_SHARED_LINK
+        pcraster_model_engine_EXPORTS
 
         # DO NOT DO _HAS_ITERATOR_DEBUGGING=0
         # see bugzilla 178
@@ -327,6 +328,11 @@ add_library(pcraster_model_engine SHARED
 )
 
 add_library(pcraster::model_engine ALIAS pcraster_model_engine)
+
+generate_export_header(pcraster_model_engine
+    BASE_NAME pcraster_model_engine
+    EXPORT_MACRO_NAME PCR_ME_EXPORT
+)
 
 set_target_properties(pcraster_model_engine
     PROPERTIES
@@ -379,57 +385,67 @@ if(PCRASTER_BUILD_TEST)
             pcraster::xsd
     )
 
+    set(model_engine_test_sources
+        calc_areamaptest.cc
+        calc_areaoperationstest.cc
+        calc_argordertest.cc
+        calc_astpartest.cc
+        calc_astpathtest.cc
+        calc_astsymboltabletest.cc
+        calc_averagemaptest.cc
+        calc_bindingtabletest.cc
+        calc_buildtypesvisitortest.cc
+        calc_cfgcreatortest.cc
+        calc_clientinterfacetest.cc
+        calc_cmdlinecalctest.cc
+        calc_datatypetest.cc
+        calc_dimensionparsertest.cc
+        calc_dynamicwavetest.cc
+        calc_executortest.cc
+        calc_fieldtest.cc
+        calc_findsymboltest.cc
+        calc_fopointarraytest.cc
+        calc_iocsffieldstrategytest.cc
+        # calc_ldddownstreamtest         # OLS 05/2016 this one was not in this list before
+        calc_lddgraphtest.cc
+        calc_lexinputtest.cc
+        calc_lookuptabletest.cc
+        calc_manualexampletestertest.cc
+        calc_manualexamplestest.cc
+        calc_maskpackingtest.cc
+        # calc_modelbuildertest          # OLS 05/2016 this one is empty
+        calc_nonspatialtest.cc
+        calc_objectlinkmetatest.cc
+        calc_objectlinktest.cc
+        calc_operatortest.cc
+        calc_opimpltest.cc
+        calc_parsertest.cc
+        calc_pointcodeblockdlltest.cc
+        calc_pointcodeblockreplacertest.cc
+        calc_reporttest.cc
+        calc_reportvisitortest.cc
+        calc_rundirectorytest.cc
+        calc_runtimeenginetest.cc
+        calc_runtimeenvtest.cc
+        calc_spatialtest.cc
+        calc_tssoutputvaluetest.cc
+        calc_usedefanalyzertest.cc
+        calc_vfieldtest.cc
+        calc_xmlreflectiontest.cc
+    )
+    foreach(source in ${model_engine_test_sources})
+        set_source_files_properties(${source} PROPERTIES
+            COMPILE_FLAGS
+                "-Dpcraster_model_engine_EXPORTS"
+        )
+    endforeach()
+
     add_unit_tests(
         SCOPE model_engine
         NAMES
             #calc_test
             # unit tests
-            calc_areamaptest.cc
-            calc_areaoperationstest.cc
-            calc_argordertest.cc
-            calc_astpartest.cc
-            calc_astpathtest.cc
-            calc_astsymboltabletest.cc
-            calc_averagemaptest.cc
-            calc_bindingtabletest.cc
-            calc_buildtypesvisitortest.cc
-            calc_cfgcreatortest.cc
-            calc_clientinterfacetest.cc
-            calc_cmdlinecalctest.cc
-            calc_datatypetest.cc
-            calc_dimensionparsertest.cc
-            calc_dynamicwavetest.cc
-            calc_executortest.cc
-            calc_fieldtest.cc
-            calc_findsymboltest.cc
-            calc_fopointarraytest.cc
-            calc_iocsffieldstrategytest.cc
-            # calc_ldddownstreamtest         # OLS 05/2016 this one was not in this list before
-            calc_lddgraphtest.cc
-            calc_lexinputtest.cc
-            calc_lookuptabletest.cc
-            calc_manualexampletestertest.cc
-            calc_manualexamplestest.cc
-            calc_maskpackingtest.cc
-            # calc_modelbuildertest          # OLS 05/2016 this one is empty
-            calc_nonspatialtest.cc
-            calc_objectlinkmetatest.cc
-            calc_objectlinktest.cc
-            calc_operatortest.cc
-            calc_opimpltest.cc
-            calc_parsertest.cc
-            calc_pointcodeblockdlltest.cc
-            calc_pointcodeblockreplacertest.cc
-            calc_reporttest.cc
-            calc_reportvisitortest.cc
-            calc_rundirectorytest.cc
-            calc_runtimeenginetest.cc
-            calc_runtimeenvtest.cc
-            calc_spatialtest.cc
-            calc_tssoutputvaluetest.cc
-            calc_usedefanalyzertest.cc
-            calc_vfieldtest.cc
-            calc_xmlreflectiontest.cc
+            ${model_engine_test_sources}
         INCLUDE_DIRS
             $<TARGET_PROPERTY:pcraster_model_engine_objects,INTERFACE_INCLUDE_DIRECTORIES>
             # cpptest.cc

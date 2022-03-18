@@ -48,7 +48,7 @@ namespace calc {
 class LddDownstream : public RasterGraph
 {
 public:
-  typedef struct Unsound: public com::Exception {
+  typedef PCR_ME_EXPORT struct Unsound: public com::Exception {
     Unsound():
      com::Exception("Unsound ldd")
      {}

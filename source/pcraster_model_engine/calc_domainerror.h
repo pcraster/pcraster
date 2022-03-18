@@ -14,6 +14,8 @@
 #define INCLUDED_COM_EXCEPTION
 #endif
 
+#include "pcraster_model_engine_export.h"
+
 // PCRaster library headers.
 
 // Module headers.
@@ -31,7 +33,7 @@ namespace calc {
 
 
 //! marks an eror in operation inputs
-class DomainError : public com::Exception
+class PCR_ME_EXPORT DomainError : public com::Exception
 {
 
 private:

@@ -6,10 +6,7 @@
 #define INCLUDED_VECTOR
 #endif
 
-#ifndef INCLUDED_PCRDLL
-#include "pcrdll.h"
-#define INCLUDED_PCRDLL
-#endif
+#include "pcraster_model_engine_export.h"
 
 #ifndef INCLUDED_CALC_VS
 #include "calc_vs.h"
@@ -33,7 +30,7 @@ class DataType;
 class Spatial;
 
 
-class PCR_DLL_CLASS Field : public DataValue {
+class PCR_ME_EXPORT Field : public DataValue {
 
 private:
 

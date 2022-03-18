@@ -5,10 +5,8 @@
 #include "stddefx.h"
 #define INCLUDED_STDDEFX
 #endif
-#ifndef INCLUDED_PCRDLL
-#include "pcrdll.h"
-#define INCLUDED_PCRDLL
-#endif
+
+#include "pcraster_model_engine_export.h"
 
 namespace calc {
 
@@ -27,7 +25,7 @@ namespace calc {
 //------------------------------------------------------------------------------
 // FREE FUNCTIONS
 //------------------------------------------------------------------------------
-extern "C" PCR_DLL_FUNC(int) executeCommandLine(int   argc, char**argv);
+extern "C" PCR_ME_EXPORT int executeCommandLine(int   argc, char**argv);
 
 } // namespace calc
 

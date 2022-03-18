@@ -1,6 +1,6 @@
 #pragma once
 
-#include "pcrdll.h"
+#include "pcraster_model_engine_export.h"
 #include "com_exception.h"
 
 #include <string>
@@ -10,7 +10,7 @@
 namespace calc {
 
 
-class PCR_DLL_CLASS Exception : public com::Exception
+class PCR_ME_EXPORT Exception : public com::Exception
 {
 
 private:

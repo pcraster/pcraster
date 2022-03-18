@@ -60,7 +60,7 @@ namespace calc {
 class LddGraph : public RasterGraph, public ICachedObject
 {
 public:
-  struct Unsound: public com::Exception {
+  struct PCR_ME_EXPORT Unsound: public com::Exception {
     Unsound():
      com::Exception("Unsound ldd")
      {}

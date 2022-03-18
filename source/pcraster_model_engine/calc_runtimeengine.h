@@ -11,10 +11,7 @@
 // Library headers.
 
 // PCRaster library headers.
-#ifndef INCLUDED_PCRDLL
-#include "pcrdll.h"
-#define INCLUDED_PCRDLL
-#endif
+#include "pcraster_model_engine_export.h"
 
 // Module headers.
 
@@ -83,7 +80,7 @@ class ObjectLink;
   some internal flags are modified when the objects are used by
   RunTimeEngine. These flags are of no relevance to the class user.
 */
-class PCR_DLL_CLASS RunTimeEngine
+class PCR_ME_EXPORT RunTimeEngine
 {
 
 

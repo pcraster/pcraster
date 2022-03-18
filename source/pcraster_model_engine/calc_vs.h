@@ -1,10 +1,7 @@
 #ifndef INCLUDED_CALC_VS
 #define INCLUDED_CALC_VS
 
-#ifndef INCLUDED_PCRDLL
-#include "pcrdll.h"
-#define INCLUDED_PCRDLL
-#endif
+#include "pcraster_model_engine_export.h"
 
 #ifndef INCLUDED_CALC_TYPES
 #include "calc_types.h"
@@ -32,10 +29,10 @@ inline bool isField(VS x) {
 VS   intersect(VS x, VS set);
 VS   unionSet(VS set1, VS set2);
 int  nrInSet(VS set);
-PCR_DLL_FUNC(VS) vsOfNumber(double val);
+PCR_ME_EXPORT VS vsOfNumber(double val);
 VS expectedFileType(const std::string& fileName,VS typeExpected);
 
-PCR_DLL_CLASS std::ostream &operator<<(std::ostream& s, VS vs);
+PCR_ME_EXPORT std::ostream &operator<<(std::ostream& s, VS vs);
 
 namespace calc {
    void checkOneVs(VS vsToCheck,const char* arg);

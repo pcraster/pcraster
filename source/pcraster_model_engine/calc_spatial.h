@@ -1,10 +1,7 @@
 #ifndef INCLUDED_CALC_SPATIAL
 #define INCLUDED_CALC_SPATIAL
 
-#ifndef INCLUDED_PCRDLL
-#include "pcrdll.h"
-#define INCLUDED_PCRDLL
-#endif
+#include "pcraster_model_engine_export.h"
 
 #ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
@@ -36,7 +33,7 @@ namespace calc {
 
 
 //! holds data for a spatial value
-class PCR_DLL_CLASS Spatial : public Field {
+class PCR_ME_EXPORT Spatial : public Field {
 public:
 #ifdef DEBUG_DEVELOP
   //! different sizes created

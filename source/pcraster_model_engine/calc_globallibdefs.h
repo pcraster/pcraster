@@ -14,10 +14,7 @@
 
 
 // PCRaster library headers.
-#ifndef INCLUDED_PCRDLL
-#include "pcrdll.h"
-#define INCLUDED_PCRDLL
-#endif
+#include "pcraster_model_engine_export.h"
 
 // Module headers.
 
@@ -32,10 +29,10 @@ void         libError      (const std::string& msg);
 void         throwLibError (void);
 std::string  getLibError   (void);
 
-PCR_DLL_FUNC(void) globalInit    ();
-PCR_DLL_FUNC(void) setRan  (size_t seed);
-PCR_DLL_FUNC(int)  parseGlobalFlag(std::string const& option);
-PCR_DLL_FUNC(void) globalEnd     ();
+PCR_ME_EXPORT void globalInit    ();
+PCR_ME_EXPORT void setRan  (size_t seed);
+PCR_ME_EXPORT int  parseGlobalFlag(std::string const& option);
+PCR_ME_EXPORT void globalEnd     ();
 
 } // namespace calc
 

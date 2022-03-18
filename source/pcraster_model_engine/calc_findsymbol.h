@@ -13,10 +13,7 @@
 #endif
 
 // PCRaster library headers.
-#ifndef INCLUDED_PCRDLL
-#include "pcrdll.h"
-#define INCLUDED_PCRDLL
-#endif
+#include "pcraster_model_engine_export.h"
 
 // Module headers.
 #ifndef INCLUDED_CALC_TYPES
@@ -41,10 +38,10 @@ namespace calc {
 
 namespace calc {
 
-PCR_DLL_C const Operator* major2op     (MAJOR_CODE major);
-PCR_DLL_C const Operator* opName2op    (const std::string& opName,size_t nrArgs=2);
+PCR_ME_EXPORT const Operator* major2op     (MAJOR_CODE major);
+PCR_ME_EXPORT const Operator* opName2op    (const std::string& opName,size_t nrArgs=2);
 
-PCR_DLL_C void     loadCalcLib         (const std::string& dllName);
+PCR_ME_EXPORT void     loadCalcLib         (const std::string& dllName);
 
 size_t             nrInternalOpCodes   ();
 

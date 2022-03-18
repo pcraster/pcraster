@@ -74,7 +74,7 @@ namespace calc {
  *  \endcode
  * \returns 0 if not found
  */
-PCR_DLL_C const calc::Operator* calc::opName2op(const std::string& opName, size_t nrArgs)
+PCR_ME_EXPORT const calc::Operator* calc::opName2op(const std::string& opName, size_t nrArgs)
 {
   const Operator* op(globalOperations[opName]);
   if (!op)
@@ -115,14 +115,14 @@ bool calc::oneOfMrfIsStackTop(MAJOR_CODE oneOfMRF)
   return globalOperations.oneOfMrfIsStackTop(oneOfMRF);
 }
 
-PCR_DLL_C const calc::Operator* calc::major2op(MAJOR_CODE major)
+PCR_ME_EXPORT const calc::Operator* calc::major2op(MAJOR_CODE major)
 {
   return globalOperations[major];
 }
 
 
 //! add;s ObjectLink's present in dll to globally known Operator's
-PCR_DLL_C void calc::loadCalcLib(const std::string& dllName)
+PCR_ME_EXPORT void calc::loadCalcLib(const std::string& dllName)
 {
   globalOperations.loadLib(dllName);
 }

@@ -28,6 +28,13 @@ namespace dal {
 namespace dal {
 
 
+#if defined(_MSC_VER)
+#    pragma warning(push)
+#    pragma warning(disable : 4275 4251)
+//   4275: An exported class was derived from a class that wasn't exported.
+//   4251: class 'type1' needs to have dll-interface to be used by clients of class 'type2'
+//   Can be ignored if your class is derived from a type in the C++ Standard Library
+#endif
 
 //! Base exception class for the DAL library.
 class PCR_DAL_DECL Exception : public virtual std::exception
@@ -64,7 +71,9 @@ public:
 
 };
 
-
+#if defined(_MSC_VER)
+#    pragma warning(pop)
+#endif
 
 //------------------------------------------------------------------------------
 // INLINE FUNCTIONS

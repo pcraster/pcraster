@@ -83,7 +83,7 @@ static std::unique_ptr<ClientHolder> s_client(nullptr);
  * Must be called at least once on dll/app/testdriver entrance.
  * Multiple calls should do no harm
  */
-PCR_DLL_FUNC(void) calc::globalInit()
+PCR_ME_EXPORT void calc::globalInit()
 {
   // /home/cees/development/projects/DevEnv/sources/Utils/dev_XercesClient.h
   if (! s_client.get())
@@ -103,7 +103,7 @@ PCR_DLL_FUNC(void) calc::globalInit()
 /**
 * needed for the Python extension
 */
-PCR_DLL_FUNC(void) calc::setRan(size_t seed)
+PCR_ME_EXPORT void calc::setRan(size_t seed)
 {
   SetRan(seed);
 }
@@ -111,11 +111,11 @@ PCR_DLL_FUNC(void) calc::setRan(size_t seed)
 /**
 * needed for the Python extension
 */
-PCR_DLL_FUNC(int) calc::parseGlobalFlag(std::string const& option){
+PCR_ME_EXPORT int calc::parseGlobalFlag(std::string const& option){
   return ParseGlobalFlag(("--" + option).c_str());
 }
 
-PCR_DLL_FUNC(void) calc::globalEnd()
+PCR_ME_EXPORT void calc::globalEnd()
 {
   AppEnd();
   s_client.reset(nullptr);

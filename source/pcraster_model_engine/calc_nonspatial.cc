@@ -50,14 +50,14 @@ calc::NonSpatial::NonSpatial(const NonSpatial& rhs):
 namespace calc {
 //! initialization with a value
 template<>
-PCR_DLL_CLASS NonSpatial::NonSpatial(VS vs, const UINT1& value):
+PCR_ME_EXPORT NonSpatial::NonSpatial(VS vs, const UINT1& value):
    Field(vs,crIndex<UINT1>())
 {
    d_val1 = value;
 }
 //! initialization with a value
 template<>
-PCR_DLL_CLASS NonSpatial::NonSpatial(VS vs, const INT4& value):
+PCR_ME_EXPORT NonSpatial::NonSpatial(VS vs, const INT4& value):
    Field(vs,crIndex<INT4>())
 {
    d_val4 = value;
@@ -65,7 +65,7 @@ PCR_DLL_CLASS NonSpatial::NonSpatial(VS vs, const INT4& value):
 
 //! initialization with a value
 template<>
-PCR_DLL_CLASS NonSpatial::NonSpatial(VS vs, const REAL4& value):
+PCR_ME_EXPORT NonSpatial::NonSpatial(VS vs, const REAL4& value):
    Field(vs,crIndex<REAL4>())
 {
    d_vals = value;

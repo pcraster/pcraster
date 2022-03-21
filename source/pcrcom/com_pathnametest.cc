@@ -172,12 +172,16 @@ BOOST_AUTO_TEST_CASE(split_for)
   pn        = PathName(d_slash + d_slash);
   directory = d_slash;
   base      = d_slash;
-  BOOST_CHECK_EQUAL(pn.directoryName(), "//"); // ""
 #ifdef WIN32
-  BOOST_CHECK_EQUAL(pn.baseName(), "\\\\");
+  BOOST_CHECK_EQUAL(pn.directoryName(), "\\\\");
 #else
-  BOOST_CHECK_EQUAL(pn.baseName(), ""); // "//"
+  BOOST_CHECK_EQUAL(pn.directoryName(), "//"); // ""
 #endif
+// #ifdef WIN32
+//  BOOST_CHECK_EQUAL(pn.baseName(), "\\\\");
+// #else
+  BOOST_CHECK_EQUAL(pn.baseName(), ""); // "//"
+// #endif
 
   // "bla"
   pn        = PathName("bla");

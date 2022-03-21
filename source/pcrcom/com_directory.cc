@@ -183,8 +183,12 @@ void com::Directory::create(bool makeParentDirectories)
   else
   {
     PathInfo pi(d_path);
-    if(pi.isDirectory())
+    if(pi.isDirectory()){
       return; // already exists as an directory, done
+    }
+    if(std::filesystem::is_regular_file(d_path.path())){
+      throw OpenFileErrnoMsg(d_path, "can not create directory");
+    }
     try {
       std::filesystem::create_directory(d_path.path());
     } catch(...) {

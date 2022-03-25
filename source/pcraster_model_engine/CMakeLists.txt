@@ -7,9 +7,11 @@ configure_file(
 
 add_compile_definitions(USE_IN_PCRCALC)
 
-add_subdirectory(testdata/apiExamples)
-add_subdirectory(testdata/apiExamplesData)
-add_subdirectory(csharp)
+if(PCRASTER_INSTALL_FILES_DEVELOPER)
+  add_subdirectory(testdata/apiExamples)
+  add_subdirectory(testdata/apiExamplesData)
+  add_subdirectory(csharp)
+endif()
 
 # actually newcalc.l
 ADD_FILE_DEPENDENCY(lexnewcalc.cc

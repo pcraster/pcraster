@@ -95,7 +95,7 @@ The usage information will be shown:
 .. code-block:: console
 
    (pcraster) $ pcrcalc
-   pcrcalc 4.3.2 (linux/x86_64)
+   pcrcalc 4.3.3 (linux/x86_64)
     USAGE: pcrcalc [options] "expression"
     or     pcrcalc [options] -f scriptFile
      ( or #!: pcrcalc -F [options]+)

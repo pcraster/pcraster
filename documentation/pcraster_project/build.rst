@@ -35,8 +35,8 @@ You can obtain a source package as follows:
 
 .. code-block:: bash
 
-   $ # sha256: 3ac7d3186f4ba876a5a8e8d8bf10b109bdc7b5b33d84d26bab0948f29deac2a7
-   $ wget http://pcraster.geo.uu.nl/pcraster/packages/src/pcraster-4.3.2.tar.bz2
+   $ # sha256: 17904dbd0e5d9b6b0e27358779c6b05c219bcb41d9b7691a238e8db357f69ed5
+   $ wget http://pcraster.geo.uu.nl/pcraster/packages/src/pcraster-4.3.3.tar.bz2
 
 
 It is also possible to obtain the PCRaster sources from our code repository, e.g. in case you want to test the latest developments:
@@ -61,7 +61,7 @@ Make sure that you check and adapt the install location and Python version:
    $ mkdir build
    $ cd build
 
-   $ cmake -G"Unix Makefiles" ../pcraster -DCMAKE_INSTALL_PREFIX=$HOME/pcraster-4.3.2 -DPython3_EXECUTABLE:FILEPATH=/usr/bin/python3.10
+   $ cmake -G"Unix Makefiles" ../pcraster -DCMAKE_INSTALL_PREFIX=$HOME/pcraster-4.3.3 -DPython3_EXECUTABLE:FILEPATH=/usr/bin/python3.10
 
 In case some of the 3rd party libraries are not installed in default locations, you need to provide hints before you call CMake.
 For example, on CentOS 7 you may need to use:
@@ -96,7 +96,7 @@ After a successful configure run, build and install PCRaster:
 Post-install
 ~~~~~~~~~~~~
 
-After a successful build you will need to add $HOME/pcraster-4.3.2/bin to your PATH environment variable and $HOME/pcraster-4.3.2/python to your PYTHONPATH environment variable to run the PCRaster applications.
+After a successful build you will need to add $HOME/pcraster-4.3.3/bin to your PATH environment variable and $HOME/pcraster-4.3.3/python to your PYTHONPATH environment variable to run the PCRaster applications.
 
 
 Build options

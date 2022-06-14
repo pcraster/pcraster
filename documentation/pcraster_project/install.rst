@@ -1,5 +1,5 @@
-Installing PCRaster
-===================
+Installing PCRaster with Conda
+==============================
 
 PCRaster is available on |condaforgefeedstocksurl| and can be installed using conda.
 Supported platforms are Linux, macOS and Windows.

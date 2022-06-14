@@ -4,6 +4,7 @@ set(SPHINX_SOURCES
     changes.rst
     # develop.rst
     # index.rst
+    easybuild.rst
     install.rst
     multicore.rst
     sources.rst

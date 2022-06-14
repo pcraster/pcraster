@@ -15,11 +15,14 @@ Welcome to the PCRaster documentation!
    modflow/index
 
    python_arrayed_variables/index
+
    pcraster_project/changes
    pcraster_project/install
+   pcraster_project/easybuild
    pcraster_project/sources
    pcraster_project/build
    pcraster_project/questions
    pcraster_project/pcraster_index
    pcraster_project/applications
+
    PCRaster project website <https://pcraster.geo.uu.nl/>

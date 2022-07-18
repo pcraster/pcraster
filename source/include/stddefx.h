@@ -93,8 +93,10 @@
 #endif
 
 #ifdef __APPLE__
-#ifdef __x86_64__
+#if defined(__x86_64__)
 #define PLATFORM_TXT "darwin/x86_64"
+#elif defined(__aarch64__)
+#define PLATFORM_TXT "linux/arm64"
 #else
 #define PLATFORM_TXT "darwin/32"
 #endif

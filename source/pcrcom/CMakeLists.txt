@@ -152,7 +152,7 @@ if(PCRASTER_BUILD_TEST)
             # com_tableinfotest.cc
             # com_spiritfilelineparsertest.cc
             com_spiritfileparsertest.cc
-            com_statisticstest.cc
+            # com_statisticstest.cc
             com_strlibtest.cc
             com_tabletest.cc
             com_tempdirectorytest.cc

@@ -9,7 +9,7 @@ BOOST_AUTO_TEST_CASE(no_arg)
 {
   using namespace com;
 
-#if defined(WIN32) || defined(__x86_64__)
+#if defined(WIN32) || defined(__x86_64__) || defined(__aarch64__)
   // or use Qt/process
   bool noSpawnWorking=false;
   BOOST_WARN(noSpawnWorking);
@@ -34,7 +34,7 @@ BOOST_AUTO_TEST_CASE(args)
 {
   using namespace com;
 
-#if defined(WIN32) || defined(__x86_64__)
+#if defined(WIN32) || defined(__x86_64__) || defined(__aarch64__)
   bool noSpawnWorking=false;
   BOOST_WARN(noSpawnWorking);
 #else

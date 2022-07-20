@@ -863,7 +863,11 @@ BOOST_AUTO_TEST_CASE(testLinkInLibrary)
 #ifdef WIN32
          BOOST_CHECK(e.messages().find( "The specified module could not be found.") != std::string::npos);
 #elif __APPLE__
+  #if defined(__x86_64__)
          BOOST_CHECK(e.messages().find( "image not found") != std::string::npos);
+  #elif defined(__aarch64__)
+         BOOST_CHECK(e.messages().find( "(no such file)") != std::string::npos);
+  #endif
 #else
          BOOST_CHECK(e.messages().find( "cannot open shared object file") != std::string::npos);
 #endif

@@ -742,6 +742,7 @@ C     Write times to file if requested
           WRITE(IOUT,1040) NSECS,MSECS
         ENDIF
       ENDIF
+      CALL FLUSH()
 C
       RETURN
       END

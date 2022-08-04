@@ -208,11 +208,13 @@ BOOST_AUTO_TEST_CASE(split_for)
   pn        = PathName(d_slash + d_slash + "bla");
 #if defined(__APPLE__)
   directory = "//";
+#elif defined(WIN32)
+  directory = "\\\\bla";
 #else
   directory = "/";
 #endif
 #ifdef WIN32
-  base      = "\\\\bla";
+  base      = ""; // \\\\bla
 #else
   base      = "bla"; // "//bla";
 #endif
@@ -259,15 +261,15 @@ BOOST_AUTO_TEST_CASE(split_for)
 #ifdef WIN32
   // "c:" -> "c:"
   pn        = PathName("c:");
-  directory = "";
-  base       = "c:";
+  directory = "c:"; // ""
+  base       = "";  // c:
   BOOST_CHECK_EQUAL(pn.directoryName(), directory);
   BOOST_CHECK_EQUAL(pn.baseName(), base);
 
   // "c:\"
   pn        = PathName("c:" + d_slash);
-  directory = "c:";
-  base      = "\\";
+  directory = "c:\\"; // c:
+  base      = ""; // \\
   BOOST_CHECK_EQUAL(pn.directoryName(), directory);
   BOOST_CHECK_EQUAL(pn.baseName(), base);
 
@@ -283,7 +285,7 @@ BOOST_AUTO_TEST_CASE(split_for)
   directory = "c:";
   base      = "bla";
   BOOST_CHECK_EQUAL(pn.directoryName(), "c:bla");
-  BOOST_CHECK_EQUAL(pn.baseName(), ".");
+  BOOST_CHECK_EQUAL(pn.baseName(), ""); // ".");
 
   // "c:\bla"
   pn        = PathName("c:" + d_slash + "bla");
@@ -295,7 +297,7 @@ BOOST_AUTO_TEST_CASE(split_for)
   // "c:\bla\"
   pn        = PathName("c:" + d_slash + "bla" +d_slash);
   BOOST_CHECK_EQUAL(pn.directoryName(), "c:\\bla");
-  BOOST_CHECK_EQUAL(pn.baseName(), ".");
+  BOOST_CHECK_EQUAL(pn.baseName(), ""); //  ".");
 #endif
 
 
@@ -539,7 +541,7 @@ BOOST_AUTO_TEST_CASE(add)
 
   // "bla" + ""
   pn = PathName("bla") + PathName("");
-  result = "bla/"; // "bla";
+  result = "bla" + d_slash; // "bla";
   BOOST_CHECK_EQUAL(pn, result);
 
   // "" + "bla"
@@ -549,12 +551,13 @@ BOOST_AUTO_TEST_CASE(add)
 
   // "bla" + "/"
   pn = PathName("bla") + PathName(d_slash);
-#ifdef WIN32
-  result = "bla" + d_slash;
+//#ifdef WIN32
+  //result = "bla" + d_slash;
+  result = d_slash;
   BOOST_CHECK_EQUAL(pn, result);
-#else
-  result = "bla";
-#endif
+//#else
+//  result = "bla";
+//#endif
 
   // "/" + "bla"
   pn = PathName(d_slash) + PathName("bla");
@@ -568,7 +571,7 @@ BOOST_AUTO_TEST_CASE(add)
 
   // "bla" + "/bli"
   pn = PathName("bla") + PathName(d_slash + "bli");
-  result = "/bli"; // "bla" + d_slash + "bli";
+  result = d_slash + "bli"; // "bla" + d_slash + "bli";
   BOOST_CHECK_EQUAL(pn, result);
 
   // "bla/" + "bli"
@@ -578,7 +581,7 @@ BOOST_AUTO_TEST_CASE(add)
 
   // "bla/" + "/bli"
   pn = PathName("bla" + d_slash) + PathName(d_slash + "bli");
-  result = "/bli"; // "bla" + d_slash + d_slash + "bli";
+  result = d_slash + "bli"; // "bla" + d_slash + d_slash + "bli";
   BOOST_CHECK_EQUAL(pn, result);
 
   // "/bla" + "bli"
@@ -588,12 +591,12 @@ BOOST_AUTO_TEST_CASE(add)
 
   // "bla" + "/bli"
   pn = PathName("bla") + PathName(d_slash + "bli");
-  result = "/bli"; //"bla" + d_slash + "bli";
+  result = d_slash + "bli"; //"bla" + d_slash + "bli";
   BOOST_CHECK_EQUAL(pn, result);
 
   // "/bla" + "/bli"
   pn = PathName(d_slash + "bla") + PathName(d_slash + "bli");
-  result = "/bli"; //d_slash + "bla" + d_slash + "bli";
+  result = d_slash + "bli"; //d_slash + "bla" + d_slash + "bli";
   BOOST_CHECK_EQUAL(pn, result);
 
 #ifdef WIN32
@@ -605,16 +608,16 @@ BOOST_AUTO_TEST_CASE(add)
 
   // "bla" + "c:"
   pn = PathName("bla") + PathName("c:");
-  BOOST_CHECK_EQUAL(pn,"bla\\c:");
+  BOOST_CHECK_EQUAL(pn, "c:"); //"bla\\c:");
 
   // "/bla" + "c:"
   pn = PathName(d_slash + "bla") + PathName("c:");
-  result = "\\bla\\c:";
+  result = "c:"; //\\bla\\c:";
   BOOST_CHECK_EQUAL(pn, result);
 
   // "c:" + "d:"
   pn = PathName("c:") + PathName("d:");
-  result = "c:d:";
+  result = "d:"; //"c:d:";
   BOOST_CHECK_EQUAL(pn.toString(), result);
 
   // "c:" + "bla"
@@ -659,7 +662,7 @@ BOOST_AUTO_TEST_CASE(up)
   pn = PathName(d_slash);
   BOOST_CHECK_EQUAL(pn.hasBaseName(), false);
   pn.up();
-  result = "/"; // "";
+  result = d_slash; // "";
   BOOST_CHECK_EQUAL(pn, result);
 
   // "/foo" -> "/"
@@ -686,14 +689,14 @@ BOOST_AUTO_TEST_CASE(up)
   // "c:"
   pn = PathName("c:");
   pn.up();
-  result = "";
-  BOOST_CHECK(pn == result);
+  result = "c:"; // "";
+  BOOST_CHECK_EQUAL(pn, result);
 
   // "c:\" -> ""
   pn = PathName("c:" + d_slash);
   pn.up();
-  result = "c:";
-  BOOST_CHECK(pn == result);
+  result = "c:\\"; //"c:";
+  BOOST_CHECK_EQUAL(pn, result);
 
 
   // "c:bla" -> "c:"
@@ -727,8 +730,8 @@ BOOST_AUTO_TEST_CASE(up)
   bool todoCheckDoubleSlash=false;
   BOOST_WARN(todoCheckDoubleSlash);
   pn.up();
-  result = "c:\\";
-  BOOST_CHECK(pn == result);
+  result = "c:\\\\"; // "c:\\";
+  BOOST_CHECK_EQUAL(pn, result);
 
 #endif
 }

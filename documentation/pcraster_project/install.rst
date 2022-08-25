@@ -26,7 +26,7 @@ For installing PCRaster including additional software packages used in our `on-s
 
 .. code-block:: console
 
-   conda create --name pcraster -c conda-forge python=3.9 numpy matplotlib pcraster campo spyder qgis spotpy
+   conda create --name pcraster -c conda-forge python=3.9 numpy pcraster campo lue matplotlib-base spyder qgis spotpy
 
 Always use the conda-forge channel when installing further packages into your PCRaster environment.
 
@@ -45,7 +45,7 @@ Specify the osx-64 channel when creating and installing packages into a PCRaster
 
 .. code-block:: console
 
-   conda create --name pcraster -c conda-forge/osx-64 python=3.9 numpy matplotlib pcraster campo spyder qgis spotpy
+   conda create --name pcraster -c conda-forge/osx-64 python=3.9 numpy pcraster campo lue matplotlib-base spyder qgis spotpy
 
 To allow displaying the visualisation tool Aguila it is required to set an additional environment variable after activating your environment:
 

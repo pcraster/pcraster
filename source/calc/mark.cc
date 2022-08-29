@@ -34,23 +34,23 @@ public:
                  d_c(c),
                  d_order(POSSIBLE_DATA_LOSS(float,order)),
                  d_amount(POSSIBLE_DATA_LOSS(float,amount))
-                 {};
+                 {}
       double amount() const {
          return d_amount;
-      };
+      }
       double order() const {
          return d_order;
-      };
+      }
       const geo::CellLoc& cellLoc() {
          return d_c;
-      };
+      }
 };
 
 class CmpSortKey {
  public:
   bool operator()(const MarkPoint& e1, const MarkPoint& e2) {
    return e1.order() < e2.order();
-  };
+  }
 };
 
 class MarkCondition {
@@ -59,14 +59,14 @@ class MarkCondition {
  public:
   MarkCondition(double treshold):
     d_sum(0),d_treshold(treshold)
-    {};
+    {}
   virtual bool mark(double value)=0;
 };
 class MarkLe : public MarkCondition {
   public:
     MarkLe(double treshold):
      MarkCondition(treshold)
-    {};
+    {}
    bool mark(double value) override {
      d_sum+=value;
      return d_sum <= d_treshold;
@@ -76,7 +76,7 @@ class MarkGe : public MarkCondition {
   public:
     MarkGe(double treshold):
      MarkCondition(treshold)
-    {};
+    {}
    bool mark(double value) override {
      bool t=  (d_sum < d_treshold);
      d_sum+=value;

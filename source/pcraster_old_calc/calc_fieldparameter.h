@@ -50,7 +50,7 @@ class  FieldParameter : public SubParameter {
   FieldParameter(const ParsPar& par, bool constant, bool input,VS vs, ST st);
  public:
   //! dtor
-  ~FieldParameter() override {};
+  ~FieldParameter() override {}
   // MANIPULATORS
 
   //! called if parameters scope is activated
@@ -92,7 +92,7 @@ class  FieldParameter : public SubParameter {
     public:
     //! ctor
     RestrictError(const std::string& msg):
-        d_msg(msg) {};
+        d_msg(msg) {}
     //! return message
     const std::string& what() const {
         return d_msg;

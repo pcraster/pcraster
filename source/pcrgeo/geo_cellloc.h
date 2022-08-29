@@ -58,29 +58,29 @@ public:
   //----------------------------------------------------------------------------
 
   //! default ctor, not initialized
-  CellLoc(){};
+  CellLoc(){}
 
   //! ctor
   CellLoc(size_t row, size_t col) :
     d_row(row), d_col(col) {
-  };
+  }
 
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
    //! increment row and return new row id
-   size_t nextRow() { return ++d_row; };
+   size_t nextRow() { return ++d_row; }
    //! increment col and return new col id
-   size_t nextCol() { return ++d_col; };
+   size_t nextCol() { return ++d_col; }
 
    //! set row id and return new row id
-   size_t setRow(size_t v) { return d_row=v; };
+   size_t setRow(size_t v) { return d_row=v; }
    //! set col id and return new col id
-   size_t setCol(size_t v) { return d_col=v; };
+   size_t setCol(size_t v) { return d_col=v; }
 
    //! Set location to \a row, \a col.
-   void  setIndices(size_t row, size_t col) { d_row = row; d_col = col; };
+   void  setIndices(size_t row, size_t col) { d_row = row; d_col = col; }
 
   //----------------------------------------------------------------------------
   // ACCESSORS
@@ -102,9 +102,9 @@ public:
    { return d_row; }
 
    //! return row id
-   size_t row() const { return d_row; };
+   size_t row() const { return d_row; }
    //! return col id
-   size_t col() const { return d_col; };
+   size_t col() const { return d_col; }
 
 };
 

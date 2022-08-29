@@ -42,11 +42,11 @@ private:
 
 
 protected:
-                    IVSpatial              () {} ;
+                    IVSpatial              () {}
 
 
 public:
-     virtual       ~IVSpatial              () {} ;
+     virtual       ~IVSpatial              () {}
 
   //----------------------------------------------------------------------------
   // CREATORS

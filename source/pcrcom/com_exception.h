@@ -64,7 +64,7 @@ protected:
    * must be inline
    */
   Exception   ()
-   {};
+   {}
 
 public:
 
@@ -80,7 +80,7 @@ public:
    * In order to link cppunit with catching of all exception both ctor and dtor
    * must be inline
    */
-  virtual          ~Exception          () {};
+  virtual          ~Exception          () {}
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -111,7 +111,7 @@ public:
   const_iterator   end                 () const;
 
   Errno            errorNr             () const
-  { return d_no; };
+  { return d_no; }
 
   //! inline version of messages() for cppunit only
   /*!
@@ -220,8 +220,8 @@ public:
 
            ~FileError      () override;
 
-  const std::string& fileName()  const { return d_fileName;  };
-  const std::string& diagnosis() const { return d_diagnosis; };
+  const std::string& fileName()  const { return d_fileName;  }
+  const std::string& diagnosis() const { return d_diagnosis; }
 };
 
 //------------------------------------------------------------------------------
@@ -289,8 +289,8 @@ class FilePositionError: public FileFormatError
   FilePositionError       (const PathName&    fileName, size_t lineNr, size_t columnNr,
                            const std::string& diagnosis);
 
-  size_t lineNr()   const { return d_lineNr;   };
-  size_t columnNr() const { return d_columnNr; };
+  size_t lineNr()   const { return d_lineNr;   }
+  size_t columnNr() const { return d_columnNr; }
 };
 
 //! file error with strerror(errno) info included

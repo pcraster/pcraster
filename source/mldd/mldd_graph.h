@@ -311,7 +311,7 @@ namespace mldd {
       d_props(props)
       {}
     ~DagRasterPropertyMap()
-      {};
+      {}
   };
 
 } // namespace mldd

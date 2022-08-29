@@ -44,9 +44,9 @@ public:
   // CREATORS
   //----------------------------------------------------------------------------
 
-                   LexInputCreator               () {};
+                   LexInputCreator               () {}
 
-  virtual         ~LexInputCreator              ()  {};
+  virtual         ~LexInputCreator              ()  {}
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

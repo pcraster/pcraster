@@ -22,8 +22,8 @@ class ModelLinkException {
   std::string d_msg;
 public:
   ModelLinkException(const std::string& msg):
-    d_msg(msg) {};
-  const std::string& what() const { return d_msg; }; 
+    d_msg(msg) {}
+  const std::string& what() const { return d_msg; }
 };
 
 typedef struct ModelLinkArgSpec {
@@ -57,9 +57,9 @@ public:
 class ModelLink {
 public:
 
-  ModelLink() {};
+  ModelLink() {}
 
-  virtual ~ModelLink() {};
+  virtual ~ModelLink() {}
 
   //! return 0 if not found
   static const ModelLink* findModelLink(

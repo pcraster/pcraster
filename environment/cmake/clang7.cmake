@@ -23,10 +23,10 @@ endif()
 # if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
 #
 #     set(CMAKE_C_FLAGS
-#         "${CMAKE_C_FLAGS} -Wno-cpp -Wno-parentheses -Wno-cast-qual  -Wno-unused-parameter -Wno-empty-body -Wno-unused-function -Wno-format -Wno-switch -Wno-empty-body -Wno-sign-compare -Wno-float-equal   "
+#         "${CMAKE_C_FLAGS} -Wno-parentheses -Wno-cast-qual  -Wno-unused-parameter -Wno-empty-body -Wno-unused-function -Wno-format -Wno-switch -Wno-empty-body -Wno-sign-compare -Wno-float-equal   "
 #     )
 #     set(CMAKE_CXX_FLAGS
-#         "${CMAKE_CXX_FLAGS} -Wno-cpp -Wno-parentheses -Wno-cast-qual  -Wno-unused-parameter -Wno-empty-body  -Wno-ignored-qualifiers -Wno-switch -Wno-pedantic -Wno-write-strings -Wno-unused-variable -Wno-unused-local-typedefs -Wno-delete-non-virtual-dtor -Wno-unused-label -Wno-sign-compare -Wno-float-equal -Wno-overloaded-virtual -Wno-unused-result -Wno-sometimes-uninitialized -Wno-undefined-var-template  "
+#         "${CMAKE_CXX_FLAGS} -Wno-parentheses -Wno-cast-qual  -Wno-unused-parameter -Wno-empty-body  -Wno-ignored-qualifiers -Wno-switch -Wno-pedantic -Wno-write-strings -Wno-unused-variable -Wno-unused-local-typedefs -Wno-delete-non-virtual-dtor -Wno-unused-label -Wno-sign-compare -Wno-float-equal -Wno-overloaded-virtual -Wno-unused-result -Wno-sometimes-uninitialized -Wno-undefined-var-template  "
 #     )
 #
 # endif()

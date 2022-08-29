@@ -53,7 +53,7 @@ class ArrayDefinition : public UserSymbol, public IndexContainer {
 
   //! number of active elements
   size_t activeIndexSize()const;
-  bool isOn()const override { return true; };
+  bool isOn()const override { return true; }
 
   const class IndexParameterConstant* item(size_t i) const;
   void printSpecific(InfoScript& i)const override;

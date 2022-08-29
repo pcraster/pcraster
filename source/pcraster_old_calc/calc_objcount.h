@@ -44,7 +44,7 @@ template<class BeingObjCount>
 template<class BeingObjCount>class ObjCounter {
   const char *d_className;
 public:
-  ObjCounter(const char *name):d_className(name) {};
+  ObjCounter(const char *name):d_className(name) {}
   ~ObjCounter() {
     if(ObjCount<BeingObjCount>::objectCount() != 0) {
 #ifdef DEBUG_DEVELOP
@@ -53,7 +53,7 @@ public:
       POSTCOND(ObjCount<BeingObjCount>::objectCount() == 0);
 #endif
     }
-  };
+  }
 };
 
 }

@@ -127,7 +127,7 @@ public:
 //! ALWAYS AS FIRST STATEMENT! should go in ctor, if we could set the Ctor
 void initialize() {
 	ANTLRParser::init();
-};
+}
 	static SetWordType setwd1[67];
 	static SetWordType setwd2[67];
 	static SetWordType setwd3[67];

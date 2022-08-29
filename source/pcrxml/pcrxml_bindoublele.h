@@ -65,8 +65,8 @@ public:
   //----------------------------------------------------------------------------
   std::string attrValueStr() const override;
 
-  double value() const      { return d_value; };
-  double operator()() const { return d_value; };
+  double value() const      { return d_value; }
+  double operator()() const { return d_value; }
 
   static double hexToDouble (const std::string& hexString);
 

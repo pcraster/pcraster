@@ -51,7 +51,7 @@ namespace com {
 
     tricky issue is implicit cast zie:
     void com::MVGenericTest::testVisitNonMV()/ std::accumulate(d,d+3,0)
-    en 
+    en
     void com::BinaryOperatorsTest::testMVCast()
  */
 
@@ -132,7 +132,7 @@ template<typename T>
        size_t  n=1):
      d_value(value),
      d_n(n)
-     {};
+     {}
 
    const_iterator begin() const {
      return const_iterator(d_value,0);

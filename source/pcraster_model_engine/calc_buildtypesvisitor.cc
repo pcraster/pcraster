@@ -236,9 +236,9 @@ class TopDownExprRestrictor: public ASTVisitor {
      d_table(table)
     {
      d_dt.push(r);
-    };
+    }
 
-  ~TopDownExprRestrictor() override {};
+  ~TopDownExprRestrictor() override {}
 
   //! update use of number
   /*!
@@ -305,10 +305,10 @@ class TopDownExprRestrictor: public ASTVisitor {
 
   //! should never be visited only expressions are visited here
   void visitAss(ASTAss   *) override
-  { PRECOND(FALSE); };
+  { PRECOND(FALSE); }
   //! should never be visited only expressions are visited here
   void visitStat(ASTStat *) override
-  { PRECOND(FALSE); };
+  { PRECOND(FALSE); }
 
   void subTypeDataStorage(ASTPar *p,
        const BaseExpr*  e,

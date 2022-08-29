@@ -115,7 +115,7 @@ public:
   }
 
   virtual std::string writeStep(const Field*, size_t )
-  { return "";};
+  { return "";}
 };
 
 class StackWriter : public DynamicWriter

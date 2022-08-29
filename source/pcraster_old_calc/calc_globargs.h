@@ -26,10 +26,10 @@ public:
   //! get MAP_* ptr of i'th arg
   void *MAP_ptr(size_t i) {
     return d_vals[i];
-  };
+  }
   FieldHandle Field_ptr(size_t i) {
     return d_fields[i];
-  };
+  }
   const void **mapVals();
   ~GlobArgs();
 };

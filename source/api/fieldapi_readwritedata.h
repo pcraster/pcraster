@@ -76,7 +76,7 @@ public:
       }
   //! put a value
   void put(UseAsT value, int rowIndex, int colIndex) override
-   { put(value,static_cast<size_t>(rowIndex),static_cast<size_t>(colIndex)); };
+   { put(value,static_cast<size_t>(rowIndex),static_cast<size_t>(colIndex)); }
   //! put a MV value
   void putMV(size_t rowIndex, size_t colIndex) override;
   void putMV(const geo::CellLoc& l) {
@@ -84,7 +84,7 @@ public:
   }
   //! put a MV value
   void putMV(int rowIndex, int colIndex) override
-   { putMV(static_cast<size_t>(rowIndex),static_cast<size_t>(colIndex)); };
+   { putMV(static_cast<size_t>(rowIndex),static_cast<size_t>(colIndex)); }
 
   void putAllMV() override;
 

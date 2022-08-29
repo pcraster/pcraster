@@ -70,7 +70,7 @@ class STClash : public DataTypeClash {
   public:
     STClash(bool spatialFound):
       d_spatialFound(spatialFound)
-    {};
+    {}
     bool spatialFound() const {
       return d_spatialFound;
     }
@@ -81,7 +81,7 @@ class VSClash : public DataTypeClash {
   public:
     VSClash(VS isOneOf, VS mustBeOneOf):
       d_isOneOf(isOneOf),d_mustBeOneOf(mustBeOneOf)
-    {};
+    {}
     VS isOneOf() const {
       return d_isOneOf;
     }

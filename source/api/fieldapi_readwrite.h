@@ -103,7 +103,7 @@ public:
   //! see ReadOnly::value()
           UseAsT operator[](const geo::CellLoc& l) const {
             return value(l.row(),l.col());
-          };
+          }
 };
 
 

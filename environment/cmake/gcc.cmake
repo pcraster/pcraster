@@ -18,7 +18,7 @@ set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,--no-undefined")
 
 
 set(PCR_C_FLAGS
-  "-Wall -Wextra -Wno-pedantic -Wwrite-strings -Werror=strict-aliasing -fno-strict-overflow -Wno-implicit-fallthrough -Wno-cpp -Wno-cast-qual -Wno-maybe-uninitialized -Wno-unused-parameter -Wno-empty-body -Wno-unused-but-set-variable -Wno-unused-function -Wno-switch -Wno-empty-body -Wno-sign-compare -Wno-float-equal -Wno-implicit-function-declaration -Wno-cast-function-type -Wno-unused-variable"
+  "-Wall -Wextra -Wno-pedantic -Wwrite-strings -Werror=strict-aliasing -fno-strict-overflow -Wno-implicit-fallthrough -Wno-cast-qual -Wno-maybe-uninitialized -Wno-unused-parameter -Wno-empty-body -Wno-unused-but-set-variable -Wno-unused-function -Wno-switch -Wno-empty-body -Wno-sign-compare -Wno-float-equal -Wno-implicit-function-declaration -Wno-cast-function-type -Wno-unused-variable"
 )
 
 set(PCR_C_FLAGS_GCC7
@@ -26,7 +26,7 @@ set(PCR_C_FLAGS_GCC7
 )
 
 set(PCR_C_FLAGS_GCC8
-  "-Wmultistatement-macros"
+  ""
 )
 
 
@@ -47,7 +47,7 @@ set(PCR_CXX_FLAGS_GCC7
 
 
 set(PCR_CXX_FLAGS_GCC8
-  "-Wno-catch-value"
+  ""
 )
 
 

@@ -201,10 +201,10 @@ class Closer {
   typedef bool result_type;
   Closer(const P& closerTo):
     d_closerTo(closerTo)
-    {};
+    {}
   bool operator()(const P& p1, const P& p2) const {
     return p1.squaredDistance(d_closerTo) < p2.squaredDistance(d_closerTo);
-  };
+  }
 };
 
 //------------------------------------------------------------------------------

@@ -136,7 +136,7 @@ public:
 
 // #ifdef DEBUG_BUILD
   // Needed for CommandLineApplicationTest.
-  virtual int      run                 () { return 0; };
+  virtual int      run                 () { return 0; }
 // #else
 //   virtual int      run                 ()=0;
 // #endif

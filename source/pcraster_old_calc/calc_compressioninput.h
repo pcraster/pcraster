@@ -68,7 +68,7 @@ public:
   // ACCESSORS
   //----------------------------------------------------------------------------
   void *decompressedData() const;
-  VS      vs() const { return d_vs; };
+  VS      vs() const { return d_vs; }
 
 };
 

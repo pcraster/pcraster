@@ -28,7 +28,7 @@ class Constant : public FieldExpr {
   void buildTypes();
   void skipExecution() override;
 protected:
-  const FieldType& fieldType() const override { return d_type;};
+  const FieldType& fieldType() const override { return d_type;}
  public:
   // CREATORS
   Constant(const Symbol& name);
@@ -44,11 +44,11 @@ protected:
   void execute(FieldStack& s) override;
   // ACCESSORS
   void print(InfoScript& i)const override;
-  double value() const { return d_value; };
-  VS vs() const { return d_type.vs(); };
+  double value() const { return d_value; }
+  VS vs() const { return d_type.vs(); }
   bool isConstant() const override;
 
-  std::string strRepr() const { return d_strRepr; };
+  std::string strRepr() const { return d_strRepr; }
   std::string qName() const;
 };
 

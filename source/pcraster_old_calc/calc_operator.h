@@ -106,7 +106,7 @@ class Operator {
   int      d_execId;
   CG       d_cg;
   std::vector<OP_ARGS> d_argPars;
-  int      nrArgsDef() const { return ABS(d_nrArgs); };
+  int      nrArgsDef() const { return ABS(d_nrArgs); }
   void pushBackArg(VS vs, ST st);
 public:
   // CREATORS
@@ -114,20 +114,20 @@ public:
     MAJOR_CODE major,SYNTAX syntax,
     VS vs,ST st, int nrArgs,EXEC exec,int execId, CG cg);
   // ACCESSORS
-  const std::string& name()   const { return d_name; };
-  VS   vs()     const { return d_vs; };
-  ST   st()     const { return d_st; };
+  const std::string& name()   const { return d_name; }
+  VS   vs()     const { return d_vs; }
+  ST   st()     const { return d_st; }
   VS   argVs(int a)  const;
   ST   argSt(int a)  const;
   int  firstPolyArg() const;
-  int  nrArgs() const { return d_nrArgs; };
+  int  nrArgs() const { return d_nrArgs; }
   std::string  syntax() const;
   std::string  strArg(int argNr) const; // return an argument description
 
-  MAJOR_CODE opCode() const { return d_major; };
-  EXEC exec() const { return d_exec; };
-  int  execId() const { return d_execId; };
-  CG   cg() const { return d_cg; };
+  MAJOR_CODE opCode() const { return d_major; }
+  EXEC exec() const { return d_exec; }
+  int  execId() const { return d_execId; }
+  CG   cg() const { return d_cg; }
 
 };
 

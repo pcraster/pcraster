@@ -57,7 +57,7 @@ class IndexTable : public Parameter {
   //! returns VS_INDEXTABLE
   VS symbolType() const override;
 
-   ArrayDefVector arrayDefVector() const { return d_array; };
+   ArrayDefVector arrayDefVector() const { return d_array; }
   std::string arrayDefName() const;
 
   //! read non spatial values for par, vals should be 0 size

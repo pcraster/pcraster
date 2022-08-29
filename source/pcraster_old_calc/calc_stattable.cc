@@ -145,10 +145,10 @@ namespace calc {
         {}
       REAL4  subjectR() const {
         return d_subjectR;
-      };
+      }
       bool subjectRLess(const CS_CP& rhs) const {
         return d_subjectR < rhs.d_subjectR;
-      };
+      }
       bool subjectILess(const CS_CP& rhs) const {
         return d_subjectI < rhs.d_subjectI;
       }
@@ -211,7 +211,7 @@ namespace calc {
   struct ScalarStats : public com::AverageSdMinMax<REAL4> {
       REAL4 d_med{0};
       ScalarStats()
-        {};
+        {}
 
      template<typename KeyT>
      void printLine(
@@ -234,7 +234,7 @@ namespace calc {
                << "\t" << sd()
                << "\t" << d_med;
            out << "\n";
-         };
+         }
   };
   static ScalarStats scalarStats(
     const REAL4* begin , const REAL4*end)

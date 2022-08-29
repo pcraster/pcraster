@@ -17,7 +17,7 @@ typedef std::string QString;
 //! count nodes that are attributes
 struct CountNodeAttrs {
   size_t nr{0};
-  CountNodeAttrs() {};
+  CountNodeAttrs() {}
   void operator()(DOMNode* n) {
     if (n->getNodeType() == DOMNode::ATTRIBUTE_NODE)
        nr++;
@@ -27,7 +27,7 @@ struct CountNodeAttrs {
 
 struct ConcatNodeValues {
   QString val;
-  ConcatNodeValues() {};
+  ConcatNodeValues() {}
   void operator()(DOMNode* n) {
     if (n->getNodeValue() != nullptr)
       val += pcrxsd::toString(n->getNodeValue());
@@ -38,7 +38,7 @@ struct ConcatNodeValues {
 //! count nr of attributes of element
 struct CountAttrsOfElement {
   size_t nr{0};
-  CountAttrsOfElement() {};
+  CountAttrsOfElement() {}
   void operator()(DOMElement* e) {
    nr+= e->getAttributes()->getLength();
   }
@@ -89,15 +89,15 @@ BOOST_AUTO_TEST_CASE(for_each_node)
 // {
 // /*
 //  Document doc("<?jsx version='1'?><Main><S1 /><S2 b='a2'/><S3><S1 a='a2' /></S3></Main>");
-// 
+//
 //  CountNodeAttrs ca;
 //  forEachElement(doc->getDocumentElement(), ca);
 //  BOOST_CHECK(ca.nr==0);
-// 
+//
 //  CountAttrsOfElement cae;
 //  forEachElement(doc->getDocumentElement(), cae);
 //  BOOST_CHECK(cae.nr==2);
-// 
+//
 //  ChangeTagName  ctn("S1","SX");
 //  forEachElement(doc->getDocumentElement(), ctn);
 //  BOOST_CHECK(ctn.nr==2);
@@ -105,12 +105,12 @@ BOOST_AUTO_TEST_CASE(for_each_node)
 //  ChangeTagName  ctnAgain("S1","SX");
 //  forEachElement(doc->getDocumentElement(), ctnAgain);
 //  BOOST_CHECK(ctnAgain.nr==0);
-// 
+//
 //  ChangeTagName  ctnMain("Main","SX");
 //  forEachElement(doc->getDocumentElement(), ctnMain);
 //  BOOST_CHECK(ctnMain.nr==1);
 //  BOOST_CHECK(doc->getDocumentElement().tagName()=="SX");
-// 
+//
 //  // the PI and the document element
 //  BOOST_CHECK(doc.childNodes().count() == 2);
 // */
@@ -124,12 +124,12 @@ BOOST_AUTO_TEST_CASE(for_each_node)
 //  Document doc("<S1 b='notCountedAsChild'><S1 /><S2 b='a2'/><S3><S1 a='a2NotCountedAsChild' /></S3></S1>");
 //  forEachChildElement(doc->getDocumentElement(), ca);
 //  BOOST_CHECK(ca.nr==0);
-// 
+//
 //  // only S2 childs of root has attr
 //  CountAttrsOfElement ca2;
 //  forEachChildElement(doc->getDocumentElement(), ca2);
 //  BOOST_CHECK(ca2.nr==1);
-// 
+//
 // // NOT SUPPORTED
 // //  // test changing
 // //  ChangeTagName ctn("S1","SX");

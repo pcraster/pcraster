@@ -46,9 +46,9 @@ public:
     \param delim Delimeter string. Empty string result in no
                  delimeter. Default Delimeter is a single space
   */
-  Concatenate(const std::string& delim): d_delim(delim) { };
+  Concatenate(const std::string& delim): d_delim(delim) { }
   //! Constructor with single space as Default Delimeter
-  Concatenate(): d_delim(" ") { };
+  Concatenate(): d_delim(" ") { }
 
   //! Function operator.
   /*!

@@ -74,10 +74,10 @@ public:
   //! ctor
   InputSpatial(const std::string& mapName,VS vs,const Compressor& c):
     Spatial(vs,c.nrCellsCompressed(),false),
-    d_mapName(mapName), d_compressor(c) {};
+    d_mapName(mapName), d_compressor(c) {}
 
   //! dtor
-      ~InputSpatial              () override {};
+      ~InputSpatial              () override {}
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

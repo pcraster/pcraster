@@ -396,7 +396,7 @@ public:
     //! ALWAYS AS FIRST STATEMENT! should go in ctor, if we could set the Ctor
     void initialize() {
           ANTLRParser::init();
-    };
+    }
 >>
 
 /*********/

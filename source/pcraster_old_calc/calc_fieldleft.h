@@ -67,7 +67,7 @@ class FieldLeft : public Symbol, public UseDefNode {
   VS vs() const;
   bool isUse() const override;
 
-  IndexSelected *indexSelected() const { return d_index; };
+  IndexSelected *indexSelected() const { return d_index; }
 };
 
 }

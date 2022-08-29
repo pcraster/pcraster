@@ -38,7 +38,7 @@ class CmpSortKey {
  public:
   bool operator()(const SortKey& e1, const SortKey& e2) {
    return e1.distSqr < e2.distSqr;
-  };
+  }
 };
 
 } // namespace geo

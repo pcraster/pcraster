@@ -42,7 +42,7 @@ class MixedExpr : public FieldExpr, public FieldArgs {
   MixedExpr(const Element& pos,
       const Operator& op,
             FieldExprArgs& fieldArgs);
-  ~MixedExpr() override {};
+  ~MixedExpr() override {}
 
   // MANIPULATORS
   void prepareExecution() override;

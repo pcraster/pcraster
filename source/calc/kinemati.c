@@ -108,7 +108,7 @@ double IterateToQnew(
       Qkx   -= fQkx / dfQkx;                                /* Next k */
       Qkx   = MAX(Qkx, 1e-30);
       count++;
-    } while(fabs(fQkx) > epsilon && count < MAX_ITERS);
+    } while(fabsl(fQkx) > epsilon && count < MAX_ITERS);
 
 #ifdef DEBUG_DEVELOP
     /* Our loop should converge in around 2 steps, otherwise something's

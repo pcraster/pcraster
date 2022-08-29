@@ -41,9 +41,9 @@ public:
   // CREATORS
   //----------------------------------------------------------------------------
 
-                   IOpImpl               () {};
+                   IOpImpl               () {}
 
-  virtual         ~IOpImpl               () {};
+  virtual         ~IOpImpl               () {}
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -63,10 +63,10 @@ public:
                                   size_t nrActualArgs) const=0;
 
   virtual void genPointCode      (PointCodeGenerator* ) const
-  {};
+  {}
 
   virtual const char* pointFunction() const
-  { return nullptr;};
+  { return nullptr;}
 
 };
 

@@ -41,7 +41,7 @@ namespace com {
  *     static  CSF_CR csfCR();
  *     static  bool   isMV(T *v);
  * };
- * 
+ *
  * template<>
  * class CsfCell<UINT1> {
  *   public:
@@ -89,7 +89,7 @@ template<typename T>
     T d_min;
     T d_max;
     GetMinMax(T MV):
-      d_MV(MV),d_min(MV),d_max(MV) {};
+      d_MV(MV),d_min(MV),d_max(MV) {}
 
     void add(const T*v, size_t n) {
       for (size_t i=0; i< n; ++i)

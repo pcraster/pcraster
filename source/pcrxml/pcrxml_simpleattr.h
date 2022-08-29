@@ -61,9 +61,9 @@ public:
   // ACCESSORS
   //----------------------------------------------------------------------------
   //! value of element
-  T value() const { return d_value; };
+  T value() const { return d_value; }
   //! value of element
-  T operator()() const { return d_value; };
+  T operator()() const { return d_value; }
 
 };
 

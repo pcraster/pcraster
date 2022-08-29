@@ -69,10 +69,10 @@ public:
                               PCR_EXTERNAL_FUNCTION_ALGORITHM algorithm)
     : Operator(op),
       d_resultTypes(resultTypes), d_algorithm(algorithm)
-  {};
+  {}
 
   /* virtual */    ~ExternalFunction   ()
-  {};
+  {}
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -203,11 +203,11 @@ public:
 
   const Operator&  op                  (size_t t)
   { PRECOND(t < d_table.size());
-    return d_table[t]; };
+    return d_table[t]; }
 
   const ExternalFunction& externFunc   (size_t t)
   { PRECOND(t < d_table.size());
-    return d_table[t]; };
+    return d_table[t]; }
 
   size_t           nrModelLinkProxies  () const;
 

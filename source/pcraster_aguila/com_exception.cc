@@ -30,7 +30,7 @@ public:
    d_msg.insert(Pair(com::E_ACCESCREATE, "Permission denied for creating"));
    d_msg.insert(Pair(com::E_DIRPARTNOENT,"Directory/Folder part of file does not exist"));
    d_msg.insert(Pair(com::E_EXIST,       "File exists"));
-  };
+  }
   const std::string& operator[](Errno nr) const {
    auto f = d_msg.find(nr);
    assert(f != d_msg.end());

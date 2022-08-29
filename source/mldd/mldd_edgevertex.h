@@ -31,9 +31,9 @@ namespace mldd {
   class  Edge  {
     Vertex d_source,d_target;
    public:
-    Edge() {};
+    Edge() {}
     Edge(const Vertex& source, const Vertex& target):
-      d_source(source),d_target(target) {};
+      d_source(source),d_target(target) {}
 
     const Vertex& source() const  {
       return d_source;

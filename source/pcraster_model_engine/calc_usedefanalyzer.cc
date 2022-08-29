@@ -491,8 +491,9 @@ calc::UseDefAnalyzer::UseDefAnalyzer(CFGNode *cfg,
   CFGVisitor(cfg),
   d_keepLiveAtEnd(keepLiveAtEnd)
 {
-  if(!dynamic_cast<BlockEntrance*>(current()))
+  if(!dynamic_cast<BlockEntrance*>(current())){
      PRECOND(dynamic_cast<BlockEntrance*>(current()));
+  }
   d_rec = new UseDefRecorder(prefixFirstUseByDef);
 }
 

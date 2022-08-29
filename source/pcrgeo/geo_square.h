@@ -77,11 +77,11 @@ public:
 
   //! Constructor.
                    Square              ():
-                     d_centre(),d_halfWidth() {};
+                     d_centre(),d_halfWidth() {}
 
                    Square              (const Point<T,n> centre,
                                         T                halfWidth):
-                     d_centre(centre),d_halfWidth(halfWidth) {};
+                     d_centre(centre),d_halfWidth(halfWidth) {}
 
                    Square            (const Square &rhs):
                      d_centre(rhs.d_centre),
@@ -89,7 +89,7 @@ public:
                    {}
 
   //! Destructor.
-  /* virtual */    ~Square              () {};
+  /* virtual */    ~Square              () {}
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

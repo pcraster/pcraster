@@ -4322,7 +4322,7 @@ private:
             pos_.undo(scopes_.top());
             scopes_.pop();
         }
-    };
+    }
 
     dfs_traverser pos_;
     dfs_traverser lastMatch_;
@@ -4440,7 +4440,7 @@ longest_prefix_match(scoped_dfs_traverser pos, const arg_string& arg,
                         return match_t{arg, std::move(pos)};
                     }
                     else if(match.length() > longest.length()) {
-                        longest = match_t{arg.substr(match.at(), match.length()), 
+                        longest = match_t{arg.substr(match.at(), match.length()),
                                           pos};
                     }
                 }

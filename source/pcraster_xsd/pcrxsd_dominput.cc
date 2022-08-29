@@ -139,8 +139,8 @@ class DOMInputErrorHandler : public DOMErrorHandler
 protected:
     std::ostringstream d_msg;
 public:
-    DOMInputErrorHandler() {};
-    ~DOMInputErrorHandler() override {};
+    DOMInputErrorHandler() {}
+    ~DOMInputErrorHandler() override {}
 
     std::string error() const {
       return d_msg.str();
@@ -156,8 +156,8 @@ private :
 class VerboseErrorHandler : public DOMInputErrorHandler
 {
 public:
-    VerboseErrorHandler() {};
-    ~VerboseErrorHandler() override {};
+    VerboseErrorHandler() {}
+    ~VerboseErrorHandler() override {}
 
     //!  Implementation of the DOM ErrorHandler interface
     bool handleError(const DOMError& domError) override;
@@ -189,8 +189,8 @@ bool pcrxsd::VerboseErrorHandler::handleError(const DOMError& domError)
 class ViErrorHandler : public DOMInputErrorHandler
 {
 public:
-    ViErrorHandler() {};
-    ~ViErrorHandler() override {};
+    ViErrorHandler() {}
+    ~ViErrorHandler() override {}
 
     //!  Implementation of the DOM ErrorHandler interface
     bool handleError(const DOMError& domError) override;
@@ -239,7 +239,7 @@ DOMInput::DOMInput(EntityResolverType erType):
   d_parser(nullptr),
   d_document(nullptr),
   d_resourceResolver(nullptr)
-  
+
 {
   switch(erType) {
     case CompiledIn:  d_resourceResolver = new CompiledInResolver(); break;

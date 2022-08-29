@@ -161,9 +161,9 @@ public:
               d_allZero=false;
         }
       }
-  };
-  bool newMVsFound() const { return d_newMVsFound; };
-  bool allZero() const { return d_allZero; };
+  }
+  bool newMVsFound() const { return d_newMVsFound; }
+  bool allZero() const { return d_allZero; }
 };
 }
 

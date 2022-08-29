@@ -28,7 +28,7 @@ class  IndexParameterVariable : public IndexParameter {
   size_t index() const override;
   const IndexParameterConstant* indexParameterConstant() const override;
 
-  bool isOn()const override { return true; };
+  bool isOn()const override { return true; }
 };
 
 }

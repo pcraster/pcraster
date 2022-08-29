@@ -6,7 +6,7 @@
 class NeighbourhoodWrapper : public geo::Neighbourhood {
 public:
    NeighbourhoodWrapper(double fromRadius, double toRadius) : Neighbourhood(fromRadius, toRadius) {
-   };
+   }
 };
 
 BOOST_AUTO_TEST_CASE(random_cell_locations)

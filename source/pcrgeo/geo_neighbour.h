@@ -191,7 +191,7 @@ class DownStreamVisitorCell : public CellLoc {
   {
   }
   //! dtor
-  ~DownStreamVisitorCell() {};
+  ~DownStreamVisitorCell() {}
 
   //! are all upstream neighbours visited?
   bool allUpstreamNeighboursVisited() const {

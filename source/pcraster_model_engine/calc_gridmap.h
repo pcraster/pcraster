@@ -73,12 +73,12 @@ public:
   //----------------------------------------------------------------------------
   // ACCESSORS
   //----------------------------------------------------------------------------
-  const std::string& fileName() const { return d_fileName; };
-  VS                       vs() const { return d_vs; };
-  size_t            nrCells() const { return nrRows()*nrCols(); };
-  size_t             nrCols() const { return d_rs.nrCols(); };
-  size_t             nrRows() const { return d_rs.nrRows(); };
-  geo::RasterSpace const& rasterSpace() const { return d_rs;};
+  const std::string& fileName() const { return d_fileName; }
+  VS                       vs() const { return d_vs; }
+  size_t            nrCells() const { return nrRows()*nrCols(); }
+  size_t             nrCols() const { return d_rs.nrCols(); }
+  size_t             nrRows() const { return d_rs.nrRows(); }
+  geo::RasterSpace const& rasterSpace() const { return d_rs;}
 
 };
 

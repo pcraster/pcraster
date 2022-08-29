@@ -82,11 +82,6 @@ target_include_directories(pcrcom
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
 )
 
-target_include_directories(pcrcom SYSTEM
-    PUBLIC
-        ${Boost_INCLUDE_DIRS}
-)
-
 target_link_libraries(pcrcom
     PUBLIC
         pcraster::misc

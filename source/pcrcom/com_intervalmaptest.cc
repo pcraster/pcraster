@@ -25,7 +25,7 @@ namespace com {
   struct FO_MM {
     std::vector<double> data;
     int  count{0};
-    FO_MM() {};
+    FO_MM() {}
     void operator()(double v) {
         count++;
         data.push_back(v);

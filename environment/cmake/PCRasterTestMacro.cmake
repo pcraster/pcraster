@@ -56,9 +56,6 @@ macro(add_unit_test)
         PRIVATE
             BOOST_TEST_DYN_LINK
     )
-    target_include_directories(${TEST_EXE_NAME} SYSTEM
-        PRIVATE
-            ${Boost_INCLUDE_DIRS})
     target_include_directories(${TEST_EXE_NAME}
         PRIVATE
             ${ADD_UNIT_TEST_INCLUDE_DIRS})

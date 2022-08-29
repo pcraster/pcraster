@@ -187,7 +187,9 @@ static int CalcPixel(
     PTYPE tlX, tlY, trX, trY, brX, brY, blX, blY; /* corners */
     size_t i;
     POINT2D *outputCell= NULL; /* polygon of output cell */
+#ifdef DEBUG
     size_t nr= 4;              /* nr of points of cell */
+#endif
 
     if (raster != NULL)
         raster= InitRaster(raster); /* initialize raster */

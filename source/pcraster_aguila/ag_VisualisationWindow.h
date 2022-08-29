@@ -113,23 +113,23 @@ protected:
 
   QMenu*           fileMenu            () const
   { assert(d_fileMenu);
-    return d_fileMenu; };
+    return d_fileMenu; }
 
   QMenu*           editMenu            () const
   { assert(d_editMenu);
-    return d_editMenu; };
+    return d_editMenu; }
 
   QMenu*           viewMenu            () const
   { assert(d_viewMenu);
-    return d_viewMenu; };
+    return d_viewMenu; }
 
   QMenu*           helpMenu            () const
   { assert(d_helpMenu);
-    return d_helpMenu; };
+    return d_helpMenu; }
 
   QToolBar*        toolBar             ()  const
   { assert(d_toolBar);
-    return d_toolBar;  };
+    return d_toolBar;  }
 
   void             rescan              () override;
 

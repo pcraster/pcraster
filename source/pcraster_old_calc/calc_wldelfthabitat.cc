@@ -246,7 +246,7 @@ namespace calc {
       //  std::vector<std::string> n(com::split(e.tagName().latin1(),'.'));
       //  if (n.size() > 1)
       //    e.setTagName(n.back().c_str());
-    };
+    }
   };
 
   /* find in tree on first match basis an element named \a tag

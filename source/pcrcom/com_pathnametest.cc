@@ -269,7 +269,7 @@ BOOST_AUTO_TEST_CASE(split_for)
   // "c:\"
   pn        = PathName("c:" + d_slash);
   directory = "c:\\"; // c:
-  base      = ""; // \\
+  base      = ""; // "\\"
   BOOST_CHECK_EQUAL(pn.directoryName(), directory);
   BOOST_CHECK_EQUAL(pn.baseName(), base);
 

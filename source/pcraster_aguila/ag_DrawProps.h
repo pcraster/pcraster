@@ -53,7 +53,7 @@ protected:
 
 protected:
 
-  virtual void     reMapColours        () { } ;
+  virtual void     reMapColours        () { }
 
 public:
 

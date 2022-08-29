@@ -376,7 +376,7 @@ public:
     void initialize(calc::Script& script) {
           d_script = &script;
           ANTLRParser::init();
-    };
+    }
 
     //! script  where parse will add to
     calc::Script *script() const;

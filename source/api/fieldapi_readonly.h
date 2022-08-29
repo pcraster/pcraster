@@ -90,7 +90,7 @@ public:
   //! see UseAsT value(size_t rowIndex, size_t colIndex)
           UseAsT operator[](const geo::CellLoc& l) const {
             return value(l.row(),l.col());
-          };
+          }
 
   //! is it a spatial varying field
   virtual bool spatial() const=0;

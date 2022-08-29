@@ -89,11 +89,10 @@ add_library(pcraster_dal_objects OBJECT
     dal_VTKBlockDriver.cc
 )
 
-target_include_directories(pcraster_dal_objects SYSTEM
-    PUBLIC
-        ${GDAL_INCLUDE_DIRS}
-        ${Qt5Sql_INCLUDE_DIRS}
-        ${Boost_INCLUDE_DIRS}
+target_link_libraries(pcraster_dal_objects
+  PRIVATE
+    GDAL::GDAL
+    Qt5::Sql
 )
 
 target_include_directories(pcraster_dal_objects

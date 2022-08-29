@@ -34,7 +34,7 @@ namespace detail {
    }
   public:
    OrderSortFO(IVSpatial<double> const& val):
-       d_val(&val) {};
+       d_val(&val) {}
    //! sort criteria on val
    bool operator()(size_t e1, size_t e2) const {
       assert(!pcr::isMV(val()[e1]));
@@ -57,7 +57,7 @@ namespace detail {
    IVSpatial<double> const& exprVal,
    IVSpatial<INT4>   const& classVal):
      d_exprVal(&exprVal),d_classVal(&classVal)
-   {};
+   {}
    //! sort criteria on val
    bool operator()(size_t e1, size_t e2) const {
       assert(!pcr::isMV( exprVal()[e1]));

@@ -37,8 +37,8 @@ protected:
   //  Copy constructor default for createClone
   //               IFieldRDConversion               (IFieldRDConversion const& rhs);
 
-                   IFieldRDConversion               () {};
-   virtual        ~IFieldRDConversion               () {};
+                   IFieldRDConversion               () {}
+   virtual        ~IFieldRDConversion               () {}
 public:
   //! a linear numbering scheme within a (possible) non-rectangular area
   typedef size_t        FieldId;

@@ -14,7 +14,7 @@ class DynamicSection : public InnerStatementBlock {
  public:
 	DynamicSection(const Element& p,
 		StatementBlock *b):
-	 InnerStatementBlock(p,b) {}; 
+	 InnerStatementBlock(p,b) {}
 
 	// MANIPULATORS
 	void executeBlock() override;

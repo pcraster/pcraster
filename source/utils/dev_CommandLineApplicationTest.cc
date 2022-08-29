@@ -7,27 +7,27 @@
 
 class CommandLineApplicationWrapper : public dev::CommandLineApplication {
 public:
-  CommandLineApplicationWrapper(unsigned short argc, char** argv) : CommandLineApplication( argc, argv){};
+  CommandLineApplicationWrapper(unsigned short argc, char** argv) : CommandLineApplication( argc, argv){}
 
   clipp::group& genericOptions() {
     return CommandLineApplication::genericOptions();
-  };
+  }
 
   clipp::group& hiddenOptions() {
     return CommandLineApplication::hiddenOptions();
-  };
+  }
 
   clipp::group& positionalOptions() {
     return CommandLineApplication::positionalOptions();
-  };
+  }
 
   void usage(std::ostream& stream) const {
     CommandLineApplication::usage(stream);
-  };
+  }
 
   void addPositionalOption(std::string const& name, short maxCount, std::string description){
     CommandLineApplication::addPositionalOption(name, maxCount, std::move(description));
-  };
+  }
 };
 
 

@@ -8,7 +8,7 @@
 //! count nodes that are attributes
 struct CountNodeAttrs {
   size_t nr{0};
-  CountNodeAttrs() {};
+  CountNodeAttrs() {}
   void operator()(const QDomNode& n) {
     if (n.isAttr())
        nr++;
@@ -16,7 +16,7 @@ struct CountNodeAttrs {
 };
 struct ConcatNodeValues {
   QString val;
-  ConcatNodeValues() {};
+  ConcatNodeValues() {}
   void operator()(const QDomNode& n) {
 #if QT_VERSION < QT_VERSION_CHECK(5, 9, 0)
     if (n.nodeValue() != QString::null)
@@ -29,7 +29,7 @@ struct ConcatNodeValues {
 //! count nr of attributes of element
 struct CountAttrsOfElement {
   size_t nr{0};
-  CountAttrsOfElement() {};
+  CountAttrsOfElement() {}
   void operator()(const QDomElement& e) {
    nr+= e.attributes().count();
   }
@@ -39,7 +39,7 @@ struct ChangeTagName {
   QString d_newName;
   size_t nr;
   ChangeTagName(QString oldName, QString newName):
-    d_oldName(std::move(oldName)),d_newName(std::move(newName)),nr(0){};
+    d_oldName(std::move(oldName)),d_newName(std::move(newName)),nr(0){}
   void operator()(QDomElement e) {
 
     PRECOND(!e.isNull());

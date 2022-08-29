@@ -228,7 +228,7 @@ public:
 	 setLine(from._line);
      _text=NULL;
      setText(from._text);
-  };
+  }
 
 // MR9 THM operator =() required when heap allocated string is used with copy semantics
 
@@ -243,7 +243,7 @@ public:
  	 setLine(rhs._line);
      setText(rhs._text);
      return *this;
-   };
+   }
 };
 
 class ANTLRCommonToken : public ANTLRRefCountToken {
@@ -301,7 +301,7 @@ public:
 	 setLine(from._line);
      _text=NULL;
      setText(from._text);
-  };
+  }
 
 // MR9 THM operator =() required when heap allocated string is used with copy semantics
 
@@ -316,7 +316,7 @@ public:
  	 setLine(rhs._line);
      setText(rhs._text);
      return *this;
-   };
+   }
 };
 
 // used for backward compatibility

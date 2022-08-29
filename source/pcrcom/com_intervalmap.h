@@ -42,7 +42,7 @@
   using namespace boost::placeholders;
 #endif
 
-  
+
 namespace com {
   // IntervalMap declarations.
 }
@@ -59,7 +59,7 @@ namespace intervalMap {
       typedef R argument_type;
       typedef bool result_type;
       PartitionFO(const com::Interval<R> *i):
-        d_i(i) {};
+        d_i(i) {}
       bool operator()(R v) const {
         return d_i->valid(v);
       }
@@ -127,7 +127,7 @@ private:
   {
     const IntervalMap<T,R> &d_m;
     NotInInterval(const IntervalMap<T,R>& m):
-      d_m(m) {};
+      d_m(m) {}
     public:
       typedef IT argument_type;
       typedef bool result_type;
@@ -143,7 +143,7 @@ private:
   //----------------------------------------------------------------------------
   IntervalMap():
      d_outside()
-     
+
      {}
 
   virtual ~IntervalMap() {
@@ -320,7 +320,7 @@ private:
   {
     const IntervalMultiMap<T,R>* d_m;
     NotInInterval(const IntervalMultiMap<T,R>& m):
-      d_m(&m) {};
+      d_m(&m) {}
     public:
       typedef IT argument_type;
       typedef bool result_type;
@@ -338,7 +338,7 @@ private:
   //----------------------------------------------------------------------------
   IntervalMultiMap():
      d_outside()
-     
+
      {}
 
   virtual ~IntervalMultiMap() {

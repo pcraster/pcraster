@@ -74,9 +74,9 @@ public:
     d_outflowMask(rhs.d_outflowMask)
                    {}
 
-                   OutEdgeIterator               () {};
+                   OutEdgeIterator               () {}
 
-  /* virtual */    ~OutEdgeIterator              () {};
+  /* virtual */    ~OutEdgeIterator              () {}
 
      OutEdgeIterator(
           const       Vertex& v,

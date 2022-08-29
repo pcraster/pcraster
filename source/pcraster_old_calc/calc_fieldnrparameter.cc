@@ -51,8 +51,9 @@ void calc::FieldNrParameter::goInScope()
 
 calc::FieldHandle calc::FieldNrParameter::value(size_t index, bool lastUse)
 {
-  if (!(index < d_vals.size()))
+  if (!(index < d_vals.size())){
     POSTCOND(index < d_vals.size());
+  }
   return d_vals[index]->value(lastUse);
 }
 

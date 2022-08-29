@@ -34,7 +34,7 @@ public:
 
 
   bool isArray() const;
-  StatementBlock* block() const { return d_block; };
+  StatementBlock* block() const { return d_block; }
 };
 
 }

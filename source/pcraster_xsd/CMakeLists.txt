@@ -201,7 +201,6 @@ add_library(pcraster::xsd ALIAS pcraster_xsd)
 
 target_include_directories(pcraster_xsd
     PUBLIC
-        ${Boost_INCLUDE_DIRS}
         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
         $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/_deps/xsd-src/libxsd>

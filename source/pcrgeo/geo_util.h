@@ -90,7 +90,7 @@ namespace geo {
     private:
     CSF_VS d_vs;
   public:
-      ValueScale2CellRepr(CSF_VS vs): d_vs(vs) {};
+      ValueScale2CellRepr(CSF_VS vs): d_vs(vs) {}
     CSF_CR defaultCR() const;
     CSF_CR smallCR()   const;
     CSF_CR largeCR()   const;

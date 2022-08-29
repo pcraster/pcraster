@@ -222,7 +222,9 @@ static int CalcPixel(
     DATA *list= NULL;    /* areas and values of input cells */
     size_t i, nrList= 0; /* number of items in list */
     POINT2D *outputCell; /* polygon of output cell */
+#ifdef DEBUG
     size_t nr= 4;        /* nr of points of cell */
+#endif
     CSF_VS vs;           /* value scale of first input map */
 
     if (nrCoverCells > 0 && nrMaps > 1)

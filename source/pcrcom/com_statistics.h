@@ -92,8 +92,8 @@ class SumNr: public Sum<valueT,sumT> {
 private:
   size_t      d_nr{0};
 public:
-                   SumNr              () {};
-  /* virtual */   ~SumNr              () {};
+                   SumNr              () {}
+  /* virtual */   ~SumNr              () {}
 
   void operator()(valueT value) {
     Sum<valueT,sumT>::operator()(value);

@@ -20,7 +20,7 @@ typedef enum PCR_VS {
   VS_D=16,      /* direction */
   VS_L=32,      /* ldd */
 //VS_V=0,       /* vector  SET TO 0 disabled */
-/* combined types legal in Fields 
+/* combined types legal in Fields
  *  order of chars in name must be equal to order above
  *  code creation modules depend on this.
  */
@@ -54,7 +54,7 @@ typedef enum PCR_VS {
   //! what can belong to a set
   VS_INDEX_SUBSET=VS_INDEX|VS_INDEXSET,
 
-  VS_ANYTHING=0xFFFFFFFF,
+  VS_ANYTHING=0x7FFFFFFF,
 /*
  * csf version 1, types
  */

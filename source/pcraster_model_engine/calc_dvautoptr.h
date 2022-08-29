@@ -38,7 +38,7 @@ template <class T>
    private:
      T* d_ap;
    public:
-     DVAutoPtr(T* ap): d_ap(ap) {};
+     DVAutoPtr(T* ap): d_ap(ap) {}
     ~DVAutoPtr()                { deleteFromPcrme(d_ap); }
 
     T* get()                    { return d_ap; }

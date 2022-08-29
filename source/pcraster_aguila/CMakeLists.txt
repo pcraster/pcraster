@@ -189,10 +189,6 @@ add_library(pcraster_aguila_objects OBJECT
 target_include_directories(pcraster_aguila_objects
     PRIVATE
         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
-        ${Qt5Gui_INCLUDE_DIRS}
-        ${Qt5Xml_INCLUDE_DIRS}
-        ${Qt5OpenGL_INCLUDE_DIRS}
-        ${Qt5Widgets_INCLUDE_DIRS}
         $<TARGET_PROPERTY:pcraster::math_utils,INTERFACE_INCLUDE_DIRECTORIES>
         $<TARGET_PROPERTY:pcraster::string_utils,INTERFACE_INCLUDE_DIRECTORIES>
 )
@@ -217,7 +213,10 @@ target_include_directories(pcraster_aguila_objects
 
 # Is the above obsolete when using target_link_libraries?
 target_link_libraries(pcraster_aguila_objects
-  pcraster::xsd
+  PRIVATE
+    pcraster::xsd
+    Qt5::OpenGL
+    Qt5::Xml
 )
 
 target_compile_definitions(pcraster_aguila_objects

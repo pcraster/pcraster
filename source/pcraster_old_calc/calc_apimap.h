@@ -27,7 +27,7 @@ class ApiMap: private ObjCount<ApiMap> {
  protected:
    static  void* allocate(CSF_CR inCr, size_t nrCells);
  public:
-   virtual      ~ApiMap() {};
+   virtual      ~ApiMap() {}
 
    virtual void *getCPointer()=0;
    virtual void *detachData()=0;
@@ -48,11 +48,11 @@ class ApiMapC : public ApiMap {
     //! ctor for read-only, GlobArg
     ApiMapC(const geo::RasterSpace& rs,const void *val,bool spatial,CSF_CR inCr):
       d_data(nullptr),
-      d_map(d_init(rs.nrRows(),rs.nrCols(),(void *)val,(int)spatial,inCr)) {};
+      d_map(d_init(rs.nrRows(),rs.nrCols(),(void *)val,(int)spatial,inCr)) {}
     //! ctor, always spatial, allocate data area
     ApiMapC(const geo::RasterSpace& rs,CSF_CR inCr):
       d_data(allocate(inCr,rs.nrCells())),
-      d_map(d_init(rs.nrRows(),rs.nrCols(),d_data,true,inCr)) {};
+      d_map(d_init(rs.nrRows(),rs.nrCols(),d_data,true,inCr)) {}
     ~ApiMapC() override {
       d_del(d_map);
       d_map=nullptr;

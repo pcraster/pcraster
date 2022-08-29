@@ -95,6 +95,8 @@ int AppCheckVal(const char *v,     /* token value to read */
         break;
     default: {
         assert(0); // Shut up compiler
+        result = 0;
+        break;
     }
     }
     if (!result) {
@@ -115,6 +117,7 @@ int AppCheckVal(const char *v,     /* token value to read */
             break;
         default: {
             assert(0); // Shut up compiler
+            break;
         }
         }
         if (valueScale != VS_UNDEFINED)

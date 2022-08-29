@@ -18,7 +18,7 @@ BOOST_AUTO_TEST_CASE(test)
     DataEnvelop *s{nullptr};
 
     Verify()
-    {};
+    {}
     ~Verify() {
       delete s;
       delete doc;

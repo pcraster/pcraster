@@ -109,9 +109,9 @@ template<typename MapFormat>
                    StackReaderT(
                                IoFieldStrategy *strategy,
                                const std::string& stackName):
-                     StackReader(strategy,stackName) {};
+                     StackReader(strategy,stackName) {}
 
-           ~StackReaderT              () override {};
+           ~StackReaderT              () override {}
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

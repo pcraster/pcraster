@@ -56,7 +56,7 @@ class LexIndexTable : public LexValueFile {
   IndexTable* d_to;
  public:
   LexIndexTable(std::ifstream* f, IndexTable *to)
-    : LexValueFile(f),d_to(to) {};
+    : LexValueFile(f),d_to(to) {}
   void processLine(const Line& line, int lineNr) override;
  };
 }

@@ -28,7 +28,7 @@ namespace com {
 class DynamicLibraryException: public Exception {
  public:
   DynamicLibraryException(const std::string& msg):
-   Exception(msg) {};
+   Exception(msg) {}
  };
 
 
@@ -88,7 +88,7 @@ public:
   const void *loadFunction(const std::string& symName) const;
 
   //! return the handle of the library
-  DllHandle libHandle() const { return d_dllHandle; };
+  DllHandle libHandle() const { return d_dllHandle; }
 
   //! return if dll was already found in address space (STILL TO TEST!)
   bool wasAlreadyLoaded() const { return d_wasAlreadyLoaded; }

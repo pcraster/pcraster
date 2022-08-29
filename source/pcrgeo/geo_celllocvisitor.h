@@ -53,28 +53,28 @@ public:
     d_currentCell.setCol(0);
     d_currentCell.nextRow();
    }
-  };
+  }
 
   //! is current cell valid
   /*! if false then all cells are done
    */
   bool valid() const {
     return d_currentCell.row() < d_rd.nrRows();
-  };
+  }
 
   //! return the current cell
   const CellLoc& operator*() const {
     return d_currentCell;
-  };
+  }
 
   //! return the row id of the current cell
   size_t row() const {
     return d_currentCell.row();
-  };
+  }
   //! return the col id of the current cell
   size_t col() const {
     return d_currentCell.col();
-  };
+  }
 
   CellLoc downstream(unsigned int lddVal) const;
 

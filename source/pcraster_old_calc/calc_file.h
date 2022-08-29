@@ -15,7 +15,7 @@ class File  {
 #  endif
 public:
   static bool d_testCaseTypeOnExistingName;
-  File(const std::string& name): d_name(name) {};
+  File(const std::string& name): d_name(name) {}
   //! check if name can be used as an output file name
   void validateOutputName() const;
   void validateExisting() const;

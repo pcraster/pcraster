@@ -22,11 +22,11 @@ class StatementBlock;
  */
 typedef struct ConstructPar {
 
-  ConstructPar() {};
+  ConstructPar() {}
 
   ConstructPar(
     StatementBlock *block, const Symbol& name):
-    d_block(block), d_name(name) {};
+    d_block(block), d_name(name) {}
 
   //! block where parameter is constructed
   StatementBlock      *d_block;

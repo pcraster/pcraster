@@ -58,7 +58,7 @@ public:
    d_msg.insert(Pair(com::E_ACCESCREATE, "Permission denied for creating"));
    d_msg.insert(Pair(com::E_DIRPARTNOENT,"Directory/Folder part of file does not exist"));
    d_msg.insert(Pair(com::E_EXIST,       "File exists"));
-  };
+  }
   const std::string& operator[](Errno nr) const {
    auto f = d_msg.find(nr);
    DEVELOP_POSTCOND(f != d_msg.end());
@@ -72,7 +72,7 @@ public:
 
 /*!
   Constructor takes man error message.
-  Note that that all messages put into the Exception should be 
+  Note that that all messages put into the Exception should be
   sensible, and non empty . The Exception formatter removes all
   leading and trailing spaces
 */
@@ -155,9 +155,9 @@ std::string com::Exception::messages() const
   }
 
   // a least one char and newline :-)
-  DEVELOP_POSTCOND(m.size() > 2); 
+  DEVELOP_POSTCOND(m.size() > 2);
   // ending newline
-  DEVELOP_POSTCOND(m[m.size()-1] == '\n'); 
+  DEVELOP_POSTCOND(m[m.size()-1] == '\n');
 
   return m;
 }

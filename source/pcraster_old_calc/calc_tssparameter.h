@@ -17,7 +17,7 @@ class  TssParameter : public SubParameter {
  public:
   // CREATORS
   TssParameter(const ParsPar& par, bool constant, bool input);
-  ~TssParameter() override {};
+  ~TssParameter() override {}
 
   // ACCESSORS
 

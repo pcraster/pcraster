@@ -108,8 +108,9 @@ LINE *CalcLine(LINE *l,          /* write-only, line created */
                const POINT2D *a, /* first point on the line */
                const POINT2D *b) /* second point on the line */
 {
-    if (PointsEq(a, b))
+    if (PointsEq(a, b)) {
         PRECOND(!PointsEq(a, b));
+    }
     if (a->x == b->x) {
         l->parY = TRUE;
         l->xInt = Double(a->x);

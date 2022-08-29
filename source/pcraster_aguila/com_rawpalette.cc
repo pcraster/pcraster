@@ -256,12 +256,12 @@ const com::RawPalette* com::RawPalette::directionalPalette()
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 com::RawPalette::RawPalette()
 
-   
+
 
 {
 }
@@ -401,7 +401,7 @@ com::RgbTuple const&  com::RawPalette::colour(size_t i) const
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE OPERATORS 
+// DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 bool com::operator==(RawPalette const& lhs, RawPalette const& rhs)
@@ -419,35 +419,35 @@ bool com::operator!=(RawPalette const& lhs, RawPalette const& rhs)
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE FUNCTIONS 
+// DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
 /* read palette
- *  \throws BadStreamFormat if error in format 
+ *  \throws BadStreamFormat if error in format
  */
 // std::istream &com::operator>>(std::istream &s, com::RawPalette &p)
 // {
 //   // Create a basic table.
 //   BasicTable t;
-// 
+//
 //   // Fill it with values from the stream.
 //   s >> t;
-// 
+//
 //   // Check the format of the table.
 //   if(t.nrCols() < 3)
 //     throw BadStreamFormat("palette should contain at least three columns");
-// 
+//
 //   p.resize(t.nrRecs());
 //   p.setMaximum(255);
-// 
+//
 //   // Put the rgb values in the palette.
 //   BasicTable::const_iterator rit = t.begin(0);
 //   BasicTable::const_iterator git = t.begin(1);
 //   BasicTable::const_iterator bit = t.begin(2);
 //   RawPalette::iterator it;
-// 
+//
 //   UINT2 r, g, b;
-// 
+//
 //   for(it = p.begin(); it != p.end(); it++)
 //   {
 //     r = static_cast<UINT2>(*(rit++));
@@ -455,10 +455,10 @@ bool com::operator!=(RawPalette const& lhs, RawPalette const& rhs)
 //     b = static_cast<UINT2>(*(bit++));
 //     if(r > 255 || g > 255 || b > 255)
 //       throw BadStreamFormat("colour value should be in range [0,255]");
-// 
+//
 //     (*it).setRgb(r, g, b);
 //   }
-// 
+//
 //   return s;
 // }
 
@@ -483,9 +483,10 @@ const com::RawPalette* com::defaultPalette(CSF_VS vs)
     return RawPalette::directionalPalette();
   else if(vs == VS_LDD)
     return RawPalette::nominalPalette();
-  else
+  else{
     assert(false);
     return nullptr;                // Never reached.
+  }
 }
 
 

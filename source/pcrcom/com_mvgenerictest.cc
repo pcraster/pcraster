@@ -9,7 +9,7 @@ namespace com {
   namespace mvGenericTest {
     struct UP {
      int sum{0};
-     UP() {};
+     UP() {}
      void  operator()(int v) {
        sum+=v;
      }
@@ -19,7 +19,7 @@ namespace com {
      int sum{0};
      UPC() {
          copyCount++;
-     };
+     }
      void  operator()(int v) {
        sum+=v;
      }
@@ -35,7 +35,7 @@ namespace com {
      int sum{0};
      MulSumOp() {
          copyCount++;
-     };
+     }
      void  operator()(INT4 e1, INT4 e2) {
        sum+= (e1*e2);
      }

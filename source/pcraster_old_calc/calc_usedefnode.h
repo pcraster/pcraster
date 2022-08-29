@@ -23,10 +23,10 @@ protected:
 
   // ACCESSORS
   virtual bool isUse() const =0;
-  bool IsDef() const { return !isUse(); };
+  bool IsDef() const { return !isUse(); }
   bool nextIsNotUse() const;
   bool nextInSameBlock() const;
-  const UseDefNode *nextUseDef() const { return d_next; };
+  const UseDefNode *nextUseDef() const { return d_next; }
 public:
   UseDefNode(StatementBlock &inBlock);
   virtual ~UseDefNode();

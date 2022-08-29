@@ -6,10 +6,10 @@
 class RiksNeighbourhoodWrapper : geo::RiksNeighbourhood {
 public:
    RiksNeighbourhoodWrapper(double fromRadius, double toRadius) : RiksNeighbourhood(fromRadius, toRadius) {
-   };
+   }
 
    RiksNeighbourhoodWrapper(double toRadius) : RiksNeighbourhood(toRadius) {
-   };
+   }
 
    double sum() const {
      return RiksNeighbourhood::sum();

@@ -1,17 +1,17 @@
 add_library(pcrblock STATIC
-    block_add
-    block_arithmeticoperators
-    block_block
-    block_cast
-    block_claycompactor
-    block_compare
-    block_dehaancompactor
-    block_dummycompactor
-    block_io
-    block_profile
-    block_remove
-    block_resample
-    block_sandcompactor
+    block_add.cc
+    block_arithmeticoperators.cc
+    block_block.cc
+    block_cast.cc
+    block_claycompactor.cc
+    block_compare.cc
+    block_dehaancompactor.cc
+    block_dummycompactor.cc
+    block_io.cc
+    block_profile.cc
+    block_remove.cc
+    block_resample.cc
+    block_sandcompactor.cc
 )
 
 add_library(pcraster::pcrblock ALIAS pcrblock)
@@ -31,19 +31,19 @@ if(PCRASTER_BUILD_TEST)
     add_unit_tests(
         SCOPE pcrblock
         NAMES
-            block_addtest
-            block_arithmeticoperatorstest
-            block_blocktest
-            block_casttest
-            block_comparetest
-            block_compactorstest
-            block_dehaancompactortest
-            block_iotest
-            block_mackeybridgecompactortest
-            block_removetest
-            block_profiletest
-            block_resampletest
-            block_voxelatheighttest
+            block_addtest.cc
+            block_arithmeticoperatorstest.cc
+            block_blocktest.cc
+            block_casttest.cc
+            block_comparetest.cc
+            block_compactorstest.cc
+            block_dehaancompactortest.cc
+            block_iotest.cc
+            block_mackeybridgecompactortest.cc
+            block_removetest.cc
+            block_profiletest.cc
+            block_resampletest.cc
+            block_voxelatheighttest.cc
         LINK_LIBRARIES
             pcraster::pcrblock
     )

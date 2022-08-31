@@ -8,9 +8,9 @@ endif()
 # NO_EXTRAS required for success on macOS conda build
 # pybind11_add_module NO_EXTRAS
 add_library(_pcraster_block_python MODULE
-    blockpy_blockpy
-    blockpy_conversions
-    blockpy_functions
+    blockpy_blockpy.cc
+    blockpy_conversions.cc
+    blockpy_functions.cc
 )
 
 add_library(pcraster::block_python ALIAS _pcraster_block_python)
@@ -29,10 +29,24 @@ target_link_libraries(_pcraster_block_python
         pybind11::module
 )
 
+# TODO why is Python3::module not working on Linux?
+if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    target_link_libraries(_pcraster_block_python
+        PRIVATE
+            Python3::Python
+    )
+else()
+    target_link_libraries(_pcraster_block_python
+        PRIVATE
+            Python3::Module
+    )
+endif()
+
 set_target_properties(_pcraster_block_python
     PROPERTIES
         PREFIX "${PYTHON_MODULE_PREFIX}"
         SUFFIX "${PYTHON_MODULE_EXTENSION}"
+        DEBUG_POSTFIX ""
 )
 
 # configure_python_extension(_pcraster_block_python
@@ -41,10 +55,22 @@ set_target_properties(_pcraster_block_python
 
 set(_TARGET_BIN ${EXECUTABLE_OUTPUT_PATH}/${CMAKE_CFG_INTDIR})
 
+
 set_target_properties(_pcraster_block_python
     PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY "${_TARGET_BIN}/pcraster"
-        LIBRARY_OUTPUT_DIRECTORY "${_TARGET_BIN}/pcraster"
+        RUNTIME_OUTPUT_DIRECTORY
+            $<TARGET_FILE_DIR:pcrcalc>/pcraster
+        LIBRARY_OUTPUT_DIRECTORY
+            $<TARGET_FILE_DIR:pcrcalc>/pcraster
+        INSTALL_RPATH
+            "\\\$ORIGIN/../../lib"
+)
+
+
+install(
+    TARGETS _pcraster_block_python
+    LIBRARY DESTINATION ${PCRASTER_PYTHON_INSTALL_DIR}/pcraster/
+    RUNTIME DESTINATION ${PCRASTER_PYTHON_INSTALL_DIR}/pcraster/
 )
 
 install(

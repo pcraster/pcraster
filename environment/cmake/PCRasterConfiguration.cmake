@@ -41,7 +41,7 @@ option(
 option(
     PCRASTER_BUILD_BLOCKPYTHON
     "Build blockpython module"
-    OFF)
+    ON)
 option(
     PCRASTER_BUILD_MOC
     "Build moc"

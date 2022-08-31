@@ -207,7 +207,7 @@ PYBIND11_MODULE(_pcraster_block_python, module)
          ;
 
   // implicitly_convertible<block::DummyCompactor, block::Compactors<block::MackeyBridgeCompactor>::Compactor>();
-  implicitly_convertible<block::DummyCompactor, block::MackeyBridgeCompactor>();
+  // implicitly_convertible<block::DummyCompactor, block::MackeyBridgeCompactor>(); removed fttb, causes module import to fail
 
   // Create raster discretisation.
   module.def("createRaster", &blockpy::createRaster)

@@ -30,7 +30,7 @@ dependencies = [
     ('ncurses', '6.2')
 ]
 
-configopts = f" -D Python3_EXECUTABLE=$EBROOTPYTHON/bin/python -D PYTHON_EXECUTABLE=$EBROOTPYTHON/bin/python "
+configopts = f" -D Python3_EXECUTABLE=$EBROOTPYTHON/bin/python -D PYTHON_EXECUTABLE=$EBROOTPYTHON/bin/python -D PCRASTER_WITH_FLAGS_IPO=ON "
 
 sanity_check_paths = {
     'files': ['bin/%s' % x for x in ['aguila', 'asc2map', 'col2map', 'legend', 'map2asc', 'map2col',

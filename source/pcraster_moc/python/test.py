@@ -5,7 +5,7 @@ import sys
 import pcraster
 import pcraster.moc
 
-dataPath = "../../Mldd/demo"
+dataPath = "" #../../Mldd/demo"
 
 pcraster.setclone(os.path.join(dataPath, "DemIn"))
 

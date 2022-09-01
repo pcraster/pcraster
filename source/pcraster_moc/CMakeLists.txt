@@ -2,10 +2,10 @@
 add_subdirectory(python)
 
 add_library(pcraster_moc_objects OBJECT
-    pt_MOCLink
-    pt_ModelLinks
-    pt_Particle
-    pt_ParticleTracker
+    pt_MOCLink.cc
+    pt_ModelLinks.cc
+    pt_Particle.cc
+    pt_ParticleTracker.cc
 )
 
 target_include_directories(pcraster_moc_objects
@@ -34,20 +34,26 @@ target_link_libraries(pcraster_moc
         pcraster::old_calc
 )
 
+set_target_properties(pcraster_moc
+    PROPERTIES
+        SOVERSION ${${PROJECT_NAME}_MAJOR_VERSION}
+        VERSION ${${PROJECT_NAME}_MAJOR_VERSION}.${${PROJECT_NAME}_MINOR_VERSION}.${${PROJECT_NAME}_PATCH_VERSION}
+)
+
 install(
     TARGETS
         pcraster_moc
     RUNTIME
-        DESTINATION lib COMPONENT Runtime
+        DESTINATION ${PCRASTER_BIN_INSTALL_DIR} COMPONENT Runtime
     LIBRARY
-        DESTINATION lib COMPONENT Runtime
+        DESTINATION ${PCRASTER_LIB_INSTALL_DIR} COMPONENT Runtime
 )
 
 if(PCRASTER_BUILD_TEST)
     add_unit_tests(
         SCOPE moc
         NAMES
-            pt_ParticleTest
+            pt_ParticleTest.cc
         INCLUDE_DIRS
             $<TARGET_PROPERTY:pcraster_moc_objects,INTERFACE_INCLUDE_DIRECTORIES>
         OBJECT_LIBRARIES

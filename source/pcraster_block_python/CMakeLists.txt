@@ -15,11 +15,6 @@ add_library(_pcraster_block_python MODULE
 
 add_library(pcraster::block_python ALIAS _pcraster_block_python)
 
-# target_include_directories(_pcraster_block_python
-#     PRIVATE
-#         ${PYTHON_INCLUDE_DIR}
-# )
-
 target_link_libraries(_pcraster_block_python
     PRIVATE
         pcraster::pcrblock
@@ -136,11 +131,11 @@ if(PCRASTER_BUILD_TEST)
         string(REPLACE ";" "\\;" ENV_PATH "${ENV_PATH}")
         # argument is a 'cmake' ; separated list of values, therefore escape the environment path separator
         set_tests_properties(blockpy_blockpy_pythonunittest PROPERTIES
-          ENVIRONMENT "PATH=${ENV_PATH}\\;${EXECUTABLE_OUTPUT_PATH};PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}\\;${EXECUTABLE_OUTPUT_PATH}"
+          ENVIRONMENT "PATH=${ENV_PATH}\\;$<TARGET_FILE_DIR:pcrcalc>;PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}\\;$<TARGET_FILE_DIR:pcrcalc>"
         )
     else()
         set_tests_properties(blockpy_blockpy_pythonunittest PROPERTIES
-          ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:${EXECUTABLE_OUTPUT_PATH}"
+          ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:$<TARGET_FILE_DIR:pcrcalc>"
         )
     endif()
 

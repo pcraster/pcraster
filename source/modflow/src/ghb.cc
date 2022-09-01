@@ -101,9 +101,9 @@ void GHB::setGHB(const calc::Field * head, const calc::Field * cond, size_t laye
 void GHB::setGHB(const float * head, const float * cond, size_t layer){
   layer--; // layer number passed by user starts with 1
   d_mf->d_methodName = "setGeneralHead head values";
-  bool result = d_mf->setBlockData(*(d_mf->d_ghbHead), head, layer);
+  d_mf->setBlockData(*(d_mf->d_ghbHead), head, layer);
   d_mf->d_methodName = "setGeneralHead conductance values";
-  result = d_mf->setBlockData(*(d_mf->d_ghbCond), cond, layer);
+  d_mf->setBlockData(*(d_mf->d_ghbCond), cond, layer);
 
   setGhbUpdated(true);
 }

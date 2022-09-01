@@ -45,7 +45,7 @@ option(
 option(
     PCRASTER_BUILD_MOC
     "Build moc"
-    OFF)
+    ON)
 option(
     PCRASTER_BUILD_MLDD
     "Build mldd"

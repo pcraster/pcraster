@@ -45,6 +45,7 @@ jobs:
                   -D PCRASTER_BUILD_TEST=ON \
                   -D PCRASTER_BUILD_DOCUMENTATION=ON \
                   -D PCRASTER_BUILD_MODFLOW_EXECUTABLE=ON \
+                  -D PCRASTER_WITH_FLAGS_IPO=ON \
                   -D Python3_EXECUTABLE:FILEPATH=/usr/bin/python3 \
                   -D CMAKE_INSTALL_PREFIX=package
 

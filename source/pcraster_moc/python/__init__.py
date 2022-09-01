@@ -14,7 +14,7 @@ if sys.platform == "win32":
         os.environ["PATH"] = pcraster_dll_pathname + os.pathsep + path_
 
 try:
-    from _pcraster_moc import *
+    from ._pcraster_moc import *
 finally:
     if sys.platform == "win32":
         os.environ["PATH"] = path_

@@ -3,6 +3,7 @@ import argparse
 import sys
 import PIL.Image
 import PIL.ImageDraw
+import PIL.ImageFont
 import numpy
 import osgeo.gdal
 import osgeo.gdal_array
@@ -89,11 +90,17 @@ def _drawMap(
       if numpy.isnan(res):
         res = "MV"
       else:
-        res = "%0.3G" % (res)
+        res = f"{res:0.3G}"
 
-      strLen = draw.textsize(res)
-      xCoord = cellWidth * c + (cellWidth - strLen[0]) / 2.0
-      draw.text((xCoord, yCoord), res, fill=1)
+      strLen = draw.textlength(res)
+
+      try:
+          ufont = PIL.ImageFont.truetype("LiberationSans-Regular.ttf", 12)
+      except OSError:
+          ufont = PIL.ImageFont.load_default()
+
+      xCoord = cellWidth * c + (cellWidth - strLen) / 2.0
+      draw.text((xCoord, yCoord), res, fill=1, font=ufont)
 
 
 

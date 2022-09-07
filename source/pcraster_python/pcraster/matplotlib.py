@@ -53,7 +53,7 @@ def _get_raster(raster):
     colours = ['#FF6666', '#66FF66']
     colour = ListedColormap(colours)
   elif raster.dataType() == pcraster.Ldd:
-    nan_val = 9
+    nan_val = 255
     data = pcraster.pcr2numpy(raster, nan_val)
     # Do not paint raster values, thus white
     colour = ListedColormap(['#FFFFFF'])
@@ -128,6 +128,8 @@ def plot(raster, labels=None, title=None, filename=None):
   # Plot the raster with the coordinates
   im = axes.imshow(data, extent=(minx, maxx, miny, maxy), cmap=colour, interpolation='None', aspect='equal')
 
+  axes.set_xticks([minx, maxx])
+  axes.set_yticks([miny, maxy])
 
   if raster.dataType() == pcraster.Boolean or raster.dataType() == pcraster.Nominal:
     values = numpy.unique(data.compressed().ravel())
@@ -155,13 +157,11 @@ def plot(raster, labels=None, title=None, filename=None):
     cb.ax.set_title(plot_title)
 
   elif raster.dataType() == pcraster.Ldd:
-
-    data = numpy.array([[3,2,1],[6,5,4],[9,8,7]])
     # Ideas obtained from
     # https://stackoverflow.com/questions/33828780/matplotlib-display-array-values-with-imshow
 
-    size_x = 3
-    size_y = 3
+    size_x = data.shape[1]
+    size_y = data.shape[0]
     x_start = minx
     x_end = maxx
     y_start = maxy

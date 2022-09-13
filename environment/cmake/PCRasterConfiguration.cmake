@@ -119,7 +119,7 @@ endif()
 
 if(PCRASTER_BUILD_MULTICORE)
     set(FERN_BUILD_ALGORITHM ON CACHE BOOL "Build submodule fern")
-    CPMAddPackage("gh:geoneric/fern#98c68fa27f795cb381c67505f14b64684b155d34")
+    CPMAddPackage("gh:geoneric/fern#48d9c858b90a1b133da79115e8e73ee6c0cccd42")
     if(PCRASTER_BUILD_TEST_FERN)
       set(DEVBASE_BUILD_TEST ON CACHE BOOL "Build Fern tests")
     else()

@@ -9,6 +9,7 @@ target_link_libraries(_pcraster_moc_python
     PUBLIC
         pcraster::moc
         pcraster::model_engine
+        pybind11::module
 )
 
 # TODO why is Python3::module not working on Linux?

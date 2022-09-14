@@ -92,7 +92,12 @@ def _drawMap(
       else:
         res = f"{res:0.3G}"
 
-      strLen = draw.textlength(res)
+      try:
+          strLen = draw.textlength(res)
+      except AttributeError:
+          # textsize is deprecated and will be removed in Pillow 10 (2023-07-01)
+          # keep this for CI
+          strLen = draw.textsize(res)[0]
 
       try:
           ufont = PIL.ImageFont.truetype("LiberationSans-Regular.ttf", 12)

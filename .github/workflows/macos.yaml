@@ -22,9 +22,9 @@ jobs:
 
         - name: Configure system
           run: |
-              : # GDAL is built again particular Python version, check formula code if required
-              brew install python@3.9 cmake ninja boost gdal ncurses xerces-c qt@5 gcc@11
-              $(brew --prefix)/opt/python@3.9/bin/pip3 install numpy psutil
+              : # GDAL is built against particular Python version, check formula code if required
+              brew install python@3.10 cmake ninja boost gdal ncurses xerces-c qt@5 gcc@11
+              $(brew --prefix)/opt/python@3.10/bin/pip3 install numpy psutil
 
         - name: Configure PCRaster
           shell: bash -l {0}
@@ -39,7 +39,7 @@ jobs:
                   -D PCRASTER_BUILD_TEST=ON \
                   -D PCRASTER_BUILD_MODFLOW_EXECUTABLE=ON \
                   -D CMAKE_PREFIX_PATH="/usr/local/opt/ncurses;$(brew --prefix qt5)" \
-                  -D Python3_EXECUTABLE:FILEPATH=$(brew --prefix)/opt/python@3.9/bin/python3 \
+                  -D Python3_EXECUTABLE:FILEPATH=$(brew --prefix)/opt/python@3.10/bin/python3 \
                   -D CMAKE_INSTALL_PREFIX=package
 
         - name: Build debug

@@ -69,7 +69,7 @@ const char *m;
      m ="Application Stack Overflow.";break;
    default:
     static char msg[32];
-    sprintf(msg,"code=%x",e);
+    sprintf(msg,"code=%zu",e);
      m=msg;
    break;
   }

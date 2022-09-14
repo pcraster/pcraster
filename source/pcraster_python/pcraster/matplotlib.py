@@ -91,7 +91,7 @@ def plot(raster, labels=None, title=None, filename=None):
     .. versionadded:: 4.3
 
     .. note::
-    This function is only available when the ``matplotlib`` module is installed.
+       This function is only available when the ``matplotlib`` module is installed.
     """
 
     plot_title = None

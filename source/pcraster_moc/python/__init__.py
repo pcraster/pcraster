@@ -1,4 +1,5 @@
 import os
+import pathlib
 import sys
 
 
@@ -6,15 +7,9 @@ import sys
 # Otherwise our dlls won't be found when our Python extensions are loaded
 # by Python.
 if sys.platform == "win32":
-    path_ = os.environ["PATH"]
-    pcraster_installation_root = os.path.abspath(os.path.join(
-        os.path.dirname(__file__), "..", "..", ".."))
-    pcraster_dll_pathname = os.path.join(pcraster_installation_root, "lib")
-    if os.path.exists(pcraster_dll_pathname):
-        os.environ["PATH"] = pcraster_dll_pathname + os.pathsep + path_
+    pcraster_installation_root = pathlib.Path(__file__).parent.parent.parent.parent
+    pcraster_dll_pathname = pathlib.Path(pcraster_installation_root, "bin")
+    if pcraster_dll_pathname.exists():
+        os.add_dll_directory(pcraster_dll_pathname)
 
-try:
-    from ._pcraster_moc import *
-finally:
-    if sys.platform == "win32":
-        os.environ["PATH"] = path_
+from ._pcraster_moc import *

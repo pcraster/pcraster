@@ -1,5 +1,6 @@
 import os
 import pathlib
+import shutil
 import sys
 
 
@@ -7,9 +8,9 @@ import sys
 # Otherwise our dlls won't be found when our Python extensions are loaded
 # by Python.
 if sys.platform == "win32":
-    pcraster_installation_root = pathlib.Path(__file__).parent.parent.parent.parent
-    pcraster_dll_pathname = pathlib.Path(pcraster_installation_root, "bin")
-    if pcraster_dll_pathname.exists():
-        os.add_dll_directory(pcraster_dll_pathname)
+    pcraster_app_path = shutil.which("pcrcalc.exe")
+    if pcraster_app_path:
+        pcraster_bin_pathname = pathlib.Path(pcraster_app_path).parent
+        os.add_dll_directory(pcraster_bin_pathname)
 
 from ._pcraster_moc import *

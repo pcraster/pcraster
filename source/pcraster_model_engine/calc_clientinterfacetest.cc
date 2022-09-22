@@ -268,6 +268,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryStatic)
               "?:1:13:ERROR: memInput: 0-ptr data input buffer passed");
     pcr_destroyScript(s);
   }
+#if !defined(WIN32)
   float input[25];
   std::fill(input,input+25,4.5F);
   { // X) Let API allocate memory
@@ -356,6 +357,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryStatic)
     }
     pcr_destroyScript(s);
   }
+#endif
   { // type clash
     //   type check clash if memOutput is used also for a field output
     void  *data[2] = {input,nullptr};
@@ -468,6 +470,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryStatic)
 //   }
 }
 
+#if !defined(WIN32)
 BOOST_AUTO_TEST_CASE(testIOMemoryDynamic)
 {
   using namespace calc;
@@ -807,6 +810,7 @@ BOOST_AUTO_TEST_CASE(testXMLSettings)
     pcr_destroyScript(s);
   }
 }
+#endif
 
 
 BOOST_AUTO_TEST_CASE(testBil)

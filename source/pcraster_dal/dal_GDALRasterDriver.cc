@@ -497,6 +497,7 @@ void GDALRasterDriver::registerGDALDrivers()
   assert(d_drivers.empty());
 
   auto* manager = GetGDALDriverManager();
+  assert(manager != nullptr);
 
   for(int i = 0; i < manager->GetDriverCount(); ++i) {
     auto* driver = manager->GetDriver(i);
@@ -514,6 +515,7 @@ namespace detail {
 std::vector<GDALDriver*> rasterDrivers()
 {
   auto* manager = GetGDALDriverManager();
+  assert(manager != nullptr);
   std::vector<GDALDriver*> drivers;
 
   for(int i = 0; i < manager->GetDriverCount(); ++i) {
@@ -540,6 +542,7 @@ void deregisterGDALDrivers()
   // Deregister currently registered raster drivers.
   auto registeredDrivers = rasterDrivers();
   auto* manager = GetGDALDriverManager();
+  assert(manager != nullptr);
 
   for(auto* driver: registeredDrivers) {
     manager->DeregisterDriver(driver);
@@ -815,6 +818,7 @@ void GDALRasterDriver::registerGDALDriverToUse() const
 
   // Register driver.
   GDALDriverManager* manager = GetGDALDriverManager();
+  assert(manager != nullptr);
   manager->RegisterDriver(d_driver);
 
   // Hack for HDF4Image driver. It seems it depends on the HDF4 driver also

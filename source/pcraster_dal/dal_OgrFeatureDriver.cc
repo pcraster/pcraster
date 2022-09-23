@@ -309,6 +309,7 @@ void OgrFeatureDriver::registerOgrDrivers()
   assert(detail::drivers.empty());
 
   auto* manager = GetGDALDriverManager();
+  assert(manager != nullptr);
 
   for(int i = 0; i < manager->GetDriverCount(); ++i) {
     auto* driver = manager->GetDriver(i);

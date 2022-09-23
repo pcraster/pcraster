@@ -51,7 +51,7 @@ class WeakCallback (object):
 
 @atexit.register
 def _atExit():
-  print
+  print()
 
 
 

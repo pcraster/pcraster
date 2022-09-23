@@ -232,6 +232,35 @@ if(PCRASTER_BUILD_TEST)
         @ONLY
     )
 
+    file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/test_gdal_import_1.py
+"import pcraster
+from osgeo import gdal,ogr,osr
+try:
+    from qgis import core
+except ImportError:
+    pass
+
+raster = gdal.OpenEx('abs_Expr.map')
+t = raster.GetGeoTransform()
+srs = osr.SpatialReference()
+srs.ImportFromEPSG(4326)
+pcraster.setclone(5, 4, 3, 2, 1)
+")
+    file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/test_gdal_import_2.py
+"
+from osgeo import gdal,ogr,osr
+try:
+    from qgis import core
+except ImportError:
+    pass
+import pcraster
+raster = gdal.OpenEx('abs_Expr.map')
+t = raster.GetGeoTransform()
+srs = osr.SpatialReference()
+srs.ImportFromEPSG(4326)
+pcraster.setclone(5, 4, 3, 2, 1)
+")
+
     add_test(
         NAME
             python_pcrcalcpy_pythonunittest
@@ -258,9 +287,16 @@ if(PCRASTER_BUILD_TEST)
 
     add_test(
         NAME
-            python_pcrcalcpy_gdalimport_test
+            python_pcrcalcpy_gdalimport_test_1
         COMMAND
-            ${Python3_EXECUTABLE} "-c" "import pcraster;from osgeo import gdal,ogr,osr;raster = gdal.OpenEx('abs_Expr.map');t = raster.GetGeoTransform();srs = osr.SpatialReference();srs.ImportFromEPSG(4326)"
+            ${Python3_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test_gdal_import_1.py
+    )
+
+    add_test(
+        NAME
+            python_pcrcalcpy_gdalimport_test_2
+        COMMAND
+            ${Python3_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test_gdal_import_2.py
     )
 
 # OLS: clean up the comments when refacoring for the new windows build
@@ -290,7 +326,7 @@ if(PCRASTER_BUILD_TEST)
                     "PATH=${ENV_PATH}\\;$<TARGET_FILE_DIR:pcrcalc>;PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}\\;$<TARGET_FILE_DIR:pcrcalc>"
         )
 
-        set_tests_properties(python_pcrcalcpy_gdalimport_test
+        set_tests_properties(python_pcrcalcpy_gdalimport_test_1 python_pcrcalcpy_gdalimport_test_2
             PROPERTIES
                 ENVIRONMENT
                     "PATH=${ENV_PATH}\\;$<TARGET_FILE_DIR:pcrcalc>;PYTHONPATH=$<TARGET_FILE_DIR:pcrcalc>"
@@ -303,7 +339,7 @@ if(PCRASTER_BUILD_TEST)
                     "PATH=/root/bin:$ENV{PATH};PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:$<TARGET_FILE_DIR:pcrcalc>"
         )
 
-        set_tests_properties(python_pcrcalcpy_gdalimport_test
+        set_tests_properties(python_pcrcalcpy_gdalimport_test_1 python_pcrcalcpy_gdalimport_test_2
             PROPERTIES
                 ENVIRONMENT
                     "PYTHONPATH=$<TARGET_FILE_DIR:pcrcalc>"

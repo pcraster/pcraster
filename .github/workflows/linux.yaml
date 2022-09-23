@@ -6,10 +6,10 @@ jobs:
     build:
         strategy:
             matrix:
-                os: [ubuntu-20.04]
+                os: [ubuntu-22.04]
                 compiler:
-                    - {version: 10, cc: gcc-10  , cxx: g++-10    , fc: gfortran-10}
-                    - {version: 12, cc: clang-12, cxx: clang++-12, fc: gfortran-10}
+                    - {version: 11, cc: gcc-11  , cxx: g++-11    }
+                    - {version: 12, cc: clang-12, cxx: clang++-12}
             fail-fast: false
 
         runs-on: ${{ matrix.os }}
@@ -26,7 +26,7 @@ jobs:
         - name: Configure system
           run: |
               sudo apt update
-              sudo apt install ${{ matrix.compiler.cc }} ${{ matrix.compiler.for }} ninja-build gdal-bin libgdal-dev libxerces-c-dev libxml2-dev libxslt1-dev libboost-dev libboost-date-time-dev libboost-filesystem-dev libboost-test-dev libboost-timer-dev libncurses5-dev libxml2 libxml2-utils mesa-common-dev libglu1-mesa-dev libgl1-mesa-glx python3 libpython3-dev python3-numpy python3-psutil qtbase5-dev libqt5charts5-dev libqt5opengl5-dev cmake pybind11-dev
+              sudo apt install ${{ matrix.compiler.cc }} ninja-build gdal-bin libgdal-dev libxerces-c-dev libxml2-dev libxslt1-dev libboost-dev libboost-date-time-dev libboost-filesystem-dev libboost-test-dev libboost-timer-dev libncurses5-dev libxml2 libxml2-utils mesa-common-dev libglu1-mesa-dev libgl1-mesa-glx python3 libpython3-dev python3-numpy python3-psutil qtbase5-dev libqt5charts5-dev libqt5opengl5-dev cmake pybind11-dev
               # Only required for documentation:
               sudo apt install python3-sphinx doxygen python3-matplotlib graphviz
 
@@ -43,7 +43,7 @@ jobs:
                   -D CMAKE_CXX_COMPILER=${{ matrix.compiler.cxx }} \
                   -D PCRASTER_BUILD_TEST=ON \
                   -D PCRASTER_BUILD_DOCUMENTATION=ON \
-                  -D PCRASTER_WITH_FLAGS_IPO=ON \
+                  -D PCRASTER_WITH_FLAGS_IPO=OFF \
                   -D Python3_EXECUTABLE:FILEPATH=/usr/bin/python3 \
                   -D CMAKE_INSTALL_PREFIX=package
 

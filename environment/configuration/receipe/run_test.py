@@ -19,4 +19,3 @@ class UserModel(pcrfw.StaticModel):
 myModel = UserModel()
 staticModel = pcrfw.StaticFramework(myModel)
 staticModel.run()
-

@@ -66,7 +66,6 @@ Globals::~Globals()
 {
   delete _rte;
   delete _rasterDal;
-  calc::globalEnd();
 }
 
 

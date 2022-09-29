@@ -259,7 +259,7 @@ int Pcrcalc::pcr_ScriptReleaseAllAllocatedMemory()
   return -1;
 }
 
-int Pcrcalc::pcr_ScriptExecuteFinish(void)
+int Pcrcalc::pcr_ScriptExecuteFinish()
 {
   if (!d_ci)
     return -1;

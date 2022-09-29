@@ -63,12 +63,12 @@ private:
   int    d_extraCharRead{EOF};
   bool   d_substitution{true};
 
-  int getRawChar(void);
-  char getRawCharEOFcheck(void);
+  int getRawChar();
+  char getRawCharEOFcheck();
   int getParameterNr(      const std::string& name, bool nIsShellArg);
   std::string getParameter(const std::string& name, bool bracePresent);
 
-  void parseShellParamUse(void);
+  void parseShellParamUse();
 
   //! not implemented
   LexInput(const LexInput&);

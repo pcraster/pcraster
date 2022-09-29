@@ -108,13 +108,13 @@ private:
   template<class T>
   void             checkConsistency    (std::vector<boost::any> values);
 
-  void             checkConsistency    (std::vector<boost::any> values);
+  void             checkConsistency    (const std::vector<boost::any>& values);
 
   template<class T>
   void             checkConsistency    (std::vector<boost::any> values,
                                         DataSpace space);
 
-  void             checkConsistency    (std::vector<boost::any> values,
+  void             checkConsistency    (const std::vector<boost::any>& values,
                                         DataSpace space);
 
   void             checkConsistency    ();

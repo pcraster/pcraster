@@ -104,10 +104,10 @@ SupportedSchema const* SupportedSchema::findBySystemId(
 
 SupportedSchema::SupportedSchema(
    const char       *contents,
-   std::string       systemId,
+   const std::string&       systemId,
    const char       *tag):
   d_contents(contents),
-  d_systemId(systemId),
+  d_systemId(std::move(systemId)),
   d_tag(tag)
 {
   assert(contents);

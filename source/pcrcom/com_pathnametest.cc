@@ -824,7 +824,7 @@ BOOST_AUTO_TEST_CASE(unc)
      return;
 #endif
 
-  PathName pn("\\\\P4\\bin");
+  PathName pn(R"(\\P4\bin)");
   std::filesystem::path bp("//P4/bin");
   BOOST_CHECK_EQUAL(bp.root_name(), "//P4");
   BOOST_CHECK_EQUAL(pn.directoryName(), "\\\\P4\\");

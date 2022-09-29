@@ -261,7 +261,7 @@ namespace calc {
   {
    QDomElement parent(pcrxml::firstMatchByTagName(tree,tag));
    if (parent.isNull())
-     return std::vector<QDomElement>(); // empty vector
+     return {}; // empty vector
    return pcrxml::childElements(parent);
   }
   /* find in tree on first match basis an element named \a tag
@@ -275,7 +275,7 @@ namespace calc {
   {
    std::vector<QDomElement> l(findTagGetSiblings(tree,tag));
    if (l.empty())
-     return QDomElement();
+     return {};
    return l[0];
   }
   static QDomElement expectTagGet1stSibling(
@@ -681,7 +681,8 @@ void calc::WlDelftHabitat::parseEcotoop(
          "number of ECOTOOPVARIA and WAARDEN elements not identical");
 
   std::vector<std::string> arg;
-  for(auto & v : inputData)
+  arg.reserve(inputData.size());
+for(auto & v : inputData)
     arg.push_back(parameter(v).d_name);
   expr += com::join(arg,",")+ ")";
 

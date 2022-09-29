@@ -72,12 +72,12 @@ struct ValueTraits
 };
 
 
-static void mem_init_hook(void);
+static void mem_init_hook();
 // static void *mem_malloc_hook(size_t, const void *);
 // static void *(*glibc_malloc)(size_t, const void *);
-void (*__malloc_initialize_hook)(void) = mem_init_hook;
+void (*__malloc_initialize_hook)() = mem_init_hook;
 
-static void mem_init_hook(void)
+static void mem_init_hook()
 {
   com::tune();
 }

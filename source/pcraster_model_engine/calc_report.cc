@@ -176,8 +176,8 @@ void calc::Report::update(const Timer& timer)
 void calc::Report::print() const
 {
   std::string s;
-  for(size_t i=0; i < d_reportAt.size(); ++i)
-    s += d_reportAt[i] ? '1' : '0';
+  for(bool i : d_reportAt)
+    s += i ? '1' : '0';
   PRINT_VAR(s);
 }
 #endif

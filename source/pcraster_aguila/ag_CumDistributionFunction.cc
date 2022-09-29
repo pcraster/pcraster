@@ -108,7 +108,7 @@ void CumDistributionFunction::addAttribute(
 
 QSize CumDistributionFunction::sizeHint() const
 {
-  return QSize(500, 300);
+  return {500, 300};
 }
 
 

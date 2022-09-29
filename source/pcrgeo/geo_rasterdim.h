@@ -199,7 +199,7 @@ inline bool RasterDim::intContains(int r, int c) const
 //! No check on out of bound, since l may model (past-)end iterator
 inline CellLoc RasterDim::convert(LinearLoc l) const
 {
-  return CellLoc(row(l),col(l));
+  return {row(l),col(l)};
 }
 
 inline LinearLoc RasterDim::convert(const CellLoc& c) const

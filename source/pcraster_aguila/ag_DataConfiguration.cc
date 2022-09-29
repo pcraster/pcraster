@@ -147,7 +147,7 @@ DataConfiguration::DataConfiguration(
   dal::DataSpace space;
 
   for(const auto & configuration : xmlGroup.data()) {
-    std::string name = configuration.name();
+    const std::string& name = configuration.name();
     space = configuration.dataSpace().present()
         ? dataSpace(configuration.dataSpace().get())
         : d_searchSpace;

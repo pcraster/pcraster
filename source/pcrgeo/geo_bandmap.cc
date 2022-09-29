@@ -471,9 +471,9 @@ geo::RasterSpace geo::BandMap::rasterSpace() const
    |_|_|_
    ^ lowest y value
   */
- return RasterSpace(d_nrRows,d_nrCols, d_cellSize,
+ return {d_nrRows,d_nrCols, d_cellSize,
                     d_ulXMap-0.5*d_cellSize,
-                    d_ulYMap+0.5*d_cellSize, YIncrB2T);
+                    d_ulYMap+0.5*d_cellSize, YIncrB2T};
 }
 
 /*!  read all data as is, from data file

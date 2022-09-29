@@ -160,8 +160,8 @@ void mldd::Mldd::setStream(const std::vector<const UINT1*>& ldd)
   // order is not relevant for DagRaster code
   // since the ldd value itself is encoded within
   // a particular index
-  for(size_t i=0; i < ldd.size(); ++i)
-     addOneLdd(ldd[i]);
+  for(auto i : ldd)
+     addOneLdd(i);
 
   try {
     d_dag->updateOrder();

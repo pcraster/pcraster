@@ -29,7 +29,7 @@
 //------------------------------------------------------------------------------
 
 // using the Pentium RDTSC instruction
-static com::CpuCycleCounter::Uint64 pentiumClock(void)
+static com::CpuCycleCounter::Uint64 pentiumClock()
 {
   typedef com::CpuCycleCounter::Uint64 UI64;
   PRECOND(sizeof(UI64) == 8);

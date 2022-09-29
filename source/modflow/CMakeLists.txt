@@ -3,7 +3,6 @@ add_subdirectory(calc)
 add_subdirectory(python)
 
 set(MF_BINARY ${PROJECT_SOURCE_DIR}/external/${CMAKE_SYSTEM_NAME}/${CMAKE_HOST_SYSTEM_PROCESSOR}/mf2005${CMAKE_EXECUTABLE_SUFFIX})
-message(STATUS "      mfbin:" ${MF_BINARY})
 
 IF(WIN32)
   INSTALL(

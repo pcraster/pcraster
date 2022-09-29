@@ -9,11 +9,6 @@
 #define INCLUDED_FUNCTIONAL
 #endif
 
-#ifndef INCLUDED_BOOST_BIND
-#include <boost/bind.hpp>
-#define INCLUDED_BOOST_BIND
-#endif
-
 // PCRaster library headers.
 #ifndef INCLUDED_DAL_MATHUTILS
 #include "dal_MathUtils.h"
@@ -350,10 +345,10 @@ static void deHaanAdd(
   REAL4 load = 0.5 * thickness * compactor.buoyancy();
   std::transform(cummulativeLoad.begin(), cummulativeLoad.end(),
          cummulativeLoad.begin(),
-         boost::bind(std::plus<REAL4>(), _1, load));
+         [load](auto && PH1) { return std::plus<REAL4>()(std::forward<decltype(PH1)>(PH1), load); });
   std::transform(cummulativeDuration.begin(), cummulativeDuration.end(),
          cummulativeDuration.begin(),
-         boost::bind(std::plus<REAL4>(), _1, duration));
+         [duration](auto && PH1) { return std::plus<REAL4>()(std::forward<decltype(PH1)>(PH1), duration); });
 
   // Add voxel to the discretisation which will signal the attributes.
   block.addVoxel(index, compactor(thickness, load, duration));

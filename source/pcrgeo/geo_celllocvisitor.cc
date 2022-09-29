@@ -60,9 +60,9 @@ geo::CellLocVisitor::CellLocVisitor(const RasterDim& rd):
 geo::CellLoc geo::CellLocVisitor::downstream(unsigned int lddVal) const
 {
   DEVELOP_PRECOND(lddVal >=1 && lddVal <= 9);
-  return CellLoc(
+  return {
              row()+lddDirection[lddVal].deltaRow,
-             col()+lddDirection[lddVal].deltaCol);
+             col()+lddDirection[lddVal].deltaCol};
 }
 
 //! checked version

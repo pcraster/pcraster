@@ -54,8 +54,8 @@ extern void StartLimitMalloc(void);
 #define CHK_MALLOC_TYPE(type, nr) ((type *)ChkMalloc(sizeof(type) * ((size_t)(nr))))
 #endif
 
-extern void ChkRegisterNoMoreMemory(void (*f)(void));
-extern void ChkRegisterTryReleaseMemory(int (*f)(void));
+extern void ChkRegisterNoMoreMemory(void (*f)());
+extern void ChkRegisterTryReleaseMemory(int (*f)());
 extern void *ChkMalloc(size_t size);
 extern void *ChkCalloc(size_t nnemb, size_t size);
 extern void *ChkTmpMalloc(size_t size);
@@ -107,8 +107,8 @@ extern int CmpFloat(const float *e1, const float *e2);
 extern int CmpDouble(const double *e1, const double *e2);
 
 /* aterror.c */
-extern int AtError(void (*func)(void));
-extern int NoLongerAtError(void (*func)(void));
+extern int AtError(void (*func)());
+extern int NoLongerAtError(void (*func)());
 extern void ExecAtError(void);
 
 /* bitset.c */

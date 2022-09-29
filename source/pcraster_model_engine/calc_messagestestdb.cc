@@ -212,7 +212,7 @@ public:
     if (i!=end())
       return pcrxml::firstMatchByTagName(i->second,
       QString(subElem.name().c_str()));
-    return QDomElement();
+    return {};
   }
 
   //! return sub element subElem of id, empty string if not found

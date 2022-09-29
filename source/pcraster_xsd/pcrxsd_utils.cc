@@ -74,7 +74,7 @@ std::string contentsIsXMLOrPCRasterFileFormat(std::string const& contents)
      break;
     }
   if (!firstNonWhiteSpaceCharIsLt)
-    return std::string();
+    return {};
   bool hasAlpha=false;
   for( ;i < contents.size() && !hasAlpha; ++i)
     if(std::isalpha(contents[i]))
@@ -90,7 +90,7 @@ std::string contentsIsXMLOrPCRasterFileFormat(std::string const& contents)
         //PRINT_VAR(contents);
       }
   }
-  return std::string();
+  return {};
 }
 
 //! transcode XMLCh data to local code page for std::string

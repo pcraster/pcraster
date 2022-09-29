@@ -130,7 +130,7 @@ void calc::ManualExampleTester::test() const
 
 com::PathName calc::ManualExampleTester::validatedDirectory()
 {
-    return com::PathName("validated");
+    return {"validated"};
 }
 
 

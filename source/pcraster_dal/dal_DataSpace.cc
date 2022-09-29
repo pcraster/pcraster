@@ -1453,7 +1453,7 @@ DataSpaceAddress DataSpace::initialiseInvalidCoordinates(
 */
 DataSpaceAddress DataSpace::address() const
 {
-  return DataSpaceAddress(rank());
+  return {rank()};
 }
 
 

@@ -206,7 +206,7 @@ calc::EsriMap::Window calc::EsriMap::window()
   POSTCOND(d_nrCols == nrCols);
   POSTCOND(cmpBox(dummyAdjBndBox));
 
-  return calc::EsriMap::Window(d_chanId);
+  return {d_chanId};
 }
 
 calc::EsriMap::Window::Window(int winChan):

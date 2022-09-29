@@ -580,7 +580,7 @@ std::string  calc::ASTSymbolInfo::description() const
     if (d_definition->description().present()) {
       return d_definition->description()->text();
     }
-  return std::string();
+  return {};
 }
 
 

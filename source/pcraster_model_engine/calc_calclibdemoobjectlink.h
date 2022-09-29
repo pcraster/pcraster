@@ -66,11 +66,11 @@ public:
   void setDem (const REAL4 *dem);
   void testOrder(
       REAL4*                           result,
-      const std::vector<const REAL4 *>dems,UINT1 singleBool);
+      const std::vector<const REAL4 *>&dems,UINT1 singleBool);
   void getDem (REAL4 *dem);
   void testOrder2(
     std::vector<REAL4*>&             result,
-    const std::vector<const REAL4 *> dems,
+    const std::vector<const REAL4 *>& dems,
     UINT1                            singleLdd) const;
 
 };

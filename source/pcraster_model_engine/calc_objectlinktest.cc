@@ -36,7 +36,7 @@ void calc::CalcLibDemoObjectLink::noArguments()
 
 void calc::CalcLibDemoObjectLink::testOrder(
     REAL4*                           result,
-    const std::vector<const REAL4 *> dems,
+    const std::vector<const REAL4 *>& dems,
     UINT1                            singleLdd)
 {
   result[0]=dems[0][0];
@@ -46,7 +46,7 @@ void calc::CalcLibDemoObjectLink::testOrder(
 
 void calc::CalcLibDemoObjectLink::testOrder2(
     std::vector<REAL4*>&             result,
-    const std::vector<const REAL4 *> dems,
+    const std::vector<const REAL4 *>& dems,
     UINT1                            singleLdd) const
 {
   PRECOND(result.size()==2);

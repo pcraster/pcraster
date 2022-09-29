@@ -34,7 +34,7 @@
 std::string pcrxml::asString(const QString& s)
 {
   if (s.isEmpty())
-   return std::string();
+   return {};
 
   QByteArray asciiData = s.toLatin1();
   return std::string(asciiData.constData());
@@ -58,7 +58,7 @@ std::string pcrxml::asString(const XMLCh *s)
 //! convert
 QString pcrxml::asQString(const std::string& s)
 {
-  return QString(s.c_str());
+  return {s.c_str()};
 }
 
 

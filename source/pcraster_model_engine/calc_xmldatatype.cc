@@ -108,14 +108,14 @@ DataType xml2DataType(
     if (f.spatialType().present())
       st=xml2ST(f.spatialType().get());
 
-    return DataType(vs,st);
+    return {vs,st};
 }
 
 DataType xml2DataType(
     pcrxml::FieldType const& f) {
-    return DataType(
+    return {
      xml2VS(f.dataType()),
-     xml2ST(f.spatialType()));
+     xml2ST(f.spatialType())};
 }
 
 

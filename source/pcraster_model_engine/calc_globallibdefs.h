@@ -26,8 +26,8 @@ namespace calc {
 //------------------------------------------------------------------------------
 
 void         libError      (const std::string& msg);
-void         throwLibError (void);
-std::string  getLibError   (void);
+void         throwLibError ();
+std::string  getLibError   ();
 
 PCR_ME_EXPORT void globalInit    ();
 PCR_ME_EXPORT void setRan  (size_t seed);

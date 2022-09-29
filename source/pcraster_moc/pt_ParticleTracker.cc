@@ -2080,8 +2080,8 @@ void pt::ParticleTracker::calculateConcentration(
     averageConcentration(conc2);
 
     // TODO
-    geo::SimpleRaster<double> headPrevious = head;
-    geo::SimpleRaster<double> satThicknessPrevious = head;
+    const geo::SimpleRaster<double>& headPrevious = head;
+    const geo::SimpleRaster<double>& satThicknessPrevious = head;
 
     // Compute explicitly the chemical concentration at nodes.
     geo::SimpleRaster<double> deltaConc(nrRows(), nrCols());

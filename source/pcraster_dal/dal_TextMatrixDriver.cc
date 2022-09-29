@@ -241,7 +241,7 @@ DataSpace TextMatrixDriver::dataSpace(
          std::string const& /* name */) const
 {
   // A matrix doesn't have a data space of its own.
-  return DataSpace();
+  return {};
 }
 
 
@@ -252,7 +252,7 @@ DataSpace TextMatrixDriver::dataSpace(
          DataSpaceAddress const& /* address */) const
 {
   // A matrix doesn't have a data space of its own.
-  return DataSpace();
+  return {};
 }
 
 

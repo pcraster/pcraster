@@ -549,7 +549,7 @@ GridStat IOStrategy::writeFieldUnpacked(
       // change user's d_dataTransferArray
       d_dataTransferArray[mei->id()] = (void *)(allocatedCopy->src());
     }
-    return GridStat();
+    return {};
   }
 }
 
@@ -561,7 +561,7 @@ DataType IOStrategy::resolveInputField(
   d_fs->checkInputMap(vs,newExternalName);
   // pick the found rasterSpace
   setRasterSpace(d_fs->rasterSpace());
-  return DataType(vs,ST_SPATIAL);
+  return {vs,ST_SPATIAL};
 }
 
 /*

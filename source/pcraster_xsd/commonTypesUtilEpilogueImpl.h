@@ -43,11 +43,11 @@ namespace pcrxsd {
 boost::posix_time::ptime toPosixTime(xml_schema::date_time const& dateTime) {
 
   using namespace boost::posix_time;
-  return ptime(
+  return {
       boost::gregorian::date(dateTime.year(),dateTime.month(),dateTime.day()),
       hours(dateTime.hours())+
       minutes(dateTime.minutes())+
-      seconds(static_cast<long>(dateTime.seconds())));
+      seconds(static_cast<long>(dateTime.seconds()))};
 }
 
 /*! \brief pcrxml:TimeDuration to boost::posix_time::time_duration
@@ -60,12 +60,12 @@ boost::posix_time::time_duration toPosixTimeDuration(
   using namespace boost::posix_time;
 
   if (duration.hours().present())
-    return time_duration(duration.hours().get(),0,0,0);
+    return {duration.hours().get(),0,0,0};
   if (duration.minutes().present())
-    return time_duration(0,duration.minutes().get(),0,0);
+    return {0,duration.minutes().get(),0,0};
   if (duration.seconds().present())
-    return time_duration(0,0,duration.seconds().get(),0);
-  return time_duration(0,0,0,0);
+    return {0,0,duration.seconds().get(),0};
+  return {0,0,0,0};
 }
 
 

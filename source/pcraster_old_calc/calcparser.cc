@@ -236,12 +236,12 @@ calc::Script *Parser::script() const
 
 calc::Element Parser::element(const ANTLRTokenPtr& at) const
 {
-	return calc::Element(script(),mytoken(at)->position());
+	return {script(),mytoken(at)->position()};
 };
 
 calc::Symbol Parser::symbol(const ANTLRTokenPtr& at) const
 {
-	return calc::Symbol(script(), mytoken(at));
+	return {script(), mytoken(at)};
 };
 
 const calc::Operator& Parser::tokenOp(const ANTLRTokenPtr& at) const

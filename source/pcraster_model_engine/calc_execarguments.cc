@@ -104,8 +104,8 @@ calc::ExecArguments::~ExecArguments()
 #ifdef DEBUG_DEVELOP
   // result should be pushed and cleared in normal cases
   if (!std::uncaught_exceptions())
-    for (size_t i=0; i < d_result.size(); ++i)
-      POSTCOND(!d_result[i]);
+    for (auto & i : d_result)
+      POSTCOND(!i);
 #endif
   clean();
 }

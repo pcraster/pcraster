@@ -131,7 +131,7 @@ calc::DataTable::DTE calc::DataTable::dataLoad(const std::string& name)
 {
   auto i(d_table.find(name));
   PRECOND(i != d_table.end());
-  return DTE(i);
+  return {i};
 }
 
 //! insert symbols in data table

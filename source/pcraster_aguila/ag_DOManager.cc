@@ -138,9 +138,9 @@ void ag::DOManager::checkIntegrity()
 {
   // Let's check if all data objects have observers. A data object without an
   // observer is a waste of space.
-  for(iterator it = d_dataObjects.begin(); it != d_dataObjects.end(); ++it)
+  for(auto & d_dataObject : d_dataObjects)
   {
-    assert((*it)->nrObservers() > 0);
+    assert(d_dataObject->nrObservers() > 0);
   }
 }
 #endif

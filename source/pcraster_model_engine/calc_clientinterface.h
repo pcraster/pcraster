@@ -90,7 +90,7 @@ public:
   int              pcr_ScriptExecuteInitialStepMemory(void **data);
   int              pcr_ScriptExecuteNextTimeStepMemory(void **data);
 
-  int              pcr_ScriptExecuteFinish       (void);
+  int              pcr_ScriptExecuteFinish       ();
 
   void             pcr_ScriptExecute             ();
 

@@ -27,7 +27,7 @@ typedef struct ParsReportMoment {
   int end;
   //! verify correctness
 
-  void check(void);
+  void check();
 } ParsReportMoment;
 
 //! holds at which timesteps data is written

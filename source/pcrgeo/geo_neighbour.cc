@@ -103,9 +103,9 @@ geo::CellLoc geo::LDD::target(
   PRECOND(static_cast<int>(from.row())+lddDirection[dir].deltaRow >= 0);
   PRECOND(static_cast<int>(from.col())+lddDirection[dir].deltaCol >= 0);
 #endif
-  return CellLoc(
+  return {
      from.row()+lddDirection[dir].deltaRow,
-     from.col()+lddDirection[dir].deltaCol);
+     from.col()+lddDirection[dir].deltaCol};
 }
 
 //! return cell location of neigbour
@@ -113,9 +113,9 @@ geo::CellLoc geo::NB::target(
       const geo::CellLoc& from,
       NB::Code dir)
 {
-  return CellLoc(
+  return {
      from.row()+lddNBCode[dir].deltaRow,
-     from.col()+lddNBCode[dir].deltaCol);
+     from.col()+lddNBCode[dir].deltaCol};
 }
 
 //! ctor

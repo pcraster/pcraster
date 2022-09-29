@@ -58,7 +58,7 @@ public:
   // CREATORS
   //----------------------------------------------------------------------------
 
-                   DownstreamVisitor              (const geo::RasterDim rd);
+                   DownstreamVisitor              (const geo::RasterDim& rd);
 
    virtual        ~DownstreamVisitor              ();
 

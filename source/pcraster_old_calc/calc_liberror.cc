@@ -37,7 +37,7 @@ void libError(const std::string& msg)
   throwLibError();
 }
 
-void throwLibError(void)
+void throwLibError()
 {
   errorHandlerCalled = false;
 
@@ -46,7 +46,7 @@ void throwLibError(void)
 }
 
 //! return lib error string
-std::string getLibError(void)
+std::string getLibError()
 {
   errorHandlerCalled = false;
   return libErrorStr;

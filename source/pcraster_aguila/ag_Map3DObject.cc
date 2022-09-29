@@ -367,7 +367,7 @@ void ag::Map3DObject::createDrapeScene(const ag::DataObject& dataObject,
 
     if(dataObject.isEnabled(dataGuide)) {
 
-      ag::DataGuide guide = dataGuide;
+      const ag::DataGuide& guide = dataGuide;
       assert(dataObject.isValid(guide));
       assert(guide.type() == geo::STACK);
 

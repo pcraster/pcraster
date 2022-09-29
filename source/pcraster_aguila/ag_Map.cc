@@ -47,7 +47,7 @@ Map::~Map()
 
 QSize Map::sizeHint() const
 {
-  return QSize(500, 300);
+  return {500, 300};
 }
 
 

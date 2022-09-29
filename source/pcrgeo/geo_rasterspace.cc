@@ -146,7 +146,7 @@ void geo::RasterSpace::lowerRight(size_t r, size_t c,
 }
 
 
-void geo::RasterSpace::setup(void)
+void geo::RasterSpace::setup()
 {
 /* set the map angle cosine and sin in header
  * these values are only used in the co-ordinate conversion

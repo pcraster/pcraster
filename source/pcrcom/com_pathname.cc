@@ -438,7 +438,7 @@ void com::PathName::setExtension(const std::string& e)
 
 namespace boost {
   namespace filesystem {
-    int fooCeesBug(void)
+    int fooCeesBug()
     {
            std::cout << "fooCeesBug \n";
            return 0;

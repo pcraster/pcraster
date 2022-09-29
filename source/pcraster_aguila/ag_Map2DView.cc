@@ -257,8 +257,8 @@ double Map2DView::pixelsToWorldUnits(
 QPointF Map2DView::pixelsToWorldUnits(
          QPointF const& amount) const
 {
-  return QPointF(pixelsToWorldUnits(amount.x()),
-         pixelsToWorldUnits(amount.y()));
+  return {pixelsToWorldUnits(amount.x()),
+         pixelsToWorldUnits(amount.y())};
 }
 
 
@@ -275,8 +275,8 @@ double Map2DView::worldUnitsToPixels(
 QPointF Map2DView::worldUnitsToPixels(
          QPointF const& amount) const
 {
-  return QPointF(worldUnitsToPixels(amount.x()),
-         worldUnitsToPixels(amount.y()));
+  return {worldUnitsToPixels(amount.x()),
+         worldUnitsToPixels(amount.y())};
 }
 
 
@@ -388,7 +388,7 @@ void Map2DView::mousePressEvent(
 
 QRect Map2DView::zoomRectangle() const
 {
-  return QRect(
+  return {
     // Upper left point.
     std::min(_mapViewMouseTarget.pressPosition().x(),
          _mapViewMouseTarget.movePosition().x()),
@@ -396,7 +396,7 @@ QRect Map2DView::zoomRectangle() const
          _mapViewMouseTarget.movePosition().y()),
     // Width and height.
     std::abs(_mapViewMouseTarget.movement().x()),
-          std::abs(_mapViewMouseTarget.movement().y()));
+          std::abs(_mapViewMouseTarget.movement().y())};
 }
 
 
@@ -791,7 +791,7 @@ void Map2DView::createScene(
 
   for(const auto & dataGuide : dataGuides) {
     if(dataObject().isEnabled(dataGuide)) {
-      DataGuide guide = dataGuide;
+      const DataGuide& guide = dataGuide;
       assert(dataObject().isValid(guide));
 
       switch(guide.type()) {

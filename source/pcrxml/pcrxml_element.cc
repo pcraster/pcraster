@@ -137,7 +137,7 @@ void pcrxml::Element::write(const com::PathName& fileName) const
 #ifdef DEBUG_DEVELOP
  {
   try {
-   com::PathName pn(fileName);
+   const com::PathName& pn(fileName);
    Document readBack(pn);
   } catch (const com::Exception& e) {
    std::cerr <<  e.getMessages();

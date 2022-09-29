@@ -359,7 +359,7 @@ void MemoryRasterData::checkConsistency(
 
 
 void MemoryRasterData::checkConsistency(
-         std::vector<boost::any> values)
+         const std::vector<boost::any>& values)
 {
   switch(d_typeId) {
     case TI_INT1:         { checkConsistency<INT1>(values);        break; }
@@ -387,21 +387,21 @@ void MemoryRasterData::checkConsistency(
 {
   space.eraseDimension(0);
 
-  for(size_t i = 0; i < values.size(); ++i) {
-    assert(values[i].type() ==
+  for(auto & value : values) {
+    assert(value.type() ==
          typeid(boost::tuple<T, std::vector<boost::any> >));
 
     checkConsistency(
          boost::get<1>(
          boost::any_cast<boost::tuple<T, std::vector<boost::any> > >(
-         values[i])), space);
+         value)), space);
   }
 }
 
 
 
 void MemoryRasterData::checkConsistency(
-         std::vector<boost::any> values,
+         const std::vector<boost::any>& values,
          DataSpace space)
 {
   // values contains <T, std::vector<boost::any> > records, unless space does

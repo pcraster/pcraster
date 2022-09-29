@@ -59,13 +59,13 @@ void calc::libError(const std::string& msg)
 }
 
 //! Error (old style) already called
-void calc::throwLibError(void)
+void calc::throwLibError()
 {
   com::ClibError::throwLibError();
 }
 
 //! return lib error string
-std::string calc::getLibError(void)
+std::string calc::getLibError()
 {
   return com::ClibError::getLibError();
 }

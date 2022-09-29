@@ -173,8 +173,8 @@ geo::CSFMap::~CSFMap()
 //! rasterSpace
 geo::RasterSpace geo::CSFMap::rasterSpace() const
 {
-  return RasterSpace(nrRows(),nrCols(), cellSize(),
-                     left(), top(), geo::csfProjToGeo(projection()), angle());
+  return {nrRows(),nrCols(), cellSize(),
+                     left(), top(), geo::csfProjToGeo(projection()), angle()};
 }
 
 

@@ -156,7 +156,7 @@ calc::CmdLineCalc::CmdLineCalc(
 calc::CmdLineCalc::~CmdLineCalc() {
 }
 
-static void printUsage(void)
+static void printUsage()
 {
 
 #ifdef DEBUG_DEVELOP

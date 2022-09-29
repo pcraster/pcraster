@@ -95,7 +95,7 @@ static const char* crType(const ASTNode* n)
 static std::string mvTest(const std::set<std::string>& names)
 {
   std::vector<std::string> s;
-  for(auto a : names) {
+  for(const auto& a : names) {
     if (com::isDouble(a))
       continue; // skip MV check on numbers
     if (a.find("].f[0]") != std::string::npos)

@@ -548,7 +548,7 @@ geo_Rectangle bounds(const geo_Rectangle &rect1, const geo_Rectangle &rect2,
             : rect2.getLowerRight()[geo::Y];
   }
 
-  return geo_Rectangle(ulX, ulY, lrX, lrY);
+  return {ulX, ulY, lrX, lrY};
 }
 
 
@@ -607,7 +607,7 @@ geo_Rectangle intersection(const geo_Rectangle &rect1,
     lrY = MIN(rect1.getLowerRight()[geo::Y], rect2.getLowerRight()[geo::Y]);
   }
 
-  return geo_Rectangle(ulX, ulY, lrX, lrY);
+  return {ulX, ulY, lrX, lrY};
 }
 
 

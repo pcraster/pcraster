@@ -140,7 +140,7 @@ calc::GridStat calc::GridMapOut::writeData(const void *allValues)
      default:
           POSTCOND(false);
     }
-    return GridStat();
+    return {};
   }
 
   dal::TypeId t;

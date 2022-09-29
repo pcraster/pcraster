@@ -57,7 +57,7 @@ public:
 // DEFINITION OF DOWNSTREAMVISITOR MEMBERS
 //------------------------------------------------------------------------------
 
-mldd::DownstreamVisitor::DownstreamVisitor(const geo::RasterDim rd):
+mldd::DownstreamVisitor::DownstreamVisitor(const geo::RasterDim& rd):
   d_rd(rd)
 {
 }

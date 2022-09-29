@@ -352,7 +352,7 @@ void CursorView::updateCoordinates()
 
 QSize CursorView::sizeHint() const
 {
-  return QSize(500, 200);
+  return {500, 200};
 }
 
 

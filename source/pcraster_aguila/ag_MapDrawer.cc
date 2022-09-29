@@ -66,7 +66,7 @@ QRectF MapDrawer::envelopeInPixels(
   double left   = anchor.x() + (zoom * offset.x() / scale) - (0.5 * width);
   double top    = anchor.y() + (zoom * offset.y() / scale) - (0.5 * height);
 
-  return QRectF(left, top, width, height);
+  return {left, top, width, height};
 }
 
 

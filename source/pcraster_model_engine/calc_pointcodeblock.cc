@@ -229,8 +229,8 @@ void calc::PointCodeBlock::genCode(std::ostream& s) const
   //  enum { A=0,B=1,C=2, etc, };
   s << "enum {" << std::endl;
   size_t index=0;
-  for(ParSet::const_iterator i=vContents.begin(); i!= vContents.end(); ++i) {
-   s << (*i)->name() << "=" << index++ << "," << std::endl;
+  for(auto vContent : vContents) {
+   s << vContent->name() << "=" << index++ << "," << std::endl;
   }
   s << "};" << std::endl;
 

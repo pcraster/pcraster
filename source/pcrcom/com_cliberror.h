@@ -128,7 +128,7 @@ void com::ClibError::libError(const std::string& msg)
 }
 
 
-void com::ClibError::throwLibError(void)
+void com::ClibError::throwLibError()
 {
   d_errorHandlerCalled = false;
 
@@ -142,7 +142,7 @@ void com::ClibError::throwLibError(void)
 }
 
 //! return lib error string
-std::string com::ClibError::getLibError(void)
+std::string com::ClibError::getLibError()
 {
   d_errorHandlerCalled = false;
   return d_libErrorStr;

@@ -12,9 +12,9 @@
 void libError(const std::string& msg) /* THROW (StrErrorExcep)*/;
 
 //! Error (old style) already called
-void throwLibError(void);
+void throwLibError();
 
-std::string getLibError(void);
+std::string getLibError();
 
 extern "C" void HandleLibError(const char *msg);
 

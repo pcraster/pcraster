@@ -254,7 +254,7 @@ size_t calc::Operator::firstFieldInput() const
 //! return type of argument nr \a argNr
 calc::DataType calc::Operator::argType(size_t argNr) const
 {
-  return DataType(argVs(argNr),argSt(argNr));
+  return {argVs(argNr),argSt(argNr)};
 }
 
 //! return result type of result nr \a r (is set of possible types)

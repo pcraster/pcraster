@@ -85,7 +85,7 @@ void TimePlot::addAttribute(const DataGuide& dataGuide)
 
 QSize TimePlot::sizeHint() const
 {
-  return QSize(500, 300);
+  return {500, 300};
 }
 
 

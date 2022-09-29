@@ -81,7 +81,7 @@ DataSpace ConstantDriver::dataSpace(
          DataSpace const& /* space */,
          DataSpaceAddress const& /* address */) const
 {
-  return DataSpace();
+  return {};
 }
 
 

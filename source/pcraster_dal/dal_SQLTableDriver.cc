@@ -977,7 +977,7 @@ void SQLTableDriver::grantReadAccess(
   }
 
   openDatabase(database);
-  std::string query = (boost::format("GRANT SELECT ON \"%1%\" TO \"%2%\"")
+  std::string query = (boost::format(R"(GRANT SELECT ON "%1%" TO "%2%")")
          % info.table()
          % user).str();
 

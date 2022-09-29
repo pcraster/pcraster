@@ -114,7 +114,7 @@ namespace boost {
     typedef size_t degree_size_type;
 
     static inline vertex_descriptor null_vertex() {
-      return mldd::Vertex(0u, 0u);
+      return {0u, 0u};
     }
   };
 

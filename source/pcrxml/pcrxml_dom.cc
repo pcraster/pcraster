@@ -86,7 +86,7 @@ QDomElement pcrxml::firstMatchByTagName(
         return mrsList.item(0).toElement();
   }
 
-  return QDomElement();
+  return {};
 }
 
 //! find elements with name \a tagName
@@ -196,7 +196,7 @@ QDomElement pcrxml::firstChildByTagName(
 {
   std::vector<QDomElement> els(childrenByTagName(parent,tagName));
   if (els.empty())
-     return QDomElement();
+     return {};
   return els[0];
 }
 

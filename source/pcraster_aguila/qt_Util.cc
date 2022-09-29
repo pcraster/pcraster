@@ -16,7 +16,7 @@
 */
 QColor qt::toQColor(const com_Colour &colour)
 {
-  return QColor(colour.getRed(), colour.getGreen(), colour.getBlue());
+  return {colour.getRed(), colour.getGreen(), colour.getBlue()};
 }
 
 

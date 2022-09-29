@@ -65,8 +65,8 @@ namespace detail {
     std::vector<pcrxml::StringSet> s;
     for(auto & v : r) {
        s.push_back(pcrxml::StringSet());
-       for(size_t i=0; i < v.size(); ++i)
-         s.back().item().push_back(v[i]);
+       for(auto & i : v)
+         s.back().item().push_back(i);
     }
     return s;
   }

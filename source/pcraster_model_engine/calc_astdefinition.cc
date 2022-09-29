@@ -150,7 +150,7 @@ calc::Dimension calc::ASTDefinition::unit() const
   auto i = d_items.find(TmpId("unit"));
   if (i != d_items.end())
     return Dimension(i->second());
-  return Dimension();
+  return {};
 }
 
 //! return empty if not there

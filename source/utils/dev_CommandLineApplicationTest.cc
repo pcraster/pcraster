@@ -25,8 +25,8 @@ public:
     CommandLineApplication::usage(stream);
   }
 
-  void addPositionalOption(std::string const& name, short maxCount, std::string description){
-    CommandLineApplication::addPositionalOption(name, maxCount, std::move(description));
+  void addPositionalOption(std::string const& name, short maxCount, const std::string& description){
+    CommandLineApplication::addPositionalOption(name, maxCount, description);
   }
 };
 

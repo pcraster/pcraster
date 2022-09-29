@@ -70,7 +70,7 @@ public:
   //----------------------------------------------------------------------------
 
                    SupportedSchema               (const char  *contents,
-                                                  std::string  systemId,
+                                                  const std::string&  systemId,
                                                   const char  *tag);
 
   /* virtual */    ~SupportedSchema              ();

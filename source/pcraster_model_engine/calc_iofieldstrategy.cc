@@ -329,7 +329,7 @@ void calc::IoFieldStrategy::readField(void *dest, const std::string& mapName,VS 
   //  - if areamap is read and same is used as model input
   //  - solved bug with lastUse UseDefAnalyzerTest::nestedLoops()
   if (d_readFiles.count(mapName)) {
-    std::string debugDevelopOnly(mapName);
+    const std::string& debugDevelopOnly(mapName);
     if (debugDevelopOnly == "inp1b.map") // in known tests to fail
      throw com::OpenFileError(mapName,"IoFieldStrategy::createField");
     // PRINT_VAR(debugDevelopOnly);

@@ -201,7 +201,7 @@ int calc::ClientInterface::pcr_ScriptExecuteNextTimeStepMemory(void **data)
   return 1;
 }
 
-void calc::ClientInterface::pcr_ScriptReleaseAllAllocatedMemory(void)
+void calc::ClientInterface::pcr_ScriptReleaseAllAllocatedMemory()
 {
   assert(false);
   if (d_executor) // TODO need this?
@@ -210,7 +210,7 @@ void calc::ClientInterface::pcr_ScriptReleaseAllAllocatedMemory(void)
   }
 }
 
-int calc::ClientInterface::pcr_ScriptExecuteFinish(void)
+int calc::ClientInterface::pcr_ScriptExecuteFinish()
 {
   d_executor->finishStepWise();
   clean();

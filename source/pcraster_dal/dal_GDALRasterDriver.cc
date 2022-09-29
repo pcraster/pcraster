@@ -306,7 +306,7 @@ RasterDimensions rasterDimensions(
   double west = geoTransform[0];
   double north = geoTransform[3];
 
-  return RasterDimensions(nrRows, nrCols, cellSize, west, north);
+  return {nrRows, nrCols, cellSize, west, north};
 }
 
 

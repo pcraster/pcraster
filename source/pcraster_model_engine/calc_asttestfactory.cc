@@ -328,7 +328,7 @@ calc::ASTScript* calc::ASTTestFactory::createFromIdOrStr(
 
  std::unique_ptr<ASTScript> as;
 
- if (codeOrId.find("=") != std::string::npos) {
+ if (codeOrId.find('=') != std::string::npos) {
    as.reset(StringParser::createScript(codeOrId));
  } else {
   // absence of "=" symbol means a single expr or an id

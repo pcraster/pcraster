@@ -100,7 +100,7 @@ calc::CRIndex calc::Field::cri()const
 
 calc::DataType calc::Field::type() const
 {
-  return DataType(vs(),isSpatial());
+  return {vs(),isSpatial()};
 }
 
 //! see only implementation: Spatial::findMVinMask

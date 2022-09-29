@@ -267,8 +267,8 @@ void calc::ExternalSymbols::loadDynamicLibrary(const std::string& extLibNoExt)
     auto* lib = new com::DynamicLibrary(extLibNoExt);
     d_libraries.push_back(lib);
 
-    typedef PCR_EXTERNAL_FUNCTION_LIST * (*GET_LIST_PTR)(void);
-    typedef PCR_EXTERNAL_MODELLINK_LIST * (*MODELLINK_LIST_PTR)(void);
+    typedef PCR_EXTERNAL_FUNCTION_LIST * (*GET_LIST_PTR)();
+    typedef PCR_EXTERNAL_MODELLINK_LIST * (*MODELLINK_LIST_PTR)();
 
     try {
 

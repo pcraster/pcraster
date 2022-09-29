@@ -190,9 +190,8 @@ void Dimension::checkConsistency()
       assert(discretisation() == ExactDiscretisation);
       assert(!_values.empty());
 
-      for(std::vector<boost::any>::const_iterator it = _values.begin();
-               it != _values.end(); ++it) {
-        assert((*it).type() == typeid(std::string));
+      for(const auto & _value : _values) {
+        assert(_value.type() == typeid(std::string));
       }
 
       break;

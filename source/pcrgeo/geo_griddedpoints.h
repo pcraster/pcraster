@@ -245,7 +245,7 @@ inline geo::CellLoc geo::GriddedPoints<Point>::cellLoc(
   PRECOND(row < nrRows());
   PRECOND(col < nrCols());
 
-  return CellLoc(row, col);
+  return {row, col};
 }
 
 template<class Point>

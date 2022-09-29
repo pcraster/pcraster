@@ -17,9 +17,9 @@ inline void inplace_add(
     T1& lhs,
     T2 const rhs)
 {
-    static_assert(std::is_same<T1, T2>::value, "");
-    static_assert(std::is_floating_point<T1>::value, "");
-    static_assert(sizeof(T1) == 4 || sizeof(T2) == 8, "");
+    static_assert(std::is_same<T1, T2>::value );
+    static_assert(std::is_floating_point<T1>::value );
+    static_assert(sizeof(T1) == 4 || sizeof(T2) == 8 );
 
 // #ifdef PCRASTER_MV_PROPAGATES
 //     lhs += rhs;
@@ -43,9 +43,9 @@ inline void inplace_subtract(
     T1& lhs,
     T2 const rhs)
 {
-    static_assert(std::is_same<T1, T2>::value, "");
-    static_assert(std::is_floating_point<T1>::value, "");
-    static_assert(sizeof(T1) == 4 || sizeof(T1) == 8, "");
+    static_assert(std::is_same<T1, T2>::value );
+    static_assert(std::is_floating_point<T1>::value );
+    static_assert(sizeof(T1) == 4 || sizeof(T1) == 8 );
 
 // #ifdef PCRASTER_MV_PROPAGATES
 //     lhs -= rhs;

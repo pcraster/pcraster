@@ -1500,7 +1500,7 @@ void yyFlexLexer::yypush_buffer_state (YY_BUFFER_STATE new_buffer)
  *  The next element becomes the new top.
  *  
  */
-void yyFlexLexer::yypop_buffer_state (void)
+void yyFlexLexer::yypop_buffer_state ()
 {
     	if (!YY_CURRENT_BUFFER)
 		return;
@@ -1519,7 +1519,7 @@ void yyFlexLexer::yypop_buffer_state (void)
 /* Allocates the stack if it does not exist.
  *  Guarantees space for at least one push.
  */
-void yyFlexLexer::yyensure_buffer_stack(void)
+void yyFlexLexer::yyensure_buffer_stack()
 {
 	int num_to_alloc;
     
@@ -1705,7 +1705,7 @@ calc::LexValueFile::LexValueFile(
 //! Skips all characters in a comment
 /*! Skips all characters in a comment including the comment
  */
-int calc::LexValueFile::YYcomment(void)
+int calc::LexValueFile::YYcomment()
 {
   int c = 'x';
   while ( c != EOF && c != '\n')

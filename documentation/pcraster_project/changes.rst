@@ -1,25 +1,33 @@
 Changes
 =======
-..
-.. PCRaster 4.4.0
-.. --------------
-..
-.. notable changes:
-.. Aguila was again refactored to reduce runtime library dependencies, notably the command line interface was refactored. The functionality should remain the same. In case you experience any differences to previous Aguila versions consider it as a defect and please report it at our `issues <https://github.com/pcraster/pcraster/issues/>`_ page.
-..
-.. moved to std filesystem, removed boost runtime dependency
-..
-.. The most relevant updates for users:
-..
-.. We further improved the code quality and the build system to ensure an ongoing creation of PCRaster packages, amongst others:
-.. AppleClang, gcc12, vs2019, vs2022
-.. ARM support
-..
-.. fixed memory leaks: modflow
-..
-.. build modflow exe
-..
 
+.. PCRaster 4.4.1
+.. --------------
+
+
+
+PCRaster 4.4.0
+--------------
+
+PCRaster now supports the ARM architecture (`#341 <https://github.com/pcraster/pcraster/issues/341>`_), packages for macOS M1 (arm64) are therefore also available on |condaforgefeedstocksurl|.
+The sources can be compiled on aarch64 Linux systems as well.
+
+Other updates relevant for users:
+
+* Aguila was again refactored to reduce runtime library dependencies, notably the command line interface. The functionality should remain the same. In case you experience any differences to previous Aguila versions consider it as a defect and please report it at our `issues <https://github.com/pcraster/pcraster/issues/>`_ page.
+* We fixed an issue where Aguila could hang on Windows (`#333 <https://github.com/pcraster/pcraster/issues/333>`_).
+* We fixed an incorrect image plotting of LDD raster (`#362 <https://github.com/pcraster/pcraster/issues/362>`_).
+* We fixed another segmentation fault when using modules from PCRaster, GDAL and QGIS  (`#361 <https://github.com/pcraster/pcraster/issues/361>`_).
+
+We further improved the code quality and the build system to ensure an ongoing creation of PCRaster packages, amongst others:
+
+* Building against the latest Python 3 version. Supported are 3.8 - 3.11
+* Replacing Boost.Filesystem by std::filesystem
+* Boost is no longer a runtime dependency
+* Further modernisation of the source code and build system.
+* Various improvements to support gcc-12, clang-14, Visual Studio 2019 and 2022.
+
+For a list of solved issues see our `4.4 <https://github.com/pcraster/pcraster/milestone/7>`_ milestone.
 
 PCRaster 4.3.3
 --------------
@@ -104,7 +112,7 @@ For a more detailed list of solved issues see our `4.3 <https://github.com/pcras
 
 .. |condaforgefeedstocksurl| raw:: html
 
-   <a href="https://conda-forge.org/feedstocks" target="_blank">conda-forge</a>
+   <a href="https://conda-forge.org/feedstock-outputs/index.html" target="_blank">conda-forge</a>
 
 PCRaster 4.2.1
 --------------

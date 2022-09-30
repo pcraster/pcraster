@@ -44,7 +44,7 @@ jobs:
               mamba-version: "*"
         - shell: cmd /C call {0}
           run: |
-              mamba install numpy cmake ninja boost-cpp qt xerces-c libgdal psutil make
+              mamba install numpy cmake ninja boost-cpp qt xerces-c libgdal gdal psutil make
 
         - name: Configure PCRaster
           shell: cmd /C call {0}
@@ -77,4 +77,4 @@ jobs:
           shell: cmd /C call {0}
           run: |
               "${{ matrix.config.environment_script }}" && ^
-              ctest --verbose --test-dir build --output-on-failure --build-config Release
+              ctest --test-dir build --output-on-failure --build-config Release

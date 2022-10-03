@@ -32,6 +32,6 @@ cmake --build . --target all
 
 export LOGNAME=pcrtester
 
-ctest --output-on-failure
+# ctest --output-on-failure
 
 cmake --build . --target install

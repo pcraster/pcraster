@@ -128,7 +128,7 @@ find_package(Boost 1.71 REQUIRED COMPONENTS ${PCR_BOOST_COMPONENTS})
 if(PCRASTER_BUILD_MULTICORE)
     CPMAddPackage(
         GITHUB_REPOSITORY geoneric/fern
-        GIT_TAG 48d9c858b90a1b133da79115e8e73ee6c0cccd42
+        GIT_TAG cfb1c584aa8b3299cb59506eac354e5260324bcf
         OPTIONS "FERN_BUILD_ALGORITHM ON" "FERN_BUILD_TEST ${PCRASTER_BUILD_TEST}" "DEVBASE_BUILD_TEST ${PCRASTER_BUILD_TEST}" "CMAKE_SKIP_INSTALL_RULES ON"
     )
     # Just recreate an empty file to install nothing from Fern when installing PCRaster

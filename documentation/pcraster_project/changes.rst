@@ -9,15 +9,16 @@ Changes
 PCRaster 4.4.0
 --------------
 
-PCRaster now supports the ARM architecture (`#341 <https://github.com/pcraster/pcraster/issues/341>`_), packages for macOS M1 (arm64) are therefore also available on |condaforgefeedstocksurl|.
-The sources can be compiled on aarch64 Linux systems as well.
+PCRaster now supports the ARM architecture (`#341 <https://github.com/pcraster/pcraster/issues/341>`_), packages for Apple M1 are available on `conda-forge <https://github.com/conda-forge/pcraster-feedstock>`_.
 
 Other updates relevant for users:
 
+* You can compile PCRaster on your HPC with `EasyBuild <https://easybuild.io/>`_. Use or adapt our `easyconfig <https://github.com/pcraster/pcraster/tree/master/environment/configuration/easybuild>`_ files.
+* The sources can be compiled on aarch64 Linux systems as well.
 * Aguila was again refactored to reduce runtime library dependencies, notably the command line interface. The functionality should remain the same. In case you experience any differences to previous Aguila versions consider it as a defect and please report it at our `issues <https://github.com/pcraster/pcraster/issues/>`_ page.
 * We fixed an issue where Aguila could hang on Windows (`#333 <https://github.com/pcraster/pcraster/issues/333>`_).
 * We fixed an incorrect image plotting of LDD raster (`#362 <https://github.com/pcraster/pcraster/issues/362>`_).
-* We fixed another segmentation fault when using modules from PCRaster, GDAL and QGIS  (`#361 <https://github.com/pcraster/pcraster/issues/361>`_).
+* We fixed another segmentation fault at script exit when using modules from PCRaster, GDAL and QGIS (`#361 <https://github.com/pcraster/pcraster/issues/361>`_).
 
 We further improved the code quality and the build system to ensure an ongoing creation of PCRaster packages, amongst others:
 
@@ -28,6 +29,7 @@ We further improved the code quality and the build system to ensure an ongoing c
 * Various improvements to support gcc-12, clang-14, Visual Studio 2019 and 2022.
 
 For a list of solved issues see our `4.4 <https://github.com/pcraster/pcraster/milestone/7>`_ milestone.
+
 
 PCRaster 4.3.3
 --------------

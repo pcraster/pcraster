@@ -3,7 +3,6 @@ Installing PCRaster with Conda
 
 PCRaster is available on |condaforgefeedstocksurl| and can be installed using conda.
 Supported platforms are Linux, macOS and Windows.
-On the Apple M1 platform our osx-64 version can be used, see below.
 
 Prerequisites
 -------------
@@ -26,7 +25,7 @@ For installing PCRaster including additional software packages used in our `on-s
 
 .. code-block:: console
 
-   conda create --name pcraster -c conda-forge python=3.9 numpy pcraster campo lue matplotlib-base spyder qgis spotpy
+   conda create --name pcraster -c conda-forge python=3.10 numpy pcraster campo lue matplotlib-base spyder qgis spotpy
 
 Always use the conda-forge channel when installing further packages into your PCRaster environment.
 
@@ -36,23 +35,23 @@ Always use the conda-forge channel when installing further packages into your PC
    Modifying PATH and PYTHONPATH environment variables as required for previous PCRaster versions is not necessary anymore starting from version 4.3, the settings are done automatically when you activate your environment.
 
 
-Installing on Apple silicon (M series)
---------------------------------------
-
-We do not have a native build yet for the Apple M platform but our osx-64 version can be used.
-Install |miniconda| using `Miniconda3 macOS Apple M1 64-bit bash`.
-Specify the osx-64 channel when creating and installing packages into a PCRaster environment, e.g.:
-
-.. code-block:: console
-
-   conda create --name pcraster -c conda-forge/osx-64 python=3.9 numpy pcraster campo lue matplotlib-base spyder qgis spotpy
-
-To allow displaying the visualisation tool Aguila it is required to set an additional environment variable after activating your environment:
-
-.. code-block:: console
-
-   $ conda activate pcraster
-   (pcraster) $ export QT_MAC_WANTS_LAYER=1
+.. Installing on Apple silicon (M series)
+.. --------------------------------------
+..
+.. We do not have a native build yet for the Apple M platform but our osx-64 version can be used.
+.. Install |miniconda| using `Miniconda3 macOS Apple M1 64-bit bash`.
+.. Specify the osx-64 channel when creating and installing packages into a PCRaster environment, e.g.:
+..
+.. .. code-block:: console
+..
+..    conda create --name pcraster -c conda-forge/osx-64 python=3.9 numpy pcraster campo lue matplotlib-base spyder qgis spotpy
+..
+.. To allow displaying the visualisation tool Aguila it is required to set an additional environment variable after activating your environment:
+..
+.. .. code-block:: console
+..
+..    $ conda activate pcraster
+..    (pcraster) $ export QT_MAC_WANTS_LAYER=1
 
 Testing your installation
 -------------------------

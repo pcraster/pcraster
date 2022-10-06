@@ -212,12 +212,21 @@ target_include_directories(pcraster_aguila_objects
 # )
 
 # Is the above obsolete when using target_link_libraries?
-target_link_libraries(pcraster_aguila_objects
-  PRIVATE
-    pcraster::xsd
-    Qt5::OpenGL
-    Qt5::Xml
-)
+if(PCRASTER_WITH_OPENGL)
+    target_link_libraries(pcraster_aguila_objects
+        PRIVATE
+            pcraster::xsd
+            Qt5::OpenGL
+            Qt5::Xml
+    )
+else()
+    target_link_libraries(pcraster_aguila_objects
+        PRIVATE
+            pcraster::xsd
+            Qt5::Widgets
+            Qt5::Xml
+    )
+endif()
 
 target_compile_definitions(pcraster_aguila_objects
     PRIVATE

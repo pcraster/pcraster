@@ -9,12 +9,11 @@
 documentation/pcraster_aguila/Images/
 documentation/pcraster_aguila/Videos/
 
-external/Linux/32/
-external/Linux/64/pcrmf2k
+external/Linux/x86_64/pcrmf2k
 
-external/Windows/32/
-external/Windows/64/pcrmf2k.exe
+external/Windows/AMD64/pcrmf2k.exe
 
-external/Darwin/pcrmf2k
+external/Darwin/x86_64/mf2005_before12
+external/Darwin/x86_64/pcrmf2k
 
 source/modflow/mf2k

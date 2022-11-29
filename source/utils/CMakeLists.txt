@@ -21,7 +21,6 @@ target_link_libraries(utils
     PRIVATE
         XercesC::XercesC
         GDAL::GDAL
-        #Boost::headers
 )
 
 if(PCRASTER_BUILD_TEST)
@@ -33,6 +32,6 @@ if(PCRASTER_BUILD_TEST)
             dev_UtilsTest.cc
         LINK_LIBRARIES
             pcraster::utils
-            Qt5::Core
+            Qt::Core
     )
 endif()

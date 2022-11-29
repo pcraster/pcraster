@@ -384,7 +384,7 @@ if(PCRASTER_BUILD_TEST)
 
     target_link_libraries(pcraster_model_engine_unit_test_utils
         PRIVATE
-            Qt5::Xml
+            Qt::Xml
             pcraster::xsd
     )
 

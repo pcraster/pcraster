@@ -216,15 +216,16 @@ if(PCRASTER_WITH_OPENGL)
     target_link_libraries(pcraster_aguila_objects
         PRIVATE
             pcraster::xsd
-            Qt5::OpenGL
-            Qt5::Xml
+            Qt::Widgets
+            Qt::OpenGL
+            Qt::Xml
     )
 else()
     target_link_libraries(pcraster_aguila_objects
         PRIVATE
             pcraster::xsd
-            Qt5::Widgets
-            Qt5::Xml
+            Qt::Widgets
+            Qt::Xml
     )
 endif()
 
@@ -260,11 +261,11 @@ if(PCRASTER_WITH_OPENGL)
         PUBLIC
             pcraster::dal
             pcraster::xsd
-            Qt5::Gui
-            Qt5::Widgets
-            Qt5::Xml
-            Qt5::Charts
-            Qt5::OpenGL
+            Qt::Gui
+            Qt::Widgets
+            Qt::Xml
+            Qt::Charts
+            Qt::OpenGL
             OpenGL::GLU
             Boost::headers
     )
@@ -273,10 +274,10 @@ else()
         PUBLIC
             pcraster::dal
             pcraster::xsd
-            Qt5::Gui
-            Qt5::Widgets
-            Qt5::Xml
-            Qt5::Charts
+            Qt::Gui
+            Qt::Widgets
+            Qt::Xml
+            Qt::Charts
             Boost::headers
     )
 endif()

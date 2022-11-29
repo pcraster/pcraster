@@ -95,7 +95,10 @@ option(
     PCRASTER_PACKAGE_NCURSES
     "Package shared libraries"
     OFF)
-
+option(
+    PCRASTER_WITH_QT6
+    "Use Qt6"
+    OFF)
 
 if(NOT PCRASTER_PYTHON_INSTALL_DIR)
     set(PCRASTER_PYTHON_INSTALL_DIR python)
@@ -154,15 +157,22 @@ if(PCRASTER_WITH_OPENGL)
     list(APPEND PCR_QT_COMPONENTS OpenGL)
 endif()
 
-find_package(Qt5 5.12 REQUIRED COMPONENTS ${PCR_QT_COMPONENTS})
-message(STATUS "Found Qt5: ")
-message(STATUS "  version:   " ${Qt5_VERSION})
+if(PCRASTER_WITH_QT6)
+    find_package(Qt6 COMPONENTS ${PCR_QT_COMPONENTS})
+endif()
+
+if(NOT Qt6_FOUND)
+    find_package(Qt5 5.15 REQUIRED COMPONENTS ${PCR_QT_COMPONENTS})
+endif()
+
+message(STATUS "Found Qt: ")
+message(STATUS "  version:   " ${Qt5_VERSION}${Qt6_VERSION})
 
 
 find_package(XercesC REQUIRED)
 
 
-find_package(GDAL 2.4 REQUIRED)
+find_package(GDAL 3.0 REQUIRED)
 message(STATUS "Found GDAL: ")
 message(STATUS "  version:   " ${GDAL_VERSION})
 message(STATUS "  libraries: " ${GDAL_LIBRARIES})

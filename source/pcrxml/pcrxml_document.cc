@@ -7,11 +7,6 @@
 #include "pcrxml_document.h"
 #endif
 
-#ifndef INCLUDED_QXML
-#include <qxml.h>
-#define INCLUDED_QXML
-#endif
-
 #ifndef INCLUDED_COM_PATHINFO
 #include "com_pathinfo.h"
 #define INCLUDED_COM_PATHINFO
@@ -222,7 +217,7 @@ pcrxml::Document::~Document()
 //! find first element with name \a tagName
 /*!
  * it will find the first one in preorder traversal, is as
- * DOM elementsByTagName method. 
+ * DOM elementsByTagName method.
  *
  * \todo
  *  This implementation will also

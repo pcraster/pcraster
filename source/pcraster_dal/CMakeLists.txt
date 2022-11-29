@@ -92,7 +92,7 @@ add_library(pcraster_dal_objects OBJECT
 target_link_libraries(pcraster_dal_objects
   PRIVATE
     GDAL::GDAL
-    Qt5::Sql
+    Qt::Sql
 )
 
 target_include_directories(pcraster_dal_objects
@@ -142,7 +142,7 @@ target_link_libraries(pcraster_dal
     PUBLIC
         pcraster::raster_format
         pcraster::utils
-        Qt5::Sql
+        Qt::Sql
         GDAL::GDAL
         Boost::date_time
 )

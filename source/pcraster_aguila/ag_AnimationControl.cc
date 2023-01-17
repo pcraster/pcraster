@@ -63,7 +63,7 @@ public:
   VisEngine        d_engine;
 
   AnimationControlPrivate()
-    : 
+    :
       d_engine()
   {
   }
@@ -263,7 +263,7 @@ void AnimationControl::createInterface()
   top->addStretch(1);
 
   QBoxLayout* box = new QVBoxLayout(this);
-  box->setMargin(0);
+  box->setContentsMargins(0, 0, 0, 0);
   box->addWidget(widget);
 
   setMaximumSize(sizeHint());

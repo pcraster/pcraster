@@ -89,8 +89,10 @@ public:
     if(!d_pb.empty())
       h += (d_pb.size() - 1) * layout()->spacing();
 
-    h += 2 * layout()->margin();
-    w += 2 * layout()->margin();
+    int left, top, right, bottom;
+    layout()->getContentsMargins(&left, &top, &right, &bottom);
+    h += top + bottom;
+    w += left + right;
 
     setMinimumSize(w, h);
   }
@@ -108,13 +110,13 @@ public:
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 qtd::SelectPalette::SelectPalette(QWidget *p, const char *n)
 
   : qt::Dialog(p, n)
-    
+
 
 {
   d_cw = new SelectPalettePrivate(this);
@@ -191,13 +193,13 @@ const com::RawPalette *qtd::SelectPalette::selected() const
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE OPERATORS 
+// DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE FUNCTIONS 
+// DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
 

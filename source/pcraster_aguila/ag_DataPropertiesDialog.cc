@@ -40,7 +40,7 @@ public:
   DrawPropertiesWidget* d_drawProperties{nullptr};
 
   DataPropertiesDialogPrivate()
-     
+
   {
   }
 
@@ -182,7 +182,7 @@ void ag::DataPropertiesDialog::createInterface()
 
   // setCentralWidget(widget);
   box = new QVBoxLayout(this);
-  box->setMargin(0);
+  box->setContentsMargins(0, 0, 0, 0);
   box->addWidget(widget);
 
   connect(ok, SIGNAL(clicked()), SLOT(accept()));

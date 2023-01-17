@@ -167,6 +167,7 @@ endif()
 
 message(STATUS "Found Qt: ")
 message(STATUS "  version:   " ${Qt5_VERSION}${Qt6_VERSION})
+add_compile_definitions(QT_DISABLE_DEPRECATED_BEFORE=0x050F00)
 
 
 find_package(XercesC REQUIRED)

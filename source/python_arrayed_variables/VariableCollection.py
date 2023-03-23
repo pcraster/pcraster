@@ -39,8 +39,7 @@ class ValueFromParameterTable(object):
     returns the parameter value
     """
 
-    parameterFile = None
-    parameterFile = open(self._fileName, "rU")
+    parameterFile = open(self._fileName)
 
     lineNo = 1
     lines = parameterFile.readlines()

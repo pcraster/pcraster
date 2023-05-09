@@ -11,7 +11,12 @@
 namespace ag {
 
 
-LineMarker::LineMarker(QtCharts::QChart *chart):
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+using namespace QtCharts;
+#endif
+
+
+LineMarker::LineMarker(QChart *chart):
     QGraphicsItem(chart),
     m_chart(chart)
 {

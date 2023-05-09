@@ -34,9 +34,15 @@ namespace ag {
 /*!
   longer_description_HORRIBLE_LONG_STRING_TO_NOTICE_THAT_IT_SHOULD_BE_REPLACED
 */
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 class PlotVisualisation: public QtCharts::QChartView,
                          public ag::IVisualisation,
                          private boost::noncopyable
+#else
+class PlotVisualisation: public QChartView,
+                         public ag::IVisualisation,
+                         private boost::noncopyable
+#endif
 {
 
 private:
@@ -57,7 +63,11 @@ private:
 
   long int         _selectedMarkerId;
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
   std::map<DataGuide, std::vector<QtCharts::QLineSeries*>> _curvesPerGuide;
+#else
+  std::map<DataGuide, std::vector<QLineSeries*>> _curvesPerGuide;
+#endif
 
 // // // // //   QwtPlotPicker*   _picker;
 
@@ -109,11 +119,20 @@ protected:
 
   bool             onlyExceedanceProbabilitiesShown() const;
 
+
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
   QtCharts::QChart *m_chart;
 
   QtCharts::QValueAxis *m_axisX;
 
   QtCharts::QValueAxis *m_axisY;
+#else
+  QChart *m_chart;
+
+  QValueAxis *m_axisX;
+
+  QValueAxis *m_axisY;
+#endif
 
   void             mousePressEvent(QMouseEvent *event) override;
 

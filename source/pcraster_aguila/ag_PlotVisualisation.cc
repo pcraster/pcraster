@@ -61,7 +61,9 @@ public:
 
 namespace ag {
 
-QT_CHARTS_USE_NAMESPACE
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+using namespace QtCharts;
+#endif
 
 PlotVisualisation::PlotVisualisation(
          DataObject* object,
@@ -390,7 +392,7 @@ bool PlotVisualisation::intersectMarker(
          _curvesPerGuide.find(guide);
 
   if(it != _curvesPerGuide.end()) {
-    for(QtCharts::QLineSeries const* curve : (*it).second) {
+    for(QLineSeries const* curve : (*it).second) {
       assert(curve);
       assert(curve->pointsVector().length() > 1);
 

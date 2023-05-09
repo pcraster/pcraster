@@ -42,6 +42,10 @@
 
 namespace ag {
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+using namespace QtCharts;
+#endif
+
 PlotView::PlotView(DataObject* object,
          QWidget* parent, const char* name)
 
@@ -209,7 +213,7 @@ void PlotView::setXAxisScale()
 
   m_axisX->setRange(first, last);
 
-  m_axisX->setTickType(QtCharts::QValueAxis::TicksDynamic);
+  m_axisX->setTickType(QValueAxis::TicksDynamic);
   m_axisX->setTickAnchor(first);
   m_axisX->setRange(first, last);
 

@@ -13,7 +13,11 @@ namespace ag {
 class LineMarker : public QGraphicsItem
 {
 public:
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
   LineMarker(QtCharts::QChart *parent);
+#else
+  LineMarker(QChart *parent);
+#endif
 
   QRectF boundingRect() const override;
 
@@ -46,7 +50,12 @@ protected:
 
 private:
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
   QtCharts::QChart *m_chart;
+#else
+  QChart *m_chart;
+#endif
+
 
   QRectF m_rect;
 

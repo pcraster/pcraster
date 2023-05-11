@@ -52,7 +52,7 @@ public:
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 ag::Map3DView::Map3DView(DataObject* object, QWidget* parent)
@@ -125,7 +125,7 @@ void ag::Map3DView::process()
       setPalette(palette);
     }
 
-    qglClearColor(dataObject().backgroundColour());
+    glClearColor(dataObject().backgroundColour().redF(), dataObject().backgroundColour().greenF(), dataObject().backgroundColour().blueF(), dataObject().backgroundColour().alphaF());
   }
 
   if(visualisationEngine().change() & VisEngine::OTHERHEIGHT ||
@@ -167,7 +167,7 @@ void ag::Map3DView::visualise()
          visualisationEngine().change() & VisEngine::MAP3DSCALE ||
          visualisationEngine().change() & VisEngine::DRAWPROPS ||
          visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
-    updateGL();
+    update();
   }
 
   visualisationEngine().finishedScanning(dataObject());
@@ -390,7 +390,7 @@ int ag::Map3DView::depthOfRenderingContext() const
 
 bool ag::Map3DView::doubleBuffer() const
 {
-  return format().doubleBuffer();
+  return format().swapBehavior() == QSurfaceFormat::DoubleBuffer;
 }
 
 
@@ -428,7 +428,7 @@ void ag::Map3DView::mouseMoveEvent(QMouseEvent* event)
 
     // Changes in y-direction: move head in z-direction.
     moveHead(0.0, 0.0, step() * static_cast<double>(move.y()) / 15);
-    updateGL();
+    update();
   }
   else if(event->buttons() == Qt::RightButton) {
 
@@ -436,14 +436,14 @@ void ag::Map3DView::mouseMoveEvent(QMouseEvent* event)
     rotateHead(0.0, static_cast<double>(move.x()) / 25 * com::DEG2RAD, 0.0);
     // Changes in y direction: move aim in z-direction.
     rotateHead(static_cast<double>(move.y()) / 25 * com::DEG2RAD, 0.0, 0.0);
-    updateGL();
+    update();
   }
   else if(event->buttons() & Qt::LeftButton &&
        event->buttons() & Qt::RightButton) {
 
     moveHead(step() * static_cast<double>(move.x()) / 10, 0.0, 0.0);
     moveHead(0.0, -step() * static_cast<double>(move.y()) / 10, 0.0);
-    updateGL();
+    update();
   }
 
   // Reset press position.
@@ -504,7 +504,7 @@ void ag::Map3DView::keyPressEvent(QKeyEvent* event)
           d_data->d_mapViewDlg->updateWidgets();
         }
         */
-        updateGL();
+        update();
         break;
       }
 
@@ -558,13 +558,13 @@ void ag::Map3DView::showMapViewDlg()
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE OPERATORS 
+// DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE FUNCTIONS 
+// DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
 

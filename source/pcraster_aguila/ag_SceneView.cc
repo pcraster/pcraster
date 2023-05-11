@@ -37,7 +37,7 @@ public:
   GLfloat          d_angle{5.0};
 
   SceneViewPrivate()
-     
+
   {
     d_userCamera = new ag::Camera();
   }
@@ -99,7 +99,7 @@ GLfloat ag::SceneView::calcFOV(double w, double d, double h, double x, double y,
 */
 ag::SceneView::SceneView(QWidget *p)
 
-  : QGLWidget(p),
+  : QOpenGLWidget(p),
     d_data(new SceneViewPrivate())
 
 {
@@ -132,7 +132,7 @@ void ag::SceneView::initializeGL()
 
   // PORT: Updated code but not tested yet.
   // qglClearColor(colorGroup().background());                               // 10.
-  qglClearColor(palette().window().color());                              // 10.
+  glClearColor(palette().window().color().redF(), palette().window().color().greenF(), palette().window().color().blueF(), palette().window().color().alphaF());   // 10.
   glShadeModel(GL_FLAT);
   glEnable(GL_DEPTH_TEST);                                                // 30.
   glEnable(GL_TEXTURE_2D);   // Ldd drawer.
@@ -509,56 +509,56 @@ void ag::SceneView::keyPressEvent(QKeyEvent* event)
       case Qt::Key_Up: {
         // Move camera to the front.
         moveHead(0.0, 0.0, -step());
-        updateGL();
+        update();
         break;
       }
 
       case Qt::Key_Down: {
         // Move camera to the back.
         moveHead(0.0, 0.0, step());
-        updateGL();
+        update();
         break;
       }
 
       case Qt::Key_Left: {
         // Move camera to the left.
         moveHead(-step(), 0.0, 0.0);
-        updateGL();
+        update();
         break;
       }
 
       case Qt::Key_Right: {
         // Move camera to the right.
         moveHead(step(), 0.0, 0.0);
-        updateGL();
+        update();
         break;
       }
 
       case Qt::Key_H: {
         // Move camera to the left.
         moveHead(-step(), 0.0, 0.0);
-        updateGL();
+        update();
         break;
       }
 
       case Qt::Key_L: {
         // Move camera to the right.
         moveHead(step(), 0.0, 0.0);
-        updateGL();
+        update();
         break;
       }
 
       case Qt::Key_K: {
         // Move camera to the top.
         moveHead(0.0, step(), 0.0);
-        updateGL();
+        update();
         break;
       }
 
       case Qt::Key_J: {
         // Move camera to the bottom.
         moveHead(0.0, -step(), 0.0);
-        updateGL();
+        update();
         break;
       }
     }
@@ -568,14 +568,14 @@ void ag::SceneView::keyPressEvent(QKeyEvent* event)
       case Qt::Key_K: {
         // Move camera to the front.
         moveHead(0.0, 0.0, -step());
-        updateGL();
+        update();
         break;
       }
 
       case Qt::Key_J: {
         // Move camera to the back.
         moveHead(0.0, 0.0, step());
-        updateGL();
+        update();
         break;
       }
     }
@@ -585,112 +585,112 @@ void ag::SceneView::keyPressEvent(QKeyEvent* event)
       case Qt::Key_0: {
         // Install user camera.
         installCamera(SceneView::USER);
-        updateGL();
+        update();
         break;
       }
 
       case Qt::Key_2: {
         // Install static front camera.
         installCamera(SceneView::FRONT);
-        updateGL();
+        update();
         break;
       }
 
       case Qt::Key_4: {
         // Install static left camera.
         installCamera(SceneView::LEFT);
-        updateGL();
+        update();
         break;
       }
 
       case Qt::Key_5: {
         // Install static top camera.
         installCamera(SceneView::TOP);
-        updateGL();
+        update();
         break;
       }
 
       case Qt::Key_6: {
         // Install static right camera.
         installCamera(SceneView::RIGHT);
-        updateGL();
+        update();
         break;
       }
 
       case Qt::Key_8: {
         // Install static back camera.
         installCamera(SceneView::BACK);
-        updateGL();
+        update();
         break;
       }
 
       case Qt::Key_Left: {
         // Rotate scene around the z-axes.
         rotateScene(0.0, -2.0 * com::DEG2RAD, 0.0);
-        updateGL();
+        update();
         break;
       }
 
       case Qt::Key_Right: {
         // Rotate scene around the z-axes.
         rotateScene(0.0, 2.0 * com::DEG2RAD, 0.0);
-        updateGL();
+        update();
         break;
       }
 
       case Qt::Key_Up: {
         // Rotate scene around the x-axes.
         rotateScene(-2.0 * com::DEG2RAD, 0.0, 0.0);
-        updateGL();
+        update();
         break;
       }
 
       case Qt::Key_Down: {
         // Rotate scene around the x-axes.
         rotateScene(2.0 * com::DEG2RAD, 0.0, 0.0);
-        updateGL();
+        update();
         break;
       }
 
       case Qt::Key_H: {
         // Aim camera left.
         rotateHead(0.0, -2.0 * com::DEG2RAD, 0.0);
-        updateGL();
+        update();
         break;
       }
 
       case Qt::Key_J: {
         // Aim camera down.
         rotateHead(2.0 * com::DEG2RAD, 0.0, 0.0);
-        updateGL();
+        update();
         break;
       }
 
       case Qt::Key_K: {
         // Aim camera up.
         rotateHead(-2.0 * com::DEG2RAD, 0.0, 0.0);
-        updateGL();
+        update();
         break;
       }
 
       case Qt::Key_L: {
         // Aim camera right.
         rotateHead(0.0, 2.0 * com::DEG2RAD, 0.0);
-        updateGL();
+        update();
         break;
       }
 
       case Qt::Key_M: {
         // Roll camera
         rotateHead(0.0, 0.0, -2.0 * com::DEG2RAD);
-        updateGL();
+        update();
         break;
       }
 
       case Qt::Key_N: {
         // Roll camera
         rotateHead(0.0, 0.0, 2.0 * com::DEG2RAD);
-        updateGL();
+        update();
         break;
       }
     }
@@ -825,7 +825,7 @@ void ag::SceneView::retrieveFeedback(Feedback* feedback)
 
   feedback->start();                                                       // 1.
   setDirty();                                                              // 2.
-  updateGL();                                                              // 3.
+  update();                                                                // 3.
   feedback->stop();                                                        // 4.
 }
 

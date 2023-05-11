@@ -54,7 +54,7 @@ public:
 
 CustomContext::CustomContext(const QGLFormat &fmt, QPaintDevice *dev)
   : QGLContext(fmt, dev) {}
- 
+
 #if defined(Q_WS_WIN)
 #include <windows.h> // DescribePixelFormat
 
@@ -62,7 +62,7 @@ CustomContext::CustomContext(const QGLFormat &fmt, QPaintDevice *dev)
 // formats until we find one that has a 32-bit depth buffer. In a real-world
 // application we would probably have some other criteria that we'd check
 // for as well. If a 32-bit depth buffer can't be found we fall back to the
-// default QGLContext implementation. 
+// default QGLContext implementation.
 int CustomContext::choosePixelFormat(void *p, HDC pdc)
 {
   PIXELFORMATDESCRIPTOR *pfd = (PIXELFORMATDESCRIPTOR *)p;
@@ -88,7 +88,7 @@ int CustomContext::choosePixelFormat(void *p, HDC pdc)
 // guaranteed to have obtained a visual that has the buffer depth we
 // requested. glXChooseVisual() will return the visual that best meets the
 // specification we pass in with the attribs array. If no visual can be
-// obtained at all we fall back to the default implementation. 
+// obtained at all we fall back to the default implementation.
 void *CustomContext::chooseVisual()
 {
   GLint attribs[] = {GLX_RGBA, GLX_DEPTH_SIZE, 32, None};
@@ -102,7 +102,7 @@ void *CustomContext::chooseVisual()
     //     qWarning("32-bit depth unavailable: using %d bits", depth);
 
     return vis;
-  } 
+  }
 
   return QGLContext::chooseVisual();
 }
@@ -111,7 +111,7 @@ void *CustomContext::chooseVisual()
 #if defined(Q_WS_MAC)
 // The aglChoosePixelFormat() function is similar to X11's glXChooseVisual():
 // It returns a pixel format that most closely matches our specification. If
-// it doesn't return anything we fall back to the default implementation. 
+// it doesn't return anything we fall back to the default implementation.
 void *CustomContext::chooseMacVisual(GDHandle gdev)
 {
   GLint attribs[] = {AGL_ALL_RENDERERS, AGL_RGBA, AGL_DEPTH_SIZE, 32, AGL_NONE};
@@ -156,13 +156,13 @@ ag::GLVisualisation::GLVisualisation(DataObject* object,
 
 {
   // Is opengl installed?
-  if(!QGLFormat::hasOpenGL()) {
-    std::ostringstream stream;
-    stream << this->visualisationName() << " uses OpenGL for 3D rendering.\n"
-           << "Your window system does not seem to have OpenGL installed.\n"
-           << "Please make sure OpenGL is installed properly.";
-    throw com::Exception(stream.str());
-  }
+  // if(!QGLFormat::hasOpenGL()) {
+  //   std::ostringstream stream;
+  //   stream << this->visualisationName() << " uses OpenGL for 3D rendering.\n"
+  //          << "Your window system does not seem to have OpenGL installed.\n"
+  //          << "Please make sure OpenGL is installed properly.";
+  //   throw com::Exception(stream.str());
+  // }
 
   // QGLFormat format(DoubleBuffer);
   // CustomContext* context = new CustomContext(format, this);

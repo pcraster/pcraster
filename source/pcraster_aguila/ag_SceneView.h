@@ -3,6 +3,7 @@
 
 
 
+#include <QOpenGLWidget>
 #include <QtOpenGL>
 #include "csf.h"
 
@@ -23,7 +24,7 @@ namespace ag {
 //! A SceneView is a 3D world with ag::SceneObject's, viewed by ag::Camera's.
 /*!
 */
-class SceneView: public QGLWidget
+class SceneView: public QOpenGLWidget
 {
 
 private:

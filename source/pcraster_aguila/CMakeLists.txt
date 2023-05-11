@@ -211,6 +211,12 @@ target_include_directories(pcraster_aguila_objects
 #     pcraster::xsd
 # )
 
+if (${Qt5_VERSION}${Qt6_VERSION} VERSION_LESS 6)
+    set(QtOpenGLWidgets "")
+else()
+    set(QtOpenGLWidgets "Qt::OpenGLWidgets")
+endif()
+
 # Is the above obsolete when using target_link_libraries?
 if(PCRASTER_WITH_OPENGL)
     target_link_libraries(pcraster_aguila_objects
@@ -219,6 +225,7 @@ if(PCRASTER_WITH_OPENGL)
             Qt::Widgets
             Qt::OpenGL
             Qt::Xml
+            ${QtOpenGLWidgets}
     )
 else()
     target_link_libraries(pcraster_aguila_objects

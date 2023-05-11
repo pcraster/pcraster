@@ -120,7 +120,7 @@ void Map3D::saveAsPNG(
   }
 
   // Retrieve drawing.
-  QPixmap map = d_mapView->renderPixmap();
+  auto map = d_mapView->grabFramebuffer();
   if(map.isNull() || (!map.save(QString(path.string().c_str()), "PNG"))) {
     throw com::FileError(path.string(), "Error while saving");
   }

@@ -54,7 +54,7 @@ bool ag::Scene::keyPressHandled(QKeyEvent* e)
         // Move camera to the front.
         d = -sceneView().step();
         sceneView().moveHead(0.0, 0.0, d);
-        sceneView().updateGL();
+        sceneView().update();
         return true;
       }
 
@@ -63,7 +63,7 @@ bool ag::Scene::keyPressHandled(QKeyEvent* e)
         // Move camera to the back.
         d = sceneView().step();
         sceneView().moveHead(0.0, 0.0, d);
-        sceneView().updateGL();
+        sceneView().update();
         return true;
       }
 
@@ -72,7 +72,7 @@ bool ag::Scene::keyPressHandled(QKeyEvent* e)
         // Move camera to the left.
         d = -sceneView().step();
         sceneView().moveHead(d, 0.0, 0.0);
-        sceneView().updateGL();
+        sceneView().update();
         return true;
       }
 
@@ -81,7 +81,7 @@ bool ag::Scene::keyPressHandled(QKeyEvent* e)
         // Move camera to the right.
         d = sceneView().step();
         sceneView().moveHead(d, 0.0, 0.0);
-        sceneView().updateGL();
+        sceneView().update();
         return true;
       }
 
@@ -90,7 +90,7 @@ bool ag::Scene::keyPressHandled(QKeyEvent* e)
         // Move camera to the left.
         d = -sceneView().step();
         sceneView().moveHead(d, 0.0, 0.0);
-        sceneView().updateGL();
+        sceneView().update();
         return true;
       }
 
@@ -99,7 +99,7 @@ bool ag::Scene::keyPressHandled(QKeyEvent* e)
         // Move camera to the right.
         d = sceneView().step();
         sceneView().moveHead(d, 0.0, 0.0);
-        sceneView().updateGL();
+        sceneView().update();
         return true;
       }
 
@@ -108,7 +108,7 @@ bool ag::Scene::keyPressHandled(QKeyEvent* e)
         // Move camera to the top.
         d = sceneView().step();
         sceneView().moveHead(0.0, d, 0.0);
-        sceneView().updateGL();
+        sceneView().update();
         return true;
       }
 
@@ -117,7 +117,7 @@ bool ag::Scene::keyPressHandled(QKeyEvent* e)
         // Move camera to the bottom.
         d = -sceneView().step();
         sceneView().moveHead(0.0, d, 0.0);
-        sceneView().updateGL();
+        sceneView().update();
         return true;
       }
     }
@@ -131,7 +131,7 @@ bool ag::Scene::keyPressHandled(QKeyEvent* e)
         // Move camera to the front.
         d = -sceneView().step();
         sceneView().moveHead(0.0, 0.0, d);
-        sceneView().updateGL();
+        sceneView().update();
         return true;
       }
 
@@ -140,7 +140,7 @@ bool ag::Scene::keyPressHandled(QKeyEvent* e)
         // Move camera to the back.
         d = sceneView().step();
         sceneView().moveHead(0.0, 0.0, d);
-        sceneView().updateGL();
+        sceneView().update();
         return true;
       }
     }
@@ -153,7 +153,7 @@ bool ag::Scene::keyPressHandled(QKeyEvent* e)
       {
         // Install user camera.
         sceneView().installCamera(SceneView::USER);
-        sceneView().updateGL();
+        sceneView().update();
         return true;
       }
 
@@ -161,7 +161,7 @@ bool ag::Scene::keyPressHandled(QKeyEvent* e)
       {
         // Install static front camera.
         sceneView().installCamera(SceneView::FRONT);
-        sceneView().updateGL();
+        sceneView().update();
         return true;
       }
 
@@ -169,7 +169,7 @@ bool ag::Scene::keyPressHandled(QKeyEvent* e)
       {
         // Install static left camera.
         sceneView().installCamera(SceneView::LEFT);
-        sceneView().updateGL();
+        sceneView().update();
         return true;
       }
 
@@ -177,7 +177,7 @@ bool ag::Scene::keyPressHandled(QKeyEvent* e)
       {
         // Install static top camera.
         sceneView().installCamera(SceneView::TOP);
-        sceneView().updateGL();
+        sceneView().update();
         return true;
       }
 
@@ -185,7 +185,7 @@ bool ag::Scene::keyPressHandled(QKeyEvent* e)
       {
         // Install static right camera.
         sceneView().installCamera(SceneView::RIGHT);
-        sceneView().updateGL();
+        sceneView().update();
         return true;
       }
 
@@ -193,7 +193,7 @@ bool ag::Scene::keyPressHandled(QKeyEvent* e)
       {
         // Install static back camera.
         sceneView().installCamera(SceneView::BACK);
-        sceneView().updateGL();
+        sceneView().update();
         return true;
       }
 
@@ -201,7 +201,7 @@ bool ag::Scene::keyPressHandled(QKeyEvent* e)
       {
         // Rotate scene around the z-axes.
         sceneView().rotateScene(0.0, -2.0 * com::DEG2RAD, 0.0);
-        sceneView().updateGL();
+        sceneView().update();
         return true;
       }
 
@@ -209,7 +209,7 @@ bool ag::Scene::keyPressHandled(QKeyEvent* e)
       {
         // Rotate scene around the z-axes.
         sceneView().rotateScene(0.0, 2.0 * com::DEG2RAD, 0.0);
-        sceneView().updateGL();
+        sceneView().update();
         return true;
       }
 
@@ -217,7 +217,7 @@ bool ag::Scene::keyPressHandled(QKeyEvent* e)
       {
         // Rotate scene around the x-axes.
         sceneView().rotateScene(-2.0 * com::DEG2RAD, 0.0, 0.0);
-        sceneView().updateGL();
+        sceneView().update();
         return true;
       }
 
@@ -225,7 +225,7 @@ bool ag::Scene::keyPressHandled(QKeyEvent* e)
       {
         // Rotate scene around the x-axes.
         sceneView().rotateScene(2.0 * com::DEG2RAD, 0.0, 0.0);
-        sceneView().updateGL();
+        sceneView().update();
         return true;
       }
 
@@ -233,15 +233,15 @@ bool ag::Scene::keyPressHandled(QKeyEvent* e)
       {
         // Aim camera left.
         sceneView().rotateHead(0.0, -2.0 * com::DEG2RAD, 0.0);
-        sceneView().updateGL();
+        sceneView().update();
         return true;
       }
 
       case Qt::Key_J:
       {
-        // Aim camera down. 
+        // Aim camera down.
         sceneView().rotateHead(2.0 * com::DEG2RAD, 0.0, 0.0);
-        sceneView().updateGL();
+        sceneView().update();
         return true;
       }
 
@@ -249,7 +249,7 @@ bool ag::Scene::keyPressHandled(QKeyEvent* e)
       {
         // Aim camera up.
         sceneView().rotateHead(-2.0 * com::DEG2RAD, 0.0, 0.0);
-        sceneView().updateGL();
+        sceneView().update();
         return true;
       }
 
@@ -257,7 +257,7 @@ bool ag::Scene::keyPressHandled(QKeyEvent* e)
       {
         // Aim camera right.
         sceneView().rotateHead(0.0, 2.0 * com::DEG2RAD, 0.0);
-        sceneView().updateGL();
+        sceneView().update();
         return true;
       }
 
@@ -265,7 +265,7 @@ bool ag::Scene::keyPressHandled(QKeyEvent* e)
       {
         // Roll camera
         sceneView().rotateHead(0.0, 0.0, -2.0 * com::DEG2RAD);
-        sceneView().updateGL();
+        sceneView().update();
         return true;
       }
 
@@ -273,7 +273,7 @@ bool ag::Scene::keyPressHandled(QKeyEvent* e)
       {
         // Roll camera
         sceneView().rotateHead(0.0, 0.0, 2.0 * com::DEG2RAD);
-        sceneView().updateGL();
+        sceneView().update();
         return true;
       }
     }

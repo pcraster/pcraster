@@ -199,37 +199,5 @@
     </hint>
    </hints>
   </connection>
-  <connection>
-   <sender>d_browseButton</sender>
-   <signal>clicked()</signal>
-   <receiver>SaveDataAsDialogBase</receiver>
-   <slot>browse()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>d_nameEdit</sender>
-   <signal>textChanged(QString)</signal>
-   <receiver>SaveDataAsDialogBase</receiver>
-   <slot>nameChanged(QString)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
  </connections>
 </ui>

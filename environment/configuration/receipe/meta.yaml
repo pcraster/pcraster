@@ -41,7 +41,8 @@ requirements:
     - xorg-libxfixes                        # [linux]
     - boost-cpp
     - xerces-c
-    - qt
+    - qt6-main
+    - qt6-charts
     - ncurses                               # [not win]
     - libgdal
     - gdal

@@ -1,33 +1,10 @@
-#ifndef INCLUDED_CSTDLIB
-#include <cstdlib>
-#define INCLUDED_CSTDLIB
-#endif
-
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-
-#ifndef INCLUDED_BOOST_ALGORITHM_STRING
-#include <boost/algorithm/string.hpp>
-#define INCLUDED_BOOST_ALGORITHM_STRING
-#endif
-
-#ifndef INCLUDED_DEV_CONFIGURE
-#include "dev_Configure.h"
-#define INCLUDED_DEV_CONFIGURE
-#endif
-
-#ifndef INCLUDED_DEV_FILESYSTEMUTILS
 #include "dev_FilesystemUtils.h"
-#define INCLUDED_DEV_FILESYSTEMUTILS
-#endif
-
-// External headers.
-
-// Project headers.
-
-// Module headers.
+#include "dev_Configure.h"
+#include <boost/algorithm/string.hpp>
+#include <cstdlib>
+#include <iostream>
+#include <string>
+#include <vector>
 
 
 namespace dev {

@@ -124,6 +124,11 @@ endif()
 # >=1.73 required for header-only date_time
 find_package(Boost 1.71 REQUIRED COMPONENTS ${PCR_BOOST_COMPONENTS})
 
+if(${Boost_VERSION_STRING} VERSION_LESS_EQUAL "1.81.0")
+    # hack to get code compiled with Boost versions 1.74 - 1.82(?) and clang-15
+    add_compile_definitions(_HAS_AUTO_PTR_ETC=0)
+endif()
+
 
 if(PCRASTER_BUILD_MULTICORE)
     CPMAddPackage(

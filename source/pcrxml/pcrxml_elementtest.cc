@@ -82,12 +82,12 @@ BOOST_AUTO_TEST_CASE(required)
    pcrxml::Data dtCopy(dt);
    BOOST_CHECK(!dtCopy.name.present());
  }
- { // Can skip unknown attrs, what we knwo see as
+ { // Can skip unknown attrs, what we know see as
    // a feature to hack up Schema support
   try {
    Document head("<Data "
-       "xsi:noNamespaceSchemaLocation='ExchangeModel.xsd'"
-       "xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'"
+       "xsi:noNamespaceSchemaLocation='ExchangeModel.xsd' "
+       "xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' "
        "name='x' ioType='Input' />");
    pcrxml::Data dt(head.documentElement());
    BOOST_CHECK(dt.name()=="x");

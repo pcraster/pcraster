@@ -180,11 +180,11 @@ calc::EsriGridIO::EsriGridIO()
  *   POSTCOND(success);
  */
      d_dll= openGridDll();
-#else 
+#else
      d_dll = new com::DynamicLibrary("avgridio");
 #endif
      if (!d_dll)
-       throw 
+       throw
         com::Exception("No correct version of Spatial Analyst or ArcGrid found");
     }
     if(!d_dll->wasAlreadyLoaded()) {
@@ -285,7 +285,7 @@ static void FixCancel()
  // wrap with a cach ArcGis does this not have AvExec I think
  try {
  com::DynamicLibrary avExec("avexec32");
- typedef char *(*T_AVExec)(char *cmd);
+ typedef char *(*T_AVExec)(const char *cmd);
  T_AVExec e=(T_AVExec)avExec.loadFunction("AVExec");
  (*e)("av.Run(\"PCRaster.FixFatProblem\",nil)");
  } catch(...) {

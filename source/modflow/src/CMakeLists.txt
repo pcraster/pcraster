@@ -19,6 +19,11 @@ add_library(pcrmf_objects OBJECT
     pcrmodflow.cc
 )
 
+# Add flags required for Qt 6
+if ((MSVC) AND (MSVC_VERSION GREATER_EQUAL 1914))
+    target_compile_options(pcrmf_objects PRIVATE "/Zc:__cplusplus" "/permissive-")
+endif()
+
 target_compile_definitions(pcrmf_objects
     PRIVATE
         PCR_DAL_SHARED_LINK

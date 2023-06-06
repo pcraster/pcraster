@@ -313,6 +313,11 @@ target_include_directories(pcraster_model_engine_objects
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
 )
 
+# Add flags required for Qt 6
+if ((MSVC) AND (MSVC_VERSION GREATER_EQUAL 1914))
+    target_compile_options(pcraster_model_engine_objects PRIVATE "/Zc:__cplusplus" "/permissive-")
+endif()
+
 target_compile_definitions(pcraster_model_engine_objects
     PRIVATE
         USE_IN_PCRCALC

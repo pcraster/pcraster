@@ -114,18 +114,21 @@ endif()
 
 
 set(Boost_NO_BOOST_CMAKE ON)
-# No more linking to Boost required for released components
-# all header-only  >=1.73
-# keep date_time for current CI
-list(APPEND PCR_BOOST_COMPONENTS date_time)
 
 if(PCRASTER_BUILD_TEST)
     enable_testing()
     list(APPEND PCR_BOOST_COMPONENTS unit_test_framework)
 endif()
 
-# >=1.73 required for header-only date_time
-find_package(Boost 1.71 REQUIRED COMPONENTS ${PCR_BOOST_COMPONENTS})
+# >=1.73 required for header-only libraries
+find_package(Boost 1.73 REQUIRED COMPONENTS ${PCR_BOOST_COMPONENTS})
+
+if(${Boost_VERSION_STRING} VERSION_LESS_EQUAL "1.81.0")
+    # hack to get code compiled with Boost versions 1.74 - 1.82(?) and clang-15
+    add_compile_definitions(
+        "$<$<COMPILE_LANG_AND_ID:CXX,AppleClang,Clang>:_HAS_AUTO_PTR_ETC=0>"
+    )
+endif()
 
 
 if(PCRASTER_BUILD_MULTICORE)

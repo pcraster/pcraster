@@ -151,7 +151,7 @@ CPMAddPackage(
 
 # XSD uses two custom build systems. It's easier to apply the MSVC workaround to the currently used version rather than trying
 # to build a newer XSD version. Using a XSD 4.2.0-b.4 release may render the fix obsolete.
-message(STATUS "Applying fix for XSD serialization-header.txx")
+message(STATUS "  Applying fix for XSD serialization-header.txx")
 file(READ ${CMAKE_BINARY_DIR}/_deps/xsd-src/libxsd/xsd/cxx/xml/dom/serialization-header.txx XSD_HEADER)
 string(REPLACE "std::vector<DOMAttr*>::iterator" "std::vector<xercesc::DOMAttr*>::iterator" XSD_HEADER "${XSD_HEADER}")
 file(WRITE ${CMAKE_BINARY_DIR}/_deps/xsd-src/libxsd/xsd/cxx/xml/dom/serialization-header.txx "${XSD_HEADER}")
@@ -189,21 +189,26 @@ message(STATUS "Found GDAL: ")
 message(STATUS "  version:   " ${GDAL_VERSION})
 message(STATUS "  libraries: " ${GDAL_LIBRARIES})
 message(STATUS "  includes:  " ${GDAL_INCLUDE_DIRS})
+
 find_program(GDAL_TRANSLATE gdal_translate
     HINTS ${GDAL_INCLUDE_DIRS}/../bin
 )
-if(EXISTS "${GDAL_INCLUDE_DIRS}/../../share/gdal")
-    set(GDAL_DATA "${GDAL_INCLUDE_DIRS}/../../share/gdal")
-elseif(EXISTS "${GDAL_INCLUDE_DIRS}/../share/gdal")
-    set(GDAL_DATA "${GDAL_INCLUDE_DIRS}/../share/gdal")
-else()
-    message(FATAL_ERROR "GDAL data dir not found")
-endif()
+message(STATUS "  gdal_translate:  " ${GDAL_TRANSLATE})
 
 if(PCRASTER_BUILD_TEST)
     if(NOT GDAL_TRANSLATE)
         message(FATAL_ERROR "gdal_translate executable not found")
     endif()
+endif()
+
+if(EXISTS $ENV{GDAL_DATA})
+    set(GDAL_DATA $ENV{GDAL_DATA})
+elseif(EXISTS "${GDAL_INCLUDE_DIRS}/../../share/gdal")
+    set(GDAL_DATA "${GDAL_INCLUDE_DIRS}/../../share/gdal")
+elseif(EXISTS "${GDAL_INCLUDE_DIRS}/../share/gdal")
+    set(GDAL_DATA "${GDAL_INCLUDE_DIRS}/../share/gdal")
+else()
+    message(FATAL_ERROR "GDAL data dir not found")
 endif()
 
 

@@ -17,6 +17,11 @@ target_include_directories(utils
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
 )
 
+target_include_directories(utils SYSTEM
+    PUBLIC
+        ${Boost_INCLUDE_DIRS}
+)
+
 target_link_libraries(utils
     PRIVATE
         XercesC::XercesC

@@ -290,6 +290,7 @@ target_include_directories(pcraster_model_engine_objects
 target_include_directories(pcraster_model_engine_objects SYSTEM
     PUBLIC
         $<TARGET_PROPERTY:pcraster::pccts,INTERFACE_INCLUDE_DIRECTORIES>
+        ${Boost_INCLUDE_DIRS}
 )
 
 

@@ -186,6 +186,11 @@ add_library(pcraster_aguila_objects OBJECT
 
 )
 
+target_include_directories(pcraster_aguila_objects SYSTEM
+    PRIVATE
+        ${Boost_INCLUDE_DIRS}
+)
+
 target_include_directories(pcraster_aguila_objects
     PRIVATE
         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
@@ -274,7 +279,6 @@ if(PCRASTER_WITH_OPENGL)
             Qt::Charts
             Qt::OpenGL
             OpenGL::GLU
-            Boost::headers
     )
 else()
     target_link_libraries(pcraster_aguila
@@ -285,7 +289,6 @@ else()
             Qt::Widgets
             Qt::Xml
             Qt::Charts
-            Boost::headers
     )
 endif()
 

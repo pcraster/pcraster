@@ -138,13 +138,17 @@ target_include_directories(pcraster_dal
         $<TARGET_PROPERTY:pcraster_dal_objects,INTERFACE_INCLUDE_DIRECTORIES>
 )
 
+target_include_directories(pcraster_dal SYSTEM
+    PRIVATE
+        ${Boost_INCLUDE_DIRS}
+)
+
 target_link_libraries(pcraster_dal
     PUBLIC
         pcraster::raster_format
         pcraster::utils
         Qt::Sql
         GDAL::GDAL
-        Boost::headers
 )
 
 ADD_CUSTOM_COMMAND(

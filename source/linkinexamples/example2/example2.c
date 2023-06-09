@@ -28,7 +28,6 @@ PCR_DLL_FUNC (const char *) pcr_LinkInExecute(
       const char *xmlNotUsed,
       LinkInTransferArray linkInTransferArray)
 {
-  (void)xmlNotUsed; // shut up compiler
   float *result =  (float *)linkInTransferArray[0];
 
   const float *spatial    =(const float *)linkInTransferArray[1];
@@ -36,6 +35,7 @@ PCR_DLL_FUNC (const char *) pcr_LinkInExecute(
 
   int nrCells=nrRows*nrCols;
   int c;
+  (void)xmlNotUsed; // shut up compiler
   for(c=0; c < nrCells; c++) {
     if (IS_MV_REAL4(spatial+c))
       SET_MV_REAL4(result+c);

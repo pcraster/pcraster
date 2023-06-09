@@ -82,10 +82,14 @@ target_include_directories(pcrcom
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
 )
 
+target_include_directories(pcrcom SYSTEM
+    PRIVATE
+        ${Boost_INCLUDE_DIRS}
+)
+
 target_link_libraries(pcrcom
     PUBLIC
         pcraster::misc
-        Boost::headers
 
         # For dlopen in com_dynamiclibrary.
         $<$<BOOL:${UNIX}>:${CMAKE_DL_LIBS}>

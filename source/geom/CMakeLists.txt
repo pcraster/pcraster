@@ -10,9 +10,12 @@ target_include_directories(geom
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
 )
 
-target_link_libraries(geom
+target_include_directories(geom SYSTEM
     PRIVATE
-        Boost::headers
+        ${Boost_INCLUDE_DIRS}
+)
+
+target_link_libraries(geom
     PUBLIC
         pcraster::mathx
 )

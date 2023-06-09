@@ -182,6 +182,7 @@ target_include_directories(pcraster_old_calc_objects
 target_include_directories(pcraster_old_calc_objects SYSTEM
     PRIVATE
         $<TARGET_PROPERTY:pcraster::pccts,INTERFACE_INCLUDE_DIRECTORIES>
+        ${Boost_INCLUDE_DIRS}
 )
 
 target_include_directories(pcraster_old_calc_objects

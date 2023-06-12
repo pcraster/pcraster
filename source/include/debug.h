@@ -3,7 +3,7 @@
 #define __STDIO
 #endif
 
-// #undef NDEBUG
+/* #undef NDEBUG */
 
 #ifdef DEBUG_DEVELOP
 #include <assert.h>

@@ -56,9 +56,9 @@ add_compile_options(
     "$<$<COMPILE_LANG_AND_ID:C,GNU,AppleClang,Clang>:>"
     "$<$<COMPILE_LANG_AND_ID:CXX,GNU,AppleClang,Clang>:>"
     "$<$<CXX_COMPILER_ID:MSVC>:/W1>"
-    "$<$<AND:$<PLATFORM_ID:Linux>,$<COMPILE_LANG_AND_ID:C,GNU>,$<CONFIG:Debug>>:-Wall;-pedantic;-ansi;-Wpointer-arith;-Wdeclaration-after-statement>"
+    "$<$<AND:$<PLATFORM_ID:Linux>,$<COMPILE_LANG_AND_ID:C,GNU>,$<CONFIG:Debug>>:-Wall;-pedantic;-Wpointer-arith;-Wdeclaration-after-statement>"
     "$<$<AND:$<PLATFORM_ID:Linux>,$<COMPILE_LANG_AND_ID:CXX,GNU>,$<CONFIG:Debug>>:>"
-    "$<$<AND:$<PLATFORM_ID:Linux>,$<COMPILE_LANG_AND_ID:C,GNU>,$<CONFIG:Release>>:-pedantic;-ansi;-Wpointer-arith;-Wdeclaration-after-statement>"
+    "$<$<AND:$<PLATFORM_ID:Linux>,$<COMPILE_LANG_AND_ID:C,GNU>,$<CONFIG:Release>>:-pedantic;-Wpointer-arith;-Wdeclaration-after-statement>"
     "$<$<AND:$<PLATFORM_ID:Linux>,$<COMPILE_LANG_AND_ID:CXX,GNU>,$<CONFIG:Release>>:>"
     #"$<$<AND:$<PLATFORM_ID:Linux>,$<CXX_COMPILER_ID:Clang>>:-stdlib=libc++>" #;-lc++abi  -stdlib=libc++;-D_GLIBCXX_USE_CXX11_ABI=0
 )

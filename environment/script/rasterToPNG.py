@@ -8,6 +8,7 @@ import numpy
 import osgeo.gdal
 import osgeo.gdal_array
 
+osgeo.gdal.UseExceptions()
 
 
 def _drawGrid(
@@ -59,8 +60,8 @@ def _drawLdd(
 
         if res == 5:
           # Draw a pit.
-          box = (xCoord - boxWidth, yCoord + boxWidth, xCoord + boxWidth,
-            yCoord - boxWidth)
+          box = (xCoord - boxWidth, yCoord - boxWidth, xCoord + boxWidth,
+            yCoord + boxWidth)
           draw.rectangle(box, fill=colour)
         else:
           # Draw a line.

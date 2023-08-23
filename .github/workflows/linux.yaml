@@ -30,9 +30,19 @@ jobs:
         - name: Configure system
           run: |
               sudo apt update
-              sudo apt install ${{ matrix.compiler.cc }} ninja-build gdal-bin libgdal-dev libxerces-c-dev libxml2-dev libxslt1-dev libboost-dev libboost-date-time-dev libboost-test-dev libboost-timer-dev libncurses5-dev libxml2 libxml2-utils mesa-common-dev libglu1-mesa-dev libgl1-mesa-glx python3 libpython3-dev python3-numpy python3-psutil cmake pybind11-dev python3-qgis qt6-base-dev libqt6charts6-dev libqt6opengl6-dev qtbase5-dev libqt5charts5-dev libqt5opengl5-dev
+              sudo apt install ${{ matrix.compiler.cc }} ninja-build gdal-bin libgdal-dev libxerces-c-dev libxml2-dev libxslt1-dev libboost-dev libboost-date-time-dev libboost-test-dev libboost-timer-dev libncurses5-dev libxml2 libxml2-utils mesa-common-dev libglu1-mesa-dev libgl1-mesa-glx python3 libpython3-dev python3-numpy python3-psutil cmake pybind11-dev python3-qgis
               # Only required for documentation:
               sudo apt install python3-sphinx doxygen python3-matplotlib graphviz
+
+        - name: Configure system Qt5
+          if: matrix.qt6 == 'OFF'
+          run: |
+              sudo apt install qtbase5-dev libqt5charts5-dev libqt5opengl5-dev
+
+        - name: Configure system Qt6
+          if: matrix.qt6 == 'ON'
+          run: |
+              sudo apt install qt6-base-dev libqt6charts6-dev libqt6opengl6-dev
 
         - name: Configure PCRaster
           shell: bash -l {0}

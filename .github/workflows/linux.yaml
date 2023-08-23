@@ -7,14 +7,18 @@ jobs:
         strategy:
             matrix:
                 os: [ubuntu-22.04]
+                qt6: ["ON", "OFF"]
                 compiler:
-                    - {version: 11, cc: gcc-11  , cxx: g++-11    }
-                    - {version: 12, cc: clang-12, cxx: clang++-12}
+                    - { cc: gcc-11  , cxx: g++-11    }
+                    - { cc: gcc-12  , cxx: g++-12    }
+                    - { cc: clang-11, cxx: clang++-11}
+                    - { cc: clang-13, cxx: clang++-13}
+                    - { cc: clang-15, cxx: clang++-15}
             fail-fast: false
 
         runs-on: ${{ matrix.os }}
 
-        name: ${{ matrix.os }} / ${{ matrix.compiler.cxx }}
+        name: ${{ matrix.os }};${{ matrix.compiler.cxx }};${{ matrix.qt6 }}
 
         timeout-minutes: 120
 
@@ -26,7 +30,7 @@ jobs:
         - name: Configure system
           run: |
               sudo apt update
-              sudo apt install ${{ matrix.compiler.cc }} ninja-build gdal-bin libgdal-dev libxerces-c-dev libxml2-dev libxslt1-dev libboost-dev libboost-date-time-dev libboost-filesystem-dev libboost-test-dev libboost-timer-dev libncurses5-dev libxml2 libxml2-utils mesa-common-dev libglu1-mesa-dev libgl1-mesa-glx python3 libpython3-dev python3-numpy python3-psutil cmake pybind11-dev qt6-base-dev  libqt6charts6-dev libqt6opengl6-dev
+              sudo apt install ${{ matrix.compiler.cc }} ninja-build gdal-bin libgdal-dev libxerces-c-dev libxml2-dev libxslt1-dev libboost-dev libboost-date-time-dev libboost-test-dev libboost-timer-dev libncurses5-dev libxml2 libxml2-utils mesa-common-dev libglu1-mesa-dev libgl1-mesa-glx python3 libpython3-dev python3-numpy python3-psutil cmake pybind11-dev python3-qgis qt6-base-dev libqt6charts6-dev libqt6opengl6-dev qtbase5-dev libqt5charts5-dev libqt5opengl5-dev
               # Only required for documentation:
               sudo apt install python3-sphinx doxygen python3-matplotlib graphviz
 
@@ -44,7 +48,7 @@ jobs:
                   -D PCRASTER_BUILD_TEST=ON \
                   -D PCRASTER_BUILD_DOCUMENTATION=ON \
                   -D PCRASTER_WITH_FLAGS_IPO=OFF \
-                  -D PCRASTER_WITH_QT6=ON \
+                  -D PCRASTER_WITH_QT6=${{ matrix.qt6 }} \
                   -D Python3_EXECUTABLE:FILEPATH=/usr/bin/python3 \
                   -D CMAKE_INSTALL_PREFIX=package
 

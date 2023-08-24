@@ -212,7 +212,8 @@ else()
 endif()
 
 
-find_package(Python3 COMPONENTS Interpreter Development NumPy)
+find_package(Python3 REQUIRED COMPONENTS Interpreter Development NumPy)
+
 message(STATUS "Found Python3:")
 message(STATUS "  Interpreter ID: " ${Python3_INTERPRETER_ID})
 message(STATUS "    version:      " ${Python3_VERSION})
@@ -222,6 +223,9 @@ message(STATUS "    includes:     " ${Python3_INCLUDE_DIRS})
 message(STATUS "  NumPy:" )
 message(STATUS "    version:      " ${Python3_NumPy_VERSION})
 message(STATUS "    includes:     " ${Python3_NumPy_INCLUDE_DIRS})
+
+# Find Python before pybind11...
+find_package(pybind11 REQUIRED)
 
 if(UNIX)
     set(CURSES_NEED_NCURSES TRUE)
@@ -258,28 +262,6 @@ if(PCRASTER_BUILD_DOCUMENTATION)
     endif()
 
     set(SPHINX_HTML_THEME "pyramid")
-endif()
-
-
-# Python.h needs to be known to pass the test
-set (CMAKE_REQUIRED_INCLUDES "${Python3_INCLUDE_DIRS};${CMAKE_REQUIRED_INCLUDES}")
-
-check_include_file_cxx("pybind11/pybind11.h" HAVE_PYBIND11)
-
-if(NOT HAVE_PYBIND11)
-    FetchContent_Declare(
-        pybind11
-        GIT_REPOSITORY https://github.com/pybind/pybind11
-        GIT_TAG        v2.10.0
-    )
-
-    FetchContent_GetProperties(pybind11)
-    if(NOT pybind11_POPULATED)
-        FetchContent_Populate(pybind11)
-        add_subdirectory(${pybind11_SOURCE_DIR} ${pybind11_BINARY_DIR})
-    endif()
-else()
-    find_package(pybind11 REQUIRED)
 endif()
 
 

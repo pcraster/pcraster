@@ -8,10 +8,10 @@ file(MAKE_DIRECTORY ${api_doc_output_dir})
 file (GENERATE
     OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile_$<CONFIG>
     CONTENT "
+    # WARNING: THIS FILE IS GENERATED, DO NOT EDIT
     PROJECT_NAME            = PCRaster
     ALWAYS_DETAILED_SEC     = YES
     BUILTIN_STL_SUPPORT     = YES
-    CLASS_DIAGRAMS          = YES
     ENABLE_PREPROCESSING    = YES
     EXCLUDE_PATTERNS        = *Test.h *Test.cc *_test.cc
     EXPAND_ONLY_PREDEF      = NO

@@ -18,7 +18,7 @@ jobs:
 
         runs-on: ${{ matrix.os }}
 
-        name: ${{ matrix.os }};${{ matrix.compiler.cxx }};${{ matrix.qt6 }}
+        name: ${{ matrix.os }};${{ matrix.compiler.cxx }};qt5-${{ matrix.qt6 }}
 
         timeout-minutes: 120
 
@@ -63,35 +63,35 @@ jobs:
                   -D CMAKE_INSTALL_PREFIX=package
 
         - name: Build debug
-          shell: bash
+          shell: bash -l {0}
           run: |
               cmake --build build --config Debug --target all
 
         - name: Build release
-          shell: bash
+          shell: bash -l {0}
           run: |
               cmake --build build --config Release --target all
 
         - name: Install PCRaster
-          shell: bash
+          shell: bash -l {0}
           run: |
               cmake --install build --config Release
 
         - name: Create source package
-          shell: bash
+          shell: bash -l {0}
           run: |
               cmake --build build --config Release --target package_source
 
         - name: Test debug
           env:
               LOGNAME: pcrtester
-          shell: bash
+          shell: bash -l {0}
           run: |
               ctest --test-dir build --output-on-failure --build-config Debug
 
         - name: Test release
           env:
               LOGNAME: pcrtester
-          shell: bash
+          shell: bash -l {0}
           run: |
               ctest --test-dir build --output-on-failure --build-config Release

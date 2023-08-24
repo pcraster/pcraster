@@ -39,12 +39,12 @@ jobs:
         - uses: conda-incubator/setup-miniconda@v2
           with:
               auto-update-conda: false
-              python-version: 3.9
+              python-version: 3.11
               channels: conda-forge
               mamba-version: "*"
         - shell: cmd /C call {0}
           run: |
-              mamba install numpy cmake ninja boost-cpp xerces-c libgdal gdal psutil make qt6-main qt6-charts
+              mamba install pybind11 numpy cmake ninja boost-cpp xerces-c libgdal gdal psutil make qt6-main qt6-charts
 
         - name: Configure PCRaster
           shell: cmd /C call {0}

@@ -40,7 +40,7 @@ class ValueFromParameterTable(object):
     """
 
     parameterFile = None
-    parameterFile = open(self._fileName, "rU")
+    parameterFile = open(self._fileName)
 
     lineNo = 1
     lines = parameterFile.readlines()

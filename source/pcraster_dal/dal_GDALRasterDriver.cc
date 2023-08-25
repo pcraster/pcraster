@@ -558,11 +558,16 @@ void GDALRasterDriver::deregisterGDALDrivers()
 {
   detail::deregisterGDALDrivers();
 
-  // Remove drivers from memory.
-  for(GDALDriver* driver : d_drivers) {
-    // Let GDal destroy the driver, prevent that a second heap manager assumes
-    // the memory is from a different heap than what is used by the GDal dll.
-    GDALDestroyDriver(driver);
+  auto* manager = GetGDALDriverManager();
+  assert(manager != nullptr);
+
+  if(manager->GetDriverCount() > 0){
+    // Remove drivers from memory.
+    for(GDALDriver* driver : d_drivers) {
+      // Let GDal destroy the driver, prevent that a second heap manager assumes
+      // the memory is from a different heap than what is used by the GDal dll.
+      GDALDestroyDriver(driver);
+    }
   }
 
   d_drivers.clear();

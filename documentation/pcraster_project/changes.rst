@@ -1,10 +1,16 @@
 Changes
 =======
 
-.. PCRaster 4.4.1
+.. PCRaster 4.5.0
 .. --------------
 
+PCRaster 4.4.1
+--------------
 
+This is a bug fix release for 4.4.
+
+* We fixed a segmentation fault occurring at the end of running a `QGIS qgis_process <https://docs.qgis.org/latest/en/docs/user_manual/processing/standalone.html>`_ from the command line (`#378 <https://github.com/pcraster/pcraster/issues/378>`_, `#55 <https://github.com/jvdkwast/qgis-processing-pcraster/issues/55>`_).
+* We removed a deprecated mode when opening files in the Arrayed Variables module.
 
 PCRaster 4.4.0
 --------------

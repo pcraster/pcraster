@@ -7,12 +7,12 @@ You can find more information about our research and development projects on [ou
 
 
 ## Installation
-[![Anaconda-Server Badge](https://anaconda.org/conda-forge/pcraster/badges/version.svg)](https://anaconda.org/conda-forge/pcraster)
-[![Anaconda-Server Badge](https://anaconda.org/conda-forge/pcraster/badges/platforms.svg)](https://anaconda.org/conda-forge/pcraster)
-[![Anaconda-Server Badge](https://anaconda.org/conda-forge/pcraster/badges/downloads.svg)](https://anaconda.org/conda-forge/pcraster)
+[![Conda Version](https://img.shields.io/conda/vn/conda-forge/pcraster.svg)](https://anaconda.org/conda-forge/pcraster)
+[![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/pcraster.svg)](https://anaconda.org/conda-forge/pcraster)
+[![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/pcraster.svg)](https://anaconda.org/conda-forge/pcraster)
 
 Packages are available for Linux, macOS and Windows via [conda-forge](https://github.com/conda-forge/pcraster-feedstock).
-Install PCRaster with:
+Install PCRaster e.g. with:
 
 ```bash
 conda install -c conda-forge pcraster

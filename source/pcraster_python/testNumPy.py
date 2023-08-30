@@ -253,7 +253,6 @@ class TestNumPy(testcase.TestCase):
       self.assertEqual(array2[2][1], 2.0)
 
 
-  @unittest.skip("see gh140")
   def test_numpy2pcr(self):
       nrRows, nrCols, cellSize = 3, 2, 1.0
       west, north = 0.0, 0.0
@@ -282,7 +281,17 @@ class TestNumPy(testcase.TestCase):
       raster = pcraster.numpy2pcr(pcraster.Boolean, numpy.array([
           [1,  1],
           [0,  5],
-          [1,  1]], numpy.bool), 5)
+          [1,  1]], numpy.bool_), 5)
+      self.assertEqual(pcraster.cellvalue(raster, 1, 1), (True, True))
+      self.assertEqual(pcraster.cellvalue(raster, 2, 1), (False, True))
+      # It is not possible to create a bool array with other values than
+      # 0 and 1. Passing 5 as missing value has no effect.
+      self.assertEqual(pcraster.cellvalue(raster, 2, 2), (True, True))
+
+      raster = pcraster.numpy2pcr(pcraster.Boolean, numpy.array([
+          [1,  1],
+          [0,  5],
+          [1,  1]], bool), 5)
       self.assertEqual(pcraster.cellvalue(raster, 1, 1), (True, True))
       self.assertEqual(pcraster.cellvalue(raster, 2, 1), (False, True))
       # It is not possible to create a bool array with other values than
@@ -448,6 +457,52 @@ class TestNumPy(testcase.TestCase):
       self.assertEqual(pcraster.cellvalue(raster, 2, 1), ( 0, True))
       self.assertEqual(pcraster.cellvalue(raster, 2, 2)[1], False)
       self.assertEqual(pcraster.cellvalue(raster, 3, 2),  (2, True))
+
+      # int32 -> Scalar (float32)
+      raster = pcraster.numpy2pcr(pcraster.Scalar, numpy.array([
+          [-2, -1],
+          [ 0,  0],
+          [ 1,  2]], numpy.int32), numpy.nan)
+      self.assertEqual(pcraster.cellvalue(raster, 1, 1), (-2, True))
+      self.assertEqual(pcraster.cellvalue(raster, 1, 2), (-1, True))
+      self.assertEqual(pcraster.cellvalue(raster, 2, 1), (0, True))
+      self.assertEqual(pcraster.cellvalue(raster, 2, 2), (0, True))
+      self.assertEqual(pcraster.cellvalue(raster, 3, 1), (1, True))
+      self.assertEqual(pcraster.cellvalue(raster, 3, 2), (2, True))
+
+      raster = pcraster.numpy2pcr(pcraster.Scalar, numpy.array([
+          [-2, -1],
+          [ 0,  0],
+          [ 1,  2]], numpy.int32), 0)
+      self.assertEqual(pcraster.cellvalue(raster, 1, 1), (-2, True))
+      self.assertEqual(pcraster.cellvalue(raster, 1, 2), (-1, True))
+      self.assertEqual(pcraster.cellvalue(raster, 2, 1)[1], False)
+      self.assertEqual(pcraster.cellvalue(raster, 2, 2)[1], False)
+      self.assertEqual(pcraster.cellvalue(raster, 3, 1), (1, True))
+      self.assertEqual(pcraster.cellvalue(raster, 3, 2), (2, True))
+
+      # int64 -> Scalar (float32)
+      raster = pcraster.numpy2pcr(pcraster.Scalar, numpy.array([
+          [-2, -1],
+          [ 0,  0],
+          [ 1,  2]], numpy.int64), numpy.nan)
+      self.assertEqual(pcraster.cellvalue(raster, 1, 1), (-2, True))
+      self.assertEqual(pcraster.cellvalue(raster, 1, 2), (-1, True))
+      self.assertEqual(pcraster.cellvalue(raster, 2, 1), (0, True))
+      self.assertEqual(pcraster.cellvalue(raster, 2, 2), (0, True))
+      self.assertEqual(pcraster.cellvalue(raster, 3, 1), (1, True))
+      self.assertEqual(pcraster.cellvalue(raster, 3, 2), (2, True))
+
+      raster = pcraster.numpy2pcr(pcraster.Scalar, numpy.array([
+          [-2, -1],
+          [ 0,  0],
+          [ 1,  2]], numpy.int64), 0)
+      self.assertEqual(pcraster.cellvalue(raster, 1, 1), (-2, True))
+      self.assertEqual(pcraster.cellvalue(raster, 1, 2), (-1, True))
+      self.assertEqual(pcraster.cellvalue(raster, 2, 1)[1], False)
+      self.assertEqual(pcraster.cellvalue(raster, 2, 2)[1], False)
+      self.assertEqual(pcraster.cellvalue(raster, 3, 1), (1, True))
+      self.assertEqual(pcraster.cellvalue(raster, 3, 2), (2, True))
 
       # complex64: Not supported.
       with self.assertRaises(Exception) as context_manager:

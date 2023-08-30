@@ -11,8 +11,9 @@
 #include "calc_spatial.h"
 #include "value_scale_traits.h"
 #include <algorithm>
-#include <memory>
+#include <cmath>
 #include <cstdint>
+#include <memory>
 
 // From the numpy reference:
 // http://docs.scipy.org/doc/numpy-1.6.0/reference/c-api.array.html#checking-the-api-version
@@ -158,7 +159,7 @@ struct ArrayCopier<Source, Destination, value_scale,
         for(size_t i = 0; i < nr_values; ++i) {
             source_value = source[i];
 
-            if(source_value == missing_value) {
+            if((source_value == missing_value) || std::isnan(source_value)) {
                 pcr::setMV(destination[i]);
             }
             else {
@@ -202,7 +203,7 @@ struct ArrayCopier<Source, Destination, value_scale,
         for(size_t i = 0; i < nr_values; ++i) {
             source_value = source[i];
 
-            if(source_value == missing_value) {
+            if((source_value == missing_value) || std::isnan(source_value)) {
                 pcr::setMV(destination[i]);
             }
             else {
@@ -236,7 +237,7 @@ struct ArrayCopier<Source, Destination, value_scale,
         for(size_t i = 0; i < nr_values; ++i) {
             source_value = source[i];
 
-            if(source_value == missing_value) {
+            if((source_value == missing_value) || std::isnan(source_value)) {
                 pcr::setMV(destination[i]);
             }
             else {

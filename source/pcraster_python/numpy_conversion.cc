@@ -11,8 +11,9 @@
 #include "calc_spatial.h"
 #include "value_scale_traits.h"
 #include <algorithm>
-#include <memory>
+#include <cmath>
 #include <cstdint>
+#include <memory>
 
 // From the numpy reference:
 // http://docs.scipy.org/doc/numpy-1.6.0/reference/c-api.array.html#checking-the-api-version
@@ -44,8 +45,17 @@ void fill_data(char * data, calc::Field const* field, bool is_spatial, size_t nr
     }
 }
 
+template <typename T>
+bool isnan(T val) {
+  if constexpr (!std::is_integral<T>::value) {
+    return std::isnan(val);
+  }
+  else {
+    return false;
+  }
 }
 
+} // namespace detail
 
 //!
 /*!
@@ -158,7 +168,7 @@ struct ArrayCopier<Source, Destination, value_scale,
         for(size_t i = 0; i < nr_values; ++i) {
             source_value = source[i];
 
-            if(source_value == missing_value) {
+            if((source_value == missing_value) || detail::isnan(source_value)) {
                 pcr::setMV(destination[i]);
             }
             else {
@@ -202,7 +212,7 @@ struct ArrayCopier<Source, Destination, value_scale,
         for(size_t i = 0; i < nr_values; ++i) {
             source_value = source[i];
 
-            if(source_value == missing_value) {
+            if((source_value == missing_value) || detail::isnan(source_value)) {
                 pcr::setMV(destination[i]);
             }
             else {
@@ -236,7 +246,7 @@ struct ArrayCopier<Source, Destination, value_scale,
         for(size_t i = 0; i < nr_values; ++i) {
             source_value = source[i];
 
-            if(source_value == missing_value) {
+            if((source_value == missing_value) || detail::isnan(source_value)) {
                 pcr::setMV(destination[i]);
             }
             else {
@@ -861,14 +871,14 @@ calc::Field* array_to_field(
       throw std::invalid_argument("Input must be two-dimensional NumPy array");
     }
 
-    if(info.shape[0] != space.nrRows()){
+    if(static_cast<size_t>(info.shape[0]) != space.nrRows()){
       throw std::logic_error((boost::format(
             "Number of rows from input array (%1%) and current raster (%2%) are different")
             % info.shape[0]
             % space.nrRows()).str().c_str());
     }
 
-    if(info.shape[1] != space.nrCols()){
+    if(static_cast<size_t>(info.shape[1]) != space.nrCols()){
       throw std::logic_error((boost::format(
             "Number of columns from input array (%1%) and current raster (%2%) are different")
             % info.shape[1]

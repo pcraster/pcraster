@@ -13,6 +13,8 @@ This is a bug fix release for 4.4.
 * We fixed an incomplete conversion from numpy.nan to scalar missing values (`#140 <https://github.com/pcraster/pcraster/issues/140>`_).
 * We removed a deprecated mode when opening files in the Arrayed Variables module.
 
+For a list of solved issues see our `4.4.1 <https://github.com/pcraster/pcraster/milestone/12>`_ milestone.
+
 PCRaster 4.4.0
 --------------
 

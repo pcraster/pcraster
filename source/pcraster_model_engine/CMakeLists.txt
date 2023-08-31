@@ -273,9 +273,7 @@ add_library(pcraster_model_engine_objects OBJECT
 set_source_files_properties(calcparser.cpp
     PROPERTIES
         COMPILE_OPTIONS
-            "$<$<CXX_COMPILER_ID:GNU>:-Wno-error=unused-variable;-Wno-error=unused-label;-Wno-error=maybe-uninitialized>"
-        COMPILE_OPTIONS
-            "$<$<CXX_COMPILER_ID:Clang>:-Wno-error=unused-variable;-Wno-error=unused-label;-Wno-dangling-else>"
+            "$<$<COMPILE_LANG_AND_ID:CXX,GNU,AppleClang,Clang>:-Wno-all>"
 )
 
 target_include_directories(pcraster_model_engine_objects

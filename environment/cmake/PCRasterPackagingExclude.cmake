@@ -19,4 +19,4 @@ external/Darwin/x86_64/pcrmf2k
 source/modflow/mf2k
 
 # This is created when using CI
-build
+/build/

@@ -240,9 +240,9 @@ error1:
 
 static int SetAndCloseMap(MAP *m, const ATTRIBUTES *a)
 {
-    double angle;
+    double angle = a->angle;
 
-    if (!(IS_MV_REAL8(&(a->angle)))) {
+    if (!(IS_MV_REAL8(&angle))) {
         if (a->angle < 0)
             angle = -Deg2Rad(-a->angle);
         else

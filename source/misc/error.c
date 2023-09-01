@@ -19,7 +19,7 @@ static char errorMsg[BUF_SIZE + 25]; /* the complete message */
 static char *ptrs[16];
 static int errorNestLevel = 0;
 
-void ResetError()
+void ResetError(void)
 {
     memset(errorBuf, 0, BUF_SIZE);
     memset(errorMsg, 0, BUF_SIZE);

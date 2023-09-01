@@ -14,12 +14,12 @@
 static size_t logCounter = 0;
 
 #ifndef BORLANDC
-static FILE *ActiveLogFile()
+static FILE *ActiveLogFile(void)
 {
     return NULL;
 }
 
-static void SetIncrLogCounter()
+static void SetIncrLogCounter(void)
 {
     logCounter++;
 }

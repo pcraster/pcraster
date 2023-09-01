@@ -66,11 +66,11 @@ jobs:
               LOGNAME: pcrtester
           shell: bash
           run: |
-              ctest --test-dir build --output-on-failure --build-config Debug
+              ctest --parallel 2 --test-dir build --output-on-failure --build-config Debug
 
         - name: Test release
           env:
               LOGNAME: pcrtester
           shell: bash
           run: |
-              ctest --test-dir build --output-on-failure --build-config Release
+              ctest --parallel 2 --test-dir build --output-on-failure --build-config Release

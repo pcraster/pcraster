@@ -294,6 +294,8 @@ static int EditCellRepr(double *editValue, /* read-write */
         cr[1] = (cr[0] == CR_UINT1) ? CR_INT4 : CR_UINT1;
         break;
     default: {
+        cr[0] = CR_UNDEFINED;
+        cr[1] = CR_UNDEFINED;
         assert(0); // Shut up compiler
     }
     };

@@ -315,7 +315,7 @@ int vf_lax(MAP_REAL8 *result,
 }
 
 /* laplacian(): calculates the laplacian (div dot grad)
- * of a scalar field f(x,y): laplacian(f) = div · grad(f) = d^2(f)/dx^2
+ * of a scalar field f(x,y): laplacian(f) = div * grad(f) = d^2(f)/dx^2
  * */
 extern int vf_laplacian(MAP_REAL8 *result,
                   const MAP_REAL8 *scalar)

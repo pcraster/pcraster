@@ -17,11 +17,12 @@ fi
 # We need to create an out of source build
 cd $SRC_DIR
 
-mkdir -p build && cd build
+mkdir -p build
 
 
 # master branch
-cmake .. -G"Ninja" -DCMAKE_BUILD_TYPE=Release \
+cmake -S $SRC_DIR -B build \
+  -G"Ninja" -DCMAKE_BUILD_TYPE=Release \
   -D CMAKE_INSTALL_PREFIX="${PREFIX}" \
   -D PCRASTER_PYTHON_INSTALL_DIR=${SP_DIR} \
   -D PCRASTER_WITH_FLAGS_NATIVE=OFF \
@@ -29,10 +30,10 @@ cmake .. -G"Ninja" -DCMAKE_BUILD_TYPE=Release \
   -D PCRASTER_WITH_QT6=ON \
   $PLATFORM_OPTIONS
 
-cmake --build . --target all
+cmake --build build --target all
 
 export LOGNAME=pcrtester
 
-# ctest --output-on-failure
+ctest --parallel 2 --test-dir build --output-on-failure --build-config Release
 
-cmake --build . --target install
+cmake --build build --target install

@@ -33,13 +33,13 @@ requirements:
     - {{ cdt('libselinux') }}               # [linux]
     - {{ cdt('libxdamage') }}               # [linux]
     - {{ cdt('libxxf86vm') }}               # [linux]
-    - cmake >=3.15
+    - cmake
     - ninja
     - make                                  # [win]
 
   host:
     - xorg-libxfixes                        # [linux]
-    - boost-cpp
+    - boost-cpp > 1.81
     - xerces-c
     - qt6-main
     - qt6-charts
@@ -48,7 +48,7 @@ requirements:
     - gdal
     - python
     - pybind11
-    - numpy >1.17
+    - numpy
     - vs2015_runtime                        # [win]
     - libglu                                # [linux]
     - psutil

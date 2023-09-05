@@ -38,20 +38,20 @@ requirements:
     - make                                  # [win]
 
   host:
+    - python
+    - numpy
+    - pybind11
     - xorg-libxfixes                        # [linux]
-    - boost-cpp >1.81
     - xerces-c
     - qt6-main
     - qt6-charts
     - ncurses                               # [not win]
     - libgdal
     - gdal
-    - python
-    - pybind11
-    - numpy
     - vs2015_runtime                        # [win]
     - libglu                                # [linux]
     - psutil
+    - boost-cpp >1.81
 
   run:
     - python

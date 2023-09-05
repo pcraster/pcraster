@@ -39,7 +39,7 @@ requirements:
 
   host:
     - xorg-libxfixes                        # [linux]
-    - boost-cpp > 1.81
+    - boost-cpp >1.81
     - xerces-c
     - qt6-main
     - qt6-charts

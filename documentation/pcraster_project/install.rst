@@ -25,7 +25,7 @@ For installing PCRaster including additional software packages used in our `on-s
 
 .. code-block:: console
 
-   conda create --name pcraster -c conda-forge python=3.11 numpy pcraster campo "lue>0.3.6" matplotlib-base spyder spotpy qgis
+   conda create --name pcraster -c conda-forge python=3.11 numpy pcraster campo "lue>0.3.6" matplotlib-base spyder spyder-terminal spotpy qgis
 
 Always use the conda-forge channel when installing further packages into your PCRaster environment.
 

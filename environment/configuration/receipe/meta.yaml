@@ -51,7 +51,7 @@ requirements:
     - vs2015_runtime                        # [win]
     - libglu                                # [linux]
     - psutil
-    - boost-cpp >1.81
+    - boost-cpp
 
   run:
     - python

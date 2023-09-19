@@ -202,7 +202,7 @@ public:
   // Raster*          raster              (DataSpaceAddress const& address) const;
 
   Raster*          raster              (// DataSpace const& space,
-                                        DataSpaceAddress address,
+                                        const DataSpaceAddress& address,
                                         TypeId typeId=TI_NR_TYPES) const;
 
   void             read                (Raster& raster,
@@ -230,7 +230,7 @@ public:
                                         DataSpaceAddress address) const;
 
   void             read                (Vector& layer,
-                                        DataSpaceAddress address) const;
+                                        const DataSpaceAddress& address) const;
 
   void             read                (Table& table,
                                         DataSpaceAddress const& address) const;

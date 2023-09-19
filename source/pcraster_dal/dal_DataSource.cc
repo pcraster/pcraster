@@ -282,7 +282,7 @@ Raster* DataSource::raster() const
 */
 Raster* DataSource::raster(
          // DataSpace const& space,
-         DataSpaceAddress address,
+         const DataSpaceAddress& address,
          TypeId typeId) const
 {
   assert(d_reader);
@@ -1533,7 +1533,7 @@ void DataSource::read(
 
 void DataSource::read(
          Vector& vector,
-         DataSpaceAddress address) const
+         const DataSpaceAddress& address) const
 {
   assert(d_reader);
 

@@ -268,7 +268,7 @@ namespace mldd {
     typedef Val                         value_type;
     typedef value_type&                 reference;
     typedef Vertex                      key_type;
-    const reference operator[](const key_type& v) const
+    reference operator[](const key_type& v) const
     {
       return d_props[d_rd.convert(v)];
     }

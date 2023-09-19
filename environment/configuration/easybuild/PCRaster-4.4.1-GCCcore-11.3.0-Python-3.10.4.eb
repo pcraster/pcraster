@@ -1,0 +1,44 @@
+easyblock = 'CMakeMake'
+
+name = 'PCRaster'
+
+version = '4.4.1'
+
+versionsuffix = '-Python-%(pyver)s'
+
+homepage = "https://pcraster.geo.uu.nl"
+
+description = """PCRaster is a collection of software targeted at the
+development and deployment of spatio-temporal environmental models."""
+
+toolchain = {'name': 'GCCcore', 'version': '11.3.0'}
+
+sources = ['%(namelower)s-%(version)s.tar.bz2']
+source_urls = ['http://pcraster.geo.uu.nl/pcraster/packages/src/']
+checksums = ['8b4bb5843beb6639a95a928bc6ee41452a095f4844a4182689367fdfa40d0498']
+
+builddependencies = [
+    ('CMake', '3.23.1'),
+]
+
+dependencies = [
+    ('Python', '3.10.4'),
+    ('SciPy-bundle', '2022.05', '', ('foss', '2022a')),
+    ('Qt5', '5.15.5', '', ('GCCcore', '11.3.0')),
+    ('Boost', '1.79.0', '', ('GCC', '11.3.0')),
+    ('GDAL', '3.5.0', '', ('foss', '2022a')),
+    ('Xerces-C++', '3.2.4'),
+    ('ncurses', '6.3')
+]
+
+configopts = f" -D Python3_EXECUTABLE=$EBROOTPYTHON/bin/python -D PYTHON_EXECUTABLE=$EBROOTPYTHON/bin/python -D PCRASTER_WITH_FLAGS_IPO=ON "
+
+sanity_check_paths = {
+    'files': ['bin/%s' % x for x in ['aguila', 'asc2map', 'col2map', 'legend', 'map2asc', 'map2col',
+                                     'mapattr', 'oldcalc', 'pcrcalc', 'mf2005', 'resample', 'table']],
+    'dirs': ['python/pcraster'],
+}
+
+modextrapaths = {'PYTHONPATH': ['python']}
+
+moduleclass = 'geo'

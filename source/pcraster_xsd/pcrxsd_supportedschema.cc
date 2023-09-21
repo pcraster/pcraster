@@ -76,7 +76,7 @@ public:
   SupportedSchema const* findBySystemId(
     std::string const& systemId)
   {
-   const_iterator f=find(systemId);
+   auto f=find(systemId);
    if (f == end())
      return nullptr;
    return &(f->second);

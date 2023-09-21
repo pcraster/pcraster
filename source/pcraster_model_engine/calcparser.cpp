@@ -1257,7 +1257,7 @@ Parser::statement(int *_retsignal)
 #line 656 "calcparser.g"
 					
 					// rewrite to single expr, no assignment
-					LinkInExpr *lie=dynamic_cast<LinkInExpr *>(r_expr.get());
+					auto *lie=dynamic_cast<LinkInExpr *>(r_expr.get());
 					if (!lie)
 					r_expr->posError("libraryName::ClassName construct expected");
 					lie->setAsConstructor(ASTPar(genId(objectName)));

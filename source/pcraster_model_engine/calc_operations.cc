@@ -174,7 +174,7 @@ void calc::Operations::add(
  */
 MAJOR_CODE calc::Operations::otherOneOfMRF(MAJOR_CODE oneOfMRF)  const
 {
-  MRFRelations::const_iterator i= d_mrfRelations.find(oneOfMRF);
+  auto i= d_mrfRelations.find(oneOfMRF);
   if (i == d_mrfRelations.end())
     return OP_NOP;
   return i->second.d_otherOneOfMRF;
@@ -182,14 +182,14 @@ MAJOR_CODE calc::Operations::otherOneOfMRF(MAJOR_CODE oneOfMRF)  const
 
 MAJOR_CODE calc::Operations::oneOf2Mrf(MAJOR_CODE oneOfMRF)  const
 {
-  MRFRelations::const_iterator i= d_mrfRelations.find(oneOfMRF);
+  auto i= d_mrfRelations.find(oneOfMRF);
   POSTCOND(i != d_mrfRelations.end());
   return i->second.d_mrf;
 }
 
 bool calc::Operations::oneOfMrfIsStackTop(MAJOR_CODE oneOfMRF) const
 {
-  MRFRelations::const_iterator i= d_mrfRelations.find(oneOfMRF);
+  auto i= d_mrfRelations.find(oneOfMRF);
   POSTCOND(i != d_mrfRelations.end());
   return i->second.d_stackTop;
 }
@@ -301,7 +301,7 @@ static LookupMapStack                builtIn_lookupmapstack;
  */
 const calc::Operator* calc::Operations::operator[](const std::string& name) const
 {
-  NameOp::const_iterator i=d_nameOp.find(name);
+  auto i=d_nameOp.find(name);
   if (i==d_nameOp.end())
     return nullptr;
   return i->second;
@@ -315,7 +315,7 @@ const calc::Operator* calc::Operations::operator[](const std::string& name) cons
  */
 const calc::Operator* calc::Operations::operator[](const MAJOR_CODE   major)const
 {
-  CodeOp::const_iterator i=d_codeOp.find(major);
+  auto i=d_codeOp.find(major);
   if (i==d_codeOp.end())
     return nullptr;
   return i->second;
@@ -323,7 +323,7 @@ const calc::Operator* calc::Operations::operator[](const MAJOR_CODE   major)cons
 
 //! find a function, return OP_NOP if no such function
 MAJOR_CODE calc::Operations::function(const std::string& name) const {
- Funcs::const_iterator i= d_funcs.find(name);
+ auto i= d_funcs.find(name);
  if (i != d_funcs.end())
       return i->second;
  return OP_NOP;
@@ -337,7 +337,7 @@ size_t calc::Operations::size()const
 //! load library libName if not already loaded
 void   calc::Operations::loadLib(const std::string& libName)
 {
-  LibMap::const_iterator i=d_libs.find(libName);
+  auto i=d_libs.find(libName);
   if (i == d_libs.end()) {
     auto *l= new CalcLib(libName);
     load(l->getMeta());

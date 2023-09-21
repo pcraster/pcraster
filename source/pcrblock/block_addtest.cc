@@ -68,7 +68,7 @@ BOOST_AUTO_TEST_CASE(macky_bridge_add)
 
   // Add function arguments.
   discr::RasterData<REAL4> thickness(&raster, REAL4(15.5));
-  REAL4 maxVoxelThickness = REAL4(1.0);
+  auto maxVoxelThickness = REAL4(1.0);
 
   // No compaction.
   Compactors<MackeyBridgeCompactor> compactors;

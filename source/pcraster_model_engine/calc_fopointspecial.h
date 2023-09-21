@@ -72,7 +72,7 @@ struct special {
      return impl_4_2_d(v);
   }
    inline static UINT1 impl_4_2_l( const INT4& v) {
-      UINT1   r = (UINT1)(ABS(v) % 10);
+      auto   r = (UINT1)(ABS(v) % 10);
       if (!r) return 5; // pit who cares
       return r;// MISSING CODE: DO A LDD REPAIR
   }
@@ -85,7 +85,7 @@ struct special {
      if (v == -1)
        return LDD_PIT;
      /* shift a halfdir - eps. (0.0624999) */
-     UINT1 r =(UINT1)( modf( (v/M_2PI)+shift, &dum)*8);
+     auto r =(UINT1)( modf( (v/M_2PI)+shift, &dum)*8);
      POSTCOND(r < ((UINT1)8) );
      // MISSING CODE: DO A REPAIR
      return lookup[r];

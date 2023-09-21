@@ -269,7 +269,7 @@ void mldd::DagRaster::downstreamVisitor(
 {
   for(auto i : d_rto)
     dv.initVertex(i);
-  for(RTO::const_reverse_iterator i=d_rto.rbegin(); i!=d_rto.rend();++i) {
+  for(auto i=d_rto.rbegin(); i!=d_rto.rend();++i) {
     for(OutEdgeIterator e=beginOutEdge(*i);e.any();++e)
        dv.downstreamEdge(*e);
     dv.finishVertex(*i);

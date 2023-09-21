@@ -784,7 +784,7 @@ void pt::ParticleTracker::updateDistribution(
     if(!_particles.isMV(*loc) && isSinkCell(flux, *loc)) {
 
       geo::GriddedPoints<Particle>::List& particles = _particles.cell(*loc);
-      geo::GriddedPoints<Particle>::iterator it = particles.begin();
+      auto it = particles.begin();
 
       while(it != particles.end()) {
 
@@ -1377,7 +1377,7 @@ void pt::ParticleTracker::averageConcentration(
 
   for(geo::CellLocVisitor loc(nrRows(), nrCols()); loc.valid(); ++loc) {
     if(!_particles.isMV(*loc)) {
-      for(geo::GriddedPoints<Particle>::const_iterator it =
+      for(auto it =
          _particles.begin(*loc); it != _particles.end(*loc); ++it) {
         pointValues.push_back(PointValue(Point(*it), (*it).concentration()));
       }
@@ -1400,7 +1400,7 @@ void pt::ParticleTracker::averageConcentration(
       else {
         // Determine average concentration of points.
         sum = 0.0;
-        for(geo::GriddedPoints<Particle>::const_iterator it =
+        for(auto it =
               _particles.begin(*loc); it != _particles.end(*loc); ++it) {
           PRECOND((*it).concentration() >= 0.0);
           sum += (*it).concentration();
@@ -1432,7 +1432,7 @@ void pt::ParticleTracker::sumConcentration(
       }
       else {
         sum = 0.0;
-        for(geo::GriddedPoints<Particle>::const_iterator it =
+        for(auto it =
            _particles.begin(*loc); it != _particles.end(*loc); ++it) {
           PRECOND((*it).concentration() >= 0.0);
           sum += (*it).concentration();
@@ -1691,7 +1691,7 @@ void pt::ParticleTracker::adjustConcentration(
         }
       }
 
-      for(geo::GriddedPoints<Particle>::iterator it =
+      for(auto it =
               _particles.begin(*visitor); it != _particles.end(*visitor);
               ++it) {
         (*it).setConcentration(concentration);
@@ -1822,7 +1822,7 @@ void pt::ParticleTracker::moveParticles(
       if(!_particles.isMV(row, col)) {
 
         // Loop over all particles in each cell.
-        for(geo::GriddedPoints<Particle>::iterator it =
+        for(auto it =
              _particles.begin(row, col); it != _particles.end(row, col);
              ++it) {
 
@@ -2326,7 +2326,7 @@ void pt::ParticleTracker::adjustConcentration(const geo::CellLoc& loc,
   if(deltaConc >= 0.0) {
     // Concentration increases.
     // Just add the change in concentration to each particle in the cell.
-    for(geo::GriddedPoints<Particle>::iterator it = _particles.begin(loc);
+    for(auto it = _particles.begin(loc);
          it != _particles.end(loc); ++it) {
       PRECOND((*it).concentration() >= 0.0);
       (*it).setConcentration((*it).concentration() + deltaConc);
@@ -2359,7 +2359,7 @@ void pt::ParticleTracker::adjustConcentration(const geo::CellLoc& loc,
       POSTCOND(percentage < 0.0);
       POSTCOND(percentage >= -1.0);
 
-      for(geo::GriddedPoints<Particle>::iterator it =
+      for(auto it =
           _particles.begin(loc); it != _particles.end(loc); ++it) {
         PRECOND((*it).concentration() >= 0.0);
         (*it).setConcentration((*it).concentration() +
@@ -2405,7 +2405,7 @@ void pt::ParticleTracker::adjustConcentration(
 {
   for(geo::CellLocVisitor loc(nrRows(), nrCols()); loc.valid(); ++loc) {
     if(!_particles.isMV(*loc) && !pcr::isMV(adjustConc.cell(*loc))) {
-      for(geo::GriddedPoints<Particle>::iterator it =
+      for(auto it =
           _particles.begin(*loc); it != _particles.end(*loc); ++it) {
         PRECOND((*it).concentration() >= 0.0);
         (*it).setConcentration((*it).concentration() +

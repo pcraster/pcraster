@@ -131,7 +131,7 @@ BOOST_AUTO_TEST_CASE(testExec)
  // test only the calls discarding RunTimeEnv info
  BOOST_CHECK(execCallMarker==0);
 
- ObjectLinkProxy<CalcLibDemoObjectLink>* t=
+ auto* t=
        new ObjectLinkProxy<CalcLibDemoObjectLink>("",rte.rasterSpace(),0);
 
  {

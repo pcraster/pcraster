@@ -37,7 +37,7 @@ static void profile(
     pcr::setMV(result);
   }
   else {
-    typename std::vector<REAL4>::const_iterator it = std::find_if(
+    auto it = std::find_if(
            stack.begin(), stack.end(),
            VoxelAtHeight(stack.baseElevation(), height));
 

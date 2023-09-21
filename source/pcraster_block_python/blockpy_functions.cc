@@ -240,7 +240,7 @@ discr::BlockData<REAL4>* createBlockData(
 discr::RasterData<REAL4>* baseElevation(
          discr::Block const& arg1)
 {
-  discr::RasterData<REAL4>* result = new discr::RasterData<REAL4>(&arg1);
+  auto* result = new discr::RasterData<REAL4>(&arg1);
   block::baseElevation(*result, arg1);
   return result;
 }
@@ -250,7 +250,7 @@ discr::RasterData<REAL4>* baseElevation(
 discr::RasterData<REAL4>* surfaceElevation(
          discr::Block const& arg1)
 {
-  discr::RasterData<REAL4>* result = new discr::RasterData<REAL4>(&arg1);
+  auto* result = new discr::RasterData<REAL4>(&arg1);
   block::surfaceElevation(*result, arg1);
   return result;
 }
@@ -318,7 +318,7 @@ discr::BlockData<UINT1>* equals(
          discr::BlockData<T> const& data,
          T value)
 {
-  discr::BlockData<UINT1>* result = new discr::BlockData<UINT1>(
+  auto* result = new discr::BlockData<UINT1>(
          const_cast<discr::BlockData<T>&>(data).block());
   block::equals(*result, data, value);
   return result;
@@ -450,7 +450,7 @@ discr::Block* resample(
          discr::Block const& block,
          REAL4 thickness)
 {
-  discr::Block* result =
+  auto* result =
          new discr::Block(static_cast<discr::Raster const&>(block));
   block::resample(*result, block, thickness);
   return result;
@@ -463,7 +463,7 @@ discr::BlockData<T>* resample(
          discr::BlockData<T> const& data,
          discr::Block* block)
 {
-  discr::BlockData<T>* result = new discr::BlockData<T>(block);
+  auto* result = new discr::BlockData<T>(block);
   block::resample(*result, data);
   return result;
 }
@@ -492,7 +492,7 @@ discr::RasterData<T>* profile(
          discr::BlockData<T> const& data,
          REAL4 height)
 {
-  discr::RasterData<T>* result = new discr::RasterData<T>(
+  auto* result = new discr::RasterData<T>(
          const_cast<discr::Raster*>(
            dynamic_cast<discr::Raster const*>(data.block())));
   block::profile<T>(*result, data, height);
@@ -522,7 +522,7 @@ template<typename DestinationType, typename SourceType>
 discr::BlockData<DestinationType>* cast(
          discr::BlockData<SourceType> const& rhs)
 {
-  discr::BlockData<DestinationType>* result =
+  auto* result =
          new discr::BlockData<DestinationType>(
          const_cast<discr::BlockData<SourceType>&>(rhs).block());
   block::cast<DestinationType, SourceType>(*result, rhs);

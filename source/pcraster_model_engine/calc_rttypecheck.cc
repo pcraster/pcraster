@@ -161,7 +161,7 @@ public:
     for(size_t i=0; i < d_nrActualArgs; ++i) {
       switch(d_args[i]->ovs()) {
        case VS_STRING: {
-            const DataStorageId *ds=dynamic_cast<const DataStorageId *>(d_args[i]);
+            const auto *ds=dynamic_cast<const DataStorageId *>(d_args[i]);
             // should now be resolved
             ASTSymbolInfo t(btv.table()[ds->id()]);
             // load will read data (maybe slow), must we defer it further?

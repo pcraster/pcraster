@@ -852,7 +852,7 @@ BOOST_AUTO_TEST_CASE(testTimeinputTssOp)
   // 2 steps with 3 columns
   // -1 is important (--small cellrepr of ordinal testing)
   com::write("1 10 100 -1\n2 20 200 1e31","testTimeinputTssOp.tss");
-  TimeTable* l(new TimeTable("testTimeinputTssOp.tss",VS_O,1));
+  auto* l(new TimeTable("testTimeinputTssOp.tss",VS_O,1));
   l->setReadOnlyReference(true);
 
   const Operator* a=major2op(OP_TIMEINPUTORDINAL);

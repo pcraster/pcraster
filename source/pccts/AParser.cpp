@@ -530,7 +530,7 @@ ANTLRParser::FAIL(int k, ...)
 //
 
     if (zzFAILtext == NULL) zzFAILtext=new char [1000];          // MR9
-    SetWordType **f=new SetWordType *[SETWORDCOUNT];             // MR1 // MR9
+    auto **f=new SetWordType *[SETWORDCOUNT];             // MR1 // MR9
     SetWordType **miss_set;
     ANTLRChar **miss_text;
     _ANTLRTokenPtr *bad_tok;

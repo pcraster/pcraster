@@ -78,4 +78,4 @@ jobs:
           shell: cmd /C call {0}
           run: |
               "${{ matrix.config.environment_script }}" && ^
-              ctest --parallel 2 --test-dir build --output-on-failure --build-config Release
+              ctest --test-dir build --output-on-failure --build-config Release

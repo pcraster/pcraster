@@ -67,7 +67,7 @@ void resample(
     }
   }
   else {
-    size_t nrVoxels = static_cast<size_t>(
+    auto nrVoxels = static_cast<size_t>(
          std::ceil(surface - base) / thickness);
     // No missing values in resulting block!
     for(size_t i = 0; i < block.nrCells(); ++i) {
@@ -169,7 +169,7 @@ inline T resampleMajority(
     DEVELOP_PRECOND(!map.empty());
     double length = 0.0;
 
-    for(typename std::map<T, double>::const_iterator it = map.begin();
+    for(auto it = map.begin();
          it != map.end(); ++it) {
       // DEVELOP_PRECOND((*it).second > 0.0);
       if((*it).second > length) {

@@ -402,7 +402,7 @@ void pt::MOCLink::transportExecute(calc::ModelLinkMethodSignature& signature) co
          transDisp, head, satThickness);
 
   // Get concentrations from particle tracker.
-  PCR_MAP_REAL8* c = static_cast<PCR_MAP_REAL8*>(signature.d_result[0].value);
+  auto* c = static_cast<PCR_MAP_REAL8*>(signature.d_result[0].value);
   geo::SimpleRaster<REAL8> conc(d_rs.nrRows(), d_rs.nrCols());
   for(geo::CellLocVisitor loc(d_rs.nrRows(), d_rs.nrCols()); loc.valid();
          ++loc) {
@@ -422,7 +422,7 @@ void pt::MOCLink::transportExecute(calc::ModelLinkMethodSignature& signature) co
   }
 
   // Get number of particles per cell from particle tracker.
-  PCR_MAP_REAL8* p = static_cast<PCR_MAP_REAL8*>(signature.d_result[1].value);
+  auto* p = static_cast<PCR_MAP_REAL8*>(signature.d_result[1].value);
   geo::SimpleRaster<UINT4> nrParticles(d_rs.nrRows(), d_rs.nrCols());
 
   d_tracker->nrParticles(nrParticles);
@@ -494,7 +494,7 @@ void pt::MOCLink::adjustConcentrationExecute(
   d_tracker->adjustConcentration(deltaConc);
 
   // Get concentrations from particle tracker.
-  PCR_MAP_REAL8* c = static_cast<PCR_MAP_REAL8*>(signature.d_result[0].value);
+  auto* c = static_cast<PCR_MAP_REAL8*>(signature.d_result[0].value);
   geo::SimpleRaster<REAL8> conc(d_rs.nrRows(), d_rs.nrCols());
 
   // TODO KDJ: What is this loop for? It copies values from a c to conc. But

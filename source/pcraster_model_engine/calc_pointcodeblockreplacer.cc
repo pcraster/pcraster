@@ -160,7 +160,7 @@ void calc::PointCodeBlockReplacer::visitNodeList(ASTNodeList *l)
   I pbBegin,pbEnd;
 
   d_info.push(BlockInfo());
-  for(I i=pbBegin=pbEnd=l->begin(); i!=l->end(); ++i) {
+  for(auto i=pbBegin=pbEnd=l->begin(); i!=l->end(); ++i) {
     // non ASTAss will keep top false
     // ASTAss will set top true and then
     // non PointCode BaseExpr's may set rhsAllPoint false

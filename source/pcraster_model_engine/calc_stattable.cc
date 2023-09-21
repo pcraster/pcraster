@@ -367,7 +367,7 @@ static void  crossPercentiles(
     begin=endP;
   }
 
-  for (typename M::iterator i=m.begin();i!=m.end();++i) {
+  for (auto i=m.begin();i!=m.end();++i) {
    switch(i->second.nr()) {
      case 0: break; // else d_med keeps 0
      case 1:
@@ -641,7 +641,7 @@ template<typename T>
   m=com::forEachNonMV(begin,end,m);
 
   d_out << d_subject.d_name << "\t" << "area" << "\n";
-  for(M::const_iterator i=m.begin(); i!=m.end();++i)
+  for(auto i=m.begin(); i!=m.end();++i)
       d_out << i->first << "\t" << area(i->second) << "\n";
 }
 
@@ -653,7 +653,7 @@ template<typename SubjectType, typename CrossType>
   M m;
   this->addCrossClasses(m);
 
-  const CrossType* cross= d_cross.d_field->src_t<CrossType>();
+  const auto* cross= d_cross.d_field->src_t<CrossType>();
   for(size_t i=0; i < d_cross.d_field->nrValues(); ++i)
     if (!pcr::isMV(subject[i]) && !pcr::isMV(cross[i]))
       m(subject[i],cross[i]);
@@ -778,16 +778,16 @@ template< class    IntervalMapT,
 
   // compute percentiles per subject
   typedef detail::CS_V::iterator I;
-  detail::CS_V::iterator start=r.begin();
-  for(typename M::iterator i=m.begin(); i!= m.end(); ++i) {
-    I end=start+i->second.nrVisits();
+  auto start=r.begin();
+  for(auto i=m.begin(); i!= m.end(); ++i) {
+    auto end=start+i->second.nrVisits();
     crossPercentiles<detail::CSPolicy>(i->second,start,end);
     start=end;
   }
 
   scalarCrossHeader(d_out,2);
-  for(typename M::const_iterator k=m.begin(); k!=m.end();++k) {
-   for(typename IntervalMapT::const_iterator i=k->second.begin(); i!=k->second.end();++i) {
+  for(auto k=m.begin(); k!=m.end();++k) {
+   for(auto i=k->second.begin(); i!=k->second.end();++i) {
     d_out << k->first << "\t";
     i->second.printLine(*(i->first),area(1),d_out);
    }
@@ -831,7 +831,7 @@ template<class IntervalMapT>
 
   crossPercentiles<detail::Kruis3Policy>(m,r.begin(),r.end());
   scalarCrossHeader(d_out);
-  for(typename M::const_iterator i=m.begin(); i!=m.end();++i)
+  for(auto i=m.begin(); i!=m.end();++i)
     i->second.printLine(*(i->first),area(1),d_out);
   if (m.outside().nr())
     m.outside().printLine("otherwise",area(1),d_out);
@@ -865,13 +865,13 @@ template<class IntervalMapT>
     }
 
   // what is outside is not in any interval
-  R::iterator endOutside=
+  auto endOutside=
     m.partitionOutside(r.begin(),r.end(),
                        detail::GGPolicy::partitionValueFirst);
     crossPercentiles<detail::GGPolicy>(m.outside(),r.begin(),endOutside);
 
-  for (M::iterator i=m.begin();i!=m.end();++i) {
-   R::iterator endP=
+  for (auto i=m.begin();i!=m.end();++i) {
+   auto endP=
     m.partition(endOutside,r.end(),i,
                        detail::GGPolicy::partitionValueFirst);
     crossPercentiles<detail::GGPolicy>(i->second,endOutside,endP);
@@ -879,7 +879,7 @@ template<class IntervalMapT>
 
   scalarCrossHeader(d_out,2);
   for(const auto & k : m) {
-   for(MapKey::const_iterator i=k.second.begin(); i!=k.second.end();++i) {
+   for(auto i=k.second.begin(); i!=k.second.end();++i) {
     d_out << *k.first << "\t";
     i->second.printLine(*(i->first),area(1),d_out);
    }
@@ -928,16 +928,16 @@ template<typename SubjectType>
   std::sort(r.begin(),r.end(),std::mem_fn(&CP::subjectILess));
 
   // compute percentile per subject
-  R::iterator start=r.begin();
-  for(M::const_iterator i=m.begin(); i!=m.end();++i) {
-    R::iterator end=start+i->second.nr();
+  auto start=r.begin();
+  for(auto i=m.begin(); i!=m.end();++i) {
+    auto end=start+i->second.nr();
     if (start!=end)
       m[i->first].d_med= (REAL4)median(start,end);
     start=end;
   }
 
   scalarCrossHeader(d_out);
-  for(typename M::const_iterator i=m.begin(); i!=m.end();++i)
+  for(auto i=m.begin(); i!=m.end();++i)
     i->second.printLine(i->first,area(1),d_out);
 }
 

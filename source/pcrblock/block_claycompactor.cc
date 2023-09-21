@@ -55,7 +55,7 @@ REAL4 ClayCompactor::operator()(
          REAL4 originalThickness,
          REAL4 depth) const
 {
-  REAL4 result = static_cast<REAL4>(
+  auto result = static_cast<REAL4>(
          (1 - 0.043 * std::log(static_cast<double>(depth) + 1) -
          0.0054 * std::pow(std::log(static_cast<double>(depth) + 1), 2.0)) *
          originalThickness);

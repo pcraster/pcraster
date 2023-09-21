@@ -87,7 +87,7 @@ jobs:
               LOGNAME: pcrtester
           shell: bash -l {0}
           run: |
-              ctest --parallel 2 --test-dir build --output-on-failure --build-config Debug
+              ctest --test-dir build --output-on-failure --build-config Debug
 
         - name: Test release
           env:

@@ -112,7 +112,7 @@ discr::BlockData<ValueType>* read(
   for(size_t i = 0; i < block->nrCells(); ++i) {
     if(!block->cell(i).isMV()) {
       std::vector<ValueType>& destination(result->cell(i));
-      std::vector<ValueType>& source(
+      auto& source(
          blockCopy->cell<std::vector<ValueType> >(i));
       POSTCOND(source.size() == block->cell(i).size());
       POSTCOND(destination.size() == block->cell(i).size());
@@ -143,7 +143,7 @@ static dal::Block* createBlockForDiscretisation(
     }
     else {
       result->baseElevation()->cell<REAL4>(i) = block.cell(i).baseElevation();
-      std::vector<REAL4>& stack(result->cell<std::vector<REAL4> >(i));
+      auto& stack(result->cell<std::vector<REAL4> >(i));
       stack.reserve(block.cell(i).size());
       stack.insert(stack.begin(), block.cell(i).begin(), block.cell(i).end());
     }
@@ -169,7 +169,7 @@ static dal::Block* createBlockForData(
   DEVELOP_POSTCOND(result->cellsAreCreated());
 
   for(size_t i = 0; i < data.block()->nrCells(); ++i) {
-    std::vector<ValueType>& stack(result->cell<std::vector<ValueType> >(i));
+    auto& stack(result->cell<std::vector<ValueType> >(i));
     stack.reserve(data.cell(i).size());
     stack.insert(stack.begin(), data.cell(i).begin(), data.cell(i).end());
   }

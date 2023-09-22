@@ -235,6 +235,7 @@ if(PCRASTER_BUILD_TEST)
     file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/test_gdal_import_1.py
 "import pcraster
 from osgeo import gdal,ogr,osr
+gdal.UseExceptions()
 try:
     from qgis import core
 except ImportError:
@@ -249,6 +250,7 @@ pcraster.setclone(5, 4, 3, 2, 1)
     file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/test_gdal_import_2.py
 "
 from osgeo import gdal,ogr,osr
+gdal.UseExceptions()
 try:
     from qgis import core
 except ImportError:

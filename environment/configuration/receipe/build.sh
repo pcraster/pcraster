@@ -21,7 +21,7 @@ mkdir -p build
 
 
 # master branch
-cmake -S $SRC_DIR -B build \
+cmake ${CMAKE_ARGS} -S $SRC_DIR -B build \
   -G"Ninja" -DCMAKE_BUILD_TYPE=Release \
   -D CMAKE_INSTALL_PREFIX="${PREFIX}" \
   -D PCRASTER_PYTHON_INSTALL_DIR=${SP_DIR} \

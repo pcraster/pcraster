@@ -7,13 +7,13 @@ Supported platforms are Linux, macOS and Windows.
 Prerequisites
 -------------
 
-We recommend to download and install |miniconda|.
-The user guide and short reference on Conda can be found |minicondadoc|.
+We recommend to download and install the |mambaforge| distribution.
+The user guide and short reference on conda can be found |minicondadoc|.
 
 Installing PCRaster
 -------------------
 
-After setting up Conda you can create a new environment and install PCRaster.
+After setting up conda you can create a new environment and install PCRaster.
 
 To only install the latest PCRaster version use:
 
@@ -94,7 +94,7 @@ The usage information will be shown:
 .. code-block:: console
 
    (pcraster) $ pcrcalc
-   pcrcalc 4.3.3 (linux/x86_64)
+   pcrcalc 4.4.1 (linux/x86_64)
     USAGE: pcrcalc [options] "expression"
     or     pcrcalc [options] -f scriptFile
      ( or #!: pcrcalc -F [options]+)
@@ -155,6 +155,9 @@ After starting a new terminal you can import the ``pcraster`` module.
 
 
 
+.. |mambaforge| raw:: html
+
+   <a href="https://mamba.readthedocs.io/en/latest/mamba-installation.html" target="_blank">Mambaforge</a>
 
 .. |miniconda| raw:: html
 

@@ -206,10 +206,14 @@ target_include_directories(pcraster_xsd
         $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/_deps/xsd-src/libxsd>
 )
 
+target_include_directories(pcraster_xsd SYSTEM
+    PRIVATE
+        ${Boost_INCLUDE_DIRS}
+)
+
 target_link_libraries(pcraster_xsd
     PUBLIC
         pcraster::utils
-        Boost::date_time
         XercesC::XercesC
 )
 

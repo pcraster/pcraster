@@ -120,7 +120,7 @@ endif()
 # >=1.73 required for header-only libraries
 find_package(Boost 1.73 REQUIRED COMPONENTS ${PCR_BOOST_COMPONENTS})
 
-if(${Boost_VERSION_STRING} VERSION_LESS_EQUAL "1.81.0")
+if(${Boost_VERSION_STRING} VERSION_LESS_EQUAL "1.82.0")
     # hack to get code compiled with Boost versions 1.74 - 1.82(?) and clang-15
     add_compile_definitions(_HAS_AUTO_PTR_ETC=0)
 endif()
@@ -129,7 +129,7 @@ endif()
 if(PCRASTER_BUILD_MULTICORE)
     CPMAddPackage(
         GITHUB_REPOSITORY geoneric/fern
-        GIT_TAG cfb1c584aa8b3299cb59506eac354e5260324bcf
+        GIT_TAG cc2187153567bbf8451ca0dcfea4b954142d26f5
         OPTIONS "FERN_BUILD_ALGORITHM ON" "FERN_BUILD_TEST ${PCRASTER_BUILD_TEST}" "DEVBASE_BUILD_TEST ${PCRASTER_BUILD_TEST}" "CMAKE_SKIP_INSTALL_RULES ON"
     )
     # Just recreate an empty file to install nothing from Fern when installing PCRaster

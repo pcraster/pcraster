@@ -18,5 +18,7 @@ external/Darwin/x86_64/pcrmf2k
 
 source/modflow/mf2k
 
+*.swp
+__pycache__/
 # This is created when using CI
 /build/

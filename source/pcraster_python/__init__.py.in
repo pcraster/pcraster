@@ -3,8 +3,6 @@ import pathlib
 import platform
 import shutil
 import sys
-from distutils.version import StrictVersion
-import warnings
 
 
 # On Windows prepend the path to our dlls to the PATH environment variable.
@@ -23,34 +21,31 @@ try:
 except ImportError as error:
     # Test matching Python versions
     major, minor, patchlevel = platform.python_version_tuple()
-    major = int(major)
+    python_version = (int(major), int(minor))
+    build_version = (${Python3_VERSION_MAJOR}, ${Python3_VERSION_MINOR})
 
-    # if major != ${Python3_VERSION_MAJOR}:
-    if StrictVersion("{}.{}".format(major, minor)) != StrictVersion("${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}"):
-        msg = "The 'pcraster' module was built for Python ${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}, the version used is {}.{}".format(
-            major, minor)
+    # Major and minor should match
+    if build_version != python_version:
+        msg = f"The 'pcraster' module was built for Python ${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}, the version used is {major}.{minor}"
         raise ImportError(msg)
 
     # Test matching bitness
     nr_bits = 64 if sys.maxsize > 2**32 else 32
 
     if nr_bits != ${NR_BITS}:
-        msg = "The 'pcraster' module was built for ${NR_BITS}-bit, the Python version used is {}-bit".format(
-            nr_bits)
+        msg = f"The 'pcraster' module was built for ${NR_BITS}-bit, the Python version used is {nr_bits}-bit"
         raise ImportError(msg)
 
-    # Too old Python 2 versions might not work
+    # No support for Python 2
     if major == 2:
-        if StrictVersion("{}.{}".format(major, minor)) < StrictVersion("2.7"):
-            msg = "The 'pcraster' module was built for Python ${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}, the version used is {}.{}".format(
-                major, minor)
-            warnings.warn(msg, RuntimeWarning)
+        msg = "The 'pcraster' module was built for Python ${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}, Python 2 is unsupported"
+        raise ImportError(msg)
 
     msg = ""
 
     # VS2017 and runtime components related issues
     if sys.platform == "win32":
-        if StrictVersion("{}.{}".format(major, minor)) != StrictVersion("${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}"):
+        if build_version != python_version:
             msg += "The 'pcraster' module was built for Python ${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}, the version used is {}.{}".format(
                 major, minor)
             raise ImportError(msg)

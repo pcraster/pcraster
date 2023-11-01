@@ -124,6 +124,7 @@ html_sidebars = {
 
 html_last_updated_fmt = "%b %d, %Y"
 
+html_favicon = "https://pcraster.geo.uu.nl/favicon.svg"
 
 # -- Options for HTMLHelp output ------------------------------------------
 

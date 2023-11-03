@@ -73,4 +73,4 @@ jobs:
               LOGNAME: pcrtester
           shell: bash
           run: |
-              ctest --parallel 2 --test-dir build --output-on-failure --build-config Release
+              ctest --test-dir build --output-on-failure --build-config Release

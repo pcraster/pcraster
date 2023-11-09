@@ -72,7 +72,13 @@ GDalClient::~GDalClient()
     // Last GDalClient object is being destructed.
     if(_weInitializedGdal) {
       // We initialized the GDal library, so we need to clean up again.
-      GDALDestroyDriverManager();
+      // GDALDestroyDriverManager();
+      // It seems that somehow some drivers got destroyed already
+      // only destroy the remaining ones...
+      for(int i = 0; i < GetGDALDriverManager()->GetDriverCount(); ++i) {
+        auto* driver = GetGDALDriverManager()->GetDriver(i);
+        GDALDestroyDriver(driver);
+      }
 
       _weInitializedGdal = false;
     }

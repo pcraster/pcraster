@@ -318,6 +318,10 @@ void OgrFeatureDriver::registerOgrDrivers()
     if(CSLFetchBoolean(metadata, GDAL_DCAP_VECTOR, FALSE)) {
         detail::drivers.push_back(driver);
     }
+
+    if(!CSLFetchBoolean(metadata, GDAL_DCAP_VECTOR, FALSE) && !(CSLFetchBoolean(metadata, GDAL_DCAP_RASTER, FALSE))) {
+        detail::drivers.push_back(driver);
+    }
   }
 }
 
@@ -334,6 +338,12 @@ void OgrFeatureDriver::registerOgrDrivers()
 */
 void OgrFeatureDriver::deregisterOgrDrivers()
 {
+  auto* manager = GetGDALDriverManager();
+
+  for(auto & d_driver : detail::drivers) {
+    GDALDeregisterDriver(d_driver);
+  }
+
   detail::drivers.clear();
 
   assert(detail::drivers.empty());

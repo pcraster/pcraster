@@ -11,7 +11,6 @@ source:
 build:
   number: 0
 
-
   missing_dso_whitelist:
     - C:/Windows/System32/MSVCP140.dll      # [win]
     - C:/Windows/System32/VCRUNTIME140.dll  # [win]
@@ -25,6 +24,9 @@ build:
 
 
 requirements:
+  ignore_run_exports_from:
+    - libboost-devel
+
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
@@ -51,7 +53,7 @@ requirements:
     - vs2015_runtime                        # [win]
     - libglu                                # [linux]
     - psutil
-    - libboost-headers
+    - libboost-devel
 
   run:
     - python
@@ -62,8 +64,6 @@ requirements:
     - libglu                                # [linux]
 
 test:
-    requires:
-        - libboost-devel
     imports:
         - pcraster
     commands:

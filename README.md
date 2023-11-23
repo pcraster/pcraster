@@ -23,8 +23,7 @@ More information on the installation of PCRaster is given in the [documentation]
 ## Build status
 CI builds of our current development version:
 
-[![Linux build status](https://github.com/pcraster/pcraster/workflows/Linux%20CI/badge.svg)](https://github.com/pcraster/pcraster/actions/workflows/linux.yaml)
-[![macOS build status](https://github.com/pcraster/pcraster/workflows/macOS%20CI/badge.svg)](https://github.com/pcraster/pcraster/actions/workflows/macos.yaml)
+[![Linux build status](https://github.com/pcraster/pcraster/actions/workflows/linux.yaml/badge.svg)](https://github.com/pcraster/pcraster/actions/workflows/linux.yaml)
+[![macOS build status](https://github.com/pcraster/pcraster/actions/workflows/macos.yaml/badge.svg)](https://github.com/pcraster/pcraster/actions/workflows/macos.yaml)
 [![Linux Conda status](https://github.com/pcraster/pcraster/actions/workflows/linux-conda.yaml/badge.svg)](https://github.com/pcraster/pcraster/actions/workflows/linux-conda.yaml)
 [![Windows build status](https://github.com/pcraster/pcraster/actions/workflows/windows.yaml/badge.svg)](https://github.com/pcraster/pcraster/actions/workflows/windows.yaml)
-

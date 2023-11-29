@@ -394,11 +394,11 @@ bool PlotVisualisation::intersectMarker(
   if(it != _curvesPerGuide.end()) {
     for(QLineSeries const* curve : (*it).second) {
       assert(curve);
-      assert(curve->pointsVector().length() > 1);
+      assert(curve->points().length() > 1);
 
       point2 = curve->at(0);
 
-      for(int j = 1; j < static_cast<int>(curve->pointsVector().length()); ++j) {
+      for(int j = 1; j < static_cast<int>(curve->points().length()); ++j) {
         point1 = point2;
         point2 = curve->at(j);
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)

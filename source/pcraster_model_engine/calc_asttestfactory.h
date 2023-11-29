@@ -125,6 +125,7 @@ public:
 //! macro magic for testing errors coded in messagestest.xml
 #define TRY_TEST_MSG  \
     bool  catched=false; \
+    (void)catched; /* Shut up compiler */ \
     try
 
 //! macro magic for testing errors coded in messagestest.xml

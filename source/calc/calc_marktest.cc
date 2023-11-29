@@ -48,6 +48,7 @@ class MarkTestPrivate {
        // Call function.
       int r= MarkWhileSumLe(d_result,d_order,d_amount,d_treshold);
       POSTCOND(!r);
+      (void)r; // Shut up compiler
       bool t= std::equal(d_resultCells, d_resultCells + d_nrCells, expectedResult);
       if (!t) {
         std::cout << "result ";
@@ -61,6 +62,7 @@ class MarkTestPrivate {
        // Call function.
       int r= MarkUntilSumGe(d_result,d_order,d_amount,d_treshold);
       POSTCOND(!r);
+      (void)r; // Shut up compiler
       bool t= std::equal(d_resultCells, d_resultCells + d_nrCells, expectedResult);
       if (!t) {
         std::cout << "result ";

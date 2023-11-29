@@ -5,8 +5,8 @@ include(CMakeDependentOption)
 include(CPM)
 
 include(PCRasterMacro)
-include(PCRasterCompilerConfiguration)
 include(PCRasterConfiguration)
+include(PCRasterCompilerConfiguration)
 include(PCRasterTestMacro)
 
 # Get required dependencies first...

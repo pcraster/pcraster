@@ -166,7 +166,7 @@ set_source_files_properties(dbinfunc.c
 set_source_files_properties(calcparser.cc
     PROPERTIES
         COMPILE_OPTIONS
-            "$<$<COMPILE_LANG_AND_ID:CXX,GNU,AppleClang,Clang>:-Wno-all>"
+            "$<$<COMPILE_LANG_AND_ID:CXX,GNU,AppleClang,Clang>:-Wno-all;-Wno-error>"
 )
 
 target_include_directories(pcraster_old_calc_objects

@@ -196,4 +196,5 @@ void calc::ModelLinkMethodExpr::print(calc::InfoScript &si) const
 {
  calc::InfoScript *s = &si;
  POSTCOND(!s);
+ (void)s; // Shut up compiler
 }

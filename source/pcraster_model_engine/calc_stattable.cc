@@ -777,7 +777,6 @@ template< class    IntervalMapT,
   std::sort(r.begin(),r.end(),std::mem_fn(&CP::subjectILess));
 
   // compute percentiles per subject
-  typedef detail::CS_V::iterator I;
   auto start=r.begin();
   for(auto i=m.begin(); i!= m.end(); ++i) {
     auto end=start+i->second.nrVisits();

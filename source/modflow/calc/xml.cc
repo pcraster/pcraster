@@ -18,8 +18,9 @@ struct Xercesc {
     try {
       xercesc::XMLPlatformUtils::Initialize();
     } catch (const xercesc::XMLException& toCatch) {
-      std::cerr << toCatch.getMessage()  << std::endl;
-    // Do your failure processing here
+      char *msg = xercesc::XMLString::transcode(toCatch.getMessage());
+      std::cerr << msg  << std::endl;
+      xercesc::XMLString::release(&msg);
       throw;
     }
   }

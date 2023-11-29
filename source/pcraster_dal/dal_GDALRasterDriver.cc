@@ -1138,6 +1138,7 @@ void GDALRasterDriver::write(
        gdalDataType(raster.typeId()), 0, 0 );
 
    assert(err == CE_None);
+   (void)err; // Shut up compiler
 
 /*
  * CSFMap map(path, raster.nrRows(), raster.nrCols(),

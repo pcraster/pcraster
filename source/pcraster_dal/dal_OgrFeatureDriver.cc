@@ -338,8 +338,6 @@ void OgrFeatureDriver::registerOgrDrivers()
 */
 void OgrFeatureDriver::deregisterOgrDrivers()
 {
-  auto* manager = GetGDALDriverManager();
-
   for(auto & d_driver : detail::drivers) {
     GDALDeregisterDriver(d_driver);
   }
@@ -766,6 +764,7 @@ FeatureLayer* OgrFeatureDriver::open(
             OGREnvelope extent;
             OGRErr err = ogrLayer->GetExtent(&extent, TRUE);
             assert (err == OGRERR_NONE);
+            (void)err; // Shut up compiler
             double west = extent.MinX;
             double north = extent.MaxY;
             double east = extent.MaxX;

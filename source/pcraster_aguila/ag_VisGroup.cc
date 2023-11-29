@@ -207,6 +207,7 @@ ag::VisGroup::~VisGroup()
     assert(visualisation);
     closed = visualisation->close();
     assert(closed);
+    (void)closed; // Shut up compiler
     delete visualisation;
   }
 

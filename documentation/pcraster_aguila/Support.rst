@@ -8,8 +8,8 @@ Comments, questions, ideas, etc
 ===============================
 The ``pcraster-info`` mailing list is a discussion platform for users of PCRaster and related software. The PCRaster R&D team also uses the list to announce new software releases. We recommend that every PCRaster user becomes a member of the list. More information can be found at the `pcraster-info`__ mailing list page. The archives are on the `pcraster-info archives page`__.
 
-__ http://mailman.geo.uu.nl/mailman/listinfo/pcraster-info/
-__ http://mailman.geo.uu.nl/pipermail/pcraster-info
+__ https://lists.geo.uu.nl/mailman/listinfo/pcraster-info
+__ https://lists.geo.uu.nl/pipermail/pcraster-info/
 
 
 Once you are subscribed, you can send your comments, questions, ideas and discussion issues to ``pcraster-info@geo.uu.nl``. English is the preferred language. Imperfect English is no problem, it is a mailing list, not a classroom English.

@@ -248,13 +248,13 @@ Raster data formats
 -------------------
 The raster formats supported are PCRasters CSF 2.0 raster file format and the formats supported by the `Geospatial Data Abstraction Library`__ (GDAL). Information about these formats, including free (conversion) software and manuals can be found at the PCRaster website and the GDAL website.
 
-__ http://www.gdal.org
+__ https://www.gdal.org
 
 For formats with default file name extensions there is no need to supply an extension.
 
 Aguila uses the value scale property to decide how to visualise an attribute. In the CSF raster file format this value scale is stored in the data set. In data sets read using GDAL, this information may or may not be available. If a meta data item named ``PCRASTER_VALUESCALE`` is available, it is used to determine the value scale. If it is not available, the `color interpretation`__ of the data set is used to determine the value scale. Lastly, the type of the attribute values is used to determine the value scale. Integral types result in a nominal value scale and floating point types result in a scalar value scale to be used.
 
-__ http://www.gdal.org/gdal_datamodel.html
+__ https://gdal.org/user/raster_data_model.html
 
 The folowing values for the ``PCRASTER_VALUESCALE`` meta data item are recognized:
 
@@ -306,7 +306,7 @@ Feature layer formats
 ---------------------
 The feature layer formats supported are the formats supported by the `OGR Simple Feature Library`__ (OGR). Information about these formats, including free (conversion) software and manuals can be found at the OGR website.
 
-__ http://www.gdal.org/ogr
+__ https://www.gdal.org/
 
 Naming conventions
 ^^^^^^^^^^^^^^^^^^

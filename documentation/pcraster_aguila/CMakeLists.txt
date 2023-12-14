@@ -4,6 +4,13 @@ configure_file(
     COPYONLY
 )
 
+file(
+    COPY
+        ${CMAKE_CURRENT_SOURCE_DIR}/Videos/2009-10-08_2222.swf
+    DESTINATION
+        ${CMAKE_BINARY_DIR}/documentation/_build/html/pcraster_aguila/Videos/
+)
+
 set(SPHINX_SOURCES
     AguilaOnMac.rst
 #    Building.rst
@@ -40,7 +47,6 @@ set(SPHINX_SOURCES
     Images/UncertainSpatioTemporal.png
     Images/Vector1.png
     Images/Vector2.png
-    Videos/2009-10-08_2222.swf
 )
 
 prepare_pcraster_project_docs("${SPHINX_SOURCES}" "pcraster_aguila" "AGUILA_SPHINX_SOURCES")

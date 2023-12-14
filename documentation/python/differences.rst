@@ -304,7 +304,7 @@ Do not use PCRaster objects in context of Python boolean operations.
 
    "In the context of Boolean operations, and also when expressions are used by control flow statements, the following values are interpreted as false: None, numeric zero of all types, empty sequences (strings, tuples and lists), and empty mappings (dictionaries). All other values are interpreted as true."
 
-   -- Python Reference Manual [http://docs.python.org/ref].
+   -- Python Reference Manual [https://docs.python.org/3/reference/].
 
 This means that PCRaster objects will always be interpreted as true when used in the above mentioned cases.
 

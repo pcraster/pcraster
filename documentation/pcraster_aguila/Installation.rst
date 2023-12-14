@@ -55,7 +55,7 @@ __ http://www.debian.org/releases/testing
 __ http://en.wikipedia.org/wiki/Intel_P6
 __ http://en.wikipedia.org/wiki/X86-64
 .. [#] We are in the process of making Aguila LSB__-compliant.
-__ http://www.linuxfoundation.org/en/LSB
+__ https://refspecs.linuxfoundation.org/lsb.shtml
 
 The software is distributed as a compressed tar file which can be unzipped as follows::
 

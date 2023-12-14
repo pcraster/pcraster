@@ -5,9 +5,8 @@ This document contains informations about the Python implementation of the Array
 
 Note: The collection module is under development, interfaces may change!
 
-References to oldcalc refer to the documentation of the arrayed variables concept in oldcalc, accessible online_.
+References to oldcalc refer to the documentation of the arrayed variables concept in oldcalc.
 
-.. _online: http://pcraster.geo.uu.nl/documentation/manual_updates/ArraysInCalc.html
 
 Contents
 --------

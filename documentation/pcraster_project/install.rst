@@ -7,7 +7,7 @@ Supported platforms are Linux, macOS and Windows.
 Prerequisites
 -------------
 
-We recommend to download and install the |mambaforge| distribution.
+We recommend to download and install the |miniforge| distribution.
 Alternative distributions are |miniconda| or |anaconda|.
 The user guide and short reference on conda can be found |minicondadoc|.
 
@@ -118,6 +118,21 @@ The usage information will be shown:
 Troubleshooting
 ---------------
 
+zsh: no matches found
+~~~~~~~~~~~~~~~~~~~~~
+
+If you get messages like
+
+.. code-block:: console
+
+   zsh: no matches found: --timesteps=[1,181,1]
+
+when using Aguila you will need to quote the arguments like:
+
+.. code-block:: console
+
+   (pcraster) $ aguila "--timesteps=[1,180,1]" precip
+
 
 Aguila fails to start on macOS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -156,9 +171,9 @@ After starting a new terminal you can import the ``pcraster`` module.
 
 
 
-.. |mambaforge| raw:: html
+.. |miniforge| raw:: html
 
-   <a href="https://mamba.readthedocs.io/en/latest/mamba-installation.html" target="_blank">Mambaforge</a>
+   <a href="https://mamba.readthedocs.io/en/latest/installation/mamba-installation.html#mamba-install" target="_blank">Miniforge</a>
 
 .. |miniconda| raw:: html
 

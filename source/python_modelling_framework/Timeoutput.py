@@ -5,6 +5,7 @@ import pcraster
 import os
 from decimal import Decimal
 
+
 class TimeoutputTimeseries(object):
     """
     Class to create pcrcalc timeoutput style timeseries

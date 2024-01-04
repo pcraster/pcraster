@@ -12,6 +12,8 @@ import pickle
 from .frameworkBase import generateNameT
 
 ## \brief Framework for particle filter runs
+
+
 class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
     ## \brief Constructor
     def __init__(self, userModel):

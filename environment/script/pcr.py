@@ -11,6 +11,7 @@ warnings.filterwarnings(u"ignore",
 
 Error = 'Exception raised in pcr.py library'
 
+
 class Exception(Exception):
     def __init__(self, message):
         Exception.__init__(self, message)
@@ -18,6 +19,8 @@ class Exception(Exception):
 # copy all output printed also to file
 # like unix tee(1)
 # also calls flush at each print
+
+
 class StdoutTee:
     def __init__(self, fileName,openMode):
         self.d_orgStdout = sys.stdout
@@ -44,11 +47,13 @@ def message(msg):
             sys.stdout.write(m + '\n')
             sys.stdout.flush()
 
+
 def warning(msg):
     for m in string.split(msg, '\n'):
         if len(string.strip(m)) > 0:
             sys.stdout.write('warning: ' + m + '\n')
             sys.stdout.flush()
+
 
 def error(msg):
     for m in string.split(msg, '\n'):
@@ -56,9 +61,11 @@ def error(msg):
             sys.stderr.write('error: ' + m + '\n')
             sys.stderr.flush()
 
+
 def write(msg):
     sys.stdout.write(msg)
     sys.stdout.flush()
+
 
 def testNonEmptyFile(p):
     if os.path.getsize(p) == 0:
@@ -67,6 +74,8 @@ def testNonEmptyFile(p):
 
 # CW BTW, there is os.path.walk(..) with
 #  similar functionality (see end of file)
+
+
 def processFiles(dir, func):
     for f in os.listdir(dir):
         p = os.path.join(dir,f)
@@ -81,6 +90,7 @@ def processFiles(dir, func):
         elif stat.S_ISREG(mode):
             func(p)
 
+
 def processDirs(dir, func):
     for f in os.listdir(dir):
         mode = os.stat(os.path.join(dir, f))[stat.ST_MODE]
@@ -88,11 +98,14 @@ def processDirs(dir, func):
             processFiles(os.path.join(dir, f), func)
         func(os.path.join(dir, f))
 
+
 def dateString():
     return time.strftime('%y%m%d', time.localtime(time.time()))
 
+
 def timeString():
     return time.strftime('%y%b%d_%H%M%S', time.localtime(time.time()))
+
 
 def createArchive(dir):
     currentPathName = os.getcwd()
@@ -114,6 +127,8 @@ def createArchive(dir):
 
 # substitute a word with different casings
 # caseType can be a list of chars: c(orrect case) u(pper case) l(ower case)
+
+
 def replaceCase(caseTypes, str, wordToReplace, replaceWithWord):
     newStr = str;
     for i in caseTypes.lower():
@@ -132,6 +147,8 @@ def replaceCase(caseTypes, str, wordToReplace, replaceWithWord):
 # change all in between space to a single space
 # change all occurences of 1 or more newlines
 # to nl string, default is a newline
+
+
 def normalizeText(str,nl="\n"):
     lines = string.split(str,"\n")
     l   = []
@@ -142,6 +159,8 @@ def normalizeText(str,nl="\n"):
     return nl.join(l)
 
 # Returns 1 if str contains whitespace characters.
+
+
 def containsWhiteSpace(str):
     # split default splits at any whitespace character.
     return len(str) > 0 and \
@@ -149,6 +168,8 @@ def containsWhiteSpace(str):
 
 # no args return value of PCRTREE environment variable
 # with arg: return os.path.join(PCRTREE,arg0,arg1,...)
+
+
 def pcrtree( *path ):
     def getEnv():
         assert("PCRTREE2" in os.environ)
@@ -167,12 +188,15 @@ def pcrtree( *path ):
     return p
 
 # returns value of DEVENV environment variable
+
+
 def devenv( *path ):
     def getEnv():
         assert("DEVENV" in os.environ)
         return os.environ['DEVENV']
     p=getEnv()
     return p
+
 
 def pcrtreeRelativePath(absPath):
     """ path of absPath relative to PCRTREE env. variable:\n
@@ -192,8 +216,10 @@ def pcrtreeRelativePath(absPath):
     # +1 for intervening slash
     return absPath[len(pcrtree())+1:].replace("\\","/")
 
+
 def python2():
     return sys.version_info[0] == 2
+
 
 def python24():
     return python2() and sys.version_info[1] == 5
@@ -319,6 +345,8 @@ else:
         return r.stdout
 
 # concatenate lists
+
+
 def listConc(src):
     dest = []
     for i in src:
@@ -328,6 +356,7 @@ def listConc(src):
 
 # HANDIG-> if isinstance(item, ListType):
 
+
 def listAppend(dest,*listsToAppend):
     for l in listsToAppend:
         for j in l:
@@ -336,6 +365,8 @@ def listAppend(dest,*listsToAppend):
 
 # Joins all pathnames in the list pathNames and returns the result.
 # The result is normalised.
+
+
 def pathJoin(pathNames):
     pathName = ''
     for n in pathNames:
@@ -343,6 +374,8 @@ def pathJoin(pathNames):
     return os.path.normpath(pathName)
 
 # Converts pathnames to urls.
+
+
 def pathNameToUrl(pathName):
     url = pathName
 
@@ -352,6 +385,8 @@ def pathNameToUrl(pathName):
     return url
 
 # Tests if a file can be opened for reading.
+
+
 def testOpenForReading(pathName):
     if not os.path.exists(pathName):
         raise Exception('File \'%s\': Does not exist' % (pathName))
@@ -362,6 +397,8 @@ def testOpenForReading(pathName):
         raise Exception('File \'%s\': No permission to read' % (pathName))
 
 # Tests if a file can be opened for writing.
+
+
 def testOpenForWriting(pathName):
     if os.path.exists(pathName):
         mode = os.stat(pathName)[stat.ST_MODE]
@@ -371,12 +408,16 @@ def testOpenForWriting(pathName):
             raise Exception('File \'%s\': No permission to write' % (pathName))
 
 # Tests if a file doesn't already exist.
+
+
 def testFileDoesNotExist(pathName):
     if os.path.exists(pathName):
         raise Exception('File \'%s\': Already exists' % (pathName))
 
 # Search a file in a file tree. Start at the bottom. If found, this function
 # returns the file name, else an empty string.
+
+
 def searchFileUpTree(directory, fileToFind):
     fileNotFound = 1
     fn = os.path.join(directory, fileToFind)
@@ -392,11 +433,15 @@ def searchFileUpTree(directory, fileToFind):
     return fn
 
 # Returns true (not 0) if DOM node node has one child with name name.
+
+
 def hasOnlyChild(node, name):
     elements = node.getElementsByTagName(name)
     return len(elements) == 1
 
 # Returns the only child of DOM node node with name name.
+
+
 def getOnlyChild(node, name):
     elements = node.getElementsByTagName(name)
     assert len(elements) == 1
@@ -405,6 +450,8 @@ def getOnlyChild(node, name):
     return child
 
 # Returns path with all environment variables expanded.
+
+
 def expandEnvVars(path):
     # Search and replace variables.
     pattern = '\$[A-Z]+'
@@ -427,6 +474,8 @@ def expandEnvVars(path):
     return path
 
 # Searches for executable fileName in all standard locations.
+
+
 def findExecutable(fileName):
     tryName = os.path.join('/usr/local/bin', fileName)
     if os.path.exists(tryName):
@@ -440,6 +489,8 @@ def findExecutable(fileName):
 
 # Replaces all occurences of certain strings in file with name fileName.
 # Returns new string.
+
+
 def replaceFromFile(fileName, searchStrings, replaceStrings):
     testOpenForReading(fileName)
     result = ''
@@ -449,6 +500,8 @@ def replaceFromFile(fileName, searchStrings, replaceStrings):
 
 # Replaces all occurences of certain strings in sourceString. Returns new
 # string.
+
+
 def replaceFromString(sourceString, searchStrings, replaceStrings):
     assert len(searchStrings) == len(replaceStrings)
     result = sourceString
@@ -457,6 +510,8 @@ def replaceFromString(sourceString, searchStrings, replaceStrings):
     return result
 
 # Removes duplicate occurences in list. Returns new list.
+
+
 def removeDuplicates(oldList):
     newList = []
     for item in oldList:
@@ -465,6 +520,8 @@ def removeDuplicates(oldList):
     return newList
 
 # Checks if address contains a valid email address.
+
+
 def isValidEmailAddress(address):
     if address.find("@") == -1:
         return 0
@@ -508,6 +565,8 @@ def discover(dirsWithMakefile, path, names):
 # os.path.walk(os.environ['PCRTREE']+"/apps", discover, dirsWithMakefiles)
 
 # Returns the relative path from the directory to the top.
+
+
 def relPathUp(directory):
     directory = os.path.normpath(string.strip(directory))
     if not directory or directory == "." or directory.find("..") != -1:
@@ -522,6 +581,8 @@ def relPathUp(directory):
 
 # Creates a directory with a specific name in a temp location and returns the
 # name of the created directory.
+
+
 def createTempDirectory(name):
     directoryName = os.path.join(os.tmpnam(), name)
     os.makedirs(directoryName)
@@ -532,6 +593,8 @@ def createTempDirectory(name):
 #   pcrtree unittest in "cygdrive"-fmt
 # input list of lines (ending newline optional)
 # output list of reformat lines with newline char at end
+
+
 def clVimFilter(msgs):
     output = []
     for l in msgs:

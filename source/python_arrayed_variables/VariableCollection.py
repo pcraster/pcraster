@@ -5,6 +5,7 @@ import itertools
 import pcraster
 import pcraster.collection
 
+
 class ValueFromParameterTable(object):
     """
     Class to be used for initialisation of collection indices from an external parameter file

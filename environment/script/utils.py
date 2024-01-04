@@ -17,6 +17,7 @@ def callWithRaise(command):
         raise OSError("Failure on cmd: "+command)
     return status
 
+
 def call(command):
     """
     Executes the command and returns the result. Output of the command will be printed to stdout and/or stderr as it becomes available. If you need to process these outputs use the execute function.
@@ -28,6 +29,7 @@ def call(command):
     #   command = command.split()
 
     return subprocess.call(command, shell=True)
+
 
 def execute(
          command,
@@ -63,6 +65,7 @@ def execute(
 
     return status, out, err
 
+
 def nativePath(
          name):
     """
@@ -86,6 +89,7 @@ def nativePath(
 
     return os.path.normpath(result)
 
+
 def environmentVariableAsNativePath(environmentVariable):
     """
     Assumes environmentVariable to contain a path and
@@ -95,6 +99,7 @@ def environmentVariableAsNativePath(environmentVariable):
     """
     assert environmentVariable in os.environ, environmentVariable
     return nativePath(os.environ[environmentVariable])
+
 
 def duration(
          startTime,

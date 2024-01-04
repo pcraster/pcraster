@@ -44,6 +44,8 @@ def linearRegression(rawData, equationOrder):
 #----------------------------------------------------------------------#
 #  function:   regression                                              #
 #----------------------------------------------------------------------#
+
+
 def regression(rawData, xEquationForm, yEquationForm = lambda rawItem: rawItem[0]):
 
     # Purpose: Regress the coefficients for an equation of a generalized form
@@ -120,6 +122,8 @@ def regression(rawData, xEquationForm, yEquationForm = lambda rawItem: rawItem[0
 #----------------------------------------------------------------------#
 #  function:   linearRSquared                                          #
 #----------------------------------------------------------------------#
+
+
 def linearRSquared(rawData, coefficients):
 
     # Purpose: Compute the R-Squared statistic for the supplied coefficients
@@ -147,6 +151,8 @@ def linearRSquared(rawData, coefficients):
 #----------------------------------------------------------------------#
 #  function: solveRSquared                                             #
 #----------------------------------------------------------------------#
+
+
 def solveRSquared(rawData, coefficients, xEquationForm, \
    yEquationForm = lambda rawItem: rawItem[0]):
 
@@ -225,6 +231,8 @@ def solveRSquared(rawData, coefficients, xEquationForm, \
 #----------------------------------------------------------------------#
 #  function:   gauss                                                   #
 #----------------------------------------------------------------------#
+
+
 def gauss(AMatrix, BMatrix):
 
     # solve linear equations of the form:

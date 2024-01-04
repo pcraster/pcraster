@@ -6,6 +6,8 @@ import math
 # The array must not be empty.
 #
 # Percentile must have a value between [0, 1.0].
+
+
 def percentile(array, percentile):
     assert len(array)
     assert percentile >= 0.0 and percentile <= 1.0

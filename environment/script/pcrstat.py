@@ -7,7 +7,7 @@ import math
 #
 # Percentile must have a value between [0, 1.0].
 def percentile(array, percentile):
-  assert len(array)
-  assert percentile >= 0.0 and percentile <= 1.0
-  index = int(math.ceil(percentile * len(array))) - 1
-  return array[index]
+    assert len(array)
+    assert percentile >= 0.0 and percentile <= 1.0
+    index = int(math.ceil(percentile * len(array))) - 1
+    return array[index]

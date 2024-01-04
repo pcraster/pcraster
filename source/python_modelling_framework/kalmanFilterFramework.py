@@ -293,7 +293,7 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
         assert Re.shape == (sizeObservedVector, sizeObservedVector), "Shape of provided matrix Re %s does not match (%s, %s)" % (Re.shape, sizeObservedVector, sizeObservedVector)
 
         # calculate Pe
-        Abar = numpy.dot(A, numpy.array( [[1.0/nrEnsembleMembers] * nrEnsembleMembers ] * nrEnsembleMembers, dtype=float))
+        Abar = numpy.dot(A, numpy.array([[1.0/nrEnsembleMembers] * nrEnsembleMembers] * nrEnsembleMembers, dtype=float))
         Ad = A - Abar
         Pe =  1.0/(nrEnsembleMembers - 1) * numpy.dot(Ad, numpy.transpose(Ad))
 

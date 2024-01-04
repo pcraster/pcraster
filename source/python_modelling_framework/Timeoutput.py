@@ -55,9 +55,9 @@ class TimeoutputTimeseries(object):
 
             self._spatialIdGiven = True
             nrCols = self._maxId
-            self._sampleValues = [[Decimal("NaN")]  * nrCols for _ in [0] * nrRows]
+            self._sampleValues = [[Decimal("NaN")] * nrCols for _ in [0] * nrRows]
         else:
-            self._sampleValues = [[Decimal("NaN")]  * 1 for _ in [0] * nrRows]
+            self._sampleValues = [[Decimal("NaN")] * 1 for _ in [0] * nrRows]
 
     def _getIndex(self, cellId):
         """

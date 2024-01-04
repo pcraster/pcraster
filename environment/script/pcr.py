@@ -24,7 +24,7 @@ class Exception(Exception):
 class StdoutTee:
     def __init__(self, fileName, openMode):
         self.d_orgStdout = sys.stdout
-        self.d_toFile    = open(fileName, openMode)
+        self.d_toFile = open(fileName, openMode)
         sys.stdout = self
     def write(self, string):
         self.d_toFile.write(string)
@@ -36,8 +36,8 @@ class StdoutTee:
 
 
 # Some constants.
-EXEMODE  = 0o755
-DIRMODE  = 0o755
+EXEMODE = 0o755
+DIRMODE = 0o755
 FILEMODE = 0o444
 
 
@@ -151,7 +151,7 @@ def replaceCase(caseTypes, str, wordToReplace, replaceWithWord):
 
 def normalizeText(str, nl="\n"):
     lines = string.split(str, "\n")
-    l   = []
+    l = []
     for i in lines:
         str = " ".join(string.split(i))
         if (str != ""):
@@ -170,7 +170,7 @@ def containsWhiteSpace(str):
 # with arg: return os.path.join(PCRTREE,arg0,arg1,...)
 
 
-def pcrtree( *path ):
+def pcrtree(*path):
     def getEnv():
         assert("PCRTREE2" in os.environ)
         return os.environ['PCRTREE2']
@@ -190,7 +190,7 @@ def pcrtree( *path ):
 # returns value of DEVENV environment variable
 
 
-def devenv( *path ):
+def devenv(*path):
     def getEnv():
         assert("DEVENV" in os.environ)
         return os.environ['DEVENV']
@@ -252,7 +252,7 @@ else:
                       stderr=subprocess.PIPE)
             self.d_stdoutLines = p.stdout.readlines()
             self.d_stderrLines = p.stderr.readlines()
-            self.d_exitStatus  = p.wait()
+            self.d_exitStatus = p.wait()
 
         def stdoutEmpty(self):
             return len(self.d_stdoutLines) == 0
@@ -312,7 +312,7 @@ else:
                             cmdStr = cmd
                         process = subprocess.Popen(cmdStr,
                              shell=True, bufsize=bufferSize,
-                             stdout=sOut.createFile(), stderr=sErr.createFile() )
+                             stdout=sOut.createFile(), stderr=sErr.createFile())
                         self.exitcode = process.wait()
                     except OSError as exception:
                         sOut.close()
@@ -608,13 +608,13 @@ def clVimFilter(msgs):
         # compilation unit printed (e.g. main.c on single line)
         if len(l.split()) == 1:
             singleWordSplit = l.split(".")
-            if len(singleWordSplit) >= 2 and singleWordSplit[1] in [ 'c', 'cc', 'cpp', 'res']:
+            if len(singleWordSplit) >= 2 and singleWordSplit[1] in ['c', 'cc', 'cpp', 'res']:
                 continue
 
         def reformat(l):
             def absCygFile(l, afterFile):
-                fileName    = l[0:afterFile]
-                fileName    = l[0:afterFile]
+                fileName = l[0:afterFile]
+                fileName = l[0:afterFile]
                 if not os.path.isabs(fileName):
                     fileName = pcrtree(fileName)
                 return executeOneLine("cygpath --unix \""+fileName+"\"")
@@ -627,7 +627,7 @@ def clVimFilter(msgs):
                             # like col2map.c(85) : warning C4244: etc.
                             #  sep counter:    123
                     fileName = absCygFile(l, afterFile)
-                    msg         = l[e+4:]
+                    msg = l[e+4:]
                     return "%s:%s::%s" % (fileName, lineNoStr, msg)
             afterFile = l.find(":")
             if afterFile != -1:
@@ -636,8 +636,8 @@ def clVimFilter(msgs):
                     lineNoStr = l[afterFile+1:afterLineNr]
                     if lineNoStr.isdigit():
                         # like col2map_col2maptest.cc:101: TODO: etc.
-                        fileName    = absCygFile(l, afterFile)
-                        msg         = l[afterLineNr+1:]
+                        fileName = absCygFile(l, afterFile)
+                        msg = l[afterLineNr+1:]
                         return "%s:%s::%s" % (fileName, lineNoStr, msg)
             # as is
             return l

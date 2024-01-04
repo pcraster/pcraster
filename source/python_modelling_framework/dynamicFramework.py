@@ -80,7 +80,7 @@ class DynamicFramework(frameworkBase.FrameworkBase):
             msg = "The _userModel method is deprecated and obsolete"
             self.showWarning(msg)
 
-        if( not hasattr(self._userModel(), "dynamic") and not hasattr(self._userModel(), "run")):
+        if(not hasattr(self._userModel(), "dynamic") and not hasattr(self._userModel(), "run")):
             msg = "Cannot run dynamic framework: Implement dynamic method"
             raise frameworkBase.FrameworkError(msg)
 

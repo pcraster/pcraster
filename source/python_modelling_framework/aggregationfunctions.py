@@ -150,9 +150,9 @@ def probability(name, sampleNumbers):
     count = scalar(0)
     for sample in sampleNumbers:
         filename = generateNameS(name, sample)
-        raster   = readmap(filename)
-        present  = ifthenelse(raster, present + 1, present)
-        count    = ifthen(defined(raster), count + 1)
+        raster = readmap(filename)
+        present = ifthenelse(raster, present + 1, present)
+        count = ifthen(defined(raster), count + 1)
     return present / count
 
 
@@ -172,9 +172,9 @@ def average(name, sampleNumbers):
     count = scalar(0)
     for sample in sampleNumbers:
         filename = generateNameS(name, sample)
-        raster   = readmap(filename)
-        sum      = sum + raster
-        count    = ifthen(defined(raster), count + 1)
+        raster = readmap(filename)
+        sum = sum + raster
+        count = ifthen(defined(raster), count + 1)
     return sum / count
 
 
@@ -192,11 +192,11 @@ def variance(name, sampleNumbers):
     """
     sumOfSquaredValues, sumOfValues, count = scalar(0), scalar(0), scalar(0)
     for sample in sampleNumbers:
-        filename           = generateNameS(name, sample)
-        raster             = readmap(filename)
+        filename = generateNameS(name, sample)
+        raster = readmap(filename)
         sumOfSquaredValues = sumOfSquaredValues + raster ** 2
-        sumOfValues        = sumOfValues + raster
-        count              = ifthen(defined(raster), count + 1)
+        sumOfValues = sumOfValues + raster
+        count = ifthen(defined(raster), count + 1)
     return (count * sumOfSquaredValues - sumOfValues ** 2) / (count * (count - 1))
 
 
@@ -322,8 +322,8 @@ def sampleMin(name, sampleNumbers):
     minimum = scalar(1e31)
     for sample in sampleNumbers:
         filename = generateNameS(name, sample)
-        raster   = scalar(readmap(filename))
-        minimum      = ifthenelse(pcrlt(raster, minimum), raster, minimum)
+        raster = scalar(readmap(filename))
+        minimum = ifthenelse(pcrlt(raster, minimum), raster, minimum)
     return minimum
 
 
@@ -342,8 +342,8 @@ def sampleMax(name, sampleNumbers):
     maximum = scalar(-1e31)
     for sample in sampleNumbers:
         filename = generateNameS(name, sample)
-        raster   = scalar(readmap(filename))
-        maximum      = ifthenelse(pcrgt(raster, maximum), raster, maximum)
+        raster = scalar(readmap(filename))
+        maximum = ifthenelse(pcrgt(raster, maximum), raster, maximum)
     return maximum
 
 
@@ -362,7 +362,7 @@ def uniquesamples(name, sampleNumbers):
     uniqueSets = []
     for sample in sampleNumbers:
         filename = generateNameS(name, sample)
-        raster   = readmap(filename)
+        raster = readmap(filename)
         setNumber = 0
         sampleAddedToExistingSet = False
         for uniqueSet in uniqueSets:

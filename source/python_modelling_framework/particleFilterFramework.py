@@ -10,7 +10,6 @@ from . import frameworkBase
 from . import mcFramework
 
 
-
 class ParticleFilterFramework(frameworkBase.FrameworkBase):
     """
     Framework class for the particle filter method.
@@ -32,7 +31,6 @@ class ParticleFilterFramework(frameworkBase.FrameworkBase):
         self._addMethodToClass(self._setParticleWeight)
         self._addMethodToClass(self._runPremcloop)
         self._addMethodToClass(self._runPostmcloop)
-
 
         # \todo !!!test if filter timesteps are in interval of model timesteps...
 
@@ -141,8 +139,6 @@ class ParticleFilterFramework(frameworkBase.FrameworkBase):
                 self.showError("No filter timesteps specified")
                 sys.exit()
 
-
-
             # set the proposal/initial weight distribution by user
             if hasattr(self._userModel(), 'setInitialParticleWeights'):
                 self._userModel()._d_particleWeights = self._userModel().setInitialParticleWeights()
@@ -167,9 +163,6 @@ class ParticleFilterFramework(frameworkBase.FrameworkBase):
                 # here we never execute premc and postmc
                 self._runMonteCarlo(currentPeriod, lastPeriod)
 
-
-
-
                 if not currentPeriod == lastPeriod:
                     # update the weights
                     # calling the "objective fuction" for each sample
@@ -181,15 +174,12 @@ class ParticleFilterFramework(frameworkBase.FrameworkBase):
                         assert type(fitnessValue) == float or type(fitnessValue) == int
                         self._userModel()._d_particleWeights[sample - 1] = fitnessValue
 
-
                     # determine samples to clone
                     samplesToClone = self._samplesToClone(self._particleWeights())
                     assert sum(samplesToClone) == self._userModel().nrSamples()
 
-
                     # clone the data
                     self._cloneData(samplesToClone)
-
 
                     # reset the sample weights
                     self._resetSampleWeights()
@@ -402,14 +392,12 @@ class ParticleFilterFramework(frameworkBase.FrameworkBase):
         return pcraster.readmap(newName)
 
 
-
 ## \brief Sequential importance resampling algorithm
 class SequentialImportanceResamplingFramework(ParticleFilterFramework):
     ## \brief Constructor
     def __init__(self, userModel):
         ParticleFilterFramework.__init__(self, userModel)
         self._addMethodToClass(self.optimalSampleNumber)
-
 
     def _samplesToClone(self, weights):
         # normalise weights
@@ -430,7 +418,6 @@ class SequentialImportanceResamplingFramework(ParticleFilterFramework):
         self._writeFilterStatistics(normalisedWeights, cumulativeWeights, samplesToClone)
         return samplesToClone
 
-
     def optimalSampleNumber(self, filterTimestep):
         filename = "filter%s.csv" % (filterTimestep)
 
@@ -445,8 +432,6 @@ class SequentialImportanceResamplingFramework(ParticleFilterFramework):
 
         return ((numpy.nonzero(col == max(col))[0])[0]) + 1
 
-
-
     def _writeFilterStatistics(self, normalisedWeights, cumulativeWeights, samplesToClone):
         filename = "filterSIR_%s.csv" % (self._userModel().currentTimeStep())
         csvFile = csv.writer(open(filename, "w"), delimiter=";",quoting=csv.QUOTE_NONNUMERIC)
@@ -456,18 +441,11 @@ class SequentialImportanceResamplingFramework(ParticleFilterFramework):
             csvFile.writerow([(i+1), normalisedWeights[i], cumulativeWeights[i], samplesToClone[i]])
 
 
-
-
-
-
-
-
 ## \brief Residual resampling algorithm
 class ResidualResamplingFramework(ParticleFilterFramework):
     ## \brief Constructor
     def __init__(self, userModel):
         ParticleFilterFramework.__init__(self, userModel)
-
 
     def _samplesToClone(self, sampleWeights):
         # normalise weights
@@ -513,7 +491,6 @@ class ResidualResamplingFramework(ParticleFilterFramework):
         assert sum(samplesToClone) == nrSamples
         self._writeFilterStatistics(weights, resamplingFactor, cdfResidualWeights, samplesToClone)
         return samplesToClone
-
 
     def _writeFilterStatistics(self, normalisedWeights, resamplingFactor, cdfResidualWeights, samplesToClone):
         filename = "filterRR_%s.csv" % (self._userModel().currentTimeStep())

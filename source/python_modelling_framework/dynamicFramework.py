@@ -84,7 +84,6 @@ class DynamicFramework(frameworkBase.FrameworkBase):
             msg = "Cannot run dynamic framework: Implement dynamic method"
             raise frameworkBase.FrameworkError(msg)
 
-
         if not hasattr(self._userModel(), "initial"):
             if self._debug():
                 self.showWarning("No initial section defined.")

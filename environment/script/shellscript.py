@@ -2,12 +2,10 @@
 # Base class for shell scripts.
 
 
-
 import os.path
 import sys
 import time
 import traceback
-
 
 
 ## Base class for shell scripts.
@@ -171,9 +169,6 @@ class ShellScript(object):
 
     def _run(self):
         return 0
-
-
-
 
     ##
     # \deprecated Use arguments().

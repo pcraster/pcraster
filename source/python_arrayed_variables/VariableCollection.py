@@ -46,7 +46,6 @@ class ValueFromParameterTable(object):
             result = self._parseLine(line, lineNo, nrColumns, externalNames, keyDict)
             lineNo += 1
 
-
     def _parseLine(self, line, lineNumber, nrColumns, externalNames, keyDict):
 
         line = re.sub("\n","",line)
@@ -123,15 +122,12 @@ class ValueFromParameterTable(object):
                     msg = "Error reading %s line %d, %s unknown collection index" %(self._fileName, lineNumber, tmp)
                     raise ValueError(msg)
 
-
                 if not keyDict[key] is None:
                     tmp = re.sub("\(|\)|,","",str(key))
                     msg = "Error reading %s line %d, %s %s already initialised" %(self._fileName, lineNumber, self._varName, tmp)
                     raise ValueError(msg)
 
                 keyDict[key] = tmp
-
-
 
 
 class ValueTimeoutputTimeseries(object):
@@ -159,11 +155,9 @@ class ValueTimeoutputTimeseries(object):
         self._idMap = idMap
         self._noHeader = noHeader
 
-
     def value(self, keys):
         varName = self._varName + "-" + "-".join(keys)
         return pcraster.framework.TimeoutputTimeseries(varName, self._model, self._idMap, self._noHeader)
-
 
 
 class VariableCollection(object):
@@ -219,7 +213,6 @@ class VariableCollection(object):
             self._impl[key] = None
             self._keys.append(key)
 
-
         if isinstance(value, ValueFromParameterTable):
             # all keys will be initialised from file
             value.value(len(self._keys[0]), self.__externalNames, self._impl)
@@ -230,12 +223,10 @@ class VariableCollection(object):
                 else:
                     self._impl[key] = value
 
-
     def __getitem__(self, key):
         if isinstance(key, str):
             key = tuple([key])
         return self._impl[key]
-
 
     def __setitem__(self, key, value):
         # block adding a new one
@@ -245,18 +236,15 @@ class VariableCollection(object):
             raise ValueError("cannot add elements to a VariableCollection")
         self._impl[key] = value
 
-
     #def keys(self):
         #"""
         #Returns a list of array indices
         #"""
         #return self._impl.keys()
 
-
     def __iter__(self):
         self._index = 0
         return self
-
 
     def next(self):
         """
@@ -281,7 +269,6 @@ class VariableCollection(object):
     # Python 3.X compatibility
     __next__ = next
 
-
     def __getVariableName(self, line):
         """
         returns the name of the variable the object is assigned to
@@ -293,8 +280,6 @@ class VariableCollection(object):
             variableName = variableName[5:]
 
         return variableName
-
-
 
     #def reportCollection(self):
         #for i in self._impl:

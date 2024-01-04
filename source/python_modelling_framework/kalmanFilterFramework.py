@@ -57,7 +57,6 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
         pickle.dump(covariance, file)
         file.close()
 
-
     ## \brief Setting the measurement operator for an update moment
     #
     # If this is not used the identity matrix will be used
@@ -69,8 +68,6 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
         file = open(fileName, 'wb')
         pickle.dump(matrix, file)
         file.close()
-
-
 
     def _testRequirements(self):
         #\todo test to dynamic framework model
@@ -86,11 +83,9 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
             self.showError("No 'setState' function defined.")
             sys.exit()
 
-
         if not hasattr(self._userModel(), 'resume'):
             msg = "Cannot run particle filter framework: Implement 'resume' method"
             raise frameworkBase.FrameworkError(msg)
-
 
     def _particleWeights(self):
         return self._userModel()._d_particleWeights
@@ -110,10 +105,6 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
             shutil.rmtree(varName)
             os.mkdir(varName)
 
-
-
-
-
     ## \brief Creates the subdirectories for state variables
     # \todo test if mc dirs are there...
     def _initialiseStateDir(self):
@@ -127,7 +118,6 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
             #  # Remove existing file with name of sample directory.
             shutil.rmtree(varName)
             os.mkdir(varName)
-
 
     ## \brief Creates the subdirectories for state variables
     # \todo test if mc dirs are there...
@@ -183,8 +173,6 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
                 self.showError("No filter timesteps specified")
                 sys.exit()
 
-
-
             # set the proposal/initial weight distribution by user
             if hasattr(self._userModel(), 'setInitialParticleWeights'):
                 self._userModel()._d_particleWeights = self._userModel().setInitialParticleWeights()
@@ -208,8 +196,6 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
 
                 self._runMonteCarlo(currentPeriod, lastPeriod)
 
-
-
                 if not currentPeriod == lastPeriod:
                     # retrieve the state vectors for each sample
                     for sample in range(1, self._userModel().nrSamples() + 1):
@@ -223,11 +209,9 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
                         pickle.dump(stateVector, file)
                         file.close()
 
-
                     # for current update moment
                     self._getObservedValues()
                     self._kalmanFilter()
-
 
                     currentPeriod += 1
                     self._userModel()._d_filterPeriod += 1
@@ -252,7 +236,6 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
         # H matrix 'measurement operator'
         # D matrix with observations
 
-
         fileName = os.path.join("stateVector",'ensMember%s.tmp' %(str(1)))
         file = open(fileName,'rb')
         vec = pickle.load(file)
@@ -267,7 +250,6 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
 
         nrEnsembleMembers =  self._userModel().nrSamples()
 
-
         # create A
         A = numpy.zeros((sizeStateVector, nrEnsembleMembers), dtype=float)
 
@@ -280,7 +262,6 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
             for i in range(0, sizeStateVector):
                 A[i,sample-1] = vec[i]
 
-
         # obtain H specified by user
         fileName = os.path.join("observedState","h%s.tmp" %(self._userModel()._d_filterTimesteps[self._userModel()._d_filterPeriod]))
         if os.path.exists(fileName):
@@ -290,7 +271,6 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
         else:
             # or use the identiy matrix
             H = numpy.eye(sizeObservedVector, sizeStateVector, dtype=float)
-
 
         assert H.shape == (sizeObservedVector, sizeStateVector), "Shape of provided matrix H %s does not match (%s, %s)" %(H.shape, sizeObservedVector, sizeStateVector)
 
@@ -323,15 +303,11 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
         HPeHt = numpy.dot(H, PeHt)
         HPeHtpRe = HPeHt + Re
 
-
         INV = linalg.pinv(HPeHtpRe)
-
 
         INVDmAH = numpy.dot(INV, DmAH)
 
-
         A = A + numpy.dot(PeHt, INVDmAH)
-
 
         for sample in range(1, self._userModel().nrSamples() + 1):
             fileName = os.path.join("stateVector",'a%s.tmp' %(sample))
@@ -350,8 +326,6 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
         file.close()
         return vec
 
-
-
     def _normaliseWeights(self, weights):
         assert weights
         sumWeights = sum(weights)
@@ -361,11 +335,9 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
 
         return norm
 
-
     def _resetSampleWeights(self):
         assert self._userModel().nrSamples() > 0
         self._userModel()._d_particleWeights = [1.0 / self._userModel().nrSamples()] * self._userModel().nrSamples()
-
 
     def _cumulativeWeights(self, weights):
         cumulative = [0.0] * self._userModel().nrSamples()
@@ -374,8 +346,6 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
             value += weights[i]
             cumulative[i] = value
         return cumulative
-
-
 
     def _startEndOfPeriod(self, currentPeriod, lastPeriod):
         # determine start end end timestep of current period
@@ -391,7 +361,6 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
 
         assert startTimestep <= endTimestep
         return startTimestep, endTimestep
-
 
     def _executePrePostMc(self, currentPeriod, lastPeriod):
         if currentPeriod == 0:
@@ -424,16 +393,10 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
         self._atEndOfFilterPeriod()
         self._decrementIndentLevel()
 
-
-
-
-
-
     ## \brief reading sample data from disk
     # returns the map of the current time step from the current sample directory
     def readmap(self, name):
         return self._readmapNew(name)
-
 
     ## \brief reading deterministic data from disk
     # returns the map of the current time step from the current working directory

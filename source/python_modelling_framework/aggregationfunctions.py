@@ -25,7 +25,6 @@ def _percentile(
         return d0 + d1
 
 
-
 def selectSArray(name, sampleNumbers, row, col):
     """Selects values at row, col from raster name in Monte Carlo samples.
 
@@ -46,7 +45,6 @@ def selectSArray(name, sampleNumbers, row, col):
         i += 1
     array = numpy.compress(numpy.logical_not(mask), array)
     return array
-
 
 
 def selectSArrays(
@@ -87,7 +85,6 @@ def selectSArrays(
     return arrays
 
 
-
 # Helper function for aggregation of simulation results. This function
 # creates an array for each cell location in the rasters for the variables
 # in the names variable. With this array the function is called which can
@@ -99,14 +96,12 @@ def aggregateSPerCell(name, sampleNumbers, calculator):
     return calculator.result()
 
 
-
 def aggregateS(
   name,
   sampleNumbers,
   calculator):
     calculator.run(selectSArrays(name, sampleNumbers))
     return calculator.result()
-
 
 
 # Helper class for aggeration of simulation results.
@@ -139,7 +134,6 @@ class PercentileCalculator:
             return self.d_fields
 
 
-
 def probability(name, sampleNumbers):
     """
     Calculates the probability that a cell is TRUE.
@@ -160,7 +154,6 @@ def probability(name, sampleNumbers):
         present  = ifthenelse(raster, present + 1, present)
         count    = ifthen(defined(raster), count + 1)
     return present / count
-
 
 
 def average(name, sampleNumbers):
@@ -185,7 +178,6 @@ def average(name, sampleNumbers):
     return sum / count
 
 
-
 def variance(name, sampleNumbers):
     """
     Calculates the variance of each cell.
@@ -208,7 +200,6 @@ def variance(name, sampleNumbers):
     return (count * sumOfSquaredValues - sumOfValues ** 2) / (count * (count - 1))
 
 
-
 def stddev(name, sampleNumbers):
     """
     Calculates the standard deviation of each cell.
@@ -222,7 +213,6 @@ def stddev(name, sampleNumbers):
     Returns a raster with standard deviations.
     """
     return sqrt(variance(name, sampleNumbers))
-
 
 
 def percentile(
@@ -247,7 +237,6 @@ def percentile(
     return aggregateS(name, sampleNumbers, PercentileCalculator(percentiles))
 
 
-
 # row >= 1, <= nrRows, col >= 1, <= nrCols
 def timeseries(name, timeSteps, row, col):
     mask = numpy.zeros(len(timeSteps)).astype(numpy.bool_)
@@ -262,7 +251,6 @@ def timeseries(name, timeSteps, row, col):
     steps = numpy.compress(numpy.logical_not(mask), steps)
     array = numpy.compress(numpy.logical_not(mask), array)
     return steps, array
-
 
 
 #def varmean(names,sampleNumbers, timeSteps):
@@ -280,7 +268,6 @@ def timeseries(name, timeSteps, row, col):
 #      mean=sum/nrSamples
 #      report(var, generateNameT(name + '-var', step))
 #      report(mean, generateNameT(name + '-ave', step))
-
 
 
 def correlation(location, independentName, dependentName, locationName, sampleNumbers, timeSteps):
@@ -312,15 +299,12 @@ def correlation(location, independentName, dependentName, locationName, sampleNu
     tssFileRSquared.close()
 
 
-
 def staticInput(timeSteps):
     return len(timeSteps) == 1 and timeSteps[0] == 0
 
 
-
 def deterministicInput(sampleNumbers):
     return len(sampleNumbers) == 1 and sampleNumbers[0] == 0
-
 
 
 def sampleMin(name, sampleNumbers):
@@ -343,7 +327,6 @@ def sampleMin(name, sampleNumbers):
     return minimum
 
 
-
 def sampleMax(name, sampleNumbers):
     """
     Calculates the maximum value of each cell.
@@ -362,7 +345,6 @@ def sampleMax(name, sampleNumbers):
         raster   = scalar(readmap(filename))
         maximum      = ifthenelse(pcrgt(raster,maximum),raster,maximum)
     return maximum
-
 
 
 def uniquesamples(name, sampleNumbers):
@@ -397,7 +379,6 @@ def uniquesamples(name, sampleNumbers):
     return len(firstLoopOfEachUniqueSet),firstLoopOfEachUniqueSet
 
 
-
 def mcaveragevariance(names,sampleNumbers, timeSteps):
     if staticInput(timeSteps):
         for name in names:
@@ -422,7 +403,6 @@ def mcaveragevariance(names,sampleNumbers, timeSteps):
                 report(sqrt(var)/mean, generateNameT(name + '-err', step))
 
 
-
 def mcpercentiles(
   names,
   percentiles,
@@ -441,7 +421,6 @@ def mcpercentiles(
                 assert len(results) == len(percentiles)
                 for i in range(len(percentiles)):
                     report(results[i], "%s_%d_%s.map" % (name, step, percentiles[i]))
-
 
 
 def createtimeseries(names, nameExtension, locations,sampleNumbers,timeSteps):
@@ -472,7 +451,6 @@ def createtimeseries(names, nameExtension, locations,sampleNumbers,timeSteps):
                 tssFile.close()
 
 
-
 def createtimeseriesnewfileformat(names,locations,sampleNumbers,timeSteps, quantiles):
     if deterministicInput(sampleNumbers):
         for quantile in quantiles:
@@ -490,7 +468,6 @@ def createtimeseriesnewfileformat(names,locations,sampleNumbers,timeSteps, quant
                 tssFile.close()
     else:
         print('timeseries for monte carlo loops not yet available')
-
 
 
 def createGstatRealizations(setOfRealizations, nameCommandFile, nameOutMapList):
@@ -519,7 +496,6 @@ def createGstatRealizations(setOfRealizations, nameCommandFile, nameOutMapList):
             shutil.move(gstatOutputFileName,realization[item])
             item=item+1
         i = i + 1
-
 
 
 def createAllGstatRealizations(nameCommandFile,nameOutMapList,nrRealPerGstatCall,sampleNumbers,timeSteps):

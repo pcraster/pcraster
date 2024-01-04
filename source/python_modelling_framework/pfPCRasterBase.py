@@ -6,7 +6,6 @@ from . import frameworkBase
 from . import pfBase
 
 
-
 class ParticleFilterModel(pfBase.ParticleFilterBase):
 
     def __init__(self):

@@ -10,7 +10,6 @@ from . import frameworkBase
 from . import staticFramework
 
 
-
 class MonteCarloFramework(frameworkBase.FrameworkBase, forkscript.ForkScript):
     """
     Framework class for the Monte Carlo method.
@@ -215,8 +214,6 @@ StaticFramework or DynamicFramework"
 
         return 0
 
-
-
     ## \brief Creates the directories in which the sample data can be stored.
     #
     # \attention Already existing sample directories will be cleaned!
@@ -241,7 +238,6 @@ StaticFramework or DynamicFramework"
             assert os.path.exists(dirname) and os.path.isdir(dirname)
             sample += 1
 
-
     def _setSampleNumbers(self, firstSampleNumber, lastSampleNumber):
         assert firstSampleNumber > 0
         if lastSampleNumber <= 0:
@@ -256,10 +252,6 @@ StaticFramework or DynamicFramework"
     def _systemIsOccupied(self, nrChilds):
         return nrChilds >= self._d_nrProcessors
 
-
-
-
-
     ## Checks the current configuration of the script.
     def _check(self):
         if self._userModel().nrSamples() == 0:
@@ -267,7 +259,6 @@ StaticFramework or DynamicFramework"
    Since the number of samples to execute is 0, only the premcloop
    and the postmcloop functions will be executed. Any script that does
    something meaningful needs to calculate at least one "sample".""")
-
 
     def setQuiet(self, quiet=True):
         """

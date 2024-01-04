@@ -2,7 +2,6 @@
 from . import kfBase
 
 
-
 class EnKfModel(kfBase.EnKfBase):
     def __init__(self):
         kfBase.EnKfBase.__init__(self)

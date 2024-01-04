@@ -9,7 +9,6 @@ warnings.filterwarnings(u"ignore",
          RuntimeWarning)
 
 
-
 Error = 'Exception raised in pcr.py library'
 
 class Exception(Exception):
@@ -37,7 +36,6 @@ class StdoutTee:
 EXEMODE  = 0o755
 DIRMODE  = 0o755
 FILEMODE = 0o444
-
 
 
 def message(msg):
@@ -488,7 +486,6 @@ def log(fileName, msg):
 
     testOpenForWriting(fileName)
     open(fileName, 'a').write(msg)
-
 
 
 # quite expensive way of what findDirs also does, maybe substite

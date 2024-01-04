@@ -3,7 +3,6 @@
 import os, signal, time, sys
 
 
-
 class ChildProcess:
     """Class to represent child processes."""
 
@@ -67,7 +66,6 @@ class ChildProcess:
         assert message
         message += "\nDuration (indication): %s" % (self.durationAsString())
         return message
-
 
 
 class ForkScript:

@@ -2,7 +2,6 @@
 from . import staticBase
 
 
-
 class StaticModel(staticBase.StaticBase):
 
     def __init__(self):

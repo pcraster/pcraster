@@ -2,7 +2,6 @@
 from . import frameworkBase
 
 
-
 class StaticFramework(frameworkBase.FrameworkBase):
     """
     Framework class for static models.

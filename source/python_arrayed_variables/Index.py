@@ -37,31 +37,25 @@ class Index(object):
         self.__dict__["_values"] = values
         self.__dict__["_externalNames"] = externalNames
 
-
         for v in values:
             if not self.__dict__.get(v) == None:
                 raise AttributeError("Error in initialisation of class Index: array indices must be unique, %s already used" % (v))
             self.__dict__[v] = v
 
-
     def __setattr__(self, name, value):
         raise ValueError("Modification of an Index attribute not permitted")
-
 
     def __delattr__(self, value):
         raise ValueError("Removal of an Index attribute not permitted")
 
-
     def __getitem__(self, index):
         return self._values[index]
-
 
     def _getExternalName(self, variable):
         """
         returns name if var has an external name; None if not
         """
         return self.__dict__["_externalNames"].get(variable)
-
 
     def __repr__(self):
         msg = ""

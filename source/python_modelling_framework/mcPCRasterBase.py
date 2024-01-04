@@ -4,7 +4,6 @@ from . import frameworkBase
 from . import mcBase
 
 
-
 class MonteCarloModel(mcBase.MonteCarloBase):
 
     def __init__(self):

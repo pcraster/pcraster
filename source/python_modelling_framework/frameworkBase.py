@@ -54,7 +54,6 @@ def _atExit():
     print()
 
 
-
 def generateNameT(
   name,
   time):
@@ -103,7 +102,6 @@ def generateNameT(
     return os.path.join(head, result)
 
 
-
 def generateNameS(name, sample):
     """Return a filename based on the name and sample number passed in.
 
@@ -118,7 +116,6 @@ def generateNameS(name, sample):
     return os.path.join("%d" % (sample), name)
 
 
-
 def generateNameST(name, sample, timestep):
     """
     Return a filename based on the name, sample number and time step.
@@ -126,7 +123,6 @@ def generateNameST(name, sample, timestep):
     See also: generateNameT(), generateNameS()
     """
     return generateNameS(generateNameT(name, timestep), sample)
-
 
 
 class FrameworkBase(shellscript.ShellScript):
@@ -569,7 +565,6 @@ class FrameworkBase(shellscript.ShellScript):
       expression,
       message):
         assert expression, message
-
 
 
 class FrameworkError(Exception):

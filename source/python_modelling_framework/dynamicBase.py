@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 
-
 class DynamicBase(object):
     """
     Base class for DynamicModel framework class.
@@ -72,7 +71,6 @@ class DynamicBase(object):
     def _inInitial(self):
         return self.inInitial
 
-
     def _setInInitial(self, value):
         assert isinstance(value, bool)
         self.inInitial = value
@@ -80,10 +78,6 @@ class DynamicBase(object):
     def _setInDynamic(self, value):
         assert isinstance(value, bool)
         self.inDynamic = value
-
-
-
-
 
     def _inTimeStep(self):
         """
@@ -98,7 +92,6 @@ class DynamicBase(object):
     def _setInTimeStep(self, value):
         assert isinstance(value, bool)
         self.inTimeStep = value
-
 
     def _setFirstTimeStep(self, firstTimeStep):
 

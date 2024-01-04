@@ -3,7 +3,6 @@ import pcraster._pcraster as pcr
 from . import dynamicBase
 
 
-
 class DynamicModel(dynamicBase.DynamicBase):
 
     def __init__(self):

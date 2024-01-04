@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 
-
 class ParticleFilterBase(object):
     def __init__(self):
         if self.__class__ is ParticleFilterBase:

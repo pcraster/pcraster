@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 
-
 class StaticBase(object):
     """
     Base class for StaticModel framework class.

@@ -128,7 +128,6 @@ class TimeoutputTimeseries(object):
         if self._userModel.currentTimeStep() == self._userModel.nrTimeSteps():
             self._writeTssFile()
 
-
     def _writeFileHeader(self, outputFilename):
         """
         writes header part of tss file
@@ -142,7 +141,6 @@ class TimeoutputTimeseries(object):
         for colId in range(1, self._maxId + 1):
             outputFile.write(str(colId) + "\n")
         outputFile.close()
-
 
     def _writeTssFile(self):
         """
@@ -185,7 +183,6 @@ class TimeoutputTimeseries(object):
             outputFile.write(row)
 
         outputFile.close()
-
 
     def _configureOutputFilename(self, filename):
         """

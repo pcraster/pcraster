@@ -26,10 +26,12 @@ class StdoutTee:
         self.d_orgStdout = sys.stdout
         self.d_toFile = open(fileName, openMode)
         sys.stdout = self
+
     def write(self, string):
         self.d_toFile.write(string)
         self.d_orgStdout.write(string)
         self.flush()
+
     def flush(self):
         self.d_toFile.flush()
         self.d_orgStdout.flush()
@@ -256,16 +258,22 @@ else:
 
         def stdoutEmpty(self):
             return len(self.d_stdoutLines) == 0
+
         def stderrEmpty(self):
             return len(self.d_stderrLines) == 0
+
         def stdoutLines(self):
             return self.d_stdoutLines
+
         def stdoutText(self):
             return " ".join(self.d_stdoutLines)
+
         def stderrLines(self):
             return self.d_stderrLines
+
         def stderrText(self):
             return " ".join(self.d_stderrLines)
+
         def exitStatus(self):
             return self.d_exitStatus
 

@@ -99,8 +99,8 @@ class ParticleFilterFramework(frameworkBase.FrameworkBase):
                 os.mkdir(varName)
 
             os.chdir(cwd)
-            assert os.path.exists(os.path.join(dirname,"stateVar")) and \
-              os.path.isdir(os.path.join(dirname,"stateVar"))
+            assert os.path.exists(os.path.join(dirname, "stateVar")) and \
+              os.path.isdir(os.path.join(dirname, "stateVar"))
             sample += 1
 
     def setFilterTimesteps(self, filterTimesteps):
@@ -194,7 +194,7 @@ class ParticleFilterFramework(frameworkBase.FrameworkBase):
         return 0
 
     def _createGraph(self):
-        oFile = open("samples.dot","w")
+        oFile = open("samples.dot", "w")
         oFile.write("digraph G {\n")
         oFile.write("nodesep=.002;\n")
         oFile.write("ranksep=1.00;\n")
@@ -434,7 +434,7 @@ class SequentialImportanceResamplingFramework(ParticleFilterFramework):
 
     def _writeFilterStatistics(self, normalisedWeights, cumulativeWeights, samplesToClone):
         filename = "filterSIR_%s.csv" % (self._userModel().currentTimeStep())
-        csvFile = csv.writer(open(filename, "w"), delimiter=";",quoting=csv.QUOTE_NONNUMERIC)
+        csvFile = csv.writer(open(filename, "w"), delimiter=";", quoting=csv.QUOTE_NONNUMERIC)
 
         csvFile.writerow(["sample", "normalised weight", "cumulative weight", "resampled particles"])
         for i in range(0, self._userModel().nrSamples()):
@@ -494,7 +494,7 @@ class ResidualResamplingFramework(ParticleFilterFramework):
 
     def _writeFilterStatistics(self, normalisedWeights, resamplingFactor, cdfResidualWeights, samplesToClone):
         filename = "filterRR_%s.csv" % (self._userModel().currentTimeStep())
-        csvFile = csv.writer(open(filename, "w"), delimiter=";",quoting=csv.QUOTE_NONNUMERIC)
+        csvFile = csv.writer(open(filename, "w"), delimiter=";", quoting=csv.QUOTE_NONNUMERIC)
 
         csvFile.writerow(["sample", "normalised weight", "resampling factor", "cdf residual weights", "resampled particles"])
         for i in range(0, self._userModel().nrSamples()):

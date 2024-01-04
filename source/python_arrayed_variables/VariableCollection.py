@@ -49,13 +49,13 @@ class ValueFromParameterTable(object):
 
     def _parseLine(self, line, lineNumber, nrColumns, externalNames, keyDict):
 
-        line = re.sub("\n","",line)
-        line = re.sub("\t"," ",line)
+        line = re.sub("\n", "", line)
+        line = re.sub("\t", " ", line)
         result = None
 
         # read until first comment
         content = ""
-        content,sep,comment = line.partition("#")
+        content, sep, comment = line.partition("#")
         if len(content) > 1:
             collectionVariableName, sep, tail = content.partition(" ")
             if collectionVariableName == self._varName:
@@ -63,7 +63,7 @@ class ValueFromParameterTable(object):
                 key, sep, variableValue = tail.rpartition(" ")
 
                 if len(key.split()) != nrColumns:
-                    tmp = re.sub("\(|\)|,","",str(key))
+                    tmp = re.sub("\(|\)|,", "", str(key))
                     msg = "Error reading %s line %d, order of columns given (%s columns) does not match expected order of %s columns" %(self._fileName, lineNumber, len(key.split()) + 2, int(nrColumns) + 2)
                     raise ValueError(msg)
 
@@ -95,7 +95,7 @@ class ValueFromParameterTable(object):
                             raise Exception(msg)
 
                     except ValueError as e:
-                        variableValue = re.sub("\\\\","/",variableValue)
+                        variableValue = re.sub("\\\\", "/", variableValue)
                         variableValue = variableValue.strip()
                         path = os.path.normpath(variableValue)
                         try:
@@ -119,12 +119,12 @@ class ValueFromParameterTable(object):
                 key = tuple(transformedKeys)
 
                 if not key in keyDict:
-                    tmp = re.sub("\(|\)|,","",str(key))
+                    tmp = re.sub("\(|\)|,", "", str(key))
                     msg = "Error reading %s line %d, %s unknown collection index" %(self._fileName, lineNumber, tmp)
                     raise ValueError(msg)
 
                 if not keyDict[key] is None:
-                    tmp = re.sub("\(|\)|,","",str(key))
+                    tmp = re.sub("\(|\)|,", "", str(key))
                     msg = "Error reading %s line %d, %s %s already initialised" %(self._fileName, lineNumber, self._varName, tmp)
                     raise ValueError(msg)
 
@@ -277,7 +277,7 @@ class VariableCollection(object):
         variableName, sep, tail = line.partition("=")
         variableName = variableName.strip()
 
-        if re.search(r"self.",variableName) != None:
+        if re.search(r"self.", variableName) != None:
             variableName = variableName[5:]
 
         return variableName

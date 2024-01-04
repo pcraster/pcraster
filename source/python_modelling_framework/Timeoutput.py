@@ -39,7 +39,7 @@ class TimeoutputTimeseries(object):
             if isinstance(idMap, str):
                 self._spatialId = pcraster.readmap(idMap)
 
-            _allowdDataTypes = [pcraster.Nominal,pcraster.Ordinal,pcraster.Boolean]
+            _allowdDataTypes = [pcraster.Nominal, pcraster.Ordinal, pcraster.Boolean]
             if self._spatialId.dataType() not in _allowdDataTypes:
                 raise Exception("idMap must be of type Nominal, Ordinal or Boolean")
 
@@ -117,7 +117,7 @@ class TimeoutputTimeseries(object):
                 tmp = pcraster.maptotal(pcraster.spatial(expression))\
                       / pcraster.maptotal(pcraster.scalar(pcraster.defined(pcraster.spatial(expression))))
             else:
-                tmp = pcraster.mapmaximum(pcraster.maptotal(pcraster.areamajority(pcraster.spatial(expression),\
+                tmp = pcraster.mapmaximum(pcraster.maptotal(pcraster.areamajority(pcraster.spatial(expression), \
                       pcraster.spatial(pcraster.nominal(1)))))
 
             value, valid = pcraster.cellvalue(tmp, 1)

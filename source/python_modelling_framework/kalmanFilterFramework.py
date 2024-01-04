@@ -49,12 +49,12 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
         assert type(covariance) == numpy.ndarray
         filtermoment = self._userModel().currentTimeStep()
 
-        fileName = os.path.join("observedState",'obs%s.tmp' % (filtermoment))
+        fileName = os.path.join("observedState", 'obs%s.tmp' % (filtermoment))
         file = open(fileName, 'wb')
         pickle.dump(observations, file)
         file.close()
 
-        fileName = os.path.join("observedState",'cov%s.tmp' % (filtermoment))
+        fileName = os.path.join("observedState", 'cov%s.tmp' % (filtermoment))
         file = open(fileName, 'wb')
         pickle.dump(covariance, file)
         file.close()
@@ -66,7 +66,7 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
         assert type(matrix) == numpy.ndarray
 
         filtermoment = self._userModel().currentTimeStep()
-        fileName = os.path.join("observedState",'h%s.tmp' % (filtermoment))
+        fileName = os.path.join("observedState", 'h%s.tmp' % (filtermoment))
         file = open(fileName, 'wb')
         pickle.dump(matrix, file)
         file.close()
@@ -142,7 +142,7 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
                 os.mkdir(varName)
 
             os.chdir(cwd)
-            assert os.path.exists(os.path.join(dirname,"stateVar")) and os.path.isdir(os.path.join(dirname,"stateVar"))
+            assert os.path.exists(os.path.join(dirname, "stateVar")) and os.path.isdir(os.path.join(dirname, "stateVar"))
             sample += 1
 
     ## \brief Setting the filter moments
@@ -206,8 +206,8 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
                         stateVector = self._userModel().setState()
                         self._userModel()._d_inUpdateWeight = False
                         assert type(stateVector) == numpy.ndarray
-                        fileName = os.path.join("stateVector",'ensMember%s.tmp' %(sample))
-                        file = open(fileName,'wb')
+                        fileName = os.path.join("stateVector", 'ensMember%s.tmp' %(sample))
+                        file = open(fileName, 'wb')
                         pickle.dump(stateVector, file)
                         file.close()
 
@@ -238,14 +238,14 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
         # H matrix 'measurement operator'
         # D matrix with observations
 
-        fileName = os.path.join("stateVector",'ensMember%s.tmp' %(str(1)))
-        file = open(fileName,'rb')
+        fileName = os.path.join("stateVector", 'ensMember%s.tmp' %(str(1)))
+        file = open(fileName, 'rb')
         vec = pickle.load(file)
         sizeStateVector = len(vec)
         file.close()
         # length of the observed vector \todo do we know that?
-        fileName = os.path.join("observedState","obs%s.tmp" %(self._userModel()._d_filterTimesteps[self._userModel()._d_filterPeriod]))
-        file = open(fileName,'rb')
+        fileName = os.path.join("observedState", "obs%s.tmp" %(self._userModel()._d_filterTimesteps[self._userModel()._d_filterPeriod]))
+        file = open(fileName, 'rb')
         vec = pickle.load(file)
         sizeObservedVector = len(vec)
         file.close()
@@ -257,17 +257,17 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
 
         # \todo is there a better way to construct a matrix from vecors?
         for sample in range(1, self._userModel().nrSamples() + 1):
-            fileName = os.path.join("stateVector",'ensMember%s.tmp' %(sample))
-            file = open(fileName,'rb')
+            fileName = os.path.join("stateVector", 'ensMember%s.tmp' %(sample))
+            file = open(fileName, 'rb')
             vec = pickle.load(file)
             file.close()
             for i in range(0, sizeStateVector):
-                A[i,sample-1] = vec[i]
+                A[i, sample-1] = vec[i]
 
         # obtain H specified by user
-        fileName = os.path.join("observedState","h%s.tmp" %(self._userModel()._d_filterTimesteps[self._userModel()._d_filterPeriod]))
+        fileName = os.path.join("observedState", "h%s.tmp" %(self._userModel()._d_filterTimesteps[self._userModel()._d_filterPeriod]))
         if os.path.exists(fileName):
-            file = open(fileName,'rb')
+            file = open(fileName, 'rb')
             H = pickle.load(file)
             file.close()
         else:
@@ -277,7 +277,7 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
         assert H.shape == (sizeObservedVector, sizeStateVector), "Shape of provided matrix H %s does not match (%s, %s)" %(H.shape, sizeObservedVector, sizeStateVector)
 
         # obtain D
-        fileName = os.path.join("observedState","obs%s.tmp" %(self._userModel()._d_filterTimesteps[self._userModel()._d_filterPeriod]))
+        fileName = os.path.join("observedState", "obs%s.tmp" %(self._userModel()._d_filterTimesteps[self._userModel()._d_filterPeriod]))
         file = open(fileName, 'rb')
         D = pickle.load(file)
         file.close()
@@ -285,7 +285,7 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
         assert D.shape == (sizeObservedVector, nrEnsembleMembers), "Shape of provided matrix D %s does not match (%s, %s)" %(D.shape, sizeObservedVector, nrEnsembleMembers)
 
         # obtain error covariance matrix
-        fileName = os.path.join("observedState","cov%s.tmp" %(self._userModel()._d_filterTimesteps[self._userModel()._d_filterPeriod]))
+        fileName = os.path.join("observedState", "cov%s.tmp" %(self._userModel()._d_filterTimesteps[self._userModel()._d_filterPeriod]))
         file = open(fileName, 'rb')
         Re = pickle.load(file)
         file.close()
@@ -293,14 +293,14 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
         assert Re.shape == (sizeObservedVector, sizeObservedVector), "Shape of provided matrix Re %s does not match (%s, %s)" %(Re.shape, sizeObservedVector, sizeObservedVector)
 
         # calculate Pe
-        Abar = numpy.dot(A,numpy.array( [[1.0/nrEnsembleMembers] * nrEnsembleMembers ] * nrEnsembleMembers, dtype=float))
+        Abar = numpy.dot(A, numpy.array( [[1.0/nrEnsembleMembers] * nrEnsembleMembers ] * nrEnsembleMembers, dtype=float))
         Ad = A - Abar
-        Pe =  1.0/(nrEnsembleMembers - 1) * numpy.dot(Ad,numpy.transpose(Ad))
+        Pe =  1.0/(nrEnsembleMembers - 1) * numpy.dot(Ad, numpy.transpose(Ad))
 
         # calculate the new A matrix
-        DmAH = D - numpy.dot(H,A)
+        DmAH = D - numpy.dot(H, A)
 
-        PeHt = numpy.dot(Pe,numpy.transpose(H))
+        PeHt = numpy.dot(Pe, numpy.transpose(H))
 
         HPeHt = numpy.dot(H, PeHt)
         HPeHtpRe = HPeHt + Re
@@ -312,18 +312,18 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
         A = A + numpy.dot(PeHt, INVDmAH)
 
         for sample in range(1, self._userModel().nrSamples() + 1):
-            fileName = os.path.join("stateVector",'a%s.tmp' %(sample))
-            file = open(fileName,'wb')
+            fileName = os.path.join("stateVector", 'a%s.tmp' %(sample))
+            file = open(fileName, 'wb')
             index = sample - 1
-            vec = A[:,index]
+            vec = A[:, index]
 
             pickle.dump(vec, file)
             file.close()
 
     ## \brief Returns the updated variables
     def getStateVector(self, sampleNumber):
-        fileName = os.path.join("stateVector",'a%s.tmp' %(sampleNumber))
-        file = open(fileName,'rb')
+        fileName = os.path.join("stateVector", 'a%s.tmp' %(sampleNumber))
+        file = open(fileName, 'rb')
         vec = pickle.load(file)
         file.close()
         return vec

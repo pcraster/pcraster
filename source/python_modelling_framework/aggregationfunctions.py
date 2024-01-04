@@ -273,23 +273,23 @@ def timeseries(name, timeSteps, row, col):
 def correlation(location, independentName, dependentName, locationName, sampleNumbers, timeSteps):
     location=boolean(location)
     name=independentName + '_' + dependentName + '_' + locationName
-    tssFileIntercept = file("%s%s.tss" % (name,'_int'), "w")
-    tssFileSlope = file("%s%s.tss" % (name,'_slope'), "w")
-    tssFileRSquared = file("%s%s.tss" % (name,'_rSq'), "w")
+    tssFileIntercept = file("%s%s.tss" % (name, '_int'), "w")
+    tssFileSlope = file("%s%s.tss" % (name, '_slope'), "w")
+    tssFileRSquared = file("%s%s.tss" % (name, '_rSq'), "w")
     for step in timeSteps:
         values=[]
         for sample in sampleNumbers:
             smallValue=0.0000000000000000001
-            fileNameOne=generateNameST(dependentName,sample,step)
-            valueOne=generalfunctions.getCellValueAtBooleanLocation(location,scalar(fileNameOne))
+            fileNameOne=generateNameST(dependentName, sample, step)
+            valueOne=generalfunctions.getCellValueAtBooleanLocation(location, scalar(fileNameOne))
             pairList=[valueOne + smallValue]
-            fileNameTwo=generateNameST(independentName,sample,step)
-            valueTwo=generalfunctions.getCellValueAtBooleanLocation(location,scalar(fileNameTwo))
+            fileNameTwo=generateNameST(independentName, sample, step)
+            valueTwo=generalfunctions.getCellValueAtBooleanLocation(location, scalar(fileNameTwo))
             pairList.append(valueTwo + smallValue)
             values.append(pairList)
             #print valueOne + smallValue, valueTwo + smallValue
         reg=regression.linearRegression(values, 1)
-        rSq=regression.linearRSquared(values,reg)
+        rSq=regression.linearRSquared(values, reg)
         #print step, reg, rSq
         tssFileIntercept.write("%d %g\n" % (step, reg[0]))
         tssFileSlope.write("%d %g\n" % (step, reg[1]))
@@ -323,7 +323,7 @@ def sampleMin(name, sampleNumbers):
     for sample in sampleNumbers:
         filename = generateNameS(name, sample)
         raster   = scalar(readmap(filename))
-        minimum      = ifthenelse(pcrlt(raster,minimum),raster,minimum)
+        minimum      = ifthenelse(pcrlt(raster, minimum), raster, minimum)
     return minimum
 
 
@@ -343,7 +343,7 @@ def sampleMax(name, sampleNumbers):
     for sample in sampleNumbers:
         filename = generateNameS(name, sample)
         raster   = scalar(readmap(filename))
-        maximum      = ifthenelse(pcrgt(raster,maximum),raster,maximum)
+        maximum      = ifthenelse(pcrgt(raster, maximum), raster, maximum)
     return maximum
 
 
@@ -366,20 +366,20 @@ def uniquesamples(name, sampleNumbers):
         setNumber=0
         sampleAddedToExistingSet=False
         for uniqueSet in uniqueSets:
-            if generalfunctions.mapeq(uniqueSet[0],raster):
+            if generalfunctions.mapeq(uniqueSet[0], raster):
                 uniqueSets[setNumber].append(sample)
                 sampleAddedToExistingSet=True
                 break
             setNumber += 1
         if sampleAddedToExistingSet==False:
-            uniqueSets.append([raster,sample])
+            uniqueSets.append([raster, sample])
     firstLoopOfEachUniqueSet=[]
     for uniqueSet in uniqueSets:
         firstLoopOfEachUniqueSet.append(uniqueSet[1])
-    return len(firstLoopOfEachUniqueSet),firstLoopOfEachUniqueSet
+    return len(firstLoopOfEachUniqueSet), firstLoopOfEachUniqueSet
 
 
-def mcaveragevariance(names,sampleNumbers, timeSteps):
+def mcaveragevariance(names, sampleNumbers, timeSteps):
     if staticInput(timeSteps):
         for name in names:
             mean=average(name + '.map', sampleNumbers)
@@ -396,8 +396,8 @@ def mcaveragevariance(names,sampleNumbers, timeSteps):
         nrSamples=scalar(len(sampleNumbers))
         for name in names:
             for step in timeSteps:
-                var=variance(generateNameT(name,step),sampleNumbers)
-                mean=average(generateNameT(name,step), sampleNumbers)
+                var=variance(generateNameT(name, step), sampleNumbers)
+                mean=average(generateNameT(name, step), sampleNumbers)
                 report(mean, generateNameT(name + '-ave', step))
                 report(var, generateNameT(name + '-var', step))
                 report(sqrt(var)/mean, generateNameT(name + '-err', step))
@@ -423,7 +423,7 @@ def mcpercentiles(
                     report(results[i], "%s_%d_%s.map" % (name, step, percentiles[i]))
 
 
-def createtimeseries(names, nameExtension, locations,sampleNumbers,timeSteps):
+def createtimeseries(names, nameExtension, locations, sampleNumbers, timeSteps):
     if deterministicInput(sampleNumbers):
         for name in names:
             tssFile = file(name + nameExtension + '.tss', "w")
@@ -432,26 +432,26 @@ def createtimeseries(names, nameExtension, locations,sampleNumbers,timeSteps):
             tssFile.write("timestep\n")
             tssFile.write("%s\n" % (name))
             for step in timeSteps:
-                timeseriesValue=mapmaximum(ifthen(locations,generateNameT(name,step)))
+                timeseriesValue=mapmaximum(ifthen(locations, generateNameT(name, step)))
                 value, valid = cellvalue(timeseriesValue, 1, 1); assert valid
                 tssFile.write("%d %g\n" % (step, value))
             tssFile.close()
     else:
         for name in names:
             for sample in sampleNumbers:
-                tssFile = file(generateNameS("%s%s.tss" % (name,nameExtension), sample), "w")
+                tssFile = file(generateNameS("%s%s.tss" % (name, nameExtension), sample), "w")
                 tssFile.write("timeseries scalar\n")
                 tssFile.write("2\n")
                 tssFile.write("timestep\n")
                 tssFile.write("%s\n" % (name))
                 for step in timeSteps:
-                    timeseriesValue=mapmaximum(ifthen(locations,generateNameST(name,sample,step)))
+                    timeseriesValue=mapmaximum(ifthen(locations, generateNameST(name, sample, step)))
                     value, valid = cellvalue(timeseriesValue, 1, 1); assert valid
                     tssFile.write("%d %g\n" % (step, value))
                 tssFile.close()
 
 
-def createtimeseriesnewfileformat(names,locations,sampleNumbers,timeSteps, quantiles):
+def createtimeseriesnewfileformat(names, locations, sampleNumbers, timeSteps, quantiles):
     if deterministicInput(sampleNumbers):
         for quantile in quantiles:
             for name in names:
@@ -462,7 +462,7 @@ def createtimeseriesnewfileformat(names,locations,sampleNumbers,timeSteps, quant
                 tssFile.write("%s\n" % (name))
                 for step in timeSteps:
                     filename = name + ("_%d_" % (step)) + str(quantile) + ".map"
-                    timeseriesValue=mapmaximum(ifthen(locations,filename))
+                    timeseriesValue=mapmaximum(ifthen(locations, filename))
                     value, valid = cellvalue(timeseriesValue, 1, 1); assert valid
                     tssFile.write("%d %g\n" % (step, value))
                 tssFile.close()
@@ -475,11 +475,11 @@ def createGstatRealizations(setOfRealizations, nameCommandFile, nameOutMapList):
     nSim=len(setOfRealizations)
     # open template gstat script and replace
     #print nameCommandFile
-    gstatTemplate=file(nameCommandFile + '.gst','r')
+    gstatTemplate=file(nameCommandFile + '.gst', 'r')
     gstatTemplateString=gstatTemplate.read()
     gstatTemplate.close()
-    gstatString=gstatTemplateString.replace('NSIM',str(nSim))
-    gstatFile=file('tmpGstat.gst','w')
+    gstatString=gstatTemplateString.replace('NSIM', str(nSim))
+    gstatFile=file('tmpGstat.gst', 'w')
     gstatFile.write(gstatString)
     gstatFile.close()
     # run gstat
@@ -491,14 +491,14 @@ def createGstatRealizations(setOfRealizations, nameCommandFile, nameOutMapList):
         #print realization
         item=0
         for name in nameOutMapList:
-            gstatOutputFileName=generateNameT('g_' + name,i)
+            gstatOutputFileName=generateNameT('g_' + name, i)
             #print gstatOutputFileName, realization[item]
-            shutil.move(gstatOutputFileName,realization[item])
+            shutil.move(gstatOutputFileName, realization[item])
             item=item+1
         i = i + 1
 
 
-def createAllGstatRealizations(nameCommandFile,nameOutMapList,nrRealPerGstatCall,sampleNumbers,timeSteps):
+def createAllGstatRealizations(nameCommandFile, nameOutMapList, nrRealPerGstatCall, sampleNumbers, timeSteps):
     # create list names with filenames required
     names=[]
     names.append([])
@@ -515,12 +515,12 @@ def createAllGstatRealizations(nameCommandFile,nameOutMapList,nrRealPerGstatCall
             namesOneSampleOneTimeStep=[]
             for nameOutMap in nameOutMapList:
                 if staticInput(timeSteps):
-                    fileName=generateNameS(nameOutMap,sample) + '.map'
+                    fileName=generateNameS(nameOutMap, sample) + '.map'
                 else:
-                    fileName=generateNameST(nameOutMap,sample,step)
+                    fileName=generateNameST(nameOutMap, sample, step)
                 namesOneSampleOneTimeStep.append(fileName)
             names[i].append(namesOneSampleOneTimeStep)
     for setOfRealizations in names:
-        createGstatRealizations(setOfRealizations,nameCommandFile, nameOutMapList)
+        createGstatRealizations(setOfRealizations, nameCommandFile, nameOutMapList)
         #print setOfRealizations
 

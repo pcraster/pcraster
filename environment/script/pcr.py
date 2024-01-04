@@ -22,9 +22,9 @@ class Exception(Exception):
 
 
 class StdoutTee:
-    def __init__(self, fileName,openMode):
+    def __init__(self, fileName, openMode):
         self.d_orgStdout = sys.stdout
-        self.d_toFile    = open(fileName,openMode)
+        self.d_toFile    = open(fileName, openMode)
         sys.stdout = self
     def write(self, string):
         self.d_toFile.write(string)
@@ -78,7 +78,7 @@ def testNonEmptyFile(p):
 
 def processFiles(dir, func):
     for f in os.listdir(dir):
-        p = os.path.join(dir,f)
+        p = os.path.join(dir, f)
         # somehow some links do not exists
         # try without this exist claus .. in your
         # home directory
@@ -133,11 +133,11 @@ def replaceCase(caseTypes, str, wordToReplace, replaceWithWord):
     newStr = str;
     for i in caseTypes.lower():
         if i == 'c':
-            newStr = newStr.replace(wordToReplace,replaceWithWord)
+            newStr = newStr.replace(wordToReplace, replaceWithWord)
         elif i == 'u':
-            newStr = newStr.replace(wordToReplace.upper(),replaceWithWord.upper())
+            newStr = newStr.replace(wordToReplace.upper(), replaceWithWord.upper())
         elif i == 'l':
-            newStr = newStr.replace(wordToReplace.lower(),replaceWithWord.lower())
+            newStr = newStr.replace(wordToReplace.lower(), replaceWithWord.lower())
         else:
             assert i in "ulc"
 
@@ -149,8 +149,8 @@ def replaceCase(caseTypes, str, wordToReplace, replaceWithWord):
 # to nl string, default is a newline
 
 
-def normalizeText(str,nl="\n"):
-    lines = string.split(str,"\n")
+def normalizeText(str, nl="\n"):
+    lines = string.split(str, "\n")
     l   = []
     for i in lines:
         str = " ".join(string.split(i))
@@ -184,7 +184,7 @@ def pcrtree( *path ):
         #   assert false, 'os not supported yet'
     p=getEnv()
     for d in path:
-        p = os.path.join(p,d)
+        p = os.path.join(p, d)
     return p
 
 # returns value of DEVENV environment variable
@@ -214,7 +214,7 @@ def pcrtreeRelativePath(absPath):
     if absPath.find("/cygdrive")==0:
         absPath =executeOneLine("cygpath --mixed \""+absPath+"\"")
     # +1 for intervening slash
-    return absPath[len(pcrtree())+1:].replace("\\","/")
+    return absPath[len(pcrtree())+1:].replace("\\", "/")
 
 
 def python2():
@@ -283,7 +283,7 @@ else:
     def popenWrapper(cmd, bufferSize=0):
 
         class PopenWrapperReturn:
-            def __init__(self,cmd,bufferSize):
+            def __init__(self, cmd, bufferSize):
                 class Stream:
                     def __init__(self):
                         self.fileName = os.tempnam()
@@ -324,7 +324,7 @@ else:
 
                 sOut.close()
                 sErr.close()
-        return PopenWrapperReturn(cmd,bufferSize)
+        return PopenWrapperReturn(cmd, bufferSize)
 
     # expecte one line of stdout and strip it
     def executeOneLine(cmd):
@@ -338,7 +338,7 @@ else:
                exception yield the stderr output
         """
 
-        r = popenWrapper(cmd,bufferSize)
+        r = popenWrapper(cmd, bufferSize)
         if r.exitcode != 0 and r.exitcode != 1100:
             assert len(r.stderr)
             raise Exception("".join(r.stderr))
@@ -357,7 +357,7 @@ def listConc(src):
 # HANDIG-> if isinstance(item, ListType):
 
 
-def listAppend(dest,*listsToAppend):
+def listAppend(dest, *listsToAppend):
     for l in listsToAppend:
         for j in l:
             dest.append(j)
@@ -551,7 +551,7 @@ def discover(dirsWithMakefile, path, names):
     for n in names[:] :
         # remove all, except those added again
         names.remove(n)
-        p = os.path.join(path,n)
+        p = os.path.join(path, n)
         # seems to happen?
         # permissions?
         if not (os.path.exists(p)):
@@ -608,11 +608,11 @@ def clVimFilter(msgs):
         # compilation unit printed (e.g. main.c on single line)
         if len(l.split())==1:
             singleWordSplit = l.split(".")
-            if len(singleWordSplit) >= 2 and singleWordSplit[1] in [ 'c','cc','cpp','res']:
+            if len(singleWordSplit) >= 2 and singleWordSplit[1] in [ 'c', 'cc', 'cpp', 'res']:
                 continue
 
         def reformat(l):
-            def absCygFile(l,afterFile):
+            def absCygFile(l, afterFile):
                 fileName    = l[0:afterFile]
                 fileName    = l[0:afterFile]
                 if not os.path.isabs(fileName):
@@ -626,19 +626,19 @@ def clVimFilter(msgs):
                 if lineNoStr.isdigit():
                             # like col2map.c(85) : warning C4244: etc.
                             #  sep counter:    123
-                    fileName=absCygFile(l,afterFile)
+                    fileName=absCygFile(l, afterFile)
                     msg         = l[e+4:]
-                    return "%s:%s::%s" % (fileName,lineNoStr,msg)
+                    return "%s:%s::%s" % (fileName, lineNoStr, msg)
             afterFile = l.find(":")
             if afterFile != -1:
-                afterLineNr= l.find(":",afterFile+1)
+                afterLineNr= l.find(":", afterFile+1)
                 if afterLineNr != -1:
                     lineNoStr = l[afterFile+1:afterLineNr]
                     if lineNoStr.isdigit():
                         # like col2map_col2maptest.cc:101: TODO: etc.
-                        fileName    = absCygFile(l,afterFile)
+                        fileName    = absCygFile(l, afterFile)
                         msg         = l[afterLineNr+1:]
-                        return "%s:%s::%s" % (fileName,lineNoStr,msg)
+                        return "%s:%s::%s" % (fileName, lineNoStr, msg)
             # as is
             return l
 

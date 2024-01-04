@@ -144,6 +144,27 @@ using match_function  = std::function<subrange(const arg_string&)>;
 
 /*************************************************************************//**
  *
+ * @brief type txt (NOT FOR DIRECT USE IN CLIENT CODE!)
+ *        no interface guarantees; might be changed or removed in the future
+ *
+ *****************************************************************************/
+namespace txt {
+	inline bool isspace(char c) {
+		return (c >= 0) && std::isspace(c);
+	}
+	inline bool isdigit(char c) {
+		return (c >= 0) && std::isdigit(c);
+	}
+	inline bool isalnum(char c) {
+		return (c >= 0) && std::isalnum(c);
+	}
+	inline bool isalpha(char c) {
+		return (c >= 0) && std::isalpha(c);
+	}
+}
+
+/*************************************************************************//**
+ *
  * @brief type traits (NOT FOR DIRECT USE IN CLIENT CODE!)
  *        no interface guarantees; might be changed or removed in the future
  *
@@ -159,8 +180,13 @@ template<class Fn, class Ret, class... Args>
 constexpr auto
 check_is_callable(int) -> decltype(
     std::declval<Fn>()(std::declval<Args>()...),
+#if defined(__cpp_lib_is_invocable)
+    std::integral_constant<bool,
+        std::is_same<Ret,typename std::invoke_result<Fn,Args...>::type>::value>{} );
+#else
     std::integral_constant<bool,
         std::is_same<Ret,typename std::result_of<Fn(Args...)>::type>::value>{} );
+#endif
 
 template<class,class,class...>
 constexpr auto
@@ -170,8 +196,13 @@ template<class Fn, class Ret>
 constexpr auto
 check_is_callable_without_arg(int) -> decltype(
     std::declval<Fn>()(),
+#if defined(__cpp_lib_is_invocable)
     std::integral_constant<bool,
-        std::is_same<Ret,typename std::result_of<Fn()>::type>::value>{} );
+        std::is_same<Ret,typename std::invoke_result<Fn>::type>::value>{} );
+#else
+    std::integral_constant<bool,
+        std::is_same<Ret,typename std::result_of<Fn>::type>::value>{} );
+#endif
 
 template<class,class>
 constexpr auto
@@ -298,9 +329,8 @@ inline bool
 fwd_to_unsigned_int(const char*& s)
 {
     if(!s) return false;
-    for(; std::isspace(*s); ++s);
+    for(; txt::isspace(*s); ++s);
     if(!s[0] || s[0] == '-') return false;
-    if(s[0] == '-') return false;
     return true;
 }
 
@@ -694,7 +724,7 @@ trimr(std::basic_string<C,T,A>& s)
 
     s.erase(
         std::find_if_not(s.rbegin(), s.rend(),
-                         [](char c) { return std::isspace(c);} ).base(),
+                         [](char c) { return txt::isspace(c);} ).base(),
         s.end() );
 }
 
@@ -713,7 +743,7 @@ triml(std::basic_string<C,T,A>& s)
     s.erase(
         s.begin(),
         std::find_if_not(s.begin(), s.end(),
-                         [](char c) { return std::isspace(c);})
+                         [](char c) { return txt::isspace(c);})
     );
 }
 
@@ -744,7 +774,7 @@ remove_ws(std::basic_string<C,T,A>& s)
     if(s.empty()) return;
 
     s.erase(std::remove_if(s.begin(), s.end(),
-                           [](char c) { return std::isspace(c); }),
+                           [](char c) { return txt::isspace(c); }),
             s.end() );
 }
 
@@ -967,16 +997,16 @@ first_number_match(std::basic_string<C,T,A> s,
             }
             else if(exp != string_t::npos && (exp+1) == j) {
                 //only sign or digit after exponent separator
-                if(s[j] != '+' && s[j] != '-' && !std::isdigit(s[j])) break;
+                if(s[j] != '+' && s[j] != '-' && !txt::isdigit(s[j])) break;
             }
-            else if(!std::isdigit(s[j])) {
+            else if(!txt::isdigit(s[j])) {
                 break;
             }
         }
     }
 
     //if length == 1 then must be a digit
-    if(j-i == 1 && !std::isdigit(s[i])) return subrange{};
+    if(j-i == 1 && !txt::isdigit(s[i])) return subrange{};
 
     return subrange{i,j-i};
 }
@@ -1010,12 +1040,12 @@ first_integer_match(std::basic_string<C,T,A> s,
         }
         else {
             sep = false;
-            if(!std::isdigit(s[j])) break;
+            if(!txt::isdigit(s[j])) break;
         }
     }
 
     //if length == 1 then must be a digit
-    if(j-i == 1 && !std::isdigit(s[i])) return subrange{};
+    if(j-i == 1 && !txt::isdigit(s[i])) return subrange{};
 
     return subrange{i,j-i};
 }
@@ -1621,7 +1651,7 @@ nonempty(const arg_string& s) {
 inline bool
 alphanumeric(const arg_string& s) {
     if(s.empty()) return false;
-    return std::all_of(s.begin(), s.end(), [](char c) {return std::isalnum(c); });
+    return std::all_of(s.begin(), s.end(), [](char c) {return txt::isalnum(c); });
 }
 
 
@@ -1634,7 +1664,7 @@ alphanumeric(const arg_string& s) {
  *****************************************************************************/
 inline bool
 alphabetic(const arg_string& s) {
-    return std::all_of(s.begin(), s.end(), [](char c) {return std::isalpha(c); });
+    return std::all_of(s.begin(), s.end(), [](char c) {return txt::isalpha(c); });
 }
 
 
@@ -2811,7 +2841,7 @@ public:
             context context_;
         public:
             int level() const noexcept { return level_; }
-            const child* param() const noexcept { return &(*context_.cur); }
+            const child* param() const noexcept { return context_.parent ? &(*context_.cur) : nullptr; }
         };
 
         depth_first_traverser() = default;
@@ -2967,7 +2997,7 @@ public:
         depth_first_traverser&
         operator ++ () {
             if(stack_.empty()) return *this;
-            //at group -> decend into group
+            //at group -> descend into group
             if(stack_.back().cur->is_group()) {
                 stack_.emplace_back(stack_.back().cur->as_group());
             }
@@ -4258,7 +4288,7 @@ private:
             //but if the current scope is the first element, then we are
             //conceptually at a position 'before' the group
             repeatGroupStarted_ = scopes_.empty() || (
-                    newrg == pos_.root() &&
+                    newrg == pos_.root() && !pos_.root()->empty() &&
                     scopes_.top().param() == &(*pos_.root()->begin()) );
         }
         repeatGroupContinues_ = repeatGroupStarted_;
@@ -4322,7 +4352,7 @@ private:
             pos_.undo(scopes_.top());
             scopes_.pop();
         }
-    }
+    };
 
     dfs_traverser pos_;
     dfs_traverser lastMatch_;
@@ -4441,7 +4471,7 @@ longest_prefix_match(scoped_dfs_traverser pos, const arg_string& arg,
                     }
                     else if(match.length() > longest.length()) {
                         longest = match_t{arg.substr(match.at(), match.length()),
-                                          pos};
+                                          std::move(pos)};
                     }
                 }
             }
@@ -4645,8 +4675,8 @@ public:
     missing_events missed() const {
         missing_events misses;
         misses.reserve(missCand_.size());
-        for(const auto & i : missCand_) {
-            misses.emplace_back(&(i.pos->as_param()), i.index);
+        for(auto i = missCand_.begin(); i != missCand_.end(); ++i) {
+            misses.emplace_back(&(i->pos->as_param()), i->index);
         }
         return misses;
     }
@@ -4848,7 +4878,7 @@ private:
             matches.push_back(std::move(match));
         }
 
-        if(!arg.empty() || matches.empty()) return false;
+        if(matches.empty()) return false;
 
         if(!parse.missCand_.empty()) return false;
         for(const auto& a : parse.args_) if(a.any_error()) return false;
@@ -5177,14 +5207,14 @@ void sanitize_args(arg_list& args)
 
     for(auto i = begin(args)+1; i != end(args); ++i) {
         if(i != begin(args) && i->size() > 1 &&
-            i->find('.') == 0 && std::isdigit((*i)[1]) )
+            i->find('.') == 0 && txt::isdigit((*i)[1]) )
         {
             //find trailing digits in previous arg
             using std::prev;
             auto& prv = *prev(i);
             auto fstDigit = std::find_if_not(prv.rbegin(), prv.rend(),
                 [](arg_string::value_type c){
-                    return std::isdigit(c);
+                    return txt::isdigit(c);
                 }).base();
 
             //handle leading sign
@@ -5322,7 +5352,7 @@ parse(InputIterator first, InputIterator last, const group& cli)
  *
  *****************************************************************************/
 inline parsing_result
-parse(const int argc, char* argv[], const group& cli, arg_index offset = 1)
+parse(const int argc, const char** argv, const group& cli, arg_index offset = 1)
 {
     arg_list args;
     if(offset < argc) args.assign(argv+offset, argv+argc);
@@ -5330,6 +5360,16 @@ parse(const int argc, char* argv[], const group& cli, arg_index offset = 1)
     return detail::parse_and_execute(args, cli, offset);
 }
 
+/*************************************************************************//**
+ *
+ * @brief parses the standard array of command line arguments; omits argv[0]
+ *
+ *****************************************************************************/
+inline parsing_result
+parse(const int argc, char** argv, const group& cli, arg_index offset = 1)
+{
+	return parse(argc, (const char **)argv, cli, offset);
+}
 
 
 
@@ -5904,7 +5944,7 @@ private:
     template<class Iter>
     bool only_whitespace(Iter first, Iter last) const {
         return last == std::find_if_not(first, last,
-                [](char_type c) { return std::isspace(c); });
+                [](char_type c) { return txt::isspace(c); });
     }
 
     /** @brief write any object */
@@ -5960,7 +6000,7 @@ private:
         if(at_begin_of_line()) {
             //discard whitespace, it we start a new line
             first = std::find_if(first, last,
-                        [](char_type c) { return !std::isspace(c); });
+                        [](char_type c) { return !txt::isspace(c); });
             if(first == last) return;
         }
 
@@ -5970,11 +6010,11 @@ private:
         if(n > m) {
             //break before word, if break is mid-word
             auto breakat = first + m;
-            while(breakat > first && !std::isspace(*breakat)) --breakat;
+            while(breakat > first && !txt::isspace(*breakat)) --breakat;
             //could not find whitespace before word -> try after the word
-            if(!std::isspace(*breakat) && breakat == first) {
+            if(!txt::isspace(*breakat) && breakat == first) {
                 breakat = std::find_if(first+m, last,
-                          [](char_type c) { return std::isspace(c); });
+                          [](char_type c) { return txt::isspace(c); });
             }
             if(breakat > first) {
                 if(curCol_ < 1) ++totalNonBlankLines_;
@@ -6815,17 +6855,41 @@ public:
 
     //---------------------------------------------------------------
     man_page& program_name(const string& n) {
-        progName_ = n;
+        progName_ = program_basename(n);
         return *this;
     }
     man_page& program_name(string&& n) {
-        progName_ = std::move(n);
+        progName_ = program_basename(n);
         return *this;
     }
     const string& program_name() const noexcept {
         return progName_;
     }
 
+	static const string program_basename(const string& progname) {
+		// clip off the exe path, i.e. execute equivalent of basename(progname, ".exe")
+		auto sep_pos = progname.find_last_of(":/\\");
+		auto end_pos = progname.size();
+		const doc_string exe = ".exe";
+		if (exe.size() < progname.size() && std::equal(exe.rbegin(), exe.rend(), progname.rbegin()))
+		{
+			end_pos -= exe.size();
+		}
+		if (sep_pos == doc_string::npos)
+		{
+			sep_pos = 0;
+		}
+		else
+		{
+			sep_pos++;
+		}
+
+		if (sep_pos > 0 || end_pos < progname.size())
+		{
+			return progname.substr(sep_pos, end_pos - sep_pos);
+		}
+		return progname;
+	}
 
     //---------------------------------------------------------------
     man_page& section_row_spacing(int rows) {
@@ -6855,7 +6919,8 @@ make_man_page(const group& cli,
               const doc_formatting& fmt = doc_formatting{})
 {
     man_page man;
-    man.append_section("SYNOPSIS", usage_lines(cli,progname,fmt).str());
+	man.program_name(progname);
+    man.append_section("SYNOPSIS", usage_lines(cli, man.program_name(),fmt).str());
     man.append_section("OPTIONS", documentation(cli,fmt).str());
     return man;
 }

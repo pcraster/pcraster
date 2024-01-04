@@ -64,7 +64,7 @@ class ValueFromParameterTable(object):
 
                 if len(key.split()) != nrColumns:
                     tmp = re.sub("\(|\)|,", "", str(key))
-                    msg = "Error reading %s line %d, order of columns given (%s columns) does not match expected order of %s columns" %(self._fileName, lineNumber, len(key.split()) + 2, int(nrColumns) + 2)
+                    msg = "Error reading %s line %d, order of columns given (%s columns) does not match expected order of %s columns" % (self._fileName, lineNumber, len(key.split()) + 2, int(nrColumns) + 2)
                     raise ValueError(msg)
 
                 variableValue = re.sub('\"', "", variableValue)
@@ -101,7 +101,7 @@ class ValueFromParameterTable(object):
                         try:
                             tmp = pcraster.readmap(path)
                         except RuntimeError as e:
-                            msg = "Error reading %s line %d, %s" %(self._fileName, lineNumber, e)
+                            msg = "Error reading %s line %d, %s" % (self._fileName, lineNumber, e)
                             raise ValueError(msg)
 
                 # test if key is an external name
@@ -120,12 +120,12 @@ class ValueFromParameterTable(object):
 
                 if not key in keyDict:
                     tmp = re.sub("\(|\)|,", "", str(key))
-                    msg = "Error reading %s line %d, %s unknown collection index" %(self._fileName, lineNumber, tmp)
+                    msg = "Error reading %s line %d, %s unknown collection index" % (self._fileName, lineNumber, tmp)
                     raise ValueError(msg)
 
                 if not keyDict[key] is None:
                     tmp = re.sub("\(|\)|,", "", str(key))
-                    msg = "Error reading %s line %d, %s %s already initialised" %(self._fileName, lineNumber, self._varName, tmp)
+                    msg = "Error reading %s line %d, %s %s already initialised" % (self._fileName, lineNumber, self._varName, tmp)
                     raise ValueError(msg)
 
                 keyDict[key] = tmp

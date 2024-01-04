@@ -182,7 +182,7 @@ def pcrtree( *path ):
         #   return os.environ['PCRTREE_NTPATH']
         # else:
         #   assert false, 'os not supported yet'
-    p=getEnv()
+    p = getEnv()
     for d in path:
         p = os.path.join(p, d)
     return p
@@ -194,7 +194,7 @@ def devenv( *path ):
     def getEnv():
         assert("DEVENV" in os.environ)
         return os.environ['DEVENV']
-    p=getEnv()
+    p = getEnv()
     return p
 
 
@@ -211,8 +211,8 @@ def pcrtreeRelativePath(absPath):
         --unix    /cygdrive/c/d/pcrtree
     """
     assert os.path.isabs(absPath)
-    if absPath.find("/cygdrive")==0:
-        absPath =executeOneLine("cygpath --mixed \""+absPath+"\"")
+    if absPath.find("/cygdrive") == 0:
+        absPath = executeOneLine("cygpath --mixed \""+absPath+"\"")
     # +1 for intervening slash
     return absPath[len(pcrtree())+1:].replace("\\", "/")
 
@@ -255,9 +255,9 @@ else:
             self.d_exitStatus  = p.wait()
 
         def stdoutEmpty(self):
-            return len(self.d_stdoutLines)==0
+            return len(self.d_stdoutLines) == 0
         def stderrEmpty(self):
-            return len(self.d_stderrLines)==0
+            return len(self.d_stderrLines) == 0
         def stdoutLines(self):
             return self.d_stdoutLines
         def stdoutText(self):
@@ -307,9 +307,9 @@ else:
                     try:
                             # linux requires string as 1st arg!
                         if type(cmd) == list:
-                            cmdStr=" ".join(cmd)
+                            cmdStr = " ".join(cmd)
                         else:
-                            cmdStr=cmd
+                            cmdStr = cmd
                         process = subprocess.Popen(cmdStr,
                              shell=True, bufsize=bufferSize,
                              stdout=sOut.createFile(), stderr=sErr.createFile() )
@@ -319,8 +319,8 @@ else:
                         sErr.close()
                         raise Exception(str(exception))
                 finally:
-                    self.stdout=sOut.lines()
-                    self.stderr=sErr.lines()
+                    self.stdout = sOut.lines()
+                    self.stderr = sErr.lines()
 
                 sOut.close()
                 sErr.close()
@@ -606,7 +606,7 @@ def clVimFilter(msgs):
         if not l.find("scons: Entering directory"):
             continue
         # compilation unit printed (e.g. main.c on single line)
-        if len(l.split())==1:
+        if len(l.split()) == 1:
             singleWordSplit = l.split(".")
             if len(singleWordSplit) >= 2 and singleWordSplit[1] in [ 'c', 'cc', 'cpp', 'res']:
                 continue
@@ -626,12 +626,12 @@ def clVimFilter(msgs):
                 if lineNoStr.isdigit():
                             # like col2map.c(85) : warning C4244: etc.
                             #  sep counter:    123
-                    fileName=absCygFile(l, afterFile)
+                    fileName = absCygFile(l, afterFile)
                     msg         = l[e+4:]
                     return "%s:%s::%s" % (fileName, lineNoStr, msg)
             afterFile = l.find(":")
             if afterFile != -1:
-                afterLineNr= l.find(":", afterFile+1)
+                afterLineNr = l.find(":", afterFile+1)
                 if afterLineNr != -1:
                     lineNoStr = l[afterFile+1:afterLineNr]
                     if lineNoStr.isdigit():

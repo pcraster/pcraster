@@ -283,7 +283,7 @@ def gauss(AMatrix, BMatrix):
     for i in range(n-2, -1, -1):
         top = B[i]
         for j in range(i+1, n):
-            top = top - (A[i][j]* coefficients[j])
+            top = top - (A[i][j] * coefficients[j])
         assert(A[i][i] != 0), \
            "Divide by zero encountered in solution"
         coefficients[i] = float(top) / A[i][i]

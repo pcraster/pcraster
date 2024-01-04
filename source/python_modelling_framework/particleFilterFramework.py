@@ -226,13 +226,13 @@ class ParticleFilterFramework(frameworkBase.FrameworkBase):
             if samplesToClone[i - 1] == 0:
                 notClonedSamples.append(i)
                 # record the samples which are deleted
-                el1 = str(self._userModel()._d_filterPeriod) + "-"+ str(i)
+                el1 = str(self._userModel()._d_filterPeriod) + "-" + str(i)
                 el2 = 0
                 self._d_trackCloned[el1] = el2
             elif samplesToClone[i - 1] == 1:
                 # record the samples which are continued, but not cloned
-                el1 = str(self._userModel()._d_filterPeriod) + "-"+ str(i)
-                el2 = str(self._userModel()._d_filterPeriod + 1) + "-"+ str(i)
+                el1 = str(self._userModel()._d_filterPeriod) + "-" + str(i)
+                el2 = str(self._userModel()._d_filterPeriod + 1) + "-" + str(i)
                 self._d_trackCloned[el1] = el2
 
         # rm state in 'dead' samples
@@ -248,7 +248,7 @@ class ParticleFilterFramework(frameworkBase.FrameworkBase):
         # each cloned sample
         for i in range(0, len(clonedSamples)):
             # record which sample is cloned
-            clonedFrom = str(self._userModel()._d_filterPeriod) + "-"+ str(clonedSamples[i])
+            clonedFrom = str(self._userModel()._d_filterPeriod) + "-" + str(clonedSamples[i])
             clonedTo = []
             # how often current sample cloned? Do not clone yourself
             for j in range(1, int(samplesToClone[clonedSamples[i] - 1])):
@@ -263,10 +263,10 @@ class ParticleFilterFramework(frameworkBase.FrameworkBase):
                     # record the cloned sample as 'continuing itself'
                     clonedTo.append(str(self._userModel()._d_filterPeriod + 1) + "-" + str(clonedSamples[i]))
                     # record the clone
-                    clonedTo.append(str(self._userModel()._d_filterPeriod + 1) + "-"+ sample)
+                    clonedTo.append(str(self._userModel()._d_filterPeriod + 1) + "-" + sample)
                 else:
                     # record the clone
-                    clonedTo.append(str(self._userModel()._d_filterPeriod + 1) + "-"+ sample)
+                    clonedTo.append(str(self._userModel()._d_filterPeriod + 1) + "-" + sample)
             self._d_trackCloned[clonedFrom] = clonedTo
 
     def _normaliseWeights(self,
@@ -303,7 +303,7 @@ class ParticleFilterFramework(frameworkBase.FrameworkBase):
             startTimestep = 1
             endTimestep = self._userModel()._d_filterTimesteps[currentPeriod]
         elif currentPeriod == lastPeriod:
-            startTimestep = self._userModel()._d_filterTimesteps[currentPeriod -1] + 1
+            startTimestep = self._userModel()._d_filterTimesteps[currentPeriod - 1] + 1
             endTimestep = self._d_totalTimesteps
         else:
             startTimestep = self._userModel()._d_filterTimesteps[currentPeriod - 1] + 1

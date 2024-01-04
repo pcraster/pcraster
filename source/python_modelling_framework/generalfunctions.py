@@ -8,7 +8,7 @@ from pcraster import *
 
 
 def getCellValue(Map, Row, Column):
-    Value, Valid=cellvalue(Map, Row, Column)
+    Value, Valid = cellvalue(Map, Row, Column)
     if Valid:
         return Value
     else:
@@ -17,13 +17,13 @@ def getCellValue(Map, Row, Column):
 
 def getCellValueAtBooleanLocation(location, map):
     # map can be any type, return value always float
-    valueMap=mapmaximum(ifthen(location, scalar(map)))
-    value=getCellValue(valueMap, 1, 1)
+    valueMap = mapmaximum(ifthen(location, scalar(map)))
+    value = getCellValue(valueMap, 1, 1)
     return value
 
 
 def printCellValue(self, mapVariable, variableNameToPrint, unit, row, column):
-    cellValue=getCellValue(mapVariable, row, column)
+    cellValue = getCellValue(mapVariable, row, column)
     print(variableNameToPrint + ' (' + unit + ') at row ' + str(row) + ', column: ' + str(column) + ' is: ' + str(cellValue))
 
 
@@ -36,38 +36,38 @@ def onePeriod(self, startTime, endTime, timeStepDuration, currentTimeStep):
 
 
 def mapeq(mapOne, mapTwo):
-    mapOneScalar=scalar(mapOne)
-    mapTwoScalar=scalar(mapTwo)
-    difference=mapOneScalar-mapTwoScalar
-    cellEqual=pcreq(difference, scalar(0))
-    mapEqual=pcrgt(mapminimum(scalar(cellEqual)), scalar(0.5))
+    mapOneScalar = scalar(mapOne)
+    mapTwoScalar = scalar(mapTwo)
+    difference = mapOneScalar-mapTwoScalar
+    cellEqual = pcreq(difference, scalar(0))
+    mapEqual = pcrgt(mapminimum(scalar(cellEqual)), scalar(0.5))
     return getCellValue(mapEqual, 1, 1)
 
 
 def slopeToDownstreamNeighbour(dem, ldd):
-    slopeToDownstreamNeighbour=(dem-downstream(ldd, dem))/downstreamdist(ldd)
+    slopeToDownstreamNeighbour = (dem-downstream(ldd, dem))/downstreamdist(ldd)
     return slopeToDownstreamNeighbour
 
 
 def slopeToDownstreamNeighbourNotFlat(dem, ldd, minSlope):
-    slopeToDownstreamNeighbourMap=slopeToDownstreamNeighbour(dem, ldd)
-    lddArea=defined(ldd)
-    minSlopeCover=ifthen(lddArea, scalar(minSlope))
-    slopeToDownstreamNeighbourNotFlat=cover(max(minSlopeCover, slopeToDownstreamNeighbourMap), minSlopeCover)
+    slopeToDownstreamNeighbourMap = slopeToDownstreamNeighbour(dem, ldd)
+    lddArea = defined(ldd)
+    minSlopeCover = ifthen(lddArea, scalar(minSlope))
+    slopeToDownstreamNeighbourNotFlat = cover(max(minSlopeCover, slopeToDownstreamNeighbourMap), minSlopeCover)
     return slopeToDownstreamNeighbourNotFlat
 
 
 def distancetodownstreamcell(Ldd):
-    distanceToDownstreamCell=max(downstreamdist(Ldd), celllength())
+    distanceToDownstreamCell = max(downstreamdist(Ldd), celllength())
     return distanceToDownstreamCell
 
 
 def createTimeSeriesList(timeSeriesFile):
     file = open(timeSeriesFile, 'r')
     piet = file.readlines()
-    newList=[]
+    newList = []
     for line in piet:
-        lineList=string.split(line)
+        lineList = string.split(line)
         newList.append(lineList)
     file.close()
     return newList
@@ -84,6 +84,6 @@ def normalcorrelated(normalX, normalY, correlation):
     # x=normal()
     # y=ax+b*normal()
     # correlation = a /  sqrt( sqr(a) + sqr(b) )
-    x=scalar(normalX)
-    y=(x+sqrt((1/sqr(correlation))-1)*scalar(normalY)) * scalar(correlation)
+    x = scalar(normalX)
+    y = (x+sqrt((1/sqr(correlation))-1)*scalar(normalY)) * scalar(correlation)
     return x, y

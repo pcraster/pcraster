@@ -206,7 +206,7 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
                         stateVector = self._userModel().setState()
                         self._userModel()._d_inUpdateWeight = False
                         assert type(stateVector) == numpy.ndarray
-                        fileName = os.path.join("stateVector", 'ensMember%s.tmp' %(sample))
+                        fileName = os.path.join("stateVector", 'ensMember%s.tmp' % (sample))
                         file = open(fileName, 'wb')
                         pickle.dump(stateVector, file)
                         file.close()
@@ -238,13 +238,13 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
         # H matrix 'measurement operator'
         # D matrix with observations
 
-        fileName = os.path.join("stateVector", 'ensMember%s.tmp' %(str(1)))
+        fileName = os.path.join("stateVector", 'ensMember%s.tmp' % (str(1)))
         file = open(fileName, 'rb')
         vec = pickle.load(file)
         sizeStateVector = len(vec)
         file.close()
         # length of the observed vector \todo do we know that?
-        fileName = os.path.join("observedState", "obs%s.tmp" %(self._userModel()._d_filterTimesteps[self._userModel()._d_filterPeriod]))
+        fileName = os.path.join("observedState", "obs%s.tmp" % (self._userModel()._d_filterTimesteps[self._userModel()._d_filterPeriod]))
         file = open(fileName, 'rb')
         vec = pickle.load(file)
         sizeObservedVector = len(vec)
@@ -257,7 +257,7 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
 
         # \todo is there a better way to construct a matrix from vecors?
         for sample in range(1, self._userModel().nrSamples() + 1):
-            fileName = os.path.join("stateVector", 'ensMember%s.tmp' %(sample))
+            fileName = os.path.join("stateVector", 'ensMember%s.tmp' % (sample))
             file = open(fileName, 'rb')
             vec = pickle.load(file)
             file.close()
@@ -265,7 +265,7 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
                 A[i, sample-1] = vec[i]
 
         # obtain H specified by user
-        fileName = os.path.join("observedState", "h%s.tmp" %(self._userModel()._d_filterTimesteps[self._userModel()._d_filterPeriod]))
+        fileName = os.path.join("observedState", "h%s.tmp" % (self._userModel()._d_filterTimesteps[self._userModel()._d_filterPeriod]))
         if os.path.exists(fileName):
             file = open(fileName, 'rb')
             H = pickle.load(file)
@@ -274,23 +274,23 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
             # or use the identiy matrix
             H = numpy.eye(sizeObservedVector, sizeStateVector, dtype=float)
 
-        assert H.shape == (sizeObservedVector, sizeStateVector), "Shape of provided matrix H %s does not match (%s, %s)" %(H.shape, sizeObservedVector, sizeStateVector)
+        assert H.shape == (sizeObservedVector, sizeStateVector), "Shape of provided matrix H %s does not match (%s, %s)" % (H.shape, sizeObservedVector, sizeStateVector)
 
         # obtain D
-        fileName = os.path.join("observedState", "obs%s.tmp" %(self._userModel()._d_filterTimesteps[self._userModel()._d_filterPeriod]))
+        fileName = os.path.join("observedState", "obs%s.tmp" % (self._userModel()._d_filterTimesteps[self._userModel()._d_filterPeriod]))
         file = open(fileName, 'rb')
         D = pickle.load(file)
         file.close()
 
-        assert D.shape == (sizeObservedVector, nrEnsembleMembers), "Shape of provided matrix D %s does not match (%s, %s)" %(D.shape, sizeObservedVector, nrEnsembleMembers)
+        assert D.shape == (sizeObservedVector, nrEnsembleMembers), "Shape of provided matrix D %s does not match (%s, %s)" % (D.shape, sizeObservedVector, nrEnsembleMembers)
 
         # obtain error covariance matrix
-        fileName = os.path.join("observedState", "cov%s.tmp" %(self._userModel()._d_filterTimesteps[self._userModel()._d_filterPeriod]))
+        fileName = os.path.join("observedState", "cov%s.tmp" % (self._userModel()._d_filterTimesteps[self._userModel()._d_filterPeriod]))
         file = open(fileName, 'rb')
         Re = pickle.load(file)
         file.close()
 
-        assert Re.shape == (sizeObservedVector, sizeObservedVector), "Shape of provided matrix Re %s does not match (%s, %s)" %(Re.shape, sizeObservedVector, sizeObservedVector)
+        assert Re.shape == (sizeObservedVector, sizeObservedVector), "Shape of provided matrix Re %s does not match (%s, %s)" % (Re.shape, sizeObservedVector, sizeObservedVector)
 
         # calculate Pe
         Abar = numpy.dot(A, numpy.array( [[1.0/nrEnsembleMembers] * nrEnsembleMembers ] * nrEnsembleMembers, dtype=float))
@@ -312,7 +312,7 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
         A = A + numpy.dot(PeHt, INVDmAH)
 
         for sample in range(1, self._userModel().nrSamples() + 1):
-            fileName = os.path.join("stateVector", 'a%s.tmp' %(sample))
+            fileName = os.path.join("stateVector", 'a%s.tmp' % (sample))
             file = open(fileName, 'wb')
             index = sample - 1
             vec = A[:, index]
@@ -322,7 +322,7 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
 
     ## \brief Returns the updated variables
     def getStateVector(self, sampleNumber):
-        fileName = os.path.join("stateVector", 'a%s.tmp' %(sampleNumber))
+        fileName = os.path.join("stateVector", 'a%s.tmp' % (sampleNumber))
         file = open(fileName, 'rb')
         vec = pickle.load(file)
         file.close()
@@ -355,7 +355,7 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
             startTimestep = 1
             endTimestep = self._userModel()._d_filterTimesteps[currentPeriod]
         elif currentPeriod == lastPeriod:
-            startTimestep = self._userModel()._d_filterTimesteps[currentPeriod -1] + 1
+            startTimestep = self._userModel()._d_filterTimesteps[currentPeriod - 1] + 1
             endTimestep = self._d_totalTimesteps
         else:
             startTimestep = self._userModel()._d_filterTimesteps[currentPeriod - 1] + 1

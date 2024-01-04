@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
-import sys
 import re
 import os
-import inspect
-import copy
 import itertools
 import pcraster
 import pcraster.collection

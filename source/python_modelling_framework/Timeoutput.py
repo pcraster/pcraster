@@ -3,7 +3,6 @@
 
 import pcraster
 import os
-import re
 from decimal import Decimal
 
 class TimeoutputTimeseries(object):

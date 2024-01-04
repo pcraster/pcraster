@@ -2,7 +2,6 @@
 import math
 import os
 import shutil
-import string
 import numpy
 import numpy.ma
 from pcraster import *

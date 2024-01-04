@@ -3,7 +3,6 @@
 
 
 from numpy import *
-import sys
 
 
 

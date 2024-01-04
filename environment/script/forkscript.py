@@ -1,6 +1,6 @@
 """Functionality for applications with sub processes."""
 
-import copy, os, signal, time, sys
+import os, signal, time, sys
 
 
 

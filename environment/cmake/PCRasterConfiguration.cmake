@@ -133,8 +133,10 @@ endif()
 
 if(PCRASTER_BUILD_MULTICORE)
     CPMAddPackage(
-        GITHUB_REPOSITORY geoneric/fern
-        GIT_TAG c8d3152d029dc488cccd2edefdd8cff1d797f3c7
+        # GITHUB_REPOSITORY geoneric/fern
+        # GIT_TAG c8d3152d029dc488cccd2edefdd8cff1d797f3c7
+        GITHUB_REPOSITORY pcraster/fern
+        GIT_TAG build_fix_gh88
         OPTIONS "FERN_BUILD_ALGORITHM ON" "FERN_BUILD_TEST ${PCRASTER_BUILD_TEST}" "DEVBASE_BUILD_TEST ${PCRASTER_BUILD_TEST}" "CMAKE_SKIP_INSTALL_RULES ON"
     )
     # Just recreate an empty file to install nothing from Fern when installing PCRaster

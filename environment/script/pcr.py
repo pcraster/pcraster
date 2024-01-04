@@ -1,8 +1,11 @@
-import os, os.path, re
+import os
+import os.path
+import re
 import stat
 import string
 import sys
-import time, warnings
+import time
+import warnings
 
 warnings.filterwarnings(u"ignore",
          u"tempnam is a potential security risk to your program",

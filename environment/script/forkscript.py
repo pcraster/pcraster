@@ -1,6 +1,9 @@
 """Functionality for applications with sub processes."""
 
-import os, signal, time, sys
+import os
+import signal
+import time
+import sys
 
 
 class ChildProcess:

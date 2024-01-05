@@ -39,7 +39,6 @@ jobs:
                   -D PCRASTER_BUILD_TEST=ON \
                   -D PCRASTER_WITH_QT6=ON \
                   -D CMAKE_PREFIX_PATH="/usr/local/opt/ncurses;$(brew --prefix qt6)" \
-                  -D Python3_EXECUTABLE:FILEPATH=$(brew --prefix)/opt/python@3.12/bin/python3 \
                   -D CMAKE_INSTALL_PREFIX=package
 
         - name: Build debug

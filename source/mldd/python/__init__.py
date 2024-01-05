@@ -10,7 +10,7 @@ import sys
 if sys.platform == "win32":
     pcraster_app_path = shutil.which("pcrcalc.exe")
     if pcraster_app_path:
-        pcraster_bin_pathname = pathlib.Path(pcraster_app_path).parent
+        pcraster_bin_pathname = pathlib.Path(pcraster_app_path).parent.absolute()
         os.add_dll_directory(pcraster_bin_pathname)
 
 

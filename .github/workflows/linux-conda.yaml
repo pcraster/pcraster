@@ -17,7 +17,7 @@ jobs:
 
         name: ${{ matrix.os }} - ${{ matrix.python-version }}
 
-        timeout-minutes: 120
+        timeout-minutes: 90
 
         steps:
 
@@ -27,9 +27,9 @@ jobs:
               sudo apt install mesa-common-dev libglu1-mesa-dev libgl1-mesa-glx libegl-dev
 
         - name: Checkout PCRaster
-          uses: actions/checkout@v3
+          uses: actions/checkout@v4
 
-        - uses: conda-incubator/setup-miniconda@v2
+        - uses: conda-incubator/setup-miniconda@v3
           with:
               auto-update-conda: false
               python-version: ${{ matrix.python-version }}

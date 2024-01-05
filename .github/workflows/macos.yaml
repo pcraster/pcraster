@@ -8,25 +8,24 @@ jobs:
     build:
         strategy:
             matrix:
-                os: [macos-11, macos-12]
+                os: [macos-12, macos-13]
             fail-fast: false
 
         runs-on: ${{ matrix.os }}
 
         name: ${{ matrix.os }}
 
-        timeout-minutes: 120
+        timeout-minutes: 90
 
         steps:
 
         - name: Checkout PCRaster
-          uses: actions/checkout@v3
+          uses: actions/checkout@v4
 
         - name: Configure system
           run: |
               : # GDAL is built against particular Python version, check formula code if required
-              brew install python@3.12 pybind11 cmake ninja boost gdal ncurses xerces-c qt@6
-              $(brew --prefix)/opt/python@3.12/bin/pip3 install numpy psutil
+              brew install gdal pybind11 python-psutil cmake ninja boost ncurses xerces-c qt@6
 
         - name: Configure PCRaster
           shell: bash -l {0}

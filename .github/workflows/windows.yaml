@@ -27,7 +27,7 @@ jobs:
 
         name: ${{ matrix.config.name }}
 
-        timeout-minutes: 120
+        timeout-minutes: 90
 
         steps:
 
@@ -36,9 +36,9 @@ jobs:
           shell: cmd
 
         - name: Checkout PCRaster
-          uses: actions/checkout@v3
+          uses: actions/checkout@v4
 
-        - uses: conda-incubator/setup-miniconda@v2
+        - uses: conda-incubator/setup-miniconda@v3
           with:
               auto-update-conda: false
               python-version: 3.11

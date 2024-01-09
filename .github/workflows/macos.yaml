@@ -5,7 +5,7 @@ on:
     pull_request:
 
 jobs:
-    build:
+    build_release:
         strategy:
             matrix:
                 os: [macos-12, macos-13]
@@ -15,7 +15,66 @@ jobs:
 
         name: ${{ matrix.os }}
 
-        timeout-minutes: 90
+        timeout-minutes: 60
+
+        steps:
+
+        - name: Checkout PCRaster
+          uses: actions/checkout@v4
+
+        - name: Configure system
+          run: |
+              : # GDAL is built against particular Python version, check formula code if required
+              brew install gdal pybind11 python-psutil cmake ninja boost ncurses xerces-c qt@6
+
+        - name: Configure PCRaster
+          shell: bash -l {0}
+          run: |
+              mkdir build
+              cmake \
+                  -S . \
+                  -B build \
+                  -G "Ninja Multi-Config" \
+                  -D CMAKE_CONFIGURATION_TYPES="Release;Debug" \
+                  -D PCRASTER_BUILD_TEST=ON \
+                  -D PCRASTER_WITH_QT6=ON \
+                  -D CMAKE_PREFIX_PATH="/usr/local/opt/ncurses;$(brew --prefix qt6)" \
+                  -D CMAKE_INSTALL_PREFIX=package
+
+        - name: Build release
+          shell: bash
+          run: |
+              cmake --build build --config Release --target all
+
+        - name: Install PCRaster
+          shell: bash
+          run: |
+              cmake --install build --config Release
+
+        - name: Create source package
+          shell: bash
+          run: |
+              cmake --build build --config Release --target package_source
+
+        - name: Test release
+          env:
+              LOGNAME: pcrtester
+          shell: bash
+          run: |
+              ctest --test-dir build --output-on-failure --build-config Release
+
+
+    build_debug:
+        strategy:
+            matrix:
+                os: [macos-12, macos-13]
+            fail-fast: false
+
+        runs-on: ${{ matrix.os }}
+
+        name: ${{ matrix.os }}
+
+        timeout-minutes: 60
 
         steps:
 
@@ -46,31 +105,9 @@ jobs:
           run: |
               cmake --build build --config Debug --target all
 
-        - name: Build release
-          shell: bash
-          run: |
-              cmake --build build --config Release --target all
-
-        - name: Install PCRaster
-          shell: bash
-          run: |
-              cmake --install build --config Release
-
-        - name: Create source package
-          shell: bash
-          run: |
-              cmake --build build --config Release --target package_source
-
         - name: Test debug
           env:
               LOGNAME: pcrtester
           shell: bash
           run: |
               ctest --test-dir build --output-on-failure --build-config Debug
-
-        - name: Test release
-          env:
-              LOGNAME: pcrtester
-          shell: bash
-          run: |
-              ctest --test-dir build --output-on-failure --build-config Release

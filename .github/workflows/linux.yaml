@@ -5,7 +5,7 @@ on:
     pull_request:
 
 jobs:
-    build:
+    build_release:
         strategy:
             matrix:
                 os: [ubuntu-22.04]
@@ -22,7 +22,89 @@ jobs:
 
         name: ${{ matrix.os }};${{ matrix.compiler.cxx }};qt5-${{ matrix.qt6 }}
 
-        timeout-minutes: 90
+        timeout-minutes: 60
+
+        steps:
+
+        - name: Checkout PCRaster
+          uses: actions/checkout@v4
+
+        - name: Configure system
+          run: |
+              sudo apt update
+              sudo apt install ${{ matrix.compiler.cc }} ninja-build gdal-bin libgdal-dev libxerces-c-dev libxml2-dev libxslt1-dev libboost-dev libboost-date-time-dev libboost-test-dev libboost-timer-dev libncurses5-dev libxml2 libxml2-utils mesa-common-dev libglu1-mesa-dev libgl1-mesa-glx python3 libpython3-dev python3-numpy python3-psutil cmake pybind11-dev python3-qgis
+              # Only required for documentation:
+              sudo apt install python3-sphinx doxygen python3-matplotlib graphviz
+
+        - name: Configure system Qt5
+          if: matrix.qt6 == 'OFF'
+          run: |
+              sudo apt install qtbase5-dev libqt5charts5-dev libqt5opengl5-dev
+
+        - name: Configure system Qt6
+          if: matrix.qt6 == 'ON'
+          run: |
+              sudo apt install qt6-base-dev libqt6charts6-dev libqt6opengl6-dev
+
+        - name: Configure PCRaster
+          shell: bash -l {0}
+          run: |
+              mkdir build
+              cmake \
+                  -S . \
+                  -B build \
+                  -G"Ninja Multi-Config" \
+                  -D CMAKE_CONFIGURATION_TYPES="Release;Debug" \
+                  -D CMAKE_C_COMPILER=${{ matrix.compiler.cc }} \
+                  -D CMAKE_CXX_COMPILER=${{ matrix.compiler.cxx }} \
+                  -D PCRASTER_BUILD_TEST=ON \
+                  -D PCRASTER_BUILD_DOCUMENTATION=ON \
+                  -D PCRASTER_WITH_FLAGS_IPO=OFF \
+                  -D PCRASTER_WITH_QT6=${{ matrix.qt6 }} \
+                  -D Python3_EXECUTABLE:FILEPATH=/usr/bin/python3 \
+                  -D CMAKE_INSTALL_PREFIX=package
+
+        - name: Build release
+          shell: bash -l {0}
+          run: |
+              cmake --build build --config Release --target all
+
+        - name: Install PCRaster
+          shell: bash -l {0}
+          run: |
+              cmake --install build --config Release
+
+        - name: Create source package
+          shell: bash -l {0}
+          run: |
+              cmake --build build --config Release --target package_source
+
+        - name: Test release
+          env:
+              LOGNAME: pcrtester
+          shell: bash -l {0}
+          run: |
+              ctest --test-dir build --output-on-failure --build-config Release
+
+
+    build_debug:
+        strategy:
+            matrix:
+                os: [ubuntu-22.04]
+                qt6: ["ON", "OFF"]
+                compiler:
+                    - { cc: gcc-11  , cxx: g++-11    }
+                    - { cc: gcc-12  , cxx: g++-12    }
+                    - { cc: clang-11, cxx: clang++-11}
+                    - { cc: clang-13, cxx: clang++-13}
+                    - { cc: clang-15, cxx: clang++-15}
+            fail-fast: false
+
+        runs-on: ${{ matrix.os }}
+
+        name: ${{ matrix.os }};${{ matrix.compiler.cxx }};qt5-${{ matrix.qt6 }}
+
+        timeout-minutes: 60
 
         steps:
 
@@ -69,31 +151,9 @@ jobs:
           run: |
               cmake --build build --config Debug --target all
 
-        - name: Build release
-          shell: bash -l {0}
-          run: |
-              cmake --build build --config Release --target all
-
-        - name: Install PCRaster
-          shell: bash -l {0}
-          run: |
-              cmake --install build --config Release
-
-        - name: Create source package
-          shell: bash -l {0}
-          run: |
-              cmake --build build --config Release --target package_source
-
         - name: Test debug
           env:
               LOGNAME: pcrtester
           shell: bash -l {0}
           run: |
               ctest --test-dir build --output-on-failure --build-config Debug
-
-        - name: Test release
-          env:
-              LOGNAME: pcrtester
-          shell: bash -l {0}
-          run: |
-              ctest --test-dir build --output-on-failure --build-config Release

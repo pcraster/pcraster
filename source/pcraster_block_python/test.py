@@ -13,8 +13,7 @@ except ImportError as error:
 
 
 suite = unittest.TestSuite()
-suite.addTest(unittest.makeSuite( \
-         usecasetest.UseCaseTest))
+suite.addTest(unittest.TestLoader().loadTestsFromTestCase(usecasetest.UseCaseTest))
 
 result = unittest.TextTestRunner(verbosity=3).run(suite)
 test_result = (0 if result.wasSuccessful() else 1)

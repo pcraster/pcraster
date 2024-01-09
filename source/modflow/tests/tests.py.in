@@ -72,7 +72,7 @@ class Test(testcase.TestCase):
       self.assertEqual(self.mapEqualsValidated(pcraster.readmap(output), "bcf2ss_" + output), True, "{0} deviates from bcf2ss_{1}".format(output, output))
 
 suite = unittest.TestSuite()
-suite.addTest(unittest.makeSuite(Test))
+suite.addTest(unittest.TestLoader().loadTestsFromTestCase(Test))
 
 result = unittest.TextTestRunner(verbosity=3).run(suite)
 test_result = (0 if result.wasSuccessful() else 1)

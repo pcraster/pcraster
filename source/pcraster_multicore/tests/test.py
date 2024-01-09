@@ -727,10 +727,10 @@ class TestMulticore(unittest.TestCase):
 
 
 suite = unittest.TestSuite()
-suite.addTest(unittest.makeSuite(test_import.ImportTest))
-suite.addTest(unittest.makeSuite(TestMulticore))
-suite.addTest(unittest.makeSuite(testexamples_multicore.TestExamples))
-suite.addTest(unittest.makeSuite(testPCRaster.TestPCRaster))
+suite.addTest(unittest.TestLoader().loadTestsFromTestCase(test_import.ImportTest))
+suite.addTest(unittest.TestLoader().loadTestsFromTestCase(TestMulticore))
+suite.addTest(unittest.TestLoader().loadTestsFromTestCase(testexamples_multicore.TestExamples))
+suite.addTest(unittest.TestLoader().loadTestsFromTestCase(testPCRaster.TestPCRaster))
 
 result = unittest.TextTestRunner(verbosity=3).run(suite)
 test_result = (0 if result.wasSuccessful() else 1)

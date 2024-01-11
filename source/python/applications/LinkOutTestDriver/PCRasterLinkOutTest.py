@@ -14,14 +14,14 @@ class PCRasterLinkOutTest(unittest.TestCase):
   def test_c_NonExistant(self):
 
     script = c.pcr_createScriptFromXMLFile("nonExistant")
-    self.failUnless(script != None)
-    self.failUnless(not c.pcr_ScriptError(script))
+    self.assertTrue(script != None)
+    self.assertTrue(not c.pcr_ScriptError(script))
 
     # error cause non existant
     c.pcr_ScriptExecute(script)
-    self.failUnless(c.pcr_ScriptError(script))
+    self.assertTrue(c.pcr_ScriptError(script))
     error = c.pcr_ScriptErrorMessage(script)
-    self.failUnless(error.find("unable to open primary document entity") >= 0 )
+    self.assertTrue(error.find("unable to open primary document entity") >= 0 )
 
   def testDynamicModel(self):
 
@@ -30,8 +30,8 @@ class PCRasterLinkOutTest(unittest.TestCase):
     scalarSpatialBufferType = ctypes.c_float * nrCells
 
     script = c.pcr_createScriptFromXMLFile("dynamicModel.xml")
-    self.failUnless(script != None)
-    self.failUnless(not c.pcr_ScriptError(script))
+    self.assertTrue(script != None)
+    self.assertTrue(not c.pcr_ScriptError(script))
 
     # initialize data array with all 0 ptrs
     dataTransferArraySize = 6
@@ -46,16 +46,16 @@ class PCRasterLinkOutTest(unittest.TestCase):
 
     # create buffer 4: memOutputInitial
     memOutputInitialBuffer = scalarNonSpatialBufferType(-1)
-    self.failUnlessEqual(memOutputInitialBuffer[0], -1)
+    self.assertEqual(memOutputInitialBuffer[0], -1)
     data[4] = ctypes.cast(memOutputInitialBuffer,ctypes.c_void_p)
 
     # call initial, data has values for data used in initial
     # other entries are 0
     c.pcr_ScriptExecuteInitialStepMemory(script, data)
-    self.failUnless(not c.pcr_ScriptError(script))
+    self.assertTrue(not c.pcr_ScriptError(script))
 
     # result of initial is 2 * 2.5
-    self.failUnlessEqual(memOutputInitialBuffer[0], 5.0)
+    self.assertEqual(memOutputInitialBuffer[0], 5.0)
 
     # set up data for dynamic part
 
@@ -95,7 +95,7 @@ class PCRasterLinkOutTest(unittest.TestCase):
     step = 1
     while step <= 3:
       status = c.pcr_ScriptExecuteNextTimeStepMemory(script, data)
-      self.failUnless(status >= 0)
+      self.assertTrue(status >= 0)
       if status == 0 and _enablePrintInExamples:
         print("last timestep executed")
 
@@ -117,6 +117,6 @@ class PCRasterLinkOutTest(unittest.TestCase):
         indexedArray.values[i] -= 0.1
 
       error = c.pcr_ScriptErrorMessage(script)
-      self.failUnless(not c.pcr_ScriptError(script))
+      self.assertTrue(not c.pcr_ScriptError(script))
 
       step = step + 1

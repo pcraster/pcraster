@@ -45,9 +45,9 @@ class staticFrameworkTestScript(testcase.TestCase):
     staticModelFw.run()
     try:
       result = pcraster.readmap("static.map")
-      self.failUnless(self.mapEquals(result, "plus.Result.map"), "test_4: %s" % ("Result and validated result are not the same"))
+      self.assertTrue(self.mapEquals(result, "plus.Result.map"), "test_4: %s" % ("Result and validated result are not the same"))
     except Exception as exception:
-      self.failUnless(False, "test4: %s" % (str(exception)))
+      self.assertFalse("test4: %s" % (str(exception)))
 
 
   def test_5(self):

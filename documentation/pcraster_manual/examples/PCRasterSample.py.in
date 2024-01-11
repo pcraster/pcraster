@@ -401,11 +401,11 @@ class Sample(object):
 """.format(self.testName(), script))
           for r in self._results:
               stream.write("""\
-            self.failUnless(self.mapEqualsValidated({}, "{}"), "{}:Result != validated")
+            self.assertTrue(self.mapEqualsValidated({}, "{}"), "{}:Result != validated")
 """.format(r.userName(), r.fileName(), r.fileName()))
           stream.write("""\
         except Exception as exception:
-            self.failUnless(False, str(exception))
+            self.assertFalse(str(exception))
 """)
 
     def makefileSnippet(self, invoker, scriptToExecute):

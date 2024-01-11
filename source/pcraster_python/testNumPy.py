@@ -133,9 +133,9 @@ class TestNumPy(testcase.TestCase):
     try:
       a = numpy.array([ [1, 0, 1], [20, 1, 1], [1, 1, 0] ], numpy.uint8) # uint8 is bugzilla #271
       result = pcraster.numpy2pcr(pcraster.Boolean, a, 20)
-      self.failUnless(self.mapEqualsValidated(result, "boolean_Result.map"), "test1: %s" % ("Result and validated result are not the same"))
+      self.assertTrue(self.mapEqualsValidated(result, "boolean_Result.map"), "test1: %s" % ("Result and validated result are not the same"))
     except Exception as exception:
-      self.failUnless(False, "test1: %s" % (str(exception)))
+      self.assertFalse("test1: %s" % (str(exception)))
 
   def testBooleanArray2RasterDomainError(self):
     pcraster.setclone("boolean_Expr.map")
@@ -147,9 +147,9 @@ class TestNumPy(testcase.TestCase):
     try:
       a = numpy.array([ [0, 1, 3], [20, -3, -2], [0, 9, 8] ])
       result = pcraster.numpy2pcr(pcraster.Nominal, a, 20)
-      self.failUnless(self.mapEqualsValidated(result, "nominal_Result.map"), "test1: %s" % ("Result and validated result are not the same"))
+      self.assertTrue(self.mapEqualsValidated(result, "nominal_Result.map"), "test1: %s" % ("Result and validated result are not the same"))
     except Exception as exception:
-      self.failUnless(False, "test1: %s" % (str(exception)))
+      self.assertFalse("test1: %s" % (str(exception)))
 
 
   def testOrdinalArray2Raster(self):
@@ -157,18 +157,18 @@ class TestNumPy(testcase.TestCase):
     try:
       a = numpy.array([ [0, 1, 3], [20, -3, -2], [0, 9, 8] ])
       result = pcraster.numpy2pcr(pcraster.Ordinal, a, 20)
-      self.failUnless(self.mapEqualsValidated(result, "ordinal_Result.map"), "test1: %s" % ("Result and validated result are not the same"))
+      self.assertTrue(self.mapEqualsValidated(result, "ordinal_Result.map"), "test1: %s" % ("Result and validated result are not the same"))
     except Exception as exception:
-      self.failUnless(False, "test1: %s" % (str(exception)))
+      self.assertFalse("test1: %s" % (str(exception)))
 
   def testScalarArray2Raster(self):
     pcraster.setclone("boolean_Expr.map")
     try:
       a = numpy.array([ [0.5, 0.34202, 0.310676], [20, 0, -0.981627], [0.707107, 0.144356, 0.0174524] ])
       result = pcraster.numpy2pcr(pcraster.Scalar, a, 20)
-      self.failUnless(self.mapEqualsValidated(result, "sin_Result.map"), "test1: %s" % ("Result and validated result are not the same"))
+      self.assertTrue(self.mapEqualsValidated(result, "sin_Result.map"), "test1: %s" % ("Result and validated result are not the same"))
     except Exception as exception:
-      self.failUnless(False, "test1: %s" % (str(exception)))
+      self.assertFalse("test1: %s" % (str(exception)))
 
 
   def testDirectionalArray2Raster(self):
@@ -179,9 +179,9 @@ class TestNumPy(testcase.TestCase):
          [20,math.radians(350),math.radians(21)],\
          [math.radians(359),math.radians(40),math.radians(0)] ])
       result = pcraster.numpy2pcr(pcraster.Directional, a, 20)
-      self.failUnless(self.mapEqualsValidated(result, "directional_Result2.map"), "test1: %s" % ("Result and validated result are not the same"))
+      self.assertTrue(self.mapEqualsValidated(result, "directional_Result2.map"), "test1: %s" % ("Result and validated result are not the same"))
     except Exception as exception:
-      self.failUnless(False, "test1: %s" % (str(exception)))
+      self.assertFalse("test1: %s" % (str(exception)))
 
 
   def testLddArray2Raster(self):
@@ -189,9 +189,9 @@ class TestNumPy(testcase.TestCase):
     try:
       a = numpy.array([ [6, 5, 4], [6, 8, 7], [8, 8, 8] ])
       result = pcraster.numpy2pcr(pcraster.Ldd, a, 20)
-      self.failUnless(self.mapEqualsValidated(result, "ldd_Result.map"), "test1: %s" % ("Result and validated result are not the same"))
+      self.assertTrue(self.mapEqualsValidated(result, "ldd_Result.map"), "test1: %s" % ("Result and validated result are not the same"))
     except Exception as exception:
-      self.failUnless(False, "test1: %s" % (str(exception)))
+      self.assertFalse("test1: %s" % (str(exception)))
 
   def test_round_trip_numpy_array_with_nan(self):
       array = numpy.array([

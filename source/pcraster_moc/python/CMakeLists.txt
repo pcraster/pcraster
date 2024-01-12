@@ -12,16 +12,16 @@ target_link_libraries(_pcraster_moc_python
         pybind11::module
 )
 
-# TODO why is Python3::module not working on Linux?
+# TODO why is Python::module not working on Linux?
 if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     target_link_libraries(_pcraster_moc_python
         PRIVATE
-            Python3::Python
+            Python::Python
     )
 else()
     target_link_libraries(_pcraster_moc_python
         PRIVATE
-            Python3::Module
+            Python::Module
     )
 endif()
 
@@ -88,7 +88,7 @@ add_custom_command(
 #        NAME
 #            pcraster_moc_python_test
 #        COMMAND
-#            ${Python3_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test.py
+#            ${Python_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test.py
 #    )
 #
 #    # add path of project's unit test related files to PYTHONPATH

@@ -28,20 +28,20 @@ target_include_directories(_pcraster_modflow_python
 
 add_library(pcraster::modflow_python ALIAS _pcraster_modflow_python)
 
-# TODO why is Python3::module not working on Linux?
+# TODO why is Python::module not working on Linux?
 if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     target_link_libraries(_pcraster_modflow_python
       PUBLIC
         pcraster::pcrmf_python
       PRIVATE
-        Python3::Python
+        Python::Python
     )
 else()
     target_link_libraries(_pcraster_modflow_python
       PUBLIC
         pcraster::pcrmf_python
       PRIVATE
-        Python3::Module
+        Python::Module
     )
 endif()
 

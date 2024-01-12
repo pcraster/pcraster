@@ -100,20 +100,20 @@ target_include_directories(_pcraster_multicore
 #     "_pcraster_multicore"
 # )
 
-# TODO why is Python3::module not working on Linux?
+# TODO why is Python::module not working on Linux?
 if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     target_link_libraries(_pcraster_multicore
         PRIVATE
             pcraster::python::utils
             fern_algorithm
-            Python3::Python
+            Python::Python
     )
 else()
         target_link_libraries(_pcraster_multicore
         PRIVATE
             pcraster::python::utils
             fern_algorithm
-            Python3::Module
+            Python::Module
     )
 endif()
 

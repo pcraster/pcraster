@@ -365,7 +365,7 @@ if(PCRASTER_BUILD_TEST)
     )
     add_test(
         NAME setup_pcraster_aguila
-        COMMAND ${Python3_EXECUTABLE} test_prolog.py
+        COMMAND ${Python_EXECUTABLE} test_prolog.py
     )
     set_tests_properties(setup_pcraster_aguila
         PROPERTIES

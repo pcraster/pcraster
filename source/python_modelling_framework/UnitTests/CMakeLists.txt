@@ -15,14 +15,14 @@
 
     add_test(
         NAME setup_python_modelling_framework
-        COMMAND ${Python3_EXECUTABLE} test_prolog.py
+        COMMAND ${Python_EXECUTABLE} test_prolog.py
     )
 
     add_test(
       NAME
          python_modelling_framework_unit_tests
       COMMAND
-        ${Python3_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/unitTests.py
+        ${Python_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/unitTests.py
     )
 
     set_tests_properties(setup_python_modelling_framework

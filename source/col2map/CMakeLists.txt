@@ -38,7 +38,7 @@ if(PCRASTER_BUILD_TEST)
 
     add_test(
         NAME setup_col2map_1
-        COMMAND ${Python3_EXECUTABLE} test_prolog.py
+        COMMAND ${Python_EXECUTABLE} test_prolog.py
     )
 
     set_tests_properties(setup_col2map_1

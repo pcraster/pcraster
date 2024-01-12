@@ -99,21 +99,21 @@ target_include_directories(_pcraster
 
 target_include_directories(_pcraster SYSTEM
     PRIVATE
-      ${Python3_NumPy_INCLUDE_DIRS}
+      ${Python_NumPy_INCLUDE_DIRS}
 )
 
-# TODO why is Python3::module not working on Linux?
+# TODO why is Python::module not working on Linux?
 if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     target_link_libraries(_pcraster
         PRIVATE
-            Python3::Python
+            Python::Python
             pcraster::python::utils
 
     )
 else()
     target_link_libraries(_pcraster
         PRIVATE
-            Python3::Module
+            Python::Module
             pcraster::python::utils
 
     )
@@ -238,12 +238,12 @@ if(PCRASTER_BUILD_TEST)
         NAME
             python_pcrcalcpy_pythonunittest
         COMMAND
-            ${Python3_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test.py
+            ${Python_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test.py
     )
 
     add_test(
         NAME setup_pcraster_python
-        COMMAND ${Python3_EXECUTABLE} test_prolog.py
+        COMMAND ${Python_EXECUTABLE} test_prolog.py
     )
 
     set_tests_properties(setup_pcraster_python
@@ -262,21 +262,21 @@ if(PCRASTER_BUILD_TEST)
         NAME
             python_pcrcalcpy_gdalimport_test_1
         COMMAND
-            ${Python3_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test_gdal_import_1.py
+            ${Python_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test_gdal_import_1.py
     )
 
     add_test(
         NAME
             python_pcrcalcpy_gdalimport_test_2
         COMMAND
-            ${Python3_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test_gdal_import_2.py
+            ${Python_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test_gdal_import_2.py
     )
 
     add_test(
         NAME
             python_pcrcalcpy_gdalimport_test_3
         COMMAND
-            ${Python3_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test_gdal_import_3.py
+            ${Python_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test_gdal_import_3.py
     )
 
 # OLS: clean up the comments when refacoring for the new windows build

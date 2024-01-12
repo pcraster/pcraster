@@ -22,11 +22,11 @@ except ImportError as error:
     # Test matching Python versions
     major, minor, patchlevel = platform.python_version_tuple()
     python_version = (int(major), int(minor))
-    build_version = (${Python3_VERSION_MAJOR}, ${Python3_VERSION_MINOR})
+    build_version = (${Python_VERSION_MAJOR}, ${Python_VERSION_MINOR})
 
     # Major and minor should match
     if build_version != python_version:
-        msg = f"The 'pcraster' module was built for Python ${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}, the version used is {major}.{minor}"
+        msg = f"The 'pcraster' module was built for Python ${Python_VERSION_MAJOR}.${Python_VERSION_MINOR}, the version used is {major}.{minor}"
         raise ImportError(msg)
 
     # Test matching bitness
@@ -38,7 +38,7 @@ except ImportError as error:
 
     # No support for Python 2
     if major == 2:
-        msg = "The 'pcraster' module was built for Python ${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}, Python 2 is unsupported"
+        msg = "The 'pcraster' module was built for Python ${Python_VERSION_MAJOR}.${Python_VERSION_MINOR}, Python 2 is unsupported"
         raise ImportError(msg)
 
     msg = ""
@@ -46,7 +46,7 @@ except ImportError as error:
     # VS2017 and runtime components related issues
     if sys.platform == "win32":
         if build_version != python_version:
-            msg += "The 'pcraster' module was built for Python ${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}, the version used is {}.{}".format(
+            msg += "The 'pcraster' module was built for Python ${Python_VERSION_MAJOR}.${Python_VERSION_MINOR}, the version used is {}.{}".format(
                 major, minor)
             raise ImportError(msg)
 

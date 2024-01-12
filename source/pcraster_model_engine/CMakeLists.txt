@@ -75,7 +75,7 @@ ADD_CUSTOM_COMMAND(
     OUTPUT  ${OPCODE}
     DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/operationExpanded.xml
     COMMENT "Generating code"
-    COMMAND ${Python3_EXECUTABLE}
+    COMMAND ${Python_EXECUTABLE}
         ${CMAKE_CURRENT_SOURCE_DIR}/createOperatorCppCode.py
         ${CMAKE_CURRENT_BINARY_DIR}/operationExpanded.xml
 )
@@ -499,7 +499,7 @@ if(PCRASTER_BUILD_TEST)
 
     add_test(
         NAME setup_model_engine
-        COMMAND ${Python3_EXECUTABLE} test_prolog.py
+        COMMAND ${Python_EXECUTABLE} test_prolog.py
     )
 
     set_tests_properties(setup_model_engine
@@ -594,7 +594,7 @@ if(PCRASTER_BUILD_DOCUMENTATION)
 
     add_custom_command(
         OUTPUT ${_DOC_OUTPUT}
-        COMMAND ${Python3_EXECUTABLE} ${PROJECT_SOURCE_DIR}/environment/script/createdoxyfile.py ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile PROJECT_NAME="\\"PCRaster LinkOut API\\"" INPUT="${_DOX_LINKOUT_SOURCES}" OUTPUT_DIRECTORY="${CMAKE_CURRENT_BINARY_DIR}"
+        COMMAND ${Python_EXECUTABLE} ${PROJECT_SOURCE_DIR}/environment/script/createdoxyfile.py ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile PROJECT_NAME="\\"PCRaster LinkOut API\\"" INPUT="${_DOX_LINKOUT_SOURCES}" OUTPUT_DIRECTORY="${CMAKE_CURRENT_BINARY_DIR}"
         COMMAND doxygen ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
         DEPENDS ${_DOX_LINKOUT_SOURCES}
@@ -605,7 +605,7 @@ if(PCRASTER_BUILD_DOCUMENTATION)
     ###
     ### ADD_CUSTOM_COMMAND(
     ###   OUTPUT ${_DEPLOYMENT_OUTPUT}
-    ###   COMMAND ${Python3_EXECUTABLE} ${DEVENV}/Scripts/checkSharedLibraryDependencies.py -d ${_DEPLOYMENT_OUTPUT} ${_PCRASTER_MODELENGINE_PATH}
+    ###   COMMAND ${Python_EXECUTABLE} ${DEVENV}/Scripts/checkSharedLibraryDependencies.py -d ${_DEPLOYMENT_OUTPUT} ${_PCRASTER_MODELENGINE_PATH}
     ###   COMMENT "Creating deployment.txt"
     ###   DEPENDS pcraster_model_engine
     ### )

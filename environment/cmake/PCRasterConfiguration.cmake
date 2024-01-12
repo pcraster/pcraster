@@ -213,18 +213,20 @@ else()
     message(FATAL_ERROR "GDAL data dir not found")
 endif()
 
+find_package(Python 3.8
+  REQUIRED COMPONENTS Interpreter Development NumPy
+  OPTIONAL_COMPONENTS Development.SABIModule
+)
 
-find_package(Python3 REQUIRED COMPONENTS Interpreter Development NumPy)
-
-message(STATUS "Found Python3:")
-message(STATUS "  Interpreter ID: " ${Python3_INTERPRETER_ID})
-message(STATUS "    version:      " ${Python3_VERSION})
-message(STATUS "    executable:   " ${Python3_EXECUTABLE})
-message(STATUS "    site-lib:     " ${Python3_SITELIB})
-message(STATUS "    includes:     " ${Python3_INCLUDE_DIRS})
+message(STATUS "Found Python:")
+message(STATUS "  Interpreter ID: " ${Python_INTERPRETER_ID})
+message(STATUS "    version:      " ${Python_VERSION})
+message(STATUS "    executable:   " ${Python_EXECUTABLE})
+message(STATUS "    site-lib:     " ${Python_SITELIB})
+message(STATUS "    includes:     " ${Python_INCLUDE_DIRS})
 message(STATUS "  NumPy:" )
-message(STATUS "    version:      " ${Python3_NumPy_VERSION})
-message(STATUS "    includes:     " ${Python3_NumPy_INCLUDE_DIRS})
+message(STATUS "    version:      " ${Python_NumPy_VERSION})
+message(STATUS "    includes:     " ${Python_NumPy_INCLUDE_DIRS})
 
 # Find Python before pybind11...
 find_package(pybind11 REQUIRED)

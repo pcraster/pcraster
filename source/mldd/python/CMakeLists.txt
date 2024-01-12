@@ -10,7 +10,7 @@ target_link_libraries(_pcraster_mldd_python
     PRIVATE
         pcraster::mldd
         pcraster::model_engine
-        $<IF:$<CXX_COMPILER_ID:GNU>,Python3::Python,Python3::Module>
+        $<IF:$<CXX_COMPILER_ID:GNU>,Python::Python,Python::Module>
 )
 
 configure_python_extension(_pcraster_mldd_python
@@ -90,7 +90,7 @@ if(PCRASTER_BUILD_TEST)
         NAME
             mldd_python_unittests
         COMMAND
-            ${Python3_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test.py
+            ${Python_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test.py
     )
 
     if(WIN32)

@@ -24,16 +24,16 @@ target_link_libraries(_pcraster_block_python
         pybind11::module
 )
 
-# TODO why is Python3::module not working on Linux?
+# TODO why is Python::module not working on Linux?
 if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     target_link_libraries(_pcraster_block_python
         PRIVATE
-            Python3::Python
+            Python::Python
     )
 else()
     target_link_libraries(_pcraster_block_python
         PRIVATE
-            Python3::Module
+            Python::Module
     )
 endif()
 
@@ -84,7 +84,7 @@ if(PCRASTER_BUILD_TEST)
 
     add_test(
         NAME setup_block_python
-        COMMAND ${Python3_EXECUTABLE} test_prolog.py
+        COMMAND ${Python_EXECUTABLE} test_prolog.py
     )
 
     set_tests_properties(setup_block_python
@@ -96,7 +96,7 @@ if(PCRASTER_BUILD_TEST)
         NAME
             blockpy_blockpy_pythonunittest
         COMMAND
-            ${Python3_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test.py
+            ${Python_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test.py
     )
 
     set_tests_properties(blockpy_blockpy_pythonunittest

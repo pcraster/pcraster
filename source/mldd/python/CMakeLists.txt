@@ -13,10 +13,6 @@ target_link_libraries(_pcraster_mldd_python
         $<IF:$<CXX_COMPILER_ID:GNU>,Python::Python,Python::Module>
 )
 
-configure_python_extension(_pcraster_mldd_python
-    "_pcraster_mldd"
-)
-
 set_target_properties(_pcraster_mldd_python
     PROPERTIES
         RUNTIME_OUTPUT_DIRECTORY

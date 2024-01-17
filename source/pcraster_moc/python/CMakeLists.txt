@@ -25,10 +25,6 @@ else()
     )
 endif()
 
-configure_python_extension(_pcraster_moc_python
-    "_pcraster_moc"
-)
-
 set_target_properties(_pcraster_moc_python
     PROPERTIES
         RUNTIME_OUTPUT_DIRECTORY

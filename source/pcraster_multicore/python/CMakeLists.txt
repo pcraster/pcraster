@@ -96,10 +96,6 @@ target_include_directories(_pcraster_multicore
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../..>
 )
 
-# configure_python_extension(_pcraster_multicore
-#     "_pcraster_multicore"
-# )
-
 # TODO why is Python::module not working on Linux?
 if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     target_link_libraries(_pcraster_multicore

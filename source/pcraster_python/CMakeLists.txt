@@ -126,10 +126,6 @@ set_target_properties(_pcraster
         DEBUG_POSTFIX ""
 )
 
-# configure_python_extension(_pcraster
-#     "_pcraster"
-# )
-
 #set(_TARGET_BIN ${EXECUTABLE_OUTPUT_PATH}/${CMAKE_CFG_INTDIR})
 
 set_target_properties(_pcraster

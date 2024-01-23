@@ -32,14 +32,24 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # and linkin related libraries
 set(CMAKE_DEBUG_POSTFIX "_d")
 
-# When not specified: default build type set to release for single-configuration generators
-get_property(is_multiconfig GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
-
-if(NOT is_multiconfig)
-    if(NOT CMAKE_BUILD_TYPE)
-        set(CMAKE_BUILD_TYPE Release)
-    endif()
+# When not specified: default build type set to Release
+if (NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+    set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the type of build." FORCE)
+    set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
 endif()
+
+# Only allow supported build configurations
+set(SUPPORTED_BUILD_CONFIGURATIONS "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
+
+if(NOT ${CMAKE_BUILD_TYPE} IN_LIST SUPPORTED_BUILD_CONFIGURATIONS)
+    message(FATAL_ERROR "Unsupported build type '" ${CMAKE_BUILD_TYPE} "', use: Debug Release MinSizeRel RelWithDebInfo")
+endif()
+
+foreach(BUILD_TYPE ${CMAKE_CONFIGURATION_TYPES})
+    if(NOT ${BUILD_TYPE} IN_LIST SUPPORTED_BUILD_CONFIGURATIONS)
+        message(FATAL_ERROR "Unsupported build type '" ${BUILD_TYPE} "', use: Debug Release MinSizeRel RelWithDebInfo")
+    endif()
+endforeach()
 
 
 if(PCRASTER_WITH_FLAGS_NATIVE)
@@ -66,6 +76,7 @@ add_compile_options(
 
 add_compile_definitions(
   "$<$<OR:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>:_CRT_SECURE_NO_WARNINGS;_USE_MATH_DEFINES;NOMINMAX>"
+  "$<$<AND:$<COMPILE_LANGUAGE:C,CXX>,$<CONFIG:Debug>>:DEBUG;DEBUG_BUILD;DEBUG_DEVELOP>"
 )
 
 # Based on conda and https://developers.redhat.com/blog/2018/03/21/compiler-and-linker-flags-gcc/
@@ -99,15 +110,6 @@ endif()
 #     "$<$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:Clang>>:-W -Wall>"
 # )
 
-
-
-# TODO Get rid of these...
-set(CMAKE_CXX_FLAGS_DEBUG
-    "${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG -DDEBUG_BUILD -DDEBUG_DEVELOP"
-)
-set(CMAKE_C_FLAGS_DEBUG
-    "${CMAKE_C_FLAGS_DEBUG} -DDEBUG -DDEBUG_BUILD -DDEBUG_DEVELOP"
-)
 
 # if(MSVC)
 #     # TODO add debug/release flags?

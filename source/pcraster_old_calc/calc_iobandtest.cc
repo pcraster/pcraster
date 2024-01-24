@@ -76,7 +76,7 @@
 boost::unit_test::test_suite*calc::IoBandTest::suite()
 {
   boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<IoBandTest> instance(new IoBandTest());
+  std::shared_ptr<IoBandTest> instance(new IoBandTest());
 
   suite->add(BOOST_CLASS_TEST_CASE(&IoBandTest::test1, instance));
   suite->add(BOOST_CLASS_TEST_CASE(&IoBandTest::test2, instance));

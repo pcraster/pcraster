@@ -169,7 +169,7 @@ void calc::ModelLinkMethodStatement::run()
     d_sig.d_input[i].value = args.MAP_ptr(i);
 
   //! create the results
-  typedef boost::shared_ptr<GlobResult> SGlobResult;
+  typedef std::shared_ptr<GlobResult> SGlobResult;
   std::vector<SGlobResult> result;
   for (size_t i=0; i < d_sig.d_result.size(); i++) {
     VS vs=d_sig.d_result[i].vs;

@@ -54,7 +54,7 @@
 boost::unit_test::test_suite*calc::ClientInterfaceTest::suite()
 {
   boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<ClientInterfaceTest> instance(new ClientInterfaceTest());
+  std::shared_ptr<ClientInterfaceTest> instance(new ClientInterfaceTest());
 
   suite->add(BOOST_CLASS_TEST_CASE(&ClientInterfaceTest::testCapi, instance));
 

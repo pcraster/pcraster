@@ -74,7 +74,7 @@
 boost::unit_test::test_suite*calc::WlDelftHabitatTest::suite()
 {
   boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<WlTestStat> instance(new WlTestStat());
+  std::shared_ptr<WlTestStat> instance(new WlTestStat());
 
   suite->add(BOOST_CLASS_TEST_CASE(&WlDelftHabitatTest::testStatTable, instance));
   suite->add(BOOST_CLASS_TEST_CASE(&WlDelftHabitatTest::testWLStatTests, instance));

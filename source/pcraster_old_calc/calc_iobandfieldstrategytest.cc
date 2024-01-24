@@ -66,7 +66,7 @@
 boost::unit_test::test_suite*calc::IoBandFieldStrategyTest::suite()
 {
   boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<IoBandFieldStrategyTest> instance(new IoBandFieldStrategyTest());
+  std::shared_ptr<IoBandFieldStrategyTest> instance(new IoBandFieldStrategyTest());
 
   suite->add(BOOST_CLASS_TEST_CASE(&IoBandFieldStrategyTest::testCheckInputMap, instance));
   // CheckClone depends on CheckInputMap

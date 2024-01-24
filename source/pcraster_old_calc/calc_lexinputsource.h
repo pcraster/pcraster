@@ -31,7 +31,7 @@ class PositionText;
 
 //! how lexinput get its input
 class LexInputSource {
-  typedef boost::shared_ptr<std::string> StringSharedPtr;
+  typedef std::shared_ptr<std::string> StringSharedPtr;
 
            LexInputSource();
 protected:

@@ -43,7 +43,7 @@ private:
   /*! file being read,
    *  empty string when reading a command line
    */
-  boost::shared_ptr<std::string> d_currentFileName;
+  std::shared_ptr<std::string> d_currentFileName;
 
   //! last call to GetChar return newline
   bool d_prevCallWasNewLine{false};

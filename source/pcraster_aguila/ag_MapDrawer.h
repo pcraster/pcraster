@@ -5,7 +5,6 @@
 
 // External headers.
 #include <boost/noncopyable.hpp>
-#include <boost/tuple/tuple.hpp>
 #include <QTransform>
 
 // Project headers.
@@ -13,6 +12,7 @@
 
 // Module headers.
 
+#include <tuple>
 
 
 class QPainter;
@@ -62,7 +62,7 @@ protected:
                                         QPointF const& offset,
                                         double scale) const;
 
-  boost::tuple<QTransform, QTransform> mappers(
+  std::tuple<QTransform, QTransform> mappers(
                                         QRectF const& envelopeInPixels) const;
 
   double           scale               (QTransform const& mapper) const;

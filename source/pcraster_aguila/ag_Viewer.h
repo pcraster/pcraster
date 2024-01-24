@@ -6,7 +6,6 @@
 #include <vector>
 #include <string>
 #include <boost/noncopyable.hpp>
-#include <boost/tuple/tuple.hpp>
 
 // PCRaster library headers.
 #include "dal_Driver.h" // DataSpaceQueryResult
@@ -158,7 +157,7 @@ private:
                                         bool sync=true);
 
 // #ifdef DEBUG_DEVELOP
-// 
+//
 //   VisGroup*        displayTestVisualisation(
 //                                         dal::DataSpace const& space,
 //                                         std::vector<std::string> const& names,

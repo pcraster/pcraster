@@ -5,7 +5,7 @@
 
 // Library headers.
 #include <vector>
-#include <boost/tuple/tuple.hpp>
+#include <tuple>
 
 // PCRaster library headers.
 
@@ -45,7 +45,7 @@ private:
 
   size_t           d_nrCols;
 
-  std::vector<boost::tuple<QLineEdit*, Map2DView*> >d_mapViews;
+  std::vector<std::tuple<QLineEdit*, Map2DView*> >d_mapViews;
 
   //! Assignment operator. NOT IMPLEMENTED.
   MultiMap2DView&  operator=           (MultiMap2DView const& rhs);

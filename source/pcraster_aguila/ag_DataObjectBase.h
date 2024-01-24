@@ -41,7 +41,7 @@ class DataObjectBase: private boost::noncopyable
 private:
 
   //! Type of name, space, dataInfo tuples.
-  typedef boost::tuple<std::string, dal::DataSpace, DataInfo<T> > Tuple;
+  typedef std::tuple<std::string, dal::DataSpace, DataInfo<T> > Tuple;
 
   //! Type of tuple iterator.
   typedef typename std::vector<Tuple>::iterator tuple_iter;

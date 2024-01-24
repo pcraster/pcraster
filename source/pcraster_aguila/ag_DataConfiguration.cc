@@ -265,7 +265,7 @@ void DataConfiguration::add(
          pcrxml::AguilaData const& configuration)
 {
   dal::DataSpaceQueryResult result;
-  boost::tie(result, boost::tuples::ignore) = dal::Client::dal().search(name,
+  std::tie(result, std::ignore) = dal::Client::dal().search(name,
       space, dal::NarrowSpaceWhenNeeded, dal::SearchForAllItems);
 
   if(!result) {
@@ -321,7 +321,7 @@ void DataConfiguration::add(
   }
   else {
     std::vector<std::string> selection;
-    boost::tie(boost::tuples::ignore, selection) =
+    std::tie(std::ignore, selection) =
          dal::splitNameAndSelection(name);
 
     if(!selection.empty()) {
@@ -491,7 +491,7 @@ std::vector<std::vector<DataGuide> > DataConfiguration::guidesOfView2(
 //   // treated as a separate attribute.
 //
 //   dal::Table* table;
-//   boost::tie(table,boost::tuples::ignore,boost::tuples::ignore) =
+//   std::tie(table,std::ignore,std::ignore) =
 //          d_dal.open<dal::Table>(name, dal::TABLE, dataSpaceFor(name));
 //
 //   if(!table || !(table->nrCols() >= 2)) {
@@ -501,7 +501,7 @@ std::vector<std::vector<DataGuide> > DataConfiguration::guidesOfView2(
 //     ts.push_back(name);
 //   } else {
 //     std::vector<std::string> selection;
-//     boost::tie(boost::tuples::ignore,selection)= dal::splitNameAndSelection(name);
+//     std::tie(std::ignore,selection)= dal::splitNameAndSelection(name);
 //
 //     if(!selection.empty()) {
 //       // name IS A selection

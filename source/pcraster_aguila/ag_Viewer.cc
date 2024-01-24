@@ -684,7 +684,7 @@ Viewer::QueryResults Viewer::querySearchDataSpace(
 
   for(const auto & name : names) {
     dal::DataSpaceQueryResult result;
-    boost::tie(result, boost::tuples::ignore) = dal::Client::dal().search(
+    std::tie(result, std::ignore) = dal::Client::dal().search(
          name, searchSpace, dal::NarrowSpaceWhenNeeded,
          dal::SearchForAllItems);
 

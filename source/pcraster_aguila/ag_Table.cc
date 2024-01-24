@@ -78,11 +78,11 @@ Table::Table(
   size_t selectedTimeCol = table->nrCols();
   size_t selectedAttrCol = table->nrCols();
   {
-      boost::tuple<std::string, std::vector<std::string> > tuple =
+      std::tuple<std::string, std::vector<std::string> > tuple =
              dal::splitNameAndSelection(this->name());
 
-      if(!boost::get<1>(tuple).empty()) {
-          if(boost::get<1>(tuple).size() != 2) {
+      if(!std::get<1>(tuple).empty()) {
+          if(std::get<1>(tuple).size() != 2) {
               std::string message = (boost::format(
                    "Selection specification of %1% (%2%): "
                    "Must contain two indices.\n")
@@ -92,9 +92,9 @@ Table::Table(
           }
           else {
               selectedTimeCol = boost::lexical_cast<size_t>(
-                  boost::get<1>(tuple)[0]);
+                  std::get<1>(tuple)[0]);
               selectedAttrCol = boost::lexical_cast<size_t>(
-                  boost::get<1>(tuple)[1]);
+                  std::get<1>(tuple)[1]);
 
               if(selectedTimeCol == 0 || selectedTimeCol > table->nrCols() ||
                       selectedAttrCol == 0 ||

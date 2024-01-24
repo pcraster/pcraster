@@ -70,7 +70,7 @@ QRectF MapDrawer::envelopeInPixels(
 }
 
 
-boost::tuple<QTransform, QTransform> MapDrawer::mappers(
+std::tuple<QTransform, QTransform> MapDrawer::mappers(
          QRectF const& envelopeInPixels) const{
 
 
@@ -82,7 +82,7 @@ boost::tuple<QTransform, QTransform> MapDrawer::mappers(
   QTransform  screen_to_world = QTransform(x, 0.0, 0.0, 0.0, y, 0.0, dx, dy, 1.0);
   QTransform  world_to_screen= screen_to_world.inverted();
 
-  return boost::make_tuple(world_to_screen, screen_to_world);
+  return std::make_tuple(world_to_screen, screen_to_world);
 }
 
 
@@ -127,7 +127,7 @@ void MapDrawer::draw(
   // Mappers for translating between real world coordinates and screen
   // coordinates.
   QTransform world_to_screen, screen_to_world;
-  boost::tie(world_to_screen, screen_to_world) = mappers(envelopeInPixels);
+  std::tie(world_to_screen, screen_to_world) = mappers(envelopeInPixels);
 
   // Actual area of the screen that possibly contains stuff to draw.
   // QRect dirtyMapAreaInPixels = envelopeInPixels & dirtyScreenArea;

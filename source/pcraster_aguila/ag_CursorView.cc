@@ -179,7 +179,7 @@ size_t CursorView::tupleIndex(
   }
   else {
     for(size_t i = 0; i < d_dimensionTuples.size(); ++i) {
-      DimensionCoordinateEdit const* edit = boost::get<1>(d_dimensionTuples[i]);
+      DimensionCoordinateEdit const* edit = std::get<1>(d_dimensionTuples[i]);
       if(edit->dimension() == dimension) {
         result = i;
         break;
@@ -197,7 +197,7 @@ size_t CursorView::tupleIndex(
 DimensionCoordinateEdit* CursorView::dimensionCoordinateEdit(
          size_t index)
 {
-  return boost::get<1>(d_dimensionTuples[index]);
+  return std::get<1>(d_dimensionTuples[index]);
 }
 
 
@@ -205,7 +205,7 @@ DimensionCoordinateEdit* CursorView::dimensionCoordinateEdit(
 QLabel* CursorView::valueLabel(
          size_t index)
 {
-  return boost::get<2>(d_dimensionTuples[index]);
+  return std::get<2>(d_dimensionTuples[index]);
 }
 
 
@@ -255,7 +255,7 @@ void CursorView::createInterface()
         gridLayout->addWidget(value, i, 2);
       }
 
-      d_dimensionTuples.push_back(boost::make_tuple(title, edit, value));
+      d_dimensionTuples.push_back(std::make_tuple(title, edit, value));
     }
   }
 

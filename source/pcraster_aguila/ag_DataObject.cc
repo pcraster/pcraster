@@ -832,7 +832,7 @@ bool DataObject::compatibleData(
 {
   {
     dal::DataSpaceQueryResult result;
-    boost::tie(result, boost::tuples::ignore) = dal::Client::dal().search(name,
+    std::tie(result, std::ignore) = dal::Client::dal().search(name,
          dal::RASTER, space, dal::NarrowSpaceWhenNeeded,
          dal::HaltOnFirstItemFound);
 
@@ -853,7 +853,7 @@ bool DataObject::compatibleData(
 
   {
     dal::DataSpaceQueryResult result;
-    boost::tie(result, boost::tuples::ignore) = dal::Client::dal().search(name,
+    std::tie(result, std::ignore) = dal::Client::dal().search(name,
          dal::TABLE, space, dal::NarrowSpaceWhenNeeded,
          dal::HaltOnFirstItemFound);
 

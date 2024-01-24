@@ -307,7 +307,7 @@ namespace detail {
   {
     //! modifies vs for stack names and record the range of stackSteps
     void fixStackNameSyntaxAndRecordTimesteps(pcrxml::StringSet& vs) {
-      boost::tuple<std::string, dal::DataSpace> tuple;
+      std::tuple<std::string, dal::DataSpace> tuple;
       std::string name;
 
       for(auto & i : vs.item()) {
@@ -315,7 +315,7 @@ namespace detail {
         // std::cout << "-> " << name << std::endl;
         // name = dal::fixPathname(vs.item()[i]);
         tuple = dal::oldStackName2NameSpaceTuple(name);
-        dal::DataSpace const& space(boost::get<1>(tuple));
+        dal::DataSpace const& space(std::get<1>(tuple));
 
         if(!space.hasTime()) {
           // Data source name is not in old stack format, reset to the
@@ -328,7 +328,7 @@ namespace detail {
               dimension.value<size_t>(0), stackStepStart);
           stackStepEnd = std::max<>(
               dimension.value<size_t>(1), stackStepEnd);
-          name = boost::get<0>(tuple);
+          name = std::get<0>(tuple);
         }
 
         i = name;

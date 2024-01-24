@@ -78,7 +78,7 @@ private:
   //! Assignment operator. NOT IMPLEMENTED.
   IoFieldStrategy&           operator=           (const IoFieldStrategy&);
 
-  boost::shared_ptr<dal::RasterDriver> d_outDriver;
+  std::shared_ptr<dal::RasterDriver> d_outDriver;
 
   //! common attributes of supported formats
   /*! valid() is false if not initialized

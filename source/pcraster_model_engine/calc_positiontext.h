@@ -36,7 +36,7 @@ namespace calc {
 //! Position defined by line and char (column) number in a named Ascii text file
 class PositionText : public Position
 {
-  typedef boost::shared_ptr<std::string> StringSharedPtr;
+  typedef std::shared_ptr<std::string> StringSharedPtr;
 
   StringSharedPtr d_fileName;
 

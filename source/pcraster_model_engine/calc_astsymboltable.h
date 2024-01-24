@@ -68,7 +68,7 @@ class ASTSymbolTable:
 {
   typedef std::map<std::string,ASTSymbolInfo> Base;
 
-  typedef std::map<std::string, boost::shared_ptr<LinkInLibrary> > LinkInLibraries;
+  typedef std::map<std::string, std::shared_ptr<LinkInLibrary> > LinkInLibraries;
 
   LinkInLibraries    d_linkInLibraries;
 

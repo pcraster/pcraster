@@ -53,7 +53,7 @@ MemoryExchangeItemField::MemoryExchangeItemField()
 MemoryExchangeItemField::MemoryExchangeItemField(
   std::string const& name,
   size_t memoryId,
-  boost::shared_ptr<Field> value):
+  std::shared_ptr<Field> value):
     MemoryExchangeItem(name,memoryId),
     d_value(std::move(value))
 {

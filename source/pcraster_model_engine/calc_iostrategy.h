@@ -89,7 +89,7 @@ private:
   RunDirectory    d_runDirectory;
   Timer           d_timer;
 
-  typedef std::map<std::string, boost::shared_ptr<MemoryExchangeItem> > MemoryData;
+  typedef std::map<std::string, std::shared_ptr<MemoryExchangeItem> > MemoryData;
   MemoryData        d_memoryData;
   //! reference to user passed DataTransferArray
   /*!

@@ -57,7 +57,7 @@ private:
   Symbol   symbol(const std::string& name);
 
   //! name for \class calc::PositionName used to create symbols
-  boost::shared_ptr<std::string> d_positionName;
+  std::shared_ptr<std::string> d_positionName;
 
 public:
 

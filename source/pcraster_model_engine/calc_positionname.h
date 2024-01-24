@@ -40,7 +40,7 @@ namespace calc {
  */
 class PositionName : public Position
 {
-  typedef boost::shared_ptr<std::string> StringSharedPtr;
+  typedef std::shared_ptr<std::string> StringSharedPtr;
 
   StringSharedPtr d_name;
 

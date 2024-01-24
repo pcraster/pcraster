@@ -36,7 +36,7 @@ class MemoryExchangeItemField: public MemoryExchangeItem
 {
 
 private:
-  boost::shared_ptr<Field> d_value;
+  std::shared_ptr<Field> d_value;
 
                    MemoryExchangeItemField               ();
 
@@ -50,7 +50,7 @@ public:
 
                    MemoryExchangeItemField               (std::string const& name,
                                                           size_t memoryId,
-                                                          boost::shared_ptr<Field> value);
+                                                          std::shared_ptr<Field> value);
 
   /* virtual */    ~MemoryExchangeItemField              ();
 

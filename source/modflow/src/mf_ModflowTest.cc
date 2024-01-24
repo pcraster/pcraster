@@ -47,7 +47,7 @@ namespace mf {
 boost::unit_test::test_suite* ModflowTest::suite()
 {
   boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<ModflowTest> instance(new ModflowTest());
+  std::shared_ptr<ModflowTest> instance(new ModflowTest());
   suite->add(BOOST_CLASS_TEST_CASE(&ModflowTest::test, instance));
 
   return suite;

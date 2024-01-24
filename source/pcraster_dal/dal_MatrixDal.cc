@@ -88,15 +88,15 @@ dal::MatrixDal::~MatrixDal()
 
   The caller is responsible of deleting the Matrix object again.
 */
-std::tuple<boost::shared_ptr<dal::Matrix>, dal::MatrixDriver*>
+std::tuple<std::shared_ptr<dal::Matrix>, dal::MatrixDriver*>
 dal::MatrixDal::open(
     std::string const& name)
 {
   assert(nrDrivers() > 0);
-  boost::shared_ptr<Dataset> dataset;
+  std::shared_ptr<Dataset> dataset;
   dal::Driver* driver;
   std::tie(dataset, driver) = Dal::open(name, MATRIX);
-  return std::make_tuple(boost::dynamic_pointer_cast<Matrix>(dataset),
+  return std::make_tuple(std::dynamic_pointer_cast<Matrix>(dataset),
       dynamic_cast<MatrixDriver*>(driver));
 }
 

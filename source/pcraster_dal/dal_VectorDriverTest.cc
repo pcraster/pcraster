@@ -83,7 +83,7 @@ BOOST_AUTO_TEST_CASE(open)
   using namespace dal;
 
   VectorDriver driver;
-  boost::shared_ptr<Vector> vector;
+  std::shared_ptr<Vector> vector;
 
   // Static data.
   {
@@ -194,7 +194,7 @@ BOOST_AUTO_TEST_CASE(read_)
   using namespace dal;
 
   VectorDriver driver;
-  boost::shared_ptr<Vector> vector;
+  std::shared_ptr<Vector> vector;
 
   // Test direct read.
   {
@@ -287,7 +287,7 @@ BOOST_AUTO_TEST_CASE(extremes)
   using namespace dal;
 
   VectorDriver driver;
-  boost::shared_ptr<Vector> vector;
+  std::shared_ptr<Vector> vector;
   boost::any min, max;
 
   {

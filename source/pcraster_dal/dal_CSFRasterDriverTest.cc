@@ -333,7 +333,7 @@ BOOST_AUTO_TEST_CASE(properties)
   CSFRasterDriver driver;
 
   {
-    boost::shared_ptr<Raster> raster(dynamic_cast<Raster*>(
+    std::shared_ptr<Raster> raster(dynamic_cast<Raster*>(
          dynamic_cast<Driver&>(driver).open(name)));
     assert(raster);
 
@@ -358,7 +358,7 @@ BOOST_AUTO_TEST_CASE(properties)
   {
     // No extension in name, should find d83.map.
     name = "d83";
-    boost::shared_ptr<Raster> raster(dynamic_cast<Raster*>(
+    std::shared_ptr<Raster> raster(dynamic_cast<Raster*>(
          dynamic_cast<Driver&>(driver).open(name)));
     BOOST_REQUIRE(raster);
 
@@ -374,7 +374,7 @@ BOOST_AUTO_TEST_CASE(properties)
 
   {
     name = "d83.map";
-    boost::shared_ptr<Raster> raster(dynamic_cast<RasterDriver&>(driver).read(name));
+    std::shared_ptr<Raster> raster(dynamic_cast<RasterDriver&>(driver).read(name));
     assert(raster);
     BOOST_CHECK(raster->properties().hasValue(DAL_CSF_VALUESCALE));
     BOOST_CHECK(raster->properties().hasValue(DAL_CSF_PROJECTION));

@@ -48,7 +48,7 @@ namespace dal {
 boost::unit_test::test_suite*NetCDFRasterDriverTest::suite()
 {
   boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<NetCDFRasterDriverTest> instance(new NetCDFRasterDriverTest());
+  std::shared_ptr<NetCDFRasterDriverTest> instance(new NetCDFRasterDriverTest());
 
   suite->add(BOOST_CLASS_TEST_CASE(&NetCDFRasterDriverTest::testDefaultExtension, instance));
   suite->add(BOOST_CLASS_TEST_CASE(&NetCDFRasterDriverTest::testEmptyDataSpace, instance));

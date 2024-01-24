@@ -981,7 +981,7 @@ void throwUnsupportedDatasetType(std::string const& name,
 //     // Raster?
 //     {
 //       StackInfo info(name);
-//       boost::shared_ptr<Raster> raster;
+//       std::shared_ptr<Raster> raster;
 //       RasterDal dal(true);
 // 
 //       if(!info.isDynamic()) {
@@ -1002,7 +1002,7 @@ void throwUnsupportedDatasetType(std::string const& name,
 // 
 //     // Table?
 //     {
-//       boost::shared_ptr<Table> table(TableDal(true).open(name));
+//       std::shared_ptr<Table> table(TableDal(true).open(name));
 //       if(table) {
 //         return TABLE;
 //       }
@@ -1010,7 +1010,7 @@ void throwUnsupportedDatasetType(std::string const& name,
 // 
 //     // Matrix?
 //     {
-//       boost::shared_ptr<Matrix> matrix(MatrixDal(true).open(name));
+//       std::shared_ptr<Matrix> matrix(MatrixDal(true).open(name));
 //       if(matrix) {
 //         return MATRIX;
 //       }

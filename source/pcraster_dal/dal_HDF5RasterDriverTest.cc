@@ -48,7 +48,7 @@ namespace dal {
 boost::unit_test::test_suite*HDF5RasterDriverTest::suite()
 {
   boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<HDF5RasterDriverTest> instance(new HDF5RasterDriverTest());
+  std::shared_ptr<HDF5RasterDriverTest> instance(new HDF5RasterDriverTest());
 
   suite->add(BOOST_CLASS_TEST_CASE(&HDF5RasterDriverTest::testEmptyDataSpace, instance));
 

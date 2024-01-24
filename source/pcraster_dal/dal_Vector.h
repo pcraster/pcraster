@@ -68,10 +68,10 @@ private:
   TypeId           _typeId;
 
   //! Magnitude in x-direction.
-  boost::shared_ptr<Matrix> _x;
+  std::shared_ptr<Matrix> _x;
 
   //! Magnitude in y-direction.
-  boost::shared_ptr<Matrix> _y;
+  std::shared_ptr<Matrix> _y;
 
   //! Minimum values, when calculated and available.
   boost::any       _min;

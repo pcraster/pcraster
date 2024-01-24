@@ -312,7 +312,7 @@ inline void DataSource::uniqueValues(
 {
   // assert(!space.hasSpace());
 
-  boost::shared_ptr<Raster> raster(this->raster(/* space, */ address, typeId));
+  std::shared_ptr<Raster> raster(this->raster(/* space, */ address, typeId));
   assert(raster);
 
   // Iterate over inidividual cells.

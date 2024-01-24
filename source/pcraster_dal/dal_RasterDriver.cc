@@ -247,7 +247,7 @@ DataSpace RasterDriver::dataSpace(
 {
   assert(!space.hasSpace());
 
-  boost::shared_ptr<Raster> raster(open(name, space, address));
+  std::shared_ptr<Raster> raster(open(name, space, address));
 
   if(!raster) {
     throwCannotBeOpened(name, RASTER, space, address);

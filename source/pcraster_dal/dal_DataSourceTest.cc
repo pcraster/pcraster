@@ -81,7 +81,7 @@ BOOST_AUTO_TEST_CASE(test_)
     BOOST_CHECK(dataSpace.hasRaster());
     BOOST_CHECK(!dataSpace.hasTime());
 
-    boost::shared_ptr<Raster> raster(source.raster());
+    std::shared_ptr<Raster> raster(source.raster());
     BOOST_CHECK(raster);
   }
 }
@@ -127,7 +127,7 @@ BOOST_AUTO_TEST_CASE(soil)
     DataSpaceAddress address(1);
 
     address.setCoordinate<size_t>(0, 10);
-    boost::shared_ptr<Raster> raster(source.raster(address));
+    std::shared_ptr<Raster> raster(source.raster(address));
     BOOST_CHECK(raster);
 
     address.setCoordinate<size_t>(0, 50);
@@ -221,7 +221,7 @@ BOOST_AUTO_TEST_CASE(raster)
     space.addDimension(Dimension(Time, timeSteps));
     DataSource source(name, space);
 
-    boost::shared_ptr<Raster> raster(source.open<Raster>());
+    std::shared_ptr<Raster> raster(source.open<Raster>());
     assert(raster);
 
     DataSpaceAddress address(1);
@@ -486,7 +486,7 @@ BOOST_AUTO_TEST_CASE(dataset_1)
     // -------------------------------------------------------------------------
     // Read data in raster.
     {
-      boost::shared_ptr<Raster> raster(source.open<Raster>());
+      std::shared_ptr<Raster> raster(source.open<Raster>());
       BOOST_CHECK(raster);
       raster->createCells();
 
@@ -572,7 +572,7 @@ BOOST_AUTO_TEST_CASE(dataset_1)
     // -------------------------------------------------------------------------
     // Read data in raster.
     {
-      boost::shared_ptr<Raster> raster(source.open<Raster>());
+      std::shared_ptr<Raster> raster(source.open<Raster>());
       BOOST_CHECK(raster);
       raster->createCells();
 
@@ -648,7 +648,7 @@ BOOST_AUTO_TEST_CASE(dataset_1)
     // -------------------------------------------------------------------------
     // Read data in raster.
     {
-      boost::shared_ptr<Raster> raster(source.open<Raster>());
+      std::shared_ptr<Raster> raster(source.open<Raster>());
       BOOST_CHECK(raster);
       raster->createCells();
 
@@ -761,7 +761,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
     // -------------------------------------------------------------------------
     // Read data in raster.
     {
-      boost::shared_ptr<Raster> raster(source.open<Raster>());
+      std::shared_ptr<Raster> raster(source.open<Raster>());
       BOOST_CHECK(raster);
       raster->createCells();
 
@@ -918,7 +918,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
     // -------------------------------------------------------------------------
     // Read data in raster.
     {
-      boost::shared_ptr<Raster> raster(source.open<Raster>());
+      std::shared_ptr<Raster> raster(source.open<Raster>());
       BOOST_CHECK(raster);
       raster->createCells();
 
@@ -1278,7 +1278,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
     // -------------------------------------------------------------------------
     // Read data in raster.
     {
-      boost::shared_ptr<Raster> raster(source.open<Raster>());
+      std::shared_ptr<Raster> raster(source.open<Raster>());
       BOOST_CHECK(raster);
       raster->createCells();
 

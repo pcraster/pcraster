@@ -68,7 +68,7 @@ BOOST_AUTO_TEST_CASE(esri_ascii_grid1)
 
   std::string filename = "esriasciigrid1.asc";
   RasterDal dal(true);
-  boost::shared_ptr<Raster> raster;
+  std::shared_ptr<Raster> raster;
 
   {
     std::tie(raster, std::ignore) = dal.open(filename);

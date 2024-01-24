@@ -642,7 +642,7 @@ bool OgrFeatureDriver::exists(
 
   // Not sure whether we can optimize the check for data at the address passed.
   // So we may as well use open for the test.
-  boost::shared_ptr<FeatureLayer> layer(open(name, newSpace, newAddress,
+  std::shared_ptr<FeatureLayer> layer(open(name, newSpace, newAddress,
          TI_NR_TYPES));
 
   return bool(layer);
@@ -692,7 +692,7 @@ TypeId OgrFeatureDriver::open(
   std::string tableName = detail::tableName(path, space);
 
   // Try to open the attribute table, whatever the format.
-  boost::shared_ptr<Dataset> dataset;
+  std::shared_ptr<Dataset> dataset;
   std::tie(dataset, std::ignore) = Client::dal().open(tableName,
       space, address, TABLE);
 
@@ -928,7 +928,7 @@ void OgrFeatureDriver::readAttribute(
 
   std::string tableName = detail::tableName(path, space);
 
-  boost::shared_ptr<Dataset> dataset;
+  std::shared_ptr<Dataset> dataset;
   std::tie(dataset, std::ignore) = Client::dal().open(
     tableName, space, address, TABLE);
 
@@ -1064,7 +1064,7 @@ void OgrFeatureDriver::updateAttribute(
 {
   std::string tableName = detail::tableName(path, space);
 
-  boost::shared_ptr<Dataset> dataset;
+  std::shared_ptr<Dataset> dataset;
   std::tie(dataset, std::ignore) = Client::dal().open(tableName,
     space, address, TABLE);
 
@@ -1335,7 +1335,7 @@ void OgrFeatureDriver::read(
   DataSpaceAddress newAddress = newSpace.eraseCoordinates(address, Space);
   newSpace.eraseDimension(Space);
 
-  boost::shared_ptr<FeatureLayer> layer(read(name, newSpace, newAddress,
+  std::shared_ptr<FeatureLayer> layer(read(name, newSpace, newAddress,
          typeId));
   assert(layer);
 

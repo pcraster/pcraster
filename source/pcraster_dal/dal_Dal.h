@@ -272,20 +272,20 @@ public:
                                         DataSpaceAddress const& address,
                                         DatasetType datasetType) const;
 
-  std::tuple<boost::shared_ptr<Dataset>, Driver*> open(
+  std::tuple<std::shared_ptr<Dataset>, Driver*> open(
                                         std::string const& name) const;
 
-  std::tuple<boost::shared_ptr<Dataset>, Driver*> open(
+  std::tuple<std::shared_ptr<Dataset>, Driver*> open(
                                         std::string const& name,
                                         DatasetType datasetType) const;
 
-  std::tuple<boost::shared_ptr<Dataset>, Driver*> open(
+  std::tuple<std::shared_ptr<Dataset>, Driver*> open(
                                         std::string const& name,
                                         DataSpace const& space,
                                         DataSpaceAddress const& address,
                                         DatasetType datasetType) const;
 
-  boost::shared_ptr<Dataset> read      (std::string const& name) const;
+  std::shared_ptr<Dataset> read      (std::string const& name) const;
 
   Driver*          driver              (DataSpaceQueryResult const& result) const;
 

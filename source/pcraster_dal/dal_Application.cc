@@ -315,7 +315,7 @@ void Application::showDriverInfoByDatasetType(
 void Application::showDriverInfoByDataset(
          std::string const& name) const
 {
-  boost::shared_ptr<Dataset> dataset;
+  std::shared_ptr<Dataset> dataset;
   Driver* driver;
   std::tie(dataset, driver) = Client::dal().open(name);
 
@@ -503,7 +503,7 @@ void Application::showDatasetInfo(
   }
   else {
     assert(driver);
-    boost::shared_ptr<Dataset> dataset(driver->open(result));
+    std::shared_ptr<Dataset> dataset(driver->open(result));
     assert(dataset);
     showDatasetInfo(name, result.space(), result.address(), *dataset, *driver);
   }

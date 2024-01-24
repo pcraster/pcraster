@@ -124,7 +124,7 @@ BOOST_AUTO_TEST_CASE(exists)
 ///   using namespace dal;
 ///
 ///   std::string name;
-///   boost::shared_ptr<FeatureLayer> layer;
+///   std::shared_ptr<FeatureLayer> layer;
 ///   OgrFeatureDriver driver("ESRI Shapefile");
 ///
 ///   // Unexisting feature data set.
@@ -234,7 +234,7 @@ BOOST_AUTO_TEST_CASE(exists)
 ///   using namespace dal;
 ///
 ///   std::string name;
-///   boost::shared_ptr<FeatureLayer> layer;
+///   std::shared_ptr<FeatureLayer> layer;
 ///   OgrFeatureDriver driver("ESRI Shapefile");
 ///
 ///   {
@@ -333,7 +333,7 @@ BOOST_AUTO_TEST_CASE(exists)
 ///   using namespace dal;
 ///
 ///   OgrFeatureDriver driver("VRT");
-///   boost::shared_ptr<FeatureLayer> layer(
+///   std::shared_ptr<FeatureLayer> layer(
 ///          dynamic_cast<FeatureDriver&>(driver).read("polygons.vrt/polygons/id"));
 ///
 ///   BOOST_REQUIRE(layer);
@@ -366,7 +366,7 @@ BOOST_AUTO_TEST_CASE(exists)
 ///   std::string name = "polygons/polygons/attribute1";
 ///
 ///   OgrFeatureDriver driver("VRT");
-///   boost::shared_ptr<FeatureLayer> layer;
+///   std::shared_ptr<FeatureLayer> layer;
 ///
 ///   BOOST_CHECK(dynamic_cast<Driver&>(driver).exists(name));
 ///   BOOST_REQUIRE_NO_THROW(
@@ -404,7 +404,7 @@ BOOST_AUTO_TEST_CASE(exists)
 ///   address.setCoordinate<size_t>(0, 1);
 ///
 ///   OgrFeatureDriver driver("VRT");
-///   boost::shared_ptr<FeatureLayer> layer;
+///   std::shared_ptr<FeatureLayer> layer;
 ///
 ///   BOOST_WARN(dynamic_cast<Driver&>(driver).exists(name, space, address));
 ///   // BOOST_REQUIRE(dynamic_cast<Driver&>(driver).exists(name, space, address));
@@ -474,7 +474,7 @@ BOOST_AUTO_TEST_CASE(exists)
 ///   address.setCoordinate<float>(0, 0.01f);
 ///
 ///   OgrFeatureDriver driver("VRT");
-///   boost::shared_ptr<FeatureLayer> layer;
+///   std::shared_ptr<FeatureLayer> layer;
 ///
 ///   // KDJ 20090403 - Will be fixed soon.
 ///   BOOST_WARN(dynamic_cast<Driver&>(driver).exists(name, space, address));
@@ -550,7 +550,7 @@ BOOST_AUTO_TEST_CASE(exists)
 ///   address.setCoordinate<float>(1, 0.01f);
 ///
 ///   OgrFeatureDriver driver("VRT");
-///   boost::shared_ptr<FeatureLayer> layer;
+///   std::shared_ptr<FeatureLayer> layer;
 ///
 ///   // KDJ 20090403 - Will be fixed soon.
 ///   BOOST_WARN(dynamic_cast<Driver&>(driver).exists(name, space, address));

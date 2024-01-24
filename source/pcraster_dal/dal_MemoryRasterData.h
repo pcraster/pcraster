@@ -216,7 +216,7 @@ void MemoryRasterData::updateExtremes()
 {
   bool initialised = false;
   T min, max;
-  boost::shared_ptr<Raster> raster;
+  std::shared_ptr<Raster> raster;
 
   // Scan all data values and set extreme values.
   if(d_dataSpace.rank() == 0) {

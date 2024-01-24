@@ -65,15 +65,15 @@ public:
                                         DataSpace const& space,
                                         DataSpaceAddress const& address) const;
 
-  std::tuple<boost::shared_ptr<Raster>, RasterDriver*> open(
+  std::tuple<std::shared_ptr<Raster>, RasterDriver*> open(
                                         std::string const& name) const;
 
-  std::tuple<boost::shared_ptr<Raster>, RasterDriver*> open(
+  std::tuple<std::shared_ptr<Raster>, RasterDriver*> open(
                                         std::string const& name,
                                         DataSpace const& space,
                                         DataSpaceAddress const& address) const;
 
-  boost::shared_ptr<Raster> read       (std::string const& name,
+  std::shared_ptr<Raster> read       (std::string const& name,
                                         TypeId typeId = TI_NR_TYPES) const;
 
   void             read                (Raster& raster,

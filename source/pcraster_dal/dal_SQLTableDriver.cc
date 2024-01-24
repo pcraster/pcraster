@@ -385,7 +385,7 @@ bool SQLTableDriver::exists(
          DataSpace const& space,
          DataSpaceAddress const& address) const
 {
-  return bool(boost::shared_ptr<Table>(open(name, space, address)));
+  return bool(std::shared_ptr<Table>(open(name, space, address)));
 }
 
 
@@ -395,7 +395,7 @@ DataSpace SQLTableDriver::dataSpace(
          DataSpace const& space,
          DataSpaceAddress const& address) const
 {
-  boost::shared_ptr<Table> table(open(name, space, address));
+  std::shared_ptr<Table> table(open(name, space, address));
 
   if(!table) {
     throwCannotBeOpened(name, TABLE);
@@ -906,7 +906,7 @@ void SQLTableDriver::append(
       }
     }
 
-    boost::shared_ptr<Table> currentTable(open(name, space, address));
+    std::shared_ptr<Table> currentTable(open(name, space, address));
     openDatabase(database);
 
     if(!currentTable) {

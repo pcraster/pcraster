@@ -62,7 +62,7 @@ public:
   // ACCESSORS
   //----------------------------------------------------------------------------
 
-  std::tuple<boost::shared_ptr<dal::Matrix>, dal::MatrixDriver*> open(
+  std::tuple<std::shared_ptr<dal::Matrix>, dal::MatrixDriver*> open(
                                         std::string const& name);
 
 };

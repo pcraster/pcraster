@@ -199,7 +199,7 @@ dal::DataSpace dal::GeoEASTableDriver::dataSpace(
 //          DataSpace const& space,
 //          DataSpaceAddress const& address) const
 // {
-//   boost::shared_ptr<Table> table(TextTableDriver::open(name, space,
+//   std::shared_ptr<Table> table(TextTableDriver::open(name, space,
 //     address));
 //
 //   if(!table) {

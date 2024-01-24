@@ -325,7 +325,7 @@ public:
 
 Raster* GDALDataset2Raster(
   /* std::string const& name, */
-  const boost::shared_ptr<GDALDataset>& gdalDataset,
+  const std::shared_ptr<GDALDataset>& gdalDataset,
   TypeId typeId)
 {
   if(gdalDataset->GetRasterCount() < 1) {
@@ -875,7 +875,7 @@ Raster* GDALRasterDriver::open(
 
   try {
     registerGDALDriverToUse();
-    boost::shared_ptr<GDALDataset> gdalDataset(openGDALDataset(
+    std::shared_ptr<GDALDataset> gdalDataset(openGDALDataset(
          this->pathFor(name, space, address), GA_ReadOnly), DeleteGDALDataset());
     raster = GDALDataset2Raster(gdalDataset, typeId);
   }
@@ -908,7 +908,7 @@ void GDALRasterDriver::read(
   assert(!space.hasSpace());
 
   registerGDALDriverToUse();
-  boost::shared_ptr<GDALDataset> gdalDataset(openGDALDataset(
+  std::shared_ptr<GDALDataset> gdalDataset(openGDALDataset(
          this->pathFor(name, space, address), GA_ReadOnly),
              DeleteGDALDataset());
 
@@ -977,7 +977,7 @@ Raster* GDALRasterDriver::read(
 ///          size_t col) const
 /// {
 ///   registerGDALDriverToUse();
-///   boost::shared_ptr<GDALDataset> gdalDataset(openGDALDataset(name,
+///   std::shared_ptr<GDALDataset> gdalDataset(openGDALDataset(name,
 ///          GA_ReadOnly), DeleteGDALDataset());
 ///
 ///   assert(gdalDataset->GetRasterCount() >= 1);
@@ -1015,7 +1015,7 @@ void GDALRasterDriver::read(
   assert(space.hasSpace());
 
   registerGDALDriverToUse();
-  boost::shared_ptr<GDALDataset> gdalDataset(
+  std::shared_ptr<GDALDataset> gdalDataset(
          openGDALDataset(this->pathFor(name, space, address), GA_ReadOnly),
               DeleteGDALDataset());
 
@@ -1114,7 +1114,7 @@ void GDALRasterDriver::write(
 
    char **papszOptions = nullptr;
 
-   boost::shared_ptr<GDALDataset> poDstDS(d_driver->Create(name.c_str(),
+   std::shared_ptr<GDALDataset> poDstDS(d_driver->Create(name.c_str(),
        raster.nrCols(), raster.nrRows(), 1, gdalDataType(raster.typeId()),
            papszOptions), DeleteGDALDataset());
    assert(poDstDS);

@@ -67,7 +67,7 @@ public:
   // ACCESSORS
   //----------------------------------------------------------------------------
 
-  std::tuple<boost::shared_ptr<Table>, TableDriver*> open(
+  std::tuple<std::shared_ptr<Table>, TableDriver*> open(
                                         std::string const& name,
                                         bool raiseException=false);
 

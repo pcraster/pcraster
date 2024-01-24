@@ -33,7 +33,7 @@ namespace dal {
 
   \todo      Once MemoryRasterData stores rasters instead of arrays, open()
              and read() can do the same thing.
-  \todo      If we start using boost::shared_ptr everywhere, than open() and
+  \todo      If we start using std::shared_ptr everywhere, than open() and
              read() don't need to return a newly allocated object, but can
              return the object that is stored in memory.
 */

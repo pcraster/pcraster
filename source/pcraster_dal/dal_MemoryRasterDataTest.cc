@@ -34,7 +34,7 @@ BOOST_AUTO_TEST_CASE(test_)
   //   BOOST_CHECK(!data.exists());
   // }
 
-  boost::shared_ptr<Raster> raster;
+  std::shared_ptr<Raster> raster;
   values.push_back((REAL4*)q1);
 
   {

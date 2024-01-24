@@ -276,7 +276,7 @@ DataSpaceQueryResult Driver::search(
          DataSpace const& space,
          SearchHaltCondition haltCondition) const
 {
-  boost::shared_ptr<Dataset> firstDataset;
+  std::shared_ptr<Dataset> firstDataset;
   DataSpaceAddress firstAddress;
   std::vector<DataSpaceAddress> validAddresses;
 
@@ -284,7 +284,7 @@ DataSpaceQueryResult Driver::search(
     firstDataset.reset(open(name));
   }
   else {
-    boost::shared_ptr<Dataset> dataset;
+    std::shared_ptr<Dataset> dataset;
 
     for(DataSpaceIterator it = space.begin(); it != space.end(); ++it) {
       dataset.reset(open(name, space, *it));

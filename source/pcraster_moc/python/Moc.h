@@ -80,7 +80,7 @@ public:
                         calc::Field const* hydraulicHead,
                         calc::Field const* saturatedThickness);
 
-  boost::shared_ptr<calc::Field> adjust(
+  std::shared_ptr<calc::Field> adjust(
                                   calc::Field const* changeInConcentration);
 
   //----------------------------------------------------------------------------

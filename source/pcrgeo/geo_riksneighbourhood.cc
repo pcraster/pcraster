@@ -55,11 +55,11 @@ public:
 // DEFINITION OF STATIC RIKSNEIGHBOURHOOD MEMBERS
 //------------------------------------------------------------------------------
 
-boost::tuple<size_t, size_t> geo::RiksNeighbourhood::circleCell(double radius)
+std::tuple<size_t, size_t> geo::RiksNeighbourhood::circleCell(double radius)
 {
   PRECOND(radius > 0.0);
 
-  boost::tuple<size_t, size_t> cell;
+  std::tuple<size_t, size_t> cell;
   double currentDifference(0), difference(0);
 
   // Determine max radius of raster which can contain a circle with given
@@ -73,13 +73,13 @@ boost::tuple<size_t, size_t> geo::RiksNeighbourhood::circleCell(double radius)
       if(row == 0 && col == 0) {
         // First cell handled.
         difference = std::abs(radius - std::hypot<double>(row, col));
-        cell = boost::make_tuple(row, col);
+        cell = std::make_tuple(row, col);
       }
       else {
         currentDifference = std::abs(radius - std::hypot<double>(row, col));
         if(currentDifference < difference) {
           difference = currentDifference;
-          cell = boost::make_tuple(row, col);
+          cell = std::make_tuple(row, col);
         }
       }
     }
@@ -132,8 +132,8 @@ void geo::RiksNeighbourhood::init()
 {
   // Determine which cells match the given radiusses best. These are the cells
   // who's centers are closest to the circle defined by the radiusses.
-  boost::tuple<size_t, size_t> fromCircleCell = boost::make_tuple(0, 0);
-  boost::tuple<size_t, size_t> toCircleCell(fromCircleCell);
+  std::tuple<size_t, size_t> fromCircleCell = std::make_tuple(0, 0);
+  std::tuple<size_t, size_t> toCircleCell(fromCircleCell);
 
   if(fromRadius() > 0.0) {
     fromCircleCell = circleCell(fromRadius());
@@ -146,9 +146,9 @@ void geo::RiksNeighbourhood::init()
   // Determine the radiusses of the Riks neighbourhoods of which the selected
   // cells are part.
   double fromRadius = std::hypot<double>(
-         fromCircleCell.get<0>(), fromCircleCell.get<1>());
+         std::get<0>(fromCircleCell), std::get<1>(fromCircleCell));
   double toRadius = std::hypot<double>(
-         toCircleCell.get<0>(), toCircleCell.get<1>());
+         std::get<0>(toCircleCell), std::get<1>(toCircleCell));
 
   // Make sure the current set radius is equal of larger than the selected one.
   POSTCOND(static_cast<double>(radius()) >= toRadius);

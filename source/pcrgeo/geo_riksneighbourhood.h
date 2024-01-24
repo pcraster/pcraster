@@ -22,6 +22,7 @@
 #define INCLUDED_GEO_NEIGHBOURHOOD
 #endif
 
+#include <tuple>
 
 
 namespace geo {
@@ -47,7 +48,7 @@ class RiksNeighbourhood: public Neighbourhood
 
 private:
 
-  static boost::tuple<size_t, size_t> circleCell(double radius);
+  static std::tuple<size_t, size_t> circleCell(double radius);
 
   void             init                ();
 

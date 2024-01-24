@@ -58,7 +58,7 @@
 boost::unit_test::test_suite*com::InTableStreamTest::suite()
 {
   boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<InTableStreamTest> instance(new InTableStreamTest());
+  std::shared_ptr<InTableStreamTest> instance(new InTableStreamTest());
 
   suite->add(BOOST_CLASS_TEST_CASE(&InTableStreamTest::testRead, instance));
   suite->add(BOOST_CLASS_TEST_CASE(&InTableStreamTest::testRead2, instance));

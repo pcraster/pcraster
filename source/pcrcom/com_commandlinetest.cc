@@ -54,7 +54,7 @@
 boost::unit_test::test_suite*com::CommandLineTest::suite()
 {
   boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<CommandLineTest> instance(new CommandLineTest());
+  std::shared_ptr<CommandLineTest> instance(new CommandLineTest());
 
   suite->add(BOOST_CLASS_TEST_CASE(&CommandLineTest::testConstructor, instance));
   suite->add(BOOST_CLASS_TEST_CASE(&CommandLineTest::testPositionalValue, instance));

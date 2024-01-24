@@ -61,7 +61,7 @@
 boost::unit_test::test_suite*com::SpiritFileLineParserTest::suite()
 {
   boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<SpiritFileLineParserTest> instance(new SpiritFileLineParserTest());
+  std::shared_ptr<SpiritFileLineParserTest> instance(new SpiritFileLineParserTest());
 
   suite->add(BOOST_CLASS_TEST_CASE(&SpiritFileLineParserTest::testOne, instance));
   suite->add(BOOST_CLASS_TEST_CASE(&SpiritFileLineParserTest::testTwo, instance));

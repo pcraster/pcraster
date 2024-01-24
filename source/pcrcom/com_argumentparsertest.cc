@@ -49,7 +49,7 @@
 boost::unit_test::test_suite*com::ArgumentParserTest::suite()
 {
   boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<ArgumentParserTest> instance(new ArgumentParserTest());
+  std::shared_ptr<ArgumentParserTest> instance(new ArgumentParserTest());
 
   suite->add(BOOST_CLASS_TEST_CASE(&ArgumentParserTest::testString, instance));
   suite->add(BOOST_CLASS_TEST_CASE(&ArgumentParserTest::testSize_t, instance));

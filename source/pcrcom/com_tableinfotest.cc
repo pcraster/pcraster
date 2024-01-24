@@ -60,7 +60,7 @@
 boost::unit_test::test_suite*com::TableInfoTest::suite()
 {
   boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<TableInfoTest> instance(new TableInfoTest());
+  std::shared_ptr<TableInfoTest> instance(new TableInfoTest());
 
   suite->add(BOOST_CLASS_TEST_CASE(&TableInfoTest::testAvailable, instance));
   suite->add(BOOST_CLASS_TEST_CASE(&TableInfoTest::testDetect, instance));

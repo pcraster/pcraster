@@ -58,10 +58,10 @@ private:
                                   std::vector<std::string> const& selectedCols);
 
   Table*           open                (
-         boost::tuple<std::string, std::vector<std::string> > const& tuple) const;
+         std::tuple<std::string, std::vector<std::string> > const& tuple) const;
 
   Table*           open                (
-                   boost::tuple<std::string, std::vector<std::string> > const& tuple,
+                   std::tuple<std::string, std::vector<std::string> > const& tuple,
                                         DataSpace const& space,
                                         DataSpaceAddress const& address) const;
 

@@ -60,7 +60,7 @@ BOOST_AUTO_TEST_CASE(test_)
   quantiles.push_back(0.1f);
   space.addDimension(Dimension(CumulativeProbabilities, quantiles));
 
-  typedef boost::tuple<float, std::vector<boost::any> > FloatTuple;
+  typedef std::tuple<float, std::vector<boost::any> > FloatTuple;
   values.clear();
 
   std::vector<boost::any> tmp;

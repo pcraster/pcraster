@@ -136,7 +136,7 @@ bool TextTableDriver::exists(
          DataSpaceAddress const& address) const
 {
   return pathExists(
-         boost::get<0>(splitNameAndSelection(name)), space, address);
+         std::get<0>(splitNameAndSelection(name)), space, address);
 }
 
 
@@ -275,24 +275,24 @@ bool TextTableDriver::open(
 
 
 Table* TextTableDriver::open(
-         boost::tuple<std::string, std::vector<std::string> > const& tuple) const
+         std::tuple<std::string, std::vector<std::string> > const& tuple) const
 {
-  Table* table = open(pathFor(boost::get<0>(tuple)));
+  Table* table = open(pathFor(std::get<0>(tuple)));
 
-  return markSelectedCols(table, boost::get<1>(tuple));
+  return markSelectedCols(table, std::get<1>(tuple));
 }
 
 
 
 Table* TextTableDriver::open(
-         boost::tuple<std::string, std::vector<std::string> > const& tuple,
+         std::tuple<std::string, std::vector<std::string> > const& tuple,
          DataSpace const& space,
          DataSpaceAddress const& address) const
 {
-  Table* table = open(pathForDataSpaceAddress(boost::get<0>(tuple),
+  Table* table = open(pathForDataSpaceAddress(std::get<0>(tuple),
        space, address));
 
-  return markSelectedCols(table, boost::get<1>(tuple));
+  return markSelectedCols(table, std::get<1>(tuple));
 }
 
 
@@ -611,7 +611,7 @@ void TextTableDriver::read(
 //          Table& table,
 //          std::string const& name) const
 // {
-//   read(table, pathFor(boost::get<0>(splitNameAndSelection(name))));
+//   read(table, pathFor(std::get<0>(splitNameAndSelection(name))));
 // }
 
 
@@ -623,7 +623,7 @@ void TextTableDriver::read(
          DataSpaceAddress const& address) const
 {
   read(table,
-         pathForDataSpaceAddress(boost::get<0>(splitNameAndSelection(name)),
+         pathForDataSpaceAddress(std::get<0>(splitNameAndSelection(name)),
          space, address));
 }
 

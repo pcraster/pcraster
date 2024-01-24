@@ -162,7 +162,7 @@ inline bool TableDriver::extremes(
   space.eraseDimension(Space);
 
   if(space.isEmpty()) {
-    // path = pathFor(boost::get<0>(splitNameAndSelection(name)));
+    // path = pathFor(std::get<0>(splitNameAndSelection(name)));
     table = dynamic_cast<Table*>(Driver::open(name));
 
     if(table) {
@@ -183,7 +183,7 @@ inline bool TableDriver::extremes(
     T colMin, colMax;
 
     for(DataSpaceIterator it = space.begin(); it != space.end(); ++it) {
-      // path = pathForDataSpaceAddress(boost::get<0>(splitNameAndSelection(name)),
+      // path = pathForDataSpaceAddress(std::get<0>(splitNameAndSelection(name)),
       //    space, *it);
       table = open(name, space, *it);
 

@@ -395,7 +395,7 @@ void Dal::addDriverToCache(
   if(!inCache(name, space)) {
     // First time this driver is added to the cache.
     std::string key(nameAndSpaceToString(name, space));
-    _driversByDataset[key] = boost::make_tuple(
+    _driversByDataset[key] = std::make_tuple(
          driver, DataSpaceQueryResult(), DataSpaceQueryResult());
 
     if(queryFirstResult) {
@@ -432,7 +432,7 @@ void Dal::removeDriverFromCache(
 {
   for(auto it = _driversByDataset.begin();
          it != _driversByDataset.end(); ) {
-    if(boost::get<0>(it->second) == driver) {
+    if(std::get<0>(it->second) == driver) {
       _driversByDataset.erase(it++);
     }
     else {
@@ -450,7 +450,7 @@ DatasetType Dal::datasetType(
          std::string const& name)
 {
   boost::shared_ptr<Dataset> dataset;
-  boost::tie(dataset, boost::tuples::ignore) = open(name);
+  std::tie(dataset, std::ignore) = open(name);
 
   return dataset ? dataset->type() : NR_DATASET_TYPES;
 }
@@ -473,7 +473,7 @@ DatasetType Dal::datasetType(
          DataSpace const& space)
 {
   DataSpaceQueryResult result;
-  boost::tie(result, boost::tuples::ignore) = search(name, NR_DATASET_TYPES,
+  std::tie(result, std::ignore) = search(name, NR_DATASET_TYPES,
       space, SearchThisSpaceOnly, HaltOnFirstItemFound);
   return result.datasetType();
 }
@@ -543,7 +543,7 @@ DataSpaceQueryResult Dal::search(
 
 
 
-boost::tuple<DataSpaceQueryResult, Driver*> Dal::search(
+std::tuple<DataSpaceQueryResult, Driver*> Dal::search(
          std::string const& name,
          DataSpace const& space,
          SearchMethod searchMethod,
@@ -554,7 +554,7 @@ boost::tuple<DataSpaceQueryResult, Driver*> Dal::search(
 
 
 
-boost::tuple<DataSpaceQueryResult, Driver*> Dal::search(
+std::tuple<DataSpaceQueryResult, Driver*> Dal::search(
          std::string const& name,
          DatasetType datasetType,
          DataSpace const& space,
@@ -614,7 +614,7 @@ boost::tuple<DataSpaceQueryResult, Driver*> Dal::search(
     }
   }
 
-  return boost::make_tuple(result, driver);
+  return std::make_tuple(result, driver);
 }
 
 
@@ -673,7 +673,7 @@ bool Dal::exists(
 /*!
   \overload
 */
-boost::tuple<boost::shared_ptr<Dataset>, Driver*> Dal::open(
+std::tuple<boost::shared_ptr<Dataset>, Driver*> Dal::open(
          std::string const& name) const
 {
   return open(name, NR_DATASET_TYPES);
@@ -691,28 +691,28 @@ boost::tuple<boost::shared_ptr<Dataset>, Driver*> Dal::open(
   supporting the dataset may create one. If no driver can create a Dataset from
   \a name, 0 is returned.
 */
-boost::tuple<boost::shared_ptr<Dataset>, Driver*> Dal::open(
+std::tuple<boost::shared_ptr<Dataset>, Driver*> Dal::open(
          std::string const& name,
          DatasetType datasetType) const
 {
   DataSpaceQueryResult result;
   Driver* driver;
-  boost::tie(result, driver) = search(name, datasetType, DataSpace(),
+  std::tie(result, driver) = search(name, datasetType, DataSpace(),
          SearchThisSpaceOnly, HaltOnFirstItemFound);
 
   if(result) {
     assert(driver);
-    return boost::make_tuple(boost::shared_ptr<Dataset>(driver->open(name)),
+    return std::make_tuple(boost::shared_ptr<Dataset>(driver->open(name)),
         driver);
   }
 
   assert(!driver);
-  return boost::make_tuple(boost::shared_ptr<Dataset>(), driver);
+  return std::make_tuple(boost::shared_ptr<Dataset>(), driver);
 }
 
 
 
-boost::tuple<boost::shared_ptr<Dataset>, Driver*> Dal::open(
+std::tuple<boost::shared_ptr<Dataset>, Driver*> Dal::open(
          std::string const& name,
          DataSpace const& space,
          DataSpaceAddress const& address,
@@ -758,7 +758,7 @@ boost::tuple<boost::shared_ptr<Dataset>, Driver*> Dal::open(
     }
   }
 
-  return boost::make_tuple(dataset, driver);
+  return std::make_tuple(dataset, driver);
 }
 
 
@@ -770,7 +770,7 @@ boost::shared_ptr<Dataset> Dal::read(
 
   boost::shared_ptr<Dataset> dataset;
   Driver* driver;
-  boost::tie(dataset, driver) = open(name);
+  std::tie(dataset, driver) = open(name);
 
   if(!dataset) {
     throwCannotBeOpened(name);
@@ -821,7 +821,7 @@ Driver* Dal::driver(
 {
   assert(library()->cacheDatasetInfo());
   return inCache(result.name(), result.space())
-         ? boost::get<0>((*cacheValue(result.name(), result.space())).second)
+         ? std::get<0>((*cacheValue(result.name(), result.space())).second)
          : 0;
 }
 
@@ -833,7 +833,7 @@ Driver* Dal::driverByDataset(
 {
   assert(library()->cacheDatasetInfo());
   return inCache(name, space)
-         ? boost::get<0>((*cacheValue(name, space)).second)
+         ? std::get<0>((*cacheValue(name, space)).second)
          : 0;
 }
 
@@ -844,7 +844,7 @@ DataSpaceQueryResult Dal::queryFirstResult(
          DataSpace const& space)
 {
   return inCache(name, space)
-         ? boost::get<1>((*cacheValue(name, space)).second)
+         ? std::get<1>((*cacheValue(name, space)).second)
          : DataSpaceQueryResult();
 }
 
@@ -855,7 +855,7 @@ DataSpaceQueryResult Dal::queryResult(
          DataSpace const& space) const
 {
   return inCache(name, space)
-         ? boost::get<2>((*cacheValue(name, space)).second)
+         ? std::get<2>((*cacheValue(name, space)).second)
          : DataSpaceQueryResult();
 }
 
@@ -868,7 +868,7 @@ void Dal::setQueryFirstResult(
 {
   assert(result);
 
-  boost::get<1>((*cacheValue(name, space)).second) = result;
+  std::get<1>((*cacheValue(name, space)).second) = result;
 }
 
 
@@ -880,7 +880,7 @@ void Dal::setQueryResult(
 {
   assert(result);
 
-  boost::get<2>((*cacheValue(name, space)).second) = result;
+  std::get<2>((*cacheValue(name, space)).second) = result;
 
   if(!queryFirstResult(name, space)) {
     setQueryFirstResult(name, space, result);

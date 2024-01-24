@@ -127,20 +127,20 @@ bool RasterDal::exists(
 
   The caller is responsible of deleting the Raster object again.
 */
-boost::tuple<boost::shared_ptr<Raster>, RasterDriver*> RasterDal::open(
+std::tuple<boost::shared_ptr<Raster>, RasterDriver*> RasterDal::open(
          std::string const& name) const
 {
   assert(nrDrivers() > 0);
   boost::shared_ptr<Dataset> dataset;
   Driver* driver;
-  boost::tie(dataset, driver) = Dal::open(name, RASTER);
-  return boost::make_tuple(boost::dynamic_pointer_cast<Raster>(dataset),
+  std::tie(dataset, driver) = Dal::open(name, RASTER);
+  return std::make_tuple(boost::dynamic_pointer_cast<Raster>(dataset),
       dynamic_cast<RasterDriver*>(driver));
 }
 
 
 
-boost::tuple<boost::shared_ptr<Raster>, RasterDriver*> RasterDal::open(
+std::tuple<boost::shared_ptr<Raster>, RasterDriver*> RasterDal::open(
          std::string const& name,
          DataSpace const& space,
          DataSpaceAddress const& address) const
@@ -148,8 +148,8 @@ boost::tuple<boost::shared_ptr<Raster>, RasterDriver*> RasterDal::open(
   assert(nrDrivers() > 0);
   boost::shared_ptr<Dataset> dataset;
   Driver* driver;
-  boost::tie(dataset, driver) = Dal::open(name, space, address, RASTER);
-  return boost::make_tuple(boost::dynamic_pointer_cast<Raster>(dataset),
+  std::tie(dataset, driver) = Dal::open(name, space, address, RASTER);
+  return std::make_tuple(boost::dynamic_pointer_cast<Raster>(dataset),
       dynamic_cast<RasterDriver*>(driver));
 }
 
@@ -170,7 +170,7 @@ boost::shared_ptr<Raster> RasterDal::read(
 
   boost::shared_ptr<Raster> raster;
   RasterDriver* driver;
-  boost::tie(raster, driver) = open(name);
+  std::tie(raster, driver) = open(name);
 
   if(!raster) {
     throwCannotBeOpened(name, RASTER);

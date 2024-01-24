@@ -259,8 +259,8 @@ void* MemoryRasterData::cells(
 
   size_t i = 0;
   while(i < values.size()) {
-    if(comparable<T>(valueToFind, boost::any_cast<T>(boost::get<0>(
-         boost::any_cast<boost::tuple<T, std::vector<boost::any> > >(
+    if(comparable<T>(valueToFind, boost::any_cast<T>(std::get<0>(
+         boost::any_cast<std::tuple<T, std::vector<boost::any> > >(
          values[i]))))) {
       break;
     }
@@ -276,8 +276,8 @@ void* MemoryRasterData::cells(
     // If this is the last coordinate, the values vector contains the pointer
     // to the data we need.
     result = cells(
-         boost::get<1>(
-         boost::any_cast<boost::tuple<T, std::vector<boost::any> > >(
+         std::get<1>(
+         boost::any_cast<std::tuple<T, std::vector<boost::any> > >(
          values[i])));
   }
   else {
@@ -287,8 +287,8 @@ void* MemoryRasterData::cells(
     address.eraseCoordinate(0);
 
     result = cells(
-         boost::get<1>(
-         boost::any_cast<boost::tuple<T, std::vector<boost::any> > >(
+         std::get<1>(
+         boost::any_cast<std::tuple<T, std::vector<boost::any> > >(
          values[i])), space, address);
 
   }
@@ -389,11 +389,11 @@ void MemoryRasterData::checkConsistency(
 
   for(auto & value : values) {
     assert(value.type() ==
-         typeid(boost::tuple<T, std::vector<boost::any> >));
+         typeid(std::tuple<T, std::vector<boost::any> >));
 
     checkConsistency(
-         boost::get<1>(
-         boost::any_cast<boost::tuple<T, std::vector<boost::any> > >(
+         std::get<1>(
+         boost::any_cast<std::tuple<T, std::vector<boost::any> > >(
          value)), space);
   }
 }

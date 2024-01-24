@@ -1010,21 +1010,21 @@ BOOST_AUTO_TEST_CASE(old_stack_name_2_name_space_tuple)
   using namespace dal;
 
 #ifdef WIN32
-  boost::tuple<std::string, DataSpace> result;
+  std::tuple<std::string, DataSpace> result;
   std::string name;
 
   {
     name = "..\\dem.map";
     result = oldStackName2NameSpaceTuple(name);
-    BOOST_CHECK_EQUAL(boost::get<0>(result), name);
-    BOOST_CHECK_EQUAL(boost::get<1>(result).rank(), 0);
+    BOOST_CHECK_EQUAL(std::get<0>(result), name);
+    BOOST_CHECK_EQUAL(std::get<1>(result).rank(), 0);
   }
 
   {
     name = "..\\data\\dem.map";
     result = oldStackName2NameSpaceTuple(name);
-    BOOST_CHECK_EQUAL(boost::get<0>(result), name);
-    BOOST_CHECK_EQUAL(boost::get<1>(result).rank(), 0);
+    BOOST_CHECK_EQUAL(std::get<0>(result), name);
+    BOOST_CHECK_EQUAL(std::get<1>(result).rank(), 0);
   }
 #endif
 }

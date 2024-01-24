@@ -317,7 +317,7 @@ void Application::showDriverInfoByDataset(
 {
   boost::shared_ptr<Dataset> dataset;
   Driver* driver;
-  boost::tie(dataset, driver) = Client::dal().open(name);
+  std::tie(dataset, driver) = Client::dal().open(name);
 
   if(dataset) {
     assert(driver);
@@ -494,7 +494,7 @@ void Application::showDatasetInfo(
 
   DataSpaceQueryResult result;
   Driver* driver;
-  boost::tie(result, driver) = Client::dal().search(name, space,
+  std::tie(result, driver) = Client::dal().search(name, space,
          SearchThisSpaceOnly, SearchForAllItems);
 
   if(!result) {

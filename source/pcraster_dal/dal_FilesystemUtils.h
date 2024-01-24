@@ -109,7 +109,7 @@ std::filesystem::path addExtensionIfNeeded(
                                        std::filesystem::path const& path,
                                        std::string const& extension);
 
-PCR_DAL_DECL boost::tuple<std::string, dal::DataSpace>
+PCR_DAL_DECL std::tuple<std::string, dal::DataSpace>
                    oldStackName2NameSpaceTuple(
                                         std::string const& name);
 
@@ -255,7 +255,7 @@ PCR_DAL_DECL std::filesystem::path pathFor(std::string const& name);
   the data set.
 */
 template<class CallBack>
-inline boost::tuple<bool, FilenameConvention, std::string>
+inline std::tuple<bool, FilenameConvention, std::string>
                    determineFilenameCharacteristics(
                                   CallBack const& callBack,
                                   std::string const& name,
@@ -268,14 +268,14 @@ inline boost::tuple<bool, FilenameConvention, std::string>
   // Check convention without extension.
   if(callBack(pathForDataSpaceAddress(
          name, space, address, DALConvention).string())) {
-    return boost::make_tuple(true, DALConvention, std::string());
+    return std::make_tuple(true, DALConvention, std::string());
   }
 
   // Check convention with extension.
   for(const auto & extension : extensions) {
     if(callBack(pathForDataSpaceAddress(name + extension, space,
          address, DALConvention).string())) {
-      return boost::make_tuple(true, DALConvention, extension);
+      return std::make_tuple(true, DALConvention, extension);
     }
   }
 
@@ -287,7 +287,7 @@ inline boost::tuple<bool, FilenameConvention, std::string>
       std::filesystem::path(name).extension().string().size() < 4) {
       if(callBack(pathForDataSpaceAddress(name, space, address,
          PCRConvention).string())) {
-        return boost::make_tuple(true, PCRConvention, std::string());
+        return std::make_tuple(true, PCRConvention, std::string());
       }
     }
 
@@ -296,13 +296,13 @@ inline boost::tuple<bool, FilenameConvention, std::string>
       if(space.hasTime() && extension.size() < 4) {
         if(callBack(pathForDataSpaceAddress(name + extension, space,
              address, PCRConvention).string())) {
-          return boost::make_tuple(true, PCRConvention, extension);
+          return std::make_tuple(true, PCRConvention, extension);
         }
       }
     }
   }
 
-  return boost::make_tuple(false, UnknownFilenameConvention, std::string());
+  return std::make_tuple(false, UnknownFilenameConvention, std::string());
 }
 
 void               possibleFileBasedAttributeFileNames(

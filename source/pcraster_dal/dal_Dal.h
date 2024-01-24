@@ -14,11 +14,6 @@
 #define INCLUDED_BOOST_NONCOPYABLE
 #endif
 
-#ifndef INCLUDED_BOOST_TUPLE_TUPLE
-#include <boost/tuple/tuple.hpp>
-#define INCLUDED_BOOST_TUPLE_TUPLE
-#endif
-
 // PCRaster library headers.
 
 // Module headers.
@@ -47,6 +42,7 @@
 #define INCLUDED_DAL_FORMATS
 #endif
 
+#include <tuple>
 
 
 namespace dal {
@@ -159,7 +155,7 @@ private:
   Drivers          _drivers;
 
   //! Type for cached information: driver, result of search for first data item, result of search for all data items.
-  typedef boost::tuple<Driver*, DataSpaceQueryResult, DataSpaceQueryResult>
+  typedef std::tuple<Driver*, DataSpaceQueryResult, DataSpaceQueryResult>
          CacheValue;
 
   // Type for lookup table with cached information. The key is the string representation of the attribute name and the data space.
@@ -258,13 +254,13 @@ public:
   DatasetType      datasetType         (std::string const& name,
                                         DataSpace const& space);
 
-  boost::tuple<DataSpaceQueryResult, Driver*> search(
+  std::tuple<DataSpaceQueryResult, Driver*> search(
                                         std::string const& name,
                                         DataSpace const& space,
                                         SearchMethod searchMethod,
                                         SearchHaltCondition haltCondition) const;
 
-  boost::tuple<DataSpaceQueryResult, Driver*> search(
+  std::tuple<DataSpaceQueryResult, Driver*> search(
                                         std::string const& name,
                                         DatasetType datasetType,
                                         DataSpace const& space,
@@ -276,14 +272,14 @@ public:
                                         DataSpaceAddress const& address,
                                         DatasetType datasetType) const;
 
-  boost::tuple<boost::shared_ptr<Dataset>, Driver*> open(
+  std::tuple<boost::shared_ptr<Dataset>, Driver*> open(
                                         std::string const& name) const;
 
-  boost::tuple<boost::shared_ptr<Dataset>, Driver*> open(
+  std::tuple<boost::shared_ptr<Dataset>, Driver*> open(
                                         std::string const& name,
                                         DatasetType datasetType) const;
 
-  boost::tuple<boost::shared_ptr<Dataset>, Driver*> open(
+  std::tuple<boost::shared_ptr<Dataset>, Driver*> open(
                                         std::string const& name,
                                         DataSpace const& space,
                                         DataSpaceAddress const& address,

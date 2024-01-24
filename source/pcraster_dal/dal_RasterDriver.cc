@@ -105,7 +105,7 @@ RasterDriver::~RasterDriver()
   Nothing happens if the filenaming characteristics for \a name are already
   known.
 */
-boost::tuple<bool, FilenameConvention, std::string>
+std::tuple<bool, FilenameConvention, std::string>
 RasterDriver::determineFilenameCharacteristics(
          std::string const& name,
          DataSpace const& space,
@@ -132,12 +132,12 @@ RasterDriver::determineFilenameCharacteristics(
     typedef boost::function< bool (std::string const&)> CallBack;
 
     CallBack callBack(dal::exists);
-    boost::tie(found, convention, extension) =
+    std::tie(found, convention, extension) =
          dal::determineFilenameCharacteristics<CallBack>(callBack,
               name, space, address, format().extensions());
   }
 
-  return boost::tie(found, convention, extension);
+  return std::tie(found, convention, extension);
 }
 
 
@@ -181,7 +181,7 @@ std::filesystem::path RasterDriver::pathFor(
   bool found;
   FilenameConvention convention;
   std::string extension;
-  boost::tie(found, convention, extension) = determineFilenameCharacteristics(
+  std::tie(found, convention, extension) = determineFilenameCharacteristics(
       name, space, address);
 
   if(library()->cacheDatasetInfo() && found) {

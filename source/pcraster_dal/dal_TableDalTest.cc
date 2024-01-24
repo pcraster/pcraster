@@ -42,7 +42,7 @@ BOOST_AUTO_TEST_CASE(test)
     BOOST_CHECK(dal.hasDriverByName("Geo-EAS"));
     BOOST_CHECK_EQUAL(dal.driverByName("Geo-EAS")->datasetType(), TABLE);
     boost::shared_ptr<Table> table;
-    boost::tie(table, boost::tuples::ignore) = dal.open(name);
+    std::tie(table, std::ignore) = dal.open(name);
     BOOST_CHECK(table.get());
   }
 }

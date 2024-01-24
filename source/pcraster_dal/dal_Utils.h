@@ -32,11 +32,6 @@
 // #include <boost/spirit/actor/ref_value_actor.hpp>
 // #include <boost/spirit/actor/ref_const_ref_actor.hpp>
 
-#ifndef INCLUDED_BOOST_TUPLE_TUPLE
-#include <boost/tuple/tuple.hpp>
-#define INCLUDED_BOOST_TUPLE_TUPLE
-#endif
-
 // PCRaster library headers.
 
 // Module headers.
@@ -55,6 +50,7 @@
 #define INCLUDED_DAL_DEF
 #endif
 
+#include <tuple>
 
 
 namespace dal {
@@ -371,7 +367,7 @@ PCR_DAL_DECL T     timeStep            (DataSpace const& space,
   ///                                       DataSpaceAddress const& address);
 
 
-PCR_DAL_DECL boost::tuple<std::string, std::vector<std::string> >
+PCR_DAL_DECL std::tuple<std::string, std::vector<std::string> >
                    splitNameAndSelection(
                                         std::string name);
 

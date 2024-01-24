@@ -94,14 +94,14 @@ TableDal::~TableDal()
 
   The caller is responsible of deleting the Table object again.
 */
-boost::tuple<boost::shared_ptr<Table>, TableDriver*> TableDal::open(
+std::tuple<boost::shared_ptr<Table>, TableDriver*> TableDal::open(
          std::string const& name,
          bool raiseException)
 {
   assert(nrDrivers() > 0);
   boost::shared_ptr<Dataset> dataset;
   Driver* driver;
-  boost::tie(dataset, driver) = Dal::open(name, TABLE);
+  std::tie(dataset, driver) = Dal::open(name, TABLE);
 
   // Table* table = dynamic_cast<Table*>(Dal::open(name, TABLE));
 
@@ -109,7 +109,7 @@ boost::tuple<boost::shared_ptr<Table>, TableDriver*> TableDal::open(
     throwCannotBeOpened(name, TABLE);
   }
 
-  return boost::make_tuple(boost::dynamic_pointer_cast<Table>(dataset),
+  return std::make_tuple(boost::dynamic_pointer_cast<Table>(dataset),
       dynamic_cast<TableDriver*>(driver));
 }
 
@@ -129,7 +129,7 @@ Table* TableDal::read(std::string const& name, TypeId typeId)
   assert(nrDrivers() > 0);
 
   TableDriver* driver;
-  boost::tie(boost::tuples::ignore, driver) = open(name, true);
+  std::tie(std::ignore, driver) = open(name, true);
   assert(driver);
 
   return driver->read(name, typeId);
@@ -153,7 +153,7 @@ void TableDal::read(
   assert(nrDrivers() > 0);
 
   TableDriver* driver;
-  boost::tie(boost::tuples::ignore, driver) = open(name, true);
+  std::tie(std::ignore, driver) = open(name, true);
   assert(driver);
 
   driver->read(table, name);

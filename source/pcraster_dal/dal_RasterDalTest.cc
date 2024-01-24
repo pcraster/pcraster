@@ -71,7 +71,7 @@ BOOST_AUTO_TEST_CASE(esri_ascii_grid1)
   boost::shared_ptr<Raster> raster;
 
   {
-    boost::tie(raster, boost::tuples::ignore) = dal.open(filename);
+    std::tie(raster, std::ignore) = dal.open(filename);
     BOOST_REQUIRE(raster);
     BOOST_CHECK_EQUAL(raster->nrRows(), size_t(4));
     BOOST_CHECK_EQUAL(raster->nrCols(), size_t(3));

@@ -119,7 +119,7 @@ void DataSource::init(
 
   // Search for data set name in space.
   DataSpaceQueryResult result;
-  boost::tie(result, d_reader) = Client::dal().search(name, space,
+  std::tie(result, d_reader) = Client::dal().search(name, space,
          SearchThisSpaceOnly, SearchForAllItems);
 
   if(!result) {

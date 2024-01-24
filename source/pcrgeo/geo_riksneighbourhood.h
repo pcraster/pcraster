@@ -9,10 +9,6 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_BOOST_TUPLE_TUPLE
-#include <boost/tuple/tuple.hpp>
-#define INCLUDED_BOOST_TUPLE_TUPLE
-#endif
 
 // PCRaster library headers.
 

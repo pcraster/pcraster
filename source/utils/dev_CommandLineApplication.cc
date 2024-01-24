@@ -128,7 +128,7 @@ void CommandLineApplication::addPositionalOption(
          const std::string& description)
 {
   assert(maxCount == -1 || maxCount > 0);
-  assert(_positionalInfo.empty() || _positionalInfo.back().get<0>() > 0);
+  assert(_positionalInfo.empty() || std::get<0>(_positionalInfo.back()) > 0);
 
   _positionalInfo.push_back(std::make_tuple(maxCount, description));
 }

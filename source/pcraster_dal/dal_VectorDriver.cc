@@ -20,11 +20,6 @@
 #define INCLUDED_BOOST_SHARED_PTR
 #endif
 
-#ifndef INCLUDED_BOOST_TUPLE_TUPLE
-#include <boost/tuple/tuple.hpp>
-#define INCLUDED_BOOST_TUPLE_TUPLE
-#endif
-
 // Project headers.
 
 // Module headers.

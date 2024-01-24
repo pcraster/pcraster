@@ -5,7 +5,6 @@
 #include <functional>
 #include <utility>
 #include <vector>
-#include <boost/tuple/tuple.hpp>
 
 // PCRaster library headers.
 

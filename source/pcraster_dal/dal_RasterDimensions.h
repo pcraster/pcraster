@@ -4,10 +4,6 @@
 
 
 // External headers.
-#ifndef INCLUDED_BOOST_TUPLE_TUPLE
-#include <boost/tuple/tuple.hpp>
-#define INCLUDED_BOOST_TUPLE_TUPLE
-#endif
 
 // Project headers.
 
@@ -27,6 +23,7 @@
 #define INCLUDED_DAL_SPACEDIMENSIONS
 #endif
 
+#include <tuple>
 
 
 namespace dal {
@@ -63,7 +60,7 @@ protected:
 
 public:
 
-  static boost::tuple<RasterDimensions, RasterDimensions> overlap(
+  static std::tuple<RasterDimensions, RasterDimensions> overlap(
                                         RasterDimensions const& dimensions1,
                                         RasterDimensions const& dimensions2);
 

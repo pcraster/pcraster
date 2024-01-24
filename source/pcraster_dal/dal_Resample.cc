@@ -22,7 +22,7 @@
 
 namespace {
 
-// typedef boost::tuple<double, double, 
+// typedef std::tuple<double, double, 
 // 
 // template<typename T>
 // struct Sum

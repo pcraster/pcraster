@@ -515,7 +515,7 @@ void ag::VisGroup::detach(ag::IVisualisation *visualisation)
 //
 //     try {
 //
-//       boost::tuple<std::string, dal::DataSpace> tuple =
+//       std::tuple<std::string, dal::DataSpace> tuple =
 //          dal::oldStackName2NameSpaceTuple(filename);
 //       tuple.get<1>() |= d_data->d_dataObject.dataSpace();
 //       tuple.get<1>().eraseDimension(dal::Space);

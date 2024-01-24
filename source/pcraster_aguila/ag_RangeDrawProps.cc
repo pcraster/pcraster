@@ -144,8 +144,8 @@ bool RangeDrawProps::equals(
     com::Classifier const* lhsClassifier;
     com::Classifier const* rhsClassifier;
 
-    lhsClassifier = boost::get<0>(lhsTuple);
-    rhsClassifier = boost::get<0>(rhsTuple);
+    lhsClassifier = std::get<0>(lhsTuple);
+    rhsClassifier = std::get<0>(rhsTuple);
 
     if((lhsClassifier && !rhsClassifier) ||
        (!lhsClassifier && rhsClassifier)) {
@@ -158,8 +158,8 @@ bool RangeDrawProps::equals(
       }
     }
 
-    lhsClassifier = boost::get<1>(lhsTuple);
-    rhsClassifier = boost::get<1>(rhsTuple);
+    lhsClassifier = std::get<1>(lhsTuple);
+    rhsClassifier = std::get<1>(rhsTuple);
 
     if((lhsClassifier && !rhsClassifier) ||
        (!lhsClassifier && rhsClassifier)) {
@@ -204,9 +204,9 @@ void RangeDrawProps::setDisplayValueClassifier(com::Classifier* classifier)
 {
   assert(classifier);
   ClassifierTuple& tuple(_classifiers.back());
-  assert(!boost::get<1>(tuple));
-  boost::get<1>(tuple) = classifier;
-  assert(boost::get<1>(tuple) == classifier);
+  assert(!std::get<1>(tuple));
+  std::get<1>(tuple) = classifier;
+  assert(std::get<1>(tuple) == classifier);
   // _displayValueClassifier = classifier;
 }
 
@@ -216,8 +216,8 @@ void RangeDrawProps::unsetDisplayValueClassifier()
 {
   ClassifierTuple& tuple(_classifiers.back());
   // Assumes the caller deletes the classifier.
-  boost::get<1>(tuple) = 0;
-  assert(!boost::get<1>(tuple));
+  std::get<1>(tuple) = 0;
+  assert(!std::get<1>(tuple));
   // _displayValueClassifier = 0;
 }
 
@@ -616,7 +616,7 @@ com::Classifier* RangeDrawProps::displayValueClassifier()
 {
   assert(!_classifiers.empty());
 
-  return boost::get<1>(_classifiers.back());
+  return std::get<1>(_classifiers.back());
 }
 
 
@@ -625,7 +625,7 @@ const com::Classifier* RangeDrawProps::displayValueClassifier() const
 {
   assert(!_classifiers.empty());
 
-  return boost::get<1>(_classifiers.back());
+  return std::get<1>(_classifiers.back());
 }
 
 
@@ -634,7 +634,7 @@ com::Classifier* RangeDrawProps::rawValueClassifier()
 {
   assert(!_classifiers.empty());
 
-  return boost::get<0>(_classifiers.back());
+  return std::get<0>(_classifiers.back());
 }
 
 
@@ -643,7 +643,7 @@ const com::Classifier* RangeDrawProps::rawValueClassifier() const
 {
   assert(!_classifiers.empty());
 
-  return boost::get<0>(_classifiers.back());
+  return std::get<0>(_classifiers.back());
 }
 
 

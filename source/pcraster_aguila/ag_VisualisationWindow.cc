@@ -470,7 +470,7 @@ void VisualisationWindow::saveAs(
   dal::DataSpaceAddress originalDataSpaceAddress(dataSpaceAddress());
 
   // Collection of (address, file name) tuples.
-  typedef boost::tuple<dal::DataSpaceAddress, std::filesystem::path>
+  typedef std::tuple<dal::DataSpaceAddress, std::filesystem::path>
          AddressPathTuple;
   std::vector<AddressPathTuple> addressPathTuples;
 
@@ -525,10 +525,10 @@ void VisualisationWindow::saveAs(
       break;
     }
     else {
-      std::filesystem::path path(boost::get<1>(addressPathTuples[i]));
+      std::filesystem::path path(std::get<1>(addressPathTuples[i]));
       // dal::testPathIsWritable(path);
 
-      // com::PathInfo pathInfo(boost::get<1>(addressPathTuples[i]));
+      // com::PathInfo pathInfo(std::get<1>(addressPathTuples[i]));
       // pathInfo.testOpenForWriting();
 
       if(!overwrite && dal::exists(path)) {
@@ -547,7 +547,7 @@ void VisualisationWindow::saveAs(
       }
 
       // Boom.
-      dataObject().setDataSpaceAddress(boost::get<0>(addressPathTuples[i]));
+      dataObject().setDataSpaceAddress(std::get<0>(addressPathTuples[i]));
 
       if(format == format.png()) {
         saveAsPNG(path);
@@ -583,7 +583,7 @@ void VisualisationWindow::saveAs(
 //   dal::DataSpaceAddress const& address(dataObject().dataSpaceAddress());
 //   size_t index;
 //
-//   typedef boost::tuple<dal::DataSpaceAddress, std::string> AddressFilenameTuple;
+//   typedef std::tuple<dal::DataSpaceAddress, std::string> AddressFilenameTuple;
 //   std::vector<AddressFilenameTuple> addressFilenameTuples;
 //
 //   if(!allTimeSteps || !space.hasTime()) {
@@ -639,7 +639,7 @@ void VisualisationWindow::saveAs(
 //       break;
 //     }
 //     else {
-//       com::PathInfo pathInfo(boost::get<1>(addressFilenameTuples[i]));
+//       com::PathInfo pathInfo(std::get<1>(addressFilenameTuples[i]));
 //       pathInfo.testOpenForWriting();
 //
 //       if(!overwrite && pathInfo.exists()) {
@@ -656,7 +656,7 @@ void VisualisationWindow::saveAs(
 //         }
 //       }
 //
-//       dataObject().setDataSpaceAddress(boost::get<0>(addressFilenameTuples[i]));
+//       dataObject().setDataSpaceAddress(std::get<0>(addressFilenameTuples[i]));
 //
 //       if(format == format.png()) {
 //         saveAsPNG(pathInfo.pathName());

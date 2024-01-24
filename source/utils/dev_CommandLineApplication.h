@@ -3,13 +3,12 @@
 
 #include <clipp.h>
 #include <boost/core/noncopyable.hpp>
-#include <boost/tuple/tuple.hpp>
 
 #include <any>
 #include <string>
 #include <unordered_map>
 #include <vector>
-
+#include <tuple>
 
 namespace dev {
   // CommandLineApplication declarations.
@@ -50,7 +49,7 @@ private:
 
   clipp::group     _positionalOptions;
 
-  std::vector< boost::tuple<short, std::string> > _positionalInfo;
+  std::vector< std::tuple<short, std::string> > _positionalInfo;
 
   variables_map    _variablesMap;
 

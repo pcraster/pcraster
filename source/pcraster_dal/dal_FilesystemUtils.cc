@@ -570,11 +570,11 @@ bool remove(
   When \a name is not a valid old stack name, than a tuple of \a name and an
   empty data space will be returned.
 */
-PCR_DAL_DECL boost::tuple<std::string, dal::DataSpace>
+PCR_DAL_DECL std::tuple<std::string, dal::DataSpace>
 oldStackName2NameSpaceTuple(
          std::string const& name)
 {
-  boost::tuple<std::string, DataSpace> result;
+  std::tuple<std::string, DataSpace> result;
   DataSpace space;
 
   try {
@@ -589,12 +589,12 @@ oldStackName2NameSpaceTuple(
       space.addDimension(Dimension(Time, timeSteps));
     }
 
-    result = boost::make_tuple(info.name(), space);
+    result = std::make_tuple(info.name(), space);
   }
   catch(Exception&) {
     // name is an illegal old stack name, nothing to do.
     assert(space.size() == 0);
-    result = boost::make_tuple(name, space);
+    result = std::make_tuple(name, space);
   }
 
   return result;

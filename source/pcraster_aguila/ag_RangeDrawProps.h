@@ -3,11 +3,11 @@
 
 
 
-#include <boost/tuple/tuple.hpp>
 #include "com_classifier.h"
 #include "ag_DrawProps.h"
 #include "ag_Types.h"
 
+#include <tuple>
 
 
 namespace com {
@@ -31,7 +31,7 @@ class RangeDrawProps: public DrawProps
 
 public:
 
-  typedef boost::tuple<com::Classifier*, com::Classifier*> ClassifierTuple;
+  typedef std::tuple<com::Classifier*, com::Classifier*> ClassifierTuple;
   typedef std::vector<ClassifierTuple> ClassifierTuples;
 
   enum ProbabilityScale {

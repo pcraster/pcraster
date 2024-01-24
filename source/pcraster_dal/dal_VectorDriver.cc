@@ -177,7 +177,7 @@ public:
     \exception dal::Exception In case of an error and in case \a throw_ is
                true.
   */
-  boost::tuple< boost::shared_ptr<Raster>, boost::shared_ptr<Raster> >
+  std::tuple< boost::shared_ptr<Raster>, boost::shared_ptr<Raster> >
   open(
          std::string const& name,
          DataSpace const& space,
@@ -185,12 +185,12 @@ public:
          bool throw_) const
   {
     boost::shared_ptr<Raster> x, y;
-    boost::tie(x, boost::tuples::ignore) = _dal.open(nameX(name), space,
+    std::tie(x, std::ignore) = _dal.open(nameX(name), space,
         address);
 
     if(x) {
       // Don't try opening y if opening x already fails.
-      boost::tie(y, boost::tuples::ignore) = _dal.open(nameY(name), space,
+      std::tie(y, std::ignore) = _dal.open(nameY(name), space,
           address);
     }
 
@@ -204,7 +204,7 @@ public:
       x.reset();
     }
 
-    return boost::make_tuple(x, y);
+    return std::make_tuple(x, y);
   }
 
   //! Checks whether \a x and \a y are valid raster attributes for representing the magnitudes in x- and y-direction.
@@ -399,7 +399,7 @@ Vector* VectorDriver::open(
          DataSpaceAddress const& address) const
 {
   boost::shared_ptr<Raster> x, y;
-  boost::tie(x, y) = _data->open(name, space, address, false);
+  std::tie(x, y) = _data->open(name, space, address, false);
 
   if(!x || !y) {
     return nullptr;
@@ -442,7 +442,7 @@ Vector* VectorDriver::read(
          DataSpaceAddress const& address) const
 {
   boost::shared_ptr<Raster> x, y;
-  boost::tie(x, y) = _data->open(name, space, address, true);
+  std::tie(x, y) = _data->open(name, space, address, true);
   assert(x && y);
   _data->validate(name, space, address, *x, *y, true);
   _data->read(*x, *y, name, space, address);
@@ -462,7 +462,7 @@ void VectorDriver::read(
          DataSpaceAddress const& address) const
 {
   boost::shared_ptr<Raster> x, y;
-  boost::tie(x, y) = _data->open(name, space, address, true);
+  std::tie(x, y) = _data->open(name, space, address, true);
   assert(x && y);
   _data->validate(name, space, address, *x, *y, true);
   assert(vector.dimensions() == x->dimensions());

@@ -78,7 +78,7 @@ typename DataObjectBase<T>::tuple_iter DataObjectBase<T>::find(
 
   while(result != _tuples.end()) {
 
-    if(boost::tuples::get<2>(*result).data() == data) {
+    if(std::get<2>(*result).data() == data) {
       break;
     }
 
@@ -105,8 +105,8 @@ typename DataObjectBase<T>::tuple_iter DataObjectBase<T>::find(
 
   while(result != _tuples.end()) {
 
-    if(boost::tuples::get<0>(*result) == name &&
-       boost::tuples::get<1>(*result) == space) {
+    if(std::get<0>(*result) == name &&
+       std::get<1>(*result) == space) {
       break;
     }
 
@@ -145,7 +145,7 @@ DataGuide DataObjectBase<T>::add(
   assert(exists(name, space));
 
   auto it = find(name, space);
-  DataGuide guide = _manager.add(boost::tuples::get<2>(*it));
+  DataGuide guide = _manager.add(std::get<2>(*it));
 
   return guide;
 }
@@ -201,7 +201,7 @@ void DataObjectBase<T>::remove(
     assert(it != _tuples.end());
 
     // Delete data and tuple.
-    delete boost::tuples::get<2>(*it).data();
+    delete std::get<2>(*it).data();
     _tuples.erase(it);
 
     // Check removal. No loose ends wanted.
@@ -246,7 +246,7 @@ std::string DataObjectBase<T>::name(
   auto it = find(static_cast<const T*>(guide.address()));
   assert(it != _tuples.end());
 
-  return boost::tuples::get<0>(*it);
+  return std::get<0>(*it);
 }
 
 
@@ -333,7 +333,7 @@ DataInfo<T> const* DataObjectBase<T>::dataInfo(
   auto it = find(static_cast<const T*>(guide.address()));
   assert(it != _tuples.end());
 
-  return &boost::tuples::get<2>(*it);
+  return &std::get<2>(*it);
 }
 
 

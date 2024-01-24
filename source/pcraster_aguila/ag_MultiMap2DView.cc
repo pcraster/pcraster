@@ -97,10 +97,10 @@ void MultiMap2DView::createInterface()
          QSizePolicy::Fixed));
 
       d_mapViews.push_back(
-         boost::make_tuple(label, new Map2DView(&dataObject(), this)));
+         std::make_tuple(label, new Map2DView(&dataObject(), this)));
 
-      layout->addWidget(d_mapViews.back().get<0>(), row, col);
-      layout->addWidget(d_mapViews.back().get<1>(), row + 1, col);
+      layout->addWidget(std::get<0>(d_mapViews.back()), row, col);
+      layout->addWidget(std::get<1>(d_mapViews.back()), row + 1, col);
     }
   }
 }
@@ -117,8 +117,8 @@ void MultiMap2DView::createInterface()
 */
 void MultiMap2DView::setLabel(size_t row, size_t col)
 {
-  QLineEdit* label = d_mapViews[row * d_nrCols + col].get<0>();
-  Map2DView const* view = d_mapViews[row * d_nrCols + col].get<1>();
+  QLineEdit* label = std::get<0>(d_mapViews[row * d_nrCols + col]);
+  Map2DView const* view = std::get<1>(d_mapViews[row * d_nrCols + col]);
 
   if(!label->isModified()) {
 
@@ -139,7 +139,7 @@ void MultiMap2DView::setLabel(size_t row, size_t col)
 void MultiMap2DView::addAttribute(DataGuide const& guide)
 {
   for(auto & d_mapView : d_mapViews) {
-    d_mapView.get<1>()->addAttribute(guide);
+    std::get<1>(d_mapView)->addAttribute(guide);
   }
 }
 
@@ -148,7 +148,7 @@ void MultiMap2DView::addAttribute(DataGuide const& guide)
 void MultiMap2DView::addAttribute(size_t row, size_t col,
          DataGuide const& guide)
 {
-  d_mapViews[row * d_nrCols + col].get<1>()->addAttribute(guide);
+  std::get<1>(d_mapViews[row * d_nrCols + col])->addAttribute(guide);
   setLabel(row, col);
 }
 
@@ -164,7 +164,7 @@ size_t MultiMap2DView::nrCols() const
 void MultiMap2DView::zoomAll()
 {
   if(d_nrRows && d_nrCols) {
-    d_mapViews[0].get<1>()->zoomAll();
+    std::get<1>(d_mapViews[0])->zoomAll();
   }
 }
 
@@ -173,7 +173,7 @@ void MultiMap2DView::zoomAll()
 void MultiMap2DView::resetMapView()
 {
   if(d_nrRows && d_nrCols) {
-    d_mapViews[0].get<1>()->resetMapView();
+    std::get<1>(d_mapViews[0])->resetMapView();
   }
 }
 
@@ -193,7 +193,7 @@ void MultiMap2DView::process()
       setPalette(QPalette());
 
       for(auto & d_mapView : d_mapViews) {
-        d_mapView.get<0>()->setPalette(QPalette());
+        std::get<0>(d_mapView)->setPalette(QPalette());
       }
     }
     else {
@@ -202,7 +202,7 @@ void MultiMap2DView::process()
       setPalette(palette);
 
       for(auto & d_mapView : d_mapViews) {
-        QLineEdit* label = d_mapView.get<0>();
+        QLineEdit* label = std::get<0>(d_mapView);
         QPalette palette;
         palette.setColor(label->backgroundRole(),
            dataObject().backgroundColour());
@@ -219,7 +219,7 @@ void MultiMap2DView::visualise()
   // Done scanning, update stuff if needed.
   if(visualisationEngine().change() & VisEngine::BACKGROUND_COLOUR) {
     for(auto & d_mapView : d_mapViews) {
-      d_mapView.get<0>()->update();
+      std::get<0>(d_mapView)->update();
     }
   }
 

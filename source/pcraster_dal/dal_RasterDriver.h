@@ -65,7 +65,7 @@ private:
                                         const DataSpace& space,
                                         TypeId typeId) const;
 
-  boost::tuple<bool, FilenameConvention, std::string>
+  std::tuple<bool, FilenameConvention, std::string>
                    determineFilenameCharacteristics(
                                         std::string const& name,
                                         DataSpace const& space,

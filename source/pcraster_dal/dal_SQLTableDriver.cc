@@ -294,7 +294,7 @@ ConnectionInfo dal::SQLTableDriver::connectionInfoFor(
         CallBack callBack(boost::bind(&SQLTableDriver::databaseExists, this,
               _1));
 
-        boost::tie(found, convention, extension) =
+        std::tie(found, convention, extension) =
               dal::determineFilenameCharacteristics<CallBack>(callBack,
                    result.database(), DataSpace(), DataSpaceAddress(),
                    format().extensions());

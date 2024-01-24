@@ -1450,8 +1450,8 @@ void DataProperties::copyRangeDrawProperties(
     for(size_t i = sourceClassifiers.size(); i < targetClassifiers.size();
          ++i) {
       RangeDrawProps::ClassifierTuple& tuple(targetClassifiers[i]);
-      com::Classifier* raw(boost::get<0>(tuple));
-      com::Classifier* display(boost::get<1>(tuple));
+      com::Classifier* raw(std::get<0>(tuple));
+      com::Classifier* display(std::get<1>(tuple));
 
       eraseRangeClassifier(raw);
 
@@ -1474,12 +1474,12 @@ void DataProperties::copyRangeDrawProperties(
 
   for(size_t i = 0; i < sourceClassifiers.size(); ++i) {
     RangeDrawProps::ClassifierTuple const& sourceTuple(sourceClassifiers[i]);
-    com::Classifier const* sourceRaw(boost::get<0>(sourceTuple));
-    com::Classifier const* sourceDisplay(boost::get<1>(sourceTuple));
+    com::Classifier const* sourceRaw(std::get<0>(sourceTuple));
+    com::Classifier const* sourceDisplay(std::get<1>(sourceTuple));
 
     RangeDrawProps::ClassifierTuple& targetTuple(targetClassifiers[i]);
-    com::Classifier* targetRaw(boost::get<0>(targetTuple));
-    com::Classifier* targetDisplay(boost::get<1>(targetTuple));
+    com::Classifier* targetRaw(std::get<0>(targetTuple));
+    com::Classifier* targetDisplay(std::get<1>(targetTuple));
 
     assert(sourceRaw);
     if(targetRaw) {
@@ -1489,8 +1489,8 @@ void DataProperties::copyRangeDrawProperties(
     else {
       auto* classifier = new com::Classifier(*(sourceRaw));
       _data->_rangeClassifiers.push_back(classifier);
-      boost::get<0>(targetTuple) = classifier;
-      assert(*boost::get<0>(targetTuple) == *classifier);
+      std::get<0>(targetTuple) = classifier;
+      assert(*std::get<0>(targetTuple) == *classifier);
     }
 
     if(sourceDisplay) {
@@ -1501,13 +1501,13 @@ void DataProperties::copyRangeDrawProperties(
       else {
         auto* classifier = new com::Classifier(*(sourceDisplay));
         _data->_rangeClassifiers.push_back(classifier);
-        boost::get<1>(targetTuple) = classifier;
-        assert(*boost::get<1>(targetTuple) == *classifier);
+        std::get<1>(targetTuple) = classifier;
+        assert(*std::get<1>(targetTuple) == *classifier);
       }
     }
     else if(targetDisplay) {
       eraseRangeClassifier(targetDisplay);
-      boost::get<1>(targetTuple) = 0;
+      std::get<1>(targetTuple) = 0;
     }
   }
 
@@ -2732,8 +2732,8 @@ void DataProperties::popClassifier(
   assert(properties.classifiers().size() > 1);
 
   RangeDrawProps::ClassifierTuple& tuple(properties.classifiers().back());
-  com::Classifier* raw(boost::get<0>(tuple));
-  com::Classifier* display(boost::get<1>(tuple));
+  com::Classifier* raw(std::get<0>(tuple));
+  com::Classifier* display(std::get<1>(tuple));
 
   assert(raw);
   eraseRangeClassifier(raw);

@@ -65,10 +65,10 @@ public:
                                         DataSpace const& space,
                                         DataSpaceAddress const& address) const;
 
-  boost::tuple<boost::shared_ptr<Raster>, RasterDriver*> open(
+  std::tuple<boost::shared_ptr<Raster>, RasterDriver*> open(
                                         std::string const& name) const;
 
-  boost::tuple<boost::shared_ptr<Raster>, RasterDriver*> open(
+  std::tuple<boost::shared_ptr<Raster>, RasterDriver*> open(
                                         std::string const& name,
                                         DataSpace const& space,
                                         DataSpaceAddress const& address) const;

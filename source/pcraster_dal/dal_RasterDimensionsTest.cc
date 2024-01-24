@@ -174,7 +174,7 @@ BOOST_AUTO_TEST_CASE(overlap)
   {
     RasterDimensions raster(size_t(0), size_t(0));
 
-    boost::tie(area1, area2) = RasterDimensions::overlap(raster, raster);
+    std::tie(area1, area2) = RasterDimensions::overlap(raster, raster);
     BOOST_CHECK_EQUAL(area1.nrRows(), size_t(0));
     BOOST_CHECK_EQUAL(area1.nrCols(), size_t(0));
     BOOST_CHECK(area1 == area2);
@@ -185,7 +185,7 @@ BOOST_AUTO_TEST_CASE(overlap)
     RasterDimensions raster1(size_t(0), size_t(0));
     RasterDimensions raster2(3, 4, 5.0, 1.0, 2.0);
 
-    boost::tie(area1, area2) = RasterDimensions::overlap(raster1, raster2);
+    std::tie(area1, area2) = RasterDimensions::overlap(raster1, raster2);
     BOOST_CHECK_EQUAL(area1.nrRows(), size_t(0));
     BOOST_CHECK_EQUAL(area1.nrCols(), size_t(0));
     BOOST_CHECK_EQUAL(area1.cellSize(), raster1.cellSize());
@@ -198,7 +198,7 @@ BOOST_AUTO_TEST_CASE(overlap)
     BOOST_CHECK_EQUAL(area2.north(), raster2.north());
 
     // Switch arguments.
-    boost::tie(area2, area1) = RasterDimensions::overlap(raster2, raster1);
+    std::tie(area2, area1) = RasterDimensions::overlap(raster2, raster1);
     BOOST_CHECK_EQUAL(area2.nrRows(), size_t(0));
     BOOST_CHECK_EQUAL(area2.nrCols(), size_t(0));
     BOOST_CHECK_EQUAL(area2.cellSize(), raster2.cellSize());
@@ -216,7 +216,7 @@ BOOST_AUTO_TEST_CASE(overlap)
     RasterDimensions raster1(3, 4, 5.0, 1.0, 2.0);
     RasterDimensions raster2(3, 4, 5.0, 22, -14.0);
 
-    boost::tie(area1, area2) = RasterDimensions::overlap(raster1, raster2);
+    std::tie(area1, area2) = RasterDimensions::overlap(raster1, raster2);
     BOOST_CHECK_EQUAL(area1.nrRows(), size_t(0));
     BOOST_CHECK_EQUAL(area1.nrCols(), size_t(0));
     BOOST_CHECK_EQUAL(area1.cellSize(), raster1.cellSize());
@@ -235,7 +235,7 @@ BOOST_AUTO_TEST_CASE(overlap)
     RasterDimensions raster2(3, 4, 5.0, 1.0, 2.0);
 
     assert(raster1 == raster2);
-    boost::tie(area1, area2) = RasterDimensions::overlap(raster1, raster2);
+    std::tie(area1, area2) = RasterDimensions::overlap(raster1, raster2);
     BOOST_CHECK(area1 == raster1);
     BOOST_CHECK(area2 == raster2);
   }
@@ -247,7 +247,7 @@ BOOST_AUTO_TEST_CASE(overlap)
       RasterDimensions raster1(3, 4, 5.0, 1.0, 2.0);
       RasterDimensions raster2(3, 4, 5.0, 6.0, -3.0);
 
-      boost::tie(area1, area2) = RasterDimensions::overlap(raster1, raster2);
+      std::tie(area1, area2) = RasterDimensions::overlap(raster1, raster2);
       BOOST_CHECK_EQUAL(area1.nrRows(), size_t(2));
       BOOST_CHECK_EQUAL(area1.nrCols(), size_t(3));
       BOOST_CHECK_EQUAL(area1.cellSize(), raster1.cellSize());
@@ -261,7 +261,7 @@ BOOST_AUTO_TEST_CASE(overlap)
       RasterDimensions raster1(3, 4, 5.0, 1.0, 2.0);
       RasterDimensions raster2(3, 4, 5.0, -4.0, 7.0);
 
-      boost::tie(area1, area2) = RasterDimensions::overlap(raster1, raster2);
+      std::tie(area1, area2) = RasterDimensions::overlap(raster1, raster2);
       BOOST_CHECK_EQUAL(area1.nrRows(), size_t(2));
       BOOST_CHECK_EQUAL(area1.nrCols(), size_t(3));
       BOOST_CHECK_EQUAL(area1.cellSize(), raster1.cellSize());

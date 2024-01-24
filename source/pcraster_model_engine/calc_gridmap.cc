@@ -195,7 +195,7 @@ calc::GridMapIn::GridMapIn(
   // try {
     boost::shared_ptr<dal::Raster> raster;
     dal::RasterDriver* driver;
-    boost::tie(raster, driver) = rasterDal->open(fileName);
+    std::tie(raster, driver) = rasterDal->open(fileName);
     if (!raster) // TODO not  a recognized map instead of a PCRasterMap
       throw geo::NotA_PCRasterMap(fileName);
 
@@ -267,7 +267,7 @@ void  calc::GridMapIn::createSpatial(void *dest,VS readAs)
 
   boost::shared_ptr<dal::Raster> raster;
   dal::RasterDriver* driver;
-  boost::tie(raster, driver) = rasterDal->open(d_fileName);
+  std::tie(raster, driver) = rasterDal->open(d_fileName);
   POSTCOND(raster); // TODO not  a recognized map, but catched earlier on
   raster->setTypeId(typeId);
   raster->setCellsReference(dest);

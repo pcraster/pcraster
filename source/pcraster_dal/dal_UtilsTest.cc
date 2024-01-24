@@ -75,76 +75,76 @@ BOOST_AUTO_TEST_CASE(split_name_and_selection)
 
   {
     std::string name = "table{1,3,q}";
-    boost::tuple<std::string, std::vector<std::string> > tuple =
+    std::tuple<std::string, std::vector<std::string> > tuple =
            splitNameAndSelection(name);
 
-    BOOST_CHECK_EQUAL(boost::get<0>(tuple), "table");
-    BOOST_CHECK_EQUAL(boost::get<1>(tuple).size(), size_t(3));
-    BOOST_CHECK_EQUAL(boost::get<1>(tuple)[0], "1");
-    BOOST_CHECK_EQUAL(boost::get<1>(tuple)[1], "3");
-    BOOST_CHECK_EQUAL(boost::get<1>(tuple)[2], "q");
+    BOOST_CHECK_EQUAL(std::get<0>(tuple), "table");
+    BOOST_CHECK_EQUAL(std::get<1>(tuple).size(), size_t(3));
+    BOOST_CHECK_EQUAL(std::get<1>(tuple)[0], "1");
+    BOOST_CHECK_EQUAL(std::get<1>(tuple)[1], "3");
+    BOOST_CHECK_EQUAL(std::get<1>(tuple)[2], "q");
   }
 
   {
     std::string name = "table{}";
-    boost::tuple<std::string, std::vector<std::string> > tuple =
+    std::tuple<std::string, std::vector<std::string> > tuple =
            splitNameAndSelection(name);
 
-    BOOST_CHECK_EQUAL(boost::get<0>(tuple), "table");
-    BOOST_CHECK_EQUAL(boost::get<1>(tuple).size(), size_t(0));
+    BOOST_CHECK_EQUAL(std::get<0>(tuple), "table");
+    BOOST_CHECK_EQUAL(std::get<1>(tuple).size(), size_t(0));
   }
 
   {
     std::string name = "table{1}";
-    boost::tuple<std::string, std::vector<std::string> > tuple =
+    std::tuple<std::string, std::vector<std::string> > tuple =
            splitNameAndSelection(name);
 
-    BOOST_CHECK_EQUAL(boost::get<0>(tuple), "table");
-    BOOST_CHECK_EQUAL(boost::get<1>(tuple).size(), size_t(1));
-    BOOST_CHECK_EQUAL(boost::get<1>(tuple)[0], "1");
+    BOOST_CHECK_EQUAL(std::get<0>(tuple), "table");
+    BOOST_CHECK_EQUAL(std::get<1>(tuple).size(), size_t(1));
+    BOOST_CHECK_EQUAL(std::get<1>(tuple)[0], "1");
   }
 
   {
     std::string name = "table{1,2}";
-    boost::tuple<std::string, std::vector<std::string> > tuple =
+    std::tuple<std::string, std::vector<std::string> > tuple =
            splitNameAndSelection(name);
 
-    BOOST_CHECK_EQUAL(boost::get<0>(tuple), "table");
-    BOOST_CHECK_EQUAL(boost::get<1>(tuple).size(), size_t(2));
-    BOOST_CHECK_EQUAL(boost::get<1>(tuple)[0], "1");
-    BOOST_CHECK_EQUAL(boost::get<1>(tuple)[1], "2");
+    BOOST_CHECK_EQUAL(std::get<0>(tuple), "table");
+    BOOST_CHECK_EQUAL(std::get<1>(tuple).size(), size_t(2));
+    BOOST_CHECK_EQUAL(std::get<1>(tuple)[0], "1");
+    BOOST_CHECK_EQUAL(std::get<1>(tuple)[1], "2");
   }
 
   {
     std::string name = "table{1, 2}";
-    boost::tuple<std::string, std::vector<std::string> > tuple =
+    std::tuple<std::string, std::vector<std::string> > tuple =
            splitNameAndSelection(name);
 
-    BOOST_CHECK_EQUAL(boost::get<0>(tuple), "table");
-    BOOST_CHECK_EQUAL(boost::get<1>(tuple).size(), size_t(2));
-    BOOST_CHECK_EQUAL(boost::get<1>(tuple)[0], "1");
-    BOOST_CHECK_EQUAL(boost::get<1>(tuple)[1], "2");
+    BOOST_CHECK_EQUAL(std::get<0>(tuple), "table");
+    BOOST_CHECK_EQUAL(std::get<1>(tuple).size(), size_t(2));
+    BOOST_CHECK_EQUAL(std::get<1>(tuple)[0], "1");
+    BOOST_CHECK_EQUAL(std::get<1>(tuple)[1], "2");
   }
 
   {
     std::string name = "table { 1, 2 }";
-    boost::tuple<std::string, std::vector<std::string> > tuple =
+    std::tuple<std::string, std::vector<std::string> > tuple =
            splitNameAndSelection(name);
 
-    BOOST_CHECK_EQUAL(boost::get<0>(tuple), "table ");
-    BOOST_CHECK_EQUAL(boost::get<1>(tuple).size(), size_t(2));
-    BOOST_CHECK_EQUAL(boost::get<1>(tuple)[0], "1");
-    BOOST_CHECK_EQUAL(boost::get<1>(tuple)[1], "2");
+    BOOST_CHECK_EQUAL(std::get<0>(tuple), "table ");
+    BOOST_CHECK_EQUAL(std::get<1>(tuple).size(), size_t(2));
+    BOOST_CHECK_EQUAL(std::get<1>(tuple)[0], "1");
+    BOOST_CHECK_EQUAL(std::get<1>(tuple)[1], "2");
   }
 
   {
     // Input string is not trimmed.
     std::string name = "table{1, 2} ";
-    boost::tuple<std::string, std::vector<std::string> > tuple =
+    std::tuple<std::string, std::vector<std::string> > tuple =
            splitNameAndSelection(name);
 
-    BOOST_CHECK_EQUAL(boost::get<0>(tuple), name);
-    BOOST_CHECK_EQUAL(boost::get<1>(tuple).size(), size_t(0));
+    BOOST_CHECK_EQUAL(std::get<0>(tuple), name);
+    BOOST_CHECK_EQUAL(std::get<1>(tuple).size(), size_t(0));
   }
 }
 

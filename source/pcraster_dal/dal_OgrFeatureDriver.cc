@@ -579,7 +579,7 @@ FeaturePath OgrFeatureDriver::featurePathFor(
     result = FeaturePath(name, strategy);
 
     if(result.isValid()) {
-      boost::tie(found, convention, extension) =
+      std::tie(found, convention, extension) =
          dal::determineFilenameCharacteristics(callBack,
               result.source(), DataSpace(), DataSpaceAddress(),
               format().extensions());
@@ -592,7 +592,7 @@ FeaturePath OgrFeatureDriver::featurePathFor(
 
       if(result.isValid()) {
         convention = DALConvention;
-        boost::tie(found, convention, extension) =
+        std::tie(found, convention, extension) =
               dal::determineFilenameCharacteristics(callBack,
                    result.source(), DataSpace(), DataSpaceAddress(),
                    format().extensions());
@@ -693,7 +693,7 @@ TypeId OgrFeatureDriver::open(
 
   // Try to open the attribute table, whatever the format.
   boost::shared_ptr<Dataset> dataset;
-  boost::tie(dataset, boost::tuples::ignore) = Client::dal().open(tableName,
+  std::tie(dataset, std::ignore) = Client::dal().open(tableName,
       space, address, TABLE);
 
   int fieldId = -1;
@@ -929,7 +929,7 @@ void OgrFeatureDriver::readAttribute(
   std::string tableName = detail::tableName(path, space);
 
   boost::shared_ptr<Dataset> dataset;
-  boost::tie(dataset, boost::tuples::ignore) = Client::dal().open(
+  std::tie(dataset, std::ignore) = Client::dal().open(
     tableName, space, address, TABLE);
 
   if(!dataset) {
@@ -1065,7 +1065,7 @@ void OgrFeatureDriver::updateAttribute(
   std::string tableName = detail::tableName(path, space);
 
   boost::shared_ptr<Dataset> dataset;
-  boost::tie(dataset, boost::tuples::ignore) = Client::dal().open(tableName,
+  std::tie(dataset, std::ignore) = Client::dal().open(tableName,
     space, address, TABLE);
 
   if(!dataset) {

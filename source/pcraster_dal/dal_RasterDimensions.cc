@@ -60,7 +60,7 @@ namespace detail {
   that need to be handled, while all other cells in the target raster
   can be set to MV.
 */
-boost::tuple<RasterDimensions, RasterDimensions> RasterDimensions::overlap(
+std::tuple<RasterDimensions, RasterDimensions> RasterDimensions::overlap(
          RasterDimensions const& dimensions1,
          RasterDimensions const& dimensions2)
 {
@@ -70,7 +70,7 @@ boost::tuple<RasterDimensions, RasterDimensions> RasterDimensions::overlap(
   double north = std::min(dimensions1.north(), dimensions2.north());
   double south = std::max(dimensions1.south(), dimensions2.south());
 
-  return boost::make_tuple(
+  return std::make_tuple(
          dimensions1.areaDimensions(west, north, east, south),
          dimensions2.areaDimensions(west, north, east, south));
 }
@@ -345,7 +345,7 @@ void RasterDimensions::indices(
   \param     east World coordinate of east of area.
   \param     south World coordinate of south of area.
   \return    Dimensional properties of raster of area passed in.
-  \sa        boost::tuple<RasterDimensions, RasterDimensions> RasterDimensions::overlap(RasterDimensions const&, RasterDimensions const&)
+  \sa        std::tuple<RasterDimensions, RasterDimensions> RasterDimensions::overlap(RasterDimensions const&, RasterDimensions const&)
 
   In case the resulting raster dimension is empty, the object returned will
   have the same properties as *this, except for the number of rows and columns,

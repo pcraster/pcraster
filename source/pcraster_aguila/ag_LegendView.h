@@ -1,19 +1,12 @@
 #ifndef INCLUDED_AG_LEGENDVIEW
 #define INCLUDED_AG_LEGENDVIEW
 
-
-
-// Library headers.
-#include <vector>
-#include <boost/tuple/tuple.hpp>
-
-// PCRaster library headers.
-
-// Module headers.
 #include "ag_TableVisualisation.h"
 #include "ag_Types.h"
 #include "ag_Visualisation.h"
 
+#include <tuple>
+#include <vector>
 
 
 class QAction;
@@ -41,7 +34,7 @@ private:
 
   Q_OBJECT
 
-  typedef boost::tuple<std::vector<DataGuide>, Legend*> LegendTuple;
+  typedef std::tuple<std::vector<DataGuide>, Legend*> LegendTuple;
   typedef std::vector<LegendTuple> LegendTuples;
 
   ViewerType       _viewerType;

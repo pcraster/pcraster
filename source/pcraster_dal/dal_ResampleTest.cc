@@ -14,7 +14,7 @@ BOOST_AUTO_TEST_CASE(overlap)
   //   Raster raster2(3, 4, 5.5, 100.0, 200.0, TI_REAL4);
 
 
-  //   boost::tie(sourceOverlap, destinationOverlap) = resampler.overlap(raster1, raster2);
+  //   std::tie(sourceOverlap, destinationOverlap) = resampler.overlap(raster1, raster2);
   // }
 
 

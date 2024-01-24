@@ -1181,7 +1181,7 @@ PCR_DAL_DECL size_t timeStep<size_t>(
   Selection tokens returned are stripped from whitespace, the returned
   dataset name is not.
 */
-PCR_DAL_DECL boost::tuple<std::string, std::vector<std::string> >
+PCR_DAL_DECL std::tuple<std::string, std::vector<std::string> >
 splitNameAndSelection(
          std::string name)
 {
@@ -1203,7 +1203,7 @@ splitNameAndSelection(
     name = name.substr(0, left);
   }
 
-  return boost::make_tuple(name, tokens);
+  return std::make_tuple(name, tokens);
 }
 
 

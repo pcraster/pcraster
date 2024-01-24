@@ -4,10 +4,6 @@
 
 
 // External headers.
-#ifndef INCLUDED_BOOST_TUPLE_TUPLE
-#include <boost/tuple/tuple.hpp>
-#define INCLUDED_BOOST_TUPLE_TUPLE
-#endif
 
 // Project headers.
 
@@ -139,7 +135,7 @@ public:
 
     // Handle overlapping cells.
     RasterDimensions sourceOverlap, destinationOverlap;
-    boost::tie(sourceOverlap, destinationOverlap) =
+    std::tie(sourceOverlap, destinationOverlap) =
          RasterDimensions::overlap(argument.dimensions(), result.dimensions());
 
     switch(result.typeId()) {

@@ -41,24 +41,24 @@ BOOST_AUTO_TEST_CASE(test1)
 
   // not existing
   boost::shared_ptr<dal::Raster> notExisting;
-  boost::tie(notExisting, boost::tuples::ignore) = rasterDal.open(
+  std::tie(notExisting, std::ignore) = rasterDal.open(
       "notExisting.map");
   BOOST_CHECK(!notExisting);
 
   // mallformed
   boost::shared_ptr<dal::Raster> notRecognizedFormat;
-  boost::tie(notRecognizedFormat, boost::tuples::ignore) = rasterDal.open(
+  std::tie(notRecognizedFormat, std::ignore) = rasterDal.open(
       "main.cc");
   BOOST_CHECK(!notRecognizedFormat);
 
   boost::shared_ptr<dal::Raster> pcrMap;
-  boost::tie(pcrMap, boost::tuples::ignore) = rasterDal.open("soil.map");
+  std::tie(pcrMap, std::ignore) = rasterDal.open("soil.map");
   BOOST_REQUIRE(pcrMap);
   BOOST_CHECK_EQUAL(pcrMap->typeId(), dal::TI_INT4);
 
   {
   boost::shared_ptr<dal::Raster> bilMap;
-  boost::tie(bilMap, boost::tuples::ignore) = rasterDal.open("inp14_gl.bil");
+  std::tie(bilMap, std::ignore) = rasterDal.open("inp14_gl.bil");
   BOOST_REQUIRE(bilMap);
   BOOST_CHECK_EQUAL(bilMap->typeId(), dal::TI_REAL4);
   }
@@ -74,7 +74,7 @@ BOOST_AUTO_TEST_CASE(test1)
 
   {
   boost::shared_ptr<dal::Raster> esriMap;
-  boost::tie(esriMap, boost::tuples::ignore) = rasterDal.open(
+  std::tie(esriMap, std::ignore) = rasterDal.open(
                     "c:/esri/av_gis30/avtutor/spatial/dem");
   BOOST_CHECK(esriMap);
   BOOST_CHECK_EQUAL(esriMap->typeId(), dal::TI_REAL4);
@@ -82,7 +82,7 @@ BOOST_AUTO_TEST_CASE(test1)
 
   {
   boost::shared_ptr<dal::Raster> esriMap;
-  boost::tie(esriMap, boost::tuples::ignore) = rasterDal.open(
+  std::tie(esriMap, std::ignore) = rasterDal.open(
                    "c:/esri/av_gis30/avtutor/spatial/elevgrd");
   BOOST_CHECK(esriMap);
   BOOST_CHECK_EQUAL(esriMap->typeId(), dal::TI_REAL4);
@@ -90,7 +90,7 @@ BOOST_AUTO_TEST_CASE(test1)
 
   {
   boost::shared_ptr<dal::Raster> esriMap;
-  boost::tie(esriMap, boost::tuples::ignore) = rasterDal.open(
+  std::tie(esriMap, std::ignore) = rasterDal.open(
                    "c:/esri/av_gis30/avtutor/spatial/hillshd");
   BOOST_CHECK(esriMap);
   BOOST_CHECK_EQUAL(esriMap->typeId(), dal::TI_UINT1);
@@ -110,7 +110,7 @@ BOOST_AUTO_TEST_CASE(bil_format)
     // big endian, csf map (in diguise) with value 1 everywhere
     // but first column is MV, with maybe throw gdal in error
     boost::shared_ptr<dal::Raster> map;
-    boost::tie(map, boost::tuples::ignore) = rasterDal.open("all1_float.bil");
+    std::tie(map, std::ignore) = rasterDal.open("all1_float.bil");
     BOOST_REQUIRE(map);
     map = rasterDal.read("all1_float.bil", dal::TI_REAL4);
     BOOST_REQUIRE(map);
@@ -138,7 +138,7 @@ BOOST_AUTO_TEST_CASE(bil_format)
   {
    // dal::RasterDal rasterDal(true);
    boost::shared_ptr<dal::Raster> map;
-   boost::tie(map, boost::tuples::ignore) = rasterDal.open("int2mv0.bil");
+   std::tie(map, std::ignore) = rasterDal.open("int2mv0.bil");
    BOOST_REQUIRE(map);
    BOOST_CHECK_EQUAL(map->typeId(), dal::TI_INT2);
   }

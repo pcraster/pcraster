@@ -2,17 +2,14 @@
 #define INCLUDED_AG_CURSORVIEW
 
 
-
-// Library headers.
-#include <vector>
-#include <boost/tuple/tuple.hpp>
-
 // PCRaster library headers.
 #include "dal_DataSpaceAddress.h"
 
 // Module headers.
 #include "ag_Visualisation.h"
 
+#include <tuple>
+#include <vector>
 
 
 class QLabel;
@@ -46,7 +43,7 @@ class CursorView: public Visualisation<>
 
 private:
 
-  typedef boost::tuple<QLabel*, DimensionCoordinateEdit*, QLabel*> DimensionTuple;
+  typedef std::tuple<QLabel*, DimensionCoordinateEdit*, QLabel*> DimensionTuple;
 
   Q_OBJECT
 

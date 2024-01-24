@@ -130,7 +130,7 @@ void CommandLineApplication::addPositionalOption(
   assert(maxCount == -1 || maxCount > 0);
   assert(_positionalInfo.empty() || _positionalInfo.back().get<0>() > 0);
 
-  _positionalInfo.push_back(boost::make_tuple(maxCount, description));
+  _positionalInfo.push_back(std::make_tuple(maxCount, description));
 }
 
 

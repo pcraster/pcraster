@@ -9,11 +9,6 @@
 #define INCLUDED_VECTOR
 #endif
 
-#ifndef INCLUDED_BOOST_TUPLE_TUPLE
-#include <boost/tuple/tuple.hpp>
-#define INCLUDED_BOOST_TUPLE_TUPLE
-#endif
-
 // PCRaster library headers.
 
 // Module headers.
@@ -27,6 +22,7 @@
 #define INCLUDED_DAL_STEPMAPPER
 #endif
 
+#include <tuple>
 
 
 namespace dal {
@@ -40,20 +36,20 @@ namespace dal {
 
 namespace dal {
 
-// typedef boost::tuple<
+// typedef std::tuple<
 //          Dimension,
 //          boost::posix_time::ptime,
 //          boost::posix_time::time_duration> TimeMapping;
 
-typedef boost::tuple<
+typedef std::tuple<
          Dimension,
          TimeStepMapper const*> DimensionTimeStepMapping;
 
-typedef boost::tuple<
+typedef std::tuple<
          Dimension,
          SpaceStepMapper const*> DimensionSpaceStepMapping;
 
-typedef boost::tuple<
+typedef std::tuple<
          Dimension,
          StepMapper const*> DimensionStepMapping;
 

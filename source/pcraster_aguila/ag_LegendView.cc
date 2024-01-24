@@ -286,7 +286,7 @@ LegendView::LegendTuples LegendView::legendTuples(
   LegendTuples result;
 
   for(auto & _legendTuple : _legendTuples) {
-    std::vector<DataGuide> const& guides(boost::get<0>(_legendTuple));
+    std::vector<DataGuide> const& guides(std::get<0>(_legendTuple));
 
     if(std::find(guides.begin(), guides.end(), guide) != guides.end()) {
       result.push_back(_legendTuple);
@@ -307,7 +307,7 @@ std::vector<Legend*> LegendView::legends(
   LegendTuples tuples(legendTuples(guide));
 
   for(auto & tuple : tuples) {
-    Legend* legend(boost::get<1>(tuple));
+    Legend* legend(std::get<1>(tuple));
     result.push_back(legend);
   }
 
@@ -324,9 +324,9 @@ std::vector<DataGuide> const& LegendView::dataGuides(
   std::vector<DataGuide> const* result = nullptr;
 
   for(const auto & _legendTuple : _legendTuples) {
-    std::vector<DataGuide> const& guides(boost::get<0>(_legendTuple));
+    std::vector<DataGuide> const& guides(std::get<0>(_legendTuple));
 
-    if(legend == boost::get<1>(_legendTuple)) {
+    if(legend == std::get<1>(_legendTuple)) {
       result = &guides;
     }
   }
@@ -376,7 +376,7 @@ void LegendView::recreateLegend(
   // Create legend.
 
   // (Draw property, index) tuple type.
-  typedef boost::tuple<DrawProps*, size_t> DrawPropertiesLegendIndexTuple;
+  typedef std::tuple<DrawProps*, size_t> DrawPropertiesLegendIndexTuple;
 
   // Collection of tuples.
   std::vector<DrawPropertiesLegendIndexTuple> drawPropertiesLegendIndexTuples;
@@ -404,8 +404,8 @@ void LegendView::recreateLegend(
     for(auto & drawPropertiesLegendIndexTuple : drawPropertiesLegendIndexTuples) {
       // Find tuple who's properties corresponds with properties of current
       // data item, if present.
-      if(boost::get<0>(drawPropertiesLegendIndexTuple) == properties) {
-        legendIndices.push_back(boost::get<1>(
+      if(std::get<0>(drawPropertiesLegendIndexTuple) == properties) {
+        legendIndices.push_back(std::get<1>(
               drawPropertiesLegendIndexTuple));
       }
     }
@@ -413,7 +413,7 @@ void LegendView::recreateLegend(
     if(!legendIndices.empty()) {
       // A legend for this guide has already been created using another guide.
       for(unsigned long legendIndice : legendIndices) {
-        std::vector<DataGuide>& guides(boost::get<0>(
+        std::vector<DataGuide>& guides(std::get<0>(
               _legendTuples[legendIndice]));
 
         if(std::find(guides.begin(), guides.end(), guide) == guides.end()) {

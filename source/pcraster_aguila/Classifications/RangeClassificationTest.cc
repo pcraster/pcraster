@@ -51,7 +51,7 @@ namespace ag {
 boost::unit_test::test_suite* RangeClassificationTest::suite()
 {
   boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<RangeClassificationTest> instance(
+  std::shared_ptr<RangeClassificationTest> instance(
          new RangeClassificationTest());
   suite->add(BOOST_CLASS_TEST_CASE(
          &RangeClassificationTest::testDefaultConstructor, instance));

@@ -46,7 +46,7 @@ namespace ag {
 boost::unit_test::test_suite* PaletteTest::suite()
 {
   boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<PaletteTest> instance(
+  std::shared_ptr<PaletteTest> instance(
          new PaletteTest());
   suite->add(BOOST_CLASS_TEST_CASE(
          &PaletteTest::test, instance));

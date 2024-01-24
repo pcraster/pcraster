@@ -48,7 +48,7 @@ namespace ag {
 template<typename AttributeKey, typename PropertiesKey>
 class DrawPropertiesManager: private boost::noncopyable,
          public std::map<AttributeKey,
-              std::map<PropertiesKey, boost::shared_ptr<DrawProperties> > >
+              std::map<PropertiesKey, std::shared_ptr<DrawProperties> > >
 {
 
   friend class DrawPropertiesManagerTest;
@@ -87,7 +87,7 @@ template<typename AttributeKey, typename PropertiesKey>
 inline DrawPropertiesManager<AttributeKey, PropertiesKey>::
          DrawPropertiesManager()
   : std::map<AttributeKey,
-         std::map<PropertiesKey, boost::shared_ptr<DrawProperties> > >()
+         std::map<PropertiesKey, std::shared_ptr<DrawProperties> > >()
 {
 }
 

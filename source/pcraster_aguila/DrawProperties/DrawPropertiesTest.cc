@@ -46,7 +46,7 @@ namespace ag {
 boost::unit_test::test_suite* DrawPropertiesTest::suite()
 {
   boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<DrawPropertiesTest> instance(
+  std::shared_ptr<DrawPropertiesTest> instance(
          new DrawPropertiesTest());
   suite->add(BOOST_CLASS_TEST_CASE(
          &DrawPropertiesTest::test, instance));

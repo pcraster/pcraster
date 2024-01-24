@@ -27,7 +27,7 @@
 boost::unit_test::test_suite*com::BitVectorTest::suite()
 {
   boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<BitVectorTest> instance(new BitVectorTest());
+  std::shared_ptr<BitVectorTest> instance(new BitVectorTest());
 
   suite->add(BOOST_CLASS_TEST_CASE(&BitVectorTest::test, instance));
 

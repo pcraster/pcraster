@@ -62,7 +62,7 @@ namespace ag {
 boost::unit_test::test_suite* DrawPropertiesManagerTest::suite()
 {
   boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<DrawPropertiesManagerTest> instance(
+  std::shared_ptr<DrawPropertiesManagerTest> instance(
          new DrawPropertiesManagerTest());
   suite->add(BOOST_CLASS_TEST_CASE(
          &DrawPropertiesManagerTest::test, instance));
@@ -89,7 +89,7 @@ void DrawPropertiesManagerTest::test()
     DrawPropertiesManager<int, ClassificationCategory> manager;
     BOOST_CHECK_EQUAL(manager.size(), 0u);
 
-    manager[0][ByAttribute] = boost::shared_ptr<DrawProperties>(
+    manager[0][ByAttribute] = std::shared_ptr<DrawProperties>(
          new DrawProperties());
   }
 }

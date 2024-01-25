@@ -21,10 +21,6 @@
 #include <string>
 #define INCLUDED_STRING
 #endif
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
 // PCRaster library headers.
 
 // Module headers.
@@ -33,6 +29,7 @@
 #define INCLUDED_CALC_ASTSYMBOLINFO
 #endif
 
+#include  <memory>
 
 namespace calc {
   // ASTSymbolTable declarations.

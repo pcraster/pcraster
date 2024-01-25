@@ -9,11 +9,6 @@
 #define INCLUDED_BOOST_NONCOPYABLE
 #endif
 
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
 // Project headers.
 #ifndef INCLUDED_PT_PARTICLETRACKER
 #include "pt_ParticleTracker.h"
@@ -23,6 +18,7 @@
 // Module headers.
 
 #include <pybind11/pybind11.h>
+#include  <memory>
 
 
 namespace calc {

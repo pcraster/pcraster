@@ -19,8 +19,6 @@
 #define INCLUDED_BOOST_NONCOPYABLE
 #endif
 
-#include <boost/shared_ptr.hpp>
-
 // PCRaster library headers.
 
 // Module headers.
@@ -59,6 +57,7 @@
 #define INCLUDED_DAL_UTILS
 #endif
 
+#include <memory>
 
 namespace dal {
   // DataSource declarations.

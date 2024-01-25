@@ -5,11 +5,6 @@
 #define INCLUDED_CALC_MODELLINKMETHODSTATEMENT
 #endif
 
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
 #ifndef INCLUDED_CALC_MODELLINK
 # include "calc_modellink.h"
 #define INCLUDED_CALC_MODELLINK
@@ -68,6 +63,8 @@
 # include "calc_methodoperator.h"
 #define INCLUDED_CALC_METHODOPERATOR
 #endif
+
+#include <memory>
 
 calc::ModelLinkMethodStatement::ModelLinkMethodStatement(
     calc::StatementBlock *b,

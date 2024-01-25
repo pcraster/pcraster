@@ -20,17 +20,6 @@
 #define INCLUDED_FSTREAM
 #endif
 
-
-//#ifndef INCLUDED_BOOST_BIND
-//#include <boost/bind.hpp>
-//#define INCLUDED_BOOST_BIND
-//#endif
-
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
 #ifndef INCLUDED_CASSERT
 #include <cassert>
 #define INCLUDED_CASSERT
@@ -137,6 +126,7 @@
 #include <QString>
 
 #include <filesystem>
+#include  <memory>
 
 
 /// \todo change the confined level vector to layer vector

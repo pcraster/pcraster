@@ -29,8 +29,6 @@
 #define INCLUDED_BOOST_FUNCTION
 #endif
 
-#include <boost/shared_ptr.hpp>
-
 #ifndef INCLUDED_OGRSF_FRMTS
 #include <ogrsf_frmts.h>
 #define INCLUDED_OGRSF_FRMTS
@@ -79,6 +77,7 @@
 #endif
 
 #include <filesystem>
+#include <memory>
 
 
 /*!

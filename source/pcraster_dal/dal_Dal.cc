@@ -19,8 +19,6 @@
 #define INCLUDED_BOOST_BIND
 #endif
 
-#include <boost/shared_ptr.hpp>
-
 #ifndef INCLUDED_QSQLDATABASE
 #include <QSqlDatabase>
 #define INCLUDED_QSQLDATABASE
@@ -108,6 +106,7 @@
 #define INCLUDED_DAL_VECTORDRIVER
 #endif
 
+#include <memory>
 
 
 /*!

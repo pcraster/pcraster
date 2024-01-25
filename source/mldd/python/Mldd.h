@@ -10,11 +10,6 @@
 #define INCLUDED_BOOST_NONCOPYABLE
 #endif
 
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
 // Project headers.
 
 // Module headers.

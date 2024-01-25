@@ -13,10 +13,6 @@
 #include <string>
 #define INCLUDED_STRING
 #endif
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
 // PCRaster library headers.
 
 // Module headers.
@@ -28,6 +24,8 @@
 #include "calc_baseexpr.h"
 #define INCLUDED_CALC_BASEEXPR
 #endif
+
+#include  <memory>
 
 namespace calc {
   // LinkInExpr declarations.

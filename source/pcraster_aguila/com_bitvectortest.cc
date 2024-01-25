@@ -1,7 +1,6 @@
 #include "com_bitvectortest.h"
 
 // Library headers.
-#include <boost/shared_ptr.hpp>
 #include <boost/test/test_tools.hpp>
 #include <boost/test/unit_test_suite.hpp>
 
@@ -10,6 +9,7 @@
 // Module headers.
 #include "com_bitvector.h"
 
+#include  <memory>
 
 
 /*!

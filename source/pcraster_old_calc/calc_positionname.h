@@ -9,10 +9,6 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
 // PCRaster library headers.
 
 // Module headers.
@@ -21,6 +17,7 @@
 #define INCLUDED_CALC_POSITION
 #endif
 
+#include <memory>
 
 
 namespace calc {

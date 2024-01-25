@@ -4,10 +4,6 @@
 
 
 // External headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
 #ifndef INCLUDED_STRING
 #include <string>
 #define INCLUDED_STRING
@@ -20,6 +16,7 @@
 #define INCLUDED_CALC_MEMORYEXCHANGEITEM
 #endif
 
+#include  <memory>
 
 
 namespace calc {

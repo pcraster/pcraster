@@ -14,8 +14,6 @@
 #define INCLUDED_BOOST_FORMAT
 #endif
 
-#include <boost/shared_ptr.hpp>
-
 // PCRaster library headers.
 #ifndef INCLUDED_DEV_FILESYSTEMUTILS
 #include "dev_FilesystemUtils.h"
@@ -53,6 +51,7 @@
 #define INCLUDED_DAL_UTILS
 #endif
 
+#include <memory>
 
 
 /*!

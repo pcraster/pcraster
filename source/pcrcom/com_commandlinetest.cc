@@ -9,11 +9,6 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
 #ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
 #include <boost/test/test_tools.hpp>
 #define INCLUDED_BOOST_TEST_TEST_TOOLS
@@ -37,6 +32,7 @@
 #define INCLUDED_COM_COMMANDLINEARGUMENT
 #endif
 
+#include <memory>
 
 
 /*!

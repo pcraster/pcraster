@@ -17,10 +17,6 @@
  #define INCLUDED_SET
  #endif
 #endif
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
 
 // PCRaster library headers.
 #ifndef INCLUDED_GEO_RASTERSPACE
@@ -43,6 +39,8 @@
 #define INCLUDED_CALC_GRIDSTAT
 #endif
 
+#include  <memory>
+
 namespace calc {
   class Field;
   class StackInfo;
@@ -64,7 +62,7 @@ namespace calc {
    It may also implement a in-memory map structure for example in support of OpenMI,
    python runtime, S-plus, whatever
 
-   Clone info is managed by 2 members, d_commonRS and d_cloneNameCommon, 
+   Clone info is managed by 2 members, d_commonRS and d_cloneNameCommon,
    if d_commonRS.valid() && d_cloneNameCommon.empty() then d_commonRS is set
    by a call to setRasterSpace otherwise by setAndCheckCommon()
 */

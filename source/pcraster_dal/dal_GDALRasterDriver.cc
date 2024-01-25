@@ -10,8 +10,6 @@
 #define INCLUDED_BOOST_FORMAT
 #endif
 
-#include <boost/shared_ptr.hpp>
-
 #ifndef INCLUDED_GDAL_PRIV
 #include "gdal_priv.h"
 #define INCLUDED_GDAL_PRIV
@@ -59,6 +57,7 @@
 
 #include <vector>
 #include <filesystem>
+#include <memory>
 
 
 /*!

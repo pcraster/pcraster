@@ -4,7 +4,6 @@
 #endif
 
 // Library headers.
-#include <boost/shared_ptr.hpp>
 
 // PCRaster library headers.
 #ifndef INCLUDED_DAL_MEMORYDATAPOOL
@@ -13,6 +12,7 @@
 #endif
 
 // Module headers.
+#include <memory>
 
 
 

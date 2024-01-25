@@ -14,8 +14,6 @@
 #define INCLUDED_BOOST_ANY
 #endif
 
-#include <boost/shared_ptr.hpp>
-
 // PCRaster library headers.
 
 // Module headers.
@@ -39,6 +37,7 @@
 #define INCLUDED_DAL_RASTER
 #endif
 
+#include <memory>
 
 
 namespace dal {

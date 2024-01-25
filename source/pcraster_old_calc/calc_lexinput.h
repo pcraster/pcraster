@@ -14,10 +14,7 @@
 #define INCLUDED_STRING
 #endif
 
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
+#include <memory>
 
 namespace com {
   class PathName;

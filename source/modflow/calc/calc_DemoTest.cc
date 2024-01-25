@@ -1,11 +1,11 @@
 #define BOOST_TEST_MODULE pcraster modflow calc_demo
 #include <boost/test/unit_test.hpp>
 
-#include <boost/shared_ptr.hpp>
-
 #include "pcrcalc.h"
 #include "geo_filecreatetester.h"
 #include "com_exception.h"
+
+#include  <memory>
 
 // OLS: stuff below as a reminder for work on windows build later on...
   // Python tests must be run after pcrcalc tests

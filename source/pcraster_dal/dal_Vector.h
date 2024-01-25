@@ -4,10 +4,6 @@
 
 
 // External headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
 
 // Project headers.
 #ifndef INCLUDED_CMATH
@@ -36,6 +32,7 @@
 #define INCLUDED_DAL_RASTERDIMENSIONS
 #endif
 
+#include <memory>
 
 
 namespace dal {

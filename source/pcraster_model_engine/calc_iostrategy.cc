@@ -254,7 +254,7 @@ void IOStrategy::setMemoryExchangeData(const ASTSymbolTable& symbols,
         if(id != noExchange) {
           maxIdInt = std::max<int>(maxIdInt,(size_t)id);
           d_memoryData.insert(std::make_pair(si.name(),
-            boost::shared_ptr<MemoryExchangeItem>(
+            std::shared_ptr<MemoryExchangeItem>(
               new MemoryExchangeItem(si.name(),id))));
         }
       }
@@ -493,7 +493,7 @@ void IOStrategy::transferMemoryExchangeItemIntoDataTransferArray(
 
       // will clean up previous MemoryExchangeItem
       d_memoryData[i->name()] =
-       boost::shared_ptr<MemoryExchangeItem>(i);
+       std::shared_ptr<MemoryExchangeItem>(i);
 
       // change user's d_dataTransferArray
       d_dataTransferArray[id] = (void *)(i->rawValue());
@@ -541,11 +541,11 @@ GridStat IOStrategy::writeFieldUnpacked(
     } else {
       // user is requesting us to allocate it
       PRECOND(mem->name() == name);
-      boost::shared_ptr<Field> allocatedCopy(f->createClone());
+      std::shared_ptr<Field> allocatedCopy(f->createClone());
       auto *mei =
        new MemoryExchangeItemField(name, mem->id(),
                                 allocatedCopy);
-      d_memoryData[name] = boost::shared_ptr<MemoryExchangeItem>(mei);
+      d_memoryData[name] = std::shared_ptr<MemoryExchangeItem>(mei);
       // change user's d_dataTransferArray
       d_dataTransferArray[mei->id()] = (void *)(allocatedCopy->src());
     }

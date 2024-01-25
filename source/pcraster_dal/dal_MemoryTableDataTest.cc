@@ -19,7 +19,7 @@ BOOST_AUTO_TEST_CASE(constructor)
 
   // Empty data space.
   {
-    boost::shared_ptr<Table> table1(new Table("table1", titles, typeIds));
+    std::shared_ptr<Table> table1(new Table("table1", titles, typeIds));
     DataSpace space;
     DataSpaceAddress address;
     MemoryTableData data(space, address, table1.get());
@@ -39,7 +39,7 @@ BOOST_AUTO_TEST_CASE(constructor)
   Dimension timeDimension(Time, timeSteps);
 
   {
-    boost::shared_ptr<Table> table1(new Table("table1", titles, typeIds));
+    std::shared_ptr<Table> table1(new Table("table1", titles, typeIds));
     DataSpace space;
     space.addDimension(timeDimension);
     DataSpaceAddress address(space.address());
@@ -64,7 +64,7 @@ BOOST_AUTO_TEST_CASE(constructor)
   Dimension scenarioDimension(Scenarios, scenarios);
 
   {
-    boost::shared_ptr<Table> table1(new Table("table1", titles, typeIds));
+    std::shared_ptr<Table> table1(new Table("table1", titles, typeIds));
     DataSpace space;
     space.addDimension(scenarioDimension);
     space.addDimension(timeDimension);

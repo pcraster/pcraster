@@ -13,10 +13,6 @@
 #include <string>
 #define INCLUDED_STRING
 #endif
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
 // PCRaster library headers.
 
 // Module headers.
@@ -28,6 +24,8 @@
 #include "calc_baseexpr.h"
 #define INCLUDED_CALC_BASEEXPR
 #endif
+
+#include  <memory>
 
 namespace calc {
   // LinkInExpr declarations.
@@ -68,11 +66,11 @@ private:
   std::string      d_methodName;
   std::string      d_functionName;
 
-  boost::shared_ptr<ASTPar>   d_objectPar;
+  std::shared_ptr<ASTPar>   d_objectPar;
 
 
   std::string                   d_stringArgument;
-  boost::shared_ptr<Operator>   d_op;
+  std::shared_ptr<Operator>   d_op;
   //! not owned
   const LinkInLibrary*          d_library;
 

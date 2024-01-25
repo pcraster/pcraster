@@ -19,8 +19,6 @@
 #define INCLUDED_BOOST_BIND
 #endif
 
-#include <boost/shared_ptr.hpp>
-
 #ifndef INCLUDED_QSQLDATABASE
 #include <QSqlDatabase>
 #define INCLUDED_QSQLDATABASE
@@ -108,6 +106,7 @@
 #define INCLUDED_DAL_VECTORDRIVER
 #endif
 
+#include <memory>
 
 
 /*!
@@ -449,7 +448,7 @@ void Dal::removeDriverFromCache(
 DatasetType Dal::datasetType(
          std::string const& name)
 {
-  boost::shared_ptr<Dataset> dataset;
+  std::shared_ptr<Dataset> dataset;
   std::tie(dataset, std::ignore) = open(name);
 
   return dataset ? dataset->type() : NR_DATASET_TYPES;
@@ -673,7 +672,7 @@ bool Dal::exists(
 /*!
   \overload
 */
-std::tuple<boost::shared_ptr<Dataset>, Driver*> Dal::open(
+std::tuple<std::shared_ptr<Dataset>, Driver*> Dal::open(
          std::string const& name) const
 {
   return open(name, NR_DATASET_TYPES);
@@ -691,7 +690,7 @@ std::tuple<boost::shared_ptr<Dataset>, Driver*> Dal::open(
   supporting the dataset may create one. If no driver can create a Dataset from
   \a name, 0 is returned.
 */
-std::tuple<boost::shared_ptr<Dataset>, Driver*> Dal::open(
+std::tuple<std::shared_ptr<Dataset>, Driver*> Dal::open(
          std::string const& name,
          DatasetType datasetType) const
 {
@@ -702,23 +701,23 @@ std::tuple<boost::shared_ptr<Dataset>, Driver*> Dal::open(
 
   if(result) {
     assert(driver);
-    return std::make_tuple(boost::shared_ptr<Dataset>(driver->open(name)),
+    return std::make_tuple(std::shared_ptr<Dataset>(driver->open(name)),
         driver);
   }
 
   assert(!driver);
-  return std::make_tuple(boost::shared_ptr<Dataset>(), driver);
+  return std::make_tuple(std::shared_ptr<Dataset>(), driver);
 }
 
 
 
-std::tuple<boost::shared_ptr<Dataset>, Driver*> Dal::open(
+std::tuple<std::shared_ptr<Dataset>, Driver*> Dal::open(
          std::string const& name,
          DataSpace const& space,
          DataSpaceAddress const& address,
          DatasetType datasetType) const
 {
-  boost::shared_ptr<Dataset> dataset;
+  std::shared_ptr<Dataset> dataset;
   Driver* driver = driverByDataset(name, space);
 
   if(driver) {
@@ -763,12 +762,12 @@ std::tuple<boost::shared_ptr<Dataset>, Driver*> Dal::open(
 
 
 
-boost::shared_ptr<Dataset> Dal::read(
+std::shared_ptr<Dataset> Dal::read(
          std::string const& name) const
 {
   assert(nrDrivers() > 0);
 
-  boost::shared_ptr<Dataset> dataset;
+  std::shared_ptr<Dataset> dataset;
   Driver* driver;
   std::tie(dataset, driver) = open(name);
 
@@ -778,7 +777,7 @@ boost::shared_ptr<Dataset> Dal::read(
 
   assert(driver);
 
-  return boost::shared_ptr<Dataset>(driver->read(name));
+  return std::shared_ptr<Dataset>(driver->read(name));
 }
 
 

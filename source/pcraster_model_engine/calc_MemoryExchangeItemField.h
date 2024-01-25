@@ -4,10 +4,6 @@
 
 
 // External headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
 #ifndef INCLUDED_STRING
 #include <string>
 #define INCLUDED_STRING
@@ -20,6 +16,7 @@
 #define INCLUDED_CALC_MEMORYEXCHANGEITEM
 #endif
 
+#include  <memory>
 
 
 namespace calc {
@@ -36,7 +33,7 @@ class MemoryExchangeItemField: public MemoryExchangeItem
 {
 
 private:
-  boost::shared_ptr<Field> d_value;
+  std::shared_ptr<Field> d_value;
 
                    MemoryExchangeItemField               ();
 
@@ -50,7 +47,7 @@ public:
 
                    MemoryExchangeItemField               (std::string const& name,
                                                           size_t memoryId,
-                                                          boost::shared_ptr<Field> value);
+                                                          std::shared_ptr<Field> value);
 
   /* virtual */    ~MemoryExchangeItemField              ();
 

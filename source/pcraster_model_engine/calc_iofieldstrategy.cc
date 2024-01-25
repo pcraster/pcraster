@@ -93,7 +93,7 @@
 //! ctor
 calc::IoFieldStrategy::IoFieldStrategy(APP_IO_STRATEGY strategyType)
 {
- typedef boost::shared_ptr<dal::RasterDriver> S;
+ typedef std::shared_ptr<dal::RasterDriver> S;
  switch(strategyType) {
    case APP_IO_ESRIGRID:
       POSTCOND(false);

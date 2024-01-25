@@ -14,11 +14,6 @@
 #define INCLUDED_TYPEINFO
 #endif
 
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
 #ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
 #include <boost/test/test_tools.hpp>
 #define INCLUDED_BOOST_TEST_TEST_TOOLS
@@ -89,7 +84,7 @@ namespace ag {
 boost::unit_test::test_suite* DrawPropertiesFactoryTest::suite()
 {
   boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<DrawPropertiesFactoryTest> instance(
+  std::shared_ptr<DrawPropertiesFactoryTest> instance(
          new DrawPropertiesFactoryTest());
   suite->add(BOOST_CLASS_TEST_CASE(
          &DrawPropertiesFactoryTest::test, instance));
@@ -123,14 +118,14 @@ void DrawPropertiesFactoryTest::test()
 
   // Let the factory create objects.
   {
-    boost::shared_ptr<DrawPropertiesBase> object(
+    std::shared_ptr<DrawPropertiesBase> object(
          factory.CreateObject(properties1));
     BOOST_REQUIRE(object);
     BOOST_CHECK(dynamic_cast<DrawProperties1*>(object.get()));
   }
 
   {
-    boost::shared_ptr<DrawPropertiesBase> object(
+    std::shared_ptr<DrawPropertiesBase> object(
          factory.CreateObject(properties2));
     BOOST_REQUIRE(object);
     BOOST_CHECK(dynamic_cast<DrawProperties2*>(object.get()));

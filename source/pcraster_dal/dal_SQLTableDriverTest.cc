@@ -119,8 +119,8 @@ struct Fixture
       // Creates MyTable/Example
       std::string name(d_user + ":MyTable/Example");
       SQLTableDriver driver(driverName);
-      boost::shared_ptr<Table> outputTable;
-      boost::shared_ptr<Table> inputTable;
+      std::shared_ptr<Table> outputTable;
+      std::shared_ptr<Table> inputTable;
 
       {
         std::vector<std::string> titles;
@@ -211,7 +211,7 @@ struct Fixture
       // Selective read.
       {
         BOOST_WARN_MESSAGE(false, "Busy with SQLTableDriver...");
-        // boost::shared_ptr<Table> table(dynamic_cast<Table*>(
+        // std::shared_ptr<Table> table(dynamic_cast<Table*>(
         //      dynamic_cast<Driver&>(driver).open(name)));
         // BOOST_REQUIRE(table);
 
@@ -256,7 +256,7 @@ struct Fixture
       std::string name = "dimensions/date/co2";
       DataSpace space;
       DataSpaceAddress address;
-      boost::shared_ptr<Table> table;
+      std::shared_ptr<Table> table;
       size_t dateId, attrId;
 
       {
@@ -319,7 +319,7 @@ struct Fixture
       std::string name = "dimensions/quantile/co2";
       DataSpace space;
       DataSpaceAddress address;
-      boost::shared_ptr<Table> table;
+      std::shared_ptr<Table> table;
       size_t quantileId, attrId;
 
       {
@@ -409,7 +409,7 @@ struct Fixture
       std::string name = "dimensions/scenario/co2";
       DataSpace space;
       DataSpaceAddress address;
-      boost::shared_ptr<Table> table;
+      std::shared_ptr<Table> table;
       size_t scenarioId, attrId;
 
       {
@@ -476,7 +476,7 @@ struct Fixture
       std::string name = "dimensions/scenario_date/co2";
       DataSpace space;
       DataSpaceAddress address;
-      boost::shared_ptr<Table> table;
+      std::shared_ptr<Table> table;
       size_t scenarioId, dateId, attrId;
 
       {
@@ -632,7 +632,7 @@ struct Fixture
 // boost::unit_test::test_suite*dal::SQLTableDriverTest::suite()
 // {
 //   boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-//   boost::shared_ptr<SQLTableDriverTest> instance(new SQLTableDriverTest());
+//   std::shared_ptr<SQLTableDriverTest> instance(new SQLTableDriverTest());
 //
 //   suite->add(BOOST_CLASS_TEST_CASE(
 //          &SQLTableDriverTest::testUserVar, instance));
@@ -752,7 +752,7 @@ BOOST_AUTO_TEST_CASE(sqlite)
     std::string name = "DoesNotExist";
     BOOST_CHECK(!std::filesystem::exists(name));
 
-    boost::shared_ptr<Dataset> dataset(dynamic_cast<Driver const&>(
+    std::shared_ptr<Dataset> dataset(dynamic_cast<Driver const&>(
          driver).open(name));
 
     BOOST_CHECK(!dataset);
@@ -774,7 +774,7 @@ BOOST_AUTO_TEST_CASE(sqlite)
     BOOST_CHECK_EQUAL(space.dimension(0).value<size_t>(1), 3u);
     BOOST_CHECK_EQUAL(space.dimension(0).value<size_t>(2), 1u);
 
-    boost::shared_ptr<Dataset> dataset(dynamic_cast<Driver const&>(
+    std::shared_ptr<Dataset> dataset(dynamic_cast<Driver const&>(
          driver).open(name));
     BOOST_CHECK(dataset);
 
@@ -822,7 +822,7 @@ BOOST_AUTO_TEST_CASE(sqlite)
     BOOST_CHECK_CLOSE(space.dimension(0).value<REAL4>(2), REAL4(0.05),
          REAL4(0.01));
 
-    boost::shared_ptr<Dataset> dataset(dynamic_cast<Driver const&>(
+    std::shared_ptr<Dataset> dataset(dynamic_cast<Driver const&>(
          driver).open(name));
     BOOST_CHECK(dataset);
 

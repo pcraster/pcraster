@@ -102,7 +102,7 @@ DataSpace TableDriver::dataSpace(
          DataSpace const& space,
          DataSpaceAddress const& address) const
 {
-  boost::shared_ptr<Table> table(open(name, space, address));
+  std::shared_ptr<Table> table(open(name, space, address));
 
   if(!table) {
     throwCannotBeOpened(name, TABLE);

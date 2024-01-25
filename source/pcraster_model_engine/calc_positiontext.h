@@ -9,10 +9,6 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
 // PCRaster library headers.
 
 // Module headers.
@@ -21,7 +17,7 @@
 #define INCLUDED_CALC_POSITION
 #endif
 
-
+#include  <memory>
 
 namespace calc {
   // PositionText declarations.
@@ -36,7 +32,7 @@ namespace calc {
 //! Position defined by line and char (column) number in a named Ascii text file
 class PositionText : public Position
 {
-  typedef boost::shared_ptr<std::string> StringSharedPtr;
+  typedef std::shared_ptr<std::string> StringSharedPtr;
 
   StringSharedPtr d_fileName;
 

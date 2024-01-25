@@ -33,7 +33,7 @@
 
 /*!
  * \todo
- *   vervang door boost::shared_ptrs?
+ *   vervang door std::shared_ptrs?
  */
 void calc::cleanUp(const FieldExprArgs&  argsVect)
 {
@@ -43,7 +43,7 @@ void calc::cleanUp(const FieldExprArgs&  argsVect)
 
 /*!
  * \todo
- *   vervang door boost::shared_ptrs?
+ *   vervang door std::shared_ptrs?
  *   waarom deze 2 versies
  */
 void calc::cleanUp(FieldExprArgs&  argsVect)

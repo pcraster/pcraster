@@ -14,8 +14,6 @@
 #define INCLUDED_BOOST_ANY
 #endif
 
-#include <boost/shared_ptr.hpp>
-
 // PCRaster library headers.
 
 // Module headers.
@@ -39,6 +37,7 @@
 #define INCLUDED_DAL_RASTER
 #endif
 
+#include <memory>
 
 
 namespace dal {
@@ -216,7 +215,7 @@ void MemoryRasterData::updateExtremes()
 {
   bool initialised = false;
   T min, max;
-  boost::shared_ptr<Raster> raster;
+  std::shared_ptr<Raster> raster;
 
   // Scan all data values and set extreme values.
   if(d_dataSpace.rank() == 0) {

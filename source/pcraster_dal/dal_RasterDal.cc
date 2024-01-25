@@ -127,29 +127,29 @@ bool RasterDal::exists(
 
   The caller is responsible of deleting the Raster object again.
 */
-std::tuple<boost::shared_ptr<Raster>, RasterDriver*> RasterDal::open(
+std::tuple<std::shared_ptr<Raster>, RasterDriver*> RasterDal::open(
          std::string const& name) const
 {
   assert(nrDrivers() > 0);
-  boost::shared_ptr<Dataset> dataset;
+  std::shared_ptr<Dataset> dataset;
   Driver* driver;
   std::tie(dataset, driver) = Dal::open(name, RASTER);
-  return std::make_tuple(boost::dynamic_pointer_cast<Raster>(dataset),
+  return std::make_tuple(std::dynamic_pointer_cast<Raster>(dataset),
       dynamic_cast<RasterDriver*>(driver));
 }
 
 
 
-std::tuple<boost::shared_ptr<Raster>, RasterDriver*> RasterDal::open(
+std::tuple<std::shared_ptr<Raster>, RasterDriver*> RasterDal::open(
          std::string const& name,
          DataSpace const& space,
          DataSpaceAddress const& address) const
 {
   assert(nrDrivers() > 0);
-  boost::shared_ptr<Dataset> dataset;
+  std::shared_ptr<Dataset> dataset;
   Driver* driver;
   std::tie(dataset, driver) = Dal::open(name, space, address, RASTER);
-  return std::make_tuple(boost::dynamic_pointer_cast<Raster>(dataset),
+  return std::make_tuple(std::dynamic_pointer_cast<Raster>(dataset),
       dynamic_cast<RasterDriver*>(driver));
 }
 
@@ -162,13 +162,13 @@ std::tuple<boost::shared_ptr<Raster>, RasterDriver*> RasterDal::open(
   \return    A pointer to a newly created Raster object.
   \exception Exception If no driver could read \a name.
 */
-boost::shared_ptr<Raster> RasterDal::read(
+std::shared_ptr<Raster> RasterDal::read(
          std::string const& name,
          TypeId typeId) const
 {
   assert(nrDrivers() > 0);
 
-  boost::shared_ptr<Raster> raster;
+  std::shared_ptr<Raster> raster;
   RasterDriver* driver;
   std::tie(raster, driver) = open(name);
 
@@ -178,7 +178,7 @@ boost::shared_ptr<Raster> RasterDal::read(
 
   assert(driver);
 
-  return boost::shared_ptr<Raster>(driver->read(name, typeId));
+  return std::shared_ptr<Raster>(driver->read(name, typeId));
 }
 
 

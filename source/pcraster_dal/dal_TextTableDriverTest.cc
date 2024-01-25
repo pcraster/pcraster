@@ -387,7 +387,7 @@ BOOST_AUTO_TEST_CASE(table2_eas)
   TextTableDriver driver;
   bool exceptionCaught;
 
-  boost::shared_ptr<Table> table(driver.open(std::filesystem::path(
+  std::shared_ptr<Table> table(driver.open(std::filesystem::path(
     filename)));
   BOOST_CHECK(!table);
 
@@ -422,7 +422,7 @@ BOOST_AUTO_TEST_CASE(dos_formatted)
 
   std::string filename = "dosformat.col";
   TextTableDriver driver;
-  boost::shared_ptr<Table> table(driver.open(
+  std::shared_ptr<Table> table(driver.open(
     std::filesystem::path(filename)));
   BOOST_REQUIRE(table);
   BOOST_CHECK_EQUAL(table->nrCols(), size_t(9));
@@ -467,7 +467,7 @@ BOOST_AUTO_TEST_CASE(column_with_quite_some_zeros)
 
   std::string filename = "table7.col";
   TextTableDriver driver;
-  boost::shared_ptr<Table> table(driver.open(
+  std::shared_ptr<Table> table(driver.open(
     std::filesystem::path(filename)));
   BOOST_REQUIRE(table);
   BOOST_CHECK_EQUAL(table->nrCols(), size_t(2));

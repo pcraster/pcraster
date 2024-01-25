@@ -4,7 +4,6 @@
 #endif
 
 // Library headers.
-#include <boost/shared_ptr.hpp>
 
 // PCRaster library headers.
 #ifndef INCLUDED_DAL_MEMORYDATAPOOL
@@ -13,6 +12,7 @@
 #endif
 
 // Module headers.
+#include <memory>
 
 
 
@@ -136,7 +136,7 @@ void MemoryRasterDriver::read(
          DataSpaceAddress const& address) const
 {
   // Make sure the temp raster is deleted again.
-  boost::shared_ptr<Raster> tmpRaster(read(name, space, address, TI_NR_TYPES));
+  std::shared_ptr<Raster> tmpRaster(read(name, space, address, TI_NR_TYPES));
   raster = *tmpRaster;
 }
 
@@ -182,7 +182,7 @@ void MemoryRasterDriver::write(
   assert(space.isValid(address));
 
   // Create a copy of the raster to write. Copy own the cells.
-  boost::shared_ptr<Raster> raster(raster);
+  std::shared_ptr<Raster> raster(raster);
 
   // Create a MemoryRasterData object to add to the pool. Put it at the record
   // for a raster with the same name and space at the specified address.

@@ -226,13 +226,13 @@ pybind11::tuple Moc::transport(
   // Get new concentrations.
   geo::SimpleRaster<REAL8> concentration(nrRows, nrCols);
   _tracker.concentration(concentration);
-  boost::shared_ptr<calc::Field> concentrationField(
+  std::shared_ptr<calc::Field> concentrationField(
          new calc::Spatial(VS_S, calc::CRI_f, nrCells));
   copy<double, REAL4>(concentration, concentrationField.get());
 
   geo::SimpleRaster<UINT4> nrParticlesPerCell(nrRows, nrCols);
   _tracker.nrParticles(nrParticlesPerCell);
-  boost::shared_ptr<calc::Field> nrParticlesPerCellField(
+  std::shared_ptr<calc::Field> nrParticlesPerCellField(
          new calc::Spatial(VS_S, calc::CRI_f, nrCells));
   copy<UINT4, REAL4>(nrParticlesPerCell, nrParticlesPerCellField.get());
 
@@ -241,7 +241,7 @@ pybind11::tuple Moc::transport(
 
 
 
-boost::shared_ptr<calc::Field> Moc::adjust(
+std::shared_ptr<calc::Field> Moc::adjust(
          calc::Field const* changeInConcentration)
 {
   // TODO Test Field's data and value type.
@@ -286,7 +286,7 @@ boost::shared_ptr<calc::Field> Moc::adjust(
   _tracker.concentration(concentration);
 
   // Copy concentrations to field.
-  boost::shared_ptr<calc::Field> field(
+  std::shared_ptr<calc::Field> field(
          new calc::Spatial(VS_S, calc::CRI_f, nrCells));
   copy<double, REAL4>(concentration, field.get());
 

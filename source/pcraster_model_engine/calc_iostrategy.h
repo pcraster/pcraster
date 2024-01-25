@@ -17,10 +17,6 @@
 #include <map>
 #define INCLUDED_MAP
 #endif
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
 // PCRaster library headers.
 #ifndef INCLUDED_COM_PATHNAME
 #include "com_pathname.h"
@@ -39,6 +35,8 @@
 #include "calc_rundirectory.h"
 #define INCLUDED_CALC_RUNDIRECTORY
 #endif
+
+#include  <memory>
 
 
 namespace calc {
@@ -89,7 +87,7 @@ private:
   RunDirectory    d_runDirectory;
   Timer           d_timer;
 
-  typedef std::map<std::string, boost::shared_ptr<MemoryExchangeItem> > MemoryData;
+  typedef std::map<std::string, std::shared_ptr<MemoryExchangeItem> > MemoryData;
   MemoryData        d_memoryData;
   //! reference to user passed DataTransferArray
   /*!

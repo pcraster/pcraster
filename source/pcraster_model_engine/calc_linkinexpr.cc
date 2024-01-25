@@ -177,7 +177,7 @@ LinkInExpr::LinkInExpr(
    d_library(nullptr)
 {
   // temporary no-op use shared_ptr::swap later
-  d_op = boost::shared_ptr<Operator>(new Operator("0::0","0::0",
+  d_op = std::shared_ptr<Operator>(new Operator("0::0","0::0",
                       std::vector<OP_ARGS>(), // no results
                       std::vector<OP_ARGS>(), // no inputs
                       nullptr));
@@ -241,17 +241,17 @@ void LinkInExpr::loadLibrary(const LinkInLibrary *library)
   OperatorCreator oc(d_library->manifest());
 
   if (isConstructor()) {
-    d_op=boost::shared_ptr<Operator>(oc.createConstructor(d_className));
+    d_op=std::shared_ptr<Operator>(oc.createConstructor(d_className));
     if (!d_op.get())
       d_nameAfter.symError("unknown class");
   }
   if (isFunction()) {
-    d_op=boost::shared_ptr<Operator>(oc.createFunction(d_functionName));
+    d_op=std::shared_ptr<Operator>(oc.createFunction(d_functionName));
     if (!d_op.get())
       d_nameAfter.symError("unknown function");
   }
   if (isMethod()) {
-    d_op=boost::shared_ptr<Operator>(oc.createMethod(d_className,d_methodName));
+    d_op=std::shared_ptr<Operator>(oc.createMethod(d_className,d_methodName));
     if (!d_op.get()) {
       d_nameAfter.symError("unknown method");
     }
@@ -310,7 +310,7 @@ void LinkInExpr::check()
   // reset operator to returned types
   std::vector<DataType> result=xml2DataType(r.result());
   std::vector<DataType> argument(xml2DataType(r.argument()));
-  d_op = boost::shared_ptr<Operator>(new Operator(d_op->name(),result,argument));
+  d_op = std::shared_ptr<Operator>(new Operator(d_op->name(),result,argument));
 }
 
 //! get value of d_nameBefore
@@ -334,7 +334,7 @@ void LinkInExpr::setAsMethod(std::string const&   className)
 
 void LinkInExpr::setAsConstructor(ASTPar const&   objectName)
 {
-  d_objectPar  = boost::shared_ptr<ASTPar>(new ASTPar(objectName));
+  d_objectPar  = std::shared_ptr<ASTPar>(new ASTPar(objectName));
   d_objectName = objectName.name();
   d_libraryName= nameBefore();
   d_className  = nameAfter();

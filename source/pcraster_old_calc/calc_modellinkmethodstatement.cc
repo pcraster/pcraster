@@ -5,11 +5,6 @@
 #define INCLUDED_CALC_MODELLINKMETHODSTATEMENT
 #endif
 
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
 #ifndef INCLUDED_CALC_MODELLINK
 # include "calc_modellink.h"
 #define INCLUDED_CALC_MODELLINK
@@ -68,6 +63,8 @@
 # include "calc_methodoperator.h"
 #define INCLUDED_CALC_METHODOPERATOR
 #endif
+
+#include <memory>
 
 calc::ModelLinkMethodStatement::ModelLinkMethodStatement(
     calc::StatementBlock *b,
@@ -169,7 +166,7 @@ void calc::ModelLinkMethodStatement::run()
     d_sig.d_input[i].value = args.MAP_ptr(i);
 
   //! create the results
-  typedef boost::shared_ptr<GlobResult> SGlobResult;
+  typedef std::shared_ptr<GlobResult> SGlobResult;
   std::vector<SGlobResult> result;
   for (size_t i=0; i < d_sig.d_result.size(); i++) {
     VS vs=d_sig.d_result[i].vs;

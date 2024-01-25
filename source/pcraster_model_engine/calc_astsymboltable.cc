@@ -184,7 +184,7 @@ calc::LinkInLibrary const* calc::ASTSymbolTable::linkInLibrary(std::string const
   else {
    try {
     d_linkInLibraries.insert(std::make_pair(name,
-      boost::shared_ptr<LinkInLibrary>(new LinkInLibrary(name))));
+      std::shared_ptr<LinkInLibrary>(new LinkInLibrary(name))));
    } catch (com::Exception const &e) {
      LinkInLibraryException l;
      l.message=e.messages();

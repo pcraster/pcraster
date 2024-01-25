@@ -35,11 +35,11 @@
 #endif
 
 #include <boost/format.hpp>
-#include <boost/shared_ptr.hpp>
 #include <boost/math/special_functions/fpclassify.hpp>
 #include <boost/math/special_functions/sign.hpp>
 
 #include <limits>
+#include <memory>
 
 template<
     typename T>
@@ -113,7 +113,7 @@ calc::Field* readField(
          std::string const& name)
 {
   // Open the raster.
-  boost::shared_ptr<dal::Raster> raster;
+  std::shared_ptr<dal::Raster> raster;
   dal::RasterDriver* driver;
   std::tie(raster, driver) = globals.rasterDal().open(name);
 
@@ -227,7 +227,7 @@ pybind11::object readFieldCell(
          int row,
          int col)
 {
-  boost::shared_ptr<dal::Raster> raster;
+  std::shared_ptr<dal::Raster> raster;
   dal::RasterDriver* driver;
   std::tie(raster, driver) = globals.rasterDal().open(filename);
 
@@ -759,7 +759,7 @@ void setCloneSpaceFromFilename(
 {
   check_csftype(filename);
 
-  boost::shared_ptr<dal::Raster> raster(globals.rasterDal().read(filename));
+  std::shared_ptr<dal::Raster> raster(globals.rasterDal().read(filename));
   assert(raster);
 
   geo::Projection projection = geo::IllegalProjection;

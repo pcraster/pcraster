@@ -9,10 +9,6 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
 
 // PCRaster library headers.
 
@@ -22,6 +18,7 @@
 #define INCLUDED_CALC_RUNTIMEENVSETTINGS
 #endif
 
+#include  <memory>
 
 
 namespace com {
@@ -57,7 +54,7 @@ private:
   Symbol   symbol(const std::string& name);
 
   //! name for \class calc::PositionName used to create symbols
-  boost::shared_ptr<std::string> d_positionName;
+  std::shared_ptr<std::string> d_positionName;
 
 public:
 

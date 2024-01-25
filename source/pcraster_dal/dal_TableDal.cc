@@ -94,12 +94,12 @@ TableDal::~TableDal()
 
   The caller is responsible of deleting the Table object again.
 */
-std::tuple<boost::shared_ptr<Table>, TableDriver*> TableDal::open(
+std::tuple<std::shared_ptr<Table>, TableDriver*> TableDal::open(
          std::string const& name,
          bool raiseException)
 {
   assert(nrDrivers() > 0);
-  boost::shared_ptr<Dataset> dataset;
+  std::shared_ptr<Dataset> dataset;
   Driver* driver;
   std::tie(dataset, driver) = Dal::open(name, TABLE);
 
@@ -109,7 +109,7 @@ std::tuple<boost::shared_ptr<Table>, TableDriver*> TableDal::open(
     throwCannotBeOpened(name, TABLE);
   }
 
-  return std::make_tuple(boost::dynamic_pointer_cast<Table>(dataset),
+  return std::make_tuple(std::dynamic_pointer_cast<Table>(dataset),
       dynamic_cast<TableDriver*>(driver));
 }
 

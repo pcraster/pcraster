@@ -4,11 +4,6 @@
 #endif
 
 // External headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
 #ifndef INCLUDED_BOOST_TEST_FLOATING_POINT_COMPARISON
 #include <boost/test/floating_point_comparison.hpp>
 #define INCLUDED_BOOST_TEST_FLOATING_POINT_COMPARISON
@@ -51,7 +46,7 @@ namespace ag {
 boost::unit_test::test_suite* RangeClassificationTest::suite()
 {
   boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<RangeClassificationTest> instance(
+  std::shared_ptr<RangeClassificationTest> instance(
          new RangeClassificationTest());
   suite->add(BOOST_CLASS_TEST_CASE(
          &RangeClassificationTest::testDefaultConstructor, instance));

@@ -14,8 +14,6 @@
 #define INCLUDED_BOOST_FORMAT
 #endif
 
-#include <boost/shared_ptr.hpp>
-
 // PCRaster library headers.
 #ifndef INCLUDED_DEV_FILESYSTEMUTILS
 #include "dev_FilesystemUtils.h"
@@ -53,6 +51,7 @@
 #define INCLUDED_DAL_UTILS
 #endif
 
+#include <memory>
 
 
 /*!
@@ -315,7 +314,7 @@ void Application::showDriverInfoByDatasetType(
 void Application::showDriverInfoByDataset(
          std::string const& name) const
 {
-  boost::shared_ptr<Dataset> dataset;
+  std::shared_ptr<Dataset> dataset;
   Driver* driver;
   std::tie(dataset, driver) = Client::dal().open(name);
 
@@ -503,7 +502,7 @@ void Application::showDatasetInfo(
   }
   else {
     assert(driver);
-    boost::shared_ptr<Dataset> dataset(driver->open(result));
+    std::shared_ptr<Dataset> dataset(driver->open(result));
     assert(dataset);
     showDatasetInfo(name, result.space(), result.address(), *dataset, *driver);
   }

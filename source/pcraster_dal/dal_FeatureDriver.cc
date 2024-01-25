@@ -65,7 +65,7 @@ DataSpace FeatureDriver::dataSpace(
 {
   assert(!space.hasSpace());
 
-  boost::shared_ptr<FeatureLayer> layer(open(name, space, address));
+  std::shared_ptr<FeatureLayer> layer(open(name, space, address));
 
   if(!layer) {
     throwCannotBeOpened(name, FEATURE, space, address);

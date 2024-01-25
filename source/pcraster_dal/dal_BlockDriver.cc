@@ -100,7 +100,7 @@ DataSpace BlockDriver::dataSpace(
 {
   assert(!space.hasSpace());
 
-  boost::shared_ptr<Block> block(open(name, space, address));
+  std::shared_ptr<Block> block(open(name, space, address));
 
   if(!block) {
     throwCannotBeOpened(name, BLOCK, space, address);

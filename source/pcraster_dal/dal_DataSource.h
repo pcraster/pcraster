@@ -19,8 +19,6 @@
 #define INCLUDED_BOOST_NONCOPYABLE
 #endif
 
-#include <boost/shared_ptr.hpp>
-
 // PCRaster library headers.
 
 // Module headers.
@@ -59,6 +57,7 @@
 #define INCLUDED_DAL_UTILS
 #endif
 
+#include <memory>
 
 namespace dal {
   // DataSource declarations.
@@ -312,7 +311,7 @@ inline void DataSource::uniqueValues(
 {
   // assert(!space.hasSpace());
 
-  boost::shared_ptr<Raster> raster(this->raster(/* space, */ address, typeId));
+  std::shared_ptr<Raster> raster(this->raster(/* space, */ address, typeId));
   assert(raster);
 
   // Iterate over inidividual cells.

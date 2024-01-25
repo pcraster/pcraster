@@ -9,11 +9,6 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
 #ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
 #include <boost/test/test_tools.hpp>
 #define INCLUDED_BOOST_TEST_TEST_TOOLS
@@ -59,6 +54,8 @@
 #define INCLUDED_CALC_STATTABLE
 #endif
 
+#include <memory>
+
 /*!
   \file
   This file contains the implementation of the WlDelftHabitatTest class.
@@ -74,7 +71,7 @@
 boost::unit_test::test_suite*calc::WlDelftHabitatTest::suite()
 {
   boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<WlTestStat> instance(new WlTestStat());
+  std::shared_ptr<WlTestStat> instance(new WlTestStat());
 
   suite->add(BOOST_CLASS_TEST_CASE(&WlDelftHabitatTest::testStatTable, instance));
   suite->add(BOOST_CLASS_TEST_CASE(&WlDelftHabitatTest::testWLStatTests, instance));

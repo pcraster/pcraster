@@ -30,7 +30,7 @@ void testUInt1Raster1(
          dal::RasterDriver& driver,
          std::string const& name)
 {
-  boost::shared_ptr<dal::Raster> raster;
+  std::shared_ptr<dal::Raster> raster;
 
   // Open.
   raster.reset(driver.open(name));
@@ -63,7 +63,7 @@ void testInt4Raster1(
          dal::RasterDriver& driver,
          std::string const& name)
 {
-  boost::shared_ptr<dal::Raster> raster;
+  std::shared_ptr<dal::Raster> raster;
 
   // Open.
   raster.reset(driver.open(name));
@@ -112,7 +112,7 @@ void testInt4Raster2(
          dal::RasterDriver& driver,
          std::string const& name)
 {
-  boost::shared_ptr<dal::Raster> raster;
+  std::shared_ptr<dal::Raster> raster;
 
   // Open.
   raster.reset(driver.open(name));
@@ -145,7 +145,7 @@ void testReal4Raster1(
          dal::RasterDriver& driver,
          std::string const& name)
 {
-  boost::shared_ptr<dal::Raster> raster;
+  std::shared_ptr<dal::Raster> raster;
 
   // Open.
   raster.reset(driver.open(name));
@@ -178,7 +178,7 @@ void testReal4Raster2(
          dal::RasterDriver& driver,
          std::string const& name)
 {
-  boost::shared_ptr<dal::Raster> raster;
+  std::shared_ptr<dal::Raster> raster;
 
   // Open.
   raster.reset(driver.open(name));
@@ -212,7 +212,7 @@ void testUInt1Raster2(
          dal::RasterDriver& driver,
          std::string const& name)
 {
-  boost::shared_ptr<dal::Raster> raster;
+  std::shared_ptr<dal::Raster> raster;
 
   // Open.
   raster.reset(driver.open(name));
@@ -265,7 +265,7 @@ void testAllMVRaster(
          dal::RasterDriver& driver,
          std::string const& name)
 {
-  boost::shared_ptr<dal::Raster> raster;
+  std::shared_ptr<dal::Raster> raster;
 
   // Open.
   raster.reset(driver.open(name));
@@ -294,7 +294,7 @@ void testTemporalRaster(
          dal::RasterDriver& driver,
          std::string const& name)
 {
-  boost::shared_ptr<dal::Raster> raster;
+  std::shared_ptr<dal::Raster> raster;
 
   dal::DataSpace space;
   {

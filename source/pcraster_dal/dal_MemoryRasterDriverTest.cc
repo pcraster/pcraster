@@ -63,7 +63,7 @@ BOOST_AUTO_TEST_CASE(empty_data_space)
 
   MemoryRasterDriver driver(&(library()->memoryDataPool()));
 
-  boost::shared_ptr<Raster> raster;
+  std::shared_ptr<Raster> raster;
   BOOST_CHECK(!dynamic_cast<Driver&>(driver).exists("data1"));
   raster.reset(dynamic_cast<Raster*>(
          dynamic_cast<Driver&>(driver).open("data1")));
@@ -153,7 +153,7 @@ BOOST_AUTO_TEST_CASE(test_)
   library()->memoryDataPool().add("data1", data);
 
   // Query the memory pool in various ways by use of the driver.
-  boost::shared_ptr<Raster> raster;
+  std::shared_ptr<Raster> raster;
   raster.reset(dynamic_cast<Raster*>(
          dynamic_cast<Driver&>(driver).open("data1")));
   BOOST_CHECK(!raster.get());

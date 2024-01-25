@@ -193,7 +193,7 @@ calc::GridMapIn::GridMapIn(
     d_bandMap(false)
 {
   // try {
-    boost::shared_ptr<dal::Raster> raster;
+    std::shared_ptr<dal::Raster> raster;
     dal::RasterDriver* driver;
     std::tie(raster, driver) = rasterDal->open(fileName);
     if (!raster) // TODO not  a recognized map instead of a PCRasterMap
@@ -265,7 +265,7 @@ void  calc::GridMapIn::createSpatial(void *dest,VS readAs)
  // raster.setCellsReference(dest);
  // d_driver->read(raster,d_fileName);
 
-  boost::shared_ptr<dal::Raster> raster;
+  std::shared_ptr<dal::Raster> raster;
   dal::RasterDriver* driver;
   std::tie(raster, driver) = rasterDal->open(d_fileName);
   POSTCOND(raster); // TODO not  a recognized map, but catched earlier on

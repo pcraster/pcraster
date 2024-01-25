@@ -12,13 +12,10 @@
 #include <string>
 #define INCLUDED_STRING
 #endif
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
 // PCRaster library headers.
 
 // Module headers.
+#include <memory>
 
 namespace com {
   class PathName;
@@ -31,7 +28,7 @@ class PositionText;
 
 //! how lexinput get its input
 class LexInputSource {
-  typedef boost::shared_ptr<std::string> StringSharedPtr;
+  typedef std::shared_ptr<std::string> StringSharedPtr;
 
            LexInputSource();
 protected:

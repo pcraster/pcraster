@@ -24,7 +24,7 @@ namespace dal {
 // DEFINITION OF STATIC LIBRARY MEMBERS
 //------------------------------------------------------------------------------
 
-static boost::shared_ptr<Library> libraryScope;
+static std::shared_ptr<Library> libraryScope;
 
 //! Initialises the library.
 /*!

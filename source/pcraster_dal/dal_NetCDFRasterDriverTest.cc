@@ -4,11 +4,6 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
 #ifndef INCLUDED_BOOST_TEST_TEST_TOOLS
 #include <boost/test/test_tools.hpp>
 #define INCLUDED_BOOST_TEST_TEST_TOOLS
@@ -27,6 +22,7 @@
 #define INCLUDED_DAL_NETCDFRASTERDRIVER
 #endif
 
+#include <memory>
 
 
 /*!
@@ -48,7 +44,7 @@ namespace dal {
 boost::unit_test::test_suite*NetCDFRasterDriverTest::suite()
 {
   boost::unit_test::test_suite* suite = BOOST_TEST_SUITE(__FILE__);
-  boost::shared_ptr<NetCDFRasterDriverTest> instance(new NetCDFRasterDriverTest());
+  std::shared_ptr<NetCDFRasterDriverTest> instance(new NetCDFRasterDriverTest());
 
   suite->add(BOOST_CLASS_TEST_CASE(&NetCDFRasterDriverTest::testDefaultExtension, instance));
   suite->add(BOOST_CLASS_TEST_CASE(&NetCDFRasterDriverTest::testEmptyDataSpace, instance));

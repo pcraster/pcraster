@@ -14,10 +14,7 @@
 #define INCLUDED_STRING
 #endif
 
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
+#include <memory>
 
 namespace com {
   class PathName;
@@ -43,7 +40,7 @@ private:
   /*! file being read,
    *  empty string when reading a command line
    */
-  boost::shared_ptr<std::string> d_currentFileName;
+  std::shared_ptr<std::string> d_currentFileName;
 
   //! last call to GetChar return newline
   bool d_prevCallWasNewLine{false};

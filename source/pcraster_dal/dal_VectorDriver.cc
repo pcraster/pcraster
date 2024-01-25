@@ -15,11 +15,6 @@
 #define INCLUDED_BOOST_LEXICAL_CAST
 #endif
 
-#ifndef INCLUDED_BOOST_SHARED_PTR
-#include <boost/shared_ptr.hpp>
-#define INCLUDED_BOOST_SHARED_PTR
-#endif
-
 // Project headers.
 
 // Module headers.
@@ -172,14 +167,14 @@ public:
     \exception dal::Exception In case of an error and in case \a throw_ is
                true.
   */
-  std::tuple< boost::shared_ptr<Raster>, boost::shared_ptr<Raster> >
+  std::tuple< std::shared_ptr<Raster>, std::shared_ptr<Raster> >
   open(
          std::string const& name,
          DataSpace const& space,
          DataSpaceAddress const& address,
          bool throw_) const
   {
-    boost::shared_ptr<Raster> x, y;
+    std::shared_ptr<Raster> x, y;
     std::tie(x, std::ignore) = _dal.open(nameX(name), space,
         address);
 
@@ -393,7 +388,7 @@ Vector* VectorDriver::open(
          DataSpace const& space,
          DataSpaceAddress const& address) const
 {
-  boost::shared_ptr<Raster> x, y;
+  std::shared_ptr<Raster> x, y;
   std::tie(x, y) = _data->open(name, space, address, false);
 
   if(!x || !y) {
@@ -414,7 +409,7 @@ DataSpace VectorDriver::dataSpace(
          DataSpace const& space,
          DataSpaceAddress const& address) const
 {
-  boost::shared_ptr<Vector> vector(open(name, space, address));
+  std::shared_ptr<Vector> vector(open(name, space, address));
 
   if(!vector) {
     // TODO make sure this function supports VECTOR.
@@ -436,7 +431,7 @@ Vector* VectorDriver::read(
          DataSpace const& space,
          DataSpaceAddress const& address) const
 {
-  boost::shared_ptr<Raster> x, y;
+  std::shared_ptr<Raster> x, y;
   std::tie(x, y) = _data->open(name, space, address, true);
   assert(x && y);
   _data->validate(name, space, address, *x, *y, true);
@@ -456,7 +451,7 @@ void VectorDriver::read(
          DataSpace const& space,
          DataSpaceAddress const& address) const
 {
-  boost::shared_ptr<Raster> x, y;
+  std::shared_ptr<Raster> x, y;
   std::tie(x, y) = _data->open(name, space, address, true);
   assert(x && y);
   _data->validate(name, space, address, *x, *y, true);

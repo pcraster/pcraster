@@ -80,7 +80,7 @@ namespace dal {
 
   \todo Add code to make ownership configurable: memory data pools must be
         allowed to own all the data or not own all the data. That will do for
-        now. Use boost::shared_ptr.
+        now. Use std::shared_ptr.
   \todo Maybe the pool is the owner of the data and should decide if and when
         the actual data is to be deleted from memory. Then the Memory*Data
         objects should not have to care.

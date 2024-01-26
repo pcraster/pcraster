@@ -19,11 +19,6 @@
 #define INCLUDED_VECTOR
 #endif
 
-#ifndef INCLUDED_BOOST_ANY
-#include <boost/any.hpp>
-#define INCLUDED_BOOST_ANY
-#endif
-
 #ifndef INCLUDED_BOOST_STATIC_ASSERT
 #include <boost/static_assert.hpp>
 #define INCLUDED_BOOST_STATIC_ASSERT
@@ -61,7 +56,7 @@
 #define INCLUDED_DAL_UTILS
 #endif
 
-
+#include <any>
 
 namespace dal {
   // Dimension declarations.
@@ -137,7 +132,7 @@ private:
   DiscretisationType _discretisation{NrDiscretisationTypes};
 
   //! Values along dimension, layout dependent on discretisation.
-  std::vector<boost::any> _values;
+  std::vector<std::any> _values;
 
 #ifdef DEBUG_DEVELOP
   void             checkConsistency    ();
@@ -234,7 +229,7 @@ public:
 
   bool             equals              (Dimension const& rhs) const;
 
-  bool             contains            (boost::any const& coordinate) const;
+  bool             contains            (std::any const& coordinate) const;
 
   template<typename T>
   bool             containsExactValue  (T const& value) const;
@@ -278,14 +273,14 @@ inline Dimension::Dimension(
   BOOST_STATIC_ASSERT(!(boost::is_same<T, std::vector<float> >::value));
   BOOST_STATIC_ASSERT(!(boost::is_same<T, std::vector<size_t> >::value));
   BOOST_STATIC_ASSERT(!(boost::is_same<T, std::vector<std::string> >::value));
-  BOOST_STATIC_ASSERT(!(boost::is_same<T, std::vector<boost::any> >::value));
+  BOOST_STATIC_ASSERT(!(boost::is_same<T, std::vector<std::any> >::value));
   BOOST_STATIC_ASSERT(!(boost::is_same<T, std::set<std::string> >::value));
-  BOOST_STATIC_ASSERT(!(boost::is_same<T, std::set<boost::any> >::value));
+  BOOST_STATIC_ASSERT(!(boost::is_same<T, std::set<std::any> >::value));
   BOOST_STATIC_ASSERT(!(boost::is_same<T, size_t>::value) &&
           !(boost::is_same<T, float>::value) &&
           !(boost::is_same<T, std::string>::value));
 
-  _values.push_back(boost::any(value));
+  _values.push_back(std::any(value));
 
 #ifdef DEBUG_DEVELOP
   checkConsistency();
@@ -319,7 +314,7 @@ inline Dimension::Dimension(
 
   for(auto it = values.begin();
          it != values.end(); ++it) {
-    _values.push_back(boost::any(*it));
+    _values.push_back(std::any(*it));
   }
 
 #ifdef DEBUG_DEVELOP
@@ -354,7 +349,7 @@ inline Dimension::Dimension(
          _meaning == Samples);
 
   for(size_t i = 0; i < values.size(); ++i) {
-    _values[i] = boost::any(values[i]);
+    _values[i] = std::any(values[i]);
   }
 
 #ifdef DEBUG_DEVELOP
@@ -394,9 +389,9 @@ Dimension::Dimension(
   assert(_meaning == CumulativeProbabilities || _meaning == Time ||
          _meaning == Samples);
 
-  _values[0] = boost::any(first);
-  _values[1] = boost::any(last);
-  _values[2] = boost::any(interval);
+  _values[0] = std::any(first);
+  _values[1] = std::any(last);
+  _values[2] = std::any(interval);
 
 #ifdef DEBUG_DEVELOP
   checkConsistency();
@@ -415,7 +410,7 @@ inline T const& Dimension::value(
          size_t index) const
 {
   assert(index < _values.size());
-  return boost::any_cast<T const&>(_values[index]);
+  return std::any_cast<T const&>(_values[index]);
 }
 
 template<typename T>
@@ -423,7 +418,7 @@ inline T& Dimension::value(
          size_t index)
 {
   assert(index < _values.size());
-  return *boost::any_cast<T>(&_values[index]);
+  return *std::any_cast<T>(&_values[index]);
 }
 
 template<typename T>
@@ -452,7 +447,7 @@ inline void Dimension::setValues(
 
   for(auto it = values.begin();
          it != values.end(); ++it, ++i) {
-    _values[i] = boost::any(*it);
+    _values[i] = std::any(*it);
   }
 
 #ifdef DEBUG_DEVELOP
@@ -470,7 +465,7 @@ inline void Dimension::setValues(
   _values.resize(values.size());
 
   for(size_t i = 0; i < values.size(); ++i) {
-    _values[i] = boost::any(values[i]);
+    _values[i] = std::any(values[i]);
   }
 
 #ifdef DEBUG_DEVELOP
@@ -485,9 +480,9 @@ inline void Dimension::setValue(
   BOOST_STATIC_ASSERT(!(boost::is_same<T, std::vector<float> >::value));
   BOOST_STATIC_ASSERT(!(boost::is_same<T, std::vector<size_t> >::value));
   BOOST_STATIC_ASSERT(!(boost::is_same<T, std::vector<std::string> >::value));
-  BOOST_STATIC_ASSERT(!(boost::is_same<T, std::vector<boost::any> >::value));
+  BOOST_STATIC_ASSERT(!(boost::is_same<T, std::vector<std::any> >::value));
   BOOST_STATIC_ASSERT(!(boost::is_same<T, std::set<std::string> >::value));
-  BOOST_STATIC_ASSERT(!(boost::is_same<T, std::set<boost::any> >::value));
+  BOOST_STATIC_ASSERT(!(boost::is_same<T, std::set<std::any> >::value));
   BOOST_STATIC_ASSERT(!(boost::is_same<T, size_t>::value) &&
           !(boost::is_same<T, float>::value));
 

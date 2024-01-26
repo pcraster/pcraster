@@ -326,8 +326,8 @@ void RasterDriver::read(
 
 
 bool RasterDriver::extremes(
-         boost::any& min,
-         boost::any& max,
+         std::any& min,
+         std::any& max,
          TypeId typeId,
          std::string const& name,
          DataSpace const& space) const

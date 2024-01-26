@@ -71,10 +71,10 @@ private:
   std::shared_ptr<Matrix> _y;
 
   //! Minimum values, when calculated and available.
-  boost::any       _min;
+  std::any         _min;
 
   //! Maximum values, when calculated and available.
-  boost::any       _max;
+  std::any         _max;
 
   template<typename T>
   void             calculateExtremes   ();
@@ -231,13 +231,13 @@ inline T const& Vector::y(
 template<typename T>
 inline T Vector::min() const
 {
-  return boost::any_cast<T>(_min);
+  return std::any_cast<T>(_min);
 }
 
 template<typename T>
 inline T Vector::max() const
 {
-  return boost::any_cast<T>(_max);
+  return std::any_cast<T>(_max);
 }
 
 template<typename T>

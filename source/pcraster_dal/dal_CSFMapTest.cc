@@ -22,7 +22,7 @@ BOOST_AUTO_TEST_CASE(read_)
     BOOST_CHECK_EQUAL(map.fileTypeId(), TI_UINT1);
     BOOST_CHECK_EQUAL(map.useTypeId(), TI_UINT1);
 
-    auto min = boost::any_cast<UINT1>(map.min());
+    auto min = std::any_cast<UINT1>(map.min());
     BOOST_CHECK_EQUAL(min, 1);
   }
   {
@@ -35,9 +35,9 @@ BOOST_AUTO_TEST_CASE(read_)
     BOOST_CHECK(pcr::isMV(data[0]));
     BOOST_CHECK_EQUAL(data[1], 1);
 
-    BOOST_CHECK_THROW(boost::any_cast<UINT1>(map.min()), boost::bad_any_cast);
+    BOOST_CHECK_THROW(std::any_cast<UINT1>(map.min()), std::bad_any_cast);
 
-    auto min = boost::any_cast<REAL4>(map.min());
+    auto min = std::any_cast<REAL4>(map.min());
     BOOST_CHECK_EQUAL(min, 1);
   }
 }

@@ -43,7 +43,7 @@ BOOST_AUTO_TEST_CASE(filling_of_data_space)
 
     // Create a raster to use at a specific location in the space. Add it to
     // the pool.
-    std::vector<boost::any> values;
+    std::vector<std::any> values;
     values.push_back(static_cast<REAL4*>(t1));
     DataSpaceAddress address(space.address());
     address.setCoordinate<size_t>(0, 1);

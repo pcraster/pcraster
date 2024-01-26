@@ -5,10 +5,6 @@
 
 
 // Library headers.
-#ifndef INCLUDED_BOOST_ANY
-#include <boost/any.hpp>
-#define INCLUDED_BOOST_ANY
-#endif
 
 // PCRaster library headers.
 #ifndef INCLUDED_OGR_CORE
@@ -86,10 +82,10 @@ private:
   std::map<long int, size_t> _valueIdByFeatureId;
 
   //! Minimum attribute value. If empty() then !hasExtremes().
-  boost::any       _min;
+  std::any         _min;
 
   //! Maximum attribute value. If empty() then !hasExtremes().
-  boost::any       _max;
+  std::any         _max;
 
   template<typename T>
   void             calculateExtremes   ();

@@ -6,6 +6,7 @@ set(SPHINX_SOURCES
     # index.rst
     easybuild.rst
     install.rst
+    macports.rst
     multicore.rst
     sources.rst
     pcraster_python_aguila_conda.png

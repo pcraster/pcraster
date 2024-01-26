@@ -19,6 +19,7 @@ Welcome to the PCRaster documentation!
    pcraster_project/changes
    pcraster_project/install
    pcraster_project/easybuild
+   pcraster_project/macports
    pcraster_project/sources
    pcraster_project/build
    pcraster_project/questions

@@ -88,6 +88,8 @@
 #define INCLUDED_CALC_MEMORYEXCHANGEITEM
 #endif
 
+#include <cassert>
+
 const size_t calc::FileTimeoutput::maxCacheSize=128;
 
 namespace calc { namespace detail {

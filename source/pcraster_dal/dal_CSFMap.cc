@@ -103,19 +103,19 @@ static CSF_CR typeId2CellRepresentation(
 
 template<typename T> static void setExtremesImpl(
          MAP        *map,
-         boost::any min,
-         boost::any max) {
-    T minSet = boost::any_cast<T>(min);
-    T maxSet = boost::any_cast<T>(max);
+         std::any min,
+         std::any max) {
+    T minSet = std::any_cast<T>(min);
+    T maxSet = std::any_cast<T>(max);
     RputMinVal(map, &minSet);
     RputMaxVal(map, &maxSet);
 }
 
-template<typename T> static boost::any getExtremeImpl(
+template<typename T> static std::any getExtremeImpl(
          const MAP *map,
          int       (*get)(const MAP *m, void *v))
 {
-  boost::any max;
+  std::any max;
   T        value;
   if(get(map, &value))
         max = value;
@@ -563,9 +563,9 @@ bool dal::CSFMap::isMV(void const* value) const
 
 
 
-boost::any dal::CSFMap::max() const
+std::any dal::CSFMap::max() const
 {
-  boost::any result;
+  std::any result;
 
   switch(useTypeId()) {
     case TI_UINT1: {
@@ -592,9 +592,9 @@ boost::any dal::CSFMap::max() const
 
 
 
-boost::any dal::CSFMap::min() const
+std::any dal::CSFMap::min() const
 {
-  boost::any result;
+  std::any result;
 
   switch(useTypeId()) {
     case TI_UINT1: {
@@ -639,8 +639,8 @@ void*   dal::CSFMap::malloc(size_t nrCells) const
  * MM_KEEPTRACK mode
  */
 void dal::CSFMap::setExtremes(
-         const boost::any& min,
-         const boost::any& max)
+         const std::any& min,
+         const std::any& max)
 {
   switch(useTypeId()) {
     case TI_UINT1:

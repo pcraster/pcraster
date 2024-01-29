@@ -14,16 +14,11 @@
 #define INCLUDED_MAP
 #endif
 
-#ifndef INCLUDED_BOOST_ANY
-#include <boost/any.hpp>
-#define INCLUDED_BOOST_ANY
-#endif
-
 // PCRaster library headers.
 
 // Module headers.
 
-
+#include <any>
 
 namespace com {
   // AnyPointers declarations.
@@ -34,7 +29,7 @@ namespace com {
 namespace com {
 
 template<class Type>
-bool isOfType(const boost::any& value)
+bool isOfType(const std::any& value)
 {
   return value.type() == typeid(Type);
 }
@@ -43,7 +38,7 @@ template<class Type>
 class valueIsOfType
 {
 public:
-  bool operator()(const std::pair<size_t, boost::any>& pair) const
+  bool operator()(const std::pair<size_t, std::any>& pair) const
   {
     return isOfType<Type>(pair.second);
   }
@@ -63,10 +58,10 @@ public:
   {
   }
 
-  bool operator()(const std::pair<size_t, boost::any>& pair) const
+  bool operator()(const std::pair<size_t, std::any>& pair) const
   {
     return isOfType<Type>(pair.second) &&
-         boost::any_cast<Type>(pair.second) == d_value;
+         std::any_cast<Type>(pair.second) == d_value;
   }
 };
 
@@ -88,7 +83,7 @@ private:
   size_t           d_uniqueId;
 
   //! The collections of datasets.
-  std::map<size_t, boost::any> d_objects;
+  std::map<size_t, std::any> d_objects;
 
   //! Assignment operator. NOT IMPLEMENTED.
   AnyPointers&     operator=           (const AnyPointers& rhs);
@@ -228,7 +223,7 @@ public:
   ObjectType const* pointer            (size_t id) const
   {
     PRECOND(d_objects.count(id) == 1);
-    return boost::any_cast<ObjectType*>((*d_objects.find(id)).second);
+    return std::any_cast<ObjectType*>((*d_objects.find(id)).second);
   }
 
   //! Returns the pointer to an object with id \a id.
@@ -241,7 +236,7 @@ public:
   ObjectType*      pointer             (size_t id)
   {
     PRECOND(d_objects.count(id) == 1);
-    return boost::any_cast<ObjectType*>((*d_objects.find(id)).second);
+    return std::any_cast<ObjectType*>((*d_objects.find(id)).second);
   }
 
 };

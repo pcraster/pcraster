@@ -24,8 +24,8 @@ BOOST_AUTO_TEST_CASE(extremes)
     matrix.setExtremes();
     BOOST_CHECK(matrix.hasExtremes());
     BOOST_CHECK(!matrix.allMV());
-    BOOST_CHECK_EQUAL(boost::any_cast<UINT1>(matrix.min()), 2);
-    BOOST_CHECK_EQUAL(boost::any_cast<UINT1>(matrix.max()), 4);
+    BOOST_CHECK_EQUAL(std::any_cast<UINT1>(matrix.min()), 2);
+    BOOST_CHECK_EQUAL(std::any_cast<UINT1>(matrix.max()), 4);
   }
 
   { // setExtremes on with All MV's
@@ -37,8 +37,8 @@ BOOST_AUTO_TEST_CASE(extremes)
     matrix.setExtremes();
     BOOST_CHECK(matrix.hasExtremes());
     BOOST_CHECK(matrix.allMV());
-    BOOST_CHECK(matrix.min().empty());
-    BOOST_CHECK(matrix.max().empty());
+    BOOST_CHECK(!matrix.min().has_value());
+    BOOST_CHECK(!matrix.max().has_value());
   }
 
   {
@@ -48,10 +48,10 @@ BOOST_AUTO_TEST_CASE(extremes)
     matrix.setCellsReference(data);
     BOOST_CHECK( matrix.cellsAreCreated());
     BOOST_CHECK(!matrix.hasExtremes());
-    matrix.setExtremes(boost::any(UINT1(0)), boost::any(UINT1(5)));
+    matrix.setExtremes(std::any(UINT1(0)), std::any(UINT1(5)));
     BOOST_CHECK(matrix.hasExtremes());
     BOOST_CHECK(!matrix.allMV());
-    BOOST_CHECK_EQUAL(boost::any_cast<UINT1>(matrix.min()), 0);
-    BOOST_CHECK_EQUAL(boost::any_cast<UINT1>(matrix.max()), 5);
+    BOOST_CHECK_EQUAL(std::any_cast<UINT1>(matrix.min()), 0);
+    BOOST_CHECK_EQUAL(std::any_cast<UINT1>(matrix.max()), 5);
   }
 }

@@ -35,7 +35,7 @@ BOOST_AUTO_TEST_CASE(test_)
   try {
     doublesPointer = pointers.pointer<Doubles>(idDoubles);
   }
-  catch(boost::bad_any_cast& ) {
+  catch(std::bad_any_cast& ) {
     bool bad_any_cast = false;
     BOOST_CHECK(bad_any_cast);
   }
@@ -50,7 +50,7 @@ BOOST_AUTO_TEST_CASE(test_)
   try {
     doublesPointer = pointers.pointer<Doubles>(idDoubles);
   }
-  catch(boost::bad_any_cast& ) {
+  catch(std::bad_any_cast& ) {
     bool bad_any_cast = false;
     BOOST_CHECK(bad_any_cast);
   }
@@ -85,7 +85,7 @@ BOOST_AUTO_TEST_CASE(test_)
     try {
       integersPointer = pointers.pointer<Integers>(idIntegers2);
     }
-    catch(boost::bad_any_cast& ) {
+    catch(std::bad_any_cast& ) {
       bool bad_any_cast = false;
       BOOST_CHECK(bad_any_cast);
     }
@@ -128,7 +128,7 @@ BOOST_AUTO_TEST_CASE(test_)
     try {
       /* A const* pointer = */ ((AnyPointers const&)pointers).pointer<A>(id);
     }
-    catch(boost::bad_any_cast&) {
+    catch(std::bad_any_cast&) {
       bool bad_any_cast = false;
       BOOST_CHECK(bad_any_cast);
     }

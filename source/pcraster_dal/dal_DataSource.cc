@@ -615,24 +615,24 @@ void DataSource::read(
 
 void DataSource::read(
          Raster& raster,
-         boost::any const& value,
+         std::any const& value,
          DataSpaceAddress const& address) const
 {
   assert(raster.typeId() == TI_REAL4);
   assert(value.type() == typeid(REAL4));
-  read(raster, boost::any_cast<REAL4>(value), address);
+  read(raster, std::any_cast<REAL4>(value), address);
 }
 
 
 
 void DataSource::read(
          FeatureLayer& layer,
-         boost::any const& value,
+         std::any const& value,
          DataSpaceAddress const& address) const
 {
   assert(layer.typeId() == TI_REAL4);
   assert(value.type() == typeid(REAL4));
-  read(layer, boost::any_cast<REAL4>(value), address);
+  read(layer, std::any_cast<REAL4>(value), address);
 }
 
 
@@ -1520,13 +1520,13 @@ PCR_DAL_DECL void DataSource::read<REAL4>(
 
 void DataSource::read(
          Table& table,
-         boost::any const& value,
+         std::any const& value,
          DataSpaceAddress const& address) const
 {
   assert(table.nrCols() == 1);
   assert(table.typeId(0) == TI_REAL4);
   assert(value.type() == typeid(REAL4));
-  read(table, boost::any_cast<REAL4>(value), address);
+  read(table, std::any_cast<REAL4>(value), address);
 }
 
 

@@ -53,6 +53,8 @@
 #define INCLUDED_CALC_MAP2CSF
 #endif
 
+#include <any>
+
 /*!
   \file
   This file contains the implementation of the GridMap class.
@@ -170,16 +172,16 @@ calc::GridStat calc::GridMapOut::writeData(const void *allValues)
     s.d_minMaxSet=true;
     switch(t) {
      case dal::TI_UINT1:
-       s.d_min = boost::any_cast<UINT1>(raster.min());
-       s.d_max = boost::any_cast<UINT1>(raster.max());
+       s.d_min = std::any_cast<UINT1>(raster.min());
+       s.d_max = std::any_cast<UINT1>(raster.max());
        break;
      case dal::TI_INT4:
-       s.d_min = boost::any_cast<INT4>(raster.min());
-       s.d_max = boost::any_cast<INT4>(raster.max());
+       s.d_min = std::any_cast<INT4>(raster.min());
+       s.d_max = std::any_cast<INT4>(raster.max());
        break;
      case dal::TI_REAL4:
-       s.d_min = boost::any_cast<REAL4>(raster.min());
-       s.d_max = boost::any_cast<REAL4>(raster.max());
+       s.d_min = std::any_cast<REAL4>(raster.min());
+       s.d_max = std::any_cast<REAL4>(raster.max());
        break;
     default: POSTCOND(false); break;
    }

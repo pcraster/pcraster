@@ -9,11 +9,6 @@
 #define INCLUDED_VECTOR
 #endif
 
-#ifndef INCLUDED_BOOST_ANY
-#include <boost/any.hpp>
-#define INCLUDED_BOOST_ANY
-#endif
-
 // PCRaster library headers.
 
 // Module headers.
@@ -74,7 +69,7 @@ class MemoryRasterData: public MemoryData
 private:
 
   //! Values for all dimensions of the data space in a hierarchical layout.
-  std::vector<boost::any> d_values;
+  std::vector<std::any> d_values;
 
   //! Data space of the data values.
   DataSpace        d_dataSpace;
@@ -98,35 +93,35 @@ private:
   double           d_north;
 
   //! Minimum data value in the data set.
-  boost::any       d_min;
+  std::any         d_min;
 
   //! Maximum data value in the data set.
-  boost::any       d_max;
+  std::any         d_max;
 
 #ifdef DEBUG_DEVELOP
   template<class T>
-  void             checkConsistency    (std::vector<boost::any> values);
+  void             checkConsistency    (std::vector<std::any> values);
 
-  void             checkConsistency    (const std::vector<boost::any>& values);
+  void             checkConsistency    (const std::vector<std::any>& values);
 
   template<class T>
-  void             checkConsistency    (std::vector<boost::any> values,
+  void             checkConsistency    (std::vector<std::any> values,
                                         DataSpace space);
 
-  void             checkConsistency    (const std::vector<boost::any>& values,
+  void             checkConsistency    (const std::vector<std::any>& values,
                                         DataSpace space);
 
   void             checkConsistency    ();
 #endif
 
-  void*            cells               (std::vector<boost::any> values);
+  void*            cells               (std::vector<std::any> values);
 
   template<class T>
-  void*            cells               (std::vector<boost::any> values,
+  void*            cells               (std::vector<std::any> values,
                                         DataSpace space,
                                         DataSpaceAddress address);
 
-  void*            cells               (const std::vector<boost::any>& values,
+  void*            cells               (const std::vector<std::any>& values,
                                         DataSpace space,
                                         const DataSpaceAddress& address);
 
@@ -158,7 +153,7 @@ public:
                                         double west,
                                         double north);
 
-                   MemoryRasterData    (std::vector<boost::any>& values,
+                   MemoryRasterData    (std::vector<std::any>& values,
                                         DataSpace const& dataSpace,
                                         TypeId typeId,
                                         size_t nrRows,

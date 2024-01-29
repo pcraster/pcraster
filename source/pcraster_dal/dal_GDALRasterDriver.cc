@@ -348,43 +348,43 @@ Raster* GDALDataset2Raster(
   if(hasMinimum && hasMaximum) {
     switch(typeId) {
       case TI_UINT1: {
-        raster->setExtremes(boost::any(UINT1(minimum)),
-              boost::any(UINT1(maximum)));
+        raster->setExtremes(std::any(UINT1(minimum)),
+              std::any(UINT1(maximum)));
         break;
       }
       case TI_UINT2: {
-        raster->setExtremes(boost::any(UINT2(minimum)),
-              boost::any(UINT2(maximum)));
+        raster->setExtremes(std::any(UINT2(minimum)),
+              std::any(UINT2(maximum)));
         break;
       }
       case TI_UINT4: {
-        raster->setExtremes(boost::any(UINT4(minimum)),
-              boost::any(UINT4(maximum)));
+        raster->setExtremes(std::any(UINT4(minimum)),
+              std::any(UINT4(maximum)));
         break;
       }
       case TI_INT1: {
-        raster->setExtremes(boost::any(INT1(minimum)),
-              boost::any(INT1(maximum)));
+        raster->setExtremes(std::any(INT1(minimum)),
+              std::any(INT1(maximum)));
         break;
       }
       case TI_INT2: {
-        raster->setExtremes(boost::any(INT2(minimum)),
-              boost::any(INT2(maximum)));
+        raster->setExtremes(std::any(INT2(minimum)),
+              std::any(INT2(maximum)));
         break;
       }
       case TI_INT4: {
-        raster->setExtremes(boost::any(INT4(minimum)),
-              boost::any(INT4(maximum)));
+        raster->setExtremes(std::any(INT4(minimum)),
+              std::any(INT4(maximum)));
         break;
       }
       case TI_REAL4: {
-        raster->setExtremes(boost::any(REAL4(minimum)),
-              boost::any(REAL4(maximum)));
+        raster->setExtremes(std::any(REAL4(minimum)),
+              std::any(REAL4(maximum)));
         break;
       }
       case TI_REAL8: {
-        raster->setExtremes(boost::any(REAL8(minimum)),
-              boost::any(REAL8(maximum)));
+        raster->setExtremes(std::any(REAL8(minimum)),
+              std::any(REAL8(maximum)));
         break;
       }
       default: {

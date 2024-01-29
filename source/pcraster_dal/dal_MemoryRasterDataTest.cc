@@ -18,7 +18,7 @@ BOOST_AUTO_TEST_CASE(test_)
   REAL4 q5[6] = { 6.0, 7.0, 8.0, 9.0, 10.0, 11.0 };
   REAL4 q9[6] = { 12.0, 13.0, 14.0, 15.0, 16.0, 17.0 };
 
-  std::vector<boost::any> values;
+  std::vector<std::any> values;
   DataSpace space;
   TypeId typeId = TI_REAL4;
   size_t nrRows = 3;
@@ -60,10 +60,10 @@ BOOST_AUTO_TEST_CASE(test_)
   quantiles.push_back(0.1f);
   space.addDimension(Dimension(CumulativeProbabilities, quantiles));
 
-  typedef std::tuple<float, std::vector<boost::any> > FloatTuple;
+  typedef std::tuple<float, std::vector<std::any> > FloatTuple;
   values.clear();
 
-  std::vector<boost::any> tmp;
+  std::vector<std::any> tmp;
   tmp.push_back(static_cast<REAL4*>(q1));
   values.push_back(FloatTuple(0.1f, tmp));
   tmp.clear();

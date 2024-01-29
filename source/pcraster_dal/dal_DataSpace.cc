@@ -95,8 +95,8 @@ template<typename T>
 void extremes(
          std::vector<DataSpaceAddress> const& addresses,
          size_t index,
-         boost::any* min,
-         boost::any* max)
+         std::any* min,
+         std::any* max)
 {
   assert(!addresses.empty());
 
@@ -284,7 +284,7 @@ DataSpace::DataSpace(
   if(!addresses.empty()) {
     _dimensions = space._dimensions;
 
-    boost::any min, max;
+    std::any min, max;
 
     for(size_t i = 0; i < space.rank(); ++i) {
       switch(space.dimension(i).meaning()) {
@@ -303,8 +303,8 @@ DataSpace::DataSpace(
           detail::extremes<float>(addresses, i, &min, &max);
           assert(_dimensions[i].nrValues() == 3);
           _dimensions[i].setValues<float>(
-              boost::any_cast<float>(min),
-              boost::any_cast<float>(max),
+              std::any_cast<float>(min),
+              std::any_cast<float>(max),
               _dimensions[i].value<float>(2));
 
           break;
@@ -320,8 +320,8 @@ DataSpace::DataSpace(
           detail::extremes<size_t>(addresses, i, &min, &max);
           assert(_dimensions[i].nrValues() == 3);
           _dimensions[i].setValues<size_t>(
-              boost::any_cast<size_t>(min),
-              boost::any_cast<size_t>(max),
+              std::any_cast<size_t>(min),
+              std::any_cast<size_t>(max),
               _dimensions[i].value<size_t>(2));
 
           break;

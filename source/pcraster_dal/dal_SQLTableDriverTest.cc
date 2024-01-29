@@ -222,7 +222,7 @@ struct Fixture
         // BOOST_CHECK_EQUAL(table->nrRecs(), size_t(3));
 
         // // Second column is not available.
-        // BOOST_CHECK_THROW(table->col<INT4>(1), boost::bad_any_cast);
+        // BOOST_CHECK_THROW(table->col<INT4>(1), std::bad_any_cast);
 
         // // Other columns are.
         // Array<std::string> const* col1 = 0;

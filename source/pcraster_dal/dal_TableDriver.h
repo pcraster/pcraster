@@ -125,8 +125,8 @@ public:
                                         DataSpaceAddress const& address,
                                         Table const& table) const;
 
-  virtual bool     extremes            (boost::any& min,
-                                        boost::any& max,
+  virtual bool     extremes            (std::any& min,
+                                        std::any& max,
                                         size_t col,
                                         TypeId typeId,
                                         std::string const& name,

@@ -222,8 +222,8 @@ bool FeatureLayer::hasValues() const
 */
 bool FeatureLayer::hasExtremes() const
 {
-  assert((_min.empty() && _max.empty()) || (!_min.empty() && !_max.empty()));
-  return !_min.empty();
+  assert((!_min.has_value() && !_max.has_value()) || (_min.has_value() && _max.has_value()));
+  return _min.has_value();
 }
 
 
@@ -419,8 +419,8 @@ void FeatureLayer::value(
 template<typename T>
 T FeatureLayer::min() const
 {
-  assert(!_min.empty());
-  return boost::any_cast<T>(_min);
+  assert(_min.has_value());
+  return std::any_cast<T>(_min);
 }
 
 
@@ -428,8 +428,8 @@ T FeatureLayer::min() const
 template<typename T>
 T FeatureLayer::max() const
 {
-  assert(!_max.empty());
-  return boost::any_cast<T>(_max);
+  assert(_max.has_value());
+  return std::any_cast<T>(_max);
 }
 
 

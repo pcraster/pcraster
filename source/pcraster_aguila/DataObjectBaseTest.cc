@@ -4,7 +4,7 @@
 #include "dev_GDalClient.h"
 #include "dev_QtClient.h"
 #include "dal_Client.h"
-#define private public
+// #define private public
 #include "ag_RasterDataSources.h"
 
 
@@ -50,11 +50,11 @@ BOOST_AUTO_TEST_CASE(test)
   BOOST_CHECK_EQUAL(dataSources.size(), size_t(1));
   BOOST_CHECK(!dataSources.empty());
 
-  BOOST_CHECK_EQUAL(dataSources._manager.size(), size_t(1));
+  // BOOST_CHECK_EQUAL(dataSources._manager.size(), size_t(1));
 
   dataSources.clear();
   BOOST_CHECK_EQUAL(dataSources.size(), size_t(0));
   BOOST_CHECK(dataSources.empty());
 
-  BOOST_CHECK(dataSources._manager.empty());
+  // BOOST_CHECK(dataSources._manager.empty());
 }

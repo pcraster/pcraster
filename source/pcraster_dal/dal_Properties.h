@@ -19,11 +19,6 @@
 #define INCLUDED_STRING
 #endif
 
-#ifndef INCLUDED_BOOST_ANY
-#include <boost/any.hpp>
-#define INCLUDED_BOOST_ANY
-#endif
-
 // PCRaster library headers.
 #ifndef INCLUDED_DEV_COMPILER
 #include "dev_Compiler.h"
@@ -41,7 +36,7 @@
 #define INCLUDED_DAL_PROPERTYKEYS
 #endif
 
-
+#include <any>
 
 namespace dal {
   // Properties declarations.
@@ -72,7 +67,7 @@ class PCR_DAL_DECL Properties
 private:
 
   //! Datastructure for storing the property values by name.
-  std::map<std::string, boost::any> d_values;
+  std::map<std::string, std::any> d_values;
 
 protected:
 
@@ -165,7 +160,7 @@ inline T const& Properties::value(
 {
   assert(hasValue(name));
 
-  return *boost::any_cast<T>(&(*d_values.find(name)).second);
+  return *std::any_cast<T>(&(*d_values.find(name)).second);
 }
 
 //! Returns the property value for \a name.
@@ -180,7 +175,7 @@ inline T& Properties::value(
 {
   assert(hasValue(name));
 
-  return *boost::any_cast<T>(&(*d_values.find(name)).second);
+  return *std::any_cast<T>(&(*d_values.find(name)).second);
 }
 
 //! Returns the property value for \a name.

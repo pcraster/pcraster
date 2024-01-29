@@ -75,7 +75,7 @@ public:
   //! If valid, the default background colour of a visualisation.
   QColor           d_backgroundColor;
 
-  boost::any       _selectedValue;
+  std::any       _selectedValue;
 
   DataObjectPrivate()
     :
@@ -1809,14 +1809,14 @@ REAL4 DataObject::selectedValue() const
 {
   assert(hasSelectedValue());
 
-  return boost::any_cast<REAL4>(d_data->_selectedValue);
+  return std::any_cast<REAL4>(d_data->_selectedValue);
 }
 
 
 
 bool DataObject::hasSelectedValue() const
 {
-  return !d_data->_selectedValue.empty();
+  return d_data->_selectedValue.has_value();
 }
 
 
@@ -1852,7 +1852,7 @@ void DataObject::unsetSelectedValue(
          bool notify)
 {
   if(hasSelectedValue()) {
-    d_data->_selectedValue = boost::any();
+    d_data->_selectedValue = std::any();
 
     std::vector<DataGuide> guides(dataGuides());
 

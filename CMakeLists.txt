@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.22)
 
 # Policies for PCRaster project
 if(POLICY CMP0094)
@@ -21,9 +21,6 @@ endif()
 if(POLICY CMP0075)
    set(CMAKE_POLICY_DEFAULT_CMP0075 NEW)
 endif()
-
-# These two must be set before project()
-set(CMAKE_OSX_DEPLOYMENT_TARGET "10.15" CACHE STRING "Minimum OS X deployment version")
 
 
 project(pcraster)

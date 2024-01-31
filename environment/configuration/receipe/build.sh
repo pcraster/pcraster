@@ -32,8 +32,6 @@ cmake ${CMAKE_ARGS} -S $SRC_DIR -B build \
 
 cmake --build build --target all
 
-export LOGNAME=pcrtester
-
 ctest --test-dir build --output-on-failure --build-config Release
 
 cmake --build build --target install

@@ -57,8 +57,6 @@ jobs:
               cmake --build build --config Release --target package_source
 
         - name: Test release
-          env:
-              LOGNAME: pcrtester
           shell: bash
           run: |
               ctest --test-dir build --output-on-failure --build-config Release
@@ -106,8 +104,6 @@ jobs:
               cmake --build build --config Debug --target all
 
         - name: Test debug
-          env:
-              LOGNAME: pcrtester
           shell: bash
           run: |
               ctest --test-dir build --output-on-failure --build-config Debug

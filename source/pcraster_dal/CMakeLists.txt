@@ -271,6 +271,12 @@ if(PCRASTER_BUILD_TEST)
             FIXTURES_REQUIRED
                 FixturePCRasterDal
     )
+    if(NOT DEFINED ENV{LOGNAME})
+        set_tests_properties(
+            pcraster_dal_dal_ConnectionInfoTest
+        PROPERTIES
+            ENVIRONMENT_MODIFICATION LOGNAME=set:pcrtester)
+    endif()
 endif()
 
 # ------------------------------------------------------------------------------

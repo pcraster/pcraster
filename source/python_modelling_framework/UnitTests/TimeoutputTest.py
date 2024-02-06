@@ -3,6 +3,7 @@
 import os
 import unittest
 import testcase
+import pathlib
 import runoff
 from pcraster.framework import *
 
@@ -11,8 +12,8 @@ def getPath(dirname, filename):
   return os.path.join(dirname, filename)
 
 def fileCompare(file1, file2):
-  f1 = open(file1).read()
-  f2 = open(file2).read()
+  f1 = pathlib.Path(file1).read_text()
+  f2 = pathlib.Path(file2).read_text()
   return f1.replace(" ","") == f2.replace(" ", "")
 
 class TimeoutputTest(testcase.TestCase):
@@ -105,8 +106,9 @@ class TimeoutputTest(testcase.TestCase):
     m = Model("mask.map")
     dynModelFw = DynamicFramework(m, lastTimeStep=4)
     dynModelFw.run()
-    tssLines = open("test6.tss").readlines()
-    self.assertEqual(tssLines[-2].strip(),"3              1")
+    with open("test6.tss") as content:
+        tssLines = content.readlines()
+        self.assertEqual(tssLines[-2].strip(),"3              1")
 
   def test_07(self):
     """ test allowed data types  for idMap """

@@ -40,21 +40,21 @@ Usage: %s TextFile C-identifier
 
   def generate(self):
 
-    fileutils.testOpenForReading(self.d_fileName)
-    text = open(self.d_fileName, "r").read()
-    genFile = self.d_identifier+".h"
-    g = open(genFile, "w")
-    g.write("static const char %s[] = {\n" % self.d_identifier);
-    for c in text:
-     g.write(self.arrayLine(c,","));
-    g.write(" 0x0 /* terminate */};\n");
+      fileutils.testOpenForReading(self.d_fileName)
+      genFile = f"{self.d_identifier}.h"
+      with open(self.d_fileName, "r") as ifile, open(genFile, "w") as ofile:
+          text = ifile.read()
+          ofile.write("static const char %s[] = {\n" % self.d_identifier);
+          for c in text:
+              ofile.write(self.arrayLine(c,","));
+          ofile.write(" 0x0 /* terminate */};\n");
 
   def _run(self):
     # self.parseCmdLine(self.argv())
     self.generate()
     return 0
 
-if __name__ == "__main__": 
+if __name__ == "__main__":
   import sys
   sys.exit(File2CharArray(sys.argv).run())
 

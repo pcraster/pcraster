@@ -197,11 +197,7 @@ class TestMulticore(unittest.TestCase):
     pcraster.setclone("accu_Ldd.map")
     ldd = pcraster.readmap("accu_Ldd.map")
     nonSpatial = pcraster._pcraster._newNonSpatialField(5)
-    # we need to explicitly cast PODs to ldd (or directional)
-    # when using the multicore module
-    #raster = mcop.pcrmcNE("accu_Ldd.map", 5)
-    raster = mcop.pcrne("accu_Ldd.map", pcraster.ldd(5))
-    warnings.warn("Difference between pcraster and multicore module...")
+    raster = mcop.pcrne("accu_Ldd.map", 5)
     value, isValid = pcraster.cellvalue(raster, 1)
     self.assertEqual(isValid, True)
     self.assertEqual(value, True)

@@ -434,11 +434,13 @@ class SequentialImportanceResamplingFramework(ParticleFilterFramework):
 
     def _writeFilterStatistics(self, normalisedWeights, cumulativeWeights, samplesToClone):
         filename = "filterSIR_%s.csv" % (self._userModel().currentTimeStep())
-        csvFile = csv.writer(open(filename, "w"), delimiter=";", quoting=csv.QUOTE_NONNUMERIC)
 
-        csvFile.writerow(["sample", "normalised weight", "cumulative weight", "resampled particles"])
-        for i in range(0, self._userModel().nrSamples()):
-            csvFile.writerow([(i+1), normalisedWeights[i], cumulativeWeights[i], samplesToClone[i]])
+        with open(filename, "w") as csv_file:
+            content = csv.writer(csv_file, delimiter=";", quoting=csv.QUOTE_NONNUMERIC)
+
+            content.writerow(["sample", "normalised weight", "cumulative weight", "resampled particles"])
+            for i in range(0, self._userModel().nrSamples()):
+                content.writerow([(i+1), normalisedWeights[i], cumulativeWeights[i], samplesToClone[i]])
 
 
 ## \brief Residual resampling algorithm
@@ -494,9 +496,11 @@ class ResidualResamplingFramework(ParticleFilterFramework):
 
     def _writeFilterStatistics(self, normalisedWeights, resamplingFactor, cdfResidualWeights, samplesToClone):
         filename = "filterRR_%s.csv" % (self._userModel().currentTimeStep())
-        csvFile = csv.writer(open(filename, "w"), delimiter=";", quoting=csv.QUOTE_NONNUMERIC)
 
-        csvFile.writerow(["sample", "normalised weight", "resampling factor", "cdf residual weights", "resampled particles"])
-        for i in range(0, self._userModel().nrSamples()):
-            csvFile.writerow([(i+1), normalisedWeights[i], resamplingFactor[i], cdfResidualWeights[i], samplesToClone[i]])
+        with open(filename, "w") as csv_file:
+            content = csv.writer(csv_file, delimiter=";", quoting=csv.QUOTE_NONNUMERIC)
+
+            content.writerow(["sample", "normalised weight", "resampling factor", "cdf residual weights", "resampled particles"])
+            for i in range(0, self._userModel().nrSamples()):
+                content.writerow([(i+1), normalisedWeights[i], resamplingFactor[i], cdfResidualWeights[i], samplesToClone[i]])
 

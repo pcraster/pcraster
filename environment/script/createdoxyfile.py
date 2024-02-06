@@ -34,7 +34,7 @@ class CreateDoxyfileScript(shellscript.ShellScript):
     # Filename patterns in Makefiles must be escaped. Here we have to un-escape
     # them again. Currently only '\*' is handled.
     arguments = (" ".join(self.arguments[1:])).replace("\\*", "*")
-    regex = re.compile("\w+\s*=")
+    regex = re.compile(r"\w+\s*=")
     return [tuple.split("=") for
          tuple in regex.sub(updateArgument, arguments).split("\n")[1:]]
 
@@ -70,7 +70,7 @@ class CreateDoxyfileScript(shellscript.ShellScript):
       "Doxyfile")).read()
 
     for tuple in tuples:
-      regex = re.compile("^%s\s*=\s*\w*\s*$" % (tuple[0]), re.MULTILINE)
+      regex = re.compile(r"^%s\s*=\s*\w*\s*$" % (tuple[0]), re.MULTILINE)
       configuration = regex.sub(makeOptionReplacer(tuple), configuration)
 
     return configuration
@@ -84,6 +84,6 @@ class CreateDoxyfileScript(shellscript.ShellScript):
     configuration = "%s\n%s" % (header, self._configureDoxyfile(tuples))
     open(self.arguments[0], "w").write(configuration)
 
-if __name__ == "__main__": 
+if __name__ == "__main__":
   import sys
   sys.exit(CreateDoxyfileScript(sys.argv).run())

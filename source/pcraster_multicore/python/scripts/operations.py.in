@@ -311,22 +311,40 @@ def scalar(arg1):
 # Overload operator function names from pcraster module
 
 def pcrand(arg1, arg2):
+    if isinstance(arg1, str):
+        arg1 = _pcraster.readmap(arg1)
+    if isinstance(arg2, str):
+        arg2 = _pcraster.readmap(arg2)
     return _and(arg1, arg2)
 
 
 def pcror(arg1, arg2):
+    if isinstance(arg1, str):
+        arg1 = _pcraster.readmap(arg1)
+    if isinstance(arg2, str):
+        arg2 = _pcraster.readmap(arg2)
     return _or(arg1, arg2)
 
 
 def pcrxor(arg1, arg2):
+    if isinstance(arg1, str):
+        arg1 = _pcraster.readmap(arg1)
+    if isinstance(arg2, str):
+        arg2 = _pcraster.readmap(arg2)
     return _xor(arg1, arg2)
 
 
 def pcrnot(arg1):
+    if isinstance(arg1, str):
+        arg1 = _pcraster.readmap(arg1)
     return _not(arg1)
 
 
 def pcrne(arg1, arg2):
+    if isinstance(arg1, str):
+        arg1 = _pcraster.readmap(arg1)
+    if isinstance(arg2, str):
+        arg2 = _pcraster.readmap(arg2)
     if not isinstance(arg1, _pcraster.Field):
         return _pmcop.pcrmcNE(arg2, arg1)
 
@@ -334,6 +352,10 @@ def pcrne(arg1, arg2):
 
 
 def pcreq(arg1, arg2):
+    if isinstance(arg1, str):
+        arg1 = _pcraster.readmap(arg1)
+    if isinstance(arg2, str):
+        arg2 = _pcraster.readmap(arg2)
     if not isinstance(arg1, _pcraster.Field):
         return _pmcop.pcrmcEQ(arg2, arg1)
 
@@ -341,18 +363,34 @@ def pcreq(arg1, arg2):
 
 
 def pcrgt(arg1, arg2):
+    if isinstance(arg1, str):
+        arg1 = _pcraster.readmap(arg1)
+    if isinstance(arg2, str):
+        arg2 = _pcraster.readmap(arg2)
     return greater(arg1, arg2)
 
 
 def pcrge(arg1, arg2):
+    if isinstance(arg1, str):
+        arg1 = _pcraster.readmap(arg1)
+    if isinstance(arg2, str):
+        arg2 = _pcraster.readmap(arg2)
     return greater_equal(arg1, arg2)
 
 
 def pcrlt(arg1, arg2):
+    if isinstance(arg1, str):
+        arg1 = _pcraster.readmap(arg1)
+    if isinstance(arg2, str):
+        arg2 = _pcraster.readmap(arg2)
     return less(arg1, arg2)
 
 
 def pcrle(arg1, arg2):
+    if isinstance(arg1, str):
+        arg1 = _pcraster.readmap(arg1)
+    if isinstance(arg2, str):
+        arg2 = _pcraster.readmap(arg2)
     return less_equal(arg1, arg2)
 
 

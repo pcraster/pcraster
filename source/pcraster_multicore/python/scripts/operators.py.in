@@ -37,12 +37,16 @@ def pcrmcNot(self):
 
 
 def pcrmcEQ(self, arg):
+    if self.dataType() == _pcraster.Ldd and isinstance(arg, int):
+        arg = pcr.ldd(arg)
     if self.dataType() == _pcraster.Scalar and isinstance(arg, numbers.Integral):
         arg = pcr.scalar(arg)
     return pmcop.equal(self, arg)
 
 
 def pcrmcNE(self, arg):
+    if self.dataType() == _pcraster.Ldd and isinstance(arg, int):
+        arg = pcr.ldd(arg)
     if self.dataType() == _pcraster.Scalar and isinstance(arg, numbers.Integral):
         arg = pcr.scalar(arg)
     return pmcop.unequal(self, arg)

@@ -63,7 +63,7 @@ class ValueFromParameterTable(object):
                 key, sep, variableValue = tail.rpartition(" ")
 
                 if len(key.split()) != nrColumns:
-                    tmp = re.sub("\(|\)|,", "", str(key))
+                    tmp = re.sub(r"\(|\)|,", "", str(key))
                     msg = "Error reading %s line %d, order of columns given (%s columns) does not match expected order of %s columns" % (self._fileName, lineNumber, len(key.split()) + 2, int(nrColumns) + 2)
                     raise ValueError(msg)
 
@@ -119,12 +119,12 @@ class ValueFromParameterTable(object):
                 key = tuple(transformedKeys)
 
                 if not key in keyDict:
-                    tmp = re.sub("\(|\)|,", "", str(key))
+                    tmp = re.sub(r"\(|\)|,", "", str(key))
                     msg = "Error reading %s line %d, %s unknown collection index" % (self._fileName, lineNumber, tmp)
                     raise ValueError(msg)
 
                 if not keyDict[key] is None:
-                    tmp = re.sub("\(|\)|,", "", str(key))
+                    tmp = re.sub(r"\(|\)|,", "", str(key))
                     msg = "Error reading %s line %d, %s %s already initialised" % (self._fileName, lineNumber, self._varName, tmp)
                     raise ValueError(msg)
 

@@ -442,8 +442,8 @@ class Sample(object):
         if isinstance(self.code, Expr):
             # open binary (b) to create unix text format needed by sh
             scriptToExecute = self._fileName("exec.mod")
-            open(scriptToExecute,"w").write(
-                self.pcrcalcScript(fileNameOfDataFile))
+            with open(scriptToExecute, "w") as content:
+                content.write(self.pcrcalcScript(fileNameOfDataFile))
             stream.write(self.makefileSnippet(pcrCmdPrefix +
                 "REPLACE_EXECUTABLE_PATH/pcrcalc -f",
                     scriptToExecute))
@@ -455,8 +455,8 @@ class Sample(object):
               exec_name = "exec.sh"
               cmd = pcrCmdPrefix + "sh"
             scriptToExecute = self._fileName(exec_name)
-            open(scriptToExecute,"w").write(
-                self.shellScript(fileNameOfDataFile))
+            with open(scriptToExecute,"w") as content:
+                content.write(self.shellScript(fileNameOfDataFile))
             stream.write(self.makefileSnippet(cmd,
                 scriptToExecute))
         else:
@@ -547,26 +547,31 @@ testInputFiles: $(sort ${TEST_INPUT_FILES})
 
 def create_cpp_module(
         stream):
-    exec(open("ScriptSamples.py").read())
+    with open("ScriptSamples.py", "r") as content:
+        exec(content.read())
     createCppTestDriver(stream)
 
 
 def create_makefile(
         stream):
-    exec(open("ScriptSamples.py").read())
-    exec(open("CmdSamples.py").read())
+    with open("ScriptSamples.py", "r") as content:
+        exec(content.read())
+    with open("CmdSamples.py", "r") as content:
+        exec(content.read())
     createMakefileAndScripts(stream)
 
 
 def create_python_module(
         stream):
-    exec(open("ScriptSamples.py").read())
+    with open("ScriptSamples.py", "r") as content:
+        exec(content.read())
     createPythonTestDriver(stream)
 
 
 def create_python_multicore_module(
         stream):
-    exec(open("ScriptSamples.py").read())
+    with open("ScriptSamples.py", "r") as content:
+        exec(content.read())
     createPythonTestDriver(stream, "from pcraster.multicore import *")
 
 
@@ -583,5 +588,5 @@ if __name__ == "__main__":
     parser.add_argument('OUTPUT')
     arguments = parser.parse_args()
     assert "script" in arguments
-    stream = open(arguments.OUTPUT, "w")
-    create_script_by_format[arguments.format](stream)
+    with open(arguments.OUTPUT, "w") as stream:
+        create_script_by_format[arguments.format](stream)

@@ -141,8 +141,8 @@ _stdHeaderNames = [
   "vector",
 ]
 
-_namespacePattern = "namespace\s+(\w+)\s*{"
-_classDeclarationPattern = "class\s+(?P<className>\w+)\s*(?::\s*\w+\s*\w*:*\w+\s*)*(?:/{2}.*)?\s+{"
+_namespacePattern = r"namespace\s+(\w+)\s*{"
+_classDeclarationPattern = r"class\s+(?P<className>\w+)\s*(?::\s*\w+\s*\w*:*\w+\s*)*(?:/{2}.*)?\s+{"
 
 ## Returns the namespace of the C++ code in the current directory.
 #
@@ -153,7 +153,7 @@ def guessNamespace(
          filename=None,
          contents=None):
   result = ""
-  filenamePattern = "(\w+)_\w+\.(?:h|cc)"
+  filenamePattern = r"(\w+)_\w+\.(?:h|cc)"
 
   if not result and filename:
     # Base namespace on filename.
@@ -174,7 +174,7 @@ def guessNamespace(
 
     if modules:
       # Base namespace on filenames of modules.
-      regex = re.compile("(\w+)_(?:\w+).cc")
+      regex = re.compile(r"(\w+)_(?:\w+).cc")
       match = regex.match(modules[0])
       assert match
       result = match.group(1)
@@ -213,7 +213,7 @@ def guessClassName(
 
   if not result:
     # Try destructor, works in header and module.
-    regex = re.compile("~(?P<destructorName>\w+)")
+    regex = re.compile(r"~(?P<destructorName>\w+)")
     match = regex.search(contents)
     if match:
       result = match.group("destructorName")
@@ -231,7 +231,7 @@ def guessClassName(
 
   if not result:
     # Module has constructor definition.
-    regex = re.compile("(?P<constructorName>\w+)::(?P=constructorName)\(")
+    regex = re.compile(r"(?P<constructorName>\w+)::(?P=constructorName)\(")
     match = regex.search(contents)
     if match:
       result = match.group("constructorName")
@@ -980,7 +980,7 @@ def _testTargetName(
   contents = file(fileName, "r").read()
 
   # Assumes all unit test executables start with test*.
-  expression = "add_executable\s*\(\s*(test[a-z0-9A-Z-]+)"
+  expression = r"add_executable\s*\(\s*(test[a-z0-9A-Z-]+)"
   pattern = re.compile(expression, re.IGNORECASE)
 
   match = re.search(pattern, contents)
@@ -1347,7 +1347,7 @@ def fixOldStylePrototypes(
   # {type} fname ( name, name, name ) type name; type name; type name; {
   # The regex for the name of the function and name for the arguments matches
   # the pointer symbol (*) too. For the result this doesn't matter.
-  typePattern = "[\w*]+(?:[ \t]+[\w*]+)*"
+  typePattern = r"[\w*]+(?:[ \t]+[\w*]+)*"
   regex = re.compile(r"""
 # Optional return type, consisting of one or more tokens. Assume the
 # return type is seperated from the function name by one or more spaces
@@ -1411,7 +1411,7 @@ def rename(
         # Rename namespace bla.
         contents = re.sub(_namespacePattern,
               "namespace %s {" % (newNamespace), contents)
-        contents = re.sub("namespace\s+%s" % (currentNamespace),
+        contents = re.sub(r"namespace\s+%s" % (currentNamespace),
               "namespace %s" % (newNamespace), contents)
 
       contents = contents.replace(currentName, newName)
@@ -1489,10 +1489,10 @@ def functionCallMatches(
   # - functioncall
   # - string
   # - ...
-  argumentPattern = "\S+"
-  argumentListPattern = "%s(?:\s*,\s*%s)*" % (argumentPattern, argumentPattern)
+  argumentPattern = r"\S+"
+  argumentListPattern = r"%s(?:\s*,\s*%s)*" % (argumentPattern, argumentPattern)
   # functionCallPattern = "^(?P<qualification>.*\s*)\\b(?P<name>%s)\s*\(\s*(?P<arguments>(?:%s)?)\s*\)" % (
-  functionCallPattern = "^(?P<qualification>.*)\\b(?P<name>%s)\s*\(\s*(?P<arguments>(?:%s)?)\s*\)" % (
+  functionCallPattern = r"^(?P<qualification>.*)\\b(?P<name>%s)\s*\(\s*(?P<arguments>(?:%s)?)\s*\)" % (
          name, argumentListPattern)
   regex = re.compile(functionCallPattern, re.MULTILINE)
   iterator = regex.finditer(source)
@@ -1502,7 +1502,7 @@ def functionCallMatches(
 
     # Match is ok if the last character preceding the function name is a
     # non-word character.
-    if not len(qualification) or re.compile("\W$").search(qualification):
+    if not len(qualification) or re.compile(r"\W$").search(qualification):
       # Match is not a declaraction of the function but a real call.
       result.append(match)
 
@@ -1731,6 +1731,7 @@ class CppFileGenerator:
   def __del__(self):
     if self.d_type == '.h':
       self.write('\n#endif')
+    self.d_fd.close()
   # close file and remove from filesystem
   # needed with processing errors
   def remove(self):

@@ -74,7 +74,7 @@ def generateNameT(
     """
     head, tail = os.path.split(name)
 
-    if re.search("\.", tail):
+    if re.search(r"\.", tail):
         msg = "File extension given in '" + name + "' not allowed"
         raise FrameworkError(msg)
 
@@ -496,7 +496,7 @@ class FrameworkBase(shellscript.ShellScript):
         """
         head, tail = os.path.split(name)
 
-        if re.search("\.", tail):
+        if re.search(r"\.", tail):
             msg = "File extension given in '" + name + "' not allowed, provide filename without extension"
             raise FrameworkError(msg)
 

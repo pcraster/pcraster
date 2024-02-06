@@ -20,13 +20,13 @@ To only install the latest PCRaster version use:
 
 .. code-block:: console
 
-   conda create --name pcraster -c conda-forge pcraster
+   conda create --name pcraster -c conda-forge --override-channels -y pcraster
 
 For installing PCRaster including additional software packages used in our `on-site <https://www.uu.nl/staff/DJKarssenberg/Teaching>`_ or `online <https://pcraster.geo.uu.nl/pcraster_courses/how-to-subscribe/>`_ courses, type:
 
 .. code-block:: console
 
-   conda create --name pcraster -c conda-forge python=3.11 gdal numpy pcraster "campo=0.3.4" "lue>0.3.6" "hpx=1.9.0" matplotlib-base spyder spyder-terminal spotpy qgis
+   conda create --name pcraster -c conda-forge --override-channels -y python=3.11 gdal numpy pcraster "campo=0.3.4" "lue>0.3.6" "hpx=1.9.0" matplotlib-base spyder spyder-terminal spotpy qgis
 
 Always use the conda-forge channel when installing further packages into your PCRaster environment.
 

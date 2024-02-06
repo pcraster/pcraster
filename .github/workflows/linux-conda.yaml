@@ -10,12 +10,11 @@ jobs:
         strategy:
             matrix:
                 os: [ubuntu-22.04]
-                python-version: ["3.10"]
             fail-fast: false
 
         runs-on: ${{ matrix.os }}
 
-        name: ${{ matrix.os }} - ${{ matrix.python-version }}
+        name: ${{ matrix.os }}
 
         timeout-minutes: 90
 
@@ -31,15 +30,14 @@ jobs:
 
         - uses: conda-incubator/setup-miniconda@v3
           with:
+              miniforge-version: latest
               auto-update-conda: false
-              python-version: ${{ matrix.python-version }}
-              channels: conda-forge
-              mamba-version: "*"
+
         - shell: bash -l {0}
           run: |
-              mamba install boa -c conda-forge
+              mamba install boa
 
         - name: Build
           shell: bash -l {0}
           run: |
-              conda mambabuild environment/configuration/receipe --channel conda-forge --override-channels
+              conda mambabuild environment/configuration/receipe

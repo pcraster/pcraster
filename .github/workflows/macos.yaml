@@ -8,7 +8,7 @@ jobs:
     build_release:
         strategy:
             matrix:
-                os: [macos-13, macos-14]
+                os: [macos-12, macos-14]
                 python: [python@3.12]
             fail-fast: false
 
@@ -39,7 +39,7 @@ jobs:
                   -D CMAKE_CONFIGURATION_TYPES="Release;Debug" \
                   -D PCRASTER_BUILD_TEST=ON \
                   -D PCRASTER_WITH_QT6=ON \
-                  -D CMAKE_PREFIX_PATH="/usr/local/opt/ncurses;$(brew --prefix qt6)" \
+                  -D CMAKE_PREFIX_PATH="$(brew --prefix ncurses);$(brew --prefix qt6)" \
                   -D CMAKE_INSTALL_PREFIX=package
 
         - name: Build release
@@ -66,7 +66,7 @@ jobs:
     build_debug:
         strategy:
             matrix:
-                os: [macos-13, macos-14]
+                os: [macos-12, macos-14]
                 python: [python@3.12]
             fail-fast: false
 
@@ -97,7 +97,7 @@ jobs:
                   -D CMAKE_CONFIGURATION_TYPES="Release;Debug" \
                   -D PCRASTER_BUILD_TEST=ON \
                   -D PCRASTER_WITH_QT6=ON \
-                  -D CMAKE_PREFIX_PATH="/usr/local/opt/ncurses;$(brew --prefix qt6)" \
+                  -D CMAKE_PREFIX_PATH="$(brew --prefix ncurses);$(brew --prefix qt6)" \
                   -D CMAKE_INSTALL_PREFIX=package
 
         - name: Build debug

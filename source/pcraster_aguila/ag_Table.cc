@@ -180,7 +180,7 @@ Table::Table(
   d_table = table.release();
   d_table->createCols();
 
-  std::any min, max;
+  boost::any min, max;
   if(driver->extremes(min, max, d_attrCol, d_table->typeId(d_attrCol),
          dataSource().name(), dataSource().enclosingDataSpace())) {
     setExtremes(min, max);

@@ -257,15 +257,15 @@ void Vector::setAllMV()
 
   _x->setAllMV();
   _y->setAllMV();
-  _min = std::any();
-  _max = std::any();
+  _min = boost::any();
+  _max = boost::any();
 }
 
 
 
 bool Vector::hasExtremes() const
 {
-  return _min.has_value() && _max.has_value();
+  return !_min.empty() && !_max.empty();
 }
 
 
@@ -282,8 +282,8 @@ void Vector::calculateExtremes()
 {
   assert(cellsAreCreated());
 
-  _min = std::any();
-  _max = std::any();
+  _min = boost::any();
+  _max = boost::any();
 
   size_t nrCells = this->nrCells();
   T value;

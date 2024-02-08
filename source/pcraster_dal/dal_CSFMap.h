@@ -5,6 +5,11 @@
 
 
 // Library headers.
+#ifndef INCLUDED_BOOST_ANY
+#include <boost/any.hpp>
+#define INCLUDED_BOOST_ANY
+#endif
+
 
 // PCRaster library headers.
 
@@ -14,7 +19,6 @@
 #define INCLUDED_DAL_DEF
 #endif
 
-#include <any>
 #include <filesystem>
 
 
@@ -116,8 +120,8 @@ public:
                                         size_t nrCells,
                                         void const* buffer);
 
-  void             setExtremes         (const std::any& min,
-                                        const std::any& max);
+  void             setExtremes         (const boost::any& min,
+                                        const boost::any& max);
 
   //----------------------------------------------------------------------------
   // ACCESSORS
@@ -155,9 +159,9 @@ public:
 
   bool             isMV                (void const* value) const;
 
-  std::any         min                 () const;
+  boost::any       min                 () const;
 
-  std::any         max                 () const;
+  boost::any       max                 () const;
 
   void*            malloc              (size_t nrCells) const;
 

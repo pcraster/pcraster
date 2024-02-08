@@ -9,6 +9,11 @@
 #define INCLUDED_CASSERT
 #endif
 
+#ifndef INCLUDED_BOOST_ANY
+#include <boost/any.hpp>
+#define INCLUDED_BOOST_ANY
+#endif
+
 // PCRaster library headers.
 #ifndef INCLUDED_DEV_COMPILER
 #include "dev_Compiler.h"
@@ -31,8 +36,7 @@
 #define INCLUDED_DAL_TYPE
 #endif
 
-#include <any>
-#include <cstring>
+
 
 namespace dal {
   // Matrix declarations.
@@ -65,7 +69,7 @@ namespace dal {
   of the cell values in the layered array.
 
   The extremes min() and max() may be set
-  setExtremes(std::any min, std::any max) explicitly or computed by
+  setExtremes(boost::any min, boost::any max) explicitly or computed by
   setExtremes(). In both cases hasExtremes() will be true. Note that min(),
   max() and allMV() is not updated when cells are modified at any time.
 
@@ -104,15 +108,15 @@ private:
   TypeId           d_typeId{TI_NR_TYPES};
 
   //! Cell values.
-  std::any         d_cells;
+  boost::any       d_cells;
 
   Ownership        d_ownership{TakeOwnership};
 
   //! minimum value, if empty() then !hasExtremes() or allMV()
-  std::any         d_min;
+  boost::any       d_min;
 
   //! maximum value, if empty() then !hasExtremes() or allMV()
-  std::any         d_max;
+  boost::any       d_max;
 
   //! is all data MV?, unspecified if !hasExtremes()
   bool             d_allMV{true};
@@ -196,8 +200,8 @@ public:
   template<typename T>
   PCR_DAL_DECL void fill               (T const& value);
 
-  void             setExtremes         (std::any min,
-                                        std::any max);
+  void             setExtremes         (boost::any min,
+                                        boost::any max);
 
   void             setExtremes         ();
 
@@ -244,9 +248,9 @@ public:
 
   bool             allMV               () const;
 
-  std::any         min                 () const;
+  boost::any       min                 () const;
 
-  std::any         max                 () const;
+  boost::any       max                 () const;
 
   template<typename T>
   PCR_DAL_DECL T   min                 () const;
@@ -317,8 +321,8 @@ public:
 // {
 //   assert(cellsAreCreated());
 //
-//   T* pointer = std::any_cast<T*>(d_cells);
-//   d_cells = std::any();
+//   T* pointer = boost::any_cast<T*>(d_cells);
+//   d_cells = boost::any();
 //
 //   return pointer;
 // }
@@ -336,7 +340,7 @@ public:
 // {
 //   assert(cellsAreCreated());
 //
-//   T* pointer = std::any_cast<T*>(d_cells);
+//   T* pointer = boost::any_cast<T*>(d_cells);
 //
 //   return pointer;
 // }
@@ -349,7 +353,7 @@ public:
 //
 //   std::cout << "cast..." << std::endl;
 //   std::cout << this << '\t' << d_cells.type().name() << std::endl;
-//   T* pointer = std::any_cast<T*>(d_cells);
+//   T* pointer = boost::any_cast<T*>(d_cells);
 //   std::cout << "/cast..." << std::endl;
 //
 //   std::cout << "/cells" << std::endl;
@@ -385,7 +389,7 @@ public:
 //     delete[] cells<T>();
 //   }
 //
-//   d_cells = std::any();
+//   d_cells = boost::any();
 // }
 //
 // //! Fills the matrix with MV values.
@@ -422,13 +426,13 @@ public:
 // template<typename T>
 // inline T Matrix::min() const
 // {
-//   return std::any_cast<T>(d_min);
+//   return boost::any_cast<T>(d_min);
 // }
 //
 // template<typename T>
 // inline T Matrix::max() const
 // {
-//   return std::any_cast<T>(d_max);
+//   return boost::any_cast<T>(d_max);
 // }
 //
 // template<typename T>

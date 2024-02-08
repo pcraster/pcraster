@@ -83,7 +83,7 @@ void DataSpaceAddress::unsetCoordinate(
          size_t index)
 {
   assert(index < d_coordinates.size());
-  d_coordinates[index] = std::any();
+  d_coordinates[index] = boost::any();
 }
 
 
@@ -143,7 +143,7 @@ bool DataSpaceAddress::isValid(
 {
   assert(index < d_coordinates.size());
 
-  return d_coordinates[index].has_value();
+  return !d_coordinates[index].empty();
 }
 
 
@@ -192,13 +192,13 @@ size_t DataSpaceAddress::nrInvalidCoordinates() const
 //! Returns the coordinate with index \a index.
 /*!
   \param     index Index of (the dimension of) the coordinate to return.
-  \return    std::any object with the coordinate.
+  \return    boost::any object with the coordinate.
   \warning   No guarantee is made regarding the validity of the returned
              coordinate.
   \todo      Check uses of this function and remove it from the interface.
-             The std::any return value is an implementation detail.
+             The boost::any return value is an implementation detail.
 */
-std::any const& DataSpaceAddress::coordinate(
+boost::any const& DataSpaceAddress::coordinate(
          size_t index) const
 {
   assert(index < d_coordinates.size());

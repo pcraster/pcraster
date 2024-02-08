@@ -211,8 +211,8 @@ void RasterDal::read(
 
 
 bool RasterDal::extremes(
-         std::any& min,
-         std::any& max,
+         boost::any& min,
+         boost::any& max,
          TypeId typeId,
          std::string const& name,
          DataSpace const& space) const

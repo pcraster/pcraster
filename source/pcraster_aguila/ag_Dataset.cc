@@ -78,7 +78,7 @@ Dataset::~Dataset()
 //          dal::DataSpace const& space)
 // {
 //   _space = space;
-//
+// 
 //   if(!_localToWorldMapper) {
 //     initialiseDataSpaceAddressMapper();
 //   }
@@ -210,14 +210,14 @@ REAL4 Dataset::selectedValue() const
 {
   assert(hasSelectedValue());
 
-  return std::any_cast<REAL4>(_selectedValue);
+  return boost::any_cast<REAL4>(_selectedValue);
 }
 
 
 
 bool Dataset::hasSelectedValue() const
 {
-  return _selectedValue.has_value();
+  return !_selectedValue.empty();
 }
 
 
@@ -225,7 +225,7 @@ bool Dataset::hasSelectedValue() const
 void Dataset::unsetSelectedValue()
 {
   if(hasSelectedValue()) {
-    _selectedValue = std::any();
+    _selectedValue = boost::any();
 
     // Make sure new data is read by invalidating the current data.
     _addressRead = dataSource().dataSpace().address();
@@ -234,7 +234,7 @@ void Dataset::unsetSelectedValue()
 
 
 
-/// std::any const& Dataset::selectedValue() const
+/// boost::any const& Dataset::selectedValue() const
 /// {
 ///   return _selectedValue;
 /// }
@@ -257,8 +257,8 @@ void Dataset::setAddressRead(
 
 
 void Dataset::setExtremes(
-         std::any const& min,
-         std::any const& max)
+         boost::any const& min,
+         boost::any const& max)
 {
   _min = min;
   _max = max;
@@ -268,8 +268,8 @@ void Dataset::setExtremes(
 
 bool Dataset::allMV() const
 {
-  assert((!_min.has_value() && !_max.has_value()) || (_min.has_value() && _max.has_value()));
-  return !_min.has_value();
+  assert((_min.empty() && _max.empty()) || (!_min.empty() && !_max.empty()));
+  return _min.empty();
 }
 
 

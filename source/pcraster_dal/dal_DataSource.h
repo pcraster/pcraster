@@ -208,7 +208,7 @@ public:
                                         DataSpaceAddress address) const;
 
   void             read                (Raster& raster,
-                                        std::any const& value,
+                                        boost::any const& value,
                                         DataSpaceAddress const& address) const;
 
   template<typename T>
@@ -220,7 +220,7 @@ public:
                                         DataSpaceAddress address) const;
 
   void             read                (FeatureLayer& layer,
-                                        std::any const& value,
+                                        boost::any const& value,
                                         DataSpaceAddress const& address) const;
 
   template<typename T>
@@ -244,7 +244,7 @@ public:
                                         DataSpaceAddress address) const;
 
   void             read                (Table& table,
-                                        std::any const& value,
+                                        boost::any const& value,
                                         DataSpaceAddress const& address) const;
 
   template<typename T>

@@ -9,6 +9,11 @@
 #define INCLUDED_VECTOR
 #endif
 
+#ifndef INCLUDED_BOOST_ANY
+#include <boost/any.hpp>
+#define INCLUDED_BOOST_ANY
+#endif
+
 // PCRaster library headers.
 
 // Module headers.
@@ -55,7 +60,7 @@ class MemoryTableData: public MemoryData
 private:
 
   //! Values for all dimensions of the data space in a hierarchical layout.
-  std::vector<std::any> d_values;
+  std::vector<boost::any> d_values;
 
   //! Data space of the data values.
   DataSpace        d_dataSpace;
@@ -63,40 +68,40 @@ private:
   //! Assignment operator. NOT IMPLEMENTED.
   MemoryTableData& operator=           (MemoryTableData const& rhs);
 
-  void             initialiseValues    (std::vector<std::any>& values);
+  void             initialiseValues    (std::vector<boost::any>& values);
 
-  void             initialiseValues    (std::vector<std::any>& values,
+  void             initialiseValues    (std::vector<boost::any>& values,
                                         DataSpace space);
 
-  // void             copy                (std::vector<std::any> const& sourceValues,
+  // void             copy                (std::vector<boost::any> const& sourceValues,
   //                                       DataSpace space,
-  //                                       std::vector<std::any>& destinationValues);
+  //                                       std::vector<boost::any>& destinationValues);
 
   void             add                 (Table* table,
-                                        std::vector<std::any>& values);
+                                        std::vector<boost::any>& values);
 
   void             add                 (Table* table,
                                         DataSpace space,
                                         DataSpaceAddress address,
-                                        std::vector<std::any>& values);
+                                        std::vector<boost::any>& values);
 
   void             add                 (Table* table,
                                         DataSpaceAddress const& address);
 
-  void             clear               (std::vector<std::any>& values);
+  void             clear               (std::vector<boost::any>& values);
 
-  void             clear               (std::vector<std::any>& values,
+  void             clear               (std::vector<boost::any>& values,
                                         DataSpace space);
 
-  bool             exists              (std::vector<std::any> const& values) const;
+  bool             exists              (std::vector<boost::any> const& values) const;
 
   bool             exists              (DataSpace space,
                                         DataSpaceAddress address,
-                                        std::vector<std::any> const& values) const;
+                                        std::vector<boost::any> const& values) const;
 
-  Table const*     table               (std::vector<std::any>& values);
+  Table const*     table               (std::vector<boost::any>& values);
 
-  Table const*     table               (std::vector<std::any>& values,
+  Table const*     table               (std::vector<boost::any>& values,
                                         DataSpace space,
                                         DataSpaceAddress address);
 

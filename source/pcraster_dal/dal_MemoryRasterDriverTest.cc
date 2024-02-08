@@ -47,7 +47,7 @@ BOOST_AUTO_TEST_CASE(empty_data_space)
   cells[4] =  9.0;
   cells[5] = 11.0;
 
-  std::vector<std::any> values;
+  std::vector<boost::any> values;
   values.push_back(cells.get());
 
   DataSpace space;
@@ -113,7 +113,7 @@ BOOST_AUTO_TEST_CASE(test_)
   q1[4] =  9.0; q5[4] = 10.0; q9[4] = 11.0;
   q1[5] = 11.0; q5[5] = 12.0; q9[5] = 13.0;
 
-  std::vector<std::any> values;
+  std::vector<boost::any> values;
   DataSpace space;
   TypeId typeId = TI_REAL4;
   size_t nrRows = 3;
@@ -128,9 +128,9 @@ BOOST_AUTO_TEST_CASE(test_)
   quantiles.push_back(0.9f);
   space.addDimension(Dimension(CumulativeProbabilities, quantiles));
 
-  typedef std::tuple<float, std::vector<std::any> > FloatTuple;
+  typedef std::tuple<float, std::vector<boost::any> > FloatTuple;
 
-  std::vector<std::any> tmp;
+  std::vector<boost::any> tmp;
   tmp.push_back(q1.get());
   values.push_back(FloatTuple(0.1f, tmp));
   tmp.clear();

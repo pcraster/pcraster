@@ -234,7 +234,7 @@ dal::DataSpace dal::GeoEASTableDriver::dataSpace(
 //       if(isRegularIncreasingRange(first, last, interval,
 //          timeSteps.begin(), timeSteps.end()) && first >= 1) {
 //         // Configure the time dimension.
-//         std::vector<std::any> timeSteps;
+//         std::vector<boost::any> timeSteps;
 //         timeSteps.push_back(size_t(first));
 //         timeSteps.push_back(size_t(last));
 //         timeSteps.push_back(size_t(interval));
@@ -256,8 +256,8 @@ dal::DataSpace dal::GeoEASTableDriver::dataSpace(
 
 /*
 bool dal::GeoEASTableDriver::extremes(
-         std::any& min,
-         std::any& max,
+         boost::any& min,
+         boost::any& max,
          size_t col,
          TypeId typeId,
          std::string const& name,

@@ -9,6 +9,11 @@
 #define INCLUDED_VECTOR
 #endif
 
+#ifndef INCLUDED_BOOST_ANY
+#include <boost/any.hpp>
+#define INCLUDED_BOOST_ANY
+#endif
+
 // PCRaster library headers.
 #ifndef INCLUDED_DEV_COMPILER
 #include "dev_Compiler.h"
@@ -21,7 +26,7 @@
 #define INCLUDED_DAL_CONFIGURE
 #endif
 
-#include <any>
+
 
 namespace dal {
   // DataSpaceAddress declarations.
@@ -76,7 +81,7 @@ class PCR_DAL_DECL DataSpaceAddress
 private:
 
   //! Collection of coordinates.
-  std::vector<std::any> d_coordinates;
+  std::vector<boost::any> d_coordinates;
 
 public:
 
@@ -122,7 +127,7 @@ public:
 
   size_t           nrInvalidCoordinates() const;
 
-  std::any const& coordinate         (size_t index) const;
+  boost::any const& coordinate         (size_t index) const;
 
   template<typename T>
   T const&         coordinate          (size_t index) const;
@@ -171,7 +176,7 @@ template<typename T>
 inline T const& DataSpaceAddress::coordinate(
          size_t index) const
 {
-  return std::any_cast<T const&>(d_coordinates[index]);
+  return boost::any_cast<T const&>(d_coordinates[index]);
 }
 
 

@@ -46,19 +46,19 @@ public:
 
   DataGuide const* _height{nullptr};
 
-  std::any       _selectedValue;
-  /// std::map<DataGuide, std::any> _selectedValues;
+  boost::any       _selectedValue;
+  /// std::map<DataGuide, boost::any> _selectedValues;
 
   QColor           _backgroundColour;
 
   unsigned int     _change{0};
 
   VisEnginePrivate()
-    :
+    : 
       _map2DOffset(),
-
+      
       _selectedValue()
-
+      
   {
   }
 
@@ -80,7 +80,7 @@ public:
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS
+// DEFINITION OF CLASS MEMBERS 
 //------------------------------------------------------------------------------
 
 /*!
@@ -326,16 +326,16 @@ void VisEngine::rescan(
   }
 
   if(object.hasSelectedValue()) {
-    if(!_data->_selectedValue.has_value() ||
+    if(_data->_selectedValue.empty() ||
          !dal::comparable(object.selectedValue(),
-              std::any_cast<REAL4>(_data->_selectedValue))) {
+              boost::any_cast<REAL4>(_data->_selectedValue))) {
       _data->_selectedValue = object.selectedValue();
       _data->_change |= VALUE_SELECTION;
     }
   }
   else {
-    if(_data->_selectedValue.has_value()) {
-      _data->_selectedValue = std::any();
+    if(!_data->_selectedValue.empty()) {
+      _data->_selectedValue = boost::any();
       _data->_change |= VALUE_SELECTION;
     }
   }
@@ -392,7 +392,7 @@ void VisEngine::addDataGuide(
   // KDJ: It is possible that the same data is visualised more than once.
   // assert(_data->_selectedValues.find(aDataGuide) ==
   //        _data->_selectedValues.end());
-  /// _data->_selectedValues[aDataGuide] = std::any();
+  /// _data->_selectedValues[aDataGuide] = boost::any();
 }
 
 
@@ -752,13 +752,13 @@ QColor const& VisEngine::backgroundColour() const
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE OPERATORS
+// DEFINITION OF FREE OPERATORS 
 //------------------------------------------------------------------------------
 
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE FUNCTIONS
+// DEFINITION OF FREE FUNCTIONS 
 //------------------------------------------------------------------------------
 
 

@@ -288,12 +288,12 @@ BOOST_AUTO_TEST_CASE(extremes)
 
   VectorDriver driver;
   std::shared_ptr<Vector> vector;
-  std::any min, max;
+  boost::any min, max;
 
   {
     BOOST_REQUIRE(driver.extremes(min, max, TI_REAL4, "vector"));
-    BOOST_CHECK_CLOSE(std::any_cast<REAL4>(min), REAL4(1.1), REAL4(0.001));
-    BOOST_CHECK_CLOSE(std::any_cast<REAL4>(max), REAL4(2.459674784),
+    BOOST_CHECK_CLOSE(boost::any_cast<REAL4>(min), REAL4(1.1), REAL4(0.001));
+    BOOST_CHECK_CLOSE(boost::any_cast<REAL4>(max), REAL4(2.459674784),
          REAL4(0.001));
   }
 }

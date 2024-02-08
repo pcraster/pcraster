@@ -310,8 +310,8 @@ void TableDriver::append(
 
 
 bool TableDriver::extremes(
-         std::any& min,
-         std::any& max,
+         boost::any& min,
+         boost::any& max,
          size_t col,
          TypeId typeId,
          std::string const& name,

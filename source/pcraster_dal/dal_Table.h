@@ -19,6 +19,11 @@
 #define INCLUDED_VECTOR
 #endif
 
+#ifndef INCLUDED_BOOST_ANY
+#include <boost/any.hpp>
+#define INCLUDED_BOOST_ANY
+#endif
+
 #ifndef INCLUDED_BOOST_LEXICAL_CAST
 #include <boost/lexical_cast.hpp>
 #define INCLUDED_BOOST_LEXICAL_CAST
@@ -52,7 +57,7 @@
 #define INCLUDED_DAL_UTILS
 #endif
 
-#include <any>
+
 
 namespace dal {
   // Table declarations.
@@ -90,7 +95,7 @@ private:
   std::vector<TypeId> d_typeIds;
 
   //! Columns with data.
-  std::vector<std::any> d_cols;
+  std::vector<boost::any> d_cols;
 
   template<typename T>
   void             create              (size_t col);
@@ -956,11 +961,11 @@ inline void Table::skipCol(
 
   d_titles.insert(d_titles.begin() + col, title);
   d_typeIds.insert(d_typeIds.begin() + col, TI_NR_TYPES);
-  d_cols.insert(d_cols.begin() + col, std::any());
+  d_cols.insert(d_cols.begin() + col, boost::any());
 
   // d_titles.push_back(title);
   // d_typeIds.push_back(TI_NR_TYPES);
-  // d_cols.push_back(std::any());
+  // d_cols.push_back(boost::any());
 
   assert(d_titles.size() == d_cols.size());
   assert(d_typeIds.size() == d_cols.size());
@@ -1050,20 +1055,20 @@ inline void Table::appendCol(
 // /*!
 //   \return    Reference to the created column.
 //   \sa        appendCol(std::string const&)
-//
+// 
 //   It is assumed that a title for this column is already set.
-//
+// 
 //   The column will have nrRecs() default constructed values.
 // */
 // template<typename T>
 // inline Array<T>& Table::appendCol()
 // {
 //   assert(d_titles.size() > d_cols.size());
-//
+// 
 //   Array<T>* array = new Array<T>(nrRecs());
-//
+// 
 //   d_cols.push_back(array);
-//
+// 
 //   return *array;
 // }
 
@@ -1148,7 +1153,7 @@ inline void Table::appendRec(size_t col)
 template<typename T>
 inline void Table::appendRec(size_t col)
 {
-  auto* array = std::any_cast<Array<T>*>(d_cols[col]);
+  auto* array = boost::any_cast<Array<T>*>(d_cols[col]);
   array->push_back(T());
 }
 
@@ -1160,7 +1165,7 @@ inline void Table::insert(
   assert(col < d_cols.size());
 
   d_typeIds.insert(d_typeIds.begin() + col, typeId);
-  d_cols.insert(d_cols.begin() + col, std::any());
+  d_cols.insert(d_cols.begin() + col, boost::any());
   create(col, typeId);
 }
 
@@ -1227,8 +1232,8 @@ inline void Table::erase(size_t col)
 
   // Test whether this column is already created.
   if(col < d_cols.size()) {
-    if(d_cols[col].has_value()) {
-      auto* array = std::any_cast<Array<T>*>(d_cols[col]);
+    if(!d_cols[col].empty()) {
+      auto* array = boost::any_cast<Array<T>*>(d_cols[col]);
       delete array;
     }
 
@@ -1252,7 +1257,7 @@ inline void Table::erase(size_t col)
 template<typename T>
 T* Table::release(size_t col)
 {
-  Array<T>* array = std::any_cast<Array<T>*>(d_cols[col]);
+  Array<T>* array = boost::any_cast<Array<T>*>(d_cols[col]);
   return array->release();
 }
 
@@ -1267,7 +1272,7 @@ inline Array<T> const& Table::col(size_t col) const
 {
   assert(col < d_cols.size());
 
-  return *std::any_cast<Array<T>*>(d_cols[col]);
+  return *boost::any_cast<Array<T>*>(d_cols[col]);
 }
 
 //! Returns the column with index \a col.
@@ -1281,7 +1286,7 @@ inline Array<T>& Table::col(size_t col)
 {
   assert(col < d_cols.size());
 
-  return *std::any_cast<Array<T>*>(d_cols[col]);
+  return *boost::any_cast<Array<T>*>(d_cols[col]);
 }
 
 //! Returns the title of the table.
@@ -1388,7 +1393,7 @@ inline bool Table::isCreated(
 {
   assert(col < d_cols.size());
 
-  return d_cols[col].has_value();
+  return !d_cols[col].empty();
 }
 
 inline void Table::setAllMV()

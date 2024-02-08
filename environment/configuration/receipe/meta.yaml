@@ -41,7 +41,7 @@ requirements:
 
   host:
     - python=3.12
-    - numpy
+    - numpy=1.26
     - pybind11
     - xorg-libxfixes                        # [linux]
     - xerces-c
@@ -56,7 +56,7 @@ requirements:
     - libboost-devel
 
   run:
-    - python
+    - python=3.12
     - {{ pin_compatible('numpy') }}
     - libgdal
     - ncurses                               # [not win]

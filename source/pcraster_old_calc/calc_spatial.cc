@@ -289,7 +289,7 @@ void *calc::Spatial::valuePtr() const
 const void *calc::Spatial::srcValue() const
 {
   makeDataAvailable();
-  PRECOND(d_val != 0);
+  PRECOND(d_val != nullptr);
   return d_val;
 }
 
@@ -297,7 +297,7 @@ const void *calc::Spatial::srcValue() const
 void *calc::Spatial::destValue()
 {
   makeDataAvailable();
-  PRECOND(d_val != 0);
+  PRECOND(d_val != nullptr);
   return d_val;
 }
 

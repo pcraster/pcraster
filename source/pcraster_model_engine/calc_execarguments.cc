@@ -205,7 +205,7 @@ void* calc::ExecArguments::srcDest(size_t a) {
 
   PRECOND(d_resultIsField >= d_fields.size());
   PRECOND(d_result.size() == 1);
-  PRECOND(d_result[0]     == 0);
+  PRECOND(d_result[0]     == nullptr);
 
   // first get type, before removing a d_fields entry
   const DataType r(resultType(0));

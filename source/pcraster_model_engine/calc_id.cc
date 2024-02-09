@@ -161,7 +161,7 @@ calc::Position* calc::Id::position() const
 //! are there no action done after the default constructor?
 bool calc::Id::empty() const
 {
-  PRECOND( (d_position == 0) == d_name.empty());
+  PRECOND( (d_position == nullptr) == d_name.empty());
   return d_position == nullptr;
 }
 

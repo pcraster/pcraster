@@ -821,7 +821,7 @@ Driver* Dal::driver(
   assert(library()->cacheDatasetInfo());
   return inCache(result.name(), result.space())
          ? std::get<0>((*cacheValue(result.name(), result.space())).second)
-         : 0;
+         : nullptr;
 }
 
 
@@ -833,7 +833,7 @@ Driver* Dal::driverByDataset(
   assert(library()->cacheDatasetInfo());
   return inCache(name, space)
          ? std::get<0>((*cacheValue(name, space)).second)
-         : 0;
+         : nullptr;
 }
 
 

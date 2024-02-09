@@ -287,7 +287,7 @@ public:
 
     int                 syntaxErrCount;                      // MR12
     ANTLRTokenStream   *getLexer() const {                   // MR12
-      return inputTokens ? inputTokens->getLexer() : 0; }    // MR12
+      return inputTokens ? inputTokens->getLexer() : nullptr; }    // MR12
 protected:                                              // MR8
     int     resynchConsumed;                            // MR8
     char    *zzFAILtext; // workarea required by zzFAIL // MR9

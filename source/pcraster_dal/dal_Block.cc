@@ -167,11 +167,11 @@ void Block::checkIntegrity() const
 {
   assert(
          // Block contains only discretisation information.
-         (d_baseElevation != 0 && d_voxels == 0) ||
+         (d_baseElevation != nullptr && d_voxels == nullptr) ||
          // Block contains only data.
-         (d_baseElevation == 0 && d_voxels == 0) ||
+         (d_baseElevation == nullptr && d_voxels == nullptr) ||
          // Block contains discretisation information and data.
-         (d_baseElevation == 0 && d_voxels != 0));
+         (d_baseElevation == nullptr && d_voxels != nullptr));
 }
 #endif
 

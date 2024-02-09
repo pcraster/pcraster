@@ -92,7 +92,7 @@ ANTLRParser(ANTLRTokenBuffer *_inputTokens,
     demand_look = 0;    /* demand_look = dlook; */
     bsetsize = ssize;
 	guessing = 0;
-	token_tbl = NULL;
+	token_tbl = nullptr;
 	eofToken = (ANTLRTokenType)1;
 
 	// allocate lookahead buffer
@@ -110,7 +110,7 @@ ANTLRParser(ANTLRTokenBuffer *_inputTokens,
 	this->inputTokens->setMinTokens(k);
 	_inputTokens->setParser(this);					                    // MR1
     resynchConsumed=1;                                                  // MR8
-    zzFAILtext=NULL;                                                    // MR9
+    zzFAILtext=nullptr;                                                    // MR9
     traceOptionValueDefault=0;                                          // MR10
     traceReset();                                                       // MR10
     zzGuessSeq=0;                                                       // MR10
@@ -128,7 +128,7 @@ void ANTLRParser::traceReset()
 {
    traceOptionValue=traceOptionValueDefault;
    traceGuessOptionValue=1;
-   traceCurrentRuleName=NULL;
+   traceCurrentRuleName=nullptr;
    traceDepth=0;
 }
 
@@ -188,7 +188,7 @@ restoreState(ANTLRParserState *buf)
     traceOptionValue=buf->traceOptionValue;
     if ( (prevTraceOptionValue > 0) !=
              (traceOptionValue > 0)) {
-      if (traceCurrentRuleName != NULL) {  /* MR21 */
+      if (traceCurrentRuleName != nullptr) {  /* MR21 */
           if (traceOptionValue > 0) {
             /* MR23 */ printMessage(stderr,
                    "trace enable restored in rule %s depth %d\n",
@@ -294,10 +294,10 @@ _match(ANTLRTokenType _t, ANTLRChar **MissText,
 		consume();
 	}
 	if ( LA(1)!=_t ) {
-		*MissText=NULL;
+		*MissText=nullptr;
 		*MissTok= _t;
 		*BadTok = LT(1);
-		*MissSet=NULL;
+		*MissSet=nullptr;
 		return 0;
 	}
 	dirty++;
@@ -334,7 +334,7 @@ _setmatch(SetWordType *tset, ANTLRChar **MissText,
 		consume();
 	}
 	if ( !set_el(LA(1), tset) ) {
-		*MissText=NULL;										/* MR23 */
+		*MissText=nullptr;										/* MR23 */
 		*MissTok=(ANTLRTokenType) 0;						/* MR23 */
 		*BadTok=LT(1);										/* MR23 */
 		*MissSet=tokclassErrset;							/* MR23 */
@@ -476,7 +476,7 @@ set_deg(SetWordType *a)
 	SetWordType *endp = &(a[bsetsize]);
 	int degree = 0;
 
-	if ( a == NULL ) return 0;
+	if ( a == nullptr ) return 0;
 	while ( p < endp )
 	{
 		SetWordType t = *p;
@@ -529,7 +529,7 @@ ANTLRParser::FAIL(int k, ...)
 //  MR1 10-Apr-97
 //
 
-    if (zzFAILtext == NULL) zzFAILtext=new char [1000];          // MR9
+    if (zzFAILtext == nullptr) zzFAILtext=new char [1000];          // MR9
     auto **f=new SetWordType *[SETWORDCOUNT];             // MR1 // MR9
     SetWordType **miss_set;
     ANTLRChar **miss_text;
@@ -568,7 +568,7 @@ ANTLRParser::FAIL(int k, ...)
          * but, the ith token of lookahead is valid at the ith position
          * (The old LL sub 1 (k) versus LL(k) parsing technique)
          */
-        *miss_set = NULL;
+        *miss_set = nullptr;
         *miss_text = LT(1)->getText();
         *bad_tok = LT(1);
         *bad_text = (*bad_tok)->getText();
@@ -684,7 +684,7 @@ void ANTLRParser::traceGuessDone(const ANTLRParserState *state) {
 
   int   doIt=0;
 
-  if (traceCurrentRuleName == NULL) return;
+  if (traceCurrentRuleName == nullptr) return;
 
   if (traceOptionValue <= 0) {
     doIt=0;
@@ -712,7 +712,7 @@ void ANTLRParser::traceGuessFail() {
 
   int   doIt=0;
 
-  if (traceCurrentRuleName == NULL) return;     /* MR21 */
+  if (traceCurrentRuleName == nullptr) return;     /* MR21 */
 
   if (traceOptionValue <= 0) {
     doIt=0;
@@ -787,7 +787,7 @@ int ANTLRParser::traceOption(int delta) {
 
     traceOptionValue=traceOptionValue+delta;
 
-    if (traceCurrentRuleName != NULL) {
+    if (traceCurrentRuleName != nullptr) {
       if (prevValue <= 0 && traceOptionValue > 0) {
         /* MR23 */ printMessage(stderr,"trace enabled in rule %s depth %d\n",traceCurrentRuleName,traceDepth);
       };
@@ -805,7 +805,7 @@ int ANTLRParser::traceGuessOption(int delta) {
 
     traceGuessOptionValue=traceGuessOptionValue+delta;
 
-    if (traceCurrentRuleName != NULL) {
+    if (traceCurrentRuleName != nullptr) {
       if (prevValue <= 0 && traceGuessOptionValue > 0) {
         /* MR23 */ printMessage(stderr,"guess trace enabled in rule %s depth %d\n",traceCurrentRuleName,traceDepth);
       };

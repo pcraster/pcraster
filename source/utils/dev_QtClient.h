@@ -118,7 +118,7 @@ QtClient<Application>::~QtClient()
 template<class Application>
 bool QtClient<Application>::isInitialized() const
 {
-  assert((_application != 0) == _initialized);
+  assert((_application != nullptr) == _initialized);
   return _application != nullptr;
 }
 

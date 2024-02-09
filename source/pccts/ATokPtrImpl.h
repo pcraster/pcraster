@@ -44,20 +44,20 @@ PCCTS_NAMESPACE_STD
 
 void ANTLRTokenPtr::ref() const
 {
-    if (ptr_ != NULL) {
+    if (ptr_ != nullptr) {
 		ptr_->ref();
 	}
 }
 
 void ANTLRTokenPtr::deref()
 {
-    if (ptr_ != NULL)
+    if (ptr_ != nullptr)
     {
 		ptr_->deref();
 		if ( ptr_->nref()==0 )
 		{
 		    delete ptr_;
-			ptr_ = NULL;
+			ptr_ = nullptr;
 		}
     }
 }
@@ -80,7 +80,7 @@ void ANTLRTokenPtr::operator = (const ANTLRTokenPtr & lhs)	// MR1
 
 void ANTLRTokenPtr::operator = (ANTLRAbstractToken *addr)
 {
-    if (addr != NULL) {
+    if (addr != nullptr) {
 	addr->ref();
     }
     deref();

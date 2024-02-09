@@ -57,7 +57,7 @@ ANTLRTokenBuffer(ANTLRTokenStream *_input, int _k, int _chunk_size_formal) /* MR
 	buffer_size = chunk_size = _chunk_size_formal;
 	buffer = (_ANTLRTokenPtr *)
 			 calloc(chunk_size+1,sizeof(_ANTLRTokenPtr ));
-	if ( buffer == NULL ) {
+	if ( buffer == nullptr ) {
 		panic("cannot alloc token buffer");
 	}
 	buffer++;				// leave the first elem empty so tp-1 is valid ptr
@@ -69,7 +69,7 @@ ANTLRTokenBuffer(ANTLRTokenStream *_input, int _k, int _chunk_size_formal) /* MR
 	end_of_buffer = &buffer[buffer_size-1];
 	threshold = &buffer[(int)(buffer_size/2)];	// MR23 - Used to be 1.0/2.0 !
 	_deleteTokens = 1; 	// assume we delete tokens
-	parser=NULL;				// MR5 - uninitialized reference
+	parser=nullptr;				// MR5 - uninitialized reference
 }
 
 static void f() {;}
@@ -96,7 +96,7 @@ ANTLRTokenBuffer::
 		}
 	}
 
-	if ( buffer!=NULL ) free((char *)(buffer-1));
+	if ( buffer!=nullptr ) free((char *)(buffer-1));
 }
 
 #if defined(DBG_TBUF)||defined(DBG_TBUF_MARK_REW)
@@ -308,7 +308,7 @@ extendBuffer()
 	buffer = (_ANTLRTokenPtr *)
 		realloc((char *)(buffer-1),
 				(buffer_size+1)*sizeof(_ANTLRTokenPtr ));
-	if ( buffer == NULL ) {
+	if ( buffer == nullptr ) {
 		panic("cannot alloc token buffer");
 	}
 	buffer++;				// leave the first elem empty so tp-1 is valid ptr

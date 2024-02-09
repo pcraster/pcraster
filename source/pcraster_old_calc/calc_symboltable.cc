@@ -126,7 +126,7 @@ calc::UserSymbol *calc::SymbolTable::find(const class calc::Symbol* sym,
 void calc::SymbolTable::add(calc::UserSymbol *newPar)
 {
  try {
-  PRECOND(newPar != 0);
+  PRECOND(newPar != nullptr);
   ParameterTableItem addElem(newPar->name(), newPar);
   std::pair<Iter,bool> p=d_table.insert(addElem);
   if(! p.second) {

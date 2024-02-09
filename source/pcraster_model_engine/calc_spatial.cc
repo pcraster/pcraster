@@ -152,14 +152,14 @@ calc::Spatial::~Spatial()
 //! return value as read only, initialized value
 const void *calc::Spatial::src() const
 {
-  PRECOND(d_val != 0);
+  PRECOND(d_val != nullptr);
   return d_val;
 }
 
 //! return value writable and readable, allocated value
 void *calc::Spatial::dest()
 {
-  PRECOND(d_val != 0);
+  PRECOND(d_val != nullptr);
   return d_val;
 }
 

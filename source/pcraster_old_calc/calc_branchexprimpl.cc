@@ -486,7 +486,7 @@ void calc::BranchExprImpl::execSameUn(
   };
 
   DO_SAME_UN f = jmpTableSameUn[op.execId()];
-  POSTCOND(f != NULL);
+  POSTCOND(f != nullptr);
 
   FieldHandle v = stack.popDest(vs());
 
@@ -509,7 +509,7 @@ void calc::BranchExprImpl::execDiffUn(
    (DO_DIFF_UN)nullptr
   };
         DO_DIFF_UN f = jmpTableDiffUn[op.execId()];
-  POSTCOND(f != NULL);
+  POSTCOND(f != nullptr);
 
   FieldHandle res = createResultField();
   FieldsPopped inp(stack,1);
@@ -555,7 +555,7 @@ void calc::BranchExprImpl::execGenNonSpatial(
    (DO_GEN_NS)nullptr
   };
         DO_GEN_NS f = jmpTableGen[op.execId()];
-  POSTCOND(f != NULL);
+  POSTCOND(f != nullptr);
 
   currentTime= scriptConst().currentTimeStep();
 
@@ -643,7 +643,7 @@ void calc::BranchExprImpl::execDiffBin(
 
   FIELD_ARG fa = fieldArg(inp[0]->isSpatial(),inp[1]->isSpatial());
   DO_DIFF_BIN f = jmpTableDiffBin[op.execId()][getSubIndex(fa)];
-  POSTCOND(f != NULL);
+  POSTCOND(f != nullptr);
 
   f((UINT1 *)res->destValue(),inp[0]->srcValue(),inp[1]->srcValue(),nrCells(inp[0],inp[1]));
   checkMv(op,res);
@@ -693,7 +693,7 @@ void calc::BranchExprImpl::execSameBin(
   int i = getSubIndex(fa);
   DO_SAME_BIN f = jmpTableSameBin[op.execId()][i];
 
-  POSTCOND(f != NULL);
+  POSTCOND(f != nullptr);
 
   /* right only as target in case of NS: */
   if (fa == NS) {
@@ -782,7 +782,7 @@ void calc::BranchExprImpl::execIfThen(
 
   FIELD_ARG fa = fieldArg(testBranch->isSpatial(),trueBranch->isSpatial());
   DO_IFTHEN f = jmpTableIfThen[op.execId()][getSubIndex(fa)];
-  POSTCOND(f != NULL);
+  POSTCOND(f != nullptr);
 
   f(res->destValue(),(const UINT1 *)testBranch->srcValue(),trueBranch->srcValue(),
       nrCells(testBranch,trueBranch));
@@ -846,7 +846,7 @@ void calc::BranchExprImpl::execIfThenElse(
   }
   POSTCOND(ind >= 0 && ind < 8);
   DO_IFTHENELSE f = jmpTableIfThenElse[op.execId()][ind];
-  POSTCOND(f != NULL);
+  POSTCOND(f != nullptr);
 
   f(res->destValue(),(const UINT1*)testBranch->srcValue(),
       trueBranch->srcValue(),falseBranch->srcValue(),n);
@@ -870,7 +870,7 @@ void calc::BranchExprImpl::execGlob(
    (DO_GLOBAL)nullptr
   };
   DO_GLOBAL f = jmpTableGlob[implOp.execId()];
-  POSTCOND(f != NULL);
+  POSTCOND(f != nullptr);
 
   int nrOpds = implOp.nrArgs();
   POSTCOND(nrOpds > 0);

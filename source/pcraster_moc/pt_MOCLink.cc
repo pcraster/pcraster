@@ -81,7 +81,7 @@ public:
 //------------------------------------------------------------------------------
 
 pt::MOCLink::MOCLink()
-  : calc::ModelLink(), d_tracker(0)
+  : calc::ModelLink(), d_tracker(nullptr)
 {
 }
 

@@ -114,7 +114,7 @@ Client::Client(
 
     Library::initialise(prefix, cacheDatasetInfo);
 
-    assert(_dal == 0);
+    assert(_dal == nullptr);
     _dal = new Dal(addAllDrivers);
   }
 
@@ -137,7 +137,7 @@ Client::~Client()
 
     assert(!Library::isInitialised());
 
-    assert(_dal != 0);
+    assert(_dal != nullptr);
     delete _dal;
     _dal = nullptr;
   }

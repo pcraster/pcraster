@@ -216,7 +216,7 @@ void RangeDrawProps::unsetDisplayValueClassifier()
 {
   ClassifierTuple& tuple(_classifiers.back());
   // Assumes the caller deletes the classifier.
-  std::get<1>(tuple) = 0;
+  std::get<1>(tuple) = nullptr;
   assert(!std::get<1>(tuple));
   // _displayValueClassifier = 0;
 }

@@ -1507,7 +1507,7 @@ void DataProperties::copyRangeDrawProperties(
     }
     else if(targetDisplay) {
       eraseRangeClassifier(targetDisplay);
-      std::get<1>(targetTuple) = 0;
+      std::get<1>(targetTuple) = nullptr;
     }
   }
 

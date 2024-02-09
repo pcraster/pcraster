@@ -879,7 +879,7 @@ Raster* GDALRasterDriver::open(
     raster = GDALDataset2Raster(gdalDataset, typeId);
   }
   catch(Exception& /* exception */) {
-    assert(raster == 0);
+    assert(raster == nullptr);
   }
 
   return raster;

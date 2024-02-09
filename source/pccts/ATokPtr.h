@@ -44,7 +44,7 @@ class ANTLRAbstractToken;
 
 class DllExportPCCTS ANTLRTokenPtr {
 public:
-    ANTLRTokenPtr(ANTLRAbstractToken *addr=NULL){ptr_ = addr; ref();}
+    ANTLRTokenPtr(ANTLRAbstractToken *addr=nullptr){ptr_ = addr; ref();}
     ANTLRTokenPtr(const ANTLRTokenPtr &lhs)	{ptr_ = lhs.ptr_; lhs.ref();}
     ~ANTLRTokenPtr();
 

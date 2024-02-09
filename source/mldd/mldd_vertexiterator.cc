@@ -60,7 +60,7 @@ public:
 
 //! not default constructible
 mldd::VertexIterator::VertexIterator():
-  d_g(0),
+  d_g(nullptr),
   d_v()
 {
 }

@@ -169,7 +169,7 @@ public:
 										  int /*line MR23*/) override
 	{
 		panic("call to ANTLRRefCountToken::makeToken()\n");
-		return NULL;
+		return nullptr;
 	}
 };
 
@@ -181,9 +181,9 @@ protected:
 
 public:
 	ANTLRCommonNoRefCountToken(ANTLRTokenType t, const ANTLRChar *s)
-	{ setType(t); _line = 0; _text = NULL; setText(s); }
+	{ setType(t); _line = 0; _text = nullptr; setText(s); }
 	ANTLRCommonNoRefCountToken()
-	{ setType((ANTLRTokenType)0); _line = 0; _text = NULL; setText(""); }
+	{ setType((ANTLRTokenType)0); _line = 0; _text = nullptr; setText(""); }
 
 	~ANTLRCommonNoRefCountToken() override { if (_text) delete [] _text; }  // MR9 RJV: Added Destructor to remove string
 
@@ -199,13 +199,13 @@ public:
 	void setText(const ANTLRChar *s) override
 	{	if (s != _text) {
           if (_text) delete [] _text;
-          if (s != NULL) {
+          if (s != nullptr) {
          	_text = new ANTLRChar[strlen(s)+1];
-            if (_text == NULL) panic("ANTLRCommonNoRefCountToken::setText new failed");
+            if (_text == nullptr) panic("ANTLRCommonNoRefCountToken::setText new failed");
             strcpy(_text,s);
     	  } else {
             _text = new ANTLRChar[1];
-            if (_text == NULL) panic("ANTLRCommonNoRefCountToken::setText new failed");
+            if (_text == nullptr) panic("ANTLRCommonNoRefCountToken::setText new failed");
             strcpy(_text,"");
           };
         };
@@ -226,7 +226,7 @@ public:
          ANTLRAbstractToken(from) {
  	 setType(from._type);
 	 setLine(from._line);
-     _text=NULL;
+     _text=nullptr;
      setText(from._text);
   }
 
@@ -254,9 +254,9 @@ protected:
 
 public:
 	ANTLRCommonToken(ANTLRTokenType t, const ANTLRChar *s) : ANTLRRefCountToken(t,s)
-		{ setType(t); _line = 0; _text = NULL; setText(s); }                    // MR9
+		{ setType(t); _line = 0; _text = nullptr; setText(s); }                    // MR9
 	ANTLRCommonToken()
-		{ setType((ANTLRTokenType)0); _line = 0; _text = NULL; setText(""); }   // MR9
+		{ setType((ANTLRTokenType)0); _line = 0; _text = nullptr; setText(""); }   // MR9
 
 	~ANTLRCommonToken() override { if (_text) delete [] _text; } // MR9 RJV: Added Destructor to remove string
 
@@ -272,13 +272,13 @@ public:
 	void setText(const ANTLRChar *s) override
 	{	if (s != _text) {
           if (_text) delete [] _text;
-          if (s != NULL) {
+          if (s != nullptr) {
          	_text = new ANTLRChar[strlen(s)+1];
-            if (_text == NULL) panic("ANTLRCommonToken::setText new failed");
+            if (_text == nullptr) panic("ANTLRCommonToken::setText new failed");
             strcpy(_text,s);
     	  } else {
             _text = new ANTLRChar[1];
-            if (_text == NULL) panic("ANTLRCommonToken::setText new failed");
+            if (_text == nullptr) panic("ANTLRCommonToken::setText new failed");
             strcpy(_text,"");
           };
         };
@@ -299,7 +299,7 @@ public:
          ANTLRRefCountToken(from) {
  	 setType(from._type);
 	 setLine(from._line);
-     _text=NULL;
+     _text=nullptr;
      setText(from._text);
   }
 

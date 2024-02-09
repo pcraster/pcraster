@@ -30,7 +30,7 @@ struct Fixture
     ~Fixture()
     {
       delete d_case1;
-      d_case1 = 0;
+      d_case1 = nullptr;
     }
 
     mldd::DagRaster *d_case1;

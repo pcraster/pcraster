@@ -132,6 +132,10 @@ endif()
 
 
 if(PCRASTER_BUILD_MULTICORE)
+    # Bypass devbase... gh386
+    if("${CMAKE_OSX_ARCHITECTURES}" STREQUAL "arm64")
+        unset(CMAKE_OSX_ARCHITECTURES CACHE)
+    endif()
     CPMAddPackage(
         # GITHUB_REPOSITORY geoneric/fern
         # GIT_TAG c8d3152d029dc488cccd2edefdd8cff1d797f3c7

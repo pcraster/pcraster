@@ -180,7 +180,7 @@ void calc::LookupExpr::execute(FieldStack& resStack)
           result->setCell(res, i);
       }
     }
-  } catch(const Field::SetNonSpatialToMV& s) {
+  } catch(const Field::SetNonSpatialToMV&) {
      // pcrcalc/test225
      Element::runtimeError("No match in lookup...");
   }

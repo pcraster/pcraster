@@ -256,7 +256,7 @@ void calc::IndexTable::nameValues(const calc::BindedSymbol& par, std::vector<con
     try {
       const Value& v = find(par.externalName(),i);
       values[i] = &v;
-    } catch (com::Exception& msg) {
+    } catch (com::Exception&) {
       POSTCOND(FALSE);
     }
   }

@@ -23,7 +23,7 @@ BOOST_AUTO_TEST_CASE(test)
     mte.addResult("failureExpectedNotExistant.map");
     try {
       mte.test();
-    } catch (const com::Exception& e) {
+    } catch (const com::Exception&) {
       catchError=true;
     }
     BOOST_CHECK(catchError);

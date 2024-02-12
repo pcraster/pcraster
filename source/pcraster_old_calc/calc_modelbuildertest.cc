@@ -194,7 +194,7 @@ BOOST_AUTO_TEST_CASE(external_bindings)
     com::write("jan=3; #comment\njan=cees + 4\n",
                 "testAddBindings.txt");
     mb.parseExternalBindings(pn);
- } catch (const calc::PosException &e) {
+ } catch (const calc::PosException&) {
   catched=true;
  }
  BOOST_CHECK(catched);

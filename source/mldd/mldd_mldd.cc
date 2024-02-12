@@ -148,7 +148,7 @@ void mldd::Mldd::addStream(const UINT1* ldd)
 
   try {
     d_dag->updateOrder();
-  } catch(const NotADag& c) {
+  } catch(const NotADag&) {
     throw com::Exception("Cycle detected in addStream\n");
   }
 }
@@ -165,7 +165,7 @@ void mldd::Mldd::setStream(const std::vector<const UINT1*>& ldd)
 
   try {
     d_dag->updateOrder();
-  } catch(const NotADag& c) {
+  } catch(const NotADag&) {
     throw com::Exception("Cycle detected in setStream\n");
   }
 }

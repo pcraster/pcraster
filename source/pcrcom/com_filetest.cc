@@ -36,7 +36,7 @@ BOOST_AUTO_TEST_CASE(open_ifstream)
   try {
    std::ifstream fs;
    open(fs,"if_notreadable");
-  } catch ( const com::OpenFileError& e) {
+  } catch ( const com::OpenFileError& ) {
       visit=true;
   }
   BOOST_CHECK(visit);

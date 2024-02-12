@@ -60,7 +60,7 @@ BOOST_AUTO_TEST_CASE(update_order)
     bool cycle=false;
     try {
      dr.updateOrder();
-    } catch (const NotADag& c) {
+    } catch (const NotADag&) {
       cycle=true;
     }
     BOOST_CHECK(cycle);
@@ -185,7 +185,7 @@ BOOST_AUTO_TEST_CASE(cylcle)
     try {
       dr.updateOrder();
       // this should catch it
-    } catch (const NotADag& c) {
+    } catch (const NotADag&) {
       cycle=true;
     }
     BOOST_CHECK(cycle);

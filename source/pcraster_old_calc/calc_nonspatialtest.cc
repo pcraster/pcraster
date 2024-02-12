@@ -62,7 +62,7 @@ BOOST_AUTO_TEST_CASE(set_and_get_cell)
     bool catched=false;
     try {
      n.setCell(v,88);
-    } catch(const Field::SetNonSpatialToMV& v) {
+    } catch(const Field::SetNonSpatialToMV&) {
       catched=true;;
     }
     BOOST_CHECK(catched);

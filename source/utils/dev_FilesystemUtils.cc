@@ -19,7 +19,7 @@ bool accessible(std::filesystem::path const& path) {
       return true;
     }
   }
-  catch(std::filesystem::filesystem_error const& e){
+  catch(std::filesystem::filesystem_error const&){
     // permission denied
     return false;
   }

@@ -97,14 +97,14 @@ void calc::FieldLeaf::prepareExecution()
  */
 void calc::FieldLeaf::analyseUseDef()
 {
-  // I am a use node 
+  // I am a use node
   /* note that d_overWriteVal over a single element
    *  of an array, while deleteAtEndOfBlock removes
    *  all elements
    */
 
   /* if next is not a use, then I may be
-   * deleted, if not bail out 
+   * deleted, if not bail out
    */
    if (!nextIsNotUse())
     return;
@@ -147,7 +147,7 @@ void calc::FieldLeaf::skipExecution()
   //  if d_overWriteVal is true
   calc::FieldHandle f = d_par->value(d_index->select(), d_overWriteVal);
   }
-  catch(const calc::Field::NotInitialized& v) {
+  catch(const calc::Field::NotInitialized&) {
     // not initialized, forget about it, no deletion neccessary
   }
 }
@@ -155,7 +155,7 @@ void calc::FieldLeaf::execute(calc::FieldStack& stack)
 {
   try {
     stack.push(d_par->value(d_index->select(), d_overWriteVal));
-  } catch(const calc::Field::NotInitialized& v) {
+  } catch(const calc::Field::NotInitialized&) {
     runtimeError(
      d_par->userName()+d_index->selectedName()+" not initialized");
   }
@@ -174,10 +174,10 @@ const calc::FieldType &calc::FieldLeaf::fieldType() const
 void calc::FieldLeaf::print(calc::InfoScript& i)const
 {
   if (d_overWriteVal)
-    i.stream() << "<I>";  
+    i.stream() << "<I>";
   i.parTag(d_par->name());
-  i.stream() << d_index->variableName();  
+  i.stream() << d_index->variableName();
   if (d_overWriteVal)
-    i.stream() << "</I>";  
+    i.stream() << "</I>";
 }
 

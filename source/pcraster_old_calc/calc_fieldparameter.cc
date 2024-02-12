@@ -58,7 +58,7 @@ void calc::FieldParameter::deleteValues()
   for(size_t i=0; i < nrElements(); i++)
    try {
     FieldHandle v = value(i, true);
-   } catch(const calc::Field::NotInitialized& v) {
+   } catch(const calc::Field::NotInitialized&) {
      // not initialized skip, no need to delete
    }
 }

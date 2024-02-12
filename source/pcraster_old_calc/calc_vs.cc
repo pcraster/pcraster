@@ -180,7 +180,7 @@ VS expectedFileType(const std::string& fileName,VS typeExpected)
     geo::CSFMap mapFile(fileName);
     vs = calc::csfVs2vs(mapFile.valueScale());
   }
-  catch(const geo::NotA_PCRasterMap& p) {
+  catch(const geo::NotA_PCRasterMap&) {
    // it is not a map, but it DOES exist
    if (isIn(typeExpected,VS_FIELD))
       throw com::Exception("Expected map, got a different file");

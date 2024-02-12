@@ -296,7 +296,7 @@ void calc::Calc::parse()
    ParserInput pi(d_lexInput);
    ModelParser mp(pi,script());
    script().htmlPrint();
-  } catch(const Element::SyntaxErrorBug& seb) {
+  } catch(const Element::SyntaxErrorBug&) {
     // pcrcalc/test345(ab)
     throw com::Exception("Syntax Error");
   }
@@ -314,12 +314,12 @@ int calc::Calc::executeScript()
    script().run();
    d_executeScriptStatus = FinishedExecScript;
   }
-  catch (const QuitForExitOption& e) {
+  catch (const QuitForExitOption&) {
    // thrown by
    // calc::Script::processFileOutputValue
    d_executeScriptStatus = FileOutputValueExecScript;
    }
-  catch (const QuitForProgressCallBack& e){
+  catch (const QuitForProgressCallBack&){
      // Script::updateProgress is already updated
     d_executeScriptStatus = CanceledExecScript;
    }

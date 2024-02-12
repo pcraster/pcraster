@@ -107,6 +107,4 @@ template
 
 }
 
-using namespace calc;
-
 #endif

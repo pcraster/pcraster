@@ -36,10 +36,6 @@
 #define INCLUDED_DISCR_BLOCK
 #endif
 
-#if BOOST_VERSION > 107200
-  using namespace boost::placeholders;
-#endif
-
 
 namespace discr {
   // BlockData declarations.
@@ -296,7 +292,7 @@ inline void BlockData<ValueType>::createConnections()
   void (BlockData::*addVoxels)(size_t, size_t) = &BlockData::addVoxels;
 
   d_addVoxelsConnection = d_block->addVoxelsSignal().connect(
-         boost::bind(addVoxels, this, _1, _2));
+         boost::bind(addVoxels, this, boost::placeholders::_1, boost::placeholders::_2));
   d_removeVoxelsConnection = d_block->removeVoxelsSignal().connect(
          [this](auto && PH1, auto && PH2) { removeVoxels(std::forward<decltype(PH1)>(PH1), std::forward<decltype(PH2)>(PH2)); });
   // d_cutVoxelConnection = d_block->cutVoxelSignal().connect(
@@ -308,7 +304,7 @@ inline void BlockData<ValueType>::createConnections()
 //          CutVoxelStrategy strategy)
 // {
 //   d_cutVoxelConnection.disconnect();
-// 
+//
 //   switch(strategy) {
 //     case CutValue: {
 //       d_cutVoxelConnection = d_block->cutVoxelSignal().connect(
@@ -421,7 +417,7 @@ inline void BlockData<ValueType>::removeVoxels(
 //   \param     index Index of voxel stack to cut.
 //   \param     fraction Fraction of the voxel which is removed.
 //   \todo      Remove from interface, this function is useless isn't it?!
-// 
+//
 //   The original value is unchanged.
 // */
 // template<typename ValueType>
@@ -435,7 +431,7 @@ inline void BlockData<ValueType>::removeVoxels(
 // /*!
 //   \param     index Index of voxel stack to cut.
 //   \param     fraction Fraction of the voxel which is removed.
-// 
+//
 //   The new value is calculated as the original value minus a \a fraction of this value.
 // */
 // template<>

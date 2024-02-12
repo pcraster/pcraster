@@ -7,10 +7,6 @@
   #endif
 #include "dev_Algorithm.h"
 
-#if BOOST_VERSION > 107200
-  using namespace boost::placeholders;
-#endif
-
 /*!
   \file
   This file contains the implementation of the DataManager class.

@@ -23,6 +23,8 @@ struct Fixture
 
 };
 
+using namespace calc;
+
 BOOST_FIXTURE_TEST_SUITE(pointcodeblockdll, Fixture)
 
 BOOST_AUTO_TEST_CASE(testReportDefault)

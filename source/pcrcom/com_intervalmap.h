@@ -38,10 +38,6 @@
 #define INCLUDED_COM_INTERVAL
 #endif
 
-#if BOOST_VERSION > 107200
-  using namespace boost::placeholders;
-#endif
-
 
 namespace com {
   // IntervalMap declarations.
@@ -262,7 +258,7 @@ private:
            typename GetValueOp>
   Iter partition(Iter beginR, Iter endR, const_iterator i, GetValueOp op) const {
      intervalMap::PartitionFO<IT> fo(i->first);
-     return std::partition(beginR,endR,boost::bind(fo,boost::bind(op,_1)));
+     return std::partition(beginR,endR,boost::bind(fo,boost::bind(op,boost::placeholders::_1)));
   }
 
   /*!
@@ -273,7 +269,7 @@ private:
   Iter partitionOutside(Iter beginR, Iter endR, GetValueOp op) const {
      NotInInterval nii(*this);
      return std::partition(beginR,endR,
-           boost::bind(nii,boost::bind(op,_1)));
+           boost::bind(nii,boost::bind(op,boost::placeholders::_1)));
   }
 
   void print(std::ostream& s) const {
@@ -435,7 +431,7 @@ private:
            typename GetValueOp>
   Iter partition(Iter beginR, Iter endR, const_iterator i, GetValueOp op) const {
      intervalMap::PartitionFO<IT> fo(i->first);
-     return std::partition(beginR,endR,boost::bind(fo,boost::bind(op,_1)));
+     return std::partition(beginR,endR,boost::bind(fo,boost::bind(op,boost::placeholders::_1)));
   }
 
   /*!
@@ -446,7 +442,7 @@ private:
   Iter partitionOutside(Iter beginR, Iter endR, GetValueOp op) const {
      NotInInterval nii(*this);
      return std::partition(beginR,endR,
-           boost::bind(nii,boost::bind(op,_1)));
+           boost::bind(nii,boost::bind(op,boost::placeholders::_1)));
   }
 
   //----------------------------------------------------------------------------

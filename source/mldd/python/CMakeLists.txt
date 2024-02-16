@@ -10,7 +10,7 @@ target_link_libraries(_pcraster_mldd_python
     PRIVATE
         pcraster::mldd
         pcraster::model_engine
-        $<IF:$<CXX_COMPILER_ID:GNU>,Python::Python,Python::Module>
+        # $<IF:$<CXX_COMPILER_ID:GNU>,Python::Python,Python::Module> TODO 4.5
 )
 
 set_target_properties(_pcraster_mldd_python

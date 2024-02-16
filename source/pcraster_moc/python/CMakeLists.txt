@@ -12,18 +12,19 @@ target_link_libraries(_pcraster_moc_python
         pybind11::module
 )
 
+# TODO 4.5
 # TODO why is Python::module not working on Linux?
-if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-    target_link_libraries(_pcraster_moc_python
-        PRIVATE
-            Python::Python
-    )
-else()
-    target_link_libraries(_pcraster_moc_python
-        PRIVATE
-            Python::Module
-    )
-endif()
+# if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+#     target_link_libraries(_pcraster_moc_python
+#         PRIVATE
+#             Python::Python
+#     )
+# else()
+#     target_link_libraries(_pcraster_moc_python
+#         PRIVATE
+#             Python::Module
+#     )
+# endif()
 
 set_target_properties(_pcraster_moc_python
     PROPERTIES
@@ -31,6 +32,8 @@ set_target_properties(_pcraster_moc_python
             $<TARGET_FILE_DIR:pcrcalc>/pcraster/moc
         LIBRARY_OUTPUT_DIRECTORY
             $<TARGET_FILE_DIR:pcrcalc>/pcraster/moc
+        OUTPUT_NAME
+            "_pcraster_moc"
         INSTALL_RPATH
             "$ORIGIN/../../../lib"
         DEBUG_POSTFIX ""
@@ -65,44 +68,44 @@ add_custom_command(
 )
 
 
-#install(
-#    TARGETS _pcraster_moc_python
-#    LIBRARY DESTINATION ${PCRASTER_PYTHON_INSTALL_DIR}/pcraster/moc
-#    RUNTIME DESTINATION ${PCRASTER_PYTHON_INSTALL_DIR}/pcraster/moc
-#)
+install(
+   TARGETS _pcraster_moc_python
+   LIBRARY DESTINATION ${PCRASTER_PYTHON_INSTALL_DIR}/pcraster/moc
+   RUNTIME DESTINATION ${PCRASTER_PYTHON_INSTALL_DIR}/pcraster/moc
+)
 
-#install(
-#    FILES
-#        __init__.py
-#    DESTINATION
-#       ${PCRASTER_PYTHON_INSTALL_DIR}/pcraster/moc
-#)
+install(
+   FILES
+       __init__.py
+   DESTINATION
+      ${PCRASTER_PYTHON_INSTALL_DIR}/pcraster/moc
+)
 
-#if(PCRASTER_BUILD_TEST)
-#
-#    add_test(
-#        NAME
-#            pcraster_moc_python_test
-#        COMMAND
-#            ${Python_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test.py
-#    )
-#
-#    # add path of project's unit test related files to PYTHONPATH
-#    # required to execute this unit test via ctest properly
-#    if(WIN32)
-#        set(ENV_PATH $ENV{PATH})
-#        string(REPLACE ";" "\\;" ENV_PATH "${ENV_PATH}")
-#        # argument is a 'cmake' ; separated list of values, therefore escape the environment path separator
-#        set_tests_properties(pcraster_moc_python_test PROPERTIES
-#          ENVIRONMENT "PATH=${ENV_PATH}\\;$<TARGET_FILE_DIR:pcrcalc>;PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}\\;$<TARGET_FILE_DIR:pcrcalc>"
-#        )
-#    else()
-#        set_tests_properties(pcraster_moc_python_test PROPERTIES
-#          ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:$<TARGET_FILE_DIR:pcrcalc>"
-#        )
-#    endif()
-#
-#endif()
+if(PCRASTER_BUILD_TEST)
+
+   add_test(
+       NAME
+           pcraster_moc_python_test
+       COMMAND
+           ${Python_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test.py
+   )
+
+   # add path of project's unit test related files to PYTHONPATH
+   # required to execute this unit test via ctest properly
+   if(WIN32)
+       set(ENV_PATH $ENV{PATH})
+       string(REPLACE ";" "\\;" ENV_PATH "${ENV_PATH}")
+       # argument is a 'cmake' ; separated list of values, therefore escape the environment path separator
+       set_tests_properties(pcraster_moc_python_test PROPERTIES
+         ENVIRONMENT "PATH=${ENV_PATH}\\;$<TARGET_FILE_DIR:pcrcalc>;PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}\\;$<TARGET_FILE_DIR:pcrcalc>"
+       )
+   else()
+       set_tests_properties(pcraster_moc_python_test PROPERTIES
+         ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:$<TARGET_FILE_DIR:pcrcalc>"
+       )
+   endif()
+
+endif()
 
 
 # TODO

@@ -115,7 +115,7 @@ struct NodeList : public std::list<QDomNode> {
          if (eq)
            return true;
          std::ostringstream ostr;
-         ostr << "DomDiff difference on: " << cause << std::endl;
+         ostr << "DomDiff difference on: " << cause << '\n';
          print(*n1,ostr);
          print(*n2,ostr);
          return error(ostr.str());

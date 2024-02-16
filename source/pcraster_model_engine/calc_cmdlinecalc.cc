@@ -222,8 +222,8 @@ int calc::CmdLineCalc::execute()
   if (d_options.profile()) {
     // NOT maxBPC depends on static method of Spatial
     //  and BPC is not reset
-    std::cout << std::endl;
-    std::cout << "maximum bpc: " << Spatial::maxBPC() << std::endl;
+    std::cout << '\n';
+    std::cout << "maximum bpc: " << Spatial::maxBPC() << '\n';
   }
 
   // return  script().exitVal();

@@ -313,7 +313,7 @@ void BCF::calcVCond(std::stringstream &aStream, size_t layer, const std::string 
         int row = 1 + i / d_mf->d_nrOfColumns;
         int col = 1 + i % d_mf->d_nrOfColumns;
         std::stringstream stmp;
-        stmp << "Can not calculate VCONT in row " << row << " cell " << col << ", divsion by 0? " << std::endl;
+        stmp << "Can not calculate VCONT in row " << row << " cell " << col << ", divsion by 0? " << '\n';
         d_mf->d_cmethods->error(stmp.str(), "run");
       }
 
@@ -337,7 +337,7 @@ void BCF::calcVCond(std::stringstream &aStream, size_t layer, const std::string 
         int row = 1 + i / d_mf->d_nrOfColumns;
         int col = 1 + i % d_mf->d_nrOfColumns;
         std::stringstream stmp;
-        stmp << "Can not calculate VCONT in row " << row << " cell " << col << ", divsion by 0? " << std::endl;
+        stmp << "Can not calculate VCONT in row " << row << " cell " << col << ", divsion by 0? " << '\n';
         d_mf->d_cmethods->error(stmp.str(), "run");
       }
 
@@ -502,7 +502,7 @@ void BCF::get_binary(float *values, const std::string& description, size_t start
 
    if(description.compare(desc) != 0){
      std::stringstream stmp;
-     stmp << "Cannot find " << description << " in the BCF output file " << filename << std::endl;
+     stmp << "Cannot find " << description << " in the BCF output file " << filename << '\n';
      d_mf->d_cmethods->error(stmp.str(), "run");
    }
 
@@ -787,7 +787,7 @@ void BCF::write(std::string const& path) {
   std::ofstream content(filename);
 
   if(!content.is_open()){
-    std::cerr << "Can not write " << filename << std::endl;
+    std::cerr << "Can not write " << filename << '\n';
     exit(1);
   }
 
@@ -892,7 +892,7 @@ void BCF::write_hy(std::string const& path)  {
   std::ofstream content(filename);
 
   if(!content.is_open()){
-    std::cerr << "Can not write " << filename << std::endl;
+    std::cerr << "Can not write " << filename << '\n';
     exit(1);
   }
 
@@ -932,7 +932,7 @@ void BCF::write_tran(std::string const& path)  {
   std::ofstream content(filename);
 
   if(!content.is_open()){
-    std::cerr << "Can not write " << filename << std::endl;
+    std::cerr << "Can not write " << filename << '\n';
     exit(1);
   }
 
@@ -978,7 +978,7 @@ void BCF::write_vcond(std::string const& path)  {
   std::ofstream content(filename);
 
   if(!content.is_open()){
-    std::cerr << "Can not write " << filename << std::endl;
+    std::cerr << "Can not write " << filename << '\n';
     exit(1);
   }
 
@@ -1019,7 +1019,7 @@ void BCF::write_vcond(std::string const& path)  {
               int row = 1 + i / d_mf->d_nrOfColumns;
               int col = 1 + i % d_mf->d_nrOfColumns;
               std::stringstream stmp;
-              stmp << "Can not calculate VCONT in row " << row << " cell " << col << ", divsion by 0? " << std::endl;
+              stmp << "Can not calculate VCONT in row " << row << " cell " << col << ", divsion by 0? " << '\n';
               d_mf->d_cmethods->error(stmp.str(), "run");
             }
 
@@ -1048,7 +1048,7 @@ void BCF::write_vcond(std::string const& path)  {
               int row = 1 + i / d_mf->d_nrOfColumns;
               int col = 1 + i % d_mf->d_nrOfColumns;
               std::stringstream stmp;
-              stmp << "Can not calculate VCONT in row " << row << " cell " << col << ", divsion by 0? " << std::endl;
+              stmp << "Can not calculate VCONT in row " << row << " cell " << col << ", divsion by 0? " << '\n';
               d_mf->d_cmethods->error(stmp.str(), "run");
             }
 
@@ -1079,7 +1079,7 @@ void BCF::write_wetdry(std::string const& path)  {
   std::ofstream content(filename);
 
   if(!content.is_open()){
-    std::cerr << "Can not write " << filename << std::endl;
+    std::cerr << "Can not write " << filename << '\n';
     exit(1);
   }
 
@@ -1119,7 +1119,7 @@ void BCF::write_sf1(std::string const& path){
   std::ofstream content(filename);
 
   if(!content.is_open()){
-    std::cerr << "Can not write " << filename << std::endl;
+    std::cerr << "Can not write " << filename << '\n';
     exit(1);
   }
 
@@ -1151,7 +1151,7 @@ void BCF::write_sf2(std::string const& path){
   std::ofstream content(filename);
 
   if(!content.is_open()){
-    std::cerr << "Can not write " << filename << std::endl;
+    std::cerr << "Can not write " << filename << '\n';
     exit(1);
   }
 

@@ -226,8 +226,8 @@ extern "C" PCR_DLL_FUNC(int)  executeCommandLine(int argc, char**argv)
     calc::CmdLineCalc c(argc,argv);
     r=c.run();
     if (c.printProfileInfo()) {
-      std::cout << std::endl;
-      std::cout << "maxBPC: "  <<  calc::Spatial::maxBPC()  << std::endl;
+      std::cout << '\n';
+      std::cout << "maxBPC: "  <<  calc::Spatial::maxBPC()  << '\n';
     }
   }
   return r;

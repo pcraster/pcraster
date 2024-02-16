@@ -122,13 +122,13 @@ class MessagesTestDBPrivate:
 
   void writeDump(const std::string& id, const std::string& reason) const
   {
-    d_dump << "id: " << id  << " " << reason << std::endl;
+    d_dump << "id: " << id  << " " << reason << '\n';
 
     // write into dumpmsg.txt
     com::write(d_dump.str(),"dumpmsg.txt");
     d_dump.clear();
 
-    std::cerr << "./dumpmsg.txt:1:1:" << reason << std::endl;
+    std::cerr << "./dumpmsg.txt:1:1:" << reason << '\n';
   }
 
  // std::vector<QDomElement> c(pcrxml::childElements(e));

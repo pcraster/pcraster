@@ -161,7 +161,7 @@ void calc::TssOutputValue::flushToFile()
          v = AppOutputDirection(v);
        f << " " << std::setw(valFmt) << v;
      }
-    f << std::endl;
+    f << '\n';
     if (!f.good())
       throw com::FileError(d_fw.tssFileName(),"writing data failed");
   }

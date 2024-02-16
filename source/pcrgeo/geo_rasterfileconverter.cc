@@ -116,7 +116,7 @@ void geo::RasterFileConverter::writeAscii(std::ostream& ofs) const
        ofs << " ";
      i++;
    }
-   ofs << std::endl;
+   ofs << '\n';
   }
 }
 

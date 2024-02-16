@@ -75,7 +75,7 @@ class PCRMF_EXPORT ModflowLink {
     auto i=objects.find(objName);
     // it is only allows to construct one modflow object
     if(objects.size() > 0){
-      std::cout << "Warning: only one PCRasterModflow extension object should be used, found additional object '" << objName << "'. Previous object will be deleted." << std::endl;
+      std::cout << "Warning: only one PCRasterModflow extension object should be used, found additional object '" << objName << "'. Previous object will be deleted." << '\n';
     }
     // instance already exists, constructing again means deleting the old one
     if (i!=objects.end()){
@@ -193,7 +193,7 @@ class PCRMF_EXPORT ModflowLink {
       i->second->getLowerFace(linkInTransferArray);
     }
     else{
-      std::cout << "Programming error: Can not assign " << methodName << std::endl;
+      std::cout << "Programming error: Can not assign " << methodName << '\n';
     }
   }
   ~ModflowLink();
@@ -269,20 +269,20 @@ PCRMF_EXPORT const char * pcr_LinkInExecute(const char *xml,
       }
     }
     else{
-      std::cout << "No function or object " << std::endl;
+      std::cout << "No function or object " << '\n';
     }
   }
   catch (xml_schema::parsing const& ){
     //std::cerr << "xml err: " << e << std::endl;
   }
   catch(std::exception const& e) {
-    std::cout << e.what() << std::endl;
+    std::cout << e.what() << '\n';
     xmlResultBuffer= wrapToLinkInExecuteResult(e.what());
     return xmlResultBuffer.c_str();
   }
   catch(...) {
     xmlResultBuffer= wrapToLinkInExecuteResult("unknown exception");
-    std::cerr << "unknown exception" << std::endl;
+    std::cerr << "unknown exception" << '\n';
     return xmlResultBuffer.c_str();
   }
   // no error
@@ -309,7 +309,7 @@ PCRMF_EXPORT const char * pcr_LinkInCheck(const char *xml){
 
   }
   catch(std::exception const& e) {
-    std::cout << e.what() << std::endl;
+    std::cout << e.what() << '\n';
     returnResult.error(e.what());
   }
   catch(...) {

@@ -98,7 +98,7 @@ namespace calc {
        if (d_nameStatTableMap.count(name)) {
           std::ostringstream is;
           is << "redefinition of textStatistics with name '"<<
-                name << "'" << std::endl;
+                name << "'" << '\n';
           throw com::Exception(is.str());
        }
 
@@ -257,11 +257,11 @@ ASTScript* XMLScriptClientInterface::createScriptAndAnalyzeNoContext()
     parse();
   } catch (pcrxsd::Exception const& e) {
     std::ostringstream is;
-    is << e.msg() << std::endl;
+    is << e.msg() << '\n';
     throw com::Exception(is.str());
   } catch (xml_schema::exception const& e) {
     std::ostringstream is;
-    is << e << std::endl;
+    is << e << '\n';
     throw com::Exception(is.str());
   }
 

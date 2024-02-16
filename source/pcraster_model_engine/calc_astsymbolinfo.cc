@@ -836,14 +836,14 @@ bool calc::ASTSymbolInfo::operator<(const ASTSymbolInfo& rhs)const
 
 std::ostream& calc::operator<<(std::ostream& s, calc::ASTSymbolInfo const& si)
 {
-  s << "name() (" << si.name() << ")" << std::endl;
-  s << "d_dataType(" << si.dataType() << ")" << std::endl;
+  s << "name() (" << si.name() << ")" << '\n';
+  s << "d_dataType(" << si.dataType() << ")" << '\n';
   if (si.d_definition) {
    std::ostringstream str;
    pcrxml::definition(str,*(si.d_definition),pcrxsd::namespaceInfoMap("PCRaster.xsd"));
    s << "d_definitionCreation(" << si.str(si.d_definitionCreation) << ")" 
-     << std::endl;
-   s << "d_definition(" << str.str() << ")" << std::endl;
+     << '\n';
+   s << "d_definition(" << str.str() << ")" << '\n';
   }
   return s;
 }

@@ -558,7 +558,7 @@ void com::write(std::ostream &s, const RawPalette &p)
   for(const auto & it : p)
   {
     s << it.red() << ' ' << it.green() << ' '
-      << it.blue() << std::endl;
+      << it.blue() << '\n';
   }
 }
 

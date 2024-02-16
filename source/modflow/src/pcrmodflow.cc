@@ -686,7 +686,7 @@ size_t PCRModflow::mfLayer2BlockLayer(size_t mflayer) {
     return d_layer2BlockLayer.at(size-mflayer);
   }
   catch(std::exception const& e) {
-    std::cout << "mfLayer2BlockLayer " << mflayer << " "<< e.what() << std::endl;
+    std::cout << "mfLayer2BlockLayer " << mflayer << " "<< e.what() << '\n';
     exit(1);
   }
 }
@@ -1221,7 +1221,7 @@ bool PCRModflow::runModflow(const std::string & working_directory) {
     modflow_converged();
   }
   else {
-    std::cerr << "Can not write MODFLOW input files" << std::endl;
+    std::cerr << "Can not write MODFLOW input files" << '\n';
     exit(1);
   }
 
@@ -1255,7 +1255,7 @@ void PCRModflow::modflow_converged() {
   std::string filename = mf::execution_path(run_directory(), "pcrmf.lst");
 
   if(!std::filesystem::exists(filename)) {
-    std::cerr << "  Error in PCRasterModflow: can not open global list file " << filename << std::endl;
+    std::cerr << "  Error in PCRasterModflow: can not open global list file " << filename << '\n';
     exit(1);
   }
   std::ifstream fileInput(filename);
@@ -1274,7 +1274,7 @@ void PCRModflow::modflow_converged() {
   }
   if(d_modflow_converged == false){
     printList();
-    std::cerr << "\nError: MODFLOW failed to converge" << std::endl;
+    std::cerr << "\nError: MODFLOW failed to converge" << '\n';
   }
 }
 
@@ -1283,10 +1283,10 @@ void PCRModflow::printList() {
   std::string filename = mf::execution_path(run_directory(), "pcrmf.lst");
 
   if(!std::filesystem::exists(filename)) {
-    std::cerr << "  Error in PCRasterModflow: can not open global list file " << filename << std::endl;
+    std::cerr << "  Error in PCRasterModflow: can not open global list file " << filename << '\n';
     exit(1);
   }
-  std::cout << "  Tail of global list file " << filename << ":" << std::endl;
+  std::cout << "  Tail of global list file " << filename << ":" << '\n';
   std::ifstream file;
   std::string line;
   file.open(filename, std::ios::in);
@@ -1299,7 +1299,7 @@ void PCRModflow::printList() {
   file.seekg(len - last);
   while(!file.eof()) {
     getline(file, line);
-    std::cout << line << std::endl;
+    std::cout << line << '\n';
 
   }
   file.close();

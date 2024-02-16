@@ -213,10 +213,10 @@ class EventChain : public std::vector<UDEvent>
   }
 
   void  print() const {
-    std::cerr << "----------" << std::endl;
+    std::cerr << "----------" << '\n';
     for(auto e : *this)
        e.print();
-    std::cerr << "----------" << std::endl;
+    std::cerr << "----------" << '\n';
   }
 
   void  setLastUse(const std::string& name) const {

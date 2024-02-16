@@ -144,7 +144,7 @@ calc::PointCodeBodyGenerator::PointCodeBodyGenerator(
     n++;
   }
 
-  d_loop << "for(size_t i=0; i<n; ++i ) { " << std::endl;
+  d_loop << "for(size_t i=0; i<n; ++i ) { " << '\n';
 }
 
 
@@ -180,7 +180,7 @@ std::string calc::PointCodeBodyGenerator::tmpDef(const BaseExpr* e) const
 {
   std::ostringstream result;
   result << "tmp" << e;
-  (*d_curr) << crType(e) << result.str() << ";" << std::endl;
+  (*d_curr) << crType(e) << result.str() << ";" << '\n';
   return result.str();
 }
 
@@ -222,7 +222,7 @@ void calc::PointCodeBodyGenerator::visitAss(ASTAss*  a)
     if (d_args.back().expr()) {
       // must be assigned an inliner
       (*d_curr) << "// forced inline assignment "
-                << a->shortPosText() << std::endl;
+                << a->shortPosText() << '\n';
       std::string name=tmpDef(d_args.back().expr());
       assignment(name,"0");
       d_parNames.insert(std::make_pair(lhs->name(),name));
@@ -234,7 +234,7 @@ void calc::PointCodeBodyGenerator::visitAss(ASTAss*  a)
     }
   } else {
     // p = tmp0x74834738
-    (*d_curr) << "// " << a->shortPosText() << std::endl;
+    (*d_curr) << "// " << a->shortPosText() << '\n';
     assignment(par(lhs),"0");
     pop();
   }
@@ -245,10 +245,10 @@ void calc::PointCodeBodyGenerator::assignment(
     const std::string& domainCheck) const
 {
     (*d_curr) << "if( (" << mvTest(d_args.back().names()) << ")||"
-              << domainCheck << ")" << std::endl
-              << " pcr::setMV(" << result << ");" << std::endl
-              << "else" << std::endl
-              << " " << result << "= " << d_args.back().value() << ";" << std::endl;
+              << domainCheck << ")" << '\n'
+              << " pcr::setMV(" << result << ");" << '\n'
+              << "else" << '\n'
+              << " " << result << "= " << d_args.back().value() << ";" << '\n';
 }
 
 void calc::PointCodeBodyGenerator::doExpr(
@@ -263,7 +263,7 @@ void calc::PointCodeBodyGenerator::doExpr(
   if (dc != "0" || e->returnDataType().stNonSpatial()) {
     // can not inline, due to domain print
     // do not want to inline due to nonspatial, print in d_ns
-    (*d_curr) << "// " << e->shortPosText() << std::endl;
+    (*d_curr) << "// " << e->shortPosText() << '\n';
     std::string r(tmpDef(e));
     assignment(r,dc);
 
@@ -277,11 +277,11 @@ void calc::PointCodeBodyGenerator::doIfThenElse(
     BaseExpr* e)
 {
    // ifthenelse in calc_pointcodedllheader.h
-   (*d_curr) << "// " << e->shortPosText() << std::endl;
+   (*d_curr) << "// " << e->shortPosText() << '\n';
    std::string r(tmpDef(e));
    (*d_curr) << "_ifthenelse<"<< crType(e) << ">("
        << r << ","
-       << arg(0) << "," << arg(1) << "," << arg(2) << ");" << std::endl;
+       << arg(0) << "," << arg(1) << "," << arg(2) << ");" << '\n';
    pop();
    pop();
    pop();
@@ -302,9 +302,9 @@ void calc::PointCodeBodyGenerator::visitNumber(ASTNumber*  n)
 
 void calc::PointCodeBodyGenerator::print(std::ostream& s) const
 {
-  s << d_ns.str()      << std::endl;
-  s << d_loop.str()    << std::endl;
-  s << "} // end loop" << std::endl;
+  s << d_ns.str()      << '\n';
+  s << d_loop.str()    << '\n';
+  s << "} // end loop" << '\n';
 }
 
 //----------------------------------------------------------------------------

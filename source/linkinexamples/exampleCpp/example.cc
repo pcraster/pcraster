@@ -172,7 +172,7 @@ PCR_DLL_FUNC (const char *) pcr_LinkInExecute(
     }
   }
   catch(xml_schema::parsing const& e){
-    std::cerr <<  e << std::endl;
+    std::cerr <<  e << '\n';
     xmlResultBuffer = wrapToLinkInExecuteResult(e.what());
     return xmlResultBuffer.c_str();
   } catch(std::exception const& e) {
@@ -216,7 +216,7 @@ PCR_DLL_FUNC (const char *) pcr_LinkInCheck(
           }
   }
   catch(xml_schema::parsing const& e){
-    std::cerr << e << std::endl;
+    std::cerr << e << '\n';
     xmlResultBuffer = wrapToLinkInExecuteResult(e.what());
     return xmlResultBuffer.c_str();
 

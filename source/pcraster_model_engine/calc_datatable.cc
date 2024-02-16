@@ -232,7 +232,7 @@ void calc::DataTable::print(std::ostream& s) const
   auto i=d_table.begin();
   for(  ; i!=d_table.end(); ++i)
     s << "symbol: " << i->second
-      << " dataValue: " << i->second.d_dv << std::endl;
+      << " dataValue: " << i->second.d_dv << '\n';
 }
 
 //! do all assignable data items hold no value?

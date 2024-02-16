@@ -138,10 +138,10 @@ void calc::PointCodeBlockDll::generateSource(
 {
   std::ofstream s("dlltest.cc");
 
-  s << "#ifndef INCLUDED_CALC_POINTCODEDLLHEADER" << std::endl
-    << "#include \"calc_pointcodedllheader.h\"" << std::endl
-    << "#define INCLUDED_CALC_POINTCODEDLLHEADER" << std::endl
-    << "#endif" << std::endl;
+  s << "#ifndef INCLUDED_CALC_POINTCODEDLLHEADER" << '\n'
+    << "#include \"calc_pointcodedllheader.h\"" << '\n'
+    << "#define INCLUDED_CALC_POINTCODEDLLHEADER" << '\n'
+    << "#endif" << '\n';
   for(auto i : l)
    i->genCode(s);
 }

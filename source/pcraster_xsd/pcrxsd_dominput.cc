@@ -181,7 +181,7 @@ bool pcrxsd::VerboseErrorHandler::handleError(const DOMError& domError)
   d_msg << domError.getLocation()->getURI()
        << ", line " << domError.getLocation()->getLineNumber()
        << ", char " << domError.getLocation()->getColumnNumber()
-       << "\n  Message: " << domError.getMessage() << std::endl;
+       << "\n  Message: " << domError.getMessage() << '\n';
   return true; // do not stop processing
 }
 
@@ -217,7 +217,7 @@ bool pcrxsd::ViErrorHandler::handleError(const DOMError& domError)
   else
       d_msg << "Fatal Error";
 
-  d_msg << ": " << domError.getMessage() << std::endl;
+  d_msg << ": " << domError.getMessage() << '\n';
   return true; //  do not stop processing
 }
 
@@ -407,17 +407,17 @@ DOMDocument* DOMInput::document()
   } catch (const XMLException& toCatch) {
      std::ostringstream msg;
        msg << "\nError during parsing, exception message is:  \n"
-             << toCatch.getMessage() << "\n" << std::endl;
+             << toCatch.getMessage() << "\n" << '\n';
      throw Exception(msg.str());
   } catch (const DOMException& toCatch) {
     const unsigned int maxChars = 2047;
     XMLCh errText[maxChars + 1];
     std::ostringstream msg;
     msg << "\nDOM Error during parsing: DOMException code is: "
-        << toCatch.code << std::endl;
+        << toCatch.code << '\n';
     if (DOMImplementation::
          loadDOMExceptionMsg(toCatch.code, errText, maxChars))
-        msg << "Message is: " << errText << std::endl;
+        msg << "Message is: " << errText << '\n';
     throw Exception(msg.str());
   } catch (...) {
     throw Exception("Unexpected exception in DOMInput");

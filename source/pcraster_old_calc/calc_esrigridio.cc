@@ -201,11 +201,11 @@ calc::EsriGridIO::EsriGridIO()
 void calc::EsriGridIO::throwError(const std::string& msg)
 {
    std::ostringstream str;
-   str << msg << std::endl;
-   str << std::endl;
-   str << "Extended info:" << std::endl;
-   str << "dll: " << d_dllName << std::endl;
-   str << "cwd: " << com::currentWorkingDirectory().toString() << std::endl;
+   str << msg << '\n';
+   str << '\n';
+   str << "Extended info:" << '\n';
+   str << "dll: " << d_dllName << '\n';
+   str << "cwd: " << com::currentWorkingDirectory().toString() << '\n';
 #ifdef WIN32
    str << "win32: " << com::win32GetLastError() << std::endl;
 #endif

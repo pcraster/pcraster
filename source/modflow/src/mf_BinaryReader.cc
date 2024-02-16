@@ -83,8 +83,8 @@ void BinaryReader::read(const std::string & err_mgs, const std::string & filenam
 
   std::ifstream file(filename.c_str(), std::ios::in | std::ios::binary);
   if(!file.is_open()){
-    std::cerr << "Error in PCRasterModflow: " << std::endl << "  ";
-    std::cerr << err_mgs << std::endl;
+    std::cerr << "Error in PCRasterModflow: " << '\n' << "  ";
+    std::cerr << err_mgs << '\n';
     //d_mf->d_cmethods->errorMessage(err_mgs, "run");
     exit(1);
   }
@@ -112,9 +112,9 @@ void BinaryReader::read(const std::string & err_mgs, const std::string & filenam
   //std::cout << description << std::endl;
 
    if(description.compare(desc) != 0){
-     std::cerr << "Error in PCRasterModflow: " << std::endl;
+     std::cerr << "Error in PCRasterModflow: " << '\n';
      //std::stringstream stmp;
-     std::cerr << "  Cannot find " << description << " in the output file " << filename << std::endl;
+     std::cerr << "  Cannot find " << description << " in the output file " << filename << '\n';
      //d_mf->d_cmethods->errorMessage(stmp.str(), "run");
      exit(1);
    }

@@ -215,9 +215,9 @@ std::string calc::PointCodeBlock::dllFunctionName() const
  */
 void calc::PointCodeBlock::genCode(std::ostream& s) const
 {
-  s << std::endl << "extern \"C\" void " 
+  s << '\n' << "extern \"C\" void " 
     << dllFunctionName() << "(CellPtr* v,size_t n) {"
-    << std::endl;
+    << '\n';
 
   ParSet vContents=transfer();
 
@@ -239,7 +239,7 @@ void calc::PointCodeBlock::genCode(std::ostream& s) const
 
   generatePointCodeBody(s,d_pointCode,vContents);
 
-  s << std::endl << "}" << std::endl;
+  s << '\n' << "}" << '\n';
 }
 
 void calc::PointCodeBlock::accept(ASTVisitor& v)
@@ -313,15 +313,15 @@ std::string calc::PointCodeBlock::rangeText() const
 
 void calc::PointCodeBlock::print(std::ostream& s) const
 {
-  s << rangeText() << std::endl;
+  s << rangeText() << '\n';
 #ifdef DEBUG_DEVELOP
   s << " d_pars"     << d_pars << std::endl;
   s << " Update"     << setIntersection(d_input,d_output) << std::endl;
 #endif
-  s << " d_input"    << d_input    << std::endl;
-  s << " d_output"   << d_output   << std::endl;
-  s << " d_local"    << d_local    << std::endl;
-  s << " d_nrOps "   << d_nrOps    << std::endl;
+  s << " d_input"    << d_input    << '\n';
+  s << " d_output"   << d_output   << '\n';
+  s << " d_local"    << d_local    << '\n';
+  s << " d_nrOps "   << d_nrOps    << '\n';
 }
 
 calc::ASTNode* calc::PointCodeBlock::replacedCode() const

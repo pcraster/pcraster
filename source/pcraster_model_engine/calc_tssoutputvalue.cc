@@ -357,7 +357,7 @@ void calc::FileTimeoutput::printLine(
          d = AppOutputDirection(d);
        f << " " << std::setw(valFmt) << d;
     }
-  f << std::endl;
+  f << '\n';
   if (!f.good()) {
       d_fileErrorOccured=true;
       throw com::FileError(d_stackInfo.stackName(),"writing data failed");

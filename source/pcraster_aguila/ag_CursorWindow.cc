@@ -373,7 +373,7 @@ void CursorWindow::saveToText(
   for(auto & guide : guides) {
     stream
        << dataObject.name(guide) << " = "
-       << dataObject.label(guide) << std::endl;
+       << dataObject.label(guide) << '\n';
   }
 }
 

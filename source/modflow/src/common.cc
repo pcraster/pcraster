@@ -69,7 +69,7 @@ Common::Common(PCRModflow *mf) : d_mf(mf){
 bool Common::writeToFile(const std::string& filename, const std::string& msg){
   std::ofstream file(filename.c_str());
   if(!file.is_open()){
-    std::cerr << "Can not write " << filename << std::endl;
+    std::cerr << "Can not write " << filename << '\n';
     return false;
   }
   file << msg;
@@ -118,7 +118,7 @@ template<typename T>
 void Common::writeMatrix(std::stringstream& aStream, const std::string& aString, const discr::BlockData<T>& bdata, size_t layer)
 {
   size_t count = 0;
-  aStream << aString << std::endl;
+  aStream << aString << '\n';
   for(size_t j=0; j<d_mf->d_nrOfRows; j++){
     for(size_t k=0;k<d_mf->d_nrOfColumns;k++){
       aStream << " " << bdata.cell(count)[layer];
@@ -133,8 +133,8 @@ void Common::writeMatrix(std::stringstream& aStream, const std::string& aString,
 * printing error message
 */
 void Common::error(const std::string &msg, const std::string &methodName){
-  std::cerr << std::endl << "Error in PCRasterModflow: " << methodName << std::endl;
-  std::cerr << "  " << msg << std::endl;
+  std::cerr << '\n' << "Error in PCRasterModflow: " << methodName << '\n';
+  std::cerr << "  " << msg << '\n';
   std::exit(1);
 }
 

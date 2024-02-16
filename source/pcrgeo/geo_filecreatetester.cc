@@ -230,7 +230,7 @@ bool geo::FileCreateTester::equalToTss(
         std::ostringstream str;
         str << "value at (timestep,colNr) (" 
             << r+1 << "," << c+1 << ") differ:\n  "
-            << v1  << "-" << v2 << "=" << diff << std::endl;
+            << v1  << "-" << v2 << "=" << diff << '\n';
         firstErrMsg=str.str();
      }
      if (c) { // skip time column

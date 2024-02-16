@@ -49,7 +49,7 @@ namespace calc {
      }
      bool input(const NameSet& input) {
        if (!(d_input == input)) {
-         std::cerr << "Input mismatch got :" << d_input << std::endl;
+         std::cerr << "Input mismatch got :" << d_input << '\n';
          std::cerr << "          expected :"; printSet(std::cerr,input);
          return false;
        }
@@ -81,7 +81,7 @@ namespace calc {
      static void printSet(std::ostream& str, const NameSet& s) {
        str << "(";
        std::copy(s.begin(),s.end(),std::ostream_iterator<std::string>(str,","));
-       str << ")" << std::endl;
+       str << ")" << '\n';
      }
   };
  }

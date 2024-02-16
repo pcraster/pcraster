@@ -187,7 +187,7 @@ void WEL::write_list(std::string const& path){
   std::ofstream content(filename);
 
   if(!content.is_open()){
-    std::cerr << "Can not write " << filename << std::endl;
+    std::cerr << "Can not write " << filename << '\n';
     exit(1);
   }
 
@@ -235,7 +235,7 @@ void WEL::write(std::string const& path){
   std::ofstream content(filename);
 
   if(!content.is_open()){
-    std::cerr << "Can not write " << filename << std::endl;
+    std::cerr << "Can not write " << filename << '\n';
     exit(1);
   }
 

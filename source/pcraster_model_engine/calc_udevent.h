@@ -144,7 +144,7 @@ public:
      std::cerr << " d_par->shortPosText(" << d_par->shortPosText() << ")";
    else
      std::cerr << " d_block(" << d_block << ")";
-   std::cerr << std::endl;
+   std::cerr << '\n';
   }
 
 };

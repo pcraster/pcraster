@@ -172,9 +172,9 @@ mldd::Diffuse::Diffuse(geo::ScalarSimpleRaster&  dem,
 mldd::Diffuse::~Diffuse()
 {
  if (d_infinity || d_minInfinity) {
-  std::cerr << std::endl;
-  std::cerr << "Dem of diffuse has reached "<< d_infinity << " times +infinity " << std::endl;
-  std::cerr << "Dem of diffuse has reached "<< d_minInfinity << " times -infinity " << std::endl;
+  std::cerr << '\n';
+  std::cerr << "Dem of diffuse has reached "<< d_infinity << " times +infinity " << '\n';
+  std::cerr << "Dem of diffuse has reached "<< d_minInfinity << " times -infinity " << '\n';
  }
 }
 

@@ -62,7 +62,7 @@ set_target_properties(_pcraster_modflow_python
         RUNTIME_OUTPUT_DIRECTORY  "$<TARGET_FILE_DIR:pcrcalc>/pcraster"
         OUTPUT_NAME               "_pcraster_modflow"
         DEBUG_POSTFIX ""
-        INSTALL_RPATH             "\\\$ORIGIN/../../lib"
+        INSTALL_RPATH             "$ORIGIN/../../lib"
 )
 
 

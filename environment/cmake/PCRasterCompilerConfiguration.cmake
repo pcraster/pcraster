@@ -20,7 +20,7 @@ set(CMAKE_SKIP_BUILD_RPATH  OFF)
 set(CMAKE_BUILD_WITH_INSTALL_RPATH OFF)
 
 # the RPATH to be used when installing
-set(CMAKE_INSTALL_RPATH "\\\$ORIGIN/../lib")
+set(CMAKE_INSTALL_RPATH "$ORIGIN/../lib")
 
 # don't add the automatically determined parts of the RPATH
 # which point to directories outside the build tree to the install RPATH

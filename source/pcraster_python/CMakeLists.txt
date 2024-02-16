@@ -135,7 +135,7 @@ set_target_properties(_pcraster
         LIBRARY_OUTPUT_DIRECTORY
             $<TARGET_FILE_DIR:pcrcalc>/pcraster
         INSTALL_RPATH
-            "\\\$ORIGIN/../../lib"
+            "$ORIGIN/../../lib"
 )
 
 

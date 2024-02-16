@@ -151,7 +151,7 @@ set_target_properties(_pcraster_multicore
         LIBRARY_OUTPUT_DIRECTORY
             $<TARGET_FILE_DIR:pcrcalc>/pcraster/multicore
         INSTALL_RPATH
-            "\\\$ORIGIN/../../../lib"
+            "$ORIGIN/../../../lib"
 )
 
 install(

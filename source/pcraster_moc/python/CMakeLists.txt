@@ -32,7 +32,7 @@ set_target_properties(_pcraster_moc_python
         LIBRARY_OUTPUT_DIRECTORY
             $<TARGET_FILE_DIR:pcrcalc>/pcraster/moc
         INSTALL_RPATH
-            "\\\$ORIGIN/../../../lib"
+            "$ORIGIN/../../../lib"
         DEBUG_POSTFIX ""
 )
 

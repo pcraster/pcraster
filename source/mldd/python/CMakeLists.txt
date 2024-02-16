@@ -24,7 +24,7 @@ set_target_properties(_pcraster_mldd_python
         DEBUG_POSTFIX
             ""
         INSTALL_RPATH
-            "\\\$ORIGIN/../../../lib"
+            "$ORIGIN/../../../lib"
 )
 
 add_dependencies(_pcraster_mldd_python _pcraster)

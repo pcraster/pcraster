@@ -253,6 +253,7 @@ if(PCRASTER_WITH_OPENGL)
   target_compile_definitions(pcraster_aguila_objects
     PRIVATE
       AGUILA_WITH_OPENGL
+      GL_SILENCE_DEPRECATION
   )
 endif()
 

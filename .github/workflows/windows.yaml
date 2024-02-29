@@ -1,6 +1,10 @@
 name: Windows CI
 
-on: [push]
+on:
+    push:
+    pull_request:
+    schedule:
+      - cron:  '34 2 1 * *'
 
 jobs:
     build:
@@ -34,7 +38,7 @@ jobs:
           shell: cmd
 
         - name: Checkout PCRaster
-          uses: actions/checkout@v3
+          uses: actions/checkout@v4
 
         - uses: conda-incubator/setup-miniconda@v2
           with:

@@ -9,22 +9,8 @@ target_link_libraries(_pcraster_moc_python
     PUBLIC
         pcraster::moc
         pcraster::model_engine
-        pybind11::module
+        $<IF:$<CXX_COMPILER_ID:GNU>,Python::Python,Python::Module>
 )
-
-# TODO 4.5
-# TODO why is Python::module not working on Linux?
-# if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-#     target_link_libraries(_pcraster_moc_python
-#         PRIVATE
-#             Python::Python
-#     )
-# else()
-#     target_link_libraries(_pcraster_moc_python
-#         PRIVATE
-#             Python::Module
-#     )
-# endif()
 
 set_target_properties(_pcraster_moc_python
     PROPERTIES

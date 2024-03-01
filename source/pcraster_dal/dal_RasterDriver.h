@@ -104,6 +104,8 @@ public:
   // ACCESSORS
   //----------------------------------------------------------------------------
 
+  using Driver::read;
+
   Raster*          open                (std::string const& name) const;
 
   Raster*          open                (std::string const& name,

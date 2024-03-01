@@ -65,6 +65,8 @@ public:
   // ACCESSORS
   //----------------------------------------------------------------------------
 
+  using ConstantDriver::read;
+
   bool             exists              (std::string const& name,
                                         DataSpace const& space,
                                         DataSpaceAddress const& address) const override;

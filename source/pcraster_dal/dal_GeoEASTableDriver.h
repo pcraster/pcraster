@@ -90,6 +90,9 @@ public:
   // ACCESSORS
   //----------------------------------------------------------------------------
 
+  using TableDriver::read;
+  using TableDriver::open;
+
   Table*           open                (std::filesystem::path const& path) const override;
 
   /*

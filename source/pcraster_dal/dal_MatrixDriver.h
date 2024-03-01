@@ -66,6 +66,8 @@ public:
   // ACCESSORS
   //----------------------------------------------------------------------------
 
+  using Driver::read;
+
   Matrix*          read                (std::string const& name) const override;
 
   //! Opens the matrix with name \a name and reads the data into \a matrix.

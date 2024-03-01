@@ -146,6 +146,9 @@ public:
   // ACCESSORS
   //----------------------------------------------------------------------------
 
+  using BlockDriver::read;
+  using BlockDriver::open;
+
   bool             exists              (std::string const& name,
                                         DataSpace const& space,
                                         DataSpaceAddress const& address) const override;

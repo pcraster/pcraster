@@ -127,6 +127,10 @@ public:
   // ACCESSORS
   //----------------------------------------------------------------------------
 
+  using RasterDriver::read;
+  using RasterDriver::open;
+
+
   typedef std::vector<GDALDriver*>::iterator iterator;
 
   static iterator  begin               ();

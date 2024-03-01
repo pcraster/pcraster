@@ -241,6 +241,11 @@ else()
     )
 endif()
 
+target_compile_options(pcraster_aguila_objects
+    PRIVATE
+        "$<$<COMPILE_LANG_AND_ID:CXX,GNU,AppleClang,Clang>:-Wno-overloaded-virtual>"
+)
+
 target_compile_definitions(pcraster_aguila_objects
     PRIVATE
         PCR_DAL_SHARED_LINK

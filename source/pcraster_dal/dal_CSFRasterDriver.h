@@ -131,6 +131,9 @@ public:
   // ACCESSORS
   //----------------------------------------------------------------------------
 
+  using RasterDriver::read;
+  using RasterDriver::open;
+
   bool             exists              (std::string const& name,
                                         DataSpace const& space,
                                         DataSpaceAddress const& address) const override;

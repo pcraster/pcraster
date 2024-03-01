@@ -73,6 +73,8 @@ public:
   // ACCESSORS
   //----------------------------------------------------------------------------
 
+  using Driver::read;
+
   FeatureLayer*    open                (std::string const& name,
                                         TypeId typeId) const;
 

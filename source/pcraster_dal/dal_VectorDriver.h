@@ -84,6 +84,8 @@ public:
   // ACCESSORS
   //----------------------------------------------------------------------------
 
+  using Driver::read;
+
   bool             exists              (std::string const& name,
                                         DataSpace const& space=DataSpace(),
                                         DataSpaceAddress const& address=DataSpaceAddress()) const override;

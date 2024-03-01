@@ -34,6 +34,8 @@
 #include "pccts_string.h"
 #include "pccts_stdio.h"
 
+#include <cstdio>
+
 PCCTS_NAMESPACE_STD
 
 /* I have to put this here due to C++ limitation
@@ -67,6 +69,7 @@ SetWordType ANTLRParser::bitmask[sizeof(SetWordType)*8] = {
 	0x00000010, 0x00000020, 0x00000040, 0x00000080
 };
 
+size_t buf_size = 500;
 char ANTLRParser::eMsgBuffer[500] = "";
 
 ANTLRParser::
@@ -650,21 +653,21 @@ _setmatch_wdfltsig(SetWordType *tokensWanted,
 char *ANTLRParser::
 eMsgd(char *err,int d)
 {
-	sprintf(eMsgBuffer, err, d);	// dangerous, but I don't care
+	std::snprintf(eMsgBuffer, buf_size, err, d);	// dangerous, but I don't care
 	return eMsgBuffer;
 }
 
 char *ANTLRParser::
 eMsg(char *err, char *s)
 {
-	sprintf(eMsgBuffer, err, s);
+	std::snprintf(eMsgBuffer, buf_size, err, s);
 	return eMsgBuffer;
 }
 
 char *ANTLRParser::
 eMsg2(char *err,char *s, char *t)
 {
-	sprintf(eMsgBuffer, err, s, t);
+	std::snprintf(eMsgBuffer, buf_size, err, s, t);
 	return eMsgBuffer;
 }
 

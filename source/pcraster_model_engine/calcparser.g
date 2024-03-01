@@ -625,7 +625,7 @@ statement>[Parser::AP_ASTStat ret]:
          (
          ( ni:TOK_FILEOUTPUT expr>[AP_ASTNode r_expr]
           << notImplemented(ni);
-            $ret->transferStat(r_expr.release()); 
+            $ret->transferStat(r_expr.release());
           >>
          | { TOK_REPORT
             << $ret->setReportParsed(true); >>
@@ -640,7 +640,7 @@ statement>[Parser::AP_ASTStat ret]:
                <<
                   char buf[8];
                   static int  inSituNr=0; // harmless static
-                  sprintf(buf,"%d",inSituNr++);
+                  snprintf(buf,8,"%d",inSituNr++);
                   pos.setName(buf);
                   $ret->transferReportInSitu(
                      new calc::Report(pos, inSitu));
@@ -671,7 +671,7 @@ foreach>[Parser::AP_ASTStat ret]:
             calc::Id iter;
              AP_ASTNodeList forEachBody;
              calc::IdList in,except,s;
-             bool ascending=true; 
+             bool ascending=true;
          >>
           posF:TOK_FOREACH
           iterId:TOK_ID

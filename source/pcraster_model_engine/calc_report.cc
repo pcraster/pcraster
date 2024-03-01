@@ -31,6 +31,7 @@
 #define INCLUDED_CALC_TIMER
 #endif
 
+#include <cstdio>
 
 
 
@@ -86,18 +87,21 @@ void calc::ParsReportMoment::check()
      )
     return; // OK
 
-  char buf[128];
-  if (step == 0)
-    sprintf(buf,"%d-%d",start,end);
-  else
-    sprintf(buf,"%d+%d-%d",start,step,end);
+  size_t buf_size = 128;
+  char buf[buf_size];
+  if (step == 0) {
+    std::snprintf(buf, buf_size, "%d-%d", start, end);
+  }
+  else {
+    std::snprintf(buf, buf_size, "%d+%d-%d", start, step, end);
+  }
 
   /* pcrcalc/test24[234] */
   throw com::Exception("report moment contains invalid range "+quote(buf));
 }
 
 calc::Report::Report()
-  
+
 {
 }
 

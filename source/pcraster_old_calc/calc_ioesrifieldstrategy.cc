@@ -88,6 +88,7 @@
 #define INCLUDED_CALC_STACKINFO
 #endif
 
+#include <cstdio>
 #include <filesystem>
 
 /*!
@@ -354,8 +355,9 @@ std::string calc::IoEsriFieldStrategy::makeStackItemName(
   // directory name of stack
   com::PathName fName(stackName);
   createDir(fName);
-  char buf[12];
-  sprintf(buf,"%08d",atTimeStep);
+  size_t buf_size = 12;
+  char buf[buf_size];
+  std::snprintf(buf, buf_size, "%08d", atTimeStep);
   // name of ESRI grid
   fName += buf;
   fName.makeAbsolute();

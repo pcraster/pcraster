@@ -397,7 +397,8 @@ calc::LexToken::LexToken(
        // pcrcalc/test343
        d_pos->throwError("Illegal combination of number and name: "+quote(d_text));
      case TOK_ILLEGAL:
-       char aBuf[64];
+       size_t buf_size = 64;
+       char aBuf[buf_size];
        if (std::isprint(d_text[0])) {
          // pcrcalc/test318
          // argscalc/test41a
@@ -405,7 +406,7 @@ calc::LexToken::LexToken(
          d_pos->throwError("Unknown character(s) "+quote(d_text));
        }
        // pcrcalc/test375
-       sprintf(aBuf,"not printable: %X(hex)",d_text[0]);
+       std::snprintf(aBuf, buf_size, "not printable: %X(hex)", d_text[0]);
        d_pos->throwError(aBuf);
      default:;
    }

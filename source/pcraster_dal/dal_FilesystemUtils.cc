@@ -334,10 +334,11 @@ PCR_DAL_DECL std::filesystem::path timeStepPath83(
     //  ----------1-
     //  012345678901
     //  xxxxxxxx.xxx
-    char result[13];
+    size_t buf_size = 13;
+    char result[buf_size];
 
     // Print as 8+3.
-    (void)std::sprintf(result, "%011d", (int)timeStep);
+    (void)std::snprintf(result, buf_size, "%011d", (int)timeStep);
 
     // Move overlapping last 3 digits + '\0' to insert '.'.
     (void)std::memmove(result + 9, result + 8, 4);

@@ -69,7 +69,7 @@ SetWordType ANTLRParser::bitmask[sizeof(SetWordType)*8] = {
 	0x00000010, 0x00000020, 0x00000040, 0x00000080
 };
 
-size_t buf_size = 500;
+const size_t buf_size = 500;
 char ANTLRParser::eMsgBuffer[500] = "";
 
 ANTLRParser::

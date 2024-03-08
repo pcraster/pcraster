@@ -62,15 +62,16 @@ if(PCRASTER_WITH_FLAGS_NATIVE)
 endif()
 
 add_compile_options(
-    "$<$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:AppleClang,Clang>>:-pipe>"
-    "$<$<COMPILE_LANG_AND_ID:C,GNU,AppleClang,Clang>:>"
-    "$<$<COMPILE_LANG_AND_ID:CXX,GNU,AppleClang,Clang>:>"
+    "$<$<COMPILE_LANG_AND_ID:C,GNU,AppleClang,Clang>:-pipe>"
+    "$<$<COMPILE_LANG_AND_ID:CXX,GNU,AppleClang,Clang>:-pipe>"
+    "$<$<COMPILE_LANG_AND_ID:C,GNU>:-pedantic>"
+    "$<$<COMPILE_LANG_AND_ID:CXX,GNU>:-pedantic>"
     "$<$<CXX_COMPILER_ID:MSVC>:/W1>"
-    "$<$<AND:$<PLATFORM_ID:Linux>,$<COMPILE_LANG_AND_ID:C,GNU>,$<CONFIG:Debug>>:-Wall;-pedantic;-Wpointer-arith;-Wdeclaration-after-statement>"
-    "$<$<AND:$<PLATFORM_ID:Linux>,$<COMPILE_LANG_AND_ID:CXX,GNU>,$<CONFIG:Debug>>:>"
-    "$<$<AND:$<PLATFORM_ID:Linux>,$<COMPILE_LANG_AND_ID:C,GNU>,$<CONFIG:Release>>:-Wall;-pedantic;-Wpointer-arith;-Wdeclaration-after-statement;-Wno-maybe-uninitialized;-Wstrict-prototypes>"
-  #  "$<$<AND:$<PLATFORM_ID:Linux>,$<COMPILE_LANG_AND_ID:C,AppleClang,Clang>,$<CONFIG:Release>>:-Wall;-pedantic;-Wno-enum-conversion;-Wno-tautological-compare>"
-    "$<$<AND:$<PLATFORM_ID:Linux>,$<COMPILE_LANG_AND_ID:CXX,GNU>,$<CONFIG:Release>>:>"
+    #"$<$<AND:$<PLATFORM_ID:Linux>,$<COMPILE_LANG_AND_ID:C,GNU>,$<CONFIG:Debug>>:-Wall;-pedantic;-Wpointer-arith;-Wdeclaration-after-statement>"
+    #"$<$<AND:$<PLATFORM_ID:Linux>,$<COMPILE_LANG_AND_ID:CXX,GNU>,$<CONFIG:Debug>>:>"
+    #"$<$<AND:$<PLATFORM_ID:Linux>,$<COMPILE_LANG_AND_ID:C,GNU>,$<CONFIG:Release>>:-Wall;-pedantic;-Wpointer-arith;-Wdeclaration-after-statement;-Wno-maybe-uninitialized;-Wstrict-prototypes>"
+    #"$<$<AND:$<PLATFORM_ID:Linux>,$<COMPILE_LANG_AND_ID:C,AppleClang,Clang>,$<CONFIG:Release>>:-Wall;-pedantic;-Wno-enum-conversion;-Wno-tautological-compare>"
+    #"$<$<AND:$<PLATFORM_ID:Linux>,$<COMPILE_LANG_AND_ID:CXX,GNU>,$<CONFIG:Release>>:>"
     #"$<$<AND:$<PLATFORM_ID:Linux>,$<CXX_COMPILER_ID:Clang>>:-stdlib=libc++>" #;-lc++abi  -stdlib=libc++;-D_GLIBCXX_USE_CXX11_ABI=0
 )
 

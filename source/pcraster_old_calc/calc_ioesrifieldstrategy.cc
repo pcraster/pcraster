@@ -355,7 +355,7 @@ std::string calc::IoEsriFieldStrategy::makeStackItemName(
   // directory name of stack
   com::PathName fName(stackName);
   createDir(fName);
-  size_t buf_size = 12;
+  const size_t buf_size = 12;
   char buf[buf_size];
   std::snprintf(buf, buf_size, "%08d", atTimeStep);
   // name of ESRI grid

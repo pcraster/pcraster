@@ -73,7 +73,7 @@
 std::string com::createMessage(const char *format, ...)
 {
   std::va_list arguments;
-  size_t buf_size = 250;
+  const size_t buf_size = 250;
   char message[buf_size];
 
   va_start(arguments, format);
@@ -209,7 +209,7 @@ std::string com::longToStr(long v)
 //! Converts \a v to a string with no spaces
 std::string com::doubleToStr(double n)
 {
-  size_t buf_size = 128;
+  const size_t buf_size = 128;
   char aBuf[buf_size];
   std::snprintf(aBuf, buf_size, "%g", n);
   return std::string(aBuf);

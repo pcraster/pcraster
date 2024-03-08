@@ -397,7 +397,7 @@ calc::LexToken::LexToken(
        // pcrcalc/test343
        d_pos->throwError("Illegal combination of number and name: "+quote(d_text));
      case TOK_ILLEGAL:
-       size_t buf_size = 64;
+       const size_t buf_size = 64;
        char aBuf[buf_size];
        if (std::isprint(d_text[0])) {
          // pcrcalc/test318

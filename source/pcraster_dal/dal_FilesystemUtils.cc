@@ -334,7 +334,7 @@ PCR_DAL_DECL std::filesystem::path timeStepPath83(
     //  ----------1-
     //  012345678901
     //  xxxxxxxx.xxx
-    size_t buf_size = 13;
+    const size_t buf_size = 13;
     char result[buf_size];
 
     // Print as 8+3.

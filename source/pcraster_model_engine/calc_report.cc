@@ -87,7 +87,7 @@ void calc::ParsReportMoment::check()
      )
     return; // OK
 
-  size_t buf_size = 128;
+  const size_t buf_size = 128;
   char buf[buf_size];
   if (step == 0) {
     std::snprintf(buf, buf_size, "%d-%d", start, end);

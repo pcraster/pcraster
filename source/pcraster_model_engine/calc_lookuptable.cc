@@ -102,6 +102,7 @@ namespace calc {
     virtual void setData(void const* data)=0;
     virtual bool find(double& result, const std::vector<float>& prefixKey) const=0;
     virtual bool empty()const=0;
+    virtual ~MemoryInputTableCreator() {};
  };
 
  template <typename ArrayValueDataType>
@@ -190,7 +191,7 @@ LOOK_UP_TABLE *calc::LookupTable::createOldStyle(
 
 
 calc::LookupTable::LookupTable()
-     
+
 {
 }
 

@@ -523,55 +523,53 @@ BOOST_AUTO_TEST_CASE(string_less)
 
 BOOST_AUTO_TEST_CASE(format_)
 {
-  using namespace com;
-
   std::string unformatted, formatted;
 
   // Empty input.
   {
     unformatted = "";
-    formatted = format(unformatted, 2, 5);
+    formatted = com::format(unformatted, 2, 5);
     BOOST_CHECK(formatted == "");
   }
 
   // One space.
   {
     unformatted = " ";
-    formatted = format(unformatted, 2, 5);
+    formatted = com::format(unformatted, 2, 5);
     BOOST_CHECK(formatted == "   ");
   }
 
   // One char.
   {
     unformatted = "c";
-    formatted = format(unformatted, 2, 5);
+    formatted = com::format(unformatted, 2, 5);
     BOOST_CHECK(formatted == "  c");
   }
 
   // Spaces and chars, exactly one line.
   {
     unformatted = "c c";
-    formatted = format(unformatted, 2, 5);
+    formatted = com::format(unformatted, 2, 5);
     BOOST_CHECK(formatted == "  c c");
   }
 
   // Spaces and chars, more lines.
   {
     unformatted = " c c c c c c";
-    formatted = format(unformatted, 2, 5);
+    formatted = com::format(unformatted, 2, 5);
     BOOST_CHECK(formatted == "   c\n  c c\n  c c\n  c");
   }
 
   // Spaces and chars, more lines.
   {
     unformatted = "c c c c c c ";
-    formatted = format(unformatted, 2, 5);
+    formatted = com::format(unformatted, 2, 5);
     BOOST_CHECK(formatted == "  c c\n  c c\n  c c\n");
   }
 
   {
     unformatted = "bla bla bla bla bla";
-    formatted = format(unformatted, 2, 5);
+    formatted = com::format(unformatted, 2, 5);
     BOOST_CHECK(formatted == "  bla\n  bla\n  bla\n  bla\n  bla");
   }
 }

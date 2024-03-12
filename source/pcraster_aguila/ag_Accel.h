@@ -12,7 +12,7 @@ namespace ag {
 
   enum AppAccel
   {
-    Animate = qt::Modifier + Qt::Key_A
+    Animate = qt::Modifier + static_cast<int>(Qt::Key_A)
   };
 
 } // namespace ag

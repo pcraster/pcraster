@@ -253,7 +253,7 @@ def timeseries(name, timeSteps, row, col):
     return steps, array
 
 
-#def varmean(names,sampleNumbers, timeSteps):
+# def varmean(names,sampleNumbers, timeSteps):
 #  nrSamples=scalar(len(sampleNumbers))
 #  for name in names:
 #    for step in timeSteps:
@@ -287,10 +287,10 @@ def correlation(location, independentName, dependentName, locationName, sampleNu
             valueTwo = generalfunctions.getCellValueAtBooleanLocation(location, scalar(fileNameTwo))
             pairList.append(valueTwo + smallValue)
             values.append(pairList)
-            #print valueOne + smallValue, valueTwo + smallValue
+            # print valueOne + smallValue, valueTwo + smallValue
         reg = regression.linearRegression(values, 1)
         rSq = regression.linearRSquared(values, reg)
-        #print step, reg, rSq
+        # print step, reg, rSq
         tssFileIntercept.write("%d %g\n" % (step, reg[0]))
         tssFileSlope.write("%d %g\n" % (step, reg[1]))
         tssFileRSquared.write("%d %g\n" % (step, rSq))
@@ -386,7 +386,7 @@ def mcaveragevariance(names, sampleNumbers, timeSteps):
             var = variance(name + '.map', sampleNumbers)
             minimum = sampleMin(name + '.map', sampleNumbers)
             maximum = sampleMax(name + '.map', sampleNumbers)
-            #std=stddev(name + '.map', sampleNumbers)
+            # std=stddev(name + '.map', sampleNumbers)
             report(mean, name + '-ave.map')
             report(var, name + '-var.map')
             report(minimum, name + '-min.map')
@@ -474,7 +474,7 @@ def createGstatRealizations(setOfRealizations, nameCommandFile, nameOutMapList):
     # number of realizations required
     nSim = len(setOfRealizations)
     # open template gstat script and replace
-    #print nameCommandFile
+    # print nameCommandFile
     gstatTemplate = file(nameCommandFile + '.gst', 'r')
     gstatTemplateString = gstatTemplate.read()
     gstatTemplate.close()
@@ -488,11 +488,11 @@ def createGstatRealizations(setOfRealizations, nameCommandFile, nameOutMapList):
     # rename files
     i = 1
     for realization in setOfRealizations:
-        #print realization
+        # print realization
         item = 0
         for name in nameOutMapList:
             gstatOutputFileName = generateNameT('g_' + name, i)
-            #print gstatOutputFileName, realization[item]
+            # print gstatOutputFileName, realization[item]
             shutil.move(gstatOutputFileName, realization[item])
             item = item + 1
         i = i + 1
@@ -522,5 +522,5 @@ def createAllGstatRealizations(nameCommandFile, nameOutMapList, nrRealPerGstatCa
             names[i].append(namesOneSampleOneTimeStep)
     for setOfRealizations in names:
         createGstatRealizations(setOfRealizations, nameCommandFile, nameOutMapList)
-        #print setOfRealizations
+        # print setOfRealizations
 

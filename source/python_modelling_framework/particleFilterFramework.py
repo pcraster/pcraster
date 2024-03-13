@@ -54,7 +54,7 @@ class ParticleFilterFramework(frameworkBase.FrameworkBase):
         if hasattr(self._userModel(), "_userModel"):
             msg = "The _userModel method is deprecated and obsolete"
             self.showWarning(msg)
-        #\todo test to dynamic framework model
+        # \todo test to dynamic framework model
         if not isinstance(self._userFramework(), mcFramework.MonteCarloFramework):
             msg = "Model must be instance of MonteCarloFramework"
             raise frameworkBase.FrameworkError(msg)
@@ -93,7 +93,7 @@ class ParticleFilterFramework(frameworkBase.FrameworkBase):
                 # Create sample directory.
                 os.mkdir(varName)
             else :
-                #if not os.path.isdir(varName):
+                # if not os.path.isdir(varName):
                 #  # Remove existing file with name of sample directory.
                 os.remove(varName)
                 os.mkdir(varName)
@@ -208,7 +208,7 @@ class ParticleFilterFramework(frameworkBase.FrameworkBase):
 
         for key in self._d_trackCloned.keys():
             if self._d_trackCloned[key] == 0:
-                #oFile.write("\"%s\";\n" % (key))
+                # oFile.write("\"%s\";\n" % (key))
                 pass
             elif not type(self._d_trackCloned[key]) == list:
                 oFile.write("\"%s\" -> \"%s\";\n" % (key, self._d_trackCloned[key]))
@@ -343,7 +343,7 @@ class ParticleFilterFramework(frameworkBase.FrameworkBase):
         self._userModel()._setCurrentTimeStep(endTimestep)
 
         # determine MC execution with(out) pre/postloop
-        #premc, postmc = self._executePrePostMc(currentPeriod, lastPeriod)
+        # premc, postmc = self._executePrePostMc(currentPeriod, lastPeriod)
 
         # run the model in mc mode for current filter period
         self._incrementIndentLevel()
@@ -472,7 +472,7 @@ class ResidualResamplingFramework(ParticleFilterFramework):
             for i in range(0, len(residualWeights)):
                 residualWeights[i] = (nrSamples * weights[i] - math.floor(nrSamples * weights[i])) / nrMissingSamples
 
-            #\todo replace this
+            # \todo replace this
             normalisedResidualWeights = [0.0] * nrSamples
             sumWeights = sum(residualWeights)
             for i in range(0, len(residualWeights)):

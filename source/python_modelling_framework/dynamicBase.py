@@ -83,9 +83,9 @@ class DynamicBase(object):
         """
         Returns whether a time step is currently executing.
         """
-        #if hasattr(self._userModel(), "_d_inTimeStep"):
+        # if hasattr(self._userModel(), "_d_inTimeStep"):
         #  return self._userModel()._d_inTimeStep
-        #else:
+        # else:
         #  return False
         return self.inTimeStep
 

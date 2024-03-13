@@ -5,9 +5,9 @@
 from numpy import *
 
 
-#----------------------------------------------------------------------#
+# ----------------------------------------------------------------------#
 #  function:   linearRegression                                        #
-#----------------------------------------------------------------------#
+# ----------------------------------------------------------------------#
 def linearRegression(rawData, equationOrder):
 
     # Purpose: Regress the coefficients for an equation of the form:
@@ -41,9 +41,9 @@ def linearRegression(rawData, equationOrder):
     xEquationForm = [lambda rawItem, coefIndex: pow(rawItem[1], coefIndex)]
     return regression(rawData, xEquationForm * (equationOrder + 1))
 
-#----------------------------------------------------------------------#
+# ----------------------------------------------------------------------#
 #  function:   regression                                              #
-#----------------------------------------------------------------------#
+# ----------------------------------------------------------------------#
 
 
 def regression(rawData, xEquationForm, yEquationForm = lambda rawItem: rawItem[0]):
@@ -119,9 +119,9 @@ def regression(rawData, xEquationForm, yEquationForm = lambda rawItem: rawItem[0
     # solve for the coefficients
     return gauss(A, B)
 
-#----------------------------------------------------------------------#
+# ----------------------------------------------------------------------#
 #  function:   linearRSquared                                          #
-#----------------------------------------------------------------------#
+# ----------------------------------------------------------------------#
 
 
 def linearRSquared(rawData, coefficients):
@@ -148,9 +148,9 @@ def linearRSquared(rawData, coefficients):
     xEquationForm = [lambda rawItem, coefIndex: pow(rawItem[1], coefIndex)]
     return solveRSquared(rawData, coefficients, xEquationForm * len(coefficients))
 
-#----------------------------------------------------------------------#
+# ----------------------------------------------------------------------#
 #  function: solveRSquared                                             #
-#----------------------------------------------------------------------#
+# ----------------------------------------------------------------------#
 
 
 def solveRSquared(rawData, coefficients, xEquationForm, \
@@ -228,9 +228,9 @@ def solveRSquared(rawData, coefficients, xEquationForm, \
         sumsquare = sumsquare + coefficients[i] * (B[i] - (samples * xaverage * yaverage))
     return sumsquare / (ysquare - (samples * yaverage * yaverage))
 
-#----------------------------------------------------------------------#
+# ----------------------------------------------------------------------#
 #  function:   gauss                                                   #
-#----------------------------------------------------------------------#
+# ----------------------------------------------------------------------#
 
 
 def gauss(AMatrix, BMatrix):

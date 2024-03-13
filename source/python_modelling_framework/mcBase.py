@@ -74,8 +74,8 @@ class MonteCarloBase(object):
         """
         Return whether a sample is currently executing.
         """
-        #if hasattr(self._userModel(), "_d_inSample"):
+        # if hasattr(self._userModel(), "_d_inSample"):
         return self._d_inSample
-        #else:
+        # else:
         #  return False
 

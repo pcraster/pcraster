@@ -19,11 +19,11 @@ class ParticleFilterBase(object):
         """
         Return the current filter period.
         """
-        #assert hasattr(self._userModel(), "_d_filterPeriod")
+        # assert hasattr(self._userModel(), "_d_filterPeriod")
         return self._d_filterPeriod + 1
-    #def filterPeriod(self):
-        #msg = "Class needs to implement 'filterPeriod' method"
-        #raise NotImplementedError(msg)
+    # def filterPeriod(self):
+        # msg = "Class needs to implement 'filterPeriod' method"
+        # raise NotImplementedError(msg)
 
     def filterTimesteps(self):
         msg = "Class needs to implement 'filterTimesteps' method"

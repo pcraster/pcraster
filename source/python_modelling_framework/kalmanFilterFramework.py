@@ -72,7 +72,7 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
         file.close()
 
     def _testRequirements(self):
-        #\todo test to dynamic framework model
+        # \todo test to dynamic framework model
         if not isinstance(self._d_model, mcFramework.MonteCarloFramework):
             self.showError("Model must be instance of MonteCarloFramework.")
             sys.exit()
@@ -102,7 +102,7 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
             # Create sample directory.
             os.mkdir(varName)
         else :
-            #if not os.path.isdir(varName):
+            # if not os.path.isdir(varName):
             #  # Remove existing file with name of sample directory.
             shutil.rmtree(varName)
             os.mkdir(varName)
@@ -116,7 +116,7 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
             # Create sample directory.
             os.mkdir(varName)
         else :
-            #if not os.path.isdir(varName):
+            # if not os.path.isdir(varName):
             #  # Remove existing file with name of sample directory.
             shutil.rmtree(varName)
             os.mkdir(varName)
@@ -136,7 +136,7 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
                 # Create sample directory.
                 os.mkdir(varName)
             else :
-                #if not os.path.isdir(varName):
+                # if not os.path.isdir(varName):
                 #  # Remove existing file with name of sample directory.
                 os.remove(varName)
                 os.mkdir(varName)
@@ -148,7 +148,7 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
     # \brief Setting the filter moments
     def setFilterTimesteps(self, filterTimesteps):
         assert type(filterTimesteps) == list or type(filterTimesteps) == numpy.ndarray
-        #assert type(filterTimesteps) == list
+        # assert type(filterTimesteps) == list
         # \todo assert some more
         for filtertimestep in filterTimesteps:
             assert filtertimestep < self._userModel().nrTimeSteps()

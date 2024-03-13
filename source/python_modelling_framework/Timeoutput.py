@@ -86,7 +86,7 @@ class TimeoutputTimeseries(object):
 
         arrayRowPos = self._userModel.currentTimeStep() - self._userModel.firstTimeStep()
 
-        #if isinstance(expression, float):
+        # if isinstance(expression, float):
         #  expression = pcraster.scalar(expression)
 
         try:

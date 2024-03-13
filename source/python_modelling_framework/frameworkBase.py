@@ -222,16 +222,16 @@ class FrameworkBase(shellscript.ShellScript):
 
     def _scriptFinished(self):
         self._atEndOfScript()
-        #if self._d_inScript:
-            #self._d_inScript = False
-            #if not self._quiet():
-                #if not self._trace():
-                    #msg = u"\n"
-                #else:
-                    #msg = u"</script>\n"
+        # if self._d_inScript:
+            # self._d_inScript = False
+            # if not self._quiet():
+                # if not self._trace():
+                    # msg = u"\n"
+                # else:
+                    # msg = u"</script>\n"
                 # showMessage does not work due to encode throw
-                #sys.stdout.write(msg)
-                #sys.stdout.flush()
+                # sys.stdout.write(msg)
+                # sys.stdout.flush()
 
     def _trace(self):
         return FrameworkBase._d_trace
@@ -317,9 +317,9 @@ class FrameworkBase(shellscript.ShellScript):
         self._userModel()._d_inSample = False
 
         if not self._quiet():
-            #if not self._trace():
-                #msg = "]"
-            #else:
+            # if not self._trace():
+                # msg = "]"
+            # else:
             if self._trace():
                 msg = "%s</sample>" % (self._indentLevel())
                 self.showMessage(msg)
@@ -374,13 +374,13 @@ class FrameworkBase(shellscript.ShellScript):
 
         self._userModel()._setInDynamic(False)
 
-    #def _runPostdynamic(self):
-        #if hasattr(self._userModel(), 'postdynamic'):
-            #self._incrementIndentLevel()
-            #self._traceIn("postdynamic")
-            #self._userModel().postdynamic()
-            #self._traceOut("postdynamic")
-            #self._decrementIndentLevel()
+    # def _runPostdynamic(self):
+        # if hasattr(self._userModel(), 'postdynamic'):
+            # self._incrementIndentLevel()
+            # self._traceIn("postdynamic")
+            # self._userModel().postdynamic()
+            # self._traceOut("postdynamic")
+            # self._decrementIndentLevel()
 
     def _runSuspend(self):
         if(hasattr(self._userModel(), 'suspend')):

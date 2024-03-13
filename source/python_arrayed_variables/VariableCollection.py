@@ -237,11 +237,11 @@ class VariableCollection(object):
             raise ValueError("cannot add elements to a VariableCollection")
         self._impl[key] = value
 
-    #def keys(self):
-        #"""
-        #Returns a list of array indices
-        #"""
-        #return self._impl.keys()
+    # def keys(self):
+        # """
+        # Returns a list of array indices
+        # """
+        # return self._impl.keys()
 
     def __iter__(self):
         self._index = 0
@@ -282,11 +282,11 @@ class VariableCollection(object):
 
         return variableName
 
-    #def reportCollection(self):
-        #for i in self._impl:
-            #name = self._name + "-" + "-".join(i) + ".map"
-            #pcraster.report(self._impl[i], name)
+    # def reportCollection(self):
+        # for i in self._impl:
+            # name = self._name + "-" + "-".join(i) + ".map"
+            # pcraster.report(self._impl[i], name)
 
-    #def sampleCollection(self):
-        #for i in self._tssObjects:
-            #self._tssObjects[i].sample(self._impl[i])
+    # def sampleCollection(self):
+        # for i in self._tssObjects:
+            # self._tssObjects[i].sample(self._impl[i])

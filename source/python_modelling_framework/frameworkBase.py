@@ -229,14 +229,14 @@ class FrameworkBase(shellscript.ShellScript):
                     #msg = u"\n"
                 #else:
                     #msg = u"</script>\n"
-                ## showMessage does not work due to encode throw
+                # showMessage does not work due to encode throw
                 #sys.stdout.write(msg)
                 #sys.stdout.flush()
 
     def _trace(self):
         return FrameworkBase._d_trace
 
-    ## \brief debug
+    # \brief debug
     #
     # \return true or false
     def _debug(self):

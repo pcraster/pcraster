@@ -11,11 +11,11 @@ from numpy import linalg
 import pickle
 from .frameworkBase import generateNameT
 
-## \brief Framework for particle filter runs
+# \brief Framework for particle filter runs
 
 
 class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
-    ## \brief Constructor
+    # \brief Constructor
     def __init__(self, userModel):
         frameworkBase.FrameworkBase.__init__(self)
         self._d_model = userModel
@@ -59,7 +59,7 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
         pickle.dump(covariance, file)
         file.close()
 
-    ## \brief Setting the measurement operator for an update moment
+    # \brief Setting the measurement operator for an update moment
     #
     # If this is not used the identity matrix will be used
     def setMeasurementOperator(self, matrix):
@@ -107,7 +107,7 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
             shutil.rmtree(varName)
             os.mkdir(varName)
 
-    ## \brief Creates the subdirectories for state variables
+    # \brief Creates the subdirectories for state variables
     # \todo test if mc dirs are there...
     def _initialiseStateDir(self):
         varName = "stateVector"
@@ -121,7 +121,7 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
             shutil.rmtree(varName)
             os.mkdir(varName)
 
-    ## \brief Creates the subdirectories for state variables
+    # \brief Creates the subdirectories for state variables
     # \todo test if mc dirs are there...
     def _initialiseSampleDirectories(self):
         sample = self._userModel()._firstSampleNumber()
@@ -145,7 +145,7 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
             assert os.path.exists(os.path.join(dirname, "stateVar")) and os.path.isdir(os.path.join(dirname, "stateVar"))
             sample += 1
 
-    ## \brief Setting the filter moments
+    # \brief Setting the filter moments
     def setFilterTimesteps(self, filterTimesteps):
         assert type(filterTimesteps) == list or type(filterTimesteps) == numpy.ndarray
         #assert type(filterTimesteps) == list
@@ -154,11 +154,11 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
             assert filtertimestep < self._userModel().nrTimeSteps()
         self._userModel()._d_filterTimesteps = filterTimesteps
 
-    ## \brief Returns a list of filter moments
+    # \brief Returns a list of filter moments
     def filterTimesteps(self):
         return self._userModel()._d_filterTimesteps
 
-    ## \brief Re-implemented from ShellScript.
+    # \brief Re-implemented from ShellScript.
     #
     # Runs the user model in the filter mode.
     def run(self):
@@ -320,7 +320,7 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
             pickle.dump(vec, file)
             file.close()
 
-    ## \brief Returns the updated variables
+    # \brief Returns the updated variables
     def getStateVector(self, sampleNumber):
         fileName = os.path.join("stateVector", 'a%s.tmp' % (sampleNumber))
         file = open(fileName, 'rb')
@@ -395,12 +395,12 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
         self._atEndOfFilterPeriod()
         self._decrementIndentLevel()
 
-    ## \brief reading sample data from disk
+    # \brief reading sample data from disk
     # returns the map of the current time step from the current sample directory
     def readmap(self, name):
         return self._readmapNew(name)
 
-    ## \brief reading deterministic data from disk
+    # \brief reading deterministic data from disk
     # returns the map of the current time step from the current working directory
     def readDeterministic(self, name):
         if self._userModel()._inPremc() or self._userModel()._inPostmc() or self._userModel()._inInitial():

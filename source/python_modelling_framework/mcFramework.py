@@ -140,7 +140,7 @@ StaticFramework or DynamicFramework"
         if not hasattr(self._userModel(), "postmcloop"):
             self.showWarning("No postmcloop section defined.")
 
-    ## \brief Re-implemented from ShellScript.
+    # \brief Re-implemented from ShellScript.
     #
     # Runs the user model in the Monte Carlo mode.
     def run(self, premc=True, postmc=True):
@@ -214,7 +214,7 @@ StaticFramework or DynamicFramework"
 
         return 0
 
-    ## \brief Creates the directories in which the sample data can be stored.
+    # \brief Creates the directories in which the sample data can be stored.
     #
     # \attention Already existing sample directories will be cleaned!
     def _initialiseSampleDirectories(self, remove_sample_dirs):
@@ -248,11 +248,11 @@ StaticFramework or DynamicFramework"
         self._userModel()._d_firstSampleNumber = firstSampleNumber
         self._userModel()._d_lastSampleNumber = lastSampleNumber
 
-    ## \brief Returns true if new processes can be forked
+    # \brief Returns true if new processes can be forked
     def _systemIsOccupied(self, nrChilds):
         return nrChilds >= self._d_nrProcessors
 
-    ## Checks the current configuration of the script.
+    # Checks the current configuration of the script.
     def _check(self):
         if self._userModel().nrSamples() == 0:
             self.showWarning("""

@@ -1,4 +1,4 @@
-## \file
+# \file
 # Base class for shell scripts.
 
 
@@ -8,7 +8,7 @@ import time
 import traceback
 
 
-## Base class for shell scripts.
+# Base class for shell scripts.
 #
 # Once created the run function can be called to start the script. This
 # function calls the _parseOptions and _run functions which should be
@@ -18,7 +18,7 @@ import traceback
 # \todo      Improve message printing, using different streams
 class ShellScript(object):
 
-    ## Constructor.
+    # Constructor.
     #
     # Stores the argument vector. The first element is used as the name of the
     # shell script. The remaining arguments are stored in a list which can be
@@ -81,14 +81,14 @@ class ShellScript(object):
     def _getOptions(self):
         return self._options
 
-    ## Name property, read-only.
+    # Name property, read-only.
     name = property(_getName)
 
-    ## Arguments property, read-only.
+    # Arguments property, read-only.
     #  Note: usualy equals sys.argv[1:], so 1 less than sys.argv
     arguments = property(_getArguments)
 
-    ## Options property, read-only.
+    # Options property, read-only.
     options = property(_getOptions)
 
     def _formatMessage(self,
@@ -100,7 +100,7 @@ class ShellScript(object):
                 messages[i] = "%s: %s" % (prefix, messages[i])
         return "%s\n" % ("\n".join(messages)).encode("utf-8")
 
-    ## Prints a message on stdout.
+    # Prints a message on stdout.
     #
     # \param     message Message to print.
     #
@@ -109,7 +109,7 @@ class ShellScript(object):
     def showMessage(self, message):
         sys.stdout.write(self._formatMessage(message))
 
-    ## Prints a warning message on stdout.
+    # Prints a warning message on stdout.
     #
     # \param     message Message to print.
     #
@@ -119,7 +119,7 @@ class ShellScript(object):
     def showWarning(self, message):
         sys.stdout.write(self._formatMessage(message, "Warning"))
 
-    ## Prints an error message on stderr.
+    # Prints an error message on stderr.
     #
     # \param     message Message to print.
     #
@@ -129,7 +129,7 @@ class ShellScript(object):
     def showError(self, message):
         sys.stderr.write(self._formatMessage(message, "Error"))
 
-    ## Prints a message on stdout.
+    # Prints a message on stdout.
     #
     # \param     message Message to print.
     #
@@ -138,7 +138,7 @@ class ShellScript(object):
         sys.stdout.write(message.strip())
         sys.stdout.flush()
 
-    ## Wraps the call to _parseOptions() and _run() by exception handling code.
+    # Wraps the call to _parseOptions() and _run() by exception handling code.
     #
     # Returns the result of _run() if it is not None, otherwise 0 is returned.
     def run(self):

@@ -37,7 +37,7 @@ class ParticleFilterFramework(frameworkBase.FrameworkBase):
     def _userModel(self):
         return self._d_model._userModel()
 
-    ## \brief Returns the framework provided by the user
+    # \brief Returns the framework provided by the user
     def _userFramework(self):
         return self._d_model
 
@@ -78,7 +78,7 @@ class ParticleFilterFramework(frameworkBase.FrameworkBase):
     def _particleWeights(self):
         return self._userModel()._d_particleWeights
 
-    ## \brief Creates the subdirectories for state variables
+    # \brief Creates the subdirectories for state variables
     # \todo test if mc dirs are there...
     def _initialiseSampleDirectories(self):
         sample = self._userModel()._firstSampleNumber()
@@ -392,9 +392,9 @@ class ParticleFilterFramework(frameworkBase.FrameworkBase):
         return pcraster.readmap(newName)
 
 
-## \brief Sequential importance resampling algorithm
+# \brief Sequential importance resampling algorithm
 class SequentialImportanceResamplingFramework(ParticleFilterFramework):
-    ## \brief Constructor
+    # \brief Constructor
     def __init__(self, userModel):
         ParticleFilterFramework.__init__(self, userModel)
         self._addMethodToClass(self.optimalSampleNumber)
@@ -443,9 +443,9 @@ class SequentialImportanceResamplingFramework(ParticleFilterFramework):
                 content.writerow([(i + 1), normalisedWeights[i], cumulativeWeights[i], samplesToClone[i]])
 
 
-## \brief Residual resampling algorithm
+# \brief Residual resampling algorithm
 class ResidualResamplingFramework(ParticleFilterFramework):
-    ## \brief Constructor
+    # \brief Constructor
     def __init__(self, userModel):
         ParticleFilterFramework.__init__(self, userModel)
 

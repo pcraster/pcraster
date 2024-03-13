@@ -38,14 +38,14 @@ def onePeriod(self, startTime, endTime, timeStepDuration, currentTimeStep):
 def mapeq(mapOne, mapTwo):
     mapOneScalar = scalar(mapOne)
     mapTwoScalar = scalar(mapTwo)
-    difference = mapOneScalar-mapTwoScalar
+    difference = mapOneScalar -mapTwoScalar
     cellEqual = pcreq(difference, scalar(0))
     mapEqual = pcrgt(mapminimum(scalar(cellEqual)), scalar(0.5))
     return getCellValue(mapEqual, 1, 1)
 
 
 def slopeToDownstreamNeighbour(dem, ldd):
-    slopeToDownstreamNeighbour = (dem-downstream(ldd, dem))/downstreamdist(ldd)
+    slopeToDownstreamNeighbour = (dem -downstream(ldd, dem)) /downstreamdist(ldd)
     return slopeToDownstreamNeighbour
 
 
@@ -85,5 +85,5 @@ def normalcorrelated(normalX, normalY, correlation):
     # y=ax+b*normal()
     # correlation = a /  sqrt( sqr(a) + sqr(b) )
     x = scalar(normalX)
-    y = (x+sqrt((1/sqr(correlation))-1)*scalar(normalY)) * scalar(correlation)
+    y = (x +sqrt((1 /sqr(correlation)) -1) *scalar(normalY)) * scalar(correlation)
     return x, y

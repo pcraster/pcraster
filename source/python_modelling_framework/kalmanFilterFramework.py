@@ -262,7 +262,7 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
             vec = pickle.load(file)
             file.close()
             for i in range(0, sizeStateVector):
-                A[i, sample-1] = vec[i]
+                A[i, sample -1] = vec[i]
 
         # obtain H specified by user
         fileName = os.path.join("observedState", "h%s.tmp" % (self._userModel()._d_filterTimesteps[self._userModel()._d_filterPeriod]))
@@ -293,9 +293,9 @@ class EnsKalmanFilterFramework(frameworkBase.FrameworkBase):
         assert Re.shape == (sizeObservedVector, sizeObservedVector), "Shape of provided matrix Re %s does not match (%s, %s)" % (Re.shape, sizeObservedVector, sizeObservedVector)
 
         # calculate Pe
-        Abar = numpy.dot(A, numpy.array([[1.0/nrEnsembleMembers] * nrEnsembleMembers] * nrEnsembleMembers, dtype=float))
+        Abar = numpy.dot(A, numpy.array([[1.0 /nrEnsembleMembers] * nrEnsembleMembers] * nrEnsembleMembers, dtype=float))
         Ad = A - Abar
-        Pe =  1.0/(nrEnsembleMembers - 1) * numpy.dot(Ad, numpy.transpose(Ad))
+        Pe =  1.0 /(nrEnsembleMembers - 1) * numpy.dot(Ad, numpy.transpose(Ad))
 
         # calculate the new A matrix
         DmAH = D - numpy.dot(H, A)

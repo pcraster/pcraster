@@ -16,8 +16,8 @@ class MonteCarloModel(mcBase.MonteCarloBase):
         print("postmcloop not implemented")
 
     def report(self,
-      variable,
-      name):
+               variable,
+               name):
         """
         Report map data to disk.
 
@@ -27,7 +27,7 @@ class MonteCarloModel(mcBase.MonteCarloBase):
         self._reportNew(variable, name)
 
     def readmap(self,
-      name):
+                name):
         """
         Read sample data from disk.
 
@@ -36,7 +36,7 @@ class MonteCarloModel(mcBase.MonteCarloBase):
         return self._readmapNew(name)
 
     def readDeterministic(self,
-      name):
+                          name):
         """
         Read deterministic data from disk.
 

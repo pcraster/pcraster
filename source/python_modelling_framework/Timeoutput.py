@@ -118,7 +118,7 @@ class TimeoutputTimeseries(object):
                     / pcraster.maptotal(pcraster.scalar(pcraster.defined(pcraster.spatial(expression))))
             else:
                 tmp = pcraster.mapmaximum(pcraster.maptotal(pcraster.areamajority(pcraster.spatial(expression), \
-                      pcraster.spatial(pcraster.nominal(1)))))
+                                                                                  pcraster.spatial(pcraster.nominal(1)))))
 
             value, valid = pcraster.cellvalue(tmp, 1)
             if not valid:
@@ -198,6 +198,6 @@ class TimeoutputTimeseries(object):
 
         if hasattr(self._userModel, "nrSamples"):
             filename = os.path.join(str(self._userModel.currentSampleNumber()),
-              filename)
+                                    filename)
 
         return filename

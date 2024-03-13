@@ -8,8 +8,8 @@ import time
 import warnings
 
 warnings.filterwarnings(u"ignore",
-         u"tempnam is a potential security risk to your program",
-         RuntimeWarning)
+                        u"tempnam is a potential security risk to your program",
+                        RuntimeWarning)
 
 
 Error = 'Exception raised in pcr.py library'
@@ -119,12 +119,12 @@ def createArchive(dir):
     os.chdir(newPathName)
     if regex.match('.*x.*', sys.platform) > 0:
         archiveName = os.path.join(currentPathName, os.path.basename(dir) + \
-                       '.tar.gz')
+                                   '.tar.gz')
         command = 'tar zcf ' + archiveName + ' ' + os.path.basename(dir) + \
                        ' --preserve'
     else:
         archiveName = os.path.join(currentPathName, os.path.basename(dir) + \
-                       '.zip')
+                                   '.zip')
         command = 'pkzip -add -rec ' + archiveName + ' ' + os.path.basename(dir)
 
     os.system(command)
@@ -252,9 +252,9 @@ else:
     class ExecNoStdin:
         def __init__(self, cmd):
             p = subprocess.Popen(string.split(cmd),
-                      shell=True, bufsize=-1,
-                      stdout=subprocess.PIPE,
-                      stderr=subprocess.PIPE)
+                                 shell=True, bufsize=-1,
+                                 stdout=subprocess.PIPE,
+                                 stderr=subprocess.PIPE)
             self.d_stdoutLines = p.stdout.readlines()
             self.d_stderrLines = p.stderr.readlines()
             self.d_exitStatus = p.wait()
@@ -322,8 +322,8 @@ else:
                         else:
                             cmdStr = cmd
                         process = subprocess.Popen(cmdStr,
-                             shell=True, bufsize=bufferSize,
-                             stdout=sOut.createFile(), stderr=sErr.createFile())
+                                                   shell=True, bufsize=bufferSize,
+                                                   stdout=sOut.createFile(), stderr=sErr.createFile())
                         self.exitcode = process.wait()
                     except OSError as exception:
                         sOut.close()

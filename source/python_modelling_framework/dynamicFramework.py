@@ -18,9 +18,9 @@ class DynamicFramework(frameworkBase.FrameworkBase):
     """
 
     def __init__(self,
-      userModel,
-      lastTimeStep=0,
-      firstTimestep=1):
+                 userModel,
+                 lastTimeStep=0,
+                 firstTimestep=1):
         frameworkBase.FrameworkBase.__init__(self)
 
         self._d_model = userModel
@@ -89,7 +89,7 @@ class DynamicFramework(frameworkBase.FrameworkBase):
                 self.showWarning("No initial section defined.")
 
     def setQuiet(self,
-      quiet=True):
+                 quiet=True):
         """
         Disables the progress display of timesteps.
         """

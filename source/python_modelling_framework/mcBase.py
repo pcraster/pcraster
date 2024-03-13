@@ -43,7 +43,7 @@ class MonteCarloBase(object):
         """
         assert self._d_firstSampleNumber
         return range(self._d_firstSampleNumber, \
-               self._d_lastSampleNumber + 1)
+                     self._d_lastSampleNumber + 1)
 
     def _inStochastic(self):
         if not hasattr(self, "_d_inStochastic"):

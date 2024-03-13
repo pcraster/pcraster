@@ -20,7 +20,7 @@ class ParticleFilterModel(pfBase.ParticleFilterBase):
             filename = variableName
         else:
             filename = frameworkBase.generateNameT(variableName,
-              self.currentTimeStep())
+                                                   self.currentTimeStep())
         name = os.path.join(sample, "stateVar", filename)
         pcraster.report(variable, name)
 

@@ -54,7 +54,7 @@ class DynamicBase(object):
         raise NotImplementedError(msg)
 
     def setQuiet(self,
-      quiet=True):
+                 quiet=True):
         """
         Disables the progress display of timesteps.
         """

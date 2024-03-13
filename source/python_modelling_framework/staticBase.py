@@ -31,7 +31,7 @@ class StaticBase(object):
         return self.inInitial
 
     def _setInInitial(self,
-      value):
+                      value):
         assert isinstance(value, bool)
         self.inInitial = value
 

@@ -25,9 +25,9 @@ class MonteCarloFramework(frameworkBase.FrameworkBase, forkscript.ForkScript):
     """
 
     def __init__(self,
-      userModel,
-      nrSamples=0,
-      remove_dirs=True):
+                 userModel,
+                 nrSamples=0,
+                 remove_dirs=True):
         frameworkBase.FrameworkBase.__init__(self)
         forkscript.ForkScript.__init__(self)
 
@@ -53,8 +53,8 @@ class MonteCarloFramework(frameworkBase.FrameworkBase, forkscript.ForkScript):
         self._initialiseSampleDirectories(remove_dirs)
 
     def setForkSamples(self,
-      fork,
-      nrCPUs=1):
+                       fork,
+                       nrCPUs=1):
         """
         Set the forking of samples on or off.
 

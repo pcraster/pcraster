@@ -19,7 +19,7 @@ class ParticleFilterFramework(frameworkBase.FrameworkBase):
     """
 
     def __init__(self,
-      userModel):
+                 userModel):
         frameworkBase.FrameworkBase.__init__(self)
         self._d_model = userModel
         self._testRequirements()
@@ -219,7 +219,7 @@ class ParticleFilterFramework(frameworkBase.FrameworkBase):
         oFile.close()
 
     def _cloneData(self,
-      samplesToClone):
+                   samplesToClone):
         # determine 'dead' samples
         notClonedSamples = []
         for i in range(1, len(samplesToClone) + 1):
@@ -270,7 +270,7 @@ class ParticleFilterFramework(frameworkBase.FrameworkBase):
             self._d_trackCloned[clonedFrom] = clonedTo
 
     def _normaliseWeights(self,
-      weights):
+                          weights):
         assert weights
         sumWeights = sum(weights)
         if sumWeights == 0:
@@ -287,7 +287,7 @@ class ParticleFilterFramework(frameworkBase.FrameworkBase):
         self._userModel()._d_particleWeights = [1.0 / self._userModel().nrSamples()] * self._userModel().nrSamples()
 
     def _cumulativeWeights(self,
-      weights):
+                           weights):
         cumulative = [0.0] * self._userModel().nrSamples()
         value = 0.0
         for i in range(len(weights)):
@@ -296,8 +296,8 @@ class ParticleFilterFramework(frameworkBase.FrameworkBase):
         return cumulative
 
     def _startEndOfPeriod(self,
-      currentPeriod,
-      lastPeriod):
+                          currentPeriod,
+                          lastPeriod):
         # determine start end end timestep of current period
         if currentPeriod == 0:
             startTimestep = 1
@@ -313,8 +313,8 @@ class ParticleFilterFramework(frameworkBase.FrameworkBase):
         return startTimestep, endTimestep
 
     def _executePrePostMc(self,
-      currentPeriod,
-      lastPeriod):
+                          currentPeriod,
+                          lastPeriod):
         if currentPeriod == 0:
             # execute premc
             premc = True
@@ -331,8 +331,8 @@ class ParticleFilterFramework(frameworkBase.FrameworkBase):
         return premc, postmc
 
     def _runMonteCarlo(self,
-      currentPeriod,
-      lastPeriod):
+                       currentPeriod,
+                       lastPeriod):
         #  get user model and (re)set start and end time
         startTimestep, endTimestep = self._startEndOfPeriod(currentPeriod, lastPeriod)
 
@@ -353,7 +353,7 @@ class ParticleFilterFramework(frameworkBase.FrameworkBase):
         self._decrementIndentLevel()
 
     def particleWeight(self,
-      sample):
+                       sample):
         """
         Return the weight of a particle.
         """
@@ -363,8 +363,8 @@ class ParticleFilterFramework(frameworkBase.FrameworkBase):
         return self._d_particleWeights[sample - 1]
 
     def _setParticleWeight(self,
-      sample,
-      weight):
+                           sample,
+                           weight):
         assert self._d_particleWeights
         assert sample >= self._firstSampleNumber()
         assert sample <= self._lastSampleNumber()

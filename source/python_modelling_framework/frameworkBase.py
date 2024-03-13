@@ -274,7 +274,7 @@ class FrameworkBase(shellscript.ShellScript):
         return self._d_quietProgressSampleNr
 
     def setQuiet(self,
-      quiet):
+                 quiet):
         """
         Enable/disable all framework output to stdout.
 
@@ -284,7 +284,7 @@ class FrameworkBase(shellscript.ShellScript):
         FrameworkBase._d_quiet = quiet
 
     def setTrace(self,
-      trace):
+                 trace):
         """
         Trace framework output to stdout.
 
@@ -297,11 +297,11 @@ class FrameworkBase(shellscript.ShellScript):
         FrameworkBase._d_trace = trace
 
     def setDebug(self,
-      debug):
+                 debug):
         FrameworkBase._d_debug = debug
 
     def _atStartOfSample(self,
-      nr):
+                         nr):
         self._userModel()._d_inSample = True
 
         if not self._quietProgressSampleNr():
@@ -325,7 +325,7 @@ class FrameworkBase(shellscript.ShellScript):
                 self.showMessage(msg)
 
     def _atStartOfFilterPeriod(self,
-      nr):
+                               nr):
         self._userModel()._d_inFilterPeriod = True
         if not self._d_model._quiet():
             if not self._d_model._trace():
@@ -456,7 +456,7 @@ class FrameworkBase(shellscript.ShellScript):
         """
         if self._inSample() and self._inTimeStep():
             name = self._generateNameST(name, self.currentSampleNumber(),
-              self.currentTimeStep())
+                                        self.currentTimeStep())
         elif self.inSample():
             name = self._generateNameS(name, self.currentSampleNumber())
         elif self.inTimeStep():
@@ -485,9 +485,9 @@ class FrameworkBase(shellscript.ShellScript):
         return generateNameS(name, sample)
 
     def _reportNew(self,
-      variable,
-      name,
-      style=1):
+                   variable,
+                   name,
+                   style=1):
         """
 
         .. todo::
@@ -525,7 +525,7 @@ class FrameworkBase(shellscript.ShellScript):
         pcraster.report(variable, path)
 
     def _readmapNew(self, name,
-      style=1):
+                    style=1):
         """
 
         .. todo::
@@ -562,14 +562,14 @@ class FrameworkBase(shellscript.ShellScript):
         return pcraster.readmap(path)
 
     def _assertAndThrow(self,
-      expression,
-      message):
+                        expression,
+                        message):
         assert expression, message
 
 
 class FrameworkError(Exception):
     def __init__(self,
-      msg):
+                 msg):
         self._msg = msg
 
     def __str__(self):

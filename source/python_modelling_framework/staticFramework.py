@@ -11,7 +11,7 @@ class StaticFramework(frameworkBase.FrameworkBase):
     """
 
     def __init__(self,
-      userModel):
+                 userModel):
         frameworkBase.FrameworkBase.__init__(self)
         self._d_model = userModel
         self._testRequirements()

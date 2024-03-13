@@ -46,8 +46,8 @@ class DynamicModel(dynamicBase.DynamicBase):
         return self._d_firstTimeStep
 
     def report(self,
-      variable,
-      name):
+               variable,
+               name):
         """
         Storing map data to disk
 
@@ -79,7 +79,7 @@ class DynamicModel(dynamicBase.DynamicBase):
         return self._readmapNew(name)
 
     def _setNrTimeSteps(self,
-      timeSteps):
+                        timeSteps):
         """
         Configure the number of time steps.
 
@@ -91,7 +91,7 @@ class DynamicModel(dynamicBase.DynamicBase):
         pcr._rte().setNrTimeSteps(timeSteps)
 
     def _setCurrentTimeStep(self,
-      step):
+                            step):
         """
         Set the current time step.
 

@@ -118,7 +118,7 @@ class PercentileCalculator:
             self.d_fields.append(_pcraster._newScalarField())
 
     def run(self,
-      arrays):
+            arrays):
         for c in range(clone().nrRows() * clone().nrCols()):
             if len(arrays[c]) > 0:
                 arrays[c].sort()
@@ -417,7 +417,7 @@ def mcpercentiles(
         for name in names:
             for step in timeSteps:
                 results = percentile(generateNameT(name, step), sampleNumbers,
-                  percentiles)
+                                     percentiles)
                 assert len(results) == len(percentiles)
                 for i in range(len(percentiles)):
                     report(results[i], "%s_%d_%s.map" % (name, step, percentiles[i]))

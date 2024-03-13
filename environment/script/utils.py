@@ -56,10 +56,10 @@ def execute(
         noneOrPipe = subprocess.PIPE
 
     child = subprocess.Popen(command,
-           shell=True,
-           stdin=noneOrPipe,
-           stdout=subprocess.PIPE,
-           stderr=subprocess.PIPE)
+                             shell=True,
+                             stdin=noneOrPipe,
+                             stdout=subprocess.PIPE,
+                             stderr=subprocess.PIPE)
     out, err = child.communicate(input)
     status = child.returncode
 

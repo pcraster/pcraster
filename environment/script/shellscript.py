@@ -63,8 +63,8 @@ class ShellScript(object):
     # See $DEVENV/Templates/sources/script.py for an empty script that you can
     # use to kick-start the implementation of a new shell script.
     def __init__(self,
-           argv,
-           optionParser=None):
+                 argv,
+                 optionParser=None):
         self._name = os.path.basename(argv[0])
         self._options = None
         self._arguments = argv[1:]
@@ -92,8 +92,8 @@ class ShellScript(object):
     options = property(_getOptions)
 
     def _formatMessage(self,
-           message,
-           prefix=""):
+                       message,
+                       prefix=""):
         messages = message.split("\n")
         for i in range(0, len(messages)):
             if prefix:
@@ -201,7 +201,7 @@ class ShellScript(object):
         print("deprecated, update your script")
         self._endTime = time.time()
         self.showMessage("duration %s: %s" % (self.name,
-             utils.duration(self._startTime, self._endTime)))
+                                              utils.duration(self._startTime, self._endTime)))
 
     ##
     # \deprecated Not crucial for a basic shellscript class.

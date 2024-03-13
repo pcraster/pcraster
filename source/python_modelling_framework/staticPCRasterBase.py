@@ -18,9 +18,9 @@ class StaticModel(staticBase.StaticBase):
         print("Implement 'initial' method")
 
     def report(self,
-      variable,
-      name,
-      style=1):
+               variable,
+               name,
+               style=1):
         """
         Store map data to disk
 
@@ -39,8 +39,8 @@ class StaticModel(staticBase.StaticBase):
         self._reportNew(variable, name)
 
     def readmap(self,
-      name,
-      style=1):
+                name,
+                style=1):
         """
         Read map data from disk.
 

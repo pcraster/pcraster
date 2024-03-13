@@ -154,7 +154,7 @@ def linearRSquared(rawData, coefficients):
 
 
 def solveRSquared(rawData, coefficients, xEquationForm, \
-   yEquationForm = lambda rawItem: rawItem[0]):
+                  yEquationForm = lambda rawItem: rawItem[0]):
 
     # Purpose: Compute the R-Squared statistic for the supplied coefficients
 

@@ -109,7 +109,7 @@ class ForkScript:
         return self.d_nrFailedChildProcesses
 
     def setSleepTimeDecayFactor(self,
-           decayFactor):
+                                decayFactor):
         self.d_decayFactor = decayFactor
 
     def fork(self, name):

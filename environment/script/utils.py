@@ -14,7 +14,7 @@ def callWithRaise(command):
     """
     status = call(command)
     if status:
-        raise OSError("Failure on cmd: " +command)
+        raise OSError("Failure on cmd: " + command)
     return status
 
 

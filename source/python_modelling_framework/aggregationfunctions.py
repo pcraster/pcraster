@@ -14,7 +14,7 @@ import pcraster._pcraster as _pcraster
 def _percentile(
   array,
   level):
-    k = (len(array) -1) * level
+    k = (len(array) - 1) * level
     f = math.floor(k)
     c = math.ceil(k)
     if f == c:
@@ -391,7 +391,7 @@ def mcaveragevariance(names, sampleNumbers, timeSteps):
             report(var, name + '-var.map')
             report(minimum, name + '-min.map')
             report(maximum, name + '-max.map')
-            report(sqrt(var) /mean, name + '-err.map')
+            report(sqrt(var) / mean, name + '-err.map')
     else:
         nrSamples = scalar(len(sampleNumbers))
         for name in names:
@@ -400,7 +400,7 @@ def mcaveragevariance(names, sampleNumbers, timeSteps):
                 mean = average(generateNameT(name, step), sampleNumbers)
                 report(mean, generateNameT(name + '-ave', step))
                 report(var, generateNameT(name + '-var', step))
-                report(sqrt(var) /mean, generateNameT(name + '-err', step))
+                report(sqrt(var) / mean, generateNameT(name + '-err', step))
 
 
 def mcpercentiles(
@@ -494,7 +494,7 @@ def createGstatRealizations(setOfRealizations, nameCommandFile, nameOutMapList):
             gstatOutputFileName = generateNameT('g_' + name, i)
             #print gstatOutputFileName, realization[item]
             shutil.move(gstatOutputFileName, realization[item])
-            item = item +1
+            item = item + 1
         i = i + 1
 
 
@@ -508,10 +508,10 @@ def createAllGstatRealizations(nameCommandFile, nameOutMapList, nrRealPerGstatCa
         for step in timeSteps:
             if j == nrRealPerGstatCall:
                 j = 1
-                i = i +1
+                i = i + 1
                 names.append([])
             else:
-                j = j +1
+                j = j + 1
             namesOneSampleOneTimeStep = []
             for nameOutMap in nameOutMapList:
                 if staticInput(timeSteps):

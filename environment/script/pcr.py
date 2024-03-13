@@ -217,9 +217,9 @@ def pcrtreeRelativePath(absPath):
     """
     assert os.path.isabs(absPath)
     if absPath.find("/cygdrive") == 0:
-        absPath = executeOneLine("cygpath --mixed \"" +absPath +"\"")
+        absPath = executeOneLine("cygpath --mixed \"" + absPath + "\"")
     # +1 for intervening slash
-    return absPath[len(pcrtree()) +1:].replace("\\", "/")
+    return absPath[len(pcrtree()) + 1:].replace("\\", "/")
 
 
 def python2():
@@ -628,27 +628,27 @@ def clVimFilter(msgs):
                 fileName = l[0:afterFile]
                 if not os.path.isabs(fileName):
                     fileName = pcrtree(fileName)
-                return executeOneLine("cygpath --unix \"" +fileName +"\"")
+                return executeOneLine("cygpath --unix \"" + fileName + "\"")
 
             afterFile = l.find("(")
             e = l.find(") :")
             if afterFile != -1 and e != -1:
-                lineNoStr = l[afterFile +1:e]
+                lineNoStr = l[afterFile + 1:e]
                 if lineNoStr.isdigit():
                             # like col2map.c(85) : warning C4244: etc.
                             #  sep counter:    123
                     fileName = absCygFile(l, afterFile)
-                    msg = l[e +4:]
+                    msg = l[e + 4:]
                     return "%s:%s::%s" % (fileName, lineNoStr, msg)
             afterFile = l.find(":")
             if afterFile != -1:
-                afterLineNr = l.find(":", afterFile +1)
+                afterLineNr = l.find(":", afterFile + 1)
                 if afterLineNr != -1:
-                    lineNoStr = l[afterFile +1:afterLineNr]
+                    lineNoStr = l[afterFile + 1:afterLineNr]
                     if lineNoStr.isdigit():
                         # like col2map_col2maptest.cc:101: TODO: etc.
                         fileName = absCygFile(l, afterFile)
-                        msg = l[afterLineNr +1:]
+                        msg = l[afterLineNr + 1:]
                         return "%s:%s::%s" % (fileName, lineNoStr, msg)
             # as is
             return l

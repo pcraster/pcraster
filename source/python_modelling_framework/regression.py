@@ -39,7 +39,7 @@ def linearRegression(rawData, equationOrder):
            "All data points in raw data must have the same number items"
 
     xEquationForm = [lambda rawItem, coefIndex: pow(rawItem[1], coefIndex)]
-    return regression(rawData, xEquationForm * (equationOrder +1))
+    return regression(rawData, xEquationForm * (equationOrder + 1))
 
 #----------------------------------------------------------------------#
 #  function:   regression                                              #
@@ -266,23 +266,23 @@ def gauss(AMatrix, BMatrix):
     coefficients = [0] * n
 
     # condition the matrix for the solution
-    for i in range(n -1):
+    for i in range(n - 1):
         pivot = A[i][i]
         assert(pivot != 0), \
            "Zero pivot value encountered"
-        for j in range(i +1, n):
+        for j in range(i + 1, n):
             multiplier = float(A[j][i]) / pivot
-            for k in range(i +1, n):
+            for k in range(i + 1, n):
                 A[j][k] = A[j][k] - multiplier * A[i][k]
             B[j] = B[j] - multiplier * B[i]
 
     # solve for the coefficients
-    assert(A[n -1][n -1] != 0), \
+    assert(A[n - 1][n - 1] != 0), \
        "Divide by zero encountered in solution"
-    coefficients[n -1] = float(B[n -1]) / A[n -1][n -1]
-    for i in range(n -2, -1, -1):
+    coefficients[n - 1] = float(B[n - 1]) / A[n - 1][n - 1]
+    for i in range(n - 2, -1, -1):
         top = B[i]
-        for j in range(i +1, n):
+        for j in range(i + 1, n):
             top = top - (A[i][j] * coefficients[j])
         assert(A[i][i] != 0), \
            "Divide by zero encountered in solution"

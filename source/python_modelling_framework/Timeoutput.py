@@ -115,7 +115,7 @@ class TimeoutputTimeseries(object):
         else:
             if expression.dataType() == pcraster.Scalar or expression.dataType() == pcraster.Directional:
                 tmp = pcraster.maptotal(pcraster.spatial(expression))\
-                      / pcraster.maptotal(pcraster.scalar(pcraster.defined(pcraster.spatial(expression))))
+                    / pcraster.maptotal(pcraster.scalar(pcraster.defined(pcraster.spatial(expression))))
             else:
                 tmp = pcraster.mapmaximum(pcraster.maptotal(pcraster.areamajority(pcraster.spatial(expression), \
                       pcraster.spatial(pcraster.nominal(1)))))

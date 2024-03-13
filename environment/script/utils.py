@@ -32,8 +32,8 @@ def call(command):
 
 
 def execute(
-         command,
-         input=None):
+    command,
+    input=None):
     """
     Executes the command and returns the results.
 
@@ -67,7 +67,7 @@ def execute(
 
 
 def nativePath(
-         name):
+    name):
     """
     Converts the path name passed in to a native representation.
 
@@ -102,8 +102,8 @@ def environmentVariableAsNativePath(environmentVariable):
 
 
 def duration(
-         startTime,
-         endTime):
+    startTime,
+    endTime):
     """
     Returns a formatted string with the duration between endTime and startTime.
 

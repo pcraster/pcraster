@@ -59,13 +59,13 @@ class ChildProcess:
         message = ""
         if os.WIFSTOPPED(self.d_result):
             message = "Child %s with process id %d stopped with signal %d" \
-                  % (self.d_name, self.d_pid, os.WSTOPSIG(self.d_result))
+                % (self.d_name, self.d_pid, os.WSTOPSIG(self.d_result))
         elif os.WIFSIGNALED(self.d_result):
             message = "Child %s with process id %d exited due to signal %d" % \
-                  (self.d_name, self.d_pid, os.WTERMSIG(self.d_result))
+                (self.d_name, self.d_pid, os.WTERMSIG(self.d_result))
         elif os.WIFEXITED(self.d_result):
             message = "Child %s with process id %d exited with parameter %d" % \
-                  (self.d_name, self.d_pid, os.WEXITSTATUS(self.d_result))
+                (self.d_name, self.d_pid, os.WEXITSTATUS(self.d_result))
         assert message
         message += "\nDuration (indication): %s" % (self.durationAsString())
         return message

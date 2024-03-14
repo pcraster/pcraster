@@ -19,7 +19,7 @@ jobs:
 
         runs-on: ${{ matrix.os }}
 
-        name: ${{ matrix.os }};${{ matrix.compiler.cxx }};qt5-${{ matrix.qt6 }}
+        name: ${{ matrix.os }};${{ matrix.compiler.cc }};qt5-${{ matrix.qt6 }};Release
 
         timeout-minutes: 60
 
@@ -95,7 +95,7 @@ jobs:
 
         runs-on: ${{ matrix.os }}
 
-        name: ${{ matrix.os }};${{ matrix.compiler.cxx }};qt5-${{ matrix.qt6 }}
+        name: ${{ matrix.os }};${{ matrix.compiler.cc }};qt5-${{ matrix.qt6 }};Debug
 
         timeout-minutes: 60
 

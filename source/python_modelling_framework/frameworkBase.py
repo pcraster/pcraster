@@ -425,11 +425,8 @@ class FrameworkBase(shellscript.ShellScript):
     def _report(self, variable, name):
         """
         Report map data to disk.
-
-        .. todo::
-
-          Uses PCRaster package which isn't imported.
         """
+        import pcraster
         pcraster.report(variable, name)
 
     def _generateName(self, name):

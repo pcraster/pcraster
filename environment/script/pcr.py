@@ -1,6 +1,7 @@
 import os
 import os.path
 import re
+import regex
 import stat
 import string
 import sys
@@ -299,13 +300,13 @@ else:
                     def __init__(self):
                         self.fileName = os.tempnam()
                     def createFile(self):
-                        return file(self.fileName, "wb")
+                        return open(self.fileName, "wb")
                     def close(self):
                         if os.path.exists(self.fileName):
                             os.remove(self.fileName)
                     def lines(self):
                         if os.path.exists(self.fileName) and os.path.getsize(self.fileName):
-                            return file(self.fileName, "r").readlines()
+                            return open(self.fileName, "r").readlines()
                         return []
 
                 sOut = Stream()

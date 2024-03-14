@@ -78,4 +78,3 @@ class MonteCarloBase(object):
         return self._d_inSample
         # else:
         #  return False
-

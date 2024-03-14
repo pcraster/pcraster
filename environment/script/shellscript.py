@@ -230,4 +230,3 @@ class ShellScript(object):
     def error(self, msg):
         print("deprecated, update your script")
         self.showError(msg)
-

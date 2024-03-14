@@ -265,4 +265,3 @@ StaticFramework or DynamicFramework"
         Disables the progress display of sample numbers.
         """
         self._d_quietProgressSampleNr = quiet
-

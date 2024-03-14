@@ -23,4 +23,3 @@ class EnKfBase(object):
     def setObservations(self):
         msg = "Class needs to implement 'setObservations' method"
         raise NotImplementedError(msg)
-

@@ -49,4 +49,3 @@ class MonteCarloModel(mcBase.MonteCarloBase):
             newName = frameworkBase.generateNameT(name, self.currentTimeStep())
 
         return pcraster.readmap(newName)
-

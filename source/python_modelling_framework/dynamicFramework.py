@@ -94,4 +94,3 @@ class DynamicFramework(frameworkBase.FrameworkBase):
         Disables the progress display of timesteps.
         """
         self._d_quietProgressDots = quiet
-

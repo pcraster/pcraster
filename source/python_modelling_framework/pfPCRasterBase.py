@@ -36,4 +36,3 @@ class ParticleFilterModel(pfBase.ParticleFilterBase):
             filename = frameworkBase.generateNameT(variableName, timestep)
         name = os.path.join(sample, "stateVar", filename)
         return pcraster.readmap(name)
-

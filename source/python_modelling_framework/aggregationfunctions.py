@@ -523,4 +523,3 @@ def createAllGstatRealizations(nameCommandFile, nameOutMapList, nrRealPerGstatCa
     for setOfRealizations in names:
         createGstatRealizations(setOfRealizations, nameCommandFile, nameOutMapList)
         # print setOfRealizations
-

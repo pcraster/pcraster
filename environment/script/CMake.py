@@ -109,5 +109,3 @@ def build(
     assert False, "First configure CMake project"
 
   return builder(name, nrJobs)
-
-

@@ -448,6 +448,3 @@ def reconfigureProjects(
       break
 
   return result
-
-
-

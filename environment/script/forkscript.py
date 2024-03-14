@@ -193,4 +193,3 @@ class ForkScript:
             totalDuration = self.d_decayFactor * self.averageChildProcessDuration(3)
         totalDuration = min(totalDuration, defaultDuration)
         return totalDuration
-

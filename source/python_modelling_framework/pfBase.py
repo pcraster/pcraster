@@ -40,4 +40,3 @@ class ParticleFilterBase(object):
     def readState(self):
         msg = "Class needs to implement 'readState' method"
         raise NotImplementedError(msg)
-

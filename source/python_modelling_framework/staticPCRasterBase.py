@@ -54,4 +54,3 @@ class StaticModel(staticBase.StaticBase):
           `style` argument is not used.
         """
         return self._readmapNew(name)
-

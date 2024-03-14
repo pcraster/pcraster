@@ -20,4 +20,3 @@ class EnKfModel(kfBase.EnKfBase):
     # static models is ".map" and will be appended automatically.
     def readmap(self, name, style=1):
         return self._readmapNew(name)
-

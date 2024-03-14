@@ -75,4 +75,3 @@ def makeDirectories(
       print("mkdir %s" % (os.path.join(directoryName)))
       os.mkdir(os.path.join(directoryName))
       makeDirectories(directoryName, subTree[1:])
-

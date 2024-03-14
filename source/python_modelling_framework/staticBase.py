@@ -34,4 +34,3 @@ class StaticBase(object):
                       value):
         assert isinstance(value, bool)
         self.inInitial = value
-

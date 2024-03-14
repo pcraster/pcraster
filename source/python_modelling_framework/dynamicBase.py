@@ -134,4 +134,3 @@ class DynamicBase(object):
             raise AttributeError(msg)
 
         self._d_nrTimeSteps = lastTimeStep
-

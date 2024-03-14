@@ -50,4 +50,3 @@ class StaticFramework(frameworkBase.FrameworkBase):
           and not hasattr(self._userModel(), "run"):
             msg = "Cannot run static framework: Implement either an initial or a run method in the user class"
             raise frameworkBase.FrameworkError(msg)
-

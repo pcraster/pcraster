@@ -503,4 +503,3 @@ class ResidualResamplingFramework(ParticleFilterFramework):
             content.writerow(["sample", "normalised weight", "resampling factor", "cdf residual weights", "resampled particles"])
             for i in range(0, self._userModel().nrSamples()):
                 content.writerow([(i + 1), normalisedWeights[i], resamplingFactor[i], cdfResidualWeights[i], samplesToClone[i]])
-

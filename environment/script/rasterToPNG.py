@@ -155,4 +155,3 @@ if __name__ == "__main__":
 
   rasterToPNG(args.raster, args.image)
   sys.exit(0)
-

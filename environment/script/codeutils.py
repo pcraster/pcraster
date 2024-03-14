@@ -1745,6 +1745,3 @@ class CppFileGenerator:
        self.d_fd.write("\n")
   def addInclude(self,className):
       self.d_fd.write(guardIncludeStatement(className)+"\n")
-
-
-

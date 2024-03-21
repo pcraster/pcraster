@@ -6,7 +6,8 @@ import os.path
 import sys
 import time
 import traceback
-import utils
+
+#import utils
 
 
 # Base class for shell scripts.

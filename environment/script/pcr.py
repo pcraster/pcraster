@@ -1,7 +1,6 @@
 import os
 import os.path
 import re
-import regex
 import stat
 import string
 import sys
@@ -118,7 +117,7 @@ def createArchive(dir):
     newPathName = os.path.split(dir)[0]
 
     os.chdir(newPathName)
-    if regex.match('.*x.*', sys.platform) > 0:
+    if re.match('.*x.*', sys.platform) > 0:
         archiveName = os.path.join(currentPathName, os.path.basename(dir) + \
                                    '.tar.gz')
         command = 'tar zcf ' + archiveName + ' ' + os.path.basename(dir) + \

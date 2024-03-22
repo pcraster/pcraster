@@ -587,28 +587,41 @@ class TestNumPy(testcase.TestCase):
       # allow for, but less than iterations * size(raster)
       max_diff = 5000
 
+      max_increase = 0
       for it in range(0, nr_iterations):
-        pcraster.pcr2numpy(rasterScalar, numpy.nan)
+        raster = pcraster.pcr2numpy(rasterScalar, numpy.nan)
         mem = process.memory_info()
         curr_mem = mem.rss / 2**10
-        if curr_mem - init_mem > max_diff:
+        mem_diff = curr_mem - init_mem
+        if mem_diff > max_diff:
           mem_increase = True
+          max_increase = mem_diff if mem_diff > max_increase else max_increase
 
+      self.assertFalse(mem_increase, f"max_increase: {max_increase}")
+
+      max_increase = 0
       for it in range(0, nr_iterations):
-        pcraster.pcr2numpy(rasterBoolean, numpy.nan)
+        raster = pcraster.pcr2numpy(rasterBoolean, numpy.nan)
         mem = process.memory_info()
         curr_mem = mem.rss / 2**10
-        if curr_mem - init_mem > max_diff:
+        mem_diff = curr_mem - init_mem
+        if mem_diff > max_diff:
           mem_increase = True
+          max_increase = mem_diff if mem_diff > max_increase else max_increase
 
+      self.assertFalse(mem_increase, f"max_increase: {max_increase}")
+
+      max_increase = 0
       for it in range(0, nr_iterations):
-        pcraster.pcr2numpy(rasterNominal, numpy.nan)
+        raster = pcraster.pcr2numpy(rasterNominal, numpy.nan)
         mem = process.memory_info()
         curr_mem = mem.rss / 2**10
-        if curr_mem - init_mem > max_diff:
+        mem_diff = curr_mem - init_mem
+        if mem_diff > max_diff:
           mem_increase = True
+          max_increase = mem_diff if mem_diff > max_increase else max_increase
 
-      self.assertEqual(mem_increase, False)
+      self.assertFalse(mem_increase, f"max_increase: {max_increase}")
 
 
   def test_004(self):

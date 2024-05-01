@@ -1,0 +1,75 @@
+name: Release branch Windows
+
+on:
+    schedule:
+      - cron:  '45 3 2 * *'
+
+jobs:
+    build:
+        strategy:
+            fail-fast: false
+            matrix:
+                config:
+                - {
+                      name: "Windows 2022",
+                      os: windows-2022,
+                      cc: "cl", cxx: "cl",
+                      environment_script: "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Auxiliary/Build/vcvars64.bat"
+                  }
+
+        runs-on: ${{ matrix.config.os }}
+
+        timeout-minutes: 120
+
+        steps:
+
+        - name: Create build directory
+          run: mkdir build
+          shell: cmd
+
+        - name: Checkout PCRaster
+          uses: actions/checkout@v4
+          with:
+              ref: 4.4
+
+        - uses: conda-incubator/setup-miniconda@v3
+          with:
+              miniforge-version: latest
+              auto-update-conda: false
+
+        - shell: cmd /C call {0}
+          run: |
+              mamba install numpy cmake ninja boost-cpp qt xerces-c libgdal gdal psutil make
+
+        - name: Configure PCRaster
+          shell: cmd /C call {0}
+          run: |
+              "${{ matrix.config.environment_script }}" && ^
+              cmake ^
+                  -S . ^
+                  -B build ^
+                  -G"Ninja Multi-Config" ^
+                  -D CMAKE_CONFIGURATION_TYPES="Release;Debug" ^
+                  -D CMAKE_C_COMPILER=${{ matrix.config.cc }} ^
+                  -D CMAKE_CXX_COMPILER=${{ matrix.config.cxx }} ^
+                  -D PCRASTER_BUILD_TEST=ON ^
+                  -D CMAKE_INSTALL_PREFIX=package ^
+                  -D CMAKE_VERBOSE_MAKEFILE=OFF
+
+        - name: Build release
+          shell: cmd /C call {0}
+          run: |
+              "${{ matrix.config.environment_script }}" && ^
+              cmake --build build --config Release --target all
+
+        - name: Install PCRaster
+          shell: cmd /C call {0}
+          run: |
+              "${{ matrix.config.environment_script }}" && ^
+              cmake --install build --config Release
+
+        - name: Test release
+          shell: cmd /C call {0}
+          run: |
+              "${{ matrix.config.environment_script }}" && ^
+              ctest --test-dir build --output-on-failure --build-config Release

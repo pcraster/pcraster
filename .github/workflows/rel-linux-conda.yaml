@@ -1,0 +1,43 @@
+name: Release branch Linux Conda
+
+on:
+    schedule:
+      - cron:  '45 3 2 * *'
+
+jobs:
+    build:
+
+        strategy:
+            matrix:
+                os: ["ubuntu-22.04"]
+            fail-fast: false
+
+        runs-on: ${{ matrix.os }}
+
+        timeout-minutes: 120
+
+        steps:
+
+        - name: Configure system
+          run: |
+              sudo apt update
+              sudo apt install mesa-common-dev libglu1-mesa-dev libgl1-mesa-glx
+
+        - name: Checkout PCRaster
+          uses: actions/checkout@v4
+          with:
+              ref: 4.4
+
+        - uses: conda-incubator/setup-miniconda@v3
+          with:
+              miniforge-version: latest
+              auto-update-conda: false
+
+        - shell: bash -l {0}
+          run: |
+              mamba install boa
+
+        - name: Build
+          shell: bash -l {0}
+          run: |
+              conda mambabuild environment/configuration/receipe

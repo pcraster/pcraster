@@ -1,0 +1,65 @@
+name: Release branch macOS
+
+on:
+    schedule:
+      - cron:  '45 3 2 * *'
+
+jobs:
+    build:
+        strategy:
+            matrix:
+                os: [macos-12, macos-14]
+            fail-fast: false
+
+        runs-on: ${{ matrix.os }}
+
+        timeout-minutes: 120
+
+        steps:
+
+        - name: Checkout PCRaster
+          uses: actions/checkout@v4
+          with:
+              ref: 4.4
+
+        - name: Configure system
+          run: |
+              : # GDAL is built against particular Python version, check formula code if required
+              brew install python@3.12 cmake ninja boost gdal ncurses xerces-c qt@5
+              $(brew --prefix)/opt/python@3.12/bin/pip3 install numpy psutil
+
+        - name: Configure PCRaster
+          shell: bash -l {0}
+          run: |
+              mkdir build
+              cmake \
+                  -S . \
+                  -B build \
+                  -G "Ninja Multi-Config" \
+                  -D CMAKE_CONFIGURATION_TYPES="Release;Debug" \
+                  -D PCRASTER_BUILD_TEST=ON \
+                  -D CMAKE_PREFIX_PATH="$(brew --prefix ncurses);$(brew --prefix qt5)" \
+                  -D Python3_EXECUTABLE:FILEPATH=$(brew --prefix)/opt/python@3.12/bin/python3 \
+                  -D CMAKE_INSTALL_PREFIX=package
+
+        - name: Build release
+          shell: bash
+          run: |
+              cmake --build build --config Release --target all
+
+        - name: Install PCRaster
+          shell: bash
+          run: |
+              cmake --install build --config Release
+
+        - name: Create source package
+          shell: bash
+          run: |
+              cmake --build build --config Release --target package_source
+
+        - name: Test release
+          env:
+              LOGNAME: pcrtester
+          shell: bash
+          run: |
+              ctest --test-dir build --output-on-failure --build-config Release

@@ -670,7 +670,7 @@ codeBlock[calc::StatementBlock *inclIn]:
                | reportMoments[inSitu]
                <<
                   char buf[8];
-                  sprintf(buf,"%d",inSituNr++);
+                  std::snprintf(buf,8,"%d",inSituNr++);
                   calc::Symbol s(script(),buf,0);
                   calc::ReportDefinition *rd;
                   rd = new calc::ReportDefinition(

@@ -22,6 +22,7 @@
   #endif
 #endif
 #include <cerrno>
+#include <spawn.h>
 
 // PCRaster library headers.
 
@@ -87,23 +88,25 @@ int com::spawn(const char *exeName, const char **args)
   return ::spawnvp(P_WAIT, (char *)exeName, (char **)args);
 #endif
 #else
-  int pid = vfork();
-  if(pid == -1)
-   return -1;
-  if(!pid)
-  {
-    int exitCode=execvp((char *)exeName, (char **)args);
-    if (exitCode==-1) {
-      // std::cout << " execvp FAILURE REASON " << strerror(errno) 
-      //        << std::endl;
-    }
+  pid_t pid;
+  posix_spawnattr_t attr;
+  if(posix_spawnattr_init(&attr) != 0){
+    _exit(-1);
+  }
+#ifndef __APPLE__
+  if(posix_spawnattr_setflags(&attr, POSIX_SPAWN_USEVFORK) != 0){
+    _exit(-1);
+  }
+#endif
+  int result = posix_spawn(&pid, exeName, nullptr, &attr, (char *  const *) args, nullptr);
+  if(result != 0){
     _exit(-1);
   }
 
   int status;
   int exitCode = waitpid(pid, &status, WUNTRACED);
   if (exitCode==-1) {
-    //  std::cout << " execvp FAILURE REASON " << strerror(errno) 
+    //  std::cout << " execvp FAILURE REASON " << strerror(errno)
     //          << std::endl;
   }
   return status;

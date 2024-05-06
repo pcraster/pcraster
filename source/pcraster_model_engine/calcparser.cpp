@@ -1201,7 +1201,7 @@ Parser::statement(int *_retsignal)
 													
 													char buf[8];
 													static int  inSituNr=0; // harmless static
-													sprintf(buf,"%d",inSituNr++);
+													std::snprintf(buf,8,"%d",inSituNr++);
 													pos.setName(buf);
 													_retv->transferReportInSitu(
 													new calc::Report(pos, inSitu));

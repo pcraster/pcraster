@@ -2150,7 +2150,7 @@ calc::LexToken::LexToken(
          d_pos->throwError("Unknown character(s) "+quote(d_text));
        }
        // pcrcalc/test375
-       sprintf(aBuf,"not printable: %X(hex)",d_text[0]);
+       std::snprintf(aBuf,64,"not printable: %X(hex)",d_text[0]);
        d_pos->throwError(aBuf);
      default:;
    }

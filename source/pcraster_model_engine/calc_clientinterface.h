@@ -14,14 +14,16 @@
 #define INCLUDED_STRING
 #endif
 // PCRaster library headers.
-
+#ifndef INCLUDED_CALC_ASTSCRIPT
+#include "calc_astscript.h"
+#define INCLUDED_CALC_ASTSCRIPT
+#endif
 // Module headers.
 
 
 
 namespace calc {
   // ClientInterface declarations.
-  class ASTScript;
   class IOStrategy;
   class Executor;
 }

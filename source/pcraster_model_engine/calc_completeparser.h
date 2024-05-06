@@ -27,11 +27,13 @@
 #include "calc_rewriteparsedast.h"
 #define INCLUDED_CALC_REWRITEPARSEDAST
 #endif
-
+#ifndef INCLUDED_CALC_ASTSCRIPT
+#include "calc_astscript.h"
+#define INCLUDED_CALC_ASTSCRIPT
+#endif
 
 namespace calc {
   // CompleteParser declarations.
-  class ASTScript;
 }
 
 

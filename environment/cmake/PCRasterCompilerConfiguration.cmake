@@ -64,6 +64,8 @@ endif()
 add_compile_options(
     "$<$<COMPILE_LANG_AND_ID:C,GNU,AppleClang,Clang>:-pipe>"
     "$<$<COMPILE_LANG_AND_ID:CXX,GNU,AppleClang,Clang>:-pipe>"
+    "$<$<COMPILE_LANG_AND_ID:C,AppleClang,Clang>:>"
+    "$<$<COMPILE_LANG_AND_ID:CXX,AppleClang,Clang>:>"
     "$<$<COMPILE_LANG_AND_ID:C,GNU>:-pedantic>"
     "$<$<COMPILE_LANG_AND_ID:CXX,GNU>:-pedantic>"
     "$<$<CXX_COMPILER_ID:MSVC>:/W1>"

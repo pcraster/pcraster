@@ -20,9 +20,9 @@
   #ifndef __APPLE__
   #include <wait.h>
   #endif
+  #include <spawn.h>
 #endif
 #include <cerrno>
-#include <spawn.h>
 
 // PCRaster library headers.
 

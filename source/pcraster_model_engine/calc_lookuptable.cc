@@ -5,16 +5,6 @@
 #define INCLUDED_CALC_LOOKUPTABLE
 #endif
 
-#ifndef INCLUDED_BOOST_BIND
-  #include <boost/version.hpp>
-  #if BOOST_VERSION > 107200
-    #include <boost/bind/bind.hpp>
-  #else
-    #include <boost/bind.hpp>
-  #endif
-#define INCLUDED_BOOST_BIND
-#endif
-
 #ifndef INCLUDED_MAP
 #include <map>
 #define INCLUDED_MAP
@@ -59,10 +49,6 @@
 #define INCLUDED_CALC_PCRASTERXSD
 #endif
 
-#if BOOST_VERSION > 107200
-  using namespace boost::placeholders;
-#endif
-
 namespace calc {
  namespace detail {
  //! map: key->[begin,end)
@@ -93,7 +79,7 @@ namespace calc {
       {
         d_records->push_back(RelationRecord());
         std::for_each(r.lookupColumn().begin(), r.lookupColumn().end(),
-             boost::bind(&AddRecord::addCol,this,_1));
+             [this](auto && PH1) { addCol(std::forward<decltype(PH1)>(PH1)); });
       }
  };
 
@@ -333,7 +319,7 @@ calc::LookupTable::const_iterator
  calc::LookupTable::find(const Key& prefixKey) const
 {
   return std::find_if(d_records.begin(),d_records.end(),
-      boost::bind(&calc::RelationRecord::match,_1,boost::ref(prefixKey)));
+      [&prefixKey](auto && PH1) { return PH1.match(prefixKey); });
 }
 
 //! find first match on key and return result

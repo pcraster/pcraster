@@ -25,12 +25,6 @@
 
 #include <cassert>
 #include <functional>
-#include <boost/version.hpp>
-#if BOOST_VERSION > 107200
-  #include <boost/bind/bind.hpp>
-#else
-  #include <boost/bind.hpp>
-#endif
 
 #ifndef INCLUDED_CALC_LIBERROR
 #include "calc_liberror.h"
@@ -45,10 +39,6 @@
 #ifndef INCLUDED_CALC_QUOTE
 #include "calc_quote.h"
 #define INCLUDED_CALC_QUOTE
-#endif
-
-#if BOOST_VERSION > 107200
-  using namespace boost::placeholders;
 #endif
 
 LOOK_UP_TABLE *calc::LookupTable::createOldStyle(
@@ -289,7 +279,7 @@ bool calc::LookupTable::find(double& result, const std::vector<double>& key) con
 {
   PRECOND(key.size() == nrKeys());
   auto p = std::find_if(d_records.begin(),d_records.end(),
-                   boost::bind(&calc::LookupRecord::match,_1,boost::ref(key)));
+                   [&key](auto && PH1) { return PH1.match(key); });
   if (p != d_records.end()) {
     result = p->result();
     return true;

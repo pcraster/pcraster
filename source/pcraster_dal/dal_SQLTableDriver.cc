@@ -4,17 +4,6 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_BOOST_BIND
-  #include <boost/version.hpp>
-  #if BOOST_VERSION > 107200
-    #include <boost/bind/bind.hpp>
-  #else
-    #include <boost/bind.hpp>
-  #endif
-#define INCLUDED_BOOST_BIND
-#endif
-
-
 #ifndef INCLUDED_BOOST_FORMAT
 #include <boost/format.hpp>
 #define INCLUDED_BOOST_FORMAT
@@ -65,10 +54,6 @@
   \file
   This file contains the implementation of the SQLTableDriver class.
 */
-
-#if BOOST_VERSION > 107200
-  using namespace boost::placeholders;
-#endif
 
 #ifndef QT_NO_SQL
 
@@ -291,8 +276,7 @@ ConnectionInfo dal::SQLTableDriver::connectionInfoFor(
       else {
         // Determine and cache database file properties.
         typedef boost::function<bool (std::string const&)> CallBack;
-        CallBack callBack(boost::bind(&SQLTableDriver::databaseExists, this,
-              _1));
+        CallBack callBack([this](auto && PH1) { return databaseExists(std::forward<decltype(PH1)>(PH1)); });
 
         std::tie(found, convention, extension) =
               dal::determineFilenameCharacteristics<CallBack>(callBack,

@@ -11,6 +11,10 @@
 #include "ag_Camera.h"
 #include "ag_Feedback.h"
 
+#if defined(_WIN32)
+  #include <windows.h>
+#endif
+
 #ifdef __APPLE__
   #include <OpenGL/glu.h>
 #else

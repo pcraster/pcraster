@@ -1,6 +1,10 @@
 #include "ag_Camera.h"
 #include <cassert>
 
+#if defined(_WIN32)
+  #include <windows.h>
+#endif
+
 #ifdef __APPLE__
   #include <OpenGL/glu.h>
 #else
@@ -25,7 +29,7 @@
 ag::Camera::Camera(GLfloat x, GLfloat y, GLfloat z,
                     GLfloat yaw, GLfloat pitch, GLfloat roll)
 
-  : SceneObject(x, y, z, yaw, pitch, roll) 
+  : SceneObject(x, y, z, yaw, pitch, roll)
 
 {
 }

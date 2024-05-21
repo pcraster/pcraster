@@ -8,13 +8,13 @@ jobs:
     build_release:
         strategy:
             matrix:
-                os: [ubuntu-22.04]
+                os: [ubuntu-24.04]
                 qt6: ["ON", "OFF"]
                 compiler:
-                    - { cc: gcc-11  , cxx: g++-11    }
-                    - { cc: gcc-13  , cxx: g++-13    }
-                    - { cc: clang-11, cxx: clang++-11}
-                    - { cc: clang-15, cxx: clang++-15}
+                    - { cc: gcc-12  , cxx: g++-12    }
+                    - { cc: gcc-14  , cxx: g++-14    }
+                    - { cc: clang-16, cxx: clang++-16}
+                    - { cc: clang-18, cxx: clang++-18}
             fail-fast: false
 
         runs-on: ${{ matrix.os }}
@@ -30,8 +30,7 @@ jobs:
 
         - name: Configure system
           run: |
-              sudo apt update
-              sudo apt install ${{ matrix.compiler.cc }} ninja-build gdal-bin libgdal-dev libxerces-c-dev libxml2-dev libxslt1-dev libboost-dev libboost-date-time-dev libboost-test-dev libncurses5-dev libxml2 libxml2-utils mesa-common-dev libglu1-mesa-dev libgl1-mesa-glx python3 libpython3-dev python3-numpy python3-psutil cmake pybind11-dev python3-qgis
+              sudo apt install ninja-build gdal-bin libgdal-dev libxerces-c-dev libxml2-dev libxslt1-dev libboost-dev libboost-date-time-dev libboost-test-dev libncurses5-dev libxml2 libxml2-utils mesa-common-dev libglu1-mesa-dev libgl1-mesa-glx python3 libpython3-dev python3-numpy python3-psutil cmake pybind11-dev python3-qgis
               # Only required for documentation:
               sudo apt install python3-sphinx doxygen python3-matplotlib graphviz
 

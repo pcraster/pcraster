@@ -9,7 +9,7 @@ jobs:
 
         strategy:
             matrix:
-                os: [ubuntu-22.04]
+                os: [ubuntu-24.04]
             fail-fast: false
 
         runs-on: ${{ matrix.os }}
@@ -23,7 +23,7 @@ jobs:
         - name: Configure system
           run: |
               sudo apt update
-              sudo apt install mesa-common-dev libglu1-mesa-dev libgl1-mesa-glx libegl-dev
+              sudo apt install mesa-common-dev libglu1-mesa-dev libegl-dev
 
         - name: Checkout PCRaster
           uses: actions/checkout@v4

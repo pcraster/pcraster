@@ -12,7 +12,7 @@ cellSize=50.0
 
 
 dest_dir = "@CMAKE_CURRENT_BINARY_DIR@"
-gdalTranslate="@GDAL_TRANSLATE@ -quiet"
+gdalTranslate="@GDAL_TRANSLATE@ -q"
 
 
 

@@ -5,7 +5,7 @@ import subprocess
 
 
 dest_dir = "@CMAKE_CURRENT_BINARY_DIR@"
-gdalTranslate="@GDAL_TRANSLATE@ -quiet"
+gdalTranslate="@GDAL_TRANSLATE@ -q"
 
 
 shutil.rmtree(os.path.join(dest_dir, "dataset1"), ignore_errors=True)

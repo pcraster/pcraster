@@ -44,7 +44,7 @@ for f in files:
     shutil.copy(os.path.join(demo_data_dir, f), dest_dir)
 
 
-gdalTranslate="@GDAL_TRANSLATE@ -quiet"
+gdalTranslate="@GDAL_TRANSLATE@ -q"
 
 west=0.0
 south=0.0

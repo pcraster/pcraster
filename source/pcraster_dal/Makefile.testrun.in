@@ -1,5 +1,5 @@
 SHELL         := bash
-gdalTranslate := @GDAL_TRANSLATE@ -quiet
+gdalTranslate := @GDAL_TRANSLATE@ -q
 west          := 100000.0
 south         := 199850.0
 cellSize      := 50.0
@@ -140,7 +140,7 @@ TextTables: table1.col table2.col table3.col table4.col table5.col table6.col ta
 
 # clean::
 # 	rm -f boolean.hdf4 nominal.hdf4 ordinal.hdf4 scalar.hdf4 directional.hdf4 ldd.hdf4 allmv.hdf4 Hdf4DataCreated
-# 
+#
 # Hdf4Data: Hdf4DataCreated
 
 # ------------------------------------------------------------------------------

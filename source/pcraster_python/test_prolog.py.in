@@ -5,7 +5,7 @@ import shutil
 import subprocess
 
 
-gdalTranslate="@GDAL_TRANSLATE@ -quiet"
+gdalTranslate="@GDAL_TRANSLATE@ -q"
 dest_dir = "@CMAKE_CURRENT_BINARY_DIR@"
 example_raster_dir = os.path.join("@PROJECT_BINARY_DIR@", "documentation", "pcraster_manual", "examples")
 

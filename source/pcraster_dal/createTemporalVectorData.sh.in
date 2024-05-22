@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-gdalTranslate="@GDAL_TRANSLATE@ -quiet"
+gdalTranslate="@GDAL_TRANSLATE@ -q"
 west=100000.0
 south=199850.0
 cellSize=50.0

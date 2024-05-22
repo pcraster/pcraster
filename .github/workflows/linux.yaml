@@ -88,8 +88,8 @@ jobs:
                 os: [ubuntu-24.04]
                 qt6: ["ON", "OFF"]
                 compiler:
-                    - { cc: gcc-13  , cxx: g++-13    }
-                    - { cc: clang-15, cxx: clang++-15}
+                    - { cc: gcc-14  , cxx: g++-14    }
+                    - { cc: clang-18, cxx: clang++-18}
             fail-fast: false
 
         runs-on: ${{ matrix.os }}

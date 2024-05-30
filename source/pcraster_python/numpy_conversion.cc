@@ -858,7 +858,7 @@ calc::Field* array_to_field(
     geo::RasterSpace const& space,
     VS const value_scale,
     pybind11::array const& array,
-    double const missing_value)
+    double missing_value)
 {
     if(!space.valid()) {
         throw std::logic_error(
@@ -908,6 +908,9 @@ calc::Field* array_to_field(
             break;
         }
         case NPY_INT32: {
+            if(std::isnan(missing_value)){
+                missing_value = MV_INT4;
+            }
             ARRAY_TO_FIELD(boost::int32_t, value_scale)
             break;
         }
@@ -916,6 +919,9 @@ calc::Field* array_to_field(
             break;
         }
         case NPY_INT64: {
+            if(std::isnan(missing_value)){
+                missing_value = MV_INT4;
+            }
             ARRAY_TO_FIELD(boost::int64_t, value_scale)
             break;
         }

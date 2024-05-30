@@ -26,7 +26,7 @@ pybind11::array    field_to_array     (geo::RasterSpace const& space,
 calc::Field*       array_to_field     (geo::RasterSpace const& space,
                                        VS const value_scale,
                                        pybind11::array const& array,
-                                       double const missing_value);
+                                       double missing_value);
 
 pybind11::array    field_as_array     (geo::RasterSpace const& space,
                                        pybind11::object* field_object);

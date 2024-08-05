@@ -3,6 +3,14 @@ Changes
 
 .. PCRaster 4.5.0
 .. --------------
+..
+.. The most relevant updates for users:
+..
+.. We further improved the code quality and the build system to ensure an ongoing creation of PCRaster packages, amongst others:
+..
+.. * Modernising the source code. C11 and C++20 are now the default standards when compiling PCRaster.
+.. * Various fixes raised by compiler warnings.
+
 
 PCRaster 4.4.1
 --------------

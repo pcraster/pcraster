@@ -113,8 +113,6 @@ if(NOT PCRASTER_LIB_INSTALL_DIR)
 endif()
 
 
-set(Boost_NO_BOOST_CMAKE ON)
-
 if(PCRASTER_BUILD_TEST)
     enable_testing()
     list(APPEND PCR_BOOST_COMPONENTS unit_test_framework)

@@ -36,6 +36,8 @@
 #define INCLUDED_MLDD_ARG2NBORDER
 #endif
 
+#include <numbers>
+
 /*!
   \file
   This file contains the implementation of the Diffuse class.
@@ -156,7 +158,7 @@ mldd::Diffuse::Diffuse(geo::ScalarSimpleRaster&  dem,
   d_minInfinity(0)
 {
   d_cellSize[0]=cellSize;
-  d_cellSize[1]=cellSize*std::sqrt(2.0);
+  d_cellSize[1]=cellSize*std::numbers::sqrt2;
   arg2NBOrder(d_diffusionValue,diffusionValueInArgOrder);
 
   if (d_nrIterations <= 0) {

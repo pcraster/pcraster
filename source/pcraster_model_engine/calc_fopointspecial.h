@@ -21,6 +21,8 @@
 #define INCLUDED_API
 #endif
 
+#include <numbers>
+
 /* special code, that is "too long" to put in operation.xml 
  * or specific classes such as aggregate
  */
@@ -94,7 +96,7 @@ struct special {
       static double d[2] = {0,0};
       if (d[0]==0) {
         d[0] = Side();
-        d[1] = d[0]*std::sqrt(2.0);
+        d[1] = d[0]*std::numbers::sqrt2;
       }
       if (v==LDD_PIT) return 0;
        return (REAL4)d[((int)v)%2];

@@ -21,6 +21,7 @@
 #define INCLUDED_MLDD_DAGRASTER
 #endif
 
+#include <numbers>
 
 
 /*!
@@ -106,7 +107,7 @@ double mldd::WeightMap::get(const Edge& e) const
   if (d_dr.nrOutflowNB(s)==1)
     return 1; // no weight only one outflow
 
-  double dist[2] = { 1, std::sqrt(2.0) };
+  double dist[2] = { 1, std::numbers::sqrt2 };
   bool   diagonal= d.row()!=s.row() || d.col()!=s.col();
   if (d_dem.mv(d)||d_dem.mv(s))
     return mvMark(); // mv prohibit calculation

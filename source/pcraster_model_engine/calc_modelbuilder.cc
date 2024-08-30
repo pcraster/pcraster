@@ -5,6 +5,8 @@
 
 #ifndef INCLUDED_CALC_MODELBUILDER
 #include "calc_modelbuilder.h"
+
+#include <memory>
 #define INCLUDED_CALC_MODELBUILDER
 #endif
 
@@ -69,7 +71,7 @@ calc::ModelBuilder::~ModelBuilder()
 //! set name for \class calc::PositionName used to create symbols
 void calc::ModelBuilder::setPositionName(const std::string& name)
 {
-  d_positionName.reset(new std::string(name));
+  d_positionName = std::make_shared<std::string>(name);
 }
 
 

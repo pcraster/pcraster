@@ -5,6 +5,8 @@
 
 #ifndef INCLUDED_CALC_LEXINPUTSOURCE
 #include "calc_lexinputsource.h"
+
+#include <memory>
 #define INCLUDED_CALC_LEXINPUTSOURCE
 #endif
 
@@ -53,7 +55,7 @@
 
 calc::LexInputSource::LexInputSource(const std::string& fileName)
 {
-  d_fileName.reset(new std::string(fileName));
+  d_fileName = std::make_shared<std::string>(fileName);
 }
 
 calc::LexInputSource::LexInputSource()

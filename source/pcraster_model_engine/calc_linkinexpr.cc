@@ -15,6 +15,7 @@
 #endif
 #ifndef INCLUDED_BOOST_NONCOPYABLE
 #include <boost/noncopyable.hpp>
+#include <memory>
 #define INCLUDED_BOOST_NONCOPYABLE
 #endif
 
@@ -177,10 +178,10 @@ LinkInExpr::LinkInExpr(
    d_library(nullptr)
 {
   // temporary no-op use shared_ptr::swap later
-  d_op = std::shared_ptr<Operator>(new Operator("0::0","0::0",
+  d_op = std::make_shared<Operator>("0::0","0::0",
                       std::vector<OP_ARGS>(), // no results
                       std::vector<OP_ARGS>(), // no inputs
-                      nullptr));
+                      nullptr);
 }
 
 
@@ -310,7 +311,7 @@ void LinkInExpr::check()
   // reset operator to returned types
   std::vector<DataType> result=xml2DataType(r.result());
   std::vector<DataType> argument(xml2DataType(r.argument()));
-  d_op = std::shared_ptr<Operator>(new Operator(d_op->name(),result,argument));
+  d_op = std::make_shared<Operator>(d_op->name(),result,argument);
 }
 
 //! get value of d_nameBefore
@@ -334,7 +335,7 @@ void LinkInExpr::setAsMethod(std::string const&   className)
 
 void LinkInExpr::setAsConstructor(ASTPar const&   objectName)
 {
-  d_objectPar  = std::shared_ptr<ASTPar>(new ASTPar(objectName));
+  d_objectPar  = std::make_shared<ASTPar>(objectName);
   d_objectName = objectName.name();
   d_libraryName= nameBefore();
   d_className  = nameAfter();

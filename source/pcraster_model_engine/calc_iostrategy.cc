@@ -10,6 +10,7 @@
 
 // Library headers.
 #ifndef INCLUDED_SSTREAM
+#include <memory>
 #include <sstream>
 #define INCLUDED_SSTREAM
 #endif
@@ -254,8 +255,8 @@ void IOStrategy::setMemoryExchangeData(const ASTSymbolTable& symbols,
         if(id != noExchange) {
           maxIdInt = std::max<int>(maxIdInt,(size_t)id);
           d_memoryData.insert(std::make_pair(si.name(),
-            std::shared_ptr<MemoryExchangeItem>(
-              new MemoryExchangeItem(si.name(),id))));
+            std::make_shared<MemoryExchangeItem>(
+              si.name(),id)));
         }
       }
     }

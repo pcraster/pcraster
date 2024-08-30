@@ -170,8 +170,8 @@ void calc::ModelLinkMethodStatement::run()
   std::vector<SGlobResult> result;
   for (size_t i=0; i < d_sig.d_result.size(); i++) {
     VS vs=d_sig.d_result[i].vs;
-    result.push_back(SGlobResult(
-        new GlobResult(vs,vs,scriptConst().compressor())));
+    result.push_back(std::make_shared<GlobResult>(
+        vs,vs,scriptConst().compressor()));
     d_sig.d_result[i].value = result[i]->MAPinterface();
   }
 

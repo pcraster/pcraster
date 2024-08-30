@@ -1,5 +1,7 @@
 #ifndef INCLUDED_DAL_VECTOR
 #include "dal_Vector.h"
+
+#include <memory>
 #define INCLUDED_DAL_VECTOR
 #endif
 
@@ -74,8 +76,8 @@ Vector& Vector::operator=(
   if(this != &rhs) {
     dynamic_cast<Dataset&>(*this) = rhs;
     _dimensions = rhs._dimensions;
-    _x.reset(new Matrix(*rhs._x));
-    _y.reset(new Matrix(*rhs._y));
+    _x = std::make_shared<Matrix>(*rhs._x);
+    _y = std::make_shared<Matrix>(*rhs._y);
   }
 
   return *this;

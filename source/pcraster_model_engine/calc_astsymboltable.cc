@@ -5,6 +5,8 @@
 
 #ifndef INCLUDED_CALC_ASTSYMBOLTABLE
 #include "calc_astsymboltable.h"
+
+#include <memory>
 #define INCLUDED_CALC_ASTSYMBOLTABLE
 #endif
 
@@ -184,7 +186,7 @@ calc::LinkInLibrary const* calc::ASTSymbolTable::linkInLibrary(std::string const
   else {
    try {
     d_linkInLibraries.insert(std::make_pair(name,
-      std::shared_ptr<LinkInLibrary>(new LinkInLibrary(name))));
+      std::make_shared<LinkInLibrary>(name)));
    } catch (com::Exception const &e) {
      LinkInLibraryException l;
      l.message=e.messages();

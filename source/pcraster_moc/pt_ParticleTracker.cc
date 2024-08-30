@@ -802,7 +802,7 @@ void pt::ParticleTracker::updateDistribution(
   #ifdef DEBUG_DEVELOP
   for(geo::CellLocVisitor loc(nrRows(), nrCols()); loc.valid(); ++loc) {
     if(!_particles.isMV(*loc) && isSinkCell(flux, *loc)) {
-      for(geo::GriddedPoints<Particle>::iterator it =
+      for(auto it =
          _particles.cell(*loc).begin(); it != _particles.cell(*loc).end();
          ++it) {
         PRECOND((*it).born(*loc));
@@ -2348,7 +2348,7 @@ void pt::ParticleTracker::adjustConcentration(const geo::CellLoc& loc,
       // Do nothing.
 
 #ifdef DEBUG_DEVELOP
-      for(geo::GriddedPoints<Particle>::iterator it =
+      for(auto it =
          _particles.begin(loc); it != _particles.end(loc); ++it) {
         PRECOND((*it).concentration() == 0.0);
       }

@@ -67,7 +67,7 @@ void calc::StatementBlock::printBlock(InfoScript& i)const
 void calc::StatementBlock::deleteAtExit(FieldParameter *par)
 {
 #ifdef DEBUG_DEVELOP
-  for (FieldParList::const_iterator
+  for (auto
      it=d_valueDelete.begin(); it != d_valueDelete.end(); it++)
     PRECOND((*it) != par);
 

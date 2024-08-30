@@ -404,7 +404,7 @@ bool calc::LookupTable::interpolate(
     size_t  resultCol) const
 {
 #ifdef DEBUG_DEVELOP
-  for (I i=begin; i!=(end-1); ++i)
+  for (auto i=begin; i!=(end-1); ++i)
    DEVELOP_PRECOND(i->col(keyCol) < (i+1)->col(keyCol));
 #endif
   DEVELOP_PRECOND(end <= d_records.end());
@@ -447,7 +447,7 @@ void  calc::LookupTable::setPrefixStableSort(size_t prefixLen)
 #ifdef DEBUG_DEVELOP
   // current limitations
   PRECOND(prefixLen==1);
-  for (I i = d_records.begin(); i!=d_records.end();++i)
+  for (auto i = d_records.begin(); i!=d_records.end();++i)
    DEVELOP_PRECOND(i->col(0).equalTo());
 #endif
 

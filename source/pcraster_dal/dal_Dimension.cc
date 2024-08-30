@@ -203,9 +203,9 @@ void Dimension::checkConsistency()
       assert(_values[0].type() == typeid(float));
       assert(_values[1].type() == typeid(float));
       assert(_values[2].type() == typeid(float));
-      float first = boost::any_cast<float>(_values[0]);
-      float last = boost::any_cast<float>(_values[1]);
-      float interval = boost::any_cast<float>(_values[2]);
+      auto first = boost::any_cast<float>(_values[0]);
+      auto last = boost::any_cast<float>(_values[1]);
+      auto interval = boost::any_cast<float>(_values[2]);
       assert(first > float(0.0));
       assert(smallerOrComparable(first, last));
       assert(interval > float(0.0));
@@ -219,9 +219,9 @@ void Dimension::checkConsistency()
       assert(_values[0].type() == typeid(size_t));
       assert(_values[1].type() == typeid(size_t));
       assert(_values[2].type() == typeid(size_t));
-      size_t first = boost::any_cast<size_t>(_values[0]);
-      size_t last = boost::any_cast<size_t>(_values[1]);
-      size_t interval = boost::any_cast<size_t>(_values[2]);
+      auto first = boost::any_cast<size_t>(_values[0]);
+      auto last = boost::any_cast<size_t>(_values[1]);
+      auto interval = boost::any_cast<size_t>(_values[2]);
       assert(first > 0);
       assert(first <= last);
       assert(interval > 0);
@@ -235,9 +235,9 @@ void Dimension::checkConsistency()
       assert(_values[0].type() == typeid(size_t));
       assert(_values[1].type() == typeid(size_t));
       assert(_values[2].type() == typeid(size_t));
-      size_t first = boost::any_cast<size_t>(_values[0]);
-      size_t last = boost::any_cast<size_t>(_values[1]);
-      size_t interval = boost::any_cast<size_t>(_values[2]);
+      auto first = boost::any_cast<size_t>(_values[0]);
+      auto last = boost::any_cast<size_t>(_values[1]);
+      auto interval = boost::any_cast<size_t>(_values[2]);
       assert(first > 0);
       assert(first <= last);
       assert(interval > 0);

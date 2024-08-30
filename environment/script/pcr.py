@@ -204,7 +204,7 @@ def devenv(*path):
 
 
 def pcrtreeRelativePath(absPath):
-    """ path of absPath relative to PCRTREE env. variable:\n
+    """ path of absPath relative to PCRTREE env. variable:
         PCRTREE=/home/cees/pcrtree
         absPath=/home/cees/pcrtree/libs/pcrme/calc_test.cc
         will return libs/pcrme/calc_test.cc
@@ -405,7 +405,7 @@ def testOpenForReading(pathName):
     # if not stat.S_ISREG(mode):
     #   raise Exception('File \'%s\': Not a regular file' % (pathName))
     if not (mode & stat.S_IRUSR or mode & stat.S_IRGRP or mode & stat.S_IROTH):
-        raise Exception('File \'%s\': No permission to read' % (pathName))
+        raise Exception(f"File '{pathName}': No permission to read")
 
 # Tests if a file can be opened for writing.
 
@@ -416,14 +416,14 @@ def testOpenForWriting(pathName):
         # if not stat.S_ISREG(mode):
         #   raise Exception('File \'%s\': Not a regular file' % (pathName))
         if not (mode & stat.S_IWUSR or mode & stat.S_IWGRP or mode & stat.S_IWOTH):
-            raise Exception('File \'%s\': No permission to write' % (pathName))
+            raise Exception(f"File '{pathName}': No permission to write")
 
 # Tests if a file doesn't already exist.
 
 
 def testFileDoesNotExist(pathName):
     if os.path.exists(pathName):
-        raise Exception('File \'%s\': Already exists' % (pathName))
+        raise Exception(f"File '{pathName}': Already exists")
 
 # Search a file in a file tree. Start at the bottom. If found, this function
 # returns the file name, else an empty string.

@@ -200,8 +200,8 @@ public:
   template<typename T>
   PCR_DAL_DECL void fill               (T const& value);
 
-  void             setExtremes         (boost::any min,
-                                        boost::any max);
+  void             setExtremes         (const boost::any min,
+                                        const boost::any max);
 
   void             setExtremes         ();
 

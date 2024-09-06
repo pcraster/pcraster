@@ -77,7 +77,7 @@ static void findExtremes(
 */
 dal::Matrix::Matrix()
 
-  : Dataset(MATRIX) 
+  : Dataset(MATRIX)
 
 {
 }
@@ -521,8 +521,8 @@ void dal::Matrix::createCells()
  *  Should set the extremes in accordance with the data
  */
 void dal::Matrix::setExtremes(
-         boost::any min,
-         boost::any max)
+         const boost::any min,
+         const boost::any max)
 {
   assert(min.empty() == max.empty());
 
@@ -680,7 +680,7 @@ inline T* Matrix::createCells()
   T* pointer = new T[nrCells()];
   d_cells = pointer;
 
-  assert(cells<T>()); 
+  assert(cells<T>());
 
   return pointer;
 }

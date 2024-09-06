@@ -79,7 +79,7 @@ BOOST_AUTO_TEST_CASE(required)
    // dt.name not present while required
    BOOST_CHECK(!dt.name.present());
 
-   pcrxml::Data dtCopy(dt);
+   const pcrxml::Data& dtCopy(dt);
    BOOST_CHECK(!dtCopy.name.present());
  }
  { // Can skip unknown attrs, what we know see as

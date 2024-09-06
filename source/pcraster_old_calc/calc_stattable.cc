@@ -91,7 +91,7 @@ calc::StatTable::InputMap::~InputMap() {
 }
 
 void calc::StatTable::InputMap::swap(InputMap& rhs)
-{
+ noexcept {
   // implements here swap instead of = and copy ctor
   std::swap(d_expr,     rhs.d_expr);
   std::swap(d_intervals,rhs.d_intervals);

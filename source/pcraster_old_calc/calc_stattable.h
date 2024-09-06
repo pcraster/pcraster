@@ -64,7 +64,7 @@ class StatTable : public Statement
     void verbosePrint(std::ofstream& out) const;
     ~InputMap();
     InputMap();
-    void swap( InputMap& rhs);
+    void swap( InputMap& rhs) noexcept ;
   private:
     InputMap(const InputMap& rhs);
     InputMap& operator=(const InputMap& rhs);

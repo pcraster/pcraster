@@ -1,4 +1,4 @@
-name: macOS CI
+name: Development macOS CI
 
 on:
     push:
@@ -27,7 +27,6 @@ jobs:
           run: |
               : # GDAL is built against particular Python version, check formula code if required
               brew install ${{ matrix.python }} numpy pybind11 gdal cmake ninja boost ncurses xerces-c qt@6
-              $(brew --prefix python)/bin/pip3 install psutil
 
         - name: Configure PCRaster
           shell: bash -l {0}
@@ -86,7 +85,6 @@ jobs:
           run: |
               : # GDAL is built against particular Python version, check formula code if required
               brew install ${{ matrix.python }} numpy pybind11 gdal cmake ninja boost ncurses xerces-c qt@6
-              $(brew --prefix python)/bin/pip3 install psutil
 
         - name: Configure PCRaster
           shell: bash -l {0}

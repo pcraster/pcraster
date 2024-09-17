@@ -1,4 +1,4 @@
-name: Linux CI
+name: Development Linux CI
 
 on:
     push:
@@ -30,7 +30,7 @@ jobs:
 
         - name: Configure system
           run: |
-              sudo apt install ninja-build gdal-bin libgdal-dev libxerces-c-dev libxml2-dev libxslt1-dev libboost-dev libboost-date-time-dev libboost-test-dev libncurses5-dev libxml2 libxml2-utils mesa-common-dev libglu1-mesa-dev python3 libpython3-dev python3-numpy python3-psutil cmake pybind11-dev python3-qgis nanobind-dev
+              sudo apt install ninja-build gdal-bin libgdal-dev libxerces-c-dev libxml2-dev libxslt1-dev libboost-dev libboost-date-time-dev libboost-test-dev libncurses5-dev libxml2 libxml2-utils mesa-common-dev libglu1-mesa-dev python3 libpython3-dev python3-numpy cmake pybind11-dev python3-qgis nanobind-dev
               # Only required for documentation:
               sudo apt install python3-sphinx doxygen python3-matplotlib graphviz
 
@@ -105,7 +105,7 @@ jobs:
 
         - name: Configure system
           run: |
-              sudo apt install ninja-build gdal-bin libgdal-dev libxerces-c-dev libxml2-dev libxslt1-dev libboost-dev libboost-date-time-dev libboost-test-dev libncurses5-dev libxml2 libxml2-utils mesa-common-dev libglu1-mesa-dev python3 libpython3-dev python3-numpy python3-psutil cmake pybind11-dev python3-qgis nanobind-dev
+              sudo apt install ninja-build gdal-bin libgdal-dev libxerces-c-dev libxml2-dev libxslt1-dev libboost-dev libboost-date-time-dev libboost-test-dev libncurses5-dev libxml2 libxml2-utils mesa-common-dev libglu1-mesa-dev python3 libpython3-dev python3-numpy cmake pybind11-dev python3-qgis nanobind-dev
 
         - name: Configure system Qt5
           if: matrix.qt6 == 'OFF'

@@ -2,7 +2,7 @@ import math
 import unittest
 import numpy
 import os
-import psutil
+import tracemalloc
 
 import pcraster
 import testcase
@@ -576,52 +576,36 @@ class TestNumPy(testcase.TestCase):
       rasterBoolean = pcraster.spatial(pcraster.boolean(1))
       rasterNominal = pcraster.nominal(pcraster.uniform(1) * 10)
 
-      process = psutil.Process(os.getpid())
-      mem = process.memory_info()
-      init_mem = mem.rss / 2**10
-
       nr_iterations = 500
-      mem_increase = False
 
-      # small memory increase can occur at runtime
-      # allow for, but less than iterations * size(raster)
-      max_diff = 5000
+      tracemalloc.start()
+      snapshot1 = tracemalloc.take_snapshot()
 
-      max_increase = 0
       for it in range(0, nr_iterations):
-        raster = pcraster.pcr2numpy(rasterScalar, numpy.nan)
-        mem = process.memory_info()
-        curr_mem = mem.rss / 2**10
-        mem_diff = curr_mem - init_mem
-        if mem_diff > max_diff:
-          mem_increase = True
-          max_increase = mem_diff if mem_diff > max_increase else max_increase
+          raster = pcraster.pcr2numpy(rasterScalar, numpy.nan)
 
-      self.assertFalse(mem_increase, f"max_increase: {max_increase}")
-
-      max_increase = 0
       for it in range(0, nr_iterations):
-        raster = pcraster.pcr2numpy(rasterBoolean, numpy.nan)
-        mem = process.memory_info()
-        curr_mem = mem.rss / 2**10
-        mem_diff = curr_mem - init_mem
-        if mem_diff > max_diff:
-          mem_increase = True
-          max_increase = mem_diff if mem_diff > max_increase else max_increase
+          raster = pcraster.pcr2numpy(rasterBoolean, numpy.nan)
 
-      self.assertFalse(mem_increase, f"max_increase: {max_increase}")
-
-      max_increase = 0
       for it in range(0, nr_iterations):
-        raster = pcraster.pcr2numpy(rasterNominal, numpy.nan)
-        mem = process.memory_info()
-        curr_mem = mem.rss / 2**10
-        mem_diff = curr_mem - init_mem
-        if mem_diff > max_diff:
-          mem_increase = True
-          max_increase = mem_diff if mem_diff > max_increase else max_increase
+          raster = pcraster.pcr2numpy(rasterNominal, numpy.nan)
 
-      self.assertFalse(mem_increase, f"max_increase: {max_increase}")
+      # allow for small difference in Bytes
+      max_diff = 500
+      diff_in_bytes = 0
+
+      raster = None
+
+      snapshot2 = tracemalloc.take_snapshot()
+      top_stats = snapshot2.compare_to(snapshot1, 'traceback')
+
+      for stat in top_stats:
+          if("numpy_operations" in str(stat)):
+              diff_in_bytes = stat.size_diff
+
+      tracemalloc.stop()
+
+      self.assertTrue(diff_in_bytes < max_diff, f"diff in bytes: {diff_in_bytes} > {max_diff}")
 
 
   def test_004(self):

@@ -244,8 +244,6 @@ endif()
 
 if(PCRASTER_BUILD_TEST)
 
-    find_python_module(psutil)
-
     # sqlite executable is used by dal's testrun.prolog
     find_package(SQLite3)
 

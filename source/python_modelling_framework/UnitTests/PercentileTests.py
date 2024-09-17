@@ -41,11 +41,11 @@ class PercentileTests(testcase.TestCase):
 
         if level < 0.50:
           self.assertAlmostEqual(value, i +
-            (level * (len(realisationNumbers)- 1 - 1)), 5)
+            (level * (len(realisationNumbers)- 1 - 1)), delta=1e-5)
         elif level > 0.50:
           self.assertAlmostEqual(value, i +
-            (level * (len(realisationNumbers)- 1 - 1)) + 1, 5)
+            (level * (len(realisationNumbers)- 1 - 1)) + 1, delta=1e-5)
         else:
           self.assertAlmostEqual(value, i +
-            (level * (len(realisationNumbers)- 1 - 1)) + 0.5, 5)
+            (level * (len(realisationNumbers)- 1 - 1)) + 0.5, delta=1e-5)
 

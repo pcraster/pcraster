@@ -52,7 +52,6 @@ requirements:
     - gdal
     - vs2015_runtime                        # [win]
     - libglu                                # [linux]
-    - psutil
     - libboost-devel
 
   run:

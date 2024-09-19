@@ -521,8 +521,8 @@ void dal::Matrix::createCells()
  *  Should set the extremes in accordance with the data
  */
 void dal::Matrix::setExtremes(
-         const boost::any min,
-         const boost::any max)
+         const boost::any& min,
+         const boost::any& max)
 {
   assert(min.empty() == max.empty());
 

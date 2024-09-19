@@ -1,0 +1,14 @@
+name: "QGIS PCRaster Tools plugin"
+description: "Questions about the PCRaster Processing Provider plugin for QGIS"
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        If you have questions or discover issues with the PCRaster Tools plugin for QGIS
+        please file them [here](https://github.com/jvdkwast/qgis-processing-pcraster/). Thanks!
+
+  - type: textarea
+    id: description
+    attributes:
+      label: "Description"

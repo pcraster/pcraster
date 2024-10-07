@@ -204,7 +204,7 @@ def devenv(*path):
 
 
 def pcrtreeRelativePath(absPath):
-    """ path of absPath relative to PCRTREE env. variable:
+    r""" path of absPath relative to PCRTREE env. variable:
         PCRTREE=/home/cees/pcrtree
         absPath=/home/cees/pcrtree/libs/pcrme/calc_test.cc
         will return libs/pcrme/calc_test.cc
@@ -465,7 +465,7 @@ def getOnlyChild(node, name):
 
 def expandEnvVars(path):
     # Search and replace variables.
-    pattern = '\$[A-Z]+'
+    pattern = '$[A-Z]+'
     expression = re.compile(pattern)
 
     start = 0;

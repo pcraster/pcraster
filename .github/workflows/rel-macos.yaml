@@ -8,12 +8,12 @@ jobs:
     build:
         strategy:
             matrix:
-                os: [macos-12, macos-14]
+                os: [macos-13, macos-14]
             fail-fast: false
 
         runs-on: ${{ matrix.os }}
 
-        timeout-minutes: 120
+        timeout-minutes: 90
 
         steps:
 

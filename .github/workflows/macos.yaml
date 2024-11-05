@@ -66,7 +66,7 @@ jobs:
     build_debug:
         strategy:
             matrix:
-                os: [macos-12, macos-14]
+                os: [macos-13, macos-14]
                 python: [python@3.12]
             fail-fast: false
 

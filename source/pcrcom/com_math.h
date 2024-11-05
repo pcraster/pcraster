@@ -96,7 +96,7 @@ inline bool equal_epsilon(Real a, Real b, Real eps=COM_DEFAULT_EPSILON)
 }
 
 //! Maximize a value with its own value and another value
-/* 
+/*
  * \param   x value to maximize, x = max(x,o)
  * \param   o other value
  */
@@ -107,7 +107,7 @@ inline void maximize(T &x, const T &o)
 }
 
 //! Minimize a value with its own value and another value
-/* 
+/*
  * \param   x value to minimize, x = min(x,o)
  * \param   o other value
  */
@@ -118,7 +118,7 @@ inline void minimize(T &x, const T &o)
 }
 
 //!  Limit a value to fit into a specified interval.
-/* 
+/*
  * \param   x Input value.
  * \param   low low boundary.
  * \param   high high boundary.
@@ -202,7 +202,7 @@ template<typename T>
  struct NumericLimits : public std::numeric_limits<T> {
   //! smallest reprentable value
   static T minValue() noexcept {
-      BOOST_STATIC_ASSERT(std::numeric_limits<T>::is_integer);
+      static_assert(std::numeric_limits<T>::is_integer);
       return std::numeric_limits<T>::min();
   }
   //! largest reprentable value

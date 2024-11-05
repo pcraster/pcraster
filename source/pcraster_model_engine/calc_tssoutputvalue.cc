@@ -17,11 +17,6 @@
 #define INCLUDED_STDEXCEPT
 #endif
 
-#ifndef INCLUDED_BOOST_STATIC_ASSERT
-#include <boost/static_assert.hpp>
-#define INCLUDED_BOOST_STATIC_ASSERT
-#endif
-
 // our libraries
 
 #ifndef INCLUDED_DAL_TYPE
@@ -173,7 +168,7 @@ static size_t maxId(const Field *id)
           header.nrDim=1;
           header.lenDim1=(UINT4)data.size();
 
-          BOOST_STATIC_ASSERT(sizeof(Header) == (4 * sizeof(UINT4)));
+          static_assert(sizeof(Header) == (4 * sizeof(UINT4)));
           *((Header *)d_buffer) = header;
 
           T *dest = (T *)(d_buffer+sizeof(Header));

@@ -298,13 +298,13 @@ template<
 struct SignedIntegralArrayToSignedIntegralArray<Source, Destination,
     value_scale, SOURCE_IS_SMALLER_THAN_DESTINATION>
 {
-    BOOST_STATIC_ASSERT(sizeof(Source) < sizeof(Destination));
+    static_assert(sizeof(Source) < sizeof(Destination));
 
     // int8, int16 -> int32
-    BOOST_STATIC_ASSERT(
+    static_assert(
         (boost::is_same<Source, boost::int8_t>::value) ||
         (boost::is_same<Source, boost::int16_t>::value));
-    BOOST_STATIC_ASSERT((boost::is_same<Destination, boost::int32_t>::value));
+    static_assert(boost::is_same<Destination, boost::int32_t>::value);
 
     static void copy(
         Source const* source,
@@ -326,13 +326,13 @@ template<
 struct SignedIntegralArrayToSignedIntegralArray<Source, Destination,
     value_scale, SOURCE_IS_NOT_SMALLER_THAN_DESTINATION>
 {
-    BOOST_STATIC_ASSERT(sizeof(Source) >= sizeof(Destination));
+    static_assert(sizeof(Source) >= sizeof(Destination));
 
     // int32, int64 -> int32
-    BOOST_STATIC_ASSERT(
+    static_assert(
         (boost::is_same<Source, boost::int32_t>::value) ||
         (boost::is_same<Source, boost::int64_t>::value));
-    BOOST_STATIC_ASSERT((boost::is_same<Destination, boost::int32_t>::value));
+    static_assert(boost::is_same<Destination, boost::int32_t>::value);
 
     static void copy(
         Source const* source,
@@ -369,10 +369,10 @@ struct UnsignedIntegralArrayToSignedIntegralArray<Source, Destination,
     value_scale, SOURCE_IS_SMALLER_THAN_DESTINATION>
 {
     // uint8, uint16 -> int32
-    BOOST_STATIC_ASSERT(
+    static_assert(
         (boost::is_same<Source, boost::uint8_t>::value) ||
         (boost::is_same<Source, boost::uint16_t>::value));
-    BOOST_STATIC_ASSERT((boost::is_same<Destination, boost::int32_t>::value));
+    static_assert(boost::is_same<Destination, boost::int32_t>::value);
 
     static void copy(
         Source const* source,
@@ -395,10 +395,10 @@ struct UnsignedIntegralArrayToSignedIntegralArray<Source, Destination,
     value_scale, SOURCE_IS_NOT_SMALLER_THAN_DESTINATION>
 {
     // uint32, uint64 -> int32
-    BOOST_STATIC_ASSERT(
+    static_assert(
         (boost::is_same<Source, boost::uint32_t>::value) ||
         (boost::is_same<Source, boost::uint64_t>::value));
-    BOOST_STATIC_ASSERT((boost::is_same<Destination, boost::int32_t>::value));
+    static_assert(boost::is_same<Destination, boost::int32_t>::value);
 
     static void copy(
         Source const* source,
@@ -445,7 +445,7 @@ struct IntegralArrayToIntegralArray<Source, Destination, value_scale,
     SOURCE_IS_SIGNED, DESTINATION_IS_SIGNED>
 {
     // int -> int32
-    BOOST_STATIC_ASSERT((boost::is_same<Destination, boost::int32_t>::value));
+    static_assert(boost::is_same<Destination, boost::int32_t>::value);
 
     static void copy(
         Source const* source,
@@ -469,7 +469,7 @@ struct IntegralArrayToIntegralArray<Source, Destination, value_scale,
     SOURCE_IS_UNSIGNED, DESTINATION_IS_UNSIGNED>
 {
     // uint -> uint8
-    BOOST_STATIC_ASSERT((boost::is_same<Destination, boost::uint8_t>::value));
+    static_assert(boost::is_same<Destination, boost::uint8_t>::value);
 
     static void copy(
         Source const* source,
@@ -492,7 +492,7 @@ struct IntegralArrayToIntegralArray<Source, Destination, value_scale,
     SOURCE_IS_SIGNED, DESTINATION_IS_UNSIGNED>
 {
     // int -> uint8
-    BOOST_STATIC_ASSERT((boost::is_same<Destination, boost::uint8_t>::value));
+    static_assert(boost::is_same<Destination, boost::uint8_t>::value);
 
     static void copy(
         Source const* source,
@@ -514,7 +514,7 @@ struct IntegralArrayToIntegralArray<Source, Destination, value_scale,
     SOURCE_IS_UNSIGNED, DESTINATION_IS_SIGNED>
 {
     // uint -> int32
-    BOOST_STATIC_ASSERT((boost::is_same<Destination, boost::int32_t>::value));
+    static_assert(boost::is_same<Destination, boost::int32_t>::value);
 
     static void copy(
         Source const* source,
@@ -560,8 +560,8 @@ struct FloatArrayToFloatArray<Source, Destination, value_scale,
     SOURCE_EQUALS_DESTINATION>
 {
     // float32 -> float32
-    BOOST_STATIC_ASSERT((boost::is_same<Source, float>::value));
-    BOOST_STATIC_ASSERT((boost::is_same<Destination, float>::value));
+    static_assert(boost::is_same<Source, float>::value);
+    static_assert(boost::is_same<Destination, float>::value);
 
     static void copy(
         Source const* source,
@@ -586,8 +586,8 @@ struct FloatArrayToFloatArray<Source, Destination, value_scale,
     SOURCE_DOESNT_EQUAL_DESTINATION>
 {
     // float64 -> float32
-    BOOST_STATIC_ASSERT((boost::is_same<Source, double>::value));
-    BOOST_STATIC_ASSERT((boost::is_same<Destination, float>::value));
+    static_assert(boost::is_same<Source, double>::value);
+    static_assert(boost::is_same<Destination, float>::value);
 
     static void copy(
         Source const* source,
@@ -630,7 +630,7 @@ struct FloatArrayToIntegralArray<Source, Destination, value_scale,
     DESTINATION_IS_SIGNED>
 {
     // float -> int32
-    BOOST_STATIC_ASSERT((boost::is_same<Destination, boost::int32_t>::value));
+    static_assert(boost::is_same<Destination, boost::int32_t>::value);
 
     static void copy(
         Source const* source,
@@ -652,7 +652,7 @@ struct FloatArrayToIntegralArray<Source, Destination, value_scale,
     DESTINATION_IS_UNSIGNED>
 {
     // float -> uint8
-    BOOST_STATIC_ASSERT((boost::is_same<Destination, boost::uint8_t>::value));
+    static_assert(boost::is_same<Destination, boost::uint8_t>::value);
 
     static void copy(
         Source const* source,
@@ -698,7 +698,7 @@ struct ArrayToArray<Source, Destination, value_scale,
     SOURCE_IS_INTEGRAL, DESTINATION_IS_INTEGRAL>
 {
     // int, uint -> uint8, int32
-    BOOST_STATIC_ASSERT(
+    static_assert(
         (boost::is_same<Destination, boost::uint8_t>::value) ||
         (boost::is_same<Destination, boost::int32_t>::value));
 
@@ -724,7 +724,7 @@ struct ArrayToArray<Source, Destination, value_scale,
     SOURCE_IS_FLOAT, DESTINATION_IS_FLOAT>
 {
     // float -> float32
-    BOOST_STATIC_ASSERT((boost::is_same<Destination, float>::value));
+    static_assert(boost::is_same<Destination, float>::value);
 
     static void copy(
         Source const* source,
@@ -747,7 +747,7 @@ struct ArrayToArray<Source, Destination, value_scale,
     SOURCE_IS_INTEGRAL, DESTINATION_IS_FLOAT>
 {
     // int -> float32
-    BOOST_STATIC_ASSERT((boost::is_same<Destination, float>::value));
+    static_assert(boost::is_same<Destination, float>::value);
 
     static void copy(
         Source const* source,
@@ -770,7 +770,7 @@ struct ArrayToArray<Source, Destination, value_scale,
     SOURCE_IS_FLOAT, DESTINATION_IS_INTEGRAL>
 {
     // float -> uint8, int32
-    BOOST_STATIC_ASSERT(
+    static_assert(
         (boost::is_same<Destination, boost::uint8_t>::value) ||
         (boost::is_same<Destination, boost::int32_t>::value));
 

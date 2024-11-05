@@ -24,11 +24,6 @@
 #define INCLUDED_BOOST_ANY
 #endif
 
-#ifndef INCLUDED_BOOST_STATIC_ASSERT
-#include <boost/static_assert.hpp>
-#define INCLUDED_BOOST_STATIC_ASSERT
-#endif
-
 #ifndef INCLUDED_BOOST_TYPE_TRAITS
 #include <boost/type_traits.hpp>
 #define INCLUDED_BOOST_TYPE_TRAITS
@@ -275,13 +270,13 @@ inline Dimension::Dimension(
     _discretisation(discretisation)
 
 {
-  BOOST_STATIC_ASSERT(!(boost::is_same<T, std::vector<float> >::value));
-  BOOST_STATIC_ASSERT(!(boost::is_same<T, std::vector<size_t> >::value));
-  BOOST_STATIC_ASSERT(!(boost::is_same<T, std::vector<std::string> >::value));
-  BOOST_STATIC_ASSERT(!(boost::is_same<T, std::vector<boost::any> >::value));
-  BOOST_STATIC_ASSERT(!(boost::is_same<T, std::set<std::string> >::value));
-  BOOST_STATIC_ASSERT(!(boost::is_same<T, std::set<boost::any> >::value));
-  BOOST_STATIC_ASSERT(!(boost::is_same<T, size_t>::value) &&
+  static_assert(!(boost::is_same<T, std::vector<float> >::value));
+  static_assert(!(boost::is_same<T, std::vector<size_t> >::value));
+  static_assert(!(boost::is_same<T, std::vector<std::string> >::value));
+  static_assert(!(boost::is_same<T, std::vector<boost::any> >::value));
+  static_assert(!(boost::is_same<T, std::set<std::string> >::value));
+  static_assert(!(boost::is_same<T, std::set<boost::any> >::value));
+  static_assert(!(boost::is_same<T, size_t>::value) &&
           !(boost::is_same<T, float>::value) &&
           !(boost::is_same<T, std::string>::value));
 
@@ -312,7 +307,7 @@ inline Dimension::Dimension(
     _meaning(Scenarios),
     _discretisation(ExactDiscretisation)
 {
-  BOOST_STATIC_ASSERT((boost::is_same<T, std::string>::value));
+  static_assert((boost::is_same<T, std::string>::value));
   assert(_meaning == Scenarios);
 
   _values.reserve(values.size());
@@ -348,7 +343,7 @@ inline Dimension::Dimension(
     _discretisation(RegularDiscretisation),
     _values(values.size())
 {
-  BOOST_STATIC_ASSERT((boost::is_same<T, size_t>::value) ||
+  static_assert((boost::is_same<T, size_t>::value) ||
          (boost::is_same<T, float>::value));
   assert(_meaning == CumulativeProbabilities || _meaning == Time ||
          _meaning == Samples);
@@ -389,7 +384,7 @@ Dimension::Dimension(
     _discretisation(RegularDiscretisation),
     _values(3)
 {
-  BOOST_STATIC_ASSERT((boost::is_same<T, size_t>::value) ||
+  static_assert((boost::is_same<T, size_t>::value) ||
           (boost::is_same<T, float>::value));
   assert(_meaning == CumulativeProbabilities || _meaning == Time ||
          _meaning == Samples);
@@ -430,7 +425,7 @@ template<typename T>
 inline void Dimension::values(
          std::vector<T>& values) const
 {
-  BOOST_STATIC_ASSERT((boost::is_same<T, size_t>::value) ||
+  static_assert((boost::is_same<T, size_t>::value) ||
          (boost::is_same<T, float>::value));
 
   values.resize(_values.size());
@@ -444,7 +439,7 @@ template<typename T>
 inline void Dimension::setValues(
          std::set<T> const& values)
 {
-  BOOST_STATIC_ASSERT((boost::is_same<T, std::string>::value));
+  static_assert((boost::is_same<T, std::string>::value));
 
   _values.resize(values.size());
 
@@ -464,7 +459,7 @@ template<typename T>
 inline void Dimension::setValues(
          std::vector<T> const& values)
 {
-  BOOST_STATIC_ASSERT((boost::is_same<T, size_t>::value) ||
+  static_assert((boost::is_same<T, size_t>::value) ||
           (boost::is_same<T, float>::value));
 
   _values.resize(values.size());
@@ -482,13 +477,13 @@ template<typename T>
 inline void Dimension::setValue(
          T const& value)
 {
-  BOOST_STATIC_ASSERT(!(boost::is_same<T, std::vector<float> >::value));
-  BOOST_STATIC_ASSERT(!(boost::is_same<T, std::vector<size_t> >::value));
-  BOOST_STATIC_ASSERT(!(boost::is_same<T, std::vector<std::string> >::value));
-  BOOST_STATIC_ASSERT(!(boost::is_same<T, std::vector<boost::any> >::value));
-  BOOST_STATIC_ASSERT(!(boost::is_same<T, std::set<std::string> >::value));
-  BOOST_STATIC_ASSERT(!(boost::is_same<T, std::set<boost::any> >::value));
-  BOOST_STATIC_ASSERT(!(boost::is_same<T, size_t>::value) &&
+  static_assert(!(boost::is_same<T, std::vector<float> >::value));
+  static_assert(!(boost::is_same<T, std::vector<size_t> >::value));
+  static_assert(!(boost::is_same<T, std::vector<std::string> >::value));
+  static_assert(!(boost::is_same<T, std::vector<boost::any> >::value));
+  static_assert(!(boost::is_same<T, std::set<std::string> >::value));
+  static_assert(!(boost::is_same<T, std::set<boost::any> >::value));
+  static_assert(!(boost::is_same<T, size_t>::value) &&
           !(boost::is_same<T, float>::value));
 
   _values.clear();
@@ -505,7 +500,7 @@ inline void Dimension::setValues(
          T const& last,
          T const& interval)
 {
-  BOOST_STATIC_ASSERT((boost::is_same<T, size_t>::value) ||
+  static_assert((boost::is_same<T, size_t>::value) ||
          (boost::is_same<T, float>::value));
   assert(_discretisation == RegularDiscretisation);
   assert(_type == NumericalCoordinates);

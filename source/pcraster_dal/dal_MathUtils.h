@@ -13,12 +13,6 @@
 #define INCLUDED_BOOST_NUMERIC_CONVERSION_CONVERTER
 #endif
 
-#ifndef INCLUDED_BOOST_STATIC_ASSERT
-#include <boost/static_assert.hpp>
-#define INCLUDED_BOOST_STATIC_ASSERT
-#endif
-
-
 #ifndef INCLUDED_BOOST_TYPE_TRAITS
 #include <boost/type_traits.hpp>
 #define INCLUDED_BOOST_TYPE_TRAITS
@@ -100,7 +94,7 @@ inline bool comparable(
          T const& lhs,
          T const& rhs)
 {
-  BOOST_STATIC_ASSERT((!boost::is_floating_point<T>::value));
+  static_assert(!boost::is_floating_point<T>::value);
 
   return lhs == rhs;
 }

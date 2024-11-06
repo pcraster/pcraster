@@ -41,7 +41,7 @@ jobs:
                   -D PCRASTER_WITH_QT6=ON \
                   -D CMAKE_PREFIX_PATH="$(brew --prefix ncurses);$(brew --prefix qt6)" \
                   -D CMAKE_INSTALL_PREFIX=package \
-                  -D Python_EXECUTABLE=$(brew --prefix ${{ matrix.python }})
+                  -D Python_EXECUTABLE=$(brew --prefix ${{ matrix.python }})/libexec/bin/python
 
         - name: Build release
           shell: bash
@@ -100,7 +100,7 @@ jobs:
                   -D PCRASTER_WITH_QT6=ON \
                   -D CMAKE_PREFIX_PATH="$(brew --prefix ncurses);$(brew --prefix qt6)" \
                   -D CMAKE_INSTALL_PREFIX=package \
-                  -D Python_EXECUTABLE=$(brew --prefix ${{ matrix.python }})
+                  -D Python_EXECUTABLE=$(brew --prefix ${{ matrix.python }})/libexec/bin/python
 
         - name: Build debug
           shell: bash

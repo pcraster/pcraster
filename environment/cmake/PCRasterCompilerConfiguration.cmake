@@ -51,13 +51,12 @@ foreach(BUILD_TYPE ${CMAKE_CONFIGURATION_TYPES})
     endif()
 endforeach()
 
-
 if(PCRASTER_WITH_FLAGS_NATIVE)
     add_compile_options(
-        "$<$<CONFIG:Release>:$<$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:AppleClang,Clang>>:-march=native;-mtune=native>>"
-    )
-    add_compile_options(
-        "$<$<CONFIG:RelWithDebInfo>:$<$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:AppleClang,Clang>>:-march=native;-mtune=native>>"
+        "$<$<CONFIG:Release>:$<$<COMPILE_LANG_AND_ID:C,GNU,AppleClang,Clang>:-march=native;-mtune=native>>"
+        "$<$<CONFIG:Release>:$<$<COMPILE_LANG_AND_ID:CXX,GNU,AppleClang,Clang>:-march=native;-mtune=native>>"
+        "$<$<CONFIG:RelWithDebInfo>:$<$<COMPILE_LANG_AND_ID:C,GNU,AppleClang,Clang>:-march=native;-mtune=native>>"
+        "$<$<CONFIG:RelWithDebInfo>:$<$<COMPILE_LANG_AND_ID:CXX,GNU,AppleClang,Clang>:-march=native;-mtune=native>>"
     )
 endif()
 

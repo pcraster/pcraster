@@ -59,7 +59,7 @@ CMAKE_DEPENDENT_OPTION(
 option(
     PCRASTER_WITH_FLAGS_NATIVE
     "Use architecture flags of host"
-    ON)
+    OFF)
 option(
     PCRASTER_WITH_FLAGS_IPO
     "Use interprocedural optimization"

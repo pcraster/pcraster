@@ -143,6 +143,11 @@ if(PCRASTER_BUILD_MULTICORE)
     )
     # Just recreate an empty file to install nothing from Fern when installing PCRaster
     file(TOUCH ${CMAKE_CURRENT_BINARY_DIR}/_deps/fern-build/cmake_install.cmake)
+
+    # Temporary fix for vs2022
+    file(READ ${CMAKE_BINARY_DIR}/_deps/fern-src/source/fern/algorithm/core/unary_aggregate_operation.h FERN_HEADER)
+    string(REPLACE "MSC_VER" "NOMSC_VER" FERN_HEADER "${FERN_HEADER}")
+    file(WRITE ${CMAKE_BINARY_DIR}/_deps/fern-src/source/fern/algorithm/core/unary_aggregate_operation.h "${FERN_HEADER}")
 endif()
 
 

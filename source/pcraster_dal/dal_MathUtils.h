@@ -59,6 +59,10 @@
 #define INCLUDED_DAL_ARRAY
 #endif
 
+#ifndef INCLUDED_NUMBERS
+#include <numbers>
+#define INCLUDED_NUMBERS
+#endif
 
 
 namespace dal {

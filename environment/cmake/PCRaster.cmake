@@ -10,7 +10,13 @@ include(PCRasterCompilerConfiguration)
 include(PCRasterTestMacro)
 
 # Get required dependencies first...
-CPMAddPackage("gh:pcraster/rasterformat#44b6cbf22811bbfd1e7b3822e9d2a8183ce1a671")
+#CPMAddPackage("gh:pcraster/rasterformat#44b6cbf22811bbfd1e7b3822e9d2a8183ce1a671")
+
+CPMAddPackage(
+    GITHUB_REPOSITORY OliverSchmitz/rasterformat
+    GIT_TAG changes_from_gdal
+)
+
 
 
 set(PCRASTER_DATA_DIR ${PROJECT_SOURCE_DIR}/data)

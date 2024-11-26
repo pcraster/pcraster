@@ -21,6 +21,7 @@
   #include <GL/glu.h>
 #endif
 
+#include <numbers>
 
 //------------------------------------------------------------------------------
 
@@ -66,7 +67,7 @@ public:
 GLfloat ag::SceneView::calcFOV(double s, double d)
 {
   double rad = 2.0 * std::atan2(s / 2.0, d);
-  double deg = (180.0 * rad) / M_PI;
+  double deg = (180.0 * rad) / std::numbers::pi;
 
   return static_cast<GLfloat>(deg);
 }
@@ -87,7 +88,7 @@ GLfloat ag::SceneView::calcFOV(double w, double d, double h, double x, double y,
   double dist = std::sqrt(std::pow(x, 2.0) + std::pow(y, 2.0) +
                    std::pow(z, 2.0));
   double rad  = 2.0 * std::atan2(r, dist);
-  double deg  = (180.0 * rad) / M_PI;
+  double deg  = (180.0 * rad) / std::numbers::pi;
 
   return static_cast<GLfloat>(deg);
 }

@@ -58,6 +58,12 @@
 
 // Module headers.
 
+#ifndef INCLUDED_NUMBERS
+#include <numbers>
+#define INCLUDED_NUMBERS
+#endif
+
+
 
 
 /*!
@@ -206,7 +212,7 @@ extern "C" int ExtentOfView(
         offsetX = -100;
       }
 
-      angle *= M_PI / 180;
+      angle *= std::numbers::pi / 180;
       offsetY = boost::math::iround(std::tan(angle) * offsetX);
     }
     offsets.push_back(std::make_pair(angle,

@@ -23,6 +23,11 @@
 #include <boost/test/floating_point_comparison.hpp>
 #endif
 
+#ifndef INCLUDED_NUMBERS
+#include <numbers>
+#define INCLUDED_NUMBERS
+#endif
+
 /* headers of this app. modules called */
 
 /***************/
@@ -579,7 +584,7 @@ int SmallestFittingRectangleCentre(
 
     smallArea = 0.0;
     angle = 0.0;
-    while (angle < M_PI / 2.0) {
+    while (angle < std::numbers::pi / 2.0) {
         minX = maxX = p[0].x;
         minY = maxY = p[0].y;
         for (i = 1; i < nr; i++) {
@@ -601,8 +606,8 @@ int SmallestFittingRectangleCentre(
         }
 
         for (i = 0; i < nr + 1; i++)
-            (void)RotPoint(&(p[i]), M_PI / step);
-        angle += M_PI / step;
+            (void)RotPoint(&(p[i]), std::numbers::pi / step);
+        angle += std::numbers::pi / step;
     }
     Free(p);
 
@@ -679,12 +684,12 @@ double CWAngle(const POINT2D *p) /* the point */
     if (p->x == 0) {
         if (p->y > 0)
             return (0);
-        return (M_PI);
+        return (std::numbers::pi);
     }
     if (p->y == 0) {
         if (p->x > 0)
-            return (M_PI / 2);
-        return (M_PI + M_PI / 2);
+            return (std::numbers::pi / 2);
+        return (std::numbers::pi + std::numbers::pi / 2);
     }
 
     angle = atan2(p->x, p->y);

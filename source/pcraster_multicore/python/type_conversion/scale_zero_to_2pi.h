@@ -3,6 +3,7 @@
 #include "fern/algorithm/policy/policies.h"
 #include "fern/algorithm/core/unary_local_operation.h"
 
+#include <numbers>
 
 namespace calc {
   class Field;
@@ -29,7 +30,7 @@ struct Algorithm
           result = value;
         }
         else{
-          result = 2.0 * M_PI + value; // i.e. + (-value)
+          result = 2.0 * std::numbers::pi_v<Result> + value; // i.e. + (-value)
         }
     }
 

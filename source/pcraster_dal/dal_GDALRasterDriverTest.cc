@@ -1,18 +1,12 @@
 #define BOOST_TEST_MODULE pcraster dal gdal_raster_driver
 #include <boost/test/unit_test.hpp>
 #include <gdal_priv.h>
-#ifdef _MSC_VER
-  #ifndef INCLUDED_ENVIRON
-  #include "environ.h" // M_PI
-  #define INCLUDED_ENVIRON
-  #endif
-#endif
 #include "dev_GDalClient.h"
 #include "dal_Exception.h"
 #include "dal_GDALRasterDriver.h"
 #include "dal_Utils.h"
 #include "dal_Client.h"
-
+#include <numbers>
 
 class ClientWrapper : public dal::Client {
 public:
@@ -196,15 +190,15 @@ void testReal4Raster2(
   auto const* cells = static_cast<REAL4 const*>(raster->cells());
   BOOST_REQUIRE(cells);
 
-  BOOST_CHECK(dal::comparable(REAL4(cells[0] * 180.0 / M_PI), REAL4(280.0F)));
-  BOOST_CHECK(dal::comparable(REAL4(cells[1] * 180.0 / M_PI), REAL4(25.0)));
-  BOOST_CHECK(dal::comparable(REAL4(cells[2] * 180.0 / M_PI), REAL4(11.0)));
-  BOOST_CHECK(dal::comparable(REAL4(cells[3] * 180.0 / M_PI), REAL4(68.0)));
-// BOOST_CHECK(dal::comparable(REAL4(cells[4] * 180.0 / M_PI), REAL4(-1.0)));
-  BOOST_CHECK(dal::comparable(REAL4(cells[5] * 180.0 / M_PI), REAL4(0.0)));
+  BOOST_CHECK(dal::comparable(REAL4(cells[0] * 180.0 / std::numbers::pi_v<REAL4>), REAL4(280.0F)));
+  BOOST_CHECK(dal::comparable(REAL4(cells[1] * 180.0 / std::numbers::pi_v<REAL4>), REAL4(25.0)));
+  BOOST_CHECK(dal::comparable(REAL4(cells[2] * 180.0 / std::numbers::pi_v<REAL4>), REAL4(11.0)));
+  BOOST_CHECK(dal::comparable(REAL4(cells[3] * 180.0 / std::numbers::pi_v<REAL4>), REAL4(68.0)));
+// BOOST_CHECK(dal::comparable(REAL4(cells[4] * 180.0 / std::numbers::pi_v<REAL4>), REAL4(-1.0)));
+  BOOST_CHECK(dal::comparable(REAL4(cells[5] * 180.0 / std::numbers::pi_v<REAL4>), REAL4(0.0)));
   BOOST_CHECK(pcr::isMV(cells[6]));
-// BOOST_CHECK(dal::comparable(REAL4(cells[7] * 180.0 / M_PI), REAL4(-1.0)));
-  BOOST_CHECK(dal::comparable(REAL4(cells[8] * 180.0 / M_PI), REAL4(7.0)));
+// BOOST_CHECK(dal::comparable(REAL4(cells[7] * 180.0 / std::numbers::pi_v<REAL4>), REAL4(-1.0)));
+  BOOST_CHECK(dal::comparable(REAL4(cells[8] * 180.0 / std::numbers::pi_v<REAL4>), REAL4(7.0)));
 }
 
 

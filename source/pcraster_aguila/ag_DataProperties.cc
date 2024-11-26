@@ -26,7 +26,7 @@
 #include "ag_Table.h"
 #include "ag_TableDataSources.h"
 
-
+#include <numbers>
 
 /*!
   \file
@@ -596,13 +596,13 @@ void DataProperties::addDirectionalStackProperties(
       displayValueClassifier->setMode(com::Classifier::EXACT);
       displayValueClassifier->classify();
 
-      com::RangeMap<double, double> map(0.0, 360.0, 0.0, 2 * M_PI);
+      com::RangeMap<double, double> map(0.0, 360.0, 0.0, 2 * std::numbers::pi);
 
       // Raw values: values as present in the raster (radians).
       // Sync classification of raw values with classification of display
       // values.
       rawValueClassifier->setNrClasses(displayValueClassifier->nrClasses());
-      rawValueClassifier->setExtremes(0.0, 2 * M_PI);
+      rawValueClassifier->setExtremes(0.0, 2 * std::numbers::pi);
       if(!displayValueClassifier->borders().empty()) {
         double lowerBorder, upperBorder;
         lowerBorder = map.map(displayValueClassifier->borders().front());

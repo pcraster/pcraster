@@ -9,7 +9,7 @@ jobs:
         strategy:
             matrix:
                 os: [ubuntu-24.04]
-                qt6: ["ON", "OFF"]
+                qt5: ["ON", "OFF"]
                 compiler:
                     - { cc: gcc-12  , cxx: g++-12    }
                     - { cc: gcc-14  , cxx: g++-14    }
@@ -19,7 +19,7 @@ jobs:
 
         runs-on: ${{ matrix.os }}
 
-        name: ${{ matrix.os }};${{ matrix.compiler.cc }};qt5-${{ matrix.qt6 }};Release
+        name: ${{ matrix.os }};${{ matrix.compiler.cc }};qt5-${{ matrix.qt5 }};Release
 
         timeout-minutes: 60
 
@@ -35,12 +35,12 @@ jobs:
               sudo apt install python3-sphinx doxygen python3-matplotlib graphviz
 
         - name: Configure system Qt5
-          if: matrix.qt6 == 'OFF'
+          if: matrix.qt5 == 'ON'
           run: |
               sudo apt install qtbase5-dev libqt5charts5-dev libqt5opengl5-dev
 
         - name: Configure system Qt6
-          if: matrix.qt6 == 'ON'
+          if: matrix.qt5 == 'OFF'
           run: |
               sudo apt install qt6-base-dev libqt6charts6-dev libqt6opengl6-dev
 
@@ -58,7 +58,7 @@ jobs:
                   -D PCRASTER_BUILD_TEST=ON \
                   -D PCRASTER_BUILD_DOCUMENTATION=ON \
                   -D PCRASTER_WITH_FLAGS_IPO=OFF \
-                  -D PCRASTER_WITH_QT6=${{ matrix.qt6 }} \
+                  -D PCRASTER_WITH_QT5=${{ matrix.qt5 }} \
                   -D CMAKE_INSTALL_PREFIX=package
 
         - name: Build release
@@ -86,7 +86,7 @@ jobs:
         strategy:
             matrix:
                 os: [ubuntu-24.04]
-                qt6: ["ON", "OFF"]
+                qt5: ["ON", "OFF"]
                 compiler:
                     - { cc: gcc-14  , cxx: g++-14    }
                     - { cc: clang-18, cxx: clang++-18}
@@ -94,7 +94,7 @@ jobs:
 
         runs-on: ${{ matrix.os }}
 
-        name: ${{ matrix.os }};${{ matrix.compiler.cc }};qt5-${{ matrix.qt6 }};Debug
+        name: ${{ matrix.os }};${{ matrix.compiler.cc }};qt5-${{ matrix.qt5 }};Debug
 
         timeout-minutes: 60
 
@@ -108,12 +108,12 @@ jobs:
               sudo apt install ninja-build gdal-bin libgdal-dev libxerces-c-dev libxml2-dev libxslt1-dev libboost-dev libboost-date-time-dev libboost-test-dev libncurses5-dev libxml2 libxml2-utils mesa-common-dev libglu1-mesa-dev python3 libpython3-dev python3-numpy cmake pybind11-dev python3-qgis nanobind-dev
 
         - name: Configure system Qt5
-          if: matrix.qt6 == 'OFF'
+          if: matrix.qt5 == 'ON'
           run: |
               sudo apt install qtbase5-dev libqt5charts5-dev libqt5opengl5-dev
 
         - name: Configure system Qt6
-          if: matrix.qt6 == 'ON'
+          if: matrix.qt5 == 'OFF'
           run: |
               sudo apt install qt6-base-dev libqt6charts6-dev libqt6opengl6-dev
 
@@ -131,7 +131,7 @@ jobs:
                   -D PCRASTER_BUILD_TEST=ON \
                   -D PCRASTER_BUILD_DOCUMENTATION=OFF \
                   -D PCRASTER_WITH_FLAGS_IPO=OFF \
-                  -D PCRASTER_WITH_QT6=${{ matrix.qt6 }} \
+                  -D PCRASTER_WITH_QT5=${{ matrix.qt5 }} \
                   -D CMAKE_INSTALL_PREFIX=package
 
         - name: Build debug

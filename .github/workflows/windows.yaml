@@ -60,7 +60,6 @@ jobs:
                   -D CMAKE_C_COMPILER=${{ matrix.config.cc }} ^
                   -D CMAKE_CXX_COMPILER=${{ matrix.config.cxx }} ^
                   -D PCRASTER_BUILD_TEST=ON ^
-                  -D PCRASTER_WITH_QT6=ON ^
                   -D CMAKE_INSTALL_PREFIX=package ^
                   -D CMAKE_VERBOSE_MAKEFILE=OFF
 

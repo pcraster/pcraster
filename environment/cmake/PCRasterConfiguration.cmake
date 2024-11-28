@@ -73,6 +73,10 @@ option(
     PCRASTER_INSTALL_FILES_GDAL
     "Install gdal share folder"
     OFF)
+option(
+    PCRASTER_WITH_QT5
+    "Use Qt5"
+    OFF)
 
 # Refactor these at some point? re-check bundle...
 option(
@@ -95,10 +99,7 @@ option(
     PCRASTER_PACKAGE_NCURSES
     "Package shared libraries"
     OFF)
-option(
-    PCRASTER_WITH_QT6
-    "Use Qt6"
-    OFF)
+
 
 if(NOT PCRASTER_PYTHON_INSTALL_DIR)
     set(PCRASTER_PYTHON_INSTALL_DIR python)
@@ -177,12 +178,10 @@ if(PCRASTER_WITH_OPENGL)
     list(APPEND PCR_QT_COMPONENTS OpenGL)
 endif()
 
-if(PCRASTER_WITH_QT6)
-    find_package(Qt6 COMPONENTS ${PCR_QT_COMPONENTS})
-endif()
-
-if(NOT Qt6_FOUND)
+if(PCRASTER_WITH_QT5)
     find_package(Qt5 5.15 REQUIRED COMPONENTS ${PCR_QT_COMPONENTS})
+else()
+    find_package(Qt6 COMPONENTS ${PCR_QT_COMPONENTS})
 endif()
 
 message(STATUS "Found Qt: ")

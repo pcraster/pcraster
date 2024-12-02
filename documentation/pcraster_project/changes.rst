@@ -10,7 +10,7 @@ Changes
 ..
 .. * Modernising the source code. C11 and C++20 are now the default standards when compiling PCRaster.
 .. * Various fixes raised by compiler warnings.
-.. * Replacing numerous 3rd party code with C/C++ standard equivalents: numbers
+.. * Replacing numerous 3rd party code with C++ standard equivalents: numbers, gcd
 .. * Qt6 by default
 
 

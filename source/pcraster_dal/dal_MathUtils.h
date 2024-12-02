@@ -34,14 +34,6 @@
   #include <boost/test/floating_point_comparison.hpp>
 #endif
 
-#if BOOST_VERSION > 106400
-  #include <boost/integer/common_factor.hpp>
-#else
-  #include <boost/math/common_factor.hpp>
-#endif
-
-
-
 // PCRaster library headers.
 #ifndef INCLUDED_PCRTYPES
 #include "pcrtypes.h"
@@ -59,9 +51,9 @@
 #define INCLUDED_DAL_ARRAY
 #endif
 
-#ifndef INCLUDED_NUMBERS
-#include <numbers>
-#define INCLUDED_NUMBERS
+#ifndef INCLUDED_NUMERIC
+#include <numeric>
+#define INCLUDED_NUMERIC
 #endif
 
 
@@ -476,11 +468,7 @@ inline T gcd(
          T a,
          T b)
 {
-#if BOOST_VERSION > 106400
-  return boost::integer::gcd<T>(a, b);
-#else
-  return boost::math::gcd<T>(a, b);
-#endif
+  return std::gcd<T>(a, b);
 }
 
 template<typename T>
@@ -891,9 +879,9 @@ template<typename T>
 inline T radiansToDegrees(
          T const& radians)
 {
-  assert(radians >= T(-std::numbers::pi_v<T> / 2.0) && radians <= T(std::numbers::pi_v<T> / 2.0));
+  assert(radians >= T(-M_PI / 2.0) && radians <= T(M_PI / 2.0));
 
-  T result = (T(180.0) * radians) / std::numbers::pi_v<T>;
+  T result = (T(180.0) * radians) / T(M_PI);
 
   assert(result >= T(-90.0) && result <= T(90.0));
 

@@ -51,6 +51,11 @@
 #define INCLUDED_DAL_ARRAY
 #endif
 
+#ifndef INCLUDED_NUMBERS
+#include <numbers>
+#define INCLUDED_NUMBERS
+#endif
+
 #ifndef INCLUDED_NUMERIC
 #include <numeric>
 #define INCLUDED_NUMERIC
@@ -879,9 +884,9 @@ template<typename T>
 inline T radiansToDegrees(
          T const& radians)
 {
-  assert(radians >= T(-M_PI / 2.0) && radians <= T(M_PI / 2.0));
+  assert(radians >= T(-std::numbers::pi_v<T> / 2.0) && radians <= T(std::numbers::pi_v<T> / 2.0));
 
-  T result = (T(180.0) * radians) / T(M_PI);
+  T result = (T(180.0) * radians) / std::numbers::pi_v<T>;
 
   assert(result >= T(-90.0) && result <= T(90.0));
 

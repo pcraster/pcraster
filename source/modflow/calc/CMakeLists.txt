@@ -64,77 +64,79 @@ ENDIF(WIN32)
 
 if(PCRASTER_BUILD_TEST)
 
-  configure_file(
-    ${CMAKE_CURRENT_SOURCE_DIR}/test_prolog.py.in
-    ${CMAKE_CURRENT_BINARY_DIR}/test_prolog.py
-    @ONLY
-  )
-  configure_file(
-    ${CMAKE_CURRENT_SOURCE_DIR}/../tests/tests.py.in
-    ${CMAKE_CURRENT_BINARY_DIR}/tests.py
-    @ONLY
-  )
-
-  set(TEST_NAMES
-    calc_DemoTest.cc
-  )
-
-  add_unit_tests(
-    SCOPE modflow
-    NAMES ${TEST_NAMES}
-    INCLUDE_DIRS
-        ${Python_INCLUDE_DIRS}
-    LINK_LIBRARIES
-        pcraster::model_engine
-  )
-
-  # the pcraster_modflow dll must be build first
-  ADD_DEPENDENCIES(modflow_calc_DemoTest
-      pcraster_modflow
-      _pcraster
-  )
-
-  add_test(
-      NAME setup_modflow
-      COMMAND ${Python_EXECUTABLE} test_prolog.py
-  )
-
-  set_tests_properties(setup_modflow
-      PROPERTIES FIXTURES_SETUP FixtureModflow
-  )
-
-  add_test(
-    NAME
-         modflow_python_unit_tests
-    COMMAND
-        ${Python_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/tests.py
-  )
-
-  set_tests_properties(modflow_python_unit_tests PROPERTIES
-    DEPENDS
-      # calc demo test builds some required inputs
-      modflow_calc_DemoTest
-  )
-
-    set_tests_properties(modflow_calc_DemoTest PROPERTIES
-        FIXTURES_REQUIRED
-          FixtureModflow
+    configure_file(
+        ${CMAKE_CURRENT_SOURCE_DIR}/test_prolog.py.in
+        ${CMAKE_CURRENT_BINARY_DIR}/test_prolog.py
+        @ONLY
+    )
+    configure_file(
+        ${CMAKE_CURRENT_SOURCE_DIR}/../tests/tests.py.in
+        ${CMAKE_CURRENT_BINARY_DIR}/tests.py
+        @ONLY
     )
 
+    set(TEST_NAMES
+        calc_DemoTest.cc
+    )
 
-  # add path of project's unit test related files to PYTHONPATH
-  # required to execute this unit test via ctest properly
-  if(WIN32)
-    set(ENV_PATH $ENV{PATH})
-    string(REPLACE ";" "\\;" ENV_PATH "${ENV_PATH}")
-    # argument is a 'cmake' ; separated list of values, therefore escape the environment path separator
-    set_tests_properties(modflow_calc_DemoTest modflow_python_unit_tests PROPERTIES
-      ENVIRONMENT "PATH=${ENV_PATH}\\;$<TARGET_FILE_DIR:pcrcalc>\\;${CMAKE_CURRENT_BINARY_DIR};PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}\\;$<TARGET_FILE_DIR:pcrcalc>"
+    add_unit_tests(
+        SCOPE modflow
+        NAMES ${TEST_NAMES}
+        INCLUDE_DIRS
+            ${Python_INCLUDE_DIRS}
+        LINK_LIBRARIES
+            pcraster::model_engine
     )
-  else()
-    set_tests_properties(modflow_calc_DemoTest modflow_python_unit_tests PROPERTIES
-      ENVIRONMENT "PATH=$<TARGET_FILE_DIR:pcrcalc>:${CMAKE_CURRENT_BINARY_DIR}:$ENV{PATH};PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:$<TARGET_FILE_DIR:pcrcalc>"
+
+    # the pcraster_modflow dll must be build first
+    ADD_DEPENDENCIES(modflow_calc_DemoTest
+        pcraster_modflow
+        _pcraster
     )
-  endif()
+
+    add_test(
+        NAME setup_modflow
+        COMMAND ${Python_EXECUTABLE} test_prolog.py
+    )
+
+    set_tests_properties(setup_modflow
+        PROPERTIES
+            FIXTURES_SETUP
+                FixtureModflow
+    )
+
+    add_test(
+      NAME
+          modflow_python_unit_tests
+      COMMAND
+          ${Python_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/tests.py
+    )
+
+    set_tests_properties(modflow_python_unit_tests
+        PROPERTIES
+            DEPENDS
+                # calc demo test builds some required inputs
+                modflow_calc_DemoTest
+    )
+
+    set_tests_properties(modflow_calc_DemoTest
+        PROPERTIES
+            FIXTURES_REQUIRED
+                FixtureModflow
+    )
+
+    # Environment variables to execute this unit test via ctest properly
+    set(test_env
+        PATH=path_list_prepend:${CMAKE_CURRENT_BINARY_DIR}
+        PATH=path_list_prepend:$<TARGET_FILE_DIR:pcrcalc>
+        PYTHONPATH=path_list_prepend:${CMAKE_CURRENT_BINARY_DIR}
+        PYTHONPATH=path_list_prepend:$<TARGET_FILE_DIR:pcrcalc>
+    )
+
+    set_tests_properties(modflow_calc_DemoTest modflow_python_unit_tests
+        PROPERTIES
+            ENVIRONMENT_MODIFICATION
+                "${test_env}"
+    )
 
 endif()

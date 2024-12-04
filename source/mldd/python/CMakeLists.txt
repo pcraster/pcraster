@@ -82,6 +82,7 @@ install(
 )
 
 if(PCRASTER_BUILD_TEST)
+
     add_test(
         NAME
             mldd_python_unittests
@@ -89,20 +90,16 @@ if(PCRASTER_BUILD_TEST)
             ${Python_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test.py
     )
 
-    if(WIN32)
-        set(ENV_PATH $ENV{PATH})
-        string(REPLACE ";" "\\;" ENV_PATH "${ENV_PATH}")
+    # Environment variables to execute this unit test via ctest properly
+    set(test_env
+        PATH=path_list_prepend:$<$<PLATFORM_ID:Windows>:$<TARGET_FILE_DIR:pcrcalc>>
+        PYTHONPATH=path_list_prepend:$<TARGET_FILE_DIR:pcrcalc>
+    )
 
-        set_tests_properties(mldd_python_unittests
-            PROPERTIES
-                ENVIRONMENT
-                    "PATH=${ENV_PATH}\\;$<TARGET_FILE_DIR:pcrcalc>;PYTHONPATH=$<TARGET_FILE_DIR:pcrcalc>"
-        )
-    else()
-        set_tests_properties(mldd_python_unittests
-            PROPERTIES
-                ENVIRONMENT
-                    "PYTHONPATH=$<TARGET_FILE_DIR:pcrcalc>"
-        )
-    endif()
+    set_tests_properties(mldd_python_unittests
+        PROPERTIES
+            ENVIRONMENT_MODIFICATION
+                    "${test_env}"
+    )
+
 endif()

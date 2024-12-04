@@ -12,7 +12,8 @@ add_test(
 
 set_tests_properties(setup_multicore
     PROPERTIES
-        FIXTURES_SETUP FixtureMulticore
+        FIXTURES_SETUP
+            FixtureMulticore
 )
 
 add_test(
@@ -30,17 +31,16 @@ set_tests_properties(python_multicore_unit_tests
             FixtureMulticore
 )
 
-# add path of project's unit test related files to PYTHONPATH
-# required to execute this unit test via ctest properly
-if(WIN32)
-     set(ENV_PATH $ENV{PATH})
-     string(REPLACE ";" "\\;" ENV_PATH "${ENV_PATH}")
-     # argument is a 'cmake' ; separated list of values, therefore escape the environment path separator
-    set_tests_properties(python_multicore_unit_tests PROPERTIES
-       ENVIRONMENT "PATH=${ENV_PATH}\\;$<TARGET_FILE_DIR:pcrcalc>;PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}\\;$<TARGET_FILE_DIR:pcrcalc>;PCRASTER_NR_WORKER_THREADS=2"
+# Environment variables to execute this unit test via ctest properly
+set(test_env
+    PATH=path_list_prepend:$<$<PLATFORM_ID:Windows>:$<TARGET_FILE_DIR:pcrcalc>>
+    PYTHONPATH=path_list_prepend:${CMAKE_CURRENT_BINARY_DIR}
+    PYTHONPATH=path_list_prepend:$<TARGET_FILE_DIR:pcrcalc>
+    PCRASTER_NR_WORKER_THREADS=set:2
 )
-else()
-    set_tests_properties(python_multicore_unit_tests PROPERTIES
-      ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:$<TARGET_FILE_DIR:pcrcalc>;PCRASTER_NR_WORKER_THREADS=2"
-    )
-endif()
+
+set_tests_properties(python_multicore_unit_tests
+    PROPERTIES
+        ENVIRONMENT_MODIFICATION
+            "${test_env}"
+)

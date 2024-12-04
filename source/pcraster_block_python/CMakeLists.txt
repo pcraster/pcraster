@@ -78,6 +78,20 @@ if(PCRASTER_BUILD_TEST)
         @ONLY
     )
 
+    # Dependencies for the unit tests...
+    add_test(setup_block_python_dependencies
+        "${CMAKE_COMMAND}"
+        --build "${CMAKE_BINARY_DIR}"
+        --config "$<CONFIG>"
+        --target _pcraster _pcraster_block_python
+    )
+
+    set_tests_properties(setup_block_python_dependencies
+        PROPERTIES
+            FIXTURES_SETUP
+                FixtureBlockPythonDependencies
+    )
+
     add_test(
         NAME setup_block_python
         COMMAND ${Python_EXECUTABLE} test_prolog.py
@@ -98,42 +112,22 @@ if(PCRASTER_BUILD_TEST)
     set_tests_properties(blockpy_blockpy_pythonunittest
         PROPERTIES
             FIXTURES_REQUIRED
-                FixtureBlockPython
+                "FixtureBlockPythonDependencies;FixtureBlockPython"
     )
 
-#   set_tests_properties(blockpy_blockpy_pythonunittest PROPERTIES
-#     DEPENDS
-#       _pcraster_block_python
-#       python_modelling_framework_dummy
-#   )
+    # Environment variables to execute this unit test via ctest properly
+    set(test_env
+        PATH=path_list_prepend:$<$<PLATFORM_ID:Windows>:$<TARGET_FILE_DIR:pcrcalc>>
+        PYTHONPATH=path_list_prepend:${CMAKE_CURRENT_BINARY_DIR}
+        PYTHONPATH=path_list_prepend:$<TARGET_FILE_DIR:pcrcalc>
+    )
+
+    set_tests_properties(blockpy_blockpy_pythonunittest
+        PROPERTIES
+            ENVIRONMENT_MODIFICATION "${test_env}"
+    )
 
 
-#   set(TEST_NAMES
-#     blockpy_pythonunittest
-#   )
-#
-#   add_unit_tests(
-#     SCOPE blockpy
-#     NAMES ${TEST_NAMES}
-#     LINK_LIBRARIES
-#       ${Boost_PYTHON_LIBRARY}
-#       ${PYTHON_LIBRARIES}
-#   )
-
-    # add path of project's unit test related files to PYTHONPATH
-    # required to execute this unit test via ctest properly
-    if(WIN32)
-        set(ENV_PATH $ENV{PATH})
-        string(REPLACE ";" "\\;" ENV_PATH "${ENV_PATH}")
-        # argument is a 'cmake' ; separated list of values, therefore escape the environment path separator
-        set_tests_properties(blockpy_blockpy_pythonunittest PROPERTIES
-          ENVIRONMENT "PATH=${ENV_PATH}\\;$<TARGET_FILE_DIR:pcrcalc>;PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}\\;$<TARGET_FILE_DIR:pcrcalc>"
-        )
-    else()
-        set_tests_properties(blockpy_blockpy_pythonunittest PROPERTIES
-          ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:$<TARGET_FILE_DIR:pcrcalc>"
-        )
-    endif()
 
 # OLS: clean up the comments when refacoring for the new windows build
 # I leave them here just as info in case of troubles...

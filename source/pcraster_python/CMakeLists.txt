@@ -230,11 +230,19 @@ if(PCRASTER_BUILD_TEST)
 
     include(test_gdal_import.cmake)
 
-    add_test(
-        NAME
-            python_pcrcalcpy_pythonunittest
-        COMMAND
-            ${Python_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test.py
+    # Dependencies for the unit tests...
+    add_test(setup_pcraster_python_dependencies
+        "${CMAKE_COMMAND}"
+        --build "${CMAKE_BINARY_DIR}"
+        --config "$<CONFIG>"
+        --target
+                mapattr col2map _pcraster
+    )
+
+    set_tests_properties(setup_pcraster_python_dependencies
+        PROPERTIES
+            FIXTURES_SETUP
+                FixturePCRasterPythonDependencies
     )
 
     add_test(
@@ -245,13 +253,14 @@ if(PCRASTER_BUILD_TEST)
     set_tests_properties(setup_pcraster_python
         PROPERTIES
             FIXTURES_SETUP
-                FixturePcrasterPython
+                FixturePCRasterPython
     )
 
-    set_tests_properties(python_pcrcalcpy_pythonunittest
-        PROPERTIES
-            FIXTURES_REQUIRED
-                FixturePcrasterPython
+    add_test(
+        NAME
+            python_pcrcalcpy_pythonunittest
+        COMMAND
+            ${Python_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test.py
     )
 
     add_test(
@@ -275,59 +284,34 @@ if(PCRASTER_BUILD_TEST)
             ${Python_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test_gdal_import_3.py
     )
 
-# OLS: clean up the comments when refacoring for the new windows build
-# I leave them here just as info in case of troubles...
+    # Environment variables to execute this unit test via ctest properly
+    set(test_env_pythonunittest
+        PATH=path_list_prepend:$<$<PLATFORM_ID:Windows>:$<TARGET_FILE_DIR:pcrcalc>>
+        PATH=path_list_prepend:$<$<PLATFORM_ID:Linux>:/root/bin>
+        PYTHONPATH=path_list_prepend:${CMAKE_CURRENT_BINARY_DIR}
+        PYTHONPATH=path_list_prepend:$<TARGET_FILE_DIR:pcrcalc>
+    )
 
-#    set(TEST_NAMES
-#      pcrcalcpy_pythonunittest
-#    )
-#
-#    add_unit_tests(
-#      SCOPE python
-#      NAMES ${TEST_NAMES}
-#      LINK_LIBRARIES
-#        ${Boost_PYTHON_LIBRARY}
-#        ${PYTHON_LIBRARIES}
-#    )
+    set(test_env_gdalimport
+        PATH=path_list_prepend:$<$<PLATFORM_ID:Windows>:$<TARGET_FILE_DIR:pcrcalc>>
+        PYTHONPATH=path_list_prepend:$<TARGET_FILE_DIR:pcrcalc>
+    )
 
-    # add path of project's unit test related files to PYTHONPATH
-    # required to execute this unit test via ctest properly
-    if(WIN32)
-        set(ENV_PATH $ENV{PATH})
-        string(REPLACE ";" "\\;" ENV_PATH "${ENV_PATH}")
-        # argument is a 'cmake' ; separated list of values, therefore escape the environment path separator
-        set_tests_properties(python_pcrcalcpy_pythonunittest
-            PROPERTIES
-                ENVIRONMENT
-                    "PATH=${ENV_PATH}\\;$<TARGET_FILE_DIR:pcrcalc>;PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}\\;$<TARGET_FILE_DIR:pcrcalc>"
-        )
+    set_tests_properties(python_pcrcalcpy_pythonunittest
+        PROPERTIES
+            FIXTURES_REQUIRED
+                "FixturePCRasterPythonDependencies;FixturePCRasterPython"
+            ENVIRONMENT_MODIFICATION
+                "${test_env_pythonunittest}"
+    )
 
-        set_tests_properties(python_pcrcalcpy_gdalimport_test_1 python_pcrcalcpy_gdalimport_test_2 python_pcrcalcpy_gdalimport_test_3
-            PROPERTIES
-                ENVIRONMENT
-                    "PATH=${ENV_PATH}\\;$<TARGET_FILE_DIR:pcrcalc>;PYTHONPATH=$<TARGET_FILE_DIR:pcrcalc>"
-        )
-    else()
-        set_tests_properties(python_pcrcalcpy_pythonunittest
-            PROPERTIES
-                ENVIRONMENT
-                    # Also set a non-accessible path for default user (gh134)
-                    "PATH=/root/bin:$ENV{PATH};PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:$<TARGET_FILE_DIR:pcrcalc>"
-        )
-
-        set_tests_properties(python_pcrcalcpy_gdalimport_test_1 python_pcrcalcpy_gdalimport_test_2 python_pcrcalcpy_gdalimport_test_3
-            PROPERTIES
-                ENVIRONMENT
-                    "PYTHONPATH=$<TARGET_FILE_DIR:pcrcalc>"
-        )
-    endif()
-
-
-#    add_dependencies(python_pcrcalcpy_pythonunittest
-#      examples.sentinel
-#      mapattr asc2map col2map
-#      _pcraster fill_python_directory_structure
-#    )
+    set_tests_properties(python_pcrcalcpy_gdalimport_test_1 python_pcrcalcpy_gdalimport_test_2 python_pcrcalcpy_gdalimport_test_3
+        PROPERTIES
+            FIXTURES_REQUIRED
+                "FixturePCRasterPythonDependencies;FixturePCRasterPython"
+            ENVIRONMENT_MODIFICATION
+                "${test_env_gdalimport}"
+    )
 
 
  # do not run debug tests on Windows

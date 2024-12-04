@@ -69,41 +69,24 @@ install(
 
 if(PCRASTER_BUILD_TEST)
 
-   add_test(
-       NAME
-           pcraster_moc_python_test
-       COMMAND
-           ${Python_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test.py
-   )
+    add_test(
+        NAME
+            pcraster_moc_python_test
+        COMMAND
+            ${Python_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test.py
+    )
 
-   # add path of project's unit test related files to PYTHONPATH
-   # required to execute this unit test via ctest properly
-   if(WIN32)
-       set(ENV_PATH $ENV{PATH})
-       string(REPLACE ";" "\\;" ENV_PATH "${ENV_PATH}")
-       # argument is a 'cmake' ; separated list of values, therefore escape the environment path separator
-       set_tests_properties(pcraster_moc_python_test PROPERTIES
-         ENVIRONMENT "PATH=${ENV_PATH}\\;$<TARGET_FILE_DIR:pcrcalc>;PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}\\;$<TARGET_FILE_DIR:pcrcalc>"
-       )
-   else()
-       set_tests_properties(pcraster_moc_python_test PROPERTIES
-         ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:$<TARGET_FILE_DIR:pcrcalc>"
-       )
-   endif()
+    # Environment variables to execute this unit test via ctest properly
+    set(test_env
+        PATH=path_list_prepend:$<$<PLATFORM_ID:Windows>:$<TARGET_FILE_DIR:pcrcalc>>
+        PYTHONPATH=path_list_prepend:${CMAKE_CURRENT_BINARY_DIR}
+        PYTHONPATH=path_list_prepend:$<TARGET_FILE_DIR:pcrcalc>
+    )
+
+    set_tests_properties(pcraster_moc_python_test
+        PROPERTIES
+            ENVIRONMENT_MODIFICATION
+                "${test_env}"
+    )
 
 endif()
-
-
-# TODO
-# SET_TARGET_PROPERTIES(_pcraster_moc_python
-#     PROPERTIES
-#         ### SKIP_BUILD_RPATH FALSE
-#         ### BUILD_WITH_INSTALL_RPATH TRUE
-#         ### INSTALL_RPATH "$ORIGIN/../../../lib"
-#         ### INSTALL_RPATH_USE_LINK_PATH FALSE
-#
-#         # Write the extension to the pcraster sub directory.
-#         LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin/${CMAKE_CFG_INTDIR}/pcraster/moc
-#         # Might be needed on Windows:
-#         RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin/${CMAKE_CFG_INTDIR}/pcraster/moc
-# )

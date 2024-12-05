@@ -5,13 +5,16 @@ configure_file(
 )
 
 # Dependencies for the unit tests...
-add_test(setup_python_modelling_framework_dependencies
-    "${CMAKE_COMMAND}"
-    --build "${CMAKE_BINARY_DIR}"
-    --config "$<CONFIG>"
-    --target
-            mapattr col2map _pcraster
-            generate_examples.sentinel python_modelling_framework_dummy
+add_test(
+    NAME
+        setup_python_modelling_framework_dependencies
+    COMMAND
+        "${CMAKE_COMMAND}"
+        --build "${CMAKE_BINARY_DIR}"
+        --config "$<CONFIG>"
+        --target
+                mapattr col2map _pcraster
+                generate_examples.sentinel python_modelling_framework_dummy
 )
 
 set_tests_properties(setup_python_modelling_framework_dependencies

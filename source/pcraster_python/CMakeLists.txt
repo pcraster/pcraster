@@ -231,12 +231,15 @@ if(PCRASTER_BUILD_TEST)
     include(test_gdal_import.cmake)
 
     # Dependencies for the unit tests...
-    add_test(setup_pcraster_python_dependencies
-        "${CMAKE_COMMAND}"
-        --build "${CMAKE_BINARY_DIR}"
-        --config "$<CONFIG>"
-        --target
-                mapattr col2map _pcraster
+    add_test(
+        NAME
+            setup_pcraster_python_dependencies
+        COMMAND
+            "${CMAKE_COMMAND}"
+            --build "${CMAKE_BINARY_DIR}"
+            --config "$<CONFIG>"
+            --target
+                    mapattr col2map _pcraster
     )
 
     set_tests_properties(setup_pcraster_python_dependencies

@@ -79,11 +79,14 @@ if(PCRASTER_BUILD_TEST)
     )
 
     # Dependencies for the unit tests...
-    add_test(setup_block_python_dependencies
-        "${CMAKE_COMMAND}"
-        --build "${CMAKE_BINARY_DIR}"
-        --config "$<CONFIG>"
-        --target _pcraster _pcraster_block_python
+    add_test(
+        NAME
+            setup_block_python_dependencies
+        COMMAND
+            "${CMAKE_COMMAND}"
+            --build "${CMAKE_BINARY_DIR}"
+            --config "$<CONFIG>"
+            --target _pcraster _pcraster_block_python
     )
 
     set_tests_properties(setup_block_python_dependencies

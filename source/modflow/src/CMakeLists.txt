@@ -34,10 +34,6 @@ target_include_directories(pcrmf_objects
         $<TARGET_PROPERTY:pcraster::model_engine,INTERFACE_INCLUDE_DIRECTORIES>
 )
 
-target_include_directories(pcrmf_objects SYSTEM
-    PRIVATE
-        ${Boost_INCLUDE_DIRS}
-)
 
 add_library(pcrmf STATIC
     $<TARGET_OBJECTS:pcrmf_objects>

@@ -186,11 +186,6 @@ add_library(pcraster_aguila_objects OBJECT
 
 )
 
-target_include_directories(pcraster_aguila_objects SYSTEM
-    PRIVATE
-        ${Boost_INCLUDE_DIRS}
-)
-
 target_include_directories(pcraster_aguila_objects
     PRIVATE
         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>

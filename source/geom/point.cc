@@ -10,23 +10,11 @@
 /* global header (opt.) and point's prototypes "" */
 #include "mathx.h"
 #include "misc.h"
-#include <cfloat>
 
-#ifndef INCLUDED_BOOST_VERSION
-#include <boost/version.hpp>
-#define INCLUDED_BOOST_VERSION
-#endif
-
-#if BOOST_VERSION > 105800
 #include <boost/test/tools/floating_point_comparison.hpp>
-#else
-#include <boost/test/floating_point_comparison.hpp>
-#endif
 
-#ifndef INCLUDED_NUMBERS
+#include <cfloat>
 #include <numbers>
-#define INCLUDED_NUMBERS
-#endif
 
 /* headers of this app. modules called */
 
@@ -920,15 +908,9 @@ int IntersectAllignedRectangles(
     // that represents the line between R1 and R2.
     // Such a line/polygon may incorrectly get a very
     // small area assigned due to floating point operations
-#if BOOST_VERSION > 105800
     static boost::math::fpc::close_at_tolerance<double> tester(
         boost::math::fpc::fpc_detail::fraction_tolerance<double>(double(1e-8)),
         boost::math::fpc::FPC_STRONG);
-#else
-    boost::test_tools::close_at_tolerance<double> tester(
-        boost::test_tools::fraction_tolerance_t<double>(double(1e-8)),
-        boost::test_tools::FPC_STRONG);
-#endif
 
     if (tester(static_cast<double>(yMax), static_cast<double>(yMin)) ||
         tester(static_cast<double>(xMax), static_cast<double>(xMin))) {

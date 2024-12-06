@@ -4,6 +4,11 @@
 
 
 // External headers.
+#ifndef INCLUDED_BOOST_VERSION
+#include <boost/version.hpp>
+#define INCLUDED_BOOST_VERSION
+#endif
+
 #ifndef INCLUDED_MAP
 #include <map>
 #define INCLUDED_MAP

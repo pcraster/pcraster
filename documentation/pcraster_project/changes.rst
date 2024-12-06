@@ -11,7 +11,9 @@ Changes
 .. * Modernising the source code. C11 and C++20 are now the default standards when compiling PCRaster.
 .. * Various fixes raised by compiler warnings.
 .. * Replacing numerous 3rd party code with C++ standard equivalents: numbers, gcd
-.. * Qt6 by default
+.. * Qt6 by default 5 as option
+.. * Including outdated Boost headers were removed
+.. * find package config Boost
 
 
 PCRaster 4.4.1

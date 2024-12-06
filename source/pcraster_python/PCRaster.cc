@@ -23,16 +23,7 @@
 #include "ppu_exception.h"
 #include "pcraster_version.h"
 
-#ifndef INCLUDED_BOOST_VERSION
-#include <boost/version.hpp>
-#define INCLUDED_BOOST_VERSION
-#endif
-
-#if BOOST_VERSION > 105800
 #include <boost/test/tools/floating_point_comparison.hpp>
-#else
-#include <boost/test/floating_point_comparison.hpp>
-#endif
 
 #include <boost/format.hpp>
 #include <boost/math/special_functions/fpclassify.hpp>
@@ -679,15 +670,10 @@ calc::Field* closeAtTolerance(calc::Field const * result,
     cells[i] = 0;
   }
 
-#if BOOST_VERSION > 105800
   boost::math::fpc::close_at_tolerance<REAL4> tester(
          boost::math::fpc::fpc_detail::fraction_tolerance<REAL4>(REAL4(1e-4)),
          boost::math::fpc::FPC_STRONG);
-#else
-  boost::test_tools::close_at_tolerance<REAL4> tester(
-         boost::test_tools::fraction_tolerance_t<REAL4>(REAL4(1e-4)),
-         boost::test_tools::FPC_STRONG);
-#endif
+
   for(size_t i = 0; i < nrCells; ++i) {
     double validatedValue;
     validated->getCell(validatedValue, static_cast<size_t>(i));

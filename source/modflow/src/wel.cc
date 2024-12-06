@@ -3,12 +3,7 @@
 #define INCLUDED_WEL
 #endif
 
-#if BOOST_VERSION > 105800
 #include <boost/test/tools/floating_point_comparison.hpp>
-#else
-#include <boost/test/floating_point_comparison.hpp>
-#endif
-
 
 // Library headers.
 #ifndef INCLUDED_FSTREAM
@@ -193,15 +188,9 @@ void WEL::write_list(std::string const& path){
 
   int mfLayer = 1;
 
-#if BOOST_VERSION > 105800
   boost::math::fpc::close_at_tolerance<REAL4> tester(
          boost::math::fpc::fpc_detail::fraction_tolerance<REAL4>(REAL4(1e-4)),
          boost::math::fpc::FPC_STRONG);
-#else
-  boost::test_tools::close_at_tolerance<REAL4> tester(
-         boost::test_tools::fraction_tolerance_t<REAL4>(REAL4(1e-4)),
-         boost::test_tools::FPC_STRONG);
-#endif
 
   for(size_t layer = 1; layer <= d_mf->d_nrMFLayer; layer++){
     size_t count = 0;

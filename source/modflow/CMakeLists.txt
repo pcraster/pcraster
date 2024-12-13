@@ -35,7 +35,8 @@ if(PCRASTER_BUILD_TEST AND NOT PCRASTER_BUILD_MODFLOW_EXECUTABLE)
   ADD_CUSTOM_COMMAND(
     TARGET
       modflow_exe_dummy_target
-    COMMAND ${CMAKE_COMMAND} ARGS -E copy ${MF_BINARY} $<TARGET_FILE_DIR:pcraster_modflow>
+    POST_BUILD
+      COMMAND ${CMAKE_COMMAND} ARGS -E copy ${MF_BINARY} $<TARGET_FILE_DIR:pcraster_modflow>
   )
 
 endif()

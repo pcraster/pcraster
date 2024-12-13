@@ -55,7 +55,7 @@ MACRO(TEXT_TO_CHARACTER_ARRAY TEXT_FILE IDENTIFIER)
         OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${IDENTIFIER}.h
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
         DEPENDS ${TEXT_FILE}
-        COMMENT Generating ${IDENTIFIER}.h
+        COMMENT "Generating ${CMAKE_CURRENT_BINARY_DIR}/${IDENTIFIER}.h"
         COMMAND ${Python_EXECUTABLE}
             ${CMAKE_CURRENT_SOURCE_DIR}/text2CharArray.py ${TEXT_FILE}
             ${IDENTIFIER}
@@ -96,7 +96,7 @@ TEXT_TO_CHARACTER_ARRAY(
 #     OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/commonTypesXSD.cc
 #     DEPENDS ${XSD_SRC_DIR}/commonTypes.xsd ${XSD_EPILOGUE}
 #     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-#     COMMENT Generating ${CMAKE_CURRENT_BINARY_DIR}/commonTypesXSD.cc
+#     COMMENT "Generating ${CMAKE_CURRENT_BINARY_DIR}/commonTypesXSD.cc"
 #     COMMAND ${XSD_EXECUTABLE} ${XSD_OPTIONS}
 #         --hxx-epilogue "#include \"commonTypesUtilEpilogue.h\""
 #         --cxx-epilogue "#include \"commonTypesUtilEpilogueImpl.h\""
@@ -128,7 +128,7 @@ IF(AGUILA_BUILD)
 #         OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/AguilaXSD.cc
 #         DEPENDS ${_AGUILA_XSD} ${XSD_EPILOGUE}
 #         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-#         COMMENT Generating ${CMAKE_CURRENT_BINARY_DIR}/AguilaXSD.cc
+#         COMMENT "Generating ${CMAKE_CURRENT_BINARY_DIR}/AguilaXSD.cc"
 #         COMMAND ${CMAKE_COMMAND} -E copy ${_AGUILA_XSD} ${CMAKE_CURRENT_BINARY_DIR}
 #         COMMAND ${CMAKE_COMMAND} -E copy ${XSD_SRC_DIR}/commonTypes.xsd
 #             ${CMAKE_CURRENT_BINARY_DIR}
@@ -163,7 +163,7 @@ IF(PCRTREE2_BUILD)
 #         OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/PCRasterXSD.cc
 #         DEPENDS ${_PCRASTER_XSD} ${XSD_EPILOGUE}
 #         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-#         COMMENT Generating ${CMAKE_CURRENT_BINARY_DIR}/PCRasterXSD.cc
+#         COMMENT "Generating ${CMAKE_CURRENT_BINARY_DIR}/PCRasterXSD.cc"
 #         COMMAND ${CMAKE_COMMAND} -E copy ${_PCRASTER_XSD} ${CMAKE_CURRENT_BINARY_DIR}
 #         COMMAND ${CMAKE_COMMAND} -E copy ${XSD_SRC_DIR}/commonTypes.xsd
 #             ${CMAKE_CURRENT_BINARY_DIR}

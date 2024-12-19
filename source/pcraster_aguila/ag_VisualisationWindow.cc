@@ -144,11 +144,19 @@ void VisualisationWindow::insertAnimateAction()
 
 void VisualisationWindow::insertCloseAndExitMenuItems()
 {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+  d_fileMenu->addAction("&Close", qt::Close, this, SLOT(fileMenuClose()));
+#else
   d_fileMenu->addAction("&Close", this, SLOT(fileMenuClose()), qt::Close);
+#endif
   // d_fileMenu->insertItem("Close &group", this, SLOT(fileMenuCloseGroup()));
 
   if(qt::AppWindow::applicationRole() == qt::StandAlone) {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+    d_fileMenu->addAction("E&xit", qt::Exit, this, SLOT(quit()));
+#else
     d_fileMenu->addAction("E&xit", this, SLOT(quit()), qt::Exit);
+#endif
   }
 }
 
@@ -199,11 +207,20 @@ void VisualisationWindow::insertShowCursorAction()
 
 void VisualisationWindow::insertWhatsThisMenuItem()
 {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+  d_helpMenu->addAction(
+         "What's &This",
+         qt::WhatsThis,
+         this,
+         SLOT(whatsThis()));
+
+#else
   d_helpMenu->addAction(
          "What's &This",
          this,
          SLOT(whatsThis()),
          qt::WhatsThis);
+#endif
 }
 
 

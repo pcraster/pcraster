@@ -124,7 +124,14 @@ pcrxml::Document pcrxml::createPcrDocument(
 void pcrxml::Document::initFromStr(const QString&       content)
 {
    QString errMsg;
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+   ParseResult success = setContent(content, ParseOption::Default);
+   errMsg = success.errorMessage;
+#else
    bool success = setContent(content,false,&errMsg);
+#endif
+
    if (!success) {
      QByteArray asciiData = errMsg.toLatin1();
      const char *goodData = asciiData.constData();
@@ -179,13 +186,20 @@ pcrxml::Document::Document(const com::PathName& file)
     throw com::OpenFileError(file.toString(),com::E_ACCESREAD);
 
   QString errMsg;
-  success = setContent(&f,false,&errMsg);
-  if (!success) {
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+   ParseResult parse_success = setContent(&f, ParseOption::Default);
+   errMsg = parse_success.errorMessage;
+#else
+   bool parse_success = setContent(&f,false,&errMsg);
+#endif
+
+  if (!parse_success) {
      QByteArray asciiData = errMsg.toLatin1();
      const char *goodData = asciiData.constData();
      throw com::BadStreamFormat(goodData);
   }
-  POSTCOND(success); // if nothing thrown then ok here
+  POSTCOND(parse_success); // if nothing thrown then ok here
 }
 
 //! a wrapper on QDomDocument::toString()

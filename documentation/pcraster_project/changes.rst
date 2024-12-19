@@ -14,6 +14,7 @@ Changes
 .. * Qt6 by default 5 as option
 .. * Including outdated Boost headers were removed
 .. * find package config Boost
+.. * Qt deprecated
 
 
 PCRaster 4.4.1

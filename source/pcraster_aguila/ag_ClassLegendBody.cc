@@ -6,6 +6,7 @@
 #include "ag_DataObject.h"
 #include "ag_DataProperties.h"
 #include <QtGlobal>
+#include <QFontMetrics>
 
 
 
@@ -72,7 +73,7 @@ int ClassLegendBody::maxWidthLabel() const
 #if QT_VERSION < QT_VERSION_CHECK(5, 11, 0)
         qApp->fontMetrics().width(QString(label.c_str())));
 #else
-        qApp->fontMetrics().horizontalAdvance(QString(label.c_str())));
+        QFontMetrics(qApp->font()).horizontalAdvance(QString(label.c_str())));
 #endif
          // qApp->desktop()->fontMetrics().width(QString(label.c_str())));
   }
@@ -89,7 +90,7 @@ void ClassLegendBody::paintLineLegend()
   QPainter painter(this);
   painter.setPen(palette().color(QPalette::WindowText));
 
-  int y = static_cast<int>(0.5 * qApp->fontMetrics().height());
+  int y = static_cast<int>(0.5 * QFontMetrics(qApp->font()).height());
 
   // Draw line.
   int left = 0;
@@ -188,7 +189,7 @@ int ClassLegendBody::width() const
 #if QT_VERSION < QT_VERSION_CHECK(5, 11, 0)
         qApp->fontMetrics().width("flow direction");
 #else
-        qApp->fontMetrics().horizontalAdvance("flow direction");
+        QFontMetrics(qApp->font()).horizontalAdvance("flow direction");
 #endif
 
       break;
@@ -226,7 +227,7 @@ int ClassLegendBody::height() const
 
   switch(d_guide.valueScale()) {
     case VS_LDD: {
-      result = qApp->fontMetrics().height();
+      result = QFontMetrics(qApp->font()).height();
 
       break;
     }
@@ -242,7 +243,7 @@ int ClassLegendBody::height() const
           1 +
           // 0.5 fontsize because some letters extent below the base line
           // (g, y, etc).
-          0.5 * qApp->fontMetrics().height()
+          0.5 * QFontMetrics(qApp->font()).height()
           ;
       }
 

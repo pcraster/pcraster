@@ -3,9 +3,21 @@
 
 
 // Library headers.
-#ifndef INCLUDED_QVARIANT
-#include <QVariant>
-#define INCLUDED_QVARIANT
+#ifndef INCLUDED_QTGLOBAL
+#include <QtGlobal>
+#define INCLUDED_QTGLOBAL
+#endif
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+  #ifndef INCLUDED_QMETATYPE
+  #include <QMetaType>
+  #define INCLUDED_QMETATYPE
+  #endif
+#else
+  #ifndef INCLUDED_QVARIANT
+  #include <QVariant>
+  #define INCLUDED_QVARIANT
+  #endif
 #endif
 
 // PCRaster library headers.
@@ -60,7 +72,11 @@ private:
 
   static void      openDatabase        (QSqlDatabase& database);
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+  static TypeId    qtTypeId2DalTypeId  (QMetaType qtTypeId);
+#else
   static TypeId    qtTypeId2DalTypeId  (QVariant::Type qtTypeId);
+#endif
 
   static std::string typeId2SQLTypeName(TypeId typeId);
 

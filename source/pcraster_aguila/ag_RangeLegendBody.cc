@@ -7,6 +7,7 @@
 // Qt
 #include <QApplication>
 #include <QPainter>
+#include <QFontMetrics>
 
 // Pcr
 #include "com_classifier.h"
@@ -72,7 +73,7 @@ RangeLegendBody::RangeLegendBody(
     // The label of this value extents above the tic by at most half the height
     // of the font used to draw it.
     _keyBoxOffset.setHeight(static_cast<int>(
-                   0.5 * qApp->fontMetrics().height()));
+                   0.5 * QFontMetrics(qApp->font()).height()));
   }
 
   // Determine and set size of body.
@@ -141,7 +142,7 @@ int RangeLegendBody::maxLengthLabel() const
 #if QT_VERSION < QT_VERSION_CHECK(5, 11, 0)
     length = qApp->fontMetrics().width(QString("Not distinguishable"));
 #else
-    length = qApp->fontMetrics().horizontalAdvance(QString("Not distinguishable"));
+    length = QFontMetrics(qApp->font()).horizontalAdvance(QString("Not distinguishable"));
 #endif
   }
   else {
@@ -149,7 +150,7 @@ int RangeLegendBody::maxLengthLabel() const
 #if QT_VERSION < QT_VERSION_CHECK(5, 11, 0)
       length = std::max<int>(length, qApp->fontMetrics().width(label(i)));
 #else
-      length = std::max<int>(length, qApp->fontMetrics().horizontalAdvance(label(i)));
+      length = std::max<int>(length, QFontMetrics(qApp->font()).horizontalAdvance(label(i)));
 #endif
     }
   }
@@ -165,7 +166,7 @@ int RangeLegendBody::keyBoxHeight() const
 #if QT_VERSION < QT_VERSION_CHECK(5, 11, 0)
          ? qApp->fontMetrics().width(QString("Cell length"))
 #else
-         ? qApp->fontMetrics().horizontalAdvance(QString("Cell length"))
+         ? QFontMetrics(qApp->font()).horizontalAdvance(QString("Cell length"))
 #endif
          : _maxKeyBoxHeight;
 }
@@ -280,7 +281,7 @@ void RangeLegendBody::paintVectorLegend()
     }
 
     {
-      int x = keyBoxOffset().width() + qApp->fontMetrics().height();
+      int x = keyBoxOffset().width() + QFontMetrics(qApp->font()).height();
       int y = bottom;
       painter.translate(x, y);
       painter.rotate(-90);
@@ -320,8 +321,8 @@ void RangeLegendBody::paintLabels(
   // height of the current font.
   while(nrBorders > 2) {
     // Test if the labels fit.
-    if(nrBorders * (qApp->fontMetrics().height()) <=
-            (keyBoxHeightForLabels + qApp->fontMetrics().height())) {
+    if(nrBorders * (QFontMetrics(qApp->font()).height()) <=
+            (keyBoxHeightForLabels + QFontMetrics(qApp->font()).height())) {
       break;
     }
     else {
@@ -410,7 +411,7 @@ void RangeLegendBody::paintLineLegend()
   // painter.setPen(foregroundColor());
   painter.setPen(dynamic_cast<DrawProps const&>(_drawProperties).colour());
 
-  int y = static_cast<int>(0.5 * qApp->fontMetrics().height());
+  int y = static_cast<int>(0.5 * QFontMetrics(qApp->font()).height());
 
   // Draw line.
   int left = 0;
@@ -519,14 +520,14 @@ int RangeLegendBody::height() const
   switch(viewerType()) {
     case VT_Map: {
       if(!_drawProperties.rawClassBorders().empty()) {
-        result += qApp->fontMetrics().height();
+        result += QFontMetrics(qApp->font()).height();
         result += keyBoxHeight();
       }
 
       break;
     }
     case VT_Graph: {
-      result = qApp->fontMetrics().height();
+      result = QFontMetrics(qApp->font()).height();
 
       break;
     }

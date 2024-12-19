@@ -139,10 +139,17 @@ bool qt::AppWindow::confirmOkWarning(QWidget* p, const std::string& caption,
                              const std::string& explainConsequence)
 {
   QApplication::setOverrideCursor(Qt::ArrowCursor);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+  int b = QMessageBox::warning(p, caption.c_str(), explainConsequence.c_str(),
+                           QMessageBox::Ok,
+                           QMessageBox::Cancel);
+#else
   int b = QMessageBox::warning(p, caption.c_str(), explainConsequence.c_str(),
                            QMessageBox::Ok,
                            QMessageBox::Cancel | QMessageBox::Escape
                                                | QMessageBox::Default);
+#endif
+
   QApplication::restoreOverrideCursor();
   return b == QMessageBox::Ok;
 }
@@ -166,7 +173,7 @@ void qt::AppWindow::showError(QWidget* p, const std::string& caption,
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 //! Constructs an application window.
@@ -374,7 +381,7 @@ void qt::AppWindow::showWarning(const std::string& m) const
 
 //! Issue warning message and ask if Ok or to Cancel
 /*!
-    shorthand for 
+    shorthand for
     qt::AppWindow::confirmOkWarning(QWidget* p, const std::string& app,
                   const std::string& msg), see there for further documentation.
  */

@@ -75,25 +75,47 @@ void SQLTableDriver::execQuery(
 
 
 
-TypeId SQLTableDriver::qtTypeId2DalTypeId(
-         QVariant::Type qtTypeId)
-{
-  TypeId typeId = TI_NR_TYPES;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+  TypeId SQLTableDriver::qtTypeId2DalTypeId(
+          QMetaType qtTypeId)
+  {
+    TypeId typeId = TI_NR_TYPES;
 
-  switch(qtTypeId) {
-    case QVariant::Bool:     { typeId = TI_UINT1; break; }
-    case QVariant::Double:   { typeId = TI_REAL8; break; }
-    case QVariant::Int:      { typeId = TI_INT4; break; }
-    // case QVariant::LongLong: { typeId = INT8; break; }
-    // case QVariant::ULongLong: { typeId = UINT8; break; }
-    case QVariant::String:   { typeId = TI_STRING; break; }
-    // case QVariant::CString:  { typeId = TI_STRING; break; }
-    case QVariant::UInt:     { typeId = TI_UINT4; break; }
-    default:                 { assert(false); break; }
+    switch(qtTypeId.id()) {
+      case QMetaType::Bool:     { typeId = TI_UINT1; break; }
+      case QMetaType::Double:   { typeId = TI_REAL8; break; }
+      case QMetaType::Int:      { typeId = TI_INT4; break; }
+      // case QVariant::LongLong: { typeId = INT8; break; }
+      // case QVariant::ULongLong: { typeId = UINT8; break; }
+      case QMetaType::QString:   { typeId = TI_STRING; break; }
+      // case QVariant::CString:  { typeId = TI_STRING; break; }
+      case QMetaType::UInt:     { typeId = TI_UINT4; break; }
+      default:                 { assert(false); break; }
+    }
+
+    return typeId;
   }
+#else
+  TypeId SQLTableDriver::qtTypeId2DalTypeId(
+          QVariant::Type qtTypeId)
+  {
+    TypeId typeId = TI_NR_TYPES;
 
-  return typeId;
-}
+    switch(qtTypeId) {
+      case QVariant::Bool:     { typeId = TI_UINT1; break; }
+      case QVariant::Double:   { typeId = TI_REAL8; break; }
+      case QVariant::Int:      { typeId = TI_INT4; break; }
+      // case QVariant::LongLong: { typeId = INT8; break; }
+      // case QVariant::ULongLong: { typeId = UINT8; break; }
+      case QVariant::String:   { typeId = TI_STRING; break; }
+      // case QVariant::CString:  { typeId = TI_STRING; break; }
+      case QVariant::UInt:     { typeId = TI_UINT4; break; }
+      default:                 { assert(false); break; }
+    }
+
+    return typeId;
+  }
+#endif
 
 
 
@@ -554,7 +576,11 @@ for(int i = 0; i < index.count(); ++i) {
 
       field = record.field(QString::fromUtf8(name.c_str()));
       titles.push_back(std::string(field.name().toUtf8().constData()));
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+      typeIds.push_back(qtTypeId2DalTypeId(field.metaType()));
+#else
       typeIds.push_back(qtTypeId2DalTypeId(field.type()));
+#endif
 
       if(this->name() == "QSQLITE") {
         if(typeIds.back() == TI_STRING) {

@@ -276,8 +276,8 @@ endif()
 # >>> The ones below are required in case a developer needs to
 #     regenerate one of the pcraster_model_engine's XML files
 # set(DEVBASE_LIB_XSLT_XSLTPROC_REQUIRED TRUE)
-# set(DEVBASE_LIB_XML2_REQUIRED TRUE)
-# set(DEVBASE_LIB_XSLT_REQUIRED TRUE)
+# set(DEVBASE_LIB_XML2_REQUIRED TRUE)           # libxml2 libxml2-utils libxml2-dev
+# set(DEVBASE_LIB_XSLT_REQUIRED TRUE)           # libxslt1-dev
 #
 # ... or XSD
 # set(DEVBASE_XSD_REQUIRED TRUE)

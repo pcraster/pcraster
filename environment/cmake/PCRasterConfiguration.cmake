@@ -192,7 +192,7 @@ add_compile_definitions(QT_DISABLE_DEPRECATED_BEFORE=0x050F00)
 find_package(XercesC REQUIRED)
 
 
-find_package(GDAL 3.0 REQUIRED)
+find_package(GDAL REQUIRED CONFIG)
 message(STATUS "Found GDAL: ")
 message(STATUS "  version:   " ${GDAL_VERSION})
 message(STATUS "  libraries: " ${GDAL_LIBRARIES})

@@ -32,6 +32,7 @@ jobs:
           with:
               miniforge-version: latest
               auto-update-conda: false
+              conda-remove-defaults: true
 
         - shell: bash -l {0}
           run: |

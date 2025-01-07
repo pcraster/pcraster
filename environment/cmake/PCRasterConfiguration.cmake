@@ -179,9 +179,9 @@ if(PCRASTER_WITH_OPENGL)
 endif()
 
 if(PCRASTER_WITH_QT5)
-    find_package(Qt5 5.15 REQUIRED COMPONENTS ${PCR_QT_COMPONENTS})
+    find_package(Qt5 5.15 REQUIRED COMPONENTS ${PCR_QT_COMPONENTS} CONFIG)
 else()
-    find_package(Qt6 COMPONENTS ${PCR_QT_COMPONENTS})
+    find_package(Qt6 COMPONENTS ${PCR_QT_COMPONENTS} CONFIG)
 endif()
 
 message(STATUS "Found Qt: ")

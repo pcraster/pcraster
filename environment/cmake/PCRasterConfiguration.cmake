@@ -193,21 +193,14 @@ find_package(XercesC REQUIRED)
 
 
 find_package(GDAL REQUIRED CONFIG)
+
+find_program(GDAL_TRANSLATE gdal_translate REQUIRED)
+
 message(STATUS "Found GDAL: ")
-message(STATUS "  version:   " ${GDAL_VERSION})
-message(STATUS "  libraries: " ${GDAL_LIBRARIES})
-message(STATUS "  includes:  " ${GDAL_INCLUDE_DIRS})
+message(STATUS "  version:        " ${GDAL_VERSION})
+message(STATUS "  gdal_translate: " ${GDAL_TRANSLATE})
 
-find_program(GDAL_TRANSLATE gdal_translate
-    HINTS ${GDAL_INCLUDE_DIRS}/../bin
-)
-message(STATUS "  gdal_translate:  " ${GDAL_TRANSLATE})
-
-if(PCRASTER_BUILD_TEST)
-    if(NOT GDAL_TRANSLATE)
-        message(FATAL_ERROR "gdal_translate executable not found")
-    endif()
-endif()
+cmake_path(GET GDAL_TRANSLATE PARENT_PATH GDAL_BIN)
 
 if(EXISTS $ENV{GDAL_DATA})
     set(GDAL_DATA $ENV{GDAL_DATA})
@@ -215,9 +208,12 @@ elseif(EXISTS "${GDAL_INCLUDE_DIRS}/../../share/gdal")
     set(GDAL_DATA "${GDAL_INCLUDE_DIRS}/../../share/gdal")
 elseif(EXISTS "${GDAL_INCLUDE_DIRS}/../share/gdal")
     set(GDAL_DATA "${GDAL_INCLUDE_DIRS}/../share/gdal")
+elseif(EXISTS "${GDAL_BIN}/../share/gdal")
+    set(GDAL_DATA "${GDAL_BIN}/../share/gdal")
 else()
     message(FATAL_ERROR "GDAL data dir not found")
 endif()
+
 
 find_package(Python 3.8
   REQUIRED COMPONENTS Interpreter Development NumPy

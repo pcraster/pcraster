@@ -97,16 +97,12 @@ target_include_directories(_pcraster
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
 )
 
-target_include_directories(_pcraster SYSTEM
-    PRIVATE
-      ${Python_NumPy_INCLUDE_DIRS}
-)
-
 # TODO why is Python::module not working on Linux?
 if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     target_link_libraries(_pcraster
         PRIVATE
             Python::Python
+            Python::NumPy
             pcraster::python::utils
 
     )
@@ -114,6 +110,7 @@ else()
     target_link_libraries(_pcraster
         PRIVATE
             Python::Module
+            Python::NumPy
             pcraster::python::utils
 
     )

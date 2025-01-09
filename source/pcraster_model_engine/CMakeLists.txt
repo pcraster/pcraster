@@ -14,33 +14,33 @@ if(PCRASTER_INSTALL_FILES_DEVELOPER)
 endif()
 
 # actually newcalc.l
-ADD_FILE_DEPENDENCY(lexnewcalc.cc
+add_file_dependency(lexnewcalc.cc
     ${CMAKE_CURRENT_BINARY_DIR}/major_op.h)
-ADD_FILE_DEPENDENCY(calc_findsymbol.h
+add_file_dependency(calc_findsymbol.h
     ${CMAKE_CURRENT_BINARY_DIR}/major_op.h)
-ADD_FILE_DEPENDENCY(calc_operation.h
+add_file_dependency(calc_operation.h
     ${CMAKE_CURRENT_BINARY_DIR}/major_op.h)
-ADD_FILE_DEPENDENCY(calc_operations.h
+add_file_dependency(calc_operations.h
     ${CMAKE_CURRENT_BINARY_DIR}/major_op.h)
-ADD_FILE_DEPENDENCY(calc_operator.h
+add_file_dependency(calc_operator.h
     ${CMAKE_CURRENT_BINARY_DIR}/major_op.h)
-ADD_FILE_DEPENDENCY(lextoken.h
+add_file_dependency(lextoken.h
     ${CMAKE_CURRENT_BINARY_DIR}/major_op.h)
-ADD_FILE_DEPENDENCY(calc_fopointarraytest.cc
+add_file_dependency(calc_fopointarraytest.cc
     ${CMAKE_CURRENT_BINARY_DIR}/calc_fopointarrayimpl.inc)
-ADD_FILE_DEPENDENCY(calc_fopointarraytest.cc
+add_file_dependency(calc_fopointarraytest.cc
     ${CMAKE_CURRENT_BINARY_DIR}/calc_fopointimpl.h)
-ADD_FILE_DEPENDENCY(calc_operations.cc
+add_file_dependency(calc_operations.cc
     ${CMAKE_CURRENT_BINARY_DIR}/calc_fopointimpl.h)
-ADD_FILE_DEPENDENCY(calc_pointcodedllheader.h
+add_file_dependency(calc_pointcodedllheader.h
     ${CMAKE_CURRENT_BINARY_DIR}/calc_fopointimpl.h)
-ADD_FILE_DEPENDENCY(calc_operations.cc
+add_file_dependency(calc_operations.cc
     ${CMAKE_CURRENT_BINARY_DIR}/calc_fopointarrayimpl.inc)
-ADD_FILE_DEPENDENCY(calc_operations.cc
+add_file_dependency(calc_operations.cc
     ${CMAKE_CURRENT_BINARY_DIR}/calc_functiontable.h)
-ADD_FILE_DEPENDENCY(calc_operations.cc
+add_file_dependency(calc_operations.cc
     ${CMAKE_CURRENT_BINARY_DIR}/operationsInit.inc)
-ADD_FILE_DEPENDENCY(calc_operations.cc
+add_file_dependency(calc_operations.cc
     ${CMAKE_CURRENT_BINARY_DIR}/calc_builtinops.inc)
 
 # operationExpanded.xml was previously generated each time at a build.

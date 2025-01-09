@@ -82,8 +82,6 @@ if(PCRASTER_BUILD_TEST)
     add_unit_tests(
         SCOPE modflow
         NAMES ${TEST_NAMES}
-        INCLUDE_DIRS
-            ${Python_INCLUDE_DIRS}
         LINK_LIBRARIES
             pcraster::model_engine
     )

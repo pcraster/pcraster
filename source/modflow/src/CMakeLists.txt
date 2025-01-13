@@ -75,10 +75,10 @@ endif()
 target_include_directories(pcrmfpy
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-        ${Python_INCLUDE_DIRS}
 )
 
 target_link_libraries(pcrmfpy
     PUBLIC
         pcraster::model_engine
+        pybind11::module
 )

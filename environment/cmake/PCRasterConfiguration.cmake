@@ -231,7 +231,7 @@ message(STATUS "    version:      " ${Python_NumPy_VERSION})
 message(STATUS "    includes:     " ${Python_NumPy_INCLUDE_DIRS})
 
 # Find Python before pybind11...
-find_package(pybind11 REQUIRED)
+find_package(pybind11 REQUIRED CONFIG)
 
 if(UNIX)
     set(CURSES_NEED_NCURSES TRUE)

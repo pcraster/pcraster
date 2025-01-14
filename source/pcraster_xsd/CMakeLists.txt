@@ -86,12 +86,13 @@ SET(SOURCES
 SET(_SUPPORTED_SCHEMAS
     ${CMAKE_CURRENT_BINARY_DIR}/compiled_commonTypes.h
 )
-TEXT_TO_CHARACTER_ARRAY(
-    ${XSD_SRC_DIR}/commonTypes.xsd
-    compiled_commonTypes
-)
 
 # OLS: this is still required in case we need to regenerate files
+# TEXT_TO_CHARACTER_ARRAY(
+#     ${XSD_SRC_DIR}/commonTypes.xsd
+#     compiled_commonTypes
+# )
+#
 # ADD_CUSTOM_COMMAND(
 #     OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/commonTypesXSD.cc
 #     DEPENDS ${XSD_SRC_DIR}/commonTypes.xsd ${XSD_EPILOGUE}
@@ -137,12 +138,12 @@ IF(AGUILA_BUILD)
 #         COMMAND ${XSD_EXECUTABLE} ${XSD_OPTIONS} ${AGUILA_RES}
 #             --hxx-epilogue-file xsdEpilogue.txt Aguila.xsd
 #     )
+#
+#     TEXT_TO_CHARACTER_ARRAY(
+#         ${_AGUILA_XSD}
+#         compiled_Aguila
+#     )
 # OLS
-
-    TEXT_TO_CHARACTER_ARRAY(
-        ${_AGUILA_XSD}
-        compiled_Aguila
-    )
 ENDIF()
 
 IF(PCRTREE2_BUILD)
@@ -172,12 +173,12 @@ IF(PCRTREE2_BUILD)
 #         COMMAND ${XSD_EXECUTABLE} ${XSD_OPTIONS} --root-element-all
 #             --cxx-suffix XSD.cc --hxx-epilogue-file xsdEpilogue.txt PCRaster.xsd
 #     )
+#
+#     TEXT_TO_CHARACTER_ARRAY(
+#         ${_PCRASTER_XSD}
+#         compiled_PCRaster
+#     )
 # OLS
-
-    TEXT_TO_CHARACTER_ARRAY(
-        ${_PCRASTER_XSD}
-        compiled_PCRaster
-    )
 ENDIF()
 
 SET_SOURCE_FILES_PROPERTIES(pcrxsd_supportedschema.cc
@@ -203,6 +204,9 @@ target_include_directories(pcraster_xsd
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+)
+target_include_directories(pcraster_xsd SYSTEM
+    PUBLIC
         $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/_deps/xsd-src/libxsd>
 )
 

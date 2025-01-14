@@ -159,12 +159,17 @@ CPMAddPackage(
   DOWNLOAD_ONLY YES
 )
 
-# XSD uses two custom build systems. It's easier to apply the MSVC workaround to the currently used version rather than trying
-# to build a newer XSD version. Using a XSD 4.2.0-b.4 release may render the fix obsolete.
-message(STATUS "  Applying fix for XSD serialization-header.txx")
-file(READ ${CMAKE_BINARY_DIR}/_deps/xsd-src/libxsd/xsd/cxx/xml/dom/serialization-header.txx XSD_HEADER)
-string(REPLACE "std::vector<DOMAttr*>::iterator" "std::vector<xercesc::DOMAttr*>::iterator" XSD_HEADER "${XSD_HEADER}")
-file(WRITE ${CMAKE_BINARY_DIR}/_deps/xsd-src/libxsd/xsd/cxx/xml/dom/serialization-header.txx "${XSD_HEADER}")
+# Make sure patch is only done once
+# otherwise changing any CMakeLists.txt triggers continuous rebuild of most files
+if(NOT EXISTS ${CMAKE_BINARY_DIR}/_deps/xsd-src/libxsd/xsd/cxx/xml/dom/serialization-header.txx.sentinel)
+    # XSD uses two custom build systems. It's easier to apply the MSVC workaround to the currently used version rather than trying
+    # to build a newer XSD version. Using a XSD 4.2.0-b.4 release may render the fix obsolete.
+    message(STATUS "  Applying fix for XSD serialization-header.txx")
+    file(READ ${CMAKE_BINARY_DIR}/_deps/xsd-src/libxsd/xsd/cxx/xml/dom/serialization-header.txx XSD_HEADER)
+    string(REPLACE "std::vector<DOMAttr*>::iterator" "std::vector<xercesc::DOMAttr*>::iterator" XSD_HEADER "${XSD_HEADER}")
+    file(WRITE ${CMAKE_BINARY_DIR}/_deps/xsd-src/libxsd/xsd/cxx/xml/dom/serialization-header.txx "${XSD_HEADER}")
+    file(TOUCH ${CMAKE_BINARY_DIR}/_deps/xsd-src/libxsd/xsd/cxx/xml/dom/serialization-header.txx.sentinel)
+endif()
 
 
 list(APPEND PCR_QT_COMPONENTS Core Sql Xml)

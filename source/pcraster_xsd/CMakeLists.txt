@@ -27,6 +27,7 @@ set(_FILES_TO_COPY
   AguilaXSD.h
   compiled_Aguila.h
   compiled_PCRaster.h
+  compiled_commonTypes.h
   PCRasterXSD.cc
   PCRasterXSD.h
 )

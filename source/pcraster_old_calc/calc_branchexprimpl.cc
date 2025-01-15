@@ -140,7 +140,8 @@ void calc::BranchExprImpl::execute(calc::FieldStack& stack)
     } __except(EXCEPTION_EXECUTE_HANDLER) {
      DWORD e = GetExceptionCode();
      const char *m;
-     char msg[128];
+     const size_t buf_size = 128;
+     char msg[buf_size];
      switch(e) {
       case EXCEPTION_FLT_DIVIDE_BY_ZERO:
       case EXCEPTION_INT_DIVIDE_BY_ZERO:
@@ -154,7 +155,7 @@ void calc::BranchExprImpl::execute(calc::FieldStack& stack)
       m = "numerical underflow, check input values of operation";
       break;
       default: {
-      sprintf(msg,
+      std::snprintf(msg, buf_size,
        "Internal error (code=%x), please report to support@pcraster.nl",e);
        m=msg;
       break;

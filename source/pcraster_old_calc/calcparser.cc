@@ -1425,8 +1425,9 @@ Parser::codeBlock(int *_retsignal, calc::StatementBlock *inclIn )
 									reportMoments(&_signal, inSitu ); if (_signal) goto _handler;
 #line 671 "calcparser.g"
 									
-									char buf[8];
-									sprintf(buf,"%d",inSituNr++);
+									const size_t buf_size = 8;
+									char buf[buf_size];
+									std::snprintf(buf, buf_size, "%d", inSituNr++);
 									calc::Symbol s(script(),buf,nullptr);
 									calc::ReportDefinition *rd;
 									rd = new calc::ReportDefinition(

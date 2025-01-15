@@ -238,8 +238,9 @@ std::string com::doubleToFmtStr(double n, int w, int p)
   return s.str();
 #else
   {
-  char aBuf[128];
-  sprintf(aBuf,"%*.*g",w,p,n);
+  const size_t buf_size = 128;
+  char aBuf[buf_size];
+  std::snprintf(aBuf, buf_size, "%*.*g", w, p, n);
   return std::string(aBuf);
   }
 #endif

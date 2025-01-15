@@ -129,7 +129,7 @@ void calc::TssOutputValue::flushToFile()
 
   const char *mvFmt;
   int valFmt;
-  switch(d_vs) {
+  switch(static_cast<CSF_VS>(d_vs)) { // dangerous typecast
    case VS_LDD    :
    case VS_BOOLEAN: mvFmt = "1e31"; // len 4
                     valFmt = 4; break;

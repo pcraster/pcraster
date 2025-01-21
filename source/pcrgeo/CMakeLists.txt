@@ -31,7 +31,7 @@ add_library(pcrgeo STATIC
     geo_mooreneighbourhood.cc
     geo_neighbour.cc
     geo_neighbourhood.cc
-    geo_point.cc
+    # geo_point.cc
     # geo_raster.cc
     geo_rasterfileconverter.cc
     geo_rasterspace.cc

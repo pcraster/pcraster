@@ -694,13 +694,7 @@ double CWAngle(const POINT2D *p) /* the point */
  */
 double Dist(const POINT2D *p1, const POINT2D *p2)
 {
-    return ((double)
-#ifdef _MSC_VER
-                _hypot
-#else
-                hypot
-#endif
-            ((p1->x) - (p2->x), (p1->y) - (p2->y)));
+    return ((double)hypot((p1->x) - (p2->x), (p1->y) - (p2->y)));
 }
 
 /* compare two points

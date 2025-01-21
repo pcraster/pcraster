@@ -85,12 +85,7 @@ ComputeTangent(MAP_REAL8 *result, REAL8 viewAngleVal, const MAP_REAL8 *dem, int 
             double newM = (a - startZ);
             if (newM > bestM) {
                 newM /=
-#ifdef _MSC_VER
-                    _hypot
-#else
-                    hypot
-#endif
-                    (cx - floor(p.x), ry - floor(p.y)) *
+                    hypot(cx - floor(p.x), ry - floor(p.y)) *
                     Side();
                 if (newM > bestM) {
                     bestM = newM;

@@ -39,6 +39,14 @@
   This file contains the implementation of the GlobResult class.
 */
 
+extern template calc::ApiMapC<MAP_UINT1>::InitMap calc::ApiMapC<MAP_UINT1>::d_init;
+extern template calc::ApiMapC<MAP_INT4>::InitMap calc::ApiMapC<MAP_INT4>::d_init;
+extern template calc::ApiMapC<MAP_REAL8>::InitMap calc::ApiMapC<MAP_REAL8>::d_init;
+
+extern template calc::ApiMapC<MAP_UINT1>::DeleteInternal calc::ApiMapC<MAP_UINT1>::d_del;
+extern template calc::ApiMapC<MAP_INT4>::DeleteInternal calc::ApiMapC<MAP_INT4>::d_del;
+extern template calc::ApiMapC<MAP_REAL8>::DeleteInternal calc::ApiMapC<MAP_REAL8>::d_del;
+
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC GLOBRESULT MEMBERS
 //------------------------------------------------------------------------------

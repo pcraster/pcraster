@@ -85,6 +85,9 @@
 
 #include <cassert>
 
+extern template calc::ApiMapC<MAP_INT4>::InitMap calc::ApiMapC<MAP_INT4>::d_init;
+extern template calc::ApiMapC<MAP_INT4>::DeleteInternal calc::ApiMapC<MAP_INT4>::d_del;
+
 const size_t calc::FileTimeoutput::maxCacheSize=128;
 
 namespace calc { namespace detail {

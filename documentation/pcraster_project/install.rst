@@ -8,7 +8,6 @@ Prerequisites
 -------------
 
 We recommend to download and install the |miniforge| distribution.
-Alternative distributions are |miniconda| or |anaconda|.
 The user guide and short reference on conda can be found |minicondadoc|.
 
 Installing PCRaster
@@ -173,11 +172,7 @@ After starting a new terminal you can import the ``pcraster`` module.
 
 .. |miniforge| raw:: html
 
-   <a href="https://mamba.readthedocs.io/en/latest/installation/mamba-installation.html#mamba-install" target="_blank">Miniforge</a>
-
-.. |miniconda| raw:: html
-
-   <a href="https://docs.conda.io/en/latest/miniconda.html" target="_blank">Miniconda</a>
+   <a href="https://conda-forge.org/download/" target="_blank">Miniforge</a>
 
 .. |minicondadoc| raw:: html
 
@@ -186,7 +181,3 @@ After starting a new terminal you can import the ``pcraster`` module.
 .. |condaforgefeedstocksurl| raw:: html
 
    <a href="https://conda-forge.org/feedstock-outputs/index.html" target="_blank">conda-forge</a>
-
-.. |anaconda| raw:: html
-
-   <a href="https://www.anaconda.com/" target="_blank">Anaconda</a>

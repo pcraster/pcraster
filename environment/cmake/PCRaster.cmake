@@ -4,14 +4,12 @@ include(FetchContent)
 include(CMakeDependentOption)
 include(CPM)
 
+message(STATUS "Configuring PCRaster ${${PROJECT_NAME}_VERSION}")
+
 include(PCRasterMacro)
 include(PCRasterConfiguration)
 include(PCRasterCompilerConfiguration)
 include(PCRasterTestMacro)
-
-# Get required dependencies first...
-CPMAddPackage("gh:pcraster/rasterformat#fffaf990a2cd6365c4122ced5883f74bbc55e4f0")
-
 
 set(PCRASTER_DATA_DIR ${PROJECT_SOURCE_DIR}/data)
 

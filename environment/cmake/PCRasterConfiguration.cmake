@@ -114,6 +114,30 @@ if(NOT PCRASTER_LIB_INSTALL_DIR)
 endif()
 
 
+# Get required dependencies first...
+CPMAddPackage("gh:pcraster/rasterformat#fffaf990a2cd6365c4122ced5883f74bbc55e4f0")
+
+CPMAddPackage(
+  NAME xsd
+  GIT_REPOSITORY https://git.codesynthesis.com/xsd/xsd.git
+  GIT_TAG 538fb327e13c3c9d3e7ae4a7dd06098d12667f2a
+  DOWNLOAD_ONLY YES
+)
+
+# Make sure patch is only done once
+# otherwise changing any CMakeLists.txt triggers continuous rebuild of most files
+if(NOT EXISTS ${CMAKE_BINARY_DIR}/_deps/xsd-src/libxsd/xsd/cxx/xml/dom/serialization-header.txx.sentinel)
+    # XSD uses two custom build systems. It's easier to apply the MSVC workaround to the currently used version rather than trying
+    # to build a newer XSD version. Using a XSD 4.2.0-b.4 release may render the fix obsolete.
+    message(STATUS "  Applying fix for XSD serialization-header.txx")
+    file(READ ${CMAKE_BINARY_DIR}/_deps/xsd-src/libxsd/xsd/cxx/xml/dom/serialization-header.txx XSD_HEADER)
+    string(REPLACE "std::vector<DOMAttr*>::iterator" "std::vector<xercesc::DOMAttr*>::iterator" XSD_HEADER "${XSD_HEADER}")
+    file(WRITE ${CMAKE_BINARY_DIR}/_deps/xsd-src/libxsd/xsd/cxx/xml/dom/serialization-header.txx "${XSD_HEADER}")
+    file(TOUCH ${CMAKE_BINARY_DIR}/_deps/xsd-src/libxsd/xsd/cxx/xml/dom/serialization-header.txx.sentinel)
+endif()
+
+
+
 if(PCRASTER_BUILD_TEST)
     enable_testing()
     list(APPEND PCR_BOOST_COMPONENTS unit_test_framework)
@@ -140,33 +164,19 @@ if(PCRASTER_BUILD_MULTICORE)
         GIT_TAG 70c9a14cc6751809521e48e827933f00e2e13a47
         OPTIONS "FERN_BUILD_ALGORITHM ON" "FERN_BUILD_TEST ${PCRASTER_BUILD_TEST}" "DEVBASE_BUILD_TEST ${PCRASTER_BUILD_TEST}" "CMAKE_SKIP_INSTALL_RULES ON"
     )
+
     # Just recreate an empty file to install nothing from Fern when installing PCRaster
     file(TOUCH ${CMAKE_CURRENT_BINARY_DIR}/_deps/fern-build/cmake_install.cmake)
 
-    # Temporary fix for vs2022
-    file(READ ${CMAKE_BINARY_DIR}/_deps/fern-src/source/fern/algorithm/core/unary_aggregate_operation.h FERN_HEADER)
-    string(REPLACE "MSC_VER" "NOMSC_VER" FERN_HEADER "${FERN_HEADER}")
-    file(WRITE ${CMAKE_BINARY_DIR}/_deps/fern-src/source/fern/algorithm/core/unary_aggregate_operation.h "${FERN_HEADER}")
-endif()
-
-
-CPMAddPackage(
-  NAME xsd
-  GIT_REPOSITORY https://git.codesynthesis.com/xsd/xsd.git
-  GIT_TAG 538fb327e13c3c9d3e7ae4a7dd06098d12667f2a
-  DOWNLOAD_ONLY YES
-)
-
-# Make sure patch is only done once
-# otherwise changing any CMakeLists.txt triggers continuous rebuild of most files
-if(NOT EXISTS ${CMAKE_BINARY_DIR}/_deps/xsd-src/libxsd/xsd/cxx/xml/dom/serialization-header.txx.sentinel)
-    # XSD uses two custom build systems. It's easier to apply the MSVC workaround to the currently used version rather than trying
-    # to build a newer XSD version. Using a XSD 4.2.0-b.4 release may render the fix obsolete.
-    message(STATUS "  Applying fix for XSD serialization-header.txx")
-    file(READ ${CMAKE_BINARY_DIR}/_deps/xsd-src/libxsd/xsd/cxx/xml/dom/serialization-header.txx XSD_HEADER)
-    string(REPLACE "std::vector<DOMAttr*>::iterator" "std::vector<xercesc::DOMAttr*>::iterator" XSD_HEADER "${XSD_HEADER}")
-    file(WRITE ${CMAKE_BINARY_DIR}/_deps/xsd-src/libxsd/xsd/cxx/xml/dom/serialization-header.txx "${XSD_HEADER}")
-    file(TOUCH ${CMAKE_BINARY_DIR}/_deps/xsd-src/libxsd/xsd/cxx/xml/dom/serialization-header.txx.sentinel)
+    # Make sure patch is only done once
+    # otherwise changing any CMakeLists.txt triggers continuous rebuild of most files
+    if(NOT EXISTS ${CMAKE_BINARY_DIR}/_deps/fern-src/source/fern/algorithm/core/unary_aggregate_operation.h.sentinel)
+        # Temporary fix for vs2022
+        file(READ ${CMAKE_BINARY_DIR}/_deps/fern-src/source/fern/algorithm/core/unary_aggregate_operation.h FERN_HEADER)
+        string(REPLACE "MSC_VER" "NOMSC_VER" FERN_HEADER "${FERN_HEADER}")
+        file(WRITE ${CMAKE_BINARY_DIR}/_deps/fern-src/source/fern/algorithm/core/unary_aggregate_operation.h "${FERN_HEADER}")
+        file(TOUCH ${CMAKE_BINARY_DIR}/_deps/fern-src/source/fern/algorithm/core/unary_aggregate_operation.h.sentinel)
+    endif()
 endif()
 
 
@@ -218,7 +228,7 @@ else()
 endif()
 
 
-find_package(Python 3.8
+find_package(Python
   REQUIRED COMPONENTS Interpreter Development NumPy
   OPTIONAL_COMPONENTS Development.SABIModule
 )

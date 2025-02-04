@@ -15,6 +15,7 @@ Changes
 .. * Including outdated Boost headers were removed
 .. * find package config Boost
 .. * Qt deprecated
+.. * Fixed unit tests when building with EasyBuild
 
 
 PCRaster 4.4.1

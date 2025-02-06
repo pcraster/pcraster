@@ -124,23 +124,23 @@
       <xsl:when test="@repeat='true'">
         <!-- Only field arguments can be repeatable. -->
         <!-- Varargs are tuples which can't be mutated: convert to list. -->
-        <xsl:value-of select="concat($indentation, '    ', $argumentName, ' = list(', $argumentName, ')&#xa;')"/>
-        <xsl:value-of select="concat($indentation, '    for i in range(len(', $argumentName, ')):&#xa;')"/>
-        <xsl:value-of select="concat($indentation, '      if isinstance(', $argumentName, '[i], str):&#xa;')"/>
-        <xsl:value-of select="concat($indentation, '        ', $argumentName, '[i] = _pcraster.readmap(', $argumentName, '[i])&#xa;')"/>
-        <xsl:value-of select="concat($indentation, '      elif isinstance(', $argumentName, '[i], int) or isinstance(', $argumentName, '[i], float):&#xa;')"/>
-        <xsl:value-of select="concat($indentation, '        ', $argumentName, '[i] = _pcraster._newNonSpatialField(', $argumentName, '[i])&#xa;')"/>
+        <xsl:value-of select="concat($indentation, '        ', $argumentName, ' = list(', $argumentName, ')&#xa;')"/>
+        <xsl:value-of select="concat($indentation, '        for i in range(len(', $argumentName, ')):&#xa;')"/>
+        <xsl:value-of select="concat($indentation, '            if isinstance(', $argumentName, '[i], str):&#xa;')"/>
+        <xsl:value-of select="concat($indentation, '                ', $argumentName, '[i] = _pcraster.readmap(', $argumentName, '[i])&#xa;')"/>
+        <xsl:value-of select="concat($indentation, '            elif isinstance(', $argumentName, '[i], int) or isinstance(', $argumentName, '[i], float):&#xa;')"/>
+        <xsl:value-of select="concat($indentation, '                ', $argumentName, '[i] = _pcraster._newNonSpatialField(', $argumentName, '[i])&#xa;')"/>
       </xsl:when>
       <xsl:otherwise>
         <xsl:choose>
           <xsl:when test="Field">
-            <xsl:value-of select="concat($indentation, '    if isinstance(', $argumentName, ', str):&#xa;')"/>
-            <xsl:value-of select="concat($indentation, '      ', $argumentName, ' = _pcraster.readmap(', $argumentName, ')&#xa;')"/>
-            <xsl:value-of select="concat($indentation, '    elif isinstance(', $argumentName, ', int) or isinstance(', $argumentName, ', float):&#xa;')"/>
-            <xsl:value-of select="concat($indentation, '      ', $argumentName, ' = _pcraster._newNonSpatialField(', $argumentName, ')&#xa;')"/>
+            <xsl:value-of select="concat($indentation, '        if isinstance(', $argumentName, ', str):&#xa;')"/>
+            <xsl:value-of select="concat($indentation, '            ', $argumentName, ' = _pcraster.readmap(', $argumentName, ')&#xa;')"/>
+            <xsl:value-of select="concat($indentation, '        elif isinstance(', $argumentName, ', int) or isinstance(', $argumentName, ', float):&#xa;')"/>
+            <xsl:value-of select="concat($indentation, '            ', $argumentName, ' = _pcraster._newNonSpatialField(', $argumentName, ')&#xa;')"/>
           </xsl:when>
           <xsl:otherwise>
-            <xsl:value-of select="concat($indentation, '    ', $argumentName, ' = _pcraster.DataStorageId(', $argumentName, ')&#xa;')"/>
+            <xsl:value-of select="concat($indentation, '        ', $argumentName, ' = _pcraster.DataStorageId(', $argumentName, ')&#xa;')"/>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:otherwise>
@@ -156,7 +156,7 @@
 
   <xsl:if test="count($operation/Result)">
     <xsl:value-of select="$indentation"/>
-    <xsl:text>    results = []&#xA;</xsl:text>
+    <xsl:text>        results = []&#xA;</xsl:text>
   </xsl:if>
 </xsl:template>
 
@@ -179,7 +179,7 @@
   <xsl:param name="count"/>
   <xsl:param name="iteration">1</xsl:param>
   <xsl:param name="indentation"/>
-  <xsl:value-of select="concat($indentation, '    results.append(_pcraster._rte().releasePopField())&#xA;')"/>
+  <xsl:value-of select="concat($indentation, '        results.append(_pcraster._rte().releasePopField())&#xA;')"/>
 
   <xsl:if test="$iteration &lt; $count">
     <xsl:call-template name="popField">
@@ -198,16 +198,16 @@
     <xsl:variable name="argumentName" select="concat('arg', position())"/>
     <xsl:choose>
       <xsl:when test="Field">
-        <xsl:value-of select="concat($indentation, '    _pcraster._rte().pushField(', $argumentName, ')&#xa;')"/>
+        <xsl:value-of select="concat($indentation, '        _pcraster._rte().pushField(', $argumentName, ')&#xa;')"/>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:value-of select="concat($indentation, '    _pcraster._rte().pushDataStorageId(', $argumentName, ')&#xa;')"/>
+        <xsl:value-of select="concat($indentation, '        _pcraster._rte().pushDataStorageId(', $argumentName, ')&#xa;')"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:for-each>
 
   <xsl:variable name="nrArguments" select="count($operation/Input)"/>
-  <xsl:value-of select="concat($indentation, '    _pcraster._rte().checkAndExec(operator, ', $nrArguments, ')&#xA;')"/>
+  <xsl:value-of select="concat($indentation, '        _pcraster._rte().checkAndExec(operator, ', $nrArguments, ')&#xA;')"/>
 
 
   <xsl:variable name="nrResults">
@@ -247,7 +247,7 @@
   </xsl:variable>
   <xsl:if test="$nrResults > 0">
     <xsl:value-of select="$indentation"/>
-    <xsl:text>    return</xsl:text>
+    <xsl:text>        return</xsl:text>
     <xsl:choose>
       <xsl:when test="$nrResults = 1">
         <xsl:text> results[0]</xsl:text>
@@ -295,6 +295,7 @@
     </xsl:variable>
 
     <!-- Create function prototype. -->
+    <xsl:text>&#xa;&#xa;</xsl:text>
     <xsl:value-of select="concat($indentation, 'def ', $operationName, '(')"/>
     <xsl:call-template name="pythonArgumentList">
       <xsl:with-param name="operation" select="$operation"/>
@@ -304,14 +305,14 @@
     <xsl:choose>
       <xsl:when test="count($operation/Input[not(Field) and not(Table) and not(TimeSeries) and not(MapStack)])">
         <xsl:value-of select="$indentation"/>
-        <xsl:value-of select="concat('  raise RuntimeError(&quot;The ', $operationName, ' operation is not implemented. Only operations with map, table or timeseries arguments are currenly supported&quot;)&#xA;')"/>
+        <xsl:value-of select="concat('    raise RuntimeError(&quot;The ', $operationName, ' operation is not implemented. Only operations with map, table or timeseries arguments are currenly supported&quot;)&#xA;')"/>
       </xsl:when>
       <xsl:when test="count($operation/Result[not(Field)])">
         <xsl:value-of select="$indentation"/>
-        <xsl:value-of select="concat('  raise RuntimeError(&quot;The ', $operationName, ' operation is not implemented. Only operations with map results are currenly supported&quot;)&#xA;')"/>
+        <xsl:value-of select="concat('    raise RuntimeError(&quot;The ', $operationName, ' operation is not implemented. Only operations with map results are currenly supported&quot;)&#xA;')"/>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:value-of select="concat($indentation, '  try:&#xA;')"/>
+        <xsl:value-of select="concat($indentation, '    try:&#xA;')"/>
         <xsl:call-template name="pythonConvertArguments">
           <xsl:with-param name="operation" select="$operation"/>
           <xsl:with-param name="indentation" select="$indentation"/>
@@ -324,7 +325,7 @@
             <xsl:with-param name="result" select="$result"/>
           </xsl:call-template>
         </xsl:variable>
-        <xsl:value-of select="concat($indentation, '    operator = _pcraster._major2op(_pcraster.MAJOR_CODE.', $opcode, ')&#xA;')"/>
+        <xsl:value-of select="concat($indentation, '        operator = _pcraster._major2op(_pcraster.MAJOR_CODE.', $opcode, ')&#xA;')"/>
 
         <xsl:call-template name="pythonCreateResultsList">
           <xsl:with-param name="operation" select="$operation"/>
@@ -344,19 +345,19 @@
                 <xsl:choose>
                   <xsl:when test="$position = 1">
                     <!-- Vararg is first and only argument. -->
-                    <xsl:value-of select="concat($indentation, '    for i in range(len(', $varArgName, ')):&#xa;')"/>
-                    <xsl:value-of select="concat($indentation, '      _pcraster._rte().pushField(', $varArgName, '[i])&#xa;')"/>
-                    <xsl:value-of select="concat($indentation, '    _pcraster._rte().checkAndExec(operator, len(', $varArgName, '))&#xA;')"/>
-                    <xsl:value-of select="concat($indentation, '    results.append(_pcraster._rte().releasePopField())&#xa;')"/>
+                    <xsl:value-of select="concat($indentation, '        for i in range(len(', $varArgName, ')):&#xa;')"/>
+                    <xsl:value-of select="concat($indentation, '            _pcraster._rte().pushField(', $varArgName, '[i])&#xa;')"/>
+                    <xsl:value-of select="concat($indentation, '        _pcraster._rte().checkAndExec(operator, len(', $varArgName, '))&#xA;')"/>
+                    <xsl:value-of select="concat($indentation, '        results.append(_pcraster._rte().releasePopField())&#xa;')"/>
                   </xsl:when>
                   <xsl:otherwise>
                     <!-- Vararg is last argument. -->
-                    <xsl:value-of select="concat($indentation, '    for i in range(len(', $varArgName, ')):&#xa;')"/>
-                    <xsl:value-of select="concat($indentation, '      _pcraster._rte().pushField(', $argumentName, ')&#xa;')"/>
-                    <xsl:value-of select="concat($indentation, '      _pcraster._rte().pushField(', $varArgName, '[i])&#xa;')"/>
-                    <xsl:value-of select="concat($indentation, '      _pcraster._rte().checkAndExec(operator, ', $nrFieldArguments, ')&#xA;')"/>
-                    <xsl:value-of select="concat($indentation, '      ', $argumentName, ' = _pcraster._rte().releasePopField()&#xa;')"/>
-                    <xsl:value-of select="concat($indentation, '    results.append(', $argumentName, ')&#xA;')"/>
+                    <xsl:value-of select="concat($indentation, '        for i in range(len(', $varArgName, ')):&#xa;')"/>
+                    <xsl:value-of select="concat($indentation, '            _pcraster._rte().pushField(', $argumentName, ')&#xa;')"/>
+                    <xsl:value-of select="concat($indentation, '            _pcraster._rte().pushField(', $varArgName, '[i])&#xa;')"/>
+                    <xsl:value-of select="concat($indentation, '            _pcraster._rte().checkAndExec(operator, ', $nrFieldArguments, ')&#xA;')"/>
+                    <xsl:value-of select="concat($indentation, '            ', $argumentName, ' = _pcraster._rte().releasePopField()&#xa;')"/>
+                    <xsl:value-of select="concat($indentation, '        results.append(', $argumentName, ')&#xA;')"/>
                   </xsl:otherwise>
                 </xsl:choose>
               </xsl:when>
@@ -368,15 +369,15 @@
                         <xsl:value-of select="concat($indentation, '    _pcraster._rte().pushField(', $argumentName, ')&#xa;')"/>
                       </xsl:when>
                       <xsl:otherwise>
-                        <xsl:value-of select="concat($indentation, '    _pcraster._rte().pushDataStorageId(', $argumentName, ')&#xa;')"/>
+                        <xsl:value-of select="concat($indentation, '        _pcraster._rte().pushDataStorageId(', $argumentName, ')&#xa;')"/>
                       </xsl:otherwise>
                     </xsl:choose>
                   </xsl:if>
                 </xsl:for-each>
-                <xsl:value-of select="concat($indentation, '    for i in range(len(', $varArgName, ')):&#xa;')"/>
-                <xsl:value-of select="concat($indentation, '      _pcraster._rte().pushField(', $varArgName, '[i])&#xa;')"/>
-                <xsl:value-of select="concat($indentation, '    _pcraster._rte().checkAndExec(operator, ', $position - 1, ' + len(', $varArgName, '))&#xA;')"/>
-                <xsl:value-of select="concat($indentation, '    results.append(_pcraster._rte().releasePopField())&#xa;')"/>
+                <xsl:value-of select="concat($indentation, '        for i in range(len(', $varArgName, ')):&#xa;')"/>
+                <xsl:value-of select="concat($indentation, '            _pcraster._rte().pushField(', $varArgName, '[i])&#xa;')"/>
+                <xsl:value-of select="concat($indentation, '        _pcraster._rte().checkAndExec(operator, ', $position - 1, ' + len(', $varArgName, '))&#xA;')"/>
+                <xsl:value-of select="concat($indentation, '        results.append(_pcraster._rte().releasePopField())&#xa;')"/>
               </xsl:otherwise>
             </xsl:choose>
           </xsl:when>
@@ -394,8 +395,8 @@
         </xsl:call-template>
 
         <xsl:value-of select="$indentation"/>
-        <xsl:text>  except RuntimeError as exception:&#xA;</xsl:text>
-        <xsl:value-of select="concat($indentation, '    raise RuntimeError(&quot;', $operationName, ': %s&quot; % (str(exception)))&#xA;')"/>
+        <xsl:text>    except RuntimeError as exception:&#xA;</xsl:text>
+        <xsl:value-of select="concat($indentation, '        raise RuntimeError(f&quot;', $operationName, ': {exception}&quot;)&#xA;')"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:for-each>

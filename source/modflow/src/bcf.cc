@@ -30,11 +30,6 @@
 #define INCLUDED_FSTREAM
 #endif
 
-#ifndef INCLUDED_BOOST_FORMAT
-#include <boost/format.hpp>
-#define INCLUDED_BOOST_FORMAT
-#endif
-
 // PCRaster library headers.
 #ifndef INCLUDED_CALC_SPATIAL
 #include "calc_spatial.h"
@@ -65,6 +60,8 @@
 #endif
 
 #include "mf_utils.h"
+
+#include <format>
 
 /**
  * Destructor
@@ -186,14 +183,14 @@ void BCF::writeBCF(){
     // hydraulic conductivity along rows
     // if((d_mf->d_layerType.at(blockLayer)==1)||(d_mf->d_layerType.at(blockLayer)==3)){
     if((lcon == 1) || (lcon == 3)){
-      std::string s = boost::str(boost::format("INTERNAL  1.00000E+00  (FREE)  %1%    HY layer %2%") % -1 %mfLayer);
+      std::string s = std::format("INTERNAL  1.00000E+00  (FREE)  -1    HY layer {}", mfLayer);
       d_mf->d_cmethods->writeMatrix(content, s, d_mf->d_layer2BlockLayer, *(d_mf->d_hCond), blockLayer);
     }
     // vertical  conductivity along rows
     // cannot be specified for the bottom layer
     //  if( (i!=0) && ((d_mf->d_layerType.at(i)==1)||(d_mf->d_layerType.at(i)==3)) ){
     if((i!=0) && (blockLayer!=0)){// not for bottom layer, check this again...
-      std::string s = boost::str(boost::format("INTERNAL  1.00000E+00  (FREE)  %1%    VCONT layer %2%") % -1 %mfLayer);
+      std::string s = std::format("INTERNAL  1.00000E+00  (FREE)  -1    VCONT layer {}", mfLayer);
       calcVCond(content, blockLayer, s);
     }
 

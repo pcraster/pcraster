@@ -1,5 +1,4 @@
 #include "numpy_conversion.h"
-#include <boost/format.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/static_assert.hpp>
 #include <boost/type_traits.hpp>
@@ -13,6 +12,7 @@
 #include <algorithm>
 #include <cmath>
 #include <cstdint>
+#include <format>
 #include <memory>
 
 // From the numpy reference:
@@ -179,11 +179,12 @@ struct ArrayCopier<Source, Destination, value_scale,
                     boost::int32_t, Source>::type PrintableType;
                     size_t const row = i / space.nrCols();
                     size_t const col = i - (row * space.nrCols());
-                    throw std::logic_error((boost::format(
-                        "Incorrect value %4% at input array [%1%][%2%] "
-                        "for %3% map")
-                        % row % col % ValueScaleTraits<value_scale>::name
-                        % static_cast<PrintableType>(source_value)).str().c_str());
+                    auto const s_val = static_cast<PrintableType>(source_value);
+                    throw std::logic_error(std::vformat(
+                        "Incorrect value {3} at input array [{0}][{1}] for {2} map",
+                        std::make_format_args(row, col,
+                                              ValueScaleTraits<value_scale>::name,
+                                              s_val)));
                 }
 
                 destination[i] = static_cast<Destination>(source_value);
@@ -258,11 +259,12 @@ struct ArrayCopier<Source, Destination, value_scale,
 
                     size_t const row = i / space.nrCols();
                     size_t const col = i - (row * space.nrCols());
-                    throw std::logic_error((boost::format(
-                        "Incorrect value %4% at input array [%1%][%2%] "
-                        "for %3% map")
-                        % row % col % ValueScaleTraits<value_scale>::name
-                        % static_cast<PrintableType>(source_value)).str().c_str());
+                    auto const s_val = static_cast<PrintableType>(source_value);
+                    throw std::logic_error(std::vformat(
+                        "Incorrect value {3} at input array [{0}][{1}] for {2} map",
+                        std::make_format_args(row, col,
+                                              ValueScaleTraits<value_scale>::name,
+                                              s_val)));
                 }
 
                 destination[i] = static_cast<Destination>(source_value);
@@ -872,17 +874,17 @@ calc::Field* array_to_field(
     }
 
     if(static_cast<size_t>(info.shape[0]) != space.nrRows()){
-      throw std::logic_error((boost::format(
-            "Number of rows from input array (%1%) and current raster (%2%) are different")
-            % info.shape[0]
-            % space.nrRows()).str().c_str());
+      size_t nr_rows = space.nrRows();
+      throw std::logic_error(std::vformat(
+            "Number of rows from input array ({0}) and current raster ({1}) are different",
+            std::make_format_args(info.shape[0], nr_rows)));
     }
 
     if(static_cast<size_t>(info.shape[1]) != space.nrCols()){
-      throw std::logic_error((boost::format(
-            "Number of columns from input array (%1%) and current raster (%2%) are different")
-            % info.shape[1]
-            % space.nrCols()).str().c_str());
+      size_t nr_cols = space.nrCols();
+      throw std::logic_error(std::vformat(
+            "Number of columns from input array ({0}) and current raster ({1}) are different",
+             std::make_format_args(info.shape[1], nr_cols)));
     }
 
     int const type = PyArray_TYPE((PyArrayObject*)array.ptr());
@@ -938,8 +940,7 @@ calc::Field* array_to_field(
             break;
         }
         default: {
-            throw std::logic_error((boost::format(
-                "Unsupported array type")).str().c_str());
+            throw std::logic_error("Unsupported array type");
         }
     }
 

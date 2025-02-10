@@ -1,7 +1,6 @@
 #include "ag_DataConfiguration.h"
 
 // Library headers.
-#include <boost/format.hpp>
 
 // PCRaster library headers.
 #include "dal_Client.h"
@@ -13,6 +12,8 @@
 #include "ag_VisGroup.h"
 #include "ag_DataObject.h"
 #include "ag_XMLViewItems.h"
+
+#include <format>
 
 /*!
   \file
@@ -342,8 +343,8 @@ void DataConfiguration::add(
       assert(table.get());
 
       for(size_t i = table->nrCols(); i > 1; --i) {
-        std::string colName =
-           (boost::format("%1%{1, %2%}") % (name) % i).str();
+        std::string colName = std::vformat("{0}{1, {1}}",
+           std::make_format_args(name, i));
         d_nameMap[name].insert(colName);
         d_dataMap2.insert(std::make_pair(colName, DataItemInformation(
            space, configuration, d_group->addData(colName, space))));

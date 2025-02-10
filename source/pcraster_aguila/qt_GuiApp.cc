@@ -1,11 +1,5 @@
 #include "qt_GuiApp.h"
 
-// std
-#include <new>
-#include <fstream>
-#include <string>
-#include <sstream>
-#include <boost/format.hpp>
 
 /*
 #ifdef WIN32
@@ -29,6 +23,12 @@
 #include "qt_AppWindow.h"
 #include "qt_New.h"
 
+// std
+#include <new>
+#include <fstream>
+#include <format>
+#include <string>
+#include <sstream>
 
 
 /*!
@@ -219,8 +219,8 @@ void qt::GuiApp::deleteLockFile()
       std::filesystem::remove(d_lockFilename);
     }
     catch(std::filesystem::filesystem_error const&) {
-      showWarning((boost::format("Lock file %1% cannot be deleted")
-         % d_lockFilename.string()).str());
+      showWarning(std::format("Lock file {} cannot be deleted",
+         d_lockFilename.string()));
     }
   }
 }

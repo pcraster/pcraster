@@ -3,22 +3,11 @@
 #define INCLUDED_DEV_COMMANDLINEAPPLICATION
 #endif
 
-// Library headers.
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-
-#ifndef INCLUDED_BOOST_FORMAT
-#include <boost/format.hpp>
-#define INCLUDED_BOOST_FORMAT
-#endif
-
+#include <cassert>
 #include <filesystem>
+#include <format>
+#include <iostream>
 
-// Project headers.
-
-// Module headers.
 
 
 
@@ -267,8 +256,8 @@ void CommandLineApplication::setVersion(
 */
 std::string CommandLineApplication::version() const
 {
-  std::string result = (boost::format("%1%.%2%.%3%")
-         % _major % _minor % _patch).str();
+  std::string result = std::format("{0}.{1}.{2}",
+         _major, _minor, _patch);
 
   if(!_buildStage.empty()) {
     result += "-" + _buildStage;

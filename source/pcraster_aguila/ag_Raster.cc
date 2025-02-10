@@ -1,8 +1,6 @@
 #include "ag_Raster.h"
 
 // Library headers.
-#include <cassert>
-#include <boost/format.hpp>
 
 // PCRaster library headers.
 #include "dal_RasterDriver.h"
@@ -11,6 +9,8 @@
 
 // Module headers.
 
+#include <cassert>
+#include <format>
 
 
 /*!
@@ -177,7 +177,7 @@ dal::TypeId Raster::typeId() const
 //          dal::DataSpaceAddressMapper* mapper)
 // {
 //   delete d_dataSpaceAddressMapper;
-// 
+//
 //   d_dataSpaceAddressMapper = mapper;
 // }
 
@@ -386,7 +386,7 @@ dal::Table Raster::legend() const
     INT4 value = min;
     for(size_t i = 0; i < result.nrRecs(); ++i) {
       values[i] = value++;
-      labels[i] = (boost::format("%1%") % value).str();
+      labels[i] = std::format("{}", value);
     }
 
     // Overwrite the default labels with the ones read from the raster.

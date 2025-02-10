@@ -1,6 +1,6 @@
 #include "ag_Map3DWindow.h"
+#include <format>
 #include <sstream>
-#include <boost/format.hpp>
 #include <QMenu>
 #include "com_exception.h"
 #include "ag_DataObject.h"
@@ -126,10 +126,10 @@ void ag::Map3DWindow::setHeight(
     d_map->setHeight(dataGuide);
   }
   catch(com::Exception& exception) {
-    std::string message = (boost::format(
-         "Unable to set %1% as height data for %2% visualisation:")
-         % dataObject().description(dataGuide)
-         % visualisationName()).str();
+    auto const desc = dataObject().description(dataGuide);
+    std::string message = std::vformat(
+         "Unable to set {0} as height data for {1} visualisation:",
+         std::make_format_args(desc, visualisationName()));
     exception.prepend(message);
     throw;
   }

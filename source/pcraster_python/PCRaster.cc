@@ -25,10 +25,10 @@
 
 #include <boost/test/tools/floating_point_comparison.hpp>
 
-#include <boost/format.hpp>
 #include <boost/math/special_functions/fpclassify.hpp>
 #include <boost/math/special_functions/sign.hpp>
 
+#include <format>
 #include <limits>
 #include <memory>
 
@@ -109,8 +109,8 @@ calc::Field* readField(
   std::tie(raster, driver) = globals.rasterDal().open(name);
 
   if(!raster) {
-    throw com::Exception((boost::format("Raster %1%: can not be opened. Note: only the PCRaster file format is supported as input argument.\n")
-         % name).str());
+    throw com::Exception(std::vformat("Raster {0}: can not be opened. Note: only the PCRaster file format is supported as input argument.\n",
+         std::make_format_args(name)));
   }
 
   // Determine value scale of data, and type to use for storing values.
@@ -223,8 +223,8 @@ pybind11::object readFieldCell(
   std::tie(raster, driver) = globals.rasterDal().open(filename);
 
   if(!raster) {
-    throw com::Exception((boost::format("Raster %1%: can not be opened. Note: only the PCRaster file format is supported as input argument.\n")
-         % filename).str());
+    throw com::Exception(std::vformat("Raster {0}: can not be opened. Note: only the PCRaster file format is supported as input argument.\n",
+         std::make_format_args(filename)));
   }
   POSTCOND(raster);
   assert(driver);
@@ -427,9 +427,10 @@ pybind11::tuple fieldGetCellIndex(
 
  if(field->isSpatial()){
     if((index < 1) || (index > globals.cloneSpace().nrCells() )){
+      auto const nr_cells = globals.cloneSpace().nrCells();
       throw com::Exception(
-      (boost::format("cellvalue index %1% out of range [1,%2%]") %
-      index % globals.cloneSpace().nrCells()).str());
+      std::vformat("cellvalue index {0} out of range [1,{1}]",
+      std::make_format_args(index, nr_cells)));
     }
   }
   --index;
@@ -480,14 +481,16 @@ pybind11::tuple fieldGetCellRowCol(
   checkNotNullPointer(field);
   if(field->isSpatial()){
     if((row < 1) || (row > globals.cloneSpace().nrRows() )){
+      auto const nr_rows = globals.cloneSpace().nrRows();
       throw com::Exception(
-      (boost::format("cellvalue row index %1% out of range [1,%2%]") %
-      row% globals.cloneSpace().nrRows()).str());
+      std::vformat("cellvalue row index {0} out of range [1, {1}]",
+      std::make_format_args(row, nr_rows)));
     }
     if((col < 1) || (col > globals.cloneSpace().nrCols() )){
+      auto const nr_cols = globals.cloneSpace().nrCols();
       throw com::Exception(
-      (boost::format("cellvalue column index %1% out of range [1,%2%]")
-      % col % globals.cloneSpace().nrCols()).str());
+      std::vformat("cellvalue column index {0} out of range [1, {1}]",
+      std::make_format_args(col, nr_cols)));
     }
   }
   --row;
@@ -702,8 +705,8 @@ calc::Field* closeAtTolerance(calc::Field const * result,
 void setGlobalOption(
          std::string const& option) {
   if(!calc::parseGlobalFlag(option)) {
-    throw com::Exception((boost::format("Global option %1%: not supported")
-         % option).str());
+    throw com::Exception(std::vformat("Global option {0}: not supported",
+         std::make_format_args(option)));
   }
 }
 

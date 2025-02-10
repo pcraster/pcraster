@@ -1,8 +1,8 @@
 #define BOOST_TEST_MODULE pcraster com progress_bar
 #include <boost/test/unit_test.hpp>
 #include "stddefx.h"
+#include <format>
 #include <sstream>
-#include <boost/format.hpp>
 #include "com_progressbar.h"
 
 class ProgressBarWrapper : public com::ProgressBar {
@@ -37,9 +37,9 @@ BOOST_AUTO_TEST_CASE(test)
   for(size_t step = 0; step < 10; ++step) {
     progressBar.finishedStep();
     BOOST_CHECK(progressBar.nrFinishedSteps() == step + 1);
-    result = (boost::format("[%1%%2%]")
-         % std::string(step + 1, '#')
-         % std::string(10 - (step + 1), ' ')).str();
+    result = std::format("[{0}{1}]",
+         std::string(step + 1, '#'),
+         std::string(10 - (step + 1), ' '));
     BOOST_CHECK(stream.str().substr(stream.str().find_last_of('\b') + 1) ==
          result);
   }

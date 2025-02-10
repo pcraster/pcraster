@@ -1,11 +1,12 @@
 #include "ag_RangeDrawProps.h"
-#include <boost/format.hpp>
 #include <boost/lexical_cast.hpp>
 #include "dev_ToString.h"
 #include "pcrtypes.h"
 #include "ag_ColourSelector.h"
 #include "com_classifier.h"
 #include "com_rangemap.h"
+
+#include <format>
 
 
 /*!
@@ -604,7 +605,7 @@ std::string RangeDrawProps::label(
   std::string result = "mv";
 
   if(!pcr::isMV(value)) {
-    result = (boost::format("%1%") % rawToDisplay(value)).str();
+    result = std::format("{}", rawToDisplay(value));
   }
 
   return result;

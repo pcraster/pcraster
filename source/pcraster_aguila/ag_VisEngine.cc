@@ -1,6 +1,5 @@
 #include "ag_VisEngine.h"
 #include <vector>
-#include <boost/format.hpp>
 #include <QPoint>
 #include "dal_Utils.h"
 #include "com_exception.h"
@@ -11,6 +10,7 @@
 #include "ag_RangeDrawProps.h"
 #include "ag_RasterDataSources.h"
 
+#include <format>
 
 
 /*!
@@ -54,11 +54,11 @@ public:
   unsigned int     _change{0};
 
   VisEnginePrivate()
-    : 
+    :
       _map2DOffset(),
-      
+
       _selectedValue()
-      
+
   {
   }
 
@@ -80,7 +80,7 @@ public:
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 /*!
@@ -508,11 +508,11 @@ void VisEngine::setHeight(
          DataGuide const& guide)
 {
   if(guide.valueScale() != VS_SCALAR) {
-    std::string message = (boost::format(
-         "Value scale %1%: Not a valid value scale for height data.\n"
-         "Valid value scale is: %2%.")
-         % dal::valueScaleToString(guide.valueScale())
-         % dal::valueScaleToString(VS_SCALAR)).str();
+    std::string message = std::format(
+         "Value scale {0}: Not a valid value scale for height data.\n"
+         "Valid value scale is: {1}.",
+         dal::valueScaleToString(guide.valueScale()),
+         dal::valueScaleToString(VS_SCALAR));
     throw com::Exception(message);
   }
 
@@ -752,13 +752,13 @@ QColor const& VisEngine::backgroundColour() const
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE OPERATORS 
+// DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE FUNCTIONS 
+// DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
 

@@ -1,7 +1,6 @@
 #include "ag_VisGroup.h"
 #include <iomanip>
 #include <string>
-#include <boost/format.hpp>
 #include <QProgressDialog>
 #include <QWidget>
 #include "dev_Algorithm.h"
@@ -36,6 +35,8 @@
   #include "ag_GLVisualisation.h"
   #include "ag_Map3DWindow.h"
 #endif
+
+#include <format>
 
 //------------------------------------------------------------------------------
 
@@ -119,7 +120,7 @@ ag::VisGroup::VisGroup(const qt::AppWindowProperties& props,
 
   d_data->d_manager = m;
 
-  std::string n = (boost::format("group %1%") % d_data->d_nrCreated).str();
+  std::string n = std::format("group {0}", d_data->d_nrCreated);
   setObjectName(n.c_str());
 
   // createAnimationControl();

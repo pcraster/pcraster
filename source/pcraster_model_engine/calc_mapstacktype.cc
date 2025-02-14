@@ -9,10 +9,6 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_BOOST_FORMAT
-#include <boost/format.hpp>
-#define INCLUDED_BOOST_FORMAT
-#endif
 
 // PCRaster library headers.
 
@@ -27,6 +23,8 @@
 #include <iostream>
 #define INCLUDED_IOSTREAM
 #endif
+
+#include <format>
 
 /*!
   \file
@@ -72,7 +70,7 @@ public:
 namespace calc {
 
 MapStackType::MapStackType()
-  
+
 {
 }
 
@@ -140,9 +138,11 @@ void MapStackType::setUse(Use use)
   if (d_use == Unknown || d_use == use)
     d_use=use;
   else {
-    throw MapStackClash((boost::format(
-     "can not apply both %1% and %2% to same mapstack")
-                % operationName(d_use) % operationName(use)).str());
+    auto const f1 = operationName(d_use);
+    auto const f2 = operationName(use);
+    throw MapStackClash(std::vformat(
+     "can not apply both {0} and {1} to same mapstack",
+          std::make_format_args(f1, f2)));
   }
 }
 

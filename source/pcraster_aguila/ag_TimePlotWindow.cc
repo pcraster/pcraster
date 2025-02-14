@@ -1,10 +1,10 @@
 #include "ag_TimePlotWindow.h"
-#include <boost/format.hpp>
 #include "com_exception.h"
 #include "ag_DataObject.h"
 #include "ag_TimePlot.h"
 #include "ag_VisEngine.h"
 
+#include <format>
 
 
 //------------------------------------------------------------------------------
@@ -63,13 +63,13 @@ void ag::TimePlotWindow::addAttribute(
   dal::DataSpace space(dataObject().dataSpace(guide));
 
   if(!space.hasTime()) {
-    std::string message = (boost::format(
-         "Unable to add %1% to a %2% visualisation.\n"
+    std::string message = std::format(
+         "Unable to add {0} to a {1} visualisation.\n"
          "Dataset does not contain temporal information.\n"
-         "Dimensions present: %3%.")
-         % dataObject().description(guide)
-         % visualisationName()
-         % dal::dataSpaceToString(space)).str();
+         "Dimensions present: {2}.",
+         dataObject().description(guide),
+         visualisationName(),
+         dal::dataSpaceToString(space));
     throw com::Exception(message);
   }
 

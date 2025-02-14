@@ -1,7 +1,6 @@
 #include "ag_SceneView.h"
 #include <cmath>
 #include <vector>
-#include <boost/format.hpp>
 #include <QKeyEvent>
 #include <QPoint>
 #include "com_const.h"
@@ -21,6 +20,7 @@
   #include <GL/glu.h>
 #endif
 
+#include <format>
 #include <numbers>
 
 //------------------------------------------------------------------------------
@@ -275,8 +275,8 @@ void ag::SceneView::checkForGLErrors()
   if((glErrCode = glGetError()) != GL_NO_ERROR) {
     glErrString = gluErrorString(glErrCode);
 
-    std::string m = (boost::format("error reported by OpenGL library: %1%")
-         % glErrString).str();
+    std::string m = std::format("error reported by OpenGL library: {0}",
+         reinterpret_cast<const char*>(glErrString));
     throw com::Exception(m);
   }
 }

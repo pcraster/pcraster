@@ -8,10 +8,6 @@
 #define INCLUDED_CALC_OBJECTLINKRUNTIME
 #endif
 // Library headers.
-#ifndef INCLUDED_BOOST_FORMAT
-#include <boost/format.hpp>
-#define INCLUDED_BOOST_FORMAT
-#endif
 #ifndef INCLUDED_STDEXCEPT
 #include <stdexcept>
 #define INCLUDED_STDEXCEPT
@@ -39,6 +35,9 @@
 #include "calc_field.h"
 #define INCLUDED_CALC_FIELD
 #endif
+
+#include <format>
+
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
@@ -90,10 +89,11 @@ void calc::execObjectLinkMethod(
     ObjectLink* o(nullptr);
     if (rte->stackSize())
       o=dynamic_cast<ObjectLink *>(rte->popDataValue());
-    if (!o)
-      throw com::Exception((
-          boost::format("Method '%1%' called while no ObjectLink present")
-           % op.implName()).str());
+    if (!o) {
+      throw com::Exception(
+          std::format("Method '{0}' called while no ObjectLink present",
+           op.implName()));
+    }
 
     o->exec1(op.implName(), data);
 
@@ -115,8 +115,8 @@ void calc::execObjectLinkMethod(
   } catch (const std::out_of_range& ) {
     // ObjectLinkProxy has checked vector access
     throw com::Exception(
-        (boost::format(" '%1%' called with too few arguments")
-         % op.name()).str());
+        std::format(" '{0}' called with too few arguments",
+        op.name()));
   } catch (const ObjectLink::UnknownMethod& ) {
     throw com::Exception("Unknown method/function name");
   }

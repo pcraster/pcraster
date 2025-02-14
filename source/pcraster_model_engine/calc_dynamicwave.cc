@@ -11,10 +11,7 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_BOOST_FORMAT
-#include <boost/format.hpp>
-#define INCLUDED_BOOST_FORMAT
-#endif
+
 // PCRaster library headers.
 #ifndef INCLUDED_COM_CSFCELL
 #include "com_csfcell.h"
@@ -66,6 +63,8 @@
 #include "calc_TimeSliceVisitor.h"
 #define INCLUDED_CALC_TIMESLICEVISITOR
 #endif
+
+#include <format>
 
 /*!
   \file
@@ -269,8 +268,8 @@ double tableLookup(
        "ProfileId","H","A","P" };
 
      std::string msg(
-      ( boost::format("No match for Key{ProfileId=%1%,%2%=%3%} -> %4%") %
-      profileVal % names[fromCol] % fromVal % names[toCol]).str());
+      std::vformat("No match for Key{ProfileId={0},{1}={2}} -> {3}",
+      std::make_format_args(profileVal, names[fromCol], fromVal, names[toCol])));
      throw DomainError(msg);
   }
   return result;
@@ -598,7 +597,7 @@ begin
           Qold:=QNew;
         end;
     end;
-end; 
+end;
 
 
 static double iterateToQnew(

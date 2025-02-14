@@ -3,7 +3,6 @@
 #include <QPixmap>
 
 // Library headers.
-#include <boost/format.hpp>
 #include <QSplitter>
 
 // PCRaster library headers.
@@ -16,6 +15,7 @@
 #include "ag_Map3DView.h"
 #include "ag_VisEngine.h"
 
+#include <format>
 
 
 /*!
@@ -109,13 +109,13 @@ void Map3D::saveAsPNG(
          std::filesystem::path const& path) const
 {
   if(QPixmap::defaultDepth() != d_mapView->depthOfRenderingContext()) {
-    std::string msg = (boost::format(
+    std::string msg = std::format(
          "Error while saving\n"
          "Please make sure that the depth of the desktop equals the depth\n"
          "of the OpenGL rendering context. Currently the depth of the\n"
-         "desktop is %1% bits while the depth of the OpenGL rendering context is %2% bits.")
-              % QPixmap::defaultDepth()
-              % d_mapView->depthOfRenderingContext()).str();
+         "desktop is {0} bits while the depth of the OpenGL rendering context is {1} bits.",
+              QPixmap::defaultDepth(),
+              d_mapView->depthOfRenderingContext());
     throw com::FileError(path.string().c_str(), msg);
   }
 

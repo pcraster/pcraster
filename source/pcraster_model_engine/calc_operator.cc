@@ -13,10 +13,6 @@
 #include <sstream>
 #define INCLUDED_SSTREAM
 #endif
-#ifndef INCLUDED_BOOST_FORMAT
-#include <boost/format.hpp>
-#define INCLUDED_BOOST_FORMAT
-#endif
 
 // PCRaster library headers.
 #ifndef INCLUDED_COM_EXCEPTION
@@ -42,7 +38,7 @@
 #define INCLUDED_CALC_POSEXCEPTION
 #endif
 
-
+#include <format>
 
 /*!
   \file
@@ -473,9 +469,9 @@ void calc::Operator::exec(class RunTimeEnv* rte, size_t nrActualInputs)const
     throw;
   } catch(com::Exception& e) {
     // prefix runtime error with name of operation
-    e.reset((boost::format("%1% %2%: %3%")
-                % syntax() % name()
-                % e.messages()).str());
+    e.reset(std::format("{0} {1}: {2}",
+                syntax(), name(),
+                e.messages()));
     throw;
   }
 }

@@ -13,10 +13,6 @@
 #include <set>
 #define INCLUDED_SET
 #endif
-#ifndef INCLUDED_BOOST_FORMAT
-#include <boost/format.hpp>
-#define INCLUDED_BOOST_FORMAT
-#endif
 
 // PCRaster library headers.
 #ifndef INCLUDED_COM_EXCEPTION
@@ -30,7 +26,7 @@
 #define INCLUDED_CALC_DIMENSION
 #endif
 
-
+#include <format>
 
 /*!
   \file
@@ -111,10 +107,11 @@ void calc::ASTDefinition::add(const Id& key, const Id& value)
   // is it an definitionrole?
   if (keys.count(key.name())) {
     // already set?
-    if (!d_definitionRole.empty())
+    if (!d_definitionRole.empty()){
       key.symError(
-        (boost::format("can not define both %1% and %2%")
-         % d_definitionRole % key.name()).str());
+        std::vformat("can not define both {0} and {1}",
+        std::make_format_args(d_definitionRole,key.name())));
+    }
     d_definitionRole = key.name();
   }
 

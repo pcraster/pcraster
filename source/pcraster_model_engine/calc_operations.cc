@@ -9,10 +9,6 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_BOOST_FORMAT
-#include <boost/format.hpp>
-#define INCLUDED_BOOST_FORMAT
-#endif
 
 // PCRaster library headers.
 
@@ -85,6 +81,9 @@
 #include "calc_fopointimpl.h"
 #define INCLUDED_CALC_FOPOINTIMPL
 #endif
+
+#include <format>
+
 /*!
   \file
   This file contains the implementation of the Operations class.
@@ -356,9 +355,10 @@ void   calc::Operations::load(const CalcLib::GetMeta& gm)
   std::string className(olm.className());
   const ObjectLinkMeta::MethodMap& m(olm.methodMap());
 
-  if (d_nameOp.find(className) != d_nameOp.end())
+  if (d_nameOp.find(className) != d_nameOp.end()){
     throw com::Exception(
-     (boost::format("objectlink name '%1%' not unique") % className).str());
+     std::format("objectlink name '{0}' not unique", className));
+  }
 
   for(const auto & i : m) {
      // ctor

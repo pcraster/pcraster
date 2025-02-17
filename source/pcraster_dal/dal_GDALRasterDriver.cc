@@ -5,11 +5,6 @@
 
 // Library headers.
 
-#ifndef INCLUDED_BOOST_FORMAT
-#include <boost/format.hpp>
-#define INCLUDED_BOOST_FORMAT
-#endif
-
 #ifndef INCLUDED_GDAL_PRIV
 #include "gdal_priv.h"
 #define INCLUDED_GDAL_PRIV
@@ -55,9 +50,10 @@
 #define INCLUDED_DAL_RASTERDIMENSIONS
 #endif
 
-#include <vector>
 #include <filesystem>
+#include <format>
 #include <memory>
+#include <vector>
 
 
 /*!
@@ -658,9 +654,9 @@ GDALRasterDriver::GDALRasterDriver(
 
 {
   if(!driverIsAvailable(name)) {
-    throw Exception((boost::format(
-         "GDAL raster driver for %1%: Not available")
-         % name).str());
+    throw Exception(std::format(
+         "GDAL raster driver for {0}: Not available",
+         name));
   }
 
   d_driver = driverByName(name);

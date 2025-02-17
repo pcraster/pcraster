@@ -19,11 +19,6 @@
 #define INCLUDED_BOOST_BIND
 #endif
 
-#ifndef INCLUDED_BOOST_FORMAT
-#include <boost/format.hpp>
-#define INCLUDED_BOOST_FORMAT
-#endif
-
 #ifndef INCLUDED_BOOST_FUNCTION
 #include <boost/function.hpp>
 #define INCLUDED_BOOST_FUNCTION
@@ -77,6 +72,7 @@
 #endif
 
 #include <filesystem>
+#include <format>
 #include <memory>
 
 
@@ -410,9 +406,9 @@ OgrFeatureDriver::OgrFeatureDriver(
   _driver = driverByName(name);
 
   if(!_driver) {
-    throw Exception((boost::format(
-         "OGR feature driver for %1%: Not available")
-         % name).str());
+    throw Exception(std::format(
+         "OGR feature driver for %1%: Not available",
+         name));
   }
 
   assert(_driver);

@@ -5,10 +5,6 @@
 
 // Library headers.
 #include <cassert>
-#ifndef INCLUDED_BOOST_FORMAT
-#include <boost/format.hpp>
-#define INCLUDED_BOOST_FORMAT
-#endif
 
 #ifndef INCLUDED_BOOST_SPIRIT_INCLUDE_CLASSIC_CORE
 #include <boost/spirit/include/classic_core.hpp>
@@ -24,6 +20,7 @@
 
 // Module headers.
 
+#include <format>
 
 
 /*!
@@ -279,17 +276,17 @@ std::vector<std::string> const& ConnectionInfo::fields() const
   \warning   .
   \sa        .
 
-  The string is formatted as folows:
+  The string is formatted as follows:
   \code
-  boost::format("UID=%1%;PWD=%2%;DSN=%3%") % user() % password() % database()
+  std::format("UID={0};PWD={1};DSN={2}", user(), password(), database()
   \endcode
 
   Useful for ODBC connections.
 */
 std::string ConnectionInfo::dataSource() const
 {
-  return (boost::format("UID=%1%;PWD=%2%;DSN=%3%")
-         % user() % password() % database()).str();
+  return std::format("UID={0};PWD={1};DSN={2}",
+         user(), password(), database());
 
 }
 

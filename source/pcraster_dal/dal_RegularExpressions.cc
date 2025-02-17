@@ -3,15 +3,7 @@
 #define INCLUDED_DAL_REGULAREXPRESSIONS
 #endif
 
-// External headers.
-#ifndef INCLUDED_BOOST_FORMAT
-#include <boost/format.hpp>
-#define INCLUDED_BOOST_FORMAT
-#endif
-
-// Project headers.
-
-// Module headers.
+#include <format>
 
 
 
@@ -52,34 +44,34 @@ std::string const pcrStackPattern =
   - extension
 */
 std::regex const temporalVectorXRegex(
-       (boost::format("(%1%)_x_(%2%)(%3%)?")
-        % attributeNamePattern
-        % timeStepPattern
-        % extensionPattern).str());
+       std::format("({0})_x_({1})({2})?",
+        attributeNamePattern,
+        timeStepPattern,
+        extensionPattern));
 
 std::regex const vectorXRegex(
-       (boost::format("(%1%)_x(%2%)?")
-       % attributeNamePattern
-       % extensionPattern).str());
+       std::format("({0})_x({1})?",
+       attributeNamePattern,
+       extensionPattern));
 
 std::regex const quantileOfTemporalRasterRegex(
-       (boost::format("(%1%)_(%2%)_(%3%)(%4%)?")
-       % attributeNamePattern
-       % timeStepPattern
-       % quantilePattern
-       % extensionPattern).str());
+       std::format("({0})_({1})_({2})({3})?",
+       attributeNamePattern,
+       timeStepPattern,
+       quantilePattern,
+       extensionPattern));
 
 std::regex const temporalRasterRegex(
-       (boost::format("(%1%)_(%2%)(%3%)?")
-       % attributeNamePattern
-       % timeStepPattern
-       % extensionPattern).str());
+       std::format("({0})_({1})({2})?",
+       attributeNamePattern,
+       timeStepPattern,
+       extensionPattern));
 
 std::regex const quantileOfRasterRegex(
-       (boost::format("(%1%)_(%2%)(%3%)?")
-       % attributeNamePattern
-       % quantilePattern
-       % extensionPattern).str());
+       std::format("({0})_({1})({2})?",
+       attributeNamePattern,
+       quantilePattern,
+       extensionPattern));
 
 std::regex dosRegex(dosFileNamePattern);
 

@@ -14,12 +14,6 @@
 #define INCLUDED_CCTYPE
 #endif
 
-
-#ifndef INCLUDED_BOOST_FORMAT
-#include <boost/format.hpp>
-#define INCLUDED_BOOST_FORMAT
-#endif
-
 #ifndef INCLUDED_BOOST_LEXICAL_CAST
 #include <boost/lexical_cast.hpp>
 #define INCLUDED_BOOST_LEXICAL_CAST
@@ -39,6 +33,8 @@
 #endif
 
 #include <filesystem>
+#include <format>
+
 
 /*!
   \file
@@ -621,9 +617,9 @@ std::string dal::StackInfo::toString() const
     return d_name.string();
   }
   else {
-    return (boost::format("%1%+%2%")
-         % timeStepPath(d_name, d_first, PCRConvention).string()
-         % d_last).str();
+    return std::format("{0}+{1}",
+         timeStepPath(d_name, d_first, PCRConvention).string(),
+         d_last);
   }
 }
 

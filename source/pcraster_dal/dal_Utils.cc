@@ -9,11 +9,6 @@
 #define INCLUDED_BOOST_ALGORITHM_STRING
 #endif
 
-#ifndef INCLUDED_BOOST_FORMAT
-#include <boost/format.hpp>
-#define INCLUDED_BOOST_FORMAT
-#endif
-
 // PCRaster library headers.
 
 // Module headers.
@@ -72,7 +67,7 @@
 #define INCLUDED_DAL_TABLEDAL
 #endif
 
-
+#include <format>
 
 namespace dal {
 
@@ -348,10 +343,10 @@ PCR_DAL_DECL std::string dimensionToString(
 
       assert(dimension.nrValues() == 3);
       if(dimension.nrValues() == 3) {
-        result += (boost::format("[%1%, %2%, %3%]")
-              % dimension.value<float>(0)
-              % dimension.value<float>(1)
-              % dimension.value<float>(2)).str();
+        result += std::format("[{0}, {1}, {2}]",
+              dimension.value<float>(0),
+              dimension.value<float>(1),
+              dimension.value<float>(2));
       }
 
       break;
@@ -366,10 +361,10 @@ PCR_DAL_DECL std::string dimensionToString(
 
       assert(dimension.nrValues() == 3);
       if(dimension.nrValues() == 3) {
-        result += (boost::format("[%1%, %2%, %3%]")
-              % dimension.value<size_t>(0)
-              % dimension.value<size_t>(1)
-              % dimension.value<size_t>(2)).str();
+        result += std::format("[{0}, {1}, {2}]",
+              dimension.value<size_t>(0),
+              dimension.value<size_t>(1),
+              dimension.value<size_t>(2));
       }
 
       break;
@@ -384,11 +379,11 @@ PCR_DAL_DECL std::string dimensionToString(
               dimension.value<RasterDimensions>(0));
 
           if(dimension.nrValues() == 1) {
-            result += (boost::format("[%1%, %2%, %3%]")
-                % rasterDimensions.nrRows()
-                % rasterDimensions.nrCols()
-                % rasterDimensions.cellSize()
-                ).str();
+            result += std::format("[{0}, {1}, {2}]",
+                rasterDimensions.nrRows(),
+                rasterDimensions.nrCols(),
+                rasterDimensions.cellSize()
+                );
           }
 
           break;
@@ -399,12 +394,12 @@ PCR_DAL_DECL std::string dimensionToString(
               dimension.value<SpaceDimensions>(0));
 
           if(dimension.nrValues() == 1) {
-            result += (boost::format("[(%1%, %2%) - (%3%, %4%)]")
-                % spaceDimensions.west()
-                % spaceDimensions.north()
-                % spaceDimensions.east()
-                % spaceDimensions.south()
-                ).str();
+            result += std::format("[({0}, {1}) - ({2}, {3})]",
+                spaceDimensions.west(),
+                spaceDimensions.north(),
+                spaceDimensions.east(),
+                spaceDimensions.south()
+                );
           }
 
           break;
@@ -438,8 +433,8 @@ PCR_DAL_DECL std::string dataSpaceToString(
   }
   else {
     for(size_t i = 0; i < space.rank(); ++i) {
-      result += (boost::format("/%1%")
-         % dimensionToString(space.dimension(i))).str();
+      result += std::format("/{0}",
+         dimensionToString(space.dimension(i)));
     }
   }
 
@@ -483,8 +478,8 @@ PCR_DAL_DECL std::string coordinateToString(
       // Tricky: conversion from float to string might give numbers at more
       // decimal places than in the original string.
       // boost::format gives right string version of float number.
-      result = (boost::format("%1%")
-         % dimension.coordinate<float>(index)).str();
+      result = std::format("{0:.6}",
+         dimension.coordinate<float>(index));
       break;
     }
     case Samples:
@@ -528,7 +523,7 @@ PCR_DAL_DECL std::string coordinateToString(
         // decimal places than in the original string.
         // boost::format gives right string version of float number.
         result =
-              (boost::format("%1%") % address.coordinate<float>(index)).str();
+              std::format("{0:.6}", address.coordinate<float>(index));
         break;
       }
       case Samples:
@@ -540,10 +535,10 @@ PCR_DAL_DECL std::string coordinateToString(
         auto const& spatialCoordinate(
            address.coordinate<SpatialCoordinate>(index));
 
-        result = (boost::format("(%1%, %2%)")
-           % spatialCoordinate.x()
-           % spatialCoordinate.y()
-           ).str();
+        result = std::format("({0}, {1})",
+           spatialCoordinate.x(),
+           spatialCoordinate.y()
+           );
 
         break;
       }
@@ -587,13 +582,11 @@ PCR_DAL_DECL std::string dataSpaceAddressToString(
 
 
 
-/*
-void throwUnsupportedFormat(std::string const& name)
-{
-  throw Exception((boost::format(
-         "Data source %1%: unsupported format") % name).str());
-}
-*/
+// void throwUnsupportedFormat(std::string const& name)
+// {
+//   throw Exception((boost::format(
+//          "Data source %1%: unsupported format") % name).str());
+// }
 
 
 
@@ -601,9 +594,9 @@ void throwDataSourceError(
          std::string const& name,
          std::string const& description)
 {
-  throw Exception((boost::format("Data source %1%:\n%2%")
-         % name
-         % description).str());
+  throw Exception(std::format("Data source {0}:\n{1}",
+         name,
+         description));
 }
 
 
@@ -613,10 +606,10 @@ void throwDataSourceError(
          DatasetType type,
          std::string const& description)
 {
-  throw Exception((boost::format("Data source %1%(%2%):\n%3%")
-         % name
-         % datasetTypeToString(type)
-         % description).str());
+  throw Exception(std::format("Data source {0}({1}):\n{2}",
+         name,
+         datasetTypeToString(type),
+         description));
 }
 
 
@@ -630,10 +623,10 @@ void throwDataSourceError(
     throwDataSourceError(name, description);
   }
 
-  throw Exception((boost::format("Data source %1% in %2%:\n%3%")
-         % name
-         % dataSpaceToString(space)
-         % description).str());
+  throw Exception(std::format("Data source {0} in {1}:\n{2}",
+         name,
+         dataSpaceToString(space),
+         description));
 }
 
 
@@ -648,10 +641,10 @@ void throwDataSourceError(
     throwDataSourceError(name, description);
   }
 
-  throw Exception((boost::format("Data source %1% at %2%:\n%3%")
-         % name
-         % dataSpaceAddressToString(space, address)
-         % description).str());
+  throw Exception(std::format("Data source {0} at {1}:\n{2}",
+         name,
+         dataSpaceAddressToString(space, address),
+         description));
 }
 
 
@@ -666,11 +659,11 @@ void throwDataSourceError(
     throwDataSourceError(name, type, description);
   }
 
-  throw Exception((boost::format("Data source %1%(%2%) in %3%:\n%4%")
-         % name
-         % datasetTypeToString(type)
-         % dataSpaceToString(space)
-         % description).str());
+  throw Exception(std::format("Data source {0}({1}) in {2}:\n{3}",
+         name,
+         datasetTypeToString(type),
+         dataSpaceToString(space),
+         description));
 }
 
 
@@ -686,11 +679,11 @@ void throwDataSourceError(
     throwDataSourceError(name, type, description);
   }
 
-  throw Exception((boost::format("Data source %1%(%2%) at %3%:\n%4%")
-         % name
-         % datasetTypeToString(type)
-         % dataSpaceAddressToString(space, address)
-         % description).str());
+  throw Exception(std::format("Data source {0}({1}) at {2}:\n{3}",
+         name,
+         datasetTypeToString(type),
+         dataSpaceAddressToString(space, address),
+         description));
 }
 
 
@@ -713,8 +706,8 @@ PCR_DAL_DECL void throwCannotBeOpened(
   }
   else {
     throwDataSourceError(name, type,
-         (boost::format("cannot be opened: %1%")
-         % reason).str());
+         std::format("cannot be opened: {0}",
+         reason));
   }
 }
 
@@ -730,15 +723,13 @@ PCR_DAL_DECL void throwCannotBeOpened(
 
 
 
-/*
-void throwCannotBeOpened(std::string const& name,
-         DatasetType type, size_t timeStep)
-{
-  throwDataSourceError(name, type,
-         (boost::format("at time step %1%: cannot be opened")
-         % timeStep).str());
-}
-*/
+// void throwCannotBeOpened(std::string const& name,
+//          DatasetType type, size_t timeStep)
+// {
+//   throwDataSourceError(name, type,
+//          (boost::format("at time step %1%: cannot be opened")
+//          % timeStep).str());
+// }
 
 
 
@@ -772,21 +763,19 @@ PCR_DAL_DECL void throwCannotBeOpened(
 
 
 
-/*
-void throwCannotBeOpened(
-         std::string const& name,
-         DatasetType type,
-         std::string const& reason)
-{
-  if(reason.empty()) {
-    throwDataSourceError(name, type, "cannot be opened");
-  }
-  else {
-    throwDataSourceError(name, type,
-         (boost::format("cannot be opened: %1%") % reason).str());
-  }
-}
-*/
+// void throwCannotBeOpened(
+//          std::string const& name,
+//          DatasetType type,
+//          std::string const& reason)
+// {
+//   if(reason.empty()) {
+//     throwDataSourceError(name, type, "cannot be opened");
+//   }
+//   else {
+//     throwDataSourceError(name, type,
+//          (boost::format("cannot be opened: %1%") % reason).str());
+//   }
+// }
 
 
 
@@ -800,8 +789,8 @@ void throwCannotBeCreated(
   }
   else {
     throwDataSourceError(name, type,
-         (boost::format("cannot be created: %1%")
-         % reason).str());
+         std::format("cannot be created: {0}",
+         reason));
   }
 }
 
@@ -863,8 +852,8 @@ void throwCannotReadRecord(
          DatasetType type, size_t record)
 {
   throwDataSourceError(name, type,
-         (boost::format("cannot read record %1%")
-         % record).str());
+         std::format("cannot read record {0}",
+         record));
 }
 
 
@@ -879,8 +868,8 @@ void throwCannotWrite(
   }
   else {
     throwDataSourceError(name, type,
-         (boost::format("cannot write: %1%")
-         % reason).str());
+         std::format("cannot write: {0}",
+         reason));
   }
 }
 
@@ -901,9 +890,9 @@ void throwCannotWriteRecord(
          size_t record, std::string const& reason)
 {
   throwDataSourceError(name, type,
-         (boost::format("cannot write record %1%: %2%")
-         % record
-         % reason).str());
+         std::format("cannot write record {0}: {1}",
+         record,
+         reason));
 }
 
 
@@ -918,8 +907,8 @@ void throwCannotBeRead(
   }
   else {
     throwDataSourceError(name, type,
-         (boost::format("cannot read: %1%")
-         % reason).str());
+         std::format("cannot read: {0}",
+         reason));
   }
 }
 
@@ -940,7 +929,7 @@ void throwCannotBeDeleted(
          std::string const& reason)
 {
   throwDataSourceError(name, type,
-         (boost::format("cannot be deleted: %1%") % reason).str());
+         std::format("cannot be deleted: {0}", reason));
 }
 
 
@@ -953,16 +942,16 @@ void throwCannotReadLegend(
 
 
 
-/*
-void throwUnsupportedDatasetType(std::string const& name,
-         DatasetType type)
-{
-  throw Exception((boost::format(
-         "Data source %1% with %2% data: unsupported dataset type")
-         % name
-         % datasetTypeToString(type)).str());
-}
-*/
+
+// void throwUnsupportedDatasetType(std::string const& name,
+//          DatasetType type)
+// {
+//   throw Exception((boost::format(
+//          "Data source %1% with %2% data: unsupported dataset type")
+//          % name
+//          % datasetTypeToString(type)).str());
+// }
+
 
 
 
@@ -983,7 +972,7 @@ void throwUnsupportedDatasetType(std::string const& name,
 //       StackInfo info(name);
 //       std::shared_ptr<Raster> raster;
 //       RasterDal dal(true);
-// 
+//
 //       if(!info.isDynamic()) {
 //         raster.reset(dal.open(info.name()));
 //       }
@@ -994,12 +983,12 @@ void throwUnsupportedDatasetType(std::string const& name,
 //                 info.filename(*info.begin()).string()));
 //         }
 //       }
-// 
+//
 //       if(raster) {
 //         return RASTER;
 //       }
 //     }
-// 
+//
 //     // Table?
 //     {
 //       std::shared_ptr<Table> table(TableDal(true).open(name));
@@ -1007,7 +996,7 @@ void throwUnsupportedDatasetType(std::string const& name,
 //         return TABLE;
 //       }
 //     }
-// 
+//
 //     // Matrix?
 //     {
 //       std::shared_ptr<Matrix> matrix(MatrixDal(true).open(name));
@@ -1019,7 +1008,7 @@ void throwUnsupportedDatasetType(std::string const& name,
 //   catch(Exception& exception) {
 //     throwDataSourceError(name, exception.message());
 //   }
-// 
+//
 //   return NR_DATASET_TYPES;
 // }
 
@@ -1124,9 +1113,9 @@ PCR_DAL_DECL size_t timeStep<size_t>(
 ///   return boost::lexical_cast<std::string>(
 ///          address.coordinate<size_t>(space.indexOf(Space)));
 /// }
-/// 
-/// 
-/// 
+///
+///
+///
 /// template<>
 /// size_t colIndex<size_t>(
 ///          DataSpace const& space,
@@ -1136,9 +1125,9 @@ PCR_DAL_DECL size_t timeStep<size_t>(
 ///   // TODO test, + 1?
 ///   return address.coordinate<size_t>(space.indexOf(Space));
 /// }
-/// 
-/// 
-/// 
+///
+///
+///
 /// template<>
 /// std::string rowIndex<std::string>(
 ///          DataSpace const& space,
@@ -1148,9 +1137,9 @@ PCR_DAL_DECL size_t timeStep<size_t>(
 ///   return boost::lexical_cast<std::string>(
 ///          address.coordinate<size_t>(space.indexOf(Space)));
 /// }
-/// 
-/// 
-/// 
+///
+///
+///
 /// template<>
 /// size_t rowIndex<size_t>(
 ///          DataSpace const& space,
@@ -1223,9 +1212,9 @@ std::string replaceEnvironmentVariables(
 //          T value)
 // {
 //   typedef boost::test_tools::close_at_tolerance<T> Tester;
-// 
+//
 //   size_t i = 1;
-// 
+//
 //   while(1) {
 //     std::cout << i << '\t'
 //               << i * value << ": " << '\t'
@@ -1237,43 +1226,43 @@ std::string replaceEnvironmentVariables(
 //     if(comparable(fmod(i * value, 1.0), 0.0)) {
 //       break;
 //     }
-// 
+//
 //     i *= 10;
 //   }
-// 
+//
 //   return i;
 // }
-// 
-// 
-// 
+//
+//
+//
 // double gcdDouble(
 //          double a,
 //          double b)
 // {
 //   return gcdNew(a, b);
-// 
+//
 //   size_t i = multiplierToIntegral(a);
 //   size_t j = multiplierToIntegral(b);
-// 
+//
 //   std::cout << i << '\t' << j << std::endl;
-// 
+//
 //   a = rintf(i * a);
 //   b = rintf(j * b);
-// 
+//
 //   if(i > j) {
 //     b *= i / j;
 //   }
 //   else if(j > i) {
 //     a *= j / i;
 //   }
-// 
+//
 //   // Use the real gcd with converted arguments, convert back the result.
 //   return gcd(static_cast<long int>(a), static_cast<long int>(b)) /
 //          std::max(i, j);
 // }
-// 
-// 
-// 
+//
+//
+//
 // //! Determines the greatest common divisor of two floating point numbers.
 // /*!
 //   \param     a First number.
@@ -1291,10 +1280,10 @@ std::string replaceEnvironmentVariables(
 //          float b)
 // {
 //   return gcdDouble(a, b);
-// 
-// 
-// 
-// 
+//
+//
+//
+//
 //   std::cout << std::endl;
 //   std::cout << a << '\t' << b << std::endl;
 //   // 0.2     0.2
@@ -1319,9 +1308,9 @@ std::string replaceEnvironmentVariables(
 //   // 100?: 1e+15
 //   // 100?: 1e+15
 //   // 2e+14   2e+14   1e+15
-// 
+//
 //   float multiplierA = 1.0f;
-// 
+//
 //   // Determine how to convert a to an integral.
 //   std::cout << fmod(multiplierA * a, 1.0) << std::endl;
 //   // 0.2
@@ -1329,31 +1318,31 @@ std::string replaceEnvironmentVariables(
 //     multiplierA *= 10.0f;
 //   std::cout << multiplierA * a << '\t' << fmod(multiplierA * a, 1.0) << '\t' << comparable(fmod(multiplierA * a, 1.0), 0.0) << std::endl;
 //   }
-// 
+//
 //   std::cout << "100?: " << multiplierA << std::endl;
-// 
+//
 //   a = rintf(multiplierA * a);
-// 
+//
 //   float multiplierB = 1.0f;
-// 
+//
 //   // Determine how to convert b to an integral.
 //   while(!comparable(fmodf(multiplierB * b, 1.0f), 0.0f)) {
 //     multiplierB *= 10.0f;
 //   }
-// 
+//
 //   std::cout << "100?: " << multiplierB << std::endl;
-// 
+//
 //   b = rintf(multiplierB * b);
-// 
+//
 //   if(multiplierA > multiplierB) {
 //     b *= multiplierA / multiplierB;
 //   }
 //   else if(multiplierB > multiplierA) {
 //     a *= multiplierB / multiplierA;
 //   }
-// 
+//
 //   std::cout << a << '\t' << b << '\t' << std::max(multiplierA, multiplierB) << std::endl;
-// 
+//
 //   // Use the real gcd with converted arguments, convert back the result.
 //   return gcd(static_cast<long int>(a), static_cast<long int>(b)) /
 //          std::max(multiplierA, multiplierB);
@@ -1548,8 +1537,8 @@ std::string dataSpaceAddressToSqlQuery(
         }
 
         if(address.isValid(i)) {
-          predicates.push_back((boost::format("scenario='%1%'")
-              % address.coordinate<std::string>(i)).str());
+          predicates.push_back(std::format("scenario='{0}'",
+              address.coordinate<std::string>(i)));
         }
 
         break;
@@ -1561,8 +1550,8 @@ std::string dataSpaceAddressToSqlQuery(
         }
 
         if(address.isValid(i)) {
-          predicates.push_back((boost::format("date=%1%")
-              % address.coordinate<size_t>(i)).str());
+          predicates.push_back(std::format("date={0}",
+              address.coordinate<size_t>(i)));
         }
 
         break;
@@ -1574,8 +1563,8 @@ std::string dataSpaceAddressToSqlQuery(
         }
 
         if(address.isValid(i)) {
-          predicates.push_back((boost::format("quantile=%1%")
-              % address.coordinate<float>(i)).str());
+          predicates.push_back(std::format("quantile={0:.6}",
+              address.coordinate<float>(i)));
         }
 
         break;

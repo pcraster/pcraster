@@ -4,10 +4,6 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_BOOST_FORMAT
-#include <boost/format.hpp>
-#define INCLUDED_BOOST_FORMAT
-#endif
 
 #ifndef INCLUDED_BOOST_FUNCTION
 #include <boost/function.hpp>
@@ -44,6 +40,7 @@
 #define INCLUDED_DAL_REGULAREXPRESSIONS
 #endif
 
+#include <format>
 
 
 /*!
@@ -520,12 +517,12 @@ void RasterDriver::browseFileBasedRasterAttributes(
 
       // Find all members of the data set.
 
-      regex = std::regex((boost::format(
-         "%1%_(%2%)_(%3%)%4%")
-         % name
-         % timeStepPattern
-         % quantilePattern
-         % extension).str());
+      regex = std::regex(std::format(
+         "{0}_({1})_({2}){3}",
+         name,
+         timeStepPattern,
+         quantilePattern,
+         extension));
 
       steps.clear();
       quantiles.clear();
@@ -612,11 +609,11 @@ void RasterDriver::browseFileBasedRasterAttributes(
          std::string(match[3].first, match[3].second) : "";
 
       // Find all members of the data set.
-      regex = std::regex((boost::format(
-         "%1%_(%2%)%3%")
-         % name
-         % quantilePattern
-         % extension).str());
+      regex = std::regex(std::format(
+         "{0}_({1}){2}",
+         name,
+         quantilePattern,
+         extension));
 
       quantiles.clear();
       ids.clear();
@@ -683,10 +680,10 @@ void RasterDriver::browseFileBasedRasterAttributes(
          std::string(match[3].first, match[3].second) : "";
 
       // Find all members of the stack.
-      regex = std::regex((boost::format("%1%_(%2%)%3%")
-         % name
-         % timeStepPattern
-         % extension).str());
+      regex = std::regex(std::format("{0}_({1}){2}",
+         name,
+         timeStepPattern,
+         extension));
 
       steps.clear();
       ids.clear();
@@ -756,11 +753,11 @@ void RasterDriver::browseFileBasedRasterAttributes(
         if(std::regex_match(fileName, match, stackRegex)) {
           name = std::string(match[1].first, match[1].second);
           step = std::string(match[2].first, match[2].second);
-
-          std::string pattern = (boost::format(
-              "%1%([[:digit:]]{%2%}.[[:digit:]]{3})")
-              % name
-              % (8 - name.size())).str();
+          auto const f1 = 8 - name.size();
+          std::string pattern = std::vformat(
+              "{0}([[:digit:]]{{{1}}}.[[:digit:]]{{3}})",
+              std::make_format_args(name,
+              f1));
           regex = std::regex(pattern);
 
           steps.clear();

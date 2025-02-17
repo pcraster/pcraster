@@ -364,21 +364,19 @@ Table* TextTableDriver::open(
 
 
 
-/*
-Table* TextTableDriver::read(std::string const& name) const
-{
-  Table* table = open(name);
-
-  if(!table) {
-    throw Exception(
-         (boost::format("Table '%1%': cannot be opened") % name).str());
-  }
-
-  read(name, *table);
-
-  return table;
-}
-*/
+// Table* TextTableDriver::read(std::string const& name) const
+// {
+//   Table* table = open(name);
+//
+//   if(!table) {
+//     throw Exception(
+//          (boost::format("Table '%1%': cannot be opened") % name).str());
+//   }
+//
+//   read(name, *table);
+//
+//   return table;
+// }
 
 
 

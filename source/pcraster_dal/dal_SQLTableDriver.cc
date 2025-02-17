@@ -4,11 +4,6 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_BOOST_FORMAT
-#include <boost/format.hpp>
-#define INCLUDED_BOOST_FORMAT
-#endif
-
 #ifndef INCLUDED_BOOST_FUNCTION
 #include <boost/function.hpp>
 #define INCLUDED_BOOST_FUNCTION
@@ -48,7 +43,7 @@
 #endif
 
 #include <filesystem>
-
+#include <format>
 
 /*!
   \file
@@ -150,16 +145,16 @@ std::string SQLTableDriver::fieldValues(
 
   for(size_t col = 0; col < table.nrCols(); ++col) {
     if(table.typeId(col) == TI_STRING) {
-      fieldValues = (boost::format("'%1%'")
-            % table.asString(rec, col)).str();
+      fieldValues = std::format("'{0}'",
+          table.asString(rec, col));
     }
     else {
       fieldValues = table.asString(rec, col);
     }
     for(++col; col < table.nrCols(); ++col) {
       if(table.typeId(col) == TI_STRING) {
-        fieldValues += (boost::format(", '%1%'")
-          % table.asString(rec, col)).str();
+        fieldValues += std::format(", '{0}'",
+          table.asString(rec, col));
       }
       else {
         fieldValues += ", " + table.asString(rec, col);
@@ -187,9 +182,9 @@ void SQLTableDriver::openDatabase(
 {
   if(!database.open()) {
     // TODO use database.lastError().text!
-    throw Exception((boost::format(
-       "Database %1%: Can not be opened")
-       % std::string(database.databaseName().toUtf8().constData())).str());
+    throw Exception(std::format(
+       "Database {0}: Can not be opened",
+       std::string(database.databaseName().toUtf8().constData())));
   }
 }
 
@@ -225,9 +220,9 @@ SQLTableDriver::SQLTableDriver(
 
 {
   if(!driverIsAvailable(name())) {
-    throw Exception((boost::format(
-       "SQL table driver for %1%: Not available")
-       % name()).str());
+    throw Exception(std::format(
+       "SQL table driver for {0}: Not available",
+       name()));
   }
 
   auto& properties = this->properties().value<DriverProperties>(
@@ -635,17 +630,17 @@ void SQLTableDriver::read(
   ConnectionInfo info(connectionInfoFor(name, space));
 
   if(!info.isValid() || info.fields().empty()) {
-    throw Exception((boost::format(
-         "Database connection information %1%: not valid")
-         % name).str());
+    throw Exception(std::format(
+         "Database connection information {0}: not valid",
+         name));
   }
 
   QSqlDatabase database = connectToDatabase(info);
 
   if(!database.isValid()) {
-    throw Exception((boost::format(
-         "Database connection %1%: Can not be created")
-         % info.connection(this->name())).str());
+    throw Exception(std::format(
+         "Database connection {0}: Can not be created",
+         info.connection(this->name())));
   }
 
   openDatabase(database);
@@ -778,17 +773,17 @@ void SQLTableDriver::write(
   ConnectionInfo info(name); // connectionInfoFor(name, space, address));
 
   if(!info.isValid()) {
-    throw Exception((boost::format(
-         "Database connection information %1%: not valid")
-         % name).str());
+    throw Exception(std::format(
+         "Database connection information {0}: not valid",
+         name));
   }
 
   QSqlDatabase database = connectToDatabase(info);
 
   if(!database.isValid()) {
-    throw Exception((boost::format(
-         "Database connection %1%: Can not be created")
-         % info.connection(this->name())).str());
+    throw Exception(std::format(
+         "Database connection {0}: Can not be created",
+         info.connection(this->name())));
   }
 
   openDatabase(database);
@@ -799,8 +794,8 @@ void SQLTableDriver::write(
       QStringList tableNames = database.tables(QSql::Tables);
 
       if(tableNames.contains(QString(info.table().c_str()))) {
-        QSqlQuery query(QString((boost::format("DROP TABLE \"%1%\"")
-               % info.table()).str().c_str()), database);
+        QSqlQuery query(QString(std::format("DROP TABLE \"{0}\"",
+               info.table()).c_str()), database);
 
         if(!query.isActive()) {
           throwCannotBeDeleted(info.table(), TABLE,
@@ -814,23 +809,23 @@ void SQLTableDriver::write(
     for(size_t col = 0; col < table.nrCols(); ++col) {
       assert(table.typeId(col) != TI_NR_TYPES);
       assert(!table.title(col).empty());
-      fieldSpecs = (boost::format("\"%1%\" %2%")
-         % table.title(col) % typeId2SQLTypeName(table.typeId(col))).str();
+      fieldSpecs = std::format("\"{0}\" {1}",
+         table.title(col), typeId2SQLTypeName(table.typeId(col)));
       fieldNames = "\"" + table.title(col) + "\"";
 
       for(++col; col < table.nrCols(); ++col) {
         assert(table.typeId(col) != TI_NR_TYPES);
         assert(!table.title(col).empty());
-        fieldSpecs += (boost::format(", \"%1%\" %2%")
-         % table.title(col) % typeId2SQLTypeName(table.typeId(col))).str();
+        fieldSpecs += std::format(", \"{0}\" {1}",
+         table.title(col), typeId2SQLTypeName(table.typeId(col)));
         fieldNames += ", \"" + table.title(col) + "\"";
       }
     }
 
     {
       // Create new table.
-      QSqlQuery query(QString((boost::format("CREATE TABLE \"%1%\" (%2%)")
-           % info.table() % fieldSpecs).str().c_str()), database);
+      QSqlQuery query(QString(std::format("CREATE TABLE \"{0}\" ({1})",
+           info.table(), fieldSpecs).c_str()), database);
 
       if(!query.isActive()) {
         throwCannotBeCreated(info.table(), TABLE, std::string(
@@ -843,8 +838,8 @@ void SQLTableDriver::write(
       QSqlQuery query(database);
       for(size_t rec = 0; rec < table.nrRecs(); ++rec) {
 
-        query.exec(QString((boost::format("INSERT INTO \"%1%\" (%2%) VALUES (%3%)")
-           % info.table() % fieldNames % fieldValues(table, rec)).str().c_str()));
+        query.exec(QString(std::format("INSERT INTO \"{0}\" ({1}) VALUES ({2})",
+           info.table(), fieldNames, fieldValues(table, rec)).c_str()));
 
         if(!query.isActive()) {
           throwCannotWriteRecord(info.table(), TABLE, rec + 1,
@@ -884,17 +879,17 @@ void SQLTableDriver::append(
   ConnectionInfo info(connectionInfoFor(name, space));
 
   if(!info.isValid()) {
-    throw Exception((boost::format(
-         "Database connection information %1%: not valid")
-         % name).str());
+    throw Exception(std::format(
+         "Database connection information {0}: not valid",
+         name));
   }
 
   QSqlDatabase database = connectToDatabase(info);
 
   if(!database.isValid()) {
-    throw Exception((boost::format(
-         "Database connection %1%: Can not be created")
-         % info.connection(this->name())).str());
+    throw Exception(std::format(
+         "Database connection {0}: Can not be created",
+         info.connection(this->name())));
   }
 
   try {
@@ -903,15 +898,15 @@ void SQLTableDriver::append(
     for(size_t col = 0; col < table.nrCols(); ++col) {
       assert(table.typeId(col) != TI_NR_TYPES);
       assert(!table.title(col).empty());
-      fieldSpecs = (boost::format("\"%1%\" %2%")
-         % table.title(col) % typeId2SQLTypeName(table.typeId(col))).str();
+      fieldSpecs = std::format("\"{0}\" {1}",
+         table.title(col), typeId2SQLTypeName(table.typeId(col)));
       fieldNames = "\"" + table.title(col) + "\"";
 
       for(++col; col < table.nrCols(); ++col) {
         assert(table.typeId(col) != TI_NR_TYPES);
         assert(!table.title(col).empty());
-        fieldSpecs += (boost::format(", \"%1%\" %2%")
-         % table.title(col) % typeId2SQLTypeName(table.typeId(col))).str();
+        fieldSpecs += std::format(", \"{0}\" {1}",
+         table.title(col), typeId2SQLTypeName(table.typeId(col)));
         fieldNames += ", \"" + table.title(col) + "\"";
       }
     }
@@ -921,8 +916,8 @@ void SQLTableDriver::append(
 
     if(!currentTable) {
       // Create new table if it doesn't already exist.
-      QSqlQuery query(QString((boost::format("CREATE TABLE \"%1%\" (%2%)")
-           % info.table() % fieldSpecs).str().c_str()), database);
+      QSqlQuery query(QString(std::format("CREATE TABLE \"{0}\" ({1})",
+           info.table(), fieldSpecs).c_str()), database);
 
       if(!query.isActive()) {
         throwCannotBeCreated(info.table(), TABLE, std::string(query.lastError().text().toUtf8().constData()));
@@ -937,8 +932,8 @@ void SQLTableDriver::append(
       QSqlQuery query(database);
       for(size_t rec = 0; rec < table.nrRecs(); ++rec) {
 
-        query.exec(QString((boost::format("INSERT INTO \"%1%\" (%2%) VALUES (%3%)")
-           % info.table() % fieldNames % fieldValues(table, rec)).str().c_str()));
+        query.exec(QString(std::format("INSERT INTO \"{0}\" ({1}) VALUES ({2})",
+           info.table(), fieldNames, fieldValues(table, rec)).c_str()));
 
         if(!query.isActive()) {
           throwCannotWriteRecord(info.table(), TABLE, rec + 1,
@@ -973,34 +968,34 @@ void SQLTableDriver::grantReadAccess(
   ConnectionInfo info(connectionInfoFor(name, DataSpace()));
 
   if(!info.isValid()) {
-    throw Exception((boost::format(
-         "Database connection information %1%: not valid")
-         % name).str());
+    throw Exception(std::format(
+         "Database connection information {0}: not valid",
+         name));
   }
 
   QSqlDatabase database = connectToDatabase(info);
 
   if(!database.isValid()) {
-    throw Exception((boost::format(
-         "Database connection %1%: Can not be created")
-         % info.connection(this->name())).str());
+    throw Exception(std::format(
+         "Database connection {0}: Can not be created",
+         info.connection(this->name())));
   }
 
   openDatabase(database);
-  std::string query = (boost::format(R"(GRANT SELECT ON "%1%" TO "%2%")")
-         % info.table()
-         % user).str();
+  std::string query = std::format(R"(GRANT SELECT ON "{0}" TO "{1}")",
+         info.table(),
+         user);
 
   try {
     execQuery(database, query);
   }
   catch(Exception& exception) {
-    throw Exception((boost::format(
-         "Cannot grant read access on %1% to %2%: %3%")
-         % name
-         % user
-         % exception.message()
-         ).str());
+    throw Exception(std::format(
+         "Cannot grant read access on {0} to {1}: {2}",
+         name,
+         user,
+         exception.message()
+         ));
   }
 }
 

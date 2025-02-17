@@ -5,7 +5,6 @@
 #include <iterator>
 #include <set>
 #include <sstream>
-#include <boost/format.hpp>
 #include <QPoint>
 
 // PCRaster library headers.

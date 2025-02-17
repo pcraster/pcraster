@@ -5,11 +5,6 @@
 
 // External headers.
 
-#ifndef INCLUDED_BOOST_FORMAT
-#include <boost/format.hpp>
-#define INCLUDED_BOOST_FORMAT
-#endif
-
 #ifndef INCLUDED_BOOST_LEXICAL_CAST
 #include <boost/lexical_cast.hpp>
 #define INCLUDED_BOOST_LEXICAL_CAST
@@ -49,6 +44,7 @@
 #endif
 
 #include <filesystem>
+#include <format>
 #include <memory>
 
 
@@ -622,11 +618,11 @@ void VectorDriver::browse(
       extension = match[3].matched ?
          std::string(match[3].first, match[3].second) : "";
 
-      regex = std::regex((boost::format(
-         "%1%_y_%2%%3%")
-         % name
-         % step
-         % extension).str());
+      regex = std::regex(std::format(
+         "{0}_y_{1}{2}",
+         name,
+         step,
+         extension));
 
       for(int j = i + 1; j < int(leaves.size()); ++j) {
         // See whether there is a matching y component.
@@ -634,11 +630,11 @@ void VectorDriver::browse(
           // Vector found.
           // Find the ids of all members of the stack.
 
-          regex = std::regex((boost::format(
-              "%1%_(?:x|y)_(%2%)%3%")
-              % name
-              % timeStepPattern
-              % extension).str());
+          regex = std::regex(std::format(
+              "{0}_(?:x|y)_({1}){2}",
+              name,
+              timeStepPattern,
+              extension));
 
           steps.clear();
           ids.clear();
@@ -701,10 +697,10 @@ void VectorDriver::browse(
       extension = match[2].matched ?
          std::string(match[2].first, match[2].second) : "";
 
-      regex = std::regex((boost::format(
-         "%1%_y%2%")
-         % name
-         % extension).str());
+      regex = std::regex(std::format(
+         "{0}_y{1}",
+         name,
+         extension));
 
       for(int j = i + 1; j < int(leaves.size()); ++j) {
         if(std::regex_match(leaves[j], match, regex)) {

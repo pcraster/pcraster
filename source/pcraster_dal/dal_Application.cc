@@ -9,11 +9,6 @@
 #define INCLUDED_IOSTREAM
 #endif
 
-#ifndef INCLUDED_BOOST_FORMAT
-#include <boost/format.hpp>
-#define INCLUDED_BOOST_FORMAT
-#endif
-
 // PCRaster library headers.
 #ifndef INCLUDED_DEV_FILESYSTEMUTILS
 #include "dev_FilesystemUtils.h"

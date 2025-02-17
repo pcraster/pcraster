@@ -30,11 +30,6 @@
 #define INCLUDED_BOOST_DATE_TIME_GREGORIAN_GREGORIAN
 #endif
 
-#ifndef INCLUDED_BOOST_FORMAT
-#include <boost/format.hpp>
-#define INCLUDED_BOOST_FORMAT
-#endif
-
 // PCRaster library headers.
 
 // Module headers.
@@ -54,6 +49,7 @@
 #endif
 
 #include <filesystem>
+#include <format>
 
 
 namespace dal {
@@ -63,8 +59,8 @@ void testPathnameIsEmpty (
 {
   if(pathName.empty()) {
     throw Exception(
-         (boost::format("Pathname '%1%': Empty")
-         % pathName).str());
+         std::format("Pathname '{0}': Empty",
+         pathName));
   }
 }
 
@@ -156,8 +152,8 @@ void testPathExists(
 {
   if(!std::filesystem::exists(path)) {
     throw Exception(
-         (boost::format("Pathname '%1%': Path does not exist")
-         % path.string()).str());
+         std::format("Pathname '{0}': Path does not exist",
+         path.string()));
   }
 }
 
@@ -178,8 +174,8 @@ void testPathIsFileOrLinkToFile(
 {
   if(std::filesystem::is_directory(path)) {
     throw Exception(
-         (boost::format("Pathname '%1%': Path is not a file or link to a file")
-         % path.string()).str());
+         std::format("Pathname '{0}': Path is not a file or link to a file",
+         path.string()));
   }
 }
 
@@ -247,8 +243,8 @@ void testPathIsReadable(
 {
   if(!isReadable(path)) {
     throw Exception(
-         (boost::format("Pathname '%1%': Path is not readable")
-         % path.string()).str());
+         std::format("Pathname '{0}': Path is not readable",
+         path.string()));
   }
 }
 
@@ -268,8 +264,8 @@ PCR_DAL_DECL void testPathIsWritable(
 {
   if(!isWritable(path)) {
     throw Exception(
-         (boost::format("Pathname '%1%': Path is not writable")
-         % path.string()).str());
+         std::format("Pathname '{0}': Path is not writable",
+         path.string()));
   }
 }
 
@@ -384,20 +380,20 @@ PCR_DAL_DECL std::filesystem::path timeStepPathNewStyle(
 
   if(lastPoint == std::string::npos) {
     // No extension present.
-    filename = (boost::format("%1%_%2%")
-         % filename
-         % timeStep
+    filename = std::format("{0}_{1}",
+         filename,
+         timeStep
          // % boost::io::group(std::setw(fieldWidth), std::setfill('0'), timeStep)
-         ).str();
+         );
   }
   else {
     // Extension present (possibly empty).
-    filename = (boost::format("%1%_%2%.%3%")
-         % filename.substr(0, lastPoint)
-         % timeStep
+    filename = std::format("{0}_{1}.{2}",
+         filename.substr(0, lastPoint),
+         timeStep,
          // % boost::io::group(std::setw(fieldWidth), std::setfill('0'), timeStep)
-         % filename.substr(lastPoint + 1, filename.size() - lastPoint + 1)
-         ).str();
+         filename.substr(lastPoint + 1, filename.size() - lastPoint + 1)
+         );
   }
 
   return std::filesystem::path(parent) / filename;
@@ -935,16 +931,16 @@ std::filesystem::path pathForQuantile(
 
   if(lastPoint == std::string::npos) {
     // No extension present.
-    result = std::filesystem::path((boost::format("%1%_%2%")
-         % name
-         % quantile).str());
+    result = std::filesystem::path(std::format("{0}_{1:.6}",
+         name,
+         quantile));
   }
   else {
     // Extension present (possibly empty).
-    result = std::filesystem::path((boost::format("%1%_%2%.%3%")
-         % name.substr(0, lastPoint)
-         % quantile
-         % name.substr(lastPoint + 1, name.size() - lastPoint + 1)).str());
+    result = std::filesystem::path(std::format("{0}_{1:.6}.{2}",
+         name.substr(0, lastPoint),
+         quantile,
+         name.substr(lastPoint + 1, name.size() - lastPoint + 1)));
   }
 
   return result;

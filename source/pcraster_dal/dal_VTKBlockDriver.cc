@@ -5,11 +5,6 @@
 
 // Library headers.
 
-#ifndef INCLUDED_BOOST_FORMAT
-#include <boost/format.hpp>
-#define INCLUDED_BOOST_FORMAT
-#endif
-
 #ifndef INCLUDED_BOOST_LEXICAL_CAST
 #include <boost/lexical_cast.hpp>
 #define INCLUDED_BOOST_LEXICAL_CAST
@@ -24,6 +19,7 @@
 #endif
 
 #include <filesystem>
+#include <format>
 
 
 
@@ -201,8 +197,8 @@ void VTKBlockDriver::write(
 
   if(!block.isRegular()) {
     throwCannotWrite(path.string(), BLOCK,
-         (boost::format("Driver %1% only supports regular blocks")
-           % name()).str());
+         std::format("Driver {0} only supports regular blocks",
+           name()));
   }
 
   std::ofstream stream;
@@ -261,7 +257,7 @@ void VTKBlockDriver::write(
 
   double voxelSpacing = voxelThickness / block.cellSize();
 
-  stream << (boost::format("\
+  stream << std::format("\
 <VTKFile type=\"ImageData\">\n\
 <ImageData\n\
   WholeExtent=\"%1% %2% %3% %4% %5% %6%\"\n\
@@ -279,21 +275,21 @@ void VTKBlockDriver::write(
     </CellData>\n\
   </Piece>\n\
 </ImageData>\n\
-</VTKFile>\n")
+</VTKFile>\n",
          // WholeExtent
-         % 0
-         % block.nrCols()
-         % 0
-         % block.nrRows()
-         % 0
-         % nrVoxelsPerStack
+         0,
+         block.nrCols(),
+         0,
+         block.nrRows(),
+         0,
+         nrVoxelsPerStack,
          // Spacing
-         % 1.0
-         % 1.0
-         % voxelSpacing
+         1.0,
+         1.0,
+         voxelSpacing,
          // Data
-         % cellData
-         ).str();
+         cellData
+         );
 }
 
 

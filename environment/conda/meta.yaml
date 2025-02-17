@@ -5,11 +5,14 @@ package:
   version: {{ version }}
 
 source:
-  path: ../../../
+  path: ../../
 
 
 build:
   number: 0
+
+  ignore_run_exports_from:
+    - libboost-devel
 
   missing_dso_whitelist:
     - C:/Windows/System32/MSVCP140.dll      # [win]
@@ -24,26 +27,19 @@ build:
 
 
 requirements:
-  ignore_run_exports_from:
-    - libboost-devel
-
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - {{ cdt('mesa-libgl-devel') }}         # [linux]
-    - {{ cdt('mesa-dri-drivers') }}         # [linux]
-    - {{ cdt('libselinux') }}               # [linux]
-    - {{ cdt('libxdamage') }}               # [linux]
-    - {{ cdt('libxxf86vm') }}               # [linux]
     - cmake
     - ninja
     - make                                  # [win]
 
   host:
-    - python=3.12
-    - numpy=1.26
+    - python
+    - numpy
     - pybind11
     - xorg-libxfixes                        # [linux]
+    - libgl-devel                           # [linux]
     - xerces-c
     - qt6-main
     - qt6-charts
@@ -55,8 +51,7 @@ requirements:
     - libboost-devel
 
   run:
-    - python=3.12
-    - {{ pin_compatible('numpy') }}
+    - python
     - libgdal
     - ncurses                               # [not win]
     - vs2015_runtime                        # [win]

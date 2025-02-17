@@ -26,6 +26,7 @@
 #define INCLUDED_PCRXML_STRINGCONV
 #endif
 
+#include <utility>
 
 // Application headers.
 
@@ -45,7 +46,7 @@
 //! ctor
 pcrxml::PCDATAElement::PCDATAElement():
    Element()
-   
+
 {
 }
 
@@ -69,7 +70,7 @@ pcrxml::PCDATAElement::PCDATAElement(const QDomElement& n,
   */
 
   QDomNodeList c(n.childNodes());
-  for(size_t i=0; i < c.length(); ++i) {
+  for(size_t i=0; std::cmp_less(i , c.length()); ++i) {
    if (c.item(i).isCDATASection()) {
      QDomCDATASection d(c.item(i).toCDATASection());
      d_contents+= asString(d.data());

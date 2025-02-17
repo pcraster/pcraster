@@ -63,6 +63,8 @@
 #define INCLUDED_CALC_POSEXCEPTION
 #endif
 
+#include <utility>
+
 /*!
   \file
   This file contains the implementation of the Executor class.
@@ -340,9 +342,10 @@ void calc::Executor::jumpOutDynamicSection(DynamicSection*)
   else {
     d_allCodeExecuted=true;
   }
+
   // incr and even set past at end
   d_progressInfo->inTimeStep = d_rte.timer().currentInt() + 1;
-  if (d_progressInfo->inTimeStep > d_rte.timer().lastInt()){
+  if (std::cmp_greater(d_progressInfo->inTimeStep, d_rte.timer().lastInt())){
     d_progressCallBack->update(*d_progressInfo);
   }
 }

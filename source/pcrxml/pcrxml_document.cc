@@ -38,6 +38,8 @@
 #define INCLUDED_PCRXML_DOM
 #endif
 
+#include <utility>
+
 /*!
   \file
   This file contains the implementation of the Document class.
@@ -94,7 +96,7 @@ pcrxml::Document pcrxml::createPcrDocument(
   QDomElement docEl(contentsDoc.documentElement());
   Document doc(createEmptyDocElPcrDocument(docEl.tagName()));
   QDomNamedNodeMap attrs(docEl.attributes());
-  for(size_t i=0; i < attrs.length(); ++i) {
+  for(size_t i=0; std::cmp_less(i , attrs.length()); ++i) {
     QDomAttr a=doc.importNode(attrs.item(i),true).toAttr();
     if (a.nodeName()!="xmlns") // seems xmlns is not as an attribute recognized
      if (!doc.documentElement().hasAttribute(a.nodeName())) {
@@ -102,7 +104,7 @@ pcrxml::Document pcrxml::createPcrDocument(
      }
   }
   QDomNodeList dnl(docEl.childNodes());
-  for(size_t i=0; i < dnl.length(); ++i) {
+  for(size_t i=0; std::cmp_less(i , dnl.length()); ++i) {
       QDomNode n(doc.importNode(dnl.item(i),true));
       doc.documentElement().appendChild(n);
   }

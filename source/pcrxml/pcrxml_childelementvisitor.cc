@@ -17,6 +17,8 @@
 #define INCLUDED_COM_EXCEPTION
 #endif
 
+#include <utility>
+
 /*!
   \file
   This file contains the implementation of the ChildElementVisitor class.
@@ -66,7 +68,7 @@ void pcrxml::ChildElementVisitor::advance()
 //! check if all elements are processed
 bool pcrxml::ChildElementVisitor::allChildrenProcessed() const
 {
-  return d_current >= d_children.length();
+  return std::cmp_greater_equal(d_current, d_children.length());
 }
 
 //! return current child and advance to next

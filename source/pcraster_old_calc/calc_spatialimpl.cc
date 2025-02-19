@@ -20,6 +20,8 @@
 #define INCLUDED_CALC_SPATIAL
 #endif
 
+#include <exception>
+
 //! used for initialization of computed (new) parameter
 /*! will recieve value on assignment
  */

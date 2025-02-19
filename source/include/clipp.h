@@ -45,6 +45,7 @@
 #include <utility>
 #include <iterator>
 #include <functional>
+#include <type_traits>
 
 
 /*************************************************************************//**

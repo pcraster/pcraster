@@ -2,7 +2,7 @@ Installing PCRaster with EasyBuild
 ==================================
 
 In case you work on a system where environment modules and `EasyBuild <https://easybuild.io/>`_ are available you can simply compile your own PCRaster package.
-First, download a `configuration <https://github.com/pcraster/pcraster/tree/master/environment/configuration/easybuild>`_ file.
+First, download a `configuration <https://github.com/pcraster/pcraster/tree/master/environment/easybuild>`_ file.
 Then, build PCRaster and potentially the required dependencies e.g. with
 
 .. code-block:: console

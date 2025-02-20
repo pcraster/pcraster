@@ -13,7 +13,7 @@ file (GENERATE
     ALWAYS_DETAILED_SEC     = YES
     BUILTIN_STL_SUPPORT     = YES
     ENABLE_PREPROCESSING    = YES
-    EXCLUDE_PATTERNS        = *Test.h *Test.cc *_test.cc
+    EXCLUDE_PATTERNS        = *Test.h *Test.cc *_test.cc */moc_*
     EXPAND_ONLY_PREDEF      = NO
     EXTRACT_ALL             = YES
     EXTRACT_PRIVATE         = NO
@@ -24,7 +24,7 @@ file (GENERATE
     GENERATE_TODOLIST       = $<IF:$<CONFIG:Release>,NO,YES>
     INPUT                   = ${CMAKE_CURRENT_SOURCE_DIR}
     HAVE_DOT                = YES
-    DOT_GRAPH_MAX_NODES     = 75
+    DOT_GRAPH_MAX_NODES     = 200
     INCLUDE_GRAPH           = YES
     INHERIT_DOCS            = YES
     INLINE_INFO             = YES
@@ -47,7 +47,13 @@ file (GENERATE
     WARN_IF_UNDOCUMENTED    = NO  # Because EXTRACT_ALL is turned on.
     WARNINGS                = YES
     WARN_NO_PARAMDOC        = YES
+    DOT_NUM_THREADS         = 2
+    NUM_PROC_THREADS        = 2
     OUTPUT_DIRECTORY        = ${api_doc_output_dir}/$<CONFIG>
+    INCLUDE_PATH            = ${CMAKE_SOURCE_DIR}/source/include \
+                              ${CMAKE_BINARY_DIR}/source/pcraster_model_engine/ \
+                              ${CMAKE_BINARY_DIR}/documentation/pcraster_manual/examples/ \
+                              ${CMAKE_BINARY_DIR}/source/pcraster_python/ \
 "
 )
 

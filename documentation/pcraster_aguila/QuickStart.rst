@@ -121,96 +121,96 @@ Command line options which can also occur in a configuration file must be named 
 
 .. table:: Command line options
 
-  ================================= ============================================
-  Option                            Description
-  ================================= ============================================
-  -f [ --config ] arg               Read options from the configuration file
-                                    named ``arg``.
-  -x [ --xml ] arg                  Read options from the xml file named
-                                    ``arg``, see section
-                                    :ref:`xmlStartupConfiguration`.
-  -h [ --help ]                     Show the command synopsis and exit.
-  -l [ --lock ] arg                 Create a lock file named ``arg``. If the
-                                    file does not already exists it
-                                    is created. When Aguila exits the
-                                    file is deleted again. This can be
-                                    useful if Aguila is started by another
-                                    application which wants to be able to
-                                    check whether Aguila is still running.
-  --license                         Show the software license and exit.
-  -v [ --version ]                  Show the software version and exit.
-  -2 [ --mapView ] arg              Show attribute named ``arg`` in a 2D map
-                                    view.  ``arg`` can contain the names
-                                    of more than one attribute. When the
-                                    names of two attributes are separated
-                                    by ``whitespace + whitespace``,
-                                    they are stacked on top of each
-                                    other in the same view. Otherwise
-                                    each attribute is visualised in its
-                                    own view.
-  -3 [ --drapeView ] arg            Show attribute named ``arg`` in a 3D map
-                                    view. ``arg`` can contain the names
-                                    of more than one attribute. When the
-                                    names of two attributes are separated
-                                    by ``whitespace + whitespace``,
-                                    they are stacked on top of each
-                                    other in the same view. Otherwise
-                                    each attribute is visualised in its
-                                    own view. The first attribute is
-                                    used for the height values. This
-                                    attribute must contain scalar values.
-  -t [ --timeGraphView ] arg        Show attribute named ``arg`` in a time graph
-                                    view. ``arg`` can contain the names of
-                                    more than one attribute. The optional
-                                    selection specification in the attribute
-                                    name must contain 2 column numbers of
-                                    which the first one is regarded as the
-                                    time step column and the second as the
-                                    attribute column.
-  -p [ --probabilityGraphView ] arg Show attribute named ``arg`` in a
-                                    probability graph view. ``arg``
-                                    can contain the names of more than
-                                    one attribute.
-  --valueOnly arg                   Show attribute named ``arg`` only
-                                    in the value cursor matrix. ``arg``
-                                    can contain the names of more than
-                                    one data set.
-  ================================= ============================================
+  ===================================== ============================================
+  Option                                Description
+  ===================================== ============================================
+  ``-f [ --config ] arg``               Read options from the configuration file
+                                        named ``arg``.
+  ``-x [ --xml ] arg``                  Read options from the xml file named
+                                        ``arg``, see section
+                                        :ref:`xmlStartupConfiguration`.
+  ``-h [ --help ]``                     Show the command synopsis and exit.
+  ``-l [ --lock ] arg``                 Create a lock file named ``arg``. If the
+                                        file does not already exists it
+                                        is created. When Aguila exits the
+                                        file is deleted again. This can be
+                                        useful if Aguila is started by another
+                                        application which wants to be able to
+                                        check whether Aguila is still running.
+  ``--license``                         Show the software license and exit.
+  ``-v [ --version ]``                  Show the software version and exit.
+  ``-2 [ --mapView ] arg``              Show attribute named ``arg`` in a 2D map
+                                        view.  ``arg`` can contain the names
+                                        of more than one attribute. When the
+                                        names of two attributes are separated
+                                        by ``whitespace + whitespace``,
+                                        they are stacked on top of each
+                                        other in the same view. Otherwise
+                                        each attribute is visualised in its
+                                        own view.
+  ``-3 [ --drapeView ] arg``            Show attribute named ``arg`` in a 3D map
+                                        view. ``arg`` can contain the names
+                                        of more than one attribute. When the
+                                        names of two attributes are separated
+                                        by ``whitespace + whitespace``,
+                                        they are stacked on top of each
+                                        other in the same view. Otherwise
+                                        each attribute is visualised in its
+                                        own view. The first attribute is
+                                        used for the height values. This
+                                        attribute must contain scalar values.
+  ``-t [ --timeGraphView ] arg``        Show attribute named ``arg`` in a time graph
+                                        view. ``arg`` can contain the names of
+                                        more than one attribute. The optional
+                                        selection specification in the attribute
+                                        name must contain 2 column numbers of
+                                        which the first one is regarded as the
+                                        time step column and the second as the
+                                        attribute column.
+  ``-p [ --probabilityGraphView ] arg`` Show attribute named ``arg`` in a
+                                        probability graph view. ``arg``
+                                        can contain the names of more than
+                                        one attribute.
+  ``--valueOnly arg``                   Show attribute named ``arg`` only
+                                        in the value cursor matrix. ``arg``
+                                        can contain the names of more than
+                                        one data set.
+  ===================================== ============================================
 
 .. table:: Command line and configuration file options
 
-  ============================== ===============================================
-  Option                         Description
-  ============================== ===============================================
-  -n [ --scenarios ] arg         Configures the scenario dimension using the set
-                                 of scenarios in ``arg``. Multiple scenarios
-                                 options are merged into one scenario
-                                 dimension.
-  -s [ --timesteps ] arg         Configures the time dimension using the range
-                                 or set of time steps in ``arg``. Time steps
-                                 must be larger than ``0``. Multiple time steps
-                                 options are merged into one time dimension.
-  -q [ --quantiles] arg          Configures the cumulative probability dimension
-                                 using the range or set of quantiles in
-                                 ``arg``. Quantiles must be larger than ``0``
-                                 and smaller than ``1``. Multiple quantiles
-                                 options are merged into one cumulative
-                                 probability dimension.
-  --cursorValueMonitorFile arg   Tells Aguila to append an ``aguilaCursorValue``
-                                 element to the value monitor
-                                 file named ``arg`` each time ``Save`` is
-                                 pressed in the Cursor Value Window. On
-                                 start up, ``arg`` is created with 0
-                                 ``aguilaCursorValue`` sub-elements. The file
-                                 is written in XML conforming to the Aguila
-                                 XML Schema.
-  -m [ --multi ] arg             When visualising scenarios of a spatial
-                                 attribute, this option can be used to
-                                 put all scenario's side by side in one 2D
-                                 map view. ``arg`` should be formatted as
-                                 ``<number or rows>x<number of columns>``, eg:
-                                 ``2x3``.
-  ============================== ===============================================
+  ================================ ===============================================
+  Option                           Description
+  ================================ ===============================================
+  ``-n [ --scenarios ] arg``       Configures the scenario dimension using the set
+                                   of scenarios in ``arg``. Multiple scenarios
+                                   options are merged into one scenario
+                                   dimension.
+  ``-s [ --timesteps ] arg``       Configures the time dimension using the range
+                                   or set of time steps in ``arg``. Time steps
+                                   must be larger than ``0``. Multiple time steps
+                                   options are merged into one time dimension.
+  ``-q [ --quantiles] arg``        Configures the cumulative probability dimension
+                                   using the range or set of quantiles in
+                                   ``arg``. Quantiles must be larger than ``0``
+                                   and smaller than ``1``. Multiple quantiles
+                                   options are merged into one cumulative
+                                   probability dimension.
+  ``--cursorValueMonitorFile arg`` Tells Aguila to append an ``aguilaCursorValue``
+                                   element to the value monitor
+                                   file named ``arg`` each time ``Save`` is
+                                   pressed in the Cursor Value Window. On
+                                   start up, ``arg`` is created with 0
+                                   ``aguilaCursorValue`` sub-elements. The file
+                                   is written in XML conforming to the Aguila
+                                   XML Schema.
+  ``-m [ --multi ] arg``           When visualising scenarios of a spatial
+                                   attribute, this option can be used to
+                                   put all scenario's side by side in one 2D
+                                   map view. ``arg`` should be formatted as
+                                   ``<number or rows>x<number of columns>``, eg:
+                                   ``2x3``.
+  ================================ ===============================================
 
 Examples
 ========

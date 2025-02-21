@@ -228,7 +228,7 @@ else()
 endif()
 
 
-find_package(Python
+find_package(Python 3.8
   REQUIRED COMPONENTS Interpreter Development NumPy
   OPTIONAL_COMPONENTS Development.SABIModule
 )

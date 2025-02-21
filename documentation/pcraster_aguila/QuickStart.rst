@@ -120,6 +120,7 @@ Some options take the name of a data set as an argument. Aguila supports certain
 Command line options which can also occur in a configuration file must be named by the long option name, without the leading double dash. So, while ``-n`` and ``--scenarios`` are equivalent when used on the command line, only ``scenarios`` can be used in a configuration file. Furthermore, the value of an option given on the command line is put immediately after the option name or character, optionally separated by white space. In a configuration file the option name and value are separated by an equals sign, optionally surrounded by white space. See also section `Examples`_.
 
 .. table:: Command line options
+  :widths: 20 80
 
   ===================================== ============================================
   Option                                Description
@@ -178,6 +179,7 @@ Command line options which can also occur in a configuration file must be named 
   ===================================== ============================================
 
 .. table:: Command line and configuration file options
+  :widths: 20 80
 
   ================================ ===============================================
   Option                           Description
@@ -255,7 +257,7 @@ Raster attribute might be temporal. ``dem00000.001+100`` is deprecated. Separate
   aguila --timesteps [1,100] dem
 
 See also sections :ref:`mapView`, :ref:`timeGraphView`.
- 
+
 Time series
 -----------
 Visualise all time series in one time series plot.

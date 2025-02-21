@@ -11,6 +11,8 @@ Welcome to the PCRaster documentation!
    python_modelling_framework/index
    pcraster_project/multicore
 
+   List of PCRaster operations <https://pcraster.geo.uu.nl/pcraster/latest/documentation/pcraster_manual/sphinx/index.html#operations-python-and-pcrcalc>
+
    pcraster_aguila/index
    modflow/index
 

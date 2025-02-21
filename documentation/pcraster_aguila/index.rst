@@ -24,14 +24,11 @@ See for more information:
    :maxdepth: 2
 
    Screenshots and Videos <Screenshots>
-   Downloads
    Manual
    Support
    Publications
    Links
-   Enhancements
 
-.. The manual is also available as a `PDF <Aguila.pdf>`_.
 
 .. Indices and tables
 .. ==================

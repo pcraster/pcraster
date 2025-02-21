@@ -16,12 +16,12 @@ set(SPHINX_SOURCES
 #    Building.rst
     Data.rst
     Dialogs.rst
-    Downloads.rst
-    Enhancements.rst
+#    Downloads.rst
+#    Enhancements.rst
     Faq.rst
     History.rst
     index.rst
-    Installation.rst
+#    Installation.rst
     Introduction.rst
     License.rst
     Links.rst

@@ -1200,7 +1200,7 @@ bool PCRModflow::runModflow(const std::string & working_directory) {
 
     // Standard execution
     if(run_command.empty()){
-      QString program{"mf2005"};
+      QString program{"pcr_mf2005"};
       QStringList arg{"pcrmf.nam"};
       process.start(program, arg);
       process.waitForFinished(-1);

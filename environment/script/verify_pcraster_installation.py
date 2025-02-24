@@ -23,7 +23,7 @@ executable_path_names = [
         "mapattr",
         "oldcalc",
         "pcrcalc",
-        "mf2005",
+        "pcr_mf2005",
         "resample",
         "table"
     ]

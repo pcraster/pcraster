@@ -17,6 +17,7 @@ Changes
 .. * find package config Boost
 .. * Qt deprecated
 .. * Fixed failing unit tests when building with EasyBuild
+.. * prefixed modflow executable
 
 
 PCRaster 4.4.1

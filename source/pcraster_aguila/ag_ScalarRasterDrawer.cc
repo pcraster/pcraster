@@ -360,7 +360,7 @@ void ScalarRasterDrawer::drawContours(
 
               // If a line can be drawn from a previously set point.
               if(currentSet) {
-                painter.setPen(_properties.colour(contourNr));
+                painter.setPen(_properties.colour(contourValue));
                 painter.drawLine(currX, currY, newX, newY);
               }
 

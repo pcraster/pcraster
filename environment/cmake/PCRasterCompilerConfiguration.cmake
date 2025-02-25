@@ -84,12 +84,6 @@ add_compile_definitions(
   #"$<$<OR:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>:_CRT_SECURE_NO_WARNINGS;_USE_MATH_DEFINES;NOMINMAX>"
 )
 
-# Based on conda and https://developers.redhat.com/blog/2018/03/21/compiler-and-linker-flags-gcc/
-# https://wiki.ubuntu.com/ToolChain/CompilerFlags?action=show&redirect=CompilerFlags
-# https://wiki.debian.org/Hardening
-add_link_options(
-    "$<$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:Clang>>:-Wl,-O2;-Wl,--sort-common;-Wl,--as-needed;-Wl,-z,relro;-Wl,-z,now;-Wl,--disable-new-dtags;-Wl,--gc-sections;-Wl,--allow-shlib-undefined;-Wl,--warn-common;-Wl,--no-copy-dt-needed-entries>"
-)
 
 if(PCRASTER_WITH_FLAGS_IPO)
     include(CheckIPOSupported)

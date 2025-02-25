@@ -7,6 +7,13 @@ cd $SRC_DIR
 
 mkdir -p build
 
+# In case find Python fails: force it
+PYTHON=python
+Python_INCLUDE_DIR="$(${PYTHON} -c 'import sysconfig; print(sysconfig.get_path("include"))')"
+Python_NumPy_INCLUDE_DIR="$(${PYTHON} -c 'import numpy;print(numpy.get_include())')"
+CMAKE_ARGS="${CMAKE_ARGS} -DPython_EXECUTABLE:PATH=${PYTHON}"
+CMAKE_ARGS="${CMAKE_ARGS} -DPython_INCLUDE_DIR:PATH=${Python_INCLUDE_DIR}"
+CMAKE_ARGS="${CMAKE_ARGS} -DPython_NumPy_INCLUDE_DIR=${Python_NumPy_INCLUDE_DIR}"
 
 # master branch
 cmake ${CMAKE_ARGS} -S $SRC_DIR -B build \
@@ -22,3 +29,12 @@ cmake --build build --target all --parallel ${CPU_COUNT}
 ctest --test-dir build --output-on-failure --build-config Release
 
 cmake --build build --target install
+
+
+
+
+
+
+
+
+

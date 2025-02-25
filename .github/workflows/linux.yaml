@@ -11,7 +11,7 @@ jobs:
                 os: [ubuntu-24.04]
                 qt5: ["ON", "OFF"]
                 compiler:
-                    - { cc: gcc-12  , cxx: g++-12    }
+                    - { cc: gcc-13  , cxx: g++-13    }
                     - { cc: gcc-14  , cxx: g++-14    }
                     - { cc: clang-16, cxx: clang++-16}
                     - { cc: clang-18, cxx: clang++-18}

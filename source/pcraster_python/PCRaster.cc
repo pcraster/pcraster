@@ -1180,7 +1180,7 @@ PYBIND11_MODULE(_pcraster, module)
    is a boolean value which shows whether the first element, is valid or not.
    If the second element is False, the cell contains a missing value.
 
-.. versionadded:: 4.3
+   .. versionadded:: 4.3
     )",
     arg("map"), arg("index")
   );
@@ -1199,7 +1199,7 @@ PYBIND11_MODULE(_pcraster, module)
    is a boolean value which shows whether the first element, is valid or not.
    If the second element is False, the cell contains a missing value.
 
-.. versionadded:: 4.3
+   .. versionadded:: 4.3
     )",
     arg("map"), arg("row"), arg("col")
   );
@@ -1220,7 +1220,7 @@ PYBIND11_MODULE(_pcraster, module)
 
    Note that no check on coordinate reference systems is performed.
 
-.. versionadded:: 4.3
+   .. versionadded:: 4.3
     )",
     arg("map"), arg("xcoordinate"), arg("ycoordinate")
   );
@@ -1231,7 +1231,7 @@ PYBIND11_MODULE(_pcraster, module)
     R"(
    Returns the PCRaster version as tuple (major, minor, patch)
 
-.. versionadded:: 4.3
+   .. versionadded:: 4.3
     )"
   );
 

@@ -1,4 +1,5 @@
-add_library(_pcraster_moc_python MODULE
+# NO_EXTRAS required for success on macOS conda build
+pybind11_add_module(_pcraster_moc_python MODULE NO_EXTRAS THIN_LTO
     Extension.cc
     Moc.cc
 )
@@ -9,7 +10,6 @@ target_link_libraries(_pcraster_moc_python
     PUBLIC
         pcraster::moc
         pcraster::model_engine
-        $<IF:$<CXX_COMPILER_ID:GNU>,Python::Python,Python::Module>
 )
 
 set_target_properties(_pcraster_moc_python
@@ -22,14 +22,12 @@ set_target_properties(_pcraster_moc_python
             "_pcraster_moc"
         INSTALL_RPATH
             "$ORIGIN/../../../lib"
-        DEBUG_POSTFIX ""
-)
-
-set_target_properties(_pcraster_moc_python
-    PROPERTIES
-        PREFIX "${PYTHON_MODULE_PREFIX}"
-        SUFFIX "${PYTHON_MODULE_EXTENSION}"
-        DEBUG_POSTFIX ""
+        DEBUG_POSTFIX
+            ""
+        PREFIX
+            "${PYTHON_MODULE_PREFIX}"
+        SUFFIX
+            "${PYTHON_MODULE_EXTENSION}"
 )
 
 add_dependencies(_pcraster_moc_python

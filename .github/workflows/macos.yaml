@@ -5,7 +5,7 @@ on:
     pull_request:
 
 jobs:
-    build_release:
+    build_arm:
         strategy:
             matrix:
                 os: [macos-15]
@@ -62,8 +62,18 @@ jobs:
           run: |
               ctest --test-dir build --output-on-failure --build-config Release
 
+        - name: Build debug
+          shell: bash
+          run: |
+              cmake --build build --config Debug --target all
 
-    build_debug:
+        - name: Test debug
+          shell: bash
+          run: |
+              ctest --test-dir build --output-on-failure --build-config Debug
+
+
+    build_intel:
         strategy:
             matrix:
                 os: [macos-13]
@@ -84,7 +94,7 @@ jobs:
         - name: Configure system
           run: |
               : # GDAL is built against particular Python version, check formula code if required
-              HOMEBREW_NO_AUTO_UPDATE=1 brew install numpy pybind11 gdal ninja boost ncurses xerces-c qt@6
+              HOMEBREW_NO_AUTO_UPDATE=1 brew install llvm@16 numpy pybind11 gdal ninja boost ncurses xerces-c qt@6
 
         - name: Configure PCRaster
           shell: bash -l {0}
@@ -94,13 +104,23 @@ jobs:
                   -S . \
                   -B build \
                   -G "Ninja Multi-Config" \
-                  -D CMAKE_C_COMPILER=$(brew --prefix llvm@15)/bin/clang \
-                  -D CMAKE_CXX_COMPILER=$(brew --prefix llvm@15)/bin/clang++ \
+                  -D CMAKE_C_COMPILER=$(brew --prefix llvm@16)/bin/clang \
+                  -D CMAKE_CXX_COMPILER=$(brew --prefix llvm@16)/bin/clang++ \
                   -D CMAKE_CONFIGURATION_TYPES="Release;Debug" \
                   -D PCRASTER_BUILD_TEST=ON \
                   -D CMAKE_PREFIX_PATH="$(brew --prefix ncurses);$(brew --prefix qt6)" \
                   -D CMAKE_INSTALL_PREFIX=package \
                   -D Python_EXECUTABLE=$(brew --prefix ${{ matrix.python }})/libexec/bin/python
+
+        - name: Build debug
+          shell: bash
+          run: |
+              cmake --build build --config Debug --target all
+
+        - name: Test debug
+          shell: bash
+          run: |
+              ctest --test-dir build --output-on-failure --build-config Debug
 
         - name: Build debug
           shell: bash

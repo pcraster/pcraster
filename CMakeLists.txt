@@ -70,7 +70,7 @@ endif()
 # Display configuration summary
 message(STATUS "-----------------------------------------------------------")
 message(STATUS "PCRaster configuration summary:")
-message(STATUS "  Version:                  " ${${PROJECT_NAME}_VERSION})
+message(STATUS "  Version:                  " ${${PROJECT_NAME}_VERSION} " (" ${CMAKE_HOST_SYSTEM_PROCESSOR} ")")
 message(STATUS "  Directories:")
 message(STATUS "    Installation:")
 message(STATUS "      Binaries:             " ${CMAKE_INSTALL_PREFIX}/${PCRASTER_BIN_INSTALL_DIR} )

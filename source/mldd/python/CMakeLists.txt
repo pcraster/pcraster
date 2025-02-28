@@ -10,7 +10,6 @@ target_link_libraries(_pcraster_mldd_python
     PRIVATE
         pcraster::mldd
         pcraster::model_engine
-        # $<IF:$<CXX_COMPILER_ID:GNU>,Python::Python,Python::Module>
 )
 
 set_target_properties(_pcraster_mldd_python
@@ -25,6 +24,10 @@ set_target_properties(_pcraster_mldd_python
             ""
         INSTALL_RPATH
             "$ORIGIN/../../../lib"
+        PREFIX
+            "${PYTHON_MODULE_PREFIX}"
+        SUFFIX
+            "${PYTHON_MODULE_EXTENSION}"
 )
 
 add_dependencies(_pcraster_mldd_python _pcraster)
@@ -49,24 +52,6 @@ add_custom_command(
 #            ${PROJECT_BINARY_DIR}/bin/${CMAKE_CFG_INTDIR}/pcraster/mldd
 )
 
-set_target_properties(_pcraster_mldd_python
-    PROPERTIES
-        PREFIX "${PYTHON_MODULE_PREFIX}"
-        SUFFIX "${PYTHON_MODULE_EXTENSION}"
-)
-
-### SET_TARGET_PROPERTIES(_pcraster_mldd_python
-###     PROPERTIES
-###         ### SKIP_BUILD_RPATH FALSE
-###         ### BUILD_WITH_INSTALL_RPATH TRUE
-###         ### INSTALL_RPATH "$ORIGIN/../../../lib"
-###         ### INSTALL_RPATH_USE_LINK_PATH FALSE
-###
-###         # Write the extension to the pcraster sub directory.
-###         LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin/${CMAKE_CFG_INTDIR}/pcraster/mldd
-###         # Might be needed on Windows:
-###         # RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin/pcraster
-### )
 
 install(
     TARGETS _pcraster_mldd_python

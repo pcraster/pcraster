@@ -8,7 +8,7 @@ jobs:
     build_release:
         strategy:
             matrix:
-                os: [macos-13, macos-14]
+                os: [macos-15, macos-14-large]
                 python: [python@3.13]
             fail-fast: false
 

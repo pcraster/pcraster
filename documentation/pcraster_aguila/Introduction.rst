@@ -12,7 +12,6 @@ __ http://pcraster.geo.uu.nl
 
 These pages will get you started using Aguila as quickly as possible:
 
-- :ref:`installation`
 - :ref:`quickStart`
 
 Subsequent pages describe types of visualisations (views) that can be used, the dialogs, and the types of data that can be visualised.

@@ -19,6 +19,7 @@ Changes
 .. * Fixed failing unit tests when building with EasyBuild
 .. * prefixed modflow executable
 .. * gcc13 minimum
+.. * Set C standard to 17
 
 
 PCRaster 4.4.1

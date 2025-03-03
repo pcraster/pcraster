@@ -7,8 +7,8 @@ jobs:
 
         strategy:
             matrix:
-                os: ["ubuntu-20.04"]
-                python-version: ["3.9"]
+                os: ["ubuntu-24.04"]
+                python-version: ["3.13"]
             fail-fast: false
 
         runs-on: ${{ matrix.os }}
@@ -25,14 +25,15 @@ jobs:
               sudo apt install mesa-common-dev libglu1-mesa-dev libgl1-mesa-glx
 
         - name: Checkout PCRaster
-          uses: actions/checkout@v3
+          uses: actions/checkout@v4
 
-        - uses: conda-incubator/setup-miniconda@v2
+        - uses: conda-incubator/setup-miniconda@v3
           with:
+              miniforge-version: latest
               auto-update-conda: false
+              conda-remove-defaults: true
               python-version: ${{ matrix.python-version }}
-              channels: conda-forge
-              mamba-version: "*"
+
         - shell: bash -l {0}
           run: |
               mamba install boa -c conda-forge

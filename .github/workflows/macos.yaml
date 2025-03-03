@@ -10,7 +10,7 @@ jobs:
     build:
         strategy:
             matrix:
-                os: [macos-11, macos-12]
+                os: [macos-15]
             fail-fast: false
 
         runs-on: ${{ matrix.os }}
@@ -27,8 +27,8 @@ jobs:
         - name: Configure system
           run: |
               : # GDAL is built against particular Python version, check formula code if required
-              brew install python@3.11 cmake ninja boost gdal ncurses xerces-c qt@5 gcc@11
-              $(brew --prefix)/opt/python@3.11/bin/pip3 install numpy psutil
+              brew install python@3.13 cmake ninja boost gdal ncurses xerces-c qt@5 gcc@11
+              $(brew --prefix)/opt/python@3.13/bin/pip3 install numpy psutil
 
         - name: Configure PCRaster
           shell: bash -l {0}
@@ -41,7 +41,7 @@ jobs:
                   -D CMAKE_CONFIGURATION_TYPES="Release;Debug" \
                   -D PCRASTER_BUILD_TEST=ON \
                   -D CMAKE_PREFIX_PATH="/usr/local/opt/ncurses;$(brew --prefix qt5)" \
-                  -D Python3_EXECUTABLE:FILEPATH=$(brew --prefix)/opt/python@3.11/bin/python3 \
+                  -D Python3_EXECUTABLE:FILEPATH=$(brew --prefix)/opt/python@3.13/bin/python3 \
                   -D CMAKE_INSTALL_PREFIX=package
 
         - name: Build debug

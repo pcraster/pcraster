@@ -12,8 +12,8 @@ jobs:
             matrix:
                 os: [ubuntu-22.04]
                 compiler:
-                    - {version: 11, cc: gcc-11  , cxx: g++-11    }
-                    - {version: 12, cc: clang-12, cxx: clang++-12}
+                    - {version: 14, cc: gcc-14  , cxx: g++-14    }
+                    - {version: 18, cc: clang-18, cxx: clang++-18}
             fail-fast: false
 
         runs-on: ${{ matrix.os }}

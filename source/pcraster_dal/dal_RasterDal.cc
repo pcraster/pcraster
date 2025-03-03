@@ -4,11 +4,6 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_BOOST_SCOPED_PTR
-#include <boost/scoped_ptr.hpp>
-#define INCLUDED_BOOST_SCOPED_PTR
-#endif
-
 #ifndef INCLUDED_GDAL_PRIV
 #include "gdal_priv.h"
 #define INCLUDED_GDAL_PRIV

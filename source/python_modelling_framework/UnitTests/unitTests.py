@@ -17,13 +17,13 @@ except ImportError as error:
   raise SystemExit(error)
 
 suites = []
-suites.append(unittest.makeSuite(PercentileTests.PercentileTests))
-suites.append(unittest.makeSuite(frameworkBaseTest.frameworkBaseTestScript))
-suites.append(unittest.makeSuite(staticFrameworkTest.staticFrameworkTestScript))
-suites.append(unittest.makeSuite(dynamicFrameworkTest.dynamicFrameworkTestScript))
-suites.append(unittest.makeSuite(mcFrameworkTest.mcFrameworkTestScript))
-suites.append(unittest.makeSuite(particleFilterFrameworkTest.ParticleFilterFrameworkTestScript))
-suites.append(unittest.makeSuite(TimeoutputTest.TimeoutputTest))
+suites.append(unittest.TestLoader().loadTestsFromTestCase(PercentileTests.PercentileTests))
+suites.append(unittest.TestLoader().loadTestsFromTestCase(frameworkBaseTest.frameworkBaseTestScript))
+suites.append(unittest.TestLoader().loadTestsFromTestCase(staticFrameworkTest.staticFrameworkTestScript))
+suites.append(unittest.TestLoader().loadTestsFromTestCase(dynamicFrameworkTest.dynamicFrameworkTestScript))
+suites.append(unittest.TestLoader().loadTestsFromTestCase(mcFrameworkTest.mcFrameworkTestScript))
+suites.append(unittest.TestLoader().loadTestsFromTestCase(particleFilterFrameworkTest.ParticleFilterFrameworkTestScript))
+suites.append(unittest.TestLoader().loadTestsFromTestCase(TimeoutputTest.TimeoutputTest))
 suites = unittest.TestSuite(suites)
 
 result = unittest.TextTestRunner(verbosity=3).run(suites)

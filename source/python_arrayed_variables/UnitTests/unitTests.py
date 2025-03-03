@@ -12,8 +12,8 @@ except ImportError as error:
   raise SystemExit(error)
 
 suites = []
-suites.append(unittest.makeSuite(IndexTest.IndexUnitTests))
-suites.append(unittest.makeSuite(VariableCollectionTest.CollectionUnitTests))
+suites.append(unittest.TestLoader().loadTestsFromTestCase(IndexTest.IndexUnitTests))
+suites.append(unittest.TestLoader().loadTestsFromTestCase(VariableCollectionTest.CollectionUnitTests))
 suites = unittest.TestSuite(suites)
 
 result = unittest.TextTestRunner(verbosity=3).run(suites)

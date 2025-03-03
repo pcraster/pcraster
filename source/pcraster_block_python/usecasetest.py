@@ -29,11 +29,11 @@ class UseCaseTest(unittest.TestCase):
     # layer is added to the block. The max number of layers is 11 but
     # depending on the actual layer thicknesses, this number can be
     # smaller.
-    self.failUnless(PCRasterBlock.nrVoxels(stack) <= model.nrTimeSteps() + 1)
+    self.assertTrue(PCRasterBlock.nrVoxels(stack) <= model.nrTimeSteps() + 1)
 
     timeStep = model.d_timeStep
     timeStepStack = PCRasterBlock.real4VoxelStackData(timeStep, 1, 1)
 
     for i in range(1, PCRasterBlock.nrVoxels(stack) + 1):
-      self.failUnlessEqual(math.fmod(
+      self.assertEqual(math.fmod(
          PCRasterBlock.real4VoxelValue(timeStepStack, i), 1.0), 0.0)

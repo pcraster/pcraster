@@ -108,17 +108,17 @@ dynamic method")
 
     try:
       result = pcraster.readmap("static.map")
-      self.failUnless(self.mapEquals(result, "plus.Result.map"), "test_04: %s" % ("Result and validated result are not the same"))
+      self.assertTrue(self.mapEquals(result, "plus.Result.map"), "test_04: %s" % ("Result and validated result are not the same"))
     except Exception as exception:
-      self.failUnless(False, "test1: %s" % (str(exception)))
+      self.assertTrue(False, "test1: %s" % (str(exception)))
 
     for timestep in myModel.timeSteps():
       try:
         name = pcraster.framework.frameworkBase.generateNameT("dyna", timestep)
         result = pcraster.readmap(name)
-        self.failUnless(self.mapEquals(result, "plus.Result.map"), "test04: %s" % ("Result and validated result are not the same"))
+        self.assertTrue(self.mapEquals(result, "plus.Result.map"), "test04: %s" % ("Result and validated result are not the same"))
       except Exception as exception:
-        self.failUnless(False, "test1: %s" % (str(exception)))
+        self.assertTrue(False, "test1: %s" % (str(exception)))
 
   def test_8(self):
     """ test lookupscalar in dynamic model [bugzilla 269] """

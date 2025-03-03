@@ -474,14 +474,14 @@ class Test(testcase.TestCase):
 
 
 suite = unittest.TestSuite()
-suite.addTest(unittest.makeSuite(Test))
-suite.addTest(unittest.makeSuite(test_cellvalue.CellvalueTest))
-suite.addTest(unittest.makeSuite(testexamples.TestExamples))
-suite.addTest(unittest.makeSuite(testNumPy.TestNumPy))
-suite.addTest(unittest.makeSuite(import_test.ImportTest))
-suite.addTest(unittest.makeSuite(testPickle.TestPickle))
-suite.addTest(unittest.makeSuite(testPCRaster.TestPCRaster))
-suite.addTest(unittest.makeSuite(test_aguila.TestAguila))
+suite.addTest(unittest.TestLoader().loadTestsFromTestCase(Test))
+suite.addTest(unittest.TestLoader().loadTestsFromTestCase(test_cellvalue.CellvalueTest))
+suite.addTest(unittest.TestLoader().loadTestsFromTestCase(testexamples.TestExamples))
+suite.addTest(unittest.TestLoader().loadTestsFromTestCase(testNumPy.TestNumPy))
+suite.addTest(unittest.TestLoader().loadTestsFromTestCase(import_test.ImportTest))
+suite.addTest(unittest.TestLoader().loadTestsFromTestCase(testPickle.TestPickle))
+suite.addTest(unittest.TestLoader().loadTestsFromTestCase(testPCRaster.TestPCRaster))
+suite.addTest(unittest.TestLoader().loadTestsFromTestCase(test_aguila.TestAguila))
 
 result = unittest.TextTestRunner(verbosity=3).run(suite)
 test_result = (0 if result.wasSuccessful() else 1)

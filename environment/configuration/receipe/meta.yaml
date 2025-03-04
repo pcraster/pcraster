@@ -11,6 +11,8 @@ source:
 build:
   number: 0
 
+  ignore_run_exports_from:
+    - libboost-devel
 
   missing_dso_whitelist:
     - C:/Windows/System32/MSVCP140.dll      # [win]
@@ -28,32 +30,26 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - {{ cdt('mesa-libgl-devel') }}         # [linux]
-    - {{ cdt('mesa-dri-drivers') }}         # [linux]
-    - {{ cdt('libselinux') }}               # [linux]
-    - {{ cdt('libxdamage') }}               # [linux]
-    - {{ cdt('libxxf86vm') }}               # [linux]
-    - cmake >=3.15
+    - cmake
     - ninja
     - make                                  # [win]
 
   host:
     - xorg-libxfixes                        # [linux]
-    - boost-cpp
+    - libgl-devel                           # [linux]
+    - libboost-devel
     - xerces-c
-    - qt
+    - qt-main
     - ncurses                               # [not win]
     - libgdal
-    - gdal
     - python
-    - numpy >1.17
+    - numpy
     - vs2015_runtime                        # [win]
     - libglu                                # [linux]
-    - psutil
+    - pybind11-abi
 
   run:
     - python
-    - {{ pin_compatible('numpy') }}
     - libgdal
     - ncurses                               # [not win]
     - vs2015_runtime                        # [win]

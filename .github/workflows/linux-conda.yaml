@@ -8,12 +8,11 @@ jobs:
         strategy:
             matrix:
                 os: ["ubuntu-24.04"]
-                python-version: ["3.13"]
             fail-fast: false
 
         runs-on: ${{ matrix.os }}
 
-        name: ${{ matrix.os }} - ${{ matrix.python-version }}
+        name: ${{ matrix.os }}
 
         timeout-minutes: 120
 
@@ -32,7 +31,6 @@ jobs:
               miniforge-version: latest
               auto-update-conda: false
               conda-remove-defaults: true
-              python-version: ${{ matrix.python-version }}
 
         - shell: bash -l {0}
           run: |

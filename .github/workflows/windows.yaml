@@ -49,7 +49,7 @@ jobs:
 
         - shell: cmd /C call {0}
           run: |
-              mamba install numpy cmake ninja boost-cpp qt xerces-c libgdal gdal psutil make
+              mamba install numpy cmake ninja boost-cpp qt xerces-c libgdal gdal psutil make pybind11-abi
 
         - name: Configure PCRaster
           shell: cmd /C call {0}

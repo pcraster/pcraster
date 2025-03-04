@@ -27,7 +27,7 @@ jobs:
         - name: Configure system
           run: |
               : # GDAL is built against particular Python version, check formula code if required
-              brew install python@3.13 cmake ninja boost gdal ncurses xerces-c qt@5 gcc@11
+              HOMEBREW_NO_AUTO_UPDATE=1 brew install numpy pybind11 gdal ninja boost ncurses xerces-c qt@5
               $(brew --prefix)/opt/python@3.13/bin/pip3 install numpy psutil
 
         - name: Configure PCRaster

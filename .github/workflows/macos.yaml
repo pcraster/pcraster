@@ -39,7 +39,7 @@ jobs:
                   -G "Ninja Multi-Config" \
                   -D CMAKE_CONFIGURATION_TYPES="Release;Debug" \
                   -D PCRASTER_BUILD_TEST=ON \
-                  -D CMAKE_PREFIX_PATH="/usr/local/opt/ncurses;$(brew --prefix qt5)" \
+                  -D CMAKE_PREFIX_PATH="$(brew --prefix ncurses);$(brew --prefix qt5)" \
                   -D Python3_EXECUTABLE:FILEPATH=$(brew --prefix)/opt/python@3.13/bin/python3 \
                   -D CMAKE_INSTALL_PREFIX=package
 

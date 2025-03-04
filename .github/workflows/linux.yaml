@@ -10,7 +10,7 @@ jobs:
     build:
         strategy:
             matrix:
-                os: [ubuntu-22.04]
+                os: [ubuntu-24.04]
                 compiler:
                     - {version: 14, cc: gcc-14  , cxx: g++-14    }
                     - {version: 18, cc: clang-18, cxx: clang++-18}

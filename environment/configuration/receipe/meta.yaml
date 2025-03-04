@@ -47,6 +47,7 @@ requirements:
     - vs2015_runtime                        # [win]
     - libglu                                # [linux]
     - pybind11-abi
+    - pybind11
 
   run:
     - python

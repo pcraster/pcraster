@@ -37,6 +37,7 @@ requirements:
   host:
     - xorg-libxfixes                        # [linux]
     - libgl-devel                           # [linux]
+    - libopengl-devel                       # [linux]
     - libboost-devel
     - xerces-c
     - qt-main

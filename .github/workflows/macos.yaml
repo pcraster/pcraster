@@ -10,7 +10,7 @@ jobs:
     build:
         strategy:
             matrix:
-                os: [macos-15]
+                os: [macos-13, macos-15]
             fail-fast: false
 
         runs-on: ${{ matrix.os }}
@@ -28,6 +28,7 @@ jobs:
           run: |
               : # GDAL is built against particular Python version, check formula code if required
               HOMEBREW_NO_AUTO_UPDATE=1 brew install numpy pybind11 gdal ninja boost ncurses xerces-c qt@5
+              $(brew --prefix)/opt/python@3.13/bin/pip3 install psutil
 
         - name: Configure PCRaster
           shell: bash -l {0}

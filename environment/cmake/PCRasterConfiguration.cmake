@@ -118,7 +118,7 @@ if(PCRASTER_BUILD_TEST)
 endif()
 
 # >=1.73 required for header-only libraries
-find_package(Boost 1.73 REQUIRED COMPONENTS ${PCR_BOOST_COMPONENTS})
+find_package(Boost 1.73 REQUIRED COMPONENTS ${PCR_BOOST_COMPONENTS} CONFIG)
 
 if(${Boost_VERSION_STRING} VERSION_LESS_EQUAL "1.82.0")
     # hack to get code compiled with Boost versions 1.74 - 1.82(?) and clang-15
@@ -127,13 +127,28 @@ endif()
 
 
 if(PCRASTER_BUILD_MULTICORE)
+    # Bypass devbase... gh386
+    if("${CMAKE_OSX_ARCHITECTURES}" STREQUAL "arm64")
+        unset(CMAKE_OSX_ARCHITECTURES CACHE)
+    endif()
     CPMAddPackage(
         GITHUB_REPOSITORY geoneric/fern
-        GIT_TAG cc2187153567bbf8451ca0dcfea4b954142d26f5
+        GIT_TAG 70c9a14cc6751809521e48e827933f00e2e13a47
         OPTIONS "FERN_BUILD_ALGORITHM ON" "FERN_BUILD_TEST ${PCRASTER_BUILD_TEST}" "DEVBASE_BUILD_TEST ${PCRASTER_BUILD_TEST}" "CMAKE_SKIP_INSTALL_RULES ON"
     )
+
     # Just recreate an empty file to install nothing from Fern when installing PCRaster
     file(TOUCH ${CMAKE_CURRENT_BINARY_DIR}/_deps/fern-build/cmake_install.cmake)
+
+    # Make sure patch is only done once
+    # otherwise changing any CMakeLists.txt triggers continuous rebuild of most files
+    if(NOT EXISTS ${CMAKE_BINARY_DIR}/_deps/fern-src/source/fern/algorithm/core/unary_aggregate_operation.h.sentinel)
+        # Temporary fix for vs2022
+        file(READ ${CMAKE_BINARY_DIR}/_deps/fern-src/source/fern/algorithm/core/unary_aggregate_operation.h FERN_HEADER)
+        string(REPLACE "MSC_VER" "NOMSC_VER" FERN_HEADER "${FERN_HEADER}")
+        file(WRITE ${CMAKE_BINARY_DIR}/_deps/fern-src/source/fern/algorithm/core/unary_aggregate_operation.h "${FERN_HEADER}")
+        file(TOUCH ${CMAKE_BINARY_DIR}/_deps/fern-src/source/fern/algorithm/core/unary_aggregate_operation.h.sentinel)
+    endif()
 endif()
 
 CPMAddPackage(

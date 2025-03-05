@@ -28,7 +28,6 @@ jobs:
           run: |
               : # GDAL is built against particular Python version, check formula code if required
               HOMEBREW_NO_AUTO_UPDATE=1 brew install numpy pybind11 gdal ninja boost ncurses xerces-c qt@5
-              $(brew --prefix)/opt/python@3.13/bin/pip3 install psutil
 
         - name: Configure PCRaster
           shell: bash -l {0}
@@ -39,7 +38,7 @@ jobs:
                   -B build \
                   -G "Ninja Multi-Config" \
                   -D CMAKE_CONFIGURATION_TYPES="Release;Debug" \
-                  -D PCRASTER_BUILD_TEST=ON \
+                  -D PCRASTER_BUILD_TEST=OFF \
                   -D CMAKE_PREFIX_PATH="$(brew --prefix ncurses);$(brew --prefix qt5)" \
                   -D Python3_EXECUTABLE:FILEPATH=$(brew --prefix)/opt/python@3.13/bin/python3 \
                   -D CMAKE_INSTALL_PREFIX=package

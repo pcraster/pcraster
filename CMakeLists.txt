@@ -40,7 +40,7 @@ set(CMAKE_OSX_DEPLOYMENT_TARGET "10.15" CACHE STRING "Minimum OS X deployment ve
 
 project(pcraster)
 
-set(DEV_CURRENT_YEAR "2024")
+set(DEV_CURRENT_YEAR "2025")
 
 set(${PROJECT_NAME}_ORGANISATION_NAME "PCRaster owners")
 set(${PROJECT_NAME}_COPYRIGHT

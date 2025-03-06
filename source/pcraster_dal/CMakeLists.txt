@@ -140,7 +140,7 @@ target_include_directories(pcraster_dal
 
 target_include_directories(pcraster_dal SYSTEM
     PRIVATE
-        ${Boost_INCLUDE_DIRS}
+        Boost::headers
 )
 
 target_link_libraries(pcraster_dal

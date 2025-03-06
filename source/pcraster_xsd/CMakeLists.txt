@@ -208,7 +208,7 @@ target_include_directories(pcraster_xsd
 
 target_include_directories(pcraster_xsd SYSTEM
     PRIVATE
-        ${Boost_INCLUDE_DIRS}
+        Boost::headers
 )
 
 target_link_libraries(pcraster_xsd

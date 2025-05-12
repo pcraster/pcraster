@@ -68,11 +68,6 @@ add_compile_options(
     "$<$<COMPILE_LANG_AND_ID:C,GNU>:-pedantic;>"
     "$<$<COMPILE_LANG_AND_ID:CXX,GNU>:-pedantic;>"
     "$<$<CXX_COMPILER_ID:MSVC>:/W1>"
-    #"$<$<AND:$<PLATFORM_ID:Linux>,$<COMPILE_LANG_AND_ID:C,GNU>,$<CONFIG:Debug>>:-Wall;-pedantic;-Wpointer-arith;-Wdeclaration-after-statement>"
-    #"$<$<AND:$<PLATFORM_ID:Linux>,$<COMPILE_LANG_AND_ID:CXX,GNU>,$<CONFIG:Debug>>:>"
-    #"$<$<AND:$<PLATFORM_ID:Linux>,$<COMPILE_LANG_AND_ID:C,GNU>,$<CONFIG:Release>>:-Wall;-pedantic;-Wpointer-arith;-Wdeclaration-after-statement;-Wno-maybe-uninitialized;-Wstrict-prototypes>"
-    #"$<$<AND:$<PLATFORM_ID:Linux>,$<COMPILE_LANG_AND_ID:C,AppleClang,Clang>,$<CONFIG:Release>>:-Wall;-pedantic;-Wno-enum-conversion;-Wno-tautological-compare>"
-    #"$<$<AND:$<PLATFORM_ID:Linux>,$<COMPILE_LANG_AND_ID:CXX,GNU>,$<CONFIG:Release>>:>"
     #"$<$<AND:$<PLATFORM_ID:Linux>,$<CXX_COMPILER_ID:Clang>>:-stdlib=libc++>" #;-lc++abi  -stdlib=libc++;-D_GLIBCXX_USE_CXX11_ABI=0
 )
 
@@ -81,7 +76,6 @@ add_compile_definitions(
   #
   "$<$<COMPILE_LANG_AND_ID:C,MSVC>:_CRT_SECURE_NO_WARNINGS;_USE_MATH_DEFINES;NOMINMAX;_SILENCE_STDEXT_ARR_ITERS_DEPRECATION_WARNING>"
   "$<$<COMPILE_LANG_AND_ID:CXX,MSVC>:_CRT_SECURE_NO_WARNINGS;NOMINMAX;_SILENCE_STDEXT_ARR_ITERS_DEPRECATION_WARNING>"
-  #"$<$<OR:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>:_CRT_SECURE_NO_WARNINGS;_USE_MATH_DEFINES;NOMINMAX>"
 )
 
 

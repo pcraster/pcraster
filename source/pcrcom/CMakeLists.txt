@@ -26,7 +26,7 @@ add_library(pcrcom
     com_basictable.cc
     com_cliberror.cc
     com_countedobject.cc
-    com_cpucyclecounter.cc
+    # com_cpucyclecounter.cc
     com_csfcell.cc
     com_cumprobabilityclassifier.cc
     com_directory.cc
@@ -121,7 +121,7 @@ if(PCRASTER_BUILD_TEST)
             # com_commandlinetest.cc
             # com_argumentparsertest.cc
             com_appargstest.cc
-            com_cpucyclecountertest.cc
+            # com_cpucyclecountertest.cc
             com_csfcelltest.cc
             com_directorytest.cc
             com_filemaptest.cc

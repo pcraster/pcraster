@@ -103,8 +103,7 @@ calc::Executor::Executor(
   CFGVisitor(cfg),
   d_rte(s),
   d_timeoutput(nullptr),
-  d_progressInfo(new ProgressInfo()),
-  d_counter(COUNT_NR)
+  d_progressInfo(new ProgressInfo())
 {
   d_progressCallBack=&defaultProgressCallBack;
   d_progressInfo->nrTimeSteps=d_rte.timer().lastInt();
@@ -330,12 +329,10 @@ void calc::Executor::enterDynamicSection(DynamicSection* )
   d_progressInfo->inTimeStep =d_rte.timer().currentInt();
   d_progressCallBack->update(*d_progressInfo);
 
-  d_counter.start(COUNT_DYNAMIC);
 }
 
 void calc::Executor::jumpOutDynamicSection(DynamicSection*)
 {
-  d_counter.stop(COUNT_DYNAMIC);
   // at end of DynamicSection
   if (d_rte.timer().currentInt() < d_rte.timer().lastInt())
     setTakeBackBranch(true);
@@ -362,7 +359,6 @@ void calc::Executor::jumpOutCode(Code *)
 void calc::Executor::enterRepeatUntil(RepeatUntil * )
 {
   // at start of RepeatUntil
-  d_counter.start(COUNT_REPEAT);
 }
 
 void calc::Executor::jumpOutRepeatUntil(RepeatUntil*)
@@ -371,8 +367,7 @@ void calc::Executor::jumpOutRepeatUntil(RepeatUntil*)
   if (!d_rte.stackedCondition()) {
     // repeat again: !thisIsTrue
     setTakeBackBranch(true);
-  } else
-    d_counter.stop(COUNT_REPEAT);
+  }
 }
 
 //! assume the JumpOut... is called first

@@ -11,10 +11,6 @@
 // Library headers.
 
 // PCRaster library headers.
-#ifndef INCLUDED_COM_CPUCYCLECOUNTER
-#include "com_cpucyclecounter.h"
-#define INCLUDED_COM_CPUCYCLECOUNTER
-#endif
 
 // Module headers.
 #ifndef INCLUDED_CALC_CFGVISITOR
@@ -60,8 +56,6 @@ private:
   BaseExpr*         d_timeoutput;
   ProgressCallBack* d_progressCallBack;
   ProgressInfo*     d_progressInfo;
-
-  com::CpuCycleCounter d_counter;
 
   Field*            popResult       ();
 

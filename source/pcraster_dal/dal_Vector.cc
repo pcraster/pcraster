@@ -1,7 +1,5 @@
 #ifndef INCLUDED_DAL_VECTOR
 #include "dal_Vector.h"
-
-#include <memory>
 #define INCLUDED_DAL_VECTOR
 #endif
 

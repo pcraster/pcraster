@@ -94,7 +94,7 @@ jobs:
         - name: Configure system
           run: |
               : # GDAL is built against particular Python version, check formula code if required
-              HOMEBREW_NO_AUTO_UPDATE=1 brew install llvm@16 numpy pybind11 gdal ninja boost ncurses xerces-c qt@6
+              HOMEBREW_NO_AUTO_UPDATE=1 brew install llvm@17 numpy pybind11 gdal ninja boost ncurses xerces-c qt@6
 
         - name: Configure PCRaster
           shell: bash -l {0}
@@ -104,8 +104,8 @@ jobs:
                   -S . \
                   -B build \
                   -G "Ninja Multi-Config" \
-                  -D CMAKE_C_COMPILER=$(brew --prefix llvm@16)/bin/clang \
-                  -D CMAKE_CXX_COMPILER=$(brew --prefix llvm@16)/bin/clang++ \
+                  -D CMAKE_C_COMPILER=$(brew --prefix llvm@17)/bin/clang \
+                  -D CMAKE_CXX_COMPILER=$(brew --prefix llvm@17)/bin/clang++ \
                   -D CMAKE_CONFIGURATION_TYPES="Release;Debug" \
                   -D PCRASTER_BUILD_TEST=ON \
                   -D CMAKE_PREFIX_PATH="$(brew --prefix ncurses);$(brew --prefix qt6)" \

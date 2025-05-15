@@ -13,6 +13,7 @@ target_include_directories(pcrdiscr
 
 target_link_libraries(pcrdiscr
     pcraster::dal
+    Boost::headers
 )
 
 if(PCRASTER_BUILD_TEST)

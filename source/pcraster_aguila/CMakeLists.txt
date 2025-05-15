@@ -222,6 +222,7 @@ if(PCRASTER_WITH_OPENGL)
     target_link_libraries(pcraster_aguila_objects
         PRIVATE
             pcraster::xsd
+            Boost::headers
             Qt::Widgets
             Qt::OpenGL
             Qt::Xml
@@ -231,6 +232,7 @@ else()
     target_link_libraries(pcraster_aguila_objects
         PRIVATE
             pcraster::xsd
+            Boost::headers
             Qt::Widgets
             Qt::Xml
     )

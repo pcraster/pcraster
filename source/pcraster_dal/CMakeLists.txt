@@ -90,9 +90,10 @@ add_library(pcraster_dal_objects OBJECT
 )
 
 target_link_libraries(pcraster_dal_objects
-  PRIVATE
-    GDAL::GDAL
-    Qt::Sql
+    PRIVATE
+        Boost::headers
+        GDAL::GDAL
+        Qt::Sql
 )
 
 target_include_directories(pcraster_dal_objects

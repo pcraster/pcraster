@@ -16,6 +16,10 @@ if(POLICY CMP0156)
     set(CMAKE_POLICY_DEFAULT_CMP0156 NEW)
 endif()
 
+if(POLICY CMP0144)
+    cmake_policy(SET CMP0144 NEW)
+    set(CMAKE_POLICY_DEFAULT_CMP0144 NEW)
+endif()
 
 project(pcraster)
 

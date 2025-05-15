@@ -34,6 +34,10 @@ target_include_directories(pcrmf_objects
         $<TARGET_PROPERTY:pcraster::model_engine,INTERFACE_INCLUDE_DIRECTORIES>
 )
 
+target_link_libraries(pcrmf_objects
+     PRIVATE
+        Boost::headers
+)
 
 add_library(pcrmf STATIC
     $<TARGET_OBJECTS:pcrmf_objects>

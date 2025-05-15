@@ -40,6 +40,7 @@ target_include_directories(mldd
 target_link_libraries(mldd
     PUBLIC
         pcraster::pcrgeo
+        Boost::headers
 )
 
 # install(

@@ -304,6 +304,7 @@ target_include_directories(pcraster_model_engine_objects SYSTEM
 # Is the above obsolete when using target_link_libraries?
 target_link_libraries(pcraster_model_engine_objects
   pcraster::xsd
+  Boost::headers
 )
 
 target_include_directories(pcraster_model_engine_objects

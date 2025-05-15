@@ -18,6 +18,8 @@
 #define INCLUDED_STRING
 #endif
 
+#include <utility>
+
 class QDomNode;
 
 namespace pcrxml {
@@ -55,7 +57,7 @@ private:
   bool                allChildrenProcessed() const;
 
   QDomNode             currentChild()         const {
-    PRECOND(d_current < d_children.length());
+    PRECOND(std::cmp_less(d_current,  d_children.length()));
     return d_children.item(d_current);
   }
 

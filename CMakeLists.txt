@@ -1,5 +1,12 @@
 cmake_minimum_required(VERSION 3.15)
 
+# Policies for PCRaster and subprojects
+if(POLICY CMP0144)
+    cmake_policy(SET CMP0144 NEW)
+    set(CMAKE_POLICY_DEFAULT_CMP0144 NEW)
+endif()
+
+
 # Policies for PCRaster project
 if(POLICY CMP0094)
     cmake_policy(SET CMP0094 NEW)

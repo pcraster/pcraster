@@ -22,6 +22,15 @@ Changes
 .. * Set C standard to 17
 
 
+PCRaster 4.4.2
+--------------
+
+This is a bug fix release for 4.4.
+
+* We fixed converting to and from NumPy when using NumPy 2 (`#413 <https://github.com/pcraster/pcraster/issues/413>`_).
+
+For a list of solved issues see our `4.4.2 <https://github.com/pcraster/pcraster/milestone/13>`_ milestone.
+
 PCRaster 4.4.1
 --------------
 

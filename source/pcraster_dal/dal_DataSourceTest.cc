@@ -20,7 +20,7 @@ class ClientWrapper : public dal::Client {
 public:
   ClientWrapper(std::filesystem::path const& prefix,
                    bool addAllDrivers=false,
-                   bool cacheDatasetInfo=true)
+                   bool  /*cacheDatasetInfo*/=true)
   : dal::Client(prefix, addAllDrivers) {
   }
 };

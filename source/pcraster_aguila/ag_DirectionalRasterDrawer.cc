@@ -57,7 +57,7 @@ void DirectionalRasterDrawer::draw(
          QPainter& painter,
          QRect const& indices,
          QTransform const& world_to_screen,
-         QTransform const& screen_to_world) const
+         QTransform const&  /*screen_to_world*/) const
 {
   if(!_raster->isRead() || _raster->allMV() || _properties.nrClasses() == 0) {
     return;

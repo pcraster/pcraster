@@ -42,7 +42,7 @@ QRectF LineMarker::boundingRect() const
 }
 
 
-void LineMarker::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+void LineMarker::paint(QPainter *painter, const QStyleOptionGraphicsItem * /*option*/, QWidget * /*widget*/)
 {
   painter->setPen(QPen(Qt::gray, 2));
 

@@ -137,7 +137,7 @@ void calc::ModelLinkMethodExpr::buildTypes()
 }
 
 //! buids its own types and call for sub-expression
-void calc::ModelLinkMethodExpr::buildTypesRecursive(VS resultVsSet)
+void calc::ModelLinkMethodExpr::buildTypesRecursive([[maybe_unused]] VS resultVsSet)
 {
   PRECOND(resultVsSet != VS_UNKNOWN);
   for(auto d_arg : d_args)

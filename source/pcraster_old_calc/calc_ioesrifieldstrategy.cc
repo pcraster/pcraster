@@ -105,7 +105,7 @@ namespace calc {
   typedef StackReaderT<EsriMap> EsriStackReader;
 
   template <>
-  VS EsriStackReader::checkItem(size_t t, VS expectVsSet) const
+  VS EsriStackReader::checkItem(size_t t, [[maybe_unused]] VS expectVsSet) const
   {
     PRECOND(expectVsSet != VS_UNKNOWN);
     EsriMap map(itemName(t));

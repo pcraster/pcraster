@@ -318,7 +318,7 @@ void mackeyBridgeAdd(discr::Block& block,
 static void deHaanAdd(
          discr::Block& block,
          size_t index,
-         std::vector<INT4>& sediment,
+         [[maybe_unused]] std::vector<INT4>& sediment,
          INT4 sedimentToAdd,
          std::vector<REAL4>& initialThickness,
          std::vector<REAL4>& cummulativeLoad,

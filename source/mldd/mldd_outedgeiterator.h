@@ -81,7 +81,7 @@ public:
      OutEdgeIterator(
           const       Vertex& v,
           int         outflowMask,
-          geo::NB::Code start):
+          [[maybe_unused]] geo::NB::Code start):
           d_v(v),
           d_outflowMask(outflowMask)
       {

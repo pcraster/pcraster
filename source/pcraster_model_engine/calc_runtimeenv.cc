@@ -172,7 +172,7 @@ calc::RunTimeEnv::~RunTimeEnv()
 
 //! tests constraints for nrRow and nrCell limits
 void calc::RunTimeEnv::checkConstraints(
-   const RunTimeEnvSettings& s) const
+   const RunTimeEnvSettings&  /*s*/) const
 {
   // The CSF rasterformat uses INT4 to store the number of rows or the number of columns
   // the maximum value should not exeed signed int32

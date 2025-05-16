@@ -61,7 +61,7 @@ FeatureLayerDrawer::~FeatureLayerDrawer()
 void FeatureLayerDrawer::drawPoint(
          QPainter& painter,
          QTransform const& world_to_screen,
-         QTransform const& screen_to_world,
+         QTransform const&  /*screen_to_world*/,
          long int /* featureId */,
          OGRPoint const& point) const
 {
@@ -77,7 +77,7 @@ void FeatureLayerDrawer::drawPoint(
 void FeatureLayerDrawer::drawLine(
          QPainter& painter,
          QTransform const& world_to_screen,
-         QTransform const& screen_to_world,
+         QTransform const&  /*screen_to_world*/,
          long int /* featureId */,
          OGRLineString const& line) const
 {
@@ -108,7 +108,7 @@ void FeatureLayerDrawer::drawLine(
 void FeatureLayerDrawer::drawPolygon(
          QPainter& painter,
          QTransform const& world_to_screen,
-         QTransform const& screen_to_world,
+         QTransform const&  /*screen_to_world*/,
          long int featureId,
          OGRPolygon const& polygon) const
 {

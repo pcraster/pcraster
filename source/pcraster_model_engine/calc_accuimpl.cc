@@ -287,7 +287,7 @@ void calc::AccuImpl::finishVertex(size_t v)
 
 #define ACCU_CLASS(Name)                                     \
 void calc::Accu##Name::exec(                                 \
-    RunTimeEnv* rte, const Operator& op,size_t nrArgs) const \
+    RunTimeEnv* rte, const Operator& op, [[maybe_unused]] size_t nrArgs) const \
 { PRECOND(nrArgs==3); accuStateFlux<Name>(rte,op); }
 
 ACCU_CLASS(Capacity)

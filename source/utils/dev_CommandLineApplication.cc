@@ -112,7 +112,7 @@ CommandLineApplication::positionalOptions()
 
 
 void CommandLineApplication::addPositionalOption(
-         std::string const& name,
+         std::string const&  /*name*/,
          short maxCount,
          const std::string& description)
 {

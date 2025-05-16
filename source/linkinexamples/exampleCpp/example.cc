@@ -80,7 +80,7 @@ public:
     }
   }
 
-  Class1(pcrxml::LinkInExecuteInput const& l,
+  Class1([[maybe_unused]] pcrxml::LinkInExecuteInput const& l,
          LinkInTransferArray linkInTransferArray)
   {
     assert(l.argument().size()==1);

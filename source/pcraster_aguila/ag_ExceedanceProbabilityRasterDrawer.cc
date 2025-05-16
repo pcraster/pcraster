@@ -59,7 +59,7 @@ void ExceedanceProbabilityRasterDrawer::drawSingleColour(
          QPainter& painter,
          QRect const& indices,
          QTransform const& world_to_screen,
-         QTransform const& screen_to_world) const
+         QTransform const&  /*screen_to_world*/) const
 {
   size_t nrCellsPerPixel = this->nrCellsPerPixel(world_to_screen);
   double leftScreen, topScreen, rightScreen, bottomScreen;
@@ -121,7 +121,7 @@ void ExceedanceProbabilityRasterDrawer::drawMultipleColours(
          QPainter& painter,
          QRect const& indices,
          QTransform const& world_to_screen,
-         QTransform const& screen_to_world) const
+         QTransform const&  /*screen_to_world*/) const
 {
   size_t nrCellsPerPixel = this->nrCellsPerPixel(world_to_screen);
   double leftScreen, topScreen, rightScreen, bottomScreen;
@@ -203,7 +203,7 @@ void ExceedanceProbabilityRasterDrawer::drawContours(
          QPainter& painter,
          QRect const& indices,
          QTransform const& world_to_screen,
-         QTransform const& screen_to_world) const
+         QTransform const&  /*screen_to_world*/) const
 {
   //  Method:
   //

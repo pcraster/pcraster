@@ -438,7 +438,7 @@ bool calc::LookupTable::interpolate(
  * \todo
  *   now only for the dynamicwave table: only column 1 being an equalTo value.
  */
-void  calc::LookupTable::setPrefixStableSort(size_t prefixLen)
+void  calc::LookupTable::setPrefixStableSort([[maybe_unused]] size_t prefixLen)
 {
   // already constructed
   if (d_prefixMap)

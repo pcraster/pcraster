@@ -67,8 +67,7 @@ add_compile_options(
     "$<$<COMPILE_LANG_AND_ID:CXX,AppleClang,Clang>:>"
     "$<$<COMPILE_LANG_AND_ID:C,GNU>:-pedantic;>"
     "$<$<COMPILE_LANG_AND_ID:CXX,GNU>:-pedantic;>"
-    "$<$<CXX_COMPILER_ID:MSVC>:/W1>"
-    #"$<$<AND:$<PLATFORM_ID:Linux>,$<CXX_COMPILER_ID:Clang>>:-stdlib=libc++>" #;-lc++abi  -stdlib=libc++;-D_GLIBCXX_USE_CXX11_ABI=0
+    "$<$<CXX_COMPILER_ID:MSVC>:/W4;/wd4996>"
 )
 
 add_compile_definitions(

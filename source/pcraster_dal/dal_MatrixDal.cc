@@ -94,7 +94,7 @@ dal::MatrixDal::open(
 {
   assert(nrDrivers() > 0);
   std::shared_ptr<Dataset> dataset;
-  dal::Driver* driver;
+  dal::Driver* driver = nullptr;
   std::tie(dataset, driver) = Dal::open(name, MATRIX);
   return std::make_tuple(std::dynamic_pointer_cast<Matrix>(dataset),
       dynamic_cast<MatrixDriver*>(driver));

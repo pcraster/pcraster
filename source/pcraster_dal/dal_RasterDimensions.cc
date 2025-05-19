@@ -18,7 +18,7 @@
 #define INCLUDED_DAL_SPATIALCOORDINATE
 #endif
 
-
+#include <cmath>
 
 /*!
   \file
@@ -89,7 +89,7 @@ RasterDimensions::RasterDimensions()
 
   : MatrixDimensions(),
     SpaceDimensions()
-    
+
 
 {
 }
@@ -288,7 +288,7 @@ size_t RasterDimensions::index(
          double x,
          double y) const
 {
-  double row, col;
+  double row = NAN, col = NAN;
 
   indices(x, y, row, col);
 
@@ -362,7 +362,7 @@ RasterDimensions RasterDimensions::areaDimensions(
 
   if(west < east && north > south) {
     // Determine cell-indices of corners of overlap.
-    double westIndex, northIndex, eastIndex, southIndex;
+    double westIndex = NAN, northIndex = NAN, eastIndex = NAN, southIndex = NAN;
     this->indices(west, north, northIndex, westIndex);
     this->indices(east, south, southIndex, eastIndex);
 
@@ -374,7 +374,7 @@ RasterDimensions RasterDimensions::areaDimensions(
     assert(northIndex <= southIndex);
 
     // Determine coordinates of north-west corner of north-west cell.
-    double northSnapped, westSnapped;
+    double northSnapped = NAN, westSnapped = NAN;
     this->coordinates(
          static_cast<size_t>(std::floor(northIndex)),
          static_cast<size_t>(std::floor(westIndex)),

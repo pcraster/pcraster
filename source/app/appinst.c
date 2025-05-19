@@ -8,9 +8,10 @@
 /* libs ext. <>, our ""  */
 #include "app.h"  /* GetOpt, ArgArguments, InstallArgs */
 #include "misc.h"  /* ChkRealloc, StrcpTmpMalloc */
-#include <string.h>  /* memmove, strlen, strchr, strcmp */
-#include <ctype.h>  /* isspace */
 #include "pcrshell.h" /* set directory */
+#include <ctype.h>  /* isspace */
+#include <math.h>
+#include <string.h>  /* memmove, strlen, strchr, strcmp */
 
 #ifndef INCLUDED_APP_OPTIONS
 #include "app_options.h"
@@ -119,14 +120,14 @@ static FLAG *getOptFlagSet;
 
 static BOOL NumbersAreArg(const char *arg)
 {
-   double d;
+   double d = NAN;
    return appNumbersAreArguments && CnvrtDouble(&d,arg);
 }
 
 static int InstallLocalOptions(
   const char *o) /* option string passed to InstallArgs */
 {
-        size_t i,n = strlen(o); /* big enough, too big */
+        size_t i = 0,n = strlen(o); /* big enough, too big */
         int groupInputLen = 0;
 
 #     ifdef DEBUG
@@ -253,7 +254,7 @@ const char* nextSaveStrtok(SAVE_STRTOK s);
  static int ParseEnv(void)
  {
   SAVE_STRTOK ss;
-  const char   *p;
+  const char   *p = NULL;
   char *env = getenv("PCROPTIONS");
   if (env == NULL)
     return 0; /* ready */
@@ -317,16 +318,16 @@ static int ParseLocalFlags(
   int *locArgPtr,  /* read-write local arg ptr */
   int  argc)       /* nr of arguments */
 {
-  int i;
+  int i = 0;
   const char *f = locArgv[*locArgPtr];
-  FLAG *currFlag;
+  FLAG *currFlag = NULL;
 
   PRECOND(f[0] == '-');
 
   for(i=1; f != NULL && f[i] != '\0'; i++)
   {
    char *flagPtr = strchr(localFlags, f[i]);
-   int  flagIndex;
+   int  flagIndex = 0;
    if (flagPtr == NULL)
      return RetError(1,"Unknown option '%c'",f[i]);
    flagIndex = flagPtr-localFlags;
@@ -376,7 +377,7 @@ static int ParseArgv(
   int argc,    /* number of arguments */
   char *argv[])  /* read-only input line */
 {
-  int locArgPtr;
+  int locArgPtr = 0;
   locArgc = argc;
   locArgv = (char **)ChkMalloc(argc*sizeof(char *));
 
@@ -451,7 +452,7 @@ static BOOL GroupCheck(void)
 {
   enum state { SINGLE, GROUP } state;
   int  groupMemberUsed = -1; /* FOR DEBUG */
-  int i,n = strlen(groupResult);
+  int i = 0,n = strlen(groupResult);
   PRECOND(groupResult);
   state = SINGLE;
   for(i=0; i < n; i++)
@@ -494,7 +495,7 @@ int AppParseShellLine(
   const char *firstLine)
 {
   SAVE_STRTOK ss = createSaveStrtok(firstLine);
-  const char *p;
+  const char *p = NULL;
   PRECOND(!appCloneParsed);
   p= nextSaveStrtok(ss);
   while( p != NULL )
@@ -538,7 +539,7 @@ error:
  */
 char **ArgArguments(int *nrArgs)    /* write-only number of arguments */
 {
-  int src, dest=0;
+  int src = 0, dest=0;
   /* shift ptrs to begin */
   for(src=0; src < locArgc; src++)
     if (locArgv[src] != NULL)
@@ -561,8 +562,8 @@ char **ArgArguments(int *nrArgs)    /* write-only number of arguments */
  */
  int GetOpt(void)
  {
-  int nextFlag;
-  char *grPtr;
+  int nextFlag = 0;
+  char *grPtr = NULL;
   if (getOptNextFlag >= nrMaxDiffFlagsSet || flagsSet == NULL)
     return 0;
 
@@ -717,7 +718,7 @@ int AppArgCountCheck(
  */
 void AppEnd(void)
 {
-  size_t i;
+  size_t i = 0;
 
   FREE_NULL(appClone);
   EndGetOpt();

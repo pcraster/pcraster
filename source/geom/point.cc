@@ -13,6 +13,7 @@
 
 #include <boost/test/tools/floating_point_comparison.hpp>
 
+#include <cmath>
 #include <cfloat>
 #include <numbers>
 
@@ -248,7 +249,7 @@ int PointOnLineAlsoOnCord(const POINT2D *p,  /* point that is on the line throug
                           const POINT2D *c1, /* first end of cord */
                           const POINT2D *c2) /* second end of cord  */
 {
-    PTYPE maxX, minX, maxY, minY;
+    PTYPE maxX = NAN, minX = NAN, maxY = NAN, minY = NAN;
     IFDEBUG(LINE lineThroughCord);
 
     PRECOND(PointOnLine(CalcLine(&lineThroughCord, c1, c2), p));
@@ -322,7 +323,7 @@ int MiddleOnLine(const LINE *l,     /* line where all three points are part of *
                  const POINT2D *p2, /* point 2 */
                  const POINT2D *p3) /* point 3 */
 {
-    double d1, d2, d3;
+    double d1 = NAN, d2 = NAN, d3 = NAN;
 
     PRECOND(PointOnLine(l, p1));
     PRECOND(PointOnLine(l, p2));
@@ -430,10 +431,10 @@ int PointInPolygon(const POINT2D *p,   /* point  */
          * Revision 1.2  and earlier was wrong for edges that were
          * parallel to the plumb-line
          */
-    int i;
+    int i = 0;
     int nrInter = 0;
-    double atY;
-    PTYPE minX, maxX, minY, maxY;
+    double atY = NAN;
+    PTYPE minX = NAN, maxX = NAN, minY = NAN, maxY = NAN;
     LINE l;
 
     PRECOND(nr > 2);
@@ -508,8 +509,8 @@ int CentroidOfPolygon(POINT2D *c,         /* write-only. the centroid  */
                       const POINT2D *pol, /* polygon */
                       int nr)             /* number of points defining the polygon  */
 {
-    int i;
-    long double up, low;
+    int i = 0;
+    long double up = NAN, low = NAN;
 
     PRECOND(nr > 2);
     PRECOND(pol[0].x == pol[nr].x);
@@ -557,12 +558,12 @@ int SmallestFittingRectangleCentre(
     const POINT2D *pol, /* the polygon */
     int nr)             /* number of points in the polygon */
 {
-    PTYPE minX, maxX, minY, maxY;
-    double angle, bestAngle;
-    double area, smallArea;
+    PTYPE minX = NAN, maxX = NAN, minY = NAN, maxY = NAN;
+    double angle = NAN, bestAngle = NAN;
+    double area = NAN, smallArea = NAN;
     double step = geomFittingRectangleStep;
-    int i;
-    POINT2D *p, nc; /* p is work-copy of polygon */
+    int i = 0;
+    POINT2D *p = nullptr, nc; /* p is work-copy of polygon */
 
     PRECOND(pol[0].x == pol[nr].x);
     PRECOND(pol[0].y == pol[nr].y);
@@ -622,7 +623,7 @@ double AreaRectangle(double maxX, double minX, double maxY, double minY)
 double AreaOfPolygon(const POINT2D *p, /* the polygon */
                      int nr)           /* number of points defining the polygon */
 {
-    int i;
+    int i = 0;
     long double a = 0;
 
     PRECOND(p[0].x == p[nr].x);
@@ -645,7 +646,7 @@ double AreaOfPolygon(const POINT2D *p, /* the polygon */
  */
 double CWAngle(const POINT2D *p) /* the point */
 {
-    double angle;
+    double angle = NAN;
 
     /********************************************************/
     /* Documentation note CWAngle                           */
@@ -799,7 +800,7 @@ POINT2D *CopyPoint(POINT2D *d,       /* destination point */
 POINT2D *RotPoint(POINT2D *p, /* read-write, point to rotated */
                   double a)   /* angle in radians, counter clock wise */
 {
-    double c, s, x;
+    double c = NAN, s = NAN, x = NAN;
 
     c = cos(a);
     s = sin(a);
@@ -817,7 +818,7 @@ POINT2D *RotPoint(POINT2D *p, /* read-write, point to rotated */
 double MinXPolygon(const POINT2D *p, /* the polygon */
                    int n)            /* number of points defining the polygon */
 {
-    int i;
+    int i = 0;
     double m = p[0].x;
     PRECOND(n > 0);
     for (i = 1; i < n; i++)
@@ -831,7 +832,7 @@ double MinXPolygon(const POINT2D *p, /* the polygon */
 double MinYPolygon(const POINT2D *p, /* the polygon */
                    int n)            /* number of points defining the polygon */
 {
-    int i;
+    int i = 0;
     double m = p[0].y;
     PRECOND(n > 0);
     for (i = 1; i < n; i++)
@@ -845,7 +846,7 @@ double MinYPolygon(const POINT2D *p, /* the polygon */
 double MaxXPolygon(const POINT2D *p, /* the polygon */
                    int n)            /* number of points defining the polygon */
 {
-    int i;
+    int i = 0;
     double m = p[0].x;
     PRECOND(n > 0);
     for (i = 1; i < n; i++)
@@ -859,7 +860,7 @@ double MaxXPolygon(const POINT2D *p, /* the polygon */
 double MaxYPolygon(const POINT2D *p, /* the polygon */
                    int n)            /* number of points defining the polygon */
 {
-    int i;
+    int i = 0;
     double m = p[0].y;
     PRECOND(n > 0);
     for (i = 1; i < n; i++)

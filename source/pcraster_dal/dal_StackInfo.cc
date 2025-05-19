@@ -408,7 +408,7 @@ void dal::StackInfo::scan()
   }
 
   // Loop over all filenames in the directory.
-  size_t step;
+  size_t step = 0;
   while(iterator != end) {
     if(isMemberOfStack(*iterator)) {
       step = this->step(*iterator);

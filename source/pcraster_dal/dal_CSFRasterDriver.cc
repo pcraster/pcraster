@@ -4,11 +4,6 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_CSTRING
-#include <cstring>
-#define INCLUDED_CSTRING
-#endif
-
 #ifndef INCLUDED_BOOST_LEXICAL_CAST
 #include <boost/lexical_cast.hpp>
 #define INCLUDED_BOOST_LEXICAL_CAST
@@ -67,6 +62,8 @@
 #define INCLUDED_DAL_TYPE
 #endif
 
+#include <cmath>
+#include <cstring>
 
 
 /*!
@@ -394,7 +391,7 @@ void CSFRasterDriver::read(
   auto const& spatialCoordinate(
          address.coordinate<SpatialCoordinate>(space.indexOf(Space)));
 
-  double row, col;
+  double row = NAN, col = NAN;
 
   RasterDimensions dimensions(map.nrRows(), map.nrCols(), map.cellSize(),
          map.west(), map.north());

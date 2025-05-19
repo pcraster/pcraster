@@ -69,7 +69,7 @@ static void StartTimer(void)
  */
 static long ReadTimer(void)
 {
-  time_t now;
+  time_t now = 0;
 
   if (paused != ZERO)
     return((long)(paused-start));
@@ -83,7 +83,7 @@ static long ReadTimer(void)
  */
 void AppDynamicProgress(void)
 {
- const char *time;
+ const char *time = NULL;
  if(appOutput != APP_PROGRESS)
   return;
  if(firstDynTimeCalled)

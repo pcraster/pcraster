@@ -66,7 +66,7 @@ static int CmpStatContVal(
     DATA *e1, /* pointer to first id */
     DATA *e2) /* pointer to second id */
 {
-    INT4 tmp;
+    INT4 tmp = 0;
     tmp= (e1->id) - (e2->id);
     return (int)tmp;
 }
@@ -81,7 +81,7 @@ static DATA const *FindMaxArea(const DATA *e1, const DATA *e2) {
 }
 
 static DATA const *FindMaxId(const DATA *e1, const DATA *e2) {
-    const DATA *maxId, *otherId;
+    const DATA *maxId = NULL, *otherId = NULL;
     if (e1->id > e2->id) {
         maxId= e1;
         otherId= e2;
@@ -107,8 +107,8 @@ static int CalcOut(
     SEARCH_TABLE *table) /* list of ids & areas */
 {
 //     size_t cover= 0; /* total non-MV cells covering */
-    INT4 outVal;     /* the calculated output id */
-    DATA *record;
+    INT4 outVal = 0;     /* the calculated output id */
+    DATA *record = NULL;
 
     if (opMax == 1) { /* maximum id option */
         /* Maximum id is the output id */
@@ -153,8 +153,8 @@ static int AddCell(
 
     /* Add item to search table for cell */
     if (!IsMV(in, &id)) {
-        DATA *record, key;
-        double area; /* area of overlap */
+        DATA *record = NULL, key;
+        double area = NAN; /* area of overlap */
         key.id= id;
 
         area= CalcArea(inputCell, outputCell, aligned);
@@ -183,9 +183,9 @@ static int CalcPixel(
     REAL8 angle)   /* angle of output map */
 {
     SEARCH_TABLE *table= NULL; /* read-write search table */
-    double r, c, *leftB, *belowB, *rightB, *upperB;
-    PTYPE tlX, tlY, trX, trY, brX, brY, blX, blY; /* corners */
-    size_t i;
+    double r = NAN, c = NAN, *leftB = NULL, *belowB = NULL, *rightB = NULL, *upperB = NULL;
+    PTYPE tlX = NAN, tlY = NAN, trX = NAN, trY = NAN, brX = NAN, brY = NAN, blX = NAN, blY = NAN; /* corners */
+    size_t i = 0;
     POINT2D *outputCell= NULL; /* polygon of output cell */
 #ifdef DEBUG
     size_t nr= 4;              /* nr of points of cell */
@@ -230,9 +230,9 @@ static int CalcPixel(
     /* Get pixel on every input map */
     for (i= 0; i < nrMaps; i++) {
         MAP *X= in[i];
-        PTYPE tlC, tlR, trC, trR, brC, brR, blC, blR;
-        PTYPE tlX2, tlY2, trX2, trY2, brX2, brY2, blX2, blY2;
-        INT4 *currRow;
+        PTYPE tlC = NAN, tlR = NAN, trC = NAN, trR = NAN, brC = NAN, brR = NAN, blC = NAN, blR = NAN;
+        PTYPE tlX2 = NAN, tlY2 = NAN, trX2 = NAN, trY2 = NAN, brX2 = NAN, brY2 = NAN, blX2 = NAN, blY2 = NAN;
+        INT4 *currRow = NULL;
 
         /* Corners: (tlX, tlY), (trX, trY), (blX, blY) and
          * (brX, brY). Translate for input map.
@@ -255,7 +255,7 @@ static int CalcPixel(
                 currRow= (INT4 *)CacheGetRow(in, i, r);
 
             for (c= leftB[i]; c < rightB[i]; c++) { /* Cells that might be in pixel */
-                POINT2D *inputCell;
+                POINT2D *inputCell = NULL;
 
                 if (r < 0 || RgetNrRows(X) <= r || c < 0 || RgetNrCols(X) <= c)
                     continue;
@@ -317,10 +317,10 @@ int SampleClass(
     BOOL aligned,      /* maps are aligned */
     REAL8 angle)       /* angle of output map */
 {
-    INT4 maxVal;         /* maximum id input maps */
-    size_t r, c;         /* row and column coordinate */
-    size_t nrCoverCells; /* min. nr. of cells for non-MV */
-    size_t i;            /* input map i, nr. of fast list
+    INT4 maxVal = 0;         /* maximum id input maps */
+    size_t r = 0, c = 0;         /* row and column coordinate */
+    size_t nrCoverCells = 0; /* min. nr. of cells for non-MV */
+    size_t i = 0;            /* input map i, nr. of fast list
                           * items.
                           */
 
@@ -334,7 +334,7 @@ int SampleClass(
     /* Determine maximum id of input maps */
     RgetMaxVal(in[0], &maxVal);
     for (i= 1; i < nrMaps; i++) {
-        INT4 max;
+        INT4 max = 0;
         RgetMaxVal(in[i], &max);
         maxVal= MAX(max, maxVal);
     }

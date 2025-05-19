@@ -441,7 +441,7 @@ void FeatureLayer::calculateExtremes()
 
   if(!col.empty()) {
     T min, max;
-    size_t i;
+    size_t i = 0;
 
     for(i = 0; i < col.size(); ++i) {
       if(!pcr::isMV(col[i])) {

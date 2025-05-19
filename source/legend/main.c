@@ -71,7 +71,7 @@ static MAP *OpenClassMap(const char *name, enum MOPEN_PERM perm)
 
 static int WriteLegendFile(const char *outputFileName, CSF_LEGEND *legend, int nrLegend)
 {
-    int i;
+    int i = 0;
     FILE *f = fopen(outputFileName, "w");
     if (f == NULL)
         return RetError(1, "Can't create '%s'", outputFileName);
@@ -95,7 +95,7 @@ static int CmpLeg(const CSF_LEGEND *e1, const CSF_LEGEND *e2)
 
 static int SortLegend(CSF_LEGEND *l, int n)
 {
-    int i;
+    int i = 0;
     PRECOND(n >= 0);
     qsort(l + 1, (size_t)n - 1, sizeof(CSF_LEGEND), (QSORT_CMP)CmpLeg);
     for (i = 2; i < n; i++)
@@ -119,8 +119,8 @@ static CSF_LEGEND *NewLegend(size_t nrEntries)
 
 static CSF_LEGEND *NewBlankLegend(int *nrLegend, INT4 minVal, INT4 maxVal)
 {
-    int i;
-    CSF_LEGEND *legend;
+    int i = 0;
+    CSF_LEGEND *legend = NULL;
     if (minVal != MV_INT4)
         *nrLegend = maxVal - minVal + 2; /* 1 for name, 1 for interval */
     else
@@ -143,7 +143,7 @@ ReadMapLegends(int *nrOut,
                INT4 userMinVal, /* user specified, MV if not specified */
                INT4 userMaxVal) /* user specified, MV if not specified */
 {
-    int i;
+    int i = 0;
     MAP *map = NULL;
 
     CSF_LEGEND *resultLegend = NewLegend((size_t)1);
@@ -163,9 +163,9 @@ ReadMapLegends(int *nrOut,
      */
 
     for (i = 0; i < nrMapNames; i++) {
-        INT4 m;
-        int nrL, nrNew, r;
-        CSF_LEGEND *new, *mapL = NULL;
+        INT4 m = 0;
+        int nrL = 0, nrNew = 0, r = 0;
+        CSF_LEGEND *new = NULL, *mapL = NULL;
         if ((map = OpenClassMap(mapNames[i], M_READ)) == NULL)
             goto failure;
 
@@ -269,8 +269,8 @@ ReadLegendFile(int *nrOut, const char *inputFileName, CSF_VS vs, CSF_CR cr)
 
     while (memset(buf, '\0', LINE_LENGTH) != NULL &&
            (fgets(buf, (int)LINE_LENGTH, f) != NULL)) {
-        INT4 nr;
-        char *descr, *nrPtr;
+        INT4 nr = 0;
+        char *descr = NULL, *nrPtr = NULL;
 
         l++;
         if (buf[LINE_LENGTH - 1] != '\0') /* one reason for memset */
@@ -372,7 +372,7 @@ int main(int argc,     /* number of arguments */
 {
     MAP *in = NULL; /* 1st input map */
     int nrMaps = 0;
-    int i, c;
+    int i = 0, c = 0;
     CSF_VS valueScale;
     CSF_CR cellRepr; /* value scale 1st input map */
     CSF_LEGEND *theLegend = NULL;

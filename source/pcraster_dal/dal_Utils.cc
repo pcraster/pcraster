@@ -323,7 +323,7 @@ PCR_DAL_DECL std::string dimensionToString(
       result = "scenarios{";
 
       if(dimension.nrValues() > 0) {
-        size_t i;
+        size_t i = 0;
 
         for(i = 0; i < dimension.nrValues() - 1; ++i) {
           result += dimension.value<std::string>(i);

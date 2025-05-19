@@ -40,7 +40,7 @@ PTYPE MinPoint(
     PTYPE br, /* bottom right */
     PTYPE bl) /* bottom left */
 {
-    PTYPE min1, min2;
+    PTYPE min1 = NAN, min2 = NAN;
     if (tr <= tl)
         min1= tr;
     else
@@ -64,7 +64,7 @@ PTYPE MaxPoint(
     PTYPE br, /* bottom right */
     PTYPE bl) /* bottom left */
 {
-    PTYPE max1, max2;
+    PTYPE max1 = NAN, max2 = NAN;
     if (tl <= tr)
         max1= tr;
     else
@@ -122,9 +122,9 @@ double CalcArea(
     const POINT2D *outputCell, /* polygon output cell */
     BOOL aligned)              /* check whether rectangles aligned */
 {
-    double area;        /* area of the overlap */
+    double area = NAN;        /* area of the overlap */
     POINT2D polygon[9]; /* max. nr of points + 1 */
-    int inNr;           /* nr corners in overlap */
+    int inNr = 0;           /* nr corners in overlap */
 
     /* Intersect the two cells */
     if (aligned)
@@ -153,9 +153,9 @@ void ModRaster(
     const POINT2D *inputcell,  /* point input cell */
     REAL8 angle)               /* angle of output cell */
 {
-    size_t i, j;
+    size_t i = 0, j = 0;
     int nrPoints= 4;     /* number of points of a cell */
-    double stepY, stepX; /* stepsizes in raster */
+    double stepY = NAN, stepX = NAN; /* stepsizes in raster */
     double stepSize= 1 / (double)raster->rasterSize;
     POINT2D in[5], out[5];
 
@@ -220,7 +220,7 @@ double DetNrCoverCells(const RASTER *raster) /* raster to check */
  */
 RASTER *InitRaster(RASTER *raster) /* write-only raster to initialize */
 {
-    size_t i, j;
+    size_t i = 0, j = 0;
 
     PRECOND(raster != NULL);
 

@@ -31,9 +31,9 @@
 
 int MoveColumn(const char *outputName, const char *inputName, size_t colNr)
 {
-    LOOK_UP_TABLE *t;
-    FILE *f;
-    size_t r;
+    LOOK_UP_TABLE *t = NULL;
+    FILE *f = NULL;
+    size_t r = 0;
 
     PRECOND(outputName != NULL);
     PRECOND(inputName != NULL);

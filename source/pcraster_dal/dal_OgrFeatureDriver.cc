@@ -834,9 +834,9 @@ void OgrFeatureDriver::readGeometry(
   assert(layer.nrGeometries() == 0);
   assert(!layer.hasValues());
 
-  OGRFeature* feature;
-  long featureId;
-  OGRGeometry* geometry;
+  OGRFeature* feature = nullptr;
+  long featureId = 0;
+  OGRGeometry* geometry = nullptr;
 
   ogrLayer.ResetReading();
 
@@ -864,9 +864,9 @@ void OgrFeatureDriver::readGeometryAndAttribute(
   int fieldId = detail::fieldId(ogrLayer, layer.name());
   assert(fieldId >= 0);
 
-  OGRFeature* feature;
-  long featureId;
-  OGRGeometry* geometry;
+  OGRFeature* feature = nullptr;
+  long featureId = 0;
+  OGRGeometry* geometry = nullptr;
 
   ogrLayer.ResetReading();
 
@@ -1007,8 +1007,8 @@ void OgrFeatureDriver::updateAttribute(
   int fieldId = detail::fieldId(ogrLayer, layer.name());
   assert(fieldId >= 0);
 
-  OGRFeature* feature;
-  long featureId;
+  OGRFeature* feature = nullptr;
+  long featureId = 0;
 
   ogrLayer.ResetReading();
 
@@ -1148,8 +1148,8 @@ void OgrFeatureDriver::readAttribute(
   int fieldId = detail::fieldId(ogrLayer, layer.name());
   assert(fieldId >= 0);
 
-  OGRFeature* feature;
-  long featureId;
+  OGRFeature* feature = nullptr;
+  long featureId = 0;
 
   ogrLayer.ResetReading();
 

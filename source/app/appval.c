@@ -54,11 +54,11 @@ int AppCheckVal(const char *v,     /* token value to read */
                                    * CR_UNDEFINED
                                    */
 {
-    UINT1 uint1Val;
-    INT4 int4Val;
-    REAL4 real4Val;
-    REAL8 real8Val;
-    int result;
+    UINT1 uint1Val = 0;
+    INT4 int4Val = 0;
+    REAL4 real4Val = NAN;
+    REAL8 real8Val = NAN;
+    int result = 0;
 
     if (cellRepr == CR_UNDEFINED)
         cellRepr = AppDefaultCellRepr(valueScale);

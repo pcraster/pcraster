@@ -9,16 +9,17 @@
 //#include "com_cpucyclecounter.h"
 //#define INCLUDED_COM_CPUCYCLECOUNTER
 //#endif
-#ifndef INCLUDED_IOSTREAM
+
+#include <stdlib.h>
+
 #include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
+
 
 int main(
   int   argc,
   char**argv)
 {
-  int r;
+  int r = EXIT_FAILURE;
   try {
   // startCpuCycleCounter(0);
   r = executeCommandLine(argc,argv);

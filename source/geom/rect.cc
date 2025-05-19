@@ -83,7 +83,7 @@ int IntersectRectangles(
     SORT sort[16];
     const POINT2D *r[2];
     POINT2D c = {0, 0}; /*  point in pol */
-    int i, j, n = 0;
+    int i = 0, j = 0, n = 0;
     r[0] = r1;
     r[1] = r2;
 #define OTHER_RECT(x) (((x) + 1) % 2)

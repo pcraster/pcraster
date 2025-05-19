@@ -214,7 +214,7 @@ template<typename T>
 void MemoryRasterData::updateExtremes()
 {
   bool initialised = false;
-  T min, max;
+  T min{}, max{};
   std::shared_ptr<Raster> raster;
 
   // Scan all data values and set extreme values.

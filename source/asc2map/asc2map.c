@@ -13,6 +13,8 @@
 #include "app.h"
 #include "asc2map.h"
 
+#include <math.h>
+
 /* apps. called */
 #include "arcgrid.h"
 
@@ -72,12 +74,12 @@ static int ScanInputFile(
     CSF_VS vs= RgetValueScale(out);
     CSF_CR cr= RgetCellRepr(out);
     REAL8 *buf= Rmalloc(out, nrCols);
-    UINT4 r, c;
+    UINT4 r = 0, c = 0;
     int result= 1;
     char sepBuf[2];
 
     /* overwritten in arcInfo mode: */
-    double mvDbl;
+    double mvDbl = NAN;
     BOOL number= CnvrtDouble(&mvDbl, mv);
 
     if (buf == NULL)
@@ -113,7 +115,7 @@ static int ScanInputFile(
         mvDbl= a.mv;
     } break;
     case ASC_GENAMAP: {
-        size_t rHeader, cHeader;
+        size_t rHeader = 0, cHeader = 0;
         if (ReadGenamapAuditHeader(&rHeader, &cHeader, f)) {
             ErrorNested("in Genamap AUDIT output file");
             goto error;
@@ -146,8 +148,8 @@ static int ScanInputFile(
             LexSkipLines(rowHeader + 1);
         for (c= 0; c < nrCols; c++) {
             int token= LexGetToken();
-            const char *v;
-            REAL8 val;
+            const char *v = NULL;
+            REAL8 val = NAN;
 
             /* skip separator */
             if (token == sepChar)
@@ -228,7 +230,7 @@ int Asc2Map(
     ASC_TYPE t, /* special format */
     int header,
     int rowHeader) {
-    FILE *f;
+    FILE *f = NULL;
 
     /* open file */
     f= fopen(inputFile, "r");

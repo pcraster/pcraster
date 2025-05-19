@@ -155,7 +155,7 @@ OGRGeometry const* FeatureLayerGeometries::geometry(
     OGRPoint point;
     point.setX(x);
     point.setY(y);
-    OGRGeometry const* geometry;
+    OGRGeometry const* geometry = nullptr;
 
     for(auto const& value: values) {
       geometry = _geometryByFeatureId.at(value.second);

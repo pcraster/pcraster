@@ -117,9 +117,9 @@ extern void (*appLogErrorFunc)(const char *msg);
 void AppLogStart(int argc,    /* number of arguments */
                  char **argv) /* read-only input line, actually const */
 {
-    int i;
+    int i = 0;
     FILE *f = ActiveLogFile();
-    char *appDir, *appFile;
+    char *appDir = NULL, *appFile = NULL;
     if (!f)
         return;
     SetIncrLogCounter();
@@ -138,7 +138,7 @@ void AppLogStart(int argc,    /* number of arguments */
 
 void AppLogFile(const char *asciiFile)
 {
-    int c;
+    int c = 0;
     FILE *fContents = fopen(asciiFile, "r");
     FILE *f = ActiveLogFile();
     if (f == NULL || fContents == NULL){

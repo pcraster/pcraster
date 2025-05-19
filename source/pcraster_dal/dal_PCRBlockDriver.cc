@@ -13,6 +13,7 @@
 #define INCLUDED_DAL_FILESYSTEMUTILS
 #endif
 
+#include <cmath>
 #include <filesystem>
 
 
@@ -124,15 +125,15 @@ Block* PCRBlockDriver::open(
   magicString[d_lengthOfMagicString] = '\0';
 
   if(stream.good() && std::strcmp(magicString, d_magicString) == 0) {
-    UINT4 contentType;
-    UINT4 nrRows, nrCols;
+    UINT4 contentType = 0;
+    UINT4 nrRows = 0, nrCols = 0;
     stream.read((char*)&contentType, 4);
     stream.read((char*)&nrRows, 4);
     stream.read((char*)&nrCols, 4);
 
     if(contentType == 0) {
       // File contains discretisation information.
-      REAL8 cellSize, west, north;
+      REAL8 cellSize = NAN, west = NAN, north = NAN;
       stream.read((char*)&cellSize, 8);
       stream.read((char*)&west, 8);
       stream.read((char*)&north, 8);

@@ -50,6 +50,7 @@
 #define INCLUDED_DAL_RASTERDIMENSIONS
 #endif
 
+#include <cmath>
 #include <filesystem>
 #include <format>
 #include <memory>
@@ -1028,7 +1029,7 @@ void GDALRasterDriver::read(
   auto const& spatialCoordinate(
          address.coordinate<SpatialCoordinate>(space.indexOf(Space)));
 
-  double row, col;
+  double row = NAN, col = NAN;
 
   RasterDimensions dimensions(rasterDimensions(*gdalDataset));
   dimensions.indices(spatialCoordinate.x(), spatialCoordinate.y(), row, col);

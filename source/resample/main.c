@@ -14,12 +14,13 @@
 /* USES */
 /********/
 /* libs ext. <>, our ""  */
-#include "mathx.h" /* M_2PI */
-#include "csf.h"
-#include "misc.h"
 #include "app.h"
+#include "csf.h"
+#include "mathx.h" /* M_2PI */
+#include "misc.h"
 #include "table.h"
 #include <ctype.h>
+#include <math.h>
 
 /* apps. called */
 #include "sample.h" /* Sample */
@@ -93,7 +94,7 @@ static void CalcBound(
     CSF_PT projection, /* projection of output map */
     BOOL contract)     /* to contract the map */
 {
-    double nrR, nrC;
+    double nrR = NAN, nrC = NAN;
 
     /* Adjust boundaries according to border value */
     leftU->x-= borderValue;
@@ -153,7 +154,7 @@ static int CheckInputMaps(
     REAL8 angle,       /* angle to satisfy */
     REAL8 cellSize)    /* cell size to satisfy */
 {
-    size_t i;
+    size_t i = 0;
 
     /* Check all input maps */
     for (i= 0; i < nrMaps; i++) {
@@ -193,7 +194,7 @@ static int SmallestFittingRectangle(
     CSF_PT projection, /* projection of output map */
     BOOL contract)     /* map should be contracted */
 {
-    size_t i;
+    size_t i = 0;
     REAL8 upperB= 0, leftB= 0, rightB= 0, belowB= 0;
     /* ^- shut up about use before def */
     POINT2D leftUpperC, rightUpperC, leftLowerC, rightLowerC;
@@ -201,7 +202,7 @@ static int SmallestFittingRectangle(
     /* determine the boundaries for every map */
     for (i= 0; i < nrMaps; i++) {
         MAP *X= in[i];
-        int c;
+        int c = 0;
         POINT2D polygon[4]; /* rectangle */
         REAL8 X0= RgetX0(X);
         REAL8 Y0= RgetY0(X);
@@ -274,7 +275,7 @@ static int SmallestNonMVRect(
     CSF_PT projection, /* projection of output map */
     BOOL contract)     /* map should be contracted */
 {
-    size_t i;
+    size_t i = 0;
     POINT2D leftUpperC, leftLowerC, rightUpperC, rightLowerC;
     REAL8 upperB= 0, leftB= 0, rightB= 0, belowB= 0;
     /* ^- shut up about use before def */
@@ -283,14 +284,14 @@ static int SmallestNonMVRect(
         MAP *X= in[i];
         BOOL first= TRUE;
         POINT2D polygon[4];
-        size_t r, c;
+        size_t r = 0, c = 0;
         size_t nrR= RgetNrRows(X);
         size_t nrC= RgetNrCols(X);
 
         for (r= 0; r < nrR; r++)
             for (c= 0; c < nrC; c++) {
-                INT4 int4Val;
-                REAL8 real8Val;
+                INT4 int4Val = 0;
+                REAL8 real8Val = NAN;
 
                 if ((AppIsClassified(valueScale) && RgetCell(in[i], r, c, &int4Val) && int4Val != MV_INT4) || (!AppIsClassified(valueScale) && RgetCell(in[i], r, c, &real8Val) && (IsMV(in[i], &real8Val) == FALSE))) {
                     if (first || c < leftB)
@@ -358,7 +359,7 @@ static void FreeMaps(
     MAP **in,      /* write-only pointer to input maps */
     size_t nrMaps) /* number of input maps */
 {
-    size_t i;
+    size_t i = 0;
     for (i= 0; i < nrMaps; i++) /* Close all maps */
     {
         MAP *tmp= in[i];
@@ -381,9 +382,9 @@ static int DetRasterSize(
     double errFactor) /* maximum error */
 {
     REAL8 minCellSize= REAL8_MAX;
-    size_t i;
+    size_t i = 0;
     CSF_PT projIn, projOut;
-    REAL8 cellSize, n, X0, Y0, Xout, Yout, angleIn, angleOut;
+    REAL8 cellSize = NAN, n = NAN, X0 = NAN, Y0 = NAN, Xout = NAN, Yout = NAN, angleIn = NAN, angleOut = NAN;
     rasterSize= INITSIZE;
 
     /* If option -a set -> rastersize depends on wanted accuracy */
@@ -476,12 +477,12 @@ int main(
     int argc,     /* number of arguments */
     char *argv[]) /* list of arguments */
 {
-    MAP *clone, *out, *tmp, **in;
-    char *outputName, *cloneName;
-    int c, borderval;
-    size_t nrMaps, i;
-    REAL8 X0, Y0, cellSize, angleIn, angleOut;
-    size_t nrRows, nrCols;
+    MAP *clone = NULL, *out = NULL, *tmp = NULL, **in = NULL;
+    char *outputName = NULL, *cloneName = NULL;
+    int c = 0, borderval = 0;
+    size_t nrMaps = 0, i = 0;
+    REAL8 X0 = NAN, Y0 = NAN, cellSize = NAN, angleIn = NAN, angleOut = NAN;
+    size_t nrRows = 0, nrCols = 0;
     CSF_PT projection;
     CSF_VS valueScale;
     double percent= 0, errFactor= 2.5, resampleN= 0.0;
@@ -622,7 +623,7 @@ int main(
 
     /* Read all input maps with desired cell representation */
     for (i= 0; i < nrMaps; i++) {
-        REAL8 tmpMin, tmpMax;
+        REAL8 tmpMin = NAN, tmpMax = NAN;
 
         tmp= Mopen(argv[1 + i], M_READ);
         angleIn= RgetAngle(tmp);

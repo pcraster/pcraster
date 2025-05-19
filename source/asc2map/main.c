@@ -48,9 +48,9 @@ int main(
     int argc,     /* number of arguments */
     char *argv[]) /* list of arguments */
 {
-    MAP *clone= NULL, *output;
-    int c;
-    char *cloneFileName;
+    MAP *clone= NULL, *output = NULL;
+    int c = 0;
+    char *cloneFileName = NULL;
     CSF_CR cellRepr;
     CSF_VS valueScale;
 

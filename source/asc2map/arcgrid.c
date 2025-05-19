@@ -11,6 +11,8 @@
 #include "misc.h"
 #include "arcgrid.h"
 
+#include <math.h>
+
 /*************/
 /* EXTERNALS */
 /*************/
@@ -74,8 +76,8 @@ int ReadArcInfoGridAsciiHeader(
     FILE *f)                /* input file, left at point where
                              * first cell can be scanned  */
 {
-    int val;
-    double v;
+    int val = 0;
+    double v = NAN;
     rewind(f);
     LexInstall(f, "");
 
@@ -158,7 +160,7 @@ int ReadGenamapAuditHeader(
     FILE *f)        /* input file, left at point where
                      * first cell can be scanned  */
 {
-    int val;
+    int val = 0;
     rewind(f);
     LexInstall(f, "");
 

@@ -9,7 +9,7 @@
 
 // Module headers.
 
-
+#include <cmath>
 
 /*!
   \file
@@ -146,7 +146,7 @@ bool FeatureDriver::extremes(
 
   switch(typeId) {
     case TI_UINT1: {
-      UINT1 i, a;
+      UINT1 i = 0, a = 0;
       if(extremes<UINT1>(i, a, name, space, typeId)) {
         min = i;
         max = a;
@@ -156,7 +156,7 @@ bool FeatureDriver::extremes(
       break;
     }
     case TI_INT4: {
-      INT4 i, a;
+      INT4 i = 0, a = 0;
       if(extremes<INT4>(i, a, name, space, typeId)) {
         min = i;
         max = a;
@@ -166,7 +166,7 @@ bool FeatureDriver::extremes(
       break;
     }
     case TI_REAL4: {
-      REAL4 i, a;
+      REAL4 i = NAN, a = NAN;
       if(extremes<REAL4>(i, a, name, space, typeId)) {
         min = i;
         max = a;

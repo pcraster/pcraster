@@ -40,6 +40,7 @@
 #define INCLUDED_DAL_REGULAREXPRESSIONS
 #endif
 
+#include <cmath>
 #include <format>
 
 
@@ -110,7 +111,7 @@ RasterDriver::determineFilenameCharacteristics(
 {
   assert(space.isValid(address));
 
-  bool found;
+  bool found = false;
   FilenameConvention convention;
   std::string extension;
 
@@ -175,7 +176,7 @@ std::filesystem::path RasterDriver::pathFor(
 {
   assert(space.isValid(address));
 
-  bool found;
+  bool found = false;
   FilenameConvention convention;
   std::string extension;
   std::tie(found, convention, extension) = determineFilenameCharacteristics(
@@ -333,7 +334,7 @@ bool RasterDriver::extremes(
 
   switch(typeId) {
     case TI_UINT1: {
-      UINT1 i, a;
+      UINT1 i = 0, a = 0;
       if(extremes<UINT1>(i, a, name, space, typeId)) {
         min = i;
         max = a;
@@ -343,7 +344,7 @@ bool RasterDriver::extremes(
       break;
     }
     case TI_INT4: {
-      INT4 i, a;
+      INT4 i = 0, a = 0;
       if(extremes<INT4>(i, a, name, space, typeId)) {
         min = i;
         max = a;
@@ -353,7 +354,7 @@ bool RasterDriver::extremes(
       break;
     }
     case TI_REAL4: {
-      REAL4 i, a;
+      REAL4 i = NAN, a = NAN;
       if(extremes<REAL4>(i, a, name, space, typeId)) {
         min = i;
         max = a;
@@ -500,7 +501,7 @@ void RasterDriver::browseFileBasedRasterAttributes(
   std::string name, step, quantile, extension;
   std::regex regex;
   std::smatch match;
-  Raster* raster;
+  Raster* raster = nullptr;
 
   std::vector<std::string> const& extensions(format().extensions());
 
@@ -563,7 +564,7 @@ void RasterDriver::browseFileBasedRasterAttributes(
 
       if(raster) {
         {
-          size_t first, last, interval;
+          size_t first = 0, last = 0, interval = 0;
 
           if(isRegularIncreasingRange(first, last, interval, steps.begin(),
               steps.end())) {
@@ -572,7 +573,7 @@ void RasterDriver::browseFileBasedRasterAttributes(
         }
 
         {
-          float first, last, interval;
+          float first = NAN, last = NAN, interval = NAN;
 
           if(isRegularIncreasingRange(first, last, interval, quantiles.begin(),
               quantiles.end())) {
@@ -645,7 +646,7 @@ void RasterDriver::browseFileBasedRasterAttributes(
          address);
 
       if(raster) {
-        float first, last, interval;
+        float first = NAN, last = NAN, interval = NAN;
 
         if(isRegularIncreasingRange(first, last, interval, quantiles.begin(),
               quantiles.end())) {
@@ -714,7 +715,7 @@ void RasterDriver::browseFileBasedRasterAttributes(
       raster = open((path / name).string(), space, address);
 
       if(raster) {
-        size_t first, last, interval;
+        size_t first = 0, last = 0, interval = 0;
 
         if(isRegularIncreasingRange(first, last, interval, steps.begin(),
               steps.end())) {
@@ -795,7 +796,7 @@ void RasterDriver::browseFileBasedRasterAttributes(
               address);
 
           if(raster) {
-            size_t first, last, interval;
+            size_t first = 0, last = 0, interval = 0;
 
             if(isRegularIncreasingRange(first, last, interval, steps.begin(),
                   steps.end())) {

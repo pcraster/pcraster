@@ -4,21 +4,6 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_ALGORITHM
-#include <algorithm>
-#define INCLUDED_ALGORITHM
-#endif
-
-#ifndef INCLUDED_FUNCTIONAL
-#include <functional>
-#define INCLUDED_FUNCTIONAL
-#endif
-
-#ifndef INCLUDED_STRING
-#include <std::string>
-#define INCLUDED_STRING
-#endif
-
 #ifndef INCLUDED_BOOST_BIND
   #include <boost/version.hpp>
   #if BOOST_VERSION > 107200
@@ -52,6 +37,10 @@
 #define INCLUDED_DAL_UTILS
 #endif
 
+#include <algorithm>
+#include <functional>
+#include <cmath>
+#include <string>
 
 
 /*!
@@ -232,7 +221,7 @@ DataSpace::DataSpace(
                    coordinates.y());
 
               // Determine coordinates of north west corner of cell.
-              double x, y;
+              double x = NAN, y = NAN;
               rasterDimensions.coordinates(index, x, y);
               x -= 0.5 * rasterDimensions.cellSize();
               y += 0.5 * rasterDimensions.cellSize();
@@ -936,7 +925,7 @@ size_t DataSpace::nrWideDimensions() const
 */
 size_t DataSpace::indexOfWideDimension() const
 {
-  size_t result;
+  size_t result = 0;
 
   for(result = 0; result < size(); ++result) {
     if(dimension(result).isWide()) {

@@ -42,6 +42,7 @@
 #define INCLUDED_DAL_UTILS
 #endif
 
+#include <cmath>
 #include <filesystem>
 #include <format>
 
@@ -434,7 +435,7 @@ DataSpace SQLTableDriver::dataSpace(
 
     std::sort(quantiles.begin(), quantiles.end());
 
-    REAL4 first, last, interval;
+    REAL4 first = NAN, last = NAN, interval = NAN;
 
     if(isIncreasingRange(first, last, interval, quantiles.begin(),
          quantiles.end()) && first > REAL4(0.0)) {
@@ -458,7 +459,7 @@ DataSpace SQLTableDriver::dataSpace(
 
     std::sort(timeSteps.begin(), timeSteps.end());
 
-    INT4 first, last, interval;
+    INT4 first = 0, last = 0, interval = 0;
 
     if(isIncreasingRange(first, last, interval, timeSteps.begin(),
          timeSteps.end()) && first >= 1) {
@@ -662,7 +663,7 @@ void SQLTableDriver::read(
   assert(query.isSelect());
   assert(query.isActive());
 
-  bool ok;
+  bool ok = false;
 
   while(query.next()) {
     table.appendRec();

@@ -96,7 +96,7 @@ std::tuple<std::shared_ptr<Table>, TableDriver*> TableDal::open(
 {
   assert(nrDrivers() > 0);
   std::shared_ptr<Dataset> dataset;
-  Driver* driver;
+  Driver* driver = nullptr;
   std::tie(dataset, driver) = Dal::open(name, TABLE);
 
   // Table* table = dynamic_cast<Table*>(Dal::open(name, TABLE));
@@ -124,7 +124,7 @@ Table* TableDal::read(std::string const& name, TypeId typeId)
 {
   assert(nrDrivers() > 0);
 
-  TableDriver* driver;
+  TableDriver* driver = nullptr;
   std::tie(std::ignore, driver) = open(name, true);
   assert(driver);
 
@@ -148,7 +148,7 @@ void TableDal::read(
 {
   assert(nrDrivers() > 0);
 
-  TableDriver* driver;
+  TableDriver* driver = nullptr;
   std::tie(std::ignore, driver) = open(name, true);
   assert(driver);
 

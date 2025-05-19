@@ -27,7 +27,7 @@
 #define INCLUDED_DAL_UTILS
 #endif
 
-
+#include <cmath>
 
 /*!
   \file
@@ -132,7 +132,7 @@ DataSpace TableDriver::dataSpace(
       Array<INT4> const& timeSteps = table->col<INT4>(timeCol);
 
       // Check the values.
-      int first, last, interval;
+      int first = 0, last = 0, interval = 0;
       if(isRegularIncreasingRange(first, last, interval,
          timeSteps.begin(), timeSteps.end()) && first >= 1) {
         // Configure the time dimension.
@@ -319,7 +319,7 @@ bool TableDriver::extremes(
 {
   switch(typeId) {
     case TI_UINT1: {
-      UINT1 i, a;
+      UINT1 i = 0, a = 0;
       if(extremes<UINT1>(i, a, col, typeId, name, space)) {
         min = i;
         max = a;
@@ -329,7 +329,7 @@ bool TableDriver::extremes(
       break;
     }
     case TI_INT4: {
-      INT4 i, a;
+      INT4 i = 0, a = 0;
       if(extremes<INT4>(i, a, col, typeId, name, space)) {
         min = i;
         max = a;
@@ -339,7 +339,7 @@ bool TableDriver::extremes(
       break;
     }
     case TI_REAL4: {
-      REAL4 i, a;
+      REAL4 i = NAN, a = NAN;
       if(extremes<REAL4>(i, a, col, typeId, name, space)) {
         min = i;
         max = a;

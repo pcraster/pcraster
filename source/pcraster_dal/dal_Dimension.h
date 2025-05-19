@@ -572,7 +572,7 @@ inline size_t Dimension::indexOf(
   assert(discretisation() == ExactDiscretisation ||
          discretisation() == RegularDiscretisation);
 
-  size_t result;   // Default return value.
+  size_t result = 0;   // Default return value.
 
   if(discretisation() == ExactDiscretisation) {
     result = nrValues();
@@ -604,7 +604,7 @@ inline size_t Dimension::indexOf(
   assert(discretisation() == ExactDiscretisation ||
          discretisation() == RegularDiscretisation);
 
-  size_t result;
+  size_t result = 0;
 
   if(discretisation() == ExactDiscretisation) {
     result = nrValues();

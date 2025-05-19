@@ -33,7 +33,7 @@
 #define INCLUDED_DAL_UTILS
 #endif
 
-
+#include <cmath>
 
 namespace dal {
 
@@ -91,10 +91,10 @@ PCR_DAL_DECL void stepMap(
     stepMappers->clear();
     stepMappers->reserve(mappings.size());
 
-    size_t firstStep, lastStep;
-    double newFirstStep, newLastStep;
-    double first, last;
-    StepMapper const* aMapper;
+    size_t firstStep = 0, lastStep = 0;
+    double newFirstStep = NAN, newLastStep = NAN;
+    double first = NAN, last = NAN;
+    StepMapper const* aMapper = nullptr;
 
     for(const auto & mapping : mappings) {
       Dimension const& dimension = std::get<0>(mapping);
@@ -278,7 +278,7 @@ PCR_DAL_DECL void timeStepMap(
 //   \warning   .
 //   \sa        .
 //   \todo      Check input dimensions.
-// 
+//
 //   Nothing happens when mappings is empty.
 // */
 // void timeStepMap(
@@ -298,7 +298,7 @@ PCR_DAL_DECL void timeStepMap(
 //     boost::posix_time::ptime firstTime(std::get<1>(mapping));
 //     boost::posix_time::time_duration aDuration(std::get<2>(mapping));
 //     assert(startIndex <= endIndex);
-// 
+//
 //     // Time step mappers for each mapping.
 //     std::vector<TimeStepMapper> timeStepMappers;
 //     timeStepMappers.reserve(mappings.size());
@@ -306,7 +306,7 @@ PCR_DAL_DECL void timeStepMap(
 //     TimeStepMapper mapper(timeStepMappers.back());
 //     boost::posix_time::ptime lastTime(
 //          firstTime + aDuration * (aDimension.nrCoordinates() - 1));
-// 
+//
 //     for(size_t i = 1; i < mappings.size(); ++i) {
 //       TimeMapping const& mapping(mappings[i]);
 //       Dimension const& aDimension(std::get<0>(mapping));
@@ -315,18 +315,18 @@ PCR_DAL_DECL void timeStepMap(
 //       boost::posix_time::ptime startTime(std::get<1>(mapping));
 //       boost::posix_time::time_duration aDuration(std::get<2>(mapping));
 //       assert(startIndex <= endIndex);
-// 
+//
 //       timeStepMappers.push_back(
 //          TimeStepMapper(startIndex, startTime, aDuration));
 //       mapper |= timeStepMappers.back();
-// 
+//
 //       firstTime = std::min(firstTime, startTime);
 //       lastTime = std::max(lastTime,
 //          firstTime + aDuration * (aDimension.nrCoordinates() - 1));
 //     }
-// 
+//
 //     *duration = mapper.duration();
-// 
+//
 //     // -------------------------------------------------------------------------
 //     // Configure the time dimension which contains all mappings.
 //     double firstIndex(mapper.source(firstTime));
@@ -335,18 +335,18 @@ PCR_DAL_DECL void timeStepMap(
 //     assert(comparable(std::fmod(lastIndex, 1.0), 0.0));
 //     assert(greaterOrComparable(firstIndex, 0.0));
 //     assert(greaterOrComparable(lastIndex, 0.0));
-// 
+//
 //     std::vector<size_t> values;
 //     values.push_back(static_cast<size_t>(rint(firstIndex)));
 //     values.push_back(static_cast<size_t>(rint(lastIndex)));
 //     values.push_back(1);
 //     *dimension = Dimension(Time, RegularDiscretisation, values);
-// 
+//
 //     // -------------------------------------------------------------------------
 //     // Configure step mappers for all mappings.
 //     stepMappers->clear();
 //     stepMappers->reserve(mappings.size());
-// 
+//
 //     for(size_t i = 0; i < mappings.size(); ++i) {
 //       TimeMapping const& mapping(mappings[i]);
 //       Dimension const& aDimension(std::get<0>(mapping));
@@ -356,7 +356,7 @@ PCR_DAL_DECL void timeStepMap(
 //       boost::posix_time::time_duration aDuration(std::get<2>(mapping));
 //       boost::posix_time::ptime endTime(
 //          startTime + aDuration * (aDimension.nrCoordinates() - 1));
-// 
+//
 //       double newStartIndex = mapper.source(startTime);
 //       double newEndIndex = mapper.source(endTime);
 //       stepMappers->push_back(StepMapper(newStartIndex, newEndIndex,

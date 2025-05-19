@@ -46,7 +46,7 @@
  */
 static void FreeMaps(MAP **in, size_t nrMaps) /* number of input maps */
 {
-    size_t i;
+    size_t i = 0;
     if (in == NULL)
         return;
     for (i = 0; i < nrMaps; i++) /* Close all maps */
@@ -57,7 +57,7 @@ static void FreeMaps(MAP **in, size_t nrMaps) /* number of input maps */
 
 static MAP **ReadMaps(const char **mapArgs, size_t nrMaps)
 {
-    size_t i;
+    size_t i = 0;
     /* calloc, NULL identifies maps not yet open
      *  neccessary for FreeMaps
      */
@@ -95,7 +95,7 @@ failure:
 static int
 WriteCrossTable(const char *tableName, LOOK_UP_TABLE *t, BOOL ommitZeros, double area)
 {
-    size_t i;
+    size_t i = 0;
     if (appUnitTrue)
         area *= area;
     else
@@ -124,7 +124,7 @@ int main(int argc,     /* number of arguments */
          char *argv[]) /* list of arguments */
 {
     MAP **in = NULL;
-    int c;
+    int c = 0;
     size_t nrMaps = 0; /* number of input maps */
     /* initialize the variables */
     const char *tableName = NULL;
@@ -197,7 +197,7 @@ int main(int argc,     /* number of arguments */
         if (MoveColumn(tableName, inputTableName, moveColNr))
             goto failure;
     } else { /* do a cross */
-        LOOK_UP_TABLE *t;
+        LOOK_UP_TABLE *t = NULL;
         if (nrCountSlots < nrIntervals) {
             Error("-H,-n: number of count slots (is %d) must be greater than "
                   "number of intervals (is %d)",

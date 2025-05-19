@@ -18,7 +18,7 @@
 #define INCLUDED_DAL_RASTERDIMENSIONS
 #endif
 
-
+#include <cmath>
 
 /*!
   \file
@@ -47,10 +47,10 @@ namespace dal {
 */
 DataSpaceIterator::DataSpaceIterator()
 
-  : 
+  :
     d_address(),
     d_setIndices()
-    
+
 
 {
 }
@@ -301,7 +301,7 @@ void DataSpaceIterator::initialiseOnFirst(
               // Initialize on center of upper left cell.
               auto const& rasterDimensions(
                    dimension.value<RasterDimensions>(0));
-              double x, y;
+              double x = NAN, y = NAN;
               rasterDimensions.coordinates(0.5, 0.5, x, y);
               d_address.setCoordinate<SpatialCoordinate>(i,
                    SpatialCoordinate(x, y));
@@ -392,7 +392,7 @@ void DataSpaceIterator::initialiseOnLast(
               // Initialize on center of lower right cell.
               auto const& rasterDimensions(
                    dimension.value<RasterDimensions>(0));
-              double x, y;
+              double x = NAN, y = NAN;
               rasterDimensions.coordinates(
                    static_cast<double>(rasterDimensions.nrRows()) - 0.5,
                    static_cast<double>(rasterDimensions.nrCols()) - 0.5, x, y);
@@ -555,7 +555,7 @@ void DataSpaceIterator::increment()
 
               if(index < rasterDimensions.nrCells()) {
                 // Valid new cell, set coordinates.
-                double x, y;
+                double x = NAN, y = NAN;
                 rasterDimensions.coordinates(index, x, y);
 
                 d_address.setCoordinate<SpatialCoordinate>(i - 1,
@@ -675,7 +675,7 @@ void DataSpaceIterator::decrement()
                 --index;
 
                 // Set coordinates.
-                double x, y;
+                double x = NAN, y = NAN;
                 rasterDimensions.coordinates(index, x, y);
 
                 d_address.setCoordinate<SpatialCoordinate>(i - 1,

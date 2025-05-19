@@ -135,7 +135,7 @@ void GSLIBBlockDriver::write(
   size_t nrVoxelsPerStack = block.cell<std::vector<T> >(0).size();
 
   std::vector<std::vector<T> const*> stacks(block.nrCells());
-  size_t i;
+  size_t i = 0;
 
   // Store pointers to stacks for efficiency.
   for(int row = block.nrRows() - 1; row >= 0; --row) {
@@ -171,7 +171,7 @@ void GSLIBBlockDriver::write<UINT1>(
   size_t nrVoxelsPerStack = block.cell<std::vector<UINT1> >(0).size();
 
   std::vector<std::vector<UINT1> const*> stacks(block.nrCells());
-  size_t i;
+  size_t i = 0;
 
   // Store pointers to stacks for efficiency.
   for(int row = block.nrRows() - 1; row >= 0; --row) {

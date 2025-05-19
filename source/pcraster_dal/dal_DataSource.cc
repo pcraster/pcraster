@@ -48,6 +48,7 @@
 #define INCLUDED_DAL_VECTORDRIVER
 #endif
 
+#include <cmath>
 
 
 /*!
@@ -708,7 +709,7 @@ void DataSource::read(
 
   if(!iterSpace.hasTime() || (
          iterSpace.hasTime() && address.isValid(indexOfTime))) {
-    float quantile;
+    float quantile = NAN;
 
     // Loop over all quantiles.
     for(DataSpaceIterator it = iterSpace.begin(); it != iterSpace.end(); ++it) {
@@ -865,7 +866,7 @@ void DataSource::read(
 
   if(!iterSpace.hasTime() || (
          iterSpace.hasTime() && address.isValid(indexOfTime))) {
-    float quantile;
+    float quantile = NAN;
 
     // Loop over all quantiles.
     for(DataSpaceIterator it = iterSpace.begin(); it != iterSpace.end(); ++it) {
@@ -1294,7 +1295,7 @@ void DataSource::read(
             iterSpace.addDimension(space.dimension(indexOfSpace));
             /// iterSpace.addDimension(space.dimension(indexOfSpace + 1));
 
-            float quantile;
+            float quantile = NAN;
 
             if(lower.isValid()) {
               quantile = lower.coordinate<float>(indexOfProbabilities);
@@ -1384,8 +1385,8 @@ void DataSource::probability(
 
   double lowerDistance = 0.0;
   double upperDistance = 0.0;
-  float quantile;
-  REAL4 valueRead, lowerValue, upperValue;
+  float quantile = NAN;
+  REAL4 valueRead = NAN, lowerValue = NAN, upperValue = NAN;
   pcr::setMV(lowerValue);
   pcr::setMV(upperValue);
 
@@ -1491,7 +1492,7 @@ PCR_DAL_DECL void DataSource::read(
   assert(!address.isValid(indexOfTime));
 
   size_t i = 0;
-  size_t timeStep;
+  size_t timeStep = 0;
 
   // Loop over all time steps.
   for(DataSpaceIterator it = timeSpace.begin(); it != timeSpace.end();

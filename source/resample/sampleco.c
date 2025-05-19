@@ -1,3 +1,5 @@
+#include <math.h>
+
 #include "stddefx.h"
 
 
@@ -49,8 +51,8 @@ static double WeightDirectionalMean(
     const DATA *list,    /* array of n samples, in radians */
     size_t n)            /* samples size */
 {
-    double tC, tD, tS, tS2, tC2, R, meanIn;
-    size_t i;
+    double tC = NAN, tD = NAN, tS = NAN, tS2 = NAN, tC2 = NAN, R = NAN, meanIn = NAN;
+    size_t i = 0;
 
     *totalWeight= 0;
     tC= tS= tD= tC2= tS2= 0;
@@ -89,7 +91,7 @@ static void CalcDirectionOut(
     size_t nrCoverCells, /* min. nr. of non-MV cells for non MV */
     size_t nrMaps)       /* number of input maps */
 {
-    double cover;      /* percentage of cell being covered */
+    double cover = NAN;      /* percentage of cell being covered */
     REAL8 outVal= 0;   /* the calculated output value */
     BOOL first= FALSE; /* initialization of outVal */
     double area= 0;    /* The sum of areas */
@@ -124,8 +126,8 @@ static void CalcScalarOut(
     size_t nrCoverCells, /* min. nr. non-MV cells for non MV */
     size_t nrMaps)       /* number of input maps */
 {
-    size_t i;
-    double cover;      /* percentage of cell being covered */
+    size_t i = 0;
+    double cover = NAN;      /* percentage of cell being covered */
     REAL8 outVal= 0;   /* the calculated output value */
     BOOL first= FALSE; /* initialization of outVal */
     double area= 0;    /* The sum of areas */
@@ -181,7 +183,7 @@ static int AddCell(
     BOOL aligned,              /* maps are aligned */
     REAL8 angle)               /* angle of output map */
 {
-    REAL8 value;
+    REAL8 value = NAN;
     (*nrList)++;
     if ((*list= (DATA *)ChkRealloc(*list, *nrList * sizeof(DATA))) == NULL)
         return 1;
@@ -189,7 +191,7 @@ static int AddCell(
     value= currRow[c];
 
     if (!IsMV(in, &value)) {
-        double area; /* area of overlap */
+        double area = NAN; /* area of overlap */
         area= CalcArea(inputCell, outputCell, aligned);
         if (area != 0 && nrCoverCells > 0 && nrMaps > 1)
             ModRaster(raster, outputCell, inputCell, angle);
@@ -217,11 +219,11 @@ static int CalcPixel(
     BOOL aligned,        /* maps are aligned */
     REAL8 angle)         /* angle of output map */
 {
-    PTYPE tlX, tlY, trX, trY, brX, brY, blX, blY;
-    double r, c;
+    PTYPE tlX = NAN, tlY = NAN, trX = NAN, trY = NAN, brX = NAN, brY = NAN, blX = NAN, blY = NAN;
+    double r = NAN, c = NAN;
     DATA *list= NULL;    /* areas and values of input cells */
-    size_t i, nrList= 0; /* number of items in list */
-    POINT2D *outputCell; /* polygon of output cell */
+    size_t i = 0, nrList= 0; /* number of items in list */
+    POINT2D *outputCell = NULL; /* polygon of output cell */
 #ifdef DEBUG
     size_t nr= 4;        /* nr of points of cell */
 #endif
@@ -245,9 +247,9 @@ static int CalcPixel(
     /* Get pixel on every input map */
     for (i= 0; i < nrMaps; i++) {
         MAP *X= in[i]; /* input map number i */
-        PTYPE tlC, tlR, trC, trR, brC, brR, blC, blR;
-        PTYPE tlX2, tlY2, trX2, trY2, brX2, brY2, blX2, blY2;
-        double leftB, belowB, rightB, upperB; /* boundaries */
+        PTYPE tlC = NAN, tlR = NAN, trC = NAN, trR = NAN, brC = NAN, brR = NAN, blC = NAN, blR = NAN;
+        PTYPE tlX2 = NAN, tlY2 = NAN, trX2 = NAN, trY2 = NAN, brX2 = NAN, brY2 = NAN, blX2 = NAN, blY2 = NAN;
+        double leftB = NAN, belowB = NAN, rightB = NAN, upperB = NAN; /* boundaries */
 
         /* Corners: (tlX, tlY), (trX, trY), (blX, blY) and
          * (brX, brY). Translate for input map.
@@ -268,12 +270,12 @@ static int CalcPixel(
 
         /* Check all cells between the boundaries */
         for (r= upperB; r < belowB; r++) {
-            REAL8 *currRow;
+            REAL8 *currRow = NULL;
             if (0 <= r && r <= RgetNrRows(X))
                 currRow= (REAL8 *)CacheGetRow(in, i, r);
 
             for (c= leftB; c < rightB; c++) { /* Cells that might be in pixel */
-                POINT2D *inputCell;           /* polygon input cell */
+                POINT2D *inputCell = NULL;           /* polygon input cell */
 
                 if (r < 0 || RgetNrRows(X) <= r || c < 0 || RgetNrCols(X) <= c)
                     continue;
@@ -327,7 +329,7 @@ int SampleCont(
     BOOL aligned,      /* maps are aligned */
     REAL8 angle)       /* angle of output map */
 {
-    double r, c;
+    double r = NAN, c = NAN;
     size_t nrCoverCells= (size_t)ceil((percentage / 100) * rasterSize * rasterSize);
     InitCache(out, in, nrMaps);
     for (r= 0; r < nrRows; r++) {

@@ -9,19 +9,14 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_SSTREAM
-#include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-#ifndef INCLUDED_IOMANIP
-#include <iomanip>
-#define INCLUDED_IOMANIP
-#endif
+
 // PCRaster library headers.
 
 // Module headers.
 
-
+#include <cmath>
+#include <iomanip>
+#include <sstream>
 
 /*!
   \file
@@ -81,13 +76,13 @@ pcrxml::BinDoubleLE::BinDoubleLE(double value):
 
 double pcrxml::BinDoubleLE::hexToDouble (const std::string& hexString)
 {
-  double v;
+  double v = NAN;
 
   PRECOND(hexString.size() == sizeof(double)*2);
   auto *ptr=(unsigned char *)&v;
   for(size_t i=0;i < sizeof(double); i++) {
     std::istringstream  is(hexString.substr(i*2,2));
-    int value;
+    int value = 0;
     is >> std::hex >>  value;
     ptr[i]=value;
   }
@@ -96,7 +91,7 @@ double pcrxml::BinDoubleLE::hexToDouble (const std::string& hexString)
 
 //! ctor
 pcrxml::BinDoubleLE::BinDoubleLE():
-     Attribute(false) 
+     Attribute(false)
 {
 }
 

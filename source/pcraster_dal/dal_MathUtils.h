@@ -3,11 +3,6 @@
 
 
 // Library headers.
-#ifndef INCLUDED_CASSERT
-#include <cassert>
-#define INCLUDED_CASSERT
-#endif
-
 #ifndef INCLUDED_BOOST_NUMERIC_CONVERSION_CONVERTER
 #include <boost/numeric/conversion/converter.hpp>
 #define INCLUDED_BOOST_NUMERIC_CONVERSION_CONVERTER
@@ -42,15 +37,10 @@
 #define INCLUDED_DAL_ARRAY
 #endif
 
-#ifndef INCLUDED_NUMBERS
+#include <cassert>
+#include <cmath>
 #include <numbers>
-#define INCLUDED_NUMBERS
-#endif
-
-#ifndef INCLUDED_NUMERIC
 #include <numeric>
-#define INCLUDED_NUMERIC
-#endif
 
 
 namespace dal {
@@ -512,8 +502,8 @@ inline void interpolate(
     ++index;
   }
 
-  size_t preNonMVIndex, postNonMVIndex;
-  double preWeight, postWeight;
+  size_t preNonMVIndex = 0, postNonMVIndex = 0;
+  double preWeight = NAN, postWeight = NAN;
 
   while(index < array.size()) {
 
@@ -632,7 +622,7 @@ inline void interpolate(
 {
   typename Array<T>::iterator result_it;
   typename Array<T>::const_iterator cell1_it, cell2_it;
-  typename Array<double>::const_iterator dist1_it, dist2_it;
+  typename Array<double>::const_iterator dist1_it = nullptr, dist2_it = nullptr;
 
   for(   result_it = result.begin(),
          cell1_it = cells1.begin(), dist1_it = distances1.begin(),

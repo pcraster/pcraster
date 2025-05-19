@@ -70,7 +70,7 @@ public:
     // should not be called otherwise
     PRECOND(str.present());
     // size_t i=lookup(str,d_strings,d_nrValues); dunno non-inline
-    size_t i;
+    size_t i = 0;
     for (i=0; i < d_nrStrings && (str.value() != d_strings[i]); i++)
        ;
     if (i == d_nrStrings)

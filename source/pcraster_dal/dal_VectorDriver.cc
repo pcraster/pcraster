@@ -43,6 +43,7 @@
 #define INCLUDED_DAL_TYPES
 #endif
 
+#include <cmath>
 #include <filesystem>
 #include <format>
 #include <memory>
@@ -559,7 +560,7 @@ bool VectorDriver::extremes(
 
   switch(typeId) {
     case TI_REAL4: {
-      REAL4 i, a;
+      REAL4 i = NAN, a = NAN;
 
       if(extremes<REAL4>(i, a, name, space)) {
         min = i;
@@ -570,7 +571,7 @@ bool VectorDriver::extremes(
       break;
     }
     case TI_REAL8: {
-      REAL8 i, a;
+      REAL8 i = NAN, a = NAN;
 
       if(extremes<REAL8>(i, a, name, space)) {
         min = i;
@@ -605,7 +606,7 @@ void VectorDriver::browse(
   std::set<size_t> steps;
   std::regex regex;
   std::smatch match;
-  Vector* vector;
+  Vector* vector = nullptr;
 
   std::vector<std::string> const& extensions(format().extensions());
 
@@ -662,7 +663,7 @@ void VectorDriver::browse(
           vector = open((path / name).string(), space, address);
 
           if(vector) {
-            size_t first, last, interval;
+            size_t first = 0, last = 0, interval = 0;
 
             if(isRegularIncreasingRange(first, last, interval, steps.begin(),
                    steps.end())) {

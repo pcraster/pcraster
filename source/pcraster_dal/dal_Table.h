@@ -1506,14 +1506,14 @@ inline void Table::assign(
 
   size_t const nrRecs = joinFromCol.size();
 
-  INT4 joinValue;
+  INT4 joinValue = 0;
 
   for(size_t i = 0; i < nrRecs; ++i) {
     // Value at source of join.
     joinValue = joinFromCol[i];
 
     // Find value at destination of join.
-    size_t j;
+    size_t j = 0;
 
     for(j = 0; j < nrRecs; ++j) {
       if(joinToCol[j] == joinValue) {

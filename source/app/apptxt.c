@@ -41,10 +41,10 @@ int AppDetectColumnFile(BOOL *geoEas,         /* write-only boolean */
                         const char *fileName, /* file to read */
                         int sepChar)          /* separator char */
 {
-    int token, c, nrCols = 0;
+    int token = 0, c = 0, nrCols = 0;
     FILE *f = fopen(fileName, "r");
     BOOL somethingOnLine1 = FALSE;
-    int firstNonEmptyLine;
+    int firstNonEmptyLine = 0;
     char sepBuf[2];
     *geoEas = FALSE;
 

@@ -6,9 +6,10 @@
 /********/
 
 /* libs ext. <>, our ""  */
+#include "app.h"
 #include "csf.h"
 #include "misc.h"
-#include "app.h"
+#include <math.h>
 #include <string.h> /* memcpy */
 
 /*************/
@@ -71,7 +72,7 @@ static void FreeColumnOrTimeSeriesData(
   size_t nrDataRecords)  /* the number of records in dataRecords
                          */
 {
-  size_t i;
+  size_t i = 0;
   /* Free the chunks allocated
    */
   for(i=0; i < nrDataRecords; i += REC_ALLOC)
@@ -118,9 +119,9 @@ static double *NewAllRec(void)
 {
   if (nrAllRecords == nrAllRecList)
   {
-   double **r;
-   double *newChunk;
-   size_t i;
+   double **r = NULL;
+   double *newChunk = NULL;
+   size_t i = 0;
    r = (double **)ChkRealloc(allRecList, sizeof(double *)*
        (nrAllRecList+REC_ALLOC));
    newChunk = CHK_MALLOC_TYPE(double,REC_ALLOC*nrColsinAllRec);
@@ -211,12 +212,12 @@ static int ReadAllColumnFile(
                          * in 4 col structure)
                          */
 {
-  FILE *f;
+  FILE *f = NULL;
   char    sepBuf[2];
-  size_t     l,nCols;
-  double  mvDbl;
+  size_t     l = 0,nCols = 0;
+  double  mvDbl = NAN;
   BOOL    number = CnvrtDouble(&mvDbl ,mv);
-  double  *currRecValues; /* the record values for a line parsed */
+  double  *currRecValues = NULL; /* the record values for a line parsed */
   double *resultRec = NULL; /* marked NULL if we need a new one */
   sepBuf[0] = (char)sepChar;
   sepBuf[1] = '\0';
@@ -257,10 +258,10 @@ static int ReadAllColumnFile(
 
   l = LexGetLineNr()-1; /* current line nr */ 
   while (1) {
-   size_t i; /* current line nr */ 
+   size_t i = 0; /* current line nr */ 
    for(i = 1; i <= nCols; i++)
    {
-       const char *v;
+       const char *v = NULL;
        int token = LexGetToken();
        if (token == sepChar) /* skip separator */
          token = LexGetToken();
@@ -414,7 +415,7 @@ int AppReadColumnFile(
                            * But they are reported in the return counts
                            */
 {
-  size_t     rec,nrCols, lineDelta;
+  size_t     rec = 0,nrCols = 0, lineDelta = 0;
         if ( ReadAllColumnFile(recs, nrRecs, &nrCols, 
                  nrRecordsRead,nrMVvalueColumn,nrMVcoordColumn,skipMVrecords,
                                   geoeas, inputFile, mv, sepChar, colNr) )
@@ -478,8 +479,8 @@ int AppReadTimeSeriesFile(
                            */
   int       sepChar)     /* separator character */
 {
-  size_t     i,c,lineDelta;
-  size_t nrRecordsRead,nrMVvalueColumn,nrMVcoordColumn;
+  size_t     i = 0,c = 0,lineDelta = 0;
+  size_t nrRecordsRead = 0,nrMVvalueColumn = 0,nrMVcoordColumn = 0;
 
   if (appHeader == APP_NOHEADER)
     handleAnError = HandleAnErrorTss;

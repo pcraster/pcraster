@@ -106,7 +106,7 @@ bool dal::GeoEASTableDriver::readHeader(
   boost::trim(line);
 
   using namespace boost::spirit::classic;
-  size_t nrAttributes;
+  size_t nrAttributes = 0;
   rule<> valueParser = Uint4Type::Parser()[assign_a(nrAttributes)];
 
   if(!parse(line.c_str(), valueParser).full) {

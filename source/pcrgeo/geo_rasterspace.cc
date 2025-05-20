@@ -3,11 +3,6 @@
 #define INCLUDED_STDDEFX
 #endif
 
-#ifndef INCLUDED_CMATH
-#include <cmath>
-#define INCLUDED_CMATH
-#endif
-
 #ifndef INCLUDED_DAL_RASTER
 #include "dal_Raster.h"
 #define INCLUDED_DAL_RASTER
@@ -33,6 +28,7 @@
 #define INCLUDED_GEO_UTIL
 #endif
 
+#include <cmath>
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS
@@ -56,7 +52,7 @@
  * rs.setNrCols(3);
  * assert(rs.valid());
  *
- * RasterSpace rs(3,3); 
+ * RasterSpace rs(3,3);
  * assert(rs.valid());
  * \endcode
  */
@@ -249,7 +245,7 @@ void geo::RasterSpace::coords2Loc(
          double y,
          CellLoc& loc) const
 {
-  double row, col;
+  double row = NAN, col = NAN;
   coords2RowCol(x, y, row, col);
   loc.setIndices(static_cast<size_t>(row), static_cast<size_t>(col));
 }
@@ -272,7 +268,7 @@ void geo::RasterSpace::coords2RowCol(double x, double y,
                    double& row, double& col) const
 {
   double xCol = (x - d_left) / d_cellSize;
-  double yRow;
+  double yRow = NAN;
   if(d_projection == YIncrT2B) {
     yRow = (y - d_top) / d_cellSize;
   }
@@ -301,7 +297,7 @@ geo::Quadrant geo::RasterSpace::quadrant(double x, double y) const
   Quadrant quadrant(NorthWest);
 
   // Determine center of cell containing x, y.
-  double row, col, xCenter, yCenter;
+  double row = NAN, col = NAN, xCenter = NAN, yCenter = NAN;
   coords2RowCol(x, y, row, col);
   rowCol2Coords(std::floor(row) + 0.5, std::floor(col) + 0.5, xCenter, yCenter);
 
@@ -407,8 +403,8 @@ std::ostream& geo::operator<<(std::ostream& s, const RasterSpace& rs)
 
 std::istream& geo::operator>>(std::istream& s, RasterSpace& rs)
 {
-  int p;
-  size_t nrRows,nrCols;
+  int p = 0;
+  size_t nrRows = 0,nrCols = 0;
 
   s >> nrRows >> nrCols >> rs.d_cellSize
                    >> p >> rs.d_left >> rs.d_top

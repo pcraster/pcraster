@@ -230,7 +230,7 @@ void com::expectExistingFile(const std::string &name)
 //! Eats \a c characters from \a s and throws them away.
 void com::eat(std::istream &s, char c)
 {
-  int ch;
+  int ch = 0;
 
   while(s) {
     if((ch = s.get()) != (int)c) {
@@ -249,7 +249,7 @@ void com::eat(std::istream &s, char c)
 void com::skipWhiteSpace(std::istream &stream)
 {
     if(stream) {
-        char ch;
+        char ch = 0;
         while(stream.get(ch)) {
             if(!std::isspace(ch)) {
                 stream.putback(ch);
@@ -345,7 +345,7 @@ void com::read(
    std::ifstream ifs;
    open(ifs,fileName,m);
    fillThis.erase();
-   char c;
+   char c = 0;
    while (ifs.get(c))
      fillThis += c;
    POSTCOND(ifs.eof());

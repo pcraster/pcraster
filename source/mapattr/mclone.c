@@ -6,14 +6,14 @@
 /********/
 
 /* libs ext. <>, our ""  */
+#include "app.h"
+#include "csf.h"
+#include "currmenu.h" /* Curr... */
+#include "misc.h"
 #include <ctype.h>
+#include <math.h>
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>
-#include "csf.h"
-#include "app.h"
-#include "misc.h"
-#include "currmenu.h" /* Curr... */
 
 /* apps. of this module called */
 #include "mapattr.h"
@@ -60,7 +60,7 @@ static int PrintHeader(const char *mapName)
 
 static void WriteItems(char **attrItems, const ATTRIBUTES *attr, int nrAttr)
 {
-    int i;
+    int i = 0;
     for (i = 0; i < nrAttr; i++) {
         const char *allow = allowEdit[i] ? "" : " (FIXED)";
         sprintf(attrItems[i],
@@ -74,7 +74,7 @@ static void WriteItems(char **attrItems, const ATTRIBUTES *attr, int nrAttr)
 
 static void SetAllowEdits(void)
 {
-    int i;
+    int i = 0;
     for (i = ATTR_nrRows; i <= ATTR_cellRepr; i++)
         allowEdit[i] = currAttr->cloneCreation;
     for (i = ATTR_projection; i <= ATTR_gisFileId; i++)
@@ -83,15 +83,15 @@ static void SetAllowEdits(void)
 
 static int PrintLegend(int startY, ATTRIBUTES *attr, int nrAttr)
 {
-    char **attrItems;
+    char **attrItems = NULL;
     const char *otherMsg = "q=Quit; u=UndoLastEdit; ";
     const char *endMsg = attr->cloneCreation ? "Create map?" : "Write map attributes?";
     const int otherKeys[] = {'q', 'u'};
-    int i;
+    int i = 0;
     int colXStart = 3;
-    int prefLen; /* for NAME */
-    int boxCols;
-    REAL8 lastEditOrig;
+    int prefLen = 0; /* for NAME */
+    int boxCols = 0;
+    REAL8 lastEditOrig = NAN;
     int lastEdit = -1; /* no edits */
 
     SetAllowEdits();
@@ -116,7 +116,7 @@ static int PrintLegend(int startY, ATTRIBUTES *attr, int nrAttr)
     i = 0;
     while (i == 0) {
         if (CurrRadioSelectItem(&i, attrBox)) {
-            REAL8 orig, edit;
+            REAL8 orig = NAN, edit = NAN;
             char editBuf[128];
             if (!allowEdit[i]) {
                 i = 0;
@@ -141,7 +141,7 @@ static int PrintLegend(int startY, ATTRIBUTES *attr, int nrAttr)
             switch (i) { /* it's an otherKey */
             case 'q':
                 if (lastEdit != -1) {
-                    BOOL valid;
+                    BOOL valid = 0;
                     CurrRadioPrintItems(attrBox);
                     valid = (attr->nrRows != MV_UINT4 && attr->nrCols != MV_UINT4);
                     if (!valid) {
@@ -181,7 +181,7 @@ static int PrintLegend(int startY, ATTRIBUTES *attr, int nrAttr)
 /* Puts main menu at screen and returns when user wants to quit */
 extern int MakeCloneMenu(ATTRIBUTES *new, const char *mapName)
 {
-    int headerLines, c;
+    int headerLines = 0, c = 0;
 
     currAttr = new;
     /* Initialize the screen */

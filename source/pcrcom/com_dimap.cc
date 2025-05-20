@@ -13,6 +13,7 @@
 #define INCLUDED_BOOST_MATH_SPECIAL_FUNCTIONS_ROUND
 #endif
 
+#include <cmath>
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC CLASS MEMBERS
@@ -35,7 +36,7 @@ const double com::DiMap::logMax = 1.0e150;
 */
 com::DiMap::DiMap()
 
-   
+
 
 {
 }
@@ -221,7 +222,7 @@ int com::DiMap::limTransform(double x) const
 //------------------------------------------------------------
 double com::DiMap::xTransform(double x) const
 {
-  double rv;
+  double rv = NAN;
 
   if(d_log) {
     rv = static_cast<double>(d_y1) + (std::log(x) - d_x1) * d_cnv;

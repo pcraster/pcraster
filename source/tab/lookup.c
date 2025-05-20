@@ -143,7 +143,7 @@ static int CmpKey(
   const double *keyValues,
   const LOOK_UP_KEY **keys)
 {
-  int i,r=0;
+  int i = 0,r=0;
   const QSORT_CMP Cmp[] = {
    (QSORT_CMP)TestOne   ,
    (QSORT_CMP)TestInfInf,
@@ -177,7 +177,7 @@ LOOK_UP_KEY *FindLookupKey(
     const double *keyValues) /* values to match, no MV's allowed
                               */
 {
-  LOOK_UP_KEY **k;
+  LOOK_UP_KEY **k = NULL;
   size_t nr= (size_t)(t->nrRecords);
   PRECOND(t->searchMethod == 1 || t->searchMethod == 0);
   cmpNrKeys = t->nrKeys;
@@ -202,7 +202,7 @@ size_t FindCrossKey(
                               */
 {
   // SEARCH m[2] = { (SEARCH)lfind,(SEARCH)bsearch};
-  LOOK_UP_KEY **k;
+  LOOK_UP_KEY **k = NULL;
   size_t nr= (size_t)(t->nrRecords-startHere);
   PRECOND(t->searchMethod == 1 || t->searchMethod == 0);
   cmpNrKeys = t->nrKeys;

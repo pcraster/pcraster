@@ -9,14 +9,6 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_SSTREAM
-#include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-#ifndef INCLUDED_BOOST_NONCOPYABLE
-#include <boost/noncopyable.hpp>
-#define INCLUDED_BOOST_NONCOPYABLE
-#endif
 
 // PCRaster library headers.
 #ifndef INCLUDED_CSF
@@ -60,6 +52,9 @@
 #define INCLUDED_GEO_CSFRASTER
 #endif
 
+#include <cmath>
+#include <sstream>
+
 /*!
   \file
   This file contains the implementation of the FileCreateTester class.
@@ -78,7 +73,7 @@
 //------------------------------------------------------------------------------
 
 //! ctor
-/*! 
+/*!
  *  \param fileToCreate if existant, this file is removed here if \a removeNow is true
  *  \param removeNow    remove
  */
@@ -117,7 +112,7 @@ namespace geo {
     }
  };
 
-class DiffMap : boost::noncopyable
+class DiffMap
 {
     //! 0 if no difference
     Raster<UINT1> *d_values;
@@ -137,6 +132,8 @@ class DiffMap : boost::noncopyable
       : d_values(nullptr), d_diffMapWanted(diffMapWanted),
         d_diffNoted(false), d_tr(tr) ,d_rs(rs)
     {}
+    DiffMap(const DiffMap& other) = delete;
+    DiffMap& operator=(const DiffMap& other) = delete;
     ~DiffMap() {
        delete d_values;
     }
@@ -228,7 +225,7 @@ bool geo::FileCreateTester::equalToTss(
      else
       if (firstErrMsg.empty()) {
         std::ostringstream str;
-        str << "value at (timestep,colNr) (" 
+        str << "value at (timestep,colNr) ("
             << r+1 << "," << c+1 << ") differ:\n  "
             << v1  << "-" << v2 << "=" << diff << '\n';
         firstErrMsg=str.str();
@@ -291,7 +288,7 @@ bool geo::FileCreateTester::equalToCsf(
     diffMap.putCells(dm.diffs());
   }
 
-  double m1,m2;
+  double m1 = NAN,m2 = NAN;
   if (map1.min(&m1) != map2.min(&m2) || !com::equal_epsilon(m1,m2))
     return tr.falseOrThrow("header minimum differ");
   if (map1.max(&m1) != map2.max(&m2) || !com::equal_epsilon(m1,m2))

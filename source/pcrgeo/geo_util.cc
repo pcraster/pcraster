@@ -171,7 +171,7 @@ bool geo::geoEasFormat(std::istream &s)
 
 bool geo::isCSFStack(const com::PathName& pn)
 {
-  bool result;
+  bool result = false;
 
   try {
     geo::CSFStackName sn(pn, false);
@@ -201,7 +201,7 @@ bool geo::isBlock(const com::PathName& pn)
 
   // Read first line: 5 tokens.
   std::string line;
-  size_t n;
+  size_t n = 0;
   std::getline(s, line);
   n = com::split(line).size();
   if(n != 5) {
@@ -337,7 +337,7 @@ bool geo::isColumnFile(const com::PathName& pn)
 
   // Read and test i lines.
   std::string line;
-  size_t nc, n;
+  size_t nc = 0, n = 0;
 
   std::getline(stream, line);
   nc = com::split(line).size();
@@ -698,7 +698,7 @@ T geo::average(T const* cells, geo::RasterDim const& dim,
 
   T average(0);
   size_t n = 0;
-  size_t index;
+  size_t index = 0;
 
   for(size_t i = 0; i < length; ++i) {
     for(size_t j = 0; j < length; ++j) {

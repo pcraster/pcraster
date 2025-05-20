@@ -591,7 +591,7 @@ template<class Point>
 void GriddedPoints<Point>::points(const CellLoc& loc,
          const Neighbourhood& neighbourhood, std::vector<Point>& points) const
 {
-  int startRow, startCol, rowOffset, colOffset;
+  int startRow = 0, startCol = 0, rowOffset = 0, colOffset = 0;
 
   if(loc.row() < neighbourhood.radius()) {
     startRow = 0;
@@ -630,7 +630,7 @@ template<class Point>
 void GriddedPoints<Point>::points(const CellLoc& loc,
          const Neighbourhood& neighbourhood, std::vector<Point*>& points)
 {
-  int startRow, startCol, rowOffset, colOffset;
+  int startRow = 0, startCol = 0, rowOffset = 0, colOffset = 0;
 
   if(loc.row() < neighbourhood.radius()) {
     startRow = 0;

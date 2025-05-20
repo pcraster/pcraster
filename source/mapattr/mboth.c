@@ -211,13 +211,13 @@ void SetAttrDouble(ATTRIBUTES *a, const double *v, ATTR_NRS i)
 
 static BOOL CheckFileId(const char *s)
 {
-    INT4 v;
+    INT4 v = 0;
     return CnvrtINT4(&v, s) && v >= 0;
 }
 
 static BOOL CheckRowCols(const char *s)
 {
-    INT4 v;
+    INT4 v = 0;
     return CnvrtINT4(&v, s) && v > 0
 #ifdef EVAL_VERSION
            && v <= 60
@@ -227,31 +227,31 @@ static BOOL CheckRowCols(const char *s)
 
 static BOOL CheckUL(const char *s)
 {
-    REAL8 v;
+    REAL8 v = NAN;
     return CnvrtREAL8(&v, s);
 }
 
 static BOOL CheckCellSize(const char *s)
 {
-    double v;
+    double v = NAN;
     return CnvrtREAL8(&v, s) && v > 0;
 }
 
 static BOOL CheckAngle(const char *s)
 {
-    double v;
+    double v = NAN;
     return CnvrtREAL8(&v, s) && v >= -90 && v <= 90;
 }
 
 static BOOL CheckMinVal(const char *s)
 {
-    double v;
+    double v = NAN;
     return CnvrtREAL8(&v, s) && v <= currAttr->maxVal;
 }
 
 static BOOL CheckMaxVal(const char *s)
 {
-    double v;
+    double v = NAN;
     return CnvrtREAL8(&v, s) && v >= currAttr->minVal;
 }
 
@@ -277,7 +277,7 @@ static int EditCellRepr(double *editValue, /* read-write */
                         int xStart)
 {
     char op0[128], op1[128];
-    int i;
+    int i = 0;
     CSF_CR cr[2];
     char *options[2];
     options[0] = op0;
@@ -317,7 +317,7 @@ static int EditValueScale(double *editValue, /* read-write */
     char op0[128], op1[128];
     char op2[128], op3[128];
     char op4[128], op5[128];
-    int i, j;
+    int i = 0, j = 0;
     CSF_VS setVs[6],
         vs[6] = {VS_BOOLEAN, VS_NOMINAL, VS_ORDINAL, VS_SCALAR, VS_LDD, VS_DIRECTION};
     char *options[6];
@@ -359,7 +359,7 @@ int EditItem(double *editValue, /* read-write */
     case ATTR_nrCols:
         if (CurrGetStringCheck(
                 editString, strlen(NOT_SET) + 1, yStart, xStart, CheckRowCols)) {
-            INT4 v;
+            INT4 v = 0;
             (void)CnvrtINT4(&v, editString);
             *editValue = v;
             return TRUE;
@@ -393,7 +393,7 @@ int EditItem(double *editValue, /* read-write */
         return FALSE;
     case ATTR_gisFileId:
         if (CurrGetStringCheck(editString, strlen(NOT_SET) + 1, yStart, xStart, CheckFileId)) {
-            INT4 v;
+            INT4 v = 0;
             (void)CnvrtINT4(&v, editString);
             *editValue = v;
             return TRUE;

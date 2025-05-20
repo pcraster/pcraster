@@ -8,35 +8,6 @@
 #define INCLUDED_COM_BASICTABLE
 #endif
 
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-#ifndef INCLUDED_SSTREAM
-#include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-
-#ifndef INCLUDED_STDEXCEPT
-#include <stdexcept>
-#define INCLUDED_STDEXCEPT
-#endif
-
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-#ifndef INCLUDED_CCTYPE
-#include <cctype>
-#define INCLUDED_CCTYPE
-#endif
-
 #ifndef INCLUDED_COM_CSFCELL
 #include "com_csfcell.h"
 #define INCLUDED_COM_CSFCELL
@@ -52,6 +23,13 @@
 #define INCLUDED_COM_STRLIB
 #endif
 
+#include <cctype>
+#include <cmath>
+#include <iostream>
+#include <stdexcept>
+#include <sstream>
+#include <string>
+#include <vector>
 
 /*!
   \file
@@ -69,12 +47,12 @@
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 com::BasicTable::BasicTable()
 
-   
+
 
 {
 }
@@ -217,7 +195,7 @@ bool com::BasicTable::allMV(size_t i) const
 
 double com::BasicTable::min(size_t i) const
 {
-  double min;
+  double min = NAN;
   pcr::setMV(min);
 
   for(auto it = begin(i); it != end(i); ++it) {
@@ -238,7 +216,7 @@ double com::BasicTable::min(size_t i) const
 
 double com::BasicTable::max(size_t i) const
 {
-  double max;
+  double max = NAN;
   pcr::setMV(max);
 
   for(auto it = begin(i); it != end(i); ++it) {
@@ -339,7 +317,7 @@ std::ostream &operator<<(std::ostream &s, const BasicTable &t)
 {
   if(t.nrCols())
   {
-    size_t r, c;
+    size_t r = 0, c = 0;
     for(r = 0; r < t.nrRecs(); r++)
     {
       for(c = 0; c < t.nrCols() - 1; c++)
@@ -382,10 +360,10 @@ std::istream &operator>>(std::istream &s, BasicTable &t)
   t.resize(n);
 
 
-  size_t i;
+  size_t i = 0;
   size_t l = 1;    // Line number.                                         // 3.
-  double v;        // Value read.
-  char c;          // Character read.
+  double v = NAN;        // Value read.
+  char c = 0;          // Character read.
 
 //  s.seekg(p); Bugs on VS2005
 // instead add the line read and start at line 2

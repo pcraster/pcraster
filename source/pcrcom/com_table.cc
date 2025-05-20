@@ -257,12 +257,12 @@ std::istream& operator>>(std::istream &s, Table &t)
 
 
   // Read the number of variables.
-  size_t n;
+  size_t n = 0;
   s >> n;
   if(!s)
     throw com::BadStreamFormat("bad format: header corrupt");
   t.d_names.resize(n);
-  char c;
+  char c = 0;
   while(s.get(c) && c != '\n');
 
   // Read the column names.

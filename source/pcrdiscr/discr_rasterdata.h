@@ -248,7 +248,7 @@ bool RasterData<ValueType>::equals(
   bool result = false;
 
   if(d_raster == rhs.d_raster || *d_raster == *rhs.d_raster) {
-    size_t i;
+    size_t i = 0;
 
     for(i = 0; i < d_raster->nrCells(); ++i) {
       if(isMV(i)) {

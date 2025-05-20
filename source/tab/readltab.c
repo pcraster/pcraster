@@ -89,7 +89,7 @@ static int ParseKey(
       typedef enum STATE { STATE_START, STATE_LOWNUM, STATE_COMMA,
              STATE_HIGHNUM, STATE_HIGHTOKEN } STATE;
       STATE state = STATE_START;
-      int t; /* token */
+      int t = 0; /* token */
       long    startLineNr = LexGetLineNr();
   while(1)
   {
@@ -223,7 +223,7 @@ static LOOK_UP_KEY *ReadLookupRecs(
                       */
   FILE *tableFile)
 {
-  size_t n,nrK,c = DetectNrColsTable(tableFile);
+  size_t n = 0,nrK = 0,c = DetectNrColsTable(tableFile);
   LOOK_UP_KEY *k = NULL;
   long recStartAt=0;
   if (c == 0)
@@ -349,10 +349,10 @@ LOOK_UP_TABLE *ReadLookupTable(
                        */
   CSF_VS outputVs)     /* VS_UNDEFINED if we don't care */
 {
-  size_t r,c,nrCols, nrRecs;
-  LOOK_UP_KEY *k;
-  LOOK_UP_TABLE *t;
-  size_t nrColsExp;
+  size_t r = 0,c = 0,nrCols = 0, nrRecs = 0;
+  LOOK_UP_KEY *k = NULL;
+  LOOK_UP_TABLE *t = NULL;
+  size_t nrColsExp = 0;
   BOOL matrRead = (nrKeys == 2 && app2dMatrix);
   k = ReadLookupRecs(&nrCols, &nrRecs, nrKeys,
                       matrRead ? VS_UNDEFINED : outputVs, f);
@@ -372,7 +372,7 @@ LOOK_UP_TABLE *ReadLookupTable(
 
   if (matrRead)
   { /* build lookup from matrix and check matrix output/target values */
-    size_t i;
+    size_t i = 0;
     t->nrRecords = (nrRecs-1)*(nrCols-1);
     t->nrMatrCols = nrCols-1;
     t->nrKeys = 2; /* CW */

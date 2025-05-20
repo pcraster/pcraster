@@ -357,7 +357,7 @@ void randomCellLocations(
     return;
   }
 
-  size_t minRow, maxRow, minCol, maxCol;
+  size_t minRow = 0, maxRow = 0, minCol = 0, maxCol = 0;
   std::vector<LinearLoc> cellIds;
 
   cookieCut(minRow, maxRow, minCol, maxCol, space, neighbourhood, cell);
@@ -385,7 +385,7 @@ void randomCellLocations(
     return;
   }
 
-  size_t minRow, maxRow, minCol, maxCol;
+  size_t minRow = 0, maxRow = 0, minCol = 0, maxCol = 0;
   std::vector<LinearLoc> cellIds;
 
   cookieCut(minRow, maxRow, minCol, maxCol, raster, neighbourhood, cell);

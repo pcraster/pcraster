@@ -55,7 +55,7 @@ static void *InsertSorted(
        QSORT_CMP cmp)/* comparisson function */
 {
  int x=0; /* num == 0 case */
- int c,l=0;
+ int c = 0,l=0;
  int r=num-1;
  if (num == 0)
    goto done;
@@ -98,7 +98,7 @@ void STforAll(
  SEARCH_TABLE *t, /* table to deallocate */
  ACTION_REC   action) /* */
 {
- size_t i;
+ size_t i = 0;
 
  for(i = 0; i< t->nrSlowList; i++)
   action(((char *)(t->slowList))+(i*t->recSize));
@@ -122,8 +122,8 @@ void *STsearch(
  const SEARCH_TABLE *t, /* table to search */
  SEARCH_REC   f) /*  */
 {
- size_t i,fastBegin;
- const void *best;
+ size_t i = 0,fastBegin = 0;
+ const void *best = NULL;
 
  PRECOND(t != NULL && f != NULL);
 
@@ -167,7 +167,7 @@ SEARCH_TABLE *STnew(
                        */
  QSORT_CMP cmp)         /* pointer to compare function */
 {
- SEARCH_TABLE *t;
+ SEARCH_TABLE *t = NULL;
  PRECOND(cmp != NULL);
 #ifdef DEBUG
  if (nrFastList > 0)
@@ -186,8 +186,8 @@ SEARCH_TABLE *STnew(
  t->InitRec = InitRec;
  if(nrFastList != 0)
  {
-  size_t i;
-  char *r;
+  size_t i = 0;
+  char *r = NULL;
   t->fastList = ChkMalloc(nrFastList * recSize);
   if(t->fastList == NULL)
   {
@@ -219,7 +219,7 @@ void *STinsert(
  SEARCH_TABLE *t,  /* read-write table */
  const void *f)   /* key to insert */
 {
- void *c;
+ void *c = NULL;
  t->nrSlowList++;
  c = (void *)ChkRealloc(t->slowList, t->nrSlowList*t->recSize);
  if(c == NULL)
@@ -242,7 +242,7 @@ void *STfind(
 
  if(t->nrFastList != 0)
  {
-  int id;
+  int id = 0;
   PRECOND(t->ReturnId != NULL);
   id = t->ReturnId(record);
   if( 0 <= id && id < (int)t->nrFastList)

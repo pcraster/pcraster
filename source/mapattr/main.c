@@ -10,11 +10,12 @@
 /********/
 
 /* libs ext. <>, our ""  */
-#include <string.h>
+#include "app.h"
 #include "csf.h"
 #include "mathx.h"
 #include "misc.h"
-#include "app.h"
+#include <math.h>
+#include <string.h>
 
 /* global header (opt.) and mapattr's prototypes "" */
 #include "mapattr.h"
@@ -184,10 +185,10 @@ failure:
 
 static int CreateMap(const char *name, const ATTRIBUTES *a)
 {
-    UINT1 *buf;
-    size_t i;
-    double angle;
-    MAP *m;
+    UINT1 *buf = NULL;
+    size_t i = 0;
+    double angle = NAN;
+    MAP *m = NULL;
 
     size_t CELLMAX = (long int)(pow(2, 30) - 1);
     if (((size_t)a->nrRows * (size_t)a->nrCols) > CELLMAX) {
@@ -273,9 +274,9 @@ error2:
 
 static int DefaultCloneAttr(ATTRIBUTES *a)
 {
-    MAP *in;
+    MAP *in = NULL;
     if (appClone != NULL) {
-        char *dummy;
+        char *dummy = NULL;
         in = AppOpenClone(&dummy, NULL);
         if (in == NULL)
             return 1;
@@ -293,7 +294,7 @@ static int PrintOption(const char **names, int nrNames)
 {
     ATTRIBUTES *a = (ATTRIBUTES *)ChkMalloc(sizeof(ATTRIBUTES) * nrNames);
     int *colLen = (int *)ChkMalloc(sizeof(int) * nrNames);
-    int i;
+    int i = 0;
     if (a == NULL || colLen == NULL)
         return 1;
     for (i = 0; i < nrNames; i++) {
@@ -309,7 +310,7 @@ static int PrintOption(const char **names, int nrNames)
 
     if (printDataType) {
         for (i = 0; i < nrNames; i++) {
-            int c;
+            int c = 0;
             switch (a[i].valueScale) {
             case VS_LDD:
                 c = 'L';
@@ -366,7 +367,7 @@ static int PrintOption(const char **names, int nrNames)
 
     printf("%s", printLabels[ATTR_cellRepr]);
     for (i = 0; i < nrNames; i++) {
-        const char *cStr;
+        const char *cStr = NULL;
         switch (a[i].cellRepr) {
         case CR_UINT1:
             cStr = "small";
@@ -509,8 +510,8 @@ static MAP **OpenCopyOrSetMaps(ATTRIBUTES *a, /* attributes first one */
                                const char **names,
                                int nrNames)
 {
-    MAP **maps;
-    int i;
+    MAP **maps = NULL;
+    int i = 0;
     maps = (MAP **)ChkCalloc((size_t)nrNames, sizeof(MAP *));
     if (maps == NULL)
         return NULL;
@@ -549,8 +550,8 @@ error:
 static int CopyOption(const char **names, int nrNames)
 {
     ATTRIBUTES a;
-    MAP **maps;
-    int i;
+    MAP **maps = NULL;
+    int i = 0;
 
     maps = OpenCopyOrSetMaps(&a, TRUE, names, nrNames);
     if (maps == NULL)
@@ -564,8 +565,8 @@ static int CopyOption(const char **names, int nrNames)
 static int SetOption(const char **names, int nrNames, const ATTRIBUTES *opt)
 {
     ATTRIBUTES a;
-    MAP **maps;
-    int i;
+    MAP **maps = NULL;
+    int i = 0;
 
     if (DefaultCloneAttr(&a))
         return 1;
@@ -597,7 +598,7 @@ int main(int argc,     /* number of arguments */
          char *argv[]) /* list of arguments */
 {
     ATTRIBUTES opt;
-    int c;
+    int c = 0;
     CSF_VS valueScale = VS_UNDEFINED;
     enum MODE { CLONE, EDIT, COPY, PRINT, SET } mode = CLONE;
 

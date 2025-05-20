@@ -23,7 +23,7 @@
 #define INCLUDED_GEO_POINT
 #endif
 
-
+#include <cmath>
 
 /*!
   Default constructor.
@@ -518,7 +518,7 @@ geo_Rectangle operator-(const geo_Rectangle &rectangle, REAL8 i)
 geo_Rectangle bounds(const geo_Rectangle &rect1, const geo_Rectangle &rect2,
                      int projection)
 {
-  REAL8 ulX, lrX;
+  REAL8 ulX = NAN, lrX = NAN;
   REAL8 ulY = 0.0;
   REAL8 lrY = 0.0;
 
@@ -561,7 +561,7 @@ geo_Rectangle bounds(const geo_Rectangle &rect1, const geo_Rectangle &rect2,
 bool intersect(const geo_Rectangle &rect1, const geo_Rectangle &rect2,
                int projection)
 {
-  REAL8 maxX, minX, maxY, minY;
+  REAL8 maxX = NAN, minX = NAN, maxY = NAN, minY = NAN;
 
   maxX = MAX(rect1.getUpperLeft()[geo::X], rect2.getUpperLeft()[geo::X]);
   minX = MIN(rect1.getLowerRight()[geo::X], rect2.getLowerRight()[geo::X]);
@@ -591,7 +591,7 @@ geo_Rectangle intersection(const geo_Rectangle &rect1,
                            const geo_Rectangle &rect2,
                            int projection)
 {
-  REAL8 ulX, lrX, ulY, lrY;
+  REAL8 ulX = NAN, lrX = NAN, ulY = NAN, lrY = NAN;
 
   ulX = MAX(rect1.getUpperLeft()[geo::X], rect2.getUpperLeft()[geo::X]);
   lrX = MIN(rect1.getLowerRight()[geo::X], rect2.getLowerRight()[geo::X]);

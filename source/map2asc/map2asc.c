@@ -9,11 +9,12 @@
 /********/
 
 /* libs ext. <>, our ""  */
+#include "app.h"    /* appOutput, APP_PROGRESS, AppProgress */
 #include "csf.h"
 #include "misc.h"
-#include <string.h> /* strlen, strcpy */
 #include <ctype.h>  /* isdigit */
-#include "app.h"    /* appOutput, APP_PROGRESS, AppProgress */
+#include <math.h>
+#include <string.h> /* strlen, strcpy */
 
 #include "map2asc.h"
 /* apps. called */
@@ -51,7 +52,7 @@ static int ScanMap(
     int nrCellsOnLine,
     BOOL colWise)
 {
-    size_t r, c, nrRows, nrCols;
+    size_t r = 0, c = 0, nrRows = 0, nrCols = 0;
 
     nrRows = (int)RgetNrRows(inputMap);
     nrCols = (int)RgetNrCols(inputMap);
@@ -65,8 +66,8 @@ static int ScanMap(
             AppRowProgress(c);
             for (r = 0; r < nrRows; r++)
             {
-                REAL8 val;
-                int res;
+                REAL8 val = NAN;
+                int res = 0;
                 RgetCell(inputMap, r, c, &val);
                 res = PutCell(
                     outputFile,
@@ -141,7 +142,7 @@ static int PrintAsciiGridHeader(
     MAP *input)       /* read-only input map */
 {
     UINT4 nrRows = RgetNrRows(input), nrCols = RgetNrCols(input);
-    double x, y;
+    double x = NAN, y = NAN;
 
     /* Calculate XLLCorner and YLLCorner */
     RgetCoords(input, 0, (size_t)nrRows, (size_t)0, &x, &y);

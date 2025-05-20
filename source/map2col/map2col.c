@@ -5,10 +5,11 @@
 /********/
 
 /* libs ext. <>, our ""  */
+#include "app.h"    /* appOutput, APP_PROGRESS, AppProgress */
 #include "csf.h"
 #include "misc.h"
+#include <math.h>
 #include <string.h> /* strlen, strcpy */
-#include "app.h"    /* appOutput, APP_PROGRESS, AppProgress */
 
 /* apps. called */
 #include "map2col.h"
@@ -44,7 +45,7 @@ static int PrintHeader(FILE *outputFile,    /* write-only output file */
                        const INP_MAP *maps, /* read-only input maps */
                        size_t nrMaps)       /* number of input maps */
 {
-    size_t i;
+    size_t i = 0;
 
     /* print name of program in output file */
     fprintf(outputFile, "map2col\n");
@@ -73,7 +74,7 @@ static int PrintHeader(FILE *outputFile,    /* write-only output file */
 static void FreeCache(INP_MAP *maps, /* list of map records */
                       size_t nrMaps) /* array size of maps */
 {
-    size_t i;
+    size_t i = 0;
     for (i = 0; i < nrMaps; i++)
         if (maps[i].type == 'v') Free(maps[i].r);
 }
@@ -82,7 +83,7 @@ static int InitMaps(INP_MAP *maps, /* list of map records */
                     size_t nrMaps, /* array size of maps */
                     const char *mv)
 {
-    size_t i, n;
+    size_t i = 0, n = 0;
     for (i = n = 0; i < nrMaps; i++)
     {
         if (maps[i].type != 'v')
@@ -112,7 +113,7 @@ static int ReadInputRecords(BOOL *geoEas,
                             const char *mv)
 {
     size_t cols[3];
-    size_t nrRecsRead, nrMVvalCol, nrMVcoorCol;
+    size_t nrRecsRead = 0, nrMVvalCol = 0, nrMVcoorCol = 0;
     static const char *locsep;
     cols[0] = xcoord;
     cols[1] = cols[2] = ycoord;
@@ -166,7 +167,7 @@ static int PrintValuesLine(FILE *out,           /* output file */
                            size_t nrMaps, /* size of maps and values array */
                            BOOL append) /* append determines if we write the first col */
 {
-    size_t i;
+    size_t i = 0;
     for (i = 0; i < nrMaps; i++)
         if (PutCell(out,
                     values + i,
@@ -183,7 +184,7 @@ static int PrintValuesLine(FILE *out,           /* output file */
 
 static int CopyLine(FILE *in, FILE *out)
 {
-    int c;
+    int c = 0;
     while ((c = fgetc(in)) != '\n' && c != EOF)
         if (fputc(c, out) == EOF) break;
     return ferror(in) || ferror(out);
@@ -195,9 +196,9 @@ static int DoAppendMode(const char *outputFile,
                         size_t nrMaps,
                         BOOL geoEas)
 {
-    FILE *in, *out;
-    REAL8 *values;
-    size_t i, c;
+    FILE *in = NULL, *out = NULL;
+    REAL8 *values = NULL;
+    size_t i = 0, c = 0;
 
     if ((values = (REAL8 *)ChkMalloc(sizeof(REAL8) * nrMaps)) == NULL) goto error;
 
@@ -213,8 +214,8 @@ static int DoAppendMode(const char *outputFile,
     }
     if (geoEas)
     {
-        size_t nrCols;
-        int getChar;
+        size_t nrCols = 0;
+        int getChar = 0;
 
         /* copy headerline */
         CopyLine(in, out);
@@ -253,7 +254,7 @@ static int DoAppendMode(const char *outputFile,
         else
             for (c = 0; c < nrMaps; c++)
             {
-                int row, col;
+                int row = 0, col = 0;
                 if (AppRgetRowCol(
                         maps[c].m, recList[i][POS_X], recList[i][POS_Y], &row, &col))
                 {
@@ -300,11 +301,11 @@ static int DoCreateMode(const char *outputFile,
                         size_t xco,
                         size_t yco)
 {
-    FILE *out;
-    REAL8 *values;
-    size_t row = 0, col;
-    size_t nrRows, nrCols;
-    MAP *m;
+    FILE *out = NULL;
+    REAL8 *values = NULL;
+    size_t row = 0, col = 0;
+    size_t nrRows = 0, nrCols = 0;
+    MAP *m = NULL;
 
     while (maps[row].type != 'v')
         row++;
@@ -329,9 +330,9 @@ static int DoCreateMode(const char *outputFile,
         for (col = 0; col < nrCols; col++)
             for (row = 0; row < nrRows; row++)
             {
-                double xout, yout;
-                double x, y;
-                size_t c;
+                double xout = NAN, yout = NAN;
+                double x = NAN, y = NAN;
+                size_t c = 0;
                 BOOL allMv = TRUE;
                 AppRgetCoords(m, (int)row, (int)col, &xout, &yout);
                 RgetCoords(m, 1, row, col, &x, &y);
@@ -339,7 +340,7 @@ static int DoCreateMode(const char *outputFile,
                 values[yco] = yout;
                 for (c = 0; c < nrMaps; c++)
                 {
-                    size_t mrow, mcol;
+                    size_t mrow = 0, mcol = 0;
                     if (maps[c].type != 'v') continue;
                     if (RgetRowCol(maps[c].m, x, y, &mrow, &mcol))
                     {
@@ -367,9 +368,9 @@ static int DoCreateMode(const char *outputFile,
         for (row = 0; row < nrRows; row++)
             for (col = 0; col < nrCols; col++)
             {
-                double xout, yout;
-                double x, y;
-                size_t c;
+                double xout = NAN, yout = NAN;
+                double x = NAN, y = NAN;
+                size_t c = 0;
                 BOOL allMv = TRUE;
                 AppRgetCoords(m, (int)row, (int)col, &xout, &yout);
                 RgetCoords(m, 1, row, col, &x, &y);
@@ -377,7 +378,7 @@ static int DoCreateMode(const char *outputFile,
                 values[yco] = yout;
                 for (c = 0; c < nrMaps; c++)
                 {
-                    size_t mrow, mcol;
+                    size_t mrow = 0, mcol = 0;
                     if (maps[c].type != 'v') continue;
                     if (RgetRowCol(maps[c].m, x, y, &mrow, &mcol))
                     {

@@ -52,15 +52,15 @@ static void CompCellError(COMP_CELL compCell, CSF_VS vs) {
 }
 
 int main(int argc, char *argv[]) {
-    MAP *out, *clone = NULL;
-    int c;
+    MAP *out = NULL, *clone = NULL;
+    int c = 0;
     size_t colNr[3] = {0 /*X*/, 1 /*Y*/, 2 /*V*/}; /* internal indices */
     const char *mv = "1e31";
-    char *cloneFileName;
+    char *cloneFileName = NULL;
     COMP_CELL compCell = NOTHING;
     CSF_CR cellRepr;
     CSF_VS valueScale = VS_UNDEFINED;
-    int parseVal;
+    int parseVal = 0;
     int sepChar = ',';
 
     if (InstallArgs(argc, argv, "x#y#v#m*(BLNOSDV)(atHM)(hl)s*", "col2map"))

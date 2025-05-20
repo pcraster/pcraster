@@ -684,7 +684,7 @@ com::PathName geo::CSFStackName::fileName() const
 
       // Determine time step of first file in the pool which is a member of the
       // stack.
-      size_t step;
+      size_t step = 0;
       firstAvailableTimeStep(pool, step);
 
       if(!step) {

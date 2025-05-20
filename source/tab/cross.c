@@ -6,10 +6,11 @@
 /********/
 
 /* libs ext. <>, our ""  */
-#include <string.h>
-#include "table.h"
-#include "misc.h"
 #include "csf.h"
+#include "misc.h"
+#include "table.h"
+#include <math.h>
+#include <string.h>
 
 /* global header (opt.) and test's prototypes "" */
 
@@ -43,7 +44,7 @@ static void SetValue(LOOK_UP_KEY *k, LOOK_UP_TEST t, double l, double h)
 
 static LOOK_UP_TABLE *MakeSingleCross(CSF_VS vs, double minVal, double maxVal, size_t nrInt)
 {
-    size_t i;
+    size_t i = 0;
     LOOK_UP_TABLE *t = ChkMalloc(sizeof(LOOK_UP_TABLE));
     if (t == NULL)
         return NULL;
@@ -81,7 +82,7 @@ static LOOK_UP_TABLE *MakeSingleCross(CSF_VS vs, double minVal, double maxVal, s
         if (minVal == maxVal || minVal == -1)
             SetValue(t->records[i_s++] + INTERVAL, TEST_ONE, minVal, minVal);
         if (minVal != maxVal) {
-            double inc;
+            double inc = NAN;
             if (minVal == -1)
                 minVal = 0;
             inc = (maxVal - minVal) / nrInt;
@@ -128,11 +129,11 @@ error:
 
 static int ApplyCross(LOOK_UP_TABLE *t, MAP **maps)
 {
-    size_t m, r, c;
+    size_t m = 0, r = 0, c = 0;
     size_t nrRows = RgetNrRows(maps[0]);
     size_t nrCols = RgetNrCols(maps[0]);
     double **buf = (double **)Malloc2d(t->nrKeys, nrCols, sizeof(double));
-    double *key;
+    double *key = NULL;
     if (buf == NULL)
         return 1;
     key = (double *)ChkMalloc(sizeof(double) * t->nrKeys);
@@ -158,7 +159,7 @@ static int ApplyCross(LOOK_UP_TABLE *t, MAP **maps)
                 goto readError;
             }
         for (c = 0; c < nrCols; c++) {
-            size_t k;
+            size_t k = 0;
             for (m = 0; m < t->nrKeys && (!IS_MV_REAL8(buf[m] + c)); m++)
                 key[m] = buf[m][c];
             if (m != t->nrKeys) /* mv read */
@@ -187,8 +188,8 @@ allocError:
 static LOOK_UP_TABLE *MakeHistoCross(MAP *m, size_t nrInt, size_t nrSlots)
 {
     LOOK_UP_TABLE *h = NULL;
-    double count, minVal, maxVal, chunk, total = 0;
-    size_t r, h_i;
+    double count = NAN, minVal = NAN, maxVal = NAN, chunk = NAN, total = 0;
+    size_t r = 0, h_i = 0;
     CSF_VS vs = RgetValueScale(m);
 
     RgetMinVal(m, &minVal);
@@ -280,12 +281,12 @@ MakeNewCrossTable(MAP **maps,
     /* array of single tables, NULL init */
     LOOK_UP_TABLE *t = NULL; /* final table, if set in loop then histo */
     size_t *count = NULL;
-    size_t m, t_nr; /* number in t */
+    size_t m = 0, t_nr = 0; /* number in t */
 
     if (s == NULL)
         return NULL;
     for (m = 0; m < nrMaps; m++) {
-        double minVal, maxVal;
+        double minVal = NAN, maxVal = NAN;
         CSF_VS vs = RgetValueScale(maps[m]);
         RgetMinVal(maps[m], &minVal);
         RgetMaxVal(maps[m], &maxVal);
@@ -351,7 +352,7 @@ done:
 static LOOK_UP_TABLE *CutTable(LOOK_UP_TABLE *t, size_t nrCols)
 {
     LOOK_UP_TABLE *n = (LOOK_UP_TABLE *)ChkMalloc(sizeof(LOOK_UP_TABLE));
-    size_t i;
+    size_t i = 0;
 
     PRECOND(nrCols >= 2); /* for memcpy keyVs */
 
@@ -376,8 +377,8 @@ LOOK_UP_TABLE *UpdateCrossTable(const char *crossTable, MAP **maps, size_t nrMap
 {
     CSF_VS *keyVs = ChkMalloc(nrMaps * sizeof(CSF_VS));
     LOOK_UP_TABLE *t = NULL;
-    FILE *f;
-    size_t i;
+    FILE *f = NULL;
+    size_t i = 0;
     if (keyVs == NULL)
         return NULL;
     for (i = 0; i < nrMaps; i++)

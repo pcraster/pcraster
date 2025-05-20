@@ -88,7 +88,7 @@ int com::spawn(const char *exeName, const char **args)
   return ::spawnvp(P_WAIT, (char *)exeName, (char **)args);
 #endif
 #else
-  pid_t pid;
+  pid_t pid = 0;
   posix_spawnattr_t attr;
   if(posix_spawnattr_init(&attr) != 0){
     _exit(-1);
@@ -103,7 +103,7 @@ int com::spawn(const char *exeName, const char **args)
     _exit(-1);
   }
 
-  int status;
+  int status = 0;
   int exitCode = waitpid(pid, &status, WUNTRACED);
   if (exitCode==-1) {
     //  std::cout << " execvp FAILURE REASON " << strerror(errno)

@@ -63,8 +63,8 @@ int main(
     int argc,     /* number of arguments */
     char *argv[]) /* list of arguments */
 {
-    MAP *inputMap;
-    int c;
+    MAP *inputMap = NULL;
+    int c = 0;
     char format[128];
     const char *separator = NULL;
     HEADER head = HEAD_NONE;

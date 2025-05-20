@@ -99,7 +99,7 @@ static void PrintKey(FILE *f, const SPEC *s, const LOOK_UP_KEY *k, BOOL lastCol)
 static const LOOK_UP_TABLE *CreateMatrix(const LOOK_UP_TABLE *t)
 {
     LOOK_UP_TABLE *m = ChkMalloc(sizeof(LOOK_UP_TABLE));
-    size_t r, i;
+    size_t r = 0, i = 0;
     if (m == NULL)
         return NULL;
     /* determine nrCols => nrKeys */
@@ -150,10 +150,10 @@ static LOOK_UP_KEY *ConvDir(const LOOK_UP_KEY *key, CSF_VS vs)
  */
 int WriteLookupTable(const char *fileName, const LOOK_UP_TABLE *table)
 {
-    size_t k, r;
-    SPEC *spec;
-    FILE *f;
-    LOOK_UP_KEY *key; /* copy necc. for directional conv. */
+    size_t k = 0, r = 0;
+    SPEC *spec = NULL;
+    FILE *f = NULL;
+    LOOK_UP_KEY *key = NULL; /* copy necc. for directional conv. */
     BOOL matrWrite = (app2dMatrix && table->nrKeys == 2);
     const LOOK_UP_TABLE *t = table;
     if (matrWrite) {

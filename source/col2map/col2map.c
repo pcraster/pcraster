@@ -100,7 +100,7 @@ static int CalcDirection(
     REAL8 **recs,
     size_t nrRecs) {
     double *valList = ChkMalloc(sizeof(double) * nrRecs);
-    size_t i, n = 0; /* number not -1 */
+    size_t i = 0, n = 0; /* number not -1 */
 
     if (valList == NULL)
         return 1;
@@ -144,7 +144,7 @@ static void InitFastList(DATA *e, int i) {
 }
 
 static int CalcSortTable(REAL8 **recs, size_t nrRecs, size_t idNotUsed) {
-    size_t i;
+    size_t i = 0;
     SEARCH_TABLE *table =
         STnew(MIN(40, nrRecs), sizeof(DATA), (RETURN_ID)ReturnId, (INIT_REC)InitFastList, (QSORT_CMP)CmpVal);
     if (table == NULL)
@@ -152,7 +152,7 @@ static int CalcSortTable(REAL8 **recs, size_t nrRecs, size_t idNotUsed) {
 
     /* Scan records for values and occurrences */
     for (i = 0; i < nrRecs; i++) {
-        DATA key, *new;
+        DATA key, *new = NULL;
         key.val = recs[i][POS_V];
         new = STfind(table, &key);
         if (new == NULL || new->index == -1) /* new or fastlist */
@@ -228,7 +228,7 @@ static int CalcAverage(
     REAL8 *val, /* write only */
     REAL8 **recs,
     size_t nrRecs) {
-    size_t i;
+    size_t i = 0;
     double totalVal = 0;
     PRECOND(nrRecs > 0);
     for (i = 0; i < nrRecs; i++) {
@@ -246,7 +246,7 @@ static int CalcTotal(
     REAL8 *val, /* write only */
     REAL8 **recs,
     size_t nrRecs) {
-    size_t i;
+    size_t i = 0;
     double totalVal = 0;
     PRECOND(nrRecs > 0);
     for (i = 0; i < nrRecs; i++) {
@@ -264,7 +264,7 @@ static int CalcMin(
     REAL8 *val, /* write only */
     REAL8 **recs,
     size_t nrRecs) {
-    size_t i;
+    size_t i = 0;
     *val = recs[0][POS_V];
     for (i = 1; i < nrRecs; i++) {
         PRECOND(recs[0][POS_ID] == recs[i][POS_ID]);
@@ -281,7 +281,7 @@ static int CalcMax(
     REAL8 *val, /* write only */
     REAL8 **recs,
     size_t nrRecs) {
-    size_t i;
+    size_t i = 0;
     PRECOND(nrRecs > 0);
     *val = recs[0][POS_V];
     for (i = 1; i < nrRecs; i++) {
@@ -297,7 +297,7 @@ static void CalcRecordId(const MAP *out) /* file to use for co-ordinate
                                           */
 {
     size_t i = 0;
-    int row, col, nrCols = (int)RgetNrCols(out);
+    int row = 0, col = 0, nrCols = (int)RgetNrCols(out);
 
     for (i = 0; i < nrRecords; i++) {
         if (AppRgetRowCol(out, recList[i][POS_X], recList[i][POS_Y], &row, &col)) {
@@ -344,16 +344,16 @@ int Col2Map(
     const size_t *colNr,   /* the column nrs */
     int sepChar)           /* separator character */
 {
-    size_t r, c, nrRows = RgetNrRows(out);
+    size_t r = 0, c = 0, nrRows = RgetNrRows(out);
     size_t nrCols = RgetNrCols(out);
-    size_t ri; /* record index */
-    const char *conflictType;
+    size_t ri = 0; /* record index */
+    const char *conflictType = NULL;
     REAL8 *buf = NULL;
     size_t nrMvPixels = 0, nrMultPixels = 0;
-    size_t nrRecordsRead, nrMVvalueColumn, nrMVcoordColumn;
-    BOOL geoeas; /* Geo-eas  Y/N */
+    size_t nrRecordsRead = 0, nrMVvalueColumn = 0, nrMVcoordColumn = 0;
+    BOOL geoeas = 0; /* Geo-eas  Y/N */
     CALC_CELL calcMultPixel = Method(compCell);
-    REAL8 **orgRecList;
+    REAL8 **orgRecList = NULL;
 
     nrCountConflict = 0;
 

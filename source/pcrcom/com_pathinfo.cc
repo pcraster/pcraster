@@ -111,7 +111,7 @@ com::PathName com::currentWorkingDirectory()
 {
   PRECOND(com::detail::MAX_PATH_LENGTH < 2048);
   char buffer[2048];
-  char *currentDir;
+  char *currentDir = nullptr;
 
   if((currentDir = ::getcwd(buffer, com::detail::MAX_PATH_LENGTH)) == nullptr)
     throw std::logic_error(std::string(

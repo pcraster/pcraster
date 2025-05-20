@@ -1,13 +1,5 @@
-if(CMAKE_COMPILER_IS_GNUCXX)
-    SET_SOURCE_FILES_PROPERTIES(blockpy_blockpy.cc
-        COMPILE_FLAGS
-            "-Wno-strict-aliasing"
-    )
-endif()
-
 # NO_EXTRAS required for success on macOS conda build
-# pybind11_add_module NO_EXTRAS
-add_library(_pcraster_block_python MODULE
+pybind11_add_module(_pcraster_block_python MODULE NO_EXTRAS THIN_LTO
     blockpy_blockpy.cc
     blockpy_conversions.cc
     blockpy_functions.cc
@@ -21,31 +13,7 @@ target_link_libraries(_pcraster_block_python
         pcraster::pcrraster
         pcraster::pcrvoxelstack
         pcraster::model_engine
-        pybind11::module
 )
-
-# TODO why is Python::module not working on Linux?
-if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-    target_link_libraries(_pcraster_block_python
-        PRIVATE
-            Python::Python
-    )
-else()
-    target_link_libraries(_pcraster_block_python
-        PRIVATE
-            Python::Module
-    )
-endif()
-
-set_target_properties(_pcraster_block_python
-    PROPERTIES
-        PREFIX "${PYTHON_MODULE_PREFIX}"
-        SUFFIX "${PYTHON_MODULE_EXTENSION}"
-        DEBUG_POSTFIX ""
-)
-
-set(_TARGET_BIN ${EXECUTABLE_OUTPUT_PATH}/${CMAKE_CFG_INTDIR})
-
 
 set_target_properties(_pcraster_block_python
     PROPERTIES
@@ -53,10 +21,17 @@ set_target_properties(_pcraster_block_python
             $<TARGET_FILE_DIR:pcrcalc>/pcraster
         LIBRARY_OUTPUT_DIRECTORY
             $<TARGET_FILE_DIR:pcrcalc>/pcraster
+        OUTPUT_NAME
+            "_pcraster_block_python"
         INSTALL_RPATH
             "$ORIGIN/../../lib"
+        DEBUG_POSTFIX
+            ""
+        PREFIX
+            "${PYTHON_MODULE_PREFIX}"
+        SUFFIX
+            "${PYTHON_MODULE_EXTENSION}"
 )
-
 
 install(
     TARGETS _pcraster_block_python

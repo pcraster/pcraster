@@ -6,11 +6,12 @@
 /********/
 
 /* libs ext. <>, our ""  */
-#include <ctype.h>
-#include "misc.h"
-#include "calc.h"
 #include "app.h"   /* AppProgress, APP_PROGRESS, appOutput */
+#include "calc.h"
 #include "mathx.h" /* pow, sqrt */
+#include "misc.h"
+#include <ctype.h>
+#include <math.h>
 
 /* global header (opt.) and test's prototypes "" */
 
@@ -40,11 +41,11 @@ static void DirectionalStatistics(long double *mean, /* write-only, mean */
                                   const long double *samples, /* array of n samples, radians */
                                   int n)                      /* sample size */
 {
-    long double tC, tD, tS;
-    long double meanIn, D;
-    long double R;
-    int i;
-    const long double *p;
+    long double tC = NAN, tD = NAN, tS = NAN;
+    long double meanIn = NAN, D = NAN;
+    long double R = NAN;
+    int i = 0;
+    const long double *p = NULL;
 
     PRECOND(n > 1);
 
@@ -77,15 +78,15 @@ static int ClassSummary(TIME_TABLE *t,         /* read-write table to add to */
                         int nrRows,            /* number of rows of expression map */
                         int nrCols)            /* nr. of columns of expression map */
 {
-    REAL8 majority, min = REAL8_MAX, max = -REAL8_MAX;
-    int i, r, c, n = 0, *score, maxScore = 0;
+    REAL8 majority = NAN, min = REAL8_MAX, max = -REAL8_MAX;
+    int i = 0, r = 0, c = 0, n = 0, *score = NULL, maxScore = 0;
 
     PRECOND(expr->GetGetTest(expr) == GET_MV_TEST);
 
     /* scan map for minimum and maximum value */
     for (r = 0; r < nrRows; r++)
         for (c = 0; c < nrCols; c++) {
-            REAL8 val;
+            REAL8 val = NAN;
             if (expr->Get(&val, r, c, expr)) {
                 n++;
                 if (val < min)
@@ -113,7 +114,7 @@ static int ClassSummary(TIME_TABLE *t,         /* read-write table to add to */
     /* Scan map for majority */
     for (r = 0; r < nrRows; r++)
         for (c = 0; c < nrCols; c++) {
-            REAL8 val;
+            REAL8 val = NAN;
             if (expr->Get(&val, r, c, expr)) {
                 int index = (int)(val - min);
                 score[index]++;
@@ -144,8 +145,8 @@ static void BooleanSummary(TIME_TABLE *t,         /* read-write table to add to 
                            int nrRows,            /* number of rows of expression map */
                            int nrCols)            /* nr. of columns of expression map */
 {
-    int r, c, n = 0, nrFalse = 0, nrTrue = 0;
-    REAL8 val;
+    int r = 0, c = 0, n = 0, nrFalse = 0, nrTrue = 0;
+    REAL8 val = NAN;
 
     PRECOND(expr->GetGetTest(expr) == GET_MV_TEST);
 
@@ -173,8 +174,8 @@ static void ScalarSummary(TIME_TABLE *t,         /* read-write table to add to *
                           int nrRows,            /* number of rows of expression map */
                           int nrCols)            /* nr. of columns of expression map */
 {
-    REAL8 sd, val, mean, min, max, sum;
-    int n, r, c;
+    REAL8 sd = NAN, val = NAN, mean = NAN, min = NAN, max = NAN, sum = NAN;
+    int n = 0, r = 0, c = 0;
 
     /* Initialize settings */
     min = REAL8_MAX;
@@ -239,9 +240,9 @@ static int DirectionSummary(TIME_TABLE *t,         /* read-write table to add to
                             int nrRows,            /* number of rows of expression map */
                             int nrCols)            /* nr. of columns of expression map */
 {
-    int i, n = 0, r, c;
-    long double mean, sd, *vals;
-    REAL8 val, min = REAL8_MAX, max = -REAL8_MAX;
+    int i = 0, n = 0, r = 0, c = 0;
+    long double mean = NAN, sd = NAN, *vals = NULL;
+    REAL8 val = NAN, min = REAL8_MAX, max = -REAL8_MAX;
 
     PRECOND(expr->GetGetTest(expr) == GET_MV_TEST);
 
@@ -341,8 +342,8 @@ TIME_TABLE *AddToSummaryTable(TIME_TABLE *t,         /* read-write table to add 
 TIME_TABLE *CreateSummaryTable(int nrTimeSteps, /* number of time steps */
                                CSF_VS vs)       /* value scale of map in AddToSummaryTable */
 {
-    int nrCols;
-    TIME_TABLE *t; /* new time table */
+    int nrCols = 0;
+    TIME_TABLE *t = NULL; /* new time table */
 
     /* determine the number of columns for time table */
     switch (vs) {

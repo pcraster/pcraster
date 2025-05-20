@@ -47,7 +47,7 @@ int TimeInputSeries(MAP_REAL8 *out,      /* map to write */
                     const TIME_TABLE *t, /* time table */
                     int timeStep)        /* number of iteration */
 {
-    int r, c, nrRows, nrCols;
+    int r = 0, c = 0, nrRows = 0, nrCols = 0;
 
     /* initialization */
     nrRows = id->NrRows(id);
@@ -59,7 +59,7 @@ int TimeInputSeries(MAP_REAL8 *out,      /* map to write */
 
     for (r = 0; r < nrRows; r++)
         for (c = 0; c < nrCols; c++) {
-            INT4 idVal;
+            INT4 idVal = 0;
             if (!id->Get(&idVal, r, c, id))
                 out->PutMV(r, c, out);
             else {                                 /* id is not a MV */
@@ -87,9 +87,9 @@ ReadTimeInputTable(const char *fileName,   /* name of file to read */
                    int nrStepsToRead,      /* nr. of steps to read (NOT USED, set to 0) */
                    CSF_VS vs)              /* value scale */
 {
-    TIME_TABLE *t;
-    BOOL geoEas;
-    size_t nrSteps, nrCols;
+    TIME_TABLE *t = NULL;
+    BOOL geoEas = 0;
+    size_t nrSteps = 0, nrCols = 0;
 
     appLarge = TRUE;
 
@@ -130,7 +130,7 @@ ReadTimeInputTable(const char *fileName,   /* name of file to read */
 TIME_TABLE *NewTimeTable(CSF_VS vs,   /* value scale , VS_UNDEFINED is valid */
                          int nrSteps) /* number of steps */
 {
-    TIME_TABLE *t;
+    TIME_TABLE *t = NULL;
 #ifdef DEBUG
     nrTimeTables++;
 #endif

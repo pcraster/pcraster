@@ -26,7 +26,7 @@ int StrNCaseEq(const char *s1, /* first string */
                const char *s2, /* second string. */
                size_t count)   /* number of characters compared */
 {
-    size_t i, l1, l2;
+    size_t i = 0, l1 = 0, l2 = 0;
     PRECOND(s1 != NULL);
     PRECOND(s2 != NULL);
 
@@ -69,7 +69,7 @@ char *Strncpy0(char *dest,      /* write-only. Destination string. */
                const char *src, /* 0-terminated source string. */
                size_t count)    /* Number of characters maximally copied. */
 {
-    size_t end;
+    size_t end = 0;
 
     PRECOND(dest != NULL);
     PRECOND(src != NULL);
@@ -91,7 +91,7 @@ char *Strncpy0(char *dest,      /* write-only. Destination string. */
  */
 char *StrcpyChkTmpMalloc(const char *str) /* string to copy in new allocated space */
 {
-    char *s;
+    char *s = NULL;
     PRECOND(str != NULL);
     s = (char *)ChkTmpMalloc(strlen(str) + 1);
     if (s == NULL)
@@ -116,7 +116,7 @@ char *StrcpyChkMalloc(const char *str) /* string to copy in new allocated space 
 void *MemcpyChkMalloc(const void *src, /* memory to copy in new allocated space */
                       size_t n)        /* number of bytes to copy */
 {
-    void *s;
+    void *s = NULL;
     PRECOND(src != NULL);
     s = (char *)ChkMalloc(n);
     if (s == NULL)
@@ -154,7 +154,7 @@ int EmptyString(const char *str) /* Checked string. */
  */
 char *DelSpaces(char *str) /* read-write. String to be modified */
 {
-    size_t i, d;
+    size_t i = 0, d = 0;
 
 
     for (i = d = 0; str[i] != '\0'; i++)
@@ -187,7 +187,7 @@ size_t CountChars(const char *str, /* String to count  */
 char *DelChars(char *str, /* read-write. String to be modified */
                const char *set)
 {
-    size_t i, d;
+    size_t i = 0, d = 0;
 
     for (i = d = 0; str[i] != '\0'; i++)
         if (strchr(set, str[i]) == NULL)
@@ -202,8 +202,8 @@ char *DelChars(char *str, /* read-write. String to be modified */
  */
 char *LeftRightTrim(char *str) /* String to be modified */
 {
-    int i, n;
-    char *p;
+    int i = 0, n = 0;
+    char *p = NULL;
 
     PRECOND(str != NULL);
 
@@ -230,7 +230,7 @@ char *LeftRightTrim(char *str) /* String to be modified */
  */
 char *LeftRightTabTrim(char *str) /* String to be modified */
 {
-    int i, n;
+    int i = 0, n = 0;
 
     PRECOND(str != NULL);
 
@@ -267,8 +267,8 @@ char *LeftRightTabTrim(char *str) /* String to be modified */
  */
 int TokenSpaceTrim(char *s) /* read-write. String to be modified and counted */
 {
-    int i;     /* index over s */
-    int d;     /* destination index */
+    int i = 0;     /* index over s */
+    int d = 0;     /* destination index */
     int t = 0; /* #tokens */
 
     /* remove leading spaces */

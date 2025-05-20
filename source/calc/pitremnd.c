@@ -1,3 +1,5 @@
+#include <math.h>
+
 #include "stddefx.h"
 
 
@@ -65,13 +67,13 @@ static void PutMvUpsPits(MAP_UINT1 *ldd, /* read-write modified ldd */
                          int r,          /* row of cell to become MV */
                          int c)          /* column of cell to become MV */
 {
-    int i;
+    int i = 0;
     ldd->PutMV(r, c, ldd);
     FOR_ALL_LDD_NONDIAGONAL_NBS(i)
     {
         int rNB = RNeighbor(r, i);
         int cNB = CNeighbor(c, i);
-        UINT1 dNB;
+        UINT1 dNB = 0;
         ldd->Get(&dNB, rNB, cNB, ldd);
         if (FlowsTo(dNB, rNB, cNB, r, c))
             ldd->Put(LDD_PIT, rNB, cNB, ldd);
@@ -91,10 +93,10 @@ FindOutflowCell(UINT1 *outflowConCellCode, /* read-write dir from (outflowRow,ou
                 int r,                     /* row of cell to be checked */
                 int c)                     /* column cell to be checked */
 {
-    INT4 catchId, catchIdNB;
-    UINT1 i, conCellCode = 0;            /* 0 no cell found */
+    INT4 catchId = 0, catchIdNB = 0;
+    UINT1 i = 0, conCellCode = 0;            /* 0 no cell found */
     REAL8 conCellDem = USED_UNINIT_ZERO; /* guarded by conCellCode */
-    REAL8 overflowLevel;
+    REAL8 overflowLevel = NAN;
 
     PRECOND(catch->Get(&catchId, r, c, catch) && catchId > 0);
     PRECOND(dem->Get(&overflowLevel, r, c, dem));
@@ -106,7 +108,7 @@ FindOutflowCell(UINT1 *outflowConCellCode, /* read-write dir from (outflowRow,ou
         int cNB = CNeighbor(c, i);
         if (catch->Get(&catchIdNB, rNB, cNB, catch))
             if (catchList[catchId - 1].partOfCatch != catchList[catchIdNB - 1].partOfCatch) {
-                REAL8 v;
+                REAL8 v = NAN;
                 dem->Get(&v, rNB, cNB, dem);
                 if ((!conCellCode) || v < conCellDem) {
                     conCellCode = i;
@@ -153,9 +155,9 @@ static REAL8 Outflow(REAL8 *outflowLevel,    /* write only */
                                                * point found
                                                */
     NODE *list = LinkChkNd(NULL, pitr, pitc); /* current search tree */
-    REAL8 conPitLevel, pitLevel, area = 0;
-    INT4 conCatchId;
-    int conPitRow, conPitCol;
+    REAL8 conPitLevel = NAN, pitLevel = NAN, area = 0;
+    INT4 conCatchId = 0;
+    int conPitRow = 0, conPitCol = 0;
 
     if (list == NULL)
         return -1; /* allocation failed */
@@ -213,7 +215,7 @@ static int ComputeCore(REAL8 *coreArea,   /* write-only */
     while (list != NULL) {
         int r = list->rowNr;
         int c = list->colNr;
-        REAL8 l;
+        REAL8 l = NAN;
 
         dem->Get(&l, r, c, dem);
         if (l < outflowLevel) {
@@ -303,7 +305,7 @@ FillDem(MAP_REAL8 *dem, int pitr, int pitc, REAL8 outflowLevel, const MAP_UINT1 
     while (list != NULL) {
         int r = list->rowNr;
         int c = list->colNr;
-        REAL8 l;
+        REAL8 l = NAN;
 
         dem->Get(&l, r, c, dem);
         if (l < outflowLevel) {
@@ -318,7 +320,7 @@ FillDem(MAP_REAL8 *dem, int pitr, int pitc, REAL8 outflowLevel, const MAP_UINT1 
 
 static BOOL ThresholdFailed(REAL8 val, int r, int c, const MAP_REAL8 *thmap)
 {
-    REAL8 th;
+    REAL8 th = NAN;
     if (thmap->Get(&th, r, c, thmap))
         return val > th;
     else
@@ -344,12 +346,12 @@ static int RemPit(MAP_UINT1 *ldd,           /* read-write ldd map */
                   int pitr,                 /* row of pit to remove */
                   int pitc)                 /* column of pit to remove */
 {
-    REAL8 pitLevel, outflowLevel, catchArea;
-    REAL8 coreArea, coreVolume;
-    int outflowRow, outflowCol;
-    int outflowConRow, outflowConCol;
-    INT4 pitCatchID, newCatchID;
-    CATCH *cf, *pf;
+    REAL8 pitLevel = NAN, outflowLevel = NAN, catchArea = NAN;
+    REAL8 coreArea = NAN, coreVolume = NAN;
+    int outflowRow = 0, outflowCol = 0;
+    int outflowConRow = 0, outflowConCol = 0;
+    INT4 pitCatchID = 0, newCatchID = 0;
+    CATCH *cf = NULL, *pf = NULL;
 
 #ifdef DEBUG
     /* check if prev. dem modifications
@@ -469,12 +471,12 @@ static BOOL GlobOptionPermitRemoval(const MAP_UINT1 *ldd, int r, int c)
 {
     if (appPitOnBorder) { /* lddout is active
         */
-        int i;
+        int i = 0;
         FOR_ALL_LDD_NONDIAGONAL_NBS(i)
         { /* if one of the NBs is MV or outside
            * then keep pit
            */
-            UINT1 d;
+            UINT1 d = 0;
             int rNB = RNeighbor(r, i);
             int cNB = CNeighbor(c, i);
             if (!ldd->Get(&d, rNB, cNB, ldd))
@@ -503,9 +505,9 @@ int PitRemND(MAP_UINT1 *ldd,           /* Read-write output map  */
     INT4 nPits = 0;          /* number of pits to be done */
     PIT *pits = NULL;        /* list of pits to remove */
     CATCH *catchList = NULL; /* catchment table  */
-    REAL8 demVal;
-    int i, r, c, nrRows, nrCols;
-    UINT1 lddVal;
+    REAL8 demVal = NAN;
+    int i = 0, r = 0, c = 0, nrRows = 0, nrCols = 0;
+    UINT1 lddVal = 0;
 
     dem->SetGetTest(GET_MV_TEST, dem);
     depth->SetGetTest(GET_MV_TEST, depth);
@@ -541,7 +543,7 @@ int PitRemND(MAP_UINT1 *ldd,           /* Read-write output map  */
         for (c = 0; c < nrCols; c++)
             if (ldd->Get(&lddVal, r, c, ldd)) {
                 if (lddVal == LDD_PIT) {
-                    void *cp;
+                    void *cp = NULL;
                     nPits++;
                     /* allocate and increase lists */
                     if ((cp = ChkRealloc(catchList, (sizeof(CATCH)) * nPits)) == NULL)

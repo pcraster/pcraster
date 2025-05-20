@@ -1,3 +1,5 @@
+#include <math.h>
+
 #include "stddefx.h"
 
 
@@ -79,15 +81,15 @@ static void PutMinMax(MAP_REAL8 *min,        /* write-only output minimum or max
                       const MAP_INT4 *class, /* input classes map */
                       const SEARCH_TABLE *table)
 {
-    int r, c;
+    int r = 0, c = 0;
     int nrRows = class->NrRows(class);
     int nrCols = class->NrCols(class);
     /* scan map to put min or max values in the output map */
     for (r = 0; r < nrRows; r++) {
         for (c = 0; c < nrCols; c++) {
-            INT4 id;
+            INT4 id = 0;
             if (class->Get(&id, r, c, class)) {
-                DATA key, *record;
+                DATA key, *record = NULL;
                 key.id = id;
                 record = STfind(table, &key);
                 if (record != NULL && record->count != 0)
@@ -109,8 +111,8 @@ int AreaMin(MAP_REAL8 *min,        /* write-only output minimum map  */
             const MAP_REAL8 *val,  /* input value map */
             const MAP_INT4 *class) /* input classes map */
 {
-    int r, c, nrRows, nrCols;
-    SEARCH_TABLE *table; /* table */
+    int r = 0, c = 0, nrRows = 0, nrCols = 0;
+    SEARCH_TABLE *table = NULL; /* table */
 
     val->SetGetTest(GET_MV_TEST, val);
     class->SetGetTest(GET_MV_TEST, class);
@@ -130,10 +132,10 @@ int AreaMin(MAP_REAL8 *min,        /* write-only output minimum map  */
     /* scan map to calculate the minimum value */
     for (r = 0; r < nrRows; r++) {
         for (c = 0; c < nrCols; c++) {
-            INT4 id;
-            REAL8 value;
+            INT4 id = 0;
+            REAL8 value = NAN;
             if (class->Get(&id, r, c, class) && val->Get(&value, r, c, val)) {
-                DATA key, *record;
+                DATA key, *record = NULL;
                 key.id = id;
                 record = STfindOrInsert(table, &key);
                 if (record == NULL) {
@@ -162,8 +164,8 @@ int AreaMax(MAP_REAL8 *max,        /* write-only output maximum map  */
             const MAP_REAL8 *val,  /* input value map */
             const MAP_INT4 *class) /* input classes map */
 {
-    int r, c, nrRows, nrCols;
-    SEARCH_TABLE *table; /* table */
+    int r = 0, c = 0, nrRows = 0, nrCols = 0;
+    SEARCH_TABLE *table = NULL; /* table */
 
     val->SetGetTest(GET_MV_TEST, val);
     class->SetGetTest(GET_MV_TEST, class);
@@ -183,10 +185,10 @@ int AreaMax(MAP_REAL8 *max,        /* write-only output maximum map  */
     /* scan map to calculate the maximum value */
     for (r = 0; r < nrRows; r++) {
         for (c = 0; c < nrCols; c++) {
-            INT4 id;
-            REAL8 value;
+            INT4 id = 0;
+            REAL8 value = NAN;
             if (class->Get(&id, r, c, class) && val->Get(&value, r, c, val)) {
-                DATA key, *record;
+                DATA key, *record = NULL;
                 key.id = id;
                 record = STfindOrInsert(table, &key);
                 if (record == NULL) {
@@ -210,7 +212,7 @@ int AreaMax(MAP_REAL8 *max,        /* write-only output maximum map  */
 
 static int GetInt4(REAL8 *v, int r, int c, const MAP_INT4 *m)
 {
-    INT4 v4;
+    INT4 v4 = 0;
     int result = m->Get(&v4, r, c, m);
     if (result)
         *v = v4;
@@ -226,10 +228,10 @@ static SEARCH_TABLE *TotalTable(LOCAL_GET_FUNC get,    /* how to value from val 
                                 const void *val,       /* MAP_INT4 or MAP_REAL8 */
                                 const MAP_INT4 *class) /* input classes map */
 {
-    int r, c, nrRows, nrCols;
-    INT4 id;             /* value in class map */
-    REAL8 value;         /* value in value map */
-    SEARCH_TABLE *table; /* table */
+    int r = 0, c = 0, nrRows = 0, nrCols = 0;
+    INT4 id = 0;             /* value in class map */
+    REAL8 value = NAN;         /* value in value map */
+    SEARCH_TABLE *table = NULL; /* table */
 
     nrRows = class->NrRows(class);
     nrCols = class->NrCols(class);
@@ -246,7 +248,7 @@ static SEARCH_TABLE *TotalTable(LOCAL_GET_FUNC get,    /* how to value from val 
     for (r = 0; r < nrRows; r++)
         for (c = 0; c < nrCols; c++) {
             if (class->Get(&id, r, c, class) && get(&value, r, c, val)) {
-                DATA *record, key;
+                DATA *record = NULL, key;
                 key.id = id;
                 record = STfindOrInsert(table, &key);
                 if (record == NULL) {
@@ -265,8 +267,8 @@ static int AreaGeneration(MAP_REAL8 *result,
                           const MAP_INT4 *class, /* input classes map */
                           double (*genFunc)(void))
 {
-    int r, c, nrRows, nrCols;
-    SEARCH_TABLE *table; /* table */
+    int r = 0, c = 0, nrRows = 0, nrCols = 0;
+    SEARCH_TABLE *table = NULL; /* table */
 
     nrRows = class->NrRows(class);
     nrCols = class->NrCols(class);
@@ -288,9 +290,9 @@ static int AreaGeneration(MAP_REAL8 *result,
     /* scan the map to calculate the average value of each area */
     for (r = 0; r < nrRows; r++)
         for (c = 0; c < nrCols; c++) {
-            INT4 id; /* value in class map */
+            INT4 id = 0; /* value in class map */
             if (class->Get(&id, r, c, class)) {
-                DATA *record, key;
+                DATA *record = NULL, key;
                 key.id = id;
                 record = STfindOrInsert(table, &key);
                 if (record == NULL) {
@@ -330,8 +332,8 @@ int AreaAverage(MAP_REAL8 *average,    /* write-only output average map  */
                 const MAP_REAL8 *val,  /* input value map */
                 const MAP_INT4 *class) /* input classes map */
 {
-    int r, c, nrRows, nrCols;
-    SEARCH_TABLE *table; /* table */
+    int r = 0, c = 0, nrRows = 0, nrCols = 0;
+    SEARCH_TABLE *table = NULL; /* table */
 
     val->SetGetTest(GET_MV_TEST, val);
     class->SetGetTest(GET_MV_TEST, class);
@@ -346,9 +348,9 @@ int AreaAverage(MAP_REAL8 *average,    /* write-only output average map  */
     /* scan the map to put the average values in the output map */
     for (r = 0; r < nrRows; r++) {
         for (c = 0; c < nrCols; c++) {
-            INT4 id;
+            INT4 id = 0;
             if (class->Get(&id, r, c, class)) {
-                DATA key, *record;
+                DATA key, *record = NULL;
                 key.id = id;
                 record = STfind(table, &key);
                 if (record != NULL && record->count != 0)
@@ -372,8 +374,8 @@ int AreaTotal(MAP_REAL8 *total,      /* write-only output total map  */
               const MAP_REAL8 *val,  /* input value map */
               const MAP_INT4 *class) /* input classes map */
 {
-    int r, c, nrRows, nrCols;
-    SEARCH_TABLE *table; /* table */
+    int r = 0, c = 0, nrRows = 0, nrCols = 0;
+    SEARCH_TABLE *table = NULL; /* table */
 
     val->SetGetTest(GET_MV_TEST, val);
     class->SetGetTest(GET_MV_TEST, class);
@@ -388,9 +390,9 @@ int AreaTotal(MAP_REAL8 *total,      /* write-only output total map  */
     /* scan the map to put the total values in the output map */
     for (r = 0; r < nrRows; r++) {
         for (c = 0; c < nrCols; c++) {
-            INT4 id;
+            INT4 id = 0;
             if (class->Get(&id, r, c, class)) {
-                DATA *record, key;
+                DATA *record = NULL, key;
                 key.id = id;
                 record = STfind(table, &key);
                 if (record != NULL && record->count != 0)
@@ -435,9 +437,9 @@ static void FreeRecDivMaj(DATA *e)
 static SEARCH_TABLE *MajTable(const MAP_INT4 *val,   /* input value map */
                               const MAP_INT4 *class) /* input classes map */
 {
-    int r, c, nrRows = class->NrRows(class);
+    int r = 0, c = 0, nrRows = class->NrRows(class);
     int nrCols = class->NrCols(class);
-    SEARCH_TABLE *table;
+    SEARCH_TABLE *table = NULL;
 
     InitRecFastList = val->HintNrFastList(val);
     table = STnew((size_t) class->HintNrFastList(class),
@@ -456,9 +458,9 @@ static SEARCH_TABLE *MajTable(const MAP_INT4 *val,   /* input value map */
      */
     for (r = 0; r < nrRows; r++) {
         for (c = 0; c < nrCols; c++) {
-            INT4 id, value;
+            INT4 id = 0, value = 0;
             if (class->Get(&id, r, c, class) && val->Get(&value, r, c, val)) {
-                DATA *idRec, *valRec, idKey, valKey;
+                DATA *idRec = NULL, *valRec = NULL, idKey, valKey;
 
                 /* find or insert table for this key */
                 idKey.id = id;
@@ -493,8 +495,8 @@ int AreaDiversity(MAP_REAL8 *diversity,  /* write-only output diversity map  */
                   const MAP_INT4 *val,   /* input value map */
                   const MAP_INT4 *class) /* input classes map */
 {
-    int r, c, nrRows, nrCols;
-    SEARCH_TABLE *table; /* table */
+    int r = 0, c = 0, nrRows = 0, nrCols = 0;
+    SEARCH_TABLE *table = NULL; /* table */
 
     val->SetGetTest(GET_MV_TEST, val);
     class->SetGetTest(GET_MV_TEST, class);
@@ -508,9 +510,9 @@ int AreaDiversity(MAP_REAL8 *diversity,  /* write-only output diversity map  */
     /* put the output values and deallocate the sub-tables */
     for (r = 0; r < nrRows; r++) {
         for (c = 0; c < nrCols; c++) {
-            INT4 id;
+            INT4 id = 0;
             if (class->Get(&id, r, c, class)) {
-                DATA *record, key;
+                DATA *record = NULL, key;
                 key.id = id;
                 record = STfind(table, &key);
                 if (record != NULL && record->count != 0)
@@ -548,9 +550,9 @@ int AreaMajority(MAP_INT4 *majority,    /* write-only output majority map  */
                  const MAP_INT4 *val,   /* input value map */
                  const MAP_INT4 *class) /* input classes map */
 {
-    int r, c, nrRows, nrCols;
-    INT4 id;             /* value at r, c in class map */
-    SEARCH_TABLE *table; /* table */
+    int r = 0, c = 0, nrRows = 0, nrCols = 0;
+    INT4 id = 0;             /* value at r, c in class map */
+    SEARCH_TABLE *table = NULL; /* table */
 
     val->SetGetTest(GET_MV_TEST, val);
     class->SetGetTest(GET_MV_TEST, class);
@@ -568,7 +570,7 @@ int AreaMajority(MAP_INT4 *majority,    /* write-only output majority map  */
     for (r = 0; r < nrRows; r++) {
         for (c = 0; c < nrCols; c++) {
             if (class->Get(&id, r, c, class)) {
-                DATA *record, key;
+                DATA *record = NULL, key;
                 key.id = id;
                 record = STfind(table, &key);
                 if (record != NULL && record->count != 0)
@@ -592,9 +594,9 @@ int AreaMajority(MAP_INT4 *majority,    /* write-only output majority map  */
 int AreaCount(MAP_REAL8 *out,        /* write-only output area count map  */
               const MAP_INT4 *class) /* input classes map */
 {
-    int r, c, nrRows, nrCols;
-    INT4 id;             /* value at r, c in class map */
-    SEARCH_TABLE *table; /* table */
+    int r = 0, c = 0, nrRows = 0, nrCols = 0;
+    INT4 id = 0;             /* value at r, c in class map */
+    SEARCH_TABLE *table = NULL; /* table */
     REAL8 area = Area(); /* total area */
 
     class->SetGetTest(GET_MV_TEST, class);
@@ -616,7 +618,7 @@ int AreaCount(MAP_REAL8 *out,        /* write-only output area count map  */
     for (r = 0; r < nrRows; r++) {
         for (c = 0; c < nrCols; c++) {
             if (class->Get(&id, r, c, class)) {
-                DATA *record, key;
+                DATA *record = NULL, key;
                 key.id = id;
                 record = STfind(table, &key);
                 POSTCOND(record != NULL && record->count > 0);
@@ -638,8 +640,8 @@ int AddToTssRowREAL8(REAL8 *data,        /* write values, starts at col 1 of TIM
                      const MAP_INT4 *id, /* id map */
                      const MAP_REAL8 *expr) /* expression map */
 {
-    SEARCH_TABLE *table;
-    size_t i;
+    SEARCH_TABLE *table = NULL;
+    size_t i = 0;
 #if defined(DEBUG)
     int nrRows, nrCols;
 #endif
@@ -662,7 +664,7 @@ int AddToTssRowREAL8(REAL8 *data,        /* write values, starts at col 1 of TIM
 
     /* scan id map */
     for (i = 0; i < nrData; i++) {
-        DATA key, *record;
+        DATA key, *record = NULL;
         key.id = i + 1;
         record = STfind(table, &key);
         if (record == NULL || record->count == 0)
@@ -683,8 +685,8 @@ int AddToTssRowINT4(REAL8 *data,        /* write values, starts at col 1 of TIME
                     const MAP_INT4 *id, /* id map */
                     const MAP_INT4 *expr) /* expression map */
 {
-    SEARCH_TABLE *table;
-    size_t i;
+    SEARCH_TABLE *table = NULL;
+    size_t i = 0;
 #if defined(DEBUG)
     int nrRows, nrCols;
 #endif
@@ -708,7 +710,7 @@ int AddToTssRowINT4(REAL8 *data,        /* write values, starts at col 1 of TIME
 
     /* scan id map */
     for (i = 0; i < nrData; i++) {
-        DATA key, *record;
+        DATA key, *record = NULL;
         key.id = i + 1;
         record = STfind(table, &key);
         if (record == NULL || record->count == 0)

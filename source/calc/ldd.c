@@ -1,3 +1,5 @@
+#include <math.h>
+
 #include "stddefx.h"
 
 
@@ -92,7 +94,7 @@ BOOL FlowsTo(int lddFrom,  /* ldd value of (rFrom,cFrom)  */
  int DownStrR( int rowNr,  /* rowNr from current cell */
           int d)          /* ldd code of current cell */
  {
-   int DSr;
+   int DSr = 0;
    PRECOND(0 <= d && d <= NR_LDD_DIR);
    DSr = rowNr + LddValue[d].deltaRow;
    return DSr;
@@ -108,7 +110,7 @@ BOOL FlowsTo(int lddFrom,  /* ldd value of (rFrom,cFrom)  */
  int DownStrC( int colNr,  /* colNr from current cell */
                int d)      /* ldd code of current cell */
  {
-   int DSc;
+   int DSc = 0;
    PRECOND(0 <= d && d <= NR_LDD_DIR);
    DSc = colNr + LddValue[d].deltaCol;
    return DSc;
@@ -155,8 +157,8 @@ BOOL NoInput(      const MAP_UINT1 *ldd,    /* ldd.map */
         int rowNr,       /* row of current cell*/
         int colNr)       /* column current cell*/
 {
-  int   j;
-  UINT1   lddVal;
+  int   j = 0;
+  UINT1   lddVal = 0;
 
   PRECOND(ldd->GetGetTest(ldd) == GET_MV_TEST);
   FOR_ALL_LDD_NBS(j)
@@ -182,7 +184,7 @@ UINT1 Ldddir(
         int rDS,  /* row number of downstream cell */
         int cDS)  /* column number of downstream cell */
 {
-  UINT1   ldddir;
+  UINT1   ldddir = 0;
   int   lddtab[3][3] = {{3, 2, 1}, {6, 5, 4},{9, 8, 7}};
   int   rDelta = rFrom - rDS + 1;
   int   cDelta = cFrom - cDS + 1;
@@ -212,7 +214,7 @@ int SumFluxUps(
     int r,      /* row of current cell */
     int c)      /* column of current cell */
 {
-  int i;
+  int i = 0;
   *newState = 0;
 
   PRECOND(ldd->GetGetTest(ldd) == GET_MV_TEST);
@@ -225,8 +227,8 @@ int SumFluxUps(
     {
       int   rNext = DownStrR(r, i);
       int  cNext = DownStrC(c, i);
-      UINT1   lddVal;
-      REAL8   fluxVal;
+      UINT1   lddVal = 0;
+      REAL8   fluxVal = NAN;
 
       if(ldd->Get(&lddVal, rNext, cNext, ldd) &&
       flux->Get(&fluxVal, rNext, cNext, flux))

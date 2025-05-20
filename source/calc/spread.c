@@ -1,3 +1,5 @@
+#include <math.h>
+
 #include "stddefx.h"
 
 
@@ -42,7 +44,7 @@ static NODE *AddToList(NODE *list, /* write-only original list */
                        int row,    /* row from cell to add */
                        int col)    /* column from cell to add */
 {
-    NODE *c;
+    NODE *c = NULL;
 #ifdef NEVER
     if (InList(list, row, col)) /* CW not neccessary when 
                                  * building initial list
@@ -81,8 +83,8 @@ static REAL8 CalcSpreadValue(INT4 *id,                  /* write-only id */
                              int c,                     /* column curr. cell */
                              REAL8 f)                   /* friction value (r, c) */
 {
-    REAL8 costs, costVal, fricNxt, minCosts;
-    int i, rNext, cNext;
+    REAL8 costs = NAN, costVal = NAN, fricNxt = NAN, minCosts = NAN;
+    int i = 0, rNext = 0, cNext = 0;
     INT4 newId = 0; /* id spread point of min. cost */
 
     minCosts = REAL8_MAX; /* minimum costs until now */
@@ -120,12 +122,12 @@ static int PerformSpread(MAP_REAL8 *outCost,        /* read-write output costs *
                          const MAP_REAL8 *friction) /* friction map */
 {
     extern int com_equalEpsilonFloat(float a, float b);
-    int rNext, cNext, rowNr, colNr, i;
-    REAL8 f;       /* friction of current cell */
-    REAL8 s, newS; /* old & new spreadval. of curr. cell */
+    int rNext = 0, cNext = 0, rowNr = 0, colNr = 0, i = 0;
+    REAL8 f = NAN;       /* friction of current cell */
+    REAL8 s = NAN, newS = NAN; /* old & new spreadval. of curr. cell */
 
     while (coordList != NULL) {
-        INT4 id;                            /* id of current cell */
+        INT4 id = 0;                            /* id of current cell */
         rowNr = coordList->rowNr;           /* cell from which is spread */
         colNr = coordList->colNr;           /* (source cell ) */
         coordList = RemFromList(coordList); /* unable */
@@ -183,10 +185,10 @@ int Spread(MAP_REAL8 *outCost,        /* read-write output map  */
            const MAP_REAL8 *friction) /* friction of each cell */
 {
     NODE *coordList = NULL; /* list with cells to be checked */
-    INT4 pointVal;          /* value in points map of cell */
-    REAL8 s, f;             /* s = initial cost, f = friction of cell */
-    int r, nrRows = points->NrRows(points);
-    int c, nrCols = points->NrCols(points);
+    INT4 pointVal = 0;          /* value in points map of cell */
+    REAL8 s = NAN, f = NAN;             /* s = initial cost, f = friction of cell */
+    int r = 0, nrRows = points->NrRows(points);
+    int c = 0, nrCols = points->NrCols(points);
     inList = NewBitMatrix((size_t)nrRows, (size_t)nrCols);
 
     if (inList == NULL)

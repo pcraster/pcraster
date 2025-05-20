@@ -1,3 +1,5 @@
+#include <math.h>
+
 #include "stddefx.h"
 
 
@@ -41,9 +43,9 @@ static int Sum(MAP_REAL8 *result,      /* read-write output flux map */
                const MAP_UINT1 *ldd,   /* ldd map  */
                const MAP_REAL8 *value) /* value map */
 {
-    UINT1 lddVal;
-    REAL8 accamount, val;
-    int i;
+    UINT1 lddVal = 0;
+    REAL8 accamount = NAN, val = NAN;
+    int i = 0;
 
     if (value->Get(&val, r, c, value)) {
         /* accamount initialize with its own amount value */
@@ -52,7 +54,7 @@ static int Sum(MAP_REAL8 *result,      /* read-write output flux map */
         /* sum all upstream fluxes */
         FOR_ALL_LDD_NBS(i)
         {
-            int rNB, cNB;
+            int rNB = 0, cNB = 0;
             rNB = RNeighbor(r, i);
             cNB = CNeighbor(c, i);
 
@@ -93,7 +95,7 @@ static int CalcPoint(MAP_REAL8 *result,    /* Read-write output state map  */
                      const MAP_UINT1 *ldd, /* ldd map */
                      const MAP_REAL8 *val) /* value for function */
 {
-    NODE *list;
+    NODE *list = NULL;
 
     PRECOND(ldd->GetGetTest(ldd) == GET_MV_TEST);
 
@@ -134,8 +136,8 @@ int PerformCatchStat(MAP_REAL8 *result,      /* Read-write output flux map  */
                      const MAP_REAL8 *value, /* value map for function*/
                      const MAP_UINT1 *ldd)   /* ldd map */
 {
-    UINT1 lddVal;
-    int r, c, nrRows, nrCols;
+    UINT1 lddVal = 0;
+    int r = 0, c = 0, nrRows = 0, nrCols = 0;
 
     nrRows = ldd->NrRows(ldd);
     nrCols = ldd->NrCols(ldd);

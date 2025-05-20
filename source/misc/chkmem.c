@@ -102,7 +102,7 @@ entityType *CHK_MALLOC_TYPE(entityType t, /* type of entity
 
 static void DoNoMoreMemory(void)
 {
-    TMP_NODE *n, *t = tmpList;
+    TMP_NODE *n = NULL, *t = tmpList;
     while (t != NULL) {
         n = t->next;
         Free(t);
@@ -171,7 +171,7 @@ void ChkRegisterTryReleaseMemory(int (*f)(void)) /* function to call to release 
  */
 void *ChkMalloc(size_t size) /* size in bytes, larger than 0 */
 {
-    void *b;
+    void *b = NULL;
 
 #ifdef DEBUG_DEVELOP
     if (size == 0)
@@ -214,7 +214,7 @@ void *ChkMalloc(size_t size) /* size in bytes, larger than 0 */
 void *ChkCalloc(size_t nnemb, /* number of elements.larger than 0 */
                 size_t size)  /* size of each element in bytes, larger than 0 */
 {
-    void *b;
+    void *b = NULL;
 
 
 #ifdef DEBUG_DEVELOP
@@ -326,7 +326,7 @@ void StartLimitMalloc(void)
  */
 void *ChkTmpMalloc(size_t size) /* size in bytes, larger than 0 */
 {
-    TMP_NODE *b;
+    TMP_NODE *b = NULL;
 
 
 #ifdef DEBUG_DEVELOP
@@ -387,7 +387,7 @@ void ChkTmpFree(void *v) /* Destructed. Pointer returned by ChkTmpMalloc */
 void *ChkRealloc(void *ptr,   /* pointer to old block */
                  size_t size) /* new size in bytes, larger than 0 */
 {
-    void *b;
+    void *b = NULL;
 
 #ifdef DEBUG_DEVELOP
     if (size == 0)

@@ -54,7 +54,7 @@ static BOOL NotOnlySpace(const char *s)
 BOOL CnvrtINT4(INT4 *result,    /* write-only. resulting number */
                const char *str) /* string to convert to an INT4 */
 {
-    double d;
+    double d = NAN;
 
     PRECOND(result != NULL);
     PRECOND(str != NULL);
@@ -85,7 +85,7 @@ BOOL CnvrtINT4(INT4 *result,    /* write-only. resulting number */
 BOOL CnvrtUINT1(UINT1 *result,   /* write-only. resulting number */
                 const char *str) /* string to convert to an UINT1 */
 {
-    INT4 v;
+    INT4 v = 0;
 
     PRECOND(result != NULL);
     PRECOND(str != NULL);
@@ -111,8 +111,8 @@ BOOL CnvrtUINT1(UINT1 *result,   /* write-only. resulting number */
 BOOL CnvrtREAL8(REAL8 *result,   /* write-only. resulting number */
                 const char *str) /* string to convert to an REAL8 */
 {
-    double v;
-    char *endPtr;
+    double v = NAN;
+    char *endPtr = NULL;
 
     PRECOND(result != NULL);
     PRECOND(str != NULL);
@@ -141,7 +141,7 @@ BOOL CnvrtREAL8(REAL8 *result,   /* write-only. resulting number */
 BOOL CnvrtREAL4(REAL4 *result,   /* write-only. resulting number */
                 const char *str) /* string to convert to an REAL8 */
 {
-    REAL8 v;
+    REAL8 v = NAN;
 
     PRECOND(result != NULL);
     PRECOND(str != NULL);
@@ -183,7 +183,7 @@ BOOL CnvrtDouble(double *result,  /* write-only. resulting number */
 BOOL CnvrtInt(int *result,     /* write-only. resulting number */
               const char *str) /* string to convert to an int */
 {
-    INT4 v;
+    INT4 v = 0;
 
     PRECOND(result != NULL);
     PRECOND(str != NULL);

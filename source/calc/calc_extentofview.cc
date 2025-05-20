@@ -9,7 +9,6 @@
 #endif
 
 // Library headers.
-#include <utility>
 #ifndef INCLUDED_BOOST_NONCOPYABLE
 #include <boost/noncopyable.hpp>
 #define INCLUDED_BOOST_NONCOPYABLE
@@ -58,12 +57,9 @@
 
 // Module headers.
 
-#ifndef INCLUDED_NUMBERS
+#include <cmath>
 #include <numbers>
-#define INCLUDED_NUMBERS
-#endif
-
-
+#include <utility>
 
 
 /*!
@@ -184,9 +180,9 @@ extern "C" int ExtentOfView(
   // Determine max distance in cells in the raster.
   double maxExtent = MAX(nrRows,nrCols);
   int offsetX = com::ceil<int, double>(std::hypot(maxExtent,maxExtent));
-  int offsetY;
+  int offsetY = 0;
   double subAngle = 360.0 / nrDirections;
-  double angle;
+  double angle = NAN;
   typedef std::pair<int, int> Offset;
   typedef std::vector<std::pair<double, Offset> > Offsets;
   Offsets offsets;
@@ -219,8 +215,8 @@ extern "C" int ExtentOfView(
          std::make_pair(offsetX, offsetY)));
   }
 
-  int x, y;
-  double sum;
+  int x = 0, y = 0;
+  double sum = NAN;
   RememberPoints<int> points(classes);
 
   // Loop over each cell.

@@ -11,6 +11,8 @@
 /* global header (opt.) and delta's prototypes "" */
 #include "delta.h"
 
+#include <math.h>
+
 /* headers of this app. modules called */
 #include "mathx.h" /* pow(x, y)  */
 
@@ -37,15 +39,15 @@ static REAL8 GetVal(const MAP_REAL8 *dem, /* Digital Elevation Model */
                     int r,                /* row cell to calculate */
                     int c)                /* column cell to calculate */
 {
-    int i, n = 0;
-    REAL8 newVal; /* value for invalid value */
+    int i = 0, n = 0;
+    REAL8 newVal = NAN; /* value for invalid value */
 
     if (dem->Get(&newVal, r, c, dem))
         return newVal;
     newVal = 0;
     /* Determine the three closest cells. */
     for (i = 1; i <= NR_LDD_DIR; i++) {
-        REAL8 v;
+        REAL8 v = NAN;
         int rNext = RNeighbor(r, i);
         int cNext = CNeighbor(c, i);
         if (i == LDD_PIT)
@@ -67,7 +69,7 @@ void CalcDeltaXY(double *dzDx,         /* write-only, difference in X */
                  int r,                /* row nr. center cell */
                  int c)                /* col nr. center cell */
 {
-    int jc, ir;
+    int jc = 0, ir = 0;
     REAL8 z[3][3];
 #define Z(ir, jc) (z[(ir) + 1][(jc) + 1])
     REAL8 d = 8 * Side();

@@ -5,12 +5,13 @@
 /* USES */
 /********/
 /* libs ext. <>, our ""  */
-#include "misc.h"
-#include "calc.h"
 #include "app.h"    /* appUnitTrue, appOutput */
-#include <string.h> /* memmove */
+#include "calc.h"
 #include "mathx.h"  /* sqr,sqrt */
+#include "misc.h"
 #include "table.h"
+#include <math.h>
+#include <string.h> /* memmove */
 
 /* global header (opt.) and test's prototypes "" */
 
@@ -93,9 +94,9 @@ Add2Lines(HOR_CUT_LINE *l, int nrLines, int xCeil, REAL8 c, REAL8 s, REAL8 x, RE
 
 static int BuildCircle(REAL8 radius)
 {
-    int i, nrLines, xFloor;
-    REAL8 xIncr, lineStart, lineEndIncl;
-    HOR_CUT_LINE *l;
+    int i = 0, nrLines = 0, xFloor = 0;
+    REAL8 xIncr = NAN, lineStart = NAN, lineEndIncl = NAN;
+    HOR_CUT_LINE *l = NULL;
     PRECOND(radius != 0);
     radius /= (Side() * 2);
 
@@ -152,7 +153,7 @@ int EllipseAverage(MAP_REAL8 *average,      /* write-only output average map  */
                    const MAP_REAL8 *yminor, /* input window size map */
                    const MAP_REAL8 *angle)  /* input window size map */
 {
-    int r, c, nrRows, nrCols;
+    int r = 0, c = 0, nrRows = 0, nrCols = 0;
 
     val->SetGetTest(GET_MV_TEST, val);
     xmajor->SetGetTest(GET_MV_TEST, xmajor);
@@ -164,12 +165,12 @@ int EllipseAverage(MAP_REAL8 *average,      /* write-only output average map  */
 
     for (r = 0; r < nrRows; r++)
         for (c = 0; c < nrCols; c++) {
-            REAL8 value, xmajorV, yminorV, angleV;
+            REAL8 value = NAN, xmajorV = NAN, yminorV = NAN, angleV = NAN;
             if (xmajor->Get(&xmajorV, r, c, xmajor) && yminor->Get(&yminorV, r, c, yminor) &&
                 angle->Get(&angleV, r, c, angle)) {
                 REAL8 count = 0, winTotal = 0;
-                int rWin, cWin, pw;
-                REAL8 bw; /* border weigth */
+                int rWin = 0, cWin = 0, pw = 0;
+                REAL8 bw = NAN; /* border weigth */
 
                 BuildCircle(fabs(xmajorV));
                 return 0;

@@ -1,3 +1,5 @@
+#include <math.h>
+
 #include "stddefx.h"
 
 
@@ -45,9 +47,9 @@ static void SpreadDown(MAP_REAL8 *outCost,        /* write-only output map  */
                        int rowNr,                 /* point from which is spread */
                        int colNr)                 /* point from which is spread */
 {
-    REAL8 costVal1, fricVal1;
-    UINT1 lddVal1;
-    INT4 id1, pointVal1;
+    REAL8 costVal1 = NAN, fricVal1 = NAN;
+    UINT1 lddVal1 = 0;
+    INT4 id1 = 0, pointVal1 = 0;
     int r = rowNr;
     int c = colNr;
     REAL8 diagonal = Diagonal();
@@ -63,9 +65,9 @@ static void SpreadDown(MAP_REAL8 *outCost,        /* write-only output map  */
     while (ldd->Get(&lddVal1, r, c, ldd) && (points->Get(&pointVal1, r, c, points)) &&
            (cost->Get(&costVal1, r, c, cost)) && (friction->Get(&fricVal1, r, c, friction)) &&
            (lddVal1 != LDD_PIT)) {
-        REAL8 costVal2, fricVal2;
-        UINT1 lddVal2;
-        INT4 pntVal2, id2;
+        REAL8 costVal2 = NAN, fricVal2 = NAN;
+        UINT1 lddVal2 = 0;
+        INT4 pntVal2 = 0, id2 = 0;
         int rNext = RNeighbor(r, lddVal1); /* downstream elt.*/
         int cNext = CNeighbor(c, lddVal1);
 
@@ -79,7 +81,7 @@ static void SpreadDown(MAP_REAL8 *outCost,        /* write-only output map  */
             (outCost->Get(&costVal1, r, c, outCost)) &&
             (points->Get(&pntVal2, rNext, cNext, points))) {
             REAL8 fricVal = ((fricVal1 + fricVal2) / 2);
-            REAL8 totalcost;
+            REAL8 totalcost = NAN;
 
             /* distance (so total cost also) depends on 
              * neighbor being a corner neighbor or not .
@@ -126,10 +128,10 @@ int SpreadLdd(MAP_REAL8 *outCost,        /* write-only output map  */
               const MAP_REAL8 *cost,     /* initial costs */
               const MAP_REAL8 *friction) /* friction */
 {
-    REAL8 initCostVal, fricVal;
-    UINT1 lddVal;
-    INT4 pntVal;
-    int r, c, nrRows, nrCols;
+    REAL8 initCostVal = NAN, fricVal = NAN;
+    UINT1 lddVal = 0;
+    INT4 pntVal = 0;
+    int r = 0, c = 0, nrRows = 0, nrCols = 0;
 
     nrRows = ldd->NrRows(ldd);
     nrCols = ldd->NrCols(ldd);

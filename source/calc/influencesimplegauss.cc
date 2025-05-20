@@ -1,4 +1,4 @@
-#include "stddefx.h" 
+#include "stddefx.h"
 
 
 /********/
@@ -23,17 +23,19 @@
 #define INCLUDED_FIELDAPI_INTERFACE
 #endif
 
+#include <vector>
+
 /***************/
 /* EXTERNALS   */
 /***************/
 
-/**********************/ 
+/**********************/
 /* LOCAL DECLARATIONS */
-/**********************/ 
+/**********************/
 
-/*********************/ 
+/*********************/
 /* LOCAL DEFINITIONS */
-/*********************/ 
+/*********************/
 
 /******************/
 /* IMPLEMENTATION */
@@ -87,7 +89,7 @@ extern "C" int InfluenceSimpleGauss(
   * check range of rangeVal
   */
  for(geo::CellLocVisitor c(out); c.valid(); ++c) {
-   REAL8 inputVal,rangeVal,epsVal;
+   REAL8 inputVal = NAN,rangeVal = NAN,epsVal = NAN;
    if(input.get(inputVal, *c) &&
       range.get(rangeVal, *c) &&
       eps.get(epsVal,  *c) ) {
@@ -102,7 +104,7 @@ extern "C" int InfluenceSimpleGauss(
  }
 
  for(geo::CellLocVisitor c(out); c.valid(); ++c) {
-   REAL8 inputVal,rangeVal,epsVal;
+   REAL8 inputVal = NAN,rangeVal = NAN,epsVal = NAN;
    if(input.get(inputVal, *c) &&
       range.get(rangeVal, *c) &&
       eps.get(epsVal,  *c)    &&
@@ -126,12 +128,12 @@ extern "C" int InfluenceSimpleGauss(
      for(size_t rDest = rStart; rDest < rStop; rDest++)
        for(size_t cDest = cStart; cDest < cStop; cDest++)
       {
-        REAL8 outVal;
+        REAL8 outVal = NAN;
         if(out.get(outVal, rDest, cDest)) {
          /* inside defined area */
 
          /* compute distSqr */
-         REAL8 add,dist = sqr((double)c.row()-rDest)+sqr((double)c.col()-cDest);
+         REAL8 add = NAN,dist = sqr((double)c.row()-rDest)+sqr((double)c.col()-cDest);
          if (dist > maxDist)
           continue; /* do not compute */
          /* else compute distSqr */

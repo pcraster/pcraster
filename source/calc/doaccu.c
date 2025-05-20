@@ -16,6 +16,8 @@
 # include "p_calc_list.h" 
 # include "accu.h"  /* FUNCTION */
 
+#include <math.h>
+
 /***************/
 /* EXTERNALS   */
 /***************/
@@ -45,9 +47,9 @@ static int Sum(
        const MAP_REAL8 *value,    /* value map */
   ACCU_FUNC f)      /* function to perform */
 {
-  UINT1   lddVal;
-  REAL8   fluxVal, amountVal, accamount, val;
-  int   i;
+  UINT1   lddVal = 0;
+  REAL8   fluxVal = NAN, amountVal = NAN, accamount = NAN, val = NAN;
+  int   i = 0;
 
   if(amount->Get(&amountVal, r, c, amount) &&
      value->Get(&val, r, c, value))
@@ -58,7 +60,7 @@ static int Sum(
     /* sum all upstream fluxes */
     FOR_ALL_LDD_NBS(i)
     {
-      int rNB, cNB;
+      int rNB = 0, cNB = 0;
       rNB = RNeighbor(r, i);
       cNB = CNeighbor(c, i);
 
@@ -114,7 +116,7 @@ static int CalcStateFlux(
      const MAP_REAL8 *val,  /* value for function */
      ACCU_FUNC f)    /* function to perform */
 {
-  NODE   *list;
+  NODE   *list = NULL;
 
   PRECOND(ldd->GetGetTest(ldd) == GET_MV_TEST);
   
@@ -164,8 +166,8 @@ int PerformAccu(
      const MAP_REAL8 *value,  /* value map for function*/
      ACCU_FUNC f)    /* function to perform */
 {
-  UINT1   lddVal;
-  int   r, c , nrRows, nrCols;
+  UINT1   lddVal = 0;
+  int   r = 0, c = 0 , nrRows = 0, nrCols = 0;
 
   nrRows = ldd->NrRows(ldd);
   nrCols = ldd->NrCols(ldd);
@@ -191,7 +193,7 @@ int PerformAccu(
        {
         if (lddVal == LDD_PIT)
         {
-           int res;
+           int res = 0;
            res = CalcStateFlux(state, flux, r, c, ldd, amount, value, f);
            if (res)
              return res;

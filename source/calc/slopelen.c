@@ -1,3 +1,5 @@
+#include <math.h>
+
 #include "stddefx.h"
 
 
@@ -41,8 +43,8 @@ static void Longest(MAP_REAL8 *out,            /* read-write output map */
                     int cellr,                 /* row number of cell */
                     int cellc)                 /* column number of cell */
 {
-    REAL8 fricVal, fricVal2, oldDist, newDist = 0;
-    UINT1 lddVal;
+    REAL8 fricVal = NAN, fricVal2 = NAN, oldDist = NAN, newDist = 0;
+    UINT1 lddVal = 0;
     int r = cellr;
     int c = cellc;
 
@@ -52,8 +54,8 @@ static void Longest(MAP_REAL8 *out,            /* read-write output map */
     while (ldd->Get(&lddVal, r, c, ldd) && friction->Get(&fricVal, r, c, friction) &&
            friction->Get(&fricVal2, RNeighbor(r, lddVal), CNeighbor(c, lddVal), friction) &&
            lddVal != LDD_PIT) {
-        REAL8 incrCost;
-        REAL8 incrDist;
+        REAL8 incrCost = NAN;
+        REAL8 incrDist = NAN;
         int rNext = RNeighbor(r, lddVal);
         int cNext = CNeighbor(c, lddVal);
         if (appUnitTrue)
@@ -86,9 +88,9 @@ int Slopelength(MAP_REAL8 *out,            /* Read-write output map  */
                 const MAP_UINT1 *ldd,      /* ldd map */
                 const MAP_REAL8 *friction) /* friction map */
 {
-    UINT1 lddVal;
-    int r, c, nrRows, nrCols;
-    REAL8 fricVal;
+    UINT1 lddVal = 0;
+    int r = 0, c = 0, nrRows = 0, nrCols = 0;
+    REAL8 fricVal = NAN;
 
     ldd->SetGetTest(GET_MV_TEST, ldd);
     friction->SetGetTest(GET_MV_TEST, friction);

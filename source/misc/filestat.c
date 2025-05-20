@@ -119,7 +119,7 @@ int FileNamesEq(const char *fileName1, /* first fileName without spaces */
 int FileNameExt(const char *fileName,  /* fileName without spaces */
                 const char *extension) /* the extension without the period */
 {
-    const char *p;
+    const char *p = NULL;
     PRECOND(fileName != NULL);
     PRECOND(extension != NULL);
     /* find the position of the extension
@@ -235,7 +235,7 @@ void SplitFilePathName(const char *fullPathName, /* the full path name */
  */
 char *ReplaceDirPathDelimChar(char *str) /* rw string to be altered */
 {
-    size_t i, n = strlen(str);
+    size_t i = 0, n = strlen(str);
 #ifdef UNIX_FS
     int otherDelimChar = '\\';
 #else

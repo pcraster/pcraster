@@ -1,3 +1,5 @@
+#include <math.h>
+
 #include "stddefx.h" 
 
 
@@ -37,9 +39,9 @@ int Move(
        const MAP_REAL8 *x,  /* Digital Elevation Model */
        const MAP_REAL8 *y)  /* Digital Elevation Model */
 {
-  REAL8   xColVal, yRowVal;
-  UINT1   inVal;
-  int   nrRows, nrCols, r, c;
+  REAL8   xColVal = NAN, yRowVal = NAN;
+  UINT1   inVal = 0;
+  int   nrRows = 0, nrCols = 0, r = 0, c = 0;
 
   x->SetGetTest(GET_MV_TEST, x);
   y->SetGetTest(GET_MV_TEST, y);
@@ -60,7 +62,7 @@ int Move(
       int yRowDest = r +
           (int)floor(YProjectionFactor()*(yRowVal/Side()));
       int xColDest = c +(int)floor(xColVal/Side());
-      UINT1 resVal;
+      UINT1 resVal = 0;
 
       if (result->Get(&resVal, yRowDest, xColDest, result))
         /* in the map */
@@ -74,7 +76,7 @@ int Move(
 static INT4 getShift(
     const MAP_REAL8 *m)
 {
-  REAL8 r;
+  REAL8 r = NAN;
   m->Get(&r, 0, 0, m);
   return POSSIBLE_DATA_LOSS(INT4,r);
 }
@@ -85,9 +87,9 @@ int Shift(
        const MAP_REAL8 *y,  /* Integer Northing */
        const MAP_REAL8 *x)  /* Integer Easting */
 {
-  INT4    xColVal, yRowVal;
-  REAL8   inVal;
-  int   nrRows, nrCols, r, c;
+  INT4    xColVal = 0, yRowVal = 0;
+  REAL8   inVal = NAN;
+  int   nrRows = 0, nrCols = 0, r = 0, c = 0;
 
   // nonspatials
   xColVal=getShift(x);
@@ -117,9 +119,9 @@ int Shift0(
        const MAP_REAL8  *y,  /* Integer Northing */
        const MAP_REAL8  *x)  /* Integer Easting */
 {
-  INT4    xColVal, yRowVal;
-  REAL8   inVal;
-  int   nrRows, nrCols, r, c;
+  INT4    xColVal = 0, yRowVal = 0;
+  REAL8   inVal = NAN;
+  int   nrRows = 0, nrCols = 0, r = 0, c = 0;
 
   // nonspatials
   xColVal=getShift(x);

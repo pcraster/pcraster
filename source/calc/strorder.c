@@ -35,16 +35,16 @@ static void AssignOrder(MAP_INT4 *order,      /* read-write output state map */
                         int c,                /* column current cell */
                         const MAP_UINT1 *ldd) /* ldd map  */
 {
-    int i;
+    int i = 0;
     INT4 highNBstreamOrder = 0;
     INT4 nrHighNBstreamOrder = 2; /* makes end condition easier */
 
     /* sum all upstream fluxes */
     FOR_ALL_LDD_NBS(i)
     {
-        INT4 orderVal;
-        UINT1 lddVal;
-        int rNB, cNB;
+        INT4 orderVal = 0;
+        UINT1 lddVal = 0;
+        int rNB = 0, cNB = 0;
         rNB = RNeighbor(r, i);
         cNB = CNeighbor(c, i);
 
@@ -72,7 +72,7 @@ static int CalcOrder(MAP_INT4 *order,      /* Read-write output state map  */
                      int c,                /* pit column coordinate */
                      const MAP_UINT1 *ldd) /* ldd map */
 {
-    NODE *list;
+    NODE *list = NULL;
 
     PRECOND(ldd->GetGetTest(ldd) == GET_MV_TEST);
 
@@ -100,8 +100,8 @@ static int CalcOrder(MAP_INT4 *order,      /* Read-write output state map  */
 int StreamOrder(MAP_INT4 *order,      /* Read-write output flux map  */
                 const MAP_UINT1 *ldd) /* ldd map */
 {
-    UINT1 lddVal;
-    int r, c, nrRows, nrCols;
+    UINT1 lddVal = 0;
+    int r = 0, c = 0, nrRows = 0, nrCols = 0;
 
     nrRows = ldd->NrRows(ldd);
     nrCols = ldd->NrCols(ldd);

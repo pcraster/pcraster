@@ -1,3 +1,5 @@
+#include <math.h>
+
 #include "stddefx.h"
 /*
  */
@@ -36,9 +38,9 @@ int Upstream(MAP_REAL8 *out,       /* write-only output map  */
              const MAP_UINT1 *ldd, /* ldd map  */
              const MAP_REAL8 *in)  /* value map */
 {
-    UINT1 l;
-    REAL8 v;
-    int r, c;
+    UINT1 l = 0;
+    REAL8 v = NAN;
+    int r = 0, c = 0;
     int nrRows = ldd->NrRows(ldd);
     int nrCols = ldd->NrCols(ldd);
 
@@ -54,7 +56,7 @@ int Upstream(MAP_REAL8 *out,       /* write-only output map  */
         for (c = 0; c < nrCols; c++) {
             if (ldd->Get(&l, r, c, ldd) && (in->Get(&v, r, c, in))) {
                 REAL8 sum = 0;
-                int d;
+                int d = 0;
                 FOR_ALL_LDD_NBS(d)
                 {
                     int rNext = RNeighbor(r, d);

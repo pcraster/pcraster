@@ -49,7 +49,7 @@ int CheckFileSets(const char **conflictFileName, /* write-only, this file causes
                   const char **inputFiles,       /* array of input file names */
                   int nrInputFiles)              /* size of inputFiles array */
 {
-    int i, j;
+    int i = 0, j = 0;
 
     if (nrOutputFiles > 1)
         for (i = 0; i < nrOutputFiles; i++)

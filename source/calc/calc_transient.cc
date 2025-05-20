@@ -51,6 +51,7 @@
 
 // Module headers.
 
+#include <cmath>
 
 
 //------------------------------------------------------------------------------
@@ -303,7 +304,7 @@ public:
 
 
     geo::CellLoc loc;
-    size_t r, c; // comes from C ya know
+    size_t r = 0, c = 0; // comes from C ya know
 
     //--------------------------------------------------------------------------
     // Calculate transmissivities. These stay constant within a call to the
@@ -711,7 +712,7 @@ extern "C" int  Transient(void** out, const void** in, int nrArgs)
 
   size_t nrRows = elevation.nrRows();
   size_t nrCols = elevation.nrCols();
-  size_t r,c;
+  size_t r = 0,c = 0;
   PRECOND(nrRows >= 2 && nrCols >= 2);
 
   // Domain checks...
@@ -726,7 +727,7 @@ extern "C" int  Transient(void** out, const void** in, int nrArgs)
                    "tolerance", com::GreaterThan<double>(0)));
 
   // Checks...
-  int check;
+  int check = 0;
 
   // Check non spatials.
   check = fieldapi::checkScalarDomains(nsDomains, geo::CellLoc(0, 0));
@@ -743,9 +744,9 @@ extern "C" int  Transient(void** out, const void** in, int nrArgs)
   }
 
   // Inititalize...
-  double oldValue;
+  double oldValue = NAN;
   double tolerance = toleranceInterface.value(0, 0);
-  double difference, maxDifference;    // Current and max difference.
+  double difference = NAN, maxDifference = NAN;    // Current and max difference.
   size_t nrIterations = 0;
 
   // yepyep: fieldapi::Common::cellLength();

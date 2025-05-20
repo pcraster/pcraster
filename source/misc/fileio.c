@@ -91,7 +91,7 @@ int FileWrite(const void *ptr, /* buffer to written */
               size_t nmemb,    /* number of elements */
               FILE *f)         /* file to read from */
 {
-    int r;
+    int r = 0;
     r = fwrite(ptr, size, nmemb, f);
     if (r != (int)nmemb) {
         Error("file write error:%s", strerror(errno));
@@ -129,7 +129,7 @@ int FileWriteAtPos(const void *ptr, /* buffer to be written */
 FILE *FileOpen(const char *fileName, /* file name, verified */
                const char *perm)     /* standard fopen() argument */
 {
-    FILE *f;
+    FILE *f = NULL;
     f = fopen(fileName, perm);
     if (f == NULL) {
         PRECOND(errno != EINVAL); /* bad perm argument */
@@ -146,7 +146,7 @@ FILE *FileOpen(const char *fileName, /* file name, verified */
  */
 long FileSize(FILE *f) /* the file */
 {
-    long l;
+    long l = 0;
     if (fseek(f, 0L, SEEK_END)) {
         Error("generic file read error:%s", strerror(errno));
         return -1;

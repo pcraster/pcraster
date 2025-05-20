@@ -17,10 +17,6 @@
 #include "misc.h"         // RetError
 #define INCLUDED_MISC
 #endif
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
 
 
 #ifndef INCLUDED_GEO_CELLLOCVISITOR
@@ -46,6 +42,9 @@
 #include "com_intervaltypes.h"
 #define INCLUDED_COM_INTERVALTYPES
 #endif
+
+#include <cmath>
+#include <vector>
 
 static double AactToLevel(
     double Aact, double Bw,
@@ -186,9 +185,9 @@ extern "C" int DynamicWave(
   ReadOnlyUint1_ref(ldd,m_ldd); inputs.push_back(&ldd);
   ReadOnlyReal8_ref(Qin,m_Qin); inputs.push_back(&Qin);
   ReadOnlyReal8_ref(Hin,m_Hin); inputs.push_back(&Hin);
-  ReadOnlyReal8_ref(channelBottomLevel,m_channelBottomLevel); 
+  ReadOnlyReal8_ref(channelBottomLevel,m_channelBottomLevel);
     inputs.push_back(&channelBottomLevel);
-  ReadOnlyReal8_ref(channelRoughness,m_channelRoughness); 
+  ReadOnlyReal8_ref(channelRoughness,m_channelRoughness);
     inputs.push_back(&channelRoughness);
   ReadOnlyReal8_ref(L,m_channelLength); inputs.push_back(&L);
   ReadOnlyReal8_ref(Bw,m_channelBottomWidth); inputs.push_back(&Bw);
@@ -250,7 +249,7 @@ extern "C" int DynamicWave(
   std::vector<geo::CellLoc> catchmentOutlets;
   for(geo::CellLocVisitor cl(ldd); cl.valid(); ++cl) {
      geo::CellLoc c(*cl);
-     UINT1 cVal;
+     UINT1 cVal = 0;
      if ( (ldd.get(cVal,c)) && cVal == LDD_PIT) // found a catchment outlet */
          catchmentOutlets.push_back(c);
      if (fieldapi::nonMV(inputs,c)) {
@@ -285,7 +284,7 @@ extern "C" int DynamicWave(
 
     geo::LDD::Code cL=ldd[c]; // ldd value of c
 
-    double QtimeStep; // Q  m3/sec
+    double QtimeStep = NAN; // Q  m3/sec
     // WPA 2.3 is  cell a structure or channel segment
     if (structures[c] == 1)
      QtimeStep= iterationTime *
@@ -317,9 +316,9 @@ extern "C" int DynamicWave(
     // 2.4 new volumes
     double cVolume=L[c] *
                    LevelToAact(resultH[c], Bw[c], yc[c],z[c], FW[c]);
-    cVolume+=Qin[c]/nrTimeSlices; 
+    cVolume+=Qin[c]/nrTimeSlices;
 
-    double dsVolume;
+    double dsVolume = NAN;
     if (cL == LDD_PIT) {
          dsVolume=0; // no downstream cell
     } else { // has downstream cell

@@ -1,3 +1,5 @@
+#include <math.h>
+
 #include "stddefx.h"
 
 
@@ -80,18 +82,18 @@ static int DoBirds(int *rTo,
                    const MAP_REAL8 *dispRange,
                    const MAP_REAL8 *habQual) /* habitat quality */
 {
-    int r, nrRows = point->NrRows(point);
-    int c, nrCols = point->NrCols(point);
+    int r = 0, nrRows = point->NrRows(point);
+    int c = 0, nrCols = point->NrCols(point);
     double maxUniform = 0;
 
     *rTo = -1, *cTo = -1;
 
     for (r = 0; r < nrRows; r++)
         for (c = 0; c < nrCols; c++) {
-            REAL8 dispRangeVal;
-            REAL8 habVal;
-            REAL8 distVal;
-            UINT1 occVal;
+            REAL8 dispRangeVal = NAN;
+            REAL8 habVal = NAN;
+            REAL8 distVal = NAN;
+            UINT1 occVal = 0;
             if (occupied->Get(&occVal, r, c, occupied) && occVal == 0) { /* unoccupied place */
                 if (dispRange->Get(&dispRangeVal, r, c, dispRange) &&
                     habQual->Get(&habVal, r, c, habQual) && dist->Get(&distVal, r, c, dist) &&
@@ -121,10 +123,10 @@ int BirdsSpread(MAP_UINT1 *occupied,        /* read-write output map  */
                 const MAP_REAL8 *dispRange, /* range par in prob formuala  */
                 const MAP_REAL8 *habQual)   /* habitat quality [0,1] */
 {
-    REAL8 nrBirdsVal;
-    int rTo, cTo;
-    int r, nrRows = nrBirds->NrRows(nrBirds);
-    int c, nrCols = nrBirds->NrCols(nrBirds);
+    REAL8 nrBirdsVal = NAN;
+    int rTo = 0, cTo = 0;
+    int r = 0, nrRows = nrBirds->NrRows(nrBirds);
+    int c = 0, nrCols = nrBirds->NrCols(nrBirds);
     MAP_REAL8 *dist = CreateSpatialREAL8(CR_REAL4, (size_t)nrRows, (size_t)nrCols);
     MAP_INT4 *zone = CreateSpatialINT4(CR_INT4, (size_t)nrRows, (size_t)nrCols);
     MAP_INT4 *point = CreateSpatialINT4(CR_UINT1, (size_t)nrRows, (size_t)nrCols);

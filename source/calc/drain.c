@@ -1,3 +1,5 @@
+#include <math.h>
+
 #include "stddefx.h"
 /*
  */
@@ -47,8 +49,8 @@ static NODE *DoNeighbors(MAP_REAL8 *out,          /* read-write output map */
     NODE *list2 = NULL;                   /* list of lowest neighbors */
     REAL8 dropMax = 0;                    /* maximal drop value */
     REAL8 dropVal = 0;                    /* maximal drop value */
-    int i, nrPaths = 0;                   /* nr of outgoing paths */
-    REAL8 demVal, newDem, outVal, pntVal; /* dem value
+    int i = 0, nrPaths = 0;                   /* nr of outgoing paths */
+    REAL8 demVal = NAN, newDem = NAN, outVal = NAN, pntVal = NAN; /* dem value
                                            * and output value of old and new cell and the
                                            * point value of both to check on MV.
                                            */
@@ -75,7 +77,7 @@ static NODE *DoNeighbors(MAP_REAL8 *out,          /* read-write output map */
 
             dropVal = (demVal - newDem) / dist;
             if (dropMax <= dropVal) {
-                NODE *tmp;
+                NODE *tmp = NULL;
                 if (dropMax < dropVal) {
                     /* all previous found neighbors
                      * were not the lowest -> reset.
@@ -123,9 +125,9 @@ static int HasLowerNeighbor(const MAP_REAL8 *dem,    /* dem.map */
                             int rowNr,               /* row number of checked cell */
                             int colNr)               /* column number of checked cell */
 {
-    REAL8 demVal, newDem; /* heights original cell and neighbor */
-    REAL8 pntVal;         /* if MV, then not a valid lower neighbor */
-    int i;
+    REAL8 demVal = NAN, newDem = NAN; /* heights original cell and neighbor */
+    REAL8 pntVal = NAN;         /* if MV, then not a valid lower neighbor */
+    int i = 0;
 
     PRECOND(dem->GetGetTest(dem) == GET_MV_TEST);
     PRECOND(dem->Get(&demVal, rowNr, colNr, dem));
@@ -154,8 +156,8 @@ static REAL8 DoDrain(MAP_REAL8 *out,          /* read-write output map */
                      int c)                   /* current cell column nr. */
 {
     NODE *list = NULL;
-    REAL8 pntVal;   /* value in points.map */
-    REAL8 drainVal; /* total value to drain down */
+    REAL8 pntVal = NAN;   /* value in points.map */
+    REAL8 drainVal = NAN; /* total value to drain down */
 
     PRECOND(points->Get(&pntVal, r, c, points));
 
@@ -187,9 +189,9 @@ int Drain(MAP_REAL8 *out,          /* write-only output map  */
           const MAP_REAL8 *dem,    /* dem map */
           const MAP_REAL8 *points) /* points map */
 {
-    REAL8 pointVal, demVal;
+    REAL8 pointVal = NAN, demVal = NAN;
     NODE *pointlist = NULL;
-    int r, c, nrRows, nrCols, nrPnts = 0;
+    int r = 0, c = 0, nrRows = 0, nrCols = 0, nrPnts = 0;
 
     AppProgress("\nnumber of points to do:\n");
 
@@ -219,7 +221,7 @@ int Drain(MAP_REAL8 *out,          /* write-only output map  */
         for (c = 0; c < nrCols; c++) {
             if (dem->Get(&demVal, r, c, dem) && points->Get(&pointVal, r, c, points)) {
                 if (pointVal != 0) {
-                    NODE *tmp;
+                    NODE *tmp = NULL;
                     out->Put(pointVal, r, c, out);
                     tmp = LinkToList(pointlist, r, c);
                     if (tmp == NULL) {

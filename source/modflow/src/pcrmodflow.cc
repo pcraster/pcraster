@@ -1259,7 +1259,7 @@ void PCRModflow::modflow_converged() {
     exit(1);
   }
   std::ifstream fileInput(filename);
-  size_t offset;
+  size_t offset = 0;
   std::string line;
   //std::string search("****FAILED TO CONVERGE IN TIME STEP "); mf2000
   std::string search("TO MEET SOLVER CONVERGENCE CRITERIA");

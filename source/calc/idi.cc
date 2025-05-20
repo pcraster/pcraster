@@ -3,6 +3,8 @@
 #include "calc.h"  // for it's own interface
 
 #ifndef INCLUDED_VECTOR
+#include <math.h>
+
 #include <vector>
 #define INCLUDED_VECTOR
 #endif
@@ -80,7 +82,7 @@ extern "C" int Idi(
   std::vector<geo::IdiPoint<geo::CellLoc> > points;
 
    for(geo::CellLocVisitor c(mask); c.valid(); ++c) {
-     REAL8 inpVal;
+     REAL8 inpVal = NAN;
      if ( input.get(inpVal, *c))
       points.push_back(geo::IdiPoint<geo::CellLoc>(*c,inpVal));
   }
@@ -105,8 +107,8 @@ extern "C" int Idi(
        com::auto_array_ptr<double>dist(new double[nrPoints]);
        // both 0 means interpolate on all
        for(geo::CellLocVisitor c(mask); c.valid(); ++c) {
-         UINT1 maskVal;
-         REAL8 idpVal;
+         UINT1 maskVal = 0;
+         REAL8 idpVal = NAN;
          if ( mask.get(maskVal, *c) && idp.get(idpVal, *c)
               && maskVal /* == 1 garantueed by boolean type */)
             result.put(interpolateNoSort(points,idpVal,*c),*c);
@@ -119,8 +121,8 @@ extern "C" int Idi(
 
    // generic case
    for(geo::CellLocVisitor c(mask); c.valid(); ++c) {
-      UINT1 maskVal;
-      REAL8 idpVal, radVal, f_maxNr;
+      UINT1 maskVal = 0;
+      REAL8 idpVal = NAN, radVal = NAN, f_maxNr = NAN;
       if ( mask.get(maskVal, *c) && idp.get(idpVal, *c)
           && maxNr.get(f_maxNr, *c) && radius.get(radVal, *c)
           && maskVal /* == 1 garantueed by boolean type */
@@ -130,7 +132,7 @@ extern "C" int Idi(
               maxNr = MIN(maxNr, nrPoints);
             else
               maxNr = nrPoints;
-            double v;
+            double v = NAN;
             if (geo::idi(v,points,idpVal,maxNr,radVal / Side(), *c))
                    result.put(v, *c);
             else

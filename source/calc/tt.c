@@ -1,3 +1,5 @@
+#include <math.h>
+
 #include "stddefx.h"
 
 
@@ -73,7 +75,7 @@ static void AddAmount(
    const TT_CELL   *c,
    double    v)
 {
-  double addVal;
+  double addVal = NAN;
   m->Get(&addVal,c->r,c->c,m);
   addVal+=v;
   m->Put( addVal,c->r,c->c,m);
@@ -84,7 +86,7 @@ static double timeToCell(
   const TT_CELL   *c,
   double    startCummTT)
 {
-  double timeTo;
+  double timeTo = NAN;
   accumTT->Get(&timeTo,c->r, c->c,accumTT);
   return startCummTT - timeTo;
 }
@@ -100,7 +102,7 @@ static int Compute(
      const MAP_REAL8 *accumTT,    /* accumTT */
      const MAP_REAL8 *fraction)    /* fraction */
 {
-  TT_CELL *list;
+  TT_CELL *list = NULL;
 
   list = NewCell(rPit,cPit,NULL);
   if (list == NULL)
@@ -121,18 +123,18 @@ static int Compute(
        * list, the list describes the complete
        * path down to the pit
        */
-       double matTravelling;
+       double matTravelling = NAN;
        TT_CELL *current=list; /* XXXXstream cell of deposition point */
        TT_CELL *down=list->prev; /* downstream cell of deposition point */
-       double  startCummTT;
-       double  timeToCurrent, timeToDown;
+       double  startCummTT = NAN;
+       double  timeToCurrent = NAN, timeToDown = NAN;
        amount->Get(&matTravelling,current->r,current->c,amount);
        if (matTravelling <= 0)
           goto done;
        accumTT->Get(&startCummTT,current->r,current->c,accumTT);
 
        while (current) {
-          double localFraction, localFlux;
+          double localFraction = NAN, localFlux = NAN;
 
           timeToCurrent = timeToCell(accumTT, current, startCummTT);
 
@@ -170,10 +172,10 @@ static int Compute(
 
        if (timeToCurrent < 1.0 && down) {
          /* divide: leave some in current*/
-         double localFraction;
+         double localFraction = NAN;
          double difference = timeToDown-timeToCurrent;
          double currentStateRatio = 1-((1-timeToCurrent)/difference);
-         double localFlux;
+         double localFlux = NAN;
          double toCurrentStateVal = matTravelling * currentStateRatio;
 
          AddAmount(state, current, toCurrentStateVal);
@@ -203,14 +205,14 @@ done:
      /* add a next incoming route to
       * the list from the current point
       */
-      int rNB,cNB;
-      UINT1 lddNBval;
+      int rNB = 0,cNB = 0;
+      UINT1 lddNBval = 0;
       /* find ONE incoming route,
        * where all maps are  defined
        */
       for(   ;list->nextLddDir <= 9; list->nextLddDir++ )
       {
-      double a;
+      double a = NAN;
       if (list->nextLddDir == LDD_PIT)
         list->nextLddDir++;
       rNB = RNeighbor(r,list->nextLddDir);
@@ -248,11 +250,11 @@ int TravelTime(
      const MAP_REAL8 *fraction /*fraction in [0, 1] */
      )
 {
-  REAL8   accumTTVal;
-  UINT1   lddVal;
-  REAL8   amountVal;
-  REAL8   fractionVal;
-  int   r, c ,nrRows, nrCols;
+  REAL8   accumTTVal = NAN;
+  UINT1   lddVal = 0;
+  REAL8   amountVal = NAN;
+  REAL8   fractionVal = NAN;
+  int   r = 0, c = 0 ,nrRows = 0, nrCols = 0;
 
   nrRows = ldd->NrRows(ldd);
   nrCols = ldd->NrCols(ldd);

@@ -1,4 +1,4 @@
-#include "stddefx.h" 
+#include "stddefx.h"
 
 /********/
 /* USES */
@@ -22,17 +22,19 @@
 #define INCLUDED_FIELDAPI_INTERFACE
 #endif
 
+#include <cmath>
+
 /***************/
 /* EXTERNALS   */
 /***************/
 
-/**********************/ 
+/**********************/
 /* LOCAL DECLARATIONS */
-/**********************/ 
+/**********************/
 
-/*********************/ 
+/*********************/
 /* LOCAL DEFINITIONS */
-/*********************/ 
+/*********************/
 
 /******************/
 /* IMPLEMENTATION */
@@ -86,7 +88,7 @@ extern "C" int DistributeSimpleGauss(
   * check range of rangeVal
   */
  for(geo::CellLocVisitor c(out); c.valid(); ++c) {
-   REAL8 inputVal,rangeVal,epsVal;
+   REAL8 inputVal = NAN,rangeVal = NAN,epsVal = NAN;
    if(input.get(inputVal, *c) &&
       range.get(rangeVal, *c) &&
       eps.get(epsVal,  *c) ) {
@@ -101,15 +103,15 @@ extern "C" int DistributeSimpleGauss(
  }
 
  for(geo::CellLocVisitor c(out); c.valid(); ++c) {
-   REAL8 inputVal,rangeVal,epsVal;
+   REAL8 inputVal = NAN,rangeVal = NAN,epsVal = NAN;
    if(input.get(inputVal, *c) &&
       range.get(rangeVal, *c) &&
       eps.get(epsVal,  *c)    &&
       inputVal > epsVal
      )
    {
-     double maxDist;
-     int    maxDistCells;
+     double maxDist = NAN;
+     int    maxDistCells = 0;
     /* range in cell units!
      * then we have all in cell units
      * thus gauss-function is scaled to cellunits
@@ -130,7 +132,7 @@ extern "C" int DistributeSimpleGauss(
        for(size_t cDest = cStart; cDest < cStop; cDest++)
     {
         tmp.putMV(rDest,cDest);
-        REAL8 outVal; // TODO implement fieldapi::Common::isMV(int,int)
+        REAL8 outVal = NAN; // TODO implement fieldapi::Common::isMV(int,int)
         if(out.get(outVal, rDest, cDest)) {
            /* inside defined area */
 
@@ -148,8 +150,8 @@ extern "C" int DistributeSimpleGauss(
     for(size_t rDest = rStart; rDest < rStop; rDest++)
        for(size_t cDest = cStart; cDest < cStop; cDest++)
     {
-        REAL8 tmpVal;
-        REAL8 outVal;
+        REAL8 tmpVal = NAN;
+        REAL8 outVal = NAN;
         if(tmp.get(tmpVal, rDest, cDest)) {
             tmpVal = (tmpVal/sum)*inputVal;
            /* inside defined area */

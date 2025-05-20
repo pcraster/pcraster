@@ -257,7 +257,7 @@ void BAS::getBASBlockData(discr::BlockData<INT4> &bdata, std::string const& path
     d_mf->d_cmethods->error(stmp.str(), "run");
   }
   else{
-    int val;
+    int val = 0;
     int count = 0;
     int blockLayer = 0;
     for(size_t layer = 0; layer < d_mf->d_nrMFLayer; layer++){
@@ -308,7 +308,7 @@ discr::BlockData<REAL4>* BAS::getHeads(){
   discr::Raster raster(50,50,50.0,50.0,50.0);
   discr::Block bla(raster);//NULL;//d_mf->d_baseArea;
   discr::BlockData<REAL4> block(&bla);
-  discr::BlockData<REAL4> *resultHeads;//
+  discr::BlockData<REAL4> *resultHeads = nullptr;//
   resultHeads = new discr::BlockData<REAL4>( &bla);
   d_mf->d_cmethods->setDiscrBlockData(*(d_mf->d_initialHead), *resultHeads);
   return resultHeads;

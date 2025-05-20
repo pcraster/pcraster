@@ -44,7 +44,7 @@ int ReplaceFirstByUpsNbs(
                         */
   const MAP_UINT1 *ldd)
 {
-  int r,c,i;
+  int r = 0,c = 0,i = 0;
   PRECOND(list != NULL);
   r = (*list)->rowNr;
   c = (*list)->colNr;
@@ -53,7 +53,7 @@ int ReplaceFirstByUpsNbs(
   {
     int   rNB = RNeighbor(r, i);
     int   cNB = CNeighbor(c, i);
-    UINT1   nbVal;
+    UINT1   nbVal = 0;
     if ( ldd->Get(&nbVal,rNB,cNB,ldd)
         && FlowsTo(nbVal,rNB,cNB,r,c))
        if ( (*list = LinkChkNd(*list, rNB, cNB)) == NULL)
@@ -69,7 +69,7 @@ NODE *AddUpsNbsMarkFirst(
   NODE *list,          /* list to append to */
   const MAP_UINT1 *ldd)
 {
-  int r,c,i;
+  int r = 0,c = 0,i = 0;
   PRECOND(list != NULL);
   r = list->rowNr;
   c = list->colNr;
@@ -78,7 +78,7 @@ NODE *AddUpsNbsMarkFirst(
   {
     int   rNB = RNeighbor(r, i);
     int   cNB = CNeighbor(c, i);
-    UINT1   nbVal;
+    UINT1   nbVal = 0;
     if ( ldd->Get(&nbVal,rNB,cNB,ldd)
         && FlowsTo(nbVal,rNB,cNB,r,c))
        if ( (list = LinkChkNd(list, rNB, cNB)) == NULL)

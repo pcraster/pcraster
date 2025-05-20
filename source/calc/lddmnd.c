@@ -1,3 +1,5 @@
+#include <math.h>
+
 #include "stddefx.h"
 
 /*
@@ -65,7 +67,7 @@ static void Lowest(int *rTo,             /* write-only flows to this one */
                    int colNr,            /* column of cell */
                    REAL8 height)         /* height if (rowNr, colNr) */
 {
-    int nrBestDirs = USED_UNINIT_ZERO, i, rNext, cNext;
+    int nrBestDirs = USED_UNINIT_ZERO, i = 0, rNext = 0, cNext = 0;
     BOOL aNBisMV = FALSE;       /* a neighbour is missing value */
     UINT1 bestDirs[NR_LDD_DIR]; /* array of bestdrops */
     REAL8 bestDrop = -1;        /* scaled vertical distance between
@@ -79,7 +81,7 @@ static void Lowest(int *rTo,             /* write-only flows to this one */
 
     FOR_ALL_LDD_NONDIAGONAL_NBS(i)
     {
-        REAL8 demVal;
+        REAL8 demVal = NAN;
 
         rNext = RNeighbor(rowNr, i);
         cNext = CNeighbor(colNr, i);
@@ -155,14 +157,14 @@ static void Step1(MAP_UINT1 *ldd,       /* write-only output ldd map,
                   int c)                /* column number of current cell */
 
 {
-    int rTo, cTo;
+    int rTo = 0, cTo = 0;
 
     PRECOND(dem->GetGetTest(dem) == GET_MV_TEST);
 
     Lowest(&rTo, &cTo, dem, r, c, demVal); /* lowest neighbor */
     /* Test whether the cell itself is returned or not */
     if ((r != rTo || c != cTo)) {
-        REAL8 toDem;
+        REAL8 toDem = NAN;
         PRECOND(dem->Get(&toDem, rTo, cTo, dem));
 
         (void)dem->Get(&toDem, rTo, cTo, dem);
@@ -190,9 +192,9 @@ static BOOL Step2(MAP_UINT1 *ldd,       /* read-write ldd map */
                   int r,                /* row current cell */
                   int c)                /* column current cell */
 {
-    REAL8 demValNB, demVal;
-    UINT1 outVal;
-    int i, rNB, cNB;
+    REAL8 demValNB = NAN, demVal = NAN;
+    UINT1 outVal = 0;
+    int i = 0, rNB = 0, cNB = 0;
 
     PRECOND(dem->Get(&demVal, r, c, dem));
 
@@ -212,7 +214,7 @@ static BOOL Step2(MAP_UINT1 *ldd,       /* read-write ldd map */
                                                                                 *    has valid direction and does
                                                                                 *    not point to current cell
                                                                                 */
-            UINT1 ldddir;
+            UINT1 ldddir = 0;
             PRECOND(demVal == demValNB);
             ldddir = Ldddir(r, c, rNB, cNB);
             ldd->Put(MAKE_TEMP_CODE(ldddir), r, c, ldd);
@@ -233,8 +235,8 @@ static BOOL Step3(MAP_UINT1 *ldd,       /* read-write ldd.map */
                   int r,                /* row current cell */
                   int c)                /* column current cell */
 {
-    REAL8 demVal;
-    int i, j;
+    REAL8 demVal = NAN;
+    int i = 0, j = 0;
 
     PRECOND(dem->GetGetTest(dem) == GET_MV_TEST);
     PRECOND(dem->Get(&demVal, r, c, dem));
@@ -244,13 +246,13 @@ static BOOL Step3(MAP_UINT1 *ldd,       /* read-write ldd.map */
     {
         int rNB = RNeighbor(r, i);
         int cNB = CNeighbor(c, i);
-        UINT1 v;
+        UINT1 v = 0;
         if (ldd->Get(&v, rNB, cNB, ldd) && IS_VALID_CODE(v) &&
             FlowsTo(v, rNB, cNB, r, c) /* NB flows in current */
         )
             FOR_ALL_LDD_NONDIAGONAL_NBS(j)
             {
-                REAL8 demNB;
+                REAL8 demNB = NAN;
                 rNB = RNeighbor(r, j);
                 cNB = CNeighbor(c, j);
                 if (ldd->Get(&v, rNB, cNB, ldd) && v == 0 && dem->Get(&demNB, rNB, cNB, dem) &&
@@ -274,10 +276,10 @@ static BOOL Step3(MAP_UINT1 *ldd,       /* read-write ldd.map */
 int LddmND(MAP_UINT1 *ldd,       /* Read-write output ldd map  */
            const MAP_REAL8 *dem) /* dem map */
 {
-    UINT1 outVal; /* value in ldd map */
-    REAL8 demVal; /* value in dem map */
-    int r, c, nrRows, nrCols;
-    BOOL cellsFixed;
+    UINT1 outVal = 0; /* value in ldd map */
+    REAL8 demVal = NAN; /* value in dem map */
+    int r = 0, c = 0, nrRows = 0, nrCols = 0;
+    BOOL cellsFixed = 0;
 
     nrRows = dem->NrRows(dem);
     nrCols = dem->NrCols(dem);

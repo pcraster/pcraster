@@ -1,3 +1,5 @@
+#include <math.h>
+
 #include "stddefx.h"
 
 
@@ -55,7 +57,7 @@ static int DetCol(int nrCols, /* number of columns */
 static REAL8 GetREAL8(const MAP_REAL8 *map, /* map  to read */
                       INT4 i)               /* index in map */
 {
-    REAL8 value; /* value to read */
+    REAL8 value = NAN; /* value to read */
     int nrCols = map->NrCols(map);
     int r = DetRow(nrCols, i);
     int c = DetCol(nrCols, i);
@@ -76,7 +78,7 @@ static REAL8 GetREAL8(const MAP_REAL8 *map, /* map  to read */
 static INT4 GetINT4(const MAP_INT4 *map, /* map to read */
                     INT4 i)              /* location */
 {
-    INT4 value; /* value to read */
+    INT4 value = 0; /* value to read */
     int nrCols = map->NrCols(map);
     int r = DetRow(nrCols, i);
     int c = DetCol(nrCols, i);
@@ -130,7 +132,7 @@ static INT4 Partition(MAP_INT4 *tmp,       /* read-write index map */
 {
     INT4 i = left;
     INT4 j = right;
-    REAL8 pe;
+    REAL8 pe = NAN;
 
     /* choose middle element as partition element 
      */
@@ -159,7 +161,7 @@ static int QuickSort(INT4 partToSort,
 {
     int left = partToSort;
     int right = nrCells - 1;
-    int i, pointer = 2;
+    int i = 0, pointer = 2;
     int *stack = NULL; /*  contains partitions to do */
     /* Perform quicksort on the tmp map and to modify the output map
      * later. 
@@ -207,9 +209,9 @@ int Order(MAP_REAL8 *out,      /* Read-write output map  */
           const MAP_REAL8 *in, /* Read-write input map */
           MAP_INT4 *tmp)       /* read-write index temporary map */
 {
-    REAL8 inputVal, prevVal;
-    int i, r, c, nrRows, nrCols, nrCells;
-    INT4 partToSort, id;
+    REAL8 inputVal = NAN, prevVal = NAN;
+    int i = 0, r = 0, c = 0, nrRows = 0, nrCols = 0, nrCells = 0;
+    INT4 partToSort = 0, id = 0;
     int nrRuns = 1;
 
 
@@ -272,7 +274,7 @@ int Order(MAP_REAL8 *out,      /* Read-write output map  */
         return 1;
 
     for (i = partToSort; i < nrCells; i++) { /* result on location out[tmp[i]]  = i */
-        INT4 tmpIn;
+        INT4 tmpIn = 0;
         tmpIn = GetINT4(tmp, i);
         r = DetRow(nrCols, tmpIn);
         c = DetCol(nrCols, tmpIn);

@@ -1,15 +1,5 @@
 #include "stddefx.h"
 
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-#ifndef INCLUDED_ALGORITHM
-#include <algorithm>
-#define INCLUDED_ALGORITHM
-#endif
-
 #include "calc.h"  // for it's own interface
 
 #ifndef INCLUDED_GEO_CELLLOCVISITOR
@@ -21,6 +11,10 @@
 #include "fieldapi_interface.h"
 #define INCLUDED_FIELDAPI_INTERFACE
 #endif
+
+#include <algorithm>
+#include <cmath>
+#include <vector>
 
 namespace calc {
 
@@ -97,7 +91,7 @@ static int MarkWhileSum(
   std::vector<MarkPoint> points;
 
    for(geo::CellLocVisitor c(result); c.valid(); ++c) {
-     REAL8 orderVal,amountVal;
+     REAL8 orderVal = NAN,amountVal = NAN;
      if (order.get(orderVal, *c) && amount.get(amountVal, *c))
       points.push_back(MarkPoint(*c,orderVal,amountVal));
      else

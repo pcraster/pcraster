@@ -94,7 +94,7 @@ void ErrorNested(const char *fmt, /* Format control, see printf() for a descript
 void vfErrorNested(const char *fmt, /* Format control, see printf() for a description */
                    va_list marker)  /* Optional arguments */
 {
-    char *buf;
+    char *buf = NULL;
 
     PRECOND(errorNestLevel < 15);
 
@@ -123,9 +123,9 @@ void vfError(const char *fmt, /* Format control, see printf() for a description 
              va_list marker)  /* Optional arguments */
 {
     char buf[BUF_SIZE];
-    size_t msgPtr;
-    int i;
-    const char *pref;
+    size_t msgPtr = 0;
+    int i = 0;
+    const char *pref = NULL;
 
     /* put error message in msg
      */
@@ -142,7 +142,7 @@ void vfError(const char *fmt, /* Format control, see printf() for a description 
 
     for (i = (errorNestLevel - 1); i >= 0; i--) {
         char *p = ptrs[i];
-        int j, id = errorNestLevel - i; /* # of indents */
+        int j = 0, id = errorNestLevel - i; /* # of indents */
         while (*p != '\0') {
             if (p == ptrs[i]) /* start */
                 for (j = 0; j < id; j++)

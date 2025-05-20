@@ -1,3 +1,5 @@
+#include <math.h>
+
 #include "stddefx.h"
 
 /********/
@@ -14,7 +16,7 @@
 static void
 AddToState(REAL8 addThis, int r, int c, MAP_REAL8 *stateOut) /* Read-write state map */
 {
-    REAL8 addTo;
+    REAL8 addTo = NAN;
     if (stateOut->Get(&addTo, r, c, stateOut))
         stateOut->Put(addTo + addThis, r, c, stateOut);
 }
@@ -22,7 +24,7 @@ AddToState(REAL8 addThis, int r, int c, MAP_REAL8 *stateOut) /* Read-write state
 static void
 ReplaceOutFlux(REAL8 newVal, int r, int c, MAP_REAL8 *fluxOut) /* Read-write state map */
 {
-    REAL8 dummy;
+    REAL8 dummy = NAN;
     if (fluxOut->Get(&dummy, r, c, fluxOut))
         fluxOut->Put(newVal, r, c, fluxOut);
 }
@@ -34,8 +36,8 @@ int Diffuse1(MAP_REAL8 *stateOut,     /* Read-write state map */
              const MAP_REAL8 *in,     /* in map */
              const MAP_REAL8 *fluxIn) /* fluxIn map */
 {
-    int c, r, rows, cols;
-    REAL8 inVal, fluxInVal, dirVal;
+    int c = 0, r = 0, rows = 0, cols = 0;
+    REAL8 inVal = NAN, fluxInVal = NAN, dirVal = NAN;
 
     cols = in->NrCols(in);
     rows = in->NrRows(in);
@@ -52,8 +54,8 @@ int Diffuse1(MAP_REAL8 *stateOut,     /* Read-write state map */
 
     for (c = 0; c < cols; c++)
         for (r = 0; r < rows; r++) {
-            int dirValQuadr;
-            double fc, fs, a;
+            int dirValQuadr = 0;
+            double fc = NAN, fs = NAN, a = NAN;
             if ((!dir->Get(&dirVal, r, c, dir)) || (dirVal == -1) || /* flat */
                 (!fluxIn->Get(&fluxInVal, r, c, fluxIn))) {
                 fluxOut->PutMV(r, c, fluxOut);

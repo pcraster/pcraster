@@ -1,3 +1,5 @@
+#include <math.h>
+
 #include "stddefx.h"
 
 /********/
@@ -53,9 +55,9 @@ static void CalcView(MAP_UINT1 *out,          /* write-only output map        */
                      int viewc,               /* column of view point */
                      REAL8 height1)           /* height of cell to check */
 {
-    REAL8 dist1, vis1, height2, viewHght;
-    UINT1 nextPnt; /* point value of possible blocking neighbor */
-    int noMV;
+    REAL8 dist1 = NAN, vis1 = NAN, height2 = NAN, viewHght = NAN;
+    UINT1 nextPnt = 0; /* point value of possible blocking neighbor */
+    int noMV = 0;
 
     /* calculate distance from (r, c) to view point */
     dist1 =
@@ -68,7 +70,7 @@ static void CalcView(MAP_UINT1 *out,          /* write-only output map        */
 
     if (dem->Get(&height2, rNext, cNext, dem) &&
         (points->Get(&nextPnt, rNext, cNext, points))) {
-        REAL4 tmp;
+        REAL4 tmp = NAN;
         if (dist1 != 0)
             /* rounding or truncation causes slight differences */
             vis1 = (height1 - viewHght) / dist1;
@@ -95,10 +97,10 @@ static int First(MAP_UINT1 *out,          /* write-only output map  */
                  const MAP_REAL8 *dem,    /* dem map */
                  const MAP_UINT1 *points) /* points map */
 {
-    int r, c, i;
-    UINT1 pntVal; /* value in points.map */
-    REAL8 viewHght, visPlane;
-    REAL8 *lastRow, *currRow; /* vis. planes of last and
+    int r = 0, c = 0, i = 0;
+    UINT1 pntVal = 0; /* value in points.map */
+    REAL8 viewHght = NAN, visPlane = NAN;
+    REAL8 *lastRow = NULL, *currRow = NULL; /* vis. planes of last and
                                * current row.
                                */
 
@@ -130,8 +132,8 @@ static int First(MAP_UINT1 *out,          /* write-only output map  */
     for (r = viewr; 0 <= r; r--) {
         for (c = viewc; 0 <= c; c--) {
             /* Calculate possible blocking neighbor & vis. plane */
-            int rNext, cNext; /* possible blocking neighbor */
-            REAL8 height1;
+            int rNext = 0, cNext = 0; /* possible blocking neighbor */
+            REAL8 height1 = NAN;
             if (c != viewc) {
                 int rc = (r - viewr) / (c - viewc);
                 if (rc < 0.5) { /* take neighbor on the right */
@@ -206,10 +208,10 @@ static int Second(MAP_UINT1 *out,          /* write-only output map  */
                   const MAP_UINT1 *points, /* points map */
                   int nrCols)              /* number of columns */
 {
-    int r, c, i;
-    UINT1 pntVal;
-    REAL8 viewHght, visPlane;
-    REAL8 *lastRow, *currRow; /* contains visibility planes of
+    int r = 0, c = 0, i = 0;
+    UINT1 pntVal = 0;
+    REAL8 viewHght = NAN, visPlane = NAN;
+    REAL8 *lastRow = NULL, *currRow = NULL; /* contains visibility planes of
                                * last row c.q. of current row. 
                                */
 
@@ -246,8 +248,8 @@ static int Second(MAP_UINT1 *out,          /* write-only output map  */
     for (r = viewr; 0 <= r; r--) {
         for (c = viewc; c < nrCols; c++) {
             /* Calculate possible blocking neighbor & vis. plane */
-            int rNext, cNext; /* possible blocking neigh. */
-            REAL8 height1;
+            int rNext = 0, cNext = 0; /* possible blocking neigh. */
+            REAL8 height1 = NAN;
             if (c != viewc) {
                 int rc = (r - viewr) / (c - viewc);
                 if (-0.5 < rc) { /* take neighbor on left */
@@ -324,10 +326,10 @@ static int Third(MAP_UINT1 *out,          /* write-only output map  */
                  const MAP_UINT1 *points, /* points map */
                  int nrRows)              /* nr columns */
 {
-    int r, c, i;
-    UINT1 pntVal;
-    REAL8 viewHght, visPlane;
-    REAL8 *lastRow, *currRow; /* contains visibility planes of
+    int r = 0, c = 0, i = 0;
+    UINT1 pntVal = 0;
+    REAL8 viewHght = NAN, visPlane = NAN;
+    REAL8 *lastRow = NULL, *currRow = NULL; /* contains visibility planes of
                                * last row c.q. current row 
                                */
 
@@ -368,8 +370,8 @@ static int Third(MAP_UINT1 *out,          /* write-only output map  */
     /* start from view point to left-below corner */
     for (r = viewr; r < nrRows; r++) {
         for (c = viewc; 0 <= c; c--) {
-            int rNext, cNext; /* possible blocking neigh. */
-            REAL8 height1;
+            int rNext = 0, cNext = 0; /* possible blocking neigh. */
+            REAL8 height1 = NAN;
             if (c != viewc) {
 
                 /* Calculate possible blocking neighbor & vis.plane */
@@ -448,10 +450,10 @@ static int Fourth(MAP_UINT1 *out,          /* write-only output map  */
                   int nrRows,              /* nr rows */
                   int nrCols)              /* nr columns */
 {
-    int r, c, i;
-    UINT1 pntVal;
-    REAL8 viewHght, visPlane;
-    REAL8 *lastRow, *currRow; /* contains visibility planes of
+    int r = 0, c = 0, i = 0;
+    UINT1 pntVal = 0;
+    REAL8 viewHght = NAN, visPlane = NAN;
+    REAL8 *lastRow = NULL, *currRow = NULL; /* contains visibility planes of
                                * last row c.q. current row 
                                */
 
@@ -492,8 +494,8 @@ static int Fourth(MAP_UINT1 *out,          /* write-only output map  */
     for (r = viewr; r < nrRows; r++) {
         for (c = viewc; c < nrCols; c++) {
             /* Calculate blocking neighbor & its visibility plane */
-            int rNext, cNext; /* possible blocking neigh. */
-            REAL8 height1;
+            int rNext = 0, cNext = 0; /* possible blocking neigh. */
+            REAL8 height1 = NAN;
             if (c != viewc) {
                 int rc = (r - viewr) / (c - viewc);
                 if (rc < 0.5) { /* take neighbor on the left */
@@ -565,9 +567,9 @@ int View(MAP_UINT1 *out,          /* write-only output map  */
          const MAP_REAL8 *dem,    /* Dig. Elevation map */
          const MAP_UINT1 *points) /* points map */
 {
-    UINT1 pointVal; /* value in points.map */
-    REAL8 demVal;   /* value in dem map */
-    int r, c, nrRows, nrCols, v = 0;
+    UINT1 pointVal = 0; /* value in points.map */
+    REAL8 demVal = NAN;   /* value in dem map */
+    int r = 0, c = 0, nrRows = 0, nrCols = 0, v = 0;
 
     nrRows = dem->NrRows(dem);
     nrCols = dem->NrCols(dem);

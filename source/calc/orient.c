@@ -1,3 +1,5 @@
+#include <math.h>
+
 #include "stddefx.h"
 
 
@@ -40,8 +42,8 @@
 int Orient(MAP_REAL8 *orient,    /* Read-write output orient map  */
            const MAP_REAL8 *dem) /* Digital Elevation Model map */
 {
-    REAL8 demVal; /* value in the dem.map */
-    int r, c, nrRows, nrCols;
+    REAL8 demVal = NAN; /* value in the dem.map */
+    int r = 0, c = 0, nrRows = 0, nrCols = 0;
 
     dem->SetGetTest(GET_MV_TEST, dem);
     nrRows = dem->NrRows(dem);
@@ -52,7 +54,7 @@ int Orient(MAP_REAL8 *orient,    /* Read-write output orient map  */
         AppRowProgress(r);
         for (c = 0; c < nrCols; c++) {
             if (dem->Get(&demVal, r, c, dem)) {
-                REAL8 Dx, Dy;
+                REAL8 Dx = NAN, Dy = NAN;
                 CalcDeltaXY(&Dx, &Dy, dem, r, c);
                 if (Dx == 0) /* exception value */
                 {

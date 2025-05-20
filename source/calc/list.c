@@ -123,7 +123,7 @@ NODE *NewNode(
    int colNr,  /* column from cell to be linked */
   REAL8 value)  /* a value to link */
  {
-  NODE *tmp;
+  NODE *tmp = NULL;
   tmp = LinkToList(list, rowNr, colNr);
   if(tmp == NULL)      /* allocation failed */
   {
@@ -149,7 +149,7 @@ NODE *NewNode(
    int rowNr,  /* row from cell to be linked */
    int colNr)  /* column from cell to be linked */
  {
-  NODE *tmp;
+  NODE *tmp = NULL;
   tmp = LinkToList(list, rowNr, colNr);
   if(tmp == NULL)    /* allocation failed */
   {
@@ -168,7 +168,7 @@ NODE *NewNode(
  */
 NODE *RemFromList(NODE *list)    /* read-write list of cells */
 {
-  NODE *tmp;
+  NODE *tmp = NULL;
   PRECOND(list != NULL);  /* can not remove from empty list */
   tmp = list;
   list = list->prev;
@@ -193,7 +193,7 @@ NODE *RemFromList(NODE *list)    /* read-write list of cells */
      int r,    /* row number cell to check */
      int c)    /* column number from cell to check */
 {
-  NODE *p;    /* pointer to list of structs */
+  NODE *p = NULL;    /* pointer to list of structs */
   p = list;
   while(p != NULL)
   {

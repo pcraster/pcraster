@@ -1,3 +1,5 @@
+#include <math.h>
+
 #include "stddefx.h" 
 
 /********/
@@ -57,9 +59,9 @@ static int CalcOut(
       return 1;
 
  while (list != NULL) {
-    int rDS,cDS;
-    REAL8 amountDS,totalDS;
-    UINT1 l;
+    int rDS = 0,cDS = 0;
+    REAL8 amountDS = NAN,totalDS = NAN;
+    UINT1 l = 0;
 
     c = list->colNr;
     r = list->rowNr;
@@ -89,7 +91,7 @@ int Downstreamtotal(
      const MAP_UINT1 *ldd,             /* ldd map            */
      const MAP_REAL8 *amount)            /* amount map */
 {
-    int       r, c;
+    int       r = 0, c = 0;
     int       nrRows = ldd->NrRows(ldd);
     int       nrCols = ldd->NrCols(ldd);
 
@@ -106,7 +108,7 @@ int Downstreamtotal(
     for(r = 0; r < nrRows; r++)
      for(c = 0; c < nrCols; c++)
       {
-        UINT1 lddVal;
+        UINT1 lddVal = 0;
         if(ldd->Get(&lddVal, r, c, ldd))
         {
           if (lddVal == LDD_PIT)

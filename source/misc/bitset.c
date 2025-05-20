@@ -79,7 +79,7 @@ int NrBitSet(const unsigned char *set, /* array of setSize bytes */
 {
     int i = 0, n = 0;
     /* whole bytes */
-    int b, B = (setSize) / 8;
+    int b = 0, B = (setSize) / 8;
     for (; i < B; i++)
         n += (int)nbits[set[i]];
     b = (setSize) % 8;
@@ -94,7 +94,7 @@ int NrBitSet(const unsigned char *set, /* array of setSize bytes */
 int SetBit1(unsigned char *set, /* array of setSize bytes */
             int setBit)         /* bit number to set to 1 */
 {
-    int i, n;
+    int i = 0, n = 0;
     int p = BitSet(set, setBit);
     INDEX_BITSET(setBit, n, i);
     PRECOND(setBit >= 0);
@@ -108,7 +108,7 @@ int SetBit1(unsigned char *set, /* array of setSize bytes */
 int SetBit0(unsigned char *set, /* array of setSize bytes */
             int setBit)         /* bit number to set to 0 */
 {
-    int i, n;
+    int i = 0, n = 0;
     int p = BitSet(set, setBit);
     INDEX_BITSET(setBit, n, i);
     PRECOND(setBit >= 0);
@@ -122,7 +122,7 @@ int SetBit0(unsigned char *set, /* array of setSize bytes */
 int BitSet(const unsigned char *set, /* array of setSize bytes */
            int bitIndex)             /* index nr of bit to check */
 {
-    int i, n;
+    int i = 0, n = 0;
     INDEX_BITSET(bitIndex, n, i);
     return set[n] & 1 << i;
 }
@@ -154,8 +154,8 @@ int FirstBitSet(const unsigned char *set, /* array of at least setSize bits */
      *   continue
      * or something like that
      */
-    int i, j;
-    int s, indFound = -1; /* not found */
+    int i = 0, j = 0;
+    int s = 0, indFound = -1; /* not found */
     s = BYTE_SETSIZE(setSize);
     for (i = 0; i < s; i++)
         for (j = 0; j < 8; j++)
@@ -182,8 +182,8 @@ int LastBitSet(const unsigned char *set, /* array of at least setSize bits */
 {
     /* TODO: something like the TODO in FirstBitSet
      */
-    int i, j;
-    int s, bitsInLastByte;
+    int i = 0, j = 0;
+    int s = 0, bitsInLastByte = 0;
     s = BYTE_SETSIZE(setSize);
     if (!s) /* set is 0-size, not found  */
         return -1;

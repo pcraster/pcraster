@@ -19,8 +19,8 @@ void **MallocIndex2d(size_t row,    /* number of rows. > 0 */
                      size_t size,   /* size of each array element in bytes. > 0 */
                      const void *l) /* linear array of row*col*size bytes */
 {
-    size_t i;
-    const char **prow;
+    size_t i = 0;
+    const char **prow = NULL;
     const char *ll = (const char *)l;
 
     PRECOND(row > 0);
@@ -53,7 +53,7 @@ void **Malloc2d(size_t row,  /* number of rows. > 0 */
                 size_t col,  /* number of cols. > 0 */
                 size_t size) /* size of each array element in bytes. > 0 */
 {
-    void **prow, *pdata;
+    void **prow = NULL, *pdata = NULL;
 
     PRECOND(row > 0);
     PRECOND(col > 0);
@@ -75,7 +75,7 @@ static void CopyColumns(void *ptr, size_t nrRows, size_t newCol, size_t oldCol, 
 {
     /* use memmove since mem can overlap 
    */
-    size_t r;
+    size_t r = 0;
     size_t dInc = newCol * size;
     size_t sInc = oldCol * size;
     char *d = ((char *)ptr);
@@ -106,7 +106,7 @@ void **Realloc2d(void **ptr,    /* existing 2d array */
                                  * initially with Malloc2d!
                                  */
 {
-    void *pdata;
+    void *pdata = NULL;
 
     PRECOND(newRow > 0);
     PRECOND(newCol > 0);

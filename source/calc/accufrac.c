@@ -1,3 +1,5 @@
+#include <math.h>
+
 #include "stddefx.h"
 
 
@@ -37,7 +39,7 @@
 static REAL8 Fraction(REAL8 amount,   /* amount to evaluate */
                       REAL8 fraction) /* fraction */
 {
-    REAL8 val;
+    REAL8 val = NAN;
     if (0 > fraction || fraction > 1)
         return -1;
     val = amount * fraction;

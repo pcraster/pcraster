@@ -44,7 +44,7 @@ static void BuildPath(MAP_UINT1 *out,          /* write-only output map */
                       int rPoint,              /* row of nonzero point */
                       int cPoint)              /* column of true point */
 {
-    UINT1 lddVal, pointsVal;
+    UINT1 lddVal = 0, pointsVal = 0;
     int r = rPoint; /* Point that has TRUE in points.map */
     int c = cPoint;
 
@@ -76,8 +76,8 @@ int Path(MAP_UINT1 *out,          /* write-only output map  */
          const MAP_UINT1 *ldd,    /* ldd map */
          const MAP_UINT1 *points) /* points map */
 {
-    UINT1 pointVal, lddVal;
-    int r, c, nrRows, nrCols;
+    UINT1 pointVal = 0, lddVal = 0;
+    int r = 0, c = 0, nrRows = 0, nrCols = 0;
 
     nrRows = ldd->NrRows(ldd);
     nrCols = ldd->NrCols(ldd);

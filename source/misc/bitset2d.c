@@ -51,7 +51,7 @@ unsigned char **NewBitMatrix(size_t nrRows, size_t nrCols)
 
 void SetAllBitMatrix(unsigned char **m, int nrRows, int nrCols, int v) /* 0 or 1 */
 {
-    int i, nrByteCols = (nrCols / 8) + ((nrCols % 8) != 0);
+    int i = 0, nrByteCols = (nrCols / 8) + ((nrCols % 8) != 0);
     PRECOND(v == 0 || v == 1);
     if (v)
         v = 0xFF;

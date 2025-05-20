@@ -1,3 +1,5 @@
+#include <math.h>
+
 #include "stddefx.h"
 
 
@@ -71,9 +73,9 @@ int IBNGauss(
      const MAP_REAL8 *range,
      const MAP_REAL8 *nrPackages)
 {
-  int   rSrc,nrRows= units->NrRows(units);
-  int   cSrc,nrCols= units->NrCols(units);
-  REAL8 unitsValSrc,rangeValSrc,nrPackValSrc;
+  int   rSrc = 0,nrRows= units->NrRows(units);
+  int   cSrc = 0,nrCols= units->NrCols(units);
+  REAL8 unitsValSrc = NAN,rangeValSrc = NAN,nrPackValSrc = NAN;
 
   /* algorithm wants points->Get() and all others to
    * return FALSE if a value is a missing value
@@ -109,10 +111,10 @@ int IBNGauss(
        range->Get(&rangeValSrc, rSrc, cSrc, range)
       )
     {
-      int i,nrInputUnits = (int)floor(unitsValSrc);
+      int i = 0,nrInputUnits = (int)floor(unitsValSrc);
       int nrPackages = (int)nrPackValSrc; /* round to integer */
-      int packageSize;
-      int nrPackagesWithOneMore;
+      int packageSize = 0;
+      int nrPackagesWithOneMore = 0;
       if (nrPackages <= 0 || nrPackages > nrInputUnits) {
         nrPackages=nrInputUnits;
         packageSize=1;
@@ -136,7 +138,7 @@ int IBNGauss(
           */
           int xColDest = cSrc+(int)(length*cos(angle));
           int yRowDest = rSrc+(int)(length*sin(angle));
-          REAL8 valDest;
+          REAL8 valDest = NAN;
           if (out->Get(&valDest, yRowDest, xColDest, out)) {
             /* destination is defined area */
             valDest+=packageSize;

@@ -42,7 +42,7 @@ static BOOL firstTimeCalled = TRUE;
 /* acts like atexit */
 int AtError(void (*func)(void))
 {
-    size_t i;
+    size_t i = 0;
     if (firstTimeCalled) {
         for (i = 0; i < MAX_FUNCS; i++)
             funcs[i] = NULL;
@@ -59,7 +59,7 @@ int AtError(void (*func)(void))
 
 int NoLongerAtError(void (*func)(void))
 {
-    size_t i;
+    size_t i = 0;
     PRECOND(!firstTimeCalled);
     for (i = 0; i < MAX_FUNCS; i++)
         if (funcs[i] == func) { /* give slot free */
@@ -71,7 +71,7 @@ int NoLongerAtError(void (*func)(void))
 
 void ExecAtError(void)
 {
-    size_t i;
+    size_t i = 0;
     if (firstTimeCalled) /* then there's something */
         for (i = 0; i < MAX_FUNCS; i++)
             if (funcs[i] != NULL) {

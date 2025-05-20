@@ -1,3 +1,5 @@
+#include <math.h>
+
 #include "stddefx.h"
 
 
@@ -48,9 +50,9 @@ static void Stuff(REAL8 *D, REAL8 *E, REAL8 *F, REAL8 *G, REAL8 *H, const REAL8 
 int ProfileCurvature(MAP_REAL8 *curv,      /* Read-write slope output map  */
                      const MAP_REAL8 *dem) /* Digital Elevation Model */
 {
-    REAL8 val; /* value read in dem.map */
-    int nrRows, nrCols, r, c;
-    REAL8 Z[10], D, E, F, G, H;
+    REAL8 val = NAN; /* value read in dem.map */
+    int nrRows = 0, nrCols = 0, r = 0, c = 0;
+    REAL8 Z[10], D = NAN, E = NAN, F = NAN, G = NAN, H = NAN;
 
     dem->SetGetTest(GET_MV_TEST, dem);
     nrRows = dem->NrRows(dem);
@@ -78,9 +80,9 @@ int ProfileCurvature(MAP_REAL8 *curv,      /* Read-write slope output map  */
 int PlanformCurvature(MAP_REAL8 *curv,      /* Read-write slope output map  */
                       const MAP_REAL8 *dem) /* Digital Elevation Model */
 {
-    REAL8 val; /* value read in dem.map */
-    int nrRows, nrCols, r, c;
-    REAL8 Z[10], D, E, F, G, H;
+    REAL8 val = NAN; /* value read in dem.map */
+    int nrRows = 0, nrCols = 0, r = 0, c = 0;
+    REAL8 Z[10], D = NAN, E = NAN, F = NAN, G = NAN, H = NAN;
 
     dem->SetGetTest(GET_MV_TEST, dem);
     nrRows = dem->NrRows(dem);

@@ -1,3 +1,5 @@
+#include <math.h>
+
 #include "stddefx.h"
 
 // vim: fileformat=dos
@@ -66,13 +68,13 @@ double IterateToQnew(
   /* Using Newton-Raphson Method
    */
     typedef long double REAL;
-    REAL Qk1;      /* Q at loop k+1 for i+1, j+1 */
-    REAL ab_pQ, deltaTX, C;
-    int   count;
+    REAL Qk1 = NAN;      /* Q at loop k+1 for i+1, j+1 */
+    REAL ab_pQ = NAN, deltaTX = NAN, C = NAN;
+    int   count = 0;
 
-    REAL Qkx;
-    REAL fQkx;
-    REAL dfQkx;
+    REAL Qkx = NAN;
+    REAL fQkx = NAN;
+    REAL dfQkx = NAN;
     POSTCOND(sizeof(REAL) >= 8);
 
     /* if no input then output = 0 */
@@ -148,7 +150,7 @@ static void Sum(
      const MAP_REAL8    *deltaT,
      const MAP_REAL8    *deltaX)
 {
-    REAL8     QoldVal, qVal, alphaVal, betaVal,deltaTVal,deltaXVal;
+    REAL8     QoldVal = NAN, qVal = NAN, alphaVal = NAN, betaVal = NAN,deltaTVal = NAN,deltaXVal = NAN;
 
     if(
        Qold->Get(&QoldVal, r, c, Qold) &&
@@ -158,14 +160,14 @@ static void Sum(
        deltaT->Get(&deltaTVal, r, c, deltaT) &&
        deltaX->Get(&deltaXVal, r, c, deltaX))
     {
-        REAL8   QnewVal,QnewUps,Qin=0.0;
-        int     i;
-        UINT1     lddVal;
+        REAL8   QnewVal = NAN,QnewUps = NAN,Qin=0.0;
+        int     i = 0;
+        UINT1     lddVal = 0;
 
         /* get Qin = sum of Upstream NB Qnew */
         FOR_ALL_LDD_NBS(i)
         {
-            int rNB, cNB;
+            int rNB = 0, cNB = 0;
             rNB = RNeighbor(r, i);
             cNB = CNeighbor(c, i);
 
@@ -205,7 +207,7 @@ static int KinematicOneCatchment(
  const MAP_REAL8    *deltaT,
  const MAP_REAL8    *deltaX)
 {
-    NODE     *list;
+    NODE     *list = NULL;
 
     PRECOND(ldd->GetGetTest(ldd) == GET_MV_TEST);
 
@@ -251,8 +253,8 @@ int Kinematic(
  */
     int nrRows = ldd->NrRows(ldd);
     int nrCols = ldd->NrCols(ldd);
-    UINT1      lddVal;
-    int r, c; /* (r,c) becomes co-ordinate of outflowpoint */
+    UINT1      lddVal = 0;
+    int r = 0, c = 0; /* (r,c) becomes co-ordinate of outflowpoint */
 
     for (r = 0; r < nrRows; r++)
      for (c = 0; c < nrCols; c++)

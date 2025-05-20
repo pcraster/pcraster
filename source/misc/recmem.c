@@ -59,9 +59,9 @@ NewRecMemHeap(size_t recSize,   /* size of each record */
                                                      * if NULL then Free is used
                                                      */
 {
-    RECMEM_HEAP *r;
-    void *(*mallocFunc)(size_t size);
-    void (*freeFunc)(void *ptr);
+    RECMEM_HEAP *r = NULL;
+    void *(*mallocFunc)(size_t size) = NULL;
+    void (*freeFunc)(void *ptr) = NULL;
 
     if (mallocFunction == NULL)
         mallocFunc = ChkMalloc;
@@ -104,7 +104,7 @@ void *NewRecord(RECMEM_HEAP *r) /* Abstract. RECMEM_HEAP to allocate from. Must 
                                  * created by NewRecMemHeap()
                                  */
 {
-    RECMEM_LINK *v;
+    RECMEM_LINK *v = NULL;
 
     if (r->freeList == NULL) /* list exhausted */
         (void)AddBlock(r);   /* add a block */
@@ -150,7 +150,7 @@ void FreeRecord(void *m,        /* deallocated. pointer to space to free */
  */
 void FreeAllRecords(RECMEM_HEAP *r)
 {
-    size_t i;
+    size_t i = 0;
 
     for (i = 0; i < r->nrBlocks; i++)
         r->_Free(r->blocks[i]);
@@ -163,7 +163,7 @@ void FreeAllRecords(RECMEM_HEAP *r)
     is succesfull */
 static void *AddBlock(RECMEM_HEAP *r)
 {
-    void **blockArray;
+    void **blockArray = NULL;
 
     blockArray = (void **)r->Malloc((r->nrBlocks + 1) * sizeof(void *));
     if (blockArray != NULL) {
@@ -190,8 +190,8 @@ static void *AddBlock(RECMEM_HEAP *r)
 /*C put records of just allocated block in freeList */
 static void AddToFreeList(RECMEM_HEAP *r)
 {
-    char *b; /* pointer in buffer */
-    size_t i;
+    char *b = NULL; /* pointer in buffer */
+    size_t i = 0;
 
     PRECOND(r->freeList == NULL);
     PRECOND(r->nrBlocks > 0);

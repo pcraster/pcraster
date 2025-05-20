@@ -67,10 +67,10 @@ static int FixCycle(MAP_UINT1 *ldd,   /* read write */
                     int r,            /* row point in cycle */
                     int c)            /* col point in cycle */
 {
-    UINT1 l;
+    UINT1 l = 0;
     ldd->Get(&l, r, c, ldd);
     while (!visitMap[r][c]) {
-        int DSr, DSc;
+        int DSr = 0, DSc = 0;
         visitMap[r][c] = 1;
         PRECOND(l != LDD_PIT);
 
@@ -97,10 +97,10 @@ static int FixCycle(MAP_UINT1 *ldd,   /* read write */
 int RepairLdd(MAP_UINT1 *ldd,         /* write-only output ldd  */
               const MAP_UINT1 *inLdd) /* input ldd  */
 {
-    UINT1 lddCurr; /* current and next ldd value */
+    UINT1 lddCurr = 0; /* current and next ldd value */
     int nrRows = inLdd->NrRows(inLdd);
     int nrCols = inLdd->NrCols(inLdd);
-    int r, c;
+    int r = 0, c = 0;
     UINT1 **visitMap = (UINT1 **)Malloc2d((size_t)nrRows, (size_t)nrCols, sizeof(UINT1));
     if (visitMap == NULL)
         return 1;
@@ -140,7 +140,7 @@ int RepairLdd(MAP_UINT1 *ldd,         /* write-only output ldd  */
             if (ldd->Get(&lddCurr, r, c, ldd)) {
                 int rDS = DownStrR(r, lddCurr);
                 int cDS = DownStrC(c, lddCurr);
-                UINT1 lDS;
+                UINT1 lDS = 0;
                 if (!ldd->Get(&lDS, rDS, cDS, ldd)) { /* (r,c) flows outside map */
                     PutRepair(LDD_PIT, r, c, ldd);
                     lddCurr = LDD_PIT;
@@ -176,10 +176,10 @@ int MaskLdd(MAP_UINT1 *ldd,         /* write-only output ldd  */
             const MAP_UINT1 *inLdd, /* input ldd  */
             const MAP_UINT1 *mask)  /* mask  */
 {
-    UINT1 lddCurr, m; /* current and next ldd value */
+    UINT1 lddCurr = 0, m = 0; /* current and next ldd value */
     int nrRows = inLdd->NrRows(inLdd);
     int nrCols = inLdd->NrCols(inLdd);
-    int r, c;
+    int r = 0, c = 0;
 
     /* algorithm wants inLdd->Get() to return FALSE in case of MV */
     inLdd->SetGetTest(GET_MV_TEST, inLdd);

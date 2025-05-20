@@ -1,3 +1,5 @@
+#include <math.h>
+
 #include "stddefx.h"
 
 /********/
@@ -53,7 +55,7 @@ static int CalcOut(MAP_REAL8 *out,            /* write-only output map */
                    BOOL useWeightedFriction)
 {
     NODE *list = LinkChkNd(NULL, r, c); /* add pit */
-    UINT1 pntVal;
+    UINT1 pntVal = 0;
 
     if (list == NULL)
         return 1;
@@ -86,15 +88,15 @@ static int CalcOut(MAP_REAL8 *out,            /* write-only output map */
         default:
             PRECOND(pntVal == 0); /* only bools allowed */
             {
-                int rDS, cDS;
-                REAL8 f, fDS, oDS;
-                UINT1 l;
+                int rDS = 0, cDS = 0;
+                REAL8 f = NAN, fDS = NAN, oDS = NAN;
+                UINT1 l = 0;
                 ldd->Get(&l, r, c, ldd);
                 rDS = DownStrR(r, l);
                 cDS = DownStrC(c, l);
                 if (friction->Get(&f, r, c, friction) &&
                     friction->Get(&fDS, rDS, cDS, friction) && out->Get(&oDS, rDS, cDS, out)) {
-                    REAL8 o;
+                    REAL8 o = NAN;
                     if (useWeightedFriction)
                         o = oDS + ((Corner(l) ? dw : w) * (fDS + f));
                     else
@@ -125,7 +127,7 @@ int Ldddist(MAP_REAL8 *out,            /* write-only output map  */
             const MAP_REAL8 *friction, /* friction map */
             BOOL useWeightedFriction)  /* true -> old ldddist, false in traveltime use */
 {
-    int r, c;
+    int r = 0, c = 0;
     int nrRows = ldd->NrRows(ldd);
     int nrCols = ldd->NrCols(ldd);
     /* dist * (fDS+f) / 2 = w * (fDS*f)
@@ -146,7 +148,7 @@ int Ldddist(MAP_REAL8 *out,            /* write-only output map  */
     */
     for (r = 0; r < nrRows; r++)
         for (c = 0; c < nrCols; c++) {
-            UINT1 lddVal;
+            UINT1 lddVal = 0;
             if (ldd->Get(&lddVal, r, c, ldd)) {
                 if (lddVal == LDD_PIT)
                     if (CalcOut(out, r, c, ldd, points, friction, w, dw, useWeightedFriction))

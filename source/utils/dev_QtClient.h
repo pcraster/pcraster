@@ -7,11 +7,6 @@
 #define INCLUDED_CASSERT
 #endif
 
-#ifndef INCLUDED_BOOST_NONCOPYABLE
-#include <boost/noncopyable.hpp>
-#define INCLUDED_BOOST_NONCOPYABLE
-#endif
-
 // Project headers.
 
 // Module headers.
@@ -38,7 +33,7 @@ namespace dev {
   See their respective docs for more info.
 */
 template<class Application>
-class QtClient: private boost::noncopyable
+class QtClient
 {
 
   friend class QtClientTest;
@@ -62,6 +57,10 @@ public:
   //----------------------------------------------------------------------------
   // CREATORS
   //----------------------------------------------------------------------------
+
+                   QtClient            (const QtClient& other) = delete;
+
+  QtClient&        operator=           (const QtClient& other) = delete;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

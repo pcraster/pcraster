@@ -2,10 +2,6 @@
 #define INCLUDED_DEV_PYTHONCLIENT
 
 // External headers.
-#ifndef INCLUDED_BOOST_NONCOPYABLE
-#include <boost/noncopyable.hpp>
-#define INCLUDED_BOOST_NONCOPYABLE
-#endif
 
 // Project headers.
 #ifndef INCLUDED_CSTRING
@@ -36,7 +32,7 @@ namespace dev {
   Unfortunately, not all memory will be freed.
   - http://bugs.python.org/issue1445210
 */
-class PythonClient: private boost::noncopyable
+class PythonClient
 {
 
   friend class PythonClientTest;
@@ -58,6 +54,10 @@ public:
   //----------------------------------------------------------------------------
   // CREATORS
   //----------------------------------------------------------------------------
+
+                   PythonClient        (const PythonClient& other) = delete;
+
+  PythonClient&    operator=           (const PythonClient& other) = delete;
 
   virtual          ~PythonClient       ();
 

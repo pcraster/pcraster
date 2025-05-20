@@ -4,10 +4,6 @@
 
 
 // External headers.
-#ifndef INCLUDED_BOOST_NONCOPYABLE
-#include <boost/noncopyable.hpp>
-#define INCLUDED_BOOST_NONCOPYABLE
-#endif
 
 // Project headers.
 #ifndef INCLUDED_PT_PARTICLETRACKER
@@ -18,7 +14,7 @@
 // Module headers.
 
 #include <pybind11/pybind11.h>
-#include  <memory>
+#include <memory>
 
 
 namespace calc {
@@ -37,7 +33,7 @@ namespace python {
 
   \sa        .
 */
-class Moc: private boost::noncopyable
+class Moc
 {
 
   friend class MocTest;
@@ -60,6 +56,10 @@ public:
                                         calc::Field const* initialConcentration,
                                         calc::Field const* effectivePorosity,
                                         calc::Field const* storageCoefficient);
+
+                   Moc                 (const Moc&) = delete;
+
+  Moc&             operator=           (const Moc&) = delete;
 
   /* virtual */    ~Moc                ();
 

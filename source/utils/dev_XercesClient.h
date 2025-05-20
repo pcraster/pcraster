@@ -7,11 +7,6 @@
 #define INCLUDED_XERCESC_UTIL_TRANSSERVICE
 #endif
 
-#ifndef INCLUDED_BOOST_NONCOPYABLE
-#include <boost/noncopyable.hpp>
-#define INCLUDED_BOOST_NONCOPYABLE
-#endif
-
 // Project headers.
 
 // Module headers.
@@ -34,7 +29,7 @@ namespace dev {
   You can instantiate more than one XercesClient object. It is safe to use
   this class when the Xerces library is already initialized.
 */
-class XercesClient: private boost::noncopyable
+class XercesClient
 {
 
   friend class XercesClientTest;
@@ -58,6 +53,10 @@ public:
   //----------------------------------------------------------------------------
   // CREATORS
   //----------------------------------------------------------------------------
+
+                   XercesClient        (const XercesClient&) = delete;
+
+  XercesClient&    operator=           (const XercesClient&) = delete;
 
   virtual          ~XercesClient       ();
 

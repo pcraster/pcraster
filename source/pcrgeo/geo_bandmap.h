@@ -65,7 +65,7 @@ class RasterSpace;
   Note that acoording to JJ some apps do write a NODATA as min and max to the .stx
   file, even though the maps do contains other NODATA values.
 
-  The format has a standard projection of geo::Projection::YIncrB2T, no other projection 
+  The format has a standard projection of geo::Projection::YIncrB2T, no other projection
   is definable in the header.
   ESRI software uses an additional file, named the world file, to define the
   projection.
@@ -73,13 +73,13 @@ class RasterSpace;
   \todo
     zie Gdal code: /home/cees/tmp/gdal-1.1.9/frmts/raw
     make byteorder flexibeler (1e letter I/M/L) wegschrijven (I of L?)
-    Gdal doet het met 32 bit als integer behalve als er een 
+    Gdal doet het met 32 bit als integer behalve als er een
      byteorder (L|M)SBFIRST volledig staat, volslagen MAF.
 
 
 
 */
-class BandMap : public boost::noncopyable
+class BandMap
 {
  public:
    typedef enum  Layout { BIL, BIP, BSQ } Layout;
@@ -196,8 +196,10 @@ public:
                                         CSF_CR cr=CR_UNDEFINED);
 
  */
-  //! Copy constructor.
-                   BandMap              (const BandMap &rhs);
+
+                   BandMap              (const BandMap&) = delete;
+
+  BandMap&         operator=            (const BandMap&) = delete;
 
   //! Destructor.
   /* virtual */    ~BandMap             ();

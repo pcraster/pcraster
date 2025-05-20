@@ -9,10 +9,6 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_BOOST_NONCOPYABLE
-#include <boost/noncopyable.hpp>
-#define INCLUDED_BOOST_NONCOPYABLE
-#endif
 
 // PCRaster library headers.
 
@@ -34,7 +30,7 @@ namespace mf {
 
   \sa        .
 */
-class Modflow: private boost::noncopyable
+class Modflow
 {
 
   friend class ModflowTest;
@@ -50,6 +46,10 @@ public:
   //----------------------------------------------------------------------------
 
                    Modflow               ();
+
+                   Modflow               (const Modflow&) = delete;
+
+  Modflow&         operator=             (const Modflow&) = delete;
 
   /* virtual */    ~Modflow              ();
 

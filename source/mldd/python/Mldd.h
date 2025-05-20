@@ -5,11 +5,6 @@
 
 // External headers.
 
-#ifndef INCLUDED_BOOST_NONCOPYABLE
-#include <boost/noncopyable.hpp>
-#define INCLUDED_BOOST_NONCOPYABLE
-#endif
-
 // Project headers.
 
 // Module headers.
@@ -36,7 +31,7 @@ namespace python {
   This class does the necessary things to allow mldd::Mldd to be used from
   Python.
 */
-class Mldd: private boost::noncopyable
+class Mldd
 {
 
   friend class MlddTest;
@@ -54,6 +49,10 @@ public:
   //----------------------------------------------------------------------------
 
                    Mldd                (geo::RasterSpace const& space);
+
+                   Mldd                (const Mldd&) = delete;
+
+  Mldd&            operator=           (const Mldd&) = delete;
 
   /* virtual */    ~Mldd               ();
 

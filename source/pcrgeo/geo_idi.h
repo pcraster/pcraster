@@ -9,15 +9,6 @@
 #endif
 
 // Library headers.
-#include <cmath>
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-#ifndef INCLUDED_BOOST_NONCOPYABLE
-#include <boost/noncopyable.hpp>
-#define INCLUDED_BOOST_NONCOPYABLE
-#endif
 
 // PCRaster library headers.
 
@@ -27,6 +18,8 @@
 #define INCLUDED_GEO_CELLLOC
 #endif
 
+#include <cmath>
+#include <vector>
 
 
 namespace geo {
@@ -62,7 +55,7 @@ public:
 
 
 template<class Point>
-class ComputeValue : boost::noncopyable
+class ComputeValue
 {
 private:
    // point where value is for computed
@@ -73,6 +66,10 @@ public:
    ComputeValue(const Point& loc,double idp) :
     d_loc(loc),d_idp(idp),d_sumDist(0),d_sumDV(0) {
    }
+   ComputeValue(const ComputeValue&) = delete;
+
+   ComputeValue& operator=(const ComputeValue&) = delete;
+
    void add(const IdiPoint<Point>& p) {
      double dist;
      if (d_idp == 2) {
@@ -85,6 +82,7 @@ public:
      d_sumDist += dist;
      d_sumDV += dist*p.value();
   }
+
   double value() const {
      return (double)(d_sumDV/d_sumDist);
       // if not stable enough then do:

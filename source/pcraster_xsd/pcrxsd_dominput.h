@@ -7,19 +7,14 @@
 // #endif
 
 // Library headers.
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-#ifndef INCLUDED_BOOST_NONCOPYABLE
-#include <boost/noncopyable.hpp>
-#define INCLUDED_BOOST_NONCOPYABLE
-#endif
 // XERCES_CPP_NAMESPACE
 #include <xercesc/util/XercesVersion.hpp>
 // PCRaster library headers.
 
 // Module headers.
+
+#include <string>
+
 
 namespace XERCES_CPP_NAMESPACE {
   // DOMInput declarations.
@@ -52,7 +47,7 @@ public:
    Two types error handlers can be specified, see DOMInput::ErrorHandlerType
 
 */
-class DOMInput : private boost::noncopyable
+class DOMInput
 {
 public:
   //! type of error handler
@@ -101,6 +96,10 @@ public:
   //----------------------------------------------------------------------------
   // CREATORS
   //----------------------------------------------------------------------------
+
+                   DOMInput               (const DOMInput&) = delete;
+
+  DOMInput&        operator=              (const DOMInput&) = delete;
 
                    DOMInput               (EntityResolverType erType=DefaultEntityResolver);
 

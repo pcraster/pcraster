@@ -3,12 +3,6 @@
 
 // External headers.
 
-
-#ifndef INCLUDED_BOOST_NONCOPYABLE
-#include <boost/noncopyable.hpp>
-#define INCLUDED_BOOST_NONCOPYABLE
-#endif
-
 // Project headers.
 
 // Module headers.
@@ -42,7 +36,7 @@ namespace dev {
 
   \sa        .
 */
-class GDalClient: private boost::noncopyable
+class GDalClient
 {
 
   friend class GDalClientTest;
@@ -64,6 +58,10 @@ public:
   //----------------------------------------------------------------------------
   // CREATORS
   //----------------------------------------------------------------------------
+
+                   GDalClient          (const GDalClient& other) = delete;
+
+  GDalClient&      operator=           (const GDalClient& other) = delete;
 
   virtual          ~GDalClient         ();
 

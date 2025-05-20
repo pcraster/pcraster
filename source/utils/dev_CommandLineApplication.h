@@ -2,7 +2,6 @@
 #define INCLUDED_DEV_COMMANDLINEAPPLICATION
 
 #include <clipp.h>
-#include <boost/core/noncopyable.hpp>
 
 #include <any>
 #include <string>
@@ -30,7 +29,7 @@ namespace dev {
              Maybe define a symbol during unit test app build which triggers
              the include of a non pure virtual run().
 */
-class CommandLineApplication: private boost::noncopyable
+class CommandLineApplication
 {
 
 private:
@@ -126,6 +125,10 @@ public:
                                        unsigned short minor=0,
                                        unsigned short patch=0,
                                        std::string const& buildStage="");
+
+                   CommandLineApplication (const CommandLineApplication& other) = delete;
+
+  CommandLineApplication& operator=    (const CommandLineApplication& other) = delete;
 
   virtual          ~CommandLineApplication();
 

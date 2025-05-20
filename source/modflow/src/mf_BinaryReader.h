@@ -8,10 +8,6 @@
 #endif
 
 // External headers.
-#ifndef INCLUDED_BOOST_NONCOPYABLE
-#include <boost/noncopyable.hpp>
-#define INCLUDED_BOOST_NONCOPYABLE
-#endif
 
 // Project headers.
 
@@ -35,7 +31,7 @@ static const int recordMarkerSize(4);
 
   \sa        .
 */
-class BinaryReader: private boost::noncopyable
+class BinaryReader
 {
 
   friend class BinaryReaderTest;
@@ -51,6 +47,10 @@ public:
   //----------------------------------------------------------------------------
 
                    BinaryReader               ();
+
+                   BinaryReader               (const BinaryReader&) = delete;
+
+  BinaryReader&    operator=                  (const BinaryReader&) = delete;
 
   /* virtual */    ~BinaryReader              ();
 

@@ -1,15 +1,6 @@
 #ifndef INCLUDED_COM_DYNAMICLIBRARY
 #define INCLUDED_COM_DYNAMICLIBRARY
 
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-#ifndef INCLUDED_BOOST_NONCOPYABLE
-#include <boost/noncopyable.hpp>
-#define INCLUDED_BOOST_NONCOPYABLE
-#endif
-
 #ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
 #define INCLUDED_COM_EXCEPTION
@@ -22,6 +13,7 @@
 # endif
 #endif
 
+#include <string>
 
 namespace com {
 //! exception throw by com::DynamicLibrary object
@@ -49,7 +41,7 @@ class DynamicLibraryException: public Exception {
  *             underscore.
  *
  */
-class DynamicLibrary : boost::noncopyable
+class DynamicLibrary
 {
 private:
 #ifdef WIN32
@@ -73,6 +65,10 @@ private:
 public:
   // CREATORS
   DynamicLibrary(const std::string& libNameNoExt);
+
+                   DynamicLibrary      (const DynamicLibrary&) = delete;
+
+  DynamicLibrary&  operator=           (const DynamicLibrary&) = delete;
 
   ~DynamicLibrary();
 

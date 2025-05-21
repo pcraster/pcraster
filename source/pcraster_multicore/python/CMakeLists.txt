@@ -76,48 +76,35 @@ pybind11_add_module(_pcraster_multicore MODULE NO_EXTRAS THIN_LTO
     type_conversion/scalar.cc
     type_conversion/nonspatial_field.cc
 )
-if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-    # It seems that clang doesn't set flag this by default yet
-    set_property(
-        SOURCE
-            pcraster_multicore.cc
-            local/cover.cc
-            local/minimum.cc
-            local/maximum.cc
-        PROPERTY
-            COMPILE_OPTIONS
-                -fsized-deallocation
-    )
-endif()
-
 
 target_include_directories(_pcraster_multicore
     PRIVATE
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../..>
 )
 
-# TODO why is Python::module not working on Linux?
-if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-    target_link_libraries(_pcraster_multicore
-        PRIVATE
-            pcraster::python::utils
-            fern_algorithm
-            Python::Python
-    )
-else()
-        target_link_libraries(_pcraster_multicore
-        PRIVATE
-            pcraster::python::utils
-            fern_algorithm
-            Python::Module
-    )
-endif()
+target_link_libraries(_pcraster_multicore
+    PRIVATE
+        pcraster::python::utils
+        fern_algorithm
+)
+
 
 set_target_properties(_pcraster_multicore
     PROPERTIES
-        PREFIX "${PYTHON_MODULE_PREFIX}"
-        SUFFIX "${PYTHON_MODULE_EXTENSION}"
-        DEBUG_POSTFIX ""
+        RUNTIME_OUTPUT_DIRECTORY
+            $<TARGET_FILE_DIR:pcrcalc>/pcraster/multicore
+        LIBRARY_OUTPUT_DIRECTORY
+            $<TARGET_FILE_DIR:pcrcalc>/pcraster/multicore
+        OUTPUT_NAME
+            "_pcraster_moc"
+        INSTALL_RPATH
+            "$ORIGIN/../../../lib"
+        DEBUG_POSTFIX
+            ""
+        PREFIX
+            "${PYTHON_MODULE_PREFIX}"
+        SUFFIX
+            "${PYTHON_MODULE_EXTENSION}"
 )
 
 add_dependencies(_pcraster_multicore
@@ -144,15 +131,6 @@ if(PCRASTER_BUILD_TEST)
   )
 endif()
 
-set_target_properties(_pcraster_multicore
-    PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY
-            $<TARGET_FILE_DIR:pcrcalc>/pcraster/multicore
-        LIBRARY_OUTPUT_DIRECTORY
-            $<TARGET_FILE_DIR:pcrcalc>/pcraster/multicore
-        INSTALL_RPATH
-            "$ORIGIN/../../../lib"
-)
 
 install(
     TARGETS _pcraster_multicore

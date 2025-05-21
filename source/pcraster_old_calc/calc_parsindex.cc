@@ -72,7 +72,7 @@ calc::UserSymbol *calc::ParsIndexSet::addMe(ArrayDefinition *a) const
 //! returned new allocated copy of calc::IndexParameterConstant
 calc::UserSymbol *calc::ParsIndexName::addMe(calc::ArrayDefinition *a) const
 {
-   IndexParameterConstant *n;
+   IndexParameterConstant *n = nullptr;
    // arrayIndex is current size
    // a->d_activeIndex grows while adding indices
    // result is that active indices has an uniq number

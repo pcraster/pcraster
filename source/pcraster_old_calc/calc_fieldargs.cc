@@ -151,7 +151,7 @@ void calc::FieldArgs::executeArgs(calc::FieldStack& stack)
 
 void calc::FieldArgs::prepareExecution()
 {
-  int downTo;
+  int downTo = 0;
   switch(op().opCode()) {
     case OP_IF_ELSE:
     case OP_IF:
@@ -167,7 +167,7 @@ void calc::FieldArgs::prepareExecution()
 
 void calc::FieldArgs::skipExecution()
 {
-  int downTo;
+  int downTo = 0;
   switch(op().opCode()) {
     case OP_IF_ELSE:
     case OP_IF:

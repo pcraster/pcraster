@@ -142,7 +142,7 @@ void calc::ASTExpr::transferFunctionArgs(ASTNodeVector *al)
   // variable number of arguments in point operations
   // by AST rewritting
 
-  bool rewrite;
+  bool rewrite = false;
   switch(op().opCode()) {
     case OP_COVER: case OP_MIN: case OP_MAX:
      rewrite = al->size()>2; break;

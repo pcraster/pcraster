@@ -24,7 +24,7 @@ calc::NonSpatialTssImpl::NonSpatialTssImpl(
 
 void calc::NonSpatialTssImpl::write()
 {
-  size_t dummy;
+  size_t dummy = 0;
   double *val = d_tss.getValueBuffer(dummy);
   if (!val) // do not write this time step
     return;

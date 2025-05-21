@@ -127,7 +127,7 @@ static int doTimeoutput(
 static size_t maxId(const Field *id)
 {
   size_t nrCols= 0;
-  size_t maxIndex;
+  size_t maxIndex = 0;
   switch(id->cri()) {
     case CRI_1: {
      const UINT1* m = com::csfCellMax(id->src_1(),id->src_1()+id->nrValues());
@@ -327,8 +327,8 @@ void calc::FileTimeoutput::printLine(
   double        *v,
   std::ofstream& f)
 {
-  const char *mvFmt;
-  int         valFmt;
+  const char *mvFmt = nullptr;
+  int         valFmt = 0;
 
   switch((CSF_VS)d_stackInfo.vs()) { // dangerous typecast
      case VS_LDD    :

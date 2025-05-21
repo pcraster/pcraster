@@ -172,7 +172,7 @@ void calc::Options::processArgs(
         "pcrcalc"))
              throwLibError();
 
-    int c;
+    int c = 0;
     while ( (c = GetOpt()) != 0 )
      switch(c) {
       // RunTimeEnvSettings:

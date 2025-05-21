@@ -45,7 +45,7 @@ calc::ModelParser::ModelParser(ParserInput& pi,
 {
   initialize(theScript);
 
-  int signalNr;
+  int signalNr = 0;
   model(&signalNr);
   script()->buildScript();
 }

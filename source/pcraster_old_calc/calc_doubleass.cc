@@ -74,7 +74,7 @@ MAJOR_CODE calc::otherDouble(MAJOR_CODE op)
   MAJOR_CODE pairs[][2] = {
 #include "dassop.inc"
          { OP_NOP, OP_NOP }}; /* dummy entry */
-        size_t i;
+        size_t i = 0;
 
   for (i = 0; i < ARRAY_SIZE(pairs)-1; i++)
    if (op == pairs[i][0])

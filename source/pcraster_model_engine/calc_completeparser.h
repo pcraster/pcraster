@@ -81,7 +81,7 @@ private:
   Parser       d_parser;
 
   void finish() {
-    int retsignal;
+    int retsignal = 0;
     // endOfInput will throw if something else than end-of-input is left
     d_parser.endOfInput(&retsignal);
   }
@@ -116,7 +116,7 @@ public:
    * \param pmem any of the public method of Parser, e.g. Parser::model()
    */
   GC* parse(PMEM_AP pmem) {
-    int retsignal;
+    int retsignal = 0;
     std::unique_ptr<GC> n((d_parser.*pmem)(&retsignal));
     finish();
     checkAndRewriteParsedAST(n.get());
@@ -128,14 +128,14 @@ public:
    * \param pmem any of the public method of Parser, e.g. Parser::model()
    */
   void parse(PMEM_REF pmem, GC& ref) {
-    int retsignal;
+    int retsignal = 0;
     (d_parser.*pmem)(&retsignal,ref);
     checkAndRewriteParsedAST(&ref);
     finish();
   }
 
   GC *parseScript() {
-    int retsignal;
+    int retsignal = 0;
     std::unique_ptr<GC> script(d_parser.model(&retsignal));
     checkAndRewriteParsedAST(script->astCode());
     finish();

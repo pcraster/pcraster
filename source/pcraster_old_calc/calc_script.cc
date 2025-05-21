@@ -524,7 +524,7 @@ void calc::Script::htmlPrint() const
 //! detect format of \a par, check if valid
 calc::FieldMapInputParameter* calc::Script::detectExternalFieldLeaf(const ParsPar &par)
 {
-    calc::FieldMapInputParameter *f;
+    calc::FieldMapInputParameter *f = nullptr;
     try {
       f=ioFieldStrategyMod().createFieldMapInputParameter(par);
     } catch (const com::Exception& excep) {
@@ -640,7 +640,7 @@ void calc::Script::checkClone(const std::string& mapFileName)
 //! RunDirectory::inputFilePath()
 std::string  calc::Script::inputFilePath(const std::string& fileName) const
 {
-  bool found;
+  bool found = false;
   return d_runDirectory.inputFilePath(found,fileName);
 }
 

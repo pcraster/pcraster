@@ -28,6 +28,7 @@
 #include <boost/math/special_functions/fpclassify.hpp>
 #include <boost/math/special_functions/sign.hpp>
 
+#include <cmath>
 #include <format>
 #include <limits>
 #include <memory>
@@ -105,7 +106,7 @@ calc::Field* readField(
 {
   // Open the raster.
   std::shared_ptr<dal::Raster> raster;
-  dal::RasterDriver* driver;
+  dal::RasterDriver* driver = nullptr;
   std::tie(raster, driver) = globals.rasterDal().open(name);
 
   if(!raster) {
@@ -219,7 +220,7 @@ pybind11::object readFieldCell(
          int col)
 {
   std::shared_ptr<dal::Raster> raster;
-  dal::RasterDriver* driver;
+  dal::RasterDriver* driver = nullptr;
   std::tie(raster, driver) = globals.rasterDal().open(filename);
 
   if(!raster) {
@@ -246,19 +247,19 @@ pybind11::object readFieldCell(
 
   switch(raster->typeId()) {
     case dal::TI_UINT1: {
-      UINT1 v;
+      UINT1 v = 0;
       driver->read(&v, dal::TI_UINT1, filename, space, address);
       tuple = pybind11::make_tuple(static_cast<float>(v), !static_cast<int>(pcr::isMV(v)));
       break;
     }
     case dal::TI_INT4: {
-      INT4 v;
+      INT4 v = 0;
       driver->read(&v, dal::TI_INT4, filename, space, address);
       tuple = pybind11::make_tuple(static_cast<float>(v), !static_cast<int>(pcr::isMV(v)));
       break;
     }
     case dal::TI_REAL4: {
-      REAL4 v;
+      REAL4 v = NAN;
       driver->read(&v, dal::TI_REAL4, filename, space, address);
       tuple = pybind11::make_tuple(static_cast<float>(v), !static_cast<int>(pcr::isMV(v)));
       break;
@@ -678,9 +679,9 @@ calc::Field* closeAtTolerance(calc::Field const * result,
          boost::math::fpc::FPC_STRONG);
 
   for(size_t i = 0; i < nrCells; ++i) {
-    double validatedValue;
+    double validatedValue = NAN;
     validated->getCell(validatedValue, static_cast<size_t>(i));
-    double resultValue;
+    double resultValue = NAN;
     result->getCell(resultValue, static_cast<size_t>(i));
 
     if(!pcr::isMV(validatedValue)){

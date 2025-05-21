@@ -424,7 +424,7 @@ void calc::PointCodeBodyGenerator::popArgsPushResult(
 void calc::PointCodeBodyGenerator::selectPart(const DataType& dt)
 {
   PRECOND(!dt.stEither());
-  std::ostringstream*  newCurr;
+  std::ostringstream*  newCurr = nullptr;
   if (dt.stSpatial())
     newCurr= &d_loop;
   else

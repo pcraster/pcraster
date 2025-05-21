@@ -313,7 +313,7 @@ void calc::BranchExprImpl::executeVarArgOperation(
    * COVER needs this order
    * => leftmost arg on top
    */
-  bool leftSpatial;
+  bool leftSpatial = false;
   bool rightSpatial = args[n-1]->spatial();
   args[n-1]->execute(stack);
   for (int i = n-2; i >= 0; i--) {
@@ -373,7 +373,7 @@ void calc::BranchExprImpl::executeOperation(
    {/* pick the implementation,
      * depending if the argument if the node is VS_S or VS_D
      */
-     int ds; /* 0 dir implementation, 1 scalar implementation */
+     int ds = 0; /* 0 dir implementation, 1 scalar implementation */
      PRECOND(n==1); /* cos,sin,tan */
      ds = isIn(VS_S, args[0]->vs()) ? 1 : 0;
      executeOperation(major2op(trigs[implOp.execId()][ds]),stack);
@@ -769,7 +769,7 @@ void calc::BranchExprImpl::execIfThen(
   args[0]->execute(stack);
   calc::FieldHandle testBranch = stack.popReadOnly();
   PRECOND(testBranch->vs() == VS_B); // pcrcalc/test66
-  bool noneAreTrue,noneAreFalse;
+  bool noneAreTrue = false,noneAreFalse = false;
   testBranch->analyzeBoolean(noneAreTrue,noneAreFalse);
 
   calc::FieldHandle trueBranch = conditionalBranch(noneAreTrue, args[1], stack);
@@ -821,7 +821,7 @@ void calc::BranchExprImpl::execIfThenElse(
   calc::FieldHandle testBranch = stack.popReadOnly();
   inp[0] = &testBranch;
   PRECOND(testBranch->vs() == VS_B); // pcrcalc/test65
-  bool noneAreTrue,noneAreFalse;
+  bool noneAreTrue = false,noneAreFalse = false;
   testBranch->analyzeBoolean(noneAreTrue,noneAreFalse);
 
   calc::FieldHandle falseBranch = conditionalBranch(noneAreFalse, args[2], stack);

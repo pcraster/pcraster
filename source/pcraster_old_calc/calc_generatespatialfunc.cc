@@ -20,6 +20,8 @@
 #define INCLUDED_GEO_APPRASTERSPACE
 #endif
 
+#include <cmath>
+
 namespace calc {
   class CoordinateTranslator {
     const Compressor&   d_compressor;
@@ -30,18 +32,18 @@ namespace calc {
       {}
     void get(size_t linIndexCompressed, double& x, double& y) const
     {
-      size_t row,col;
+      size_t row = 0,col = 0;
       d_compressor.rasterSpace().linear2RowCol(
           d_compressor.toDecompressedIndex(linIndexCompressed),row,col);
       d_ars.getCoords(row,col,x,y);
     }
     double getX(size_t linIndexCompressed) const {
-      double x,y;
+      double x = NAN,y = NAN;
       get(linIndexCompressed,x,y);
       return x;
     }
     double getY(size_t linIndexCompressed) const {
-      double x,y;
+      double x = NAN,y = NAN;
       get(linIndexCompressed,x,y);
       return y;
     }

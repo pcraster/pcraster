@@ -177,7 +177,7 @@ std::string calc::IoFieldStrategy::pathTimestep1(
     const RunDirectory& rd,
     const std::string&  stackName) const
 {
-  bool found;
+  bool found = false;
   return rd.inputFilePath(found,makeStackItemName(stackName,1));
 }
 

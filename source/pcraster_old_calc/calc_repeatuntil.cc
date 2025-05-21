@@ -43,7 +43,7 @@ calc::RepeatUntil::~RepeatUntil()
  */
 void calc::RepeatUntil::executeBlock()
 {
-  bool condition;
+  bool condition = false;
   do {
     executeStatements();
  //   repeatCondition++;
@@ -58,7 +58,7 @@ bool calc::RepeatUntil::executeCondition()
 
   d_condition->execute(stack);
   FieldHandle fh = stack.popReadOnly();
-  bool noneAreTrue,noneAreFalse;
+  bool noneAreTrue = false,noneAreFalse = false;
   fh->analyzeBoolean(noneAreTrue,noneAreFalse);
   return noneAreFalse;
 }

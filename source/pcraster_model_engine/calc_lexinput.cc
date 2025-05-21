@@ -81,7 +81,7 @@ int calc::LexInput::getParameterNr(
         const std::string& name,
         bool nIsShellArg)
 {
-  int r;
+  int r = 0;
   if (CnvrtInt(&r,name.c_str())) {
     if (r > 0 && r <= (int)d_shellArgs.size())
       return r;
@@ -170,7 +170,7 @@ int calc::LexInput::getChar()
 void calc::LexInput::printExpandedCode(
   std::ostream& outStream)
 {
-  int c;
+  int c = 0;
   do {
    c =getChar();
    if (c != EOF)

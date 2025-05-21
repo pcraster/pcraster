@@ -8,6 +8,7 @@
 #include "calc_types.h"
 #include "calc.h"
 
+#include <cmath>
 #include <new>
 #include <stdexcept>
 
@@ -82,13 +83,13 @@ struct AccumTT : public MapReal8 {
    for(int r = 0; r < ldd->nrRows; ++r)
     for(int c = 0; c < ldd->nrCols; ++c)
     {
-      UINT1 p;
+      UINT1 p = 0;
       if (ldd->Get(&p, r, c, ldd))
          pits.map()->Put(p==5, r, c, pits.map());
       else
          pits.map()->PutMV(r,c, pits.map());
 
-      REAL8 v; // velocity -> friction
+      REAL8 v = NAN; // velocity -> friction
       if (velocity->Get(&v, r, c, velocity)) {
          if (v <= 0)
            v = 0; // WRONG

@@ -43,6 +43,7 @@
 #define INCLUDED_CALC_DOMAINERROR
 #endif
 
+#include <cmath>
 
 /*!
   \file
@@ -138,7 +139,7 @@ void calc::TimeinputTssOp::exec(RunTimeEnv* rte,const Operator& op,size_t nrArgs
 
    if (!id.isSpatial()) {
 
-      double v;
+      double v = NAN;
       id.getCell(v,0);
       int colNr = static_cast<int>(v);
       // no such column pcrcalc232
@@ -154,7 +155,7 @@ void calc::TimeinputTssOp::exec(RunTimeEnv* rte,const Operator& op,size_t nrArgs
    } else {
 
       for(size_t i=0; i < id.nrValues(); ++i) {
-       double v;
+       double v = NAN;
        id.getCell(v,i);
        int colNr = static_cast<int>(v);
 

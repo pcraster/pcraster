@@ -118,7 +118,7 @@ void calc::ModelBuilder::addStatement(const std::string& statement, bool write)
   if (write)
     d_script.setReportFound();
   WriteInfo wi(&d_script,write,nullptr,false);
-  int retsignal;
+  int retsignal = 0;
   parser.assignment(&retsignal, &d_script,wi);
 }
 
@@ -150,7 +150,7 @@ calc::FieldExpr* calc::ModelBuilder::addFieldExpr(const std::string& expr)
   Parser parser(pi.tokenBuffer());
   parser.initialize(d_script);
 
-  int retsignal;
+  int retsignal = 0;
   FieldExpr *e = parser.expr(&retsignal, &d_script);
   return e;
 }
@@ -164,7 +164,7 @@ calc::RunSettings calc::ModelBuilder::parseExternalBindings(const com::PathName&
 
   RunSettings m;
 
-  int retsignal;
+  int retsignal = 0;
   parser.externalBindings(&retsignal, m);
   return m;
 }

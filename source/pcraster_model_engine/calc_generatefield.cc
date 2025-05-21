@@ -30,6 +30,8 @@
 #define INCLUDED_MATHX
 #endif
 
+#include <cmath>
+
 namespace calc {
   class CoordinateTranslator {
     const SpatialPacking&   d_spatialpacking;
@@ -42,18 +44,18 @@ namespace calc {
       {}
     void get(size_t fieldId, double& x, double& y) const
     {
-      size_t row,col;
+      size_t row = 0,col = 0;
       d_spatialpacking.rasterDim().linear2RowCol(
           d_spatialpacking.toRasterId(fieldId),row,col);
       d_ars.getCoords(row,col,x,y);
     }
     double getX(size_t fieldId) const {
-      double x,y;
+      double x = NAN,y = NAN;
       get(fieldId,x,y);
       return x;
     }
     double getY(size_t fieldId) const {
-      double x,y;
+      double x = NAN,y = NAN;
       get(fieldId,x,y);
       return y;
     }

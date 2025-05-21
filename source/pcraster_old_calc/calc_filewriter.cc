@@ -1,14 +1,5 @@
 #include "stddefx.h"
 
-#ifndef INCLUDED_ALGORITHM
-#include <algorithm>
-#define INCLUDED_ALGORITHM
-#endif
-#ifndef INCLUDED_MEMORY
-#include <memory>
-#define INCLUDED_MEMORY
-#endif
-
 #ifndef INCLUDED_COM_CSFCELL
 #include "com_csfcell.h"
 #define INCLUDED_COM_CSFCELL
@@ -56,6 +47,9 @@
 #define INCLUDED_CALC_STACKINFO
 #endif
 
+#include <algorithm>
+#include <cmath>
+#include <memory>
 
 //! ctor
 calc::FileWriter::FileWriter(
@@ -138,7 +132,7 @@ void calc::FileWriter::writeMap(
   d_par.scriptConst().compressor().decompress(dd,data);
   gm->writeSpatial(dd.decompressed());
 
-  double min,max;
+  double min = NAN,max = NAN;
   if (gm->getMinMax(min,max)) {
     if (pcr::isMV(minUpdate)) {
       minUpdate=min;

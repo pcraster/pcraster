@@ -604,9 +604,9 @@ static int yy_flex_strlen (yyconst char * );
  */
 YY_DECL
 {
-	yy_state_type yy_current_state;
-	char *yy_cp, *yy_bp;
-	int yy_act;
+	yy_state_type yy_current_state = 0;
+	char *yy_cp = nullptr, *yy_bp = nullptr;
+	int yy_act = 0;
     
 #line 60 "valuefile.l"
 
@@ -685,7 +685,7 @@ yy_find_action:
 
 		if ( yy_act != YY_END_OF_BUFFER && yy_rule_can_match_eol[yy_act] )
 			{
-			int yyl;
+			int yyl = 0;
 			for ( yyl = 0; yyl < yyleng; ++yyl )
 				if ( yytext[yyl] == '\n' )
 					   
@@ -829,7 +829,7 @@ case YY_STATE_EOF(INITIAL):
 		 */
 		if ( (yy_c_buf_p) <= &YY_CURRENT_BUFFER_LVALUE->yy_ch_buf[(yy_n_chars)] )
 			{ /* This was really a NUL. */
-			yy_state_type yy_next_state;
+			yy_state_type yy_next_state = 0;
 
 			(yy_c_buf_p) = (yytext_ptr) + yy_amount_of_matched_text;
 
@@ -1010,8 +1010,8 @@ int yyFlexLexer::yy_get_next_buffer()
 {
     	char *dest = YY_CURRENT_BUFFER_LVALUE->yy_ch_buf;
 	char *source = (yytext_ptr);
-	int number_to_move, i;
-	int ret_val;
+	int number_to_move = 0, i = 0;
+	int ret_val = 0;
 
 	if ( (yy_c_buf_p) > &YY_CURRENT_BUFFER_LVALUE->yy_ch_buf[(yy_n_chars) + 1] )
 		YY_FATAL_ERROR(
@@ -1134,8 +1134,8 @@ int yyFlexLexer::yy_get_next_buffer()
 
     yy_state_type yyFlexLexer::yy_get_previous_state()
 {
-	yy_state_type yy_current_state;
-	char *yy_cp;
+	yy_state_type yy_current_state = 0;
+	char *yy_cp = nullptr;
     
 	yy_current_state = (yy_start);
 
@@ -1166,7 +1166,7 @@ int yyFlexLexer::yy_get_next_buffer()
  */
     yy_state_type yyFlexLexer::yy_try_NUL_trans( yy_state_type yy_current_state )
 {
-	int yy_is_jam;
+	int yy_is_jam = 0;
     	char *yy_cp = (yy_c_buf_p);
 
 	YY_CHAR yy_c = 1;
@@ -1189,7 +1189,7 @@ int yyFlexLexer::yy_get_next_buffer()
 
     void yyFlexLexer::yyunput( int c, char* yy_bp)
 {
-	char *yy_cp;
+	char *yy_cp = nullptr;
     
     yy_cp = (yy_c_buf_p);
 
@@ -1230,7 +1230,7 @@ int yyFlexLexer::yy_get_next_buffer()
 
     int yyFlexLexer::yyinput()
 {
-	int c;
+	int c = 0;
     
 	*(yy_c_buf_p) = (yy_hold_char);
 
@@ -1369,7 +1369,7 @@ int yyFlexLexer::yy_get_next_buffer()
  */
     YY_BUFFER_STATE yyFlexLexer::yy_create_buffer( std::istream* file, int size )
 {
-	YY_BUFFER_STATE b;
+	YY_BUFFER_STATE b = nullptr;
     
 	b = (YY_BUFFER_STATE) yyalloc(sizeof( struct yy_buffer_state )  );
 	if ( ! b )
@@ -1521,7 +1521,7 @@ void yyFlexLexer::yypop_buffer_state ()
  */
 void yyFlexLexer::yyensure_buffer_stack()
 {
-	int num_to_alloc;
+	int num_to_alloc = 0;
     
 	if (!(yy_buffer_stack)) {
 
@@ -1562,7 +1562,7 @@ void yyFlexLexer::yyensure_buffer_stack()
 {
     	if ( (yy_start_stack_ptr) >= (yy_start_stack_depth) )
 		{
-		yy_size_t new_size;
+		yy_size_t new_size = 0;
 
 		(yy_start_stack_depth) += YY_START_STACK_INCR;
 		new_size = (yy_start_stack_depth) * sizeof( int );

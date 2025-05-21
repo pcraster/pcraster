@@ -975,7 +975,7 @@ Parser::indecesDef(int *_retsignal, std::vector<calc::ParsIndex* >& indDef )
 	int _signal=NoSignal;
 	*_retsignal = NoSignal;
 #line 559 "calcparser.g"
-	calc::ParsIndex *p;
+	calc::ParsIndex *p = nullptr;
 #line 560 "calcparser.g"
 	 p  = indexDef(&_signal); if (_signal) goto _handler;
 
@@ -1006,7 +1006,7 @@ _handler:
  calc::ParsIndex *  
 Parser::indexDef(int *_retsignal)
 {
-	 calc::ParsIndex *  	 _retv;
+	 calc::ParsIndex *  	 _retv = nullptr;
 #line 567 "calcparser.g"
 	zzRULE;
 	int _sva=1;
@@ -1234,7 +1234,7 @@ _handler:
  int  
 Parser::reportMomentStep(int *_retsignal)
 {
-	 int  	 _retv;
+	 int  	 _retv = 0;
 #line 621 "calcparser.g"
 	zzRULE;
 	int _sva=1;
@@ -1429,7 +1429,7 @@ Parser::codeBlock(int *_retsignal, calc::StatementBlock *inclIn )
 									char buf[buf_size];
 									std::snprintf(buf, buf_size, "%d", inSituNr++);
 									calc::Symbol s(script(),buf,nullptr);
-									calc::ReportDefinition *rd;
+									calc::ReportDefinition *rd = nullptr;
 									rd = new calc::ReportDefinition(
 									script()->generatedSymbol("reportMoments",buf),
 									inSitu,(int)script()->nrTimeSteps());
@@ -1631,7 +1631,7 @@ Parser::repeat(int *_retsignal, calc::StatementBlock *inclIn )
 	*_retsignal = NoSignal;
 #line 724 "calcparser.g"
 	calc::RepeatUntil *ru=nullptr;
-	calc::FieldExpr   *condition;
+	calc::FieldExpr   *condition = nullptr;
 #line 727 "calcparser.g"
 	zzmatch_wsig(TOK_REPEAT, _handler);
 	
@@ -1949,7 +1949,7 @@ _handler:
  calc::FieldExpr * 
 Parser::expr(int *_retsignal, calc::StatementBlock *inclIn )
 {
-	 calc::FieldExpr * 	 _retv;
+	 calc::FieldExpr * 	 _retv = nullptr;
 #line 851 "calcparser.g"
 	zzRULE;
 	int _sva=1;
@@ -1958,7 +1958,7 @@ Parser::expr(int *_retsignal, calc::StatementBlock *inclIn )
 	PURIFY(_retv,sizeof( calc::FieldExpr * 	))
 	*_retsignal = NoSignal;
 #line 852 "calcparser.g"
-	calc::FieldExpr *right;
+	calc::FieldExpr *right = nullptr;
 #line 853 "calcparser.g"
 	 _retv  = xor_expr(&_signal,  inclIn ); if (_signal) goto _handler;
 
@@ -2002,7 +2002,7 @@ _adios:
  calc::FieldExpr * 
 Parser::xor_expr(int *_retsignal, calc::StatementBlock *inclIn )
 {
-	 calc::FieldExpr * 	 _retv;
+	 calc::FieldExpr * 	 _retv = nullptr;
 #line 869 "calcparser.g"
 	zzRULE;
 	int _sva=1;
@@ -2011,7 +2011,7 @@ Parser::xor_expr(int *_retsignal, calc::StatementBlock *inclIn )
 	PURIFY(_retv,sizeof( calc::FieldExpr * 	))
 	*_retsignal = NoSignal;
 #line 870 "calcparser.g"
-	calc::FieldExpr *right;
+	calc::FieldExpr *right = nullptr;
 #line 871 "calcparser.g"
 	 _retv  = and_expr(&_signal,  inclIn ); if (_signal) goto _handler;
 
@@ -2047,7 +2047,7 @@ _handler:
  calc::FieldExpr * 
 Parser::and_expr(int *_retsignal, calc::StatementBlock *inclIn )
 {
-	 calc::FieldExpr * 	 _retv;
+	 calc::FieldExpr * 	 _retv = nullptr;
 #line 881 "calcparser.g"
 	zzRULE;
 	int _sva=1;
@@ -2056,7 +2056,7 @@ Parser::and_expr(int *_retsignal, calc::StatementBlock *inclIn )
 	PURIFY(_retv,sizeof( calc::FieldExpr * 	))
 	*_retsignal = NoSignal;
 #line 882 "calcparser.g"
-	calc::FieldExpr *right;
+	calc::FieldExpr *right = nullptr;
 #line 883 "calcparser.g"
 	 _retv  = eq_expr(&_signal,  inclIn ); if (_signal) goto _handler;
 
@@ -2091,7 +2091,7 @@ _handler:
  calc::FieldExpr * 
 Parser::eq_expr(int *_retsignal, calc::StatementBlock *inclIn )
 {
-	 calc::FieldExpr * 	 _retv;
+	 calc::FieldExpr * 	 _retv = nullptr;
 #line 894 "calcparser.g"
 	zzRULE;
 	int _sva=1;
@@ -2100,7 +2100,7 @@ Parser::eq_expr(int *_retsignal, calc::StatementBlock *inclIn )
 	PURIFY(_retv,sizeof( calc::FieldExpr * 	))
 	*_retsignal = NoSignal;
 #line 895 "calcparser.g"
-	calc::FieldExpr *right;
+	calc::FieldExpr *right = nullptr;
 #line 896 "calcparser.g"
 	 _retv  = comp_expr(&_signal,  inclIn ); if (_signal) goto _handler;
 
@@ -2135,7 +2135,7 @@ _handler:
  calc::FieldExpr * 
 Parser::comp_expr(int *_retsignal, calc::StatementBlock *inclIn )
 {
-	 calc::FieldExpr * 	 _retv;
+	 calc::FieldExpr * 	 _retv = nullptr;
 #line 906 "calcparser.g"
 	zzRULE;
 	int _sva=1;
@@ -2144,7 +2144,7 @@ Parser::comp_expr(int *_retsignal, calc::StatementBlock *inclIn )
 	PURIFY(_retv,sizeof( calc::FieldExpr * 	))
 	*_retsignal = NoSignal;
 #line 907 "calcparser.g"
-	calc::FieldExpr *right;
+	calc::FieldExpr *right = nullptr;
 #line 908 "calcparser.g"
 	 _retv  = add_expr(&_signal,  inclIn ); if (_signal) goto _handler;
 
@@ -2179,7 +2179,7 @@ _handler:
  calc::FieldExpr * 
 Parser::add_expr(int *_retsignal, calc::StatementBlock *inclIn )
 {
-	 calc::FieldExpr * 	 _retv;
+	 calc::FieldExpr * 	 _retv = nullptr;
 #line 918 "calcparser.g"
 	zzRULE;
 	int _sva=1;
@@ -2188,7 +2188,7 @@ Parser::add_expr(int *_retsignal, calc::StatementBlock *inclIn )
 	PURIFY(_retv,sizeof( calc::FieldExpr * 	))
 	*_retsignal = NoSignal;
 #line 919 "calcparser.g"
-	calc::FieldExpr *right;
+	calc::FieldExpr *right = nullptr;
 #line 921 "calcparser.g"
 	 _retv  = mult_expr(&_signal,  inclIn ); if (_signal) goto _handler;
 
@@ -2225,7 +2225,7 @@ _handler:
  calc::FieldExpr * 
 Parser::mult_expr(int *_retsignal, calc::StatementBlock *inclIn )
 {
-	 calc::FieldExpr * 	 _retv;
+	 calc::FieldExpr * 	 _retv = nullptr;
 #line 933 "calcparser.g"
 	zzRULE;
 	int _sva=1;
@@ -2234,7 +2234,7 @@ Parser::mult_expr(int *_retsignal, calc::StatementBlock *inclIn )
 	PURIFY(_retv,sizeof( calc::FieldExpr * 	))
 	*_retsignal = NoSignal;
 #line 934 "calcparser.g"
-	calc::FieldExpr *right;
+	calc::FieldExpr *right = nullptr;
 #line 935 "calcparser.g"
 	 _retv  = pow_expr(&_signal,  inclIn ); if (_signal) goto _handler;
 
@@ -2270,7 +2270,7 @@ _handler:
  calc::FieldExpr * 
 Parser::pow_expr(int *_retsignal, calc::StatementBlock *inclIn )
 {
-	 calc::FieldExpr * 	 _retv;
+	 calc::FieldExpr * 	 _retv = nullptr;
 #line 945 "calcparser.g"
 	zzRULE;
 	int _sva=1;
@@ -2279,7 +2279,7 @@ Parser::pow_expr(int *_retsignal, calc::StatementBlock *inclIn )
 	PURIFY(_retv,sizeof( calc::FieldExpr * 	))
 	*_retsignal = NoSignal;
 #line 946 "calcparser.g"
-	calc::FieldExpr *right;
+	calc::FieldExpr *right = nullptr;
 #line 947 "calcparser.g"
 	 _retv  = sign_expr(&_signal,  inclIn ); if (_signal) goto _handler;
 
@@ -2314,7 +2314,7 @@ _handler:
  calc::FieldExpr * 
 Parser::sign_expr(int *_retsignal, calc::StatementBlock *inclIn )
 {
-	 calc::FieldExpr * 	 _retv;
+	 calc::FieldExpr * 	 _retv = nullptr;
 #line 957 "calcparser.g"
 	zzRULE;
 	int _sva=1;
@@ -2370,7 +2370,7 @@ _handler:
  calc::FieldExpr * 
 Parser::not_expr(int *_retsignal, calc::StatementBlock *inclIn )
 {
-	 calc::FieldExpr * 	 _retv;
+	 calc::FieldExpr * 	 _retv = nullptr;
 #line 981 "calcparser.g"
 	zzRULE;
 	int _sva=1;
@@ -2416,7 +2416,7 @@ _handler:
  calc::FieldExpr * 
 Parser::misc_expr(int *_retsignal, calc::StatementBlock *inclIn )
 {
-	 calc::FieldExpr * 	 _retv;
+	 calc::FieldExpr * 	 _retv = nullptr;
 #line 996 "calcparser.g"
 	zzRULE;
 	int _sva=1;
@@ -2439,7 +2439,7 @@ Parser::misc_expr(int *_retsignal, calc::StatementBlock *inclIn )
 		if ( (LA(1)==TOK_IF)
  ) {
 #line 998 "calcparser.g"
-			MAJOR_CODE c=OP_IF; calc::FieldExpr *f;
+			MAJOR_CODE c=OP_IF; calc::FieldExpr *f = nullptr;
 			calc::FieldExprArgs args;
 #line 1001 "calcparser.g"
 			zzmatch_wsig(TOK_IF, _handler);
@@ -2511,7 +2511,7 @@ Parser::misc_expr(int *_retsignal, calc::StatementBlock *inclIn )
 					else {
 						if ( (setwd9[LA(1)]&0x4) && (setwd9[LA(2)]&0x8) ) {
 #line 1014 "calcparser.g"
-							calc::FieldExpr *e;
+							calc::FieldExpr *e = nullptr;
 #line 1015 "calcparser.g"
 							 e  = expr(&_signal,  inclIn ); if (_signal) goto _handler;
 
@@ -2860,7 +2860,7 @@ Parser::exprList(int *_retsignal, calc::StatementBlock *inclIn, calc::FieldExprA
 	int _signal=NoSignal;
 	*_retsignal = NoSignal;
 #line 1141 "calcparser.g"
-	calc::FieldExpr *e;
+	calc::FieldExpr *e = nullptr;
 #line 1142 "calcparser.g"
 	 e  = expr(&_signal,  inclIn ); if (_signal) goto _handler;
 

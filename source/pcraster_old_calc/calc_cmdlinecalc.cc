@@ -221,7 +221,7 @@ int calc::CmdLineCalc::execute()
 
 extern "C" PCR_DLL_FUNC(int)  executeCommandLine(int argc, char**argv)
 {
-  int r;
+  int r = 0;
   {
     calc::CmdLineCalc c(argc,argv);
     r=c.run();

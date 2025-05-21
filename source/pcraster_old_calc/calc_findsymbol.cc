@@ -120,8 +120,8 @@ static MAJOR_CODE FindFunc(const char* name, bool loadExtLibs)
 static void loadExternalSymbols()
 {
 
-  size_t functionIndex;      // First index of function loaded.
-  size_t modelLinkIndex;     // First index of model link loaded.
+  size_t functionIndex = 0;      // First index of function loaded.
+  size_t modelLinkIndex = 0;     // First index of model link loaded.
   std::string libraryName;
   std::string functionName;
   std::string modelLinkName;

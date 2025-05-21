@@ -45,6 +45,8 @@
 #define INCLUDED_CALC_OPERATOR
 #endif
 
+#include <cmath>
+
 calc::LookupTableLeaf *calc::LookupExpr::init(
   const calc::UsePar &tab)
 {
@@ -156,7 +158,7 @@ void calc::LookupExpr::execute(FieldStack& resStack)
       LookupTable ftab(*tab,remove,keyValues);
       keyValues.resize(keep.size());
       for(size_t i=0; i < nr; i++) {
-        double res;
+        double res = NAN;
         pcr::setMV(res); // if goto is exec'ed then ok value
         for(size_t k = 0; k < keep.size(); k++) {
           if (!fields[keep[k]]->getCell(keyValues[k], i))
@@ -169,7 +171,7 @@ void calc::LookupExpr::execute(FieldStack& resStack)
 
     } else {
       for(size_t i=0; i < nr; i++) {
-        double res;
+        double res = NAN;
         pcr::setMV(res); // if goto is exec'ed then ok value
         for(size_t k = 0; k < nrKeys; k++) {
           if (!fields[k]->getCell(keyValues[k], i))

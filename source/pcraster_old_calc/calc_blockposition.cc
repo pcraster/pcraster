@@ -34,7 +34,7 @@ calc::BlockPosition::BlockPosition(calc::BlockPosition& parent):
 
 size_t calc::BlockPosition::grade(const calc::BlockPosition& other) const
 {
-  size_t i,n = std::min(d_key.size(),other.d_key.size());
+  size_t i = 0,n = std::min(d_key.size(),other.d_key.size());
   for (i =0; i < n; i++) {
    if (d_key[i] != other.d_key[i])
      break;

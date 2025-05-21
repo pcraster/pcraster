@@ -127,8 +127,8 @@ void calc::TssOutputValue::flushToFile()
   std::ofstream f;
   openFile(f);
 
-  const char *mvFmt;
-  int valFmt;
+  const char *mvFmt = nullptr;
+  int valFmt = 0;
   switch(static_cast<CSF_VS>(d_vs)) { // dangerous typecast
    case VS_LDD    :
    case VS_BOOLEAN: mvFmt = "1e31"; // len 4

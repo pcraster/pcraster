@@ -9,30 +9,6 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-
-#ifndef INCLUDED_FSTREAM
-#include <fstream>
-#define INCLUDED_FSTREAM
-#endif
-
-#ifndef INCLUDED_ITERATOR
-#include <iterator>
-#define INCLUDED_ITERATOR
-#endif
-
-#ifndef INCLUDED_MEMORY
-#include <memory>
-#define INCLUDED_MEMORY
-#endif
-
-#ifndef INCLUDED_SSTREAM
-#include <sstream>
-#define INCLUDED_SSTREAM
-#endif
 
 // PCRaster library headers.
 #ifndef INCLUDED_MISC
@@ -79,6 +55,12 @@
 
 // Module headers.
 
+#include <cmath>
+#include <fstream>
+#include <iostream>
+#include <iterator>
+#include <memory>
+#include <sstream>
 
 /*
   TODO:
@@ -333,7 +315,7 @@ bool pt::ParticleTracker::inAquifer(size_t row, size_t col) const
 
 bool pt::ParticleTracker::inAquifer(double x, double y) const
 {
-  double row, col;
+  double row = NAN, col = NAN;
 
   _particles.space().coords2RowCol(x, y, row, col);
   row = std::floor(row);
@@ -482,7 +464,7 @@ void pt::ParticleTracker::coords2RowCol(double x, double y, double& row,
 void pt::ParticleTracker::coords2RowCol(double x, double y, size_t& row,
          size_t& col) const
 {
-  double rowTmp, colTmp;
+  double rowTmp = NAN, colTmp = NAN;
   coords2RowCol(x, y, rowTmp, colTmp);
   POSTCOND(rowTmp >= 0.0 && colTmp >= 0.0);
   row = static_cast<size_t>(std::floor(rowTmp));
@@ -518,7 +500,7 @@ void pt::ParticleTracker::loc2Coords(const geo::CellLoc& loc, double& x,
 void pt::ParticleTracker::reflect(size_t row, size_t col, double& x,
          double& y) const
 {
-  double rowNew, colNew;
+  double rowNew = NAN, colNew = NAN;
   coords2RowCol(x, y, rowNew, colNew);
 
   // Distance from border current cell and new cell.
@@ -637,7 +619,7 @@ void pt::ParticleTracker::generateDistribution(
     // +-----------+
 
     Particle p1, p2, p3, p4;
-    double left, right, top, bottom;
+    double left = NAN, right = NAN, top = NAN, bottom = NAN;
 
     for(size_t row = 0; row < nrRows(); ++row) {
       for(size_t col = 0; col < nrCols(); ++col) {
@@ -720,7 +702,7 @@ void pt::ParticleTracker::generateDistribution(
     // +-----------+
 
     Particle p1, p2, p3, p4;
-    double left, right, top, bottom;
+    double left = NAN, right = NAN, top = NAN, bottom = NAN;
 
     for(size_t row = 0; row < nrRows(); ++row) {
       for(size_t col = 0; col < nrCols(); ++col) {
@@ -966,7 +948,7 @@ size_t pt::ParticleTracker::calculateNumberOfParticleMoves(
 
   const size_t nrCriteria = 4;
   double criteria[nrCriteria];
-  double tmp;
+  double tmp = NAN;
 
   pcr::setMV(&(criteria[0]), nrCriteria);
 
@@ -1333,10 +1315,10 @@ double pt::ParticleTracker::maxConcentration(
 {
   DEVELOP_PRECOND(!points.empty());
 
-  double value;
+  double value = NAN;
   double maxRadius = 2.0 * cellSize();
 
-  double x, y;
+  double x = NAN, y = NAN;
   loc2Coords(loc, x, y);
   geo::Point<double, 2> point(x, y);
 
@@ -1386,7 +1368,7 @@ void pt::ParticleTracker::averageConcentration(
 
   for(geo::CellLocVisitor loc(nrRows(), nrCols()); loc.valid(); ++loc) {
     // conc.cell(*loc) = averageConcentration(*loc);
-    double sum;
+    double sum = NAN;
 
     if(_particles.isMV(*loc)) {
       pcr::setMV(conc.cell(*loc));
@@ -1421,7 +1403,7 @@ void pt::ParticleTracker::sumConcentration(
 {
   for(geo::CellLocVisitor loc(nrRows(), nrCols()); loc.valid();
          ++loc) {
-    double sum;
+    double sum = NAN;
 
     if(_particles.isMV(*loc)) {
       pcr::setMV(conc.cell(*loc));
@@ -1469,7 +1451,7 @@ void pt::ParticleTracker::changeInConcentrations(
 {
   PRECOND(timeIncrement > 0.0);
   double halfTimeStep = 0.5 * timeIncrement;
-  double factor, gradient1, gradient2;
+  double factor = NAN, gradient1 = NAN, gradient2 = NAN;
 
   for(geo::CellLocVisitor visitor(nrRows(), nrCols()); visitor.valid();
          ++visitor) {
@@ -1538,7 +1520,7 @@ double pt::ParticleTracker::concentrationGradient(
   // i: column number
   // j: row number
 
-  double result;
+  double result = NAN;
 
   if(pcr::isMV(conc.cell(loc))) {
     pcr::setMV(result);
@@ -1802,14 +1784,14 @@ void pt::ParticleTracker::moveParticles(
          const geo::SimpleRaster<double>& flux,
          double timeIncrement)
 {
-  double dx, dy;
-  double xParticle, yParticle, xParticleNew, yParticleNew;
-  double xVelocParticle, yVelocParticle;
+  double dx = NAN, dy = NAN;
+  double xParticle = NAN, yParticle = NAN, xParticleNew = NAN, yParticleNew = NAN;
+  double xVelocParticle = NAN, yVelocParticle = NAN;
 
-  double rowNewExact, colNewExact;
-  size_t rowNew, colNew;
+  double rowNewExact = NAN, colNewExact = NAN;
+  size_t rowNew = 0, colNew = 0;
 
-  double offsetX, offsetY;
+  double offsetX = NAN, offsetY = NAN;
 
   geo::GriddedPoints<Particle> newParticles(_particles.space(),
          _particles.missingValues());
@@ -2043,8 +2025,8 @@ void pt::ParticleTracker::calculateConcentration(
   // Velo
   calculateVelocity(xVeloc, yVeloc);
 
-  size_t nrMoves;
-  double timeIncrement;
+  size_t nrMoves = 0;
+  double timeIncrement = NAN;
 
   {
     geo::RasterBoundaries<double> Dxx(nrRows(), nrCols());

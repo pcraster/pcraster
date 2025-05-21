@@ -2,17 +2,14 @@
 
 #ifndef INCLUDED_CALC_INDEXTABLE
 # include "calc_indextable.h"
+
+#include <math.h>
 # define INCLUDED_CALC_INDEXTABLE
 #endif
 
 #ifndef INCLUDED_CALC_LEXVALUEFILE
 # include "calc_lexvaluefile.h"
 # define INCLUDED_CALC_LEXVALUEFILE
-#endif
-
-#ifndef INCLUDED_FSTREAM
-#include <fstream>
-#define INCLUDED_FSTREAM
 #endif
 
 #ifndef INCLUDED_CALC_INDEXPARAMETERCONSTANT
@@ -45,11 +42,13 @@
 #define INCLUDED_COM_STRLIB
 #endif
 
-
 #ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
 #define INCLUDED_COM_EXCEPTION
 #endif
+
+#include <cmath>
+#include <fstream>
 
 namespace calc {
 class LexIndexTable : public LexValueFile {
@@ -172,7 +171,7 @@ void calc::IndexTable::fieldNrValues(const calc::BindedSymbol& par,VS vs,
   vals.reserve(n);
   for (size_t i=0;i < n; i++) {
     const Value& val = find(par.externalName(),i);
-    double valD;
+    double valD = NAN;
     if ((!CnvrtDouble(&valD,val.d_value.c_str()))
         || !isIn(vs,vsOfNumber(valD)) ) { // pcrcalc/test283
       std::ostringstream  msg;
@@ -197,7 +196,7 @@ VS calc::IndexTable::fieldMapValues(const calc::BindedSymbol& par,
     const Value& val = find(par.externalName(),i);
     std::string  fileName(val.d_value);
     try {
-      double valD;
+      double valD = NAN;
       if (CnvrtDouble(&valD,fileName.c_str())) // bummer, its a number
           throw com::Exception(" is not a map"); // pcrcalc/test306
       fileName = scriptConst().inputFilePath(fileName);
@@ -228,7 +227,7 @@ void calc::IndexTable::tableNameVerify(const calc::BindedSymbol& par) const
   size_t n = d_array.nrElements();
   for (size_t i=0;i < n; i++) {
     const Value& val = find(par.externalName(),i);
-    double valD;
+    double valD = NAN;
     if (CnvrtDouble(&valD,val.d_value.c_str())) {
       // pcrcalc/test286
       std::ostringstream msg;

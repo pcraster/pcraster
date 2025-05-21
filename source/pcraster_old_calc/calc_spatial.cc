@@ -183,7 +183,7 @@ bool calc::Spatial::checkDebug(
   auto *mask = static_cast<UINT1 *>(s.areaMask());
   CSF_CR cr = biggestCellRepr(vs());
 
-   bool   newMVsFound;
+   bool   newMVsFound = false;
    /* check for MV created if we are assigning a spatial*/
    bpc=4;
    switch(cr) {
@@ -246,7 +246,7 @@ void calc::Spatial::setCell(const double& value, size_t i)
 bool calc::Spatial::getCell(double& value, size_t i) const
 {
   makeDataAvailable();
-  bool isNotMV;
+  bool isNotMV = false;
   switch(biggestCellRepr(vs())) {
     case CR_UINT1:
       isNotMV = !pcr::isMV(d_val1[i]);

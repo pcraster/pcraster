@@ -4,10 +4,6 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_FUNCTIONAL
-#include <functional>
-#define INCLUDED_FUNCTIONAL
-#endif
 
 // PCRaster library headers.
 #ifndef INCLUDED_DAL_MATHUTILS
@@ -51,7 +47,8 @@
 #define INCLUDED_BLOCK_TYPES
 #endif
 
-
+#include <cmath>
+#include <functional>
 
 /*!
   \file
@@ -119,8 +116,8 @@ static void mackeyBridgeAdd(
          INT4 sedimentToAdd,
          Compactors<MackeyBridgeCompactor> const& compactors)
 {
-  double depth;
-  double voxelThickness;
+  double depth = NAN;
+  double voxelThickness = NAN;
 
   discr::VoxelStack& stack(block.cell(index));
 

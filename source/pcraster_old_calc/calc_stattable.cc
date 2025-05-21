@@ -659,7 +659,7 @@ template<class IntervalMapT>
   m.insertIntervals(d_subject.d_intervals);
   POSTCOND(m.size()==d_subject.d_intervals.size());
 
-  const REAL4* cross;
+  const REAL4* cross = nullptr;
   std::unique_ptr<FieldHandle> d;
 
   if (!d_cross.defined())

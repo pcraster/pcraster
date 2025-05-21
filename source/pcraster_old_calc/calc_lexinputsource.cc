@@ -73,7 +73,7 @@ calc::LexInputSource::~LexInputSource()
  */
 calc::LexInputSource *calc::createLexInputSourceFromFile(const com::PathName& pn)
 {
-  MAP *m;
+  MAP *m = nullptr;
   if ( (m = Mopen(pn.toString().c_str(),M_READ)) != nullptr) {
     Mclose(m);
     throw com::Exception(quote(pn.toString())+" is a map, not a script file");

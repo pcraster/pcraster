@@ -369,7 +369,7 @@ void calc::EsriGridIO::describeGridDbl(
      (*T_DescribeGridDbl)(const char *name, double *cellSize, int *,
                     double *, double *, int *, int *, int *);
   STATIC_GRIDIO_FPTR(DescribeGridDbl);
-  int dataTypeInt;
+  int dataTypeInt = 0;
   if ((*funcPtr)
       (grdnam.c_str(), cellsz,gridsz, box, sta, &dataTypeInt, nclass,reclen)
      ) {

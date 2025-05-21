@@ -4,10 +4,6 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_CMATH
-#include <cmath>
-#define INCLUDED_CMATH
-#endif
 
 // PCRaster library headers.
 #ifndef INCLUDED_DAL_MATHUTILS
@@ -31,7 +27,7 @@
 #define INCLUDED_BLOCK_VOXELATHEIGHT
 #endif
 
-
+#include <cmath>
 
 namespace block {
 
@@ -58,7 +54,7 @@ void resample(
   DEVELOP_PRECOND(static_cast<discr::Raster const&>(result) ==
          static_cast<discr::Raster const&>(block));
 
-  REAL4 base, surface;
+  REAL4 base = NAN, surface = NAN;
 
   if(!block.extremeElevations(base, surface)) {
     // All MV's.
@@ -405,17 +401,17 @@ static void resample(
     double currentHeight = currentStack.bottomElevation(curItFirst -
                currentStack.begin());
     // Bottom of new Voxel.
-    REAL4 newVoxelBottom;
+    REAL4 newVoxelBottom = NAN;
     // Top of new Voxel.
-    REAL4 newVoxelTop;
+    REAL4 newVoxelTop = NAN;
     // Fraction of first contributing attribute value.
-    double firstFraction;
+    double firstFraction = NAN;
     // Fraction of last contributing attribute value.
-    double lastFraction;
+    double lastFraction = NAN;
     // Iterator to last contributing attribute value.
     typename std::vector<REAL4>::const_iterator curItLast;
     // Index of current attribute value.
-    size_t currentValueIndex;
+    size_t currentValueIndex = 0;
     // Index of new attribute value.
     size_t newValueIndex = newIt - newStack.begin();
 

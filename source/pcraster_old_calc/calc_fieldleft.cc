@@ -104,7 +104,7 @@ void calc::FieldLeft::assign(FieldHandle f)
       || scriptConst().zeroCompression())) {
      s=dynamic_cast<const Spatial *>(f.get_rep());
      POSTCOND(s);
-     size_t bpc;
+     size_t bpc = 0;
      if (s->checkDebug(scriptConst(),allZero,bpc)) {
         std::ostringstream msg;
         msg << "-d catched MV creation on " << name() << d_index->selectedName()

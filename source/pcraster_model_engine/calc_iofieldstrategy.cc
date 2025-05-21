@@ -169,7 +169,7 @@ std::string calc::IoFieldStrategy::pathTimeStep1(
     const RunDirectory& rd,
     const std::string&  stackName) const
 {
-  bool found;
+  bool found = false;
   return rd.inPath(found,makeStackItemName(stackName,1));
 }
 

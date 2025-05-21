@@ -35,6 +35,7 @@
 #define INCLUDED_CALC_DOMAINERROR
 #endif
 
+#include <cmath>
 
 /*!
   \file
@@ -90,10 +91,10 @@ static void execLookupLookup(
 
   try {
     for(size_t i=0; i < nr; i++) {
-      double res;
+      double res = NAN;
       pcr::setMV(res); // if goto is exec'ed then ok value
       for(size_t k = 0; k < nrKeys; k++) {
-        double keyVal;
+        double keyVal = NAN;
         if (!a[k].getCell(keyVal, i))
           goto store;
         keyValues[k]=(RelationRecord::Float)keyVal;

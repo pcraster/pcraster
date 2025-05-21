@@ -515,7 +515,7 @@ void calc::BuildTypesVisitor::visitExpr(BaseExpr*        o)
   }
 
   // CHECK IF ARGUMENTS ARE VALID FOR OPERATION
-  size_t i; // outside, catch clause uses it
+  size_t i = 0; // outside, catch clause uses it
   try {
    for(i=0; i < o->nrArgs(); ++i)
    {

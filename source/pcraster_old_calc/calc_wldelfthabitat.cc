@@ -702,7 +702,7 @@ void calc::WlDelftHabitat::parseStatistics(const QDomElement&  de)
   const Parameter& onderwerp = parameter(e);
 
   e=findTagGet1stSibling(de,"ZoomGebruik");
-  StatTable *s;
+  StatTable *s = nullptr;
   if (e.isNull() || value(e) != "true" ) { // Optional
    s=addStatistics(onderwerp.d_name);
   }  else {

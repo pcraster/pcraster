@@ -386,7 +386,7 @@ calc::DataType IOStrategy::resolveInputSymbol(
     std::string&           newExternalName,
     const        DataType& dt)
 {
-  bool foundDummy;
+  bool foundDummy = false;
   newExternalName=d_runDirectory.inPath(foundDummy,newExternalName);
 
   // calc::File file(fileName);

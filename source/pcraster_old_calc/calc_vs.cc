@@ -93,7 +93,7 @@ static std::ostream& operator<<(
 
   size_t nrVs = ARRAY_SIZE(names);
   size_t thisSet[ARRAY_SIZE(names)];
-  size_t i,thisSetNr=0;
+  size_t i = 0,thisSetNr=0;
   for(i=0; i<nrVs; i++)
     if (isIn(names[i].vs, setOfVs)) {
       thisSet[thisSetNr] = i;

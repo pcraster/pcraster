@@ -32,7 +32,7 @@
 #define INCLUDED_PT_PARTICLETRACKER
 #endif
 
-
+#include <cmath>
 
 /*!
   \file
@@ -202,13 +202,13 @@ void pt::MOCLink::initExecute(
   // Initialize all MOC stuff. Make sure we are ready for transport calls.
   const PCR_MAP_REAL8* timeStepMap =
          static_cast<PCR_MAP_REAL8*>(signature.d_input[0].value);
-  double timeStep;
+  double timeStep = NAN;
   timeStepMap->Get(&timeStep, 0, 0, timeStepMap);
   PRECOND(!pcr::isMV(timeStep));
 
   const PCR_MAP_REAL8* nrParticlesMap =
          static_cast<PCR_MAP_REAL8*>(signature.d_input[1].value);
-  double nrParticles;
+  double nrParticles = NAN;
   nrParticlesMap->Get(&nrParticles, 0, 0, nrParticlesMap);
   PRECOND(!pcr::isMV(nrParticles));
   com::GreaterThan<double> nrParticleValidator(0.0);

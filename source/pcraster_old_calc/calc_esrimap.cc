@@ -5,11 +5,6 @@
 #define INCLUDED_CALC_ESRIMAP
 #endif
 
-#ifndef INCLUDED_ALGORITHM
-#include <algorithm>
-#define INCLUDED_ALGORITHM
-#endif
-
 #ifndef INCLUDED_GIOAPI
 #include "gioapi.h"
 #define INCLUDED_GIOAPI
@@ -60,6 +55,9 @@
 #define INCLUDED_CALC_MAP2CSF
 #endif
 
+#include <algorithm>
+#include <cmath>
+
 calc::NotAnEsriGrid::NotAnEsriGrid():
  com::Exception(" not an ESRI grid")
 {
@@ -87,13 +85,13 @@ calc::EsriMap::EsriMap(const std::string& fileName):
     d_prjFile = prjFilePath().toString();
 
   calc::EsriGridIO::bndCellRead(fileName, d_box);
-  double min, max; // some values not doing bool/ldd
+  double min = NAN, max = NAN; // some values not doing bool/ldd
   try {
   calc::EsriGridIO::StaGetMinmaxDbl(fileName, &min, &max);
   } catch (...) {
     min=-1; max=10;
   }
-  int    cellType;
+  int    cellType = 0;
 
   d_chanId = calc::EsriGridIO::cellLayerOpen(
      fileName,READONLY,ROWIO, &cellType,&d_cellSize);
@@ -108,7 +106,7 @@ calc::EsriMap::EsriMap(const std::string& fileName):
   }
 
   // EsriGridIO::privateWindowBox(d_chanId, d_box);
-  size_t nrRows, nrCols;
+  size_t nrRows = 0, nrCols = 0;
   double dummyAdjBndBox[4] = { 0,0,0,0 };
   calc::EsriGridIO::privateAccessWindowSet(d_chanId, d_box, d_cellSize,
     dummyAdjBndBox, nrRows, nrCols);
@@ -196,7 +194,7 @@ bool calc::EsriMap::cmpBox(const double *otherBox)  const
 
 calc::EsriMap::Window calc::EsriMap::window()
 {
-  size_t nrRows, nrCols;
+  size_t nrRows = 0, nrCols = 0;
   double dummyAdjBndBox[4] = { 0,0,0,0 };
 
   calc::EsriGridIO::privateAccessWindowSet(d_chanId, d_box,
@@ -258,7 +256,7 @@ void calc::EsriMap::readInBuffer(VS readAs, void *val)
 
 bool calc::EsriMap::getMinMax(double& min, double& max) const
 {
-  float mvVal;
+  float mvVal = NAN;
   calc::EsriGridIO::getMissingFloat(&mvVal);
 
   // have to close and re-open again
@@ -271,8 +269,8 @@ bool calc::EsriMap::getMinMax(double& min, double& max) const
   }
 
   // re-open again
-  int    cellTypeDummy;
-  double cellSizeDummy;
+  int    cellTypeDummy = 0;
+  double cellSizeDummy = NAN;
   d_chanId = calc::EsriGridIO::cellLayerOpen(
      fileName(),READONLY,ROWIO, &cellTypeDummy,&cellSizeDummy);
 
@@ -291,7 +289,7 @@ void calc::EsriMap::writeData(const void *allValues)
     try {
     const auto *inVal = static_cast<const float *>(allValues);
     float *outVal= outVal2d[0];
-    float mvVal;
+    float mvVal = NAN;
     calc::EsriGridIO::getMissingFloat(&mvVal);
     size_t n = nrCells();
     for(size_t i=0; i<n ; i++)
@@ -375,7 +373,7 @@ void calc::EsriMap::readFloat(void *val)
   // grids, despite what you give as the MV value
   // in the input esri grid. GOOD!
 
-  REAL4 mvVal;
+  REAL4 mvVal = NAN;
   calc::EsriGridIO::getMissingFloat(&mvVal);
   pcr::AlterToStdMV<REAL4> ts(mvVal);
   std::for_each(linVal,linVal+nrCells(),ts);

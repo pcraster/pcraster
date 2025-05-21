@@ -60,7 +60,7 @@ calc::ReportDefinition::ReportDefinition(const calc::Symbol& s,const std::vector
   d_reportAt[0]=false;
 
   for(auto m : list) {
-    int i;
+    int i = 0;
     if (m.start > endTime) // single or range outside 1..endTime
       continue; // do not add
     if (m.start == -1) // keyword "endtime"

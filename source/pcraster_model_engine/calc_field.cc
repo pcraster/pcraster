@@ -1,10 +1,5 @@
 #include "stddefx.h"
 
-#ifndef INCLUDED_CSTRING
-#include <cstring>
-#define INCLUDED_CSTRING
-#endif
-
 #ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
 #define INCLUDED_CALC_FIELD
@@ -15,6 +10,8 @@
 #define INCLUDED_CALC_DATATYPE
 #endif
 
+#include <cmath>
+#include <cstring>
 
 calc::Field::Field(const Field& rhs):
   DataValue(rhs),
@@ -118,7 +115,7 @@ void calc::Field::resetVs(VS newVs)
 {
   // for NonSpatial we temporary hold the value in
   //  v, so we can change CR for a NonSpatial
-  double v;
+  double v = NAN;
   if (isSpatial()) {
     // can not change to type of Spatial::d_val array
     PRECOND(allFitCRIndex(newVs) == allFitCRIndex(d_vs));
@@ -153,7 +150,7 @@ std::ostream &operator<<(std::ostream& s, const calc::Field& f)
   s << "nrValues(" << f.nrValues() << ")\n";
   s << "data(";
   for(size_t i=0; i < f.nrValues(); ++i) {
-    double v;
+    double v = NAN;
     if (i)
       s << ",";
     if (f.getCell(v,i))

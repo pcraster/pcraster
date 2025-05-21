@@ -32,7 +32,7 @@
 #define INCLUDED_CALC_NONSPATIAL
 #endif
 
-
+#include <cmath>
 
 /*!
   \file
@@ -98,7 +98,7 @@ void calc::CellOp::getCell(RunTimeEnv *rte, size_t i) const
 {
   Field *f=rte->popField();
   if (f->isSpatial()) {
-    double value;
+    double value = NAN;
     f->getCell(value,i);
     // Executor::visitCellIterator ensures this
     DEVELOP_PRECOND(f->getCell(value,i));

@@ -56,7 +56,7 @@ calc::LexInputSourceTextScript::~LexInputSourceTextScript()
  */
 int calc::LexInputSourceTextScript::getChar()
 {
-    char c;
+    char c = 0;
     if (d_script.get(c)) {
      // calc::ParserTest::testNonAsciiScript()
      // 36:ERROR: not printable: FFFFFFF1(hex)

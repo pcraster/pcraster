@@ -21,9 +21,10 @@
 #define INCLUDED_API
 #endif
 
+#include <cmath>
 #include <numbers>
 
-/* special code, that is "too long" to put in operation.xml 
+/* special code, that is "too long" to put in operation.xml
  * or specific classes such as aggregate
  */
 
@@ -55,7 +56,7 @@ struct special {
     const double ldd2Dir[10] = { 0, 0.625, 0.500, 0.375,
                                  0.750, -1   , 0.250,
                                  0.875, 0    , 0.125 };
-    if (v == LDD_PIT) 
+    if (v == LDD_PIT)
      return -1;
     PRECOND(v > 0 && v < ((UINT1)10) );
     return (REAL4)(ldd2Dir[v] * M_2PI);
@@ -82,8 +83,8 @@ struct special {
       return impl_4_2_l((INT4)v);
   }
   inline static UINT1 impl_d_2_l( const REAL4& v) {
-     const UINT1 lookup[8] = { 8, 9, 6, 3, 2, 1, 4, 7 }; 
-     double dum,shift = 1.0/16.0; /* ((pi/8)/2pi) = 1/16 */
+     const UINT1 lookup[8] = { 8, 9, 6, 3, 2, 1, 4, 7 };
+     double dum = NAN,shift = 1.0/16.0; /* ((pi/8)/2pi) = 1/16 */
      if (v == -1)
        return LDD_PIT;
      /* shift a halfdir - eps. (0.0624999) */

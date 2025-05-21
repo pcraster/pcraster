@@ -30,7 +30,7 @@
 #define INCLUDED_CALC_POSEXCEPTION
 #endif
 
-
+#include <cmath>
 
 /*!
   \file
@@ -76,7 +76,7 @@ public:
 namespace calc {
 
 AreaMap::AreaMap()
-  
+
 {
 }
 
@@ -181,7 +181,7 @@ void AreaMap::setMaskOnCoordinates()
   PRECOND(hasCoordinateMask());
   pcrxml::CoordinateMask const& m(d_computationMask->coordinates().get());
   for(geo::LinearLoc l=0; l < d_rs.nrCells(); ++l) {
-    double x,y;
+    double x = NAN,y = NAN;
     d_rs.coordinates(x,y,l);
     if (d_mask[l])
       d_mask[l]=
@@ -206,13 +206,13 @@ void AreaMap::transferMask(const Field* f)
   if (atNonMVs) {
     // computeAtNonMissingValues
     for(size_t i=0; i < d_rs.nrCells(); ++i) {
-      double v;
+      double v = NAN;
       d_mask[i] = f->getCell(v,i);
      }
   } else {
       // computeAtNonZeroValues
       for(size_t i=0; i < d_rs.nrCells(); ++i) {
-       double v;
+       double v = NAN;
        if (f->getCell(v,i))
          d_mask[i]= v!=0 ;
       }

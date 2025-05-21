@@ -100,6 +100,8 @@
 #define INCLUDED_CALC_TIMETABLE
 #endif
 
+#include <cmath>
+
 /*!
   \file
   This file contains the implementation of the ASTScript class.
@@ -131,7 +133,7 @@ namespace calc {
      {
        PRECOND(id);
        const auto *n=dynamic_cast<const ASTNumber *>(id);
-       double value;
+       double value = NAN;
        if(n) {
          value=n->value();
        } else {
@@ -162,7 +164,7 @@ namespace calc {
 //------------------------------------------------------------------------------
 
 calc::ASTScript::ASTScript()
-  
+
 {
   if (appClone)
     setAreaMapFromString(appClone,"--clone");
@@ -311,13 +313,13 @@ void calc::ASTScript::compile()
  *     const std::string& xmlConfigure)
  * {
  *   XMLReflection xr(xmlConfigure);
- * 
+ *
  *   // d_rteSettings.resetIOStrategy(xr.ioStrategy());
  *   // POSTCOND(xr.ioStrategy()==pcrxml::IOStrategyType::IOMemory);
- * 
+ *
  *   // start with info from script itself
  *   analyzeNoContext();
- * 
+ *
  *   //  restrict d_symbols in types from xmlConfigure
  *   d_rteSettings.configureSymbols(d_symbols, xr);
  * }

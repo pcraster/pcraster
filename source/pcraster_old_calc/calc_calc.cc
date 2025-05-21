@@ -181,12 +181,12 @@ bool calc::Calc::processArgs(
     SCRIPT_TYPE scriptType = SCRIPT_CMD_LINE;
 
 
-    const char *scriptName;
+    const char *scriptName = nullptr;
     int  shellArgsStart = 1; /* pos in argv where shellArgs start */
     // both empty if not set
     com::PathName runDirectory,externalBindingFile;
 
-    int c;
+    int c = 0;
     while ( (c = GetOpt()) != 0 )
      switch(c) {
       case 'c' : File::d_testCaseTypeOnExistingName=true;

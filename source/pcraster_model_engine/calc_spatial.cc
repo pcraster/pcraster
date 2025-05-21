@@ -166,7 +166,7 @@ void *calc::Spatial::dest()
 bool calc::Spatial::getCell(double& value, size_t i) const
 {
  /* this now is a work around for bug 147 */
-   bool isNotMV;
+   bool isNotMV = false;
    switch(cri()) {
     case CRI_1:
       isNotMV = !pcr::isMV(d_val1[i]);

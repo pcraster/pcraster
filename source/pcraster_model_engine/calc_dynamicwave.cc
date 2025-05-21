@@ -64,6 +64,7 @@
 #define INCLUDED_CALC_TIMESLICEVISITOR
 #endif
 
+#include <cmath>
 #include <format>
 
 /*!
@@ -255,7 +256,7 @@ double tableLookup(
     DynamicWaveTable::LookupColumns fromCol,
     DynamicWaveTable::LookupColumns toCol)
 {
-  double result;
+  double result = NAN;
   std::vector<float> prefixKey(1,profileVal);
   bool r=tab.interpolate(result, prefixKey,fromVal,fromCol,toCol);
   if (!r) {
@@ -899,13 +900,13 @@ static double iterateToQnew(
 
     // Using Newton-Raphson Method
     typedef long double REAL;
-    REAL Qk1;      // Q at loop k+1 for i+1, j+1
-    REAL ab_pQ, deltaTX, C;
-    int   count;
+    REAL Qk1 = NAN;      // Q at loop k+1 for i+1, j+1
+    REAL ab_pQ = NAN, deltaTX = NAN, C = NAN;
+    int   count = 0;
 
-    REAL Qkx;
-    REAL fQkx;
-    REAL dfQkx;
+    REAL Qkx = NAN;
+    REAL fQkx = NAN;
+    REAL dfQkx = NAN;
     POSTCOND(sizeof(REAL) >= 8);
 
     // if no input then output = 0

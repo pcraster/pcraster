@@ -989,7 +989,7 @@ _handler:
  int  
 Parser::reportMomentStep(int *_retsignal)
 {
-	 int  	 _retv;
+	 int  	 _retv = 0;
 #line 593 "calcparser.g"
 	zzRULE;
 	int _sva=1;

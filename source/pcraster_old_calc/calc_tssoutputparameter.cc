@@ -77,9 +77,9 @@ void calc::TssOutputParameter::goInScope()
 static int GetMaxId(
   const MAP_INT4 *id)
 {
-  int r,nrRows = id->NrRows(id);
-  int c,nrCols = id->NrCols(id);
-  INT4 val, max = -1; /* -1 is save, we need a positive id */
+  int r = 0,nrRows = id->NrRows(id);
+  int c = 0,nrCols = id->NrCols(id);
+  INT4 val = 0, max = -1; /* -1 is save, we need a positive id */
 
   id->SetGetTest(GET_MV_TEST, id);
   for(r=0;r <nrRows;r++)
@@ -110,11 +110,11 @@ void calc::TssOutputParameter::AddTotss(
   if (!d_value[index])
     return; // no tss was created, during the first timestep
 
-  size_t nrVals;
+  size_t nrVals = 0;
   double *val = d_value[index]->getValueBuffer(nrVals);
   if (!val) // do not write this time step
     return;
-  int result;
+  int result = 0;
   if (isClassTss) // VS_BNO
    result = AddToTssRowINT4(val,nrVals, idMap, (const MAP_INT4 *)args[1]);
   else

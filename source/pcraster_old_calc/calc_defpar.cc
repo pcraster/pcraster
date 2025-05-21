@@ -117,7 +117,7 @@ calc::SubParameter *calc::DefPar::indexTable(
          << descriptor().name();
      throw com::Exception(msg.str());
   }
-  SubParameter *v;
+  SubParameter *v = nullptr;
   if (isIn(useType.vs(),VS_FIELD)) {
      if (useType.spatial()) {
        std::vector<std::string>vals;

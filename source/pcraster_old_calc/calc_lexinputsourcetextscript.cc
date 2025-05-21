@@ -55,7 +55,7 @@ calc::LexInputSourceTextScript::~LexInputSourceTextScript()
  */
 int calc::LexInputSourceTextScript::getChar()
 {
-    char c;
+    char c = 0;
     if (d_script.get(c)) {
       if (c>=0) // hack
        return c;

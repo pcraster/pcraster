@@ -1,12 +1,14 @@
 #include "pickle.h"
-#include "calc_spatial.h"
-#include "calc_field.h"
-#include "pcrtypes.h"
-#include "calc_map2csf.h"
+
 #include "Globals.h"
+#include "calc_field.h"
+#include "calc_map2csf.h"
+#include "calc_spatial.h"
+#include "pcrtypes.h"
 #include <boost/algorithm/string.hpp>
-#include <sstream>
+#include <cmath>
 #include <ios>
+#include <sstream>
 
 
 namespace pcraster {
@@ -14,7 +16,7 @@ namespace python {
 
 template<class T>
 void str_values(std::stringstream & content, calc::Field const & raster){
-  double val;
+  double val = NAN;
 
   for(size_t i = 0 ; i < raster.nrValues(); ++i){
     raster.getCell(val, i);

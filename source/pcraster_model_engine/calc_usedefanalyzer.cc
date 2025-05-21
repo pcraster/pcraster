@@ -156,7 +156,7 @@ class EventChain : public std::vector<UDEvent>
 
   void  setKeepLive() {
 
-   bool jumpBackHasChanged;
+   bool jumpBackHasChanged = false;
    do {
     jumpBackHasChanged=false;
 

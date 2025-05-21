@@ -1,18 +1,12 @@
 #ifndef INCLUDED_GEO_GRIDDEDPOINTS
 #define INCLUDED_GEO_GRIDDEDPOINTS
 
-
-
 #ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
 #define INCLUDED_STDDEFX
 #endif
 
 // Library headers.
-#ifndef INCLUDED_LIST
-#include <list>
-#define INCLUDED_LIST
-#endif
 
 // PCRaster library headers.
 
@@ -27,6 +21,8 @@
 #define INCLUDED_GEO_SIMPLERASTER
 #endif
 
+#include <cmath>
+#include <list>
 
 
 namespace geo {
@@ -232,7 +228,7 @@ template<class Location>
 inline geo::CellLoc geo::GriddedPoints<Point>::cellLoc(
          Location const& point) const
 {
-  double r, c;
+  double r = NAN, c = NAN;
 
   d_space.coords2RowCol(point[0], point[1], r, c);
 

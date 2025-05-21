@@ -123,7 +123,7 @@ int Do_lddcreate_impl(void *l, void *d, const void **ins)
 {
   MAP_UINT1* ldd=(MAP_UINT1 *)l;
   MAP_INT4 *t = CreateSpatialINT4(CR_INT4,ldd->nrRows,ldd->nrCols);
-  int r;
+  int r = 0;
 
   if ( t == NULL)
     return 1;

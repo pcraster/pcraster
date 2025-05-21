@@ -160,7 +160,7 @@ template<typename T>
     void operator()(T& v) {
        DEVELOP_PRECOND(sizeof(T)==4);
        // 0123 => 3210 */
-       char tmp,*b=(char *)&v;
+       char tmp = 0,*b=(char *)&v;
        tmp = b[0]; b[0] = b[3]; b[3] = tmp;
        tmp = b[1]; b[1] = b[2]; b[2] = tmp;
     }
@@ -172,7 +172,7 @@ template<typename T>
     void operator()(T& v) {
        DEVELOP_PRECOND(sizeof(T)==2);
        // 01 => 10 */
-       char tmp,*b=(char *)&v;
+       char tmp = 0,*b=(char *)&v;
        tmp = b[0]; b[0] = b[1]; b[1] = tmp;
     }
   };

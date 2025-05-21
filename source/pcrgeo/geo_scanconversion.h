@@ -8,22 +8,14 @@
 #define INCLUDED_STDDEFX
 #endif
 
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-
-
 // Library headers.
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
 
 // PCRaster library headers.
 
 // Module headers.
 
+#include <iostream>
+#include <vector>
 
 
 namespace geo {
@@ -560,7 +552,7 @@ T& midpointCircle(Integral xCenter, Integral yCenter, size_t fromRadius,
   bool innerXIsYPresent = false;
   bool outerXIsYPresent = false;
 
-  size_t nrInnerPointsOctant, nrOuterPointsOctant;
+  size_t nrInnerPointsOctant = 0, nrOuterPointsOctant = 0;
   if(fromRadius == 0) {
     PRECOND(innerPoints.size() == 1.0);
     innerXIsYPresent = false;
@@ -622,7 +614,7 @@ T& midpointCircle(Integral xCenter, Integral yCenter, size_t fromRadius,
   // Continue with columns excluding x == y.
   Integral x = 0;
   Integral yFrom, yTo;
-  size_t i;
+  size_t i = 0;
 
   for(i = 0; i < nrInnerPointsOctant; ++i) {
 

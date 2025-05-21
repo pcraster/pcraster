@@ -167,7 +167,7 @@ void Do_le_s_sn(UINT1 *r, const REAL4 *v1, const REAL4 *v2, size_t n)
 
 void Do_if_4_ss(INT4  *r, const UINT1 *test, const INT4  *val, size_t n)
 {
-	size_t i;
+	size_t i = 0;
 	for(i = 0; i < n; i++)
 	  r[i] = (test[i] == 1) /* true and not FALSE or MV */
 	        ?  val[i] :  MV_INT4;
@@ -175,7 +175,7 @@ void Do_if_4_ss(INT4  *r, const UINT1 *test, const INT4  *val, size_t n)
 
 void Do_if_4_ns(INT4  *r, const UINT1 *test, const INT4  *val, size_t n)
 {
-	size_t i;
+	size_t i = 0;
 	if ( (*test) == 1)
 		memcpy(r,val,sizeof(INT4)*n);
 	else
@@ -184,7 +184,7 @@ void Do_if_4_ns(INT4  *r, const UINT1 *test, const INT4  *val, size_t n)
 }
 void Do_if_4_sn(INT4  *r, const UINT1 *test, const INT4  *val, size_t n)
 {
-	size_t i;
+	size_t i = 0;
 	INT4 v = *val;
 	PRECOND(v != MV_INT4);
 	for(i = 0; i < n; i++)
@@ -197,7 +197,7 @@ void Do_if_s_ss(REAL4 *in_r, const UINT1 *test, const REAL4 *in_val, size_t n)
 	/* process as REAL4 */
   UINT4 *r = (UINT4 *)in_r;
   const UINT4 *val = (const UINT4 *)in_val;
-	size_t i;
+	size_t i = 0;
 	for(i = 0; i < n; i++)
 	  r[i] = (test[i] == 1) /* true and not FALSE or MV */
 	        ?  val[i] :  MV_UINT4;
@@ -214,7 +214,7 @@ void Do_if_s_ns(REAL4 *r, const UINT1 *test, const REAL4 *val, size_t n)
 void Do_if_s_sn(REAL4 *in_r, const UINT1 *test, const REAL4 *in_val, size_t n)
 {
 	/* process as REAL4 *, so can copy MV_REAL4 safe */
-	size_t i;
+	size_t i = 0;
   UINT4 *r = (UINT4 *)in_r;
   UINT4 v = *((const UINT4 *)in_val);
 	PRECOND(v != MV_UINT4);
@@ -287,7 +287,7 @@ void Do_if_else_4_sns(INT4 *r, const UINT1 *test,const  INT4 *t,const INT4 *f, s
  DO_IFELSE_SXX(t[0],f[i], INT4)
 void Do_if_else_4_nns(INT4 *r, const UINT1 *test,const  INT4 *t,const INT4 *f, size_t n)
 {
-	size_t i;
+	size_t i = 0;
 	PRECOND(*test == 0 || *test == 1);
 	if ( (*test))
 		for(i=0;i < n ; i++)
@@ -298,7 +298,7 @@ void Do_if_else_4_nns(INT4 *r, const UINT1 *test,const  INT4 *t,const INT4 *f, s
 
 void Do_if_else_4_nsn(INT4 *r, const UINT1 *test,const  INT4 *t,const INT4 *f, size_t n)
 {
-	size_t i;
+	size_t i = 0;
 	PRECOND(*test == 0 || *test == 1);
 	if ( (*test))
 		memcpy(r,t,sizeof(INT4)*n);
@@ -343,7 +343,7 @@ void Do_if_else_s_sns(REAL4 *in_r, const UINT1 *test,const  REAL4 *in_t,const RE
 
 void Do_if_else_s_nns(REAL4 *in_r, const UINT1 *test,const  REAL4 *in_t,const REAL4 *in_f, size_t n)
 {
-	size_t i;
+	size_t i = 0;
  UINT4 *r = (UINT4 *)in_r;
  const UINT4 *t = (const UINT4 *)in_t;
  const UINT4 *f = (const UINT4 *)in_f;
@@ -356,7 +356,7 @@ void Do_if_else_s_nns(REAL4 *in_r, const UINT1 *test,const  REAL4 *in_t,const RE
 }
 void Do_if_else_s_nsn(REAL4 *in_r, const UINT1 *test,const  REAL4 *in_t,const REAL4 *in_f, size_t n)
 {
-	size_t i;
+	size_t i = 0;
  UINT4 *r = (UINT4 *)in_r;
  const UINT4 *t = (const UINT4 *)in_t;
  const UINT4 *f = (const UINT4 *)in_f;
@@ -400,7 +400,7 @@ void Do_if_else_s_nsn(REAL4 *in_r, const UINT1 *test,const  REAL4 *in_t,const RE
 
 void Do_if_1_ss(UINT1  *r, const UINT1 *test, const UINT1  *val, size_t n)
 {
-	size_t i;
+	size_t i = 0;
 	for(i = 0; i < n; i++)
 	  r[i] = (test[i] == 1) /* true and not FALSE or MV */
 	        ?  val[i] :  MV_UINT1;
@@ -408,7 +408,7 @@ void Do_if_1_ss(UINT1  *r, const UINT1 *test, const UINT1  *val, size_t n)
 
 void Do_if_1_ns(UINT1  *r, const UINT1 *test, const UINT1  *val, size_t n)
 {
-	size_t i;
+	size_t i = 0;
 	if ( (*test) == 1)
 		memcpy(r,val,sizeof(UINT1)*n);
 	else
@@ -418,7 +418,7 @@ void Do_if_1_ns(UINT1  *r, const UINT1 *test, const UINT1  *val, size_t n)
 
 void Do_if_1_sn(UINT1  *r, const UINT1 *test, const UINT1  *val, size_t n)
 {
-	size_t i;
+	size_t i = 0;
 	UINT1 v = *val;
 	PRECOND(v != MV_UINT1);
 	for(i = 0; i < n; i++)

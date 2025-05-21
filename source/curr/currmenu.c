@@ -141,7 +141,7 @@ CURR_SELECT_BOX *CurrNewItemsInBox(CURR_RADIO_SELECT_BOX *b, /* read-write radio
                                    const char **items,       /* items to be put in box */
                                    int nrItems)              /* number of items */
 {
-    int i;
+    int i = 0;
 
     PRECOND(nrItems > 0);
     PRECOND(b != NULL);
@@ -178,7 +178,7 @@ CurrInitSelectBox(int beginY,           /* start y-coordinate */
                   int nrKeys,           /* number of other legal keys */
                   const char *otherMsg)
 {
-    CURR_SELECT_BOX *b;
+    CURR_SELECT_BOX *b = NULL;
 
     /* window should fit in screen */
     PRECOND(0 <= beginY && beginY + nrRulesVis <= LINES);
@@ -264,7 +264,7 @@ CurrInitRadioSelectBox(int beginY,           /* start y-coordinate */
                        const char *otherMsg) /* other message */
 {
     /* EXAMPLES * .  so examples/currradio.tr */
-    CURR_RADIO_SELECT_BOX *radioBox;
+    CURR_RADIO_SELECT_BOX *radioBox = NULL;
     PRECOND(nrItems > 0);
     /* initialize the select box of the radio select box */
     radioBox = CurrInitSelectBox(
@@ -317,7 +317,7 @@ CurrInitMultiSelectBox(int beginY,           /* start y-coordinate */
 static void PrintSelectRules(const BOOL *highlighted,  /* array for highlighted items */
                              const CURR_SELECT_BOX *b) /* box to print items from */
 {
-    int i;
+    int i = 0;
 
     /* Clear window */
     werase(b->window);
@@ -376,8 +376,8 @@ static BOOL CurrSelectItem(int *itemOrKey,     /* write-only selected item or ke
                            BOOL *highlighted,  /* to print highlighted */
                            CURR_SELECT_BOX *b) /* read-write radio select box */
 {
-    int c;
-    KEY_FUNC f;
+    int c = 0;
+    KEY_FUNC f = NULL;
     const KEY_2_COM keys[] = {
         {KEY_NPAGE, (KEY_FUNC)PageDown},
         {KEY_PPAGE, (KEY_FUNC)PageUp},
@@ -397,7 +397,7 @@ static BOOL CurrSelectItem(int *itemOrKey,     /* write-only selected item or ke
     PrintSelectMsgBox(b->otherMsg);
 
     while ((c = getch())) {
-        int i;
+        int i = 0;
         if (CurrIsEnterKey(c))
             break; /* enter key used->quit */
         for (i = 0; i < b->nrKeys; i++) {
@@ -589,7 +589,7 @@ static void DelChar(char *s, /* read-write string to modify */
                     int len, /* maximal length  of string */
                     int col) /* location of cursor */
 {
-    int i;
+    int i = 0;
     PRECOND(0 <= col && col < len);
 
     if (s[col] != '\0') {
@@ -605,7 +605,7 @@ static void InsertChar(char *s, /* read-write string to modify */
                        int len, /* length of string */
                        int col) /* location of cursor */
 {
-    int i;
+    int i = 0;
 
     PRECOND(0 <= col && col < len);
 
@@ -622,7 +622,7 @@ static void InsertChar(char *s, /* read-write string to modify */
 static void MakeEmpty(char *s, /* read-write string */
                       int len) /* length of string */
 {
-    int i;
+    int i = 0;
     for (i = 0; i < len; i++)
         s[i] = '\0';
 }
@@ -677,8 +677,8 @@ int CurrGetRadioSelection(const char **values, /* array of possible values
                           int y,               /* y - position to put dialog  */
                           int x)               /* x - position put dialog */
 {
-    int c, i, len = strlen(values[0]);
-    WINDOW *inputWin;
+    int c = 0, i = 0, len = strlen(values[0]);
+    WINDOW *inputWin = NULL;
 
     for (i = 1; i < nrValues; i++)
         len = MAX((size_t)len, strlen(values[i]));
@@ -737,7 +737,7 @@ BOOL CurrGetString(char *input, /* read-write string to get */
                    int x)       /* x - position of string to get */
 {
     /* EXAMPLES * so examples/currgetstring.tr (disabled) */
-    int c = 0, row, col;
+    int c = 0, row = 0, col = 0;
     WINDOW *inputWin = newwin(1, len, y, x);
     char *s = locBuf;
     strcpy(s, input);

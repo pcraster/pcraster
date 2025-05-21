@@ -114,8 +114,8 @@ void SetRan(unsigned int seed) /* value >= 0. If 0 then seed is taken from
                                 *  current time.
                                 */
 {
-    unsigned int i;
-    unsigned int a, b;
+    unsigned int i = 0;
+    unsigned int a = 0, b = 0;
 
     setRanCalled = TRUE;
 
@@ -138,7 +138,7 @@ double GasDev(void)
 {
     static BOOL iset = FALSE;
     static double gset;
-    double fac, r, v1, v2;
+    double fac = NAN, r = NAN, v1 = NAN, v2 = NAN;
 
     if (!iset) {
         do {
@@ -234,6 +234,7 @@ static unsigned int MilliSecSeed(void)
 #endif
 
 #ifdef HAS_GETTIMEOFDAY
+#include <math.h>
 #include <sys/time.h>
 #include <unistd.h>
 
@@ -379,11 +380,11 @@ static unsigned int collapse(int anyint, unsigned int size)
  */
 static void start_random_number(int seed_a, int seed_b)
 {
-    double s, bit;
-    unsigned int ii, jj, kk, mm;
-    unsigned int ll;
-    unsigned int sd;
-    unsigned int elt, bit_number;
+    double s = NAN, bit = NAN;
+    unsigned int ii = 0, jj = 0, kk = 0, mm = 0;
+    unsigned int ll = 0;
+    unsigned int sd = 0;
+    unsigned int elt = 0, bit_number = 0;
 
     sd = collapse(seed_a, PM1 * PM1);
     ii = 1 + sd / PM1;
@@ -429,7 +430,7 @@ static void start_random_number(int seed_a, int seed_b)
  */
 static double next_random_number(void)
 {
-    double uni;
+    double uni = NAN;
 
     if (u[ni] < u[nj])
         uni = u[ni] + (1.0 - u[nj]);

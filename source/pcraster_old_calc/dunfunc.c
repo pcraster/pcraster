@@ -11,13 +11,14 @@
 
 #include "calctypes.h"
 /* global header (opt.) and dunfunc's prototypes "" */
-#include <string.h> /* memset */
+#include "app.h"
+#include "calc.h" 
+#include "csftypes.h" 
+#include "dunfunc.h"
 #include "mathx.h" 
 #include "misc.h"  /* random numbers */
-#include "csftypes.h" 
-#include "calc.h" 
-#include "app.h"
-#include "dunfunc.h"
+#include <math.h>
+#include <string.h> /* memset */
 
 
 /* headers of this app. modules called */ 
@@ -44,7 +45,7 @@
 
 void Do_4_2_b(UINT1 *r, const INT4 *v, size_t n)
 {
-	size_t i;
+	size_t i = 0;
 	for(i=0;i<n; i++)
 	 if (v[i] == MV_INT4)
 	  r[i] = MV_UINT1;
@@ -57,7 +58,7 @@ void Do_4_2_b(UINT1 *r, const INT4 *v, size_t n)
  */
 void Do_4to1(UINT1 *r, const INT4 *v, size_t n)
 {
-	size_t i;
+	size_t i = 0;
 	for(i=0;i<n; i++)
 	 if (v[i] == MV_INT4)
 	  r[i] = MV_UINT1;
@@ -70,7 +71,7 @@ void Do_4to1(UINT1 *r, const INT4 *v, size_t n)
 
 void Do_sto1(UINT1 *r, const REAL4 *v, size_t n)
 {
-	size_t i;
+	size_t i = 0;
 	for(i=0;i<n; i++)
 	 if (IS_MV_REAL4(v+i))
 	  r[i] = MV_UINT1;
@@ -94,7 +95,7 @@ void Do_sto4(INT4 *r, const REAL4 *v, size_t n)
 
 void Do_s_2_b(UINT1 *r, const REAL4 *v, size_t n)
 {
-	size_t i;
+	size_t i = 0;
 	for(i=0;i<n; i++)
 	 if (IS_MV_REAL4(v+i))
 	  r[i] = MV_UINT1;
@@ -104,7 +105,7 @@ void Do_s_2_b(UINT1 *r, const REAL4 *v, size_t n)
 
 void Do_1_2_4(INT4  *r, const UINT1 *v, size_t n)
 {
-	size_t i;
+	size_t i = 0;
 	for(i=0;i<n; i++)
 	 if (v[i] == MV_UINT1)
 	  r[i] = MV_INT4;
@@ -114,7 +115,7 @@ void Do_1_2_4(INT4  *r, const UINT1 *v, size_t n)
 
 void Do_s_2_4(INT4  *r, const REAL4 *v, size_t n)
 {
-	size_t i;
+	size_t i = 0;
 	for(i=0;i<n; i++)
 	 if (IS_MV_REAL4(v+i))
 	  r[i] = MV_INT4;
@@ -124,7 +125,7 @@ void Do_s_2_4(INT4  *r, const REAL4 *v, size_t n)
 
 void Do_1_2_s(REAL4 *r, const UINT1 *v, size_t n)
 {
-	size_t i;
+	size_t i = 0;
 	for(i=0;i<n; i++)
 	 if (v[i] == MV_UINT1)
 	  SET_MV_REAL4(r+i);
@@ -134,7 +135,7 @@ void Do_1_2_s(REAL4 *r, const UINT1 *v, size_t n)
 
 void Do_4_2_s(REAL4 *r, const INT4 *v, size_t n)
 {
-	size_t i;
+	size_t i = 0;
 	for(i=0;i<n; i++)
 	 if (v[i] == MV_INT4)
 	  SET_MV_REAL4(r+i);
@@ -147,7 +148,7 @@ void Do_l_2_d(REAL4 *r, const UINT1 *v, size_t n)
 	const double ldd2Dir[10] = { 0, 0.625, 0.500, 0.375,
 	                             0.750, -1   , 0.250,
 	                             0.875, 0    , 0.125 };
-	size_t i;
+	size_t i = 0;
 	for(i=0;i<n; i++)
 	 switch(v[i]) {
 	  case MV_UINT1: SET_MV_REAL4(r+i); break;
@@ -159,7 +160,7 @@ void Do_l_2_d(REAL4 *r, const UINT1 *v, size_t n)
 
 void Do_1_2_d(REAL4 *r, const UINT1 *v, size_t n)
 {
-	size_t i;
+	size_t i = 0;
 	double (* f)(double x) = 
 	 (appDirection == APP_RADIANS) ? ScaleRad : Deg2Rad;
 	for(i=0;i < n; i++)
@@ -171,7 +172,7 @@ void Do_1_2_d(REAL4 *r, const UINT1 *v, size_t n)
 
 void Do_4_2_d(REAL4 *r, const INT4 *v, size_t n)
 {
-	size_t i;
+	size_t i = 0;
 	double (* f)(double x) = 
 	 (appDirection == APP_RADIANS) ? ScaleRad : Deg2Rad;
 	for(i=0;i < n; i++)
@@ -183,7 +184,7 @@ void Do_4_2_d(REAL4 *r, const INT4 *v, size_t n)
 
 void Do_4_2_l(UINT1 *r, const INT4 *v, size_t n)
 {
-	size_t i;
+	size_t i = 0;
 	for(i=0;i<n; i++)
 	 if (v[i] == MV_INT4)
 	  r[i] = MV_UINT1;
@@ -198,7 +199,7 @@ void Do_4_2_l(UINT1 *r, const INT4 *v, size_t n)
 
 void Do_s_2_l(UINT1 *r, const REAL4 *v, size_t n)
 {
-	size_t i;
+	size_t i = 0;
 	for(i=0;i<n; i++)
 	 if (IS_MV_REAL4(v+i))
 	  r[i] = MV_UINT1;
@@ -214,8 +215,8 @@ void Do_s_2_l(UINT1 *r, const REAL4 *v, size_t n)
 void Do_d_2_l(UINT1 *r, const REAL4 *v, size_t n)
 {
         const UINT1 lookup[8] = { 8, 9, 6, 3, 2, 1, 4, 7 }; 
-	double dum,shift = 1.0/16.0; /* ((pi/8)/2pi) = 1/16 */
-	size_t i;
+	double dum = NAN,shift = 1.0/16.0; /* ((pi/8)/2pi) = 1/16 */
+	size_t i = 0;
 	for(i=0;i<n; i++)
 	 if (IS_MV_REAL4(v+i))
 	  r[i] = MV_UINT1;
@@ -238,7 +239,7 @@ void Do_d_2_l(UINT1 *r, const REAL4 *v, size_t n)
 
 int Do_1_2_b(UINT1 *v, size_t n)
 {
-	size_t i;
+	size_t i = 0;
 	for(i=0;i < n; i++)
 		if (v[i] != MV_UINT1)
 			v[i] = (v[i] != 0);
@@ -248,7 +249,7 @@ int Do_1_2_b(UINT1 *v, size_t n)
 
 int Do_d_2_s(REAL4 *v, size_t n)
 {
-	size_t i;
+	size_t i = 0;
 	if (appDirection == APP_DEGREES)
 	{
 	 for(i=0;i < n; i++)
@@ -260,7 +261,7 @@ int Do_d_2_s(REAL4 *v, size_t n)
 
 void Do_downstreamdist(REAL4 *r, const UINT1 *v, size_t n)
 {
-	size_t i;
+	size_t i = 0;
 	double d[2];
 	d[0] = Side();
 	d[1] = d[0]*sqrt(2.0);
@@ -277,7 +278,7 @@ void Do_pit(
 	const UINT1 *val,
 	size_t n)
 {
-	size_t i;
+	size_t i = 0;
 	INT4   p=1;
 
 	for(i=0; i < n; i++)
@@ -290,7 +291,7 @@ void Do_pit(
 
 void Do_maptotal(REAL4 *r, const REAL4 *v, size_t n)
 {
-	size_t i;
+	size_t i = 0;
 	double sum=(double)0;
 	for(i=0; i< n; i++)
 		if (! IS_MV_REAL4(v+i))
@@ -300,7 +301,7 @@ void Do_maptotal(REAL4 *r, const REAL4 *v, size_t n)
 
 void Do_nodirection(UINT1 *r, const REAL4 *v, size_t n)
 {
-	size_t i;
+	size_t i = 0;
 	for(i=0; i< n; i++)
 		if (! IS_MV_REAL4(v+i))
 		   r[i] = (v[i] == -1);
@@ -310,7 +311,7 @@ void Do_nodirection(UINT1 *r, const REAL4 *v, size_t n)
 
 void Do_mapminimum_4(INT4 *r, const INT4 *v, size_t n)
 {
-	size_t i;
+	size_t i = 0;
 	INT4 min = INT4_MAX;
 	for(i=0; i< n; i++)
 	 if (v[i] != MV_INT4)
@@ -320,7 +321,7 @@ void Do_mapminimum_4(INT4 *r, const INT4 *v, size_t n)
 
 void Do_mapminimum_s(REAL4 *r, const REAL4 *v, size_t n)
 {
-	size_t i;
+	size_t i = 0;
 	double min = REAL4_MAX;
 	for(i=0; i< n; i++)
 	 if (! IS_MV_REAL4(v+i))
@@ -330,7 +331,7 @@ void Do_mapminimum_s(REAL4 *r, const REAL4 *v, size_t n)
 
 void Do_mapmaximum_4(INT4 *r, const INT4 *v, size_t n)
 {
-	size_t i;
+	size_t i = 0;
 	INT4 max = INT4_MIN;
 	for(i=0; i< n; i++)
 	 if (v[i] != MV_INT4)
@@ -340,7 +341,7 @@ void Do_mapmaximum_4(INT4 *r, const INT4 *v, size_t n)
 
 void Do_mapmaximum_s(REAL4 *r, const REAL4 *v, size_t n)
 {
-	size_t i;
+	size_t i = 0;
 	double max = -REAL4_MAX;
 	for(i=0; i< n; i++)
 	 if (! IS_MV_REAL4(v+i))
@@ -350,7 +351,7 @@ void Do_mapmaximum_s(REAL4 *r, const REAL4 *v, size_t n)
 
 void Do_maparea_1(REAL4 *r, const UINT1 *v, size_t n)
 {
-	size_t i;
+	size_t i = 0;
 	double area = (double)0, p = Area();
 	for(i=0; i< n; i++)
 		if (v[i] != MV_UINT1)
@@ -360,7 +361,7 @@ void Do_maparea_1(REAL4 *r, const UINT1 *v, size_t n)
 
 void Do_maparea_4(REAL4 *r, const INT4 *v, size_t n)
 {
-	size_t i;
+	size_t i = 0;
 	double area = (double)0, p = Area();
 	for(i=0; i< n; i++)
 		if (v[i] != MV_INT4)
@@ -370,7 +371,7 @@ void Do_maparea_4(REAL4 *r, const INT4 *v, size_t n)
 
 void Do_maparea_s(REAL4 *r, const REAL4 *v, size_t n)
 {
-	size_t i;
+	size_t i = 0;
 	double area = (double)0, p = Area();
 	for(i=0; i< n; i++)
 	 if (! IS_MV_REAL4(v+i))
@@ -380,7 +381,7 @@ void Do_maparea_s(REAL4 *r, const REAL4 *v, size_t n)
 
 int Do_defined_1(UINT1 *v, size_t n)
 {
-	size_t i;
+	size_t i = 0;
 	for(i=0; i< n; i++)
 		v[i] = v[i] != MV_UINT1;
 	return 0;
@@ -388,14 +389,14 @@ int Do_defined_1(UINT1 *v, size_t n)
 
 void Do_defined_4(UINT1 *r, const INT4 *v, size_t n)
 {
-	size_t i;
+	size_t i = 0;
 	for(i=0; i< n; i++)
 		r[i] = v[i] != MV_INT4;
 }
 
 void Do_defined_s(UINT1 *r, const REAL4 *v, size_t n)
 {
-	size_t i;
+	size_t i = 0;
 	for(i=0; i< n; i++)
 		r[i] = !IS_MV_REAL4(v+i);
 }
@@ -403,7 +404,7 @@ void Do_defined_s(UINT1 *r, const REAL4 *v, size_t n)
 
 void Do_normal(REAL4 *values, const UINT1 *b, size_t n)
 {
-	size_t i;
+	size_t i = 0;
 	for(i=0; i < n ; i++)
 	 if (b[i] == 1)
 		values[i] = (REAL4)GasDev();
@@ -413,7 +414,7 @@ void Do_normal(REAL4 *values, const UINT1 *b, size_t n)
 
 void Do_uniform(REAL4 *values, const UINT1 *b, size_t n)
 {
-	size_t i;
+	size_t i = 0;
 	for(i=0; i < n ; i++)
 	 if (b[i] == 1)
 		values[i] = (REAL4)Ran();
@@ -424,7 +425,7 @@ void Do_uniform(REAL4 *values, const UINT1 *b, size_t n)
 
 void Do_normal_1(REAL4 *values, const UINT1 *b, size_t n)
 {
-	size_t i;
+	size_t i = 0;
 	for(i=0; i < n ; i++)
 	 if (b[0] == 1)
 		values[i] = (REAL4)GasDev();
@@ -434,7 +435,7 @@ void Do_normal_1(REAL4 *values, const UINT1 *b, size_t n)
 
 void Do_uniform_1(REAL4 *values, const UINT1 *b, size_t n)
 {
-	size_t i;
+	size_t i = 0;
 	for(i=0; i < n ; i++)
 	 if (b[0] == 1)
 		values[i] = (REAL4)Ran();
@@ -450,7 +451,7 @@ int Do_spatial_1(UINT1 *vL, UINT1 *vR, size_t n)
 
 int Do_spatial_4(INT4 *vL, INT4 *vR, size_t n)
 {
-	size_t i;
+	size_t i = 0;
 	INT4 val = *vR;
 	for(i=0; i< n; i++)
 		vL[i] = val;
@@ -459,7 +460,7 @@ int Do_spatial_4(INT4 *vL, INT4 *vR, size_t n)
 
 int Do_spatial_s(UINT4 *vL, UINT4 *vR, size_t n)
 {
-	size_t i;
+	size_t i = 0;
 	REAL4 val = *vR;
 	for(i=0; i< n; i++)
 		vL[i] = val;

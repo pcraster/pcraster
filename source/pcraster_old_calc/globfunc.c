@@ -231,7 +231,7 @@ int Do_order(void * out, const void **ins)
 {
   MAP_REAL8 *o= (MAP_REAL8 *)out;
   MAP_INT4 *t = CreateSpatialINT4(CR_INT4,o->nrRows,o->nrCols);
-  int r;
+  int r = 0;
 
   if (t == NULL)
     return 1;

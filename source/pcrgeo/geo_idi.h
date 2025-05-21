@@ -1,8 +1,6 @@
 #ifndef INCLUDED_GEO_IDI
 #define INCLUDED_GEO_IDI
 
-
-
 #ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
 #define INCLUDED_STDDEFX
@@ -71,7 +69,7 @@ public:
    ComputeValue& operator=(const ComputeValue&) = delete;
 
    void add(const IdiPoint<Point>& p) {
-     double dist;
+     double dist = NAN;
      if (d_idp == 2) {
       // 1/f = pow(f,-1) = -1 = -2/2
       dist= 1/(p.distSqr(d_loc));

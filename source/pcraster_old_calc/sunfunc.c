@@ -13,6 +13,8 @@
 /* global header (opt.) and sunfunc's prototypes "" */
 #include "sunfunc.h"
 
+#include <math.h>
+
 
 /* headers of this app. modules called */
 
@@ -36,7 +38,7 @@ void Do_pred(
   INT4 *val,
   size_t n)
 {
-  size_t i;
+  size_t i = 0;
 
   for(i=0; i < n; i++)
   if (val[i] != MV_INT4 && val[i] > INT4_MIN)
@@ -47,7 +49,7 @@ void Do_succ(
   INT4 *val,
   size_t n)
 {
-  size_t i;
+  size_t i = 0;
 
   for(i=0; i < n; i++)
   if (val[i] != MV_INT4 && val[i] < INT4_MAX)
@@ -58,7 +60,7 @@ void Do_not(
   UINT1 *val,
   size_t n)
 {
-  size_t i;
+  size_t i = 0;
 
   for(i=0; i < n; i++)
   if (val[i] != MV_UINT1)
@@ -70,7 +72,7 @@ void Do_sqrt(
   REAL4 *val,
   size_t n)
 {
-  size_t i;
+  size_t i = 0;
 
   for(i=0; i < n; i++)
   if (! IS_MV_REAL4(val+i))
@@ -118,7 +120,7 @@ void Do_acos(
   REAL4 *val,
   size_t n)
 {
-  size_t i;
+  size_t i = 0;
 
   for(i=0; i < n; i++)
   if (! IS_MV_REAL4(val+i))
@@ -134,8 +136,8 @@ void Do_asin(
   REAL4 *val,
   size_t n)
 {
-  size_t i;
-  double t;
+  size_t i = 0;
+  double t = NAN;
 
   for(i=0; i < n; i++)
   if (! IS_MV_REAL4(val+i))
@@ -156,8 +158,8 @@ void Do_atan(
   REAL4 *val,
   size_t n)
 {
-  size_t i;
-  double  t;
+  size_t i = 0;
+  double  t = NAN;
 
   for(i=0; i < n; i++)
   if (! IS_MV_REAL4(val+i))
@@ -172,7 +174,7 @@ void Do_tan_d(
   REAL4 *val,
   size_t n)
 {
-  size_t i;
+  size_t i = 0;
   REAL4 tan_mv1 = (REAL4)(M_PI*0.5);
   REAL4 tan_mv2 = (REAL4)(M_PI*1.5);
 
@@ -191,7 +193,7 @@ void Do_sin_d(
   REAL4 *val,
   size_t n)
 {
-  size_t i;
+  size_t i = 0;
 
   for(i=0; i < n; i++)
   if (! IS_MV_REAL4(val+i))
@@ -207,7 +209,7 @@ void Do_cos_d(
   REAL4 *val,
   size_t n)
 {
-  size_t i;
+  size_t i = 0;
 
   for(i=0; i < n; i++)
   if (! IS_MV_REAL4(val+i))
@@ -221,7 +223,7 @@ void Do_cos_d(
 
 int Do_s_2_d(REAL4 *v, size_t n)
 {
-  size_t i;
+  size_t i = 0;
   double (* f)(double x) =
    (appDirection == APP_RADIANS) ? ScaleRad : Deg2Rad;
   for(i=0;i < n; i++)
@@ -241,7 +243,7 @@ void Do_ln(
   REAL4 *val,
   size_t n)
 {
-  size_t i;
+  size_t i = 0;
 
   for(i=0; i < n; i++)
   if (! IS_MV_REAL4(val+i))
@@ -258,7 +260,7 @@ void Do_log10(
   REAL4 *val,
   size_t n)
 {
-  size_t i;
+  size_t i = 0;
 
   for(i=0; i < n; i++)
   if (! IS_MV_REAL4(val+i))
@@ -276,7 +278,7 @@ void Do_fac(
   REAL4 *val,
   size_t n)
 {
-  size_t i;
+  size_t i = 0;
 
   for(i=0; i < n; i++)
   if (! IS_MV_REAL4(val+i))

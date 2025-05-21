@@ -1,3 +1,5 @@
+#include <math.h>
+
 #include "stddefx.h"
 #include "mathx.h"
 
@@ -12,12 +14,12 @@ void DirectionalMoments(double *mean,          /* write-only, mean */
                         const double *samples, /* array of n samples, radians */
                         size_t n)              /* sample size */
 {
-    double tC, tD, tS, tS2, tC2, m2;
-    double meanIn, D, skewIn;
-    double R, R2;
-    size_t i;
-    const double *p;
-    double t1, t2;
+    double tC = NAN, tD = NAN, tS = NAN, tS2 = NAN, tC2 = NAN, m2 = NAN;
+    double meanIn = NAN, D = NAN, skewIn = NAN;
+    double R = NAN, R2 = NAN;
+    size_t i = 0;
+    const double *p = NULL;
+    double t1 = NAN, t2 = NAN;
 
     PRECOND(n > 1);
 
@@ -66,11 +68,11 @@ double DirectionalMean(const double *samples, /* array of n samples, in radians 
     /* this a stripped version of
      * DirectionalMoments
      */
-    double tC, tS;
-    double meanIn;
-    double R;
-    size_t i;
-    const double *p;
+    double tC = NAN, tS = NAN;
+    double meanIn = NAN;
+    double R = NAN;
+    size_t i = 0;
+    const double *p = NULL;
 
     tC = tS = 0;
 

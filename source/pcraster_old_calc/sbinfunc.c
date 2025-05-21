@@ -6,9 +6,10 @@
 /********/
 
 /* libs ext. <>, our ""  */
-#include <string.h> /* memset */
-#include "mathx.h"
 #include "csftypes.h"
+#include "mathx.h"
+#include <math.h>
+#include <string.h> /* memset */
 
 /* global header (opt.) and sbinfunc's prototypes "" */
 #include "sbinfunc.h"
@@ -36,7 +37,7 @@
 
 int Do_fdiv_ss(REAL4 *vL, REAL4 *vR, size_t n)
 {
- size_t i;
+ size_t i = 0;
  for(i=0;i < n; i++)
   if (! IS_MV_REAL4(vL+i))
   {
@@ -50,7 +51,7 @@ int Do_fdiv_ss(REAL4 *vL, REAL4 *vR, size_t n)
 
 int Do_fdiv_ns(REAL4 *vL, REAL4 *vR, size_t n)
 {
- size_t i;
+ size_t i = 0;
  REAL4  valL = *vL;
  PRECOND(! IS_MV_REAL4(vL));
  for(i=0;i < n; i++)
@@ -66,7 +67,7 @@ int Do_fdiv_ns(REAL4 *vL, REAL4 *vR, size_t n)
 
 int Do_fdiv_sn(REAL4 *vL, REAL4 *vR, size_t n)
 {
- size_t i;
+ size_t i = 0;
  REAL4  valR = *vR;
  PRECOND(! IS_MV_REAL4(vR));
  if (valR == 0.0) { // pcrcalc/test64
@@ -82,7 +83,7 @@ int Do_fdiv_sn(REAL4 *vL, REAL4 *vR, size_t n)
 
 int Do_idiv_ss(REAL4 *vL, REAL4 *vR, size_t n)
 {
- size_t i;
+ size_t i = 0;
  for(i=0;i < n; i++)
   if (! IS_MV_REAL4(vL+i))
   {
@@ -96,7 +97,7 @@ int Do_idiv_ss(REAL4 *vL, REAL4 *vR, size_t n)
 
 int Do_idiv_ns(REAL4 *vL, REAL4 *vR, size_t n)
 {
- size_t i;
+ size_t i = 0;
  REAL4  valL = *vL;
  PRECOND(! IS_MV_REAL4(vL));
  for(i=0;i < n; i++)
@@ -112,7 +113,7 @@ int Do_idiv_ns(REAL4 *vL, REAL4 *vR, size_t n)
 
 int Do_idiv_sn(REAL4 *vL, REAL4 *vR, size_t n)
 {
- size_t i;
+ size_t i = 0;
  REAL4  valR = *vR;
  PRECOND(! IS_MV_REAL4(vR));
  if (valR == 0.0)
@@ -126,7 +127,7 @@ int Do_idiv_sn(REAL4 *vL, REAL4 *vR, size_t n)
 
 int Do_mod_ss(REAL4 *vL, REAL4 *vR, size_t n)
 {
- size_t i;
+ size_t i = 0;
  for(i=0;i < n; i++)
   if (! IS_MV_REAL4(vL+i))
   {
@@ -140,7 +141,7 @@ int Do_mod_ss(REAL4 *vL, REAL4 *vR, size_t n)
 
 int Do_mod_ns(REAL4 *vL, REAL4 *vR, size_t n)
 {
- size_t i;
+ size_t i = 0;
  REAL4  valL = *vL;
  PRECOND(! IS_MV_REAL4(vL));
  for(i=0;i < n; i++)
@@ -156,7 +157,7 @@ int Do_mod_ns(REAL4 *vL, REAL4 *vR, size_t n)
 
 int Do_mod_sn(REAL4 *vL, REAL4 *vR, size_t n)
 {
- size_t i;
+ size_t i = 0;
  REAL4  valR = *vR;
  PRECOND(! IS_MV_REAL4(vR));
  if (valR == 0.0)
@@ -191,7 +192,7 @@ int Do_pow_ss(
  REAL4 *vR,
  size_t n)
 {
- size_t i;
+ size_t i = 0;
  for(i=0; i < n; i++)
  if (! IS_MV_REAL4(vL+i))
  {
@@ -211,7 +212,7 @@ int Do_pow_ns(
  REAL4 *vR,
  size_t n)
 {
- size_t i;
+ size_t i = 0;
  REAL4 valL = *vL;
  PRECOND(! IS_MV_REAL4(vL));
 
@@ -233,11 +234,11 @@ static void powAsMultiply(
  size_t nrTimes,
  size_t n)
 {
- size_t i;
+ size_t i = 0;
  for(i=0; i < n; i++)
  if (! IS_MV_REAL4(vL+i))
  {
-  size_t p;
+  size_t p = 0;
   double val = vL[i];
   vL[i]=1;
   for(p=0; p <nrTimes; p++)
@@ -250,7 +251,7 @@ int Do_pow_sn(
  REAL4 *vR,
  size_t n)
 {
- size_t i;
+ size_t i = 0;
  REAL4 valR = *vR;
  PRECOND(! IS_MV_REAL4(vR));
 
@@ -278,7 +279,7 @@ int Do_mul_ss(
  REAL4 *vR,
  size_t n)
 {
- size_t i;
+ size_t i = 0;
  for (i = 0; i < n; i++)
   if (! IS_MV_REAL4(vL+i))
   {
@@ -295,7 +296,7 @@ int Do_mul_ns(
  REAL4 *vR,
  size_t n)
 {
- size_t i;
+ size_t i = 0;
  REAL4 valL = *vL;
  PRECOND(! IS_MV_REAL4(vL));
  for (i = 0; i < n; i++)
@@ -309,7 +310,7 @@ int Do_badd_ss(
  REAL4 *vR,
  size_t n)
 {
- size_t i;
+ size_t i = 0;
  for (i = 0; i < n; i++)
   if (! IS_MV_REAL4(vL+i))
   {
@@ -326,7 +327,7 @@ int Do_badd_ns(
  REAL4 *vR,
  size_t n)
 {
- size_t i;
+ size_t i = 0;
  REAL4 valL = *vL;
  PRECOND(!IS_MV_REAL4(vL));
  for (i = 0; i < n; i++)
@@ -340,7 +341,7 @@ int Do_bmin_ss(
  REAL4 *vR,
  size_t n)
 {
- size_t i;
+ size_t i = 0;
  for (i = 0; i < n; i++)
   if (! IS_MV_REAL4(vL+i))
   {
@@ -357,7 +358,7 @@ int Do_bmin_sn(
  REAL4 *vR,
  size_t n)
 {
- size_t i;
+ size_t i = 0;
  REAL4 valR = *vR;
  PRECOND(! IS_MV_REAL4(vR));
  for (i = 0; i < n; i++)
@@ -371,7 +372,7 @@ int Do_bmin_ns(
  REAL4 *vR,
  size_t n)
 {
- size_t i;
+ size_t i = 0;
  REAL4 valL = *vL;
  PRECOND(! IS_MV_REAL4(vL));
  for (i = 0; i < n; i++)
@@ -390,7 +391,7 @@ int Do_and_ss(
  UINT1 *vR,
  size_t n)
 {
- size_t i;
+ size_t i = 0;
  for (i = 0; i < n; i++)
   if (vL[i] != MV_UINT1)
   {
@@ -410,7 +411,7 @@ int Do_and_ns(
  UINT1 *vR,
  size_t n)
 {
- size_t i;
+ size_t i = 0;
  UINT1 valL = *vL;
  PRECOND(valL != MV_UINT1 && valL < TWO_UINT1);
  for (i = 0; i < n; i++)
@@ -428,7 +429,7 @@ int Do_or_ss(
  UINT1 *vR,
  size_t n)
 {
- size_t i;
+ size_t i = 0;
  for (i = 0; i < n; i++)
   if (vL[i] != MV_UINT1)
   {
@@ -448,7 +449,7 @@ int Do_or_ns(
  UINT1 *vR,
  size_t n)
 {
- size_t i;
+ size_t i = 0;
  UINT1 valL = *vL;
  PRECOND(valL != MV_UINT1 && valL < TWO_UINT1);
  for (i = 0; i < n; i++)
@@ -465,7 +466,7 @@ int Do_xor_ss(
  UINT1 *vR,
  size_t n)
 {
- size_t i;
+ size_t i = 0;
  for (i = 0; i < n; i++)
   if (vL[i] != MV_UINT1)
   {
@@ -485,7 +486,7 @@ int Do_xor_ns(
  UINT1 *vR,
  size_t n)
 {
- size_t i;
+ size_t i = 0;
  UINT1 valL = *vL;
  PRECOND(valL != MV_UINT1 && valL < TWO_UINT1);
  for (i = 0; i < n; i++)
@@ -502,7 +503,7 @@ int Do_max_4_ns(
  INT4 *vR,
  size_t n)
 {
- size_t i;
+ size_t i = 0;
  INT4 valL = *vL;
  PRECOND(valL != MV_INT4);
  for (i = 0; i < n; i++)
@@ -519,7 +520,7 @@ int Do_max_4_ss(
  INT4 *vR,
  size_t n)
 {
- size_t i;
+ size_t i = 0;
  for (i = 0; i < n; i++)
   if (vL[i] != MV_INT4)
   {
@@ -535,7 +536,7 @@ int Do_min_4_ns(
  INT4 *vR,
  size_t n)
 {
- size_t i;
+ size_t i = 0;
  INT4 valL = *vL;
  PRECOND(valL != MV_INT4);
  for (i = 0; i < n; i++)
@@ -552,7 +553,7 @@ int Do_min_4_ss(
  INT4 *vR,
  size_t n)
 {
- size_t i;
+ size_t i = 0;
  for (i = 0; i < n; i++)
   if (vL[i] != MV_INT4)
   {
@@ -568,7 +569,7 @@ int Do_min_s_ns(
  REAL4 *vR,
  size_t n)
 {
- size_t i;
+ size_t i = 0;
  REAL4 valL = *vL;
  PRECOND(! IS_MV_REAL4(vL));
  for (i = 0; i < n; i++)
@@ -584,7 +585,7 @@ int Do_min_s_ss(
  REAL4 *vR,
  size_t n)
 {
- size_t i;
+ size_t i = 0;
  for (i = 0; i < n; i++)
   if (!IS_MV_REAL4(vL+i))
   {
@@ -602,7 +603,7 @@ int Do_max_s_ns(
  REAL4 *vR,
  size_t n)
 {
- size_t i;
+ size_t i = 0;
  REAL4 valL = *vL;
  PRECOND(! IS_MV_REAL4(vL));
  for (i = 0; i < n; i++)
@@ -619,7 +620,7 @@ int Do_max_s_ss(
  REAL4 *vR,
  size_t n)
 {
- size_t i;
+ size_t i = 0;
  for (i = 0; i < n; i++)
   if (!IS_MV_REAL4(vL+i))
   {
@@ -649,7 +650,7 @@ static void DwordSet(
  INT4 value,
  size_t n)
 {
- size_t i;
+ size_t i = 0;
  for(i=0; i < n; i++)
   dest[i] = value;
 }
@@ -680,7 +681,7 @@ int Do_cover_1_ss(
  UINT1 *vR,
  size_t n)
 {
-    size_t i;
+    size_t i = 0;
     for(i=0; i < n; i++)
      if (vL[i] == MV_UINT1)
        vL[i] = vR[i];
@@ -691,7 +692,7 @@ int Do_cover_4_ss(
  INT4 *vR,
  size_t n)
 {
-    size_t i;
+    size_t i = 0;
     for(i=0; i < n; i++)
      if (vL[i] == MV_INT4)
        vL[i] = vR[i];
@@ -703,7 +704,7 @@ int Do_cover_4_sn(
  INT4 *vR,
  size_t n)
 {
-    size_t i;
+    size_t i = 0;
     INT4 valR = *vR;
     PRECOND(valR != MV_INT4);
     for(i=0; i < n; i++)
@@ -717,7 +718,7 @@ int Do_cover_1_sn(
  UINT1 *vR,
  size_t n)
 {
-    size_t i;
+    size_t i = 0;
     UINT1 valR = *vR;
     PRECOND(valR != MV_UINT1);
     for(i=0; i < n; i++)
@@ -734,7 +735,7 @@ int Do_cover_s_ss(
  REAL4 *vR,
  size_t n)
 {
-    size_t i;
+    size_t i = 0;
     for(i=0; i < n; i++)
      if (IS_MV_REAL4(vL+i))
        vL[i] = vR[i];
@@ -746,8 +747,8 @@ int Do_cover_s_sn(
  REAL4 *vR,
  size_t n)
 {
-    size_t i;
-    REAL4 valR;
+    size_t i = 0;
+    REAL4 valR = NAN;
     PRECOND(!IS_MV_REAL4(vR));
     valR = *vR;
     for(i=0; i < n; i++)

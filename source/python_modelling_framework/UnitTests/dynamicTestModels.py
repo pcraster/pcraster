@@ -43,6 +43,8 @@ class TestStartTime(dynamicPCRasterBase.DynamicModel):
 
   def dynamic(self):
     self.value += cellvalue(timeinputscalar("timeseries.tss", "clone.map"), 1)[0]
+    # simple test third argument required by LUE
+    self.raster =  timeinputscalar("timeseries.tss", "clone.map", self.currentTimeStep())
 
 
 class TestReadmapReport(dynamicPCRasterBase.DynamicModel):

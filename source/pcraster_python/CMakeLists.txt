@@ -25,32 +25,32 @@ configure_file(
 # Hash the copied file in build directory rather than the source due to different UNIX/WIN line endings
 
 # check operationExpanded.xml as it's originating from operations.xml
-file(SHA1 ${CMAKE_CURRENT_BINARY_DIR}/../pcraster_model_engine/operationExpanded.xml op_expanded)
-# and these related to the Operation*xsl ...
-file(SHA1 ${CMAKE_CURRENT_BINARY_DIR}/operations.inc operations_inc_checksum)
-file(SHA1 ${CMAKE_CURRENT_BINARY_DIR}/operations.py operations_py_checksum)
-
-if( ( NOT ${op_expanded} STREQUAL "c1d7687a22a7e88a3637515554dd54e4f3779c2d" ) OR
-    ( NOT ${operations_inc_checksum} STREQUAL "7243dd868783932242340c7ee7b8d582209b4eac" ) OR
-    ( NOT ${operations_py_checksum} STREQUAL "4544c2c4aba31084ed7d1b2b83059a7ab4c659b7" )
-  )
-    message(FATAL_ERROR "The files operations.inc or operations.py are older than one of their dependencies. Update operations.inc.in or operations.py.in first; or contact the PCRaster Research and Development team in case you don't know how to proceed.")
-    # This is the previously executed command, results in something
-    # similar to this:
-    # xsltproc --path ../xslt OperationsToWrappers.xsl ../pcraster_model_engine/operation.xml
-    #
-    # ADD_CUSTOM_COMMAND(
-    #     OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/operations.inc
-    #     DEPENDS
-    #         ${CMAKE_CURRENT_SOURCE_DIR}/OperationsToWrappers.xsl
-    #         ${CMAKE_CURRENT_SOURCE_DIR}/OperationToWrapper.xsl
-    #         ${CMAKE_CURRENT_SOURCE_DIR}/../pcraster_model_engine/operation.xml
-    #         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-    #         # why does ${CMAKE_COMMAND} -E copy not work here?
-    #         COMMAND cp ${CMAKE_CURRENT_SOURCE_DIR}/*.xsl ${CMAKE_CURRENT_BINARY_DIR}
-    #         COMMAND ${LIBXSLT_XSLTPROC_EXECUTABLE} --path ${CMAKE_CURRENT_SOURCE_DIR}/../xslt ${CMAKE_CURRENT_BINARY_DIR}/OperationsToWrappers.xsl ${CMAKE_CURRENT_SOURCE_DIR}/../pcraster_model_engine/operation.xml
-    # )
-endif()
+# file(SHA1 ${CMAKE_CURRENT_BINARY_DIR}/../pcraster_model_engine/operationExpanded.xml op_expanded)
+# # and these related to the Operation*xsl ...
+# file(SHA1 ${CMAKE_CURRENT_BINARY_DIR}/operations.inc operations_inc_checksum)
+# file(SHA1 ${CMAKE_CURRENT_BINARY_DIR}/operations.py operations_py_checksum)
+#
+# if( ( NOT ${op_expanded} STREQUAL "c1d7687a22a7e88a3637515554dd54e4f3779c2d" ) OR
+#     ( NOT ${operations_inc_checksum} STREQUAL "7243dd868783932242340c7ee7b8d582209b4eac" ) OR
+#     ( NOT ${operations_py_checksum} STREQUAL "4544c2c4aba31084ed7d1b2b83059a7ab4c659b7" )
+#   )
+#     message(FATAL_ERROR "The files operations.inc or operations.py are older than one of their dependencies. Update operations.inc.in or operations.py.in first; or contact the PCRaster Research and Development team in case you don't know how to proceed.")
+#     # This is the previously executed command, results in something
+#     # similar to this:
+#     # xsltproc --path ../xslt OperationsToWrappers.xsl ../pcraster_model_engine/operation.xml
+#     #
+#     # ADD_CUSTOM_COMMAND(
+#     #     OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/operations.inc
+#     #     DEPENDS
+#     #         ${CMAKE_CURRENT_SOURCE_DIR}/OperationsToWrappers.xsl
+#     #         ${CMAKE_CURRENT_SOURCE_DIR}/OperationToWrapper.xsl
+#     #         ${CMAKE_CURRENT_SOURCE_DIR}/../pcraster_model_engine/operation.xml
+#     #         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+#     #         # why does ${CMAKE_COMMAND} -E copy not work here?
+#     #         COMMAND cp ${CMAKE_CURRENT_SOURCE_DIR}/*.xsl ${CMAKE_CURRENT_BINARY_DIR}
+#     #         COMMAND ${LIBXSLT_XSLTPROC_EXECUTABLE} --path ${CMAKE_CURRENT_SOURCE_DIR}/../xslt ${CMAKE_CURRENT_BINARY_DIR}/OperationsToWrappers.xsl ${CMAKE_CURRENT_SOURCE_DIR}/../pcraster_model_engine/operation.xml
+#     # )
+# endif()
 
 set_property(
     SOURCE

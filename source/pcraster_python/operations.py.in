@@ -1151,7 +1151,7 @@ def pcrbmin(arg1, arg2):
         raise RuntimeError(f"pcrbmin: {exception}")
 
 
-def timeinputscalar(arg1, arg2):
+def timeinputscalar(arg1, arg2, arg3=None):
     try:
         arg1 = _pcraster.DataStorageId(arg1)
         if isinstance(arg2, str):
@@ -1169,7 +1169,7 @@ def timeinputscalar(arg1, arg2):
         raise RuntimeError(f"timeinputscalar: {exception}")
 
 
-def timeinputdirectional(arg1, arg2):
+def timeinputdirectional(arg1, arg2, arg3=None):
     try:
         arg1 = _pcraster.DataStorageId(arg1)
         if isinstance(arg2, str):
@@ -1187,7 +1187,7 @@ def timeinputdirectional(arg1, arg2):
         raise RuntimeError(f"timeinputdirectional: {exception}")
 
 
-def timeinputboolean(arg1, arg2):
+def timeinputboolean(arg1, arg2, arg3=None):
     try:
         arg1 = _pcraster.DataStorageId(arg1)
         if isinstance(arg2, str):
@@ -1205,7 +1205,7 @@ def timeinputboolean(arg1, arg2):
         raise RuntimeError(f"timeinputboolean: {exception}")
 
 
-def timeinputldd(arg1, arg2):
+def timeinputldd(arg1, arg2, arg3=None):
     try:
         arg1 = _pcraster.DataStorageId(arg1)
         if isinstance(arg2, str):
@@ -1223,7 +1223,7 @@ def timeinputldd(arg1, arg2):
         raise RuntimeError(f"timeinputldd: {exception}")
 
 
-def timeinputnominal(arg1, arg2):
+def timeinputnominal(arg1, arg2, arg3=None):
     try:
         arg1 = _pcraster.DataStorageId(arg1)
         if isinstance(arg2, str):
@@ -1241,7 +1241,7 @@ def timeinputnominal(arg1, arg2):
         raise RuntimeError(f"timeinputnominal: {exception}")
 
 
-def timeinputordinal(arg1, arg2):
+def timeinputordinal(arg1, arg2, arg3=None):
     try:
         arg1 = _pcraster.DataStorageId(arg1)
         if isinstance(arg2, str):

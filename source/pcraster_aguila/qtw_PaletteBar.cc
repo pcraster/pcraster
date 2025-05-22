@@ -1,8 +1,10 @@
 #include "qtw_PaletteBar.h"
-#include <cassert>
-#include <QPainter>
+
 #include "com_rawpalette.h"
 #include "qt_ColourLib.h"
+#include <QPainter>
+#include <cassert>
+#include <cmath>
 
 
 
@@ -22,12 +24,12 @@
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 qtw::PaletteBar::PaletteBar(QWidget *p)
 
-  : QWidget(p) 
+  : QWidget(p)
 
 {
 }
@@ -83,9 +85,9 @@ void qtw::PaletteBar::paintEvent(QPaintEvent *)
 
   if(d_colours.size() > 0 && width() > 0 && height() > 0)
   {
-    size_t xl, xr; // Left and right of rectangle to draw.
-    size_t w;      // Width of rectangle to draw.
-    REAL8 s;       // Scale: number of pixels available per colour.
+    size_t xl = 0, xr = 0; // Left and right of rectangle to draw.
+    size_t w = 0;      // Width of rectangle to draw.
+    REAL8 s = NAN;       // Scale: number of pixels available per colour.
 
     s  = static_cast<double>(width()) / d_colours.size();
 
@@ -143,13 +145,13 @@ QSize qtw::PaletteBar::sizeHint() const
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE OPERATORS 
+// DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE FUNCTIONS 
+// DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
 

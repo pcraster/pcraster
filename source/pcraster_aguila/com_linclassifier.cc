@@ -1,9 +1,11 @@
 #include "com_linclassifier.h"
-#include <algorithm>
-#include <vector>
+
 #include "com_classifierimp.h"
 #include "com_const.h"
 #include "com_util.h"
+#include <algorithm>
+#include <cmath>
+#include <vector>
 
 
 
@@ -14,7 +16,7 @@
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 template<class T>
@@ -68,11 +70,11 @@ void com_LinClassifier<T>::autoClassify(std::vector<T> &b, T min, T max,
 {
   assert(min < max);
 
-  REAL8 delta;
-  REAL8 dec;       // Max power of ten which fits into the interval [min, max].
-  REAL8 width;     // Class width.
-  REAL8 nmin, nmax;
-  size_t nn;
+  REAL8 delta = NAN;
+  REAL8 dec = NAN;       // Max power of ten which fits into the interval [min, max].
+  REAL8 width = NAN;     // Class width.
+  REAL8 nmin = NAN, nmax = NAN;
+  size_t nn = 0;
 
   n += 1;
 
@@ -86,7 +88,7 @@ void com_LinClassifier<T>::autoClassify(std::vector<T> &b, T min, T max,
 
   // Adjust min and max such that both are integer multiples of the step size.
   nmin  = width * std::floor((min + com::minEps * width) / width);
-  nmax  = width * std::ceil ((max - com::minEps * width) / width); 
+  nmax  = width * std::ceil ((max - com::minEps * width) / width);
 
   nn = dal::round<REAL8, size_t>((nmax - nmin) / width) + 1;
   b.resize(nn);

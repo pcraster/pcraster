@@ -135,7 +135,7 @@ static void checkerBoard(
 
   auto *result=(unsigned char *)linkInTransferArray[0];
 
-  unsigned char value;
+  unsigned char value = 0;
   size_t nrRows=l.context().areaMap().nrRows();
   size_t nrCols=l.context().areaMap().nrCols();
   size_t cell=0;

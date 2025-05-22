@@ -88,7 +88,7 @@ qt::PropertiesDialog::~PropertiesDialog()
 
 void qt::PropertiesDialog::createInterface()
 {
-  QBoxLayout* box, *top;
+  QBoxLayout* box = nullptr, *top = nullptr;
 
   top = new QVBoxLayout(this);
 
@@ -96,15 +96,15 @@ void qt::PropertiesDialog::createInterface()
   top->addWidget(d_data->d_widget);
 
   // Create and layout buttons.
-  QPushButton* ok;
+  QPushButton* ok = nullptr;
   ok = new QPushButton("OK", this);
   ok->setFixedSize(qt::BUTTONWIDTH, qt::BUTTONHEIGHT);
 
-  QPushButton* cancel;
+  QPushButton* cancel = nullptr;
   cancel = new QPushButton("Cancel", this);
   cancel->setFixedSize(qt::BUTTONWIDTH, qt::BUTTONHEIGHT);
 
-  QPushButton* apply;
+  QPushButton* apply = nullptr;
   apply = new QPushButton("Apply", this);
   apply->setDefault(true);
   apply->setFixedSize(qt::BUTTONWIDTH, qt::BUTTONHEIGHT);

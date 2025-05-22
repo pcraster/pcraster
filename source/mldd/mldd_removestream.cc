@@ -110,7 +110,7 @@ mldd::RemoveStream& mldd::RemoveStream::operator=(RemoveStream const& rhs)
  */
 void mldd::RemoveStream::downstreamEdge (const Edge& e)
 {
-  size_t s,t;
+  size_t s = 0,t = 0;
   size_t nb= geo::NB::code(e.source(),e.target());
   e.linear(s,t,d_dag.rasterDim());
   // delete e if marked in d_marks

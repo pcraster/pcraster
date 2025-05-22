@@ -222,7 +222,7 @@ void mldd::Diffuse::initFlowTerm(const Edge& e)
   // c: index in [8] is NB code from e.source()->e.target()
   size_t c(geo::NB::code(e.source(),e.target()));
   // index in grid is s = e.source()
-  size_t s,t;
+  size_t s = 0,t = 0;
   e.linear(s,t,d_dem.rasterDim());
   if (pcr::isMV(d_diffusionValue[c][s])) {
 

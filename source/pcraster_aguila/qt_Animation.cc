@@ -439,7 +439,7 @@ bool qt::Animation::loop() const
 
 size_t qt::Animation::prevTimeStep() const
 {
-  size_t t;
+  size_t t = 0;
 
   if(!d_steps.empty()) {
 
@@ -491,7 +491,7 @@ size_t qt::Animation::prevTimeStep() const
 
 size_t qt::Animation::nextTimeStep() const
 {
-  size_t t;
+  size_t t = 0;
 
   if(!d_steps.empty()) {
 

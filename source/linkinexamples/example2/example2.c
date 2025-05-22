@@ -34,7 +34,7 @@ PCR_DLL_FUNC (const char *) pcr_LinkInExecute(
   const float nonSpatial  =((const float *)linkInTransferArray[2])[0];
 
   int nrCells=nrRows*nrCols;
-  int c;
+  int c = 0;
   (void)xmlNotUsed; // shut up compiler
   for(c=0; c < nrCells; c++) {
     if (IS_MV_REAL4(spatial+c))

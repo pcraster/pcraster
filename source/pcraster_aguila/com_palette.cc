@@ -15,7 +15,7 @@ enum { RED, GREEN, BLUE };
 com_Palette::com_Palette(const int colourRange[][3], int colourMaxVal,
                          size_t nrColours)
 {
-  size_t colourNr;
+  size_t colourNr = 0;
 
   for(colourNr = 0; colourNr < nrColours; colourNr++)
   {

@@ -48,7 +48,7 @@ bool qt::AnimationProgBar::setIndicator(QString& label, int progress,
     d_label.setNum(d_firstStep + progress - 1);
   }
 
-  bool status;
+  bool status = false;
 
   if(d_label == label) {
     status = false;

@@ -28,8 +28,8 @@ PCR_DLL_FUNC (const char *) pcr_LinkInExecute(
       LinkInTransferArray linkInTransferArray)
 {
   unsigned char *result=(unsigned char *)linkInTransferArray[0];
-  unsigned char value;
-  int r,c,cell=0;
+  unsigned char value = 0;
+  int r = 0,c = 0,cell=0;
   (void)xmlNotUsed; // shut up compiler
   for(r=0;r<nrRows; r++) {
    value=r%2;

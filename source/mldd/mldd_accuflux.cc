@@ -101,7 +101,7 @@ void mldd::Accuflux::initVertex(
 
 void mldd::Accuflux::downstreamEdge(const Edge& e)
 {
-  size_t s,t;
+  size_t s = 0,t = 0;
   linear(s,t,e);
   DEVELOP_PRECOND(!pcr::isMV(d_newState[t]));
   double w=d_w[e];

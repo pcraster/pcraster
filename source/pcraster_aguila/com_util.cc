@@ -1,9 +1,10 @@
 #include "com_util.h"
+
+#include "com_const.h"
 #include <cassert>
 #include <cmath>
 #include <iterator>
 #include <vector>
-#include "com_const.h"
 
 
 
@@ -13,8 +14,8 @@
 */
 double com_Util::ceil125(double x)
 {
-  double lx, rv;
-  double p10, fr;
+  double lx = NAN, rv = NAN;
+  double p10 = NAN, fr = NAN;
   double sign = ( x > 0) ? 1.0 : -1.0;
 
   if (x == 0.0) return 0.0;
@@ -42,7 +43,7 @@ void com_Util::linSpace(std::vector<double>::iterator begin,
   assert(max >= min);
 
   size_t imax(0);                  // Number of steps minus 1.
-  double step;                     // Size of a step.
+  double step = NAN;                     // Size of a step.
   std::vector<double>::iterator v; // Iterator to a value.
 
 #ifdef BORLANDC
@@ -64,7 +65,7 @@ void com_Util::linSpace(std::vector<double>::iterator begin,
   cout << "step     : " << step << endl;
 */
 
-  size_t i;
+  size_t i = 0;
   for(v = begin, i = 0; v != end; v++, i++)
   {
     *v = min + static_cast<double>(i) * step;
@@ -78,9 +79,9 @@ void com_Util::logSpace(std::vector<double>::iterator begin,
                         double min, double max)
 {
   size_t imax(0);             // Number of steps minus 1.
-  double lmin;
-  double lmax;
-  double lstep;
+  double lmin = NAN;
+  double lmax = NAN;
+  double lstep = NAN;
   std::vector<double>::iterator v; // Iterator to a value.
 
 #ifdef BORLANDC
@@ -100,7 +101,7 @@ void com_Util::logSpace(std::vector<double>::iterator begin,
   lmax = std::log(max);
   lstep = (lmax - lmin) / static_cast<double>(imax);
 
-  size_t i;
+  size_t i = 0;
   for(v = begin + 1, i = 1; v != end - 1; v++, i++)
   {
     *v = std::exp(lmin + static_cast<double>(i) * lstep);
@@ -120,9 +121,9 @@ void com_Util::logSpace(std::vector<double>::iterator begin,
 // {
 //   int rv, i;
 //   if(size < 2) return 0;
-// 
+//
 //   rv = com::sign(array[1] - array[0]);
-// 
+//
 //   for (i = 1; i < size - 1; i++)
 //   {
 //     if(com::sign(array[i+1] - array[i]) != rv )
@@ -131,7 +132,7 @@ void com_Util::logSpace(std::vector<double>::iterator begin,
 //       break;
 //     }
 //   }
-// 
+//
 //   return rv;
 // }
 

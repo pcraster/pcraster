@@ -88,7 +88,6 @@ target_link_libraries(_pcraster_multicore
         fern_algorithm
 )
 
-
 set_target_properties(_pcraster_multicore
     PROPERTIES
         RUNTIME_OUTPUT_DIRECTORY
@@ -96,7 +95,7 @@ set_target_properties(_pcraster_multicore
         LIBRARY_OUTPUT_DIRECTORY
             $<TARGET_FILE_DIR:pcrcalc>/pcraster/multicore
         OUTPUT_NAME
-            "_pcraster_moc"
+            "_pcraster_multicore"
         INSTALL_RPATH
             "$ORIGIN/../../../lib"
         DEBUG_POSTFIX

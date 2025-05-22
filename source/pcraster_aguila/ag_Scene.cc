@@ -1,16 +1,13 @@
 #include "ag_Scene.h"
 
-// Qt
-#include <QEvent>
-
-// Pcr
 #include "com_const.h"
-
 
 // App
 #include "ag_SceneView.h"
 
+#include <QEvent>
 
+#include <cmath>
 
 /*!
   \file
@@ -43,7 +40,7 @@ ag::Scene::~Scene()
 
 bool ag::Scene::keyPressHandled(QKeyEvent* e)
 {
-  double d;                  // A distance.
+  double d = NAN;                  // A distance.
 
   if(e->modifiers() & Qt::ShiftModifier)
   {

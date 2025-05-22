@@ -1,13 +1,15 @@
 #include "ag_NominalRasterDrawer.h"
 
 // External headers.
-#include <QPainter>
 
 // Project headers.
 
 // Module headers.
 #include "ag_Raster.h"
 
+#include <QPainter>
+
+#include <cmath>
 
 
 /*!
@@ -64,14 +66,14 @@ void NominalRasterDrawer::draw(
   }
 
   size_t nrCellsPerPixel = this->nrCellsPerPixel(world_to_screen);
-  double leftScreen, topScreen, rightScreen, bottomScreen;
-  double leftWorld, topWorld, rightWorld, bottomWorld;
+  double leftScreen = NAN, topScreen = NAN, rightScreen = NAN, bottomScreen = NAN;
+  double leftWorld = NAN, topWorld = NAN, rightWorld = NAN, bottomWorld = NAN;
 
   dal::Matrix matrix(_raster->dimensions().nrRows(),
          _raster->dimensions().nrCols(), dal::TypeTraits<INT4>::typeId);
   matrix.transfer(const_cast<INT4*>(_raster->cells<INT4>()),
          dal::Matrix::DoNotTakeOwnerShip);
-  INT4 value;
+  INT4 value = 0;
 
   auto firstRow = static_cast<size_t>(indices.top());
   auto lastRow = static_cast<size_t>(indices.bottom());

@@ -1,3 +1,5 @@
+#include <math.h>
+
 /* DO NOT EDIT: CREATED FROM testapi.tem */
 #line 1 "testapi.tem"
 /* vim: syntax=c
@@ -8,13 +10,13 @@
 MAP_UINT1 *ReadUINT1(
   const char *nameOrValue, size_t nrRows, size_t nrCols)
 {
- UINT1 val;
+ UINT1 val = 0;
  if (CnvrtUINT1(&val, nameOrValue))
   return InitMapUINT1(nrRows,nrCols,&val,FALSE,
                                                       CR_UINT1);
 else
   {
-   REAL8 dummy;
+   REAL8 dummy = NAN;
    if (CnvrtREAL8(&dummy, nameOrValue))
    { /* it's a number but not a valid one for UINT1
       */
@@ -27,12 +29,12 @@ else
 
 MAP_UINT1 *ReadUINT1Map(const char *name)
 {
-  MAP *m;
-        MAP_UINT1 *map;
-        UINT1 max;
-        UINT2 inCr;   /* in memory cellRepr */
-        UINT2 fileCr; /* in file cellRepr */
-        void *buf;
+  MAP *m = NULL;
+        MAP_UINT1 *map = NULL;
+        UINT1 max = 0;
+        UINT2 inCr = 0;   /* in memory cellRepr */
+        UINT2 fileCr = 0; /* in file cellRepr */
+        void *buf = NULL;
 
   PRECOND(name != NULL);
   m = Mopen(name, M_READ);
@@ -99,7 +101,7 @@ void WriteUINT1Map(const char *name,
                    CSF_VS       valueScale)
 {
 
-  MAP *m;
+  MAP *m = NULL;
   CSF_CR fileInCr = DetermineCellRepr(valueScale);
   /* fileInCr is different from m-?inCr */
 
@@ -139,8 +141,8 @@ void DeleteMAP_UINT1(
 
 MAP_UINT1 *CreateSpatialUINT1(CSF_CR cr,size_t nrRows, size_t nrCols)
 {
-  MAP_UINT1 *map;
-  void *buf;
+  MAP_UINT1 *map = NULL;
+  void *buf = NULL;
   PRECOND(TestApiInitTest("CreateSpatialUINT1"));
   if (cr != CR_UINT1 && cr != CR_INT4 && cr != CR_REAL8 && cr != CR_REAL4)
         {
@@ -168,13 +170,13 @@ MAP_UINT1 *CreateSpatialUINT1(CSF_CR cr,size_t nrRows, size_t nrCols)
 MAP_INT4 *ReadINT4(
   const char *nameOrValue, size_t nrRows, size_t nrCols)
 {
- INT4 val;
+ INT4 val = 0;
  if (CnvrtINT4(&val, nameOrValue))
   return InitMapINT4(nrRows,nrCols,&val,FALSE,
                                                       CR_INT4);
 else
   {
-   REAL8 dummy;
+   REAL8 dummy = NAN;
    if (CnvrtREAL8(&dummy, nameOrValue))
    { /* it's a number but not a valid one for INT4
       */
@@ -187,12 +189,12 @@ else
 
 MAP_INT4 *ReadINT4Map(const char *name)
 {
-  MAP *m;
-        MAP_INT4 *map;
-        INT4 max;
-        UINT2 inCr;   /* in memory cellRepr */
-        UINT2 fileCr; /* in file cellRepr */
-        void *buf;
+  MAP *m = NULL;
+        MAP_INT4 *map = NULL;
+        INT4 max = 0;
+        UINT2 inCr = 0;   /* in memory cellRepr */
+        UINT2 fileCr = 0; /* in file cellRepr */
+        void *buf = NULL;
 
   PRECOND(name != NULL);
   m = Mopen(name, M_READ);
@@ -259,7 +261,7 @@ void WriteINT4Map(const char *name,
                    CSF_VS       valueScale)
 {
 
-  MAP *m;
+  MAP *m = NULL;
   CSF_CR fileInCr = DetermineCellRepr(valueScale);
   /* fileInCr is different from m-?inCr */
 
@@ -299,8 +301,8 @@ void DeleteMAP_INT4(
 
 MAP_INT4 *CreateSpatialINT4(CSF_CR cr,size_t nrRows, size_t nrCols)
 {
-  MAP_INT4 *map;
-  void *buf;
+  MAP_INT4 *map = NULL;
+  void *buf = NULL;
   PRECOND(TestApiInitTest("CreateSpatialINT4"));
   if (cr != CR_UINT1 && cr != CR_INT4 && cr != CR_REAL8 && cr != CR_REAL4)
         {
@@ -328,13 +330,13 @@ MAP_INT4 *CreateSpatialINT4(CSF_CR cr,size_t nrRows, size_t nrCols)
 MAP_REAL8 *ReadREAL8(
   const char *nameOrValue, size_t nrRows, size_t nrCols)
 {
- REAL8 val;
+ REAL8 val = NAN;
  if (CnvrtREAL8(&val, nameOrValue))
   return InitMapREAL8(nrRows,nrCols,&val,FALSE,
                                                       CR_REAL8);
 else
   {
-   REAL8 dummy;
+   REAL8 dummy = NAN;
    if (CnvrtREAL8(&dummy, nameOrValue))
    { /* it's a number but not a valid one for REAL8
       */
@@ -347,12 +349,12 @@ else
 
 MAP_REAL8 *ReadREAL8Map(const char *name)
 {
-  MAP *m;
-        MAP_REAL8 *map;
-        REAL8 max;
-        UINT2 inCr;   /* in memory cellRepr */
-        UINT2 fileCr; /* in file cellRepr */
-        void *buf;
+  MAP *m = NULL;
+        MAP_REAL8 *map = NULL;
+        REAL8 max = NAN;
+        UINT2 inCr = 0;   /* in memory cellRepr */
+        UINT2 fileCr = 0; /* in file cellRepr */
+        void *buf = NULL;
 
   PRECOND(name != NULL);
   m = Mopen(name, M_READ);
@@ -419,7 +421,7 @@ void WriteREAL8Map(const char *name,
                    CSF_VS       valueScale)
 {
 
-  MAP *m;
+  MAP *m = NULL;
   CSF_CR fileInCr = DetermineCellRepr(valueScale);
   /* fileInCr is different from m-?inCr */
 
@@ -459,8 +461,8 @@ void DeleteMAP_REAL8(
 
 MAP_REAL8 *CreateSpatialREAL8(CSF_CR cr,size_t nrRows, size_t nrCols)
 {
-  MAP_REAL8 *map;
-  void *buf;
+  MAP_REAL8 *map = NULL;
+  void *buf = NULL;
   PRECOND(TestApiInitTest("CreateSpatialREAL8"));
   if (cr != CR_UINT1 && cr != CR_INT4 && cr != CR_REAL8 && cr != CR_REAL4)
         {

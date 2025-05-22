@@ -1,17 +1,17 @@
 #include "ag_BufferedWidget.h"
 
 // Library headers.
-#include <cassert>
-#include <cmath>
-#include <iostream>
-#include <QPainter>
-#include <QPaintEvent>
 
 // PCRaster library headers.
 
 // Module headers.
 
+#include <QPainter>
+#include <QPaintEvent>
 
+#include <cassert>
+#include <cmath>
+#include <iostream>
 
 /*!
   \file
@@ -403,7 +403,7 @@ void BufferedWidget::resizeEvent(
     // steps (one pixel) will result in 0.5 pixel on both sides. In case this
     // is always rounded up, the vis will move to fast. Use anchor point to
     // decide whether the offset should be rounded up or down.
-    qreal intPart, fractionalPart;
+    qreal intPart = NAN, fractionalPart = NAN;
 
     fractionalPart = std::modf(_anchor.x(), &intPart);
 

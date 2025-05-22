@@ -1,7 +1,6 @@
 #include "ag_BooleanRasterDrawer.h"
 
 // External headers.
-#include <QPainter>
 
 // Project headers.
 
@@ -9,7 +8,9 @@
 #include "com_rawpalette.h"
 #include "ag_Raster.h"
 
+#include <QPainter>
 
+#include <cmath>
 
 /*!
   \file
@@ -66,14 +67,14 @@ void BooleanRasterDrawer::draw(
   }
 
   size_t nrCellsPerPixel = this->nrCellsPerPixel(world_to_screen);
-  double leftScreen, topScreen, rightScreen, bottomScreen;
-  double leftWorld, topWorld, rightWorld, bottomWorld;
+  double leftScreen = NAN, topScreen = NAN, rightScreen = NAN, bottomScreen = NAN;
+  double leftWorld = NAN, topWorld = NAN, rightWorld = NAN, bottomWorld = NAN;
 
   dal::Matrix matrix(_raster->dimensions().nrRows(),
          _raster->dimensions().nrCols(), dal::TypeTraits<UINT1>::typeId);
   matrix.transfer(const_cast<UINT1*>(_raster->cells<UINT1>()),
          dal::Matrix::DoNotTakeOwnerShip);
-  UINT1 value;
+  UINT1 value = 0;
 
   auto firstRow = static_cast<size_t>(indices.top());
   auto lastRow = static_cast<size_t>(indices.bottom());

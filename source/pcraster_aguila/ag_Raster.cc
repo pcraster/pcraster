@@ -349,7 +349,7 @@ dal::Table Raster::legend() const
     // in the legend yet.
 
     // Determine raster value extent.
-    INT4 min, max;
+    INT4 min = 0, max = 0;
     assert(d_raster->typeId() == dal::TI_UINT1 ||
       d_raster->typeId() == dal::TI_INT4);
     if(d_raster->typeId() == dal::TI_UINT1) {

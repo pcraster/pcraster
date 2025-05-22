@@ -200,7 +200,7 @@ ag::VisGroup::~VisGroup()
   }
   */
 
-  bool closed;
+  bool closed = false;
 
   while(d_data->d_dataObject.isObserved()) {
     IVisualisation* visualisation =

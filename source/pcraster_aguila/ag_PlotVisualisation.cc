@@ -239,8 +239,8 @@ void PlotVisualisation::drawCurve(
   // Loop over values to find MV's.
   double* xEnd = x + nrValues;
   double* yEnd = y + nrValues;
-  double* xSubBegin, *xSubEnd, *ySubBegin, *ySubEnd;
-  size_t sizeOfSubRange;
+  double* xSubBegin = nullptr, *xSubEnd = nullptr, *ySubBegin = nullptr, *ySubEnd = nullptr;
+  size_t sizeOfSubRange = 0;
   // long int curveId;
 
   xSubEnd = x;

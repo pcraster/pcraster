@@ -1,7 +1,6 @@
 #include "ag_ExceedanceProbabilityRasterDrawer.h"
 
 // External headers.
-#include <QPainter>
 
 // Project headers.
 
@@ -10,7 +9,9 @@
 #include "ag_Raster.h"
 #include "com_rawpalette.h"
 
+#include <QPainter>
 
+#include <cmath>
 
 /*!
   \file
@@ -62,8 +63,8 @@ void ExceedanceProbabilityRasterDrawer::drawSingleColour(
          QTransform const&  /*screen_to_world*/) const
 {
   size_t nrCellsPerPixel = this->nrCellsPerPixel(world_to_screen);
-  double leftScreen, topScreen, rightScreen, bottomScreen;
-  double leftWorld, topWorld, rightWorld, bottomWorld;
+  double leftScreen = NAN, topScreen = NAN, rightScreen = NAN, bottomScreen = NAN;
+  double leftWorld = NAN, topWorld = NAN, rightWorld = NAN, bottomWorld = NAN;
 
   dal::Matrix matrix(_raster->dimensions().nrRows(),
          _raster->dimensions().nrCols(), dal::TypeTraits<REAL4>::typeId);
@@ -124,8 +125,8 @@ void ExceedanceProbabilityRasterDrawer::drawMultipleColours(
          QTransform const&  /*screen_to_world*/) const
 {
   size_t nrCellsPerPixel = this->nrCellsPerPixel(world_to_screen);
-  double leftScreen, topScreen, rightScreen, bottomScreen;
-  double leftWorld, topWorld, rightWorld, bottomWorld;
+  double leftScreen = NAN, topScreen = NAN, rightScreen = NAN, bottomScreen = NAN;
+  double leftWorld = NAN, topWorld = NAN, rightWorld = NAN, bottomWorld = NAN;
 
   dal::Matrix matrix(_raster->dimensions().nrRows(),
          _raster->dimensions().nrCols(), dal::TypeTraits<REAL4>::typeId);
@@ -253,19 +254,19 @@ void ExceedanceProbabilityRasterDrawer::drawContours(
          : lastCol;
 
   REAL4  values[4];
-  REAL4  mean;
-  double cxWld, cyWld;
-  double cxPix, cyPix;
+  REAL4  mean = NAN;
+  double cxWld = NAN, cyWld = NAN;
+  double cxPix = NAN, cyPix = NAN;
   int    nrOfContours  = _properties.nrClasses();
-  int    contourNr;
-  REAL4  contourValue;
+  int    contourNr = 0;
+  REAL4  contourValue = NAN;
   std::vector<double> contourValues = _properties.classBorders();
-  REAL4  contourIntersection;
+  REAL4  contourIntersection = NAN;
   double currX = 0.0; // Shut up compiler.
   double currY = 0.0; // Shut up compiler.
-  double newX, newY;
-  bool   currentSet;
-  size_t index, index2;    // Loop index.
+  double newX = NAN, newY = NAN;
+  bool   currentSet = false;
+  size_t index = 0, index2 = 0;    // Loop index.
 
   // Size of cell in pixels.
   double cellSize  = cellSizeInPixels(world_to_screen);

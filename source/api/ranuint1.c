@@ -103,7 +103,7 @@ static void PutMV_UINT1(
 static void PutAllMVUINT1(
   MAP_UINT1 *m)
 {
-  int r,c;
+  int r = 0,c = 0;
   PRECOND(m->spatial);
 
   for (r=0; r < m->NrRows(m); r++)

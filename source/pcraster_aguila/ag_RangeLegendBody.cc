@@ -180,7 +180,7 @@ void RangeLegendBody::paintKeyLegend()
   }
 
   std::vector<double> borders = _drawProperties.classBorders();
-  int left, top;
+  int left = 0, top = 0;
 
   // maxCutoff is first border, minCutoff is last.
   std::reverse(borders.begin(), borders.end());
@@ -266,7 +266,7 @@ void RangeLegendBody::paintVectorLegend()
   painter.setRenderHint(QPainter::Antialiasing);
 
   {
-    int center, top, bottom;
+    int center = 0, top = 0, bottom = 0;
     center = keyBoxOffset().width() + keySize().width();
     bottom = keyBoxOffset().height() + qRound(map.map(QPointF(0, *(borders.end() - 1))).y());
     painter.setPen(Qt::black);
@@ -302,7 +302,7 @@ void RangeLegendBody::paintLabels(
          std::vector<double> const& borders,
          bool drawTics) const
 {
-  int left, top, right, bottom;
+  int left = 0, top = 0, right = 0, bottom = 0;
 
   // Determine which class borders to label, based on the amount of
   // available space. The lower and upper borders are always labeled,

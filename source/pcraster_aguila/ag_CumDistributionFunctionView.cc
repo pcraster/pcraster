@@ -1,9 +1,6 @@
 #include "ag_CumDistributionFunctionView.h"
 
 // Library headers.
-#include <boost/smart_ptr.hpp>
-#include <QApplication>
-#include <QPen>
 
 // PCRaster library headers.
 #include "dal_DataSpace.h"
@@ -18,7 +15,11 @@
 #include "ag_RasterDataSources.h"
 #include "ag_VisEngine.h"
 
+#include <boost/smart_ptr.hpp>
+#include <QApplication>
+#include <QPen>
 
+#include <cmath>
 
 /*!
   \file
@@ -175,7 +176,7 @@ void CumDistributionFunctionView::setYAxisTitle()
 
 void CumDistributionFunctionView::setXAxisScale()
 {
-  double min, max;
+  double min = NAN, max = NAN;
   pcr::setMV(min);
   pcr::setMV(max);
   bool extremesInitialised = false;
@@ -201,7 +202,7 @@ void CumDistributionFunctionView::setXAxisScale()
     }
   }
   else {
-    SpatialDataset* dataset;
+    SpatialDataset* dataset = nullptr;
 
     for(DataGuide const& guide : visualisationEngine().dataGuides()) {
       assert(guide.type() == geo::STACK || guide.type() == geo::FEATURE);
@@ -306,7 +307,7 @@ void CumDistributionFunctionView::drawPlots()
   dal::DataSpace const& space(object.dataSpace());
   dal::DataSpaceAddress const& address(dataObject().dataSpaceAddress());
 
-  SpatialDataset* dataset;
+  SpatialDataset* dataset = nullptr;
 
   for(DataGuide const& guide : visualisationEngine().dataGuides()) {
     assert(guide.type() == geo::STACK || guide.type() == geo::FEATURE);
@@ -469,7 +470,7 @@ void CumDistributionFunctionView::toggleMarker()
 
   assert(!visualisationEngine().isEmpty());
 
-  double x, y;
+  double x = NAN, y = NAN;
 
   assert(markerEnabled(xMarker()) || markerEnabled(yMarker()));
   assert(!(markerEnabled(xMarker()) && markerEnabled(yMarker())));

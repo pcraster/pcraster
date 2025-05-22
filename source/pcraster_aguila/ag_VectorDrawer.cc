@@ -1,14 +1,14 @@
 #include "ag_VectorDrawer.h"
 
 // External headers.
-#include <QPainter>
 
 // Project headers.
 
 // Module headers.
 #include "ag_Vector.h"
 
-
+#include <QPainter>
+#include <cmath>
 
 /*!
   \file
@@ -75,9 +75,9 @@ void VectorDrawer::draw (
   size_t nrCellsPerPixel = this->nrCellsPerPixel(world_to_screen);
 
   QVector<QLineF> lines(3);
-  double centerX, centerY;
-  REAL4 magnitude;
-  REAL4 angle;
+  double centerX = NAN, centerY = NAN;
+  REAL4 magnitude = NAN;
+  REAL4 angle = NAN;
   QTransform matrix;
 
   auto firstRow = static_cast<size_t>(indices.top());
@@ -159,8 +159,8 @@ void VectorDrawer::drawCells(
          QTransform const&  /*screen_to_world*/) const
 {
   size_t nrCellsPerPixel = this->nrCellsPerPixel(world_to_screen);
-  double leftScreen, topScreen, rightScreen, bottomScreen;
-  double leftWorld, topWorld, rightWorld, bottomWorld;
+  double leftScreen = NAN, topScreen = NAN, rightScreen = NAN, bottomScreen = NAN;
+  double leftWorld = NAN, topWorld = NAN, rightWorld = NAN, bottomWorld = NAN;
 
   auto firstRow = static_cast<size_t>(indices.top());
   auto lastRow = static_cast<size_t>(indices.bottom());

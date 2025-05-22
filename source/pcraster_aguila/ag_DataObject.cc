@@ -1,11 +1,7 @@
 #include "ag_DataObject.h"
 
+
 // Library headers.
-#include <algorithm>
-#include <iterator>
-#include <set>
-#include <sstream>
-#include <QPoint>
 
 // PCRaster library headers.
 #include "com_rawpalette.h"
@@ -27,8 +23,13 @@
 // Module headers.
 #include "AguilaXSD.h"
 
+#include <QPoint>
 
-
+#include <algorithm>
+#include <cmath>
+#include <iterator>
+#include <set>
+#include <sstream>
 /*!
   \file
   This file contains the implementation of the DataObject class.
@@ -647,21 +648,21 @@ std::string DataObject::label(
       switch(guide.valueScale()) {
         case VS_BOOLEAN: {
         case VS_LDD:
-          UINT1 value;
+          UINT1 value = 0;
           this->value<UINT1>(value, guide);
           result = properties().label<UINT1>(guide, value);
           break;
         }
         case VS_NOMINAL:
         case VS_ORDINAL: {
-          INT4 value;
+          INT4 value = 0;
           this->value<INT4>(value, guide);
           result = properties().label<INT4>(guide, value);
           break;
         }
         case VS_SCALAR:
         case VS_DIRECTION: {
-          REAL4 value;
+          REAL4 value = NAN;
           this->value<REAL4>(value, guide);
           result = properties().label<REAL4>(guide, value);
           break;
@@ -680,20 +681,20 @@ std::string DataObject::label(
       if(layer.hasAttribute()) {
         switch(guide.valueScale()) {
           case VS_BOOLEAN: {
-            UINT1 value;
+            UINT1 value = 0;
             this->value<UINT1>(value, guide);
             result = properties().label<UINT1>(guide, value);
             break;
           }
           case VS_NOMINAL:
           case VS_ORDINAL: {
-            INT4 value;
+            INT4 value = 0;
             this->value<INT4>(value, guide);
             result = properties().label<INT4>(guide, value);
             break;
           }
           case VS_SCALAR: {
-            REAL4 value;
+            REAL4 value = NAN;
             this->value<REAL4>(value, guide);
             result = properties().label<REAL4>(guide, value);
             break;
@@ -708,14 +709,14 @@ std::string DataObject::label(
       break;
     }
     case geo::VECTOR: {
-      REAL4 value;
+      REAL4 value = NAN;
       this->value<REAL4>(value, guide);
       result = properties().label<REAL4>(guide, value);
 
       break;
     }
     case geo::TIMESERIES: {
-      REAL4 value;
+      REAL4 value = NAN;
       this->value<REAL4>(value, guide);
       result = properties().label<REAL4>(guide, value);
 

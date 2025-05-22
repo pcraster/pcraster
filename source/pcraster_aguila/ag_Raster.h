@@ -4,7 +4,7 @@
 
 
 // Library headers.
-#include <cassert>
+
 #include <boost/lexical_cast.hpp>
 
 // PCRaster library headers.
@@ -17,6 +17,8 @@
 // Module headers.
 #include "ag_RasterDataset.h"
 
+#include <cassert>
+#include <cmath>
 
 
 namespace dal {
@@ -192,7 +194,7 @@ inline bool Raster::value(
               space.dimension(index).value<dal::RasterDimensions>(0));
         auto const& spatialAddress(
               address.template coordinate<dal::SpatialCoordinate>(index));
-        double row, col;
+        double row = NAN, col = NAN;
 
         rasterDimensions.indices(spatialAddress, row, col);
 
@@ -222,7 +224,7 @@ inline bool Raster::value<std::string>(
 
   switch(d_raster->typeId()) {
     case dal::TI_UINT1: {
-      UINT1 value;
+      UINT1 value = 0;
 
       if(this->value<UINT1>(value, space, address)) {
         result = std::to_string(INT4(value));
@@ -231,7 +233,7 @@ inline bool Raster::value<std::string>(
       break;
     }
     case dal::TI_INT4: {
-      INT4 value;
+      INT4 value = 0;
 
       if(this->value<INT4>(value, space, address)) {
         result = std::to_string(value);
@@ -240,7 +242,7 @@ inline bool Raster::value<std::string>(
       break;
     }
     case dal::TI_REAL4: {
-      REAL4 value;
+      REAL4 value = NAN;
 
       if(this->value<REAL4>(value, space, address)) {
         result = boost::lexical_cast<std::string>(value);

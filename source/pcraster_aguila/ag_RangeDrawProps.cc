@@ -142,8 +142,8 @@ bool RangeDrawProps::equals(
     ClassifierTuple const& lhsTuple = _classifiers[i];
     ClassifierTuple const& rhsTuple = rhs._classifiers[i];
 
-    com::Classifier const* lhsClassifier;
-    com::Classifier const* rhsClassifier;
+    com::Classifier const* lhsClassifier = nullptr;
+    com::Classifier const* rhsClassifier = nullptr;
 
     lhsClassifier = std::get<0>(lhsTuple);
     rhsClassifier = std::get<0>(rhsTuple);

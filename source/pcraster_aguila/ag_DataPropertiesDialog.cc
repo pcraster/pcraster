@@ -123,7 +123,7 @@ void ag::DataPropertiesDialog::createInterface()
 {
   // ag::VisualisationWindow::createInterface();
 
-  QBoxLayout *box, *top;
+  QBoxLayout *box = nullptr, *top = nullptr;
 
   auto* widget = new QWidget(this);
   top = new QVBoxLayout(widget);
@@ -157,15 +157,15 @@ void ag::DataPropertiesDialog::createInterface()
   // Create and layout the buttons.
   //----------------------------------------------------------------------------
 
-  QPushButton* ok;
+  QPushButton* ok = nullptr;
   ok = new QPushButton("OK", widget);
   ok->setFixedSize(qt::BUTTONWIDTH, qt::BUTTONHEIGHT);
 
-  QPushButton* cancel;
+  QPushButton* cancel = nullptr;
   cancel = new QPushButton("Cancel", widget);
   cancel->setFixedSize(qt::BUTTONWIDTH, qt::BUTTONHEIGHT);
 
-  QPushButton* apply;
+  QPushButton* apply = nullptr;
   apply = new QPushButton("Apply", widget);
   apply->setDefault(true);
   apply->setFixedSize(qt::BUTTONWIDTH, qt::BUTTONHEIGHT);

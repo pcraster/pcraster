@@ -79,7 +79,7 @@ VisualisationWindow::~VisualisationWindow()
 
 void VisualisationWindow::insertAddAndNewVisualisationsMenu()
 {
-  QMenu* menu;
+  QMenu* menu = nullptr;
 
   menu = d_fileMenu->addMenu("&Add");
   menu->addAction("&Map View", this,

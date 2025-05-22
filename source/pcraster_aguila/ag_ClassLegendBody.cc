@@ -109,7 +109,7 @@ void ClassLegendBody::paintLineLegend()
 void ClassLegendBody::paintKeyLegend()
 {
   if(d_drawProperties.nrClasses() > 0) {
-    int left, top;
+    int left = 0, top = 0;
 
     QPainter painter(this);
 

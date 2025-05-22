@@ -1,10 +1,6 @@
 #include "ag_CursorWindow.h"
 
 // Library headers.
-#include <sstream>
-#include <boost/lexical_cast.hpp>
-#include <QBoxLayout>
-#include <QPushButton>
 
 // PCRaster library headers.
 #include "qt_AppWindow.h"
@@ -19,7 +15,13 @@
 #include "ag_DataObject.h"
 #include "ag_VisEngine.h"
 
+#include <boost/lexical_cast.hpp>
+#include <QBoxLayout>
+#include <QPushButton>
+
+#include <cmath>
 #include <fstream>
+#include <sstream>
 
 
 /*!
@@ -323,7 +325,7 @@ void CursorWindow::saveToText(
           case dal::RegularDiscretisation: {
             auto const& rasterDimensions(
                    space.dimension(i).value<dal::RasterDimensions>(0));
-            double row, col;
+            double row = NAN, col = NAN;
             rasterDimensions.indices(spatialAddress, row, col);
 
             /// dataSpaceStream << "rows = [1, 1, "

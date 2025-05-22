@@ -1,8 +1,4 @@
 #include "ag_SceneView.h"
-#include <cmath>
-#include <vector>
-#include <QKeyEvent>
-#include <QPoint>
 #include "com_const.h"
 #include "com_exception.h"
 #include "com_matrix.h"
@@ -20,8 +16,13 @@
   #include <GL/glu.h>
 #endif
 
+#include <QKeyEvent>
+#include <QPoint>
+
+#include <cmath>
 #include <format>
 #include <numbers>
+#include <vector>
 
 //------------------------------------------------------------------------------
 
@@ -409,7 +410,7 @@ GLenum ag::SceneView::shadeModel() const
   auto * const localThis = const_cast<SceneView * const>(this);
   localThis->makeCurrent();
 
-  int m;
+  int m = 0;
   glGetIntegerv(GL_SHADE_MODEL, &m);
 
 #ifdef DEBUG_DEVELOP
@@ -447,7 +448,7 @@ bool ag::SceneView::showLight() const
   auto * const localThis = const_cast<SceneView * const>(this);
   localThis->makeCurrent();
 
-  GLboolean s;
+  GLboolean s = 0;
   glGetBooleanv(GL_LIGHT0, &s);
   return s == GL_TRUE;
 }
@@ -749,7 +750,7 @@ void ag::SceneView::installCamera(Camera c)
     }
   }
   else {
-    GLfloat x, y, z, yaw, pitch, roll;
+    GLfloat x = NAN, y = NAN, z = NAN, yaw = NAN, pitch = NAN, roll = NAN;
     GLfloat d = 4.0 * std::sqrt(widthScene() * widthScene() +
                    depthScene() + depthScene());
 
@@ -839,7 +840,7 @@ void ag::SceneView::retrieveFeedback(Feedback* feedback)
 int ag::SceneView::depthOfRenderingContext() const
 {
   int depth = 0;
-  int bits;
+  int bits = 0;
   glGetIntegerv(GL_RED_BITS, &bits);
   depth += bits;
   glGetIntegerv(GL_GREEN_BITS, &bits);

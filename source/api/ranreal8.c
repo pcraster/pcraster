@@ -103,7 +103,7 @@ static void PutMV_REAL8(
 static void PutAllMVREAL8(
   MAP_REAL8 *m)
 {
-  int r,c;
+  int r = 0,c = 0;
   PRECOND(m->spatial);
 
   for (r=0; r < m->NrRows(m); r++)

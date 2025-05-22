@@ -1,17 +1,17 @@
 #include "ag_RasterDrawer.h"
 
 // External headers.
-#include <cassert>
-#include <cmath>
-#include <QPainter>
-#include <QGraphicsView>
 
 // Project headers.
 
 // Module headers.
 #include "ag_Raster.h"
 
+#include <QPainter>
+#include <QGraphicsView>
 
+#include <cassert>
+#include <cmath>
 
 /*!
   \file
@@ -216,8 +216,8 @@ void RasterDrawer::drawCells(
          QTransform const&  /*screen_to_world*/) const
 {
   size_t nrCellsPerPixel = this->nrCellsPerPixel(world_to_screen);
-  double leftScreen, topScreen, rightScreen, bottomScreen;
-  double leftWorld, topWorld, rightWorld, bottomWorld;
+  double leftScreen = NAN, topScreen = NAN, rightScreen = NAN, bottomScreen = NAN;
+  double leftWorld = NAN, topWorld = NAN, rightWorld = NAN, bottomWorld = NAN;
 
   // dal::Matrix matrix(_raster->dimensions().nrRows(),
   //        _raster->dimensions().nrCols(), dal::TypeTraits<T>::typeId);

@@ -74,7 +74,7 @@ ag::Feedback::~Feedback()
 {
   delete d_data;
 
-  int m;
+  int m = 0;
   glGetIntegerv(GL_RENDER_MODE, &m);
   if(m == GL_FEEDBACK) {
     glRenderMode(GL_RENDER);

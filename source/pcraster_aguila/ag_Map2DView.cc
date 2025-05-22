@@ -1,11 +1,7 @@
 #include "ag_Map2DView.h"
 
+
 // Library headers.
-#include <QMessageBox>
-#include <QMouseEvent>
-#include <QPainter>
-#include <QPixmap>
-#include <QPoint>
 
 // PCRaster library headers.
 #include "dal_MathUtils.h"
@@ -33,7 +29,13 @@
 #include "ag_VectorDrawer.h"
 #include "ag_VisEngine.h"
 
+#include <QMessageBox>
+#include <QMouseEvent>
+#include <QPainter>
+#include <QPixmap>
+#include <QPoint>
 
+#include <cmath>
 
 /*!
   \file
@@ -343,7 +345,7 @@ void Map2DView::drawZoomRectangle(
 void Map2DView::queryMap(
          QPoint const& pos)
 {
-  double x, y;
+  double x = NAN, y = NAN;
 
   if(map(pos, &x, &y)) {
     dataObject().setXY(x, y, true);

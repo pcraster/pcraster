@@ -381,8 +381,8 @@ void LegendView::recreateLegend(
   // Collection of tuples.
   std::vector<DrawPropertiesLegendIndexTuple> drawPropertiesLegendIndexTuples;
 
-  DrawProps* properties;
-  Legend* legend;
+  DrawProps* properties = nullptr;
+  Legend* legend = nullptr;
   int colWidth = 0;
 
   for(int i = guides.size() - 1; i >= 0; --i) {

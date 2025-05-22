@@ -159,7 +159,7 @@ void DataSourceTable::fillTable()
   setRowCount(guides.size());
 
   for(size_t i = 0; i < guides.size(); ++i) {
-    QTableWidgetItem* item;
+    QTableWidgetItem* item = nullptr;
 
     item = new QTableWidgetItem(
          QString(dataObject().description(guides[i]).c_str()));

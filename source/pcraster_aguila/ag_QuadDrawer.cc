@@ -462,7 +462,7 @@ ag::LddQuadDrawer::LddQuadDrawer(Raster const& r,
   d_gdd.fill(static_cast<unsigned char>(0));
 
   if(d_raster.dimensions().nrRows() > 2 && d_raster.dimensions().nrCols() > 2) {
-    UINT1 v;
+    UINT1 v = 0;
     // Loop over rows, skip first and last one.
     for(size_t r = 1; r < d_raster.dimensions().nrRows() - 1; ++r) {
       // Loop over cols, skip first and last one.

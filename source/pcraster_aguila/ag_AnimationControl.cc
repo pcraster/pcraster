@@ -130,8 +130,8 @@ AnimationControl::~AnimationControl()
 
 void AnimationControl::createInterface()
 {
-  QBoxLayout *vbox, *hbox, *top;
-  QGroupBox *gb;
+  QBoxLayout *vbox = nullptr, *hbox = nullptr, *top = nullptr;
+  QGroupBox *gb = nullptr;
 
   auto* widget = new QWidget(this);
   top = new QVBoxLayout(widget);

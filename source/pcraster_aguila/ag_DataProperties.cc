@@ -1,8 +1,7 @@
 #include "ag_DataProperties.h"
 
+
 // Library headers.
-#include <cmath>
-#include <map>
 
 // PCRaster library headers.
 #include "dev_Algorithm.h"
@@ -26,6 +25,8 @@
 #include "ag_Table.h"
 #include "ag_TableDataSources.h"
 
+#include <cmath>
+#include <map>
 #include <numbers>
 
 /*!
@@ -386,7 +387,7 @@ void DataProperties::addBooleanStackProperties(
     else {
       title = dataObject.name(guide);
 
-      UINT1 min, max;
+      UINT1 min = 0, max = 0;
       if(raster.min<UINT1>(min) && raster.max<UINT1>(max)) {
         std::vector<com_LegendClass<UINT1> > classes;
         classes.push_back(com_LegendClass<UINT1>(0, "false"));
@@ -447,7 +448,7 @@ void DataProperties::addNominalStackProperties(
     else {
       title = dataObject.name(guide);
 
-      INT4 min, max;                           // Min and max in raster.
+      INT4 min = 0, max = 0;                           // Min and max in raster.
       if(raster.min<INT4>(min) && raster.max<INT4>(max)) {
         classifier->setClasses(raster.classes<INT4>());
       }
@@ -503,7 +504,7 @@ void DataProperties::addOrdinalStackProperties(
          legend.nrRecs());
     }
     else {
-      INT4 min, max;
+      INT4 min = 0, max = 0;
       if(raster.min<INT4>(min) && raster.max<INT4>(max)) {
         std::vector<INT4> classes;
         classes.resize(max - min + 1);
@@ -546,7 +547,7 @@ void DataProperties::addScalarStackProperties(
     _data->_rangeClassifiers.push_back(classifier);
     classifier->installLin();
 
-    REAL4 min, max;
+    REAL4 min = NAN, max = NAN;
     if(raster.min<REAL4>(min) && raster.max<REAL4>(max)) {
       classifier->setNrClasses(100);
       classifier->setExtremes(min, max);
@@ -587,7 +588,7 @@ void DataProperties::addDirectionalStackProperties(
     _data->_rangeClassifiers.push_back(rawValueClassifier);
     rawValueClassifier->installLin();
 
-    REAL4 max;
+    REAL4 max = NAN;
     if(raster.max<REAL4>(max)) {
       // Display values: values as presented to the user (degrees).
       displayValueClassifier->setNrClasses(100);
@@ -604,7 +605,7 @@ void DataProperties::addDirectionalStackProperties(
       rawValueClassifier->setNrClasses(displayValueClassifier->nrClasses());
       rawValueClassifier->setExtremes(0.0, 2 * std::numbers::pi);
       if(!displayValueClassifier->borders().empty()) {
-        double lowerBorder, upperBorder;
+        double lowerBorder = NAN, upperBorder = NAN;
         lowerBorder = map.map(displayValueClassifier->borders().front());
         upperBorder = map.map(displayValueClassifier->borders().back());
         rawValueClassifier->setCutoffs(lowerBorder, upperBorder);
@@ -855,7 +856,7 @@ void DataProperties::addScalarFeatureProperties(
     _data->_rangeClassifiers.push_back(classifier);
     classifier->installLin();
 
-    REAL4 min, max;
+    REAL4 min = NAN, max = NAN;
     if(layer.min<REAL4>(min) && layer.max<REAL4>(max)) {
       classifier->setNrClasses(100);
       classifier->setExtremes(min, max);
@@ -893,7 +894,7 @@ void DataProperties::addVectorProperties(
     _data->_rangeClassifiers.push_back(classifier);
     classifier->installLin();
 
-    REAL4 min, max;
+    REAL4 min = NAN, max = NAN;
 
     if(vector.min<REAL4>(min) && vector.max<REAL4>(max)) {
       classifier->setNrClasses(3);

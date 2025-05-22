@@ -12,7 +12,7 @@
 // Module headers.
 #include "ag_RasterDataset.h"
 
-
+#include <cmath>
 
 namespace ag {
   // Vector declarations.
@@ -159,7 +159,7 @@ inline bool Vector::value(
               space.dimension(index).value<dal::RasterDimensions>(0));
         auto const& spatialAddress(
               address.template coordinate<dal::SpatialCoordinate>(index));
-        double row, col;
+        double row = NAN, col = NAN;
 
         rasterDimensions.indices(spatialAddress, row, col);
 

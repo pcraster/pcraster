@@ -1,14 +1,15 @@
 #include "ag_LddRasterDrawer.h"
 
 // External headers.
-#include <QPainter>
 
 // Project headers.
 
 // Module headers.
 #include "ag_Raster.h"
 
+#include <QPainter>
 
+#include <cmath>
 
 /*!
   \file
@@ -95,15 +96,15 @@ void LddRasterDrawer::draw(
          ? lastCol + 1
          : lastCol;
 
-  UINT1 value;
+  UINT1 value = 0;
 
-  double cxWld, cyWld;           // Center of cell.
-  double ncxWld, ncyWld;         // Center of neighb. cell (in ldd direction).
-  double leftPitWld, topPitWld;  // Upper left of pit.
-  double cxPix, cyPix;           // Center of cell.
-  double ncxPix, ncyPix;         // Center of neighb. cell.
-  double leftPitPix, topPitPix;  // Upper left of pit.
-  double pitSizeX, pitSizeY;     // Size of pit.
+  double cxWld = NAN, cyWld = NAN;           // Center of cell.
+  double ncxWld = NAN, ncyWld = NAN;         // Center of neighb. cell (in ldd direction).
+  double leftPitWld = NAN, topPitWld = NAN;  // Upper left of pit.
+  double cxPix = NAN, cyPix = NAN;           // Center of cell.
+  double ncxPix = NAN, ncyPix = NAN;         // Center of neighb. cell.
+  double leftPitPix = NAN, topPitPix = NAN;  // Upper left of pit.
+  double pitSizeX = NAN, pitSizeY = NAN;     // Size of pit.
 
   pitSizeX = std::abs(0.5 * _raster->dimensions().cellSize() *
          this->scale(world_to_screen));

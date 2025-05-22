@@ -9,10 +9,12 @@
 // External headers.
 #include <QPainter>
 #include <QPainterPath>
+#include <boost/geometry.hpp>
 #include <ogr_core.h>
 #include <ogr_feature.h>
 #include <ogr_geometry.h>
-#include <boost/geometry.hpp>
+
+#include <cmath>
 
 /*!
   \file
@@ -87,7 +89,7 @@ void FeatureLayerDrawer::drawLine(
   qreal x1 = world_to_screen.map(p).x();
   qreal y1 = world_to_screen.map(p).y();
 
-  qreal x2, y2;
+  qreal x2 = NAN, y2 = NAN;
 
   for(int i = 1; i < line.getNumPoints(); ++i) {
     p = QPointF(line.getX(i), line.getY(i));
@@ -169,7 +171,7 @@ void FeatureLayerDrawer::draw(
     screen_to_world.map( QPointF(dirtyMapAreaInPixels.right(), dirtyMapAreaInPixels.bottom()) )
   );
 
-  double west, north, east, south;
+  double west = NAN, north = NAN, east = NAN, south = NAN;
   west = dirtyMapAreaInWorldCoordinates.left();
   east = dirtyMapAreaInWorldCoordinates.right();
   north = dirtyMapAreaInWorldCoordinates.top();

@@ -54,8 +54,8 @@ static CSF_CR DetermineCellRepr(CSF_VS valueScale)
 
 static MAP *NewMap(const char *fileName, CSF_CR cellRepr, CSF_VS valueScale)
 {
-    MAP *m;
-    const MAP *c;
+    MAP *m = NULL;
+    const MAP *c = NULL;
     if (nrMaps == 0) {
         Error(" (on creating %s) Can't create "
               "without input maps opened\n",

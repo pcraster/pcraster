@@ -424,7 +424,7 @@ VisGroup* Viewer::createMultiMapView(
     // of which the properties can be merged.
     assert(guideCollections.size() <= d_nrViewRows * d_nrViewCols);
     std::vector<DataGuide> mergeGuides(guideCollections[0].size());
-    size_t viewId;
+    size_t viewId = 0;
 
     for(size_t row = 0; row < d_nrViewRows; ++row) {
       for(size_t col = 0; col < d_nrViewCols; ++col) {

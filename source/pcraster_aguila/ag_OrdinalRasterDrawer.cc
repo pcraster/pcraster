@@ -1,13 +1,15 @@
 #include "ag_OrdinalRasterDrawer.h"
 
 // External headers.
-#include <QPainter>
 
 // Project headers.
 
 // Module headers.
 #include "ag_Raster.h"
 
+#include <QPainter>
+
+#include <cmath>
 
 
 /*!
@@ -64,8 +66,8 @@ void OrdinalRasterDrawer::draw(
   }
 
   size_t nrCellsPerPixel = this->nrCellsPerPixel(world_to_screen);
-  double leftScreen, topScreen, rightScreen, bottomScreen;
-  double leftWorld, topWorld, rightWorld, bottomWorld;
+  double leftScreen = NAN, topScreen = NAN, rightScreen = NAN, bottomScreen = NAN;
+  double leftWorld = NAN, topWorld = NAN, rightWorld = NAN, bottomWorld = NAN;
 
   dal::Matrix matrix(_raster->dimensions().nrRows(),
          _raster->dimensions().nrCols(), dal::TypeTraits<INT4>::typeId);
@@ -77,7 +79,7 @@ void OrdinalRasterDrawer::draw(
   auto firstCol = static_cast<size_t>(indices.left());
   auto lastCol = static_cast<size_t>(indices.right());
 
-  INT4 value;
+  INT4 value = 0;
   QColor colour;
 
   painter.setRenderHint(QPainter::Antialiasing, false);

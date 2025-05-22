@@ -119,7 +119,7 @@ void SpatialDataset::readTimeSeries(
   dal::Array<UINT4> timeCol2(globalTimeDimension.nrCoordinates());
   dal::Array<REAL4> attrCol2(globalTimeDimension.nrCoordinates());
 
-  size_t localTimeStep, globalTimeStep;
+  size_t localTimeStep = 0, globalTimeStep = 0;
   dal::CoordinateMapper const* mapper(globalToLocalMapper().mapper(
          indexOfTime));
 

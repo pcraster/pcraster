@@ -374,7 +374,7 @@ void ag::Map3DView::setHeight(const DataGuide& dataGuide)
 int ag::Map3DView::depthOfRenderingContext() const
 {
   int depth = 0;
-  int bits;
+  int bits = 0;
   glGetIntegerv(GL_RED_BITS, &bits);
   depth += bits;
   glGetIntegerv(GL_GREEN_BITS, &bits);

@@ -1,14 +1,14 @@
 #include "ag_PostScript.h"
 
-// Std
-#include <algorithm>
-#include <cassert>
-#include <functional>
-#include <fstream>
 
 // Pcr
 #include "com_exception.h"
 
+#include <algorithm>
+#include <cassert>
+#include <cmath>
+#include <functional>
+#include <fstream>
 
 
 /*!
@@ -108,9 +108,9 @@ ag::PostScript::~PostScript()
 
 size_t ag::PostScript::nrPrimitives() const
 {
-  size_t nrVertices;
+  size_t nrVertices = 0;
   size_t nrPrimitives = 0;
-  int token;
+  int token = 0;
 
   Feedback::const_iterator it = d_data->d_feedback.begin();
 
@@ -174,11 +174,11 @@ void ag::PostScript::fillPrimitivesArray()
 {
   assert(d_data->d_primitives);
 
-  size_t nrVertices;
+  size_t nrVertices = 0;
   size_t item = 0;
-  int token;
-  GLfloat depthSum;
-  const Feedback3DColor* vertex;
+  int token = 0;
+  GLfloat depthSum = NAN;
+  const Feedback3DColor* vertex = nullptr;
 
   Feedback::const_iterator it = d_data->d_feedback.begin();
 
@@ -269,9 +269,9 @@ void ag::PostScript::writeFooter(std::ostream& os)
 ag::Feedback::const_iterator ag::PostScript::writePrimitive(std::ostream& os,
                    Feedback::const_iterator it)
 {
-  size_t nrVertices;
-  int token;
-  const Feedback3DColor* vertex;
+  size_t nrVertices = 0;
+  int token = 0;
+  const Feedback3DColor* vertex = nullptr;
 
   token = static_cast<int>(*it);
   ++it;

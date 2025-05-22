@@ -222,8 +222,8 @@ void CursorView::createInterface()
   gridLayout->setColumnMinimumWidth(2, 50);
   gridLayout->setVerticalSpacing(0);
 
-  QLabel* title, *value;
-  DimensionCoordinateEdit* edit;
+  QLabel* title = nullptr, *value = nullptr;
+  DimensionCoordinateEdit* edit = nullptr;
 
   for(size_t i = 0; i < space.size(); ++i) {
     dal::Dimension const& dimension(space.dimension(i));
@@ -276,7 +276,7 @@ void CursorView::updateCoordinates()
   dal::DataSpaceAddress const& address(dataObject().dataSpaceAddress());
 
   size_t coordinateIndex = 0; // Shut up compiler.
-  size_t tupleIndex;
+  size_t tupleIndex = 0;
 
   for(size_t i = 0; i < space.size(); ++i) {
     dal::Dimension const& dimension(space.dimension(i));

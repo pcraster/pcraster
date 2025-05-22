@@ -1,10 +1,13 @@
 #include "ag_Map3DObject.h"
-#include <vector>
-#include "geo_DataType.h"
-#include "geo_mathlib.h"
+
 #include "ag_DataProperties.h"
 #include "ag_QuadDrawer.h"
 #include "ag_RasterDataSources.h"
+#include "geo_DataType.h"
+#include "geo_mathlib.h"
+
+#include <cmath>
+#include <vector>
 
 
 
@@ -57,7 +60,7 @@ template void triangleStripInfo<double>(double const*, dal::RasterDimensions con
 } // namespace ag
 
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 //! Constructs a Map3DObject object.
@@ -71,7 +74,7 @@ ag::Map3DObject::Map3DObject(GLfloat x, GLfloat y, GLfloat z,
                    GLfloat yaw, GLfloat pitch, GLfloat roll)
 
   : ag::SceneObject(x, y, z, yaw, pitch, roll)
-    
+
 
 {
 }
@@ -161,16 +164,16 @@ void ag::Map3DObject::createHeightScene(const ag::DataObject& o,
   }
 
   // Check if the min and max are defined (if there're values in the raster).
-  REAL4 minHeight, maxHeight;       // Extreme heights.
+  REAL4 minHeight = NAN, maxHeight = NAN;       // Extreme heights.
   if(!heightRaster.min(minHeight) || !heightRaster.max(maxHeight)) {
     // All MV's.
     return;
   }
 
-  GLfloat cLeft, cRight, cFront, cBack; // Triangle coordinates.
-  GLfloat zCurrent, zFront, zRight;    // Heights of corners of triangles.
-  GLfloat nx, ny, nz;                  // Normal vector of quad.
-  GLfloat dx, dy, dz;
+  GLfloat cLeft = NAN, cRight = NAN, cFront = NAN, cBack = NAN; // Triangle coordinates.
+  GLfloat zCurrent = NAN, zFront = NAN, zRight = NAN;    // Heights of corners of triangles.
+  GLfloat nx = NAN, ny = NAN, nz = NAN;                  // Normal vector of quad.
+  GLfloat dx = NAN, dy = NAN, dz = NAN;
   GLfloat scale = d_scale;             // Scale for height values.
 
   dx = d_quadLength * heightRaster.dimensions().cellSize();
@@ -355,7 +358,7 @@ void ag::Map3DObject::createDrapeScene(const ag::DataObject& dataObject,
   }
 
   // Check if the min and max are defined (if there're values in the raster).
-  REAL4 minHeight, maxHeight;       // Extreme heights.
+  REAL4 minHeight = NAN, maxHeight = NAN;       // Extreme heights.
   if(!heightRaster.min(minHeight) || !heightRaster.max(maxHeight)) // All MV's.
     return;
 
@@ -442,10 +445,10 @@ void ag::Map3DObject::createDrapeScene(const ag::DataObject& dataObject,
   }
   else {
 
-    GLfloat cLeft, cRight, cFront, cBack;          // Quad coordinates.
-    GLfloat zul, zur, zlr, zll;          // Heights of corners of quad.
-    GLfloat nx, ny, nz;                  // Normal vector of quad.
-    GLfloat dx, dy, dz;
+    GLfloat cLeft = NAN, cRight = NAN, cFront = NAN, cBack = NAN;          // Quad coordinates.
+    GLfloat zul = NAN, zur = NAN, zlr = NAN, zll = NAN;          // Heights of corners of quad.
+    GLfloat nx = NAN, ny = NAN, nz = NAN;                  // Normal vector of quad.
+    GLfloat dx = NAN, dy = NAN, dz = NAN;
     GLfloat scale = d_scale;             // Scale for height values.
 
     dx = d_quadLength * heightRaster.dimensions().cellSize();
@@ -461,7 +464,7 @@ void ag::Map3DObject::createDrapeScene(const ag::DataObject& dataObject,
     dy *= scale;
     setSize(width(), depth(), height() * scale);
 
-    size_t firstRow, lastRow, firstCol, lastCol;
+    size_t firstRow = 0, lastRow = 0, firstCol = 0, lastCol = 0;
     firstRow = d_quadLength + 1;
     lastRow  = heightRaster.dimensions().nrRows() - (d_quadLength + 1);
     firstCol = d_quadLength + 1;
@@ -656,13 +659,13 @@ void ag::Map3DObject::reset()
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE OPERATORS 
+// DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE FUNCTIONS 
+// DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
 

@@ -1,14 +1,15 @@
 #include "ag_DirectionalRasterDrawer.h"
 
 // External headers.
-#include <QPainter>
 
 // Project headers.
 
 // Module headers.
 #include "ag_Raster.h"
 
+#include <QPainter>
 
+#include <cmath>
 
 /*!
   \file
@@ -64,8 +65,8 @@ void DirectionalRasterDrawer::draw(
   }
 
   size_t nrCellsPerPixel = this->nrCellsPerPixel(world_to_screen);
-  double leftScreen, topScreen, rightScreen, bottomScreen;
-  double leftWorld, topWorld, rightWorld, bottomWorld;
+  double leftScreen = NAN, topScreen = NAN, rightScreen = NAN, bottomScreen = NAN;
+  double leftWorld = NAN, topWorld = NAN, rightWorld = NAN, bottomWorld = NAN;
 
   dal::Matrix matrix(_raster->dimensions().nrRows(),
          _raster->dimensions().nrCols(), dal::TypeTraits<REAL4>::typeId);
@@ -77,7 +78,7 @@ void DirectionalRasterDrawer::draw(
   auto firstCol = static_cast<size_t>(indices.left());
   auto lastCol = static_cast<size_t>(indices.right());
 
-  REAL4 value;
+  REAL4 value = NAN;
   QColor colour;
 
   painter.setRenderHint(QPainter::Antialiasing, false);

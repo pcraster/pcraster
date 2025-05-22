@@ -1,7 +1,6 @@
 #include "ag_RangeFeatureLayerDrawer.h"
 
 // External headers.
-#include <QPainter>
 
 // Project headers.
 
@@ -9,6 +8,9 @@
 #include "ag_FeatureLayer.h"
 #include "ag_RangeDrawProps.h"
 
+#include <QPainter>
+
+#include <cmath>
 
 /*!
   \file
@@ -60,7 +62,7 @@ void RangeFeatureLayerDrawer::draw(
          long int featureId,
          QPainterPath const& path) const
 {
-  REAL4 value;
+  REAL4 value = NAN;
   layer().value<REAL4>(featureId, value);
 
   painter.setBrush(pcr::isMV(value)

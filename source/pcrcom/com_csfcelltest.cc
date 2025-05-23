@@ -1,9 +1,10 @@
 #define BOOST_TEST_MODULE pcraster com csf_cell
 #include <boost/test/unit_test.hpp>
 #include "stddefx.h"
-#include <algorithm>
 #include "com_csfcell.h"
 
+#include <algorithm>
+#include <cmath>
 
 BOOST_AUTO_TEST_CASE(csf_sizes)
 {
@@ -44,27 +45,27 @@ BOOST_AUTO_TEST_CASE(cast_and_copy_cells)
   // because type promotion will use pcr::isMV(INT4) where
   //  pcr::isMV(INT2) is needed
   INT2 i2=MV_INT2;
-  INT4 i4;
+  INT4 i4 = 0;
   copyCells(&i4,&i2,1);
   BOOST_CHECK(i4==MV_INT4);
   }
 
   {
   INT4 i4=MV_INT4;
-  INT2 i2;
+  INT2 i2 = 0;
   copyCells(&i2,&i4,1);
   BOOST_CHECK(i2==MV_INT2);
   }
   {
   double d=14;
-  UINT1 i1;
+  UINT1 i1 = 0;
   CastCell<UINT1,double>()(i1,d);
   BOOST_CHECK(i1==14);
   }
   {
-  double d;
+  double d = NAN;
   pcr::setMV(d);
-  UINT1 i1;
+  UINT1 i1 = 0;
   CastCell<UINT1,double>()(i1,d);
   BOOST_CHECK(i1==MV_UINT1);
   }
@@ -109,7 +110,7 @@ BOOST_AUTO_TEST_CASE(set_mv)
    BOOST_CHECK(pcr::isMV(real4+i));
   }
   {
-   double real8;
+   double real8 = NAN;
    pcr::setMV(real8);
    auto *c=(UINT1 *)&real8;
    BOOST_CHECK(c[0]==MV_UINT1);

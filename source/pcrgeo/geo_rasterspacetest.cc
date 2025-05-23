@@ -100,7 +100,7 @@ BOOST_AUTO_TEST_CASE(io)
 {
   using namespace geo;
 
-  bool stuffReadDoesntEqualStuffWritten;
+  bool stuffReadDoesntEqualStuffWritten = false;
 
   try {
 

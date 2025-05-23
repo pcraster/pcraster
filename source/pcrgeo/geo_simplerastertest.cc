@@ -85,7 +85,7 @@ BOOST_AUTO_TEST_CASE(assignment)
 {
   using namespace geo;
 
-  SimpleRaster<int>::const_iterator it2, it3;
+  SimpleRaster<int>::const_iterator it2 = nullptr, it3 = nullptr;
 
   bool result = true;
 

@@ -144,7 +144,7 @@ BOOST_AUTO_TEST_CASE(bad_formats)
 {
   using namespace geo;
 
-  bool catchWrongFormat;
+  bool catchWrongFormat = false;
   
   // stupid error
   catchWrongFormat=false;

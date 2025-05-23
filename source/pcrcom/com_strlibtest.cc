@@ -26,7 +26,7 @@ BOOST_AUTO_TEST_CASE(from_string)
   int i = strToInt(std::string("-0001"));
   BOOST_CHECK(i == -1);
 
-  bool visit;
+  bool visit = false;
 
   visit=false;
   try {

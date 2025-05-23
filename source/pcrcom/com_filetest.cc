@@ -11,7 +11,7 @@ BOOST_AUTO_TEST_CASE(open_ifstream)
 {
   using namespace com;
 
-  bool visit;
+  bool visit = false;
 
   visit=false;
   try {
@@ -57,7 +57,7 @@ BOOST_AUTO_TEST_CASE(open_ofstream)
 {
   using namespace com;
 
-  bool visit;
+  bool visit = false;
 
   visit=false;
   try {
@@ -139,7 +139,7 @@ BOOST_AUTO_TEST_CASE(move_)
 {
   using namespace com;
 
-  bool moveFailed;
+  bool moveFailed = false;
 
   // + Move existing regular file.
   moveFailed = false;
@@ -375,7 +375,7 @@ BOOST_AUTO_TEST_CASE(skip_white_space)
   stream.seekg(0);
   // front space
   skipWhiteSpace(stream);
-  char a;
+  char a = 0;
   stream >> a;
   BOOST_CHECK(a=='a');
   // back space

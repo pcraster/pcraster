@@ -127,7 +127,7 @@ public:
   template<class ObjectType>
   size_t           insert              (ObjectType* pointer)
   {
-    size_t id;
+    size_t id = 0;
 
     auto it = std::find_if(
          d_objects.begin(), d_objects.end(),

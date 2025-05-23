@@ -4,6 +4,7 @@
 #include "discr_block.h"
 #include "discr_raster.h"
 
+#include <cmath>
 
 BOOST_AUTO_TEST_CASE(constructor)
 {
@@ -347,9 +348,9 @@ BOOST_AUTO_TEST_CASE(bottom_elevation)
 
   // Two rows, one column.
   Raster raster(2, 1, 1.0, 0.0, 0.0);
-  bool isValid;
+  bool isValid = false;
   typedef Block::ThicknessType T;
-  T elevation;
+  T elevation = NAN;
 
   {
     Block block(raster);
@@ -400,9 +401,9 @@ BOOST_AUTO_TEST_CASE(top_elevation)
 
   // Two rows, one column.
   Raster raster(2, 1, 1.0, 0.0, 0.0);
-  bool isValid;
+  bool isValid = false;
   typedef Block::ThicknessType T;
-  T elevation;
+  T elevation = NAN;
 
   {
     Block block(raster);
@@ -453,9 +454,9 @@ BOOST_AUTO_TEST_CASE(extreme_elevations)
 
   // Two rows, one column.
   Raster raster(2, 1, 1.0, 0.0, 0.0);
-  bool isValid;
+  bool isValid = false;
   typedef Block::ThicknessType T;
-  T bottom, top;
+  T bottom = NAN, top = NAN;
 
   {
     Block block(raster);

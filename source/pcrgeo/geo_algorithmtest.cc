@@ -1,9 +1,11 @@
 #define BOOST_TEST_MODULE pcraster geo algorithm
 #include <boost/test/unit_test.hpp>
-#include <iterator>
 #include "geo_algorithm.h"
 #include "geo_point.h"
 #include "geo_pointvalue.h"
+
+#include <cmath>
+#include <iterator>
 
 
 BOOST_AUTO_TEST_CASE(points_in_area)
@@ -72,9 +74,9 @@ BOOST_AUTO_TEST_CASE(maximum_)
 
     Punt point(1, 1);
     PointValues subset;
-    Punt::CoordinateType radius;
-    bool result;
-    Value max;
+    Punt::CoordinateType radius = 0;
+    bool result = false;
+    Value max = 0;
 
     radius = 0;
     subset.clear();
@@ -113,9 +115,9 @@ BOOST_AUTO_TEST_CASE(maximum_)
 
     Point point(1, 1);
     PointValues subset;
-    Point::CoordinateType radius;
-    bool result;
-    Value max;
+    Point::CoordinateType radius = NAN;
+    bool result = false;
+    Value max = 0;
 
     radius = 0;
     subset.clear();

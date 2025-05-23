@@ -3,6 +3,7 @@
 #include "dal_MathUtils.h"
 #include "func_summarystatistics.h"
 
+#include <cmath>
 
 BOOST_AUTO_TEST_CASE(mean_)
 {
@@ -12,14 +13,14 @@ BOOST_AUTO_TEST_CASE(mean_)
     float sources[] = { 100.0f, 200.0f, 300.0f };
 
     {
-      double result;
+      double result = NAN;
 
       mean<float, double>(&sources[0], 3, result);
       BOOST_CHECK(dal::comparable<double>(result, 200.0));
     }
 
     {
-      float result;
+      float result = NAN;
 
       mean<float, float>(&sources[0], 3, result);
       BOOST_CHECK(dal::comparable<float>(result, 200.0f));
@@ -45,7 +46,7 @@ BOOST_AUTO_TEST_CASE(mean_)
     sources.push_back(300.0f);
 
     {
-      double result;
+      double result = NAN;
 
       mean<std::vector<float>::const_iterator, double>(
          sources.begin(), sources.end(), result);
@@ -53,7 +54,7 @@ BOOST_AUTO_TEST_CASE(mean_)
     }
 
     {
-      float result;
+      float result = NAN;
 
       mean<std::vector<float>::const_iterator, float>(
          sources.begin(), sources.end(), result);

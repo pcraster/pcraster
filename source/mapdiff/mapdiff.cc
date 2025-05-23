@@ -48,7 +48,7 @@
 int main(int argc,      /* number of arguments */
   char *argv[])      /* list of arguments */
 {
-  int c;
+  int c = 0;
   char *fileName=nullptr;
 
   exitOnError=1;

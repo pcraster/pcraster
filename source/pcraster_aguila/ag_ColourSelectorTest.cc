@@ -10,7 +10,7 @@ BOOST_AUTO_TEST_CASE(test)
 
   std::vector<QColor> selection;
   RawPalette palette(*RawPalette::nominalPalette());
-  size_t nrClasses;
+  size_t nrClasses = 0;
 
   // Non empty palette, 0 classes.
   {

@@ -30,7 +30,7 @@ BOOST_AUTO_TEST_CASE(realistic_ldd)
         BOOST_CHECK(mask.value(u.nb())==1);
 
      count++;
-     UINT1 m;
+     UINT1 m = 0;
      BOOST_CHECK(!mask.get(m,*v));
      mask.put(1,*v);
   }

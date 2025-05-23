@@ -2,13 +2,14 @@
 #include <boost/test/unit_test.hpp>
 #include "com_functions.h"
 
+#include <cmath>
 
 BOOST_AUTO_TEST_CASE(minimum_)
 {
   using namespace com;
 
-  double min;
-  double mv;
+  double min = NAN;
+  double mv = NAN;
   pcr::setMV(mv);
 
   {
@@ -29,8 +30,8 @@ BOOST_AUTO_TEST_CASE(maximum_)
 {
   using namespace com;
 
-  double max;
-  double mv;
+  double max = NAN;
+  double mv = NAN;
   pcr::setMV(mv);
 
   {

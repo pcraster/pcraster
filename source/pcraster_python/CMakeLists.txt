@@ -97,33 +97,11 @@ target_include_directories(_pcraster
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
 )
 
-# TODO why is Python::module not working on Linux?
-if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-    target_link_libraries(_pcraster
-        PRIVATE
-            Python::Python
-            Python::NumPy
-            pcraster::python::utils
-
-    )
-else()
-    target_link_libraries(_pcraster
-        PRIVATE
-            Python::Module
-            Python::NumPy
-            pcraster::python::utils
-
-    )
-endif()
-
-set_target_properties(_pcraster
-    PROPERTIES
-        PREFIX "${PYTHON_MODULE_PREFIX}"
-        SUFFIX "${PYTHON_MODULE_EXTENSION}"
-        DEBUG_POSTFIX ""
+target_link_libraries(_pcraster
+    PRIVATE
+        Python::NumPy
+        pcraster::python::utils
 )
-
-#set(_TARGET_BIN ${EXECUTABLE_OUTPUT_PATH}/${CMAKE_CFG_INTDIR})
 
 set_target_properties(_pcraster
     PROPERTIES
@@ -131,10 +109,17 @@ set_target_properties(_pcraster
             $<TARGET_FILE_DIR:pcrcalc>/pcraster
         LIBRARY_OUTPUT_DIRECTORY
             $<TARGET_FILE_DIR:pcrcalc>/pcraster
+        OUTPUT_NAME
+            "_pcraster"
         INSTALL_RPATH
             "$ORIGIN/../../lib"
+        DEBUG_POSTFIX
+            ""
+        PREFIX
+            "${PYTHON_MODULE_PREFIX}"
+        SUFFIX
+            "${PYTHON_MODULE_EXTENSION}"
 )
-
 
 # Determine bitness at compile time...
 MATH(EXPR NR_BITS "${CMAKE_SIZEOF_VOID_P} * 8")

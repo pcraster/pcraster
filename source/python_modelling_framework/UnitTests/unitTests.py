@@ -10,6 +10,7 @@ try:
   import particleFilterFrameworkTest
   import PercentileTests
   import TimeoutputTest
+  import lue_compatibility_test
 except ImportError as error:
   # leave the print statement here to ensure some useful
   # error message shows up while running ctest
@@ -24,6 +25,7 @@ suites.append(unittest.TestLoader().loadTestsFromTestCase(dynamicFrameworkTest.d
 suites.append(unittest.TestLoader().loadTestsFromTestCase(mcFrameworkTest.mcFrameworkTestScript))
 suites.append(unittest.TestLoader().loadTestsFromTestCase(particleFilterFrameworkTest.ParticleFilterFrameworkTestScript))
 suites.append(unittest.TestLoader().loadTestsFromTestCase(TimeoutputTest.TimeoutputTest))
+suites.append(unittest.TestLoader().loadTestsFromTestCase(lue_compatibility_test.lue_compatibility_tests))
 suites = unittest.TestSuite(suites)
 
 result = unittest.TextTestRunner(verbosity=3).run(suites)

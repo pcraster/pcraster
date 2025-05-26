@@ -33,7 +33,7 @@ for f in files:
 
 
 test_src_dir = os.path.join("@CMAKE_CURRENT_SOURCE_DIR@", "..", "UnitTests")
-files = ["dynamicFrameworkTest.py", "dynamicTestModels.py", "frameworkBaseTest.py", "mcFrameworkTest.py", "mcTestModels.py", "particleFilterFrameworkTest.py", "PercentileTests.py", "pfTestModels.py", "staticFrameworkTest.py", "staticTestModels.py", "testcase.py", "TimeoutputTest.py", "unitTests.py"]
+files = ["dynamicFrameworkTest.py", "dynamicTestModels.py", "frameworkBaseTest.py", "mcFrameworkTest.py", "mcTestModels.py", "particleFilterFrameworkTest.py", "PercentileTests.py", "pfTestModels.py", "staticFrameworkTest.py", "staticTestModels.py", "testcase.py", "TimeoutputTest.py", "unitTests.py", "lue_compatibility_test.py"]
 for f in files:
     shutil.copy(os.path.join(test_src_dir, f), dest_dir)
 

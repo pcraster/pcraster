@@ -104,3 +104,11 @@ def runtime_scope(user_main):
         user_main(*args, **kwargs)
 
     return decorated_function
+
+def pcraster_provider():
+    """ Helper function returning main PCRaster (sub)packages """
+    sys.path.insert(0, '../..')
+    import pcraster as pcr_prov
+    import pcraster.framework as pcrfw_prov
+
+    return pcr_prov, pcrfw_prov

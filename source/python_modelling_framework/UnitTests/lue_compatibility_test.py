@@ -19,15 +19,15 @@ class TestTimeinputscalar(dynamicPCRasterBase.DynamicModel):
 
 class lue_compatibility_tests(testcase.TestCase):
 
-    # def test_1(self):
-    #     """ Simple test third argument timeinputscalar required by LUE """
-    #     myModel = TestTimeinputscalar()
-    #     dynModelFw = df.DynamicFramework(myModel, 10)
-    #     dynModelFw.setQuiet(True)
-    #     dynModelFw.run()
+    def test_1(self):
+        """ Test third argument timeinputscalar required by LUE """
+        myModel = TestTimeinputscalar()
+        dynModelFw = df.DynamicFramework(myModel, 10)
+        dynModelFw.setQuiet(True)
+        dynModelFw.run()
 
     def test_2(self):
-        """ Simple test runtime_scope decorator """
+        """ Test runtime_scope decorator """
         @pcr.runtime_scope
         def do_nothing():
             myModel = TestTimeinputscalar()
@@ -38,6 +38,10 @@ class lue_compatibility_tests(testcase.TestCase):
         do_nothing()
 
     def test_3(self):
-        """ Simple test pcraster_provider """
-        from pcraster.pcraster_provider import pcr as pr_pcr
-        from pcraster.pcraster_provider import pcrfw as pr_pcrfw
+        """ Test pcraster_provider """
+        pr_pcr, pr_pcrfw = pcr.pcraster_provider()
+
+        pr_pcr.setclone(5, 4, 3, 2, 1)
+        myModel = TestTimeinputscalar()
+        dynModelFw = pr_pcrfw.DynamicFramework(myModel, 10)
+        dynModelFw.run()

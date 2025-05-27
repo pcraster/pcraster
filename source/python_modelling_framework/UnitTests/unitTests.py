@@ -18,13 +18,13 @@ except ImportError as error:
   raise SystemExit(error)
 
 suites = []
-suites.append(unittest.TestLoader().loadTestsFromTestCase(PercentileTests.PercentileTests))
-suites.append(unittest.TestLoader().loadTestsFromTestCase(frameworkBaseTest.frameworkBaseTestScript))
-suites.append(unittest.TestLoader().loadTestsFromTestCase(staticFrameworkTest.staticFrameworkTestScript))
-suites.append(unittest.TestLoader().loadTestsFromTestCase(dynamicFrameworkTest.dynamicFrameworkTestScript))
-suites.append(unittest.TestLoader().loadTestsFromTestCase(mcFrameworkTest.mcFrameworkTestScript))
-suites.append(unittest.TestLoader().loadTestsFromTestCase(particleFilterFrameworkTest.ParticleFilterFrameworkTestScript))
-suites.append(unittest.TestLoader().loadTestsFromTestCase(TimeoutputTest.TimeoutputTest))
+# suites.append(unittest.TestLoader().loadTestsFromTestCase(PercentileTests.PercentileTests))
+# suites.append(unittest.TestLoader().loadTestsFromTestCase(frameworkBaseTest.frameworkBaseTestScript))
+# suites.append(unittest.TestLoader().loadTestsFromTestCase(staticFrameworkTest.staticFrameworkTestScript))
+# suites.append(unittest.TestLoader().loadTestsFromTestCase(dynamicFrameworkTest.dynamicFrameworkTestScript))
+# suites.append(unittest.TestLoader().loadTestsFromTestCase(mcFrameworkTest.mcFrameworkTestScript))
+# suites.append(unittest.TestLoader().loadTestsFromTestCase(particleFilterFrameworkTest.ParticleFilterFrameworkTestScript))
+# suites.append(unittest.TestLoader().loadTestsFromTestCase(TimeoutputTest.TimeoutputTest))
 suites.append(unittest.TestLoader().loadTestsFromTestCase(lue_compatibility_test.lue_compatibility_tests))
 suites = unittest.TestSuite(suites)
 

@@ -96,3 +96,11 @@ try:
 
 except ImportError as e:
     pass  # Matplotlib module was not installed
+
+
+def runtime_scope(user_main):
+    """ Decorator doing nothing but helps LUE """
+    def decorated_function(*args, **kwargs):
+        user_main(*args, **kwargs)
+
+    return decorated_function

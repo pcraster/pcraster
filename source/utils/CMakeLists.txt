@@ -1,3 +1,12 @@
+file(CONFIGURE
+    OUTPUT
+        current_dev_year.inc
+    CONTENT
+        "\"Copyright (C) 2008-@DEV_CURRENT_YEAR@ \""
+    ESCAPE_QUOTES
+    @ONLY
+)
+
 add_library(utils STATIC
     dev_CommandLineApplication.cc
     dev_FilesystemUtils.cc
@@ -11,6 +20,7 @@ add_library(pcraster::utils ALIAS utils)
 
 target_include_directories(utils
     PRIVATE
+        ${CMAKE_CURRENT_BINARY_DIR}/
         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/../include>
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>

@@ -304,7 +304,9 @@ void CommandLineApplication::applyGplLicense(
          std::string const& copyrightHolder)
 {
   setLicense(
-    "Copyright (C) 2008-2025 " + copyrightHolder + "\n"
+    // "Copyright (C) 2008-20xy " + copyrightHolder + "\n"
+#include "current_dev_year.inc"
+    "" + copyrightHolder + "\n"
     "\n"
     "This program is free software; you can redistribute it and/or\n"
     "modify it under the terms of the GNU General Public License\n"

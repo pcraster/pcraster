@@ -1,4 +1,5 @@
-#pragma once
+#ifndef INCLUDED_CALC_EXCEPTION
+#define INCLUDED_CALC_EXCEPTION
 
 #include "pcraster_model_engine_export.h"
 #include "com_exception.h"
@@ -30,3 +31,5 @@ public:
 
 
 } // namespace
+
+#endif

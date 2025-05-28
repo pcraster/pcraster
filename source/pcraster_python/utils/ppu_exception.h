@@ -1,4 +1,5 @@
-#pragma once
+#ifndef INCLUDED_PYTHON_UTILS_EXCEPTION
+#define INCLUDED_PYTHON_UTILS_EXCEPTION
 
 #include "com_exception.h"
 #include "pcraster_python_utils_export.h"
@@ -31,3 +32,5 @@ public:
 
 } // namespace
 } // namespace
+
+#endif

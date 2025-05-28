@@ -1,4 +1,5 @@
-#pragma once
+#ifndef INCLUDED_PYTHON_NUMPY_CONVERSION
+#define INCLUDED_PYTHON_NUMPY_CONVERSION
 
 #include "calc_vs.h"
 
@@ -33,3 +34,5 @@ pybind11::array    field_as_array     (geo::RasterSpace const& space,
 
 } // namespace python
 } // namespace pcraster
+
+#endif

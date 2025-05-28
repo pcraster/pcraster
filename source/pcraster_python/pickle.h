@@ -1,4 +1,6 @@
-#pragma once
+#ifndef INCLUDED_PYTHON_PICKLE
+#define INCLUDED_PYTHON_PICKLE
+
 #include <pybind11/pybind11.h>
 #include "calc_field.h"
 
@@ -12,3 +14,5 @@ namespace python {
 
 } // namespace python
 } // namespace pcraster
+
+#endif

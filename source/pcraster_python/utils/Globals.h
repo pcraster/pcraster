@@ -1,4 +1,5 @@
-#pragma once
+#ifndef INCLUDED_PYTHON_UTILS_GLOBALS
+#define INCLUDED_PYTHON_UTILS_GLOBALS
 
 #include "dal_Client.h"
 #include "geo_rasterspace.h"
@@ -89,3 +90,5 @@ PCRASTER_PYTHON_UTILS_EXPORT extern Globals globals;
 
 } // namespace python
 } // namespace pcraster
+
+#endif

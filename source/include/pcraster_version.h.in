@@ -1,8 +1,11 @@
 // Generated file: DO NOT EDIT
-#pragma once
+#ifndef INCLUDED_PCRASTER_VERSION
+#define INCLUDED_PCRASTER_VERSION
 
 const int PCRASTER_VERSION_MAJOR = @pcraster_MAJOR_VERSION@;
 const int PCRASTER_VERSION_MINOR = @pcraster_MINOR_VERSION@;
 const int PCRASTER_VERSION_PATCH = @pcraster_PATCH_VERSION@;
 
 const char * const PCRASTER_VERSION = "@pcraster_VERSION@";
+
+#endif

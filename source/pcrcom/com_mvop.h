@@ -1,4 +1,6 @@
-#pragma once
+#ifndef INCLUDED_COM_MVOP
+#define INCLUDED_COM_MVOP
+
 #include "com_csfcell.h"
 #include <type_traits>
 
@@ -88,3 +90,5 @@ inline T1 subtract(
 }
 
 } // namespace com
+
+#endif

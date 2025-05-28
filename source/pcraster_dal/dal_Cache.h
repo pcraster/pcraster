@@ -1,4 +1,6 @@
-#pragma once
+#ifndef INCLUDED_DAL_CACHE
+#define INCLUDED_DAL_CACHE
+
 #include <cassert>
 #include <map>
 #include <boost/bimap.hpp>
@@ -291,3 +293,5 @@ T* Cache<T>::object(
 }
 
 } // namespace dal
+
+#endif

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef INCLUDED_GHB
+#define INCLUDED_GHB
 
 // Library headers.
 
@@ -61,3 +62,5 @@ class GHB{
   void             write_list          (std::string const& path);
 
 };
+
+#endif

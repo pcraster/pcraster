@@ -1,4 +1,5 @@
-#pragma once
+#ifndef INCLUDED_COM_ALGORITHM
+#define INCLUDED_COM_ALGORITHM
 
 #ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
@@ -265,3 +266,5 @@ RandomAccessIterator randomSample(InputIterator first, InputIterator last,
 
 
 } // namespace com
+
+#endif

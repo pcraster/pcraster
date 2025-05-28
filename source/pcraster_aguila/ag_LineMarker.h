@@ -1,4 +1,5 @@
-#pragma once
+#ifndef INCLUDED_AG_LINEMARKER
+#define INCLUDED_AG_LINEMARKER
 
 #include <QGraphicsSceneHoverEvent>
 #include <QtWidgets/QGraphicsItem>
@@ -79,3 +80,5 @@ private:
 
 
 } // namespace ag
+
+#endif

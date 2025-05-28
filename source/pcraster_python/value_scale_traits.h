@@ -1,4 +1,6 @@
-#pragma once
+#ifndef INCLUDED_PYTHON_VALUE_SCALE_TRAITS
+#define INCLUDED_PYTHON_VALUE_SCALE_TRAITS
+
 #include <boost/cstdint.hpp>
 #include <boost/integer_traits.hpp>
 #include "calc_cr.h"
@@ -79,3 +81,5 @@ struct ValueScaleTraits<VS_D>
 };
 
 } // namespace pcraster
+
+#endif

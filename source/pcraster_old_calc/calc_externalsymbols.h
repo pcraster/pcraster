@@ -128,7 +128,7 @@ public:
 
   const std::string& name              () const;
 
-  const PCR_EXTERNAL_MODELLINK_CREATOR creator() const;
+  PCR_EXTERNAL_MODELLINK_CREATOR creator() const;
 
 };
 

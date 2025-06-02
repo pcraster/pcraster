@@ -57,7 +57,7 @@ public:
   //! number of dimensions
   size_t size() const;
 
-  const Index element(size_t n) const;
+  Index element(size_t n) const;
   std::string outputSuffix(size_t i)const;
 
   bool operator==(const ArrayDefVector& a) const;

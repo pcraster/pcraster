@@ -89,7 +89,7 @@ const std::string& calc::ModelLinkProxy::name() const
 
 
 
-const calc::PCR_EXTERNAL_MODELLINK_CREATOR
+calc::PCR_EXTERNAL_MODELLINK_CREATOR
                    calc::ModelLinkProxy::creator() const
 {
   return d_creator;

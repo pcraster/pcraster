@@ -72,7 +72,7 @@ public:
   // ACCESSORS
   //----------------------------------------------------------------------------
   //! returns name()
-  const std::string            operator()() const {
+  std::string        operator()() const {
     return name();
   }
 

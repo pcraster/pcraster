@@ -48,7 +48,7 @@ calc::ArrayDefVector::ArrayDefVector(
 
 size_t calc::ArrayDefVector::toLinear(std::vector<size_t>& ind) const
 {
-  auto 
+  auto
     p = d_map2flatIndex.find(ind);
   POSTCOND(p != d_map2flatIndex.end());
   return p->second;
@@ -89,7 +89,7 @@ size_t calc::ArrayDefVector::nrElements() const
   return 1;
 }
 
-const calc::ArrayDefVector::Index calc::ArrayDefVector::element(size_t n) const
+calc::ArrayDefVector::Index calc::ArrayDefVector::element(size_t n) const
 {
   PRECOND(n < nrElements());
   Index index(d_vector.size());

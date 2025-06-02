@@ -157,9 +157,6 @@ class Script:
   //! are there one or more statements prefixed with report?
   bool       d_aReportFound{false};
 
-  //! the report default clause
-  Report *d_reportDefault;
-
   BindingTable d_bindingTable;
 
   //! 0 if not defined, name is also in d_cloneNameCommon

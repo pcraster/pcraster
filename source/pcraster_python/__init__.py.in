@@ -27,36 +27,28 @@ except ImportError as error:
     # Major and minor should match
     if build_version != python_version:
         msg = f"The 'pcraster' module was built for Python ${Python_VERSION_MAJOR}.${Python_VERSION_MINOR}, the version used is {major}.{minor}"
-        raise ImportError(msg)
+        error.add_note(f"\n{msg}\n")
+        raise
 
     # Test matching bitness
     nr_bits = 64 if sys.maxsize > 2**32 else 32
 
     if nr_bits != ${NR_BITS}:
         msg = f"The 'pcraster' module was built for ${NR_BITS}-bit, the Python version used is {nr_bits}-bit"
-        raise ImportError(msg)
-
-    # No support for Python 2
-    if major == 2:
-        msg = "The 'pcraster' module was built for Python ${Python_VERSION_MAJOR}.${Python_VERSION_MINOR}, Python 2 is unsupported"
-        raise ImportError(msg)
+        error.add_note(f"\n{msg}\n")
+        raise
 
     msg = ""
 
     # VS2017 and runtime components related issues
     if sys.platform == "win32":
-        if build_version != python_version:
-            msg += "The 'pcraster' module was built for Python ${Python_VERSION_MAJOR}.${Python_VERSION_MINOR}, the version used is {}.{}".format(
-                major, minor)
-            raise ImportError(msg)
-
-        msg += "The 'Microsoft Visual C++ Redistributable for Visual Studio 2017' is required to run PCRaster, available at:\n"
-        msg += "https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads\n"
+        msg += "The 'Microsoft Visual C++ Redistributable for Visual Studio 2015, 2017, 2019, and 2022' is required to run PCRaster, available at:\n"
+        msg += "https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170#visual-studio-2015-2017-2019-and-2022\n"
 
     # Something else went wrong...
-    msg += "{}\n".format(error)
-    msg += "In case you cannot solve the issue please consult the PCRaster mailing list at:\nhttps://lists.geo.uu.nl/mailman/listinfo/pcraster-info\n"
-    raise ImportError(msg)
+    msg += "In case you cannot solve the issue please consult the PCRaster mailing list at:\nhttps://lists.geo.uu.nl/mailman/listinfo/pcraster-info"
+    error.add_note(f"\n{msg}\n")
+    raise
 except Exception as error:
     raise error
 

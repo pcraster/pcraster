@@ -132,7 +132,8 @@ ag::Feedback::const_iterator ag::Feedback::end() const
 void ag::Feedback::describe() const
 {
   GLint count = d_data->d_valuesStored;
-  int token, nrVertices;
+  int token = 0;
+  int nrVertices = 0;
 
   while(count) {
     token = static_cast<int>(d_data->d_buffer[d_data->d_valuesStored - count]);

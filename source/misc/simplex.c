@@ -81,7 +81,8 @@ void LexInstall(FILE *fd,                   /* file to read from */
                 const char *specialSymbols) /* a maximum of 255 special symbols  */
 {
 #ifdef DEBUG
-    int i, n;
+    int i = 0;
+    int n = 0;
     n = strlen(specialSymbols);
     PRECOND(n < TOKEN_LEN - 1);
     for (i = 0; i < n; i++) {

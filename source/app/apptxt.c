@@ -46,7 +46,7 @@ int AppDetectColumnFile(BOOL *geoEas,         /* write-only boolean */
     int nrCols = 0;
     FILE *f = fopen(fileName, "r");
     BOOL somethingOnLine1 = FALSE;
-    int firstNonEmptyLine = 0;
+    long firstNonEmptyLine = 0;
     char sepBuf[2];
     *geoEas = FALSE;
 
@@ -72,7 +72,7 @@ int AppDetectColumnFile(BOOL *geoEas,         /* write-only boolean */
     LexInstall(f, ""); /* actual lineNr are now 1 off */
     token = LexGetToken();
     if (token == LEX_NUMBER) {
-        int nvarOnLine = LexGetLineNr();
+        long nvarOnLine = LexGetLineNr();
         if (!CnvrtInt(&nrCols, LexGetTokenValue()))
             /* not a valid integer */
             goto detect_plain;

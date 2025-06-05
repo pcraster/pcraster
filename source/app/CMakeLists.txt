@@ -5,7 +5,7 @@ add_library(app STATIC
     appcr.c
     appdir.c
     appinst.c
-    applog.c
+    # applog.c
     app_options.cc
     apptime.c
     apptxt.c

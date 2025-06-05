@@ -107,9 +107,9 @@ extern int CmpFloat(const float *e1, const float *e2);
 extern int CmpDouble(const double *e1, const double *e2);
 
 /* aterror.c */
-extern int AtError(void (*func)(void));
-extern int NoLongerAtError(void (*func)(void));
-extern void ExecAtError(void);
+// extern int AtError(void (*func)(void));
+// extern int NoLongerAtError(void (*func)(void));
+// extern void ExecAtError(void);
 
 /* bitset.c */
 extern int NrBitSet(const unsigned char *set, int setSize);
@@ -158,63 +158,63 @@ extern void SplitFilePathName(const char *fullPathName, char **dirName, char **f
 extern char *ReplaceDirPathDelimChar(char *str);
 
 /* fileset.c */
-extern int CheckFileSets(const char **conflictFileName,
-                         const char **outputFiles,
-                         int nrOutputFiles,
-                         const char **inputFiles,
-                         int nrInputFiles);
+// extern int CheckFileSets(const char **conflictFileName,
+//                          const char **outputFiles,
+//                          int nrOutputFiles,
+//                          const char **inputFiles,
+//                          int nrInputFiles);
 
 /* fileio.c */
-extern int FileRead(void *ptr, size_t size, size_t nmemb, FILE *f, BOOL shortItemCountIsError);
-extern int FileReadAtPos(void *ptr,
-                         size_t size,
-                         size_t nmemb,
-                         long pos,
-                         FILE *f,
-                         BOOL shortItemCountIsError);
-extern int FileWrite(const void *ptr, size_t size, size_t nmemb, FILE *f);
-extern int FileWriteAtPos(const void *ptr, size_t size, size_t nmemb, long pos, FILE *f);
-extern FILE *FileOpen(const char *fileName, const char *perm);
-extern long FileSize(FILE *f);
-extern int FileGetString(char *s, int size, FILE *f);
+// extern int FileRead(void *ptr, size_t size, size_t nmemb, FILE *f, BOOL shortItemCountIsError);
+// extern int FileReadAtPos(void *ptr,
+//                          size_t size,
+//                          size_t nmemb,
+//                          long pos,
+//                          FILE *f,
+//                          BOOL shortItemCountIsError);
+// extern int FileWrite(const void *ptr, size_t size, size_t nmemb, FILE *f);
+// extern int FileWriteAtPos(const void *ptr, size_t size, size_t nmemb, long pos, FILE *f);
+// extern FILE *FileOpen(const char *fileName, const char *perm);
+// extern long FileSize(FILE *f);
+// extern int FileGetString(char *s, int size, FILE *f);
 
 /* recmem.c */
-typedef struct RECMEM_HEAP {
-#ifdef DEBUG_DEVELOP
-    long count;     /* number of calls to FreeRecord() vs. NewRecord()
-                     * < 0 means more calls to FreeRecord then
-                     *          to NewRecord
-                     *     (not possible since FreeRecord already checks
-                     * > 0 vice versa
-                     */
-#endif              /* DEBUG_DEVELOP */
-    void *freeList; /* start of single linked list,
-                     * private type: (struct RECMEM_LINK *)
-                     */
-    size_t recSize;
-    void **blocks;    /* array of allocated memory blocks */
-    size_t nrBlocks;  /* number of blocks                 */
-    size_t blockSize; /* number of records in a block     */
-    void *(*Malloc)(size_t size);
-    /* function to allocate blocks      */
-    void (*_Free)(void *ptr);
-    /* function to free blocks          */
-} RECMEM_HEAP;
-extern RECMEM_HEAP *NewRecMemHeap(size_t recSize,
-                                  size_t blockSize,
-                                  void *(*mallocFunc)(size_t size),
-                                  void (*freeFunc)(void *ptr));
-extern void *NewRecord(RECMEM_HEAP *r);
-extern void FreeRecord(void *m, RECMEM_HEAP *r);
-extern void FreeAllRecords(RECMEM_HEAP *r);
-#ifdef DEBUG
-extern BOOL VerifyRecPtr(void *m, RECMEM_HEAP *r);
-#endif
+// typedef struct RECMEM_HEAP {
+// #ifdef DEBUG_DEVELOP
+//     long count;     /* number of calls to FreeRecord() vs. NewRecord()
+//                      * < 0 means more calls to FreeRecord then
+//                      *          to NewRecord
+//                      *     (not possible since FreeRecord already checks
+//                      * > 0 vice versa
+//                      */
+// #endif              /* DEBUG_DEVELOP */
+//     void *freeList; /* start of single linked list,
+//                      * private type: (struct RECMEM_LINK *)
+//                      */
+//     size_t recSize;
+//     void **blocks;    /* array of allocated memory blocks */
+//     size_t nrBlocks;  /* number of blocks                 */
+//     size_t blockSize; /* number of records in a block     */
+//     void *(*Malloc)(size_t size);
+//     /* function to allocate blocks      */
+//     void (*_Free)(void *ptr);
+//     /* function to free blocks          */
+// } RECMEM_HEAP;
+// extern RECMEM_HEAP *NewRecMemHeap(size_t recSize,
+//                                   size_t blockSize,
+//                                   void *(*mallocFunc)(size_t size),
+//                                   void (*freeFunc)(void *ptr));
+// extern void *NewRecord(RECMEM_HEAP *r);
+// extern void FreeRecord(void *m, RECMEM_HEAP *r);
+// extern void FreeAllRecords(RECMEM_HEAP *r);
+// #ifdef DEBUG
+// extern BOOL VerifyRecPtr(void *m, RECMEM_HEAP *r);
+// #endif
 
 /* swapbyte.c */
-extern void SwapByte2(void *b);
-extern void SwapByte4(void *b);
-extern void SwapByte8(void *b);
+// extern void SwapByte2(void *b);
+// extern void SwapByte4(void *b);
+// extern void SwapByte8(void *b);
 
 #ifdef WIN32
 char *Win32GetLastError(void);

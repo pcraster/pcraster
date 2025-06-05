@@ -677,7 +677,9 @@ int CurrGetRadioSelection(const char **values, /* array of possible values
                           int y,               /* y - position to put dialog  */
                           int x)               /* x - position put dialog */
 {
-    int c = 0, i = 0, len = strlen(values[0]);
+    int c = 0;
+    int i = 0;
+    int len = strlen(values[0]);
     WINDOW *inputWin = NULL;
 
     for (i = 1; i < nrValues; i++)
@@ -737,7 +739,9 @@ BOOL CurrGetString(char *input, /* read-write string to get */
                    int x)       /* x - position of string to get */
 {
     /* EXAMPLES * so examples/currgetstring.tr (disabled) */
-    int c = 0, row = 0, col = 0;
+    int c = 0;
+    int row = 0;
+    int col = 0;
     WINDOW *inputWin = newwin(1, len, y, x);
     char *s = locBuf;
     strcpy(s, input);

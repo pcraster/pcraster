@@ -77,9 +77,12 @@ void calc::TssOutputParameter::goInScope()
 static int GetMaxId(
   const MAP_INT4 *id)
 {
-  int r = 0,nrRows = id->NrRows(id);
-  int c = 0,nrCols = id->NrCols(id);
-  INT4 val = 0, max = -1; /* -1 is save, we need a positive id */
+  int r = 0;
+  int nrRows = id->NrRows(id);
+  int c = 0;
+  int nrCols = id->NrCols(id);
+  INT4 val = 0;
+  INT4 max = -1; /* -1 is save, we need a positive id */
 
   id->SetGetTest(GET_MV_TEST, id);
   for(r=0;r <nrRows;r++)

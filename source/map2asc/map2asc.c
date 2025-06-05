@@ -52,7 +52,10 @@ static int ScanMap(
     int nrCellsOnLine,
     BOOL colWise)
 {
-    size_t r = 0, c = 0, nrRows = 0, nrCols = 0;
+    size_t r = 0;
+    size_t c = 0;
+    size_t nrRows = 0;
+    size_t nrCols = 0;
 
     nrRows = (int)RgetNrRows(inputMap);
     nrCols = (int)RgetNrCols(inputMap);
@@ -141,8 +144,10 @@ static int PrintAsciiGridHeader(
     FILE *outputFile, /* write-only output file */
     MAP *input)       /* read-only input map */
 {
-    UINT4 nrRows = RgetNrRows(input), nrCols = RgetNrCols(input);
-    double x = NAN, y = NAN;
+    UINT4 nrRows = RgetNrRows(input);
+    UINT4 nrCols = RgetNrCols(input);
+    double x = NAN;
+    double y = NAN;
 
     /* Calculate XLLCorner and YLLCorner */
     RgetCoords(input, 0, (size_t)nrRows, (size_t)0, &x, &y);

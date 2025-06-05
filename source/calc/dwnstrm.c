@@ -41,9 +41,12 @@ int DownStream(MAP_REAL8 *out,          /* write-only output map  */
                const MAP_UINT1 *ldd,    /* input ldd  map */
                const MAP_REAL8 *amount) /* input value map */
 {
-    UINT1 lddVal = 0, lddNext = 0; /* ldd value current and next cell */
-    REAL8 amountVal = NAN, ownVal = NAN;
-    int r = 0, c = 0;
+    UINT1 lddVal = 0;
+    UINT1 lddNext = 0; /* ldd value current and next cell */
+    REAL8 amountVal = NAN;
+    REAL8 ownVal = NAN;
+    int r = 0;
+    int c = 0;
     int nrRows = ldd->NrRows(ldd);
     int nrCols = ldd->NrCols(ldd);
 

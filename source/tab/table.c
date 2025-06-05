@@ -55,7 +55,8 @@ static void *InsertSorted(
        QSORT_CMP cmp)/* comparisson function */
 {
  int x=0; /* num == 0 case */
- int c = 0,l=0;
+ int c = 0;
+ int l=0;
  int r=num-1;
  if (num == 0)
    goto done;
@@ -122,7 +123,8 @@ void *STsearch(
  const SEARCH_TABLE *t, /* table to search */
  SEARCH_REC   f) /*  */
 {
- size_t i = 0,fastBegin = 0;
+ size_t i = 0;
+ size_t fastBegin = 0;
  const void *best = NULL;
 
  PRECOND(t != NULL && f != NULL);

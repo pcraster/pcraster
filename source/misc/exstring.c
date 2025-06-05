@@ -26,7 +26,9 @@ int StrNCaseEq(const char *s1, /* first string */
                const char *s2, /* second string. */
                size_t count)   /* number of characters compared */
 {
-    size_t i = 0, l1 = 0, l2 = 0;
+    size_t i = 0;
+    size_t l1 = 0;
+    size_t l2 = 0;
     PRECOND(s1 != NULL);
     PRECOND(s2 != NULL);
 
@@ -154,7 +156,8 @@ int EmptyString(const char *str) /* Checked string. */
  */
 char *DelSpaces(char *str) /* read-write. String to be modified */
 {
-    size_t i = 0, d = 0;
+    size_t i = 0;
+    size_t d = 0;
 
 
     for (i = d = 0; str[i] != '\0'; i++)
@@ -187,7 +190,8 @@ size_t CountChars(const char *str, /* String to count  */
 char *DelChars(char *str, /* read-write. String to be modified */
                const char *set)
 {
-    size_t i = 0, d = 0;
+    size_t i = 0;
+    size_t d = 0;
 
     for (i = d = 0; str[i] != '\0'; i++)
         if (strchr(set, str[i]) == NULL)
@@ -202,7 +206,8 @@ char *DelChars(char *str, /* read-write. String to be modified */
  */
 char *LeftRightTrim(char *str) /* String to be modified */
 {
-    int i = 0, n = 0;
+    int i = 0;
+    int n = 0;
     char *p = NULL;
 
     PRECOND(str != NULL);
@@ -230,7 +235,8 @@ char *LeftRightTrim(char *str) /* String to be modified */
  */
 char *LeftRightTabTrim(char *str) /* String to be modified */
 {
-    int i = 0, n = 0;
+    int i = 0;
+    int n = 0;
 
     PRECOND(str != NULL);
 

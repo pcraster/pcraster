@@ -51,8 +51,16 @@ int ProfileCurvature(MAP_REAL8 *curv,      /* Read-write slope output map  */
                      const MAP_REAL8 *dem) /* Digital Elevation Model */
 {
     REAL8 val = NAN; /* value read in dem.map */
-    int nrRows = 0, nrCols = 0, r = 0, c = 0;
-    REAL8 Z[10], D = NAN, E = NAN, F = NAN, G = NAN, H = NAN;
+    int nrRows = 0;
+    int nrCols = 0;
+    int r = 0;
+    int c = 0;
+    REAL8 Z[10];
+    REAL8 D = NAN;
+    REAL8 E = NAN;
+    REAL8 F = NAN;
+    REAL8 G = NAN;
+    REAL8 H = NAN;
 
     dem->SetGetTest(GET_MV_TEST, dem);
     nrRows = dem->NrRows(dem);
@@ -81,8 +89,16 @@ int PlanformCurvature(MAP_REAL8 *curv,      /* Read-write slope output map  */
                       const MAP_REAL8 *dem) /* Digital Elevation Model */
 {
     REAL8 val = NAN; /* value read in dem.map */
-    int nrRows = 0, nrCols = 0, r = 0, c = 0;
-    REAL8 Z[10], D = NAN, E = NAN, F = NAN, G = NAN, H = NAN;
+    int nrRows = 0;
+    int nrCols = 0;
+    int r = 0;
+    int c = 0;
+    REAL8 Z[10];
+    REAL8 D = NAN;
+    REAL8 E = NAN;
+    REAL8 F = NAN;
+    REAL8 G = NAN;
+    REAL8 H = NAN;
 
     dem->SetGetTest(GET_MV_TEST, dem);
     nrRows = dem->NrRows(dem);

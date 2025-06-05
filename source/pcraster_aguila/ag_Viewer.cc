@@ -939,7 +939,8 @@ VisGroup* Viewer::displayMultiMap2D(
     windows.push_back(d_data->d_manager->addMultiMap2DWindow(
          group, nrRows, nrCols));
 
-    DataGuide guide, mergeGuide;
+    DataGuide guide;
+    DataGuide mergeGuide;
     size_t queryResultsIndex = 0;
 
     if(scenarios.empty()) {

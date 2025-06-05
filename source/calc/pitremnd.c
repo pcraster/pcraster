@@ -93,8 +93,10 @@ FindOutflowCell(UINT1 *outflowConCellCode, /* read-write dir from (outflowRow,ou
                 int r,                     /* row of cell to be checked */
                 int c)                     /* column cell to be checked */
 {
-    INT4 catchId = 0, catchIdNB = 0;
-    UINT1 i = 0, conCellCode = 0;            /* 0 no cell found */
+    INT4 catchId = 0;
+    INT4 catchIdNB = 0;
+    UINT1 i = 0;
+    UINT1 conCellCode = 0;            /* 0 no cell found */
     REAL8 conCellDem = USED_UNINIT_ZERO; /* guarded by conCellCode */
     REAL8 overflowLevel = NAN;
 
@@ -155,9 +157,12 @@ static REAL8 Outflow(REAL8 *outflowLevel,    /* write only */
                                                * point found
                                                */
     NODE *list = LinkChkNd(NULL, pitr, pitc); /* current search tree */
-    REAL8 conPitLevel = NAN, pitLevel = NAN, area = 0;
+    REAL8 conPitLevel = NAN;
+    REAL8 pitLevel = NAN;
+    REAL8 area = 0;
     INT4 conCatchId = 0;
-    int conPitRow = 0, conPitCol = 0;
+    int conPitRow = 0;
+    int conPitCol = 0;
 
     if (list == NULL)
         return -1; /* allocation failed */
@@ -346,11 +351,17 @@ static int RemPit(MAP_UINT1 *ldd,           /* read-write ldd map */
                   int pitr,                 /* row of pit to remove */
                   int pitc)                 /* column of pit to remove */
 {
-    REAL8 pitLevel = NAN, outflowLevel = NAN, catchArea = NAN;
-    REAL8 coreArea = NAN, coreVolume = NAN;
-    int outflowRow = 0, outflowCol = 0;
-    int outflowConRow = 0, outflowConCol = 0;
-    INT4 pitCatchID = 0, newCatchID = 0;
+    REAL8 pitLevel = NAN;
+    REAL8 outflowLevel = NAN;
+    REAL8 catchArea = NAN;
+    REAL8 coreArea = NAN;
+    REAL8 coreVolume = NAN;
+    int outflowRow = 0;
+    int outflowCol = 0;
+    int outflowConRow = 0;
+    int outflowConCol = 0;
+    INT4 pitCatchID = 0;
+    INT4 newCatchID = 0;
     CATCH *cf = NULL, *pf = NULL;
 
 #ifdef DEBUG
@@ -506,7 +517,11 @@ int PitRemND(MAP_UINT1 *ldd,           /* Read-write output map  */
     PIT *pits = NULL;        /* list of pits to remove */
     CATCH *catchList = NULL; /* catchment table  */
     REAL8 demVal = NAN;
-    int i = 0, r = 0, c = 0, nrRows = 0, nrCols = 0;
+    int i = 0;
+    int r = 0;
+    int c = 0;
+    int nrRows = 0;
+    int nrCols = 0;
     UINT1 lddVal = 0;
 
     dem->SetGetTest(GET_MV_TEST, dem);

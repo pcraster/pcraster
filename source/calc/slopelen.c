@@ -43,7 +43,10 @@ static void Longest(MAP_REAL8 *out,            /* read-write output map */
                     int cellr,                 /* row number of cell */
                     int cellc)                 /* column number of cell */
 {
-    REAL8 fricVal = NAN, fricVal2 = NAN, oldDist = NAN, newDist = 0;
+    REAL8 fricVal = NAN;
+    REAL8 fricVal2 = NAN;
+    REAL8 oldDist = NAN;
+    REAL8 newDist = 0;
     UINT1 lddVal = 0;
     int r = cellr;
     int c = cellc;
@@ -89,7 +92,10 @@ int Slopelength(MAP_REAL8 *out,            /* Read-write output map  */
                 const MAP_REAL8 *friction) /* friction map */
 {
     UINT1 lddVal = 0;
-    int r = 0, c = 0, nrRows = 0, nrCols = 0;
+    int r = 0;
+    int c = 0;
+    int nrRows = 0;
+    int nrCols = 0;
     REAL8 fricVal = NAN;
 
     ldd->SetGetTest(GET_MV_TEST, ldd);

@@ -105,7 +105,8 @@ static void argStError(
   int nr,       /* wrong argument nr        */
   int offsetArg)
 {
-  std::string legal, illegal;
+  std::string legal;
+  std::string illegal;
 
   /* SYNTAX_OPER never have a strict spatial type
      and table-types are already catched by the vs check

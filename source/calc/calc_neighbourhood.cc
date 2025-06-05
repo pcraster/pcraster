@@ -59,7 +59,8 @@ int fraction(
   PRECOND(!innerRadiusMap->spatial && !outerRadiusMap->spatial);
 
   int result = 0;
-  int nrRows = 0, nrCols = 0;
+  int nrRows = 0;
+  int nrCols = 0;
 
   nrRows = outputMap->NrRows(outputMap);
   nrCols = outputMap->NrCols(outputMap);
@@ -77,7 +78,8 @@ int fraction(
   }
 
   // Configure neighbourhood with filter weights.
-  REAL8 innerRadius = NAN, outerRadius = NAN;
+  REAL8 innerRadius = NAN;
+  REAL8 outerRadius = NAN;
   innerRadiusMap->Get(&innerRadius, 0, 0, innerRadiusMap);
   outerRadiusMap->Get(&outerRadius, 0, 0, outerRadiusMap);
   Neighbourhood weights(innerRadius, outerRadius);

@@ -157,7 +157,8 @@ void calc::PointCodeBlockReplacer::addBlock(ASTNodeList *l,I begin, I end)
 void calc::PointCodeBlockReplacer::visitNodeList(ASTNodeList *l)
 {
   // begin and end of point block
-  I pbBegin,pbEnd;
+  I pbBegin;
+  I pbEnd;
 
   d_info.push(BlockInfo());
   for(auto i=pbBegin=pbEnd=l->begin(); i!=l->end(); ++i) {

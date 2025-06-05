@@ -1044,7 +1044,9 @@ void possibleFileBasedAttributeFileNames(
     return;
   }
 
-  std::string filename, baseName, extension;
+  std::string filename;
+  std::string baseName;
+  std::string extension;
 
   std::vector<std::string> fileTypesToSkip;
   fileTypesToSkip.push_back(".zip");

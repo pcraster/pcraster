@@ -317,7 +317,8 @@ std::ostream &operator<<(std::ostream &s, const BasicTable &t)
 {
   if(t.nrCols())
   {
-    size_t r = 0, c = 0;
+    size_t r = 0;
+    size_t c = 0;
     for(r = 0; r < t.nrRecs(); r++)
     {
       for(c = 0; c < t.nrCols() - 1; c++)

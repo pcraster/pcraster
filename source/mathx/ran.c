@@ -115,7 +115,8 @@ void SetRan(unsigned int seed) /* value >= 0. If 0 then seed is taken from
                                 */
 {
     unsigned int i = 0;
-    unsigned int a = 0, b = 0;
+    unsigned int a = 0;
+    unsigned int b = 0;
 
     setRanCalled = TRUE;
 
@@ -138,7 +139,10 @@ double GasDev(void)
 {
     static BOOL iset = FALSE;
     static double gset;
-    double fac = NAN, r = NAN, v1 = NAN, v2 = NAN;
+    double fac = NAN;
+    double r = NAN;
+    double v1 = NAN;
+    double v2 = NAN;
 
     if (!iset) {
         do {
@@ -380,11 +384,16 @@ static unsigned int collapse(int anyint, unsigned int size)
  */
 static void start_random_number(int seed_a, int seed_b)
 {
-    double s = NAN, bit = NAN;
-    unsigned int ii = 0, jj = 0, kk = 0, mm = 0;
+    double s = NAN;
+    double bit = NAN;
+    unsigned int ii = 0;
+    unsigned int jj = 0;
+    unsigned int kk = 0;
+    unsigned int mm = 0;
     unsigned int ll = 0;
     unsigned int sd = 0;
-    unsigned int elt = 0, bit_number = 0;
+    unsigned int elt = 0;
+    unsigned int bit_number = 0;
 
     sd = collapse(seed_a, PM1 * PM1);
     ii = 1 + sd / PM1;

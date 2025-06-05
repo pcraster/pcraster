@@ -85,7 +85,10 @@ int WindowMin(MAP_REAL8 *min,           /* write-only output minimum map  */
               const MAP_REAL8 *val,     /* input value map */
               const MAP_REAL8 *winsize) /* input window size map */
 {
-    int r = 0, c = 0, nrRows = 0, nrCols = 0;
+    int r = 0;
+    int c = 0;
+    int nrRows = 0;
+    int nrCols = 0;
 
     val->SetGetTest(GET_MV_TEST, val);
     winsize->SetGetTest(GET_MV_TEST, winsize);
@@ -99,8 +102,11 @@ int WindowMin(MAP_REAL8 *min,           /* write-only output minimum map  */
             REAL8 winSize = NAN;
             if (winsize->Get(&winSize, r, c, winsize) && (0 < winSize)) {
                 /* Determine window */
-                REAL8 value = NAN, winMin = NAN;
-                int rWin = 0, cWin = 0, pw = 0;
+                REAL8 value = NAN;
+                REAL8 winMin = NAN;
+                int rWin = 0;
+                int cWin = 0;
+                int pw = 0;
                 REAL8 bw = NAN; /* border weigth */
 
                 pw = DetWindow(&bw, winSize);
@@ -136,7 +142,10 @@ int WindowMax(MAP_REAL8 *max,           /* write-only output max map  */
               const MAP_REAL8 *val,     /* input value map */
               const MAP_REAL8 *winsize) /* input window size map */
 {
-    int r = 0, c = 0, nrRows = 0, nrCols = 0;
+    int r = 0;
+    int c = 0;
+    int nrRows = 0;
+    int nrCols = 0;
 
     val->SetGetTest(GET_MV_TEST, val);
     winsize->SetGetTest(GET_MV_TEST, winsize);
@@ -147,11 +156,14 @@ int WindowMax(MAP_REAL8 *max,           /* write-only output max map  */
     for (r = 0; r < nrRows; r++) {
         AppRowProgress(r);
         for (c = 0; c < nrCols; c++) {
-            REAL8 value = NAN, winSize = NAN;
+            REAL8 value = NAN;
+            REAL8 winSize = NAN;
             if (winsize->Get(&winSize, r, c, winsize) && (0 < winSize)) {
                 /* Determine window */
                 REAL8 winMax = NAN;
-                int rWin = 0, cWin = 0, pw = 0;
+                int rWin = 0;
+                int cWin = 0;
+                int pw = 0;
                 REAL8 bw = NAN; /* border weigth */
 
                 pw = DetWindow(&bw, winSize);
@@ -186,7 +198,10 @@ int WindowAverage(MAP_REAL8 *average,       /* write-only output average map  */
                   const MAP_REAL8 *val,     /* input value map */
                   const MAP_REAL8 *winsize) /* input window size map */
 {
-    int r = 0, c = 0, nrRows = 0, nrCols = 0;
+    int r = 0;
+    int c = 0;
+    int nrRows = 0;
+    int nrCols = 0;
 
     val->SetGetTest(GET_MV_TEST, val);
     winsize->SetGetTest(GET_MV_TEST, winsize);
@@ -197,10 +212,14 @@ int WindowAverage(MAP_REAL8 *average,       /* write-only output average map  */
     for (r = 0; r < nrRows; r++) {
         AppRowProgress(r);
         for (c = 0; c < nrCols; c++) {
-            REAL8 value = NAN, winSize = NAN;
+            REAL8 value = NAN;
+            REAL8 winSize = NAN;
             if (winsize->Get(&winSize, r, c, winsize) && (0 < winSize)) {
-                REAL8 count = 0, winTotal = 0;
-                int rWin = 0, cWin = 0, pw = 0;
+                REAL8 count = 0;
+                REAL8 winTotal = 0;
+                int rWin = 0;
+                int cWin = 0;
+                int pw = 0;
                 REAL8 bw = NAN; /* border weigth */
 
                 pw = DetWindow(&bw, winSize);
@@ -234,7 +253,10 @@ int WindowTotal(MAP_REAL8 *total,         /* write-only output total map  */
                 const MAP_REAL8 *val,     /* input value map */
                 const MAP_REAL8 *winsize) /* input window size map */
 {
-    int r = 0, c = 0, nrRows = 0, nrCols = 0;
+    int r = 0;
+    int c = 0;
+    int nrRows = 0;
+    int nrCols = 0;
 
     val->SetGetTest(GET_MV_TEST, val);
     winsize->SetGetTest(GET_MV_TEST, winsize);
@@ -245,10 +267,13 @@ int WindowTotal(MAP_REAL8 *total,         /* write-only output total map  */
     for (r = 0; r < nrRows; r++) {
         AppRowProgress(r);
         for (c = 0; c < nrCols; c++) {
-            REAL8 value = NAN, winSize = NAN;
+            REAL8 value = NAN;
+            REAL8 winSize = NAN;
             if (winsize->Get(&winSize, r, c, winsize) && (0 < winSize)) {
                 REAL8 winTotal = 0;
-                int rWin = 0, cWin = 0, pw = 0;
+                int rWin = 0;
+                int cWin = 0;
+                int pw = 0;
                 REAL8 bw = NAN; /* border weigth */
                 BOOL valSet = FALSE;
 
@@ -315,7 +340,10 @@ int WindowMajority(MAP_INT4 *majority,       /* write-only output majority map  
                    const MAP_INT4 *val,      /* input value map */
                    const MAP_REAL8 *winsize) /* input window size map */
 {
-    int r = 0, c = 0, nrRows = 0, nrCols = 0;
+    int r = 0;
+    int c = 0;
+    int nrRows = 0;
+    int nrCols = 0;
     INT4 value = 0;    /* value at r, c in value map */
     REAL8 winSize = NAN; /* window Size */
 
@@ -338,7 +366,8 @@ int WindowMajority(MAP_INT4 *majority,       /* write-only output majority map  
 
                 while (prevMaxCount != maxCount) {
                     SEARCH_TABLE *table = NULL;
-                    int rWin = 0, cWin = 0;
+                    int rWin = 0;
+                    int cWin = 0;
 
                     prevMaxCount = maxCount;
                     maxCount = 0;
@@ -355,7 +384,8 @@ int WindowMajority(MAP_INT4 *majority,       /* write-only output majority map  
                     for (rWin = -pw; rWin <= pw; rWin++)
                         for (cWin = -pw; cWin <= pw; cWin++) {
                             if (val->Get(&value, rWin + r, cWin + c, val)) {
-                                DATA key, *rec = NULL;
+                                DATA key;
+                                DATA *rec = NULL;
                                 key.value = value;
                                 rec = STfindOrInsert(table, &key);
                                 if (rec == NULL) {
@@ -403,7 +433,10 @@ int WindowDiversity(MAP_REAL8 *divM,          /* write-only output diversity map
                     const MAP_INT4 *val,      /* input value map */
                     const MAP_REAL8 *winsize) /* input window size map */
 {
-    int r = 0, c = 0, nrRows = 0, nrCols = 0;
+    int r = 0;
+    int c = 0;
+    int nrRows = 0;
+    int nrCols = 0;
     INT4 value = 0;    /* value at r, c in value map */
     REAL8 winSize = NAN; /* window Size */
 
@@ -422,7 +455,8 @@ int WindowDiversity(MAP_REAL8 *divM,          /* write-only output diversity map
                 int pw = DetWindow(&bw, winSize);
                 REAL8 divVal = 0;
                 SEARCH_TABLE *table = NULL;
-                int rWin = 0, cWin = 0;
+                int rWin = 0;
+                int cWin = 0;
 
                 table = STnew((size_t)val->HintNrFastList(val),
                               sizeof(DATA),
@@ -436,7 +470,8 @@ int WindowDiversity(MAP_REAL8 *divM,          /* write-only output diversity map
                 for (rWin = -pw; rWin <= pw; rWin++)
                     for (cWin = -pw; cWin <= pw; cWin++) {
                         if (val->Get(&value, rWin + r, cWin + c, val)) {
-                            DATA key, *rec = NULL;
+                            DATA key;
+                            DATA *rec = NULL;
                             key.value = value;
                             rec = STfindOrInsert(table, &key);
                             if (rec == NULL) {
@@ -470,7 +505,10 @@ int WindowHighpass(MAP_REAL8 *h,             /* write-only output h map  */
                    const MAP_REAL8 *val,     /* input value map */
                    const MAP_REAL8 *winsize) /* input window size map */
 {
-    int r = 0, c = 0, nrRows = 0, nrCols = 0;
+    int r = 0;
+    int c = 0;
+    int nrRows = 0;
+    int nrCols = 0;
 
     val->SetGetTest(GET_MV_TEST, val);
     winsize->SetGetTest(GET_MV_TEST, winsize);
@@ -481,15 +519,20 @@ int WindowHighpass(MAP_REAL8 *h,             /* write-only output h map  */
     for (r = 0; r < nrRows; r++) {
         AppRowProgress(r);
         for (c = 0; c < nrCols; c++) {
-            REAL8 centralValue = NAN, winSize = NAN;
+            REAL8 centralValue = NAN;
+            REAL8 winSize = NAN;
             if (winsize->Get(&winSize, r, c, winsize) && (0 < winSize) &&
                 val->Get(&centralValue, r, c, val)) {
                 REAL8 bw = NAN;
-                int rWin = 0, cWin = 0, pw = DetWindow(&bw, winSize);
+                int rWin = 0;
+                int cWin = 0;
+                int pw = DetWindow(&bw, winSize);
                 /* make negative so scanning will adjust for
                  * the central pixel
                  */
-                REAL8 value = NAN, areaSurr = NAN, totalSurr = NAN;
+                REAL8 value = NAN;
+                REAL8 areaSurr = NAN;
+                REAL8 totalSurr = NAN;
 
                 areaSurr = -Weight(pw, 0, 0, bw);
                 totalSurr = centralValue * areaSurr;

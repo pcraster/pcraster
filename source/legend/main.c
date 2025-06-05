@@ -148,7 +148,8 @@ ReadMapLegends(int *nrOut,
 
     CSF_LEGEND *resultLegend = NewLegend((size_t)1);
     int nrResultLegend = 1;
-    INT4 mapsMin = MV_INT4, mapsMax = MV_INT4;
+    INT4 mapsMin = MV_INT4;
+    INT4 mapsMax = MV_INT4;
 
     if (resultLegend == NULL)
         goto failure;
@@ -164,8 +165,11 @@ ReadMapLegends(int *nrOut,
 
     for (i = 0; i < nrMapNames; i++) {
         INT4 m = 0;
-        int nrL = 0, nrNew = 0, r = 0;
-        CSF_LEGEND *new = NULL, *mapL = NULL;
+        int nrL = 0;
+        int nrNew = 0;
+        int r = 0;
+        CSF_LEGEND *new = NULL;
+        CSF_LEGEND *mapL = NULL;
         if ((map = OpenClassMap(mapNames[i], M_READ)) == NULL)
             goto failure;
 
@@ -270,7 +274,8 @@ ReadLegendFile(int *nrOut, const char *inputFileName, CSF_VS vs, CSF_CR cr)
     while (memset(buf, '\0', LINE_LENGTH) != NULL &&
            (fgets(buf, (int)LINE_LENGTH, f) != NULL)) {
         INT4 nr = 0;
-        char *descr = NULL, *nrPtr = NULL;
+        char *descr = NULL;
+        char *nrPtr = NULL;
 
         l++;
         if (buf[LINE_LENGTH - 1] != '\0') /* one reason for memset */
@@ -372,7 +377,8 @@ int main(int argc,     /* number of arguments */
 {
     MAP *in = NULL; /* 1st input map */
     int nrMaps = 0;
-    int i = 0, c = 0;
+    int i = 0;
+    int c = 0;
     CSF_VS valueScale;
     CSF_CR cellRepr; /* value scale 1st input map */
     CSF_LEGEND *theLegend = NULL;
@@ -381,7 +387,8 @@ int main(int argc,     /* number of arguments */
     const char *inputFileName = NULL;        /* -f input ascii file */
     const char *outputFileName = NULL;       /* -w output ascii file */
     BOOL copy = FALSE;                       /* -c */
-    INT4 minVal = MV_INT4, maxVal = MV_INT4; /* -l, -h */
+    INT4 minVal = MV_INT4;
+    INT4 maxVal = MV_INT4; /* -l, -h */
 
     /* Initialize the arguments */
 

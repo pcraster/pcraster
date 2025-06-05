@@ -126,14 +126,17 @@ Block* PCRBlockDriver::open(
 
   if(stream.good() && std::strcmp(magicString, d_magicString) == 0) {
     UINT4 contentType = 0;
-    UINT4 nrRows = 0, nrCols = 0;
+    UINT4 nrRows = 0;
+    UINT4 nrCols = 0;
     stream.read((char*)&contentType, 4);
     stream.read((char*)&nrRows, 4);
     stream.read((char*)&nrCols, 4);
 
     if(contentType == 0) {
       // File contains discretisation information.
-      REAL8 cellSize = NAN, west = NAN, north = NAN;
+      REAL8 cellSize = NAN;
+      REAL8 west = NAN;
+      REAL8 north = NAN;
       stream.read((char*)&cellSize, 8);
       stream.read((char*)&west, 8);
       stream.read((char*)&north, 8);

@@ -67,7 +67,10 @@ static void Lowest(int *rTo,             /* write-only flows to this one */
                    int colNr,            /* column of cell */
                    REAL8 height)         /* height if (rowNr, colNr) */
 {
-    int nrBestDirs = USED_UNINIT_ZERO, i = 0, rNext = 0, cNext = 0;
+    int nrBestDirs = USED_UNINIT_ZERO;
+    int i = 0;
+    int rNext = 0;
+    int cNext = 0;
     BOOL aNBisMV = FALSE;       /* a neighbour is missing value */
     UINT1 bestDirs[NR_LDD_DIR]; /* array of bestdrops */
     REAL8 bestDrop = -1;        /* scaled vertical distance between
@@ -157,7 +160,8 @@ static void Step1(MAP_UINT1 *ldd,       /* write-only output ldd map,
                   int c)                /* column number of current cell */
 
 {
-    int rTo = 0, cTo = 0;
+    int rTo = 0;
+    int cTo = 0;
 
     PRECOND(dem->GetGetTest(dem) == GET_MV_TEST);
 
@@ -192,9 +196,12 @@ static BOOL Step2(MAP_UINT1 *ldd,       /* read-write ldd map */
                   int r,                /* row current cell */
                   int c)                /* column current cell */
 {
-    REAL8 demValNB = NAN, demVal = NAN;
+    REAL8 demValNB = NAN;
+    REAL8 demVal = NAN;
     UINT1 outVal = 0;
-    int i = 0, rNB = 0, cNB = 0;
+    int i = 0;
+    int rNB = 0;
+    int cNB = 0;
 
     PRECOND(dem->Get(&demVal, r, c, dem));
 
@@ -236,7 +243,8 @@ static BOOL Step3(MAP_UINT1 *ldd,       /* read-write ldd.map */
                   int c)                /* column current cell */
 {
     REAL8 demVal = NAN;
-    int i = 0, j = 0;
+    int i = 0;
+    int j = 0;
 
     PRECOND(dem->GetGetTest(dem) == GET_MV_TEST);
     PRECOND(dem->Get(&demVal, r, c, dem));
@@ -278,7 +286,10 @@ int LddmND(MAP_UINT1 *ldd,       /* Read-write output ldd map  */
 {
     UINT1 outVal = 0; /* value in ldd map */
     REAL8 demVal = NAN; /* value in dem map */
-    int r = 0, c = 0, nrRows = 0, nrCols = 0;
+    int r = 0;
+    int c = 0;
+    int nrRows = 0;
+    int nrCols = 0;
     BOOL cellsFixed = 0;
 
     nrRows = dem->NrRows(dem);

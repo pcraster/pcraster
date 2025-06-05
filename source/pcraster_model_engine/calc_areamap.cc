@@ -181,7 +181,8 @@ void AreaMap::setMaskOnCoordinates()
   PRECOND(hasCoordinateMask());
   pcrxml::CoordinateMask const& m(d_computationMask->coordinates().get());
   for(geo::LinearLoc l=0; l < d_rs.nrCells(); ++l) {
-    double x = NAN,y = NAN;
+    double x = NAN;
+    double y = NAN;
     d_rs.coordinates(x,y,l);
     if (d_mask[l])
       d_mask[l]=

@@ -288,7 +288,8 @@ size_t RasterDimensions::index(
          double x,
          double y) const
 {
-  double row = NAN, col = NAN;
+  double row = NAN;
+  double col = NAN;
 
   indices(x, y, row, col);
 
@@ -362,7 +363,10 @@ RasterDimensions RasterDimensions::areaDimensions(
 
   if(west < east && north > south) {
     // Determine cell-indices of corners of overlap.
-    double westIndex = NAN, northIndex = NAN, eastIndex = NAN, southIndex = NAN;
+    double westIndex = NAN;
+    double northIndex = NAN;
+    double eastIndex = NAN;
+    double southIndex = NAN;
     this->indices(west, north, northIndex, westIndex);
     this->indices(east, south, southIndex, eastIndex);
 
@@ -374,7 +378,8 @@ RasterDimensions RasterDimensions::areaDimensions(
     assert(northIndex <= southIndex);
 
     // Determine coordinates of north-west corner of north-west cell.
-    double northSnapped = NAN, westSnapped = NAN;
+    double northSnapped = NAN;
+    double westSnapped = NAN;
     this->coordinates(
          static_cast<size_t>(std::floor(northIndex)),
          static_cast<size_t>(std::floor(westIndex)),

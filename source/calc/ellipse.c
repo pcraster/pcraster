@@ -94,8 +94,12 @@ Add2Lines(HOR_CUT_LINE *l, int nrLines, int xCeil, REAL8 c, REAL8 s, REAL8 x, RE
 
 static int BuildCircle(REAL8 radius)
 {
-    int i = 0, nrLines = 0, xFloor = 0;
-    REAL8 xIncr = NAN, lineStart = NAN, lineEndIncl = NAN;
+    int i = 0;
+    int nrLines = 0;
+    int xFloor = 0;
+    REAL8 xIncr = NAN;
+    REAL8 lineStart = NAN;
+    REAL8 lineEndIncl = NAN;
     HOR_CUT_LINE *l = NULL;
     PRECOND(radius != 0);
     radius /= (Side() * 2);
@@ -153,7 +157,10 @@ int EllipseAverage(MAP_REAL8 *average,      /* write-only output average map  */
                    const MAP_REAL8 *yminor, /* input window size map */
                    const MAP_REAL8 *angle)  /* input window size map */
 {
-    int r = 0, c = 0, nrRows = 0, nrCols = 0;
+    int r = 0;
+    int c = 0;
+    int nrRows = 0;
+    int nrCols = 0;
 
     val->SetGetTest(GET_MV_TEST, val);
     xmajor->SetGetTest(GET_MV_TEST, xmajor);
@@ -165,11 +172,17 @@ int EllipseAverage(MAP_REAL8 *average,      /* write-only output average map  */
 
     for (r = 0; r < nrRows; r++)
         for (c = 0; c < nrCols; c++) {
-            REAL8 value = NAN, xmajorV = NAN, yminorV = NAN, angleV = NAN;
+            REAL8 value = NAN;
+            REAL8 xmajorV = NAN;
+            REAL8 yminorV = NAN;
+            REAL8 angleV = NAN;
             if (xmajor->Get(&xmajorV, r, c, xmajor) && yminor->Get(&yminorV, r, c, yminor) &&
                 angle->Get(&angleV, r, c, angle)) {
-                REAL8 count = 0, winTotal = 0;
-                int rWin = 0, cWin = 0, pw = 0;
+                REAL8 count = 0;
+                REAL8 winTotal = 0;
+                int rWin = 0;
+                int cWin = 0;
+                int pw = 0;
                 REAL8 bw = NAN; /* border weigth */
 
                 BuildCircle(fabs(xmajorV));

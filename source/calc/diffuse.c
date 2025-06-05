@@ -36,8 +36,13 @@ int Diffuse1(MAP_REAL8 *stateOut,     /* Read-write state map */
              const MAP_REAL8 *in,     /* in map */
              const MAP_REAL8 *fluxIn) /* fluxIn map */
 {
-    int c = 0, r = 0, rows = 0, cols = 0;
-    REAL8 inVal = NAN, fluxInVal = NAN, dirVal = NAN;
+    int c = 0;
+    int r = 0;
+    int rows = 0;
+    int cols = 0;
+    REAL8 inVal = NAN;
+    REAL8 fluxInVal = NAN;
+    REAL8 dirVal = NAN;
 
     cols = in->NrCols(in);
     rows = in->NrRows(in);
@@ -55,7 +60,9 @@ int Diffuse1(MAP_REAL8 *stateOut,     /* Read-write state map */
     for (c = 0; c < cols; c++)
         for (r = 0; r < rows; r++) {
             int dirValQuadr = 0;
-            double fc = NAN, fs = NAN, a = NAN;
+            double fc = NAN;
+            double fs = NAN;
+            double a = NAN;
             if ((!dir->Get(&dirVal, r, c, dir)) || (dirVal == -1) || /* flat */
                 (!fluxIn->Get(&fluxInVal, r, c, fluxIn))) {
                 fluxOut->PutMV(r, c, fluxOut);

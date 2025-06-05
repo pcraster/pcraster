@@ -44,7 +44,8 @@ static void AssignOrder(MAP_INT4 *order,      /* read-write output state map */
     {
         INT4 orderVal = 0;
         UINT1 lddVal = 0;
-        int rNB = 0, cNB = 0;
+        int rNB = 0;
+        int cNB = 0;
         rNB = RNeighbor(r, i);
         cNB = CNeighbor(c, i);
 
@@ -101,7 +102,10 @@ int StreamOrder(MAP_INT4 *order,      /* Read-write output flux map  */
                 const MAP_UINT1 *ldd) /* ldd map */
 {
     UINT1 lddVal = 0;
-    int r = 0, c = 0, nrRows = 0, nrCols = 0;
+    int r = 0;
+    int c = 0;
+    int nrRows = 0;
+    int nrCols = 0;
 
     nrRows = ldd->NrRows(ldd);
     nrCols = ldd->NrCols(ldd);

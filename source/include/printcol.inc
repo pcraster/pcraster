@@ -6,8 +6,10 @@ static void MakeFmts(
 	const char *mv_s,
 	const MAP  *map_s)  /* NULL if not used, for X,Y */
 {
-	size_t strLen, strLenMv;
-	char mvFmt[128],fmt[128];
+	size_t strLen;
+	size_t strLenMv;
+	char mvFmt[128];
+	char fmt[128];
 
 	(void)strcpy(fmt, userFmt_s);
 	strLen   = atoi(fmt);
@@ -24,8 +26,10 @@ static void MakeFmts(
 		 case VS_CLASSIFIED:
 		 case VS_ORDINAL   :
 		 case VS_NOMINAL   :
-		               { char minS[32], maxS[32];
-		                 REAL8 min,max;
+		               { char minS[32];
+		               char maxS[32];
+		                 REAL8 min;
+		                 REAL8 max;
 		                 RgetMinVal(map_s,&min);
 		                 RgetMaxVal(map_s,&max);
 		                 (void)sprintf(minS,"%g",min);

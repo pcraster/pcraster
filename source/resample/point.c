@@ -40,7 +40,8 @@ PTYPE MinPoint(
     PTYPE br, /* bottom right */
     PTYPE bl) /* bottom left */
 {
-    PTYPE min1 = NAN, min2 = NAN;
+    PTYPE min1 = NAN;
+    PTYPE min2 = NAN;
     if (tr <= tl)
         min1= tr;
     else
@@ -64,7 +65,8 @@ PTYPE MaxPoint(
     PTYPE br, /* bottom right */
     PTYPE bl) /* bottom left */
 {
-    PTYPE max1 = NAN, max2 = NAN;
+    PTYPE max1 = NAN;
+    PTYPE max2 = NAN;
     if (tl <= tr)
         max1= tr;
     else
@@ -153,11 +155,14 @@ void ModRaster(
     const POINT2D *inputcell,  /* point input cell */
     REAL8 angle)               /* angle of output cell */
 {
-    size_t i = 0, j = 0;
+    size_t i = 0;
+    size_t j = 0;
     int nrPoints= 4;     /* number of points of a cell */
-    double stepY = NAN, stepX = NAN; /* stepsizes in raster */
+    double stepY = NAN;
+    double stepX = NAN; /* stepsizes in raster */
     double stepSize= 1 / (double)raster->rasterSize;
-    POINT2D in[5], out[5];
+    POINT2D in[5];
+    POINT2D out[5];
 
     PRECOND(raster != NULL);
 
@@ -220,7 +225,8 @@ double DetNrCoverCells(const RASTER *raster) /* raster to check */
  */
 RASTER *InitRaster(RASTER *raster) /* write-only raster to initialize */
 {
-    size_t i = 0, j = 0;
+    size_t i = 0;
+    size_t j = 0;
 
     PRECOND(raster != NULL);
 

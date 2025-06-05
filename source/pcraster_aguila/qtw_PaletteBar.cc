@@ -85,7 +85,8 @@ void qtw::PaletteBar::paintEvent(QPaintEvent *)
 
   if(d_colours.size() > 0 && width() > 0 && height() > 0)
   {
-    size_t xl = 0, xr = 0; // Left and right of rectangle to draw.
+    size_t xl = 0;
+    size_t xr = 0; // Left and right of rectangle to draw.
     size_t w = 0;      // Width of rectangle to draw.
     REAL8 s = NAN;       // Scale: number of pixels available per colour.
 

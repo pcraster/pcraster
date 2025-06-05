@@ -146,7 +146,8 @@ bool FeatureDriver::extremes(
 
   switch(typeId) {
     case TI_UINT1: {
-      UINT1 i = 0, a = 0;
+      UINT1 i = 0;
+      UINT1 a = 0;
       if(extremes<UINT1>(i, a, name, space, typeId)) {
         min = i;
         max = a;
@@ -156,7 +157,8 @@ bool FeatureDriver::extremes(
       break;
     }
     case TI_INT4: {
-      INT4 i = 0, a = 0;
+      INT4 i = 0;
+      INT4 a = 0;
       if(extremes<INT4>(i, a, name, space, typeId)) {
         min = i;
         max = a;
@@ -166,7 +168,8 @@ bool FeatureDriver::extremes(
       break;
     }
     case TI_REAL4: {
-      REAL4 i = NAN, a = NAN;
+      REAL4 i = NAN;
+      REAL4 a = NAN;
       if(extremes<REAL4>(i, a, name, space, typeId)) {
         min = i;
         max = a;

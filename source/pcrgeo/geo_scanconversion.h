@@ -552,7 +552,8 @@ T& midpointCircle(Integral xCenter, Integral yCenter, size_t fromRadius,
   bool innerXIsYPresent = false;
   bool outerXIsYPresent = false;
 
-  size_t nrInnerPointsOctant = 0, nrOuterPointsOctant = 0;
+  size_t nrInnerPointsOctant = 0;
+  size_t nrOuterPointsOctant = 0;
   if(fromRadius == 0) {
     PRECOND(innerPoints.size() == 1.0);
     innerXIsYPresent = false;
@@ -613,7 +614,8 @@ T& midpointCircle(Integral xCenter, Integral yCenter, size_t fromRadius,
 
   // Continue with columns excluding x == y.
   Integral x = 0;
-  Integral yFrom, yTo;
+  Integral yFrom;
+  Integral yTo;
   size_t i = 0;
 
   for(i = 0; i < nrInnerPointsOctant; ++i) {

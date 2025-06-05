@@ -60,7 +60,9 @@ int main(int argc,     /* number of arguments */
 {
 
     INP_MAP *maps = NULL;
-    size_t i = 0, nrMaps = 0, nrMapsFinal = 0;
+    size_t i = 0;
+    size_t nrMaps = 0;
+    size_t nrMapsFinal = 0;
     int c = 0;
     size_t xcoord = 1;
     size_t ycoord = 2;
@@ -207,7 +209,8 @@ int main(int argc,     /* number of arguments */
     for (i = 1; i < (size_t)argc - 1; i++)
     {
         MAP *lastMap = NULL;
-        int nr = 0, nc = 0;
+        int nr = 0;
+        int nc = 0;
         while (maps[nrMaps].type != 'v') /* skip x and y */
             maps[nrMaps++].m = NULL;
         if (AppInputTest(argv[i])) goto failure1;

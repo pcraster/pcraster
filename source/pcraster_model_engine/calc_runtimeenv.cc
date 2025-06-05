@@ -397,7 +397,8 @@ calc::Field* calc::RunTimeEnv::popField()
 bool calc::RunTimeEnv::stackedCondition()
 {
   DVAutoPtr<Field> f(popField());
-  bool noneAreTrue = false,noneAreFalse = false;
+  bool noneAreTrue = false;
+  bool noneAreFalse = false;
   f->analyzeBoolean(noneAreTrue,noneAreFalse);
   return noneAreFalse;
 }

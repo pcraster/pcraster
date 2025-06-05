@@ -39,7 +39,8 @@ static REAL8 GetVal(const MAP_REAL8 *dem, /* Digital Elevation Model */
                     int r,                /* row cell to calculate */
                     int c)                /* column cell to calculate */
 {
-    int i = 0, n = 0;
+    int i = 0;
+    int n = 0;
     REAL8 newVal = NAN; /* value for invalid value */
 
     if (dem->Get(&newVal, r, c, dem))
@@ -69,7 +70,8 @@ void CalcDeltaXY(double *dzDx,         /* write-only, difference in X */
                  int r,                /* row nr. center cell */
                  int c)                /* col nr. center cell */
 {
-    int jc = 0, ir = 0;
+    int jc = 0;
+    int ir = 0;
     REAL8 z[3][3];
 #define Z(ir, jc) (z[(ir) + 1][(jc) + 1])
     REAL8 d = 8 * Side();

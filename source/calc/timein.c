@@ -47,7 +47,10 @@ int TimeInputSeries(MAP_REAL8 *out,      /* map to write */
                     const TIME_TABLE *t, /* time table */
                     int timeStep)        /* number of iteration */
 {
-    int r = 0, c = 0, nrRows = 0, nrCols = 0;
+    int r = 0;
+    int c = 0;
+    int nrRows = 0;
+    int nrCols = 0;
 
     /* initialization */
     nrRows = id->NrRows(id);
@@ -89,7 +92,8 @@ ReadTimeInputTable(const char *fileName,   /* name of file to read */
 {
     TIME_TABLE *t = NULL;
     BOOL geoEas = 0;
-    size_t nrSteps = 0, nrCols = 0;
+    size_t nrSteps = 0;
+    size_t nrCols = 0;
 
     appLarge = TRUE;
 

@@ -127,7 +127,8 @@ static BOOL NumbersAreArg(const char *arg)
 static int InstallLocalOptions(
   const char *o) /* option string passed to InstallArgs */
 {
-        size_t i = 0,n = strlen(o); /* big enough, too big */
+        size_t i = 0;
+        size_t n = strlen(o); /* big enough, too big */
         int groupInputLen = 0;
 
 #     ifdef DEBUG
@@ -452,7 +453,8 @@ static BOOL GroupCheck(void)
 {
   enum state { SINGLE, GROUP } state;
   int  groupMemberUsed = -1; /* FOR DEBUG */
-  int i = 0,n = strlen(groupResult);
+  int i = 0;
+  int n = strlen(groupResult);
   PRECOND(groupResult);
   state = SINGLE;
   for(i=0; i < n; i++)
@@ -539,7 +541,8 @@ error:
  */
 char **ArgArguments(int *nrArgs)    /* write-only number of arguments */
 {
-  int src = 0, dest=0;
+  int src = 0;
+  int dest=0;
   /* shift ptrs to begin */
   for(src=0; src < locArgc; src++)
     if (locArgv[src] != NULL)

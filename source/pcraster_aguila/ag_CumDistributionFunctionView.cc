@@ -176,7 +176,8 @@ void CumDistributionFunctionView::setYAxisTitle()
 
 void CumDistributionFunctionView::setXAxisScale()
 {
-  double min = NAN, max = NAN;
+  double min = NAN;
+  double max = NAN;
   pcr::setMV(min);
   pcr::setMV(max);
   bool extremesInitialised = false;
@@ -470,7 +471,8 @@ void CumDistributionFunctionView::toggleMarker()
 
   assert(!visualisationEngine().isEmpty());
 
-  double x = NAN, y = NAN;
+  double x = NAN;
+  double y = NAN;
 
   assert(markerEnabled(xMarker()) || markerEnabled(yMarker()));
   assert(!(markerEnabled(xMarker()) && markerEnabled(yMarker())));

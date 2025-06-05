@@ -435,7 +435,9 @@ DataSpace SQLTableDriver::dataSpace(
 
     std::sort(quantiles.begin(), quantiles.end());
 
-    REAL4 first = NAN, last = NAN, interval = NAN;
+    REAL4 first = NAN;
+    REAL4 last = NAN;
+    REAL4 interval = NAN;
 
     if(isIncreasingRange(first, last, interval, quantiles.begin(),
          quantiles.end()) && first > REAL4(0.0)) {
@@ -459,7 +461,9 @@ DataSpace SQLTableDriver::dataSpace(
 
     std::sort(timeSteps.begin(), timeSteps.end());
 
-    INT4 first = 0, last = 0, interval = 0;
+    INT4 first = 0;
+    INT4 last = 0;
+    INT4 interval = 0;
 
     if(isIncreasingRange(first, last, interval, timeSteps.begin(),
          timeSteps.end()) && first >= 1) {
@@ -805,7 +809,8 @@ void SQLTableDriver::write(
       }
     }
 
-    std::string fieldSpecs, fieldNames;
+    std::string fieldSpecs;
+    std::string fieldNames;
 
     for(size_t col = 0; col < table.nrCols(); ++col) {
       assert(table.typeId(col) != TI_NR_TYPES);
@@ -895,7 +900,8 @@ void SQLTableDriver::append(
 
   try {
 
-    std::string fieldSpecs, fieldNames;
+    std::string fieldSpecs;
+    std::string fieldNames;
     for(size_t col = 0; col < table.nrCols(); ++col) {
       assert(table.typeId(col) != TI_NR_TYPES);
       assert(!table.title(col).empty());

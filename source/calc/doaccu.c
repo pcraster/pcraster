@@ -48,7 +48,10 @@ static int Sum(
   ACCU_FUNC f)      /* function to perform */
 {
   UINT1   lddVal = 0;
-  REAL8   fluxVal = NAN, amountVal = NAN, accamount = NAN, val = NAN;
+  REAL8   fluxVal = NAN;
+  REAL8   amountVal = NAN;
+  REAL8   accamount = NAN;
+  REAL8   val = NAN;
   int   i = 0;
 
   if(amount->Get(&amountVal, r, c, amount) &&
@@ -60,7 +63,8 @@ static int Sum(
     /* sum all upstream fluxes */
     FOR_ALL_LDD_NBS(i)
     {
-      int rNB = 0, cNB = 0;
+      int rNB = 0;
+      int cNB = 0;
       rNB = RNeighbor(r, i);
       cNB = CNeighbor(c, i);
 
@@ -167,7 +171,10 @@ int PerformAccu(
      ACCU_FUNC f)    /* function to perform */
 {
   UINT1   lddVal = 0;
-  int   r = 0, c = 0 , nrRows = 0, nrCols = 0;
+  int   r = 0;
+  int   c = 0 ;
+  int   nrRows = 0;
+  int   nrCols = 0;
 
   nrRows = ldd->NrRows(ldd);
   nrCols = ldd->NrCols(ldd);

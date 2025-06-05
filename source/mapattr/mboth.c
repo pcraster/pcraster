@@ -259,7 +259,8 @@ static int EditProjection(double *editValue, /* read-write */
                           int yStart,
                           int xStart)
 {
-    char op0[128], op1[128];
+    char op0[128];
+    char op1[128];
     char *options[2];
     int i = (int)*editValue;
     options[0] = op0;
@@ -276,7 +277,8 @@ static int EditCellRepr(double *editValue, /* read-write */
                         int yStart,
                         int xStart)
 {
-    char op0[128], op1[128];
+    char op0[128];
+    char op1[128];
     int i = 0;
     CSF_CR cr[2];
     char *options[2];
@@ -314,12 +316,16 @@ static int EditValueScale(double *editValue, /* read-write */
                           int yStart,
                           int xStart)
 {
-    char op0[128], op1[128];
-    char op2[128], op3[128];
-    char op4[128], op5[128];
-    int i = 0, j = 0;
-    CSF_VS setVs[6],
-        vs[6] = {VS_BOOLEAN, VS_NOMINAL, VS_ORDINAL, VS_SCALAR, VS_LDD, VS_DIRECTION};
+    char op0[128];
+    char op1[128];
+    char op2[128];
+    char op3[128];
+    char op4[128];
+    char op5[128];
+    int i = 0;
+    int j = 0;
+    CSF_VS setVs[6];
+    CSF_VS vs[6] = {VS_BOOLEAN, VS_NOMINAL, VS_ORDINAL, VS_SCALAR, VS_LDD, VS_DIRECTION};
     char *options[6];
     options[0] = op0;
     options[1] = op1;

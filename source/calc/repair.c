@@ -70,7 +70,8 @@ static int FixCycle(MAP_UINT1 *ldd,   /* read write */
     UINT1 l = 0;
     ldd->Get(&l, r, c, ldd);
     while (!visitMap[r][c]) {
-        int DSr = 0, DSc = 0;
+        int DSr = 0;
+        int DSc = 0;
         visitMap[r][c] = 1;
         PRECOND(l != LDD_PIT);
 
@@ -100,7 +101,8 @@ int RepairLdd(MAP_UINT1 *ldd,         /* write-only output ldd  */
     UINT1 lddCurr = 0; /* current and next ldd value */
     int nrRows = inLdd->NrRows(inLdd);
     int nrCols = inLdd->NrCols(inLdd);
-    int r = 0, c = 0;
+    int r = 0;
+    int c = 0;
     UINT1 **visitMap = (UINT1 **)Malloc2d((size_t)nrRows, (size_t)nrCols, sizeof(UINT1));
     if (visitMap == NULL)
         return 1;
@@ -176,10 +178,12 @@ int MaskLdd(MAP_UINT1 *ldd,         /* write-only output ldd  */
             const MAP_UINT1 *inLdd, /* input ldd  */
             const MAP_UINT1 *mask)  /* mask  */
 {
-    UINT1 lddCurr = 0, m = 0; /* current and next ldd value */
+    UINT1 lddCurr = 0;
+    UINT1 m = 0; /* current and next ldd value */
     int nrRows = inLdd->NrRows(inLdd);
     int nrCols = inLdd->NrCols(inLdd);
-    int r = 0, c = 0;
+    int r = 0;
+    int c = 0;
 
     /* algorithm wants inLdd->Get() to return FALSE in case of MV */
     inLdd->SetGetTest(GET_MV_TEST, inLdd);

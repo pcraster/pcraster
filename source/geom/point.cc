@@ -195,7 +195,8 @@ POINT2D *IntersectCords(POINT2D *i,          /* write-only, point of intersectio
                         const POINT2D *l2p1, /* first end of cord 2 */
                         const POINT2D *l2p2) /* second end of cord 2 */
 {
-    LINE l1, l2;
+    LINE l1;
+    LINE l2;
 
     (void)CalcLine(&l1, l1p1, l1p2);
     (void)CalcLine(&l2, l2p1, l2p2);
@@ -249,7 +250,10 @@ int PointOnLineAlsoOnCord(const POINT2D *p,  /* point that is on the line throug
                           const POINT2D *c1, /* first end of cord */
                           const POINT2D *c2) /* second end of cord  */
 {
-    PTYPE maxX = NAN, minX = NAN, maxY = NAN, minY = NAN;
+    PTYPE maxX = NAN;
+    PTYPE minX = NAN;
+    PTYPE maxY = NAN;
+    PTYPE minY = NAN;
     IFDEBUG(LINE lineThroughCord);
 
     PRECOND(PointOnLine(CalcLine(&lineThroughCord, c1, c2), p));
@@ -323,7 +327,9 @@ int MiddleOnLine(const LINE *l,     /* line where all three points are part of *
                  const POINT2D *p2, /* point 2 */
                  const POINT2D *p3) /* point 3 */
 {
-    double d1 = NAN, d2 = NAN, d3 = NAN;
+    double d1 = NAN;
+    double d2 = NAN;
+    double d3 = NAN;
 
     PRECOND(PointOnLine(l, p1));
     PRECOND(PointOnLine(l, p2));
@@ -434,7 +440,10 @@ int PointInPolygon(const POINT2D *p,   /* point  */
     int i = 0;
     int nrInter = 0;
     double atY = NAN;
-    PTYPE minX = NAN, maxX = NAN, minY = NAN, maxY = NAN;
+    PTYPE minX = NAN;
+    PTYPE maxX = NAN;
+    PTYPE minY = NAN;
+    PTYPE maxY = NAN;
     LINE l;
 
     PRECOND(nr > 2);
@@ -510,7 +519,8 @@ int CentroidOfPolygon(POINT2D *c,         /* write-only. the centroid  */
                       int nr)             /* number of points defining the polygon  */
 {
     int i = 0;
-    long double up = NAN, low = NAN;
+    long double up = NAN;
+    long double low = NAN;
 
     PRECOND(nr > 2);
     PRECOND(pol[0].x == pol[nr].x);
@@ -558,12 +568,18 @@ int SmallestFittingRectangleCentre(
     const POINT2D *pol, /* the polygon */
     int nr)             /* number of points in the polygon */
 {
-    PTYPE minX = NAN, maxX = NAN, minY = NAN, maxY = NAN;
-    double angle = NAN, bestAngle = NAN;
-    double area = NAN, smallArea = NAN;
+    PTYPE minX = NAN;
+    PTYPE maxX = NAN;
+    PTYPE minY = NAN;
+    PTYPE maxY = NAN;
+    double angle = NAN;
+    double bestAngle = NAN;
+    double area = NAN;
+    double smallArea = NAN;
     double step = geomFittingRectangleStep;
     int i = 0;
-    POINT2D *p = nullptr, nc; /* p is work-copy of polygon */
+    POINT2D *p = nullptr;
+    POINT2D nc; /* p is work-copy of polygon */
 
     PRECOND(pol[0].x == pol[nr].x);
     PRECOND(pol[0].y == pol[nr].y);
@@ -800,7 +816,9 @@ POINT2D *CopyPoint(POINT2D *d,       /* destination point */
 POINT2D *RotPoint(POINT2D *p, /* read-write, point to rotated */
                   double a)   /* angle in radians, counter clock wise */
 {
-    double c = NAN, s = NAN, x = NAN;
+    double c = NAN;
+    double s = NAN;
+    double x = NAN;
 
     c = cos(a);
     s = sin(a);

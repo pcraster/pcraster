@@ -239,7 +239,10 @@ void PlotVisualisation::drawCurve(
   // Loop over values to find MV's.
   double* xEnd = x + nrValues;
   double* yEnd = y + nrValues;
-  double* xSubBegin = nullptr, *xSubEnd = nullptr, *ySubBegin = nullptr, *ySubEnd = nullptr;
+  double * xSubBegin = nullptr;
+  double *xSubEnd = nullptr;
+  double *ySubBegin = nullptr;
+  double *ySubEnd = nullptr;
   size_t sizeOfSubRange = 0;
   // long int curveId;
 
@@ -385,7 +388,9 @@ bool PlotVisualisation::intersectMarker(
     );
   }
 
-  QPointF point1, point2, intersection;
+  QPointF point1;
+  QPointF point2;
+  QPointF intersection;
   bool intersectionFound = false;
 
   auto it =

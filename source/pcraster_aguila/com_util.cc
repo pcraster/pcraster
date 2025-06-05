@@ -14,8 +14,10 @@
 */
 double com_Util::ceil125(double x)
 {
-  double lx = NAN, rv = NAN;
-  double p10 = NAN, fr = NAN;
+  double lx = NAN;
+  double rv = NAN;
+  double p10 = NAN;
+  double fr = NAN;
   double sign = ( x > 0) ? 1.0 : -1.0;
 
   if (x == 0.0) return 0.0;

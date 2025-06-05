@@ -301,7 +301,8 @@ bool  com::filesEqual   ( const std::string& fileName1,
                           const std::string& fileName2,
                           std::ios::openmode cmpMode)
 {
-   std::ifstream i1,i2;
+   std::ifstream i1;
+   std::ifstream i2;
    open(i1,fileName1,cmpMode);
    open(i2,fileName2,cmpMode);
    while (i1 && i2) {

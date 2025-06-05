@@ -54,8 +54,12 @@ static void AdvancePoint(POINT2D *p, int dir, const LINE *l)
 static void
 ComputeTangent(MAP_REAL8 *result, REAL8 viewAngleVal, const MAP_REAL8 *dem, int ry, int cx)
 {
-    double a = NAN, bestM = NAN, bestZ = NAN, startZ = NAN; /* bestM = tan(angle) */
-    POINT2D p, bestPoint;
+    double a = NAN;
+    double bestM = NAN;
+    double bestZ = NAN;
+    double startZ = NAN; /* bestM = tan(angle) */
+    POINT2D p;
+    POINT2D bestPoint;
     LINE l;
     /* incr/decr on x/y is chosen on the split of the 45 degrees 
      * (is M_PI/4) line
@@ -109,8 +113,12 @@ extern int HorizonTangent(MAP_REAL8 *result,    /* angle in degrees */
                           const MAP_REAL8 *dem, /* */
                           const MAP_REAL8 *viewAngle)
 {
-    REAL8 demVal = NAN, viewAngleVal = NAN; /* value read in dem.map */
-    int nrRows = 0, nrCols = 0, r = 0, c = 0;
+    REAL8 demVal = NAN;
+    REAL8 viewAngleVal = NAN; /* value read in dem.map */
+    int nrRows = 0;
+    int nrCols = 0;
+    int r = 0;
+    int c = 0;
 
     dem->SetGetTest(GET_MV_TEST, dem);
     viewAngle->SetGetTest(GET_MV_TEST, viewAngle);

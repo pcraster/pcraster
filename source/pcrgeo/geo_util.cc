@@ -337,7 +337,8 @@ bool geo::isColumnFile(const com::PathName& pn)
 
   // Read and test i lines.
   std::string line;
-  size_t nc = 0, n = 0;
+  size_t nc = 0;
+  size_t n = 0;
 
   std::getline(stream, line);
   nc = com::split(line).size();

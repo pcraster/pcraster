@@ -74,7 +74,8 @@ static int ScanInputFile(
     CSF_VS vs= RgetValueScale(out);
     CSF_CR cr= RgetCellRepr(out);
     REAL8 *buf= Rmalloc(out, nrCols);
-    UINT4 r = 0, c = 0;
+    UINT4 r = 0;
+    UINT4 c = 0;
     int result= 1;
     char sepBuf[2];
 
@@ -115,7 +116,8 @@ static int ScanInputFile(
         mvDbl= a.mv;
     } break;
     case ASC_GENAMAP: {
-        size_t rHeader = 0, cHeader = 0;
+        size_t rHeader = 0;
+        size_t cHeader = 0;
         if (ReadGenamapAuditHeader(&rHeader, &cHeader, f)) {
             ErrorNested("in Genamap AUDIT output file");
             goto error;

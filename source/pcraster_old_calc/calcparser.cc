@@ -796,7 +796,8 @@ Parser::bindingRight(int *_retsignal, const calc::DefPar& par  )
 #line 482 "calcparser.g"
 	zzRULE;
 	int _sva=1;
-	ANTLRTokenPtr convF=nullptr, indF=nullptr;
+	ANTLRTokenPtr convF=nullptr;
+	ANTLRTokenPtr indF=nullptr;
 	int _signal=NoSignal;
 	*_retsignal = NoSignal;
 #line 483 "calcparser.g"
@@ -1139,7 +1140,9 @@ Parser::reportMoment(int *_retsignal, calc::ParsReportMoment& p )
 #line 600 "calcparser.g"
 	zzRULE;
 	int _sva=1;
-	ANTLRTokenPtr start=nullptr, range=nullptr, range2=nullptr;
+	ANTLRTokenPtr start=nullptr;
+	ANTLRTokenPtr range=nullptr;
+	ANTLRTokenPtr range2=nullptr;
 	int _signal=NoSignal;
 	*_retsignal = NoSignal;
 #line 601 "calcparser.g"
@@ -1270,7 +1273,8 @@ Parser::idList(int *_retsignal)
 #line 631 "calcparser.g"
 	zzRULE;
 	int _sva=1;
-	ANTLRTokenPtr firstId=nullptr, nextId=nullptr;
+	ANTLRTokenPtr firstId=nullptr;
+	ANTLRTokenPtr nextId=nullptr;
 	int _signal=NoSignal;
 	PURIFY(_retv,sizeof(  calc::IdList   	))
 	*_retsignal = NoSignal;
@@ -1380,7 +1384,9 @@ Parser::codeBlock(int *_retsignal, calc::StatementBlock *inclIn )
 #line 655 "calcparser.g"
 	zzRULE;
 	int _sva=1;
-	ANTLRTokenPtr v=nullptr, modelId=nullptr, modelName=nullptr;
+	ANTLRTokenPtr v=nullptr;
+	ANTLRTokenPtr modelId=nullptr;
+	ANTLRTokenPtr modelName=nullptr;
 	int _signal=NoSignal;
 	*_retsignal = NoSignal;
 #line 656 "calcparser.g"
@@ -1518,13 +1524,18 @@ Parser::foreach(int *_retsignal, calc::StatementBlock *inclIn )
 #line 699 "calcparser.g"
 	zzRULE;
 	int _sva=1;
-	ANTLRTokenPtr posF=nullptr, iterId=nullptr, inId=nullptr, exceptId=nullptr;
+	ANTLRTokenPtr posF=nullptr;
+	ANTLRTokenPtr iterId=nullptr;
+	ANTLRTokenPtr inId=nullptr;
+	ANTLRTokenPtr exceptId=nullptr;
 	int _signal=NoSignal;
 	*_retsignal = NoSignal;
 #line 700 "calcparser.g"
 	calc::ForEach *f=nullptr;
 	calc::Symbol iter;
-	calc::IdList in,except,s; bool ascending=true;
+	calc::IdList in;
+	calc::IdList except;
+	calc::IdList s; bool ascending=true;
 #line 703 "calcparser.g"
 	zzmatch_wsig(TOK_FOREACH, _handler);
 	
@@ -1718,7 +1729,10 @@ Parser::assignmentTail(int *_retsignal, calc::StatementBlock *inclIn,
 #line 759 "calcparser.g"
 	zzRULE;
 	int _sva=1;
-	ANTLRTokenPtr ass=nullptr, theId=nullptr, methodId=nullptr, fid2=nullptr;
+	ANTLRTokenPtr ass=nullptr;
+	ANTLRTokenPtr theId=nullptr;
+	ANTLRTokenPtr methodId=nullptr;
+	ANTLRTokenPtr fid2=nullptr;
 	int _signal=NoSignal;
 	*_retsignal = NoSignal;
 #line 762 "calcparser.g"
@@ -2420,7 +2434,14 @@ Parser::misc_expr(int *_retsignal, calc::StatementBlock *inclIn )
 #line 996 "calcparser.g"
 	zzRULE;
 	int _sva=1;
-	ANTLRTokenPtr opS=nullptr, convF=nullptr, lookF=nullptr, tssF=nullptr, r=nullptr, indF=nullptr, theId=nullptr, methodId=nullptr;
+	ANTLRTokenPtr opS=nullptr;
+	ANTLRTokenPtr convF=nullptr;
+	ANTLRTokenPtr lookF=nullptr;
+	ANTLRTokenPtr tssF=nullptr;
+	ANTLRTokenPtr r=nullptr;
+	ANTLRTokenPtr indF=nullptr;
+	ANTLRTokenPtr theId=nullptr;
+	ANTLRTokenPtr methodId=nullptr;
 	int _signal=NoSignal;
 	PURIFY(_retv,sizeof( calc::FieldExpr * 	))
 	*_retsignal = NoSignal;
@@ -2895,7 +2916,8 @@ Parser::parWithIndeces(int *_retsignal, calc::StatementBlock *s )
 #line 1150 "calcparser.g"
 	zzRULE;
 	int _sva=1;
-	ANTLRTokenPtr i=nullptr, r=nullptr;
+	ANTLRTokenPtr i=nullptr;
+	ANTLRTokenPtr r=nullptr;
 	int _signal=NoSignal;
 	PURIFY(_retv,sizeof( calc::ConstructPar  	))
 	*_retsignal = NoSignal;
@@ -2993,7 +3015,8 @@ Parser::qid(int *_retsignal)
 #line 1165 "calcparser.g"
 	zzRULE;
 	int _sva=1;
-	ANTLRTokenPtr i=nullptr, r=nullptr;
+	ANTLRTokenPtr i=nullptr;
+	ANTLRTokenPtr r=nullptr;
 	int _signal=NoSignal;
 	PURIFY(_retv,sizeof( calc::Symbol  	))
 	*_retsignal = NoSignal;
@@ -3084,7 +3107,8 @@ Parser::unsignedNumber(int *_retsignal)
 #line 1188 "calcparser.g"
 	zzRULE;
 	int _sva=1;
-	ANTLRTokenPtr v1=nullptr, v2=nullptr;
+	ANTLRTokenPtr v1=nullptr;
+	ANTLRTokenPtr v2=nullptr;
 	int _signal=NoSignal;
 	PURIFY(_retv,sizeof( calc::Symbol  	))
 	*_retsignal = NoSignal;
@@ -3132,7 +3156,8 @@ Parser::sign(int *_retsignal)
 #line 1194 "calcparser.g"
 	zzRULE;
 	int _sva=1;
-	ANTLRTokenPtr v1=nullptr, v2=nullptr;
+	ANTLRTokenPtr v1=nullptr;
+	ANTLRTokenPtr v2=nullptr;
 	int _signal=NoSignal;
 	PURIFY(_retv,sizeof( calc::Symbol  	))
 	*_retsignal = NoSignal;

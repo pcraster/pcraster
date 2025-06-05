@@ -98,13 +98,20 @@ void LddRasterDrawer::draw(
 
   UINT1 value = 0;
 
-  double cxWld = NAN, cyWld = NAN;           // Center of cell.
-  double ncxWld = NAN, ncyWld = NAN;         // Center of neighb. cell (in ldd direction).
-  double leftPitWld = NAN, topPitWld = NAN;  // Upper left of pit.
-  double cxPix = NAN, cyPix = NAN;           // Center of cell.
-  double ncxPix = NAN, ncyPix = NAN;         // Center of neighb. cell.
-  double leftPitPix = NAN, topPitPix = NAN;  // Upper left of pit.
-  double pitSizeX = NAN, pitSizeY = NAN;     // Size of pit.
+  double cxWld = NAN;
+  double cyWld = NAN;           // Center of cell.
+  double ncxWld = NAN;
+  double ncyWld = NAN;         // Center of neighb. cell (in ldd direction).
+  double leftPitWld = NAN;
+  double topPitWld = NAN;  // Upper left of pit.
+  double cxPix = NAN;
+  double cyPix = NAN;           // Center of cell.
+  double ncxPix = NAN;
+  double ncyPix = NAN;         // Center of neighb. cell.
+  double leftPitPix = NAN;
+  double topPitPix = NAN;  // Upper left of pit.
+  double pitSizeX = NAN;
+  double pitSizeY = NAN;     // Size of pit.
 
   pitSizeX = std::abs(0.5 * _raster->dimensions().cellSize() *
          this->scale(world_to_screen));

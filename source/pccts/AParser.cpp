@@ -265,7 +265,8 @@ void
 ANTLRParser::
 look(int k)
 {
-	int i, c = k - (LLk-dirty);
+	int i;
+	int c = k - (LLk-dirty);
 	for (i=1; i<=c; i++) consume();
 }
 

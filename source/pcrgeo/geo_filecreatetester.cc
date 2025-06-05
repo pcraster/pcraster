@@ -288,7 +288,8 @@ bool geo::FileCreateTester::equalToCsf(
     diffMap.putCells(dm.diffs());
   }
 
-  double m1 = NAN,m2 = NAN;
+  double m1 = NAN;
+  double m2 = NAN;
   if (map1.min(&m1) != map2.min(&m2) || !com::equal_epsilon(m1,m2))
     return tr.falseOrThrow("header minimum differ");
   if (map1.max(&m1) != map2.max(&m2) || !com::equal_epsilon(m1,m2))

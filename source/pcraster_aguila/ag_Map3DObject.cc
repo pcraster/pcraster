@@ -164,16 +164,26 @@ void ag::Map3DObject::createHeightScene(const ag::DataObject& o,
   }
 
   // Check if the min and max are defined (if there're values in the raster).
-  REAL4 minHeight = NAN, maxHeight = NAN;       // Extreme heights.
+  REAL4 minHeight = NAN;
+  REAL4 maxHeight = NAN;       // Extreme heights.
   if(!heightRaster.min(minHeight) || !heightRaster.max(maxHeight)) {
     // All MV's.
     return;
   }
 
-  GLfloat cLeft = NAN, cRight = NAN, cFront = NAN, cBack = NAN; // Triangle coordinates.
-  GLfloat zCurrent = NAN, zFront = NAN, zRight = NAN;    // Heights of corners of triangles.
-  GLfloat nx = NAN, ny = NAN, nz = NAN;                  // Normal vector of quad.
-  GLfloat dx = NAN, dy = NAN, dz = NAN;
+  GLfloat cLeft = NAN;
+  GLfloat cRight = NAN;
+  GLfloat cFront = NAN;
+  GLfloat cBack = NAN; // Triangle coordinates.
+  GLfloat zCurrent = NAN;
+  GLfloat zFront = NAN;
+  GLfloat zRight = NAN;    // Heights of corners of triangles.
+  GLfloat nx = NAN;
+  GLfloat ny = NAN;
+  GLfloat nz = NAN;                  // Normal vector of quad.
+  GLfloat dx = NAN;
+  GLfloat dy = NAN;
+  GLfloat dz = NAN;
   GLfloat scale = d_scale;             // Scale for height values.
 
   dx = d_quadLength * heightRaster.dimensions().cellSize();
@@ -358,7 +368,8 @@ void ag::Map3DObject::createDrapeScene(const ag::DataObject& dataObject,
   }
 
   // Check if the min and max are defined (if there're values in the raster).
-  REAL4 minHeight = NAN, maxHeight = NAN;       // Extreme heights.
+  REAL4 minHeight = NAN;
+  REAL4 maxHeight = NAN;       // Extreme heights.
   if(!heightRaster.min(minHeight) || !heightRaster.max(maxHeight)) // All MV's.
     return;
 
@@ -445,10 +456,20 @@ void ag::Map3DObject::createDrapeScene(const ag::DataObject& dataObject,
   }
   else {
 
-    GLfloat cLeft = NAN, cRight = NAN, cFront = NAN, cBack = NAN;          // Quad coordinates.
-    GLfloat zul = NAN, zur = NAN, zlr = NAN, zll = NAN;          // Heights of corners of quad.
-    GLfloat nx = NAN, ny = NAN, nz = NAN;                  // Normal vector of quad.
-    GLfloat dx = NAN, dy = NAN, dz = NAN;
+    GLfloat cLeft = NAN;
+    GLfloat cRight = NAN;
+    GLfloat cFront = NAN;
+    GLfloat cBack = NAN;          // Quad coordinates.
+    GLfloat zul = NAN;
+    GLfloat zur = NAN;
+    GLfloat zlr = NAN;
+    GLfloat zll = NAN;          // Heights of corners of quad.
+    GLfloat nx = NAN;
+    GLfloat ny = NAN;
+    GLfloat nz = NAN;                  // Normal vector of quad.
+    GLfloat dx = NAN;
+    GLfloat dy = NAN;
+    GLfloat dz = NAN;
     GLfloat scale = d_scale;             // Scale for height values.
 
     dx = d_quadLength * heightRaster.dimensions().cellSize();
@@ -464,7 +485,10 @@ void ag::Map3DObject::createDrapeScene(const ag::DataObject& dataObject,
     dy *= scale;
     setSize(width(), depth(), height() * scale);
 
-    size_t firstRow = 0, lastRow = 0, firstCol = 0, lastCol = 0;
+    size_t firstRow = 0;
+    size_t lastRow = 0;
+    size_t firstCol = 0;
+    size_t lastCol = 0;
     firstRow = d_quadLength + 1;
     lastRow  = heightRaster.dimensions().nrRows() - (d_quadLength + 1);
     firstCol = d_quadLength + 1;

@@ -91,9 +91,12 @@ PCR_DAL_DECL void stepMap(
     stepMappers->clear();
     stepMappers->reserve(mappings.size());
 
-    size_t firstStep = 0, lastStep = 0;
-    double newFirstStep = NAN, newLastStep = NAN;
-    double first = NAN, last = NAN;
+    size_t firstStep = 0;
+    size_t lastStep = 0;
+    double newFirstStep = NAN;
+    double newLastStep = NAN;
+    double first = NAN;
+    double last = NAN;
     StepMapper const* aMapper = nullptr;
 
     for(const auto & mapping : mappings) {
@@ -205,7 +208,8 @@ PCR_DAL_DECL void timeStepMap(
          std::vector<StepMapper>* stepMappers)
 {
   if(!mappings.empty()) {
-    boost::posix_time::ptime firstTime, lastTime;
+    boost::posix_time::ptime firstTime;
+    boost::posix_time::ptime lastTime;
 
     // -------------------------------------------------------------------------
     // Determine first and last real time moment.

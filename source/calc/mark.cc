@@ -91,7 +91,8 @@ static int MarkWhileSum(
   std::vector<MarkPoint> points;
 
    for(geo::CellLocVisitor c(result); c.valid(); ++c) {
-     REAL8 orderVal = NAN,amountVal = NAN;
+     REAL8 orderVal = NAN;
+     REAL8 amountVal = NAN;
      if (order.get(orderVal, *c) && amount.get(amountVal, *c))
       points.push_back(MarkPoint(*c,orderVal,amountVal));
      else

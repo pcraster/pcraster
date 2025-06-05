@@ -39,9 +39,13 @@ int Move(
        const MAP_REAL8 *x,  /* Digital Elevation Model */
        const MAP_REAL8 *y)  /* Digital Elevation Model */
 {
-  REAL8   xColVal = NAN, yRowVal = NAN;
+  REAL8   xColVal = NAN;
+  REAL8   yRowVal = NAN;
   UINT1   inVal = 0;
-  int   nrRows = 0, nrCols = 0, r = 0, c = 0;
+  int   nrRows = 0;
+  int   nrCols = 0;
+  int   r = 0;
+  int   c = 0;
 
   x->SetGetTest(GET_MV_TEST, x);
   y->SetGetTest(GET_MV_TEST, y);
@@ -87,9 +91,13 @@ int Shift(
        const MAP_REAL8 *y,  /* Integer Northing */
        const MAP_REAL8 *x)  /* Integer Easting */
 {
-  INT4    xColVal = 0, yRowVal = 0;
+  INT4    xColVal = 0;
+  INT4    yRowVal = 0;
   REAL8   inVal = NAN;
-  int   nrRows = 0, nrCols = 0, r = 0, c = 0;
+  int   nrRows = 0;
+  int   nrCols = 0;
+  int   r = 0;
+  int   c = 0;
 
   // nonspatials
   xColVal=getShift(x);
@@ -119,9 +127,13 @@ int Shift0(
        const MAP_REAL8  *y,  /* Integer Northing */
        const MAP_REAL8  *x)  /* Integer Easting */
 {
-  INT4    xColVal = 0, yRowVal = 0;
+  INT4    xColVal = 0;
+  INT4    yRowVal = 0;
   REAL8   inVal = NAN;
-  int   nrRows = 0, nrCols = 0, r = 0, c = 0;
+  int   nrRows = 0;
+  int   nrCols = 0;
+  int   r = 0;
+  int   c = 0;
 
   // nonspatials
   xColVal=getShift(x);

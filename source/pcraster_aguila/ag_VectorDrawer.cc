@@ -75,7 +75,8 @@ void VectorDrawer::draw (
   size_t nrCellsPerPixel = this->nrCellsPerPixel(world_to_screen);
 
   QVector<QLineF> lines(3);
-  double centerX = NAN, centerY = NAN;
+  double centerX = NAN;
+  double centerY = NAN;
   REAL4 magnitude = NAN;
   REAL4 angle = NAN;
   QTransform matrix;
@@ -159,8 +160,14 @@ void VectorDrawer::drawCells(
          QTransform const&  /*screen_to_world*/) const
 {
   size_t nrCellsPerPixel = this->nrCellsPerPixel(world_to_screen);
-  double leftScreen = NAN, topScreen = NAN, rightScreen = NAN, bottomScreen = NAN;
-  double leftWorld = NAN, topWorld = NAN, rightWorld = NAN, bottomWorld = NAN;
+  double leftScreen = NAN;
+  double topScreen = NAN;
+  double rightScreen = NAN;
+  double bottomScreen = NAN;
+  double leftWorld = NAN;
+  double topWorld = NAN;
+  double rightWorld = NAN;
+  double bottomWorld = NAN;
 
   auto firstRow = static_cast<size_t>(indices.top());
   auto lastRow = static_cast<size_t>(indices.bottom());

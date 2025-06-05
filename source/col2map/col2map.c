@@ -100,7 +100,8 @@ static int CalcDirection(
     REAL8 **recs,
     size_t nrRecs) {
     double *valList = ChkMalloc(sizeof(double) * nrRecs);
-    size_t i = 0, n = 0; /* number not -1 */
+    size_t i = 0;
+    size_t n = 0; /* number not -1 */
 
     if (valList == NULL)
         return 1;
@@ -152,7 +153,8 @@ static int CalcSortTable(REAL8 **recs, size_t nrRecs, size_t idNotUsed) {
 
     /* Scan records for values and occurrences */
     for (i = 0; i < nrRecs; i++) {
-        DATA key, *new = NULL;
+        DATA key;
+        DATA *new = NULL;
         key.val = recs[i][POS_V];
         new = STfind(table, &key);
         if (new == NULL || new->index == -1) /* new or fastlist */
@@ -297,7 +299,9 @@ static void CalcRecordId(const MAP *out) /* file to use for co-ordinate
                                           */
 {
     size_t i = 0;
-    int row = 0, col = 0, nrCols = (int)RgetNrCols(out);
+    int row = 0;
+    int col = 0;
+    int nrCols = (int)RgetNrCols(out);
 
     for (i = 0; i < nrRecords; i++) {
         if (AppRgetRowCol(out, recList[i][POS_X], recList[i][POS_Y], &row, &col)) {
@@ -344,13 +348,18 @@ int Col2Map(
     const size_t *colNr,   /* the column nrs */
     int sepChar)           /* separator character */
 {
-    size_t r = 0, c = 0, nrRows = RgetNrRows(out);
+    size_t r = 0;
+    size_t c = 0;
+    size_t nrRows = RgetNrRows(out);
     size_t nrCols = RgetNrCols(out);
     size_t ri = 0; /* record index */
     const char *conflictType = NULL;
     REAL8 *buf = NULL;
-    size_t nrMvPixels = 0, nrMultPixels = 0;
-    size_t nrRecordsRead = 0, nrMVvalueColumn = 0, nrMVcoordColumn = 0;
+    size_t nrMvPixels = 0;
+    size_t nrMultPixels = 0;
+    size_t nrRecordsRead = 0;
+    size_t nrMVvalueColumn = 0;
+    size_t nrMVcoordColumn = 0;
     BOOL geoeas = 0; /* Geo-eas  Y/N */
     CALC_CELL calcMultPixel = Method(compCell);
     REAL8 **orgRecList = NULL;

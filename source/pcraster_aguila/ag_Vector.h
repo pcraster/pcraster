@@ -159,7 +159,8 @@ inline bool Vector::value(
               space.dimension(index).value<dal::RasterDimensions>(0));
         auto const& spatialAddress(
               address.template coordinate<dal::SpatialCoordinate>(index));
-        double row = NAN, col = NAN;
+        double row = NAN;
+        double col = NAN;
 
         rasterDimensions.indices(spatialAddress, row, col);
 

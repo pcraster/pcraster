@@ -102,7 +102,8 @@ entityType *CHK_MALLOC_TYPE(entityType t, /* type of entity
 
 static void DoNoMoreMemory(void)
 {
-    TMP_NODE *n = NULL, *t = tmpList;
+    TMP_NODE *n = NULL;
+    TMP_NODE *t = tmpList;
     while (t != NULL) {
         n = t->next;
         Free(t);

@@ -502,8 +502,10 @@ inline void interpolate(
     ++index;
   }
 
-  size_t preNonMVIndex = 0, postNonMVIndex = 0;
-  double preWeight = NAN, postWeight = NAN;
+  size_t preNonMVIndex = 0;
+  size_t postNonMVIndex = 0;
+  double preWeight = NAN;
+  double postWeight = NAN;
 
   while(index < array.size()) {
 
@@ -598,7 +600,8 @@ inline void interpolate(
 
   double sumOfDistances = distance1 + distance2;
   typename Array<T>::iterator it;
-  typename Array<T>::const_iterator it1, it2;
+  typename Array<T>::const_iterator it1;
+  typename Array<T>::const_iterator it2;
 
   for(it = result.begin(), it1 = array1.begin(), it2 = array2.begin();
          it < result.end(); ++it, ++it1, ++it2) {
@@ -621,8 +624,10 @@ inline void interpolate(
          Array<double> const& distances2)
 {
   typename Array<T>::iterator result_it;
-  typename Array<T>::const_iterator cell1_it, cell2_it;
-  typename Array<double>::const_iterator dist1_it = nullptr, dist2_it = nullptr;
+  typename Array<T>::const_iterator cell1_it;
+  typename Array<T>::const_iterator cell2_it;
+  typename Array<double>::const_iterator dist1_it = nullptr;
+  typename Array<double>::const_iterator dist2_it = nullptr;
 
   for(   result_it = result.begin(),
          cell1_it = cells1.begin(), dist1_it = distances1.begin(),

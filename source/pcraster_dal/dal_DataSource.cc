@@ -1251,7 +1251,8 @@ void DataSource::read(
       }
     }
 
-    DataSpaceAddress lower, upper;
+    DataSpaceAddress lower;
+    DataSpaceAddress upper;
 
     lower = iterSpace.contains(iterAddress)
          ? findExistingAddress(iterSpace, iterAddress, UsePrevious)
@@ -1386,7 +1387,9 @@ void DataSource::probability(
   double lowerDistance = 0.0;
   double upperDistance = 0.0;
   float quantile = NAN;
-  REAL4 valueRead = NAN, lowerValue = NAN, upperValue = NAN;
+  REAL4 valueRead = NAN;
+  REAL4 lowerValue = NAN;
+  REAL4 upperValue = NAN;
   pcr::setMV(lowerValue);
   pcr::setMV(upperValue);
 

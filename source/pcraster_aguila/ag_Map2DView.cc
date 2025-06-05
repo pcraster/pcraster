@@ -345,7 +345,8 @@ void Map2DView::drawZoomRectangle(
 void Map2DView::queryMap(
          QPoint const& pos)
 {
-  double x = NAN, y = NAN;
+  double x = NAN;
+  double y = NAN;
 
   if(map(pos, &x, &y)) {
     dataObject().setXY(x, y, true);

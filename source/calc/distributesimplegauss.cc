@@ -88,7 +88,9 @@ extern "C" int DistributeSimpleGauss(
   * check range of rangeVal
   */
  for(geo::CellLocVisitor c(out); c.valid(); ++c) {
-   REAL8 inputVal = NAN,rangeVal = NAN,epsVal = NAN;
+   REAL8 inputVal = NAN;
+   REAL8 rangeVal = NAN;
+   REAL8 epsVal = NAN;
    if(input.get(inputVal, *c) &&
       range.get(rangeVal, *c) &&
       eps.get(epsVal,  *c) ) {
@@ -103,7 +105,9 @@ extern "C" int DistributeSimpleGauss(
  }
 
  for(geo::CellLocVisitor c(out); c.valid(); ++c) {
-   REAL8 inputVal = NAN,rangeVal = NAN,epsVal = NAN;
+   REAL8 inputVal = NAN;
+   REAL8 rangeVal = NAN;
+   REAL8 epsVal = NAN;
    if(input.get(inputVal, *c) &&
       range.get(rangeVal, *c) &&
       eps.get(epsVal,  *c)    &&

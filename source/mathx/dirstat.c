@@ -14,12 +14,21 @@ void DirectionalMoments(double *mean,          /* write-only, mean */
                         const double *samples, /* array of n samples, radians */
                         size_t n)              /* sample size */
 {
-    double tC = NAN, tD = NAN, tS = NAN, tS2 = NAN, tC2 = NAN, m2 = NAN;
-    double meanIn = NAN, D = NAN, skewIn = NAN;
-    double R = NAN, R2 = NAN;
+    double tC = NAN;
+    double tD = NAN;
+    double tS = NAN;
+    double tS2 = NAN;
+    double tC2 = NAN;
+    double m2 = NAN;
+    double meanIn = NAN;
+    double D = NAN;
+    double skewIn = NAN;
+    double R = NAN;
+    double R2 = NAN;
     size_t i = 0;
     const double *p = NULL;
-    double t1 = NAN, t2 = NAN;
+    double t1 = NAN;
+    double t2 = NAN;
 
     PRECOND(n > 1);
 
@@ -68,7 +77,8 @@ double DirectionalMean(const double *samples, /* array of n samples, in radians 
     /* this a stripped version of
      * DirectionalMoments
      */
-    double tC = NAN, tS = NAN;
+    double tC = NAN;
+    double tS = NAN;
     double meanIn = NAN;
     double R = NAN;
     size_t i = 0;

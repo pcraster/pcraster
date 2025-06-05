@@ -391,7 +391,8 @@ void CSFRasterDriver::read(
   auto const& spatialCoordinate(
          address.coordinate<SpatialCoordinate>(space.indexOf(Space)));
 
-  double row = NAN, col = NAN;
+  double row = NAN;
+  double col = NAN;
 
   RasterDimensions dimensions(map.nrRows(), map.nrCols(), map.cellSize(),
          map.west(), map.north());

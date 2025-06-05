@@ -245,7 +245,8 @@ void geo::RasterSpace::coords2Loc(
          double y,
          CellLoc& loc) const
 {
-  double row = NAN, col = NAN;
+  double row = NAN;
+  double col = NAN;
   coords2RowCol(x, y, row, col);
   loc.setIndices(static_cast<size_t>(row), static_cast<size_t>(col));
 }
@@ -297,7 +298,10 @@ geo::Quadrant geo::RasterSpace::quadrant(double x, double y) const
   Quadrant quadrant(NorthWest);
 
   // Determine center of cell containing x, y.
-  double row = NAN, col = NAN, xCenter = NAN, yCenter = NAN;
+  double row = NAN;
+  double col = NAN;
+  double xCenter = NAN;
+  double yCenter = NAN;
   coords2RowCol(x, y, row, col);
   rowCol2Coords(std::floor(row) + 0.5, std::floor(col) + 0.5, xCenter, yCenter);
 
@@ -404,7 +408,8 @@ std::ostream& geo::operator<<(std::ostream& s, const RasterSpace& rs)
 std::istream& geo::operator>>(std::istream& s, RasterSpace& rs)
 {
   int p = 0;
-  size_t nrRows = 0,nrCols = 0;
+  size_t nrRows = 0;
+  size_t nrCols = 0;
 
   s >> nrRows >> nrCols >> rs.d_cellSize
                    >> p >> rs.d_left >> rs.d_top

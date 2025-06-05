@@ -122,7 +122,9 @@ extern "C" int Idi(
    // generic case
    for(geo::CellLocVisitor c(mask); c.valid(); ++c) {
       UINT1 maskVal = 0;
-      REAL8 idpVal = NAN, radVal = NAN, f_maxNr = NAN;
+      REAL8 idpVal = NAN;
+      REAL8 radVal = NAN;
+      REAL8 f_maxNr = NAN;
       if ( mask.get(maskVal, *c) && idp.get(idpVal, *c)
           && maxNr.get(f_maxNr, *c) && radius.get(radVal, *c)
           && maskVal /* == 1 garantueed by boolean type */

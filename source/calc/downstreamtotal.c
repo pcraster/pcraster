@@ -59,8 +59,10 @@ static int CalcOut(
       return 1;
 
  while (list != NULL) {
-    int rDS = 0,cDS = 0;
-    REAL8 amountDS = NAN,totalDS = NAN;
+    int rDS = 0;
+    int cDS = 0;
+    REAL8 amountDS = NAN;
+    REAL8 totalDS = NAN;
     UINT1 l = 0;
 
     c = list->colNr;
@@ -91,7 +93,8 @@ int Downstreamtotal(
      const MAP_UINT1 *ldd,             /* ldd map            */
      const MAP_REAL8 *amount)            /* amount map */
 {
-    int       r = 0, c = 0;
+    int       r = 0;
+    int       c = 0;
     int       nrRows = ldd->NrRows(ldd);
     int       nrCols = ldd->NrCols(ldd);
 

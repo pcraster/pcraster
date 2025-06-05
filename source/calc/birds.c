@@ -82,8 +82,10 @@ static int DoBirds(int *rTo,
                    const MAP_REAL8 *dispRange,
                    const MAP_REAL8 *habQual) /* habitat quality */
 {
-    int r = 0, nrRows = point->NrRows(point);
-    int c = 0, nrCols = point->NrCols(point);
+    int r = 0;
+    int nrRows = point->NrRows(point);
+    int c = 0;
+    int nrCols = point->NrCols(point);
     double maxUniform = 0;
 
     *rTo = -1, *cTo = -1;
@@ -124,9 +126,12 @@ int BirdsSpread(MAP_UINT1 *occupied,        /* read-write output map  */
                 const MAP_REAL8 *habQual)   /* habitat quality [0,1] */
 {
     REAL8 nrBirdsVal = NAN;
-    int rTo = 0, cTo = 0;
-    int r = 0, nrRows = nrBirds->NrRows(nrBirds);
-    int c = 0, nrCols = nrBirds->NrCols(nrBirds);
+    int rTo = 0;
+    int cTo = 0;
+    int r = 0;
+    int nrRows = nrBirds->NrRows(nrBirds);
+    int c = 0;
+    int nrCols = nrBirds->NrCols(nrBirds);
     MAP_REAL8 *dist = CreateSpatialREAL8(CR_REAL4, (size_t)nrRows, (size_t)nrCols);
     MAP_INT4 *zone = CreateSpatialINT4(CR_INT4, (size_t)nrRows, (size_t)nrCols);
     MAP_INT4 *point = CreateSpatialINT4(CR_UINT1, (size_t)nrRows, (size_t)nrCols);

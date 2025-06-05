@@ -440,7 +440,8 @@ void FeatureLayer::calculateExtremes()
   Array<T> const& col(_values.col<T>(0));
 
   if(!col.empty()) {
-    T min, max;
+    T min;
+    T max;
     size_t i = 0;
 
     for(i = 0; i < col.size(); ++i) {

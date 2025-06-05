@@ -75,7 +75,8 @@ void com_LogClassifier<T>::autoClassify(std::vector<T> &b, T min, T max,
   T width = static_cast<T>(com_Util::ceil125((lmax - lmin) * 0.999999 / n));
 
   // Calculate new minimum, maximum, number of classes.
-  T nmin, nmax;
+  T nmin;
+  T nmax;
   size_t nn = 0;
 
   nmin = static_cast<T>(std::ceil(

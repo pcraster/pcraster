@@ -215,7 +215,8 @@ extern "C" int ExtentOfView(
          std::make_pair(offsetX, offsetY)));
   }
 
-  int x = 0, y = 0;
+  int x = 0;
+  int y = 0;
   double sum = NAN;
   RememberPoints<int> points(classes);
 

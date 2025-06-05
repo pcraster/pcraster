@@ -53,7 +53,8 @@ void **Malloc2d(size_t row,  /* number of rows. > 0 */
                 size_t col,  /* number of cols. > 0 */
                 size_t size) /* size of each array element in bytes. > 0 */
 {
-    void **prow = NULL, *pdata = NULL;
+    void **prow = NULL;
+    void *pdata = NULL;
 
     PRECOND(row > 0);
     PRECOND(col > 0);

@@ -47,7 +47,8 @@ int AppRgetRowCol(const MAP *m, /* map handle */
                   int *row,     /* write-only row number.  */
                   int *col)     /* write-only column number.  */
 {
-    double r = NAN, c = NAN;
+    double r = NAN;
+    double c = NAN;
     if (appUnitTrue)
         Rcoords2RowCol(m, x, y, &r, &c);
     else {

@@ -396,7 +396,8 @@ void geo::BandMap::open(bool /*allowUpdate*/)
            kvt.throwIllegalValue(totalRowBytes,"not supported");
 
 
-    { double x=1,y=1;
+    { double x=1;
+    double y=1;
       if (kvt.isSet(xDim) && kvt.isSet(yDim)) {
        xDim.setConditional(x,kvt);
        yDim.setConditional(y,kvt);
@@ -617,7 +618,8 @@ void geo::BandMap::putCellsRaw(const void *buf) const
     throw com::FileFormatError(dataPn," write error");
 
   // write .stx file with  min and max
-  double minV(-1),maxV(-1);
+  double minV(-1);
+  double maxV(-1);
   switch(cellRepr()) {
     case CR_UINT1: {
           com::GetMinMax<UINT1> gmm((UINT1)mvValue());

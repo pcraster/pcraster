@@ -85,7 +85,8 @@ calc::EsriMap::EsriMap(const std::string& fileName):
     d_prjFile = prjFilePath().toString();
 
   calc::EsriGridIO::bndCellRead(fileName, d_box);
-  double min = NAN, max = NAN; // some values not doing bool/ldd
+  double min = NAN;
+  double max = NAN; // some values not doing bool/ldd
   try {
   calc::EsriGridIO::StaGetMinmaxDbl(fileName, &min, &max);
   } catch (...) {
@@ -106,7 +107,8 @@ calc::EsriMap::EsriMap(const std::string& fileName):
   }
 
   // EsriGridIO::privateWindowBox(d_chanId, d_box);
-  size_t nrRows = 0, nrCols = 0;
+  size_t nrRows = 0;
+  size_t nrCols = 0;
   double dummyAdjBndBox[4] = { 0,0,0,0 };
   calc::EsriGridIO::privateAccessWindowSet(d_chanId, d_box, d_cellSize,
     dummyAdjBndBox, nrRows, nrCols);
@@ -194,7 +196,8 @@ bool calc::EsriMap::cmpBox(const double *otherBox)  const
 
 calc::EsriMap::Window calc::EsriMap::window()
 {
-  size_t nrRows = 0, nrCols = 0;
+  size_t nrRows = 0;
+  size_t nrCols = 0;
   double dummyAdjBndBox[4] = { 0,0,0,0 };
 
   calc::EsriGridIO::privateAccessWindowSet(d_chanId, d_box,

@@ -36,7 +36,8 @@
  */
 void SwapByte2(void *b) /* read-write, entity to swap */
 {
-    char tmp = 0, *p = (char *)b;
+    char tmp = 0;
+    char *p = (char *)b;
     /* 01 => 10 */
     tmp = p[0];
     p[0] = p[1];
@@ -51,7 +52,8 @@ void SwapByte2(void *b) /* read-write, entity to swap */
  */
 void SwapByte4(void *b) /* read-write, entity to swap */
 {
-    char tmp = 0, *p = (char *)b;
+    char tmp = 0;
+    char *p = (char *)b;
     /* 0123 => 3210 */
     tmp = p[0];
     p[0] = p[3];
@@ -69,7 +71,8 @@ void SwapByte4(void *b) /* read-write, entity to swap */
  */
 void SwapByte8(void *b) /* read-write, entity to swap */
 {
-    char tmp = 0, *p = (char *)b;
+    char tmp = 0;
+    char *p = (char *)b;
     /* 01234567 => 76543210 */
     tmp = p[0];
     p[0] = p[7];

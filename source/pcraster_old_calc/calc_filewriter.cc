@@ -132,7 +132,8 @@ void calc::FileWriter::writeMap(
   d_par.scriptConst().compressor().decompress(dd,data);
   gm->writeSpatial(dd.decompressed());
 
-  double min = NAN,max = NAN;
+  double min = NAN;
+  double max = NAN;
   if (gm->getMinMax(min,max)) {
     if (pcr::isMV(minUpdate)) {
       minUpdate=min;

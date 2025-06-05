@@ -109,7 +109,8 @@ static std::string argSTError(
   STClash const&  s,
   size_t nr)
 {
-  std::string legal, illegal;
+  std::string legal;
+  std::string illegal;
 
   /* SYNTAX_OPER never have a strict spatial type
      and table-types are already catched by the vs check

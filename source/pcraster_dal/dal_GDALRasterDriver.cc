@@ -1029,7 +1029,8 @@ void GDALRasterDriver::read(
   auto const& spatialCoordinate(
          address.coordinate<SpatialCoordinate>(space.indexOf(Space)));
 
-  double row = NAN, col = NAN;
+  double row = NAN;
+  double col = NAN;
 
   RasterDimensions dimensions(rasterDimensions(*gdalDataset));
   dimensions.indices(spatialCoordinate.x(), spatialCoordinate.y(), row, col);

@@ -121,7 +121,8 @@ void RasterDrawer::draw(
   // Determine rasterArea (rows/columns) within worldArea.
   // The resulting rectangle can be invalid: the column of the east border
   // coordinate of the raster is nrCols(), for example.
-  QPointF northWestCellIndices, southEastCellIndices;
+  QPointF northWestCellIndices;
+  QPointF southEastCellIndices;
   _raster->dimensions().indices(
          dirtyMapAreaInWorldCoordinates.left(),
          dirtyMapAreaInWorldCoordinates.top(),
@@ -216,8 +217,14 @@ void RasterDrawer::drawCells(
          QTransform const&  /*screen_to_world*/) const
 {
   size_t nrCellsPerPixel = this->nrCellsPerPixel(world_to_screen);
-  double leftScreen = NAN, topScreen = NAN, rightScreen = NAN, bottomScreen = NAN;
-  double leftWorld = NAN, topWorld = NAN, rightWorld = NAN, bottomWorld = NAN;
+  double leftScreen = NAN;
+  double topScreen = NAN;
+  double rightScreen = NAN;
+  double bottomScreen = NAN;
+  double leftWorld = NAN;
+  double topWorld = NAN;
+  double rightWorld = NAN;
+  double bottomWorld = NAN;
 
   // dal::Matrix matrix(_raster->dimensions().nrRows(),
   //        _raster->dimensions().nrCols(), dal::TypeTraits<T>::typeId);

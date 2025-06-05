@@ -901,7 +901,9 @@ static double iterateToQnew(
     // Using Newton-Raphson Method
     typedef long double REAL;
     REAL Qk1 = NAN;      // Q at loop k+1 for i+1, j+1
-    REAL ab_pQ = NAN, deltaTX = NAN, C = NAN;
+    REAL ab_pQ = NAN;
+    REAL deltaTX = NAN;
+    REAL C = NAN;
     int   count = 0;
 
     REAL Qkx = NAN;

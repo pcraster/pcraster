@@ -48,13 +48,15 @@ int main(
     int argc,     /* number of arguments */
     char *argv[]) /* list of arguments */
 {
-    MAP *clone= NULL, *output = NULL;
+    MAP *clone= NULL;
+    MAP *output = NULL;
     int c = 0;
     char *cloneFileName = NULL;
     CSF_CR cellRepr;
     CSF_VS valueScale;
 
-    int rowHeader= 0, header= 0;
+    int rowHeader= 0;
+    int header= 0;
     const char *mv= "1e31";
     ASC_TYPE a= ASC_PLAIN;
     int sepChar= ',';

@@ -58,7 +58,8 @@ bool calc::RepeatUntil::executeCondition()
 
   d_condition->execute(stack);
   FieldHandle fh = stack.popReadOnly();
-  bool noneAreTrue = false,noneAreFalse = false;
+  bool noneAreTrue = false;
+  bool noneAreFalse = false;
   fh->analyzeBoolean(noneAreTrue,noneAreFalse);
   return noneAreFalse;
 }

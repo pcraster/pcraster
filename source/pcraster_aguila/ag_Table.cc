@@ -180,7 +180,8 @@ Table::Table(
   d_table = table.release();
   d_table->createCols();
 
-  boost::any min, max;
+  boost::any min;
+  boost::any max;
   if(driver->extremes(min, max, d_attrCol, d_table->typeId(d_attrCol),
          dataSource().name(), dataSource().enclosingDataSpace())) {
     setExtremes(min, max);

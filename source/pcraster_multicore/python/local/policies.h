@@ -96,7 +96,8 @@ public:
             return false;
         }
         else if(base < Base(0)) {
-            Base integral, fractional;
+            Base integral;
+            Base fractional;
             fractional = std::modf(exponent, &integral);
 
             if(fractional != Base(0)) {

@@ -52,7 +52,8 @@ static void CompCellError(COMP_CELL compCell, CSF_VS vs) {
 }
 
 int main(int argc, char *argv[]) {
-    MAP *out = NULL, *clone = NULL;
+    MAP *out = NULL;
+    MAP *clone = NULL;
     int c = 0;
     size_t colNr[3] = {0 /*X*/, 1 /*Y*/, 2 /*V*/}; /* internal indices */
     const char *mv = "1e31";

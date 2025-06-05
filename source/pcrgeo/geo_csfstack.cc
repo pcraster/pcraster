@@ -227,7 +227,8 @@ void geo::CSFStack<T>::init()
     // If stack is dynamic we have to scan the whole stack to get the extremes.
     // FIXME: Isn't the min and max of the first layer enough?
     if(d_name.isDynamic() && d_name.nrLayers()) {
-      T min, max;
+      T min;
+      T max;
 
       CSFStackName::const_iterator it;
       for(it = d_name.begin() + 1; it != d_name.end(); ++it) {

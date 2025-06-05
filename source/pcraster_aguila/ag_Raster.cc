@@ -98,7 +98,8 @@ Raster::Raster(
   d_raster->setTypeId(useTypeId);
   d_raster->createCells();
 
-  boost::any min, max;
+  boost::any min;
+  boost::any max;
   auto* driver =
          dynamic_cast<dal::RasterDriver*>(dataSource().reader());
   assert(driver);
@@ -349,7 +350,8 @@ dal::Table Raster::legend() const
     // in the legend yet.
 
     // Determine raster value extent.
-    INT4 min = 0, max = 0;
+    INT4 min = 0;
+    INT4 max = 0;
     assert(d_raster->typeId() == dal::TI_UINT1 ||
       d_raster->typeId() == dal::TI_INT4);
     if(d_raster->typeId() == dal::TI_UINT1) {

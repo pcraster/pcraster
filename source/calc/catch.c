@@ -47,9 +47,11 @@ IdentifyFromPit(MAP_INT4 *out, int r, int c, const MAP_UINT1 *ldd, const MAP_INT
     out->Put(val, r, c, out);
 
     while (list != NULL) {
-        int rDS = 0, cDS = 0;
+        int rDS = 0;
+        int cDS = 0;
         UINT1 l = 0;
-        INT4 id = 0, idDS = 0;
+        INT4 id = 0;
+        INT4 idDS = 0;
         r = list->rowNr;
         c = list->colNr;
         ldd->Get(&l, r, c, ldd);
@@ -84,7 +86,10 @@ int Catch(MAP_INT4 *out,          /* write-only output map  */
           const MAP_INT4 *points) /* points map */
 {
     UINT1 lddVal = 0;
-    int r = 0, c = 0, nrRows = 0, nrCols = 0;
+    int r = 0;
+    int c = 0;
+    int nrRows = 0;
+    int nrCols = 0;
 
     nrRows = ldd->NrRows(ldd);
     nrCols = ldd->NrCols(ldd);
@@ -130,9 +135,11 @@ SubIdentifyFromPit(MAP_INT4 *out, int r, int c, const MAP_UINT1 *ldd, const MAP_
     out->Put(val, r, c, out);
 
     while (list != NULL) {
-        int rDS = 0, cDS = 0;
+        int rDS = 0;
+        int cDS = 0;
         UINT1 l = 0;
-        INT4 id = 0, idDS = 0;
+        INT4 id = 0;
+        INT4 idDS = 0;
         r = list->rowNr;
         c = list->colNr;
         ldd->Get(&l, r, c, ldd);
@@ -163,7 +170,10 @@ int SubCatchment(MAP_INT4 *out,          /* write-only output map  */
                  const MAP_INT4 *points) /* points map */
 {
     UINT1 lddVal = 0;
-    int r = 0, c = 0, nrRows = 0, nrCols = 0;
+    int r = 0;
+    int c = 0;
+    int nrRows = 0;
+    int nrCols = 0;
 
     nrRows = ldd->NrRows(ldd);
     nrCols = ldd->NrCols(ldd);

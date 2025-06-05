@@ -67,8 +67,14 @@ void BooleanRasterDrawer::draw(
   }
 
   size_t nrCellsPerPixel = this->nrCellsPerPixel(world_to_screen);
-  double leftScreen = NAN, topScreen = NAN, rightScreen = NAN, bottomScreen = NAN;
-  double leftWorld = NAN, topWorld = NAN, rightWorld = NAN, bottomWorld = NAN;
+  double leftScreen = NAN;
+  double topScreen = NAN;
+  double rightScreen = NAN;
+  double bottomScreen = NAN;
+  double leftWorld = NAN;
+  double topWorld = NAN;
+  double rightWorld = NAN;
+  double bottomWorld = NAN;
 
   dal::Matrix matrix(_raster->dimensions().nrRows(),
          _raster->dimensions().nrCols(), dal::TypeTraits<UINT1>::typeId);

@@ -494,7 +494,8 @@ std::string com::format(const std::string& str, size_t offset, size_t width)
 {
   std::string formattedString;
 
-  std::string::const_iterator begin = str.begin(), end;
+  std::string::const_iterator begin = str.begin();
+  std::string::const_iterator end;
 
   while(begin != str.end()) {
 

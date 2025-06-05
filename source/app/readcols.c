@@ -214,7 +214,8 @@ static int ReadAllColumnFile(
 {
   FILE *f = NULL;
   char    sepBuf[2];
-  size_t     l = 0,nCols = 0;
+  size_t     l = 0;
+  size_t     nCols = 0;
   double  mvDbl = NAN;
   BOOL    number = CnvrtDouble(&mvDbl ,mv);
   double  *currRecValues = NULL; /* the record values for a line parsed */
@@ -415,7 +416,9 @@ int AppReadColumnFile(
                            * But they are reported in the return counts
                            */
 {
-  size_t     rec = 0,nrCols = 0, lineDelta = 0;
+  size_t     rec = 0;
+  size_t     nrCols = 0;
+  size_t     lineDelta = 0;
         if ( ReadAllColumnFile(recs, nrRecs, &nrCols, 
                  nrRecordsRead,nrMVvalueColumn,nrMVcoordColumn,skipMVrecords,
                                   geoeas, inputFile, mv, sepChar, colNr) )
@@ -479,8 +482,12 @@ int AppReadTimeSeriesFile(
                            */
   int       sepChar)     /* separator character */
 {
-  size_t     i = 0,c = 0,lineDelta = 0;
-  size_t nrRecordsRead = 0,nrMVvalueColumn = 0,nrMVcoordColumn = 0;
+  size_t     i = 0;
+  size_t     c = 0;
+  size_t     lineDelta = 0;
+  size_t nrRecordsRead = 0;
+  size_t nrMVvalueColumn = 0;
+  size_t nrMVcoordColumn = 0;
 
   if (appHeader == APP_NOHEADER)
     handleAnError = HandleAnErrorTss;

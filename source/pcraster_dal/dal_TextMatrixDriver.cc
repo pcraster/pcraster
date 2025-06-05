@@ -169,7 +169,9 @@ Matrix* TextMatrixDriver::open(
   // Adjust this if separator is variable.
   // See http://www.boost.org/libs/spirit/example/fundamental/list_parser.cpp
   using namespace boost::spirit::classic;
-  rule<> valueParser, spaceParser, rowParser;
+  rule<> valueParser;
+  rule<> spaceParser;
+  rule<> rowParser;
   valueParser = +graph_p;
   spaceParser = +ch_p(' ');
   Row row;
@@ -274,7 +276,8 @@ void TextMatrixDriver::read(
 
   using namespace boost::spirit::classic;
   rule<> spaceParser = +ch_p(' ');
-  stored_rule<> valueParser, rowParser;
+  stored_rule<> valueParser;
+  stored_rule<> rowParser;
 
   std::vector<TypeId> typeIds;
   typeIds.push_back(matrix.typeId());

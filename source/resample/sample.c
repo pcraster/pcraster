@@ -36,7 +36,8 @@ static CACHE *cache;
  */
 void FreeCache(size_t nrMaps) /* number of input maps */
 {
-    size_t i = 0, r = 0;
+    size_t i = 0;
+    size_t r = 0;
     for (i= 0; i < nrMaps; i++) {
         for (r= 0; r < cache[i].nrRows; r++)
             Free(cache[i].cache[r].rowField);
@@ -64,7 +65,8 @@ CACHE *InitCache(
         UINT4 nrCols= RgetNrCols(in[i]);
         REAL8 cellSizeIn= RgetCellSize(in[i]);
         REAL8 cellSizeOut= RgetCellSize(out);
-        int r = 0, n= ceil(cellSizeOut / cellSizeIn) + 1;
+        int r = 0;
+        int n= ceil(cellSizeOut / cellSizeIn) + 1;
         cache[i].nrRows= n;
 
         AppProgress("nr. of rows in cache %d for input map %d\n", n, i);
@@ -96,7 +98,8 @@ void *CacheGetRow(
     double rowInd) /* row of map that is wanted */
 {
     size_t r = 0;
-    int lowestCount = 0, lru= -1;
+    int lowestCount = 0;
+    int lru= -1;
     size_t rowNr= (size_t)floor(rowInd);
 
     counter++;

@@ -89,7 +89,10 @@ public:
     if(!d_pb.empty())
       h += (d_pb.size() - 1) * layout()->spacing();
 
-    int left = 0, top = 0, right = 0, bottom = 0;
+    int left = 0;
+    int top = 0;
+    int right = 0;
+    int bottom = 0;
     layout()->getContentsMargins(&left, &top, &right, &bottom);
     h += top + bottom;
     w += left + right;

@@ -711,7 +711,8 @@ static int yy_flex_strlen (yyconst char * );
 YY_DECL
 {
 	yy_state_type yy_current_state = 0;
-	char *yy_cp = nullptr, *yy_bp = nullptr;
+	char *yy_cp = nullptr;
+	char *yy_bp = nullptr;
 	int yy_act = 0;
     
 #line 116 "newcalc.l"
@@ -1295,7 +1296,8 @@ int yyFlexLexer::yy_get_next_buffer()
 {
     	char *dest = YY_CURRENT_BUFFER_LVALUE->yy_ch_buf;
 	char *source = (yytext_ptr);
-	int number_to_move = 0, i = 0;
+	int number_to_move = 0;
+	int i = 0;
 	int ret_val = 0;
 
 	if ( (yy_c_buf_p) > &YY_CURRENT_BUFFER_LVALUE->yy_ch_buf[(yy_n_chars) + 1] )
@@ -2026,7 +2028,8 @@ void calc::LexGrammar::checkSortedTable()
  */
 ANTLRAbstractToken *calc::LexGrammar::idOrKeyWord()
 {
-  KWORD *p = nullptr, dummy;
+  KWORD *p = nullptr;
+  KWORD dummy;
 
   IFDEBUG(checkSortedTable());
 
@@ -2051,7 +2054,8 @@ ANTLRAbstractToken *calc::LexGrammar::idOrKeyWord()
 ANTLRAbstractToken *calc::LexGrammar::reference()
 {
   // nr of chars in quoted string (minus 2 " )
-  int i = 0,n = strlen(yytext)-2;
+  int i = 0;
+  int n = strlen(yytext)-2;
   PRECOND(n >= 0); /* non-empty string plus end " */
 
   // remove "

@@ -184,7 +184,8 @@ bool calc::Calc::processArgs(
     const char *scriptName = nullptr;
     int  shellArgsStart = 1; /* pos in argv where shellArgs start */
     // both empty if not set
-    com::PathName runDirectory,externalBindingFile;
+    com::PathName runDirectory;
+    com::PathName externalBindingFile;
 
     int c = 0;
     while ( (c = GetOpt()) != 0 )

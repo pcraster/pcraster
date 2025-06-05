@@ -171,7 +171,8 @@ public:
          DataSpaceAddress const& address,
          bool throw_) const
   {
-    std::shared_ptr<Raster> x, y;
+    std::shared_ptr<Raster> x;
+    std::shared_ptr<Raster> y;
     std::tie(x, std::ignore) = _dal.open(nameX(name), space,
         address);
 
@@ -276,7 +277,8 @@ public:
          DataSpace const& space,
          DataSpaceAddress const& address) const
   {
-    T x, y;
+    T x;
+    T y;
 
     try {
       _dal.read(&x, TypeTraits<T>::typeId, nameX(name), space, address);
@@ -385,7 +387,8 @@ Vector* VectorDriver::open(
          DataSpace const& space,
          DataSpaceAddress const& address) const
 {
-  std::shared_ptr<Raster> x, y;
+  std::shared_ptr<Raster> x;
+  std::shared_ptr<Raster> y;
   std::tie(x, y) = _data->open(name, space, address, false);
 
   if(!x || !y) {
@@ -428,7 +431,8 @@ Vector* VectorDriver::read(
          DataSpace const& space,
          DataSpaceAddress const& address) const
 {
-  std::shared_ptr<Raster> x, y;
+  std::shared_ptr<Raster> x;
+  std::shared_ptr<Raster> y;
   std::tie(x, y) = _data->open(name, space, address, true);
   assert(x && y);
   _data->validate(name, space, address, *x, *y, true);
@@ -448,7 +452,8 @@ void VectorDriver::read(
          DataSpace const& space,
          DataSpaceAddress const& address) const
 {
-  std::shared_ptr<Raster> x, y;
+  std::shared_ptr<Raster> x;
+  std::shared_ptr<Raster> y;
   std::tie(x, y) = _data->open(name, space, address, true);
   assert(x && y);
   _data->validate(name, space, address, *x, *y, true);
@@ -560,7 +565,8 @@ bool VectorDriver::extremes(
 
   switch(typeId) {
     case TI_REAL4: {
-      REAL4 i = NAN, a = NAN;
+      REAL4 i = NAN;
+      REAL4 a = NAN;
 
       if(extremes<REAL4>(i, a, name, space)) {
         min = i;
@@ -571,7 +577,8 @@ bool VectorDriver::extremes(
       break;
     }
     case TI_REAL8: {
-      REAL8 i = NAN, a = NAN;
+      REAL8 i = NAN;
+      REAL8 a = NAN;
 
       if(extremes<REAL8>(i, a, name, space)) {
         min = i;
@@ -601,7 +608,9 @@ void VectorDriver::browse(
   std::vector<std::string> leaves;
   possibleFileBasedAttributeFileNames(path, leaves);
 
-  std::string name, step, extension;
+  std::string name;
+  std::string step;
+  std::string extension;
   std::vector<size_t> ids;
   std::set<size_t> steps;
   std::regex regex;
@@ -663,7 +672,9 @@ void VectorDriver::browse(
           vector = open((path / name).string(), space, address);
 
           if(vector) {
-            size_t first = 0, last = 0, interval = 0;
+            size_t first = 0;
+            size_t last = 0;
+            size_t interval = 0;
 
             if(isRegularIncreasingRange(first, last, interval, steps.begin(),
                    steps.end())) {

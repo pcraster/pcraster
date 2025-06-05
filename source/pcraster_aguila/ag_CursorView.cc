@@ -222,7 +222,8 @@ void CursorView::createInterface()
   gridLayout->setColumnMinimumWidth(2, 50);
   gridLayout->setVerticalSpacing(0);
 
-  QLabel* title = nullptr, *value = nullptr;
+  QLabel * title = nullptr;
+  QLabel *value = nullptr;
   DimensionCoordinateEdit* edit = nullptr;
 
   for(size_t i = 0; i < space.size(); ++i) {

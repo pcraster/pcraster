@@ -161,7 +161,8 @@ static int QuickSort(INT4 partToSort,
 {
     int left = partToSort;
     int right = nrCells - 1;
-    int i = 0, pointer = 2;
+    int i = 0;
+    int pointer = 2;
     int *stack = NULL; /*  contains partitions to do */
     /* Perform quicksort on the tmp map and to modify the output map
      * later. 
@@ -209,9 +210,16 @@ int Order(MAP_REAL8 *out,      /* Read-write output map  */
           const MAP_REAL8 *in, /* Read-write input map */
           MAP_INT4 *tmp)       /* read-write index temporary map */
 {
-    REAL8 inputVal = NAN, prevVal = NAN;
-    int i = 0, r = 0, c = 0, nrRows = 0, nrCols = 0, nrCells = 0;
-    INT4 partToSort = 0, id = 0;
+    REAL8 inputVal = NAN;
+    REAL8 prevVal = NAN;
+    int i = 0;
+    int r = 0;
+    int c = 0;
+    int nrRows = 0;
+    int nrCols = 0;
+    int nrCells = 0;
+    INT4 partToSort = 0;
+    INT4 id = 0;
     int nrRuns = 1;
 
 

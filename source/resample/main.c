@@ -94,7 +94,8 @@ static void CalcBound(
     CSF_PT projection, /* projection of output map */
     BOOL contract)     /* to contract the map */
 {
-    double nrR = NAN, nrC = NAN;
+    double nrR = NAN;
+    double nrC = NAN;
 
     /* Adjust boundaries according to border value */
     leftU->x-= borderValue;
@@ -195,9 +196,15 @@ static int SmallestFittingRectangle(
     BOOL contract)     /* map should be contracted */
 {
     size_t i = 0;
-    REAL8 upperB= 0, leftB= 0, rightB= 0, belowB= 0;
+    REAL8 upperB= 0;
+    REAL8 leftB= 0;
+    REAL8 rightB= 0;
+    REAL8 belowB= 0;
     /* ^- shut up about use before def */
-    POINT2D leftUpperC, rightUpperC, leftLowerC, rightLowerC;
+    POINT2D leftUpperC;
+    POINT2D rightUpperC;
+    POINT2D leftLowerC;
+    POINT2D rightLowerC;
 
     /* determine the boundaries for every map */
     for (i= 0; i < nrMaps; i++) {
@@ -276,15 +283,22 @@ static int SmallestNonMVRect(
     BOOL contract)     /* map should be contracted */
 {
     size_t i = 0;
-    POINT2D leftUpperC, leftLowerC, rightUpperC, rightLowerC;
-    REAL8 upperB= 0, leftB= 0, rightB= 0, belowB= 0;
+    POINT2D leftUpperC;
+    POINT2D leftLowerC;
+    POINT2D rightUpperC;
+    POINT2D rightLowerC;
+    REAL8 upperB= 0;
+    REAL8 leftB= 0;
+    REAL8 rightB= 0;
+    REAL8 belowB= 0;
     /* ^- shut up about use before def */
 
     for (i= 0; i < nrMaps; i++) {
         MAP *X= in[i];
         BOOL first= TRUE;
         POINT2D polygon[4];
-        size_t r = 0, c = 0;
+        size_t r = 0;
+        size_t c = 0;
         size_t nrR= RgetNrRows(X);
         size_t nrC= RgetNrCols(X);
 
@@ -383,8 +397,16 @@ static int DetRasterSize(
 {
     REAL8 minCellSize= REAL8_MAX;
     size_t i = 0;
-    CSF_PT projIn, projOut;
-    REAL8 cellSize = NAN, n = NAN, X0 = NAN, Y0 = NAN, Xout = NAN, Yout = NAN, angleIn = NAN, angleOut = NAN;
+    CSF_PT projIn;
+    CSF_PT projOut;
+    REAL8 cellSize = NAN;
+    REAL8 n = NAN;
+    REAL8 X0 = NAN;
+    REAL8 Y0 = NAN;
+    REAL8 Xout = NAN;
+    REAL8 Yout = NAN;
+    REAL8 angleIn = NAN;
+    REAL8 angleOut = NAN;
     rasterSize= INITSIZE;
 
     /* If option -a set -> rastersize depends on wanted accuracy */
@@ -477,19 +499,34 @@ int main(
     int argc,     /* number of arguments */
     char *argv[]) /* list of arguments */
 {
-    MAP *clone = NULL, *out = NULL, *tmp = NULL, **in = NULL;
-    char *outputName = NULL, *cloneName = NULL;
-    int c = 0, borderval = 0;
-    size_t nrMaps = 0, i = 0;
-    REAL8 X0 = NAN, Y0 = NAN, cellSize = NAN, angleIn = NAN, angleOut = NAN;
-    size_t nrRows = 0, nrCols = 0;
+    MAP *clone = NULL;
+    MAP *out = NULL;
+    MAP *tmp = NULL;
+    MAP **in = NULL;
+    char *outputName = NULL;
+    char *cloneName = NULL;
+    int c = 0;
+    int borderval = 0;
+    size_t nrMaps = 0;
+    size_t i = 0;
+    REAL8 X0 = NAN;
+    REAL8 Y0 = NAN;
+    REAL8 cellSize = NAN;
+    REAL8 angleIn = NAN;
+    REAL8 angleOut = NAN;
+    size_t nrRows = 0;
+    size_t nrCols = 0;
     CSF_PT projection;
     CSF_VS valueScale;
-    double percent= 0, errFactor= 2.5, resampleN= 0.0;
+    double percent= 0;
+    double errFactor= 2.5;
+    double resampleN= 0.0;
     BOOL aligned= TRUE;
     BOOL keepInputMinMax= FALSE;
-    REAL8 minAllInput= 0, maxAllInput= 0;
-    BOOL onlyReal4= TRUE, contract= FALSE;
+    REAL8 minAllInput= 0;
+    REAL8 maxAllInput= 0;
+    BOOL onlyReal4= TRUE;
+    BOOL contract= FALSE;
     BOOL onlyUint1= TRUE;
 
     if (InstallArgs(argc, argv, "axmp$r$c#b#e$RBCk", "resample"))
@@ -623,7 +660,8 @@ int main(
 
     /* Read all input maps with desired cell representation */
     for (i= 0; i < nrMaps; i++) {
-        REAL8 tmpMin = NAN, tmpMax = NAN;
+        REAL8 tmpMin = NAN;
+        REAL8 tmpMax = NAN;
 
         tmp= Mopen(argv[1 + i], M_READ);
         angleIn= RgetAngle(tmp);

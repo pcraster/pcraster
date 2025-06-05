@@ -188,7 +188,9 @@ void CursorWindow::saveToText(
   dal::DataSpaceAddress const& address(dataObject.dataSpaceAddress());
 
   // collect info in the streams and compose later to single file
-  std::stringstream dataSpaceStream, globalCursorStream, worldCursorStream;
+  std::stringstream dataSpaceStream;
+  std::stringstream globalCursorStream;
+  std::stringstream worldCursorStream;
 
   for(size_t i = 0; i < space.size(); ++i) {
     dal::Dimension const& dimension(space.dimension(i));
@@ -325,7 +327,8 @@ void CursorWindow::saveToText(
           case dal::RegularDiscretisation: {
             auto const& rasterDimensions(
                    space.dimension(i).value<dal::RasterDimensions>(0));
-            double row = NAN, col = NAN;
+            double row = NAN;
+            double col = NAN;
             rasterDimensions.indices(spatialAddress, row, col);
 
             /// dataSpaceStream << "rows = [1, 1, "
@@ -398,7 +401,9 @@ void CursorWindow::appendToCursorValueMonitorFile()
   dal::DataSpaceAddress const& address(dataObject.dataSpaceAddress());
 
   // collect info in the streams, not used, see above
-  std::stringstream dataSpaceStream, globalCursorStream, worldCursorStream;
+  std::stringstream dataSpaceStream;
+  std::stringstream globalCursorStream;
+  std::stringstream worldCursorStream;
   pcrxml::AguilaCursorValue acv;
   acv.cursor(pcrxml::Cursor());
 

@@ -81,7 +81,8 @@ static DATA const *FindMaxArea(const DATA *e1, const DATA *e2) {
 }
 
 static DATA const *FindMaxId(const DATA *e1, const DATA *e2) {
-    const DATA *maxId = NULL, *otherId = NULL;
+    const DATA *maxId = NULL;
+    const DATA *otherId = NULL;
     if (e1->id > e2->id) {
         maxId= e1;
         otherId= e2;
@@ -153,7 +154,8 @@ static int AddCell(
 
     /* Add item to search table for cell */
     if (!IsMV(in, &id)) {
-        DATA *record = NULL, key;
+        DATA *record = NULL;
+        DATA key;
         double area = NAN; /* area of overlap */
         key.id= id;
 
@@ -183,8 +185,20 @@ static int CalcPixel(
     REAL8 angle)   /* angle of output map */
 {
     SEARCH_TABLE *table= NULL; /* read-write search table */
-    double r = NAN, c = NAN, *leftB = NULL, *belowB = NULL, *rightB = NULL, *upperB = NULL;
-    PTYPE tlX = NAN, tlY = NAN, trX = NAN, trY = NAN, brX = NAN, brY = NAN, blX = NAN, blY = NAN; /* corners */
+    double r = NAN;
+    double c = NAN;
+    double *leftB = NULL;
+    double *belowB = NULL;
+    double *rightB = NULL;
+    double *upperB = NULL;
+    PTYPE tlX = NAN;
+    PTYPE tlY = NAN;
+    PTYPE trX = NAN;
+    PTYPE trY = NAN;
+    PTYPE brX = NAN;
+    PTYPE brY = NAN;
+    PTYPE blX = NAN;
+    PTYPE blY = NAN; /* corners */
     size_t i = 0;
     POINT2D *outputCell= NULL; /* polygon of output cell */
 #ifdef DEBUG
@@ -230,8 +244,22 @@ static int CalcPixel(
     /* Get pixel on every input map */
     for (i= 0; i < nrMaps; i++) {
         MAP *X= in[i];
-        PTYPE tlC = NAN, tlR = NAN, trC = NAN, trR = NAN, brC = NAN, brR = NAN, blC = NAN, blR = NAN;
-        PTYPE tlX2 = NAN, tlY2 = NAN, trX2 = NAN, trY2 = NAN, brX2 = NAN, brY2 = NAN, blX2 = NAN, blY2 = NAN;
+        PTYPE tlC = NAN;
+        PTYPE tlR = NAN;
+        PTYPE trC = NAN;
+        PTYPE trR = NAN;
+        PTYPE brC = NAN;
+        PTYPE brR = NAN;
+        PTYPE blC = NAN;
+        PTYPE blR = NAN;
+        PTYPE tlX2 = NAN;
+        PTYPE tlY2 = NAN;
+        PTYPE trX2 = NAN;
+        PTYPE trY2 = NAN;
+        PTYPE brX2 = NAN;
+        PTYPE brY2 = NAN;
+        PTYPE blX2 = NAN;
+        PTYPE blY2 = NAN;
         INT4 *currRow = NULL;
 
         /* Corners: (tlX, tlY), (trX, trY), (blX, blY) and
@@ -318,7 +346,8 @@ int SampleClass(
     REAL8 angle)       /* angle of output map */
 {
     INT4 maxVal = 0;         /* maximum id input maps */
-    size_t r = 0, c = 0;         /* row and column coordinate */
+    size_t r = 0;
+    size_t c = 0;         /* row and column coordinate */
     size_t nrCoverCells = 0; /* min. nr. of cells for non-MV */
     size_t i = 0;            /* input map i, nr. of fast list
                           * items.

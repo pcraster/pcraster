@@ -127,14 +127,16 @@ static int Compute(
        TT_CELL *current=list; /* XXXXstream cell of deposition point */
        TT_CELL *down=list->prev; /* downstream cell of deposition point */
        double  startCummTT = NAN;
-       double  timeToCurrent = NAN, timeToDown = NAN;
+       double  timeToCurrent = NAN;
+       double  timeToDown = NAN;
        amount->Get(&matTravelling,current->r,current->c,amount);
        if (matTravelling <= 0)
           goto done;
        accumTT->Get(&startCummTT,current->r,current->c,accumTT);
 
        while (current) {
-          double localFraction = NAN, localFlux = NAN;
+          double localFraction = NAN;
+          double localFlux = NAN;
 
           timeToCurrent = timeToCell(accumTT, current, startCummTT);
 
@@ -205,7 +207,8 @@ done:
      /* add a next incoming route to
       * the list from the current point
       */
-      int rNB = 0,cNB = 0;
+      int rNB = 0;
+      int cNB = 0;
       UINT1 lddNBval = 0;
       /* find ONE incoming route,
        * where all maps are  defined
@@ -254,7 +257,10 @@ int TravelTime(
   UINT1   lddVal = 0;
   REAL8   amountVal = NAN;
   REAL8   fractionVal = NAN;
-  int   r = 0, c = 0 ,nrRows = 0, nrCols = 0;
+  int   r = 0;
+  int   c = 0 ;
+  int   nrRows = 0;
+  int   nrCols = 0;
 
   nrRows = ldd->NrRows(ldd);
   nrCols = ldd->NrCols(ldd);

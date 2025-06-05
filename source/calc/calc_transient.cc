@@ -152,7 +152,10 @@ private:
     d_args.d_nrCells = 0;
 
     // Harmonic means of transmissivities.
-    double tmLeft(0), tmTop(0), tmRight(0), tmBottom(0);
+    double tmLeft(0);
+    double tmTop(0);
+    double tmRight(0);
+    double tmBottom(0);
 
     // Cell to the left.
     if(!(direction & Left)) {
@@ -233,7 +236,10 @@ private:
     d_args.d_h1 = 0.0;       // Elevation at t = n, * transmissivities.
     d_args.d_h2 = 0.0;       // Elevation at t = n + 1, * transmissivities.
     d_args.d_nrCells = 0;    // Nr of cells contributing to the current value.
-    static double tmLeft, tmTop, tmRight, tmBottom; // Harm. means of transm.
+    static double tmLeft;
+    static double tmTop;
+    static double tmRight;
+    static double tmBottom; // Harm. means of transm.
 
     // The current cell has no no flow boundaries. All neighbours have
     // valid values.
@@ -304,7 +310,8 @@ public:
 
 
     geo::CellLoc loc;
-    size_t r = 0, c = 0; // comes from C ya know
+    size_t r = 0;
+    size_t c = 0; // comes from C ya know
 
     //--------------------------------------------------------------------------
     // Calculate transmissivities. These stay constant within a call to the
@@ -712,11 +719,13 @@ extern "C" int  Transient(void** out, const void** in, int nrArgs)
 
   size_t nrRows = elevation.nrRows();
   size_t nrCols = elevation.nrCols();
-  size_t r = 0,c = 0;
+  size_t r = 0;
+  size_t c = 0;
   PRECOND(nrRows >= 2 && nrCols >= 2);
 
   // Domain checks...
-  std::vector<fieldapi::ScalarDomainCheck> scalarDomains, nsDomains;
+  std::vector<fieldapi::ScalarDomainCheck> scalarDomains;
+  std::vector<fieldapi::ScalarDomainCheck> nsDomains;
   scalarDomains.push_back(fieldapi::ScalarDomainCheck(transmissivity,
                    "transmissivity", com::GreaterThan<double>(0)));
   scalarDomains.push_back(fieldapi::ScalarDomainCheck(storageCoefficient,
@@ -746,7 +755,8 @@ extern "C" int  Transient(void** out, const void** in, int nrArgs)
   // Inititalize...
   double oldValue = NAN;
   double tolerance = toleranceInterface.value(0, 0);
-  double difference = NAN, maxDifference = NAN;    // Current and max difference.
+  double difference = NAN;
+  double maxDifference = NAN;    // Current and max difference.
   size_t nrIterations = 0;
 
   // yepyep: fieldapi::Common::cellLength();

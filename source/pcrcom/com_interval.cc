@@ -376,7 +376,9 @@ com::Interval<R> * com::createIntervalFromLookupTableKey (
     const std::string& str)
 {
    std::vector<char>   ranges;
-   OD singleValue, low, high;
+   OD singleValue;
+   OD low;
+   OD high;
 
    //  either float or double
    DEVELOP_PRECOND(!std::numeric_limits<R>::is_integer);

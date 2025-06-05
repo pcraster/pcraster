@@ -51,7 +51,13 @@ static double WeightDirectionalMean(
     const DATA *list,    /* array of n samples, in radians */
     size_t n)            /* samples size */
 {
-    double tC = NAN, tD = NAN, tS = NAN, tS2 = NAN, tC2 = NAN, R = NAN, meanIn = NAN;
+    double tC = NAN;
+    double tD = NAN;
+    double tS = NAN;
+    double tS2 = NAN;
+    double tC2 = NAN;
+    double R = NAN;
+    double meanIn = NAN;
     size_t i = 0;
 
     *totalWeight= 0;
@@ -219,10 +225,19 @@ static int CalcPixel(
     BOOL aligned,        /* maps are aligned */
     REAL8 angle)         /* angle of output map */
 {
-    PTYPE tlX = NAN, tlY = NAN, trX = NAN, trY = NAN, brX = NAN, brY = NAN, blX = NAN, blY = NAN;
-    double r = NAN, c = NAN;
+    PTYPE tlX = NAN;
+    PTYPE tlY = NAN;
+    PTYPE trX = NAN;
+    PTYPE trY = NAN;
+    PTYPE brX = NAN;
+    PTYPE brY = NAN;
+    PTYPE blX = NAN;
+    PTYPE blY = NAN;
+    double r = NAN;
+    double c = NAN;
     DATA *list= NULL;    /* areas and values of input cells */
-    size_t i = 0, nrList= 0; /* number of items in list */
+    size_t i = 0;
+    size_t nrList= 0; /* number of items in list */
     POINT2D *outputCell = NULL; /* polygon of output cell */
 #ifdef DEBUG
     size_t nr= 4;        /* nr of points of cell */
@@ -247,9 +262,26 @@ static int CalcPixel(
     /* Get pixel on every input map */
     for (i= 0; i < nrMaps; i++) {
         MAP *X= in[i]; /* input map number i */
-        PTYPE tlC = NAN, tlR = NAN, trC = NAN, trR = NAN, brC = NAN, brR = NAN, blC = NAN, blR = NAN;
-        PTYPE tlX2 = NAN, tlY2 = NAN, trX2 = NAN, trY2 = NAN, brX2 = NAN, brY2 = NAN, blX2 = NAN, blY2 = NAN;
-        double leftB = NAN, belowB = NAN, rightB = NAN, upperB = NAN; /* boundaries */
+        PTYPE tlC = NAN;
+        PTYPE tlR = NAN;
+        PTYPE trC = NAN;
+        PTYPE trR = NAN;
+        PTYPE brC = NAN;
+        PTYPE brR = NAN;
+        PTYPE blC = NAN;
+        PTYPE blR = NAN;
+        PTYPE tlX2 = NAN;
+        PTYPE tlY2 = NAN;
+        PTYPE trX2 = NAN;
+        PTYPE trY2 = NAN;
+        PTYPE brX2 = NAN;
+        PTYPE brY2 = NAN;
+        PTYPE blX2 = NAN;
+        PTYPE blY2 = NAN;
+        double leftB = NAN;
+        double belowB = NAN;
+        double rightB = NAN;
+        double upperB = NAN; /* boundaries */
 
         /* Corners: (tlX, tlY), (trX, trY), (blX, blY) and
          * (brX, brY). Translate for input map.
@@ -329,7 +361,8 @@ int SampleCont(
     BOOL aligned,      /* maps are aligned */
     REAL8 angle)       /* angle of output map */
 {
-    double r = NAN, c = NAN;
+    double r = NAN;
+    double c = NAN;
     size_t nrCoverCells= (size_t)ceil((percentage / 100) * rasterSize * rasterSize);
     InitCache(out, in, nrMaps);
     for (r= 0; r < nrRows; r++) {

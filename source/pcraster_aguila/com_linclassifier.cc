@@ -73,7 +73,8 @@ void com_LinClassifier<T>::autoClassify(std::vector<T> &b, T min, T max,
   REAL8 delta = NAN;
   REAL8 dec = NAN;       // Max power of ten which fits into the interval [min, max].
   REAL8 width = NAN;     // Class width.
-  REAL8 nmin = NAN, nmax = NAN;
+  REAL8 nmin = NAN;
+  REAL8 nmax = NAN;
   size_t nn = 0;
 
   n += 1;

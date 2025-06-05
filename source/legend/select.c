@@ -43,8 +43,10 @@ static int PrintHeader(const char **mapNames,
                        INT4 h) /* high value. undefined if l == MV_INT4 */
 
 {
-    int i = 0, r = 2 + ((nrMapNames > 1) ? 1 : 0); /* nrLines */
-    int n = 0, p = 0;
+    int i = 0;
+    int r = 2 + ((nrMapNames > 1) ? 1 : 0); /* nrLines */
+    int n = 0;
+    int p = 0;
     WINDOW *headWin = newwin(r,                /* nrLines */
                              CurrScreenCols(), /* all cols */
                              0,
@@ -89,7 +91,8 @@ static int PrintLegend(int startY, CSF_LEGEND *leg, int nrLeg)
     const int otherKeys[] = {'q', 'u'};
     int i = 0;
     int colXStart = 3;
-    int prefLen = 0, numLen = 4; /* for NAME */
+    int prefLen = 0;
+    int numLen = 4; /* for NAME */
     int boxCols = 0;
     char buf[64];
     char lastEditStr[CSF_LEGEND_DESCR_SIZE];
@@ -174,7 +177,8 @@ static int PrintLegend(int startY, CSF_LEGEND *leg, int nrLeg)
 /* Puts main menu at screen and returns when user wants to quit */
 extern int Menu(CSF_LEGEND *leg, int nrLeg, const char **mapNames, int nrMapNames)
 {
-    int headerLines = 0, c = 0;
+    int headerLines = 0;
+    int c = 0;
     PRECOND(nrLeg >= 1);
     PRECOND(nrMapNames > 0);
 

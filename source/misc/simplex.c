@@ -149,7 +149,8 @@ long LexGetLineNr(void)
  */
 int LexGetToken(void)
 {
-    int c = 0, i = 0;
+    int c = 0;
+    int i = 0;
 
     if (tokenPending) {
         tokenPending = FALSE;
@@ -229,7 +230,8 @@ void LexUngetToken(void)
  */
 int LexSkipLines(int nrLines) /* > 0, 1 means skip current line only */
 {
-    int c = 0, i = 0;
+    int c = 0;
+    int i = 0;
 
     PRECOND(nrLines > 0);
 

@@ -49,8 +49,12 @@ static NODE *DoNeighbors(MAP_REAL8 *out,          /* read-write output map */
     NODE *list2 = NULL;                   /* list of lowest neighbors */
     REAL8 dropMax = 0;                    /* maximal drop value */
     REAL8 dropVal = 0;                    /* maximal drop value */
-    int i = 0, nrPaths = 0;                   /* nr of outgoing paths */
-    REAL8 demVal = NAN, newDem = NAN, outVal = NAN, pntVal = NAN; /* dem value
+    int i = 0;
+    int nrPaths = 0;                   /* nr of outgoing paths */
+    REAL8 demVal = NAN;
+    REAL8 newDem = NAN;
+    REAL8 outVal = NAN;
+    REAL8 pntVal = NAN; /* dem value
                                            * and output value of old and new cell and the
                                            * point value of both to check on MV.
                                            */
@@ -125,7 +129,8 @@ static int HasLowerNeighbor(const MAP_REAL8 *dem,    /* dem.map */
                             int rowNr,               /* row number of checked cell */
                             int colNr)               /* column number of checked cell */
 {
-    REAL8 demVal = NAN, newDem = NAN; /* heights original cell and neighbor */
+    REAL8 demVal = NAN;
+    REAL8 newDem = NAN; /* heights original cell and neighbor */
     REAL8 pntVal = NAN;         /* if MV, then not a valid lower neighbor */
     int i = 0;
 
@@ -189,9 +194,14 @@ int Drain(MAP_REAL8 *out,          /* write-only output map  */
           const MAP_REAL8 *dem,    /* dem map */
           const MAP_REAL8 *points) /* points map */
 {
-    REAL8 pointVal = NAN, demVal = NAN;
+    REAL8 pointVal = NAN;
+    REAL8 demVal = NAN;
     NODE *pointlist = NULL;
-    int r = 0, c = 0, nrRows = 0, nrCols = 0, nrPnts = 0;
+    int r = 0;
+    int c = 0;
+    int nrRows = 0;
+    int nrCols = 0;
+    int nrPnts = 0;
 
     AppProgress("\nnumber of points to do:\n");
 

@@ -47,9 +47,11 @@ static void SpreadDown(MAP_REAL8 *outCost,        /* write-only output map  */
                        int rowNr,                 /* point from which is spread */
                        int colNr)                 /* point from which is spread */
 {
-    REAL8 costVal1 = NAN, fricVal1 = NAN;
+    REAL8 costVal1 = NAN;
+    REAL8 fricVal1 = NAN;
     UINT1 lddVal1 = 0;
-    INT4 id1 = 0, pointVal1 = 0;
+    INT4 id1 = 0;
+    INT4 pointVal1 = 0;
     int r = rowNr;
     int c = colNr;
     REAL8 diagonal = Diagonal();
@@ -65,9 +67,11 @@ static void SpreadDown(MAP_REAL8 *outCost,        /* write-only output map  */
     while (ldd->Get(&lddVal1, r, c, ldd) && (points->Get(&pointVal1, r, c, points)) &&
            (cost->Get(&costVal1, r, c, cost)) && (friction->Get(&fricVal1, r, c, friction)) &&
            (lddVal1 != LDD_PIT)) {
-        REAL8 costVal2 = NAN, fricVal2 = NAN;
+        REAL8 costVal2 = NAN;
+        REAL8 fricVal2 = NAN;
         UINT1 lddVal2 = 0;
-        INT4 pntVal2 = 0, id2 = 0;
+        INT4 pntVal2 = 0;
+        INT4 id2 = 0;
         int rNext = RNeighbor(r, lddVal1); /* downstream elt.*/
         int cNext = CNeighbor(c, lddVal1);
 
@@ -128,10 +132,14 @@ int SpreadLdd(MAP_REAL8 *outCost,        /* write-only output map  */
               const MAP_REAL8 *cost,     /* initial costs */
               const MAP_REAL8 *friction) /* friction */
 {
-    REAL8 initCostVal = NAN, fricVal = NAN;
+    REAL8 initCostVal = NAN;
+    REAL8 fricVal = NAN;
     UINT1 lddVal = 0;
     INT4 pntVal = 0;
-    int r = 0, c = 0, nrRows = 0, nrCols = 0;
+    int r = 0;
+    int c = 0;
+    int nrRows = 0;
+    int nrCols = 0;
 
     nrRows = ldd->NrRows(ldd);
     nrCols = ldd->NrCols(ldd);

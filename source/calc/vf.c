@@ -14,8 +14,14 @@
 
 extern int vf_gradx(MAP_REAL8 *result, const MAP_REAL8 *scalar)
 {
-    int r = 0,c = 0,nrows = 0,ncols = 0;
-    double dx = NAN,value = NAN,right = NAN,left = NAN;
+    int r = 0;
+    int c = 0;
+    int nrows = 0;
+    int ncols = 0;
+    double dx = NAN;
+    double value = NAN;
+    double right = NAN;
+    double left = NAN;
     nrows  = result->NrRows(result);
     ncols  = result->NrCols(result);
     dx     = scalar->CellLength(scalar);
@@ -69,8 +75,14 @@ extern int vf_gradx(MAP_REAL8 *result, const MAP_REAL8 *scalar)
  * */
 extern int vf_grady(MAP_REAL8 *result, const MAP_REAL8 *scalar)
 {
-    int r = 0,c = 0,nrows = 0,ncols = 0;
-    double dy = NAN,value = NAN,up = NAN,down = NAN;
+    int r = 0;
+    int c = 0;
+    int nrows = 0;
+    int ncols = 0;
+    double dy = NAN;
+    double value = NAN;
+    double up = NAN;
+    double down = NAN;
     nrows  = result->NrRows(result);
     ncols  = result->NrCols(result);
     dy     = scalar->CellLength(scalar);
@@ -126,8 +138,12 @@ int vf_divergence(
   const MAP_REAL8 *vectorfieldx,
   const MAP_REAL8 *vectorfieldy)
 {
-    int r = 0,c = 0,nrows = 0,ncols = 0;
-    double dx = NAN,dy = NAN;
+    int r = 0;
+    int c = 0;
+    int nrows = 0;
+    int ncols = 0;
+    double dx = NAN;
+    double dy = NAN;
     nrows  = result->NrRows(result);
     ncols  = result->NrCols(result);
     dx     = vectorfieldx->CellLength(vectorfieldx);
@@ -135,7 +151,13 @@ int vf_divergence(
     for (r=0; r < nrows; r++)
      for (c=0; c < ncols; c++)
    {
-    double valuex = NAN, valuey = NAN,right = NAN,left = NAN,up = NAN,down = NAN,res = NAN;
+    double valuex = NAN;
+    double valuey = NAN;
+    double right = NAN;
+    double left = NAN;
+    double up = NAN;
+    double down = NAN;
+    double res = NAN;
     if ( vectorfieldx->Get(&valuex, r, c, vectorfieldx) &&
        vectorfieldy->Get(&valuey, r, c, vectorfieldy) )
     {
@@ -190,13 +212,23 @@ int vf_diver(
     const MAP_REAL8 *deltax,
     const MAP_REAL8 *deltay)
 {
-    int r = 0,c = 0,nrows = 0,ncols = 0;
+    int r = 0;
+    int c = 0;
+    int nrows = 0;
+    int ncols = 0;
     nrows  = result->NrRows(result);
     ncols  = result->NrCols(result);
     for (r=0; r < nrows; r++)
      for (c=0; c < ncols; c++)
      {
-        double res = NAN,value = NAN,valueLeft = NAN,valueRight = NAN,valueUp = NAN,valueDown = NAN,dx = NAN,dy = NAN;
+        double res = NAN;
+        double value = NAN;
+        double valueLeft = NAN;
+        double valueRight = NAN;
+        double valueUp = NAN;
+        double valueDown = NAN;
+        double dx = NAN;
+        double dy = NAN;
         if ( vectorfieldx->Get(&value,r,c,vectorfieldx) &&
              vectorfieldx->Get(&valueLeft,r,c-1,vectorfieldx) &&
              vectorfieldx->Get(&valueRight,r,c+1,vectorfieldx) ) {
@@ -252,8 +284,15 @@ int vf_lax(MAP_REAL8 *result,
   MAP_REAL8 const* input,
   MAP_REAL8 const* fractMap)
 {
-    int r = 0,c = 0,nrows = 0,ncols = 0;
-    double cellv = NAN,othercellv = NAN,gg = NAN,hh = NAN,frac = NAN;
+    int r = 0;
+    int c = 0;
+    int nrows = 0;
+    int ncols = 0;
+    double cellv = NAN;
+    double othercellv = NAN;
+    double gg = NAN;
+    double hh = NAN;
+    double frac = NAN;
 
     // get the nonspatial
     fractMap->Get(&frac, 0, 0, fractMap);
@@ -322,8 +361,14 @@ int vf_lax(MAP_REAL8 *result,
 extern int vf_laplacian(MAP_REAL8 *result,
                   const MAP_REAL8 *scalar)
 {
-    int r = 0,c = 0,nrows = 0,ncols = 0;
-    double dx = NAN,value = NAN,neighbour = NAN,gg = NAN;
+    int r = 0;
+    int c = 0;
+    int nrows = 0;
+    int ncols = 0;
+    double dx = NAN;
+    double value = NAN;
+    double neighbour = NAN;
+    double gg = NAN;
     nrows  = result->NrRows(result);
     ncols  = result->NrCols(result);
     dx     = scalar->CellLength(scalar);

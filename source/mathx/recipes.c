@@ -51,8 +51,13 @@ int Ludcmp(double **a,   /* Read-write. Input matrix, on output the upper and lo
 
 {
     const double tiny = 1.0e-20;
-    size_t k = 0, j = 0, imax = 0, i = 0;
-    double sum = NAN, dum = NAN, big = NAN;
+    size_t k = 0;
+    size_t j = 0;
+    size_t imax = 0;
+    size_t i = 0;
+    double sum = NAN;
+    double dum = NAN;
+    double big = NAN;
     double *vv = ChkMalloc(sizeof(double) * n);
 
     /* real initialization of imax happens in loop 
@@ -140,7 +145,9 @@ int Cholesky(const double **a, /* Matrix (n*n elements) to be decomposed */
 {
     double result = NAN;
     size_t *index = ChkMalloc(sizeof(size_t) * n);
-    size_t i = 0, j = 0, k = 0;
+    size_t i = 0;
+    size_t j = 0;
+    size_t k = 0;
 
     for (i = 0; i < n; i++) /* copy input to output */
         for (j = 0; j < n; j++)
@@ -199,7 +206,9 @@ double **MltSqrMm(double **result,  /* Write-only, resulting matrix of A*B */
                   const double **B, /* second operand */
                   size_t n)         /* dimension of matrices */
 {
-    size_t i = 0, j = 0, k = 0;
+    size_t i = 0;
+    size_t j = 0;
+    size_t k = 0;
 
     for (i = 0; i < n; i++)
         for (j = 0; j < n; j++) {
@@ -217,7 +226,8 @@ double *MltSqrMv(double *result,   /* Write-only. Resulting vector of A*V */
                  const double *V,  /* second operand */
                  size_t n)         /* dimension of matrix, length of vetor */
 {
-    size_t i = 0, k = 0;
+    size_t i = 0;
+    size_t k = 0;
 
     for (i = 0; i < n; i++) {
         result[i] = 0;
@@ -233,7 +243,8 @@ double **TransposeSqr(double **result,  /* Write-only. The transposed matrix of 
                       const double **A, /* matrix to transpose */
                       size_t n)         /* dimension of matrices */
 {
-    size_t i = 0, j = 0;
+    size_t i = 0;
+    size_t j = 0;
 
     for (i = 0; i < n; i++)
         for (j = 0; j < n; j++)

@@ -434,7 +434,8 @@ std::set<size_t> DataManager<T>::timeSteps(
 template<class T>
 std::set<size_t> DataManager<T>::timeSteps() const
 {
-  std::set<size_t> steps, tmpSteps;
+  std::set<size_t> steps;
+  std::set<size_t> tmpSteps;
 
   for(DataInfo<T> const& info : _data) {
     tmpSteps = dal::timeSteps(info.space());

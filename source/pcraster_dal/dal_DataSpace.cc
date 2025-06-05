@@ -221,7 +221,8 @@ DataSpace::DataSpace(
                    coordinates.y());
 
               // Determine coordinates of north west corner of cell.
-              double x = NAN, y = NAN;
+              double x = NAN;
+              double y = NAN;
               rasterDimensions.coordinates(index, x, y);
               x -= 0.5 * rasterDimensions.cellSize();
               y += 0.5 * rasterDimensions.cellSize();
@@ -273,7 +274,8 @@ DataSpace::DataSpace(
   if(!addresses.empty()) {
     _dimensions = space._dimensions;
 
-    boost::any min, max;
+    boost::any min;
+    boost::any max;
 
     for(size_t i = 0; i < space.rank(); ++i) {
       switch(space.dimension(i).meaning()) {

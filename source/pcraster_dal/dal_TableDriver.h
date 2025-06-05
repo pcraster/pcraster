@@ -180,7 +180,8 @@ inline bool TableDriver::extremes(
     }
   }
   else {
-    T colMin, colMax;
+    T colMin;
+    T colMax;
 
     for(DataSpaceIterator it = space.begin(); it != space.end(); ++it) {
       // path = pathForDataSpaceAddress(std::get<0>(splitNameAndSelection(name)),

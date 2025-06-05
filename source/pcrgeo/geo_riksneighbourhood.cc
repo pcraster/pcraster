@@ -60,7 +60,8 @@ std::tuple<size_t, size_t> geo::RiksNeighbourhood::circleCell(double radius)
   PRECOND(radius > 0.0);
 
   std::tuple<size_t, size_t> cell;
-  double currentDifference(0), difference(0);
+  double currentDifference(0);
+  double difference(0);
 
   // Determine max radius of raster which can contain a circle with given
   // radius.

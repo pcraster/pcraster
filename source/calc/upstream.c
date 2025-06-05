@@ -40,7 +40,8 @@ int Upstream(MAP_REAL8 *out,       /* write-only output map  */
 {
     UINT1 l = 0;
     REAL8 v = NAN;
-    int r = 0, c = 0;
+    int r = 0;
+    int c = 0;
     int nrRows = ldd->NrRows(ldd);
     int nrCols = ldd->NrCols(ldd);
 

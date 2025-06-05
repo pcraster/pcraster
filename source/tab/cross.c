@@ -129,7 +129,9 @@ error:
 
 static int ApplyCross(LOOK_UP_TABLE *t, MAP **maps)
 {
-    size_t m = 0, r = 0, c = 0;
+    size_t m = 0;
+    size_t r = 0;
+    size_t c = 0;
     size_t nrRows = RgetNrRows(maps[0]);
     size_t nrCols = RgetNrCols(maps[0]);
     double **buf = (double **)Malloc2d(t->nrKeys, nrCols, sizeof(double));
@@ -188,8 +190,13 @@ allocError:
 static LOOK_UP_TABLE *MakeHistoCross(MAP *m, size_t nrInt, size_t nrSlots)
 {
     LOOK_UP_TABLE *h = NULL;
-    double count = NAN, minVal = NAN, maxVal = NAN, chunk = NAN, total = 0;
-    size_t r = 0, h_i = 0;
+    double count = NAN;
+    double minVal = NAN;
+    double maxVal = NAN;
+    double chunk = NAN;
+    double total = 0;
+    size_t r = 0;
+    size_t h_i = 0;
     CSF_VS vs = RgetValueScale(m);
 
     RgetMinVal(m, &minVal);
@@ -281,12 +288,14 @@ MakeNewCrossTable(MAP **maps,
     /* array of single tables, NULL init */
     LOOK_UP_TABLE *t = NULL; /* final table, if set in loop then histo */
     size_t *count = NULL;
-    size_t m = 0, t_nr = 0; /* number in t */
+    size_t m = 0;
+    size_t t_nr = 0; /* number in t */
 
     if (s == NULL)
         return NULL;
     for (m = 0; m < nrMaps; m++) {
-        double minVal = NAN, maxVal = NAN;
+        double minVal = NAN;
+        double maxVal = NAN;
         CSF_VS vs = RgetValueScale(maps[m]);
         RgetMinVal(maps[m], &minVal);
         RgetMaxVal(maps[m], &maxVal);

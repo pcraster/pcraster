@@ -69,7 +69,9 @@ double IterateToQnew(
    */
     typedef long double REAL;
     REAL Qk1 = NAN;      /* Q at loop k+1 for i+1, j+1 */
-    REAL ab_pQ = NAN, deltaTX = NAN, C = NAN;
+    REAL ab_pQ = NAN;
+    REAL deltaTX = NAN;
+    REAL C = NAN;
     int   count = 0;
 
     REAL Qkx = NAN;
@@ -150,7 +152,12 @@ static void Sum(
      const MAP_REAL8    *deltaT,
      const MAP_REAL8    *deltaX)
 {
-    REAL8     QoldVal = NAN, qVal = NAN, alphaVal = NAN, betaVal = NAN,deltaTVal = NAN,deltaXVal = NAN;
+    REAL8     QoldVal = NAN;
+    REAL8     qVal = NAN;
+    REAL8     alphaVal = NAN;
+    REAL8     betaVal = NAN;
+    REAL8     deltaTVal = NAN;
+    REAL8     deltaXVal = NAN;
 
     if(
        Qold->Get(&QoldVal, r, c, Qold) &&
@@ -160,14 +167,17 @@ static void Sum(
        deltaT->Get(&deltaTVal, r, c, deltaT) &&
        deltaX->Get(&deltaXVal, r, c, deltaX))
     {
-        REAL8   QnewVal = NAN,QnewUps = NAN,Qin=0.0;
+        REAL8   QnewVal = NAN;
+        REAL8   QnewUps = NAN;
+        REAL8   Qin=0.0;
         int     i = 0;
         UINT1     lddVal = 0;
 
         /* get Qin = sum of Upstream NB Qnew */
         FOR_ALL_LDD_NBS(i)
         {
-            int rNB = 0, cNB = 0;
+            int rNB = 0;
+            int cNB = 0;
             rNB = RNeighbor(r, i);
             cNB = CNeighbor(c, i);
 
@@ -254,7 +264,8 @@ int Kinematic(
     int nrRows = ldd->NrRows(ldd);
     int nrCols = ldd->NrCols(ldd);
     UINT1      lddVal = 0;
-    int r = 0, c = 0; /* (r,c) becomes co-ordinate of outflowpoint */
+    int r = 0;
+    int c = 0; /* (r,c) becomes co-ordinate of outflowpoint */
 
     for (r = 0; r < nrRows; r++)
      for (c = 0; c < nrCols; c++)

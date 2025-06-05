@@ -116,7 +116,8 @@ static int PrintLegend(int startY, ATTRIBUTES *attr, int nrAttr)
     i = 0;
     while (i == 0) {
         if (CurrRadioSelectItem(&i, attrBox)) {
-            REAL8 orig = NAN, edit = NAN;
+            REAL8 orig = NAN;
+            REAL8 edit = NAN;
             char editBuf[128];
             if (!allowEdit[i]) {
                 i = 0;
@@ -181,7 +182,8 @@ static int PrintLegend(int startY, ATTRIBUTES *attr, int nrAttr)
 /* Puts main menu at screen and returns when user wants to quit */
 extern int MakeCloneMenu(ATTRIBUTES *new, const char *mapName)
 {
-    int headerLines = 0, c = 0;
+    int headerLines = 0;
+    int c = 0;
 
     currAttr = new;
     /* Initialize the screen */

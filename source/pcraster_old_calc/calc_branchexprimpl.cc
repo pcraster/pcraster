@@ -769,7 +769,8 @@ void calc::BranchExprImpl::execIfThen(
   args[0]->execute(stack);
   calc::FieldHandle testBranch = stack.popReadOnly();
   PRECOND(testBranch->vs() == VS_B); // pcrcalc/test66
-  bool noneAreTrue = false,noneAreFalse = false;
+  bool noneAreTrue = false;
+  bool noneAreFalse = false;
   testBranch->analyzeBoolean(noneAreTrue,noneAreFalse);
 
   calc::FieldHandle trueBranch = conditionalBranch(noneAreTrue, args[1], stack);
@@ -821,7 +822,8 @@ void calc::BranchExprImpl::execIfThenElse(
   calc::FieldHandle testBranch = stack.popReadOnly();
   inp[0] = &testBranch;
   PRECOND(testBranch->vs() == VS_B); // pcrcalc/test65
-  bool noneAreTrue = false,noneAreFalse = false;
+  bool noneAreTrue = false;
+  bool noneAreFalse = false;
   testBranch->analyzeBoolean(noneAreTrue,noneAreFalse);
 
   calc::FieldHandle falseBranch = conditionalBranch(noneAreFalse, args[2], stack);
@@ -840,7 +842,8 @@ void calc::BranchExprImpl::execIfThenElse(
 
   calc::FieldHandle res = createResultField();
   size_t n=0;
-  int indM[3] = { 4,2,1},ind=0;
+  int indM[3] = { 4,2,1};
+  int ind=0;
   for (size_t i=0; i < 3 ; i++) {
     n = MAX(n,(*inp[i])->nrValues());
     ind |= (*inp[i])->isSpatial() ? indM[i] : 0;

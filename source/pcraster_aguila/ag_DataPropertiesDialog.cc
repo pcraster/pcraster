@@ -123,7 +123,8 @@ void ag::DataPropertiesDialog::createInterface()
 {
   // ag::VisualisationWindow::createInterface();
 
-  QBoxLayout *box = nullptr, *top = nullptr;
+  QBoxLayout *box = nullptr;
+  QBoxLayout *top = nullptr;
 
   auto* widget = new QWidget(this);
   top = new QVBoxLayout(widget);

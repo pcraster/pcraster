@@ -605,7 +605,8 @@ static int yy_flex_strlen (yyconst char * );
 YY_DECL
 {
 	yy_state_type yy_current_state = 0;
-	char *yy_cp = nullptr, *yy_bp = nullptr;
+	char *yy_cp = nullptr;
+	char *yy_bp = nullptr;
 	int yy_act = 0;
     
 #line 60 "valuefile.l"
@@ -1010,7 +1011,8 @@ int yyFlexLexer::yy_get_next_buffer()
 {
     	char *dest = YY_CURRENT_BUFFER_LVALUE->yy_ch_buf;
 	char *source = (yytext_ptr);
-	int number_to_move = 0, i = 0;
+	int number_to_move = 0;
+	int i = 0;
 	int ret_val = 0;
 
 	if ( (yy_c_buf_p) > &YY_CURRENT_BUFFER_LVALUE->yy_ch_buf[(yy_n_chars) + 1] )

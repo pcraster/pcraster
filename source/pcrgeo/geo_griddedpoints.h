@@ -228,7 +228,8 @@ template<class Location>
 inline geo::CellLoc geo::GriddedPoints<Point>::cellLoc(
          Location const& point) const
 {
-  double r = NAN, c = NAN;
+  double r = NAN;
+  double c = NAN;
 
   d_space.coords2RowCol(point[0], point[1], r, c);
 

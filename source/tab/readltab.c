@@ -223,7 +223,9 @@ static LOOK_UP_KEY *ReadLookupRecs(
                       */
   FILE *tableFile)
 {
-  size_t n = 0,nrK = 0,c = DetectNrColsTable(tableFile);
+  size_t n = 0;
+  size_t nrK = 0;
+  size_t c = DetectNrColsTable(tableFile);
   LOOK_UP_KEY *k = NULL;
   long recStartAt=0;
   if (c == 0)
@@ -349,7 +351,10 @@ LOOK_UP_TABLE *ReadLookupTable(
                        */
   CSF_VS outputVs)     /* VS_UNDEFINED if we don't care */
 {
-  size_t r = 0,c = 0,nrCols = 0, nrRecs = 0;
+  size_t r = 0;
+  size_t c = 0;
+  size_t nrCols = 0;
+  size_t nrRecs = 0;
   LOOK_UP_KEY *k = NULL;
   LOOK_UP_TABLE *t = NULL;
   size_t nrColsExp = 0;

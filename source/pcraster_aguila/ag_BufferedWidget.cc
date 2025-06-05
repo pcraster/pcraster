@@ -403,7 +403,8 @@ void BufferedWidget::resizeEvent(
     // steps (one pixel) will result in 0.5 pixel on both sides. In case this
     // is always rounded up, the vis will move to fast. Use anchor point to
     // decide whether the offset should be rounded up or down.
-    qreal intPart = NAN, fractionalPart = NAN;
+    qreal intPart = NAN;
+    qreal fractionalPart = NAN;
 
     fractionalPart = std::modf(_anchor.x(), &intPart);
 

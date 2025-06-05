@@ -41,7 +41,10 @@ int Slope(MAP_REAL8 *slope,     /* Read-write slope output map  */
           const MAP_REAL8 *dem) /* Digital Elevation Model */
 {
     REAL8 demVal = NAN; /* value read in dem.map */
-    int nrRows = 0, nrCols = 0, r = 0, c = 0;
+    int nrRows = 0;
+    int nrCols = 0;
+    int r = 0;
+    int c = 0;
 
     dem->SetGetTest(GET_MV_TEST, dem);
     nrRows = dem->NrRows(dem);
@@ -51,7 +54,9 @@ int Slope(MAP_REAL8 *slope,     /* Read-write slope output map  */
     for (r = 0; r < nrRows; r++) {
         for (c = 0; c < nrCols; c++)
             if (dem->Get(&demVal, r, c, dem)) {
-                REAL8 Dx = NAN, Dy = NAN, G = NAN;
+                REAL8 Dx = NAN;
+                REAL8 Dy = NAN;
+                REAL8 G = NAN;
                 CalcDeltaXY(&Dx, &Dy, dem, r, c);
                 G = sqrt(sqr(Dx) + sqr(Dy));
                 slope->Put(G, r, c, slope);
@@ -67,7 +72,10 @@ int Slope(MAP_REAL8 *slope,     /* Read-write slope output map  */
 int Window4total(MAP_REAL8 *out,      /* Read-write output map  */
                  const MAP_REAL8 *in) /* in */
 {
-    int nrRows = 0, nrCols = 0, r = 0, c = 0;
+    int nrRows = 0;
+    int nrCols = 0;
+    int r = 0;
+    int c = 0;
     const int lddCodes[] = {2, 4, 6, 8};
 
     in->SetGetTest(GET_MV_TEST, in);
@@ -76,8 +84,10 @@ int Window4total(MAP_REAL8 *out,      /* Read-write output map  */
 
     for (r = 0; r < nrRows; r++)
         for (c = 0; c < nrCols; c++) {
-            REAL8 inVal = NAN, sum = 0;
-            int i = 0, nr = 0;
+            REAL8 inVal = NAN;
+            REAL8 sum = 0;
+            int i = 0;
+            int nr = 0;
             for (i = 0; i < 4; i++) {
                 int nbR = DownStrR(r, lddCodes[i]);
                 int nbC = DownStrC(c, lddCodes[i]);

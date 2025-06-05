@@ -51,7 +51,8 @@ bool calc::UseDefNode::deleteValueAtEndOfBlock(
     calc::FieldParameter *par,
     bool forceBlockClean) 
 {
-  calc::StatementBlock *p = nullptr,*delAfterBlock = &d_inBlock;
+  calc::StatementBlock *p = nullptr;
+  calc::StatementBlock *delAfterBlock = &d_inBlock;
   p = delAfterBlock;
   while (p) {
     if (p->isForEachBlock())

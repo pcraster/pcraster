@@ -286,7 +286,8 @@ void Do_fac(
     float v = floor(val[i]);
     if (v > (REAL4)0.0 && v <= (REAL4)34.0 && v == val[i])
     {
-      float r = 1,n = 1;
+      float r = 1;
+      float n = 1;
       while (n <= v)
       {
         r *= n;

@@ -88,8 +88,11 @@ static int CalcOut(MAP_REAL8 *out,            /* write-only output map */
         default:
             PRECOND(pntVal == 0); /* only bools allowed */
             {
-                int rDS = 0, cDS = 0;
-                REAL8 f = NAN, fDS = NAN, oDS = NAN;
+                int rDS = 0;
+                int cDS = 0;
+                REAL8 f = NAN;
+                REAL8 fDS = NAN;
+                REAL8 oDS = NAN;
                 UINT1 l = 0;
                 ldd->Get(&l, r, c, ldd);
                 rDS = DownStrR(r, l);
@@ -127,7 +130,8 @@ int Ldddist(MAP_REAL8 *out,            /* write-only output map  */
             const MAP_REAL8 *friction, /* friction map */
             BOOL useWeightedFriction)  /* true -> old ldddist, false in traveltime use */
 {
-    int r = 0, c = 0;
+    int r = 0;
+    int c = 0;
     int nrRows = ldd->NrRows(ldd);
     int nrCols = ldd->NrCols(ldd);
     /* dist * (fDS+f) / 2 = w * (fDS*f)

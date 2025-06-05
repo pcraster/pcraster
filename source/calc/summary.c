@@ -41,8 +41,11 @@ static void DirectionalStatistics(long double *mean, /* write-only, mean */
                                   const long double *samples, /* array of n samples, radians */
                                   int n)                      /* sample size */
 {
-    long double tC = NAN, tD = NAN, tS = NAN;
-    long double meanIn = NAN, D = NAN;
+    long double tC = NAN;
+    long double tD = NAN;
+    long double tS = NAN;
+    long double meanIn = NAN;
+    long double D = NAN;
     long double R = NAN;
     int i = 0;
     const long double *p = NULL;
@@ -78,8 +81,15 @@ static int ClassSummary(TIME_TABLE *t,         /* read-write table to add to */
                         int nrRows,            /* number of rows of expression map */
                         int nrCols)            /* nr. of columns of expression map */
 {
-    REAL8 majority = NAN, min = REAL8_MAX, max = -REAL8_MAX;
-    int i = 0, r = 0, c = 0, n = 0, *score = NULL, maxScore = 0;
+    REAL8 majority = NAN;
+    REAL8 min = REAL8_MAX;
+    REAL8 max = -REAL8_MAX;
+    int i = 0;
+    int r = 0;
+    int c = 0;
+    int n = 0;
+    int *score = NULL;
+    int maxScore = 0;
 
     PRECOND(expr->GetGetTest(expr) == GET_MV_TEST);
 
@@ -145,7 +155,11 @@ static void BooleanSummary(TIME_TABLE *t,         /* read-write table to add to 
                            int nrRows,            /* number of rows of expression map */
                            int nrCols)            /* nr. of columns of expression map */
 {
-    int r = 0, c = 0, n = 0, nrFalse = 0, nrTrue = 0;
+    int r = 0;
+    int c = 0;
+    int n = 0;
+    int nrFalse = 0;
+    int nrTrue = 0;
     REAL8 val = NAN;
 
     PRECOND(expr->GetGetTest(expr) == GET_MV_TEST);
@@ -174,8 +188,15 @@ static void ScalarSummary(TIME_TABLE *t,         /* read-write table to add to *
                           int nrRows,            /* number of rows of expression map */
                           int nrCols)            /* nr. of columns of expression map */
 {
-    REAL8 sd = NAN, val = NAN, mean = NAN, min = NAN, max = NAN, sum = NAN;
-    int n = 0, r = 0, c = 0;
+    REAL8 sd = NAN;
+    REAL8 val = NAN;
+    REAL8 mean = NAN;
+    REAL8 min = NAN;
+    REAL8 max = NAN;
+    REAL8 sum = NAN;
+    int n = 0;
+    int r = 0;
+    int c = 0;
 
     /* Initialize settings */
     min = REAL8_MAX;
@@ -240,9 +261,16 @@ static int DirectionSummary(TIME_TABLE *t,         /* read-write table to add to
                             int nrRows,            /* number of rows of expression map */
                             int nrCols)            /* nr. of columns of expression map */
 {
-    int i = 0, n = 0, r = 0, c = 0;
-    long double mean = NAN, sd = NAN, *vals = NULL;
-    REAL8 val = NAN, min = REAL8_MAX, max = -REAL8_MAX;
+    int i = 0;
+    int n = 0;
+    int r = 0;
+    int c = 0;
+    long double mean = NAN;
+    long double sd = NAN;
+    long double *vals = NULL;
+    REAL8 val = NAN;
+    REAL8 min = REAL8_MAX;
+    REAL8 max = -REAL8_MAX;
 
     PRECOND(expr->GetGetTest(expr) == GET_MV_TEST);
 

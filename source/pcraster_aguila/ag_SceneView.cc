@@ -750,7 +750,12 @@ void ag::SceneView::installCamera(Camera c)
     }
   }
   else {
-    GLfloat x = NAN, y = NAN, z = NAN, yaw = NAN, pitch = NAN, roll = NAN;
+    GLfloat x = NAN;
+    GLfloat y = NAN;
+    GLfloat z = NAN;
+    GLfloat yaw = NAN;
+    GLfloat pitch = NAN;
+    GLfloat roll = NAN;
     GLfloat d = 4.0 * std::sqrt(widthScene() * widthScene() +
                    depthScene() + depthScene());
 

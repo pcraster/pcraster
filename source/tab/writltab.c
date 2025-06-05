@@ -57,7 +57,8 @@ static void BufPrint(char *buf, double v)
 
 static void PrintKey(FILE *f, const SPEC *s, const LOOK_UP_KEY *k, BOOL lastCol)
 {
-    char lBuf[64], hBuf[64];
+    char lBuf[64];
+    char hBuf[64];
     const char *fmts[] = {"",
                           "<%-*s,%-*s>",
                           "[%-*s,%-*s>",
@@ -99,7 +100,8 @@ static void PrintKey(FILE *f, const SPEC *s, const LOOK_UP_KEY *k, BOOL lastCol)
 static const LOOK_UP_TABLE *CreateMatrix(const LOOK_UP_TABLE *t)
 {
     LOOK_UP_TABLE *m = ChkMalloc(sizeof(LOOK_UP_TABLE));
-    size_t r = 0, i = 0;
+    size_t r = 0;
+    size_t i = 0;
     if (m == NULL)
         return NULL;
     /* determine nrCols => nrKeys */
@@ -150,7 +152,8 @@ static LOOK_UP_KEY *ConvDir(const LOOK_UP_KEY *key, CSF_VS vs)
  */
 int WriteLookupTable(const char *fileName, const LOOK_UP_TABLE *table)
 {
-    size_t k = 0, r = 0;
+    size_t k = 0;
+    size_t r = 0;
     SPEC *spec = NULL;
     FILE *f = NULL;
     LOOK_UP_KEY *key = NULL; /* copy necc. for directional conv. */

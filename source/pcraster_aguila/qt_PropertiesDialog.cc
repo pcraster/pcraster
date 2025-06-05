@@ -88,7 +88,8 @@ qt::PropertiesDialog::~PropertiesDialog()
 
 void qt::PropertiesDialog::createInterface()
 {
-  QBoxLayout* box = nullptr, *top = nullptr;
+  QBoxLayout * box = nullptr;
+  QBoxLayout *top = nullptr;
 
   top = new QVBoxLayout(this);
 

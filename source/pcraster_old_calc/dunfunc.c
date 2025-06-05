@@ -215,7 +215,8 @@ void Do_s_2_l(UINT1 *r, const REAL4 *v, size_t n)
 void Do_d_2_l(UINT1 *r, const REAL4 *v, size_t n)
 {
         const UINT1 lookup[8] = { 8, 9, 6, 3, 2, 1, 4, 7 }; 
-	double dum = NAN,shift = 1.0/16.0; /* ((pi/8)/2pi) = 1/16 */
+	double dum = NAN;
+	double shift = 1.0/16.0; /* ((pi/8)/2pi) = 1/16 */
 	size_t i = 0;
 	for(i=0;i<n; i++)
 	 if (IS_MV_REAL4(v+i))
@@ -352,7 +353,8 @@ void Do_mapmaximum_s(REAL4 *r, const REAL4 *v, size_t n)
 void Do_maparea_1(REAL4 *r, const UINT1 *v, size_t n)
 {
 	size_t i = 0;
-	double area = (double)0, p = Area();
+	double area = (double)0;
+	double p = Area();
 	for(i=0; i< n; i++)
 		if (v[i] != MV_UINT1)
 			area += p;
@@ -362,7 +364,8 @@ void Do_maparea_1(REAL4 *r, const UINT1 *v, size_t n)
 void Do_maparea_4(REAL4 *r, const INT4 *v, size_t n)
 {
 	size_t i = 0;
-	double area = (double)0, p = Area();
+	double area = (double)0;
+	double p = Area();
 	for(i=0; i< n; i++)
 		if (v[i] != MV_INT4)
 			area += p;
@@ -372,7 +375,8 @@ void Do_maparea_4(REAL4 *r, const INT4 *v, size_t n)
 void Do_maparea_s(REAL4 *r, const REAL4 *v, size_t n)
 {
 	size_t i = 0;
-	double area = (double)0, p = Area();
+	double area = (double)0;
+	double p = Area();
 	for(i=0; i< n; i++)
 	 if (! IS_MV_REAL4(v+i))
 		area += p;

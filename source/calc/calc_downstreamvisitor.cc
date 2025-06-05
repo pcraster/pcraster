@@ -75,7 +75,8 @@ void calc::DownStreamVisitor::next()
     return;
   while(! front().allUpstreamNeighboursVisited()) {
     geo::DownStreamVisitorCell& f(front());
-    int rowNB = 0,colNB = 0;
+    int rowNB = 0;
+    int colNB = 0;
     geo::intDownstreamCell(rowNB,colNB, f, f.d_nextNeighbourToVisit);
     UINT1 l = 0;
     bool isUpstreamNB= (d_lddMap.get(l,rowNB,colNB) &&

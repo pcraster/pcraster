@@ -142,7 +142,8 @@ void vfError(const char *fmt, /* Format control, see printf() for a description 
 
     for (i = (errorNestLevel - 1); i >= 0; i--) {
         char *p = ptrs[i];
-        int j = 0, id = errorNestLevel - i; /* # of indents */
+        int j = 0;
+        int id = errorNestLevel - i; /* # of indents */
         while (*p != '\0') {
             if (p == ptrs[i]) /* start */
                 for (j = 0; j < id; j++)

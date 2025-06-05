@@ -315,7 +315,8 @@ bool pt::ParticleTracker::inAquifer(size_t row, size_t col) const
 
 bool pt::ParticleTracker::inAquifer(double x, double y) const
 {
-  double row = NAN, col = NAN;
+  double row = NAN;
+  double col = NAN;
 
   _particles.space().coords2RowCol(x, y, row, col);
   row = std::floor(row);
@@ -464,7 +465,8 @@ void pt::ParticleTracker::coords2RowCol(double x, double y, double& row,
 void pt::ParticleTracker::coords2RowCol(double x, double y, size_t& row,
          size_t& col) const
 {
-  double rowTmp = NAN, colTmp = NAN;
+  double rowTmp = NAN;
+  double colTmp = NAN;
   coords2RowCol(x, y, rowTmp, colTmp);
   POSTCOND(rowTmp >= 0.0 && colTmp >= 0.0);
   row = static_cast<size_t>(std::floor(rowTmp));
@@ -500,7 +502,8 @@ void pt::ParticleTracker::loc2Coords(const geo::CellLoc& loc, double& x,
 void pt::ParticleTracker::reflect(size_t row, size_t col, double& x,
          double& y) const
 {
-  double rowNew = NAN, colNew = NAN;
+  double rowNew = NAN;
+  double colNew = NAN;
   coords2RowCol(x, y, rowNew, colNew);
 
   // Distance from border current cell and new cell.
@@ -618,8 +621,14 @@ void pt::ParticleTracker::generateDistribution(
     // | p4     p3 |
     // +-----------+
 
-    Particle p1, p2, p3, p4;
-    double left = NAN, right = NAN, top = NAN, bottom = NAN;
+    Particle p1;
+    Particle p2;
+    Particle p3;
+    Particle p4;
+    double left = NAN;
+    double right = NAN;
+    double top = NAN;
+    double bottom = NAN;
 
     for(size_t row = 0; row < nrRows(); ++row) {
       for(size_t col = 0; col < nrCols(); ++col) {
@@ -701,8 +710,14 @@ void pt::ParticleTracker::generateDistribution(
     // |    p3     |
     // +-----------+
 
-    Particle p1, p2, p3, p4;
-    double left = NAN, right = NAN, top = NAN, bottom = NAN;
+    Particle p1;
+    Particle p2;
+    Particle p3;
+    Particle p4;
+    double left = NAN;
+    double right = NAN;
+    double top = NAN;
+    double bottom = NAN;
 
     for(size_t row = 0; row < nrRows(); ++row) {
       for(size_t col = 0; col < nrCols(); ++col) {
@@ -1318,7 +1333,8 @@ double pt::ParticleTracker::maxConcentration(
   double value = NAN;
   double maxRadius = 2.0 * cellSize();
 
-  double x = NAN, y = NAN;
+  double x = NAN;
+  double y = NAN;
   loc2Coords(loc, x, y);
   geo::Point<double, 2> point(x, y);
 
@@ -1451,7 +1467,9 @@ void pt::ParticleTracker::changeInConcentrations(
 {
   PRECOND(timeIncrement > 0.0);
   double halfTimeStep = 0.5 * timeIncrement;
-  double factor = NAN, gradient1 = NAN, gradient2 = NAN;
+  double factor = NAN;
+  double gradient1 = NAN;
+  double gradient2 = NAN;
 
   for(geo::CellLocVisitor visitor(nrRows(), nrCols()); visitor.valid();
          ++visitor) {
@@ -1784,18 +1802,27 @@ void pt::ParticleTracker::moveParticles(
          const geo::SimpleRaster<double>& flux,
          double timeIncrement)
 {
-  double dx = NAN, dy = NAN;
-  double xParticle = NAN, yParticle = NAN, xParticleNew = NAN, yParticleNew = NAN;
-  double xVelocParticle = NAN, yVelocParticle = NAN;
+  double dx = NAN;
+  double dy = NAN;
+  double xParticle = NAN;
+  double yParticle = NAN;
+  double xParticleNew = NAN;
+  double yParticleNew = NAN;
+  double xVelocParticle = NAN;
+  double yVelocParticle = NAN;
 
-  double rowNewExact = NAN, colNewExact = NAN;
-  size_t rowNew = 0, colNew = 0;
+  double rowNewExact = NAN;
+  double colNewExact = NAN;
+  size_t rowNew = 0;
+  size_t colNew = 0;
 
-  double offsetX = NAN, offsetY = NAN;
+  double offsetX = NAN;
+  double offsetY = NAN;
 
   geo::GriddedPoints<Particle> newParticles(_particles.space(),
          _particles.missingValues());
-  Particle newParticle, replaceParticle;
+  Particle newParticle;
+  Particle replaceParticle;
 
   // Loop over all cells.
   for(size_t row = 0; row < nrRows(); ++row) {

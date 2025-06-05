@@ -254,7 +254,8 @@ class EventChain : public std::vector<UDEvent>
   }
 
   IOType ioType(void* dynamicSectionPtr) const {
-    RecordFirst use(end()),def(end());
+    RecordFirst use(end());
+    RecordFirst def(end());
 
     bool inDynamicSection(false);
     for(auto e=begin(); e!=end(); ++e)

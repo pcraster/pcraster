@@ -119,7 +119,8 @@ void AppLogStart(int argc,    /* number of arguments */
 {
     int i = 0;
     FILE *f = ActiveLogFile();
-    char *appDir = NULL, *appFile = NULL;
+    char *appDir = NULL;
+    char *appFile = NULL;
     if (!f)
         return;
     SetIncrLogCounter();

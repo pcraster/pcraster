@@ -54,7 +54,8 @@ void resample(
   DEVELOP_PRECOND(static_cast<discr::Raster const&>(result) ==
          static_cast<discr::Raster const&>(block));
 
-  REAL4 base = NAN, surface = NAN;
+  REAL4 base = NAN;
+  REAL4 surface = NAN;
 
   if(!block.extremeElevations(base, surface)) {
     // All MV's.

@@ -392,7 +392,8 @@ void dal::StackInfo::scan()
 
   d_steps.erase(d_steps.begin(), d_steps.end());
   d_isScanned = false;
-  std::filesystem::directory_iterator iterator, end;
+  std::filesystem::directory_iterator iterator;
+  std::filesystem::directory_iterator end;
 
   try {
     if(d_name.has_parent_path()) {

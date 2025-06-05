@@ -62,7 +62,8 @@ static int PerformClump(MAP_INT4 *out,      /* read-write output map */
         coordList = RemFromList(coordList);
         out->Put(currClumpNr, r, c, out);
         for (i = 1; i <= NR_LDD_DIR; i++) {
-            INT4 clumpVal = 0, outVal = 0;
+            INT4 clumpVal = 0;
+            INT4 outVal = 0;
             int rNext = RNeighbor(rowNr, i);
             int cNext = CNeighbor(colNr, i);
 
@@ -93,7 +94,8 @@ static int PerformClump(MAP_INT4 *out,      /* read-write output map */
 int Clump(MAP_INT4 *out,      /* read-write output map */
           const MAP_INT4 *in) /* input map */
 {
-    int r = 0, c = 0;
+    int r = 0;
+    int c = 0;
     INT4 currClumpNr = 1;
     int nrRows = in->NrRows(in);
     int nrCols = in->NrCols(in);
@@ -107,7 +109,8 @@ int Clump(MAP_INT4 *out,      /* read-write output map */
     for (r = 0; r < nrRows; r++) {
         AppRowProgress(r);
         for (c = 0; c < nrCols; c++) {
-            INT4 inVal = 0, outVal = 0;
+            INT4 inVal = 0;
+            INT4 outVal = 0;
             if (in->Get(&inVal, r, c, in) && out->Get(&outVal, r, c, out) == FALSE) {
                 if (PerformClump(out, in, r, c, currClumpNr, nrRows, nrCols))
                     return 1;

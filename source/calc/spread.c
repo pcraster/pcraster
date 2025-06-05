@@ -83,8 +83,13 @@ static REAL8 CalcSpreadValue(INT4 *id,                  /* write-only id */
                              int c,                     /* column curr. cell */
                              REAL8 f)                   /* friction value (r, c) */
 {
-    REAL8 costs = NAN, costVal = NAN, fricNxt = NAN, minCosts = NAN;
-    int i = 0, rNext = 0, cNext = 0;
+    REAL8 costs = NAN;
+    REAL8 costVal = NAN;
+    REAL8 fricNxt = NAN;
+    REAL8 minCosts = NAN;
+    int i = 0;
+    int rNext = 0;
+    int cNext = 0;
     INT4 newId = 0; /* id spread point of min. cost */
 
     minCosts = REAL8_MAX; /* minimum costs until now */
@@ -122,9 +127,14 @@ static int PerformSpread(MAP_REAL8 *outCost,        /* read-write output costs *
                          const MAP_REAL8 *friction) /* friction map */
 {
     extern int com_equalEpsilonFloat(float a, float b);
-    int rNext = 0, cNext = 0, rowNr = 0, colNr = 0, i = 0;
+    int rNext = 0;
+    int cNext = 0;
+    int rowNr = 0;
+    int colNr = 0;
+    int i = 0;
     REAL8 f = NAN;       /* friction of current cell */
-    REAL8 s = NAN, newS = NAN; /* old & new spreadval. of curr. cell */
+    REAL8 s = NAN;
+    REAL8 newS = NAN; /* old & new spreadval. of curr. cell */
 
     while (coordList != NULL) {
         INT4 id = 0;                            /* id of current cell */
@@ -186,9 +196,12 @@ int Spread(MAP_REAL8 *outCost,        /* read-write output map  */
 {
     NODE *coordList = NULL; /* list with cells to be checked */
     INT4 pointVal = 0;          /* value in points map of cell */
-    REAL8 s = NAN, f = NAN;             /* s = initial cost, f = friction of cell */
-    int r = 0, nrRows = points->NrRows(points);
-    int c = 0, nrCols = points->NrCols(points);
+    REAL8 s = NAN;
+    REAL8 f = NAN;             /* s = initial cost, f = friction of cell */
+    int r = 0;
+    int nrRows = points->NrRows(points);
+    int c = 0;
+    int nrCols = points->NrCols(points);
     inList = NewBitMatrix((size_t)nrRows, (size_t)nrCols);
 
     if (inList == NULL)

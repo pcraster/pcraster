@@ -151,7 +151,8 @@ bool TextTableDriver::open(
   // Adjust this if separator is variable.
   // See http://www.boost.org/libs/spirit/example/fundamental/list_parser.cpp
   using namespace boost::spirit::classic;
-  rule<> valueParser, recordParser;
+  rule<> valueParser;
+  rule<> recordParser;
   valueParser = +graph_p;
   Record titles(table.titles());
   Record record;
@@ -442,7 +443,8 @@ void TextTableDriver::readValues(
 {
   using namespace boost::spirit::classic;
 
-  stored_rule<> recordParser, valueParser;
+  stored_rule<> recordParser;
+  stored_rule<> valueParser;
 
   for(size_t col = 0; col < table.nrCols(); ++col) {
     switch(table.typeId(col)) {

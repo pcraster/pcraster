@@ -89,7 +89,8 @@ void FeatureLayerDrawer::drawLine(
   qreal x1 = world_to_screen.map(p).x();
   qreal y1 = world_to_screen.map(p).y();
 
-  qreal x2 = NAN, y2 = NAN;
+  qreal x2 = NAN;
+  qreal y2 = NAN;
 
   for(int i = 1; i < line.getNumPoints(); ++i) {
     p = QPointF(line.getX(i), line.getY(i));
@@ -171,7 +172,10 @@ void FeatureLayerDrawer::draw(
     screen_to_world.map( QPointF(dirtyMapAreaInPixels.right(), dirtyMapAreaInPixels.bottom()) )
   );
 
-  double west = NAN, north = NAN, east = NAN, south = NAN;
+  double west = NAN;
+  double north = NAN;
+  double east = NAN;
+  double south = NAN;
   west = dirtyMapAreaInWorldCoordinates.left();
   east = dirtyMapAreaInWorldCoordinates.right();
   north = dirtyMapAreaInWorldCoordinates.top();

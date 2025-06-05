@@ -143,7 +143,8 @@ static int CmpKey(
   const double *keyValues,
   const LOOK_UP_KEY **keys)
 {
-  int i = 0,r=0;
+  int i = 0;
+  int r=0;
   const QSORT_CMP Cmp[] = {
    (QSORT_CMP)TestOne   ,
    (QSORT_CMP)TestInfInf,

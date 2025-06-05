@@ -204,7 +204,8 @@ extern "C" int DynamicWave(
   auto nrTimeSlices = static_cast<size_t>(nrTimeSlicesInterface.value(0,0));
 
   // non spatial domains, check once
-  std::vector<fieldapi::ScalarDomainCheck> domains,nsDomains;
+  std::vector<fieldapi::ScalarDomainCheck> domains;
+  std::vector<fieldapi::ScalarDomainCheck> nsDomains;
   domains.push_back(fieldapi::ScalarDomainCheck(Hin,"Hin",
                                                com::GreaterThanEqualTo<double>(0)));
   domains.push_back(fieldapi::ScalarDomainCheck(channelRoughness,

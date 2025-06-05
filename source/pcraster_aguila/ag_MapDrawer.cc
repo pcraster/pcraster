@@ -126,7 +126,8 @@ void MapDrawer::draw(
 
   // Mappers for translating between real world coordinates and screen
   // coordinates.
-  QTransform world_to_screen, screen_to_world;
+  QTransform world_to_screen;
+  QTransform screen_to_world;
   std::tie(world_to_screen, screen_to_world) = mappers(envelopeInPixels);
 
   // Actual area of the screen that possibly contains stuff to draw.

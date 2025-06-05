@@ -405,7 +405,8 @@ inline Matrix<T> Matrix<T>::invert(const Matrix<T> &m)
 {
   assert(m.d_nr == m.d_nc);
 
-  size_t i = 0, j = 0;
+  size_t i = 0;
+  size_t j = 0;
   double d = NAN;
 
   // Create a scratch copy of m.
@@ -529,10 +530,15 @@ inline void Matrix<T>::luDecompose(Matrix<T> &a, size_t *indx, double *d)
   assert(a.d_nr == a.d_nc);
 
   size_t n = a.d_nr;
-  size_t i = 0, j = 0, k = 0;
+  size_t i = 0;
+  size_t j = 0;
+  size_t k = 0;
   size_t imax = 0;
   auto *vv = new double[n];
-  T big, dum, sum, temp;
+  T big;
+  T dum;
+  T sum;
+  T temp;
 
   *d = 1.0;
 
@@ -620,7 +626,10 @@ inline void Matrix<T>::luSolve(const Matrix<T> &a, const size_t *indx,
   assert(a.d_nr == a.d_nc);
 
   size_t n = a.d_nr;
-  size_t i = 0, ii = 0, ip = 0, j = 0;
+  size_t i = 0;
+  size_t ii = 0;
+  size_t ip = 0;
+  size_t j = 0;
   T sum;
 
   for(i = 1; i <= n; i++)

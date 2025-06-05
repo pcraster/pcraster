@@ -44,7 +44,9 @@ int ReplaceFirstByUpsNbs(
                         */
   const MAP_UINT1 *ldd)
 {
-  int r = 0,c = 0,i = 0;
+  int r = 0;
+  int c = 0;
+  int i = 0;
   PRECOND(list != NULL);
   r = (*list)->rowNr;
   c = (*list)->colNr;
@@ -69,7 +71,9 @@ NODE *AddUpsNbsMarkFirst(
   NODE *list,          /* list to append to */
   const MAP_UINT1 *ldd)
 {
-  int r = 0,c = 0,i = 0;
+  int r = 0;
+  int c = 0;
+  int i = 0;
   PRECOND(list != NULL);
   r = list->rowNr;
   c = list->colNr;

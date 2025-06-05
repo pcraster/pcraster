@@ -725,7 +725,8 @@ void AguilaProgramOptions::obtainProgramOptions(
 
       using namespace boost::spirit::classic;
 
-      size_t nrRows=0, nrCols=0;
+      size_t nrRows=0;
+      size_t nrCols=0;
       // parse nrRows x nrCols
       com::Exception error("Multi view layout '" + multi + "': Not valid");
 

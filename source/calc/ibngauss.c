@@ -73,9 +73,13 @@ int IBNGauss(
      const MAP_REAL8 *range,
      const MAP_REAL8 *nrPackages)
 {
-  int   rSrc = 0,nrRows= units->NrRows(units);
-  int   cSrc = 0,nrCols= units->NrCols(units);
-  REAL8 unitsValSrc = NAN,rangeValSrc = NAN,nrPackValSrc = NAN;
+  int   rSrc = 0;
+  int   nrRows= units->NrRows(units);
+  int   cSrc = 0;
+  int   nrCols= units->NrCols(units);
+  REAL8 unitsValSrc = NAN;
+  REAL8 rangeValSrc = NAN;
+  REAL8 nrPackValSrc = NAN;
 
   /* algorithm wants points->Get() and all others to
    * return FALSE if a value is a missing value
@@ -111,7 +115,8 @@ int IBNGauss(
        range->Get(&rangeValSrc, rSrc, cSrc, range)
       )
     {
-      int i = 0,nrInputUnits = (int)floor(unitsValSrc);
+      int i = 0;
+      int nrInputUnits = (int)floor(unitsValSrc);
       int nrPackages = (int)nrPackValSrc; /* round to integer */
       int packageSize = 0;
       int nrPackagesWithOneMore = 0;

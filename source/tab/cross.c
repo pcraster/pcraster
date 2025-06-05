@@ -334,7 +334,7 @@ MakeNewCrossTable(MAP **maps,
     if (AllocLookupTable(t))
         goto error2;
     for (t_nr = 0; t_nr < t->nrRecords; t_nr++) {
-        int index = t_nr;
+        size_t index = t_nr;
         m = nrMaps;
         do {
             m--;

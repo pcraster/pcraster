@@ -14,13 +14,15 @@ jobs:
                       name: "Windows 2022",
                       os: windows-2022,
                       cc: "cl", cxx: "cl",
-                      environment_script: "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Auxiliary/Build/vcvarsall.bat" x64 -vcvars_ver=14.2
+                      activate_script: "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Auxiliary/Build/vcvarsall.bat"
+                      activate_version: "x64 -vcvars_ver=14.2"
                   }
                 - {
                       name: "Windows 2025",
                       os: windows-2025,
                       cc: "cl", cxx: "cl",
-                      environment_script: "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Auxiliary/Build/vcvars64.bat"
+                      activate_script: "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Auxiliary/Build/vcvarsall.bat"
+                      activate_version: "x64 -vcvars_ver=14.4"
                   }
 
         runs-on: ${{ matrix.config.os }}
@@ -43,16 +45,16 @@ jobs:
               miniforge-version: latest
               auto-update-conda: false
               conda-remove-defaults: true
-              python-version: 3.12
+              python-version: 3.13
 
         - shell: cmd /C call {0}
           run: |
-              conda install pybind11 numpy cmake ninja boost-cpp xerces-c libgdal gdal make qt6-main qt6-charts
+              conda install pybind11 numpy cmake ninja libboost-devel xerces-c libgdal gdal make qt6-main qt6-charts
 
         - name: Configure PCRaster
           shell: cmd /C call {0}
           run: |
-              "${{ matrix.config.environment_script }}" && ^
+              "${{ matrix.config.activate_script }}" ${{ matrix.config.activate_version }} && ^
               cmake ^
                   -S . ^
                   -B build ^
@@ -67,17 +69,17 @@ jobs:
         - name: Build release
           shell: cmd /C call {0}
           run: |
-              "${{ matrix.config.environment_script }}" && ^
+              "${{ matrix.config.activate_script }}" ${{ matrix.config.activate_version }} && ^
               cmake --build build --config Release --target all
 
         - name: Install PCRaster
           shell: cmd /C call {0}
           run: |
-              "${{ matrix.config.environment_script }}" && ^
+              "${{ matrix.config.activate_script }}" ${{ matrix.config.activate_version }} && ^
               cmake --install build --config Release
 
         - name: Test release
           shell: cmd /C call {0}
           run: |
-              "${{ matrix.config.environment_script }}" && ^
+              "${{ matrix.config.activate_script }}" ${{ matrix.config.activate_version }} && ^
               ctest --test-dir build --output-on-failure --build-config Release

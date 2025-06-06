@@ -424,7 +424,6 @@ void BAS::write_bound_array(std::string const& path) const {
 
   std::stringstream content;
 
-  size_t nrLayer = 1;
   for(int i = d_mf->dd_nrLayer - 1; i >= 0; i--){
 
     // only layer have boundary values
@@ -437,7 +436,6 @@ void BAS::write_bound_array(std::string const& path) const {
         }
         content << "\n";
       }
-      nrLayer++;
     }
   }
   d_mf->d_cmethods->writeToFile(mf::execution_path(path, "pcrmf_bounds.asc"), content.str());

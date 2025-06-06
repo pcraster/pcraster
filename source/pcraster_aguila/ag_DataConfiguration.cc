@@ -411,9 +411,11 @@ std::vector<std::vector<DataGuide> > DataConfiguration::guidesOfView2(
     std::set<std::string> names((*d_nameMap.find(viewItem)).second);
     assert(!names.empty());
 
+#ifdef DEBUG_BUILD
     std::pair<NameMap::const_iterator, NameMap::const_iterator> nameRange(
          d_nameMap.equal_range(viewItem));
     assert(nameRange.first != nameRange.second);
+#endif
 
     // For this one name we now have the data set names it corresponds to.
     // Most of the time this is the same name, but it may be a set of other

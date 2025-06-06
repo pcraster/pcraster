@@ -243,7 +243,6 @@ void PlotVisualisation::drawCurve(
   double *xSubEnd = nullptr;
   double *ySubBegin = nullptr;
   double *ySubEnd = nullptr;
-  size_t sizeOfSubRange = 0;
   // long int curveId;
 
   xSubEnd = x;
@@ -264,14 +263,12 @@ void PlotVisualisation::drawCurve(
     }
 
     // Set end at first MV.
-    sizeOfSubRange = 1;
     xSubEnd = xSubBegin + 1;
     ySubEnd = ySubBegin + 1;
     while(xSubEnd != xEnd && ySubEnd != yEnd &&
          !pcr::isMV(*xSubEnd) && !pcr::isMV(*ySubEnd)) {
       ++xSubEnd;
       ++ySubEnd;
-      ++sizeOfSubRange;
     }
 
     auto *series = new QLineSeries();

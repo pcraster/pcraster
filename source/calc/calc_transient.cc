@@ -94,7 +94,7 @@ double calcElevation(const CalculationArgs& args)
 
 
 
-class DiffuseAlgorithm: public boost::noncopyable 
+class DiffuseAlgorithm: public boost::noncopyable
 {
 
 public:
@@ -757,7 +757,7 @@ extern "C" int  Transient(void** out, const void** in, int nrArgs)
   double tolerance = toleranceInterface.value(0, 0);
   double difference = NAN;
   double maxDifference = NAN;    // Current and max difference.
-  size_t nrIterations = 0;
+  // size_t nrIterations = 0;
 
   // yepyep: fieldapi::Common::cellLength();
   auto* map = static_cast<MAP_REAL8*>(out[0]);
@@ -811,7 +811,7 @@ extern "C" int  Transient(void** out, const void** in, int nrArgs)
       }
     }
 
-    ++nrIterations;
+    // ++nrIterations;
 
     // yepyep: test op aantal iteraties?
     // PRECOND(nrIterations < 30);

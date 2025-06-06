@@ -5,7 +5,6 @@
 #include "dal_CSFRasterDriver.h"
 
 
-static int const argc = 1;
 static char const* argv[1] = { "/my/path/col2map_test" };
 
 

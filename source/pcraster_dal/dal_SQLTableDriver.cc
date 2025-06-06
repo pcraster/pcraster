@@ -672,47 +672,41 @@ void SQLTableDriver::read(
   while(query.next()) {
     table.appendRec();
 
-    for(size_t col = 0, c = 0; col < table.nrCols(); ++col) {
+    for(size_t col = 0; col < table.nrCols(); ++col) {
 
       switch(table.typeId(col)) {
         case TI_UINT1: {
           table.col<UINT1>(col)[query.at()] = static_cast<UINT1>(query.value(
               colIdToQueryId[col]).toBool());
-          ++c;
           break;
         }
         case TI_UINT4: {
           table.col<UINT4>(col)[query.at()] = query.value(
               colIdToQueryId[col]).toUInt(&ok);
           assert(ok);
-          ++c;
           break;
         }
         case TI_INT4: {
           table.col<INT4>(col)[query.at()] = query.value(
               colIdToQueryId[col]).toInt(&ok);
           assert(ok);
-          ++c;
           break;
         }
         case TI_REAL4: {
           table.col<REAL4>(col)[query.at()] = query.value(
               colIdToQueryId[col]).toDouble(&ok);
           assert(ok);
-          ++c;
           break;
         }
         case TI_REAL8: {
           table.col<REAL8>(col)[query.at()] = query.value(
               colIdToQueryId[col]).toDouble(&ok);
           assert(ok);
-          ++c;
           break;
         }
         case TI_STRING: {
           table.col<std::string>(col)[query.at()] = std::string(query.value(
               colIdToQueryId[col]).toString().toUtf8().constData());
-          ++c;
           break;
         }
         case TI_NR_TYPES: {

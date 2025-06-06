@@ -121,7 +121,6 @@ void FeatureLayerDrawer::drawPolygon(
     OGRLinearRing const& exteriorRing(*polygon.getExteriorRing());
     QPolygonF ring(exteriorRing.getNumPoints());
 
-    QPointF p;
     for(int i = 0; i < exteriorRing.getNumPoints(); ++i) {
       ring[i] = world_to_screen.map(QPointF(exteriorRing.getX(i), exteriorRing.getY(i)));
     }

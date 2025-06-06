@@ -46,7 +46,7 @@ namespace com {
    *    try again gcc 3.0 or newer
    */
   template<typename T>
-  T fromStringNotWorking(const std::string& s)
+  T fromStringNotWorking([[maybe_unused]] const std::string& s)
   {
     PRECOND(FALSE);
     PRECOND(s.empty());
@@ -73,7 +73,7 @@ namespace com {
      * long l;
      * if (!(interpreter >> l))
      *  throw std::range_error("not a number");
-     * if (l < com::NumericLimits<T>::minValue() || 
+     * if (l < com::NumericLimits<T>::minValue() ||
      *     l > com::NumericLimits<T>::maxValue())
      *  // need C-style cast
      * value = (T)l;

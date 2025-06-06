@@ -32,11 +32,11 @@ namespace mldd {
     static void initialize(Iter& ) { }
 
     template <typename Iter>
-    static void increment(Iter& i)
+    static void increment(Iter& /*i*/)
     { /* i.base() = Succ_Adj_Edge(i.base(), 1); */ }
 
     template <typename Iter>
-    static void decrement(Iter& i)
+    static void decrement(Iter& /*i*/)
     { /* i.base() = Pred_Adj_Edge(i.base(), 1); */ }
 
     template <typename Iter>
@@ -53,11 +53,11 @@ namespace mldd {
     static void initialize(Vertex& ) { }
 
     template <typename Iter>
-    static void increment(Iter& i)
+    static void increment(Iter& /*i*/)
     { /* i.base() = Succ_Adj_Edge(i.base(), 0); */ }
 
     template <typename Iter>
-    static void decrement(Iter& i)
+    static void decrement(Iter& /*i*/)
     { /* i.base() = Pred_Adj_Edge(i.base(), 0); */ }
 
     template <typename Iter>
@@ -174,12 +174,12 @@ namespace mldd {
 //   typedef graph_traits<G>::in_edge_iterator Iter;
 //   return std::make_pair( Iter(First_Adj_Edge(u,1)), Iter(0) );
 // }
-// 
+//
 // inline std::pair<
 //   graph_traits<G>::adjacency_iterator,
-//   graph_traits<G>::adjacency_iterator >  
+//   graph_traits<G>::adjacency_iterator >
 // adjacent_vertices(
-//   graph_traits<G>::vertex_descriptor u, 
+//   graph_traits<G>::vertex_descriptor u,
 //   const G & g)
 // {
 //   typedef graph_traits<G>::adjacency_iterator Iter;

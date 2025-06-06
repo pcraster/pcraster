@@ -64,26 +64,26 @@ private:
 
 public:
 
-  void aggregate(
-         Raster& result,
-         Raster const& argument,
-         RasterDimensions const& argumentArea,
-         RasterDimensions const& resultArea)
-  {
-    // Iterate over resultArea while selecting cells from argumentArea.
-    // Use operation to calculate values based on cells from argument raster.
-
-    // For each destination cell, select contributing source cells and
-    // percentage or the area of the cell that contributes.
-
-    // size_t sourceRow = size_t(0);
-    // size_t sourceCol = size_t(0);
-
-    // size_t destinationRow = size_t(0);
-    // size_t destinationCol = size_t(0);
-
-
-  }
+  // void aggregate(
+  //        Raster& result,
+  //        Raster const& argument,
+  //        RasterDimensions const& argumentArea,
+  //        RasterDimensions const& resultArea)
+  // {
+  //   // Iterate over resultArea while selecting cells from argumentArea.
+  //   // Use operation to calculate values based on cells from argument raster.
+  //
+  //   // For each destination cell, select contributing source cells and
+  //   // percentage or the area of the cell that contributes.
+  //
+  //   // size_t sourceRow = size_t(0);
+  //   // size_t sourceCol = size_t(0);
+  //
+  //   // size_t destinationRow = size_t(0);
+  //   // size_t destinationCol = size_t(0);
+  //
+  //
+  // }
 };
 
 template<typename T,
@@ -94,20 +94,20 @@ private:
 
 public:
 
-  void aggregate(
-         Raster& result,
-         Raster const& argument,
-         RasterDimensions const& argumentArea,
-         RasterDimensions const& resultArea)
-  {
-    // Iterate over resultArea while selecting cells from argumentArea.
-    // Use operation to calculate values based on cells from argument raster.
-
-    // For each destination cell, select contributing source cells. Select
-    // cells based on contributing area.
-
-
-  }
+  // void aggregate(
+  //        Raster& result,
+  //        Raster const& argument,
+  //        RasterDimensions const& argumentArea,
+  //        RasterDimensions const& resultArea)
+  // {
+  //   // Iterate over resultArea while selecting cells from argumentArea.
+  //   // Use operation to calculate values based on cells from argument raster.
+  //
+  //   // For each destination cell, select contributing source cells. Select
+  //   // cells based on contributing area.
+  //
+  //
+  // }
 };
 
 #define AGGREGATE_CASE(type)                                                   \

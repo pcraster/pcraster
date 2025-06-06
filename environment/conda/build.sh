@@ -19,13 +19,14 @@ CMAKE_ARGS="${CMAKE_ARGS} -DPython_NumPy_INCLUDE_DIR:PATH=${Python_NumPy_INCLUDE
 # NOTE Use -Werror ONLY in our development builds, never on conda-forge
 # NOTE
 # cmake -E env CFLAGS="-Werror=deprecated-declarations" CXXFLAGS="-Werror=deprecated-declarations" \
-cmake -E env CFLAGS="-Werror" CXXFLAGS="-Werror" \
+cmake -E env CFLAGS="-${CFLAGS} Werror" CXXFLAGS="${CXXFLAGS} -Werror" \
 cmake ${CMAKE_ARGS} -S $SRC_DIR -B build \
   -G"Ninja" -DCMAKE_BUILD_TYPE=Release \
   -D CMAKE_INSTALL_PREFIX="${PREFIX}" \
   -D PCRASTER_PYTHON_INSTALL_DIR=${SP_DIR} \
   -D PCRASTER_WITH_FLAGS_NATIVE=OFF \
-  -D PCRASTER_BUILD_TEST=ON
+  -D PCRASTER_BUILD_TEST=ON \
+  -D _LIBCPP_DISABLE_AVAILABILITY
 
 cmake --build build --target all --parallel ${CPU_COUNT}
 

@@ -1,4 +1,4 @@
-name: Development Linux Conda CI
+name: Development Linux Conda
 
 on:
     push:

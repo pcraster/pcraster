@@ -1,4 +1,4 @@
-name: Development macOS CI
+name: Development macOS
 
 on:
     push:

@@ -24,7 +24,7 @@ cmake ${CMAKE_ARGS} -S $SRC_DIR -B build \
   -D PCRASTER_BUILD_TEST=ON
 
 
-cmake --build build --target all
+cmake --build build --target all --parallel ${CPU_COUNT}
 
 ctest --test-dir build --output-on-failure --build-config Release
 

@@ -67,7 +67,7 @@ add_compile_options(
     "$<$<COMPILE_LANG_AND_ID:CXX,AppleClang,Clang>:>"
     "$<$<COMPILE_LANG_AND_ID:C,GNU>:-pedantic;>"
     "$<$<COMPILE_LANG_AND_ID:CXX,GNU>:-pedantic;>"
-    "$<$<CXX_COMPILER_ID:MSVC>:/W3;/wd4996>"
+    "$<$<CXX_COMPILER_ID:MSVC>:/W1;/wd4996>"
 )
 
 add_compile_definitions(

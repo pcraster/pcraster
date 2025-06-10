@@ -46,7 +46,7 @@
 //------------------------------------------------------------------------------
 
 calc::IClientInterface::IClientInterface()
-  
+
 {
   TRY_ALL {
     d_ci = new ClientInterface();
@@ -94,7 +94,7 @@ void calc::IClientInterface::setScriptFile(const com::PathName& scriptName)
 
 calc::ExecuteScriptStatus calc::IClientInterface::executeScriptStatus() const
 {
-  calc::ExecuteScriptStatus s;
+  calc::ExecuteScriptStatus s{};
   TRY_ALL {
     s=d_ci->executeScriptStatus();
   } CATCH_ALL_EXCEPTIONS(d_errorStream)

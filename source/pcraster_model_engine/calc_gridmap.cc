@@ -143,7 +143,7 @@ calc::GridStat calc::GridMapOut::writeData(const void *allValues)
     return {};
   }
 
-  dal::TypeId t;
+  dal::TypeId t{};
 
   switch(biggestCellRepr(d_vs)) {
     case CR_UINT1: t=dal::TI_UINT1; break;
@@ -254,7 +254,7 @@ void  calc::GridMapIn::createSpatial(void *dest,VS readAs)
     }
    return;
   }
-  dal::TypeId typeId;
+  dal::TypeId typeId{};
   switch(calc::biggestCellRepr(readAs)) {
     case CR_UINT1: typeId=dal::TI_UINT1; break;
     case CR_INT4 : typeId=dal::TI_INT4 ; break;

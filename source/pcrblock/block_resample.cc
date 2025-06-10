@@ -156,7 +156,7 @@ inline T resampleMajority(
     }
   }
 
-  T result;                       // Most occuring value.
+  T result{};                     // Most occuring value.
 
   // Calculate result.
   if(mvThickness > valueThickness || valueThickness < (0.5 * thickness)) {

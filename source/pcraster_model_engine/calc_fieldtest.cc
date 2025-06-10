@@ -2,13 +2,14 @@
 #include <boost/test/unit_test.hpp>
 #include "calc_nonspatial.h"
 #include "calc_spatial.h"
+#include <cmath>
 
 BOOST_AUTO_TEST_CASE(testCtorNonSpatial)
 {
   using namespace calc;
 
   {
-    REAL4 v;
+    REAL4 v = NAN;
     NonSpatial ns(VS_S,v);
     BOOST_CHECK(ns.cr()==CR_REAL4);
   }

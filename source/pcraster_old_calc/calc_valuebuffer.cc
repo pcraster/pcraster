@@ -39,7 +39,7 @@ void calc::deallocate(ValueBuffer& v) {
 }
 
 //! return ptr to allocated array and set v to 0
-void *calc::detach(ValueBuffer& v) 
+void *calc::detach(ValueBuffer& v)
 {
   void *d(v.d_void);
   v.d_void=nullptr;
@@ -47,7 +47,7 @@ void *calc::detach(ValueBuffer& v)
 }
 
 calc::ValueBuffer calc::createValueBuffer(CSF_CR cr,size_t len) {
-  ValueBuffer v;
+  ValueBuffer v{};
   switch(CELLSIZE(cr)) {
    case 1: v.d_UINT1 = new UINT1[len]; break;
    case 4: v.d_INT4  = new  INT4[len]; break;

@@ -37,16 +37,7 @@ jobs:
                   python-version: 3.13
 
             - name: Build
-              if: runner.os == 'Linux' || runner.os == 'macOS'
               shell: bash -l {0}
               run: |
                   mamba install rattler-build
                   rattler-build build --recipe environment/conda/recipe.yaml
-
-            - name: Build
-              if: runner.os == 'Windows'
-              shell: cmd /C call {0}
-              run: |
-                  mamba install rattler-build
-                  rattler-build build --recipe environment/conda/recipe.yaml
-

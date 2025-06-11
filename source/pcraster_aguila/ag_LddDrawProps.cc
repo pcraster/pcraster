@@ -251,7 +251,11 @@ GLuint ag::LddDrawProps::texture(unsigned char gdd, UINT1 ldd) const
     image.setColor(0, QColor(Qt::black).rgb());
     image.setColor(1, QColor(Qt::white).rgb());
     image = image.convertToFormat(QImage::Format_RGB32);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 9, 0)
+    image = image.flipped();
+#else
     image = image.mirrored();
+#endif
     image = image.rgbSwapped();
 
 #ifdef AGUILA_WITH_OPENGL

@@ -32,8 +32,6 @@ target_link_libraries(utils
         XercesC::XercesC
         GDAL::GDAL
         Boost::headers
-    PUBLIC
-        Qt::Core
 )
 
 if(PCRASTER_BUILD_TEST)

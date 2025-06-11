@@ -37,6 +37,7 @@ target_include_directories(pcrmf_objects
 target_link_libraries(pcrmf_objects
      PRIVATE
         Boost::headers
+        Qt::Core
 )
 
 add_library(pcrmf STATIC

@@ -200,6 +200,11 @@ target_compile_definitions(pcraster_old_calc_objects
         PCR_DAL_SHARED_LINK
 )
 
+target_link_libraries(pcraster_old_calc_objects
+    PUBLIC
+        Qt::Core
+)
+
 add_library(pcraster_old_calc SHARED
     $<TARGET_OBJECTS:pcraster_old_calc_objects>
 )

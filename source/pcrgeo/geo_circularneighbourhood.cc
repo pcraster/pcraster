@@ -9,10 +9,6 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_BOOST_NONCOPYABLE
-#include <boost/noncopyable.hpp>
-#define INCLUDED_BOOST_NONCOPYABLE
-#endif
 #ifndef INCLUDED_BOOST_MATH_SPECIAL_FUNCTIONS_ROUND
 #include <boost/math/special_functions/round.hpp>
 #define INCLUDED_BOOST_MATH_SPECIAL_FUNCTIONS_ROUND
@@ -98,7 +94,7 @@ geo::CircularNeighbourhood::~CircularNeighbourhood()
 
 namespace geo {
 
-class SetRaster: public boost::noncopyable {
+class SetRaster {
 
 private:
 
@@ -110,6 +106,9 @@ public:
     : d_raster(raster)
   {
   }
+  SetRaster(const SetRaster& other) = delete;
+
+  SetRaster& operator=(const SetRaster& other) = delete;
 
   bool operator()(size_t col, size_t row) {
     d_raster.cell(row, col) = 1.0;

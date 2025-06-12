@@ -9,10 +9,6 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_BOOST_NONCOPYABLE
-#include <boost/noncopyable.hpp>
-#define INCLUDED_BOOST_NONCOPYABLE
-#endif
 #ifndef INCLUDED_BOOST_MATH_SPECIAL_FUNCTIONS_ROUND
 #include <boost/math/special_functions/round.hpp>
 #define INCLUDED_BOOST_MATH_SPECIAL_FUNCTIONS_ROUND
@@ -70,7 +66,7 @@
 
 
 template<class T>
-class RememberPoints: public boost::noncopyable
+class RememberPoints
 {
 
 private:
@@ -90,6 +86,10 @@ public:
     : d_classes(classes), d_class(currentClass)
   {
   }
+
+  RememberPoints(const RememberPoints& other) = delete;
+
+  RememberPoints& operator=(const RememberPoints& other) = delete;
 
   void setClass(INT4 currentClass) {
     d_class = currentClass;

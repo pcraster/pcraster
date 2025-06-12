@@ -13,10 +13,6 @@
 #include <iostream>
 #define INCLUDED_IOSTREAM
 #endif
-#ifndef INCLUDED_BOOST_NONCOPYABLE
-#include <boost/noncopyable.hpp>
-#define INCLUDED_BOOST_NONCOPYABLE
-#endif
 
 // PCRaster library headers.
 #ifndef INCLUDED_FIELDAPI_INTERFACE
@@ -94,7 +90,7 @@ double calcElevation(const CalculationArgs& args)
 
 
 
-class DiffuseAlgorithm: public boost::noncopyable
+class DiffuseAlgorithm
 {
 
 public:
@@ -118,6 +114,10 @@ public:
     FIXED = 2
   };
 
+
+  DiffuseAlgorithm(const DiffuseAlgorithm& other) = delete;
+
+  DiffuseAlgorithm& operator=(const DiffuseAlgorithm& other) = delete;
 
 private:
 

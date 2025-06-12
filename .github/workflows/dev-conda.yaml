@@ -20,12 +20,6 @@ jobs:
 
         steps:
 
-            - name: Configure system
-              if: runner.os == 'Linux'
-              run: |
-                  sudo apt update
-                  sudo apt install mesa-common-dev libglu1-mesa-dev libegl-dev
-
             - name: Checkout PCRaster
               uses: actions/checkout@v4
 
@@ -36,8 +30,20 @@ jobs:
                   conda-remove-defaults: true
                   python-version: 3.13
 
-            - name: Build
+            - name: Install build system
               shell: bash -l {0}
               run: |
                   mamba install rattler-build
+
+            - name: Build
+              if: runner.os == 'Linux' || runner.os == 'macOS'
+              shell: bash -l {0}
+              run: |
                   rattler-build build --recipe environment/conda/recipe.yaml
+
+            - name: Build
+              if: runner.os == 'Windows'
+              shell: cmd /C call {0}
+              run: |
+                  ${{env.CONDA}}/bin/rattler-build build --recipe environment/conda/recipe.yaml
+

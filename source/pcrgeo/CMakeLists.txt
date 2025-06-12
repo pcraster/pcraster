@@ -53,9 +53,12 @@ target_include_directories(pcrgeo
 )
 
 target_link_libraries(pcrgeo
-    pcraster::app
-    pcraster::dal
-    pcraster::pcrcom
+    PUBLIC
+        pcraster::app
+        pcraster::dal
+        pcraster::pcrcom
+    PRIVATE
+        Boost::headers
 )
 
 if(PCRASTER_BUILD_TEST)

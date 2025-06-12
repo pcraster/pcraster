@@ -216,6 +216,8 @@ target_link_libraries(pcraster_xsd
     PUBLIC
         pcraster::utils
         XercesC::XercesC
+    PRIVATE
+        Boost::headers
 )
 
 # ------------------------------------------------------------------------------

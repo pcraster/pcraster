@@ -27,7 +27,7 @@ namespace pcrxml {
 
 namespace calc {
 
-class ArcViewExtCheckData;
+struct ArcViewExtCheckData;
 class Symbol;
 class UserSymbol;
 class SubParameter;

@@ -51,7 +51,7 @@ class ParsPar;
 class UserSymbol;
 class FieldMapInputParameter;
 class SymbolTable;
-class ArcViewExtCheckData;
+struct ArcViewExtCheckData;
 class ProgressCallBack;
 
 class IoFieldStrategy;

@@ -18,7 +18,7 @@ rem  set "BOOST_NO_SYSTEM_PATHS=ON"
 
 where python
 
-python -c 'import numpy;print(f"numpy_version={numpy.__version__}")'
+
 
 
 cmake .. -G"Ninja" ^
@@ -27,7 +27,8 @@ cmake .. -G"Ninja" ^
 -D PCRASTER_PYTHON_INSTALL_DIR="%SP_DIR%" ^
 -D PCRASTER_BUILD_TEST=ON ^
 -D CMAKE_C_COMPILER=cl ^
--D CMAKE_CXX_COMPILER=cl
+-D CMAKE_CXX_COMPILER=cl ^
+-D Python_EXECUTABLE="%PYTHON%"
 
 
 if errorlevel 1 exit 1

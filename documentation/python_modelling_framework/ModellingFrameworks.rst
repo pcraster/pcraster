@@ -50,14 +50,14 @@ The following script shows the minimal user class that fulfills the requirements
 .. code-block:: python
 
    # userModel.py
-   from pcraster.framework import *
+   import pcraster.framework as pcrfw
 
-   class UserModel(StaticModel):
-     def __init__(self):
-       StaticModel.__init__(self)
+   class UserModel(pcrfw.StaticModel):
+       def __init__(self):
+           pcrfw.StaticModel.__init__(self)
 
-     def initial(self):
-       pass
+       def initial(self):
+           pass
 
 In the class of the user model the following method must be implemented:
 
@@ -70,12 +70,11 @@ The model class can be executed with the static framework as follows:
 .. code-block:: python
 
    # runScript.py
-
+   import pcraster.framework as pcrfw
    import userModel
-   from pcraster.framework import *
 
    myModel = userModel.UserModel()
-   staticModel = StaticFramework(myModel)
+   staticModel = pcrfw.StaticFramework(myModel)
    staticModel.run()
 
 To run the model execute

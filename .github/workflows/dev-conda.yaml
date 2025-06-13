@@ -10,7 +10,7 @@ jobs:
         strategy:
             matrix:
                 include:
-                  - os: windows-2022
+                  - os: windows-2025
                     target-platform: win-64
 
             fail-fast: false
@@ -26,9 +26,19 @@ jobs:
             - name: Checkout PCRaster
               uses: actions/checkout@v4
 
-            - name: Build
-              uses: prefix-dev/rattler-build-action@v0.2.33
+            - uses: mamba-org/setup-micromamba@v2
               with:
-                  artifact-name: package-${{ matrix.target-platform }}
-                  upload-artifact: false
-                  recipe-path: environment/conda/recipe.yaml
+                environment-name: pcrbuild
+                create-args: >-
+                  rattler-build
+                init-shell: >-
+                  bash
+                  powershell
+
+
+            - name: Build
+              if: runner.os == 'Windows'
+              shell: pwsh
+              run: |
+                  mamba activate pcrbuild
+                  rattler-build build --recipe environment/conda/recipe.yaml

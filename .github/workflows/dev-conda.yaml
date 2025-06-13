@@ -26,9 +26,23 @@ jobs:
             - name: Checkout PCRaster
               uses: actions/checkout@v4
 
-            - name: Build
-              uses: prefix-dev/rattler-build-action@v0.2.33
+            - uses: conda-incubator/setup-miniconda@v3
               with:
-                  artifact-name: package-${{ matrix.target-platform }}
-                  upload-artifact: false
-                  recipe-path: environment/conda/recipe.yaml
+                  miniforge-version: latest
+                  auto-update-conda: false
+                  conda-remove-defaults: true
+                  python-version: 3.13
+
+            - name: Build
+              if: runner.os == 'Linux' || runner.os == 'macOS'
+              shell: bash -el {0}
+              run: |
+                  mamba install rattler-build
+                  rattler-build build --recipe environment/conda/recipe.yaml
+
+            - name: Build
+              if: runner.os == 'Windows'
+              shell: bash -el {0}
+              run: |
+                  mamba install rattler-build
+                  rattler-build build --recipe environment/conda/recipe.yaml

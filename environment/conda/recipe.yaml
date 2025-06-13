@@ -10,7 +10,7 @@ source:
 
 build:
   number: 0
-  script: ${{ "build.bat" if win }}
+  script: ${{ "cmd.exe /c build.bat" if win }}
 
 requirements:
   ignore_run_exports:

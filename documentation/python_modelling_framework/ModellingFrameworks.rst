@@ -158,17 +158,18 @@ The following script shows the minimal user class that fulfills the requirements
 .. code-block:: python
 
    # userModel.py
-  from pcraster.framework import *
+   import pcraster.framework as pcrfw
 
-  class UserModel(DynamicModel):
-   def __init__(self):
-    DynamicModel.__init__(self)
 
-   def initial(self):
-    pass
+   class UserModel(pcrfw.DynamicModel):
+       def __init__(self):
+           pcrfw.DynamicModel.__init__(self)
 
-   def dynamic(self):
-    pass
+       def initial(self):
+           pass
+
+       def dynamic(self):
+           pass
 
 In the class of the user model the following methods must be implemented:
 
@@ -187,11 +188,11 @@ Applying the model to the dynamic framework is done by:
 
    # runScript.py
 
+   import pcraster.framework as pcrfw
    import userModel
-   from pcraster.framework import *
 
    myModel = userModel.UserModel()
-   dynModel = DynamicFramework(myModel, 50)
+   dynModel = pcrfw.DynamicFramework(myModel, 50)
    dynModel.run()
 
 To run the model execute

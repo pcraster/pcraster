@@ -9,7 +9,7 @@ jobs:
 
         strategy:
             matrix:
-                os: [ubuntu-24.04-arm, windows-2025]
+                os: [windows-2025]
             fail-fast: false
 
         runs-on: ${{ matrix.os }}
@@ -30,24 +30,22 @@ jobs:
                   conda-remove-defaults: true
                   python-version: 3.13
 
-            - name: Install build system
-              shell: bash -l {0}
-              run: |
-                  mamba install rattler-build
-
             - name: Build
               if: runner.os == 'Linux' || runner.os == 'macOS'
               shell: bash -l {0}
               run: |
+                  mamba install rattler-build
                   rattler-build build --recipe environment/conda/recipe.yaml
 
             - name: Build
               if: runner.os == 'Windows'
               shell: cmd /C call {0}
               run: |
+                  mamba install rattler-build
                   dir ${{env.CONDA}}
                   dir ${{env.CONDA}}\bin
                   dir C:\Miniconda
                   dir C:\Miniconda\bin
+                  echo %VCPKG_INSTALLATION_ROOT%
                   ${{env.CONDA}}/bin/rattler-build build --recipe environment/conda/recipe.yaml
 

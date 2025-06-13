@@ -22,6 +22,7 @@ requirements:
     - cmake
     - ninja
     - ${{ "make" if win }}
+    - ${{ "vs2022_win-64" if win }}
 
   host:
     - python

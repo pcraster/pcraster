@@ -15,6 +15,12 @@ rem  set "BOOST_ROOT=%PREFIX%"
 rem  set "BOOST_NO_SYSTEM_PATHS=ON"
 
 
+
+where python
+
+python -c 'import numpy;print(f"numpy_version={numpy.__version__}")'
+
+
 cmake .. -G"Ninja" ^
 -D CMAKE_BUILD_TYPE=Release  ^
 -D CMAKE_INSTALL_PREFIX:PATH="%LIBRARY_PREFIX%" ^

@@ -22,7 +22,7 @@ requirements:
     - cmake
     - ninja
     - ${{ "make" if win }}
-    - ${{ "vs2022_win-64" if win }}
+    - ${{ "vs2022_win-64" if win }} # only in GitHub actions
 
   host:
     - python
@@ -40,7 +40,7 @@ requirements:
          - xorg-libxfixes
          - libgl-devel
     - ${{ "ncurses" if not win }}
-    - ${{ "vs2015_runtime" if win }}
+    # - ${{ "vs2015_runtime" if win }}
 
   run:
     - python

@@ -38,4 +38,6 @@ jobs:
 
             - name: Build
               run: |
+                  where python
+                  python -c 'import numpy;print(numpy.__version__)'
                   rattler-build build --recipe environment/conda/recipe.yaml

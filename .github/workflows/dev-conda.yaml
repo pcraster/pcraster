@@ -41,11 +41,11 @@ jobs:
               if: runner.os == 'Windows'
               shell: cmd /C call {0}
               run: |
-                  mamba install rattler-build
-                  dir ${{env.CONDA}}
-                  dir ${{env.CONDA}}\bin
-                  dir C:\Miniconda
-                  dir C:\Miniconda\bin
-                  echo %VCPKG_INSTALLATION_ROOT%
+                  mamba install rattler-build && ^
+                  dir ${{env.CONDA}} && ^
+                  dir ${{env.CONDA}}\bin && ^
+                  dir C:\Miniconda && ^
+                  dir C:\Miniconda\bin && ^
+                  echo %VCPKG_INSTALLATION_ROOT% && ^
                   ${{env.CONDA}}/bin/rattler-build build --recipe environment/conda/recipe.yaml
 

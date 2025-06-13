@@ -156,13 +156,6 @@ add_library(pcraster_old_calc_objects OBJECT
     sunfunc.c
 )
 
-
-set_source_files_properties(dbinfunc.c
-    PROPERTIES
-        COMPILE_OPTIONS
-            "$<$<CXX_COMPILER_ID:GNU>:-Wno-misleading-indentation>"
-)
-
 set_source_files_properties(calcparser.cc
     PROPERTIES
         COMPILE_OPTIONS

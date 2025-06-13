@@ -33,23 +33,23 @@
 #define CMP_SS(type, op) \
  { size_t i; \
    for(i=0; i < n; i++) \
-    if ( IS_MV_##type((v1+i)) || IS_MV_##type((v2+i)) ) \
-    	r[i] = MV_UINT1; \
-    else \
-        r[i] = (v1[i] op v2[i]); \
+     if ( IS_MV_##type((v1+i)) || IS_MV_##type((v2+i)) ) \
+       r[i] = MV_UINT1; \
+     else \
+       r[i] = (v1[i] op v2[i]); \
  }
 
 #define CMP_SS_1(type, op) \
  { size_t i; \
    for(i=0; i < n; i++) \
-    if (v1[i] != MV_UINT1) \
-    { \
-     if (v2[i] == MV_UINT1) \
-    	v1[i] = MV_UINT1; \
-    else \
-        v1[i] = (v1[i] op v2[i]); \
-    } \
-    return 0;\
+     if (v1[i] != MV_UINT1) \
+     { \
+       if (v2[i] == MV_UINT1) \
+         v1[i] = MV_UINT1; \
+       else \
+         v1[i] = (v1[i] op v2[i]); \
+     } \
+   return 0;\
  }
 
 
@@ -57,9 +57,9 @@
  { size_t i; \
    PRECOND(*v1 != MV_UINT1); \
    for(i=0; i < n; i++) \
-    if (v2[i] != MV_UINT1)\
-        v2[i] = (v2[i] op *v1); \
-    return 0;\
+     if (v2[i] != MV_UINT1)\
+       v2[i] = (v2[i] op *v1); \
+   return 0;\
  }
 
 #define CMP_SN(type, op) \
@@ -68,10 +68,10 @@
    PRECOND(! IS_MV_##type(v2)); \
    val2 = *v2; \
    for(i=0; i < n; i++) \
-    if ( IS_MV_##type((v1+i)) ) \
-    	r[i] = MV_UINT1; \
-    else \
-        r[i] = (v1[i] op val2); \
+     if ( IS_MV_##type((v1+i)) ) \
+       r[i] = MV_UINT1; \
+     else \
+       r[i] = (v1[i] op val2); \
  }
 
 #define CMP_NS(type, op) \
@@ -80,10 +80,10 @@
    PRECOND(! IS_MV_##type(v1)); \
    val1 = *v1; \
    for(i=0; i < n; i++) \
-    if ( IS_MV_##type((v2+i)) ) \
-    	r[i] = MV_UINT1; \
-    else \
-        r[i] = (val1 op v2[i]); \
+     if ( IS_MV_##type((v2+i)) ) \
+       r[i] = MV_UINT1; \
+     else \
+       r[i] = (val1 op v2[i]); \
  }
 
 /* SAME_BIN */

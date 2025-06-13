@@ -44,6 +44,6 @@ jobs:
               if: runner.os == 'Windows'
               shell: cmd /C call {0}
               run: |
-                  mamba activate test
-                  mamba install rattler-build
+                  mamba activate test && ^
+                  mamba install rattler-build && ^
                   rattler-build build --recipe environment/conda/recipe.yaml

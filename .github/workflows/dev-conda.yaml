@@ -10,7 +10,7 @@ jobs:
         strategy:
             matrix:
                 include:
-                  - os: windows-2025
+                  - os: windows-2022
                     target-platform: win-64
 
             fail-fast: false

@@ -43,7 +43,7 @@ jobs:
               run: |
                   mamba install rattler-build
                   dir ${{env.CONDA}}
-                  dir ${{env.CONDA}}\bin
-                  echo %VCPKG_INSTALLATION_ROOT%
+                  echo %${{env.CONDA}}%
+                  echo %${{VCPKG_INSTALLATION_ROOT}}%
                   ${{env.CONDA}}/bin/rattler-build build --recipe environment/conda/recipe.yaml
 

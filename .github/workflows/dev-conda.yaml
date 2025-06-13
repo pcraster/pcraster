@@ -44,5 +44,6 @@ jobs:
               if: runner.os == 'Windows'
               shell: bash -el {0}
               run: |
+                  conda activate test
                   mamba install rattler-build
                   rattler-build build --recipe environment/conda/recipe.yaml

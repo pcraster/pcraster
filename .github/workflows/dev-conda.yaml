@@ -32,20 +32,18 @@ jobs:
 
             - name: Build
               if: runner.os == 'Linux' || runner.os == 'macOS'
-              shell: bash -l {0}
+              shell: bash -el {0}
               run: |
                   mamba install rattler-build
                   rattler-build build --recipe environment/conda/recipe.yaml
 
             - name: Build
               if: runner.os == 'Windows'
-              shell: cmd /C call {0}
+              shell: pwsh
               run: |
-                  mamba install rattler-build && ^
-                  dir ${{env.CONDA}} && ^
-                  dir ${{env.CONDA}}\bin && ^
-                  dir C:\Miniconda && ^
-                  dir C:\Miniconda\bin && ^
-                  echo %VCPKG_INSTALLATION_ROOT% && ^
+                  mamba install rattler-build
+                  dir ${{env.CONDA}}
+                  dir ${{env.CONDA}}\bin
+                  echo %VCPKG_INSTALLATION_ROOT%
                   ${{env.CONDA}}/bin/rattler-build build --recipe environment/conda/recipe.yaml
 

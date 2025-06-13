@@ -10,6 +10,12 @@ jobs:
         strategy:
             matrix:
                 include:
+                  - os: ubuntu-24.04
+                    target-platform: linux-64
+                  - os: ubuntu-24.04-arm
+                    target-platform: linux-aarch64
+                  - os: macos-15
+                    target-platform: osx-arm64
                   - os: windows-2025
                     target-platform: win-64
 
@@ -34,7 +40,6 @@ jobs:
                 init-shell: >-
                   bash
                   powershell
-
 
             - name: Build
               run: |

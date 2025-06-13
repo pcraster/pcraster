@@ -9,18 +9,6 @@ cd build
 
 if errorlevel 1 exit 1
 
-
-rem Ensure desired Boost version is selected by CMake
-rem  set "BOOST_ROOT=%PREFIX%"
-rem  set "BOOST_NO_SYSTEM_PATHS=ON"
-
-
-
-where python
-
-
-
-
 cmake .. -G"Ninja" ^
 -D CMAKE_BUILD_TYPE=Release  ^
 -D CMAKE_INSTALL_PREFIX:PATH="%LIBRARY_PREFIX%" ^
@@ -29,7 +17,6 @@ cmake .. -G"Ninja" ^
 -D CMAKE_C_COMPILER=cl ^
 -D CMAKE_CXX_COMPILER=cl ^
 -D Python_EXECUTABLE="%PYTHON%"
-
 
 if errorlevel 1 exit 1
 

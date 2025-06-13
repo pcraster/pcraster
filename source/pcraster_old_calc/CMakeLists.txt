@@ -228,8 +228,8 @@ target_link_libraries(pcraster_old_calc
         pcraster::pccts
         pcraster::pcrxml
         pcraster::tab
-    PRIVATE
-        Boost::headers
+    # PRIVATE
+    #     Boost::headers
 )
 
 install(

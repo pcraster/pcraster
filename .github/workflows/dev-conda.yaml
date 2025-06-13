@@ -46,7 +46,8 @@ jobs:
               shell: cmd /C call {0}
               run: |
                   dir ${{env.CONDA}}
-                  dir ${{env.CONDA}}/bin
+                  dir ${{env.CONDA}}\bin
                   dir C:\Miniconda
+                  dir C:\Miniconda\bin
                   ${{env.CONDA}}/bin/rattler-build build --recipe environment/conda/recipe.yaml
 

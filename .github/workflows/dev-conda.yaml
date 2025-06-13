@@ -37,8 +37,5 @@ jobs:
 
 
             - name: Build
-              if: runner.os == 'Windows'
-              shell: pwsh
               run: |
-                  mamba activate pcrbuild
                   rattler-build build --recipe environment/conda/recipe.yaml

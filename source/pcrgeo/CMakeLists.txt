@@ -57,8 +57,8 @@ target_link_libraries(pcrgeo
         pcraster::app
         pcraster::dal
         pcraster::pcrcom
-    # PRIVATE
-    #     Boost::headers
+    PRIVATE
+        Boost::headers
 )
 
 if(PCRASTER_BUILD_TEST)

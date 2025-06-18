@@ -165,7 +165,7 @@ ReadMapLegends(int *nrOut,
 
     for (i = 0; i < nrMapNames; i++) {
         INT4 m = 0;
-        int nrL = 0;
+        size_t nrL = 0;
         int nrNew = 0;
         int r = 0;
         CSF_LEGEND *new = NULL;
@@ -186,7 +186,7 @@ ReadMapLegends(int *nrOut,
 
         nrL = MgetNrLegendEntries(map);
         if (nrL != 0) {
-            mapL = NewLegend((size_t)nrL);
+            mapL = NewLegend(nrL);
             if (mapL == NULL)
                 goto failure;
             if (!MgetLegend(map, mapL)) {
@@ -458,10 +458,10 @@ int main(int argc,     /* number of arguments */
             Mclose(m);
             goto failure;
         }
-        if (LimitedVersionCheck((int)RgetNrRows(m), (int)RgetNrCols(m), -1, -1, -1, -1)) {
-            Mclose(m);
-            goto failure;
-        }
+        // if (LimitedVersionCheck((int)RgetNrRows(m), (int)RgetNrCols(m), -1, -1, -1, -1)) {
+        //     Mclose(m);
+        //     goto failure;
+        // }
         Mclose(m);
     }
     Mclose(in);

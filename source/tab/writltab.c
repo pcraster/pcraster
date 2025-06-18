@@ -91,7 +91,7 @@ static void PrintKey(FILE *f, const SPEC *s, const LOOK_UP_KEY *k, BOOL lastCol)
             fprintf(f, "%-*s", len, lBuf);
         else
             fprintf(f, " %-*s", len + 2, lBuf); /* minus one for preceding space
-                                                 * plus 3 for [,] 
+                                                 * plus 3 for [,]
                                                  */
     } else
         fprintf(f, fmts[k->t], s->lFmt, lBuf, s->hFmt, hBuf);
@@ -147,7 +147,7 @@ static LOOK_UP_KEY *ConvDir(const LOOK_UP_KEY *key, CSF_VS vs)
 }
 /* write a lookup or cross table to a file
  * if (t->records[r][t->nrKeys].t == TEST_NOKEY) then record r is not written
- * returns 
+ * returns
  * 0 if succesfull, 1 if failure
  */
 int WriteLookupTable(const char *fileName, const LOOK_UP_TABLE *table)

@@ -10,7 +10,7 @@
 
 /* global header (opt.) and test's prototypes "" */
 
-/* headers of this app. modules called */ 
+/* headers of this app. modules called */
 
 /***************/
 /* EXTERNALS   */
@@ -23,13 +23,13 @@
 int nrSearchTables = 0;
 #endif
 
-/*********************/ 
+/*********************/
 /* LOCAL DEFINITIONS */
-/*********************/ 
+/*********************/
 
-/**********************/ 
+/**********************/
 /* LOCAL DECLARATIONS */
-/**********************/ 
+/**********************/
 
 /******************/
 /* IMPLEMENTATION */
@@ -54,12 +54,12 @@ static void *InsertSorted(
        size_t width, /* sizeof element */
        QSORT_CMP cmp)/* comparisson function */
 {
- int x=0; /* num == 0 case */
+ size_t x=0; /* num == 0 case */
  int c = 0;
- int l=0;
- int r=num-1;
+ size_t l=0;
  if (num == 0)
    goto done;
+ size_t r=num-1;
  do {
       x = (l+r)/2;
       if ( (c = cmp(key, ((char *)base)+(x*width))) < 0)
@@ -70,8 +70,8 @@ static void *InsertSorted(
        POSTCOND(c != 0); /* NOT FOUND */
        if (c > 0)
            x++; /* insertion point is after x */
-       PRECOND(x <= (int)num);
-       if (x != (int)num) /* no memmove if insertion point is at end */
+       PRECOND(x <= num);
+       if (x != num) /* no memmove if insertion point is at end */
         /* move part of array after insertion point 1 to the right */
         (void)memmove( (((char *)base)+((x+1)*width)),
           (((char *)base)+(x*width)),
@@ -136,7 +136,7 @@ void *STsearch(
    best = f(best, (((const char *)(t->slowList))+(i*t->recSize)));
   fastBegin = 0;
  }
- else 
+ else
  {
   best = t->fastList;
   fastBegin = 1;
@@ -157,7 +157,7 @@ SEARCH_TABLE *STnew(
                           */
  size_t recSize,  /* size of a record */
  RETURN_ID ReturnId, /* pointer to function that
-                          * returns the id, can be NULL 
+                          * returns the id, can be NULL
                           * if nrFastList is 0 or
                           * STinsertOrFind is never used
                           */
@@ -174,12 +174,12 @@ SEARCH_TABLE *STnew(
 #ifdef DEBUG
  if (nrFastList > 0)
   PRECOND(nrFastList > 0 && ReturnId != NULL && InitRec != NULL);
-#endif 
+#endif
  t = (SEARCH_TABLE *)ChkMalloc(sizeof(SEARCH_TABLE));
  if(t == NULL)
   return NULL;  /* memory allocation failed */
- t->nrFastList = nrFastList; 
- t->recSize = recSize; 
+ t->nrFastList = nrFastList;
+ t->recSize = recSize;
  /* init slowList here so STfree works in this function */
  t->slowList = NULL;  /* slowlist = empty */
  t->nrSlowList = 0;  /* nr. elements in slow list */
@@ -198,10 +198,10 @@ SEARCH_TABLE *STnew(
   }
   r = t->fastList;
   for ( i = 0 ; i  < nrFastList; i++)
-  { 
+  {
    InitRec((void *)r,(int)i);
    r += recSize;
-  } 
+  }
  }
  else
   t->fastList = NULL;
@@ -248,10 +248,10 @@ void *STfind(
   PRECOND(t->ReturnId != NULL);
   id = t->ReturnId(record);
   if( 0 <= id && id < (int)t->nrFastList)
-  { /* id is in fast list */ 
+  { /* id is in fast list */
    return (void*) ((char *)t->fastList +
             (id * t->recSize));
-  } 
+  }
  }
 
  if(t->nrSlowList == 0)

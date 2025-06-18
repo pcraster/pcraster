@@ -82,9 +82,9 @@ static MAP **ReadMaps(const char **mapArgs, size_t nrMaps)
                   mapArgs[i]);
             goto failure;
         }
-        if (LimitedVersionCheck(
-                (int)RgetNrRows(in[i]), (int)RgetNrCols(in[i]), -1, -1, -1, -1))
-            goto failure;
+        // if (LimitedVersionCheck(
+        //         (int)RgetNrRows(in[i]), (int)RgetNrCols(in[i]), -1, -1, -1, -1))
+        //     goto failure;
     }
     return in;
 failure:
@@ -101,8 +101,8 @@ WriteCrossTable(const char *tableName, LOOK_UP_TABLE *t, BOOL ommitZeros, double
     else
         area = 1;
 
-    if (LimitedVersionCheck(-1, -1, -1, (int)t->nrRecords, -1, -1))
-        return 1;
+    // if (LimitedVersionCheck(-1, -1, -1, (int)t->nrRecords, -1, -1))
+    //     return 1;
 
     for (i = 0; i < t->nrRecords; i++) {
         if (ommitZeros && t->records[i][t->nrKeys].l == 0)

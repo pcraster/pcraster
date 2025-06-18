@@ -144,13 +144,13 @@ static int PrintAsciiGridHeader(
     FILE *outputFile, /* write-only output file */
     MAP *input)       /* read-only input map */
 {
-    UINT4 nrRows = RgetNrRows(input);
-    UINT4 nrCols = RgetNrCols(input);
+    size_t nrRows = RgetNrRows(input);
+    size_t nrCols = RgetNrCols(input);
     double x = NAN;
     double y = NAN;
 
     /* Calculate XLLCorner and YLLCorner */
-    RgetCoords(input, 0, (size_t)nrRows, (size_t)0, &x, &y);
+    RgetCoords(input, 0, nrRows, 0, &x, &y);
 
     /*
   Als je map files exporteert met -a a optie voor Arc/INFO
@@ -176,8 +176,8 @@ static int PrintAsciiGridHeader(
 */
 
     /* Print header */
-    fprintf(outputFile, "NCOLS %d\n", (int)nrCols);
-    fprintf(outputFile, "NROWS %d\n", (int)nrRows);
+    fprintf(outputFile, "NCOLS %zu\n", nrCols);
+    fprintf(outputFile, "NROWS %zu\n", nrRows);
     fprintf(outputFile, "XLLCORNER %f\n", x);
     fprintf(outputFile, "YLLCORNER %f\n", y);
     fprintf(outputFile, "CELLSIZE %f\n", RgetCellSize(input));

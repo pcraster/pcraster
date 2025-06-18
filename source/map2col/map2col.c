@@ -226,7 +226,7 @@ static int DoAppendMode(const char *outputFile,
         CopyLine(in, out);
         fprintf(out, "\n");
 
-        /* print new nr.cols line 
+        /* print new nr.cols line
          * and skip old nr.cols line
          */
         nrCols = (size_t)AppDetectColumnFile(&geoEas, inputFile, ',');
@@ -245,7 +245,7 @@ static int DoAppendMode(const char *outputFile,
         for (c = 0; c < nrMaps; c++)
             fprintf(out, "map2col append: %s\n", MgetFileName(maps[c].m));
     }
-    if (LimitedVersionCheck(-1, -1, -1, -1, (int)nrRecs, -1)) goto error2;
+    // if (LimitedVersionCheck(-1, -1, -1, -1, (int)nrRecs, -1)) goto error2;
 
     for (i = 0; i < nrRecs; i++)
     {

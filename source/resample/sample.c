@@ -62,7 +62,7 @@ CACHE *InitCache(
     if (cache == NULL)
         return NULL;
     for (i= 0; i < nrMaps; i++) {
-        UINT4 nrCols= RgetNrCols(in[i]);
+        size_t nrCols= RgetNrCols(in[i]);
         REAL8 cellSizeIn= RgetCellSize(in[i]);
         REAL8 cellSizeOut= RgetCellSize(out);
         int r = 0;

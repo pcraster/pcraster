@@ -127,9 +127,9 @@ int main(
         goto failure;
     }
 
-    if (LimitedVersionCheck(
-            (int)RgetNrRows(inputMap), (int)RgetNrCols(inputMap), -1, -1, -1, -1))
-        goto failure;
+    // if (LimitedVersionCheck(
+    //         (int)RgetNrRows(inputMap), (int)RgetNrCols(inputMap), -1, -1, -1, -1))
+    //     goto failure;
 
     RuseAs(inputMap, CR_REAL8);
     if (nrCellsOnLine == 0) /* not specified on command line */

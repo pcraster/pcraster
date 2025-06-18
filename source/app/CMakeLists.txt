@@ -10,7 +10,7 @@ add_library(app STATIC
     apptime.c
     apptxt.c
     appval.c
-    appvers.c
+    # appvers.c
     aprowcol.c
     inpfile.c
     readcols.c

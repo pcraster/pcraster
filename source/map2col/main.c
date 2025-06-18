@@ -209,8 +209,8 @@ int main(int argc,     /* number of arguments */
     for (i = 1; i < (size_t)argc - 1; i++)
     {
         MAP *lastMap = NULL;
-        int nr = 0;
-        int nc = 0;
+        // int nr = 0;
+        // int nc = 0;
         while (maps[nrMaps].type != 'v') /* skip x and y */
             maps[nrMaps++].m = NULL;
         if (AppInputTest(argv[i])) goto failure1;
@@ -220,9 +220,9 @@ int main(int argc,     /* number of arguments */
             goto failure1;
         }
         RuseAs(maps[nrMaps].m, CR_REAL8);
-        nr = RgetNrRows(maps[nrMaps].m);
-        nc = RgetNrCols(maps[nrMaps].m);
-        if (LimitedVersionCheck(nr, nc, -1, -1, -1, -1)) goto failure1;
+        // nr = RgetNrRows(maps[nrMaps].m);
+        // nc = RgetNrCols(maps[nrMaps].m);
+        // if (LimitedVersionCheck(nr, nc, -1, -1, -1, -1)) goto failure1;
         nrMaps++;
         if (lastMap != NULL &&
             MgetProjection(lastMap) != MgetProjection(maps[nrMaps - 1].m))

@@ -1,7 +1,7 @@
 #ifndef INCLUDED_APPDATAIO
 #define INCLUDED_APPDATAIO
 
-/* stuf to process to data 
+/* stuf to process to data
  * depending on the option settings
  */
 
@@ -83,12 +83,12 @@ extern void AppFreeColumnData(REAL8 **columnData, size_t nrRecs);
 extern void AppFreeTimeSeriesData(REAL8 **timeSeriesData, size_t nrRecs);
 
 /* appvers.c */
-extern int LimitedVersionCheck(int nrRows,
-                               int nrCols,
-                               int nrSteps,
-                               int nrLookupRecs,
-                               int nrXYZRecs,
-                               int nrOps);
+// extern int LimitedVersionCheck(int nrRows,
+//                                int nrCols,
+//                                int nrSteps,
+//                                int nrLookupRecs,
+//                                int nrXYZRecs,
+//                                int nrOps);
 
 void AppLogStart(int argc, /* actually const */ char **argv);
 void AppLogError(const char *errorMsg);

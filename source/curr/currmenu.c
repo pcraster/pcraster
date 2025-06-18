@@ -46,7 +46,7 @@ static const char writeStr[] = "y write & quit";
 
 /* Fixes KEY_RETURN bug of (n)curses.
  * Returns TRUE if the key is the enter key, FALSE otherwise.
- * 
+ *
  */
 BOOL CurrIsEnterKey(int key) /* key to detect */
 {
@@ -133,7 +133,7 @@ static void CurrEmptyScreen(void)
 /* Puts new items in select box.
  * cursor remains at same position.
  * Returns NULL in case of an error, pointer to box otherwise.
- * 
+ *
  * EXAMPLES
  * .SO examples/currnewitems.tr
  */
@@ -229,7 +229,7 @@ static void CurrFreeSelectBox(CURR_SELECT_BOX *b) /* write and free select box *
 }
 
 /* Deletes and deallocates a radio select box.
- * 
+ *
  */
 void CurrFreeRadioSelectBox(CURR_RADIO_SELECT_BOX *b) /* write and free radio select box */
 {
@@ -238,7 +238,7 @@ void CurrFreeRadioSelectBox(CURR_RADIO_SELECT_BOX *b) /* write and free radio se
 }
 
 /* Deletes and deallocates a multi select box.
- * 
+ *
  */
 void CurrFreeMultiSelectBox(CURR_MULTI_SELECT_BOX *b) /* write and free multi select box */
 {
@@ -248,9 +248,9 @@ void CurrFreeMultiSelectBox(CURR_MULTI_SELECT_BOX *b) /* write and free multi se
 }
 
 /* Initializes a radio box.
- * First item is selected as highlighted item 
+ * First item is selected as highlighted item
  * Returns NULL in case of an error, pointer to radiobox otherwise.
- * 
+ *
  */
 CURR_RADIO_SELECT_BOX *
 CurrInitRadioSelectBox(int beginY,           /* start y-coordinate */
@@ -274,9 +274,9 @@ CurrInitRadioSelectBox(int beginY,           /* start y-coordinate */
 
 #ifdef NEVER
 /* Initializes a multi select box.
- * First item is selected as highlighted item 
+ * First item is selected as highlighted item
  * Returns NULL in case of an error, pointer to radiobox otherwise.
- * 
+ *
  */
 CURR_MULTI_SELECT_BOX *
 CurrInitMultiSelectBox(int beginY,           /* start y-coordinate */
@@ -431,7 +431,7 @@ static BOOL CurrSelectItem(int *itemOrKey,     /* write-only selected item or ke
  * The bar is scrolled when arrows used, bar is alway visible.
  * Writes item if selected, key otherwise.
  * Returns TRUE if item was selected, FALSE if key was used.
- * 
+ *
  */
 BOOL CurrRadioSelectItem(int *itemOrKey,           /* write-only selected item or key */
                          CURR_RADIO_SELECT_BOX *b) /* read-write radio select box */
@@ -460,7 +460,7 @@ static void HighLight(CURR_MULTI_SELECT_BOX *b) /* read-write box */
  * The bar is scrolled when arrows used, bar is always visible.
  * Toggles highlighting when enter key pressed at position cursor.
  * Returns key that was pressed.
- * 
+ *
  */
 int CurrMultiSelectItem(int itemOrKey,               /* write-only selected item or key */
                         CURR_MULTI_SELECT_BOX *mBox) /* read-write multi select box */
@@ -473,7 +473,7 @@ int CurrMultiSelectItem(int itemOrKey,               /* write-only selected item
 
 /* Prints error message in case of an illegal option at bottom screen.
  * Waits until user pressed key again.
- * 
+ *
  */
 void CurrErrorMenu(const char *s) /* error message string to print */
 {
@@ -495,7 +495,7 @@ void CurrErrorMenu(const char *s) /* error message string to print */
 }
 
 /* Erases screen and gives warning that quit option is used.
- * 
+ *
  */
 void CurrQuitMenu(void)
 {
@@ -564,7 +564,7 @@ void CurrInitScreen(void)
 }
 
 /* Closes the window, cleans structures etc.
- * 
+ *
  */
 void CurrEndCurses(void)
 {
@@ -629,7 +629,7 @@ static void MakeEmpty(char *s, /* read-write string */
 
 static void PadString(char *s, int len)
 {
-    int i = strlen(s);
+    size_t i = strlen(s);
     PRECOND(i <= len);
     for (; i < len; i++)
         s[i] = ' ';
@@ -665,21 +665,21 @@ static void PrintGetRadioSelection(void)
 
 /* Gets selection from user, untill return is given.
  * Before a return is given, the a number of possible
- * values can be selected 
+ * values can be selected
  * RETURNS selected item or 0 if canceled (0 is
  * also the first item that is initially selected
  */
 int CurrGetRadioSelection(const char **values, /* array of possible values
                                                 * all non-empty strings!
                                                 */
-                          int nrValues,        /* number of possible values 
+                          int nrValues,        /* number of possible values
                                                 */
                           int y,               /* y - position to put dialog  */
                           int x)               /* x - position put dialog */
 {
     int c = 0;
     int i = 0;
-    int len = strlen(values[0]);
+    size_t len = strlen(values[0]);
     WINDOW *inputWin = NULL;
 
     for (i = 1; i < nrValues; i++)
@@ -732,8 +732,8 @@ int CurrGetRadioSelection(const char **values, /* array of possible values
  */
 BOOL CurrGetString(char *input, /* read-write string to get */
                    int len,     /* num of chars allowed in s
-                                 * equals size entry box 
-                                 * so input must be at least len+1 chars 
+                                 * equals size entry box
+                                 * so input must be at least len+1 chars
                                  */
                    int y,       /* y - position of string to get */
                    int x)       /* x - position of string to get */
@@ -828,8 +828,8 @@ BOOL CurrGetString(char *input, /* read-write string to get */
  */
 BOOL CurrGetStringCheck(char *input, /* read-write string to get */
                         int len,     /* num of chars allowed in s
-                                      * equals size entry box 
-                                      * so input must at least be len+1 chars 
+                                      * equals size entry box
+                                      * so input must at least be len+1 chars
                                       */
                         int y,       /* y - position of string to get */
                         int x,       /* x - position of string to get */
@@ -863,7 +863,7 @@ BOOL CurrGetStringCheck(char *input, /* read-write string to get */
 }
 
 int CurrPromptYesNo(const char *q,      /* question */
-                    const char *escMsg) /* message for escape, 
+                    const char *escMsg) /* message for escape,
                                          * NULL if ESC is illegal response
                                          */
 {

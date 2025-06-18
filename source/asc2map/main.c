@@ -117,8 +117,8 @@ int main(
     if (clone == NULL)
         goto failure;
 
-    if (LimitedVersionCheck((int)RgetNrRows(clone), (int)RgetNrCols(clone), -1, -1, -1, -1))
-        goto failure2;
+    // if (LimitedVersionCheck((int)RgetNrRows(clone), (int)RgetNrCols(clone), -1, -1, -1, -1))
+    //     goto failure2;
 
     if (valueScale == VS_UNDEFINED) {
         valueScale= RgetValueScale(clone);

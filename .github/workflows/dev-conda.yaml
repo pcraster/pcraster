@@ -44,4 +44,10 @@ jobs:
             - name: Build
               shell: bash -l {0}
               run: |
-                  rattler-build build --recipe environment/conda/recipe.yaml
+                  echo "github.workspace"
+                  echo ${{ github.workspace }}
+                  echo ${{ runner.temp }}
+                  echo ${{ env.CONDA_BLD_PATH }}
+                  echo "github.workspace"
+                  cd ${{ runner.temp }}
+                  rattler-build build --recipe ${{ github.workspace }}/environment/conda/recipe.yaml

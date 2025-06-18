@@ -60,6 +60,7 @@ int AccuTrigger(MAP_REAL8 *state,         /* Read-write output state map  */
     switch (PerformAccu(state, flux, ldd, amount, trigger, Trigger)) {
     case 2:
         Error("accutrigger: Domain error on parameters");
+        // Falls through
     case 1:
         return 1; /* for both 1 and 2 */
     }

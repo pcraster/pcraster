@@ -69,7 +69,7 @@ Raster::Raster(
     case VS_CLASSIFIED:
       // CSF version 1
       d_valueScale = VS_NOMINAL;
-      // fall trough
+      [[fallthrough]];
     case VS_NOMINAL:
     case VS_ORDINAL: {
       useTypeId = dal::TI_INT4;
@@ -78,7 +78,7 @@ Raster::Raster(
     case VS_CONTINUOUS:
       // CSF version 1
       d_valueScale = VS_SCALAR;
-      // fall through
+      [[fallthrough]];
     case VS_SCALAR:
     case VS_DIRECTION: {
       useTypeId = dal::TI_REAL4;

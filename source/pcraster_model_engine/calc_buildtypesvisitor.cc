@@ -326,7 +326,7 @@ class TopDownExprRestrictor: public ASTVisitor {
       case VS_TSS:
          // all timeinput... funcs are typed
          PRECOND(dtExpr.vs() == op.vs());
-         // fall through
+         [[fallthrough]];
       case VS_MAPSTACK: {
          reqArg0.setResultType(ovs,dtExpr.vs());
          MapStackType mst(reqArg0.mapStackType());

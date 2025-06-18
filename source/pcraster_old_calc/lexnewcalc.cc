@@ -2162,6 +2162,7 @@ calc::LexToken::LexToken(
      case TOK_ILLEGALID:
        // pcrcalc/test343
        d_pos->throwError("Illegal combination of number and name: "+quote(d_text));
+       [[fallthrough]];
      case TOK_ILLEGAL:
        char aBuf[64];
        if (std::isprint(d_text[0])) {
@@ -2173,6 +2174,7 @@ calc::LexToken::LexToken(
        // pcrcalc/test375
        std::snprintf(aBuf,64,"not printable: %X(hex)",d_text[0]);
        d_pos->throwError(aBuf);
+       [[fallthrough]];
      default:;
    }
   } catch(...) {

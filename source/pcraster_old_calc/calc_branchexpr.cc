@@ -188,7 +188,7 @@ void calc::BranchExpr::special()
     case OP_MIN: case OP_MAX: case OP_COVER:
     // xml: if (lastArg has repeat ???
       newVs = vs();
-      // fallthrough
+      [[fallthrough]];
     case OP_NE: case OP_EQ:
     case OP_GT: case OP_GE:
     case OP_LT: case OP_LE:

@@ -57,8 +57,9 @@ MAP *AppOpenClone(
         clone = Mopen(*cloneFileName, M_READ);
         if (clone != NULL)
             break;
-        if (Merrno != NOT_CSF) /* else fall through */
+        if (Merrno != NOT_CSF)
             Mperror(*cloneFileName);
+        // Falls through
     case 1:
         Error("clone map '%s' is not a map", *cloneFileName);
         return NULL;

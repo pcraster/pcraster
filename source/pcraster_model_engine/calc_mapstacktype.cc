@@ -119,7 +119,7 @@ void MapStackType::update(const MapStackType& u)
    case Unknown: return;
    case Modulo:
                setHighestTimestepAvailable(u.highestTimestepAvailable());
-               // fall trough;
+               [[fallthrough]];
    default:    setUse(u.use());
  }
 }

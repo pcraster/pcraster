@@ -147,6 +147,7 @@ static int AddCell(
     BOOL aligned,              /* maps are aligned */
     REAL8 angle)               /* angle of output map */
 {
+    (void)r; // Shut up compiler
     INT4 id= currRow[(int)c];
 
     PRECOND(0 <= r && r < RgetNrRows(in));

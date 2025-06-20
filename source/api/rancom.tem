@@ -187,6 +187,10 @@ static void PutNonSpatialTHIS_TYPE(
   int    c,           /* column number */
   MAP_THIS_TYPE *m)   /* map this function belongs to */
 {
+  (void)v; // Shut up compiler
+  (void)r; // Shut up compiler
+  (void)c; // Shut up compiler
+  (void)m; // Shut up compiler
   Error("Can't Put to a nonspatial THIS_TYPE\n");
   POSTCOND(FALSE && r > c && v == 0 && m != NULL);
 }
@@ -197,6 +201,9 @@ static void PutNonSpatialMV_THIS_TYPE(
   int    c,           /* column number */
         MAP_THIS_TYPE *m)    /* map this function belongs to */
 {
+  (void)m; // Shut up compiler
+  (void)r; // Shut up compiler
+  (void)c; // Shut up compiler
   Error("Can't Put a MV to a nonspatial THIS_TYPE\n");
   POSTCOND(FALSE && r > c && m != NULL);
 }
@@ -247,6 +254,7 @@ static int  HintNrFastListTHIS_TYPE(
 static REAL8 SideMap(
   const MAP_THIS_TYPE *argNeverUsed)
 {
+  (void)argNeverUsed; // Shut up compiler
 #ifdef DEBUG_DEVELOP
   /* supress not used warning */
   DEVELOP_PRECOND(argNeverUsed);

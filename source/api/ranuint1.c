@@ -189,6 +189,10 @@ static void PutNonSpatialUINT1(
   int    c,           /* column number */
   MAP_UINT1 *m)   /* map this function belongs to */
 {
+  (void)v; // Shut up compiler
+  (void)r; // Shut up compiler
+  (void)c; // Shut up compiler
+  (void)m; // Shut up compiler
   Error("Can't Put to a nonspatial UINT1\n");
   POSTCOND(FALSE && r > c && v == 0 && m != NULL);
 }
@@ -199,6 +203,9 @@ static void PutNonSpatialMV_UINT1(
   int    c,           /* column number */
         MAP_UINT1 *m)    /* map this function belongs to */
 {
+  (void)m; // Shut up compiler
+  (void)r; // Shut up compiler
+  (void)c; // Shut up compiler
   Error("Can't Put a MV to a nonspatial UINT1\n");
   POSTCOND(FALSE && r > c && m != NULL);
 }
@@ -249,6 +256,7 @@ static int  HintNrFastListUINT1(
 static REAL8 SideMap(
   const MAP_UINT1 *argNeverUsed)
 {
+  (void)argNeverUsed; // Shut up compiler
 #ifdef DEBUG_DEVELOP
   /* supress not used warning */
   DEVELOP_PRECOND(argNeverUsed);

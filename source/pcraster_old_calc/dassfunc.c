@@ -61,7 +61,10 @@ int Do_accutrigger(void *s, void *f, const void **ins)
 
 int Do_accutraveltime(void *s, void *f, const void **ins)
 {
- return 1;
+  (void)s; // Shut up compiler
+  (void)f; // Shut up compiler
+  (void)ins; // Shut up compiler
+  return 1;
  /*
  return TravelTime((MAP_REAL8 *)s, (MAP_REAL8 *)f,
            (const MAP_UINT1 *)ins[0], (const MAP_REAL8 *)ins[1], (const MAP_REAL8 *)ins[2]);
@@ -148,6 +151,9 @@ end:
 
 int Do_route(void *l, void *d, const void **ins)
 {
+  (void)l; // Shut up compiler
+  (void)d; // Shut up compiler
+  (void)ins; // Shut up compiler
   PRECOND(l != NULL && d != NULL &&  ins != NULL);
   PRECOND(FALSE);
   return 1;

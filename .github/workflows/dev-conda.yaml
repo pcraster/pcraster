@@ -42,12 +42,15 @@ jobs:
                   powershell
 
             - name: Build
+              if: runner.os != 'Windows'
               shell: bash -l {0}
               run: |
-                  echo "github.workspace"
-                  echo ${{ github.workspace }}
-                  echo ${{ runner.temp }}
-                  echo ${{ env.CONDA_BLD_PATH }}
-                  echo "github.workspace"
+                  cd ${{ runner.temp }}
+                  rattler-build build --recipe ${{ github.workspace }}/environment/conda/recipe.yaml
+
+            - name: Build
+              if: runner.os == 'Windows'
+              shell: pwsh
+              run: |
                   cd ${{ runner.temp }}
                   rattler-build build --recipe ${{ github.workspace }}/environment/conda/recipe.yaml

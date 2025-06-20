@@ -30,6 +30,7 @@ requirements:
     - pybind11
     - xerces-c
     - libboost-devel
+    - cxxopts
     - qt6-main
     - qt6-charts
     - libgdal
@@ -37,7 +38,6 @@ requirements:
     - if: linux
       then:
          - libglu
-         - xorg-libxfixes
          - libgl-devel
     - ${{ "ncurses" if not win }}
     # - ${{ "vs2015_runtime" if win }}
@@ -45,7 +45,7 @@ requirements:
   run:
     - python
     - libgdal
-    - ${{ "vs2015_runtime" if win }}
+    # - ${{ "vs2015_runtime" if win }}
     - ${{ "ncurses" if not win }}
     - ${{ "libglu" if linux }}
 

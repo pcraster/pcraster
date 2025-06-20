@@ -271,7 +271,7 @@ MAP_UINT1 *InitMapUINT1(
   if (m == NULL)
     return NULL;
 
-  m->cr = CR_UINT1;
+  m->cr = (PCR_CR)CR_UINT1;
   m->vs = 0;
   /* TEMPORAY CODE fix type */
   if (inCr == CR_REAL8)

@@ -1,7 +1,7 @@
-#include <math.h>
-
 /* DO NOT EDIT: CREATED FROM testapi.tem */
 #line 1 "testapi.tem"
+// vim: syntax=c
+#include <math.h>
 /* vim: syntax=c
  */
 
@@ -12,8 +12,7 @@ MAP_UINT1 *ReadUINT1(
 {
  UINT1 val = 0;
  if (CnvrtUINT1(&val, nameOrValue))
-  return InitMapUINT1(nrRows,nrCols,&val,FALSE,
-                                                      CR_UINT1);
+  return InitMapUINT1(nrRows, nrCols, &val, FALSE, CR_UINT1);
 else
   {
    REAL8 dummy = NAN;
@@ -30,11 +29,11 @@ else
 MAP_UINT1 *ReadUINT1Map(const char *name)
 {
   MAP *m = NULL;
-        MAP_UINT1 *map = NULL;
-        UINT1 max = 0;
-        UINT2 inCr = 0;   /* in memory cellRepr */
-        UINT2 fileCr = 0; /* in file cellRepr */
-        void *buf = NULL;
+  MAP_UINT1 *map = NULL;
+  UINT1 max = 0;
+  UINT2 inCr = 0;   /* in memory cellRepr */
+  UINT2 fileCr = 0; /* in file cellRepr */
+  void *buf = NULL;
 
   PRECOND(name != NULL);
   m = Mopen(name, M_READ);
@@ -172,8 +171,7 @@ MAP_INT4 *ReadINT4(
 {
  INT4 val = 0;
  if (CnvrtINT4(&val, nameOrValue))
-  return InitMapINT4(nrRows,nrCols,&val,FALSE,
-                                                      CR_INT4);
+  return InitMapINT4(nrRows, nrCols, &val, FALSE, CR_INT4);
 else
   {
    REAL8 dummy = NAN;
@@ -190,11 +188,11 @@ else
 MAP_INT4 *ReadINT4Map(const char *name)
 {
   MAP *m = NULL;
-        MAP_INT4 *map = NULL;
-        INT4 max = 0;
-        UINT2 inCr = 0;   /* in memory cellRepr */
-        UINT2 fileCr = 0; /* in file cellRepr */
-        void *buf = NULL;
+  MAP_INT4 *map = NULL;
+  INT4 max = 0;
+  UINT2 inCr = 0;   /* in memory cellRepr */
+  UINT2 fileCr = 0; /* in file cellRepr */
+  void *buf = NULL;
 
   PRECOND(name != NULL);
   m = Mopen(name, M_READ);
@@ -219,7 +217,7 @@ MAP_INT4 *ReadINT4Map(const char *name)
         }
         if ( (CELLSIZE(inCr) > CELLSIZE(CR_INT4))
               /* grabs all except: */ ||
-             (inCr == CR_REAL4 && CR_INT4 == CR_INT4)
+             (inCr == CR_REAL4)
            ) {
            Error(" (in ReadINT4Map) '%s' is '%s' (too big for INT4)",
                     name, RstrCellRepr(RgetCellRepr(m)));
@@ -332,8 +330,7 @@ MAP_REAL8 *ReadREAL8(
 {
  REAL8 val = NAN;
  if (CnvrtREAL8(&val, nameOrValue))
-  return InitMapREAL8(nrRows,nrCols,&val,FALSE,
-                                                      CR_REAL8);
+  return InitMapREAL8(nrRows, nrCols, &val, FALSE, CR_REAL8);
 else
   {
    REAL8 dummy = NAN;
@@ -350,11 +347,11 @@ else
 MAP_REAL8 *ReadREAL8Map(const char *name)
 {
   MAP *m = NULL;
-        MAP_REAL8 *map = NULL;
-        REAL8 max = NAN;
-        UINT2 inCr = 0;   /* in memory cellRepr */
-        UINT2 fileCr = 0; /* in file cellRepr */
-        void *buf = NULL;
+  MAP_REAL8 *map = NULL;
+  REAL8 max = NAN;
+  UINT2 inCr = 0;   /* in memory cellRepr */
+  UINT2 fileCr = 0; /* in file cellRepr */
+  void *buf = NULL;
 
   PRECOND(name != NULL);
   m = Mopen(name, M_READ);

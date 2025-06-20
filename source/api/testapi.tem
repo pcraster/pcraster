@@ -6,13 +6,12 @@
 MAP_THIS_TYPE *ReadTHIS_TYPE(
   const char *nameOrValue, size_t nrRows, size_t nrCols)
 {
- THIS_TYPE val;
+ THIS_TYPE val = ZERO;
  if (CnvrtTHIS_TYPE(&val, nameOrValue))
-  return InitMapTHIS_TYPE(nrRows,nrCols,&val,FALSE,
-                                                      CR_THIS_TYPE);
+  return InitMapTHIS_TYPE(nrRows, nrCols, &val, FALSE, CR_THIS_TYPE);
 else
   {
-   REAL8 dummy;
+   REAL8 dummy = NAN;
    if (CnvrtREAL8(&dummy, nameOrValue))
    { /* it's a number but not a valid one for THIS_TYPE
       */
@@ -25,12 +24,12 @@ else
 
 MAP_THIS_TYPE *ReadTHIS_TYPEMap(const char *name)
 {
-  MAP *m;
-        MAP_THIS_TYPE *map;
-        THIS_TYPE max;
-        UINT2 inCr;   /* in memory cellRepr */
-        UINT2 fileCr; /* in file cellRepr */
-        void *buf;
+  MAP *m = NULL;
+  MAP_THIS_TYPE *map = NULL;
+  THIS_TYPE max = ZERO;
+  UINT2 inCr = 0;   /* in memory cellRepr */
+  UINT2 fileCr = 0; /* in file cellRepr */
+  void *buf = NULL;
 
   PRECOND(name != NULL);
   m = Mopen(name, M_READ);
@@ -97,7 +96,7 @@ void WriteTHIS_TYPEMap(const char *name,
                    CSF_VS       valueScale)
 {
 
-  MAP *m;
+  MAP *m = NULL;
   CSF_CR fileInCr = DetermineCellRepr(valueScale);
   /* fileInCr is different from m-?inCr */
 
@@ -137,8 +136,8 @@ void DeleteMAP_THIS_TYPE(
 
 MAP_THIS_TYPE *CreateSpatialTHIS_TYPE(CSF_CR cr,size_t nrRows, size_t nrCols)
 {
-  MAP_THIS_TYPE *map;
-  void *buf;
+  MAP_THIS_TYPE *map = NULL;
+  void *buf = NULL;
   PRECOND(TestApiInitTest("CreateSpatialTHIS_TYPE"));
   if (cr != CR_UINT1 && cr != CR_INT4 && cr != CR_REAL8 && cr != CR_REAL4)
         {

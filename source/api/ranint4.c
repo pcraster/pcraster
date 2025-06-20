@@ -271,7 +271,7 @@ MAP_INT4 *InitMapINT4(
   if (m == NULL)
     return NULL;
 
-  m->cr = CR_INT4;
+  m->cr = (PCR_CR)CR_INT4;
   m->vs = 0;
   /* TEMPORAY CODE fix type */
   if (inCr == CR_REAL8)

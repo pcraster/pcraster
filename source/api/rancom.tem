@@ -101,7 +101,8 @@ static void PutMV_THIS_TYPE(
 static void PutAllMVTHIS_TYPE(
   MAP_THIS_TYPE *m)
 {
-  int r,c;
+  int r = 0;
+  int c = 0;
   PRECOND(m->spatial);
 
   for (r=0; r < m->NrRows(m); r++)
@@ -268,7 +269,7 @@ MAP_THIS_TYPE *InitMapTHIS_TYPE(
   if (m == NULL)
     return NULL;
 
-  m->cr = CR_THIS_TYPE;
+  m->cr = (PCR_CR)CR_THIS_TYPE;
   m->vs = 0;
   /* TEMPORAY CODE fix type */
   if (inCr == CR_REAL8)

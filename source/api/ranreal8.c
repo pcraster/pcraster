@@ -271,7 +271,7 @@ MAP_REAL8 *InitMapREAL8(
   if (m == NULL)
     return NULL;
 
-  m->cr = CR_REAL8;
+  m->cr = (PCR_CR)CR_REAL8;
   m->vs = 0;
   /* TEMPORAY CODE fix type */
   if (inCr == CR_REAL8)

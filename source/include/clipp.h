@@ -47,6 +47,10 @@
 #include <functional>
 #include <type_traits>
 
+#if defined(__cpp_lib_optional)
+#include <optional>
+#endif
+
 
 /*************************************************************************//**
  *
@@ -177,13 +181,120 @@ namespace traits {
  * @brief function (class) signature type trait
  *
  *****************************************************************************/
+
+/*
+ * Ripped (with minor modifications)
+ * from https://github.com/pfultz2/HIP/tree/d49d87d40b44cfa4fe13106891a6a048cb7921d7/include/hip/hcc_detail
+ */
+#if defined(__cpp_lib_is_invocable) && !defined(CLIPP_HAS_INVOCABLE)
+#   define CLIPP_HAS_INVOCABLE __cpp_lib_is_invocable
+#endif
+#if defined(__cpp_lib_result_of_sfinae) && !defined(CLIPP_HAS_RESULT_OF_SFINAE)
+#   define CLIPP_HAS_RESULT_OF_SFINAE __cpp_lib_result_of_sfinae
+#endif
+
+#ifndef CLIPP_HAS_INVOCABLE
+#define CLIPP_HAS_INVOCABLE 0
+#endif
+
+#ifndef CLIPP_HAS_RESULT_OF_SFINAE
+#define CLIPP_HAS_RESULT_OF_SFINAE 0
+#endif
+
+//namespace std {  // TODO: these should be removed as soon as possible.
+//#if (__cplusplus < 201406L)
+//#if (__cplusplus < 201402L)
+//template <bool cond, typename T = void>
+//using enable_if_t = typename enable_if<cond, T>::type;
+//template <bool cond, typename T, typename U>
+//using conditional_t = typename conditional<cond, T, U>::type;
+//template <typename T>
+//using decay_t = typename decay<T>::type;
+//template <FunctionalProcedure F, typename... Ts>
+//using result_of_t = typename result_of<F(Ts...)>::type;
+//template <typename T>
+//using remove_reference_t = typename remove_reference<T>::type;
+//#endif
+//#endif
+//}  // namespace std
+
+template <typename...>
+using void_t_ = void;
+
+template <typename F, typename... Ts>
+struct is_callable_impl;
+
+#if CLIPP_HAS_INVOCABLE
+template <typename F, typename... Ts>
+struct is_callable_impl<F(Ts...)> : std::is_invocable<F, Ts...> {};
+#elif CLIPP_HAS_RESULT_OF_SFINAE
+template <typename, typename = void>
+struct is_callable_impl : std::false_type {};
+
+template <FunctionalProcedure F, typename... Ts>
+struct is_callable_impl<F(Ts...), void_t_<typename std::result_of<F(Ts...)>::type > > : std::true_type {};
+#else
+template <class Base, class T, class Derived>
+auto simple_invoke(T Base::*pmd, Derived&& ref)
+-> decltype(static_cast<Derived&&>(ref).*pmd);
+
+template <class PMD, class Pointer>
+auto simple_invoke(PMD&& pmd, Pointer&& ptr)
+-> decltype((*static_cast<Pointer&&>(ptr)).*static_cast<PMD&&>(pmd));
+
+template <class Base, class T, class Derived>
+auto simple_invoke(T Base::*pmd, const std::reference_wrapper<Derived>& ref)
+-> decltype(ref.get().*pmd);
+
+template <class Base, class T, class Derived, class... Args>
+auto simple_invoke(T Base::*pmf, Derived&& ref, Args&&... args)
+-> decltype((static_cast<Derived&&>(ref).*pmf)(static_cast<Args&&>(args)...));
+
+template <class PMF, class Pointer, class... Args>
+auto simple_invoke(PMF&& pmf, Pointer&& ptr, Args&&... args)
+-> decltype(((*static_cast<Pointer&&>(ptr)).*static_cast<PMF&&>(pmf))(static_cast<Args&&>(args)...));
+
+template <class Base, class T, class Derived, class... Args>
+auto simple_invoke(T Base::*pmf, const std::reference_wrapper<Derived>& ref, Args&&... args)
+-> decltype((ref.get().*pmf)(static_cast<Args&&>(args)...));
+
+template<class F, class... Ts>
+auto simple_invoke(F&& f, Ts&&... xs)
+-> decltype(f(static_cast<Ts&&>(xs)...));
+
+template <typename, typename = void>
+struct is_callable_impl : std::false_type {};
+
+template <FunctionalProcedure F, typename... Ts>
+struct is_callable_impl<F(Ts...), void_t_<decltype(simple_invoke(std::declval<F>(), std::declval<Ts>()...))> >
+    : std::true_type {};
+
+#endif /* CLIPP_HAS_RESULT_OF_SFINAE */
+
+template <typename Call>
+struct is_invocable : is_callable_impl<Call> {};
+
+/** END of is_invocable */
+
+
+template <class Fn, class... Args>
+struct invoke_result {
+#if defined(__cpp_lib_is_invocable)
+#if !defined(_MSC_VER)
+    using type = typename std::invoke_result<Fn, Args...>::type; // First available in c++17.
+#endif
+#else
+    using type = typename std::result_of<Fn(Args...)>::type; // Deprecated in c++17; removed in c++20.
+#endif
+};
+
 template<class Fn, class Ret, class... Args>
 constexpr auto
 check_is_callable(int) -> decltype(
     std::declval<Fn>()(std::declval<Args>()...),
 #if defined(__cpp_lib_is_invocable)
     std::integral_constant<bool,
-        std::is_same<Ret,typename std::invoke_result<Fn,Args...>::type>::value>{} );
+        std::is_same<Ret,typename std::invoke_result_t<Fn, Args...>>::value>{} );
 #else
     std::integral_constant<bool,
         std::is_same<Ret,typename std::result_of<Fn(Args...)>::type>::value>{} );
@@ -199,7 +310,7 @@ check_is_callable_without_arg(int) -> decltype(
     std::declval<Fn>()(),
 #if defined(__cpp_lib_is_invocable)
     std::integral_constant<bool,
-        std::is_same<Ret,typename std::invoke_result<Fn>::type>::value>{} );
+        std::is_same<Ret,typename std::invoke_result_t<Fn>>::value>{} );
 #else
     std::integral_constant<bool,
         std::is_same<Ret,typename std::result_of<Fn>::type>::value>{} );
@@ -356,7 +467,9 @@ struct limits_clamped {
 
 template<class T, class V>
 struct limits_clamped<T,V,false> {
-    static T from(const V& v) { return T(v); }
+    static T from(const V& v) {
+		return T(v);
+	}
 };
 
 
@@ -502,7 +615,14 @@ struct make<std::string> {
     }
 };
 
-
+#if defined(__cpp_lib_optional)
+template<class T>
+struct make<std::optional<T>> {
+  static inline std::optional<T> from(const char* s) {
+    return std::make_optional<T>(make<T>::from(s));
+  }
+};
+#endif
 
 /*************************************************************************//**
  *
@@ -1437,9 +1557,7 @@ public:
     //---------------------------------------------------------------
     /** @brief executes all argument actions */
     void execute_actions(const arg_string& arg) const {
-        int i = 0;
         for(const auto& a : argActions_) {
-            ++i;
             a(arg.c_str());
         }
     }
@@ -2243,9 +2361,12 @@ value(const doc_string& label, Targets&&... tgts)
         .required(true).blocking(true).repeatable(false);
 }
 
-template<class Filter, class... Targets, class = typename std::enable_if<
-    traits::is_callable<Filter,bool(const char*)>::value ||
-    traits::is_callable<Filter,subrange(const char*)>::value>::type>
+template<class Filter, class... Targets,
+    class = typename std::enable_if<traits::is_invocable<Filter(const char *)>::value>::type,
+    class = typename std::enable_if<
+    (traits::is_callable<Filter,bool(const char*)>::value ||
+    traits::is_callable<Filter,subrange(const char*)>::value)
+    >::type>
 inline parameter
 value(Filter&& filter, doc_string label, Targets&&... tgts)
 {
@@ -4990,9 +5111,9 @@ private:
         //go through all exclusive groups of matching pattern
         for(const auto& m : match.stack()) {
             if(m.parent->exclusive()) {
-                for(auto i = int(missCand_.size())-1; i >= 0; --i) {
+                for(auto i = static_cast<int>(missCand_.size())-1; i >= 0; --i) {
                     bool removed = false;
-                    for(const auto& c : missCand_[i].pos.stack()) {
+                    for(const auto& c : missCand_[static_cast<std::size_t>(i)].pos.stack()) {
                         //sibling within same exclusive group => discard
                         if(c.parent == m.parent && c.cur != m.cur) {
                             missCand_.erase(missCand_.begin() + i);
@@ -5003,9 +5124,9 @@ private:
                     }
                     //remove miss candidates only within current repeat cycle
                     if(i > 0 && removed) {
-                        if(missCand_[i-1].startsRepeatGroup) break;
+                        if(missCand_[static_cast<std::size_t>(i-1)].startsRepeatGroup) break;
                     } else {
-                        if(missCand_[i].startsRepeatGroup) break;
+                        if(missCand_[static_cast<std::size_t>(i)].startsRepeatGroup) break;
                     }
                 }
             }
@@ -5134,8 +5255,8 @@ public:
      */
     arg_mappings::size_type
     unmapped_args_count() const noexcept {
-        return std::count_if(arg2param_.begin(), arg2param_.end(),
-            [](const arg_mapping& a){ return !a.param(); });
+        return static_cast<arg_mappings::size_type>(std::count_if(arg2param_.begin(), arg2param_.end(),
+            [](const arg_mapping& a){ return !a.param(); }));
     }
 
     /** @brief returns if any argument could only be matched by an
@@ -6280,7 +6401,7 @@ private:
                         os << buf.str();
                         if(i < group.size()-1) {
                             if(cur.line > 0) {
-                                os << string(fmt_.line_spacing(), '\n');
+                                os << string(static_cast<std::size_t>(fmt_.line_spacing()), '\n');
                             }
                             ++cur.line;
                             os << '\n';
@@ -6353,7 +6474,7 @@ private:
 
             if(surrAlt) lbl += fmt_.alternative_flags_prefix();
             bool sep = false;
-            for(int i = 0; i < n; ++i) {
+            for(std::size_t i = 0; i < static_cast<std::size_t>(n); ++i) {
                 if(sep) {
                     if(cur.is_singleton())
                         lbl += fmt_.alternative_group_separator();
@@ -6756,9 +6877,9 @@ private:
         const auto& flags = param.flags();
         if(!flags.empty()) {
             lbl += flags[0];
-            const int n = std::min(fmt.max_flags_per_param_in_doc(),
-                                   int(flags.size()));
-            for(int i = 1; i < n; ++i) {
+            const auto n = static_cast<std::size_t>(std::min(fmt.max_flags_per_param_in_doc(),
+                                   int(flags.size())));
+            for(std::size_t i = 1; i < n; ++i) {
                 lbl += fmt.flag_separator() + flags[i];
             }
         }
@@ -6938,7 +7059,7 @@ OStream&
 operator << (OStream& os, const man_page& man)
 {
     bool first = true;
-    const auto secSpc = doc_string(man.section_row_spacing() + 1, '\n');
+    const auto secSpc = doc_string(static_cast<std::size_t>(man.section_row_spacing()) + std::size_t(1), '\n');
     for(const auto& section : man) {
         if(!section.content().empty()) {
             if(first) first = false; else os << secSpc;
@@ -7069,7 +7190,7 @@ void print(OStream& os, const pattern& param, int level = 0)
 template<class OStream>
 void print(OStream& os, const group& g, int level)
 {
-    auto indent = doc_string(4*level, ' ');
+    auto indent = doc_string(static_cast<std::size_t>(4*level), ' ');
     os << indent;
     if(g.blocking()) os << '~';
     if(g.joinable()) os << 'J';

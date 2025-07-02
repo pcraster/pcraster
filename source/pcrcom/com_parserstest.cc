@@ -10,7 +10,8 @@ BOOST_AUTO_TEST_CASE(comment_parser)
 
   CommentGrammar parser;
 
-  std::vector<std::string> valid, invalid;
+  std::vector<std::string> valid;
+  std::vector<std::string> invalid;
   valid.push_back("#");
   valid.push_back("##");
   valid.push_back("# #");
@@ -46,7 +47,8 @@ BOOST_AUTO_TEST_CASE(section_header_parser)
 
   SectionHeaderGrammar parser;
 
-  std::vector<std::string> valid, invalid;
+  std::vector<std::string> valid;
+  std::vector<std::string> invalid;
   valid.push_back("binding");
   valid.push_back("areamap");
   valid.push_back("timer");
@@ -74,7 +76,8 @@ BOOST_AUTO_TEST_CASE(number_parser)
 
   NumberGrammar parser;
 
-  std::vector<std::string> valid, invalid;
+  std::vector<std::string> valid;
+  std::vector<std::string> invalid;
   valid.push_back("0");
   valid.push_back("1");
   valid.push_back("0.1");
@@ -101,7 +104,8 @@ BOOST_AUTO_TEST_CASE(variable_name_parser)
 
   VariableNameGrammar parser;
 
-  std::vector<std::string> valid, invalid;
+  std::vector<std::string> valid;
+  std::vector<std::string> invalid;
   valid.push_back("a");
   valid.push_back("abracadr");
   valid.push_back("fileName");
@@ -135,7 +139,8 @@ BOOST_AUTO_TEST_CASE(filename_parser)
 
   FileNameGrammar parser;
 
-  std::vector<std::string> valid, invalid;
+  std::vector<std::string> valid;
+  std::vector<std::string> invalid;
   valid.push_back("a");
   valid.push_back("a.b");
   valid.push_back("a.bcd");

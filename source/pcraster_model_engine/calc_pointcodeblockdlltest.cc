@@ -41,7 +41,8 @@ BOOST_AUTO_TEST_CASE(testReportDefault)
    BOOST_CHECK(r==2);
  }
  {
-   REAL4 r=-999, arg2;
+   REAL4 r=-999;
+   REAL4 arg2;
    pcr::setMV(arg2);
    _ifthenelse<>(r,0,(REAL4)1.0,arg2);
    BOOST_CHECK(pcr::isMV(r));
@@ -52,7 +53,8 @@ BOOST_AUTO_TEST_CASE(testReportDefault)
    BOOST_CHECK(r==1);
  }
  {
-   REAL4 r=-999, arg1;
+   REAL4 r=-999;
+   REAL4 arg1;
    pcr::setMV(arg1);
    _ifthenelse<>(r,1,arg1,(REAL4)2);
    BOOST_CHECK(pcr::isMV(r));

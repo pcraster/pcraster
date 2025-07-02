@@ -155,7 +155,8 @@ BOOST_AUTO_TEST_CASE(assign)
   using namespace dal;
 
   {
-    Table table1, table2;
+    Table table1;
+    Table table2;
 
     table1.appendCol<INT4>();
     table1.appendCol<INT4>();

@@ -456,7 +456,8 @@ BOOST_AUTO_TEST_CASE(extreme_elevations)
   Raster raster(2, 1, 1.0, 0.0, 0.0);
   bool isValid = false;
   typedef Block::ThicknessType T;
-  T bottom = NAN, top = NAN;
+  T bottom = NAN;
+  T top = NAN;
 
   {
     Block block(raster);

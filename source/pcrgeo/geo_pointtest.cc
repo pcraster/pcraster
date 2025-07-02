@@ -30,7 +30,8 @@ BOOST_AUTO_TEST_CASE(index_direction)
   //          0
   //    <  1 -c- >= 0
   typedef Point<float,1> Punt;
-  Punt c,p;
+  Punt c;
+  Punt p;
   c[0]=0;
 
   p[0]=-1;
@@ -49,7 +50,8 @@ BOOST_AUTO_TEST_CASE(index_direction)
   *           2(f)
   */
   typedef Point<float,2> Punt;
-  Punt c,p;
+  Punt c;
+  Punt p;
   c[0]=c[1]=0;
   p[0]=p[1]=1;
   BOOST_CHECK(p.indexDirection(c) == 0); // a
@@ -109,7 +111,8 @@ BOOST_AUTO_TEST_CASE(distance)
   // test compilation of enum
   BOOST_CHECK(P::Dim == 2);
 
-  P p1(2,20),p2(3,21);
+  P p1(2,20);
+  P p2(3,21);
   BOOST_CHECK(p1.squaredDistance(p2) == 2);
   double d=p1.distance(p2);
   BOOST_CHECK(d>1.4 && d<1.43); // sqrt(2)

@@ -103,7 +103,8 @@ BOOST_AUTO_TEST_CASE(compare)
   using namespace dal;
 
   {
-    FeaturePath path1, path2;
+    FeaturePath path1;
+    FeaturePath path2;
     BOOST_CHECK(path1 == path2);
   }
 

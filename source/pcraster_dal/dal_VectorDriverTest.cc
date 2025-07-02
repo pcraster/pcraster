@@ -288,7 +288,8 @@ BOOST_AUTO_TEST_CASE(extremes)
 
   VectorDriver driver;
   std::shared_ptr<Vector> vector;
-  boost::any min, max;
+  boost::any min;
+  boost::any max;
 
   {
     BOOST_REQUIRE(driver.extremes(min, max, TI_REAL4, "vector"));

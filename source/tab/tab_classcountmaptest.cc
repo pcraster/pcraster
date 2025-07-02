@@ -54,7 +54,8 @@ BOOST_AUTO_TEST_CASE(class_class_count_map)
   using namespace tab;
 
   ClassClassCountMap<> m;
-  std::set<int>   row,col;
+  std::set<int>   row;
+  std::set<int>   col;
 
   BOOST_CHECK(row==m.rowClasses());
   BOOST_CHECK(col==m.colClasses());

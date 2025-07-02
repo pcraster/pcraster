@@ -65,7 +65,8 @@ BOOST_AUTO_TEST_CASE(minimize_maximize)
   using namespace com;
 
   {
-    int x=-1,y=3;
+    int x=-1;
+    int y=3;
     maximize(x,y);
     BOOST_CHECK(x==3);
     maximize(x,8);
@@ -76,7 +77,8 @@ BOOST_AUTO_TEST_CASE(minimize_maximize)
     BOOST_CHECK(x==-9);
   }
   {
-    double x=-1,y=3;
+    double x=-1;
+    double y=3;
     maximize(x,y);
     BOOST_CHECK(x==3);
     maximize<double>(x,8);

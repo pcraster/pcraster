@@ -215,8 +215,8 @@ BOOST_AUTO_TEST_CASE(testModel)
     BuildTypesVisitor btv(n.cfg());
     btv.visit();
 
-    auto *l0= astCast<ASTPar>(n.ast(),"C/b/0/a/<"),
-           *l1= astCast<ASTPar>(n.ast(),"C/b/1/a/<");
+    auto *l0= astCast<ASTPar>(n.ast(),"C/b/0/a/<");
+    auto *l1= astCast<ASTPar>(n.ast(),"C/b/1/a/<");
     BOOST_CHECK(l0->name()=="a");
     BOOST_CHECK(l1->name()=="a");
     BOOST_CHECK(btv.table()["a"].d_firstAss == l0);
@@ -224,8 +224,8 @@ BOOST_AUTO_TEST_CASE(testModel)
   { // test setFirstAss
     N_BTV_VISIT(StringParser::createCodeAsNode("p=a;a=2"));
 
-    auto *l0= astCast<ASTPar>(n.ast(),"C/b/0/a/>/p"),
-           *l1= astCast<ASTPar>(n.ast(),"C/b/1/a/<");
+    auto *l0= astCast<ASTPar>(n.ast(),"C/b/0/a/>/p");
+    auto *l1= astCast<ASTPar>(n.ast(),"C/b/1/a/<");
     BOOST_CHECK(l0->name()=="a");
     BOOST_CHECK(l1->name()=="a");
     BOOST_CHECK(btv.table()["a"].d_firstAss          == l1);

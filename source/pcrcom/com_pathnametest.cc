@@ -152,7 +152,8 @@ BOOST_AUTO_TEST_CASE(split_for)
 #ifdef WIN32
   std::string drive;
 #endif
-  std::string directory, base;
+  std::string directory;
+  std::string base;
 
   // ""
   pn        = PathName("");

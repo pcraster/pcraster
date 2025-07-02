@@ -157,13 +157,15 @@ BOOST_AUTO_TEST_CASE(testAggregate)
   using namespace calc;
 
  {
-  UINT1 r,i[4]={MV_UINT1,4,0,3};
+  UINT1 r;
+  UINT1 i[4]={MV_UINT1,4,0,3};
   AggregateArray< MapTotal<UINT1> > f;
   f.fImpl(&r,i,4);
   BOOST_CHECK(r==7);
  }
  {
-  INT4 r,i[4]={MV_INT4,4,0,3};
+  INT4 r;
+  INT4 i[4]={MV_INT4,4,0,3};
   AggregateArray< MapMaximum<INT4> > f;
   f.fImpl(&r,i,4);
   BOOST_CHECK(r == 4);

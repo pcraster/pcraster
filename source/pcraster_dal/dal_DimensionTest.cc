@@ -141,7 +141,8 @@ BOOST_AUTO_TEST_CASE(merge)
   using namespace dal;
 
   {
-    std::vector<size_t> values1, values2;
+    std::vector<size_t> values1;
+    std::vector<size_t> values2;
 
     // 1, 3, 5, 7, 9
     values1.push_back(1);
@@ -182,7 +183,8 @@ BOOST_AUTO_TEST_CASE(merge)
   }
 
   {
-    std::vector<double> values1, values2;
+    std::vector<double> values1;
+    std::vector<double> values2;
 
     // 1.1, 3.3
     values1.push_back(1.1);

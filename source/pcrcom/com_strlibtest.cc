@@ -195,19 +195,23 @@ BOOST_AUTO_TEST_CASE(remove_front_end_space)
 {
   using namespace com;
 
-  std::string in1("no whe at end"),out1(in1);
+  std::string in1("no whe at end");
+  std::string out1(in1);
   removeFrontEndSpace(out1);
   BOOST_CHECK(in1==out1);
 
-  std::string in2(" \t two words \n "),out2(in2);
+  std::string in2(" \t two words \n ");
+  std::string out2(in2);
   removeFrontEndSpace(out2);
   BOOST_CHECK(out2 == "two words");
 
-  std::string in3(""),out3(in3);
+  std::string in3("");
+  std::string out3(in3);
   removeFrontEndSpace(out3);
   BOOST_CHECK(out3 == "");
 
-  std::string in4("      "),out4(in4);
+  std::string in4("      ");
+  std::string out4(in4);
   removeFrontEndSpace(out4);
   BOOST_CHECK(out4 == "");
 }
@@ -218,19 +222,23 @@ BOOST_AUTO_TEST_CASE(remove_all_space)
 {
   using namespace com;
 
-  std::string in1("no whe at end"),out1(in1);
+  std::string in1("no whe at end");
+  std::string out1(in1);
   removeAllSpace(out1);
   BOOST_CHECK(out1 == "nowheatend");
 
-  std::string in2(" \t two words \n "),out2(in2);
+  std::string in2(" \t two words \n ");
+  std::string out2(in2);
   removeAllSpace(out2);
   BOOST_CHECK(out2 == "twowords");
 
-  std::string in3(""),out3(in3);
+  std::string in3("");
+  std::string out3(in3);
   removeAllSpace(out3);
   BOOST_CHECK(out3 == "");
 
-  std::string in4("      "),out4(in4);
+  std::string in4("      ");
+  std::string out4(in4);
   removeAllSpace(out4);
   BOOST_CHECK(out4 == "");
 }
@@ -523,7 +531,8 @@ BOOST_AUTO_TEST_CASE(string_less)
 
 BOOST_AUTO_TEST_CASE(format_)
 {
-  std::string unformatted, formatted;
+  std::string unformatted;
+  std::string formatted;
 
   // Empty input.
   {

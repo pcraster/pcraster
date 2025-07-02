@@ -38,27 +38,31 @@ BOOST_AUTO_TEST_CASE(get_cell)
 
 
   {
-  int r=0,c=0;
+  int r=0;
+  int c=0;
   UINT1 result=10;
   BOOST_CHECK(v.cell(result,r,c));
   BOOST_CHECK(result==8);
   }
 
   {
-  size_t r=0,c=0;
+  size_t r=0;
+  size_t c=0;
   UINT1 result=10;
   BOOST_CHECK(v.cell(result,r,c));
   BOOST_CHECK(result==8);
   }
 
   {
-  int r=-1,c=0;
+  int r=-1;
+  int c=0;
   UINT1 result=10;
   BOOST_CHECK(!v.cell(result,r,c));
   BOOST_CHECK(result==10); // untouched
   }
   {
-   int r=0,c=2;
+   int r=0;
+   int c=2;
    UINT1 result=10;
    BOOST_CHECK(v.isMV(r,c));
    BOOST_CHECK(!v.cell(result,r,c));
@@ -66,7 +70,8 @@ BOOST_AUTO_TEST_CASE(get_cell)
   }
 
   {
-   size_t r=0,c=2;
+   size_t r=0;
+   size_t c=2;
    UINT1 result=10;
    BOOST_CHECK(v.isMV(r,c));
    BOOST_CHECK(!v.cell(result,r,c));

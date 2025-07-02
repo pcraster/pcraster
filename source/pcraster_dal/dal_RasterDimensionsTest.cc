@@ -43,9 +43,12 @@ BOOST_AUTO_TEST_CASE(test_)
   // Copy.
   {
     RasterDimensions
-         raster1(3, 4, 5.0, 1.0, 2.0),
-         raster2(3, 4, 5.0, 1.0, 3.0),
-         raster3(3, 4, 5.0, 1.0, 2.0),
+         raster1(3, 4, 5.0, 1.0, 2.0);
+    RasterDimensions
+         raster2(3, 4, 5.0, 1.0, 3.0);
+    RasterDimensions
+         raster3(3, 4, 5.0, 1.0, 2.0);
+    RasterDimensions
          raster4(3, 5, 5.0, 1.0, 2.0);
 
     BOOST_CHECK(raster1 == raster1);
@@ -101,7 +104,8 @@ BOOST_AUTO_TEST_CASE(coordinates)
 
   {
     RasterDimensions raster(3, 4, 5.0, 1.0, 2.0);
-    double x, y;
+    double x;
+    double y;
 
     raster.coordinates(0u, x, y);
     BOOST_CHECK_CLOSE(x, 3.5, 0.001);
@@ -168,7 +172,8 @@ BOOST_AUTO_TEST_CASE(overlap)
 {
   using namespace dal;
 
-  RasterDimensions area1, area2;
+  RasterDimensions area1;
+  RasterDimensions area2;
 
   // Empty raster dimensions.
   {

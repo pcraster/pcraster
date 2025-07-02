@@ -80,7 +80,9 @@ BOOST_AUTO_TEST_CASE(merge)
   Dimension spaceDimension(Space, RegularDiscretisation, rasterDimensions);
 
   {
-    DataSpace space1, space2, space3;
+    DataSpace space1;
+    DataSpace space2;
+    DataSpace space3;
 
     space1.addDimension(scenariosDimension);
     space1.addDimension(timeDimension);
@@ -131,7 +133,8 @@ BOOST_AUTO_TEST_CASE(merge)
   // - Space (raster)
   // - Time/Space (dynamic raster: stack)
   {
-    DataSpace space1, space2;
+    DataSpace space1;
+    DataSpace space2;
 
     space1.addDimension(timeDimension);
     space2.addDimension(spaceDimension);
@@ -158,7 +161,8 @@ BOOST_AUTO_TEST_CASE(merge)
   // - Scenarios/Time (for each scenario a time series)
   // - Scenarios/Time/Space (for each scenario a stack)
   {
-    DataSpace space1, space2;
+    DataSpace space1;
+    DataSpace space2;
 
     space1.addDimension(scenariosDimension);
     space2.addDimension(timeDimension);
@@ -180,7 +184,9 @@ BOOST_AUTO_TEST_CASE(merge)
   // - Scenarios/Samples/Time
   // - Scenarios/Samples/Time/Space
   {
-    DataSpace space1, space2, space3;
+    DataSpace space1;
+    DataSpace space2;
+    DataSpace space3;
 
     space1.addDimension(scenariosDimension);
     space2.addDimension(samplesDimension);
@@ -225,7 +231,9 @@ BOOST_AUTO_TEST_CASE(merge)
   // - Scenarios/Time/CumulativeProbabilities
   // - Scenarios/Time/CumulativeProbabilities/Space
   {
-    DataSpace space1, space2, space3;
+    DataSpace space1;
+    DataSpace space2;
+    DataSpace space3;
 
     space1.addDimension(scenariosDimension);
     space2.addDimension(timeDimension);
@@ -279,7 +287,8 @@ BOOST_AUTO_TEST_CASE(merge)
     //         /time[1986, 2003, 1]
     //         /cumulative probabilities[0.01, 0.99, -2.14748e-07]   <---------
     //         /space[1, 87, 1]/[1, 55, 1]
-    DataSpace space1, space2;
+    DataSpace space1;
+    DataSpace space2;
 
     std::set<std::string> scenarios;
     std::vector<size_t> timeSteps;
@@ -319,7 +328,9 @@ BOOST_AUTO_TEST_CASE(merge)
   // with info about both types of dimensions. Raster info must come before
   // vector info.
   {
-    DataSpace resultSpace, rasterSpace, vectorSpace;
+    DataSpace resultSpace;
+    DataSpace rasterSpace;
+    DataSpace vectorSpace;
 
     RasterDimensions rasterDimensions(87, 55);
     rasterSpace.addDimension(Dimension(Space, RegularDiscretisation,
@@ -353,7 +364,9 @@ BOOST_AUTO_TEST_CASE(merge)
   // space2: scenarios/time/probabilities/features
   // result: scenarios/time/probabilities/raster/features
   {
-    DataSpace resultSpace, space1, space2;
+    DataSpace resultSpace;
+    DataSpace space1;
+    DataSpace space2;
 
     std::set<std::string> scenarios;
     scenarios.insert("1000");
@@ -621,14 +634,16 @@ BOOST_AUTO_TEST_CASE(trim)
   {
     // Trim an address to a space with less dimensions.
 
-    std::vector<size_t> timeSteps, cells;
+    std::vector<size_t> timeSteps;
+    std::vector<size_t> cells;
     timeSteps.push_back(9);
     timeSteps.push_back(11);
     timeSteps.push_back(1);
 
     RasterDimensions rasterDimensions(10, 10);
 
-    DataSpace fromSpace, toSpace;
+    DataSpace fromSpace;
+    DataSpace toSpace;
     fromSpace.addDimension(Dimension(Time, timeSteps));
     fromSpace.addDimension(Dimension(Space, RegularDiscretisation,
          rasterDimensions));
@@ -925,7 +940,8 @@ BOOST_AUTO_TEST_CASE(equals)
 {
   using namespace dal;
 
-  DataSpace space1, space2;
+  DataSpace space1;
+  DataSpace space2;
 
   RasterDimensions rasterDimensions(96, 95, 3.0, 5.5, 6.6);
 
@@ -1011,7 +1027,9 @@ BOOST_AUTO_TEST_CASE(contains)
 
   {
     DataSpace space;
-    std::vector<size_t> timeSteps, rows, cols;
+    std::vector<size_t> timeSteps;
+    std::vector<size_t> rows;
+    std::vector<size_t> cols;
     timeSteps.push_back( 9);
     timeSteps.push_back(21);
     timeSteps.push_back( 2);

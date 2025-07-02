@@ -40,7 +40,9 @@ BOOST_AUTO_TEST_CASE(test_)
 
   // Equality.
   {
-    MatrixDimensions matrix1(3, 4), matrix2(4, 3), matrix3(3, 4);
+    MatrixDimensions matrix1(3, 4);
+    MatrixDimensions matrix2(4, 3);
+    MatrixDimensions matrix3(3, 4);
 
     BOOST_CHECK(matrix1 == matrix1);
     BOOST_CHECK(matrix1 != matrix2);

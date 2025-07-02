@@ -47,7 +47,7 @@ static const struct {
 #ifdef  DEBUG_DEVELOP
 static void doubleTableSanityCheck()
 {
-  size_t i;
+  size_t i = 0;
   for (i = 0; i < ARRAY_SIZE(doubleTable)-1; i++)
     if (doubleTable[i].index == 0)
       PRECOND(nrInSet(calc::major2op(doubleTable[i].dassOpImplementor).vs()) == 1);

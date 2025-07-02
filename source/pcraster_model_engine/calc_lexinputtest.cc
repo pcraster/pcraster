@@ -13,7 +13,7 @@ BOOST_AUTO_TEST_CASE(testInstallStringScript)
   const char *argv[1];
   argv[0]=s.c_str();
   li.installArgvScript(1,argv,false);
-  int c;
+  int c = 0;
   while( (c = li.getChar()) != EOF)
     r+=(char)c;
   // need for an additonal newline

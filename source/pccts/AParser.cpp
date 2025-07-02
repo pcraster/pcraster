@@ -169,8 +169,8 @@ saveState(ANTLRParserState *buf)
 void ANTLRParser::
 restoreState(ANTLRParserState *buf)
 {
-	int     i;
-    int     prevTraceOptionValue;
+	int     i = 0;
+    int     prevTraceOptionValue = 0;
 
 	guess_start = buf->guess_start;
 	guessing = buf->guessing;
@@ -265,7 +265,7 @@ void
 ANTLRParser::
 look(int k)
 {
-	int i;
+	int i = 0;
 	int c = k - (LLk-dirty);
 	for (i=1; i<=c; i++) consume();
 }
@@ -276,7 +276,7 @@ void
 ANTLRParser::
 prime_lookahead()
 {
-	int i;
+	int i = 0;
 	for(i=1;i<=LLk; i++) consume();
 	dirty=0;
 	// lap = 0;     // MR14 Sinan Karasu (sinan.karasu@boeing.com)
@@ -381,7 +381,7 @@ consumeUntil(SetWordType *st)
 void ANTLRParser::
 consumeUntilToken(int t)
 {
-	int	tmp;                                                            // MR1
+	int	tmp = 0;                                                            // MR1
 	const	int Eof=1;                                                  // MR1
 	while ( (tmp=LA(1)) !=t && tmp!=Eof) { consume(); }                 // MR1
 }
@@ -428,7 +428,7 @@ void ANTLRParser::
 syn(_ANTLRTokenPtr /*tok MR23*/, ANTLRChar *egroup, SetWordType *eset,
 	ANTLRTokenType etok, int k)
 {
-	int line;
+	int line = 0;
 
 	line = LT(1)->getLine();
 
@@ -535,16 +535,16 @@ ANTLRParser::FAIL(int k, ...)
 
     if (zzFAILtext == nullptr) zzFAILtext=new char [1000];          // MR9
     auto **f=new SetWordType *[SETWORDCOUNT];             // MR1 // MR9
-    SetWordType **miss_set;
-    ANTLRChar **miss_text;
-    _ANTLRTokenPtr *bad_tok;
-    ANTLRChar **bad_text;
+    SetWordType **miss_set = nullptr;
+    ANTLRChar **miss_text = nullptr;
+    _ANTLRTokenPtr *bad_tok = nullptr;
+    ANTLRChar **bad_text = nullptr;
 //
 //  7-Apr-97 133MR1
 //  		err_k is passed as a "int *", not "unsigned *"
 //
-    int	*err_k;                                                         // MR1
-    int i;
+    int	*err_k = nullptr;                                                         // MR1
+    int i = 0;
     va_list ap;
 
     va_start(ap, k);

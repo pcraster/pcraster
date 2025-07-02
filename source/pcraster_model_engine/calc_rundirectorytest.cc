@@ -13,7 +13,7 @@ BOOST_AUTO_TEST_CASE(testDefault)
 {
   using namespace calc;
 
-  bool found;
+  bool found = false;
 
   RunDirectory r;
   const std::string s1("fileName");
@@ -58,7 +58,7 @@ BOOST_AUTO_TEST_CASE(testSearchPath)
 {
   using namespace calc;
 
-  bool found;
+  bool found = false;
   RunDirectory r;
   std::string runDirName("rundir_dir1/dir2/dir3");
 

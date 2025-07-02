@@ -563,7 +563,7 @@ BOOST_AUTO_TEST_CASE(testTopDownExprRestrictor)
     const char *code="t=1*(if(e,a,if(e2,b,c)))";
     ASTCFGTester n(StringParser::createCodeAsNode(code));
     DEFAULT_BTV;
-    size_t nrChanges;
+    size_t nrChanges = 0;
     do {
         nrChanges=btv.nrChanges();
         btv.visit();

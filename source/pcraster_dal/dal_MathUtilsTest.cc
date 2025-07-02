@@ -2,14 +2,16 @@
 #include <boost/test/unit_test.hpp>
 #include "dal_MathUtils.h"
 
+#include <cmath>
+
 
 BOOST_AUTO_TEST_CASE(clamp_)
 {
   using namespace dal;
 
-  size_t first;
-  size_t last;
-  size_t interval;
+  size_t first = 0;
+  size_t last = 0;
+  size_t interval = 0;
 
   {
     first = 5;
@@ -78,9 +80,9 @@ BOOST_AUTO_TEST_CASE(clamp_)
   }
 
   {
-    float first;
-    float last;
-    float interval;
+    float first = NAN;
+    float last = NAN;
+    float interval = NAN;
 
     {
       first    = 0.01f;
@@ -115,9 +117,9 @@ BOOST_AUTO_TEST_CASE(is_regular_increasing_range)
 
   {
     int range[] = { 1, 2, 3, 4, 5 };
-    int first;
-    int last;
-    int interval;
+    int first = 0;
+    int last = 0;
+    int interval = 0;
     BOOST_CHECK(isRegularIncreasingRange(first, last, interval,
          range, range + sizeof(range) / sizeof(int)));
     BOOST_CHECK_EQUAL(first, 1);
@@ -130,9 +132,9 @@ BOOST_AUTO_TEST_CASE(is_regular_increasing_range)
     steps.push_back(1);
     steps.push_back(2);
     steps.push_back(3);
-    size_t first;
-    size_t last;
-    size_t interval;
+    size_t first = 0;
+    size_t last = 0;
+    size_t interval = 0;
     BOOST_CHECK(isRegularIncreasingRange(first, last, interval,
          steps.begin(), steps.end()));
     BOOST_CHECK_EQUAL(first, size_t(1));
@@ -142,27 +144,27 @@ BOOST_AUTO_TEST_CASE(is_regular_increasing_range)
 
   {
     int range[] = { 0 }; // empty array illegal
-    int first;
-    int last;
-    int interval;
+    int first = 0;
+    int last = 0;
+    int interval = 0;
     BOOST_CHECK(!isRegularIncreasingRange(first, last, interval,
          range, range + 0 ));
   }
 
   {
     int range[] = { 5 };
-    int first;
-    int last;
-    int interval;
+    int first = 0;
+    int last = 0;
+    int interval = 0;
     BOOST_CHECK(!isRegularIncreasingRange(first, last, interval,
          range, range + sizeof(range) / sizeof(int)));
   }
 
   {
     int range[] = { 5, 6 };
-    int first;
-    int last;
-    int interval;
+    int first = 0;
+    int last = 0;
+    int interval = 0;
     BOOST_CHECK(isRegularIncreasingRange(first, last, interval,
          range, range + sizeof(range) / sizeof(int)));
     BOOST_CHECK_EQUAL(first, 5);
@@ -172,9 +174,9 @@ BOOST_AUTO_TEST_CASE(is_regular_increasing_range)
 
   {
     int range[] = { 1, 3, 5 };
-    int first;
-    int last;
-    int interval;
+    int first = 0;
+    int last = 0;
+    int interval = 0;
     BOOST_CHECK(isRegularIncreasingRange(first, last, interval,
          range, range + sizeof(range) / sizeof(int)));
     BOOST_CHECK_EQUAL(first, 1);
@@ -184,27 +186,27 @@ BOOST_AUTO_TEST_CASE(is_regular_increasing_range)
 
   {
     int range[] = { 1, 2, 3, 5 };
-    int first;
-    int last;
-    int interval;
+    int first = 0;
+    int last = 0;
+    int interval = 0;
     BOOST_CHECK(!isRegularIncreasingRange(first, last, interval,
          range, range + sizeof(range) / sizeof(int)));
   }
 
   {
     int range[] = { 1, 3, 4, 5 };
-    int first;
-    int last;
-    int interval;
+    int first = 0;
+    int last = 0;
+    int interval = 0;
     BOOST_CHECK(!isRegularIncreasingRange(first, last, interval,
          range, range + sizeof(range) / sizeof(int)));
   }
 
   {
     int range[] = { 46, 47, 48, 49, 50 };
-    int first;
-    int last;
-    int interval;
+    int first = 0;
+    int last = 0;
+    int interval = 0;
     BOOST_CHECK(isRegularIncreasingRange(first, last, interval,
          range, range + sizeof(range) / sizeof(int)));
     BOOST_CHECK_EQUAL(first, 46);
@@ -220,9 +222,9 @@ BOOST_AUTO_TEST_CASE(is_increasing_range)
 
   {
     int range[] = { 1, 2, 3, 4, 5 };
-    int first;
-    int last;
-    int interval;
+    int first = 0;
+    int last = 0;
+    int interval = 0;
     BOOST_CHECK(isIncreasingRange(first, last, interval,
          range, range + sizeof(range) / sizeof(int)));
     BOOST_CHECK_EQUAL(first   , 1);
@@ -232,9 +234,9 @@ BOOST_AUTO_TEST_CASE(is_increasing_range)
 
   {
     int range[] = { 2, 4, 6 };
-    int first;
-    int last;
-    int interval;
+    int first = 0;
+    int last = 0;
+    int interval = 0;
     BOOST_CHECK(isIncreasingRange(first, last, interval,
          range, range + sizeof(range) / sizeof(int)));
     BOOST_CHECK_EQUAL(first   , 2);
@@ -244,9 +246,9 @@ BOOST_AUTO_TEST_CASE(is_increasing_range)
 
   {
     int range[] = { 2, 4, 7 };
-    int first;
-    int last;
-    int interval;
+    int first = 0;
+    int last = 0;
+    int interval = 0;
     BOOST_CHECK(isIncreasingRange(first, last, interval,
          range, range + sizeof(range) / sizeof(int)));
     BOOST_CHECK_EQUAL(first   , 2);
@@ -259,9 +261,9 @@ BOOST_AUTO_TEST_CASE(is_increasing_range)
     steps.push_back(1);
     steps.push_back(2);
     steps.push_back(3);
-    size_t first;
-    size_t last;
-    size_t interval;
+    size_t first = 0;
+    size_t last = 0;
+    size_t interval = 0;
     BOOST_CHECK(isIncreasingRange(first, last, interval,
          steps.begin(), steps.end()));
     BOOST_CHECK_EQUAL(first   , size_t(1));
@@ -271,27 +273,27 @@ BOOST_AUTO_TEST_CASE(is_increasing_range)
 
   {
     int range[] = { 0 }; // empty array illegal
-    int first;
-    int last;
-    int interval;
+    int first = 0;
+    int last = 0;
+    int interval = 0;
     BOOST_CHECK(!isIncreasingRange(first, last, interval,
          range, range + 0 ));
   }
 
   {
     int range[] = { 5 };
-    int first;
-    int last;
-    int interval;
+    int first = 0;
+    int last = 0;
+    int interval = 0;
     BOOST_CHECK(!isIncreasingRange(first, last, interval,
          range, range + sizeof(range) / sizeof(int)));
   }
 
   {
     int range[] = { 5, 6 };
-    int first;
-    int last;
-    int interval;
+    int first = 0;
+    int last = 0;
+    int interval = 0;
     BOOST_CHECK(isIncreasingRange(first, last, interval,
          range, range + sizeof(range) / sizeof(int)));
     BOOST_CHECK_EQUAL(first   , 5);
@@ -301,9 +303,9 @@ BOOST_AUTO_TEST_CASE(is_increasing_range)
 
   {
     int range[] = { 1, 3, 5 };
-    int first;
-    int last;
-    int interval;
+    int first = 0;
+    int last = 0;
+    int interval = 0;
     BOOST_CHECK(isIncreasingRange(first, last, interval,
          range, range + sizeof(range) / sizeof(int)));
     BOOST_CHECK_EQUAL(first   , 1);
@@ -313,9 +315,9 @@ BOOST_AUTO_TEST_CASE(is_increasing_range)
 
   {
     int range[] = { 1, 2, 3, 5 };
-    int first;
-    int last;
-    int interval;
+    int first = 0;
+    int last = 0;
+    int interval = 0;
     BOOST_CHECK(isIncreasingRange(first, last, interval,
          range, range + sizeof(range) / sizeof(int)));
     BOOST_CHECK_EQUAL(first   , 1);
@@ -325,9 +327,9 @@ BOOST_AUTO_TEST_CASE(is_increasing_range)
 
   {
     int range[] = { 1, 3, 4, 5 };
-    int first;
-    int last;
-    int interval;
+    int first = 0;
+    int last = 0;
+    int interval = 0;
     BOOST_CHECK(isIncreasingRange(first, last, interval,
          range, range + sizeof(range) / sizeof(int)));
     BOOST_CHECK_EQUAL(first   , 1);
@@ -337,9 +339,9 @@ BOOST_AUTO_TEST_CASE(is_increasing_range)
 
   {
     int range[] = { 46, 47, 48, 49, 50 };
-    int first;
-    int last;
-    int interval;
+    int first = 0;
+    int last = 0;
+    int interval = 0;
     BOOST_CHECK(isIncreasingRange(first, last, interval,
          range, range + sizeof(range) / sizeof(int)));
     BOOST_CHECK_EQUAL(first   , 46);
@@ -349,9 +351,9 @@ BOOST_AUTO_TEST_CASE(is_increasing_range)
 
   {
     double range[] = { 0.10, 0.25, 0.50, 0.75, 0.90 };
-    double first;
-    double last;
-    double interval;
+    double first = NAN;
+    double last = NAN;
+    double interval = NAN;
     BOOST_CHECK(isIncreasingRange(first, last, interval,
          range, range + sizeof(range) / sizeof(double)));
     BOOST_CHECK_CLOSE(first   , 0.10, 0.001);
@@ -361,9 +363,9 @@ BOOST_AUTO_TEST_CASE(is_increasing_range)
 
   {
     double range[] = { 0.10, 0.25, 0.50, 0.75, 0.90, 0.99 };
-    double first;
-    double last;
-    double interval;
+    double first = NAN;
+    double last = NAN;
+    double interval = NAN;
     BOOST_CHECK(isIncreasingRange(first, last, interval,
          range, range + sizeof(range) / sizeof(double)));
     BOOST_CHECK_CLOSE(first   , 0.10, 0.001);
@@ -453,9 +455,9 @@ BOOST_AUTO_TEST_CASE(merge_ranges)
 
   {
     // Integral tests.
-    size_t first;
-    size_t last;
-    size_t step;
+    size_t first = 0;
+    size_t last = 0;
+    size_t step = 0;
 
     {
       first = 1;
@@ -566,9 +568,9 @@ BOOST_AUTO_TEST_CASE(merge_ranges)
 
   {
     // Floating points tests.
-    float first;
-    float last;
-    float step;
+    float first = NAN;
+    float last = NAN;
+    float step = NAN;
 
     {
       // Because of bug, only in release mode.

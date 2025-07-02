@@ -67,7 +67,7 @@ BOOST_AUTO_TEST_CASE(open)
   using namespace dal;
 
   PCRBlockDriver driver;
-  Block* block;
+  Block* block = nullptr;
 
   // Not existing file.
   {
@@ -98,7 +98,7 @@ BOOST_AUTO_TEST_CASE(read_)
   using namespace dal;
 
   PCRBlockDriver driver;
-  Block* block;
+  Block* block = nullptr;
 
   // Not existing file.
   {

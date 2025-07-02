@@ -19,7 +19,7 @@ BOOST_AUTO_TEST_CASE(unexisting)
 
   std::string filename = "unexisting";
   TextConstantDriver driver;
-  bool exceptionCaught;
+  bool exceptionCaught = false;
 
   // Exists.
   BOOST_CHECK(!dynamic_cast<ConstantDriver const&>(driver).exists(filename));

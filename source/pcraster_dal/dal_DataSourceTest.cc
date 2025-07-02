@@ -1,6 +1,7 @@
 #define BOOST_TEST_MODULE pcraster dal data_source
 #include <boost/test/unit_test.hpp>
 #include "dal_DataSource.h"
+
 #include "dal_Exception.h"
 #include "dal_Raster.h"
 #include "dal_SpatialCoordinate.h"
@@ -14,6 +15,8 @@
 #endif
 #endif
 #include "dal_Client.h"
+
+#include <cmath>
 
 
 class ClientWrapper : public dal::Client {
@@ -806,7 +809,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       address.setCoordinate<float>(0, 0.2f);
       source.read(*raster, address);
       BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-      REAL4 value;
+      REAL4 value = NAN;
       interpolate(value, REAL4(0.0), REAL4(0.1), REAL4(4.0), REAL4(0.05));
       BOOST_CHECK(comparable(raster->cell<REAL4>(0), value));
 
@@ -872,7 +875,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       BOOST_CHECK(comparable(table.col<REAL4>(0)[80], REAL4(10.0)));
 
       BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[10]));
-      REAL4 value;
+      REAL4 value = NAN;
       interpolate(value, REAL4(0.0), REAL4(0.1), REAL4(4.0), REAL4(0.05));
       BOOST_CHECK(comparable(table.col<REAL4>(0)[10], value));
     }
@@ -954,7 +957,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       address.setCoordinate<float>(1, 0.6f);
       source.read(*raster, address);
       BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-      REAL4 value;
+      REAL4 value = NAN;
       interpolate(value, REAL4(6.0), REAL4(0.1), REAL4(7.0), REAL4(0.15));
       BOOST_CHECK(comparable(raster->cell<REAL4>(0), value));
 
@@ -1045,7 +1048,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       BOOST_CHECK(comparable(table.col<REAL4>(0)[80], REAL4(11.0)));
 
       BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[10]));
-      REAL4 value;
+      REAL4 value = NAN;
       interpolate(value, REAL4(1.0), REAL4(0.1), REAL4(5.0), REAL4(0.05));
       BOOST_CHECK(comparable(table.col<REAL4>(0)[10], value));
 
@@ -1129,7 +1132,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       source.read(table, iterSpace, address);
 
       BOOST_CHECK_EQUAL(table.nrRecs(), size_t(11));
-      REAL4 value;
+      REAL4 value = NAN;
       BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[0]));
       interpolate(value, REAL4(5.0), REAL4(0.1), REAL4(6.0), REAL4(0.15));
       BOOST_CHECK(comparable(table.col<REAL4>(0)[0], value));
@@ -1318,7 +1321,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       address.setCoordinate<float>(2, 0.6f);
       source.read(*raster, address);
       BOOST_CHECK(!pcr::isMV(raster->cell<REAL4>(0)));
-      REAL4 value;
+      REAL4 value = NAN;
       interpolate(value, REAL4(25.0), REAL4(0.1), REAL4(26.0), REAL4(0.15));
       BOOST_CHECK(comparable(raster->cell<REAL4>(0), value));
 
@@ -1376,7 +1379,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       BOOST_CHECK(comparable(table.col<REAL4>(0)[80], REAL4(11.0)));
 
       BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[10]));
-      REAL4 value;
+      REAL4 value = NAN;
       interpolate(value, REAL4(1.0), REAL4(0.1), REAL4(5.0), REAL4(0.05));
       BOOST_CHECK(comparable(table.col<REAL4>(0)[10], value));
 
@@ -1463,7 +1466,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
       source.read(table, iterSpace, address);
 
       BOOST_CHECK_EQUAL(table.nrRecs(), size_t(11));
-      REAL4 value;
+      REAL4 value = NAN;
       BOOST_CHECK(!pcr::isMV(table.col<REAL4>(0)[0]));
       interpolate(value, REAL4(25.0), REAL4(0.1), REAL4(26.0), REAL4(0.15));
       BOOST_CHECK(comparable(table.col<REAL4>(0)[0], value));

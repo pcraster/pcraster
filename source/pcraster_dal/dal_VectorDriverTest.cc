@@ -265,7 +265,7 @@ BOOST_AUTO_TEST_CASE(read_)
 
   // Test error message for unexisting data.
   {
-    bool exceptionCaught;
+    bool exceptionCaught = false;
 
     try {
       exceptionCaught = false;

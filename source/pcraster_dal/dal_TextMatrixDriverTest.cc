@@ -19,7 +19,7 @@ BOOST_AUTO_TEST_CASE(unexisting)
 
   std::string filename = "unexisting";
   TextMatrixDriver driver;
-  bool exceptionCaught;
+  bool exceptionCaught = false;
 
   auto* matrix = dynamic_cast<Matrix*>(
          dynamic_cast<Driver&>(driver).open(filename));
@@ -44,7 +44,7 @@ BOOST_AUTO_TEST_CASE(empty)
 
   std::string filename = "emptyfile";
   TextMatrixDriver driver;
-  bool exceptionCaught;
+  bool exceptionCaught = false;
 
   auto* matrix = dynamic_cast<Matrix*>(
          dynamic_cast<Driver&>(driver).open(filename));
@@ -69,7 +69,7 @@ BOOST_AUTO_TEST_CASE(invalid_grammar)
 
   std::string filename = ":/:/:/:/:";
   TextMatrixDriver driver;
-  bool exceptionCaught;
+  bool exceptionCaught = false;
 
   auto* matrix = dynamic_cast<Matrix*>(
          dynamic_cast<Driver&>(driver).open(filename));
@@ -94,7 +94,7 @@ BOOST_AUTO_TEST_CASE(matrix1)
 
   std::string filename;
   TextMatrixDriver driver;
-  Matrix* matrix;
+  Matrix* matrix = nullptr;
 
   {
     filename = "matrix1.txt";
@@ -139,7 +139,7 @@ BOOST_AUTO_TEST_CASE(matrix2)
 
   std::string filename;
   TextMatrixDriver driver;
-  Matrix* matrix;
+  Matrix* matrix = nullptr;
 
   {
     filename = "matrix2.txt";

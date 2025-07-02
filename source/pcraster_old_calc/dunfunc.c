@@ -85,7 +85,7 @@ void Do_sto1(UINT1 *r, const REAL4 *v, size_t n)
 void Do_sto4(INT4 *r, const REAL4 *v, size_t n)
 {
 #ifdef DEBUG
-	size_t i;
+	size_t i = 0;
 	for(i=0;i<n; i++)
 	 if (!IS_MV_REAL4(v+i))
 	  PRECOND(INT4_MIN <= v[i] && v[i] <= INT4_MAX);

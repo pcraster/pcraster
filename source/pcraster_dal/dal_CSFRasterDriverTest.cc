@@ -54,7 +54,7 @@ BOOST_AUTO_TEST_CASE(unexisting)
   BOOST_CHECK_THROW(dynamic_cast<Driver const&>(driver).dataSpace(filename),
          Exception);
 
-  bool exceptionCaught;
+  bool exceptionCaught = false;
   try {
     exceptionCaught = false;
     raster = dynamic_cast<RasterDriver&>(driver).read(filename);
@@ -79,7 +79,7 @@ BOOST_AUTO_TEST_CASE(empty)
          dynamic_cast<Driver&>(driver).open(filename));
   BOOST_CHECK(!raster);
 
-  bool exceptionCaught;
+  bool exceptionCaught = false;
   try {
     exceptionCaught = false;
     raster = dynamic_cast<RasterDriver&>(driver).read(filename);
@@ -99,7 +99,7 @@ BOOST_AUTO_TEST_CASE(dtm_small)
 
   std::string filename = "dtmsmall.map";
   CSFRasterDriver driver;
-  Raster* raster;
+  Raster* raster = nullptr;
 
   {
     raster = dynamic_cast<Raster*>(
@@ -161,7 +161,7 @@ BOOST_AUTO_TEST_CASE(accu_ldd_i_map)
 
   std::string filename = "accu.Ldd.imap";
   CSFRasterDriver driver;
-  Raster* raster;
+  Raster* raster = nullptr;
 
   {
     raster = dynamic_cast<Raster*>(
@@ -235,7 +235,7 @@ BOOST_AUTO_TEST_CASE(names)
 
   std::string filename = "sillyname";
   CSFRasterDriver driver;
-  Raster* raster;
+  Raster* raster = nullptr;
 
   {
     raster = dynamic_cast<Raster*>(

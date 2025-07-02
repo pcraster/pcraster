@@ -80,7 +80,7 @@ ANTLRTokenBuffer::
 	// Delete all remaining tokens (from 0..last inclusive)
 	if ( _deleteTokens )
 	{
-		_ANTLRTokenPtr *z;
+		_ANTLRTokenPtr *z = nullptr;
 		for (z=buffer; z<=last; z++)
 		{
 			(*z)->deref();
@@ -240,7 +240,7 @@ makeRoom()
 		// Delete all tokens from 0..last-(k-1) inclusive
 		if ( _deleteTokens )
 		{
-			_ANTLRTokenPtr *z;
+			_ANTLRTokenPtr *z = nullptr;
 			for (z=buffer; z<=last-(k-1); z++)
 			{
 				(*z)->deref();

@@ -289,7 +289,7 @@ void StopLimitMalloc(void)
 void StartLimitMalloc(void)
 {
     char *s = getenv("LIMITMALLOC");
-    int atExitRet;
+    int atExitRet = 0;
     if (s == NULL) {
         exitOnError = 130;
         Error("StartLimitMalloc is called while LIMITMALLOC"

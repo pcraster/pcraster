@@ -19,7 +19,7 @@ BOOST_AUTO_TEST_CASE(unexisting)
 
   std::string filename = "unexisting";
   TextTableDriver driver;
-  bool exceptionCaught;
+  bool exceptionCaught = false;
 
   Table* table = driver.open(std::filesystem::path(filename));
   BOOST_CHECK(!table);
@@ -43,7 +43,7 @@ BOOST_AUTO_TEST_CASE(empty)
 
   std::string filename = "emptyfile";
   TextTableDriver driver;
-  bool exceptionCaught;
+  bool exceptionCaught = false;
 
   Table* table = driver.open(std::filesystem::path(filename));
   BOOST_CHECK(!table);
@@ -99,7 +99,7 @@ BOOST_AUTO_TEST_CASE(table1)
 
   std::string filename = "table1.col";
   TextTableDriver driver;
-  Table* table;
+  Table* table = nullptr;
 
   {
     table = driver.open(std::filesystem::path(filename));
@@ -227,7 +227,7 @@ BOOST_AUTO_TEST_CASE(table5)
   using namespace dal;
 
   std::string filename = "table5.col";
-  Table* table;
+  Table* table = nullptr;
 
   {
     TextTableDriver driver(AUTO_HEADER);
@@ -324,7 +324,7 @@ BOOST_AUTO_TEST_CASE(table6)
 
   std::string filename;
   TextTableDriver driver;
-  Table* table;
+  Table* table = nullptr;
 
   {
     filename = "table6.col";
@@ -385,7 +385,7 @@ BOOST_AUTO_TEST_CASE(table2_eas)
 
   std::string filename = "table2.eas";
   TextTableDriver driver;
-  bool exceptionCaught;
+  bool exceptionCaught = false;
 
   std::shared_ptr<Table> table(driver.open(std::filesystem::path(
     filename)));

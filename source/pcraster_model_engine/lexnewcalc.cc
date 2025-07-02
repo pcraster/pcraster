@@ -2008,7 +2008,7 @@ void calc::LexGrammar::checkSortedTable()
 {
   static BOOL checked = FALSE;
   KWORD  table[NR_KWORDS];
-  size_t i;
+  size_t i = 0;
 
   if (! checked)
   {

@@ -1,4 +1,6 @@
 #define BOOST_TEST_MODULE pcraster old_calc lookup_linear
+#include <math.h>
+
 #include <boost/test/unit_test.hpp>
 #include "com_pathname.h"
 #include "com_exception.h"
@@ -54,7 +56,7 @@ BOOST_AUTO_TEST_CASE(old_style_constructor)
   using namespace calc;
 
   std::vector<VS> inKeys(1,VS_S);
-  double r;
+  double r = NAN;
 
  { // OK
   LookupLinearCtor t("[3 , 5 ] 2.4",VS_S,inKeys);
@@ -91,7 +93,7 @@ BOOST_AUTO_TEST_CASE(all_intervals)
   using namespace calc;
 
   std::vector<VS> inKeys(1,VS_S);
-  double r;
+  double r = NAN;
 
  {
   // TEST_ONE new com::EqualTo(l->l)
@@ -245,7 +247,7 @@ BOOST_AUTO_TEST_CASE(multiple_records)
 
  {
   std::vector<VS> inKeys(1,VS_S);
-  double r;
+  double r = NAN;
   LookupLinearCtor ts(
      " 0.0  0 \n"
      " 3.0  0  \n"
@@ -269,7 +271,7 @@ BOOST_AUTO_TEST_CASE(multiple_records)
  }
  {
   std::vector<VS> inKeys(1,VS_S);
-  double r;
+  double r = NAN;
   LookupLinearCtor t("[3 , 5 ]  2.4\n"
                                 " 8         4.8",VS_S,inKeys);
   r=-2;
@@ -286,7 +288,7 @@ BOOST_AUTO_TEST_CASE(multiple_records)
  }
  {
   std::vector<VS> inKeys(1,VS_S);
-  double r;
+  double r = NAN;
   LookupLinearCtor t("4  2\n"
                                 " 8  4",VS_S,inKeys);
   r=-2;

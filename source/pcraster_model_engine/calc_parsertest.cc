@@ -220,8 +220,8 @@ BOOST_AUTO_TEST_CASE(testParseErrors)
 {
   using namespace calc;
 
-  ASTNode *e;
-  bool     catched;
+  ASTNode *e = nullptr;
+  bool     catched = false;
 
   catched=false;
   try {

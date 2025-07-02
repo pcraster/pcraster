@@ -1,4 +1,6 @@
 #define BOOST_TEST_MODULE pcraster model_engine lookuptable
+#include <math.h>
+
 #include <boost/test/unit_test.hpp>
 #include "com_pathname.h"
 #include "com_exception.h"
@@ -67,7 +69,7 @@ BOOST_AUTO_TEST_CASE(testOldStyleCtor)
 {
   using namespace calc;
 
-  double r;
+  double r = NAN;
 
  { // OK
   std::vector<VS> colVs(2,VS_S);
@@ -126,7 +128,7 @@ BOOST_AUTO_TEST_CASE(testAllIntervals)
 {
   using namespace calc;
 
-  double r;
+  double r = NAN;
 
  {
   // TEST_ONE new com::EqualTo(l->l)
@@ -278,7 +280,7 @@ BOOST_AUTO_TEST_CASE(testAllIntervalsInterpolate)
 {
   using namespace calc;
 
-  double r;
+  double r = NAN;
 
  {
   // TEST_ONE new com::EqualTo(l->l)
@@ -430,7 +432,7 @@ BOOST_AUTO_TEST_CASE(testMultipleKeys)
   using namespace calc;
 
   std::vector<VS> colVs(3,VS_S);
-  double r;
+  double r = NAN;
   TestLookupCtor t("[3 , 5 ] [ 7, 9] 2.4",colVs);
 
   r=-2;
@@ -451,7 +453,7 @@ BOOST_AUTO_TEST_CASE(testMultipleRecords)
   using namespace calc;
 
   std::vector<VS> colVs(3,VS_S);
-  double r;
+  double r = NAN;
   TestLookupCtor t("[3 , 5 ] [ 7, 9] 2.4\n"
                " 8       [ 7, 9] 4.8\n"
                " <,>     [ 7, 9] 8  \n" ,colVs);
@@ -472,7 +474,7 @@ BOOST_AUTO_TEST_CASE(testInterpolate)
   using namespace calc;
 
  {
-  double r;
+  double r = NAN;
   TestLookupCtor ts(
      " 0.0  0 \n"
      " 3.0  0  \n"
@@ -495,7 +497,7 @@ BOOST_AUTO_TEST_CASE(testInterpolate)
   BOOST_CHECK( r==0);   r=-2;
  }
  {
-  double r;
+  double r = NAN;
   TestLookupCtor t("[3 , 5 ]  2.4\n"
                " 8         4.8");
   r=-2;
@@ -511,7 +513,7 @@ BOOST_AUTO_TEST_CASE(testInterpolate)
   BOOST_CHECK(com::equal_epsilon(r,3.6));
  }
  {
-  double r;
+  double r = NAN;
   TestLookupCtor t("4  2\n"
                                 " 8  4");
   r=-2;
@@ -569,7 +571,7 @@ BOOST_AUTO_TEST_CASE(testInterpolateMWF)
      "4 9.0  1 \n"
      "4 12.0 0 \n"
      "4 15.0 0 \n",3);
-  double r;
+  double r = NAN;
   r=-2;
   BOOST_CHECK( ts.interpolate(r,4.5));
   BOOST_CHECK( r==0.5); r=-2;
@@ -599,7 +601,7 @@ BOOST_AUTO_TEST_CASE(testInterpolateMWF)
      "4 0 15.0 -100 \n",4);
   ts.d_keyCol=2;
   ts.d_resultCol=1;
-  double r;
+  double r = NAN;
   r=-2;
   BOOST_CHECK( ts.interpolate(r,4.5));
   BOOST_CHECK( r==0.5); r=-2;
@@ -650,7 +652,7 @@ BOOST_AUTO_TEST_CASE(testInterpolateMWF)
   // some find tests
   ts.d_keyCol=2;
   ts.d_resultCol=1;
-  double r;
+  double r = NAN;
   r=-2;
   BOOST_CHECK( ts.interpolate(r,4.5));
   BOOST_CHECK( r==0.5); r=-2;

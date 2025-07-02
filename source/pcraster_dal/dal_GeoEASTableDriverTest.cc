@@ -20,7 +20,7 @@ BOOST_AUTO_TEST_CASE(unexisting)
 
   std::string filename = "unexisting";
   GeoEASTableDriver driver;
-  bool exceptionCaught;
+  bool exceptionCaught = false;
 
   auto* table = dynamic_cast<Table*>(
          dynamic_cast<Driver&>(driver).open(filename));
@@ -45,7 +45,7 @@ BOOST_AUTO_TEST_CASE(empty)
 
   std::string filename = "emptyfile";
   GeoEASTableDriver driver;
-  bool exceptionCaught;
+  bool exceptionCaught = false;
 
   auto* table = dynamic_cast<Table*>(
          dynamic_cast<Driver&>(driver).open(filename));
@@ -70,7 +70,7 @@ BOOST_AUTO_TEST_CASE(invalid_grammer)
 
   std::string filename = ":/:/:/:/:";
   GeoEASTableDriver driver;
-  bool exceptionCaught;
+  bool exceptionCaught = false;
 
   auto* table = dynamic_cast<Table*>(
          dynamic_cast<Driver&>(driver).open(filename));
@@ -109,7 +109,7 @@ BOOST_AUTO_TEST_CASE(table1)
 
   std::string filename;
   GeoEASTableDriver driver;
-  Table* table;
+  Table* table = nullptr;
 
   {
     filename = "table1.eas";
@@ -166,7 +166,7 @@ BOOST_AUTO_TEST_CASE(table2)
 
   std::string filename;
   GeoEASTableDriver driver;
-  Table* table;
+  Table* table = nullptr;
 
   {
     filename = "table2.eas";

@@ -49,7 +49,7 @@ calc::DownStreamVisitor::DownStreamVisitor(
     d_lddMap(lddMap)
 {
 #ifdef DEBUG
-   UINT1 pitV;
+   UINT1 pitV = 0;
    PRECOND(d_lddMap.get(pitV,catchmentOutletPit));
    PRECOND(pitV==5);
 #endif

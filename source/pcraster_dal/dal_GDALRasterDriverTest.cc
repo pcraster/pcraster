@@ -369,7 +369,7 @@ BOOST_AUTO_TEST_CASE(unexisting)
          dynamic_cast<Driver&>(driver).open(filename));
   BOOST_CHECK(!raster);
 
-  bool exceptionCaught;
+  bool exceptionCaught = false;
   try {
     exceptionCaught = false;
     raster = dynamic_cast<RasterDriver&>(driver).read(filename);
@@ -394,7 +394,7 @@ BOOST_AUTO_TEST_CASE(empty)
          dynamic_cast<Driver&>(driver).open(filename));
   BOOST_CHECK(!raster);
 
-  bool exceptionCaught;
+  bool exceptionCaught = false;
   try {
     exceptionCaught = false;
     raster = dynamic_cast<RasterDriver&>(driver).read(filename);
@@ -489,7 +489,7 @@ BOOST_AUTO_TEST_CASE(esri_ascii_grid1)
 
   std::string filename = "esriasciigrid1.asc";
   GDALRasterDriver driver("AAIGrid");
-  Raster *raster;
+  Raster *raster = nullptr;
 
   {
     raster = dynamic_cast<Raster*>(
@@ -559,7 +559,7 @@ BOOST_AUTO_TEST_CASE(default_extension)
 
   std::string filename = "esriasciigrid1";
   GDALRasterDriver driver("AAIGrid");
-  Raster* raster;
+  Raster* raster = nullptr;
 
   BOOST_CHECK(dynamic_cast<Driver&>(driver).exists("esriasciigrid1.asc"));
   BOOST_CHECK(dynamic_cast<Driver&>(driver).exists("esriasciigrid1"));

@@ -407,7 +407,7 @@ BOOST_AUTO_TEST_CASE(bad_formats)
 {
   using namespace dal;
 
-  bool caughtException;
+  bool caughtException = false;
 
   // stupid error
   caughtException = false;

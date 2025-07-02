@@ -368,7 +368,7 @@ static int RemPit(MAP_UINT1 *ldd,           /* read-write ldd map */
     /* check if prev. dem modifications
          * removed this pit erroneously
          */
-    UINT1 c;
+    UINT1 c = 0;
     ldd->Get(&c, pitr, pitc, ldd);
     PRECOND(c == LDD_PIT);
 #endif

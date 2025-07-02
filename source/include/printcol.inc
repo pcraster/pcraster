@@ -1,3 +1,5 @@
+#include <math.h>
+
 static void MakeFmts(
               char *valFmt_s,
               char *mvStr_s,
@@ -6,8 +8,8 @@ static void MakeFmts(
 	const char *mv_s,
 	const MAP  *map_s)  /* NULL if not used, for X,Y */
 {
-	size_t strLen;
-	size_t strLenMv;
+	size_t strLen = 0;
+	size_t strLenMv = 0;
 	char mvFmt[128];
 	char fmt[128];
 
@@ -28,8 +30,8 @@ static void MakeFmts(
 		 case VS_NOMINAL   :
 		               { char minS[32];
 		               char maxS[32];
-		                 REAL8 min;
-		                 REAL8 max;
+		                 REAL8 min = NAN;
+		                 REAL8 max = NAN;
 		                 RgetMinVal(map_s,&min);
 		                 RgetMaxVal(map_s,&max);
 		                 (void)sprintf(minS,"%g",min);

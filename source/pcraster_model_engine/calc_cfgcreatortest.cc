@@ -102,7 +102,7 @@ BOOST_AUTO_TEST_CASE(testExpr)
     const char *names[]={ "1","2","+","3","4","-","*","5","/"};
     size_t ic(0);
     const CFGNode* i=c;
-    const CFGNode* last;
+    const CFGNode* last = nullptr;
     do {
       BOOST_CHECK(ic < ARRAY_SIZE(names));
       cfgCreatorTest::CmpNode cn(names[ic], i);
@@ -138,7 +138,7 @@ BOOST_AUTO_TEST_CASE(testStatementList)
                           "ass-a","stat-start","a","5","/","ass-b"};
     size_t ic(0);
     const CFGNode* i=c;
-    const CFGNode* last;
+    const CFGNode* last = nullptr;
     // forward test
     do {
       BOOST_CHECK(ic < ARRAY_SIZE(names));

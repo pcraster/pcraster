@@ -687,7 +687,7 @@ int AddToTssRowREAL8(REAL8 *data,        /* write values, starts at col 1 of TIM
     SEARCH_TABLE *table = NULL;
     size_t i = 0;
 #if defined(DEBUG)
-    int nrRows, nrCols;
+    int nrRows = 0, nrCols = 0;
 #endif
 
     /* Initialize settings */
@@ -733,7 +733,7 @@ int AddToTssRowINT4(REAL8 *data,        /* write values, starts at col 1 of TIME
     SEARCH_TABLE *table = NULL;
     size_t i = 0;
 #if defined(DEBUG)
-    int nrRows, nrCols;
+    int nrRows = 0, nrCols = 0;
 #endif
 
     /* Initialize settings */

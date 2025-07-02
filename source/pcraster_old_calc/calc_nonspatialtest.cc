@@ -1,4 +1,6 @@
 #define BOOST_TEST_MODULE pcraster old_calc non_spatial
+#include <math.h>
+
 #include <boost/test/unit_test.hpp>
 #include "com_csfcell.h"
 #include "calc_nonspatial.h"
@@ -11,7 +13,7 @@ BOOST_AUTO_TEST_CASE(set_and_get_cell)
   { // set a value scalar
     NonSpatial n(VS_S,4);
     try {
-     double v;
+     double v = NAN;
      n.getCell(v,81);
      BOOST_CHECK(v==4);
      n.setCell(8,88);
@@ -27,7 +29,7 @@ BOOST_AUTO_TEST_CASE(set_and_get_cell)
   { // set a value boolean UINT1
     NonSpatial n(VS_B, 0);
     try {
-     double v;
+     double v = NAN;
      n.getCell(v,81);
      BOOST_CHECK(v==0);
      n.setCell(1,88);
@@ -42,7 +44,7 @@ BOOST_AUTO_TEST_CASE(set_and_get_cell)
   { // set a value nominal INT4
     NonSpatial n(VS_N, 4);
     try {
-     double v;
+     double v = NAN;
      n.getCell(v,81);
      BOOST_CHECK(v==4);
      n.setCell(-2,88);
@@ -57,7 +59,7 @@ BOOST_AUTO_TEST_CASE(set_and_get_cell)
 
   { // set a MV
     NonSpatial n(VS_S, 8);
-    double v;
+    double v = NAN;
     pcr::setMV(v);
     bool catched=false;
     try {

@@ -1,3 +1,4 @@
+#include <math.h>
 #include <pybind11/pybind11.h>
 
 #include "stddefx.h"
@@ -909,7 +910,7 @@ PYBIND11_MODULE(_pcraster, module)
       // passing buffers to opencl, it is useful to be able to assume that
       // the missing value in the scalar case is a NaN, so we don't need
       // to test each value for missing valueness, but just get on with it.
-      REAL4 value;
+      REAL4 value = NAN;
       pcr::setMV(value);
       assert(ValueTraits<REAL4>::is_negative_quiet_nan(value));
   }

@@ -3,6 +3,8 @@
 #include "dal_MathUtils.h"
 #include "dal_RasterDimensions.h"
 
+#include <cmath>
+
 
 BOOST_AUTO_TEST_CASE(test_)
 {
@@ -104,8 +106,8 @@ BOOST_AUTO_TEST_CASE(coordinates)
 
   {
     RasterDimensions raster(3, 4, 5.0, 1.0, 2.0);
-    double x;
-    double y;
+    double x = NAN;
+    double y = NAN;
 
     raster.coordinates(0u, x, y);
     BOOST_CHECK_CLOSE(x, 3.5, 0.001);

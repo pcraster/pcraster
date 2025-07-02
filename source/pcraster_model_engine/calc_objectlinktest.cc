@@ -107,7 +107,7 @@ BOOST_AUTO_TEST_CASE(testLoadLink2)
 
 
   // ctor has className
-  const Operator *o;
+  const Operator *o = nullptr;
   o=globalOperations["CalcLibDemoObjectLink"];
   BOOST_CHECK(o);
   BOOST_CHECK(o->nrResults()       == 1);
@@ -204,7 +204,7 @@ BOOST_AUTO_TEST_CASE(testExec2)
    RunTimeEnv      rte(geo::RasterSpace(2,2));
 
    // ctor
-   const Operator *o;
+   const Operator *o = nullptr;
    o=opName2op("CalcLibDemoObjectLink");
    BOOST_CHECK(o);
    o->exec(&rte,0);
@@ -254,7 +254,7 @@ BOOST_AUTO_TEST_CASE(testCheckAndExec)
  RunTimeEnv      rte(geo::RasterSpace(1,3));
 
  // ctor
- const Operator *o;
+ const Operator *o = nullptr;
  o=globalOperations["CalcLibDemoObjectLink"];
  BOOST_CHECK(o);
 

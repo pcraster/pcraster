@@ -31,7 +31,7 @@ namespace calc {
 
 
        if(methodName == "setDem") {
-         const REAL4 *  a0;
+         const REAL4 *  a0 = nullptr;
 
          tieProxyArgument(a0,fields.at(0));
 
@@ -41,9 +41,9 @@ namespace calc {
             }
 
        if(methodName == "testOrder") {
-         REAL4 * a0;
+         REAL4 * a0 = nullptr;
 std::vector<const REAL4 * > a1;
-UINT1 a3;
+UINT1 a3 = 0;
 
          tieProxyArgument(a0,fields.at(0));
 tieProxyArgument(a1,fields.at(1));
@@ -58,7 +58,7 @@ tieProxyArgument(a3,fields.at(3));
        if(methodName == "testOrder2") {
          std::vector<REAL4 *> a0;
 std::vector<const REAL4 * > a2;
-UINT1 a4;
+UINT1 a4 = 0;
 
          tieProxyArgument(a0,fields.at(0));
 tieProxyArgument(a0,fields.at(1));
@@ -72,7 +72,7 @@ tieProxyArgument(a4,fields.at(4));
             }
 
        if(methodName == "getDem") {
-         REAL4 * a0;
+         REAL4 * a0 = nullptr;
 
          tieProxyArgument(a0,fields.at(0));
 

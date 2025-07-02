@@ -148,7 +148,7 @@ calc::ASTNode *calc::path(ASTNode* root, const char *pathStr) {
   PRECOND(root);
   ASTPathCaster current(root);
 
-  const char *ptr;
+  const char *ptr = nullptr;
   try {
     for(ptr=pathStr; *ptr; ++ptr)
        current.add(*ptr);

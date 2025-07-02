@@ -1,4 +1,6 @@
 #define BOOST_TEST_MODULE pcraster model_engine pointcodeblockdll
+#include <math.h>
+
 #include <boost/test/unit_test.hpp>
 #include "geo_filecreatetester.h"
 #include "calc_p5stack.h"
@@ -42,7 +44,7 @@ BOOST_AUTO_TEST_CASE(testReportDefault)
  }
  {
    REAL4 r=-999;
-   REAL4 arg2;
+   REAL4 arg2 = NAN;
    pcr::setMV(arg2);
    _ifthenelse<>(r,0,(REAL4)1.0,arg2);
    BOOST_CHECK(pcr::isMV(r));
@@ -54,7 +56,7 @@ BOOST_AUTO_TEST_CASE(testReportDefault)
  }
  {
    REAL4 r=-999;
-   REAL4 arg1;
+   REAL4 arg1 = NAN;
    pcr::setMV(arg1);
    _ifthenelse<>(r,1,arg1,(REAL4)2);
    BOOST_CHECK(pcr::isMV(r));

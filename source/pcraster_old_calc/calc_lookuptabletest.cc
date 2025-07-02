@@ -1,4 +1,6 @@
 #define BOOST_TEST_MODULE pcraster old_calc lookup_table
+#include <math.h>
+
 #include <boost/test/unit_test.hpp>
 #include "com_pathname.h"
 #include "com_exception.h"
@@ -49,7 +51,7 @@ BOOST_AUTO_TEST_CASE(old_style_constructor)
     using namespace calc;
 
     std::vector<VS> inKeys(1, VS_S);
-    double r;
+    double r = NAN;
 
     { // OK
         LookupTable t(VS_S);
@@ -89,7 +91,7 @@ BOOST_AUTO_TEST_CASE(all_intervals)
   using namespace calc;
 
   std::vector<VS> inKeys(1,VS_S);
-  double r;
+  double r = NAN;
 
  {
   // TEST_ONE new com::EqualTo(l->l)
@@ -252,7 +254,7 @@ BOOST_AUTO_TEST_CASE(multiple_keys)
   using namespace calc;
 
   std::vector<VS> inKeys(2,VS_S);
-  double r;
+  double r = NAN;
   LookupTable t(VS_S);
   createTestTable(t,"[3 , 5 ] [ 7, 9] 2.4",inKeys);
 
@@ -275,7 +277,7 @@ BOOST_AUTO_TEST_CASE(multiple_records)
   using namespace calc;
 
   std::vector<VS> inKeys(2,VS_S);
-  double r;
+  double r = NAN;
   LookupTable t(VS_S);
   createTestTable(t,"[3 , 5 ] [ 7, 9] 2.4\n"
                     " 8       [ 7, 9] 4.8\n"

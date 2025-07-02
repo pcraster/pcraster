@@ -268,7 +268,7 @@ BOOST_AUTO_TEST_CASE(path_for_scenario_quantile_sample_time)
 
   // typedef boost::filesystem::path path;
 
-  bool exceptionThrown;
+  bool exceptionThrown = false;
 
   // Empty dataset name.
   try {
@@ -295,7 +295,7 @@ BOOST_AUTO_TEST_CASE(path_for_scenario_quantile_sample)
 
   // typedef boost::filesystem::path path;
 
-  bool exceptionThrown;
+  bool exceptionThrown = false;
 
   // Empty dataset name.
   try {
@@ -322,7 +322,7 @@ BOOST_AUTO_TEST_CASE(path_for_scenario_quantile_time)
 
   // typedef boost::filesystem::path path;
 
-  bool exceptionThrown;
+  bool exceptionThrown = false;
 
   // Empty dataset name.
   try {
@@ -349,7 +349,7 @@ BOOST_AUTO_TEST_CASE(path_for_scenario_quantile)
 
   // typedef boost::filesystem::path path;
 
-  bool exceptionThrown;
+  bool exceptionThrown = false;
 
   // Empty dataset name.
   try {
@@ -376,7 +376,7 @@ BOOST_AUTO_TEST_CASE(path_for_scenario_sample_time)
 
   // typedef boost::filesystem::path path;
 
-  bool exceptionThrown;
+  bool exceptionThrown = false;
 
   // Empty dataset name.
   try {
@@ -403,7 +403,7 @@ BOOST_AUTO_TEST_CASE(path_for_scenario_sample)
 
   // typedef boost::filesystem::path path;
 
-  bool exceptionThrown;
+  bool exceptionThrown = false;
 
   // Empty dataset name.
   try {
@@ -430,7 +430,7 @@ BOOST_AUTO_TEST_CASE(path_for_scenario_time)
 
   // typedef boost::filesystem::path path;
 
-  bool exceptionThrown;
+  bool exceptionThrown = false;
 
   // Empty dataset name.
   try {
@@ -457,7 +457,7 @@ BOOST_AUTO_TEST_CASE(path_for_scenario)
 
   // typedef boost::filesystem::path path;
 
-  bool exceptionThrown;
+  bool exceptionThrown = false;
 
   // Empty dataset name.
   try {
@@ -510,7 +510,7 @@ BOOST_AUTO_TEST_CASE(path_for_quantile_sample_time)
 
   // typedef boost::filesystem::path path;
 
-  bool exceptionThrown;
+  bool exceptionThrown = false;
 
   // Empty dataset name.
   try {
@@ -537,7 +537,7 @@ BOOST_AUTO_TEST_CASE(path_for_quantile_sample)
 
   // typedef boost::filesystem::path path;
 
-  bool exceptionThrown;
+  bool exceptionThrown = false;
 
   // Empty dataset name.
   try {
@@ -567,7 +567,7 @@ BOOST_AUTO_TEST_CASE(path_for_quantile_time)
   BOOST_CHECK_EQUAL(pathForQuantileTime("bla", 0.75f, 5).string(),
          "bla_5_0.75");
 
-  bool exceptionThrown;
+  bool exceptionThrown = false;
 
   // Empty dataset name.
   try {
@@ -594,7 +594,7 @@ BOOST_AUTO_TEST_CASE(path_for_quantile)
 
   // typedef boost::filesystem::path path;
 
-  bool exceptionThrown;
+  bool exceptionThrown = false;
 
   // Empty dataset name.
   try {
@@ -621,7 +621,7 @@ BOOST_AUTO_TEST_CASE(path_for_sample_time)
 
   // typedef boost::filesystem::path path;
 
-  bool exceptionThrown;
+  bool exceptionThrown = false;
 
   // Empty dataset name.
   try {
@@ -650,7 +650,7 @@ BOOST_AUTO_TEST_CASE(path_for_sample)
 
   BOOST_CHECK(pathForSample("bla", 5) == path("5/bla"));
 
-  bool exceptionThrown;
+  bool exceptionThrown = false;
 
   // Empty dataset name.
   try {
@@ -747,7 +747,7 @@ BOOST_AUTO_TEST_CASE(path_for_time)
   // BOOST_WARN(pathForTime("bla.x"  , 5, 3) == path("bla_005.x"));
   // BOOST_WARN(pathForTime("bla."   , 5, 3) == path("bla_005."));
 
-  bool exceptionThrown;
+  bool exceptionThrown = false;
 
   // Empty dataset name.
   try {
@@ -776,7 +776,7 @@ BOOST_AUTO_TEST_CASE(path_for)
   BOOST_CHECK(std::filesystem::path("data.col") == pathFor("data.col"));
   BOOST_CHECK(std::filesystem::path("12345") == pathFor("12345"));
 
-  bool exceptionThrown;
+  bool exceptionThrown = false;
 
   try {
     exceptionThrown = false;

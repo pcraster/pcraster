@@ -11,7 +11,7 @@ BOOST_AUTO_TEST_CASE(default_)
 {
   using namespace calc;
 
-  bool found;
+  bool found = false;
 
   RunDirectory r;
   const std::string s1("fileName");
@@ -39,7 +39,7 @@ BOOST_AUTO_TEST_CASE(run_dir)
 {
   using namespace calc;
 
-  bool found;
+  bool found = false;
   RunDirectory r;
   std::string dir("rundir_baseOfRunDirNotExistantIsOk");
   r.setRunDirectory(dir,"");
@@ -95,7 +95,7 @@ BOOST_AUTO_TEST_CASE(search_path)
 {
   using namespace calc;
 
-  bool found;
+  bool found = false;
   RunDirectory r;
   std::string runDirName("rundir_dir1/dir2/dir3");
 

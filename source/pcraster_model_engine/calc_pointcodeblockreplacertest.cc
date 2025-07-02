@@ -44,7 +44,7 @@ BOOST_AUTO_TEST_CASE(test)
 {
   using namespace calc;
 
-  PointCodeBlock *b;
+  PointCodeBlock *b = nullptr;
   std::set<std::string> emptyS;
   std::set<std::string> xS;
   xS.insert("x");

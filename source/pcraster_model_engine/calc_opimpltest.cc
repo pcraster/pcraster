@@ -1,4 +1,6 @@
 #define BOOST_TEST_MODULE pcraster model_engine opimpl
+#include <math.h>
+
 #include <boost/test/unit_test.hpp>
 #include "geo_rasterspace.h"
 #include "com_file.h"
@@ -44,7 +46,7 @@ BOOST_AUTO_TEST_CASE(testSameBin)
 
     execAll(rte,a);
     DVAutoPtr<Field>r(rte.popField());
-    double v;
+    double v = NAN;
     BOOST_CHECK(r->getCell(v,0));
     BOOST_CHECK(v==4);
     BOOST_CHECK(!r->getCell(v,1));
@@ -69,7 +71,7 @@ BOOST_AUTO_TEST_CASE(testSameBin)
       DVAutoPtr<Field>r(rte.popField());
       BOOST_CHECK(r->isSpatial());
       BOOST_CHECK(r->vs() == VS_S);
-      double v;
+      double v = NAN;
       BOOST_CHECK(r->getCell(v,0));
       BOOST_CHECK(v==3);
       BOOST_CHECK(!r->getCell(v,1));
@@ -87,7 +89,7 @@ BOOST_AUTO_TEST_CASE(testSameBin)
     DVAutoPtr<Field>r(rte.popField());
 
     BOOST_CHECK(!r->isSpatial());
-    double v;
+    double v = NAN;
     BOOST_CHECK(r->getCell(v,0));
     BOOST_CHECK(v==2);
   }
@@ -153,7 +155,7 @@ BOOST_AUTO_TEST_CASE(testCover)
     DVAutoPtr<Field>r(rte.popField());
 
     BOOST_CHECK(!r->isSpatial());
-    double v;
+    double v = NAN;
     BOOST_CHECK(r->getCell(v,0));
     BOOST_CHECK(v==1);
   }
@@ -294,7 +296,7 @@ BOOST_AUTO_TEST_CASE(testDiffUn)
 
     BOOST_CHECK(!r->isSpatial());
     BOOST_CHECK(r->vs()==VS_O);
-    double v;
+    double v = NAN;
     BOOST_CHECK(r->getCell(v,0));
     BOOST_CHECK(v==2);
  }
@@ -340,7 +342,7 @@ BOOST_AUTO_TEST_CASE(testDiffUn)
     BOOST_CHECK(r->isSpatial());
     BOOST_CHECK(r->vs()==VS_B);
 
-    double v;
+    double v = NAN;
     BOOST_CHECK(r->getCell(v,0));
     BOOST_CHECK(v==0);
     BOOST_CHECK(!r->getCell(v,1));
@@ -549,7 +551,7 @@ BOOST_AUTO_TEST_CASE(testGen)
 
     BOOST_CHECK(!r->isSpatial());
     BOOST_CHECK(r->vs()==VS_S);
-    double v;
+    double v = NAN;
     BOOST_CHECK(r->getCell(v,0));
     BOOST_CHECK(v==1);
   }

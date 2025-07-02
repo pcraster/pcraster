@@ -6,6 +6,8 @@
 #ifndef INCLUDED_CALC_P5STACK
 #include "calc_p5stack.h"
 
+#include <math.h>
+
 #include <memory>
 #define INCLUDED_CALC_P5STACK
 #endif
@@ -140,7 +142,7 @@ bool calc::P5Stack::equal(
   if (f->vs() != vs)
     return false;
 
-  double v;
+  double v = NAN;
   if (!spatial) {
     f->getCell(v, 0);
     return v==allValues;

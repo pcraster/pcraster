@@ -78,28 +78,6 @@ option(
     "Use Qt5"
     OFF)
 
-# Refactor these at some point? re-check bundle...
-option(
-    PCRASTER_PACKAGE_QT
-    "Package shared libraries"
-    OFF)
-option(
-    PCRASTER_PACKAGE_QT_PLATFORMS
-    "Package Qt Platform Abstraction directory"
-    OFF)
-option(
-    PCRASTER_PACKAGE_XERCES
-    "Package shared libraries"
-    OFF)
-option(
-    PCRASTER_PACKAGE_GDAL
-    "Package shared libraries"
-    OFF)
-option(
-    PCRASTER_PACKAGE_NCURSES
-    "Package shared libraries"
-    OFF)
-
 
 if(NOT PCRASTER_PYTHON_INSTALL_DIR)
     set(PCRASTER_PYTHON_INSTALL_DIR python)

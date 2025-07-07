@@ -1,12 +1,6 @@
 #include "ag_Table.h"
 
 // Library headers.
-#include <boost/version.hpp>
-#if BOOST_VERSION > 107200
-  #include <boost/bind/bind.hpp>
-#else
-  #include <boost/bind.hpp>
-#endif
 #include <boost/lexical_cast.hpp>
 
 // PCRaster library headers.
@@ -22,10 +16,6 @@
 #include <filesystem>
 #include <format>
 
-
-#if BOOST_VERSION > 107200
-  using namespace boost::placeholders;
-#endif
 
 /*!
   \file

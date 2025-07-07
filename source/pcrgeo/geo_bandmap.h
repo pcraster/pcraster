@@ -6,14 +6,6 @@
 #define INCLUDED_STDDEFX
 #endif
 
-#ifndef INCLUDED_BOOST_NONCOPYABLE
-#include <boost/noncopyable.hpp>
-#define INCLUDED_BOOST_NONCOPYABLE
-#endif
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
 #ifndef INCLUDED_CSFTYPES
 #include "csftypes.h"
 #define INCLUDED_CSFTYPES
@@ -22,6 +14,8 @@
 #include "com_pathname.h"
 #define INCLUDED_COM_PATHNAME
 #endif
+
+#include <string>
 
 
 namespace geo {

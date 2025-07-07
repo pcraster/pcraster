@@ -1,19 +1,6 @@
 #ifndef INCLUDED_CALC_TSSOUTPUTVALUE
 #define INCLUDED_CALC_TSSOUTPUTVALUE
 
-#ifndef INCLUDED_FSTREAM
-#include <fstream>
-#define INCLUDED_FSTREAM
-#endif
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-#ifndef INCLUDED_BOOST_NONCOPYABLE
-#include <boost/noncopyable.hpp>
-#define INCLUDED_BOOST_NONCOPYABLE
-#endif
-
 #ifndef INCLUDED_CALC_VS
 #include "calc_vs.h"
 #define INCLUDED_CALC_VS
@@ -24,17 +11,24 @@
 #define INCLUDED_CALC_STACKINFO
 #endif
 
+#include <fstream>
+#include <vector>
+
 namespace calc {
 
 class Field;
 class IOStrategy;
 
 //! An output tss
-class TssOutputValue : public boost::noncopyable {
+class TssOutputValue{
  protected:
 
   TssOutputValue();
  public:
+
+  TssOutputValue(const TssOutputValue& other) = delete;
+
+  TssOutputValue& operator=(const TssOutputValue& other) = delete;
 
  virtual ~TssOutputValue();
 

@@ -9,10 +9,6 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_BOOST_NONCOPYABLE
-#include <boost/noncopyable.hpp>
-#define INCLUDED_BOOST_NONCOPYABLE
-#endif
 
 // PCRaster library headers.
 #ifndef INCLUDED_CALC_LDDGRAPH
@@ -37,7 +33,7 @@ namespace calc {
 /*!
  * modelled after the Boost graph dfs en bfs visitors
  */
-class DownstreamVisitor: private boost::noncopyable
+class DownstreamVisitor
 {
 
   const LddGraph& d_graph;
@@ -50,6 +46,10 @@ public:
   //----------------------------------------------------------------------------
 
                    DownstreamVisitor               (const LddGraph& graph);
+
+                   DownstreamVisitor               (const DownstreamVisitor& other) = delete;
+
+                   DownstreamVisitor& operator=    (const DownstreamVisitor& other) = delete;
 
      virtual       ~DownstreamVisitor              ();
 

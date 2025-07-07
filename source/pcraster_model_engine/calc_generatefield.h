@@ -5,10 +5,6 @@
 #include "csftypes.h"
 #define INCLUDED_CSFTYPES
 #endif
-#ifndef INCLUDED_BOOST_NONCOPYABLE
-#include <boost/noncopyable.hpp>
-#define INCLUDED_BOOST_NONCOPYABLE
-#endif
 
 namespace geo {
   class RasterSpace;
@@ -19,9 +15,9 @@ namespace calc {
 class  SpatialPacking;
 class  Field;
 
-class GenerateSpatial : public boost::noncopyable {
+class GenerateSpatial {
 
-  //! boolean mask if  true (1), generate value 
+  //! boolean mask if  true (1), generate value
   const UINT1 *d_mask;
 
   //! nr of cells in mask
@@ -41,6 +37,11 @@ public:
     const Field            &mask,
     const SpatialPacking   &c,
     const geo::RasterSpace &rs);
+
+  GenerateSpatial(const GenerateSpatial& other) = delete;
+
+  GenerateSpatial& operator=(const GenerateSpatial& other) = delete;
+
   ~GenerateSpatial();
 
   void xcoordinate(REAL4 *res) const;
@@ -51,11 +52,13 @@ public:
 
 };
 
-class GenerateNonSpatial: public boost::noncopyable {
+class GenerateNonSpatial {
   //! needed for index translation
   const  geo::RasterSpace&     d_rasterSpace;
  public:
    GenerateNonSpatial(const geo::RasterSpace &rs);
+   GenerateNonSpatial(const GenerateNonSpatial& other) = delete;
+   GenerateNonSpatial& operator=(const GenerateNonSpatial& other) = delete;
   ~GenerateNonSpatial();
 
   void celllength (REAL4 *res) const;

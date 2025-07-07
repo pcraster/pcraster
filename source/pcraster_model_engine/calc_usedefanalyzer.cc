@@ -9,10 +9,6 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_BOOST_NONCOPYABLE
-#include <boost/noncopyable.hpp>
-#define INCLUDED_BOOST_NONCOPYABLE
-#endif
 
 // PCRaster library headers.
 #ifndef INCLUDED_STACK
@@ -82,8 +78,9 @@
 
 namespace calc {
 
-struct RecordFirst : boost::noncopyable
+struct RecordFirst
 {
+
   typedef std::vector<UDEvent>::const_iterator P;
   // use end as not yet initialized marker
   const P d_end;
@@ -99,6 +96,8 @@ struct RecordFirst : boost::noncopyable
     initial(d_end),
     dynamic(d_end)
   {}
+  RecordFirst(const RecordFirst& other) = delete;
+  RecordFirst& operator=(const RecordFirst& other) = delete;
   void update(P e, bool inDynamic) {
     if (ever == d_end)
       ever=e;

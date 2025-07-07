@@ -9,10 +9,6 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_BOOST_NONCOPYABLE
-#include <boost/noncopyable.hpp>
-#define INCLUDED_BOOST_NONCOPYABLE
-#endif
 // PCRaster library headers.
 #ifndef INCLUDED_PCRASTERXSD
 #include "PCRasterXSD.h"
@@ -133,8 +129,7 @@ namespace calc {
   };
 
   //! update ASTSymbolTable for definitions
-  class XMLUpdateSymbolTable:
-    public boost::noncopyable
+  class XMLUpdateSymbolTable
   {
   private:
     ASTSymbolTable& d_table;
@@ -164,6 +159,9 @@ namespace calc {
         }
       }
     }
+    XMLUpdateSymbolTable(const XMLUpdateSymbolTable& other) = delete;
+
+    XMLUpdateSymbolTable& operator=(const XMLUpdateSymbolTable& other) = delete;
 
     //! only update the symbol if found in the model
     void updateUsedSymbols(pcrxml::Definition const& d) {

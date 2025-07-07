@@ -22,18 +22,13 @@
 #include <string>
 #define INCLUDED_STRING
 #endif
-#ifndef INCLUDED_BOOST_NONCOPYABLE
-#include <boost/noncopyable.hpp>
-#define INCLUDED_BOOST_NONCOPYABLE
-#endif
 
 #include "ATokenStream.h"
 namespace calc {
 //! lexer for ANTLR based parser for the modelling language Grammar
 class LexGrammar :
   public gramFlexLexer,
-  public ANTLRTokenStream,
-  public boost::noncopyable
+  public ANTLRTokenStream
 {
 private:
 
@@ -69,6 +64,10 @@ public:
   ANTLRAbstractToken *getToken() override;
 
   LexGrammar(LexInput& input);
+
+  LexGrammar(const LexGrammar& other) = delete;
+
+  LexGrammar& operator=(const LexGrammar& other) = delete;
 
   const std::string& optionLine() const;
 

@@ -2,16 +2,16 @@
 #define INCLUDED_AG_VIEWER
 
 // Library headers.
-#include <cassert>
-#include <vector>
-#include <string>
-#include <boost/noncopyable.hpp>
 
 // PCRaster library headers.
 #include "dal_Driver.h" // DataSpaceQueryResult
 
 // Module headers.
 #include "ag_VisGroupManager.h"
+
+#include <cassert>
+#include <vector>
+#include <string>
 
 namespace pcrxml {
   class Aguila;
@@ -74,7 +74,7 @@ namespace ag {
 
   \todo Gebruik dal voor i/o. - hele pathname spul uit de interface, dataset heeft een naam en dat zou een filename kunnen zijn, maar hoeft niet (zie dal) - testen van type data achteraf doen: open data, bekijk wat voor data het is en lees door als het ok is (map vis wil raster data, timeplot wil tijdserie, etc) - misschien moet dal aangepast dat er functies komen die een stream krijgen ipv bestandsnaam, anders moet elk bestand twee keer geopend worden: een keer in open(), waarna getest wordt en een keer in read(). - als je weet wat voor dat het moet zijn dan kan je specialistische dal objecten gebruiken voor het lezen: rasterdal, tabledal, etc: scheelt een test. - addData in de visgroup moet dan worden uitgesplitst in addRaster (addStack?), addTable, addScript. Scripts (textfiles toevoegen aan dal) - add Stackname class to dal which replaces CSFStackName, but than without the PathName and CSF specific stuff, maybe call it StackInfo
 */
-class PCR_AG_DECL Viewer: private boost::noncopyable
+class PCR_AG_DECL Viewer
 {
 
   friend class Aguila;
@@ -281,6 +281,9 @@ public:
   //----------------------------------------------------------------------------
   // CREATORS
   //----------------------------------------------------------------------------
+                   Viewer              (const Viewer& other) = delete;
+
+                   Viewer& operator=   (const Viewer& other) = delete;
 
   /* virtual */    ~Viewer             ();
 

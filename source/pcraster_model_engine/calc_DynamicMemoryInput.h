@@ -9,10 +9,6 @@
 #endif
 
 // External headers.
-#ifndef INCLUDED_BOOST_NONCOPYABLE
-#include <boost/noncopyable.hpp>
-#define INCLUDED_BOOST_NONCOPYABLE
-#endif
 
 // Project headers.
 
@@ -39,8 +35,7 @@ namespace calc {
 
 //! A Field that is present on disk under a fileName, where load() will read
 class DynamicMemoryInput:
-   public DataValue,
-   public boost::noncopyable
+   public DataValue
 {
 
 private:
@@ -62,6 +57,10 @@ public:
                                                      DataType const& dataType,
                                                      DataTable const& dataTable,
                                                      IOStrategy const& ioStrategy);
+
+                   DynamicMemoryInput               (const DynamicMemoryInput& other) = delete;
+
+                   DynamicMemoryInput& operator=    (const DynamicMemoryInput& other) = delete;
 
   /* virtual */    ~DynamicMemoryInput              () override;
 

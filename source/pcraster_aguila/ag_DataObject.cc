@@ -40,7 +40,7 @@ namespace ag {
 
 //------------------------------------------------------------------------------
 
-class DataObjectPrivate: private boost::noncopyable
+class DataObjectPrivate
 {
 public:
 
@@ -82,6 +82,10 @@ public:
       d_animManager(300)
   {
   }
+
+  DataObjectPrivate(const DataObjectPrivate& other) = delete;
+
+  DataObjectPrivate& operator=(const DataObjectPrivate& other) = delete;
 
 
   ~DataObjectPrivate()

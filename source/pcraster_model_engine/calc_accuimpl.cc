@@ -9,14 +9,7 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_CMATH
-#include <cmath>
-#define INCLUDED_CMATH
-#endif
-#ifndef INCLUDED_BOOST_NONCOPYABLE
-#include <boost/noncopyable.hpp>
-#define INCLUDED_BOOST_NONCOPYABLE
-#endif
+
 // PCRaster library headers.
 #ifndef INCLUDED_COM_CSFCELL
 #include "com_csfcell.h"
@@ -55,6 +48,8 @@
 #include "calc_field.h"
 #define INCLUDED_CALC_FIELD
 #endif
+
+#include <cmath>
 
 /*!
   \file

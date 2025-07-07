@@ -9,15 +9,6 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-#ifndef INCLUDED_BOOST_NONCOPYABLE
-#include <boost/noncopyable.hpp>
-#include <memory>
-#define INCLUDED_BOOST_NONCOPYABLE
-#endif
 
 // PCRaster library headers.
 #ifndef INCLUDED_PCRASTERXSD
@@ -59,6 +50,8 @@
   This file contains the implementation of the LinkInExpr class.
 */
 
+#include <memory>
+#include <vector>
 
 
 namespace calc {
@@ -75,8 +68,7 @@ template<typename TypeContainer>
   return v;
 }
 
-class OperatorCreator:
-  public boost::noncopyable
+class OperatorCreator
 {
   pcrxml::LinkInLibraryManifest const& d_manifest;
 
@@ -117,6 +109,9 @@ public:
   ~OperatorCreator()
   {
   }
+  OperatorCreator(const OperatorCreator& other) = delete;
+
+  OperatorCreator& operator=(const OperatorCreator& other) = delete;
 
   Operator *createConstructor(std::string const& name) const {
    const pcrxml::LinkInClassManifest* c=findClass(name);

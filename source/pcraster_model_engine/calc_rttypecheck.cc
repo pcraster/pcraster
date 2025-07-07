@@ -9,14 +9,7 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_DEQUE
-#include <deque>
-#define INCLUDED_DEQUE
-#endif
-#ifndef INCLUDED_BOOST_NONCOPYABLE
-#include <boost/noncopyable.hpp>
-#define INCLUDED_BOOST_NONCOPYABLE
-#endif
+
 // PCRaster library headers.
 
 // Module headers.
@@ -69,6 +62,7 @@
 #define INCLUDED_GEO_RASTERSPACE
 #endif
 
+#include <deque>
 
 /*!
   \file
@@ -82,8 +76,7 @@
 
 namespace calc {
 
-class RtTypeCheckPrivate :
-  public boost::noncopyable
+class RtTypeCheckPrivate
 {
 public:
   const Operator&              d_op;
@@ -101,6 +94,9 @@ public:
      d_syms(d_rte.dataTable().symbols())
   {
   }
+  RtTypeCheckPrivate(const RtTypeCheckPrivate& other) = delete;
+
+  RtTypeCheckPrivate& operator=(const RtTypeCheckPrivate& other) = delete;
 
   void check()
   {

@@ -9,10 +9,6 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_BOOST_NONCOPYABLE
-#include <boost/noncopyable.hpp>
-#define INCLUDED_BOOST_NONCOPYABLE
-#endif
 
 // PCRaster library headers.
 
@@ -34,11 +30,13 @@ namespace calc {
 /*! use DVAutoPtr on DataValue-based object instead of std::auto_ptr
  */
 template <class T>
- class DVAutoPtr : boost::noncopyable {
+ class DVAutoPtr {
    private:
      T* d_ap;
    public:
      DVAutoPtr(T* ap): d_ap(ap) {}
+     DVAutoPtr(const DVAutoPtr& other) = delete;
+     DVAutoPtr& operator=(const DVAutoPtr& other) = delete;
     ~DVAutoPtr()                { deleteFromPcrme(d_ap); }
 
     T* get()                    { return d_ap; }

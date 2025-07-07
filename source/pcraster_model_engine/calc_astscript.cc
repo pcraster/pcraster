@@ -9,10 +9,6 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_BOOST_NONCOPYABLE
-#include <boost/noncopyable.hpp>
-#define INCLUDED_BOOST_NONCOPYABLE
-#endif
 
 // PCRaster library headers.
 #ifndef INCLUDED_COM_EXCEPTION
@@ -113,9 +109,13 @@
 
 namespace calc {
   namespace Private {
-    struct Check : public boost::noncopyable {
+    struct Check {
      const ASTSymbolTable& d_syms;
      Check(const ASTSymbolTable& syms):d_syms(syms) {}
+
+     Check(const Check& other) = delete;
+
+     Check& operator=(const Check& other) = delete;
 
      void notANumber(ASTId *id,
                      const std::string& name)

@@ -7,14 +7,9 @@
 ModflowLink::ModflowLink(pcrxml::LinkInExecuteInput const& l){
   size_t rows = l.context().areaMap().nrRows();
   size_t cols = l.context().areaMap().nrCols();
-
-  xsd::cxx::tree::optional<double> tmpCells(l.context().areaMap().cellSize());
-  xsd::cxx::tree::optional<double> tmpXll(l.context().areaMap().xLowerLeftCorner());
-  xsd::cxx::tree::optional<double> tmpYll(l.context().areaMap().yLowerLeftCorner());
-
-  double cells = tmpCells.get();
-  double west = tmpXll.get();
-  double north = tmpYll.get();
+  double cells = l.context().areaMap().cellSize().get();
+  double west = l.context().areaMap().xLowerLeftCorner().get();
+  double north = l.context().areaMap().yLowerLeftCorner().get();
 
   d_pcrmf = new PCRModflow(rows, cols, cells, west, north);
 }

@@ -16,7 +16,7 @@ jobs:
 
         name: ${{ matrix.os }};Release
 
-        timeout-minutes: 60
+        timeout-minutes: 75
 
         steps:
 
@@ -84,7 +84,7 @@ jobs:
 
         name: ${{ matrix.os }};Debug
 
-        timeout-minutes: 60
+        timeout-minutes: 75
 
         steps:
 

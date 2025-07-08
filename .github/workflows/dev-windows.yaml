@@ -29,7 +29,7 @@ jobs:
 
         name: ${{ matrix.config.name }}
 
-        timeout-minutes: 90
+        timeout-minutes: 75
 
         steps:
 

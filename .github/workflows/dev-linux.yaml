@@ -19,7 +19,7 @@ jobs:
 
         name: ${{ matrix.os }};${{ matrix.compiler.cc }};qt5-${{ matrix.qt5 }};Release
 
-        timeout-minutes: 60
+        timeout-minutes: 75
 
         steps:
 
@@ -95,7 +95,7 @@ jobs:
 
         name: ${{ matrix.os }};${{ matrix.compiler.cc }};qt5-${{ matrix.qt5 }};Debug
 
-        timeout-minutes: 60
+        timeout-minutes: 75
 
         steps:
 

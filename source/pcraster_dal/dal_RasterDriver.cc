@@ -602,7 +602,7 @@ void RasterDriver::browseFileBasedRasterAttributes(
       }
 
       // Erase all file names that belong to the stack.
-      for(int j = ids.size() - 1; j >= 0; --j) {
+      for(long j = ids.size() - 1; j >= 0; --j) {
         leaves.erase(leaves.begin() + ids[j]);
       }
 
@@ -675,7 +675,7 @@ void RasterDriver::browseFileBasedRasterAttributes(
               raster->typeId(), valueScale, this->name()));
       }
 
-      for(int j = ids.size() - 1; j >= 0; --j) {
+      for(long j = ids.size() - 1; j >= 0; --j) {
         leaves.erase(leaves.begin() + ids[j]);
       }
 
@@ -747,7 +747,7 @@ void RasterDriver::browseFileBasedRasterAttributes(
       }
 
       // Erase all file names that belong to the stack.
-      for(int j = ids.size() - 1; j >= 0; --j) {
+      for(long j = ids.size() - 1; j >= 0; --j) {
         leaves.erase(leaves.begin() + ids[j]);
       }
 
@@ -830,7 +830,7 @@ void RasterDriver::browseFileBasedRasterAttributes(
           }
 
           // Erase all file names that belong to the stack.
-          for(int j = ids.size() - 1; j >= 0; --j) {
+          for(long j = ids.size() - 1; j >= 0; --j) {
             leaves.erase(leaves.begin() + ids[j]);
           }
 

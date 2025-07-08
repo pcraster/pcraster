@@ -1518,7 +1518,7 @@ bool DataSpace::isValid(
 void DataSpace::eraseDimension(
          Meaning meaning)
 {
-  for(int i = size() - 1; i >= 0; --i) {
+  for(long i = size() - 1; i >= 0; --i) {
     if(dimension(i).meaning() == meaning) {
       eraseDimension(i);
     }
@@ -1545,7 +1545,7 @@ DataSpaceAddress DataSpace::eraseCoordinates(
 
   DataSpaceAddress result(address);
 
-  for(int i = size() - 1; i >= 0; --i) {
+  for(long i = size() - 1; i >= 0; --i) {
     if(dimension(i).meaning() == meaning) {
       result.eraseCoordinate(i);
     }

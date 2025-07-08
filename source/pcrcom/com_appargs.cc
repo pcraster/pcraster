@@ -72,7 +72,7 @@ com::AppArgs::~AppArgs ()
   delete [] d_buffer;
 }
 
-int com::AppArgs::argc() const
+size_t com::AppArgs::argc() const
 {
   return d_argc;
 }

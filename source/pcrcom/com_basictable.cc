@@ -86,7 +86,7 @@ void com::BasicTable::clean()
 
 void com::BasicTable::resize(size_t n)
 {
-  int dn = n - d_columns.size();
+  long dn = n - d_columns.size();
 
   if(dn < 0) {
     for(size_t i = n; i != d_columns.size(); i++) {

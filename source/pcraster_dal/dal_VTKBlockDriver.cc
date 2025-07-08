@@ -67,7 +67,7 @@ void VTKBlockDriver::cellData(
   size_t i = 0;
 
   // Store pointers to stacks for efficiency.
-  for(int row = block.nrRows() - 1; row >= 0; --row) {
+  for(long row = block.nrRows() - 1; row >= 0; --row) {
     for(size_t col = 0; col < block.nrCols(); ++col) {
       i = row * block.nrCols() + col;
       stacks[i] = &block.cell<std::vector<ValueType> >(i);
@@ -78,7 +78,7 @@ void VTKBlockDriver::cellData(
   // voxels, than the second, etc. Also, we start with the bottom left cell
   // of a raster instead of the upper left cell.
   for(size_t voxel = 0; voxel < nrVoxelsPerStack; ++voxel) {
-    for(int row = block.nrRows() - 1; row >= 0; --row) {
+    for(long row = block.nrRows() - 1; row >= 0; --row) {
       for(size_t col = 0; col < block.nrCols(); ++col) {
         i = row * block.nrCols() + col;
         result += " ";

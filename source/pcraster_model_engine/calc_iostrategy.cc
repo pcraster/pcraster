@@ -242,7 +242,7 @@ void IOStrategy::setMemoryExchangeData(const ASTSymbolTable& symbols,
   //  this value is replaced by one of the sub classes.
 
   const size_t noExchange(ASTSymbolInfo::noMemoryExchangeId());
-  int maxIdInt=-1;
+  long maxIdInt=-1;
   for(ASTSymbolTablePair i : symbols) {
     ASTSymbolInfo const& si(i.second);
     size_t ids[2];
@@ -253,7 +253,7 @@ void IOStrategy::setMemoryExchangeData(const ASTSymbolTable& symbols,
         // not both set
         PRECOND(ids[0] != noExchange || ids[1] != noExchange);
         if(id != noExchange) {
-          maxIdInt = std::max<int>(maxIdInt,(size_t)id);
+          maxIdInt = std::max<long>(maxIdInt,(size_t)id);
           d_memoryData.insert(std::make_pair(si.name(),
             std::make_shared<MemoryExchangeItem>(
               si.name(),id)));

@@ -49,7 +49,7 @@ public:
   // ACCESSORS
   //----------------------------------------------------------------------------
 
-  int              argc                () const;
+  size_t           argc                () const;
   char **          argv                () const; 
 };
 

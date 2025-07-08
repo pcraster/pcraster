@@ -692,7 +692,7 @@ void VectorDriver::browse(
           }
 
           // Erase all file names that belong to the stack.
-          for(int k = ids.size() - 1; k >= 0; --k) {
+          for(long k = ids.size() - 1; k >= 0; --k) {
             leaves.erase(leaves.begin() + ids[k]);
           }
 

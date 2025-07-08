@@ -691,7 +691,7 @@ TypeId OgrFeatureDriver::open(
   std::tie(dataset, std::ignore) = Client::dal().open(tableName,
       space, address, TABLE);
 
-  int fieldId = -1;
+  long fieldId = -1;
 
   if(!dataset) {
     // No such table.
@@ -1302,7 +1302,7 @@ void OgrFeatureDriver::filterOutUnsupportedFileNames(
   }
 
   if(!ids.empty()) {
-    for(int i = ids.size() - 1; i >= 0; --i) {
+    for(long i = ids.size() - 1; i >= 0; --i) {
       leaves.erase(leaves.begin() + ids[i]);
     }
   }

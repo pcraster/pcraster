@@ -4,15 +4,6 @@
 
 
 // External headers.
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-#ifndef INCLUDED_BOOST_NONCOPYABLE
-#include <boost/noncopyable.hpp>
-#define INCLUDED_BOOST_NONCOPYABLE
-#endif
 
 // Project headers.
 #ifndef INCLUDED_DEV_COMPILER
@@ -28,6 +19,7 @@
 
 
 #include <filesystem>
+#include <string>
 
 
 namespace dal {
@@ -54,7 +46,7 @@ namespace dal {
              Have a look at dev::QtClient and dev::GDalClient. More support
              libraries may need initialisation.
 */
-class PCR_DAL_DECL Client: private boost::noncopyable
+class PCR_DAL_DECL Client
 {
 
   friend class ClientTest;
@@ -79,6 +71,10 @@ public:
   //----------------------------------------------------------------------------
 
   virtual          ~Client             ();
+
+                   Client              (Client const& other) = delete;
+
+  Client&          operator=           (Client const& other) = delete;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

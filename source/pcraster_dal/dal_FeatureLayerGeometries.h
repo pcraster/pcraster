@@ -4,28 +4,9 @@
 
 
 // External headers.
-#ifndef INCLUDED_BOOST_VERSION
-#include <boost/version.hpp>
-#define INCLUDED_BOOST_VERSION
-#endif
 
-#ifndef INCLUDED_MAP
-#include <map>
-#define INCLUDED_MAP
-#endif
-
-#ifndef INCLUDED_BOOST_NONCOPYABLE
-#include <boost/noncopyable.hpp>
-#define INCLUDED_BOOST_NONCOPYABLE
-#endif
 #include <boost/geometry/geometries/box.hpp>
 #include <boost/geometry/geometries/point.hpp>
-// iostream required due to boost geometry
-#if __GNUC__ > 4
-  #if BOOST_VERSION > 106000 && BOOST_VERSION < 106300
-  #include <iostream>
-  #endif
-#endif
 #include <boost/geometry/strategies/strategies.hpp>
 #include <boost/geometry/index/rtree.hpp>
 
@@ -37,6 +18,7 @@
 #define INCLUDED_DAL_SPACEDIMENSIONS
 #endif
 
+#include <map>
 
 
 class OGRGeometry;
@@ -57,7 +39,7 @@ using FeatureId = long int;
 
   \sa        .
 */
-class FeatureLayerGeometries: private boost::noncopyable
+class FeatureLayerGeometries
 {
 
   friend class FeatureLayerGeometriesTest;
@@ -100,6 +82,10 @@ public:
                                         double north,
                                         double east,
                                         double south);
+
+                   FeatureLayerGeometries(FeatureLayerGeometries const& other) = delete;
+
+  FeatureLayerGeometries&  operator=   (FeatureLayerGeometries const& other) = delete;
 
   /* virtual */    ~FeatureLayerGeometries();
 

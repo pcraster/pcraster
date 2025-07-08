@@ -4,20 +4,6 @@
 
 
 // Library headers.
-#ifndef INCLUDED_CASSERT
-#include <cassert>
-#define INCLUDED_CASSERT
-#endif
-
-#ifndef INCLUDED_SET
-#include <set>
-#define INCLUDED_SET
-#endif
-
-#ifndef INCLUDED_BOOST_NONCOPYABLE
-#include <boost/noncopyable.hpp>
-#define INCLUDED_BOOST_NONCOPYABLE
-#endif
 
 // PCRaster library headers.
 
@@ -57,7 +43,9 @@
 #define INCLUDED_DAL_UTILS
 #endif
 
+#include <cassert>
 #include <memory>
+#include <set>
 
 namespace dal {
   // DataSource declarations.
@@ -91,7 +79,7 @@ namespace dal {
         dal object has relevant Memory*Driver(s) set.
         What about cache on reading, cache on writing and cache on both.
 */
-class PCR_DAL_DECL DataSource: private boost::noncopyable
+class PCR_DAL_DECL DataSource
 {
 
   friend class DataSourceTest;
@@ -168,6 +156,10 @@ public:
 
                    DataSource          (std::string const& name,
                                         DataSpace const& space);
+
+                   DataSource          (DataSource const& other) = delete;
+
+  DataSource&      operator=           (DataSource const& other) = delete;
 
   /* virtual */    ~DataSource         ();
 

@@ -4,15 +4,7 @@
 
 
 // Library headers.
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
 
-#ifndef INCLUDED_BOOST_NONCOPYABLE
-#include <boost/noncopyable.hpp>
-#define INCLUDED_BOOST_NONCOPYABLE
-#endif
 
 // PCRaster library headers.
 
@@ -43,6 +35,7 @@
 #endif
 
 #include <tuple>
+#include <vector>
 
 
 namespace dal {
@@ -136,7 +129,7 @@ namespace dal {
         same names. Store data set type along with the data set name.
   \todo Make using the cache optional.
 */
-class PCR_DAL_DECL Dal: private boost::noncopyable
+class PCR_DAL_DECL Dal
 {
 
   friend class DalTest;
@@ -224,6 +217,10 @@ public:
   //----------------------------------------------------------------------------
 
                    Dal                 (bool addAllDrivers=false);
+
+                   Dal                 (Dal const& other) = delete;
+
+  Dal&             operator=           (Dal const& other) = delete;
 
   virtual          ~Dal                ();
 

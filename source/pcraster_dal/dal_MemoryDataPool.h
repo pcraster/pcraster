@@ -4,15 +4,6 @@
 
 
 // Library headers.
-#ifndef INCLUDED_MAP
-#include <map>
-#define INCLUDED_MAP
-#endif
-
-#ifndef INCLUDED_BOOST_NONCOPYABLE
-#include <boost/noncopyable.hpp>
-#define INCLUDED_BOOST_NONCOPYABLE
-#endif
 
 // PCRaster library headers.
 
@@ -37,6 +28,7 @@
 #define INCLUDED_DAL_MEMORYTABLEDATA
 #endif
 
+#include <map>
 
 
 namespace dal {
@@ -86,7 +78,7 @@ namespace dal {
         objects should not have to care.
 
 */
-class MemoryDataPool: private boost::noncopyable
+class MemoryDataPool
 {
 
   friend class MemoryDataPoolTest;
@@ -108,6 +100,10 @@ public:
   //----------------------------------------------------------------------------
 
                    MemoryDataPool      ();
+
+                   MemoryDataPool      (MemoryDataPool const& other) = delete;
+
+  MemoryDataPool&  operator=           (MemoryDataPool const& other) = delete;
 
   /* virtual */    ~MemoryDataPool     ();
 

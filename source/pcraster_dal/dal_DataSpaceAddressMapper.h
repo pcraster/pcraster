@@ -4,10 +4,6 @@
 
 
 // Library headers.
-#ifndef INCLUDED_BOOST_NONCOPYABLE
-#include <boost/noncopyable.hpp>
-#define INCLUDED_BOOST_NONCOPYABLE
-#endif
 
 // PCRaster library headers.
 
@@ -43,7 +39,7 @@ namespace dal {
   Furthermore, addresses or individual coordinates can be written to a
   string for presentation purposes.
 */
-class PCR_DAL_DECL DataSpaceAddressMapper: private boost::noncopyable
+class PCR_DAL_DECL DataSpaceAddressMapper
 {
 
   friend class DataSpaceAddressMapperTest;
@@ -75,6 +71,10 @@ public:
                    DataSpaceAddressMapper();
 
                    DataSpaceAddressMapper(DataSpace const& space);
+
+                   DataSpaceAddressMapper(DataSpaceAddressMapper const& other) = delete;
+
+  DataSpaceAddressMapper& operator=    (DataSpaceAddressMapper const& other) = delete;
 
   /* virtual */    ~DataSpaceAddressMapper();
 

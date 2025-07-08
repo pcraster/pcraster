@@ -4,15 +4,6 @@
 
 
 // Library headers.
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-#ifndef INCLUDED_BOOST_NONCOPYABLE
-#include <boost/noncopyable.hpp>
-#define INCLUDED_BOOST_NONCOPYABLE
-#endif
 
 // PCRaster library headers.
 #ifndef INCLUDED_DEV_COMPILER
@@ -41,6 +32,7 @@
 #define INCLUDED_DAL_STEPMAPPER
 #endif
 
+#include <string>
 
 
 namespace dal {
@@ -57,8 +49,7 @@ namespace dal {
 /*!
   longer_description_HORRIBLE_LONG_STRING_TO_NOTICE_THAT_IT_SHOULD_BE_REPLACED
 */
-class PCR_DAL_DECL StepCoordinateMapper: private boost::noncopyable,
-                                         public CoordinateMapper,
+class PCR_DAL_DECL StepCoordinateMapper: public CoordinateMapper,
                                          public StepMapper
 {
 
@@ -84,6 +75,10 @@ public:
 
                    StepCoordinateMapper(StepMapper const& mapper,
                                         MissingDataStrategy strategy);
+
+                   StepCoordinateMapper(StepCoordinateMapper const& other) = delete;
+
+  StepCoordinateMapper& operator=      (StepCoordinateMapper const& other) = delete;
 
   /* virtual */    ~StepCoordinateMapper() override;
 

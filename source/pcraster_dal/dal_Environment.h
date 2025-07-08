@@ -4,27 +4,14 @@
 
 
 // External headers.
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-
-#ifndef INCLUDED_BOOST_NONCOPYABLE
-#include <boost/noncopyable.hpp>
-#define INCLUDED_BOOST_NONCOPYABLE
-#endif
 
 // Project headers.
 
 // Module headers.
 
 #include <filesystem>
+#include <string>
+#include <vector>
 
 
 namespace dal {
@@ -43,7 +30,7 @@ namespace dal {
     set.
   - GDAL_DATA: Path to directory with GDAL support files directory.
 */
-class Environment: private boost::noncopyable
+class Environment
 {
 
   friend class EnvironmentTest;
@@ -68,6 +55,10 @@ public:
   //----------------------------------------------------------------------------
 
                    Environment         (std::filesystem::path const& prefix);
+
+                   Environment         (Environment const& other) = delete;
+
+  Environment&     operator=           (Environment const& other) = delete;
 
   /* virtual */    ~Environment        ();
 

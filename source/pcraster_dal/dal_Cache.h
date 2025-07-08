@@ -4,7 +4,6 @@
 #include <cassert>
 #include <map>
 #include <boost/bimap.hpp>
-#include <boost/noncopyable.hpp>
 
 
 namespace dal {
@@ -23,7 +22,7 @@ namespace dal {
 */
 template<
    class T>
-class Cache: private boost::noncopyable
+class Cache
 {
 
   friend class CacheTest;
@@ -31,6 +30,10 @@ class Cache: private boost::noncopyable
 public:
 
                    Cache               ();
+
+                   Cache               (Cache const& other) = delete;
+
+  Cache&           operator=           (Cache const& other) = delete;
 
                    ~Cache              ();
 

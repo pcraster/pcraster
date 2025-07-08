@@ -4,15 +4,6 @@
 
 
 // Library headers.
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-#ifndef INCLUDED_BOOST_NONCOPYABLE
-#include <boost/noncopyable.hpp>
-#define INCLUDED_BOOST_NONCOPYABLE
-#endif
 
 // PCRaster library headers.
 
@@ -52,6 +43,7 @@
 #define INCLUDED_DAL_PROPERTIES
 #endif
 
+#include <string>
 
 
 namespace dal {
@@ -105,17 +97,17 @@ namespace dal {
         the same as soil[2,8] or even soil[20,30]).
   \todo Shouldn't the datasetProperties be an instance member instead of a
         static class member? Or shouldn't we support both? Not sure...
-  \todo 
-   (09:27:26) Kor de Jong:   noheader wordt opgevangen door TextTableDriver en die heeft dezelfde regel als geoeastabledriver, afgezien van de titel voorwaarde dan. heb ik net wat in commentaar bijgetikt dat ik daar niet blij van ben. de gebruiker (app of mens) moet een hint geven dat de tabel wel eens een tijdserie zou kunnen bevatten en vervolgens moeten de testen wat losser worden lijkt me. bijv unsigned integer waardes, oplopende reeks, evt onregelmatig, indien titel dan moet er time in allerlei cases / talen in voorkomen 
-  (09:29:05) Cees Wesseling:   kan je ook in dal het verwachte type er in pushen, als je uit de context meer weet?  b.v. aguila --timeseries rain.tss dat is een hint v/d app expect tijd in 1e kolom, accepteer in 1e kolom oplonde integer > 0 reeks 
-  (09:29:35) Cees Wesseling:   bij omissie van timestep(s) hint IN rain.tss 
-  (09:31:31) Kor de Jong:   alle logica zit in de dataSpace() member van de Driver klasses. die zou een dataSpace arg kunnen krijgen met een hint erin 
+  \todo
+   (09:27:26) Kor de Jong:   noheader wordt opgevangen door TextTableDriver en die heeft dezelfde regel als geoeastabledriver, afgezien van de titel voorwaarde dan. heb ik net wat in commentaar bijgetikt dat ik daar niet blij van ben. de gebruiker (app of mens) moet een hint geven dat de tabel wel eens een tijdserie zou kunnen bevatten en vervolgens moeten de testen wat losser worden lijkt me. bijv unsigned integer waardes, oplopende reeks, evt onregelmatig, indien titel dan moet er time in allerlei cases / talen in voorkomen
+  (09:29:05) Cees Wesseling:   kan je ook in dal het verwachte type er in pushen, als je uit de context meer weet?  b.v. aguila --timeseries rain.tss dat is een hint v/d app expect tijd in 1e kolom, accepteer in 1e kolom oplonde integer > 0 reeks
+  (09:29:35) Cees Wesseling:   bij omissie van timestep(s) hint IN rain.tss
+  (09:31:31) Kor de Jong:   alle logica zit in de dataSpace() member van de Driver klasses. die zou een dataSpace arg kunnen krijgen met een hint erin
   (09:31:38) Cees Wesseling:   mooi, want daar gaan we eigenlijk helemaal naar toe: een context kan meer vertellen over schijnbaar ruwe data, b.v. de XML dump van een pcrcalc model dump, of de configuratie van aguila. Ik zie het helemaal zitten.
   \todo Replace constructor with name and description by the one with the
         format argument. Let the name() en description() functions query the
         format. update Dal::driverByName to no call format().name() anymore.
 */
-class PCR_DAL_DECL Driver: private boost::noncopyable
+class PCR_DAL_DECL Driver
 {
 
   friend class DriverTest;
@@ -165,6 +157,10 @@ public:
   //----------------------------------------------------------------------------
   // CREATORS
   //----------------------------------------------------------------------------
+
+                   Driver              (Driver const& other) = delete;
+
+  Driver&          operator=           (Driver const& other) = delete;
 
   virtual          ~Driver             ();
 

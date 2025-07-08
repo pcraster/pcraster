@@ -4,10 +4,6 @@
 
 
 // Library headers.
-#ifndef INCLUDED_BOOST_NONCOPYABLE
-#include <boost/noncopyable.hpp>
-#define INCLUDED_BOOST_NONCOPYABLE
-#endif
 
 // PCRaster library headers.
 #ifndef INCLUDED_DEV_COMPILER
@@ -68,7 +64,7 @@ Library* library();
   The lifetime of a Library object is managed by the Client class. See
   its documentation for more info.
 */
-class PCR_DAL_DECL Library: private boost::noncopyable
+class PCR_DAL_DECL Library
 {
 
   friend class LibraryTest;
@@ -109,6 +105,10 @@ public:
   //----------------------------------------------------------------------------
   // CREATORS
   //----------------------------------------------------------------------------
+
+                   Library             (Library const& other) = delete;
+
+  Library&         operator=           (Library const& other) = delete;
 
   /* virtual */    ~Library            ();
 

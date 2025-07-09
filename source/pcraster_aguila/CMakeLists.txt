@@ -226,6 +226,7 @@ if(PCRASTER_WITH_OPENGL)
             Qt::Widgets
             Qt::OpenGL
             Qt::Xml
+            GDAL::GDAL
             ${QtOpenGLWidgets}
     )
 else()
@@ -235,6 +236,7 @@ else()
             Boost::headers
             Qt::Widgets
             Qt::Xml
+            GDAL::GDAL
     )
 endif()
 

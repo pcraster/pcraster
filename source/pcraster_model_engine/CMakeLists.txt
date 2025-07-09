@@ -307,6 +307,7 @@ target_link_libraries(pcraster_model_engine_objects
         pcraster::xsd
         Boost::headers
         Qt::Core
+        GDAL::GDAL
 )
 
 target_include_directories(pcraster_model_engine_objects

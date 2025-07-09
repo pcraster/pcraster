@@ -1,29 +1,11 @@
-#ifndef INCLUDED_DEV_UTILS
 #include "dev_Utils.h"
-#define INCLUDED_DEV_UTILS
-#endif
 
-// External headers.
-#ifndef INCLUDED_CASSERT
 #include <cassert>
-#define INCLUDED_CASSERT
-#endif
-
-#ifndef INCLUDED_CSTDLIB
 #include <cstdlib>
-#define INCLUDED_CSTDLIB
-#endif
 
 #ifdef _WIN32
-  #ifndef INCLUDED_WINDOWS
   #include <windows.h>
-  #define INCLUDED_WINDOWS
-  #endif
 #endif
-
-// Project headers.
-
-// Module headers.
 
 
 

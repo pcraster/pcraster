@@ -1,23 +1,6 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_COM_UNIQUESTRINGGENERATOR
 #include "com_uniquestringgenerator.h"
-#define INCLUDED_COM_UNIQUESTRINGGENERATOR
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-
-// Module headers.
-#ifndef INCLUDED_COM_STRLIB
 #include "com_strlib.h"
-#define INCLUDED_COM_STRLIB
-#endif
 
 
 /*!

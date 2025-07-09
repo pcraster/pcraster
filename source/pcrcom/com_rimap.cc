@@ -1,17 +1,7 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_COM_RIMAP
 #include "com_rimap.h"
-#define INCLUDED_COM_RIMAP
-#endif
 
-#ifndef INCLUDED_BOOST_MATH_SPECIAL_FUNCTIONS_ROUND
 #include <boost/math/special_functions/round.hpp>
-#define INCLUDED_BOOST_MATH_SPECIAL_FUNCTIONS_ROUND
-#endif
 
 /*!
   \file

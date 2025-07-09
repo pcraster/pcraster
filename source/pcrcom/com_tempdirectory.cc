@@ -1,37 +1,12 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_COM_TEMPDIRECTORY
 #include "com_tempdirectory.h"
-#define INCLUDED_COM_TEMPDIRECTORY
-#endif
-
-// Library headers.
-#ifndef INCLUDED_SSTREAM
-#include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-#ifndef INCLUDED_COM_STRLIB
 #include "com_strlib.h"
-#define INCLUDED_COM_STRLIB
-#endif
-// Module headers.
-#ifndef INCLUDED_COM_UNIQUESTRINGGENERATOR
 #include "com_uniquestringgenerator.h"
-#define INCLUDED_COM_UNIQUESTRINGGENERATOR
-#endif
-#ifndef INCLUDED_COM_PATHINFO
 #include "com_pathinfo.h" // tempDirectoryName
-#define INCLUDED_COM_PATHINFO
-#endif
+
+#include <sstream>
+
 /*!
   \file
   This file contains the implementation of the TempDirectory class.

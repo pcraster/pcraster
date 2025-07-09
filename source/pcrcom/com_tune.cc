@@ -1,25 +1,8 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_COM_TUNE
 #include "com_tune.h"
-#define INCLUDED_COM_TUNE
-#endif
-
-// Library headers.
 #ifndef __APPLE__
-  #ifndef INCLUDED_MALLOC
   #include <malloc.h> // mallopt
-  #define INCLUDED_MALLOC
-  #endif
 #endif
-
-// PCRaster library headers.
-
-// Module headers.
-
 
 
 /*!

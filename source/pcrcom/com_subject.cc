@@ -1,22 +1,9 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_COM_SUBJECT
 #include "com_subject.h"
-#define INCLUDED_COM_SUBJECT
-#endif
-
-#ifndef INCLUDED_ALGORITHM
-#include <algorithm>
-#define INCLUDED_ALGORITHM
-#endif
-
-#ifndef INCLUDED_COM_OBSERVER
 #include "com_observer.h"
-#define INCLUDED_COM_OBSERVER
-#endif
+
+#include <algorithm>
+
 
 
 

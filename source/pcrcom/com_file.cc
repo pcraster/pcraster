@@ -1,61 +1,17 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_COM_FILE
-#include "com_file.h"
-#define INCLUDED_COM_FILE
-#endif
-
-#ifndef INCLUDED_CERRNO
-#include <cerrno>
-#define INCLUDED_CERRNO
-#endif
-
-#ifndef INCLUDED_CSTDIO
-#include <cstdio>
-#define INCLUDED_CSTDIO
-#endif
-
-#ifndef INCLUDED_CSTRING
-#include <cstring>
-#define INCLUDED_CSTRING
-#endif
-
-#ifndef INCLUDED_FSTREAM
-#include <fstream>
-#define INCLUDED_FSTREAM
-#endif
-
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-#ifndef INCLUDED_SSTREAM
-#include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-
-#ifndef INCLUDED_CCTYPE
-#include <cctype>
-#define INCLUDED_CCTYPE
-#endif
-
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-
-#ifndef INCLUDED_COM_PATHINFO
+#include "com_file.h"
 #include "com_pathinfo.h"
-#define INCLUDED_COM_PATHINFO
-#endif
+
+#include <cerrno>
+#include <cstdio>
+#include <cstring>
+#include <fstream>
+#include <string>
+#include <sstream>
+#include <iostream>
+#include <cctype>
+
 
 // #include <filesystem>
 

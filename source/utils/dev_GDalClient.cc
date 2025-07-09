@@ -1,16 +1,12 @@
 #include "dev_GDalClient.h"
 
-// External headers.
+#include "dev_Configure.h"
+
 #include <gdal_priv.h>
 #include <ogr_api.h>
 #include <ogrsf_frmts.h>
 
 #include <cassert>
-
-// Project headers.
-#include "dev_Configure.h"
-
-// Module headers.
 
 
 

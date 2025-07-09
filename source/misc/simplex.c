@@ -33,7 +33,7 @@
  * number
  */
 #define TOKEN_LEN 256
-#define NUMBER_CHARS "0123456789.+-dDeE"
+// #define NUMBER_CHARS "0123456789.+-dDeE"
 
 #define LEX_NUMBER 300
 #define LEX_ILL_TOKEN -1

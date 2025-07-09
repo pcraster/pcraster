@@ -1,17 +1,6 @@
-#ifndef INCLUDED_DEV_XERCESCLIENT
 #include "dev_XercesClient.h"
-#define INCLUDED_DEV_XERCESCLIENT
-#endif
 
-// External headers.
-#ifndef INCLUDED_XERCESC_UTIL_PLATFORMUTILS
 #include <xercesc/util/PlatformUtils.hpp>
-#define INCLUDED_XERCESC_UTIL_PLATFORMUTILS
-#endif
-
-// Project headers.
-
-// Module headers.
 
 
 
@@ -60,7 +49,7 @@ xercesc::XMLTranscoder& XercesClient::utf8Transcoder()
 */
 XercesClient::XercesClient()
 
-   
+
 
 {
   try {

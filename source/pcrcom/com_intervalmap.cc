@@ -1,16 +1,5 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_INTERVALMAP
 #include "com_intervalmap.h"
-#define INCLUDED_COM_INTERVALMAP
-#endif
-// Module headers.
 
 /*!
   \file

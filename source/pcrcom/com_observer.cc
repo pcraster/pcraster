@@ -1,12 +1,5 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_COM_OBSERVER
 #include "com_observer.h"
-#define INCLUDED_COM_OBSERVER
-#endif
 
 
 

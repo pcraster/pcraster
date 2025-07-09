@@ -1,22 +1,6 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_COM_DYNAMICLIBRARY
 #include "com_dynamiclibrary.h"
-#define INCLUDED_COM_DYNAMICLIBRARY
-#endif
-
-#ifndef INCLUDED_COM_PATHNAME
 #include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
-
-#ifndef INCLUDED_SSTREAM
-#include <sstream>
-#define INCLUDED_SSTREAM
-#endif
 
 #ifdef WIN32
 
@@ -27,12 +11,10 @@
 
 #else
 
-# ifndef INCLUDED_DLFCN
 #  include <dlfcn.h>
-#  define INCLUDED_DLFCN
-# endif
 
 #include <cassert>
+#include <sstream>
 
 bool com::DynamicLibrary::checkError() const
 {
@@ -156,10 +138,8 @@ void* com::DynamicLibrary::address(const std::string& symbolName) const
 
   return addr;
 }
-#ifndef INCLUDED_IOSTREAM
+
 #include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
 
 /*! quick hack to find directory where library is found, by searching
  *  symbol and setting the directory if found

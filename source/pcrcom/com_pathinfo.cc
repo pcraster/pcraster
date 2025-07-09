@@ -1,31 +1,8 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CSTRING
-#include <cstring>
-#define INCLUDED_CSTRING
-#endif
-
-#ifndef INCLUDED_COM_PATHINFO
+#include "com_exception.h"
 #include "com_pathinfo.h"
-#define INCLUDED_COM_PATHINFO
-#endif
-
-#ifndef INCLUDED_STDEXCEPT
-#include <stdexcept>
-#define INCLUDED_STDEXCEPT
-#endif
-
-#ifndef INCLUDED_SET
-#include <set>
-#define INCLUDED_SET
-#endif
-
 
 #ifdef WIN32
-
   #ifndef INCLUDED_COM_WIN32
   #include "com_win32.h"
   #define INCLUDED_COM_WIN32
@@ -54,21 +31,13 @@
   #define   chdir   _chdir
   #define   getcwd  _getcwd
 #else
-  #ifndef INCLUDED_UNISTD
   #include <unistd.h>
-  #define INCLUDED_UNISTD
-  #endif
 #endif
 
-#ifndef INCLUDED_CSTDIO
 #include <cstdio>
-#define INCLUDED_CSTDIO
-#endif
-
-#ifndef INCLUDED_COM_EXCEPTION
-#include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
+#include <cstring>
+#include <stdexcept>
+#include <set>
 
 
 /*!

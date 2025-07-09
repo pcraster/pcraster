@@ -1,40 +1,9 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_COM_FILEMAP
 #include "com_filemap.h"
-#define INCLUDED_COM_FILEMAP
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-#ifndef INCLUDED_COM_PATHNAME
 #include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
-#ifndef INCLUDED_COM_FILE
 #include "com_file.h"
-#define INCLUDED_COM_FILE
-#endif
-#ifndef INCLUDED_COM_MATH
 #include "com_math.h"
-#define INCLUDED_COM_MATH
-#endif
-// Module headers.
-
-
-
-/*!
-  \file
-  This file contains the implementation of the FileMap class.
-*/
 
 
 #ifdef WIN32
@@ -43,6 +12,13 @@
 #include "com_win32.h"
 #define INCLUDED_COM_WIN32
 #endif
+
+
+/*!
+  \file
+  This file contains the implementation of the FileMap class.
+*/
+
 
 static int getPageSize() {
   SYSTEM_INFO si;

@@ -1,7 +1,4 @@
-#ifndef INCLUDED_DEV_COMMANDLINEAPPLICATION
 #include "dev_CommandLineApplication.h"
-#define INCLUDED_DEV_COMMANDLINEAPPLICATION
-#endif
 
 #include <cassert>
 #include <filesystem>

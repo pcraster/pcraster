@@ -1,16 +1,9 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_COM_SPAWN
+#include "com_appargs.h"
 #include "com_spawn.h"
-#define INCLUDED_COM_SPAWN
-#endif
-
-// Library headers.
 
 #include <sys/types.h>
+
 #ifndef _MSC_VER
 # include <unistd.h>
 #else
@@ -22,15 +15,8 @@
   #endif
   #include <spawn.h>
 #endif
+
 #include <cerrno>
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_COM_APPARGS
-#include "com_appargs.h"
-#define INCLUDED_COM_APPARGS
-#endif
 
 
 

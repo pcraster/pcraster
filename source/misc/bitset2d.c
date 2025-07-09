@@ -26,12 +26,13 @@
 /**********************/
 /* LOCAL DECLARATIONS */
 /**********************/
+/*
 #define INDEX_BITSET(setBit, major, minor)                                                    \
     major = (((int)(setBit)) / 8), minor = (((int)(setBit)) % 8)
 
 #define BYTE_SETSIZE(bitSetSize)                                                              \
     ((((int)(bitSetSize)) / 8) + (((((int)(bitSetSize)) % 8) == 0) ? 0 : 1))
-
+*/
 /*********************/
 /* LOCAL DEFINITIONS */
 /*********************/

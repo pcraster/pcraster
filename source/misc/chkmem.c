@@ -1,4 +1,4 @@
-#define CHKMEM_C
+// #define CHKMEM_C
 
 #include "stddefx.h"
 

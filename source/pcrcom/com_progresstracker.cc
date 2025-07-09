@@ -1,21 +1,7 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_COM_PROGRESSTRACKER
 #include "com_progresstracker.h"
-#define INCLUDED_COM_PROGRESSTRACKER
-#endif
 
-// Library headers.
-#ifndef INCLUDED_ALGORITHM
 #include <algorithm>
-#define INCLUDED_ALGORITHM
-#endif
-// PCRaster library headers.
-
-// Module headers.
 
 
 

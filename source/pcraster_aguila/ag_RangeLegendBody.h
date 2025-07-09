@@ -3,7 +3,6 @@
 
 
 
-#include <boost/noncopyable.hpp>
 #include "ag_LegendBody.h"
 
 
@@ -23,8 +22,7 @@ namespace ag {
 //! The RangeLegendBody class is for body widgets for RangeLegend s.
 /*!
 */
-class RangeLegendBody: private boost::noncopyable,
-                       public LegendBody
+class RangeLegendBody: public LegendBody
 {
 
 private:
@@ -79,6 +77,10 @@ public:
                                         DataGuide const& guide,
                                         ViewerType type,
                                         QWidget* parent = nullptr);
+
+                   RangeLegendBody     (RangeLegendBody const& other) = delete;
+
+  RangeLegendBody& operator=           (RangeLegendBody const& other) = delete;
 
   /* virtual */    ~RangeLegendBody    () override;
 

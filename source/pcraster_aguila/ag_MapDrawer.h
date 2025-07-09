@@ -4,7 +4,6 @@
 
 
 // External headers.
-#include <boost/noncopyable.hpp>
 #include <QTransform>
 
 // Project headers.
@@ -34,7 +33,7 @@ namespace ag {
   \sa        .
   \todo      Rename to MapDrawer.
 */
-class MapDrawer: private boost::noncopyable
+class MapDrawer
 {
 
   friend class MapDrawerTest;
@@ -76,6 +75,10 @@ public:
   //----------------------------------------------------------------------------
   // CREATORS
   //----------------------------------------------------------------------------
+
+                   MapDrawer           (MapDrawer const& other) = delete;
+
+  MapDrawer&       operator=           (MapDrawer const& other) = delete;
 
   virtual          ~MapDrawer          ();
 

@@ -2,22 +2,16 @@
 #define INCLUDED_AG_PLOTVISUALISATION
 
 
+#include "ag_DataGuide.h"
+#include "ag_IVisualisation.h"
+#include "ag_LineMarker.h"
 
-// Library headers.
-#include <map>
-#include <boost/noncopyable.hpp>
 #include <QtCharts/QChartView>
 #include <QtCharts/QLineSeries>
 #include <QtCharts/QValueAxis>
 #include <QtWidgets/QGraphicsView>
 
-// PCRaster library headers.
-#include "ag_DataGuide.h"
-#include "ag_IVisualisation.h"
-#include "ag_LineMarker.h"
-
-// Module headers.
-
+#include <map>
 
 
 namespace ag {
@@ -36,12 +30,10 @@ namespace ag {
 */
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 class PlotVisualisation: public QtCharts::QChartView,
-                         public ag::IVisualisation,
-                         private boost::noncopyable
+                         public ag::IVisualisation
 #else
 class PlotVisualisation: public QChartView,
-                         public ag::IVisualisation,
-                         private boost::noncopyable
+                         public ag::IVisualisation
 #endif
 {
 
@@ -157,6 +149,10 @@ public:
   //----------------------------------------------------------------------------
   // CREATORS
   //----------------------------------------------------------------------------
+
+                   PlotVisualisation   (PlotVisualisation const& other) = delete;
+
+  PlotVisualisation& operator=         (PlotVisualisation const& other) = delete;
 
            ~PlotVisualisation  () override;
 

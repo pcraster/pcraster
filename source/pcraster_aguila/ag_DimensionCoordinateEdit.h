@@ -4,7 +4,6 @@
 
 
 // Library headers.
-#include <boost/noncopyable.hpp>
 #include <QWidget>
 
 // PCRaster library headers.
@@ -36,8 +35,7 @@ namespace ag {
   a combo box and a dimension with a dal::RegularDiscretisation discretisation
   with a slider.
 */
-class DimensionCoordinateEdit: public QWidget,
-                               private boost::noncopyable
+class DimensionCoordinateEdit: public QWidget
 {
 
   friend class DimensionCoordinateEditTest;
@@ -67,6 +65,10 @@ public:
                    DimensionCoordinateEdit(
                                         dal::Dimension const* dimension,
                                         QWidget* parent = nullptr);
+
+                   DimensionCoordinateEdit(DimensionCoordinateEdit const& other) = delete;
+
+  DimensionCoordinateEdit& operator=   (DimensionCoordinateEdit const& other) = delete;
 
   /* virtual */    ~DimensionCoordinateEdit() override;
 

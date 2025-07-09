@@ -4,11 +4,8 @@
 
 
 // Library headers.
-#include <cassert>
-#include <vector>
 #include <QObject>
 #ifndef Q_MOC_RUN
-#include <boost/noncopyable.hpp>
 
 // PCRaster library headers.
 #include "dal_MapperUtils.h"
@@ -33,6 +30,8 @@
 #include "ag_Types.h"
 #include "ag_VisSubject.h"
 
+#include <cassert>
+#include <vector>
 
 
 class QPointF;
@@ -74,7 +73,6 @@ namespace ag {
         (http://en.wikipedia.org/wiki/God_object), refactor.
 */
 class PCR_AG_DECL DataObject: public QObject,
-                              private boost::noncopyable,
                               public ag::VisSubject
 {
 
@@ -143,6 +141,10 @@ public:
   //----------------------------------------------------------------------------
 
                    DataObject          ();
+
+                   DataObject          (DataObject const& other) = delete;
+
+  DataObject&      operator=           (DataObject const& other) = delete;
 
   /* virtual */    ~DataObject         () override;
 

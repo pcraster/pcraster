@@ -2,18 +2,12 @@
 #define INCLUDED_AG_DATAPROPERTIES
 
 
-
-// Library headers.
-#include <memory>
-#include <vector>
-#include <boost/noncopyable.hpp>
-#include <QColor>
-
-// PCRaster library headers.
 #include "csftypes.h"
 
-// Module headers.
+#include <QColor>
 
+#include <memory>
+#include <vector>
 
 
 namespace com {
@@ -63,7 +57,7 @@ typedef DrawProps GeometryDrawProps;
 
   \todo Refactor this class!
 */
-class DataProperties: private boost::noncopyable
+class DataProperties
 {
 
 private:
@@ -220,6 +214,10 @@ public:
   //----------------------------------------------------------------------------
 
                    DataProperties      ();
+
+                   DataProperties      (DataProperties const& other) = delete;
+
+  DataProperties&  operator=           (DataProperties const& other) = delete;
 
   /* virtual */    ~DataProperties     ();
 

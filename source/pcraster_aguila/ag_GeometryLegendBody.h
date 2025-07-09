@@ -3,12 +3,6 @@
 
 
 
-// External headers.
-#include <boost/noncopyable.hpp>
-
-// Project headers.
-
-// Module headers.
 #include "ag_LegendBody.h"
 
 
@@ -50,6 +44,10 @@ public:
                                         DataGuide const& guide,
                                         ViewerType type,
                                         QWidget* parent=nullptr);
+
+                   GeometryLegendBody  (GeometryLegendBody const& other) = delete;
+
+  GeometryLegendBody& operator=        (GeometryLegendBody const& other) = delete;
 
   /* virtual */    ~GeometryLegendBody              () override;
 

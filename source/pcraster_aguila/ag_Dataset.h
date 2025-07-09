@@ -4,15 +4,14 @@
 
 
 // Library headers.
-#include <string>
 #include <boost/any.hpp>
-#include <boost/noncopyable.hpp>
 
 // PCRaster library headers.
 #include "dal_DataSource.h"
 
 // Module headers.
 
+#include <string>
 
 
 namespace dal {
@@ -32,7 +31,7 @@ namespace ag {
 /*!
   longer_description_HORRIBLE_LONG_STRING_TO_NOTICE_THAT_IT_SHOULD_BE_REPLACED
 */
-class Dataset: private boost::noncopyable
+class Dataset
 {
 
   friend class DatasetTest;
@@ -92,6 +91,10 @@ public:
 
                    Dataset             (std::string const& name,
                                         dal::DataSpace const& space);
+
+                   Dataset             (Dataset const& other) = delete;
+
+  Dataset&         operator=           (Dataset const& other) = delete;
 
   virtual          ~Dataset            ();
 

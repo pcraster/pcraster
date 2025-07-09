@@ -4,8 +4,6 @@
 
 
 // Library headers.
-#include <memory>
-#include <boost/noncopyable.hpp>
 
 // PCRaster library headers.
 
@@ -13,6 +11,7 @@
 #include "ag_DataGuide.h"
 #include "ag_DataManager.h"
 
+#include <memory>
 
 
 namespace dal {
@@ -33,7 +32,7 @@ namespace ag {
 /*!
 */
 template<class T>
-class DataObjectBase: private boost::noncopyable
+class DataObjectBase
 {
 
   friend class DataObjectBaseTest;
@@ -80,6 +79,10 @@ public:
   //----------------------------------------------------------------------------
   // CREATORS
   //----------------------------------------------------------------------------
+
+                   DataObjectBase      (DataObjectBase const& other) = delete;
+
+  DataObjectBase&  operator=           (DataObjectBase const& other) = delete;
 
   virtual          ~DataObjectBase     ();
 

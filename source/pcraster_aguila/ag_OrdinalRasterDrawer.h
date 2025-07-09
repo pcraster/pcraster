@@ -4,7 +4,6 @@
 
 
 // External headers.
-#include <boost/noncopyable.hpp>
 
 // Project headers.
 
@@ -56,6 +55,10 @@ public:
                    OrdinalRasterDrawer (Raster const* raster,
                                         dal::SpaceDimensions const& dimensions,
                                         OrdinalDrawProps const& properties);
+
+                   OrdinalRasterDrawer (OrdinalRasterDrawer const& other) = delete;
+
+  OrdinalRasterDrawer& operator=       (OrdinalRasterDrawer const& other) = delete;
 
   /* virtual */    ~OrdinalRasterDrawer              () override;
 

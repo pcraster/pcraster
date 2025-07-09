@@ -65,7 +65,7 @@ namespace dal {
 //! Data class for VectorDriver class.
 /*!
 */
-class VectorDriver::Data: private boost::noncopyable
+class VectorDriver::Data
 {
 
 private:
@@ -127,6 +127,10 @@ public:
     : _dal(true)
   {
   }
+
+  Data(const Data& other) = delete;
+
+  Data& operator=(const Data& other) = delete;
 
   //! Returns the layered RasterDal object.
   /*!

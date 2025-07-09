@@ -6,7 +6,6 @@
 // Library headers.
 #include <string>
 #include <vector>
-#include <boost/noncopyable.hpp>
 
 // PCRaster library headers.
 
@@ -28,7 +27,7 @@ namespace ag {
     All needed for configuring Aguila are set in the base pcrxml::Aguila object
     others are added local.
 */
-class AguilaProgramOptions: private boost::noncopyable
+class AguilaProgramOptions
 {
 
   friend class AguilaProgramOptionsTest;
@@ -62,6 +61,10 @@ public:
 
                    AguilaProgramOptions(int    argc,
                                         char **argv);
+
+                   AguilaProgramOptions (AguilaProgramOptions const& other) = delete;
+
+  AguilaProgramOptions& operator=       (AguilaProgramOptions const& other) = delete;
 
   /* virtual */    ~AguilaProgramOptions();
 

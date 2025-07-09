@@ -2,14 +2,12 @@
 #define INCLUDED_AG_DATAMANAGER
 
 
+#include "ag_DataGuide.h"
+#include "ag_DataInfo.h"
 
 #include <utility>
 #include <set>
 #include <vector>
-#include <boost/noncopyable.hpp>
-#include "ag_DataGuide.h"
-#include "ag_DataInfo.h"
-
 
 
 namespace ag {
@@ -23,7 +21,7 @@ namespace ag {
   \todo Get rid of time steps stuff.
 */
 template<class T>
-class DataManager: private boost::noncopyable
+class DataManager
 {
 
 public:
@@ -63,6 +61,10 @@ public:
   //----------------------------------------------------------------------------
 
                    DataManager         (geo::DataType dataType);
+
+                   DataManager         (DataManager const& other) = delete;
+
+  DataManager&     operator=           (DataManager const& other) = delete;
 
   virtual          ~DataManager        ();
 

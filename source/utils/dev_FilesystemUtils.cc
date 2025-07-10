@@ -1,5 +1,4 @@
 #include "dev_FilesystemUtils.h"
-#include "dev_Configure.h"
 #include <boost/algorithm/string.hpp>
 #include <cstdlib>
 #include <iostream>

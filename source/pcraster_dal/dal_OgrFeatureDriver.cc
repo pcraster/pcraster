@@ -1,5 +1,4 @@
 #include "dal_OgrFeatureDriver.h"
-#include "dev_Configure.h"
 #include "dal_Client.h"
 #include "dal_Dal.h"
 #include "dal_Exception.h"

@@ -1,9 +1,4 @@
 configure_file(
-    include/dev_Configure.h.in
-    include/dev_Configure.h
-)
-
-configure_file(
     include/pcraster_version.h.in
     include/pcraster_version.h
 )

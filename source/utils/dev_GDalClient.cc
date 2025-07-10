@@ -1,7 +1,5 @@
 #include "dev_GDalClient.h"
 
-#include "dev_Configure.h"
-
 #include <gdal_priv.h>
 #include <ogr_api.h>
 #include <ogrsf_frmts.h>

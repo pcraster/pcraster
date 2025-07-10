@@ -6,7 +6,6 @@
 #else
   #include <boost/bind.hpp>
 #endif
-#include "dev_Configure.h"
 #include "dal_Client.h"
 #include "dal_CSFRasterDriver.h"
 #include "dal_GeoEASTableDriver.h"

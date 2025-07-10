@@ -1,75 +1,22 @@
-#ifndef INCLUDED_DAL_OGRFEATUREDRIVER
 #include "dal_OgrFeatureDriver.h"
-#define INCLUDED_DAL_OGRFEATUREDRIVER
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_ALGORITHM_STRING_PREDICATE
-#include <boost/algorithm/string/predicate.hpp>
-#define INCLUDED_BOOST_ALGORITHM_STRING_PREDICATE
-#endif
-
-#ifndef INCLUDED_BOOST_BIND
-  #include <boost/version.hpp>
-  #if BOOST_VERSION > 107200
-    #include <boost/bind/bind.hpp>
-  #else
-    #include <boost/bind.hpp>
-  #endif
-#define INCLUDED_BOOST_BIND
-#endif
-
-#ifndef INCLUDED_BOOST_FUNCTION
-#include <boost/function.hpp>
-#define INCLUDED_BOOST_FUNCTION
-#endif
-
-#ifndef INCLUDED_OGRSF_FRMTS
-#include <ogrsf_frmts.h>
-#define INCLUDED_OGRSF_FRMTS
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_DEV_CONFIGURE
 #include "dev_Configure.h"
-#define INCLUDED_DEV_CONFIGURE
-#endif
-
-// Module headers.
-#ifndef INCLUDED_DAL_CLIENT
 #include "dal_Client.h"
-#define INCLUDED_DAL_CLIENT
-#endif
-
-#ifndef INCLUDED_DAL_DAL
 #include "dal_Dal.h"
-#define INCLUDED_DAL_DAL
-#endif
-
-#ifndef INCLUDED_DAL_EXCEPTION
 #include "dal_Exception.h"
-#define INCLUDED_DAL_EXCEPTION
-#endif
-
-#ifndef INCLUDED_DAL_FEATUREPATH
 #include "dal_FeaturePath.h"
-#define INCLUDED_DAL_FEATUREPATH
-#endif
-
-#ifndef INCLUDED_DAL_FILESYSTEMUTILS
 #include "dal_FilesystemUtils.h"
-#define INCLUDED_DAL_FILESYSTEMUTILS
-#endif
-
-#ifndef INCLUDED_DAL_LIBRARY
 #include "dal_Library.h"
-#define INCLUDED_DAL_LIBRARY
-#endif
-
-#ifndef INCLUDED_DAL_TABLEDRIVER
 #include "dal_TableDriver.h"
-#define INCLUDED_DAL_TABLEDRIVER
+
+#include <boost/version.hpp>
+#if BOOST_VERSION > 107200
+  #include <boost/bind/bind.hpp>
+#else
+  #include <boost/bind.hpp>
 #endif
+#include <boost/algorithm/string/predicate.hpp>
+#include <boost/function.hpp>
+#include <ogrsf_frmts.h>
 
 #include <filesystem>
 #include <format>

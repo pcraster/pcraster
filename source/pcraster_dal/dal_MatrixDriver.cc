@@ -1,17 +1,5 @@
-#ifndef INCLUDED_DAL_MATRIXDRIVER
 #include "dal_MatrixDriver.h"
-#define INCLUDED_DAL_MATRIXDRIVER
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_UTILS
 #include "dal_Utils.h"
-#define INCLUDED_DAL_UTILS
-#endif
 
 
 

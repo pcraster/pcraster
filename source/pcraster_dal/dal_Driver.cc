@@ -1,48 +1,12 @@
-#ifndef INCLUDED_DAL_DRIVER
 #include "dal_Driver.h"
-#define INCLUDED_DAL_DRIVER
-#endif
-
-// Library headers.
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_DATASET
 #include "dal_Dataset.h"
-#define INCLUDED_DAL_DATASET
-#endif
-
-#ifndef INCLUDED_DAL_DATASPACEADDRESS
 #include "dal_DataSpaceAddress.h"
-#define INCLUDED_DAL_DATASPACEADDRESS
-#endif
-
-#ifndef INCLUDED_DAL_DATASPACEITERATOR
 #include "dal_DataSpaceIterator.h"
-#define INCLUDED_DAL_DATASPACEITERATOR
-#endif
-
-#ifndef INCLUDED_DAL_DIMENSION
 #include "dal_Dimension.h"
-#define INCLUDED_DAL_DIMENSION
-#endif
-
-#ifndef INCLUDED_DAL_TABLE
 #include "dal_Table.h"
-#define INCLUDED_DAL_TABLE
-#endif
-
-#ifndef INCLUDED_DAL_UTILS
 #include "dal_Utils.h"
-#define INCLUDED_DAL_UTILS
-#endif
 
-
+#include <iostream>
 
 /*!
   \file

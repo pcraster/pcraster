@@ -1,31 +1,9 @@
-#ifndef INCLUDED_DAL_TABLEDRIVER
 #include "dal_TableDriver.h"
-#define INCLUDED_DAL_TABLEDRIVER
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_LEXICAL_CAST
-#include <boost/lexical_cast.hpp>
-#define INCLUDED_BOOST_LEXICAL_CAST
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_EXCEPTION
 #include "dal_Exception.h"
-#define INCLUDED_DAL_EXCEPTION
-#endif
-
-#ifndef INCLUDED_DAL_TABLE
 #include "dal_Table.h"
-#define INCLUDED_DAL_TABLE
-#endif
-
-#ifndef INCLUDED_DAL_UTILS
 #include "dal_Utils.h"
-#define INCLUDED_DAL_UTILS
-#endif
+
+#include <boost/lexical_cast.hpp>
 
 #include <cmath>
 

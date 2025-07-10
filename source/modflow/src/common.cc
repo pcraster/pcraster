@@ -1,43 +1,10 @@
-#ifndef INCLUDED_COMMON
 #include "common.h"
-#define INCLUDED_COMMON
-#endif
-
-
-// Library headers.
-#ifndef INCLUDED_FSTREAM
-#include <fstream>
-#define INCLUDED_FSTREAM
-#endif
-
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-
-#ifndef INCLUDED_IOMANIP
-#include <iomanip>
-#define INCLUDED_IOMANIP
-#endif
-
-#ifndef INCLUDED_IOS
-#include <ios>
-#define INCLUDED_IOS
-#endif
-
-
-// PCRaster library headers.
-#ifndef INCLUDED_CALC_SPATIAL
-//#include "calc_spatial.h"
-#define INCLUDED_CALC_SPATIAL
-#endif
-
-
-// Module headers.
-#ifndef INCLUDED_PCRMODFLOW
 #include "pcrmodflow.h"
-#define INCLUDED_PCRMODFLOW
-#endif
+
+#include <fstream>
+#include <iostream>
+#include <iomanip>
+#include <ios>
 
 
 template

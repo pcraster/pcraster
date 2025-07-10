@@ -1,24 +1,8 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_MAP2CSF
 #include "calc_map2csf.h"
-#define INCLUDED_CALC_MAP2CSF
-#endif
-
-#ifndef INCLUDED_CSF
 #include "csf.h"
-#define INCLUDED_CSF
-#endif
-
-#ifndef INCLUDED_MISC
 #include "misc.h" // BITSET macros
-#define INCLUDED_MISC
-#endif
-
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
 
 /*! pick one value scale from \a vsSet that is the
  * biggest from a set of value scales assuming:

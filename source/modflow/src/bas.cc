@@ -1,75 +1,20 @@
-#ifndef INCLUDED_BAS
 #include "bas.h"
-#define INCLUDED_BAS
-#endif
-
-// Library headers.
-#ifndef INCLUDED_SSTREAM
-#include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-#include <iomanip>
-
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-
-#ifndef INCLUDED_CMATH
-#include <cmath>
-#define INCLUDED_CMATH
-#endif
-
-#ifndef INCLUDED_FSTREAM
-#include <fstream>
-#define INCLUDED_FSTREAM
-#endif
-
-#ifndef INCLUDED_CASSERT
-#include <cassert>
-#define INCLUDED_CASSERT
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_CALC_SPATIAL
-#include "calc_spatial.h"
-#define INCLUDED_CALC_SPATIAL
-#endif
-
-// Module headers.
-#ifndef INCLUDED_GRIDCHECK
 #include "gridcheck.h"
-#define INCLUDED_GRIDCHECK
-#endif
-
-#ifndef INCLUDED_BCF
 #include "bcf.h"
-#define INCLUDED_BCF
-#endif
-
-#ifndef INCLUDED_COMMON
 #include "common.h"
-#define INCLUDED_COMMON
-#endif
-
-#ifndef INCLUDED_PCRMODFLOW
 #include "pcrmodflow.h"
-#define INCLUDED_PCRMODFLOW
-#endif
-
-#ifndef INCLUDED_MF_BINARYREADER
 #include "mf_BinaryReader.h"
-#define INCLUDED_MF_BINARYREADER
-#endif
-
 #include "mf_utils.h"
+#include "calc_spatial.h"
 
 #include <fstream>
+#include <sstream>
+#include <vector>
+#include <iomanip>
+#include <iostream>
+#include <cmath>
+#include <fstream>
+#include <cassert>
 
 
 /**

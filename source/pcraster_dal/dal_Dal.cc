@@ -1,111 +1,31 @@
-#ifndef INCLUDED_DAL_DAL
 #include "dal_Dal.h"
-#define INCLUDED_DAL_DAL
-#endif
 
-// Library headers.
-#ifndef INCLUDED_ALGORITHM
-#include <algorithm>
-#define INCLUDED_ALGORITHM
+#include <boost/version.hpp>
+#if BOOST_VERSION > 107200
+  #include <boost/bind/bind.hpp>
+#else
+  #include <boost/bind.hpp>
 #endif
-
-#ifndef INCLUDED_BOOST_BIND
-  #include <boost/version.hpp>
-  #if BOOST_VERSION > 107200
-    #include <boost/bind/bind.hpp>
-  #else
-    #include <boost/bind.hpp>
-  #endif
-#define INCLUDED_BOOST_BIND
-#endif
-
-#ifndef INCLUDED_QSQLDATABASE
-#include <QSqlDatabase>
-#define INCLUDED_QSQLDATABASE
-#endif
-
-#ifndef INCLUDED_QSTRINGLIST
-#include <QStringList>
-#define INCLUDED_QSTRINGLIST
-#endif
-
-#ifndef INCLUDED_OGRSF_FRMTS
-#include <ogrsf_frmts.h>
-#define INCLUDED_OGRSF_FRMTS
-#endif
-
-#ifndef INCLUDED_GDAL_PRIV
-#include "gdal_priv.h"
-#define INCLUDED_GDAL_PRIV
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_DEV_CONFIGURE
 #include "dev_Configure.h"
-#define INCLUDED_DEV_CONFIGURE
-#endif
-
-// Module headers.
-#ifndef INCLUDED_DAL_CLIENT
 #include "dal_Client.h"
-#define INCLUDED_DAL_CLIENT
-#endif
-
-#ifndef INCLUDED_DAL_CSFRASTERDRIVER
 #include "dal_CSFRasterDriver.h"
-#define INCLUDED_DAL_CSFRASTERDRIVER
-#endif
-
-#ifndef INCLUDED_DAL_GEOEASTABLEDRIVER
 #include "dal_GeoEASTableDriver.h"
-#define INCLUDED_DAL_GEOEASTABLEDRIVER
-#endif
-
-#ifndef INCLUDED_DAL_GDALRASTERDRIVER
 #include "dal_GDALRasterDriver.h"
-#define INCLUDED_DAL_GDALRASTERDRIVER
-#endif
-
-#ifndef INCLUDED_DAL_LIBRARY
 #include "dal_Library.h"
-#define INCLUDED_DAL_LIBRARY
-#endif
-
-#ifndef INCLUDED_DAL_MEMORYRASTERDRIVER
 #include "dal_MemoryRasterDriver.h"
-#define INCLUDED_DAL_MEMORYRASTERDRIVER
-#endif
-
-#ifndef INCLUDED_DAL_OGRFEATUREDRIVER
 #include "dal_OgrFeatureDriver.h"
-#define INCLUDED_DAL_OGRFEATUREDRIVER
-#endif
-
-#ifndef INCLUDED_DAL_PCRBLOCKDRIVER
 #include "dal_PCRBlockDriver.h"
-#define INCLUDED_DAL_PCRBLOCKDRIVER
-#endif
-
-#ifndef INCLUDED_DAL_SQLTABLEDRIVER
 #include "dal_SQLTableDriver.h"
-#define INCLUDED_DAL_SQLTABLEDRIVER
-#endif
-
-#ifndef INCLUDED_DAL_TEXTMATRIXDRIVER
 #include "dal_TextMatrixDriver.h"
-#define INCLUDED_DAL_TEXTMATRIXDRIVER
-#endif
-
-#ifndef INCLUDED_DAL_TEXTTABLEDRIVER
 #include "dal_TextTableDriver.h"
-#define INCLUDED_DAL_TEXTTABLEDRIVER
-#endif
-
-#ifndef INCLUDED_DAL_VECTORDRIVER
 #include "dal_VectorDriver.h"
-#define INCLUDED_DAL_VECTORDRIVER
-#endif
 
+#include <QSqlDatabase>
+#include <QStringList>
+#include <ogrsf_frmts.h>
+#include "gdal_priv.h"
+
+#include <algorithm>
 #include <memory>
 
 
@@ -122,20 +42,24 @@ namespace dal {
 
 #ifdef DEBUG_DEVELOP
 
+/*
 #define ADD_DRIVER(driver) \
   if(_debugging) { \
     std::cout << "add driver " << driver->name() << std::endl; \
   }
+*/
 
 #define QUERY(driver, name, space) \
   if(_debugging) { \
     std::cout << "query " << name << " in " << dataSpaceToString(space) << " using " << driver.name() << std::endl; \
   }
 
+/*
 #define QUERY_FIRST(driver, name, space) \
   if(_debugging) { \
     std::cout << "query first " << name << " in " << dataSpaceToString(space) << " using " << driver.name() << std::endl; \
   }
+*/
 
 #else
 #define ADD_DRIVER(driver)

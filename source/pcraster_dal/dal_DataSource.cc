@@ -1,52 +1,12 @@
-#ifndef INCLUDED_DAL_DATASOURCE
 #include "dal_DataSource.h"
-#define INCLUDED_DAL_DATASOURCE
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_CLIENT
 #include "dal_Client.h"
-#define INCLUDED_DAL_CLIENT
-#endif
-
-#ifndef INCLUDED_DAL_DAL
 #include "dal_Dal.h"
-#define INCLUDED_DAL_DAL
-#endif
-
-#ifndef INCLUDED_DAL_DATASET
 #include "dal_Dataset.h"
-#define INCLUDED_DAL_DATASET
-#endif
-
-#ifndef INCLUDED_DAL_FEATUREDRIVER
 #include "dal_FeatureDriver.h"
-#define INCLUDED_DAL_FEATUREDRIVER
-#endif
-
-#ifndef INCLUDED_DAL_RASTERDRIVER
 #include "dal_RasterDriver.h"
-#define INCLUDED_DAL_RASTERDRIVER
-#endif
-
-#ifndef INCLUDED_DAL_TABLEDRIVER
 #include "dal_TableDriver.h"
-#define INCLUDED_DAL_TABLEDRIVER
-#endif
-
-#ifndef INCLUDED_DAL_UTILS
 #include "dal_Utils.h"
-#define INCLUDED_DAL_UTILS
-#endif
-
-#ifndef INCLUDED_DAL_VECTORDRIVER
 #include "dal_VectorDriver.h"
-#define INCLUDED_DAL_VECTORDRIVER
-#endif
 
 #include <cmath>
 

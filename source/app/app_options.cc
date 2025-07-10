@@ -1,39 +1,11 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_APP_OPTIONS
 #include "app_options.h"
-#define INCLUDED_APP_OPTIONS
-#endif
-
-// Library headers.
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_STRLIB
 #include "com_strlib.h"
-#define INCLUDED_COM_STRLIB
-#endif
-#ifndef INCLUDED_MISC
 #include "misc.h"
-#define INCLUDED_MISC
-#endif
-
-// Module headers.
-#ifndef INCLUDED_APPARGS
 #include "appargs.h"
-#define INCLUDED_APPARGS
-#endif
 
+#include <vector>
+#include <string>
 
 /*!
   \file

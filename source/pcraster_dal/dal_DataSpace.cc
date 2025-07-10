@@ -1,40 +1,14 @@
-#ifndef INCLUDED_DAL_DATASPACE
 #include "dal_DataSpace.h"
-#define INCLUDED_DAL_DATASPACE
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_BIND
-  #include <boost/version.hpp>
-  #if BOOST_VERSION > 107200
-    #include <boost/bind/bind.hpp>
-  #else
-    #include <boost/bind.hpp>
-  #endif
-#define INCLUDED_BOOST_BIND
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_DATASPACEADDRESS
 #include "dal_DataSpaceAddress.h"
-#define INCLUDED_DAL_DATASPACEADDRESS
-#endif
-
-#ifndef INCLUDED_DAL_RASTERDIMENSIONS
 #include "dal_RasterDimensions.h"
-#define INCLUDED_DAL_RASTERDIMENSIONS
-#endif
-
-#ifndef INCLUDED_DAL_SPATIALCOORDINATE
 #include "dal_SpatialCoordinate.h"
-#define INCLUDED_DAL_SPATIALCOORDINATE
-#endif
-
-#ifndef INCLUDED_DAL_UTILS
 #include "dal_Utils.h"
-#define INCLUDED_DAL_UTILS
+
+#include <boost/version.hpp>
+#if BOOST_VERSION > 107200
+  #include <boost/bind/bind.hpp>
+#else
+  #include <boost/bind.hpp>
 #endif
 
 #include <algorithm>

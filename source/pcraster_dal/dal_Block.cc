@@ -1,14 +1,4 @@
-#ifndef INCLUDED_DAL_BLOCK
 #include "dal_Block.h"
-#define INCLUDED_DAL_BLOCK
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-
 
 
 /*!

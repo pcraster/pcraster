@@ -1,48 +1,13 @@
-#ifndef INCLUDED_DIS
 #include "dis.h"
-#define INCLUDED_DIS
-#endif
-
-
-// Library headers.
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-
-#ifndef INCLUDED_SSTREAM
-#include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_GRIDCHECK
 #include "gridcheck.h"
-#define INCLUDED_GRIDCHECK
-#endif
-
-#ifndef INCLUDED_COMMON
 #include "common.h"
-#define INCLUDED_COMMON
-#endif
-
-#ifndef INCLUDED_PCRMODFLOW
 #include "pcrmodflow.h"
-#define INCLUDED_PCRMODFLOW
-#endif
-
 #include "mf_utils.h"
 
-
 #include <fstream>
+#include <vector>
+#include <iostream>
+#include <sstream>
 
 
 

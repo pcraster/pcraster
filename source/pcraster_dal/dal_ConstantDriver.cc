@@ -1,13 +1,4 @@
-#ifndef INCLUDED_DAL_CONSTANTDRIVER
 #include "dal_ConstantDriver.h"
-#define INCLUDED_DAL_CONSTANTDRIVER
-#endif
-
-// External headers.
-
-// Project headers.
-
-// Module headers.
 
 
 

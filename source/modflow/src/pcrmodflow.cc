@@ -1,132 +1,34 @@
-#ifndef INCLUDED_PCRMODFLOW
 #include "pcrmodflow.h"
-#define INCLUDED_PCRMODFLOW
-#endif
-
-
-// Library headers.
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-
-#ifndef INCLUDED_IOS
-#include <ios>
-#define INCLUDED_IOS
-#endif
-
-#ifndef INCLUDED_FSTREAM
-#include <fstream>
-#define INCLUDED_FSTREAM
-#endif
-
-#ifndef INCLUDED_CASSERT
-#include <cassert>
-#define INCLUDED_CASSERT
-#endif
-
-
-// PCRaster library headers.
-#ifndef INCLUDED_DAL_DAL
-#include "dal_Dal.h"
-#define INCLUDED_DAL_DAL
-#endif
-
-#ifndef INCLUDED_DAL_RASTERDAL
-#include "dal_RasterDal.h"
-#define INCLUDED_DAL_RASTERDAL
-#endif
-
-#ifndef INCLUDED_DAL_LIBRARY
-#include "dal_Library.h"
-#define INCLUDED_DAL_LIBRARY
-#endif
-
-#ifndef INCLUDED_DEV_FILESYSTEMUTILS
-#include "dev_FilesystemUtils.h"
-#define INCLUDED_DEV_FILESYSTEMUTILS
-#endif
-
-// Module headers.
-#ifndef INCLUDED_GRIDCHECK
 #include "gridcheck.h"
-#define INCLUDED_GRIDCHECK
-#endif
-
-#ifndef INCLUDED_WEL
 #include "wel.h"
-#define INCLUDED_WEL
-#endif
-
-#ifndef INCLUDED_DRN
 #include "drn.h"
-#define INCLUDED_DRN
-#endif
-
-#ifndef INCLUDED_RCH
 #include "rch.h"
-#define INCLUDED_RCH
-#endif
-
-#ifndef INCLUDED_BAS
 #include "bas.h"
-#define INCLUDED_BAS
-#endif
-
-#ifndef INCLUDED_BCF
 #include "bcf.h"
-#define INCLUDED_BCF
-#endif
-
-#ifndef INCLUDED_COMMON
 #include "common.h"
-#define INCLUDED_COMMON
-#endif
-
-#ifndef INCLUDED_PCG
 #include "pcg.h"
-#define INCLUDED_PCG
-#endif
-
-#ifndef INCLUDED_SIP
 #include "sip.h"
-#define INCLUDED_SIP
-#endif
-
-#ifndef INCLUDED_SOR
 #include "sor.h"
-#define INCLUDED_SOR
-#endif
-
-#ifndef INCLUDED_DSP
 #include "dsp.h"
-#define INCLUDED_DSP
-#endif
-
-#ifndef INCLUDED_RIV
 #include "riv.h"
-#define INCLUDED_RIV
-#endif
-
-#ifndef INCLUDED_DIS
 #include "dis.h"
-#define INCLUDED_DIS
-#endif
-
-#ifndef INCLUDED_HFB
 #include "hfb.h"
-#define INCLUDED_HFB
-#endif
-
 #include "ghb.h"
-
 #include "mf_utils.h"
+#include "dal_Dal.h"
+#include "dal_RasterDal.h"
+#include "dal_Library.h"
+#include "dev_FilesystemUtils.h"
 
 #include <QProcess>
 #include <QString>
 
 #include <filesystem>
-#include  <memory>
+#include <memory>
+#include <iostream>
+#include <ios>
+#include <fstream>
+#include <cassert>
 
 
 /// \todo change the confined level vector to layer vector

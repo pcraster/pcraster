@@ -1,44 +1,13 @@
-#ifndef INCLUDED_DAL_GEOEASTABLEDRIVER
 #include "dal_GeoEASTableDriver.h"
-#define INCLUDED_DAL_GEOEASTABLEDRIVER
-#endif
-
-// Library headers.
-#ifndef INCLUDED_FSTREAM
-#include <fstream>
-#define INCLUDED_FSTREAM
-#endif
-
-#ifndef INCLUDED_BOOST_ALGORITHM_STRING
-#include <boost/algorithm/string.hpp>
-#define INCLUDED_BOOST_ALGORITHM_STRING
-#endif
-
-
-#ifndef INCLUDED_BOOST_SPIRIT_INCLUDE_CLASSIC
-#include <boost/spirit/include/classic.hpp>
-#define INCLUDED_BOOST_SPIRIT_INCLUDE_CLASSIC
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_BASICTYPES
 #include "dal_BasicTypes.h"
-#define INCLUDED_DAL_BASICTYPES
-#endif
-
-#ifndef INCLUDED_DAL_EXCEPTION
 #include "dal_Exception.h"
-#define INCLUDED_DAL_EXCEPTION
-#endif
-
-#ifndef INCLUDED_DAL_FILESYSTEMUTILS
 #include "dal_FilesystemUtils.h"
-#define INCLUDED_DAL_FILESYSTEMUTILS
-#endif
+
+#include <boost/algorithm/string.hpp>
+#include <boost/spirit/include/classic.hpp>
 
 #include <filesystem>
+#include <fstream>
 
 
 /*!

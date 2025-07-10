@@ -1,13 +1,4 @@
-#ifndef INCLUDED_DAL_LIBRARY
 #include "dal_Library.h"
-#define INCLUDED_DAL_LIBRARY
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 

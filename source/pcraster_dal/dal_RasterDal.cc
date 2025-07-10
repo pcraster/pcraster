@@ -1,57 +1,14 @@
-#ifndef INCLUDED_DAL_RASTERDAL
 #include "dal_RasterDal.h"
-#define INCLUDED_DAL_RASTERDAL
-#endif
-
-// Library headers.
-#ifndef INCLUDED_GDAL_PRIV
-#include "gdal_priv.h"
-#define INCLUDED_GDAL_PRIV
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_CSFRASTERDRIVER
 #include "dal_CSFRasterDriver.h"
-#define INCLUDED_DAL_CSFRASTERDRIVER
-#endif
-
-#ifndef INCLUDED_DAL_DATASET
 #include "dal_Dataset.h"
-#define INCLUDED_DAL_DATASET
-#endif
-
-#ifndef INCLUDED_DAL_GDALRASTERDRIVER
 #include "dal_GDALRasterDriver.h"
-#define INCLUDED_DAL_GDALRASTERDRIVER
-#endif
-
-#ifndef INCLUDED_DAL_LIBRARY
 #include "dal_Library.h"
-#define INCLUDED_DAL_LIBRARY
-#endif
-
-#ifndef INCLUDED_DAL_MEMORYRASTERDRIVER
 #include "dal_MemoryRasterDriver.h"
-#define INCLUDED_DAL_MEMORYRASTERDRIVER
-#endif
-
-#ifndef INCLUDED_DAL_RASTER
 #include "dal_Raster.h"
-#define INCLUDED_DAL_RASTER
-#endif
-
-#ifndef INCLUDED_DAL_RASTERDRIVER
 #include "dal_RasterDriver.h"
-#define INCLUDED_DAL_RASTERDRIVER
-#endif
-
-#ifndef INCLUDED_DAL_UTILS
 #include "dal_Utils.h"
-#define INCLUDED_DAL_UTILS
-#endif
 
+#include "gdal_priv.h"
 
 
 /*!

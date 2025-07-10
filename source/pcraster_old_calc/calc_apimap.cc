@@ -1,9 +1,5 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_APIMAP
 #include "calc_apimap.h"
-#define INCLUDED_CALC_APIMAP
-#endif
 
 namespace calc {
  template<> int ObjCount<ApiMap>::numObjects(0);

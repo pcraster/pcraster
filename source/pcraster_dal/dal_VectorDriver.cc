@@ -1,47 +1,12 @@
-#ifndef INCLUDED_DAL_VECTORDRIVER
 #include "dal_VectorDriver.h"
-#define INCLUDED_DAL_VECTORDRIVER
-#endif
-
-// External headers.
-
-#ifndef INCLUDED_BOOST_LEXICAL_CAST
-#include <boost/lexical_cast.hpp>
-#define INCLUDED_BOOST_LEXICAL_CAST
-#endif
-
-// Project headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_EXCEPTION
 #include "dal_Exception.h"
-#define INCLUDED_DAL_EXCEPTION
-#endif
-
-#ifndef INCLUDED_DAL_FILESYSTEMUTILS
 #include "dal_FilesystemUtils.h"
-#define INCLUDED_DAL_FILESYSTEMUTILS
-#endif
-
-#ifndef INCLUDED_DAL_RASTER
 #include "dal_Raster.h"
-#define INCLUDED_DAL_RASTER
-#endif
-
-#ifndef INCLUDED_DAL_RASTERDAL
 #include "dal_RasterDal.h"
-#define INCLUDED_DAL_RASTERDAL
-#endif
-
-#ifndef INCLUDED_DAL_REGULAREXPRESSIONS
 #include "dal_RegularExpressions.h"
-#define INCLUDED_DAL_REGULAREXPRESSIONS
-#endif
-
-#ifndef INCLUDED_DAL_TYPES
 #include "dal_Types.h"
-#define INCLUDED_DAL_TYPES
-#endif
+
+#include <boost/lexical_cast.hpp>
 
 #include <cmath>
 #include <filesystem>

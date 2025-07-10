@@ -1,13 +1,4 @@
-#ifndef INCLUDED_DAL_BLOCKDRIVER
 #include "dal_BlockDriver.h"
-#define INCLUDED_DAL_BLOCKDRIVER
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 

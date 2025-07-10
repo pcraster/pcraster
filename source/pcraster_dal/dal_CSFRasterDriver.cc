@@ -1,66 +1,16 @@
-#ifndef INCLUDED_DAL_CSFRASTERDRIVER
 #include "dal_CSFRasterDriver.h"
-#define INCLUDED_DAL_CSFRASTERDRIVER
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_LEXICAL_CAST
-#include <boost/lexical_cast.hpp>
-#define INCLUDED_BOOST_LEXICAL_CAST
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_CSFMAP
 #include "dal_CSFMap.h"
-#define INCLUDED_DAL_CSFMAP
-#endif
-
-#ifndef INCLUDED_DAL_DATASPACE
 #include "dal_DataSpace.h"
-#define INCLUDED_DAL_DATASPACE
-#endif
-
-#ifndef INCLUDED_DAL_DATASPACEADDRESS
 #include "dal_DataSpaceAddress.h"
-#define INCLUDED_DAL_DATASPACEADDRESS
-#endif
-
-#ifndef INCLUDED_DAL_DIMENSION
 #include "dal_Dimension.h"
-#define INCLUDED_DAL_DIMENSION
-#endif
-
-#ifndef INCLUDED_DAL_EXCEPTION
 #include "dal_Exception.h"
-#define INCLUDED_DAL_EXCEPTION
-#endif
-
-#ifndef INCLUDED_DAL_FILESYSTEMUTILS
 #include "dal_FilesystemUtils.h"
-#define INCLUDED_DAL_FILESYSTEMUTILS
-#endif
-
-#ifndef INCLUDED_DAL_PROPERTYKEYS
 #include "dal_PropertyKeys.h"
-#define INCLUDED_DAL_PROPERTYKEYS
-#endif
-
-#ifndef INCLUDED_DAL_RASTERDIMENSIONS
 #include "dal_RasterDimensions.h"
-#define INCLUDED_DAL_RASTERDIMENSIONS
-#endif
-
-#ifndef INCLUDED_DAL_TABLE
 #include "dal_Table.h"
-#define INCLUDED_DAL_TABLE
-#endif
-
-#ifndef INCLUDED_DAL_TYPE
 #include "dal_Type.h"
-#define INCLUDED_DAL_TYPE
-#endif
+
+#include <boost/lexical_cast.hpp>
 
 #include <cmath>
 #include <cstring>

@@ -1,14 +1,5 @@
-#ifndef INCLUDED_DSP
 #include "dsp.h"
-#define INCLUDED_DSP
-#endif
 
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
 
 /**
 * Destructor

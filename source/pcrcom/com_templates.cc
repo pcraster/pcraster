@@ -1,20 +1,7 @@
 // Instantiate templates with the types used in the com-lib.
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CSFTYPES
 #include "csftypes.h"
-#define INCLUDED_CSFTYPES
-#endif
-
-#ifndef INCLUDED_COM_COMMANDMODEARGUMENT
 #include "com_commandmodeargument.h"
-#define INCLUDED_COM_COMMANDMODEARGUMENT
-#endif
-
 #include "com_axis.cc"
 #include "com_legendclass.cc"
 #include "com_legend.cc"
@@ -78,10 +65,7 @@ template class com::SingleValuedRaster<REAL4>;
 template class com::SingleValuedRaster<REAL8>;
 
 //------------------------------------------------------------------------------
-#ifndef INCLUDED_COM_PROGRESSBAR
 #include "com_progressbar.h"
-#define INCLUDED_COM_PROGRESSBAR
-#endif
 
 #include "com_labeledprogresstracked.cc"
 #include "com_labeledprogresstracker.cc"

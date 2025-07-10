@@ -1,13 +1,4 @@
-#ifndef INCLUDED_DAL_FORMATS
 #include "dal_Formats.h"
-#define INCLUDED_DAL_FORMATS
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 

@@ -1,17 +1,5 @@
-#ifndef INCLUDED_DAL_COORDINATEMAPPER
 #include "dal_CoordinateMapper.h"
-#define INCLUDED_DAL_COORDINATEMAPPER
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_UTILS
 #include "dal_Utils.h"
-#define INCLUDED_DAL_UTILS
-#endif
 
 
 

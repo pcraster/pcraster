@@ -1,32 +1,8 @@
-#ifndef INCLUDED_DAL_CLIENT
 #include "dal_Client.h"
-#define INCLUDED_DAL_CLIENT
-#endif
-
-// External headers.
-
-// Project headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_DAL
 #include "dal_Dal.h"
-#define INCLUDED_DAL_DAL
-#endif
-
-#ifndef INCLUDED_DAL_GDALRASTERDRIVER
 #include "dal_GDALRasterDriver.h"
-#define INCLUDED_DAL_GDALRASTERDRIVER
-#endif
-
-#ifndef INCLUDED_DAL_LIBRARY
 #include "dal_Library.h"
-#define INCLUDED_DAL_LIBRARY
-#endif
-
-#ifndef INCLUDED_DAL_OGRFEATUREDRIVER
 #include "dal_OgrFeatureDriver.h"
-#define INCLUDED_DAL_OGRFEATUREDRIVER
-#endif
 
 
 

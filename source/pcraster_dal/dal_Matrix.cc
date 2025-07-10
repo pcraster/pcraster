@@ -1,14 +1,6 @@
-#ifndef INCLUDED_DAL_MATRIX
 #include "dal_Matrix.h"
-#define INCLUDED_DAL_MATRIX
-#endif
 
-// Library headers.
 #include <algorithm>
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 

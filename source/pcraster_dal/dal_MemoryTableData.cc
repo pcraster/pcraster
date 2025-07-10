@@ -1,22 +1,7 @@
-#ifndef INCLUDED_DAL_MEMORYTABLEDATA
 #include "dal_MemoryTableData.h"
-#define INCLUDED_DAL_MEMORYTABLEDATA
-#endif
 
-// Library headers.
-#ifndef INCLUDED_MAP
 #include <map>
-#define INCLUDED_MAP
-#endif
-
-#ifndef INCLUDED_STRING
 #include <string>
-#define INCLUDED_STRING
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 

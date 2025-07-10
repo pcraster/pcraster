@@ -1,13 +1,4 @@
-#ifndef INCLUDED_DAL_PROPERTIES
 #include "dal_Properties.h"
-#define INCLUDED_DAL_PROPERTIES
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 

@@ -1,33 +1,9 @@
-#ifndef INCLUDED_GRIDCHECK
 #include "gridcheck.h"
-#define INCLUDED_GRIDCHECK
-#endif
-
-
-// Library headers.
-#ifndef INCLUDED_SSTREAM
-#include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_COMMON
 #include "common.h"
-#define INCLUDED_COMMON
-#endif
-
-#ifndef INCLUDED_PCRMODFLOW
 #include "pcrmodflow.h"
-#define INCLUDED_PCRMODFLOW
-#endif
+
+#include <sstream>
+#include <iostream>
 
 
 /**

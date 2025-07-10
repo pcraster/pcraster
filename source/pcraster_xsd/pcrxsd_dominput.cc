@@ -1,36 +1,6 @@
-#ifndef INCLUDED_PCRXSD_DOMINPUT
 #include "pcrxsd_dominput.h"
-#define INCLUDED_PCRXSD_DOMINPUT
-#endif
-
-// Library headers.
-#ifndef INCLUDED_MAP
-#include <map>
-#define INCLUDED_MAP
-#endif
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-#ifndef INCLUDED_STDLIB
-#include <cstdlib>
-#define INCLUDED_STDLIB
-#endif
-#ifndef INCLUDED_FSTREAM
-#include <fstream>
-#define INCLUDED_FSTREAM
-#endif
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-#ifndef INCLUDED_SSTREAM
-#include <memory>
-#include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-
-#include <memory>
+#include "pcrxsd_supportedschema.h"
+#include "pcrxsd_utils.h"
 
 #include <xercesc/parsers/AbstractDOMParser.hpp>
 #include <xercesc/dom/DOMImplementationLS.hpp>
@@ -55,19 +25,13 @@
 
 XERCES_CPP_NAMESPACE_USE
 
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_PCRXSD_SUPPORTEDSCHEMA
-#include "pcrxsd_supportedschema.h"
-#define INCLUDED_PCRXSD_SUPPORTEDSCHEMA
-#endif
-#ifndef INCLUDED_PCRXSD_UTILS
-#include "pcrxsd_utils.h"
-#define INCLUDED_PCRXSD_UTILS
-#endif
-
-
+#include <map>
+#include <string>
+#include <cstdlib>
+#include <fstream>
+#include <iostream>
+#include <memory>
+#include <sstream>
 
 /*!
   \file

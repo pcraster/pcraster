@@ -1,13 +1,4 @@
-#ifndef INCLUDED_DAL_FEATUREDRIVER
 #include "dal_FeatureDriver.h"
-#define INCLUDED_DAL_FEATUREDRIVER
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
 
 #include <cmath>
 

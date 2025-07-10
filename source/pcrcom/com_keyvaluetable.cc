@@ -1,38 +1,11 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_COM_KEYVALUETABLE
 #include "com_keyvaluetable.h"
-#define INCLUDED_COM_KEYVALUETABLE
-#endif
-
-// Library headers.
-#ifndef INCLUDED_SSTREAM
-#include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-#ifndef INCLUDED_STDEXCEPT
-#include <stdexcept>
-#define INCLUDED_STDEXCEPT
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_INTERVAL
 #include "com_interval.h"
-#define INCLUDED_COM_INTERVAL
-#endif
-#ifndef INCLUDED_COM_STRCONV
 #include "com_strconv.h"
-#define INCLUDED_COM_STRCONV
-#endif
-#ifndef INCLUDED_COM_ALGORITHM
 #include "com_algorithm.h"
-#define INCLUDED_COM_ALGORITHM
-#endif
 
-// Module headers.
+#include <sstream>
+#include <stdexcept>
 
 
 

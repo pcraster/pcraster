@@ -13,10 +13,7 @@
 #include <math.h>
 #include <string.h>  /* memmove, strlen, strchr, strcmp */
 
-#ifndef INCLUDED_APP_OPTIONS
 #include "app_options.h"
-#define INCLUDED_APP_OPTIONS
-#endif
 
 /* apps. called */
 

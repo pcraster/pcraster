@@ -1,40 +1,21 @@
-// #ifndef INCLUDED_STDDEFX
-// #include "stddefx.h"
-// #define INCLUDED_STDDEFX
-// #endif
-
-#ifndef INCLUDED_PCRXSD_SUPPORTEDSCHEMA
 #include "pcrxsd_supportedschema.h"
-#define INCLUDED_PCRXSD_SUPPORTEDSCHEMA
+#ifdef PCRTREE2_BUILD
+  #include "compiled_PCRaster.h"
 #endif
+#ifdef AGUILA_BUILD
+  #include "compiled_Aguila.h"
+#endif
+#include "compiled_commonTypes.h"
 
-// Library headers.
-#ifndef INCLUDED_MAP
-#include <map>
-#define INCLUDED_MAP
-#endif
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-#include <utility>
 #include <xercesc/framework/LocalFileInputSource.hpp>
 #include <xercesc/framework/MemBufInputSource.hpp>
 #include <xercesc/framework/Wrapper4InputSource.hpp>
 #include <xercesc/util/XMLString.hpp>
 XERCES_CPP_NAMESPACE_USE
 
-// PCRaster library headers.
-
-// Module headers.
-#ifdef PCRTREE2_BUILD
-# include "compiled_PCRaster.h"
-#endif
-#ifdef AGUILA_BUILD
-# include "compiled_Aguila.h"
-#endif
-#include "compiled_commonTypes.h"
-
+#include <map>
+#include <string>
+#include <utility>
 
 
 /*!

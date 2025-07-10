@@ -1,14 +1,6 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_USEDEFNODE
 #include "calc_usedefnode.h"
-#define INCLUDED_CALC_USEDEFNODE
-#endif
-
-#ifndef INCLUDED_CALC_STATEMENTBLOCK
 #include "calc_statementblock.h"      // parentBlock()
-#define INCLUDED_CALC_STATEMENTBLOCK
-#endif
 
 calc::UseDefNode::UseDefNode(
   calc::StatementBlock &inBlock):

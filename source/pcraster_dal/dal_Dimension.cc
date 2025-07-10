@@ -1,32 +1,9 @@
-#ifndef INCLUDED_DAL_DIMENSION
 #include "dal_Dimension.h"
-#define INCLUDED_DAL_DIMENSION
-#endif
-
-// Library headers.
-#ifndef INCLUDED_LIMITS
-#include <limits>
-#define INCLUDED_LIMITS
-#endif
-
-#ifndef INCLUDED_STRING
-#include <std::string>
-#define INCLUDED_STRING
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_RASTERDIMENSIONS
 #include "dal_RasterDimensions.h"
-#define INCLUDED_DAL_RASTERDIMENSIONS
-#endif
-
-#ifndef INCLUDED_DAL_SPATIALCOORDINATE
 #include "dal_SpatialCoordinate.h"
-#define INCLUDED_DAL_SPATIALCOORDINATE
-#endif
 
+#include <limits>
+#include <string>
 
 
 /*!

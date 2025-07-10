@@ -1,13 +1,4 @@
-#ifndef INCLUDED_DAL_MATHUTILS
 #include "dal_MathUtils.h"
-#define INCLUDED_DAL_MATHUTILS
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 

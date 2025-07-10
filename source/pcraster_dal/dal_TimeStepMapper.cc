@@ -1,17 +1,5 @@
-#ifndef INCLUDED_DAL_TIMESTEPMAPPER
 #include "dal_TimeStepMapper.h"
-#define INCLUDED_DAL_TIMESTEPMAPPER
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_MATHUTILS
 #include "dal_MathUtils.h"
-#define INCLUDED_DAL_MATHUTILS
-#endif
 
 
 

@@ -1,25 +1,9 @@
-#ifndef INCLUDED_DAL_CONNECTIONINFO
 #include "dal_ConnectionInfo.h"
-#define INCLUDED_DAL_CONNECTIONINFO
-#endif
 
-// Library headers.
-#include <cassert>
-
-#ifndef INCLUDED_BOOST_SPIRIT_INCLUDE_CLASSIC_CORE
 #include <boost/spirit/include/classic_core.hpp>
-#define INCLUDED_BOOST_SPIRIT_INCLUDE_CLASSIC_CORE
-#endif
-
-#ifndef INCLUDED_BOOST_SPIRIT_INCLUDE_CLASSIC_UTILITY
 #include <boost/spirit/include/classic_utility.hpp>
-#define INCLUDED_BOOST_SPIRIT_INCLUDE_CLASSIC_UTILITY
-#endif
 
-// PCRaster library headers.
-
-// Module headers.
-
+#include <cassert>
 #include <format>
 
 

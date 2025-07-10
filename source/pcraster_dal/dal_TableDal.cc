@@ -1,42 +1,11 @@
-#ifndef INCLUDED_DAL_TABLEDAL
 #include "dal_TableDal.h"
-#define INCLUDED_DAL_TABLEDAL
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_QSTRINGLIST
-#include <QStringList>
-#define INCLUDED_QSTRINGLIST
-#endif
-
-#ifndef INCLUDED_QSQLDATABASE
-#include <QSqlDatabase>
-#define INCLUDED_QSQLDATABASE
-#endif
-
-// Module headers.
-#ifndef INCLUDED_DAL_GEOEASTABLEDRIVER
 #include "dal_GeoEASTableDriver.h"
-#define INCLUDED_DAL_GEOEASTABLEDRIVER
-#endif
-
-#ifndef INCLUDED_DAL_SQLTABLEDRIVER
 #include "dal_SQLTableDriver.h"
-#define INCLUDED_DAL_SQLTABLEDRIVER
-#endif
-
-#ifndef INCLUDED_DAL_TEXTTABLEDRIVER
 #include "dal_TextTableDriver.h"
-#define INCLUDED_DAL_TEXTTABLEDRIVER
-#endif
-
-#ifndef INCLUDED_DAL_UTILS
 #include "dal_Utils.h"
-#define INCLUDED_DAL_UTILS
-#endif
 
+#include <QStringList>
+#include <QSqlDatabase>
 
 
 /*!

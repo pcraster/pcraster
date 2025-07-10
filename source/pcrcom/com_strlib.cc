@@ -1,71 +1,18 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_COM_STRLIB
 #include "com_strlib.h"
-#define INCLUDED_COM_STRLIB
-#endif
-
-#ifndef INCLUDED_CSTRING
-#include <cstring>
-#define INCLUDED_CSTRING
-#endif
-
-#ifndef INCLUDED_CSTDARG
-#include <cstdarg>
-#define INCLUDED_CSTDARG
-#endif
-
-#ifndef INCLUDED_CSTDIO
-#include <cstdio>
-#define INCLUDED_CSTDIO
-#endif
-
-#ifndef INCLUDED_CSTDLIB
-#include <cstdlib>
-#define INCLUDED_CSTDLIB
-#endif
-
-#ifndef INCLUDED_IOMANIP
-#include <iomanip>
-#define INCLUDED_IOMANIP
-#endif
-
-#ifndef INCLUDED_STDEXCEP
-#include <stdexcept>
-#define INCLUDED_STDEXCEP
-#endif
-
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-#ifndef INCLUDED_SET
-#include <set>
-#define INCLUDED_SET
-#endif
-
-#ifndef INCLUDED_CCTYPE
-#include <cctype>
-#define INCLUDED_CCTYPE
-#endif
-
-#ifndef INCLUDED_COM_STRINGFO
 #include "com_stringfo.h"
-#define INCLUDED_COM_STRINGFO
-#endif
-#ifndef INCLUDED_COM_ALGORITHM
 #include "com_algorithm.h"
-#define INCLUDED_COM_ALGORITHM
-#endif
-
-#ifndef INCLUDED_COM_STRCONV
 #include "com_strconv.h"
-#define INCLUDED_COM_STRCONV
-#endif
+
+#include <cctype>
+#include <cstring>
+#include <cstdarg>
+#include <cstdio>
+#include <cstdlib>
+#include <iomanip>
+#include <stdexcept>
+#include <vector>
+#include <set>
 
 //! Converts the printf-like format argument to a string.
 /*! Warning: result message should be smaller than 250 chars

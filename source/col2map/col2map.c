@@ -28,7 +28,7 @@
 
 #define POS_COUNT 0 /* reuse POS_X */
 #define POS_ID 3
-#define REC_SIZE 4
+// #define REC_SIZE 4
 
 typedef struct DATA {
     double val;     /* value is search-key */

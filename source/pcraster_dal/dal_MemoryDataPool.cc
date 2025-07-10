@@ -1,13 +1,4 @@
-#ifndef INCLUDED_DAL_MEMORYDATAPOOL
 #include "dal_MemoryDataPool.h"
-#define INCLUDED_DAL_MEMORYDATAPOOL
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 

@@ -1,17 +1,5 @@
-#ifndef INCLUDED_DAL_STEPMAPPER
 #include "dal_StepMapper.h"
-#define INCLUDED_DAL_STEPMAPPER
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_MATHUTILS
 #include "dal_MathUtils.h"
-#define INCLUDED_DAL_MATHUTILS
-#endif
 
 
 

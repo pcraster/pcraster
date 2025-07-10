@@ -1,46 +1,12 @@
-#ifndef INCLUDED_DAL_SQLTABLEDRIVER
 #include "dal_SQLTableDriver.h"
-#define INCLUDED_DAL_SQLTABLEDRIVER
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_FUNCTION
-#include <boost/function.hpp>
-#define INCLUDED_BOOST_FUNCTION
-#endif
-
-#ifndef INCLUDED_QTSQL
-#include <QtSql>
-#define INCLUDED_QTSQL
-#endif
-
-#ifndef INCLUDED_QSTRINGLIST
-#include <QStringList>
-#define INCLUDED_QSTRINGLIST
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_CONNECTIONINFO
 #include "dal_ConnectionInfo.h"
-#define INCLUDED_DAL_CONNECTIONINFO
-#endif
-
-#ifndef INCLUDED_DAL_EXCEPTION
 #include "dal_Exception.h"
-#define INCLUDED_DAL_EXCEPTION
-#endif
-
-#ifndef INCLUDED_DAL_FILESYSTEMUTILS
 #include "dal_FilesystemUtils.h"
-#define INCLUDED_DAL_FILESYSTEMUTILS
-#endif
-
-#ifndef INCLUDED_DAL_UTILS
 #include "dal_Utils.h"
-#define INCLUDED_DAL_UTILS
-#endif
+
+#include <boost/function.hpp>
+#include <QtSql>
+#include <QStringList>
 
 #include <cmath>
 #include <filesystem>

@@ -1,21 +1,7 @@
-#ifndef INCLUDED_DAL_TEXTFILEDRIVER
 #include "dal_TextFileDriver.h"
-#define INCLUDED_DAL_TEXTFILEDRIVER
-#endif
-
-// Library headers.
-#ifndef INCLUDED_ALGORITHM
-#include <algorithm>
-#define INCLUDED_ALGORITHM
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_UTILS
 #include "dal_Utils.h"
-#define INCLUDED_DAL_UTILS
-#endif
+
+#include <algorithm>
 
 
 /*!

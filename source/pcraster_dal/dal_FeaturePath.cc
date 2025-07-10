@@ -1,17 +1,6 @@
-#ifndef INCLUDED_DAL_FEATUREPATH
 #include "dal_FeaturePath.h"
-#define INCLUDED_DAL_FEATUREPATH
-#endif
 
-// External headers.
-#ifndef INCLUDED_CASSERT
 #include <cassert>
-#define INCLUDED_CASSERT
-#endif
-
-// Project headers.
-
-// Module headers.
 
 
 

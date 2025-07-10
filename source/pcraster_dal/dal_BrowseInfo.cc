@@ -1,13 +1,4 @@
-#ifndef INCLUDED_DAL_BROWSEINFO
 #include "dal_BrowseInfo.h"
-#define INCLUDED_DAL_BROWSEINFO
-#endif
-
-// External headers.
-
-// Project headers.
-
-// Module headers.
 
 
 

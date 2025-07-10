@@ -1,39 +1,13 @@
-#ifndef INCLUDED_DAL_STACKINFO
 #include "dal_StackInfo.h"
-#define INCLUDED_DAL_STACKINFO
-#endif
-
-// Library headers.
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-
-#ifndef INCLUDED_CCTYPE
-#include <cctype>  // std::isdigit on current locale
-#define INCLUDED_CCTYPE
-#endif
-
-#ifndef INCLUDED_BOOST_LEXICAL_CAST
-#include <boost/lexical_cast.hpp>
-#define INCLUDED_BOOST_LEXICAL_CAST
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_EXCEPTION
 #include "dal_Exception.h"
-#define INCLUDED_DAL_EXCEPTION
-#endif
-
-#ifndef INCLUDED_DAL_FILESYSTEMUTILS
 #include "dal_FilesystemUtils.h"
-#define INCLUDED_DAL_FILESYSTEMUTILS
-#endif
+
+#include <boost/lexical_cast.hpp>
 
 #include <filesystem>
 #include <format>
+#include <iostream>
+#include <cctype>  // std::isdigit on current locale
 
 
 /*!

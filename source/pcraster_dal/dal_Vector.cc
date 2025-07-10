@@ -1,13 +1,4 @@
-#ifndef INCLUDED_DAL_VECTOR
 #include "dal_Vector.h"
-#define INCLUDED_DAL_VECTOR
-#endif
-
-// External headers.
-
-// Project headers.
-
-// Module headers.
 
 
 

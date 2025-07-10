@@ -1,27 +1,7 @@
-#ifndef INCLUDED_DAL_FEATURELAYER
 #include "dal_FeatureLayer.h"
-#define INCLUDED_DAL_FEATURELAYER
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_CLIENT
 #include "dal_Client.h"
-#define INCLUDED_DAL_CLIENT
-#endif
-
-#ifndef INCLUDED_DAL_LIBRARY
 #include "dal_Library.h"
-#define INCLUDED_DAL_LIBRARY
-#endif
-
-#ifndef INCLUDED_DAL_TYPE
 #include "dal_Type.h"
-#define INCLUDED_DAL_TYPE
-#endif
 
 
 

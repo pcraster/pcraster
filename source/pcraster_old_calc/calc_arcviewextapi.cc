@@ -1,59 +1,16 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_CSTRING
-#include <cstring>
-#define INCLUDED_CSTRING
-#endif
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_APPARGS
 #include "com_appargs.h"
-#define INCLUDED_COM_APPARGS
-#endif
-#ifndef INCLUDED_APPARGS
 #include "appargs.h"
-#define INCLUDED_APPARGS
-#endif
-#ifndef  INCLUDED_PCRDLL
 #include "pcrdll.h"
-#define  INCLUDED_PCRDLL
-#endif
-
 #ifdef WIN32
-# ifndef INCLUDED_COM_WIN32
-# include "com_win32.h"
-# define INCLUDED_COM_WIN32
-# endif
+  #include "com_win32.h"
 #endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_DLLCALC
 #include "calc_dllcalc.h"
-#define INCLUDED_CALC_DLLCALC
-#endif
-#ifndef INCLUDED_CALC_CALC
 #include "calc_calc.h"
-#define INCLUDED_CALC_CALC
-#endif
-#ifndef INCLUDED_CALC_ARCVIEWEXTCHECKDATA
 #include "calc_arcviewextcheckdata.h"
-#define INCLUDED_CALC_ARCVIEWEXTCHECKDATA
-#endif
 
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-
+#include <cstring>
+#include <vector>
 
 
 /*!

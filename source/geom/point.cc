@@ -39,9 +39,9 @@ double geomFittingRectangleStep = 16;
 /**********************/
 /* LOCAL DECLARATIONS */
 /**********************/
-#define LENGTH(p1, p2) (fabs((p1) - (p2)))
-#define IN_BETWEEN(p1, b, p2)                                                            \
-    (LENGTH((p1), (b)) + LENGTH((p2), (b)) <= LENGTH((p1), (p2)))
+// #define LENGTH(p1, p2) (fabs((p1) - (p2)))
+/* #define IN_BETWEEN(p1, b, p2)                                                            \
+    (LENGTH((p1), (b)) + LENGTH((p2), (b)) <= LENGTH((p1), (p2))) */
 /* NOTE the macro IN_BETWEEN compares
    at <= instead of ( the mathematicall
    justifiable) ==. This implementation will
@@ -50,7 +50,7 @@ double geomFittingRectangleStep = 16;
 #define Double(x) ((double)x)
 /* put long double here if neccessary */
 #define LDouble(x) ((double)x)
-#define LD(x) LDouble(x)
+// #define LD(x) LDouble(x)
 
 #define ON_POLYGON (geomPointOnPolygonIsIn)
 

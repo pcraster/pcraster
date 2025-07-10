@@ -1,22 +1,7 @@
-#ifndef INCLUDED_DAL_SPACESTEPMAPPER
 #include "dal_SpaceStepMapper.h"
-#define INCLUDED_DAL_SPACESTEPMAPPER
-#endif
-
-// External headers.
-#ifndef INCLUDED_CASSERT
-#include <cassert>
-#define INCLUDED_CASSERT
-#endif
-
-// Project headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_MATHUTILS
 #include "dal_MathUtils.h"
-#define INCLUDED_DAL_MATHUTILS
-#endif
 
+#include <cassert>
 
 
 /*!

@@ -1,37 +1,10 @@
-#ifndef INCLUDED_DAL_TEXTMATRIXDRIVER
 #include "dal_TextMatrixDriver.h"
-#define INCLUDED_DAL_TEXTMATRIXDRIVER
-#endif
-
-// Library headers.
-#ifndef INCLUDED_FSTREAM
-#include <fstream>
-#define INCLUDED_FSTREAM
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_BASICTYPES
 #include "dal_BasicTypes.h"
-#define INCLUDED_DAL_BASICTYPES
-#endif
-
-#ifndef INCLUDED_DAL_EXCEPTION
 #include "dal_Exception.h"
-#define INCLUDED_DAL_EXCEPTION
-#endif
-
-#ifndef INCLUDED_DAL_TABLE
 #include "dal_Table.h"
-#define INCLUDED_DAL_TABLE
-#endif
-
-#ifndef INCLUDED_DAL_FILESYSTEMUTILS
 #include "dal_FilesystemUtils.h"
-#define INCLUDED_DAL_FILESYSTEMUTILS
-#endif
 
+#include <fstream>
 
 
 /*!

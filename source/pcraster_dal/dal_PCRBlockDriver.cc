@@ -1,17 +1,5 @@
-#ifndef INCLUDED_DAL_PCRBLOCKDRIVER
 #include "dal_PCRBlockDriver.h"
-#define INCLUDED_DAL_PCRBLOCKDRIVER
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_FILESYSTEMUTILS
 #include "dal_FilesystemUtils.h"
-#define INCLUDED_DAL_FILESYSTEMUTILS
-#endif
 
 #include <cmath>
 #include <filesystem>

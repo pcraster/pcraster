@@ -1,53 +1,21 @@
-#ifndef INCLUDED_DAL_FILESYSTEMUTILS
 #include "dal_FilesystemUtils.h"
-#define INCLUDED_DAL_FILESYSTEMUTILS
-#endif
-
-// Library headers.
-#ifndef INCLUDED_CSTDIO
-#include <cstdio>
-#define INCLUDED_CSTDIO
-#endif
+#include "dal_DataSpaceAddress.h"
+#include "dal_Exception.h"
+#include "dal_StackInfo.h"
 
 #ifdef WIN32
-  #ifndef INCLUDED_IO
   #include <io.h>            // access
-  #define INCLUDED_IO
-  #endif
 
   #define   F_OK 0
   #define   R_OK 4
   #define   W_OK 2
 #else
-  #ifndef INCLUDED_UNISTD
   #include <unistd.h>
-  #define INCLUDED_UNISTD
-  #endif
 #endif
 
-#ifndef INCLUDED_BOOST_DATE_TIME_GREGORIAN_GREGORIAN
 #include <boost/date_time/gregorian/gregorian.hpp>
-#define INCLUDED_BOOST_DATE_TIME_GREGORIAN_GREGORIAN
-#endif
 
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_DATASPACEADDRESS
-#include "dal_DataSpaceAddress.h"
-#define INCLUDED_DAL_DATASPACEADDRESS
-#endif
-
-#ifndef INCLUDED_DAL_EXCEPTION
-#include "dal_Exception.h"
-#define INCLUDED_DAL_EXCEPTION
-#endif
-
-#ifndef INCLUDED_DAL_STACKINFO
-#include "dal_StackInfo.h"
-#define INCLUDED_DAL_STACKINFO
-#endif
-
+#include <cstdio>
 #include <filesystem>
 #include <format>
 

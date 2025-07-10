@@ -1,37 +1,9 @@
-#ifndef INCLUDED_DAL_MAPPERUTILS
 #include "dal_MapperUtils.h"
-#define INCLUDED_DAL_MAPPERUTILS
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_DIMENSION
 #include "dal_Dimension.h"
-#define INCLUDED_DAL_DIMENSION
-#endif
-
-#ifndef INCLUDED_DAL_SPACESTEPMAPPER
 #include "dal_SpaceStepMapper.h"
-#define INCLUDED_DAL_SPACESTEPMAPPER
-#endif
-
-#ifndef INCLUDED_DAL_STEPMAPPER
 #include "dal_StepMapper.h"
-#define INCLUDED_DAL_STEPMAPPER
-#endif
-
-#ifndef INCLUDED_DAL_TIMESTEPMAPPER
 #include "dal_TimeStepMapper.h"
-#define INCLUDED_DAL_TIMESTEPMAPPER
-#endif
-
-#ifndef INCLUDED_DAL_UTILS
 #include "dal_Utils.h"
-#define INCLUDED_DAL_UTILS
-#endif
 
 #include <cmath>
 

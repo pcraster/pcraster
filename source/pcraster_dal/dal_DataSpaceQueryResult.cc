@@ -1,13 +1,4 @@
-#ifndef INCLUDED_DAL_DATASPACEQUERYRESULT
 #include "dal_DataSpaceQueryResult.h"
-#define INCLUDED_DAL_DATASPACEQUERYRESULT
-#endif
-
-// External headers.
-
-// Project headers.
-
-// Module headers.
 
 
 

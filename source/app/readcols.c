@@ -24,7 +24,7 @@
 #define POS_X   0
 #define POS_Y   1
 #define POS_V   2
-#define POS_TAG 3
+// #define POS_TAG 3
 
 #define REC_ALLOC  1024 /* will result 32Kb for XYV data (=4 doubles) */
 

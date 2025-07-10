@@ -1,14 +1,4 @@
-#ifndef INCLUDED_SIP
 #include "sip.h"
-#define INCLUDED_SIP
-#endif
-
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
 
 /**
 * Destructor

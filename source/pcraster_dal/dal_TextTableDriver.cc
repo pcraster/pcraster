@@ -1,34 +1,10 @@
-#ifndef INCLUDED_DAL_TEXTTABLEDRIVER
 #include "dal_TextTableDriver.h"
-#define INCLUDED_DAL_TEXTTABLEDRIVER
-#endif
-
-// Library headers.
-#ifndef INCLUDED_FSTREAM
-#include <fstream>
-#define INCLUDED_FSTREAM
-#endif
-
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_BASICTYPES
 #include "dal_BasicTypes.h"
-#define INCLUDED_DAL_BASICTYPES
-#endif
-
-#ifndef INCLUDED_DAL_EXCEPTION
 #include "dal_Exception.h"
-#define INCLUDED_DAL_EXCEPTION
-#endif
-
-#ifndef INCLUDED_DAL_FILESYSTEMUTILS
 #include "dal_FilesystemUtils.h"
-#define INCLUDED_DAL_FILESYSTEMUTILS
-#endif
 
 #include <filesystem>
+#include <fstream>
 
 
 /*!

@@ -1,14 +1,4 @@
-#ifndef INCLUDED_PCG
 #include "pcg.h"
-#define INCLUDED_PCG
-#endif
-
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
 
 /**
 * Destructor

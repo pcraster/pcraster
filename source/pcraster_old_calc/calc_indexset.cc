@@ -1,22 +1,9 @@
-
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_INDEXSET
 # include "calc_indexset.h"
+# include "calc_infoscript.h"
+# include "calc_indexparameter.h"
 
 #include <utility>
-# define INCLUDED_CALC_INDEXSET
-#endif
-
-#ifndef INCLUDED_CALC_INFOSCRIPT
-# include "calc_infoscript.h"
-# define INCLUDED_CALC_INFOSCRIPT
-#endif
-
-#ifndef INCLUDED_CALC_INDEXPARAMETER
-# include "calc_indexparameter.h"
-# define INCLUDED_CALC_INDEXPARAMETER
-#endif
 
 calc::IndexSet::IndexSet(const calc::Symbol& name,
     Set set,

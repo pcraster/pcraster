@@ -1,17 +1,6 @@
-#ifndef INCLUDED_DAL_FORMAT
 #include "dal_Format.h"
-#define INCLUDED_DAL_FORMAT
-#endif
 
-// Library headers.
-#ifndef INCLUDED_CASSERT
 #include <cassert>
-#define INCLUDED_CASSERT
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 

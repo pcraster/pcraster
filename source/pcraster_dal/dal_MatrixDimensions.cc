@@ -1,13 +1,4 @@
-#ifndef INCLUDED_DAL_MATRIXDIMENSIONS
 #include "dal_MatrixDimensions.h"
-#define INCLUDED_DAL_MATRIXDIMENSIONS
-#endif
-
-// External headers.
-
-// Project headers.
-
-// Module headers.
 
 
 

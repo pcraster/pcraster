@@ -1,71 +1,17 @@
-#ifndef INCLUDED_DAL_UTILS
 #include "dal_Utils.h"
-#define INCLUDED_DAL_UTILS
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_ALGORITHM_STRING
-#include <boost/algorithm/string.hpp>
-#define INCLUDED_BOOST_ALGORITHM_STRING
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_DATASPACE
 #include "dal_DataSpace.h"
-#define INCLUDED_DAL_DATASPACE
-#endif
-
-#ifndef INCLUDED_DAL_DATASPACEADDRESS
 #include "dal_DataSpaceAddress.h"
-#define INCLUDED_DAL_DATASPACEADDRESS
-#endif
-
-#ifndef INCLUDED_DAL_EXCEPTION
 #include "dal_Exception.h"
-#define INCLUDED_DAL_EXCEPTION
-#endif
-
-#ifndef INCLUDED_DAL_LIBRARY
 #include "dal_Library.h"
-#define INCLUDED_DAL_LIBRARY
-#endif
-
-#ifndef INCLUDED_DAL_MATRIX
 #include "dal_Matrix.h"
-#define INCLUDED_DAL_MATRIX
-#endif
-
-#ifndef INCLUDED_DAL_MATRIXDAL
 #include "dal_MatrixDal.h"
-#define INCLUDED_DAL_MATRIXDAL
-#endif
-
-#ifndef INCLUDED_DAL_RASTER
 #include "dal_Raster.h"
-#define INCLUDED_DAL_RASTER
-#endif
-
-#ifndef INCLUDED_DAL_RASTERDAL
 #include "dal_RasterDal.h"
-#define INCLUDED_DAL_RASTERDAL
-#endif
-
-#ifndef INCLUDED_DAL_RASTERDIMENSIONS
 #include "dal_RasterDimensions.h"
-#define INCLUDED_DAL_RASTERDIMENSIONS
-#endif
-
-#ifndef INCLUDED_DAL_TABLE
 #include "dal_Table.h"
-#define INCLUDED_DAL_TABLE
-#endif
-
-#ifndef INCLUDED_DAL_TABLEDAL
 #include "dal_TableDal.h"
-#define INCLUDED_DAL_TABLEDAL
-#endif
+
+#include <boost/algorithm/string.hpp>
 
 #include <format>
 

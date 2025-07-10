@@ -1,17 +1,5 @@
-#ifndef INCLUDED_DAL_RASTER
 #include "dal_Raster.h"
-#define INCLUDED_DAL_RASTER
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_RASTERDIMENSIONS
 #include "dal_RasterDimensions.h"
-#define INCLUDED_DAL_RASTERDIMENSIONS
-#endif
 
 
 

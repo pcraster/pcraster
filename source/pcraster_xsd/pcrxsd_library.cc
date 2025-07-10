@@ -1,13 +1,4 @@
-#ifndef INCLUDED_PCRXSD_LIBRARY
 #include "pcrxsd_library.h"
-#define INCLUDED_PCRXSD_LIBRARY
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
 
 /*!
   \file

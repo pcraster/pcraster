@@ -1,40 +1,12 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-#ifndef INCLUDED_CSTRING
-#include <cstring>
-#define INCLUDED_CSTRING
-#endif
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-#ifndef INCLUDED_MAP
-#include <map>
-#define INCLUDED_MAP
-#endif
-
-#ifndef INCLUDED_COM_STRLIB
 #include "com_strlib.h"
-#define INCLUDED_COM_STRLIB
-#endif
-
-#ifndef INCLUDED_COM_PATHNAME
 #include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
+
+#include <cstring>
+#include <string>
+#include <vector>
+#include <map>
 
 /*!
   \file

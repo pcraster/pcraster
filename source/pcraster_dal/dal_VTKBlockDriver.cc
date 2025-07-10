@@ -1,22 +1,7 @@
-#ifndef INCLUDED_DAL_VTKBLOCKDRIVER
 #include "dal_VTKBlockDriver.h"
-#define INCLUDED_DAL_VTKBLOCKDRIVER
-#endif
-
-// Library headers.
-
-#ifndef INCLUDED_BOOST_LEXICAL_CAST
-#include <boost/lexical_cast.hpp>
-#define INCLUDED_BOOST_LEXICAL_CAST
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_FILESYSTEMUTILS
 #include "dal_FilesystemUtils.h"
-#define INCLUDED_DAL_FILESYSTEMUTILS
-#endif
+
+#include <boost/lexical_cast.hpp>
 
 #include <filesystem>
 #include <format>

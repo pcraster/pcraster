@@ -1,51 +1,20 @@
-#ifndef INCLUDED_DAL_ENVIRONMENT
 #include "dal_Environment.h"
-#define INCLUDED_DAL_ENVIRONMENT
-#endif
 
-// External headers.
-#ifndef INCLUDED_ALGORITHM
-#include <algorithm>
-#define INCLUDED_ALGORITHM
-#endif
-
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-
-#ifndef INCLUDED_BOOST_ALGORITHM_STRING_SPLIT
 #include <boost/algorithm/string/split.hpp>
-#define INCLUDED_BOOST_ALGORITHM_STRING_SPLIT
-#endif
-
-#ifndef INCLUDED_BOOST_ALGORITHM_STRING_TRIM
 #include <boost/algorithm/string/trim.hpp>
-#define INCLUDED_BOOST_ALGORITHM_STRING_TRIM
+#include <boost/version.hpp>
+#if BOOST_VERSION > 107200
+  #include <boost/bind/bind.hpp>
+#else
+  #include <boost/bind.hpp>
 #endif
 
-#ifndef INCLUDED_BOOST_BIND
-  #include <boost/version.hpp>
-  #if BOOST_VERSION > 107200
-    #include <boost/bind/bind.hpp>
-  #else
-    #include <boost/bind.hpp>
-  #endif
-#define INCLUDED_BOOST_BIND
-#endif
-
-#ifndef INCLUDED_CPL_CONV
 #include "cpl_conv.h"
-#define INCLUDED_CPL_CONV
-#endif
 
-// Project headers.
-#ifndef INCLUDED_DEV_UTILS
 #include "dev_Utils.h"
-#define INCLUDED_DEV_UTILS
-#endif
 
-// Module headers.
+#include <algorithm>
+#include <iostream>
 
 
 

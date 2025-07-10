@@ -1,30 +1,12 @@
-// #ifndef INCLUDED_STDDEFX
-// #include "stddefx.h"
-// #define INCLUDED_STDDEFX
-// #endif
-
-#ifndef INCLUDED_PCRXSD_UTILS
+#include "pcrxsd_dominput.h"
 #include "pcrxsd_utils.h"
-#define INCLUDED_PCRXSD_UTILS
-#endif
 
-// Library headers.
-#ifndef INCLUDED_CCTYPE
-#include <cctype>
-#define INCLUDED_CCTYPE
-#endif
 #include <xercesc/dom/DOMDocument.hpp>
 #include <xercesc/dom/DOMElement.hpp>
 #include <xercesc/util/XMLString.hpp>
 XERCES_CPP_NAMESPACE_USE
-// PCRaster library headers.
 
-// Module headers.
-#ifndef INCLUDED_PCRXSD_DOMINPUT
-#include "pcrxsd_dominput.h"
-#define INCLUDED_PCRXSD_DOMINPUT
-#endif
-
+#include <cctype>
 
 /*!
   \file

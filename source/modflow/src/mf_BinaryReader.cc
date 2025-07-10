@@ -1,47 +1,13 @@
-#ifndef INCLUDED_MF_BINARYREADER
 #include "mf_BinaryReader.h"
-#define INCLUDED_MF_BINARYREADER
-#endif
-
-// External headers.
-#ifndef INCLUDED_SSTREAM
-#include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-
-#ifndef INCLUDED_FSTREAM
-#include <fstream>
-#define INCLUDED_FSTREAM
-#endif
-
-#ifndef INCLUDED_BOOST_LEXICAL_CAST
-#include <boost/lexical_cast.hpp>
-#define INCLUDED_BOOST_LEXICAL_CAST
-#endif
-
-
-// Project headers.
-
-// Module headers.
-#ifndef INCLUDED_PCRMODFLOW
 #include "pcrmodflow.h"
-#define INCLUDED_PCRMODFLOW
-#endif
-
-#ifndef INCLUDED_GRIDCHECK
 #include "gridcheck.h"
-#define INCLUDED_GRIDCHECK
-#endif
-
-#ifndef INCLUDED_COMMON
 #include "common.h"
-#define INCLUDED_COMMON
-#endif
+
+#include <boost/lexical_cast.hpp>
+
+#include <sstream>
+#include <iostream>
+#include <fstream>
 
 /*!
   \file

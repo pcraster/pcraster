@@ -1,17 +1,6 @@
-#ifndef INCLUDED_DAL_MEMORYRASTERDRIVER
 #include "dal_MemoryRasterDriver.h"
-#define INCLUDED_DAL_MEMORYRASTERDRIVER
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_DAL_MEMORYDATAPOOL
 #include "dal_MemoryDataPool.h"
-#define INCLUDED_DAL_MEMORYDATAPOOL
-#endif
 
-// Module headers.
 #include <memory>
 
 

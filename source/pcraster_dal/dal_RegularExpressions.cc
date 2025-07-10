@@ -1,7 +1,4 @@
-#ifndef INCLUDED_DAL_REGULAREXPRESSIONS
 #include "dal_RegularExpressions.h"
-#define INCLUDED_DAL_REGULAREXPRESSIONS
-#endif
 
 #include <format>
 

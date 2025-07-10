@@ -1,32 +1,9 @@
-#ifndef INCLUDED_DAL_CSFMAP
 #include "dal_CSFMap.h"
-#define INCLUDED_DAL_CSFMAP
-#endif
-
-// Library headers.
-
-#ifndef INCLUDED_BOOST_SCOPED_ARRAY
-#include <boost/scoped_array.hpp>
-#define INCLUDED_BOOST_SCOPED_ARRAY
-#endif
-
-#ifndef INCLUDED_CSF
 #include "csf.h"
-#define INCLUDED_CSF
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_TABLE
 #include "dal_Table.h"
-#define INCLUDED_DAL_TABLE
-#endif
-
-#ifndef INCLUDED_DAL_UTILS
 #include "dal_Utils.h"
-#define INCLUDED_DAL_UTILS
-#endif
+
+#include <boost/scoped_array.hpp>
 
 #include <filesystem>
 

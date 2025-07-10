@@ -1,22 +1,7 @@
-#ifndef INCLUDED_DAL_STEPCOORDINATEMAPPER
 #include "dal_StepCoordinateMapper.h"
-#define INCLUDED_DAL_STEPCOORDINATEMAPPER
-#endif
-
-// Library headers.
-#ifndef INCLUDED_SSTREAM
-#include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_DATASPACE
 #include "dal_DataSpace.h"
-#define INCLUDED_DAL_DATASPACE
-#endif
 
+#include <sstream>
 
 
 /*!

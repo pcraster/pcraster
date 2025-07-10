@@ -1,14 +1,4 @@
-#ifndef INCLUDED_SOR
 #include "sor.h"
-#define INCLUDED_SOR
-#endif
-
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
 
 /**
 * Destructor

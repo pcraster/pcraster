@@ -1,29 +1,9 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_BANDMAP
 #include "calc_bandmap.h"
-#define INCLUDED_CALC_BANDMAP
-#endif
-
-#ifndef INCLUDED_GEO_BANDMAP
 #include "geo_bandmap.h"
-#define INCLUDED_GEO_BANDMAP
-#endif
-#ifndef INCLUDED_GEO_RASTERSPACE
 #include "geo_rasterspace.h"
-#define INCLUDED_GEO_RASTERSPACE
-#endif
-
-#ifndef INCLUDED_CALC_VS
 #include "calc_vs.h"
-#define INCLUDED_CALC_VS
-#endif
-
-
-#ifndef INCLUDED_CALC_MAP2CSF
 #include "calc_map2csf.h"
-#define INCLUDED_CALC_MAP2CSF
-#endif
 
 /*!
  * \param fileName  name of existing file to open

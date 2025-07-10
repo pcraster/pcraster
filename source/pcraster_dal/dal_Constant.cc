@@ -1,13 +1,4 @@
-#ifndef INCLUDED_DAL_CONSTANT
 #include "dal_Constant.h"
-#define INCLUDED_DAL_CONSTANT
-#endif
-
-// External headers.
-
-// Project headers.
-
-// Module headers.
 
 
 

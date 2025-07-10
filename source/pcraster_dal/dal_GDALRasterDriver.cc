@@ -1,54 +1,15 @@
-#ifndef INCLUDED_DAL_GDALRASTERDRIVER
 #include "dal_GDALRasterDriver.h"
-#define INCLUDED_DAL_GDALRASTERDRIVER
-#endif
-
-// Library headers.
-
-#ifndef INCLUDED_GDAL_PRIV
-#include "gdal_priv.h"
-#define INCLUDED_GDAL_PRIV
-#endif
-
-#ifndef INCLUDED_CPL_STRING
-#include <cpl_string.h> // CSLFetchBoolean
-#define INCLUDED_CPL_STRING
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_DEF
 #include "dal_Def.h"
-#define INCLUDED_DAL_DEF
-#endif
-
-#ifndef INCLUDED_DAL_DIMENSION
 #include "dal_Dimension.h"
-#define INCLUDED_DAL_DIMENSION
-#endif
-
-#ifndef INCLUDED_DAL_EXCEPTION
 #include "dal_Exception.h"
-#define INCLUDED_DAL_EXCEPTION
-#endif
-
-#ifndef INCLUDED_DAL_FILESYSTEMUTILS
 #include "dal_FilesystemUtils.h"
-#define INCLUDED_DAL_FILESYSTEMUTILS
-#endif
-
 #ifdef DEBUG_DEVELOP
-  #ifndef INCLUDED_DAL_LIBRARY
   #include "dal_Library.h"
-  #define INCLUDED_DAL_LIBRARY
-  #endif
 #endif
-
-#ifndef INCLUDED_DAL_RASTERDIMENSIONS
 #include "dal_RasterDimensions.h"
-#define INCLUDED_DAL_RASTERDIMENSIONS
-#endif
+
+#include "gdal_priv.h"
+#include <cpl_string.h> // CSLFetchBoolean
 
 #include <cmath>
 #include <filesystem>

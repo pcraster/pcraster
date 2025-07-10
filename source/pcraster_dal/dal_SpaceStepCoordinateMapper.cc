@@ -1,27 +1,8 @@
-#ifndef INCLUDED_DAL_SPACESTEPCOORDINATEMAPPER
 #include "dal_SpaceStepCoordinateMapper.h"
-#define INCLUDED_DAL_SPACESTEPCOORDINATEMAPPER
-#endif
-
-// External headers.
-#ifndef INCLUDED_SSTREAM
-#include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-
-// Project headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_DATASPACE
 #include "dal_DataSpace.h"
-#define INCLUDED_DAL_DATASPACE
-#endif
-
-#ifndef INCLUDED_DAL_DATASPACEADDRESS
 #include "dal_DataSpaceAddress.h"
-#define INCLUDED_DAL_DATASPACEADDRESS
-#endif
 
+#include <sstream>
 
 
 /*!

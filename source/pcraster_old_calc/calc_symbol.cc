@@ -1,24 +1,8 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_SYMBOL
 #include "calc_symbol.h"
-#define INCLUDED_CALC_SYMBOL
-#endif
-
-#ifndef INCLUDED_CALC_EXTSYM
 #include "calc_extsym.h"
-#define INCLUDED_CALC_EXTSYM
-#endif
-
-#ifndef INCLUDED_LEXTOKEN
 #include "lextoken.h"
-#define INCLUDED_LEXTOKEN
-#endif
-
-#ifndef INCLUDED_COM_STRCONV
 #include "com_strconv.h"
-#define INCLUDED_COM_STRCONV
-#endif
 
 //! emtpy ctor
 calc::Symbol::Symbol()

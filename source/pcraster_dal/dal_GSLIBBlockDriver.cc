@@ -1,23 +1,8 @@
-#ifndef INCLUDED_DAL_GSLIBBLOCKDRIVER
 #include "dal_GSLIBBlockDriver.h"
-#define INCLUDED_DAL_GSLIBBLOCKDRIVER
-#endif
-
-// Library headers.
-#ifndef INCLUDED_LIMITS
-#include <limits>
-#define INCLUDED_LIMITS
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_FILESYSTEMUTILS
 #include "dal_FilesystemUtils.h"
-#define INCLUDED_DAL_FILESYSTEMUTILS
-#endif
 
 #include <filesystem>
+#include <limits>
 
 
 

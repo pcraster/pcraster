@@ -1,67 +1,19 @@
-#ifndef INCLUDED_WEL
 #include "wel.h"
-#define INCLUDED_WEL
-#endif
+#include "common.h"
+#include "gridcheck.h"
+#include "pcrmodflow.h"
+#include "mf_BinaryReader.h"
+
+#include "mf_utils.h"
+#include "calc_spatial.h"
 
 #include <boost/test/tools/floating_point_comparison.hpp>
 
-// Library headers.
-#ifndef INCLUDED_FSTREAM
 #include <fstream>
-#define INCLUDED_FSTREAM
-#endif
-
-#ifndef INCLUDED_SSTREAM
 #include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-
-#ifndef INCLUDED_IOSTREAM
 #include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-
-#ifndef INCLUDED_IOMANIP
 #include <iomanip>
-#define INCLUDED_IOMANIP
-#endif
-
-#ifndef INCLUDED_CMATH
 #include <cmath>
-#define INCLUDED_CMATH
-#endif
-
-
-// PCRaster library headers.
-#ifndef INCLUDED_CALC_SPATIAL
-#include "calc_spatial.h"
-#define INCLUDED_CALC_SPATIAL
-#endif
-
-// Module headers.
-#ifndef INCLUDED_COMMON
-#include "common.h"
-#define INCLUDED_COMMON
-#endif
-
-#ifndef INCLUDED_GRIDCHECK
-#include "gridcheck.h"
-#define INCLUDED_GRIDCHECK
-#endif
-
-#ifndef INCLUDED_PCRMODFLOW
-#include "pcrmodflow.h"
-#define INCLUDED_PCRMODFLOW
-#endif
-
-
-#ifndef INCLUDED_MF_BINARYREADER
-#include "mf_BinaryReader.h"
-#define INCLUDED_MF_BINARYREADER
-#endif
-
-#include "mf_utils.h"
-
 
 /**
 * Destructor

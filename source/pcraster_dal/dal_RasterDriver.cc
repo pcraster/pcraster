@@ -1,44 +1,12 @@
-#ifndef INCLUDED_DAL_RASTERDRIVER
 #include "dal_RasterDriver.h"
-#define INCLUDED_DAL_RASTERDRIVER
-#endif
-
-// Library headers.
-
-#ifndef INCLUDED_BOOST_FUNCTION
-#include <boost/function.hpp>
-#define INCLUDED_BOOST_FUNCTION
-#endif
-
-#ifndef INCLUDED_BOOST_LEXICAL_CAST
-#include <boost/lexical_cast.hpp>
-#define INCLUDED_BOOST_LEXICAL_CAST
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_DEF
 #include "dal_Def.h"
-#define INCLUDED_DAL_DEF
-#endif
-
-#ifndef INCLUDED_DAL_FILESYSTEMUTILS
 #include "dal_FilesystemUtils.h"
-#define INCLUDED_DAL_FILESYSTEMUTILS
-#endif
-
 #include "dal_Library.h"
-
-#ifndef INCLUDED_DAL_RASTERDIMENSIONS
 #include "dal_RasterDimensions.h"
-#define INCLUDED_DAL_RASTERDIMENSIONS
-#endif
-
-#ifndef INCLUDED_DAL_REGULAREXPRESSIONS
 #include "dal_RegularExpressions.h"
-#define INCLUDED_DAL_REGULAREXPRESSIONS
-#endif
+
+#include <boost/function.hpp>
+#include <boost/lexical_cast.hpp>
 
 #include <cmath>
 #include <format>

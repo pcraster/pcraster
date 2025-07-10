@@ -1,17 +1,6 @@
-#ifndef INCLUDED_DAL_DATASPACEADDRESS
 #include "dal_DataSpaceAddress.h"
-#define INCLUDED_DAL_DATASPACEADDRESS
-#endif
 
-// Library headers.
-#ifndef INCLUDED_CASSERT
 #include <cassert>
-#define INCLUDED_CASSERT
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 

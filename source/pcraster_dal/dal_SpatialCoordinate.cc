@@ -1,17 +1,5 @@
-#ifndef INCLUDED_DAL_SPATIALCOORDINATE
 #include "dal_SpatialCoordinate.h"
-#define INCLUDED_DAL_SPATIALCOORDINATE
-#endif
-
-// External headers.
-
-// Project headers.
-
-// Module headers.
-#ifndef INCLUDED_DAL_MATHUTILS
 #include "dal_MathUtils.h"
-#define INCLUDED_DAL_MATHUTILS
-#endif
 
 
 

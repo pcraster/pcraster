@@ -1,42 +1,15 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_COM_INTERVALTYPES
 #include "com_intervaltypes.h"
-#define INCLUDED_COM_INTERVALTYPES
-#endif
-
-// Library headers.
-#ifndef INCLUDED_SSTREAM
-#include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-#ifndef INCLUDED_COM_MATH
 #include "com_math.h"
-#define INCLUDED_COM_MATH
-#endif
+
 #include <boost/spirit/include/classic_core.hpp>
 #include <boost/spirit/include/classic_assign_actor.hpp>
-#ifndef INCLUDED_BOOST_ALGORITHM_STRING_TRIM
 #include <boost/algorithm/string/trim.hpp>
-#define INCLUDED_BOOST_ALGORITHM_STRING_TRIM
-#endif
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
 
 #include <optional>
-
-// PCRaster library headers.
-
-// Module headers.
+#include <string>
+#include <sstream>
+#include <vector>
 
 
 

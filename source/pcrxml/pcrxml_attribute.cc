@@ -1,26 +1,9 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_PCRXML_ATTRIBUTE
 #include "pcrxml_attribute.h"
-#endif
-
-#ifndef  INCLUDED_QDOM
-#include <qdom.h>
-#define  INCLUDED_QDOM
-#endif
-
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-
-#ifndef INCLUDED_PCRXML_STRINGCONV
 #include "pcrxml_stringconv.h"
-#define INCLUDED_PCRXML_STRINGCONV
-#endif
+
+#include <QDomDocument>
 
 /*!
   \file

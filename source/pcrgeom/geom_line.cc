@@ -1,12 +1,5 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_GEOM_LINE
 #include "geom_line.h"
-#define INCLUDED_GEOM_LINE
-#endif
 
 
 

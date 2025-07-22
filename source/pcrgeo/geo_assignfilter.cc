@@ -1,19 +1,5 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_GEO_ASSIGNFILTER
 #include "geo_assignfilter.h"
-#define INCLUDED_GEO_ASSIGNFILTER
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-
 
 
 /*!

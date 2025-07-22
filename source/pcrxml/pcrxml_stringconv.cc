@@ -1,16 +1,7 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_PCRXML_STRINGCONV
 #include "pcrxml_stringconv.h"
-#endif
 
-#ifndef  INCLUDED_QSTRING
-#include <qstring.h>
-#define  INCLUDED_QSTRING
-#endif
+#include <QString>
 
 /*!
   \file

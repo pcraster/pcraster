@@ -1,28 +1,9 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_BOOST_MATH_SPECIAL_FUNCTIONS_ROUND
-#include <boost/math/special_functions/round.hpp>
-#define INCLUDED_BOOST_MATH_SPECIAL_FUNCTIONS_ROUND
-#endif
-
-#ifndef INCLUDED_GEOM_SIZE
 #include "geom_size.h"
-#define INCLUDED_GEOM_SIZE
-#endif
-
-#ifndef INCLUDED_GEOM_RECTANGLE
 #include "geom_rectangle.h"
-#define INCLUDED_GEOM_RECTANGLE
-#endif
-
-#ifndef INCLUDED_GEOM_UTIL
 #include "geom_util.h"
-#define INCLUDED_GEOM_UTIL
-#endif
 
+#include <boost/math/special_functions/round.hpp>
 
 
 /*!

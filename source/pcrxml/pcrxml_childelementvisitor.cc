@@ -1,21 +1,7 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_PCRXML_CHILDELEMENTVISITOR
 #include "pcrxml_childelementvisitor.h"
-#endif
-
-#ifndef INCLUDED_PCRXML_STRINGCONV
 #include "pcrxml_stringconv.h"
-#define INCLUDED_PCRXML_STRINGCONV
-#endif
-
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
 
 #include <utility>
 

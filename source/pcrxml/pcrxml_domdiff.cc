@@ -1,44 +1,13 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_PCRXML_DOMDIFF
 #include "pcrxml_domdiff.h"
-#define INCLUDED_PCRXML_DOMDIFF
-#endif
-
-// Library headers.
-#ifndef INCLUDED_LIST
-#include <list>
-#define INCLUDED_LIST
-#endif
-#ifndef INCLUDED_SSTREAM
-#include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-#ifndef INCLUDED_QTEXTSTREAM
-#include <qtextstream.h>
-#define INCLUDED_QTEXTSTREAM
-#endif
-#ifndef INCLUDED_QDOM
-#include <qdom.h>
-#define INCLUDED_QDOM
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-#ifndef INCLUDED_PCRXML_DOMALGORITHM
 #include "pcrxml_domalgorithm.h"
-#define INCLUDED_PCRXML_DOMALGORITHM
-#endif
 
-// Module headers.
+#include <QTextStream>
+#include <QDomDocument>
 
-
+#include <list>
+#include <sstream>
 
 /*!
   \file

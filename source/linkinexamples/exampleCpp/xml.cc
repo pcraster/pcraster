@@ -1,7 +1,4 @@
-#ifndef INCLUDED_XML
 #include "xml.h"
-#define INCLUDED_XML
-#endif
 #include <xercesc/util/PlatformUtils.hpp>
 
 struct Xercesc {

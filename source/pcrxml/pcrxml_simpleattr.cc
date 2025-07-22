@@ -1,39 +1,12 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_PCRXML_SIMPLEATTR
 #include "pcrxml_simpleattr.h"
-#define INCLUDED_PCRXML_SIMPLEATTR
-#endif
-
-// Library headers.
-#ifndef  INCLUDED_QDOM
-#include <qdom.h>
-#define  INCLUDED_QDOM
-#endif
-#ifndef INCLUDED_STDEXCEPT
-#include <stdexcept>
-#define INCLUDED_STDEXCEPT
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_STRLIB
 #include "com_strlib.h"
-#define INCLUDED_COM_STRLIB
-#endif
-
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-
-// Module headers.
-#ifndef INCLUDED_PCRXML_STRINGCONV
 #include "pcrxml_stringconv.h"
-#define INCLUDED_PCRXML_STRINGCONV
-#endif
+
+#include <QDomDocument>
+
+#include <stdexcept>
 
 /*!
   \file

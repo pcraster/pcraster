@@ -1,21 +1,6 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_PCRXML_CSFVS2DATATYPE
 #include "pcrxml_csfvs2datatype.h"
-#define INCLUDED_PCRXML_CSFVS2DATATYPE
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-// Module headers.
-#ifndef INCLUDED_PCRGENXML_DATATYPEENUM
 #include "pcrgenxml_datatypeenum.h"
-#define INCLUDED_PCRGENXML_DATATYPEENUM
-#endif
 
 
 

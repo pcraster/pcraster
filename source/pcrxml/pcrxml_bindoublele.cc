@@ -1,18 +1,5 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_PCRXML_BINDOUBLELE
 #include "pcrxml_bindoublele.h"
-#define INCLUDED_PCRXML_BINDOUBLELE
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
 
 #include <cmath>
 #include <iomanip>

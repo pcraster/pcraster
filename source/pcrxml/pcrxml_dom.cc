@@ -1,29 +1,8 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_PCRXML_DOM
 #include "pcrxml_dom.h"
-#define INCLUDED_PCRXML_DOM
-#endif
-
-// Library headers.
-#ifndef INCLUDED_QTEXTSTREAM
-#include <qtextstream.h>
-#define INCLUDED_QTEXTSTREAM
-#endif
-
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_PCRXML_DOMALGORITHM
 #include "pcrxml_domalgorithm.h"
-#define INCLUDED_PCRXML_DOMALGORITHM
-#endif
 
-
+#include <QTextStream>
 
 /*!
   \file

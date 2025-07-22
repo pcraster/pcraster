@@ -1,17 +1,6 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_GEO_APPRASTERSPACE
 #include "geo_apprasterspace.h"
-#define INCLUDED_GEO_APPRASTERSPACE
-#endif
-
-#ifndef INCLUDED_APP
 #include "app.h"
-#define INCLUDED_APP
-#endif
 
 geo::AppRasterSpace::AppRasterSpace(const RasterSpace& rs):
   d_rs(rs),d_trueCoords(appUnitTrue != 0)

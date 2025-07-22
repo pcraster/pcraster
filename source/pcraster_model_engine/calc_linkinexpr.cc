@@ -1,57 +1,21 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_LINKINEXPR
 #include "calc_linkinexpr.h"
-#define INCLUDED_CALC_LINKINEXPR
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_PCRASTERXSD
 #include "PCRasterXSD.h"
-#define INCLUDED_PCRASTERXSD
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_EXECARGUMENTS
 #include "calc_execarguments.h"
-#define INCLUDED_CALC_EXECARGUMENTS
-#endif
-#ifndef INCLUDED_CALC_OPERATOR
 #include "calc_operator.h"
-#define INCLUDED_CALC_OPERATOR
-#endif
-#ifndef INCLUDED_CALC_LINKINLIBRARY
 #include "calc_linkinlibrary.h"
-#define INCLUDED_CALC_LINKINLIBRARY
-#endif
-#ifndef INCLUDED_CALC_RUNTIMEENV
 #include "calc_runtimeenv.h"
-#define INCLUDED_CALC_RUNTIMEENV
-#endif
-#ifndef INCLUDED_CALC_XMLDATATYPE
 #include "calc_xmldatatype.h"
-#define INCLUDED_CALC_XMLDATATYPE
-#endif
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
-#ifndef INCLUDED_CALC_ASTPAR
 #include "calc_astpar.h"
-#define INCLUDED_CALC_ASTPAR
-#endif
+#include <memory>
+#include <vector>
+
 /*!
   \file
   This file contains the implementation of the LinkInExpr class.
 */
 
-#include <memory>
-#include <vector>
 
 
 namespace calc {

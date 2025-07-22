@@ -1,55 +1,16 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_PCRXML_ELEMENT
 #include "pcrxml_element.h"
-#endif
-
-#ifndef  INCLUDED_QDOM
-#include <qdom.h>
-#define  INCLUDED_QDOM
-#endif
-#ifndef INCLUDED_PCRXML_STRINGCONV
 #include "pcrxml_stringconv.h"
-#define INCLUDED_PCRXML_STRINGCONV
-#endif
-
-#ifndef INCLUDED_FSTREAM
-#include <fstream>
-#define INCLUDED_FSTREAM
-#endif
-
-#ifndef INCLUDED_COM_FILE
 #include "com_file.h"
-#define INCLUDED_COM_FILE
-#endif
-
-#ifndef INCLUDED_PCRXML_DOCTYPE
 #include "pcrxml_doctype.h"
-#define INCLUDED_PCRXML_DOCTYPE
-#endif
-
-#ifndef INCLUDED_PCRXML_OSTREAM
 #include "pcrxml_ostream.h"
-#define INCLUDED_PCRXML_OSTREAM
-#endif
-
-#ifndef INCLUDED_COM_PATHNAME
 #include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
-
-#ifndef INCLUDED_PCRXML_DOCUMENT
 #include "pcrxml_document.h"
-#define INCLUDED_PCRXML_DOCUMENT
-#endif
-
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
+
+#include <QDomDocument>
+
+#include <fstream>
 
 
 /*!

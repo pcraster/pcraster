@@ -1,21 +1,6 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-#ifndef INCLUDED_CALC_MEMORYEXCHANGEITEMSTRING
 #include "calc_MemoryExchangeItemString.h"
-#define INCLUDED_CALC_MEMORYEXCHANGEITEMSTRING
-#endif
-
-// External headers.
-#ifndef INCLUDED_CSTRING
 #include <cstring>
-#define INCLUDED_CSTRING
-#endif
-// Project headers.
-
-// Module headers.
-
 
 
 /*!

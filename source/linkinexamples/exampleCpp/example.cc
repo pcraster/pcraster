@@ -7,43 +7,16 @@
  library xml manifest file fails.
  In release mode this requirement is not applicable.
 */
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_PCRLINKIN
 #include "pcrlinkin.h"
-#define INCLUDED_PCRLINKIN
-#endif
-#ifndef INCLUDED_PCRTYPES
 #include "pcrtypes.h"
-#define INCLUDED_PCRTYPES
-#endif
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-#ifndef INCLUDED_MAP
-#include <map>
-#define INCLUDED_MAP
-#endif
-#ifndef INCLUDED_XML
 #include "xml.h"
-#define INCLUDED_XML
-#endif
-#ifndef INCLUDED_ASSERT
 #include <cassert>
-#define INCLUDED_ASSERT
-#endif
-#ifndef INCLUDED_STDEXCEPT
+#include <string>
+#include <map>
 #include <stdexcept>
-#define INCLUDED_STDEXCEPT
-#endif
-#ifndef INCLUDED_IOSTREAM
 #include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
+
 static std::string xmlResultBuffer;
 
 class  Class1 {

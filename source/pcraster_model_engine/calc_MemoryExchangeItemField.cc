@@ -1,24 +1,7 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-#ifndef INCLUDED_CALC_MEMORYEXCHANGEITEMFIELD
 #include "calc_MemoryExchangeItemField.h"
-
-#include <utility>
-#define INCLUDED_CALC_MEMORYEXCHANGEITEMFIELD
-#endif
-
-// External headers.
-
-// Project headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
-
+#include <utility>
 
 /*!
   \file

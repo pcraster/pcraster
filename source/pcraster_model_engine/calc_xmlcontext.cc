@@ -1,30 +1,8 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_XMLCONTEXT
 #include "calc_xmlcontext.h"
-#define INCLUDED_CALC_XMLCONTEXT
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_PCRASTERXSD
 #include "PCRasterXSD.h"
-#define INCLUDED_PCRASTERXSD
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_AREAMAP
 #include "calc_areamap.h"
-#define INCLUDED_CALC_AREAMAP
-#endif
-#ifndef INCLUDED_CALC_TIMER
 #include "calc_timer.h"
-#define INCLUDED_CALC_TIMER
-#endif
 
 
 /*!

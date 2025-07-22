@@ -1,53 +1,18 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_LINKINLIBRARY
 #include "calc_linkinlibrary.h"
-#define INCLUDED_CALC_LINKINLIBRARY
-#endif
-
-// Library headers.
-#ifndef INCLUDED_SSTREAM
-#include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-// PCRaster library headers.
-
-#ifndef INCLUDED_PCRLINKIN
 #include "pcrlinkin.h"
-#define INCLUDED_PCRLINKIN
-#endif
-
-#ifndef INCLUDED_COM_DYNAMICLIBRARY
 #include "com_dynamiclibrary.h"
-#define INCLUDED_COM_DYNAMICLIBRARY
-#endif
 #ifdef WIN32
-#ifndef INCLUDED_COM_WIN32
-#include "com_win32.h"
-#define INCLUDED_COM_WIN32
+  #include "com_win32.h"
+  #include <windows.h>
+  #include <excpt.h>
 #endif
-#include <windows.h>
-#include <excpt.h>
-#endif
-#ifndef INCLUDED_PCRASTERXSD
 #include "PCRasterXSD.h"
-#define INCLUDED_PCRASTERXSD
-#endif
-#ifndef INCLUDED_PCRXSD_DOMINPUT
 #include "pcrxsd_dominput.h"
-#define INCLUDED_PCRXSD_DOMINPUT
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_XMLDATATYPE
 #include "calc_xmldatatype.h"
-#define INCLUDED_CALC_XMLDATATYPE
-#endif
 
 #include <filesystem>
+#include <sstream>
 
 /*!
   \file

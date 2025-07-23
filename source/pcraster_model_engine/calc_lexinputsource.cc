@@ -1,42 +1,13 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_LEXINPUTSOURCE
 #include "calc_lexinputsource.h"
-
-#include <memory>
-#define INCLUDED_CALC_LEXINPUTSOURCE
-#endif
-
-// Library headers.
-// PCRaster library headers.
-#ifndef INCLUDED_CSF
 #include "csf.h"
-#define INCLUDED_CSF
-#endif
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-#ifndef INCLUDED_COM_PATHNAME
 #include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
-// Module headers.
-#ifndef INCLUDED_CALC_QUOTE
 #include "calc_quote.h"
-#define INCLUDED_CALC_QUOTE
-#endif
-#ifndef INCLUDED_CALC_LEXINPUTSOURCETEXTSCRIPT
 #include "calc_lexinputsourcetextscript.h"
-#define INCLUDED_CALC_LEXINPUTSOURCETEXTSCRIPT
-#endif
-#ifndef INCLUDED_CALC_POSITIONTEXT
 #include "calc_positiontext.h"
-#define INCLUDED_CALC_POSITIONTEXT
-#endif
+#include <memory>
+
 
 /*!
   \file

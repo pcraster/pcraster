@@ -1,17 +1,6 @@
-#ifndef INCLUDED_XML
 #include "xml.h"
-#define INCLUDED_XML
-#endif
-
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-
-#ifndef INCLUDED_XERCESC_UTIL_PLATFORMUTILS
 #include <xercesc/util/PlatformUtils.hpp>
-#define INCLUDED_XERCESC_UTIL_PLATFORMUTILS
-#endif
+#include <iostream>
 
 struct Xercesc {
   Xercesc() {

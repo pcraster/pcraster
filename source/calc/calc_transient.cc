@@ -1,53 +1,14 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC
 #include "calc.h"
-#define INCLUDED_CALC
-#endif
-
-// Library headers.
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_FIELDAPI_INTERFACE
 #include "fieldapi_interface.h"
-#define INCLUDED_FIELDAPI_INTERFACE
-#endif
-
-#ifndef INCLUDED_FIELDAPI_SCALARDOMAINCHECK
 #include "fieldapi_scalardomaincheck.h"
-#define INCLUDED_FIELDAPI_SCALARDOMAINCHECK
-#endif
-
-#ifndef INCLUDED_GEO_CELLLOCVISITOR
 #include "geo_celllocvisitor.h"
-#define INCLUDED_GEO_CELLLOCVISITOR
-#endif
-
-#ifndef INCLUDED_GEO_SIMPLERASTER
 #include "geo_simpleraster.h"
-#define INCLUDED_GEO_SIMPLERASTER
-#endif
-
-#ifndef INCLUDED_MISC
 #include "misc.h"
-#define INCLUDED_MISC
-#endif
-
-#ifndef INCLUDED_COM_INTERVALTYPES
 #include "com_intervaltypes.h"
-#define INCLUDED_COM_INTERVALTYPES
-#endif
-
-// Module headers.
 
 #include <cmath>
+#include <iostream>
 
 
 //------------------------------------------------------------------------------

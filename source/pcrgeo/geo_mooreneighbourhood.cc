@@ -1,23 +1,6 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_GEO_MOORENEIGHBOURHOOD
 #include "geo_mooreneighbourhood.h"
-#define INCLUDED_GEO_MOORENEIGHBOURHOOD
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_MATH_SPECIAL_FUNCTIONS_ROUND
 #include <boost/math/special_functions/round.hpp>
-#define INCLUDED_BOOST_MATH_SPECIAL_FUNCTIONS_ROUND
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-
 
 
 /*!

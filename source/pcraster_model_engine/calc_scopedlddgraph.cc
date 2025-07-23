@@ -1,30 +1,8 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_SCOPEDLDDGRAPH
 #include "calc_scopedlddgraph.h"
-#define INCLUDED_CALC_SCOPEDLDDGRAPH
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_RUNTIMEENV
 #include "calc_runtimeenv.h"
-#define INCLUDED_CALC_RUNTIMEENV
-#endif
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
-#ifndef INCLUDED_CALC_LDDGRAPH
 #include "calc_lddgraph.h"
-#define INCLUDED_CALC_LDDGRAPH
-#endif
 
 
 

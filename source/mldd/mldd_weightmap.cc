@@ -1,26 +1,8 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_MLDD_WEIGHTMAP
 #include "mldd_weightmap.h"
-#define INCLUDED_MLDD_WEIGHTMAP
-#endif
-
-// Library headers.
-#ifndef INCLUDED_CMATH
-#include <cmath>
-#define INCLUDED_CMATH
-#endif
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_MLDD_DAGRASTER
 #include "mldd_dagraster.h"
-#define INCLUDED_MLDD_DAGRASTER
-#endif
 
+#include <cmath>
 #include <numbers>
 
 

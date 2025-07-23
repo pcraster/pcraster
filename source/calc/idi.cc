@@ -1,43 +1,13 @@
 #include "stddefx.h"
-
 #include "calc.h"  // for it's own interface
-
-#ifndef INCLUDED_VECTOR
-#include <math.h>
+#include "geo_celllocvisitor.h"
+#include "geo_idi.h"
+#include "com_autoarrayptr.h"
+#include "fieldapi_interface.h"
 
 #include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-#ifndef INCLUDED_ALGORITHM
 #include <algorithm>
-#define INCLUDED_ALGORITHM
-#endif
-#ifndef INCLUDED_CMATH
 #include <cmath>
-#define INCLUDED_CMATH
-#endif
-
-#ifndef INCLUDED_GEO_CELLLOCVISITOR
-#include "geo_celllocvisitor.h"
-#define INCLUDED_GEO_CELLLOCVISITOR
-#endif
-
-#ifndef INCLUDED_GEO_IDI
-#include "geo_idi.h"
-#define INCLUDED_GEO_IDI
-#endif
-
-#ifndef INCLUDED_COM_AUTOARRAYPTR
-#include "com_autoarrayptr.h"
-#define INCLUDED_COM_AUTOARRAYPTR
-#endif
-
-#ifndef INCLUDED_FIELDAPI_INTERFACE
-#include "fieldapi_interface.h"
-#define INCLUDED_FIELDAPI_INTERFACE
-#endif
-
 
 
 template<class Point>

@@ -1,19 +1,5 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_FIELDAPI_INTERFACE
 #include "fieldapi_interface.h"
-#define INCLUDED_FIELDAPI_INTERFACE
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-
 
 
 /*!

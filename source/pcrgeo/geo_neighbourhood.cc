@@ -1,35 +1,10 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_GEO_NEIGHBOURHOOD
 #include "geo_neighbourhood.h"
-#define INCLUDED_GEO_NEIGHBOURHOOD
-#endif
-
-// Library headers.
-#ifndef INCLUDED_CMATH
+#include "dal_MathUtils.h"
 #include <cmath>
-#define INCLUDED_CMATH
-#endif
-
-#ifndef INCLUDED_NUMERIC
 #include <numeric>
-#define INCLUDED_NUMERIC
-#endif
-
 #include <algorithm>
 #include <random>
-
-// PCRaster library headers.
-#ifndef INCLUDED_DAL_MATHUTILS
-#include "dal_MathUtils.h"
-#define INCLUDED_DAL_MATHUTILS
-#endif
-
-// Module headers.
-
 
 
 /*!

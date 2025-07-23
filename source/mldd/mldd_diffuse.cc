@@ -1,41 +1,12 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_MLDD_DIFFUSE
 #include "mldd_diffuse.h"
-#define INCLUDED_MLDD_DIFFUSE
-#endif
-
-// Library headers.
-#ifndef INCLUDED_CMATH
-#include <cmath>
-#define INCLUDED_CMATH
-#endif
-#ifndef INCLUDED_STDEXCEPT
-#include <stdexcept>
-#define INCLUDED_STDEXCEPT
-#endif
-// PCRaster library headers.
-#ifndef INCLUDED_COM_MVOP
 #include "com_mvop.h"
-#define INCLUDED_COM_MVOP
-#endif
-// Module headers.
-#ifndef INCLUDED_MLDD_DOWNSTREAMVISITOR
 #include "mldd_downstreamvisitor.h"
-#define INCLUDED_MLDD_DOWNSTREAMVISITOR
-#endif
-#ifndef INCLUDED_MLDD_DAGRASTER
 #include "mldd_dagraster.h"
-#define INCLUDED_MLDD_DAGRASTER
-#endif
-#ifndef INCLUDED_MLDD_ARG2NBORDER
 #include "mldd_arg2nborder.h"
-#define INCLUDED_MLDD_ARG2NBORDER
-#endif
 
+#include <cmath>
+#include <stdexcept>
 #include <numbers>
 
 /*!

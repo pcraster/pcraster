@@ -1,32 +1,8 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_GEO_NEIGHBOUR
 #include "geo_neighbour.h"
-#define INCLUDED_GEO_NEIGHBOUR
-#endif
-
-// Library headers.
-#ifndef INCLUDED_LIMITS
-#include <limits>
-#define INCLUDED_LIMITS
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_CSFTYPES
 #include "csftypes.h"
-#define INCLUDED_CSFTYPES
-#endif
-#ifndef INCLUDED_GEO_CELLLOC
 #include "geo_cellloc.h"
-#define INCLUDED_GEO_CELLLOC
-#endif
-
-// Module headers.
-
-
+#include <limits>
 
 
 //------------------------------------------------------------------------------

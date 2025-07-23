@@ -1,26 +1,7 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_UNPACKEDSRC
 #include "calc_unpackedsrc.h"
-#define INCLUDED_CALC_UNPACKEDSRC
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_SPATIALPACKING
 #include "calc_spatialpacking.h"
-#define INCLUDED_CALC_SPATIALPACKING
-#endif
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
 
 
 

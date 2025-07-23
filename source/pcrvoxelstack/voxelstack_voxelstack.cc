@@ -1,22 +1,6 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_PCRTYPES
 #include "pcrtypes.h"
-#define INCLUDED_PCRTYPES
-#endif
-
-#ifndef INCLUDED_DISCR_VOXELSTACK
 #include "discr_voxelstack.h"
-#define INCLUDED_DISCR_VOXELSTACK
-#endif
-
-// Module headers.
 
 
 

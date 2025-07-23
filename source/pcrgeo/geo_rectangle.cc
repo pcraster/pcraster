@@ -1,28 +1,7 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_GEO_RECTANGLE
 #include "geo_rectangle.h"
-#define INCLUDED_GEO_RECTANGLE
-#endif
-
-#ifndef INCLUDED_CMATH
-#include <cmath>
-#define INCLUDED_CMATH
-#endif
-
-#ifndef INCLUDED_GEO_CONST
 #include "geo_const.h"
-#define INCLUDED_GEO_CONST
-#endif
-
-#ifndef INCLUDED_GEO_POINT
 #include "geo_point.h"
-#define INCLUDED_GEO_POINT
-#endif
-
 #include <cmath>
 
 /*!

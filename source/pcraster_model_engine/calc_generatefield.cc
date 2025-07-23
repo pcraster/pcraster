@@ -1,34 +1,10 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_GENERATEFIELD
 #include "calc_generatefield.h"
-#define INCLUDED_CALC_GENERATEFIELD
-#endif
-
-#ifndef INCLUDED_COM_CSFCELL
 #include "com_csfcell.h"
-#define INCLUDED_COM_CSFCELL
-#endif
-
-#ifndef INCLUDED_CALC_SPATIALPACKING
 #include "calc_spatialpacking.h"
-#define INCLUDED_CALC_SPATIALPACKING
-#endif
-
-#ifndef INCLUDED_GEO_APPRASTERSPACE
 #include "geo_apprasterspace.h"
-#define INCLUDED_GEO_APPRASTERSPACE
-#endif
-
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
-
-#ifndef INCLUDED_MATHX
 #include "mathx.h"
-#define INCLUDED_MATHX
-#endif
 
 #include <cmath>
 

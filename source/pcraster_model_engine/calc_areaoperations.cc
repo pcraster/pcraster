@@ -1,30 +1,9 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_AREAOPERATIONS
 #include "calc_areaoperations.h"
-#define INCLUDED_CALC_AREAOPERATIONS
-#endif
-
-// Library headers.
-#ifndef INCLUDED_CASSERT
-#include <cassert>
-#define INCLUDED_CASSERT
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_MVGENERIC
 #include "com_mvgeneric.h"
-#define INCLUDED_COM_MVGENERIC
-#endif
-// Module headers.
-#ifndef INCLUDED_CALC_AVERAGEMAP
 #include "calc_averagemap.h"
-#define INCLUDED_CALC_AVERAGEMAP
-#endif
 
+#include <cassert>
 
 /*!
   \file

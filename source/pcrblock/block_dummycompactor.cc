@@ -1,23 +1,6 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_BLOCK_DUMMYCOMPACTOR
 #include "block_dummycompactor.h"
-#define INCLUDED_BLOCK_DUMMYCOMPACTOR
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_DAL_MATHUTILS
 #include "dal_MathUtils.h"
-#define INCLUDED_DAL_MATHUTILS
-#endif
-
-// Module headers.
-
 
 
 /*!

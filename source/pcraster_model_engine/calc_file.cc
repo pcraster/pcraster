@@ -1,14 +1,6 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_FILE
 #include "calc_file.h"
-#define INCLUDED_CALC_FILE
-#endif
-
-#ifndef INCLUDED_COM_PATHINFO
 #include "com_pathinfo.h"
-#define INCLUDED_COM_PATHINFO
-#endif
 
 bool calc::File::d_testCaseTypeOnExistingName=false;
 

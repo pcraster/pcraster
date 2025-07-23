@@ -1,52 +1,13 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_CALC
 #include "calc_calc.h"
-#define INCLUDED_CALC_CALC
-#endif
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-#ifndef INCLUDED_COM_PATHNAME
 #include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_GLOBALLIBDEFS
 #include "calc_globallibdefs.h"
-#define INCLUDED_CALC_GLOBALLIBDEFS
-#endif
-
-#ifndef INCLUDED_CALC_QUITFOREXITOPTION
 #include "calc_quitforexitoption.h"
-#define INCLUDED_CALC_QUITFOREXITOPTION
-#endif
-#ifndef INCLUDED_CALC_QUITFORPROGRESSCALLBACK
 #include "calc_quitforprogresscallback.h"
-#define INCLUDED_CALC_QUITFORPROGRESSCALLBACK
-#endif
-#ifndef INCLUDED_CALC_PROGRESSCALLBACK
 #include "calc_progresscallback.h"
-#define INCLUDED_CALC_PROGRESSCALLBACK
-#endif
-
-#ifndef INCLUDED_CALC_CATCHALLEXCEPTIONS
 #include "calc_catchallexceptions.h"
-#define INCLUDED_CALC_CATCHALLEXCEPTIONS
-#endif
-
-#ifndef INCLUDED_CALC_PARSERINPUT
 #include "calc_parserinput.h"
-#define INCLUDED_CALC_PARSERINPUT
-#endif
 
 /*!
   \file

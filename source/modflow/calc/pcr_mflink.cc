@@ -1,7 +1,4 @@
-#ifndef INCLUDED_PCRMODFLOWLINK
 #include "pcr_mflink.h"
-#define INCLUDED_PCRMODFLOWLINK
-#endif
 
 
 ModflowLink::ModflowLink(pcrxml::LinkInExecuteInput const& l){

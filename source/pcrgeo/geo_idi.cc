@@ -1,30 +1,8 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_GEO_IDI
 #include "geo_idi.h"
-#define INCLUDED_GEO_IDI
-#endif
-
-// Library headers.
-#ifndef INCLUDED_ALGORITHM
-#include <algorithm>
-#define INCLUDED_ALGORITHM
-#endif
-// PCRaster library headers.
-#ifndef INCLUDED_COM_AUTOARRAYPTR
 #include "com_autoarrayptr.h"
-#define INCLUDED_COM_AUTOARRAYPTR
-#endif
-
-// Module headers.
-#ifndef INCLUDED_GEO_POINT
 #include "geo_point.h"
-#define INCLUDED_GEO_POINT
-#endif
-
+#include <algorithm>
 
 namespace geo {
 

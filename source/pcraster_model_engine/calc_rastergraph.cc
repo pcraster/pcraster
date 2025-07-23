@@ -1,25 +1,7 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_RASTERGRAPH
 #include "calc_rastergraph.h"
-#define INCLUDED_CALC_RASTERGRAPH
-#endif
-
-// Library headers.
-#ifndef INCLUDED_COM_CSFCELL
 #include "com_csfcell.h"
-#define INCLUDED_COM_CSFCELL
-#endif
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_VFIELD
 #include "calc_vfield.h"
-#define INCLUDED_CALC_VFIELD
-#endif
 
 
 /*!

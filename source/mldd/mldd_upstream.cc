@@ -1,22 +1,6 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_MLDD_UPSTREAM
 #include "mldd_upstream.h"
-#define INCLUDED_MLDD_UPSTREAM
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_MLDD_WEIGHTMAP
 #include "mldd_weightmap.h"
-#define INCLUDED_MLDD_WEIGHTMAP
-#endif
 
 
 

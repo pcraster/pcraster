@@ -1,18 +1,5 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_ICELLITERATOR
 #include "calc_icelliterator.h"
-#define INCLUDED_CALC_ICELLITERATOR
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 

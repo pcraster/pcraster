@@ -7,10 +7,7 @@
 /********/
 
 /* libs ext. <>, our ""  */
-#ifndef INCLUDED_MATHX
 #include "mathx.h" // ScaleRad, hypot
-#define INCLUDED_MATHX
-#endif
 #include "geometry.h"
 #include "misc.h"
 #include "calc.h"

@@ -1,46 +1,12 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_MEMORY
-#include <memory>
-#define INCLUDED_MEMORY
-#endif
-
-#ifndef INCLUDED_BOOST_SCOPED_PTR
-#include <boost/scoped_ptr.hpp>
-#define INCLUDED_BOOST_SCOPED_PTR
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_DAL_GSLIBBLOCKDRIVER
 #include "dal_GSLIBBlockDriver.h"
-#define INCLUDED_DAL_GSLIBBLOCKDRIVER
-#endif
-
-#ifndef INCLUDED_DAL_PCRBLOCKDRIVER
 #include "dal_PCRBlockDriver.h"
-#define INCLUDED_DAL_PCRBLOCKDRIVER
-#endif
-
-#ifndef INCLUDED_DAL_VTKBLOCKDRIVER
 #include "dal_VTKBlockDriver.h"
-#define INCLUDED_DAL_VTKBLOCKDRIVER
-#endif
-
-// Module headers.
-#ifndef INCLUDED_DISCR_BLOCK
 #include "discr_block.h"
-#define INCLUDED_DISCR_BLOCK
-#endif
-
-#ifndef INCLUDED_DISCR_BLOCKDATA
 #include "discr_blockdata.h"
-#define INCLUDED_DISCR_BLOCKDATA
-#endif
 
+#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 
 namespace block {

@@ -1,51 +1,12 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_DAL_MATHUTILS
 #include "dal_MathUtils.h"
-#define INCLUDED_DAL_MATHUTILS
-#endif
-
-#ifndef INCLUDED_DISCR_BLOCK
 #include "discr_block.h"
-#define INCLUDED_DISCR_BLOCK
-#endif
-
-#ifndef INCLUDED_DISCR_BLOCKDATA
 #include "discr_blockdata.h"
-#define INCLUDED_DISCR_BLOCKDATA
-#endif
-
-#ifndef INCLUDED_DISCR_RASTERDATA
 #include "discr_rasterdata.h"
-#define INCLUDED_DISCR_RASTERDATA
-#endif
-
-#ifndef INCLUDED_DISCR_VOXELSTACK
 #include "discr_voxelstack.h"
-#define INCLUDED_DISCR_VOXELSTACK
-#endif
-
-// Module headers.
-#ifndef INCLUDED_BLOCK_COMPACTORS
 #include "block_compactors.h"
-#define INCLUDED_BLOCK_COMPACTORS
-#endif
-
-#ifndef INCLUDED_BLOCK_DEHAANCOMPACTOR
 #include "block_dehaancompactor.h"
-#define INCLUDED_BLOCK_DEHAANCOMPACTOR
-#endif
-
-#ifndef INCLUDED_BLOCK_TYPES
 #include "block_types.h"
-#define INCLUDED_BLOCK_TYPES
-#endif
 
 #include <cmath>
 #include <functional>

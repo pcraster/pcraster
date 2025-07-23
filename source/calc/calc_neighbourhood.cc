@@ -1,38 +1,10 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_API
 #include "api.h"
-#define INCLUDED_API
-#endif
-
-#ifndef INCLUDED_GEO_CIRCULARNEIGHBOURHOOD
 #include "geo_circularneighbourhood.h"
-#define INCLUDED_GEO_CIRCULARNEIGHBOURHOOD
-#endif
-
-#ifndef INCLUDED_GEO_FILTERENGINE
 #include "geo_filterengine.h"
-#define INCLUDED_GEO_FILTERENGINE
-#endif
-
-#ifndef INCLUDED_GEO_FRACTIONFILTER
 #include "geo_fractionfilter.h"
-#define INCLUDED_GEO_FRACTIONFILTER
-#endif
-
-#ifndef INCLUDED_GEO_MOORENEIGHBOURHOOD
 #include "geo_mooreneighbourhood.h"
-#define INCLUDED_GEO_MOORENEIGHBOURHOOD
-#endif
-
-#ifndef INCLUDED_GEO_RIKSNEIGHBOURHOOD
 #include "geo_riksneighbourhood.h"
-#define INCLUDED_GEO_RIKSNEIGHBOURHOOD
-#endif
-
 #include <cmath>
 
 // namespace calc {

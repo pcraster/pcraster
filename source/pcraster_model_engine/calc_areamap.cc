@@ -1,35 +1,9 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_AREAMAP
 #include "calc_areamap.h"
-#define INCLUDED_CALC_AREAMAP
-#endif
-
-// Library headers.
-#ifndef INCLUDED_API
 #include "api.h"        // BootTestApi
-#define INCLUDED_API
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_PCRASTERXSD
 #include "PCRasterXSD.h"
-#define INCLUDED_PCRASTERXSD
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
-#ifndef INCLUDED_CALC_POSEXCEPTION
 #include "calc_posexception.h"
-#define INCLUDED_CALC_POSEXCEPTION
-#endif
-
 #include <cmath>
 
 /*!

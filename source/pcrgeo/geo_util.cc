@@ -1,90 +1,20 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_GEO_UTIL
 #include "geo_util.h"
-#define INCLUDED_GEO_UTIL
-#endif
-
-// Std
-#ifndef INCLUDED_FSTREAM
-#include <fstream>
-#define INCLUDED_FSTREAM
-#endif
-
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-
-#ifndef INCLUDED_MEMORY
-#include <memory>
-#define INCLUDED_MEMORY
-#endif
-
-#ifndef INCLUDED_STDEXCEPT
-#include <stdexcept>
-#define INCLUDED_STDEXCEPT
-#endif
-
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-// Pcr
-#ifndef INCLUDED_COM_CSFCELL
 #include "com_csfcell.h"
-#define INCLUDED_COM_CSFCELL
-#endif
-
-#ifndef INCLUDED_COM_FILE
 #include "com_file.h"
-#define INCLUDED_COM_FILE
-#endif
-
-#ifndef INCLUDED_COM_MATH
 #include "com_math.h"
-#define INCLUDED_COM_MATH
-#endif
-
-#ifndef INCLUDED_COM_PATHNAME
 #include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
-
-#ifndef INCLUDED_COM_STRLIB
 #include "com_strlib.h"
-#define INCLUDED_COM_STRLIB
-#endif
-
-#ifndef INCLUDED_GEO_AVERAGEFILTER
 #include "geo_averagefilter.h"
-#define INCLUDED_GEO_AVERAGEFILTER
-#endif
-
-#ifndef INCLUDED_GEO_CSFMAP
 #include "geo_csfmap.h"
-#define INCLUDED_GEO_CSFMAP
-#endif
-
-#ifndef INCLUDED_GEO_CSFSTACKNAME
 #include "geo_csfstackname.h"
-#define INCLUDED_GEO_CSFSTACKNAME
-#endif
-
-#ifndef INCLUDED_GEO_EXCEPTION
 #include "geo_exception.h"
-#define INCLUDED_GEO_EXCEPTION
-#endif
-
-#ifndef INCLUDED_GEO_FILTERENGINE
 #include "geo_filterengine.h"
-#define INCLUDED_GEO_FILTERENGINE
-#endif
-
+#include <fstream>
+#include <iostream>
+#include <memory>
+#include <stdexcept>
+#include <string>
 
 
 /*!

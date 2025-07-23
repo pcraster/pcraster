@@ -1,10 +1,5 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_GLOBFUNC
 #include "calc_globfunc.h"
-#define INCLUDED_CALC_GLOBFUNC
-#endif
-
 #include "calc_types.h"
 #include "calc.h"
 

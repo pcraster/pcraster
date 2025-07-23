@@ -1,28 +1,9 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_POSITIONTEXT
 #include "calc_positiontext.h"
+#include "com_strlib.h"
+#include "calc_posexception.h"
 
 #include <utility>
-#define INCLUDED_CALC_POSITIONTEXT
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_STRLIB
-#include "com_strlib.h"
-#define INCLUDED_COM_STRLIB
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_POSEXCEPTION
-#include "calc_posexception.h"
-#define INCLUDED_CALC_POSEXCEPTION
-#endif
 
 /*!
   \file

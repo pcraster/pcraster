@@ -1,27 +1,7 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_DAL_BINARYTABLEDRIVER
 #include "dal_BinaryTableDriver.h"
-#define INCLUDED_DAL_BINARYTABLEDRIVER
-#endif
-
-#ifndef INCLUDED_DISCR_RASTERDATA
 #include "discr_rasterdata.h"
-#define INCLUDED_DISCR_RASTERDATA
-#endif
-
-#ifndef INCLUDED_FUNC_ASSIGN
 #include "func_assign.h"
-#define INCLUDED_FUNC_ASSIGN
-#endif
-
-// Module headers.
 
 
 

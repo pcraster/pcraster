@@ -1,36 +1,9 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_PT_MOCLINK
 #include "pt_MOCLink.h"
-#define INCLUDED_PT_MOCLINK
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_CSFCELL
 #include "com_csfcell.h"
-#define INCLUDED_COM_CSFCELL
-#endif
-
-#ifndef INCLUDED_COM_INTERVALTYPES
 #include "com_intervaltypes.h"
-#define INCLUDED_COM_INTERVALTYPES
-#endif
-
-#ifndef INCLUDED_GEO_CELLLOCVISITOR
 #include "geo_celllocvisitor.h"
-#define INCLUDED_GEO_CELLLOCVISITOR
-#endif
-
-// Module headers.
-#ifndef INCLUDED_PT_PARTICLETRACKER
 #include "pt_ParticleTracker.h"
-#define INCLUDED_PT_PARTICLETRACKER
-#endif
 
 #include <cmath>
 

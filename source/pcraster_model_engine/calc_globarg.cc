@@ -1,34 +1,9 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_GLOBARG
 #include "calc_globarg.h"
-#define INCLUDED_CALC_GLOBARG
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_MAP2CSF
 #include "calc_map2csf.h"  // biggestCellRepr
-#define INCLUDED_CALC_MAP2CSF
-#endif
-#ifndef INCLUDED_CALC_APIMAP
 #include "calc_apimap.h"
-#define INCLUDED_CALC_APIMAP
-#endif
-#ifndef INCLUDED_CALC_SPATIALPACKING
 #include "calc_spatialpacking.h"
-#define INCLUDED_CALC_SPATIALPACKING
-#endif
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
 
 /*!
   \file

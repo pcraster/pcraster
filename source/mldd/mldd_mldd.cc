@@ -1,45 +1,12 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_MLDD_MLDD
 #include "mldd_mldd.h"
-#define INCLUDED_MLDD_MLDD
-#endif
-
-// Library headers.
-#ifndef INCLUDED_GEO_NEIGHBOUR
 #include "geo_neighbour.h"
-#define INCLUDED_GEO_NEIGHBOUR
-#endif
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_MLDD_DIFFUSE
 #include "mldd_diffuse.h"
-#define INCLUDED_MLDD_DIFFUSE
-#endif
-#ifndef INCLUDED_MLDD_ACCUFLUX
 #include "mldd_accuflux.h"
-#define INCLUDED_MLDD_ACCUFLUX
-#endif
-#ifndef INCLUDED_MLDD_DAGRASTER
 #include "mldd_dagraster.h"
-#define INCLUDED_MLDD_DAGRASTER
-#endif
-#ifndef INCLUDED_MLDD_WEIGHTMAP
 #include "mldd_weightmap.h"
-#define INCLUDED_MLDD_WEIGHTMAP
-#endif
-#ifndef INCLUDED_MLDD_UPSTREAM
 #include "mldd_upstream.h"
-#define INCLUDED_MLDD_UPSTREAM
-#endif
-#ifndef INCLUDED_MLDD_REMOVESTREAM
 #include "mldd_removestream.h"
-#define INCLUDED_MLDD_REMOVESTREAM
-#endif
 
 
 

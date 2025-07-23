@@ -1,42 +1,11 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_GEO_CSFMAP
 #include "geo_csfmap.h"
-#define INCLUDED_GEO_CSFMAP
-#endif
-
-#ifndef INCLUDED_COM_PATHNAME
 #include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
-
-#ifndef  INCLUDED_COM_PATHINFO
 #include "com_file.h"
-#define  INCLUDED_COM_PATHINFO
-#endif
-
-#ifndef  INCLUDED_GEO_EXCEPTION
 #include "geo_exception.h"
-#define  INCLUDED_GEO_EXCEPTION
-#endif
-
-#ifndef  INCLUDED_CSF
 #include "csf.h"
-#define  INCLUDED_CSF
-#endif
-
-#ifndef  INCLUDED_GEO_RASTERSPACE
 #include "geo_rasterspace.h"
-#define  INCLUDED_GEO_RASTERSPACE
-#endif
-
-#ifndef  INCLUDED_GEO_UTIL
 #include "geo_util.h"
-#define  INCLUDED_GEO_UTIL
-#endif
 
 
 

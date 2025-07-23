@@ -1,27 +1,8 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_BLOCK_DEHAANCOMPACTOR
 #include "block_dehaancompactor.h"
-#define INCLUDED_BLOCK_DEHAANCOMPACTOR
-#endif
-
-// Library headers.
-#ifndef INCLUDED_CMATH
-#include <cmath>
-#define INCLUDED_CMATH
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_DAL_MATHUTILS
 #include "dal_MathUtils.h"
-#define INCLUDED_DAL_MATHUTILS
-#endif
 
-// Module headers.
-
+#include <cmath>
 
 
 /*!

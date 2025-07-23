@@ -1,17 +1,6 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_GEO_WMATRIX
 #include "geo_wmatrix.h"
-#define INCLUDED_GEO_WMATRIX
-#endif
-
-#ifndef INCLUDED_CMATH
 #include <cmath>
-#define INCLUDED_CMATH
-#endif
 
 
 

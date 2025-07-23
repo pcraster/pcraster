@@ -2,15 +2,8 @@
 
 #include "calc.h"  // for it's own interface
 
-#ifndef INCLUDED_GEO_CELLLOCVISITOR
 #include "geo_celllocvisitor.h"
-#define INCLUDED_GEO_CELLLOCVISITOR
-#endif
-
-#ifndef INCLUDED_FIELDAPI_INTERFACE
 #include "fieldapi_interface.h"
-#define INCLUDED_FIELDAPI_INTERFACE
-#endif
 
 #include <algorithm>
 #include <cmath>

@@ -1,32 +1,10 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_RELATIONRECORD
 #include "calc_relationrecord.h"
-#define INCLUDED_CALC_RELATIONRECORD
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_TABLE
 #include "table.h"    // LOOK_UP_KEY
-#define INCLUDED_TABLE
-#endif
-#ifndef INCLUDED_COM_INTERVALTYPES
 #include "com_intervaltypes.h"
-#define INCLUDED_COM_INTERVALTYPES
-#endif
-#ifndef INCLUDED_COM_ALGORITHM
 #include "com_algorithm.h"
-#define INCLUDED_COM_ALGORITHM
-#endif
 
 #include <functional>
-
-// Module headers.
 
 
 

@@ -1,65 +1,15 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_GEO_CSFSTACK
 #include "geo_csfstack.h"
-
-#include <memory>
-#define INCLUDED_GEO_CSFSTACK
-#endif
-
-#ifndef INCLUDED_MEMORY
-#include <memory>
-#define INCLUDED_MEMORY
-#endif
-
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-#ifndef INCLUDED_COM_CSFCELL
 #include "com_csfcell.h"
-#define INCLUDED_COM_CSFCELL
-#endif
-
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-
-#ifndef INCLUDED_COM_LEGEND
 #include "com_legend.h"
-#define INCLUDED_COM_LEGEND
-#endif
-
-#ifndef INCLUDED_COM_PATHNAME
 #include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
-
-#ifndef INCLUDED_COM_STRLIB
 #include "com_strlib.h"
-#define INCLUDED_COM_STRLIB
-#endif
-
-#ifndef INCLUDED_GEO_CSFMAP
 #include "geo_csfmap.h"
-#define INCLUDED_GEO_CSFMAP
-#endif
-
-#ifndef INCLUDED_GEO_DEF
 #include "geo_def.h"
-#define INCLUDED_GEO_DEF
-#endif
-
-#ifndef INCLUDED_GEO_UTIL
 #include "geo_util.h"
-#define INCLUDED_GEO_UTIL
-#endif
-
+#include <memory>
+#include <string>
 
 
 /*!

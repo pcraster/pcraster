@@ -1,57 +1,13 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC
 #include "calc.h"
-#define INCLUDED_CALC
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_MATH_SPECIAL_FUNCTIONS_ROUND
-#include <boost/math/special_functions/round.hpp>
-#define INCLUDED_BOOST_MATH_SPECIAL_FUNCTIONS_ROUND
-#endif
-
-
-// PCRaster library headers.
-
-#ifndef INCLUDED_MISC
 #include "misc.h"
-#define INCLUDED_MISC
-#endif
-
-#ifndef INCLUDED_COM_MATH
 #include "com_math.h"
-#define INCLUDED_COM_MATH
-#endif
-#ifndef INCLUDED_COM_INTERVALTYPES
 #include "com_intervaltypes.h"
-#define INCLUDED_COM_INTERVALTYPES
-#endif
-
-#ifndef INCLUDED_GEO_CELLLOCVISITOR
 #include "geo_celllocvisitor.h"
-#define INCLUDED_GEO_CELLLOCVISITOR
-#endif
-
-#ifndef INCLUDED_GEO_SCANCONVERSION
 #include "geo_scanconversion.h"
-#define INCLUDED_GEO_SCANCONVERSION
-#endif
-
-#ifndef INCLUDED_FIELDAPI_INTERFACE
 #include "fieldapi_interface.h"
-#define INCLUDED_FIELDAPI_INTERFACE
-#endif
-
-#ifndef INCLUDED_FIELDAPI_SCALARDOMAINCHECK
 #include "fieldapi_scalardomaincheck.h"
-#define INCLUDED_FIELDAPI_SCALARDOMAINCHECK
-#endif
-
-// Module headers.
+#include <boost/math/special_functions/round.hpp>
 
 #include <cmath>
 #include <numbers>

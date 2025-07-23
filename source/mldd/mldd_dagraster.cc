@@ -1,43 +1,13 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_MLDD_DAGRASTER
 #include "mldd_dagraster.h"
-#define INCLUDED_MLDD_DAGRASTER
-#endif
-
-// Library headers.
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-#ifndef INCLUDED_BOOST_GRAPH_TOPOLOGICAL_SORT
-#include <boost/graph/topological_sort.hpp>
-#define INCLUDED_BOOST_GRAPH_TOPOLOGICAL_SORT
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_MISC
 #include "misc.h"  // bitset functions
-#define INCLUDED_MISC
-#endif
-#ifndef INCLUDED_GEO_NEIGHBOUR
 #include "geo_neighbour.h"
-#define INCLUDED_GEO_NEIGHBOUR
-#endif
-// Module headers.
-#ifndef INCLUDED_MLDD_GRAPH
 #include "mldd_graph.h"
-#define INCLUDED_MLDD_GRAPH
-#endif
-
-#ifndef INCLUDED_MLDD_DOWNSTREAMVISITOR
 #include "mldd_downstreamvisitor.h"
-#define INCLUDED_MLDD_DOWNSTREAMVISITOR
-#endif
+
+#include <boost/graph/topological_sort.hpp>
+
+#include <vector>
 
 /*!
   \file

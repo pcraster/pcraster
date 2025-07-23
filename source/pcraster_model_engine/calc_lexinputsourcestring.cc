@@ -1,18 +1,5 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_LEXINPUTSOURCESTRING
 #include "calc_lexinputsourcestring.h"
-#define INCLUDED_CALC_LEXINPUTSOURCESTRING
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 /*!

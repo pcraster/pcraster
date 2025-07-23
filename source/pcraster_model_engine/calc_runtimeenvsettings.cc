@@ -1,37 +1,10 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_RUNTIMEENVSETTINGS
 #include "calc_runtimeenvsettings.h"
-#define INCLUDED_CALC_RUNTIMEENVSETTINGS
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_PCRASTERXSD
 #include "PCRasterXSD.h"
-#define INCLUDED_PCRASTERXSD
-#endif
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-#ifndef INCLUDED_APPARGS
 #include "appargs.h"
-#define INCLUDED_APPARGS
-#endif
-#ifndef INCLUDED_CALC_GLOBALLIBDEFS
 #include "calc_globallibdefs.h" // setRan
-#define INCLUDED_CALC_GLOBALLIBDEFS
-#endif
-// Module headers.
-#ifndef INCLUDED_CALC_IOSTRATEGY
 #include "calc_iostrategy.h"
-#define INCLUDED_CALC_IOSTRATEGY
-#endif
 
 /*!
   \file

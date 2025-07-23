@@ -1,19 +1,5 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_GEO_SAMECELLREPR
 #include "geo_samecellrepr.h"
-#define INCLUDED_GEO_SAMECELLREPR
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-
 
 
 /*!

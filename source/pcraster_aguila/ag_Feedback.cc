@@ -1,16 +1,9 @@
 #include "ag_Feedback.h"
 
-// Std
 #include <cassert>
-
 #ifdef DEBUG_DEVELOP
-  #ifndef INCLUDED_IOSTREAM
-#include <iostream>
-  #define INCLUDED_IOSTREAM
-  #endif
+  #include <iostream>
 #endif
-
-// Pcr
 
 
 

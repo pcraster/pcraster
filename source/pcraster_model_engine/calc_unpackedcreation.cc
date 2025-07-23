@@ -1,29 +1,8 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_UNPACKEDCREATION
 #include "calc_unpackedcreation.h"
-#define INCLUDED_CALC_UNPACKEDCREATION
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_GEO_RASTERDIM
 #include "geo_rasterdim.h" //nrValues
-#define INCLUDED_GEO_RASTERDIM
-#endif
-// Module headers.
-#ifndef INCLUDED_CALC_SPATIALPACKING
 #include "calc_spatialpacking.h"
-#define INCLUDED_CALC_SPATIALPACKING
-#endif
-#ifndef INCLUDED_CALC_SPATIAL
 #include "calc_spatial.h"
-#define INCLUDED_CALC_SPATIAL
-#endif
 
 
 

@@ -1,28 +1,7 @@
-#ifndef INCLUDED_PCRASTER_PYTHON_GLOBALS
 #include "Globals.h"
-#define INCLUDED_PCRASTER_PYTHON_GLOBALS
-#endif
-
-// External headers.
-
-// Project headers.
-#ifndef INCLUDED_DAL_RASTERDAL
 #include "dal_RasterDal.h"
-#define INCLUDED_DAL_RASTERDAL
-#endif
-
-#ifndef INCLUDED_CALC_GLOBALLIBDEFS
 #include "calc_globallibdefs.h"
-#define INCLUDED_CALC_GLOBALLIBDEFS
-#endif
-
-#ifndef INCLUDED_CALC_RUNTIMEENGINE
 #include "calc_runtimeengine.h"
-#define INCLUDED_CALC_RUNTIMEENGINE
-#endif
-
-// Module headers.
-
 #include "ppu_exception.h"
 
 

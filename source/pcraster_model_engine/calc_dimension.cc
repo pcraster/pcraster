@@ -1,26 +1,7 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_DIMENSION
 #include "calc_dimension.h"
-#define INCLUDED_CALC_DIMENSION
-#endif
-
-// Library headers.
-#ifndef INCLUDED_MAP
-#include <map>
-#define INCLUDED_MAP
-#endif
-
-// PCRaster library headers.
-// Module headers.
-#ifndef INCLUDED_CALC_DIMENSIONPARSER
 #include "calc_dimensionparser.h"
-#define INCLUDED_CALC_DIMENSIONPARSER
-#endif
-
+#include <map>
 
 
 /*!

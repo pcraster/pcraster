@@ -1,36 +1,11 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_CELLOP
 #include "calc_cellop.h"
-#define INCLUDED_CALC_CELLOP
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
 #ifdef DEBUG_DEVELOP
-#ifndef INCLUDED_COM_CSFCELL
-#include "com_csfcell.h"
-#define INCLUDED_COM_CSFCELL
+  #include "com_csfcell.h"
 #endif
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_RUNTIMEENV
 #include "calc_runtimeenv.h"
-#define INCLUDED_CALC_RUNTIMEENV
-#endif
-#ifndef INCLUDED_CALC_ICELLITERATOR
 #include "calc_icelliterator.h"
-#define INCLUDED_CALC_ICELLITERATOR
-#endif
-#ifndef INCLUDED_CALC_NONSPATIAL
 #include "calc_nonspatial.h"
-#define INCLUDED_CALC_NONSPATIAL
-#endif
 
 #include <cmath>
 

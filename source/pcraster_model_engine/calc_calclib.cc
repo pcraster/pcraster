@@ -1,22 +1,6 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_CALCLIB
 #include "calc_calclib.h"
-#define INCLUDED_CALC_CALCLIB
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_DYNAMICLIBRARY
 #include "com_dynamiclibrary.h"
-#define INCLUDED_COM_DYNAMICLIBRARY
-#endif
-
-// Module headers.
 
 
 

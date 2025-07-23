@@ -1,36 +1,11 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_ASTSYMBOLTABLE
 #include "calc_astsymboltable.h"
+#include "calc_astpar.h"
+#include "calc_bindingtable.h"
+#include "calc_symexception.h"
+#include "calc_linkinlibrary.h"
 
 #include <memory>
-#define INCLUDED_CALC_ASTSYMBOLTABLE
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_ASTPAR
-#include "calc_astpar.h"
-#define INCLUDED_CALC_ASTPAR
-#endif
-#ifndef INCLUDED_CALC_BINDINGTABLE
-#include "calc_bindingtable.h"
-#define INCLUDED_CALC_BINDINGTABLE
-#endif
-#ifndef INCLUDED_CALC_SYMEXCEPTION
-#include "calc_symexception.h"
-#define INCLUDED_CALC_SYMEXCEPTION
-#endif
-#ifndef INCLUDED_CALC_LINKINLIBRARY
-#include "calc_linkinlibrary.h"
-#define INCLUDED_CALC_LINKINLIBRARY
-#endif
 
 /*!
   \file

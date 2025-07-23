@@ -1,41 +1,12 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_VS
 #include "calc_vs.h"
-#define INCLUDED_CALC_VS
-#endif
-
-#ifndef INCLUDED_MISC
 #include "misc.h"
-#define INCLUDED_MISC
-#endif
-
-#ifndef INCLUDED_CALC_FILE
 #include "calc_file.h"
-#define INCLUDED_CALC_FILE
-#endif
-
 #include "calc_exception.h"
-
-#ifndef INCLUDED_GEO_CSFMAP
 #include "geo_csfmap.h"
-#define INCLUDED_GEO_CSFMAP
-#endif
-
-#ifndef INCLUDED_GEO_EXCEPTION
 #include "geo_exception.h"
-#define INCLUDED_GEO_EXCEPTION
-#endif
-
-#ifndef INCLUDED_CALC_MAP2CSF
 #include "calc_map2csf.h"
-#define INCLUDED_CALC_MAP2CSF
-#endif
-
-#ifndef INCLUDED_SSTREAM
 #include <sstream>
-#define INCLUDED_SSTREAM
-#endif
 
 /*! pick one value scale that is the
  * biggest from a set of value scales

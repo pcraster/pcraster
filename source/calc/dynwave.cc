@@ -1,47 +1,13 @@
 #include "stddefx.h"
-
-// vim: fileformat=dos
-// Others need it
-
-
 #include "calc.h"  // for it's own interface
-#ifndef INCLUDED_APPARGS
 #include "appargs.h"      // appDynamicWaveRoughness
-#define INCLUDED_APPARGS
-#endif
-#ifndef INCLUDED_COM_MATH
 #include "com_math.h"
-#define INCLUDED_COM_MATH
-#endif
-#ifndef INCLUDED_MISC
 #include "misc.h"         // RetError
-#define INCLUDED_MISC
-#endif
-
-
-#ifndef INCLUDED_GEO_CELLLOCVISITOR
 #include "geo_celllocvisitor.h"
-#define INCLUDED_GEO_CELLLOCVISITOR
-#endif
-
-#ifndef INCLUDED_FIELDAPI_INTERFACE
 #include "fieldapi_interface.h"
-#define INCLUDED_FIELDAPI_INTERFACE
-#endif
-#ifndef INCLUDED_FIELDAPI_SCALARDOMAINCHECK
 #include "fieldapi_scalardomaincheck.h"
-#define INCLUDED_FIELDAPI_SCALARDOMAINCHECK
-#endif
-
-#ifndef INCLUDED_CALC_DOWNSTREAMVISITOR
 #include "calc_downstreamvisitor.h"
-#define INCLUDED_CALC_DOWNSTREAMVISITOR
-#endif
-
-#ifndef INCLUDED_COM_INTERVALTYPES
 #include "com_intervaltypes.h"
-#define INCLUDED_COM_INTERVALTYPES
-#endif
 
 #include <cmath>
 #include <vector>

@@ -1,26 +1,7 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_TEXTSCRIPTCLIENTINTERFACE
 #include "calc_textscriptclientinterface.h"
-#define INCLUDED_CALC_TEXTSCRIPTCLIENTINTERFACE
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_COMPLETEPARSER
 #include "calc_completeparser.h"
-#define INCLUDED_CALC_COMPLETEPARSER
-#endif
-#ifndef INCLUDED_CALC_ASTSCRIPT
 #include "calc_astscript.h"
-#define INCLUDED_CALC_ASTSCRIPT
-#endif
 
 
 /*!

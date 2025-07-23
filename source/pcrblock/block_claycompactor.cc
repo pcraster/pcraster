@@ -1,23 +1,7 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_BLOCK_CLAYCOMPACTOR
 #include "block_claycompactor.h"
-#define INCLUDED_BLOCK_CLAYCOMPACTOR
-#endif
 
-// Library headers.
-#ifndef INCLUDED_CMATH
 #include <cmath>
-#define INCLUDED_CMATH
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-
 
 
 /*!

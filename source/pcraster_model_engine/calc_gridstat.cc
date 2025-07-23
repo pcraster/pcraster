@@ -1,21 +1,6 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_GRIDSTAT
 #include "calc_gridstat.h"
-#define INCLUDED_CALC_GRIDSTAT
-#endif
-
-// Library headers.
-#ifndef INCLUDED_COM_MATH
 #include "com_math.h"
-#define INCLUDED_COM_MATH
-#endif
-// PCRaster library headers.
-
-// Module headers.
 
 
 

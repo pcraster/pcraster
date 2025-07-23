@@ -1,18 +1,5 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_MLDD_DOWNSTREAMVISITOR
 #include "mldd_downstreamvisitor.h"
-#define INCLUDED_MLDD_DOWNSTREAMVISITOR
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 

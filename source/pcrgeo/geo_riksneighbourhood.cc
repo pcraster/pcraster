@@ -1,22 +1,6 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_GEO_RIKSNEIGHBOURHOOD
 #include "geo_riksneighbourhood.h"
-#define INCLUDED_GEO_RIKSNEIGHBOURHOOD
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_MATH
 #include "com_math.h"
-#define INCLUDED_COM_MATH
-#endif
-
-// Module headers.
 
 
 

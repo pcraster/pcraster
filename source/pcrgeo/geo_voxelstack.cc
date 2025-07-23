@@ -1,23 +1,7 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_VOXELSTACK
 #include "geo_voxelstack.h"
-#define INCLUDED_VOXELSTACK
-#endif
-
-#ifndef INCLUDED_ALGORITHM
 #include <algorithm>
-#define INCLUDED_ALGORITHM
-#endif
-
-#ifndef INCLUDED_FUNCTIONAL
 #include <functional>
-#define INCLUDED_FUNCTIONAL
-#endif
-
 
 
 /*!

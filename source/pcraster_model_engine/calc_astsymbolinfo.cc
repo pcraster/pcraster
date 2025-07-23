@@ -1,72 +1,20 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_ASTSYMBOLINFO
 #include "calc_astsymbolinfo.h"
-#define INCLUDED_CALC_ASTSYMBOLINFO
-#endif
-
-// Library headers.
-#ifndef INCLUDED_LIMITS
-#include <limits>
-#define INCLUDED_LIMITS
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-#ifndef INCLUDED_COM_CLONE
 #include "com_clone.h"
-#define INCLUDED_COM_CLONE
-#endif
-#ifndef INCLUDED_PCRASTERXSD
 #include "PCRasterXSD.h"
-#define INCLUDED_PCRASTERXSD
-#endif
-// Module headers.
-#ifndef INCLUDED_CALC_XMLDATATYPE
 #include "calc_xmldatatype.h"
-#define INCLUDED_CALC_XMLDATATYPE
-#endif
-#ifndef INCLUDED_CALC_POSITIONNAME
 #include "calc_positionname.h"
-#define INCLUDED_CALC_POSITIONNAME
-#endif
-#ifndef INCLUDED_CALC_SYMEXCEPTION
 #include "calc_symexception.h"
-#define INCLUDED_CALC_SYMEXCEPTION
-#endif
-#ifndef INCLUDED_CALC_ASTPAR
 #include "calc_astpar.h"
-#define INCLUDED_CALC_ASTPAR
-#endif
-#ifndef INCLUDED_CALC_ASTNUMBER
 #include "calc_astnumber.h"
-#define INCLUDED_CALC_ASTNUMBER
-#endif
-
-
-#ifndef INCLUDED_CALC_IOSTRATEGY
 #include "calc_iostrategy.h"
-#define INCLUDED_CALC_IOSTRATEGY
-#endif
-
-#ifndef INCLUDED_CALC_STACKINPUT
 #include "calc_stackinput.h"
-#define INCLUDED_CALC_STACKINPUT
-#endif
-#ifndef INCLUDED_CALC_ASTDEFINITION
 #include "calc_astdefinition.h"
-#define INCLUDED_CALC_ASTDEFINITION
-#endif
-#ifndef INCLUDED_CALC_DATATYPECLASH
 #include "calc_datatypeclash.h"
-#define INCLUDED_CALC_DATATYPECLASH
-#endif
+
+#include <limits>
+
 /*!
   \file
   This file contains the implementation of the ASTSymbolInfo class.

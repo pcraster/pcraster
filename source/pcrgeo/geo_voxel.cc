@@ -1,12 +1,5 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_GEO_VOXEL
 #include "geo_voxel.h"
-#define INCLUDED_GEO_VOXEL
-#endif
 
 
 

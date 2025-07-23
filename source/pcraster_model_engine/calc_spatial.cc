@@ -1,23 +1,8 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_SPATIAL
 #include "calc_spatial.h"
-#define INCLUDED_CALC_SPATIAL
-#endif
-
-#ifndef INCLUDED_CALC_MAP2CSF
 #include "calc_map2csf.h" // bytesPerCell
-#define INCLUDED_CALC_MAP2CSF
-#endif
-#ifndef INCLUDED_COM_CSFCELL
 #include "com_csfcell.h"  // getCell
-#define INCLUDED_COM_CSFCELL
-#endif
-
-#ifndef INCLUDED_DISCR_RASTERDATA
 #include "discr_rasterdata.h"
-#define INCLUDED_DISCR_RASTERDATA
-#endif
 
 
 

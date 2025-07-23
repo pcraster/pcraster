@@ -1,38 +1,11 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_LDDGRAPH
 #include "calc_lddgraph.h"
-#define INCLUDED_CALC_LDDGRAPH
-#endif
-
-// Library headers.
-#ifndef INCLUDED_STACK
-#include <stack>
-#define INCLUDED_STACK
-#endif
-#ifndef INCLUDED_LIMITS
-#include <limits>
-#define INCLUDED_LIMITS
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_GEO_NEIGHBOUR
 #include "geo_neighbour.h"
-#define INCLUDED_GEO_NEIGHBOUR
-#endif
-#ifndef INCLUDED_GEO_RASTERDIM
 #include "geo_rasterdim.h"
-#define INCLUDED_GEO_RASTERDIM
-#endif
-// Module headers.
-#ifndef INCLUDED_CALC_IFIELDRDCONVERSION
 #include "calc_ifieldrdconversion.h"
-#define INCLUDED_CALC_IFIELDRDCONVERSION
-#endif
 
+#include <stack>
+#include <limits>
 
 
 /*!

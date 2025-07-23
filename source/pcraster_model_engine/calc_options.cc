@@ -1,45 +1,14 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_OPTIONS
 #include "calc_options.h"
-#define INCLUDED_CALC_OPTIONS
-#endif
-
-// Library headers.
-#ifndef INCLUDED_SSTREAM
-#include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-#ifndef INCLUDED_COM_APPARGS
 #include "com_appargs.h"
-#define INCLUDED_COM_APPARGS
-#endif
-#ifndef INCLUDED_APPARGS
 #include "appargs.h"
-#define INCLUDED_APPARGS
-#endif
-// Module headers.
-#ifndef INCLUDED_CALC_LEXINPUT
 #include "calc_lexinput.h"
-#define INCLUDED_CALC_LEXINPUT
-#endif
-#ifndef INCLUDED_CALC_GLOBALLIBDEFS
 #include "calc_globallibdefs.h"
-#define INCLUDED_CALC_GLOBALLIBDEFS
-#endif
-
 #include "pcraster_version.h"
 
 #include <memory>
+#include <sstream>
 
 /*!
   \file

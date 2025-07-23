@@ -1,21 +1,6 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_CALC_MODELLINK
 #include "calc_modellink.h"
-#define INCLUDED_CALC_MODELLINK
-#endif
-
-// Module headers.
-#ifndef INCLUDED_PT_MOCLINK
 #include "pt_MOCLink.h"
-#define INCLUDED_PT_MOCLINK
-#endif
 
 
 

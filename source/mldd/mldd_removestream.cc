@@ -1,26 +1,7 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_MLDD_REMOVESTREAM
 #include "mldd_removestream.h"
-#define INCLUDED_MLDD_REMOVESTREAM
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_MLDD_DAGRASTER
 #include "mldd_dagraster.h"
-#define INCLUDED_MLDD_DAGRASTER
-#endif
-#ifndef INCLUDED_MLDD_ARG2NBORDER
 #include "mldd_arg2nborder.h"
-#define INCLUDED_MLDD_ARG2NBORDER
-#endif
 
 
 

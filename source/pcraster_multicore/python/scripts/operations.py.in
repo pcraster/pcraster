@@ -2,16 +2,11 @@
 # Do not edit!
 import numbers
 import math
-import sys
+import builtins
 import pcraster.operations
 import pcraster as _pcraster
 from . import _pcraster_multicore as _pmc
 from . import _operators as _pmcop
-
-if sys.version_info.major == 2:
-    import __builtin__ as builtins
-else:
-    import builtins
 
 
 def set_nr_worker_threads(arg1):
@@ -742,3 +737,6 @@ windowaverage.__doc__ = _pmc.windowaverage.__doc__
 #  Operations on full map extent
 mapmaximum.__doc__ = _pmc.mapmaximum.__doc__
 mapminimum.__doc__ = _pmc.mapminimum.__doc__
+
+# Remove symbols imported for internal use
+del numbers, math, builtins

@@ -1,72 +1,19 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_BUILDTYPESVISITOR
 #include "calc_buildtypesvisitor.h"
-#define INCLUDED_CALC_BUILDTYPESVISITOR
-#endif
-
-// Library headers.
-#ifndef INCLUDED_STACK
-#include <stack>
-#define INCLUDED_STACK
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_REPEATUNTIL
 #include "calc_repeatuntil.h"
-#define INCLUDED_CALC_REPEATUNTIL
-#endif
-#ifndef INCLUDED_CALC_NONASSEXPR
 #include "calc_nonassexpr.h"
-#define INCLUDED_CALC_NONASSEXPR
-#endif
-#ifndef INCLUDED_CALC_BASEEXPR
 #include "calc_baseexpr.h"
-#define INCLUDED_CALC_BASEEXPR
-#endif
-#ifndef INCLUDED_CALC_VS
 #include "calc_vs.h"
-#define INCLUDED_CALC_VS
-#endif
-#ifndef INCLUDED_CALC_ASTNUMBER
 #include "calc_astnumber.h"
-#define INCLUDED_CALC_ASTNUMBER
-#endif
-#ifndef INCLUDED_CALC_ASTPAR
 #include "calc_astpar.h"
-#define INCLUDED_CALC_ASTPAR
-#endif
-#ifndef INCLUDED_CALC_ASTASS
 #include "calc_astass.h"
-#define INCLUDED_CALC_ASTASS
-#endif
-#ifndef INCLUDED_CALC_CFGCREATOR
 #include "calc_cfgcreator.h" // setKeyTypes only
-#define INCLUDED_CALC_CFGCREATOR
-#endif
-#ifndef INCLUDED_CALC_ASTSTAT
 #include "calc_aststat.h"
-#define INCLUDED_CALC_ASTSTAT
-#endif
-#ifndef INCLUDED_CALC_DATATYPECLASH
 #include "calc_datatypeclash.h"
-#define INCLUDED_CALC_DATATYPECLASH
-#endif
-
-#ifndef INCLUDED_CALC_OPERATOR
 #include "calc_operator.h"
-#define INCLUDED_CALC_OPERATOR
-#endif
-
-#ifndef INCLUDED_CALC_POSITION
 #include "calc_position.h"
-#define INCLUDED_CALC_POSITION
-#endif
+
+#include <stack>
 
 /*!
   \file
@@ -440,10 +387,7 @@ void calc::BuildTypesVisitor::checkOnTimeinput(BaseExpr   *o)
   }
 }
 
-#ifndef INCLUDED_CALC_LINKINEXPR
 #include "calc_linkinexpr.h"
-#define INCLUDED_CALC_LINKINEXPR
-#endif
 
 /*!
  * \todo

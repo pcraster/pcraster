@@ -1,48 +1,18 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_ASTNODECONTAINER
 #include "calc_astnodecontainer.h"
-#define INCLUDED_CALC_ASTNODECONTAINER
-#endif
-
-#ifndef INCLUDED_CALC_ASTNODEVECTOR
 #include "calc_astnodevector.h"
-#define INCLUDED_CALC_ASTNODEVECTOR
-#endif
-
-#ifndef INCLUDED_CALC_ASTNODELIST
 #include "calc_astnodelist.h"
-#define INCLUDED_CALC_ASTNODELIST
-#endif
-// Library headers.
-#ifndef INCLUDED_BOOST_BIND
-  #include <boost/version.hpp>
-  #if BOOST_VERSION > 107200
-    #include <boost/bind/bind.hpp>
-  #else
-    #include <boost/bind.hpp>
-  #endif
-#define INCLUDED_BOOST_BIND
-#endif
-// PCRaster library headers.
-#ifndef INCLUDED_COM_ALGORITHM
 #include "com_algorithm.h"
-#define INCLUDED_COM_ALGORITHM
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_ASTPAR
 #include "calc_astpar.h"
-#define INCLUDED_CALC_ASTPAR
-#endif
-#ifndef INCLUDED_CALC_ASTVISITOR
 #include "calc_astvisitor.h"
-#define INCLUDED_CALC_ASTVISITOR
-#endif
 
+#include <boost/version.hpp>
+#if BOOST_VERSION > 107200
+  #include <boost/bind/bind.hpp>
+  using namespace boost::placeholders;
+#else
+  #include <boost/bind.hpp>
+#endif
 
 
 /*!
@@ -51,9 +21,6 @@
 */
 
 
-#if BOOST_VERSION > 107200
-  using namespace boost::placeholders;
-#endif
 
 //------------------------------------------------------------------------------
 

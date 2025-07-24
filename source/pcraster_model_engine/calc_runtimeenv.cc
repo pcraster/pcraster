@@ -1,77 +1,20 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_RUNTIMEENV
 #include "calc_runtimeenv.h"
-#define INCLUDED_CALC_RUNTIMEENV
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-#ifndef INCLUDED_COM_TEMPDIRECTORY
 #include "com_tempdirectory.h"
-#define INCLUDED_COM_TEMPDIRECTORY
-#endif
-// Module headers.
-#ifndef INCLUDED_CALC_ICACHEDOBJECT
 #include "calc_icachedobject.h"
-#define INCLUDED_CALC_ICACHEDOBJECT
-#endif
-#ifndef INCLUDED_CALC_IOSTRATEGY
 #include "calc_iostrategy.h"
-#define INCLUDED_CALC_IOSTRATEGY
-#endif
-#ifndef INCLUDED_CALC_RUNTIMEENVSETTINGS
 #include "calc_runtimeenvsettings.h"
-#define INCLUDED_CALC_RUNTIMEENVSETTINGS
-#endif
-#ifndef INCLUDED_CALC_FIELDWRITER
 #include "calc_fieldwriter.h"
-#define INCLUDED_CALC_FIELDWRITER
-#endif
-#ifndef INCLUDED_CALC_ASTPAR
 #include "calc_astpar.h"
-#define INCLUDED_CALC_ASTPAR
-#endif
-#ifndef INCLUDED_CALC_SPATIALPACKING
 #include "calc_spatialpacking.h" // cast to IFieldRDConversion
-#define INCLUDED_CALC_SPATIALPACKING
-#endif
-#ifndef INCLUDED_CALC_NONSPATIAL
 #include "calc_nonspatial.h"
-#define INCLUDED_CALC_NONSPATIAL
-#endif
-#ifndef INCLUDED_CALC_SPATIAL
 #include "calc_spatial.h"
-#define INCLUDED_CALC_SPATIAL
-#endif
-#ifndef INCLUDED_CALC_STACKEDVALUE
 #include "calc_stackedvalue.h"
-#define INCLUDED_CALC_STACKEDVALUE
-#endif
-#ifndef INCLUDED_CALC_DVAUTOPTR
 #include "calc_dvautoptr.h"
-#define INCLUDED_CALC_DVAUTOPTR
-#endif
-#ifndef INCLUDED_CALC_XMLCONTEXT
 #include "calc_xmlcontext.h"
-#define INCLUDED_CALC_XMLCONTEXT
-#endif
-#ifndef INCLUDED_CALC_ASTSYMBOLTABLE
 #include "calc_astsymboltable.h" // setMemoryExchangeData, cast from d_data.symbols
-#define INCLUDED_CALC_ASTSYMBOLTABLE
-#endif
-#ifndef INCLUDED_GEO_RASTERSPACE
 #include "geo_rasterspace.h"
-#define INCLUDED_GEO_RASTERSPACE
-#endif
 
 /*!
   \file
@@ -472,14 +415,8 @@ void calc::RunTimeEnv::transferMemoryExchangeItemIntoDataTransferArray(
   d_ioStrategy->transferMemoryExchangeItemIntoDataTransferArray(item);
 }
 
-#ifndef INCLUDED_CALC_DISKWRITTENFIELD
 #include "calc_diskwrittenfield.h"
-#define INCLUDED_CALC_DISKWRITTENFIELD
-#endif
-#ifndef INCLUDED_CALC_GRIDSTAT
 #include "calc_gridstat.h"
-#define INCLUDED_CALC_GRIDSTAT
-#endif
 
 //! assign the stacked result to this \a par
 /*!

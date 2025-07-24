@@ -2,19 +2,9 @@
 \note
 Do not edit, generated from libs/pcrxml/generate.py
 */
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-#ifndef INCLUDED_PCRGENXML_DIRECTORYSTACKINFO
 #include "pcrgenxml_directorystackinfo.h"
-#define INCLUDED_PCRGENXML_DIRECTORYSTACKINFO
-#endif
-
-#ifndef INCLUDED_QDOM
 #include <qdom.h>
-#define INCLUDED_QDOM
-#endif
 
 
 

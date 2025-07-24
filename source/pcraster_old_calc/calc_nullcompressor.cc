@@ -1,30 +1,8 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_NULLCOMPRESSOR
 #include "calc_nullcompressor.h"
-#define INCLUDED_CALC_NULLCOMPRESSOR
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_DECOMPRESSEDDATA
 #include "calc_decompresseddata.h"
-#define INCLUDED_CALC_DECOMPRESSEDDATA
-#endif
-#ifndef INCLUDED_CALC_SPATIAL
 #include "calc_spatial.h"
-#define INCLUDED_CALC_SPATIAL
-#endif
-#ifndef INCLUDED_CALC_COMPRESSIONINPUT
 #include "calc_compressioninput.h"
-#define INCLUDED_CALC_COMPRESSIONINPUT
-#endif
 
 
 

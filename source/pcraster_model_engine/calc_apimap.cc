@@ -1,9 +1,5 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_APIMAP
 #include "calc_apimap.h"
-#define INCLUDED_CALC_APIMAP
-#endif
 
 namespace calc {
  template<> ApiMapUINT1::InitMap ApiMapUINT1::d_init(InitMapUINT1);

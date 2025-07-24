@@ -1,44 +1,12 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_COM_ALGORITHM
 #include "com_algorithm.h"
-#define INCLUDED_COM_ALGORITHM
-#endif
-
-#ifndef INCLUDED_PCRGENXML_DATA
 #include "pcrgenxml_data.h"
-#define INCLUDED_PCRGENXML_DATA
-#endif
-
-#ifndef INCLUDED_CALC_SYMBOLTABLE
 #include "calc_symboltable.h"
-#define INCLUDED_CALC_SYMBOLTABLE
-#endif
-
-#ifndef INCLUDED_CALC_SUBPARAMETER
 #include "calc_subparameter.h"
-#define INCLUDED_CALC_SUBPARAMETER
-#endif
-
-#ifndef INCLUDED_CALC_INFOSCRIPT
 #include "calc_infoscript.h"
-#define INCLUDED_CALC_INFOSCRIPT
-#endif
-
-#ifndef  INCLUDED_CALC_PARSPAR
 #include "calc_parspar.h"
-#define  INCLUDED_CALC_PARSPAR
-#endif
-
-#ifndef  INCLUDED_CALC_STATEMENTBLOCK
 #include "calc_statementblock.h"   // parentBlock->findSymbol
-#define  INCLUDED_CALC_STATEMENTBLOCK
-#endif
-
-#ifndef INCLUDED_CALC_ARCVIEWEXTCHECKDATA
 #include "calc_arcviewextcheckdata.h"
-#define INCLUDED_CALC_ARCVIEWEXTCHECKDATA
-#endif
 
 calc::SymbolTable::SymbolTable(
   calc::StatementBlock *parentBlock):

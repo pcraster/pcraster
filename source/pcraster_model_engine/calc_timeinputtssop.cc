@@ -1,47 +1,12 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_TIMEINPUTTSSOP
 #include "calc_timeinputtssop.h"
-#define INCLUDED_CALC_TIMEINPUTTSSOP
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_CSFCELL
 #include "com_csfcell.h"
-#define INCLUDED_COM_CSFCELL
-#endif
-#ifndef INCLUDED_CALC
 #include "calc.h" // TIME_TABLE
-#define INCLUDED_CALC
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_RUNTIMEENV
 #include "calc_runtimeenv.h"
-#define INCLUDED_CALC_RUNTIMEENV
-#endif
-#ifndef INCLUDED_CALC_EXECARGUMENTS
 #include "calc_execarguments.h"
-#define INCLUDED_CALC_EXECARGUMENTS
-#endif
-#ifndef INCLUDED_CALC_TIMETABLE
 #include "calc_timetable.h"
-#define INCLUDED_CALC_TIMETABLE
-#endif
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
-
-#ifndef INCLUDED_CALC_DOMAINERROR
 #include "calc_domainerror.h"
-#define INCLUDED_CALC_DOMAINERROR
-#endif
 
 #include <cmath>
 

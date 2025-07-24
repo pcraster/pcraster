@@ -1,26 +1,7 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_ARGORDERIDINFO
 #include "calc_argorderidinfo.h"
-#define INCLUDED_CALC_ARGORDERIDINFO
-#endif
-
-// Library headers.
-#ifndef INCLUDED_CMATH
 #include <cmath>
-#define INCLUDED_CMATH
-#endif
-#ifndef INCLUDED_ALGORITHM
 #include <algorithm>
-#define INCLUDED_ALGORITHM
-#endif
-// PCRaster library headers.
-
-// Module headers.
-
 
 
 /*!

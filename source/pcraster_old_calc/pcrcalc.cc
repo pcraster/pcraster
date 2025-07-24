@@ -1,39 +1,11 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-#ifndef INCLUDED_PCRCALC
 #include "pcrcalc.h"
-#define INCLUDED_PCRCALC
-#endif
-
-#ifndef INCLUDED_APPARGS
 #include "appargs.h" // APP_IO_STRATEGY
-#define INCLUDED_APPARGS
-#endif
-
-#ifndef INCLUDED_COM_PATHNAME
 #include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
-#ifndef INCLUDED_PCRXML_DOCUMENT
 #include "pcrxml_document.h"
-#define INCLUDED_PCRXML_DOCUMENT
-#endif
-
-#ifndef INCLUDED_CALC_CLIENTINTERFACE
 #include "calc_clientinterface.h"
-#define INCLUDED_CALC_CLIENTINTERFACE
-#endif
-#ifndef INCLUDED_CALC_WLDELFTHABITAT
 #include "calc_wldelfthabitat.h"
-#define INCLUDED_CALC_WLDELFTHABITAT
-#endif
-
-#ifndef INCLUDED_CALC_CATCHALLEXCEPTIONS
 #include "calc_catchallexceptions.h"
-#define INCLUDED_CALC_CATCHALLEXCEPTIONS
-#endif
 
 
 /*! \todo

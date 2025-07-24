@@ -1,26 +1,7 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_GLOBAL
 #include "calc_global.h"
-#define INCLUDED_CALC_GLOBAL
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_GLOBARGS
 #include "calc_globargs.h"
-#define INCLUDED_CALC_GLOBARGS
-#endif
-#ifndef INCLUDED_CALC_DOMAINERROR
 #include "calc_domainerror.h"
-#define INCLUDED_CALC_DOMAINERROR
-#endif
 
 /*!
   \file
@@ -140,18 +121,10 @@ calc::MRF::MRF(const MRF& rhs):
 {
 }
 */
-#ifndef INCLUDED_IOSTREAM
 #include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-#ifndef INCLUDED_CALC_RUNTIMEENV
 #include "calc_runtimeenv.h"
-#define INCLUDED_CALC_RUNTIMEENV
-#endif
-#ifndef INCLUDED_CALC_OPERATOR
 #include "calc_operator.h"
-#define INCLUDED_CALC_OPERATOR
-#endif
+
 void calc::MRF::exec(RunTimeEnv* rte,const Operator& op,size_t nrArgs) const
 {
   if (redirect())

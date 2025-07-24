@@ -1,89 +1,22 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_TSSOUTPUTVALUE
 #include "calc_tssoutputvalue.h"
-#define INCLUDED_CALC_TSSOUTPUTVALUE
-#endif
-
-// std libraries
-
-#ifndef INCLUDED_IOMANIP
-#include <iomanip>
-#define INCLUDED_IOMANIP
-#endif
-
-#ifndef INCLUDED_STDEXCEPT
-#include <stdexcept>
-#define INCLUDED_STDEXCEPT
-#endif
-
-// our libraries
-
-#ifndef INCLUDED_DAL_TYPE
 #include "dal_Type.h"
-#define INCLUDED_DAL_TYPE
-#endif
-
-#ifndef INCLUDED_CALC
 #include "calc.h"      // TssRow stuff
-#define INCLUDED_CALC
-#endif
-
-#ifndef INCLUDED_APPARGS
-# include "appargs.h"
-#define INCLUDED_APPARGS
-#endif
-
-#ifndef INCLUDED_NEW
+#include "appargs.h"
 #include "com_new.h"
-#define INCLUDED_NEW
-#endif
-#ifndef INCLUDED_COM_FILE
 #include "com_file.h"
-#define INCLUDED_COM_FILE
-#endif
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-#ifndef INCLUDED_COM_CSFCELL
 #include "com_csfcell.h"
-#define INCLUDED_COM_CSFCELL
-#endif
-
-// modules
-
-#ifndef INCLUDED_CALC_MAP2CSF
 #include "calc_map2csf.h"
-#define INCLUDED_CALC_MAP2CSF
-#endif
-
-#ifndef INCLUDED_CALC_AVERAGEMAP
 #include "calc_averagemap.h"
-#define INCLUDED_CALC_AVERAGEMAP
-#endif
-#ifndef INCLUDED_CALC_APIMAP
 #include "calc_apimap.h"
-#define INCLUDED_CALC_APIMAP
-#endif
-
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
-
-
-#ifndef INCLUDED_CALC_IOSTRATEGY
 #include "calc_iostrategy.h"
-#define INCLUDED_CALC_IOSTRATEGY
-#endif
-
-#ifndef INCLUDED_CALC_MEMORYEXCHANGEITEM
 #include "calc_MemoryExchangeItem.h"
-#define INCLUDED_CALC_MEMORYEXCHANGEITEM
-#endif
 
 #include <cassert>
+#include <iomanip>
+#include <stdexcept>
 
 extern template calc::ApiMapC<MAP_INT4>::InitMap calc::ApiMapC<MAP_INT4>::d_init;
 extern template calc::ApiMapC<MAP_INT4>::DeleteInternal calc::ApiMapC<MAP_INT4>::d_del;

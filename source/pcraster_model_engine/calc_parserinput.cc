@@ -1,38 +1,10 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_PARSERINPUT
 #include "calc_parserinput.h"
-#define INCLUDED_CALC_PARSERINPUT
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_TOKENS
 #include "tokens.h"
-#define INCLUDED_TOKENS
-#endif
-#ifndef INCLUDED_ATOKENBUFFER
 #include "ATokenBuffer.h"
-#define INCLUDED_ATOKENBUFFER
-#endif
-
-// Module headers.
-#ifndef INCLUDED_LEXGRAMMAR
 #include "lexgrammar.h"
-#define INCLUDED_LEXGRAMMAR
-#endif
-#ifndef INCLUDED_CALC_LEXINPUT
 #include "calc_lexinput.h"
-#define INCLUDED_CALC_LEXINPUT
-#endif
-#ifndef INCLUDED_CALC_LEXINPUTCREATOR
 #include "calc_lexinputcreator.h"
-#define INCLUDED_CALC_LEXINPUTCREATOR
-#endif
 
 
 

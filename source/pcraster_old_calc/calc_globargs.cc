@@ -1,24 +1,8 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_GLOBARGS
 #include "calc_globargs.h"
-#define INCLUDED_CALC_GLOBARGS
-#endif
-
-#ifndef INCLUDED_CALC_GLOBARG
 #include "calc_globarg.h"
-#define INCLUDED_CALC_GLOBARG
-#endif
-
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
-
-#ifndef INCLUDED_CALC_OPERATOR
 #include "calc_operator.h"
-#define INCLUDED_CALC_OPERATOR
-#endif
 
 /*! pop op.nrArgs() fields from stack and wrap each arg in an calc::ApiMap
  *  object if nrActualArgs > 0 use that as the actual nr of arguments

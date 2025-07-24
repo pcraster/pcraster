@@ -1,68 +1,18 @@
 // #define DEBUG_DEVELOP 1
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_DYNAMICWAVE
 #include "calc_dynamicwave.h"
-#define INCLUDED_CALC_DYNAMICWAVE
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_CSFCELL
 #include "com_csfcell.h"
-#define INCLUDED_COM_CSFCELL
-#endif
-#ifndef INCLUDED_COM_MVOP
 #include "com_mvop.h"
-#define INCLUDED_COM_MVOP
-#endif
-#ifndef INCLUDED_APPARGS
 #include "appargs.h"      // appDynamicWaveRoughness
-#define INCLUDED_APPARGS
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_VFIELD
 #include "calc_vfield.h"
-#define INCLUDED_CALC_VFIELD
-#endif
-#ifndef INCLUDED_CALC_SCOPEDLDDGRAPH
 #include "calc_scopedlddgraph.h"
-#define INCLUDED_CALC_SCOPEDLDDGRAPH
-#endif
-#ifndef INCLUDED_CALC_LOOKUPTABLE
 #include "calc_lookuptable.h"
-#define INCLUDED_CALC_LOOKUPTABLE
-#endif
-#ifndef INCLUDED_CALC_EXECARGUMENTS
 #include "calc_execarguments.h"
-#define INCLUDED_CALC_EXECARGUMENTS
-#endif
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
-#ifndef INCLUDED_CALC_NONSPATIAL
 #include "calc_nonspatial.h"
-#define INCLUDED_CALC_NONSPATIAL
-#endif
-#ifndef INCLUDED_CALC_DOMAINERROR
 #include "calc_domainerror.h"
-#define INCLUDED_CALC_DOMAINERROR
-#endif
-#ifndef INCLUDED_CALC_DOWNSTREAMVISITOR
 #include "calc_downstreamvisitor.h"
-#define INCLUDED_CALC_DOWNSTREAMVISITOR
-#endif
-#ifndef INCLUDED_CALC_TIMESLICEVISITOR
 #include "calc_TimeSliceVisitor.h"
-#define INCLUDED_CALC_TIMESLICEVISITOR
-#endif
 
 #include <cmath>
 #include <format>

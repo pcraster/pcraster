@@ -1,38 +1,10 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_REPORTVISITOR
 #include "calc_reportvisitor.h"
-#define INCLUDED_CALC_REPORTVISITOR
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_ASTSYMBOLTABLE
 #include "calc_astsymboltable.h"
-#define INCLUDED_CALC_ASTSYMBOLTABLE
-#endif
-#ifndef INCLUDED_CALC_REPORTTABLE
 #include "calc_reporttable.h"
-#define INCLUDED_CALC_REPORTTABLE
-#endif
-#ifndef INCLUDED_CALC_ASTSTAT
 #include "calc_aststat.h"
-#define INCLUDED_CALC_ASTSTAT
-#endif
-#ifndef INCLUDED_CALC_ASTASS
 #include "calc_astass.h"
-#define INCLUDED_CALC_ASTASS
-#endif
-#ifndef INCLUDED_CALC_ASTPAR
 #include "calc_astpar.h"
-#define INCLUDED_CALC_ASTPAR
-#endif
 
 /*!
   \file

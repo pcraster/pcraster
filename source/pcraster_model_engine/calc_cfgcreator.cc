@@ -1,66 +1,18 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_CFGCREATOR
 #include "calc_cfgcreator.h"
-#define INCLUDED_CALC_CFGCREATOR
-#endif
-
-// Library headers.
-#ifndef INCLUDED_STACK
-#include <stack>
-#define INCLUDED_STACK
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_ASTSTAT
 #include "calc_aststat.h"
-#define INCLUDED_CALC_ASTSTAT
-#endif
-#ifndef INCLUDED_CALC_POINTCODEBLOCK
 #include "calc_pointcodeblock.h"
-#define INCLUDED_CALC_POINTCODEBLOCK
-#endif
-#ifndef INCLUDED_CALC_ASTVISITOR
 #include "calc_astvisitor.h"
-#define INCLUDED_CALC_ASTVISITOR
-#endif
-#ifndef INCLUDED_CALC_CFGNODE
 #include "calc_cfgnode.h"
-#define INCLUDED_CALC_CFGNODE
-#endif
-#ifndef INCLUDED_CALC_BASEEXPR
 #include "calc_baseexpr.h"
-#define INCLUDED_CALC_BASEEXPR
-#endif
-#ifndef INCLUDED_CALC_NONASSEXPR
 #include "calc_nonassexpr.h"
-#define INCLUDED_CALC_NONASSEXPR
-#endif
-#ifndef INCLUDED_CALC_ASTNUMBER
 #include "calc_astnumber.h"
-#define INCLUDED_CALC_ASTNUMBER
-#endif
-#ifndef INCLUDED_CALC_ASTPAR
 #include "calc_astpar.h"
-#define INCLUDED_CALC_ASTPAR
-#endif
-#ifndef INCLUDED_CALC_ASTASS
 #include "calc_astass.h"
-#define INCLUDED_CALC_ASTASS
-#endif
-#ifndef INCLUDED_CALC_JUMPNODE
 #include "calc_jumpnode.h"
-#define INCLUDED_CALC_JUMPNODE
-#endif
-#ifndef INCLUDED_CALC_BLOCKENTRANCE
 #include "calc_blockentrance.h"
-#define INCLUDED_CALC_BLOCKENTRANCE
-#endif
+
+#include <stack>
 
 /*!
   \file

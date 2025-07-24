@@ -1,53 +1,14 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_ACCUIMPL
 #include "calc_accuimpl.h"
-#define INCLUDED_CALC_ACCUIMPL
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_CSFCELL
 #include "com_csfcell.h"
-#define INCLUDED_COM_CSFCELL
-#endif
-#ifndef INCLUDED_COM_MVOP
 #include "com_mvop.h"
-#define INCLUDED_COM_MVOP
-#endif
-// Module headers.
-#ifndef INCLUDED_CALC_EXECARGUMENTS
 #include "calc_execarguments.h"
-#define INCLUDED_CALC_EXECARGUMENTS
-#endif
-#ifndef INCLUDED_CALC_DOMAINERROR
 #include "calc_domainerror.h"
-#define INCLUDED_CALC_DOMAINERROR
-#endif
-#ifndef INCLUDED_CALC_DOWNSTREAMVISITOR
 #include "calc_downstreamvisitor.h"
-#define INCLUDED_CALC_DOWNSTREAMVISITOR
-#endif
-#ifndef INCLUDED_CALC_VFIELD
 #include "calc_vfield.h"
-#define INCLUDED_CALC_VFIELD
-#endif
-#ifndef INCLUDED_CALC_SCOPEDLDDGRAPH
 #include "calc_scopedlddgraph.h"
-#define INCLUDED_CALC_SCOPEDLDDGRAPH
-#endif
-#ifndef INCLUDED_CALC_LDDGRAPH
 #include "calc_lddgraph.h"
-#define INCLUDED_CALC_LDDGRAPH
-#endif
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
 
 #include <cmath>
 

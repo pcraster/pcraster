@@ -1,17 +1,5 @@
-#ifndef INCLUDED_CALC_TIMESLICEVISITOR
 #include "calc_TimeSliceVisitor.h"
-#define INCLUDED_CALC_TIMESLICEVISITOR
-#endif
-
-// External headers.
-
-// Project headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_DOMAINERROR
 #include "calc_domainerror.h"
-#define INCLUDED_CALC_DOMAINERROR
-#endif
 
 
 

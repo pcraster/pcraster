@@ -1,25 +1,8 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_REPEATUNTIL
 #include "calc_repeatuntil.h"
-#define INCLUDED_CALC_REPEATUNTIL
-#endif
-
-#ifndef INCLUDED_CALC_FIELDEXPR
 #include "calc_fieldexpr.h"
-#define INCLUDED_CALC_FIELDEXPR
-#endif
-
-#ifndef INCLUDED_CALC_FIELDSTACK
 #include "calc_fieldstack.h"
-#define INCLUDED_CALC_FIELDSTACK
-#endif
-
-
-#ifndef INCLUDED_CALC_INFOSCRIPT
 #include "calc_infoscript.h"
-#define INCLUDED_CALC_INFOSCRIPT
-#endif
 
 
 calc::RepeatUntil::RepeatUntil(

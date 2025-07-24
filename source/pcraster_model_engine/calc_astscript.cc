@@ -1,100 +1,25 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_ASTSCRIPT
 #include "calc_astscript.h"
-#define INCLUDED_CALC_ASTSCRIPT
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-#ifndef INCLUDED_APPARGS
 #include "appargs.h"  // appClone
-#define INCLUDED_APPARGS
-#endif
-// Module headers.
-#ifndef INCLUDED_CALC_POSITIONNAME
 #include "calc_positionname.h"  // appClone
-#define INCLUDED_CALC_POSITIONNAME
-#endif
-#ifndef INCLUDED_CALC_CODE
 #include "calc_code.h"
-#define INCLUDED_CALC_CODE
-#endif
-#ifndef INCLUDED_CALC_SYMEXCEPTION
 #include "calc_symexception.h"
-#define INCLUDED_CALC_SYMEXCEPTION
-#endif
-#ifndef INCLUDED_CALC_USEDEFANALYZER
 #include "calc_usedefanalyzer.h"
-#define INCLUDED_CALC_USEDEFANALYZER
-#endif
-#ifndef INCLUDED_CALC_BUILDTYPESVISITOR
 #include "calc_buildtypesvisitor.h"
-#define INCLUDED_CALC_BUILDTYPESVISITOR
-#endif
-#ifndef INCLUDED_CALC_RUNSETTINGS
 #include "calc_runsettings.h"
-#define INCLUDED_CALC_RUNSETTINGS
-#endif
-#ifndef INCLUDED_CALC_ASTNODE
 #include "calc_astnode.h"
-#define INCLUDED_CALC_ASTNODE
-#endif
-#ifndef INCLUDED_CALC_ASTNODEVECTOR
 #include "calc_astnodevector.h"
-#define INCLUDED_CALC_ASTNODEVECTOR
-#endif
-#ifndef INCLUDED_CALC_REPORTVISITOR
 #include "calc_reportvisitor.h"
-#define INCLUDED_CALC_REPORTVISITOR
-#endif
-#ifndef INCLUDED_CALC_CFGCREATOR
 #include "calc_cfgcreator.h"
-#define INCLUDED_CALC_CFGCREATOR
-#endif
-#ifndef INCLUDED_CALC_CFGNODE
 #include "calc_cfgnode.h"
-#define INCLUDED_CALC_CFGNODE
-#endif
-#ifndef INCLUDED_CALC_POINTCODEBLOCKDLL
 #include "calc_pointcodeblockdll.h"
-#define INCLUDED_CALC_POINTCODEBLOCKDLL
-#endif
-#ifndef INCLUDED_CALC_INSERTPOINTCODEBLOCKS
 #include "calc_insertpointcodeblocks.h"
-#define INCLUDED_CALC_INSERTPOINTCODEBLOCKS
-#endif
-#ifndef INCLUDED_CALC_POINTCODEBLOCK
 #include "calc_pointcodeblock.h"
-#define INCLUDED_CALC_POINTCODEBLOCK
-#endif
-#ifndef INCLUDED_CALC_DATATYPECLASH
 #include "calc_datatypeclash.h"
-#define INCLUDED_CALC_DATATYPECLASH
-#endif
-
-#ifndef INCLUDED_CALC_ASTNUMBER
 #include "calc_astnumber.h"
-#define INCLUDED_CALC_ASTNUMBER
-#endif
-
-#ifndef INCLUDED_CALC_VS
 #include "calc_vs.h"
-#define INCLUDED_CALC_VS
-#endif
-
-#ifndef INCLUDED_CALC_TIMETABLE
 #include "calc_timetable.h"
-#define INCLUDED_CALC_TIMETABLE
-#endif
 
 #include <cmath>
 

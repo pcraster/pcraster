@@ -1,47 +1,13 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_GLOBALLIBDEFS
 #include "calc_globallibdefs.h"
-#define INCLUDED_CALC_GLOBALLIBDEFS
-#endif
-
-// Library headers.
-#ifndef INCLUDED_MEMORY
-#include <memory>
-#define INCLUDED_MEMORY
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_MATHX
 #include "mathx.h"
-#define INCLUDED_MATHX
-#endif
-#ifndef INCLUDED_APPARGS
 #include "appargs.h"
-#define INCLUDED_APPARGS
-#endif
-
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-#ifndef INCLUDED_COM_CLIBERROR
 #include "com_cliberror.h"
-#define INCLUDED_COM_CLIBERROR
-#endif
-#ifndef INCLUDED_COM_TUNE
 #include "com_tune.h"
-#define INCLUDED_COM_TUNE
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_LIBRARYCLASS
 #include "calc_LibraryClass.h"
-#define INCLUDED_CALC_LIBRARYCLASS
-#endif
+
+#include <memory>
 
 /*!
   \file

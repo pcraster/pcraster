@@ -2,26 +2,10 @@
 \note
 Do not edit, generated from libs/pcrxml/generate.py
 */
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-#ifndef INCLUDED_PCRGENXML_PARAMETERPANEL
 #include "pcrgenxml_parameterpanel.h"
-#define INCLUDED_PCRGENXML_PARAMETERPANEL
-#endif
-
-#ifndef INCLUDED_QDOM
-#include <qdom.h>
-#define INCLUDED_QDOM
-#endif
-
-
-
-#ifndef INCLUDED_PCRXML_CHILDELEMENTVISITOR
 #include "pcrxml_childelementvisitor.h"
-#define INCLUDED_PCRXML_CHILDELEMENTVISITOR
-#endif
+#include <qdom.h>
 
 const std::string pcrxml::ParameterPanel::d_elementName("ParameterPanel");
 //! ctor

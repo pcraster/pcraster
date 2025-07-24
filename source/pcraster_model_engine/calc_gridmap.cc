@@ -1,57 +1,15 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_GRIDMAP
 #include "calc_gridmap.h"
-#define INCLUDED_CALC_GRIDMAP
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_GEO_UTIL
 #include "geo_util.h"
-#define INCLUDED_GEO_UTIL
-#endif
-#ifndef INCLUDED_GEO_SIMPLERASTER
 #include "geo_simpleraster.h"
-#define INCLUDED_GEO_SIMPLERASTER
-#endif
-#ifndef INCLUDED_GEO_BANDMAP
 #include "geo_bandmap.h"
-#define INCLUDED_GEO_BANDMAP
-#endif
-#ifndef INCLUDED_DAL_PROPERTYKEYS
 #include "dal_PropertyKeys.h"
-#define INCLUDED_DAL_PROPERTYKEYS
-#endif
-#ifndef INCLUDED_DAL_RASTERDRIVER
 #include "dal_RasterDriver.h"
-#define INCLUDED_DAL_RASTERDRIVER
-#endif
-#ifndef INCLUDED_DAL_RASTERDAL
 #include "dal_RasterDal.h"
-#define INCLUDED_DAL_RASTERDAL
-#endif
-#ifndef INCLUDED_DAL_RASTER
 #include "dal_Raster.h"
-#define INCLUDED_DAL_RASTER
-#endif
-#ifndef INCLUDED_GEO_EXCEPTION
 #include "geo_exception.h"
-#define INCLUDED_GEO_EXCEPTION
-#endif
-#ifndef INCLUDED_DAL_EXCEPTION
 #include "dal_Exception.h"
-#define INCLUDED_DAL_EXCEPTION
-#endif
-// Module headers.
-#ifndef INCLUDED_CALC_MAP2CSF
 #include "calc_map2csf.h"
-#define INCLUDED_CALC_MAP2CSF
-#endif
 
 /*!
   \file

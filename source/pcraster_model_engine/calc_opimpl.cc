@@ -1,72 +1,24 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_OPIMPL
 #include "calc_opimpl.h"
-#define INCLUDED_CALC_OPIMPL
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SCOPED_PTR
-#include <boost/scoped_ptr.hpp>
-#define INCLUDED_BOOST_SCOPED_PTR
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_CR
 #include "calc_cr.h"
-#define INCLUDED_CALC_CR
-#endif
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
-#ifndef INCLUDED_CALC_RUNTIMEENV
 #include "calc_runtimeenv.h"
-#define INCLUDED_CALC_RUNTIMEENV
-#endif
-#ifndef INCLUDED_CALC_FINDSYMBOL
 #include "calc_findsymbol.h"
-#define INCLUDED_CALC_FINDSYMBOL
-#endif
-#ifndef INCLUDED_CALC_VSPATIAL
 #include "calc_vspatial.h"
-#define INCLUDED_CALC_VSPATIAL
-#endif
-#ifndef INCLUDED_CALC_AREAOPERATIONS
 #include "calc_areaoperations.h"
-#define INCLUDED_CALC_AREAOPERATIONS
-#endif
-#ifndef INCLUDED_CALC_ORDEROPERATIONS
 #include "calc_orderoperations.h"
-#define INCLUDED_CALC_ORDEROPERATIONS
-#endif
-#ifndef INCLUDED_CALC_ARGORDER
 #include "calc_argorder.h"
-#define INCLUDED_CALC_ARGORDER
-#endif
+#include "calc_spatial.h"
+#include "calc_operator.h"
+#include "calc_execarguments.h"
+
+#include <boost/scoped_ptr.hpp>
 
 /*!
   \file
   This file contains the implementation of the IOpImpl class.
 */
 
-#ifndef INCLUDED_CALC_SPATIAL
-#include "calc_spatial.h"
-#define INCLUDED_CALC_SPATIAL
-#endif
-#ifndef INCLUDED_CALC_OPERATOR
-#include "calc_operator.h"
-#define INCLUDED_CALC_OPERATOR
-#endif
-#ifndef INCLUDED_CALC_EXECARGUMENTS
-#include "calc_execarguments.h"
-#define INCLUDED_CALC_EXECARGUMENTS
-#endif
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
@@ -328,10 +280,8 @@ void calc::SpatialImpl::exec              (RunTimeEnv* rte,const Operator& op,si
     DiffUn::exec(rte,op,nrArgs);
 }
 
-#ifndef INCLUDED_CALC_GENERATEFIELD
 #include "calc_generatefield.h"
-#define INCLUDED_CALC_GENERATEFIELD
-#endif
+
 calc::GenNonSpatial::GenNonSpatial()
 {}
 calc::GenNonSpatial::~GenNonSpatial()
@@ -406,10 +356,8 @@ calc::Conversion::Conversion()
 calc::Conversion::~Conversion()
 {}
 
-#ifndef INCLUDED_MISC
 #include "misc.h"  // BITSET
-#define INCLUDED_MISC
-#endif
+
 void calc::Conversion::exec          (RunTimeEnv* rte,const Operator& op,size_t DEBUG_ARG(nrArgs)) const
 {
   PRECOND(nrArgs==1);

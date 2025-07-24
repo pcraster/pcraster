@@ -1,33 +1,11 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CSF
 #include "csf.h"
-#define INCLUDED_CSF
-#endif
-#ifndef INCLUDED_MATHX
 #include "mathx.h"
-#define INCLUDED_MATHX
-#endif
-#ifndef INCLUDED_MISC
 #include "misc.h"
-#define INCLUDED_MISC
-#endif
-#ifndef INCLUDED_APP
 #include "app.h"
-#define INCLUDED_APP
-#endif
-#ifndef INCLUDED_GEO_FILECREATETESTER
 #include "geo_filecreatetester.h"
-#define INCLUDED_GEO_FILECREATETESTER
-#endif
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-#ifndef INCLUDED_IOSTREAM
 #include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
 
 
 #define USAGE  \

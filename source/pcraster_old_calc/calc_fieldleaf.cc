@@ -1,49 +1,13 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_FIELDLEAF
 #include "calc_fieldleaf.h"
-#define INCLUDED_CALC_FIELDLEAF
-#endif
-
-#ifndef INCLUDED_CALC_FIELDLEFT
 #include "calc_fieldleft.h"
-#define INCLUDED_CALC_FIELDLEFT
-#endif
-
-#ifndef INCLUDED_CALC_FIELDMAPINPUTPARAMETER
 #include "calc_fieldmapinputparameter.h"
-#define INCLUDED_CALC_FIELDMAPINPUTPARAMETER
-#endif
-
-#ifndef INCLUDED_CALC_INDEXSELECTEDVECTOR
 #include "calc_indexselectedvector.h"
-#define INCLUDED_CALC_INDEXSELECTEDVECTOR
-#endif
-
-#ifndef INCLUDED_CALC_INFOSCRIPT
 #include "calc_infoscript.h"
-#define INCLUDED_CALC_INFOSCRIPT
-#endif
-
-#ifndef INCLUDED_CALC_ISCRIPT
 #include "calc_iscript.h"
-#define INCLUDED_CALC_ISCRIPT
-#endif
-
-#ifndef INCLUDED_CALC_FIELDSTACK
 #include "calc_fieldstack.h"
-#define INCLUDED_CALC_FIELDSTACK
-#endif
-
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
-
-#ifndef INCLUDED_CALC_USEPAR
 #include "calc_usepar.h"
-#define INCLUDED_CALC_USEPAR
-#endif
 
 // int  repeatCondition=0;
 

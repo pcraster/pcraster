@@ -1,26 +1,8 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_CFGVISITOR
 #include "calc_cfgvisitor.h"
-#define INCLUDED_CALC_CFGVISITOR
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_CFGNODE
 #include "calc_cfgnode.h"
-#define INCLUDED_CALC_CFGNODE
-#endif
-#ifndef INCLUDED_CALC_ASTNODE
 #include "calc_astnode.h"
-#define INCLUDED_CALC_ASTNODE
-#endif
+
 /*!
   \file
   This file contains the implementation of the CFGVisitor class.

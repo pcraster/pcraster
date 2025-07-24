@@ -1,39 +1,11 @@
 #include "stddefx.h"
-
-#ifndef  INCLUDED_CALC_DOUBLEASS
 #include "calc_doubleass.h"
-#define  INCLUDED_CALC_DOUBLEASS
-#endif
-
-#ifndef  INCLUDED_CALC_FIELDLEFT
 #include "calc_fieldleft.h"
-#define  INCLUDED_CALC_FIELDLEFT
-#endif
-
-#ifndef  INCLUDED_CALC_BRANCHEXPRIMPL
 #include "calc_branchexprimpl.h"
-#define  INCLUDED_CALC_BRANCHEXPRIMPL
-#endif
-
-#ifndef  INCLUDED_CALC_FIELDSTACK
 #include "calc_fieldstack.h"
-#define  INCLUDED_CALC_FIELDSTACK
-#endif
-
-#ifndef INCLUDED_CALC_FINDSYMBOL
 #include "calc_findsymbol.h"
-#define INCLUDED_CALC_FINDSYMBOL
-#endif
-
-#ifndef  INCLUDED_CALC_INFOSCRIPT
 #include "calc_infoscript.h"
-#define  INCLUDED_CALC_INFOSCRIPT
-#endif
-
-#ifndef INCLUDED_CALC_OPERATIONTIMER
 #include "calc_operationtimer.h"
-#define INCLUDED_CALC_OPERATIONTIMER
-#endif
 
 static const struct {
     MAJOR_CODE dassOpImplementor;

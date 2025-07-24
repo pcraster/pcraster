@@ -2,26 +2,10 @@
 \note
 Do not edit, generated from libs/pcrxml/generate.py
 */
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-#ifndef INCLUDED_PCRGENXML_INPUTPOINTS
 #include "pcrgenxml_inputpoints.h"
-#define INCLUDED_PCRGENXML_INPUTPOINTS
-#endif
-
-#ifndef INCLUDED_QDOM
-#include <qdom.h>
-#define INCLUDED_QDOM
-#endif
-
-
-
-#ifndef INCLUDED_PCRXML_CHILDELEMENTVISITOR
 #include "pcrxml_childelementvisitor.h"
-#define INCLUDED_PCRXML_CHILDELEMENTVISITOR
-#endif
+#include <qdom.h>
 
 const std::string pcrxml::InputPoints::d_elementName("InputPoints");
 //! ctor

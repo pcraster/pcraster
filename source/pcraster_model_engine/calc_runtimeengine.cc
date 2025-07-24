@@ -1,42 +1,12 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_RUNTIMEENGINE
 #include "calc_runtimeengine.h"
-#define INCLUDED_CALC_RUNTIMEENGINE
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_OPERATOR
 #include "calc_operator.h"
-#define INCLUDED_CALC_OPERATOR
-#endif
-#ifndef INCLUDED_CALC_RUNTIMEENV
 #include "calc_runtimeenv.h"
-#define INCLUDED_CALC_RUNTIMEENV
-#endif
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
-#ifndef INCLUDED_CALC_DATAVALUE
 #include "calc_datavalue.h"
-#define INCLUDED_CALC_DATAVALUE
-#endif
-#ifndef INCLUDED_CALC_DATASTORAGEID
 #include "calc_datastorageid.h"
-#define INCLUDED_CALC_DATASTORAGEID
-#endif
-#ifndef INCLUDED_CALC_OBJECTLINK
 #include "calc_objectlink.h"
-#define INCLUDED_CALC_OBJECTLINK
-#endif
+
 /*!
   \file
   This file contains the implementation of the RunTimeEngine class.

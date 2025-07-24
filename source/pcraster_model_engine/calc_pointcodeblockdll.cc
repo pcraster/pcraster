@@ -1,38 +1,11 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_POINTCODEBLOCKDLL
 #include "calc_pointcodeblockdll.h"
-#define INCLUDED_CALC_POINTCODEBLOCKDLL
-#endif
-
-// Library headers.
-#ifndef INCLUDED_FSTREAM
-#include <fstream>
-#define INCLUDED_FSTREAM
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_SPAWN
 #include "com_spawn.h"
-#define INCLUDED_COM_SPAWN
-#endif
-#ifndef INCLUDED_COM_DYNAMICLIBRARY
 #include "com_dynamiclibrary.h"
-#define INCLUDED_COM_DYNAMICLIBRARY
-#endif
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-// Module headers.
-#ifndef INCLUDED_CALC_POINTCODEBLOCK
 #include "calc_pointcodeblock.h"
-#define INCLUDED_CALC_POINTCODEBLOCK
-#endif
 
+#include <fstream>
 
 
 /*!

@@ -2,19 +2,9 @@
 \note
 Do not edit, generated from libs/pcrxml/generate.py
 */
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-#ifndef INCLUDED_PCRGENXML_DATAENVELOPENCODING
 #include "pcrgenxml_dataenvelopencoding.h"
-#define INCLUDED_PCRGENXML_DATAENVELOPENCODING
-#endif
-
-#ifndef INCLUDED_PCRXML_ENUMNMTOKEN
 #include "pcrxml_enumnmtoken.h"
-#define INCLUDED_PCRXML_ENUMNMTOKEN
-#endif
 
 
 

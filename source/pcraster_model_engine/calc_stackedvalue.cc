@@ -1,26 +1,8 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_STACKEDVALUE
 #include "calc_stackedvalue.h"
-#define INCLUDED_CALC_STACKEDVALUE
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_RUNTIMEENV
 #include "calc_runtimeenv.h"
-#define INCLUDED_CALC_RUNTIMEENV
-#endif
-#ifndef INCLUDED_CALC_ASTSYMBOLINFO
 #include "calc_astsymbolinfo.h"
-#define INCLUDED_CALC_ASTSYMBOLINFO
-#endif
+
 /*!
   \file
   This file contains the implementation of the StackedValue class.

@@ -1,72 +1,18 @@
 #include "stddefx.h"
-
-/********/
-/* USES */
-/********/
-#ifndef INCLUDED_MEMORY
-#include <memory>
-#define INCLUDED_MEMORY
-#endif
-
-#ifndef INCLUDED_COM_STRCONV
 #include "com_strconv.h"  // toString
-#define INCLUDED_COM_STRCONV
-#endif
-
-#ifndef INCLUDED_CALC_CMDLINECALC
 #include "calc_cmdlinecalc.h"
-#define INCLUDED_CALC_CMDLINECALC
-#endif
-
-#ifndef INCLUDED_IOSTREAM
-#include <iostream> // cerr
-#define INCLUDED_IOSTREAM
-#endif
-#ifndef INCLUDED_CALC_SPATIAL
 #include "calc_spatial.h"
-#define INCLUDED_CALC_SPATIAL
-#endif
-
-/* libs ext. <>, our ""  */
-#ifndef INCLUDED_APPARGS
 #include "appargs.h"
-#define INCLUDED_APPARGS
-#endif
-
-#ifndef INCLUDED_CALC_CALC
 #include "calc_calc.h"
-#define INCLUDED_CALC_CALC
-#endif
-
-
-
-/* global header (opt.) and prototypes "" */
-
-/* headers of this app. modules called */
-#ifndef INCLUDED_CALC_EXECUTOR
 #include "calc_executor.h"
-#define INCLUDED_CALC_EXECUTOR
-#endif
-#ifndef INCLUDED_CALC_ASTSCRIPT
 #include "calc_astscript.h"
-#define INCLUDED_CALC_ASTSCRIPT
-#endif
-#ifndef INCLUDED_CALC_PROGRESSCALLBACK
 #include "calc_progresscallback.h"
-#define INCLUDED_CALC_PROGRESSCALLBACK
-#endif
-#ifndef INCLUDED_CALC_LEXINPUT
 #include "calc_lexinput.h"
-#define INCLUDED_CALC_LEXINPUT
-#endif
-#ifndef INCLUDED_CALC_COMPLETEPARSER
 #include "calc_completeparser.h"
-#define INCLUDED_CALC_COMPLETEPARSER
-#endif
-#ifndef INCLUDED_CALC_OPTIONS
 #include "calc_options.h"
-#define INCLUDED_CALC_OPTIONS
-#endif
+
+#include <iostream> // cerr
+#include <memory>
 
 /***************/
 /* EXTERNALS   */

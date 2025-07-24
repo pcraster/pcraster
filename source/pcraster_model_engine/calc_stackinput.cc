@@ -1,62 +1,17 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_STACKINPUT
 #include "calc_stackinput.h"
-#define INCLUDED_CALC_STACKINPUT
-#endif
-
-// Library headers.
-#ifndef INCLUDED_SSTREAM
-#include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-
-// PCRaster library headers.
-
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-#ifndef INCLUDED_COM_PATHINFO
 #include "com_pathinfo.h"
-#define INCLUDED_COM_PATHINFO
-#endif
-#ifndef INCLUDED_COM_CLONE
 #include "com_clone.h"
-#define INCLUDED_COM_CLONE
-#endif
-// Module headers.
-#ifndef INCLUDED_CALC_IOSTRATEGY
 #include "calc_iostrategy.h"
-#define INCLUDED_CALC_IOSTRATEGY
-#endif
-#ifndef INCLUDED_CALC_IOFIELDSTRATEGY
 #include "calc_iofieldstrategy.h"
-#define INCLUDED_CALC_IOFIELDSTRATEGY
-#endif
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
-#ifndef INCLUDED_CALC_DATATYPECLASH
 #include "calc_datatypeclash.h"
-#define INCLUDED_CALC_DATATYPECLASH
-#endif
-#ifndef INCLUDED_CALC_TIMER
 #include "calc_timer.h"
-#define INCLUDED_CALC_TIMER
-#endif
-#ifndef INCLUDED_CALC_MAPSTACKTYPE
 #include "calc_mapstacktype.h"
-#define INCLUDED_CALC_MAPSTACKTYPE
-#endif
-#ifndef INCLUDED_CALC_DOMAINERROR
 #include "calc_domainerror.h"
-#define INCLUDED_CALC_DOMAINERROR
-#endif
+
+#include <sstream>
 
 
 

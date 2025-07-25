@@ -737,6 +737,3 @@ windowaverage.__doc__ = _pmc.windowaverage.__doc__
 #  Operations on full map extent
 mapmaximum.__doc__ = _pmc.mapmaximum.__doc__
 mapminimum.__doc__ = _pmc.mapminimum.__doc__
-
-# Remove symbols imported for internal use
-del numbers, math, builtins

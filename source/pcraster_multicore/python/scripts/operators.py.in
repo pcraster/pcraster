@@ -170,7 +170,3 @@ _pcraster.Field.__rpow__ = pcrmcRPow
 
 _pcraster.Field.__truediv__ = pcrmcDiv
 _pcraster.Field.__rtruediv__ = pcrmcRDiv
-
-
-# Remove symbols imported for internal use
-del numbers

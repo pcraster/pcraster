@@ -1,52 +1,14 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_PCRCALC
 #include "pcrcalc.h"
-#define INCLUDED_PCRCALC
-#endif
-
-
-// Library headers.
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-#ifndef INCLUDED_SSTREAM
-#include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_PCRXSD_UTILS
 #include "pcrxsd_utils.h"
-#define INCLUDED_PCRXSD_UTILS
-#endif
-#ifndef INCLUDED_COM_FILE
 #include "com_file.h"
-#define INCLUDED_COM_FILE
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_GLOBALLIBDEFS
 #include "calc_globallibdefs.h"  // globalLibDefs
-#define INCLUDED_CALC_GLOBALLIBDEFS
-#endif
-
-#ifndef INCLUDED_CALC_CATCHALLEXCEPTIONS
 #include "calc_catchallexceptions.h"
-#define INCLUDED_CALC_CATCHALLEXCEPTIONS
-#endif
-#ifndef INCLUDED_CALC_TEXTSCRIPTCLIENTINTERFACE
 #include "calc_textscriptclientinterface.h"
-#define INCLUDED_CALC_TEXTSCRIPTCLIENTINTERFACE
-#endif
-#ifndef INCLUDED_CALC_XMLSCRIPTCLIENTINTERFACE
 #include "calc_xmlscriptclientinterface.h"
-#define INCLUDED_CALC_XMLSCRIPTCLIENTINTERFACE
-#endif
+
+#include <iostream>
+#include <sstream>
 
 /*!
   \file

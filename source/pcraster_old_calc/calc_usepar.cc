@@ -1,34 +1,10 @@
 #include "stddefx.h"
-
-#ifndef  INCLUDED_CALC_USEPAR
 #include "calc_usepar.h"
-#define  INCLUDED_CALC_USEPAR
-#endif
-
-#ifndef  INCLUDED_CALC_STATEMENTBLOCK
 #include "calc_statementblock.h" // findSymbol only
-#define  INCLUDED_CALC_STATEMENTBLOCK
-#endif
-
-#ifndef  INCLUDED_CALC_INDEXSELECTEDVECTOR
 #include "calc_indexselectedvector.h"
-#define  INCLUDED_CALC_INDEXSELECTEDVECTOR
-#endif
-
-#ifndef  INCLUDED_CALC_INDEXSELECTEDSINGLE
 #include "calc_indexselectedsingle.h"
-#define  INCLUDED_CALC_INDEXSELECTEDSINGLE
-#endif
-
-#ifndef  INCLUDED_CALC_ARRAYDEFVECTOR
 #include "calc_arraydefvector.h"
-#define  INCLUDED_CALC_ARRAYDEFVECTOR
-#endif
-
-#ifndef  INCLUDED_CALC_INDEXPARAMETER
 #include "calc_indexparameter.h"
-#define  INCLUDED_CALC_INDEXPARAMETER
-#endif
 
 void calc::UsePar::init()
 {

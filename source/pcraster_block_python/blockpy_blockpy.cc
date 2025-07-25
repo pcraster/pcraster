@@ -1,91 +1,20 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_BLOCK_CLAYCOMPACTOR
 #include "block_claycompactor.h"
-#define INCLUDED_BLOCK_CLAYCOMPACTOR
-#endif
-
-#ifndef INCLUDED_BLOCK_COMPACTORS
 #include "block_compactors.h"
-#define INCLUDED_BLOCK_COMPACTORS
-#endif
-
-#ifndef INCLUDED_BLOCK_DUMMYCOMPACTOR
 #include "block_dummycompactor.h"
-#define INCLUDED_BLOCK_DUMMYCOMPACTOR
-#endif
-
-#ifndef INCLUDED_BLOCK_FUNCTIONS
 #include "block_functions.h"
-#define INCLUDED_BLOCK_FUNCTIONS
-#endif
-
-#ifndef INCLUDED_BLOCK_SANDCOMPACTOR
 #include "block_sandcompactor.h"
-#define INCLUDED_BLOCK_SANDCOMPACTOR
-#endif
-
-#ifndef INCLUDED_CALC_SPATIAL
 #include "calc_spatial.h"
-#define INCLUDED_CALC_SPATIAL
-#endif
-
-#ifndef INCLUDED_DAL_EXCEPTION
 #include "dal_Exception.h"
-#define INCLUDED_DAL_EXCEPTION
-#endif
-
-#ifndef INCLUDED_DISCR_BLOCK
 #include "discr_block.h"
-#define INCLUDED_DISCR_BLOCK
-#endif
-
-#ifndef INCLUDED_DISCR_BLOCKDATA
 #include "discr_blockdata.h"
-#define INCLUDED_DISCR_BLOCKDATA
-#endif
-
-#ifndef INCLUDED_DISCR_RASTER
 #include "discr_raster.h"
-#define INCLUDED_DISCR_RASTER
-#endif
-
-#ifndef INCLUDED_DISCR_RASTERDATA
 #include "discr_rasterdata.h"
-#define INCLUDED_DISCR_RASTERDATA
-#endif
-
-#ifndef INCLUDED_DISCR_VOXELSTACK
 #include "discr_voxelstack.h"
-#define INCLUDED_DISCR_VOXELSTACK
-#endif
-
-#ifndef INCLUDED_GEO_RASTERSPACE
 #include "geo_rasterspace.h"
-#define INCLUDED_GEO_RASTERSPACE
-#endif
-
-#ifndef INCLUDED_RASTER_FUNCTIONS
 #include "raster_functions.h"
-#define INCLUDED_RASTER_FUNCTIONS
-#endif
-
-#ifndef INCLUDED_VOXELSTACK_FUNCTIONS
 #include "voxelstack_functions.h"
-#define INCLUDED_VOXELSTACK_FUNCTIONS
-#endif
-
-// Module headers.
-#ifndef INCLUDED_BLOCKPY_FUNCTIONS
 #include "blockpy_functions.h"
-#define INCLUDED_BLOCKPY_FUNCTIONS
-#endif
 
 #include <pybind11/pybind11.h>
 

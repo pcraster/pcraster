@@ -1,16 +1,5 @@
-// External headers.
-
-// Project headers.
-#ifndef INCLUDED_CALC_SPATIAL
 #include "calc_spatial.h"
-#define INCLUDED_CALC_SPATIAL
-#endif
-
-// Module headers.
-#ifndef INCLUDED_MOC
 #include "Moc.h"
-#define INCLUDED_MOC
-#endif
 
 
 

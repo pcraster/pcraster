@@ -1,14 +1,6 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_NONSPATIALIMPL
 #include "calc_nonspatialimpl.h"
-#define INCLUDED_CALC_NONSPATIALIMPL
-#endif
-
-#ifndef INCLUDED_CALC_NONSPATIAL
 #include "calc_nonspatial.h"
-#define INCLUDED_CALC_NONSPATIAL
-#endif
 
 //! used for initialization of computed parameter
 /*! will recieve value on assignment

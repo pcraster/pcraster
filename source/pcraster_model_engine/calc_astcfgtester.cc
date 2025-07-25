@@ -1,22 +1,6 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_ASTCFGTESTER
 #include "calc_astcfgtester.h"
-#define INCLUDED_CALC_ASTCFGTESTER
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_CFGCREATOR
 #include "calc_cfgcreator.h"
-#define INCLUDED_CALC_CFGCREATOR
-#endif
 
 /*!
   \file

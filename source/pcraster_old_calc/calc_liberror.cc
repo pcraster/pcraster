@@ -1,19 +1,7 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_LIBERROR
 #include "calc_liberror.h"
-#define INCLUDED_CALC_LIBERROR
-#endif
-
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-
-#ifndef INCLUDED_MISC
 #include "misc.h"   // Error
-#define INCLUDED_MISC
-#endif
 
 static std::string libErrorStr;
 static bool errorHandlerCalled=false;

@@ -31,7 +31,7 @@ typedef int ANTLRTokenType;	// fool AToken.h into compiling
 
 class ANTLRParser;					/* MR1 */
 
-#define ANTLR_SUPPORT_CODE
+//#define ANTLR_SUPPORT_CODE
 
 #include "pcctscfg.h"
 

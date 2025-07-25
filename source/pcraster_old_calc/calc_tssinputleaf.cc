@@ -1,44 +1,12 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_TSSINPUTLEAF
 #include "calc_tssinputleaf.h"
-#define INCLUDED_CALC_TSSINPUTLEAF
-#endif
-
-#ifndef INCLUDED_CALC_TSSINPUTPARAMETER
 #include "calc_tssinputparameter.h"
-#define INCLUDED_CALC_TSSINPUTPARAMETER
-#endif
-
-#ifndef INCLUDED_CALC_INDEXSELECTED
 #include "calc_indexselected.h"
-#define INCLUDED_CALC_INDEXSELECTED
-#endif
-
-#ifndef INCLUDED_CALC_TIMETABLE
 #include "calc_timetable.h"
-#define INCLUDED_CALC_TIMETABLE
-#endif
-
-#ifndef INCLUDED_CALC_USEPAR
-# include "calc_usepar.h"
-#define INCLUDED_CALC_USEPAR
-#endif
-
-#ifndef INCLUDED_CALC_INFOSCRIPT
+#include "calc_usepar.h"
 #include "calc_infoscript.h"
-#define INCLUDED_CALC_INFOSCRIPT
-#endif
-
-#ifndef INCLUDED_CALC_ISCRIPT
 #include "calc_iscript.h"
-#define INCLUDED_CALC_ISCRIPT
-#endif
-
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
 
 const calc::TimeTable *calc::TssInputLeaf::execute()
 {

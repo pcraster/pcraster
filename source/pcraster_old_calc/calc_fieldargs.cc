@@ -1,34 +1,10 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_FIELDARGS
 # include "calc_fieldargs.h"
-#define INCLUDED_CALC_FIELDARGS
-#endif
-
-#ifndef INCLUDED_CALC_OPERATOR
 #include "calc_operator.h"
-#define INCLUDED_CALC_OPERATOR
-#endif
-
-#ifndef INCLUDED_CALC_FIELDEXPRARGS
 # include "calc_fieldexprargs.h"
-#define INCLUDED_CALC_FIELDEXPRARGS
-#endif
-
-#ifndef INCLUDED_CALC_FIELDEXPR
 # include "calc_fieldexpr.h"
-#define INCLUDED_CALC_FIELDEXPR
-#endif
-
-#ifndef INCLUDED_CALC_FIELDTYPE
 # include "calc_fieldtype.h"
-#define INCLUDED_CALC_FIELDTYPE
-#endif
-
-#ifndef INCLUDED_CALC_INFOSCRIPT
 # include "calc_infoscript.h"
-#define INCLUDED_CALC_INFOSCRIPT
-#endif
 
 
 /*!

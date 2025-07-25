@@ -1,68 +1,18 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_EXECUTOR
 #include "calc_executor.h"
-#define INCLUDED_CALC_EXECUTOR
-#endif
-
-// Library headers.
-#ifndef INCLUDED_STDEXCEPT
-#include <stdexcept>
-#define INCLUDED_STDEXCEPT
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_PROGRESSCALLBACK
 #include "calc_progresscallback.h"
-#define INCLUDED_CALC_PROGRESSCALLBACK
-#endif
-#ifndef INCLUDED_CALC_ASTSYMBOLTABLE
 #include "calc_astsymboltable.h"
-#define INCLUDED_CALC_ASTSYMBOLTABLE
-#endif
-#ifndef INCLUDED_CALC_ASTPAR
 #include "calc_astpar.h"
-#define INCLUDED_CALC_ASTPAR
-#endif
-#ifndef INCLUDED_CALC_ASTNUMBER
 #include "calc_astnumber.h"
-#define INCLUDED_CALC_ASTNUMBER
-#endif
-#ifndef INCLUDED_CALC_BASEEXPR
 #include "calc_baseexpr.h"
-#define INCLUDED_CALC_BASEEXPR
-#endif
-#ifndef INCLUDED_CALC_ASTASS
 #include "calc_astass.h"
-#define INCLUDED_CALC_ASTASS
-#endif
-#ifndef INCLUDED_CALC_POINTCODEBLOCK
 #include "calc_pointcodeblock.h"
-#define INCLUDED_CALC_POINTCODEBLOCK
-#endif
-#ifndef INCLUDED_CALC_JUMPNODE
 #include "calc_jumpnode.h"
-#define INCLUDED_CALC_JUMPNODE
-#endif
-#ifndef INCLUDED_CALC_OPERATOR
 #include "calc_operator.h"
-#define INCLUDED_CALC_OPERATOR
-#endif
-
-#ifndef INCLUDED_CALC_POSEXCEPTION
 #include "calc_posexception.h"
-#define INCLUDED_CALC_POSEXCEPTION
-#endif
 
+#include <stdexcept>
 #include <utility>
 
 /*!

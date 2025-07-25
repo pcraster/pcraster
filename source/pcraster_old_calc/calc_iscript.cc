@@ -1,9 +1,5 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_ISCRIPT
 #include "calc_iscript.h"
-#define INCLUDED_CALC_ISCRIPT
-#endif
 
 //! dtor
 calc::IScript::~IScript()

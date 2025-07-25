@@ -1,64 +1,16 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_TIMEOUTPUT
-# include "calc_timeoutput.h"
-#define INCLUDED_CALC_TIMEOUTPUT
-#endif
-
-#ifndef INCLUDED_CALC_FIELDEXPR
-# include "calc_fieldexpr.h"
-#define INCLUDED_CALC_FIELDEXPR
-#endif
-
-#ifndef INCLUDED_CALC_INFOSCRIPT
-# include "calc_infoscript.h"
-#define INCLUDED_CALC_INFOSCRIPT
-#endif
-
-#ifndef INCLUDED_CALC_ISCRIPT
-# include "calc_iscript.h"
-#define INCLUDED_CALC_ISCRIPT
-#endif
-
-#ifndef INCLUDED_CALC_FIELDEXPRARGS
-# include "calc_fieldexprargs.h"
-#define INCLUDED_CALC_FIELDEXPRARGS
-#endif
-
-#ifndef INCLUDED_CALC_FINDSYMBOL
+#include "calc_timeoutput.h"
+#include "calc_fieldexpr.h"
+#include "calc_infoscript.h"
+#include "calc_iscript.h"
+#include "calc_fieldexprargs.h"
 #include "calc_findsymbol.h"
-#define INCLUDED_CALC_FINDSYMBOL
-#endif
-
-#ifndef INCLUDED_CALC_OPERATIONTIMER
 #include "calc_operationtimer.h"
-#define INCLUDED_CALC_OPERATIONTIMER
-#endif
-
-#ifndef INCLUDED_CALC_USEPAR
-# include "calc_usepar.h"
-#define INCLUDED_CALC_USEPAR
-#endif
-
-#ifndef INCLUDED_CALC_TSSOUTPUTPARAMETER
-# include "calc_tssoutputparameter.h"
-#define INCLUDED_CALC_TSSOUTPUTPARAMETER
-#endif
-
-#ifndef INCLUDED_CALC_INDEXSELECTED
+#include "calc_usepar.h"
+#include "calc_tssoutputparameter.h"
 #include "calc_indexselected.h"
-#define INCLUDED_CALC_INDEXSELECTED
-#endif
-
-#ifndef INCLUDED_CALC_FIELDSTACK
 #include "calc_fieldstack.h"
-#define INCLUDED_CALC_FIELDSTACK
-#endif
-
-#ifndef INCLUDED_CALC_GLOBARGS
 #include "calc_globargs.h"
-#define INCLUDED_CALC_GLOBARGS
-#endif
 
 calc::Timeoutput::Timeoutput(
   const calc::WriteInfo& w,

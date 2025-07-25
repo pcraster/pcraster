@@ -1,21 +1,6 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_COMPAREFILEWITHVALIDATED
 #include "calc_comparefilewithvalidated.h"
-#define INCLUDED_CALC_COMPAREFILEWITHVALIDATED
-#endif
-
-// Library headers.
-#ifndef INCLUDED_COM_FILE
 #include "com_file.h"
-#define INCLUDED_COM_FILE
-#endif
-// PCRaster library headers.
-
-// Module headers.
 
 #include <filesystem>
 

@@ -1,54 +1,14 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_LOOKUPTABLELEAF
 #include "calc_lookuptableleaf.h"
-#define INCLUDED_CALC_LOOKUPTABLELEAF
-#endif
-
-#ifndef INCLUDED_CALC_LOOKUPTABLEPARAMETER
 #include "calc_lookuptableparameter.h"
-#define INCLUDED_CALC_LOOKUPTABLEPARAMETER
-#endif
-
-#ifndef INCLUDED_CALC_INDEXSELECTED
 #include "calc_indexselected.h"
-#define INCLUDED_CALC_INDEXSELECTED
-#endif
-
-#ifndef INCLUDED_CALC_LOOKUPLINEAR
 #include "calc_lookuplinear.h"
-#define INCLUDED_CALC_LOOKUPLINEAR
-#endif
-
-#ifndef INCLUDED_CALC_LOOKUPTABLE
 #include "calc_lookuptable.h"
-#define INCLUDED_CALC_LOOKUPTABLE
-#endif
-
-#ifndef INCLUDED_CALC_INFOSCRIPT
 #include "calc_infoscript.h"
-#define INCLUDED_CALC_INFOSCRIPT
-#endif
-
-#ifndef INCLUDED_CALC_USEPAR
 # include "calc_usepar.h"
-#define INCLUDED_CALC_USEPAR
-#endif
-
-#ifndef INCLUDED_CALC_ISCRIPT
 #include "calc_iscript.h"
-#define INCLUDED_CALC_ISCRIPT
-#endif
-
-#ifndef INCLUDED_CALC_INDEXSELECTED
 # include "calc_indexselected.h"
-#define INCLUDED_CALC_INDEXSELECTED
-#endif
-
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
 
 /*!
   \file

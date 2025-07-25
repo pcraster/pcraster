@@ -1,40 +1,11 @@
 #include "stddefx.h"
-
-
-#ifndef INCLUDED_CALC_CONSTANT
 #include "calc_constant.h"
-#define INCLUDED_CALC_CONSTANT
-#endif
-
-#ifndef INCLUDED_CALC_SYMBOL
 #include "calc_symbol.h"
-#define INCLUDED_CALC_SYMBOL
-#endif
-
-#ifndef INCLUDED_CALC_NONSPATIAL
 #include "calc_nonspatial.h"
-#define INCLUDED_CALC_NONSPATIAL
-#endif
-
-#ifndef INCLUDED_CALC_FIELDSTACK
 #include "calc_fieldstack.h"
-#define INCLUDED_CALC_FIELDSTACK
-#endif
-
-#ifndef INCLUDED_CALC_INFOSCRIPT
 # include "calc_infoscript.h"
-#define INCLUDED_CALC_INFOSCRIPT
-#endif
-
-#ifndef INCLUDED_COM_STRCONV
 #include "com_strconv.h"
-#define INCLUDED_COM_STRCONV
-#endif
-
-#ifndef INCLUDED_APPARGS
 # include "appargs.h"    // AppInputDirection
-#define INCLUDED_APPARGS
-#endif
 
 calc::Constant::Constant(
   const Symbol& name)

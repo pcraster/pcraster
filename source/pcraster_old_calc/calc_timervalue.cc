@@ -1,27 +1,7 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_TIMERVALUE
 #include "calc_timervalue.h"
-#define INCLUDED_CALC_TIMERVALUE
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_FIELDNRPARAMETER
 #include "calc_fieldnrparameter.h"
-#define INCLUDED_CALC_FIELDNRPARAMETER
-#endif
-
-#ifndef INCLUDED_CALC_ISCRIPT
 #include "calc_iscript.h"
-#define INCLUDED_CALC_ISCRIPT
-#endif
 
 
 

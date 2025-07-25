@@ -1,26 +1,10 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_SPATIALIMPL
 #include "calc_spatialimpl.h"
-#define INCLUDED_CALC_SPATIALIMPL
-#endif
-
-#ifndef INCLUDED_STDEXCEPT
-#include <stdexcept>
-#define INCLUDED_STDEXCEPT
-#endif
-
-#ifndef INCLUDED_COM_CSFCELL
 #include "com_csfcell.h"
-#define INCLUDED_COM_CSFCELL
-#endif
-
-#ifndef INCLUDED_CALC_SPATIAL
 #include "calc_spatial.h"     // for cast spatial->field
-#define INCLUDED_CALC_SPATIAL
-#endif
 
 #include <exception>
+#include <stdexcept>
 
 //! used for initialization of computed (new) parameter
 /*! will recieve value on assignment

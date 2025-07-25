@@ -1,49 +1,13 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_OPERATIONTIMER
 #include "calc_operationtimer.h"
-#define INCLUDED_CALC_OPERATIONTIMER
-#endif
-
-#ifndef INCLUDED_CALC_LOOKUPEXPR
 # include "calc_lookupexpr.h"
-#define INCLUDED_CALC_LOOKUPEXPR
-#endif
-
-#ifndef INCLUDED_CALC_LOOKUPTABLELEAF
 # include "calc_lookuptableleaf.h"
-#define INCLUDED_CALC_LOOKUPTABLELEAF
-#endif
-
-#ifndef INCLUDED_CALC_LOOKUPTABLE
 # include "calc_lookuptable.h"
-#define INCLUDED_CALC_LOOKUPTABLE
-#endif
-
-#ifndef INCLUDED_CALC_FIELDSTACK
 # include "calc_fieldstack.h"
-#define INCLUDED_CALC_FIELDSTACK
-#endif
-
-#ifndef INCLUDED_CALC_INFOSCRIPT
 #include "calc_infoscript.h"
-#define INCLUDED_CALC_INFOSCRIPT
-#endif
-
-#ifndef INCLUDED_COM_CSFCELL
 #include "com_csfcell.h"
-#define INCLUDED_COM_CSFCELL
-#endif
-
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
-
-#ifndef INCLUDED_CALC_OPERATOR
 #include "calc_operator.h"  // check on OP_LINEARLOOKUP
-#define INCLUDED_CALC_OPERATOR
-#endif
 
 #include <cmath>
 
@@ -114,10 +78,7 @@ void calc::LookupExpr::print(InfoScript& si)const
     with no lookup.
     make test where filter removes everything!
  */
-#ifndef INCLUDED_CALC_LOOKUPLINEAR
 #include "calc_lookuplinear.h" // HACK HACK
-#define INCLUDED_CALC_LOOKUPLINEAR
-#endif
 void calc::LookupExpr::execute(FieldStack& resStack)
 {
   OPERATION_TIMER("lookup....",spatial());

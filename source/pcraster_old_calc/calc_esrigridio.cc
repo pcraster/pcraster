@@ -1,47 +1,16 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_ESRIGRIDIO
 #include "calc_esrigridio.h"
-#define INCLUDED_CALC_ESRIGRIDIO
-#endif
-
-#ifndef INCLUDED_COM_DYNAMICLIBRARY
 #include "com_dynamiclibrary.h"
-#define INCLUDED_COM_DYNAMICLIBRARY
-#endif
-
 #ifdef WIN32
-#ifndef INCLUDED_COM_WIN32REGISTRYKEY
-#include "com_win32registrykey.h"
-#define INCLUDED_COM_WIN32REGISTRYKEY
+  #include "com_win32registrykey.h"
+  #include "com_win32.h"
 #endif
-#ifndef INCLUDED_COM_WIN32
-#include "com_win32.h"
-#define INCLUDED_COM_WIN32
-#endif
-#endif
-#ifndef INCLUDED_COM_FILE
 #include "com_file.h"
-#define INCLUDED_COM_FILE
-#endif
-#ifndef INCLUDED_COM_PATHINFO
 #include "com_pathinfo.h"
-#define INCLUDED_COM_PATHINFO
-#endif
-
-#ifndef INCLUDED_GIOAPI
 #include "gioapi.h"
-#define INCLUDED_GIOAPI
-#endif
 
-#ifndef INCLUDED_STDEXCEPT
 #include <stdexcept>
-#define INCLUDED_STDEXCEPT
-#endif
-#ifndef INCLUDED_SSTREAM
 #include <sstream>
-#define INCLUDED_SSTREAM
-#endif
 
 com::DynamicLibrary *calc::EsriGridIO::d_dll(nullptr);
 std::string calc::EsriGridIO::d_dllName;

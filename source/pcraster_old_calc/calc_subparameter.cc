@@ -1,60 +1,15 @@
 #include "stddefx.h"
-
-
-#ifndef INCLUDED_CALC_SUBPARAMETER
 #include "calc_subparameter.h"
-#define INCLUDED_CALC_SUBPARAMETER
-#endif
-
-#ifndef INCLUDED_CALC_ARRAYDEFVECTOR
 #include "calc_arraydefvector.h"
-#define INCLUDED_CALC_ARRAYDEFVECTOR
-#endif
-
-#ifndef INCLUDED_CALC_FILE
 #include "calc_file.h"   // Validation
-#define INCLUDED_CALC_FILE
-#endif
-
-#ifndef INCLUDED_CALC_WRITEINFO
 #include "calc_writeinfo.h"
-#define INCLUDED_CALC_WRITEINFO
-#endif
-
-#ifndef INCLUDED_CALC_INFOSCRIPT
 #include "calc_infoscript.h"
-#define INCLUDED_CALC_INFOSCRIPT
-#endif
-
-#ifndef INCLUDED_CALC_FILEWRITER
 #include "calc_filewriter.h"
-#define INCLUDED_CALC_FILEWRITER
-#endif
-
-#ifndef INCLUDED_CALC_PARSPAR
 #include "calc_parspar.h"
-#define INCLUDED_CALC_PARSPAR
-#endif
-
-#ifndef INCLUDED_CALC_ISCRIPT
 #include "calc_iscript.h"
-#define INCLUDED_CALC_ISCRIPT
-#endif
-
-#ifndef INCLUDED_PCRGENXML_DATA
 #include "pcrgenxml_data.h"
-#define INCLUDED_PCRGENXML_DATA
-#endif
-
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-
-#ifndef INCLUDED_CALC_POSITION
 #include "calc_position.h"
-#define INCLUDED_CALC_POSITION
-#endif
 
 calc::SubParameter::SubParameter(const calc::ParsPar& par, bool constant, bool input):
   calc::Parameter(par,constant),

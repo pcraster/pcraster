@@ -1,14 +1,6 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_RUNTIMESTACK
 #include "calc_runtimestack.h"
-#define INCLUDED_CALC_RUNTIMESTACK
-#endif
-
-#ifndef INCLUDED_CALC_DATAVALUE
 #include "calc_datavalue.h"
-#define INCLUDED_CALC_DATAVALUE
-#endif
 
 calc::RunTimeStack::RunTimeStack()
 {

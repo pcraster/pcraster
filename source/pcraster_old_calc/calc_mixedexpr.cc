@@ -1,14 +1,6 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_MIXEDEXPR
 # include "calc_mixedexpr.h"
-#define INCLUDED_CALC_MIXEDEXPR
-#endif
-
-#ifndef INCLUDED_CALC_INFOSCRIPT
 #include "calc_infoscript.h"
-#define INCLUDED_CALC_INFOSCRIPT
-#endif
 
 calc::MixedExpr::MixedExpr(
   const calc::Element&     pos,

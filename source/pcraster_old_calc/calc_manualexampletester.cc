@@ -1,38 +1,10 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_MANUALEXAMPLETESTER
 #include "calc_manualexampletester.h"
-#define INCLUDED_CALC_MANUALEXAMPLETESTER
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_STRLIB
 #include "com_strlib.h"
-#define INCLUDED_COM_STRLIB
-#endif
-#ifndef INCLUDED_GEO_FILECREATETESTER
 #include "geo_filecreatetester.h"
-#define INCLUDED_GEO_FILECREATETESTER
-#endif
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-#ifndef INCLUDED_MATHX
 #include "mathx.h"
-#define INCLUDED_MATHX
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_MODELBUILDER
 #include "calc_modelbuilder.h"
-#define INCLUDED_CALC_MODELBUILDER
-#endif
 
 
 /*!

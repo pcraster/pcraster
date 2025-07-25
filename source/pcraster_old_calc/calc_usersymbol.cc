@@ -1,23 +1,8 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_USERSYMBOL
 #include "calc_usersymbol.h"
-#define INCLUDED_CALC_USERSYMBOL
-#endif
-
-#ifndef INCLUDED_CALC_ISCRIPT
 #include "calc_iscript.h"
-#define INCLUDED_CALC_ISCRIPT
-#endif
-
-#ifndef INCLUDED_CALC_INFOSCRIPT
 #include "calc_infoscript.h"
-#define INCLUDED_CALC_INFOSCRIPT
-#endif
-#ifndef INCLUDED_CALC_VS
 #include "calc_vs.h" // toString()
-#define INCLUDED_CALC_VS
-#endif
 
 //! ctor
 calc::UserSymbol::UserSymbol(

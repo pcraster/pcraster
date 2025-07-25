@@ -1,35 +1,10 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_FIELDTYPE
 #include "calc_fieldtype.h"
-#define INCLUDED_CALC_FIELDTYPE
-#endif
-
-#ifndef INCLUDED_CALC_SYMBOL
 #include "calc_symbol.h"
-#define INCLUDED_CALC_SYMBOL
-#endif
-
-
-#ifndef INCLUDED_SSTREAM
-#include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-
-#ifndef INCLUDED_CALC_INFOSCRIPT
 #include "calc_infoscript.h"
-#define INCLUDED_CALC_INFOSCRIPT
-#endif
-
-#ifndef INCLUDED_CALC_OPERATOR
 #include "calc_operator.h"
-#define INCLUDED_CALC_OPERATOR
-#endif
-
-#ifndef INCLUDED_CALC_VS
 #include "calc_vs.h"
-#define INCLUDED_CALC_VS
-#endif
+#include <sstream>
 
 calc::SyntaxArgumentError::SyntaxArgumentError(
   const std::string& s): d_s(s)

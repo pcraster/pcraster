@@ -1,95 +1,24 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_IOESRIFIELDSTRATEGY
 #include "calc_ioesrifieldstrategy.h"
-#define INCLUDED_CALC_IOESRIFIELDSTRATEGY
-#endif
-
-// Library headers.
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-#ifndef INCLUDED_STDEXCEPT
-#include <stdexcept>
-#define INCLUDED_STDEXCEPT
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_PATHINFO
 #include "com_pathinfo.h"
-#define INCLUDED_COM_PATHINFO
-#endif
-
-#ifndef INCLUDED_COM_PATHNAME
 #include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
-
-#ifndef INCLUDED_COM_FILE
 #include "com_file.h"        // remove
-#define INCLUDED_COM_FILE
-#endif
-
-#ifndef INCLUDED_COM_DIRECTORY
 #include "com_directory.h"  // createDirectory
-#define INCLUDED_COM_DIRECTORY
-#endif
-
-#ifndef INCLUDED_COM_STRLIB
 #include "com_strlib.h"
-#define INCLUDED_COM_STRLIB
-#endif
-
-#ifndef INCLUDED_PCRGENXML_DIRECTORYSTACKINFO
 #include "pcrgenxml_directorystackinfo.h"
-#define INCLUDED_PCRGENXML_DIRECTORYSTACKINFO
-#endif
-#ifndef INCLUDED_PCRXML_CSFVS2DATATYPE
 #include "pcrxml_csfvs2datatype.h"
-#define INCLUDED_PCRXML_CSFVS2DATATYPE
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_MAP2CSF
 #include "calc_map2csf.h"  // only for vs -> xml DataType
-#define INCLUDED_CALC_MAP2CSF
-#endif
-
-#ifndef INCLUDED_CALC_ESRIMAP
 #include "calc_esrimap.h"
-#define INCLUDED_CALC_ESRIMAP
-#endif
-#ifndef INCLUDED_CALC_INPUTSPATIAL
 #include "calc_inputspatial.h"
-#define INCLUDED_CALC_INPUTSPATIAL
-#endif
-
-#ifndef INCLUDED_CALC_ESRIGRIDIO
 #include "calc_esrigridio.h"
-#define INCLUDED_CALC_ESRIGRIDIO
-#endif
-#ifndef INCLUDED_CALC_STACKREADER
 #include "calc_stackreader.h"
-#define INCLUDED_CALC_STACKREADER
-#endif
-
-#ifndef INCLUDED_CALC_IOCSFFIELDSTRATEGY
 #include "calc_iocsffieldstrategy.h"
-#define INCLUDED_CALC_IOCSFFIELDSTRATEGY
-#endif
-
-#ifndef INCLUDED_CALC_STACKINFO
 #include "calc_stackinfo.h"
-#define INCLUDED_CALC_STACKINFO
-#endif
 
 #include <cstdio>
 #include <filesystem>
+#include <vector>
+#include <stdexcept>
 
 /*!
   \file
@@ -424,20 +353,11 @@ calc::Spatial *calc::IoEsriFieldStrategy::newInputMap(
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
-#ifndef  INCLUDED_PCRDLL
 #include "pcrdll.h"
-#define  INCLUDED_PCRDLL
-#endif
 
-#ifndef INCLUDED_PCRXML_DOCUMENT
 #include "pcrxml_document.h"
-#define INCLUDED_PCRXML_DOCUMENT
-#endif
 
-#ifndef INCLUDED_CSTRING
 #include <cstring> // strcpy
-#define INCLUDED_CSTRING
-#endif
 
 //! read contents of an pcr_esri file
 /*!

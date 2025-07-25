@@ -1,90 +1,23 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_MISC
 #include "misc.h" // bitset macro's
-#define INCLUDED_MISC
-#endif
-
-#ifndef INCLUDED_CALC_BRANCHEXPRIMPL
 #include "calc_branchexprimpl.h"
-#define INCLUDED_CALC_BRANCHEXPRIMPL
-#endif
-
-#ifndef INCLUDED_CALC_FINDSYMBOL
 #include "calc_findsymbol.h"
-#define INCLUDED_CALC_FINDSYMBOL
-#endif
-
-#ifndef INCLUDED_CALC_FIELDSTACK
 #include "calc_fieldstack.h"
-#define INCLUDED_CALC_FIELDSTACK
-#endif
-
-#ifndef INCLUDED_CALC_SPATIAL
 #include "calc_spatial.h"
-#define INCLUDED_CALC_SPATIAL
-#endif
-
-#ifndef INCLUDED_CALC_NONSPATIAL
 #include "calc_nonspatial.h"
-#define INCLUDED_CALC_NONSPATIAL
-#endif
-
-#ifndef INCLUDED_CALC_STACKCR
 #include "calc_stackcr.h"
-#define INCLUDED_CALC_STACKCR
-#endif
-
-#ifndef INCLUDED_CALC_GLOBARGS
 #include "calc_globargs.h"
-#define INCLUDED_CALC_GLOBARGS
-#endif
-#ifndef INCLUDED_CALC_GLOBRESULT
 #include "calc_globresult.h"
-#define INCLUDED_CALC_GLOBRESULT
-#endif
-#ifndef INCLUDED_STDEXCEPT
-#include <stdexcept>
-#define INCLUDED_STDEXCEPT
-#endif
-
-#ifndef INCLUDED_MEMORY
-#include <memory>
-#define INCLUDED_MEMORY
-#endif
-
-#ifndef INCLUDED_CALC_ISCRIPT
 #include "calc_iscript.h"
-#define INCLUDED_CALC_ISCRIPT
-#endif
-
-#ifndef INCLUDED_CALC_GENERATESPATIALFUNC
 #include "calc_generatespatialfunc.h"
-#define INCLUDED_CALC_GENERATESPATIALFUNC
-#endif
-
-#ifndef INCLUDED_CALC_LIBERROR
 #include "calc_liberror.h"
-#define INCLUDED_CALC_LIBERROR
-#endif
-
-#ifndef INCLUDED_CALC_OPERATIONTIMER
 #include "calc_operationtimer.h"
-#define INCLUDED_CALC_OPERATIONTIMER
-#endif
-
-#ifndef INCLUDED_CALC_OPERATOR
 #include "calc_operator.h"
-#define INCLUDED_CALC_OPERATOR
-#endif
-
-// needed for exec EXEC_DOUBLE
-#ifndef INCLUDED_CALC_DOUBLEASS
 #include "calc_doubleass.h"
-#define INCLUDED_CALC_DOUBLEASS
-#endif
 
 #include <algorithm>
+#include <stdexcept>
+#include <memory>
 
 extern "C" {
 /* implementation of the operations */
@@ -203,10 +136,7 @@ public:
 };
 static ExpensiveOperations eo;
 */
-#ifndef INCLUDED_COM_CPUCYCLECOUNTER
 #include "com_cpucyclecounter.h"
-#define INCLUDED_COM_CPUCYCLECOUNTER
-#endif
 
 class OpTimer {
   int d_timer;

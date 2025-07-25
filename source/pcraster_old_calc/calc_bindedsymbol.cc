@@ -1,24 +1,8 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_BINDEDSYMBOL
 #include "calc_bindedsymbol.h"
-#define INCLUDED_CALC_BINDEDSYMBOL
-#endif
-
-#ifndef INCLUDED_PCRGENXML_DATA
 #include "pcrgenxml_data.h"
-#define INCLUDED_PCRGENXML_DATA
-#endif
-
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-
-#ifndef INCLUDED_CALC_ISCRIPT
 #include "calc_iscript.h"
-#define INCLUDED_CALC_ISCRIPT
-#endif
 
 //! looks in binding table if binding is avail
 calc::BindedSymbol::BindedSymbol(const calc::Symbol& parName):

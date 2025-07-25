@@ -1,26 +1,7 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_LOOKUPLINEAR
 #include "calc_lookuplinear.h"
-#define INCLUDED_CALC_LOOKUPLINEAR
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_INTERVAL
 #include "com_interval.h"
-#define INCLUDED_COM_INTERVAL
-#endif
-#ifndef INCLUDED_COM_MATH
 #include "com_math.h"
-#define INCLUDED_COM_MATH
-#endif
-// Module headers.
-
 
 
 /*!

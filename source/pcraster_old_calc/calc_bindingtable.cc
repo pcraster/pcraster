@@ -1,38 +1,10 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_BINDINGTABLE
 #include "calc_bindingtable.h"
-#define INCLUDED_CALC_BINDINGTABLE
-#endif
-
-// Library headers.
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-// PCRaster library headers.
-
-// Module headers.
-
-#ifndef INCLUDED_CALC_EXTSYM
 #include "calc_extsym.h"
-#define INCLUDED_CALC_EXTSYM
-#endif
-#ifndef INCLUDED_CALC_RUNDIRECTORY
 #include "calc_rundirectory.h"
-#define INCLUDED_CALC_RUNDIRECTORY
-#endif
-#ifndef INCLUDED_CALC_FIELDNRPARAMETER
 #include "calc_fieldnrparameter.h"
-#define INCLUDED_CALC_FIELDNRPARAMETER
-#endif
-#ifndef INCLUDED_CALC_USEPAR
 #include "calc_usepar.h"
-#define INCLUDED_CALC_USEPAR
-#endif
+#include <vector>
 
 
 /*!

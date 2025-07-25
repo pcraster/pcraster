@@ -1,24 +1,8 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_GENERATESPATIALFUNC
 #include "calc_generatespatialfunc.h"
-#define INCLUDED_CALC_GENERATESPATIALFUNC
-#endif
-
-#ifndef INCLUDED_COM_CSFCELL
 #include "com_csfcell.h"
-#define INCLUDED_COM_CSFCELL
-#endif
-
-#ifndef INCLUDED_CALC_COMPRESSOR
 #include "calc_compressor.h"
-#define INCLUDED_CALC_COMPRESSOR
-#endif
-
-#ifndef INCLUDED_GEO_APPRASTERSPACE
 #include "geo_apprasterspace.h"
-#define INCLUDED_GEO_APPRASTERSPACE
-#endif
 
 #include <cmath>
 

@@ -1,66 +1,17 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_RTTYPECHECK
 #include "calc_rttypecheck.h"
-#define INCLUDED_CALC_RTTYPECHECK
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_CFGCREATOR
 #include "calc_cfgcreator.h"
-#define INCLUDED_CALC_CFGCREATOR
-#endif
-#ifndef INCLUDED_CALC_ASTNODEVECTOR
 #include "calc_astnodevector.h"
-#define INCLUDED_CALC_ASTNODEVECTOR
-#endif
-#ifndef INCLUDED_CALC_BUILDTYPESVISITOR
 #include "calc_buildtypesvisitor.h"
-#define INCLUDED_CALC_BUILDTYPESVISITOR
-#endif
-#ifndef INCLUDED_CALC_VS
 #include "calc_vs.h"
-#define INCLUDED_CALC_VS
-#endif
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
-#ifndef INCLUDED_CALC_OPERATOR
 #include "calc_operator.h"
-#define INCLUDED_CALC_OPERATOR
-#endif
-#ifndef INCLUDED_CALC_RUNTIMEENV
 #include "calc_runtimeenv.h"
-#define INCLUDED_CALC_RUNTIMEENV
-#endif
-#ifndef INCLUDED_CALC_DATASTORAGEID
 #include "calc_datastorageid.h"
-#define INCLUDED_CALC_DATASTORAGEID
-#endif
-#ifndef INCLUDED_CALC_POSITIONNAME
 #include "calc_positionname.h"
-#define INCLUDED_CALC_POSITIONNAME
-#endif
-#ifndef INCLUDED_CALC_ASTEXPR
 #include "calc_astexpr.h"
-#define INCLUDED_CALC_ASTEXPR
-#endif
-#ifndef INCLUDED_CALC_ASTPAR
 #include "calc_astpar.h"
-#define INCLUDED_CALC_ASTPAR
-#endif
-#ifndef INCLUDED_GEO_RASTERSPACE
 #include "geo_rasterspace.h"
-#define INCLUDED_GEO_RASTERSPACE
-#endif
 
 #include <deque>
 

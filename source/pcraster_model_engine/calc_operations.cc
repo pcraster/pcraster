@@ -1,86 +1,21 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_OPERATIONS
 #include "calc_operations.h"
-#define INCLUDED_CALC_OPERATIONS
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_OPERATOR
 #include "calc_operator.h"
-#define INCLUDED_CALC_OPERATOR
-#endif
-#ifndef INCLUDED_CALC_CALCLIB
 #include "calc_calclib.h"
-#define INCLUDED_CALC_CALCLIB
-#endif
-#ifndef INCLUDED_CALC_OBJECTLINKMETA
 #include "calc_objectlinkmeta.h"
-#define INCLUDED_CALC_OBJECTLINKMETA
-#endif
-
-#ifndef INCLUDED_CALC_FUNCTIONTABLE
 #include "calc_functiontable.h"
-#define INCLUDED_CALC_FUNCTIONTABLE
-#endif
-#ifndef INCLUDED_CALC_OPIMPL
 #include "calc_opimpl.h"
-#define INCLUDED_CALC_OPIMPL
-#endif
-#ifndef INCLUDED_CALC_GLOBAL
 #include "calc_global.h"
-#define INCLUDED_CALC_GLOBAL
-#endif
-
-#ifndef INCLUDED_CALC_ACCUIMPL
 #include "calc_accuimpl.h"
-#define INCLUDED_CALC_ACCUIMPL
-#endif
-#ifndef INCLUDED_CALC_DYNAMICWAVE
 #include "calc_dynamicwave.h"
-#define INCLUDED_CALC_DYNAMICWAVE
-#endif
-#ifndef INCLUDED_CALC_CELLOP
 #include "calc_cellop.h"
-#define INCLUDED_CALC_CELLOP
-#endif
-#ifndef INCLUDED_CALC_GLOBFUNC
 #include "calc_globfunc.h"
-#define INCLUDED_CALC_GLOBFUNC
-#endif
-#ifndef INCLUDED_CALC_LOOKUP
 #include "calc_lookup.h"
-#define INCLUDED_CALC_LOOKUP
-#endif
-#ifndef INCLUDED_CALC_TIMEINPUTTSSOP
 #include "calc_timeinputtssop.h"
-#define INCLUDED_CALC_TIMEINPUTTSSOP
-#endif
-#ifndef INCLUDED_CALC_TIMEINPUTSTACKOP
 #include "calc_timeinputstackop.h"
-#define INCLUDED_CALC_TIMEINPUTSTACKOP
-#endif
-
-#ifndef INCLUDED_CALC_FOARRAYIMPLMANUAL
 #include "calc_foarrayimplmanual.h"
-#define INCLUDED_CALC_FOARRAYIMPLMANUAL
-#endif
-
-#ifndef INCLUDED_CALC_FOPOINTARRAY
 #include "calc_fopointarray.h"
-#define INCLUDED_CALC_FOPOINTARRAY
-#endif
-#ifndef INCLUDED_CALC_FOPOINTIMPL
 #include "calc_fopointimpl.h"
-#define INCLUDED_CALC_FOPOINTIMPL
-#endif
 
 #include <format>
 
@@ -268,7 +203,7 @@ static TimeinputTssOp          builtIn_TimeinputTss;
 #define builtIn_timeinputordinal     builtIn_TimeinputTss;
 #define builtIn_timeinputnominal     builtIn_TimeinputTss;
 #define builtIn_timeinputscalar      builtIn_TimeinputTss;
-#define builtIn_timeinputlinear      builtIn_TimeinputTss;
+// #define builtIn_timeinputlinear      builtIn_TimeinputTss;
 #define builtIn_timeinputdirectional builtIn_TimeinputTss;
 #define builtIn_timeinputldd         builtIn_TimeinputTss;
 static TimeinputStackOp        builtIn_TimeinputStackOp;

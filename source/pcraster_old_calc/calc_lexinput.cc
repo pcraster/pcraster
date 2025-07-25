@@ -1,55 +1,17 @@
 #include "stddefx.h"
-
-/********/
-/* USES */
-/********/
-
-/* libs ext. <>, our ""  */
 #include "misc.h"
-#include <cstdio>    /* EOF */
-/* global header (opt.) and lexinput's prototypes "" */
 #include "calc_lexinput.h"
-
-#ifndef INCLUDED_CSTRING
-#include <cstring>
-#define INCLUDED_CSTRING
-#endif
-
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-#ifndef INCLUDED_COM_STRLIB
 #include "com_strlib.h"
-#define INCLUDED_COM_STRLIB
-#endif
-#ifndef INCLUDED_COM_PATHNAME
 #include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
-
-#ifndef INCLUDED_CALC_QUOTE
 #include "calc_quote.h"
-#define INCLUDED_CALC_QUOTE
-#endif
-
-#ifndef INCLUDED_SSTREAM
-#include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-
-#ifndef INCLUDED_CALC_LEXINPUTSOURCE
 #include "calc_lexinputsource.h"
-#define INCLUDED_CALC_LEXINPUTSOURCE
-#endif
-#ifndef INCLUDED_CALC_LEXINPUTSOURCESTRING
 #include "calc_lexinputsourcestring.h"
-#define INCLUDED_CALC_LEXINPUTSOURCESTRING
-#endif
-#ifndef INCLUDED_CALC_POSITIONTEXT
 #include "calc_positiontext.h"
-#define INCLUDED_CALC_POSITIONTEXT
-#endif
+
+#include <cstdio>    /* EOF */
+#include <cstring>
+#include <sstream>
 
 /* headers of this app. modules called */
 

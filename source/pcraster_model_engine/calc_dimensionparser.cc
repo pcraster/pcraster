@@ -1,40 +1,13 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_DIMENSIONPARSER
 #include "calc_dimensionparser.h"
-#define INCLUDED_CALC_DIMENSIONPARSER
-#endif
-
-// Library headers.
-#ifndef INCLUDED_SSTREAM
-#include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-
-#define BOOST_SPIRIT_USE_OLD_NAMESPACE
-#ifndef INCLUDED_BOOST_SPIRIT_INCLUDE_CLASSIC
-#include <boost/spirit/include/classic.hpp>
-#define INCLUDED_BOOST_SPIRIT_INCLUDE_CLASSIC
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_STRLIB
 #include "com_strlib.h"
-#define INCLUDED_COM_STRLIB
-#endif
-#ifndef INCLUDED_COM_PARSERS
 #include "com_parsers.h"
-#define INCLUDED_COM_PARSERS
-#endif
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
 
-// Module headers.
+//#define BOOST_SPIRIT_USE_OLD_NAMESPACE
+#include <boost/spirit/include/classic.hpp>
+
+#include <sstream>
 
 /*!
   \file

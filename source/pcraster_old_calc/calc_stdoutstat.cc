@@ -1,34 +1,10 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_STDOUTSTAT
-# include "calc_stdoutstat.h"
-#define INCLUDED_CALC_STDOUTSTAT
-#endif
-
-#ifndef INCLUDED_CALC_FIELDEXPR
-# include "calc_fieldexpr.h"
-#define INCLUDED_CALC_FIELDEXPR
-#endif
-
-#ifndef INCLUDED_CALC_FIELDSTACK
-# include "calc_fieldstack.h"
-#define INCLUDED_CALC_FIELDSTACK
-#endif
-
-#ifndef INCLUDED_CALC_NONSPATIAL
-# include "calc_nonspatial.h"
-#define INCLUDED_CALC_NONSPATIAL
-#endif
-
-#ifndef INCLUDED_CALC_ISCRIPT
-# include "calc_iscript.h"
-#define INCLUDED_CALC_ISCRIPT
-#endif
-
-#ifndef INCLUDED_APPARGS
-# include "appargs.h"
-#define INCLUDED_APPARGS
-#endif
+#include "calc_stdoutstat.h"
+#include "calc_fieldexpr.h"
+#include "calc_fieldstack.h"
+#include "calc_nonspatial.h"
+#include "calc_iscript.h"
+#include "appargs.h"
 
 #define FORGOT_ASS  "Can not write spatial output using outputfile"
 

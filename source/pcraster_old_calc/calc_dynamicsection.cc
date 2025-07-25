@@ -1,34 +1,10 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_DYNAMICSECTION
 #include "calc_dynamicsection.h"
-#define INCLUDED_CALC_DYNAMICSECTION
-#endif
-
-#ifndef INCLUDED_CALC_INFOSCRIPT
 #include "calc_infoscript.h"
-#define INCLUDED_CALC_INFOSCRIPT
-#endif
-
-#ifndef INCLUDED_CALC_ISCRIPT
 #include "calc_iscript.h"
-#define INCLUDED_CALC_ISCRIPT
-#endif
-
-#ifndef INCLUDED_COM_CPUCYCLECOUNTER
 #include "com_cpucyclecounter.h"
-#define INCLUDED_COM_CPUCYCLECOUNTER
-#endif
-
-#ifndef INCLUDED_CALC_OPERATIONTIMER
 #include "calc_operationtimer.h"
-#define INCLUDED_CALC_OPERATIONTIMER
-#endif
-
-#ifndef INCLUDED_CALC_SPATIAL
 #include "calc_spatial.h"
-#define INCLUDED_CALC_SPATIAL
-#endif
 
 void calc::DynamicSection::print(calc::InfoScript& i)const
 {

@@ -1,31 +1,9 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_ASTNODE
 #include "calc_astnode.h"
-#define INCLUDED_CALC_ASTNODE
-#endif
-
-// Library headers.
-#ifndef INCLUDED_SSTREAM
-#include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_POSITION
 #include "calc_position.h"
-#define INCLUDED_CALC_POSITION
-#endif
-#ifndef INCLUDED_CALC_POSITIONNAME
 #include "calc_positionname.h"
-#define INCLUDED_CALC_POSITIONNAME
-#endif
 
+#include <sstream>
 
 /*!
   \file

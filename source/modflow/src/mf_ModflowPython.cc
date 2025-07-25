@@ -1,16 +1,6 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_MF_MODFLOW
 #include "mf_ModflowPython.h"
-#define INCLUDED_MF_MODFLOW
-#endif
-
 #include "dis.h"
-
-
 
 #include <sstream>
 

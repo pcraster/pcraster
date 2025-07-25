@@ -156,10 +156,10 @@ add_library(pcraster_old_calc_objects OBJECT
     sunfunc.c
 )
 
-set_source_files_properties(calcparser.cc
+set_source_files_properties(lexvaluefile.cc lexnewcalc.cc calcparser.cc
     PROPERTIES
         COMPILE_OPTIONS
-            "$<$<COMPILE_LANG_AND_ID:CXX,GNU,AppleClang,Clang>:-Wno-all;-Wno-error>"
+            "$<$<COMPILE_LANG_AND_ID:CXX,GNU,AppleClang,Clang>:-Wno-unused-macros>"
 )
 
 target_include_directories(pcraster_old_calc_objects

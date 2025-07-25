@@ -1,47 +1,11 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_BLOCKPY_FUNCTIONS
 #include "blockpy_functions.h"
-#define INCLUDED_BLOCKPY_FUNCTIONS
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_CALC_SPATIAL
 #include "calc_spatial.h"
-#define INCLUDED_CALC_SPATIAL
-#endif
-
-#ifndef INCLUDED_BLOCK_FUNCTIONS
 #include "block_functions.h"
-#define INCLUDED_BLOCK_FUNCTIONS
-#endif
-
-#ifndef INCLUDED_DISCR_BLOCK
 #include "discr_block.h"
-#define INCLUDED_DISCR_BLOCK
-#endif
-
-#ifndef INCLUDED_DISCR_BLOCKDATA
 #include "discr_blockdata.h"
-#define INCLUDED_DISCR_BLOCKDATA
-#endif
-
-#ifndef INCLUDED_DISCR_RASTERDATA
 #include "discr_rasterdata.h"
-#define INCLUDED_DISCR_RASTERDATA
-#endif
-
-#ifndef INCLUDED_GEO_RASTERSPACE
 #include "geo_rasterspace.h"
-#define INCLUDED_GEO_RASTERSPACE
-#endif
-
-// Module headers.
 
 
 

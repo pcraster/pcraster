@@ -1,27 +1,8 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_ZEROMAP
 #include "calc_zeromap.h"
-#define INCLUDED_CALC_ZEROMAP
-#endif
-
-// Library headers.
-
-#ifndef INCLUDED_CSTRING
-#include <cstring> // memset
-#define INCLUDED_CSTRING
-#endif
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_MAP2CSF
 #include "calc_map2csf.h"
-#define INCLUDED_CALC_MAP2CSF
-#endif
 
+#include <cstring> // memset
 
 
 /*!

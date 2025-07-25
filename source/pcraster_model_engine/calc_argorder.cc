@@ -1,42 +1,12 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_ARGORDER
 #include "calc_argorder.h"
-#define INCLUDED_CALC_ARGORDER
-#endif
-
-// Library headers.
-#ifndef INCLUDED_CMATH
-#include <cmath>
-#define INCLUDED_CMATH
-#endif
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-#ifndef INCLUDED_LIMITS
-#include <limits>
-#define INCLUDED_LIMITS
-#endif
-#ifndef INCLUDED_MAP
-#include <map>
-#define INCLUDED_MAP
-#endif
-#ifndef INCLUDED_SET
-#include <set>
-#define INCLUDED_SET
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_PCRTYPES
 #include "pcrtypes.h"
-#define INCLUDED_PCRTYPES
-#endif
-// Module headers.
 
+#include <cmath>
+#include <vector>
+#include <limits>
+#include <map>
+#include <set>
 
 
 /*!

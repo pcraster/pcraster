@@ -1,53 +1,15 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_LOOKUPTABLE
 #include "calc_lookuptable.h"
-#define INCLUDED_CALC_LOOKUPTABLE
-#endif
-
-#ifndef INCLUDED_MAP
-#include <map>
-#define INCLUDED_MAP
-#endif
-
-#ifndef INCLUDED_ALGORITHM
-#include <algorithm>
-#define INCLUDED_ALGORITHM
-#endif
-
-#ifndef INCLUDED_TABLE
 #include "table.h"    // LOOK_UP_TABLE
-#define INCLUDED_TABLE
-#endif
-
-#ifndef INCLUDED_COM_MATH
 #include "com_math.h"
-#define INCLUDED_COM_MATH
-#endif
-
-#ifndef INCLUDED_CALC_GLOBALLIBDEFS
 #include "calc_globallibdefs.h"
-#define INCLUDED_CALC_GLOBALLIBDEFS
-#endif
-
-#ifndef INCLUDED_CALC_MAP2CSF
 #include "calc_map2csf.h"
-#define INCLUDED_CALC_MAP2CSF
-#endif
-
-#ifndef INCLUDED_CALC_QUOTE
 #include "calc_quote.h"
-#define INCLUDED_CALC_QUOTE
-#endif
-
-#ifndef INCLUDED_CALC_ASTSYMBOLINFO
 #include "calc_astsymbolinfo.h"
-#define INCLUDED_CALC_ASTSYMBOLINFO
-#endif
-#ifndef INCLUDED_PCRASTERXSD
 #include "PCRasterXSD.h"
-#define INCLUDED_CALC_PCRASTERXSD
-#endif
+
+#include <algorithm>
+#include <map>
 
 namespace calc {
  namespace detail {

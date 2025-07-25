@@ -1,14 +1,6 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_FIELDSTACK
 #include "calc_fieldstack.h"
-#define INCLUDED_CALC_FIELDSTACK
-#endif
-
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
 
 calc::FieldStack::FieldStack()
 {

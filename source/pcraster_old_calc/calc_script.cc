@@ -1,124 +1,29 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CSTRING
-#include <cstring>
-#define INCLUDED_CSTRING
-#endif
-
-#ifndef INCLUDED_CALC_SCRIPT
 #include "calc_script.h"
-#define INCLUDED_CALC_SCRIPT
-#endif
-
-#ifndef INCLUDED_APPARGS
 #include "appargs.h"
-#define INCLUDED_APPARGS
-#endif
-
-#ifndef INCLUDED_CALC_USEPAR
 #include "calc_usepar.h"
-#define INCLUDED_CALC_USEPAR
-#endif
-
-#ifndef INCLUDED_CALC_SYMBOLTABLE
 #include "calc_symboltable.h"
-#define INCLUDED_CALC_SYMBOLTABLE
-#endif
-
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"     // FieldHandle
-#define INCLUDED_CALC_FIELD
-#endif
-
-#ifndef INCLUDED_CALC_FIELDMAPINPUTPARAMETER
 #include "calc_fieldmapinputparameter.h"
-#define INCLUDED_CALC_FIELDMAPINPUTPARAMETER
-#endif
-#ifndef INCLUDED_CALC_MAP2CSF
 #include "calc_map2csf.h"
-#define INCLUDED_CALC_MAP2CSF
-#endif
-
-#ifndef INCLUDED_CALC_USERSYMBOL
 #include "calc_usersymbol.h"
-#define INCLUDED_CALC_USERSYMBOL
-#endif
-
-#ifndef INCLUDED_CALC_DYNAMICSECTION
 #include "calc_dynamicsection.h"
-#define INCLUDED_CALC_DYNAMICSECTION
-#endif
-
-#ifndef INCLUDED_CALC_PARSPAR
 #include "calc_parspar.h"
-#define INCLUDED_CALC_PARSPAR
-#endif
-
-#ifndef INCLUDED_CALC_EXTERNALSYMBOLS
 #include "calc_externalsymbols.h"
-#define INCLUDED_CALC_EXTERNALSYMBOLS
-#endif
-
-#ifndef INCLUDED_CALC_INFOSCRIPT
 #include "calc_infoscript.h"
-#define INCLUDED_CALC_INFOSCRIPT
-#endif
-#ifndef INCLUDED_CALC_FINDSYMBOL
 #include "calc_findsymbol.h"
-#define INCLUDED_CALC_FINDSYMBOL
-#endif
-
-#ifndef INCLUDED_EXTERNFUNCS
 #include "externfuncs.h"
-#define INCLUDED_EXTERNFUNCS
-#endif
-
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-#ifndef INCLUDED_CALC_QUITFORPROGRESSCALLBACK
 #include "calc_quitforprogresscallback.h"
-#define INCLUDED_CALC_QUITFORPROGRESSCALLBACK
-#endif
-#ifndef INCLUDED_CALC_QUITFOREXITOPTION
 #include "calc_quitforexitoption.h"
-#define INCLUDED_CALC_QUITFOREXITOPTION
-#endif
-#ifndef INCLUDED_PCRGENXML_SCRIPT
 #include "pcrgenxml_script.h"
-#define INCLUDED_PCRGENXML_SCRIPT
-#endif
-
-#ifndef INCLUDED_CALC_TIMETABLE
 #include "calc_timetable.h"
-#define INCLUDED_CALC_TIMETABLE
-#endif
-
-#ifndef INCLUDED_CALC_PROGRESSCALLBACK
 #include "calc_progresscallback.h"
-#define INCLUDED_CALC_PROGRESSCALLBACK
-#endif
-
-#ifndef INCLUDED_CALC_IOFIELDSTRATEGY
 #include "calc_iofieldstrategy.h"
-#define INCLUDED_CALC_IOFIELDSTRATEGY
-#endif
-
-#ifndef INCLUDED_CALC_POSITIONNONE
 #include "calc_positionnone.h"
-#define INCLUDED_CALC_POSITIONNONE
-#endif
-
-#ifndef INCLUDED_CALC_MASKCOMPRESSOR
 #include "calc_maskcompressor.h"
-#define INCLUDED_CALC_MASKCOMPRESSOR
-#endif
-
-#ifndef INCLUDED_CALC_NULLCOMPRESSOR
 #include "calc_nullcompressor.h"
-#define INCLUDED_CALC_NULLCOMPRESSOR
-#endif
+#include <cstring>
 
 namespace calc {
 

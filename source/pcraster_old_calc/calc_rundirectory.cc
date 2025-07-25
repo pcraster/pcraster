@@ -1,52 +1,14 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_RUNDIRECTORY
 #include "calc_rundirectory.h"
-#define INCLUDED_CALC_RUNDIRECTORY
-#endif
-
-// Library headers.
-#ifndef INCLUDED_SSTREAM
-#include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-#ifndef INCLUDED_COM_PATHINFO
 #include "com_pathinfo.h"
-#define INCLUDED_COM_PATHINFO
-#endif
-#ifndef INCLUDED_COM_PATHNAME
 #include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
-#ifndef INCLUDED_COM_DIRECTORY
 #include "com_directory.h"
-#define INCLUDED_COM_DIRECTORY
-#endif
-#ifndef INCLUDED_MEMORY
-#include <memory>
-#define INCLUDED_MEMORY
-#endif
-
-#ifndef INCLUDED_PCRXML_DOCUMENT
 #include "pcrxml_document.h"
-#define INCLUDED_PCRXML_DOCUMENT
-#endif
-#ifndef INCLUDED_CALC_MODELBUILDER
 #include "calc_modelbuilder.h"
-#define INCLUDED_CALC_MODELBUILDER
-#endif
 
-// Module headers.
-
+#include <memory>
+#include <sstream>
 
 
 /*!

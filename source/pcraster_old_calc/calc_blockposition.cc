@@ -1,24 +1,8 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_BLOCKPOSITION
 #include "calc_blockposition.h"
-#define INCLUDED_CALC_BLOCKPOSITION
-#endif
-
-#ifndef INCLUDED_CALC_INFOSCRIPT
-# include "calc_infoscript.h"
-#define INCLUDED_CALC_INFOSCRIPT
-#endif
-
-#ifndef INCLUDED_ALGORITHM
-# include <algorithm>
-#define INCLUDED_ALGORITHM
-#endif
-
-#ifndef INCLUDED_SSTREAM
+#include "calc_infoscript.h"
+#include <algorithm>
 #include <sstream>
-#define INCLUDED_SSTREAM
-#endif
 
 calc::BlockPosition::BlockPosition()
           

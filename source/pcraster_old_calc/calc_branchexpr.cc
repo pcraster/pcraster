@@ -1,34 +1,11 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_BRANCHEXPR
 #include "calc_branchexpr.h"
-#define INCLUDED_CALC_BRANCHEXPR
-#endif
-
-#ifndef INCLUDED_CALC_OPERATOR
 #include "calc_operator.h"
-#define INCLUDED_CALC_OPERATOR
-#endif
-
-#ifndef INCLUDED_CALC_FINDSYMBOL
 #include "calc_findsymbol.h"
-#define INCLUDED_CALC_FINDSYMBOL
-#endif
-
-#ifndef INCLUDED_CALC_INFOSCRIPT
 #include "calc_infoscript.h"
-#define INCLUDED_CALC_INFOSCRIPT
-#endif
-
-#ifndef INCLUDED_COM_AUTOARRAYPTR
 #include "com_autoarrayptr.h"
-#define INCLUDED_COM_AUTOARRAYPTR
-#endif
 
-#ifndef INCLUDED_STDEXCEPT
 #include <stdexcept>
-#define INCLUDED_STDEXCEPT
-#endif
 
 calc::BranchExpr::BranchExpr(
   const Element& pos,

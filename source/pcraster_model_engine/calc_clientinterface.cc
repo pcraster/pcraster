@@ -1,38 +1,10 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_CLIENTINTERFACE
 #include "calc_clientinterface.h"
-#define INCLUDED_CALC_CLIENTINTERFACE
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_ASTSCRIPT
 #include "calc_astscript.h"
-#define INCLUDED_CALC_ASTSCRIPT
-#endif
-#ifndef INCLUDED_CALC_XMLREFLECTION
 #include "calc_xmlreflection.h"
-#define INCLUDED_CALC_XMLREFLECTION
-#endif
-#ifndef INCLUDED_CALC_RUNTIMEENV
 #include "calc_runtimeenv.h"
-#define INCLUDED_CALC_RUNTIMEENV
-#endif
-#ifndef INCLUDED_CALC_EXECUTOR
 #include "calc_executor.h"
-#define INCLUDED_CALC_EXECUTOR
-#endif
 
 /*!
   \file

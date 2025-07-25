@@ -192,10 +192,7 @@ void calc::SymbolTable::createXmlData(
   }
 }
 
-#ifndef INCLUDED_COM_PATHNAME
 #include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
 
 //! fill r with data that must checked in ArcView interface
 /*!

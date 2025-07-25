@@ -1,50 +1,13 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_STRINGPARSER
 #include "calc_stringparser.h"
-#define INCLUDED_CALC_STRINGPARSER
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_COMPLETEPARSER
 #include "calc_completeparser.h"
-#define INCLUDED_CALC_COMPLETEPARSER
-#endif
-#ifndef INCLUDED_CALC_ASTNODE
 #include "calc_astnode.h"
-#define INCLUDED_CALC_ASTNODE
-#endif
-#ifndef INCLUDED_CALC_ASTASS
 #include "calc_astass.h"
-#define INCLUDED_CALC_ASTASS
-#endif
-#ifndef INCLUDED_CALC_ASTNODEVECTOR
 #include "calc_astnodevector.h"
-#define INCLUDED_CALC_ASTNODEVECTOR
-#endif
-#ifndef INCLUDED_CALC_ASTNODELIST
 #include "calc_astnodelist.h"
-#define INCLUDED_CALC_ASTNODELIST
-#endif
-#ifndef INCLUDED_CALC_ASTSTAT
 #include "calc_aststat.h"
-#define INCLUDED_CALC_ASTSTAT
-#endif
-#ifndef INCLUDED_CALC_ASTSCRIPT
 #include "calc_astscript.h"
-#define INCLUDED_CALC_ASTSCRIPT
-#endif
-#ifndef INCLUDED_CALC_CODE
 #include "calc_code.h"
-#define INCLUDED_CALC_CODE
-#endif
 
 /*!
   \file

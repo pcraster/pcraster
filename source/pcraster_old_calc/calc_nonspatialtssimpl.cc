@@ -1,19 +1,7 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_NONSPATIALTSSIMPL
 #include "calc_nonspatialtssimpl.h"
-#define INCLUDED_CALC_NONSPATIALTSSIMPL
-#endif
-
-#ifndef INCLUDED_CALC_FIELDPARAMETER
 #include "calc_fieldparameter.h"
-#define INCLUDED_CALC_FIELDPARAMETER
-#endif
-
-#ifndef INCLUDED_CALC_NONSPATIAL
 #include "calc_nonspatial.h"
-#define INCLUDED_CALC_NONSPATIAL
-#endif
 
 calc::NonSpatialTssImpl::NonSpatialTssImpl(
   const calc::FieldParameter& p, size_t index):

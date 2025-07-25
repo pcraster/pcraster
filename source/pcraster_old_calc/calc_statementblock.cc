@@ -1,43 +1,12 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_COM_ALGORITHM
 #include "com_algorithm.h"
-#define INCLUDED_COM_ALGORITHM
-#endif
-#ifndef INCLUDED_FUNCTIONAL
+#include "calc_statementblock.h"
+#include "calc_usersymbol.h"
+#include "calc_infoscript.h"
+#include "calc_parspar.h"
+#include "calc_fieldparameter.h"
+#include "calc_iscript.h"
 #include <functional>
-#define INCLUDED_FUNCTIONAL
-#endif
-
-#ifndef INCLUDED_CALC_STATEMENTBLOCK
-# include "calc_statementblock.h"
-#define INCLUDED_CALC_STATEMENTBLOCK
-#endif
-
-#ifndef INCLUDED_CALC_USERSYMBOL
-# include "calc_usersymbol.h"
-#define INCLUDED_CALC_USERSYMBOL
-#endif
-
-#ifndef INCLUDED_CALC_INFOSCRIPT
-# include "calc_infoscript.h"
-#define INCLUDED_CALC_INFOSCRIPT
-#endif
-
-#ifndef INCLUDED_CALC_PARSPAR
-# include "calc_parspar.h"
-#define INCLUDED_CALC_PARSPAR
-#endif
-
-#ifndef INCLUDED_CALC_FIELDPARAMETER
-# include "calc_fieldparameter.h"
-#define INCLUDED_CALC_FIELDPARAMETER
-#endif
-
-#ifndef INCLUDED_CALC_ISCRIPT
-# include "calc_iscript.h"
-#define INCLUDED_CALC_ISCRIPT
-#endif
 
 calc::StatementBlock::StatementBlock(
   const Element&         p,

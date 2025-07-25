@@ -1,34 +1,9 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_GRIDMAP
 #include "calc_gridmap.h"
-#define INCLUDED_CALC_GRIDMAP
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_GEO_SIMPLERASTER
 #include "geo_simpleraster.h"
-#define INCLUDED_GEO_SIMPLERASTER
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_MAP2CSF
 #include "calc_map2csf.h"
-#define INCLUDED_CALC_MAP2CSF
-#endif
-#ifndef INCLUDED_CALC_COMPRESSOR
 #include "calc_compressor.h"
-#define INCLUDED_CALC_COMPRESSOR
-#endif
-#ifndef INCLUDED_CALC_COMPRESSIONINPUT
 #include "calc_compressioninput.h"
-#define INCLUDED_CALC_COMPRESSIONINPUT
-#endif
 
 
 /*!

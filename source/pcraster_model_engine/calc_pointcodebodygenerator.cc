@@ -1,65 +1,19 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_POINTCODEBODYGENERATOR
 #include "calc_pointcodebodygenerator.h"
-#define INCLUDED_CALC_POINTCODEBODYGENERATOR
-#endif
-#ifndef INCLUDED_CALC_GENERATEPOINTCODEBODY
 #include "calc_generatepointcodebody.h"
-#define INCLUDED_CALC_GENERATEPOINTCODEBODY
-#endif
-
-// Library headers.
-#ifndef INCLUDED_ALGORITHM
-#include <algorithm>
-#define INCLUDED_ALGORITHM
-#endif
-// PCRaster library headers.
-#ifndef INCLUDED_COM_STRLIB
 #include "com_strlib.h"
-#define INCLUDED_COM_STRLIB
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_CR
 #include "calc_cr.h"
-#define INCLUDED_CALC_CR
-#endif
-#ifndef INCLUDED_CALC_OPERATOR
 #include "calc_operator.h"
-#define INCLUDED_CALC_OPERATOR
-#endif
-#ifndef INCLUDED_CALC_ASTSTAT
 #include "calc_aststat.h"
-#define INCLUDED_CALC_ASTSTAT
-#endif
-#ifndef INCLUDED_CALC_ASTASS
 #include "calc_astass.h"
-#define INCLUDED_CALC_ASTASS
-#endif
-#ifndef INCLUDED_CALC_ASTNUMBER
 #include "calc_astnumber.h"
-#define INCLUDED_CALC_ASTNUMBER
-#endif
-#ifndef INCLUDED_CALC_ASTPAR
 #include "calc_astpar.h"
-#define INCLUDED_CALC_ASTPAR
-#endif
-#ifndef INCLUDED_CALC_BASEEXPR
 #include "calc_baseexpr.h"
-#define INCLUDED_CALC_BASEEXPR
-#endif
-#ifndef INCLUDED_CALC_CFGCREATOR
 #include "calc_cfgcreator.h"
-#define INCLUDED_CALC_CFGCREATOR
-#endif
-#ifndef INCLUDED_CALC_DATATYPE
 #include "calc_datatype.h"
-#define INCLUDED_CALC_DATATYPE
-#endif
+
+#include <algorithm>
+
 
 /*!
   \file

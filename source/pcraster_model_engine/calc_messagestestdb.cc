@@ -1,63 +1,17 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_MESSAGESTESTDB
 #include "calc_messagestestdb.h"
-#define INCLUDED_CALC_MESSAGESTESTDB
-#endif
-
-// Library headers.
-#ifndef INCLUDED_MAP
-#include <map>
-#define INCLUDED_MAP
-#endif
-#ifndef INCLUDED_FUNCTIONAL
-#include <functional>
-#define INCLUDED_FUNCTIONAL
-#endif
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_PATHNAME
 #include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
-#ifndef INCLUDED_COM_STRLIB
 #include "com_strlib.h"
-#define INCLUDED_COM_STRLIB
-#endif
-#ifndef INCLUDED_PCRXML_DOCUMENT
 #include "pcrxml_document.h"
-#define INCLUDED_PCRXML_DOCUMENT
-#endif
-#ifndef INCLUDED_PCRXML_DOMALGORITHM
 #include "pcrxml_domalgorithm.h"
-#define INCLUDED_PCRXML_DOMALGORITHM
-#endif
-#ifndef INCLUDED_PCRXML_DOM
 #include "pcrxml_dom.h"
-#define INCLUDED_PCRXML_DOM
-#endif
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-#ifndef INCLUDED_COM_FILE
 #include "com_file.h"
-#define INCLUDED_COM_FILE
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_STRINGPARSER
 #include "calc_stringparser.h"
-#define INCLUDED_CALC_STRINGPARSER
-#endif
 
+#include <functional>
+#include <iostream>
+#include <map>
 
 
 /*!

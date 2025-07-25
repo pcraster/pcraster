@@ -1,14 +1,6 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_STACKCR
 #include "calc_stackcr.h"
-#define INCLUDED_CALC_STACKCR
-#endif
-
-#ifndef INCLUDED_CALC_VS
 #include "calc_vs.h"
-#define INCLUDED_CALC_VS
-#endif
 
 STACK_CR stackCellRepr(VS vs)
 {

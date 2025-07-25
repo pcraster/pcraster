@@ -1,28 +1,9 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_ORDEROPERATIONS
 #include "calc_orderoperations.h"
-#define INCLUDED_CALC_ORDEROPERATIONS
-#endif
-
-// Library headers.
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-#ifndef INCLUDED_CASSERT
-#include <cassert>
-#define INCLUDED_CASSERT
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_MVGENERIC
 #include "com_mvgeneric.h"
-#define INCLUDED_COM_MVGENERIC
-#endif
+
+#include <vector>
+#include <cassert>
 
 namespace calc {
 namespace detail {

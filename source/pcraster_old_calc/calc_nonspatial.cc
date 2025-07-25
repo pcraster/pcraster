@@ -1,19 +1,7 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_NONSPATIAL
 #include "calc_nonspatial.h"
-#define INCLUDED_CALC_NONSPATIAL
-#endif
-
-#ifndef INCLUDED_CSF
 #include "csf.h"       // IsMVcellRepr
-#define INCLUDED_CSF
-#endif
-
-#ifndef INCLUDED_CALC_MAP2CSF
 #include "calc_map2csf.h"
-#define INCLUDED_CALC_MAP2CSF
-#endif
 
 //! constructor
 /*! default to zero, if we do not init later,

@@ -1,20 +1,7 @@
 #include "stddefx.h"
-
-
-#ifndef INCLUDED_CALC_PARAMETER
 #include "calc_parameter.h"
-#define INCLUDED_CALC_PARAMETER
-#endif
-
-#ifndef INCLUDED_CALC_INFOSCRIPT
 #include "calc_infoscript.h"
-#define INCLUDED_CALC_INFOSCRIPT
-#endif
-
-#ifndef INCLUDED_CALC_ISCRIPT
 #include "calc_iscript.h"
-#define INCLUDED_CALC_ISCRIPT
-#endif
 
 //! ctor
 calc::Parameter::Parameter(const calc::BindedSymbol& name,bool constant):

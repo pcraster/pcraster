@@ -1,81 +1,22 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_IOFIELDSTRATEGY
 #include "calc_iofieldstrategy.h"
-#define INCLUDED_CALC_IOFIELDSTRATEGY
-#endif
-
-// Library headers.
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-#ifndef INCLUDED_COM_PATHNAME
 #include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
-#ifndef INCLUDED_COM_FILE
 #include "com_file.h"
-#define INCLUDED_COM_FILE
-#endif
-#ifndef INCLUDED_DAL_RASTERDRIVER
 #include "dal_RasterDriver.h"
-#define INCLUDED_DAL_RASTERDRIVER
-#endif
-#ifndef INCLUDED_DAL_CSFRASTERDRIVER
 #include "dal_CSFRasterDriver.h"
-#define INCLUDED_DAL_CSFRASTERDRIVER
-#endif
-#ifndef INCLUDED_DAL_GDALRASTERDRIVER
 #include "dal_GDALRasterDriver.h"
-#define INCLUDED_DAL_GDALRASTERDRIVER
-#endif
-#ifndef INCLUDED_DAL_FILESYSTEMUTILS
 #include "dal_FilesystemUtils.h"
-#define INCLUDED_DAL_FILESYSTEMUTILS
-#endif
-#ifndef INCLUDED_GEO_CSFMAP
 #include "geo_csfmap.h"
-#define INCLUDED_GEO_CSFMAP
-#endif
-
-
-
-
-// Module headers.
-#ifndef INCLUDED_CALC_RUNDIRECTORY
 #include "calc_rundirectory.h"
-#define INCLUDED_CALC_RUNDIRECTORY
-#endif
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
-#ifndef INCLUDED_CALC_GRIDMAP
 #include "calc_gridmap.h"
-#define INCLUDED_CALC_GRIDMAP
-#endif
-#ifndef INCLUDED_CALC_QUOTE
 #include "calc_quote.h"
-#define INCLUDED_CALC_QUOTE
-#endif
-#ifndef INCLUDED_CALC_VS
 #include "calc_vs.h"
-#define INCLUDED_CALC_VS
-#endif
-#ifndef INCLUDED_CALC_STACKINFO
 #include "calc_stackinfo.h"
-#define INCLUDED_CALC_STACKINFO
-#endif
+
+#include <vector>
+
 
 /*!
   \file

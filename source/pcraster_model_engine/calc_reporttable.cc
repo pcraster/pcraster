@@ -1,30 +1,10 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_REPORTTABLE
 #include "calc_reporttable.h"
-#define INCLUDED_CALC_REPORTTABLE
-#endif
-
-// Library headers.
-#ifndef INCLUDED_SSTREAM
-#include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_REPORT
 #include "calc_report.h"
-#define INCLUDED_CALC_REPORT
-#endif
-#ifndef INCLUDED_CALC_ID
 #include "calc_id.h"
-#define INCLUDED_CALC_ID
-#endif
+
+#include <sstream>
+
 /*!
   \file
   This file contains the implementation of the ReportTable class.

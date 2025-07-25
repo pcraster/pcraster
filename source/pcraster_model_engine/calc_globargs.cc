@@ -1,39 +1,10 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_GLOBARGS
 #include "calc_globargs.h"
-#define INCLUDED_CALC_GLOBARGS
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-
-#ifndef INCLUDED_CALC_GLOBARG
 #include "calc_globarg.h"
-#define INCLUDED_CALC_GLOBARG
-#endif
-#ifndef INCLUDED_CALC_RUNTIMEENV
 #include "calc_runtimeenv.h"
-#define INCLUDED_CALC_RUNTIMEENV
-#endif
-#ifndef INCLUDED_CALC_OPERATOR
 #include "calc_operator.h"  // argType
-#define INCLUDED_CALC_OPERATOR
-#endif
-#ifndef INCLUDED_CALC_GLOBRESULT
 #include "calc_globresult.h"
-#define INCLUDED_CALC_GLOBRESULT
-#endif
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
 
 /*!
   \file

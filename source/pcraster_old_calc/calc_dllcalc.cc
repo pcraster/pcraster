@@ -1,26 +1,8 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_DLLCALC
 #include "calc_dllcalc.h"
-#define INCLUDED_CALC_DLLCALC
-#endif
-
-// Library headers.
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_APPARGS
 #include "appargs.h"
-#define INCLUDED_APPARGS
-#endif
 
-// Module headers.
+#include <string>
 
 /*!
   \file

@@ -1,9 +1,5 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_IDLIST
 # include "calc_idlist.h"
-#define INCLUDED_CALC_IDLIST
-#endif
 
 calc::IdList::IdList()
 {}

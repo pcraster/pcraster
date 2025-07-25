@@ -1,65 +1,19 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_MODELBUILDER
 #include "calc_modelbuilder.h"
-
-#include <memory>
-#define INCLUDED_CALC_MODELBUILDER
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_APPARGS
 #include "appargs.h"
-#define INCLUDED_APPARGS
-#endif
-// Module headers.
-#ifndef INCLUDED_PARSER
 #include "tokens.h"
 #include "Parser.h"
-#define INCLUDED_PARSER
-#endif
-#ifndef INCLUDED_CALC_PARSERINPUT
 #include "calc_parserinput.h"
-#define INCLUDED_CALC_PARSERINPUT
-#endif
-#ifndef INCLUDED_CALC_WRITEINFO
 #include "calc_writeinfo.h"
-#define INCLUDED_CALC_WRITEINFO
-#endif
-#ifndef INCLUDED_CALC_USEPAR
 #include "calc_usepar.h"
-#define INCLUDED_CALC_USEPAR
-#endif
-
-#ifndef INCLUDED_CALC_ASSIGNMENT
 #include "calc_assignment.h"
-#define INCLUDED_CALC_ASSIGNMENT
-#endif
-#ifndef INCLUDED_CALC_LOOKUPTABLEPARAMETER
 #include "calc_lookuptableparameter.h"
-#define INCLUDED_CALC_LOOKUPTABLEPARAMETER
-#endif
-#ifndef INCLUDED_CALC_RUNSETTINGS
 #include "calc_runsettings.h"
-#define INCLUDED_CALC_RUNSETTINGS
-#endif
-#ifndef INCLUDED_CALC_SYMBOL
 #include "calc_symbol.h"
-#define INCLUDED_CALC_SYMBOL
-#endif
-#ifndef INCLUDED_CALC_POSITIONNAME
 #include "calc_positionname.h"
-#define INCLUDED_CALC_POSITIONNAME
-#endif
-#ifndef INCLUDED_CALC_CALC
 #include "calc_calc.h"
-#define INCLUDED_CALC_CALC
-#endif
+
+#include <memory>
 
 /*!
   \file

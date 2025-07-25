@@ -1,42 +1,10 @@
 #include "stddefx.h"
-
-/********/
-/* USES */
-/********/
-
-#ifndef INCLUDED_COM_STRCONV
 #include "com_strconv.h"  // toString
-#define INCLUDED_COM_STRCONV
-#endif
-
-#ifndef INCLUDED_CALC_CMDLINECALC
 #include "calc_cmdlinecalc.h"
-#define INCLUDED_CALC_CMDLINECALC
-#endif
-
-
-/* libs ext. <>, our ""  */
-#ifndef INCLUDED_APPARGS
 #include "appargs.h"
-#define INCLUDED_APPARGS
-#endif
-
-#ifndef INCLUDED_CALC_CALC
 #include "calc_calc.h"
-#define INCLUDED_CALC_CALC
-#endif
-#ifndef INCLUDED_CALC_SPATIAL
 #include "calc_spatial.h"
-#define INCLUDED_CALC_SPATIAL
-#endif
-
-/* global header (opt.) and main's prototypes "" */
-
-/* headers of this app. modules called */
-#ifndef INCLUDED_CALC_PROGRESSCALLBACK
 #include "calc_progresscallback.h"
-#define INCLUDED_CALC_PROGRESSCALLBACK
-#endif
 
 #include "pcraster_version.h"
 

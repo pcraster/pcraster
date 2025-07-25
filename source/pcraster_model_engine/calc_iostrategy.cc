@@ -1,97 +1,26 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_IOSTRATEGY
 #include "calc_iostrategy.h"
-#define INCLUDED_CALC_IOSTRATEGY
-#endif
-
-// Library headers.
-#ifndef INCLUDED_SSTREAM
 #include <memory>
 #include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-// PCRaster library headers.
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-#ifndef INCLUDED_COM_CLONE
 #include "com_clone.h"
-#define INCLUDED_COM_CLONE
-#endif
-#ifndef INCLUDED_APPARGS
 #include "appargs.h"
-#define INCLUDED_APPARGS
-#endif
-// Module headers.
-#ifndef INCLUDED_CALC_XMLREFLECTION
 #include "calc_xmlreflection.h"
-#define INCLUDED_CALC_XMLREFLECTION
-#endif
-#ifndef INCLUDED_CALC_MAP2CSF
 #include "calc_map2csf.h"
-#define INCLUDED_CALC_MAP2CSF
-#endif
-#ifndef INCLUDED_CALC_AREAMAP
 #include "calc_areamap.h"
-#define INCLUDED_CALC_AREAMAP
-#endif
-#ifndef INCLUDED_CALC_ASTSYMBOLTABLE
 #include "calc_astsymboltable.h"
-#define INCLUDED_CALC_ASTSYMBOLTABLE
-#endif
-#ifndef INCLUDED_CALC_ASISPACKING
 #include "calc_asispacking.h"
-#define INCLUDED_CALC_ASISPACKING
-#endif
-#ifndef INCLUDED_CALC_MASKPACKING
 #include "calc_maskpacking.h"
-#define INCLUDED_CALC_MASKPACKING
-#endif
-#ifndef INCLUDED_CALC_UNPACKEDCREATION
 #include "calc_unpackedcreation.h"
-#define INCLUDED_CALC_UNPACKEDCREATION
-#endif
-#ifndef INCLUDED_CALC_UNPACKEDSRC
 #include "calc_unpackedsrc.h"
-#define INCLUDED_CALC_UNPACKEDSRC
-#endif
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
-#ifndef INCLUDED_CALC_GRIDSTAT
 #include "calc_gridstat.h"
-#define INCLUDED_CALC_GRIDSTAT
-#endif
-#ifndef INCLUDED_CALC_DATATYPE
 #include "calc_datatype.h"
-#define INCLUDED_CALC_DATATYPE
-#endif
-#ifndef INCLUDED_CALC_NONSPATIAL
 #include "calc_nonspatial.h"
-#define INCLUDED_CALC_NONSPATIAL
-#endif
-#ifndef INCLUDED_CALC_IOFIELDSTRATEGY
 #include "calc_iofieldstrategy.h"
-#define INCLUDED_CALC_IOFIELDSTRATEGY
-#endif
-#ifndef INCLUDED_CALC_STACKINPUT
 #include "calc_stackinput.h"
-#define INCLUDED_CALC_STACKINPUT
-#endif
-#ifndef INCLUDED_CALC_MEMORYEXCHANGEITEM
 #include "calc_MemoryExchangeItem.h"
-#define INCLUDED_CALC_MEMORYEXCHANGEITEM
-#endif
-#ifndef INCLUDED_CALC_MEMORYEXCHANGEITEMFIELD
 #include "calc_MemoryExchangeItemField.h"
-#define INCLUDED_CALC_MEMORYEXCHANGEITEMFIELD
-#endif
 
 
 /*!

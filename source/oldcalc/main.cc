@@ -1,17 +1,6 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_CMDLINECALC
 #include "calc_cmdlinecalc.h"
-#define INCLUDED_CALC_CMDLINECALC
-#endif
-
-//#ifndef INCLUDED_COM_CPUCYCLECOUNTER
 //#include "com_cpucyclecounter.h"
-//#define INCLUDED_COM_CPUCYCLECOUNTER
-//#endif
-
-#include <stdlib.h>
-
 #include <iostream>
 
 

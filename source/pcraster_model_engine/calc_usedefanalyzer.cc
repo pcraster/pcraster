@@ -1,70 +1,21 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_USEDEFANALYZER
 #include "calc_usedefanalyzer.h"
-#define INCLUDED_CALC_USEDEFANALYZER
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_STACK
-#include <stack>
-#define INCLUDED_STACK
-#endif
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-#ifndef INCLUDED_MAP
-#include <map>
-#define INCLUDED_MAP
-#endif
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_BASEEXPR
 #include "calc_baseexpr.h"
-#define INCLUDED_CALC_BASEEXPR
-#endif
-#ifndef INCLUDED_CALC_ASTPAR
 #include "calc_astpar.h"
-#define INCLUDED_CALC_ASTPAR
-#endif
-#ifndef INCLUDED_CALC_JUMPNODE
 #include "calc_jumpnode.h"
-#define INCLUDED_CALC_JUMPNODE
-#endif
-#ifndef INCLUDED_CALC_BLOCKENTRANCE
 #include "calc_blockentrance.h"
-#define INCLUDED_CALC_BLOCKENTRANCE
-#endif
-#ifndef INCLUDED_CALC_BASICBLOCK
 #include "calc_basicblock.h"
-#define INCLUDED_CALC_BASICBLOCK
-#endif
-#ifndef INCLUDED_CALC_ASTASS
 #include "calc_astass.h"
-#define INCLUDED_CALC_ASTASS
-#endif
-#ifndef INCLUDED_CALC_POINTCODEBLOCK
 #include "calc_pointcodeblock.h"
-#define INCLUDED_CALC_POINTCODEBLOCK
-#endif
-#ifndef INCLUDED_CALC_UDEVENT
 #include "calc_udevent.h"
-#define INCLUDED_CALC_UDEVENT
-#endif
-#ifndef INCLUDED_CALC_IOTYPE
 #include "calc_iotype.h"
-#define INCLUDED_CALC_IOTYPE
-#endif
+
+#include <stack>
+#include <vector>
+#include <map>
+#include <iostream>
+
+
 /*!
   \file
   This file contains the implementation of the UseDefAnalyzer class.

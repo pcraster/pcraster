@@ -1,27 +1,10 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_INDEXSELECTEDVECTOR
 #include "calc_indexselectedvector.h"
+#include "calc_arraydefinition.h"
+#include "calc_indexparameter.h"
+#include "calc_indexparameterconstant.h"
 
 #include <utility>
-#define INCLUDED_CALC_INDEXSELECTEDVECTOR
-#endif
-
-#ifndef INCLUDED_CALC_ARRAYDEFINITION
-#include "calc_arraydefinition.h"
-#define INCLUDED_CALC_ARRAYDEFINITION
-#endif
-
-
-#ifndef INCLUDED_CALC_INDEXPARAMETER
-#include "calc_indexparameter.h"
-#define INCLUDED_CALC_INDEXPARAMETER
-#endif
-
-#ifndef INCLUDED_CALC_INDEXPARAMETERCONSTANT
-#include "calc_indexparameterconstant.h"
-#define INCLUDED_CALC_INDEXPARAMETERCONSTANT
-#endif
 
 //! factor an ArrayDefVector
 calc::ArrayDefVector calc::IndexSelectedVector::arrayDefVector() const

@@ -1,57 +1,14 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_IOFIELDSTRATEGY
 #include "calc_iofieldstrategy.h"
-#define INCLUDED_CALC_IOFIELDSTRATEGY
-#endif
-
-// Library headers.
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_API
 #include "api.h"        // BootTestApi
-#define INCLUDED_API
-#endif
-
-
-// Module headers.
-#ifndef INCLUDED_CALC_RUNDIRECTORY
 #include "calc_rundirectory.h"
-#define INCLUDED_CALC_RUNDIRECTORY
-#endif
-
-#ifndef INCLUDED_CALC_QUOTE
 #include "calc_quote.h"
-#define INCLUDED_CALC_QUOTE
-#endif
-#ifndef INCLUDED_CALC_FIELDMAPINPUTPARAMETER
 #include "calc_fieldmapinputparameter.h"
-#define INCLUDED_CALC_FIELDMAPINPUTPARAMETER
-#endif
-#ifndef INCLUDED_CALC_PARSPAR
 #include "calc_parspar.h"
-#define INCLUDED_CALC_PARSPAR
-#endif
-
-#ifndef INCLUDED_CALC_IOCSFFIELDSTRATEGY
 #include "calc_iocsffieldstrategy.h"
-#define INCLUDED_CALC_IOCSFFIELDSTRATEGY
-#endif
-#ifndef INCLUDED_CALC_IOESRIFIELDSTRATEGY
 #include "calc_ioesrifieldstrategy.h"
-#define INCLUDED_CALC_IOESRIFIELDSTRATEGY
-#endif
-#ifndef INCLUDED_CALC_IOBANDFIELDSTRATEGY
 #include "calc_iobandfieldstrategy.h"
-#define INCLUDED_CALC_IOBANDFIELDSTRATEGY
-#endif
 
 /*!
   \file

@@ -1,19 +1,5 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_OBJECTLINKMETA
 #include "calc_objectlinkmeta.h"
-#define INCLUDED_CALC_OBJECTLINKMETA
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-
 
 
 /*!

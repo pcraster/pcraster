@@ -1,42 +1,11 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_MASKCOMPRESSOR
 #include "calc_maskcompressor.h"
-#define INCLUDED_CALC_MASKCOMPRESSOR
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_DECOMPRESSEDDATA
 #include "calc_decompresseddata.h"
-#define INCLUDED_CALC_DECOMPRESSEDDATA
-#endif
-#ifndef INCLUDED_CALC_MAP2CSF
 #include "calc_map2csf.h"
-#define INCLUDED_CALC_MAP2CSF
-#endif
-#ifndef INCLUDED_CALC_SPATIAL
 #include "calc_spatial.h"
-#define INCLUDED_CALC_SPATIAL
-#endif
-#ifndef INCLUDED_CALC_COMPRESSIONINPUT
 #include "calc_compressioninput.h"
-#define INCLUDED_CALC_COMPRESSIONINPUT
-#endif
-#ifndef INCLUDED_CALC_VALUEBUFFER
 #include "calc_valuebuffer.h"
-#define INCLUDED_CALC_VALUEBUFFER
-#endif
-#ifndef INCLUDED_COM_CSFCELL
 #include "com_csfcell.h"
-#define INCLUDED_COM_CSFCELL
-#endif
 
 /*!
   \file

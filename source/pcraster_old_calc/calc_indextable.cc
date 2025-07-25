@@ -1,51 +1,13 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_INDEXTABLE
-# include "calc_indextable.h"
-
-#include <math.h>
-# define INCLUDED_CALC_INDEXTABLE
-#endif
-
-#ifndef INCLUDED_CALC_LEXVALUEFILE
-# include "calc_lexvaluefile.h"
-# define INCLUDED_CALC_LEXVALUEFILE
-#endif
-
-#ifndef INCLUDED_CALC_INDEXPARAMETERCONSTANT
+#include "calc_indextable.h"
+#include "calc_lexvaluefile.h"
 #include "calc_indexparameterconstant.h"
-#define INCLUDED_CALC_INDEXPARAMETERCONSTANT
-#endif
-
-#ifndef INCLUDED_MISC
 #include "misc.h"
-#define INCLUDED_MISC
-#endif
-
-#ifndef INCLUDED_CALC_ARRAYDEFINITION
 #include "calc_arraydefinition.h"
-#define INCLUDED_CALC_ARRAYDEFINITION
-#endif
-
-#ifndef INCLUDED_CALC_ISCRIPT
 #include "calc_iscript.h"
-#define INCLUDED_CALC_ISCRIPT
-#endif
-
-#ifndef INCLUDED_CALC_INFOSCRIPT
 #include "calc_infoscript.h"
-#define INCLUDED_CALC_INFOSCRIPT
-#endif
-
-#ifndef INCLUDED_COM_STRLIB
 #include "com_strlib.h"
-#define INCLUDED_COM_STRLIB
-#endif
-
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
 
 #include <cmath>
 #include <fstream>

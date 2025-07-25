@@ -1,22 +1,6 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_REPORTTABLE
 #include "calc_reporttable.h"
-#define INCLUDED_CALC_REPORTTABLE
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_REPORT
 #include "calc_report.h"
-#define INCLUDED_CALC_REPORT
-#endif
 
 
 /*!

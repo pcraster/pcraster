@@ -1,32 +1,10 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_TSSOUTPUTVALUE
 #include "calc_tssoutputvalue.h"
-#define INCLUDED_CALC_TSSOUTPUTVALUE
-#endif
-
-#ifndef INCLUDED_CALC_MAP2CSF
 #include "calc_map2csf.h"
-#define INCLUDED_CALC_MAP2CSF
-#endif
-
-#ifndef INCLUDED_NEW
 #include "com_new.h"
-#define INCLUDED_NEW
-#endif
-#ifndef INCLUDED_COM_FILE
 #include "com_file.h"
-#define INCLUDED_COM_FILE
-#endif
-#ifndef INCLUDED_APPARGS
-# include "appargs.h"
-#define INCLUDED_APPARGS
-#endif
-
-#ifndef INCLUDED_COM_EXCEPTION
+#include "appargs.h"
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
 
 #include <algorithm>
 #include <iomanip>

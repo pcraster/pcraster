@@ -1,39 +1,11 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_FIELDNEWPARAMETER
 #include "calc_fieldnewparameter.h"
-#define INCLUDED_CALC_FIELDNEWPARAMETER
-#endif
-
-#ifndef INCLUDED_CALC_ISCRIPT
 #include "calc_iscript.h"
-#define INCLUDED_CALC_ISCRIPT
-#endif
-
-#ifndef INCLUDED_CALC_IOFIELDSTRATEGY
 #include "calc_iofieldstrategy.h"
-#define INCLUDED_CALC_IOFIELDSTRATEGY
-#endif
-
-#ifndef INCLUDED_CALC_SPATIALIMPL
 #include "calc_spatialimpl.h"
-#define INCLUDED_CALC_SPATIALIMPL
-#endif
-
-#ifndef INCLUDED_CALC_NONSPATIALIMPL
 #include "calc_nonspatialimpl.h"
-#define INCLUDED_CALC_NONSPATIALIMPL
-#endif
-
-#ifndef INCLUDED_CALC_NONSPATIALTSSIMPL
 #include "calc_nonspatialtssimpl.h"
-#define INCLUDED_CALC_NONSPATIALTSSIMPL
-#endif
-
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
 
 
 //! ctor

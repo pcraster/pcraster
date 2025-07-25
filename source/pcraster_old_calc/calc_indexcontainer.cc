@@ -1,9 +1,5 @@
-#include "stddefx.h" 
-
-#ifndef INCLUDED_CALC_INDEXCONTAINER
-# include "calc_indexcontainer.h" 
-# define INCLUDED_CALC_INDEXCONTAINER
-#endif
+#include "stddefx.h"
+# include "calc_indexcontainer.h"
 
 calc::IndexContainer::IndexContainer(const calc::ArrayDefinition* partOf):
   d_partOf(partOf)

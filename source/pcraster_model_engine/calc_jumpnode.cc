@@ -1,30 +1,9 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_JUMPNODE
 #include "calc_jumpnode.h"
-#define INCLUDED_CALC_JUMPNODE
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_ASTVISITOR
 #include "calc_astvisitor.h"
-#define INCLUDED_CALC_ASTVISITOR
-#endif
-#ifndef INCLUDED_CALC_BASICBLOCK
 #include "calc_basicblock.h"
-#define INCLUDED_CALC_BASICBLOCK
-#endif
-#ifndef INCLUDED_CALC_RUNTIMEENV
 #include "calc_runtimeenv.h"
-#define INCLUDED_CALC_RUNTIMEENV
-#endif
+
 
 /*!
   \file

@@ -1,53 +1,14 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_FIELDLEFT
 #include "calc_fieldleft.h"
-#define INCLUDED_CALC_FIELDLEFT
-#endif
-
-#ifndef INCLUDED_SSTREAM
-#include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-
-#ifndef INCLUDED_CALC_FIELDEXPR
 #include "calc_fieldexpr.h"
-#define INCLUDED_CALC_FIELDEXPR
-#endif
-
-#ifndef INCLUDED_CALC_FIELDNEWPARAMETER
 #include "calc_fieldnewparameter.h"
-#define INCLUDED_CALC_FIELDNEWPARAMETER
-#endif
-
-#ifndef INCLUDED_CALC_ISCRIPT
 #include "calc_iscript.h"
-#define INCLUDED_CALC_ISCRIPT
-#endif
-
-#ifndef INCLUDED_CALC_USEPAR
 #include "calc_usepar.h"
-#define INCLUDED_CALC_USEPAR
-#endif
-
-#ifndef INCLUDED_CALC_INDEXSELECTED
 #include "calc_indexselected.h"
-#define INCLUDED_CALC_INDEXSELECTED
-#endif
-
-#ifndef INCLUDED_CALC_INFOSCRIPT
 #include "calc_infoscript.h"
-#define INCLUDED_CALC_INFOSCRIPT
-#endif
-
-#ifndef INCLUDED_CALC_SPATIAL
 #include "calc_spatial.h"
-#define INCLUDED_CALC_SPATIAL
-#endif
-#ifndef INCLUDED_CALC_ZEROMAP
 #include "calc_zeromap.h"
-#define INCLUDED_CALC_ZEROMAP
-#endif
+#include <sstream>
 
 calc::FieldLeft::FieldLeft(
             StatementBlock *b,
@@ -85,14 +46,8 @@ void calc::FieldLeft::cleanUp()
 {
   delete d_index;
 }
-#ifndef INCLUDED_CALC_ZIPMAP
 #include "calc_zipmap.h"
-#define INCLUDED_CALC_ZIPMAP
-#endif
-#ifndef INCLUDED_IOSTREAM
 #include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
 
 
 void calc::FieldLeft::assign(FieldHandle f)

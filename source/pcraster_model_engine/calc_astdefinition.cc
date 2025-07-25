@@ -1,32 +1,10 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_ASTDEFINITION
 #include "calc_astdefinition.h"
-#define INCLUDED_CALC_ASTDEFINITION
-#endif
-
-// Library headers.
-#ifndef INCLUDED_SET
-#include <set>
-#define INCLUDED_SET
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_DIMENSION
 #include "calc_dimension.h"
-#define INCLUDED_CALC_DIMENSION
-#endif
 
 #include <format>
+#include <set>
 
 /*!
   \file

@@ -1,45 +1,14 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_LOOKUPTABLE
 #include "calc_lookuptable.h"
-#define INCLUDED_CALC_LOOKUPTABLE
-#endif
-
-#ifndef INCLUDED_TABLE
 #include "table.h"    // LOOK_UP_TABLE
-#define INCLUDED_TABLE
-#endif
-#ifndef INCLUDED_COM_INTERVALTYPES
 #include "com_intervaltypes.h"
-#define INCLUDED_COM_INTERVALTYPES
-#endif
-#ifndef INCLUDED_COM_CLONE
 #include "com_clone.h"
-#define INCLUDED_COM_CLONE
-#endif
-
-#ifndef INCLUDED_ALGORITHM
-#include <algorithm>
-#define INCLUDED_ALGORITHM
-#endif
-
-#include <cassert>
-#include <functional>
-
-#ifndef INCLUDED_CALC_LIBERROR
 #include "calc_liberror.h"
-#define INCLUDED_CALC_LIBERROR
-#endif
-
-#ifndef INCLUDED_CALC_MAP2CSF
 #include "calc_map2csf.h"
-#define INCLUDED_CALC_MAP2CSF
-#endif
-
-#ifndef INCLUDED_CALC_QUOTE
 #include "calc_quote.h"
-#define INCLUDED_CALC_QUOTE
-#endif
+
+#include <algorithm>
+#include <cassert>
 
 LOOK_UP_TABLE *calc::LookupTable::createOldStyle(
   const std::string &fileName)

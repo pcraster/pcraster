@@ -1,30 +1,10 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_P5STACK
 #include "calc_p5stack.h"
-
-#include <math.h>
-
-#include <memory>
-#define INCLUDED_CALC_P5STACK
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-// Module headers.
-
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
-#ifndef INCLUDED_CALC_USEDEFANALYZER
 #include "calc_usedefanalyzer.h" // setLastUse
-#define INCLUDED_CALC_USEDEFANALYZER
-#endif
+
+#include <cmath>
+#include <memory>
 
 /*!
   \file

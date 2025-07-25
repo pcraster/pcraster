@@ -1,94 +1,29 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_WLDELFTHABITAT
 #include "calc_wldelfthabitat.h"
-#define INCLUDED_CALC_WLDELFTHABITAT
-#endif
-
 // #define XML_TRACE_LOG(x)  (x)
 #define XML_TRACE_LOG(x)
 
 // Library headers.
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-#ifndef INCLUDED_SSTREAM
-#include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-#ifndef INCLUDED_SET
-#include <set>
-#define INCLUDED_SET
-#endif
-#ifndef INCLUDED_MAP
-#include <map>
-#define INCLUDED_MAP
-#endif
-#ifndef INCLUDED_SSTREAM
-#include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_STRCONV
 #include "com_strconv.h"
-#define INCLUDED_COM_STRCONV
-#endif
-#ifndef INCLUDED_COM_INTERVAL
 #include "com_interval.h"
-#define INCLUDED_COM_INTERVAL
-#endif
-#ifndef INCLUDED_COM_CLONE
 #include "com_clone.h"
-#define INCLUDED_COM_CLONE
-#endif
-#ifndef INCLUDED_PCRXML_DOCUMENT
 #include "pcrxml_document.h"
-#define INCLUDED_PCRXML_DOCUMENT
-#endif
-#ifndef INCLUDED_PCRXML_DOMALGORITHM
 #include "pcrxml_domalgorithm.h"
-#define INCLUDED_PCRXML_DOMALGORITHM
-#endif
-#ifndef INCLUDED_PCRXML_DOM
 #include "pcrxml_dom.h"
-#define INCLUDED_PCRXML_DOM
-#endif
-#ifndef INCLUDED_COM_PATHNAME
 #include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-#ifndef INCLUDED_COM_ALGORITHM
 #include "com_algorithm.h"
-#define INCLUDED_COM_ALGORITHM
-#endif
-#ifndef INCLUDED_APPARGS
 #include "appargs.h" // appIOstrategy
-#define INCLUDED_APPARGS
-#endif
-// Module headers.
-#ifndef INCLUDED_CALC_LOOKUPTABLE
 #include "calc_lookuptable.h"
-#define INCLUDED_CALC_LOOKUPTABLE
-#endif
-#ifndef INCLUDED_CALC_LOOKUPLINEAR
 #include "calc_lookuplinear.h"
-#define INCLUDED_CALC_LOOKUPLINEAR
-#endif
-#ifndef INCLUDED_CALC_STATTABLE
 #include "calc_stattable.h"
-#define INCLUDED_CALC_STATTABLE
-#endif
 
 #include <QtGlobal>
+#include <iostream>
+#include <sstream>
+#include <set>
+#include <map>
+#include <sstream>
 
 /*!
   \file

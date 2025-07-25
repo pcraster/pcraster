@@ -1,19 +1,7 @@
 #include "stddefx.h"
-
-#ifndef  INCLUDED_CALC_DEFPAR
 #include "calc_defpar.h"
-#define  INCLUDED_CALC_DEFPAR
-#endif
-
-#ifndef  INCLUDED_CALC_ARRAYDEFINITION
 #include "calc_arraydefinition.h"
-#define  INCLUDED_CALC_ARRAYDEFINITION
-#endif
-
-#ifndef  INCLUDED_CALC_STATEMENTBLOCK
 #include "calc_statementblock.h" // findSymbol only
-#define  INCLUDED_CALC_STATEMENTBLOCK
-#endif
 
 //! indices are array-definition's
 calc::DefPar::DefPar(const ConstructPar& p):
@@ -33,50 +21,15 @@ const calc::ArrayDefVector& calc::DefPar::descriptor() const
  return d_descriptor;
 }
 
-#ifndef  INCLUDED_CALC_ARRAYDEFVECTOR
 #include "calc_arraydefvector.h"
-#define  INCLUDED_CALC_ARRAYDEFVECTOR
-#endif
-
-
-#ifndef  INCLUDED_CALC_FIELDMAPINPUTPARAMETER
 #include "calc_fieldmapinputparameter.h"
-#define  INCLUDED_CALC_FIELDMAPINPUTPARAMETER
-#endif
-
-#ifndef  INCLUDED_CALC_FIELDNRPARAMETER
 #include "calc_fieldnrparameter.h"
-#define  INCLUDED_CALC_FIELDNRPARAMETER
-#endif
-
-#ifndef  INCLUDED_CALC_LOOKUPTABLEPARAMETER
 #include "calc_lookuptableparameter.h"
-#define  INCLUDED_CALC_LOOKUPTABLEPARAMETER
-#endif
-
-#ifndef INCLUDED_CALC_FIELDTYPE
 #include "calc_fieldtype.h"
-#define INCLUDED_CALC_FIELDTYPE
-#endif
-
-#ifndef  INCLUDED_CALC_ISCRIPT
 #include "calc_iscript.h"
-#define  INCLUDED_CALC_ISCRIPT
-#endif
-
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-
-#ifndef INCLUDED_CALC_STATEMENTBLOCK
 #include "calc_statementblock.h"
-#define INCLUDED_CALC_STATEMENTBLOCK
-#endif
-#ifndef INCLUDED_CALC_INDEXTABLE
 #include "calc_indextable.h"
-#define INCLUDED_CALC_INDEXTABLE
-#endif
 
 void calc::DefPar::initError(
       const com::Exception& msg) const

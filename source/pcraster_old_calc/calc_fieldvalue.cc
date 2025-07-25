@@ -1,13 +1,6 @@
 #include "stddefx.h"
-#ifndef INCLUDED_CALC_FIELDVALUE
 #include "calc_fieldvalue.h"
-#define INCLUDED_CALC_FIELDVALUE
-#endif
-
-#ifndef INCLUDED_CALC_FIELDPARAMETER
 #include "calc_fieldparameter.h"
-#define INCLUDED_CALC_FIELDPARAMETER
-#endif
 
 calc::FieldValue::FieldValue(
   const FieldParameter& p,

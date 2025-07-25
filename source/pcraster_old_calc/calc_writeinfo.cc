@@ -1,19 +1,7 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_WRITEINFO
 #include "calc_writeinfo.h"
-#define INCLUDED_CALC_WRITEINFO
-#endif
-
-#ifndef INCLUDED_CALC_REPORT
 #include "calc_report.h"
-#define INCLUDED_CALC_REPORT
-#endif
-
-#ifndef INCLUDED_CALC_ISCRIPT
 #include "calc_iscript.h"
-#define INCLUDED_CALC_ISCRIPT
-#endif
 
 /*!
  * If hasReportPrefix is true but report is 0 then the default report is used

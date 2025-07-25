@@ -13,7 +13,7 @@
 #define ANTLR_VERSION	13319
 #include "pcctscfg.h"
 #include "pccts_stdio.h"
-#define ANTLR_SUPPORT_CODE
+//#define ANTLR_SUPPORT_CODE
 #include "tokens.h"
 #include "Parser.h"
 

@@ -1,56 +1,17 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_DATATABLE
 #include "calc_datatable.h"
+#include "com_exception.h"
+#include "calc_timetable.h"
+#include "calc_lookuptable.h"
+#include "calc_field.h"
+#include "calc_spatial.h"
+#include "calc_nonspatial.h"
+#include "calc_stackinput.h"
+#include "calc_DynamicMemoryInput.h"
+#include "calc_datavalue.h"
 
 #include <memory>
-#define INCLUDED_CALC_DATATABLE
-#endif
 
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_EXCEPTION
-#include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_TIMETABLE
-#include "calc_timetable.h"
-#define INCLUDED_CALC_TIMETABLE
-#endif
-#ifndef INCLUDED_CALC_LOOKUPTABLE
-#include "calc_lookuptable.h"
-#define INCLUDED_CALC_LOOKUPTABLE
-#endif
-#ifndef INCLUDED_CALC_FIELD
-#include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
-#ifndef INCLUDED_CALC_SPATIAL
-#include "calc_spatial.h"
-#define INCLUDED_CALC_SPATIAL
-#endif
-#ifndef INCLUDED_CALC_NONSPATIAL
-#include "calc_nonspatial.h"
-#define INCLUDED_CALC_NONSPATIAL
-#endif
-#ifndef INCLUDED_CALC_STACKINPUT
-#include "calc_stackinput.h"
-#define INCLUDED_CALC_STACKINPUT
-#endif
-#ifndef INCLUDED_CALC_DYNAMICMEMORYINPUT
-#include "calc_DynamicMemoryInput.h"
-#define INCLUDED_CALC_DYNAMICMEMORYINPUT
-#endif
-#ifndef INCLUDED_CALC_DATAVALUE
-#include "calc_datavalue.h"
-#define INCLUDED_CALC_DATAVALUE
-#endif
 /*!
   \file
   This file contains the implementation of the DataTable class.

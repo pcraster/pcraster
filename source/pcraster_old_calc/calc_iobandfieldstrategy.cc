@@ -1,54 +1,14 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_IOBANDFIELDSTRATEGY
 #include "calc_iobandfieldstrategy.h"
-#define INCLUDED_CALC_IOBANDFIELDSTRATEGY
-#endif
-
-// Library headers.
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-#ifndef INCLUDED_COM_PATHNAME
 #include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
-#ifndef INCLUDED_GEO_BANDMAP
 #include "geo_bandmap.h"
-#define INCLUDED_GEO_BANDMAP
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_VS
 #include "calc_vs.h"
-#define INCLUDED_CALC_VS
-#endif
-#ifndef INCLUDED_CALC_BANDMAP
 #include "calc_bandmap.h"
-#define INCLUDED_CALC_BANDMAP
-#endif
-#ifndef INCLUDED_CALC_INPUTSPATIAL
 #include "calc_inputspatial.h"
-#define INCLUDED_CALC_INPUTSPATIAL
-#endif
-#ifndef INCLUDED_CALC_STACKINFO
 #include "calc_stackinfo.h"
-#define INCLUDED_CALC_STACKINFO
-#endif
-#ifndef INCLUDED_CALC_FILEWRITER
 #include "calc_filewriter.h"
-#define INCLUDED_CALC_FILEWRITER
-#endif
+#include <vector>
 /*
 #ifndef INCLUDED_CALC_BANDSTACKREADER
 #include "calc_bandstackreader.h"

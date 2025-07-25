@@ -1,23 +1,8 @@
-#include "stddefx.h" 
-
-#ifndef INCLUDED_CALC_CMDLINECALC
+#include "stddefx.h"
 #include "calc_cmdlinecalc.h"
-#define INCLUDED_CALC_CMDLINECALC
-#endif
-
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-#ifndef INCLUDED_MEMORY
-#include <memory>
-#define INCLUDED_MEMORY
-#endif
-
-#ifndef INCLUDED_CALC_LIBRARYCLASS
 #include "calc_LibraryClass.h"
-#define INCLUDED_CALC_LIBRARYCLASS
-#endif
+#include <iostream>
+#include <memory>
 
 //! deriving from com::App not yet possible
 //  due to command line options mixed with the statements

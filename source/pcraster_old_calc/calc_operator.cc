@@ -1,19 +1,7 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_OPERATOR
 #include "calc_operator.h"
-#define INCLUDED_CALC_OPERATOR
-#endif
-
-#ifndef INCLUDED_SSTREAM
-#include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-
-#ifndef INCLUDED_CALC_VS
 #include "calc_vs.h"    // nrInSet
-#define INCLUDED_CALC_VS
-#endif
+#include <sstream>
 
 
 

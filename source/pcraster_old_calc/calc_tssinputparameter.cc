@@ -1,14 +1,6 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_TSSINPUTPARAMETER
 #include "calc_tssinputparameter.h"
-#define INCLUDED_CALC_TSSINPUTPARAMETER
-#endif
-
-#ifndef INCLUDED_CALC_TIMETABLE
 #include "calc_timetable.h"
-#define INCLUDED_CALC_TIMETABLE
-#endif
 
 calc::TssInputParameter::TssInputParameter(
     const calc::ParsPar& par,

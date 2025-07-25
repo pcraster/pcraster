@@ -1,22 +1,7 @@
-#ifndef INCLUDED_MLDD
 #include "Mldd.h"
-#define INCLUDED_MLDD
-#endif
-
-// External headers.
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-// Project headers.
-#ifndef INCLUDED_CALC_SPATIAL
 #include "calc_spatial.h"
-#define INCLUDED_CALC_SPATIAL
-#endif
 
-// Module headers.
-
+#include <vector>
 
 
 /*!

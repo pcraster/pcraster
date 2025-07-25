@@ -1,9 +1,5 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_INFOSCRIPT
 #include "calc_infoscript.h"
-#define INCLUDED_CALC_INFOSCRIPT
-#endif
 
 calc::InfoScript::InfoScript(const std::string& htmlFile):
   d_str(htmlFile.c_str())

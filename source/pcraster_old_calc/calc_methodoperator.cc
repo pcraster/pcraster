@@ -1,19 +1,7 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_METHODOPERATOR
 # include "calc_methodoperator.h"
-#define INCLUDED_CALC_METHODOPERATOR
-#endif
-
-#ifndef INCLUDED_CALC_OPERATOR
 # include "calc_operator.h"
-#define INCLUDED_CALC_OPERATOR
-#endif
-
-#ifndef INCLUDED_CALC_MODELLINK
 # include "calc_modellink.h"
-#define INCLUDED_CALC_MODELLINK
-#endif
 
 calc::MethodOperator::MethodOperator(
   const std::string& name,

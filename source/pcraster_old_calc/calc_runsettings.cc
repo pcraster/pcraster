@@ -1,34 +1,9 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_RUNSETTINGS
 #include "calc_runsettings.h"
-#define INCLUDED_CALC_RUNSETTINGS
-#endif
-
-// Library headers.
-#ifndef INCLUDED_COM_ALGORITHM
 #include "com_algorithm.h"
-#define INCLUDED_COM_ALGORITHM
-#endif
-#ifndef INCLUDED_PCRXML_DOM
 #include "pcrxml_dom.h"
-#define INCLUDED_PCRXML_DOM
-#endif
-#ifndef INCLUDED_PCRXML_DOMALGORITHM
 #include "pcrxml_domalgorithm.h"
-#define INCLUDED_PCRXML_DOMALGORITHM
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_PCRGENXML_MODELRUNSETTINGS
 #include "pcrgenxml_modelrunsettings.h"
-#define INCLUDED_PCRGENXML_MODELRUNSETTINGS
-#endif
-
-// Module headers.
 
 
 /*!

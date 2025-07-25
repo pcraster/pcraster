@@ -1,24 +1,8 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_ARRAYDEFVECTOR
 #include "calc_arraydefvector.h"
-#define INCLUDED_CALC_ARRAYDEFVECTOR
-#endif
-
-#ifndef INCLUDED_CALC_ARRAYDEFINITION
 #include "calc_arraydefinition.h"
-#define INCLUDED_CALC_ARRAYDEFINITION
-#endif
-
-#ifndef INCLUDED_CALC_INDEXPARAMETERCONSTANT
 #include "calc_indexparameterconstant.h"
-#define INCLUDED_CALC_INDEXPARAMETERCONSTANT
-#endif
-
-#ifndef INCLUDED_CALC_INFOSCRIPT
 #include "calc_infoscript.h"
-#define INCLUDED_CALC_INFOSCRIPT
-#endif
 
 calc::ArrayDefVector::ArrayDefVector(
    const std::vector<const class calc::ArrayDefinition* >&vector):

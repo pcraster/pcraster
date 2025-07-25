@@ -1,14 +1,6 @@
 #include "stddefx.h"
-
-#ifndef  INCLUDED_CALC_PARSPAR
 #include "calc_parspar.h"
-#define  INCLUDED_CALC_PARSPAR
-#endif
-
-#ifndef INCLUDED_CALC_CONSTRUCTPAR
 #include "calc_constructpar.h"
-#define INCLUDED_CALC_CONSTRUCTPAR
-#endif
 
 calc::ParsPar::ParsPar(const ConstructPar& p)
   :

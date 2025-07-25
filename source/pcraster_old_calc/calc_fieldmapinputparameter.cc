@@ -1,24 +1,8 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_FIELDMAPINPUTPARAMETER
 #include "calc_fieldmapinputparameter.h"
-#define INCLUDED_CALC_FIELDMAPINPUTPARAMETER
-#endif
-
-#ifndef INCLUDED_CALC_IOFIELDSTRATEGY
 #include "calc_iofieldstrategy.h"
-#define INCLUDED_CALC_IOFIELDSTRATEGY
-#endif
-
-#ifndef INCLUDED_CALC_SPATIALIMPL
 #include "calc_spatialimpl.h"
-#define INCLUDED_CALC_SPATIALIMPL
-#endif
-
-#ifndef INCLUDED_CALC_ISCRIPT
 #include "calc_iscript.h"
-#define INCLUDED_CALC_ISCRIPT
-#endif
 
 //! ctor
 calc::FieldMapInputParameter::FieldMapInputParameter(

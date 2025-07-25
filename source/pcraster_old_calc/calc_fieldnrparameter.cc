@@ -1,18 +1,7 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_FIELDNRPARAMETER
 #include "calc_fieldnrparameter.h"
-#define INCLUDED_CALC_FIELDNRPARAMETER
-#endif
-
-#ifndef INCLUDED_CALC_NONSPATIAL
 #include "calc_nonspatial.h"
-#define INCLUDED_CALC_NONSPATIAL
-#endif
-#ifndef INCLUDED_CALC_NONSPATIALIMPL
 #include "calc_nonspatialimpl.h"
-#define INCLUDED_CALC_NONSPATIALIMPL
-#endif
 
 calc::FieldNrParameter::FieldNrParameter(
     const ParsPar& par,

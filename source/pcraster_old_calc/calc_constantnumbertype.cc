@@ -1,20 +1,8 @@
 #include "stddefx.h" 
-
-#ifndef INCLUDED_CALC_CONSTANTNUMBERTYPE
 #include "calc_constantnumbertype.h"
-#define INCLUDED_CALC_CONSTANTNUMBERTYPE
-#endif
-
-#ifndef INCLUDED_CALC_VS
 #include "calc_vs.h"   // intersect
-#define INCLUDED_CALC_VS
-#endif
 
-
-#ifndef INCLUDED_SSTREAM
 #include <sstream>
-#define INCLUDED_SSTREAM
-#endif
 
 static VS TypeNumber(double value)
 {

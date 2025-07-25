@@ -1,59 +1,15 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_ESRIMAP
 #include "calc_esrimap.h"
-#define INCLUDED_CALC_ESRIMAP
-#endif
-
-#ifndef INCLUDED_GIOAPI
 #include "gioapi.h"
-#define INCLUDED_GIOAPI
-#endif
-
-#ifndef INCLUDED_APPARGS
-# include "appargs.h"
-#define INCLUDED_APPARGS
-#endif
-#ifndef INCLUDED_GEO_SIMPLERASTER
+#include "appargs.h"
 #include "geo_simpleraster.h"
-#define INCLUDED_GEO_SIMPLERASTER
-#endif
-#ifndef INCLUDED_COM_CSFCELL
 #include "com_csfcell.h"
-#define INCLUDED_COM_CSFCELL
-#endif
-
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-
-#ifndef INCLUDED_COM_NEW
 #include "com_new.h"
-#define INCLUDED_COM_NEW
-#endif
-
-#ifndef INCLUDED_COM_FILE
 #include "com_file.h"
-#define INCLUDED_COM_FILE
-#endif
-
-
-#ifndef INCLUDED_CALC_ESRIGRIDIO
 #include "calc_esrigridio.h"
-#define INCLUDED_CALC_ESRIGRIDIO
-#endif
-
-#ifndef INCLUDED_CALC_VS
 #include "calc_vs.h"
-#define INCLUDED_CALC_VS
-#endif
-
-
-#ifndef INCLUDED_CALC_MAP2CSF
 #include "calc_map2csf.h" // biggestCellRepr
-#define INCLUDED_CALC_MAP2CSF
-#endif
 
 #include <algorithm>
 #include <cmath>

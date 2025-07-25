@@ -1,104 +1,28 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_ASTTESTFACTORY
 #include "calc_asttestfactory.h"
-#define INCLUDED_CALC_ASTTESTFACTORY
-#endif
+#include "com_file.h"
+#include "com_exception.h"
+#include "pcrxml_dom.h"
+#include "pcrxml_document.h"
+#include "com_strlib.h"
+#include "calc_astscript.h"
+#include "calc_options.h"
+#include "calc_astpar.h"
+#include "calc_astnumber.h"
+#include "calc_astnodevector.h"
+#include "calc_astexpr.h"
+#include "calc_nonassexpr.h"
+#include "calc_astass.h"
+#include "calc_positionname.h"
+#include "calc_findsymbol.h" // opName2op
+#include "calc_operator.h"
+#include "calc_executor.h"
+#include "calc_stringparser.h"
+#include "calc_messagestestdb.h"
+#include "calc_globallibdefs.h"
 
-// Library headers.
-#ifndef INCLUDED_QDOMELEMENT
 #include <QDomElement>
 #include <memory>
-#define INCLUDED_QDOMELEMENT
-#endif
-#ifndef INCLUDED_COM_FILE
-#include "com_file.h"
-#define INCLUDED_COM_FILE
-#endif
-// PCRaster library headers.
-#ifndef INCLUDED_COM_EXCEPTION
-#include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-#ifndef INCLUDED_PCRXML_DOM
-#include "pcrxml_dom.h"
-#define INCLUDED_PCRXML_DOM
-#endif
-#ifndef INCLUDED_PCRXML_DOCUMENT
-#include "pcrxml_document.h"
-#define INCLUDED_PCRXML_DOCUMENT
-#endif
-#ifndef INCLUDED_COM_STRLIB
-#include "com_strlib.h"
-#define INCLUDED_COM_STRLIB
-#endif
-// Module headers.
-#ifndef INCLUDED_CALC_ASTSCRIPT
-#include "calc_astscript.h"
-#define INCLUDED_CALC_ASTSCRIPT
-#endif
-#ifndef INCLUDED_CALC_OPTIONS
-#include "calc_options.h"
-#define INCLUDED_CALC_OPTIONS
-#endif
-#ifndef INCLUDED_CALC_ASTPAR
-#include "calc_astpar.h"
-#define INCLUDED_CALC_ASTPAR
-#endif
-#ifndef INCLUDED_CALC_ASTNUMBER
-#include "calc_astnumber.h"
-#define INCLUDED_CALC_ASTNUMBER
-#endif
-#ifndef INCLUDED_CALC_ASTNODEVECTOR
-#include "calc_astnodevector.h"
-#define INCLUDED_CALC_ASTNODEVECTOR
-#endif
-#ifndef INCLUDED_CALC_ASTEXPR
-#include "calc_astexpr.h"
-#define INCLUDED_CALC_ASTEXPR
-#endif
-#ifndef INCLUDED_CALC_NONASSEXPR
-#include "calc_nonassexpr.h"
-#define INCLUDED_CALC_NONASSEXPR
-#endif
-
-#ifndef INCLUDED_CALC_ASTASS
-#include "calc_astass.h"
-#define INCLUDED_CALC_ASTASS
-#endif
-#ifndef INCLUDED_CALC_POSITIONNAME
-#include "calc_positionname.h"
-#define INCLUDED_CALC_POSITIONNAME
-#endif
-#ifndef INCLUDED_CALC_FINDSYMBOL
-#include "calc_findsymbol.h" // opName2op
-#define INCLUDED_CALC_FINDSYMBOL
-#endif
-#ifndef INCLUDED_CALC_OPERATOR
-#include "calc_operator.h"
-#define INCLUDED_CALC_OPERATOR
-#endif
-
-#ifndef INCLUDED_CALC_EXECUTOR
-#include "calc_executor.h"
-#define INCLUDED_CALC_EXECUTOR
-#endif
-#ifndef INCLUDED_CALC_STRINGPARSER
-#include "calc_stringparser.h"
-#define INCLUDED_CALC_STRINGPARSER
-#endif
-#ifndef INCLUDED_CALC_MESSAGESTESTDB
-#include "calc_messagestestdb.h"
-#define INCLUDED_CALC_MESSAGESTESTDB
-#endif
-#ifndef INCLUDED_CALC_GLOBALLIBDEFS
-#include "calc_globallibdefs.h"
-#define INCLUDED_CALC_GLOBALLIBDEFS
-#endif
-
 
 /*!
   \file

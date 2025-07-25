@@ -1,32 +1,9 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_XMLREFLECTION
 #include "calc_xmlreflection.h"
-#define INCLUDED_CALC_XMLREFLECTION
-#endif
-
-// Library headers.
-#ifndef INCLUDED_PCRASTERXSD
 #include "PCRasterXSD.h"
-#define INCLUDED_PCRASTERXSD
-#endif
-// PCRaster library headers.
-#ifndef INCLUDED_CALC_ASTSCRIPT
 #include "calc_astscript.h"
-#define INCLUDED_CALC_ASTSCRIPT
-#endif
-#ifndef INCLUDED_CALC_IOSTRATEGY
 #include "calc_iostrategy.h"
-#define INCLUDED_CALC_IOSTRATEGY
-#endif
-#ifndef INCLUDED_CALC_ASTSYMBOLTABLE
 #include "calc_astsymboltable.h"
-#define INCLUDED_CALC_ASTSYMBOLTABLE
-#endif
-// Module headers.
 
 
 

@@ -1,35 +1,10 @@
 #include "stddefx.h"
-
-
-#ifndef INCLUDED_CALC_FIELDEXPR
 #include "calc_fieldexpr.h"
-#define INCLUDED_CALC_FIELDEXPR
-#endif
-
-#ifndef INCLUDED_CALC_FIELDTYPE
 #include "calc_fieldtype.h"
-#define INCLUDED_CALC_FIELDTYPE
-#endif
-
-#ifndef INCLUDED_CALC_SPATIAL
 #include "calc_spatial.h"
-#define INCLUDED_CALC_SPATIAL
-#endif
-
-#ifndef INCLUDED_CALC_NONSPATIAL
 #include "calc_nonspatial.h"
-#define INCLUDED_CALC_NONSPATIAL
-#endif
-
-#ifndef INCLUDED_CALC_ISCRIPT
 #include "calc_iscript.h"
-#define INCLUDED_CALC_ISCRIPT
-#endif
-
-#ifndef INCLUDED_CALC_COMPRESSOR
 #include "calc_compressor.h"
-#define INCLUDED_CALC_COMPRESSOR
-#endif
 
 calc::FieldExpr::FieldExpr(
   const calc::Element& name):

@@ -1,65 +1,18 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_POINTCODEBLOCK
 #include "calc_pointcodeblock.h"
-#define INCLUDED_CALC_POINTCODEBLOCK
-#endif
-
-// Library headers.
-#ifndef INCLUDED_SSTREAM
-#include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_CFGCREATOR
 #include "calc_cfgcreator.h"
-#define INCLUDED_CALC_CFGCREATOR
-#endif
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h" // only createDestCloneIfReadOnly
-#define INCLUDED_CALC_FIELD
-#endif
-#ifndef INCLUDED_CALC_ASTNODELIST
 #include "calc_astnodelist.h"
-#define INCLUDED_CALC_ASTNODELIST
-#endif
-#ifndef INCLUDED_CALC_ASTPAR
 #include "calc_astpar.h"
-#define INCLUDED_CALC_ASTPAR
-#endif
-#ifndef INCLUDED_CALC_USEDEFANALYZER
 #include "calc_usedefanalyzer.h"
-#define INCLUDED_CALC_USEDEFANALYZER
-#endif
-#ifndef INCLUDED_CALC_GENERATEPOINTCODEBODY
 #include "calc_generatepointcodebody.h"
-#define INCLUDED_CALC_GENERATEPOINTCODEBODY
-#endif
-#ifndef INCLUDED_CALC_RUNTIMEENV
 #include "calc_runtimeenv.h"
-#define INCLUDED_CALC_RUNTIMEENV
-#endif
-#ifndef INCLUDED_CALC_PARPCB
 #include "calc_parpcb.h"
-#define INCLUDED_CALC_PARPCB
-#endif
-#ifndef INCLUDED_CALC_CODE
 #include "calc_code.h"
-#define INCLUDED_CALC_CODE
-#endif
+
+#include <sstream>
+#include <iostream>
+#include <vector>
 
 /*!
   \file

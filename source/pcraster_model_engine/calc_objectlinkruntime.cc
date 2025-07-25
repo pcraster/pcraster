@@ -1,42 +1,13 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_OBJECTLINKRUNTIME
 #include "calc_objectlinkruntime.h"
-#define INCLUDED_CALC_OBJECTLINKRUNTIME
-#endif
-// Library headers.
-#ifndef INCLUDED_STDEXCEPT
-#include <stdexcept>
-#define INCLUDED_STDEXCEPT
-#endif
-// PCRaster library headers.
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_OPERATOR
 #include "calc_operator.h"
-#define INCLUDED_CALC_OPERATOR
-#endif
-#ifndef INCLUDED_CALC_RUNTIMEENV
 #include "calc_runtimeenv.h"
-#define INCLUDED_CALC_RUNTIMEENV
-#endif
-#ifndef INCLUDED_CALC_OBJECTLINK
 #include "calc_objectlink.h"
-#define INCLUDED_CALC_OBJECTLINK
-#endif
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
 
 #include <format>
+#include <stdexcept>
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS

@@ -1,34 +1,9 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_MODELERRORTESTER
 #include "calc_modelerrortester.h"
-#define INCLUDED_CALC_MODELERRORTESTER
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_ASTSCRIPT
 #include "calc_astscript.h"
-#define INCLUDED_CALC_ASTSCRIPT
-#endif
-#ifndef INCLUDED_CALC_STRINGPARSER
 #include "calc_stringparser.h"
-#define INCLUDED_CALC_STRINGPARSER
-#endif
-#ifndef INCLUDED_CALC_MESSAGESTESTDB
 #include "calc_messagestestdb.h"
-#define INCLUDED_CALC_MESSAGESTESTDB
-#endif
 
 
 

@@ -1,49 +1,13 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_MODELLINKINIT
 # include "calc_modellinkinit.h"
-#define INCLUDED_CALC_MODELLINKINIT
-#endif
-
-#ifndef INCLUDED_CALC_USERMODELLINK
 # include "calc_usermodellink.h"
-#define INCLUDED_CALC_USERMODELLINK
-#endif
-
-#ifndef INCLUDED_CALC_MODELLINK
 # include "calc_modellink.h"
-#define INCLUDED_CALC_MODELLINK
-#endif
-
-#ifndef INCLUDED_CALC_METHODOPERATOR
 # include "calc_methodoperator.h"
-#define INCLUDED_CALC_METHODOPERATOR
-#endif
-
-#ifndef INCLUDED_CALC_FIELDEXPR
 # include "calc_fieldexpr.h"
-#define INCLUDED_CALC_FIELDEXPR
-#endif
-
-#ifndef INCLUDED_CALC_FIELDARGS
 # include "calc_fieldargs.h"
-#define INCLUDED_CALC_FIELDARGS
-#endif
-
-#ifndef INCLUDED_CALC_GLOBARGS
 # include "calc_globargs.h"
-#define INCLUDED_CALC_GLOBARGS
-#endif
-
-#ifndef INCLUDED_CALC_FIELDSTACK
 # include "calc_fieldstack.h"
-#define INCLUDED_CALC_FIELDSTACK
-#endif
-
-#ifndef INCLUDED_CALC_ISCRIPT
 # include "calc_iscript.h"
-#define INCLUDED_CALC_ISCRIPT
-#endif
 
 /*!
  * \param strArg empty string if not given

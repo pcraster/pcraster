@@ -1,66 +1,18 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_IOCSFFIELDSTRATEGY
 #include "calc_iocsffieldstrategy.h"
-#define INCLUDED_CALC_IOCSFFIELDSTRATEGY
-#endif
-
-// Library headers.
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-#ifndef INCLUDED_COM_PATHNAME
 #include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
-
-#ifndef INCLUDED_DAL_FILESYSTEMUTILS
 #include "dal_FilesystemUtils.h"
-#define INCLUDED_DAL_FILESYSTEMUTILS
-#endif
-
-#ifndef INCLUDED_GEO_CSFMAP
 #include "geo_csfmap.h"
-#define INCLUDED_GEO_CSFMAP
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_VS
 #include "calc_vs.h"
-#define INCLUDED_CALC_VS
-#endif
-#ifndef INCLUDED_CALC_CSFMAP
 #include "calc_csfmap.h"
-#define INCLUDED_CALC_CSFMAP
-#endif
-#ifndef INCLUDED_CALC_INPUTSPATIAL
 #include "calc_inputspatial.h"
-#define INCLUDED_CALC_INPUTSPATIAL
-#endif
-#ifndef INCLUDED_CALC_STACKINFO
 #include "calc_stackinfo.h"
-#define INCLUDED_CALC_STACKINFO
-#endif
-#ifndef INCLUDED_CALC_FILEWRITER
 #include "calc_filewriter.h"
-#define INCLUDED_CALC_FILEWRITER
-#endif
-#ifndef INCLUDED_CALC_STACKREADER
 #include "calc_stackreader.h"
-#define INCLUDED_CALC_STACKREADER
-#endif
 
 #include <filesystem>
+#include <vector>
 
 /*!
   \file

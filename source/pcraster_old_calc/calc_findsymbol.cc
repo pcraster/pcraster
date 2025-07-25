@@ -1,63 +1,15 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_FINDSYMBOL
 #include "calc_findsymbol.h"
-#define INCLUDED_CALC_FINDSYMBOL
-#endif
-
-// Library headers.
-#ifndef INCLUDED_SSTREAM
-#include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-#ifndef INCLUDED_MAP
-#include <map>
-#define INCLUDED_MAP
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_APP
 #include "app.h"
-#define INCLUDED_APP
-#endif
-
-#ifndef INCLUDED_MISC
 #include "misc.h"
-#define INCLUDED_MISC
-#endif
-
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_EXTERNALSYMBOLS
 #include "calc_externalsymbols.h"
-#define INCLUDED_CALC_EXTERNALSYMBOLS
-#endif
-
-#ifndef INCLUDED_CALC_MODELLINK
 #include "calc_modellink.h"
-#define INCLUDED_CALC_MODELLINK
-#endif
-
-#ifndef INCLUDED_CALC_OPERATOR
 #include "calc_operator.h"
-#define INCLUDED_CALC_OPERATOR
-#endif
-
-#ifndef INCLUDED_CALC_QUOTE
 #include "calc_quote.h"
-#define INCLUDED_CALC_QUOTE
-#endif
+#include <sstream>
+#include <vector>
+#include <map>
 
 //------------------------------------------------------------------------------
 

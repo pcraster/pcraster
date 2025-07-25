@@ -1,35 +1,9 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_ELEMENT
 #include "calc_element.h"
-#define INCLUDED_CALC_ELEMENT
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-
-#ifndef INCLUDED_CALC_ISCRIPT
 #include "calc_iscript.h"
-#define INCLUDED_CALC_ISCRIPT
-#endif
-#ifndef INCLUDED_LEXTOKEN
 #include "lextoken.h"
-#define INCLUDED_LEXTOKEN
-#endif
-#ifndef INCLUDED_CALC_POSITION
 #include "calc_position.h"
-#define INCLUDED_CALC_POSITION
-#endif
-#ifndef INCLUDED_CALC_POSITIONNONE
 #include "calc_positionnone.h"
-#define INCLUDED_CALC_POSITIONNONE
-#endif
 
 
 

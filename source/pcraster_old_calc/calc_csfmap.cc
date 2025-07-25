@@ -1,29 +1,9 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_CSFMAP
 #include "calc_csfmap.h"
-#define INCLUDED_CALC_CSFMAP
-#endif
-
-#ifndef INCLUDED_CALC_VS
 #include "calc_vs.h"
-#define INCLUDED_CALC_VS
-#endif
-
-#ifndef INCLUDED_GEO_CSFMAP
 #include "geo_csfmap.h"
-#define INCLUDED_GEO_CSFMAP
-#endif
-
-#ifndef INCLUDED_GEO_RASTERSPACE
 #include "geo_rasterspace.h"
-#define INCLUDED_GEO_RASTERSPACE
-#endif
-
-#ifndef INCLUDED_CALC_MAP2CSF
 #include "calc_map2csf.h"
-#define INCLUDED_CALC__MAP2CSF
-#endif
 
 /*!
  * \param fileName  name of existing file to open

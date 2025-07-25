@@ -1,24 +1,8 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_USERMODELLINK
 #include "calc_usermodellink.h"
-#define INCLUDED_CALC_USERMODELLINK
-#endif
-
-#ifndef INCLUDED_CALC_ISCRIPT
 #include "calc_iscript.h"
-#define INCLUDED_CALC_ISCRIPT
-#endif
-
-#ifndef INCLUDED_CALC_FINDSYMBOL
 #include "calc_findsymbol.h"
-#define INCLUDED_CALC_FINDSYMBOL
-#endif
-
-#ifndef INCLUDED_CALC_MODELLINK
 #include "calc_modellink.h"
-#define INCLUDED_CALC_MODELLINK
-#endif
 
 //! ctor
 calc::UserModelLink::UserModelLink(

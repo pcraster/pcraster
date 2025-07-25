@@ -1,44 +1,12 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-#ifndef INCLUDED_CALC_FIELDPARAMETER
 #include "calc_fieldparameter.h"
-#define INCLUDED_CALC_FIELDPARAMETER
-#endif
-
-#ifndef INCLUDED_CALC_FIELDLEAF
 #include "calc_fieldleaf.h"
-#define INCLUDED_CALC_FIELDLEAF
-#endif
-
-#ifndef INCLUDED_CALC_ISCRIPT
 #include "calc_iscript.h"
-#define INCLUDED_CALC_ISCRIPT
-#endif
-
-#ifndef INCLUDED_CALC_FILEWRITER
 #include "calc_filewriter.h"
-#define INCLUDED_CALC_FILEWRITER
-#endif
-
-#ifndef INCLUDED_CALC_SPATIAL
 #include "calc_spatial.h"
-#define INCLUDED_CALC_SPATIAL
-#endif
-
-#ifndef INCLUDED_CALC_WRITEINFO
 #include "calc_writeinfo.h"
-#define INCLUDED_CALC_WRITEINFO
-#endif
-
-#ifndef INCLUDED_CALC_NEWXMLDATASUBTYPE
 #include "calc_newxmldatasubtype.h"
-#define INCLUDED_CALC_NEWXMLDATASUBTYPE
-#endif
+#include <string>
 
 
 //! ctor

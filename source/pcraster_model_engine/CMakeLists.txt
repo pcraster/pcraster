@@ -270,10 +270,10 @@ add_library(pcraster_model_engine_objects OBJECT
     # calc_ldddownstream
 )
 
-set_source_files_properties(calcparser.cpp
+set_source_files_properties(calcparser.cpp lexnewcalc.cc
     PROPERTIES
         COMPILE_OPTIONS
-            "$<$<COMPILE_LANG_AND_ID:CXX,GNU,AppleClang,Clang>:-Wno-all;-Wno-error>"
+            "$<$<COMPILE_LANG_AND_ID:CXX,GNU,AppleClang,Clang>:-Wno-unused-macros>"
 )
 
 target_include_directories(pcraster_model_engine_objects

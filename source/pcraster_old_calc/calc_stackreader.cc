@@ -1,26 +1,7 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_STACKREADER
 #include "calc_stackreader.h"
-#define INCLUDED_CALC_STACKREADER
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_PATHINFO
 #include "com_pathinfo.h"
-#define INCLUDED_COM_PATHINFO
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_IOFIELDSTRATEGY
 #include "calc_iofieldstrategy.h"
-#define INCLUDED_CALC_IOFIELDSTRATEGY
-#endif
 
 
 

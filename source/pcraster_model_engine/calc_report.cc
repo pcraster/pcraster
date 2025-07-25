@@ -1,35 +1,9 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_REPORT
 #include "calc_report.h"
-#define INCLUDED_CALC_REPORT
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_QUOTE
 #include "calc_quote.h"
-#define INCLUDED_CALC_QUOTE
-#endif
-
-#ifndef INCLUDED_CALC_POSITIONNAME
 #include "calc_positionname.h"
-#define INCLUDED_CALC_POSITIONNAME
-#endif
-#ifndef INCLUDED_CALC_TIMER
 #include "calc_timer.h"
-#define INCLUDED_CALC_TIMER
-#endif
 
 #include <cstdio>
 

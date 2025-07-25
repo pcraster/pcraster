@@ -1,27 +1,7 @@
-#ifndef INCLUDED_MOC
 #include "Moc.h"
-#define INCLUDED_MOC
-#endif
-
-// External headers.
-
-// Project headers.
-#ifndef INCLUDED_DAL_UTILS
 #include "dal_Utils.h"
-#define INCLUDED_DAL_UTILS
-#endif
-
-#ifndef INCLUDED_COM_INTERVALTYPES
 #include "com_intervaltypes.h"
-#define INCLUDED_COM_INTERVALTYPES
-#endif
-
-#ifndef INCLUDED_CALC_SPATIAL
 #include "calc_spatial.h"
-#define INCLUDED_CALC_SPATIAL
-#endif
-
-// Module headers.
 
 
 

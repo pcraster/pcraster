@@ -1,31 +1,8 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_EXTSYM
 #include "calc_extsym.h"
-#define INCLUDED_CALC_EXTSYM
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_POSITION
 #include "calc_position.h"
-#define INCLUDED_CALC_POSITION
-#endif
-#ifndef INCLUDED_CALC_POSITIONNONE
 #include "calc_positionnone.h"
-#define INCLUDED_CALC_POSITIONNONE
-#endif
-
-#ifndef INCLUDED_CALC_SYMBOL
 #include "calc_symbol.h"
-#define INCLUDED_CALC_SYMBOL
-#endif
 
 
 /*!

@@ -1,95 +1,25 @@
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_STATTABLE
 #include "calc_stattable.h"
-#define INCLUDED_CALC_STATTABLE
-#endif
-
-// Library headers.
-#ifndef INCLUDED_SSTREAM
-#include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_INTERVALMAP
 #include "com_intervalmap.h"
-#define INCLUDED_COM_INTERVALMAP
-#endif
-#ifndef INCLUDED_COM_CLONE
 #include "com_clone.h"
-#define INCLUDED_COM_CLONE
-#endif
-#ifndef INCLUDED_TAB_CLASSCOUNTMAP
 #include "tab_classcountmap.h"
-#define INCLUDED_TAB_CLASSCOUNTMAP
-#endif
-#ifndef INCLUDED_TAB_CLASSCLASSCOUNTMAP
 #include "tab_classclasscountmap.h"
-#define INCLUDED_TAB_CLASSCLASSCOUNTMAP
-#endif
-#ifndef INCLUDED_TAB_CLASSINTERVALMAP
 #include "tab_classintervalmap.h"
-#define INCLUDED_TAB_CLASSINTERVALMAP
-#endif
-#ifndef INCLUDED_COM_MVGENERIC
 #include "com_mvgeneric.h"
-#define INCLUDED_COM_MVGENERIC
-#endif
-#ifndef INCLUDED_COM_STATISTICS
 #include "com_statistics.h"
-#define INCLUDED_COM_STATISTICS
-#endif
-#ifndef INCLUDED_COM_FILE
 #include "com_file.h"
-#define INCLUDED_COM_FILE
-#endif
-#ifndef INCLUDED_API
 #include "api.h"
-#define INCLUDED_API
-#endif
-#ifndef INCLUDED_COM_ALGORITHM
 #include "com_algorithm.h"
-#define INCLUDED_COM_ALGORITHM
-#endif
-// Module headers.
-
-#ifndef INCLUDED_CALC_RUNTIMEENV
 #include "calc_runtimeenv.h"
-#define INCLUDED_CALC_RUNTIMEENV
-#endif
-#ifndef INCLUDED_CALC_LOOKUPTABLE
 #include "calc_lookuptable.h"
-#define INCLUDED_CALC_LOOKUPTABLE
-#endif
-#ifndef INCLUDED_CALC_MAP2CSF
 #include "calc_map2csf.h"
-#define INCLUDED_CALC_MAP2CSF
-#endif
-#ifndef INCLUDED_CALC_EXECARGUMENTS
 #include "calc_execarguments.h"
-#define INCLUDED_CALC_EXECARGUMENTS
-#endif
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
-#ifndef INCLUDED_CALC_OPERATOR
 #include "calc_operator.h"
-#define INCLUDED_CALC_OPERATOR
-#endif
-#ifndef INCLUDED_CALC_ASTPAR
 #include "calc_astpar.h"
-#define INCLUDED_CALC_ASTPAR
-#endif
-#ifndef INCLUDED_CALC_MEMORYEXCHANGEITEMSTRING
 #include "calc_MemoryExchangeItemString.h"
-#define INCLUDED_CALC_MEMORYEXCHANGEITEMSTRING
-#endif
+
+#include <sstream>
 
 /*!
   \file

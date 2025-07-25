@@ -1,49 +1,13 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_ASSIGNMENT
-# include "calc_assignment.h"
-#define INCLUDED_CALC_ASSIGNMENT
-#endif
-
-#ifndef INCLUDED_CALC_FIELDEXPR
-# include "calc_fieldexpr.h"
-#define INCLUDED_CALC_FIELDEXPR
-#endif
-
-#ifndef INCLUDED_CALC_BRANCHEXPRIMPL
-# include "calc_branchexprimpl.h"
-#define INCLUDED_CALC_BRANCHEXPRIMPL
-#endif
-
-#ifndef INCLUDED_CALC_FIELDLEFT
-# include "calc_fieldleft.h"
-#define INCLUDED_CALC_FIELDLEFT
-#endif
-
-#ifndef INCLUDED_CALC_FIELDPARAMETER
-# include "calc_fieldparameter.h"
-#define INCLUDED_CALC_FIELDPARAMETER
-#endif
-
-#ifndef INCLUDED_CALC_FIELDSTACK
-# include "calc_fieldstack.h"
-#define INCLUDED_CALC_FIELDSTACK
-#endif
-
-#ifndef INCLUDED_CALC_FINDSYMBOL
+#include "calc_assignment.h"
+#include "calc_fieldexpr.h"
+#include "calc_branchexprimpl.h"
+#include "calc_fieldleft.h"
+#include "calc_fieldparameter.h"
+#include "calc_fieldstack.h"
 #include "calc_findsymbol.h"
-#define INCLUDED_CALC_FINDSYMBOL
-#endif
-
-#ifndef INCLUDED_CALC_INFOSCRIPT
-# include "calc_infoscript.h"
-#define INCLUDED_CALC_INFOSCRIPT
-#endif
-
-#ifndef INCLUDED_CALC_USEPAR
+#include "calc_infoscript.h"
 #include "calc_usepar.h"
-#define INCLUDED_CALC_USEPAR
-#endif
 
 //! add \a par = \a right to end of block \a b
 calc::Assignment::Assignment(

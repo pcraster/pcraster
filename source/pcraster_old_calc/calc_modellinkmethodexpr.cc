@@ -1,83 +1,20 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_MODELLINKMETHODEXPR
-# include "calc_modellinkmethodexpr.h"
-#define INCLUDED_CALC_MODELLINKMETHODEXPR
-#endif
-
-#ifndef INCLUDED_CALC_MODELLINK
-# include "calc_modellink.h"
-#define INCLUDED_CALC_MODELLINK
-#endif
-
-#ifndef INCLUDED_CALC_USERMODELLINK
-# include "calc_usermodellink.h"
-#define INCLUDED_CALC_USERMODELLINK
-#endif
-
-#ifndef INCLUDED_CALC_PARSPAR
-# include "calc_parspar.h"
-#define INCLUDED_CALC_PARSPAR
-#endif
-
-#ifndef INCLUDED_CALC_ISCRIPT
-# include "calc_iscript.h"
-#define INCLUDED_CALC_ISCRIPT
-#endif
-
-#ifndef INCLUDED_CALC_FIELDEXPR
-# include "calc_fieldexpr.h"
-#define INCLUDED_CALC_FIELDEXPR
-#endif
-
-#ifndef INCLUDED_CALC_FIELDARGS
-# include "calc_fieldargs.h"
-#define INCLUDED_CALC_FIELDARGS
-#endif
-
-#ifndef INCLUDED_CALC_FIELDSTACK
-# include "calc_fieldstack.h"
-#define INCLUDED_CALC_FIELDSTACK
-#endif
-
-#ifndef INCLUDED_CALC_FIELDLEFT
-# include "calc_fieldleft.h"
-#define INCLUDED_CALC_FIELDLEFT
-#endif
-
-#ifndef INCLUDED_CALC_FIELDTYPE
-# include "calc_fieldtype.h"
-#define INCLUDED_CALC_FIELDTYPE
-#endif
-
-#ifndef INCLUDED_CALC_FIELDARGS
-# include "calc_fieldargs.h"
-#define INCLUDED_CALC_FIELDARGS
-#endif
-
-#ifndef INCLUDED_CALC_GLOBARGS
-# include "calc_globargs.h"
-#define INCLUDED_CALC_GLOBARGS
-#endif
-#ifndef INCLUDED_CALC_GLOBRESULT
+#include "calc_modellinkmethodexpr.h"
+#include "calc_modellink.h"
+#include "calc_usermodellink.h"
+#include "calc_parspar.h"
+#include "calc_iscript.h"
+#include "calc_fieldexpr.h"
+#include "calc_fieldargs.h"
+#include "calc_fieldstack.h"
+#include "calc_fieldleft.h"
+#include "calc_fieldtype.h"
+#include "calc_fieldargs.h"
+#include "calc_globargs.h"
 #include "calc_globresult.h"
-#define INCLUDED_CALC_GLOBRESULT
-#endif
-
-#ifndef INCLUDED_CALC_METHODOPERATOR
-# include "calc_methodoperator.h"
-#define INCLUDED_CALC_METHODOPERATOR
-#endif
-
-#ifndef INCLUDED_CALC_SPATIAL
-# include "calc_spatial.h"
-#define INCLUDED_CALC_SPATIAL
-#endif
-
-#ifndef INCLUDED_CALC_NONSPATIAL
-# include "calc_nonspatial.h"
-#define INCLUDED_CALC_NONSPATIAL
-#endif
+#include "calc_methodoperator.h"
+#include "calc_spatial.h"
+#include "calc_nonspatial.h"
 
 calc::ModelLinkMethodExpr::ModelLinkMethodExpr(
     const calc::Symbol& modelName,

@@ -1,44 +1,13 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_OPERATOR
 #include "calc_operator.h"
-#define INCLUDED_CALC_OPERATOR
-#endif
-
-// Library headers.
-#ifndef INCLUDED_SSTREAM
-#include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_VS
 #include "calc_vs.h"    // nrInSet
-#define INCLUDED_CALC_VS
-#endif
-#ifndef INCLUDED_CALC_IOPIMPL
 #include "calc_iopimpl.h"
-#define INCLUDED_CALC_IOPIMPL
-#endif
-#ifndef INCLUDED_CALC_RTTYPECHECK
 #include "calc_rttypecheck.h"
-#define INCLUDED_CALC_RTTYPECHECK
-#endif
-#ifndef INCLUDED_CALC_POSEXCEPTION
 #include "calc_posexception.h"
-#define INCLUDED_CALC_POSEXCEPTION
-#endif
 
 #include <format>
+#include <sstream>
 
 /*!
   \file

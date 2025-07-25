@@ -1,39 +1,11 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_STACKINPUT
 #include "calc_stackinput.h"
-#define INCLUDED_CALC_STACKINPUT
-#endif
-
-#ifndef INCLUDED_CALC_STACKREADER
 #include "calc_stackreader.h"
-#define INCLUDED_CALC_STACKREADER
-#endif
-
-#ifndef INCLUDED_CALC_FIELDSTACK
 #include "calc_fieldstack.h"
-#define INCLUDED_CALC_FIELDSTACK
-#endif
-
-#ifndef INCLUDED_CALC_SPATIAL
 #include "calc_spatial.h" // FieldHandle of this type
-#define INCLUDED_CALC_SPATIAL
-#endif
-
-#ifndef INCLUDED_CALC_INFOSCRIPT
 #include "calc_infoscript.h"
-#define INCLUDED_CALC_INFOSCRIPT
-#endif
-
-#ifndef INCLUDED_CALC_ISCRIPT
 #include "calc_iscript.h"
-#define INCLUDED_CALC_ISCRIPT
-#endif
-
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
 
 calc::StackInput::StackInput(
     const Element&       pos,

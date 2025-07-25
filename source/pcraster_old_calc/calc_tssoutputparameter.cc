@@ -1,44 +1,13 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_TSSOUTPUTPARAMETER
 #include "calc_tssoutputparameter.h"
-#define INCLUDED_CALC_TSSOUTPUTPARAMETER
-#endif
-
-#ifndef INCLUDED_CALC_FILEWRITER
 #include "calc_filewriter.h"
-#define INCLUDED_CALC_FILEWRITER
-#endif
-
-#ifndef INCLUDED_CALC_TSSOUTPUTVALUE
 #include "calc_tssoutputvalue.h"
-#define INCLUDED_CALC_TSSOUTPUTVALUE
-#endif
-
-#ifndef INCLUDED_CALC_ISCRIPT
 #include "calc_iscript.h"
-#define INCLUDED_CALC_ISCRIPT
-#endif
-
-#ifndef INCLUDED_CALC_PARSPAR
 #include "calc_parspar.h"
-#define INCLUDED_CALC_PARSPAR
-#endif
-
-#ifndef INCLUDED_CALC
 #include "calc.h"      // TssRow stuff
-#define INCLUDED_CALC
-#endif
-
-#ifndef INCLUDED_API
 #include "api.h"      // MAP_INT4 stuff
-#define INCLUDED_API
-#endif
 
-#ifndef INCLUDED_STDEXCEPT
 #include <stdexcept>
-#define INCLUDED_STDEXCEPT
-#endif
 
 calc::TssOutputParameter::TssOutputParameter(
     const calc::ParsPar& par,

@@ -1,27 +1,9 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_STATEMENT
 # include "calc_statement.h"
-#define INCLUDED_CALC_STATEMENT
-#endif
-#ifndef INCLUDED_CALC_ISCRIPT
 #include "calc_iscript.h"
-#define INCLUDED_CALC_ISCRIPT
-#endif
-#ifndef INCLUDED_CALC_QUITFORPROGRESSCALLBACK
 #include "calc_quitforprogresscallback.h"
-#define INCLUDED_CALC_QUITFORPROGRESSCALLBACK
-#endif
-
-#ifndef INCLUDED_CALC_SPATIAL
 #include "calc_spatial.h"
-#define INCLUDED_CALC_SPATIAL
-#endif
-
-#ifndef INCLUDED_CALC_POSITION
 #include "calc_position.h"
-#define INCLUDED_CALC_POSITION
-#endif
 
 calc::Statement::Statement(
   const Element& pos):

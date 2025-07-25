@@ -1,29 +1,9 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_CALC_ARRAYDEFINITION
 # include "calc_arraydefinition.h"
-# define INCLUDED_CALC_ARRAYDEFINITION
-#endif
-
-#ifndef INCLUDED_CALC_INDEXPARAMETERCONSTANT
 # include "calc_indexparameterconstant.h"
-# define INCLUDED_CALC_INDEXPARAMETERCONSTANT
-#endif
-
-#ifndef INCLUDED_CALC_PARSINDEX
 # include "calc_parsindex.h"
-# define INCLUDED_CALC_PARSINDEX
-#endif
-
-#ifndef INCLUDED_CALC_ISCRIPT
 # include "calc_iscript.h"
-# define INCLUDED_CALC_ISCRIPT
-#endif
-
-#ifndef INCLUDED_CALC_INFOSCRIPT
 #include "calc_infoscript.h"
-#define INCLUDED_CALC_INFOSCRIPT
-#endif
 
 
 static void cleanUpArray(

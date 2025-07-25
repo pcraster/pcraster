@@ -1,10 +1,5 @@
-#include "stddefx.h" 
-
-
-#ifndef INCLUDED_CALC_INDEXSELECTEDSINGLE
+#include "stddefx.h"
 #include "calc_indexselectedsingle.h" 
-#define INCLUDED_CALC_INDEXSELECTEDSINGLE
-#endif
 
 calc::IndexSelectedSingle::~IndexSelectedSingle()
 {

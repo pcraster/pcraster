@@ -1,39 +1,11 @@
 #include "stddefx.h"
-
-#ifndef INCLUDED_SSTREAM
-#include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-
-#ifndef INCLUDED_CALC_LOOKUPTABLEPARAMETER
 #include "calc_lookuptableparameter.h"
-#define INCLUDED_CALC_LOOKUPTABLEPARAMETER
-#endif
-
-#ifndef INCLUDED_CALC_LOOKUPTABLE
 #include "calc_lookuptable.h"
-#define INCLUDED_CALC_LOOKUPTABLE
-#endif
-
-#ifndef INCLUDED_CALC_INDEXTABLE
 #include "calc_indextable.h"
-#define INCLUDED_CALC_INDEXTABLE
-#endif
-
-#ifndef INCLUDED_CALC_ISCRIPT
 #include "calc_iscript.h"
-#define INCLUDED_CALC_ISCRIPT
-#endif
-
-#ifndef INCLUDED_CALC_NEWXMLDATASUBTYPE
 #include "calc_newxmldatasubtype.h"
-#define INCLUDED_CALC_NEWXMLDATASUBTYPE
-#endif
+#include <sstream>
 
 calc::LookupTableParameter::LookupTableParameter(
   const ParsPar& par,

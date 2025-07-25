@@ -1,59 +1,16 @@
 #include "stddefx.h"
-#ifndef INCLUDED_CALC_OPERATIONTIMER
 #include "calc_operationtimer.h"
-#define INCLUDED_CALC_OPERATIONTIMER
-#endif
-
-#ifndef INCLUDED_CALC_TIMEINPUTEXPR
-# include "calc_timeinputexpr.h"
-#define INCLUDED_CALC_TIMEINPUTEXPR
-#endif
-
-#ifndef INCLUDED_CALC_TSSINPUTLEAF
+#include "calc_timeinputexpr.h"
 #include "calc_tssinputleaf.h"
-#define INCLUDED_CALC_TSSINPUTLEAF
-#endif
-
-#ifndef INCLUDED_CALC_TIMETABLE
 #include "calc_timetable.h"
-#define INCLUDED_CALC_TIMETABLE
-#endif
-
-#ifndef INCLUDED_CALC_GLOBRESULT
 #include "calc_globresult.h"
-#define INCLUDED_CALC_GLOBRESULT
-#endif
-#ifndef INCLUDED_CALC_GLOBARGS
 #include "calc_globargs.h"
-#define INCLUDED_CALC_GLOBARGS
-#endif
-
-#ifndef INCLUDED_CALC_FIELDSTACK
 #include "calc_fieldstack.h"
-#define INCLUDED_CALC_FIELDSTACK
-#endif
-
-#ifndef INCLUDED_CALC_INFOSCRIPT
 #include "calc_infoscript.h"
-#define INCLUDED_CALC_INFOSCRIPT
-#endif
-
-#ifndef INCLUDED_CALC_ISCRIPT
 #include "calc_iscript.h"
-#define INCLUDED_CALC_ISCRIPT
-#endif
-
-#ifndef INCLUDED_CALC_NONSPATIAL
 #include "calc_nonspatial.h"
-#define INCLUDED_CALC_NONSPATIAL
-#endif
-
-#ifndef INCLUDED_STDEXCEPT
-#include <stdexcept>
-#define INCLUDED_STDEXCEPT
-#endif
-
 #include "calc.h"
+#include <stdexcept>
 
 calc::TimeinputExpr::TimeinputExpr(
   const Element& pos,

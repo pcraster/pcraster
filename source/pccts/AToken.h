@@ -164,7 +164,7 @@ public:
 	void deref() override	      { refcnt_--; }
 	unsigned nref()	const override { return refcnt_; }   // MR11
 
-	ANTLRAbstractToken *makeToken(ANTLRTokenType /*tt MR23*/,
+	virtual ANTLRAbstractToken *makeToken(ANTLRTokenType /*tt MR23*/,
 										  ANTLRChar * /*txt MR23*/,
 										  int /*line MR23*/) override
 	{
@@ -189,7 +189,7 @@ public:
 
 	ANTLRTokenType getType() const override 	{ return _type; }
 	void setType(ANTLRTokenType t) override	{ _type = t; }
-	int getLine() const override		{ return _line; }
+	virtual int getLine() const override		{ return _line; }
 	void setLine(int line) override	    	{ _line = line; }
 	ANTLRChar *getText() const override   	{ return _text; }
     int getLength() const           { return strlen(getText()); }       // MR11
@@ -211,7 +211,7 @@ public:
         };
 	}
 
-	ANTLRAbstractToken *makeToken(ANTLRTokenType tt,
+	virtual ANTLRAbstractToken *makeToken(ANTLRTokenType tt,
 										  ANTLRChar *txt,
 										  int line) override
 		{
@@ -228,7 +228,7 @@ public:
 	 setLine(from._line);
      _text=nullptr;
      setText(from._text);
-  }
+  };
 
 // MR9 THM operator =() required when heap allocated string is used with copy semantics
 
@@ -243,7 +243,7 @@ public:
  	 setLine(rhs._line);
      setText(rhs._text);
      return *this;
-   }
+   };
 };
 
 class ANTLRCommonToken : public ANTLRRefCountToken {
@@ -258,11 +258,11 @@ public:
 	ANTLRCommonToken()
 		{ setType((ANTLRTokenType)0); _line = 0; _text = nullptr; setText(""); }   // MR9
 
-	~ANTLRCommonToken() override { if (_text) delete [] _text; } // MR9 RJV: Added Destructor to remove string
+	virtual ~ANTLRCommonToken() override { if (_text) delete [] _text; } // MR9 RJV: Added Destructor to remove string
 
 	ANTLRTokenType getType() const override 	{ return _type; }
 	void setType(ANTLRTokenType t) override	{ _type = t; }
-	int getLine() const override		{ return _line; }
+	virtual int getLine() const override		{ return _line; }
 	void setLine(int line) override	    	{ _line = line; }
 	ANTLRChar *getText() const override		{ return _text; }
     int getLength() const           { return strlen(getText()); }       // MR11
@@ -284,7 +284,7 @@ public:
         };
 	}
 
-	ANTLRAbstractToken *makeToken(ANTLRTokenType tt,
+	virtual ANTLRAbstractToken *makeToken(ANTLRTokenType tt,
 										  ANTLRChar *txt,
 										  int line) override
 	{
@@ -301,7 +301,7 @@ public:
 	 setLine(from._line);
      _text=nullptr;
      setText(from._text);
-  }
+  };
 
 // MR9 THM operator =() required when heap allocated string is used with copy semantics
 
@@ -316,7 +316,7 @@ public:
  	 setLine(rhs._line);
      setText(rhs._text);
      return *this;
-   }
+   };
 };
 
 // used for backward compatibility

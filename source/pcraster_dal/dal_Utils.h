@@ -133,9 +133,6 @@ void               deleteBuffer        (TypeId typeId,
   with strings parsed.
 */
 struct PushBack {
-private:
-  //! Assignment operator. NOT IMPLEMENTED.
-  PushBack&       operator=           (PushBack const& rhs);
 
 public:
   //! Reference to the collection to fill.
@@ -148,6 +145,8 @@ public:
   PushBack(std::vector<std::string>& strings)
     : d_strings(strings)
   {}
+
+  PushBack&       operator=           (PushBack const& rhs) = delete;
 
   //! This operator will be called by the parser.
   /*!

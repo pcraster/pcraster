@@ -55,13 +55,6 @@ private:
 
    friend class MaskPackingTest;
 
-  //! Assignment operator. NOT IMPLEMENTED.
-  MaskPacking&           operator=           (const MaskPacking&);
-
-  //  Copy constructor default for createClone
-  //               MaskPacking               (const MaskPacking&);
-
-
    //! translate index, size equals nr of 1's in mask ctor arg
    std::vector<size_t>        d_compressedToDecompressed;
 
@@ -87,11 +80,15 @@ public:
                    MaskPacking(const geo::RasterDim& rs,
                                const Mask&           mask);
 
+                   MaskPacking               (const MaskPacking&) = default;
+
   /* virtual */    ~MaskPacking              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
+
+  MaskPacking&           operator=           (const MaskPacking&) = delete;
 
   //----------------------------------------------------------------------------
   // ACCESSORS

@@ -135,13 +135,19 @@ DiscretisationType Dimension::meaning2DefaultDiscretisation(
   Creates an invalid object. Only here to be assigned to.
 */
 Dimension::Dimension()
-
-  
-    
-
 {
 }
 
+//! Copy constructor.
+/*!
+*/
+Dimension::Dimension(Dimension const& rhs) :
+    _type(rhs._type),
+    _meaning(rhs._meaning),
+    _discretisation(rhs._discretisation),
+    _values(rhs._values)
+{
+}
 
 
 //! Destructor.

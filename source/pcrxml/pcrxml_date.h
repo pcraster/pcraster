@@ -27,14 +27,6 @@ namespace pcrxml {
 class Date : public String
 {
 
-private:
-
-  //! Assignment operator. NOT IMPLEMENTED
-      Date&           operator=           (const Date&);
-
-  //  Copy constructor. DEFAULT
-  //               Date               (const Date&);
-
 public:
 
   //----------------------------------------------------------------------------
@@ -43,12 +35,14 @@ public:
 
                    Date               (const QDomNode& owningElement, const std::string& name, bool required);
                    Date               ();
+                   Date               (const Date&) = default;
 
            ~Date              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
+  Date&           operator=           (const Date&) = delete;
 
   //----------------------------------------------------------------------------
   // ACCESSORS

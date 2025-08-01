@@ -35,10 +35,6 @@ namespace calc {
 class TimerValue : public Symbol {
 private:
 
-  //! Assignment operator. DEFAULT
-  //   TimerValue&           operator=           (const TimerValue&);
-
-
   VS     d_vs;
   double d_value;
 
@@ -47,7 +43,7 @@ public:
   //----------------------------------------------------------------------------
   // CREATORS
   //----------------------------------------------------------------------------
-  
+
   //! Copy constructor.
                    TimerValue               (const TimerValue&);
 
@@ -60,6 +56,7 @@ public:
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
+  TimerValue&           operator=           (const TimerValue&) = default;
 
   //----------------------------------------------------------------------------
   // ACCESSORS

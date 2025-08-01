@@ -75,13 +75,6 @@ private:
   //! is key required
   bool d_required;
 
-protected:
-  //! Assignment operator. NOT IMPLEMENTED.
-  KeyValueConfig&           operator=           (const KeyValueConfig&);
-
-  // Copy constructor. DEFAULT
-  //               KeyValueConfig               (const KeyValueConfig&);
-
 public:
 
   //----------------------------------------------------------------------------
@@ -90,11 +83,15 @@ public:
 
                    KeyValueConfig              (const std::string& keyName);
 
+                   KeyValueConfig              (const KeyValueConfig&) = default;
+
   virtual         ~KeyValueConfig              ();
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
+  KeyValueConfig&           operator=          (const KeyValueConfig&) = delete;
+
   void setRequired(bool required);
 
   //----------------------------------------------------------------------------
@@ -264,14 +261,6 @@ public:
 
 class KeyValueString : public KeyValueConfig {
 
-private:
-
-  //! Assignment operator. NOT IMPLEMENTED.
-  KeyValueString&           operator=           (const KeyValueString&);
-
-  //  Copy constructor. DEFAULT
-  //               KeyValueString               (const KeyValueString&);
-
 public:
 
   //----------------------------------------------------------------------------
@@ -280,11 +269,14 @@ public:
 
                    KeyValueString(const std::string& keyName);
 
+                   KeyValueString               (const KeyValueString&) = default;
+
   /* virtual */    ~KeyValueString              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
+  KeyValueString&           operator=           (const KeyValueString&) = delete;
 
   //----------------------------------------------------------------------------
   // ACCESSORS

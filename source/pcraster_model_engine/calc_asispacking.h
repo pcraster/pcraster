@@ -37,14 +37,6 @@ namespace calc {
 class AsIsPacking: public SpatialPacking
 {
 
-private:
-
-  //! Assignment operator. NOT IMPLEMENTED.
-  AsIsPacking&           operator=           (const AsIsPacking&);
-
-  //  Copy constructor default for createClone
-  //               AsIsPacking               (const AsIsPacking&);
-
 public:
 
   //----------------------------------------------------------------------------
@@ -53,11 +45,15 @@ public:
 
                    AsIsPacking               (const geo::RasterDim& rs);
 
+                   AsIsPacking               (const AsIsPacking&) = default;
+
   /* virtual */    ~AsIsPacking              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
+
+  AsIsPacking&           operator=           (const AsIsPacking&) = delete;
 
   //----------------------------------------------------------------------------
   // ACCESSORS

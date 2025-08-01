@@ -23,7 +23,8 @@ namespace com {
      void  operator()(int v) {
        sum+=v;
      }
-       UPC(const UPC& rhs) {
+     UPC& operator=(const UPC& rhs) = default;
+     UPC(const UPC& rhs) {
          sum=rhs.sum;
          copyCount++;
        }

@@ -48,12 +48,6 @@ class LinkInExpr : public BaseExpr
 
 private:
 
-  //! Assignment operator. NOT IMPLEMENTED.
-  LinkInExpr&           operator=           (LinkInExpr const& rhs);
-
-  //  Copy constructor. DEFAULT
-  //               LinkInExpr               (LinkInExpr const& rhs);
-
   Id               d_nameBefore;
   Id               d_nameAfter;
 
@@ -89,11 +83,15 @@ public:
                                              Id const& nameAfter,
                                              std::string const& stringArgument);
 
+                   LinkInExpr               (LinkInExpr const& rhs) = default;
+
   /* virtual */    ~LinkInExpr              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
+  LinkInExpr&           operator=           (LinkInExpr const& rhs) = delete;
+
   void loadLibrary                          (const LinkInLibrary *library);
 
   void setAsMethod                          (std::string const&   className);

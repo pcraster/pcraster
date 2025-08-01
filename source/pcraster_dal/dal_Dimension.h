@@ -149,6 +149,8 @@ public:
 
                    Dimension           ();
 
+                   Dimension           (Dimension const& rhs);
+
   template<typename T>
                    Dimension           (Meaning meaning,
                                         DiscretisationType discretisation,

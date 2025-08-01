@@ -61,10 +61,6 @@ private:
 
   MVRaster         d_missingValues;
 
-
-  // Assignment operator. Default.
-  // GriddedPoints&   operator=           (const GriddedPoints& rhs);
-
 public:
 
   typedef typename List::const_iterator const_iterator;
@@ -86,6 +82,8 @@ public:
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
+
+  GriddedPoints&   operator=           (const GriddedPoints& rhs) = default;
 
   void             setMV               (size_t row,
                                         size_t col);

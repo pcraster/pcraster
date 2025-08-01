@@ -40,10 +40,6 @@ class PositionNone : public Position
 private:
   std::string            d_context;
 
-  //! Assignment operator. NOT IMPLEMENTED.
-  PositionNone&           operator=           (const PositionNone&);
-
-
 public:
 
   //----------------------------------------------------------------------------
@@ -51,16 +47,17 @@ public:
   //----------------------------------------------------------------------------
 
                    PositionNone               ();
+
                    PositionNone               (const std::string& context);
 
-  // Copy constructor. DEFAULT
-  //               PositionNone               (const PositionNone&);
+                   PositionNone               (const PositionNone&) = default;
 
   /* virtual */    ~PositionNone              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
+  PositionNone&           operator=           (const PositionNone&) = delete;
 
   //----------------------------------------------------------------------------
   // ACCESSORS

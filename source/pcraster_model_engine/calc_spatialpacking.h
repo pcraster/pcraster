@@ -45,12 +45,6 @@ class SpatialPacking: public IFieldRDConversion
 
 private:
 
-  //! Assignment operator. NOT IMPLEMENTED.
-  SpatialPacking&           operator=           (const SpatialPacking&);
-
-  //  Copy constructor default for createClone
-  //               SpatialPacking               (const SpatialPacking&);
-
   //! the raster space it acts on
   const geo::RasterDim  d_rd;
 
@@ -62,11 +56,15 @@ public:
 
                    SpatialPacking               (const geo::RasterDim& rd);
 
+                   SpatialPacking               (const SpatialPacking&) = default;
+
            ~SpatialPacking              () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
+
+  SpatialPacking&           operator=           (const SpatialPacking&) = delete;
 
   //----------------------------------------------------------------------------
   // ACCESSORS

@@ -31,17 +31,16 @@ namespace calc {
 //! Field to RasterDimension conversion interface
 class  IFieldRDConversion {
 protected:
-  //! Assignment operator. NOT IMPLEMENTED.
-  IFieldRDConversion&           operator=           (IFieldRDConversion const& rhs);
-
-  //  Copy constructor default for createClone
-  //               IFieldRDConversion               (IFieldRDConversion const& rhs);
 
                    IFieldRDConversion               () {}
    virtual        ~IFieldRDConversion               () {}
 public:
   //! a linear numbering scheme within a (possible) non-rectangular area
   typedef size_t        FieldId;
+
+  IFieldRDConversion&           operator=           (IFieldRDConversion const& rhs) = default;
+
+                   IFieldRDConversion               (IFieldRDConversion const& rhs) = default;
 
   //! a linear numbering within the rectangular area
   /*!

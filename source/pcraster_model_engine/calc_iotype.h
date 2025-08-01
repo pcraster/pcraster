@@ -39,14 +39,6 @@ public:
 
 private:
 
-/* DEFAULT
-
-  //  Assignment operator.
-  IOType&           operator=           (IOType const& rhs);
-
-  //  Copy constructor.
-                   IOType               (IOType const& rhs);
-*/
   Input            d_input;
   Output           d_output;
 
@@ -61,11 +53,14 @@ public:
 
                    IOType               (const Input&  input, const Output& output);
 
+                   IOType               (IOType const& rhs) = default;
+
   /* virtual */    ~IOType              ();
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
+  IOType&          operator=           (IOType const& rhs) = default;
   void             setInput            (const Input&  input);
   void             setOutput           (const Output& output);
 

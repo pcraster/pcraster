@@ -159,7 +159,7 @@ add_library(pcraster_old_calc_objects OBJECT
 set_source_files_properties(lexvaluefile.cc lexnewcalc.cc calcparser.cc
     PROPERTIES
         COMPILE_OPTIONS
-            "$<$<COMPILE_LANG_AND_ID:CXX,GNU,AppleClang,Clang>:-Wno-unused-macros>"
+            "$<$<COMPILE_LANG_AND_ID:CXX,GNU,AppleClang,Clang>:-Wno-unused-macros;-Wno-unused-label;-Wno-unused-variable;-Wno-dangling-else>"
 )
 
 target_include_directories(pcraster_old_calc_objects

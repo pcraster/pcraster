@@ -283,7 +283,6 @@ if(PCRASTER_WITH_OPENGL)
             Qt::Xml
             Qt::Charts
             Qt::OpenGL
-            OpenGL::GLU
     )
 else()
     target_link_libraries(pcraster_aguila

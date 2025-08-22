@@ -10,11 +10,11 @@
   #include <windows.h>
 #endif
 
-#ifdef __APPLE__
-  #include <OpenGL/glu.h>
-#else
-  #include <GL/glu.h>
-#endif
+// #ifdef __APPLE__
+//   #include <OpenGL/glu.h>
+// #else
+//   #include <GL/glu.h>
+// #endif
 
 #include <QKeyEvent>
 #include <QPoint>
@@ -22,11 +22,66 @@
 #include <cmath>
 #include <format>
 #include <numbers>
+#include <unordered_map>
 #include <vector>
 
 //------------------------------------------------------------------------------
 
 namespace ag {
+
+
+namespace detail {
+
+  std::string glu_error_string(GLenum glErrCode) {
+    // See https://www.khronos.org/opengl/wiki/OpenGL_Error
+    std::unordered_map<GLuint, std::string> gl_error_messages = {
+      { GL_NO_ERROR, "no error" },
+      { GL_INVALID_ENUM, "invalid enumeration parameter" },
+      { GL_INVALID_VALUE, "invalid value" },
+      { GL_INVALID_OPERATION, "invalid operation" },
+      { GL_STACK_OVERFLOW, "stack overflow" },
+      { GL_STACK_UNDERFLOW, "stack underflow" },
+      { GL_OUT_OF_MEMORY, "out of memory" },
+      { GL_INVALID_FRAMEBUFFER_OPERATION, "invalid framebuffer operation" }
+    };
+
+    if (auto err = gl_error_messages.find(glErrCode); err != gl_error_messages.end()) {
+      return std::format("error reported by OpenGL library: {0}", err->second);
+    }
+    else{
+      return std::format("error code reported by OpenGL library: {0}", glErrCode);
+    }
+  }
+
+  void glu_perspective(GLfloat fovy, GLfloat aspect, GLfloat znear, GLfloat zfar) {
+    // See https://www.khronos.org/opengl/wiki/GluPerspective_code
+    //     https://registry.khronos.org/OpenGL-Refpages/gl2.1/xhtml/gluPerspective.xml
+
+    // 4x4 column-major matrix
+    GLfloat matrix[16] = {0};
+
+    // Degrees to radians
+    GLfloat fovy_radians = fovy * std::numbers::pi / 180.0f;
+    // Cotangent
+    GLfloat f = 1.0f / std::tan(fovy_radians / 2.0f);
+    GLfloat diff = znear - zfar;
+
+    // matrix[0][0]
+    matrix[0] = f / aspect;
+    // matrix[1][1]
+    matrix[5] = f;
+    // matrix[2][2]
+    matrix[10] = (zfar + znear) / diff;
+    // matrix[2][3]
+    matrix[11] = -1.0f;
+    // matrix[3][2]
+    matrix[14] = (2.0f * zfar * znear) / diff;
+
+    glMultMatrixf(matrix);
+  }
+
+} // detail
+
 
 typedef std::vector<ag::SceneObject*>::iterator so_it;
 
@@ -199,7 +254,7 @@ void ag::SceneView::resetViewport(int w, int h)
     GLfloat aspect = static_cast<GLfloat>(w) / h;
     GLfloat d = std::sqrt(widthScene() * widthScene() +
                    depthScene() + depthScene());
-    gluPerspective(fovy, aspect, 0.05 * d, 5.0 * d);
+    detail::glu_perspective(fovy, aspect, 0.05 * d, 5.0 * d);
     d_data->d_userCamera->setSize(0.1 * d, 0.3 * d, 0.1 * d);
   }
 
@@ -271,14 +326,9 @@ void ag::SceneView::paintGL()
 void ag::SceneView::checkForGLErrors()
 {
   static GLenum glErrCode;
-  static const GLubyte *glErrString;
 
   if((glErrCode = glGetError()) != GL_NO_ERROR) {
-    glErrString = gluErrorString(glErrCode);
-
-    std::string m = std::format("error reported by OpenGL library: {0}",
-         reinterpret_cast<const char*>(glErrString));
-    throw com::Exception(m);
+    throw com::Exception(detail::glu_error_string(glErrCode));
   }
 }
 

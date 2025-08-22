@@ -20,6 +20,7 @@ Changes
 .. * prefixed modflow executable
 .. * gcc13 minimum
 .. * Set C standard to 17
+.. * We removed the dependency to the deprecated OpenGL Utility Library (GLU). Linking to libGLU is no longer required.
 
 
 PCRaster 4.4.2

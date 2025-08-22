@@ -37,17 +37,14 @@ requirements:
     - gdal
     - if: linux
       then:
-         - libglu
          - libgl-devel
     - ${{ "ncurses" if not win }}
     # - ${{ "vs2015_runtime" if win }}
 
   run:
     - python
-    - libgdal
     # - ${{ "vs2015_runtime" if win }}
     - ${{ "ncurses" if not win }}
-    - ${{ "libglu" if linux }}
 
 tests:
   - python:

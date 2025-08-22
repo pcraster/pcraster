@@ -1,15 +1,11 @@
 #ifndef INCLUDED_AG_CAMERA
 #define INCLUDED_AG_CAMERA
 
-
-
-#ifndef INCLUDED_AG_SCENEOBJECT
 #include "ag_SceneObject.h"
-#endif
 
 
 
-class GLUquadric;
+// class GLUquadric;
 
 namespace ag {
 
@@ -29,13 +25,7 @@ class Camera: public SceneObject
 private:
 
   GLuint           d_list{0};
-  GLUquadric*      d_quadric{nullptr};
-
-  //! Assignment operator. NOT IMPLEMENTED.
-  Camera &         operator=           (const Camera &);
-
-  //! Copy constructor. NOT IMPLEMENTED.
-                   Camera              (const Camera &);
+  // GLUquadric*      d_quadric{nullptr};
 
   void             createList          ();
 
@@ -54,11 +44,15 @@ public:
                                         GLfloat pitch = 0.0,
                                         GLfloat roll = 0.0);
 
+                   Camera              (const Camera &) = delete;
+
   /* virtual */    ~Camera             () override;
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
+
+  Camera &         operator=           (const Camera &) = delete;
 
   void             renderObject        () override;
 

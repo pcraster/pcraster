@@ -21,7 +21,9 @@ requirements:
     - ${{ compiler('cxx') }}
     - cmake
     - ninja
-    - ${{ "make" if win }}
+    - if: win
+      then:
+         - make
     - ${{ "vs2022_win-64" if win }} # only in GitHub actions
 
   host:
@@ -30,7 +32,6 @@ requirements:
     - pybind11
     - xerces-c
     - libboost-devel
-    - cxxopts
     - qt6-main
     - qt6-charts
     - libgdal
@@ -38,13 +39,17 @@ requirements:
     - if: linux
       then:
          - libgl-devel
-    - ${{ "ncurses" if not win }}
+    - if: not win
+      then:
+         - ncurses
     # - ${{ "vs2015_runtime" if win }}
 
   run:
     - python
     # - ${{ "vs2015_runtime" if win }}
-    - ${{ "ncurses" if not win }}
+    - if: not win
+      then:
+         - ncurses
 
 tests:
   - python:
@@ -65,7 +70,7 @@ tests:
 
 about:
   homepage: http://www.pcraster.eu
-  license: GPL-3.0
+  license: GPL-3.0-only
   license_file: LICENSE
   summary: 'Environmental modelling software.'
   description: |

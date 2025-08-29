@@ -43,6 +43,7 @@ class ANTLRParser;							// MR1
 
 class DllExportPCCTS ANTLRTokenStream {
 public:
+    virtual ~ANTLRTokenStream() = default;
     virtual _ANTLRTokenPtr getToken() = 0;
 	virtual ANTLRParser * setParser(ANTLRParser * /*p MR23*/) {return nullptr; }   // MR12
 	virtual ANTLRParser * getParser() { return nullptr; }		        // MR12

@@ -51,7 +51,7 @@ public:
 
                    AreaOperations               ();
 
-  /* virtual */    ~AreaOperations              ();
+  virtual          ~AreaOperations              ();
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
@@ -72,37 +72,41 @@ public:
 class AreaTotalOperation : public AreaOperations
 {
   public:
-  double     statistic                    (INT4  idValue) const override
-  {
-    return d_map.find(idValue)->second.sum();
-  }
+    virtual ~AreaTotalOperation() = default;
+    double     statistic                    (INT4  idValue) const override
+    {
+      return d_map.find(idValue)->second.sum();
+    }
 };
 
 class AreaAverageOperation : public AreaOperations
 {
   public:
-  double     statistic                    (INT4  idValue) const override
-  {
-    return d_map.find(idValue)->second.average();
-  }
+    virtual ~AreaAverageOperation() = default;
+    double     statistic                    (INT4  idValue) const override
+    {
+      return d_map.find(idValue)->second.average();
+    }
 };
 
 class AreaMinimumOperation : public AreaOperations
 {
   public:
-  double     statistic                    (INT4  idValue) const override
-  {
-    return d_map.find(idValue)->second.minimum();
-  }
+    virtual ~AreaMinimumOperation() = default;
+    double     statistic                    (INT4  idValue) const override
+    {
+      return d_map.find(idValue)->second.minimum();
+    }
 };
 
 class AreaMaximumOperation : public AreaOperations
 {
   public:
-  double     statistic                    (INT4  idValue) const override
-  {
-    return d_map.find(idValue)->second.maximum();
-  }
+    virtual ~AreaMaximumOperation() = default;
+    double     statistic                    (INT4  idValue) const override
+    {
+      return d_map.find(idValue)->second.maximum();
+    }
 };
 
 

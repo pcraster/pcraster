@@ -47,7 +47,7 @@ public:
 
                    MemoryExchangeItem               (std::string const& name,
                                                      size_t id);
-  /* virtual */    ~MemoryExchangeItem              ();
+  virtual          ~MemoryExchangeItem              ();
 
   //----------------------------------------------------------------------------
   // MANIPULATORS

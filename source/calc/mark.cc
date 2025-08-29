@@ -44,6 +44,7 @@ class MarkCondition {
  protected:
   double d_sum, d_treshold;
  public:
+  virtual ~MarkCondition() = default;
   MarkCondition(double treshold):
     d_sum(0),d_treshold(treshold)
     {}
@@ -51,6 +52,7 @@ class MarkCondition {
 };
 class MarkLe : public MarkCondition {
   public:
+    virtual ~MarkLe() = default;
     MarkLe(double treshold):
      MarkCondition(treshold)
     {}
@@ -61,6 +63,7 @@ class MarkLe : public MarkCondition {
 };
 class MarkGe : public MarkCondition {
   public:
+    virtual ~MarkGe() = default;
     MarkGe(double treshold):
      MarkCondition(treshold)
     {}

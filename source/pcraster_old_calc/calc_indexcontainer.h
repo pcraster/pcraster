@@ -20,6 +20,7 @@ protected:
 	virtual void addToSet(Set& setToBeAddedTo)const=0;
 public:
 	IndexContainer(const ArrayDefinition* partOf);
+	virtual ~IndexContainer() = default;
 
 	//! add to active indices, if IsOn
 	void addActiveToSet(Set& setToBeAddedTo)const;

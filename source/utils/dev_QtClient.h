@@ -50,7 +50,7 @@ protected:
                    QtClient            (int& argc,
                                         char** argv);
 
-  virtual          ~QtClient           ();
+                   ~QtClient           ();
 
 public:
 

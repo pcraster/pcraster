@@ -52,7 +52,7 @@ template<class O>
      typedef typename O::Type T;
 
      typedef T* Val;
-     SameUnArray() {
+     SameUnArray() : ISameUn() {
        f=(F)fImpl;
      }
      static void fImpl(Val val, size_t n)

@@ -35,7 +35,7 @@ private:
 
   Q_OBJECT
 
-  QSplitter*       d_splitter;
+  QSplitter*       d_splitter{};
 
   MultiMap2DView*  d_multiMap2DView;
 

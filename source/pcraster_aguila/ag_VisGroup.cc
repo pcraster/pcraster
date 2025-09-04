@@ -54,7 +54,7 @@ public:
   std::vector<VisualisationWindow *> d_visualisationWindows;
   // AnimationControl* d_animationControl;
   // TODO shouldn't this be a static?
-  VisGroupManager *d_manager;
+  VisGroupManager *d_manager{};
 
   VisGroupPrivate(const qt::AppWindowProperties& props)
     : d_winProps(props) // , d_animationControl(0)

@@ -76,7 +76,7 @@ dal::DataSpace DataConfiguration::dataSpace(
   }
 
   if(!xml.quantiles().empty()) {
-    DimensionMaker<float> m;
+    DimensionMaker<float> m{};
     m.meaning  = dal::CumulativeProbabilities;
     m.setType  = dal::ExactDiscretisation;
     m.rangeType= dal::RegularDiscretisation;
@@ -100,7 +100,7 @@ dal::DataSpace DataConfiguration::dataSpace(
 // }
 
   if(!xml.timesteps().empty()) {
-    DimensionMaker<size_t> m;
+    DimensionMaker<size_t> m{};
     m.meaning  = dal::Time;
     m.setType  = dal::RegularDiscretisation;
     m.rangeType= dal::RegularDiscretisation;

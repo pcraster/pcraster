@@ -25,7 +25,7 @@ class ASTSymbolInfo;
  */
 class TimeTable : public DataValue {
  private:
-  TIME_TABLE *d_tss;
+  TIME_TABLE *d_tss{};
 
   void clean();
   void init(const std::string& fileName,

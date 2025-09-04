@@ -45,7 +45,7 @@ class StackInfo : public GridStat
 private:
 
   //! never 0!
-  const Report*    d_report;
+  const Report*    d_report{};
 
   //! value scale of stack
   VS               d_vs;

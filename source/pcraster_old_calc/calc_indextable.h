@@ -28,7 +28,7 @@ class IndexTable : public Parameter {
  public:
   typedef struct Value {
     std::string d_value;
-    int    d_lineNr;
+    int    d_lineNr{};
   } Value;
  private:
   typedef std::vector<std::string> Key;

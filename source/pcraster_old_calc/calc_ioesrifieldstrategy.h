@@ -57,7 +57,7 @@ private:
   IoFieldStrategy *d_fallBack;
 
   //! the bounding box args needed in Grid API
-  double d_bbox[4];
+  double d_bbox[4]{};
 
   //! name of clone that is an Esri grid
   /*! can be empty if none recognized as Esri

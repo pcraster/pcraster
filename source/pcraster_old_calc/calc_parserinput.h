@@ -47,7 +47,7 @@ private:
   //! Copy constructor. NOT IMPLEMENTED.
                    ParserInput               (const ParserInput&);
 
-  LexInput         *d_lexInput;
+  LexInput         *d_lexInput{};
   LexGrammar       *d_lexer;
   ANTLRTokenBuffer *d_tokenBuffer;
 

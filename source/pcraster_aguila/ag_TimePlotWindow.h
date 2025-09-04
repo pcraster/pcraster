@@ -28,7 +28,7 @@ private:
 
   Q_OBJECT
 
-  TimePlot*        d_plot;
+  TimePlot*        d_plot{};
 
   //! Assignment operator. NOT IMPLEMENTED.
   TimePlotWindow & operator=           (const TimePlotWindow &);

@@ -86,7 +86,7 @@ private:
 #line 354 "calcparser.g"
 
 private:
-calc::Script *d_script;
+calc::Script *d_script{};
 
 
 // not const due to LT(1) use

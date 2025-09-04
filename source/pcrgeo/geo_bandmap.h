@@ -95,13 +95,13 @@ private:
 
   //! const FTTB since we only support BIL
   const Layout  d_layout;
-  size_t  d_skipBytes, /* d_bandGapBytes, */ d_bandRowBytes,d_totalRowBytes;
+  size_t  d_skipBytes, /* d_bandGapBytes, */ d_bandRowBytes{},d_totalRowBytes{};
   double  d_cellSize;
   //! centre of upper-left pixel
-  double  d_ulXMap,d_ulYMap;
+  double  d_ulXMap,d_ulYMap{};
 
   bool    d_mvIsSet;
-  double  d_mvValue;
+  double  d_mvValue{};
 
   //! Read the header, open the data stream.
   void             open                (bool allowUpdate);

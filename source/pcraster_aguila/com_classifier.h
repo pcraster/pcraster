@@ -51,7 +51,7 @@ public:
 private:
 
   //! Pointer to the algorithm used to classify the data.
-  com::ClassifierImp<REAL8> *d_classifier;
+  com::ClassifierImp<REAL8> *d_classifier{};
 
   //! Current classification type pointed to by d_classifier.
   Algorithm        d_algorithm;
@@ -63,19 +63,19 @@ private:
   std::vector<REAL8> d_borders;
 
   //! Minimum data value.
-  REAL8            d_min;
+  REAL8            d_min{};
 
   //! Maximum data value.
-  REAL8            d_max;
+  REAL8            d_max{};
 
   //! Minimum cutoff value.
-  REAL8            d_minCutoff;
+  REAL8            d_minCutoff{};
 
   //! Maximum cutoff value.
-  REAL8            d_maxCutoff;
+  REAL8            d_maxCutoff{};
 
   //! Requested number of classes.
-  size_t           d_nrClasses;
+  size_t           d_nrClasses{};
 
   //! Initialises member variables.
   void             init                ();

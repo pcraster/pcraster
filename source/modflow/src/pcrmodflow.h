@@ -108,66 +108,66 @@ class PCRModflow : public dal::Client
   friend class GHB;
 
 protected:
-  DIS *d_dis;
+  DIS *d_dis{};
   size_t d_nrOfRows;          // NROW
   size_t d_nrOfColumns;       // NCOL
 
  private:
-  GridCheck *d_gridCheck;
-  SIP *d_sip;
-  RIV *d_riv;
-  BAS *d_bas;
-  BCF *d_bcf;
-  RCH *d_rch;
-  PCG *d_pcg;
-  DRN *d_drn;
-  SOR *d_sor;
-  DSP *d_dsp;
-  WEL *d_wel;
-  HFB *d_hfb;
-  GHB *d_ghb;
+  GridCheck *d_gridCheck{};
+  SIP *d_sip{};
+  RIV *d_riv{};
+  BAS *d_bas{};
+  BCF *d_bcf{};
+  RCH *d_rch{};
+  PCG *d_pcg{};
+  DRN *d_drn{};
+  SOR *d_sor{};
+  DSP *d_dsp{};
+  WEL *d_wel{};
+  HFB *d_hfb{};
+  GHB *d_ghb{};
 
-  discr::Block *d_baseArea;
+  discr::Block *d_baseArea{};
   /// \todo no longer used?
-    discr::BlockData<REAL4> *d_baseLayer;
+    discr::BlockData<REAL4> *d_baseLayer{};
     // stores layer information
-    discr::BlockData<REAL4> *d_layer;
+    discr::BlockData<REAL4> *d_layer{};
     //
-    discr::BlockData<INT4>  *d_ibound;
-    discr::BlockData<REAL4> *d_initialHead;
-    discr::BlockData<REAL4> *d_hCond;
-    discr::BlockData<REAL4> *d_vCond;
+    discr::BlockData<INT4>  *d_ibound{};
+    discr::BlockData<REAL4> *d_initialHead{};
+    discr::BlockData<REAL4> *d_hCond{};
+    discr::BlockData<REAL4> *d_vCond{};
     //
-    discr::BlockData<REAL4> *d_rivStage;
-    discr::BlockData<REAL4> *d_rivBottom;
-    discr::BlockData<REAL4> *d_rivCond;
+    discr::BlockData<REAL4> *d_rivStage{};
+    discr::BlockData<REAL4> *d_rivBottom{};
+    discr::BlockData<REAL4> *d_rivCond{};
 //                     discr::BlockData<REAL4> *d_rivLeakage;
     //
-    discr::BlockData<REAL4> *d_recharge;
-    discr::BlockData<INT4> *d_rechargeIrch;
+    discr::BlockData<REAL4> *d_recharge{};
+    discr::BlockData<INT4> *d_rechargeIrch{};
 //    discr::BlockData<REAL4> *d_rechargeResult;
 
-    discr::BlockData<REAL4> *d_primaryStorage;
-    discr::BlockData<REAL4> *d_secondaryStorage;
-    discr::BlockData<REAL4> *d_wetting;
+    discr::BlockData<REAL4> *d_primaryStorage{};
+    discr::BlockData<REAL4> *d_secondaryStorage{};
+    discr::BlockData<REAL4> *d_wetting{};
     //
-    discr::BlockData<REAL4> *d_ghbHead;
-    discr::BlockData<REAL4> *d_ghbCond;
+    discr::BlockData<REAL4> *d_ghbHead{};
+    discr::BlockData<REAL4> *d_ghbCond{};
 
     discr::Raster *d_draster;
 
     discr::RasterData<REAL4> *d_thisbaseelev;
     // DRN
-    discr::BlockData<REAL4> *d_drnElev;
-    discr::BlockData<REAL4> *d_drnCond;
+    discr::BlockData<REAL4> *d_drnElev{};
+    discr::BlockData<REAL4> *d_drnCond{};
 //                      discr::BlockData<REAL4> *d_drnResult;
     // WEL
-    discr::BlockData<REAL4> *d_welValues;
+    discr::BlockData<REAL4> *d_welValues{};
 
-    size_t d_nrMFLayer;
-    size_t d_nrBlockLayer;
+    size_t d_nrMFLayer{};
+    size_t d_nrBlockLayer{};
 
-    int d_nrOfLayer;         // NLAY
+    int d_nrOfLayer{};         // NLAY
     /// \todo rm Of
   size_t           d_nrOfCells;
       /// \todo one, double and rename to cellsize...
@@ -189,8 +189,8 @@ protected:
 	// the new layer numbering
 	std::vector<bool> dd_isConfined;   // true if layer is quasi3D confining bed, false otherwise
 	std::vector<int> dd_layerType;
-	size_t dd_nrLayer;                 // contains the amount of internal layer
-	size_t dd_nrModflowLayer;          // contains the amount of modflow layer (without confined)
+	size_t dd_nrLayer{};                 // contains the amount of internal layer
+	size_t dd_nrModflowLayer{};          // contains the amount of modflow layer (without confined)
 
 	std::string modflow_directory;     // here mf will be executed
 	std::string run_command;           // user specified execution command
@@ -200,17 +200,17 @@ protected:
 	/// \todo replace quasiconf level with vector cont layer
 
 	  std::string d_methodName;
-	  Common *d_cmethods;
+	  Common *d_cmethods{};
 
-	  bool d_isSteadyState;
-	  bool d_baseElev;
+	  bool d_isSteadyState{};
+	  bool d_baseElev{};
 	  // flag to test if one solver is specified
-	  bool d_solver; /// 20151006 todo remove this
+	  bool d_solver{}; /// 20151006 todo remove this
 	  // flag to test if geometry changed
-	  bool d_gridIsFixed;
+	  bool d_gridIsFixed{};
 	  // test if two confining layer are specified
 	  /// \todo move to dis
-	    bool d_lastIsConfined;
+	    bool d_lastIsConfined{};
 
 
 	    void initRIV();
@@ -236,8 +236,8 @@ protected:
 	    void printList();
 	    void initREAL4BlockData(discr::BlockData<REAL4> **bdata, double init);
 
-	    double d_startTime;
-	    double d_endTime;
+	    double d_startTime{};
+	    double d_endTime{};
 	    void initDataStructures();
   void removeTextFiles(std::string const & fileName) const;
 
@@ -245,7 +245,7 @@ protected:
   int              nr_modflow_layer    () const;
   size_t           get_modflow_layernr (size_t layer);
   void             modflow_converged   ();
-  bool             d_modflow_converged;
+  bool             d_modflow_converged{};
   Solver           d_solver_used;
   std::string      run_directory       ();
 

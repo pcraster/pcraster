@@ -41,7 +41,7 @@ class  FieldParameter : public SubParameter {
   //! type of parameter
   FieldType d_type;
   //! first node of use/def chain
-  const UseDefNode *d_chainBegin;
+  const UseDefNode *d_chainBegin{};
   //! first node of use/def chain that is in dynamic
   const UseDefNode *d_firstChainNodeInDynamic;
   //! last node of use/def chain

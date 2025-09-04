@@ -80,7 +80,7 @@ class AnyPointers
 private:
 
   //! Value used for generating unique id's.
-  size_t           d_uniqueId;
+  size_t           d_uniqueId{};
 
   //! The collections of datasets.
   std::map<size_t, std::any> d_objects;

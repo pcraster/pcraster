@@ -36,7 +36,7 @@ private:
 
   Q_OBJECT
 
-  Ui::PreferencesDialogBase d_ui;
+  Ui::PreferencesDialogBase d_ui{};
 
   DataObject*      d_dataObject;
 

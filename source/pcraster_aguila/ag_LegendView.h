@@ -44,17 +44,17 @@ private:
 
   LegendTuples     _legendTuples;
 
-  QAction*         _generalPropertiesAction;
+  QAction*         _generalPropertiesAction{};
 
-  QAction*         _drawPropertiesAction;
+  QAction*         _drawPropertiesAction{};
 
-  QAction*         _saveGraphAction;
+  QAction*         _saveGraphAction{};
 
-  QAction*         _mapAction;
+  QAction*         _mapAction{};
 
-  QAction*         _timeSeriesAction;
+  QAction*         _timeSeriesAction{};
 
-  QAction*         _cumulativePropabilityPlotAction;
+  QAction*         _cumulativePropabilityPlotAction{};
 
   QModelIndex _contextMenuIndex;
 

@@ -40,15 +40,15 @@ class RangeDrawPropertiesWidgetPrivate
 public:
 
   QCheckBox*       _exactBorders{nullptr};
-  QCheckBox*       _exceedanceProbabilities;
-  QSpinBox*        _nrClasses;
-  QLineEdit*       _maxCutoff;
-  QPushButton*     _resetMaxCutoff;
-  QLineEdit*       _minCutoff;
-  QPushButton*     _resetMinCutoff;
-  QComboBox*       _classAlg;
+  QCheckBox*       _exceedanceProbabilities{};
+  QSpinBox*        _nrClasses{};
+  QLineEdit*       _maxCutoff{};
+  QPushButton*     _resetMaxCutoff{};
+  QLineEdit*       _minCutoff{};
+  QPushButton*     _resetMinCutoff{};
+  QComboBox*       _classAlg{};
   QLineEdit*       _confidenceLevel{nullptr};
-  QComboBox*       _drawerType;
+  QComboBox*       _drawerType{};
 
   RangeDrawPropertiesWidgetPrivate()
      

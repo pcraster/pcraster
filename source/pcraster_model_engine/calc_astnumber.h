@@ -44,7 +44,7 @@ private:
   //! the value as string (exactly as parsed!)
   const   std::string d_strRepr;
 
-  double              d_value;
+  double              d_value{};
 
   void init();
 

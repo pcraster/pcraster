@@ -46,7 +46,7 @@ TimeSliceVisitor::~TimeSliceVisitor()
 
 void TimeSliceVisitor::visitPerCachmentSlice()
 {
-    CurrentSliceInfo csi;
+    CurrentSliceInfo csi{};
     csi.timestepInSecs = d_timestepInSecs;
 
     for(auto c= graph().catchmentsBegin();

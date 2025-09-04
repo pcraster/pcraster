@@ -28,7 +28,7 @@ class PropertiesDialogPrivate
 {
 public:
 
-  PropertiesWidget* d_widget;
+  PropertiesWidget* d_widget{};
 
   PropertiesDialogPrivate()
   {

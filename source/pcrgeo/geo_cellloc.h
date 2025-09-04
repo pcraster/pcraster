@@ -46,9 +46,9 @@ private:
   //                 CellLoc               (const CellLoc&);
 
   //! the y/row value
-  size_t d_row;
+  size_t d_row{};
   //! the x/column value
-  size_t d_col;
+  size_t d_col{};
 
 
 public:

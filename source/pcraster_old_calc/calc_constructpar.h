@@ -29,7 +29,7 @@ typedef struct ConstructPar {
     d_block(block), d_name(name) {}
 
   //! block where parameter is constructed
-  StatementBlock      *d_block;
+  StatementBlock      *d_block{};
 
   //! name
   Symbol               d_name;

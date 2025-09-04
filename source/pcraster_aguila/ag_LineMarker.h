@@ -72,9 +72,9 @@ private:
 
   QPointF p2;
 
-  double m_xval;
+  double m_xval{};
 
-  double m_yval;
+  double m_yval{};
 
 };
 

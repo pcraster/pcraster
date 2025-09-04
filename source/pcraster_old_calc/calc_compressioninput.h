@@ -45,7 +45,7 @@ private:
                    CompressionInput               (const CompressionInput&);
 
   VS                d_vs;
-  ValueBuffer       d_decompressedData;
+  ValueBuffer       d_decompressedData{};
 
 public:
 

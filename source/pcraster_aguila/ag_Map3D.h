@@ -34,7 +34,7 @@ private:
 
   Q_OBJECT
 
-  QSplitter*       d_splitter;
+  QSplitter*       d_splitter{};
 
   Map3DView*       d_mapView;
 

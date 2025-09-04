@@ -66,7 +66,7 @@ private:
                    Diffuse               (const Diffuse& rhs);
 
   //! 0:nondiagonal, 1:diagonal
-  double                             d_cellSize[2];
+  double                             d_cellSize[2]{};
 
   //! 1) Input/State
   const REAL4*              d_oldState;

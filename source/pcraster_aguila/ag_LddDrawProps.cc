@@ -54,7 +54,7 @@ public:
   static const unsigned char *_gddTextures[8];
 
   //! Class info object.
-  const com_ClassClassifier<UINT1>* _classifier;
+  const com_ClassClassifier<UINT1>* _classifier{};
 
   LddDrawPropsPrivate()
   {

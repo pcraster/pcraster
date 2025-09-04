@@ -50,7 +50,7 @@ private:
   dal::DataSpace   _space;
 
   //! Draw properties in case data is continuous.
-  RangeDrawProps*  _rangeDrawProperties;
+  RangeDrawProps*  _rangeDrawProperties{};
 
   bool             dataIsContinuous    () const;
 

@@ -28,7 +28,7 @@ private:
 
   Q_OBJECT
 
-  Map3D*           d_map;
+  Map3D*           d_map{};
 
   //! Assignment operator. NOT IMPLEMENTED.
   Map3DWindow &    operator=           (const Map3DWindow &);

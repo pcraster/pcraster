@@ -82,10 +82,10 @@ private:
   void             checkConstraints         (const RunTimeEnvSettings& s) const;
   void             clean                    ();
 
-  bool                        d_enableCache;
+  bool                        d_enableCache{};
 
-  IOStrategy*                 d_ioStrategy;
-  com::TempDirectory*         d_swapDir;
+  IOStrategy*                 d_ioStrategy{};
+  com::TempDirectory*         d_swapDir{};
 
   /*!
    * all Field data on this stack is owned by d_stack itself and must
@@ -104,13 +104,13 @@ private:
 
   Timer            d_timer;
   //! FTTB only tss output -1 option, other sync stuff not
-  bool                        d_syncEachTimeStep;
+  bool                        d_syncEachTimeStep{};
 
   //! print some profiling information
-  bool                        d_profile;
+  bool                        d_profile{};
 
   //!  0 if none active, not owned
-  ICellIterator*              d_cellIterator;
+  ICellIterator*              d_cellIterator{};
 
   //  //! current active array selections selections
   //  std::map<class IndexFoo*, class IndexBar*>    d_indexCurrent;

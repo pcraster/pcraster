@@ -36,17 +36,17 @@ namespace calc {
 struct StackInfo
 {
   //! do d_min and d_max have a valid value
-  bool   d_minMaxSet;
+  bool   d_minMaxSet{};
   //! min and max value of whole stack
-  double d_min, d_max;
+  double d_min{}, d_max{};
   //! number of time steps of the model (not the stack!)
-  size_t d_nrTimeSteps;
+  size_t d_nrTimeSteps{};
   //! value scale of stack
   VS     d_vs;
   //! name of stack
   std::string d_stackName;
   //! the filewriter, knows which timesteps are written!
-  const FileWriter *d_fileWriter;
+  const FileWriter *d_fileWriter{};
 /*
 private:
 

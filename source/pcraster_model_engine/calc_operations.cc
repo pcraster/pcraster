@@ -90,7 +90,7 @@ void calc::Operations::add(const Operator *o)
 void calc::Operations::add(
     MAJOR_CODE mrf, MAJOR_CODE oneOf1, MAJOR_CODE oneOf2)
 {
-  MRFRelatives r;
+  MRFRelatives r{};
   r.d_mrf=mrf;
 
   r.d_otherOneOfMRF = oneOf2;

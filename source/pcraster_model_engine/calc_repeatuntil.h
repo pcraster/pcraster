@@ -42,7 +42,7 @@ private:
   //! Copy constructor. NOT IMPLEMENTED.
                    RepeatUntil               (const RepeatUntil& rhs);
 
-  ASTNode*         d_condition;
+  ASTNode*         d_condition{};
   void             init();
 public:
 

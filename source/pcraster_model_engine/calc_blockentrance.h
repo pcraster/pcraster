@@ -48,7 +48,7 @@ private:
                    BlockEntrance               (const BlockEntrance& rhs);
 
   //! not owned
-  BasicBlock*      d_block;
+  BasicBlock*      d_block{};
 
 public:
 

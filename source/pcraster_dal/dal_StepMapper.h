@@ -50,7 +50,7 @@ private:
 
   double           d_destinationLastStep{};
 
-  double           d_conversionFactor;
+  double           d_conversionFactor{};
 
   void             determineConversionFactor();
 

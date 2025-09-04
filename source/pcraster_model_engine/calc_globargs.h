@@ -48,7 +48,7 @@ private:
   //! Copy constructor. NOT IMPLEMENTED.
                    GlobArgs               (const GlobArgs& rhs);
 
-  void                 **d_voidArgs;
+  void                 **d_voidArgs{};
   std::vector<GlobArg *> d_globArgs;
 
   void                 init(RunTimeEnv *rte);

@@ -101,7 +101,7 @@ private:
    *
    * \note pointer is not owned here
    */
-  const ASTPar      *d_firstCodePresence;
+  const ASTPar      *d_firstCodePresence{};
 
   //! first presence on the left hand side of an assignment (ASTAss)
   /*!
@@ -111,7 +111,7 @@ private:
    *
    * Set from BuildTypesVisitor and only used in setConstantByBinding(ASTNumber *n).
    */
-  const ASTPar*       d_firstAss;
+  const ASTPar*       d_firstAss{};
 
   //! the ASTPar node tagged as reported.
   /*!
@@ -124,14 +124,14 @@ private:
    *
    *  spos: Code
    */
-  const ASTPar*      d_reportPar;
+  const ASTPar*      d_reportPar{};
   //! 0 if not written
   /*!
    * this pointer is not owned
    *
    *  spos: Code or default report
    */
-  const Report*      d_report;
+  const Report*      d_report{};
 
   /*@}*/
 
@@ -143,16 +143,16 @@ private:
   /*@{*/
 
   //! created in resolve() when nrTimeStepsToCheck > 0 for VS_MAPSTACK
-  StackInput*         d_stackInput;
+  StackInput*         d_stackInput{};
 
   /*! \brief created in BuildTypesVisitor() when ctor found for this symbol VS_OBJECT
    *  not owned
    */
-  LinkInExpr*         d_objectLinkConstructor;
+  LinkInExpr*         d_objectLinkConstructor{};
 
   /*@}*/
 
-  bool                d_hasInterface;
+  bool                d_hasInterface{};
   /*!
    * spos: None
    */
@@ -181,7 +181,7 @@ private:
     Resolve
   };
   DefinitionCreation  d_definitionCreation;
-  pcrxml::Definition* d_definition;
+  pcrxml::Definition* d_definition{};
 
   void               init                     ();
   void               initCopy                 (const ASTSymbolInfo& rhs);

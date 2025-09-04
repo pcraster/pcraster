@@ -35,7 +35,7 @@ class BinDoubleLE : public Attribute
 {
 
 private:
-  double  d_value;
+  double  d_value{};
 
   //  Assignment operator. DEFAULT
   // BinDoubleLE&           operator=           (const BinDoubleLE&);

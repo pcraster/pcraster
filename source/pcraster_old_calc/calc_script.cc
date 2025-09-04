@@ -587,7 +587,7 @@ void calc::Script::updateProgress(ProgressPulse p,int step)
   if (p > d_progressCallBack->callAtPulse())
     return;
 
-  ProgressInfo pi;
+  ProgressInfo pi{};
   if (step < 0)
      step = currentTimeStep();
   pi.inTimeStep =step;

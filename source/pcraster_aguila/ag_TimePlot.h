@@ -32,7 +32,7 @@ class TimePlot: public Visualisation<>
 
 private:
 
-  QSplitter*       _splitter;
+  QSplitter*       _splitter{};
 
   PlotView*        _plotView;
 

@@ -27,7 +27,7 @@ private:
   bool                 d_isKeyword;
   MAJOR_CODE           d_op;
   //! defined if d_type is TOK_INT or TOK_FLOAT
-  double               d_val;
+  double               d_val{};
   const std::string    d_text;
   Position            *d_pos;
 

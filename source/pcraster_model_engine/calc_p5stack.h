@@ -60,7 +60,7 @@ private:
 
   std::unique_ptr<Executor>   d_e;
   std::unique_ptr<ASTScript>  d_as;
-  bool                      d_keepLive;
+  bool                      d_keepLive{};
 
   const Field* fieldCast    (const std::string& name) const;
   void         init         ();

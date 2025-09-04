@@ -93,7 +93,7 @@ private:
   /*!
      elements can be updated
    */
-  void**            d_dataTransferArray;
+  void**            d_dataTransferArray{};
   //! registers what elements of d_dataTransferArray are passed as 0 by user
   std::vector<bool> d_dataTransferArrayUser0;
 

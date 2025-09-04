@@ -47,7 +47,7 @@ namespace calc {
    typedef       void* Result; // (out-only)
 
    typedef void (*F)(Result r, Input v, size_t n);
-   F f;
+   F f{};
   };
 
   struct ISameBin : public ISelectOnCRIndex {
@@ -59,12 +59,12 @@ namespace calc {
    typedef void (*NS)(Input  l, Result r, size_t n);
    typedef void (*SN)(Result l, Input  r, size_t n);
 
-   SS ss;
-   NS ns;
+   SS ss{};
+   NS ns{};
    /*!
       \throws DomainError()
     */
-   SN sn;
+   SN sn{};
   };
 
   /*! two input arguments with (possible) different types
@@ -78,9 +78,9 @@ namespace calc {
 
    typedef void (*F)(R r, A1 a1, A2 a2,size_t n);
 
-   F ss;
-   F ns;
-   F sn;
+   F ss{};
+   F ns{};
+   F sn{};
   };
 
  struct IIfThenElse : public ISelectOnCRIndex {
@@ -90,10 +90,10 @@ namespace calc {
    /*! dimension of true and false branch make different entries
     *  the result is always spatial
     */
-   F ss;
-   F ns;
-   F sn;
-   F nn;
+   F ss{};
+   F ns{};
+   F sn{};
+   F nn{};
  };
 }
 

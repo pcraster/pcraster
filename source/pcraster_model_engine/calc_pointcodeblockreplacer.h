@@ -105,7 +105,7 @@ private:
   }
 
   ParSet                         d_parsInExpr;
-  size_t                         d_nrPointsOpsInExpr;
+  size_t                         d_nrPointsOpsInExpr{};
 
   //! list of created PointCodeBlock's
   std::vector<PointCodeBlock *> d_list;

@@ -147,7 +147,7 @@ void calc::Muskingum::exec(
      const VField<float> d_k;            // timestep
      const VField<float> d_x;            // d_x : [-]
      const VField<float> d_segmentLength;
-     CurrentSliceInfo    d_csi;
+     CurrentSliceInfo    d_csi{};
 
      void setCurrentSliceInfo(CurrentSliceInfo const& csi) {
       d_csi = csi;

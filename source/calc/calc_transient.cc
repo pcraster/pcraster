@@ -89,7 +89,7 @@ private:
   const fieldapi::ReadOnlyInt4& d_flowCondition;
   const fieldapi::ReadOnlyReal8& d_storageCoefficient;
 
-  CalculationArgs d_args;
+  CalculationArgs d_args{};
   geo::CellLoc d_location;    // A cell location.
 
   geo::SimpleRaster<double> d_tmRight; // Average transm. values, right.

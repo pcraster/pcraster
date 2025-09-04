@@ -78,7 +78,7 @@ private:
   double           d_cnv{1.0};
 
   //! Logarithmic scale?
-  bool             d_log;
+  bool             d_log{};
 	
   //! Copy constructor. NOT IMPLEMENTED.
                    DiMap               (const DiMap &m);

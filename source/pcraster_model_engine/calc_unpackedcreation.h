@@ -50,7 +50,7 @@ private:
   //! unpacked, created in ctor
   Field                *d_unpacked;
   //! in current packing
-  const Field          *d_packed;
+  const Field          *d_packed{};
 
 
 public:

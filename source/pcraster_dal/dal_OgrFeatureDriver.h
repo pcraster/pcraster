@@ -58,7 +58,7 @@ private:
   GDALDriver*      _driver;
 
   //! List containing name of driver;
-  char**           _driver_names;
+  char**           _driver_names{};
 
   static bool      driverIsAvailable   (std::string const& name);
 

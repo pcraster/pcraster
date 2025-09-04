@@ -54,13 +54,13 @@ private:
    *  if d_reportInSitu==0 && d_reportById.empty() and
    *  d_reportParsed is true, then the reportDefault is used.
    */
-  bool             d_reportParsed;
+  bool             d_reportParsed{};
   //! the id is found in the report table, empty is valid
   Id               d_reportById;
   //! the definition is in situ, 0 is valid
-  Report*          d_reportInSitu;
+  Report*          d_reportInSitu{};
 
-  ASTNode*         d_stat;
+  ASTNode*         d_stat{};
 
 
   //! Assignment operator. NOT IMPLEMENTED.

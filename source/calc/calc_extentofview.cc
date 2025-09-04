@@ -28,7 +28,7 @@ class RememberPoints
 private:
 
   const fieldapi::ReadOnly<INT4>& d_classes;
-  INT4 d_class;
+  INT4 d_class{};
   std::vector<std::pair<T, T> > d_points;
 
 public:

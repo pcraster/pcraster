@@ -38,7 +38,7 @@ private:
 
   Q_OBJECT
 
-  Ui::SaveDataAsDialogBase d_ui;
+  Ui::SaveDataAsDialogBase d_ui{};
 
   dal::Formats d_formats;
 

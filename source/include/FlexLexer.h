@@ -93,10 +93,10 @@ public:
 	void set_debug( int flag )	{ yy_flex_debug = flag; }
 
 protected:
-	char* yytext;
-	int yyleng;
-	int yylineno;		// only maintained if you use %option yylineno
-	int yy_flex_debug;	// only has effect with -d or "%option debug"
+	char* yytext{};
+	int yyleng{};
+	int yylineno{};		// only maintained if you use %option yylineno
+	int yy_flex_debug{};	// only has effect with -d or "%option debug"
 };
 
 }

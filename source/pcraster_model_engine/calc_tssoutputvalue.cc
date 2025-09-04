@@ -98,7 +98,7 @@ static size_t maxId(const Field *id)
           d_len(sizeof(Header)+(sizeof(T)*data.size())),
           d_buffer(new char[d_len])
         {
-          Header header;
+          Header header{};
           header.id = 1;
           header.vt = dal::TypeTraits<T>::csfCr;
           header.nrDim=1;

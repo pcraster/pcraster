@@ -138,7 +138,7 @@ public:
  */
 template<class valueT=double, class sumT=long double>
 class AverageMinMax : public Average<valueT,sumT> {
-    valueT d_min, d_max;
+    valueT d_min{}, d_max{};
 public:
    void operator()(valueT value) {
      if (!this->nr()) // first one

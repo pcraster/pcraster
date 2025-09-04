@@ -98,10 +98,10 @@ private:
 
   DataSpace        d_space;
 
-  Driver*          d_reader;
+  Driver*          d_reader{};
 
   //! Driver for reading and writing the cache for tabels.
-  MemoryTableDriver* d_tableCacheDriver;
+  MemoryTableDriver* d_tableCacheDriver{};
 
   DataSourceProperties d_properties;
 

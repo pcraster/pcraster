@@ -53,7 +53,7 @@ private:
   /*!
    * keep track of the edges not yet processed
    */
-  unsigned char d_outflowMask;
+  unsigned char d_outflowMask{};
 
 public:
   //----------------------------------------------------------------------------

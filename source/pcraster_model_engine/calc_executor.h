@@ -52,7 +52,7 @@ private:
 
 
   RunTimeEnv        d_rte;
-  bool              d_allCodeExecuted;
+  bool              d_allCodeExecuted{};
   BaseExpr*         d_timeoutput;
   ProgressCallBack* d_progressCallBack;
   ProgressInfo*     d_progressInfo;

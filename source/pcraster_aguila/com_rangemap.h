@@ -50,7 +50,7 @@ private:
   U                d_upper2;
 
   //! Conversion factor from range 1 to range 2.
-  double           d_scale;
+  double           d_scale{};
 
   //! Assignment operator. NOT IMPLEMENTED.
   RangeMap&        operator=           (const RangeMap&);

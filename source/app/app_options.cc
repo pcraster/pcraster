@@ -59,7 +59,7 @@ extern "C" BOOL app_setDynamicLibraries(
 }
 
 typedef struct SAVE_STRTOK_IMPL {
-  size_t d_next;
+  size_t d_next{};
   std::vector<std::string> d_strings;
 } SAVE_STRTOK_IMPL;
 

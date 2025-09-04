@@ -89,7 +89,7 @@ struct NodeList : public std::list<QDomNode> {
          print(*n2,ostr);
          return error(ostr.str());
        }
-     } equal; equal.d_throwOnDiff=throwOnDiff;
+     } equal{}; equal.d_throwOnDiff=throwOnDiff;
 
      auto ni =    begin();
      auto ni2=nl2.begin();

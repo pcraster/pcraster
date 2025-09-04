@@ -22,7 +22,7 @@ class Quaternion
 
 private:
 
-  GLfloat          d_val[4];
+  GLfloat          d_val[4]{};
 
 public:
 

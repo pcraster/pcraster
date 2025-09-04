@@ -53,7 +53,7 @@ class PostScriptPrivate
 {
 public:
   const Feedback&  d_feedback;         // OpenGL's feedback buffer.
-  double           d_boundingBox[4];
+  double           d_boundingBox[4]{};
   DepthIndex*      d_primitives;
   size_t           d_nrPrimitives;
 

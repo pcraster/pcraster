@@ -41,7 +41,7 @@ private:
 
   Q_OBJECT
 
-  Ui::SaveViewAsDialogBase d_ui;
+  Ui::SaveViewAsDialogBase d_ui{};
 
   std::string      d_applicationName;
 

@@ -32,7 +32,7 @@ private:
   std::string      d_name;
 
   //! index into user's DataTransferArray
-  size_t           d_id;
+  size_t           d_id{};
 
 protected:
                    MemoryExchangeItem               ();

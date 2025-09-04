@@ -32,7 +32,7 @@ class ModelErrorTester
 
 private:
 
-  const char       *d_id;
+  const char       *d_id{};
 
   //! Assignment operator. NOT IMPLEMENTED.
   ModelErrorTester&           operator=           (const ModelErrorTester& rhs);
@@ -44,8 +44,8 @@ private:
 
 public:
 
-  bool catched;
-  bool msgEq;
+  bool catched{};
+  bool msgEq{};
 
 
   //----------------------------------------------------------------------------

@@ -47,13 +47,13 @@ private:
 
   long int         _xMarkerId;
 
-  bool             _xMarkerEnabled;
+  bool             _xMarkerEnabled{};
 
   long int         _yMarkerId;
 
-  bool             _yMarkerEnabled;
+  bool             _yMarkerEnabled{};
 
-  long int         _selectedMarkerId;
+  long int         _selectedMarkerId{};
 
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
   std::map<DataGuide, std::vector<QtCharts::QLineSeries*>> _curvesPerGuide;

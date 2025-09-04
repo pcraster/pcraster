@@ -63,7 +63,7 @@ private:
    DWVisitor &          operator=           (DWVisitor  const& rhs);
                    DWVisitor                (DWVisitor  const& rhs);
 
-   CurrentSliceInfo       d_csi;
+   CurrentSliceInfo       d_csi{};
 
    //! _state
    double*                d_state;
@@ -604,7 +604,7 @@ void calc::Kinematic::exec(
   {
 
      float*              d_Qnew;
-     CurrentSliceInfo    d_csi;
+     CurrentSliceInfo    d_csi{};
 
      std::vector<float>  d_QSumDownStream;
      const VField<float> d_q;
@@ -696,7 +696,7 @@ void calc::KinematicWave::exec(
 
      float*              d_Qnew; // use newState buffer
      float*              d_QSum; // use flux buffer
-     CurrentSliceInfo    d_csi;
+     CurrentSliceInfo    d_csi{};
      std::vector<float>  d_QSumDownStream;
      const VField<float> d_qChan;
      const VField<float> d_alpha;
@@ -788,7 +788,7 @@ void calc::KinematicWave::exec(
   {
      float*              d_flux;
      VField<INT4> const& d_nrTimeSlices;
-     size_t              d_pitIdOfCurrentCatchment;
+     size_t              d_pitIdOfCurrentCatchment{};
 
      void startCatchment(size_t pitIdOfCatchment) override
      {

@@ -31,7 +31,7 @@ class DoubleAssignment : public Statement {
  private:
   bool d_swapped;
   const Operator &d_op0, &d_op1;
-  FieldLeft *d_left[2];
+  FieldLeft *d_left[2]{};
   BranchExprImpl *d_right;
   void cleanUp();
  public:

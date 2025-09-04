@@ -45,12 +45,12 @@ private:
 
 
   //! this pointer is not owned
-  ASTNode         *d_node;
+  ASTNode         *d_node{};
   /*! (FTTB NOT USED) these pointers are back ptrs that are NOT deleted
    *  since they are also used in the CFG "thread" in d_succ
    *  Only partial tested
    */
-  CFGNode         *d_pred[NrSuccs];
+  CFGNode         *d_pred[NrSuccs]{};
   /*!
    * JumpNode is the only ASTNode, using the 2nd d_succ[1]. d_succ[0] always
    * points Forward in a linear view of a script, d_succ[1] points Back.
@@ -60,7 +60,7 @@ private:
    * Forward is created when building up the CFG, while Back is set to an already 
    * existing node.
    */
-  CFGNode         *d_succ[NrSuccs];
+  CFGNode         *d_succ[NrSuccs]{};
 
 public:
 

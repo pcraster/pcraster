@@ -71,7 +71,7 @@ private:
   geo::SimpleRaster<double> _iniConc;
 
   //! Fraction of the grid dimensions that particles will be allowed to move.
-  double           _gamma;
+  double           _gamma{};
 
   //! Effective porosity.
   geo::SimpleRaster<double> _effPorosity;
@@ -100,7 +100,7 @@ private:
   //! Dispersion equation coefficient.
   geo::SimpleRaster<double> _disp4;
 
-  double           _initialMass;
+  double           _initialMass{};
 
   void             init                ();
 

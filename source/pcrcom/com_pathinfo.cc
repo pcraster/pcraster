@@ -304,7 +304,7 @@ bool com::PathInfo::isFile() const
   if (!exists())
     return false;
 #ifndef WIN32
-  struct stat s;
+  struct stat s{};
   if (stat(d_pathName.toString().c_str(), &s))
     throw std::runtime_error(d_pathName.toString() + ": " + strerror(errno));
   return S_ISREG(s.st_mode) || S_ISLNK(s.st_mode);

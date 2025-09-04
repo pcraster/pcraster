@@ -57,7 +57,7 @@ private:
                    LexInputSourceString               (const LexInputSourceString&);
 
   //! eof found
-  bool    d_eof;
+  bool    d_eof{};
 
   size_t  d_ptr;
 

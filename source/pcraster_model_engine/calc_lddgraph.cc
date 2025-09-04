@@ -270,7 +270,7 @@ calc::LddGraph::LddGraph(
 }
 
 void calc::LddGraph::addEdge(FieldId sV, FieldId tV) {
-  Edge ve;
+  Edge ve{};
   ve.d_sourceVertex=sV;
   ve.d_targetVertex=tV;
   d_edge.push_back(ve);

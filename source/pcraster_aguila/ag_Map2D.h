@@ -32,7 +32,7 @@ private:
 
   Q_OBJECT
 
-  QSplitter*       d_splitter;
+  QSplitter*       d_splitter{};
 
   Map2DView*       d_mapView;
 

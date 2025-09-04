@@ -35,7 +35,7 @@ private:
 
   Q_OBJECT
 
-  Ui::GeneralPreferencesWidgetBase d_ui;
+  Ui::GeneralPreferencesWidgetBase d_ui{};
 
   DataObject*      d_dataObject;
 

@@ -36,7 +36,7 @@ class TimerValue : public Symbol {
 private:
 
   VS     d_vs;
-  double d_value;
+  double d_value{};
 
 public:
 

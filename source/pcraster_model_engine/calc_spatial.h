@@ -51,7 +51,7 @@ private:
    *  The union is here for debug purposes
    */
   union {
-   REAL4   *d_vals;
+   REAL4   *d_vals{};
    UINT1   *d_val1;
    INT4    *d_val4;
 

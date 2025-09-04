@@ -58,7 +58,7 @@ private:
   CSFStackNamePrivate *d_data;
 
   //! The stack is scanned for available timesteps or not.
-  bool             d_scanned;
+  bool             d_scanned{};
 
   //! If the stack is scanned, than this variable contains the available steps.
   std::vector<size_t> d_steps;

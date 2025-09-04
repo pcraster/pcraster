@@ -175,8 +175,8 @@ public:
 
 class ANTLRCommonNoRefCountToken : public ANTLRAbstractToken {
 protected:
-	ANTLRTokenType _type;
-	int _line;
+	ANTLRTokenType _type{};
+	int _line{};
 	ANTLRChar *_text;               // MR9 RJV
 
 public:
@@ -248,8 +248,8 @@ public:
 
 class ANTLRCommonToken : public ANTLRRefCountToken {
 protected:
-	ANTLRTokenType       _type;
-	int                  _line;
+	ANTLRTokenType       _type{};
+	int                  _line{};
 	ANTLRChar           *_text;               // MR9 RJV:Added
 
 public:

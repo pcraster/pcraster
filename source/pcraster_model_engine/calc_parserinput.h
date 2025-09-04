@@ -49,8 +49,8 @@ private:
                    ParserInput               (const ParserInput&);
 
   LexInput         *d_lexInput;
-  LexGrammar       *d_lexer;
-  ANTLRTokenBuffer *d_tokenBuffer;
+  LexGrammar       *d_lexer{};
+  ANTLRTokenBuffer *d_tokenBuffer{};
 
   void              init                     ();
   void              setup                    ();

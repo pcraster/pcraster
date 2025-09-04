@@ -63,7 +63,7 @@ private:
   ParSet      d_pars;
 #endif
   // nr of statements replaced. (UNIT TEST)
-  size_t      d_size;
+  size_t      d_size{};
   // range text of statements replaced. (UNIT TEST)
   std::string d_rangeText;
 
@@ -74,7 +74,7 @@ private:
   //! debug/performance analyze only
   size_t   d_nrOps;
 
-  const void*      d_dllFunctionAddress;
+  const void*      d_dllFunctionAddress{};
 
 
 public:

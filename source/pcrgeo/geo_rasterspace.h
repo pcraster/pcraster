@@ -67,8 +67,8 @@ private:
   double d_angle;
 
   //! expensive derivatives.
-  double d_angleCos;
-  double d_angleSin;
+  double d_angleCos{};
+  double d_angleSin{};
 
   //! Projection, can never be IllegalProjection
   Projection d_projection;

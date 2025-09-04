@@ -59,7 +59,7 @@ protected:
 
   size_t               d_nrVertices;
 
-  IFieldRDConversion  *d_frc;
+  IFieldRDConversion  *d_frc{};
 
                    RasterGraph               (size_t nrVertices);
 

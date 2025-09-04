@@ -22,9 +22,9 @@ namespace com {
  */
 class AppArgs {
 private:
-  size_t  d_argc;
-  char  **d_argv;
-  char   *d_buffer;
+  size_t  d_argc{};
+  char  **d_argv{};
+  char   *d_buffer{};
   void             init                (const std::string& allArgs);
 
 public:

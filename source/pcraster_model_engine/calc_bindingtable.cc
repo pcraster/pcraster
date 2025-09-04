@@ -35,7 +35,7 @@ private:
   //! maps name to "left=right" syntax construct in ASTAss node
   Defined                                  d_defined;
 
-  ASTAss*                                  d_currentAss;
+  ASTAss*                                  d_currentAss{};
 
   void visitPar          (ASTPar    *p) override;
   void visitNumber       (ASTNumber *n) override;

@@ -12,10 +12,10 @@ class MarkTestPrivate {
   size_t d_nrRows;
   size_t d_nrCols;
   size_t d_nrCells;
-  UINT1  d_resultCells[6];
-  REAL4  d_orderCells[6];
-  REAL4  d_amountCells[6];
-  REAL4  d_tresholdValue[1];
+  UINT1  d_resultCells[6]{};
+  REAL4  d_orderCells[6]{};
+  REAL4  d_amountCells[6]{};
+  REAL4  d_tresholdValue[1]{};
 
   MAP_UINT1* d_result;
   MAP_REAL8 *d_order, *d_amount,*d_treshold;

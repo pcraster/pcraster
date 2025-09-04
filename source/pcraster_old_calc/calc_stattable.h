@@ -78,7 +78,7 @@ class StatTable : public Statement
   //! verbose, print more (debug) data in table
   bool             d_verbose;
 
-  bool             d_maskSet;
+  bool             d_maskSet{};
 
 
 private:

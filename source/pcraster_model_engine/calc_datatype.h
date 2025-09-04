@@ -63,7 +63,7 @@ private:
   ST d_st;
 
   //! true if \a this allows restrict() to allow ST promotion
-  bool             d_allowPromotion;
+  bool             d_allowPromotion{};
 
   //! specialization d_vs == VS_S (OpenMI)
   Dimension        d_unit;

@@ -48,7 +48,7 @@ private:
   typedef HINSTANCE  DllHandle;
 #else
   typedef void *     DllHandle;
-  mutable const   char *d_dllError;
+  mutable const   char *d_dllError{};
   bool               checkError() const;
 #endif
 

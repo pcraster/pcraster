@@ -14,8 +14,8 @@ class FieldParameter;
 //! spatial value owned by a parameter
 class SpatialImpl : public FieldValue {
 private:
-  double d_min;
-  double d_max;
+  double d_min{};
+  double d_max{};
 
   void write() override;
 public:

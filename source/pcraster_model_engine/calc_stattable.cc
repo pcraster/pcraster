@@ -36,8 +36,8 @@ namespace calc {
     struct InputMap {
       //! name to put in table;
       std::string            d_name;
-      Field const*           d_field;
-      Intervals const*       d_intervals;
+      Field const*           d_field{};
+      Intervals const*       d_intervals{};
       void verbosePrint(std::ostream& out) const;
     };
 

@@ -32,14 +32,14 @@ private:
   EsriMap(const EsriMap&);
 
   enum GRIDSIZE { ROW_GRIDSIZE=0, COL_GRIDSIZE=1};
-  double d_cellSize;
+  double d_cellSize{};
   // index:
   // 0 : left
   // 1 : bottom
   // 2 : right
   // 3 : top
   // 4 : paranoia
-  double d_box[5];
+  double d_box[5]{};
 
   void close() const;
   void readFloat(void *val);

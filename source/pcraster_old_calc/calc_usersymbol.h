@@ -27,7 +27,7 @@ class SymbolTable;
  */
 class UserSymbol : public BindedSymbol {
    //! see symbolSequenceNr()
-   int d_symbolSequenceNr;
+   int d_symbolSequenceNr{};
 
    void setSymbolSequenceNr(int symbolSequenceNr);
 

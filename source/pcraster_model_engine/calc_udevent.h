@@ -41,7 +41,7 @@ private:
   /*!  if true: a node (but not this node!) reached from here in the
    *   CFG requires a keepLive definition, false if not
    */
-  bool  d_keepLive;
+  bool  d_keepLive{};
 
   void init(Type type) {
     d_type          =type;

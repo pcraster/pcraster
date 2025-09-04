@@ -58,7 +58,7 @@ public:
 private:
    iterator  d_begin,d_end;
    iterator  d_current;
-   size_t    d_lineNr;
+   size_t    d_lineNr{};
 
 
   //! Assignment operator. NOT IMPLEMENTED.

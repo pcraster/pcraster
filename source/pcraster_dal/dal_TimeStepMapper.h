@@ -47,7 +47,7 @@ class PCR_DAL_DECL TimeStepMapper
 private:
 
   //! Source dimension index.
-  double           d_index;
+  double           d_index{};
 
   //! Point in time corresponding with source dimension index.
   boost::posix_time::ptime d_time;

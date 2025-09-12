@@ -457,7 +457,7 @@ void ag::SceneView::setShadeModel(GLenum m)
 GLenum ag::SceneView::shadeModel() const
 {
   // Since makeCurrent is a non-const member we have to trick the compiler.
-  auto * const localThis = const_cast<SceneView * const>(this);
+  auto * const localThis = const_cast<SceneView *>(this);
   localThis->makeCurrent();
 
   int m = 0;
@@ -495,7 +495,7 @@ void ag::SceneView::setShowLight(bool s)
 bool ag::SceneView::showLight() const
 {
   // Since makeCurrent is a non-const member we have to trick the compiler.
-  auto * const localThis = const_cast<SceneView * const>(this);
+  auto * const localThis = const_cast<SceneView *>(this);
   localThis->makeCurrent();
 
   GLboolean s = 0;

@@ -260,7 +260,7 @@ public:
       d_tmRight(resultElevation.nrRows(), resultElevation.nrCols()),
       d_tmBottom(resultElevation.nrRows(), resultElevation.nrCols()),
       d_noFlowBoundaries(resultElevation.nrRows(), resultElevation.nrCols(),
-      static_cast<const unsigned int>(NoDirection))
+      static_cast<unsigned int>(NoDirection))
 
   {
     d_args.d_area = area;

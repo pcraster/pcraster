@@ -270,20 +270,31 @@ namespace detail {
       if(v.count("scenarios")) {
         auto s = std::any_cast<VecOfStr>(v["scenarios"]);
 
-        for(auto & i : s)
+        for(auto & i : s) {
+          if(i[0] == '=') {
+            i.erase(0, 1);
+          }
           scenarios().push_back(SetParser<std::string>::set(i));
+        }
         elementCount+=scenarios().size();
       }
       if(v.count("quantiles")) {
         auto s = std::any_cast<VecOfStr>(v["quantiles"]);
-        for(auto & i : s)
+        for(auto & i : s) {
+          if(i[0] == '=') {
+            i.erase(0, 1);
+          }
           quantiles().push_back(SetRangeParser<float>::rangeOrSet(i));
+        }
         elementCount+=quantiles().size();
       }
 
       if(v.count("timesteps")) {
         auto s = std::any_cast<VecOfStr>(v["timesteps"]);
         for(auto & i : s) {
+          if(i[0] == '=') {
+            i.erase(0, 1);
+          }
           pcrxml::OneBasedIntegerRangeOrSet obirs(SetRangeParser<size_t>::rangeOrSet(i));
           timesteps().push_back(pcrxml::Timesteps());
           if (obirs.range().present())

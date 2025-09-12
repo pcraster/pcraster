@@ -5,6 +5,8 @@ PCRaster is a collection of tools and software libraries tailored to the constru
 
 You can find more information about our research and development projects on [our website.](http://computationalgeography.org/) Information on PCRaster is given at the [project website](http://www.pcraster.eu/), and online documentation can be found [here](https://pcraster.geo.uu.nl/pcraster/latest/documentation/index.html). For questions regarding the usage of PCRaster please use our [mailing list](https://lists.geo.uu.nl/mailman/listinfo/pcraster-info), bugs can be reported via our [issue tracker](https://github.com/pcraster/pcraster/issues).
 
+PCRaster is maintained by the [Computational Geography](https://www.computationalgeography.org/) group at [Utrecht University](https://www.uu.nl/en/research/department-of-physical-geography) in The Netherlands.
+
 
 ## Installation
 [![Conda Version](https://img.shields.io/conda/vn/conda-forge/pcraster.svg)](https://anaconda.org/conda-forge/pcraster)
@@ -23,7 +25,7 @@ More information on the installation of PCRaster is given in the [documentation]
 ## Build status
 CI builds of our current development version:
 
-[![Linux build status](https://github.com/pcraster/pcraster/actions/workflows/linux.yaml/badge.svg)](https://github.com/pcraster/pcraster/actions/workflows/linux.yaml)
-[![macOS build status](https://github.com/pcraster/pcraster/actions/workflows/macos.yaml/badge.svg)](https://github.com/pcraster/pcraster/actions/workflows/macos.yaml)
-[![Linux Conda status](https://github.com/pcraster/pcraster/actions/workflows/linux-conda.yaml/badge.svg)](https://github.com/pcraster/pcraster/actions/workflows/linux-conda.yaml)
-[![Windows build status](https://github.com/pcraster/pcraster/actions/workflows/windows.yaml/badge.svg)](https://github.com/pcraster/pcraster/actions/workflows/windows.yaml)
+[![Linux build status](https://github.com/pcraster/pcraster/actions/workflows/dev-linux.yaml/badge.svg)](https://github.com/pcraster/pcraster/actions/workflows/dev-linux.yaml)
+[![macOS build status](https://github.com/pcraster/pcraster/actions/workflows/dev-macos.yaml/badge.svg)](https://github.com/pcraster/pcraster/actions/workflows/dev-macos.yaml)
+[![Windows build status](https://github.com/pcraster/pcraster/actions/workflows/dev-windows.yaml/badge.svg)](https://github.com/pcraster/pcraster/actions/workflows/dev-windows.yaml)
+[![Conda build status](https://github.com/pcraster/pcraster/actions/workflows/dev-conda.yaml/badge.svg)](https://github.com/pcraster/pcraster/actions/workflows/dev-conda.yaml)

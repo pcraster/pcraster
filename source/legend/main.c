@@ -147,7 +147,7 @@ ReadMapLegends(int *nrOut,
     MAP *map = NULL;
 
     CSF_LEGEND *resultLegend = NewLegend((size_t)1);
-    int nrResultLegend = 1;
+    size_t nrResultLegend = 1;
     INT4 mapsMin = MV_INT4;
     INT4 mapsMax = MV_INT4;
 
@@ -167,7 +167,7 @@ ReadMapLegends(int *nrOut,
         INT4 m = 0;
         size_t nrL = 0;
         int nrNew = 0;
-        int r = 0;
+        size_t r = 0;
         CSF_LEGEND *new = NULL;
         CSF_LEGEND *mapL = NULL;
         if ((map = OpenClassMap(mapNames[i], M_READ)) == NULL)

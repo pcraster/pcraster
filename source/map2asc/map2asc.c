@@ -49,7 +49,7 @@ static int ScanMap(
     FILE *outputFile, /* write-only output file */
     MAP *inputMap,    /* read-only input maps */
     const char *sep,
-    int nrCellsOnLine,
+    size_t nrCellsOnLine,
     BOOL colWise)
 {
     size_t r = 0;
@@ -57,8 +57,8 @@ static int ScanMap(
     size_t nrRows = 0;
     size_t nrCols = 0;
 
-    nrRows = (int)RgetNrRows(inputMap);
-    nrCols = (int)RgetNrCols(inputMap);
+    nrRows = RgetNrRows(inputMap);
+    nrCols = RgetNrCols(inputMap);
 
     if (colWise)
     { /* for each column all rows are scanned */
@@ -98,7 +98,7 @@ static int ScanMap(
     }
     else
     { /* for each row all columns are scanned */
-        int cell = 0;
+        size_t cell = 0;
         REAL8 *currRow = (REAL8 *)Rmalloc(inputMap, nrCols);
         if (currRow == NULL) return 1;
 

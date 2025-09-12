@@ -627,7 +627,7 @@ static void MakeEmpty(char *s, /* read-write string */
         s[i] = '\0';
 }
 
-static void PadString(char *s, int len)
+static void PadString(char *s, size_t len)
 {
     size_t i = strlen(s);
     PRECOND(i <= len);

@@ -34,7 +34,7 @@ Result are given in the description section):
 cell value assignment
 
 
--m
+``-m``
    for each cell on Result, the maximum value of the Map1, Map2,...Mapn cells that cover the Result cell is taken (see also description).
 
 
@@ -43,7 +43,7 @@ cell value assignment
 subpixellength
 
 
--e
+``-e``
    :emphasis:`subpixellength`: :emphasis:`subpixellength` must be a number equal to or between 0 and 2.5 (default 2.5). This options gives the subpixel length as percentage of the cell length on Result. Subpixels are used for calculating the percentage of a Result cell that is covered by a Map1, Map2,...Mapn cell (see also description). If -e 0 is set, the highest accuracy possible (smallest subpixel length) is taken.
 
 
@@ -52,10 +52,10 @@ subpixellength
 missing value assignment
 
 
--p
+``-p``
    :emphasis:`percentmv`: :emphasis:`percentmv` must be a number equal to or between 0 and 100, default is 0. This option specifies the assignment of missing values. For each cell on Result, if the percentage of the cell that is covered by non missing value cells on Map1, Map2,...Mapn is less than :emphasis:`percentmv`, a missing value is assigned to the corresponding cell on Result.
 
--k
+``-k``
    set the minimum and maximum of the result map to the minimum and maximum of the input maps.
 
 Operation
@@ -95,30 +95,16 @@ on basis of Map1, Map2,...Mapn (cookie cutter)
 
 specifying border around map(s)
 
-   -b :emphasis:`borderwidth`: The smallest rectangle around cells (including missing value cells) is determined. Result will cover an area of this size plus borders or minus borders around this rectangle, where :emphasis:`borderwidth` is the width of the border. A positive :emphasis:`borderwidth` results in a larger map than the rectangle, a negative value in a smaller map. If -b 0 is specified Result will have (approximately) the size of the rectangle.
+   ``-b`` :emphasis:`borderwidth`: The smallest rectangle around cells (including missing value cells) is determined. Result will cover an area of this size plus borders or minus borders around this rectangle, where :emphasis:`borderwidth` is the width of the border. A positive :emphasis:`borderwidth` results in a larger map than the rectangle, a negative value in a smaller map. If -b 0 is specified Result will have (approximately) the size of the rectangle.
 
-
-
-
-
-
-   -c :emphasis:`borderwidth`: idem, the smallest rectangle around non missing value cells is determined.
-
-
-
-
+   ``-c`` :emphasis:`borderwidth`: idem, the smallest rectangle around non missing value cells is determined.
 
 
 map expansion or contraction
 
-   -x: if the area covered as defined by -b :emphasis:`borderwidth` or -c :emphasis:`borderwidth` contains a fractional number of rows and columns of cells on Result the number of rows and columns is rounded off upwards: the map is expanded (default).
+   ``-x``: if the area covered as defined by ``-b`` :emphasis:`borderwidth` or -c :emphasis:`borderwidth` contains a fractional number of rows and columns of cells on Result the number of rows and columns is rounded off upwards: the map is expanded (default).
 
-
-
-
-
-
-   -a: if the area covered as defined by -b :emphasis:`borderwidth` or -c :emphasis:`borderwidth` contains a fractional number of rows and columns of cells on Result the number of rows and columns is rounded off downwards: the map is contracted.
+   ``-a``: if the area covered as defined by ``-b`` :emphasis:`borderwidth` or -c :emphasis:`borderwidth` contains a fractional number of rows and columns of cells on Result the number of rows and columns is rounded off downwards: the map is contracted.
 
 
 
@@ -133,19 +119,19 @@ to modify cell length
 
 
 
-celllength
+resample factor
 
-   -r :emphasis:`celllength`: :emphasis:`celllength` is the cell length which is assigned to Result
+   ``-r`` :emphasis:`factor`: the resample :emphasis:`factor` applied to the input cell length to calculate the new output cell length that is assigned to Result
 
 
 
 
 
 :literal:`--unittrue` or :literal:`--unitcell`
-   :literal:`--unittrue`: :emphasis:`cellength` in the option -r is real distance (default)
+   :literal:`--unittrue`: :emphasis:`factor` in the option ``-r`` is real distance (default)
 
 
-   :literal:`--unitcell`: :emphasis:`cellength` in the option -r is distance in unit cell lengths
+   :literal:`--unitcell`: :emphasis:`factor` in the option ``-r`` is distance in unit cell lengths
 
 
 
@@ -154,21 +140,20 @@ map expansion or contraction
 
 
 
--x: if the area covered by the smallest rectangle around the input maps
-contains a fractional number of rows and columns of Result cells the number of rows and columns is rounded off upwards: the map is expanded (default).
+   ``-x``: if the area covered by the smallest rectangle around the input maps contains a fractional number of rows and columns of Result cells the number of rows and columns is rounded off upwards: the map is expanded (default).
 
 
 
-   -a: if the area covered by the smallest rectangle around the input mapsncontains a fractional number of rows and columns of Result cells the number of rows and columns is rounded off upwards: the map is contracted.
+   ``-a``: if the area covered by the smallest rectangle around the input mapsncontains a fractional number of rows and columns of Result cells the number of rows and columns is rounded off upwards: the map is contracted.
 
 
 
 
-This functionality of resample is meant for changing the cell size of the first input map. No clone map must be given. The option -r :emphasis:`cellength` must be set, additionally you can specify :literal:`--unittrue` or  :literal:`--unitcell`, -x or -a or the general options described at the top of the resample text.
+This functionality of resample is meant for changing the cell size of the first input map. No clone map must be given. The option -r :emphasis:`factor` must be set, additionally you can specify :literal:`--unittrue` or  :literal:`--unitcell`, -x or -a or the general options described at the top of the resample text.
 
 
 It is quite unlikely that you want to specify more than one map, so
-first the operation with one map is explained. Result will have the projection, angle, x\ :sub:`UL`, y\ :sub:`UL` coordinate of the input map Map1. The cell length of the input map is changed according to the option -r :emphasis:`cellength` and this length is assigned to Result. The area covered by the input map is filled up with cells of the new cell size, starting at x\ :sub:`UL`,y\ :sub:`UL`. If this results in a fractional number of rows and columns the map is somewhat (less than one new cell length) expanded (default) or contracted until a whole number of columns and rows is reached. This number of rows and collumns is assigned to Result.
+first the operation with one map is explained. Result will have the projection, angle, x\ :sub:`UL`, y\ :sub:`UL` coordinate of the input map Map1. The cell length of the input map is changed according to the option -r :emphasis:`factor` and this length is assigned to Result. The area covered by the input map is filled up with cells of the new cell size, starting at x\ :sub:`UL`,y\ :sub:`UL`. If this results in a fractional number of rows and columns the map is somewhat (less than one new cell length) expanded (default) or contracted until a whole number of columns and rows is reached. This number of rows and collumns is assigned to Result.
 
 
 If more than one input map is given the operation performed corresponds

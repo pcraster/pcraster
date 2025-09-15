@@ -90,11 +90,6 @@ namespace dal {
 */
 Dal::Dal(
          bool addAllDrivers)
-
-#ifdef DEBUG_DEVELOP
-  : _debugging(false)
-#endif
-
 {
   assert((!addAllDrivers) || Library::isInitialised());
 

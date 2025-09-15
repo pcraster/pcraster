@@ -39,20 +39,20 @@ class PCRModflow;
 class BCF{
 protected:
 private:
-  double           d_iwdflg;
-  double           d_wetfct;
-  double           d_ihdwet;
-  double           d_trpy;
-  size_t           d_iwetit;
-  float            d_hdry;
-  int              d_output_unit_number;
-  int              d_hy_unit_number;
-  int              d_vcond_unit_number;
-  int              d_tran_unit_number;
-  int              d_sf1_unit_number;
-  int              d_sf2_unit_number;
-  int              d_wet_unit_number;
-  bool             d_calculated;
+  double           d_iwdflg{0.0};
+  double           d_wetfct{0.0};
+  double           d_ihdwet{0.0};
+  double           d_trpy{1.0};
+  size_t           d_iwetit{0};
+  float            d_hdry{-999.0};
+  int              d_output_unit_number{240};
+  int              d_hy_unit_number{500};
+  int              d_vcond_unit_number{501};
+  int              d_tran_unit_number{502};
+  int              d_sf1_unit_number{503};
+  int              d_sf2_unit_number{504};
+  int              d_wet_unit_number{505};
+  bool             d_calculated{true};
   PCRModflow       *d_mf;
 
   bool hasConfinedSubLayer(size_t layer);

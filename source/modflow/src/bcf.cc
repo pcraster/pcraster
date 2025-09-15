@@ -23,20 +23,6 @@ BCF::~BCF(){
  * Constructor
  */
 BCF::BCF(PCRModflow *mf):
-  d_iwdflg(0.0),
-  d_wetfct(0.0),
-  d_ihdwet(0.0),
-  d_trpy(1.0),
-  d_iwetit(0),
-  d_hdry(-999.0),
-  d_output_unit_number(240),
-  d_hy_unit_number(500),
-  d_vcond_unit_number(501),
-  d_tran_unit_number(502),
-  d_sf1_unit_number(503),
-  d_sf2_unit_number(504),
-  d_wet_unit_number(505),
-  d_calculated(true),
   d_mf(mf)
 {
 }

@@ -37,15 +37,15 @@ class RCH{
   PCRModflow *d_mf;
   size_t d_nrchop;
   //short d_irchcb;
-  short d_inrech;
-  short d_inirch;
+  short d_inrech{1};
+  short d_inirch{1};
   //int              d_fortran_unit_number;
 
-  int              d_output_unit_number;
+  int              d_output_unit_number{260};
 
-  int              d_array_unit_number;
+  int              d_array_unit_number{261};
 
-  int              d_indicated_unit_number;
+  int              d_indicated_unit_number{262};
 
  public:
   ~RCH();

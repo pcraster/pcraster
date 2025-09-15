@@ -43,13 +43,13 @@ class StackInfo
 private:
 
   //! First step, given or scan() ed.
-  size_t           d_first;
+  size_t           d_first{0};
 
   //! Last step in the stack, given or scan() ed.
-  size_t           d_last;
+  size_t           d_last{0};
 
   //! Stack is scanned for available steps or not.
-  bool             d_isScanned;
+  bool             d_isScanned{false};
 
   //! Contains the steps which the stack contains. Valid after scan() ing.
   std::vector<size_t> d_steps;

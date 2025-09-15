@@ -30,11 +30,11 @@ class WEL{
  protected:
  private:
   PCRModflow *d_mf;
-  size_t           d_nr_wel_cells;
+  size_t           d_nr_wel_cells{0};
 
-  int              d_output_unit_number;
+  int              d_output_unit_number{0};
 
-  int              d_input_unit_number;
+  int              d_input_unit_number{280};
 
   //int              d_fortran_unit_number;
  public:

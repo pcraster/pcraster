@@ -159,7 +159,7 @@ private:
 
 #ifdef DEBUG_DEVELOP
   //! Whether or not the user wants to debug stuff.
-  bool             _debugging;
+  bool             _debugging{false};
 #endif
 
   void             addDriverToCache    (std::string const& name,

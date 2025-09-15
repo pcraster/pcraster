@@ -25,10 +25,8 @@ WEL::~WEL(){
 * Constructor
 */
 WEL::WEL(PCRModflow *mf) :
-  d_mf(mf),
-  d_nr_wel_cells(0),
-  d_output_unit_number(0),
-  d_input_unit_number(280){//,
+  d_mf(mf)
+  {//,
   //d_fortran_unit_number(0)
 
 }

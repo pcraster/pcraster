@@ -24,14 +24,8 @@ RCH::~RCH(){
  */
 RCH::RCH(PCRModflow *mf, size_t rchOpCode) :
   d_mf(mf),
-  d_nrchop(rchOpCode),
- // d_irchcb(160),
-  d_inrech(1),
-  d_inirch(1),
-  //d_fortran_unit_number(260),
-  d_output_unit_number(260),
-  d_array_unit_number(261),
-  d_indicated_unit_number(262)
+  d_nrchop(rchOpCode)
+  
 {
 }
 

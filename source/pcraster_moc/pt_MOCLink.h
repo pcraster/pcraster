@@ -49,7 +49,7 @@ private:
    geo::RasterSpace d_rs;
 
   //! Object for the actual particle tracking.
-  ParticleTracker* d_tracker;
+  ParticleTracker* d_tracker{nullptr};
 
   //! Assignment operator. NOT IMPLEMENTED.
   MOCLink&         operator=           (const MOCLink&);

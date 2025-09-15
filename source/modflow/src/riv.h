@@ -37,13 +37,13 @@ class RIV{
  protected:
  private:
   PCRModflow *d_mf;
-  bool d_riverUpdated;
+  bool d_riverUpdated{false};
 
-  size_t           d_nr_river_cells;
+  size_t           d_nr_river_cells{0};
 
-  int              d_output_unit_number;
+  int              d_output_unit_number{250};
 
-  int              d_input_unit_number;
+  int              d_input_unit_number{251};
 
   //int              d_fortran_unit_number;
 

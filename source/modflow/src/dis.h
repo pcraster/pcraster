@@ -38,18 +38,18 @@ class DIS{
 protected:
 private:
   PCRModflow *d_mf;
-  size_t d_itmuni;
-  size_t d_lenuni;
-  float d_perlen;
-  size_t d_nstp;
-  float            d_tsmult;
+  size_t d_itmuni{0};
+  size_t d_lenuni{0};
+  float d_perlen{1.0};
+  size_t d_nstp{1};
+  float            d_tsmult{1.0};
   std::string d_sstr;
 
   std::vector<float> d_row_width;
 
   std::vector<float> d_col_width;
 
-  size_t           d_external_unit;
+  size_t           d_external_unit{300};
 
   bool addLayer(const float *values, bool confined);
 

@@ -22,11 +22,8 @@ RIV::~RIV(){
  * Constructor
  */
 RIV::RIV(PCRModflow *mf) :
-  d_mf(mf),
-  d_riverUpdated(false),
-  d_nr_river_cells(0),
-  d_output_unit_number(250),
-  d_input_unit_number(251){//,
+  d_mf(mf)
+  {//,
   //d_fortran_unit_number(250) {
 }
 

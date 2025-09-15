@@ -33,13 +33,13 @@ class GHB{
 
   PCRModflow *d_mf;
 
-  bool             d_ghbUpdated;
+  bool             d_ghbUpdated{false};
 
-  size_t           d_nr_ghb_cells;
+  size_t           d_nr_ghb_cells{0};
 
-  int              d_output_unit_number;
+  int              d_output_unit_number{255};
 
-  int              d_input_unit_number;
+  int              d_input_unit_number{256};
 
  public:
 

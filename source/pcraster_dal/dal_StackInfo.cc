@@ -62,9 +62,6 @@
 dal::StackInfo::StackInfo(
          std::string const& name,
          bool scan)
-
-  : d_first(0), d_last(0), d_isScanned(false)
-
 {
   // assert(name.find('\\') == std::string::npos);
   // Split filename from the parent path.

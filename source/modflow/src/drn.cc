@@ -22,11 +22,8 @@ DRN::~DRN(){
 * Constuctor
 */
 DRN::DRN(PCRModflow *mf) :
-  d_mf(mf),
-  d_drainUpdated(false),
-  d_nr_drain_cells(0),
-  d_output_unit_number(271),
-  d_input_unit_number(270){
+  d_mf(mf)
+  {
 }
 
 

@@ -44,15 +44,15 @@ class BAS{
 protected:
 private:
   PCRModflow *d_mf;
-  double d_hnoflo;
-  int              d_fortran_unit_number_heads;
+  double d_hnoflo{-999.9};
+  int              d_fortran_unit_number_heads{231};
 
-  int              d_fortran_unit_number_bounds;
+  int              d_fortran_unit_number_bounds{232};
 
 
-  int              d_external_unit_number_heads;
+  int              d_external_unit_number_heads{400};
 
-  int              d_external_unit_number_bounds;
+  int              d_external_unit_number_bounds{401};
 
 public:
   ~BAS();

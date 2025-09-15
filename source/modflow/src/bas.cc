@@ -27,12 +27,8 @@ BAS::~BAS(){
  * Constructor
  */
 BAS::BAS(PCRModflow *amf) :
-  d_mf(amf),
-  d_hnoflo(-999.9),
-  d_fortran_unit_number_heads(231),
-  d_fortran_unit_number_bounds(232),
-  d_external_unit_number_heads(400),
-  d_external_unit_number_bounds(401){
+  d_mf(amf)
+  {
 }
 
 /**

@@ -18,11 +18,8 @@ GHB::~GHB(){
 
 
 GHB::GHB(PCRModflow *mf) :
-  d_mf(mf),
-  d_ghbUpdated(false),
-  d_nr_ghb_cells(0),
-  d_output_unit_number(255),
-  d_input_unit_number(256){
+  d_mf(mf)
+  {
 }
 
 

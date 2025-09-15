@@ -42,11 +42,12 @@ class CmpSortKey {
 
 class MarkCondition {
  protected:
-  double d_sum, d_treshold;
+  double d_sum{0};
+  double d_treshold;
  public:
   virtual ~MarkCondition() = default;
   MarkCondition(double treshold):
-    d_sum(0),d_treshold(treshold)
+    d_treshold(treshold)
     {}
   virtual bool mark(double value)=0;
 };

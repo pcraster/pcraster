@@ -22,16 +22,10 @@ DIS::~DIS(){
  */
 DIS::DIS(PCRModflow *mf) :
   d_mf(mf),
-  d_itmuni(0),
-  d_lenuni(0),
-  d_perlen(1.0),
-  d_nstp(1),
-  d_tsmult(1.0),
   d_sstr("SS"),
   d_row_width(),
-  d_col_width(),
-  d_external_unit(300)
-  {
+  d_col_width()
+{
 }
 
 

@@ -39,13 +39,13 @@ class DRN{
 protected:
 private:
   PCRModflow *d_mf;
-  bool d_drainUpdated;
+  bool d_drainUpdated{false};
 
-  size_t           d_nr_drain_cells;
+  size_t           d_nr_drain_cells{0};
 
-  int              d_output_unit_number;
+  int              d_output_unit_number{271};
 
-  int              d_input_unit_number;
+  int              d_input_unit_number{270};
 
 
 public:

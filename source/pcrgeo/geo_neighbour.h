@@ -151,7 +151,7 @@ class UpstreamNeighbourVisitor : public CellLoc {
      //! bit array recording the upstream neighbours
      unsigned short int d_upstreamNeighbourDirs; // only 9 bits used, all dirs
      //! the next neighbour to inspect if it is an upstream neighbour
-     unsigned short int d_nextNeighbourToVisit; // only 4 bits used 2^4>9
+     unsigned short int d_nextNeighbourToVisit{0}; // only 4 bits used 2^4>9
   public:
      UpstreamNeighbourVisitor(
       const CellLoc& l, unsigned short int upstreamNeighbourDirs);
@@ -179,15 +179,13 @@ class DownStreamVisitorCell : public CellLoc {
    //! bit array recording the upstream neighbours
    /*! bit # corresponds with ldd direction value
     */
-   unsigned short int d_upstreamNeighbourDirs:9; // only 9 bits used, all dirs
+   unsigned short int d_upstreamNeighbourDirs:9{0}; // only 9 bits used, all dirs
    //! the next neighbour to inspect if it is an upstream neighbour
-   unsigned short int d_nextNeighbourToVisit:4; // only 4 bits used 2^4>9
+   unsigned short int d_nextNeighbourToVisit:4{0}; // only 4 bits used 2^4>9
 
    //! ctor
    DownStreamVisitorCell(const CellLoc& l):
-     CellLoc(l),
-     d_upstreamNeighbourDirs(0),
-     d_nextNeighbourToVisit(0)
+     CellLoc(l)
   {
   }
   //! dtor

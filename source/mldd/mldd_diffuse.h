@@ -97,8 +97,8 @@ private:
   //! updated, set to MV where any (upstream) input is MV
   geo::ScalarSimpleRaster&  d_dem;
 
-  size_t                    d_infinity;
-  size_t                    d_minInfinity;
+  size_t                    d_infinity{0};
+  size_t                    d_minInfinity{0};
 
   void initFlowTerm                   (const Edge& e);
   void initSet                        (size_t v);

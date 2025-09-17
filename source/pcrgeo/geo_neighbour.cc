@@ -101,8 +101,7 @@ geo::CellLoc geo::NB::target(
 geo::UpstreamNeighbourVisitor::UpstreamNeighbourVisitor(
       const geo::CellLoc& l, unsigned short int upstreamNeighbourDirs):
        geo::CellLoc(l),
-       d_upstreamNeighbourDirs(upstreamNeighbourDirs),
-       d_nextNeighbourToVisit(0)
+       d_upstreamNeighbourDirs(upstreamNeighbourDirs)
 {
 }
 

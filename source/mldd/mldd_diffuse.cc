@@ -22,13 +22,12 @@ namespace mldd {
 class DiffuseInit : public DownstreamVisitor
 {
   Diffuse& d_data;
-  size_t   d_edgeVisitNr;
+  size_t   d_edgeVisitNr{0};
 public:
 
   DiffuseInit(Diffuse& data, size_t nrEdges):
      DownstreamVisitor(data.d_dem.rasterDim()),
-     d_data(data),
-     d_edgeVisitNr(0)
+     d_data(data)
   {
     d_data.d_fixedEdgeFlowTerm.reserve(nrEdges);
   }
@@ -54,15 +53,14 @@ class DiffuseIter : public DownstreamVisitor
   Diffuse& d_data;
   geo::ScalarSimpleRaster d_inflow;
   geo::ScalarSimpleRaster d_outflow;
-  size_t   d_edgeNr;
+  size_t   d_edgeNr{0};
 
 public:
   DiffuseIter(Diffuse& data):
     DownstreamVisitor(data.d_dem.rasterDim()),
     d_data(data),
     d_inflow(data.d_dem.rasterDim()),
-    d_outflow(data.d_dem.rasterDim()),
-    d_edgeNr(0)
+    d_outflow(data.d_dem.rasterDim())
   {}
 
   void initVertex(const Vertex& vC) {
@@ -124,9 +122,7 @@ mldd::Diffuse::Diffuse(geo::ScalarSimpleRaster&  dem,
   d_diffusionValue(8),
   d_nrIterations(nrIterations),
   d_totalOutflow(totalOutflow),
-  d_dem(dem),
-  d_infinity(0),
-  d_minInfinity(0)
+  d_dem(dem)
 {
   d_cellSize[0]=cellSize;
   d_cellSize[1]=cellSize*std::numbers::sqrt2;

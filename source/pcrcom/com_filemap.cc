@@ -134,11 +134,11 @@ class FileMapPrivate
   {
     std::string d_fileName;
     // the memory ptr of the map
-    void   *d_ptr;
+    void   *d_ptr{nullptr};
     // length of the mapping
-    size_t d_mappedLen;
+    size_t d_mappedLen{0};
     // file descriptor
-    int    d_fd;
+    int    d_fd{-1};
 
     void throwError(const char *msg) {
       clean();
@@ -165,7 +165,7 @@ class FileMapPrivate
       bool            update,
       size_t          offset,
       size_t          len):
-        d_fileName(fileName),d_ptr(nullptr),d_mappedLen(0),d_fd(-1)
+        d_fileName(fileName)
     {
       d_fd = ::open(fileName, (update ? O_RDWR:O_RDONLY)|O_NONBLOCK,0);
       if (d_fd == -1)

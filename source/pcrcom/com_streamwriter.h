@@ -48,7 +48,7 @@ private:
   std::ostream&   d_stream;
 
   //! Number of characters written on the stream.
-  size_t          d_nrCharactersWritten;
+  size_t          d_nrCharactersWritten{0};
 
   //! Assignment operator. NOT IMPLEMENTED.
   StreamWriter&    operator=           (StreamWriter const& rhs);

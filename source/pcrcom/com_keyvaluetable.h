@@ -73,7 +73,7 @@ private:
   const std::string d_keyName;
 
   //! is key required
-  bool d_required;
+  bool d_required{false};
 
 public:
 
@@ -329,7 +329,7 @@ public:
 class KeyValueNumber : public KeyValueConfig {
 
 private:
-  const Interval<double> *d_iv;
+  const Interval<double> *d_iv{nullptr};
 
 protected:
 

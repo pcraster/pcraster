@@ -56,7 +56,7 @@ private:
   const std::string   d_libName;
   // quite a hack, set for win32 in ctor, for linux in addressAndSetLibPath
   std::string         d_directory;
-  bool                d_wasAlreadyLoaded;
+  bool                d_wasAlreadyLoaded{false};
 
   std::string osError()       const;
   std::string nativeLibName() const;

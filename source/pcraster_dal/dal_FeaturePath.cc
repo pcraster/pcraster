@@ -31,9 +31,6 @@ namespace detail {
 //------------------------------------------------------------------------------
 
 FeaturePath::FeaturePath()
-
-   
-
 {
 }
 
@@ -56,7 +53,7 @@ FeaturePath::FeaturePath(
          std::string const& path,
          ParseStrategy strategy)
 
-  : _isValid(false)
+   
 
 {
   std::string string(path);

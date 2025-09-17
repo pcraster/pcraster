@@ -68,9 +68,7 @@ VoxelStack::VoxelStack(
          const_iterator begin,
          const_iterator end)
 
-  : std::vector<REAL4>(begin, end),
-    d_baseElevation(0.0)
-
+  : std::vector<REAL4>(begin, end)
 {
 }
 

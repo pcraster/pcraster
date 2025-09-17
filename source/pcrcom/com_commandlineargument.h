@@ -401,7 +401,7 @@ private:
   std::string      d_description;
 
   //! Value is parsed or not.
-  bool             d_parsed;
+  bool             d_parsed{false};
 
   //! Parsed value.
   ValueType        d_value;
@@ -778,7 +778,7 @@ template<class ValueType, class ValueParser>
 ValueArgument<ValueType, ValueParser>::ValueArgument(const std::string& description,
                    const ValueType& defaultValue)
 
-  : d_description(description), d_parsed(false)
+  : d_description(description) 
 
 {
   PRECOND(!d_description.empty());

@@ -43,7 +43,7 @@ private:
   //! Copy constructor. NOT IMPLEMENTED.
                    RasterFileConverter               (const RasterFileConverter&);
 
-  BandMap          *d_bandMap;
+  BandMap          *d_bandMap{nullptr};
 
 public:
 

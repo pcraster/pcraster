@@ -37,8 +37,7 @@ bool com::DynamicLibrary::checkError() const
 */
 com::DynamicLibrary::DynamicLibrary(
  const std::string& libNameNoExt):
-  d_libName(libNameNoExt),
-  d_wasAlreadyLoaded(false)
+  d_libName(libNameNoExt)
 {
 #ifdef WIN32
   bool failure(false);

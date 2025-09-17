@@ -1,32 +1,12 @@
 #ifndef INCLUDED_GEO_COLUMNFILE
 #define INCLUDED_GEO_COLUMNFILE
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
-#ifndef INCLUDED_FSTREAM
 #include <fstream>
-#define INCLUDED_FSTREAM
-#endif
-
-#ifndef INCLUDED_STRING
 #include <string>
-#define INCLUDED_STRING
-#endif
-
-#ifndef INCLUDED_SET
 #include <set>
-#define INCLUDED_SET
-#endif
-
-#ifndef INCLUDED_VECTOR
 #include <vector>
-#define INCLUDED_VECTOR
-#endif
 
 
 
@@ -95,12 +75,6 @@ private:
   //! Auto delete mode.
   bool             d_ad;
 
-  //! Assignment operator. NOT IMPLEMENTED.
-  geo_ColumnFile & operator=           (const geo_ColumnFile &);
-
-  //! Copy constructor. NOT IMPLEMENTED.
-                   geo_ColumnFile      (const geo_ColumnFile &);
-
   //! Opens the file stream.
   void             open                ();
 
@@ -127,12 +101,17 @@ public:
                    geo_ColumnFile      (const std::string &fn,
                                         bool autoDelete = true);
 
+  //! Copy constructor. NOT IMPLEMENTED.
+                   geo_ColumnFile      (const geo_ColumnFile &) = delete;
+
   //! Destructor.
                    ~geo_ColumnFile     ();
 
   //----------------------------------------------------------------------------
   // MANIPULATORS
   //----------------------------------------------------------------------------
+  //! Assignment operator. NOT IMPLEMENTED.
+  geo_ColumnFile & operator=           (const geo_ColumnFile &) = delete;
 
   //! Sets the filename.
   void             setFilename         (const std::string &fn);

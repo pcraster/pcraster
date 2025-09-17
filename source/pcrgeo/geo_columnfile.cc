@@ -34,7 +34,7 @@ geo_ColumnFile::geo_ColumnFile(bool autoDelete)
 
 geo_ColumnFile::geo_ColumnFile(const std::string &fn, bool autoDelete)
 
-  : d_state(INITIAL), d_fn(fn), d_nrVars(0), d_ad(autoDelete)
+  :  d_fn(fn),  d_ad(autoDelete)
 
 {
 }

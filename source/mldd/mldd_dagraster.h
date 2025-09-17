@@ -70,7 +70,7 @@ public:
 
 
   typedef unsigned char EightBits;
-  EightBits d_0;
+  EightBits d_0{0};
   typedef geo::SimpleRaster<EightBits> NBRaster;
 
 private:

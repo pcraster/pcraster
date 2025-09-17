@@ -59,10 +59,11 @@ private:
    // point where value is for computed
    const Point d_loc;
    double d_idp;
-   long double d_sumDist, d_sumDV;
+   long double d_sumDist{0};
+   long double d_sumDV{0};
 public:
    ComputeValue(const Point& loc,double idp) :
-    d_loc(loc),d_idp(idp),d_sumDist(0),d_sumDV(0) {
+    d_loc(loc),d_idp(idp) {
    }
    ComputeValue(const ComputeValue&) = delete;
 

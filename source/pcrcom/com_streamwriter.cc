@@ -46,7 +46,7 @@ public:
 
 com::StreamWriter::StreamWriter(std::ostream& stream)
 
-  : d_stream(stream), d_nrCharactersWritten(0)
+  : d_stream(stream) 
 
 {
 }

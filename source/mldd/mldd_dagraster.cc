@@ -51,7 +51,6 @@ public:
 //------------------------------------------------------------------------------
 
 mldd::DagRaster::DagRaster(const geo::RasterDim& rd):
-  d_0(0),
   d_rd(rd),
   d_outflowNB(rd,d_0),
   d_inflowNB (rd,d_0)

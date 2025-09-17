@@ -13,11 +13,10 @@ int main(
   struct Main 
    // public calc::LibraryClass
    {
-   int result;
+   int result{1};
    Main(int   argc,
-        char**argv):
+        char**argv)//:
         //LibraryClass(argc,argv),
-        result(1)
    {
       struct ClientHolder : public calc::LibraryClass
       {

@@ -183,7 +183,7 @@ class Variance1 {
 private:
 
   //! Number of values.
-  size_t           d_nr;
+  size_t           d_nr{};
 
   //! Mean.
   ValueType        d_mean;
@@ -203,7 +203,7 @@ public:
   /*!
   */
                    Variance1(ValueType mean)
-    : d_nr(), d_mean(mean), d_sumOfDifferences(), d_sumOfSquaredDifferences()
+    :  d_mean(mean), d_sumOfDifferences(), d_sumOfSquaredDifferences()
   {
   }
 

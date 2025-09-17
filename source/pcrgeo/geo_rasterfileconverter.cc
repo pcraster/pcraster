@@ -52,8 +52,7 @@ public:
 /*!
  * \param existingFile  existing file, format is "auto-sensed"
  */
-geo::RasterFileConverter::RasterFileConverter(const com::PathName& existingFile):
-  d_bandMap(nullptr)
+geo::RasterFileConverter::RasterFileConverter(const com::PathName& existingFile)
 {
   try {
     d_bandMap = new BandMap(existingFile);

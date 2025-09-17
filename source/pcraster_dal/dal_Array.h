@@ -4,15 +4,6 @@
 
 
 // Library headers.
-#ifndef INCLUDED_CASSERT
-#include <cassert>
-#define INCLUDED_CASSERT
-#endif
-
-#ifndef INCLUDED_CSTRING
-#include <cstring>
-#define INCLUDED_CSTRING
-#endif
 
 // PCRaster library headers.
 #ifndef INCLUDED_PCRTYPES
@@ -30,6 +21,9 @@
 #include "dal_Def.h"
 #define INCLUDED_DAL_DEF
 #endif
+
+#include <cassert>
+#include <cstring>
 
 // #ifdef _MSC_VER // TODO link error otherwise
 // namespace pcr {
@@ -76,7 +70,7 @@ private:
   size_t           d_size{0};
 
   //! Datastructure for actual values.
-  T*               d_elements;
+  T*               d_elements{nullptr};
 
 public:
 
@@ -193,9 +187,6 @@ public:
 */
 template<typename T>
 inline Array<T>::Array()
-
-  :  d_elements(nullptr)
-
 {
   reserve(100);
 
@@ -210,9 +201,6 @@ inline Array<T>::Array()
 */
 template<typename T>
 inline Array<T>::Array(size_t size)
-
-  : d_capacity(0), d_size(0), d_elements(nullptr)
-
 {
   if(size > 0) {
     reserve(size);
@@ -235,9 +223,6 @@ inline Array<T>::Array(size_t size)
 */
 template<typename T>
 inline Array<T>::Array(size_t size, T const& value)
-
-  : d_capacity(0), d_size(0), d_elements(nullptr)
-
 {
   reserve(size);
   d_size = size;
@@ -255,9 +240,6 @@ inline Array<T>::Array(size_t size, T const& value)
 */
 template<typename T>
 inline Array<T>::Array(size_t size, T* values)
-
-  : d_capacity(0), d_size(0), d_elements(0)
-
 {
   d_capacity = size;
   d_size = size;
@@ -270,9 +252,6 @@ inline Array<T>::Array(size_t size, T* values)
 */
 template<typename T>
 inline Array<T>::Array(Array const& rhs)
-
-  : d_capacity(0), d_size(0), d_elements(nullptr)
-
 {
   reserve(rhs.d_capacity);
   std::memcpy(static_cast<void*>(d_elements),

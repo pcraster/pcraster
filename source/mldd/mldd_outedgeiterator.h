@@ -53,7 +53,7 @@ private:
   /*!
    * keep track of the edges not yet processed
    */
-  unsigned char d_outflowMask{};
+  unsigned char d_outflowMask{0};
 
 public:
   //----------------------------------------------------------------------------
@@ -90,8 +90,7 @@ public:
      // the end iterator
      OutEdgeIterator(
           const       Vertex& v):
-          d_v(v),
-          d_outflowMask(0)
+          d_v(v)
       {
       }
 

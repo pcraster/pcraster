@@ -65,7 +65,7 @@ com::ProgressTracker::ProgressTracker()
 */
 com::ProgressTracker::ProgressTracker(size_t nrSteps)
 
-  : d_nrSteps(nrSteps), d_nrFinishedSteps(0)
+  : d_nrSteps(nrSteps) 
 
 {
 }

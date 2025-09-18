@@ -2,7 +2,6 @@
 #include "geo_filecreatetester.h"
 #include "csf.h"
 #include "com_exception.h"
-#include "com_math.h"
 #include "geo_util.h"
 #include "com_file.h"
 #include "com_table.h"
@@ -36,9 +35,7 @@
  */
 geo::FileCreateTester::FileCreateTester(const com::PathName& fileToCreate,
     bool removeNow):
-  d_fileToCreate(fileToCreate),
-  d_percentageDifference(false),
-  d_csfCellEpsilon(COM_DEFAULT_EPSILON)
+  d_fileToCreate(fileToCreate)
 {
   if (removeNow && com::exists(fileToCreate))
      com::remove(fileToCreate);
@@ -72,9 +69,9 @@ namespace geo {
 class DiffMap
 {
     //! 0 if no difference
-    Raster<UINT1> *d_values;
+    Raster<UINT1> *d_values{nullptr};
     bool d_diffMapWanted;
-    bool d_diffNoted;
+    bool d_diffNoted{false};
     ThrowOrReturn& d_tr;
     RasterSpace    d_rs;
     void init() {
@@ -86,8 +83,8 @@ class DiffMap
     }
    public:
     DiffMap(bool diffMapWanted, ThrowOrReturn& tr,const RasterSpace& rs)
-      : d_values(nullptr), d_diffMapWanted(diffMapWanted),
-        d_diffNoted(false), d_tr(tr) ,d_rs(rs)
+      :  d_diffMapWanted(diffMapWanted),
+         d_tr(tr) ,d_rs(rs)
     {}
     DiffMap(const DiffMap& other) = delete;
     DiffMap& operator=(const DiffMap& other) = delete;

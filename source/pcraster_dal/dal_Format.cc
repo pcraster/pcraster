@@ -46,10 +46,7 @@ Format::Format(
   : d_name(name),
     d_description(description),
     d_datasetType(datasetType),
-    d_medium(medium),
-    d_discretisation(NrDiscretisations),
-    d_type(NrTypes)
-
+    d_medium(medium)
 {
 }
 
@@ -66,7 +63,6 @@ Format::Format(
     d_description(description),
     d_datasetType(datasetType),
     d_medium(medium),
-    d_discretisation(NrDiscretisations),
     d_type(type)
 
 {

@@ -1,26 +1,9 @@
 #ifndef INCLUDED_COM_INTERVALMAP
 #define INCLUDED_COM_INTERVALMAP
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
+#include "com_interval.h"
 
-// Library headers.
-#ifndef INCLUDED_MAP
-#include <map>
-#define INCLUDED_MAP
-#endif
-#ifndef INCLUDED_ALGORITHM
-#include <algorithm>
-#define INCLUDED_ALGORITHM
-#endif
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
 #ifndef INCLUDED_BOOST_BIND
   #include <boost/version.hpp>
   #if BOOST_VERSION > 107200
@@ -30,13 +13,10 @@
   #endif
 #define INCLUDED_BOOST_BIND
 #endif
-// PCRaster library headers.
 
-// Module headers.
-#ifndef INCLUDED_COM_INTERVAL
-#include "com_interval.h"
-#define INCLUDED_COM_INTERVAL
-#endif
+#include <algorithm>
+#include <iostream>
+#include <map>
 
 
 namespace com {
@@ -158,8 +138,7 @@ private:
   //! Copy constructor.
   IntervalMap(const IntervalMap<T>& rhs):
     Base(),
-    d_outside(),
-    d_nrVisits(0)
+    d_outside()
   {
       copy(rhs);
   }

@@ -88,10 +88,7 @@ dal::Matrix::Matrix()
 dal::Matrix::Matrix(size_t nrCols, TypeId typeId)
 
   : Dataset(MATRIX),
-    d_nrRows(0), d_nrCols(nrCols), d_typeId(typeId),
-    d_ownership(TakeOwnership),
-    d_allMV(true), d_hasExtremes(false)
-
+     d_nrCols(nrCols), d_typeId(typeId)
 {
 }
 
@@ -115,10 +112,7 @@ dal::Matrix::Matrix(
          TypeId typeId)
 
   : Dataset(datasetType),
-    d_nrRows(nrRows), d_nrCols(nrCols), d_typeId(typeId),
-    d_ownership(TakeOwnership),
-    d_allMV(true), d_hasExtremes(false)
-
+    d_nrRows(nrRows), d_nrCols(nrCols), d_typeId(typeId)
 {
 }
 
@@ -139,9 +133,7 @@ dal::Matrix::Matrix(
          TypeId typeId)
 
   : Dataset(MATRIX),
-    d_nrRows(nrRows), d_nrCols(nrCols), d_typeId(typeId),
-    d_ownership(TakeOwnership),
-    d_allMV(true),d_hasExtremes(false)
+    d_nrRows(nrRows), d_nrCols(nrCols), d_typeId(typeId)
 {
 }
 
@@ -153,7 +145,7 @@ dal::Matrix::Matrix(
 
   : Dataset(rhs),
     d_nrRows(rhs.d_nrRows), d_nrCols(rhs.d_nrCols),
-    d_typeId(rhs.d_typeId), d_ownership(TakeOwnership),
+    d_typeId(rhs.d_typeId), 
     d_min(rhs.d_min), d_max(rhs.d_max), d_allMV(rhs.d_allMV),
     d_hasExtremes(rhs.d_hasExtremes)
 

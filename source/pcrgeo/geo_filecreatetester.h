@@ -1,22 +1,9 @@
 #ifndef INCLUDED_GEO_FILECREATETESTER
 #define INCLUDED_GEO_FILECREATETESTER
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_PATHNAME
+#include "com_math.h"
 #include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
-
-// Module headers.
 
 
 namespace geo {
@@ -47,8 +34,8 @@ private:
   //! holds difference map name, empty if no diff map needed
   com::PathName   d_diffMapName;
 
-  bool             d_percentageDifference;
-  double           d_csfCellEpsilon;
+  bool             d_percentageDifference{false};
+  double           d_csfCellEpsilon{COM_DEFAULT_EPSILON};
 
   bool equalToCsf(const com::PathName& pn, bool throwWhatDifferent) const;
   bool equalToTss(const com::PathName& pn, bool throwWhatDifferent) const;

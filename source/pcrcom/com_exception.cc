@@ -48,8 +48,7 @@ public:
   sensible, and non empty . The Exception formatter removes all
   leading and trailing spaces
 */
-com::Exception::Exception(const std::string &message):
-  d_no(E_NOSYSTEMMESSAGE)
+com::Exception::Exception(const std::string &message)
 {
   add(message,true);
 }

@@ -43,9 +43,6 @@ com::DiMap::DiMap()
   Constructs a com::DiMap instance with initial integer and double intervals.
 */
 com::DiMap::DiMap(int i1, int i2, double d1, double d2, bool logarithmic)
-
-  : d_x1(0.0), d_x2(1.0), d_y1(0), d_y2(1), d_cnv(1.0)
-
 {
   d_log = logarithmic;
   setIntRange(i1,i2);

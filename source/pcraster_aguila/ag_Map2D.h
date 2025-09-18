@@ -34,9 +34,9 @@ private:
 
   QSplitter*       d_splitter{};
 
-  Map2DView*       d_mapView;
+  Map2DView*       d_mapView{nullptr};
 
-  LegendView*      d_legendView;
+  LegendView*      d_legendView{nullptr};
 
   //! Assignment operator. NOT IMPLEMENTED.
   Map2D&           operator=           (const Map2D&);

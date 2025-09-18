@@ -37,9 +37,7 @@ ag::DrawProps::DrawProps(
          com::RawPalette const* p)
 
   : _title(title),
-    _palette(p),
-    _nrClasses(0)
-
+    _palette(p)
 {
   assert(p);
 

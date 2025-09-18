@@ -46,9 +46,7 @@ BufferedWidget::BufferedWidget(
          Qt::WindowFlags flags)
 
   : QWidget(parent, flags),
-    _alignment(alignment),
-    _dirty(true)
-
+    _alignment(alignment)
 {
   // The child is responsible for drawing all dirty areas.
   setAttribute(Qt::WA_NoSystemBackground);

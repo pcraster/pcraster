@@ -39,8 +39,7 @@ namespace ag {
 
 Map3D::Map3D(DataObject* object, QWidget* parent)
 
-  : Map(object, "3D Map", parent),
-    d_mapView(nullptr), d_legendView(nullptr)
+  : Map(object, "3D Map", parent)
 
 {
   createInterface(object);

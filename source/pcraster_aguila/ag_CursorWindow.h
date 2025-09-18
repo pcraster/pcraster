@@ -32,9 +32,9 @@ private:
 
   Q_OBJECT
 
-  CursorView*      d_cursorView;
-  QPushButton*     d_save;
-  QPushButton*     d_get;
+  CursorView*      d_cursorView{nullptr};
+  QPushButton*     d_save{nullptr};
+  QPushButton*     d_get{nullptr};
 
   std::filesystem::path d_cursorValueMonitorPath;
   std::filesystem::path d_fileToGetCursorValue;

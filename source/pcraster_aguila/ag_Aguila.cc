@@ -62,9 +62,7 @@ Aguila::Aguila(
     dal::Client(dev::prefix(argv[0]), true),
     d_xsdLib(new pcrxsd::Library()),
     d_argc(argc),
-    d_argv(argv),
-    d_viewer(nullptr)
-
+    d_argv(argv)
 {
   assert(dev::GDalClient::isInitialized());
   assert(dal::Client::isInitialized());

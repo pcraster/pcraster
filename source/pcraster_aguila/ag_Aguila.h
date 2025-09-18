@@ -44,7 +44,7 @@ private:
 
   char**           d_argv;
 
-  Viewer*          d_viewer;
+  Viewer*          d_viewer{nullptr};
 
   void             init                (qt::AppWindowProperties const& awp);
 

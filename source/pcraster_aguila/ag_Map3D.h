@@ -36,9 +36,9 @@ private:
 
   QSplitter*       d_splitter{};
 
-  Map3DView*       d_mapView;
+  Map3DView*       d_mapView{nullptr};
 
-  LegendView*      d_legendView;
+  LegendView*      d_legendView{nullptr};
 
   //! Assignment operator. NOT IMPLEMENTED.
   Map3D&           operator=           (const Map3D& rhs);

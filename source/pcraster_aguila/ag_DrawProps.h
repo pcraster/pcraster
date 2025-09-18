@@ -43,7 +43,7 @@ private:
 protected:
 
   //! Number of classes.
-  size_t           _nrClasses;
+  size_t           _nrClasses{0};
 
   //! Colours for the classes.
   std::vector<QColor> _colours;

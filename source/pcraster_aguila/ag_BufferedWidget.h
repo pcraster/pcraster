@@ -67,7 +67,7 @@ private:
   QPointF          _anchor;
 
   //! The buffer is dirty. If dirty is true, than the whole widget is dirty.
-  bool             _dirty;
+  bool             _dirty{true};
 
   //! Left area which is dirty.
   QRectF           _dirtyLeftArea;

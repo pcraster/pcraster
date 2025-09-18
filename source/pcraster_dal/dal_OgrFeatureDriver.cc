@@ -7,12 +7,7 @@
 #include "dal_Library.h"
 #include "dal_TableDriver.h"
 
-#include <boost/version.hpp>
-#if BOOST_VERSION > 107200
-  #include <boost/bind/bind.hpp>
-#else
-  #include <boost/bind.hpp>
-#endif
+#include <boost/bind/bind.hpp>
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/function.hpp>
 #include <ogrsf_frmts.h>

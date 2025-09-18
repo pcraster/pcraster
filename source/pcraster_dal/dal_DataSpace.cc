@@ -4,12 +4,7 @@
 #include "dal_SpatialCoordinate.h"
 #include "dal_Utils.h"
 
-#include <boost/version.hpp>
-#if BOOST_VERSION > 107200
-  #include <boost/bind/bind.hpp>
-#else
-  #include <boost/bind.hpp>
-#endif
+#include <boost/bind/bind.hpp>
 
 #include <algorithm>
 #include <functional>

@@ -9,15 +9,7 @@
 #endif
 
 // Library headers.
-#ifndef INCLUDED_BOOST_BIND
-  #include <boost/version.hpp>
-  #if BOOST_VERSION > 107200
-    #include <boost/bind/bind.hpp>
-  #else
-    #include <boost/bind.hpp>
-  #endif
-#define INCLUDED_BOOST_BIND
-#endif
+#include <boost/bind/bind.hpp>
 
 #ifndef INCLUDED_BOOST_SIGNALS2_CONNECTION
 #include <boost/signals2/connection.hpp>

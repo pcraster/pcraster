@@ -6,13 +6,8 @@
 #include "calc_astpar.h"
 #include "calc_astvisitor.h"
 
-#include <boost/version.hpp>
-#if BOOST_VERSION > 107200
-  #include <boost/bind/bind.hpp>
-  using namespace boost::placeholders;
-#else
-  #include <boost/bind.hpp>
-#endif
+#include <boost/bind/bind.hpp>
+using namespace boost::placeholders;
 
 
 /*!

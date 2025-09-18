@@ -1,11 +1,5 @@
 #include "dal_Dal.h"
 
-#include <boost/version.hpp>
-#if BOOST_VERSION > 107200
-  #include <boost/bind/bind.hpp>
-#else
-  #include <boost/bind.hpp>
-#endif
 #include "dal_Client.h"
 #include "dal_CSFRasterDriver.h"
 #include "dal_GeoEASTableDriver.h"
@@ -19,6 +13,7 @@
 #include "dal_TextTableDriver.h"
 #include "dal_VectorDriver.h"
 
+#include <boost/bind/bind.hpp>
 #include <QSqlDatabase>
 #include <QStringList>
 #include <ogrsf_frmts.h>

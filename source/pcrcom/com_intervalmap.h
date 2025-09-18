@@ -4,15 +4,7 @@
 #include "stddefx.h"
 #include "com_interval.h"
 
-#ifndef INCLUDED_BOOST_BIND
-  #include <boost/version.hpp>
-  #if BOOST_VERSION > 107200
-    #include <boost/bind/bind.hpp>
-  #else
-    #include <boost/bind.hpp>
-  #endif
-#define INCLUDED_BOOST_BIND
-#endif
+#include <boost/bind/bind.hpp>
 
 #include <algorithm>
 #include <iostream>

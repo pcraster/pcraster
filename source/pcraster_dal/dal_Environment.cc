@@ -2,12 +2,7 @@
 
 #include <boost/algorithm/string/split.hpp>
 #include <boost/algorithm/string/trim.hpp>
-#include <boost/version.hpp>
-#if BOOST_VERSION > 107200
-  #include <boost/bind/bind.hpp>
-#else
-  #include <boost/bind.hpp>
-#endif
+#include <boost/bind/bind.hpp>
 
 #include "cpl_conv.h"
 

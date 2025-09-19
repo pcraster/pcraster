@@ -125,9 +125,8 @@ Viewer::Viewer(
          qt::AppWindowProperties const& awp)
 
   : /// d_dal(true),
-    d_data(new ViewerPrivate(awp)),
-    d_nrViewRows(1),
-    d_nrViewCols(1)
+    d_data(new ViewerPrivate(awp))
+    
 
 {
 }

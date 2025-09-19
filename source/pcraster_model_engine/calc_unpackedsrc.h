@@ -48,7 +48,7 @@ private:
   //! in current packing
   const Field          *d_packed;
   //! unpacked, may be identical to d_packed in case of \a d_sp == AsIsPacking
-  const Field          *d_unpacked;
+  const Field          *d_unpacked{nullptr};
 
 
 public:

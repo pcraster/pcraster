@@ -335,8 +335,7 @@ calc::StatTable::StatTable(
   d_id(new ASTPar(id)),
   d_copyStringToMemoryOutputId(ASTSymbolInfo::noMemoryExchangeId()),
   d_subject(subject),
-  d_cross(cross),
-  d_op(nullptr)
+  d_cross(cross)
 {
   const OP_ARGS fieldArgType = { VS_FIELD, ST_SPATIAL};
   const OP_ARGS tableArgType = { VS_TABLE, ST_NON};

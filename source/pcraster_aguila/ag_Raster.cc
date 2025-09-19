@@ -44,8 +44,7 @@ Raster::Raster(
          std::string const& name,
          dal::DataSpace const& dataSpace)
 
-  : RasterDataset(name, dataSpace),
-    d_valueScale(VS_NOTDETERMINED) // ,
+  : RasterDataset(name, dataSpace)
 
 {
   std::unique_ptr<dal::Raster> raster(dataSource().open<dal::Raster>());

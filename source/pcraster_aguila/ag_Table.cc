@@ -53,8 +53,7 @@ Table::Table(
          std::string const& name,
          dal::DataSpace const& space)
 
-  : Dataset(name, space),
-    d_table(nullptr), d_valueScale(VS_NOTDETERMINED)
+  : Dataset(name, space) 
 
 {
   auto* driver =

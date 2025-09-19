@@ -46,9 +46,9 @@ private:
 
   boost::any       _max;
 
-  dal::DataSpaceAddressMapper* _localToWorldMapper;
+  dal::DataSpaceAddressMapper* _localToWorldMapper{nullptr};
 
-  dal::DataSpaceAddressMapper* _globalToLocalMapper;
+  dal::DataSpaceAddressMapper* _globalToLocalMapper{nullptr};
 
   //! Data space address of data read in local (data set) coordinates.
   dal::DataSpaceAddress _addressRead;

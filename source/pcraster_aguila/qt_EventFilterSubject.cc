@@ -33,7 +33,7 @@
 */
 qt::EventFilterSubject::EventFilterSubject(QObject* filterSubject)
 
-  : d_filterSubject(filterSubject), d_filter(nullptr)
+  : d_filterSubject(filterSubject) 
 
 {
   assert(d_filterSubject);

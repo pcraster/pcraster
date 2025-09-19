@@ -133,8 +133,7 @@ LinkInExpr::LinkInExpr(
    BaseExpr(nameBefore.position(),nameBefore.name()+"::"+nameAfter.name()),
    d_nameBefore(nameBefore),
    d_nameAfter(nameAfter),
-   d_stringArgument(stringArgument),
-   d_library(nullptr)
+   d_stringArgument(stringArgument)
 {
   // temporary no-op use shared_ptr::swap later
   d_op = std::make_shared<Operator>("0::0","0::0",

@@ -147,8 +147,7 @@ calc::GridStat calc::GridMapOut::writeData(const void *allValues)
 
 calc::GridMapIn::GridMapIn(
     std::string const& fileName):
-    GridMap(fileName),
-    d_bandMap(false)
+    GridMap(fileName)
 {
   // try {
     std::shared_ptr<dal::Raster> raster;

@@ -64,7 +64,7 @@ private:
   //! verbose, print more (debug) data in table
   static bool      d_verbose;
 
-  Operator        *d_op;
+  Operator        *d_op{nullptr};
 
 private:
 

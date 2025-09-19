@@ -45,13 +45,13 @@ class Table: public Dataset
 
 private:
 
-  dal::Table*      d_table;
+  dal::Table*      d_table{nullptr};
 
   size_t           d_timeCol;
 
   size_t           d_attrCol;
 
-  CSF_VS           d_valueScale;
+  CSF_VS           d_valueScale{VS_NOTDETERMINED};
 
   bool             isRead              (dal::DataSpaceAddress const& address) const override;
 

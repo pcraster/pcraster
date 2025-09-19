@@ -52,7 +52,7 @@ private:
 
   dal::DataSpace   d_dataSpace;
 
-  CSF_VS           d_valueScale;
+  CSF_VS           d_valueScale{VS_NOTDETERMINED};
 
   // bool             hasExtremes         () const;
 

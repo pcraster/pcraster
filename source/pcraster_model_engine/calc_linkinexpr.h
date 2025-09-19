@@ -66,7 +66,7 @@ private:
   std::string                   d_stringArgument;
   std::shared_ptr<Operator>   d_op;
   //! not owned
-  const LinkInLibrary*          d_library;
+  const LinkInLibrary*          d_library{nullptr};
 
   pcrxml::RunContext            context       (RunTimeEnv const& rte) const;
   pcrxml::CallPoint             callPoint     () const;

@@ -46,7 +46,7 @@ private:
   QObject* d_filterSubject;
 
   //! Object which filters the events of this subject.
-  QObject* d_filter;
+  QObject* d_filter{nullptr};
 
   //! Assignment operator. NOT IMPLEMENTED.
   EventFilterSubject& operator=        (const EventFilterSubject&);

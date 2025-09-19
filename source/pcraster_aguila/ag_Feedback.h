@@ -27,7 +27,7 @@ class Feedback
 
 private:
 
-  FeedbackPrivate* d_data;
+  FeedbackPrivate* d_data{nullptr};
 
   //! Assignment operator. NOT IMPLEMENTED.
   Feedback&        operator=           (const Feedback&);

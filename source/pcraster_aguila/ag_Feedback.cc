@@ -22,11 +22,11 @@ class FeedbackPrivate
 {
 public:
   GLint            d_sizeOfBuffer;
-  GLint            d_valuesStored;
+  GLint            d_valuesStored{0};
   GLfloat*         d_buffer;
 
   FeedbackPrivate(GLint size)
-    : d_sizeOfBuffer(size), d_valuesStored(0),
+    : d_sizeOfBuffer(size), 
       d_buffer(new GLfloat[size])
   {
   }
@@ -53,9 +53,6 @@ public:
 //------------------------------------------------------------------------------
 
 ag::Feedback::Feedback(GLint size)
-
-  : d_data(nullptr)
-
 {
   d_data = new FeedbackPrivate(size);
   glFeedbackBuffer(size, GL_3D_COLOR, d_data->d_buffer);

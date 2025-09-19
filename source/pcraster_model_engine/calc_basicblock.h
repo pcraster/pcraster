@@ -46,7 +46,7 @@ private:
 
 
   BlockEntrance*   d_blockEntrance;
-  ASTNodeList*     d_statements;
+  ASTNodeList*     d_statements{nullptr};
   JumpNode*        d_jumpNode;
 
 

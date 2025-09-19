@@ -23,7 +23,7 @@ private:
 
   QString          d_label;
 
-  size_t           d_firstStep;
+  size_t           d_firstStep{0};
 
   //! Assignment operator. NOT IMPLEMENTED.
   AnimationProgBar& operator=          (const AnimationProgBar&);

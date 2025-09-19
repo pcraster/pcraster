@@ -53,9 +53,7 @@ Dataset::Dataset(
          dal::DataSpace const& space)
 
   : _name(name),
-    _source(name, space),
-    _localToWorldMapper(nullptr),
-    _globalToLocalMapper(nullptr)
+    _source(name, space)
 
 {
   assert(!name.empty());

@@ -129,7 +129,7 @@ public:
 };
 
 class GridMapIn : public GridMap {
-  bool               d_bandMap;
+  bool               d_bandMap{false};
 public:
   GridMapIn(std::string const& fileName);
   ~GridMapIn() override;

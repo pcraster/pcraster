@@ -24,8 +24,7 @@
 
 qt::AnimationProgBar::AnimationProgBar(QWidget* p)
 
-  : QProgressBar(p),
-    d_firstStep(0)
+  : QProgressBar(p)
 
 {
 }

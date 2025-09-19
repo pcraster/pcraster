@@ -101,9 +101,9 @@ private:
 
   ViewerPrivate*   d_data;
 
-  size_t           d_nrViewRows;
+  size_t           d_nrViewRows{1};
 
-  size_t           d_nrViewCols;
+  size_t           d_nrViewCols{1};
 
   bool             exists              (const VisGroup* group) const;
 

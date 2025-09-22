@@ -30,7 +30,7 @@ class FieldLeaf : public FieldExpr, public UseDefNode {
   FieldParameter* d_par;
   void buildTypes();
   //! can value be overwritten at execution time, determined by usedef algorithm
-  bool d_overWriteVal;
+  bool d_overWriteVal{false};
  protected:
   void analyseUseDef() override;
   void skipExecution() override;

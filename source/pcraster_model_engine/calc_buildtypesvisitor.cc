@@ -350,9 +350,7 @@ class TopDownExprRestrictor: public ASTVisitor {
 
 //! ctor, results in a state where any type of field can be accepted and empty table
 calc::BuildTypesVisitor::BuildTypesVisitor(CFGNode *cfg):
-  CFGVisitor(cfg),
-  d_containsDynamicSection(false),
-  d_hasStatementWithReportKeyword(false)
+  CFGVisitor(cfg)
 {
 }
 

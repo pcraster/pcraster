@@ -64,7 +64,7 @@ private:
   const Symbol d_iterSymbol;
 
   //! the array iterated over
-  const class ArrayDefinition *d_loopedArray;
+  const class ArrayDefinition *d_loopedArray{nullptr};
 
   //! the iterator
   class IndexParameterVariable *d_iter;

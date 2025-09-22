@@ -42,7 +42,7 @@ private:
 protected:
 
    //! set in executeScript
-  ExecuteScriptStatus  d_executeScriptStatus;
+  ExecuteScriptStatus  d_executeScriptStatus{IsRunningExecScript};
 
   //! stream where std out message are written to
   std::ostream& d_stdOut;

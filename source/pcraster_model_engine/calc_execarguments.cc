@@ -64,8 +64,7 @@ calc::ExecArguments::ExecArguments(
       d_rte(rte),
       d_fields(nrActualInputs-op.firstFieldInput()),
       d_result(op.nrResults(),nullptr),
-      d_resultIsField(d_fields.size()), // init past a valid field
-      d_firstNonFieldInput(nullptr)
+      d_resultIsField(d_fields.size()) // init past a valid field
 {
   // reverse  reversed stack arguments
   for(size_t i=0;i<d_fields.size();++i)

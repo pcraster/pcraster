@@ -15,7 +15,7 @@
 calc::FieldLeaf::FieldLeaf(
     UsePar &par):
   FieldExpr(par), UseDefNode(*(par.block())),
-  d_index(par.createSelector()),d_overWriteVal(false)
+  d_index(par.createSelector())
 {
   d_par = dynamic_cast<FieldParameter *>(
     script().findRightParameter(par,VS_FIELD));

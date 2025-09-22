@@ -23,7 +23,6 @@
 calc::LexInputSourceString::LexInputSourceString(
     const std::string& contents):
    LexInputSource("?"),
-   d_ptr(0),
    d_contents(contents)
 {
 }

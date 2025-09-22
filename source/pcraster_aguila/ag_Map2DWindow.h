@@ -29,7 +29,7 @@ private:
 
   Q_OBJECT
 
-  Map2D*           d_map;
+  Map2D*           d_map{nullptr};
 
   //! Assignment operator. NOT IMPLEMENTED.
   Map2DWindow&     operator=           (const Map2DWindow&);

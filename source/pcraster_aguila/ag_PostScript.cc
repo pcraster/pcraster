@@ -54,12 +54,12 @@ class PostScriptPrivate
 public:
   const Feedback&  d_feedback;         // OpenGL's feedback buffer.
   double           d_boundingBox[4]{};
-  DepthIndex*      d_primitives;
-  size_t           d_nrPrimitives;
+  DepthIndex*      d_primitives{nullptr};
+  size_t           d_nrPrimitives{0};
 
   PostScriptPrivate(const Feedback& f, double llx, double lly, double urx,
                    double ury)
-    : d_feedback(f), d_primitives(nullptr), d_nrPrimitives(0)
+    : d_feedback(f) 
   {
     d_boundingBox[0] = llx;
     d_boundingBox[1] = lly;
@@ -89,9 +89,6 @@ public:
 
 ag::PostScript::PostScript(const Feedback& f, double llx, double lly,
                    double urx, double ury)
-
-  : d_data(nullptr)
-
 {
   d_data = new PostScriptPrivate(f, llx, lly, urx, ury);
 }

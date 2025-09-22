@@ -25,7 +25,6 @@ calc::ForEach::ForEach(
     calc::InnerStatementBlock(pos,parentBlock),
     d_symTab(parentBlock),
     d_iterSymbol(iter),
-    d_loopedArray(nullptr),
     d_orderIsAscending(orderIsAscending)
 {
   PRECOND(in.size() > 0);

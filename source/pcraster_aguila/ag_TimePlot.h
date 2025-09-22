@@ -34,9 +34,9 @@ private:
 
   QSplitter*       _splitter{};
 
-  PlotView*        _plotView;
+  PlotView*        _plotView{nullptr};
 
-  LegendView*      _legendView;
+  LegendView*      _legendView{nullptr};
 
   void             createInterface     (DataObject* object);
 

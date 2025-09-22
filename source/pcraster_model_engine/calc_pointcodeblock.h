@@ -52,7 +52,7 @@ private:
    * d_pointCode. These ASTPar node's are then reused and reset for
    * their attributes such as lastUse() (and maybe report() in the future)
    */
-  Code*                d_pointCode;
+  Code*                d_pointCode{nullptr};
 
   typedef ASTNodeList::iterator       PointCodeIterator;
 
@@ -74,7 +74,7 @@ private:
   //! debug/performance analyze only
   size_t   d_nrOps;
 
-  const void*      d_dllFunctionAddress{};
+  const void*      d_dllFunctionAddress{nullptr};
 
 
 public:

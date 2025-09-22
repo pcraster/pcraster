@@ -41,7 +41,6 @@ calc::PointCodeBlock::PointCodeBlock(
     const ParSet& pars,
     size_t     nrOps):
    ASTNode(**begin),
-   d_pointCode(nullptr),
 #ifdef DEBUG_DEVELOP
    d_pars(pars),
 #endif
@@ -88,8 +87,8 @@ calc::PointCodeBlock::PointCodeBlock(PointCodeBlock const& rhs):
     d_input(rhs.d_input),
     d_output(rhs.d_output),
     d_local(rhs.d_local),
-    d_nrOps(rhs.d_nrOps),
-    d_dllFunctionAddress(nullptr)
+    d_nrOps(rhs.d_nrOps)
+
 {
 }
 
@@ -168,7 +167,7 @@ std::string calc::PointCodeBlock::dllFunctionName() const
  */
 void calc::PointCodeBlock::genCode(std::ostream& s) const
 {
-  s << '\n' << "extern \"C\" void " 
+  s << '\n' << "extern \"C\" void "
     << dllFunctionName() << "(CellPtr* v,size_t n) {"
     << '\n';
 

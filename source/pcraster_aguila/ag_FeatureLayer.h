@@ -38,11 +38,11 @@ class FeatureLayer: public SpatialDataset
 
 private:
 
-  dal::FeatureLayer* d_layer;
+  dal::FeatureLayer* d_layer{nullptr};
 
   dal::DataSpace   d_dataSpace;
 
-  CSF_VS           d_valueScale;
+  CSF_VS           d_valueScale{VS_NOTDETERMINED};
 
   bool             isRead              (dal::DataSpaceAddress const& address) const override;
 

@@ -34,7 +34,7 @@ class PostScript
 
 private:
 
-  PostScriptPrivate* d_data;
+  PostScriptPrivate* d_data{nullptr};
 
   //! Assignment operator. NOT IMPLEMENTED.
   PostScript&      operator=           (const PostScript&);

@@ -38,8 +38,7 @@ TimePlot::TimePlot(
          DataObject* object,
          QWidget* parent)
 
-  : Visualisation<>(object, "Time plot", parent),
-    _plotView(nullptr), _legendView(nullptr)
+  : Visualisation<>(object, "Time plot", parent) 
 
 {
   createInterface(object);

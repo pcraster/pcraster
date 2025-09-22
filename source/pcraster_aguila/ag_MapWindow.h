@@ -35,7 +35,7 @@ private:
 
   /// QAction*         d_zoomAction;
 
-  QAction*         d_zoomAllAction;
+  QAction*         d_zoomAllAction{nullptr};
 
   //! Assignment operator. NOT IMPLEMENTED.
   MapWindow &      operator=           (const MapWindow &);

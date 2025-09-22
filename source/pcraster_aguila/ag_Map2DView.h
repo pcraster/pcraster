@@ -55,7 +55,7 @@ private:
     ZoomByRectangle
   };
 
-  Action           _action;
+  Action           _action{NoAction};
 
   //! Assignment operator. NOT IMPLEMENTED.
   Map2DView&       operator=           (const Map2DView&);

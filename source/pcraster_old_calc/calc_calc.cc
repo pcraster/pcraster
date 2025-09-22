@@ -58,13 +58,8 @@ void calc::globalInit()
 calc::Calc::Calc(
     std::ostream& stdOut,
     std::ostream& stdErr):
-  d_executeScriptStatus(IsRunningExecScript),
   d_stdOut(stdOut),
-  d_stdErr(stdErr),
-  d_esriGridKillHack(false),
-  d_printShellExpansionOnly(false),
-  d_testScriptRunableOnly(false),
-  d_printProfileInfo(false)
+  d_stdErr(stdErr)
 {
   globalInit();
 }

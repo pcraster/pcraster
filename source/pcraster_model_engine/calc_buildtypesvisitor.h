@@ -101,8 +101,8 @@ private:
   //! remember rhs-type for lhs-type in p=timeoutput(...)
   VS             d_outputTssVs;
 
-  bool             d_containsDynamicSection;
-  bool             d_hasStatementWithReportKeyword;
+  bool             d_containsDynamicSection{false};
+  bool             d_hasStatementWithReportKeyword{false};
 
   void          singleAss (ASTPar *p, const DataType& dtRhs);
 

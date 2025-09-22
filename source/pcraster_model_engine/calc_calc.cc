@@ -32,7 +32,6 @@
 calc::Calc::Calc(
     std::ostream& stdOut,
     std::ostream& stdErr):
-  d_executeScriptStatus(IsRunningExecScript),
   d_stdOut(stdOut),
   d_stdErr(stdErr)
 {

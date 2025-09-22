@@ -39,9 +39,7 @@ FeatureLayer::FeatureLayer(
          std::string const& name,
          dal::DataSpace const& space)
 
-  : SpatialDataset(name, space),
-    d_layer(nullptr),
-    d_valueScale(VS_NOTDETERMINED)
+  : SpatialDataset(name, space)
 
 {
   std::unique_ptr<dal::FeatureLayer> layer(

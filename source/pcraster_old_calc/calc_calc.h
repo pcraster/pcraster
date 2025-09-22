@@ -56,7 +56,7 @@ protected:
   Script&  script() { return d_script; }
 
    //! set in executeScript
-  ExecuteScriptStatus  d_executeScriptStatus;
+  ExecuteScriptStatus  d_executeScriptStatus{IsRunningExecScript};
 
   //! the lexical analyzer
   LexInput d_lexInput;
@@ -68,13 +68,13 @@ protected:
   std::ostream& d_stdErr;
 
   //! remove an esri grid instead of usual action
-  bool d_esriGridKillHack;
+  bool d_esriGridKillHack{false};
   //! print the argument expansion ($) instead of usual action
-  bool d_printShellExpansionOnly;
+  bool d_printShellExpansionOnly{false};
   //! only check the script on syntax and presence of all input instead of usual action
-  bool d_testScriptRunableOnly;
+  bool d_testScriptRunableOnly{false};
 
-  bool d_printProfileInfo;
+  bool d_printProfileInfo{false};
 
 protected:
 

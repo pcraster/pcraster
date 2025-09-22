@@ -89,8 +89,7 @@ Map2DView::Map2DView(
          DataObject* object,
          QWidget* parent)
 
-  : BufferedVisualisation(object, "Map View", BufferedWidget::Center, parent),
-    _action(NoAction)
+  : BufferedVisualisation(object, "Map View", BufferedWidget::Center, parent)
 
 {
   // Supported data types.

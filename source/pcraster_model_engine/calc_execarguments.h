@@ -69,7 +69,7 @@ protected:
 
   //! index in d_fields in case d_result is a src resuse, or >= d_fields.size() otherwise
   size_t               d_resultIsField;
-  DataValue           *d_firstNonFieldInput;
+  DataValue           *d_firstNonFieldInput{nullptr};
 
   DataType             resultType(size_t r) const;
 

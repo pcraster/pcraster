@@ -30,9 +30,8 @@
 ag::MapWindow::MapWindow(const qt::AppWindowProperties& props,
          const std::string& windowName, ag::DataObject* dataObject)
 
-  : VisualisationWindow(props, windowName, dataObject, Qt::Window),
+  : VisualisationWindow(props, windowName, dataObject, Qt::Window)
     /* d_queryAction(0), d_panAction(0), d_zoomAction(0), */
-    d_zoomAllAction(nullptr)
 
 {
 }

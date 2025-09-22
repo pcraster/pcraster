@@ -49,16 +49,16 @@ private:
   Q_OBJECT
 
   //! all menus accesible by derived classes
-  QMenu            *d_fileMenu, *d_editMenu, *d_viewMenu, *d_helpMenu;
+  QMenu            *d_fileMenu{nullptr}, *d_editMenu{nullptr}, *d_viewMenu{nullptr}, *d_helpMenu{nullptr};
 
   //! all toolbars accesible by derived classes
-  QToolBar*        d_toolBar;
+  QToolBar*        d_toolBar{nullptr};
 
-  QAction*         d_animateAction;
+  QAction*         d_animateAction{nullptr};
 
-  QAction*         d_saveAsAction;
+  QAction*         d_saveAsAction{nullptr};
 
-  QAction*         d_preferencesAction;
+  QAction*         d_preferencesAction{nullptr};
 
   //! Assignment operator. NOT IMPLEMENTED.
   VisualisationWindow& operator=       (const VisualisationWindow& rhs);

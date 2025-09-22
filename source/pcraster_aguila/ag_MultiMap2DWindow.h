@@ -32,7 +32,7 @@ private:
 
   std::vector<VisEngine*> d_engines;
 
-  MultiMap2D*      d_map;
+  MultiMap2D*      d_map{nullptr};
 
   //! Assignment operator. NOT IMPLEMENTED.
   MultiMap2DWindow& operator=          (MultiMap2DWindow const& rhs);

@@ -41,7 +41,7 @@ private:
 
   bool             _probabilitiesLoaded;
 
-  bool             _classifierPushed;
+  bool             _classifierPushed{false};
 
   //! Assignment operator. NOT IMPLEMENTED.
   RangeDrawPropertiesWidget& operator= (const RangeDrawPropertiesWidget&);

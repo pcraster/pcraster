@@ -36,8 +36,7 @@ MultiMap2DWindow::MultiMap2DWindow(qt::AppWindowProperties const& props,
          DataObject* object, size_t nrRows, size_t nrCols)
 
   : MapWindow(props, "2D Multi Map", object),
-    d_engines(nrRows * nrCols),
-    d_map(nullptr)
+    d_engines(nrRows * nrCols)
 
 {
   for(auto & d_engine : d_engines) {

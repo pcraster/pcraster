@@ -61,16 +61,16 @@ class FileTimeoutput : public TssOutputValue {
   //! nr of allocated rows, in d_value
   size_t d_nrRowsCached;
 
-  bool   d_fileErrorOccured;
-  bool   d_fileCreated;
+  bool   d_fileErrorOccured{false};
+  bool   d_fileCreated{false};
 
-  size_t d_lastStepToFile;
+  size_t d_lastStepToFile{0};
 
   //! holding gives timestep of same index in d_value
   //  size equals nr of filled rows in d_value
   std::vector<size_t>   d_step;
 
-  double **d_value;
+  double **d_value{nullptr};
 
   void flushToFile();
 

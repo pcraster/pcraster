@@ -59,7 +59,7 @@ private:
   //! eof found
   bool    d_eof{};
 
-  size_t  d_ptr;
+  size_t  d_ptr{0};
 
   std::string d_contents;
 

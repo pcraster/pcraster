@@ -30,8 +30,7 @@
  *               last element may contain ;;
  */
 calc::LexInputSourceString::LexInputSourceString(int nrArgv, const char**argv):
-   LexInputSource("?"),
-   d_ptr(0)
+   LexInputSource("?")
 {
   d_contents=std::for_each(argv,argv+nrArgv,com::Concatenate(" "));
   d_contents=com::replaceStrByStr(d_contents,";;",";");

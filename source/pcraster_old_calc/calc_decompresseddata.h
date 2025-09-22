@@ -41,8 +41,8 @@ private:
                  DecompressedData               (const DecompressedData&);
 
 public:
-  const void*          d_originalData;
-  const unsigned char* d_decompressedCopy;
+  const void*          d_originalData{nullptr};
+  const unsigned char* d_decompressedCopy{nullptr};
 
 
   //----------------------------------------------------------------------------

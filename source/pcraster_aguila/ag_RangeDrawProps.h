@@ -45,7 +45,7 @@ private:
 
   ClassifierTuples _classifiers;
 
-  DrawerType       _drawerType;
+  DrawerType       _drawerType{COLOURFILL};
 
   //! Colour used for values lower than min cutoff.
   QColor           _minColour;
@@ -54,7 +54,7 @@ private:
   QColor           _maxColour;
 
   //! How should the data be presented. Only relevant in case uncertainty information is available.
-  ProbabilityScale _probabilityScale;
+  ProbabilityScale _probabilityScale{CumulativeProbabilities};
 
   void             reMapColours        () override;
 

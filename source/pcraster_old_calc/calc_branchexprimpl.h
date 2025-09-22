@@ -25,7 +25,7 @@ class FieldStack;
  */
 class BranchExprImpl : public BranchExpr {
  private:
-  bool d_countStarted;
+  bool d_countStarted{false};
 
   void executeOperation(const Operator& implOp, FieldStack& stack);
   void executeVarArgOperation(const Operator& implOp, FieldStack& stack);

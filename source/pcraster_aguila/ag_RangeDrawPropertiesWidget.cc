@@ -78,8 +78,7 @@ RangeDrawPropertiesWidget::RangeDrawPropertiesWidget(
          QWidget* parent)
 
   : DrawPropertiesWidget(object, guide, parent),
-    _data(new RangeDrawPropertiesWidgetPrivate),
-    _classifierPushed(false)
+    _data(new RangeDrawPropertiesWidgetPrivate)
 
 {
   assert(dataGuide().type() == geo::STACK ||

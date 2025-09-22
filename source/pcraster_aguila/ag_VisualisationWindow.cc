@@ -57,15 +57,7 @@ VisualisationWindow::VisualisationWindow(
          DataObject* object, Qt::WindowFlags flags)
 
   : qt::AppWindow(props, visualisationName, nullptr, flags),
-    IVisualisation(object, visualisationName),
-    d_fileMenu(nullptr),
-    d_editMenu(nullptr),
-    d_viewMenu(nullptr),
-    d_helpMenu(nullptr),
-    d_toolBar(nullptr),
-    d_animateAction(nullptr),
-    d_saveAsAction(nullptr),
-    d_preferencesAction(nullptr)
+    IVisualisation(object, visualisationName)
 
 {
 }

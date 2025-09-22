@@ -20,9 +20,7 @@
 //------------------------------------------------------------------------------
 
 calc::DecompressedData::DecompressedData(VS vs):
-      d_vs(vs),
-      d_originalData(nullptr),
-      d_decompressedCopy(nullptr)
+      d_vs(vs)
 {
 }
 

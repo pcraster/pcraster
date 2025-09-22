@@ -38,9 +38,7 @@ RangeDrawProps::RangeDrawProps(
          com::Classifier* rawValueClassifier,
          com::Classifier* displayValueClassifier)
 
-  : DrawProps(title, p),
-    _drawerType(COLOURFILL),
-    _probabilityScale(CumulativeProbabilities)
+  : DrawProps(title, p)
 
 {
   assert(rawValueClassifier);

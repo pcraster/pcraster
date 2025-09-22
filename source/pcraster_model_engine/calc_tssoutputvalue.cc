@@ -161,11 +161,7 @@ calc::FileTimeoutput::FileTimeoutput(
     size_t nrCols):
   TssOutputValue(),
   d_stackInfo(stackInfo),
-  d_nrCols(nrCols),
-  d_fileErrorOccured(false),
-  d_fileCreated(false),
-  d_lastStepToFile(0),
-  d_value(nullptr)
+  d_nrCols(nrCols)
 {
   PRECOND(nrInSet(d_stackInfo.vs()) == 1);
   PRECOND(d_nrCols > 0);

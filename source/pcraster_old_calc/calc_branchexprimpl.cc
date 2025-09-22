@@ -35,8 +35,7 @@ calc::BranchExprImpl::BranchExprImpl(
   const calc::Element& pos,
   const calc::Operator&  op,
         calc::FieldExprArgs& fieldArgs):
-  calc::BranchExpr(pos,op,fieldArgs),
-  d_countStarted(false)
+  calc::BranchExpr(pos,op,fieldArgs)
 {
 }
 

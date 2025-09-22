@@ -37,9 +37,9 @@ private:
 
   QSplitter*       d_splitter{};
 
-  MultiMap2DView*  d_multiMap2DView;
+  MultiMap2DView*  d_multiMap2DView{nullptr};
 
-  LegendView*      d_legendView;
+  LegendView*      d_legendView{nullptr};
 
   //! Assignment operator. NOT IMPLEMENTED.
   MultiMap2D&      operator=           (MultiMap2D const& rhs);

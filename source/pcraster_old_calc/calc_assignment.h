@@ -20,7 +20,7 @@ class UsePar;
  *   rename Assignment to FieldAssignment
  */
 class Assignment : public Statement {
-  FieldLeft  *d_left;
+  FieldLeft  *d_left{nullptr};
   FieldExpr  *d_right;
 
   void cleanUp();

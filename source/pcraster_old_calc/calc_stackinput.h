@@ -35,7 +35,7 @@ class StackReader;
 class StackInput : public FieldExpr {
 private:
   //! implements a format specific stack reader strategy
-  const StackReader *d_reader;
+  const StackReader *d_reader{nullptr};
   // holds index for each timestep
   std::vector<size_t> d_itemToLoad;
   //! type of the stack

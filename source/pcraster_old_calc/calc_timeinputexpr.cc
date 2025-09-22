@@ -17,8 +17,7 @@ calc::TimeinputExpr::TimeinputExpr(
   const Operator& op,
         UsePar &tss,
         FieldExprArgs& keyArgs):
-  MixedExpr(pos,op, keyArgs),
-  d_tss(nullptr)
+  MixedExpr(pos,op, keyArgs)
 {
   try {
     d_tss = new TssInputLeaf(tss,fieldType().vs());

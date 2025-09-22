@@ -32,7 +32,7 @@ class IndexSelected;
 class Timeoutput : public FieldArgs, public Statement {
   TssOutputParameter *d_par;
   IndexSelected* d_index;
-  bool d_buildTypesVisited;
+  bool d_buildTypesVisited{false};
  public:
   // CREATORS
   Timeoutput(

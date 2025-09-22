@@ -36,8 +36,7 @@ CumDistributionFunction::CumDistributionFunction(
          DataObject* object,
          QWidget* parent)
 
-  : Visualisation<>(object, "Cumulative distribution function plot", parent),
-    d_plotView(nullptr), d_legendView(nullptr)
+  : Visualisation<>(object, "Cumulative distribution function plot", parent) 
 
 {
   createInterface(object);

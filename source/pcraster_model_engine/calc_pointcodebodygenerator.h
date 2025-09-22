@@ -60,7 +60,7 @@ namespace calc {
 
 //! PointCode stack item
 class PointCodeSI {
-  BaseExpr*         d_expr;
+  BaseExpr*         d_expr{nullptr};
 
    //! single name or _f....
   std::string      d_value;
@@ -145,7 +145,7 @@ private:
   //! part with loop for cells
   std::ostringstream                d_loop;
 
-  std::ostringstream*               d_curr;
+  std::ostringstream*               d_curr{nullptr};
 
 public:
 

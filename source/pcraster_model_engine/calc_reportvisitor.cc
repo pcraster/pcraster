@@ -53,10 +53,7 @@ calc::ReportVisitor::ReportVisitor(
     Timer const&       timer):
   d_reports(reports),
   d_timer(timer),
-  d_inDynamic(false),
-  d_reportLastAssOfEverySymbol(reportLastAssOfEverySymbol),
-  d_currentReport(nullptr),
-  d_currentStat(nullptr)
+  d_reportLastAssOfEverySymbol(reportLastAssOfEverySymbol)
 {
 }
 

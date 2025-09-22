@@ -38,16 +38,16 @@ class TssOutputValue {
   size_t d_nrRows;
 
   //! nr of current rows filled
-  size_t d_nrRowsFilled;
+  size_t d_nrRowsFilled{0};
 
   //! the timestep equal or less then the one store in row 0
   /*! it may be the case that we do now write this timestep
    *  but it is the value where we start to look if we want
    *  to write
    */
-  size_t d_timeStepRow0;
+  size_t d_timeStepRow0{1};
   //! record the last time step that is added 
-  size_t d_timeStepLastAdded;
+  size_t d_timeStepLastAdded{0};
 
   double **d_value;
 

@@ -260,12 +260,11 @@ namespace detail {
   }
 
   struct DataSpaceFromXML : public pcrxml::DataSpace {
-     size_t elementCount;
+     size_t elementCount{0};
      DataSpaceFromXML(
          variables_map& v,
          size_t stackStepStart,
-         size_t stackStepEnd):
-      elementCount(0)
+         size_t stackStepEnd)
      {
       if(v.count("scenarios")) {
         auto s = std::any_cast<VecOfStr>(v["scenarios"]);
@@ -347,16 +346,14 @@ namespace detail {
     }
 
     public:
-     size_t elementCount;
+     size_t elementCount{0};
      size_t stackStepStart;
-     size_t stackStepEnd;
+     size_t stackStepEnd{0};
 
     ViewsFromXML(
          variables_map& variables)
 
-      : elementCount(0),
-        stackStepStart(std::string::npos),
-        stackStepEnd(0)
+      : stackStepStart(std::string::npos)
 
     {
       std::vector<std::string> optionNames;
@@ -441,9 +438,7 @@ AguilaProgramOptions::AguilaProgramOptions(
          int argc,
          char **argv)
 
-  : d_license(false),
-    d_version(false),
-    d_configuration(new pcrxml::Aguila(pcrxml::VisualisationGroup()))
+  : d_configuration(new pcrxml::Aguila(pcrxml::VisualisationGroup()))
 
 {
   d_configuration->multiView(pcrxml::NrRowsNrCols(1, 1));

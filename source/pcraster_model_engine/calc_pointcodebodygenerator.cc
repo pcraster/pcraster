@@ -82,8 +82,7 @@ static std::string mvTest(const std::set<std::string>& names)
 calc::PointCodeBodyGenerator::PointCodeBodyGenerator(
     CFGNode*      cfg,
     const ParSet& vContents):
-     CFGVisitor(cfg),
-     d_curr(nullptr)
+     CFGVisitor(cfg)
 {
   size_t n=0;
   for(auto p : vContents) {
@@ -410,7 +409,6 @@ calc::BaseExpr* calc::PointCodeSI::expr() const
 
 calc::PointCodeSI::PointCodeSI(
     const std::string& name):
-  d_expr(nullptr),
   d_value(name)
 {
   d_names.insert(name);

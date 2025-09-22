@@ -13,7 +13,7 @@ class FieldParameter;
  */
 class UseDefNode {
 private:
-  const UseDefNode *d_next;
+  const UseDefNode *d_next{nullptr};
   StatementBlock &d_inBlock;
 protected:
   virtual void analyseUseDef()=0;

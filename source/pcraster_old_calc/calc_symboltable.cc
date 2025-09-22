@@ -10,8 +10,7 @@
 
 calc::SymbolTable::SymbolTable(
   calc::StatementBlock *parentBlock):
-    d_parentBlock(parentBlock),
-    d_symbolSequenceNr(0)
+    d_parentBlock(parentBlock)
 {
 }
 

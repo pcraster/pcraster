@@ -48,7 +48,7 @@ private:
   dal::Dimension const* d_dimension;
 
   //! Widget used to edit the coordinate.
-  QWidget*         d_editWidget;
+  QWidget*         d_editWidget{nullptr};
 
   void             createInterface     ();
 

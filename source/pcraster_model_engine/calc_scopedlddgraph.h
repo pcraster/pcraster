@@ -38,7 +38,7 @@ class ScopedLddGraph
 
 private:
   ScopedCachedObject<LddGraph> d_lg;
-  LddGraph*                    d_modifiedLg;
+  LddGraph*                    d_modifiedLg{nullptr};
 
   //! Assignment operator. NOT IMPLEMENTED.
   ScopedLddGraph&           operator=           (ScopedLddGraph const& rhs);

@@ -47,7 +47,7 @@ class SymbolTable {
   StatementBlock *d_parentBlock;
 
   //! holds next symbolSequenceNr to assign to a UserSymbol
-  int d_symbolSequenceNr;
+  int d_symbolSequenceNr{0};
 
   //! Find an existing parameter in own table, return 0 if not found
   UserSymbol *find(const std::string& name) const;

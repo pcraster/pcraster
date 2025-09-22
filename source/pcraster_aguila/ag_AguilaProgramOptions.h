@@ -35,9 +35,9 @@ class AguilaProgramOptions
 private:
 
   // Configuration option values provided by the user.
-  bool             d_license;
+  bool             d_license{false};
 
-  bool             d_version;
+  bool             d_version{false};
 
   //! The string to show as help if help option is obtained, empty otherwise.
   std::string      d_help;

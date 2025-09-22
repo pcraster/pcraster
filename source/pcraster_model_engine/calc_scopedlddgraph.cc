@@ -48,8 +48,7 @@ public:
 //------------------------------------------------------------------------------
 
 calc::ScopedLddGraph::ScopedLddGraph(RunTimeEnv* rte, const Field& ldd):
- d_lg(rte,&ldd),
- d_modifiedLg(nullptr)
+ d_lg(rte,&ldd)
 {
  POSTCOND(ldd.vs()==VS_L);
  if (!d_lg.object())

@@ -49,7 +49,7 @@ private:
 
   std::vector<DimensionTuple> d_dimensionTuples;
 
-  DataSourceTable* d_datasetTable;
+  DataSourceTable* d_datasetTable{nullptr};
 
   //! Assignment operator. NOT IMPLEMENTED.
   CursorView&     operator=           (CursorView const& rhs);

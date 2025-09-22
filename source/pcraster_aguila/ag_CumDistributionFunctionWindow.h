@@ -36,7 +36,7 @@ private:
 
   Q_OBJECT
 
-  CumDistributionFunction* d_cumDistributionFunction;
+  CumDistributionFunction* d_cumDistributionFunction{nullptr};
 
   //! Assignment operator. NOT IMPLEMENTED.
   CumDistributionFunctionWindow& operator=(CumDistributionFunctionWindow const& rhs);

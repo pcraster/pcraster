@@ -48,9 +48,7 @@ public:
  * sets current to first node (reset())
  */
 calc::CFGVisitor::CFGVisitor(CFGNode *cfg):
-  d_takeBackBranch(false),
-  d_cfg(cfg),
-  d_current(nullptr)
+  d_cfg(cfg)
 {
   reset();
 }

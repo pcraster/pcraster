@@ -60,8 +60,7 @@ ag::CumDistributionFunctionWindow::CumDistributionFunctionWindow(
          qt::AppWindowProperties const& props, DataObject* object)
 
 : VisualisationWindow(props, "Cumulative Distribution Function", object,
-         Qt::Window),
-  d_cumDistributionFunction(nullptr)
+         Qt::Window)
 
 {
   createInterface();

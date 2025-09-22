@@ -19,8 +19,7 @@ calc::Timeoutput::Timeoutput(
    calc::FieldArgs(par,major2op(OP_TIMEOUTPUT),args),
    calc::Statement(par),
    d_par(new calc::TssOutputParameter(par,w, true)),
-   d_index(par.createSelector()),
-   d_buildTypesVisited(false)
+   d_index(par.createSelector())
 {
   // to check if not already defined as a different usersymbol
   script().findLeftParameter(par,VS_TSS);

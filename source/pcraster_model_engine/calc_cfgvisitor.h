@@ -49,10 +49,10 @@ private:
   void             visitNonAssExpr          (NonAssExpr* e) override;
 
   //! what branch is taken? Forward (default) or Back
-  bool             d_takeBackBranch;
+  bool             d_takeBackBranch{false};
 
   CFGNode*         d_cfg;
-  CFGNode*         d_current;
+  CFGNode*         d_current{nullptr};
 
 
 protected:

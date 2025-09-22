@@ -50,8 +50,7 @@ public:
 //------------------------------------------------------------------------------
 
 
-calc::PointCodeBlockDll::PointCodeBlockDll(const Blocks& l):
-  d_dll(nullptr)
+calc::PointCodeBlockDll::PointCodeBlockDll(const Blocks& l)
 {
   if (l.empty())
     return;

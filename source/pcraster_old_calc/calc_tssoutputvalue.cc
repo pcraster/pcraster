@@ -26,9 +26,6 @@ calc::TssOutputValue::TssOutputValue(const FileWriter& fw, size_t nrCols, VS vs)
   d_fw(fw),
   d_nrCols(nrCols),
   d_nrRows(initNrRows()),
-  d_nrRowsFilled(0),
-  d_timeStepRow0(1),
-  d_timeStepLastAdded(0),
   d_value(com::new2d<double>(d_nrRows,d_nrCols)),
   d_vs(vs)
 {

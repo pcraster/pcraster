@@ -47,7 +47,7 @@ private:
 
   typedef std::vector<PointCodeBlock *>  Blocks;
 
-  com::DynamicLibrary*    d_dll;
+  com::DynamicLibrary*    d_dll{nullptr};
 
   void             load                            (const Blocks& l);
 

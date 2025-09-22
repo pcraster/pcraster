@@ -91,7 +91,7 @@ private:
   Timer const&           d_timer;
 
   //! are we visiting within the dynamic section?
-  bool             d_inDynamic;
+  bool             d_inDynamic{false};
 
   /*! report last assignment of each par assigned discarding the
    *   possible report keyword of the statement.
@@ -101,9 +101,9 @@ private:
    */
   bool             d_reportLastAssOfEverySymbol;
 
-  const Report    *d_currentReport;
+  const Report    *d_currentReport{nullptr};
   //! may be modified for fixing timeoutput
-  ASTStat         *d_currentStat;
+  ASTStat         *d_currentStat{nullptr};
 
   ReportPars     d_reportPars;
 

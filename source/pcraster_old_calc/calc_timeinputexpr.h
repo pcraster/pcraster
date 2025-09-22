@@ -18,7 +18,7 @@ class TssInputLeaf;
 class TimeinputExpr : public MixedExpr {
  private:
   // auto_ptr does not work!?
-  TssInputLeaf *d_tss;
+  TssInputLeaf *d_tss{nullptr};
   void cleanUp();
  public:
   TimeinputExpr(

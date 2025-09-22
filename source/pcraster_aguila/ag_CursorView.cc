@@ -42,8 +42,7 @@ CursorView::CursorView(
          DataObject* object,
          QWidget* parent)
 
-  : Visualisation<>(object, "Cursor View", parent),
-    d_datasetTable(nullptr)
+  : Visualisation<>(object, "Cursor View", parent)
 
 {
   // std::vector<DataGuide> guides(object->dataGuides());

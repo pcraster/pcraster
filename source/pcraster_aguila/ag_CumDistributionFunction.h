@@ -40,9 +40,9 @@ private:
 
   QSplitter*       d_splitter{};
 
-  CumDistributionFunctionView* d_plotView;
+  CumDistributionFunctionView* d_plotView{nullptr};
 
-  LegendView*      d_legendView;
+  LegendView*      d_legendView{nullptr};
 
   //! Assignment operator. NOT IMPLEMENTED.
   CumDistributionFunction& operator=   (CumDistributionFunction const& rhs);

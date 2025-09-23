@@ -10,22 +10,16 @@
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 com::RCObject::RCObject()
-
-   
-
 {
 }
 
 
 
 com::RCObject::RCObject(const RCObject &)
-
-  : d_refCount(0), d_shareable(true)
-
 {
 }
 

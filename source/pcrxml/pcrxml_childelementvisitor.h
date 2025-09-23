@@ -51,7 +51,7 @@ private:
   const QDomNodeList  d_children;
 
   //! index into \a d_children
-  uint                d_current;
+  uint                d_current{0};
 
   void                advance();
   bool                allChildrenProcessed() const;

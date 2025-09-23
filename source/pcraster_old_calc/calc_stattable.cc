@@ -262,8 +262,7 @@ static void  crossPercentiles(
 calc::StatTable::StatTable(
   FieldExpr *subject):
   Statement(*subject),
-  d_resultTable("statTable.txt"),
-  d_verbose(false)
+  d_resultTable("statTable.txt")
 {
   d_subject.d_expr=subject;
   d_subject.d_name="subjectName";

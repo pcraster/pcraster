@@ -17,16 +17,13 @@
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 //! Constructs a VisSubject object.
 /*!
 */
 ag::VisSubject::VisSubject()
-
-   
-
 {
   d_cm = new VisChangeManager(this);
 }
@@ -41,9 +38,6 @@ ag::VisSubject::VisSubject()
              of the subject.
 */
 ag::VisSubject::VisSubject(const VisSubject& /* rhs */)
-
-  : d_cm(nullptr)
-
 {
   d_cm = new VisChangeManager(this);
 }
@@ -137,13 +131,13 @@ ag::VisSubject::iterator ag::VisSubject::end()
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE OPERATORS 
+// DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE FUNCTIONS 
+// DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
 

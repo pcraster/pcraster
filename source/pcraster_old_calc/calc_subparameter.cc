@@ -13,8 +13,6 @@
 
 calc::SubParameter::SubParameter(const calc::ParsPar& par, bool constant, bool input):
   calc::Parameter(par,constant),
-  d_reportPoint(nullptr),
-  d_writeInfo(nullptr),
   d_subscript(par.descriptor()),
   d_input(input)
 {

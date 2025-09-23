@@ -116,8 +116,7 @@ calc::DoubleAssignment::DoubleAssignment(
   Statement(pos),
   d_swapped(NeedSwap(posFunc,f0,f1)),
   d_op0(d_swapped ? f1 : f0),
-  d_op1(d_swapped ? f0 : f1),
-  d_right(nullptr)
+  d_op1(d_swapped ? f0 : f1)
 {
   try {
    d_left[0]=nullptr; d_left[1]=nullptr;

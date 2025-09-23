@@ -19,7 +19,7 @@ class FieldExpr;
  */
 class RepeatUntil : public InnerStatementBlock {
 private:
-  FieldExpr *d_condition;
+  FieldExpr *d_condition{nullptr};
 
   bool executeCondition();
  public:

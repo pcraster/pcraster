@@ -33,9 +33,9 @@ class  SubParameter : public Parameter {
    *  The position
    *  is the position where of the left side symbol (p) in p = ...
    */
-  const Position       *d_reportPoint;
+  const Position       *d_reportPoint{nullptr};
 
-  const WriteInfo      *d_writeInfo;
+  const WriteInfo      *d_writeInfo{nullptr};
 
   const ArrayDefVector  d_subscript;
 

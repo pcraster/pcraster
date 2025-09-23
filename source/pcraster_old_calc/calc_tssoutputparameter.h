@@ -15,7 +15,7 @@ class WriteInfo;
 
 //! holds a tss
 class  TssOutputParameter : public TssParameter {
-   VS d_vs;
+   VS d_vs{VS_FIELD};
    std::vector<TssOutputValue *> d_value;
  public:
   // CREATORS

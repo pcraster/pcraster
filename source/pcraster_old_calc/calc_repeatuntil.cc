@@ -8,8 +8,7 @@
 calc::RepeatUntil::RepeatUntil(
     const Element& pos,
     StatementBlock *parentBlock):
-    InnerStatementBlock(pos,parentBlock),
-    d_condition(nullptr)
+    InnerStatementBlock(pos,parentBlock)
 {
 }
 

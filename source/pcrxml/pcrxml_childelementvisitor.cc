@@ -29,8 +29,7 @@
  */
 pcrxml::ChildElementVisitor::ChildElementVisitor(const QDomNode& elem):
   d_elem(elem),
-  d_children(elem.childNodes()),
-  d_current(0)
+  d_children(elem.childNodes())
 {
   POSTCOND(!d_elem.isNull());
   advance();

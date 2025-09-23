@@ -14,9 +14,7 @@ calc::FieldParameter::FieldParameter(
     const calc::ParsPar& par,
     bool constant, bool input, VS vs, ST st) :
   calc::SubParameter(par,constant,input),
-  d_type(vs,st),
-  d_firstChainNodeInDynamic(nullptr),
-  d_chainEnd(nullptr)
+  d_type(vs,st)
 {
 }
 

@@ -43,9 +43,9 @@ class  FieldParameter : public SubParameter {
   //! first node of use/def chain
   const UseDefNode *d_chainBegin{};
   //! first node of use/def chain that is in dynamic
-  const UseDefNode *d_firstChainNodeInDynamic;
+  const UseDefNode *d_firstChainNodeInDynamic{nullptr};
   //! last node of use/def chain
-  UseDefNode *d_chainEnd;
+  UseDefNode *d_chainEnd{nullptr};
  protected:
   FieldParameter(const ParsPar& par, bool constant, bool input,VS vs, ST st);
  public:

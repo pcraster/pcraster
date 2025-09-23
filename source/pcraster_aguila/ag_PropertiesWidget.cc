@@ -30,12 +30,11 @@ public:
 
   DataObject&      d_dataObject;
   const DataGuide& d_dataGuide;
-  QGroupBox*       d_groupBox;
-  QVBoxLayout*     d_groupBoxLayout;
+  QGroupBox*       d_groupBox{nullptr};
+  QVBoxLayout*     d_groupBoxLayout{nullptr};
 
   PropertiesWidgetPrivate(DataObject& dataObject, const DataGuide& dataGuide)
-    : d_dataObject(dataObject), d_dataGuide(dataGuide), d_groupBox(nullptr),
-      d_groupBoxLayout(nullptr)
+    : d_dataObject(dataObject), d_dataGuide(dataGuide)
 
   {
     assert(d_dataGuide.isValid());

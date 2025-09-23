@@ -38,9 +38,8 @@ qt::Animation::Animation()
 qt::Animation::Animation(size_t i)
 
   : QObject(),
-    d_first(0), d_last(0), d_stepInterval(0),
-    d_current(0), d_stepToProcess(0), d_interval(i),
-    d_loop(false), d_timer(new QTimer(this))
+     d_interval(i),
+     d_timer(new QTimer(this))
 
 {
   d_timer->setSingleShot(false);
@@ -59,8 +58,8 @@ qt::Animation::Animation(size_t f, size_t l, size_t i)
 
   : QObject(),
     d_first(f), d_last(l),d_stepInterval(1),
-    d_current(0), d_stepToProcess(0), d_interval(i),
-    d_loop(false), d_timer(new QTimer(this))
+     d_interval(i),
+     d_timer(new QTimer(this))
 
 {
   d_timer->setSingleShot(false);

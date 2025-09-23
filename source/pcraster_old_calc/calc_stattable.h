@@ -76,7 +76,7 @@ class StatTable : public Statement
   com::PathName    d_resultTable;
 
   //! verbose, print more (debug) data in table
-  bool             d_verbose;
+  bool             d_verbose{false};
 
   bool             d_maskSet{};
 

@@ -40,7 +40,7 @@ qtw::PaletteBar::PaletteBar(const com::RawPalette *pal,
                             QWidget *p)
 
   : QWidget(p),
-    d_palette(pal), d_outline(false)
+    d_palette(pal) 
 
 {
   assert(pal);

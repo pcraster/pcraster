@@ -32,7 +32,7 @@ class DoubleAssignment : public Statement {
   bool d_swapped;
   const Operator &d_op0, &d_op1;
   FieldLeft *d_left[2]{};
-  BranchExprImpl *d_right;
+  BranchExprImpl *d_right{nullptr};
   void cleanUp();
  public:
   DoubleAssignment(

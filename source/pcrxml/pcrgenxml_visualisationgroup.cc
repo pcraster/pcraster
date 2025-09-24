@@ -10,7 +10,6 @@ Do not edit, generated from libs/pcrxml/generate.py
 const std::string pcrxml::VisualisationGroup::d_elementName("VisualisationGroup");
 //! ctor
 pcrxml::VisualisationGroup::VisualisationGroup(const QDomElement& element):Element(element,d_elementName)
- ,dataObject(nullptr)
  {
   try {
    ChildElementVisitor v(element);

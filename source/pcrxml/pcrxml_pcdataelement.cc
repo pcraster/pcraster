@@ -36,8 +36,7 @@ pcrxml::PCDATAElement::PCDATAElement():
  */
 pcrxml::PCDATAElement::PCDATAElement(const QDomElement& n,
                                      const std::string& elementName):
-  Element(n, elementName),
-  d_asCDATASection(false)
+  Element(n, elementName)
 {
   /*
   Calling normalize() on an element converts all its children into a
@@ -66,8 +65,7 @@ pcrxml::PCDATAElement::PCDATAElement(const QDomElement& n,
 
 //! ctor from sections' contents
 pcrxml::PCDATAElement::PCDATAElement(const std::string& contents):
-  d_contents(contents),
-  d_asCDATASection(false)
+  d_contents(contents)
 {
 }
 

@@ -5,12 +5,10 @@
 #include <sstream>
 
 calc::BlockPosition::BlockPosition()
-          
 {
 }
 
-calc::BlockPosition::BlockPosition(calc::BlockPosition& parent):
-          d_nrChildren(0)
+calc::BlockPosition::BlockPosition(calc::BlockPosition& parent)
 {
           d_key = parent.d_key;
     d_key.push_back(parent.d_nrChildren++);

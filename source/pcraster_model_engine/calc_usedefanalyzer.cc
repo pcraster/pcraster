@@ -271,7 +271,7 @@ class UseDefRecorder : std::map<std::string, EventChain>
    EventChain               d_currentBlockNesting;
 
    //! only need address,0 if never encountered
-   void*                    d_dynamicSection;
+   void*                    d_dynamicSection{nullptr};
 
   //! simulates the runtime stack
   /*!
@@ -288,8 +288,7 @@ class UseDefRecorder : std::map<std::string, EventChain>
  public:
    UseDefRecorder(bool prefixFirstUseByDef):
     d_prefixFirstUseByDef(prefixFirstUseByDef),
-    d_dummy("dummy"),
-    d_dynamicSection(nullptr)
+    d_dummy("dummy")
    {
    }
    ~UseDefRecorder() {

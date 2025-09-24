@@ -10,7 +10,7 @@ Do not edit, generated from libs/pcrxml/generate.py
 const std::string pcrxml::TimeSeries::d_elementName("TimeSeries");
 //! ctor
 pcrxml::TimeSeries::TimeSeries(const QDomElement& element):Element(element,d_elementName)
- ,dataTypeDTD(nullptr)
+ 
  {
   try {
    ChildElementVisitor v(element);

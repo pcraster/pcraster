@@ -37,9 +37,9 @@ struct CountAttrsOfElement {
 struct ChangeTagName {
   QString d_oldName;
   QString d_newName;
-  size_t nr;
+  size_t nr{0};
   ChangeTagName(QString oldName, QString newName):
-    d_oldName(std::move(oldName)),d_newName(std::move(newName)),nr(0){}
+    d_oldName(std::move(oldName)),d_newName(std::move(newName)){}
   void operator()(QDomElement e) {
 
     PRECOND(!e.isNull());

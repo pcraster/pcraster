@@ -539,17 +539,14 @@ BOOST_AUTO_TEST_CASE(testInterpolateMWF)
   // other in testInterpolate()
  struct MWFTest : public calc::TestLookupCtor {
 
-   calc::RelationRecord::Float d_prefixKeyValue;
-   size_t                      d_keyCol;
-   size_t                      d_resultCol;
+   calc::RelationRecord::Float d_prefixKeyValue{4};
+   size_t                      d_keyCol{1};
+   size_t                      d_resultCol{2};
    MWFTest(
       const char *table,
       size_t nrCols):
     TestLookupCtor(table,
-        std::vector<VS>(nrCols,VS_S)),
-     d_prefixKeyValue(4),
-     d_keyCol(1),
-     d_resultCol(2)
+        std::vector<VS>(nrCols,VS_S))
    {
      setPrefixStableSort(1);
    }

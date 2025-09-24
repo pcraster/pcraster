@@ -244,9 +244,9 @@ void calc::Spatial::analyzeBoolean(
 
 namespace calc {
 class MaskChecker {
-  bool      d_newMVsFound;
+  bool      d_newMVsFound{false};
   //! used once in zero detect searching
-  bool      d_allZero;
+  bool      d_allZero{true};
   size_t    d_n;
 
   template<class CR> Spatial* createDebugMap(
@@ -271,8 +271,6 @@ class MaskChecker {
 public:
   MaskChecker(
     size_t n):
-    d_newMVsFound(false),
-    d_allZero(true),
     d_n(n)
     {}
 

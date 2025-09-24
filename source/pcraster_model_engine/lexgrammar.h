@@ -36,7 +36,7 @@ private:
 
   std::string d_optionLine;
 
-  bool        d_eofParsed;
+  bool        d_eofParsed{false};
 
   void parseComment();
 

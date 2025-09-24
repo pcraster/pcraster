@@ -280,9 +280,8 @@ BOOST_AUTO_TEST_CASE(testModel)
   using namespace calc;
 
  struct M {
-   bool cfgCode;
-   M(std::string const& code):
-     cfgCode(false)
+   bool cfgCode{false};
+   M(std::string const& code)
     {
       std::unique_ptr<ASTScript> s(StringParser::createScript(code));
       cfgCode=s->cfgCode()!=nullptr;

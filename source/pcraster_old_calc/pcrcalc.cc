@@ -37,8 +37,8 @@ public:
       clean();
   }
 public:
-  calc::ClientInterface  *d_ci;
-  calc::WlDelftHabitat   *d_wl;
+  calc::ClientInterface  *d_ci{nullptr};
+  calc::WlDelftHabitat   *d_wl{nullptr};
 
   PcrScriptImpl(const char* scriptName);
 
@@ -82,8 +82,7 @@ static struct PcrScriptImpl *hackScript=nullptr;
 }
 */
 
-PcrScriptImpl::PcrScriptImpl(const char* scriptName):
-      d_ci(nullptr),d_wl(nullptr)
+PcrScriptImpl::PcrScriptImpl(const char* scriptName)
 {
     // multi-threaded, qt as shared lib needs this!
     // std::set_terminate(foo);

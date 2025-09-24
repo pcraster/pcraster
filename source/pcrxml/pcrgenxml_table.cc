@@ -10,7 +10,6 @@ Do not edit, generated from libs/pcrxml/generate.py
 const std::string pcrxml::Table::d_elementName("Table");
 //! ctor
 pcrxml::Table::Table(const QDomElement& element):Element(element,d_elementName)
- ,dataTypeDTD(nullptr)
  {
   try {
    ChildElementVisitor v(element);

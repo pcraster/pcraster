@@ -103,12 +103,10 @@ template<typename CR,     // type operated on
                           //  the same bit pattern will yield 0
                           //  this is to prefent normalization issues (I think)
         > class MaskChecker {
-  bool d_newMVsFound;
-  bool d_allZero;
+  bool d_newMVsFound{false};
+  bool d_allZero{true};
 public:
-  MaskChecker(UINT1 *mask, const Spatial *me):
-    d_newMVsFound(false),
-    d_allZero(true)
+  MaskChecker(UINT1 *mask, const Spatial *me)
   {
     const CR *val = static_cast<const CR *>(me->srcValue());
     size_t   n    = me->nrValues();

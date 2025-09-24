@@ -1941,8 +1941,7 @@ void gramfree (void * ptr )
 
 
 calc::LexGrammar::LexGrammar(LexInput& input):
-  d_input(input),
-  d_eofParsed(false)
+  d_input(input)
 {
 }
 
@@ -2138,7 +2137,7 @@ calc::LexToken* calc::LexGrammar::createToken(
 calc::LexToken::LexToken(
   ANTLRTokenType type, MAJOR_CODE op, const char* text,
   Position *ownedPos):
-    d_type(type), d_isKeyword(false),d_op(op),d_text(text), d_pos(ownedPos)
+    d_type(type), d_op(op),d_text(text), d_pos(ownedPos)
 {
   try {
    switch(d_type) {

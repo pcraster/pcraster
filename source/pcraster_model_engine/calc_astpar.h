@@ -42,7 +42,7 @@ class ASTPar: public ASTId
 private:
 
   //! is this node a last use of par's value, before code end or redefinition
-  bool             d_lastUse{};
+  bool             d_lastUse{false};
 
   //! it's indices
   IdList           d_index;

@@ -54,17 +54,13 @@ AreaMap::AreaMap()
 {
 }
 
-AreaMap::AreaMap(const geo::RasterSpace& rs):
-  d_areaMap(nullptr),
-  d_computationMask(nullptr)
+AreaMap::AreaMap(const geo::RasterSpace& rs)
 {
   setRasterSpace(rs);
 }
 
 
-AreaMap::AreaMap(pcrxml::AreaMapScript const& am):
-  d_areaMap(nullptr),
-  d_computationMask(nullptr)
+AreaMap::AreaMap(pcrxml::AreaMapScript const& am)
 {
   d_areaMap = new pcrxml::AreaMapScript(am);
 
@@ -88,9 +84,7 @@ AreaMap::AreaMap(pcrxml::AreaMapScript const& am):
 
 //! Copy constructor.
 AreaMap::AreaMap(
-         AreaMap const& rhs):
-   d_areaMap(nullptr),
-   d_computationMask(nullptr)
+         AreaMap const& rhs)
 {
     d_rs   =rhs.d_rs;
     d_mask =rhs.d_mask;

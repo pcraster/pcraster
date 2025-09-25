@@ -40,9 +40,9 @@ class DimensionParser
 public:
   struct SymbolPower {
     std::string d_symbol;
-    int         d_power;
+    int         d_power{1};
     SymbolPower(const std::string& symbol):
-      d_symbol(symbol),d_power(1)
+      d_symbol(symbol)
     {
     }
   };

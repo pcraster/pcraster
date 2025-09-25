@@ -10,8 +10,6 @@ Do not edit, generated from libs/pcrxml/generate.py
 const std::string pcrxml::NumericInput::d_elementName("NumericInput");
 //! ctor
 pcrxml::NumericInput::NumericInput(const QDomElement& element):Element(element,d_elementName)
- ,lowerLimit(nullptr)
- ,upperLimit(nullptr)
  {
   try {
    ChildElementVisitor v(element);

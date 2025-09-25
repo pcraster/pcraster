@@ -10,8 +10,6 @@ Do not edit, generated from libs/pcrxml/generate.py
 const std::string pcrxml::Stack::d_elementName("Stack");
 //! ctor
 pcrxml::Stack::Stack(const QDomElement& element):Element(element,d_elementName)
- ,dataTypeDTD(nullptr)
- ,timestepRange(nullptr)
  {
   try {
    ChildElementVisitor v(element);

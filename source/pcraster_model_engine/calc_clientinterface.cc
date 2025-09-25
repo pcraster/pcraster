@@ -56,8 +56,6 @@ calc::ClientInterface::ClientInterface()
 calc::ClientInterface::ClientInterface(
                    const std::string& scriptFileOrContents,
                    bool               asFile):
-  d_script(nullptr),
-  d_executor(nullptr),
   d_scriptFileOrContents(scriptFileOrContents),
   d_asFile(asFile)
 {

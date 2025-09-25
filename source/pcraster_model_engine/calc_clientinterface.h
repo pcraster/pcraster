@@ -48,9 +48,9 @@ namespace calc {
 class ClientInterface
 {
 
-  ASTScript*       d_script{};
+  ASTScript*       d_script{nullptr};
   //! used in the step wise functions
-  Executor*        d_executor{};
+  Executor*        d_executor{nullptr};
 
 protected:
   std::string      d_scriptFileOrContents;

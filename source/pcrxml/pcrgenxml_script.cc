@@ -13,8 +13,6 @@ pcrxml::Script::Script(const QDomElement& element):Element(element,d_elementName
  ,scriptFileName(element,"scriptFileName",false)
  ,scriptType(element,"scriptType",true)
  ,ioStrategy(element,"ioStrategy",false)
- ,integerTimer(nullptr)
- ,scriptData(nullptr)
  {
   try {
    ChildElementVisitor v(element);

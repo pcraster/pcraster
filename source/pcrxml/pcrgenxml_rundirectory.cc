@@ -10,8 +10,6 @@ Do not edit, generated from libs/pcrxml/generate.py
 const std::string pcrxml::RunDirectory::d_elementName("RunDirectory");
 //! ctor
 pcrxml::RunDirectory::RunDirectory(const QDomElement& element):Element(element,d_elementName)
- ,modelRunSettings(nullptr)
- ,modelRunStatus(nullptr)
  {
   try {
    ChildElementVisitor v(element);

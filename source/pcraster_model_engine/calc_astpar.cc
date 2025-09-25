@@ -28,14 +28,12 @@ calc::ASTPar::ASTPar()
 }
 
 calc::ASTPar::ASTPar(const std::string& name):
-  ASTId(name),
-  d_lastUse(false)
+  ASTId(name)
 {
 }
 
 calc::ASTPar::ASTPar(const Id&          id):
-  ASTId(id),
-  d_lastUse(false)
+  ASTId(id)
 {
 }
 

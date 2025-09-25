@@ -31,8 +31,7 @@ calc::ASTAss::ASTAss()
 
 //! ctor with full deepClone
 calc::ASTAss::ASTAss(const ASTPar&  par,
-                     const ASTNode* rhs):
-   d_rhs(nullptr)
+                     const ASTNode* rhs)
 {
   addPar(par);
   setRhs(rhs);

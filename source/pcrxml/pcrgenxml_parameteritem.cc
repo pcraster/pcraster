@@ -11,10 +11,6 @@ const std::string pcrxml::ParameterItem::d_elementName("ParameterItem");
 //! ctor
 pcrxml::ParameterItem::ParameterItem(const QDomElement& element):Element(element,d_elementName)
  ,label(element,"label",true)
- ,scriptLink(nullptr)
- ,numericInput(nullptr)
- ,fileInput(nullptr)
- ,showData(nullptr)
  {
   try {
    ChildElementVisitor v(element);

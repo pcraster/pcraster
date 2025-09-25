@@ -58,7 +58,7 @@ private:
   //! the id is found in the report table, empty is valid
   Id               d_reportById;
   //! the definition is in situ, 0 is valid
-  Report*          d_reportInSitu{};
+  Report*          d_reportInSitu{nullptr};
 
   ASTNode*         d_stat{};
 

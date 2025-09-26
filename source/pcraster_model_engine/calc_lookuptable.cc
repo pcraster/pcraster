@@ -149,8 +149,6 @@ calc::LookupTable::LookupTable()
  */
 calc::LookupTable::LookupTable(
     const ASTSymbolInfo& i):
-     d_prefixMap(nullptr),
-     d_memoryInputTableCreator(nullptr),
      d_vs(i.dataType().resultType())
 {
   std::vector<VS> vs(i.dataType().tableColTypes());

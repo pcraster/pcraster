@@ -13,8 +13,6 @@ pcrxml::ExchangeModel::ExchangeModel(const QDomElement& element):Element(element
  ,id(element,"id",false)
  ,ioStrategy(element,"ioStrategy",false)
  ,description(element,"description",false)
- ,integerTimer(nullptr)
- ,areaMapDTD(nullptr)
  {
   try {
    ChildElementVisitor v(element);

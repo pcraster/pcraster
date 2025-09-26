@@ -11,10 +11,6 @@ const std::string pcrxml::FileInput::d_elementName("FileInput");
 //! ctor
 pcrxml::FileInput::FileInput(const QDomElement& element):Element(element,d_elementName)
  ,canChooseOtherFiles(element,"canChooseOtherFiles",true)
- ,map(nullptr)
- ,stack(nullptr)
- ,timeSeries(nullptr)
- ,table(nullptr)
  {
   try {
    ChildElementVisitor v(element);

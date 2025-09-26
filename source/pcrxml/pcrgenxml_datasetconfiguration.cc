@@ -11,10 +11,6 @@ const std::string pcrxml::DataSetConfiguration::d_elementName("DataSetConfigurat
 //! ctor
 pcrxml::DataSetConfiguration::DataSetConfiguration(const QDomElement& element):Element(element,d_elementName)
  ,version(element,"version",true)
- ,input(nullptr)
- ,compute(nullptr)
- ,interpolate(nullptr)
- ,lodings(nullptr)
  {
   try {
    ChildElementVisitor v(element);

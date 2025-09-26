@@ -10,7 +10,6 @@ Do not edit, generated from libs/pcrxml/generate.py
 const std::string pcrxml::Map::d_elementName("Map");
 //! ctor
 pcrxml::Map::Map(const QDomElement& element):Element(element,d_elementName)
- ,dataTypeDTD(nullptr)
  {
   try {
    ChildElementVisitor v(element);

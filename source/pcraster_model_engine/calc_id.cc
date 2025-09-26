@@ -84,8 +84,7 @@ calc::Id& calc::Id::operator=(const Id& rhs)
 
 //! Copy constructor.
 calc::Id::Id(const Id& rhs):
-  d_name(rhs.d_name),
-  d_position(nullptr)
+  d_name(rhs.d_name)
 {
   setPosition(rhs.d_position);
 }

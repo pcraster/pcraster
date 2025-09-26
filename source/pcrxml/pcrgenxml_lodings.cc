@@ -10,7 +10,6 @@ Do not edit, generated from libs/pcrxml/generate.py
 const std::string pcrxml::Lodings::d_elementName("Lodings");
 //! ctor
 pcrxml::Lodings::Lodings(const QDomElement& element):Element(element,d_elementName)
- ,dataExtend(nullptr)
  {
   try {
    ChildElementVisitor v(element);

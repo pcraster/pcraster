@@ -105,12 +105,11 @@ public:
 class TimeoutputWriter : public DynamicWriter
 {
   //! remains 0 if at first timestep id has all MV's
-  TssOutputValue *d_tss;
+  TssOutputValue *d_tss{nullptr};
  public:
   TimeoutputWriter(const ASTSymbolInfo& s,
                    IOStrategy&    ios):
-    DynamicWriter(s,ios,true),
-    d_tss(nullptr)
+    DynamicWriter(s,ios,true)
  {
     if (s.memoryOutputId() != s.noMemoryExchangeId()) {
       d_tss = new MemoryTimeoutput(

@@ -10,8 +10,6 @@ Do not edit, generated from libs/pcrxml/generate.py
 const std::string pcrxml::AreaMapDTD::d_elementName("areaMapDTD");
 //! ctor
 pcrxml::AreaMapDTD::AreaMapDTD(const QDomElement& element):Element(element,d_elementName)
- ,rasterSpace(nullptr)
- ,rasterMask(nullptr)
  {
   try {
    ChildElementVisitor v(element);

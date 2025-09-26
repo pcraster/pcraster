@@ -11,7 +11,6 @@ const std::string pcrxml::NonSpatial::d_elementName("NonSpatial");
 //! ctor
 pcrxml::NonSpatial::NonSpatial(const QDomElement& element):Element(element,d_elementName)
  ,value(element,"value",false)
- ,dataTypeDTD(nullptr)
  {
   try {
    ChildElementVisitor v(element);

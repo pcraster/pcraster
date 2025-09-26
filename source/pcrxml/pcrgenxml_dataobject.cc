@@ -10,7 +10,6 @@ Do not edit, generated from libs/pcrxml/generate.py
 const std::string pcrxml::DataObject::d_elementName("DataObject");
 //! ctor
 pcrxml::DataObject::DataObject(const QDomElement& element):Element(element,d_elementName)
- ,cursor(nullptr)
  {
   try {
    ChildElementVisitor v(element);

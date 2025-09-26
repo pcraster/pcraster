@@ -70,7 +70,7 @@ class LinkInLibraryPrivate
   CheckFun                                      d_check;
 
   std::string                                   d_name;
-  com::DynamicLibrary*                          d_dl;
+  com::DynamicLibrary*                          d_dl{nullptr};
   std::unique_ptr<pcrxml::LinkInLibraryManifest>  d_manifest;
 
   void throwException(std::string const& msg)
@@ -122,8 +122,7 @@ class LinkInLibraryPrivate
 public:
 
   LinkInLibraryPrivate(const std::string& name):
-    d_name(name),
-    d_dl(nullptr)
+    d_name(name)
   {
 
      try {

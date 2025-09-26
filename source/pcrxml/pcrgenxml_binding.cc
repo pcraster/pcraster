@@ -12,11 +12,6 @@ const std::string pcrxml::Binding::d_elementName("Binding");
 pcrxml::Binding::Binding(const QDomElement& element):Element(element,d_elementName)
  ,parameter(element,"parameter",true)
  ,value(element,"value",true)
- ,map(nullptr)
- ,nonSpatial(nullptr)
- ,stack(nullptr)
- ,timeSeries(nullptr)
- ,table(nullptr)
  {
   try {
    ChildElementVisitor v(element);

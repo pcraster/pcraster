@@ -12,7 +12,6 @@ const std::string pcrxml::ExchangeItem::d_elementName("exchangeItem");
 pcrxml::ExchangeItem::ExchangeItem(const QDomElement& element):Element(element,d_elementName)
  ,exchangeDirection(element,"exchangeDirection",false)
  ,index(element,"index",false)
- ,variable(nullptr)
  {
   try {
    ChildElementVisitor v(element);

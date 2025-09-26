@@ -13,8 +13,6 @@ pcrxml::Input::Input(const QDomElement& element):Element(element,d_elementName)
  ,flipZ(element,"flipZ",true)
  ,samplingInterval(element,"samplingInterval",true)
  ,migrDirection(element,"migrDirection",false)
- ,inputLodings(nullptr)
- ,inputPoints(nullptr)
  {
   try {
    ChildElementVisitor v(element);

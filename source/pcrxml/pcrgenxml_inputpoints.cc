@@ -12,8 +12,6 @@ const std::string pcrxml::InputPoints::d_elementName("InputPoints");
 pcrxml::InputPoints::InputPoints(const QDomElement& element):Element(element,d_elementName)
  ,lodingDistance(element,"lodingDistance",true)
  ,maxPointDeviation(element,"maxPointDeviation",true)
- ,computedRiverAxis(nullptr)
- ,riverAxisFile(nullptr)
  {
   try {
    ChildElementVisitor v(element);

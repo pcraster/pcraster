@@ -198,9 +198,9 @@ BOOST_AUTO_TEST_CASE(testUnsound)
 
 namespace calc {
   struct DownstreamVisitorTester : public DownstreamVisitor {
-    size_t d_vertexCount;
-    size_t d_edgeCount;
-    size_t d_pitIdOfCurrentCatchment;
+    size_t d_vertexCount{0};
+    size_t d_edgeCount{0};
+    size_t d_pitIdOfCurrentCatchment{10}; // 10 as not visited marker
     std::vector<size_t> d_pitOfMyCatchment;
     std::vector<size_t> d_v;
     std::vector<size_t> d_up;
@@ -208,9 +208,6 @@ namespace calc {
 
     DownstreamVisitorTester(LddGraph const& lg):
       DownstreamVisitor(lg),
-      d_vertexCount(0),
-      d_edgeCount(0),
-      d_pitIdOfCurrentCatchment(10), // 10 as not visited marker
       d_pitOfMyCatchment(9,10)       // 10 as not visited marker
      {
         // the anticipated order of visitation

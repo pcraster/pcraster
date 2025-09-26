@@ -14,11 +14,6 @@ pcrxml::Data::Data(const QDomElement& element):Element(element,d_elementName)
  ,description(element,"description",false)
  ,externalFileName(element,"externalFileName",false)
  ,ioType(element,"ioType",true)
- ,map(nullptr)
- ,nonSpatial(nullptr)
- ,stack(nullptr)
- ,timeSeries(nullptr)
- ,table(nullptr)
  {
   try {
    ChildElementVisitor v(element);

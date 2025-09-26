@@ -189,7 +189,6 @@ add_library(pcraster_aguila_objects OBJECT
 target_include_directories(pcraster_aguila_objects
     PRIVATE
         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
-        $<TARGET_PROPERTY:pcraster::math_utils,INTERFACE_INCLUDE_DIRECTORIES>
         $<TARGET_PROPERTY:pcraster::string_utils,INTERFACE_INCLUDE_DIRECTORIES>
 )
 

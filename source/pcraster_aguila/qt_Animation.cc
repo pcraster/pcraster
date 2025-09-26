@@ -2,7 +2,6 @@
 #include <QTimer>
 #include <algorithm>
 #include <iostream>
-#include "dev_MathUtils.h"
 
 
 
@@ -553,7 +552,7 @@ size_t qt::Animation::nextTimeStep() const
 */
 size_t qt::Animation::closestStep(size_t step) const
 {
-  step = dev::limit(step, firstStep(), lastStep());
+  step = std::clamp(step, firstStep(), lastStep());
 
   if(d_steps.empty()) {
     return step;

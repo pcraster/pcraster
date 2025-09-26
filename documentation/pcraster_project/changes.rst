@@ -21,6 +21,7 @@ Changes
 .. * gcc13 minimum
 .. * Set C standard to 17
 .. * We removed the dependency to the deprecated OpenGL Utility Library (GLU). Linking to libGLU is no longer required.
+.. * We replaced internal math and string utility libraries by std equivalents
 
 
 PCRaster 4.4.2

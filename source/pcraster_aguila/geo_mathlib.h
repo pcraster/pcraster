@@ -1,11 +1,8 @@
 #ifndef INCLUDED_GEO_MATHLIB
 #define INCLUDED_GEO_MATHLIB
 
-
-
 #include <cassert>
 #include <cmath>
-#include "dev_MathUtils.h"
 
 
 
@@ -14,7 +11,7 @@ namespace geo {
 template<class T>
 inline void normalize(T* x, T* y, T* z)
 {
-  double l = dev::hypot(*x, *y, *z);
+  double l = std::hypot(*x, *y, *z);
 
   assert(l > 0.0);
 

@@ -6,7 +6,6 @@ configure_file(
 if(WIN32)
     add_subdirectory(pdcurses EXCLUDE_FROM_ALL)
 endif()
-add_subdirectory(math_utils)
 add_subdirectory(string_utils)
 add_subdirectory(utils)
 add_subdirectory(pcraster_dal)

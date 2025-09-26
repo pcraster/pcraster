@@ -1,12 +1,13 @@
 #include "ag_RangeDrawProps.h"
-#include <boost/lexical_cast.hpp>
-#include "dev_ToString.h"
 #include "pcrtypes.h"
 #include "ag_ColourSelector.h"
 #include "com_classifier.h"
 #include "com_rangemap.h"
 
+#include <boost/lexical_cast.hpp>
+
 #include <format>
+#include <string>
 
 
 /*!
@@ -492,13 +493,13 @@ void RangeDrawProps::assignLabels()
     if(display) {
 
       for(size_t i = 0; i <= nrClasses(); ++i) {
-        _labels[i] = dev::toString(display->classBorder(i));
+        _labels[i] = std::to_string(display->classBorder(i));
       }
     }
     else {
 
       for(size_t i = 0; i <= nrClasses(); ++i) {
-        _labels[i] = dev::toString(raw->classBorder(i));
+        _labels[i] = std::to_string(raw->classBorder(i));
       }
     }
   }

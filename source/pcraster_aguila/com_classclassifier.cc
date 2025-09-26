@@ -1,9 +1,10 @@
 #include "com_classclassifier.h"
+#include "com_legendclass.h"
+
 #include <algorithm>
 #include <set>
+#include <string>
 #include <vector>
-#include "dev_ToString.h"
-#include "com_legendclass.h"
 
 
 
@@ -48,7 +49,7 @@ void com_ClassClassifier<T>::setClasses(int first, int last)
 
   for(size_t i = 0; i <= d_classes.size() - 1; ++i) {
     d_classes[i].setValue(static_cast<T>(first + i));
-    d_classes[i].setDescr(dev::toString<T>(d_classes[i].value()));
+    d_classes[i].setDescr(std::to_string(d_classes[i].value()));
     // d_classes[i].setDescr(com::doubleToStr(d_classes[i].value()));
   }
 }
@@ -70,7 +71,7 @@ void com_ClassClassifier<T>::setClasses(const std::vector<T> &c)
   for(size_t i = 0; i < c.size(); i++)
   {
     d_classes[i].setValue(c[i]);                                           // 2.
-    d_classes[i].setDescr(dev::toString<T>(c[i]));
+    d_classes[i].setDescr(std::to_string(c[i]));
     // d_classes[i].setDescr(com::doubleToStr(c[i]));                         // 3.
   }
 }
@@ -94,7 +95,7 @@ void com_ClassClassifier<T>::setClasses(const std::set<T> &c)
          it++, i++)
   {
     d_classes[i].setValue(*it);                                            // 2.
-    d_classes[i].setDescr(dev::toString<T>(*it));
+    d_classes[i].setDescr(std::to_string(*it));
     // d_classes[i].setDescr(com::doubleToStr(*it));                          // 3.
   }
 }
@@ -119,7 +120,7 @@ void com_ClassClassifier<T>::setClasses(const T *c, size_t n)
   for(size_t i = 0; i < n; i++)
   {
     d_classes[i].setValue(c[i]);                                           // 4.
-    d_classes[i].setDescr(dev::toString<T>(c[i]));
+    d_classes[i].setDescr(std::to_string(c[i]));
     // d_classes[i].setDescr(com::doubleToStr(c[i]));                         // 5.
   }
 }
@@ -174,11 +175,11 @@ size_t com_ClassClassifier<T>::index(T v) const
 //   // Find first occurance of v in d_classes.
 //   const_iterator it = std::lower_bound(d_classes.begin(), d_classes.end(), v,
 //                                        ::compClass<T>());
-// 
+//
 // #ifdef DEBUG_DEVELOP
 //   assert(it != d_classes.end());
 // #endif
-// 
+//
 //   return it - d_classes.begin();
 
   size_t i = 0;

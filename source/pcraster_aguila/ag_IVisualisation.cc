@@ -1,14 +1,13 @@
 #include "ag_IVisualisation.h"
-#include <stdexcept>
-#include <sstream>
 #include "dev_Algorithm.h"
-#include "dev_ToString.h"
 #include "dal_Utils.h"
 #include "com_exception.h"
 #include "geo_DataType.h"
 #include "ag_DataObject.h"
 #include "ag_VisEngine.h"
 
+#include <stdexcept>
+#include <sstream>
 
 
 //------------------------------------------------------------------------------
@@ -31,7 +30,38 @@ struct ValueScalePrinter
   }
 };
 
+//! Puts the elements pointed to by \a begin and \a end in a string.
+/*!
+  \param     begin Pointer to first element.
+  \param     end Pointer to one past the last element.
+  \param     printer Functor to convert value to a string.
+  \param     String which will be put between the values.
+  \return    string.
+  \warning   An empty string is returned if \a begin == \a end.
+  \todo      Test.
+*/
+template<typename T, class Printer>
+std::string toString(
+         typename std::vector<T>::const_iterator begin,
+         typename std::vector<T>::const_iterator end,
+         Printer printer,
+         std::string const& separator)
+{
+  std::ostringstream stream;
+
+  if(begin != end) {
+
+    for(;begin != end - 1; ++begin) {
+      stream << printer(*begin) << separator;
+    }
+
+    stream << printer(*(begin));
+  }
+
+  return stream.str();
 }
+
+} // namespace detail
 
 class IVisualisationPrivate
 {
@@ -59,7 +89,7 @@ public:
   std::vector<com::FileFormatInfo> d_fileFormats;
 
   IVisualisationPrivate()
-    
+
   {
   }
 
@@ -397,7 +427,7 @@ void ag::IVisualisation::testDataType(
 
     std::ostringstream stream2;
     stream2 << "Valid data types are: "
-                   << dev::toString<geo::DataType, detail::DataTypePrinter>(
+                   << detail::toString<geo::DataType, detail::DataTypePrinter>(
                    d_data->d_supportedDataTypes.begin(),
                    d_data->d_supportedDataTypes.end(),
                    detail::DataTypePrinter(), std::string(", "));
@@ -420,7 +450,7 @@ void ag::IVisualisation::testValueScale(
 
     std::ostringstream stream2;
     stream2 << "Valid value scales are: "
-                   << dev::toString<CSF_VS, detail::ValueScalePrinter>(
+                   << detail::toString<CSF_VS, detail::ValueScalePrinter>(
                    d_data->d_supportedValueScales.begin(),
                    d_data->d_supportedValueScales.end(),
                    detail::ValueScalePrinter(), std::string(", "));

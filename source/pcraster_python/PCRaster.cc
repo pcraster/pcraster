@@ -1,5 +1,5 @@
-#include <math.h>
 #include <pybind11/pybind11.h>
+#include <pybind11/stl/filesystem.h>
 
 #include "stddefx.h"
 #include "csf.h"
@@ -31,8 +31,10 @@
 
 #include <cmath>
 #include <format>
+#include <filesystem>
 #include <limits>
 #include <memory>
+#include <string>
 
 template<
     typename T>
@@ -103,8 +105,9 @@ void checkNotNullPointer(void const* ptr)
 
 //! Reads a field from a file.
 calc::Field* readField(
-         std::string const& name)
+           std::filesystem::path const& input_path)
 {
+  std::string name{input_path.string()};
   // Open the raster.
   std::shared_ptr<dal::Raster> raster;
   dal::RasterDriver* driver = nullptr;
@@ -216,10 +219,11 @@ calc::Field* readField(
 
 // row >= 1, <= nrRows, col >= 1, <= nrCols
 pybind11::object readFieldCell(
-         std::string const& filename,
+         std::filesystem::path const& input_path,
          int row,
          int col)
 {
+  std::string filename{input_path.string()};
   std::shared_ptr<dal::Raster> raster;
   dal::RasterDriver* driver = nullptr;
   std::tie(raster, driver) = globals.rasterDal().open(filename);
@@ -334,8 +338,10 @@ void writeFieldTemplate(
 
 void writeField(
          calc::Field* field,
-         std::string const& filename)
+         std::filesystem::path const& input_path)
 {
+
+  std::string filename{input_path.string()};
   checkNotNullPointer(field);
 
   switch(field->cr()) {
@@ -361,10 +367,11 @@ void writeField(
 
 
 void writeFilename(
-         std::string const& inputFilename,
-         std::string const& outputFilename)
+         std::filesystem::path const& input_path,
+         std::filesystem::path const& output_path)
 {
-  writeField(readField(inputFilename), outputFilename);
+  std::string outputFilename{output_path.string()};
+  writeField(readField(input_path), outputFilename);
 }
 
 
@@ -746,8 +753,10 @@ void check_csftype(std::string const& filename){
 }
 
 void setCloneSpaceFromFilename(
-         std::string const& filename)
+         std::filesystem::path const& input_path)
 {
+  std::string filename{input_path.string()};
+
   check_csftype(filename);
 
   std::shared_ptr<dal::Raster> raster(globals.rasterDal().read(filename));

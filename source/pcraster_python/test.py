@@ -1,7 +1,7 @@
 #!/usr/bin/env pcrPython.sh
 # -*- coding: utf-8 -*-
 
-import os, math, string, unittest, warnings, sys, tempfile
+import os, math, string, unittest, warnings, pathlib, sys, tempfile
 import testcase, testexamples, testNumPy, testPickle, test_cellvalue, testPCRaster, test_aguila
 import import_test
 import pcraster
@@ -470,6 +470,25 @@ class Test(testcase.TestCase):
       raster = pcraster.spatial(pcraster.scalar(map_value))
       total, valid = pcraster.cellvalue(pcraster.maptotal(raster), 1, 1)
       self.assertAlmostEqual(total, map_value * map_dimension**2)
+
+  def test_2(self):
+    """ test pathlib """
+
+    exceptionThrown = False
+    try:
+        path_1 = pathlib.Path("and_Expr1.map")
+        path_2 = pathlib.Path("and_Expr1_pathlib1.map")
+        path_3 = pathlib.Path("and_Expr1_pathlib2.map")
+        pcraster.setclone(path_1)
+        raster = pcraster.readmap(path_1)
+        pcraster.report(raster, path_2)
+        pcraster.report("and_Expr1_pathlib1.map", path_3)
+        value, valid = pcraster.readFieldCell(path_3, 1, 2)
+        # self.assertEqual(value, 4.0)
+    except Exception as e:
+        exceptionThrown = True
+
+    self.assertFalse(exceptionThrown)
 
 
 

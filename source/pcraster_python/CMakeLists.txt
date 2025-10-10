@@ -221,7 +221,7 @@ if(PCRASTER_BUILD_TEST)
             --build "${CMAKE_BINARY_DIR}"
             --config "$<CONFIG>"
             --target
-                    mapattr col2map _pcraster
+                    mapattr col2map _pcraster generate_examples.sentinel
     )
 
     set_tests_properties(setup_pcraster_python_dependencies

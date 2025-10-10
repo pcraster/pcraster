@@ -93,7 +93,7 @@ endif()
 
 
 # Get required dependencies first...
-CPMAddPackage("gh:pcraster/rasterformat#fffaf990a2cd6365c4122ced5883f74bbc55e4f0")
+CPMAddPackage("gh:pcraster/rasterformat#cff814148151884a2bba4c6ea980c36045bd3bf5")
 
 CPMAddPackage(
   NAME xsd

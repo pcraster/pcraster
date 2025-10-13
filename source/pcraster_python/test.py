@@ -484,7 +484,6 @@ class Test(testcase.TestCase):
         pcraster.report(raster, path_2)
         pcraster.report("and_Expr1_pathlib1.map", path_3)
         value, valid = pcraster.readFieldCell(path_3, 1, 2)
-        # self.assertEqual(value, 4.0)
     except Exception as e:
         exceptionThrown = True
 

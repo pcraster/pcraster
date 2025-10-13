@@ -27,7 +27,6 @@
 #include <boost/test/tools/floating_point_comparison.hpp>
 
 #include <boost/math/special_functions/fpclassify.hpp>
-#include <boost/math/special_functions/sign.hpp>
 
 #include <cmath>
 #include <format>
@@ -49,7 +48,7 @@ struct ValueTraits
     inline static bool nan_is_negative(
         T value)
     {
-        return boost::math::signbit(value) != 0;
+        return std::signbit(value);
     }
 
     inline static bool nan_is_quiet(

@@ -1,15 +1,9 @@
 #ifndef INCLUDED_AG_MAPDRAWER
 #define INCLUDED_AG_MAPDRAWER
 
-
-
-// External headers.
-#include <QTransform>
-
-// Project headers.
 #include "dal_SpaceDimensions.h"
 
-// Module headers.
+#include <QTransform>
 
 #include <tuple>
 

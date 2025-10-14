@@ -1,35 +1,9 @@
 #ifndef INCLUDED_DAL_DEF
 #define INCLUDED_DAL_DEF
 
-
-
-// Library headers.
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_PCRTYPES
 #include "pcrtypes.h"
-#define INCLUDED_PCRTYPES
-#endif
 
-// Module headers.
-
-
-
-#if defined(_MSC_VER)
-  #define IS_INFINITE(value) (_finite(value) == 0)
-  #define IS_FINITE(value)   (_finite(value) != 0)
-  // #define IS_NAN(value)      static_cast<bool>( _isnan (value))
-#else
-  #define IS_INFINITE(value)  std::isinf(value)
-  #define IS_FINITE(value)   !std::isinf(value)
-  // #define IS_NAN(value)       std::isnan(value)
-#endif
-
-#define IS_NAN(value) (value != value)
+#include <vector>
 
 
 

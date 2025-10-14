@@ -1,16 +1,11 @@
 #include "ag_MapDrawer.h"
-
-// External headers.
-#include <QPainter>
-#include <QRect>
-
-// Project headers.
 #include "dal_MathUtils.h"
 #include "dal_SpaceDimensions.h"
 
-// Module headers.
+#include <QPainter>
+#include <QRect>
 
-
+#include <cmath>
 
 /*!
   \file
@@ -109,7 +104,7 @@ void MapDrawer::draw(
          QPointF const& offset,
          double scale)
 {
-  if(IS_NAN(zoom) || IS_INFINITE(zoom) || IS_NAN(scale) || IS_INFINITE(scale)) {
+  if(std::isnan(zoom) || std::isinf(zoom) || std::isnan(scale) || std::isinf(scale)) {
     return;
   }
 

@@ -100,6 +100,7 @@ target_include_directories(_pcraster
 target_link_libraries(_pcraster
     PRIVATE
         Python::NumPy
+        Boost::headers
         pcraster::python::utils
 )
 

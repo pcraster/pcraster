@@ -1,4 +1,11 @@
 #include "com_classifier.h"
+#include "pcrtypes.h"
+#include "com_classifierimp.h"
+#include "com_linclassifier.h"
+#include "com_logclassifier.h"
+#include "com_tlogclassifier.h"
+#include "com_userdefinedclassifier.h"
+
 #include <algorithm>
 #include <cassert>
 #include <cmath>
@@ -6,13 +13,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <boost/math/special_functions/fpclassify.hpp>
-#include "pcrtypes.h"
-#include "com_classifierimp.h"
-#include "com_linclassifier.h"
-#include "com_logclassifier.h"
-#include "com_tlogclassifier.h"
-#include "com_userdefinedclassifier.h"
 
 
 
@@ -813,8 +813,8 @@ void com::Classifier::merge(Classifier const& classifier)
 bool com::Classifier::extremesAreValid() const
 {
   return
-    !(pcr::isMV(d_min) || boost::math::isnan(d_min)) &&
-    !(pcr::isMV(d_max) || boost::math::isnan(d_max));
+    !(pcr::isMV(d_min) || std::isnan(d_min)) &&
+    !(pcr::isMV(d_max) || std::isnan(d_max));
 }
 
 
@@ -822,8 +822,8 @@ bool com::Classifier::extremesAreValid() const
 bool com::Classifier::cutoffsAreValid() const
 {
   return
-    !(pcr::isMV(d_minCutoff) || boost::math::isnan(d_minCutoff)) &&
-    !(pcr::isMV(d_maxCutoff) || boost::math::isnan(d_maxCutoff));
+    !(pcr::isMV(d_minCutoff) || std::isnan(d_minCutoff)) &&
+    !(pcr::isMV(d_maxCutoff) || std::isnan(d_maxCutoff));
 }
 
 

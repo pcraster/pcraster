@@ -26,8 +26,6 @@
 
 #include <boost/test/tools/floating_point_comparison.hpp>
 
-#include <boost/math/special_functions/fpclassify.hpp>
-
 #include <cmath>
 #include <format>
 #include <filesystem>
@@ -42,7 +40,7 @@ struct ValueTraits
     inline static bool is_nan(
         T value)
     {
-        return (boost::math::isnan)(value);
+        return std::isnan(value);
     }
 
     inline static bool nan_is_negative(

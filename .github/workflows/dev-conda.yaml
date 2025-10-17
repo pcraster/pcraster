@@ -16,6 +16,8 @@ jobs:
                     target-platform: linux-aarch64
                   - os: macos-15
                     target-platform: osx-arm64
+                  - os: macos-15-intel
+                    target-platform: osx-64
                   - os: windows-2025
                     target-platform: win-64
 
@@ -30,7 +32,7 @@ jobs:
         steps:
 
             - name: Checkout PCRaster
-              uses: actions/checkout@v4
+              uses: actions/checkout@v5
 
             - uses: mamba-org/setup-micromamba@v2
               with:

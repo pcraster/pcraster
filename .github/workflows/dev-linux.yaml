@@ -24,7 +24,7 @@ jobs:
         steps:
 
         - name: Checkout PCRaster
-          uses: actions/checkout@v4
+          uses: actions/checkout@v5
 
         - name: Configure system
           run: |
@@ -100,7 +100,7 @@ jobs:
         steps:
 
         - name: Checkout PCRaster
-          uses: actions/checkout@v4
+          uses: actions/checkout@v5
 
         - name: Configure system
           run: |

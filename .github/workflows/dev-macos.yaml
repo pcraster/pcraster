@@ -21,7 +21,7 @@ jobs:
         steps:
 
         - name: Checkout PCRaster
-          uses: actions/checkout@v4
+          uses: actions/checkout@v5
 
         - name: Configure system
           run: |
@@ -76,7 +76,7 @@ jobs:
     build_intel:
         strategy:
             matrix:
-                os: [macos-13]
+                os: [macos-15-intel]
                 python: [python@3.13]
             fail-fast: false
 
@@ -89,7 +89,7 @@ jobs:
         steps:
 
         - name: Checkout PCRaster
-          uses: actions/checkout@v4
+          uses: actions/checkout@v5
 
         - name: Configure system
           run: |

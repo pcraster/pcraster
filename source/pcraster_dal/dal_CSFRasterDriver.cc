@@ -10,8 +10,6 @@
 #include "dal_Table.h"
 #include "dal_Type.h"
 
-#include <boost/lexical_cast.hpp>
-
 #include <cmath>
 #include <cstring>
 

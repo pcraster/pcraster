@@ -3,8 +3,6 @@
 #include "gridcheck.h"
 #include "common.h"
 
-#include <boost/lexical_cast.hpp>
-
 #include <sstream>
 #include <iostream>
 #include <fstream>

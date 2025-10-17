@@ -3,8 +3,6 @@
 #include "dal_Table.h"
 #include "dal_Utils.h"
 
-#include <boost/lexical_cast.hpp>
-
 #include <cmath>
 
 /*!

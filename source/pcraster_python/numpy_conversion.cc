@@ -712,8 +712,8 @@ struct ArrayToArray<Source, Destination, value_scale,
         Source const missing_value)
     {
         IntegralArrayToIntegralArray<Source, Destination, value_scale,
-            boost::is_signed<Source>::value,
-            boost::is_signed<Destination>::value>::copy(source, destination,
+            std::is_signed<Source>::value,
+            std::is_signed<Destination>::value>::copy(source, destination,
                 space, missing_value);
     }
 };
@@ -784,7 +784,7 @@ struct ArrayToArray<Source, Destination, value_scale,
         Source const missing_value)
     {
         FloatArrayToIntegralArray<Source, Destination, value_scale,
-            boost::is_signed<Destination>::value>::copy(source, destination,
+            std::is_signed<Destination>::value>::copy(source, destination,
                 space, missing_value);
     }
 };

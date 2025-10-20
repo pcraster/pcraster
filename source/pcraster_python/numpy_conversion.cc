@@ -1,5 +1,4 @@
 #include "numpy_conversion.h"
-#include <boost/mpl/if.hpp>
 #include "pcrtypes.h"
 #include "geo_rasterspace.h"
 #include "dal_Utils.h"
@@ -173,7 +172,7 @@ struct ArrayCopier<Source, Destination, value_scale,
             }
             else {
                 if(source_value < min || source_value > max) {
-                    typedef typename boost::mpl::if_c<
+                    typedef typename std::conditional<
                         std::is_same<Source, std::uint8_t>::value ||
                         std::is_same<Source, std::int8_t>::value,
                     std::int32_t, Source>::type PrintableType;
@@ -252,7 +251,7 @@ struct ArrayCopier<Source, Destination, value_scale,
             }
             else {
                 if(source_value > max) {
-                    typedef typename boost::mpl::if_c<
+                    typedef typename std::conditional<
                         std::is_same<Source, std::uint8_t>::value ||
                         std::is_same<Source, std::int8_t>::value,
                         std::int32_t, Source>::type PrintableType;

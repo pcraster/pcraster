@@ -1,6 +1,5 @@
 #include "numpy_conversion.h"
 #include <boost/mpl/if.hpp>
-#include <boost/type_traits.hpp>
 #include "pcrtypes.h"
 #include "geo_rasterspace.h"
 #include "dal_Utils.h"
@@ -824,8 +823,8 @@ calc::Spatial* array_to_field(
         // Select the minimum amount of logic to convert the array value
         // correctly to field values. At compile time.
         ArrayToArray<Source, Destination, value_scale,
-            boost::is_integral<Source>::value,
-            boost::is_integral<Destination>::value>::copy(
+            std::is_integral<Source>::value,
+            std::is_integral<Destination>::value>::copy(
                 source, destination, space, missing_value);
     }
     catch(...) {

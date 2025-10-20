@@ -1,14 +1,13 @@
 #include "numpy_conversion.h"
 #include <boost/mpl/if.hpp>
-#include <boost/static_assert.hpp>
 #include <boost/type_traits.hpp>
-#include <numpy/arrayobject.h>
 #include "pcrtypes.h"
 #include "geo_rasterspace.h"
 #include "dal_Utils.h"
 #include "calc_field.h"
 #include "calc_spatial.h"
 #include "value_scale_traits.h"
+
 #include <algorithm>
 #include <cmath>
 #include <cstdint>
@@ -812,8 +811,11 @@ calc::Spatial* array_to_field(
         space.nrCells());
 
     typedef typename ValueScaleTraits<value_scale>::Type Destination;
+
+    pybind11::buffer_info info = array.request();
+
     auto const* source = static_cast<Source const*>(
-        PyArray_DATA((PyArrayObject*)array.ptr()));
+          info.ptr);
     auto* destination = static_cast<Destination*>(field->dest());
 
     try {
@@ -887,55 +889,55 @@ calc::Field* array_to_field(
              std::make_format_args(info.shape[1], nr_cols)));
     }
 
-    int const type = PyArray_TYPE((PyArrayObject*)array.ptr());
+    int const type{array.dtype().num()};
     calc::Spatial* field = nullptr;
 
     // http://docs.scipy.org/doc/numpy/reference/c-api.dtype.html
     switch(type) {
-        case NPY_BOOL:
-        case NPY_INT8: {
+        case pybind11::detail::npy_api::NPY_BOOL_:
+        case pybind11::detail::npy_api::NPY_INT8_: {
             ARRAY_TO_FIELD(boost::int8_t, value_scale)
             break;
         }
-        case NPY_UINT8: {
+        case pybind11::detail::npy_api::NPY_UINT8_: {
             ARRAY_TO_FIELD(boost::uint8_t, value_scale)
             break;
         }
-        case NPY_INT16: {
+        case pybind11::detail::npy_api::NPY_INT16_: {
             ARRAY_TO_FIELD(boost::int16_t, value_scale)
             break;
         }
-        case NPY_UINT16: {
+        case pybind11::detail::npy_api::NPY_UINT16_: {
             ARRAY_TO_FIELD(boost::uint16_t, value_scale)
             break;
         }
-        case NPY_INT32: {
+        case pybind11::detail::npy_api::NPY_INT32_: {
             if(std::isnan(missing_value)){
                 missing_value = MV_INT4;
             }
             ARRAY_TO_FIELD(boost::int32_t, value_scale)
             break;
         }
-        case NPY_UINT32: {
+        case pybind11::detail::npy_api::NPY_UINT32_: {
             ARRAY_TO_FIELD(boost::uint32_t, value_scale)
             break;
         }
-        case NPY_INT64: {
+        case pybind11::detail::npy_api::NPY_INT64_: {
             if(std::isnan(missing_value)){
                 missing_value = MV_INT4;
             }
             ARRAY_TO_FIELD(boost::int64_t, value_scale)
             break;
         }
-        case NPY_UINT64: {
+        case pybind11::detail::npy_api::NPY_UINT64_: {
             ARRAY_TO_FIELD(boost::uint64_t, value_scale)
             break;
         }
-        case NPY_FLOAT32: {
+        case pybind11::detail::npy_api::NPY_FLOAT_: {
             ARRAY_TO_FIELD(float, value_scale)
             break;
         }
-        case NPY_FLOAT64: {
+        case pybind11::detail::npy_api::NPY_DOUBLE_: {
             ARRAY_TO_FIELD(double, value_scale)
             break;
         }

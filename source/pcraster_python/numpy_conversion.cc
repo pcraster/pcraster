@@ -173,9 +173,9 @@ struct ArrayCopier<Source, Destination, value_scale,
             else {
                 if(source_value < min || source_value > max) {
                     typedef typename boost::mpl::if_c<
-                        boost::is_same<Source, boost::uint8_t>::value ||
-                        boost::is_same<Source, boost::int8_t>::value,
-                    boost::int32_t, Source>::type PrintableType;
+                        boost::is_same<Source, std::uint8_t>::value ||
+                        boost::is_same<Source, std::int8_t>::value,
+                    std::int32_t, Source>::type PrintableType;
                     size_t const row = i / space.nrCols();
                     size_t const col = i - (row * space.nrCols());
                     auto const s_val = static_cast<PrintableType>(source_value);
@@ -252,9 +252,9 @@ struct ArrayCopier<Source, Destination, value_scale,
             else {
                 if(source_value > max) {
                     typedef typename boost::mpl::if_c<
-                        boost::is_same<Source, boost::uint8_t>::value ||
-                        boost::is_same<Source, boost::int8_t>::value,
-                        boost::int32_t, Source>::type PrintableType;
+                        boost::is_same<Source, std::uint8_t>::value ||
+                        boost::is_same<Source, std::int8_t>::value,
+                        std::int32_t, Source>::type PrintableType;
 
                     size_t const row = i / space.nrCols();
                     size_t const col = i - (row * space.nrCols());
@@ -303,9 +303,9 @@ struct SignedIntegralArrayToSignedIntegralArray<Source, Destination,
 
     // int8, int16 -> int32
     static_assert(
-        (boost::is_same<Source, boost::int8_t>::value) ||
-        (boost::is_same<Source, boost::int16_t>::value));
-    static_assert(boost::is_same<Destination, boost::int32_t>::value);
+        (boost::is_same<Source, std::int8_t>::value) ||
+        (boost::is_same<Source, std::int16_t>::value));
+    static_assert(boost::is_same<Destination, std::int32_t>::value);
 
     static void copy(
         Source const* source,
@@ -331,9 +331,9 @@ struct SignedIntegralArrayToSignedIntegralArray<Source, Destination,
 
     // int32, int64 -> int32
     static_assert(
-        (boost::is_same<Source, boost::int32_t>::value) ||
-        (boost::is_same<Source, boost::int64_t>::value));
-    static_assert(boost::is_same<Destination, boost::int32_t>::value);
+        (boost::is_same<Source, std::int32_t>::value) ||
+        (boost::is_same<Source, std::int64_t>::value));
+    static_assert(boost::is_same<Destination, std::int32_t>::value);
 
     static void copy(
         Source const* source,
@@ -371,9 +371,9 @@ struct UnsignedIntegralArrayToSignedIntegralArray<Source, Destination,
 {
     // uint8, uint16 -> int32
     static_assert(
-        (boost::is_same<Source, boost::uint8_t>::value) ||
-        (boost::is_same<Source, boost::uint16_t>::value));
-    static_assert(boost::is_same<Destination, boost::int32_t>::value);
+        (boost::is_same<Source, std::uint8_t>::value) ||
+        (boost::is_same<Source, std::uint16_t>::value));
+    static_assert(boost::is_same<Destination, std::int32_t>::value);
 
     static void copy(
         Source const* source,
@@ -397,9 +397,9 @@ struct UnsignedIntegralArrayToSignedIntegralArray<Source, Destination,
 {
     // uint32, uint64 -> int32
     static_assert(
-        (boost::is_same<Source, boost::uint32_t>::value) ||
-        (boost::is_same<Source, boost::uint64_t>::value));
-    static_assert(boost::is_same<Destination, boost::int32_t>::value);
+        (boost::is_same<Source, std::uint32_t>::value) ||
+        (boost::is_same<Source, std::uint64_t>::value));
+    static_assert(boost::is_same<Destination, std::int32_t>::value);
 
     static void copy(
         Source const* source,
@@ -446,7 +446,7 @@ struct IntegralArrayToIntegralArray<Source, Destination, value_scale,
     SOURCE_IS_SIGNED, DESTINATION_IS_SIGNED>
 {
     // int -> int32
-    static_assert(boost::is_same<Destination, boost::int32_t>::value);
+    static_assert(boost::is_same<Destination, std::int32_t>::value);
 
     static void copy(
         Source const* source,
@@ -470,7 +470,7 @@ struct IntegralArrayToIntegralArray<Source, Destination, value_scale,
     SOURCE_IS_UNSIGNED, DESTINATION_IS_UNSIGNED>
 {
     // uint -> uint8
-    static_assert(boost::is_same<Destination, boost::uint8_t>::value);
+    static_assert(boost::is_same<Destination, std::uint8_t>::value);
 
     static void copy(
         Source const* source,
@@ -493,7 +493,7 @@ struct IntegralArrayToIntegralArray<Source, Destination, value_scale,
     SOURCE_IS_SIGNED, DESTINATION_IS_UNSIGNED>
 {
     // int -> uint8
-    static_assert(boost::is_same<Destination, boost::uint8_t>::value);
+    static_assert(boost::is_same<Destination, std::uint8_t>::value);
 
     static void copy(
         Source const* source,
@@ -515,7 +515,7 @@ struct IntegralArrayToIntegralArray<Source, Destination, value_scale,
     SOURCE_IS_UNSIGNED, DESTINATION_IS_SIGNED>
 {
     // uint -> int32
-    static_assert(boost::is_same<Destination, boost::int32_t>::value);
+    static_assert(boost::is_same<Destination, std::int32_t>::value);
 
     static void copy(
         Source const* source,
@@ -631,7 +631,7 @@ struct FloatArrayToIntegralArray<Source, Destination, value_scale,
     DESTINATION_IS_SIGNED>
 {
     // float -> int32
-    static_assert(boost::is_same<Destination, boost::int32_t>::value);
+    static_assert(boost::is_same<Destination, std::int32_t>::value);
 
     static void copy(
         Source const* source,
@@ -653,7 +653,7 @@ struct FloatArrayToIntegralArray<Source, Destination, value_scale,
     DESTINATION_IS_UNSIGNED>
 {
     // float -> uint8
-    static_assert(boost::is_same<Destination, boost::uint8_t>::value);
+    static_assert(boost::is_same<Destination, std::uint8_t>::value);
 
     static void copy(
         Source const* source,
@@ -700,8 +700,8 @@ struct ArrayToArray<Source, Destination, value_scale,
 {
     // int, uint -> uint8, int32
     static_assert(
-        (boost::is_same<Destination, boost::uint8_t>::value) ||
-        (boost::is_same<Destination, boost::int32_t>::value));
+        (boost::is_same<Destination, std::uint8_t>::value) ||
+        (boost::is_same<Destination, std::int32_t>::value));
 
     static void copy(
         Source const* source,
@@ -772,8 +772,8 @@ struct ArrayToArray<Source, Destination, value_scale,
 {
     // float -> uint8, int32
     static_assert(
-        (boost::is_same<Destination, boost::uint8_t>::value) ||
-        (boost::is_same<Destination, boost::int32_t>::value));
+        (boost::is_same<Destination, std::uint8_t>::value) ||
+        (boost::is_same<Destination, std::int32_t>::value));
 
     static void copy(
         Source const* source,
@@ -896,41 +896,41 @@ calc::Field* array_to_field(
     switch(type) {
         case pybind11::detail::npy_api::NPY_BOOL_:
         case pybind11::detail::npy_api::NPY_INT8_: {
-            ARRAY_TO_FIELD(boost::int8_t, value_scale)
+            ARRAY_TO_FIELD(std::int8_t, value_scale)
             break;
         }
         case pybind11::detail::npy_api::NPY_UINT8_: {
-            ARRAY_TO_FIELD(boost::uint8_t, value_scale)
+            ARRAY_TO_FIELD(std::uint8_t, value_scale)
             break;
         }
         case pybind11::detail::npy_api::NPY_INT16_: {
-            ARRAY_TO_FIELD(boost::int16_t, value_scale)
+            ARRAY_TO_FIELD(std::int16_t, value_scale)
             break;
         }
         case pybind11::detail::npy_api::NPY_UINT16_: {
-            ARRAY_TO_FIELD(boost::uint16_t, value_scale)
+            ARRAY_TO_FIELD(std::uint16_t, value_scale)
             break;
         }
         case pybind11::detail::npy_api::NPY_INT32_: {
             if(std::isnan(missing_value)){
                 missing_value = MV_INT4;
             }
-            ARRAY_TO_FIELD(boost::int32_t, value_scale)
+            ARRAY_TO_FIELD(std::int32_t, value_scale)
             break;
         }
         case pybind11::detail::npy_api::NPY_UINT32_: {
-            ARRAY_TO_FIELD(boost::uint32_t, value_scale)
+            ARRAY_TO_FIELD(std::uint32_t, value_scale)
             break;
         }
         case pybind11::detail::npy_api::NPY_INT64_: {
             if(std::isnan(missing_value)){
                 missing_value = MV_INT4;
             }
-            ARRAY_TO_FIELD(boost::int64_t, value_scale)
+            ARRAY_TO_FIELD(std::int64_t, value_scale)
             break;
         }
         case pybind11::detail::npy_api::NPY_UINT64_: {
-            ARRAY_TO_FIELD(boost::uint64_t, value_scale)
+            ARRAY_TO_FIELD(std::uint64_t, value_scale)
             break;
         }
         case pybind11::detail::npy_api::NPY_FLOAT_: {

@@ -1,10 +1,10 @@
 #ifndef INCLUDED_PYTHON_VALUE_SCALE_TRAITS
 #define INCLUDED_PYTHON_VALUE_SCALE_TRAITS
 
-#include <boost/cstdint.hpp>
-#include <boost/integer_traits.hpp>
 #include "calc_cr.h"
 
+#include <cstdint>
+#include <limits>
 
 namespace pcraster {
 
@@ -20,7 +20,7 @@ struct ValueScaleTraits<VS_B>
 {
     static std::string const name;
     static calc::CRIndex const cell_representation_index = calc::CRI_1;
-    typedef boost::uint8_t Type;
+    typedef std::uint8_t Type;
     static Type const minimum = 0;
     static Type const maximum = 1;
 };
@@ -31,7 +31,7 @@ struct ValueScaleTraits<VS_L>
 {
     static std::string const name;
     static calc::CRIndex const cell_representation_index = calc::CRI_1;
-    typedef boost::uint8_t Type;
+    typedef std::uint8_t Type;
     static Type const minimum = 1;
     static Type const maximum = 9;
 };
@@ -42,9 +42,9 @@ struct ValueScaleTraits<VS_N>
 {
     static std::string const name;
     static calc::CRIndex const cell_representation_index = calc::CRI_4;
-    typedef boost::int32_t Type;
-    static Type const minimum = boost::integer_traits<Type>::const_min + 1;
-    static Type const maximum = boost::integer_traits<Type>::const_max;
+    typedef std::int32_t Type;
+    static Type const minimum = std::numeric_limits<Type>::min() + 1;
+    static Type const maximum = std::numeric_limits<Type>::max();
 };
 
 
@@ -53,9 +53,9 @@ struct ValueScaleTraits<VS_O>
 {
     static std::string const name;
     static calc::CRIndex const cell_representation_index = calc::CRI_4;
-    typedef boost::int32_t Type;
-    static Type const minimum = boost::integer_traits<Type>::const_min + 1;
-    static Type const maximum = boost::integer_traits<Type>::const_max;
+    typedef std::int32_t Type;
+    static Type const minimum = std::numeric_limits<Type>::min() + 1;
+    static Type const maximum = std::numeric_limits<Type>::max();
 };
 
 

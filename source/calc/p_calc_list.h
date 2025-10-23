@@ -1,5 +1,5 @@
-#ifndef  __LIST_H__
-#define  __LIST_H__
+#ifndef  INCLUDED_LIBCALC_LIST
+#define  INCLUDED_LIBCALC_LIST
 
 typedef struct NODE
 {
@@ -36,4 +36,4 @@ extern BOOL InList(NODE *list, int r, int c);
 extern int ReplaceFirstByUpsNbs(NODE **list, const MAP_UINT1 *ldd);
 extern NODE *AddUpsNbsMarkFirst(NODE *list, const MAP_UINT1 *ldd);
 
-#endif /* __LIST_H__*/
+#endif /* INCLUDED_LIBCALC_LIST */

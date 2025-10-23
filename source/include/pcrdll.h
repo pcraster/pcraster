@@ -1,5 +1,5 @@
-#ifndef  INCLUDED_PCRDLL
-#define  INCLUDED_PCRDLL
+#ifndef  INCLUDED_INCLUDE_PCRDLL
+#define  INCLUDED_INCLUDE_PCRDLL
 
 /*!
    \file

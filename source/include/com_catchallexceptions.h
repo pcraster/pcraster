@@ -1,33 +1,16 @@
-#ifndef INCLUDED_COM_CATCHALLEXCEPTIONS
-#define INCLUDED_COM_CATCHALLEXCEPTIONS
+#ifndef INCLUDED_INCLUDE_CATCHALLEXCEPTIONS
+#define INCLUDED_INCLUDE_CATCHALLEXCEPTIONS
 
 /*
  * macros's to catch all kinds of errors
  * including win32 Os-errors
  * pcrcalc has example use
  */
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_EXCEPTION
-#include <exception>
-#define INCLUDED_EXCEPTION
-#endif
-#ifndef INCLUDED_DAL_EXCEPTION
-#include "dal_Exception.h"
-#define INCLUDED_DAL_EXCEPTION
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
+#include "dal_Exception.h"
 
-// Module headers.
+#include <exception>
 
 /*
  * zie ook boost::execution_monitor voor code ideen over SEH

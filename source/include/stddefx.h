@@ -1,5 +1,5 @@
-#ifndef __STDDEFX__
-#define __STDDEFX__
+#ifndef INCLUDED_INCLUDE_STDDEFX
+#define INCLUDED_INCLUDE_STDDEFX
 
 #ifdef __cplusplus
  extern "C" {
@@ -245,5 +245,5 @@ typedef char *VPTR;
 
 #define POSSIBLE_DATA_LOSS(smallerType, exprWithLoss) ((smallerType)(exprWithLoss))
 
-#endif /* __STDDEFX__ */
+#endif /* INCLUDED_INCLUDE_STDDEFX */
 

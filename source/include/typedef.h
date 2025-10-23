@@ -1,6 +1,5 @@
-
-#ifndef __TYPEDEF
-#define __TYPEDEF
+#ifndef INCLUDED_INCLUDE_TYPEDEF
+#define INCLUDED_INCLUDE_TYPEDEF
 
 /***************************************************************/
 /*                                                             */
@@ -19,4 +18,4 @@ typedef int    BOOL;
 #define FALSE   0  /* FAILURE, NO, YOU POOR LOOSER! etc. */
 #define TRUE    1  /* SUCCES , YES, drinking beer, etc */
 
-#endif /* __TYPEDEF */
+#endif /* INCLUDED_INCLUDE_TYPEDEF */

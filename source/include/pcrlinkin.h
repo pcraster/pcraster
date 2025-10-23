@@ -1,10 +1,7 @@
-#ifndef INCLUDED_PCRLINKIN
-#define INCLUDED_PCRLINKIN
+#ifndef INCLUDED_INCLUDE_PCRLINKIN
+#define INCLUDED_INCLUDE_PCRLINKIN
 
-#ifndef INCLUDED_PCRDLL
 #include "pcrdll.h"
-#define INCLUDED_PCRDLL
-#endif
 
 /*
  * All rights reserved

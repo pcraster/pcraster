@@ -1,7 +1,7 @@
-#ifndef __STDIO
+#ifndef INCLUDED_INCLUDE_DEBUG
+#define INCLUDED_INCLUDE_DEBUG
+
 #include <stdio.h>
-#define __STDIO
-#endif
 
 /* #undef NDEBUG */
 
@@ -46,3 +46,4 @@
 
 #endif
 
+#endif /* INCLUDED_INCLUDE_DEBUG */

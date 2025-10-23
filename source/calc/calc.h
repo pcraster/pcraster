@@ -1,5 +1,5 @@
-#ifndef __CALC__H
-#define __CALC__H
+#ifndef INCLUDED_LIBCALC_CALC
+#define INCLUDED_LIBCALC_CALC
 
 #ifdef __cplusplus
  extern "C" {
@@ -504,4 +504,4 @@ extern int vf_laplacian(MAP_REAL8 *result, const MAP_REAL8 *input);
  }
 #endif
 
-#endif /* __CALC__H */
+#endif /* INCLUDED_LIBCALC_CALC */

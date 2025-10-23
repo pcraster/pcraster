@@ -1,5 +1,5 @@
-#ifndef MISC__H
-#define MISC__H
+#ifndef INCLUDED_MISC_MISC
+#define INCLUDED_MISC_MISC
 
 #ifdef __cplusplus
 extern "C" {
@@ -225,4 +225,4 @@ int Win32SetLastError(long errorCode);
 }
 #endif
 
-#endif /* MISC__H */
+#endif /* INCLUDED_MISC_MISC */

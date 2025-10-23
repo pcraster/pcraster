@@ -1,5 +1,5 @@
-#ifndef __DELTA_H__
-#define __DELTA_H__
+#ifndef INCLUDED_LIBCALC_DELTA
+#define INCLUDED_LIBCALC_DELTA
 
 extern void CalcDeltaXY(double *dzDx, /* write-only, difference in X */
                         double *dzDy, /* write-only, difference in Y */

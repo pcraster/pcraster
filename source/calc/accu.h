@@ -1,5 +1,5 @@
-#ifndef __ACCU_H__
-#define __ACCU_H__
+#ifndef INCLUDED_LIBCALC_ACCU
+#define INCLUDED_LIBCALC_ACCU
 
 /*
    $Log: accu.h,v $
@@ -34,5 +34,5 @@ extern int PerformAccu(MAP_REAL8 *state,
                        const MAP_REAL8 *value,
                        ACCU_FUNC f);
 
-#endif /* __ACCU_H__*/
+#endif /* INCLUDED_LIBCALC_ACCU */
 /* End of File */

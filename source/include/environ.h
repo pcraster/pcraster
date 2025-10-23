@@ -1,5 +1,5 @@
-#ifndef __ENVIRON
-#define __ENVIRON
+#ifndef INCLUDED_INCLUDE_ENVIRON
+#define INCLUDED_INCLUDE_ENVIRON
 /***************************************************************************/
 /*                                                                         */
 /*  PURPOSE:  To define environment and compiler specific things           */
@@ -106,4 +106,4 @@
 # endif
 #endif
 
-#endif /* __ENVIRON */
+#endif /* INCLUDED_INCLUDE_ENVIRON */

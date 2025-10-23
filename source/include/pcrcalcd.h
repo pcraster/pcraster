@@ -1,5 +1,5 @@
-#ifndef  PCRCALCD__H
-# define PCRCALCD__H
+#ifndef INCLUDED_INCLUDE_PCRCALCD
+#define INCLUDED_INCLUDE_PCRCALCD
 /*
  * code to load a function dynamic
  */
@@ -127,4 +127,4 @@ typedef struct PCR_MAP_REAL8 {
   REAL8(*CellLength)(const struct PCR_MAP_REAL8 *m);
 } PCR_MAP_REAL8;
 
-#endif
+#endif /* INCLUDED_INCLUDE_PCRCALCD */

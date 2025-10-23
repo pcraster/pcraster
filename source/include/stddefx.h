@@ -187,15 +187,7 @@ typedef char *VPTR;
  /* 2) include C++ debug trace code: */
  #ifdef DEBUG_DEVELOP
 
-  #ifndef INCLUDED_IOSTREAM
   #include <iostream>
-  #define INCLUDED_IOSTREAM
-  #endif
-
-  #ifndef INCLUDED_COM_DEBUGSTREAM
-  #include "com_debugstream.h"
-  #define INCLUDED_COM_DEBUGSTREAM
-  #endif
 
   #define STREAM_VAR(x) #x << ":" << x
 

@@ -8,7 +8,6 @@ add_library(pcraster::curr ALIAS curr)
 target_include_directories(curr
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-        $<$<BOOL:${UNIX}>:${CURSES_INCLUDE_DIRS}>
 )
 
 # Required when using pdcurses as dll,
@@ -21,6 +20,6 @@ target_include_directories(curr
 target_link_libraries(curr
     PUBLIC
         pcraster::misc
-        $<$<BOOL:${UNIX}>:${CURSES_LIBRARIES}>
+        $<$<BOOL:${UNIX}>:Curses::Curses>
         $<$<BOOL:${WIN32}>:pcraster::pdcurses>
 )

@@ -1,20 +1,9 @@
 #ifndef INCLUDED_FIELDAPI_READONLYSPATIAL
 #define INCLUDED_FIELDAPI_READONLYSPATIAL
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_FIELDAPI_READONLY
 #include "fieldapi_readonly.h"
-#define INCLUDED_FIELDAPI_READONLY
-#endif
+
 
 namespace fieldapi {
 

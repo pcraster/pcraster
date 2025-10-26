@@ -1,43 +1,14 @@
 #ifndef INCLUDED_FIELDAPI_INTERFACE
 #define INCLUDED_FIELDAPI_INTERFACE
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_CSFTYPES
 #include "csftypes.h"
-#define INCLUDED_CSFTYPES
-#endif
-
-// Module headers.
-#ifndef INCLUDED_FIELDAPI_READWRITEDATA
 #include "fieldapi_readwritedata.h"
-#define INCLUDED_FIELDAPI_READWRITEDATA
-#endif
-#ifndef INCLUDED_FIELDAPI_READONLYSPATIAL
 #include "fieldapi_readonlyspatial.h"
-#define INCLUDED_FIELDAPI_READONLYSPATIAL
-#endif
-#ifndef INCLUDED_FIELDAPI_READONLYNONSPATIAL
 #include "fieldapi_readonlynonspatial.h"
-#define INCLUDED_FIELDAPI_READONLYNONSPATIAL
-#endif
-#ifndef INCLUDED_API
 #include "api.h"
-#define INCLUDED_API
-#endif
 
+#include <vector>
 
 
 namespace fieldapi {

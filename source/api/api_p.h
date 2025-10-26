@@ -1,5 +1,5 @@
-#ifndef API_P__H
-#define API_P__H
+#ifndef INCLUDED_FIELDAPI_API_P
+#define INCLUDED_FIELDAPI_API_P
 #line 3 "api_p.h"
 
 extern REAL8 testApiArea     ;
@@ -39,5 +39,5 @@ extern void Get_in_REAL4_to_REAL8(REAL8 *value, const REAL4 **matrix, int r, int
 int TestApiInitTest(const char *funcName);
 
 #else /* API_P__H */
-#error api_p__h included twice
+#error INCLUDED_FIELDAPI_API_P included twice
 #endif

@@ -33,7 +33,7 @@ sed -e s/THIS_TYPE_T/REAL8/g  -e s/THIS_TYPE/REAL8/g $RANDEF >> api.h
 echo "#ifdef __cplusplus" >> api.h
 echo "}" >> api.h
 echo "#endif" >> api.h
-echo "#endif /* API__H */" >> api.h
+echo "#endif /* INCLUDED_FIELDAPI_API */" >> api.h
 
 
 #testapi.inc: $TESTAPI

@@ -1,7 +1,7 @@
 #line 1 "randef.hh"
 /* DO NOT EDIT: CREATED FROM randef.tem and randef.hh */
-#ifndef API__H
-#define API__H
+#ifndef INCLUDED_FIELDAPI_API
+#define INCLUDED_FIELDAPI_API
 
 #ifdef __cplusplus
 extern "C" {

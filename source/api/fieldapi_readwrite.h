@@ -1,32 +1,10 @@
 #ifndef INCLUDED_FIELDAPI_READWRITE
 #define INCLUDED_FIELDAPI_READWRITE
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_GEO_CELLLOC
 #include "geo_cellloc.h"
-#define INCLUDED_GEO_CELLLOC
-#endif
-
-// Module headers.
-#ifndef INCLUDED_FIELDAPI_COMMON
 #include "fieldapi_common.h"
-#define INCLUDED_FIELDAPI_COMMON
-#endif
-
-#ifndef INCLUDED_FIELDAPI_READONLY
 #include "fieldapi_readonly.h" // needed for copy()
-#define INCLUDED_FIELDAPI_READONLY
-#endif
-
 
 
 namespace fieldapi {

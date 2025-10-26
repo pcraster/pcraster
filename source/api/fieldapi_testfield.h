@@ -1,19 +1,7 @@
 #ifndef INCLUDED_FIELDAPI_TESTFIELD
 #define INCLUDED_FIELDAPI_TESTFIELD
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-
 
 
 namespace fieldapi {

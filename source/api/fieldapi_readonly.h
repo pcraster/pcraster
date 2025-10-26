@@ -1,22 +1,9 @@
 #ifndef INCLUDED_FIELDAPI_READONLY
 #define INCLUDED_FIELDAPI_READONLY
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_FIELDAPI_COMMON
 #include "fieldapi_common.h"
-#define INCLUDED_FIELDAPI_COMMON
-#endif
+
 
 namespace geo {
   class CellLoc;

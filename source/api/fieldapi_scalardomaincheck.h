@@ -1,34 +1,12 @@
 #ifndef INCLUDED_FIELDAPI_SCALARDOMAINCHECK
 #define INCLUDED_FIELDAPI_SCALARDOMAINCHECK
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_INTERVAL
 #include "com_interval.h"
-#define INCLUDED_COM_INTERVAL
-#endif
-
-// Module headers.
-#ifndef INCLUDED_FIELDAPI_INTERFACE
 #include "fieldapi_interface.h"
-#define INCLUDED_FIELDAPI_INTERFACE
-#endif
+
+#include <string>
+#include <vector>
 
 
 namespace geo {

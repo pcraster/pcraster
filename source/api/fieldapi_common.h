@@ -1,22 +1,8 @@
 #ifndef INCLUDED_FIELDAPI_COMMON
 #define INCLUDED_FIELDAPI_COMMON
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_GEO_RASTERDIM
 #include "geo_rasterdim.h"
-#define INCLUDED_GEO_RASTERDIM
-#endif
-
-// Module headers.
 
 
 namespace geo {

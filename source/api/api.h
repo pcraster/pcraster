@@ -1,7 +1,7 @@
 #line 1 "randef.hh"
 /* DO NOT EDIT: CREATED FROM randef.tem and randef.hh */
-#ifndef API__H
-#define API__H
+#ifndef INCLUDED_FIELDAPI_API
+#define INCLUDED_FIELDAPI_API
 
 #ifdef __cplusplus
 extern "C" {
@@ -233,4 +233,4 @@ extern MAP_REAL8 *CreateSpatialREAL8(CSF_CR inCr,size_t nrRows,size_t nrCols);
 #ifdef __cplusplus
 }
 #endif
-#endif /* API__H */
+#endif /* INCLUDED_FIELDAPI_API */

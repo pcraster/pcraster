@@ -5,7 +5,6 @@
 #include "discr_block.h"
 #include "discr_blockdata.h"
 
-#include <boost/scoped_ptr.hpp>
 #include <memory>
 
 
@@ -24,7 +23,7 @@ discr::Block* read(
          std::string const& name)
 {
   dal::PCRBlockDriver driver;
-  boost::scoped_ptr<dal::Block> blockCopy(
+  std::unique_ptr<dal::Block> blockCopy(
          static_cast<dal::BlockDriver&>(driver).read(name));
   POSTCOND(blockCopy->containsDiscretisationInfo());
 
@@ -66,7 +65,7 @@ discr::BlockData<ValueType>* read(
          discr::Block* block)
 {
   dal::PCRBlockDriver driver;
-  boost::scoped_ptr<dal::Block> blockCopy(
+  std::unique_ptr<dal::Block> blockCopy(
          static_cast<dal::BlockDriver&>(driver).read(name));
   POSTCOND(blockCopy->containsData());
 

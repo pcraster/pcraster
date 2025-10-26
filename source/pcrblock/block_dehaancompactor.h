@@ -1,22 +1,8 @@
 #ifndef INCLUDED_BLOCK_DEHAANCOMPACTOR
 #define INCLUDED_BLOCK_DEHAANCOMPACTOR
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_PCRTYPES
 #include "pcrtypes.h"
-#define INCLUDED_PCRTYPES
-#endif
-
-// Module headers.
 
 
 

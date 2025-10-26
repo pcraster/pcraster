@@ -1,7 +1,7 @@
 #define BOOST_TEST_MODULE pcrblock voxel_at_height
 #include <boost/test/unit_test.hpp>
-#include <algorithm>
 #include "block_voxelatheight.h"
+#include <algorithm>
 
 
 BOOST_AUTO_TEST_CASE(test)

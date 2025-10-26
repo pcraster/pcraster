@@ -1,35 +1,11 @@
 #ifndef INCLUDED_BLOCK_COMPACTORS
 #define INCLUDED_BLOCK_COMPACTORS
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_MAP
-#include <map>
-#define INCLUDED_MAP
-#endif
-
-#ifndef INCLUDED_BOOST_FUNCTION_FUNCTION2
-#include <boost/function/function2.hpp>
-#define INCLUDED_BOOST_FUNCTION_FUNCTION2
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_PCRTYPES
 #include "pcrtypes.h"
-#define INCLUDED_PCRTYPES
-#endif
-
-// Module headers.
-#ifndef INCLUDED_BLOCK_TYPES
 #include "block_types.h"
-#define INCLUDED_BLOCK_TYPES
-#endif
+
+#include <map>
 
 
 

@@ -1,17 +1,9 @@
-#ifndef INCLUDED_PCRTYPES
+#ifndef INCLUDED_BLOCK_FUNCTIONS
+#define INCLUDED_BLOCK_FUNCTIONS
+
 #include "pcrtypes.h"
-#define INCLUDED_PCRTYPES
-#endif
-
-#ifndef INCLUDED_BLOCK_COMPACTORS
 #include "block_compactors.h"
-#define INCLUDED_BLOCK_COMPACTORS
-#endif
-
-#ifndef INCLUDED_BLOCK_DEHAANCOMPACTOR
 #include "block_dehaancompactor.h"
-#define INCLUDED_BLOCK_DEHAANCOMPACTOR
-#endif
 
 
 
@@ -145,3 +137,5 @@ void               setDefaultValue     (discr::BlockData<T>& result,
                                         discr::RasterData<T> const& value);
 
 } // namespace block
+
+#endif

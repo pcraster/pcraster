@@ -1,31 +1,9 @@
 #ifndef INCLUDED_BLOCK_VOXELATHEIGHT
 #define INCLUDED_BLOCK_VOXELATHEIGHT
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_FUNCTIONAL
-#include <functional>
-#define INCLUDED_FUNCTIONAL
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_PCRTYPES
 #include "pcrtypes.h"
-#define INCLUDED_PCRTYPES
-#endif
-
-#ifndef INCLUDED_DAL_MATHUTILS
 #include "dal_MathUtils.h"
-#define INCLUDED_DAL_MATHUTILS
-#endif
-
-// Module headers.
 
 
 

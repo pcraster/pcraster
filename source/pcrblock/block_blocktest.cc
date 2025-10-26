@@ -7,6 +7,8 @@
 #include "discr_rasterdata.h"
 #include "block_functions.h"
 
+#include <memory>
+
 
 BOOST_AUTO_TEST_CASE(create_)
 {
@@ -18,7 +20,7 @@ BOOST_AUTO_TEST_CASE(create_)
   pcr::setMV(elevation.cell(1));
   elevation.cell(2) = REAL4(3.0);
 
-  boost::scoped_ptr<discr::Block> block(create(&elevation));
+  std::unique_ptr<discr::Block> block(create(&elevation));
   BOOST_CHECK(block->cell(0).empty());
   BOOST_CHECK(dal::comparable(block->cell(0).baseElevation(), elevation.cell(0)));
   BOOST_CHECK(block->cell(1).empty());

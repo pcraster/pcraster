@@ -1,5 +1,5 @@
-#ifndef __POINT_H__
-#define __POINT_H__
+#ifndef INCLUDED_RESAMPLE_POINT
+#define INCLUDED_RESAMPLE_POINT
 
 #include "stddefx.h"
 

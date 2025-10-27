@@ -1,5 +1,5 @@
-#ifndef __SAMPLE_H__
-#define __SAMPLE_H__
+#ifndef INCLUDED_RESAMPLE_SAMPLE
+#define INCLUDED_RESAMPLE_SAMPLE
 
 #include "stddefx.h"
 

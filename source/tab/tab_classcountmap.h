@@ -1,25 +1,10 @@
 #ifndef INCLUDED_TAB_CLASSCOUNTMAP
 #define INCLUDED_TAB_CLASSCOUNTMAP
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
-// Library headers.
-#ifndef INCLUDED_SET
-#include <set>
-#define INCLUDED_SET
-#endif
-
-#ifndef INCLUDED_MAP
 #include <map>
-#define INCLUDED_MAP
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
+#include <set>
 
 
 

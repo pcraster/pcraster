@@ -1,22 +1,9 @@
 #ifndef INCLUDED_TAB_CLASSCLASSCOUNTMAP
 #define INCLUDED_TAB_CLASSCLASSCOUNTMAP
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_TAB_CLASSCOUNTMAP
 #include "tab_classcountmap.h"
-#define INCLUDED_TAB_CLASSCOUNTMAP
-#endif
 
-// Module headers.
 
 
 namespace tab {

@@ -1,5 +1,5 @@
-#ifndef TABLE__H
-#define TABLE__H
+#ifndef INCLUDED_TAB_TABLE
+#define INCLUDED_TAB_TABLE
 
 #ifdef __cplusplus
 extern "C" {
@@ -114,4 +114,4 @@ extern LOOK_UP_TABLE *UpdateCrossTable(
  }
 #endif
 
-#endif /* TABLE__H */
+#endif /* INCLUDED_TAB_TABLE */

@@ -1,27 +1,12 @@
 #ifndef INCLUDED_TAB_CLASSCLASSINTERVALMAP
 #define INCLUDED_TAB_CLASSCLASSINTERVALMAP
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_SET
-#include <set>
-#define INCLUDED_SET
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_INTERVALMAP
 #include "com_intervalmap.h"
-#define INCLUDED_COM_INTERVALMAP
-#endif
-#ifndef INCLUDED_COM_CLONE
 #include "com_clone.h"
-#define INCLUDED_COM_CLONE
-#endif
-// Module headers.
+
+#include <set>
+
 
 
 namespace tab {

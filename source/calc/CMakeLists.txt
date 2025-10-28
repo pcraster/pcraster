@@ -70,6 +70,8 @@ target_link_libraries(calc
         pcraster::app
         pcraster::geom
         pcraster::tab
+    PRIVATE
+        Boost::headers
 )
 
 if(PCRASTER_BUILD_TEST)

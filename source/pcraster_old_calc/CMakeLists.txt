@@ -197,6 +197,8 @@ if(NOT WIN32)
     target_link_libraries(pcraster_old_calc_objects
         PUBLIC
             Qt::Core
+        PRIVATE
+            Boost::headers
     )
 endif()
 

@@ -12,6 +12,7 @@ target_include_directories(exampleCpp
 target_link_libraries(exampleCpp
     PRIVATE
         pcraster::xsd
+        Boost::headers
 )
 
 set_target_properties(exampleCpp

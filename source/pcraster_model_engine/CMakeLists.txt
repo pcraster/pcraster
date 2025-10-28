@@ -393,6 +393,7 @@ if(PCRASTER_BUILD_TEST)
         PRIVATE
             Qt::Xml
             pcraster::xsd
+            Boost::headers
     )
 
     set(model_engine_test_sources

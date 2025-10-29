@@ -17,10 +17,7 @@ calc::UserModelLink::UserModelLink(
   }
 }
 
-#ifndef INCLUDED_IOSTREAM
 #include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
 
 /*!
  *  \bug the delete crashes. Is the factored  deleted,

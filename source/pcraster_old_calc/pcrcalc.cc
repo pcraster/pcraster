@@ -54,10 +54,7 @@ public:
 
 };
 
-#ifndef INCLUDED_IOSTREAM
 #include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
 
 extern std::string hackMsg;
 static struct PcrScriptImpl *hackScript=nullptr;

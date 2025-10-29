@@ -1,43 +1,15 @@
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_MODELBUILDER
 #include "calc_modelbuilder.h"
+#include "appargs.h"
+#include "calc_astscript.h"
+#include "calc_stringparser.h"
+#include "calc_executor.h"
+#include "calc_positionname.h"
+#include "calc_globallibdefs.h"
 
 #include <memory>
-#define INCLUDED_CALC_MODELBUILDER
-#endif
 
-// Library headers.
 
-// PCRaster library headers.
-#ifndef INCLUDED_APPARGS
-#include "appargs.h"
-#define INCLUDED_APPARGS
-#endif
-// Module headers.
-#ifndef INCLUDED_CALC_ASTSCRIPT
-#include "calc_astscript.h"
-#define INCLUDED_CALC_ASTSCRIPT
-#endif
-#ifndef INCLUDED_CALC_STRINGPARSER
-#include "calc_stringparser.h"
-#define INCLUDED_CALC_STRINGPARSER
-#endif
-#ifndef INCLUDED_CALC_EXECUTOR
-#include "calc_executor.h"
-#define INCLUDED_CALC_EXECUTOR
-#endif
-#ifndef INCLUDED_CALC_POSITIONNAME
-#include "calc_positionname.h"
-#define INCLUDED_CALC_POSITIONNAME
-#endif
-#ifndef INCLUDED_CALC_GLOBALLIBDEFS
-#include "calc_globallibdefs.h"
-#define INCLUDED_CALC_GLOBALLIBDEFS
-#endif
 
 /*!
   \file

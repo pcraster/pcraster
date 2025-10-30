@@ -1,17 +1,22 @@
 Changes
 =======
 
-.. PCRaster 4.5.0
-.. --------------
-..
-.. The most relevant updates for users:
+PCRaster 4.5.0 (not yet released)
+---------------------------------
+
+The most relevant updates for users:
+
+* We added support for Qt version 6, which is now used by default. Qt 5.15 still can be selected at build time, but further support of Qt5 in upcoming releases is unlikely.
+* This is the last release for Intel-based macOS systems. We no longer build, test and support the Intel macOS architecture in upcoming releases.
 .. * aguila contour
 ..
-.. We further improved the code quality and the build system to ensure an ongoing creation of PCRaster packages, amongst others:
-..
-.. * Modernising the source code. C11 and C++20 are now the default standards when compiling PCRaster.
-.. * Various fixes raised by compiler warnings.
-.. * Replacing numerous 3rd party code with C++ standard equivalents: numbers, gcd, tuple, format, signbit, isnan
+We further improved the code quality and the build system to ensure an ongoing creation of PCRaster packages, amongst others:
+
+* Modernising the source code. C17 and C++20 are now the default standards when compiling PCRaster.
+* We removed the dependency to the deprecated OpenGL Utility Library (GLU). Linking to libGLU is no longer required.
+* We replaced internal math and string utility libraries by standard equivalents.
+* Replacing numerous 3rd party code with C++ standard equivalents: numbers, gcd, tuple, format, signbit, isnan, mpl::if_c, is_integral, is_signed, is_same, integer types
+* Various issues raised by compiler warnings were fixed.
 .. * Qt6 by default 5 as option
 .. * Including outdated Boost headers were removed
 .. * find package config Boost
@@ -20,8 +25,7 @@ Changes
 .. * prefixed modflow executable
 .. * gcc13 minimum
 .. * Set C standard to 17
-.. * We removed the dependency to the deprecated OpenGL Utility Library (GLU). Linking to libGLU is no longer required.
-.. * We replaced internal math and string utility libraries by std equivalents
+
 
 
 PCRaster 4.4.2

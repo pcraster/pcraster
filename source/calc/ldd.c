@@ -10,6 +10,7 @@
 /* libs ext. <>, our ""  */
 #include "misc.h"
 #include "calc.h"
+#include <stdlib.h>
 
 /* global header (opt.) and test's prototypes "" */
 
@@ -78,7 +79,7 @@ BOOL FlowsTo(int lddFrom,  /* ldd value of (rFrom,cFrom)  */
   PRECOND( 0 < lddFrom && lddFrom < 10 ); /* valid ldd value? */
 
   /* cells are adjacent: */
-  PRECOND( ABS(rFrom-rToDS) <= 1 && ABS(cFrom-cToDS) <= 1 );
+  PRECOND( abs(rFrom-rToDS) <= 1 && abs(cFrom-cToDS) <= 1 );
 
   return ((rFrom+ LddValue[lddFrom].deltaRow == rToDS) &&
           (cFrom+ LddValue[lddFrom].deltaCol == cToDS));

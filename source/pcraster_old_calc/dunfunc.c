@@ -19,6 +19,7 @@
 #include "misc.h"  /* random numbers */
 #include <math.h>
 #include <string.h> /* memset */
+#include <stdlib.h>
 
 
 /* headers of this app. modules called */ 
@@ -190,7 +191,7 @@ void Do_4_2_l(UINT1 *r, const INT4 *v, size_t n)
 	  r[i] = MV_UINT1;
 	 else
 	 {
-	  r[i] = (UINT1)(ABS(v[i]) % 10);
+	  r[i] = (UINT1)(abs(v[i]) % 10);
 	  if (r[i] == 0)
 	  	r[i] = MV_UINT1;
 	 }
@@ -205,7 +206,7 @@ void Do_s_2_l(UINT1 *r, const REAL4 *v, size_t n)
 	  r[i] = MV_UINT1;
 	 else
 	 {
-	  r[i] = (UINT1)(ABS(((INT4)v[i])) % 10);
+	  r[i] = (UINT1)(abs(((INT4)v[i])) % 10);
 	  if (r[i] == 0)
 	  	r[i] = MV_UINT1;
 	 }

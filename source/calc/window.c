@@ -11,6 +11,7 @@
 #include "table.h"
 #include <math.h>
 #include <string.h> /* memmove */
+#include <stdlib.h>
 
 /* global header (opt.) and test's prototypes "" */
 
@@ -70,9 +71,9 @@ static double Weight(int pw,    /* half pixel window size */
 {
     REAL8 w = 1;
     if (bw > 0) { /* determine border weigths */
-        if (ABS(r) == pw)
+        if (abs(r) == pw)
             w *= bw;
-        if (ABS(c) == pw)
+        if (abs(c) == pw)
             w *= bw;
     }
     return w;

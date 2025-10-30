@@ -1,10 +1,12 @@
 #include "stddefx.h"
-# include "calc_fieldargs.h"
+#include "calc_fieldargs.h"
 #include "calc_operator.h"
-# include "calc_fieldexprargs.h"
-# include "calc_fieldexpr.h"
-# include "calc_fieldtype.h"
-# include "calc_infoscript.h"
+#include "calc_fieldexprargs.h"
+#include "calc_fieldexpr.h"
+#include "calc_fieldtype.h"
+#include "calc_infoscript.h"
+
+#include <cmath>
 
 
 /*!
@@ -33,8 +35,8 @@ void calc::FieldArgs::checkArgs()
 {
 /* Check number of arguments
  */
-  int argTest = ABS(op().nrArgs()) - (int)nrFieldArgs();
-  argTest = (argTest == 0) ? 0 : argTest/ABS(argTest);
+  int argTest = std::abs(op().nrArgs()) - (int)nrFieldArgs();
+  argTest = (argTest == 0) ? 0 : argTest/std::abs(argTest);
 
   std::string msg("");
   switch (argTest) {

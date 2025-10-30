@@ -6,6 +6,7 @@
 #include "calc_rttypecheck.h"
 #include "calc_posexception.h"
 
+#include <cmath>
 #include <format>
 #include <sstream>
 
@@ -385,7 +386,7 @@ std::string calc::Operator::checkNrInputs(size_t actualNrInputs) const
 {
   // Check number of arguments
   int argCond = (int)d_inputs.size() - (int)actualNrInputs;
-  int argTest = (!argCond) ? 0 : argCond/ABS(argCond);
+  int argTest = (!argCond) ? 0 : argCond/std::abs(argCond);
 
   std::string msg;
   switch (argTest) {

@@ -765,7 +765,7 @@ extern "C" int  Transient(void** out, const void** in, int nrArgs)
         // (else FIXED, NOFLOW)
 
         // Determine difference.
-        difference = ABS(resultElevation.value(r, c) - oldValue);
+        difference = std::abs(resultElevation.value(r, c) - oldValue);
         if(difference > maxDifference) {
           maxDifference = difference;
         }

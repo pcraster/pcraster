@@ -367,7 +367,7 @@ REAL8 geo_Rectangle::bottom() const
 */
 REAL8 geo_Rectangle::getWidth() const
 {
-  return ABS(d_lowerRight[geo::X] - d_upperLeft[geo::X]);
+  return std::abs(d_lowerRight[geo::X] - d_upperLeft[geo::X]);
 }
 
 
@@ -377,7 +377,7 @@ REAL8 geo_Rectangle::getWidth() const
 */
 REAL8 geo_Rectangle::getHeight() const
 {
-  return ABS(d_upperLeft[geo::Y] - d_lowerRight[geo::Y]);
+  return std::abs(d_upperLeft[geo::Y] - d_lowerRight[geo::Y]);
 }
 
 

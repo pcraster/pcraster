@@ -928,7 +928,7 @@ size_t pt::ParticleTracker::calculateNumberOfParticleMoves(
   tmp = (Dxx / com::pow2(cellWidth()) +
          Dyy / com::pow2(cellHeight())).maximum();
   POSTCOND(!pcr::isMV(tmp));
-  criteria[0] = ABS(0.5 / tmp);
+  criteria[0] = std::abs(0.5 / tmp);
 
   // Second criterium:
   if(com::minimum(flux.begin(), flux.end()) != 0.0) {

@@ -649,7 +649,7 @@ double AreaOfPolygon(const POINT2D *p, /* the polygon */
         a +=
             LDouble(p[i].x) * LDouble(p[i + 1].y) - LDouble(p[i].y) * LDouble(p[i + 1].x);
     a /= -2;
-    return ((double)ABS(a));
+    return ((double)std::abs(a));
 }
 
 

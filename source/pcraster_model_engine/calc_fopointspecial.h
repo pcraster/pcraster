@@ -1,25 +1,10 @@
 #ifndef INCLUDED_CALC_FOPOINTSPECIAL
 #define INCLUDED_CALC_FOPOINTSPECIAL
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_MATHX
 #include "mathx.h"
-#define INCLUDED_MATHX
-#endif
-
-#ifndef INCLUDED_COM_MATH
 #include "com_math.h"
-#define INCLUDED_COM_MATH
-#endif
-
-#ifndef INCLUDED_API
 #include "api.h" // Side
-#define INCLUDED_API
-#endif
 
 #include <cmath>
 #include <numbers>
@@ -76,7 +61,7 @@ struct special {
      return impl_4_2_d(v);
   }
    inline static UINT1 impl_4_2_l( const INT4& v) {
-      auto   r = (UINT1)(ABS(v) % 10);
+      auto   r = (UINT1)(std::abs(v) % 10);
       if (!r) return 5; // pit who cares
       return r;// MISSING CODE: DO A LDD REPAIR
   }

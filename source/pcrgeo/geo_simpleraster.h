@@ -1,63 +1,20 @@
 #ifndef INCLUDED_GEO_SIMPLERASTER
 #define INCLUDED_GEO_SIMPLERASTER
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
-#ifndef INCLUDED_ALGORITHM
-#include <algorithm>
-#define INCLUDED_ALGORITHM
-#endif
-
-#ifndef INCLUDED_CSTRING
-#include <cstring>
-#define INCLUDED_CSTRING
-#endif
-
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-
-#ifndef INCLUDED_LIST
-#include <list>
-#define INCLUDED_LIST
-#endif
-
-#ifndef INCLUDED_COM_BINARYOPERATORS
 #include "com_binaryoperators.h"
-#define INCLUDED_COM_BINARYOPERATORS
-#endif
-
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-
-#ifndef INCLUDED_COM_FUNCTIONS
 #include "com_functions.h"
-#define INCLUDED_COM_FUNCTIONS
-#endif
-
-#ifndef INCLUDED_GEO_CELLLOC
 #include "geo_cellloc.h"
-#define INCLUDED_GEO_CELLLOC
-#endif
-
-#ifndef INCLUDED_GEO_RASTERDIM
 #include "geo_rasterdim.h"
-#define INCLUDED_GEO_RASTERDIM
-#endif
-
-#ifndef INCLUDED_GEO_DEF
 #include "geo_def.h"
-#define INCLUDED_GEO_DEF
-#endif
 
+#include <algorithm>
+#include <cmath>
+#include <cstring>
+#include <iostream>
+#include <list>
 
 
 namespace geo {
@@ -880,7 +837,7 @@ inline SimpleRaster<T>& SimpleRaster<T>::absolute()
 {
   for(size_t i = 0; i < nrCells(); ++i) {
     if(!pcr::isMV(d_values[i])) {
-      d_values[i] = ABS(d_values[i]);
+      d_values[i] = std::abs(d_values[i]);
     }
   }
 

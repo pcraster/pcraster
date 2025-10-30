@@ -1,29 +1,13 @@
 #ifndef INCLUDED_CALC_OPERATOR
 #define INCLUDED_CALC_OPERATOR
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
+#include "calctypes.h"
+#include "major_op.h"
 
-#ifndef INCLUDED_CALCTYPES
-# include "calctypes.h"
-#define INCLUDED_CALCTYPES
-#endif
-
-#ifndef INCLUDED_MAJOR_OP
-# include "major_op.h"
-#define INCLUDED_MAJOR_OP
-#endif
-
-#ifndef INCLUDED_STRING
-# include <string>
-#define INCLUDED_STRING
-#endif
-#ifndef INCLUDED_VECTOR
+#include <cmath>
+#include <string>
 #include <vector>
-#define INCLUDED_VECTOR
-#endif
 
 
 /* appearance of an operator/function
@@ -106,7 +90,7 @@ class Operator {
   int      d_execId;
   CG       d_cg;
   std::vector<OP_ARGS> d_argPars;
-  int      nrArgsDef() const { return ABS(d_nrArgs); }
+  int      nrArgsDef() const { return std::abs(d_nrArgs); }
   void pushBackArg(VS vs, ST st);
 public:
   // CREATORS

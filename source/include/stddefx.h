@@ -164,8 +164,6 @@
 # define MAX(a,b)	(((a) > (b)) ? (a) : (b))
 #endif
 
-#define ABS(a) 		(((a) > 0) ? (a) : -(a))
-#define XOR		^
 
 /* typedef for fourth argument qsort(),bsearch(), etc.. */
 typedef int (*QSORT_CMP)(const void *e1, const void *e2);

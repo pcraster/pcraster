@@ -1,4 +1,5 @@
-#ifndef ARCGRID_H
+#ifndef INCLUDED_ASC2MAP_ARCGRID
+#define INCLUDED_ASC2MAP_ARCGRID
 
 typedef struct ARC_INFO_GRID_ASCII {
     size_t nrCols, nrRows;

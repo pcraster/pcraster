@@ -1,5 +1,5 @@
-#ifndef GEOMETRY_H
-#define GEOMETRY_H
+#ifndef INCLUDED_GEOMETRY_GEOMETRY
+#define INCLUDED_GEOMETRY_GEOMETRY
 
 #ifdef __cplusplus
 extern "C" {
@@ -122,4 +122,4 @@ extern int IntersectRectangles(POINT2D *pol, const POINT2D *r1, const POINT2D *r
 }
 #endif
 
-#endif /* GEOMETRY_H */
+#endif /* INCLUDED_GEOMETRY_GEOMETRY */

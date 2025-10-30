@@ -1,5 +1,5 @@
-#ifndef INCLUDED_APPARGS
-#define INCLUDED_APPARGS
+#ifndef INCLUDED_APP_APPARGS
+#define INCLUDED_APP_APPARGS
 
 /* stuf to install option from command
  * line and retrieve those values
@@ -133,4 +133,4 @@ extern void AppFileOpenError(const char *filename);
  }
 #endif
 
-#endif /* INCLUDED_APPARGS */
+#endif /* INCLUDED_APP_APPARGS */

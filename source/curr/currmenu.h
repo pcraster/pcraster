@@ -1,5 +1,5 @@
-#ifndef CURRMENU_H
-#define CURRMENU_H
+#ifndef INCLUDED_CURRMENU_CURRMENU
+#define INCLUDED_CURRMENU_CURRMENU
 
 /* libs ext. <>, our ""  */
 #include <curses.h>

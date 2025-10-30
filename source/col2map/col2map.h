@@ -1,5 +1,5 @@
-#ifndef COL2MAP_H
-#define COL2MAP_H
+#ifndef INCLUDED_COL2MAP_COL2MAP
+#define INCLUDED_COL2MAP_COL2MAP
 
 typedef enum COMP_CELL {                  /* how to compute cell if mutiple records */
                          AVERAGE = 0,     /* average value */

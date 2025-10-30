@@ -1,8 +1,8 @@
 #define BOOST_TEST_MODULE pcraster col2map
 #include <boost/test/unit_test.hpp>
-#include <cassert>
 #include "dal_Client.h"
 #include "dal_CSFRasterDriver.h"
+#include <cassert>
 
 
 static char const* argv[1] = { "/my/path/col2map_test" };

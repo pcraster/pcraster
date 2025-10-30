@@ -1,5 +1,5 @@
-#ifndef MATHX_H
-#define MATHX_H
+#ifndef INCLUDED_MATHX_MATHX
+#define INCLUDED_MATHX_MATHX
 
 
 #ifdef __cplusplus
@@ -65,4 +65,4 @@ extern void FreeSqrMatrix(double **m, size_t n);
 }
 #endif
 
-#endif /* MATHX__H */
+#endif /* INCLUDED_MATHX_MATHX */

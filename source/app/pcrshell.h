@@ -1,5 +1,5 @@
-#ifndef INCLUDED_PCRSHELL
-#define INCLUDED_PCRSHELL
+#ifndef INCLUDED_APP_PCRSHELL
+#define INCLUDED_APP_PCRSHELL
 
 #ifdef __cplusplus
  extern "C" {

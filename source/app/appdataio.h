@@ -1,5 +1,5 @@
-#ifndef INCLUDED_APPDATAIO
-#define INCLUDED_APPDATAIO
+#ifndef INCLUDED_APP_APPDATAIO
+#define INCLUDED_APP_APPDATAIO
 
 /* stuf to process to data
  * depending on the option settings

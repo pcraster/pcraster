@@ -1,26 +1,10 @@
 #ifndef INCLUDED_COM_WIN32REGISTRYKEY
 #define INCLUDED_COM_WIN32REGISTRYKEY
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
-// Library headers.
-#ifndef INCLUDED_WINDOWS
 #include <windows.h>
-#define INCLUDED_WINDOWS
-#endif
-#ifndef INCLUDED_STRING
 #include <string>
-#define INCLUDED_STRING
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 

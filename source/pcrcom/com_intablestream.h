@@ -1,34 +1,13 @@
 #ifndef INCLUDED_COM_INTABLESTREAM
 #define INCLUDED_COM_INTABLESTREAM
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-#ifndef INCLUDED_FSTREAM
-#include <fstream>
-#define INCLUDED_FSTREAM
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_COM_TABLEINFO
 #include "com_tableinfo.h"
-#define INCLUDED_COM_TABLEINFO
-#endif
-#ifndef INCLUDED_COM_SPIRITFILELINEPARSER
 #include "com_spiritfilelineparser.h"
-#define INCLUDED_COM_SPIRITFILELINEPARSER
-#endif
+
+#include <vector>
+#include <fstream>
+
 
 
 namespace com {

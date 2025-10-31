@@ -1,21 +1,9 @@
 #ifndef INCLUDED_COM_STACK
 #define INCLUDED_COM_STACK
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
-// Library headers.
-#ifndef INCLUDED_STACK
 #include <stack>
-#define INCLUDED_STACK
-#endif
-// PCRaster library headers.
-
-// Module headers.
 
 
 

@@ -1,26 +1,11 @@
 #ifndef INCLUDED_COM_INTERVALTYPES
 #define INCLUDED_COM_INTERVALTYPES
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_COM_INTERVAL
 #include "com_interval.h"
-#define INCLUDED_COM_INTERVAL
-#endif
+
+#include <string>
+
 
 
 namespace com {

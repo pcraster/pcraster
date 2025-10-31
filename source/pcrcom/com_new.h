@@ -1,10 +1,9 @@
 #ifndef INCLUDED_COM_NEW
 #define INCLUDED_COM_NEW
 
-#ifndef INCLUDED_CSTRING
 #include <cstring>
-#define INCLUDED_CSTRING
-#endif
+
+
 
 namespace com {
   //! Allocate 2 dimensional grid in from existing linear memory

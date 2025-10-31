@@ -1,18 +1,7 @@
 #ifndef INCLUDED_COM_CLONE
 #define INCLUDED_COM_CLONE
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 

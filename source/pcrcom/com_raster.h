@@ -1,26 +1,10 @@
 #ifndef INCLUDED_COM_RASTER
 #define INCLUDED_COM_RASTER
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_ALGORITHM
-#include <algorithm>
-#define INCLUDED_ALGORITHM
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_COM_IRASTER
 #include "com_iraster.h"
-#define INCLUDED_COM_IRASTER
-#endif
+
+#include <algorithm>
 
 
 

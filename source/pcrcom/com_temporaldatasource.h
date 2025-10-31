@@ -1,18 +1,7 @@
 #ifndef INCLUDED_COM_TEMPORALDATASOURCE
 #define INCLUDED_COM_TEMPORALDATASOURCE
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 

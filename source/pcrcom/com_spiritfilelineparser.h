@@ -1,31 +1,13 @@
 #ifndef INCLUDED_COM_SPIRITFILELINEPARSER
 #define INCLUDED_COM_SPIRITFILELINEPARSER
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
+#include "com_pathname.h"
 
-// Library headers.
-#ifndef INCLUDED_FSTREAM
-#include <fstream>
-#define INCLUDED_FSTREAM
-#endif
-#ifndef INCLUDED_BOOST_SPIRIT_CORE
 #include <boost/spirit/core.hpp>
-#define INCLUDED_BOOST_SPIRIT_CORE
-#endif
 #include <boost/spirit/iterator/position_iterator.hpp>
 
-// PCRaster library headers.
-#ifndef INCLUDED_COM_PATHNAME
-#include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
-
-// Module headers.
+#include <fstream>
 
 
 

@@ -1,20 +1,11 @@
 #ifndef INCLUDED_COM_STRCONV
 #define INCLUDED_COM_STRCONV
 
-#ifndef INCLUDED_STDEXCEPT
-#include <stdexcept>
-#define INCLUDED_STDEXCEPT
-#endif
-
-#ifndef INCLUDED_SSTREAM
-#include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-
-#ifndef INCLUDED_COM_STRLIB
 #include "com_strlib.h"
-#define INCLUDED_COM_STRLIB
-#endif
+
+#include <stdexcept>
+#include <sstream>
+
 
 
 namespace com {

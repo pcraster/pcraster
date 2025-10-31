@@ -1,28 +1,11 @@
 #ifndef INCLUDED_COM_PARSERS
 #define INCLUDED_COM_PARSERS
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
-// Library headers.
-// #define BOOST_SPIRIT_DEBUG
 #define BOOST_SPIRIT_USE_OLD_NAMESPACE
-#ifndef INCLUDED_BOOST_SPIRIT_INCLUDE_CLASSIC_CORE
 #include <boost/spirit/include/classic_core.hpp>
-#define INCLUDED_BOOST_SPIRIT_INCLUDE_CLASSIC_CORE
-#endif
-#ifndef INCLUDED_BOOST_SPIRIT_INCLUDE_CLASSIC_UTILITY
 #include <boost/spirit/include/classic_utility.hpp>
-#define INCLUDED_BOOST_SPIRIT_INCLUDE_CLASSIC_UTILITY
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 

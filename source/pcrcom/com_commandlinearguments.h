@@ -1,32 +1,11 @@
 #ifndef INCLUDED_COM_COMMANDLINEARGUMENTS
 #define INCLUDED_COM_COMMANDLINEARGUMENTS
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
-// Library headers.
-#ifndef INCLUDED_SET
 #include <set>
-#define INCLUDED_SET
-#endif
-
-#ifndef INCLUDED_VECTOR
 #include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-#ifndef INCLUDED_IOSTREAM
 #include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 

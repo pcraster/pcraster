@@ -1,31 +1,11 @@
 #ifndef INCLUDED_COM_ARGUMENTPARSER
 #define INCLUDED_COM_ARGUMENTPARSER
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-// /home/PcrTeamExtern/trunk/gcc-4/boost-1.44.0/include/boost/spirit.hpp:18:4
-//   warning: #warning "This header is deprecated. Please use: 
 
 #define BOOST_SPIRIT_USE_OLD_NAMESPACE
-#ifndef INCLUDED_BOOST_SPIRIT_INCLUDE_CLASSIC
 #include <boost/spirit/include/classic.hpp>
-#define INCLUDED_BOOST_SPIRIT_INCLUDE_CLASSIC
-#endif
-
-#ifndef INCLUDED_BOOST_ALGORITHM_STRING_TRIM
 #include <boost/algorithm/string/trim.hpp>
-#define INCLUDED_BOOST_ALGORITHM_STRING_TRIM
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 
@@ -62,7 +42,7 @@ public:
   //----------------------------------------------------------------------------
 
                    ArgumentParser      ()
-     
+
   {
   }
 

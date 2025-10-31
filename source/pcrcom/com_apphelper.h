@@ -1,18 +1,7 @@
 #ifndef INCLUDED_COM_APPHELPER
 #define INCLUDED_COM_APPHELPER
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 

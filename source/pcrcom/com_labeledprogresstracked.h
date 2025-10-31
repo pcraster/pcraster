@@ -1,27 +1,9 @@
 #ifndef INCLUDED_COM_LABELEDPROGRESSTRACKED
 #define INCLUDED_COM_LABELEDPROGRESSTRACKED
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_COM_LABELEDPROGRESSTRACKER
 #include "com_labeledprogresstracker.h"
-#define INCLUDED_COM_LABELEDPROGRESSTRACKER
-#endif
-
-#ifndef INCLUDED_COM_PROGRESSTRACKED
 #include "com_progresstracked.h"
-#define INCLUDED_COM_PROGRESSTRACKED
-#endif
 
 
 

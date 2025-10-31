@@ -1,17 +1,8 @@
 #ifndef INCLUDED_COM_LEGENDCLASS
 #define INCLUDED_COM_LEGENDCLASS
 
-
-
-#ifndef INCLUDED_FUNCTIONAL
 #include <functional>
-#define INCLUDED_FUNCTIONAL
-#endif
-
-#ifndef INCLUDED_STRING
 #include <string>
-#define INCLUDED_STRING
-#endif
 
 
 

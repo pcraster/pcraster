@@ -1,10 +1,7 @@
 #ifndef INCLUDED_COM_ALGORITHM
 #define INCLUDED_COM_ALGORITHM
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
 #include <algorithm>
 #include <cstdlib>

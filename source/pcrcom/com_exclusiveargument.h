@@ -1,31 +1,11 @@
 #ifndef INCLUDED_COM_EXCLUSIVEARGUMENT
 #define INCLUDED_COM_EXCLUSIVEARGUMENT
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_COM_COMMANDLINEARGUMENT
 #include "com_commandlineargument.h"
-#define INCLUDED_COM_COMMANDLINEARGUMENT
-#endif
+
+#include <string>
+#include <vector>
 
 
 

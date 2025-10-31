@@ -1,36 +1,12 @@
 #ifndef INCLUDED_COM_REPEATABLEARGUMENT
 #define INCLUDED_COM_REPEATABLEARGUMENT
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_ITERATOR
-#include <iterator>
-#define INCLUDED_ITERATOR
-#endif
-
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_COM_COMMANDLINEARGUMENT
 #include "com_commandlineargument.h"
-#define INCLUDED_COM_COMMANDLINEARGUMENT
-#endif
+
+#include <iterator>
+#include <string>
+#include <vector>
 
 
 

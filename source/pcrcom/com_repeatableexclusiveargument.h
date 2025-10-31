@@ -1,26 +1,10 @@
 #ifndef INCLUDED_COM_REPEATABLEEXCLUSIVEARGUMENT
 #define INCLUDED_COM_REPEATABLEEXCLUSIVEARGUMENT
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_ITERATOR
-#include <iterator>
-#define INCLUDED_ITERATOR
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_COM_COMMANDLINEARGUMENT
 #include "com_commandlineargument.h"
-#define INCLUDED_COM_COMMANDLINEARGUMENT
-#endif
+
+#include <iterator>
 
 
 

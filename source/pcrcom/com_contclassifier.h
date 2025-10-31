@@ -1,22 +1,10 @@
 #ifndef INCLUDED_COM_CONTCLASSIFIER
 #define INCLUDED_COM_CONTCLASSIFIER
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-#ifndef INCLUDED_CSF
 #include "csf.h"
-#define INCLUDED_CSF
-#endif
+
+#include <string>
 
 
 

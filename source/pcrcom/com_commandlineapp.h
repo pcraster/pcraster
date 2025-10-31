@@ -1,22 +1,8 @@
 #ifndef INCLUDED_COM_COMMANDLINEAPP
 #define INCLUDED_COM_COMMANDLINEAPP
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_APP
 #include "com_app.h"
-#define INCLUDED_COM_APP
-#endif
-
-// Module headers.
 
 
 

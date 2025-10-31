@@ -1,18 +1,7 @@
 #ifndef INCLUDED_COM_CAST
 #define INCLUDED_COM_CAST
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 
@@ -30,7 +19,7 @@ namespace com {
 
 //! cast a non 0 \a ptr from UpType to DownType and assume it will succeed
 /*!
- * this is a debug wrapper around dynamic_cast, the term down_cast is 
+ * this is a debug wrapper around dynamic_cast, the term down_cast is
  * used as proposed by [BS,C++,15.4].
  * down_cast check two assertions that ptr is not 0 and that the
  * cast succeeds; the result ptr is a DownType.

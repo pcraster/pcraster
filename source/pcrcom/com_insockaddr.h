@@ -1,30 +1,15 @@
 #ifndef INCLUDED_COM_INSOCKADDR
 #define INCLUDED_COM_INSOCKADDR
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
 
 #ifdef BORLANDC
-  #ifndef INCLUDED_WINSOCK2
   #include <winsock2.h>
-  #define INCLUDED_WINSOCK2
-  #endif
 #else
-  #ifndef INCLUDED_IN
   #include <netinet/in.h>
-  #define INCLUDED_IN
-  #endif
 #endif
 
+#include <string>
 
 
 struct in_addr;

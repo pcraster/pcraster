@@ -1,12 +1,7 @@
 #ifndef INCLUDED_COM_AXIS
 #define INCLUDED_COM_AXIS
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
 
 

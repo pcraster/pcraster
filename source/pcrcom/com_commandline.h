@@ -1,30 +1,11 @@
 #ifndef INCLUDED_COM_COMMANDLINE
 #define INCLUDED_COM_COMMANDLINE
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_PCRDLL
 #include "pcrdll.h"
-#define INCLUDED_PCRDLL
-#endif
-
-// Module headers.
-#ifndef INCLUDED_COM_COMMANDLINEARGUMENTS
 #include "com_commandlinearguments.h"
-#define INCLUDED_COM_COMMANDLINEARGUMENTS
-#endif
+
+#include <string>
 
 
 

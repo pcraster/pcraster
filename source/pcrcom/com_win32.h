@@ -1,16 +1,8 @@
 #ifndef  INCLUDED_COM_WIN32
 #define  INCLUDED_COM_WIN32
 
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-#ifndef INCLUDED_WINDOWS
 #include <windows.h>
-#define INCLUDED_WINDOWS
-#endif
-
+#include <string>
 
 
 namespace com {

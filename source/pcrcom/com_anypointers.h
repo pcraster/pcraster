@@ -1,24 +1,12 @@
 #ifndef INCLUDED_COM_ANYPOINTERS
 #define INCLUDED_COM_ANYPOINTERS
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
-// Library headers.
-#ifndef INCLUDED_MAP
 #include <map>
-#define INCLUDED_MAP
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-
 #include <any>
+
+
 
 namespace com {
   // AnyPointers declarations.

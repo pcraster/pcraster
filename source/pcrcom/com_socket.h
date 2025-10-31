@@ -1,17 +1,9 @@
 #ifndef INCLUDED_COM_SOCKET
 #define INCLUDED_COM_SOCKET
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
-#ifndef INCLUDED_STRING
 #include <string>
-#define INCLUDED_STRING
-#endif
 
 
 
@@ -37,7 +29,7 @@ class com_InSockAddr;
   The type of com_Socket sockets is the stream socket. This type of socket
   provides for the bidirectional, reliable, sequenced, and unduplicated flow
   of data without record boundaries.
- 
+
   Com_Socket objects live in the internet domain (AF_INET).
 
   To setup a qt-application as a server the folowing code can be used:

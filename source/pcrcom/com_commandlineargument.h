@@ -1,41 +1,13 @@
 #ifndef INCLUDED_COM_COMMANDLINEARGUMENT
 #define INCLUDED_COM_COMMANDLINEARGUMENT
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_COM_ARGUMENTPARSER
 #include "com_argumentparser.h"
-#define INCLUDED_COM_ARGUMENTPARSER
-#endif
-
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
+
+#include <iostream>
+#include <string>
+#include <vector>
 
 
 
@@ -778,7 +750,7 @@ template<class ValueType, class ValueParser>
 ValueArgument<ValueType, ValueParser>::ValueArgument(const std::string& description,
                    const ValueType& defaultValue)
 
-  : d_description(description) 
+  : d_description(description)
 
 {
   PRECOND(!d_description.empty());

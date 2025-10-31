@@ -1,22 +1,8 @@
 #ifndef INCLUDED_COM_SINGLEVALUEDRASTER
 #define INCLUDED_COM_SINGLEVALUEDRASTER
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_COM_IRASTER
 #include "com_iraster.h"
-#define INCLUDED_COM_IRASTER
-#endif
 
 
 

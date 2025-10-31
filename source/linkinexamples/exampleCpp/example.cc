@@ -12,6 +12,7 @@
 #include "pcrtypes.h"
 #include "xml.h"
 #include <cassert>
+#include <cstddef>
 #include <string>
 #include <map>
 #include <stdexcept>
@@ -83,8 +84,8 @@ public:
     const auto *leftOperand = (const float *)linkInTransferArray[1];
     size_t       len=1; // NonSpatial
     if (l.argument()[0].spatialType() == pcrxml::SpatialType::Spatial)
-      len = l.context().areaMap().nrRows() *
-            l.context().areaMap().nrCols();
+      len = static_cast<size_t>(l.context().areaMap().nrRows() *
+            l.context().areaMap().nrCols());
     for(size_t i=0; i < len; ++i) {
       if (pcr::isMV(leftOperand[i]))
         pcr::setMV(result);

@@ -3,6 +3,7 @@
 #include "gridcheck.h"
 #include "common.h"
 
+#include <cstddef>
 #include <sstream>
 #include <iostream>
 #include <fstream>
@@ -95,7 +96,7 @@ void BinaryReader::read(const std::string & err_mgs, const std::string & filenam
   file.read(tmp, 4);
   std::memcpy(&lay, &(tmp[0]), 4);
 
-  size_t nr_cells = row * col;
+  size_t nr_cells = static_cast<size_t>(row * col);
 
   // jump to the right block and position, skip the metadata, block marker;
   // multiplier holds layer number of the layer we are interested in

@@ -68,7 +68,7 @@ BOOST_AUTO_TEST_CASE(nr_cells)
 {
   using namespace geo;
 
-  BOOST_CHECK(d_map1->nrCells() == 11 * 12);
+  BOOST_CHECK(d_map1->nrCells() == static_cast<size_t>(11 * 12));
 }
 
 BOOST_AUTO_TEST_SUITE_END()

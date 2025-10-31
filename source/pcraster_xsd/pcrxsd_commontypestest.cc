@@ -1,11 +1,13 @@
 #define BOOST_TEST_MODULE pcraster xsd common_types
 #include <boost/test/unit_test.hpp>
-#include <sstream>
-#include <boost/date_time/posix_time/ptime.hpp>
 #include "commonTypesXSD.h"
 #include "unitTestXSD.h"
 #include "pcrxsd_library.h"
 #include "pcrxsd_utils.h"
+#include <boost/date_time/posix_time/ptime.hpp>
+#include <boost/date_time/posix_time/posix_time_config.hpp>
+#include <cstddef>
+#include <sstream>
 
 
 //! make a date_time and validate first
@@ -109,7 +111,7 @@ BOOST_AUTO_TEST_CASE(time_duration_assumption)
     // can expess the same in minutes
     ptime time = ptime(bg::date(2006, boost::gregorian::Feb, 1),
                  time_duration(0, 0, 0, 0));
-    time_duration duration(0,4098*60, 0, 0);
+    time_duration duration(0,static_cast<time_duration::min_type>(4098*60), 0, 0);
     time += duration;
 
     BOOST_CHECK(time.date().year()==2006);

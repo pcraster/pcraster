@@ -1,7 +1,7 @@
 #define BOOST_TEST_MODULE pcraster geo scan_conversion
 #include <boost/test/unit_test.hpp>
-#include <algorithm>
 #include "geo_scanconversion.h"
+#include <algorithm>
 
 
 BOOST_AUTO_TEST_CASE(midpoint_line)

@@ -1,17 +1,8 @@
 #ifndef INCLUDED_GEO_VOXEL
 #define INCLUDED_GEO_VOXEL
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CSF
 #include "csf.h"
-#define INCLUDED_CSF
-#endif
 
 
 

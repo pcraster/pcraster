@@ -1,25 +1,9 @@
 #ifndef INCLUDED_COM_CLIBERROR
 #define INCLUDED_COM_CLIBERROR
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_MISC
 #include "misc.h"
-#define INCLUDED_MISC
-#endif
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
 
 
 namespace com {
@@ -41,8 +25,8 @@ namespace com {
 
   For use see libs/pcrme/calc_globallibdefs.h
 
-  All methods are static, there is no point in doing difficult while 
-  all what we want is to "grep" from libmisc are global 
+  All methods are static, there is no point in doing difficult while
+  all what we want is to "grep" from libmisc are global
   thread-unsafe error buffers.
 
 */

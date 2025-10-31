@@ -1,12 +1,7 @@
 #ifndef INCLUDED_COM_COUNTEDOBJECT
 #define INCLUDED_COM_COUNTEDOBJECT
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
 
 

@@ -1,30 +1,11 @@
 #ifndef INCLUDED_COM_UNORDEREDCROSSTABLE
 #define INCLUDED_COM_UNORDEREDCROSSTABLE
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_MAP
-#include <map>
-#define INCLUDED_MAP
-#endif
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_COM_COUNTEDOBJECT
 #include "com_countedobject.h"
-#define INCLUDED_COM_COUNTEDOBJECT
-#endif
+
+#include <map>
+#include <iostream>
 
 
 

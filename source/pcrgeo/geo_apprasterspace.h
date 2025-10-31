@@ -1,10 +1,9 @@
 #ifndef INCLUDED_GEO_APPRASTERSPACE
 #define INCLUDED_GEO_APPRASTERSPACE
 
-#ifndef INCLUDED_GEO_RASTERSPACE
 #include "geo_rasterspace.h"
-#define INCLUDED_GEO_RASTERSPACE
-#endif
+
+
 
 namespace geo {
 

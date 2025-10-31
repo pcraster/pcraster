@@ -1,22 +1,8 @@
 #ifndef INCLUDED_GEO_CIRCULARNEIGHBOURHOOD
 #define INCLUDED_GEO_CIRCULARNEIGHBOURHOOD
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_GEO_NEIGHBOURHOOD
 #include "geo_neighbourhood.h"
-#define INCLUDED_GEO_NEIGHBOURHOOD
-#endif
 
 
 

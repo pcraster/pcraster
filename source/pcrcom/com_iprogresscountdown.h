@@ -1,22 +1,8 @@
 #ifndef INCLUDED_COM_IPROGRESSCOUNTDOWN
 #define INCLUDED_COM_IPROGRESSCOUNTDOWN
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_COM_PROGRESSTRACKER
 #include "com_progresstracker.h"
-#define INCLUDED_COM_PROGRESSTRACKER
-#endif
 
 
 

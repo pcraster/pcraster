@@ -1,32 +1,11 @@
 #ifndef INCLUDED_GEO_ALGORITHM
 #define INCLUDED_GEO_ALGORITHM
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
-// Library headers.
-#ifndef INCLUDED_ALGORITHM
 #include <algorithm>
-#define INCLUDED_ALGORITHM
-#endif
-
-#ifndef INCLUDED_ITERATOR
 #include <iterator>
-#define INCLUDED_ITERATOR
-#endif
-
-#ifndef INCLUDED_VECTOR
 #include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 

@@ -1,25 +1,11 @@
 #ifndef INCLUDED_GEO_CSFMAP
 #define INCLUDED_GEO_CSFMAP
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-#ifndef INCLUDED_CSFTYPES
 #include "csftypes.h"
-#define INCLUDED_CSFTYPES
-#endif
-
-#ifndef INCLUDED_COM_LEGEND
 #include "com_legend.h"
-#define INCLUDED_COM_LEGEND
-#endif
+
+#include <string>
 
 
 

@@ -1,7 +1,7 @@
 #define BOOST_TEST_MODULE pcraster geo cell_loc_visitor
 #include <boost/test/unit_test.hpp>
-#include <vector>
 #include "geo_celllocvisitor.h"
+#include <vector>
 
 
 BOOST_AUTO_TEST_CASE(all)

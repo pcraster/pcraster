@@ -1,42 +1,14 @@
 #ifndef INCLUDED_GEO_BLOCK
 #define INCLUDED_GEO_BLOCK
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-
-#ifndef INCLUDED_CSF
 #include "csf.h"
-#define INCLUDED_CSF
-#endif
-
-#ifndef INCLUDED_GEO_DEF
 #include "geo_def.h"
-#define INCLUDED_GEO_DEF
-#endif
-
-#ifndef INCLUDED_GEO_RASTER
 #include "geo_raster.h"
-#define INCLUDED_GEO_RASTER
-#endif
-
-#ifndef INCLUDED_GEO_VOXEL
 #include "geo_voxel.h"
-#define INCLUDED_GEO_VOXEL
-#endif
-
-#ifndef INCLUDED_GEO_VOXELSTACK
 #include "geo_voxelstack.h"
-#define INCLUDED_GEO_VOXELSTACK
-#endif
+
+#include <iostream>
 
 
 

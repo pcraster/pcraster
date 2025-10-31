@@ -1,31 +1,12 @@
 #ifndef INCLUDED_COM_MATH
 #define INCLUDED_COM_MATH
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
-// Library headers.
-#ifndef INCLUDED_CSTDLIB
 #include <cstdlib>
-#define INCLUDED_CSTDLIB
-#endif
-#ifndef INCLUDED_CMATH
 #include <cmath>
-#define INCLUDED_CMATH
-#endif
-#ifndef INCLUDED_ALGORITHM
 #include <algorithm>
-#define INCLUDED_ALGORITHM
-#endif
-#ifndef INCLUDED_LIMITS
 #include <limits>
-#define INCLUDED_LIMITS
-#endif
-// PCRaster library headers.
-
-// Module headers.
 
 
 

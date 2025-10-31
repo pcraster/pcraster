@@ -1,22 +1,12 @@
 #ifndef INCLUDED_COM_SPIRITFILEPARSER
 #define INCLUDED_COM_SPIRITFILEPARSER
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
-// Library headers.
 #include <boost/spirit/include/classic_core.hpp>
 #include <boost/spirit/include/classic_exceptions.hpp>
 #include <boost/spirit/include/classic_position_iterator.hpp>
 #include <boost/spirit/include/classic_file_iterator.hpp>
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 

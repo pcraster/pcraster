@@ -1,30 +1,12 @@
 #ifndef INCLUDED_GEO_POINT
 #define INCLUDED_GEO_POINT
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
-#ifndef INCLUDED_CSTRING
 #include <cstring>
-#define INCLUDED_CSTRING
-#endif
-
-#ifndef INCLUDED_CMATH
 #include <cmath>
-#define INCLUDED_CMATH
-#endif
-
-#ifndef INCLUDED_FUNCTIONAL
 #include <functional>
-#define INCLUDED_FUNCTIONAL
-#endif
-
-#ifndef INCLUDED_IOSTREAM
 #include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
 
 
 

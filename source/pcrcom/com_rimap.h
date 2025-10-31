@@ -1,17 +1,8 @@
 #ifndef INCLUDED_COM_RIMAP
 #define INCLUDED_COM_RIMAP
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CSFTYPES
 #include "csftypes.h"
-#define INCLUDED_CSFTYPES
-#endif
 
 
 

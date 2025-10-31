@@ -1,18 +1,7 @@
 #ifndef INCLUDED_COM_FILEMAP
 #define INCLUDED_COM_FILEMAP
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 
@@ -31,7 +20,7 @@ namespace com {
 /*!
    This is a portable implementation of mmap (Posix) and CreateFileMapping (WIN32)
    It currently always uses an existing file, whose contents can be accessed in both
-   read and read-write mode, no appending or shrinking of the file 
+   read and read-write mode, no appending or shrinking of the file
    is possible or known to work.
 
 */

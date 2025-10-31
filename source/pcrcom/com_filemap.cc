@@ -7,11 +7,9 @@
 
 
 #ifdef WIN32
-# include <windows.h>
-#ifndef INCLUDED_COM_WIN32
+
+#include <windows.h>
 #include "com_win32.h"
-#define INCLUDED_COM_WIN32
-#endif
 
 
 /*!
@@ -75,7 +73,7 @@ class FileMapPrivate
       DWORD    prot = GENERIC_READ;
       prot |= (update?GENERIC_WRITE:0);
       d_fd = CreateFile(fileName, prot,0 /* no share r|w*/,NULL,
-                OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL,NULL); 
+                OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL,NULL);
       if (d_fd == INVALID_HANDLE_VALUE)
         throwError("CreateFile failed");
       if (!len) {

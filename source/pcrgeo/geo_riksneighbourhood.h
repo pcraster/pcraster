@@ -1,24 +1,11 @@
 #ifndef INCLUDED_GEO_RIKSNEIGHBOURHOOD
 #define INCLUDED_GEO_RIKSNEIGHBOURHOOD
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_GEO_NEIGHBOURHOOD
 #include "geo_neighbourhood.h"
-#define INCLUDED_GEO_NEIGHBOURHOOD
-#endif
 
 #include <tuple>
+
 
 
 namespace geo {

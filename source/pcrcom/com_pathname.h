@@ -1,29 +1,12 @@
 #ifndef INCLUDED_PATHNAME
 #define INCLUDED_PATHNAME
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_IOSFWD
-#include <iosfwd>
-#define INCLUDED_IOSFWD
-#endif
-
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
 
 #include <filesystem>
+#include <iosfwd>
+#include <string>
+#include <vector>
 
 
 

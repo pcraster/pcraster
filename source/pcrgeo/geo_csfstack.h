@@ -1,37 +1,18 @@
 #ifndef INCLUDED_GEO_CSFSTACK
 #define INCLUDED_GEO_CSFSTACK
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
+#include "geo_csfstackname.h"
+#include "geo_raster.h"
+#include "csftypes.h"
 
 #ifdef DEBUG_DEVELOP
-  #ifndef INCLUDED_IOSTREAM
   #include <iostream>
-  #define INCLUDED_IOSTREAM
-  #endif
 #endif
 
-#ifndef INCLUDED_MEMORY
 #include <memory>
-#define INCLUDED_MEMORY
-#endif
 
-#ifndef INCLUDED_GEO_CSFSTACKNAME
-#include "geo_csfstackname.h"
-#define INCLUDED_GEO_CSFSTACKNAME
-#endif
 
-#ifndef INCLUDED_GEO_RASTER
-#include "geo_raster.h"
-#define INCLUDED_GEO_RASTER
-#endif
-
-#ifndef INCLUDED_CSFTYPES
-#include "csftypes.h"
-#define INCLUDED_CSFTYPES
-#endif
 
 namespace com {
   template<class INT4>

@@ -1,17 +1,9 @@
 #ifndef INCLUDED_GEO_CONST
 #define INCLUDED_GEO_CONST
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
-#ifndef INCLUDED_STRING
 #include <string>
-#define INCLUDED_STRING
-#endif
 
 
 

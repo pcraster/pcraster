@@ -4,6 +4,7 @@
 #include "geo_cellloc.h"
 #include "com_exception.h"
 #include "geo_util.h"
+
 #include <cmath>
 
 //------------------------------------------------------------------------------

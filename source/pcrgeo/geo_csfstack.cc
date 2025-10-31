@@ -8,6 +8,7 @@
 #include "geo_csfmap.h"
 #include "geo_def.h"
 #include "geo_util.h"
+
 #include <memory>
 #include <string>
 
@@ -28,7 +29,7 @@
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF CLASS MEMBERS 
+// DEFINITION OF CLASS MEMBERS
 //------------------------------------------------------------------------------
 
 template<class T>
@@ -437,13 +438,13 @@ const com::Legend<INT4>* geo::CSFStack<T>::legend() const
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE OPERATORS 
+// DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
 
 //------------------------------------------------------------------------------
-// DEFINITION OF FREE FUNCTIONS 
+// DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
 

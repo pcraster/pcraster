@@ -1,27 +1,12 @@
 #ifndef INCLUDED_GEO_VOXELSTACK
 #define INCLUDED_GEO_VOXELSTACK
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-#ifndef INCLUDED_CSF
 #include "csf.h"
-#define INCLUDED_CSF
-#endif
-
-#ifndef INCLUDED_GEO_VOXEL
 #include "geo_voxel.h"
-#define INCLUDED_GEO_VOXEL
-#endif
+
+#include <vector>
 
 
 

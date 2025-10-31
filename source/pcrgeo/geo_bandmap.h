@@ -1,21 +1,12 @@
 #ifndef INCLUDED_GEO_BANDMAP
 #define INCLUDED_GEO_BANDMAP
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CSFTYPES
 #include "csftypes.h"
-#define INCLUDED_CSFTYPES
-#endif
-#ifndef INCLUDED_COM_PATHNAME
 #include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
 
 #include <string>
+
 
 
 namespace geo {

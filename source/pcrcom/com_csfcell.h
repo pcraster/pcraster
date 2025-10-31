@@ -6,25 +6,13 @@
 #undef max
 #endif
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_ALGORITHM
-#include <algorithm>
-#define INCLUDED_ALGORITHM
-#endif
-
-#ifndef INCLUDED_LIMITS
-#include <limits>
-#define INCLUDED_LIMITS
-#endif
-
-#ifndef INCLUDED_PCRTYPES
 #include "pcrtypes.h"
-#define INCLUDED_PCRTYPES
-#endif
+
+#include <algorithm>
+#include <limits>
+
+
 
 namespace com {
 

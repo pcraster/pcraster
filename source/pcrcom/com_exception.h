@@ -1,20 +1,11 @@
 #ifndef INCLUDED_COM_EXCEPTION
 #define INCLUDED_COM_EXCEPTION
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
-#ifndef INCLUDED_STRING
 #include <string>
-#define INCLUDED_STRING
-#endif
-
-#ifndef INCLUDED_VECTOR
 #include <vector>
-#define INCLUDED_VECTOR
-#endif
+
 
 
 namespace  com {

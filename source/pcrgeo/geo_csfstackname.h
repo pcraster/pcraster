@@ -1,34 +1,15 @@
 #ifndef INCLUDED_GEO_CSFSTACKNAME
 #define INCLUDED_GEO_CSFSTACKNAME
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
+#include "com_pathname.h"
 
 #ifdef DEBUG_DEVELOP
-  #ifndef INCLUDED_IOSTREAM
   #include <iostream>
-  #define INCLUDED_IOSTREAM
-  #endif
 #endif
 
-#ifndef INCLUDED_STRING
 #include <string>
-#define INCLUDED_STRING
-#endif
-
-#ifndef INCLUDED_VECTOR
 #include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-#ifndef INCLUDED_COM_PATHNAME
-#include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
 
 
 

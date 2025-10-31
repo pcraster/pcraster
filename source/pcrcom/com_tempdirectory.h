@@ -1,12 +1,7 @@
 #ifndef INCLUDED_COM_TEMPDIRECTORY
 #define INCLUDED_COM_TEMPDIRECTORY
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
 #include <filesystem>
 #include <string>

@@ -1,22 +1,8 @@
 #ifndef INCLUDED_GEO_RASTERDIM
 #define INCLUDED_GEO_RASTERDIM
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_GEO_CELLLOC
 #include "geo_cellloc.h"
-#define INCLUDED_GEO_CELLLOC
-#endif
-
-// Module headers.
 
 
 

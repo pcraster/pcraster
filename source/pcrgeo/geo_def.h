@@ -1,10 +1,7 @@
 #ifndef INCLUDED_GEO_DEF
 #define INCLUDED_GEO_DEF
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
 // #ifndef INCLUDED_CSF
 // #include "csf.h"

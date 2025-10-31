@@ -3,26 +3,14 @@
 #include "com_pathinfo.h"
 
 #ifdef WIN32
-  #ifndef INCLUDED_COM_WIN32
   #include "com_win32.h"
-  #define INCLUDED_COM_WIN32
-  #endif
 #ifdef _MSC_VER
   // chdir / getcwd
-  #ifndef INCLUDED_DIRECT
   #include <direct.h>
-  #define INCLUDED_DIRECT
-  #endif
 #else
-  #ifndef INCLUDED_DIR
   #include <dir.h>
-  #define INCLUDED_DIR
-  #endif
 #endif
-  #ifndef INCLUDED_IO
   #include <io.h>         // access
-  #define INCLUDED_IO
-  #endif
 
   #define   F_OK 0
   #define   R_OK 4

@@ -1,16 +1,10 @@
 #ifndef INCLUDED_COM_DYNAMICLIBRARY
 #define INCLUDED_COM_DYNAMICLIBRARY
 
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
 
 #ifdef WIN32
-# ifndef INCLUDED_WINDOWS
-#  include <windows.h>
-# define INCLUDED_WINDOWS
-# endif
+  #include <windows.h>
 #endif
 
 #include <string>

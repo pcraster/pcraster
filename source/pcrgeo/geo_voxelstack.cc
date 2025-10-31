@@ -1,5 +1,6 @@
 #include "stddefx.h"
 #include "geo_voxelstack.h"
+
 #include <algorithm>
 #include <functional>
 
@@ -25,7 +26,7 @@ struct addDepth
   typedef void result_type;
   REAL8 depth{0.0};
 
-  addDepth() 
+  addDepth()
   {}
 
   void operator()(const Voxel &v)
@@ -48,7 +49,7 @@ struct addDepth
 
 geo::VoxelStack::VoxelStack()
 
-   
+
 
 {
 }

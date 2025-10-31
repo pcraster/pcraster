@@ -1,24 +1,10 @@
 #ifndef INCLUDED_COM_UNIQUESTRINGGENERATOR
 #define INCLUDED_COM_UNIQUESTRINGGENERATOR
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
-// Library headers.
-#ifndef INCLUDED_SET
 #include <set>
-#define INCLUDED_SET
-#endif
-#ifndef INCLUDED_STRING
 #include <string>
-#define INCLUDED_STRING
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 
@@ -37,7 +23,7 @@ namespace com {
  * to be unique in a certain collection <i>C</i> one does something like:
  * \code
  *  com::UniqueStringGenerator g;
- *  // pseudo code, for 
+ *  // pseudo code, for
  *  for a in all strings in C
  *    g.insert(a);
  *  g.setPrefix("NewFile-");

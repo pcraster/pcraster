@@ -1,21 +1,11 @@
 #ifndef INCLUDED_GEO_SCANCONVERSION
 #define INCLUDED_GEO_SCANCONVERSION
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
 
 #include <iostream>
 #include <vector>
+
 
 
 namespace geo {

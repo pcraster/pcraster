@@ -1,32 +1,16 @@
 #ifndef INCLUDED_COM_FILE
 #define INCLUDED_COM_FILE
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_FSTREAM
-#include <fstream>
-#define INCLUDED_FSTREAM
-#endif
-
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-#ifndef INCLUDED_COM_PATHNAME
 #include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
+
+#include <fstream>
+#include <string>
 
 
 
 /*!
-  \file 
+  \file
   functions to open, create and remove files
 
   functions to open, create and remove files, see also

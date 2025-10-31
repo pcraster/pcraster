@@ -1,22 +1,11 @@
 #ifndef INCLUDED_COM_PATHINFO
 #define INCLUDED_COM_PATHINFO
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_SYS_STAT
-#include <sys/stat.h>
-#define INCLUDED_SYS_STAT
-#endif
-
-#ifndef INCLUDED_COM_PATHNAME
 #include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
+
+#include <sys/stat.h>
+
 
 
 namespace com {

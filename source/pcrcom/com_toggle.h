@@ -1,12 +1,7 @@
 #ifndef INCLUDED_COM_TOGGLE
 #define INCLUDED_COM_TOGGLE
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
 
 

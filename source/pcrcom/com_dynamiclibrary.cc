@@ -4,14 +4,11 @@
 
 #ifdef WIN32
 
-# ifndef INCLUDED_COM_WIN32
-#  include "com_win32.h"
-#  define INCLUDED_COM_WIN32
-# endif
+  #include "com_win32.h"
 
 #else
 
-#  include <dlfcn.h>
+  #include <dlfcn.h>
 
 #include <cassert>
 #include <sstream>
@@ -29,7 +26,7 @@ bool com::DynamicLibrary::checkError() const
 #endif
 
 //! find and load  dynamic library named \a libNameNoExt
-/*! 
+/*!
    library name is given without the platform extension (.dll,.so).
    On win32 GetModuleName is tried first to see if dll is already loaded;
    wasAlreadyLoaded is set accordingly.

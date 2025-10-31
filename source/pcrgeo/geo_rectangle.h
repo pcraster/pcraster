@@ -1,22 +1,9 @@
 #ifndef INCLUDED_GEO_RECTANGLE
 #define INCLUDED_GEO_RECTANGLE
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CSFTYPES
 #include "csftypes.h"
-#define INCLUDED_CSFTYPES
-#endif
-
-#ifndef INCLUDED_GEO_POINT
 #include "geo_point.h"
-#define INCLUDED_GEO_POINT
-#endif
 
 
 

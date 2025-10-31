@@ -1,22 +1,9 @@
 #ifndef INCLUDED_GEO_WMATRIX
 #define INCLUDED_GEO_WMATRIX
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CSF
 #include "csf.h"
-#define INCLUDED_CSF
-#endif
-
-#ifndef INCLUDED_GEO_POINT
 #include "geo_point.h"
-#define INCLUDED_GEO_POINT
-#endif
 
 
 

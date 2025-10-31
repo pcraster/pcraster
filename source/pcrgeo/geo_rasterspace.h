@@ -1,22 +1,10 @@
 #ifndef INCLUDED_GEO_RASTERSPACE
 #define INCLUDED_GEO_RASTERSPACE
 
-
-
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-
-#ifndef INCLUDED_GEO_DEF
 #include "geo_def.h"
-#define INCLUDED_GEO_DEF
-#endif
-
-#ifndef INCLUDED_GEO_RASTERDIM
 #include "geo_rasterdim.h"
-#define INCLUDED_GEO_RASTERDIM
-#endif
+
+#include <iostream>
 
 
 

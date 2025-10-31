@@ -1,15 +1,11 @@
 #ifndef INCLUDED_COM_APPARGS
 #define INCLUDED_COM_APPARGS
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
-#ifndef INCLUDED_STRING
 #include <string>
-#define INCLUDED_STRING
-#endif
+
+
 
 namespace com {
 
@@ -33,7 +29,7 @@ public:
   // CREATORS
   //----------------------------------------------------------------------------
 
-                   AppArgs             (const std::string& args0, 
+                   AppArgs             (const std::string& args0,
                                         const std::string& otherArgs);
 
                    AppArgs             (const std::string& allArgs);
@@ -50,7 +46,7 @@ public:
   //----------------------------------------------------------------------------
 
   size_t           argc                () const;
-  char **          argv                () const; 
+  char **          argv                () const;
 };
 
 

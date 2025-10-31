@@ -1,32 +1,12 @@
 #ifndef INCLUDED_COM_TABLE
 #define INCLUDED_COM_TABLE
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-#ifndef INCLUDED_COM_BASICTABLE
 #include "com_basictable.h"
-#define INCLUDED_COM_BASICTABLE
-#endif
+
+#include <iostream>
+#include <string>
+#include <vector>
 
 
 

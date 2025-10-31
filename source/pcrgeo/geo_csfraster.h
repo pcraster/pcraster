@@ -1,22 +1,8 @@
 #ifndef INCLUDED_GEO_CSFRASTER
 #define INCLUDED_GEO_CSFRASTER
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_GEO_RASTER
 #include "geo_raster.h"
-#define INCLUDED_GEO_RASTER
-#endif
 
 
 

@@ -1,22 +1,8 @@
 #ifndef INCLUDED_GEO_FRACTIONFILTER
 #define INCLUDED_GEO_FRACTIONFILTER
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_GEO_FILTER
 #include "geo_filter.h"
-#define INCLUDED_GEO_FILTER
-#endif
-
-// Module headers.
 
 
 

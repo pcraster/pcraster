@@ -7,6 +7,7 @@
 #include "com_intervaltypes.h"
 #include "geo_rasterspace.h"
 #include "geo_simpleraster.h"
+
 #include <algorithm>
 #include <iomanip>
 #include <vector>

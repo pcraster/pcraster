@@ -1,27 +1,9 @@
 #ifndef INCLUDED_GEO_COUNTFILTER
 #define INCLUDED_GEO_COUNTFILTER
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_GEO_CELLLOCVISITOR
 #include "geo_celllocvisitor.h"
-#define INCLUDED_GEO_CELLLOCVISITOR
-#endif
-
-#ifndef INCLUDED_GEO_FILTER
 #include "geo_filter.h"
-#define INCLUDED_GEO_FILTER
-#endif
 
 
 

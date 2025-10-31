@@ -5,13 +5,14 @@
 #include <sys/types.h>
 
 #ifndef _MSC_VER
-# include <unistd.h>
+  #include <unistd.h>
 #else
-# include <process.h>
+  #include <process.h>
 #endif
+
 #ifndef WIN32
   #ifndef __APPLE__
-  #include <wait.h>
+    #include <wait.h>
   #endif
   #include <spawn.h>
 #endif

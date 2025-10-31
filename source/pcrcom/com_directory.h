@@ -1,15 +1,10 @@
 #ifndef INCLUDED_COM_DIRECTORY
 #define INCLUDED_COM_DIRECTORY
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_COM_PATHNAME
 #include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
+
+
 
 namespace com {
 

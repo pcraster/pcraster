@@ -1,15 +1,10 @@
 #ifndef INCLUDED_GEO_SQUARE
 #define INCLUDED_GEO_SQUARE
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_GEO_POINT
 #include "geo_point.h"
-#define INCLUDED_GEO_POINT
-#endif
+
+
 
 namespace geo {
 

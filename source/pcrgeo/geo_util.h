@@ -1,42 +1,15 @@
 #ifndef INCLUDED_GEO_UTIL
 #define INCLUDED_GEO_UTIL
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-#ifndef INCLUDED_CSFTYPES
 #include "csftypes.h"
-#define INCLUDED_CSFTYPES
-#endif
-
-#ifndef INCLUDED_GEO_DEF
 #include "geo_def.h"
-#define INCLUDED_GEO_DEF
-#endif
-
-#ifndef INCLUDED_GEO_RASTER
 #include "geo_raster.h"
-#define INCLUDED_GEO_RASTER
-#endif
-
-#ifndef INCLUDED_GEO_RASTERBOUNDARIES
 #include "geo_rasterboundaries.h"
-#define INCLUDED_GEO_RASTERBOUNDARIES
-#endif
+
+#include <iostream>
+#include <string>
 
 
 

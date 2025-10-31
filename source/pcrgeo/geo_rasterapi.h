@@ -1,29 +1,10 @@
 #ifndef INCLUDED_GEO_RASTERAPI
 #define INCLUDED_GEO_RASTERAPI
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_IRASTER
 #include "com_iraster.h"
-#define INCLUDED_COM_IRASTER
-#endif
-
-#ifndef INCLUDED_COM_RASTER
 #include "com_raster.h"
-#define INCLUDED_COM_RASTER
-#endif
-
-// Module headers.
-#ifndef INCLUDED_GEO_RASTERSPACE
 #include "geo_rasterspace.h"
-#define INCLUDED_GEO_RASTERSPACE
-#endif
 
 
 

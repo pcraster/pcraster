@@ -1,6 +1,7 @@
 #include "stddefx.h"
 #include "geo_neighbourhood.h"
 #include "dal_MathUtils.h"
+
 #include <cmath>
 #include <numeric>
 #include <algorithm>

@@ -1,15 +1,10 @@
 #ifndef INCLUDED_GEO_CELLLOCVISITOR
 #define INCLUDED_GEO_CELLLOCVISITOR
 
-#ifndef INCLUDED_GEO_CELLLOC
 #include "geo_cellloc.h"
-#define INCLUDED_GEO_CELLLOC
-#endif
-
-#ifndef INCLUDED_GEO_RASTERDIM
 #include "geo_rasterdim.h"
-#define INCLUDED_GEO_RASTERDIM
-#endif
+
+
 
 namespace geo {
 

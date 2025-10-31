@@ -1,12 +1,7 @@
 #ifndef INCLUDED_COM_DIMAP
 #define INCLUDED_COM_DIMAP
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
 
 
@@ -51,7 +46,7 @@ namespace com {
 //    com_DiMap::invTransform -- transform int -> double
 //    com_DiMap::xTransform -- transform double -> double(int)
 //    com_DiMap::limTransform(double x) -- transform double -> int
-//    com_DiMap::d1 -- first border of double interval 
+//    com_DiMap::d1 -- first border of double interval
 //    com_DiMap::d2 -- second border of double interval
 //    com_DiMap::i1 -- first border of integer interval
 //    com_DiMap::i2 -- second border of int interval
@@ -79,7 +74,7 @@ private:
 
   //! Logarithmic scale?
   bool             d_log{};
-	
+
   //! Copy constructor. NOT IMPLEMENTED.
                    DiMap               (const DiMap &m);
 

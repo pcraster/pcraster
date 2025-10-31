@@ -4,6 +4,7 @@
 #include "com_pathinfo.h"
 #include "com_strlib.h"
 #include "dal_FilesystemUtils.h"
+
 #include <algorithm>
 #include <filesystem>
 #include <cmath>

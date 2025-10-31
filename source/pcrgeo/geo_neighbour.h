@@ -1,26 +1,11 @@
 #ifndef INCLUDED_GEO_NEIGHBOUR
 #define INCLUDED_GEO_NEIGHBOUR
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_STACK
-#include <stack>
-#define INCLUDED_STACK
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_GEO_CELLLOC
 #include "geo_cellloc.h"
-#define INCLUDED_GEO_CELLLOC
-#endif
 
-// Module headers.
+#include <stack>
+
 
 
 namespace geo {
@@ -106,7 +91,7 @@ struct LDD {
     // DEVELOP_PRECOND(valid(c));
     // current version of calc::UpstreamNeighbourVisitor
     // does also check invalid codes to test
-    // replace that class with something like the 
+    // replace that class with something like the
     // mldd::OutEdgeIterator
     return 10-c;
   }

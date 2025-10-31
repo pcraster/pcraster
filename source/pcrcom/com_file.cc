@@ -3,6 +3,7 @@
 #include "com_file.h"
 #include "com_pathinfo.h"
 
+#include <cctype>
 #include <cerrno>
 #include <cstdio>
 #include <cstring>
@@ -10,7 +11,6 @@
 #include <string>
 #include <sstream>
 #include <iostream>
-#include <cctype>
 
 
 // #include <filesystem>

@@ -1,10 +1,9 @@
 #define BOOST_TEST_MODULE pcraster com labeled_progress_tracker
 #include <boost/test/unit_test.hpp>
 #include "stddefx.h"
-#include <sstream>
 #include "com_labeledprogresstracker.h"
 #include "com_progressbar.h"
-
+#include <sstream>
 
 template<typename T>
 class LabeledProgressTrackerWrapper : public com::LabeledProgressTracker<T> {

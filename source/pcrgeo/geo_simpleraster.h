@@ -17,6 +17,7 @@
 #include <list>
 
 
+
 namespace geo {
   template<class T>
     class SimpleRaster;
@@ -240,7 +241,7 @@ inline SimpleRaster<T>::SimpleRaster(const RasterDim& rd)
   \param     nc Number of columns.
   \param     v Initial value.
 
-  Enough room is allocated for nr * nc values. All values are 
+  Enough room is allocated for nr * nc values. All values are
   initialized with \a v.
 */
 template<class T>
@@ -625,7 +626,7 @@ template<class T>
   \overload
 */
 template<class T>
-const T& SimpleRaster<T>::cell(const CellLoc& loc) const 
+const T& SimpleRaster<T>::cell(const CellLoc& loc) const
 {
   return cell(loc.row(), loc.col());
 }

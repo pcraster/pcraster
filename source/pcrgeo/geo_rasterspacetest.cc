@@ -1,9 +1,9 @@
 #define BOOST_TEST_MODULE pcraster geo raster_space
 #include <boost/test/unit_test.hpp>
-#include <sstream>
 #include "com_exception.h"
 #include "geo_rasterspace.h"
 
+#include <sstream>
 
 struct Fixture
 {

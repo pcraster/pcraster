@@ -1,15 +1,8 @@
 #ifndef INCLUDED_GEO_RASTER
 #define INCLUDED_GEO_RASTER
 
-#ifndef INCLUDED_GEO_RASTERSPACE
 #include "geo_rasterspace.h"
-#define INCLUDED_GEO_RASTERSPACE
-#endif
-
-#ifndef INCLUDED_GEO_SIMPLERASTER
 #include "geo_simpleraster.h"
-#define INCLUDED_GEO_SIMPLERASTER
-#endif
 
 
 

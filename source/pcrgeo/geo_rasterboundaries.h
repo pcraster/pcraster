@@ -1,40 +1,13 @@
 #ifndef INCLUDED_GEO_RASTERBOUNDARIES
 #define INCLUDED_GEO_RASTERBOUNDARIES
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_BINARYOPERATORS
 #include "com_binaryoperators.h"
-#define INCLUDED_COM_BINARYOPERATORS
-#endif
-
-#ifndef INCLUDED_COM_FUNCTIONS
 #include "com_functions.h"
-#define INCLUDED_COM_FUNCTIONS
-#endif
-
-// Module headers.
-#ifndef INCLUDED_GEO_CELLLOCVISITOR
 #include "geo_celllocvisitor.h"
-#define INCLUDED_GEO_CELLLOCVISITOR
-#endif
-
-#ifndef INCLUDED_GEO_SIMPLERASTER
 #include "geo_simpleraster.h"
-#define INCLUDED_GEO_SIMPLERASTER
-#endif
+
+#include <iostream>
 
 
 

@@ -2,6 +2,7 @@
 #include "geo_idi.h"
 #include "com_autoarrayptr.h"
 #include "geo_point.h"
+
 #include <algorithm>
 
 namespace geo {

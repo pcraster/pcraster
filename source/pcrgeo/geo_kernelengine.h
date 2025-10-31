@@ -1,41 +1,12 @@
 #ifndef INCLUDED_GEO_KERNELENGINE
 #define INCLUDED_GEO_KERNELENGINE
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_LABELEDPROGRESSTRACKED
 #include "com_labeledprogresstracked.h"
-#define INCLUDED_COM_LABELEDPROGRESSTRACKED
-#endif
-
-#ifndef INCLUDED_COM_PROGRESSBAR
 #include "com_progressbar.h"
-#define INCLUDED_COM_PROGRESSBAR
-#endif
-
-// Module headers.
-#ifndef INCLUDED_GEO_KERNEL
 #include "geo_kernel.h"
-#define INCLUDED_GEO_KERNEL
-#endif
-
-#ifndef INCLUDED_GEO_KERNELSOURCEBUFFER
 #include "geo_kernelsourcebuffer.h"
-#define INCLUDED_GEO_KERNELSOURCEBUFFER
-#endif
-
-#ifndef INCLUDED_GEO_SIMPLERASTER
 #include "geo_simpleraster.h"
-#define INCLUDED_GEO_SIMPLERASTER
-#endif
 
 
 

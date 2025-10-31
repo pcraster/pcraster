@@ -1,28 +1,13 @@
 #ifndef INCLUDED_GEO_GRIDDEDPOINTS
 #define INCLUDED_GEO_GRIDDEDPOINTS
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_GEO_RASTERSPACE
 #include "geo_rasterspace.h"
-#define INCLUDED_GEO_RASTERSPACE
-#endif
-
-#ifndef INCLUDED_GEO_SIMPLERASTER
 #include "geo_simpleraster.h"
-#define INCLUDED_GEO_SIMPLERASTER
-#endif
 
 #include <cmath>
 #include <list>
+
 
 
 namespace geo {

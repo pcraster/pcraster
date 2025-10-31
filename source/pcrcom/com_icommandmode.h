@@ -1,27 +1,9 @@
 #ifndef INCLUDED_COM_ICOMMANDMODE
 #define INCLUDED_COM_ICOMMANDMODE
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_COM_LABELEDPROGRESSTRACKED
 #include "com_labeledprogresstracked.h"
-#define INCLUDED_COM_LABELEDPROGRESSTRACKED
-#endif
-
-#ifndef INCLUDED_COM_PROGRESSBAR
 #include "com_progressbar.h"
-#define INCLUDED_COM_PROGRESSBAR
-#endif
 
 
 

@@ -1,22 +1,9 @@
 #ifndef INCLUDED_GEO_CELLLOC
 #define INCLUDED_GEO_CELLLOC
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
-// Library headers.
-#ifndef INCLUDED_IOSTREAM
 #include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 

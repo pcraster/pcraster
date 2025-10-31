@@ -2,6 +2,7 @@
 #include "geo_rectangle.h"
 #include "geo_const.h"
 #include "geo_point.h"
+
 #include <cmath>
 
 /*!

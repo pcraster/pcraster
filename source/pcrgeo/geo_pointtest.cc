@@ -1,7 +1,7 @@
 #define BOOST_TEST_MODULE pcraster geo point
 #include <boost/test/unit_test.hpp>
-#include <algorithm>
 #include "geo_point.h"
+#include <algorithm>
 
 
 BOOST_AUTO_TEST_CASE(layout)

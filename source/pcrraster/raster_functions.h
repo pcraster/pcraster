@@ -1,18 +1,8 @@
 #ifndef INCLUDED_RASTER_FUNCTIONS
 #define INCLUDED_RASTER_FUNCTIONS
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 namespace discr {

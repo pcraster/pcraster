@@ -1,3 +1,6 @@
+#ifndef INCLUDED_MAPATTR_MAPATTR
+#define INCLUDED_MAPATTR_MAPATTR
+
 typedef struct ATTRIBUTES {
     BOOL cloneCreation;
     /* all MV_ if not set: */
@@ -42,3 +45,5 @@ typedef enum ATTR_NRS {
     ATTR_byteOrder = 13,
     ATTR_attrTable = 14
 } ATTR_NRS;
+
+#endif

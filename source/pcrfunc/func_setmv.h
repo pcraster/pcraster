@@ -1,22 +1,8 @@
 #ifndef INCLUDED_FUNC_SETMV
 #define INCLUDED_FUNC_SETMV
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_PCRTYPES
 #include "pcrtypes.h"
-#define INCLUDED_PCRTYPES
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 

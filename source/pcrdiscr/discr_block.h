@@ -1,36 +1,12 @@
 #ifndef INCLUDED_DISCR_BLOCK
 #define INCLUDED_DISCR_BLOCK
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_SIGNALS2_SIGNAL
-#include <boost/signals2/signal.hpp>
-#define INCLUDED_BOOST_SIGNALS2_SIGNAL
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_DISCR_RASTER
 #include "discr_raster.h"
-#define INCLUDED_DISCR_RASTER
-#endif
-
-#ifndef INCLUDED_DISCR_RASTERDATA
 #include "discr_rasterdata.h"
-#define INCLUDED_DISCR_RASTERDATA
-#endif
-
-#ifndef INCLUDED_DISCR_VOXELSTACK
 #include "discr_voxelstack.h"
-#define INCLUDED_DISCR_VOXELSTACK
-#endif
+
+#include <boost/signals2/signal.hpp>
 
 
 

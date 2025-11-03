@@ -1,39 +1,14 @@
 #ifndef INCLUDED_DISCR_RASTERDATA
 #define INCLUDED_DISCR_RASTERDATA
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_CSTRING
-#include <cstring>
-#define INCLUDED_CSTRING
-#endif
-#ifndef INCLUDED_ALGORITHM
-#include <algorithm>
-#define INCLUDED_ALGORITHM
-#endif
-
-#ifndef INCLUDED_BOOST_TYPE_TRAITS
-#include <boost/type_traits.hpp>
-#define INCLUDED_BOOST_TYPE_TRAITS
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_PCRTYPES
 #include "pcrtypes.h"
-#define INCLUDED_PCRTYPES
-#endif
-
-// Module headers.
-#ifndef INCLUDED_DISCR_RASTER
 #include "discr_raster.h"
-#define INCLUDED_DISCR_RASTER
-#endif
+
+#include <boost/type_traits.hpp>
+
+#include <cstring>
+#include <algorithm>
 
 
 

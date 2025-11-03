@@ -1,18 +1,7 @@
 #ifndef INCLUDED_DISCR_RASTER
 #define INCLUDED_DISCR_RASTER
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 

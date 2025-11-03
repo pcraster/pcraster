@@ -1,32 +1,12 @@
 #ifndef INCLUDED_DISCR_BLOCKDATA
 #define INCLUDED_DISCR_BLOCKDATA
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#include <boost/bind/bind.hpp>
-
-#ifndef INCLUDED_BOOST_SIGNALS2_CONNECTION
-#include <boost/signals2/connection.hpp>
-#define INCLUDED_BOOST_SIGNALS2_CONNECTION
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_PCRTYPES
 #include "pcrtypes.h"
-#define INCLUDED_PCRTYPES
-#endif
-
-// Module headers.
-#ifndef INCLUDED_DISCR_BLOCK
 #include "discr_block.h"
-#define INCLUDED_DISCR_BLOCK
-#endif
+
+#include <boost/bind/bind.hpp>
+#include <boost/signals2/connection.hpp>
 
 
 namespace discr {

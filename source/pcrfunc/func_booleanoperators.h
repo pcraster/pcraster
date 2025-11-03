@@ -1,18 +1,7 @@
 #ifndef INCLUDED_FUNC_BOOLEANOPERATORS
 #define INCLUDED_FUNC_BOOLEANOPERATORS
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 

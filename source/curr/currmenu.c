@@ -30,8 +30,6 @@
 /**********************/
 /* LOCAL DEFINITIONS  */
 /**********************/
-#define KEY_RETURN 13
-
 static WINDOW *msgBox = NULL;
 static char *locBuf = NULL;
 

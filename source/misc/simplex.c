@@ -35,11 +35,6 @@
 #define TOKEN_LEN 256
 // #define NUMBER_CHARS "0123456789.+-dDeE"
 
-#define LEX_NUMBER 300
-#define LEX_ILL_TOKEN -1
-#define LEX_READ_ERROR -2
-#define LEX_TOKEN_TOBIG -3
-
 /*********************/
 /* LOCAL DEFINITIONS */
 /*********************/

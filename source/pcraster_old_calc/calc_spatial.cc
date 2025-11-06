@@ -165,7 +165,7 @@ bool calc::Spatial::checkDebug(
            newMVsFound=c.newMVsFound();
            allZero = c.allZero();
           } break;
-  default: PRECOND(FALSE);
+  default: PRECOND(false);
   }
   if (newMVsFound && s.debugMvAssignments()) {
     // wroteOnce: prevent crash writing when more than once
@@ -201,7 +201,7 @@ void calc::Spatial::setCell(const double& value, size_t i)
     case CR_REAL4:
       com::CastCell<REAL4,double>()(d_vals[i],value);
       break;
-    default: PRECOND(FALSE);
+    default: PRECOND(false);
   }
 }
 
@@ -222,7 +222,7 @@ bool calc::Spatial::getCell(double& value, size_t i) const
       isNotMV = !pcr::isMV(d_vals[i]);
       com::CastCell<double,REAL4>()(value,d_vals[i]);
       break;
-    default: PRECOND(FALSE);
+    default: PRECOND(false);
   }
   return isNotMV;
 }

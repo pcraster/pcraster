@@ -15,7 +15,7 @@ calc::NonSpatial::NonSpatial(VS vs, double value):
    case CR_REAL4: d_vals = (REAL4)value; break;
    case CR_INT4:  d_val4 = (INT4)value;  break;
    case CR_UINT1: d_val1 = (UINT1)value; break;
-   default : POSTCOND(FALSE); // NEVER
+   default : POSTCOND(false); // NEVER
   }
   POSTCOND(!isMV());
 }
@@ -28,7 +28,7 @@ calc::NonSpatial::NonSpatial(const NonSpatial& rhs):
     case CR_REAL4:d_vals=rhs.d_vals; break;
     case CR_INT4: d_val4=rhs.d_val4; break;
     case CR_UINT1:d_val1=rhs.d_val1; break;
-    default : POSTCOND(FALSE); // NEVER
+    default : POSTCOND(false); // NEVER
   }
 }
 
@@ -93,7 +93,7 @@ void calc::NonSpatial::setCell(const double& value, size_t /* i */)
    case CR_REAL4: d_vals = (REAL4)value; break;
    case CR_INT4:  d_val4 = (INT4)value; break;
    case CR_UINT1: d_val1 = (UINT1)value; break;
-   default : POSTCOND(FALSE); // NEVER
+   default : POSTCOND(false); // NEVER
   }
 }
 
@@ -111,7 +111,7 @@ const void *calc::NonSpatial::src() const
     case CR_REAL4: return &d_vals;
     case CR_INT4:  return &d_val4;
     case CR_UINT1: return &d_val1;
-    default : POSTCOND(FALSE); // NEVER
+    default : POSTCOND(false); // NEVER
               return &d_vals;
   }
 }
@@ -122,7 +122,7 @@ void *calc::NonSpatial::dest()
     case CR_REAL4: return &d_vals;
     case CR_INT4:  return &d_val4;
     case CR_UINT1: return &d_val1;
-    default : POSTCOND(FALSE); // NEVER
+    default : POSTCOND(false); // NEVER
               return &d_vals;
   }
 }
@@ -133,7 +133,7 @@ const void *calc::NonSpatial::voidValue() const
     case CR_REAL4: return &d_vals;
     case CR_INT4:  return &d_val4;
     case CR_UINT1: return &d_val1;
-    default : POSTCOND(FALSE); // NEVER
+    default : POSTCOND(false); // NEVER
               return &d_vals;
   }
 }
@@ -145,7 +145,7 @@ double calc::NonSpatial::getValue()const
     case CR_REAL4: return (double)d_vals;
     case CR_INT4:  return (double)d_val4;
     case CR_UINT1: return (double)d_val1;
-    default : POSTCOND(FALSE); // NEVER
+    default : POSTCOND(false); // NEVER
                return (double)d_vals;
   }
 }
@@ -156,7 +156,7 @@ bool calc::NonSpatial::isMV()const
     case CR_REAL4: return pcr::isMV(d_vals);
     case CR_INT4:  return pcr::isMV(d_val4);
     case CR_UINT1: return pcr::isMV(d_val1);
-    default : POSTCOND(FALSE); // NEVER
+    default : POSTCOND(false); // NEVER
               return false;
   }
 }

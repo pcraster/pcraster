@@ -28,7 +28,7 @@ VS biggestVs(
     return VS_B;
   if(isIn(VS_L, setOfVs))
     return VS_L;
-  POSTCOND(FALSE); // NEVER
+  POSTCOND(false); // NEVER
   return VS_UNKNOWN;
 }
 

@@ -74,7 +74,7 @@ static size_t maxId(const Field *id)
      if (maxIndex!=id->nrValues())
        nrCols=id->src_4()[maxIndex];
     } break;
-    default: PRECOND(FALSE);
+    default: PRECOND(false);
   }
   return nrCols;
 }

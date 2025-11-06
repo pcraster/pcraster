@@ -329,7 +329,7 @@ int calc::Operator::firstPolyInput() const
   for(size_t i=firstFieldInput(); i < d_inputs.size(); i++)
     if (nrInSet(d_inputs[i].vs()) > 1)
       return i;
-  POSTCOND(FALSE); // CW NEVER
+  POSTCOND(false); // CW NEVER
   return 0;
 }
 
@@ -369,7 +369,7 @@ std::string calc::Operator::strInput(int nr) const
         else
            msg << "right operand";
         break;
-     default: POSTCOND(FALSE); // CW NEVER
+     default: POSTCOND(false); // CW NEVER
     }
      msg << " of operator '";
   }

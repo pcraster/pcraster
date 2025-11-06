@@ -16,6 +16,7 @@
 #include "api.h"
 #include "api_p.h"
 
+#include <stdbool.h>
 
 /* headers of this app. modules called */
 
@@ -337,7 +338,7 @@ MAP_UINT1 *InitMapUINT1(
        m->getPrivate   = (GET_FUNC)Get_in_REAL4_to_UINT1;
        break;
       default:
-        PRECOND(FALSE);
+        PRECOND(false);
      }
      POSTCOND(m->getPrivate != NULL);
      m->getMVtest = GetSpatialMVtestUINT1;
@@ -365,7 +366,7 @@ MAP_UINT1 *InitMapUINT1(
          m->nonSpatialValue = (UINT1)(*(REAL4*)v);
          break;
        default:
-         PRECOND(FALSE);
+         PRECOND(false);
        }
        m->getMVtest = GetNonSpatialUINT1;
        m->getNOtest = GetNonSpatialUINT1;

@@ -13,6 +13,8 @@
 
 #include "mathx.h"
 
+#include <stdbool.h>
+
 static void
 AddToState(REAL8 addThis, int r, int c, MAP_REAL8 *stateOut) /* Read-write state map */
 {
@@ -159,7 +161,7 @@ int Diffuse1(MAP_REAL8 *stateOut,     /* Read-write state map */
                 break;
             default:
                 printf("value is %d dirVal is %g\n", dirValQuadr, dirVal);
-                PRECOND(FALSE);
+                PRECOND(false);
             } /* switch */
         }
     return 0;

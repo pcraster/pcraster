@@ -166,11 +166,11 @@ static int PrintLegend(int startY, CSF_LEGEND *leg, int nrLeg)
                 }
                 break;
             default:
-                PRECOND(FALSE);
+                PRECOND(false);
             }
         i = 0;
     }
-    POSTCOND(FALSE);
+    POSTCOND(false);
     return 0; /* never reached */
 }
 

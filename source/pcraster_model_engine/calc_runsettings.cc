@@ -76,7 +76,7 @@ calc::RunSettings::~RunSettings()
 //   pcrxml::ModelRunSettings *m=0;
 //   try {
 //     m=new pcrxml::ModelRunSettings();
-//     PRECOND(FALSE);
+//     PRECOND(false);
 // /*
 //     for (Bindings::const_iterator pos=d_bindings.begin();
 //          pos !=d_bindings.end(); ++pos) {

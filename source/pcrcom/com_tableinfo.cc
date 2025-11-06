@@ -320,7 +320,7 @@ com::TableInfo::Layout com::TableInfo::layout() const
 //! set value of columnNamesGenerated
 void com::TableInfo::generateColumnNames()
 {
-  POSTCOND(FALSE); // TODO
+  POSTCOND(false); // TODO
   d_columnNamesGenerated=true;
 }
 

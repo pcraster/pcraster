@@ -551,7 +551,7 @@ void geo::BandMap::getCellsAsREAL4(REAL4 *buf) const
       std::for_each(buf,buf+nrCells(),tsm);
     } break;
    default:
-    PRECOND(FALSE);
+    PRECOND(false);
   }
 
 }

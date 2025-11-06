@@ -203,13 +203,13 @@ void calc::EsriMap::readInBuffer(VS readAs, void *val)
               break;
         case VS_L: com::copyCells((UINT1 *)val, val4, nrCells());
               break;
-        default: PRECOND(FALSE);
+        default: PRECOND(false);
       }
       delete [] val4;
     }
     break;
     default:
-      PRECOND(FALSE);
+      PRECOND(false);
   }
 }
 
@@ -308,7 +308,7 @@ void calc::EsriMap::writeData(const void *allValues)
     }
     break;
   default:
-    PRECOND(FALSE);
+    PRECOND(false);
   }
 }
 

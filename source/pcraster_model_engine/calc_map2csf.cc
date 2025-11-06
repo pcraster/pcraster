@@ -18,7 +18,7 @@ CSF_CR calc::biggestCellRepr(
     return CR_INT4;
   if(isIn(VS_BL, vsSet))
     return CR_UINT1;
-  POSTCOND(FALSE); // NEVER
+  POSTCOND(false); // NEVER
   return CR_REAL4;
 }
 
@@ -70,7 +70,7 @@ PCR_ME_EXPORT VS calc::csfVs2vs(
         throw com::Exception("map does not have a value scale");
         break;
     default:
-      PRECOND(FALSE); // NEVER
+      PRECOND(false); // NEVER
   }
   /* never reached */
   return VS_FIELD;

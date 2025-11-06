@@ -100,7 +100,7 @@ class EventChain : public std::vector<UDEvent>
         return e;
       }
     }
-    PRECOND(FALSE);
+    PRECOND(false);
     return e;
   }
 

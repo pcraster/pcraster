@@ -552,7 +552,7 @@ CSF_CR geo::ValueScale2CellRepr::defaultCR() const
     case VS_LDD:
         return CR_UINT1; break;
     default:
-        PRECOND(FALSE);
+        PRECOND(false);
         return CR_UNDEFINED; break;          // Never reached.
    }
 }

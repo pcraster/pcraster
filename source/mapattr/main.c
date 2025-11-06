@@ -23,6 +23,8 @@
 /* headers of this app. modules called */
 #include "mclone.h"
 
+#include <stdbool.h>
+
 /***************/
 /* EXTERNALS   */
 /***************/
@@ -473,7 +475,7 @@ static int CloneOption(const char *name)
         fprintf(stderr, "No map created\n");
         return 0;
     }
-    POSTCOND(FALSE);
+    POSTCOND(false);
     return 1;
 }
 
@@ -498,7 +500,7 @@ static int EditOption(const char *name)
         fprintf(stderr, "No map attributes written\n");
         return 0;
     }
-    POSTCOND(FALSE);
+    POSTCOND(false);
     return 1;
 }
 

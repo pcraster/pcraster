@@ -351,7 +351,7 @@ void calc::BranchExprImpl::executeOperation(
   case EXEC_IFTHEN:     execIfThen(implOp,stack);        break;
   case EXEC_EXTERN:     execExternal(implOp, stack);     break;
   default: /* do nothing */ ;
-                        POSTCOND(FALSE);
+                        POSTCOND(false);
  }
 }
 
@@ -519,7 +519,7 @@ void calc::BranchExprImpl::execGenSpatial(
     case OP_UNIQUEID:
       f.uniqueid(valRes); break;
     default:
-      POSTCOND(FALSE);
+      POSTCOND(false);
   }
   stack.push(res);
 }

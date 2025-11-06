@@ -253,10 +253,10 @@ class TopDownExprRestrictor: public ASTVisitor {
 
   //! should never be visited only expressions are visited here
   void visitAss(ASTAss   *) override
-  { PRECOND(FALSE); }
+  { PRECOND(false); }
   //! should never be visited only expressions are visited here
   void visitStat(ASTStat *) override
-  { PRECOND(FALSE); }
+  { PRECOND(false); }
 
   void subTypeDataStorage(ASTPar *p,
        const BaseExpr*  e,

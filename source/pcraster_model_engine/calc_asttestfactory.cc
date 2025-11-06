@@ -199,7 +199,7 @@ calc::ASTNode* calc::ASTTestFactory::createCode(
        n=expr;
        break;
     }
-    default : PRECOND(FALSE);
+    default : PRECOND(false);
   }
   n->setPosition(&pn);
   return n;

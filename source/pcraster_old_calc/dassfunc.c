@@ -11,6 +11,8 @@
 #include "calc.h"
 #include "dassfunc.h"
 
+#include <stdbool.h>
+
 
 /* headers of this app. modules called */
 
@@ -155,6 +157,6 @@ int Do_route(void *l, void *d, const void **ins)
   (void)d; // Shut up compiler
   (void)ins; // Shut up compiler
   PRECOND(l != NULL && d != NULL &&  ins != NULL);
-  PRECOND(FALSE);
+  PRECOND(false);
   return 1;
 }

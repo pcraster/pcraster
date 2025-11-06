@@ -116,7 +116,7 @@ const char *AttrStr(const ATTRIBUTES *a, ATTR_NRS i)
         sprintf(buf, "%g", a->maxVal);
         break;
     default:
-        PRECOND(FALSE);
+        PRECOND(false);
     }
     return (const char *)buf;
 }
@@ -161,7 +161,7 @@ void GetAttrDouble(double *v, const ATTRIBUTES *a, ATTR_NRS i)
         COPY_REAL8(v, &(a->maxVal));
         break;
     default:
-        PRECOND(FALSE);
+        PRECOND(false);
     }
 }
 
@@ -205,7 +205,7 @@ void SetAttrDouble(ATTRIBUTES *a, const double *v, ATTR_NRS i)
         COPY_REAL8(&(a->maxVal), v);
         break;
     default:
-        PRECOND(FALSE);
+        PRECOND(false);
     }
 }
 
@@ -420,8 +420,8 @@ int EditItem(double *editValue, /* read-write */
         }
         return FALSE;
     default:
-        PRECOND(FALSE);
+        PRECOND(false);
     }
-    PRECOND(FALSE);
+    PRECOND(false);
     return FALSE;
 }

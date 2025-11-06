@@ -524,7 +524,7 @@ calc::StatComputation::StatComputation(
              scalarSubject();
              break;
     default:
-         POSTCOND(FALSE);
+         POSTCOND(false);
   }
 }
 
@@ -555,7 +555,7 @@ void calc::StatComputation::classSubject() const
               }
               break;
       default:
-         POSTCOND(FALSE);
+         POSTCOND(false);
     }
   }
 }

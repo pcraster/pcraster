@@ -218,7 +218,7 @@ calc::LddGraph::LddGraph(
    // FTTB propagateUpstream not yet tested
    // I think up traversal of d_edge
    // checkin target marking source
-   POSTCOND(FALSE);
+   POSTCOND(false);
   }
 
   d_mv=org.d_mv;

@@ -55,7 +55,7 @@ calc::GlobArg::GlobArg(
   case CR_UINT1:
    d_apiMap = new ApiMapUINT1(compressor.rasterSpace(),data,field->isSpatial(),inCr);
    break;
-  default : POSTCOND(FALSE); // NEVER
+  default : POSTCOND(false); // NEVER
  }
 }
 

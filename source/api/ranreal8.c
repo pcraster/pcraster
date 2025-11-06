@@ -16,6 +16,7 @@
 #include "api.h"
 #include "api_p.h"
 
+#include <stdbool.h>
 
 /* headers of this app. modules called */
 
@@ -337,7 +338,7 @@ MAP_REAL8 *InitMapREAL8(
        m->getPrivate   = (GET_FUNC)Get_in_REAL4_to_REAL8;
        break;
       default:
-        PRECOND(FALSE);
+        PRECOND(false);
      }
      POSTCOND(m->getPrivate != NULL);
      m->getMVtest = GetSpatialMVtestREAL8;
@@ -365,7 +366,7 @@ MAP_REAL8 *InitMapREAL8(
          m->nonSpatialValue = (REAL8)(*(REAL4*)v);
          break;
        default:
-         PRECOND(FALSE);
+         PRECOND(false);
        }
        m->getMVtest = GetNonSpatialREAL8;
        m->getNOtest = GetNonSpatialREAL8;

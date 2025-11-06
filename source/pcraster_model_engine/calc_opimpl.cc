@@ -306,7 +306,7 @@ void calc::GenNonSpatial::exec          (RunTimeEnv* rte,const Operator& op,size
      *(r.dest_f())=rte->timer().currentInt(); break;
     case OP_TIMESLICE:
      *(r.dest_f())=1; break;
-    default: PRECOND(FALSE);
+    default: PRECOND(false);
   }
   a.pushResults();
 }
@@ -339,7 +339,7 @@ void calc::GenSpatial::exec              (RunTimeEnv* rte,const Operator& op,siz
       gsf.normal(r.dest_f()); break;
     case OP_UNIFORM:
       gsf.uniform(r.dest_f()); break;
-    default: PRECOND(FALSE);
+    default: PRECOND(false);
   }
   a.pushResults();
 }

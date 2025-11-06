@@ -184,7 +184,7 @@ void calc::BranchExpr::special()
         for(size_t i=startArg; i <nrArgs(); i++)
          args[i]->restrictType().restrictSystem(newVs,args[i]->spatial());
       break;
-    default: POSTCOND(FALSE);
+    default: POSTCOND(false);
   }
 }
 

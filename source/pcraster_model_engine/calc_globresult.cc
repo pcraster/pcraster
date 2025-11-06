@@ -48,7 +48,7 @@ calc::GlobResult::GlobResult(
   case CR_UINT1:
    d_apiMap = new ApiMapUINT1(c.rasterDim(),r->dest(),inCr);
    break;
-  default : POSTCOND(FALSE); // NEVER
+  default : POSTCOND(false); // NEVER
  }
 }
 

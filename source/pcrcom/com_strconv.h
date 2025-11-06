@@ -39,7 +39,7 @@ namespace com {
   template<typename T>
   T fromStringNotWorking([[maybe_unused]] const std::string& s)
   {
-    PRECOND(FALSE);
+    PRECOND(false);
     PRECOND(s.empty());
     T    value;
 #ifdef NEVER

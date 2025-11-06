@@ -27,7 +27,7 @@ template <>
   if(o->inCellRepr == CR_UINT1)
     return new ReadOnlySpatial<UINT1,UINT1>
                 ((UINT1 **)o->spatialValue, o->nrRows,o->nrCols);
-  PRECOND(FALSE);
+  PRECOND(false);
   return nullptr;
 }
 
@@ -42,7 +42,7 @@ template<>
     default:
           ;
   }
-  PRECOND(FALSE);
+  PRECOND(false);
   return nullptr;
 }
 
@@ -59,7 +59,7 @@ template<>
     default:
           ;
   }
-  PRECOND(FALSE);
+  PRECOND(false);
   return nullptr;
 }
 
@@ -101,7 +101,7 @@ template <>
   if(o->inCellRepr == CR_UINT1)
     return new ReadWriteData<UINT1,UINT1>
                 ((UINT1 **)o->spatialValue, o->nrRows,o->nrCols);
-  PRECOND(FALSE);
+  PRECOND(false);
   return nullptr;
 }
 
@@ -117,7 +117,7 @@ template<>
     default:
           ;
   }
-  PRECOND(FALSE);
+  PRECOND(false);
   return nullptr;
 }
 
@@ -135,7 +135,7 @@ template<>
     default:
           ;
   }
-  PRECOND(FALSE);
+  PRECOND(false);
   return nullptr;
 }
 

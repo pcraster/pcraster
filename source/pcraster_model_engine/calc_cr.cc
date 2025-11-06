@@ -30,6 +30,6 @@ calc::CRIndex calc::allFitCRIndex(
     return CRI_4;
   if(isIn(VS_BL, vsSet))
     return CRI_1;
-  POSTCOND(FALSE); // NEVER
+  POSTCOND(false); // NEVER
   return CRI_X;
 }

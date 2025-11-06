@@ -356,7 +356,7 @@ void calc::StatTable::run()
              scalarSubject(stack);
              break;
     default:
-         POSTCOND(FALSE);
+         POSTCOND(false);
   }
 }
 
@@ -407,7 +407,7 @@ void calc::StatTable::classSubject(
               }
               break;
       default:
-         POSTCOND(FALSE);
+         POSTCOND(false);
     }
   }
 }

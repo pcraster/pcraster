@@ -165,7 +165,7 @@ bool calc::Spatial::getCell(double& value, size_t i) const
       isNotMV = !pcr::isMV(d_vals[i]);
       com::CastCell<double,REAL4>()(value,d_vals[i]);
       break;
-    default: PRECOND(FALSE);
+    default: PRECOND(false);
       isNotMV=true;
   }
   return isNotMV;
@@ -197,7 +197,7 @@ void calc::Spatial::setCell(const double& value, size_t i)
     case CR_REAL4:
       com::CastCell<REAL4,double>()(d_vals[i],value);
       break;
-    default: PRECOND(FALSE);
+    default: PRECOND(false);
   }
 }
 
@@ -331,7 +331,7 @@ calc::Spatial* calc::Spatial::findMVinMask(
    case CRI_1 : return c.check(areaMask, src_1());
    case CRI_4 : return c.check(areaMask, src_4());
    case CRI_f : return c.check(areaMask, src_f());
-   default: PRECOND(FALSE);
+   default: PRECOND(false);
             return nullptr;
   }
 }

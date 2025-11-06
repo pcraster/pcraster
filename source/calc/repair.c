@@ -14,6 +14,7 @@
 /* headers of this app. modules called */
 #include "p_calc_list.h" /* RNeighbor, CNeighbor */
 #include <string.h>      /* memset */
+#include <stdbool.h>
 
 /***************/
 /* EXTERNALS   */
@@ -86,7 +87,7 @@ static int FixCycle(MAP_UINT1 *ldd,   /* read write */
         r = DSr;
         c = DSc;
     }
-    POSTCOND(FALSE); /* never reached */
+    POSTCOND(false); /* never reached */
     return 0;
 }
 

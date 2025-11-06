@@ -15,6 +15,8 @@
 
 #include "app_options.h"
 
+#include <stdbool.h>
+
 /* apps. called */
 
 /*************/
@@ -466,7 +468,7 @@ static BOOL GroupCheck(void)
                              * will be larger than 0
                              */
                        break;
-      case ')' : PRECOND(FALSE); break;
+      case ')' : PRECOND(false); break;
      }
     else
     {

@@ -77,7 +77,7 @@ void pcrxml::Element::write(
 /*! Is is assumed that element and its subtree is valid.
     - prepends DOCTYPE and reference to pcraster.dtd
     - in build type DEVELOP and reads back the file and
-      validates it, POSTCOND(FALSE)
+      validates it, POSTCOND(false)
     \throws com::OpenFileError or generic IO error
     \returns documentElement
  */

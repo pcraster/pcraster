@@ -15,6 +15,8 @@
 /* apps. called */
 #include "col2map.h"
 
+#include <stdbool.h>
+
 /*************/
 /* EXTERNALS */
 /*************/
@@ -331,7 +333,7 @@ static CALC_CELL Method(COMP_CELL compCell) {
     case TOTAL:
         return CalcTotal;
     default:
-        POSTCOND(FALSE);
+        POSTCOND(false);
         return NULL;
     }
 }

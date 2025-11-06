@@ -1718,7 +1718,7 @@ int calc::LexValueFile::YYcomment()
     if (c == '\n')
       return '\n';
   }
-  PRECOND(FALSE);
+  PRECOND(false);
   return 0 ;
 }
 

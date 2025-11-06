@@ -87,7 +87,7 @@ calc::BasicBlock* calc::BlockEntrance::block() const
 //! SHOULD NOT BE CALLED, since this still holds the old d_block, fixed in copy ctor of BasicBlock
 calc::BlockEntrance* calc::BlockEntrance::createClone() const
 {
-  PRECOND(FALSE);
+  PRECOND(false);
   return new BlockEntrance(nullptr);
 }
 

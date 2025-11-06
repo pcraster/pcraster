@@ -10,6 +10,6 @@ STACK_CR stackCellRepr(VS vs)
     return STACK_CR_4; 
   if(isIn(VS_BL, vs)) 
     return STACK_CR_1;
-  POSTCOND(FALSE); // NEVER
+  POSTCOND(false); // NEVER
   return STACK_CR_S;
 }

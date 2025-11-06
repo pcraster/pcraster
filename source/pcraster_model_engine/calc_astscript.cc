@@ -269,7 +269,7 @@ void calc::ASTScript::callWithClashRewrite(
        // transform DataTypeClash into SymException
        //  see for example pcrcalc372a
        buildTypesFullClosure();
-       POSTCOND(FALSE); // never here
+       POSTCOND(false); // never here
       }
  } catch (const SymException& s) {
      d_symbols.throwSym(s);

@@ -650,7 +650,7 @@ const calc::IOType& calc::ASTSymbolInfo::ioType() const
  *         case ST_EITHER     : return pcrxml::Spatial::Either;
  *         case ST_NON        :
  *         default            : return pcrxml::Spatial::NA;
- *                              PRECOND(FALSE);
+ *                              PRECOND(false);
  *                      // ST_ERROR=0,
  *                      // ST_ALL = ST_EITHER|ST_NON
  *       }

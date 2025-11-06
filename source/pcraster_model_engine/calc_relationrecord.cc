@@ -98,7 +98,7 @@ calc::RelationRecord::RelationRecord(const LOOK_UP_KEY *keys,size_t nrKeys)
                         com::GreaterThan<Float>((Float)l->l),
                         com::LessThan<Float>((Float)l->h)));                     // <l  ,h>
          break;
-       default:           PRECOND(FALSE);
+       default:           PRECOND(false);
      }
    }
 }

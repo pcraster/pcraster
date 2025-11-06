@@ -34,5 +34,5 @@ void calc::Statement::start()
 
 void calc::Statement::print(calc::InfoScript&) const
 {
-  POSTCOND(FALSE); // forgot an implementation
+  POSTCOND(false); // forgot an implementation
 }

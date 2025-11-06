@@ -38,7 +38,7 @@ PCR_VS pcrxml::dataType2PcrVs(const pcrxml::DataTypeEnum& d)
     case pcrxml::DataTypeEnum::Scalar: return VS_S;
     case pcrxml::DataTypeEnum::Directional: return VS_D;
     case pcrxml::DataTypeEnum::Ldd:        return VS_L;
-    default:              PRECOND(FALSE);
+    default:              PRECOND(false);
                             return VS_UNKNOWN;
   }
 }

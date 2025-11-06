@@ -14,6 +14,8 @@
 /* apps. called */
 #include "col2map.h"
 
+#include <stdbool.h>
+
 /*************/
 /* EXTERNALS */
 /*************/
@@ -180,7 +182,7 @@ int main(int argc, char *argv[]) {
             conflict = vs != VS_SCALAR;
             break;
         default:
-            POSTCOND(FALSE);
+            POSTCOND(false);
         }
         if (conflict) {
             CompCellError(compCell, vs);

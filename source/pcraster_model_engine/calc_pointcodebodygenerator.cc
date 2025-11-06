@@ -303,7 +303,7 @@ std::string calc::PointCodeBodyGenerator::f(
   switch(e->nrArgs()) {
     case 1: f << arg(0); break;
     case 2: f << arg(0) << "," << arg(1); break;
-    default: PRECOND(FALSE);
+    default: PRECOND(false);
   }
   f << ")";
   return f.str();
@@ -322,7 +322,7 @@ std::string calc::PointCodeBodyGenerator::templateArg(
                         break;
     case EXEC_TYPE_SAME_UN :
     case EXEC_TYPE_SAME_BIN: templateType=crType(e); break;
-      default    : POSTCOND(FALSE);
+      default    : POSTCOND(false);
   }
 
   std::ostringstream t;

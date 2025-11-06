@@ -625,11 +625,11 @@ int SmallestFittingRectangleCentre(
 }
 
 /* compute area of rectangle. DOES NOT WORK!
- * Flagged with a PRECOND(FALSE)
+ * Flagged with a PRECOND(false)
  */
 double AreaRectangle(double maxX, double minX, double maxY, double minY)
 {
-    PRECOND(FALSE);
+    PRECOND(false);
     return ((maxX - minX) * (maxY - minY));
 }
 

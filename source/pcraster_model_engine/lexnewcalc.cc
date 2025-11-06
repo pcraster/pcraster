@@ -2101,7 +2101,7 @@ void calc::LexGrammar::parseComment()
       }
       d_optionLine+=static_cast<char>(c);
     }
-    POSTCOND(FALSE); // never reached
+    POSTCOND(false); // never reached
   }
   while (c != EOF && c != '\n')
     c = yyinput();
@@ -2225,20 +2225,20 @@ const calc::Position *calc::LexToken::position() const
 
 //! only needed by ANTLR to link
 void calc::LexToken::setType(ANTLRTokenType /* t */) {
-   PRECOND(FALSE); // Bollocks
+   PRECOND(false); // Bollocks
 }
 
 //! only needed by ANTLR to link
 void calc::LexToken::setText(const ANTLRChar * /* s */) {
-    PRECOND(FALSE);// Bollocks
+    PRECOND(false);// Bollocks
 }
 
 //! only needed by ANTLR to link
 void calc::LexToken::setLine(int /* line */) {
-    PRECOND(FALSE);// Bollocks
+    PRECOND(false);// Bollocks
 }
 int calc::LexToken::getLine()const {
-    PRECOND(FALSE);// Bollocks
+    PRECOND(false);// Bollocks
     return 0;
 }
 

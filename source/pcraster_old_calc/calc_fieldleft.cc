@@ -110,7 +110,7 @@ bool calc::FieldLeft::restrictUser(const calc::FieldType& right)
   catch(const  calc::FieldParameter::RestrictError& r) {
     posError(r.what());
   }
-  PRECOND(FALSE); // never reached
+  PRECOND(false); // never reached
   return false;
 }
 

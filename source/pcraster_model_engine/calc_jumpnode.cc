@@ -96,7 +96,7 @@ void calc::JumpNode::addDeleteOnForward(const std::string& parName)
 //! SHOULD NOT BE CALLED, since this still holds the old d_block, fixed in copy ctor of BasicBlock
 calc::JumpNode *calc::JumpNode::createClone() const
 {
-  PRECOND(FALSE);
+  PRECOND(false);
   return new JumpNode(nullptr);
 }
 

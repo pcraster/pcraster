@@ -61,7 +61,7 @@ int calc::Operator::firstPolyArg() const
   for(int i=0; i < nrArgsDef(); i++)
     if (nrInSet(d_argPars[i].vs) > 1)
       return i;
-  POSTCOND(FALSE); // CW NEVER
+  POSTCOND(false); // CW NEVER
   return -1;
 }
 
@@ -83,7 +83,7 @@ std::string calc::Operator::strArg(int nr) const // return an argument descripti
         else
            msg << "right operand";
         break;
-     default: POSTCOND(FALSE); // CW NEVER
+     default: POSTCOND(false); // CW NEVER
     }
      msg << " of operator '";
   }

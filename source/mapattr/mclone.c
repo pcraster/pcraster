@@ -171,11 +171,11 @@ static int PrintLegend(int startY, ATTRIBUTES *attr, int nrAttr)
                 }
                 break;
             default:
-                PRECOND(FALSE);
+                PRECOND(false);
             }
         i = 0;
     }
-    POSTCOND(FALSE);
+    POSTCOND(false);
     return 0; /* never reached */
 }
 

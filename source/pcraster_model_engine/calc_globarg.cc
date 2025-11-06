@@ -48,7 +48,7 @@ calc::GlobArg::GlobArg(
   case CR_UINT1:
    d_apiMap = new ApiMapUINT1(sp.rasterDim(),src,spatial,inCr);
    break;
-  default : POSTCOND(FALSE); // NEVER
+  default : POSTCOND(false); // NEVER
  }
 }
 

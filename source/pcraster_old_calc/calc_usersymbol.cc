@@ -59,7 +59,7 @@ void calc::UserSymbol::print(calc::InfoScript& i)const
 
 void calc::UserSymbol::printSpecific(calc::InfoScript& )const
 {
- POSTCOND(FALSE);
+ POSTCOND(false);
 }
 
 //! create xml Data element for some parameters

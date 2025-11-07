@@ -74,7 +74,7 @@ double geomFittingRectangleStep = 16;
  */
 #define EPS 0.000004
 
-static BOOL CompEps(double a, /* r- value to compare against b */
+static bool CompEps(double a, /* r- value to compare against b */
                     double b) /* r- value to compare against a */
 {
     /* void geom::PointTest::testPerpOnCord()
@@ -106,11 +106,11 @@ LINE *CalcLine(LINE *l,          /* write-only, line created */
         PRECOND(!PointsEq(a, b));
     }
     if (a->x == b->x) {
-        l->parY = TRUE;
+        l->parY = true;
         l->xInt = Double(a->x);
         l->slope = 0.0;
     } else {
-        l->parY = FALSE;
+        l->parY = false;
         l->slope = Double(a->y - b->y) / Double(a->x - b->x);
         l->yInt = Double(a->y) - (l->slope * Double(a->x));
     }
@@ -128,18 +128,18 @@ LINE *PerpLine(LINE *perp,       /* write-only. line created */
     {
         /* perpendicular is horizontal */
         perp->slope = 0;
-        perp->parY = FALSE;
+        perp->parY = false;
         perp->yInt = k->y;
     } else {
         if (l->slope == 0) /* horizontal */
         {
             /* perpendicular is vertical */
             perp->slope = 0; /* actually undefined */
-            perp->parY = TRUE;
+            perp->parY = true;
             perp->xInt = k->x;
         } else { /* not vertical or horizontal */
             perp->slope = -1 / l->slope;
-            perp->parY = FALSE;
+            perp->parY = false;
             perp->yInt = -(perp->slope * k->x) + k->y;
             POSTCOND(CompEps(YgivenX(perp, (PTYPE)0), perp->yInt));
         }
@@ -617,11 +617,11 @@ int SmallestFittingRectangleCentre(
     Free(p);
 
     if (smallArea == 0.0)
-        return (FALSE);
+        return false;
 
     (void)RotPoint(c, -bestAngle);
     POSTCOND(PointInPolygon(c, pol, nr));
-    return (TRUE);
+    return true;
 }
 
 /* compute area of rectangle. DOES NOT WORK!

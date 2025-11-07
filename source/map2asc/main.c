@@ -68,7 +68,7 @@ int main(
     char format[128];
     const char *separator = NULL;
     HEADER head = HEAD_NONE;
-    int colWise = FALSE;
+    bool colWise = false;
     int nrCellsOnLine = 0;
     const char *mv = "1e31";
 
@@ -103,10 +103,10 @@ int main(
             separator = OptArg;
             break;
         case 'r':
-            colWise = FALSE;
+            colWise = false;
             break;
         case 'c':
-            colWise = TRUE;
+            colWise = true;
             break;
         case 'f':
             if (CheckFmt(LeftRightTrim(strcpy(format, OptArg)))) goto failure;

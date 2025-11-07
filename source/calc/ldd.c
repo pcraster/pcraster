@@ -70,7 +70,7 @@ static struct {
  * EXAMPLE
  * .so examples/pitups.tr
  */
-BOOL FlowsTo(int lddFrom,  /* ldd value of (rFrom,cFrom)  */
+bool FlowsTo(int lddFrom,  /* ldd value of (rFrom,cFrom)  */
        int rFrom,          /* row    */
        int cFrom,          /* column */
        int rToDS,          /* row of possible downstream cell */
@@ -154,7 +154,7 @@ BOOL FlowsTo(int lddFrom,  /* ldd value of (rFrom,cFrom)  */
  * EXAMPLE
  * .so examples/pitend.tr
  */
-BOOL NoInput(      const MAP_UINT1 *ldd,    /* ldd.map */
+bool NoInput(      const MAP_UINT1 *ldd,    /* ldd.map */
         int rowNr,       /* row of current cell*/
         int colNr)       /* column current cell*/
 {
@@ -168,9 +168,9 @@ BOOL NoInput(      const MAP_UINT1 *ldd,    /* ldd.map */
     int c = DownStrC(colNr, j);
     if (ldd -> Get(&lddVal, r, c, ldd)&&
       FlowsTo(lddVal, r, c, rowNr, colNr))
-        return FALSE;
+        return false;
   }
-  return TRUE;
+  return true;
 }
 
 /* Calculates the ldd value of a cell given its downstream cell.
@@ -258,7 +258,7 @@ int SumFluxUps(
  * EXAMPLE
  * .so examples/pitcorne.tr
  */
-BOOL Corner(int i)    /* direction of neighbor */
+bool Corner(int i)    /* direction of neighbor */
 {
   PRECOND(IS_VALID_LDD_CODE(i));
   PRECOND(i != LDD_PIT);

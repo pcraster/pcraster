@@ -16,4 +16,4 @@ extern int Map2Asc(
     const char *sep,
     int nrCellsOnLine,
     HEADER head,
-    BOOL colWise);
+    bool colWise);

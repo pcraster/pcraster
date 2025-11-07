@@ -81,7 +81,7 @@ static int ScanInputFile(
 
     /* overwritten in arcInfo mode: */
     double mvDbl = NAN;
-    BOOL number= CnvrtDouble(&mvDbl, mv);
+    bool number= CnvrtDouble(&mvDbl, mv);
 
     if (buf == NULL)
         return 1;

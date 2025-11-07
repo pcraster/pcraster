@@ -58,7 +58,7 @@ static com::DynamicLibrary* openGridDll(
        std::string newPath(dllDir);
        newPath+=";";
        newPath+=oldPath;
-       BOOL success=SetEnvironmentVariable("PATH",newPath.c_str());
+       bool success=SetEnvironmentVariable("PATH",newPath.c_str());
        POSTCOND(success);
        dll = openInPathDll();
        if (dll)

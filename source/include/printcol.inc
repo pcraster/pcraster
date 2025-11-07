@@ -61,12 +61,12 @@ static int PutCell(
 	REAL8 *val,		/* read-write, value to put
 	                         * only re-assigned if vs is DIRECTIONAL */
 	CSF_VS vs,
-	BOOL  number_s,
+	bool  number_s,
 	REAL8 mvVal_s,
 	const char *valFmt_s,
 	const char *mvStr_s,
 	const char *sep,        /* NULL if none */
-	BOOL  firstOutputCol)   /* value for first output column? */
+	bool  firstOutputCol)   /* value for first output column? */
 {
         char buf[256];
 

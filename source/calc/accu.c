@@ -41,7 +41,7 @@ static REAL8 All(REAL8 amount, REAL8 dummy)
     return amount;
 }
 
-extern BOOL accuCheckDomain;
+extern bool accuCheckDomain;
 
 /* Calculates the accumulated amount
  * The amount values of the cells in the catchment are accumulated and
@@ -58,7 +58,7 @@ int Accu(MAP_REAL8 *state,        /* Read-write output state map  */
 {
     /* use amount also as dummy
      */
-    accuCheckDomain = TRUE; /* I want it to be true */
+    accuCheckDomain = true; /* I want it to be true */
     switch (PerformAccu(state, flux, ldd, amount, amount, All)) {
     case 2:
         Error("Domain error on parameter");
@@ -66,6 +66,6 @@ int Accu(MAP_REAL8 *state,        /* Read-write output state map  */
     case 1:
         return 1; /* for both 1 and 2 */
     }
-    accuCheckDomain = TRUE;
+    accuCheckDomain = true;
     return 0;
 }

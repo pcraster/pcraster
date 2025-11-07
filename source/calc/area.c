@@ -433,7 +433,7 @@ int AreaTotal(MAP_REAL8 *total,      /* write-only output total map  */
     return 0;
 }
 
-static BOOL InitRecAllocFailure = FALSE;
+static bool InitRecAllocFailure = false;
 static int InitRecFastList = 0;
 
 static void InitRecDivMaj(DATA *e, int id)
@@ -447,7 +447,7 @@ static void InitRecDivMaj(DATA *e, int id)
                          /* as long as the count is set to 0 */
                          (QSORT_CMP)CmpStatCont);
     if (e->value.tab == NULL)
-        InitRecAllocFailure = TRUE;
+        InitRecAllocFailure = true;
 }
 
 static void FreeRecDivMaj(DATA *e)
@@ -477,7 +477,7 @@ static SEARCH_TABLE *MajTable(const MAP_INT4 *val,   /* input value map */
                   (QSORT_CMP)CmpStatCont);
     if (table == NULL || InitRecAllocFailure) {
         STfreeAction(table, (ACTION_REC)FreeRecDivMaj);
-        InitRecAllocFailure = FALSE;
+        InitRecAllocFailure = false;
         return NULL;
     }
 
@@ -499,7 +499,7 @@ static SEARCH_TABLE *MajTable(const MAP_INT4 *val,   /* input value map */
                 idRec = STfindOrInsert(table, &idKey);
                 if (idRec == NULL || InitRecAllocFailure) {
                     STfreeAction(table, (ACTION_REC)FreeRecDivMaj);
-                    InitRecAllocFailure = FALSE;
+                    InitRecAllocFailure = false;
                     return NULL;
                 }
 
@@ -508,7 +508,7 @@ static SEARCH_TABLE *MajTable(const MAP_INT4 *val,   /* input value map */
                 valRec = STfindOrInsert(idRec->value.tab, &valKey);
                 if (valRec == NULL || InitRecAllocFailure) {
                     STfreeAction(table, (ACTION_REC)FreeRecDivMaj);
-                    InitRecAllocFailure = FALSE;
+                    InitRecAllocFailure = false;
                     return NULL;
                 }
                 /* if first time this value found

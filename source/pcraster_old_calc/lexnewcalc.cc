@@ -525,19 +525,12 @@ goto find_rule; \
 #include "stddefx.h"
 
 #include <cstring>
-
-#ifndef INCLUDED_IOSTREAM
 #include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
 using std::cerr;
 using std::cin;
 using std::cout;
 
-#ifndef INCLUDED_MEMORY
 #include <memory>
-#define INCLUDED_MEMORY
-#endif
 
 #ifndef INCLUDED_LEXGRAMMAR
   // do not include renamed xxFlexLexer itself!
@@ -546,40 +539,14 @@ using std::cout;
 # define INCLUDED_LEXGRAMMAR
 #endif
 
-#ifndef INCLUDED_CALCTYPES
 #include "calctypes.h"
-#define INCLUDED_CALCTYPES
-#endif
-
-#ifndef INCLUDED_MAJOR_OP
 #include "major_op.h"
-#define INCLUDED_MAJOR_OP
-#endif
-
-#ifndef INCLUDED_MISC
 #include "misc.h"
-#define INCLUDED_MISC
-#endif
-
-#ifndef INCLUDED_APP
 #include "app.h" // AppParseShellLine()
-#define INCLUDED_APP
-#endif
-
-#ifndef INCLUDED_CALC_LIBERROR
 #include "calc_liberror.h" // getLibError
-#define INCLUDED_CALC_LIBERROR
-#endif
-
-#ifndef INCLUDED_CALC_POSITION
 #include "calc_position.h"
-#define INCLUDED_CALC_POSITION
-#endif
 
-#ifndef INCLUDED_CCTYPE
 #include <cctype>
-#define INCLUDED_CCTYPE
-#endif
 
 #include "tokens.h"
 #undef  YY_DECL
@@ -2028,7 +1995,7 @@ static int cmp(const void *a, const void *b)
 void calc::LexGrammar::checkSortedTable()
 /* verify if keywordTable is sorted correctly */
 {
-  static BOOL checked = FALSE;
+  static bool checked = false;
   KWORD  table[NR_KWORDS];
   size_t i = 0;
 
@@ -2038,7 +2005,7 @@ void calc::LexGrammar::checkSortedTable()
     qsort(table, NR_KWORDS, sizeof(KWORD), cmp);
     for(i=0; i < NR_KWORDS; i++)
       POSTCOND(! cmp(table+i, keywordTable+i));
-    checked = TRUE;
+    checked = true;
   }
 }
 #endif /* DEBUG */

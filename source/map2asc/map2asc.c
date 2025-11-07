@@ -33,7 +33,7 @@
 
 static char valFmt[128], mvStr[128];
 static double mvVal;
-static BOOL number;
+static bool number;
 static CSF_VS valueScale;
 
 /******************/
@@ -50,7 +50,7 @@ static int ScanMap(
     MAP *inputMap,    /* read-only input maps */
     const char *sep,
     size_t nrCellsOnLine,
-    BOOL colWise)
+    bool colWise)
 {
     size_t r = 0;
     size_t c = 0;
@@ -198,7 +198,7 @@ int Map2Asc(
     const char *sep,   /* separator, NULL if not given */
     int nrCellsOnLine, /* preset to NrCols if not given */
     HEADER head,       /* write ASCIIGRID header Y/N */
-    BOOL colWise)      /* output columnwise Y/N */
+    bool colWise)      /* output columnwise Y/N */
 {
     FILE *output = fopen(outputFile, "w");
     if (output == NULL)

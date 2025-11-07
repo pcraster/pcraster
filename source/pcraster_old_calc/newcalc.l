@@ -282,7 +282,7 @@ static int cmp(const void *a, const void *b)
 void calc::LexGrammar::checkSortedTable(void)
 /* verify if keywordTable is sorted correctly */
 {
-  static BOOL checked = FALSE;
+  static bool checked = false;
   KWORD  table[NR_KWORDS];
   size_t i;
 
@@ -292,7 +292,7 @@ void calc::LexGrammar::checkSortedTable(void)
     qsort(table, NR_KWORDS, sizeof(KWORD), cmp);
     for(i=0; i < NR_KWORDS; i++)
       POSTCOND(! cmp(table+i, keywordTable+i));
-    checked = TRUE;
+    checked = true;
   }
 }
 #endif /* DEBUG */

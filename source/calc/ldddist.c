@@ -52,7 +52,7 @@ static int CalcOut(MAP_REAL8 *out,            /* write-only output map */
                    REAL8 dw,                  /* part of friction formula 
                                  * diagonal case
                                  */
-                   BOOL useWeightedFriction)
+                   bool useWeightedFriction)
 {
     NODE *list = LinkChkNd(NULL, r, c); /* add pit */
     UINT1 pntVal = 0;
@@ -128,7 +128,7 @@ int Ldddist(MAP_REAL8 *out,            /* write-only output map  */
             const MAP_UINT1 *ldd,      /* ldd map */
             const MAP_UINT1 *points,   /* boolean points map */
             const MAP_REAL8 *friction, /* friction map */
-            BOOL useWeightedFriction)  /* true -> old ldddist, false in traveltime use */
+            bool useWeightedFriction)  /* true -> old ldddist, false in traveltime use */
 {
     int r = 0;
     int c = 0;

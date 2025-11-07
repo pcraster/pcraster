@@ -11,6 +11,8 @@
 
 #include "api.h"
 
+#include <stdbool.h>
+
 /* accu.c */
 int Accu(
   MAP_REAL8 *state,     /* write-only output state */
@@ -64,7 +66,7 @@ extern int Ldddist(
   const MAP_UINT1 *ldd,    /* ldd */
   const MAP_UINT1 *points,  /* BOOLEAN points map */
   const MAP_REAL8 *weight,  /* scalar weight map */
-  BOOL  useWeightedFriction); /* true -> old ldddist, false in traveltime use */
+  bool  useWeightedFriction); /* true -> old ldddist, false in traveltime use */
 extern int Downstreamtotal(
      MAP_REAL8 *out,                  /* write-only output map  */
      const MAP_UINT1 *ldd,             /* ldd map            */
@@ -449,7 +451,7 @@ extern int squareFraction(
 #define COORD_EQ(r1,c1,r2,c2) (((r1)==(r2))&&((c1)==(c2)))
 #define COORD_NE(r1,c1,r2,c2) (((r1)!=(r2))||((c1)!=(c2)))
 
-extern BOOL FlowsTo(int lddFrom,   /* ldd value from (rFrom, cFrom) */
+extern bool FlowsTo(int lddFrom,   /* ldd value from (rFrom, cFrom) */
        int rFrom,    /* row from source cell */
        int cFrom,   /* column from source cell */
        int rTo,    /* row possible destination cell */
@@ -466,7 +468,7 @@ extern int DownStrC( int colNr, int index);
 #endif
 
 
-extern BOOL NoInput(
+extern bool NoInput(
         const MAP_UINT1 *ldd,  /* ldd.map */
         int rowNr,     /* row of current cell*/
         int colNr);   /* column of current cell */
@@ -479,7 +481,7 @@ extern int SumFluxUps(
     const MAP_UINT1 *ldd,  /* ldd map */
     int r,      /* row of current cell */
     int c);      /* column of current cell */
-extern BOOL Corner(int direction);
+extern bool Corner(int direction);
 
 extern int vf_gradx(MAP_REAL8 *result, const MAP_REAL8 *scalar);
 extern int vf_grady(MAP_REAL8 *result, const MAP_REAL8 *scalar);

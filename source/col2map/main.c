@@ -162,7 +162,7 @@ int main(int argc, char *argv[]) {
             break;
         }
     } else {
-        BOOL conflict = FALSE;
+        bool conflict = false;
         CSF_VS vs = valueScale;
         switch (compCell) {
         case AVERAGE:

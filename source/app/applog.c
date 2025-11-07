@@ -27,7 +27,7 @@ static void SetIncrLogCounter(void)
 #else
 #include <windows.h>
 
-static BOOL TestValue(DWORD messId)
+static bool TestValue(DWORD messId)
 {
     if (messId == ERROR_SUCCESS)
         return FALSE;

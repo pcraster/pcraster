@@ -12,6 +12,8 @@
 /* global header (opt.) and globfunc's prototypes "" */
 #include "globfunc.h"
 
+#include <stdbool.h>
+
 /***************/
 /* EXTERNALS */
 /***************/
@@ -92,7 +94,7 @@ int Do_drain(void * out, const void **ins)
 int Do_ldddist(void * out, const void **ins)
 {
  return Ldddist((MAP_REAL8 *)out, (const MAP_UINT1 *)ins[0], (const MAP_UINT1 *)ins[1],
-  (const MAP_REAL8 *)ins[2], TRUE);
+  (const MAP_REAL8 *)ins[2], true);
 }
 int Do_downstreamtotal(void * out, const void **ins)
 {

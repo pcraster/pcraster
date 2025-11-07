@@ -2,7 +2,7 @@
 #define INCLUDED_MAPATTR_MAPATTR
 
 typedef struct ATTRIBUTES {
-    BOOL cloneCreation;
+    bool cloneCreation;
     /* all MV_ if not set: */
     /* not editable existing map: */
     UINT4 nrRows;

@@ -29,7 +29,7 @@
 /**********************/
 static REAL8 **recList = NULL;
 static size_t nrRecs = 0;
-static BOOL mvIsNumber;
+static bool mvIsNumber;
 static double mvValue;
 static const char *globSep;
 /******************/
@@ -107,7 +107,7 @@ static int InitMaps(INP_MAP *maps, /* list of map records */
     return 0;
 }
 
-static int ReadInputRecords(BOOL *geoEas,
+static int ReadInputRecords(bool *geoEas,
                             const char *inputFile,
                             size_t xcoord,
                             size_t ycoord,
@@ -139,7 +139,7 @@ static int ReadInputRecords(BOOL *geoEas,
                           CR_UNDEFINED,
                           cols,
                           locsep[0],
-                          FALSE))
+                          false))
     {
         Error("While reading '%s'", inputFile);
         return 1;
@@ -168,7 +168,7 @@ static int PrintValuesLine(FILE *out,           /* output file */
                            const INP_MAP *maps, /* */
                            REAL8 *values, /* values only changed if vs is DIRECTIONAL */
                            size_t nrMaps, /* size of maps and values array */
-                           BOOL append) /* append determines if we write the first col */
+                           bool append) /* append determines if we write the first col */
 {
     size_t i = 0;
     for (i = 0; i < nrMaps; i++)
@@ -197,7 +197,7 @@ static int DoAppendMode(const char *outputFile,
                         const char *inputFile,
                         INP_MAP *maps,
                         size_t nrMaps,
-                        BOOL geoEas)
+                        bool geoEas)
 {
     FILE *in = NULL;
     FILE *out = NULL;
@@ -275,7 +275,7 @@ static int DoAppendMode(const char *outputFile,
                 else /* outside */
                     SET_MV_REAL8(values + c);
             } /* eofor maps */
-        if (PrintValuesLine(out, maps, values, nrMaps, TRUE))
+        if (PrintValuesLine(out, maps, values, nrMaps, true))
         {
             Error("Can't write to '%s'", outputFile);
             goto error2;
@@ -301,9 +301,9 @@ error:
 static int DoCreateMode(const char *outputFile,
                         INP_MAP *maps,
                         size_t nrMaps,
-                        BOOL geoEas,
-                        BOOL colWise,
-                        BOOL printMV,
+                        bool geoEas,
+                        bool colWise,
+                        bool printMV,
                         size_t xco,
                         size_t yco)
 {
@@ -343,7 +343,7 @@ static int DoCreateMode(const char *outputFile,
                 double x = NAN;
                 double y = NAN;
                 size_t c = 0;
-                BOOL allMv = TRUE;
+                bool allMv = true;
                 AppRgetCoords(m, (int)row, (int)col, &xout, &yout);
                 RgetCoords(m, 1, row, col, &x, &y);
                 values[xco] = xout;
@@ -369,7 +369,7 @@ static int DoCreateMode(const char *outputFile,
                         SET_MV_REAL8(values + c);
                 } /* eofor maps */
                 if ((!allMv) || printMV)
-                    if (PrintValuesLine(out, maps, values, nrMaps, FALSE))
+                    if (PrintValuesLine(out, maps, values, nrMaps, false))
                     {
                         Error("Can't write to '%s'", outputFile);
                         goto error2;
@@ -384,7 +384,7 @@ static int DoCreateMode(const char *outputFile,
                 double x = NAN;
                 double y = NAN;
                 size_t c = 0;
-                BOOL allMv = TRUE;
+                bool allMv = true;
                 AppRgetCoords(m, (int)row, (int)col, &xout, &yout);
                 RgetCoords(m, 1, row, col, &x, &y);
                 values[xco] = xout;
@@ -410,7 +410,7 @@ static int DoCreateMode(const char *outputFile,
                         SET_MV_REAL8(values + c);
                 } /* eofor maps */
                 if ((!allMv) || printMV)
-                    if (PrintValuesLine(out, maps, values, nrMaps, FALSE))
+                    if (PrintValuesLine(out, maps, values, nrMaps, false))
                     {
                         Error("Can't write to '%s'", outputFile);
                         goto error2;
@@ -442,9 +442,9 @@ int Map2Col(INP_MAP *maps,          /* list of map records */
             size_t ycoord,          /* pos. of y column, internal index */
             const char *mv,
             const char *separator,       /* NULL if not used, use this as seperator */
-            BOOL geoEas,                 /* geoEas output Y/N */
-            BOOL colWise,                /* order of output   */
-            BOOL printMV,                /* output records even if all input maps are
+            bool geoEas,                 /* geoEas output Y/N */
+            bool colWise,                /* order of output   */
+            bool printMV,                /* output records even if all input maps are
                            * mv's
                            */
             const char *inputColumnFile) /* NULL if not used  */

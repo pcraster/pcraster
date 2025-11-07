@@ -12,6 +12,7 @@
 /********/
 #include "mathx.h"
 
+#include <stdbool.h>
 
 /***************/
 /* EXTERNALS   */
@@ -63,10 +64,10 @@ static int ReadFromFile(void)
 #endif
     int seed;
     FILE *f;
-    static BOOL once = FALSE;
+    static bool once = false;
     if (!once)
         Warning("SEED READ FROM /tmp/SetRan\n");
-    once = TRUE;
+    once = true;
     PRECOND(FileStat("/tmp/SetRan") != 1);
     if (FileStat("/tmp/SetRan") == 0) {
         f = fopen("/tmp/SetRan", "r");
@@ -85,7 +86,7 @@ static int ReadFromFile(void)
 }
 #endif
 
-static BOOL setRanCalled = FALSE;
+static bool setRanCalled = false;
 /* Initialize Ran() once
  * checks if SetRan is ever called if not it calls SetRan with
  * value 0. InitRanOnce() garantuees that SetRan is only called
@@ -118,7 +119,7 @@ void SetRan(unsigned int seed) /* value >= 0. If 0 then seed is taken from
     unsigned int a = 0;
     unsigned int b = 0;
 
-    setRanCalled = TRUE;
+    setRanCalled = true;
 
     if (seed == 0)
         /* MilliSecSeed or ReadFromFile
@@ -137,7 +138,7 @@ void SetRan(unsigned int seed) /* value >= 0. If 0 then seed is taken from
  */
 double GasDev(void)
 {
-    static BOOL iset = FALSE;
+    static bool iset = false;
     static double gset;
     double fac = NAN;
     double r = NAN;
@@ -152,10 +153,10 @@ double GasDev(void)
         } while (r >= 1.0 || r == 0.0);
         fac = sqrt(-2.0 * log(r) / r);
         gset = v1 * fac;
-        iset = TRUE;
+        iset = true;
         return (v2 * fac);
     } else {
-        iset = FALSE;
+        iset = false;
         return (gset);
     }
 }

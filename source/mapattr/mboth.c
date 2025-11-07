@@ -209,13 +209,13 @@ void SetAttrDouble(ATTRIBUTES *a, const double *v, ATTR_NRS i)
     }
 }
 
-static BOOL CheckFileId(const char *s)
+static bool CheckFileId(const char *s)
 {
     INT4 v = 0;
     return CnvrtINT4(&v, s) && v >= 0;
 }
 
-static BOOL CheckRowCols(const char *s)
+static bool CheckRowCols(const char *s)
 {
     INT4 v = 0;
     return CnvrtINT4(&v, s) && v > 0
@@ -225,31 +225,31 @@ static BOOL CheckRowCols(const char *s)
         ;
 }
 
-static BOOL CheckUL(const char *s)
+static bool CheckUL(const char *s)
 {
     REAL8 v = NAN;
     return CnvrtREAL8(&v, s);
 }
 
-static BOOL CheckCellSize(const char *s)
+static bool CheckCellSize(const char *s)
 {
     double v = NAN;
     return CnvrtREAL8(&v, s) && v > 0;
 }
 
-static BOOL CheckAngle(const char *s)
+static bool CheckAngle(const char *s)
 {
     double v = NAN;
     return CnvrtREAL8(&v, s) && v >= -90 && v <= 90;
 }
 
-static BOOL CheckMinVal(const char *s)
+static bool CheckMinVal(const char *s)
 {
     double v = NAN;
     return CnvrtREAL8(&v, s) && v <= currAttr->maxVal;
 }
 
-static BOOL CheckMaxVal(const char *s)
+static bool CheckMaxVal(const char *s)
 {
     double v = NAN;
     return CnvrtREAL8(&v, s) && v >= currAttr->minVal;
@@ -273,7 +273,7 @@ static int EditProjection(double *editValue, /* read-write */
     return i == 1; /* the other one is selected, not 0 or ESC */
 }
 
-static int EditCellRepr(double *editValue, /* read-write */
+static bool EditCellRepr(double *editValue, /* read-write */
                         int yStart,
                         int xStart)
 {
@@ -309,10 +309,10 @@ static int EditCellRepr(double *editValue, /* read-write */
         *editValue = cr[1];
         return TRUE;
     }
-    return FALSE;
+    return false;
 }
 
-static int EditValueScale(double *editValue, /* read-write */
+static bool EditValueScale(double *editValue, /* read-write */
                           int yStart,
                           int xStart)
 {
@@ -346,7 +346,7 @@ static int EditValueScale(double *editValue, /* read-write */
         currAttr->cellRepr = AppDefaultCellRepr(setVs[i]);
         return TRUE;
     }
-    return FALSE;
+    return false;
 }
 
 /* change an attribute
@@ -354,7 +354,7 @@ static int EditValueScale(double *editValue, /* read-write */
  * FALSE in no change was made or an incorrect change
  * (which is canceled) was made.
  */
-int EditItem(double *editValue, /* read-write */
+bool EditItem(double *editValue, /* read-write */
              char *editString,
              ATTR_NRS i, /* item */
              int yStart,
@@ -370,7 +370,7 @@ int EditItem(double *editValue, /* read-write */
             *editValue = v;
             return TRUE;
         }
-        return FALSE;
+        return false;
     case ATTR_valueScale:
         return EditValueScale(editValue, yStart, xStart);
     case ATTR_cellRepr:
@@ -383,20 +383,20 @@ int EditItem(double *editValue, /* read-write */
             (void)CnvrtREAL8(editValue, editString);
             return TRUE;
         }
-        return FALSE;
+        return false;
     case ATTR_cellSize:
         if (CurrGetStringCheck(
                 editString, strlen(NOT_APPL) + 1, yStart, xStart, CheckCellSize)) {
             (void)CnvrtREAL8(editValue, editString);
             return TRUE;
         }
-        return FALSE;
+        return false;
     case ATTR_angle:
         if (CurrGetStringCheck(editString, strlen(NOT_APPL) + 1, yStart, xStart, CheckAngle)) {
             (void)CnvrtREAL8(editValue, editString);
             return TRUE;
         }
-        return FALSE;
+        return false;
     case ATTR_gisFileId:
         if (CurrGetStringCheck(editString, strlen(NOT_SET) + 1, yStart, xStart, CheckFileId)) {
             INT4 v = 0;
@@ -404,24 +404,24 @@ int EditItem(double *editValue, /* read-write */
             *editValue = v;
             return TRUE;
         }
-        return FALSE;
+        return false;
     case ATTR_minVal:
         if (CurrGetStringCheck(
                 editString, strlen(NOT_APPL) + 1, yStart, xStart, CheckMinVal)) {
             (void)CnvrtREAL8(editValue, editString);
             return TRUE;
         }
-        return FALSE;
+        return false;
     case ATTR_maxVal:
         if (CurrGetStringCheck(
                 editString, strlen(NOT_APPL) + 1, yStart, xStart, CheckMaxVal)) {
             (void)CnvrtREAL8(editValue, editString);
             return TRUE;
         }
-        return FALSE;
+        return false;
     default:
         PRECOND(false);
     }
     PRECOND(false);
-    return FALSE;
+    return false;
 }

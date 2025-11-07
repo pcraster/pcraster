@@ -33,7 +33,7 @@ static FUNC funcs[MAX_FUNCS];
 /*  boolean to identify is funcs array is initialized
  *  properly
  */
-static BOOL firstTimeCalled = TRUE;
+static bool firstTimeCalled = true;
 
 /******************/
 /* IMPLEMENTATION */
@@ -46,7 +46,7 @@ int AtError(void (*func)(void))
     if (firstTimeCalled) {
         for (i = 0; i < MAX_FUNCS; i++)
             funcs[i] = NULL;
-        firstTimeCalled = FALSE;
+        firstTimeCalled = false;
     }
     for (i = 0; i < MAX_FUNCS; i++)
         if (funcs[i] == NULL) { /* free slot */

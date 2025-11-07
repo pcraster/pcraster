@@ -43,7 +43,7 @@
 /*!
  * in need of pcrcalc/test224a, repetive use of strtok was no good!
  */
-extern "C" BOOL app_setDynamicLibraries(
+extern "C" bool app_setDynamicLibraries(
   const char *flag)
 {
   std::vector<std::string> libList(com::split(flag,':'));
@@ -51,11 +51,11 @@ extern "C" BOOL app_setDynamicLibraries(
   PRECOND(libList[0] == "dynamiclibraries");
   for (size_t i=1;i < libList.size(); i++) {
    if (nrDynamicLibraryNames == 64)
-    return RetError(FALSE,"Too many dynamic libraries (max=%d)",64);
+    return RetError(false,"Too many dynamic libraries (max=%d)",64);
    dynamicLibraryNames[nrDynamicLibraryNames++] =
      StrcpyChkMalloc(libList[i].c_str());
   }
-  return TRUE;
+  return true;
 }
 
 typedef struct SAVE_STRTOK_IMPL {

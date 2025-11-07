@@ -32,7 +32,7 @@ SAVE_STRTOK createSaveStrtok(const char *s);
 void deleteSaveStrtok(SAVE_STRTOK s);
 const char* nextSaveStrtok(SAVE_STRTOK s);
 
-BOOL app_setDynamicLibraries( const char *flag);
+bool app_setDynamicLibraries( const char *flag);
 
 #ifdef __cplusplus
  }

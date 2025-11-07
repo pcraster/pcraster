@@ -28,7 +28,7 @@
 /*********************/
 /* LOCAL DEFINITIONS */
 /*********************/
-static BOOL firstTimeCalled = TRUE; /* for prefix PROGRESS */
+static bool firstTimeCalled = true; /* for prefix PROGRESS */
 
 /******************/
 /* IMPLEMENTATION */
@@ -66,7 +66,7 @@ void AppProgress(const char *fmt, /* Format control */
 
     if (firstTimeCalled) { /* Prefix only the first time */
         (void)fprintf(stderr, "\nPROGRESS:\n");
-        firstTimeCalled = FALSE;
+        firstTimeCalled = false;
     }
 
     (void)vfprintf(stderr, fmt, marker);

@@ -38,7 +38,7 @@ int FileRead(void *ptr,                  /* buffer filled */
              size_t size,                /* size of each element */
              size_t nmemb,               /* number of elements */
              FILE *f,                    /* file to read from */
-             BOOL shortItemCountIsError) /* TRUE if an error must be emitted if there are less
+             bool shortItemCountIsError) /* TRUE if an error must be emitted if there are less
                                           * than nmemb members read, FALSE otherwise
                                           */
 {
@@ -69,7 +69,7 @@ int FileReadAtPos(
     size_t nmemb,               /* number of elements */
     long pos,                   /* file position from start */
     FILE *f,                    /* file to read from */
-    BOOL shortItemCountIsError) /* TRUE if an error must be emitted if there are less
+    bool shortItemCountIsError) /* TRUE if an error must be emitted if there are less
                                  * than nmemb members read, FALSE otherwise
                                  */
 {

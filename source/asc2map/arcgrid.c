@@ -132,7 +132,7 @@ int ReadArcInfoGridAsciiHeader(
     if (NextToken())
         return 1;
     if (StrCaseEq(LexGetTokenValue(), "NODATA_VALUE")) {
-        a->mvGiven= TRUE;
+        a->mvGiven= true;
         if (GetDouble(&(a->mv)))
             return 1;
     } else {

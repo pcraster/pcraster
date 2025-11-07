@@ -19,7 +19,7 @@
 /***************/
 typedef struct RASTER {
     unsigned char *field; /* field with bits to be set */
-    BOOL covered;         /* coverage satisfied percentage */
+    bool covered;         /* coverage satisfied percentage */
     size_t nrCoverCells;  /* number of cells to be 1 for nonMV */
     size_t count;         /* number of cells equal to 1 */
     size_t rasterSize;    /* size of raster */
@@ -37,7 +37,7 @@ extern PTYPE MinPoint(PTYPE tl, PTYPE tr, PTYPE br, PTYPE bl);
 extern PTYPE MaxPoint(PTYPE tl, PTYPE tr, PTYPE br, PTYPE bl);
 extern POINT2D *PutInPol(PTYPE tlX, PTYPE tlY, PTYPE trX, PTYPE trY, PTYPE brX, PTYPE brY, PTYPE blX, PTYPE blY);
 
-extern double CalcArea(const POINT2D *inputCell, const POINT2D *outputCell, BOOL aligned);
+extern double CalcArea(const POINT2D *inputCell, const POINT2D *outputCell, bool aligned);
 
 extern void ModRaster(RASTER *raster, const POINT2D *outputcell, const POINT2D *inputcell, REAL8 angle);
 

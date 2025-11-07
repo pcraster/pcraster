@@ -12,6 +12,7 @@ extern "C" {
 #include "csftypes.h" /* see cnvrtnum.c */
 #endif
 
+#include <stdbool.h>
 
 /* error.c */
 extern int exitOnError;
@@ -91,14 +92,14 @@ char *LeftRightTrim(char *str);
 int TokenSpaceTrim(char *s);
 
 /* cnvrtnum.c */
-extern BOOL CnvrtINT4(INT4 *result, const char *str);
-extern BOOL CnvrtUINT1(UINT1 *result, const char *str);
-extern BOOL CnvrtREAL8(REAL8 *result, const char *str);
-extern BOOL CnvrtREAL4(REAL4 *result, const char *str);
-extern BOOL CnvrtDouble(double *result, const char *str);
-extern BOOL CnvrtInt(int *result, const char *str);
-extern BOOL
-CnvrtValueMV(REAL8 *vNum, const char *vStr, const char *mvStr, BOOL number, double mvDbl);
+extern bool CnvrtINT4(INT4 *result, const char *str);
+extern bool CnvrtUINT1(UINT1 *result, const char *str);
+extern bool CnvrtREAL8(REAL8 *result, const char *str);
+extern bool CnvrtREAL4(REAL4 *result, const char *str);
+extern bool CnvrtDouble(double *result, const char *str);
+extern bool CnvrtInt(int *result, const char *str);
+extern bool
+CnvrtValueMV(REAL8 *vNum, const char *vStr, const char *mvStr, bool number, double mvDbl);
 
 /* qsortcmp.c */
 extern int CmpUchar(const unsigned char *e1, const unsigned char *e2);

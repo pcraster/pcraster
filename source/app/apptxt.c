@@ -37,7 +37,7 @@
  * Returns number of columns, 0 in case of error which means it can't
  * be column file at all. 
  */
-int AppDetectColumnFile(BOOL *geoEas,         /* write-only boolean */
+int AppDetectColumnFile(bool *geoEas,         /* write-only boolean */
                         const char *fileName, /* file to read */
                         int sepChar)          /* separator char */
 {
@@ -45,10 +45,10 @@ int AppDetectColumnFile(BOOL *geoEas,         /* write-only boolean */
     int c = 0;
     int nrCols = 0;
     FILE *f = fopen(fileName, "r");
-    BOOL somethingOnLine1 = FALSE;
+    bool somethingOnLine1 = false;
     long firstNonEmptyLine = 0;
     char sepBuf[2];
-    *geoEas = FALSE;
+    *geoEas = false;
 
     if (f == NULL) {
         ErrorNested("can not open: %s\n", fileName);
@@ -58,7 +58,7 @@ int AppDetectColumnFile(BOOL *geoEas,         /* write-only boolean */
         if (c == '\n')
             break;
         else
-            somethingOnLine1 = TRUE;
+            somethingOnLine1 = true;
     }
     if (c == EOF) { /* end of file */
         if (somethingOnLine1) {
@@ -78,7 +78,7 @@ int AppDetectColumnFile(BOOL *geoEas,         /* write-only boolean */
             goto detect_plain;
         LexGetToken();
         if (LexGetLineNr() > nvarOnLine) {
-            *geoEas = TRUE;
+            *geoEas = true;
             (void)fclose(f);
             return nrCols;
         }
@@ -114,7 +114,7 @@ error:
 
 int main(void)
 {
-    BOOL geoEas;
+    bool geoEas;
     int nrCols = AppDetectColumnFile(&geoEas, "col1");
 
     (void)printf("*********************\n");

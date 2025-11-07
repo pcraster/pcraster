@@ -23,7 +23,7 @@
 /* EXTERNALS */
 /*************/
 
-int   appUnitTest=FALSE;
+bool   appUnitTest=false;
 
 /* list of dynamic library names
  * dynamicLibraryNames holds all dynamic libraries with the
@@ -48,12 +48,12 @@ const void *OptArg;
  * If appNumbersAreArguments is set to TRUE (default FALSE) then negative numbers
  * are not recognized as flags.
  */
-BOOL appNumbersAreArguments = FALSE;
+bool appNumbersAreArguments = false;
 /* define if all options should be most left
  * If appAllOptionsMostLeft is set to TRUE (default FALSE) then all arguments after
  * the first recognized arguments (non flag) are regarded as arguments, not flags.
  */
-BOOL appAllOptionsMostLeft = FALSE;
+bool appAllOptionsMostLeft = false;
 
 /* initialized with defaults:
  */
@@ -79,12 +79,12 @@ BOOL appAllOptionsMostLeft = FALSE;
 #define SET_OPT_MULT(x)       localFlagsOptions[x] = ((localFlagsOptions[x])|1)
 #define GET_OPT_MULT(x)       ((localFlagsOptions[x])&1)
 
-#define SET_FLAG(flag, s, setFlag)  {if (StrEq(flag,s)){setFlag; return TRUE;}}
+#define SET_FLAG(flag, s, setFlag)  {if (StrEq(flag,s)){setFlag; return true;}}
 
 /* FLAG stuff (LIBRARY_INTERNAL)
  */
 typedef struct FLAG {
-  BOOL   set;
+  bool   set;
   double d;
   int    i;
   const char  *s;
@@ -103,7 +103,7 @@ static char *groupResult=NULL;
 /* TRUE if --clone flag is last one parsed
  * and its argument is not yet parsed
  */
-static BOOL appCloneParsed = FALSE;
+static bool appCloneParsed = false;
 static FLAG *flagsSet;
 static int nrFlagsSet=0;
 static int nrMaxDiffFlagsSet;
@@ -117,7 +117,7 @@ static FLAG *getOptFlagSet;
 /* IMPLEMENTATION */
 /******************/
 
-static BOOL NumbersAreArg(const char *arg)
+static bool NumbersAreArg(const char *arg)
 {
    double d = NAN;
    return appNumbersAreArguments && CnvrtDouble(&d,arg);
@@ -197,21 +197,21 @@ int SetClone(const char *cloneName)
 /* Checks whether given flag fits a global option.
  * Returns 1 if flag is global, - otherwise.
  */
-int ParseGlobalFlag(
+bool ParseGlobalFlag(
    const char *flag) /* InclDoubleDash */
 {
   flag +=2; /* skip "--" */
-  appCloneParsed = FALSE;
+  appCloneParsed = false;
 
-  SET_FLAG( flag, "clone",        appCloneParsed = TRUE)
-  SET_FLAG( flag, "unittrue",     appUnitTrue = TRUE)
-  SET_FLAG( flag, "unitcell",     appUnitTrue = FALSE)
-  SET_FLAG( flag, "lddout",       appPitOnBorder = TRUE)
-  SET_FLAG( flag, "lddin",        appPitOnBorder = FALSE)
+  SET_FLAG( flag, "clone",        appCloneParsed = true)
+  SET_FLAG( flag, "unittrue",     appUnitTrue = true)
+  SET_FLAG( flag, "unitcell",     appUnitTrue = false)
+  SET_FLAG( flag, "lddout",       appPitOnBorder = true)
+  SET_FLAG( flag, "lddin",        appPitOnBorder = false)
   SET_FLAG( flag, "lddcut",       appLddDemModifier = APP_LDDDEMCUT)
   SET_FLAG( flag, "lddfill",      appLddDemModifier = APP_LDDDEMFILL)
-  SET_FLAG( flag, "nondiagonal",  appDiagonal = FALSE)
-  SET_FLAG( flag, "diagonal",     appDiagonal = TRUE)
+  SET_FLAG( flag, "nondiagonal",  appDiagonal = false)
+  SET_FLAG( flag, "diagonal",     appDiagonal = true)
   SET_FLAG( flag, "radians",      appDirection = APP_RADIANS)
   SET_FLAG( flag, "degrees",      appDirection = APP_DEGREES)
   SET_FLAG( flag, "coorcentre",   appCoord = APP_C)
@@ -226,21 +226,21 @@ int ParseGlobalFlag(
   SET_FLAG( flag, "esrigrid",     appIOstrategy = APP_IO_ESRIGRID)
   SET_FLAG( flag, "pcraster",     appIOstrategy = APP_IO_PCRASTER)
   SET_FLAG( flag, "bandmap",      appIOstrategy = APP_IO_BANDMAP)
-  SET_FLAG( flag, "single",       appDouble = FALSE)
-  SET_FLAG( flag, "double",       appDouble = TRUE)
-  SET_FLAG( flag, "small",        appLarge = FALSE)
-  SET_FLAG( flag, "large",        appLarge = TRUE)
-  SET_FLAG( flag, "matrixtable",  app2dMatrix = TRUE)
-  SET_FLAG( flag, "columntable",  app2dMatrix = FALSE)
+  SET_FLAG( flag, "single",       appDouble = false)
+  SET_FLAG( flag, "double",       appDouble = true)
+  SET_FLAG( flag, "small",        appLarge = false)
+  SET_FLAG( flag, "large",        appLarge = true)
+  SET_FLAG( flag, "matrixtable",  app2dMatrix = true)
+  SET_FLAG( flag, "columntable",  app2dMatrix = false)
   SET_FLAG( flag, "chezy",        appDynamicWaveRoughness = APP_DWR_CHEZY)
   SET_FLAG( flag, "manning",      appDynamicWaveRoughness = APP_DWR_MANNING)
-  SET_FLAG( flag, "savewd",       appSaveWD = TRUE)
-  SET_FLAG( flag, "nosavewd",     appSaveWD = FALSE)
+  SET_FLAG( flag, "savewd",       appSaveWD = true)
+  SET_FLAG( flag, "nosavewd",     appSaveWD = false)
 
   if (strncmp(flag,"dynamiclibraries:",strlen("dynamiclibraries:")) == 0)
     return app_setDynamicLibraries(flag);
 
-   return FALSE;      /*  flag does not fit */
+   return false;      /*  flag does not fit */
 }
 
 SAVE_STRTOK createSaveStrtok(const char *s);
@@ -266,7 +266,7 @@ const char* nextSaveStrtok(SAVE_STRTOK s);
     {
       if (SetClone(p))
         goto error;
-      appCloneParsed = FALSE;
+      appCloneParsed = false;
     }
     else if (!ParseGlobalFlag(p)) {
       Error("env. variable PCROPTIONS contains unknown"
@@ -344,7 +344,7 @@ static int ParseLocalFlags(
      currFlag->next = flagsSet+(nrFlagsSet++);
      currFlag = currFlag->next;
     }
-   currFlag->set = TRUE;
+   currFlag->set = true;
    if (GET_OPT_SYM(flagIndex) != OPT_SYM_NONE)
    { /* trailing argument neccessary
       */
@@ -397,16 +397,16 @@ static int ParseArgv(
   nrFlagsSet = nrMaxDiffFlagsSet;
   for (locArgPtr=1; locArgPtr < argc; locArgPtr++)
   {
-   BOOL arg = FALSE;
+   bool arg = false;
    if (!strncmp("--", locArgv[locArgPtr], (size_t)2))
    {
-    appCloneParsed = FALSE;
+    appCloneParsed = false;
     if (!ParseGlobalFlag(locArgv[locArgPtr]))
      return RetError(1,"command line contains unknown"
           " global option: '%s'", locArgv[locArgPtr]);
     if (appCloneParsed)
     {
-      appCloneParsed = FALSE;
+      appCloneParsed = false;
       locArgv[locArgPtr] = NULL; /* exclude from arguments */
       if (++locArgPtr < argc)
       {
@@ -426,7 +426,7 @@ static int ParseArgv(
           if (ParseLocalFlags(&locArgPtr, argc))
             return 1;
         } else /* not an option */
-           arg = TRUE;
+           arg = true;
    if (!arg)
         locArgv[locArgPtr] = NULL; /* exclude from arguments */
    else
@@ -448,7 +448,7 @@ static int ParseArgv(
     return 0;
 }
 
-static BOOL GroupCheck(void)
+static bool GroupCheck(void)
 {
   enum state { SINGLE, GROUP } state;
   int  groupMemberUsed = -1; /* FOR DEBUG */
@@ -505,7 +505,7 @@ int AppParseShellLine(
     {
       if (SetClone(p))
         goto error;
-      appCloneParsed = FALSE;
+      appCloneParsed = false;
     }
     else
       if (!strncmp("--", p, (size_t)2))

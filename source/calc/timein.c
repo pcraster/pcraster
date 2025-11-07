@@ -91,7 +91,7 @@ ReadTimeInputTable(const char *fileName,   /* name of file to read */
                    CSF_VS vs)              /* value scale */
 {
     TIME_TABLE *t = NULL;
-    BOOL geoEas = 0;
+    bool geoEas = 0;
     size_t nrSteps = 0;
     size_t nrCols = 0;
 

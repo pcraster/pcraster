@@ -112,7 +112,7 @@ static int ScanInputFile(
         }
 
         /* optional MV field or default ARC value: -9999 */
-        number= TRUE;
+        number= true;
         mvDbl= a.mv;
     } break;
     case ASC_GENAMAP: {

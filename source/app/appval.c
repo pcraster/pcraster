@@ -33,7 +33,7 @@
 /* Checks a value on being classified.
  * Returns TRUE if value scale is classified, FALSE otherwise.
  */
-BOOL AppIsClassified(CSF_VS vs) /* value scale to check */
+bool AppIsClassified(CSF_VS vs) /* value scale to check */
 {
     return (vs == VS_LDD || vs == VS_BOOLEAN || vs == VS_NOMINAL || vs == VS_ORDINAL ||
             vs == VS_CLASSIFIED);

@@ -1,6 +1,8 @@
 #ifndef INCLUDED_APP_APPARGS
 #define INCLUDED_APP_APPARGS
 
+#include <stdbool.h>
+
 /* stuf to install option from command
  * line and retrieve those values
  */
@@ -51,20 +53,20 @@ typedef enum APP_DWR_TYPE { /* see dynwave.cc for details */
  */
 /* for argument parsing */
 extern const void *OptArg;
-extern BOOL appNumbersAreArguments;
-extern BOOL appAllOptionsMostLeft;
+extern bool appNumbersAreArguments;
+extern bool appAllOptionsMostLeft;
 
 /* libraries loaded */
 extern char *dynamicLibraryNames[64];
 extern size_t nrDynamicLibraryNames;
 
 /* global option settings */
-extern BOOL appDiagonal;  /* diagonal or nondiagonal */
-extern BOOL app2dMatrix;  /* 2dmatrix or 2dtable */
-extern BOOL appPitOnBorder;  /* behaviour of pits on edge */
-extern BOOL appUnitTrue;  /* units true or pixel */
-extern BOOL appDouble;    /* REAL4 or REAL8 */
-extern BOOL appLarge;    /* UINT1 or INT4 */
+extern bool appDiagonal;  /* diagonal or nondiagonal */
+extern bool app2dMatrix;  /* 2dmatrix or 2dtable */
+extern bool appPitOnBorder;  /* behaviour of pits on edge */
+extern bool appUnitTrue;  /* units true or pixel */
+extern bool appDouble;    /* REAL4 or REAL8 */
+extern bool appLarge;    /* UINT1 or INT4 */
 extern char* appClone;    /* clone map */
 extern APP_LDDDEM_MOD appLddDemModifier;/* fill or cut of dem */
 extern APP_COORD appCoord;     /* centre, upperleft or lower right */
@@ -73,7 +75,7 @@ extern APP_OUTPUT appOutput;     /* progress, output or no output */
 extern APP_HEADER appHeader;
 extern APP_IO_STRATEGY appIOstrategy;
 extern APP_DWR_TYPE    appDynamicWaveRoughness; /* see dynamicwave() */
-extern BOOL appSaveWD;    /* if command should save its working directory */
+extern bool appSaveWD;    /* if command should save its working directory */
 
 /*******************/
 /*   PROTOTYPES    */
@@ -91,7 +93,7 @@ extern int GetOpt(void);
 
 void AppSetGlobalArgsDefaults(void);
 
-extern int ParseGlobalFlag(const char *flagInclDoubleDash);
+extern bool ParseGlobalFlag(const char *flagInclDoubleDash);
 extern int SetClone(const char *cloneName);
 
 extern int InstallArgs(

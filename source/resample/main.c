@@ -31,9 +31,9 @@
 /*************/
 int opPer= 0;      /* option for percentage */
 int opMax= 0;      /* option for maximum value */
-BOOL opR= FALSE;   /* option for resample factor */
-BOOL opMV= FALSE;  /* option for non-MV border */
-BOOL opB= FALSE;   /* option for border */
+bool opR= false;   /* option for resample factor */
+bool opMV= false;  /* option for non-MV border */
+bool opB= false;   /* option for border */
 int optionAcc;     /* option for accuracy */
 size_t rasterSize; /* rasterSize for cover raster */
 int nrOpFields;    /* number of option fields */
@@ -92,7 +92,7 @@ static void CalcBound(
     double cellSize,   /* cellSize */
     double angle,      /* angle of output map */
     CSF_PT projection, /* projection of output map */
-    BOOL contract)     /* to contract the map */
+    bool contract)     /* to contract the map */
 {
     double nrR = NAN;
     double nrC = NAN;
@@ -193,7 +193,7 @@ static int SmallestFittingRectangle(
     REAL8 cellSize,    /* cell size of output map */
     REAL8 angle,       /* angle of output map */
     CSF_PT projection, /* projection of output map */
-    BOOL contract)     /* map should be contracted */
+    bool contract)     /* map should be contracted */
 {
     size_t i = 0;
     REAL8 upperB= 0;
@@ -280,7 +280,7 @@ static int SmallestNonMVRect(
     REAL8 cellSize,    /* cellSize of map */
     REAL8 angle,       /* angle of output map */
     CSF_PT projection, /* projection of output map */
-    BOOL contract)     /* map should be contracted */
+    bool contract)     /* map should be contracted */
 {
     size_t i = 0;
     POINT2D leftUpperC;
@@ -295,7 +295,7 @@ static int SmallestNonMVRect(
 
     for (i= 0; i < nrMaps; i++) {
         MAP *X= in[i];
-        BOOL first= TRUE;
+        bool first= true;
         POINT2D polygon[4];
         size_t r = 0;
         size_t c = 0;
@@ -307,7 +307,7 @@ static int SmallestNonMVRect(
                 INT4 int4Val = 0;
                 REAL8 real8Val = NAN;
 
-                if ((AppIsClassified(valueScale) && RgetCell(in[i], r, c, &int4Val) && int4Val != MV_INT4) || (!AppIsClassified(valueScale) && RgetCell(in[i], r, c, &real8Val) && (IsMV(in[i], &real8Val) == FALSE))) {
+                if ((AppIsClassified(valueScale) && RgetCell(in[i], r, c, &int4Val) && int4Val != MV_INT4) || (!AppIsClassified(valueScale) && RgetCell(in[i], r, c, &real8Val) && (IsMV(in[i], &real8Val) == false))) {
                     if (first || c < leftB)
                         leftB= c;
                     if (first || c > rightB)
@@ -316,7 +316,7 @@ static int SmallestNonMVRect(
                         belowB= r;
                     if (first || r < upperB)
                         upperB= r;
-                    first= FALSE;
+                    first= false;
                 }
             }
 
@@ -521,13 +521,13 @@ int main(
     double percent= 0;
     double errFactor= 2.5;
     double resampleN= 0.0;
-    BOOL aligned= TRUE;
-    BOOL keepInputMinMax= FALSE;
+    bool aligned= true;
+    bool keepInputMinMax= false;
     REAL8 minAllInput= 0;
     REAL8 maxAllInput= 0;
-    BOOL onlyReal4= TRUE;
-    BOOL contract= FALSE;
-    BOOL onlyUint1= TRUE;
+    bool onlyReal4= true;
+    bool contract= false;
+    bool onlyUint1= true;
 
     if (InstallArgs(argc, argv, "axmp$r$c#b#e$RBCk", "resample"))
         exit(1);
@@ -535,26 +535,26 @@ int main(
     while ((c= GetOpt()) != 0) {
         switch (c) {
         case 'b':
-            opB= TRUE;
+            opB= true;
             borderval= *((int *)OptArg);
             break;
         case 'B':
-            opB= TRUE;
+            opB= true;
             borderval= 0;
             break;
         case 'C':
-            opMV= TRUE;
+            opMV= true;
             borderval= 0;
             break;
         case 'c':
-            opMV= TRUE;
+            opMV= true;
             borderval= *((int *)OptArg);
             break;
         case 'a':
-            contract= TRUE;
+            contract= true;
             break;
         case 'x':
-            contract= FALSE;
+            contract= false;
             break;
         case 'm':
             opMax= 1;
@@ -580,7 +580,7 @@ int main(
             errFactor= *((double *)OptArg);
             break;
         case 'k':
-            keepInputMinMax= TRUE;
+            keepInputMinMax= true;
             break;
         }
     }
@@ -666,7 +666,7 @@ int main(
         tmp= Mopen(argv[1 + i], M_READ);
         angleIn= RgetAngle(tmp);
         if (angleIn != 0)
-            aligned= FALSE;
+            aligned= false;
         if (tmp == NULL)
             MperrorExit(argv[1 + i], 1);
 
@@ -731,7 +731,7 @@ int main(
     RuseAs(out, AppIsClassified(valueScale) ? CR_INT4 : CR_REAL8);
 
     if (angleOut != 0)
-        aligned= FALSE;
+        aligned= false;
 
 
     /* determine raster size according wanted accuracy */

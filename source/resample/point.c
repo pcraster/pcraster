@@ -122,7 +122,7 @@ POINT2D *PutInPol(
 double CalcArea(
     const POINT2D *inputCell,  /* polygon input cell */
     const POINT2D *outputCell, /* polygon output cell */
-    BOOL aligned)              /* check whether rectangles aligned */
+    bool aligned)              /* check whether rectangles aligned */
 {
     double area = NAN;        /* area of the overlap */
     POINT2D polygon[9]; /* max. nr of points + 1 */
@@ -233,7 +233,7 @@ RASTER *InitRaster(RASTER *raster) /* write-only raster to initialize */
     for (i= 0; i < raster->rasterSize; i++)
         for (j= 0; j < raster->rasterSize; j++)
             SetBit0(raster->field, (int)((i * raster->rasterSize) + j));
-    raster->covered= FALSE;
+    raster->covered= false;
     raster->count= 0;
     return raster;
 }
@@ -258,7 +258,7 @@ RASTER *NewRaster(
     }
     raster->rasterSize= rasterSize;
     raster->nrCoverCells= nrCoverCells;
-    raster->covered= FALSE;
+    raster->covered= false;
     raster->count= 0;
     return raster;
 }

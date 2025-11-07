@@ -46,13 +46,13 @@ static const char writeStr[] = "y write & quit";
  * Returns TRUE if the key is the enter key, FALSE otherwise.
  *
  */
-BOOL CurrIsEnterKey(int key) /* key to detect */
+bool CurrIsEnterKey(int key) /* key to detect */
 {
     /* EXAMPLES * .  so examples/currisenter.tr */
     return key == KEY_RETURN || key == KEY_ENTER || key == CURR_KEY_ENTER;
 }
 
-static BOOL CurrentVis(const CURR_SELECT_BOX *b) /* read-write radio select box */
+static bool CurrentVis(const CURR_SELECT_BOX *b) /* read-write radio select box */
 {
     PRECOND(b->currPosition >= 0);
     PRECOND(b->currPosition < b->nrItems);
@@ -300,7 +300,7 @@ CurrInitMultiSelectBox(int beginY,           /* start y-coordinate */
     !!!!!!!mulktibox never initili multiBox->box = b;
 
     /* Put string of highlighted items */
-    if ((multiBox->highlighted = ChkMalloc(sizeof(BOOL) * nrItems)) == NULL)
+    if ((multiBox->highlighted = ChkMalloc(sizeof(bool) * nrItems)) == NULL)
         return NULL;
     for (i = 0; i < nrItems; i++)
         multiBox->highlighted[i] = FALSE;
@@ -312,7 +312,7 @@ CurrInitMultiSelectBox(int beginY,           /* start y-coordinate */
 /* Prints rules in window as necessary for multi select box.
  * i.e. highlight at current position and bold at selected items.
  */
-static void PrintSelectRules(const BOOL *highlighted,  /* array for highlighted items */
+static void PrintSelectRules(const bool *highlighted,  /* array for highlighted items */
                              const CURR_SELECT_BOX *b) /* box to print items from */
 {
     int i = 0;
@@ -370,8 +370,8 @@ static void PrintSelectMsgBox(const char *otherMsg)
  * Writes item if selected, key otherwise.
  * Returns 1 if item was selected, 0 if key was used.
  */
-static BOOL CurrSelectItem(int *itemOrKey,     /* write-only selected item or key */
-                           BOOL *highlighted,  /* to print highlighted */
+static bool CurrSelectItem(int *itemOrKey,     /* write-only selected item or key */
+                           bool *highlighted,  /* to print highlighted */
                            CURR_SELECT_BOX *b) /* read-write radio select box */
 {
     int c = 0;
@@ -431,7 +431,7 @@ static BOOL CurrSelectItem(int *itemOrKey,     /* write-only selected item or ke
  * Returns TRUE if item was selected, FALSE if key was used.
  *
  */
-BOOL CurrRadioSelectItem(int *itemOrKey,           /* write-only selected item or key */
+bool CurrRadioSelectItem(int *itemOrKey,           /* write-only selected item or key */
                          CURR_RADIO_SELECT_BOX *b) /* read-write radio select box */
 {
     /* EXAMPLES * .  so examples/currradio.tr */
@@ -728,7 +728,7 @@ int CurrGetRadioSelection(const char **values, /* array of possible values
  * RETURNS TRUE if string is modified, FALSE if edit is canceled
  *
  */
-BOOL CurrGetString(char *input, /* read-write string to get */
+bool CurrGetString(char *input, /* read-write string to get */
                    int len,     /* num of chars allowed in s
                                  * equals size entry box
                                  * so input must be at least len+1 chars
@@ -824,14 +824,14 @@ BOOL CurrGetString(char *input, /* read-write string to get */
  *    or string is unmodified due to incorrect input
  *
  */
-BOOL CurrGetStringCheck(char *input, /* read-write string to get */
+bool CurrGetStringCheck(char *input, /* read-write string to get */
                         int len,     /* num of chars allowed in s
                                       * equals size entry box
                                       * so input must at least be len+1 chars
                                       */
                         int y,       /* y - position of string to get */
                         int x,       /* x - position of string to get */
-                        BOOL (*Test)(const char *s))
+                        bool (*Test)(const char *s))
 {
     /* EXAMPLES * so examples/currgetstring.tr (disabled) */
     char *s = ChkMalloc((size_t)(len + 1));

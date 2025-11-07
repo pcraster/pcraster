@@ -386,7 +386,7 @@ int main(int argc,     /* number of arguments */
     /* options */
     const char *inputFileName = NULL;        /* -f input ascii file */
     const char *outputFileName = NULL;       /* -w output ascii file */
-    BOOL copy = FALSE;                       /* -c */
+    bool copy = false;                       /* -c */
     INT4 minVal = MV_INT4;
     INT4 maxVal = MV_INT4; /* -l, -h */
 
@@ -408,7 +408,7 @@ int main(int argc,     /* number of arguments */
             outputFileName = OptArg;
             break;
         case 'c':
-            copy = TRUE;
+            copy = true;
             break;
         case 'l':
             minVal = *((const int *)OptArg);
@@ -422,7 +422,7 @@ int main(int argc,     /* number of arguments */
     /* set repr for nominal and ordinal
      * at large, needed to parse the -f file
      */
-    appLarge = TRUE;
+    appLarge = true;
 
     if (copy) /* low high */
         minVal = maxVal = MV_INT4;

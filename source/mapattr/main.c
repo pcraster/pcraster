@@ -82,7 +82,7 @@ static char const *printLabels[] = {"rows       ",
                                     "native     ",
                                     "attr_tab   "};
 
-static BOOL printDataType = FALSE;
+static bool printDataType = false;
 
 /******************/
 /* IMPLEMENTATION */
@@ -151,7 +151,7 @@ static void DefaultAttr(ATTRIBUTES *a)
 
 static int ReadAttr(ATTRIBUTES *a,
                     MAP *m,
-                    BOOL readOnly) /* are the attribute only used for teh PRINT op
+                    bool readOnly) /* are the attribute only used for teh PRINT op
                        */
 {
     DefaultAttr(a);
@@ -282,7 +282,7 @@ static int DefaultCloneAttr(ATTRIBUTES *a)
         in = AppOpenClone(&dummy, NULL);
         if (in == NULL)
             return 1;
-        if (ReadAttr(a, in, FALSE)) {
+        if (ReadAttr(a, in, false)) {
             Mclose(in);
             return RetError(1, "while reading clone map '%s': %s", appClone, MstrError());
         }
@@ -305,7 +305,7 @@ static int PrintOption(const char **names, int nrNames)
             Free(a);
             return RetError(1, "while reading map '%s': %s", names[i], MstrError());
         }
-        ReadAttr(a + i, m, TRUE);
+        ReadAttr(a + i, m, true);
         colLen[i] = MAX(11, strlen(names[i]));
         Mclose(m);
     }
@@ -465,7 +465,7 @@ static int CloneOption(const char *name)
     }
     if (DefaultCloneAttr(&a))
         return 1;
-    a.cloneCreation = TRUE;
+    a.cloneCreation = true;
     switch (MakeCloneMenu(&a, name)) {
     case 0:
         return 1;
@@ -483,14 +483,14 @@ static int EditOption(const char *name)
 {
     ATTRIBUTES a;
     MAP *in = Mopen(name, M_READ_WRITE);
-    if (in == NULL || ReadAttr(&a, in, FALSE)) {
+    if (in == NULL || ReadAttr(&a, in, false)) {
         if (in != NULL)
             Mclose(in);
         return RetError(1, "while reading '%s': %s", name, MstrError());
     }
     if (a.version != 2)
         return RetError(1, "'%s' is not a version 2 map, no edits possible");
-    a.cloneCreation = FALSE;
+    a.cloneCreation = false;
     switch (MakeCloneMenu(&a, name)) {
     case 0:
         return 0;
@@ -505,7 +505,7 @@ static int EditOption(const char *name)
 }
 
 static MAP **OpenCopyOrSetMaps(ATTRIBUTES *a, /* attributes first one */
-                               BOOL copy,     /* copy or set ? 
+                               bool copy,     /* copy or set ? 
                           * if set then first map opened read write
                           * read otherwise
                           */
@@ -525,7 +525,7 @@ static MAP **OpenCopyOrSetMaps(ATTRIBUTES *a, /* attributes first one */
             goto error;
         }
         if (i == 0)
-            ReadAttr(a, maps[0], FALSE);
+            ReadAttr(a, maps[0], false);
         if (MgetVersion(maps[i]) != 2) {
             Error("'%s' is not a version 2 map, no %s possible",
                   names[i],
@@ -555,7 +555,7 @@ static int CopyOption(const char **names, int nrNames)
     MAP **maps = NULL;
     int i = 0;
 
-    maps = OpenCopyOrSetMaps(&a, TRUE, names, nrNames);
+    maps = OpenCopyOrSetMaps(&a, true, names, nrNames);
     if (maps == NULL)
         return 1;
     for (i = 1; i < nrNames; i++)
@@ -586,7 +586,7 @@ static int SetOption(const char **names, int nrNames, const ATTRIBUTES *opt)
                 1, "-s: can not change number of rows or columns of an existing map");
         if (opt->valueScale != VS_UNDEFINED)
             return RetError(1, "-s: can not change data type of an existing map");
-        maps = OpenCopyOrSetMaps(&a, FALSE, names, nrNames);
+        maps = OpenCopyOrSetMaps(&a, false, names, nrNames);
         if (maps == NULL)
             return 1;
         for (i = 0; i < nrNames; i++)
@@ -612,7 +612,7 @@ int main(int argc,     /* number of arguments */
     while ((c = GetOpt()) != 0) {
         switch (c) {
         case 'd':
-            printDataType = TRUE;
+            printDataType = true;
             mode = PRINT;
             break;
         case 'e':

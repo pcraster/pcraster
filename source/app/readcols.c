@@ -198,8 +198,8 @@ static int ReadAllColumnFile(
   size_t *nrRecordsRead,     /* write-only */
   size_t *nrMVvalueColumn,   /* write-only */
   size_t *nrMVcoordColumn,   /* write-only */
-  BOOL   skipMV,            /* skip MV- records */
-  BOOL *geoeas,        /* Geo-eas  Y/N */
+  bool   skipMV,            /* skip MV- records */
+  bool *geoeas,        /* Geo-eas  Y/N */
   const char *inputFile,/* file to read */
   const char *mv,       /* missing value used */
   int       sepChar,    /* separator character that MAY occur
@@ -217,7 +217,7 @@ static int ReadAllColumnFile(
   size_t     l = 0;
   size_t     nCols = 0;
   double  mvDbl = NAN;
-  BOOL    number = CnvrtDouble(&mvDbl ,mv);
+  bool    number = CnvrtDouble(&mvDbl ,mv);
   double  *currRecValues = NULL; /* the record values for a line parsed */
   double *resultRec = NULL; /* marked NULL if we need a new one */
   sepBuf[0] = (char)sepChar;
@@ -335,17 +335,17 @@ static int ReadAllColumnFile(
     memcpy(resultRec,currRecValues,sizeof(double)*nCols);
     resultRec = NULL;
   } else {
-     BOOL hadMV = FALSE;
+     bool hadMV = false;
      COPY_REAL8(resultRec+POS_X, currRecValues+colNr[POS_X]);
      COPY_REAL8(resultRec+POS_Y, currRecValues+colNr[POS_Y]);
      COPY_REAL8(resultRec+POS_V, currRecValues+colNr[POS_V]);
      if ( IS_MV_REAL8(resultRec+POS_V)) {
        (*nrMVvalueColumn)++;
-       hadMV = TRUE;
+       hadMV = true;
      }
      if ((IS_MV_REAL8(resultRec+POS_X)||IS_MV_REAL8(resultRec+POS_Y))) {
        (*nrMVcoordColumn)++;
-       hadMV = TRUE;
+       hadMV = true;
      }
      if (skipMV) {
       if (!hadMV)
@@ -397,7 +397,7 @@ int AppReadColumnFile(
                            * for coord mv's if it also has a mv in the value
                            * column 
                            */
-  BOOL *geoeas,           /* Geo-eas  Y/N */
+  bool *geoeas,           /* Geo-eas  Y/N */
   const char *inputFile,  /* file to read */
   const char *mv,         /* missing value used */
   CSF_VS vs,               /* type 2 value scale or
@@ -412,7 +412,7 @@ int AppReadColumnFile(
                          * in addition to white space. YOU have
                          * give a non-space default (ex. , ).
                          */
-  BOOL  skipMVrecords)    /* don't read mv records into returned recs 
+  bool  skipMVrecords)    /* don't read mv records into returned recs 
                            * But they are reported in the return counts
                            */
 {
@@ -469,7 +469,7 @@ int AppReadTimeSeriesFile(
                         */
   size_t *nrSteps,     /* size of recs array */
   size_t *nrCols,      /* size of 1 record */
-  BOOL *geoeas,           /* Geo-eas  Y/N */
+  bool *geoeas,           /* Geo-eas  Y/N */
   const char *inputFile,  /* file to read */
   const char *mv,         /* missing value used */
   CSF_VS vs,               /* type 2 value scale or
@@ -493,7 +493,7 @@ int AppReadTimeSeriesFile(
     handleAnError = HandleAnErrorTss;
 
         if ( ReadAllColumnFile(recs, nrSteps, nrCols, 
-                 &nrRecordsRead,&nrMVvalueColumn,&nrMVcoordColumn, FALSE,
+                 &nrRecordsRead,&nrMVvalueColumn,&nrMVcoordColumn, false,
                                   geoeas, inputFile, mv, sepChar,NULL) )
                  return 1;
 

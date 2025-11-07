@@ -99,7 +99,7 @@ static void CalcDirectionOut(
 {
     double cover = NAN;      /* percentage of cell being covered */
     REAL8 outVal= 0;   /* the calculated output value */
-    BOOL first= FALSE; /* initialization of outVal */
+    bool first= false; /* initialization of outVal */
     double area= 0;    /* The sum of areas */
     REAL8 cellSize= RgetCellSize(out);
 
@@ -135,7 +135,7 @@ static void CalcScalarOut(
     size_t i = 0;
     double cover = NAN;      /* percentage of cell being covered */
     REAL8 outVal= 0;   /* the calculated output value */
-    BOOL first= FALSE; /* initialization of outVal */
+    bool first= false; /* initialization of outVal */
     double area= 0;    /* The sum of areas */
     REAL8 cellSize= RgetCellSize(out);
     extern int opMax;
@@ -148,7 +148,7 @@ static void CalcScalarOut(
                     outVal= list[i].value;
                 else
                     outVal= MAX(outVal, list[i].value);
-                first= FALSE;
+                first= false;
                 area+= list[i].area; /* sum of areas */
             }
     } else {
@@ -186,7 +186,7 @@ static int AddCell(
     size_t nrMaps,             /* nr. of input maps */
     size_t c,                  /* current column number */
     size_t nrCoverCells,       /* nr. of non-MV cells for coverage */
-    BOOL aligned,              /* maps are aligned */
+    bool aligned,              /* maps are aligned */
     REAL8 angle)               /* angle of output map */
 {
     REAL8 value = NAN;
@@ -222,7 +222,7 @@ static int CalcPixel(
     size_t nrMaps,       /* nr. of input maps */
     double rOut,         /* row number pixel */
     double cOut,         /* column number pixel */
-    BOOL aligned,        /* maps are aligned */
+    bool aligned,        /* maps are aligned */
     REAL8 angle)         /* angle of output map */
 {
     PTYPE tlX = NAN;
@@ -358,7 +358,7 @@ int SampleCont(
     size_t nrMaps,     /* number of input maps */
     size_t nrRows,     /* number of rows */
     size_t nrCols,     /* number of columns */
-    BOOL aligned,      /* maps are aligned */
+    bool aligned,      /* maps are aligned */
     REAL8 angle)       /* angle of output map */
 {
     double r = NAN;

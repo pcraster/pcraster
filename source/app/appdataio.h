@@ -31,19 +31,19 @@ extern void AppPutVal(MAP *outputFile,   /* map to write */
                       size_t col,        /* column of pixel to put */
                       CSF_VS valueScale, /* value scale */
                       double val,        /* value to put */
-                      BOOL mv);          /* true if value is mv */
+                      bool mv);          /* true if value is mv */
 
 extern int AppCheckVal(const char *v, CSF_VS valueScale, CSF_CR cellRepr);
 extern int AppCheckValNum(REAL8 v, CSF_VS valueScale, CSF_CR cellRepr);
 
-extern BOOL AppIsClassified(CSF_VS vs);
+extern bool AppIsClassified(CSF_VS vs);
 
 /* apptime.c */
 extern void AppDynamicProgress(void);
 extern void AppEndDynamicProgress(void);
 
 /* apptxt.c */
-extern int AppDetectColumnFile(BOOL *geoEas, const char *fileName, int sepChar);
+extern int AppDetectColumnFile(bool *geoEas, const char *fileName, int sepChar);
 /* appcr.c */
 extern CSF_CR AppDefaultCellRepr(CSF_VS vs);
 
@@ -62,18 +62,18 @@ extern int AppReadColumnFile(REAL8 ***recs,
                              size_t *nrRecordsRead,
                              size_t *nrMVvalueColumn,
                              size_t *nrMVcoordColumn,
-                             BOOL *geoeas,
+                             bool *geoeas,
                              const char *inputFile,
                              const char *mv,
                              CSF_VS vs,
                              CSF_CR cr,
                              const size_t *colNr,
                              int sepChar,
-                             BOOL skipMVrecords);
+                             bool skipMVrecords);
 extern int AppReadTimeSeriesFile(REAL8 ***recs,
                                  size_t *nrSteps,
                                  size_t *nrCols,
-                                 BOOL *geoeas,
+                                 bool *geoeas,
                                  const char *inputFile,
                                  const char *mv,
                                  CSF_VS vs,

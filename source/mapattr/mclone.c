@@ -29,7 +29,7 @@ extern WINDOW *getWin; /* window to enter data for user */
 /* LOCAL DECLARATIONS */
 /**********************/
 static CURR_RADIO_SELECT_BOX *attrBox;
-static BOOL allowEdit[NR_MENU_ATTRS];
+static bool allowEdit[NR_MENU_ATTRS];
 
 /**********************/
 /* LOCAL DEFINITIONS  */
@@ -142,7 +142,7 @@ static int PrintLegend(int startY, ATTRIBUTES *attr, int nrAttr)
             switch (i) { /* it's an otherKey */
             case 'q':
                 if (lastEdit != -1) {
-                    BOOL valid = 0;
+                    bool valid = 0;
                     CurrRadioPrintItems(attrBox);
                     valid = (attr->nrRows != MV_UINT4 && attr->nrCols != MV_UINT4);
                     if (!valid) {

@@ -36,7 +36,7 @@
 
 static int SetNumber(
   LOOK_UP_KEY *k,
-  BOOL low,
+  bool low,
   CSF_VS vs)
 {
   const char *sv = LexGetTokenValue();
@@ -106,7 +106,7 @@ static int ParseKey(
     case STATE_START: switch(t) {
        case LEX_NUMBER:
       k->t = TEST_ONE;
-          if (SetNumber(k, TRUE, vs))
+          if (SetNumber(k, true, vs))
             return 1;
           return 0;
            case '[' :
@@ -126,7 +126,7 @@ static int ParseKey(
      PRECOND(k->t == TEST_GE_INF || k->t == TEST_GT_INF);
          switch(t) {
        case LEX_NUMBER:
-          if (SetNumber(k, TRUE, vs))
+          if (SetNumber(k, true, vs))
             return 1;
           state = STATE_COMMA;
           break;
@@ -145,7 +145,7 @@ static int ParseKey(
          POSTCOND(k->t==TEST_GE_INF||k->t==TEST_GT_INF ||k->t==TEST_INF_INF);
           switch(t) {
        case LEX_NUMBER:
-          if (SetNumber(k, FALSE, vs))
+          if (SetNumber(k, false, vs))
             return 1;
           state = STATE_HIGHTOKEN;
           if (k->t != TEST_INF_INF && (k->l > k->h) )
@@ -358,7 +358,7 @@ LOOK_UP_TABLE *ReadLookupTable(
   LOOK_UP_KEY *k = NULL;
   LOOK_UP_TABLE *t = NULL;
   size_t nrColsExp = 0;
-  BOOL matrRead = (nrKeys == 2 && app2dMatrix);
+  bool matrRead = (nrKeys == 2 && app2dMatrix);
   k = ReadLookupRecs(&nrCols, &nrRecs, nrKeys,
                       matrRead ? VS_UNDEFINED : outputVs, f);
   if (outputVs == VS_UNDEFINED)

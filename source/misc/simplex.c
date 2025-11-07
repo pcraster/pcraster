@@ -45,7 +45,7 @@ static char specialSym[TOKEN_LEN];
 static int lastToken;             /* always remember last valid token
                         * for LexUngetToken()
                         */
-static BOOL tokenPending = FALSE; /* for LexUngetToken */
+static bool tokenPending = false; /* for LexUngetToken */
 
 /******************/
 /* IMPLEMENTATION */
@@ -91,7 +91,7 @@ void LexInstall(FILE *fd,                   /* file to read from */
     inFd = fd;
     lineNr = 1;
     buf[0] = '\0';
-    tokenPending = FALSE; /* for LexUngetToken */
+    tokenPending = false; /* for LexUngetToken */
 }
 
 /* get value of last parsed token
@@ -149,7 +149,7 @@ int LexGetToken(void)
     int i = 0;
 
     if (tokenPending) {
-        tokenPending = FALSE;
+        tokenPending = false;
         return lastToken;
     }
     buf[0] = '\0'; /* ensure that LexGetTokenValue returns sensible things */
@@ -211,7 +211,7 @@ int LexGetToken(void)
 void LexUngetToken(void)
 {
     PRECOND(buf[0] != '\0');
-    tokenPending = TRUE;
+    tokenPending = true;
 }
 
 /* Skip a number of lines in the Lex input

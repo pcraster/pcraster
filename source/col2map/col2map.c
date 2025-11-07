@@ -362,7 +362,7 @@ int Col2Map(
     size_t nrRecordsRead = 0;
     size_t nrMVvalueColumn = 0;
     size_t nrMVcoordColumn = 0;
-    BOOL geoeas = 0; /* Geo-eas  Y/N */
+    bool geoeas = 0; /* Geo-eas  Y/N */
     CALC_CELL calcMultPixel = Method(compCell);
     REAL8 **orgRecList = NULL;
 
@@ -381,7 +381,7 @@ int Col2Map(
             RgetCellRepr(out),
             colNr,
             sepChar,
-            TRUE)) {
+            true)) {
         Error("while reading '%s'", inputFile);
         goto error1;
     }

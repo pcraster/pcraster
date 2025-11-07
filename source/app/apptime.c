@@ -24,7 +24,7 @@
 /*********************/
 /* LOCAL DEFINITIONS */
 /*********************/
-static BOOL firstDynTimeCalled = TRUE;
+static bool firstDynTimeCalled = true;
 static  time_t start  = ZERO;
 static  time_t paused = ZERO;
 static  char  timeBuf[16];
@@ -88,7 +88,7 @@ void AppDynamicProgress(void)
   return;
  if(firstDynTimeCalled)
  {
-  firstDynTimeCalled = FALSE;
+  firstDynTimeCalled = false;
   StartTimer();
   (void)fprintf(stderr,  "PROGRESS:\n");
  }

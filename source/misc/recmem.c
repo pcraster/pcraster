@@ -216,7 +216,7 @@ static void AddToFreeList(RECMEM_HEAP *r)
  * Returns 
  * TRUE if valid, FALSE if not.
  */
-BOOL VerifyRecPtr(void *m, RECMEM_HEAP *r)
+bool VerifyRecPtr(void *m, RECMEM_HEAP *r)
 {
     size_t i;
     RECMEM_LINK *p;
@@ -231,14 +231,14 @@ BOOL VerifyRecPtr(void *m, RECMEM_HEAP *r)
                     (void)fprintf(stderr,
                                   "Trace used record is on"
                                   "freeList!\n");
-                    return (FALSE); /* record is
+                    return false; /* record is
                                        used: can't be in
                                        free list */
                 }
-            return (TRUE);
+            return true;
         }
     (void)fprintf(stderr, "this pointer is not from this heap\n");
-    return (FALSE);
+    return false;
 }
 
 #endif /* DEBUG */

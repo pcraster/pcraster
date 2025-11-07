@@ -31,12 +31,12 @@
 /******************/
 /* tests if endptr point to string with NOT only space
  */
-static BOOL NotOnlySpace(const char *s)
+static bool NotOnlySpace(const char *s)
 {
     while (*s != '\0')
         if (!isspace(*(s++)))
-            return TRUE;
-    return FALSE;
+            return true;
+    return false;
 }
 
 
@@ -51,7 +51,7 @@ static BOOL NotOnlySpace(const char *s)
  * If FALSE is returned and errno is set to ERANGE then the conversion
  * error is like the ERANGE setting of strtod.
  */
-BOOL CnvrtINT4(INT4 *result,    /* write-only. resulting number */
+bool CnvrtINT4(INT4 *result,    /* write-only. resulting number */
                const char *str) /* string to convert to an INT4 */
 {
     double d = NAN;
@@ -61,13 +61,13 @@ BOOL CnvrtINT4(INT4 *result,    /* write-only. resulting number */
 
     /* is it a valid double ? */
     if (!CnvrtDouble(&d, str))
-        return FALSE;
+        return false;
 
     /* is there a fraction ? */
     if ((d != floor(d)) || (d < ((double)INT4_MIN)) || (d > ((double)INT4_MAX)))
-        return FALSE;
+        return false;
     *result = (INT4)d;
-    return TRUE;
+    return true;
 }
 
 /* Converts a string to an UINT1 number
@@ -82,7 +82,7 @@ BOOL CnvrtINT4(INT4 *result,    /* write-only. resulting number */
  * If FALSE is returned and errno is set to ERANGE then the conversion
  * error is like the ERANGE setting of strtod.
  */
-BOOL CnvrtUINT1(UINT1 *result,   /* write-only. resulting number */
+bool CnvrtUINT1(UINT1 *result,   /* write-only. resulting number */
                 const char *str) /* string to convert to an UINT1 */
 {
     INT4 v = 0;
@@ -92,9 +92,9 @@ BOOL CnvrtUINT1(UINT1 *result,   /* write-only. resulting number */
 
     if (CnvrtINT4(&v, str) && ((INT4)UINT1_MIN) <= v && v <= ((INT4)UINT1_MAX)) {
         *result = (UINT1)v;
-        return TRUE;
+        return true;
     }
-    return FALSE;
+    return false;
 }
 
 /* Converts a string to an REAL8 number.
@@ -108,7 +108,7 @@ BOOL CnvrtUINT1(UINT1 *result,   /* write-only. resulting number */
  * If FALSE is returned and errno is set to ERANGE then the conversion
  * error is like the ERANGE setting of strtod.
  */
-BOOL CnvrtREAL8(REAL8 *result,   /* write-only. resulting number */
+bool CnvrtREAL8(REAL8 *result,   /* write-only. resulting number */
                 const char *str) /* string to convert to an REAL8 */
 {
     double v = NAN;
@@ -117,14 +117,14 @@ BOOL CnvrtREAL8(REAL8 *result,   /* write-only. resulting number */
     PRECOND(result != NULL);
     PRECOND(str != NULL);
     if (*str == '\0')
-        return FALSE;
+        return false;
     errno = 0;
     v = strtod(str, &endPtr);
     if (errno == ERANGE || NotOnlySpace(endPtr)) {
-        return FALSE;
+        return false;
     }
     *result = (REAL8)v;
-    return TRUE;
+    return true;
 }
 
 /* Converts a string to an REAL4 number.
@@ -138,7 +138,7 @@ BOOL CnvrtREAL8(REAL8 *result,   /* write-only. resulting number */
  * If FALSE is returned and errno is set to ERANGE then the conversion
  * error is like the ERANGE setting of strtod.
  */
-BOOL CnvrtREAL4(REAL4 *result,   /* write-only. resulting number */
+bool CnvrtREAL4(REAL4 *result,   /* write-only. resulting number */
                 const char *str) /* string to convert to an REAL8 */
 {
     REAL8 v = NAN;
@@ -147,9 +147,9 @@ BOOL CnvrtREAL4(REAL4 *result,   /* write-only. resulting number */
     PRECOND(str != NULL);
 
     if (!CnvrtREAL8(&v, str) || fabs(v) > ((REAL8)REAL4_MAX))
-        return FALSE;
+        return false;
     *result = (REAL4)v;
-    return TRUE;
+    return true;
 }
 
 /* Converts a string to a double number.
@@ -162,7 +162,7 @@ BOOL CnvrtREAL4(REAL4 *result,   /* write-only. resulting number */
  * If FALSE is returned and errno is set to ERANGE then the conversion
  * error is like the ERANGE setting of strtod.
  */
-BOOL CnvrtDouble(double *result,  /* write-only. resulting number */
+bool CnvrtDouble(double *result,  /* write-only. resulting number */
                  const char *str) /* string to convert to a double */
 {
     return CnvrtREAL8(result, str);
@@ -180,7 +180,7 @@ BOOL CnvrtDouble(double *result,  /* write-only. resulting number */
  * If FALSE is returned and errno is set to ERANGE then the conversion
  * error is like the ERANGE setting of strtod.
  */
-BOOL CnvrtInt(int *result,     /* write-only. resulting number */
+bool CnvrtInt(int *result,     /* write-only. resulting number */
               const char *str) /* string to convert to an int */
 {
     INT4 v = 0;
@@ -190,9 +190,9 @@ BOOL CnvrtInt(int *result,     /* write-only. resulting number */
 
     if (CnvrtINT4(&v, str) && ((INT4)INT_MIN) <= v && v <= ((INT4)INT_MAX)) {
         *result = (int)v;
-        return TRUE;
+        return true;
     }
-    return FALSE;
+    return false;
 }
 
 #ifdef TEST_MAIN
@@ -215,7 +215,7 @@ int main(void)
     UINT1 val1;
     INT4 val4;
     REAL8 val8;
-    BOOL r1, r4, r8;
+    bool r1, r4, r8;
     for (i = 0; i < ARRAY_SIZE(tests); i++) {
         r1 = CnvrtUINT1(&val1, tests[i]);
         r4 = CnvrtINT4(&val4, tests[i]);
@@ -237,12 +237,12 @@ int main(void)
 /* converts a value with missing value detection
  * returns TRUE if legal value or mv, FALSE otherwise
  */
-BOOL CnvrtValueMV(REAL8 *vNum,       /* write-only, value number or MV_REAL8
+bool CnvrtValueMV(REAL8 *vNum,       /* write-only, value number or MV_REAL8
                                       * undefined if return value is 0.
                                       */
                   const char *vStr,  /* value string */
                   const char *mvStr, /* mv string */
-                  BOOL number,       /* test on mv number ? */
+                  bool number,       /* test on mv number ? */
                   double mvDbl)      /* mv number, only used if number is TRUE */
 {
     if (CnvrtDouble(vNum, vStr)) { /* value is a number

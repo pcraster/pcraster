@@ -144,7 +144,7 @@ static int AddCell(
     const MAP *in,             /* input map */
     double r,                  /* current row number */
     double c,                  /* current column number */
-    BOOL aligned,              /* maps are aligned */
+    bool aligned,              /* maps are aligned */
     REAL8 angle)               /* angle of output map */
 {
     (void)r; // Shut up compiler
@@ -182,7 +182,7 @@ static int CalcPixel(
     size_t nrMaps, /* nr. of input maps */
     size_t rOut,   /* row number pixel */
     size_t cOut,   /* column number pixel */
-    BOOL aligned,  /* maps are aligned */
+    bool aligned,  /* maps are aligned */
     REAL8 angle)   /* angle of output map */
 {
     SEARCH_TABLE *table= NULL; /* read-write search table */
@@ -343,7 +343,7 @@ int SampleClass(
     size_t nrMaps,     /* number of input maps */
     size_t nrRows,     /* number of rows */
     size_t nrCols,     /* number of columns */
-    BOOL aligned,      /* maps are aligned */
+    bool aligned,      /* maps are aligned */
     REAL8 angle)       /* angle of output map */
 {
     INT4 maxVal = 0;         /* maximum id input maps */

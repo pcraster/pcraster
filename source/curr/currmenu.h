@@ -29,7 +29,7 @@ typedef struct CURR_SELECT_BOX {
 typedef CURR_SELECT_BOX CURR_RADIO_SELECT_BOX;
 
 typedef struct CURR_MULTI_SELECT_BOX {
-    BOOL *highlighted;    /* list of highlighted items */
+    bool *highlighted;    /* list of highlighted items */
     CURR_SELECT_BOX *box; /* select box */
 } CURR_MULTI_SELECT_BOX;
 
@@ -51,14 +51,14 @@ extern int CurrScreenLines(void);
  */
 #define Curr_wprintw wprintw
 
-extern BOOL CurrIsEnterKey(int c);
+extern bool CurrIsEnterKey(int c);
 extern void CurrErrorMenu(const char *s);
 extern void CurrQuitMenu(void);
 
 extern int CurrGetRadioSelection(const char **values, int nrValues, int y, int x);
-extern BOOL CurrGetString(char *s, int len, int y, int x);
-extern BOOL
-CurrGetStringCheck(char *input, int len, int y, int x, BOOL (*Test)(const char *s));
+extern bool CurrGetString(char *s, int len, int y, int x);
+extern bool
+CurrGetStringCheck(char *input, int len, int y, int x, bool (*Test)(const char *s));
 extern void CurrFreeRadioSelectBox(CURR_RADIO_SELECT_BOX *b);
 extern void CurrFreeMultiSelectBox(CURR_MULTI_SELECT_BOX *b);
 
@@ -84,7 +84,7 @@ extern CURR_MULTI_SELECT_BOX *CurrInitMultiSelectBox(int beginY,
                                                      const int *otherKeys,
                                                      int nrKeys);
 
-extern BOOL CurrRadioSelectItem(int *itemOrKey, CURR_RADIO_SELECT_BOX *b);
+extern bool CurrRadioSelectItem(int *itemOrKey, CURR_RADIO_SELECT_BOX *b);
 
 extern void CurrRadioIncSelectedItem(CURR_RADIO_SELECT_BOX *b);
 extern void CurrRadioPrintItems(CURR_RADIO_SELECT_BOX *b);

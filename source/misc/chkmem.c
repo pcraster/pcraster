@@ -43,7 +43,7 @@ static int NoReleaserInstalled(void);
 #undef realloc
 #undef calloc
 #endif
-static BOOL stopLimitMalloc = FALSE;
+static bool stopLimitMalloc = false;
 static int nrMallocs = 0;
 static int limitMalloc = 0;
 #endif
@@ -255,7 +255,7 @@ void *ChkCalloc(size_t nnemb, /* number of elements.larger than 0 */
 void StopLimitMalloc(void)
 {
     if (limitMalloc && (!stopLimitMalloc)) {
-        stopLimitMalloc = TRUE;
+        stopLimitMalloc = true;
         limitMalloc = 0;
         if (nrMallocs < 0) {
             exitOnError = 128;

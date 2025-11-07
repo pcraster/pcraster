@@ -49,8 +49,8 @@ typedef struct CACHE {
 extern void FreeCache(size_t nrMaps);
 extern CACHE *InitCache(const MAP *out, MAP **in, size_t nrMaps);
 extern void *CacheGetRow(MAP **in, size_t mapNr, double rowNr);
-extern int SampleClass(MAP *out, MAP **in, double percentage, size_t nrMaps, size_t nrRows, size_t nrCols, BOOL alligned, REAL8 angle);
+extern int SampleClass(MAP *out, MAP **in, double percentage, size_t nrMaps, size_t nrRows, size_t nrCols, bool alligned, REAL8 angle);
 
-extern int SampleCont(MAP *out, MAP **in, double percentage, size_t nrMaps, size_t nrRows, size_t nrCols, BOOL alligned, REAL8 angle);
+extern int SampleCont(MAP *out, MAP **in, double percentage, size_t nrMaps, size_t nrRows, size_t nrCols, bool alligned, REAL8 angle);
 
 #endif

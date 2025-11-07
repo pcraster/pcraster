@@ -66,13 +66,13 @@ int main(int argc,     /* number of arguments */
     int c = 0;
     size_t xcoord = 1;
     size_t ycoord = 2;
-    BOOL geoEas = FALSE;
-    BOOL printMV = FALSE;
+    bool geoEas = false;
+    bool printMV = false;
     const char *mv = "1e31";
     const char *separator = NULL;
     char *usrFormat = NULL;
     const char *inputColumnFile = NULL; /* not used */
-    BOOL colWise = FALSE;
+    bool colWise = false;
 
     if (InstallArgs(argc, argv, "x#y#m*s*(rc)f*M(pg)a*", "map2col"))
         goto failure;
@@ -106,19 +106,19 @@ int main(int argc,     /* number of arguments */
             separator = (const char *)OptArg;
             break;
         case 'M':
-            printMV = TRUE;
+            printMV = true;
             break;
         case 'r':
-            colWise = FALSE;
+            colWise = false;
             break;
         case 'c':
-            colWise = TRUE;
+            colWise = true;
             break;
         case 'p':
-            geoEas = FALSE;
+            geoEas = false;
             break;
         case 'g':
-            geoEas = TRUE;
+            geoEas = true;
             break;
         case 'f':
             if ((usrFormat = StrcpyChkMalloc(OptArg)) == NULL) goto failure;

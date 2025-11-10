@@ -1,25 +1,12 @@
 #ifndef INCLUDED_CALC_APIMAP
 #define INCLUDED_CALC_APIMAP
 
-#ifndef INCLUDED_CSFTYPES
 #include "csftypes.h"
-#define INCLUDED_CSFTYPES
-#endif
-
-#ifndef INCLUDED_CALC_OBJCOUNT
 #include "calc_objcount.h"
-#define INCLUDED_CALC_OBJCOUNT
-#endif
-
-#ifndef INCLUDED_API
 #include "api.h"
-#define INCLUDED_API
-#endif
-
-#ifndef INCLUDED_GEO_RASTERSPACE
 #include "geo_rasterspace.h"
-#define INCLUDED_GEO_RASTERSPACE
-#endif
+
+
 
 namespace calc {
 
@@ -35,7 +22,7 @@ class ApiMap: private ObjCount<ApiMap> {
 
 template<typename MAP_API>
 class ApiMapC : public ApiMap {
-  typedef  MAP_API *(* InitMap)(size_t nrRows,size_t nrCols,void *v,BOOL spatial, CSF_CR inCr);
+  typedef  MAP_API *(* InitMap)(size_t nrRows,size_t nrCols,void *v, bool spatial, CSF_CR inCr);
   typedef  void (* DeleteInternal)(MAP_API *m);
   static   InitMap d_init;
   static   DeleteInternal d_del;

@@ -2,13 +2,15 @@
 #define INCLUDED_FIELDAPI_API_P
 #line 3 "api_p.h"
 
+#include <stdbool.h>
+
 extern REAL8 testApiArea     ;
 extern REAL8 testApiSide     ;
 extern REAL8 testApiDiagonal ;
 /* extern size_t   testApiNrRows   ; */
 /* extern size_t   testApiNrCols   ; */
 extern int   testApiYproj    ;
-extern BOOL  testApiInit     ;
+extern bool  testApiInit     ;
 
 /* ranpriv.c */
 extern void PutMVPrivate_UINT1(UINT1 **matrix, int r, int c);

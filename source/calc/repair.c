@@ -24,7 +24,7 @@
  * repairLddModifiedMap is TRUE if the last call
  * to RepairLdd has modified its data, FALSE otherwise
  */
-BOOL repairLddModifiedMap = FALSE;
+bool repairLddModifiedMap = false;
 
 /**********************/
 /* LOCAL DECLARATIONS */
@@ -41,7 +41,7 @@ BOOL repairLddModifiedMap = FALSE;
 static void PutRepair(UINT1_T code, int r, int c, MAP_UINT1 *ldd)
 {
     ldd->Put(code, r, c, ldd);
-    repairLddModifiedMap = TRUE;
+    repairLddModifiedMap = true;
 }
 
 static int MarkCatch(UINT1 **visitMap, /* read write */
@@ -113,7 +113,7 @@ int RepairLdd(MAP_UINT1 *ldd,         /* write-only output ldd  */
     inLdd->SetGetTest(GET_MV_TEST, inLdd);
     ldd->SetGetTest(GET_MV_TEST, ldd);
 
-    repairLddModifiedMap = FALSE;
+    repairLddModifiedMap = false;
 
     /* copy matrix and check for old and invalid codes */
     for (r = 0; r < nrRows; r++)
@@ -122,11 +122,11 @@ int RepairLdd(MAP_UINT1 *ldd,         /* write-only output ldd  */
                                                       */
                 if (!IS_VALID_LDD_CODE(lddCurr)) {   /* old code */
                     lddCurr %= (UINT1)10;
-                    repairLddModifiedMap = TRUE;
+                    repairLddModifiedMap = true;
                 }
                 if (!IS_VALID_LDD_CODE(lddCurr)) { /* 0 */
                     ldd->PutMV(r, c, ldd);
-                    repairLddModifiedMap = TRUE;
+                    repairLddModifiedMap = true;
                 } else
                     ldd->Put(lddCurr, r, c, ldd);
             } else

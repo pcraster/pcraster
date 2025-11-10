@@ -77,7 +77,7 @@ static NODE *DoNeighbors(MAP_REAL8 *out,          /* read-write output map */
             (i != LDD_PIT) &&                             /* skip cell itself */
             (0 < (demVal - newDem)))                      /* lower than current cell */
         {
-            REAL8 dist = (Corner(i) == FALSE) SCALE;
+            REAL8 dist = (Corner(i) == false) SCALE;
 
             dropVal = (demVal - newDem) / dist;
             if (dropMax <= dropVal) {
@@ -144,9 +144,9 @@ static int HasLowerNeighbor(const MAP_REAL8 *dem,    /* dem.map */
         int cNext = CNeighbor(colNr, i);
         if (dem->Get(&newDem, rNext, cNext, dem) &&
             points->Get(&pntVal, rNext, cNext, points) && (demVal > newDem))
-            return TRUE; /* has lower neighbor */
+            return true; /* has lower neighbor */
     }
-    return FALSE; /* no neighbor is lower */
+    return false; /* no neighbor is lower */
 }
 
 /* Drains down from each nonzero point.

@@ -49,7 +49,7 @@ static int PrintHeader(FILE *outputFile,    /* write-only output file */
 
     /* print name of program in output file */
     fprintf(outputFile, "map2col\n");
-    fprintf(outputFile, "%u\n", (UINT_T)nrMaps);
+    fprintf(outputFile, "%zu\n", nrMaps);
     for (i = 0; i < nrMaps; i++)
     {
         const char *s = NULL;
@@ -230,7 +230,7 @@ static int DoAppendMode(const char *outputFile,
          * and skip old nr.cols line
          */
         nrCols = (size_t)AppDetectColumnFile(&geoEas, inputFile, ',');
-        fprintf(out, "%u\n", (UINT_T)(nrCols + nrMaps));
+        fprintf(out, "%zu\n", (nrCols + nrMaps));
         while ((getChar = fgetc(in)) != '\n' && getChar != EOF)
             ; /* eof-error will be detected later */
 

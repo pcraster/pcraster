@@ -3,6 +3,8 @@
 #ifndef INCLUDED_FIELDAPI_API
 #define INCLUDED_FIELDAPI_API
 
+#include <stdbool.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -61,8 +63,7 @@ typedef struct MAP_UINT1 {
   PCR_ST st;
   PCR_VS vs;
   PCR_CR cr;
-  /* Get has actually a BOOL return type */
-  int  (*Get)( UINT1 *v, int r, int c, const struct MAP_UINT1 *m);
+  bool (*Get)( UINT1 *v, int r, int c, const struct MAP_UINT1 *m);
   void (*Put)( UINT1_T v, int r, int c, struct MAP_UINT1 *m);
   void (*PutMV)(int r, int c, struct MAP_UINT1 *m);
   void (*PutAllMV)( struct MAP_UINT1 *m);
@@ -85,12 +86,12 @@ typedef struct MAP_UINT1 {
   /* private to libapi.a */
   int maxVal;
   GET_TEST  getType;
-  BOOL      spatial;         /* does mapCont contains a spatial or nonSpatial.*/
+  bool      spatial;         /* does mapCont contains a spatial or nonSpatial.*/
   UINT1 nonSpatialValue; /* if not spatial */
   void  **spatialValue;      /* if spatial */
   int nrRows, nrCols;
-  BOOL (*getMVtest)( UINT1 *v, int r, int c, const struct MAP_UINT1 *m);
-  BOOL (*getNOtest)( UINT1 *v, int r, int c, const struct MAP_UINT1 *m);
+  bool (*getMVtest)( UINT1 *v, int r, int c, const struct MAP_UINT1 *m);
+  bool (*getNOtest)( UINT1 *v, int r, int c, const struct MAP_UINT1 *m);
   GET_FUNC     getPrivate;
   PUT_VAL_FUNC putPrivate;
   PUT_MV_FUNC  putMVPrivate;
@@ -104,7 +105,7 @@ extern void DeleteMAP_UINT1(MAP_UINT1 *m);
 /* delete map object BUT NOT THE map contents: */
 extern void DeleteInternalMAP_UINT1(MAP_UINT1 *m);
 
-extern MAP_UINT1 *InitMapUINT1( size_t nrRows,size_t nrCols,void *v,BOOL spatial, CSF_CR inCr);
+extern MAP_UINT1 *InitMapUINT1( size_t nrRows,size_t nrCols,void *v,bool spatial, CSF_CR inCr);
 
 extern MAP_UINT1 *ReadUINT1(const char *nameOrValue,size_t nrRows, size_t nrCols);
 extern MAP_UINT1 *ReadUINT1Map(const char *name);
@@ -121,8 +122,7 @@ typedef struct MAP_INT4 {
   PCR_ST st;
   PCR_VS vs;
   PCR_CR cr;
-  /* Get has actually a BOOL return type */
-  int  (*Get)( INT4 *v, int r, int c, const struct MAP_INT4 *m);
+  bool (*Get)( INT4 *v, int r, int c, const struct MAP_INT4 *m);
   void (*Put)( INT4 v, int r, int c, struct MAP_INT4 *m);
   void (*PutMV)(int r, int c, struct MAP_INT4 *m);
   void (*PutAllMV)( struct MAP_INT4 *m);
@@ -145,12 +145,12 @@ typedef struct MAP_INT4 {
   /* private to libapi.a */
   int maxVal;
   GET_TEST  getType;
-  BOOL      spatial;         /* does mapCont contains a spatial or nonSpatial.*/
+  bool      spatial;         /* does mapCont contains a spatial or nonSpatial.*/
   INT4 nonSpatialValue; /* if not spatial */
   void  **spatialValue;      /* if spatial */
   int nrRows, nrCols;
-  BOOL (*getMVtest)( INT4 *v, int r, int c, const struct MAP_INT4 *m);
-  BOOL (*getNOtest)( INT4 *v, int r, int c, const struct MAP_INT4 *m);
+  bool (*getMVtest)( INT4 *v, int r, int c, const struct MAP_INT4 *m);
+  bool (*getNOtest)( INT4 *v, int r, int c, const struct MAP_INT4 *m);
   GET_FUNC     getPrivate;
   PUT_VAL_FUNC putPrivate;
   PUT_MV_FUNC  putMVPrivate;
@@ -164,7 +164,7 @@ extern void DeleteMAP_INT4(MAP_INT4 *m);
 /* delete map object BUT NOT THE map contents: */
 extern void DeleteInternalMAP_INT4(MAP_INT4 *m);
 
-extern MAP_INT4 *InitMapINT4( size_t nrRows,size_t nrCols,void *v,BOOL spatial, CSF_CR inCr);
+extern MAP_INT4 *InitMapINT4( size_t nrRows,size_t nrCols,void *v,bool spatial, CSF_CR inCr);
 
 extern MAP_INT4 *ReadINT4(const char *nameOrValue,size_t nrRows, size_t nrCols);
 extern MAP_INT4 *ReadINT4Map(const char *name);
@@ -181,8 +181,7 @@ typedef struct MAP_REAL8 {
   PCR_ST st;
   PCR_VS vs;
   PCR_CR cr;
-  /* Get has actually a BOOL return type */
-  int  (*Get)( REAL8 *v, int r, int c, const struct MAP_REAL8 *m);
+  bool (*Get)( REAL8 *v, int r, int c, const struct MAP_REAL8 *m);
   void (*Put)( REAL8 v, int r, int c, struct MAP_REAL8 *m);
   void (*PutMV)(int r, int c, struct MAP_REAL8 *m);
   void (*PutAllMV)( struct MAP_REAL8 *m);
@@ -205,12 +204,12 @@ typedef struct MAP_REAL8 {
   /* private to libapi.a */
   int maxVal;
   GET_TEST  getType;
-  BOOL      spatial;         /* does mapCont contains a spatial or nonSpatial.*/
+  bool      spatial;         /* does mapCont contains a spatial or nonSpatial.*/
   REAL8 nonSpatialValue; /* if not spatial */
   void  **spatialValue;      /* if spatial */
   int nrRows, nrCols;
-  BOOL (*getMVtest)( REAL8 *v, int r, int c, const struct MAP_REAL8 *m);
-  BOOL (*getNOtest)( REAL8 *v, int r, int c, const struct MAP_REAL8 *m);
+  bool (*getMVtest)( REAL8 *v, int r, int c, const struct MAP_REAL8 *m);
+  bool (*getNOtest)( REAL8 *v, int r, int c, const struct MAP_REAL8 *m);
   GET_FUNC     getPrivate;
   PUT_VAL_FUNC putPrivate;
   PUT_MV_FUNC  putMVPrivate;
@@ -224,7 +223,7 @@ extern void DeleteMAP_REAL8(MAP_REAL8 *m);
 /* delete map object BUT NOT THE map contents: */
 extern void DeleteInternalMAP_REAL8(MAP_REAL8 *m);
 
-extern MAP_REAL8 *InitMapREAL8( size_t nrRows,size_t nrCols,void *v,BOOL spatial, CSF_CR inCr);
+extern MAP_REAL8 *InitMapREAL8( size_t nrRows,size_t nrCols,void *v,bool spatial, CSF_CR inCr);
 
 extern MAP_REAL8 *ReadREAL8(const char *nameOrValue,size_t nrRows, size_t nrCols);
 extern MAP_REAL8 *ReadREAL8Map(const char *name);

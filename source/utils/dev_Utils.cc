@@ -101,7 +101,7 @@ void setEnvironmentVariable(
 #ifndef _WIN32
   ::setenv(name.c_str(), value.c_str(), 1);
 #else
-  BOOL result = SetEnvironmentVariable(name.c_str(), value.c_str());
+  bool result = SetEnvironmentVariable(name.c_str(), value.c_str());
   assert(result != 0);
 #endif
 }
@@ -116,7 +116,7 @@ void unsetEnvironmentVariable(
 #ifndef _WIN32
   ::unsetenv(name.c_str());
 #else
-  BOOL result = SetEnvironmentVariable(name.c_str(), 0);
+  bool result = SetEnvironmentVariable(name.c_str(), 0);
   assert(result != 0);
 #endif
 }

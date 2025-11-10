@@ -169,7 +169,7 @@ bool global_option_degrees(){
 
 
 bool global_option_unittrue(){
-  return appUnitTrue == TRUE ? true : false;
+  return appUnitTrue == true ? true : false;
 }
 
 void assert_equal_location_attributes(const calc::Field& field){

@@ -8,7 +8,7 @@ MAP_THIS_TYPE *ReadTHIS_TYPE(
 {
  THIS_TYPE val = ZERO;
  if (CnvrtTHIS_TYPE(&val, nameOrValue))
-  return InitMapTHIS_TYPE(nrRows, nrCols, &val, FALSE, CR_THIS_TYPE);
+  return InitMapTHIS_TYPE(nrRows, nrCols, &val, false, CR_THIS_TYPE);
 else
   {
    REAL8 dummy = NAN;
@@ -75,7 +75,7 @@ MAP_THIS_TYPE *ReadTHIS_TYPEMap(const char *name)
           if (buf == NULL)
             goto errExit;
           map = InitMapTHIS_TYPE(nrRows,nrCols,
-                  buf,TRUE, inCr);
+                  buf, true, inCr);
           if (map == NULL)
           {
             Free(buf);
@@ -149,7 +149,7 @@ MAP_THIS_TYPE *CreateSpatialTHIS_TYPE(CSF_CR cr,size_t nrRows, size_t nrCols)
   buf = ChkMalloc( (size_t)(nrRows*nrCols*CELLSIZE(cr)));
   if (buf == NULL)
       return NULL;
-  map = InitMapTHIS_TYPE(nrRows,nrCols, buf,TRUE, cr);
+  map = InitMapTHIS_TYPE(nrRows,nrCols, buf, true, cr);
   if (map == NULL) {
       Free(buf);
       return NULL;

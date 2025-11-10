@@ -3,6 +3,8 @@
 #ifndef INCLUDED_FIELDAPI_API
 #define INCLUDED_FIELDAPI_API
 
+#include <stdbool.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif

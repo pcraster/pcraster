@@ -157,7 +157,7 @@ NODE *NewNode(
     return NULL;
   }
   list = tmp;
-  list->val.visited = FALSE;  /* no directions checked yet */
+  list->val.visited = false;  /* no directions checked yet */
   return(list);
  }
 
@@ -189,7 +189,7 @@ NODE *RemFromList(NODE *list)    /* read-write list of cells */
  * Returns TRUE if cell was already in list, FALSE otherwise.
  *
  */
- BOOL InList(   NODE *list,  /* Read-only list */
+ bool InList(   NODE *list,  /* Read-only list */
      int r,    /* row number cell to check */
      int c)    /* column number from cell to check */
 {
@@ -199,8 +199,8 @@ NODE *RemFromList(NODE *list)    /* read-write list of cells */
   {
     if(p->rowNr == r && p->colNr == c)
     /* element in list same coordinates as cell (r,c) */
-      return TRUE;
+      return true;
     p = p->prev;  /* check previous element in list */
   }
-  return FALSE;
+  return false;
 }

@@ -62,7 +62,7 @@
 # define SpatialAndCoordInMapTHIS_TYPE(r,c,m)
 #endif
 
-static BOOL GetSpatialTHIS_TYPE(
+static bool GetSpatialTHIS_TYPE(
   THIS_TYPE *v,      /* write-only. Value */
   int    r,      /* row number */
   int    c,      /* column number */
@@ -73,12 +73,12 @@ const  MAP_THIS_TYPE *m)  /* map this function belongs to */
 
   if (INSIDE_MAP(r,c,m)) {
     m->getPrivate(v, (const void **)m->spatialValue, r ,c);
-    return TRUE;
+    return true;
   }
-  return FALSE;
+  return false;
 }
 
-static BOOL GetSpatialMVtestTHIS_TYPE(
+static bool GetSpatialMVtestTHIS_TYPE(
   THIS_TYPE *v,      /* write-only. Value */
   int    r,      /* row number */
   int    c,      /* column number */
@@ -86,7 +86,7 @@ const  MAP_THIS_TYPE *m)  /* map this function belongs to */
 {
   if (GetSpatialTHIS_TYPE(v,r,c,m))
     return ! IS_MV_THIS_TYPE(v);
-  return FALSE;
+  return false;
 }
 
 static void PutMV_THIS_TYPE(
@@ -193,7 +193,7 @@ static void PutNonSpatialTHIS_TYPE(
   (void)c; // Shut up compiler
   (void)m; // Shut up compiler
   Error("Can't Put to a nonspatial THIS_TYPE\n");
-  POSTCOND(FALSE && r > c && v == 0 && m != NULL);
+  POSTCOND(false && r > c && v == 0 && m != NULL);
 }
 
 /* ARGSUSED */
@@ -206,9 +206,9 @@ static void PutNonSpatialMV_THIS_TYPE(
   (void)r; // Shut up compiler
   (void)c; // Shut up compiler
   Error("Can't Put a MV to a nonspatial THIS_TYPE\n");
-  POSTCOND(FALSE && r > c && m != NULL);
+  POSTCOND(false && r > c && m != NULL);
 }
-static BOOL GetNonSpatialTHIS_TYPE(
+static bool GetNonSpatialTHIS_TYPE(
   THIS_TYPE *v,      /* write-only. Value */
   int    r,      /* row number */
   int    c,      /* column number */
@@ -270,7 +270,7 @@ MAP_THIS_TYPE *InitMapTHIS_TYPE(
   size_t r,          /* number of rows */
   size_t c,          /* number of columns */
         void *v,        /* value buffer, ptr to 1 or all values */
-        BOOL spatial,   /* does v contains a spatial or nonSpatial.*/
+        bool spatial,   /* does v contains a spatial or nonSpatial.*/
         CSF_CR inCr)    /* map contents cell representation */
 {
   MAP_THIS_TYPE *m = ChkMalloc(sizeof(MAP_THIS_TYPE));

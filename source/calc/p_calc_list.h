@@ -8,7 +8,7 @@ typedef struct NODE
      /* pointer to previous element: */
      struct NODE *prev;
      union {
-     BOOL visited;
+     bool visited;
      REAL8 Real;
      } val;
 } NODE;
@@ -27,9 +27,9 @@ extern NODE *FreeList(NODE *list);
 extern NODE *LinkChkReal(NODE *list, int rowNr, int colNr, REAL8 value);
 extern NODE *LinkChkNd(NODE *list, int rowNr, int colNr);
 extern NODE *RemFromList(NODE *list);
-extern BOOL InList(NODE *list, int r, int c);
+extern bool InList(NODE *list, int r, int c);
 
-#define SET_VISITED(l)         (l)->val.visited = TRUE
+#define SET_VISITED(l)         (l)->val.visited = true
 #define IS_VISITED(l)          ((l)->val.visited)
 
 /* lddlist.c */

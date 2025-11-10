@@ -100,7 +100,7 @@ static REAL8 CalcSpreadValue(INT4 *id,                  /* write-only id */
         if (outCost->Get(&costVal, rNext, cNext, outCost) &&
             (friction->Get(&fricNxt, rNext, cNext, friction))) {
             costs = (f + fricNxt) / 2;
-            costs *= (Corner(i) == FALSE) SCALE;
+            costs *= (Corner(i) == false) SCALE;
             costs += costVal;
             if (costs < minCosts) { /* cheapest path from neighbor to r,c */
                 minCosts = costs;
@@ -169,7 +169,7 @@ static int PerformSpread(MAP_REAL8 *outCost,        /* read-write output costs *
                      * found, inspect the neighbors too. 
                      */
                     REAL8 maxCostVal = NAN;
-                    BOOL maxCostReached = 0;
+                    bool maxCostReached = 0;
                     maxCost->Get(&maxCostVal, rNext, cNext, maxCost);
                     maxCostReached = maxCostVal <= newS;
                     if (!maxCostReached) {

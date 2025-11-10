@@ -1,20 +1,9 @@
 #ifndef INCLUDED_CALC_APIMAP
 #define INCLUDED_CALC_APIMAP
 
-#ifndef INCLUDED_CSFTYPES
 #include "csftypes.h"
-#define INCLUDED_CSFTYPES
-#endif
-
-#ifndef INCLUDED_API
 #include "api.h"
-#define INCLUDED_API
-#endif
-
-#ifndef INCLUDED_GEO_RASTERDIM
 #include "geo_rasterdim.h"
-#define INCLUDED_GEO_RASTERDIM
-#endif
 
 namespace geo {
 }
@@ -36,7 +25,7 @@ class ApiMap {
 template<typename MAP_API>
 class ApiMapC : public ApiMap {
   typedef  MAP_API *(* InitMap)   (size_t nrRows,size_t nrCols,
-                                   void *v,BOOL spatial, CSF_CR inCr);
+                                   void *v, bool spatial, CSF_CR inCr);
   typedef  void (* DeleteInternal)(MAP_API *m);
 
   static   InitMap        d_init;

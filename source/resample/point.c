@@ -204,7 +204,7 @@ void ModRaster(
                 SetBit1(raster->field, ((int)(i * raster->rasterSize + j)));
                 raster->count++;
                 if (raster->nrCoverCells <= raster->count)
-                    raster->covered= TRUE;
+                    raster->covered= true;
             }
         }
 }

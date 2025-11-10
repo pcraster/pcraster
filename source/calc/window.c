@@ -276,7 +276,7 @@ int WindowTotal(MAP_REAL8 *total,         /* write-only output total map  */
                 int cWin = 0;
                 int pw = 0;
                 REAL8 bw = NAN; /* border weigth */
-                BOOL valSet = FALSE;
+                bool valSet = false;
 
                 pw = DetWindow(&bw, winSize);
 
@@ -284,7 +284,7 @@ int WindowTotal(MAP_REAL8 *total,         /* write-only output total map  */
                 for (rWin = -pw; rWin <= pw; rWin++)
                     for (cWin = -pw; cWin <= pw; cWin++) {
                         if (val->Get(&value, rWin + r, cWin + c, val)) {
-                            valSet = TRUE;
+                            valSet = true;
                             winTotal += value * Weight(pw, rWin, cWin, bw);
                         }
                     }
@@ -302,7 +302,7 @@ int WindowTotal(MAP_REAL8 *total,         /* write-only output total map  */
 }
 
 static DATA const *foundRec = NULL;
-static BOOL foundConflict = FALSE;
+static bool foundConflict = false;
 static REAL8 maxCount = 0;
 
 static void ForAllMaj(const DATA *e)
@@ -311,7 +311,7 @@ static void ForAllMaj(const DATA *e)
         if (foundRec == NULL)
             foundRec = e;
         else {
-            foundConflict = TRUE;
+            foundConflict = true;
             if (e->value > foundRec->value)
                 foundRec = e;
         }
@@ -402,7 +402,7 @@ int WindowMajority(MAP_INT4 *majority,       /* write-only output majority map  
                         outputValue = MV_INT4;
                     } else {
                         foundRec = NULL;
-                        foundConflict = FALSE;
+                        foundConflict = false;
                         STforAll(table, (ACTION_REC)ForAllMaj);
                         POSTCOND(foundRec != NULL);
                         if (foundConflict)

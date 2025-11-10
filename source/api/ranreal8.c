@@ -64,7 +64,7 @@
 # define SpatialAndCoordInMapREAL8(r,c,m)
 #endif
 
-static BOOL GetSpatialREAL8(
+static bool GetSpatialREAL8(
   REAL8 *v,      /* write-only. Value */
   int    r,      /* row number */
   int    c,      /* column number */
@@ -75,12 +75,12 @@ const  MAP_REAL8 *m)  /* map this function belongs to */
 
   if (INSIDE_MAP(r,c,m)) {
     m->getPrivate(v, (const void **)m->spatialValue, r ,c);
-    return TRUE;
+    return true;
   }
-  return FALSE;
+  return false;
 }
 
-static BOOL GetSpatialMVtestREAL8(
+static bool GetSpatialMVtestREAL8(
   REAL8 *v,      /* write-only. Value */
   int    r,      /* row number */
   int    c,      /* column number */
@@ -88,7 +88,7 @@ const  MAP_REAL8 *m)  /* map this function belongs to */
 {
   if (GetSpatialREAL8(v,r,c,m))
     return ! IS_MV_REAL8(v);
-  return FALSE;
+  return false;
 }
 
 static void PutMV_REAL8(
@@ -195,7 +195,7 @@ static void PutNonSpatialREAL8(
   (void)c; // Shut up compiler
   (void)m; // Shut up compiler
   Error("Can't Put to a nonspatial REAL8\n");
-  POSTCOND(FALSE && r > c && v == 0 && m != NULL);
+  POSTCOND(false && r > c && v == 0 && m != NULL);
 }
 
 /* ARGSUSED */
@@ -208,9 +208,9 @@ static void PutNonSpatialMV_REAL8(
   (void)r; // Shut up compiler
   (void)c; // Shut up compiler
   Error("Can't Put a MV to a nonspatial REAL8\n");
-  POSTCOND(FALSE && r > c && m != NULL);
+  POSTCOND(false && r > c && m != NULL);
 }
-static BOOL GetNonSpatialREAL8(
+static bool GetNonSpatialREAL8(
   REAL8 *v,      /* write-only. Value */
   int    r,      /* row number */
   int    c,      /* column number */
@@ -272,7 +272,7 @@ MAP_REAL8 *InitMapREAL8(
   size_t r,          /* number of rows */
   size_t c,          /* number of columns */
         void *v,        /* value buffer, ptr to 1 or all values */
-        BOOL spatial,   /* does v contains a spatial or nonSpatial.*/
+        bool spatial,   /* does v contains a spatial or nonSpatial.*/
         CSF_CR inCr)    /* map contents cell representation */
 {
   MAP_REAL8 *m = ChkMalloc(sizeof(MAP_REAL8));

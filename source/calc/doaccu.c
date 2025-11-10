@@ -21,7 +21,7 @@
 /***************/
 /* EXTERNALS   */
 /***************/
-BOOL accuCheckDomain;
+bool accuCheckDomain;
 /**********************/ 
 /* LOCAL DECLARATIONS */
 /**********************/ 

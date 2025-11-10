@@ -93,7 +93,7 @@ failure:
 }
 
 static int
-WriteCrossTable(const char *tableName, LOOK_UP_TABLE *t, BOOL ommitZeros, double area)
+WriteCrossTable(const char *tableName, LOOK_UP_TABLE *t, bool ommitZeros, double area)
 {
     size_t i = 0;
     if (appUnitTrue)
@@ -129,8 +129,8 @@ int main(int argc,     /* number of arguments */
     /* initialize the variables */
     const char *tableName = NULL;
     const char *inputTableName = NULL;
-    BOOL histogram = FALSE;
-    BOOL ommitZeros = TRUE;
+    bool histogram = false;
+    bool ommitZeros = true;
     size_t nrIntervals = INIT_NR_INTERVALS;
     size_t nrCountSlots = INIT_NR_SLOTS;
     size_t moveColNr = 0;
@@ -142,13 +142,13 @@ int main(int argc,     /* number of arguments */
     while ((c = GetOpt()) != 0) {
         switch (c) {
         case '0':
-            ommitZeros = FALSE;
+            ommitZeros = false;
             break;
         case 'h':
-            histogram = TRUE;
+            histogram = true;
             break;
         case 'H':
-            histogram = TRUE;
+            histogram = true;
             c = *((const int *)OptArg);
             if (c <= 0) {
                 Error("-H: count slots must be greater than 0 (is %d)", c);

@@ -69,11 +69,11 @@ ComputeTangent(MAP_REAL8 *result, REAL8 viewAngleVal, const MAP_REAL8 *dem, int 
     p.y = ry + 0.5;
     if (fabs(fmod(a - (M_PI / 2), M_PI)) < 0.0001) {
         /* almost 180 or 360 */
-        l.parY = TRUE;
+        l.parY = true;
         l.xInt = p.x;
     } else {
         l.slope = -tan(a);
-        l.parY = FALSE;
+        l.parY = false;
         l.yInt = p.y - l.slope * p.x;
     }
 

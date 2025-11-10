@@ -64,7 +64,7 @@
 # define SpatialAndCoordInMapINT4(r,c,m)
 #endif
 
-static BOOL GetSpatialINT4(
+static bool GetSpatialINT4(
   INT4 *v,      /* write-only. Value */
   int    r,      /* row number */
   int    c,      /* column number */
@@ -75,12 +75,12 @@ const  MAP_INT4 *m)  /* map this function belongs to */
 
   if (INSIDE_MAP(r,c,m)) {
     m->getPrivate(v, (const void **)m->spatialValue, r ,c);
-    return TRUE;
+    return true;
   }
-  return FALSE;
+  return false;
 }
 
-static BOOL GetSpatialMVtestINT4(
+static bool GetSpatialMVtestINT4(
   INT4 *v,      /* write-only. Value */
   int    r,      /* row number */
   int    c,      /* column number */
@@ -88,7 +88,7 @@ const  MAP_INT4 *m)  /* map this function belongs to */
 {
   if (GetSpatialINT4(v,r,c,m))
     return ! IS_MV_INT4(v);
-  return FALSE;
+  return false;
 }
 
 static void PutMV_INT4(
@@ -195,7 +195,7 @@ static void PutNonSpatialINT4(
   (void)c; // Shut up compiler
   (void)m; // Shut up compiler
   Error("Can't Put to a nonspatial INT4\n");
-  POSTCOND(FALSE && r > c && v == 0 && m != NULL);
+  POSTCOND(false && r > c && v == 0 && m != NULL);
 }
 
 /* ARGSUSED */
@@ -208,9 +208,9 @@ static void PutNonSpatialMV_INT4(
   (void)r; // Shut up compiler
   (void)c; // Shut up compiler
   Error("Can't Put a MV to a nonspatial INT4\n");
-  POSTCOND(FALSE && r > c && m != NULL);
+  POSTCOND(false && r > c && m != NULL);
 }
-static BOOL GetNonSpatialINT4(
+static bool GetNonSpatialINT4(
   INT4 *v,      /* write-only. Value */
   int    r,      /* row number */
   int    c,      /* column number */
@@ -272,7 +272,7 @@ MAP_INT4 *InitMapINT4(
   size_t r,          /* number of rows */
   size_t c,          /* number of columns */
         void *v,        /* value buffer, ptr to 1 or all values */
-        BOOL spatial,   /* does v contains a spatial or nonSpatial.*/
+        bool spatial,   /* does v contains a spatial or nonSpatial.*/
         CSF_CR inCr)    /* map contents cell representation */
 {
   MAP_INT4 *m = ChkMalloc(sizeof(MAP_INT4));

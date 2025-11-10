@@ -137,7 +137,6 @@
 
 /* SELF */
 #include "environ.h"
-#include "typedef.h"
 #include "debug.h"
 
 /***********************************************/

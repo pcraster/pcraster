@@ -107,7 +107,7 @@ static void CalcDirectionOut(
     outVal= (REAL8)WeightDirectionalMean(&area, list, nrList);
 
     if (area == 0)
-        first= TRUE; /* no cell covers output cell */
+        first= true; /* no cell covers output cell */
 
     /* Determine whether or not missing value for output pixel */
     if (nrMaps > 1 && nrCoverCells > 0)
@@ -141,7 +141,7 @@ static void CalcScalarOut(
     extern int opMax;
 
     if (opMax == 1) {
-        first= TRUE;
+        first= true;
         for (i= 0; i < nrList; i++)
             if (list[i].area > 0) {
                 if (first)
@@ -160,7 +160,7 @@ static void CalcScalarOut(
         if (area != 0)
             outVal/= area; /* average */
         else
-            first= TRUE; /* no cell covers output cell */
+            first= true; /* no cell covers output cell */
     }
     /* Determine whether or not missing value for output pixel */
     if (nrMaps > 1 && nrCoverCells > 0)

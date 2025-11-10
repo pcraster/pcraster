@@ -8,8 +8,7 @@ typedef struct MAP_THIS_TYPE {
   PCR_ST st;
   PCR_VS vs;
   PCR_CR cr;
-  /* Get has actually a BOOL return type */
-  int  (*Get)( THIS_TYPE *v, int r, int c, const struct MAP_THIS_TYPE *m);
+  bool (*Get)( THIS_TYPE *v, int r, int c, const struct MAP_THIS_TYPE *m);
   void (*Put)( THIS_TYPE_T v, int r, int c, struct MAP_THIS_TYPE *m);
   void (*PutMV)(int r, int c, struct MAP_THIS_TYPE *m);
   void (*PutAllMV)( struct MAP_THIS_TYPE *m);
@@ -32,12 +31,12 @@ typedef struct MAP_THIS_TYPE {
   /* private to libapi.a */
   int maxVal;
   GET_TEST  getType;
-  BOOL      spatial;         /* does mapCont contains a spatial or nonSpatial.*/
+  bool      spatial;         /* does mapCont contains a spatial or nonSpatial.*/
   THIS_TYPE nonSpatialValue; /* if not spatial */
   void  **spatialValue;      /* if spatial */
   int nrRows, nrCols;
-  BOOL (*getMVtest)( THIS_TYPE *v, int r, int c, const struct MAP_THIS_TYPE *m);
-  BOOL (*getNOtest)( THIS_TYPE *v, int r, int c, const struct MAP_THIS_TYPE *m);
+  bool (*getMVtest)( THIS_TYPE *v, int r, int c, const struct MAP_THIS_TYPE *m);
+  bool (*getNOtest)( THIS_TYPE *v, int r, int c, const struct MAP_THIS_TYPE *m);
   GET_FUNC     getPrivate;
   PUT_VAL_FUNC putPrivate;
   PUT_MV_FUNC  putMVPrivate;
@@ -51,7 +50,7 @@ extern void DeleteMAP_THIS_TYPE(MAP_THIS_TYPE *m);
 /* delete map object BUT NOT THE map contents: */
 extern void DeleteInternalMAP_THIS_TYPE(MAP_THIS_TYPE *m);
 
-extern MAP_THIS_TYPE *InitMapTHIS_TYPE( size_t nrRows,size_t nrCols,void *v,BOOL spatial, CSF_CR inCr);
+extern MAP_THIS_TYPE *InitMapTHIS_TYPE( size_t nrRows,size_t nrCols,void *v,bool spatial, CSF_CR inCr);
 
 extern MAP_THIS_TYPE *ReadTHIS_TYPE(const char *nameOrValue,size_t nrRows, size_t nrCols);
 extern MAP_THIS_TYPE *ReadTHIS_TYPEMap(const char *name);

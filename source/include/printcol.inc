@@ -23,7 +23,7 @@ static void MakeFmts(
 		switch(vs_s){
 		 case VS_LDD     : 
 		 case VS_BOOLEAN :
-		                 (void)sprintf(fmt,"%u.0f",(UINT_T)strLenMv);
+		                 (void)sprintf(fmt,"%zu.0f",strLenMv);
 		                 break;
 		 case VS_CLASSIFIED:
 		 case VS_ORDINAL   :
@@ -38,7 +38,7 @@ static void MakeFmts(
 		                 (void)sprintf(maxS,"%g",max);
 		                 strLen   = MAX(strlen(minS),strlen(maxS));
 				 strLenMv = MAX(strLenMv, strLen);
-		                 (void)sprintf(fmt,"%u.0f",(UINT_T)strLenMv);
+		                 (void)sprintf(fmt,"%zu.0f",strLenMv);
 		               } break;
 		 default      :  (void)strcpy(fmt,"11.6g");
 		                 strLen   = strLenMv = 11;
@@ -48,7 +48,7 @@ static void MakeFmts(
 	/* fill buf with '%' followed by print format for values */
 	valFmt_s[0] = '%';
 	(void)strcpy(valFmt_s+1, fmt);
-        (void)sprintf(mvFmt,"%%%us",(UINT_T)strLenMv);
+        (void)sprintf(mvFmt,"%%%zus",strLenMv);
 
 	(void)sprintf(mvStr_s,mvFmt,mv_s);
 }

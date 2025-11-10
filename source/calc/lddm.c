@@ -23,7 +23,7 @@
 /* EXTERNALS   */
 /***************/
 #ifdef DEBUG
-extern BOOL repairLddModifiedMap;
+extern bool repairLddModifiedMap;
 #endif
 
 /**********************/
@@ -53,7 +53,7 @@ extern BOOL repairLddModifiedMap;
  */
 static REAL8 Scale(int ldddir) /* ldd direction */
 {
-    return (Corner(ldddir) == FALSE) SCALE;
+    return (Corner(ldddir) == false) SCALE;
 }
 
 /* Finds lowest neighbor from current cell.
@@ -71,7 +71,7 @@ static void Lowest(int *rTo,             /* write-only flows to this one */
     int i = 0;
     int rNext = 0;
     int cNext = 0;
-    BOOL aNBisMV = FALSE;       /* a neighbour is missing value */
+    bool aNBisMV = false;       /* a neighbour is missing value */
     UINT1 bestDirs[NR_LDD_DIR]; /* array of bestdrops */
     REAL8 bestDrop = -1;        /* scaled vertical distance between
                                  * current cell and lowest neighbor.
@@ -110,7 +110,7 @@ static void Lowest(int *rTo,             /* write-only flows to this one */
                     bestDirs[nrBestDirs++] = i;
             }
         } else
-            aNBisMV = TRUE;
+            aNBisMV = true;
     }
     /* WAAL_CW
      * if (print)
@@ -191,7 +191,7 @@ static void Step1(MAP_UINT1 *ldd,       /* write-only output ldd map,
  * of the flat, assigning a temporary ldd-code.
  * Returns if the cell is fixed Yes or No. 
  */
-static BOOL Step2(MAP_UINT1 *ldd,       /* read-write ldd map */
+static bool Step2(MAP_UINT1 *ldd,       /* read-write ldd map */
                   const MAP_REAL8 *dem, /* dem map */
                   int r,                /* row current cell */
                   int c)                /* column current cell */
@@ -225,10 +225,10 @@ static BOOL Step2(MAP_UINT1 *ldd,       /* read-write ldd map */
             PRECOND(demVal == demValNB);
             ldddir = Ldddir(r, c, rNB, cNB);
             ldd->Put(MAKE_TEMP_CODE(ldddir), r, c, ldd);
-            return TRUE;
+            return true;
         }
     }
-    return FALSE;
+    return false;
 }
 
 /* Operates on a flat of type 2.
@@ -237,7 +237,7 @@ static BOOL Step2(MAP_UINT1 *ldd,       /* read-write ldd map */
  * The rest of the elements of the flat should flow to this pit.
  * Returns 0 if successful, 1 otherwise.
  */
-static BOOL Step3(MAP_UINT1 *ldd,       /* read-write ldd.map */
+static bool Step3(MAP_UINT1 *ldd,       /* read-write ldd.map */
                   const MAP_REAL8 *dem, /* dem.map */
                   int r,                /* row current cell */
                   int c)                /* column current cell */
@@ -267,11 +267,11 @@ static BOOL Step3(MAP_UINT1 *ldd,       /* read-write ldd.map */
                     demVal == demNB) {
                     UINT1 ldddir = Ldddir(r, c, rNB, cNB);
                     ldd->Put(MAKE_TEMP_CODE(ldddir), r, c, ldd);
-                    return TRUE;
+                    return true;
                 }
             }
     }
-    return FALSE;
+    return false;
 }
 
 
@@ -290,7 +290,7 @@ int Lddm(MAP_UINT1 *ldd,       /* Read-write output ldd map  */
     int c = 0;
     int nrRows = 0;
     int nrCols = 0;
-    BOOL cellsFixed = 0;
+    bool cellsFixed = 0;
 
     nrRows = dem->NrRows(dem);
     nrCols = dem->NrCols(dem);
@@ -312,11 +312,11 @@ int Lddm(MAP_UINT1 *ldd,       /* Read-write output ldd map  */
     }
     /* Do CALL for second phase */
     AppProgress("\nFlats of type 1:\n");
-    cellsFixed = TRUE;
+    cellsFixed = true;
     while (cellsFixed) /* still cells fixed in flats of type 1 */
     {
 
-        cellsFixed = FALSE;
+        cellsFixed = false;
         for (r = 0; r < nrRows; r++)
             for (c = 0; c < nrCols; c++)
                 if (ldd->Get(&outVal, r, c, ldd) && (outVal == 0)) /* to be solved */
@@ -331,11 +331,11 @@ int Lddm(MAP_UINT1 *ldd,       /* Read-write output ldd map  */
 
     /* Do CALL for third phase */
     AppProgress("\nFlats of type 2:\n");
-    cellsFixed = TRUE;
+    cellsFixed = true;
     while (cellsFixed) /* still cells fixed in flats of type 2 */
     {
 
-        cellsFixed = FALSE;
+        cellsFixed = false;
         for (r = 0; r < nrRows; r++)
             for (c = 0; c < nrCols; c++)
                 if (ldd->Get(&outVal, r, c, ldd) && (outVal == 0)) /* to be solved */

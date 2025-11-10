@@ -138,7 +138,7 @@ int ReadArcInfoGridAsciiHeader(
     } else {
         /* first number of grid-data: unget */
         LexUngetToken();
-        a->mvGiven= FALSE;
+        a->mvGiven= false;
         a->mv= -9999;
     }
     return 0;

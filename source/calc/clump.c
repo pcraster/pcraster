@@ -69,7 +69,7 @@ static int PerformClump(MAP_INT4 *out,      /* read-write output map */
 
             if (in->Get(&clumpVal, rNext, cNext, in) && 0 <= rNext && rNext < nrRows &&
                 0 <= cNext && cNext < nrCols && (i != LDD_PIT) &&
-                (appDiagonal || Corner(i) == FALSE) && clumpVal == currClumpValue) {
+                (appDiagonal || Corner(i) == false) && clumpVal == currClumpValue) {
                 if (!out->Get(&outVal, rNext, cNext, out)) {
                     NODE *tmp = NULL;
                     tmp = LinkToList(coordList, rNext, cNext);
@@ -111,7 +111,7 @@ int Clump(MAP_INT4 *out,      /* read-write output map */
         for (c = 0; c < nrCols; c++) {
             INT4 inVal = 0;
             INT4 outVal = 0;
-            if (in->Get(&inVal, r, c, in) && out->Get(&outVal, r, c, out) == FALSE) {
+            if (in->Get(&inVal, r, c, in) && out->Get(&outVal, r, c, out) == false) {
                 if (PerformClump(out, in, r, c, currClumpNr, nrRows, nrCols))
                     return 1;
                 currClumpNr++;

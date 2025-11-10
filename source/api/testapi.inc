@@ -12,7 +12,7 @@ MAP_UINT1 *ReadUINT1(
 {
  UINT1 val = 0;
  if (CnvrtUINT1(&val, nameOrValue))
-  return InitMapUINT1(nrRows, nrCols, &val, FALSE, CR_UINT1);
+  return InitMapUINT1(nrRows, nrCols, &val, false, CR_UINT1);
 else
   {
    REAL8 dummy = NAN;
@@ -79,7 +79,7 @@ MAP_UINT1 *ReadUINT1Map(const char *name)
           if (buf == NULL)
             goto errExit;
           map = InitMapUINT1(nrRows,nrCols,
-                  buf,TRUE, inCr);
+                  buf, true, inCr);
           if (map == NULL)
           {
             Free(buf);
@@ -153,7 +153,7 @@ MAP_UINT1 *CreateSpatialUINT1(CSF_CR cr,size_t nrRows, size_t nrCols)
   buf = ChkMalloc( (size_t)(nrRows*nrCols*CELLSIZE(cr)));
   if (buf == NULL)
       return NULL;
-  map = InitMapUINT1(nrRows,nrCols, buf,TRUE, cr);
+  map = InitMapUINT1(nrRows,nrCols, buf, true, cr);
   if (map == NULL) {
       Free(buf);
       return NULL;
@@ -171,7 +171,7 @@ MAP_INT4 *ReadINT4(
 {
  INT4 val = 0;
  if (CnvrtINT4(&val, nameOrValue))
-  return InitMapINT4(nrRows, nrCols, &val, FALSE, CR_INT4);
+  return InitMapINT4(nrRows, nrCols, &val, false, CR_INT4);
 else
   {
    REAL8 dummy = NAN;
@@ -238,7 +238,7 @@ MAP_INT4 *ReadINT4Map(const char *name)
           if (buf == NULL)
             goto errExit;
           map = InitMapINT4(nrRows,nrCols,
-                  buf,TRUE, inCr);
+                  buf, true, inCr);
           if (map == NULL)
           {
             Free(buf);
@@ -312,7 +312,7 @@ MAP_INT4 *CreateSpatialINT4(CSF_CR cr,size_t nrRows, size_t nrCols)
   buf = ChkMalloc( (size_t)(nrRows*nrCols*CELLSIZE(cr)));
   if (buf == NULL)
       return NULL;
-  map = InitMapINT4(nrRows,nrCols, buf,TRUE, cr);
+  map = InitMapINT4(nrRows,nrCols, buf, true, cr);
   if (map == NULL) {
       Free(buf);
       return NULL;
@@ -330,7 +330,7 @@ MAP_REAL8 *ReadREAL8(
 {
  REAL8 val = NAN;
  if (CnvrtREAL8(&val, nameOrValue))
-  return InitMapREAL8(nrRows, nrCols, &val, FALSE, CR_REAL8);
+  return InitMapREAL8(nrRows, nrCols, &val, false, CR_REAL8);
 else
   {
    REAL8 dummy = NAN;
@@ -397,7 +397,7 @@ MAP_REAL8 *ReadREAL8Map(const char *name)
           if (buf == NULL)
             goto errExit;
           map = InitMapREAL8(nrRows,nrCols,
-                  buf,TRUE, inCr);
+                  buf, true, inCr);
           if (map == NULL)
           {
             Free(buf);
@@ -471,7 +471,7 @@ MAP_REAL8 *CreateSpatialREAL8(CSF_CR cr,size_t nrRows, size_t nrCols)
   buf = ChkMalloc( (size_t)(nrRows*nrCols*CELLSIZE(cr)));
   if (buf == NULL)
       return NULL;
-  map = InitMapREAL8(nrRows,nrCols, buf,TRUE, cr);
+  map = InitMapREAL8(nrRows,nrCols, buf, true, cr);
   if (map == NULL) {
       Free(buf);
       return NULL;

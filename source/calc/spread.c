@@ -100,7 +100,7 @@ static REAL8 CalcSpreadValue(INT4 *id,                  /* write-only id */
         if (outCost->Get(&costVal, rNext, cNext, outCost) &&
             (friction->Get(&fricNxt, rNext, cNext, friction))) {
             costs = (f + fricNxt) / 2;
-            costs *= (Corner(i) == FALSE) SCALE;
+            costs *= (Corner(i) == false) SCALE;
             costs += costVal;
             if (costs < minCosts) { /* cheapest path from neighbor to r,c */
                 minCosts = costs;

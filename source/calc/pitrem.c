@@ -22,7 +22,7 @@
 /***************/
 
 #ifdef DEBUG
-extern BOOL repairLddModifiedMap;
+extern bool repairLddModifiedMap;
 #endif
 
 /**********************/
@@ -323,13 +323,13 @@ FillDem(MAP_REAL8 *dem, int pitr, int pitc, REAL8 outflowLevel, const MAP_UINT1 
     return 0;
 }
 
-static BOOL ThresholdFailed(REAL8 val, int r, int c, const MAP_REAL8 *thmap)
+static bool ThresholdFailed(REAL8 val, int r, int c, const MAP_REAL8 *thmap)
 {
     REAL8 th = NAN;
     if (thmap->Get(&th, r, c, thmap))
         return val > th;
     else
-        return TRUE;
+        return true;
 }
 
 
@@ -478,7 +478,7 @@ static int CmpPit(const PIT *in1, const PIT *in2)
 /* decide if a pit must be removed
  * due to external setting
  */
-static BOOL GlobOptionPermitRemoval(const MAP_UINT1 *ldd, int r, int c)
+static bool GlobOptionPermitRemoval(const MAP_UINT1 *ldd, int r, int c)
 {
     if (appPitOnBorder) { /* lddout is active
         */
@@ -491,10 +491,10 @@ static BOOL GlobOptionPermitRemoval(const MAP_UINT1 *ldd, int r, int c)
             int rNB = RNeighbor(r, i);
             int cNB = CNeighbor(c, i);
             if (!ldd->Get(&d, rNB, cNB, ldd))
-                return FALSE;
+                return false;
         }
     }
-    return TRUE;
+    return true;
 }
 
 /* Modifies LDD (ldd map) and makes a modified DEM (outDem map).

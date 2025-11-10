@@ -64,7 +64,7 @@
 # define SpatialAndCoordInMapUINT1(r,c,m)
 #endif
 
-static BOOL GetSpatialUINT1(
+static bool GetSpatialUINT1(
   UINT1 *v,      /* write-only. Value */
   int    r,      /* row number */
   int    c,      /* column number */
@@ -75,12 +75,12 @@ const  MAP_UINT1 *m)  /* map this function belongs to */
 
   if (INSIDE_MAP(r,c,m)) {
     m->getPrivate(v, (const void **)m->spatialValue, r ,c);
-    return TRUE;
+    return true;
   }
-  return FALSE;
+  return false;
 }
 
-static BOOL GetSpatialMVtestUINT1(
+static bool GetSpatialMVtestUINT1(
   UINT1 *v,      /* write-only. Value */
   int    r,      /* row number */
   int    c,      /* column number */
@@ -88,7 +88,7 @@ const  MAP_UINT1 *m)  /* map this function belongs to */
 {
   if (GetSpatialUINT1(v,r,c,m))
     return ! IS_MV_UINT1(v);
-  return FALSE;
+  return false;
 }
 
 static void PutMV_UINT1(
@@ -195,7 +195,7 @@ static void PutNonSpatialUINT1(
   (void)c; // Shut up compiler
   (void)m; // Shut up compiler
   Error("Can't Put to a nonspatial UINT1\n");
-  POSTCOND(FALSE && r > c && v == 0 && m != NULL);
+  POSTCOND(false && r > c && v == 0 && m != NULL);
 }
 
 /* ARGSUSED */
@@ -208,9 +208,9 @@ static void PutNonSpatialMV_UINT1(
   (void)r; // Shut up compiler
   (void)c; // Shut up compiler
   Error("Can't Put a MV to a nonspatial UINT1\n");
-  POSTCOND(FALSE && r > c && m != NULL);
+  POSTCOND(false && r > c && m != NULL);
 }
-static BOOL GetNonSpatialUINT1(
+static bool GetNonSpatialUINT1(
   UINT1 *v,      /* write-only. Value */
   int    r,      /* row number */
   int    c,      /* column number */
@@ -272,7 +272,7 @@ MAP_UINT1 *InitMapUINT1(
   size_t r,          /* number of rows */
   size_t c,          /* number of columns */
         void *v,        /* value buffer, ptr to 1 or all values */
-        BOOL spatial,   /* does v contains a spatial or nonSpatial.*/
+        bool spatial,   /* does v contains a spatial or nonSpatial.*/
         CSF_CR inCr)    /* map contents cell representation */
 {
   MAP_UINT1 *m = ChkMalloc(sizeof(MAP_UINT1));

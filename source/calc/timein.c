@@ -95,7 +95,7 @@ ReadTimeInputTable(const char *fileName,   /* name of file to read */
     size_t nrSteps = 0;
     size_t nrCols = 0;
 
-    appLarge = TRUE;
+    appLarge = true;
 
     /* suppress not used warning */
     PRECOND(nrFirstStepsToSkip >= 0);

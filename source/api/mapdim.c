@@ -31,7 +31,7 @@ int testApiYproj = 0;
 /* size_t   testApiNrRows   = 0; */
 /* size_t   testApiNrCols   = 0; */
 /* (LIBRARY_INTERNAL) */
-BOOL testApiInit = FALSE;
+bool testApiInit = false;
 
 /**********************/
 /* LOCAL DECLARATIONS */

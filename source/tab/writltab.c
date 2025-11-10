@@ -28,7 +28,7 @@
 /* definition of SPEC (LIBRARY_INTERNAL)
  */
 typedef struct SPEC {
-    BOOL allOne;
+    bool allOne;
     size_t lFmt;
     size_t hFmt;
 } SPEC;
@@ -50,7 +50,7 @@ static void BufPrint(char *buf, double v)
         sprintf(buf, "%g", v);
 }
 
-static void PrintKey(FILE *f, const SPEC *s, const LOOK_UP_KEY *k, BOOL lastCol)
+static void PrintKey(FILE *f, const SPEC *s, const LOOK_UP_KEY *k, bool lastCol)
 {
     char lBuf[64];
     char hBuf[64];
@@ -152,7 +152,7 @@ int WriteLookupTable(const char *fileName, const LOOK_UP_TABLE *table)
     SPEC *spec = NULL;
     FILE *f = NULL;
     LOOK_UP_KEY *key = NULL; /* copy necc. for directional conv. */
-    BOOL matrWrite = (app2dMatrix && table->nrKeys == 2);
+    bool matrWrite = (app2dMatrix && table->nrKeys == 2);
     const LOOK_UP_TABLE *t = table;
     if (matrWrite) {
         t = CreateMatrix(t);
@@ -168,7 +168,7 @@ int WriteLookupTable(const char *fileName, const LOOK_UP_TABLE *table)
         goto error;
     }
     for (k = 0; k < t->nrKeys + 1; k++) {
-        spec[k].allOne = TRUE;
+        spec[k].allOne = true;
         spec[k].lFmt = 0;
         spec[k].hFmt = 0;
         for (r = 0; r < t->nrRecords; r++)

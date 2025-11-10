@@ -11,6 +11,7 @@ The most relevant updates for users:
 
 .. * aguila contour
 ..
+
 We further improved the code quality and the build system to ensure an ongoing creation of PCRaster packages, amongst others:
 
 * Modernising the source code. C17 and C++20 are now the default standards when compiling PCRaster.

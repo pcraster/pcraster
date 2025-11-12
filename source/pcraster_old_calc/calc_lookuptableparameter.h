@@ -1,20 +1,12 @@
 #ifndef INCLUDED_CALC_LOOKUPTABLEPARAMETER
 #define INCLUDED_CALC_LOOKUPTABLEPARAMETER
 
-#ifndef INCLUDED_CALC_SUBPARAMETER
 #include "calc_subparameter.h"
-#define INCLUDED_CALC_SUBPARAMETER
-#endif
 
-#ifndef INCLUDED_VECTOR
 #include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-#ifndef INCLUDED_STRING
 #include <string>
-#define INCLUDED_STRING
-#endif
+
+
 
 namespace pcrxml {
   class Data;

@@ -1,30 +1,11 @@
 #ifndef INCLUDED_CALC_FINDSYMBOL
 #define INCLUDED_CALC_FINDSYMBOL
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALCTYPES
 #include "calctypes.h"
-#define INCLUDED_CALCTYPES
-#endif
-
-#ifndef INCLUDED_MAJOR_OP
 #include "major_op.h"
-#define INCLUDED_MAJOR_OP
-#endif
 
+#include <string>
 
 
 namespace calc {

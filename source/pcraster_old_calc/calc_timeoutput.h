@@ -1,20 +1,11 @@
 #ifndef INCLUDED_CALC_TIMEOUTPUT
 #define INCLUDED_CALC_TIMEOUTPUT
 
-#ifndef INCLUDED_CALC_STATEMENT
 # include "calc_statement.h"
-#define INCLUDED_CALC_STATEMENT
-#endif
-
-#ifndef INCLUDED_CALC_FIELDARGS
 # include "calc_fieldargs.h"
-#define INCLUDED_CALC_FIELDARGS
-#endif
-
-#ifndef INCLUDED_FIELDEXPRARGS
 # include "calc_fieldexprargs.h"
-#define INCLUDED_FIELDEXPRARGS
-#endif
+
+
 
 namespace calc {
 

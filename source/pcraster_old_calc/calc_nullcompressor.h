@@ -1,22 +1,8 @@
 #ifndef INCLUDED_CALC_NULLCOMPRESSOR
 #define INCLUDED_CALC_NULLCOMPRESSOR
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_CALC_COMPRESSOR
 #include "calc_compressor.h"
-#define INCLUDED_CALC_COMPRESSOR
-#endif
-
-// Module headers.
 
 
 

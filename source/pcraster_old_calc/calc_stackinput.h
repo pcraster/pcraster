@@ -1,25 +1,13 @@
 #ifndef INCLUDED_CALC_STACKINPUT
 #define INCLUDED_CALC_STACKINPUT
 
-#ifndef INCLUDED_CALC_FIELDEXPR
-# include "calc_fieldexpr.h"
-#define INCLUDED_CALC_FIELDEXPR
-#endif
+#include "calc_fieldexpr.h"
+#include "calc_bindedsymbol.h"
+#include "calc_fieldtype.h"
 
-#ifndef INCLUDED_CALC_BINDEDSYMBOL
-# include "calc_bindedsymbol.h"
-#define INCLUDED_CALC_BINDEDSYMBOL
-#endif
-
-#ifndef INCLUDED_CALC_FIELDTYPE
-# include "calc_fieldtype.h"
-#define INCLUDED_CALC_FIELDTYPE
-#endif
-
-#ifndef INCLUDED_VECTOR
 #include <vector>
-#define INCLUDED_VECTOR
-#endif
+
+
 
 namespace calc {
 

@@ -1,10 +1,8 @@
 #ifndef INCLUDED_CALC_INDEXPARAMETERCONSTANT
 #define INCLUDED_CALC_INDEXPARAMETERCONSTANT
 
-#ifndef INCLUDED_CALC_INDEXPARAMETER
 #include "calc_indexparameter.h"
-#define INCLUDED_CALC_INDEXPARAMETER
-#endif
+
 
 namespace calc {
 

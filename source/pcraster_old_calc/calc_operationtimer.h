@@ -1,12 +1,7 @@
 #ifndef INCLUDED_CALC_OPERATIONTIMER
 #define INCLUDED_CALC_OPERATIONTIMER
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
 #define OPERATION_TIMER(key,doCount)
 // #ifndef __linux__
@@ -14,15 +9,8 @@
 // #else
 // #define OPERATION_TIMER(key,doCount) calc::OperationTimer otOnlyOne(key,doCount)
 
-// Library headers.
-#ifndef INCLUDED_STRING
 #include <string>
-#define INCLUDED_STRING
-#endif
 
-// PCRaster library headers.
-
-// Module headers.
 
 
 

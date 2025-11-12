@@ -1,10 +1,7 @@
 #ifndef INCLUDED_CALC_ASSIGNMENT
 #define INCLUDED_CALC_ASSIGNMENT
 
-#ifndef INCLUDED_CALC_STATEMENT
-# include "calc_statement.h"
-#define INCLUDED_CALC_STATEMENT
-#endif
+#include "calc_statement.h"
 
 
 namespace calc {

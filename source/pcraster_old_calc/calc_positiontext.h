@@ -1,21 +1,8 @@
 #ifndef INCLUDED_CALC_POSITIONTEXT
 #define INCLUDED_CALC_POSITIONTEXT
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_POSITION
 #include "calc_position.h"
-#define INCLUDED_CALC_POSITION
-#endif
 
 #include <memory>
 

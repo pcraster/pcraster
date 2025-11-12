@@ -1,10 +1,8 @@
 #ifndef INCLUDED_CALC_USERMODELLINK
 #define INCLUDED_CALC_USERMODELLINK
 
-#ifndef INCLUDED_CALC_USERSYMBOL
 #include "calc_usersymbol.h"
-#define INCLUDED_CALC_USERSYMBOL
-#endif
+
 
 namespace calc {
 

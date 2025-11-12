@@ -1,25 +1,13 @@
 #ifndef INCLUDED_CALC_STATEMENTBLOCK
 #define INCLUDED_CALC_STATEMENTBLOCK
 
-#ifndef INCLUDED_CALC_STATEMENT
 #include "calc_statement.h"
-#define INCLUDED_CALC_STATEMENT
-#endif
-
-#ifndef INCLUDED_LIST
-#include <list>
-#define INCLUDED_LIST
-#endif
-
-#ifndef INCLUDED_MAP
-#include <map>
-#define INCLUDED_MAP
-#endif
-
-#ifndef INCLUDED_CALC_VS
 #include "calc_vs.h"
-#define INCLUDED_CALC_VS
-#endif
+
+#include <list>
+#include <map>
+
+
 
 namespace calc {
 

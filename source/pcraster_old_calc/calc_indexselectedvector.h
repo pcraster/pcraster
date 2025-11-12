@@ -1,25 +1,13 @@
 #ifndef INCLUDED_CALC_INDEXSELECTEDVECTOR
 #define INCLUDED_CALC_INDEXSELECTEDVECTOR
 
-#ifndef INCLUDED_INDEXSELECTED
 #include "calc_indexselected.h"
-#define INCLUDED_INDEXSELECTED
-#endif
-
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-#ifndef INCLUDED_CALC_ARRAYDEFVECTOR
 #include "calc_arraydefvector.h"
-#define INCLUDED_CALC_ARRAYDEFVECTOR
-#endif
+
+#include <vector>
+#include <string>
+
+
 
 namespace calc {
 

@@ -1,20 +1,11 @@
 #ifndef INCLUDED_CALC_ESRIMAP
 #define INCLUDED_CALC_ESRIMAP
 
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
-
-#ifndef INCLUDED_CALC_GRIDMAP
 #include "calc_gridmap.h"
-#define INCLUDED_CALC_GRIDMAP
-#endif
+
+#include <string>
+
 
 namespace calc {
 

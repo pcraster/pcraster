@@ -7,10 +7,11 @@
  */
 
 #include "pcrcalcd.h"
+#include "csftypes.h"
+
 #include <string>
 #include <vector>
 
-#include "csftypes.h"
 
 namespace geo {
  class RasterSpace;

@@ -1,16 +1,10 @@
 #ifndef INCLUDED_CALC_FILEWRITER
 #define INCLUDED_CALC_FILEWRITER
 
-
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-#ifndef INCLUDED_CALC_VS
 #include "calc_vs.h"
-#define INCLUDED_CALC_VS
-#endif
+
+#include <string>
+
 
 namespace geo {
 class RasterSpace;

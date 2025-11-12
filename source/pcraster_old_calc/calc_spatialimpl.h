@@ -1,10 +1,9 @@
 #ifndef INCLUDED_CALC_SPATIALIMPL
 #define INCLUDED_CALC_SPATIALIMPL
 
-#ifndef INCLUDED_CALC_FIELDVALUE
 #include "calc_fieldvalue.h"
-#define INCLUDED_CALC_FIELDVALUE
-#endif
+
+
 
 namespace calc {
 

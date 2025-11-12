@@ -1,20 +1,11 @@
 #ifndef INCLUDED_CALC_FIELDSTACK
 #define INCLUDED_CALC_FIELDSTACK
 
-#ifndef INCLUDED_STACK
-#include <stack>
-#define INCLUDED_STACK
-#endif
-
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
+
+#include <stack>
+#include <vector>
+
 
 namespace calc {
 

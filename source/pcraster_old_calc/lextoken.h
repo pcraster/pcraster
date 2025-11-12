@@ -1,15 +1,14 @@
 #ifndef INCLUDED_LEXTOKEN
 #define INCLUDED_LEXTOKEN
 
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
 #include "tokens.h"
 #include "AToken.h"
 
 #include "major_op.h"
+
+#include <string>
+
+
 
 namespace calc {
 

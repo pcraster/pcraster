@@ -1,10 +1,8 @@
 #ifndef INCLUDED_CALC_GENERATESPATIALFUNC
 #define INCLUDED_CALC_GENERATESPATIALFUNC
 
-#ifndef INCLUDED_CSFTYPES
 #include "csftypes.h"
-#define INCLUDED_CSFTYPES
-#endif
+
 
 namespace calc {
 }

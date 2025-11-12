@@ -1,25 +1,12 @@
 #ifndef INCLUDED_CALC_FOREACH
 #define INCLUDED_CALC_FOREACH
 
-#ifndef INCLUDED_CALC_INNERSTATEMENTBLOCK
-# include "calc_innerstatementblock.h"
-#define INCLUDED_CALC_INNERSTATEMENTBLOCK
-#endif
+#include "calc_innerstatementblock.h"
+#include "calc_idlist.h"
+#include "calc_symboltable.h"
 
-#ifndef INCLUDED_CALC_IDLIST
-# include "calc_idlist.h"
-#define INCLUDED_CALC_IDLIST
-#endif
+#include <set>
 
-#ifndef INCLUDED_CALC_SYMBOLTABLE
-# include "calc_symboltable.h"
-#define INCLUDED_CALC_SYMBOLTABLE
-#endif
-
-#ifndef INCLUDED_SET
-# include <set>
-#define INCLUDED_SET
-#endif
 
 namespace calc {
 

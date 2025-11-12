@@ -1,21 +1,10 @@
 #ifndef INCLUDED_CALC_ZIPMAP
 #define INCLUDED_CALC_ZIPMAP
 
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_SPATIAL
 #include "calc_spatial.h"
-#define INCLUDED_CALC_SPATIAL
-#endif
+
+
 
 namespace calc {
   // ZipMap declarations.

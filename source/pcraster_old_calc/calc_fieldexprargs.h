@@ -1,10 +1,8 @@
 #ifndef INCLUDED_CALC_FIELDEXPRARGS
 #define INCLUDED_CALC_FIELDEXPRARGS
 
-#ifndef INCLUDED_VECTOR
-# include <vector>
-#define INCLUDED_VECTOR
-#endif
+#include <vector>
+
 
 namespace calc {
 

@@ -1,22 +1,9 @@
 #ifndef INCLUDED_CALC_DECOMPRESSEDDATA
 #define INCLUDED_CALC_DECOMPRESSEDDATA
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_VSENUM
 #include "vsenum.h"
-#define INCLUDED_VSENUM
-#endif
+
 
 namespace calc {
   // DecompressedData declarations.

@@ -1,15 +1,9 @@
 #ifndef INCLUDED_CALC_INDEXPARAMETER
 #define INCLUDED_CALC_INDEXPARAMETER
 
-#ifndef INCLUDED_CALC_PARAMETER
 #include "calc_parameter.h"
-#define INCLUDED_CALC_PARAMETER
-#endif
-
-#ifndef INCLUDED_CALC_INDEXCONTAINER
 #include "calc_indexcontainer.h"
-#define INCLUDED_CALC_INDEXCONTAINER
-#endif
+
 
 namespace calc {
 

@@ -1,20 +1,11 @@
 #ifndef INCLUDED_CALC_FIELDLEAF
 #define INCLUDED_CALC_FIELDLEAF
 
-#ifndef INCLUDED_CALC_FIELDEXPR
-# include "calc_fieldexpr.h"
-#define INCLUDED_CALC_FIELDEXPR
-#endif
+#include "calc_fieldexpr.h"
+#include "calc_usedefnode.h"
 
-#ifndef INCLUDED_CALC_USEDEFNODE
-# include "calc_usedefnode.h"
-#define INCLUDED_CALC_USEDEFNODE
-#endif
+#include <memory>
 
-#ifndef INCLUDED_MEMORY
-# include <memory>
-#define INCLUDED_MEMORY
-#endif
 
 namespace calc {
 

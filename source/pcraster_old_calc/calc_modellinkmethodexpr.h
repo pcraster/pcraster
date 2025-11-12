@@ -1,29 +1,13 @@
 #ifndef INCLUDED_CALC_MODELLINKMETHODEXPR
 #define INCLUDED_CALC_MODELLINKMETHODEXPR
 
-#ifndef INCLUDED_CALC_FIELDEXPR
-# include "calc_fieldexpr.h"
-#define INCLUDED_CALC_FIELDEXPR
-#endif
-
-#ifndef INCLUDED_CALC_FIELDTYPE
-# include "calc_fieldtype.h"
-#define INCLUDED_CALC_FIELDTYPE
-#endif
-#ifndef INCLUDED_CALC_SYMBOL
+#include "calc_fieldexpr.h"
+#include "calc_fieldtype.h"
 #include "calc_symbol.h"
-#define INCLUDED_CALC_SYMBOL
-#endif
+#include "calc_fieldexprargs.h"
+#include "calc_modellink.h"
 
-#ifndef INCLUDED_FIELDEXPRARGS
-# include "calc_fieldexprargs.h"
-#define INCLUDED_FIELDEXPRARGS
-#endif
 
-#ifndef INCLUDED_MODELLINK
-# include "calc_modellink.h"
-#define INCLUDED_MODELLINK
-#endif
 
 namespace calc {
 

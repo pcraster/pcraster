@@ -1,20 +1,10 @@
 #ifndef INCLUDED_CALC_ARRAYDEFVECTOR
 #define INCLUDED_CALC_ARRAYDEFVECTOR
 
-#ifndef INCLUDED_MAP
 #include <map>
-#define INCLUDED_MAP
-#endif
-
-#ifndef INCLUDED_VECTOR
 #include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-#ifndef INCLUDED_STRING
 #include <string>
-#define INCLUDED_STRING
-#endif
+
 
 namespace calc {
 

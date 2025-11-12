@@ -1,38 +1,14 @@
 #ifndef INCLUDED_CALC_STATTABLE
 #define INCLUDED_CALC_STATTABLE
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
-// Library headers.
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_PATHNAME
 #include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
-#ifndef INCLUDED_CSFTYPES
 #include "csftypes.h"
-#define INCLUDED_CSFTYPES
-#endif
-#ifndef INCLUDED_COM_INTERVAL
 #include "com_interval.h"
-#define INCLUDED_COM_INTERVAL
-#endif
+#include "calc_statement.h"
 
-// Module headers.
-#ifndef INCLUDED_CALC_STATEMENT
-# include "calc_statement.h"
-#define INCLUDED_CALC_STATEMENT
-#endif
+#include <iostream>
 
 
 namespace calc {

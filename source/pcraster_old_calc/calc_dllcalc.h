@@ -1,24 +1,11 @@
 #ifndef INCLUDED_CALC_DLLCALC
 #define INCLUDED_CALC_DLLCALC
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_SSTREAM
-#include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_CALC
 #include "calc_calc.h"
-#define INCLUDED_CALC_CALC
-#endif
+
+#include <sstream>
+
 
 namespace calc {
 

@@ -1,25 +1,12 @@
 #ifndef INCLUDED_CALC_INDEXTABLE
 #define INCLUDED_CALC_INDEXTABLE
 
-#ifndef INCLUDED_CALC_PARAMETER
 #include "calc_parameter.h"
-#define INCLUDED_CALC_PARAMETER
-#endif
+#include "calc_arraydefvector.h"
+#include "calc_vs.h"
 
-#ifndef INCLUDED_CALC_ARRAYDEFVECTOR
-# include "calc_arraydefvector.h"
-# define INCLUDED_DEFVECTOR
-#endif
-
-#ifndef INCLUDED_CALC_VS
-# include "calc_vs.h"
-# define INCLUDED_CALC_VS
-#endif
-
-#ifndef INCLUDED_MAP
 #include <map>
-#define INCLUDED_MAP
-#endif
+
 
 namespace calc {
 

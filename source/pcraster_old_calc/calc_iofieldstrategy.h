@@ -1,39 +1,14 @@
 #ifndef INCLUDED_CALC_IOFIELDSTRATEGY
 #define INCLUDED_CALC_IOFIELDSTRATEGY
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
-// Library headers.
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_GEO_RASTERSPACE
 #include "geo_rasterspace.h"
-#define INCLUDED_GEO_RASTERSPACE
-#endif
-#ifndef INCLUDED_PCRGENXML_IOSTRATEGY
 #include "pcrgenxml_iostrategy.h"
-#define INCLUDED_PCRGENXML_IOSTRATEGY
-#endif
-
-#ifndef INCLUDED_APPARGS
 #include "appargs.h" // APP_IO_STRATEGY
-#define INCLUDED_APPARGS
-#endif
-
-// Module headers.
-
-#ifndef INCLUDED_VSENUM
 #include "vsenum.h"
-#define INCLUDED_VSENUM
-#endif
 
+#include <string>
 
 
 namespace calc {

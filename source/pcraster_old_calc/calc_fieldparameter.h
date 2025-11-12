@@ -1,30 +1,13 @@
 #ifndef INCLUDED_CALC_FIELDPARAMETER
 #define INCLUDED_CALC_FIELDPARAMETER
 
-#ifndef INCLUDED_CALC_FIELDTYPE
 #include "calc_fieldtype.h"
-#define INCLUDED_CALC_FIELDTYPE
-#endif
-
-#ifndef INCLUDED_CALC_SUBPARAMETER
 #include "calc_subparameter.h"
-#define INCLUDED_CALC_SUBPARAMETER
-#endif
-
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
+
+#include <vector>
+#include <string>
+
 
 namespace pcrxml {
   class Data;

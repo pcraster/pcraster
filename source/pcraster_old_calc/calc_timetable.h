@@ -1,15 +1,10 @@
 #ifndef INCLUDED_CALC_TIMETABLE
 #define INCLUDED_CALC_TIMETABLE
 
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-#ifndef INCLUDED_VSENUM
 #include "vsenum.h"
-#define INCLUDED_VSENUM
-#endif
+
+#include <string>
+
 
 struct TIME_TABLE;
 

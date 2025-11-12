@@ -1,10 +1,7 @@
 #ifndef INCLUDED_CALC_DYNAMICSECTION
 #define INCLUDED_CALC_DYNAMICSECTION
 
-#ifndef INCLUDED_CALC_INNERSTATEMENTBLOCK
-# include "calc_innerstatementblock.h"
-#define INCLUDED_CALC_INNERSTATEMENTBLOCK
-#endif
+#include "calc_innerstatementblock.h"
 
 
 

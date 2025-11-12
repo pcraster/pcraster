@@ -1,26 +1,11 @@
 #ifndef INCLUDED_CALC_ICLIENTINTERFACE
 #define INCLUDED_CALC_ICLIENTINTERFACE
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_SSTREAM
-#include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_EXECUTESCRIPTSTATUS
 #include "calc_executescriptstatus.h"
-#define INCLUDED_CALC_EXECUTESCRIPTSTATUS
-#endif
+
+#include <sstream>
+
 
 namespace calc {
   // IClientInterface declarations.

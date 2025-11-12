@@ -1,20 +1,11 @@
 #ifndef INCLUDED_CALC_BANDMAP
 #define INCLUDED_CALC_BANDMAP
 
-#ifndef INCLUDED_CALC_GRIDMAP
 #include "calc_gridmap.h"
-#define INCLUDED_CALC_GRIDMAP
-#endif
-
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-#ifndef INCLUDED_GEO_BANDMAP
 #include"geo_bandmap.h"
-#define INCLUDED_GEO_BANDMAP
-#endif
+
+#include <string>
+
 
 namespace calc {
 

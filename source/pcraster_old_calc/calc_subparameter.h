@@ -1,15 +1,10 @@
 #ifndef INCLUDED_CALC_SUBPARAMETER
 #define INCLUDED_CALC_SUBPARAMETER
 
-#ifndef INCLUDED_CALC_PARAMETER
 #include "calc_parameter.h"
-#define INCLUDED_CALC_PARAMETER
-#endif
-
-#ifndef INCLUDED_CALC_ARRAYDEFVECTOR
 #include "calc_arraydefvector.h"
-#define INCLUDED_CALC_ARRAYDEFVECTOR
-#endif
+
+
 
 namespace calc {
 

@@ -1,26 +1,12 @@
 #ifndef INCLUDED_CALC_LEXINPUTSOURCETEXTSCRIPT
 #define INCLUDED_CALC_LEXINPUTSOURCETEXTSCRIPT
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_FSTREAM
-#include <fstream>
-#define INCLUDED_FSTREAM
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_LEXINPUTSOURCE
 #include "calc_lexinputsource.h"
-#define INCLUDED_CALC_LEXINPUTSOURCE
-#endif
+
+#include <fstream>
+
+
 
 namespace com {
   class PathName;

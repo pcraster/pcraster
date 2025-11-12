@@ -1,15 +1,9 @@
 #ifndef INCLUDED_CALC_BRANCHEXPRIMPL
 #define INCLUDED_CALC_BRANCHEXPRIMPL
 
-#ifndef INCLUDED_CALC_BRANCHEXPR
-# include "calc_branchexpr.h"
-#define INCLUDED_CALC_BRANCHEXPR
-#endif
+#include "calc_branchexpr.h"
+#include "calc_field.h"
 
-#ifndef INCLUDED_CALC_FIELD
-# include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
 
 namespace calc {
 

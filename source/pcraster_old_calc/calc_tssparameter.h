@@ -1,10 +1,8 @@
 #ifndef INCLUDED_CALC_TSSPARAMETER
 #define INCLUDED_CALC_TSSPARAMETER
 
-#ifndef INCLUDED_CALC_SUBPARAMETER
 #include "calc_subparameter.h"
-#define INCLUDED_CALC_SUBPARAMETER
-#endif
+
 
 namespace pcrxml {
   class Data;

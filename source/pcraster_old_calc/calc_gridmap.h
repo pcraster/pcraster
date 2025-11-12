@@ -1,25 +1,10 @@
 #ifndef INCLUDED_CALC_GRIDMAP
 #define INCLUDED_CALC_GRIDMAP
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-// CW TODO ergens een partiele fwd definitie?
-#include <string>
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_VSENUM
 #include "vsenum.h"
-#define INCLUDED_VSENUM
-#endif
 
+#include <string>
 
 
 namespace calc {

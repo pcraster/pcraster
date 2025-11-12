@@ -1,28 +1,10 @@
 #ifndef INCLUDED_CALC_INPUTSPATIAL
 #define INCLUDED_CALC_INPUTSPATIAL
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_SPATIAL
 #include "calc_spatial.h"
-#define INCLUDED_CALC_SPATIAL
-#endif
-#ifndef INCLUDED_CALC_GRIDMAP
 #include "calc_gridmap.h"
-#define INCLUDED_CALC_GRIDMAP
-#endif
-#ifndef INCLUDED_CALC_COMPRESSOR
 #include "calc_compressor.h"
-#define INCLUDED_CALC_COMPRESSOR
-#endif
 
 
 

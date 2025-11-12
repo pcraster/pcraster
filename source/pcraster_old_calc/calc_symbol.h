@@ -1,15 +1,10 @@
 #ifndef INCLUDED_CALC_SYMBOL
 #define INCLUDED_CALC_SYMBOL
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_CALC_ELEMENT
 #include "calc_element.h"
-#define INCLUDED_CALC_ELEMENT
-#endif
+
+
 
 namespace calc {
 

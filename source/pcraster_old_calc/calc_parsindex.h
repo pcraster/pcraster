@@ -1,20 +1,12 @@
 #ifndef INCLUDED_CALC_PARSINDEX
 #define INCLUDED_CALC_PARSINDEX
 
-#ifndef INCLUDED_CALC_SYMBOL
 # include "calc_symbol.h"
-# define INCLUDED_YMBOL
-#endif
-
-#ifndef INCLUDED_CALC_IDLIST
 #include "calc_idlist.h"
-#define INCLUDED_CALC_IDLIST
-#endif
 
-#ifndef INCLUDED_VECTOR
 #include <vector>
-#define INCLUDED_VECTOR
-#endif
+
+
 
 namespace calc {
 

@@ -1,24 +1,13 @@
 #ifndef INCLUDED_CALC_ISCRIPT
 #define INCLUDED_CALC_ISCRIPT
 
-#ifndef INCLUDED_CALC_SYMBOL
 #include "calc_symbol.h"
-#define INCLUDED_CALC_SYMBOL
-#endif
-
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-#ifndef INCLUDED_VSENUM
 #include "vsenum.h"
-#define INCLUDED_VSENUM
-#endif
-#ifndef INCLUDED_CALC_PROGRESSPULSE
 #include "calc_progresspulse.h"
-#define INCLUDED_CALC_PROGRESSPULSE
-#endif
+
+#include <string>
+
+
 
 namespace geo {
   class RasterSpace;

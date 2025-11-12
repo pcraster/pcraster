@@ -1,10 +1,8 @@
 #ifndef INCLUDED_CALC_INDEXCONTAINER
 #define INCLUDED_CALC_INDEXCONTAINER
 
-#ifndef INCLUDED_SET
 #include <set>
-#define INCLUDED_SET
-#endif
+
 
 namespace calc {
 

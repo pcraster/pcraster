@@ -1,30 +1,11 @@
 #ifndef INCLUDED_CALC_CALC
 #define INCLUDED_CALC_CALC
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_SCRIPT
 #include "calc_script.h"
-#define INCLUDED_CALC_SCRIPT
-#endif
-#ifndef INCLUDED_CALC_LEXINPUT
 #include "calc_lexinput.h"
-#define INCLUDED_CALC_LEXINPUT
-#endif
-#ifndef INCLUDED_CALC_EXECUTESCRIPTSTATUS
 #include "calc_executescriptstatus.h"
-#define INCLUDED_CALC_EXECUTESCRIPTSTATUS
-#endif
+
 
 namespace com {
   class PathName;

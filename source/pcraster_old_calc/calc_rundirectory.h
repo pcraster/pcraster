@@ -1,26 +1,9 @@
 #ifndef INCLUDED_CALC_RUNDIRECTORY
 #define INCLUDED_CALC_RUNDIRECTORY
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_PCRDLL
 #include "pcrdll.h"
-#define INCLUDED_PCRDLL
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_RUNSETTINGS
 #include "calc_runsettings.h"
-#define INCLUDED_CALC_RUNSETTINGS
-#endif
 
 
 

@@ -1,25 +1,12 @@
 #ifndef INCLUDED_CALC_ARRAYDEFINITION
 #define INCLUDED_CALC_ARRAYDEFINITION
 
-#ifndef INCLUDED_CALC_USERSYMBOL
-# include "calc_usersymbol.h"
-# define INCLUDED_CALC_USERSYMBOL
-#endif
+#include "calc_usersymbol.h"
+#include "calc_indexcontainer.h"
 
-#ifndef INCLUDED_CALC_INDEXCONTAINER
-# include "calc_indexcontainer.h"
-# define INCLUDED_CALC_INDEXCONTAINER
-#endif
-
-#ifndef INCLUDED_VECTOR
 #include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-#ifndef INCLUDED_SET
 #include <set>
-#define INCLUDED_SET
-#endif
+
 
 namespace calc {
 

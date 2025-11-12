@@ -1,15 +1,10 @@
 #ifndef INCLUDED_CALC_NONSPATIALIMPL
 #define INCLUDED_CALC_NONSPATIALIMPL
 
-#ifndef INCLUDED_CALC_FIELDVALUE
 #include "calc_fieldvalue.h"
-#define INCLUDED_CALC_FIELDVALUE
-#endif
-
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
+
+
 
 namespace calc {
 

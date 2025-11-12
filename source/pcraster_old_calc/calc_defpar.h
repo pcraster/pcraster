@@ -1,15 +1,9 @@
 #ifndef  INCLUDED_CALC_DEFPAR
 #define  INCLUDED_CALC_DEFPAR
 
-#ifndef  INCLUDED_CALC_PARSPAR
 #include  "calc_parspar.h"
-#define  INCLUDED_CALC_PARSPAR
-#endif
-
-#ifndef  INCLUDED_CALC_ARRAYDEFVECTOR
 #include  "calc_arraydefvector.h"
-#define  INCLUDED_CALC_ARRAYDEFVECTOR
-#endif
+
 
 namespace com {
   class Exception;

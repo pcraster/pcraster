@@ -1,30 +1,12 @@
 #ifndef INCLUDED_CALC_FIELDLEFT
 #define INCLUDED_CALC_FIELDLEFT
 
-#ifndef INCLUDED_CALC_WRITEINFO
-# include "calc_writeinfo.h"
-#define INCLUDED_CALC_WRITEINFO
-#endif
+#include "calc_writeinfo.h"
+#include "calc_vs.h"
+#include "calc_symbol.h"
+#include "calc_usedefnode.h"
+#include "calc_field.h"
 
-#ifndef INCLUDED_CALC_VS
-# include "calc_vs.h"
-#define INCLUDED_CALC_VS
-#endif
-
-#ifndef INCLUDED_CALC_SYMBOL
-# include "calc_symbol.h"
-#define INCLUDED_CALC_SYMBOL
-#endif
-
-#ifndef INCLUDED_CALC_USEDEFNODE
-# include "calc_usedefnode.h"
-#define INCLUDED_CALC_USEDEFNODE
-#endif
-
-#ifndef INCLUDED_CALC_FIELD
-# include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
 
 namespace calc {
 

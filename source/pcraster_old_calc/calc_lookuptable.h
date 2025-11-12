@@ -1,25 +1,14 @@
 #ifndef INCLUDED_CALC_LOOKUPTABLE
 #define INCLUDED_CALC_LOOKUPTABLE
 
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-#ifndef INCLUDED_CALC_VS
 #include "calc_vs.h"
-#define INCLUDED_CALC_VS
-#endif
-
-#ifndef INCLUDED_COM_INTERVAL
 #include "com_interval.h"
-#define INCLUDED_COM_INTERVAL
-#endif
+
+#include <string>
+#include <vector>
+
+
+
 struct LOOK_UP_TABLE;
 struct LOOK_UP_KEY;
 

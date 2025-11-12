@@ -1,15 +1,9 @@
 #ifndef INCLUDED_CALC_USERSYMBOL
 #define INCLUDED_CALC_USERSYMBOL
 
-#ifndef INCLUDED_CALC_BINDEDSYMBOL
 #include "calc_bindedsymbol.h"
-#define INCLUDED_CALC_BINDEDSYMBOL
-#endif
-
-#ifndef INCLUDED_VSENUM
 #include "vsenum.h"
-#define INCLUDED_VSENUM
-#endif
+
 
 namespace pcrxml {
   class Data;

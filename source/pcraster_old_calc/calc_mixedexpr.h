@@ -1,25 +1,11 @@
 #ifndef INCLUDED_CALC_MIXEDEXPR
 #define INCLUDED_CALC_MIXEDEXPR
 
-#ifndef INCLUDED_CALC_FIELDEXPR
-# include "calc_fieldexpr.h"
-#define INCLUDED_CALC_FIELDEXPR
-#endif
+#include "calc_fieldexpr.h"
+#include "calc_fieldargs.h"
+#include "calc_fieldexprargs.h"
+#include "calc_fieldtype.h"
 
-#ifndef INCLUDED_CALC_FIELDARGS
-# include "calc_fieldargs.h"
-#define INCLUDED_CALC_FIELDARGS
-#endif
-
-#ifndef INCLUDED_FIELDEXPRARGS
-# include "calc_fieldexprargs.h"
-#define INCLUDED_FIELDEXPRARGS
-#endif
-
-#ifndef INCLUDED_CALC_FIELDTYPE
-# include "calc_fieldtype.h"
-#define INCLUDED_CALC_FIELDTYPE
-#endif
 
 namespace calc {
 

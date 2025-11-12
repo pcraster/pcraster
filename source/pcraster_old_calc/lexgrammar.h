@@ -8,22 +8,12 @@
 #define  INCLUDED_FLEXLEXER
 #endif
 
-#ifndef INCLUDED_CALC_LEXINPUT
 #include "calc_lexinput.h"
-#define INCLUDED_CALC_LEXINPUT
-#endif
-
-#ifndef INCLUDED_LEXTOKEN
 #include "lextoken.h"
-#define INCLUDED_LEXTOKEN
-#endif
-
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
 #include "ATokenStream.h"
+
+#include <string>
+
 namespace calc {
 //! lexer for ANTLR based parser for the modelling language Grammar
 class LexGrammar : public gramFlexLexer, public ANTLRTokenStream {

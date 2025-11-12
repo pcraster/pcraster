@@ -1,10 +1,8 @@
 #ifndef INCLUDED_CALC_INDEXSELECTED
 #define INCLUDED_CALC_INDEXSELECTED
 
-#ifndef INCLUDED_STRING
 #include <string>
-#define INCLUDED_STRING
-#endif
+
 
 namespace calc {
 

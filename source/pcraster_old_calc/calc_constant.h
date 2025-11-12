@@ -1,15 +1,9 @@
 #ifndef INCLUDED_CALC_CONSTANT
 #define INCLUDED_CALC_CONSTANT
 
-#ifndef INCLUDED_CALC_FIELDEXPR
-# include "calc_fieldexpr.h"
-#define INCLUDED_CALC_FIELDEXPR
-#endif
+#include "calc_fieldexpr.h"
+#include "calc_fieldtype.h"
 
-#ifndef INCLUDED_CALC_FIELDTYPE
-# include "calc_fieldtype.h"
-#define INCLUDED_FIELDYPE
-#endif
 
 namespace calc {
 

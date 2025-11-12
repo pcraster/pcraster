@@ -1,22 +1,9 @@
 #ifndef INCLUDED_CALC_MODELPARSER
 #define INCLUDED_CALC_MODELPARSER
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-
-// Module headers.
-#ifndef INCLUDED_PARSER
 #include "tokens.h"
 #include "Parser.h"
-#define INCLUDED_PARSER
-#endif
 
 
 namespace calc {

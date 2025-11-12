@@ -1,10 +1,9 @@
 #ifndef INCLUDED_CALC_TIMEINPUTEXPR
 #define INCLUDED_CALC_TIMEINPUTEXPR
 
-#ifndef INCLUDED_CALC_MIXEDEXPR
-# include "calc_mixedexpr.h"
-#define INCLUDED_CALC_MIXEDEXPR
-#endif
+#include "calc_mixedexpr.h"
+
+
 
 namespace calc {
 

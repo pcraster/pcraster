@@ -1,22 +1,8 @@
 #ifndef INCLUDED_CALC_LOOKUPLINEAR
 #define INCLUDED_CALC_LOOKUPLINEAR
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_LOOKUPTABLE
 #include "calc_lookuptable.h"
-#define INCLUDED_CALC_LOOKUPTABLE
-#endif
 
 
 

@@ -1,20 +1,10 @@
 #ifndef INCLUDED_CALC_FIELDEXPR
 #define INCLUDED_CALC_FIELDEXPR
 
-#ifndef INCLUDED_CALC_ELEMENT
 #include "calc_element.h"
-#define INCLUDED_CALC_ELEMENT
-#endif
-
-#ifndef INCLUDED_CALC_VS
-# include "calc_vs.h"
-#define INCLUDED_CALC_VS
-#endif
-
-#ifndef INCLUDED_CALC_FIELD
+#include "calc_vs.h"
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
+
 
 namespace calc {
 

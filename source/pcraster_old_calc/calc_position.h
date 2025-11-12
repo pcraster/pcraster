@@ -1,26 +1,12 @@
 #ifndef INCLUDED_CALC_POSITION
 #define INCLUDED_CALC_POSITION
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_SSTREAM
-#include <sstream>
-#define INCLUDED_SSTREAM
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_CALC_QUOTE
 #include "calc_quote.h" // used often in combo with throwError
-#define INCLUDED_CALC_QUOTE
-#endif
+
+#include <sstream>
+
+
 
 namespace calc {
   // Position declarations.

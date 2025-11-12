@@ -1,20 +1,10 @@
 #ifndef INCLUDED_CALC_DOUBLEASS
 #define INCLUDED_CALC_DOUBLEASS
 
-#ifndef INCLUDED_CALC_STATEMENT
-# include "calc_statement.h"
-#define INCLUDED_CALC_STATEMENT
-#endif
-
-#ifndef INCLUDED_CALC_FIELDEXPRARGS
-# include "calc_fieldexprargs.h"
-#define INCLUDED_CALC_FIELDEXPRARGS
-#endif
-
-#ifndef INCLUDED_CALC_OPERATOR
+#include "calc_statement.h"
+#include "calc_fieldexprargs.h"
 #include "calc_operator.h"
-#define INCLUDED_CALC_OPERATOR
-#endif
+
 
 namespace calc {
 

@@ -1,15 +1,8 @@
 #ifndef INCLUDED_CALC_BLOCKPOSITION
 #define INCLUDED_CALC_BLOCKPOSITION
 
-#ifndef INCLUDED_VECTOR
 #include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-#ifndef INCLUDED_STRING
 #include <string>
-#define INCLUDED_STRING
-#endif
 
 namespace calc {
 

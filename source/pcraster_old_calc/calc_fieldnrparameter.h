@@ -1,20 +1,11 @@
 #ifndef INCLUDED_CALC_FIELDNRPARAMETER
 #define INCLUDED_CALC_FIELDNRPARAMETER
 
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-#ifndef INCLUDED_CALC_FIELDPARAMETER
 #include "calc_fieldparameter.h"
-#define INCLUDED_CALC_FIELDPARAMETER
-#endif
-
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
+
+#include <vector>
+
 
 namespace calc {
 

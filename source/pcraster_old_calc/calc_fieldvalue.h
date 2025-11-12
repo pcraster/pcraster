@@ -1,15 +1,9 @@
 #ifndef INCLUDED_CALC_FIELDVALUE
 #define INCLUDED_CALC_FIELDVALUE
 
-#ifndef INCLUDED_CALC_FILEWRITER
 #include "calc_filewriter.h"
-#define INCLUDED_CALC_FILEWRITER
-#endif
-
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
+
 
 namespace calc {
 

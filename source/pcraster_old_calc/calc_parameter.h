@@ -1,10 +1,9 @@
 #ifndef INCLUDED_CALC_PARAMETER
 #define INCLUDED_CALC_PARAMETER
 
-#ifndef INCLUDED_CALC_USERSYMBOL
 #include "calc_usersymbol.h"
-#define INCLUDED_CALC_USERSYMBOL
-#endif
+
+
 
 namespace calc {
 

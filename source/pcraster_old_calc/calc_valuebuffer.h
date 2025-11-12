@@ -1,22 +1,8 @@
 #ifndef INCLUDED_CALC_VALUEBUFFER
 #define INCLUDED_CALC_VALUEBUFFER
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_CSFTYPES
 #include "csftypes.h"
-#define INCLUDED_CSFTYPES
-#endif
-
-// Module headers.
 
 
 

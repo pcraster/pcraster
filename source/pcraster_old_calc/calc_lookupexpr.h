@@ -1,15 +1,10 @@
 #ifndef INCLUDED_CALC_LOOKUPEXPR
 #define INCLUDED_CALC_LOOKUPEXPR
 
-#ifndef INCLUDED_CALC_MIXEDEXPR
 # include "calc_mixedexpr.h"
-#define INCLUDED_CALC_MIXEDEXPR
-#endif
-
-#ifndef INCLUDED_FIELDEXPRARGS
 # include "calc_fieldexprargs.h"
-#define INCLUDED_FIELDEXPRARGS
-#endif
+
+
 
 namespace calc {
 

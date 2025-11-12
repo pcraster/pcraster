@@ -1,10 +1,8 @@
 #ifndef INCLUDED_CALC_BINDEDSYMBOL
 #define INCLUDED_CALC_BINDEDSYMBOL
 
-#ifndef INCLUDED_CALC_SYMBOL
 #include "calc_symbol.h"
-#define INCLUDED_CALC_SYMBOL
-#endif
+
 
 namespace com {
   class Exception;

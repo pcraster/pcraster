@@ -1,10 +1,8 @@
 #ifndef INCLUDED_CALC_INNERSTATEMENTBLOCK
 #define INCLUDED_CALC_INNERSTATEMENTBLOCK
 
-#ifndef INCLUDED_CALC_STATEMENTBLOCK
 #include "calc_statementblock.h"
-#define INCLUDED_CALC_STATEMENTBLOCK
-#endif
+
 
 namespace calc {
 

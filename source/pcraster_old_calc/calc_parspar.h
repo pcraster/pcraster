@@ -1,15 +1,11 @@
 #ifndef  INCLUDED_CALC_PARSPAR
 #define  INCLUDED_CALC_PARSPAR
 
-#ifndef  INCLUDED_CALC_BINDEDSYMBOL
 #include  "calc_bindedsymbol.h"
-#define  INCLUDED_CALC_BINDEDSYMBOL
-#endif
 
-#ifndef  INCLUDED_VECTOR
 #include  <vector>
-#define  INCLUDED_VECTOR
-#endif
+
+
 
 namespace calc {
 

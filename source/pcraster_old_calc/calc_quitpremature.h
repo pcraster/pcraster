@@ -1,18 +1,7 @@
 #ifndef INCLUDED_CALC_QUITPREMATURE
 #define INCLUDED_CALC_QUITPREMATURE
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 

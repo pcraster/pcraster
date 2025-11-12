@@ -1,29 +1,14 @@
 #ifndef INCLUDED_CALC_MODELLINKMETHODSTATEMENT
 #define INCLUDED_CALC_MODELLINKMETHODSTATEMENT
 
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-#ifndef INCLUDED_CALC_STATEMENT
 # include "calc_statement.h"
-#define INCLUDED_CALC_STATEMENT
-#endif
-
-#ifndef INCLUDED_FIELDEXPRARGS
 # include "calc_fieldexprargs.h"
-#define INCLUDED_FIELDEXPRARGS
-#endif
-#ifndef INCLUDED_CALC_SYMBOL
 #include "calc_symbol.h"
-#define INCLUDED_CALC_SYMBOL
-#endif
-
-#ifndef INCLUDED_MODELLINK
 #include "calc_modellink.h"
-#define INCLUDED_MODELLINK
-#endif
+
+#include <vector>
+
+
 
 namespace calc {
 

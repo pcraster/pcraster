@@ -1,10 +1,8 @@
 #ifndef INCLUDED_CALC_GLOBARGS
 #define INCLUDED_CALC_GLOBARGS
 
-#ifndef INCLUDED_CALC_FIELDSTACK
 #include "calc_fieldstack.h"
-#define INCLUDED_CALC_FIELDSTACK
-#endif
+
 
 namespace calc {
 

@@ -1,24 +1,11 @@
 #ifndef INCLUDED_CALC_STACKINFO
 #define INCLUDED_CALC_STACKINFO
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_VSENUM
 #include "vsenum.h"
-#define INCLUDED_VSENUM
-#endif
+
+#include <string>
+
 
 
 namespace calc {

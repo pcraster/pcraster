@@ -1,20 +1,12 @@
 #ifndef INCLUDED_CALC_TSSINPUTLEAF
 #define INCLUDED_CALC_TSSINPUTLEAF
 
-#ifndef INCLUDED_CALC_SYMBOL
 # include "calc_symbol.h"
-#define INCLUDED_CALC_SYMBOL
-#endif
-
-#ifndef INCLUDED_CALC_VS
 # include "calc_vs.h"
-#define INCLUDED_CALC_VS
-#endif
 
-#ifndef INCLUDED_MEMORY
 # include <memory>
-#define INCLUDED_MEMORY
-#endif
+
+
 
 namespace calc {
 

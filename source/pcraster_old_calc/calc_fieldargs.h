@@ -1,15 +1,10 @@
 #ifndef INCLUDED_CALC_FIELDARGS
 #define INCLUDED_CALC_FIELDARGS
 
-#ifndef INCLUDED_VECTOR
-# include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-#ifndef INCLUDED_CALC_ELEMENT
 #include "calc_element.h"
-#define INCLUDED_CALC_ELEMENT
-#endif
+
+#include <vector>
+
 
 namespace calc {
 

@@ -1,24 +1,10 @@
 #ifndef INCLUDED_CALC_STACKREADER
 #define INCLUDED_CALC_STACKREADER
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_VSENUM
 #include "vsenum.h"
-#define INCLUDED_VSENUM
-#endif
 
-// Module headers.
+#include <string>
 
 
 

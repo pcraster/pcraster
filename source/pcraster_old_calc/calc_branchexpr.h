@@ -1,25 +1,11 @@
 #ifndef INCLUDED_CALC_BRANCHEXPR
 #define INCLUDED_CALC_BRANCHEXPR
 
-#ifndef INCLUDED_CALC_FIELDEXPR
-# include "calc_fieldexpr.h"
-#define INCLUDED_CALC_FIELDEXPR
-#endif
+#include "calc_fieldexpr.h"
+#include "calc_fieldargs.h"
+#include "calc_fieldtype.h"
+#include "calc_fieldexprargs.h"
 
-#ifndef INCLUDED_CALC_FIELDARGS
-# include "calc_fieldargs.h"
-#define INCLUDED_CALC_FIELDARGS
-#endif
-
-#ifndef INCLUDED_CALC_FIELDTYPE
-# include "calc_fieldtype.h"
-#define INCLUDED_CALC_FIELDTYPE
-#endif
-
-#ifndef INCLUDED_CALC_FIELDEXPRARGS
-# include "calc_fieldexprargs.h"
-#define INCLUDED_CALC_FIELDEXPRARGS
-#endif
 
 namespace calc {
 

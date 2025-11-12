@@ -1,15 +1,10 @@
 #ifndef INCLUDED_CALC_FIELDTYPE
 #define INCLUDED_CALC_FIELDTYPE
 
-#ifndef INCLUDED_CALCTYPES
 #include "calctypes.h"   // VS and ST
-#define INCLUDED_CALCTYPES
-#endif
 
-#ifndef INCLUDED_STRING
 #include <string>
-#define INCLUDED_STRING
-#endif
+
 
 namespace calc {
 

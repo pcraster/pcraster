@@ -1,20 +1,11 @@
 #ifndef INCLUDED_CALC_TSSOUTPUTVALUE
 #define INCLUDED_CALC_TSSOUTPUTVALUE
 
-#ifndef INCLUDED_FSTREAM
-#include <fstream>
-#define INCLUDED_FSTREAM
-#endif
-
-#ifndef INCLUDED_CALC_VS
 #include "calc_vs.h"
-#define INCLUDED_CALC_VS
-#endif
-
-#ifndef INCLUDED_CALC_FILEWRITER
 #include "calc_filewriter.h"
-#define INCLUDED_CALC_FILEWRITER
-#endif
+
+#include <fstream>
+
 
 namespace calc {
 //! An output tss

@@ -100,7 +100,7 @@ protected:
 };
 
 }
-#endif
+#endif // INCLUDED_INCLUDE_FLEX_LEXER
 
 #if defined(yyFlexLexer) || ! defined(yyFlexLexerOnce)
 // Either this is the first time through (yyFlexLexerOnce not defined),

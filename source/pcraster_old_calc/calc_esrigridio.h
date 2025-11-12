@@ -1,15 +1,10 @@
 #ifndef INCLUDED_CALC_ESRIGRIDIO
 #define INCLUDED_CALC_ESRIGRIDIO
 
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-#ifndef INCLUDED_COM_DYNAMICLIBRARY
 #include "com_dynamiclibrary.h"
-#define INCLUDED_COM_DYNAMICLIBRARY
-#endif
+
+#include <string>
+
 
 namespace calc {
 

@@ -1,37 +1,13 @@
 #ifndef INCLUDED_CALC_WLDELFTHABITAT
 #define INCLUDED_CALC_WLDELFTHABITAT
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
+#include "com_pathname.h"
+#include "com_uniquestringgenerator.h"
+#include "calc_modelbuilder.h"
 
-// Library headers.
-#ifndef INCLUDED_MAP
 #include <map>
 #include <utility>
-#define INCLUDED_MAP
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_PATHNAME
-#include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
-#ifndef INCLUDED_COM_UNIQUESTRINGGENERATOR
-#include <utility>
-
-#include "com_uniquestringgenerator.h"
-#define INCLUDED_COM_UNIQUESTRINGGENERATOR
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_MODELBUILDER
-#include "calc_modelbuilder.h"
-#define INCLUDED_CALC_MODELBUILDER
-#endif
 
 
 class QDomElement;

@@ -1,20 +1,10 @@
 #ifndef INCLUDED_CALC_FIELD
 #define INCLUDED_CALC_FIELD
 
-#ifndef INCLUDED_CALC_VS
 #include "calc_vs.h"
-#define INCLUDED_CALC_VS
-#endif
-
-#ifndef INCLUDED_CALC_OBJCOUNT
 #include "calc_objcount.h"
-#define INCLUDED_CALC_OBJCOUNT
-#endif
-
-#ifndef INCLUDED_CALC_HANDLE
 #include "calc_handle.h"
-#define INCLUDED_CALC_HANDLE
-#endif
+
 
 namespace calc {
 

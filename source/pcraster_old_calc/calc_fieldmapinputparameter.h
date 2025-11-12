@@ -1,15 +1,10 @@
 #ifndef INCLUDED_CALC_FIELDMAPINPUTPARAMETER
 #define INCLUDED_CALC_FIELDMAPINPUTPARAMETER
 
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-#ifndef INCLUDED_CALC_FIELDNEWPARAMETER
 #include "calc_fieldnewparameter.h"
-#define INCLUDED_CALC_FIELDNEWPARAMETER
-#endif
+
+#include <vector>
+
 
 namespace calc {
   class IoFieldStrategy;

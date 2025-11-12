@@ -1,44 +1,18 @@
 #ifndef INCLUDED_CALC_SCRIPT
 #define INCLUDED_CALC_SCRIPT
 
-
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-#ifndef INCLUDED_COM_PATHNAME
 #include "com_pathname.h"
-#define INCLUDED_COM_PATHNAME
-#endif
-
-
-#ifndef INCLUDED_CALC_ISCRIPT
 #include "calc_iscript.h"
-#define INCLUDED_CALC_ISCRIPT
-#endif
-
-#ifndef INCLUDED_CALC_STATEMENTBLOCK
 #include "calc_statementblock.h"
-#define INCLUDED_CALC_STATEMENTBLOCK
-#endif
-
-#ifndef INCLUDED_CALC_RUNDIRECORY
 #include "calc_rundirectory.h"
-#define INCLUDED_CALC_RUNDIRECTORY
-#endif
-#ifndef INCLUDED_CALC_PROGRESSPULSE
 #include "calc_progresspulse.h"
-#define INCLUDED_CALC_PROGRESSPULSE
-#endif
-#ifndef INCLUDED_CALC_REPORTTABLE
 #include "calc_reporttable.h"
-#define INCLUDED_CALC_REPORTTABLE
-#endif
-#ifndef INCLUDED_CALC_BINDINGTABLE
 #include "calc_bindingtable.h"
-#define INCLUDED_CALC_BINDINGTABLE
-#endif
+
+#include <vector>
+
+
+
 namespace geo {
   class RasterSpace;
 }

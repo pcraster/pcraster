@@ -1,36 +1,12 @@
 #ifndef INCLUDED_CALC_EXTERNALSYMBOLS
 #define INCLUDED_CALC_EXTERNALSYMBOLS
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_PCRCALCD
 #include "pcrcalcd.h"
-#define INCLUDED_PCRCALCD
-#endif
-
-// Module headers.
-#ifndef INCLUDED_CALC_MODELLINK
 #include "calc_modellink.h"
-#define INCLUDED_CALC_MODELLINK
-#endif
-
-#ifndef INCLUDED_CALC_OPERATOR
 #include "calc_operator.h"
-#define INCLUDED_CALC_OPERATOR
-#endif
 
+#include <vector>
 
 
 namespace com {

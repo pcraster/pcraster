@@ -1,15 +1,9 @@
 #ifndef INCLUDED_CALC_TSSINPUTPARAMETER
 #define INCLUDED_CALC_TSSINPUTPARAMETER
 
-#ifndef INCLUDED_CALC_TSSPARAMETER
 #include "calc_tssparameter.h"
-#define INCLUDED_CALC_TSSPARAMETER
-#endif
 
-#ifndef INCLUDED_VECTOR
 #include <vector>
-#define INCLUDED_VECTOR
-#endif
 
 namespace calc {
 

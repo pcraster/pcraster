@@ -1,10 +1,9 @@
 #ifndef INCLUDED_CALC_METHODOPERATOR
 #define INCLUDED_CALC_METHODOPERATOR
 
-#ifndef INCLUDED_STRING
 #include <string>
-#define INCLUDED_STRING
-#endif
+
+
 
 namespace calc {
 

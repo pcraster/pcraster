@@ -1,15 +1,10 @@
 #ifndef INCLUDED_CALC_IDLIST
 #define INCLUDED_CALC_IDLIST
 
-#ifndef INCLUDED_CALC_SYMBOL
 # include "calc_symbol.h"
-# define INCLUDED_CALC_SYMBOL
-#endif
 
-#ifndef INCLUDED_VECTOR
 #include <vector>
-#define INCLUDED_VECTOR
-#endif
+
 
 namespace calc {
 

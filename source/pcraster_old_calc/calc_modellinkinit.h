@@ -1,20 +1,11 @@
 #ifndef INCLUDED_CALC_MODELLINKINIT
 #define INCLUDED_CALC_MODELLINKINIT
 
-#ifndef INCLUDED_CALC_STATEMENT
-# include "calc_statement.h"
-#define INCLUDED_CALC_STATEMENT
-#endif
+#include "calc_statement.h"
+#include "calc_fieldexprargs.h"
+#include "calc_modellink.h"
 
-#ifndef INCLUDED_FIELDEXPRARGS
-# include "calc_fieldexprargs.h"
-#define INCLUDED_FIELDEXPRARGS
-#endif
 
-#ifndef INCLUDED_MODELLINK
-# include "calc_modellink.h"
-#define INCLUDED_MODELLINK
-#endif
 
 namespace calc {
 

@@ -1,15 +1,10 @@
 #ifndef INCLUDED_CALC_SPATIAL
 #define INCLUDED_CALC_SPATIAL
 
-#ifndef INCLUDED_CALC_FIELD
 #include "calc_field.h"
-#define INCLUDED_CALC_FIELD
-#endif
-
-#ifndef INCLUDED_CSFTYPES
 #include "csftypes.h"
-#define INCLUDED_CSFTYPES
-#endif
+
+
 
 namespace calc {
 

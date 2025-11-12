@@ -1,10 +1,8 @@
 #ifndef INCLUDED_CALC_REPEATUNTIL
 #define INCLUDED_CALC_REPEATUNTIL
 
-#ifndef INCLUDED_CALC_INNERSTATEMENTBLOCK
-# include "calc_innerstatementblock.h"
-#define INCLUDED_CALC_INNERSTATEMENTBLOCK
-#endif
+#include "calc_innerstatementblock.h"
+
 
 namespace calc {
 class FieldExpr;

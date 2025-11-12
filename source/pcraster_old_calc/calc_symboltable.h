@@ -1,25 +1,13 @@
 #ifndef INCLUDED_CALC_SYMBOLTABLE
 #define INCLUDED_CALC_SYMBOLTABLE
 
-#ifndef INCLUDED_MAP
-#include <map>
-#define INCLUDED_MAP
-#endif
-
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-#ifndef INCLUDED_CALC_VS
 #include "calc_vs.h"
-#define INCLUDED_CALC_VS
-#endif
+
+#include <map>
+#include <string>
+#include <vector>
+
+
 
 namespace pcrxml {
   class Data;

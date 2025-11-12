@@ -1,20 +1,11 @@
 #ifndef INCLUDED_CALC_CSFMAP
 #define INCLUDED_CALC_CSFMAP
 
-#ifndef INCLUDED_CALC_GRIDMAP
 #include "calc_gridmap.h"
-#define INCLUDED_CALC_GRIDMAP
-#endif
-
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-#ifndef INCLUDED_GEO_CSFMAP
 #include"geo_csfmap.h"
-#define INCLUDED_GEO_CSFMAP
-#endif
+
+#include <string>
+
 
 namespace calc {
 

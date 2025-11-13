@@ -46,7 +46,7 @@ calc::Field* log10(
     multicore_field::Nonspatial<REAL4> result(field_result);
 
     using InputNoDataPolicy = fa::InputNoDataPolicies<NonspatialDetectNoData<REAL4>>;
-    InputNoDataPolicy input_no_data_policy{{arg}};
+    InputNoDataPolicy const input_no_data_policy{{arg}};
 
     NonspatialSetNoData<REAL4> output_no_data_policy(result);
 
@@ -64,7 +64,7 @@ calc::Field* log10(
     fa::ExecutionPolicy epol = execution_policy();
 
     using InputNoDataPolicy = fa::InputNoDataPolicies<SpatialDetectNoData<REAL4>>;
-    InputNoDataPolicy input_no_data_policy{{arg}};
+    InputNoDataPolicy const input_no_data_policy{{arg}};
 
     SpatialSetNoData<REAL4> output_no_data_policy(result);
 

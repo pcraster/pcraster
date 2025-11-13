@@ -92,7 +92,7 @@ ag::DataInfo<ag::Raster> ag::RasterDataSources::openData(
   }
   */
 
-  DataInfo<Raster> info(raster.get(), raster->valueScale(),
+  DataInfo<Raster> const info(raster.get(), raster->valueScale(),
          raster->dataSpace());
   raster.release();
 

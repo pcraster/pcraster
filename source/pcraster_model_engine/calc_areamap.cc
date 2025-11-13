@@ -64,8 +64,8 @@ AreaMap::AreaMap(pcrxml::AreaMapScript const& am)
 {
   d_areaMap = new pcrxml::AreaMapScript(am);
 
-  size_t nrRows(d_areaMap->nrRows().get());
-  size_t nrCols(d_areaMap->nrCols().get());
+  size_t const nrRows(d_areaMap->nrRows().get());
+  size_t const nrCols(d_areaMap->nrCols().get());
 
   double cellSize=1;
   if (d_areaMap->cellSize())
@@ -76,7 +76,7 @@ AreaMap::AreaMap(pcrxml::AreaMapScript const& am)
   double yLowerLeftCorner=0;
   if (d_areaMap->yLowerLeftCorner())
        yLowerLeftCorner=d_areaMap->yLowerLeftCorner().get();
-  geo::RasterSpace rs(
+  geo::RasterSpace const rs(
        nrRows,nrCols,cellSize,
        xLowerLeftCorner, yLowerLeftCorner+(cellSize*nrRows));
   setRasterSpace(rs);
@@ -168,7 +168,7 @@ void AreaMap::transferMask(const Field* f)
   PRECOND(isSet());
   d_mask = Mask(d_rs.nrCells(),false);
 
-  bool atNonMVs= (d_computationMask                &&
+  bool const atNonMVs= (d_computationMask                &&
                   d_computationMask->areaMap()     &&
                   d_computationMask->areaMap().get().maskType() ==
                    pcrxml::MaskMapType::computeAtNonMissingValues);

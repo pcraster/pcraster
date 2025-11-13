@@ -46,9 +46,9 @@ static int GetMaxId(
   const MAP_INT4 *id)
 {
   int r = 0;
-  int nrRows = id->NrRows(id);
+  int const nrRows = id->NrRows(id);
   int c = 0;
-  int nrCols = id->NrCols(id);
+  int const nrCols = id->NrCols(id);
   INT4 val = 0;
   INT4 max = -1; /* -1 is save, we need a positive id */
 
@@ -67,7 +67,7 @@ void calc::TssOutputParameter::AddTotss(
   const auto *idMap = (const MAP_INT4 *)args[0];
   if (scriptConst().currentTimeStep() == 1) { // initializing, first timestep
    PRECOND(nrInSet(d_vs) == 1);
-   int max = GetMaxId(idMap);
+   int const max = GetMaxId(idMap);
    if (max > 0 &&
       ( !d_value[index] /* prevent multiple alloc: see pcrcalc/test317 */))
      d_value[index] =

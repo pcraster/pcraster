@@ -127,7 +127,7 @@ void ag::Map3DWindow::setHeight(
   }
   catch(com::Exception& exception) {
     auto const desc = dataObject().description(dataGuide);
-    std::string message = std::vformat(
+    std::string const message = std::vformat(
          "Unable to set {0} as height data for {1} visualisation:",
          std::make_format_args(desc, visualisationName()));
     exception.prepend(message);
@@ -201,7 +201,7 @@ std::string ag::Map3DWindow::windowName() const
 
   if(visualisationEngine().heightDataGuide()) {
     name = dataObject().name(*visualisationEngine().heightDataGuide());
-    std::vector<DataGuide> dataGuides = visualisationEngine().dataGuides();
+    std::vector<DataGuide> const dataGuides = visualisationEngine().dataGuides();
 
     for(auto & dataGuide : dataGuides) {
       name += " + " + dataObject().name(dataGuide);

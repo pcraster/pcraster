@@ -225,8 +225,8 @@ void FilterEngine<SrcType, DstType>::calcUL(SimpleRaster<UINT1> const& sample)
 template<class SrcType, class DstType>
 void FilterEngine<SrcType, DstType>::calcUR()
 {
-  size_t maxRow = std::min(d_filter.radius(), d_source.nrRows());
-  size_t minCol = d_source.nrCols() > d_filter.radius()
+  size_t const maxRow = std::min(d_filter.radius(), d_source.nrRows());
+  size_t const minCol = d_source.nrCols() > d_filter.radius()
          ? d_source.nrCols() - d_filter.radius() : 0;
 
   for(size_t row = 0; row < maxRow; ++row) {

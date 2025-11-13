@@ -148,14 +148,14 @@ void com::Directory::create(bool makeParentDirectories)
         dir.create(false);
       }
       catch (const OpenFileError& er) {
-        std::string msg("while creating " + d_path.toString() + ":");
+        std::string const msg("while creating " + d_path.toString() + ":");
         throw OpenFileError(er.fileName(),msg+er.diagnosis());
       }
     }
   }
   else
   {
-    PathInfo pi(d_path);
+    PathInfo const pi(d_path);
     if(pi.isDirectory()){
       return; // already exists as an directory, done
     }
@@ -240,7 +240,7 @@ void com::Directory::erase(bool recurse)
 */
 void com::Directory::erase(const PathName& pn, bool recurse)
 {
-  PathName npn = d_path + pn;          // 'Normalized' path name.
+  PathName const npn = d_path + pn;          // 'Normalized' path name.
   Directory subDir(npn);
   subDir.erase(recurse);
 }
@@ -315,7 +315,7 @@ void com::createDirectory(const PathName &pn, bool makeParentDirectories)
  */
 void com::createNewDirectory(const PathName &pn)
 {
-  Directory dir;
+  Directory const dir;
 
   if(PathInfo(pn).exists())
     throw OpenFileError(pn.toString(),E_EXIST);

@@ -462,8 +462,8 @@ void pt::ParticleTracker::reflect(size_t row, size_t col, double& x,
   coords2RowCol(x, y, rowNew, colNew);
 
   // Distance from border current cell and new cell.
-  double xDistance = 1.0 - (rowNew - std::floor(rowNew));
-  double yDistance = 1.0 - (colNew - std::floor(colNew));
+  double const xDistance = 1.0 - (rowNew - std::floor(rowNew));
+  double const yDistance = 1.0 - (colNew - std::floor(colNew));
   POSTCOND(xDistance > 0.0 && xDistance <= 1.0);
   POSTCOND(yDistance > 0.0 && yDistance <= 1.0);
   rowNew = std::floor(rowNew);
@@ -561,9 +561,9 @@ void pt::ParticleTracker::generateDistribution(
   _particles.clear();
 
   // Calculate half and third cell sizes (d2 and d3).
-  double d2 = cellSize() / 2;
-  double d3 = cellSize() / 3;
-  double sign = _particles.space().projection() == geo::YIncrB2T ? -1.0 : 1.0;
+  double const d2 = cellSize() / 2;
+  double const d3 = cellSize() / 3;
+  double const sign = _particles.space().projection() == geo::YIncrB2T ? -1.0 : 1.0;
 
   if(_nrParticles == 4 || _nrParticles == 5 || _nrParticles == 8 ||
          _nrParticles == 9) {
@@ -1286,12 +1286,12 @@ double pt::ParticleTracker::maxConcentration(
   DEVELOP_PRECOND(!points.empty());
 
   double value = NAN;
-  double maxRadius = 2.0 * cellSize();
+  double const maxRadius = 2.0 * cellSize();
 
   double x = NAN;
   double y = NAN;
   loc2Coords(loc, x, y);
-  geo::Point<double, 2> point(x, y);
+  geo::Point<double, 2> const point(x, y);
 
   if(!geo::maximum(value, point, maxRadius, points.begin(), points.end())) {
     Warning("failed to determine maximum concentration");
@@ -1421,7 +1421,7 @@ void pt::ParticleTracker::changeInConcentrations(
          geo::SimpleRaster<double>& deltaConc) const
 {
   PRECOND(timeIncrement > 0.0);
-  double halfTimeStep = 0.5 * timeIncrement;
+  double const halfTimeStep = 0.5 * timeIncrement;
   double factor = NAN;
   double gradient1 = NAN;
   double gradient2 = NAN;
@@ -1626,7 +1626,7 @@ void pt::ParticleTracker::adjustConcentration(
       PRECOND(!pcr::isMV(deltaConc.cell(*visitor)));
 
       // Special problem 5.
-      double concentration = conc2.cell(*visitor) + deltaConc.cell(*visitor);
+      double const concentration = conc2.cell(*visitor) + deltaConc.cell(*visitor);
       POSTCOND(concentration >= 0.0);
 
       if(_iniConc.cell(*visitor) > conc1.cell(*visitor)) {
@@ -1805,7 +1805,7 @@ void pt::ParticleTracker::moveParticles(
           // Determine in which quadrant of cell the particle is located.
           xParticle = (*it)[0];
           yParticle = (*it)[1];
-          geo::Quadrant quadrant =
+          geo::Quadrant const quadrant =
                 _particles.space().quadrant(xParticle, yParticle);
 
           // Is quadrant located in or adjacent to a source or sink?
@@ -2240,12 +2240,12 @@ double pt::ParticleTracker::percentageMassError3(double timeIncrement,
          const geo::SimpleRaster<double>& flux,
          const geo::SimpleRaster<double>& satThickness) const
 {
-  double netMassFlux = this->netMassFlux(timeIncrement, flux);
-  double changeInMass = this->changeInMass(conc, satThickness);
+  double const netMassFlux = this->netMassFlux(timeIncrement, flux);
+  double const changeInMass = this->changeInMass(conc, satThickness);
 
   PRECOND(_initialMass != netMassFlux);
 
-  double error = 100.0 * (netMassFlux - changeInMass) /
+  double const error = 100.0 * (netMassFlux - changeInMass) /
          (_initialMass - netMassFlux);
 
   return error;
@@ -2319,7 +2319,7 @@ void pt::ParticleTracker::adjustConcentration(const geo::CellLoc& loc,
 #endif
     }
     else {
-      double percentage = deltaConc / conc;
+      double const percentage = deltaConc / conc;
       POSTCOND(percentage < 0.0);
       POSTCOND(percentage >= -1.0);
 

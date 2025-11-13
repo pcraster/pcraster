@@ -136,7 +136,7 @@ calc::ASTAss* calc::ASTTestFactory::createAss(
 calc::ASTNode* calc::ASTTestFactory::createCode(
   const char *xmlCode)
 {
-  pcrxml::Document doc(xmlCode);
+  pcrxml::Document const doc(xmlCode);
   return createCode(doc.documentElement());
 }
 
@@ -155,8 +155,8 @@ calc::ASTNode* calc::ASTTestFactory::createCode(
    const QDomElement& e)
 {
   ASTNode *n(nullptr);
-  std::string v(std::string(e.attribute("v").toLatin1()));
-  std::string pos(optAttr(e,"p","0"));
+  std::string const v(std::string(e.attribute("v").toLatin1()));
+  std::string const pos(optAttr(e,"p","0"));
 
   PositionName pn(pos);
 
@@ -175,7 +175,7 @@ calc::ASTNode* calc::ASTTestFactory::createCode(
               } break;
     case 'l': {
               auto *l = new ASTNodeVector();
-              std::vector<QDomElement> c(pcrxml::childElements(e));
+              std::vector<QDomElement> const c(pcrxml::childElements(e));
               for(auto & i : c)
                 l->transferPushBack(createCode(i));
               n=l;
@@ -185,7 +185,7 @@ calc::ASTNode* calc::ASTTestFactory::createCode(
        // args can in a args
        std::string a(optAttr(e,"a",""));
        com::removeAllSpace(a);
-       std::vector<std::string> args(com::split(a,','));
+       std::vector<std::string> const args(com::split(a,','));
        for(auto & arg : args) {
          if (com::isDouble(arg))
            expr->transferArg(createNumber(arg));
@@ -193,7 +193,7 @@ calc::ASTNode* calc::ASTTestFactory::createCode(
            expr->transferArg(createPar(arg));
        }
        // rest of arguments as elements
-       std::vector<QDomElement> c(pcrxml::childElements(e));
+       std::vector<QDomElement> const c(pcrxml::childElements(e));
        for(auto & i : c)
          expr->transferArg(createCode(i));
        n=expr;
@@ -246,7 +246,7 @@ calc::ASTScript* calc::ASTTestFactory::createFromIdOrStr(
 {
 
  Options ops; // will reset global options
- std::string options=db().options(codeOrId);
+ std::string const options=db().options(codeOrId);
  if (!options.empty())
    ops.processOptionString(options);
 

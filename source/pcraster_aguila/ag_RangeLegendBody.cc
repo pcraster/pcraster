@@ -189,10 +189,10 @@ void RangeLegendBody::paintKeyLegend()
   assert(!borders.empty());
 
   // Values -> pixels.
-  double y_factor = -1.0 * keyBoxHeight() / (_drawProperties.maxCutoff() - _drawProperties.minCutoff()) ;
-  double y_offset = keyBoxHeight() - _drawProperties.minCutoff() * y_factor;
+  double const y_factor = -1.0 * keyBoxHeight() / (_drawProperties.maxCutoff() - _drawProperties.minCutoff()) ;
+  double const y_offset = keyBoxHeight() - _drawProperties.minCutoff() * y_factor;
 
-  QTransform map = QTransform(0, 0, 0, 0, y_factor, 0, 0, y_offset, 1);
+  QTransform const map = QTransform(0, 0, 0, 0, y_factor, 0, 0, y_offset, 1);
 
   assert(qRound(map.map(QPointF(0, _drawProperties.maxCutoff())).y()) == 0);
   assert(qRound(map.map(QPointF(0, _drawProperties.minCutoff())).y()) == keyBoxHeight());
@@ -255,10 +255,10 @@ void RangeLegendBody::paintVectorLegend()
   std::reverse(borders.begin(), borders.end());
 
   // Values -> pixels.
-  double delta = -1.0 * keyBoxHeight() / (_drawProperties.maxCutoff() - _drawProperties.minCutoff()) ;
-  double y_offset = keyBoxHeight() - _drawProperties.minCutoff() * delta;
+  double const delta = -1.0 * keyBoxHeight() / (_drawProperties.maxCutoff() - _drawProperties.minCutoff()) ;
+  double const y_offset = keyBoxHeight() - _drawProperties.minCutoff() * delta;
 
-  QTransform map = QTransform(0, 0, 0, 0, delta, 0, 0, y_offset, 1);
+  QTransform const map = QTransform(0, 0, 0, 0, delta, 0, 0, y_offset, 1);
 
   assert(qRound(map.map(QPointF(0, _drawProperties.maxCutoff())).y()) == 0);
   assert(qRound(map.map(QPointF(0, _drawProperties.minCutoff())).y()) == keyBoxHeight());
@@ -284,8 +284,8 @@ void RangeLegendBody::paintVectorLegend()
     }
 
     {
-      int x = keyBoxOffset().width() + QFontMetrics(qApp->font()).height();
-      int y = bottom;
+      int const x = keyBoxOffset().width() + QFontMetrics(qApp->font()).height();
+      int const y = bottom;
       painter.translate(x, y);
       painter.rotate(-90);
       painter.drawText(0, 0, "Cell length");
@@ -319,7 +319,7 @@ void RangeLegendBody::paintLabels(
   int nrClasses = nrBorders - 1;
 
   // Height available for drawing labels.
-  int keyBoxHeightForLabels =
+  int const keyBoxHeightForLabels =
   qRound(map.map(QPointF(0, borders.back())).y()) -
   qRound(map.map(QPointF(0, borders.front())).y()) + 1;
 
@@ -340,7 +340,7 @@ void RangeLegendBody::paintLabels(
   // Now we have the number of class borders to label.
   // Determine increment for the loop.
   assert(_drawProperties.nrClasses() % nrClasses == 0);
-  size_t incr = _drawProperties.nrClasses() / nrClasses;
+  size_t const incr = _drawProperties.nrClasses() / nrClasses;
 
   // Draw tics and labels.
   left = keyBoxOffset().width() + keySize().width();
@@ -417,11 +417,11 @@ void RangeLegendBody::paintLineLegend()
   // painter.setPen(foregroundColor());
   painter.setPen(dynamic_cast<DrawProps const&>(_drawProperties).colour());
 
-  int y = static_cast<int>(0.5 * QFontMetrics(qApp->font()).height());
+  int const y = static_cast<int>(0.5 * QFontMetrics(qApp->font()).height());
 
   // Draw line.
-  int left = 0;
-  int right = left + keySize().width();
+  int const left = 0;
+  int const right = left + keySize().width();
   painter.drawLine(left, y, right, y);
 
   // Draw label.

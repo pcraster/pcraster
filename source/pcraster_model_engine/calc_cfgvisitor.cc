@@ -77,7 +77,7 @@ void calc::CFGVisitor::reset()
 
 void calc::CFGVisitor::advance()
 {
-    size_t  i=takeBackBranch() ? 1 : 0;
+    size_t  const i=takeBackBranch() ? 1 : 0;
     d_current=d_current->succ(i);
 }
 

@@ -296,8 +296,8 @@ void DataSpaceIterator::initialiseOnFirst(
               // Initialize on north west corner.
               auto const& spaceDimensions(
                    dimension.value<SpaceDimensions>(0));
-              double x = spaceDimensions.west();
-              double y = spaceDimensions.north();
+              double const x = spaceDimensions.west();
+              double const y = spaceDimensions.north();
               d_address.setCoordinate<SpatialCoordinate>(i,
                    SpatialCoordinate(x, y));
               break;
@@ -348,9 +348,9 @@ void DataSpaceIterator::initialiseOnLast(
         case CumulativeProbabilities: {
           assert(dimension.discretisation() == RegularDiscretisation);
 
-          float first = dimension.value<float>(0);
-          float last = dimension.value<float>(1);
-          float interval = dimension.value<float>(2);
+          float const first = dimension.value<float>(0);
+          float const last = dimension.value<float>(1);
+          float const interval = dimension.value<float>(2);
           d_setIndices[i] = round<float, size_t>((last - first) / interval);
           d_address.setCoordinate<float>(i, first + d_setIndices[i] * interval);
           // FEATURE replace above code by something like this:
@@ -363,9 +363,9 @@ void DataSpaceIterator::initialiseOnLast(
         case Time: {
           assert(dimension.discretisation() == RegularDiscretisation);
 
-          size_t first = dimension.value<size_t>(0);
-          size_t last = dimension.value<size_t>(1);
-          size_t interval = dimension.value<size_t>(2);
+          size_t const first = dimension.value<size_t>(0);
+          size_t const last = dimension.value<size_t>(1);
+          size_t const interval = dimension.value<size_t>(2);
           d_address.setCoordinate<size_t>(i,
               last - ((last - first) % interval));
 
@@ -390,8 +390,8 @@ void DataSpaceIterator::initialiseOnLast(
               // Initialize on south east corner.
               auto const& spaceDimensions(
                    dimension.value<SpaceDimensions>(0));
-              double x = spaceDimensions.east();
-              double y = spaceDimensions.south();
+              double const x = spaceDimensions.east();
+              double const y = spaceDimensions.south();
               d_address.setCoordinate<SpatialCoordinate>(i,
                    SpatialCoordinate(x, y));
               break;
@@ -437,7 +437,7 @@ void DataSpaceIterator::initialiseOnAddress(
           break;
         }
         case CumulativeProbabilities: {
-          float value = address.coordinate<float>(i);
+          float const value = address.coordinate<float>(i);
           d_setIndices[i] = dimension.indexOf<float>(value);
 
           break;
@@ -497,11 +497,11 @@ void DataSpaceIterator::increment()
           break;
         }
         case CumulativeProbabilities: {
-          float first = dimension.value<float>(0);
-          float last = dimension.value<float>(1);
-          float interval = dimension.value<float>(2);
+          float const first = dimension.value<float>(0);
+          float const last = dimension.value<float>(1);
+          float const interval = dimension.value<float>(2);
           // FEATURE get rid of d_setIndices code here...
-          float value = first + (d_setIndices[i - 1] + 1) * interval;
+          float const value = first + (d_setIndices[i - 1] + 1) * interval;
           if(value < last || comparable<float>(value, last)) {
             ++d_setIndices[i - 1];
             d_address.setCoordinate<float>(i - 1, value);
@@ -513,8 +513,8 @@ void DataSpaceIterator::increment()
         }
         case Samples:
         case Time: {
-          size_t last = dimension.value<size_t>(1);
-          size_t interval = dimension.value<size_t>(2);
+          size_t const last = dimension.value<size_t>(1);
+          size_t const interval = dimension.value<size_t>(2);
           if(d_address.coordinate<size_t>(i - 1) + interval <= last) {
             d_address.setCoordinate<size_t>(i - 1,
               d_address.coordinate<size_t>(i - 1) + interval);
@@ -528,15 +528,15 @@ void DataSpaceIterator::increment()
           switch(dimension.discretisation()) {
             case RegularDiscretisation: {
               // Set address to next cell.
-              RasterDimensions rasterDimensions =
+              RasterDimensions const rasterDimensions =
                    dimension.value<RasterDimensions>(0);
 
               // Current spatial address.
-              SpatialCoordinate spatialCoordinate =
+              SpatialCoordinate const spatialCoordinate =
                    d_address.coordinate<SpatialCoordinate>(i - 1);
 
               // Linear index of next cell.
-              size_t index = rasterDimensions.index(spatialCoordinate.x(),
+              size_t const index = rasterDimensions.index(spatialCoordinate.x(),
                    spatialCoordinate.y()) + 1;
 
               if(index < rasterDimensions.nrCells()) {
@@ -613,8 +613,8 @@ void DataSpaceIterator::decrement()
           break;
         }
         case CumulativeProbabilities: {
-          float first = dimension.value<float>(0);
-          float interval = dimension.value<float>(2);
+          float const first = dimension.value<float>(0);
+          float const interval = dimension.value<float>(2);
           // FEATURE get rid of d_setIndices code here.
           if(d_setIndices[i - 1] > 0) {
           // if(d_address.coordinate<float>(i - 1) >= first + interval) {
@@ -631,8 +631,8 @@ void DataSpaceIterator::decrement()
         }
         case Samples:
         case Time: {
-          size_t first = dimension.value<size_t>(0);
-          size_t interval = dimension.value<size_t>(2);
+          size_t const first = dimension.value<size_t>(0);
+          size_t const interval = dimension.value<size_t>(2);
           if(d_address.coordinate<size_t>(i - 1) >= first + interval) {
             d_address.setCoordinate<size_t>(i - 1,
                d_address.coordinate<size_t>(i - 1) - interval);
@@ -646,11 +646,11 @@ void DataSpaceIterator::decrement()
           switch(dimension.discretisation()) {
             case RegularDiscretisation: {
               // Set address to previous cell.
-              RasterDimensions rasterDimensions =
+              RasterDimensions const rasterDimensions =
                    dimension.value<RasterDimensions>(0);
 
               // Current spatial address.
-              SpatialCoordinate spatialCoordinate =
+              SpatialCoordinate const spatialCoordinate =
                    d_address.coordinate<SpatialCoordinate>(i - 1);
 
               // Linear index of current cell.

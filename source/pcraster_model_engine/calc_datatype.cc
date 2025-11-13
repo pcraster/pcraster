@@ -23,7 +23,7 @@
  */
 void calc::DataType::restrict(VS& vs, VS req)
 {
-  VS newVs = ::intersect(vs,req);
+  VS const newVs = ::intersect(vs,req);
   if (newVs==VS_UNKNOWN)
     throw VSClash(vs,req);
   vs=newVs;

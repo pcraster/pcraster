@@ -113,13 +113,13 @@ extern "C" int ExtentOfView(
   std::vector<fieldapi::ScalarDomainCheck> nsDomains;
   nsDomains.push_back(fieldapi::ScalarDomainCheck(nrDirectionsInterface,
         "Number of directions", com::GreaterThan<double>(0)));
-  int nsCheck = fieldapi::checkScalarDomains(nsDomains,geo::CellLoc(0,0));
+  int const nsCheck = fieldapi::checkScalarDomains(nsDomains,geo::CellLoc(0,0));
   if(nsCheck != -1) {
     return RetError(1, nsDomains[nsCheck].msg().c_str());
   }
 
-  size_t nrRows = classes.nrRows();
-  size_t nrCols = classes.nrCols();
+  size_t const nrRows = classes.nrRows();
+  size_t const nrCols = classes.nrCols();
 
   // Result is missing value if any of the inputs is.
   for(geo::CellLocVisitor visitor(classes); visitor.valid(); ++visitor) {
@@ -134,10 +134,10 @@ extern "C" int ExtentOfView(
 
   // Determine all direction angles.
   // Determine max distance in cells in the raster.
-  double maxExtent = MAX(nrRows,nrCols);
+  double const maxExtent = MAX(nrRows,nrCols);
   int offsetX = com::ceil<int, double>(std::hypot(maxExtent,maxExtent));
   int offsetY = 0;
-  double subAngle = 360.0 / nrDirections;
+  double const subAngle = 360.0 / nrDirections;
   double angle = NAN;
   typedef std::pair<int, int> Offset;
   typedef std::vector<std::pair<double, Offset> > Offsets;

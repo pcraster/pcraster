@@ -140,7 +140,7 @@ void geo::WMatrix::map(REAL8 x, REAL8 y, REAL8 z,
 
 void geo::WMatrix::translate(REAL8 dx, REAL8 dy, REAL8 dz)
 {
-  WMatrix result(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, dx, dy, dz);
+  WMatrix const result(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, dx, dy, dz);
   bmul(result);
 }
 
@@ -155,7 +155,7 @@ void geo::WMatrix::translate(const Point<REAL8, 3> &p)
 
 void geo::WMatrix::scale(REAL8 sx, REAL8 sy, REAL8 sz)
 {
-  WMatrix result(sx, 0.0, 0.0, 0.0, sy, 0.0, 0.0, 0.0, sz, 0.0, 0.0, 0.0);
+  WMatrix const result(sx, 0.0, 0.0, 0.0, sy, 0.0, 0.0, 0.0, sz, 0.0, 0.0, 0.0);
   bmul(result);
 }
 
@@ -172,16 +172,16 @@ static const REAL8 deg2rad = 0.017453292519943295769; // pi/180
 
 void geo::WMatrix::rotate(REAL8 rx, REAL8 ry, REAL8 rz)
 {
-  REAL8 rxRad = deg2rad * rx;
-  REAL8 ryRad = deg2rad * ry;
-  REAL8 rzRad = deg2rad * rz;
+  REAL8 const rxRad = deg2rad * rx;
+  REAL8 const ryRad = deg2rad * ry;
+  REAL8 const rzRad = deg2rad * rz;
 
-  REAL8 sinx = std::sin(rxRad);
-  REAL8 cosx = std::cos(rxRad);
-  REAL8 siny = std::sin(ryRad);
-  REAL8 cosy = std::cos(ryRad);
-  REAL8 sinz = std::sin(rzRad);
-  REAL8 cosz = std::cos(rzRad);
+  REAL8 const sinx = std::sin(rxRad);
+  REAL8 const cosx = std::cos(rxRad);
+  REAL8 const siny = std::sin(ryRad);
+  REAL8 const cosy = std::cos(ryRad);
+  REAL8 const sinz = std::sin(rzRad);
+  REAL8 const cosz = std::cos(rzRad);
 
   WMatrix rm;
   // Rotation around z-as.

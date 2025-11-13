@@ -47,7 +47,7 @@ com::DynamicLibrary::DynamicLibrary(
   }
 #else
   d_dllHandle=  ::dlopen(nativeLibName().c_str(),RTLD_NOW);
-  bool failure = checkError();
+  bool const failure = checkError();
 #endif
 
   if (failure)
@@ -79,14 +79,14 @@ std::string com::DynamicLibrary::osError() const
 
 std::string com::DynamicLibrary::nativeLibName()const
 {
-  com::PathName libPath(d_libName);
-  std::string base = libPath.baseName();
+  com::PathName const libPath(d_libName);
+  std::string const base = libPath.baseName();
 #ifdef WIN32
   com::PathName baseName(base+".dll");
 #elif __APPLE__
   com::PathName baseName("lib"+base+".dylib");
 #else
-  com::PathName baseName("lib"+base+".so");
+  com::PathName const baseName("lib"+base+".so");
 #endif
   com::PathName path(libPath.directoryName());
   path += baseName;

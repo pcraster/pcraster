@@ -28,8 +28,8 @@ struct Fixture
 
     Fixture()
     {
-        static GDalClientWrapper gdal_client;
-        static ClientWrapper client("/my/path/raster_dal_test", true);
+        static GDalClientWrapper const gdal_client;
+        static ClientWrapper const client("/my/path/raster_dal_test", true);
     }
 
     ~Fixture()
@@ -66,8 +66,8 @@ BOOST_AUTO_TEST_CASE(esri_ascii_grid1)
 {
   using namespace dal;
 
-  std::string filename = "esriasciigrid1.asc";
-  RasterDal dal(true);
+  std::string const filename = "esriasciigrid1.asc";
+  RasterDal const dal(true);
   std::shared_ptr<Raster> raster;
 
   {
@@ -107,6 +107,6 @@ BOOST_AUTO_TEST_CASE(hdf4_image1)
 {
   using namespace dal;
 
-  bool testImplemented = false;
+  bool const testImplemented = false;
   BOOST_WARN(testImplemented);
 }

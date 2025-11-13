@@ -47,7 +47,7 @@ void VTKBlockDriver::cellData(
 {
   assert(block.nrCells() > 0);
 
-  size_t nrVoxelsPerStack = block.cell<std::vector<ValueType> >(0).size();
+  size_t const nrVoxelsPerStack = block.cell<std::vector<ValueType> >(0).size();
   std::vector<std::vector<ValueType> const*> stacks(block.nrCells());
   size_t i = 0;
 

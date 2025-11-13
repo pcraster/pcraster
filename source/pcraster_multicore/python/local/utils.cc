@@ -144,17 +144,17 @@ void assert_nominal_valuescale(const calc::Field& aField, const std::string& msg
 
 
 calc::Field* degrees_to_radians(const multicore_field::Nonspatial<REAL4>* aField,  multicore_field::Nonspatial<REAL4>* result){
-  double conversion_factor = std::numbers::pi / 180.0;
+  double const conversion_factor = std::numbers::pi / 180.0;
   calc::Field* field_conv = new calc::NonSpatial(VS_S, conversion_factor);
-  multicore_field::Nonspatial<REAL4> deg_rad(field_conv, true);
+  multicore_field::Nonspatial<REAL4> const deg_rad(field_conv, true);
   return mul_number_number(aField,&deg_rad, result);
 }
 
 calc::Field* degrees_to_radians(const multicore_field::Spatial<REAL4>* aField,  multicore_field::Spatial<REAL4>* result){
   const fa::ExecutionPolicy& epol = execution_policy();
-  double conversion_factor = std::numbers::pi / 180.0;
+  double const conversion_factor = std::numbers::pi / 180.0;
   calc::Field* field_conv = new calc::NonSpatial(VS_S, conversion_factor);
-  multicore_field::Nonspatial<REAL4> deg_rad(field_conv, true);
+  multicore_field::Nonspatial<REAL4> const deg_rad(field_conv, true);
   return mul_field_number(epol,aField,&deg_rad, result);
 }
 

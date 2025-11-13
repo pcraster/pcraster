@@ -22,7 +22,7 @@ namespace calc {
  //! exec all fields on stack, just a shorthand
  static void execAll(RunTimeEnv& rte, const Operator *o)
  {
-   size_t nrArgs=rte.stackSize();
+   size_t const nrArgs=rte.stackSize();
    o->exec(&rte,nrArgs);
  }
 }
@@ -34,7 +34,7 @@ BOOST_AUTO_TEST_CASE(testSameBin)
 
 #define NR 3
   const geo::RasterSpace rs(1,NR);
-  REAL4 v1=1;
+  REAL4 const v1=1;
   REAL4 vb[NR]={2,0,6};
   pcr::setMV(vb[1]);
   const Operator* a=major2op(OP_BADD);
@@ -101,7 +101,7 @@ BOOST_AUTO_TEST_CASE(testCover)
 
 #define NR 3
   const geo::RasterSpace rs(1,NR);
-  REAL4 v1=1;
+  REAL4 const v1=1;
   REAL4 vb[NR]={2,0,6};
   pcr::setMV(vb[1]);
   const Operator* a=major2op(OP_COVER);
@@ -167,7 +167,7 @@ BOOST_AUTO_TEST_CASE(testSameUn)
 
 #define NR 3
   const geo::RasterSpace rs(1,NR);
-  REAL4 v1=1;
+  REAL4 const v1=1;
   REAL4 vb[NR]={4,0,-6};
   pcr::setMV(vb[1]);
   const Operator* a=major2op(OP_SQRT);
@@ -209,7 +209,7 @@ BOOST_AUTO_TEST_CASE(testDomainError)
   const geo::RasterSpace rs(1,NR);
   { // N SameUn
     RunTimeEnv rte(rs);
-    REAL4 minus1=-1;
+    REAL4 const minus1=-1;
     rte.pushField(new NonSpatial(VS_S,minus1));
 
     bool catched(false);
@@ -227,7 +227,7 @@ BOOST_AUTO_TEST_CASE(testDomainError)
     pcr::setMV(vb[1]);
     rte.pushField(new Spatial(VS_S,vb,NR));
 
-    REAL4 v0=0;
+    REAL4 const v0=0;
     rte.pushField(new NonSpatial (VS_S,v0));
 
 
@@ -243,7 +243,7 @@ BOOST_AUTO_TEST_CASE(testDomainError)
   }
   { // NN
     RunTimeEnv rte(rs);
-    REAL4 v0=0;
+    REAL4 const v0=0;
     rte.pushField(new NonSpatial (VS_S,v0));
     rte.pushField(new NonSpatial (VS_S,v0));
 
@@ -259,8 +259,8 @@ BOOST_AUTO_TEST_CASE(testDomainError)
   }
   { // NN  -0.047**1.5; test pcrcalc337a
     RunTimeEnv rte(rs);
-    REAL4 vMin= -0.047f;
-    REAL4 vFrac= 1.5f;
+    REAL4 const vMin= -0.047f;
+    REAL4 const vFrac= 1.5f;
     rte.pushField(new NonSpatial (VS_S,vMin));
     rte.pushField(new NonSpatial (VS_S,vFrac));
 
@@ -357,7 +357,7 @@ BOOST_AUTO_TEST_CASE(testCompare)
 
 #define NR 3
   const geo::RasterSpace rs(1,NR);
-  REAL4 v1=1;
+  REAL4 const v1=1;
   REAL4 vb[NR]={2,0,6};
   pcr::setMV(vb[1]);
   const Operator* a=major2op(OP_LT);
@@ -603,7 +603,7 @@ BOOST_AUTO_TEST_CASE(testGlobal)
     RunTimeEnv rte(rs);
 
     INT4 vbClass[NR6] ={1,1,1,8,8,8};
-    UINT1 val =1;
+    UINT1 const val =1;
     UINT1 vbRes [NR6] ={1,1,1,1,1,1};
 
     rte.pushField(new NonSpatial(VS_B,val));

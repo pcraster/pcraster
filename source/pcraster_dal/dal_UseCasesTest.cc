@@ -35,7 +35,7 @@ BOOST_AUTO_TEST_CASE(test1)
 {
   using namespace dal;
 
-  dal::RasterDal rasterDal(true);
+  dal::RasterDal const rasterDal(true);
 
   // TODO verschil tussen "not existing" en "mallformed"/"unsupported format"
 
@@ -64,7 +64,7 @@ BOOST_AUTO_TEST_CASE(test1)
   }
 
   // remainder assume avtutor dataset for Spatial Analyst existing
-  std::filesystem::path avtutor("c:/esri/av_gis30/avtutor/spatial");
+  std::filesystem::path const avtutor("c:/esri/av_gis30/avtutor/spatial");
   if (!std::filesystem::exists(avtutor))
     return;
 
@@ -94,7 +94,7 @@ BOOST_AUTO_TEST_CASE(test1)
                    "c:/esri/av_gis30/avtutor/spatial/hillshd");
   BOOST_CHECK(esriMap);
   BOOST_CHECK_EQUAL(esriMap->typeId(), dal::TI_UINT1);
-  bool arcCatalogSaysSignedIntegerPixelDept16=false;
+  bool const arcCatalogSaysSignedIntegerPixelDept16=false;
   BOOST_WARN(arcCatalogSaysSignedIntegerPixelDept16);
   }
 }
@@ -104,7 +104,7 @@ BOOST_AUTO_TEST_CASE(bil_format)
 {
   using namespace dal;
 
-  dal::RasterDal rasterDal(true);
+  dal::RasterDal const rasterDal(true);
   {
     // TEST SWAPPING
     // big endian, csf map (in diguise) with value 1 everywhere
@@ -145,7 +145,7 @@ BOOST_AUTO_TEST_CASE(bil_format)
 
   { // a  4*5 TI_INT2 map with first and last cell a MV of 0
    //dal::RasterDal rasterDal(true);
-   std::shared_ptr<dal::Raster> map(rasterDal.read("int2mv0.bil",
+   std::shared_ptr<dal::Raster> const map(rasterDal.read("int2mv0.bil",
       dal::TI_INT2));
    BOOST_REQUIRE(map);
    BOOST_CHECK_EQUAL(map->typeId(), dal::TI_INT2);

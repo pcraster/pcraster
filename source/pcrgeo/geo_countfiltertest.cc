@@ -25,8 +25,8 @@ BOOST_AUTO_TEST_CASE(test)
   source.cell(2, 1) = 8;
   source.cell(2, 2) = 9;
 
-  SimpleRaster<double> weights(3, 3, 1.0);
-  CountFilter<count_t, double> filter(weights, 4);
+  SimpleRaster<double> const weights(3, 3, 1.0);
+  CountFilter<count_t, double> const filter(weights, 4);
   SimpleRaster<double> destination(3, 3);
   FilterEngine<count_t, double> engine(source, filter, destination);
 
@@ -44,6 +44,6 @@ BOOST_AUTO_TEST_CASE(test)
 
   // see __x86_64__
   // TODO Suse problem: 8 byte isMV template instantion for unsigned long
-  bool size_tRequires8Byteonx86_64=false;
+  bool const size_tRequires8Byteonx86_64=false;
   BOOST_WARN(size_tRequires8Byteonx86_64);
 }

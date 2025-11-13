@@ -49,7 +49,7 @@ size_t nrInternalOpCodes() {
 
 static MAJOR_CODE FindFunc(const char* name, bool loadExtLibs)
 {
-  MAJOR_CODE r=parsArgTable.findFunc(name);
+  MAJOR_CODE const r=parsArgTable.findFunc(name);
   if (r != OP_NOP)
     return r;
   if (!loadExtLibs)
@@ -130,7 +130,7 @@ static void loadExternalSymbols()
 static size_t GetMinor(MAJOR_CODE op)
 {
   PRECOND((size_t)op >= nrInternalOpCodes());
-  size_t minor = (size_t)(op)-nrInternalOpCodes();
+  size_t const minor = (size_t)(op)-nrInternalOpCodes();
   PRECOND(minor < ExternalSymbols::instance()->nrExternalFunctions());
   return minor;
 }
@@ -166,7 +166,7 @@ int calc::externalExecute(
   MAJOR_CODE major,
   void **out, const void **in, int nrArgs)
 {
-  size_t minor = GetMinor(major);
+  size_t const minor = GetMinor(major);
   return (ExternalSymbols::instance()->externFunc(minor).Algorithm())(out,in,nrArgs);
 }
 
@@ -178,7 +178,7 @@ void calc::externalBuildType(
   isSpatial = true;
   ST dummy;
   // CW check return value
-  size_t minor = GetMinor(major);
+  size_t const minor = GetMinor(major);
   (ExternalSymbols::instance()->externFunc(minor).ResultTypes())(&newVs,&dummy,nrArgs,args);
 }
 

@@ -47,11 +47,11 @@ calc::Field* windowtot_avg(
   fa::ExecutionPolicy epol = execution_policy();
 
   using InputNoDataPolicy = fa::InputNoDataPolicies<SpatialDetectNoData<REAL4>>;
-  InputNoDataPolicy input_no_data_policy{{arg}};
+  InputNoDataPolicy const input_no_data_policy{{arg}};
 
   SpatialSetNoData<REAL4> output_no_data_policy(result);
 
-  fern::Kernel<REAL4> runtime_kernel(radius, static_cast<REAL4>(1.0));
+  fern::Kernel<REAL4> const runtime_kernel(radius, static_cast<REAL4>(1.0));
 
   fa::convolution::convolve<
     fa::convolve::SkipNoData,

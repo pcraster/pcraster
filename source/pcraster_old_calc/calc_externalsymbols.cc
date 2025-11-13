@@ -231,7 +231,7 @@ void calc::ExternalSymbols::loadDynamicLibrary(const std::string& extLibNoExt)
 
         GET_LIST_PTR getListPtr =
                    (GET_LIST_PTR)lib->loadSymbol("GetFunctionList");
-        PCR_EXTERNAL_FUNCTION_LIST funcList(*((*getListPtr)()));
+        PCR_EXTERNAL_FUNCTION_LIST const funcList(*((*getListPtr)()));
 
         for(int i=0; i < funcList.nrFunctions; i++) {
           addFunction(funcList.functionSynopsisList[i]);
@@ -243,7 +243,7 @@ void calc::ExternalSymbols::loadDynamicLibrary(const std::string& extLibNoExt)
 
         MODELLINK_LIST_PTR modelLinkListPtr =
                    (MODELLINK_LIST_PTR)lib->loadSymbol("GetModelLinkList");
-        PCR_EXTERNAL_MODELLINK_LIST modelLinkList(*((*modelLinkListPtr)()));
+        PCR_EXTERNAL_MODELLINK_LIST const modelLinkList(*((*modelLinkListPtr)()));
 
         for(int i=0; i < modelLinkList.nrModelLinks; i++) {
           addModelLink(modelLinkList.modelLinkSynopsisList[i]);

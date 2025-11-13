@@ -33,8 +33,8 @@ std::string pcrxml::pcdataToString(const QDomNode& n)
   while(!node.isNull()) {
     if(node.nodeType() == QDomNode::TextNode) {
       PRECOND(node.isCharacterData());
-      QDomCharacterData c(node.toCharacterData());
-      QByteArray asciiData = c.data().toLatin1();
+      QDomCharacterData const c(node.toCharacterData());
+      QByteArray const asciiData = c.data().toLatin1();
       s += asciiData.constData();
     }
     node = node.nextSibling();

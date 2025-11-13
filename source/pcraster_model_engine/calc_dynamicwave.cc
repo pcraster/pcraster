@@ -207,8 +207,8 @@ double tableLookup(
     DynamicWaveTable::LookupColumns toCol)
 {
   double result = NAN;
-  std::vector<float> prefixKey(1,profileVal);
-  bool r=tab.interpolate(result, prefixKey,fromVal,fromCol,toCol);
+  std::vector<float> const prefixKey(1,profileVal);
+  bool const r=tab.interpolate(result, prefixKey,fromVal,fromCol,toCol);
   if (!r) {
      // enum   LookupColumns { profileId=0,H=1,A=2,P=3 };
      PRECOND(DynamicWaveTable::profileId==0);
@@ -218,7 +218,7 @@ double tableLookup(
      const char *names[] = {
        "ProfileId","H","A","P" };
 
-     std::string msg(
+     std::string const msg(
       std::vformat("No match for Key{ProfileId={0},{1}={2}} -> {3}",
       std::make_format_args(profileVal, names[fromCol], fromVal, names[toCol])));
      throw DomainError(msg);
@@ -239,8 +239,8 @@ double DWVisitor::dwLookup(
 double DWVisitor::dwPotential(size_t v) const
 {
   PRECOND(d_state[v] >= 0);
-  double a = d_state[v]/d_segmentLength[v]; // m2
-  double h = dwLookup(v,a,A,H);  // m
+  double const a = d_state[v]/d_segmentLength[v]; // m2
+  double const h = dwLookup(v,a,A,H);  // m
   return h+d_bottomLevel[v];
 }
 
@@ -283,24 +283,24 @@ double DWVisitor::qDynManning(
  */
 double DWVisitor::dwFlux(size_t v, size_t down) const
 {
- double pot=dwPotential(v);
- double dsPot=dwPotential(down);
+ double const pot=dwPotential(v);
+ double const dsPot=dwPotential(down);
  if (dsPot > pot) {
    // FTTB no negative fluxes, e.g. no water uphill
    return 0.0;
  }
- double h=pot-d_bottomLevel[v]; // water depth in cell
+ double const h=pot-d_bottomLevel[v]; // water depth in cell
  PRECOND(h>=0);
- double a=dwLookup(v,h,H,A); //  Aact natte oppervlak
+ double const a=dwLookup(v,h,H,A); //  Aact natte oppervlak
  PRECOND(a >= 0);
- double p=dwLookup(v,h,H,P); // wetted perimeter voor de gegeven waterdiepte
+ double const p=dwLookup(v,h,H,P); // wetted perimeter voor de gegeven waterdiepte
  PRECOND(p >= 0);
- double aDivP = (p > 0 ? a/p : 0);
- double sF=(pot-dsPot)/d_segmentLength[v];
+ double const aDivP = (p > 0 ? a/p : 0);
+ double const sF=(pot-dsPot)/d_segmentLength[v];
  // FTTB holds if no negative fluxes, sF always >= 0
  PRECOND(sF >=0);
  // qDyn is qDynChezy or qDynManning
- double  fluxPerSecond = d_qDyn(d_roughness[v], a, sF, aDivP);
+ double  const fluxPerSecond = d_qDyn(d_roughness[v], a, sF, aDivP);
  return fluxPerSecond;
 }
 } // namespace calc
@@ -376,7 +376,7 @@ void calc::DynamicWave::exec(RunTimeEnv* rte,
   ScopedLddGraph      lg(rte,a[argLdd]);
 
   // field length, ldd known to be spatial
-  size_t fLen=a[argLdd].nrValues();
+  size_t const fLen=a[argLdd].nrValues();
 
   BitField mvField(fLen);
   POSTCOND(mvField.none());
@@ -391,7 +391,7 @@ void calc::DynamicWave::exec(RunTimeEnv* rte,
   const VField<UINT1> constantState(a[argConstantState],mvField);
 
   PRECOND(!a[argTimestepInSecs].isSpatial());
-  float timestepInSecs= a[argTimestepInSecs].src_f()[0];
+  float const timestepInSecs= a[argTimestepInSecs].src_f()[0];
   if (timestepInSecs <= 0)
     throw DomainError("timestepInSecs must be > 0");
 
@@ -453,7 +453,7 @@ void calc::LookupState::exec(RunTimeEnv* rte,
   Field& result(a.createResult());
 
   // 1 if all inputs are nonspatial
-  size_t fLen=result.nrValues();
+  size_t const fLen=result.nrValues();
 
   const VField<INT4>      profileId(a[0],fLen);
   const VField<REAL4>   bottomLevel(a[1],fLen);
@@ -467,8 +467,8 @@ void calc::LookupState::exec(RunTimeEnv* rte,
         com::oneIsMV(segmentLength[i],potential[i]))
       pcr::setMV(r[i]);
     else {
-      float h=potential[i]-bottomLevel[i];
-      double a=tableLookup(*tab,profileId[i],h,
+      float const h=potential[i]-bottomLevel[i];
+      double const a=tableLookup(*tab,profileId[i],h,
           DynamicWaveTable::H, DynamicWaveTable::A);
       r[i]=(float)(a*segmentLength[i]);
     }
@@ -488,7 +488,7 @@ void calc::LookupPotential::exec(RunTimeEnv* rte,
   Field& result(a.createResult());
 
   // 1 if all inputs are nonspatial
-  size_t fLen=result.nrValues();
+  size_t const fLen=result.nrValues();
 
   const VField<INT4>      profileId(a[0],fLen);
   const VField<REAL4>   bottomLevel(a[1],fLen);
@@ -503,8 +503,8 @@ void calc::LookupPotential::exec(RunTimeEnv* rte,
       pcr::setMV(r[i]);
     else {
       // identical to dwPotential
-      float a=state[i]/segmentLength[i]; // m2
-      double h=tableLookup(*tab,profileId[i],a,
+      float const a=state[i]/segmentLength[i]; // m2
+      double const h=tableLookup(*tab,profileId[i],a,
           DynamicWaveTable::A, DynamicWaveTable::H); // m
       r[i]=(float)(h+bottomLevel[i]);
     }
@@ -670,7 +670,7 @@ void calc::Kinematic::exec(
   };
 
   ExecArguments arg(op,rte,nrArgs);
-  ScopedLddGraph lgs(rte,arg[0]);
+  ScopedLddGraph const lgs(rte,arg[0]);
   LddGraph const& lg(lgs.current());
   Field& qNew(arg.createResult());
 
@@ -814,7 +814,7 @@ void calc::KinematicWave::exec(
   };
 
   ExecArguments arg(op,rte,nrArgs);
-  ScopedLddGraph lgs(rte,arg[0]);
+  ScopedLddGraph const lgs(rte,arg[0]);
   LddGraph const& lg(lgs.current());
 
   arg.createResult();

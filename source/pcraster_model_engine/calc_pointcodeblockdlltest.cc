@@ -75,9 +75,9 @@ BOOST_AUTO_TEST_CASE(test_f)
  }
 
  {  // DiffUn
-   bool t1(_f<point::nodirection<UINT1,REAL4 > >(-1) == 1);
+   bool const t1(_f<point::nodirection<UINT1,REAL4 > >(-1) == 1);
    BOOST_CHECK(t1);
-   bool t2(_f<point::nodirection<UINT1,REAL4 > >( 1) == 0);
+   bool const t2(_f<point::nodirection<UINT1,REAL4 > >( 1) == 0);
    BOOST_CHECK(t2);
  }
  {  // DiffBin
@@ -103,12 +103,12 @@ BOOST_AUTO_TEST_CASE(testCompile)
 #else
 
   {
-   geo::FileCreateTester fct("tmp.res");
+   geo::FileCreateTester const fct("tmp.res");
    P5StackC("tmp = inp1s.map*0+5-inp5s.map+1*1; report tmp.res=tmp");
    BOOST_CHECK(fct.equalTo("inp1s.map",false));
   }
   {
-   geo::FileCreateTester fct("tmp.res");
+   geo::FileCreateTester const fct("tmp.res");
    P5StackC(
        "tmp = 5-inp5s.map + 0;"\
        "tmp = 1*if(inp1s.map gt 4,inp1s.map*0,tmp+1*1);"\

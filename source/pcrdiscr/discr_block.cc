@@ -415,8 +415,8 @@ bool Block::isRegular() const
     }
   }
   else {
-    size_t nrVoxels = cell(0).size();
-    REAL4 thickness = cell(0)[0];
+    size_t const nrVoxels = cell(0).size();
+    REAL4 const thickness = cell(0)[0];
 
     for(size_t i = 0; i < nrCells(); ++i) {
       // Test whether all cells are not missing and contain an equal number of

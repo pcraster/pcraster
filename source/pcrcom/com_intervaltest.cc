@@ -97,7 +97,7 @@ BOOST_AUTO_TEST_CASE(from_lookup_table_key_correct_format)
     BOOST_CHECK(a->valid(a->max()));
    } catch (const com::BadIntervalFormat& /*e*/) {
      // bug67
-     bool fixSpiritParserBug67=false;
+     bool const fixSpiritParserBug67=false;
      BOOST_CHECK(fixSpiritParserBug67);
    }
  }
@@ -133,7 +133,7 @@ BOOST_AUTO_TEST_CASE(from_lookup_table_key_wrong_format)
   for (auto & fmt : fmts) {
     bool catched=false;
     try {
-       IVap a(create(fmt));
+       IVap const a(create(fmt));
     } catch (const com::BadIntervalFormat& /*e*/) {
        catched=true;
     }
@@ -171,20 +171,20 @@ BOOST_AUTO_TEST_CASE(test_min_max)
   using namespace com;
 
   {// docs of virtual double  min()const=0;
-   GreaterThanEqualTo<> ge(0);
+   GreaterThanEqualTo<> const ge(0);
    BOOST_CHECK( ge.valid(ge.min()));
-   GreaterThan<> gt(0);
+   GreaterThan<> const gt(0);
    BOOST_CHECK(!gt.valid(gt.min()));
   }
  {
-  AnythingInterval<> a;
+  AnythingInterval<> const a;
   BOOST_CHECK(a.min() == a.minLimit());
   BOOST_CHECK(a.valid(a.min()));
   BOOST_CHECK(a.max() == a.maxLimit());
   BOOST_CHECK(a.valid(a.max()));
  }
  {
-  EqualTo<> a(6);
+  EqualTo<> const a(6);
   BOOST_CHECK(a.min() == 6);
   BOOST_CHECK(a.valid(a.min()));
   BOOST_CHECK(a.max() == 6);
@@ -192,13 +192,13 @@ BOOST_AUTO_TEST_CASE(test_min_max)
  }
 
 // THE HALF OPEN LIMITS
- {GreaterThanEqualTo<> a(6);
+ {GreaterThanEqualTo<> const a(6);
   BOOST_CHECK(a.min() == 6);
   BOOST_CHECK(a.valid(a.min()));
   BOOST_CHECK(a.max() == a.maxLimit());
   BOOST_CHECK(a.valid(a.max()));
  }
- {GreaterThan<> a(6);
+ {GreaterThan<> const a(6);
   BOOST_CHECK(a.min() == 6);
   BOOST_CHECK(!a.valid(a.min()));
   BOOST_CHECK(a.max() == a.maxLimit());
@@ -206,13 +206,13 @@ BOOST_AUTO_TEST_CASE(test_min_max)
  }
 
 // THE HALF OPEN LIMITS
- {LessThanEqualTo<> a(6);
+ {LessThanEqualTo<> const a(6);
   BOOST_CHECK(a.min() == a.minLimit());
   BOOST_CHECK(a.valid(a.min()));
   BOOST_CHECK(a.max() == 6);
   BOOST_CHECK(a.valid(a.max()));
  }
- {LessThan<> a(6);
+ {LessThan<> const a(6);
   BOOST_CHECK(a.min() == a.minLimit());
   BOOST_CHECK(a.valid(a.min()));
   BOOST_CHECK(a.max() == 6);
@@ -220,28 +220,28 @@ BOOST_AUTO_TEST_CASE(test_min_max)
  }
 
  {
-  BetweenLimits<> a(GreaterThanEqualTo<>(4),LessThan<>(6)); // [4, 6>
+  BetweenLimits<> const a(GreaterThanEqualTo<>(4),LessThan<>(6)); // [4, 6>
   BOOST_CHECK(a.min() == 4);
   BOOST_CHECK(a.valid(a.min()));
   BOOST_CHECK(a.max() == 6);
   BOOST_CHECK(!a.valid(a.max()));
  }
  {
-  BetweenLimits<> a(GreaterThan<>(4),LessThan<>(6)); // <4, 6>
+  BetweenLimits<> const a(GreaterThan<>(4),LessThan<>(6)); // <4, 6>
   BOOST_CHECK(a.min() == 4);
   BOOST_CHECK(!a.valid(a.min()));
   BOOST_CHECK(a.max() == 6);
   BOOST_CHECK(!a.valid(a.max()));
  }
  {
-  BetweenLimits<> a(GreaterThanEqualTo<>(4),LessThanEqualTo<>(6)); // [4, 6]
+  BetweenLimits<> const a(GreaterThanEqualTo<>(4),LessThanEqualTo<>(6)); // [4, 6]
   BOOST_CHECK(a.min() == 4);
   BOOST_CHECK(a.valid(a.min()));
   BOOST_CHECK(a.max() == 6);
   BOOST_CHECK(a.valid(a.max()));
  }
  {
-  BetweenLimits<> a(GreaterThan<>(4),LessThanEqualTo<>(6)); // <4, 6]
+  BetweenLimits<> const a(GreaterThan<>(4),LessThanEqualTo<>(6)); // <4, 6]
   BOOST_CHECK(a.min() == 4);
   BOOST_CHECK(!a.valid(a.min()));
   BOOST_CHECK(a.max() == 6);
@@ -254,7 +254,7 @@ BOOST_AUTO_TEST_CASE(between_limits)
 {
   using namespace com;
 
-  BetweenLimits<> b(GreaterThanEqualTo<>(0),LessThan<>(4));
+  BetweenLimits<> const b(GreaterThanEqualTo<>(0),LessThan<>(4));
   BOOST_CHECK(!b.valid(-1));
   BOOST_CHECK( b.valid(0));
   BOOST_CHECK( b.valid(2));
@@ -282,7 +282,7 @@ BOOST_AUTO_TEST_CASE(less_double_operator)
   // DOES NOT COMPILE?
   // BOOST_CHECK(! (AnythingInterval<>() > 2));
   BOOST_CHECK(! AnythingInterval<>().operator>(2));
-  AnythingInterval<> a;
+  AnythingInterval<> const a;
   BOOST_CHECK(! (a                     > 2));
 
 // EqualTo
@@ -326,7 +326,7 @@ BOOST_AUTO_TEST_CASE(less_double_operator)
   BOOST_CHECK(! (LessThan<>     (0) >  1));   //   <-0>  >  1
 
   {
-  BetweenLimits<> b(GreaterThanEqualTo<>(0),LessThan<>(4));
+  BetweenLimits<> const b(GreaterThanEqualTo<>(0),LessThan<>(4));
   BOOST_CHECK(! (b < -2));   //   [0,4> < -2
   BOOST_CHECK(! (b <  0));   //   [0,4> <  0
   BOOST_CHECK(! (b <  1));   //   [0,4> <  1
@@ -340,7 +340,7 @@ BOOST_AUTO_TEST_CASE(less_double_operator)
   }
 
   {
-  BetweenLimits<> b(GreaterThan<>(0),LessThan<>(4));
+  BetweenLimits<> const b(GreaterThan<>(0),LessThan<>(4));
   BOOST_CHECK(! (b < -2));   //    <0,4> < -2
   BOOST_CHECK(! (b <  0));   //    <0,4> <  0
   BOOST_CHECK(! (b <  1));   //    <0,4> <  1
@@ -354,7 +354,7 @@ BOOST_AUTO_TEST_CASE(less_double_operator)
   }
 
   {
-  BetweenLimits<> b(GreaterThanEqualTo<>(0),LessThanEqualTo<>(4));
+  BetweenLimits<> const b(GreaterThanEqualTo<>(0),LessThanEqualTo<>(4));
   BOOST_CHECK(! (b < -2));   //   [0,4] < -2
   BOOST_CHECK(! (b <  0));   //   [0,4] <  0
   BOOST_CHECK(! (b <  1));   //   [0,4] <  1
@@ -368,7 +368,7 @@ BOOST_AUTO_TEST_CASE(less_double_operator)
   }
 
   {
-  BetweenLimits<> b(GreaterThan<>(0),LessThanEqualTo<>(4));
+  BetweenLimits<> const b(GreaterThan<>(0),LessThanEqualTo<>(4));
   BOOST_CHECK(! (b < -2));   //    <0,4] < -2
   BOOST_CHECK(! (b <  0));   //    <0,4] <  0
   BOOST_CHECK(! (b <  1));   //    <0,4] <  1
@@ -428,8 +428,8 @@ BOOST_AUTO_TEST_CASE(round_error)
 {
   using namespace com;
 
-  double v(0.2);
-  float  vf(0.2F);
+  double const v(0.2);
+  float  const vf(0.2F);
   // assumptions:
   // ! v in < 0.2, 0.4]
   //   v in < 0  , 0.2]

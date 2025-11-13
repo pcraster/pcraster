@@ -266,7 +266,7 @@ ANTLRParser::
 look(int k)
 {
 	int i = 0;
-	int c = k - (LLk-dirty);
+	int const c = k - (LLk-dirty);
 	for (i=1; i<=c; i++) consume();
 }
 
@@ -483,7 +483,7 @@ set_deg(SetWordType *a)
 	if ( a == nullptr ) return 0;
 	while ( p < endp )
 	{
-		SetWordType t = *p;
+		SetWordType const t = *p;
 		SetWordType *b = &(bitmask[0]);
 		do {
 			if (t & *b) ++degree;
@@ -503,7 +503,7 @@ edecode(SetWordType *a)
 
 	if ( set_deg(a)>1 ) /* MR23 */ printMessage(stderr, " {");
 	do {
-		SetWordType t = *p;
+		SetWordType const t = *p;
 		SetWordType *b = &(bitmask[0]);
 		do {
 			if ( t & *b ) /* MR23 */ printMessage(stderr, " %s", token_tbl[e]);
@@ -787,7 +787,7 @@ void ANTLRParser::traceout(const ANTLRChar * rule) {
 
 int ANTLRParser::traceOption(int delta) {
 
-    int     prevValue=traceOptionValue;
+    int     const prevValue=traceOptionValue;
 
     traceOptionValue=traceOptionValue+delta;
 
@@ -805,7 +805,7 @@ int ANTLRParser::traceOption(int delta) {
 
 int ANTLRParser::traceGuessOption(int delta) {
 
-    int     prevValue=traceGuessOptionValue;
+    int     const prevValue=traceGuessOptionValue;
 
     traceGuessOptionValue=traceGuessOptionValue+delta;
 
@@ -854,7 +854,7 @@ int ANTLRParser::printMessage(FILE* pFile, const char* pFormat, ...)
 {
 	va_list marker;
 	va_start( marker, pFormat );
-  	int iRet = printMessageV(pFile, pFormat, marker);
+  	int const iRet = printMessageV(pFile, pFormat, marker);
 	va_end( marker );
 	return iRet;
 }

@@ -45,7 +45,7 @@ const class calc::ArrayDefVector& calc::SubParameter::arrayDefVector() const
 void calc::SubParameter::validateOutputFileName() const
 {
   for(size_t i=0; i < nrElements();i++) {
-    std::string fileName(outputFileName(i));
+    std::string const fileName(outputFileName(i));
     try {
       moreValidation(fileName);
     } catch(const com::Exception& err) {
@@ -66,7 +66,7 @@ void calc::SubParameter::validateOutputFileName() const
 void calc::SubParameter::moreValidation(
   const std::string& fileName) const
 {
-    calc::File f(fileName);
+    calc::File const f(fileName);
     f.validateOutputName();
 }
 

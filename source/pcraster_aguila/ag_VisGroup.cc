@@ -120,7 +120,7 @@ ag::VisGroup::VisGroup(const qt::AppWindowProperties& props,
 
   d_data->d_manager = m;
 
-  std::string n = std::format("group {0}", d_data->d_nrCreated);
+  std::string const n = std::format("group {0}", d_data->d_nrCreated);
   setObjectName(n.c_str());
 
   // createAnimationControl();

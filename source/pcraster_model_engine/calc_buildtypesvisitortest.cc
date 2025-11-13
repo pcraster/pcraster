@@ -99,7 +99,7 @@ BOOST_AUTO_TEST_CASE(testPar)
 
  { // get type
    ASTPar *p= tmp_ast.createPar("inp1s.map");
-   ASTCFGTester n(p); // n will delete p
+   ASTCFGTester const n(p); // n will delete p
 
    ASTSymbolTable inputTable;
    inputTable[p].dataType()=DataType(VS_S,ST_SPATIAL);
@@ -108,14 +108,14 @@ BOOST_AUTO_TEST_CASE(testPar)
    btv.init(inputTable);
    btv.visit();
 
-   DataType  btvRes(n.ast()->returnDataType());
+   DataType  const btvRes(n.ast()->returnDataType());
    BOOST_CHECK(btvRes.vs() == VS_S);
    BOOST_CHECK(btvRes.stSpatial());
  }
 
  { // restrict type
    ASTPar *p= tmp_ast.createPar("inp1s.map");
-   ASTCFGTester n(p); // n will delete p
+   ASTCFGTester const n(p); // n will delete p
 
    ASTSymbolTable inputTable;
    inputTable[p].dataType()=DataType(VS_S,ST_SPATIAL);
@@ -135,11 +135,11 @@ BOOST_AUTO_TEST_CASE(testPar)
  }
 
  { // par can be anything
-   ASTCFGTester n(tmp_ast.createPar("anything"));
+   ASTCFGTester const n(tmp_ast.createPar("anything"));
    BuildTypesVisitor btv(n.cfg());
 
    btv.visit();
-   DataType btvRes(n.ast()->returnDataType());
+   DataType const btvRes(n.ast()->returnDataType());
    BOOST_CHECK(btvRes.vs() == VS_ANYTHING);
  }
 
@@ -150,12 +150,12 @@ BOOST_AUTO_TEST_CASE(testNumber)
   using namespace calc;
 
   ASTTestFactory tmp_ast;
-  ASTCFGTester n(tmp_ast.createNumber("0.5"));
+  ASTCFGTester const n(tmp_ast.createNumber("0.5"));
   BuildTypesVisitor btv(n.cfg());
 
  {
    btv.visit();
-   DataType btvRes(n.ast()->returnDataType());
+   DataType const btvRes(n.ast()->returnDataType());
    BOOST_CHECK( btvRes.vs() == VS_SD);
    BOOST_CHECK( btvRes.stNonSpatial());
  }
@@ -181,26 +181,26 @@ BOOST_AUTO_TEST_CASE(testModel)
   ASTTestFactory tmp_ast;
   // misc tests on a whole script
   {
-   ASTCFGTester n(tmp_ast.createFromId("pcrcalc376"));
-   BuildTypesVisitor btv(n.cfg());
+   ASTCFGTester const n(tmp_ast.createFromId("pcrcalc376"));
+   BuildTypesVisitor const btv(n.cfg());
    // no visit no dynamic section found
    BOOST_CHECK(!btv.containsDynamicSection());
   }
   { // this is not the error message test for 376
-    ASTCFGTester n(tmp_ast.createFromId("pcrcalc376"));
+    ASTCFGTester const n(tmp_ast.createFromId("pcrcalc376"));
     BuildTypesVisitor btv(n.cfg());
    // visit, dynamic section found
     btv.visit();
     BOOST_CHECK(btv.containsDynamicSection());
   }
   {
-    ASTCFGTester n(tmp_ast.createFromId("pcrcalc60"));
+    ASTCFGTester const n(tmp_ast.createFromId("pcrcalc60"));
     BuildTypesVisitor btv(n.cfg());
     btv.visit();
     BOOST_CHECK(!btv.containsDynamicSection());
   }
   {
-    ASTCFGTester n(tmp_ast.createFromId("pcrcalc505"));
+    ASTCFGTester const n(tmp_ast.createFromId("pcrcalc505"));
     BuildTypesVisitor btv(n.cfg());
 
     for(size_t i=0; i < 4; ++i) {
@@ -210,7 +210,7 @@ BOOST_AUTO_TEST_CASE(testModel)
     }
   }
   { // test setFirstAss
-    ASTCFGTester n(StringParser::createCodeAsNode(
+    ASTCFGTester const n(StringParser::createCodeAsNode(
            "a=1;a=2"));
     BuildTypesVisitor btv(n.cfg());
     btv.visit();
@@ -231,7 +231,7 @@ BOOST_AUTO_TEST_CASE(testModel)
     BOOST_CHECK(btv.table()["a"].d_firstAss          == l1);
   }
   {
-    ASTCFGTester n(tmp_ast.createFromId("pcrcalc532"));
+    ASTCFGTester const n(tmp_ast.createFromId("pcrcalc532"));
     BuildTypesVisitor btv(n.cfg());
     btv.init(*d_inputTable);
     // should not throw due to hack in
@@ -246,7 +246,7 @@ BOOST_AUTO_TEST_CASE(testModel)
     for(size_t i=1; i < 9; ++i) {
       btv.visit();
     }
-      bool todoAddTESTPATHandAresolveUNtil=false;
+      bool const todoAddTESTPATHandAresolveUNtil=false;
       BOOST_WARN(todoAddTESTPATHandAresolveUNtil);
   }
 }
@@ -258,42 +258,42 @@ BOOST_AUTO_TEST_CASE(testExpr)
   ASTTestFactory tmp_ast;
 
   {
-    ASTCFGTester n(tmp_ast.createCode("<e v='+'>       \
+    ASTCFGTester const n(tmp_ast.createCode("<e v='+'>       \
                                 <n v='3'/>    \
                                 <p v='inp1s.map'/>    \
                            </e>"));
     DEFAULT_BTV;
     btv.visit();
-    DataType btvRes(n.ast()->returnDataType());
+    DataType const btvRes(n.ast()->returnDataType());
     BOOST_CHECK(btvRes.vs() == VS_S);
     BOOST_CHECK(btvRes.stSpatial());
   }
   { // no arguments
-    ASTCFGTester n(tmp_ast.createCode("<e v='mapuniform'> \
+    ASTCFGTester const n(tmp_ast.createCode("<e v='mapuniform'> \
                            </e>"));
 
     DEFAULT_BTV;
     btv.visit();
-    DataType btvRes(n.ast()->returnDataType());
+    DataType const btvRes(n.ast()->returnDataType());
     BOOST_CHECK(btvRes.vs() == VS_S);
     BOOST_CHECK(btvRes.stNonSpatial());
   }
   { // poly arguments
     // st can be both
-    ASTCFGTester n(tmp_ast.createCode("<e v='mapmaximum'> \
+    ASTCFGTester const n(tmp_ast.createCode("<e v='mapmaximum'> \
                                 <p v='inp1s.map'/>    \
                            </e>"));
 
     DEFAULT_BTV;
     btv.visit();
-    DataType btvRes(n.ast()->returnDataType());
+    DataType const btvRes(n.ast()->returnDataType());
     BOOST_CHECK(btvRes.vs() == VS_S);
     BOOST_CHECK(btvRes.stNonSpatial());
 
     // force st to nonspatial
     btv.visit();
     {
-    DataType btvRes(n.ast()->returnDataType());
+    DataType const btvRes(n.ast()->returnDataType());
     BOOST_CHECK(btvRes.vs() == VS_S);
     BOOST_CHECK(btvRes.stNonSpatial());
     }
@@ -311,43 +311,43 @@ BOOST_AUTO_TEST_CASE(testExpr)
 
   }
   {
-    ASTCFGTester n(tmp_ast.createCode("<e v='spreadzone' p='8'>   \
+    ASTCFGTester const n(tmp_ast.createCode("<e v='spreadzone' p='8'>   \
                              <e v='or'><n v='0'/><p v='inp1b.map'/></e> \
                              <n v='2'/>       \
                              <n v='3'/>       \
                            </e>"));
     DEFAULT_BTV;
     btv.visit();
-    DataType btvRes(n.ast()->returnDataType());
+    DataType const btvRes(n.ast()->returnDataType());
     BOOST_CHECK(btvRes.vs() == VS_B);
     BOOST_CHECK(btvRes.stSpatial());
   }
   {
-    ASTCFGTester n(tmp_ast.createCode("<e v='nodirection'>       \
+    ASTCFGTester const n(tmp_ast.createCode("<e v='nodirection'>       \
                                 <p v='inp90d.map'/>    \
                                </e>"));
     DEFAULT_BTV;
     btv.visit();
-    DataType btvRes(n.ast()->returnDataType());
+    DataType const btvRes(n.ast()->returnDataType());
     BOOST_CHECK(btvRes.vs() == VS_B);
     BOOST_CHECK(btvRes.stSpatial());
   }
   {
-    ASTCFGTester n(tmp_ast.createCode("<e v='nodirection'>       \
+    ASTCFGTester const n(tmp_ast.createCode("<e v='nodirection'>       \
                                 <n v='1'/>    \
                                </e>"));
     DEFAULT_BTV;
     btv.visit();
-    DataType btvRes(n.ast()->returnDataType());
+    DataType const btvRes(n.ast()->returnDataType());
     BOOST_CHECK(btvRes.vs() == VS_B);
     BOOST_CHECK(btvRes.stNonSpatial());
   }
   {
     const char s[] ="succ(4) eq if(e , a , if ( e2 , b , c))";
-    ASTCFGTester n(StringParser::createExpr(s));
+    ASTCFGTester const n(StringParser::createExpr(s));
     DEFAULT_BTV;
     btv.visit();
-    DataType btvRes(n.ast()->returnDataType());
+    DataType const btvRes(n.ast()->returnDataType());
     BOOST_CHECK(btvRes.vs() == VS_B);
     BOOST_CHECK(btvRes.stEither());
   }
@@ -377,7 +377,7 @@ BOOST_AUTO_TEST_CASE(testErrorExpr)
   ASTTestFactory tmp_ast;
 
   {
-    ASTCFGTester n(tmp_ast.createCode("<e v='spread' p='8'>   \
+    ASTCFGTester const n(tmp_ast.createCode("<e v='spread' p='8'>   \
                                 <n v='1'/>        \
                                 <n v='1'/>        \
                                 <n v='1'/>        \
@@ -386,7 +386,7 @@ BOOST_AUTO_TEST_CASE(testErrorExpr)
     EXPECT_ERROR(btv,n,"pcrcalc258");
   }
   {
-    ASTCFGTester n(tmp_ast.createCode("<e v='spread' p='8'>   \
+    ASTCFGTester const n(tmp_ast.createCode("<e v='spread' p='8'>   \
                                 <n p='9' v='1'/>  \
                                 <n v='1'/>        \
                            </e>"));
@@ -394,12 +394,12 @@ BOOST_AUTO_TEST_CASE(testErrorExpr)
     EXPECT_ERROR(btv,n,"pcrcalc252");
   }
   {
-    ASTCFGTester n(tmp_ast.createCode("<e v='maparea' p='8'/>"));
+    ASTCFGTester const n(tmp_ast.createCode("<e v='maparea' p='8'/>"));
     DEFAULT_BTV;
     EXPECT_ERROR(btv,n,"pcrcalc252a");
   }
   {
-    ASTCFGTester n(tmp_ast.createCode("<e v='spread' p='8'>   \
+    ASTCFGTester const n(tmp_ast.createCode("<e v='spread' p='8'>   \
                                 <n p='9' v='1'/>  \
                                 <n v='1'/>        \
                                 <n v='1'/>        \
@@ -409,7 +409,7 @@ BOOST_AUTO_TEST_CASE(testErrorExpr)
     EXPECT_ERROR(btv,n,"pcrcalc253");
   }
   {
-    ASTCFGTester n(tmp_ast.createCode("<e v='spread' p='8'>   \
+    ASTCFGTester const n(tmp_ast.createCode("<e v='spread' p='8'>   \
                              <e v='+'><n v='1'/><n v='1'/></e> \
                              <n v='1'/>       \
                              <n v='1'/>       \
@@ -418,22 +418,22 @@ BOOST_AUTO_TEST_CASE(testErrorExpr)
     EXPECT_ERROR(btv,n,"pcrcalc500");
   }
   { // modellink
-    ASTCFGTester n(tmp_ast.createFromId("pcrcalc548"));
+    ASTCFGTester const n(tmp_ast.createFromId("pcrcalc548"));
     DEFAULT_BTV;
     EXPECT_ERROR(btv,n,"pcrcalc548");
   }
   { // unknown function
-    ASTCFGTester n(tmp_ast.createFromId("pcrcalc549"));
+    ASTCFGTester const n(tmp_ast.createFromId("pcrcalc549"));
     DEFAULT_BTV;
     EXPECT_ERROR(btv,n,"pcrcalc549");
   }
   { // unknown method
-    ASTCFGTester n(tmp_ast.createFromId("pcrcalc550"));
+    ASTCFGTester const n(tmp_ast.createFromId("pcrcalc550"));
     DEFAULT_BTV;
     EXPECT_ERROR(btv,n,"pcrcalc550");
   }
   if (false) { // nog niet noodzakelijk
-    ASTCFGTester n(tmp_ast.createFromId("pcrcalc102a"));
+    ASTCFGTester const n(tmp_ast.createFromId("pcrcalc102a"));
     DEFAULT_BTV;
     EXPECT_ERROR(btv,n,"pcrcalc102a");
   }
@@ -446,7 +446,7 @@ BOOST_AUTO_TEST_CASE(testArgCombError)
   ASTTestFactory tmp_ast;
 
   {
-    ASTCFGTester n(tmp_ast.createCode("<e v='cover'>   \
+    ASTCFGTester const n(tmp_ast.createCode("<e v='cover'>   \
                                 <p v='inp5s.map'/>        \
                                 <p v='inp5s.map'/>        \
                                 <p p='8' v='inp1b.map'/>  \
@@ -455,7 +455,7 @@ BOOST_AUTO_TEST_CASE(testArgCombError)
     EXPECT_ERROR(btv,n,"pcrcalc259");
   }
   {
-    ASTCFGTester n(tmp_ast.createCode("<e v='cover'>   \
+    ASTCFGTester const n(tmp_ast.createCode("<e v='cover'>   \
                                 <p v='inp5s.map'/>        \
                                 <p p='8' v='inp1b.map'/>  \
                            </e>"));
@@ -463,7 +463,7 @@ BOOST_AUTO_TEST_CASE(testArgCombError)
     EXPECT_ERROR(btv,n,"pcrcalc259a");
   }
   {
-    ASTCFGTester n(tmp_ast.createCode("<e v='eq'>                        \
+    ASTCFGTester const n(tmp_ast.createCode("<e v='eq'>                        \
                                 <p v='inp1b.map'/>           \
                                 <e v='nominal' p='8'><n v='4'/></e> \
                            </e>"));
@@ -471,7 +471,7 @@ BOOST_AUTO_TEST_CASE(testArgCombError)
     EXPECT_ERROR(btv,n,"pcrcalc260");
   }
   {
-    ASTCFGTester n(tmp_ast.createFromId("pcrcalc260a"));
+    ASTCFGTester const n(tmp_ast.createFromId("pcrcalc260a"));
     DEFAULT_BTV;
     EXPECT_ERROR(btv,n,"pcrcalc260a");
   }
@@ -484,19 +484,19 @@ BOOST_AUTO_TEST_CASE(testAssError)
   ASTTestFactory tmp_ast;
 
   {
-    ASTCFGTester n(tmp_ast.createFromId("pcrcalc2a"));
+    ASTCFGTester const n(tmp_ast.createFromId("pcrcalc2a"));
     DEFAULT_BTV;
     EXPECT_ERROR(btv,n,"pcrcalc2a");
   }
   {
-    ASTCFGTester n(tmp_ast.createFromId("pcrcalc2"));
+    ASTCFGTester const n(tmp_ast.createFromId("pcrcalc2"));
     DEFAULT_BTV;
     EXPECT_ERROR(btv,n,"pcrcalc2");
   }
   {
     // 1st spread narrows useOnly to VS_BNO
     // 2nd spread expects useOnly to be VS_S
-    ASTCFGTester n(tmp_ast.createCode("<l><e v='spread'>       \
+    ASTCFGTester const n(tmp_ast.createCode("<l><e v='spread'>       \
                                 <p v='useOnly' p='firstUse'/>  \
                                 <p v='x'/>                     \
                                 <n v='1'/>                     \
@@ -517,27 +517,27 @@ BOOST_AUTO_TEST_CASE(testNonFieldError)
   ASTTestFactory tmp_ast;
 
   {
-    ASTCFGTester n(tmp_ast.createFromId("pcrcalc44"));
+    ASTCFGTester const n(tmp_ast.createFromId("pcrcalc44"));
     DEFAULT_BTV;
     EXPECT_ERROR(btv,n,"pcrcalc44");
   }
   {
-    ASTCFGTester n(tmp_ast.createFromId("pcrcalc257"));
+    ASTCFGTester const n(tmp_ast.createFromId("pcrcalc257"));
     DEFAULT_BTV;
     EXPECT_ERROR(btv,n,"pcrcalc257");
   }
   {
-    ASTCFGTester n(tmp_ast.createFromId("pcrcalc257a"));
+    ASTCFGTester const n(tmp_ast.createFromId("pcrcalc257a"));
     DEFAULT_BTV;
     EXPECT_ERROR(btv,n,"pcrcalc257a");
   }
   {
-    ASTCFGTester n(tmp_ast.createFromId("pcrcalc502"));
+    ASTCFGTester const n(tmp_ast.createFromId("pcrcalc502"));
     DEFAULT_BTV;
     EXPECT_ERROR(btv,n,"pcrcalc502");
   }
   {
-    ASTCFGTester n(tmp_ast.createFromId("pcrcalc503"));
+    ASTCFGTester const n(tmp_ast.createFromId("pcrcalc503"));
     DEFAULT_BTV;
     EXPECT_ERROR(btv,n,"pcrcalc503");
   }
@@ -551,17 +551,17 @@ BOOST_AUTO_TEST_CASE(testTopDownExprRestrictor)
   {
     // multiply by 1 must push VS_S as resultType of stackA
     const char *code="timer 1 1 1; dynamic a=1*timeinput(stackA)";
-    ASTCFGTester n(StringParser::createCodeAsNode(code));
+    ASTCFGTester const n(StringParser::createCodeAsNode(code));
     DEFAULT_BTV;
     btv.visit();
     BOOST_CHECK(btv.table().contains("stackA"));
-    DataType dt(btv.table()["stackA"].dataType());
+    DataType const dt(btv.table()["stackA"].dataType());
     BOOST_CHECK(dt.vs()         == VS_MAPSTACK);
     BOOST_CHECK(dt.resultType() == VS_S);
   }
   {
     const char *code="t=1*(if(e,a,if(e2,b,c)))";
-    ASTCFGTester n(StringParser::createCodeAsNode(code));
+    ASTCFGTester const n(StringParser::createCodeAsNode(code));
     DEFAULT_BTV;
     size_t nrChanges = 0;
     do {
@@ -580,7 +580,7 @@ BOOST_AUTO_TEST_CASE(testTopDownExprRestrictor)
   }
   {
     const char s[]="t= succ(4) eq if(e , a , if ( e2 , b , c))";
-    ASTCFGTester n(StringParser::createCodeAsNode(s));
+    ASTCFGTester const n(StringParser::createCodeAsNode(s));
     DEFAULT_BTV;
     btv.visit();
     const char *v[3]={"a","b","c"};
@@ -595,20 +595,20 @@ BOOST_AUTO_TEST_CASE(testTopDownExprRestrictor)
   }
   { // succ(4) is VS_O, push  down VS_O to s
     const char s[]="timer 1 1 1; dynamic t= succ(4) eq if(e , a , if ( e2 , b , timeinput(s)))";
-    ASTCFGTester n(StringParser::createCodeAsNode(s));
+    ASTCFGTester const n(StringParser::createCodeAsNode(s));
     DEFAULT_BTV;
     btv.visit();
     BOOST_CHECK(btv.table().contains("s"));
-    DataType dt(btv.table()["s"].dataType());
+    DataType const dt(btv.table()["s"].dataType());
     BOOST_CHECK(dt.vs()        == VS_MAPSTACK);
     BOOST_CHECK(dt.resultType()== VS_O);
   }
   { // setKeyTypes test
-    ASTCFGTester n(StringParser::createExpr("lookupscalar(A,1*4,max(1,0))"));
+    ASTCFGTester const n(StringParser::createExpr("lookupscalar(A,1*4,max(1,0))"));
     DEFAULT_BTV;
     btv.visit();
     BOOST_CHECK(btv.table().contains("A"));
-    DataType dt(btv.table()["A"].dataType());
+    DataType const dt(btv.table()["A"].dataType());
     BOOST_CHECK(dt.vs() == VS_TABLE);
     BOOST_CHECK(dt.tableColTypes().size()== 3);
     BOOST_CHECK(dt.tableColTypes()[0]    == VS_S);
@@ -623,7 +623,7 @@ BOOST_AUTO_TEST_CASE(testMultipleVisits)
 
   ASTTestFactory tmp_ast;
 
-  ASTCFGTester n(tmp_ast.createFromId("pcrcalc60"));
+  ASTCFGTester const n(tmp_ast.createFromId("pcrcalc60"));
   BuildTypesVisitor btv(n.cfg());
   // a static model that has this problem can ook met variable
   // renaming wat dus nie kan met een dynamic model omdat er 2 paths
@@ -682,14 +682,14 @@ BOOST_AUTO_TEST_CASE(testNumberTyping)
     e->transferArg(tmp_ast.createPar("inp1s.map"));
     e->transferArg(nr);
 
-    ASTCFGTester n(e);
+    ASTCFGTester const n(e);
     DEFAULT_BTV;
     btv.visit();
     BOOST_CHECK(nr->vs() == VS_S);
   }
   {
-    std::string msgId("pcrcalc214c");
-    ASTCFGTester n(tmp_ast.createFromId(msgId));
+    std::string const msgId("pcrcalc214c");
+    ASTCFGTester const n(tmp_ast.createFromId(msgId));
     BuildTypesVisitor btv(n.cfg());
     auto *nr= astCast<ASTNumber>(n.ast(),"C/b/0/a/>/,/1/n");
     BOOST_CHECK(nr->value()==5);
@@ -709,10 +709,10 @@ BOOST_AUTO_TEST_CASE(testDoubleFuncRelic)
   ASTTestFactory tmp_ast;
 
   {
-    std::string msgId("pcrcalc11b");
+    std::string const msgId("pcrcalc11b");
     bool  catched=false;
     try {
-      ASTCFGTester n(tmp_ast.createFromId(msgId));
+      ASTCFGTester const n(tmp_ast.createFromId(msgId));
       DEFAULT_BTV;
       btv.visit();
     } catch (const com::Exception& s) {
@@ -722,10 +722,10 @@ BOOST_AUTO_TEST_CASE(testDoubleFuncRelic)
     BOOST_CHECK(catched);
   }
   {
-    std::string msgId("pcrcalc11c");
+    std::string const msgId("pcrcalc11c");
     bool  catched=false;
     try {
-      ASTCFGTester n(tmp_ast.createFromId(msgId));
+      ASTCFGTester const n(tmp_ast.createFromId(msgId));
       DEFAULT_BTV;
       btv.visit();
     } catch (const com::Exception& s) {
@@ -736,9 +736,9 @@ BOOST_AUTO_TEST_CASE(testDoubleFuncRelic)
   }
   {
     bool  catched=false;
-    std::string msgId("pcrcalc101");
+    std::string const msgId("pcrcalc101");
     try {
-      ASTCFGTester n(tmp_ast.createFromId(msgId));
+      ASTCFGTester const n(tmp_ast.createFromId(msgId));
       DEFAULT_BTV;
       btv.visit();
     } catch (const com::Exception& s) {
@@ -748,7 +748,7 @@ BOOST_AUTO_TEST_CASE(testDoubleFuncRelic)
     BOOST_CHECK(catched);
   }
   { // pcrcalc11
-    ASTCFGTester n(
+    ASTCFGTester const n(
         StringParser::createCodeAsNode("D,Z=spread,spreadzone(inp1b.map,0,1);"));
     DEFAULT_BTV;
     btv.visit();
@@ -767,7 +767,7 @@ BOOST_AUTO_TEST_CASE(testDoubleFuncRelic)
     BOOST_CHECK(!t["inp1b.map"].d_firstAss);
   }
   { // pcrcalc11
-    ASTCFGTester n(
+    ASTCFGTester const n(
         StringParser::createCodeAsNode("Z,D=spreadzone,spread(inp1b.map,0,1);"));
     DEFAULT_BTV;
     btv.visit();
@@ -783,15 +783,15 @@ BOOST_AUTO_TEST_CASE(testDoubleFuncRelic)
   }
   { // dynwave
     ASTTestFactory tmp_ast;
-    std::string msgId("pcrcalc507");
-    ASTCFGTester n(tmp_ast.createFromId(msgId));
+    std::string const msgId("pcrcalc507");
+    ASTCFGTester const n(tmp_ast.createFromId(msgId));
     DEFAULT_BTV;
 
     btv.visit();
 
     const ASTSymbolTable& t(btv.table());
     BOOST_CHECK(t.contains("tmp507.tbl"));
-    DataType dt(t["tmp507.tbl"].dataType());
+    DataType const dt(t["tmp507.tbl"].dataType());
     BOOST_CHECK(dt.vs()  == VS_TABLE);
     BOOST_CHECK(dt.tableColTypes().size()  == 4);
     BOOST_CHECK(dt.tableColTypes()[0]  == VS_NO);
@@ -805,11 +805,11 @@ BOOST_AUTO_TEST_CASE(testRepeat)
 {
   using namespace calc;
 
-    ASTCFGTester n(
+    ASTCFGTester const n(
         StringParser::createCodeAsNode(
  "tmp.res = scalar(0); repeat { tmp.res += 5; } until 1;"));
-    BuildTypesVisitor btv(n.cfg());
-    bool todoAddBoolTestPath=false;
+    BuildTypesVisitor const btv(n.cfg());
+    bool const todoAddBoolTestPath=false;
     BOOST_WARN(todoAddBoolTestPath);
 }
 

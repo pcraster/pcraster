@@ -90,7 +90,7 @@ void pcrxml::Element::write(const com::PathName& fileName) const
  * fs << "\n";
  */
 
- QDomDocument outDoc(toDomDocument());
+ QDomDocument const outDoc(toDomDocument());
  fs << outDoc;
  fs << "\n";
  fs.close();
@@ -99,7 +99,7 @@ void pcrxml::Element::write(const com::PathName& fileName) const
  {
   try {
    const com::PathName& pn(fileName);
-   Document readBack(pn);
+   Document const readBack(pn);
   } catch (const com::Exception& e) {
    std::cerr <<  e.getMessages();
    const bool theWrittenXMLFileIsValid(false);
@@ -122,21 +122,21 @@ void pcrxml::Element::writeToFile(const char* fileName) const
 //! as a dom document, pcr namespace aware
 pcrxml::Document pcrxml::Element::toDomDocument() const
 {
-  Document doc=createPcrDocument(elementName());
+  Document const doc=createPcrDocument(elementName());
   fill(doc.documentElement());
   return doc;
 }
 
 QDomElement pcrxml::Element::toDomElement(QDomDocument doc) const
 {
- QDomElement el(doc.createElement(QString(elementName().c_str())));
+ QDomElement const el(doc.createElement(QString(elementName().c_str())));
  fill(el);
  return el;
 }
 
 std::string pcrxml::Element::toString() const
 {
- pcrxml::Document doc(toDomDocument());
+ pcrxml::Document const doc(toDomDocument());
  return doc.toStdString();
 }
 

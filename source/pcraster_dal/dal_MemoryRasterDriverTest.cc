@@ -24,7 +24,7 @@ struct Fixture
 
     Fixture()
     {
-        static ClientWrapper client("/my/path/memory_raster_driver_test", true);
+        static ClientWrapper const client("/my/path/memory_raster_driver_test", true);
     }
 
     ~Fixture()
@@ -39,7 +39,7 @@ BOOST_AUTO_TEST_CASE(empty_data_space)
 {
   using namespace dal;
 
-  boost::scoped_array<REAL4> cells(new REAL4[6]);
+  boost::scoped_array<REAL4> const cells(new REAL4[6]);
   cells[0] =  1.0;
   cells[1] =  3.0;
   cells[2] =  5.0;
@@ -50,15 +50,15 @@ BOOST_AUTO_TEST_CASE(empty_data_space)
   std::vector<boost::any> values;
   values.push_back(cells.get());
 
-  DataSpace space;
-  TypeId typeId = TI_REAL4;
-  size_t nrRows = 3;
-  size_t nrCols = 2;
-  double cellSize = 15.0;
-  double north = 0.0;
-  double west = 0.0;
+  DataSpace const space;
+  TypeId const typeId = TI_REAL4;
+  size_t const nrRows = 3;
+  size_t const nrCols = 2;
+  double const cellSize = 15.0;
+  double const north = 0.0;
+  double const west = 0.0;
 
-  MemoryRasterData data(values, space, typeId, nrRows, nrCols, cellSize,
+  MemoryRasterData const data(values, space, typeId, nrRows, nrCols, cellSize,
        west, north);
 
   MemoryRasterDriver driver(&(library()->memoryDataPool()));
@@ -88,7 +88,7 @@ BOOST_AUTO_TEST_CASE(same_name)
 {
   using namespace dal;
 
-  bool testImplemented = false;
+  bool const testImplemented = false;
   BOOST_WARN(testImplemented);
 }
 
@@ -103,9 +103,9 @@ BOOST_AUTO_TEST_CASE(test_)
   return;
 
   // Fill global memory pool with rasters.
-  boost::scoped_array<REAL4> q1(new REAL4[6]);
-  boost::scoped_array<REAL4> q5(new REAL4[6]);
-  boost::scoped_array<REAL4> q9(new REAL4[6]);
+  boost::scoped_array<REAL4> const q1(new REAL4[6]);
+  boost::scoped_array<REAL4> const q5(new REAL4[6]);
+  boost::scoped_array<REAL4> const q9(new REAL4[6]);
   q1[0] =  1.0; q5[0] =  2.0; q9[0] =  3.0;
   q1[1] =  3.0; q5[1] =  4.0; q9[1] =  5.0;
   q1[2] =  5.0; q5[2] =  6.0; q9[2] =  7.0;
@@ -115,12 +115,12 @@ BOOST_AUTO_TEST_CASE(test_)
 
   std::vector<boost::any> values;
   DataSpace space;
-  TypeId typeId = TI_REAL4;
-  size_t nrRows = 3;
-  size_t nrCols = 2;
-  double cellSize = 15.0;
-  double north = 0.0;
-  double west = 0.0;
+  TypeId const typeId = TI_REAL4;
+  size_t const nrRows = 3;
+  size_t const nrCols = 2;
+  double const cellSize = 15.0;
+  double const north = 0.0;
+  double const west = 0.0;
 
   std::vector<float> quantiles;
   quantiles.push_back(0.1f);
@@ -140,7 +140,7 @@ BOOST_AUTO_TEST_CASE(test_)
   tmp.push_back(q9.get());
   values.push_back(FloatTuple(0.9f, tmp));
 
-  MemoryRasterData data(values, space, typeId, nrRows, nrCols, cellSize,
+  MemoryRasterData const data(values, space, typeId, nrRows, nrCols, cellSize,
        west, north);
 
   MemoryRasterDriver driver(&(library()->memoryDataPool()));

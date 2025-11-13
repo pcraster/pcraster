@@ -170,7 +170,7 @@ class FileMapPrivate
         throwError("open failed");
       if (!len) {
         // compute length
-        off_t size = lseek(d_fd,0,SEEK_END);
+        off_t const size = lseek(d_fd,0,SEEK_END);
         if (size  == -1)
          throwError("lseek failed");
         len = (size_t)size-offset;

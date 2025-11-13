@@ -56,7 +56,7 @@ DataInfo<FeatureLayer> FeatureDataSources::openData(
   std::unique_ptr<FeatureLayer> layer(new FeatureLayer(name, space));
   assert(layer.get());
 
-  DataInfo<FeatureLayer> info(layer.get(), layer->valueScale(),
+  DataInfo<FeatureLayer> const info(layer.get(), layer->valueScale(),
          layer->dataSpace());
   layer.release();
 

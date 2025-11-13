@@ -41,7 +41,7 @@ void cover_nonspatial(
 
   using InputNoDataPolicy = fa::InputNoDataPolicies<SpatialDetectNoData<T>,
         NonspatialDetectNoData<T>>;
-  InputNoDataPolicy input_no_data_policy{{res}, {arg2}};
+  InputNoDataPolicy const input_no_data_policy{{res}, {arg2}};
 
   SpatialSetNoData<T> output_no_data_policy(res);
 
@@ -59,7 +59,7 @@ void cover_spatial(
   using InputNoDataPolicy = fa::InputNoDataPolicies<SpatialDetectNoData<T>,
         SpatialDetectNoData<T>>;
 
-  InputNoDataPolicy input_no_data_policy{{res}, {arg2}};
+  InputNoDataPolicy const input_no_data_policy{{res}, {arg2}};
 
   SpatialSetNoData<T> output_no_data_policy(res);
 
@@ -96,14 +96,14 @@ calc::Field* spatial_safe_bool(calc::Field* argument){
   double value = 0;
   argument->getCell(value, 0);
 
-  INT4 nominal_val = static_cast<INT4>(value);
+  INT4 const nominal_val = static_cast<INT4>(value);
 
   if(!(0 <= nominal_val && nominal_val <= 1)){
     throw std::runtime_error("value '" + std::to_string(nominal_val) + "' is of type nominal or ordinal, must be boolean");
 
   }
 
-  UINT1 cellvalue = nominal_val != static_cast<UINT1>(0) ? 1 : 0;
+  UINT1 const cellvalue = nominal_val != static_cast<UINT1>(0) ? 1 : 0;
 
   calc::Field* res_field = new calc::Spatial(VS_B, calc::CRI_1, nr_cells());
 
@@ -119,7 +119,7 @@ calc::Field* spatial_int4(calc::Field* argument, PCR_VS valuescale){
   double value = 0;
   argument->getCell(value, 0);
 
-  INT4 cellvalue = static_cast<INT4>(value);
+  INT4 const cellvalue = static_cast<INT4>(value);
 
   calc::Field* res_field = new calc::Spatial(valuescale, calc::CRI_4, nr_cells());
 
@@ -138,7 +138,7 @@ calc::Field* spatial_int4(calc::Field* argument, PCR_VS valuescale){
 
 calc::Field* cover(pybind11::list const& arguments){
 
-  size_t nr_args = pybind11::len(arguments);
+  size_t const nr_args = pybind11::len(arguments);
 
   if(nr_args == 0){
     throw std::runtime_error("at least 1 argument required, 0 given\n");
@@ -160,10 +160,10 @@ calc::Field* cover(pybind11::list const& arguments){
   // The PCRaster model engine is a bit more generous with type casting
   // e.g. cover(nominal, ordinal) will there work
   // Improve type casting in the multicore module when necessary...
-  bool is_boolean = boolean_valuescale(*field_arguments.at(0));
-  bool is_nominal = nominal_valuescale(*field_arguments.at(0));
-  bool is_ordinal = ordinal_valuescale(*field_arguments.at(0));
-  bool is_scalar = scalar_valuescale(*field_arguments.at(0));
+  bool const is_boolean = boolean_valuescale(*field_arguments.at(0));
+  bool const is_nominal = nominal_valuescale(*field_arguments.at(0));
+  bool const is_ordinal = ordinal_valuescale(*field_arguments.at(0));
+  bool const is_scalar = scalar_valuescale(*field_arguments.at(0));
 
 
   if(is_scalar) {

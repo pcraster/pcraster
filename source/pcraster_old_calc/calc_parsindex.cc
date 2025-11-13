@@ -57,7 +57,7 @@ calc::UserSymbol *calc::ParsIndexName::addMe(calc::ArrayDefinition *a) const
    // a->d_activeIndex grows while adding indices
    // result is that active indices has an uniq number
    // while off indices does not, but that doesn' matter
-   size_t arrayIndex =  a->d_activeIndex.size();
+   size_t const arrayIndex =  a->d_activeIndex.size();
    if (d_extName)
     n = new IndexParameterConstant(
       BindedSymbol(d_name,*d_extName),

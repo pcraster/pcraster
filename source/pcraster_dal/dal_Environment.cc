@@ -73,7 +73,7 @@ void Environment::readFormatNames()
 {
   namespace ba = boost::algorithm;
 
-  std::string formats = dev::environmentVariable("PCRASTER_DAL_FORMATS");
+  std::string const formats = dev::environmentVariable("PCRASTER_DAL_FORMATS");
 
   // Split string at the comma.
   if(!formats.empty()) {
@@ -116,8 +116,8 @@ void Environment::readFormatNames()
 void Environment::handleGdalData(
          std::filesystem::path const& prefix)
 {
-  std::string variable = dev::environmentVariable("GDAL_DATA");
-  std::string gdalData;
+  std::string const variable = dev::environmentVariable("GDAL_DATA");
+  std::string const gdalData;
 
   if(dev::environmentVariableSet("GDAL_DATA")) {
     _gdalData = dev::environmentVariable("GDAL_DATA");

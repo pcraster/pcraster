@@ -18,7 +18,7 @@
 static QDomNode attrNode(const QDomNode& owningElement, const std::string& nameOfAttr)
 {
    PRECOND(owningElement.nodeType() == QDomNode::ElementNode);
-   QDomNamedNodeMap map(owningElement.attributes());
+   QDomNamedNodeMap const map(owningElement.attributes());
    return map.namedItem(pcrxml::asQString(nameOfAttr));
 }
 
@@ -28,7 +28,7 @@ static QDomNode attrNode(const QDomNode& owningElement, const std::string& nameO
  */
 std::string pcrxml::Attribute::inputValueStr(const QDomNode& owningElement, const std::string& nameOfAttr)
 {
-   QDomNode a(attrNode(owningElement, nameOfAttr));
+   QDomNode const a(attrNode(owningElement, nameOfAttr));
    POSTCOND(!a.isNull());
    return asString(a.nodeValue());
 }
@@ -42,7 +42,7 @@ std::string pcrxml::Attribute::inputValueStr(const QDomNode& owningElement, cons
 //! checks if a required string is really present
 pcrxml::Attribute::Attribute(const QDomNode& owningElement, const std::string& nameOfAttr, bool required)
 {
-  QDomNode a(attrNode(owningElement, nameOfAttr));
+  QDomNode const a(attrNode(owningElement, nameOfAttr));
   d_present = !a.isNull();
   if (!present() && required)
     throw com::BadStreamFormat("expected attribute '"+nameOfAttr+"' as part of element "

@@ -103,7 +103,7 @@ void calc::ASTDefinition::add(const Id& key, const Id& value)
 
   if (key.name()=="unit") {
     try {
-      Dimension dim(value.name());
+      Dimension const dim(value.name());
     } catch(const com::Exception& e) {
       value.symError(e.messages());
     }

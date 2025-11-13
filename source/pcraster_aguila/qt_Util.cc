@@ -33,13 +33,13 @@ void qt::center(const QWidget &w1, QWidget &w2)
   if(!w1.isWindow() || !w2.isWindow()) return;
 
   // Get size and position of the frames of both widgets.
-  QRect g1 = w1.geometry();
-  QRect g2 = w2.geometry();
+  QRect const g1 = w1.geometry();
+  QRect const g2 = w2.geometry();
 
   if(g1.isValid() && g2.isValid())
   {
-    int x = std::max<int>(w1.x(), w1.x() + (g1.width()  - g2.width())  / 2);
-    int y = std::max<int>(w1.y(), w1.y() + (g1.height() - g2.height()) / 2);
+    int const x = std::max<int>(w1.x(), w1.x() + (g1.width()  - g2.width())  / 2);
+    int const y = std::max<int>(w1.y(), w1.y() + (g1.height() - g2.height()) / 2);
     w2.setGeometry(x, y, w2.width(), w2.height());
   }
 }
@@ -136,7 +136,7 @@ std::string qt::getOpenFileName(
   // Add 'all files' to filter.
   filter += ("All files (*)");
 
-  QString fn = QFileDialog::getOpenFileName(parent, QString(), QString(),
+  QString const fn = QFileDialog::getOpenFileName(parent, QString(), QString(),
                    QString(filter.c_str()));
 
   return fn.isEmpty() ? std::string() : std::string(fn.toUtf8().constData());

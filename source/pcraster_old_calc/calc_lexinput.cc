@@ -27,7 +27,7 @@ int calc::LexInput::getRawChar()
   d_ptrExpOutBuf=std::string::npos;
 
   if(d_extraCharRead != EOF) {
-    int c = d_extraCharRead;
+    int const c = d_extraCharRead;
     d_extraCharRead = EOF;
     return c;
   }
@@ -36,7 +36,7 @@ int calc::LexInput::getRawChar()
 
 char calc::LexInput::getRawCharEOFcheck()
 {
-  int c = getRawChar();
+  int const c = getRawChar();
   // args/test2a
   if (c == EOF)
     throw com::Exception("end-of-file in substitution "+quote("${"+d_expInBuf));
@@ -63,7 +63,7 @@ std::string calc::LexInput::getParameter(
         bool bracePresent)
 {
   // simply return "" in case of failure
-  int r = getParameterNr(name,bracePresent);
+  int const r = getParameterNr(name,bracePresent);
   switch(r) {
    case -1: /* number out of range */
      return "";
@@ -107,7 +107,7 @@ int calc::LexInput::getChar()
    d_tokenStart=1;
    d_lineNr++;
   }
-  int c=getRawChar();
+  int const c=getRawChar();
   if (d_gettingInComment && c != '\n')
     return c;
   switch(c) {
@@ -277,13 +277,13 @@ void calc::LexInput::parseShellParamUse()
    com::removeAllSpace(args[0]);
    if (args[0].empty())
      throw com::Exception("Empty argument in substitution");
-   int startPar = getParameterNr(args[0],true);
+   int const startPar = getParameterNr(args[0],true);
    if (args.size() <= 1)
      throw com::Exception("Empty argument in substitution");
    com::removeAllSpace(args[1]);
    if (args[1].empty())
      throw com::Exception("Empty argument in substitution");
-   int endPar = getParameterNr(args[1],true);
+   int const endPar = getParameterNr(args[1],true);
 
    d_ptrExpOutBuf=0;
    if (startPar < 1 || endPar < 1 || startPar > endPar)

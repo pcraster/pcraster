@@ -93,7 +93,7 @@ void mldd::RemoveStream::downstreamEdge (const Edge& e)
 {
   size_t s = 0;
   size_t t = 0;
-  size_t nb= geo::NB::code(e.source(),e.target());
+  size_t const nb= geo::NB::code(e.source(),e.target());
   e.linear(s,t,d_dag.rasterDim());
   // delete e if marked in d_marks
   // or all infows of e.source are marked for delettion in d_removeDag

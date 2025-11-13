@@ -243,12 +243,12 @@ T& midpointLineENE(Integral x1, Integral y1, Integral x2, Integral y2, T& op) {
   // The start and end points of the line need not be integers as long as we
   // choose dx, dy and d to be integers.
 
-  size_t dx = x2 - x1;
-  size_t dy = y2 - y1;
+  size_t const dx = x2 - x1;
+  size_t const dy = y2 - y1;
   int d = 2 * dy - dx;
 
-  size_t incrE = 2 * dy;
-  size_t incrNE = 2 * (dy - dx);
+  size_t const incrE = 2 * dy;
+  size_t const incrNE = 2 * (dy - dx);
 
   Integral x = x1;
   Integral y = y1;
@@ -332,8 +332,8 @@ T& midpointLine(Integral x1, Integral y1, Integral x2, Integral y2, T& op) {
     }
   }
   else {
-    int dx = x2 - x1;
-    int dy = y2 - y1;
+    int const dx = x2 - x1;
+    int const dy = y2 - y1;
 
     if(dx > 0) {
       if(dy > 0) {

@@ -14,7 +14,7 @@ BOOST_AUTO_TEST_CASE(create_)
 {
   using namespace block;
 
-  discr::Raster raster(3, 1, 1.0, 0.0, 0.0);
+  discr::Raster const raster(3, 1, 1.0, 0.0, 0.0);
   discr::RasterData<REAL4> elevation(&raster);
   elevation.cell(0) = REAL4(1.0);
   pcr::setMV(elevation.cell(1));
@@ -35,13 +35,13 @@ BOOST_AUTO_TEST_CASE(base_elevation)
   using namespace block;
 
   typedef discr::Block::ThicknessType T;
-  discr::Raster raster(3, 1);
+  discr::Raster const raster(3, 1);
 
   {
     discr::RasterData<REAL4> elevation(&raster, 3.0);
     pcr::setMV(elevation.cell(1));
     elevation.cell(2) = 2.2;
-    discr::Block block(elevation);
+    discr::Block const block(elevation);
 
     discr::RasterData<REAL4> result(&raster);
     baseElevation(result, block);
@@ -61,7 +61,7 @@ BOOST_AUTO_TEST_CASE(surface_elevation)
   using namespace block;
 
   typedef discr::Block::ThicknessType T;
-  discr::Raster raster(3, 1);
+  discr::Raster const raster(3, 1);
 
   {
     discr::RasterData<REAL4> elevation(&raster, 3.0);
@@ -95,7 +95,7 @@ BOOST_AUTO_TEST_CASE(set_default_value)
   using namespace block;
 
   // typedef discr::Block::ThicknessType T;
-  discr::Raster raster(3, 1);
+  discr::Raster const raster(3, 1);
 
   {
     discr::RasterData<REAL4> elevation(&raster, 3.0);

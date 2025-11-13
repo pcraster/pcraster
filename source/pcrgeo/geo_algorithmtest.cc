@@ -17,10 +17,10 @@ BOOST_AUTO_TEST_CASE(points_in_area)
     typedef double Value;
     typedef std::vector<PointValue<Punt, Value> > PointValues;
 
-    Value value(0.0);
+    Value const value(0.0);
     PointValues points;
-    size_t nrRows = 3;
-    size_t nrCols = 3;
+    size_t const nrRows = 3;
+    size_t const nrCols = 3;
 
     for(size_t row = 0; row < nrRows; ++row) {
       for(size_t col = 0; col < nrCols; ++col) {
@@ -28,7 +28,7 @@ BOOST_AUTO_TEST_CASE(points_in_area)
       }
     }
 
-    Punt point(1, 1);
+    Punt const point(1, 1);
     PointValues subset;
     Punt::CoordinateType radius = 0;
 
@@ -62,8 +62,8 @@ BOOST_AUTO_TEST_CASE(maximum_)
     typedef std::vector<PointValue<Punt, Value> > PointValues;
 
     PointValues points;
-    size_t nrRows = 3;
-    size_t nrCols = 3;
+    size_t const nrRows = 3;
+    size_t const nrCols = 3;
 
     for(size_t row = 0; row < nrRows; ++row) {
       for(size_t col = 0; col < nrCols; ++col) {
@@ -72,7 +72,7 @@ BOOST_AUTO_TEST_CASE(maximum_)
       }
     }
 
-    Punt point(1, 1);
+    Punt const point(1, 1);
     PointValues subset;
     Punt::CoordinateType radius = 0;
     bool result = false;
@@ -103,8 +103,8 @@ BOOST_AUTO_TEST_CASE(maximum_)
     typedef std::vector<PointValue<Point, Value> > PointValues;
 
     PointValues points;
-    size_t nrRows = 3;
-    size_t nrCols = 3;
+    size_t const nrRows = 3;
+    size_t const nrCols = 3;
 
     for(size_t row = 0; row < nrRows; ++row) {
       for(size_t col = 0; col < nrCols; ++col) {
@@ -113,7 +113,7 @@ BOOST_AUTO_TEST_CASE(maximum_)
       }
     }
 
-    Point point(1, 1);
+    Point const point(1, 1);
     PointValues subset;
     Point::CoordinateType radius = NAN;
     bool result = false;

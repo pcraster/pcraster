@@ -103,7 +103,7 @@ SaveDataAsDialog& SaveDataAsDialog::operator=(
 
 void SaveDataAsDialog::browse()
 {
-  std::string name = qt::getOpenFileName(d_formats, this, nullptr);
+  std::string const name = qt::getOpenFileName(d_formats, this, nullptr);
 
   if(!name.empty()) {
     d_ui.d_nameEdit->setText(QString(name.c_str()));

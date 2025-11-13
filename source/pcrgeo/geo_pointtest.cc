@@ -81,7 +81,7 @@ BOOST_AUTO_TEST_CASE(closer)
   typedef Point<float,2> P;
   typedef Closer<P>      C;
 
-  C c(P(-5,0));
+  C const c(P(-5,0));
 
   BOOST_CHECK( c(P(1,0),P(2,0)));
   BOOST_CHECK(!c(P(2,0),P(1,0)));
@@ -111,9 +111,9 @@ BOOST_AUTO_TEST_CASE(distance)
   // test compilation of enum
   BOOST_CHECK(P::Dim == 2);
 
-  P p1(2,20);
-  P p2(3,21);
+  P const p1(2,20);
+  P const p2(3,21);
   BOOST_CHECK(p1.squaredDistance(p2) == 2);
-  double d=p1.distance(p2);
+  double const d=p1.distance(p2);
   BOOST_CHECK(d>1.4 && d<1.43); // sqrt(2)
 }

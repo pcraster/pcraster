@@ -9,13 +9,13 @@ BOOST_AUTO_TEST_CASE(it)
 {
   using namespace pcrxml;
 
-      Document doc("<DirectoryStackInfo "
+      Document const doc("<DirectoryStackInfo "
                      "allMissingValue='false' "
                      "minimumValue='1.45' "
                      "maximumValue='2.67' "
                      "dataTypeDTD='Scalar' "
                      "stackEnd='3' />");
-      DirectoryStackInfo d(doc.documentElement());
+      DirectoryStackInfo const d(doc.documentElement());
       BOOST_CHECK(!d.allMissingValue());
       BOOST_CHECK(d.minimumValue()==1.45);
       BOOST_CHECK(d.maximumValue()==2.67);

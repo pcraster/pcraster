@@ -106,7 +106,7 @@ static std::string argCombError(
   std::ostringstream msg;
   msg << o.strInput(nr) << ": type is " << v.isOneOf() <<", while ";
   if (o.syntax() == "function") {
-     int prev = (nr > 1) ? -1 : 0;
+     int const prev = (nr > 1) ? -1 : 0;
      // prev forcing a type or
      // -1 if the comb of arg 0 to nr-1
      // forced an illegal type for arg nr
@@ -169,7 +169,7 @@ class TopDownExprRestrictor: public ASTVisitor {
 
   DataType               pop() {
     PRECOND(d_dt.size());
-    DataType f=d_dt.top();
+    DataType const f=d_dt.top();
     d_dt.pop();
     return f;
   }
@@ -210,7 +210,7 @@ class TopDownExprRestrictor: public ASTVisitor {
 
    const Operator& op(e->op());
    // type description
-   DataType       dtOp(op.resultType());
+   DataType       const dtOp(op.resultType());
    // actual type of this expr:
    DataType       dtExpr(pop());
 
@@ -265,7 +265,7 @@ class TopDownExprRestrictor: public ASTVisitor {
   {
     POSTCOND(d_table.contains(p));
 
-    OVS ovs(op.argType(0).vs());
+    OVS const ovs(op.argType(0).vs());
     // restiction on data type of Arg0
     DataType reqArg0(ovs);
 
@@ -311,7 +311,7 @@ class TopDownExprRestrictor: public ASTVisitor {
             break;
           default: // lookup.... funcs
            for(size_t k=1; k < e->nrArgs(); ++k) {
-             ScopedCFG c(e->arg(k));
+             ScopedCFG const c(e->arg(k));
              BuildTypesVisitor btv(c.cfg);
              // TODO very inefficient copying a
              // full symbol table, btv should also
@@ -319,7 +319,7 @@ class TopDownExprRestrictor: public ASTVisitor {
              // a copy, this copy is not assumed to be altered
              btv.init(d_table);
              btv.visit();
-             DataType dt=e->arg(k)->returnDataType();
+             DataType const dt=e->arg(k)->returnDataType();
              tableColTypes.push_back(dt.vs());
            }
            // all lookup.... funcs are strictly typed
@@ -379,7 +379,7 @@ void calc::BuildTypesVisitor::checkOnTimeinput(BaseExpr   *o)
   auto *ms=dynamic_cast<ASTPar *>(o->arg(0));
   if (ms) {
       POSTCOND(d_table.contains(ms));
-      DataType req(d_table[ms].dataType().resultType(),ST_SPATIAL);
+      DataType const req(d_table[ms].dataType().resultType(),ST_SPATIAL);
       eResult.restrict(req);
       d_dtc.restrict(o->returnDataType(),eResult);
   }
@@ -449,7 +449,7 @@ void calc::BuildTypesVisitor::visitExpr(BaseExpr*        o)
   // TEST CORRECT NR OF ARGUMENTS
   // pcrcalc/test25[23]
   //pcrcalc/test14
-  std::string msg(op.checkNrInputs(o->nrArgs()));
+  std::string const msg(op.checkNrInputs(o->nrArgs()));
   if (!msg.empty()) {
      if (o->nrArgs())
       o->arg(0)->posError(msg);
@@ -462,7 +462,7 @@ void calc::BuildTypesVisitor::visitExpr(BaseExpr*        o)
   try {
    for(i=0; i < o->nrArgs(); ++i)
    {
-     DataType dt(op.argType(i));
+     DataType const dt(op.argType(i));
      d_dtc.restrict(o->arg(i)->returnDataType(),dt);
 
      if (i > op.polyEqualityInputBegin()) {
@@ -484,7 +484,7 @@ void calc::BuildTypesVisitor::visitExpr(BaseExpr*        o)
   } catch(const VSClash& v) {
     // if allowed by the op-arg then it
     // is a combination error
-    DataType dt(op.argType(i));
+    DataType const dt(op.argType(i));
     if (intersect(v.isOneOf(),dt.vs()) != VS_UNKNOWN)
       o->arg(i)->posError(argCombError(op,v,i));
     // todo
@@ -583,7 +583,7 @@ void calc::BuildTypesVisitor::visitAss (ASTAss    *a)
 
   // FTTB no multiple return
   if (a->rhs()->nrReturns()==1 && a->rhs()->returnDataType(0).vs()!=VS_OBJECT) {
-    DataType dt(a->par(0)->returnDataType().vs());
+    DataType const dt(a->par(0)->returnDataType().vs());
     TopDownExprRestrictor t(d_table,dt);
     a->rhs()->accept(t);
     d_dtc.incr(t.nrChanges());

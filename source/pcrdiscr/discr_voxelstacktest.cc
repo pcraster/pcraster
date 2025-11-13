@@ -9,7 +9,7 @@ BOOST_AUTO_TEST_CASE(constructor)
   using namespace discr;
 
   {
-    VoxelStack stack;
+    VoxelStack const stack;
     BOOST_CHECK(!stack.isMV());
     BOOST_CHECK(stack.baseElevation() == VoxelStack::value_type(0.0));
     BOOST_CHECK(stack.empty());
@@ -17,7 +17,7 @@ BOOST_AUTO_TEST_CASE(constructor)
   }
 
   {
-    VoxelStack stack(5.0);
+    VoxelStack const stack(5.0);
     BOOST_CHECK(!stack.isMV());
     BOOST_CHECK(stack.baseElevation() == VoxelStack::value_type(5.0));
     BOOST_CHECK(stack.empty());
@@ -86,7 +86,7 @@ BOOST_AUTO_TEST_CASE(is_regular)
   using namespace discr;
 
   {
-    VoxelStack stack;
+    VoxelStack const stack;
     BOOST_CHECK(stack.isRegular());
   }
 
@@ -109,13 +109,13 @@ BOOST_AUTO_TEST_CASE(surface_elevation)
   using namespace discr;
 
   {
-    VoxelStack stack;
+    VoxelStack const stack;
     BOOST_CHECK(dal::comparable(stack.surfaceElevation(),
          VoxelStack::value_type(0.0)));
   }
 
   {
-    VoxelStack stack(5.0);
+    VoxelStack const stack(5.0);
     BOOST_CHECK(dal::comparable(stack.surfaceElevation(),
          VoxelStack::value_type(5.0)));
   }
@@ -125,7 +125,7 @@ BOOST_AUTO_TEST_CASE(surface_elevation)
     thicknesses.push_back(1.2F);
     thicknesses.push_back(1.2F);
     thicknesses.push_back(1.3F);
-    VoxelStack stack(thicknesses.begin(), thicknesses.end());
+    VoxelStack const stack(thicknesses.begin(), thicknesses.end());
     BOOST_CHECK(dal::comparable(stack.surfaceElevation(),
          VoxelStack::value_type(3.7)));
   }
@@ -141,7 +141,7 @@ BOOST_AUTO_TEST_CASE(bottom_elevation)
     thicknesses.push_back(1.2F);
     thicknesses.push_back(1.3F);
     thicknesses.push_back(1.4F);
-    VoxelStack stack(thicknesses.begin(), thicknesses.end());
+    VoxelStack const stack(thicknesses.begin(), thicknesses.end());
     BOOST_CHECK(dal::comparable(stack.bottomElevation(0),
          VoxelStack::value_type(0.0)));
     BOOST_CHECK(dal::comparable(stack.bottomElevation(1),
@@ -161,7 +161,7 @@ BOOST_AUTO_TEST_CASE(top_elevation)
     thicknesses.push_back(1.2F);
     thicknesses.push_back(1.3F);
     thicknesses.push_back(1.4F);
-    VoxelStack stack(thicknesses.begin(), thicknesses.end());
+    VoxelStack const stack(thicknesses.begin(), thicknesses.end());
     BOOST_CHECK(dal::comparable(stack.topElevation(0),
          VoxelStack::value_type(1.2)));
     BOOST_CHECK(dal::comparable(stack.topElevation(1),
@@ -178,7 +178,7 @@ BOOST_AUTO_TEST_CASE(equals)
 
   {
     VoxelStack stack1;
-    VoxelStack stack2;
+    VoxelStack const stack2;
     BOOST_CHECK(stack1 == stack1);
     BOOST_CHECK(stack1 == stack2);
     BOOST_CHECK(stack2 == stack1);

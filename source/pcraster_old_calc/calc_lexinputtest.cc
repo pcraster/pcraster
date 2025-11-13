@@ -7,7 +7,7 @@ BOOST_AUTO_TEST_CASE(install_string_script)
 {
   using namespace calc;
 
-  std::string s("this is a test string");
+  std::string const s("this is a test string");
   std::string r;
   LexInput li;
   const char *argv[1];
@@ -24,6 +24,6 @@ BOOST_AUTO_TEST_CASE(install_string_script)
   std::string contents("pietpaal");
   contents.replace(contents.begin(), contents.end(), contents.size(), 0);
   BOOST_CHECK(contents.size()==8);
-  for(char content : contents)
+  for(char const content : contents)
     BOOST_CHECK(content==0);
 }

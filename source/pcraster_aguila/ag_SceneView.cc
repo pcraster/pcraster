@@ -61,10 +61,10 @@ namespace detail {
     GLfloat matrix[16] = {0};
 
     // Degrees to radians
-    GLfloat fovy_radians = fovy * std::numbers::pi / 180.0f;
+    GLfloat const fovy_radians = fovy * std::numbers::pi / 180.0f;
     // Cotangent
-    GLfloat f = 1.0f / std::tan(fovy_radians / 2.0f);
-    GLfloat diff = znear - zfar;
+    GLfloat const f = 1.0f / std::tan(fovy_radians / 2.0f);
+    GLfloat const diff = znear - zfar;
 
     // matrix[0][0]
     matrix[0] = f / aspect;
@@ -122,8 +122,8 @@ public:
 
 GLfloat ag::SceneView::calcFOV(double s, double d)
 {
-  double rad = 2.0 * std::atan2(s / 2.0, d);
-  double deg = (180.0 * rad) / std::numbers::pi;
+  double const rad = 2.0 * std::atan2(s / 2.0, d);
+  double const deg = (180.0 * rad) / std::numbers::pi;
 
   return static_cast<GLfloat>(deg);
 }
@@ -139,12 +139,12 @@ GLfloat ag::SceneView::calcFOV(double w, double d, double h, double x, double y,
   //  2. Calculate the distance between the center of the bounding sphere to
   //     the viewpoint.
 
-  double r    = std::sqrt(std::pow(0.5 * w, 2.0) + std::pow(0.5 * d, 2.0) +
+  double const r    = std::sqrt(std::pow(0.5 * w, 2.0) + std::pow(0.5 * d, 2.0) +
                    std::pow(0.5 * h, 2.0));
-  double dist = std::sqrt(std::pow(x, 2.0) + std::pow(y, 2.0) +
+  double const dist = std::sqrt(std::pow(x, 2.0) + std::pow(y, 2.0) +
                    std::pow(z, 2.0));
-  double rad  = 2.0 * std::atan2(r, dist);
-  double deg  = (180.0 * rad) / std::numbers::pi;
+  double const rad  = 2.0 * std::atan2(r, dist);
+  double const deg  = (180.0 * rad) / std::numbers::pi;
 
   return static_cast<GLfloat>(deg);
 }
@@ -248,11 +248,11 @@ void ag::SceneView::resetViewport(int w, int h)
   // Yes! We have data.
   if(widthScene() > 0.0 && depthScene() > 0.0 && heightScene() > 0.0)
   {
-    GLfloat fovy = calcFOV(widthScene(), depthScene(), heightScene(),     // 35.
+    GLfloat const fovy = calcFOV(widthScene(), depthScene(), heightScene(),     // 35.
                    d_data->d_userCamera->x(), d_data->d_userCamera->y(),
                    d_data->d_userCamera->z());
-    GLfloat aspect = static_cast<GLfloat>(w) / h;
-    GLfloat d = std::sqrt(widthScene() * widthScene() +
+    GLfloat const aspect = static_cast<GLfloat>(w) / h;
+    GLfloat const d = std::sqrt(widthScene() * widthScene() +
                    depthScene() + depthScene());
     detail::glu_perspective(fovy, aspect, 0.05 * d, 5.0 * d);
     d_data->d_userCamera->setSize(0.1 * d, 0.3 * d, 0.1 * d);
@@ -400,7 +400,7 @@ void ag::SceneView::moveHead(double mx, double my, double mz)
 {
   GLfloat m[16];
   d_data->d_userCamera->matrix(m);
-  com::Matrix<GLfloat> rm(4, 4, m);
+  com::Matrix<GLfloat> const rm(4, 4, m);
   com::Matrix<GLfloat> p(4, 1);
 
   p.setElement(1, 1, mx);
@@ -806,7 +806,7 @@ void ag::SceneView::installCamera(Camera c)
     GLfloat yaw = NAN;
     GLfloat pitch = NAN;
     GLfloat roll = NAN;
-    GLfloat d = 4.0 * std::sqrt(widthScene() * widthScene() +
+    GLfloat const d = 4.0 * std::sqrt(widthScene() * widthScene() +
                    depthScene() + depthScene());
 
     if(c == TOP) {

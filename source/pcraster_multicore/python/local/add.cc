@@ -38,7 +38,7 @@ calc::Field* add_number_number(
 
   using InputNoDataPolicy = fa::InputNoDataPolicies<NonspatialDetectNoData<REAL4>,
         NonspatialDetectNoData<REAL4>>;
-  InputNoDataPolicy input_no_data_policy{{*arg1},{*arg2}};
+  InputNoDataPolicy const input_no_data_policy{{*arg1},{*arg2}};
 
   NonspatialSetNoData<REAL4> output_no_data_policy(*res);
 
@@ -57,7 +57,7 @@ calc::Field* add_field_field(
 
   using InputNoDataPolicy = fa::InputNoDataPolicies<SpatialDetectNoData<REAL4>,
         SpatialDetectNoData<REAL4>>;
-  InputNoDataPolicy input_no_data_policy{{*arg1},{*arg2}};
+  InputNoDataPolicy const input_no_data_policy{{*arg1},{*arg2}};
 
   SpatialSetNoData<REAL4> output_no_data_policy(*res);
 
@@ -77,7 +77,7 @@ calc::Field* add_field_number(
   using InputNoDataPolicy = fa::InputNoDataPolicies<SpatialDetectNoData<REAL4>,
         NonspatialDetectNoData<REAL4>>;
 
-  InputNoDataPolicy input_no_data_policy{{*arg1},{*arg2}};
+  InputNoDataPolicy const input_no_data_policy{{*arg1},{*arg2}};
   SpatialSetNoData<REAL4> output_no_data_policy(*res);
 
   fa::algebra::add<fa::add::OutOfRangePolicy>(input_no_data_policy,

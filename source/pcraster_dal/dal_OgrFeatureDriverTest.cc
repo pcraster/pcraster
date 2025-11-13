@@ -28,8 +28,8 @@ struct Fixture
 
     Fixture()
     {
-        static GDalClientWrapper gdal_client;
-        static ClientWrapper client("/my/path/ogr_feature_driver_test", true);
+        static GDalClientWrapper const gdal_client;
+        static ClientWrapper const client("/my/path/ogr_feature_driver_test", true);
     }
 
     ~Fixture()

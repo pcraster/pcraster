@@ -8,17 +8,17 @@ BOOST_AUTO_TEST_CASE(encoding)
   using namespace pcrxml;
 
   {
-    BinDoubleLE v(0);
+    BinDoubleLE const v(0);
     BOOST_CHECK(v.attrValueStr() == "0000000000000000");
   }
   {
-    BinDoubleLE v(1234.34);
-    double cmpV = v();
+    BinDoubleLE const v(1234.34);
+    double const cmpV = v();
     BOOST_CHECK(cmpV == BinDoubleLE::hexToDouble(v.attrValueStr()));
   }
   {
-    BinDoubleLE v(0.001);
-    double cmpV = v();
+    BinDoubleLE const v(0.001);
+    double const cmpV = v();
     BOOST_CHECK(cmpV == BinDoubleLE::hexToDouble(v.attrValueStr()));
     BOOST_CHECK(cmpV == 0.001);
   }

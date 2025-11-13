@@ -29,7 +29,7 @@ void SQLTableDriver::execQuery(
          QSqlDatabase const& database,
          std::string const& query)
 {
-  QSqlQuery q(query.c_str(), database);
+  QSqlQuery const q(query.c_str(), database);
   if(!q.isActive()) {
     throw Exception(q.lastError().text().toUtf8().constData());
   }
@@ -161,7 +161,7 @@ bool SQLTableDriver::driverIsAvailable(
          std::string const& name)
 {
   bool result = false;
-  QStringList list = QSqlDatabase::drivers();
+  QStringList const list = QSqlDatabase::drivers();
 
   for(auto & it : list) {
     if(it == QString(name.c_str())) {
@@ -220,7 +220,7 @@ bool SQLTableDriver::databaseExists(
 {
   bool result = false;
 
-  ConnectionInfo info(name);
+  ConnectionInfo const info(name);
   QSqlDatabase database = connectToDatabase(info);
 
   if(database.isValid()) {
@@ -260,7 +260,7 @@ ConnectionInfo dal::SQLTableDriver::connectionInfoFor(
       else {
         // Determine and cache database file properties.
         typedef boost::function<bool (std::string const&)> CallBack;
-        CallBack callBack([this](auto && PH1) { return databaseExists(std::forward<decltype(PH1)>(PH1)); });
+        CallBack const callBack([this](auto && PH1) { return databaseExists(std::forward<decltype(PH1)>(PH1)); });
 
         std::tie(found, convention, extension) =
               dal::determineFilenameCharacteristics<CallBack>(callBack,
@@ -280,7 +280,7 @@ ConnectionInfo dal::SQLTableDriver::connectionInfoFor(
       else {
         assert(result.isValid());
 
-        std::filesystem::path path(pathForDataSpaceAddress(
+        std::filesystem::path const path(pathForDataSpaceAddress(
               result.database() + defaultExtension(name, space),
               DataSpace(), DataSpaceAddress(),
               filenameConvention(name, space)));
@@ -363,7 +363,7 @@ DataSpace SQLTableDriver::dataSpace(
          DataSpace const& space,
          DataSpaceAddress const& address) const
 {
-  std::shared_ptr<Table> table(open(name, space, address));
+  std::shared_ptr<Table> const table(open(name, space, address));
 
   if(!table) {
     throwCannotBeOpened(name, TABLE);
@@ -391,7 +391,7 @@ DataSpace SQLTableDriver::dataSpace(
   // Translate the values to data space dimensions.
   DataSpace result;
 
-  size_t quantileIndex = table->indexOf("quantile");
+  size_t const quantileIndex = table->indexOf("quantile");
 
   if(quantileIndex < table->nrCols()) {
     // TODO make more generic.
@@ -417,7 +417,7 @@ DataSpace SQLTableDriver::dataSpace(
     }
   }
 
-  size_t dateIndex = table->indexOf("date");
+  size_t const dateIndex = table->indexOf("date");
 
   if(dateIndex < table->nrCols()) {
     // TODO make more generic.
@@ -469,7 +469,7 @@ Table* SQLTableDriver::open(
 
   Table* table = nullptr;
 
-  ConnectionInfo info(connectionInfoFor(name, space));
+  ConnectionInfo const info(connectionInfoFor(name, space));
 
   if(!info.isValid() || info.fields().empty()) {
     return nullptr;
@@ -489,14 +489,14 @@ Table* SQLTableDriver::open(
   QSqlDatabase database = connectToDatabase(info);
 
   if(database.isValid() && database.open()) {
-    QSqlRecord record = database.record(QString::fromUtf8(
+    QSqlRecord const record = database.record(QString::fromUtf8(
          info.table().c_str()));
 
     if(record.isEmpty()) {
       return nullptr;
     }
 
-    QSqlIndex index(database.primaryIndex(QString::fromUtf8(
+    QSqlIndex const index(database.primaryIndex(QString::fromUtf8(
          info.table().c_str())));
 
     // All tables need to have an index.
@@ -598,7 +598,7 @@ void SQLTableDriver::read(
     table.createCols();
   }
 
-  ConnectionInfo info(connectionInfoFor(name, space));
+  ConnectionInfo const info(connectionInfoFor(name, space));
 
   if(!info.isValid() || info.fields().empty()) {
     throw Exception(std::format(
@@ -735,7 +735,7 @@ void SQLTableDriver::write(
   assert(space.isValid(address));
   assert(space.isEmpty());
 
-  ConnectionInfo info(name); // connectionInfoFor(name, space, address));
+  ConnectionInfo const info(name); // connectionInfoFor(name, space, address));
 
   if(!info.isValid()) {
     throw Exception(std::format(
@@ -756,10 +756,10 @@ void SQLTableDriver::write(
   try {
     {
       // Drop table if it already exists.
-      QStringList tableNames = database.tables(QSql::Tables);
+      QStringList const tableNames = database.tables(QSql::Tables);
 
       if(tableNames.contains(QString(info.table().c_str()))) {
-        QSqlQuery query(QString(std::format("DROP TABLE \"{0}\"",
+        QSqlQuery const query(QString(std::format("DROP TABLE \"{0}\"",
                info.table()).c_str()), database);
 
         if(!query.isActive()) {
@@ -790,7 +790,7 @@ void SQLTableDriver::write(
 
     {
       // Create new table.
-      QSqlQuery query(QString(std::format("CREATE TABLE \"{0}\" ({1})",
+      QSqlQuery const query(QString(std::format("CREATE TABLE \"{0}\" ({1})",
            info.table(), fieldSpecs).c_str()), database);
 
       if(!query.isActive()) {
@@ -842,7 +842,7 @@ void SQLTableDriver::append(
   assert(space.isValid(address));
   assert(space.isEmpty());
 
-  ConnectionInfo info(connectionInfoFor(name, space));
+  ConnectionInfo const info(connectionInfoFor(name, space));
 
   if(!info.isValid()) {
     throw Exception(std::format(
@@ -883,7 +883,7 @@ void SQLTableDriver::append(
 
     if(!currentTable) {
       // Create new table if it doesn't already exist.
-      QSqlQuery query(QString(std::format("CREATE TABLE \"{0}\" ({1})",
+      QSqlQuery const query(QString(std::format("CREATE TABLE \"{0}\" ({1})",
            info.table(), fieldSpecs).c_str()), database);
 
       if(!query.isActive()) {
@@ -932,7 +932,7 @@ void SQLTableDriver::grantReadAccess(
          std::string const& name,
          std::string const& user) const
 {
-  ConnectionInfo info(connectionInfoFor(name, DataSpace()));
+  ConnectionInfo const info(connectionInfoFor(name, DataSpace()));
 
   if(!info.isValid()) {
     throw Exception(std::format(
@@ -949,7 +949,7 @@ void SQLTableDriver::grantReadAccess(
   }
 
   openDatabase(database);
-  std::string query = std::format(R"(GRANT SELECT ON "{0}" TO "{1}")",
+  std::string const query = std::format(R"(GRANT SELECT ON "{0}" TO "{1}")",
          info.table(),
          user);
 

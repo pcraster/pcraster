@@ -44,7 +44,7 @@ Vector::Vector(
   assert(vector->typeId() == dal::TI_REAL4 ||
          vector->typeId() == dal::TI_REAL8);
 
-  dal::TypeId useTypeId = dal::TI_REAL4;
+  dal::TypeId const useTypeId = dal::TI_REAL4;
 
   _vector.reset(vector.release());
 
@@ -78,14 +78,14 @@ void Vector::read(
 {
   assert(_vector);
 
-  dal::DataSpaceAddress localAddress(this->localAddress(space, address));
+  dal::DataSpaceAddress const localAddress(this->localAddress(space, address));
   assert(dataSource().dataSpace().rank() == localAddress.size());
 
   if(isRead(localAddress)) {
     setAddressRead(localAddress);
   }
   else {
-    dal::DataSpaceAddress localAddressWithoutSpace(
+    dal::DataSpaceAddress const localAddressWithoutSpace(
          dataSource().dataSpace().eraseCoordinates(localAddress, dal::Space));
 
     if(!dataSource().enclosingDataSpace().contains(localAddressWithoutSpace)) {
@@ -112,7 +112,7 @@ bool Vector::isRead(
   if(isRead()) {
     dal::DataSpaceAddress addressWithoutSpace(
          dataSource().dataSpace().eraseCoordinates(address, dal::Space));
-    dal::DataSpaceAddress addressReadWithoutSpace(
+    dal::DataSpaceAddress const addressReadWithoutSpace(
          dataSource().dataSpace().eraseCoordinates(addressRead(), dal::Space));
     dal::DataSpace const& space(dataSource().enclosingDataSpace());
 
@@ -120,7 +120,7 @@ bool Vector::isRead(
       // <hack>
       // Discard scenario setting of address. Make it equal to the scenario
       // in the currently read address.
-      size_t index = space.indexOf(dal::Scenarios);
+      size_t const index = space.indexOf(dal::Scenarios);
       addressWithoutSpace.setCoordinate<std::string>(index,
          addressReadWithoutSpace.coordinate<std::string>(index));
       // </hack>
@@ -139,7 +139,7 @@ bool Vector::isRead() const
   bool result = false;
 
   if(addressRead().size() == dataSource().dataSpace().size()) {
-    dal::DataSpaceAddress addressReadWithoutSpace(
+    dal::DataSpaceAddress const addressReadWithoutSpace(
          dataSource().dataSpace().eraseCoordinates(addressRead(), dal::Space));
     dal::DataSpace const& space(dataSource().enclosingDataSpace());
 
@@ -196,7 +196,7 @@ bool Vector::isMV(
          size_t row,
          size_t col) const
 {
-  bool result = true;
+  bool const result = true;
 
   switch(typeId()) {
     case dal::TI_REAL4: {

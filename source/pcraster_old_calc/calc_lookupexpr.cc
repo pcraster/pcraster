@@ -89,12 +89,12 @@ void calc::LookupExpr::execute(FieldStack& resStack)
   FieldHandle result = createResultField();
   const LookupTable *tab = d_tab->execute();
 
-  size_t              nrKeys(nrFieldArgs());
+  size_t              const nrKeys(nrFieldArgs());
   std::vector<double> keyValues(nrKeys);
   std::vector<bool>   remove(nrKeys);
   std::vector<size_t> keep;
 
-  size_t nr(result->nrValues());
+  size_t const nr(result->nrValues());
 
   bool applyFilter=false;
   for(size_t k = 0; k < nrKeys; k++) {
@@ -116,7 +116,7 @@ void calc::LookupExpr::execute(FieldStack& resStack)
     if (applyFilter) {
       // filter out non-spatial keys to other table
       // and use that table
-      LookupTable ftab(*tab,remove,keyValues);
+      LookupTable const ftab(*tab,remove,keyValues);
       keyValues.resize(keep.size());
       for(size_t i=0; i < nr; i++) {
         double res = NAN;

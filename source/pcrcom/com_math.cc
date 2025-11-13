@@ -46,8 +46,8 @@ double com::interpolate2(
   if (x1 == x2)
      return y1;
   DEVELOP_PRECOND(limUnordered(x,x1,x2) == x); // is in range x1-x2
-  double w1=std::fabs(x1-x);
-  double w2=std::fabs(x2-x);
+  double const w1=std::fabs(x1-x);
+  double const w2=std::fabs(x2-x);
   return ((y1*w2)+(y2*w1))/(w1+w2);
 }
 
@@ -62,7 +62,7 @@ double com::interpolate2(
 double Fdiv(double x, /* x    */
            double y) /*  y */
 {
- double t = floor(fabs(x)/fabs(y)); 
+ double const t = floor(fabs(x)/fabs(y)); 
  return x < 0 ? -t : t;
 }
 

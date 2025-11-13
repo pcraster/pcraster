@@ -116,7 +116,7 @@ void com::ClibError::throwLibError()
 {
   d_errorHandlerCalled = false;
 
-  std::string str(d_libErrorStr);
+  std::string const str(d_libErrorStr);
   d_libErrorStr.clear();
 
 

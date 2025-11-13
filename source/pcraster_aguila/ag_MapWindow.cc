@@ -80,7 +80,7 @@ ag::MapWindow::~MapWindow()
 
 void ag::MapWindow::addZoomAllAction(QObject* receiver)
 {
-  QPixmap zoomAllIcon =  QPixmap((const char**)zoomall_xpm);
+  QPixmap const zoomAllIcon =  QPixmap((const char**)zoomall_xpm);
 
   viewMenu()->addSeparator();
   toolBar()->addSeparator();

@@ -80,7 +80,7 @@ calc::MaskPacking::MaskPacking(
 
 
   for(size_t fieldId=0; fieldId < d_compressedToDecompressed.size(); ++fieldId) {
-    size_t rId= toRasterId(fieldId);
+    size_t const rId= toRasterId(fieldId);
     POSTCOND(rId < rs.nrCells());
     PRECOND(mask[rId]==1);
     PRECOND(toFieldId(rId)==fieldId);
@@ -162,7 +162,7 @@ template<typename T>
 void calc::MaskPacking::compress(T* dest, const T *src) const
 {
  for(size_t i=0; i < d_rlIndex.size()-1; ++i) {
-   size_t n= d_rlIndex[i+1]-d_rlIndex[i];
+   size_t const n= d_rlIndex[i+1]-d_rlIndex[i];
    if ( i%2/*==odd*/ != d_evenIsValueRL) {
     memcpy(dest, src,n*sizeof(T));
     dest+=n;
@@ -175,7 +175,7 @@ template<typename T>
 void calc::MaskPacking::decompress(T* dest, const T *src) const
 {
  for(size_t i=0; i < d_rlIndex.size()-1; ++i) {
-   size_t n= d_rlIndex[i+1]-d_rlIndex[i];
+   size_t const n= d_rlIndex[i+1]-d_rlIndex[i];
    if ( i%2/*==odd*/ != d_evenIsValueRL) {
     memcpy(dest, src,n*sizeof(T));
     src+=n;

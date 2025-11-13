@@ -52,7 +52,7 @@ BOOST_AUTO_TEST_CASE(testExpr)
   using namespace calc;
 
   {
-     ASTCFGTester e(sp.createExpr("a"));
+     ASTCFGTester const e(sp.createExpr("a"));
      BOOST_CHECK(dynamic_cast<ASTPar *>(e.ast()));
 
      CFGNode* c(e.cfg());
@@ -60,7 +60,7 @@ BOOST_AUTO_TEST_CASE(testExpr)
   }
 
   {
-    ASTCFGTester e(sp.createExpr("a*b"));
+    ASTCFGTester const e(sp.createExpr("a*b"));
     BOOST_CHECK(dynamic_cast<ASTExpr *>(e.ast()));
 
      CFGNode* c(e.cfg());
@@ -95,7 +95,7 @@ BOOST_AUTO_TEST_CASE(testExpr)
     } while(i);
   }
   {
-    ASTCFGTester e(sp.createExpr("((1+2)*(3-4))/5"));
+    ASTCFGTester const e(sp.createExpr("((1+2)*(3-4))/5"));
     BOOST_CHECK(dynamic_cast<ASTExpr *>(e.ast()));
 
     CFGNode* c(e.cfg());
@@ -105,7 +105,7 @@ BOOST_AUTO_TEST_CASE(testExpr)
     const CFGNode* last = nullptr;
     do {
       BOOST_CHECK(ic < ARRAY_SIZE(names));
-      cfgCreatorTest::CmpNode cn(names[ic], i);
+      cfgCreatorTest::CmpNode const cn(names[ic], i);
       BOOST_CHECK(cn.validASTNode());
       BOOST_CHECK(cn.equal());
       last=i;
@@ -116,7 +116,7 @@ BOOST_AUTO_TEST_CASE(testExpr)
     // test pred
     while(last) {
       --ic;
-      cfgCreatorTest::CmpNode cn(names[ic], last);
+      cfgCreatorTest::CmpNode const cn(names[ic], last);
       BOOST_CHECK(cn.validASTNode());
       BOOST_CHECK(cn.equal());
       last=last->pred();
@@ -130,7 +130,7 @@ BOOST_AUTO_TEST_CASE(testStatementList)
   using namespace calc;
 
   {
-    ASTCFGTester l(sp.createStatementList("a=(1+2)*3;b=a/5"));
+    ASTCFGTester const l(sp.createStatementList("a=(1+2)*3;b=a/5"));
     BOOST_CHECK(dynamic_cast<ASTNodeList *>(l.ast()));
 
     CFGNode* c(l.cfg());
@@ -142,7 +142,7 @@ BOOST_AUTO_TEST_CASE(testStatementList)
     // forward test
     do {
       BOOST_CHECK(ic < ARRAY_SIZE(names));
-      cfgCreatorTest::CmpNode cn(names[ic], i);
+      cfgCreatorTest::CmpNode const cn(names[ic], i);
       BOOST_CHECK(cn.validASTNode());
       BOOST_CHECK(cn.equal());
       last=i;
@@ -154,7 +154,7 @@ BOOST_AUTO_TEST_CASE(testStatementList)
     // backward test
     while(last) {
       --ic;
-      cfgCreatorTest::CmpNode cn(names[ic], last);
+      cfgCreatorTest::CmpNode const cn(names[ic], last);
       BOOST_CHECK(cn.validASTNode());
       BOOST_CHECK(cn.equal());
       last=last->pred();

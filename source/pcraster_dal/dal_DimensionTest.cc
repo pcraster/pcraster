@@ -11,7 +11,7 @@ BOOST_AUTO_TEST_CASE(test_)
   {
     std::set<std::string> scenarios;
     scenarios.insert("aap");
-    Dimension dimension(Scenarios, scenarios);
+    Dimension const dimension(Scenarios, scenarios);
 
     // Scenario names are exact.
     BOOST_CHECK_EQUAL(dimension.discretisation(), ExactDiscretisation);
@@ -30,7 +30,7 @@ BOOST_AUTO_TEST_CASE(contains_value_in_range)
     values.push_back(2);
     values.push_back(5);
     values.push_back(1);
-    Dimension dimension(Time, values);
+    Dimension const dimension(Time, values);
     BOOST_CHECK(!dimension.containsValueInRange<size_t>(0));
     BOOST_CHECK(!dimension.containsValueInRange<size_t>(1));
     BOOST_CHECK( dimension.containsValueInRange<size_t>(2));
@@ -45,7 +45,7 @@ BOOST_AUTO_TEST_CASE(contains_value_in_range)
     values.push_back(2);
     values.push_back(5);
     values.push_back(2);
-    Dimension dimension(Time, values);
+    Dimension const dimension(Time, values);
     BOOST_CHECK(!dimension.containsValueInRange<size_t>(0));
     BOOST_CHECK(!dimension.containsValueInRange<size_t>(1));
     BOOST_CHECK( dimension.containsValueInRange<size_t>(2));
@@ -60,7 +60,7 @@ BOOST_AUTO_TEST_CASE(contains_value_in_range)
     values.push_back(0.01f);
     values.push_back(0.99f);
     values.push_back(0.01f);
-    Dimension dimension(CumulativeProbabilities, values);
+    Dimension const dimension(CumulativeProbabilities, values);
     BOOST_CHECK(!dimension.containsValueInRange<float>(0.00f));
     BOOST_CHECK( dimension.containsValueInRange<float>(0.01f));
     BOOST_CHECK( dimension.containsValueInRange<float>(0.02f));
@@ -81,7 +81,7 @@ BOOST_AUTO_TEST_CASE(contains_value_in_range)
     values.push_back(0.01f);
     values.push_back(0.99f);
     values.push_back(0.02f);
-    Dimension dimension(CumulativeProbabilities, values);
+    Dimension const dimension(CumulativeProbabilities, values);
     BOOST_CHECK(!dimension.containsValueInRange<float>(0.00f));
     BOOST_CHECK( dimension.containsValueInRange<float>(0.01f));
     BOOST_CHECK(!dimension.containsValueInRange<float>(0.02f));
@@ -107,7 +107,7 @@ BOOST_AUTO_TEST_CASE(clamp)
   values.push_back(0.01f);
   values.push_back(0.99f);
   values.push_back(0.01f);
-  Dimension dimension(CumulativeProbabilities, values);
+  Dimension const dimension(CumulativeProbabilities, values);
   BOOST_CHECK(dal::comparable<float>(dimension.clamp<float>(0.5), 0.5f));
 }
 
@@ -116,15 +116,15 @@ BOOST_AUTO_TEST_CASE(index_of_value_of)
 {
   using namespace dal;
 
-  float first = 0.01f;
-  float last = 0.99f;
-  float interval = 0.01f;
+  float const first = 0.01f;
+  float const last = 0.99f;
+  float const interval = 0.01f;
 
   std::vector<float> values;
   values.push_back(first);
   values.push_back(last);
   values.push_back(interval);
-  Dimension dimension(CumulativeProbabilities, values);
+  Dimension const dimension(CumulativeProbabilities, values);
 
   BOOST_REQUIRE_EQUAL(dimension.nrCoordinates(), size_t(99));
 
@@ -175,7 +175,7 @@ BOOST_AUTO_TEST_CASE(merge)
     quantiles.push_back(0.01f);
 
     Dimension dimension1(CumulativeProbabilities, quantiles);
-    Dimension dimension2(CumulativeProbabilities, quantiles);
+    Dimension const dimension2(CumulativeProbabilities, quantiles);
 
     dimension1 |= dimension2;
     BOOST_CHECK_EQUAL(dimension1.nrValues(), size_t(3));
@@ -201,7 +201,7 @@ BOOST_AUTO_TEST_CASE(merge)
     //     |          |
     //     +----------+ 2.2
     //              4.4
-    SpaceDimensions dimensions1(1.1, 3.3, 4.4, 2.2);
+    SpaceDimensions const dimensions1(1.1, 3.3, 4.4, 2.2);
 
     Dimension dimension(Space, BorderedDiscretisation, dimensions1);
 
@@ -212,7 +212,7 @@ BOOST_AUTO_TEST_CASE(merge)
     //     |          |
     //     +----------+ 3.2
     //              3.4
-    SpaceDimensions dimensions2(1.3, 4.5, 3.4, 3.2);
+    SpaceDimensions const dimensions2(1.3, 4.5, 3.4, 3.2);
 
     dimension |= Dimension(Space, BorderedDiscretisation, dimensions2);
 
@@ -229,7 +229,7 @@ BOOST_AUTO_TEST_CASE(intersect)
 {
   using namespace dal;
 
-  bool testIntersectImplemented = false;
+  bool const testIntersectImplemented = false;
   BOOST_WARN(testIntersectImplemented);
 }
 
@@ -239,21 +239,21 @@ BOOST_AUTO_TEST_CASE(nr_coordinates)
   using namespace dal;
 
   {
-    RasterDimensions dimensions(3, 4, 1.5);
-    Dimension dimension(Space, RegularDiscretisation, dimensions);
+    RasterDimensions const dimensions(3, 4, 1.5);
+    Dimension const dimension(Space, RegularDiscretisation, dimensions);
     BOOST_CHECK_EQUAL(dimension.nrCoordinates(), size_t(12));
   }
 
   {
-    float first = 0.01f;
-    float last = 0.99f;
-    float interval = 0.01f;
+    float const first = 0.01f;
+    float const last = 0.99f;
+    float const interval = 0.01f;
 
     std::vector<float> values;
     values.push_back(first);
     values.push_back(last);
     values.push_back(interval);
-    Dimension dimension(CumulativeProbabilities, values);
+    Dimension const dimension(CumulativeProbabilities, values);
     BOOST_CHECK_EQUAL(dimension.nrCoordinates(), size_t(99));
   }
 }
@@ -264,22 +264,22 @@ BOOST_AUTO_TEST_CASE(is_wide)
   using namespace dal;
 
   {
-    Dimension dimension(Time, size_t(5), size_t(5), size_t(1));
+    Dimension const dimension(Time, size_t(5), size_t(5), size_t(1));
     BOOST_CHECK(!dimension.isWide());
   }
 
   {
-    Dimension dimension(Time, size_t(5), size_t(5), size_t(2));
+    Dimension const dimension(Time, size_t(5), size_t(5), size_t(2));
     BOOST_CHECK(!dimension.isWide());
   }
 
   {
-    Dimension dimension(Time, size_t(5), size_t(6), size_t(2));
+    Dimension const dimension(Time, size_t(5), size_t(6), size_t(2));
     BOOST_CHECK(!dimension.isWide());
   }
 
   {
-    Dimension dimension(Time, size_t(5), size_t(7), size_t(2));
+    Dimension const dimension(Time, size_t(5), size_t(7), size_t(2));
     BOOST_CHECK(dimension.isWide());
   }
 }

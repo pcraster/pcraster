@@ -35,9 +35,9 @@ calc::GlobArg::GlobArg(
     const SpatialPacking& sp):
      d_unpackedSrc(sp,&field)
 {
- CSF_CR inCr = biggestCellRepr(field.vs());
+ CSF_CR const inCr = biggestCellRepr(field.vs());
  const void *src  = d_unpackedSrc.src()->src();
- bool  spatial    = field.isSpatial();
+ bool  const spatial    = field.isSpatial();
  switch(biggestCellRepr(interfaceVs)) {
   case CR_REAL4:
    d_apiMap = new ApiMapREAL8(sp.rasterDim(),src,spatial,inCr);

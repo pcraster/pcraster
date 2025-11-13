@@ -44,8 +44,8 @@ BOOST_AUTO_TEST_CASE(test)
     source.cell(4, 4) = 25;
 
     // Filter for calculating average within kernel.
-    SimpleRaster<double> weights(3, 3, 1.0);
-    AverageFilter filter(weights);
+    SimpleRaster<double> const weights(3, 3, 1.0);
+    AverageFilter const filter(weights);
 
     // Destination raster.
     SimpleRaster<double> destination(5, 5);
@@ -102,8 +102,8 @@ BOOST_AUTO_TEST_CASE(test)
     pcr::setMV(source.cell(2, 2));
 
     // Filter for calculating average within kernel.
-    SimpleRaster<double> weights(3, 3, 1.0);
-    AverageFilter filter(weights);
+    SimpleRaster<double> const weights(3, 3, 1.0);
+    AverageFilter const filter(weights);
 
     // Destination raster.
     SimpleRaster<double> destination(3, 3);
@@ -145,7 +145,7 @@ BOOST_AUTO_TEST_CASE(test)
     SimpleRaster<double> weights(3, 3, 0.0);
     weights.cell(1, 1) = 1.0;
     weights.cell(1, 2) = 1.0;
-    AverageFilter filter(weights);
+    AverageFilter const filter(weights);
 
     // Destination raster.
     SimpleRaster<double> destination(3, 3);

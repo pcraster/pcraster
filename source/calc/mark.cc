@@ -69,7 +69,7 @@ class MarkGe : public MarkCondition {
      MarkCondition(treshold)
     {}
    bool mark(double value) override {
-     bool t=  (d_sum < d_treshold);
+     bool const t=  (d_sum < d_treshold);
      d_sum+=value;
      return t;
    }
@@ -100,7 +100,7 @@ static int MarkWhileSum(
 
   UINT1  mark=1;
   for(auto & point : points) {
-    geo::CellLoc c(point.cellLoc());
+    geo::CellLoc const c(point.cellLoc());
     if (mark) {
      mark = markCondition->mark(point.amount());
     }

@@ -28,7 +28,7 @@ BOOST_AUTO_TEST_CASE(test_)
 
   // Valid examples ------------------------------------------------------------
   {
-    ConnectionInfo info(user + "(348uk)@colossal:randstad/households");
+    ConnectionInfo const info(user + "(348uk)@colossal:randstad/households");
     BOOST_CHECK(info.isValid());
     BOOST_CHECK_EQUAL(info.user(), user);
     BOOST_CHECK_EQUAL(info.password(), "348uk");
@@ -40,7 +40,7 @@ BOOST_AUTO_TEST_CASE(test_)
   }
 
   {
-    ConnectionInfo info(user + "()@colossal:randstad/households");
+    ConnectionInfo const info(user + "()@colossal:randstad/households");
     BOOST_CHECK(info.isValid());
     BOOST_CHECK_EQUAL(info.user(), user);
     BOOST_CHECK_EQUAL(info.password(), "");
@@ -52,7 +52,7 @@ BOOST_AUTO_TEST_CASE(test_)
   }
 
   {
-    ConnectionInfo info(user + "@colossal:randstad/households");
+    ConnectionInfo const info(user + "@colossal:randstad/households");
     BOOST_CHECK(info.isValid());
     BOOST_CHECK_EQUAL(info.user(), user);
     BOOST_CHECK_EQUAL(info.password(), "");
@@ -64,7 +64,7 @@ BOOST_AUTO_TEST_CASE(test_)
   }
 
   {
-    ConnectionInfo info(user + "(348uk):randstad/households");
+    ConnectionInfo const info(user + "(348uk):randstad/households");
     BOOST_CHECK(info.isValid());
     BOOST_CHECK_EQUAL(info.user(), user);
     BOOST_CHECK_EQUAL(info.password(), "348uk");
@@ -76,7 +76,7 @@ BOOST_AUTO_TEST_CASE(test_)
   }
 
   {
-    ConnectionInfo info(user + "():randstad/households");
+    ConnectionInfo const info(user + "():randstad/households");
     BOOST_CHECK(info.isValid());
     BOOST_CHECK_EQUAL(info.user(), user);
     BOOST_CHECK_EQUAL(info.password(), "");
@@ -88,7 +88,7 @@ BOOST_AUTO_TEST_CASE(test_)
   }
 
   {
-    ConnectionInfo info(user + ":randstad/households");
+    ConnectionInfo const info(user + ":randstad/households");
     BOOST_CHECK(info.isValid());
     BOOST_CHECK_EQUAL(info.user(), user);
     BOOST_CHECK_EQUAL(info.password(), "");
@@ -100,7 +100,7 @@ BOOST_AUTO_TEST_CASE(test_)
   }
 
   {
-    ConnectionInfo info("@colossal:randstad/households");
+    ConnectionInfo const info("@colossal:randstad/households");
     BOOST_CHECK(info.isValid());
     BOOST_CHECK_EQUAL(info.user(), "");
     BOOST_CHECK_EQUAL(info.password(), "");
@@ -112,7 +112,7 @@ BOOST_AUTO_TEST_CASE(test_)
   }
 
   {
-    ConnectionInfo info("randstad/households");
+    ConnectionInfo const info("randstad/households");
     BOOST_CHECK(info.isValid());
     BOOST_CHECK_EQUAL(info.user(), "");
     BOOST_CHECK_EQUAL(info.password(), "");
@@ -124,7 +124,7 @@ BOOST_AUTO_TEST_CASE(test_)
   }
 
   {
-    ConnectionInfo info("randstad");
+    ConnectionInfo const info("randstad");
     BOOST_CHECK(info.isValid());
     BOOST_CHECK_EQUAL(info.user(), "");
     BOOST_CHECK_EQUAL(info.password(), "");
@@ -136,7 +136,7 @@ BOOST_AUTO_TEST_CASE(test_)
   }
 
   {
-    ConnectionInfo info("extensiontest.sql3");
+    ConnectionInfo const info("extensiontest.sql3");
     BOOST_CHECK(info.isValid());
     BOOST_CHECK_EQUAL(info.user(), "");
     BOOST_CHECK_EQUAL(info.password(), "");
@@ -148,7 +148,7 @@ BOOST_AUTO_TEST_CASE(test_)
   }
 
   {
-    ConnectionInfo info(user + ":randstad1995/grid_info");
+    ConnectionInfo const info(user + ":randstad1995/grid_info");
     BOOST_CHECK(info.isValid());
     BOOST_CHECK_EQUAL(info.user(), user);
     BOOST_CHECK_EQUAL(info.password(), "");
@@ -160,7 +160,7 @@ BOOST_AUTO_TEST_CASE(test_)
   }
 
   {
-    ConnectionInfo info(user + "@randstad");
+    ConnectionInfo const info(user + "@randstad");
     BOOST_CHECK(info.isValid());
     BOOST_CHECK_EQUAL(info.user(), "");
     BOOST_CHECK_EQUAL(info.password(), "");
@@ -172,7 +172,7 @@ BOOST_AUTO_TEST_CASE(test_)
   }
 
   {
-    ConnectionInfo info(user + "@");
+    ConnectionInfo const info(user + "@");
     BOOST_CHECK(info.isValid());
     BOOST_CHECK_EQUAL(info.user(), "");
     BOOST_CHECK_EQUAL(info.password(), "");
@@ -184,7 +184,7 @@ BOOST_AUTO_TEST_CASE(test_)
   }
 
   {
-    ConnectionInfo info("temporal/co2/co2");
+    ConnectionInfo const info("temporal/co2/co2");
     BOOST_CHECK(info.isValid());
     BOOST_CHECK_EQUAL(info.user(), "");
     BOOST_CHECK_EQUAL(info.password(), "");
@@ -197,7 +197,7 @@ BOOST_AUTO_TEST_CASE(test_)
   }
 
   {
-    ConnectionInfo info("temporal/co2/{fid,co2}");
+    ConnectionInfo const info("temporal/co2/{fid,co2}");
     BOOST_CHECK(info.isValid());
     BOOST_CHECK_EQUAL(info.user(), "");
     BOOST_CHECK_EQUAL(info.password(), "");
@@ -222,7 +222,7 @@ BOOST_AUTO_TEST_CASE(test_)
   // }
 
   {
-    ConnectionInfo info("");
+    ConnectionInfo const info("");
     BOOST_CHECK(!info.isValid());
   }
 }

@@ -16,15 +16,15 @@ struct Fixture
     Fixture()
     {
       // Set up a block with some voxels and a blockdata filled with sediment.
-      size_t nrRows = 3;
-      size_t nrCols = 4;
-      double cellSize = 1.5;
-      double west = 1.0;
-      double north = 0.0;
+      size_t const nrRows = 3;
+      size_t const nrCols = 4;
+      double const cellSize = 1.5;
+      double const west = 1.0;
+      double const north = 0.0;
 
       // Discretisations.
       d_raster = new discr::Raster(nrRows, nrCols, cellSize, west, north);
-      discr::RasterData<REAL4> baseElevation(d_raster, REAL4(5.0));
+      discr::RasterData<REAL4> const baseElevation(d_raster, REAL4(5.0));
       d_block = new discr::Block(baseElevation);
 
       // Data.
@@ -32,7 +32,7 @@ struct Fixture
       d_sediment = new discr::BlockData<INT4>(d_block, 3);
 
       // Add function arguments.
-      discr::RasterData<REAL4> thickness(d_raster, REAL4(15.5));
+      discr::RasterData<REAL4> const thickness(d_raster, REAL4(15.5));
       d_maxVoxelThickness = REAL4(1.0);
 
       // No compaction.
@@ -73,7 +73,7 @@ BOOST_AUTO_TEST_CASE(remove__)
 
   // Remove nothing.
   {
-    discr::RasterData<REAL4> thickness(d_raster, REAL4(0.0));
+    discr::RasterData<REAL4> const thickness(d_raster, REAL4(0.0));
     remove(*d_block, thickness);
 
     for(size_t i = 0; i < d_block->nrCells(); ++i) {
@@ -95,7 +95,7 @@ BOOST_AUTO_TEST_CASE(remove__)
 
   // Remove a little.
   {
-    discr::RasterData<REAL4> thickness(d_raster, REAL4(0.4));
+    discr::RasterData<REAL4> const thickness(d_raster, REAL4(0.4));
     remove(*d_block, thickness);
 
     for(size_t i = 0; i < d_block->nrCells(); ++i) {
@@ -119,7 +119,7 @@ BOOST_AUTO_TEST_CASE(remove__)
 
   // Remove some more.
   {
-    discr::RasterData<REAL4> thickness(d_raster, REAL4(0.4));
+    discr::RasterData<REAL4> const thickness(d_raster, REAL4(0.4));
     remove(*d_block, thickness);
 
     for(size_t i = 0; i < d_block->nrCells(); ++i) {
@@ -143,7 +143,7 @@ BOOST_AUTO_TEST_CASE(remove__)
 
   // Remove still some more.
   {
-    discr::RasterData<REAL4> thickness(d_raster, REAL4(4.4));
+    discr::RasterData<REAL4> const thickness(d_raster, REAL4(4.4));
     remove(*d_block, thickness);
 
     for(size_t i = 0; i < d_block->nrCells(); ++i) {
@@ -175,7 +175,7 @@ BOOST_AUTO_TEST_CASE(remove_more_than_available)
 
   // Remove more than available (dig in).
   {
-    discr::RasterData<REAL4> thickness(d_raster, REAL4(16.0));
+    discr::RasterData<REAL4> const thickness(d_raster, REAL4(16.0));
     remove(*d_block, thickness);
 
     for(size_t i = 0; i < d_block->nrCells(); ++i) {

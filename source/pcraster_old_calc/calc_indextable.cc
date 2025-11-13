@@ -81,7 +81,7 @@ void calc::IndexTable::addRecord(const std::vector<std::string>& line,int lineNr
   Value value;
   value.d_value=line.back();
   value.d_lineNr=lineNr;
-  size_t expectedSize = d_array.size()+2; // 1+parameter name 1+result
+  size_t const expectedSize = d_array.size()+2; // 1+parameter name 1+result
   if (line.size() != expectedSize) // 1+parameter name 1+result
   {
     std::ostringstream  msg;
@@ -92,8 +92,8 @@ void calc::IndexTable::addRecord(const std::vector<std::string>& line,int lineNr
     msg << " items";
     throwError(lineNr,msg); // pcrcalc/test281
   }
-   Pair e(Key(line.begin(),line.end()-1) ,value);
-  std::pair<Table::iterator,bool> p = d_table.insert(e);
+   Pair const e(Key(line.begin(),line.end()-1) ,value);
+  std::pair<Table::iterator,bool> const p = d_table.insert(e);
   if (!p.second) {
     // pcrcalc/test282
     std::ostringstream  msg;
@@ -128,7 +128,7 @@ const calc::IndexTable::Value& calc::IndexTable::find(
 void calc::IndexTable::fieldNrValues(const calc::BindedSymbol& par,VS vs,
     std::vector<double>& vals) const
 {
-  size_t n = d_array.nrElements();
+  size_t const n = d_array.nrElements();
   PRECOND(!vals.size());
   vals.reserve(n);
   for (size_t i=0;i < n; i++) {
@@ -150,7 +150,7 @@ void calc::IndexTable::fieldNrValues(const calc::BindedSymbol& par,VS vs,
 VS calc::IndexTable::fieldMapValues(const calc::BindedSymbol& par,
     std::vector<std::string>& vals) const
 {
-  size_t n = d_array.nrElements();
+  size_t const n = d_array.nrElements();
   PRECOND(!vals.size());
   vals.reserve(n);
   VS mapVs = VS_FIELD;
@@ -162,7 +162,7 @@ VS calc::IndexTable::fieldMapValues(const calc::BindedSymbol& par,
       if (CnvrtDouble(&valD,fileName.c_str())) // bummer, its a number
           throw com::Exception(" is not a map"); // pcrcalc/test306
       fileName = scriptConst().inputFilePath(fileName);
-      VS newVs = expectedFileType(fileName,VS_FIELD); // pcrcalc/test307
+      VS const newVs = expectedFileType(fileName,VS_FIELD); // pcrcalc/test307
       if (!isIn(newVs,mapVs)) {
           throw com::Exception(" is a "+toString(newVs)
                               +" map, previous values are of type "+toString(mapVs)); // pcrcalc/test308
@@ -186,7 +186,7 @@ VS calc::IndexTable::fieldMapValues(const calc::BindedSymbol& par,
 //! only get the names to verify they are there
 void calc::IndexTable::tableNameVerify(const calc::BindedSymbol& par) const
 {
-  size_t n = d_array.nrElements();
+  size_t const n = d_array.nrElements();
   for (size_t i=0;i < n; i++) {
     const Value& val = find(par.externalName(),i);
     double valD = NAN;
@@ -197,7 +197,7 @@ void calc::IndexTable::tableNameVerify(const calc::BindedSymbol& par) const
       msg << " is not a legal tablename";
       throwError(val.d_lineNr,msg);
     }
-    std::string fileName = scriptConst().inputFilePath(val.d_value);
+    std::string const fileName = scriptConst().inputFilePath(val.d_value);
     try {
       expectedFileType(fileName,VS_TABLE); // pcrcalc/test285
     }
@@ -211,7 +211,7 @@ void calc::IndexTable::tableNameVerify(const calc::BindedSymbol& par) const
 
 void calc::IndexTable::nameValues(const calc::BindedSymbol& par, std::vector<const Value*>& values) const
 {
-  size_t n = d_array.nrElements();
+  size_t const n = d_array.nrElements();
   values.resize(n);
   for (size_t i=0;i < n; i++) {
     try {

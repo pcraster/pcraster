@@ -71,7 +71,7 @@ void LddRasterDrawer::draw(
     return;
   }
 
-  size_t nrCellsPerPixel = this->nrCellsPerPixel(world_to_screen);
+  size_t const nrCellsPerPixel = this->nrCellsPerPixel(world_to_screen);
 
   dal::Matrix matrix(_raster->dimensions().nrRows(),
          _raster->dimensions().nrCols(), dal::TypeTraits<UINT1>::typeId);
@@ -200,7 +200,7 @@ void LddRasterDrawer::draw(
           _raster->dimensions().coordinates(row + 0.25, col + 0.25,
               leftPitWld, topPitWld);
 
-          QPointF p = QPointF(leftPitWld, topPitWld);
+          QPointF const p = QPointF(leftPitWld, topPitWld);
           leftPitPix = world_to_screen.map(p).x();
           topPitPix = world_to_screen.map(p).y();
 

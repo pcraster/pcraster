@@ -39,7 +39,7 @@ calc::Field* and_number_number(
 
   using InputNoDataPolicy = fa::InputNoDataPolicies<NonspatialDetectNoData<UINT1>,
         NonspatialDetectNoData<UINT1>>;
-  InputNoDataPolicy input_no_data_policy{{*arg1},{*arg2}};
+  InputNoDataPolicy const input_no_data_policy{{*arg1},{*arg2}};
 
   NonspatialSetNoData<UINT1> output_no_data_policy(*res);
 
@@ -58,7 +58,7 @@ calc::Field* and_field_field(
 
   using InputNoDataPolicy = fa::InputNoDataPolicies<SpatialDetectNoData<UINT1>,
         SpatialDetectNoData<UINT1>>;
-  InputNoDataPolicy input_no_data_policy{{*arg1},{*arg2}};
+  InputNoDataPolicy const input_no_data_policy{{*arg1},{*arg2}};
 
   SpatialSetNoData<UINT1> output_no_data_policy(*res);
 
@@ -78,7 +78,7 @@ calc::Field* and_number_field(
   using InputNoDataPolicy = fa::InputNoDataPolicies<NonspatialDetectNoData<UINT1>,
     SpatialDetectNoData<UINT1>>;
 
-  InputNoDataPolicy input_no_data_policy{{*arg1},{*arg2}};
+  InputNoDataPolicy const input_no_data_policy{{*arg1},{*arg2}};
   SpatialSetNoData<UINT1> output_no_data_policy(*res);
 
   fa::algebra::and_(input_no_data_policy,

@@ -8,7 +8,7 @@ BOOST_AUTO_TEST_CASE(description)
 {
   using namespace dal;
 
-  TextConstantDriver driver;
+  TextConstantDriver const driver;
   BOOST_CHECK_EQUAL(driver.description(), "Text constant file format");
 }
 
@@ -17,8 +17,8 @@ BOOST_AUTO_TEST_CASE(unexisting)
 {
   using namespace dal;
 
-  std::string filename = "unexisting";
-  TextConstantDriver driver;
+  std::string const filename = "unexisting";
+  TextConstantDriver const driver;
   bool exceptionCaught = false;
 
   // Exists.

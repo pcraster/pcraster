@@ -120,7 +120,7 @@ void calc::ManualExampleTester::test() const
 
   // check results
   for(size_t i=0; i<d_result.size(); ++i) {
-    com::PathName now(d_result[i]);
+    com::PathName const now(d_result[i]);
     com::PathName validated(validatedDirectory());
     validated+=now;
     validated.setExtension("map");

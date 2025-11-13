@@ -39,7 +39,7 @@ calc::GlobArg::GlobArg(
     const Compressor& compressor):
         d_copy(field->vs())
 {
- CSF_CR inCr = biggestCellRepr(field->vs());
+ CSF_CR const inCr = biggestCellRepr(field->vs());
  const void *data  = field->srcValue();
  if (field->isSpatial()) {
    compressor.decompress(d_copy,data);

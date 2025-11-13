@@ -9,12 +9,12 @@ BOOST_AUTO_TEST_CASE(test)
   using namespace dal;
 
   {
-    SpaceStepMapper mapper;
+    SpaceStepMapper const mapper;
     BOOST_CHECK(!mapper.isValid());
   }
 
   {
-    SpaceStepMapper mapper(0, 5.0, 0.5);
+    SpaceStepMapper const mapper(0, 5.0, 0.5);
 
     BOOST_CHECK(comparable(mapper.destination(1.0), 5.5));
     BOOST_CHECK(comparable(mapper.destination(0.0), 5.0));
@@ -31,7 +31,7 @@ BOOST_AUTO_TEST_CASE(test)
   }
 
   {
-    SpaceStepMapper mapper(0, 74.85, -0.30);
+    SpaceStepMapper const mapper(0, 74.85, -0.30);
 
     BOOST_CHECK(comparable(mapper.destination(0), 74.85));
     BOOST_CHECK(comparable(mapper.destination(1), 74.55));
@@ -44,7 +44,7 @@ BOOST_AUTO_TEST_CASE(test)
   }
 
   {
-    SpaceStepMapper mapper(1, 74.85, -0.30);
+    SpaceStepMapper const mapper(1, 74.85, -0.30);
 
     BOOST_CHECK(comparable(mapper.destination(1), 74.85));
     BOOST_CHECK(comparable(mapper.destination(2), 74.55));

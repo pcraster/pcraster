@@ -76,7 +76,7 @@ bool calc::operator==(const calc::ParSet& e1,
 {
   if (e1.size()!=e2.size())
     return false;
-  ASTParPtrEqName c;
+  ASTParPtrEqName const c;
   return std::equal(e1.begin(),e1.end(),e2.begin(),c);
 }
 

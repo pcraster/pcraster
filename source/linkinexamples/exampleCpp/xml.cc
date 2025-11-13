@@ -26,7 +26,7 @@ static xml_schema::namespace_infomap namespaceInfoMap() {
 
 pcrxml::LinkInExecuteInput strToLinkInExecuteInput(std::string const& xml)
 {
-  Xercesc call;
+  Xercesc const call;
   std::istringstream iss(xml);
 #ifdef DEBUG_DEVELOP
   return *pcrxml::linkInExecuteInput(iss);
@@ -36,7 +36,7 @@ pcrxml::LinkInExecuteInput strToLinkInExecuteInput(std::string const& xml)
 }
 pcrxml::LinkInCheckInput strToLinkInCheckInput(std::string const& xml)
 {
-  Xercesc call;
+  Xercesc const call;
   std::istringstream iss(xml);
 #ifdef DEBUG_DEVELOP
   return *pcrxml::linkInCheckInput(iss);

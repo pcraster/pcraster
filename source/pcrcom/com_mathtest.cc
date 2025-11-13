@@ -66,7 +66,7 @@ BOOST_AUTO_TEST_CASE(minimize_maximize)
 
   {
     int x=-1;
-    int y=3;
+    int const y=3;
     maximize(x,y);
     BOOST_CHECK(x==3);
     maximize(x,8);
@@ -78,7 +78,7 @@ BOOST_AUTO_TEST_CASE(minimize_maximize)
   }
   {
     double x=-1;
-    double y=3;
+    double const y=3;
     maximize(x,y);
     BOOST_CHECK(x==3);
     maximize<double>(x,8);

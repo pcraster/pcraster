@@ -71,7 +71,7 @@ pybind11::array field_to_array(
 {
     PRECOND(field->src());
 
-    size_t nr_values = space.nrCells();
+    size_t const nr_values = space.nrCells();
 
     pybind11::array nparray;
 
@@ -812,7 +812,7 @@ calc::Spatial* array_to_field(
 
     typedef typename ValueScaleTraits<value_scale>::Type Destination;
 
-    pybind11::buffer_info info = array.request();
+    pybind11::buffer_info const info = array.request();
 
     auto const* source = static_cast<Source const*>(
           info.ptr);

@@ -110,7 +110,7 @@ inline bool comparable(
          REAL4 const& lhs,
          REAL4 const& rhs)
 {
-  static boost::math::fpc::close_at_tolerance<REAL4> tester(
+  static boost::math::fpc::close_at_tolerance<REAL4> const tester(
          boost::math::fpc::fpc_detail::fraction_tolerance<REAL4>(REAL4(1e-4)),
          boost::math::fpc::FPC_STRONG);
 
@@ -122,7 +122,7 @@ inline bool comparable(
          REAL8 const& lhs,
          REAL8 const& rhs)
 {
-  static boost::math::fpc::close_at_tolerance<REAL8> tester(
+  static boost::math::fpc::close_at_tolerance<REAL8> const tester(
          boost::math::fpc::fpc_detail::fraction_tolerance<REAL8>(REAL8(1e-6)),
          boost::math::fpc::FPC_STRONG);
 
@@ -263,7 +263,7 @@ inline bool valueInRange(
   if(greaterOrComparable<float>(value, first) &&
      smallerOrComparable<float>(value, last)) {
 
-    float multiplier = comparable<float>(value, first)
+    float const multiplier = comparable<float>(value, first)
          ? 0.0f : (value - first) / step;
 
     return comparable<float>(multiplier,
@@ -282,7 +282,7 @@ inline bool valueInRange(
 {
   if(greaterOrComparable<double>(value, first) &&
      smallerOrComparable<double>(value, last)) {
-    double multiplier = (value - first) / step;
+    double const multiplier = (value - first) / step;
 
     return comparable<double>(multiplier,
          static_cast<double>(round<double, int>(multiplier)));
@@ -574,7 +574,7 @@ inline void interpolate(
 {
   assert(distance1 > 0.0 && distance2 > 0.0);
 
-  double sumOfDistances = distance1 + distance2;
+  double const sumOfDistances = distance1 + distance2;
 
   for(size_t i = 0; i < size; ++i) {
     if(pcr::isMV(array1[i]) || pcr::isMV(array2[i])) {
@@ -598,7 +598,7 @@ inline void interpolate(
 {
   assert(distance1 > 0 && distance2 > 0);
 
-  double sumOfDistances = distance1 + distance2;
+  double const sumOfDistances = distance1 + distance2;
   typename Array<T>::iterator it;
   typename Array<T>::const_iterator it1;
   typename Array<T>::const_iterator it2;
@@ -692,7 +692,7 @@ inline T clamp(
       ++index;
     }
 
-    size_t aboveIndex = index;
+    size_t const aboveIndex = index;
 
     // Assumes unique values...
     assert(values[belowIndex] < value ||

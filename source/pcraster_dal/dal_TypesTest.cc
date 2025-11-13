@@ -13,7 +13,7 @@ BOOST_AUTO_TEST_CASE(id_of_smallest_type)
     // 2 bytes 2^16 = 0 -      65535
     // 4 bytes 2^32 = 0 - 4294967295
 
-    Types types;
+    Types const types;
     BOOST_CHECK_EQUAL(types.idOfSmallestType(         "0"), TI_UINT1);
     BOOST_CHECK_EQUAL(types.idOfSmallestType(         "1"), TI_UINT1);
     BOOST_CHECK_EQUAL(types.idOfSmallestType(       "255"), TI_UINT1);
@@ -43,9 +43,9 @@ BOOST_AUTO_TEST_CASE(id_of_largest_type)
 {
   using namespace dal;
 
-  Types types;
+  Types const types;
   BOOST_CHECK_EQUAL(types.idOfLargestType(TI_UINT1, TI_UINT2), TI_UINT2);
 
-  bool idOfLargestTypeImplemented = false;
+  bool const idOfLargestTypeImplemented = false;
   BOOST_WARN(idOfLargestTypeImplemented);
 }

@@ -191,14 +191,14 @@ BOOST_AUTO_TEST_CASE(cylcle)
     BOOST_CHECK(cycle);
   }
   {
-    DagRaster& dr(*d_case1);
+    DagRaster const& dr(*d_case1);
     REAL4 out[CASE1_NR];
     // flat dem 1 every where
     geo::ScalarSimpleRaster dem(dr.rasterDim(),1);
     // upstream input is also 1
     // trick: use values of dem:
     REAL4  *in=&(dem[0]);
-    WeightMap wm(dr,dem);
+    WeightMap const wm(dr,dem);
     Upstream u(wm,in,out);
     dr.downstreamVisitor(u);
     BOOST_CHECK(out[0] == 0);

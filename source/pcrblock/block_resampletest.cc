@@ -9,7 +9,7 @@
 
 BOOST_AUTO_TEST_CASE(resample_block)
 {
-  bool testImplemented = false;
+  bool const testImplemented = false;
   BOOST_WARN(testImplemented);
 }
 
@@ -18,13 +18,13 @@ BOOST_AUTO_TEST_CASE(resample_block_data)
 {
   using namespace block;
 
-  size_t nrRows = 1;
-  size_t nrCols = 1;
-  double cellSize = 1.5;
-  double west = 0.0;
-  double north = 0.0;
+  size_t const nrRows = 1;
+  size_t const nrCols = 1;
+  double const cellSize = 1.5;
+  double const west = 0.0;
+  double const north = 0.0;
 
-  discr::Raster raster(nrRows, nrCols, cellSize, west, north);
+  discr::Raster const raster(nrRows, nrCols, cellSize, west, north);
 
   //////////////////////////////////////////////////////////////////////////////
   // TESTS WITH EMPTY BLOCKS AND BLOCKS WHICH ARE NOT AT THE SAME HEIGHT
@@ -46,9 +46,9 @@ BOOST_AUTO_TEST_CASE(resample_block_data)
   // Result: All missing values.
   {
     discr::Block block(raster, 5.0);
-    discr::BlockData<UINT1> sand(&block, 0);
-    discr::BlockData<INT4> sediment(&block, 3);
-    discr::BlockData<REAL4> concentration(&block, 0.5);
+    discr::BlockData<UINT1> const sand(&block, 0);
+    discr::BlockData<INT4> const sediment(&block, 3);
+    discr::BlockData<REAL4> const concentration(&block, 0.5);
     block.addVoxels(1, 5.0);
 
     discr::Block newBlock(raster, 0.0);
@@ -82,9 +82,9 @@ BOOST_AUTO_TEST_CASE(resample_block_data)
   // Result: All missing values.
   {
     discr::Block block(raster, -10.0);
-    discr::BlockData<UINT1> sand(&block, 0);
-    discr::BlockData<INT4> sediment(&block, 3);
-    discr::BlockData<REAL4> concentration(&block, 0.5);
+    discr::BlockData<UINT1> const sand(&block, 0);
+    discr::BlockData<INT4> const sediment(&block, 3);
+    discr::BlockData<REAL4> const concentration(&block, 0.5);
     block.addVoxels(1, 5.0);
 
     discr::Block newBlock(raster, 0.0);
@@ -115,9 +115,9 @@ BOOST_AUTO_TEST_CASE(resample_block_data)
   // Result: All missing values.
   {
     discr::Block block(raster, 0.0);
-    discr::BlockData<UINT1> sand(&block, 0);
-    discr::BlockData<INT4> sediment(&block, 3);
-    discr::BlockData<REAL4> concentration(&block, 0.5);
+    discr::BlockData<UINT1> const sand(&block, 0);
+    discr::BlockData<INT4> const sediment(&block, 3);
+    discr::BlockData<REAL4> const concentration(&block, 0.5);
 
     discr::Block newBlock(raster, -10.0);
     discr::BlockData<UINT1> newSand(&newBlock);
@@ -147,9 +147,9 @@ BOOST_AUTO_TEST_CASE(resample_block_data)
   // Result: All missing values.
   {
     discr::Block block(raster, 0.0);
-    discr::BlockData<UINT1> sand(&block, 0);
-    discr::BlockData<INT4> sediment(&block, 3);
-    discr::BlockData<REAL4> concentration(&block, 0.5);
+    discr::BlockData<UINT1> const sand(&block, 0);
+    discr::BlockData<INT4> const sediment(&block, 3);
+    discr::BlockData<REAL4> const concentration(&block, 0.5);
 
     discr::Block newBlock(raster, 10.0);
     discr::BlockData<UINT1> newSand(&newBlock);
@@ -177,9 +177,9 @@ BOOST_AUTO_TEST_CASE(resample_block_data)
   // Result: All missing values.
   {
     discr::Block block(raster, 0.0);
-    discr::BlockData<UINT1> sand(&block, 0);
-    discr::BlockData<INT4> sediment(&block, 3);
-    discr::BlockData<REAL4> concentration(&block, 0.5);
+    discr::BlockData<UINT1> const sand(&block, 0);
+    discr::BlockData<INT4> const sediment(&block, 3);
+    discr::BlockData<REAL4> const concentration(&block, 0.5);
 
     discr::Block newBlock(raster, -1.0);
     discr::BlockData<UINT1> newSand(&newBlock);
@@ -209,9 +209,9 @@ BOOST_AUTO_TEST_CASE(resample_block_data)
   // Result: New block empty.
   {
     discr::Block block(raster, 0.0);
-    discr::BlockData<UINT1> sand(&block, 0);
-    discr::BlockData<INT4> sediment(&block, 3);
-    discr::BlockData<REAL4> concentration(&block, 0.5);
+    discr::BlockData<UINT1> const sand(&block, 0);
+    discr::BlockData<INT4> const sediment(&block, 3);
+    discr::BlockData<REAL4> const concentration(&block, 0.5);
     block.addVoxels(1, 2.0);
 
     discr::Block newBlock(raster, 10.0);
@@ -241,9 +241,9 @@ BOOST_AUTO_TEST_CASE(resample_block_data)
   // Result: New block empty.
   {
     discr::Block block(raster, 0.0);
-    discr::BlockData<UINT1> sand(&block, 0);
-    discr::BlockData<INT4> sediment(&block, 3);
-    discr::BlockData<REAL4> concentration(&block, 0.5);
+    discr::BlockData<UINT1> const sand(&block, 0);
+    discr::BlockData<INT4> const sediment(&block, 3);
+    discr::BlockData<REAL4> const concentration(&block, 0.5);
     block.addVoxels(1, 2.0);
 
     discr::Block newBlock(raster, -10.0);
@@ -271,9 +271,9 @@ BOOST_AUTO_TEST_CASE(resample_block_data)
   // Result: New block empty.
   {
     discr::Block block(raster, 0.0);
-    discr::BlockData<UINT1> sand(&block, 0);
-    discr::BlockData<INT4> sediment(&block, 3);
-    discr::BlockData<REAL4> concentration(&block, 0.5);
+    discr::BlockData<UINT1> const sand(&block, 0);
+    discr::BlockData<INT4> const sediment(&block, 3);
+    discr::BlockData<REAL4> const concentration(&block, 0.5);
     block.addVoxels(1, 2.0);
 
     discr::Block newBlock(raster, 1.0);
@@ -306,9 +306,9 @@ BOOST_AUTO_TEST_CASE(resample_block_data)
   //         the resample and with the same attribute values.
   {
     discr::Block block(raster, 0.0);
-    discr::BlockData<UINT1> sand(&block, 0);
-    discr::BlockData<INT4> sediment(&block, 3);
-    discr::BlockData<REAL4> concentration(&block, 0.5);
+    discr::BlockData<UINT1> const sand(&block, 0);
+    discr::BlockData<INT4> const sediment(&block, 3);
+    discr::BlockData<REAL4> const concentration(&block, 0.5);
     block.addVoxels(1, 2.0);
 
     discr::Block newBlock(raster, 0.0);
@@ -414,9 +414,9 @@ BOOST_AUTO_TEST_CASE(resample_block_data)
   // Result: block ends up with two, equal values.
   {
     discr::Block block(raster, 0.0);
-    discr::BlockData<UINT1> sand(&block, 0);
-    discr::BlockData<INT4> sediment(&block, 21);
-    discr::BlockData<REAL4> concentration(&block, 5.0);
+    discr::BlockData<UINT1> const sand(&block, 0);
+    discr::BlockData<INT4> const sediment(&block, 21);
+    discr::BlockData<REAL4> const concentration(&block, 5.0);
     block.addVoxels(1, 4.0);
 
     discr::Block newBlock(raster, 0.0);
@@ -446,9 +446,9 @@ BOOST_AUTO_TEST_CASE(resample_block_data)
   // Result: block ends up with two, equal values.
   {
     discr::Block block(raster, 0.0);
-    discr::BlockData<UINT1> sand(&block, 1);
-    discr::BlockData<INT4> sediment(&block, 23);
-    discr::BlockData<REAL4> concentration(&block, 9.0);
+    discr::BlockData<UINT1> const sand(&block, 1);
+    discr::BlockData<INT4> const sediment(&block, 23);
+    discr::BlockData<REAL4> const concentration(&block, 9.0);
     block.addVoxels(1, 4.0);
 
     discr::Block newBlock(raster, 0.0);
@@ -484,9 +484,9 @@ BOOST_AUTO_TEST_CASE(resample_block_data)
   // Result: block ends up with a missing value.
   {
     discr::Block block(raster, 2.0);
-    discr::BlockData<UINT1> sand(&block, 0);
-    discr::BlockData<INT4> sediment(&block, 33);
-    discr::BlockData<REAL4> concentration(&block, 6.0);
+    discr::BlockData<UINT1> const sand(&block, 0);
+    discr::BlockData<INT4> const sediment(&block, 33);
+    discr::BlockData<REAL4> const concentration(&block, 6.0);
     block.addVoxels(1, 1.0);
 
     discr::Block newBlock(raster, 1.4);
@@ -519,9 +519,9 @@ BOOST_AUTO_TEST_CASE(resample_block_data)
   // Result: block ends up with the same value as before.
   {
     discr::Block block(raster, 2.0);
-    discr::BlockData<UINT1> sand(&block, 0);
-    discr::BlockData<INT4> sediment(&block, 44);
-    discr::BlockData<REAL4> concentration(&block, 7.0);
+    discr::BlockData<UINT1> const sand(&block, 0);
+    discr::BlockData<INT4> const sediment(&block, 44);
+    discr::BlockData<REAL4> const concentration(&block, 7.0);
     block.addVoxels(1, 1.0);
 
     discr::Block newBlock(raster, 1.6);
@@ -556,9 +556,9 @@ BOOST_AUTO_TEST_CASE(resample_block_data)
   // Result: block ends up with a missing value.
   {
     discr::Block block(raster, 1.4);
-    discr::BlockData<UINT1> sand(&block, 1);
-    discr::BlockData<INT4> sediment(&block, 55);
-    discr::BlockData<REAL4> concentration(&block, 11.0);
+    discr::BlockData<UINT1> const sand(&block, 1);
+    discr::BlockData<INT4> const sediment(&block, 55);
+    discr::BlockData<REAL4> const concentration(&block, 11.0);
     block.addVoxels(1, 1.0);
 
     discr::Block newBlock(raster, 2.0);
@@ -591,9 +591,9 @@ BOOST_AUTO_TEST_CASE(resample_block_data)
   // Result: block ends up with the same value as before.
   {
     discr::Block block(raster, 1.6);
-    discr::BlockData<UINT1> sand(&block, 1);
-    discr::BlockData<INT4> sediment(&block, 66);
-    discr::BlockData<REAL4> concentration(&block, 12.0);
+    discr::BlockData<UINT1> const sand(&block, 1);
+    discr::BlockData<INT4> const sediment(&block, 66);
+    discr::BlockData<REAL4> const concentration(&block, 12.0);
     block.addVoxels(1, 1.0);
 
     discr::Block newBlock(raster, 2.0);

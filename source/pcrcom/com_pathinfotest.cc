@@ -10,9 +10,9 @@ BOOST_AUTO_TEST_CASE(temp_directory_name)
 {
   using namespace com;
 
-  PathName pn = tempDirectoryName();
+  PathName const pn = tempDirectoryName();
 
-  PathInfo pi(pn);
+  PathInfo const pi(pn);
 
   BOOST_CHECK(!pn.isEmpty());
   BOOST_CHECK(pi.isDirectory());
@@ -122,7 +122,7 @@ BOOST_AUTO_TEST_CASE(case_sensitive_name)
 
  try {
    {
-    PathInfo pi(nativePathName("if_UpcaseDirectory/readableFile"));
+    PathInfo const pi(nativePathName("if_UpcaseDirectory/readableFile"));
     BOOST_CHECK(pi.exists());
     pi.testCaseSensitiveName();
    }
@@ -133,7 +133,7 @@ BOOST_AUTO_TEST_CASE(case_sensitive_name)
 
  try {
    {
-    PathInfo pi(nativePathName("../pcrcom/if_UpcaseDirectory/readableFile"));
+    PathInfo const pi(nativePathName("../pcrcom/if_UpcaseDirectory/readableFile"));
     BOOST_CHECK(pi.exists());
     pi.testCaseSensitiveName();
    }
@@ -144,7 +144,7 @@ BOOST_AUTO_TEST_CASE(case_sensitive_name)
 
  try {
    {
-    PathInfo pi(nativePathName("./if_UpcaseDirectory/readableFile"));
+    PathInfo const pi(nativePathName("./if_UpcaseDirectory/readableFile"));
     BOOST_CHECK(pi.exists());
     pi.testCaseSensitiveName();
    }
@@ -192,8 +192,8 @@ BOOST_AUTO_TEST_CASE(change_working_directory)
 
     const PathName nwd("if_UpcaseDirectory");
     changeWorkingDirectory(nwd);
-    PathInfo pi("readableFile");
-    bool found(pi.exists());
+    PathInfo const pi("readableFile");
+    bool const found(pi.exists());
     changeWorkingDirectory("..");
     BOOST_CHECK(found);
 }

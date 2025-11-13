@@ -57,8 +57,8 @@ int fraction(
   Neighbourhood weights(innerRadius, outerRadius);
 
   // Create filter and filter engine.
-  UINT1 value = 1;
-  geo::FractionFilter<UINT1> filter(weights, value);
+  UINT1 const value = 1;
+  geo::FractionFilter<UINT1> const filter(weights, value);
   geo::FilterEngine<UINT1, REAL8> engine(inputRaster, filter, outputRaster);
 
   try {

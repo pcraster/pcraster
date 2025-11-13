@@ -248,9 +248,9 @@ BOOST_AUTO_TEST_CASE(remove_file)
   using namespace com;
 
  try {
-  PathName f1("rm_file");
+  PathName const f1("rm_file");
   com::remove(f1);
-  PathName f2("rm_emptyDir");
+  PathName const f2("rm_emptyDir");
   com::remove(f2);
  } catch(const FileError& ) {
     BOOST_CHECK(false);
@@ -264,7 +264,7 @@ BOOST_AUTO_TEST_CASE(remove_file)
 
  // can not remove a directory containing something
  bool visit=false;
- PathName notDeleted("rm_failureExpectedFilledDir");
+ PathName const notDeleted("rm_failureExpectedFilledDir");
  try {
   BOOST_CHECK(com::PathInfo(notDeleted).exists());
   com::remove(notDeleted);
@@ -299,7 +299,7 @@ BOOST_AUTO_TEST_CASE(copy_)
  }
  {
   {
-   ScopedRename sr("result.tmp","result.swap");
+   ScopedRename const sr("result.tmp","result.swap");
    BOOST_CHECK(filesExistsAndEqual("fe_one","result.swap"));
    BOOST_CHECK(!exists("result.tmp"));
   }
@@ -333,7 +333,7 @@ BOOST_AUTO_TEST_CASE(read_write_size)
 
  {
   std::string c;
-  PathName pn("fe_empty");
+  PathName const pn("fe_empty");
   read(c,pn);
   BOOST_CHECK(size(pn)==0);
   write(c,"result.tmp");
@@ -342,20 +342,20 @@ BOOST_AUTO_TEST_CASE(read_write_size)
  }
  {
   std::string c;
-  PathName pn("fe_one");
+  PathName const pn("fe_one");
   read(c,pn);
   write(c,"result.tmp");
   BOOST_CHECK(filesEqual("fe_one","result.tmp"));
  }
  {
   std::string c;
-  std::string contents("line only two\n");
-  size_t expectedSize=contents.size();
+  std::string const contents("line only two\n");
+  size_t const expectedSize=contents.size();
 #ifdef WIN32
   // newline is 2 chars
   expectedSize+=1;
 #endif
-  PathName pn("fe_two");
+  PathName const pn("fe_two");
   BOOST_CHECK(size(pn) == expectedSize);
   read(c,pn);
   BOOST_CHECK(c==contents);

@@ -47,7 +47,7 @@ static void remove(
     else {
 
       // There is at least one voxel left to cut the remaining thickness of.
-      REAL4 fractionToRemove = thickness / stack.back();
+      REAL4 const fractionToRemove = thickness / stack.back();
       block.cutVoxel(index, fractionToRemove);
     }
   }

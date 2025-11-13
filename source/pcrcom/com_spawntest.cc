@@ -11,7 +11,7 @@ BOOST_AUTO_TEST_CASE(no_arg)
 
 #if defined(WIN32) || defined(__x86_64__) || defined(__aarch64__)
   // or use Qt/process
-  bool noSpawnWorking=false;
+  bool const noSpawnWorking=false;
   BOOST_WARN(noSpawnWorking);
 #else
   std::string sigR,sig("KILLROY WAS HERE\n");
@@ -35,7 +35,7 @@ BOOST_AUTO_TEST_CASE(args)
   using namespace com;
 
 #if defined(WIN32) || defined(__x86_64__) || defined(__aarch64__)
-  bool noSpawnWorking=false;
+  bool const noSpawnWorking=false;
   BOOST_WARN(noSpawnWorking);
 #else
   std::string sigR,sig("KILLROY WAS HERE\n");

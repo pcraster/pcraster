@@ -53,7 +53,7 @@ void calc::RunSettings::addNewOnly(
 {
   BindingRewriter br;
   pcrxml::forEachChildElement(mrsElement,br);
-  pcrxml::ModelRunSettings mrs(mrsElement);
+  pcrxml::ModelRunSettings const mrs(mrsElement);
 
   // moved into binding by BindingRewriter
   PRECOND(mrs.fileSetting.empty());

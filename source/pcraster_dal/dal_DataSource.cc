@@ -412,8 +412,8 @@ void DataSource::read(
       // a previous available data set and use that address to find a
       // timestep for which data is available. Configure the iterSpace
       // object with that timestep.
-      size_t indexOfTime = iterSpace.indexOf(Time);
-      size_t indexOfProbabilities = iterSpace.indexOf(CumulativeProbabilities);
+      size_t const indexOfTime = iterSpace.indexOf(Time);
+      size_t const indexOfProbabilities = iterSpace.indexOf(CumulativeProbabilities);
 
       iterSpace.dimension(indexOfTime) = space.dimension(indexOfTime);
       iterSpace.dimension(indexOfProbabilities) =
@@ -447,13 +447,13 @@ void DataSource::read(
       missingDataStrategy = Interpolate;
     }
     else if(space.hasTime()) {
-      size_t indexOfTime = space.indexOf(Time);
+      size_t const indexOfTime = space.indexOf(Time);
       iterSpace.dimension(indexOfTime) = space.dimension(indexOfTime);
       indexOfWideDimension = indexOfTime;
       missingDataStrategy = UsePrevious;
     }
     else if(space.hasCumProbabilities()) {
-      size_t indexOfProbabilities = space.indexOf(CumulativeProbabilities);
+      size_t const indexOfProbabilities = space.indexOf(CumulativeProbabilities);
       iterSpace.dimension(indexOfProbabilities) = space.dimension(
          indexOfProbabilities);
       indexOfWideDimension = indexOfProbabilities;
@@ -624,7 +624,7 @@ void DataSource::read(
   space.eraseDimension(Space);
 
   assert(space.size() == address.size());
-  size_t indexOfProbabilities = space.indexOf(CumulativeProbabilities);
+  size_t const indexOfProbabilities = space.indexOf(CumulativeProbabilities);
   assert(!address.isValid(indexOfProbabilities));
 
   Array<T> lowerValues(raster.nrCells());
@@ -642,7 +642,7 @@ void DataSource::read(
   iterSpace.dimension(indexOfProbabilities) = space.dimension(
          indexOfProbabilities);
 
-  size_t indexOfTime = space.indexOf(Time);
+  size_t const indexOfTime = space.indexOf(Time);
 
   if(iterSpace.hasTime()) {
     // Find and set time step to use.
@@ -652,7 +652,7 @@ void DataSource::read(
     address.setCoordinate(indexOfProbabilities,
          space.dimension(indexOfProbabilities).template value<float>(1));
 
-    DataSpaceAddress lower = iterSpace.contains(address)
+    DataSpaceAddress const lower = iterSpace.contains(address)
          ? findPreviousExistingAddress(iterSpace, address)
          : iterSpace.address();
 
@@ -661,7 +661,7 @@ void DataSource::read(
       address.unsetCoordinate(indexOfTime);
     }
     else {
-      size_t timeStep = lower.coordinate<size_t>(indexOfTime);
+      size_t const timeStep = lower.coordinate<size_t>(indexOfTime);
       dimension.setValues<size_t>(timeStep, timeStep, 1);
       address.setCoordinate(indexOfTime, timeStep);
     }
@@ -781,7 +781,7 @@ void DataSource::read(
   space.eraseDimension(Space);
 
   assert(space.size() == address.size());
-  size_t indexOfProbabilities = space.indexOf(CumulativeProbabilities);
+  size_t const indexOfProbabilities = space.indexOf(CumulativeProbabilities);
   assert(!address.isValid(indexOfProbabilities));
 
   Array<T> lowerValues(layer.nrGeometries());
@@ -799,7 +799,7 @@ void DataSource::read(
   iterSpace.dimension(indexOfProbabilities) = space.dimension(
          indexOfProbabilities);
 
-  size_t indexOfTime = space.indexOf(Time);
+  size_t const indexOfTime = space.indexOf(Time);
 
   if(iterSpace.hasTime()) {
     // Find and set time step to use.
@@ -809,7 +809,7 @@ void DataSource::read(
     address.setCoordinate(indexOfProbabilities,
          space.dimension(indexOfProbabilities).template value<float>(1));
 
-    DataSpaceAddress lower = iterSpace.contains(address)
+    DataSpaceAddress const lower = iterSpace.contains(address)
          ? findPreviousExistingAddress(iterSpace, address)
          : iterSpace.address();
 
@@ -818,7 +818,7 @@ void DataSource::read(
       address.unsetCoordinate(indexOfTime);
     }
     else {
-      size_t timeStep = lower.coordinate<size_t>(indexOfTime);
+      size_t const timeStep = lower.coordinate<size_t>(indexOfTime);
       dimension.setValues<size_t>(timeStep, timeStep, 1);
       address.setCoordinate(indexOfTime, timeStep);
     }
@@ -974,8 +974,8 @@ void DataSource::read(
       // a previous available data set and use that address to find a
       // timestep for which data is available. Configure the iterSpace
       // object with that timestep.
-      size_t indexOfTime = iterSpace.indexOf(Time);
-      size_t indexOfProbabilities = iterSpace.indexOf(CumulativeProbabilities);
+      size_t const indexOfTime = iterSpace.indexOf(Time);
+      size_t const indexOfProbabilities = iterSpace.indexOf(CumulativeProbabilities);
       iterSpace.dimension(indexOfTime) = space.dimension(indexOfTime);
       iterSpace.dimension(indexOfProbabilities) = space.dimension(
          indexOfProbabilities);
@@ -1007,13 +1007,13 @@ void DataSource::read(
       missingDataStrategy = Interpolate;
     }
     else if(space.hasTime()) {
-      size_t indexOfTime = space.indexOf(Time);
+      size_t const indexOfTime = space.indexOf(Time);
       iterSpace.dimension(indexOfTime) = space.dimension(indexOfTime);
       indexOfWideDimension = indexOfTime;
       missingDataStrategy = UsePrevious;
     }
     else if(space.hasCumProbabilities()) {
-      size_t indexOfProbabilities = space.indexOf(CumulativeProbabilities);
+      size_t const indexOfProbabilities = space.indexOf(CumulativeProbabilities);
       iterSpace.dimension(indexOfProbabilities) = space.dimension(
          indexOfProbabilities);
       indexOfWideDimension = indexOfProbabilities;
@@ -1166,7 +1166,7 @@ void DataSource::read(
   assert(driver);
 
   assert(space.nrWideDimensions() > 0);
-  size_t indexOfWideDimension = space.indexOfWideDimension();
+  size_t const indexOfWideDimension = space.indexOfWideDimension();
   assert(indexOfWideDimension < space.size());
   Dimension const& wideDimension(space.dimension(indexOfWideDimension));
   DataSpace iterSpace(space);
@@ -1178,9 +1178,9 @@ void DataSource::read(
     // Find time step to use using UsePrevious strategy. Just iterate to
     // a previous available data set and use that address to find a
     // timestep for which data is available.
-    size_t indexOfSpace = iterSpace.indexOf(Space);
-    size_t indexOfTime = iterSpace.indexOf(Time);
-    size_t indexOfProbabilities = iterSpace.indexOf(CumulativeProbabilities);
+    size_t const indexOfSpace = iterSpace.indexOf(Space);
+    size_t const indexOfTime = iterSpace.indexOf(Time);
+    size_t const indexOfProbabilities = iterSpace.indexOf(CumulativeProbabilities);
 
     iterSpace.dimension(indexOfTime) = dataSpace().dimension(indexOfTime);
     iterSpace.dimension(indexOfProbabilities) = dataSpace().dimension(
@@ -1225,7 +1225,7 @@ void DataSource::read(
     else {
       // Found a valid address for which data is available.
       // Now we know which time step contains quantiles.
-      size_t timeStep = lower.coordinate<size_t>(indexOfTime);
+      size_t const timeStep = lower.coordinate<size_t>(indexOfTime);
 
       iterSpace.dimension(indexOfTime).setValues<size_t>(
          timeStep, timeStep, iterSpace.dimension(indexOfTime).value<size_t>(2));
@@ -1279,7 +1279,7 @@ void DataSource::read(
             /// iterSpace.addDimension(space.dimension(indexOfSpace + 1));
 
             // Read data for both addresses and interpolate for result.
-            float lowerQuantile = lower.coordinate<float>(indexOfProbabilities);
+            float const lowerQuantile = lower.coordinate<float>(indexOfProbabilities);
             iterSpace.dimension(indexOfProbabilities).setValues<float>(
                    lowerQuantile, lowerQuantile,
                    iterSpace.dimension(indexOfProbabilities).value<float>(2));
@@ -1287,7 +1287,7 @@ void DataSource::read(
 
             fillUsingPreviousValue(table.col<REAL4>(0));
             Table lowerTable(table);
-            float upperQuantile = upper.coordinate<float>(indexOfProbabilities);
+            float const upperQuantile = upper.coordinate<float>(indexOfProbabilities);
             iterSpace.dimension(indexOfProbabilities).setValues<float>(
                    upperQuantile, upperQuantile,
                    iterSpace.dimension(indexOfProbabilities).value<float>(2));
@@ -1295,9 +1295,9 @@ void DataSource::read(
             fillUsingPreviousValue(table.col<REAL4>(0));
             Table upperTable(table);
 
-            double lowerDistance = address.coordinate<float>(
+            double const lowerDistance = address.coordinate<float>(
               indexOfProbabilities) - lowerQuantile;
-            double upperDistance = upperQuantile - address.coordinate<float>(
+            double const upperDistance = upperQuantile - address.coordinate<float>(
               indexOfProbabilities);
             interpolate<REAL4>(
                    table.col<REAL4>(0),
@@ -1342,7 +1342,7 @@ void DataSource::probability(
   assert(space.nrWideDimensions() == 1);
   assert(space.dimension(space.indexOfWideDimension()).meaning() ==
          CumulativeProbabilities);
-  size_t indexOfProbabilities = space.indexOf(CumulativeProbabilities);
+  size_t const indexOfProbabilities = space.indexOf(CumulativeProbabilities);
 
   double lowerDistance = 0.0;
   double upperDistance = 0.0;
@@ -1434,12 +1434,12 @@ PCR_DAL_DECL void DataSource::read(
   assert(space.hasTime());
   assert(space.hasCumProbabilities());
 
-  size_t indexOfTime = space.indexOf(Time);
-  size_t indexOfProbabilities = space.indexOf(CumulativeProbabilities);
+  size_t const indexOfTime = space.indexOf(Time);
+  size_t const indexOfProbabilities = space.indexOf(CumulativeProbabilities);
 
   // Space with only time dimension.
   Dimension const& timeDimension(space.dimension(indexOfTime));
-  DataSpace timeSpace(timeDimension);
+  DataSpace const timeSpace(timeDimension);
 
   // Resize table based on the number of time steps.
   table.resize(timeDimension.nrCoordinates());
@@ -1524,13 +1524,13 @@ void DataSource::read(
     // The data space contains coordinates and at the current address there
     // is no vector to be found.
     assert(space.hasTime());
-    size_t indexOfTime = space.indexOf(Time);
+    size_t const indexOfTime = space.indexOf(Time);
 
     DataSpace iterSpace(space, address);
     iterSpace.dimension(indexOfTime) = space.dimension(indexOfTime);
 
     // UsePrevious.
-    DataSpaceAddress lower = findPreviousExistingAddress(iterSpace, address);
+    DataSpaceAddress const lower = findPreviousExistingAddress(iterSpace, address);
 
     if(!lower.isValid()) {
       vector.setAllMV();

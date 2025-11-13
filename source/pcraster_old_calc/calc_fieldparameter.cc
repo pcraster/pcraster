@@ -23,7 +23,7 @@ void calc::FieldParameter::deleteValues()
 {
   for(size_t i=0; i < nrElements(); i++)
    try {
-    FieldHandle v = value(i, true);
+    FieldHandle const v = value(i, true);
    } catch(const calc::Field::NotInitialized&) {
      // not initialized skip, no need to delete
    }
@@ -94,7 +94,7 @@ void calc::FieldParameter::finalCheck()
       quote(userName())+"\npossible data type is "+toString(vs()));
      }
 
-     std::string t("hacktest");
+     std::string const t("hacktest");
      if (isInput() && scriptConst().outputFilePath(t) != t ) {
       // is both input and output and -r is set
       // pcrcalc/test358
@@ -154,8 +154,8 @@ double calc::FieldParameter::initialValue() const
  */
 void calc::FieldParameter::setDataSubType(pcrxml::Data *d) const
 {
-   VS v=(nrInSet(vs())!=1) ? VS_UNKNOWN : vs();
-   bool isSpatial=fieldType().spatial();
+   VS const v=(nrInSet(vs())!=1) ? VS_UNKNOWN : vs();
+   bool const isSpatial=fieldType().spatial();
 
    if (reportedInDynamic()) {
      if (isSpatial)

@@ -42,14 +42,14 @@ BOOST_AUTO_TEST_CASE(constructor)
 {
   using namespace com;
 
-  com::PathName pn("../messagestest.xml");
+  com::PathName const pn("../messagestest.xml");
   BOOST_CHECK(!pn.isAbsolute());
 
   try {
-    PathName pn1(std::string("todoHaatQuoteInNaam.map\""));
+    PathName const pn1(std::string("todoHaatQuoteInNaam.map\""));
   } catch(...) {
   }
-  bool todoHaatQuoteInNaam = false;
+  bool const todoHaatQuoteInNaam = false;
   BOOST_WARN(todoHaatQuoteInNaam);
 }
 
@@ -412,7 +412,7 @@ BOOST_AUTO_TEST_CASE(extension)
   BOOST_CHECK(pn.hasExtension());
   BOOST_CHECK_EQUAL(pn.extension(), "txt");
   {
-    PathName pn("bla.mpeg");
+    PathName const pn("bla.mpeg");
     BOOST_CHECK(pn.hasExtension());
     BOOST_CHECK_EQUAL(pn.extension(), "mpeg");
   }
@@ -758,11 +758,11 @@ BOOST_AUTO_TEST_CASE(compare)
 {
   using namespace com;
 
-  PathName path1("abc");
-  PathName path2("def");
-  PathName path3("DEF");
-  PathName path4("abc1");
-  PathName path5("abc2");
+  PathName const path1("abc");
+  PathName const path2("def");
+  PathName const path3("DEF");
+  PathName const path4("abc1");
+  PathName const path5("abc2");
 
 
   BOOST_CHECK(path1.compare(path2) < 0);
@@ -799,15 +799,15 @@ BOOST_AUTO_TEST_CASE(equals)
   PathName dirNoEndSlash("C:\\pcrcalc\\testdir");
   PathName dirEndSlash("C:\\pcrcalc\\testdir\\");
 #else
-  PathName dirNoEndSlash("/home/cees/pcrtree/apps/pcrcalc/testdir");
-  PathName dirEndSlash("/home/cees/pcrtree/apps/pcrcalc/testdir/");
+  PathName const dirNoEndSlash("/home/cees/pcrtree/apps/pcrcalc/testdir");
+  PathName const dirEndSlash("/home/cees/pcrtree/apps/pcrcalc/testdir/");
 #endif
 
   // Since the constructor of PathName tries not to edit the input string
   // both paths above are not equal.
   BOOST_CHECK(!dirEndSlash.equals(dirNoEndSlash));
 
-  PathName cd(currentWorkingDirectory());
+  PathName const cd(currentWorkingDirectory());
   PathName travel(cd);
   travel += "sub1";
   travel.up();
@@ -820,13 +820,13 @@ BOOST_AUTO_TEST_CASE(unc)
   using namespace com;
 
 #ifndef WIN32
-  bool notWin32=true;
+  bool const notWin32=true;
   if (notWin32)
      return;
 #endif
 
-  PathName pn(R"(\\P4\bin)");
-  std::filesystem::path bp("//P4/bin");
+  PathName const pn(R"(\\P4\bin)");
+  std::filesystem::path const bp("//P4/bin");
   BOOST_CHECK_EQUAL(bp.root_name(), "//P4");
   BOOST_CHECK_EQUAL(pn.directoryName(), "\\\\P4\\");
 }

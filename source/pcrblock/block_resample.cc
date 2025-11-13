@@ -360,7 +360,7 @@ static void resample(
                VoxelAtHeight(newStack.baseElevation(),
                currentStack.baseElevation()));
       DEVELOP_POSTCOND(newIt != newStack.end());
-      size_t index = newIt - newStack.begin();
+      size_t const index = newIt - newStack.begin();
 
       // Set all new attribute values untill this voxel to MV.
       pcr::setMV(&(*result.begin()), index);

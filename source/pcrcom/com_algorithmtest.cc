@@ -29,7 +29,7 @@ BOOST_AUTO_TEST_CASE(seq_0123_etc)
   }
   {
     double buf[6];
-    SeqInc<double> ts(-1, 0.5);
+    SeqInc<double> const ts(-1, 0.5);
     std::generate_n(buf,6, ts);
     BOOST_CHECK(buf[0]==-1.0);
     BOOST_CHECK(buf[1]==-0.5);

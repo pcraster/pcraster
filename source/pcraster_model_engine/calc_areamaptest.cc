@@ -9,13 +9,13 @@ BOOST_AUTO_TEST_CASE(testInit)
 {
   using namespace calc;
 
-  geo::RasterSpace in(3,10,5);
+  geo::RasterSpace const in(3,10,5);
 
-  AreaMap amIn(in);
+  AreaMap const amIn(in);
 
-  std::unique_ptr<pcrxml::CheckContext> cc(amIn.createXMLContext ());
+  std::unique_ptr<pcrxml::CheckContext> const cc(amIn.createXMLContext ());
 
-  AreaMap amOut1(amIn.rasterSpace());
+  AreaMap const amOut1(amIn.rasterSpace());
 
   // not possible anymore pcrxml::AreaMap != pcrxml::AreaMapScript
   // AreaMap amOut2(cc->areaMap().get());

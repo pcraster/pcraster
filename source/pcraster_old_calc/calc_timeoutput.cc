@@ -42,7 +42,7 @@ bool calc::Timeoutput::buildTypes()
   const Args& args = fieldArgs();
   // timeoutput(arg0=idmap,arg1=value)
   args[1]->buildTypesRecursive(VS_FIELD);
-  VS vs = args[1]->vs();
+  VS const vs = args[1]->vs();
   if (nrInSet(vs) > 1) {
      // but we may catch it later
     if (!d_buildTypesVisited) {
@@ -67,8 +67,8 @@ void calc::Timeoutput::prepareExecution()
 void calc::Timeoutput::run()
 {
   OPERATION_TIMER("timeoutput",true);
-  VS resVS = d_par->vs();
-  MAJOR_CODE opCode = isIn(resVS,VS_SD) ? OP_TIMEOUTPUT_S : OP_TIMEOUTPUT_4;
+  VS const resVS = d_par->vs();
+  MAJOR_CODE const opCode = isIn(resVS,VS_SD) ? OP_TIMEOUTPUT_S : OP_TIMEOUTPUT_4;
 
   FieldStack stack;
   executeArgs(stack);

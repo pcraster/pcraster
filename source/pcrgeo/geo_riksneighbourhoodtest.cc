@@ -57,9 +57,9 @@ BOOST_AUTO_TEST_CASE(test)
 
   {
     // Nr 13.
-    double radius = std::hypot(4.0, 2.0);
+    double const radius = std::hypot(4.0, 2.0);
     RiksNeighbourhoodWrapper neighbourhood(radius, radius);
-    size_t offset = neighbourhood.radius();
+    size_t const offset = neighbourhood.radius();
     BOOST_CHECK(neighbourhood.cell(offset + 4, offset + 2) == 1.0);
     BOOST_CHECK(neighbourhood.cell(offset + 2, offset + 4) == 1.0);
     BOOST_CHECK(neighbourhood.cell(offset - 2, offset + 4) == 1.0);
@@ -74,7 +74,7 @@ BOOST_AUTO_TEST_CASE(test)
   {
     // Nr 30.
     RiksNeighbourhoodWrapper neighbourhood(8.0, 8.0);
-    size_t offset = neighbourhood.radius();
+    size_t const offset = neighbourhood.radius();
     BOOST_CHECK(neighbourhood.cell(offset + 0, offset + 8) == 1.0);
     BOOST_CHECK(neighbourhood.cell(offset + 8, offset + 0) == 1.0);
     BOOST_CHECK(neighbourhood.cell(offset - 8, offset + 0) == 1.0);

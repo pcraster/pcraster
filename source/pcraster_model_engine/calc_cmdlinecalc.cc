@@ -92,7 +92,7 @@ public:
         if (pi.inTimeStep > 0) {
           // overwrite this one each time
           // seems to do test349 better from the commandline :-(
-           std::string s(com::toString(pi.inTimeStep));
+           std::string const s(com::toString(pi.inTimeStep));
            std::cerr << "Executing timestep " << s << "\r" ;
            std::cerr.flush();
         }

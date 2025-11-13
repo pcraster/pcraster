@@ -180,9 +180,9 @@ void calc::EsriMap::readInBuffer(VS readAs, void *val)
 {
   PRECOND(d_chanId >= 0);
 
-  Window workWindow(window());
+  Window const workWindow(window());
 
-  size_t len = nrCells();
+  size_t const len = nrCells();
   if (!val) {
    switch(bytesPerCell(vs())) {
     case 1: val = new UINT1[len]; break;
@@ -240,7 +240,7 @@ bool calc::EsriMap::getMinMax(double& min, double& max) const
 void calc::EsriMap::writeData(const void *allValues)
 {
   PRECOND(d_chanId >= 0);
-  Window workWindow(window());
+  Window const workWindow(window());
 
   switch(biggestCellRepr(vs())) {
   case CR_REAL4: {
@@ -250,7 +250,7 @@ void calc::EsriMap::writeData(const void *allValues)
     float *outVal= outVal2d[0];
     float mvVal = NAN;
     calc::EsriGridIO::getMissingFloat(&mvVal);
-    size_t n = nrCells();
+    size_t const n = nrCells();
     for(size_t i=0; i<n ; i++)
       if (pcr::isMV(inVal[i]))
         outVal[i] = mvVal;
@@ -334,7 +334,7 @@ void calc::EsriMap::readFloat(void *val)
 
   REAL4 mvVal = NAN;
   calc::EsriGridIO::getMissingFloat(&mvVal);
-  pcr::AlterToStdMV<REAL4> ts(mvVal);
+  pcr::AlterToStdMV<REAL4> const ts(mvVal);
   std::for_each(linVal,linVal+nrCells(),ts);
 
   delete [] ptrVal;
@@ -352,7 +352,7 @@ void calc::EsriMap::readInt(void *val)
     d_chanId, 0, static_cast<int>(nrRows()), ptrVal);
 
   INT4 *linVal = static_cast<INT4 *>(ptrVal[0]);
-  pcr::AlterToStdMV<INT4> ts(MISSINGINT);
+  pcr::AlterToStdMV<INT4> const ts(MISSINGINT);
   std::for_each(linVal,linVal+nrCells(),ts);
 
   delete [] ptrVal;

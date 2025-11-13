@@ -38,7 +38,7 @@ BOOST_AUTO_TEST_CASE(command_line_application_)
   {
     char arg0[8] = "goforit";
     char* argv[] = { arg0 };
-    unsigned short int argc = 1;
+    unsigned short int const argc = 1;
     std::vector<std::string> files;
     CommandLineApplicationWrapper application(argc, argv);
 

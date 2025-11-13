@@ -90,8 +90,8 @@ size_t com::UnOrderedCrossTable::calculateIndex(size_t size, size_t row,
     std::swap(row, col);
   }
 
-  size_t i1 = row * size + col;
-  size_t i2 = i1 / size;
+  size_t const i1 = row * size + col;
+  size_t const i2 = i1 / size;
   size_t i3 = 0;
   for(size_t i = 1; i <= i2; ++i) {
     i3 += i;
@@ -187,7 +187,7 @@ com::UnOrderedCrossTable::~UnOrderedCrossTable()
   if(nrObjectsCreated() == 1) {
     for(auto & it : d_indicesMap) {
 
-      size_t size = it.first;
+      size_t const size = it.first;
       size_t** indices = it.second;
 
       for(size_t i = 0; i < size; ++i) {

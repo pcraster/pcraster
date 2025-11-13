@@ -378,7 +378,7 @@ int calc::EsriGridIO::cellLayerOpen(
     int rdwrflag, int iomode,
     int *celltype, double *cellsize);
   STATIC_GRIDIO_FPTR(CellLayerOpen);
-  int chanId = (*funcPtr)
+  int const chanId = (*funcPtr)
     (grdnam.c_str(), rdwrflag, iomode, celltype, cellsize);
   if (chanId < 0)
    throwError("esrigrid CellLayerOpen");
@@ -506,7 +506,7 @@ int  calc::EsriGridIO::cellLayerCreate (
     int celltype, double cellsize, const double box[4]);
   STATIC_GRIDIO_FPTR(CellLayerCreate);
 
-  int chan_id = (*funcPtr)(
+  int const chan_id = (*funcPtr)(
     name.c_str(), rdwrflag, iomode, celltype,
     cellsize, box);
   if (chan_id < 0 )

@@ -25,7 +25,7 @@ com_Palette::com_Palette(const int colourRange[][3], int colourMaxVal,
   }
 
   // Scale the colour values to a range from 0 to 256.
-  double factor = 255.0 / colourMaxVal;
+  double const factor = 255.0 / colourMaxVal;
   scale(factor);
 }
 

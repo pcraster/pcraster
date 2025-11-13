@@ -143,7 +143,7 @@ void calc::ReportVisitor::updateReportPar(ASTPar const *p)
                        +f->second.d_par->shortPosText()+")");
     }
   }
-  ReportPar pp = { p,
+  ReportPar const pp = { p,
      d_currentReport ? d_currentReport : d_reports.reportDefault(),
                    d_inDynamic };
   // always overwrite

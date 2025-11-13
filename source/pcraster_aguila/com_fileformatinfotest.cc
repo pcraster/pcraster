@@ -7,7 +7,7 @@ BOOST_AUTO_TEST_CASE(constructor)
 {
   using namespace com;
 
-  FileFormatInfo myFileInfo("My file format", "fmt|frm|mtf");
+  FileFormatInfo const myFileInfo("My file format", "fmt|frm|mtf");
 
   BOOST_CHECK(myFileInfo.description() == std::string("My file format"));
   BOOST_CHECK(myFileInfo.extension() == std::string("fmt"));

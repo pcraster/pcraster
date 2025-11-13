@@ -109,7 +109,7 @@ public:
   MaskChecker(UINT1 *mask, const Spatial *me)
   {
     const CR *val = static_cast<const CR *>(me->srcValue());
-    size_t   n    = me->nrValues();
+    size_t   const n    = me->nrValues();
     for(size_t i=0; i < n; i++)
       if (mask[i] == 1) {
         // the allZero check is done only in the mask
@@ -143,25 +143,25 @@ bool calc::Spatial::checkDebug(
     size_t& bpc) const
 {
   auto *mask = static_cast<UINT1 *>(s.areaMask());
-  CSF_CR cr = biggestCellRepr(vs());
+  CSF_CR const cr = biggestCellRepr(vs());
 
    bool   newMVsFound = false;
    /* check for MV created if we are assigning a spatial*/
    bpc=4;
    switch(cr) {
     case CR_UINT1 : {
-           MaskChecker<UINT1> c(mask, this);
+           MaskChecker<UINT1> const c(mask, this);
            newMVsFound=c.newMVsFound();
            allZero = c.allZero();
            bpc=1;
           } break;
     case CR_INT4 : {
-           MaskChecker<INT4> c(mask, this);
+           MaskChecker<INT4> const c(mask, this);
            newMVsFound=c.newMVsFound();
            allZero = c.allZero();
           } break;
   case CR_REAL4 : {
-           MaskChecker<REAL4,INT4> c(mask, this);
+           MaskChecker<REAL4,INT4> const c(mask, this);
            newMVsFound=c.newMVsFound();
            allZero = c.allZero();
           } break;
@@ -175,7 +175,7 @@ bool calc::Spatial::checkDebug(
     DecompressedData dd(VS_L); // UINT1
     s.compressor().decompress(dd,mask);
     std::unique_ptr<GridMap> debugMap(s.createMap(s.debugMapName(),VS_N));
-    size_t nrOutValues = s.rasterSpace().nrCells();
+    size_t const nrOutValues = s.rasterSpace().nrCells();
     geo::SimpleRaster<INT4> i4(1,nrOutValues);
     com::copyCells(i4.cells(), (const UINT1 *)dd.decompressed(), nrOutValues);
     debugMap->writeData(i4.cells());
@@ -232,8 +232,8 @@ calc::Spatial *calc::Spatial::copy() const
 {
   makeDataAvailable();
   auto *c = new calc::Spatial(vs(),d_nrValues,true);
-  CSF_CR cr = biggestCellRepr(vs());
-  size_t len = CSFSIZEOF(d_nrValues,cr);
+  CSF_CR const cr = biggestCellRepr(vs());
+  size_t const len = CSFSIZEOF(d_nrValues,cr);
   memcpy(c->d_val,srcValue(),len);
   return c;
 }

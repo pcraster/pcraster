@@ -165,7 +165,7 @@ void DataObject::read()
     vectorDataSources().read(dataSpace(), dataSpaceAddress());
   }
   else {
-    size_t index = dataSpace().indexOf(dal::Scenarios);
+    size_t const index = dataSpace().indexOf(dal::Scenarios);
     dal::DataSpaceAddress address(dataSpaceAddress());
 
     // Loop over all scenarios.
@@ -189,7 +189,7 @@ void DataObject::setQuantile(
   dal::DataSpace const& space(d_data->d_dataSpace);
 
   if(space.hasCumProbabilities()) {
-    size_t index = space.indexOf(dal::CumulativeProbabilities);
+    size_t const index = space.indexOf(dal::CumulativeProbabilities);
     dal::DataSpaceAddress address(d_data->d_dataSpaceAddress);
     address.setCoordinate<float>(index, quantile);
     setDataSpaceAddress(address, notify);
@@ -204,7 +204,7 @@ void DataObject::setTimeStep(
   dal::DataSpace const& space(d_data->d_dataSpace);
 
   if(space.hasTime()) {
-    size_t index = space.indexOf(dal::Time);
+    size_t const index = space.indexOf(dal::Time);
     dal::DataSpaceAddress address(d_data->d_dataSpaceAddress);
     address.setCoordinate<size_t>(index, time);
     setDataSpaceAddress(address);
@@ -218,11 +218,11 @@ void DataObject::setXY(
          double y,
          bool notify)
 {
-  dal::SpaceDimensions envelope(this->envelope());
+  dal::SpaceDimensions const envelope(this->envelope());
 
   if(envelope.contains(x, y)) {
     // Coordinates fall within the area for which we have data.
-    dal::SpatialCoordinate spatialAddress(x, y);
+    dal::SpatialCoordinate const spatialAddress(x, y);
     dal::DataSpace const& space(d_data->d_dataSpace);
     size_t index = space.indexOf(dal::Space);
     dal::DataSpaceAddress address(d_data->d_dataSpaceAddress);
@@ -252,7 +252,7 @@ void DataObject::unsetCoordinates(
          dal::Meaning meaning,
          bool notify)
 {
-  dal::DataSpaceAddress address(
+  dal::DataSpaceAddress const address(
          dataSpace().unsetCoordinates(dataSpaceAddress(), meaning));
 
   setDataSpaceAddress(address, notify);
@@ -265,12 +265,12 @@ void DataObject::setDataSpaceAddress(
          bool notify)
 {
   dal::DataSpace const& space = d_data->d_dataSpace;
-  dal::DataSpaceAddress& currentAddress = d_data->d_dataSpaceAddress;
+  dal::DataSpaceAddress const& currentAddress = d_data->d_dataSpaceAddress;
 
   bool addressChanged = false;
   bool timeChanged = false;
 
-  size_t indexOfTime = space.indexOf(dal::Time);
+  size_t const indexOfTime = space.indexOf(dal::Time);
 
   if(!space.equal(currentAddress, address)) {
     addressChanged = true;
@@ -611,9 +611,9 @@ std::string DataObject::description(
   }
 
   if(space.hasScenarios()) {
-    size_t index = space.indexOf(dal::Scenarios);
+    size_t const index = space.indexOf(dal::Scenarios);
     assert(space.dimension(index).nrValues() == 1);
-    std::string scenario = space.dimension(index).value<std::string>(0);
+    std::string const scenario = space.dimension(index).value<std::string>(0);
     result += " (" + scenario + ")";
   }
 
@@ -886,7 +886,7 @@ DataGuide DataObject::add(
          std::string const& name,
          dal::DataSpace const& space)
 {
-  dal::DatasetType type = dal::Client::dal().datasetType(name, space);
+  dal::DatasetType const type = dal::Client::dal().datasetType(name, space);
   DataGuide guide;
 
   switch(type) {
@@ -1002,7 +1002,7 @@ DataGuide DataObject::addStack(
          std::string const& name,
          dal::DataSpace const& space)
 {
-  DataGuide guide = rasterDataSources().add(name, space);
+  DataGuide const guide = rasterDataSources().add(name, space);
 
   Raster const& raster(rasterDataSources().data(guide));
 
@@ -1080,7 +1080,7 @@ DataGuide DataObject::addFeatureLayer(
          std::string const& name,
          dal::DataSpace const& space)
 {
-  DataGuide guide = featureDataSources().add(name, space);
+  DataGuide const guide = featureDataSources().add(name, space);
 
   FeatureLayer const& layer(featureDataSources().data(guide));
 
@@ -1125,7 +1125,7 @@ DataGuide DataObject::addTimeSeries(
          std::string const& name,
          dal::DataSpace const& space)
 {
-  DataGuide guide = tableDataSources().add(name, space);
+  DataGuide const guide = tableDataSources().add(name, space);
 
   d_data->d_dataSpace |= tableDataSources().data(guide).dataSpace();
   d_data->d_properties.addScalarTimeSeriesProperties(*this, guide);
@@ -1141,7 +1141,7 @@ DataGuide DataObject::addVector(
          std::string const& name,
          dal::DataSpace const& space)
 {
-  DataGuide guide = vectorDataSources().add(name, space);
+  DataGuide const guide = vectorDataSources().add(name, space);
 
   Vector const& vector(vectorDataSources().data(guide));
 
@@ -1523,7 +1523,7 @@ void DataObject::setDateMapper(
   // FEATURE what about the feature data? and vector
   dal::DataSpace const& space(rasterDataSources().data(guide).dataSpace());
   assert(space.hasTime());
-  size_t id = space.indexOf(dal::Time);
+  size_t const id = space.indexOf(dal::Time);
 
   std::unique_ptr<dal::TimeStepCoordinateMapper> newMapper(
          new dal::TimeStepCoordinateMapper(dm.index(),
@@ -1832,7 +1832,7 @@ void DataObject::setSelectedValue(
   if(!hasSelectedValue() || !dal::comparable(selectedValue(), value)) {
     d_data->_selectedValue = value;
 
-    std::vector<DataGuide> guides(dataGuides());
+    std::vector<DataGuide> const guides(dataGuides());
 
     for(DataGuide const& guide : guides) {
       Dataset& dataset(this->dataset(guide));
@@ -1858,7 +1858,7 @@ void DataObject::unsetSelectedValue(
   if(hasSelectedValue()) {
     d_data->_selectedValue = boost::any();
 
-    std::vector<DataGuide> guides(dataGuides());
+    std::vector<DataGuide> const guides(dataGuides());
 
     for(DataGuide const& guide : guides) {
       Dataset& dataset(this->dataset(guide));
@@ -2057,7 +2057,7 @@ void DataObject::reconfigureAnimationManager()
   dal::DataSpaceAddress const& address(d_data->d_dataSpaceAddress);
 
   if(space.hasTime()) {
-    size_t index = space.indexOf(dal::Time);
+    size_t const index = space.indexOf(dal::Time);
     if(address.isValid(index)) {
       d_data->d_animManager.setRangeOfSteps(
              space.dimension(index).value<size_t>(0),
@@ -2240,7 +2240,7 @@ void DataObject::localStepMappings(
   assert(timeMappings.empty());
   assert(spaceMappings.empty());
 
-  std::vector<DataGuide> guides(dataGuides());
+  std::vector<DataGuide> const guides(dataGuides());
 
   // Loop over all dimensions of the central data space.
   for(size_t i = 0; i < dataSpace().rank(); ++i) {
@@ -2252,7 +2252,7 @@ void DataObject::localStepMappings(
       // Analyse data set data space.
       dal::DataSpace const& space(dataSpace(guide));
 
-      size_t dimensionId = space.indexOf(mainDimension);
+      size_t const dimensionId = space.indexOf(mainDimension);
 
       if(dimensionId != space.rank()) {
         dal::Dimension const& subDimension(space.dimension(dimensionId));
@@ -2383,7 +2383,7 @@ void DataObject::setGlobalToWorldMappers(
          std::vector<dal::StepMapper> const& timeStepMappers,
          std::vector<dal::StepMapper> const& spaceStepMappers)
 {
-  std::vector<DataGuide> guides(dataGuides());
+  std::vector<DataGuide> const guides(dataGuides());
 
   // For each individual data set, set a mapper to map addresses in the
   // global (data object) data space to addresses in the local (data set)
@@ -2397,7 +2397,7 @@ void DataObject::setGlobalToWorldMappers(
 
     for(auto & guide : guides) {
       dal::DataSpace const& space(dataSpace(guide));
-      size_t dimensionId = space.indexOf(mainDimension);
+      size_t const dimensionId = space.indexOf(mainDimension);
 
       if(dimensionId != space.rank()) {
         dal::Dimension const& subDimension(space.dimension(dimensionId));
@@ -2461,7 +2461,7 @@ void DataObject::setGlobalToWorldMapper(
   mapper.setDataSpace(space);
 
   if(space.hasTime() && timeStepMapper.isValid()) {
-    size_t id = space.indexOf(dal::Time);
+    size_t const id = space.indexOf(dal::Time);
 
     // Time dimension.
     if(space.dimension(id).discretisation() == dal::RegularDiscretisation) {
@@ -2470,7 +2470,7 @@ void DataObject::setGlobalToWorldMapper(
   }
 
   if(space.hasRaster()) {
-    size_t id = space.indexOf(dal::Space);
+    size_t const id = space.indexOf(dal::Space);
 
     // Space dimension.
     assert(space.dimension(id).discretisation() == dal::RegularDiscretisation);
@@ -2542,7 +2542,7 @@ dal::RasterDimensions const& DataObject::rasterDimensions() const
 
   assert(space.hasRaster());
 
-  size_t index = space.indexOf(dal::Space);
+  size_t const index = space.indexOf(dal::Space);
 
   return space.dimension(index).value<dal::RasterDimensions>(0);
 }

@@ -41,7 +41,7 @@ calc::Field* ifthen_number_number(
 
   using InputNoDataPolicy = fa::InputNoDataPolicies<NonspatialDetectNoData<UINT1>,
         NonspatialDetectNoData<T>>;
-  InputNoDataPolicy input_no_data_policy{{*arg1},{*arg2}};
+  InputNoDataPolicy const input_no_data_policy{{*arg1},{*arg2}};
 
   NonspatialSetNoData<T> output_no_data_policy(*res);
 
@@ -61,7 +61,7 @@ calc::Field* ifthen_field_field(
 
   using InputNoDataPolicy = fa::InputNoDataPolicies<SpatialDetectNoData<UINT1>,
         SpatialDetectNoData<T>>;
-  InputNoDataPolicy input_no_data_policy{{*arg1},{*arg2}};
+  InputNoDataPolicy const input_no_data_policy{{*arg1},{*arg2}};
 
   SpatialSetNoData<T> output_no_data_policy(*res);
 
@@ -82,7 +82,7 @@ calc::Field* ifthen_number_field(
   using InputNoDataPolicy = fa::InputNoDataPolicies<NonspatialDetectNoData<UINT1>,
     SpatialDetectNoData<T>>;
 
-  InputNoDataPolicy input_no_data_policy{{*arg1},{*arg2}};
+  InputNoDataPolicy const input_no_data_policy{{*arg1},{*arg2}};
   SpatialSetNoData<T> output_no_data_policy(*res);
 
   fa::core::if_(input_no_data_policy,
@@ -102,7 +102,7 @@ calc::Field* ifthen_field_number(
   using InputNoDataPolicy = fa::InputNoDataPolicies<SpatialDetectNoData<UINT1>,
     NonspatialDetectNoData<T>>;
 
-  InputNoDataPolicy input_no_data_policy{{*arg1},{*arg2}};
+  InputNoDataPolicy const input_no_data_policy{{*arg1},{*arg2}};
   SpatialSetNoData<T> output_no_data_policy(*res);
 
   fa::core::if_(input_no_data_policy,
@@ -163,8 +163,8 @@ calc::Field* ifthen(
   assert_equal_location_attributes(*field_a);
   assert_boolean_valuescale(*condition, "first argument");
 
-  VS result_vs = field_a->vs();
-  calc::CRIndex result_cri = field_a->cri();
+  VS const result_vs = field_a->vs();
+  calc::CRIndex const result_cri = field_a->cri();
 
   if(boolean_valuescale(*field_a) || ldd_valuescale(*field_a)){
     return detail::ifthen<UINT1>(condition, field_a, result_vs, result_cri);

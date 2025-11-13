@@ -81,7 +81,7 @@ static bool CompEps(double a, /* r- value to compare against b */
    * really streches this one
    * found this code on the NET
    */
-    double d = MAX(1, MAX(fabs(a), fabs(b)));
+    double const d = MAX(1, MAX(fabs(a), fabs(b)));
     return (fabs(a - b) / d) < EPS;
     /*
   double eps;
@@ -576,7 +576,7 @@ int SmallestFittingRectangleCentre(
     double bestAngle = NAN;
     double area = NAN;
     double smallArea = NAN;
-    double step = geomFittingRectangleStep;
+    double const step = geomFittingRectangleStep;
     int i = 0;
     POINT2D *p = nullptr;
     POINT2D nc; /* p is work-copy of polygon */
@@ -738,7 +738,7 @@ int PointsEq(const POINT2D *p1, /* point 1 */
 int CmpPoints(const POINT2D *p1, /* point 1 */
               const POINT2D *p2) /* point 2 */
 {
-    int xc = CmpDouble(&(p1->x), &(p2->x));
+    int const xc = CmpDouble(&(p1->x), &(p2->x));
     if (!xc)
         return CmpDouble(&(p1->y), &(p2->y));
     return xc;
@@ -900,20 +900,20 @@ int IntersectAllignedRectangles(
     const POINT2D *r1, /* rectangle 1 */
     const POINT2D *r2) /* rectangle 2 */
 {
-    double yMaxR1 = MaxYPolygon(r1, 4);
-    double yMinR1 = MinYPolygon(r1, 4);
-    double xMaxR1 = MaxXPolygon(r1, 4);
-    double xMinR1 = MinXPolygon(r1, 4);
+    double const yMaxR1 = MaxYPolygon(r1, 4);
+    double const yMinR1 = MinYPolygon(r1, 4);
+    double const xMaxR1 = MaxXPolygon(r1, 4);
+    double const xMinR1 = MinXPolygon(r1, 4);
 
-    double yMaxR2 = MaxYPolygon(r2, 4);
-    double yMinR2 = MinYPolygon(r2, 4);
-    double xMaxR2 = MaxXPolygon(r2, 4);
-    double xMinR2 = MinXPolygon(r2, 4);
+    double const yMaxR2 = MaxYPolygon(r2, 4);
+    double const yMinR2 = MinYPolygon(r2, 4);
+    double const xMaxR2 = MaxXPolygon(r2, 4);
+    double const xMinR2 = MinXPolygon(r2, 4);
 
-    double yMax = MIN(yMaxR1, yMaxR2);
-    double yMin = MAX(yMinR1, yMinR2);
-    double xMax = MIN(xMaxR1, xMaxR2);
-    double xMin = MAX(xMinR1, xMinR2);
+    double const yMax = MIN(yMaxR1, yMaxR2);
+    double const yMin = MAX(yMinR1, yMinR2);
+    double const xMax = MIN(xMaxR1, xMaxR2);
+    double const xMin = MAX(xMinR1, xMinR2);
 
     // bug/sf463 and sf485
     // Test if rectangles R1 and R2 are adjacent.
@@ -921,7 +921,7 @@ int IntersectAllignedRectangles(
     // that represents the line between R1 and R2.
     // Such a line/polygon may incorrectly get a very
     // small area assigned due to floating point operations
-    static boost::math::fpc::close_at_tolerance<double> tester(
+    static boost::math::fpc::close_at_tolerance<double> const tester(
         boost::math::fpc::fpc_detail::fraction_tolerance<double>(double(1e-8)),
         boost::math::fpc::FPC_STRONG);
 
@@ -936,8 +936,8 @@ int IntersectAllignedRectangles(
     /* centre of intersection must be in both rectangle
      * test one to see if they intersect
      */
-    double xCtr = (xMax + xMin) / 2;
-    double yCtr = (yMax + yMin) / 2;
+    double const xCtr = (xMax + xMin) / 2;
+    double const yCtr = (yMax + yMin) / 2;
 
     if ((yMinR1 <= yCtr && yCtr <= yMaxR1) && (xMinR1 <= xCtr && xCtr <= xMaxR1)) {
         /* they intersect */

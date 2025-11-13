@@ -43,7 +43,7 @@ int calc::stackPosition(MAJOR_CODE op)
 
 MAJOR_CODE calc::otherDouble(MAJOR_CODE op)
 {
-  MAJOR_CODE pairs[][2] = {
+  MAJOR_CODE const pairs[][2] = {
 #include "dassop.inc"
          { OP_NOP, OP_NOP }}; /* dummy entry */
         size_t i = 0;
@@ -79,7 +79,7 @@ static bool  NeedSwap(
 
   PRECOND(f0.execId() < (int)ARRAY_SIZE(doubleTable)-1);
   PRECOND(f1.execId() < (int)ARRAY_SIZE(doubleTable)-1);
-  bool swap = doubleTable[f0.execId()].index > doubleTable[f1.execId()].index;
+  bool const swap = doubleTable[f0.execId()].index > doubleTable[f1.execId()].index;
   return swap;
 }
 

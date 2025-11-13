@@ -37,7 +37,7 @@ BOOST_AUTO_TEST_CASE(test)
   source.cell(4, 4) = 25;
 
   // Filter for adding all values within the kernel.
-  SimpleRaster<double> weights(3, 3, 1.0);
+  SimpleRaster<double> const weights(3, 3, 1.0);
   AddFilter filter(weights);
 
   // Destination raster.

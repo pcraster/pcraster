@@ -51,7 +51,7 @@
 
 const com::RawPalette* com::RawPalette::COLOURCLASSPALETTE()
 {
-  static RawPalette palette(classPalette, classPaletteSize, classColourMaxVal);
+  static RawPalette const palette(classPalette, classPaletteSize, classColourMaxVal);
   return &palette;
 }
 
@@ -59,7 +59,7 @@ const com::RawPalette* com::RawPalette::COLOURCLASSPALETTE()
 
 const com::RawPalette* com::RawPalette::COLOURBOOLPALETTE()
 {
-  static RawPalette palette(boolPalette, boolPaletteSize, boolColourMaxVal);
+  static RawPalette const palette(boolPalette, boolPaletteSize, boolColourMaxVal);
   return &palette;
 }
 
@@ -67,7 +67,7 @@ const com::RawPalette* com::RawPalette::COLOURBOOLPALETTE()
 
 const com::RawPalette* com::RawPalette::B2WPALETTE()
 {
-  static RawPalette palette(b2wPalette, b2wPaletteSize, b2wColourMaxVal);
+  static RawPalette const palette(b2wPalette, b2wPaletteSize, b2wColourMaxVal);
   return &palette;
 }
 
@@ -75,7 +75,7 @@ const com::RawPalette* com::RawPalette::B2WPALETTE()
 
 const com::RawPalette* com::RawPalette::B2WMPALETTE()
 {
-  static RawPalette palette(b2wmPalette, b2wmPaletteSize, b2wmColourMaxVal);
+  static RawPalette const palette(b2wmPalette, b2wmPaletteSize, b2wmColourMaxVal);
   return &palette;
 }
 
@@ -83,7 +83,7 @@ const com::RawPalette* com::RawPalette::B2WMPALETTE()
 
 const com::RawPalette* com::RawPalette::W2BPALETTE()
 {
-  static RawPalette palette(w2bPalette, w2bPaletteSize, w2bColourMaxVal);
+  static RawPalette const palette(w2bPalette, w2bPaletteSize, w2bColourMaxVal);
   return &palette;
 }
 
@@ -91,7 +91,7 @@ const com::RawPalette* com::RawPalette::W2BPALETTE()
 
 const com::RawPalette* com::RawPalette::COLOURCONTPALETTE()
 {
-  static RawPalette palette(contPalette, contPaletteSize, contColourMaxVal);
+  static RawPalette const palette(contPalette, contPaletteSize, contColourMaxVal);
   return &palette;
 }
 
@@ -99,7 +99,7 @@ const com::RawPalette* com::RawPalette::COLOURCONTPALETTE()
 
 const com::RawPalette* com::RawPalette::RAINBOWPALETTE()
 {
-  static RawPalette palette(rainbowPalette, rainbowPaletteSize,
+  static RawPalette const palette(rainbowPalette, rainbowPaletteSize,
               rainbowColourMaxVal);
   return &palette;
 }
@@ -108,7 +108,7 @@ const com::RawPalette* com::RawPalette::RAINBOWPALETTE()
 
 const com::RawPalette* com::RawPalette::R2PPALETTE()
 {
-  static RawPalette palette(r2pPalette, r2pPaletteSize, r2pColourMaxVal);
+  static RawPalette const palette(r2pPalette, r2pPaletteSize, r2pColourMaxVal);
   return &palette;
 }
 
@@ -116,7 +116,7 @@ const com::RawPalette* com::RawPalette::R2PPALETTE()
 
 const com::RawPalette* com::RawPalette::R2PMPALETTE()
 {
-  static RawPalette palette(r2pmPalette, r2pmPaletteSize, r2pmColourMaxVal);
+  static RawPalette const palette(r2pmPalette, r2pmPaletteSize, r2pmColourMaxVal);
   return &palette;
 }
 
@@ -124,7 +124,7 @@ const com::RawPalette* com::RawPalette::R2PMPALETTE()
 
 const com::RawPalette* com::RawPalette::P2RMPALETTE()
 {
-  static RawPalette palette(p2rmPalette, p2rmPaletteSize, p2rmColourMaxVal);
+  static RawPalette const palette(p2rmPalette, p2rmPaletteSize, p2rmColourMaxVal);
   return &palette;
 }
 
@@ -132,7 +132,7 @@ const com::RawPalette* com::RawPalette::P2RMPALETTE()
 
 const com::RawPalette* com::RawPalette::B2YPALETTE()
 {
-  static RawPalette palette(b2yPalette, b2yPaletteSize, b2yColourMaxVal);
+  static RawPalette const palette(b2yPalette, b2yPaletteSize, b2yColourMaxVal);
   return &palette;
 }
 
@@ -140,7 +140,7 @@ const com::RawPalette* com::RawPalette::B2YPALETTE()
 
 const com::RawPalette* com::RawPalette::Y2BPALETTE()
 {
-  static RawPalette palette(y2bPalette, y2bPaletteSize, y2bColourMaxVal);
+  static RawPalette const palette(y2bPalette, y2bPaletteSize, y2bColourMaxVal);
   return &palette;
 }
 
@@ -148,7 +148,7 @@ const com::RawPalette* com::RawPalette::Y2BPALETTE()
 
 const com::RawPalette* com::RawPalette::Y2BMPALETTE()
 {
-  static RawPalette palette(y2bmPalette, y2bmPaletteSize, y2bmColourMaxVal);
+  static RawPalette const palette(y2bmPalette, y2bmPaletteSize, y2bmColourMaxVal);
   return &palette;
 }
 
@@ -156,7 +156,7 @@ const com::RawPalette* com::RawPalette::Y2BMPALETTE()
 
 const com::RawPalette* com::RawPalette::GRAYDIRECTPALETTE()
 {
-  static RawPalette palette(grayDirectPalette, grayDirectPaletteSize,
+  static RawPalette const palette(grayDirectPalette, grayDirectPaletteSize,
               grayDirectColourMaxVal);
   return &palette;
 }
@@ -165,7 +165,7 @@ const com::RawPalette* com::RawPalette::GRAYDIRECTPALETTE()
 
 const com::RawPalette* com::RawPalette::W2BMPALETTE()
 {
-  static RawPalette palette(w2bmPalette, w2bmPaletteSize, w2bmColourMaxVal);
+  static RawPalette const palette(w2bmPalette, w2bmPaletteSize, w2bmColourMaxVal);
   return &palette;
 }
 
@@ -173,7 +173,7 @@ const com::RawPalette* com::RawPalette::W2BMPALETTE()
 
 const com::RawPalette* com::RawPalette::R2GPALETTE()
 {
-  static RawPalette palette(r2gPalette, r2gPaletteSize, r2gColourMaxVal);
+  static RawPalette const palette(r2gPalette, r2gPaletteSize, r2gColourMaxVal);
   return &palette;
 }
 
@@ -181,7 +181,7 @@ const com::RawPalette* com::RawPalette::R2GPALETTE()
 
 const com::RawPalette* com::RawPalette::R2GMPALETTE()
 {
-  static RawPalette palette(r2gmPalette, r2gmPaletteSize, r2gmColourMaxVal);
+  static RawPalette const palette(r2gmPalette, r2gmPaletteSize, r2gmColourMaxVal);
   return &palette;
 }
 
@@ -189,7 +189,7 @@ const com::RawPalette* com::RawPalette::R2GMPALETTE()
 
 const com::RawPalette* com::RawPalette::G2RMPALETTE()
 {
-  static RawPalette palette(g2rmPalette, g2rmPaletteSize, g2rmColourMaxVal);
+  static RawPalette const palette(g2rmPalette, g2rmPaletteSize, g2rmColourMaxVal);
   return &palette;
 }
 
@@ -197,7 +197,7 @@ const com::RawPalette* com::RawPalette::G2RMPALETTE()
 
 const com::RawPalette* com::RawPalette::B2RMPALETTE()
 {
-  static RawPalette palette(b2rmPalette, b2rmPaletteSize, b2rmColourMaxVal);
+  static RawPalette const palette(b2rmPalette, b2rmPaletteSize, b2rmColourMaxVal);
   return &palette;
 }
 
@@ -205,7 +205,7 @@ const com::RawPalette* com::RawPalette::B2RMPALETTE()
 
 const com::RawPalette* com::RawPalette::B2YMPALETTE()
 {
-  static RawPalette palette(b2ymPalette, b2ymPaletteSize, b2ymColourMaxVal);
+  static RawPalette const palette(b2ymPalette, b2ymPaletteSize, b2ymColourMaxVal);
   return &palette;
 }
 
@@ -213,7 +213,7 @@ const com::RawPalette* com::RawPalette::B2YMPALETTE()
 
 const com::RawPalette* com::RawPalette::netscapePalette()
 {
-  static RawPalette palette(netscapePaletteColours, netscapePaletteSize,
+  static RawPalette const palette(netscapePaletteColours, netscapePaletteSize,
               netscapePaletteMaxVal);
   return &palette;
 }

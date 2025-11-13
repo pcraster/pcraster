@@ -49,11 +49,11 @@ public:
   std::string inputFilePath(bool& found, const std::string& fileName) const
   {
     PRECOND(!fileName.empty());
-    com::PathName fnPn(fileName);
+    com::PathName const fnPn(fileName);
     for (const auto & d_searchPath : d_searchPaths) {
       // sPn=fnPn if fnPn is absolute, that is OK.
       com::PathName sPn(d_searchPath+fnPn);
-      com::PathInfo sPi(sPn);
+      com::PathInfo const sPi(sPn);
       if (sPi.exists()) {
         found=true;
         sPn.makeNative();
@@ -95,13 +95,13 @@ public:
         d_searchPaths.size() ? d_searchPaths:cwd);
 
     for(const auto & path : paths)  {
-     com::PathName b = path+"binding.ipcr";
+     com::PathName const b = path+"binding.ipcr";
      try {
       if (!com::PathInfo(b).isFile())
           continue;
       // if existant, we assume it is xml
-      pcrxml::Document doc(b);
-      QDomElement  mrsElement=doc.firstMatchByTagName("ModelRunSettings");
+      pcrxml::Document const doc(b);
+      QDomElement  const mrsElement=doc.firstMatchByTagName("ModelRunSettings");
       if (mrsElement.isNull())
         continue;
       d_runSettings.addNewOnly(mrsElement);
@@ -141,7 +141,7 @@ public:
 
     sp.makeNative();
     sp.makeAbsolute();
-    com::PathName currentDir(com::currentWorkingDirectory());
+    com::PathName const currentDir(com::currentWorkingDirectory());
     while (currentDir != sp && !sp.isEmpty()) {
       d_searchPaths.push_back(sp);
       sp.up();

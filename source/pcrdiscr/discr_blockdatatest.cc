@@ -9,13 +9,13 @@ BOOST_AUTO_TEST_CASE(constructor)
 {
   using namespace discr;
 
-  size_t nrRows = 2;
-  size_t nrCols = 1;
-  double cellSize = 1.0;
-  double west = 1.0;
-  double north = 0.0;
-  Raster raster(nrRows, nrCols, cellSize, west, north);
-  Block block(raster);
+  size_t const nrRows = 2;
+  size_t const nrCols = 1;
+  double const cellSize = 1.0;
+  double const west = 1.0;
+  double const north = 0.0;
+  Raster const raster(nrRows, nrCols, cellSize, west, north);
+  Block const block(raster);
 
   {
     Block block(raster);
@@ -64,8 +64,8 @@ BOOST_AUTO_TEST_CASE(set_default_value)
 {
   using namespace discr;
 
-  Raster raster(2, 1, 1.0, 0.0, 0.0);
-  RasterData<REAL4> baseElevation(&raster, 5.0);
+  Raster const raster(2, 1, 1.0, 0.0, 0.0);
+  RasterData<REAL4> const baseElevation(&raster, 5.0);
   Block block(baseElevation);
 
   {
@@ -84,7 +84,7 @@ BOOST_AUTO_TEST_CASE(add_voxels)
 {
   using namespace discr;
 
-  Raster raster(2, 1, 1.0, 0.0, 0.0);
+  Raster const raster(2, 1, 1.0, 0.0, 0.0);
 
   {
     Block block(raster, 5.0);
@@ -117,7 +117,7 @@ BOOST_AUTO_TEST_CASE(remove_voxels)
 {
   using namespace discr;
 
-  bool testImplemented = false;
+  bool const testImplemented = false;
   BOOST_WARN(testImplemented);
 }
 
@@ -127,6 +127,6 @@ BOOST_AUTO_TEST_CASE(cut_voxels)
   using namespace discr;
 
   // Test for all supported value types. Cut behaviour differs per value type.
-  bool testImplemented = false;
+  bool const testImplemented = false;
   BOOST_WARN(testImplemented);
 }

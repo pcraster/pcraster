@@ -54,7 +54,7 @@ calc::Field* slope(
 
   const multicore_field::Spatial<REAL4> arg(field_dem);
   using InputNoDataPolicy = fa::InputNoDataPolicies<SpatialDetectNoData<REAL4>>;
-  InputNoDataPolicy input_no_data_policy{{arg}};
+  InputNoDataPolicy const input_no_data_policy{{arg}};
 
   SpatialSetNoData<REAL4> output_no_data_policy(result);
 

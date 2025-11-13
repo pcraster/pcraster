@@ -74,27 +74,27 @@ void calc::Muskingum::exec(
        }
 
        // I = bovenstroomsesommatie(O) + Inflow
-       double Inflow = UpstreamSumIterationFlowRateMap[v] +
+       double const Inflow = UpstreamSumIterationFlowRateMap[v] +
           (d_inflow[v] *  d_csi.sliceInSecs);
        MG_DEBUG(Inflow);
 
-       double InflowPrev = UpstreamSumIterationPrevFlowRateMap[v] +
+       double const InflowPrev = UpstreamSumIterationPrevFlowRateMap[v] +
            (d_prevInflow[v] *  d_csi.sliceInSecs);
        MG_DEBUG(InflowPrev);
 
-       double FlowRatePrev =IterationPrevFlowRateMap[v]; //  m3/timestep
+       double const FlowRatePrev =IterationPrevFlowRateMap[v]; //  m3/timestep
 
 
-       double K = d_k[v] * d_segmentLength[v] * d_csi.sliceInSecs;  // My_K_Map in seconds
-       double x = d_x[v];
+       double const K = d_k[v] * d_segmentLength[v] * d_csi.sliceInSecs;  // My_K_Map in seconds
+       double const x = d_x[v];
 
        // BOOST_CHECK_CLOSE((double)kThisTimeSlice(v), (2.3*3600),0.0001);
        // BOOST_CHECK_CLOSE((double)x_(v), 0.15,0.0001);
-       double C1 = (1+2*K*x)/(1+2*K*(1-x));
+       double const C1 = (1+2*K*x)/(1+2*K*(1-x));
        MG_DEBUG(C1);
-       double C2 = (1-2*K*x)/(1+2*K*(1-x));
+       double const C2 = (1-2*K*x)/(1+2*K*(1-x));
        MG_DEBUG(C2);
-       double C3 = (-1+2*K*(1-x))/(1+2*K*(1-x));
+       double const C3 = (-1+2*K*(1-x))/(1+2*K*(1-x));
        MG_DEBUG(C3);
 
 
@@ -108,7 +108,7 @@ void calc::Muskingum::exec(
        //  << UpstreamSumIterationPrevFlowRateMap[v]
        //  << std::endl;
 
-       double FlowRate = (C1 * InflowPrev + C2*Inflow + C3*FlowRatePrev);
+       double const FlowRate = (C1 * InflowPrev + C2*Inflow + C3*FlowRatePrev);
        IterationFlowRateMap[v] =FlowRate;  // m3/timestep
        MyResultMap[v]=(float)(MyResultMap[v]+FlowRate/d_csi.sliceInSecs);  // m3/sec
        MG_DEBUG(MyResultMap[v]);
@@ -196,7 +196,7 @@ void calc::Muskingum::exec(
   };
 
   ExecArguments arg(op,rte,nrArgs);
-  ScopedLddGraph lgs(rte,arg[0]);
+  ScopedLddGraph const lgs(rte,arg[0]);
   LddGraph const& lg(lgs.current());
 
   arg.createResult();

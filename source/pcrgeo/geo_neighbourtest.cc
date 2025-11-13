@@ -12,10 +12,10 @@ static bool neighbourTarget(
 {
   using namespace geo;
 
-  LinearLoc d=LDD::target(s,l,rd.nrCells(),rd.nrCols());
+  LinearLoc const d=LDD::target(s,l,rd.nrCells(),rd.nrCols());
   if (d>=rd.nrCells())
     return outside;
-  CellLoc d2= LDD::target(rd.convert(s),l);
+  CellLoc const d2= LDD::target(rd.convert(s),l);
   return d2 == rd.convert(d);
 }
 
@@ -28,10 +28,10 @@ static bool nbTarget(
 {
   using namespace geo;
 
-  LinearLoc d=NB::target(s,l,rd.nrCells(),rd.nrCols() );
+  LinearLoc const d=NB::target(s,l,rd.nrCells(),rd.nrCols() );
   if (d>=rd.nrCells())
     return outside;
-  CellLoc d2= NB::target(rd.convert(s),l);
+  CellLoc const d2= NB::target(rd.convert(s),l);
   return d2 == rd.convert(d);
 }
 
@@ -40,7 +40,7 @@ BOOST_AUTO_TEST_CASE(linear_down_stream)
 {
   using namespace geo;
 
-  RasterDim rd(5,3);
+  RasterDim const rd(5,3);
 
   // all NBS are inside grid
   LinearLoc f=rd.convert(CellLoc(1,1));
@@ -115,7 +115,7 @@ BOOST_AUTO_TEST_CASE(conversion)
   BOOST_CHECK(NB::toLDD(7)==9);
   // test Koenig lookup trick
   {
-   NB::Code c=7;
+   NB::Code const c=7;
    BOOST_CHECK(NB::toLDD(c)==9);
    BOOST_CHECK(NB::reverse(c)==0);
   }
@@ -135,7 +135,7 @@ BOOST_AUTO_TEST_CASE(nb_code)
  *  0   1   2
  *  AKA as the NBCode
  */
-  CellLoc  from(100,50);
+  CellLoc  const from(100,50);
   BOOST_CHECK(NB::code(from,CellLoc(101,49))==0);
   BOOST_CHECK(NB::code(from,CellLoc(101,50))==1);
   BOOST_CHECK(NB::code(from,CellLoc(101,51))==2);
@@ -168,7 +168,7 @@ BOOST_AUTO_TEST_CASE(down_stream_visitor_cell)
     BOOST_CHECK(sizeof(geo::DownStreamVisitorCell) <= (sizeof(geo::CellLoc)+4));
    } else {
     // Bugzilla #133
-    bool todoBitPackingOnNon32Bit=
+    bool const todoBitPackingOnNon32Bit=
       sizeof(geo::DownStreamVisitorCell) <= (sizeof(geo::CellLoc)+4);
     BOOST_WARN(todoBitPackingOnNon32Bit);
    }

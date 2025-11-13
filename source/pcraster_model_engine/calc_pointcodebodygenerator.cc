@@ -37,7 +37,7 @@ static char cellUnionField(VS s)
 
 static const char* crType(const ASTNode* n)
 {
-  VS s=n->returnDataType().vs();
+  VS const s=n->returnDataType().vs();
 
   DEVELOP_PRECOND(CRI_1==0);   /* UINT1 */
   DEVELOP_PRECOND(CRI_4==1);   /* INT4 */
@@ -176,7 +176,7 @@ void calc::PointCodeBodyGenerator::visitAss(ASTAss*  a)
       // must be assigned an inliner
       (*d_curr) << "// forced inline assignment "
                 << a->shortPosText() << '\n';
-      std::string name=tmpDef(d_args.back().expr());
+      std::string const name=tmpDef(d_args.back().expr());
       assignment(name,"0");
       d_parNames.insert(std::make_pair(lhs->name(),name));
       pop();
@@ -207,7 +207,7 @@ void calc::PointCodeBodyGenerator::assignment(
 void calc::PointCodeBodyGenerator::doExpr(
     BaseExpr* e)
 {
-  std::string dc(domainCheck(e->op().domainIll(),templateArg(e)));
+  std::string const dc(domainCheck(e->op().domainIll(),templateArg(e)));
 
   // replace args by inliner f
   popArgsPushResult(f(e),e->nrArgs());
@@ -217,7 +217,7 @@ void calc::PointCodeBodyGenerator::doExpr(
     // can not inline, due to domain print
     // do not want to inline due to nonspatial, print in d_ns
     (*d_curr) << "// " << e->shortPosText() << '\n';
-    std::string r(tmpDef(e));
+    std::string const r(tmpDef(e));
     assignment(r,dc);
 
     // replace the inliner by the result
@@ -231,7 +231,7 @@ void calc::PointCodeBodyGenerator::doIfThenElse(
 {
    // ifthenelse in calc_pointcodedllheader.h
    (*d_curr) << "// " << e->shortPosText() << '\n';
-   std::string r(tmpDef(e));
+   std::string const r(tmpDef(e));
    (*d_curr) << "_ifthenelse<"<< crType(e) << ">("
        << r << ","
        << arg(0) << "," << arg(1) << "," << arg(2) << ");" << '\n';
@@ -454,7 +454,7 @@ void calc::generatePointCodeBody(
       ASTNode*      code,
       const ParSet& vContents)
 {
-  ScopedCFG n(code);
+  ScopedCFG const n(code);
   PointCodeBodyGenerator pcbg(n.cfg,vContents);
   pcbg.visit();
   pcbg.print(s);

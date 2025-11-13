@@ -130,7 +130,7 @@ extern "C" PCR_DLL_FUNC(int) pcrArcViewScriptVerify(
  esriArcView3Only=true;
  initErrorResult();
  calc::ArcViewExtCheckDataClass sv(scriptName);
- int r = sv.run(-1);
+ int const r = sv.run(-1);
  evalErrorResult(sv.errorMsg());
  return r;
 }
@@ -151,7 +151,7 @@ class ArcViewExtRun : public DllCalc
   protected:
      int execute() override
      {
-       com::AppArgs args("ArcView",d_cmdString);
+       com::AppArgs const args("ArcView",d_cmdString);
        if (!processArgs(args.argc(), args.argv()))
          return 0;
        // if reset by arguments, put back to this:
@@ -168,7 +168,7 @@ static int runCmd(
 {
  calc::ArcViewExtRun dc(cmdString);
  initErrorResult();
- int r = dc.run();
+ int const r = dc.run();
  evalErrorResult(dc.errorMsg());
  return r;
 }

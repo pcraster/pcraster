@@ -29,7 +29,7 @@ PCR_DAL_DECL void stepMap(
   if(!mappings.empty()) {
 
     for(size_t i = 0; i < mappings.size(); ++i) {
-      Dimension dimension = std::get<0>(mappings[i]);
+      Dimension const dimension = std::get<0>(mappings[i]);
       StepMapper const* aMapper = std::get<1>(mappings[i]);
 
       // Create overall mapper by merging all input mappers.
@@ -45,8 +45,8 @@ PCR_DAL_DECL void stepMap(
     // Configure the space dimension which contains all mappings.
     // double firstIndex(mapper->source(min));
     // double lastIndex(mapper->source(max));
-    double firstIndex(mapper->sourceFirstStep());
-    double lastIndex(mapper->sourceLastStep());
+    double const firstIndex(mapper->sourceFirstStep());
+    double const lastIndex(mapper->sourceLastStep());
     assert(comparable(std::fmod(firstIndex, 1.0), 0.0));
     assert(comparable(std::fmod(lastIndex, 1.0), 0.0));
     assert(greaterOrComparable(firstIndex, 0.0));
@@ -107,8 +107,8 @@ PCR_DAL_DECL void spaceStepMap(
     // Merge mappers.
     for(size_t i = 0; i < mappings.size(); ++i) {
       Dimension dimension = std::get<0>(mappings[i]);
-      size_t lowestIndex = dimension.value<size_t>(0);
-      size_t highestIndex = dimension.value<size_t>(1);
+      size_t const lowestIndex = dimension.value<size_t>(0);
+      size_t const highestIndex = dimension.value<size_t>(1);
       SpaceStepMapper const* aMapper = std::get<1>(mappings[i]);
 
       if(i == 0) {
@@ -127,8 +127,8 @@ PCR_DAL_DECL void spaceStepMap(
 
     // -------------------------------------------------------------------------
     // Configure the dimension which contains all mappings.
-    double firstIndex(mapper->source(lowestCoordinate));
-    double lastIndex(mapper->source(highestCoordinate));
+    double const firstIndex(mapper->source(lowestCoordinate));
+    double const lastIndex(mapper->source(highestCoordinate));
 
     // Here we test whether we get float results which are convertable to
     // integers without much loss. This should be the case.
@@ -155,15 +155,15 @@ PCR_DAL_DECL void spaceStepMap(
 
     for(const auto & mapping : mappings) {
       Dimension dimension = std::get<0>(mapping);
-      size_t lowestIndex = dimension.value<size_t>(0);
-      size_t highestIndex = dimension.value<size_t>(1);
+      size_t const lowestIndex = dimension.value<size_t>(0);
+      size_t const highestIndex = dimension.value<size_t>(1);
       SpaceStepMapper const* aMapper = std::get<1>(mapping);
 
       lowestCoordinate = aMapper->destination(lowestIndex);
       highestCoordinate = aMapper->destination(highestIndex);
 
-      double newFirstStep = mapper->source(lowestCoordinate);
-      double newLastStep = mapper->source(highestCoordinate);
+      double const newFirstStep = mapper->source(lowestCoordinate);
+      double const newLastStep = mapper->source(highestCoordinate);
 
       stepMappers->push_back(StepMapper(newFirstStep, newLastStep,
          lowestIndex, highestIndex));
@@ -188,8 +188,8 @@ PCR_DAL_DECL void timeStepMap(
     // Merge time step mappers.
     for(size_t i = 0; i < mappings.size(); ++i) {
       Dimension dimension = std::get<0>(mappings[i]);
-      size_t firstStep = dimension.value<size_t>(0);
-      size_t lastStep = dimension.value<size_t>(1);
+      size_t const firstStep = dimension.value<size_t>(0);
+      size_t const lastStep = dimension.value<size_t>(1);
       TimeStepMapper const* aMapper = std::get<1>(mappings[i]);
 
       if(i == 0) {
@@ -208,8 +208,8 @@ PCR_DAL_DECL void timeStepMap(
 
     // -------------------------------------------------------------------------
     // Configure the time dimension which contains all mappings.
-    double firstIndex(mapper->source(firstTime));
-    double lastIndex(mapper->source(lastTime));
+    double const firstIndex(mapper->source(firstTime));
+    double const lastIndex(mapper->source(lastTime));
     assert(comparable(std::fmod(firstIndex, 1.0), 0.0));
     assert(comparable(std::fmod(lastIndex, 1.0), 0.0));
     assert(greaterOrComparable(firstIndex, 0.0));
@@ -228,15 +228,15 @@ PCR_DAL_DECL void timeStepMap(
 
     for(const auto & mapping : mappings) {
       Dimension dimension = std::get<0>(mapping);
-      size_t firstStep = dimension.value<size_t>(0);
-      size_t lastStep = dimension.value<size_t>(1);
+      size_t const firstStep = dimension.value<size_t>(0);
+      size_t const lastStep = dimension.value<size_t>(1);
       TimeStepMapper const* aMapper = std::get<1>(mapping);
 
       firstTime = aMapper->destination(firstStep);
       lastTime = aMapper->destination(lastStep);
 
-      double newFirstStep = mapper->source(firstTime);
-      double newLastStep = mapper->source(lastTime);
+      double const newFirstStep = mapper->source(firstTime);
+      double const newLastStep = mapper->source(lastTime);
 
       stepMappers->push_back(StepMapper(newFirstStep, newLastStep,
          firstStep, lastStep));

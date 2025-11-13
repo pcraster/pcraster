@@ -62,8 +62,8 @@ UINT1 calc::GenerateSpatialFunc::maskAt(size_t pos) const
 
 void calc::GenerateSpatialFunc::xcoordinate(REAL4 *res) const
 {
-  CoordinateTranslator ct(d_compressor);
-  size_t n = d_compressor.nrCellsCompressed();
+  CoordinateTranslator const ct(d_compressor);
+  size_t const n = d_compressor.nrCellsCompressed();
   for(size_t i=0; i < n; i++) {
       if (maskAt(i) == 1)
           res[i] = static_cast<REAL4>(ct.getX(i));
@@ -74,8 +74,8 @@ void calc::GenerateSpatialFunc::xcoordinate(REAL4 *res) const
 
 void calc::GenerateSpatialFunc::ycoordinate(REAL4 *res) const
 {
-  CoordinateTranslator ct(d_compressor);
-  size_t n = d_compressor.nrCellsCompressed();
+  CoordinateTranslator const ct(d_compressor);
+  size_t const n = d_compressor.nrCellsCompressed();
   for(size_t i=0; i < n; i++) {
       if (maskAt(i) == 1)
           res[i] = static_cast<REAL4>(ct.getY(i));
@@ -87,7 +87,7 @@ void calc::GenerateSpatialFunc::ycoordinate(REAL4 *res) const
 
 void calc::GenerateSpatialFunc::uniqueid(REAL4 *res) const
 {
-  size_t n = d_compressor.nrCellsCompressed();
+  size_t const n = d_compressor.nrCellsCompressed();
   if (d_nrMask == 1) {
     if (d_mask[0] == 1) {
       for(size_t i=0; i < n; i++)

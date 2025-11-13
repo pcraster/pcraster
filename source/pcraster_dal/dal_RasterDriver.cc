@@ -83,7 +83,7 @@ RasterDriver::determineFilenameCharacteristics(
   FilenameConvention convention;
   std::string extension;
 
-  std::string key(propertiesKey(name, space));
+  std::string const key(propertiesKey(name, space));
 
   if(hasProperties(key)) {
     // Short-cutting. Information about this dataset has already be determined
@@ -97,7 +97,7 @@ RasterDriver::determineFilenameCharacteristics(
   else {
     typedef boost::function< bool (std::string const&)> CallBack;
 
-    CallBack callBack(dal::exists);
+    CallBack const callBack(dal::exists);
     std::tie(found, convention, extension) =
          dal::determineFilenameCharacteristics<CallBack>(callBack,
               name, space, address, format().extensions());
@@ -151,7 +151,7 @@ std::filesystem::path RasterDriver::pathFor(
       name, space, address);
 
   if(library()->cacheDatasetInfo() && found) {
-    std::string key(propertiesKey(name, space));
+    std::string const key(propertiesKey(name, space));
 
     if(!hasProperties(key)) {
       cacheDatasetInfo(key, convention, extension);
@@ -213,7 +213,7 @@ DataSpace RasterDriver::dataSpace(
 {
   assert(!space.hasSpace());
 
-  std::shared_ptr<Raster> raster(open(name, space, address));
+  std::shared_ptr<Raster> const raster(open(name, space, address));
 
   if(!raster) {
     throwCannotBeOpened(name, RASTER, space, address);
@@ -561,7 +561,7 @@ void RasterDriver::browseFileBasedRasterAttributes(
 
         Properties const& properties(raster->properties());
 
-        CSF_VS valueScale = properties.hasValue(DAL_CSF_VALUESCALE)
+        CSF_VS const valueScale = properties.hasValue(DAL_CSF_VALUESCALE)
           ? properties.value<CSF_VS>(DAL_CSF_VALUESCALE)
           : VS_NOTDETERMINED;
 
@@ -635,7 +635,7 @@ void RasterDriver::browseFileBasedRasterAttributes(
 
         Properties const& properties(raster->properties());
 
-        CSF_VS valueScale = properties.hasValue(DAL_CSF_VALUESCALE)
+        CSF_VS const valueScale = properties.hasValue(DAL_CSF_VALUESCALE)
           ? properties.value<CSF_VS>(DAL_CSF_VALUESCALE)
           : VS_NOTDETERMINED;
 
@@ -706,7 +706,7 @@ void RasterDriver::browseFileBasedRasterAttributes(
 
         Properties const& properties(raster->properties());
 
-        CSF_VS valueScale = properties.hasValue(DAL_CSF_VALUESCALE)
+        CSF_VS const valueScale = properties.hasValue(DAL_CSF_VALUESCALE)
           ? properties.value<CSF_VS>(DAL_CSF_VALUESCALE)
           : VS_NOTDETERMINED;
 
@@ -737,7 +737,7 @@ void RasterDriver::browseFileBasedRasterAttributes(
           name = std::string(match[1].first, match[1].second);
           step = std::string(match[2].first, match[2].second);
           auto const f1 = 8 - name.size();
-          std::string pattern = std::vformat(
+          std::string const pattern = std::vformat(
               "{0}([[:digit:]]{{{1}}}.[[:digit:]]{{3}})",
               std::make_format_args(name,
               f1));
@@ -789,7 +789,7 @@ void RasterDriver::browseFileBasedRasterAttributes(
 
             Properties const& properties(raster->properties());
 
-            CSF_VS valueScale = properties.hasValue(DAL_CSF_VALUESCALE)
+            CSF_VS const valueScale = properties.hasValue(DAL_CSF_VALUESCALE)
               ? properties.value<CSF_VS>(DAL_CSF_VALUESCALE)
               : VS_NOTDETERMINED;
 
@@ -815,11 +815,11 @@ void RasterDriver::browseFileBasedRasterAttributes(
     if(raster) {
       Properties const& properties(raster->properties());
 
-      CSF_VS valueScale = properties.hasValue(DAL_CSF_VALUESCALE)
+      CSF_VS const valueScale = properties.hasValue(DAL_CSF_VALUESCALE)
         ? properties.value<CSF_VS>(DAL_CSF_VALUESCALE)
         : VS_NOTDETERMINED;
 
-      std::filesystem::path path(leaves[i]);
+      std::filesystem::path const path(leaves[i]);
       name = path.stem().string();
       extension = path.extension().string();
 

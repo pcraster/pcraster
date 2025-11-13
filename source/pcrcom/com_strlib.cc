@@ -47,7 +47,7 @@ static void rangeErrorIf(bool test,const char *msg)
  */
 size_t com::strToSize_t(const std::string &s)
 {
-  int v = strToInt(s);
+  int const v = strToInt(s);
   rangeErrorIf(v < 0,NOT_A_SIZET);
   return (size_t)v;
 }
@@ -80,7 +80,7 @@ static void strToCheck(
          char const* errMsg)
 {
   std::string endRemaining(endPtr);
-  bool test= (endPtr == str); // nothing parsed, all space
+  bool const test= (endPtr == str); // nothing parsed, all space
   // then delete since rangeErrorIf may throw
   delete [] str;
   rangeErrorIf(test,errMsg);
@@ -96,7 +96,7 @@ int com::strToInt(const std::string &s)
 {
   char *str = strToInit(s);
   char *endPtr = nullptr;
-  long int v = strtol(str, &endPtr,10);
+  long int const v = strtol(str, &endPtr,10);
   strToCheck(str, endPtr, NOT_A_INT);
   return (int)v;
 }
@@ -109,7 +109,7 @@ double com::strToDouble(const std::string &s)
 {
   char *str = strToInit(s);
   char *endPtr = nullptr;
-  double v = strtod(str, &endPtr);
+  double const v = strtod(str, &endPtr);
   strToCheck(str, endPtr, NOT_A_REAL);
   return v;
 }
@@ -360,7 +360,7 @@ std::string com::removeFrontEndSpace(std::string const& str)
 void com::removeAllSpace(std::string& str)
 {
   std::string newStr;
-  for(char i : str)
+  for(char const i : str)
     if (!std::isspace(i))
       newStr += i;
   str = newStr;
@@ -530,7 +530,7 @@ std::string com::replaceCharByStr(const std::string& str,char c,
                                const std::string& with)
 {
   std::string d;
-  for(char i : str) {
+  for(char const i : str) {
     if (i == c)
       d+=with;
     else

@@ -123,7 +123,7 @@ void Aguila::init(
 
 void Aguila::setup()
 {
-  AguilaProgramOptions apo(d_argc, d_argv);
+  AguilaProgramOptions const apo(d_argc, d_argv);
 
   if(!apo.help().empty()) {
       showInfo(apo.help());

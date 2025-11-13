@@ -70,17 +70,17 @@ ConnectionInfo::ConnectionInfo(
 {
   using namespace boost::spirit::classic;
 
-  rule<> userRule = (+(alnum_p|space_p))[assign_a(_user)];
-  rule<> passwordRule = (+alnum_p)[assign_a(_password)];
-  rule<> hostRule = (+alnum_p)[assign_a(_host)];
+  rule<> const userRule = (+(alnum_p|space_p))[assign_a(_user)];
+  rule<> const passwordRule = (+alnum_p)[assign_a(_password)];
+  rule<> const hostRule = (+alnum_p)[assign_a(_host)];
   // rule<> databaseRule = (+alnum_p)[assign_a(_database)];
-  rule<> databaseRule = (+~ch_p('/'))[assign_a(_database)];
-  rule<> tableRule = (+~ch_p('/'))[assign_a(_table)];
-  rule<> fieldsRule = ("{" >> list_p((+alnum_p)[push_back_a(_fields)], ",")
+  rule<> const databaseRule = (+~ch_p('/'))[assign_a(_database)];
+  rule<> const tableRule = (+~ch_p('/'))[assign_a(_table)];
+  rule<> const fieldsRule = ("{" >> list_p((+alnum_p)[push_back_a(_fields)], ",")
          >> "}") | (+alnum_p)[push_back_a(_fields)];
 
-  rule<> accountRule = userRule >> !("(" >> !passwordRule >> ")");
-  rule<> connectionRule = !accountRule >> !("@" >> hostRule)
+  rule<> const accountRule = userRule >> !("(" >> !passwordRule >> ")");
+  rule<> const connectionRule = !accountRule >> !("@" >> hostRule)
          >> ":" >> databaseRule >> !("/" >> tableRule >> !("/" >> fieldsRule));
 
   if(!parse(name.c_str(), connectionRule).full) {

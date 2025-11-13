@@ -9,7 +9,7 @@ BOOST_AUTO_TEST_CASE(test_)
 
   // Default.
   {
-    MatrixDimensions matrix;
+    MatrixDimensions const matrix;
 
     BOOST_CHECK_EQUAL(matrix.nrRows(), size_t(1));
     BOOST_CHECK_EQUAL(matrix.nrCols(), size_t(1));
@@ -18,7 +18,7 @@ BOOST_AUTO_TEST_CASE(test_)
 
   // Non-default.
   {
-    MatrixDimensions matrix(3, 4);
+    MatrixDimensions const matrix(3, 4);
 
     BOOST_CHECK_EQUAL(matrix.nrRows(), size_t(3));
     BOOST_CHECK_EQUAL(matrix.nrCols(), size_t(4));
@@ -27,7 +27,7 @@ BOOST_AUTO_TEST_CASE(test_)
 
   // Copy.
   {
-    MatrixDimensions matrix1(3, 4);
+    MatrixDimensions const matrix1(3, 4);
 
     const MatrixDimensions& matrix2(matrix1);
     BOOST_CHECK_EQUAL(matrix2.nrRows(), size_t(3));
@@ -40,9 +40,9 @@ BOOST_AUTO_TEST_CASE(test_)
 
   // Equality.
   {
-    MatrixDimensions matrix1(3, 4);
-    MatrixDimensions matrix2(4, 3);
-    MatrixDimensions matrix3(3, 4);
+    MatrixDimensions const matrix1(3, 4);
+    MatrixDimensions const matrix2(4, 3);
+    MatrixDimensions const matrix3(3, 4);
 
     BOOST_CHECK(matrix1 == matrix1);
     BOOST_CHECK(matrix1 != matrix2);

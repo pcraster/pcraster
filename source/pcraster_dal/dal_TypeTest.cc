@@ -9,42 +9,42 @@ BOOST_AUTO_TEST_CASE(id)
   using namespace dal;
 
   {
-    Uint1Type type;
+    Uint1Type const type;
     BOOST_CHECK_EQUAL(type.id(), TI_UINT1);
   }
 
   {
-    Uint2Type type;
+    Uint2Type const type;
     BOOST_CHECK_EQUAL(type.id(), TI_UINT2);
   }
 
   {
-    Uint4Type type;
+    Uint4Type const type;
     BOOST_CHECK_EQUAL(type.id(), TI_UINT4);
   }
 
   {
-    Int1Type type;
+    Int1Type const type;
     BOOST_CHECK_EQUAL(type.id(), TI_INT1);
   }
 
   {
-    Int2Type type;
+    Int2Type const type;
     BOOST_CHECK_EQUAL(type.id(), TI_INT2);
   }
 
   {
-    Int4Type type;
+    Int4Type const type;
     BOOST_CHECK_EQUAL(type.id(), TI_INT4);
   }
 
   {
-    Real4Type type;
+    Real4Type const type;
     BOOST_CHECK_EQUAL(type.id(), TI_REAL4);
   }
 
   {
-    Real8Type type;
+    Real8Type const type;
     BOOST_CHECK_EQUAL(type.id(), TI_REAL8);
   }
 
@@ -66,7 +66,7 @@ BOOST_AUTO_TEST_CASE(can_parse_uint1)
 {
   using namespace dal;
 
-  Uint1Type type;
+  Uint1Type const type;
 
   BOOST_CHECK(!type.canParse("-1"));
   BOOST_CHECK(type.canParse("0"));
@@ -123,7 +123,7 @@ BOOST_AUTO_TEST_CASE(can_parse_uint2)
 {
   using namespace dal;
 
-  Uint2Type type;
+  Uint2Type const type;
 
   BOOST_CHECK(!type.canParse("-1"));
   BOOST_CHECK(type.canParse("0"));
@@ -142,7 +142,7 @@ BOOST_AUTO_TEST_CASE(can_parse_uint4)
 {
   using namespace dal;
 
-  Uint4Type type;
+  Uint4Type const type;
 
   BOOST_CHECK(!type.canParse("-1"));
   BOOST_CHECK(type.canParse("0"));
@@ -163,7 +163,7 @@ BOOST_AUTO_TEST_CASE(can_parse_int1)
 {
   using namespace dal;
 
-  Int1Type type;
+  Int1Type const type;
 
   BOOST_CHECK(!type.canParse("-129"));
   BOOST_CHECK(type.canParse("-128"));
@@ -185,7 +185,7 @@ BOOST_AUTO_TEST_CASE(can_parse_int2)
 {
   using namespace dal;
 
-  Int2Type type;
+  Int2Type const type;
 
   BOOST_CHECK(!type.canParse("-32769"));
   BOOST_CHECK(type.canParse("-32768"));
@@ -207,7 +207,7 @@ BOOST_AUTO_TEST_CASE(can_parse_int4)
 {
   using namespace dal;
 
-  Int4Type type;
+  Int4Type const type;
 
   BOOST_CHECK(!type.canParse("-2147483649"));
   BOOST_CHECK(type.canParse("-2147483648"));
@@ -229,7 +229,7 @@ BOOST_AUTO_TEST_CASE(can_parse_real4)
 {
   using namespace dal;
 
-  Real4Type type;
+  Real4Type const type;
 
   BOOST_CHECK(type.canParse("5.0"));
   BOOST_CHECK(type.canParse("5"));
@@ -257,7 +257,7 @@ BOOST_AUTO_TEST_CASE(can_parse_real8)
 {
   using namespace dal;
 
-  Real8Type type;
+  Real8Type const type;
 
   BOOST_CHECK(type.canParse("5.0"));
   BOOST_CHECK(type.canParse("5"));
@@ -289,7 +289,7 @@ BOOST_AUTO_TEST_CASE(type_traits)
   BOOST_CHECK(TypeTraits<std::string>::typeId != TI_UINT1);
   BOOST_CHECK_EQUAL(TypeTraits<std::string>::typeId, TI_STRING);
 
-  TypeOfTypeId<TI_UINT1> v;
+  TypeOfTypeId<TI_UINT1> const v;
   BOOST_CHECK_EQUAL(sizeof(v), size_t(1));
 }
 

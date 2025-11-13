@@ -44,13 +44,13 @@ calc::Field* cos_scalar(
     multicore_field::Nonspatial<REAL4> result(field_result);
 
     using InputNoDataPolicy = fa::InputNoDataPolicies<NonspatialDetectNoData<REAL4>>;
-    InputNoDataPolicy input_no_data_policy{{arg}};
+    InputNoDataPolicy const input_no_data_policy{{arg}};
 
     NonspatialSetNoData<REAL4> output_no_data_policy(result);
 
     if(global_option_degrees()){
       // fist convert input to radians...
-      multicore_field::Nonspatial<REAL4> deg_rad(degrees_to_radians(&arg, &result));
+      multicore_field::Nonspatial<REAL4> const deg_rad(degrees_to_radians(&arg, &result));
 
       fa::trigonometry::cos<fa::cos::OutOfDomainPolicy>(input_no_data_policy,
         output_no_data_policy, sequential, deg_rad, result);
@@ -70,13 +70,13 @@ calc::Field* cos_scalar(
     fa::ExecutionPolicy epol = execution_policy();
 
     using InputNoDataPolicy = fa::InputNoDataPolicies<SpatialDetectNoData<REAL4>>;
-    InputNoDataPolicy input_no_data_policy{{arg}};
+    InputNoDataPolicy const input_no_data_policy{{arg}};
 
     SpatialSetNoData<REAL4> output_no_data_policy(result);
 
     if(global_option_degrees()){
       // fist convert input to radians...
-      multicore_field::Spatial<REAL4> deg_rad(degrees_to_radians(&arg, &result));
+      multicore_field::Spatial<REAL4> const deg_rad(degrees_to_radians(&arg, &result));
 
       fa::trigonometry::cos<fa::cos::OutOfDomainPolicy>(input_no_data_policy,
         output_no_data_policy, epol, deg_rad, result);
@@ -105,13 +105,13 @@ calc::Field* cos_directional(
     multicore_field::Nonspatial<REAL4> result(field_result);
 
     using InputNoDataPolicy = fa::InputNoDataPolicies<NonspatialDetectNoData<REAL4>>;
-    InputNoDataPolicy input_no_data_policy{{arg}};
+    InputNoDataPolicy const input_no_data_policy{{arg}};
 
     NonspatialSetNoData<REAL4> output_no_data_policy(result);
 
     if(global_option_degrees()){
       // fist convert input to radians...
-      multicore_field::Nonspatial<REAL4> deg_rad(degrees_to_radians(&arg, &result));
+      multicore_field::Nonspatial<REAL4> const deg_rad(degrees_to_radians(&arg, &result));
 
       fa::trigonometry::cos<OutOfDirectionalDomainPolicy>(input_no_data_policy,
         output_no_data_policy, sequential, deg_rad, result);
@@ -131,7 +131,7 @@ calc::Field* cos_directional(
     fa::ExecutionPolicy epol = execution_policy();
 
     using InputNoDataPolicy = fa::InputNoDataPolicies<SpatialDetectNoData<REAL4>>;
-    InputNoDataPolicy input_no_data_policy{{arg}};
+    InputNoDataPolicy const input_no_data_policy{{arg}};
 
     SpatialSetNoData<REAL4> output_no_data_policy(result);
 

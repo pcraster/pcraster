@@ -144,10 +144,10 @@ void TableVisualisation::selectRow(
   // Selecting an already selected row results in recursion because Qt
   // treats it as a selection change.
   if(!rowIsSelected(row)) {
-    QModelIndex topLeft(model()->index(row, 0, QModelIndex()));
-    QModelIndex bottomRight(model()->index(row, columnCount() - 1,
+    QModelIndex const topLeft(model()->index(row, 0, QModelIndex()));
+    QModelIndex const bottomRight(model()->index(row, columnCount() - 1,
            QModelIndex()));
-    QItemSelection selection(topLeft, bottomRight);
+    QItemSelection const selection(topLeft, bottomRight);
 
     selectionModel()->select(selection, QItemSelectionModel::Select);
   }
@@ -165,10 +165,10 @@ void TableVisualisation::deselectRow(
   // Deselecting an already deselected row results in recursion because Qt
   // treats it as a selection change.
   if(rowIsSelected(row)) {
-    QModelIndex topLeft(model()->index(row, 0, QModelIndex()));
-    QModelIndex bottomRight(model()->index(row, columnCount() - 1,
+    QModelIndex const topLeft(model()->index(row, 0, QModelIndex()));
+    QModelIndex const bottomRight(model()->index(row, columnCount() - 1,
            QModelIndex()));
-    QItemSelection selection(topLeft, bottomRight);
+    QItemSelection const selection(topLeft, bottomRight);
 
     selectionModel()->select(selection, QItemSelectionModel::Deselect);
   }
@@ -191,11 +191,11 @@ void TableVisualisation::handleChangedSelection(
          QItemSelection const& deselectedItems)
 {
 
-  for(QModelIndex index : selectedItems.indexes()) {
+  for(QModelIndex const index : selectedItems.indexes()) {
     dataObject().setSelected(d_guideMap[index.row()], true, false);
   }
 
-  for(QModelIndex index : deselectedItems.indexes()) {
+  for(QModelIndex const index : deselectedItems.indexes()) {
     dataObject().setSelected(d_guideMap[index.row()], false, false);
   }
 

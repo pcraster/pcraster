@@ -261,7 +261,7 @@ inline void BlockData<ValueType>::initVoxels(
 template<typename ValueType>
 inline void BlockData<ValueType>::createConnections()
 {
-  void (BlockData::*addVoxels)(size_t, size_t) = &BlockData::addVoxels;
+  void (BlockData::*const addVoxels)(size_t, size_t) = &BlockData::addVoxels;
 
   d_addVoxelsConnection = d_block->addVoxelsSignal().connect(
          boost::bind(addVoxels, this, boost::placeholders::_1, boost::placeholders::_2));

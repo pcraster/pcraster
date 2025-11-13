@@ -8,10 +8,10 @@ BOOST_AUTO_TEST_CASE(target)
 {
   using namespace geo;
 
-  RasterDim rd(3,3);
+  RasterDim const rd(3,3);
 
   // all NBS are inside grid
-  LinearLoc f=rd.convert(CellLoc(1,1));
+  LinearLoc const f=rd.convert(CellLoc(1,1));
   BOOST_CHECK(f==4);
 
 

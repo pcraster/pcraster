@@ -149,7 +149,7 @@ private:
          const IV& i)
   {
     IV *c=i.createClone();
-    std::pair<iterator,bool> p=
+    std::pair<iterator,bool> const p=
      this->insert(std::make_pair(c,T()));
     if (!p.second)
       delete c;
@@ -228,7 +228,7 @@ private:
   template<typename Iter,
            typename GetValueOp>
   Iter partition(Iter beginR, Iter endR, const_iterator i, GetValueOp op) const {
-     intervalMap::PartitionFO<IT> fo(i->first);
+     intervalMap::PartitionFO<IT> const fo(i->first);
      return std::partition(beginR,endR,boost::bind(fo,boost::bind(op,boost::placeholders::_1)));
   }
 
@@ -238,7 +238,7 @@ private:
   template<typename Iter,
            typename GetValueOp>
   Iter partitionOutside(Iter beginR, Iter endR, GetValueOp op) const {
-     NotInInterval nii(*this);
+     NotInInterval const nii(*this);
      return std::partition(beginR,endR,
            boost::bind(nii,boost::bind(op,boost::placeholders::_1)));
   }
@@ -401,7 +401,7 @@ private:
   template<typename Iter,
            typename GetValueOp>
   Iter partition(Iter beginR, Iter endR, const_iterator i, GetValueOp op) const {
-     intervalMap::PartitionFO<IT> fo(i->first);
+     intervalMap::PartitionFO<IT> const fo(i->first);
      return std::partition(beginR,endR,boost::bind(fo,boost::bind(op,boost::placeholders::_1)));
   }
 
@@ -411,7 +411,7 @@ private:
   template<typename Iter,
            typename GetValueOp>
   Iter partitionOutside(Iter beginR, Iter endR, GetValueOp op) const {
-     NotInInterval nii(*this);
+     NotInInterval const nii(*this);
      return std::partition(beginR,endR,
            boost::bind(nii,boost::bind(op,boost::placeholders::_1)));
   }

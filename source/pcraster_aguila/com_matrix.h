@@ -368,7 +368,7 @@ inline Matrix<T> Matrix<T>::identity(size_t nr)
   assert(nr > 0);
 
   // Create a matrix with all zero's.
-  Matrix<T> m(nr);
+  Matrix<T> const m(nr);
 
   // Set the diagonal elements to 1.
   for(size_t i = 0; i < m.d_nr; ++i)
@@ -529,7 +529,7 @@ inline void Matrix<T>::luDecompose(Matrix<T> &a, size_t *indx, double *d)
 {
   assert(a.d_nr == a.d_nc);
 
-  size_t n = a.d_nr;
+  size_t const n = a.d_nr;
   size_t i = 0;
   size_t j = 0;
   size_t k = 0;
@@ -625,7 +625,7 @@ inline void Matrix<T>::luSolve(const Matrix<T> &a, const size_t *indx,
 {
   assert(a.d_nr == a.d_nc);
 
-  size_t n = a.d_nr;
+  size_t const n = a.d_nr;
   size_t i = 0;
   size_t ii = 0;
   size_t ip = 0;
@@ -700,7 +700,7 @@ Matrix<T> operator*(const Matrix<T> &lhs, const Matrix<T> &rhs)
 {
   assert(lhs.d_nc == rhs.d_nr);
 
-  Matrix<T> m(lhs.d_nr, rhs.d_nc);
+  Matrix<T> const m(lhs.d_nr, rhs.d_nc);
   for(size_t i = 0; i < lhs.d_nr; ++i) {
     for(size_t k = 0; k < rhs.d_nc; ++k) {
       for(size_t j = 0; j < lhs.d_nc; ++j) {

@@ -114,7 +114,7 @@ namespace calc {
         //  0-9 implies a prefix l or expr argument
         if (!(c >= '0' && c <= '9'))
           throw com::Exception("Unknown path character");
-        size_t pos= c-'0';
+        size_t const pos= c-'0';
         auto *sl=dynamic_cast<ASTNodeList *>(d_node);
         if (sl) {
           auto i=sl->begin();

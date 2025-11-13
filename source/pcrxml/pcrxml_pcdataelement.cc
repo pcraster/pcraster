@@ -47,15 +47,15 @@ pcrxml::PCDATAElement::PCDATAElement(const QDomElement& n,
   n.normalize();
   */
 
-  QDomNodeList c(n.childNodes());
+  QDomNodeList const c(n.childNodes());
   for(size_t i=0; std::cmp_less(i , c.length()); ++i) {
    if (c.item(i).isCDATASection()) {
-     QDomCDATASection d(c.item(i).toCDATASection());
+     QDomCDATASection const d(c.item(i).toCDATASection());
      d_contents+= asString(d.data());
      continue;
    }
    if (c.item(i).isText()) {
-     QDomText d(c.item(i).toText());
+     QDomText const d(c.item(i).toText());
      d_contents+= asString(d.data());
      continue;
    }
@@ -87,7 +87,7 @@ pcrxml::PCDATAElement::~PCDATAElement()
 QDomNode pcrxml::PCDATAElement::contentsNode(const QDomNode& parent) const
 {
    QDomDocument doc(parent.ownerDocument());
-   QString c(asQString(d_contents));
+   QString const c(asQString(d_contents));
    POSTCOND(!doc.isNull());
 
    if (d_asCDATASection)

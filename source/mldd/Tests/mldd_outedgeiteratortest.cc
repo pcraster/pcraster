@@ -9,8 +9,8 @@ BOOST_AUTO_TEST_CASE(constructor)
   using namespace mldd;
 
  {
-  OutEdgeIterator begin(Vertex(1,1),0,0);
-  OutEdgeIterator end  (Vertex(1,1));
+  OutEdgeIterator const begin(Vertex(1,1),0,0);
+  OutEdgeIterator const end  (Vertex(1,1));
   size_t i=0;
   for(OutEdgeIterator oi=begin; oi!=end; ++oi) {
     i++;
@@ -18,11 +18,11 @@ BOOST_AUTO_TEST_CASE(constructor)
   BOOST_CHECK(!i);
  }
  {
-    OutEdgeIterator begin(Vertex(1,1),(1<<0)|(1<<6),0);
-    OutEdgeIterator end  (Vertex(1,1));
+    OutEdgeIterator const begin(Vertex(1,1),(1<<0)|(1<<6),0);
+    OutEdgeIterator const end  (Vertex(1,1));
     size_t i=0;
     for(OutEdgeIterator oi=begin; oi!=end; ++oi) {
-        Edge e=oi.edge();
+        Edge const e=oi.edge();
         BOOST_CHECK(e.source()==Vertex(1,1));
         switch (i) {
           case 0: BOOST_CHECK(e.target()==Vertex(2,0)); break;
@@ -33,11 +33,11 @@ BOOST_AUTO_TEST_CASE(constructor)
     BOOST_CHECK(i==2);
  }
  {
-    OutEdgeIterator begin(Vertex(1,1),(1<<0)|(1<<1),0);
-    OutEdgeIterator end  (Vertex(1,1));
+    OutEdgeIterator const begin(Vertex(1,1),(1<<0)|(1<<1),0);
+    OutEdgeIterator const end  (Vertex(1,1));
     size_t i=0;
     for(OutEdgeIterator oi=begin; oi!=end; ++oi) {
-        Edge e=oi.edge();
+        Edge const e=oi.edge();
         BOOST_CHECK(e.source()==Vertex(1,1));
         switch (i) {
           case 0: BOOST_CHECK(e.target()==Vertex(2,0)); break;
@@ -48,10 +48,10 @@ BOOST_AUTO_TEST_CASE(constructor)
     BOOST_CHECK(i==2);
  }
  { // any() must do the same
-    OutEdgeIterator begin(Vertex(1,1),(1<<0)|(1<<1),0);
+    OutEdgeIterator const begin(Vertex(1,1),(1<<0)|(1<<1),0);
     size_t i=0;
     for(OutEdgeIterator oi=begin; oi.any(); ++oi) {
-        Edge e=oi.edge();
+        Edge const e=oi.edge();
         BOOST_CHECK(e.source()==Vertex(1,1));
         switch (i) {
           case 0: BOOST_CHECK(e.target()==Vertex(2,0)); break;
@@ -62,13 +62,13 @@ BOOST_AUTO_TEST_CASE(constructor)
     BOOST_CHECK(i==2);
  }
  {
-    OutEdgeIterator begin(Vertex(1,1),0xFF,0);
-    OutEdgeIterator end  (Vertex(1,1));
+    OutEdgeIterator const begin(Vertex(1,1),0xFF,0);
+    OutEdgeIterator const end  (Vertex(1,1));
     size_t i=0;
     OutEdgeIterator oi=begin;
     for(    ; oi != end /* oi.any() */; ++oi) {
         i++;
-        Edge e=oi.edge();
+        Edge const e=oi.edge();
         BOOST_CHECK(e.source()==Vertex(1,1));
     }
     BOOST_CHECK(i==8);

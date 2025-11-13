@@ -9,7 +9,7 @@ bool calc::File::d_testCaseTypeOnExistingName=false;
  */
 void calc::File::validateOutputName() const
 {
-   com::PathInfo pi(d_name);
+   com::PathInfo const pi(d_name);
    pi.testValidName();
    pi.testOpenForWriting();
 }
@@ -22,7 +22,7 @@ void calc::File::validateOutputName() const
  */
 void calc::File::validateExisting() const
 {
-   com::PathInfo pi(d_name);
+   com::PathInfo const pi(d_name);
    if (d_testCaseTypeOnExistingName)
       pi.testCaseSensitiveName();
    else

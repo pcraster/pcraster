@@ -21,7 +21,7 @@ BOOST_AUTO_TEST_CASE(is_initialized)
   static int const argc = 1;
   static char const* argv[1] = { "/my/dir/test.exe" };
 
-  Client client(argc, const_cast<char**>(argv));
+  Client const client(argc, const_cast<char**>(argv));
 
   BOOST_CHECK(client.isInitialized());
 }

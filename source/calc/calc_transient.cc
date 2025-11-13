@@ -39,8 +39,8 @@ struct CalculationArgs {
 
 double calcElevation(const CalculationArgs& args)
 {
-  double f1 = (args.d_area * args.d_storageCoefficient) / args.d_interval;
-  double f2 = 1.0 / (f1 + args.d_nrCells * args.d_transmissivity *
+  double const f1 = (args.d_area * args.d_storageCoefficient) / args.d_interval;
+  double const f2 = 1.0 / (f1 + args.d_nrCells * args.d_transmissivity *
                    args.d_alpha);
 
   return f2 * (args.d_alpha * args.d_h2 + f1 * args.d_currentElevation +
@@ -678,8 +678,8 @@ extern "C" int  Transient(void** out, const void** in, int nrArgs)
   inputs.push_back(&toleranceInterface);
   PRECOND(inputs.size() == static_cast<size_t>(nrArgs));
 
-  size_t nrRows = elevation.nrRows();
-  size_t nrCols = elevation.nrCols();
+  size_t const nrRows = elevation.nrRows();
+  size_t const nrCols = elevation.nrCols();
   size_t r = 0;
   size_t c = 0;
   PRECOND(nrRows >= 2 && nrCols >= 2);
@@ -715,14 +715,14 @@ extern "C" int  Transient(void** out, const void** in, int nrArgs)
 
   // Inititalize...
   double oldValue = NAN;
-  double tolerance = toleranceInterface.value(0, 0);
+  double const tolerance = toleranceInterface.value(0, 0);
   double difference = NAN;
   double maxDifference = NAN;    // Current and max difference.
   // size_t nrIterations = 0;
 
   // yepyep: fieldapi::Common::cellLength();
   auto* map = static_cast<MAP_REAL8*>(out[0]);
-  double cellLength = map->CellLength(map);
+  double const cellLength = map->CellLength(map);
   PRECOND(cellLength > 0.0);
 
   // Result elevation is missing value if any of the inputs is MV.

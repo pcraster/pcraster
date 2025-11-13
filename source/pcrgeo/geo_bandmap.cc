@@ -81,7 +81,7 @@ geo::BandMap::BandMap(const com::PathName &pn,
   d_ulYMap(rs.top() -0.5*d_cellSize),
   d_mvIsSet(mvIsSet),d_mvValue(mvValue)
 {
-  bool supportedCellRepr=d_cellRepr==CR_UINT1||
+  bool const supportedCellRepr=d_cellRepr==CR_UINT1||
                          d_cellRepr==CR_INT2 ||
                          d_cellRepr==CR_REAL4 ;
 #ifdef DEBUG
@@ -140,7 +140,7 @@ template <>
                     const UINT1         *data,
                     UINT1                mvValue)
 {
-BandMap bm(pn,rs,CR_UINT1,true,mvValue);
+BandMap const bm(pn,rs,CR_UINT1,true,mvValue);
  // write all data
  bm.putCellsAsUINT1(data);
 }
@@ -150,7 +150,7 @@ template <>
                     const RasterSpace   &rs,
                     const UINT1         *data)
 {
- BandMap bm(pn,rs,CR_UINT1,false,0);
+ BandMap const bm(pn,rs,CR_UINT1,false,0);
  // write all data
  bm.putCellsAsUINT1(data);
 }
@@ -161,7 +161,7 @@ template <>
                     const INT4          *data,
                     INT4                 mvValue)
 {
- BandMap bm(pn,rs,CR_INT4,true,mvValue);
+ BandMap const bm(pn,rs,CR_INT4,true,mvValue);
  // write all data
  bm.putCellsAsINT4(data);
 }
@@ -172,7 +172,7 @@ template <>
      const RasterSpace   &rs,
      const INT4         *data)
 {
- BandMap bm(pn,rs,CR_INT4,false,0);
+ BandMap const bm(pn,rs,CR_INT4,false,0);
  // write all data
  bm.putCellsAsINT4(data);
 }
@@ -183,7 +183,7 @@ template <>
                     const REAL4          *data,
                     REAL4                 mvValue)
 {
- BandMap bm(pn,rs,CR_REAL4,true,mvValue);
+ BandMap const bm(pn,rs,CR_REAL4,true,mvValue);
  // write all data
  bm.putCellsAsREAL4(data);
 }
@@ -194,7 +194,7 @@ template <>
      const RasterSpace   &rs,
      const REAL4         *data)
 {
- BandMap bm(pn,rs,CR_REAL4,false,0);
+ BandMap const bm(pn,rs,CR_REAL4,false,0);
  // write all data
  bm.putCellsAsREAL4(data);
 }
@@ -242,7 +242,7 @@ void geo::BandMap::open(bool /*allowUpdate*/)
 {
   com::testOpenForReading(dataPathName());
 
-  com::PathName hdrPn(headerPathName());
+  com::PathName const hdrPn(headerPathName());
   std::ifstream hdrStream;
   com::open(hdrStream,hdrPn);
 
@@ -251,42 +251,42 @@ void geo::BandMap::open(bool /*allowUpdate*/)
   com::GreaterThan<double>  gt0(0);
   com::GreaterThanEqualTo<double>   ge0(0);
 
-  com::KeyValueInteger nrRows("NROWS",&gt0);
+  com::KeyValueInteger const nrRows("NROWS",&gt0);
   kvt.insertKey(nrRows,true);
 
-  com::KeyValueInteger nrCols("NCOLS",&gt0);
+  com::KeyValueInteger const nrCols("NCOLS",&gt0);
   kvt.insertKey(nrCols,true);
 
   com::KeyValueInteger nrBands("NBANDS");
   nrBands.setInterval(gt0);
   kvt.insertKey(nrBands);
 
-  com::KeyValueInteger nrBits("NBITS",&gt0);
+  com::KeyValueInteger const nrBits("NBITS",&gt0);
   kvt.insertKey(nrBits);
 
-  com::KeyValueInteger bandRowBytes("BANDROWBYTES",&gt0);
+  com::KeyValueInteger const bandRowBytes("BANDROWBYTES",&gt0);
   kvt.insertKey(bandRowBytes);
 
-  com::KeyValueInteger totalRowBytes("TOTALROWBYTES",&gt0);
+  com::KeyValueInteger const totalRowBytes("TOTALROWBYTES",&gt0);
   kvt.insertKey(totalRowBytes);
 
   // Only needed in BSQ
-  com::KeyValueInteger bandGapBytes("BANDGAPBYTES",&ge0);
+  com::KeyValueInteger const bandGapBytes("BANDGAPBYTES",&ge0);
   kvt.insertKey(bandGapBytes);
 
-  com::KeyValueInteger skipBytes("SKIPBYTES",&ge0);
+  com::KeyValueInteger const skipBytes("SKIPBYTES",&ge0);
   kvt.insertKey(skipBytes);
 
-  com::KeyValueDouble ulXMap("ULXMAP");
+  com::KeyValueDouble const ulXMap("ULXMAP");
   kvt.insertKey(ulXMap);
-  com::KeyValueDouble ulYMap("ULYMAP");
+  com::KeyValueDouble const ulYMap("ULYMAP");
   kvt.insertKey(ulYMap);
-  com::KeyValueDouble xDim("XDIM",&gt0);
+  com::KeyValueDouble const xDim("XDIM",&gt0);
   kvt.insertKey(xDim);
-  com::KeyValueDouble yDim("YDIM",&gt0);
+  com::KeyValueDouble const yDim("YDIM",&gt0);
   kvt.insertKey(yDim);
 
-  com::KeyValueDouble mv("NODATA");
+  com::KeyValueDouble const mv("NODATA");
   kvt.insertKey(mv);
 
   com::KeyValueEnum byteOrder("BYTEORDER");
@@ -343,13 +343,13 @@ void geo::BandMap::open(bool /*allowUpdate*/)
 
     skipBytes.setConditional(d_skipBytes,kvt);
 
-    size_t defaultBandRowBytes = d_nrCols*CELLSIZE(d_cellRepr);
+    size_t const defaultBandRowBytes = d_nrCols*CELLSIZE(d_cellRepr);
     d_bandRowBytes = defaultBandRowBytes;
     bandRowBytes.setConditional(d_bandRowBytes,kvt);
     if (d_bandRowBytes != defaultBandRowBytes)
            kvt.throwIllegalValue(bandRowBytes,"not supported");
 
-    size_t defaultTotalRowBytes = d_nrCols*CELLSIZE(d_cellRepr);
+    size_t const defaultTotalRowBytes = d_nrCols*CELLSIZE(d_cellRepr);
     d_totalRowBytes = defaultTotalRowBytes;
     totalRowBytes.setConditional(d_totalRowBytes,kvt);
     if (d_totalRowBytes != defaultTotalRowBytes)
@@ -382,7 +382,7 @@ void geo::BandMap::open(bool /*allowUpdate*/)
  */
 void geo::BandMap::writeHeader()
 {
-  com::PathName headerPn(headerPathName());
+  com::PathName const headerPn(headerPathName());
   std::ofstream str;
   com::open(str, headerPn);
 
@@ -442,7 +442,7 @@ geo::RasterSpace geo::BandMap::rasterSpace() const
  */
 void geo::BandMap::getCellsRaw(void *buf) const
 {
-    com::PathName dataPn(dataPathName());
+    com::PathName const dataPn(dataPathName());
     std::ifstream stream;
     com::open(stream, dataPn, std::ios::binary);
 
@@ -454,8 +454,8 @@ void geo::BandMap::getCellsRaw(void *buf) const
     } else {
       // default to 1st band
       // all in byte units
-      size_t rowLen(CSFSIZEOF(nrCols(),d_cellRepr));
-      size_t skipAfterRow=rowLen*(d_nrBands-1);
+      size_t const rowLen(CSFSIZEOF(nrCols(),d_cellRepr));
+      size_t const skipAfterRow=rowLen*(d_nrBands-1);
       char   *ptr=(char *)buf;
       for(size_t r=0; r < nrRows(); r++) {
        stream.read(ptr, rowLen);
@@ -494,7 +494,7 @@ void geo::BandMap::getCellsAsUINT1(UINT1 *buf) const
 
   if (mvIsSet() && com::isUINT1(d_mvValue)) {
     // there is a mv and it is a valid range UINT1
-    pcr::AlterToStdMV<UINT1>tsm((UINT1)d_mvValue);
+    pcr::AlterToStdMV<UINT1>const tsm((UINT1)d_mvValue);
     std::for_each(buf,buf+nrCells(),tsm);
   }
 }
@@ -514,7 +514,7 @@ void geo::BandMap::getCellsAsINT4(INT4 *buf) const
     getCellsRaw(b2);
 
     if (mvIsSet() && com::isINT2(d_mvValue)) {
-      pcr::AlterToStdMV<INT2>tsm((INT2)d_mvValue);
+      pcr::AlterToStdMV<INT2>const tsm((INT2)d_mvValue);
       std::for_each(b2,b2+nrCells(),tsm);
     }
     // copy with MV transformation
@@ -537,7 +537,7 @@ void geo::BandMap::getCellsAsREAL4(REAL4 *buf) const
     getCellsRaw(b2);
 
     if (mvIsSet() && com::isINT2(d_mvValue)) {
-      pcr::AlterToStdMV<INT2>tsm((INT2)d_mvValue);
+      pcr::AlterToStdMV<INT2>const tsm((INT2)d_mvValue);
       std::for_each(b2,b2+nrCells(),tsm);
     }
     // copy with MV transformation
@@ -547,7 +547,7 @@ void geo::BandMap::getCellsAsREAL4(REAL4 *buf) const
    case CR_REAL4:
     getCellsRaw(buf);
     if (mvIsSet()) { // assuming everything is a valid REAL4
-      pcr::AlterToStdMV<REAL4>tsm((REAL4)d_mvValue);
+      pcr::AlterToStdMV<REAL4>const tsm((REAL4)d_mvValue);
       std::for_each(buf,buf+nrCells(),tsm);
     } break;
    default:
@@ -563,12 +563,12 @@ void geo::BandMap::getCellsAsREAL4(REAL4 *buf) const
 */
 void geo::BandMap::putCellsRaw(const void *buf) const
 {
-  com::PathName dataPn(dataPathName());
+  com::PathName const dataPn(dataPathName());
   std::ofstream stream;
   com::open(stream, dataPn, std::ios::binary);
 
   // write empty header
-  char filler=0;
+  char const filler=0;
   for(size_t i=0; i < d_skipBytes; i++)
     stream.write(&filler, 1);
 
@@ -602,7 +602,7 @@ void geo::BandMap::putCellsRaw(const void *buf) const
     default:;
   }
 
-  com::PathName stxPn(stxPathName());
+  com::PathName const stxPn(stxPathName());
   std::ofstream stx;
   com::open(stx, stxPn);
   stx << "1 " << minV << " " << maxV << "\n";

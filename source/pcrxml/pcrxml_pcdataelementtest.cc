@@ -45,7 +45,7 @@ BOOST_AUTO_TEST_CASE(test)
       return s->contents() == expected(); // "x bla bla x";
     }
     bool testCDATA() const {
-     DomDiff diff(contentsAsString(cdataDoc),
+     DomDiff const diff(contentsAsString(cdataDoc),
      "<?xml version='1.0' encoding='ISO-8859-1' standalone='yes'?>"
      "<!DOCTYPE dataEnvelop PUBLIC '-//PCRaster//Generic' 'pcraster.dtd'>"
      "<dataEnvelop encoding='text' xmlns='http://www.pcraster.nl/xml'>"
@@ -53,7 +53,7 @@ BOOST_AUTO_TEST_CASE(test)
      return diff.equal(false);
     }
     bool testText() const {
-     DomDiff diff(contentsAsString(textDoc),
+     DomDiff const diff(contentsAsString(textDoc),
      "<?xml version='1.0' encoding='ISO-8859-1' standalone='yes'?>"
      "<!DOCTYPE dataEnvelop PUBLIC '-//PCRaster//Generic' 'pcraster.dtd'>"
      "<dataEnvelop encoding='text' xmlns='http://www.pcraster.nl/xml'>"

@@ -85,13 +85,13 @@ int com::spawn(const char *exeName, const char **args)
     _exit(-1);
   }
 #endif
-  int result = posix_spawn(&pid, exeName, nullptr, &attr, (char *  const *) args, nullptr);
+  int const result = posix_spawn(&pid, exeName, nullptr, &attr, (char *  const *) args, nullptr);
   if(result != 0){
     _exit(-1);
   }
 
   int status = 0;
-  int exitCode = waitpid(pid, &status, WUNTRACED);
+  int const exitCode = waitpid(pid, &status, WUNTRACED);
   if (exitCode==-1) {
     //  std::cout << " execvp FAILURE REASON " << strerror(errno)
     //          << std::endl;
@@ -117,6 +117,6 @@ int com::spawn(const std::string& exeName,
 {
   PRECOND(otherArgs.find("\"") == std::string::npos);
   PRECOND(otherArgs.find("\'") == std::string::npos);
-  AppArgs a(exeName,otherArgs);
+  AppArgs const a(exeName,otherArgs);
   return spawn((const char *)a.argv()[0],(const char **)a.argv());
 }

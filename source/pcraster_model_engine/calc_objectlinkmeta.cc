@@ -103,7 +103,7 @@ void calc::ObjectLinkMeta::pushBack(
   add(methodName);
   auto pos=d_methods.find(methodName);
   POSTCOND(pos!=d_methods.end());
-  OP_ARGS a = { vs, st};
+  OP_ARGS const a = { vs, st};
   if (result)
     pos->second.d_result.push_back(a);
   else

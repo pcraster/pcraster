@@ -72,7 +72,7 @@ Table::Table(
 
       if(!std::get<1>(tuple).empty()) {
           if(std::get<1>(tuple).size() != 2) {
-              std::string message = std::format(
+              std::string const message = std::format(
                    "Selection specification of {0} ({1}): "
                    "Must contain two indices.\n",
                    this->name(),
@@ -88,7 +88,7 @@ Table::Table(
               if(selectedTimeCol == 0 || selectedTimeCol > table->nrCols() ||
                       selectedAttrCol == 0 ||
                       selectedAttrCol > table->nrCols()) {
-                  std::string message = std::format(
+                  std::string const message = std::format(
                        "Selection specification of {0} ({1}): "
                        "Indices must be in range [1, {2}].\n",
                        this->name(),
@@ -127,7 +127,7 @@ Table::Table(
   assert(d_attrCol != d_timeCol);
 
   if(d_attrCol == d_timeCol) {
-      std::string message = std::format(
+      std::string const message = std::format(
            "Attribute column {0} from {1} ({2}): Same as time column.\n"
            "Use a different column as attribute column",
            (d_attrCol + 1),
@@ -141,7 +141,7 @@ Table::Table(
   // if(!dal::isUnsignedInteger(table->typeId(d_timeCol))) {
   //        "Valid types are unsigned integral types")
   if(!dal::isInteger(table->typeId(d_timeCol))) {
-    std::string message = std::format(
+    std::string const message = std::format(
          "Time column {0} from {1} ({2}): Values have type {3}.\n"
          "Valid types are integer types",
          (d_timeCol + 1),
@@ -152,7 +152,7 @@ Table::Table(
   }
 
   if(!dal::isNumeric(table->typeId(d_attrCol))) {
-    std::string message = std::format(
+    std::string const message = std::format(
          "Attribute column {0} from {1} ({2}): Values have type {3}.\n"
          "Valid types are numerical types",
          (d_attrCol + 1),
@@ -206,7 +206,7 @@ void Table::read(
 {
   assert(d_table);
 
-  dal::DataSpaceAddress localAddress(this->localAddress(space, address));
+  dal::DataSpaceAddress const localAddress(this->localAddress(space, address));
 
   assert(dataSource().dataSpace().rank() == localAddress.size());
 
@@ -235,13 +235,13 @@ void Table::read(
       dataSource().read(*d_table, localAddress);
 
       // Translate time steps in local coordinates to global coordinates.
-      size_t id = dataSource().dataSpace().indexOf(dal::Time);
+      size_t const id = dataSource().dataSpace().indexOf(dal::Time);
       auto const* mapper =
          dynamic_cast<dal::StepCoordinateMapper const*>(
          globalToLocalMapper().mapper(id));
 
       if(mapper) {
-        double timeStepOffset = mapper->source(1.0) - 1.0;
+        double const timeStepOffset = mapper->source(1.0) - 1.0;
         assert(dal::greaterOrComparable(timeStepOffset, 0.0));
         assert(dal::comparable(std::fmod(timeStepOffset, 1.0), 0.0));
 
@@ -348,7 +348,7 @@ bool Table::value<std::string>(
          dal::DataSpace const& space,
          dal::DataSpaceAddress const& address) const
 {
-  dal::DataSpaceAddress trimmedAddress = dataSource().dataSpace().trim(
+  dal::DataSpaceAddress const trimmedAddress = dataSource().dataSpace().trim(
          space, address);
   result = "TODO";
   // dataSource().read(result, trimmedAddress);

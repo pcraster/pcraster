@@ -66,7 +66,7 @@ SaveViewAsDialog::SaveViewAsDialog(
     d_ui.d_formatCombo->insertItem(i, d_formats[i].description().c_str());
   }
 
-  size_t index = d_space.indexOf(dal::Time);
+  size_t const index = d_space.indexOf(dal::Time);
   d_ui.d_allTimeStepsRadioButton->setEnabled(index < d_space.rank() &&
        d_space.dimension(index).isWide());
 
@@ -187,7 +187,7 @@ void SaveViewAsDialog::accept()
 
 void SaveViewAsDialog::browse()
 {
-  std::string name = qt::getOpenFileName(d_formats, this, nullptr);
+  std::string const name = qt::getOpenFileName(d_formats, this, nullptr);
 
   if(!name.empty()) {
     d_ui.d_nameEdit->setText(QString(name.c_str()));

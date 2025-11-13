@@ -34,7 +34,7 @@ calc::CsfMap::~CsfMap()
 
 void calc::CsfMap::readInBuffer(VS readAs, void *val)
 {
-  size_t len = nrCells();
+  size_t const len = nrCells();
   if (!val)
   switch(bytesPerCell(vs())) {
    case 1: val = new UINT1[len]; break;

@@ -258,7 +258,7 @@ void DataProperties::addGeometryDataProperties(
          DataGuide const& guide)
 {
   if(!hasCommonDataPropertiesFor(guide)) {
-    std::string title = dataObject.name(guide);
+    std::string const title = dataObject.name(guide);
 
     /// FEATURE fix palette.
     _data->_geometryDrawProperties[guide] = new DrawProps(title,
@@ -293,7 +293,7 @@ void DataProperties::addScalarTimeSeriesProperties(
   if(!hasCommonDataPropertiesFor(guide)) {
 
     Table const& table = dataObject.tableDataSources().data(guide);
-    std::string title = dataObject.name(guide);
+    std::string const title = dataObject.name(guide);
 
     assert(table.nrCols() >= 2);
 
@@ -544,7 +544,7 @@ void DataProperties::addScalarStackProperties(
                      _data->_rangeDrawProperties.end());
 
     Raster const& raster = dataObject.rasterDataSources().data(guide);
-    std::string title = dataObject.name(guide);
+    std::string const title = dataObject.name(guide);
 
     auto* classifier = new com::Classifier();
     _data->_rangeClassifiers.push_back(classifier);
@@ -582,7 +582,7 @@ void DataProperties::addDirectionalStackProperties(
                      _data->_rangeDrawProperties.end());
 
     Raster const& raster = dataObject.rasterDataSources().data(guide);
-    std::string title = dataObject.name(guide);
+    std::string const title = dataObject.name(guide);
 
     auto* displayValueClassifier = new com::Classifier();
     _data->_rangeClassifiers.push_back(displayValueClassifier);
@@ -643,7 +643,7 @@ void DataProperties::addLddStackProperties(
                      _data->_lddDrawProperties.end());
 
     // Raster const& raster = dataObject.rasterDataSources().data(guide);
-    std::string title = dataObject.name(guide);
+    std::string const title = dataObject.name(guide);
 
     auto* classifier = new com_ClassClassifier<UINT1>();
     _data->_lddClassifiers.push_back(classifier);
@@ -685,7 +685,7 @@ void DataProperties::addBooleanFeatureProperties(
 
     /// FeatureLayer const& layer = dataObject.featureDataSources().data(guide);
 
-    std::string title;
+    std::string const title;
 
     // Classifier.
     auto* classifier = new com_ClassClassifier<UINT1>();
@@ -752,7 +752,7 @@ void DataProperties::addNominalFeatureProperties(
            new com_ClassClassifier<INT4>();
     _data->_nominalClassifiers.push_back(classifier);
 
-    std::string title;
+    std::string const title;
 
     /// FEATURE
     /// // Use legend if present.
@@ -855,7 +855,7 @@ void DataProperties::addScalarFeatureProperties(
 
     FeatureLayer const& layer = dataObject.featureDataSources().data(guide);
 
-    std::string title = dataObject.name(guide);
+    std::string const title = dataObject.name(guide);
 
     auto* classifier = new com::Classifier();
     _data->_rangeClassifiers.push_back(classifier);
@@ -894,7 +894,7 @@ void DataProperties::addVectorProperties(
          _data->_rangeDrawProperties.end());
 
     Vector const& vector = dataObject.vectorDataSources().data(guide);
-    std::string title = dataObject.name(guide);
+    std::string const title = dataObject.name(guide);
 
     auto* classifier = new com::Classifier();
     _data->_rangeClassifiers.push_back(classifier);
@@ -930,7 +930,7 @@ void DataProperties::remove(
 {
   assert(hasCommonDataPropertiesFor(guide));
 
-  size_t i = index(guide);
+  size_t const i = index(guide);
 
   delete _data->_dataProperties[i];
   _data->_guides.erase(_data->_guides.begin() + i);
@@ -2723,7 +2723,7 @@ void DataProperties::pushClassifier(
   _data->_rangeClassifiers.push_back(raw);
   com::Classifier* display = nullptr;
 
-  RangeDrawProps::ClassifierTuple tuple(raw, display);
+  RangeDrawProps::ClassifierTuple const tuple(raw, display);
   properties.classifiers().push_back(tuple);
   properties.classify();
 }

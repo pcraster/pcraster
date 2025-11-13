@@ -93,7 +93,7 @@ public:
 
   std::string writeStep(const Field* f, size_t timeStep) override {
     std::string fileName(d_fios.makeStackItemName(d_stackInfo.stackName(),timeStep));
-    GridStat s= d_fios.writeField(fileName,f);
+    GridStat const s= d_fios.writeField(fileName,f);
     d_stackInfo.merge(s);
     return fileName;
   }
@@ -282,7 +282,7 @@ calc::FieldWriter *calc::IOStrategy::createFieldWriter(
 
 
  PRECOND(!s.dataType().stEither());
- bool spatial=s.dataType().stSpatial();
+ bool const spatial=s.dataType().stSpatial();
  if (s.reportPosition()==RPInitial) {
       return new StaticWriter(s,*this);
  } else {

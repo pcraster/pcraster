@@ -157,7 +157,7 @@ void calc::Options::processArgs(
                  break;
       case 'r' : setRunDirectory((const char *)OptArg); break;
       case 's' : {
-                  int seed = *(const int *)OptArg;
+                  int const seed = *(const int *)OptArg;
                   if (seed <= 0) { // args/test26
                     std::ostringstream s;
                     s << "-s seed must be > 0 (not '" << seed << "')";
@@ -223,7 +223,7 @@ void calc::Options::processCmdLineOptions(int   argc, char**argv)
 
 void calc::Options::processOptionString(const std::string& argsExclArg0)
 {
-  com::AppArgs args("PCRasterModelEngine",argsExclArg0);
+  com::AppArgs const args("PCRasterModelEngine",argsExclArg0);
   processArgs(args.argc(), args.argv());
 }
 

@@ -37,7 +37,7 @@ namespace calc {
   VS EsriStackReader::checkItem(size_t t, [[maybe_unused]] VS expectVsSet) const
   {
     PRECOND(expectVsSet != VS_UNKNOWN);
-    EsriMap map(itemName(t));
+    EsriMap const map(itemName(t));
 
     checkClone(t);
 
@@ -81,7 +81,7 @@ calc::IoFieldStrategy* calc::IoEsriFieldStrategy::checkInputMap(
     const std::string &fName)
 {
   try {
-   EsriMap grid(fName);
+   EsriMap const grid(fName);
    // always prefer an esri grid prj file
    if (grid.prjFile().size())
        d_prjFile=grid.prjFile();
@@ -111,7 +111,7 @@ const calc::StackReader* calc::IoEsriFieldStrategy::createStackReader(
     const RunDirectory& rd,
     const std::string& stackName)
 {
-  std::string item1(pathTimestep1(rd,stackName));
+  std::string const item1(pathTimestep1(rd,stackName));
   if (EsriMap::exists(item1)) {
      // 1st item is a subdir
      com::PathName pn(item1);
@@ -127,8 +127,8 @@ const calc::StackReader* calc::IoEsriFieldStrategy::createStackReader(
  */
 void calc::IoEsriFieldStrategy::checkClone(const std::string& mapFileName)
 {
-    calc::EsriMap map(mapFileName);
-    geo::RasterSpace mapRs(
+    calc::EsriMap const map(mapFileName);
+    geo::RasterSpace const mapRs(
         map.nrRows(),
         map.nrCols(),
         map.cellSize(),
@@ -197,7 +197,7 @@ calc::GridMap *calc::IoEsriFieldStrategy::createMap(
 */
 void calc::IoEsriFieldStrategy::removeOutputObject(const std::string& objName) const
 {
-  com::PathInfo path(objName);
+  com::PathInfo const path(objName);
   if (!path.exists())
     return; // nothing to clean
   if (!path.isDirectory()) {
@@ -217,8 +217,8 @@ void calc::IoEsriFieldStrategy::removeOutputObject(const std::string& objName) c
   namespace fs = std::filesystem;
   bool isAStack = true;
   fs::path infoDir;
-  fs::path stack(path.pathName().path());
-  fs::directory_iterator end_iter;
+  fs::path const stack(path.pathName().path());
+  fs::directory_iterator const end_iter;
   for (fs::directory_iterator f(stack); f != end_iter && isAStack; ++f) {
      // expect only pcr_esri, info and numeric
      // file names
@@ -264,7 +264,7 @@ static void createDir(
   const com::PathName& fName)
 {
   try {
-    com::PathInfo  p(fName);
+    com::PathInfo  const p(fName);
     if (p.isFile()) // esrigrid/test23
       com::remove(fName);
     com::createDirectory(fName);
@@ -324,7 +324,7 @@ void calc::IoEsriFieldStrategy::setStackInfo(const StackInfo& s) const
 void calc::IoEsriFieldStrategy::validateFileName(
     const std::string& fileName) const
 {
-   size_t len=fileName.size();
+   size_t const len=fileName.size();
 // MODELBUILDER FF uit eigenlijk baseName alleen te lang
    if (len >= 14) // esrigrid/test5a
     throw  com::Exception("ESRI grid name too long, max. is 13 characters");
@@ -389,8 +389,8 @@ extern "C" PCR_DLL_FUNC(int) pcrReadEsriDirectoryStackInfo(
   try {
     com::PathName pn(dirName);
     pn+="pcr_esri";
-    pcrxml::Document dc(pn);
-    pcrxml::DirectoryStackInfo d(dc.documentElement());
+    pcrxml::Document const dc(pn);
+    pcrxml::DirectoryStackInfo const d(dc.documentElement());
 
     *allMissingValue=0; // FALSE;
     if (d.allMissingValue.present())

@@ -130,9 +130,9 @@ void geo::RiksNeighbourhood::init()
 
   // Determine the radiusses of the Riks neighbourhoods of which the selected
   // cells are part.
-  double fromRadius = std::hypot<double>(
+  double const fromRadius = std::hypot<double>(
          std::get<0>(fromCircleCell), std::get<1>(fromCircleCell));
-  double toRadius = std::hypot<double>(
+  double const toRadius = std::hypot<double>(
          std::get<0>(toCircleCell), std::get<1>(toCircleCell));
 
   // Make sure the current set radius is equal of larger than the selected one.
@@ -140,10 +140,10 @@ void geo::RiksNeighbourhood::init()
 
   // Determine which cells are part of the Riks neighbourhood with the
   // selected radius.
-  size_t offset = radius();
+  size_t const offset = radius();
   for(size_t row = 0; row <= radius(); ++row) {
     for(size_t col = 0; col <= radius(); ++col) {
-      double radius = std::hypot<double>(row, col);
+      double const radius = std::hypot<double>(row, col);
       if((radius > fromRadius && radius < toRadius) ||
           com::equal_epsilon(radius, fromRadius) ||
           com::equal_epsilon(radius, toRadius)) {

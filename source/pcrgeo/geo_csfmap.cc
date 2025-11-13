@@ -126,7 +126,7 @@ geo::CSFMap::CSFMap(const com::PathName& name,const geo::RasterSpace& rs,
 geo::CSFMap::CSFMap(const std::string& name,const CSFMap& clone,
       CSF_VS vs, CSF_CR cr): d_fn(name), d_map(nullptr)
 {
-  RasterSpace rs(clone.rasterSpace());
+  RasterSpace const rs(clone.rasterSpace());
   create(rs.nrRows(), rs.nrCols(), vs,
     geoProjToCsf(rs.projection()), rs.left(), rs.top(), rs.angle(),
   rs.cellSize(),cr);
@@ -159,7 +159,7 @@ void geo::CSFMap::open(bool allowUpdate)
 #ifdef DEBUG_DEVELOP
   PRECOND(!d_map);
 #endif
-  MOPEN_PERM p = allowUpdate ? M_READ_WRITE : M_READ;
+  MOPEN_PERM const p = allowUpdate ? M_READ_WRITE : M_READ;
   /* CW Note: the other M_WRITE (write only is an historical artifact)
    *       I have not seen any use of it
    */
@@ -460,7 +460,7 @@ void geo::CSFMap::putCells(size_t offset, size_t nrCells, const void* buffer)
  */
 void geo::CSFMap::putNonSpatial(const void *buf)
 {
-  size_t n= nrCells();
+  size_t const n= nrCells();
   for(size_t i=0; i < n; i++)
    if (RputSomeCells(d_map,i,1, const_cast<void *>(buf)) != 1)
           throwFileError("error writing cells", false);
@@ -515,9 +515,9 @@ bool geo::CSFMap::max(void *m) const
 bool geo::CSFMap::getMinMax(double &min, double& max) const
 {
   // save current
-  CSF_CR currCr= RgetUseCellRepr(d_map);
+  CSF_CR const currCr= RgetUseCellRepr(d_map);
   RuseAs(d_map, CR_REAL8);
-  bool minMaxSet = (RgetMinVal(d_map, &min) != 0)
+  bool const minMaxSet = (RgetMinVal(d_map, &min) != 0)
                  & (RgetMaxVal(d_map, &max) != 0);
               // YES, bitwise &,eval both, do not shortcut
   // set to saved
@@ -533,7 +533,7 @@ void geo::CSFMap::setMinMax(double min, double max)
 {
   PRECOND(MopenPerm(d_map) != M_READ);
   // save current
-  CSF_CR currCr= RgetUseCellRepr(d_map);
+  CSF_CR const currCr= RgetUseCellRepr(d_map);
 
   RuseAs(d_map, CR_REAL8);
   RputMinVal(d_map, &min);
@@ -597,7 +597,7 @@ com::Legend<INT4> geo::CSFMap::legend() const
     CSF_LEGEND *l = nullptr;
 
     try {
-      size_t n = nrLegendEntries();
+      size_t const n = nrLegendEntries();
       PRECOND(n > 0);
       l = static_cast<CSF_LEGEND *>(new CSF_LEGEND[n]);
 

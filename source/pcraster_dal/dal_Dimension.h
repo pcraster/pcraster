@@ -576,8 +576,8 @@ inline size_t Dimension::indexOf(
     }
   }
   else {
-    float first = this->value<float>(0);
-    float interval = this->value<float>(2);
+    float const first = this->value<float>(0);
+    float const interval = this->value<float>(2);
     result = round<float, size_t>((value - first) / interval);
   }
 

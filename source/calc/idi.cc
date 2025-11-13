@@ -17,7 +17,7 @@ static double interpolateNoSort(
        const Point& c)
 {
   // see PAB
-  size_t nrPoints=points.size();
+  size_t const nrPoints=points.size();
   geo::ComputeValue<Point> cv(c,idp);
   for(size_t i=0; i < nrPoints; i++) {
    if (points[i].isThisLocation(c)) // on exact location
@@ -56,7 +56,7 @@ extern "C" int Idi(
      if ( input.get(inpVal, *c))
       points.push_back(geo::IdiPoint<geo::CellLoc>(*c,inpVal));
   }
-  size_t nrPoints = points.size();
+  size_t const nrPoints = points.size();
 
   // if no points at all then all MV
   if (!nrPoints) {
@@ -69,12 +69,12 @@ extern "C" int Idi(
   // try interpolation with all points, no sorting
   // required; do not use a radius or maxNr of points
   if ( (!maxNr.spatial()) && (!radius.spatial())) {
-      double radVal=radius.value(0,0);
-      double v=maxNr.value(0,0);
+      double const radVal=radius.value(0,0);
+      double const v=maxNr.value(0,0);
       auto maxNrP = static_cast<size_t>(v <= 0 ? 0 : v);
 
      if ( (!maxNrP) && (radVal <= 0)) {
-       com::auto_array_ptr<double>dist(new double[nrPoints]);
+       com::auto_array_ptr<double>const dist(new double[nrPoints]);
        // both 0 means interpolate on all
        for(geo::CellLocVisitor c(mask); c.valid(); ++c) {
          UINT1 maskVal = 0;

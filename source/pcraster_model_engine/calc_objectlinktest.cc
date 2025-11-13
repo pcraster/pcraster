@@ -75,7 +75,7 @@ BOOST_AUTO_TEST_CASE(testLoadLink)
 {
   using namespace calc;
 
-  ObjectLinkMeta olm=getMeta();
+  ObjectLinkMeta const olm=getMeta();
 
   BOOST_CHECK( olm.className()=="CalcLibDemoObjectLink");
   ObjectLinkMeta::MethodMap::const_iterator pos;
@@ -127,7 +127,7 @@ BOOST_AUTO_TEST_CASE(testExec)
 {
   using namespace calc;
 
- RunTimeEnv      rte(geo::RasterSpace(1,3));
+ RunTimeEnv      const rte(geo::RasterSpace(1,3));
  // test only the calls discarding RunTimeEnv info
  BOOST_CHECK(execCallMarker==0);
 
@@ -160,7 +160,7 @@ BOOST_AUTO_TEST_CASE(testExec)
    demIn[0]= 20;
    f.push_back(new Spatial(VS_S,demIn,3)); // dems 1
 
-   UINT1 l(5);
+   UINT1 const l(5);
    f.push_back(new NonSpatial(VS_L,l));    // bool arg
    BOOST_CHECK(f.back()->cri() == CRI_1);
    t->exec1("testOrder",f);
@@ -175,7 +175,7 @@ BOOST_AUTO_TEST_CASE(testExec)
  bool catched=false;
  // unknown method
  try {
-  std::vector<Field *> f;
+  std::vector<Field *> const f;
   t->exec1("failureExpected",f);
  } catch(const ObjectLink::UnknownMethod& ) {
    catched=true;
@@ -185,7 +185,7 @@ BOOST_AUTO_TEST_CASE(testExec)
  catched=false;
  // not enough arguments
  try {
-  std::vector<Field *> f;
+  std::vector<Field *> const f;
   t->exec1("testOrder",f);
  } catch(const std::out_of_range&) {
    catched=true;
@@ -298,7 +298,7 @@ BOOST_CHECK(e.messages().find(
    demIn[0]= 20;
    rte.pushField(new Spatial(VS_S,demIn,3)); // dems 1
 
-   UINT1 l(5);
+   UINT1 const l(5);
    rte.pushField(new NonSpatial(VS_L,l));    // bool arg
 
    o=globalOperations["CalcLibDemoObjectLink::testOrder"];
@@ -323,7 +323,7 @@ BOOST_CHECK(e.messages().find(
    demIn[0]= 20;
    rte.pushField(new Spatial(VS_S,demIn,3)); // dems 1
 
-   UINT1 l(5);
+   UINT1 const l(5);
    rte.pushField(new NonSpatial(VS_L,l));    // bool arg
 
    o=globalOperations["CalcLibDemoObjectLink::testOrder2"];

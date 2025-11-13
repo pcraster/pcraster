@@ -284,7 +284,7 @@ PCR_DAL_DECL std::filesystem::path timeStepPath83(
          std::string filename,
          size_t timeStep)
 {
-  size_t lastPoint = filename.find_last_of('.');
+  size_t const lastPoint = filename.find_last_of('.');
 
   // CW: this is a hack, feature if a calc script
   // CW: has a dynamic report of 8+3 length then at
@@ -344,7 +344,7 @@ PCR_DAL_DECL std::filesystem::path timeStepPathNewStyle(
   */
 
 
-  size_t lastPoint = filename.find_last_of('.');
+  size_t const lastPoint = filename.find_last_of('.');
 
   if(lastPoint == std::string::npos) {
     // No extension present.
@@ -415,8 +415,8 @@ PCR_DAL_DECL std::filesystem::path timeStepPath83(
          size_t timeStep)
 {
   // Split filename from the parent path.
-  std::string parent = path.parent_path().string();
-  std::string filename = path.filename().string();
+  std::string const parent = path.parent_path().string();
+  std::string const filename = path.filename().string();
 
   return timeStepPath83(parent, filename, timeStep);
 }
@@ -429,8 +429,8 @@ PCR_DAL_DECL std::filesystem::path timeStepPath(
          FilenameConvention convention)
 {
   // Split filename from the parent path.
-  std::string parent = path.parent_path().string();
-  std::string filename = path.filename().string();
+  std::string const parent = path.parent_path().string();
+  std::string const filename = path.filename().string();
 
   return timeStepPath(parent, filename, timeStep, convention);
 }
@@ -451,7 +451,7 @@ PCR_DAL_DECL std::filesystem::path timeStepPath(
          boost::gregorian::date const& date,
          FilenameConvention convention)
 {
-  size_t dateNr = static_cast<size_t>(std::strtol(
+  size_t const dateNr = static_cast<size_t>(std::strtol(
          boost::gregorian::to_iso_string(date).c_str(), nullptr, 10));
   return timeStepPath(path, dateNr, convention);
 }
@@ -543,7 +543,7 @@ oldStackName2NameSpaceTuple(
   DataSpace space;
 
   try {
-    StackInfo info(name, false);
+    StackInfo const info(name, false);
 
     if(info.isDynamic()) {
       std::vector<size_t> timeSteps;
@@ -588,30 +588,30 @@ PCR_DAL_DECL std::filesystem::path pathForDataSpaceAddress(
 {
   assert(!name.empty());
 
-  size_t scenariosIndex = space.indexOf(Scenarios);
-  size_t cumProbIndex   = space.indexOf(CumulativeProbabilities);
-  size_t samplesIndex   = space.indexOf(Samples);
-  size_t timeIndex      = space.indexOf(Time);
+  size_t const scenariosIndex = space.indexOf(Scenarios);
+  size_t const cumProbIndex   = space.indexOf(CumulativeProbabilities);
+  size_t const samplesIndex   = space.indexOf(Samples);
+  size_t const timeIndex      = space.indexOf(Time);
 
-  bool hasScenarioName = scenariosIndex < space.rank() &&
+  bool const hasScenarioName = scenariosIndex < space.rank() &&
          address.isValid(scenariosIndex);
-  bool hasQuantile = cumProbIndex < space.rank() &&
+  bool const hasQuantile = cumProbIndex < space.rank() &&
          address.isValid(cumProbIndex);
-  bool hasSampleNumber = samplesIndex < space.rank() &&
+  bool const hasSampleNumber = samplesIndex < space.rank() &&
          address.isValid(samplesIndex);
-  bool hasTimeStep = timeIndex < space.rank() &&
+  bool const hasTimeStep = timeIndex < space.rank() &&
          address.isValid(timeIndex);
 
-  std::string scenarioName = hasScenarioName
+  std::string const scenarioName = hasScenarioName
          ? address.coordinate<std::string>(scenariosIndex)
          : "";
-  float quantile = hasQuantile
+  float const quantile = hasQuantile
          ? address.coordinate<float>(cumProbIndex)
          : -1.0f;
-  size_t sampleNumber = hasSampleNumber
+  size_t const sampleNumber = hasSampleNumber
          ? address.coordinate<size_t>(samplesIndex)
          : 0;
-  size_t timeStep = hasTimeStep
+  size_t const timeStep = hasTimeStep
          ? address.coordinate<size_t>(timeIndex)
          : 0;
 
@@ -835,7 +835,7 @@ std::filesystem::path pathForScenario(
          std::string const& scenarioName,
          FilenameConvention /* convention */)
 {
-  std::filesystem::path path(name);
+  std::filesystem::path const path(name);
 
   return path.parent_path() / pathFor(scenarioName) / pathFor(path.filename().string());
 }
@@ -895,7 +895,7 @@ std::filesystem::path pathForQuantile(
   testPathnameIsEmpty(name);
 
   std::filesystem::path result;
-  size_t lastPoint = name.find_last_of('.');
+  size_t const lastPoint = name.find_last_of('.');
 
   if(lastPoint == std::string::npos) {
     // No extension present.
@@ -934,7 +934,7 @@ std::filesystem::path pathForSample(
          size_t sampleNumber,
          FilenameConvention /* convention */)
 {
-  std::filesystem::path path(name);
+  std::filesystem::path const path(name);
 
   return path.parent_path() /
          std::to_string(sampleNumber) /
@@ -991,7 +991,7 @@ std::filesystem::path addExtensionIfNeeded(
   assert(extension[0] == '.');
 
   std::filesystem::path result(path);
-  std::string currentExtension(path.extension().string());
+  std::string const currentExtension(path.extension().string());
 
   if(currentExtension.empty() || currentExtension == ".") {
     result = result.replace_extension(extension);

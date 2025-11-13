@@ -227,7 +227,7 @@ void calc::BranchExprImpl::executeVarArgOperation(
   calc::FieldStack& stack)
 {
   const Args& args = fieldArgs();
-  size_t n = nrArgs();
+  size_t const n = nrArgs();
 
   /* this must be the case if
    * the selection of OP_OP_[12S] must work
@@ -259,7 +259,7 @@ void calc::BranchExprImpl::executeOperation(
   calc::FieldStack& stack)
 {
   const Args& args = fieldArgs();
-  size_t n = nrArgs();
+  size_t const n = nrArgs();
 
   const MAJOR_CODE polys[][3] = {
 #include "polyjmp.inc"
@@ -289,7 +289,7 @@ void calc::BranchExprImpl::executeOperation(
         return;
        }
      }
-     MAJOR_CODE newOp = polys[implOp.execId()][stackCellRepr(args[n-1]->vs())];
+     MAJOR_CODE const newOp = polys[implOp.execId()][stackCellRepr(args[n-1]->vs())];
      POSTCOND(newOp != OP_NOP);
      if (implOp.cg() == CG_VARARG) {
           // handle there
@@ -309,7 +309,7 @@ void calc::BranchExprImpl::executeOperation(
    } break;
    case EXEC_CONV: {
            PRECOND(n == 1);
-           MAJOR_CODE newOp = VsConvoperator(args[0]->vs(), vs());
+           MAJOR_CODE const newOp = VsConvoperator(args[0]->vs(), vs());
            /* this can introduce OP_NOP if no conversion
             * is neccessary
             */
@@ -320,18 +320,18 @@ void calc::BranchExprImpl::executeOperation(
            executeOperation(major2op(newOp),stack);
          } break;
    case  EXEC_DOUBLE: {
-          MAJOR_CODE newOp = dassImplementor(implOp.opCode());
-          MAJOR_CODE delOp = otherDouble(implOp.opCode());
+          MAJOR_CODE const newOp = dassImplementor(implOp.opCode());
+          MAJOR_CODE const delOp = otherDouble(implOp.opCode());
           VS         resultVs[2];
-          int        resultPos = stackPosition(implOp.opCode());
-          int        delPos    = stackPosition(delOp);
+          int        const resultPos = stackPosition(implOp.opCode());
+          int        const delPos    = stackPosition(delOp);
           resultVs[resultPos] = vs();
           resultVs[delPos]    = biggestVs(major2op(delOp).vs());
 
           executeDoubleAss(major2op(newOp), stack, resultVs);
 
-          FieldHandle top   = stack.popReadOnly();
-          FieldHandle under = stack.popReadOnly();
+          FieldHandle const top   = stack.popReadOnly();
+          FieldHandle const under = stack.popReadOnly();
           if (resultPos)
             stack.push(top); // result on top
            else
@@ -383,12 +383,12 @@ void calc::BranchExprImpl::executeDoubleAss(
   };
   const DASS_JMP *f = jmpTableDass+(implOp.execId());
 
-  int nrOpds = implOp.nrArgs();
+  int const nrOpds = implOp.nrArgs();
   POSTCOND(nrOpds > 0);
   (void)nrOpds; // shut up compiler
 
-  GlobResult result0(major2op(f->op[0]).vs(), resultVs[0], compressor());
-  GlobResult result1(major2op(f->op[1]).vs(), resultVs[1], compressor());
+  GlobResult const result0(major2op(f->op[0]).vs(), resultVs[0], compressor());
+  GlobResult const result1(major2op(f->op[1]).vs(), resultVs[1], compressor());
   GlobArgs      args(implOp,compressor(),stack);
 
   if (f->func(result0.MAPinterface(),result1.MAPinterface(), args.mapVals())) {
@@ -508,7 +508,7 @@ void calc::BranchExprImpl::execGenSpatial(
   FieldHandle res = createResultField();
   auto *valRes=static_cast<REAL4 *>(res->destValue());
 
-  GenerateSpatialFunc f(
+  GenerateSpatialFunc const f(
     static_cast<const UINT1 *>(inp[0]->srcValue()),inp[0]->nrValues(),
     compressor());
   switch(op.opCode()) {
@@ -571,7 +571,7 @@ void calc::BranchExprImpl::execDiffBin(
   calc::FieldHandle res = createResultField();
   calc::FieldsPopped inp(stack,2);
 
-  FIELD_ARG fa = fieldArg(inp[0]->isSpatial(),inp[1]->isSpatial());
+  FIELD_ARG const fa = fieldArg(inp[0]->isSpatial(),inp[1]->isSpatial());
   DO_DIFF_BIN f = jmpTableDiffBin[op.execId()][getSubIndex(fa)];
   POSTCOND(f != nullptr);
 
@@ -618,9 +618,9 @@ void calc::BranchExprImpl::execSameBin(
    {(DO_SAME_BIN)nullptr , (DO_SAME_BIN)nullptr, (DO_SAME_BIN)nullptr}
   };
 
-  FIELD_ARG fa = fieldArg(leftSpatial,rightSpatial);
+  FIELD_ARG const fa = fieldArg(leftSpatial,rightSpatial);
 
-  int i = getSubIndex(fa);
+  int const i = getSubIndex(fa);
   DO_SAME_BIN f = jmpTableSameBin[op.execId()][i];
 
   POSTCOND(f != nullptr);
@@ -641,7 +641,7 @@ void calc::BranchExprImpl::execSameBin(
     calc::FieldHandle other(stack.popReadOnly());
     if (fa == SS && op.cg() == CG_COMM && !dest.isOnlyHandle()) {
       //! try if swap, get a stack tmp for dest
-      calc::FieldHandle tmp(other);
+      calc::FieldHandle const tmp(other);
       other = dest;
       dest  = tmp;
     }
@@ -711,7 +711,7 @@ void calc::BranchExprImpl::execIfThen(
 
   calc::FieldHandle res = createResultField();
 
-  FIELD_ARG fa = fieldArg(testBranch->isSpatial(),trueBranch->isSpatial());
+  FIELD_ARG const fa = fieldArg(testBranch->isSpatial(),trueBranch->isSpatial());
   DO_IFTHEN f = jmpTableIfThen[op.execId()][getSubIndex(fa)];
   POSTCOND(f != nullptr);
 
@@ -771,7 +771,7 @@ void calc::BranchExprImpl::execIfThenElse(
 
   calc::FieldHandle res = createResultField();
   size_t n=0;
-  int indM[3] = { 4,2,1};
+  int const indM[3] = { 4,2,1};
   int ind=0;
   for (size_t i=0; i < 3 ; i++) {
     n = MAX(n,(*inp[i])->nrValues());
@@ -805,11 +805,11 @@ void calc::BranchExprImpl::execGlob(
   DO_GLOBAL f = jmpTableGlob[implOp.execId()];
   POSTCOND(f != nullptr);
 
-  int nrOpds = implOp.nrArgs();
+  int const nrOpds = implOp.nrArgs();
   POSTCOND(nrOpds > 0);
   (void) nrOpds; // shut up compiler
 
-  GlobResult result(implOp.vs(),vs(),compressor());
+  GlobResult const result(implOp.vs(),vs(),compressor());
   GlobArgs   args(implOp,compressor(),stack);
 
   if (f(result.MAPinterface(),args.mapVals()))
@@ -827,7 +827,7 @@ void calc::BranchExprImpl::execExternal(const Operator& op, FieldStack& stack)
   try {
     PRECOND(op.exec() == EXEC_EXTERN);
 
-    GlobResult result(vs(),vs(),compressor());
+    GlobResult const result(vs(),vs(),compressor());
     GlobArgs args(op,compressor(),stack,nrArgs());
     void *r[1];
     r[0]=result.MAPinterface();

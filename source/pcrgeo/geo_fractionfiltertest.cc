@@ -27,7 +27,7 @@ BOOST_AUTO_TEST_CASE(test)
   source.cell(8) = 1;
 
   SquareNeighbourhood weights(1);
-  FractionFilter<UINT1> filter(weights, 1);
+  FractionFilter<UINT1> const filter(weights, 1);
 
   // 2/4 2/5 1/3
   // 2/6 3/8 MV

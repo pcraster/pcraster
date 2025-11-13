@@ -342,7 +342,7 @@ void CSFRasterDriver::read(
   double row = NAN;
   double col = NAN;
 
-  RasterDimensions dimensions(map.nrRows(), map.nrCols(), map.cellSize(),
+  RasterDimensions const dimensions(map.nrRows(), map.nrCols(), map.cellSize(),
          map.west(), map.north());
   dimensions.indices(spatialCoordinate.x(), spatialCoordinate.y(), row, col);
 
@@ -376,10 +376,10 @@ void CSFRasterDriver::write(
          std::filesystem::path const& path) const
 {
   Properties const& p(raster.properties());
-  REAL8 angle = p.value<REAL8>(DAL_CSF_ANGLE, 0.0);
-  CSF_VS valueScale = p.value<CSF_VS>(DAL_CSF_VALUESCALE,
+  REAL8 const angle = p.value<REAL8>(DAL_CSF_ANGLE, 0.0);
+  CSF_VS const valueScale = p.value<CSF_VS>(DAL_CSF_VALUESCALE,
          typeIdToValueScale(raster.typeId()));
-  CSF_PT projection = p.value<CSF_PT>(DAL_CSF_PROJECTION, PT_YDECT2B);
+  CSF_PT const projection = p.value<CSF_PT>(DAL_CSF_PROJECTION, PT_YDECT2B);
 
   CSFMap map(path, raster.nrRows(), raster.nrCols(),
          raster.west(), raster.north(), angle, raster.cellSize(),

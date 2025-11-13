@@ -126,8 +126,8 @@ void PlotView::process()
 
     if(space.hasTime()) {
       dal::DataSpaceAddress const& address(dataObject().dataSpaceAddress());
-      size_t index = space.indexOf(dal::Time);
-      double timeStep = address.coordinate<size_t>(index);
+      size_t const index = space.indexOf(dal::Time);
+      double const timeStep = address.coordinate<size_t>(index);
 
       setXMarker(timeStep);
     }
@@ -203,13 +203,13 @@ void PlotView::setXAxisScale()
 {
   dal::DataSpace const& space(dataObject().dataSpace());
   assert(space.hasTime());
-  size_t indexOfTime = space.indexOf(dal::Time);
+  size_t const indexOfTime = space.indexOf(dal::Time);
   dal::Dimension const& dimension(space.dimension(indexOfTime));
-  size_t first = dimension.value<size_t>(0);
-  size_t last = dimension.value<size_t>(1);
+  size_t const first = dimension.value<size_t>(0);
+  size_t const last = dimension.value<size_t>(1);
   assert(last >= first);
 
-  size_t nr_timesteps = last - first + 1;
+  size_t const nr_timesteps = last - first + 1;
 
   m_axisX->setRange(first, last);
 
@@ -378,8 +378,8 @@ void PlotView::drawPlots()
     // drawCurve expects.
     dal::Array<UINT4> const& timeCol(table->col<UINT4>(timeColIndex));
     dal::Array<REAL4> const& attrCol(table->col<REAL4>(attrColIndex));
-    boost::scoped_array<double> x(new double[table->nrRecs()]);
-    boost::scoped_array<double> y(new double[table->nrRecs()]);
+    boost::scoped_array<double> const x(new double[table->nrRecs()]);
+    boost::scoped_array<double> const y(new double[table->nrRecs()]);
 
     for(size_t i = 0; i < table->nrRecs(); ++i) {
       x[i] = timeCol[i];
@@ -407,7 +407,7 @@ void PlotView::drawPlots()
       }
     }
 
-    QPen pen(dataObject().properties().colour(guide),
+    QPen const pen(dataObject().properties().colour(guide),
          dataObject().isSelected(guide) ? 2 : 1, Qt::SolidLine);
     drawCurve(guide, x.get(), y.get(), table->nrRecs(), pen);
   }
@@ -478,7 +478,7 @@ void PlotView::moved(QPointF const& point)
     // Snap to closest time step.
     dal::DataSpace const& space = dataObject().dataSpace();
     if(space.hasTime()) {
-      size_t index = space.indexOf(dal::Time);
+      size_t const index = space.indexOf(dal::Time);
       dal::Dimension const& dimension = space.dimension(index);
 
       // Prevent negative x-coordinates.

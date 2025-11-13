@@ -78,16 +78,16 @@ void calc::DimensionParser::throwUnknown(const std::string& unknown)
 
 calc::DimensionParser::DimensionParser(const std::string& str)
 {
-  com::PureAlphabeticNameGrammar symbol;
-  com::NumberGrammar             number;
+  com::PureAlphabeticNameGrammar const symbol;
+  com::NumberGrammar             const number;
 
   std::string line(str);
 
   typedef boost::spirit::position_iterator<std::string::iterator> IteratorType;
-  IteratorType begin(line.begin(), line.end(), "");
-  IteratorType end;
+  IteratorType const begin(line.begin(), line.end(), "");
+  IteratorType const end;
 
-  boost::spirit::parse_info<IteratorType> info =
+  boost::spirit::parse_info<IteratorType> const info =
          boost::spirit::parse<IteratorType>(begin, end,
      *(symbol[dimensionParser::Symbol(this)]      >>
        *(boost::spirit::space_p) >>

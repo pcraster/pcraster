@@ -188,11 +188,11 @@ void qt::GuiApp::createLockFile(std::string const& filename)
   d_lockFilename = bfs::path(filename);
 
   if(!bfs::exists(d_lockFilename)) {
-    std::ofstream file{d_lockFilename};
+    std::ofstream const file{d_lockFilename};
     assert(bfs::exists(d_lockFilename));
   }
   else {
-    bfs::file_status status(bfs::status(d_lockFilename));
+    bfs::file_status const status(bfs::status(d_lockFilename));
     assert(bfs::status_known(status));
 
     if(!bfs::is_regular_file(status)) {

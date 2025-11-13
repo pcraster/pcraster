@@ -51,7 +51,7 @@ BOOST_AUTO_TEST_CASE(open)
 
   UINT1 *buf=nullptr;;
   try {
-   BandMap bm("uint1minimal");
+   BandMap const bm("uint1minimal");
    BOOST_CHECK(bm.nrRows()   == 4);
    BOOST_CHECK(bm.nrCols()   == 5);
    BOOST_CHECK(bm.nrCells()  == 20);
@@ -90,7 +90,7 @@ BOOST_AUTO_TEST_CASE(multi_band)
     std::generate_n(buf,120,com::SeqInc<REAL4>());
     com::write(buf,120*sizeof(REAL4),com::PathName("mband.bil"));
   }
- BandMap bm("mband");
+ BandMap const bm("mband");
  auto *real4 = new REAL4[bm.nrCells()];
  bm.getCellsAsREAL4(real4);
  BOOST_CHECK(real4[0]==0);
@@ -105,7 +105,7 @@ BOOST_AUTO_TEST_CASE(open2)
 {
   using namespace geo;
 
- BandMap bm("int2mv0");
+ BandMap const bm("int2mv0");
  BOOST_CHECK( bm.nrRows() ==4);
  BOOST_CHECK( bm.nrCols() ==5);
  BOOST_CHECK( bm.mvIsSet());
@@ -143,7 +143,7 @@ BOOST_AUTO_TEST_CASE(read)
    // big endian, csf map with value
    // 1 everywhere
    // but first column is MV
-   BandMap bm("all1_float.bil");
+   BandMap const bm("all1_float.bil");
    BOOST_CHECK(bm.nrRows()   == 4);
    BOOST_CHECK(bm.nrCols()   == 4);
    auto *buf= new REAL4[bm.nrCells()];
@@ -162,7 +162,7 @@ BOOST_AUTO_TEST_CASE(create)
   using namespace geo;
 
    CSFMap  in("inp1b.map");
-   RasterSpace rs(in.rasterSpace());
+   RasterSpace const rs(in.rasterSpace());
 
 
    auto *buf= new UINT1[in.nrCells()];
@@ -170,7 +170,7 @@ BOOST_AUTO_TEST_CASE(create)
 
    createBil("inp1b",rs, buf,MV_UINT1);
 
-   BandMap  out("inp1b");
+   BandMap  const out("inp1b");
 
    BOOST_CHECK(out.nrRows()==in.nrRows());
    BOOST_CHECK(out.nrCols()==in.nrCols());
@@ -184,7 +184,7 @@ BOOST_AUTO_TEST_CASE(create)
 
    BOOST_CHECK(size(com::PathName("inp1b.bil")) ==  in.nrCells());
 
-   BandMap asInt4("inp1b");
+   BandMap const asInt4("inp1b");
    INT4 *bufI4 = new INT4[in.nrCells()];
    asInt4.getCellsAsINT4(bufI4);
    BOOST_CHECK(bufI4[0] == MV_INT4);
@@ -202,8 +202,8 @@ BOOST_AUTO_TEST_CASE(put_cells)
   using namespace geo;
 
  {
-  RasterSpace rs(4,5);
-  BandMap     bm("testPutCellsputINT4",rs,CR_INT4,false,0);
+  RasterSpace const rs(4,5);
+  BandMap     const bm("testPutCellsputINT4",rs,CR_INT4,false,0);
   INT4 createBuf[20];
   std::generate_n(createBuf,20,com::SeqInc<INT4>());
   createBuf[0] =MV_INT4;
@@ -212,7 +212,7 @@ BOOST_AUTO_TEST_CASE(put_cells)
 
   bm.putCellsAsINT4(createBuf);
 
-  BandMap     readBm("testPutCellsputINT4");
+  BandMap     const readBm("testPutCellsputINT4");
   BOOST_CHECK(readBm.cellRepr() == CR_INT2);
   BOOST_CHECK(readBm.nrRows() == 4);
   BOOST_CHECK(readBm.nrCols() == 5);
@@ -224,15 +224,15 @@ BOOST_AUTO_TEST_CASE(put_cells)
   BOOST_CHECK(readBuf[10]==INT2_MIN-1+99);
  }
  {
-  RasterSpace rs(4,5);
-  BandMap     bm("testPutCellsputREAL4",rs,CR_REAL4,false,0);
+  RasterSpace const rs(4,5);
+  BandMap     const bm("testPutCellsputREAL4",rs,CR_REAL4,false,0);
   REAL4 createBuf[20];
   std::generate_n(createBuf,20,com::SeqInc<REAL4>());
   pcr::setMV(createBuf[0]);
 
   bm.putCellsAsREAL4(createBuf);
 
-  BandMap     readBm("testPutCellsputREAL4");
+  BandMap     const readBm("testPutCellsputREAL4");
   BOOST_CHECK(readBm.cellRepr() == CR_REAL4);
   BOOST_CHECK(readBm.nrRows() == 4);
   BOOST_CHECK(readBm.nrCols() == 5);
@@ -248,7 +248,7 @@ BOOST_AUTO_TEST_CASE(put_cells)
   BOOST_CHECK(readBuf2[2]==2);
 
   // test stx
-  com::PathName stx("testPutCellsputREAL4.stx");
+  com::PathName const stx("testPutCellsputREAL4.stx");
   std::string stxContents;
   com::read(stxContents,stx);
   BOOST_CHECK(stxContents == "1 1 19\n");
@@ -263,14 +263,14 @@ BOOST_AUTO_TEST_CASE(header)
   UINT1 buf[20];
   std::generate_n(buf,20,com::SeqInc<UINT1>());
   com::write(buf,20,com::PathName("headertest.bil"));
-  com::PathName pn("headertest.hdr");
+  com::PathName const pn("headertest.hdr");
 
   // comments are allowed
   // unknown keys are discarded
   bool succes=true;
   try {
     com::write("NROWS 4 A COMMENT\nNCOLS 5\nUNKNOWNKEY 5\n",pn);
-    BandMap bm("headertest");
+    BandMap const bm("headertest");
   } catch(...) {
     succes=false;
   }
@@ -280,7 +280,7 @@ BOOST_AUTO_TEST_CASE(header)
   bool failure=false;
   try {
     com::write("XDIM 1\nUNKNOWNKEY 5\n",pn);
-    BandMap bm("headertest");
+    BandMap const bm("headertest");
   } catch(const com::Exception& e) {
     BOOST_CHECK(e.messages().find("NROWS") != std::string::npos
            || e.messages().find("NCOLS") != std::string::npos);
@@ -292,7 +292,7 @@ BOOST_AUTO_TEST_CASE(header)
   succes=true;
   try {
     com::write("NROWS 4\nNCOLS 5",pn);
-    BandMap bm("headertest");
+    BandMap const bm("headertest");
   } catch(...) {
     succes=false;
   }
@@ -301,14 +301,14 @@ BOOST_AUTO_TEST_CASE(header)
   {
     // if both dim are set, then ok
     com::write("NROWS 4\nNCOLS 5\nXDIM 0.5\nYDIM 0.5", pn);
-    BandMap bm("headertest");
+    BandMap const bm("headertest");
     BOOST_CHECK(bm.cellSize()==0.5); // as set
   }
 
   {
     // if only one dim then the default is set
     com::write("NROWS 4\nNCOLS 5\nXDIM 0.5\n", pn);
-    BandMap bm("headertest");
+    BandMap const bm("headertest");
     BOOST_CHECK(bm.cellSize()==1); // the default
   }
 
@@ -316,7 +316,7 @@ BOOST_AUTO_TEST_CASE(header)
   failure=false;
   try {
     com::write("NROWS 3\nNCOLS 4\nXDIM 1\nYDIM 0.5\n",pn);
-    BandMap bm("headertest");
+    BandMap const bm("headertest");
   } catch(const com::Exception& e) {
     BOOST_CHECK(e.messages().find("XDIM") != std::string::npos
            && e.messages().find("YDIM") != std::string::npos);

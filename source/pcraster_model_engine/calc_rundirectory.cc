@@ -88,7 +88,7 @@ void calc::RunDirectory::setRunDirectory(
 
     sp.makeNative();
     sp.makeAbsolute();
-    com::PathName currentDir(com::currentWorkingDirectory());
+    com::PathName const currentDir(com::currentWorkingDirectory());
     while (currentDir != sp && !sp.isEmpty()) {
       d_searchPaths.push_back(sp);
       sp.up();
@@ -169,11 +169,11 @@ std::string calc::RunDirectory::inPath(
     const std::string& fileName) const
 {
     PRECOND(!fileName.empty());
-    com::PathName fnPn(fileName);
+    com::PathName const fnPn(fileName);
     for (const auto & d_searchPath : d_searchPaths) {
       // sPn=fnPn if fnPn is absolute, that is OK.
       com::PathName sPn(d_searchPath+fnPn);
-      com::PathInfo sPi(sPn);
+      com::PathInfo const sPi(sPn);
       if (sPi.exists()) {
         found=true;
         sPn.makeNative();

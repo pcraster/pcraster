@@ -40,7 +40,7 @@ int calc::IndexSelectedVector::select() const
 std::string calc::IndexSelectedVector::selectedName() const
 {
   std::string str = "";
-  std::vector<size_t> ind(size());
+  std::vector<size_t> const ind(size());
   for(auto i : d_vector)
     str += "["+i->indexParameterConstant()->name() + "]";
   return str;
@@ -49,7 +49,7 @@ std::string calc::IndexSelectedVector::selectedName() const
 std::string calc::IndexSelectedVector::variableName() const
 {
   std::string str = "";
-  std::vector<size_t> ind(size());
+  std::vector<size_t> const ind(size());
   for(auto i : d_vector)
     str += "["+i->name() + "]";
   return str;

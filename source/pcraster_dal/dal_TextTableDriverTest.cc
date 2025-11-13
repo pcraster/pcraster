@@ -8,7 +8,7 @@ BOOST_AUTO_TEST_CASE(description)
 {
   using namespace dal;
 
-  TextTableDriver driver;
+  TextTableDriver const driver;
   BOOST_CHECK_EQUAL(driver.description(), "Text table file format");
 }
 
@@ -17,8 +17,8 @@ BOOST_AUTO_TEST_CASE(unexisting)
 {
   using namespace dal;
 
-  std::string filename = "unexisting";
-  TextTableDriver driver;
+  std::string const filename = "unexisting";
+  TextTableDriver const driver;
   bool exceptionCaught = false;
 
   Table* table = driver.open(std::filesystem::path(filename));
@@ -41,7 +41,7 @@ BOOST_AUTO_TEST_CASE(empty)
 {
   using namespace dal;
 
-  std::string filename = "emptyfile";
+  std::string const filename = "emptyfile";
   TextTableDriver driver;
   bool exceptionCaught = false;
 
@@ -65,7 +65,7 @@ BOOST_AUTO_TEST_CASE(invalid_grammar)
 {
   using namespace dal;
 
-  std::string filename = ":/:/:/:/:";
+  std::string const filename = ":/:/:/:/:";
   TextTableDriver driver;
   bool exceptionCaught=false;
 
@@ -97,7 +97,7 @@ BOOST_AUTO_TEST_CASE(table1)
 {
   using namespace dal;
 
-  std::string filename = "table1.col";
+  std::string const filename = "table1.col";
   TextTableDriver driver;
   Table* table = nullptr;
 
@@ -166,7 +166,7 @@ BOOST_AUTO_TEST_CASE(table2)
 {
   using namespace dal;
 
-  std::string filename = "table2.col";
+  std::string const filename = "table2.col";
   TextTableDriver driver;
   Table* table = driver.open(std::filesystem::path(filename));
   BOOST_REQUIRE(table);
@@ -226,7 +226,7 @@ BOOST_AUTO_TEST_CASE(table5)
 {
   using namespace dal;
 
-  std::string filename = "table5.col";
+  std::string const filename = "table5.col";
   Table* table = nullptr;
 
   {
@@ -292,7 +292,7 @@ BOOST_AUTO_TEST_CASE(table5)
   }
 
   {
-    TextTableDriver driver(HEADER);
+    TextTableDriver const driver(HEADER);
     table = driver.open(std::filesystem::path(filename));
 
     BOOST_CHECK(table);
@@ -383,7 +383,7 @@ BOOST_AUTO_TEST_CASE(table2_eas)
 {
   using namespace dal;
 
-  std::string filename = "table2.eas";
+  std::string const filename = "table2.eas";
   TextTableDriver driver;
   bool exceptionCaught = false;
 
@@ -420,9 +420,9 @@ BOOST_AUTO_TEST_CASE(dos_formatted)
   // 9	1969	104	505	174	1494	544246	1144715	-.093
   // 10	1968	104	505	2	30	641728	1401630	-.093
 
-  std::string filename = "dosformat.col";
+  std::string const filename = "dosformat.col";
   TextTableDriver driver;
-  std::shared_ptr<Table> table(driver.open(
+  std::shared_ptr<Table> const table(driver.open(
     std::filesystem::path(filename)));
   BOOST_REQUIRE(table);
   BOOST_CHECK_EQUAL(table->nrCols(), size_t(9));
@@ -456,7 +456,7 @@ BOOST_AUTO_TEST_CASE(column_with_empty_values)
   // For example, columns separated by tabs, some values given, some absent.
   // Should be possible, by splitting the record on the seperator. Empty value
   // is a missing value.
-  bool testImplemented = false;
+  bool const testImplemented = false;
   BOOST_WARN(testImplemented);
 }
 
@@ -465,9 +465,9 @@ BOOST_AUTO_TEST_CASE(column_with_quite_some_zeros)
 {
   using namespace dal;
 
-  std::string filename = "table7.col";
-  TextTableDriver driver;
-  std::shared_ptr<Table> table(driver.open(
+  std::string const filename = "table7.col";
+  TextTableDriver const driver;
+  std::shared_ptr<Table> const table(driver.open(
     std::filesystem::path(filename)));
   BOOST_REQUIRE(table);
   BOOST_CHECK_EQUAL(table->nrCols(), size_t(2));

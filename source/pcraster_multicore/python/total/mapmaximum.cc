@@ -39,7 +39,7 @@ calc::Field* mapmaximum(
 
   const multicore_field::Spatial<T> arg1(field);
   using InputNoDataPolicy = fa::InputNoDataPolicies<SpatialDetectNoData<T>>;
-  InputNoDataPolicy input_no_data_policy{{arg1}};
+  InputNoDataPolicy const input_no_data_policy{{arg1}};
 
   calc::Field* res_field = nullptr;
 
@@ -68,7 +68,7 @@ calc::Field* mapmaximum(
     throw std::runtime_error("argument is non-spatial, only spatial allowed\n");
   }
 
-  VS result_vs = field->vs();
+  VS const result_vs = field->vs();
 
   if(scalar_valuescale(*field) == true){
     return detail::mapmaximum<REAL4>(field, result_vs);

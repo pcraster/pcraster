@@ -35,7 +35,7 @@ void calc::StdoutStatement::run()
   calc::FieldStack stack;
 
   d_expr->execute(stack);
-  calc::FieldHandle fh = stack.popReadOnly();
+  calc::FieldHandle const fh = stack.popReadOnly();
   const auto *f = dynamic_cast<const calc::NonSpatial *>(fh.get_rep());
   POSTCOND(f);
 

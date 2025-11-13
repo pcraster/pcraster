@@ -16,7 +16,7 @@ BOOST_AUTO_TEST_CASE(single_statement)
   using namespace calc;
 
   ModelBuilder mb;
-  geo::FileCreateTester mt("ModelBuildertestSS.res");
+  geo::FileCreateTester const mt("ModelBuildertestSS.res");
   mb.addStatement("ModelBuildertestSS.res = inp1s.map + 4;");
   mb.execute();
   BOOST_CHECK(mt.equalTo("inp5s.map",false));
@@ -30,7 +30,7 @@ BOOST_AUTO_TEST_CASE(field_expr)
   try {
   ModelBuilder mb;
   FieldExpr* e= mb.addFieldExpr("inp1s.map + 4;");
-  geo::FileCreateTester mt("ModelBuildertestFE.res");
+  geo::FileCreateTester const mt("ModelBuildertestFE.res");
   mb.addFieldAssignment("ModelBuildertestFE.res",e,true);
   mb.execute();
   BOOST_CHECK(mt.equalTo("inp5s.map",false));
@@ -50,7 +50,7 @@ BOOST_AUTO_TEST_CASE(multiple_statements)
   ModelBuilder mb;
   // test order by dependency, and selective report!
   BOOST_CHECK(!com::pathExists("ModelBuildertestMS4.res"));
-  geo::FileCreateTester mt("ModelBuildertestMS.res");
+  geo::FileCreateTester const mt("ModelBuildertestMS.res");
   // do not write this one
   mb.addStatement("ModelBuildertestMS4.res = 3+inp1s.map;",false);
   mb.addStatement("ModelBuildertestMS.res = ModelBuildertestMS4.res + 1;");
@@ -69,7 +69,7 @@ BOOST_AUTO_TEST_CASE(multiple_statements_with_binding)
 
   try {
   ModelBuilder mb;
-  geo::FileCreateTester mt("ModelBuilderBind5.res");
+  geo::FileCreateTester const mt("ModelBuilderBind5.res");
   mb.addBinding("Inp1s","inp1s.map");
   mb.addBinding("Result","ModelBuilderBind5.res");
   mb.evaluateBindings();
@@ -92,7 +92,7 @@ BOOST_AUTO_TEST_CASE(multiple_statements_with_error)
   bool failure=false;
   try {
   ModelBuilder mb;
-  geo::FileCreateTester mt("ModelBuildertestMS.res");
+  geo::FileCreateTester const mt("ModelBuildertestMS.res");
   // test order by dependency, and selective report!
   mb.addStatement("ModelBuildertestMS4.res = 3+1");
   mb.addStatement("ModelBuildertestMS.res = failureExpectedNotExistant + 1");
@@ -129,7 +129,7 @@ BOOST_AUTO_TEST_CASE(set_value_scale)
   }
   { // solve simple
     ModelBuilder mb;
-    geo::FileCreateTester mt("ModelBuilderVsUnknown.res");
+    geo::FileCreateTester const mt("ModelBuilderVsUnknown.res");
     mb.addStatement("ModelBuilderVsUnknown.res = if (inp1b.map, scalar(1));");
     mb.execute();
     BOOST_CHECK( com::pathExists("ModelBuilderVsUnknown.res"));
@@ -138,7 +138,7 @@ BOOST_AUTO_TEST_CASE(set_value_scale)
   { // TODO  solve by setting
     try {
     ModelBuilder mb;
-    geo::FileCreateTester mt("ModelBuilderVsUnknown.res");
+    geo::FileCreateTester const mt("ModelBuilderVsUnknown.res");
     // anders
     mb.addStatement("ModelBuilderVsUnknown.res = scalar(1);");
     mb.execute();
@@ -169,9 +169,9 @@ BOOST_AUTO_TEST_CASE(add_lookup_table)
   tab->setRecords(lr,readKeys);
 
   mb.addLookupTable("onlyInRamTable",tab);
-  std::ostringstream expr;
+  std::ostringstream const expr;
 
-  geo::FileCreateTester mt("ModelBuildertestAddLT.res");
+  geo::FileCreateTester const mt("ModelBuildertestAddLT.res");
 
   FieldExpr* e= mb.addFieldExpr("lookupscalar(onlyInRamTable,inp1n.map)");
   mb.addFieldAssignment("ModelBuildertestAddLT.res",e,true);
@@ -190,7 +190,7 @@ BOOST_AUTO_TEST_CASE(external_bindings)
  bool catched(false);
  try {
     ModelBuilder mb;
-    com::PathName pn("testAddBindings.txt");
+    com::PathName const pn("testAddBindings.txt");
     com::write("jan=3; #comment\njan=cees + 4\n",
                 "testAddBindings.txt");
     mb.parseExternalBindings(pn);
@@ -202,13 +202,13 @@ BOOST_AUTO_TEST_CASE(external_bindings)
  // CORRECT
  try {
     ModelBuilder mb;
-    com::PathName pn("testAddBindings.txt");
+    com::PathName const pn("testAddBindings.txt");
     com::write("jan=3.5; #comment\njan=\"xx file.txt\"\nn=4",
                 "testAddBindings.txt");
-    RunSettings rs=mb.parseExternalBindings(pn);
+    RunSettings const rs=mb.parseExternalBindings(pn);
 
     // jan = 3.5 overwritten by jan = xx file.txt
-    ExtSym  none("xx");
+    ExtSym  const none("xx");
     com::FindValue<ExtSym,ExtSym> fv(none);
     BOOST_CHECK(fv.find(rs.bindings(),ExtSym("jan")).name() == "xx file.txt");
 

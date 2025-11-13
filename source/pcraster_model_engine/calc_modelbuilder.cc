@@ -78,7 +78,7 @@ void calc::ModelBuilder::execute()
 
 void calc::ModelBuilder::setGlobalOption(const std::string& option)
 {
-  std::string withDash = "--"+option;
+  std::string const withDash = "--"+option;
   PRECOND(ParseGlobalFlag(withDash.c_str()));
   ParseGlobalFlag(withDash.c_str());
 }

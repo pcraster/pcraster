@@ -96,7 +96,7 @@ void CursorView::updateEditLabel(
 {
   dal::DataSpace const& space(dataObject().dataSpace());
 
-  size_t tupleIndex = this->tupleIndex(dimension);
+  size_t const tupleIndex = this->tupleIndex(dimension);
   QLabel* value = valueLabel(tupleIndex);
 
   if(dimension->meaning() == dal::Space) {
@@ -120,7 +120,7 @@ dal::DataSpaceAddress CursorView::addressWithUpdatedCoordinate(
 
   dal::DataSpace const& space(dataObject().dataSpace());
   dal::DataSpaceAddress address(dataObject().dataSpaceAddress());
-  size_t dimensionIndex = space.indexOf(dimension);
+  size_t const dimensionIndex = space.indexOf(dimension);
 
   switch(dimension->meaning()) {
     // FEATURE remove

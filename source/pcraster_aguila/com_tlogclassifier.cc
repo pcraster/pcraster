@@ -50,11 +50,11 @@ void com_TLogClassifier<T>::classify(std::vector<T> &b, T min, T max, size_t n)
 
   // Translate maximum value.
   // َ+ 1.0 to keep the value > 1.0
-  double tmax  = static_cast<double>(max) - min + 1.0;
+  double const tmax  = static_cast<double>(max) - min + 1.0;
 
-  double lmax  = std::log10(tmax);
+  double const lmax  = std::log10(tmax);
   assert(lmax > 0.0);
-  double width = lmax / (n - 1);
+  double const width = lmax / (n - 1);
   assert(width > 0.0);
 
   b[0] = min;                          // Set the first class border to min.

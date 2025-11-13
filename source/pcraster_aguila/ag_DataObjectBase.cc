@@ -137,14 +137,14 @@ DataGuide DataObjectBase<T>::add(
          : true);
 
   if(!exists(name, space)) {
-    DataInfo<T> info = openData(name, space);
+    DataInfo<T> const info = openData(name, space);
     _tuples.push_back(Tuple(name, space, info));
   }
 
   assert(exists(name, space));
 
   auto it = find(name, space);
-  DataGuide guide = _manager.add(std::get<2>(*it));
+  DataGuide const guide = _manager.add(std::get<2>(*it));
 
   return guide;
 }
@@ -352,7 +352,7 @@ void DataObjectBase<T>::read(
       // Current data item is part of a scenario.
       size_t index = dataSpaceOfData.indexOf(dal::Scenarios);
       assert(dataSpaceOfData.dimension(index).nrCoordinates() == 1);
-      std::string scenario(dataSpaceOfData.dimension(index).template value<std::string>(0));
+      std::string const scenario(dataSpaceOfData.dimension(index).template value<std::string>(0));
       index = space.indexOf(dal::Scenarios);
       assert(space.dimension(index).containsExactValue(scenario));
 

@@ -101,9 +101,9 @@ void  mldd::DagRaster::addFlowNB(
     geo::LDD::Code lc)
 {
   PRECOND(lc != 5);
-  geo::NB::Code oc= geo::LDD::toNB(lc);
+  geo::NB::Code const oc= geo::LDD::toNB(lc);
   // addOutflowNB(outflowC,oc); NO only add if flows to inside map
-  geo::CellLoc inflowC = geo::NB::target(outflowC,oc);
+  geo::CellLoc const inflowC = geo::NB::target(outflowC,oc);
   if (d_rd.contains(inflowC)) {
     addFlow(outflowC,inflowC);
     // addOutflowNB(outflowC,oc);
@@ -115,7 +115,7 @@ void  mldd::DagRaster::addFlow(
     const geo::CellLoc& from,
     const geo::CellLoc& to)
 {
-  geo::NB::Code oc= geo::NB::code(from,to);
+  geo::NB::Code const oc= geo::NB::code(from,to);
   addOutflowNB(from,oc);
   addInflowNB(to,geo::NB::reverse(oc));
 }
@@ -262,7 +262,7 @@ void mldd::DagRaster::updateOrder()
   std::vector<boost::default_color_type> raster(d_rd.nrCells());
   typedef DagRasterPropertyMap<boost::default_color_type> Color;
 
-  Color colorMap(d_rd,raster);
+  Color const colorMap(d_rd,raster);
 
   d_rto.clear();
 

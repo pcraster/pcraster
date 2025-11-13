@@ -75,8 +75,8 @@ extern "C" int InfluenceSimpleGauss(
  // MV is the initial value
  out.putAllMV();
 
- size_t nrRows = out.nrRows();
- size_t nrCols = out.nrCols();
+ size_t const nrRows = out.nrRows();
+ size_t const nrCols = out.nrCols();
 
  /* set all to 0 or MV
   * check range of rangeVal
@@ -115,13 +115,13 @@ extern "C" int InfluenceSimpleGauss(
     rangeVal /= Side();
     /* see RIVM-32 doc */
     double maxDist = -rangeVal*log(epsVal/inputVal);
-    int maxDistCells = (int)ceil(maxDist);
+    int const maxDistCells = (int)ceil(maxDist);
     maxDist *= maxDist; /* square again, can do > cmp
                             before taking sqrt */
      auto rStart = static_cast<size_t>(MAX(((int)c.row())-maxDistCells,0));
      auto cStart = static_cast<size_t>(MAX(((int)c.col())-maxDistCells,0));
-     size_t rStop  = MIN(nrRows,c.row()+maxDistCells);
-     size_t cStop  = MIN(nrCols,c.col()+maxDistCells);
+     size_t const rStop  = MIN(nrRows,c.row()+maxDistCells);
+     size_t const cStop  = MIN(nrCols,c.col()+maxDistCells);
      for(size_t rDest = rStart; rDest < rStop; rDest++)
        for(size_t cDest = cStart; cDest < cStop; cDest++)
       {
@@ -131,7 +131,7 @@ extern "C" int InfluenceSimpleGauss(
 
          /* compute distSqr */
          REAL8 add = NAN;
-         REAL8 dist = sqr((double)c.row()-rDest)+sqr((double)c.col()-cDest);
+         REAL8 const dist = sqr((double)c.row()-rDest)+sqr((double)c.col()-cDest);
          if (dist > maxDist)
           continue; /* do not compute */
          /* else compute distSqr */

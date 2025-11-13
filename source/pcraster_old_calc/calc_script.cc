@@ -212,7 +212,7 @@ void calc::Script::addBinding(const Symbol& left, const Symbol& right, VS vs)
 void calc::Script::evaluateBindings()
 {
   std::vector<UserSymbol *>
-    newPars(d_bindingTable.moveConstantToParameters(this));
+    const newPars(d_bindingTable.moveConstantToParameters(this));
   for(auto & newPar : newPars)
     addSymbol(newPar);
 }
@@ -289,7 +289,7 @@ void calc::Script::setTimer(
  BindedSymbol tss(tssIn);
  tss.setInputFilePath();
  try {
-  TimeTable tt(tss.externalName());
+  TimeTable const tt(tss.externalName());
   d_timerStart = 1;
   d_timerEnd   = tt.nrTimeSteps();;
   d_timerSlice = 1;
@@ -473,7 +473,7 @@ void calc::Script::setupClone()
   // PRINT_VAR(d_compression);
 
   // Do I need an explicit --clone/areamap setting
-  bool needClone = debugMvAssignments() || zeroCompression() || d_compression;
+  bool const needClone = debugMvAssignments() || zeroCompression() || d_compression;
 
   if (needClone
       || rasterSpace().nrRows() == 0) // no clone booted
@@ -604,8 +604,8 @@ void calc::Script::processFileOutputValue(
      d_fileOutputStream->flush();
   }
 
-  int ival(static_cast<int>(val));
-  bool quit = updateExitVal(ival);
+  int const ival(static_cast<int>(val));
+  bool const quit = updateExitVal(ival);
 
 
   if (quit) { // pcrcalc/test13b

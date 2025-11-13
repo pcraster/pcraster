@@ -983,15 +983,15 @@ PCR_DAL_DECL std::set<size_t> timeSteps(
   std::set<size_t> result;
 
   if(space.hasTime()) {
-    size_t index = space.indexOf(Time);
+    size_t const index = space.indexOf(Time);
     Dimension dimension = space.dimension(index);
 
     assert(dimension.discretisation() == RegularDiscretisation);
     assert(dimension.nrValues() == 3);
 
-    size_t first = dimension.value<size_t>(0);
-    size_t last = dimension.value<size_t>(1);
-    size_t step = dimension.value<size_t>(2);
+    size_t const first = dimension.value<size_t>(0);
+    size_t const last = dimension.value<size_t>(1);
+    size_t const step = dimension.value<size_t>(2);
 
     for(size_t i = first; i <= last; i += step) {
       result.insert(i);
@@ -1009,15 +1009,15 @@ std::set<float> quantiles(
   std::set<float> result;
 
   if(space.hasCumProbabilities()) {
-    size_t index = space.indexOf(CumulativeProbabilities);
+    size_t const index = space.indexOf(CumulativeProbabilities);
     Dimension dimension = space.dimension(index);
 
     assert(dimension.discretisation() == RegularDiscretisation);
     assert(dimension.nrValues() == 3);
 
-    float first = dimension.value<float>(0);
-    float last = dimension.value<float>(1);
-    float step = dimension.value<float>(2);
+    float const first = dimension.value<float>(0);
+    float const last = dimension.value<float>(1);
+    float const step = dimension.value<float>(2);
 
     for(float i = first; i <= last; i += step) {
       result.insert(i);
@@ -1120,8 +1120,8 @@ PCR_DAL_DECL std::tuple<std::string, std::vector<std::string> >
 splitNameAndSelection(
          std::string name)
 {
-  size_t left = name.rfind('{');
-  size_t right = name.rfind('}');
+  size_t const left = name.rfind('{');
+  size_t const right = name.rfind('}');
   std::vector<std::string> tokens;
 
   if(right == name.size() - 1 && left < right) {

@@ -11,7 +11,7 @@ namespace geo {
 template<class T>
 inline void normalize(T* x, T* y, T* z)
 {
-  double l = std::hypot(*x, *y, *z);
+  double const l = std::hypot(*x, *y, *z);
 
   assert(l > 0.0);
 

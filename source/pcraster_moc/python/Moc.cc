@@ -206,13 +206,13 @@ pybind11::tuple Moc::transport(
   // Get new concentrations.
   geo::SimpleRaster<REAL8> concentration(nrRows, nrCols);
   _tracker.concentration(concentration);
-  std::shared_ptr<calc::Field> concentrationField(
+  std::shared_ptr<calc::Field> const concentrationField(
          new calc::Spatial(VS_S, calc::CRI_f, nrCells));
   copy<double, REAL4>(concentration, concentrationField.get());
 
   geo::SimpleRaster<UINT4> nrParticlesPerCell(nrRows, nrCols);
   _tracker.nrParticles(nrParticlesPerCell);
-  std::shared_ptr<calc::Field> nrParticlesPerCellField(
+  std::shared_ptr<calc::Field> const nrParticlesPerCellField(
          new calc::Spatial(VS_S, calc::CRI_f, nrCells));
   copy<UINT4, REAL4>(nrParticlesPerCell, nrParticlesPerCellField.get());
 
@@ -249,11 +249,11 @@ std::shared_ptr<calc::Field> Moc::adjust(
   copy<REAL4, double>(changeInConcentration, raster);
 
   // Check domain.
-  com::GreaterThanEqualTo<double> interval(-1.0);
+  com::GreaterThanEqualTo<double> const interval(-1.0);
 
   for(geo::CellLocVisitor loc(nrRows, nrCols); loc.valid(); ++loc) {
     if(!pcr::isMV(raster.cell(*loc)) && !interval.valid(raster.cell(*loc))) {
-      std::string message = "Change in concentration must be " + interval.msg();
+      std::string const message = "Change in concentration must be " + interval.msg();
       throw com::Exception(message);
     }
   }

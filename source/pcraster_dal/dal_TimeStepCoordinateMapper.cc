@@ -93,8 +93,8 @@ std::string TimeStepCoordinateMapper::toString(
   if(address.isValid(index)) {
     assert(space.dimension(index).meaning() == dal::Time);
 
-    size_t coordinate = address.coordinate<size_t>(index);
-    boost::posix_time::ptime mappedCoordinate = destination(coordinate);
+    size_t const coordinate = address.coordinate<size_t>(index);
+    boost::posix_time::ptime const mappedCoordinate = destination(coordinate);
 
     // to_iso_extended_string make this xsd compatible and unambiguous
     result = boost::posix_time::to_iso_extended_string(mappedCoordinate);

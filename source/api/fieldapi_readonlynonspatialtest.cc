@@ -9,7 +9,7 @@ void testType(T initVal)
 {
   using namespace fieldapi;
 
-  ReadOnlyNonSpatial<T> t(initVal,2,3);
+  ReadOnlyNonSpatial<T> const t(initVal,2,3);
   T v;
   BOOST_CHECK(!t.spatial());
   BOOST_CHECK(t.nrRows()==2);

@@ -309,14 +309,14 @@ BOOST_AUTO_TEST_CASE(midpoint_circle)
       testCirclePoints(innerPoints, it);
     }
 
-    size_t nrPointsInnerOctant = static_cast<size_t>(static_cast<double>(
+    size_t const nrPointsInnerOctant = static_cast<size_t>(static_cast<double>(
          innerPoints.size()) / 8.0) - 1;
     BOOST_CHECK(nrPointsInnerOctant == 8);
 
     RememberPoints<int> outerPoints;
     outerPoints = midpointCircle(0, 0, 17, outerPoints);
 
-    size_t nrPointsOuterOctant = static_cast<size_t>(static_cast<double>(
+    size_t const nrPointsOuterOctant = static_cast<size_t>(static_cast<double>(
          outerPoints.size()) / 8.0) - 1;
     BOOST_CHECK(nrPointsOuterOctant == 11);
   }

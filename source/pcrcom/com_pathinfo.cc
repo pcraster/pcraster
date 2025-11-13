@@ -73,7 +73,7 @@ com::PathName com::currentWorkingDirectory()
   if((currentDir = ::getcwd(buffer, com::detail::MAX_PATH_LENGTH)) == nullptr)
     throw std::logic_error(std::string(
                    "unable to determine current working directory"));
-  PathName pn(currentDir);
+  PathName const pn(currentDir);
   return pn;
 }
 
@@ -340,7 +340,7 @@ static void throwOpenError(
 
 void com::PathInfo::testValidName() const
 {
-   std::string base(d_pathName.baseName());
+   std::string const base(d_pathName.baseName());
    const char *names[2] = { "aux", "con" };
    for (auto & name : names)
     if (base == name)

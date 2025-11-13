@@ -20,6 +20,6 @@ BOOST_AUTO_TEST_CASE(overlap)
 
   // for(size_t i = 0; i < raster
 
-  bool testImplemented = false;
+  bool const testImplemented = false;
   BOOST_WARN(testImplemented);
 }

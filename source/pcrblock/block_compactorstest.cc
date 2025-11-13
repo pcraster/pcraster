@@ -14,7 +14,7 @@ BOOST_AUTO_TEST_CASE(test)
   BOOST_CHECK(compactors.empty());
   BOOST_CHECK(!compactors.hasCompactor(3));
 
-  DeHaanCompactor compactor(1.0, 2.0, 3.0);
+  DeHaanCompactor const compactor(1.0, 2.0, 3.0);
   compactors.setCompactor(3, compactor);
   BOOST_CHECK(compactors.size() == 1);
   BOOST_CHECK(compactors.hasCompactor(3));

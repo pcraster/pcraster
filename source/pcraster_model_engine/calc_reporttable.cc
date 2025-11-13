@@ -43,7 +43,7 @@ void calc::ReportTable::add(const Report& r)
     rs->update(d_timer);
 
   // first insert with 0
-  std::pair<Table::iterator,bool> p=
+  std::pair<Table::iterator,bool> const p=
     d_table.insert(std::make_pair(r.name(),rs));
 
   // first definition if error, or (new) position

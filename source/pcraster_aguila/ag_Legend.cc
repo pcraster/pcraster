@@ -52,7 +52,7 @@ ag::Legend::Legend(
   // setSelected(object.isSelected(guide));
 
   d_title = new QLabel(this);
-  std::string title = object.title(guide);
+  std::string const title = object.title(guide);
   d_title->setText(title.c_str());
   d_title->adjustSize();
   d_title->setToolTip(QString(object.description(guide).c_str()));

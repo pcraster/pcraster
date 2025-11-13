@@ -57,7 +57,7 @@ QDomElement pcrxml::firstMatchByTagName(
     const QString& tagName)
 {
   // find descendant elements
-  QDomNodeList mrsList(tree.elementsByTagName(tagName));
+  QDomNodeList const mrsList(tree.elementsByTagName(tagName));
 
   // get first one in preorder traversal
   if (mrsList.count() != 0) {
@@ -84,7 +84,7 @@ std::vector<QDomElement>
     const QDomElement& tree,
     const QString& tagName)
 {
-  QDomNodeList mrsList(tree.elementsByTagName(tagName));
+  QDomNodeList const mrsList(tree.elementsByTagName(tagName));
   std::vector<QDomElement> v;
   for(size_t i=0; i < (size_t)mrsList.count(); i++)
        v.push_back(mrsList.item(i).toElement());
@@ -96,7 +96,7 @@ std::vector<QDomElement>
 std::vector<QDomElement> pcrxml::childElements(
     const QDomElement& parent)
 {
- QDomNodeList nodes(parent.childNodes());
+ QDomNodeList const nodes(parent.childNodes());
   std::vector<QDomElement> v;
   for(size_t i=0; i < (size_t)nodes.count(); i++)
     if (nodes.item(i).isElement())
@@ -114,7 +114,7 @@ void pcrxml::changeAttrName(
     const QString&     oldName,
     const QString&     newName)
 {
-  QString attrValue = e.attribute(oldName);
+  QString const attrValue = e.attribute(oldName);
   if (attrValue.isNull())
     return;
   e.removeAttribute(oldName);
@@ -134,7 +134,7 @@ QString pcrxml::textOnlyContents(
           QDomElement e)
 {
   e.normalize();
-  QDomNodeList c(e.childNodes());
+  QDomNodeList const c(e.childNodes());
   if (!c.length())
     return "";
   PRECOND(c.length() == 1 && c.item(0).isCharacterData());

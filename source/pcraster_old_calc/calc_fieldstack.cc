@@ -8,7 +8,7 @@ calc::FieldStack::FieldStack()
 
 calc::FieldStack::~FieldStack()
 {
-  FieldsPopped popAll(*this,d_stack.size());
+  FieldsPopped const popAll(*this,d_stack.size());
   POSTCOND(d_stack.empty());
 }
 
@@ -33,7 +33,7 @@ calc::FieldHandle calc::FieldStack::popDest(VS newVs)
 calc::FieldHandle calc::FieldStack::popReadOnly()
 {
   PRECOND(!d_stack.empty());
-  FieldHandle v = d_stack.top();
+  FieldHandle const v = d_stack.top();
   d_stack.pop();
   return v;
 }

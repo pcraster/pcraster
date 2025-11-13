@@ -100,7 +100,7 @@ public:
   void increment() {
     if (d_outflowMask) {
       // unset current
-      size_t pos=FIRSTBITSET_TYPE(d_outflowMask,char);
+      size_t const pos=FIRSTBITSET_TYPE(d_outflowMask,char);
       d_outflowMask^=(1<<pos);
     }
   }
@@ -119,7 +119,7 @@ public:
 
   Edge edge() const {
         DEVELOP_PRECOND(d_outflowMask);
-        size_t pos=FIRSTBITSET_TYPE(d_outflowMask,char);
+        size_t const pos=FIRSTBITSET_TYPE(d_outflowMask,char);
         return Edge(d_v,geo::NB::target(d_v,pos));
   }
   Edge operator*() const {

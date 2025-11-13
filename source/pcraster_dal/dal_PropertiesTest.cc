@@ -43,7 +43,7 @@ BOOST_AUTO_TEST_CASE(test_)
     properties.setValue<MapMap>("map_map", src);
     BOOST_CHECK_EQUAL(properties.size(), size_t(1));
     BOOST_CHECK(properties.hasValue("map_map"));
-    MapMap dest = properties.value<MapMap>("map_map");
+    MapMap const dest = properties.value<MapMap>("map_map");
     BOOST_CHECK_EQUAL(dest.size(), size_t(1));
   }
 }

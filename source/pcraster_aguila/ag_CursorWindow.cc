@@ -369,7 +369,7 @@ void CursorWindow::saveToText(
        << worldCursorStream.str();
   stream << "data sets:\n";
 
-  std::vector<DataGuide> guides(dataObject.dataGuides());
+  std::vector<DataGuide> const guides(dataObject.dataGuides());
 
   for(auto & guide : guides) {
     stream
@@ -526,7 +526,7 @@ void CursorWindow::appendToCursorValueMonitorFile()
         acv.cursor()->time(address.coordinate<size_t>(i));
 
         // real time
-        std::string rt(dataObject.globalToWorldMapper().toString(address, i));
+        std::string const rt(dataObject.globalToWorldMapper().toString(address, i));
         // if not iso format then there is no real mapper
         // iso format has T seperator for date and time part
         if(rt.find('T') != std::string::npos) {
@@ -539,7 +539,7 @@ void CursorWindow::appendToCursorValueMonitorFile()
         assert(dimension.discretisation() ==
             dal::RegularDiscretisation);
 
-        std::string worldStr =
+        std::string const worldStr =
            dataObject.globalToWorldMapper().toString(address, i);
         auto v = boost::lexical_cast<double>(worldStr);
         if(i == space.indexOf(dal::Space)) {
@@ -570,7 +570,7 @@ void CursorWindow::appendToCursorValueMonitorFile()
     }
   }
 
-  std::vector<DataGuide> guides(dataObject.dataGuides());
+  std::vector<DataGuide> const guides(dataObject.dataGuides());
 
   for(auto & guide : guides) {
     acv.dataValue().push_back(
@@ -646,7 +646,7 @@ void CursorWindow::setCursorIO(
    d_save->setEnabled(true);
 
    // create file with 0 sub-elements
-   pcrxml::AguilaCursorValues acv;
+   pcrxml::AguilaCursorValues const acv;
    std::ofstream stream{d_cursorValueMonitorPath};
    pcrxml::aguilaCursorValues(stream,acv,pcrxsd::namespaceInfoMap("Aguila.xsd"));
   }

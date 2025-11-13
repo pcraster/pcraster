@@ -18,7 +18,7 @@ BOOST_AUTO_TEST_CASE(testPos)
      M(const std::string& code, bool reportLastAssOfEverySymbol):
        d_code(StringParser::createCodeAsNode(code))
      {
-       ReportTable emptyRT;
+       ReportTable const emptyRT;
        ReportVisitor rv(
          reportLastAssOfEverySymbol,
          emptyRT,Timer());
@@ -32,29 +32,29 @@ BOOST_AUTO_TEST_CASE(testPos)
      if (!d_rps.count(name))
          return false;
      auto i=d_rps.find(name);
-     std::string parPos=i->second.d_par->shortPosText();
+     std::string const parPos=i->second.d_par->shortPosText();
      return parPos.compare(pos)==0;
     }
   };
 
   { // explicit report, first reported
-      M m("report p=inp1s.map+0;p=p+2;",false);
+      M const m("report p=inp1s.map+0;p=p+2;",false);
       //   1245678901234567890123456
       BOOST_CHECK(m.d_rps.count("p"));
       BOOST_CHECK(m.posEqual("p","line '1:8'"));
   }
   { // explicit report BUT last ass reported
-      M m("report p=inp1s.map+0;p=p+2;",true);
+      M const m("report p=inp1s.map+0;p=p+2;",true);
       //   12345678901234567890123456
       BOOST_CHECK(m.d_rps.count("p"));
       BOOST_CHECK(m.posEqual("p","line '1:22'"));
   }
   { // no explicit set, and No  last ass reported
-      M m("p=inp1s.map+0;p=p+2;",false);
+      M const m("p=inp1s.map+0;p=p+2;",false);
       BOOST_CHECK(!m.d_rps.count("p"));
   }
   { // no explicit set, but last ass reported
-      M m("p=inp1s.map+0;p=p+2;",true);
+      M const m("p=inp1s.map+0;p=p+2;",true);
       //   1234567890123456
       BOOST_CHECK(m.d_rps.count("p"));
       BOOST_CHECK(m.posEqual("p","line '1:15'"));

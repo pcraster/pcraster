@@ -4,6 +4,6 @@
 
 BOOST_AUTO_TEST_CASE(test)
 {
-  bool testImplemented = false;
+  bool const testImplemented = false;
   BOOST_WARN(testImplemented);
 }

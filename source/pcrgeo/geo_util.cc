@@ -74,7 +74,7 @@ static const std::string YIncrT2BString = ("y increases from top to bottom");
 bool geo::geoEasFormat(std::istream &s)
 {
   // Save current stream position.
-  std::streampos p = s.tellg();
+  std::streampos const p = s.tellg();
 
   // Ignore the first line.
   std::string l;
@@ -105,9 +105,9 @@ bool geo::isCSFStack(const com::PathName& pn)
   bool result = false;
 
   try {
-    geo::CSFStackName sn(pn, false);
-    com::PathName fn = sn.fileName();
-    geo::CSFMap m(fn);
+    geo::CSFStackName const sn(pn, false);
+    com::PathName const fn = sn.fileName();
+    geo::CSFMap const m(fn);
     result = true;
   }
   catch(geo::NotA_PCRasterMap& /* e */) {
@@ -785,8 +785,8 @@ void geo::magnitude(const RasterBoundaries<T>& xVector,
   PRECOND(xVector.nrCols() == yVector.nrCols());
   PRECOND(xVector.nrCols() == result.nrCols());
 
-  size_t nrRows = xVector.nrRows();
-  size_t nrCols = xVector.nrCols();
+  size_t const nrRows = xVector.nrRows();
+  size_t const nrCols = xVector.nrCols();
 
   // Right and bottom boundaries of all cells.
   for(size_t row = 0; row < nrRows; ++row) {

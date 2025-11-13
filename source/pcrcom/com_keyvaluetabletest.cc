@@ -9,7 +9,7 @@ BOOST_AUTO_TEST_CASE(required)
 {
   using namespace com;
 
-  KeyValueDouble kvd("key1");
+  KeyValueDouble const kvd("key1");
 
   KeyValueTable kvt;
   kvt.insertKey(kvd,true);
@@ -47,7 +47,7 @@ BOOST_AUTO_TEST_CASE(double_)
 {
   using namespace com;
 
-  KeyValueDouble kvd("key1");
+  KeyValueDouble const kvd("key1");
 
   KeyValueTable kvt;
   kvt.insertKey(kvd);
@@ -71,7 +71,7 @@ BOOST_AUTO_TEST_CASE(double_)
   BOOST_CHECK(kvd.value(kvt) == 2.2);
 
   com::GreaterThan<>  gt4(4);
-  KeyValueDouble kvgt4("keyGt4",&gt4);
+  KeyValueDouble const kvgt4("keyGt4",&gt4);
   kvt.insertKey(kvgt4);
 
   // out of range
@@ -99,8 +99,8 @@ BOOST_AUTO_TEST_CASE(integer_)
 {
   using namespace com;
 
-  KeyValueInteger kvi("key1");
-  KeyValueInteger kvNotSet("keyNotSet");
+  KeyValueInteger const kvi("key1");
+  KeyValueInteger const kvNotSet("keyNotSet");
 
   KeyValueTable kvt;
   kvt.insertKey(kvi);
@@ -210,8 +210,8 @@ BOOST_AUTO_TEST_CASE(add)
 {
   using namespace com;
 
-  KeyValueString kvs1("key1");
-  KeyValueString kvs2("key2");
+  KeyValueString const kvs1("key1");
+  KeyValueString const kvs2("key2");
   KeyValueTable kvt;
 
   kvt.insertKey(kvs1);

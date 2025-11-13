@@ -36,7 +36,7 @@ struct Fixture
     Fixture()
     {
         dal::Driver::datasetProperties().clear();
-        static ClientWrapper client("/my/path/csf_raster_driver_test", true);
+        static ClientWrapper const client("/my/path/csf_raster_driver_test", true);
     }
 
     ~Fixture()
@@ -52,13 +52,13 @@ BOOST_AUTO_TEST_CASE(unexisting)
 {
   using namespace dal;
 
-  std::string name = "doesnotexist";
+  std::string const name = "doesnotexist";
   bool exceptionCaught = false;
 
   {
     try {
       exceptionCaught = false;
-      DataSource source(name);
+      DataSource const source(name);
     }
     catch(Exception& exception) {
       BOOST_CHECK_EQUAL(exception.message(),
@@ -74,17 +74,17 @@ BOOST_AUTO_TEST_CASE(test_)
 {
   using namespace dal;
 
-  std::string name = "dtmsmall.map";
+  std::string const name = "dtmsmall.map";
 
   {
-    DataSource source(name);
+    DataSource const source(name);
     BOOST_CHECK_EQUAL(source.name(), name);
 
     const DataSpace& dataSpace = source.dataSpace();
     BOOST_CHECK(dataSpace.hasRaster());
     BOOST_CHECK(!dataSpace.hasTime());
 
-    std::shared_ptr<Raster> raster(source.raster());
+    std::shared_ptr<Raster> const raster(source.raster());
     BOOST_CHECK(raster);
   }
 }
@@ -107,7 +107,7 @@ BOOST_AUTO_TEST_CASE(soil)
 
   {
     name = "soil0000.001+110";
-    StackInfo info(name, false);
+    StackInfo const info(name, false);
     BOOST_CHECK(info.isDynamic());
 
     name = info.name();
@@ -120,7 +120,7 @@ BOOST_AUTO_TEST_CASE(soil)
 
     space.addDimension(Dimension(Time, timeSteps));
 
-    DataSource source(name, space);
+    DataSource const source(name, space);
     BOOST_CHECK_EQUAL(source.name(), info.name());
 
     const DataSpace& dataSpace = source.dataSpace();
@@ -170,7 +170,7 @@ BOOST_AUTO_TEST_CASE(unique_values)
 
   {
     name = "soil.map";
-    DataSource source(name);
+    DataSource const source(name);
     std::set<INT4> values;
     source.uniqueValues(values);
     BOOST_CHECK_EQUAL(values.size(), size_t(5));
@@ -193,7 +193,7 @@ BOOST_AUTO_TEST_CASE(unique_values)
 
     space.addDimension(Dimension(Time, timeSteps));
 
-    DataSource source(name, space);
+    DataSource const source(name, space);
     std::set<INT4> values;
     source.uniqueValues(values);
     BOOST_CHECK_EQUAL(values.size(), size_t(94));
@@ -215,7 +215,7 @@ BOOST_AUTO_TEST_CASE(raster)
 
   // Create data source.
   {
-    std::string name = "values";
+    std::string const name = "values";
     DataSpace space;
     std::vector<size_t> timeSteps;
     timeSteps.push_back(10);
@@ -224,7 +224,7 @@ BOOST_AUTO_TEST_CASE(raster)
     space.addDimension(Dimension(Time, timeSteps));
     DataSource source(name, space);
 
-    std::shared_ptr<Raster> raster(source.open<Raster>());
+    std::shared_ptr<Raster> const raster(source.open<Raster>());
     assert(raster);
 
     DataSpaceAddress address(1);
@@ -459,7 +459,7 @@ BOOST_AUTO_TEST_CASE(dataset_1)
 
   // Data space with time steps. Time steps extend beyond the available steps.
   {
-    std::string datasetName = (std::filesystem::path("dataset1")
+    std::string const datasetName = (std::filesystem::path("dataset1")
          / "aap" / "scalar").string();
 
     DataSpace space;
@@ -489,7 +489,7 @@ BOOST_AUTO_TEST_CASE(dataset_1)
     // -------------------------------------------------------------------------
     // Read data in raster.
     {
-      std::shared_ptr<Raster> raster(source.open<Raster>());
+      std::shared_ptr<Raster> const raster(source.open<Raster>());
       BOOST_CHECK(raster);
       raster->createCells();
 
@@ -561,7 +561,7 @@ BOOST_AUTO_TEST_CASE(dataset_1)
 
   // Data space with time steps. Time steps narrower then the available steps.
   {
-    std::string datasetName = (std::filesystem::path("dataset1")
+    std::string const datasetName = (std::filesystem::path("dataset1")
          / "aap" / "scalar").string();
 
     DataSpace space;
@@ -575,7 +575,7 @@ BOOST_AUTO_TEST_CASE(dataset_1)
     // -------------------------------------------------------------------------
     // Read data in raster.
     {
-      std::shared_ptr<Raster> raster(source.open<Raster>());
+      std::shared_ptr<Raster> const raster(source.open<Raster>());
       BOOST_CHECK(raster);
       raster->createCells();
 
@@ -637,7 +637,7 @@ BOOST_AUTO_TEST_CASE(dataset_1)
 
   // Data space with time steps. Interval > 1.
   {
-    std::string datasetName = (std::filesystem::path("dataset1")
+    std::string const datasetName = (std::filesystem::path("dataset1")
          / "aap" / "scalar").string();
 
     DataSpace space;
@@ -651,7 +651,7 @@ BOOST_AUTO_TEST_CASE(dataset_1)
     // -------------------------------------------------------------------------
     // Read data in raster.
     {
-      std::shared_ptr<Raster> raster(source.open<Raster>());
+      std::shared_ptr<Raster> const raster(source.open<Raster>());
       BOOST_CHECK(raster);
       raster->createCells();
 
@@ -724,7 +724,7 @@ BOOST_AUTO_TEST_CASE(dataset_1)
     }
   }
 
-  bool emptyDataSpaceTestCreated = false;
+  bool const emptyDataSpaceTestCreated = false;
   BOOST_WARN(emptyDataSpaceTestCreated);
 }
 
@@ -735,7 +735,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
 
   // Data space with quantiles.
   {
-    std::string datasetName = (std::filesystem::path("dataset1")
+    std::string const datasetName = (std::filesystem::path("dataset1")
          / "aap" / "quantile_10").string();
 
     DataSpace space;
@@ -764,7 +764,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
     // -------------------------------------------------------------------------
     // Read data in raster.
     {
-      std::shared_ptr<Raster> raster(source.open<Raster>());
+      std::shared_ptr<Raster> const raster(source.open<Raster>());
       BOOST_CHECK(raster);
       raster->createCells();
 
@@ -883,7 +883,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
 
   // Data space with quantiles and time.
   {
-    std::string datasetName = (std::filesystem::path("dataset1")
+    std::string const datasetName = (std::filesystem::path("dataset1")
          / "aap" / "quantile").string();
 
     DataSpace space;
@@ -921,7 +921,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
     // -------------------------------------------------------------------------
     // Read data in raster.
     {
-      std::shared_ptr<Raster> raster(source.open<Raster>());
+      std::shared_ptr<Raster> const raster(source.open<Raster>());
       BOOST_CHECK(raster);
       raster->createCells();
 
@@ -1217,18 +1217,18 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
 
   // Data space with scenarios, quantiles and time.
   {
-    std::string datasetName = "quantile";
+    std::string const datasetName = "quantile";
 
     DataSpace space;
 
     std::set<std::string> scenarios;
-    std::string aap(
+    std::string const aap(
          (std::filesystem::path("dataset1") / "aap").string());
-    std::string noot(
+    std::string const noot(
          (std::filesystem::path("dataset1") / "noot").string());
-    std::string mies(
+    std::string const mies(
          (std::filesystem::path("dataset1") / "mies").string());
-    std::string teun(
+    std::string const teun(
          (std::filesystem::path("dataset1") / "teun").string());
     scenarios.insert(aap);
     scenarios.insert(noot);
@@ -1251,11 +1251,11 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
 
     {
       std::set<std::string> scenarios;
-      std::string aap(
+      std::string const aap(
            (std::filesystem::path("dataset1") / "aap").string());
-      std::string noot(
+      std::string const noot(
            (std::filesystem::path("dataset1") / "noot").string());
-      std::string mies(
+      std::string const mies(
            (std::filesystem::path("dataset1") / "mies").string());
       scenarios.insert(aap);
       scenarios.insert(mies);
@@ -1281,7 +1281,7 @@ BOOST_AUTO_TEST_CASE(dataset_1_quantiles)
     // -------------------------------------------------------------------------
     // Read data in raster.
     {
-      std::shared_ptr<Raster> raster(source.open<Raster>());
+      std::shared_ptr<Raster> const raster(source.open<Raster>());
       BOOST_CHECK(raster);
       raster->createCells();
 

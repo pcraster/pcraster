@@ -23,9 +23,9 @@ BOOST_AUTO_TEST_CASE(testSimple)
 {
   using namespace calc;
 
-  geo::RasterDim rd_aip(1,3);
-  geo::RasterDim rd_mp(2,3);
-  bool maskInit[6] = {false,false,false,true,true,true};
+  geo::RasterDim const rd_aip(1,3);
+  geo::RasterDim const rd_mp(2,3);
+  bool const maskInit[6] = {false,false,false,true,true,true};
   std::vector<bool> mask(6);
   for(size_t i=0; i < 6; ++i)
     mask[i]=maskInit[i];
@@ -53,8 +53,8 @@ BOOST_AUTO_TEST_CASE(testUpstream)
 {
   using namespace calc;
 
-  geo::RasterDim rd(2,4);
-  AsIsPacking aip(rd);
+  geo::RasterDim const rd(2,4);
+  AsIsPacking const aip(rd);
   UINT1 lddField[8]={6,5,4,4,   // -> P <-<-
                      6,6,6,8 }; // -> ->->|^
   REAL4  resultR[8]={1,0,1,2,
@@ -77,8 +77,8 @@ BOOST_AUTO_TEST_CASE(testDownstreamIterator)
 {
   using namespace calc;
 
-  geo::RasterDim rd(2,4);
-  AsIsPacking aip(rd);
+  geo::RasterDim const rd(2,4);
+  AsIsPacking const aip(rd);
   UINT1 lddField[8]={6,5,4,4,   // -> X <-<-
                      6,6,6,8 }; // -> ->->|^
   // total of upstream edges as a
@@ -103,14 +103,14 @@ BOOST_AUTO_TEST_CASE(testInitField)
 {
   using namespace calc;
 
-  geo::RasterDim rd(2,4);
-  AsIsPacking aip(rd);
+  geo::RasterDim const rd(2,4);
+  AsIsPacking const aip(rd);
   UINT1 lddField[8]={       6,5,4,4,   // -> X <-<-
                      MV_UINT1,6,6,8 }; // .  ->->|^
   REAL4  result[8]={1,1,1,1,
                     1,1,1,1 };
 
-  LddGraph ld(lddField,aip);
+  LddGraph const ld(lddField,aip);
 
   ld.initField<REAL4>(result,4.0);
   BOOST_CHECK(result[0]==4);
@@ -169,13 +169,13 @@ BOOST_AUTO_TEST_CASE(testDownstream)
 {
   using namespace calc;
 
-  geo::RasterDim rd(2,4);
-  AsIsPacking aip(rd);
+  geo::RasterDim const rd(2,4);
+  AsIsPacking const aip(rd);
   UINT1 lddField[8]={3,5,4,4,   // \  X <-<-
                      9,6,6,7 }; // -/ ->->\-
                                 // 0, 1, 2, 3,
                                 // 4, 5, 6, 7
-  LddGraph ld(lddField,aip);
+  LddGraph const ld(lddField,aip);
   BOOST_CHECK(ld.d_edge.size()==7);
   BOOST_CHECK(ld.d_catchments.size()==1);
 }
@@ -184,12 +184,12 @@ BOOST_AUTO_TEST_CASE(testUnsound)
 {
   using namespace calc;
 
-  geo::RasterDim rd_aip(1,4);
-  AsIsPacking aip(rd_aip);
+  geo::RasterDim const rd_aip(1,4);
+  AsIsPacking const aip(rd_aip);
   UINT1 lddField[4]={6,5,6,4}; // -> P -><-
   bool catched=false;
   try {
-    LddGraph ld(lddField,aip);
+    LddGraph const ld(lddField,aip);
   } catch(const LddGraph::Unsound& ) {
     catched=true;
   }

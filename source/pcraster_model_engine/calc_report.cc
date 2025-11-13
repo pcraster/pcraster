@@ -113,7 +113,7 @@ void calc::Report::update(const Timer& timer)
 {
   PRECOND(!d_list.empty());
 
-  int endTime=timer.lastInt();
+  int const endTime=timer.lastInt();
   d_startInt =timer.startInt();
   d_lastInt  =timer.lastInt();
 
@@ -154,7 +154,7 @@ void calc::Report::update(const Timer& timer)
 void calc::Report::print() const
 {
   std::string s;
-  for(bool i : d_reportAt)
+  for(bool const i : d_reportAt)
     s += i ? '1' : '0';
   PRINT_VAR(s);
 }
@@ -164,9 +164,9 @@ void calc::Report::print() const
 calc::Report calc::Report::reportDefault()
 {
   PositionName pn("reportDefaultUserGenerated");
-  Id id("reportdefault",&pn);
+  Id const id("reportdefault",&pn);
   PL list;
-  ParsReportMoment m = {1,0,-1};
+  ParsReportMoment const m = {1,0,-1};
   list.push_back(m);
   return Report(id,list);
 }

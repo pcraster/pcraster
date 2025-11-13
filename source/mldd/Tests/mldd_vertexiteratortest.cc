@@ -9,7 +9,7 @@ BOOST_AUTO_TEST_CASE(test)
 {
   using namespace mldd;
 
-  geo::RasterDim rd(2,3);
+  geo::RasterDim const rd(2,3);
   DagRaster g(rd);
   // initially empty graph; no cells set
 
@@ -17,8 +17,8 @@ BOOST_AUTO_TEST_CASE(test)
   BOOST_CHECK(g.beginVertex() == rd.convert(6));
 
   {
-    VertexIterator  begin(g,g.beginVertex());
-    VertexIterator  end(g,g.endVertex());
+    VertexIterator  const begin(g,g.beginVertex());
+    VertexIterator  const end(g,g.endVertex());
     BOOST_CHECK(begin == end);
 
     int count=0;
@@ -32,8 +32,8 @@ BOOST_AUTO_TEST_CASE(test)
   g.addFlowNB(0,1, 6); // -> add vertices (0,1) and (0,2)
   // can not add pit: g.addFlowNB(0,2, 5);
   {
-      VertexIterator  begin(g,g.beginVertex());
-      VertexIterator  end(g,g.endVertex());
+      VertexIterator  const begin(g,g.beginVertex());
+      VertexIterator  const end(g,g.endVertex());
       BOOST_CHECK(begin != end);
 
       int count=0;

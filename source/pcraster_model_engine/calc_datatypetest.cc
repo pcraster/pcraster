@@ -9,7 +9,7 @@ BOOST_AUTO_TEST_CASE(testCtor)
   using namespace calc;
 
   {
-   DataType dt;
+   DataType const dt;
    BOOST_CHECK(dt.vs()==VS_ANYTHING);
    BOOST_CHECK(!dt.stNonSpatial());
    BOOST_CHECK(!dt.stSpatial());
@@ -17,29 +17,29 @@ BOOST_AUTO_TEST_CASE(testCtor)
    BOOST_CHECK(dt.st()==ST_ALL);
   }
   {
-   double v=4.56;
-   DataType dt(v);
+   double const v=4.56;
+   DataType const dt(v);
    BOOST_CHECK(dt.vs()==VS_SD);
    BOOST_CHECK( dt.stNonSpatial());
    BOOST_CHECK(!dt.stSpatial());
    BOOST_CHECK(!dt.stEither());
   }
   {
-   DataType dt(VS_SD,ST_NONSPATIAL);
+   DataType const dt(VS_SD,ST_NONSPATIAL);
    BOOST_CHECK(dt.vs()==VS_SD);
    BOOST_CHECK( dt.stNonSpatial());
    BOOST_CHECK(!dt.stSpatial());
    BOOST_CHECK(!dt.stEither());
   }
   {
-   DataType dt(VS_SD,false);
+   DataType const dt(VS_SD,false);
    BOOST_CHECK(dt.vs()==VS_SD);
    BOOST_CHECK( dt.stNonSpatial());
    BOOST_CHECK(!dt.stSpatial());
    BOOST_CHECK(!dt.stEither());
   }
   {
-   DataType dt(VS_TSS);
+   DataType const dt(VS_TSS);
    BOOST_CHECK(dt.vs()==VS_TSS);
    BOOST_CHECK(!dt.stNonSpatial());
    BOOST_CHECK(!dt.stSpatial());

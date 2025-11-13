@@ -50,7 +50,7 @@ FeatureLayerGeometries::~FeatureLayerGeometries()
 {
   typedef std::map<FeatureId, OGRGeometry*>::value_type value_type;
 
-  for(value_type pair : _geometryByFeatureId) {
+  for(value_type const pair : _geometryByFeatureId) {
     OGRGeometryFactory::destroyGeometry(pair.second);
   }
 }
@@ -71,7 +71,7 @@ void FeatureLayerGeometries::insert(
   OGREnvelope ogrEnvelope;
   geometry->getEnvelope(&ogrEnvelope);
 
-  Box box(
+  Box const box(
     Point(ogrEnvelope.MinX, ogrEnvelope.MinY),
     Point(ogrEnvelope.MaxX, ogrEnvelope.MaxY));
   _geometryByLocation2.insert(std::make_pair(box, featureId));
@@ -142,8 +142,8 @@ OGRGeometry const* FeatureLayerGeometries::geometry(
          double x,
          double y) const
 {
-  Point point(x, y);
-  Box box(point, point);
+  Point const point(x, y);
+  Box const box(point, point);
 
   std::vector<Value> values;
   _geometryByLocation2.query(boost::geometry::index::intersects(box),

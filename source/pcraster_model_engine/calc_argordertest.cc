@@ -78,7 +78,7 @@ BOOST_AUTO_TEST_CASE(testArgOrder)
   { // no args, can not happen with argorder
     // but safety first
     INT4  result[1]  = {-1 };
-    std::vector<ArgOrderIdInfo> args;
+    std::vector<ArgOrderIdInfo> const args;
     ArgOrderAndAddArea::argOrder(args,result,1);
     BOOST_CHECK(result[0]==MV_INT4);
   }

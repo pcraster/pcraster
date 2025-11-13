@@ -22,7 +22,7 @@ struct Fixture
 
     Fixture()
     {
-        static ClientWrapper client("/my/path/feature_layer_test", true);
+        static ClientWrapper const client("/my/path/feature_layer_test", true);
     }
 
     ~Fixture()

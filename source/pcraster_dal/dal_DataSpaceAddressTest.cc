@@ -49,7 +49,7 @@ BOOST_AUTO_TEST_CASE(copy)
   DataSpaceAddress address1(1);
   address1.setCoordinate<SpatialCoordinate>(0, SpatialCoordinate(5.5, 6.6));
 
-  DataSpaceAddress address2(address1);
+  DataSpaceAddress const address2(address1);
   BOOST_CHECK_CLOSE(address2.coordinate<SpatialCoordinate>(0).x(), 5.5, 0.001);
   BOOST_CHECK_CLOSE(address2.coordinate<SpatialCoordinate>(0).y(), 6.6, 0.001);
 

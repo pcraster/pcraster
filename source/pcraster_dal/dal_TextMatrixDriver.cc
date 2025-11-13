@@ -158,10 +158,10 @@ Matrix* TextMatrixDriver::open(
     Rows rows;
     rows.push_back(row);
 
-    size_t nrCols = row.size();
+    size_t const nrCols = row.size();
 
     // Parse some more lines.
-    size_t nrLinesToProbe = 5;
+    size_t const nrLinesToProbe = 5;
     for(size_t i = 1; i < nrLinesToProbe + 1 && !stream.eof(); ++i) {
 
       std::getline(stream, line);
@@ -248,7 +248,7 @@ void TextMatrixDriver::read(
   assert(matrix.nrRows() == 0);
 
   using namespace boost::spirit::classic;
-  rule<> spaceParser = +ch_p(' ');
+  rule<> const spaceParser = +ch_p(' ');
   stored_rule<> valueParser;
   stored_rule<> rowParser;
 

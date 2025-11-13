@@ -47,7 +47,7 @@ BOOST_AUTO_TEST_CASE(entity_resolver)
   using namespace pcrxsd;
 
  { // catch the external entity PCRaster_X_X_X.xsd
-  std::string s(
+  std::string const s(
     "<definition name='a'                                   \
       xmlns='http://www.pcraster.nl/pcrxml'                 \
       xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' \
@@ -63,7 +63,7 @@ BOOST_AUTO_TEST_CASE(entity_resolver)
   }
  }
  { // catch the external entity PCRaster_X_X_X.xsd and validation error
-  std::string s(
+  std::string const s(
     "<definition namexxx='a'                                \
       xmlns='http://www.pcraster.nl/pcrxml'                 \
       xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' \

@@ -183,7 +183,7 @@ _ANTLRTokenPtr ANTLRTokenBuffer::
 bufferedToken(int n)
 {
 //	int how_many_more_i_need = (last-tp < 0) ? n : n-(last-tp)-1;
-	int how_many_more_i_need = (tp > last) ? n : n-(last-tp)-1;
+	int const how_many_more_i_need = (tp > last) ? n : n-(last-tp)-1;
 	// Make sure that at least n tokens are available in the buffer
 #ifdef DBG_TBUF
 	/* MR23 */ printMessage(stderr, "bufferedToken(%d)\n", n);

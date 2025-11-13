@@ -230,7 +230,7 @@ void LegendView::saveGraphData()
       assert(dal::Client::dal().driverByName(format.name()));
       dal::DataSpace space(dataObject().dataSpace());
       dal::DataSpaceAddress address(dataObject().dataSpaceAddress());
-      size_t index = space.indexOf(dal::Time);
+      size_t const index = space.indexOf(dal::Time);
       space.eraseDimension(index);
       address.eraseCoordinate(index);
       dal::Driver* driver(dal::Client::dal().driverByName(format.name()));
@@ -412,7 +412,7 @@ void LegendView::recreateLegend(
 
     if(!legendIndices.empty()) {
       // A legend for this guide has already been created using another guide.
-      for(unsigned long legendIndice : legendIndices) {
+      for(unsigned long const legendIndice : legendIndices) {
         std::vector<DataGuide>& guides(std::get<0>(
               _legendTuples[legendIndice]));
 
@@ -433,7 +433,7 @@ void LegendView::recreateLegend(
 
       std::vector<DataGuide> guides;
       guides.push_back(guide);
-      LegendTuple tuple(guides, legend);
+      LegendTuple const tuple(guides, legend);
       _legendTuples.push_back(tuple);
 
       drawPropertiesLegendIndexTuples.push_back(
@@ -516,7 +516,7 @@ void LegendView::handleRequestedCustomContextMenu(
   }
   else {
     _contextMenuGuides = dataGuides(_contextMenuIndex);
-    DataGuide guide = _contextMenuGuides.front();
+    DataGuide const guide = _contextMenuGuides.front();
 
     QMenu menu(this);
     menu.addAction(_generalPropertiesAction);

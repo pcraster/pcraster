@@ -107,7 +107,7 @@ void ag::CumDistributionFunctionWindow::createInterface()
   viewMenu()->addSeparator();
   toolBar()->addSeparator();
 
-  QPixmap toggleMarkerIcon = QPixmap((const char**)togglemarker_xpm);
+  QPixmap const toggleMarkerIcon = QPixmap((const char**)togglemarker_xpm);
   auto* action = new QAction(
          toggleMarkerIcon,
          "Toggle marker",

@@ -334,7 +334,7 @@ double RangeDrawPropertiesWidget::minCutoff() const
 
 void RangeDrawPropertiesWidget::resetMaxCutoff()
 {
-  RangeDrawProps& properties =
+  RangeDrawProps const& properties =
          dataObject().properties().rangeDrawProperties(dataGuide());
   setMaxCutoff(properties.max());
 }
@@ -343,7 +343,7 @@ void RangeDrawPropertiesWidget::resetMaxCutoff()
 
 void RangeDrawPropertiesWidget::resetMinCutoff()
 {
-  RangeDrawProps& properties =
+  RangeDrawProps const& properties =
          dataObject().properties().rangeDrawProperties(dataGuide());
   setMinCutoff(properties.min());
 }
@@ -411,7 +411,7 @@ void RangeDrawPropertiesWidget::apply()
 {
   DrawPropertiesWidget::apply();
 
-  RangeDrawProps& properties =
+  RangeDrawProps const& properties =
            dataObject().properties().rangeDrawProperties(dataGuide());
 
   if(properties.cutoffsAreValid()) {
@@ -424,7 +424,7 @@ void RangeDrawPropertiesWidget::apply()
 
         // Revert dialog settings to before the push of the user defined
         // classifier.
-        RangeDrawProps& properties(
+        RangeDrawProps const& properties(
               dataObject().properties().rangeDrawProperties(dataGuide()));
         setNrClasses(properties.nrClasses());
         setMaxCutoff(properties.maxCutoff());
@@ -465,7 +465,7 @@ void RangeDrawPropertiesWidget::apply()
       com::UserDefinedClassifier<REAL8>* userDefinedClassifier =
          classifier.installUserDefined();
       std::vector<double> borders;
-      double alpha = 1.0 - confidenceLevel();
+      double const alpha = 1.0 - confidenceLevel();
       assert(dal::greaterOrComparable(alpha, 0.0));
       borders.push_back(0.0);
       borders.push_back(0.5 * alpha);

@@ -39,7 +39,7 @@ BOOST_AUTO_TEST_CASE(testRunDir)
   using namespace calc;
 
   RunDirectory r;
-  std::string dir("rundir_baseOfRunDirNotExistantIsOk");
+  std::string const dir("rundir_baseOfRunDirNotExistantIsOk");
   r.setRunDirectory(dir,"");
   const std::string s1("fileName");
 
@@ -60,7 +60,7 @@ BOOST_AUTO_TEST_CASE(testSearchPath)
 
   bool found = false;
   RunDirectory r;
-  std::string runDirName("rundir_dir1/dir2/dir3");
+  std::string const runDirName("rundir_dir1/dir2/dir3");
 
   com::PathName pnRd(runDirName);
   pnRd.makeNative();
@@ -70,12 +70,12 @@ BOOST_AUTO_TEST_CASE(testSearchPath)
 
   r.setRunDirectory(runDirName,"");
 
-  std::string runFileNotFound("rundir_dir1/inFile");
+  std::string const runFileNotFound("rundir_dir1/inFile");
   com::PathName pnFnf(runFileNotFound);
   pnFnf.makeNative();
   com::create(pnFnf);
 
-  std::string runFileFound("rundir_dir1/dir2/inFile");
+  std::string const runFileFound("rundir_dir1/dir2/inFile");
   com::PathName pnFf(runFileFound);
   pnFf.makeNative();
   pnFf.makeAbsolute();
@@ -84,7 +84,7 @@ BOOST_AUTO_TEST_CASE(testSearchPath)
   BOOST_CHECK(pnFf.toString() == r.inPath(found,"inFile"));
   BOOST_CHECK(found);
 
-  std::string fne("inFileNotExistant");
+  std::string const fne("inFileNotExistant");
   BOOST_CHECK(fne == r.inPath(found,fne));
   BOOST_CHECK(!found);
 }
@@ -95,20 +95,20 @@ BOOST_AUTO_TEST_CASE(testOutputFilePath)
 
   const std::string s1("fileName");
   {
-   RunDirectory rd;
+   RunDirectory const rd;
    BOOST_CHECK(s1 == rd.outputFilePath(s1));
   }
 
   {
     // will be created
-   std::string dir("rundir_baseOfRunDirNotExistantIsOk");
-   RunDirectory rd(dir);
+   std::string const dir("rundir_baseOfRunDirNotExistantIsOk");
+   RunDirectory const rd(dir);
    com::PathName o1(dir);
    BOOST_CHECK(!com::exists(dir));
    o1+=s1;
    BOOST_CHECK(o1.toString() == rd.outputFilePath(s1));
    BOOST_CHECK(com::exists(dir));
-   com::PathInfo pi(dir);
+   com::PathInfo const pi(dir);
    BOOST_CHECK(pi.isDirectory());
 
    com::create(rd.outputFilePath(s1));
@@ -134,8 +134,8 @@ BOOST_AUTO_TEST_CASE(testOutputFilePath)
 */
  bool exceptionCatched=false;
  try {
-    RunDirectory rd("NonBasePartOfRunDirMustExist/base");
-    std::string s=rd.outputFilePath("failureExpected");
+    RunDirectory const rd("NonBasePartOfRunDirMustExist/base");
+    std::string const s=rd.outputFilePath("failureExpected");
     BOOST_CHECK(exceptionCatched);
  } catch (const com::Exception& /*e*/) {
     exceptionCatched=true;

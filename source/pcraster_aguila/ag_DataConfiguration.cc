@@ -279,10 +279,10 @@ void DataConfiguration::add(
     add(name, space, result, configuration);
   }
   else {
-    size_t index = space.indexOf(dal::Scenarios);
+    size_t const index = space.indexOf(dal::Scenarios);
     dal::Dimension const& dimension(space.dimension(index));
     // d_nameMap.insert(std::make_pair(name, name));
-    dal::DataSpace narrowSpace;
+    dal::DataSpace const narrowSpace;
 
     for(size_t i = 0; i < dimension.nrCoordinates(); ++i) {
       add(name, dal::dataSpaceWithNarrowedDimension(space, index, i),
@@ -338,12 +338,12 @@ void DataConfiguration::add(
       dal::Driver const* driver(dal::Client::dal().driverByDataset(name,
          space));
       assert(driver);
-      std::unique_ptr<dal::Table const> table(dynamic_cast<dal::Table const*>(
+      std::unique_ptr<dal::Table const> const table(dynamic_cast<dal::Table const*>(
          driver->open(name, result.space(), result.address())));
       assert(table.get());
 
       for(size_t i = table->nrCols(); i > 1; --i) {
-        std::string colName = std::vformat("{0}{1, {1}}",
+        std::string const colName = std::vformat("{0}{1, {1}}",
            std::make_format_args(name, i));
         d_nameMap[name].insert(colName);
         d_dataMap2.insert(std::make_pair(colName, DataItemInformation(
@@ -401,17 +401,17 @@ std::vector<std::vector<DataGuide> > DataConfiguration::guidesOfView2(
   // For each scenario a bunch of guides.
   std::vector<std::vector<DataGuide> > result(d_nrScenarios);
 
-  XMLViewItems viewItems(view);
+  XMLViewItems const viewItems(view);
 
   // Loop over views items: names of data sets.
   for(const auto & viewItem : viewItems) {
     // Data set names can be an alias for a set of data set names. First
     // translate the name to this set and collect the guides for each of them.
     assert(d_nameMap.find(viewItem) != d_nameMap.end());
-    std::set<std::string> names((*d_nameMap.find(viewItem)).second);
+    std::set<std::string> const names((*d_nameMap.find(viewItem)).second);
     assert(!names.empty());
 
-    [[maybe_unused]] std::pair<NameMap::const_iterator, NameMap::const_iterator> nameRange(
+    [[maybe_unused]] std::pair<NameMap::const_iterator, NameMap::const_iterator> const nameRange(
          d_nameMap.equal_range(viewItem));
     assert(nameRange.first != nameRange.second);
 

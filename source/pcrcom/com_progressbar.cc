@@ -122,8 +122,8 @@ void com::ProgressBar::update()
   DEVELOP_PRECOND(nrCharactersWritten() == width());
 
   // Determine nr of hashes to print.
-  com::DiMap map(0, nrSteps(), 0.0, static_cast<double>(width() - 2));
-  size_t nrHashes = static_cast<size_t>(
+  com::DiMap const map(0, nrSteps(), 0.0, static_cast<double>(width() - 2));
+  size_t const nrHashes = static_cast<size_t>(
                    boost::math::round(map.invTransform(nrFinishedSteps())));
 
   if(nrHashes != d_nrHashesWritten) {

@@ -53,7 +53,7 @@ void TimeSliceVisitor::visitPerCachmentSlice()
         c != graph().catchmentsEnd(); ++c)
     {
       // set the per pit timeslice
-      size_t fieldId  =c->d_pitId;
+      size_t const fieldId  =c->d_pitId;
       csi.nrTimeSlices =1; // keep 1 on no pit (unsound ldd)
       if (!graph().invalid(fieldId)) {
          csi.nrTimeSlices =d_nrTimeSlicesField[fieldId];

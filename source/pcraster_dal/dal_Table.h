@@ -1191,7 +1191,7 @@ inline void Table::erase(
   size_t end = col + size;
 
   for(; col < end; --end) {
-    TypeId typeId = d_typeIds[col];
+    TypeId const typeId = d_typeIds[col];
 
     switch(typeId) {
       case TI_INT1:   { erase<INT1>(col);   break; }

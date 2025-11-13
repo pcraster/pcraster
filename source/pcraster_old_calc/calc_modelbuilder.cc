@@ -65,13 +65,13 @@ void calc::ModelBuilder::set0Compression(bool enable)
  */
 void calc::ModelBuilder::addStatement(const std::string& statement, bool write)
 {
-  ParserInput pi(statement);
+  ParserInput const pi(statement);
   Parser parser(pi.tokenBuffer());
   parser.initialize(d_script);
 
   if (write)
     d_script.setReportFound();
-  WriteInfo wi(&d_script,write,nullptr,false);
+  WriteInfo const wi(&d_script,write,nullptr,false);
   int retsignal = 0;
   parser.assignment(&retsignal, &d_script,wi);
 }
@@ -89,7 +89,7 @@ void calc::ModelBuilder::addFieldAssignment(
 {
   if (write)
     d_script.setReportFound();
-  WriteInfo wi(&d_script,write,nullptr,false);
+  WriteInfo const wi(&d_script,write,nullptr,false);
 
   addStatement(
      new Assignment(&d_script, wi,usePar(par) ,expr));
@@ -100,7 +100,7 @@ void calc::ModelBuilder::addFieldAssignment(
  */
 calc::FieldExpr* calc::ModelBuilder::addFieldExpr(const std::string& expr)
 {
-  ParserInput pi(expr);
+  ParserInput const pi(expr);
   Parser parser(pi.tokenBuffer());
   parser.initialize(d_script);
 
@@ -112,7 +112,7 @@ calc::FieldExpr* calc::ModelBuilder::addFieldExpr(const std::string& expr)
 //! add a series of bindings from an ascii file \a bindingFile
 calc::RunSettings calc::ModelBuilder::parseExternalBindings(const com::PathName& bindingFile)
 {
-  ParserInput pi(bindingFile);
+  ParserInput const pi(bindingFile);
   Parser parser(pi.tokenBuffer());
   parser.initialize(d_script);
 
@@ -175,7 +175,7 @@ calc::Symbol calc::ModelBuilder::symbol(const std::string& name)
 
 void calc::ModelBuilder::setGlobalOption(const std::string& option)
 {
-  std::string withDash = "--"+option;
+  std::string const withDash = "--"+option;
   PRECOND(ParseGlobalFlag(withDash.c_str()));
   ParseGlobalFlag(withDash.c_str());
 }

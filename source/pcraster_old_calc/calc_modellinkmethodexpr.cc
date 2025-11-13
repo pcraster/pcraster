@@ -67,7 +67,7 @@ void calc::ModelLinkMethodExpr::buildTypes()
 
   d_fieldType.restrictUser(d_sig.d_result[0].vs, d_sig.d_result[0].st);
 
-  calc::MethodOperator mop(d_methodName.name(), d_sig);
+  calc::MethodOperator const mop(d_methodName.name(), d_sig);
 
   calc::FieldArgs a(d_methodName,mop(),d_args);
   a.restrictFieldArgs(d_sig.d_strArgGiven ? 1 : 0 );
@@ -94,14 +94,14 @@ const calc::FieldType &calc::ModelLinkMethodExpr::fieldType()const
 
 void calc::ModelLinkMethodExpr::prepareExecution()
 {
-  MethodOperator mop(d_par->modelTypeName(), d_sig);
+  MethodOperator const mop(d_par->modelTypeName(), d_sig);
   FieldArgs a(d_methodName,mop(),d_args);
   a.prepareExecution();
 }
 
 void calc::ModelLinkMethodExpr::skipExecution()
 {
-  MethodOperator mop(d_par->modelTypeName(), d_sig);
+  MethodOperator const mop(d_par->modelTypeName(), d_sig);
   FieldArgs a(d_methodName,mop(),d_args);
   a.skipExecution();
 }
@@ -109,12 +109,12 @@ void calc::ModelLinkMethodExpr::skipExecution()
 void calc::ModelLinkMethodExpr::execute(FieldStack& stack)
 {
   // pcrcalc/test333
-  MethodOperator mop(d_par->modelTypeName(), d_sig);
+  MethodOperator const mop(d_par->modelTypeName(), d_sig);
 
   FieldArgs a(d_methodName,mop(),d_args);
   a.executeArgs(stack);
 
-  GlobResult result(d_sig.d_result[0].vs, vs(), scriptConst().compressor());
+  GlobResult const result(d_sig.d_result[0].vs, vs(), scriptConst().compressor());
   GlobArgs args(mop(), scriptConst().compressor(), stack);
 
   //! wrap inputs args into signature

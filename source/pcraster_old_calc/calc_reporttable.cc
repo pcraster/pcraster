@@ -37,7 +37,7 @@ calc::ReportTable::~ReportTable()
 void calc::ReportTable::insert(const ReportDefinition *r)
 {
   try {
-   std::pair<Table::iterator,bool> p=d_table.insert(std::make_pair(r->name(),r));
+   std::pair<Table::iterator,bool> const p=d_table.insert(std::make_pair(r->name(),r));
    auto fd =p.first; // first definition if error, or (new) position
    if (!p.second) { // pcrcalc/test238
        std::ostringstream msg;

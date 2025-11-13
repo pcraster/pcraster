@@ -126,15 +126,15 @@ bool Table::value(
 
   if(Dataset::isRead(space, address)) {
     assert(dataSource().dataSpace().hasTime());
-    size_t index = dataSource().dataSpace().indexOf(dal::Time);
-    size_t step = address.template coordinate<size_t>(index);
+    size_t const index = dataSource().dataSpace().indexOf(dal::Time);
+    size_t const step = address.template coordinate<size_t>(index);
 
     dal::Array<UINT4> const& steps(d_table->col<UINT4>(d_timeCol));
     dal::Array<UINT4>::const_iterator it =
          std::find(steps.begin(), steps.end(), step);
 
     if(it != steps.end()) {
-      size_t record = std::distance(steps.begin(), it);
+      size_t const record = std::distance(steps.begin(), it);
 
       if(!pcr::isMV(d_table->template cell<T>(record, d_attrCol))) {
         result = d_table->template cell<T>(record, d_attrCol);

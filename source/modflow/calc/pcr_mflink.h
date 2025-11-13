@@ -71,7 +71,7 @@ class PCRMF_EXPORT ModflowLink {
 
   static void construct(pcrxml::LinkInExecuteInput const& l) // LinkInTransferArray linkInTransferArray
   {
-    std::string objName=std::string(l.callPoint().object()->objectName());
+    std::string const objName=std::string(l.callPoint().object()->objectName());
     auto i=objects.find(objName);
     // it is only allows to construct one modflow object
     if(objects.size() > 0){
@@ -90,11 +90,11 @@ class PCRMF_EXPORT ModflowLink {
 			 pcrxml::LinkInExecuteInput const& l,
 			 LinkInTransferArray linkInTransferArray)
     {
-      std::string objName=std::string(l.callPoint().object()->objectName());
+      std::string const objName=std::string(l.callPoint().object()->objectName());
       auto i=objects.find(objName);
       assert(i!=objects.end());
 
-      std::string methodName=std::string(l.callPoint().object()->methodName().get());
+      std::string const methodName=std::string(l.callPoint().object()->methodName().get());
 
       if(methodName == "createBottomLayer") {
 	i->second->createBottom(linkInTransferArray);

@@ -80,7 +80,7 @@ calc::LddGraph::LddGraph(
     d_fieldIdToPitId(conv.nrFieldCells(),std::numeric_limits<PitId>::max())
  */
 {
-  size_t fieldLen=nrVertices();
+  size_t const fieldLen=nrVertices();
 
   d_invalidFieldId=fieldLen;
 
@@ -115,7 +115,7 @@ calc::LddGraph::LddGraph(
   } check(fieldLen);
 
   std::vector<size_t> catchmentBegin;
-  std::vector<size_t> catchmentEnd;
+  std::vector<size_t> const catchmentEnd;
 
   for(size_t p=0; p<fieldLen; ++p) {
     switch(lddField[p]) {
@@ -134,15 +134,15 @@ calc::LddGraph::LddGraph(
       std::stack<geo::LinearLoc> targets;
       targets.push(p);
       while(!targets.empty()) {
-        FieldId        targetF=targets.top();
+        FieldId        const targetF=targets.top();
 
-        geo::LinearLoc targetR=conv.toRasterId(targetF);
+        geo::LinearLoc const targetR=conv.toRasterId(targetF);
         targets.pop();
         for(geo::NB::Code nb=0; nb<8; ++nb) {
-         geo::LinearLoc sourceR=conv.rasterDim().target<geo::NB>(targetR,nb);
+         geo::LinearLoc const sourceR=conv.rasterDim().target<geo::NB>(targetR,nb);
          if (sourceR!=conv.invalidId()) {
           // valid neighbour
-          FieldId sourceF = conv.toFieldId(sourceR);
+          FieldId const sourceF = conv.toFieldId(sourceR);
           if (sourceF != conv.invalidId() &&
               lddField[sourceF] != MV_UINT1 &&
               targetR==conv.rasterDim().target<geo::LDD>(sourceR,lddField[sourceF])) {
@@ -243,7 +243,7 @@ calc::LddGraph::LddGraph(
     // the next loop, which potentially invalidates the iterators...
     // Although this won't happen in practice (see reserve call above), Visual
     // Studio's STL does assert this situation.
-    size_t idOfBeginEdge = d_edge.size();
+    size_t const idOfBeginEdge = d_edge.size();
     // newC.d_beginEdge=d_edge.end();
 
     for(auto e=d_catchment.d_beginEdge; e!=d_catchment.d_endEdge; ++e) {

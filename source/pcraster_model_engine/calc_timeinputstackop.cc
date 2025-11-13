@@ -9,7 +9,7 @@
 
 void calc::TimeinputStackOp::exec(RunTimeEnv* rte,const Operator& op,size_t nrArgs) const
 {
-  ExecArguments a(op,rte,nrArgs);
+  ExecArguments const a(op,rte,nrArgs);
 
   auto *stack= dynamic_cast<StackInput *>(a.firstNonFieldInput());
   POSTCOND(stack);
@@ -19,7 +19,7 @@ void calc::TimeinputStackOp::exec(RunTimeEnv* rte,const Operator& op,size_t nrAr
 
 void calc::LookupMapStack::exec(RunTimeEnv* rte,const Operator& op,size_t nrArgs) const
 {
-  ExecArguments a(op,rte,nrArgs);
+  ExecArguments const a(op,rte,nrArgs);
 
   auto *stack= dynamic_cast<StackInput *>(a.firstNonFieldInput());
   POSTCOND(stack);

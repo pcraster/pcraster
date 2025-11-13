@@ -53,7 +53,7 @@ calc::Dimension::Dimension(const std::string& str):
   id2base.insert(std::make_pair("cd"   ,LuminousIntensity));
   id2base.insert(std::make_pair("E"    ,Currency));
 
-  DimensionParser dp(str);
+  DimensionParser const dp(str);
   for(size_t i=0; i < dp.symbols().size(); ++i) {
     auto it=id2base.find(dp.symbols()[i].d_symbol);
     if (it != id2base.end()) {
@@ -94,7 +94,7 @@ calc::Dimension& calc::Dimension::operator=(Dimension const& rhs)
 //! is this dimensionless? in other words all are 0
 bool calc::Dimension::none() const
 {
-  for(double i : *this)
+  for(double const i : *this)
     if (i!=0)
       return false;
   return true;

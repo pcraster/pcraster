@@ -93,9 +93,9 @@ void calc::checkTimerSection(
     const TimerValue& end,
     const TimerValue& slice)
 {
-  size_t timerStart = start.check("start time");
-  size_t timerEnd   =   end.check("end time");
-  size_t timerSlice = slice.check("time step");
+  size_t const timerStart = start.check("start time");
+  size_t const timerEnd   =   end.check("end time");
+  size_t const timerSlice = slice.check("time step");
 
   if (timerStart != 1) /* pcrcalc/test6 */
    end.posError("current limitation: start time must be 1 (not "+start.name()+")");

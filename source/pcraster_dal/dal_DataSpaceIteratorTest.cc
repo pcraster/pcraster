@@ -695,7 +695,7 @@ BOOST_AUTO_TEST_CASE(space_with_empty_dimensions)
   timeSteps.push_back(12);
   timeSteps.push_back(1);
 
-  RasterDimensions cells(3, 3);
+  RasterDimensions const cells(3, 3);
 
   space.addDimension(Dimension(Time, timeSteps));
   space.addDimension(Dimension(Space, RegularDiscretisation, cells));

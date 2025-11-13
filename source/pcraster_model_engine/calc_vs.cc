@@ -67,7 +67,7 @@ std::ostream& operator<<(
     { VS_UNKNOWN,    "unknown!"}
    };
 
-  size_t nrVs = ARRAY_SIZE(names);
+  size_t const nrVs = ARRAY_SIZE(names);
   size_t thisSet[ARRAY_SIZE(names)];
   size_t i = 0;
   size_t thisSetNr=0;
@@ -127,7 +127,7 @@ PCR_ME_EXPORT VS vsOfNumber(double value)
   int set = (int)VS_FIELD;
   if ( value >= (double)LONG_MIN && value <= (double)LONG_MAX )
   {
-    long i = (long)value;
+    long const i = (long)value;
     if ( value == ((double)i) )
     {
      /* if the value is not equal to 0 or 1

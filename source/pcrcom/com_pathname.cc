@@ -34,7 +34,7 @@ const char DRIVE_DELIM=':';
 
 const std::string& com::PathName::dirPathDelimNative()
 {
-  static std::string str(1,DIR_PATH_DELIM);
+  static std::string const str(1,DIR_PATH_DELIM);
   return str;
 }
 
@@ -328,7 +328,7 @@ int com::PathName::compare(const PathName& pathName) const
 */
 bool com::PathName::startsWith(const std::string& aString) const
 {
-  std::string pathName = toString();
+  std::string const pathName = toString();
 #ifdef WIN32
   return pathName.length() >= aString.length() && com::compareNoCase(
                    pathName.substr(0, aString.length()), aString) == 0;
@@ -386,8 +386,8 @@ std::string com::PathName::baseName() const
 */
 std::string com::PathName::extension() const
 {
-  std::string filename(path().filename().string());
-  size_t i = filename.find_last_of('.');
+  std::string const filename(path().filename().string());
+  size_t const i = filename.find_last_of('.');
   // found and not as last char
   if (i != std::string::npos && i < filename.size() - 1)
    return filename.substr(i+1); // +1 do not include "."
@@ -431,11 +431,11 @@ namespace boost {
 */
 void com::PathName::removeExtension()
 {
-  std::string ext(extension());
+  std::string const ext(extension());
   if (!ext.empty()) {
     std::string s(path().string());
     PRECOND(s.rfind(ext)!=std::string::npos);
-    size_t dotPos = s.rfind(ext)-1;
+    size_t const dotPos = s.rfind(ext)-1;
     s.erase(dotPos);
     set(s);
   }

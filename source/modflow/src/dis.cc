@@ -277,7 +277,7 @@ bool DIS::addLayer(const float *values, bool confined){
   // two confined layer not allowed
   if(confined == true){
     if(d_mf->d_lastIsConfined == true){
-      std::string stmp("Grid specification: two consecutive confining beds are not allowed");
+      std::string const stmp("Grid specification: two consecutive confining beds are not allowed");
       d_mf->d_cmethods->error(stmp, d_mf->d_methodName);
     }
     d_mf->d_lastIsConfined = true;
@@ -294,7 +294,7 @@ bool DIS::addLayer(const float *values, bool confined){
   if(confined){
     // bottom of confined must be adapted
     /// \todo this should be changed...
-    size_t size = d_mf->d_quasiConfined.size() - 1;
+    size_t const size = d_mf->d_quasiConfined.size() - 1;
     d_mf->d_quasiConfined.at(size) = confined;
     // top of confined
 
@@ -402,7 +402,7 @@ void DIS::write_row_width(std::ostringstream& content) const {
   }
   else{
     content << "INTERNAL   1.0 (FREE)    -1    DELC\n";
-    for(float i : d_row_width){
+    for(float const i : d_row_width){
       content << i << " ";
     }
     content << "\n";
@@ -428,7 +428,7 @@ void DIS::write_col_width(std::ostringstream& content) const {
   }
   else{
     content << "INTERNAL   1.0 (FREE)    -1    DELR\n";
-    for(float i : d_col_width){
+    for(float const i : d_col_width){
       content << i << " ";
     }
     content << "\n";
@@ -508,7 +508,7 @@ void DIS::write_dis(std::string const& path) const {
 
 void DIS::write_dis_array(std::string const& path) const {
 
-  std::string filename = mf::execution_path(path, "pcrmf_elev.asc");
+  std::string const filename = mf::execution_path(path, "pcrmf_elev.asc");
 
   std::ofstream content(filename);
 

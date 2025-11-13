@@ -146,7 +146,7 @@ void Map2DView::process()
   }
 
   if(visualisationEngine().change() & VisEngine::MAP2DMOVE) {
-    QPointF offset(worldUnitsToPixels(
+    QPointF const offset(worldUnitsToPixels(
          dataObject().map2DOffset() - visualisationEngine().map2DOffset()));
     moveBy(offset);
   }
@@ -296,7 +296,7 @@ void Map2DView::drawCrossHair()
   dal::DataSpaceAddress const& address(dataObject().dataSpaceAddress());
 
   if(space.hasSpace()) {
-    size_t index = space.indexOf(dal::Space);
+    size_t const index = space.indexOf(dal::Space);
 
     if(address.isValid(index)) {
       auto const& spatialCoordinates(
@@ -409,7 +409,7 @@ void Map2DView::mouseReleaseEvent(
   if(event->modifiers() & Qt::ShiftModifier) {
     if((event->button() == Qt::LeftButton)) {
       // Reset the mouse target, otherwise the zoom rectangle will be shown.
-      QRect rectangle(zoomRectangle());
+      QRect const rectangle(zoomRectangle());
       _mapViewMouseTarget.initialize();
       zoomByRectangle(rectangle);
     }
@@ -447,8 +447,8 @@ void Map2DView::mouseDoubleClickEvent(
       dataObject().unsetCoordinates(dal::Space, false);
 
       // Zoom in to current mouse position.
-      double dx = (width() / 2.0) - _mapViewMouseTarget.pressPosition().x();
-      double dy = (height() / 2.0) - _mapViewMouseTarget.pressPosition().y();
+      double const dx = (width() / 2.0) - _mapViewMouseTarget.pressPosition().x();
+      double const dy = (height() / 2.0) - _mapViewMouseTarget.pressPosition().y();
 
       dataObject().map2DMoveBy(pixelsToWorldUnits(dx), pixelsToWorldUnits(dy),
          false);
@@ -519,10 +519,10 @@ void Map2DView::wheelEvent(
 #if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
     int nrDegrees = event->delta() / 8;
 #else
-    int nrDegrees = event->angleDelta().y() / 8;
+    int const nrDegrees = event->angleDelta().y() / 8;
 #endif
 
-    double fraction = nrDegrees / 360.0;
+    double const fraction = nrDegrees / 360.0;
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
     if(event->orientation() == Qt::Vertical) {
@@ -714,17 +714,17 @@ void Map2DView::zoomAll()
   double scale = 0.0;
 
   dal::SpaceDimensions const& dimensions(dataObject().envelope());
-  double longitudinalExtent = dimensions.longitudinalExtent();
-  double latitudinalExtent = dimensions.latitudinalExtent();
+  double const longitudinalExtent = dimensions.longitudinalExtent();
+  double const latitudinalExtent = dimensions.latitudinalExtent();
 
   if(width() > 1 && height() > 1 &&
          longitudinalExtent > 0.0 && latitudinalExtent > 0.0) {
 
     // Determine the relation between the width and height of the view.
-    double relView = static_cast<double>(width()) / height();
+    double const relView = static_cast<double>(width()) / height();
 
     // Determine the relation between the width and height of the clone.
-    double relClone = longitudinalExtent / latitudinalExtent;
+    double const relClone = longitudinalExtent / latitudinalExtent;
 
     // Compare both relations and determine the scale.
     scale = relView <= relClone ? longitudinalExtent / width()
@@ -744,12 +744,12 @@ void Map2DView::zoomByRectangle(
   }
 
   // Center map around center zoom rectangle.
-  QPointF movement(pixelsToWorldUnits(
+  QPointF const movement(pixelsToWorldUnits(
          QPointF(this->rect().center()) - rectangle.center()));
   dataObject().map2DMoveBy(movement, false);
 
   // Zoom into the zoom rectangle.
-  double scale = MIN(
+  double const scale = MIN(
        ABS(static_cast<double>(width()) / rectangle.width()),
        ABS(static_cast<double>(height()) / rectangle.height()));
   dataObject().map2DZoomBy(scale, false);
@@ -944,7 +944,7 @@ void Map2DView::createScene(
 void Map2DView::updateBuffer(
          QRectF const& area)
 {
-  dal::DataSpaceAddress addressWithoutSpace(
+  dal::DataSpaceAddress const addressWithoutSpace(
          dataObject().dataSpace().eraseCoordinates(
               dataObject().dataSpaceAddress(), dal::Space));
 
@@ -975,8 +975,8 @@ bool Map2DView::map(
          double y,
          QPointF& pos) const
 {
-  double scale = dataObject().map2DScale();
-  double zoom = dataObject().map2DZoom();
+  double const scale = dataObject().map2DScale();
+  double const zoom = dataObject().map2DZoom();
 
   dal::SpaceDimensions const& dimensions(dataObject().envelope());
 
@@ -1021,8 +1021,8 @@ bool Map2DView::map(
          double* x,
          double* y) const
 {
-  double scale = dataObject().map2DScale();
-  double zoom = dataObject().map2DZoom();
+  double const scale = dataObject().map2DScale();
+  double const zoom = dataObject().map2DZoom();
 
   dal::SpaceDimensions const& dimensions(dataObject().envelope());
 

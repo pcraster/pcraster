@@ -62,7 +62,7 @@ BOOST_AUTO_TEST_CASE(identity)
   using namespace com;
 
   // Create a 3x3 identity matrix.
-  Matrix<double> m(Matrix<double>::identity(3));
+  Matrix<double> const m(Matrix<double>::identity(3));
 
   // Check the contents of the cells.
   BOOST_CHECK(m.element(1, 1) == 1.0);
@@ -98,13 +98,13 @@ BOOST_AUTO_TEST_CASE(invert)
   m.setElement(3, 3, 8.3);
 
   // Create the inverse matrix.
-  Matrix<double> inverse(Matrix<double>::invert(m));
+  Matrix<double> const inverse(Matrix<double>::invert(m));
 
   // Create the identity matrix.
-  Matrix<double> identity(Matrix<double>::identity(3));
+  Matrix<double> const identity(Matrix<double>::identity(3));
 
   // The original times its inverse must equal the identity matrix.
-  Matrix<double> product(m * inverse);
+  Matrix<double> const product(m * inverse);
 
   BOOST_CHECK(product.element(1, 1) - 1.0 < 1e-10);
   BOOST_CHECK(product.element(2, 1) < 1e-10);
@@ -137,7 +137,7 @@ BOOST_AUTO_TEST_CASE(transpose)
   m.setElement(2, 3, 6.0);
 
   // Create the transpose.
-  Matrix<double> transpose(Matrix<double>::transpose(m));
+  Matrix<double> const transpose(Matrix<double>::transpose(m));
 
   // Check the transpose.
   BOOST_CHECK(m.nrRows() == transpose.nrCols());

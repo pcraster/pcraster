@@ -100,7 +100,7 @@ calc::GlobArgs::GlobArgs(const GlobArgs& rhs):
  */
 calc::GlobResult *calc::GlobArgs::createGlobResult(size_t n)
 {
-  DataType r=resultType(n);
+  DataType const r=resultType(n);
   return new GlobResult(d_op.resultType(n).vs(),r.vs(),d_rte->spatialPacking());
 }
 

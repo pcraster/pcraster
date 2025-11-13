@@ -125,7 +125,7 @@ void MemoryRasterDriver::read(
          DataSpaceAddress const& address) const
 {
   // Make sure the temp raster is deleted again.
-  std::shared_ptr<Raster> tmpRaster(read(name, space, address, TI_NR_TYPES));
+  std::shared_ptr<Raster> const tmpRaster(read(name, space, address, TI_NR_TYPES));
   raster = *tmpRaster;
 }
 

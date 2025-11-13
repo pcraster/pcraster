@@ -67,9 +67,9 @@ void FeatureLayerDrawer::drawPoint(
          long int /* featureId */,
          OGRPoint const& point) const
 {
-  QPointF p = QPointF(point.getX(), point.getY());
-  qreal x = world_to_screen.map(p).x();
-  qreal y = world_to_screen.map(p).y();
+  QPointF const p = QPointF(point.getX(), point.getY());
+  qreal const x = world_to_screen.map(p).x();
+  qreal const y = world_to_screen.map(p).y();
 
   painter.drawEllipse(x - 2, y - 2, 5, 5);
 }
@@ -166,7 +166,7 @@ void FeatureLayerDrawer::draw(
   }
 
   // Area of the feature layer that possibly contains features to draw.
-  QRectF dirtyMapAreaInWorldCoordinates(
+  QRectF const dirtyMapAreaInWorldCoordinates(
     screen_to_world.map( QPointF(dirtyMapAreaInPixels.left(), dirtyMapAreaInPixels.top()) ),
     screen_to_world.map( QPointF(dirtyMapAreaInPixels.right(), dirtyMapAreaInPixels.bottom()) )
   );
@@ -187,7 +187,7 @@ void FeatureLayerDrawer::draw(
   // very close to the box' edges to be selected. Otherwise these geometries
   // might not be selected, possibly due to floating point rounding
   // errors.
-  Box box(
+  Box const box(
     Point(
         west - std::abs(0.01 * west),
         south - std::abs(0.01 * south)
@@ -217,7 +217,7 @@ void FeatureLayerDrawer::draw(
          QTransform const& world_to_screen,
          QTransform const& screen_to_world) const
 {
-  for(long int featureId : featureIds) {
+  for(long int const featureId : featureIds) {
     draw(painter, featureId, world_to_screen, screen_to_world);
   }
 }
@@ -294,7 +294,7 @@ void FeatureLayerDrawer::drawMultiPoint(
          long int featureId,
          OGRMultiPoint const& multiPoint) const
 {
-  int nrGeometries = multiPoint.getNumGeometries();
+  int const nrGeometries = multiPoint.getNumGeometries();
 
   for(int i = 0; i < nrGeometries; ++i) {
     auto const& point(dynamic_cast<OGRPoint const&>(
@@ -312,7 +312,7 @@ void FeatureLayerDrawer::drawMultiLine(
          long int featureId,
          OGRMultiLineString const& multiLine) const
 {
-  int nrGeometries = multiLine.getNumGeometries();
+  int const nrGeometries = multiLine.getNumGeometries();
 
   for(int i = 0; i < nrGeometries; ++i) {
     auto const& line(dynamic_cast<OGRLineString const&>(
@@ -330,7 +330,7 @@ void FeatureLayerDrawer::drawMultiPolygon(
          long int featureId,
          OGRMultiPolygon const& multiPolygon) const
 {
-  int nrGeometries = multiPolygon.getNumGeometries();
+  int const nrGeometries = multiPolygon.getNumGeometries();
 
   for(int i = 0; i < nrGeometries; ++i) {
     auto const& polygon(dynamic_cast<OGRPolygon const&>(

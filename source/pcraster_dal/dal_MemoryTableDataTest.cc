@@ -19,9 +19,9 @@ BOOST_AUTO_TEST_CASE(constructor)
 
   // Empty data space.
   {
-    std::shared_ptr<Table> table1(new Table("table1", titles, typeIds));
-    DataSpace space;
-    DataSpaceAddress address;
+    std::shared_ptr<Table> const table1(new Table("table1", titles, typeIds));
+    DataSpace const space;
+    DataSpaceAddress const address;
     MemoryTableData data(space, address, table1.get());
     BOOST_CHECK(data.dataSpace() == space);
     BOOST_CHECK(data.exists(address));
@@ -36,10 +36,10 @@ BOOST_AUTO_TEST_CASE(constructor)
   timeSteps.push_back(1);
   timeSteps.push_back(100);
   timeSteps.push_back(1);
-  Dimension timeDimension(Time, timeSteps);
+  Dimension const timeDimension(Time, timeSteps);
 
   {
-    std::shared_ptr<Table> table1(new Table("table1", titles, typeIds));
+    std::shared_ptr<Table> const table1(new Table("table1", titles, typeIds));
     DataSpace space;
     space.addDimension(timeDimension);
     DataSpaceAddress address(space.address());
@@ -61,10 +61,10 @@ BOOST_AUTO_TEST_CASE(constructor)
   scenarios.insert("aap");
   scenarios.insert("noot");
   scenarios.insert("mies");
-  Dimension scenarioDimension(Scenarios, scenarios);
+  Dimension const scenarioDimension(Scenarios, scenarios);
 
   {
-    std::shared_ptr<Table> table1(new Table("table1", titles, typeIds));
+    std::shared_ptr<Table> const table1(new Table("table1", titles, typeIds));
     DataSpace space;
     space.addDimension(scenarioDimension);
     space.addDimension(timeDimension);

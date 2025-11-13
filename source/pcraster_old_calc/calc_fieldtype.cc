@@ -119,7 +119,7 @@ void calc::FieldType::restrictSystem(VS vsNewPossible, bool spatialByArgs)
 // only called on assignment!
 bool calc::FieldType::restrictUser(VS vsNewPossible, bool spatialByAssignment)
 {
-  VS newVs = intersect(vs(),vsNewPossible);
+  VS const newVs = intersect(vs(),vsNewPossible);
   if (newVs == VS_UNKNOWN)
     throw calc::SyntaxVsClash(toString(vs()),toString(vsNewPossible));
   setVs(newVs);
@@ -139,7 +139,7 @@ bool calc::FieldType::restrictUser(VS vsNewPossible, bool spatialByAssignment)
 void calc::FieldType::restrictArg(const calc::Operator& o, int argNr, int offsetArg)
 {
   /* narrow possible types by restriction on the operand */
-  VS newVs = intersect(vs(), o.argVs(argNr));
+  VS const newVs = intersect(vs(), o.argVs(argNr));
   if (newVs == VS_UNKNOWN)
     argVsError(o,o.argVs(argNr),vs(),argNr,offsetArg);
   setVs(newVs);
@@ -161,7 +161,7 @@ bool  calc::FieldType::spatial() const
 
 void calc::FieldType::print(calc::InfoScript& i, const std::string& tag) const
 {
-  std::string str = (d_spatial ? "spatial" : "nonSpatial");
+  std::string const str = (d_spatial ? "spatial" : "nonSpatial");
   i.stream() << "\n<A HREF=\"#" << tag << "\" onmouseover=showtype(\"" 
     << str << "\")>" << tag << "</A>"  ;
 }

@@ -49,10 +49,10 @@ BOOST_AUTO_TEST_CASE(create)
 
   // empty NO DATA WRITTEN!
   {
-   CSFMap m("csfMapTestCreate.map", 5,5, 0,0,0,30,TI_UINT1,VS_BOOLEAN);
+   CSFMap const m("csfMapTestCreate.map", 5,5, 0,0,0,30,TI_UINT1,VS_BOOLEAN);
   }
   {
-   CSFMap map("csfMapTestCreate.map");
+   CSFMap const map("csfMapTestCreate.map");
    BOOST_CHECK_EQUAL(map.nrRows(), size_t(5));
    BOOST_CHECK_EQUAL(map.nrCols(), size_t(5));
    BOOST_CHECK_EQUAL(map.cellSize(), 30);

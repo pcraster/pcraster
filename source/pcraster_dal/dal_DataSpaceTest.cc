@@ -20,7 +20,7 @@ BOOST_AUTO_TEST_CASE(test_)
     timeSteps.push_back(100);
     timeSteps.push_back(1);
 
-    RasterDimensions rasterDimensions(100, 100);
+    RasterDimensions const rasterDimensions(100, 100);
 
     DataSpace space;
     space.addDimension(Dimension(Scenarios, scenarios));
@@ -70,19 +70,19 @@ BOOST_AUTO_TEST_CASE(merge)
   std::set<std::string> scenarios;
   scenarios.insert("aap");
 
-  RasterDimensions rasterDimensions(100, 60);
+  RasterDimensions const rasterDimensions(100, 60);
 
-  Dimension scenariosDimension(Scenarios, scenarios);
-  Dimension samplesDimension(Samples, size_t(1), size_t(1000), size_t(1));
-  Dimension cummulativeProbabilitiesDimension(CumulativeProbabilities,
+  Dimension const scenariosDimension(Scenarios, scenarios);
+  Dimension const samplesDimension(Samples, size_t(1), size_t(1000), size_t(1));
+  Dimension const cummulativeProbabilitiesDimension(CumulativeProbabilities,
          float(0.01), float(0.99), float(0.01));
-  Dimension timeDimension(Time, size_t(1), size_t(1000), size_t(1));
-  Dimension spaceDimension(Space, RegularDiscretisation, rasterDimensions);
+  Dimension const timeDimension(Time, size_t(1), size_t(1000), size_t(1));
+  Dimension const spaceDimension(Space, RegularDiscretisation, rasterDimensions);
 
   {
     DataSpace space1;
     DataSpace space2;
-    DataSpace space3;
+    DataSpace const space3;
 
     space1.addDimension(scenariosDimension);
     space1.addDimension(timeDimension);
@@ -301,7 +301,7 @@ BOOST_AUTO_TEST_CASE(merge)
     quantiles.push_back(0.99f);
     quantiles.push_back(0.01f);
 
-    RasterDimensions rasterDimensions(87, 55);
+    RasterDimensions const rasterDimensions(87, 55);
 
     space1.addDimension(Dimension(Scenarios, scenarios));
     space1.addDimension(Dimension(Time, timeSteps));
@@ -332,11 +332,11 @@ BOOST_AUTO_TEST_CASE(merge)
     DataSpace rasterSpace;
     DataSpace vectorSpace;
 
-    RasterDimensions rasterDimensions(87, 55);
+    RasterDimensions const rasterDimensions(87, 55);
     rasterSpace.addDimension(Dimension(Space, RegularDiscretisation,
          rasterDimensions));
 
-    SpaceDimensions featureDimensions(555.5, 222.2, 666.6, -111.1);
+    SpaceDimensions const featureDimensions(555.5, 222.2, 666.6, -111.1);
     vectorSpace.addDimension(Dimension(Space, BorderedDiscretisation,
          featureDimensions));
 
@@ -370,8 +370,8 @@ BOOST_AUTO_TEST_CASE(merge)
 
     std::set<std::string> scenarios;
     scenarios.insert("1000");
-    SpaceDimensions featureDimensions(464260, 6.18012e+06, 791405, 5.68706e+06);
-    RasterDimensions rasterDimensions(87, 55, 5000.0, 464000.0, 6131500.0);
+    SpaceDimensions const featureDimensions(464260, 6.18012e+06, 791405, 5.68706e+06);
+    RasterDimensions const rasterDimensions(87, 55, 5000.0, 464000.0, 6131500.0);
 
     space2.addDimension(Dimension(Scenarios, scenarios));
     space2.addDimension(Dimension(Time, size_t(1986), size_t(2003), size_t(1)));
@@ -439,7 +439,7 @@ BOOST_AUTO_TEST_CASE(intersect)
   timeSteps.push_back(size_t(100));
   timeSteps.push_back(size_t(1));
 
-  RasterDimensions rasterDimensions(100, 100);
+  RasterDimensions const rasterDimensions(100, 100);
 
   // Result of intersecting an empty space with whatever other space is
   // the empty space.
@@ -462,7 +462,7 @@ BOOST_AUTO_TEST_CASE(intersect)
   // empty space.
   {
     DataSpace space1;
-    DataSpace space2;
+    DataSpace const space2;
 
     space1.addDimension(Dimension(Scenarios, scenarios));
     space1.addDimension(Dimension(Time, timeSteps));
@@ -554,7 +554,7 @@ BOOST_AUTO_TEST_CASE(trim)
   timeSteps.push_back(100);
   timeSteps.push_back(1);
 
-  RasterDimensions rasterDimensions(100, 100);
+  RasterDimensions const rasterDimensions(100, 100);
 
   DataSpace appSpace;
   appSpace.addDimension(Dimension(Scenarios, scenarios));
@@ -566,7 +566,7 @@ BOOST_AUTO_TEST_CASE(trim)
     // Trim an address in scenario / time / space / space to
     // address in space / space.
 
-    RasterDimensions rasterDimensions(10, 55);
+    RasterDimensions const rasterDimensions(10, 55);
 
     DataSpace dataSpace;
     dataSpace.addDimension(Dimension(Space, RegularDiscretisation,
@@ -635,12 +635,12 @@ BOOST_AUTO_TEST_CASE(trim)
     // Trim an address to a space with less dimensions.
 
     std::vector<size_t> timeSteps;
-    std::vector<size_t> cells;
+    std::vector<size_t> const cells;
     timeSteps.push_back(9);
     timeSteps.push_back(11);
     timeSteps.push_back(1);
 
-    RasterDimensions rasterDimensions(10, 10);
+    RasterDimensions const rasterDimensions(10, 10);
 
     DataSpace fromSpace;
     DataSpace toSpace;
@@ -697,7 +697,7 @@ BOOST_AUTO_TEST_CASE(trim)
     quantiles.push_back(0.99f);
     quantiles.push_back(0.01f);
 
-    RasterDimensions rasterDimensions(87, 55);
+    RasterDimensions const rasterDimensions(87, 55);
 
     DataSpace fromSpace;
     fromSpace.addDimension(Dimension(Scenarios, scenarios));
@@ -725,7 +725,7 @@ BOOST_AUTO_TEST_CASE(trim)
          SpatialCoordinate(5.5, 6.6));
 
     // Additional space dimensions.
-    SpaceDimensions featureDimension(5.68706e+06, 791405.0, 6.18012e+06,
+    SpaceDimensions const featureDimension(5.68706e+06, 791405.0, 6.18012e+06,
          464260.0);
 
     // Same source space, add these:
@@ -873,7 +873,7 @@ BOOST_AUTO_TEST_CASE(initialise_invalid_coordinates)
     BOOST_CHECK_CLOSE(address.coordinate<float>(2), float(0.50), 0.001f);
   }
 
-  RasterDimensions rasterDimensions(96, 95, 3.0, 5.5, 6.6);
+  RasterDimensions const rasterDimensions(96, 95, 3.0, 5.5, 6.6);
   space.addDimension(Dimension(Space, RegularDiscretisation, rasterDimensions));
 
   {
@@ -943,7 +943,7 @@ BOOST_AUTO_TEST_CASE(equals)
   DataSpace space1;
   DataSpace space2;
 
-  RasterDimensions rasterDimensions(96, 95, 3.0, 5.5, 6.6);
+  RasterDimensions const rasterDimensions(96, 95, 3.0, 5.5, 6.6);
 
   space1.addDimension(Dimension(Space, RegularDiscretisation,
          rasterDimensions));
@@ -971,7 +971,7 @@ BOOST_AUTO_TEST_CASE(replace_dimension)
   space.addDimension(Dimension(Time, timeSteps));
   BOOST_CHECK_EQUAL(space.dimension(0).meaning(), Time);
 
-  RasterDimensions rasterDimensions(96, 95, 3.0, 5.5, 6.6);
+  RasterDimensions const rasterDimensions(96, 95, 3.0, 5.5, 6.6);
   space.replaceDimension(0,
          Dimension(Space, RegularDiscretisation, rasterDimensions));
 
@@ -989,7 +989,7 @@ BOOST_AUTO_TEST_CASE(contains)
     timeSteps.push_back(21);
     timeSteps.push_back( 1);
 
-    RasterDimensions rasterDimensions(3, 2, 3.0);
+    RasterDimensions const rasterDimensions(3, 2, 3.0);
 
     DataSpace space;
     space.addDimension(Dimension(Time, timeSteps));
@@ -1028,8 +1028,8 @@ BOOST_AUTO_TEST_CASE(contains)
   {
     DataSpace space;
     std::vector<size_t> timeSteps;
-    std::vector<size_t> rows;
-    std::vector<size_t> cols;
+    std::vector<size_t> const rows;
+    std::vector<size_t> const cols;
     timeSteps.push_back( 9);
     timeSteps.push_back(21);
     timeSteps.push_back( 2);

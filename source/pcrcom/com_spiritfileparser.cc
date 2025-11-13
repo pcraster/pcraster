@@ -119,8 +119,8 @@ void com::SpiritFileParser::advance()
  *  current line data we hack here
  */
 void com::SpiritFileParser::errorAtStop() const {
-  boost::spirit::classic::file_position fp(pi.stop.get_position());
-  std::string s;
+  boost::spirit::classic::file_position const fp(pi.stop.get_position());
+  std::string const s;
   /*
   for(fit_t i=pi.stop.pos(); i != d_fend; ++i) {
       if (*i=='\n')
@@ -138,7 +138,7 @@ void com::SpiritFileParser::errorAtStop() const {
 //! get current line nr of file position
 size_t com::SpiritFileParser::lineNr() const
 {
-  boost::spirit::classic::file_position fp(d_current.get_position());
+  boost::spirit::classic::file_position const fp(d_current.get_position());
   return fp.line;
 }
 

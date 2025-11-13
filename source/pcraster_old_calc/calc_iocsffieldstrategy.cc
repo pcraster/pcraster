@@ -31,7 +31,7 @@ namespace calc {
   template <>
   VS CsfStackReader::checkItem(size_t t, VS expectVsSet) const
   {
-    VS vs=expectedFileType(itemName(t),expectVsSet);
+    VS const vs=expectedFileType(itemName(t),expectVsSet);
     checkClone(t); // pcrcalc/test344(a)
 
     return vs;
@@ -79,7 +79,7 @@ const calc::StackReader* calc::IoCsfFieldStrategy::createStackReader(
     const RunDirectory& rd,
     const std::string& stackName)
 {
-  std::string stackPrefix(com::PathName(stackName).baseName());
+  std::string const stackPrefix(com::PathName(stackName).baseName());
 
   // expand to existing of first time step
   // exiting because rd must be traversed to find where
@@ -98,8 +98,8 @@ const calc::StackReader* calc::IoCsfFieldStrategy::createStackReader(
  */
 void calc::IoCsfFieldStrategy::checkClone(const std::string& mapFileName)
 {
-    geo::CSFMap map(mapFileName);
-    geo::RasterSpace mapRs(map.rasterSpace());
+    geo::CSFMap const map(mapFileName);
+    geo::RasterSpace const mapRs(map.rasterSpace());
 
     setAndCheckCommon(mapFileName,mapRs);
 

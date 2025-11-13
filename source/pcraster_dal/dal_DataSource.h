@@ -260,7 +260,7 @@ public:
 template<typename T>
 inline T* DataSource::open()
 {
-  DataSpaceQueryResult result(d_reader->search(d_name, enclosingDataSpace(),
+  DataSpaceQueryResult const result(d_reader->search(d_name, enclosingDataSpace(),
          HaltOnFirstItemFound));
 
   return result
@@ -303,7 +303,7 @@ inline void DataSource::uniqueValues(
 {
   // assert(!space.hasSpace());
 
-  std::shared_ptr<Raster> raster(this->raster(/* space, */ address, typeId));
+  std::shared_ptr<Raster> const raster(this->raster(/* space, */ address, typeId));
   assert(raster);
 
   // Iterate over inidividual cells.

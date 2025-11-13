@@ -6,6 +6,6 @@ BOOST_AUTO_TEST_CASE(test)
 {
   // using namespace discr;
 
-  bool testImplemented = false;
+  bool const testImplemented = false;
   BOOST_WARN(testImplemented);
 }

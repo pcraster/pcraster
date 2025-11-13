@@ -36,7 +36,7 @@ calc::GlobResult::GlobResult(
          d_up(c,concreteVs)
 {
  Field *r=d_up.unpacked();
- CSF_CR inCr = biggestCellRepr(concreteVs);
+ CSF_CR const inCr = biggestCellRepr(concreteVs);
   // create the API_MAP with new allocated data
  switch(biggestCellRepr(interfaceVs)) {
   case CR_REAL4:

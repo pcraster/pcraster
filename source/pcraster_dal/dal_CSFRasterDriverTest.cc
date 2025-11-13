@@ -21,7 +21,7 @@ struct Fixture
 
     Fixture()
     {
-        static ClientWrapper client("/my/path/csf_raster_driver_test", true);
+        static ClientWrapper const client("/my/path/csf_raster_driver_test", true);
     }
 
     ~Fixture()
@@ -36,7 +36,7 @@ BOOST_AUTO_TEST_CASE(description)
 {
   using namespace dal;
 
-  CSFRasterDriver driver;
+  CSFRasterDriver const driver;
   BOOST_CHECK_EQUAL(driver.description(), "CSF-2.0 raster file format");
 }
 
@@ -45,7 +45,7 @@ BOOST_AUTO_TEST_CASE(unexisting)
 {
   using namespace dal;
 
-  std::string filename = "unexisting";
+  std::string const filename = "unexisting";
   CSFRasterDriver driver;
 
   auto* raster = dynamic_cast<Raster*>(
@@ -72,7 +72,7 @@ BOOST_AUTO_TEST_CASE(empty)
 {
   using namespace dal;
 
-  std::string filename = "emptyfile";
+  std::string const filename = "emptyfile";
   CSFRasterDriver driver;
 
   auto* raster = dynamic_cast<Raster*>(
@@ -97,7 +97,7 @@ BOOST_AUTO_TEST_CASE(dtm_small)
 {
   using namespace dal;
 
-  std::string filename = "dtmsmall.map";
+  std::string const filename = "dtmsmall.map";
   CSFRasterDriver driver;
   Raster* raster = nullptr;
 
@@ -129,7 +129,7 @@ BOOST_AUTO_TEST_CASE(dtm_small)
   }
 
   {
-    DataSpace dataSpace =
+    DataSpace const dataSpace =
          dynamic_cast<Driver const&>(driver).dataSpace(filename);
     BOOST_CHECK_EQUAL(dataSpace.rank(), size_t(1));
     BOOST_CHECK(dataSpace.isSpatial());
@@ -143,7 +143,7 @@ BOOST_AUTO_TEST_CASE(dtm_small)
     assert(cells);
 
     for(size_t row = 0; row < raster->nrRows(); ++row) {
-      size_t index = row * raster->nrCols();
+      size_t const index = row * raster->nrCols();
       BOOST_CHECK(pcr::isMV(cells[index + 0]));
       BOOST_CHECK_EQUAL(cells[index + 1], 1.0);
       BOOST_CHECK_EQUAL(cells[index + 2], 1.0);
@@ -159,7 +159,7 @@ BOOST_AUTO_TEST_CASE(accu_ldd_i_map)
 {
   using namespace dal;
 
-  std::string filename = "accu.Ldd.imap";
+  std::string const filename = "accu.Ldd.imap";
   CSFRasterDriver driver;
   Raster* raster = nullptr;
 
@@ -292,12 +292,12 @@ BOOST_AUTO_TEST_CASE(write_)
   using namespace dal;
 
   // Create a raster to write.
-  size_t nrRows = 2;
-  size_t nrCols = 3;
-  double cellSize = 10.0;
-  double west = 0.0;
-  double north = 0.0;
-  TypeId typeId = TI_REAL4;
+  size_t const nrRows = 2;
+  size_t const nrCols = 3;
+  double const cellSize = 10.0;
+  double const west = 0.0;
+  double const north = 0.0;
+  TypeId const typeId = TI_REAL4;
 
   Raster raster(nrRows, nrCols, cellSize, west, north, typeId);
   raster.createCells();
@@ -318,7 +318,7 @@ BOOST_AUTO_TEST_CASE(write_)
   address.setCoordinate<size_t>(0, 15);
 
   // Write raster at specified address.
-  CSFRasterDriver driver;
+  CSFRasterDriver const driver;
   driver.write(raster, space, address, "leavehomealonefailed.pcrmap");
   BOOST_CHECK(exists("leavehomealonefailed_15.pcrmap"));
 }
@@ -333,7 +333,7 @@ BOOST_AUTO_TEST_CASE(properties)
   CSFRasterDriver driver;
 
   {
-    std::shared_ptr<Raster> raster(dynamic_cast<Raster*>(
+    std::shared_ptr<Raster> const raster(dynamic_cast<Raster*>(
          dynamic_cast<Driver&>(driver).open(name)));
     assert(raster);
 
@@ -358,7 +358,7 @@ BOOST_AUTO_TEST_CASE(properties)
   {
     // No extension in name, should find d83.map.
     name = "d83";
-    std::shared_ptr<Raster> raster(dynamic_cast<Raster*>(
+    std::shared_ptr<Raster> const raster(dynamic_cast<Raster*>(
          dynamic_cast<Driver&>(driver).open(name)));
     BOOST_REQUIRE(raster);
 
@@ -374,7 +374,7 @@ BOOST_AUTO_TEST_CASE(properties)
 
   {
     name = "d83.map";
-    std::shared_ptr<Raster> raster(dynamic_cast<RasterDriver&>(driver).read(name));
+    std::shared_ptr<Raster> const raster(dynamic_cast<RasterDriver&>(driver).read(name));
     assert(raster);
     BOOST_CHECK(raster->properties().hasValue(DAL_CSF_VALUESCALE));
     BOOST_CHECK(raster->properties().hasValue(DAL_CSF_PROJECTION));
@@ -393,7 +393,7 @@ BOOST_AUTO_TEST_CASE(query)
 
   // Test whether the space of the query result is correct.
 
-  CSFRasterDriver driver;
+  CSFRasterDriver const driver;
 
   DataSpace space;
   std::vector<size_t> steps;
@@ -402,7 +402,7 @@ BOOST_AUTO_TEST_CASE(query)
   steps.push_back(1);
   space.addDimension(Dimension(Time, steps));
 
-  DataSpaceQueryResult result = driver.search("soil", space, SearchForAllItems);
+  DataSpaceQueryResult const result = driver.search("soil", space, SearchForAllItems);
 
   BOOST_CHECK(result);
 

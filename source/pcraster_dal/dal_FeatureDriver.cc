@@ -56,7 +56,7 @@ DataSpace FeatureDriver::dataSpace(
 {
   assert(!space.hasSpace());
 
-  std::shared_ptr<FeatureLayer> layer(open(name, space, address));
+  std::shared_ptr<FeatureLayer> const layer(open(name, space, address));
 
   if(!layer) {
     throwCannotBeOpened(name, FEATURE, space, address);
@@ -64,7 +64,7 @@ DataSpace FeatureDriver::dataSpace(
 
   DataSpace result;
 
-  SpaceDimensions spaceDimensions(layer->dimensions().west(),
+  SpaceDimensions const spaceDimensions(layer->dimensions().west(),
          layer->dimensions().north(), layer->dimensions().east(),
          layer->dimensions().south());
 

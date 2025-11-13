@@ -96,7 +96,7 @@ void calc::TimeinputTssOp::exec(RunTimeEnv* rte,const Operator& op,size_t nrArgs
 
   if (!rte->timer().currentInt())
      throw DomainError("called outside dynamic section");
-  int rowIndex = rte->timer().currentInt()-1;
+  int const rowIndex = rte->timer().currentInt()-1;
   if (rowIndex >= tss->nrSteps)
      throw DomainError("timeseries too short");
 
@@ -106,7 +106,7 @@ void calc::TimeinputTssOp::exec(RunTimeEnv* rte,const Operator& op,size_t nrArgs
 
       double v = NAN;
       id.getCell(v,0);
-      int colNr = static_cast<int>(v);
+      int const colNr = static_cast<int>(v);
       // no such column pcrcalc232
       if (colNr <= 0 || colNr >= tss->nrCols)
         throw DomainError("No match");
@@ -122,7 +122,7 @@ void calc::TimeinputTssOp::exec(RunTimeEnv* rte,const Operator& op,size_t nrArgs
       for(size_t i=0; i < id.nrValues(); ++i) {
        double v = NAN;
        id.getCell(v,i);
-       int colNr = static_cast<int>(v);
+       int const colNr = static_cast<int>(v);
 
        if (colNr <= 0 || colNr >= tss->nrCols) {
          // out of range  TODO setMV of Field

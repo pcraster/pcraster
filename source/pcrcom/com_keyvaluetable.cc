@@ -371,7 +371,7 @@ void com::KeyValueNumber::setInterval(const Interval<double>& iv)
 void com::KeyValueNumber::validate(const std::string& value ) const
 {
   try {
-   double numericValue = typeValidate(value);
+   double const numericValue = typeValidate(value);
    if (d_iv)
     if (!d_iv->valid(numericValue))
       throw com::Exception(d_iv->msg());

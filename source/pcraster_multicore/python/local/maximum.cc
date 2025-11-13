@@ -39,7 +39,7 @@ void maximum_nonspatial(
 
   using InputNoDataPolicy = fa::InputNoDataPolicies<SpatialDetectNoData<T>,
         NonspatialDetectNoData<T>>;
-  InputNoDataPolicy input_no_data_policy{{res}, {arg2}};
+  InputNoDataPolicy const input_no_data_policy{{res}, {arg2}};
 
   SpatialSetNoData<T> output_no_data_policy(res);
 
@@ -57,7 +57,7 @@ void maximum_spatial(
   using InputNoDataPolicy = fa::InputNoDataPolicies<SpatialDetectNoData<T>,
         SpatialDetectNoData<T>>;
 
-  InputNoDataPolicy input_no_data_policy{{res}, {arg2}};
+  InputNoDataPolicy const input_no_data_policy{{res}, {arg2}};
 
   SpatialSetNoData<T> output_no_data_policy(res);
 
@@ -98,7 +98,7 @@ calc::Field* maximum(std::vector<calc::Field*> const&  field_arguments){
 
 calc::Field* maximum(pybind11::list const& arguments){
 
-  size_t nr_args = pybind11::len(arguments);
+  size_t const nr_args = pybind11::len(arguments);
 
   if(nr_args == 0){
     throw std::runtime_error("at least 1 argument required, 0 given\n");

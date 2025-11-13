@@ -28,9 +28,9 @@ BOOST_AUTO_TEST_CASE(testReportDefault)
     BOOST_CHECK(rt.reportDefault()->atInt(3));
 
     std::vector<ParsReportMoment> list;
-    ParsReportMoment m = {1,+2,-1};
+    ParsReportMoment const m = {1,+2,-1};
     list.push_back(m);
-    TmpId id("reportdefault");
+    TmpId const id("reportdefault");
     rt.add(Report(id,list));
 
     rt.update(t1to3);

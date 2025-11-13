@@ -14,13 +14,13 @@ BOOST_AUTO_TEST_CASE(test_equal_to_csf)
   using namespace geo;
 
   {
-    FileCreateTester m("failureExpected.map");
+    FileCreateTester const m("failureExpected.map");
     BOOST_CHECK(!m.equalTo("dtmsmall.map",false));
   }
   {
     bool catched(false);
     try {
-      FileCreateTester m("failureExpected.map");
+      FileCreateTester const m("failureExpected.map");
       m.equalTo("dtmsmall.map",true);
     } catch (const com::FileError& e) {
       BOOST_CHECK(e.messages().find("is not created"));
@@ -60,7 +60,7 @@ BOOST_AUTO_TEST_CASE(test_equal_to_csf)
    BOOST_CHECK(catched);
  }
 
- FileCreateTester o2("out2n.map");
+ FileCreateTester const o2("out2n.map");
 
  m1.setDifferenceFile("out2n.map");
  BOOST_CHECK(!m1.equalTo("inp5s.map",false));
@@ -74,29 +74,29 @@ BOOST_AUTO_TEST_CASE(test_equal_to_tss)
   using namespace geo;
 
   {
-    com::PathName p1("FileCreateTesterTest1.tss");
-    FileCreateTester m(p1,false);
+    com::PathName const p1("FileCreateTesterTest1.tss");
+    FileCreateTester const m(p1,false);
     BOOST_CHECK(m.equalTo(p1));
   }
   {
-    com::PathName p1("FileCreateTesterTest1.tss");
-    com::PathName p2("FileCreateTesterTest2.tss");
-    FileCreateTester m(p1,false);
+    com::PathName const p1("FileCreateTesterTest1.tss");
+    com::PathName const p2("FileCreateTesterTest2.tss");
+    FileCreateTester const m(p1,false);
     BOOST_CHECK(!m.equalTo(p2,false));
   }
   {
-    com::PathName p1("FileCreateTesterTest1.tss");
-    com::PathName p2("FileCreateTesterTest1v.tss");
-    FileCreateTester m(p1,false);
+    com::PathName const p1("FileCreateTesterTest1.tss");
+    com::PathName const p2("FileCreateTesterTest1v.tss");
+    FileCreateTester const m(p1,false);
     BOOST_CHECK(!m.equalTo(p2,false));
   }
   {
-    com::PathName p1("FileCreateTesterTest1.tss");
-    com::PathName p2("FileCreateTesterTest1e.tss");
-    FileCreateTester m(p1,false);
+    com::PathName const p1("FileCreateTesterTest1.tss");
+    com::PathName const p2("FileCreateTesterTest1e.tss");
+    FileCreateTester const m(p1,false);
     BOOST_CHECK(m.equalTo(p2));
   }
-  bool doesNotSupportNonNativeAsciiFormat=false;
+  bool const doesNotSupportNonNativeAsciiFormat=false;
   // hence we have a unix2dos hack in testrun.prolog
   BOOST_WARN(doesNotSupportNonNativeAsciiFormat);
 }

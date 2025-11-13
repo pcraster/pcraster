@@ -49,7 +49,7 @@ namespace calc {
   static std::string expectAttr(
       const QDomElement& e,
       const QString& attrName) {
-    QString value=e.attribute(attrName);
+    QString const value=e.attribute(attrName);
 #if QT_VERSION < QT_VERSION_CHECK(5, 9, 0)
     if (value == QString::null) {
 #else
@@ -90,7 +90,7 @@ namespace calc {
       const QString& subTagName,
       const QString& attrName)
   {
-    QDomElement match(pcrxml::firstMatchByTagName(tree,subTagName));
+    QDomElement const match(pcrxml::firstMatchByTagName(tree,subTagName));
     if (match.isNull()) {
       std::ostringstream os;
       os << "expect element '"
@@ -98,7 +98,7 @@ namespace calc {
          << std::string(subTagName.toLatin1()) << "'";
       throw com::BadStreamFormat(os.str());
     }
-    QDomElement subMatch(pcrxml::firstMatchByTagName(match,subTagName));
+    QDomElement const subMatch(pcrxml::firstMatchByTagName(match,subTagName));
     if (subMatch.isNull()) {
       std::ostringstream os;
       os << "expect element '"
@@ -141,7 +141,7 @@ namespace calc {
   static std::string subValue(
       const QDomElement& e)
   {
-    QDomElement de(pcrxml::firstMatchByTagName(e,e.tagName()));
+    QDomElement const de(pcrxml::firstMatchByTagName(e,e.tagName()));
     if (de.isNull() || !de.hasAttribute("value")) {
       std::ostringstream os;
       os << "expect element '"
@@ -194,7 +194,7 @@ namespace calc {
      const QDomElement& tree,
      const QString& tag)
   {
-   QDomElement parent(pcrxml::firstMatchByTagName(tree,tag));
+   QDomElement const parent(pcrxml::firstMatchByTagName(tree,tag));
    if (parent.isNull())
      return {}; // empty vector
    return pcrxml::childElements(parent);
@@ -217,7 +217,7 @@ namespace calc {
      const QDomElement& tree,
      const QString& tag)
   {
-   QDomElement e(findTagGet1stSibling(tree,tag));
+   QDomElement const e(findTagGet1stSibling(tree,tag));
    if (e.isNull()) {
       std::ostringstream os;
       os << "element '"
@@ -260,16 +260,16 @@ calc::WlDelftHabitat::~WlDelftHabitat()
 void calc::WlDelftHabitat::parseParameter(
   const QDomElement&  de)
 {
-  std::string identifier=expectAttr(de,"identifier");
+  std::string const identifier=expectAttr(de,"identifier");
 
-  QDomElement bestand=pcrxml::firstMatchByTagName(de,"BESTAND");
+  QDomElement const bestand=pcrxml::firstMatchByTagName(de,"BESTAND");
 
   // WAS Parameter p(expectAttr(de,"name"),!bestand.isNull());
-  Parameter p(valueOfSubMatch(de,"VARIABELE"),!bestand.isNull());
+  Parameter const p(valueOfSubMatch(de,"VARIABELE"),!bestand.isNull());
 
   XML_TRACE_LOG(std::cout << p.d_name << " id:" << identifier);
   if (!bestand.isNull()) {
-    std::string fileName(subValue(bestand));
+    std::string const fileName(subValue(bestand));
     if (fileName.empty())
       throw com::BadStreamFormat("BESTAND has empty value attribute");
     addBinding(p.d_name,subValue(bestand));
@@ -302,10 +302,10 @@ void calc::WlDelftHabitat::parseRules(
    ruleName2Tag.add("Klassen"         ,"KlassenTabel"); // <KlassenTabel>+ ==> (Variable,Factor)
    ruleName2Tag.add("Gebroken lineair","GebrokenLineair");   // <GebrokenLineair>+ ==> (X,Y)
 
-   std::vector<QDomElement> r(findTagGetSiblings(model,tagName.c_str()));
+   std::vector<QDomElement> const r(findTagGetSiblings(model,tagName.c_str()));
    for (auto & i : r) {
-    QDomElement soortKennis(expectTagGet1stSibling(i,"SoortKennis"));
-    RuleName2Tag::const_iterator skR(ruleName2Tag.find(value(soortKennis)));
+    QDomElement const soortKennis(expectTagGet1stSibling(i,"SoortKennis"));
+    RuleName2Tag::const_iterator const skR(ruleName2Tag.find(value(soortKennis)));
     if (skR == ruleName2Tag.end()) {
       std::ostringstream os;
       os << "SoortKennis unknown value :'" << value(soortKennis) << "'";
@@ -328,8 +328,8 @@ void calc::WlDelftHabitat::parseXml()
 {
   try { //  catch xml processing errors
 
-  pcrxml::Document doc(d_xmlFile);
-  QDomElement  de(doc.documentElement());
+  pcrxml::Document const doc(d_xmlFile);
+  QDomElement  const de(doc.documentElement());
   POSTCOND(de.tagName() == "Root");
 
   struct ParseHandler {
@@ -339,7 +339,7 @@ void calc::WlDelftHabitat::parseXml()
     bool parse(
         WlDelftHabitat *w,
         const QDomElement& de) {
-     std::vector<QDomElement> cmds(findTagGetSiblings(de,d_elementName));
+     std::vector<QDomElement> const cmds(findTagGetSiblings(de,d_elementName));
      for (auto & cmd : cmds)
        (w->*d_parse)(cmd);
      return !cmds.empty();
@@ -425,7 +425,7 @@ static LookupRecord parseRecord(
     const std::string& keyName,
     const std::string& resultName)
 {
-  std::vector<QDomElement> keys(findTagGetSiblings(re,keyName.c_str()));
+  std::vector<QDomElement> const keys(findTagGetSiblings(re,keyName.c_str()));
   LookupRecord::Key key;
   try {
    for(auto & i : keys) {
@@ -434,7 +434,7 @@ static LookupRecord parseRecord(
           value(i)));
     XML_TRACE_LOG(std::cout << value(keys[i]) << " ");
    }
-  LookupRecord lr(key,numericValueOfSubMatch(re,resultName.c_str()));
+  LookupRecord const lr(key,numericValueOfSubMatch(re,resultName.c_str()));
   XML_TRACE_LOG(std::cout << "-> " << numericValueOfSubMatch(re,resultName) << "\n");
   LookupRecord::deleteKey(key);
   return lr;
@@ -465,7 +465,7 @@ static void parseTable(
     const std::string& keyName,
     const std::string& resultName)
 {
-  std::vector<QDomElement> recs(nonEmptyContainer(containedIn,containerName));
+  std::vector<QDomElement> const recs(nonEmptyContainer(containedIn,containerName));
   for(auto & rec : recs)
     try {
      lr.push_back(parseRecord(rec,keyName,resultName));
@@ -483,7 +483,7 @@ static void parseIntervals(
     const std::string& containerName)
 {
   // get all records
-  std::vector<QDomElement> recs(nonEmptyContainer(containedIn,containerName));
+  std::vector<QDomElement> const recs(nonEmptyContainer(containedIn,containerName));
   for(auto & rec : recs)
     try {
      iv.push_back(
@@ -502,7 +502,7 @@ static LookupTable* fillTable(
   VS                          keyVs)  // all keys are equal
 {
   PRECOND(!records.empty());
-  std::vector<VS> readKeys(records[0].nrKeys(),keyVs);
+  std::vector<VS> const readKeys(records[0].nrKeys(),keyVs);
   tab->setRecords(records,readKeys);
   return tab;
 }
@@ -543,7 +543,7 @@ void calc::WlDelftHabitat::addRuleTableExpr(
     const std::string& function,
           LookupTable  *tab)
 {
-  std::string tableName=
+  std::string const tableName=
     addInlineTable(output(rule).d_name,tab);
   std::ostringstream expr;
   expr << function << "("<<tableName<<","<<input(rule).d_name<<")";
@@ -596,7 +596,7 @@ void calc::WlDelftHabitat::parseEcotoop(
   //   Expr(lookupnominal(TABLE, ECOTOOPVARIA[0],..,ECOTOOPVARIA[n]))
 
   //  ECOTOOPUITVOER
-  QDomElement outEl=expectTagGet1stSibling(ecotoop,"ECOTOOPUITVOER");
+  QDomElement const outEl=expectTagGet1stSibling(ecotoop,"ECOTOOPUITVOER");
   const Parameter& output = parameter(outEl);
 
   std::string expr("lookupnominal(");
@@ -605,12 +605,12 @@ void calc::WlDelftHabitat::parseEcotoop(
   LookupTable::Records lr;
   parseTable(lr,ecotoop,"ECOTOOPCLASS","WAARDEN","VARIABELE");
 
-  std::string tableName= addInlineTable(output.d_name,
+  std::string const tableName= addInlineTable(output.d_name,
                               fillTable(new LookupTable(VS_N),lr,VS_S));
   expr += tableName + ",";
 
   // ECOTOOPVARIA[0],..,ECOTOOPVARIA[n]
-  std::vector<QDomElement> inputData(findTagGetSiblings(ecotoop,"ECOTOOPVARIA"));
+  std::vector<QDomElement> const inputData(findTagGetSiblings(ecotoop,"ECOTOOPVARIA"));
   if (inputData.size() != lr[0].nrKeys())
      throw com::BadStreamFormat(
          "number of ECOTOOPVARIA and WAARDEN elements not identical");
@@ -642,7 +642,7 @@ void calc::WlDelftHabitat::parseStatistics(const QDomElement&  de)
    s=addStatistics(onderwerp.d_name);
   }  else {
     std::ostringstream maskCmd;
-    std::string maskedMap(generatedName(onderwerp.d_name));
+    std::string const maskedMap(generatedName(onderwerp.d_name));
     maskCmd << maskedMap << " = "
             << " if( ycoordinate(1) >="<< numericValueOfSubMatch(de,"ZoomYmin")
             << " and ycoordinate(1) <="<< numericValueOfSubMatch(de,"ZoomYmax")
@@ -670,7 +670,7 @@ void calc::WlDelftHabitat::parseStatistics(const QDomElement&  de)
   struct IntervalParser {
     std::vector<const com::IntervalF *> d_iv;
     IntervalParser(const QDomElement& de, const char *name) {
-      QDomElement e=pcrxml::firstMatchByTagName(de,name);
+      QDomElement const e=pcrxml::firstMatchByTagName(de,name);
       if (!e.isNull())
          parseIntervals(d_iv,de,name);
     }
@@ -680,12 +680,12 @@ void calc::WlDelftHabitat::parseStatistics(const QDomElement&  de)
     bool parsed() const { return !d_iv.empty(); }
   };
   { // Optional
-    IntervalParser ip(de,"OnderwerpKlassen");
+    IntervalParser const ip(de,"OnderwerpKlassen");
     if (ip.parsed())
      s->setSubjectIntervals(ip.d_iv);
   }
   { // Optional
-    IntervalParser ip(de,"IndelingsKlassen");
+    IntervalParser const ip(de,"IndelingsKlassen");
     if (ip.parsed())
      s->setCrossIntervals(ip.d_iv);
   }

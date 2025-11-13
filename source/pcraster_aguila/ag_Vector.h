@@ -149,7 +149,7 @@ inline bool Vector::value(
   pcr::setMV(result);
 
   if(Dataset::isRead(space, address)) {
-    size_t index = space.indexOf(dal::Space);
+    size_t const index = space.indexOf(dal::Space);
 
     // Check whether the data space has space dimensions.
     // Rasters might be empty (contain no cells at all).

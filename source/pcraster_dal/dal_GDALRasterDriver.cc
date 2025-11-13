@@ -250,8 +250,8 @@ RasterDimensions rasterDimensions(
     geoTransform[5] = 1.0;
   }
 
-  double cellWidth = std::fabs(geoTransform[1]);
-  double cellHeight = std::fabs(geoTransform[5]);
+  double const cellWidth = std::fabs(geoTransform[1]);
+  double const cellHeight = std::fabs(geoTransform[5]);
 
   // We only support rasters with equal cell width and height.
   if(!dal::comparable(cellWidth, cellHeight)) {
@@ -259,9 +259,9 @@ RasterDimensions rasterDimensions(
          "Only raster with equal cell width and hight are supported");
   }
 
-  double cellSize = cellWidth;
-  double west = geoTransform[0];
-  double north = geoTransform[3];
+  double const cellSize = cellWidth;
+  double const west = geoTransform[0];
+  double const north = geoTransform[3];
 
   return {nrRows, nrCols, cellSize, west, north};
 }
@@ -832,7 +832,7 @@ Raster* GDALRasterDriver::open(
 
   try {
     registerGDALDriverToUse();
-    std::shared_ptr<GDALDataset> gdalDataset(openGDALDataset(
+    std::shared_ptr<GDALDataset> const gdalDataset(openGDALDataset(
          this->pathFor(name, space, address), GA_ReadOnly), DeleteGDALDataset());
     raster = GDALDataset2Raster(gdalDataset, typeId);
   }
@@ -865,7 +865,7 @@ void GDALRasterDriver::read(
   assert(!space.hasSpace());
 
   registerGDALDriverToUse();
-  std::shared_ptr<GDALDataset> gdalDataset(openGDALDataset(
+  std::shared_ptr<GDALDataset> const gdalDataset(openGDALDataset(
          this->pathFor(name, space, address), GA_ReadOnly),
              DeleteGDALDataset());
 
@@ -888,7 +888,7 @@ void GDALRasterDriver::read(
   }
 
   int hasNoDataValue = 0;
-  double noDataValue = rasterBand->GetNoDataValue(&hasNoDataValue);
+  double const noDataValue = rasterBand->GetNoDataValue(&hasNoDataValue);
 
   if(hasNoDataValue) {
     toStdMV(raster.typeId(), raster.cells(), raster.nrCells(), noDataValue);
@@ -972,7 +972,7 @@ void GDALRasterDriver::read(
   assert(space.hasSpace());
 
   registerGDALDriverToUse();
-  std::shared_ptr<GDALDataset> gdalDataset(
+  std::shared_ptr<GDALDataset> const gdalDataset(
          openGDALDataset(this->pathFor(name, space, address), GA_ReadOnly),
               DeleteGDALDataset());
 
@@ -993,7 +993,7 @@ void GDALRasterDriver::read(
   double row = NAN;
   double col = NAN;
 
-  RasterDimensions dimensions(rasterDimensions(*gdalDataset));
+  RasterDimensions const dimensions(rasterDimensions(*gdalDataset));
   dimensions.indices(spatialCoordinate.x(), spatialCoordinate.y(), row, col);
 
   assert(dal::greaterOrComparable(row, 0.0) &&
@@ -1012,7 +1012,7 @@ void GDALRasterDriver::read(
   }
 
   int hasNoDataValue = 0;
-  double noDataValue = rasterBand->GetNoDataValue(&hasNoDataValue);
+  double const noDataValue = rasterBand->GetNoDataValue(&hasNoDataValue);
 
   if(hasNoDataValue) {
     toStdMV(typeId, cell, 1, noDataValue);
@@ -1043,7 +1043,7 @@ void GDALRasterDriver::write(
 {
   assert(space.isEmpty());
 
-  std::filesystem::path path(dal::pathFor(name));
+  std::filesystem::path const path(dal::pathFor(name));
 
   // FROM api Tutorial
 
@@ -1072,7 +1072,7 @@ void GDALRasterDriver::write(
 
    char **papszOptions = nullptr;
 
-   std::shared_ptr<GDALDataset> poDstDS(d_driver->Create(name.c_str(),
+   std::shared_ptr<GDALDataset> const poDstDS(d_driver->Create(name.c_str(),
        raster.nrCols(), raster.nrRows(), 1, gdalDataType(raster.typeId()),
            papszOptions), DeleteGDALDataset());
    assert(poDstDS);
@@ -1088,7 +1088,7 @@ void GDALRasterDriver::write(
  * CPLFree( pszSRS_WKT );
  */
    GDALRasterBand *poBand=poDstDS->GetRasterBand(1);
-   CPLErr err = poBand->RasterIO(GF_Write,
+   CPLErr const err = poBand->RasterIO(GF_Write,
        0, 0,
        raster.nrCols(), raster.nrRows(),
        const_cast<void *>(raster.cells()),

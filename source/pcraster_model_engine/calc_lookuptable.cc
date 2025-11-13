@@ -67,7 +67,7 @@ namespace calc {
 
        // UINT4 as xs:unsignedInt;
        auto const* dimensions((UINT4 const *)memoryArray);
-       size_t nrDimensions = *dimensions;
+       size_t const nrDimensions = *dimensions;
        for(size_t i=0; i < nrDimensions; ++i) {
           dimensions++;
           dimensionSize.push_back(*dimensions);
@@ -97,7 +97,7 @@ namespace calc {
        // INDEX is always 1-based currently, outside that MV return
        if (prefixKey[0] < 1 || prefixKey[0] > d_values.size())
           return false;
-       size_t i(prefixKey[0]-1);
+       size_t const i(prefixKey[0]-1);
        result = d_values[i];
        return true;
      }
@@ -184,7 +184,7 @@ void calc::LookupTable::setXMLRecords(const pcrxml::Relation& r,
 
   if (r.lookupTable().present()) {
     const pcrxml::LookupTable& l(r.lookupTable().get());
-    detail::AddRecord ar(d_records);
+    detail::AddRecord const ar(d_records);
     std::for_each(l.lookupRow().begin(), l.lookupRow().end(), ar);
   } else {
     PRECOND(r.indexedArray().present());

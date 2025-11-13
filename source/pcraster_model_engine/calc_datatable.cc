@@ -169,7 +169,7 @@ void calc::DataTable::setMemoryExchangeInputData(void **memoryExchangeData)
 
  for(std::string const& name : d_memoryInputLookupTables) {
    DTE e(dataLoad(name));
-   size_t dataIndex(e.symbol().memoryInputId());
+   size_t const dataIndex(e.symbol().memoryInputId());
    PRECOND(dataIndex != e.symbol().noMemoryExchangeId());
    DataValue *dv =e.getOrReleaseValue(false);
    auto* lu(dynamic_cast<LookupTable *>(dv));
@@ -205,7 +205,7 @@ void calc::DataTable::print(std::ostream& s) const
 bool calc::DataTable::allNoValue() const
 {
   for (const auto & i : d_table) {
-    size_t N = ASTSymbolInfo::noMemoryExchangeId();
+    size_t const N = ASTSymbolInfo::noMemoryExchangeId();
     if(i.second.d_dv && !i.second.isConstant() && i.second.memoryInputId() == N && i.second.memoryOutputId() == N) {
       // has a datavalue that is  not a constant or a memory exchange
       // both constants and  memory exchange id or NOT considered a value when checking post execution

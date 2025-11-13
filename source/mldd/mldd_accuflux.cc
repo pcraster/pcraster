@@ -79,7 +79,7 @@ mldd::Accuflux::Accuflux(const Accuflux& rhs)
 void mldd::Accuflux::initVertex(
    const Vertex& vC)
 {
-  size_t v=linear(vC);
+  size_t const v=linear(vC);
   d_newState[v]=d_oldState[v];
 }
 
@@ -89,7 +89,7 @@ void mldd::Accuflux::downstreamEdge(const Edge& e)
   size_t t = 0;
   linear(s,t,e);
   DEVELOP_PRECOND(!pcr::isMV(d_newState[t]));
-  double w=d_w[e];
+  double const w=d_w[e];
 
   if (w != WeightMap::mvMark() && !pcr::isMV(d_newState[s]))
     d_newState[t]+=(w*d_newState[s]);

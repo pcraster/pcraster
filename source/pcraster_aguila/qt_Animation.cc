@@ -568,8 +568,8 @@ size_t qt::Animation::closestStep(size_t step) const
   }
 
   // it points to the first step which is larger than step
-  size_t previous = *--it;
-  size_t next = *++it;
+  size_t const previous = *--it;
+  size_t const next = *++it;
   assert(previous < step);
   assert(next > step);
   return step - previous <= next - step ? previous : next;

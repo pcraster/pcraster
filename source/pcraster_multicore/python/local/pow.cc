@@ -41,7 +41,7 @@ calc::Field* power_number_number(
 
   using InputNoDataPolicy = fa::InputNoDataPolicies<NonspatialDetectNoData<REAL4>,
         NonspatialDetectNoData<REAL4>>;
-  InputNoDataPolicy input_no_data_policy{{*arg1},{*arg2}};
+  InputNoDataPolicy const input_no_data_policy{{*arg1},{*arg2}};
 
   NonspatialSetNoData<REAL4> output_no_data_policy(*res);
 
@@ -61,7 +61,7 @@ calc::Field* power_field_field(
 
   using InputNoDataPolicy = fa::InputNoDataPolicies<SpatialDetectNoData<REAL4>,
         SpatialDetectNoData<REAL4>>;
-  InputNoDataPolicy input_no_data_policy{{*arg1},{*arg2}};
+  InputNoDataPolicy const input_no_data_policy{{*arg1},{*arg2}};
 
   SpatialSetNoData<REAL4> output_no_data_policy(*res);
 
@@ -82,7 +82,7 @@ calc::Field* power_field_number(
   using InputNoDataPolicy = fa::InputNoDataPolicies<SpatialDetectNoData<REAL4>,
         NonspatialDetectNoData<REAL4>>;
 
-  InputNoDataPolicy input_no_data_policy{{*arg1},{*arg2}};
+  InputNoDataPolicy const input_no_data_policy{{*arg1},{*arg2}};
   SpatialSetNoData<REAL4> output_no_data_policy(*res);
 
   fa::algebra::pow<OutOfPowerDomainPolicy,//fa::pow::OutOfDomainPolicy,
@@ -102,7 +102,7 @@ calc::Field* power_number_field(
   using InputNoDataPolicy = fa::InputNoDataPolicies<NonspatialDetectNoData<REAL4>,
     SpatialDetectNoData<REAL4>>;
 
-  InputNoDataPolicy input_no_data_policy{{*arg1},{*arg2}};
+  InputNoDataPolicy const input_no_data_policy{{*arg1},{*arg2}};
   SpatialSetNoData<REAL4> output_no_data_policy(*res);
 
   fa::algebra::pow<OutOfPowerDomainPolicy,//fa::pow::OutOfDomainPolicy,

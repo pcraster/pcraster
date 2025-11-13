@@ -20,7 +20,7 @@ struct Fixture
 
     Fixture()
     {
-        static ClientWrapper client("/my/path/table_dal_test", true);
+        static ClientWrapper const client("/my/path/table_dal_test", true);
     }
 
     ~Fixture()
@@ -37,7 +37,7 @@ BOOST_AUTO_TEST_CASE(test)
 
   {
     // name = currentPathname + sometablename;
-    std::string name = "table1.eas";
+    std::string const name = "table1.eas";
     TableDal dal;
     BOOST_CHECK(dal.hasDriverByName("Geo-EAS"));
     BOOST_CHECK_EQUAL(dal.driverByName("Geo-EAS")->datasetType(), TABLE);

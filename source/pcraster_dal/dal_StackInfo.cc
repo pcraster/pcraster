@@ -65,8 +65,8 @@ dal::StackInfo::StackInfo(
 {
   // assert(name.find('\\') == std::string::npos);
   // Split filename from the parent path.
-  std::filesystem::path path(name);
-  std::string parent = path.parent_path().string();
+  std::filesystem::path const path(name);
+  std::string const parent = path.parent_path().string();
   std::string filename = path.filename().string();
 
   wrongFormatIf(filename.empty());
@@ -107,7 +107,7 @@ dal::StackInfo::StackInfo(
       // No plus sign: one step of a dynamic stack.
       // Erase dot.
       filename.erase(8, 1);
-      size_t pos = startOfStep(filename);
+      size_t const pos = startOfStep(filename);
 
       if(pos == filename.length()) {
         // Filename ends with only zero's, name of static stack.
@@ -124,7 +124,7 @@ dal::StackInfo::StackInfo(
         // soil0000.010
         // soil0000010
         // 0123456789
-        std::string number(filename.begin() + pos, filename.end());
+        std::string const number(filename.begin() + pos, filename.end());
         filename.erase(pos, filename.length() - pos + 1);
         if(filename.length() >= 9) {
           filename.insert(8, 1, '.');
@@ -262,15 +262,15 @@ bool dal::StackInfo::isMemberOfStack(std::filesystem::path const& path) const
 {
   assert(isDynamic());
 
-  std::string name = path.filename().string();
+  std::string const name = path.filename().string();
 
   if(name.length() == 12) {
     if(name.find(d_name.filename().string()) == 0) {
 
       // Check if stuff after base name is numbers and optionally one ".".
-      std::string numbers = path.filename().string().substr(d_name.filename().string().size());
+      std::string const numbers = path.filename().string().substr(d_name.filename().string().size());
       bool dotSeen = false;
-      for(char & number : numbers) {
+      for(char  const& number : numbers) {
         if(!std::isdigit(number)) {
 
           if(number != '.') {
@@ -364,7 +364,7 @@ void dal::StackInfo::scan()
   d_steps.erase(d_steps.begin(), d_steps.end());
   d_isScanned = false;
   std::filesystem::directory_iterator iterator;
-  std::filesystem::directory_iterator end;
+  std::filesystem::directory_iterator const end;
 
   try {
     if(d_name.has_parent_path()) {

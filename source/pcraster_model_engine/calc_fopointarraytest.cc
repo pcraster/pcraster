@@ -146,8 +146,8 @@ BOOST_AUTO_TEST_CASE(test1)
  BOOST_CHECK(l[2]==MV_INT4);
 }
 { // pcrcalc337a
-    REAL4 r= -0.047F;
-    REAL4 l= 1.5F;
+    REAL4 const r= -0.047F;
+    REAL4 const l= 1.5F;
     BOOST_CHECK(special::pow_domainIll(r,l));
 }
 }
@@ -159,14 +159,14 @@ BOOST_AUTO_TEST_CASE(testAggregate)
  {
   UINT1 r = 0;
   UINT1 i[4]={MV_UINT1,4,0,3};
-  AggregateArray< MapTotal<UINT1> > f;
+  AggregateArray< MapTotal<UINT1> > const f;
   f.fImpl(&r,i,4);
   BOOST_CHECK(r==7);
  }
  {
   INT4 r = 0;
   INT4 i[4]={MV_INT4,4,0,3};
-  AggregateArray< MapMaximum<INT4> > f;
+  AggregateArray< MapMaximum<INT4> > const f;
   f.fImpl(&r,i,4);
   BOOST_CHECK(r == 4);
  }

@@ -1051,7 +1051,7 @@ ECHO;
 	case YY_END_OF_BUFFER:
 		{
 		/* Amount of text matched not including the EOB char. */
-		int yy_amount_of_matched_text = (int) (yy_cp - (yytext_ptr)) - 1;
+		int const yy_amount_of_matched_text = (int) (yy_cp - (yytext_ptr)) - 1;
 
 		/* Undo the effects of YY_DO_BEFORE_ACTION. */
 		*yy_cp = (yy_hold_char);
@@ -1419,7 +1419,7 @@ int yyFlexLexer::yy_get_next_buffer()
 	if ( yy_cp < YY_CURRENT_BUFFER_LVALUE->yy_ch_buf + 2 )
 		{ /* need to shift things up to make room */
 		/* +2 for EOB chars. */
-		int number_to_move = (yy_n_chars) + 2;
+		int const number_to_move = (yy_n_chars) + 2;
 		char *dest = &YY_CURRENT_BUFFER_LVALUE->yy_ch_buf[
 					YY_CURRENT_BUFFER_LVALUE->yy_buf_size + 2];
 		char *source =
@@ -1462,7 +1462,7 @@ int yyFlexLexer::yy_get_next_buffer()
 
 		else
 			{ /* need more input */
-			int offset = (yy_c_buf_p) - (yytext_ptr);
+			int const offset = (yy_c_buf_p) - (yytext_ptr);
 			++(yy_c_buf_p);
 
 			switch ( yy_get_next_buffer(  ) )
@@ -1628,7 +1628,7 @@ int yyFlexLexer::yy_get_next_buffer()
     void yyFlexLexer::yy_init_buffer( YY_BUFFER_STATE b, std::istream* file )
 
 {
-	int oerrno = errno;
+	int const oerrno = errno;
     
 	yy_flush_buffer( b );
 
@@ -1755,7 +1755,7 @@ void yyFlexLexer::yyensure_buffer_stack()
 	if ((yy_buffer_stack_top) >= ((yy_buffer_stack_max)) - 1){
 
 		/* Increase the buffer to prepare for a possible push. */
-		int grow_size = 8 /* arbitrary grow size */;
+		int const grow_size = 8 /* arbitrary grow size */;
 
 		num_to_alloc = (yy_buffer_stack_max) + grow_size;
 		(yy_buffer_stack) = (struct yy_buffer_state**)gramrealloc
@@ -2044,7 +2044,7 @@ ANTLRAbstractToken *calc::LexGrammar::reference()
 {
   // nr of chars in quoted string (minus 2 " )
   int i = 0;
-  int n = strlen(yytext)-2;
+  int const n = strlen(yytext)-2;
   PRECOND(n >= 0); /* non-empty string plus end " */
 
   // remove "
@@ -2100,7 +2100,7 @@ const std::string& calc::LexGrammar::optionLine() const
 //! attach calc::LexInput as input
 int calc::LexGrammar::LexerInput(char *buf, int /* max_size */)
 {
-  int c = d_input.getChar();
+  int const c = d_input.getChar();
   return (c == EOF) ? 0 : (buf[0] = c, 1);
 }
 

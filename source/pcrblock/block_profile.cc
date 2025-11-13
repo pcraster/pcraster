@@ -26,7 +26,7 @@ static void profile(
       pcr::setMV(result);
     }
     else {
-      size_t index = it - stack.begin();
+      size_t const index = it - stack.begin();
 
       if(pcr::isMV(data[index])) {
         pcr::setMV(result);

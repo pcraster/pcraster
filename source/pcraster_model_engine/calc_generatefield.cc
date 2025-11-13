@@ -74,8 +74,8 @@ bool calc::GenerateSpatial::maskTrue(size_t pos) const
 
 void calc::GenerateSpatial::xcoordinate(REAL4 *res) const
 {
-  CoordinateTranslator ct(d_rasterSpace,d_spatialpacking);
-  size_t n = d_spatialpacking.nrFieldCells();
+  CoordinateTranslator const ct(d_rasterSpace,d_spatialpacking);
+  size_t const n = d_spatialpacking.nrFieldCells();
   for(size_t i=0; i < n; i++) {
       if (maskTrue(i))
           res[i] = (REAL4)ct.getX(i);
@@ -86,8 +86,8 @@ void calc::GenerateSpatial::xcoordinate(REAL4 *res) const
 
 void calc::GenerateSpatial::ycoordinate(REAL4 *res) const
 {
-  CoordinateTranslator ct(d_rasterSpace,d_spatialpacking);
-  size_t n = d_spatialpacking.nrFieldCells();
+  CoordinateTranslator const ct(d_rasterSpace,d_spatialpacking);
+  size_t const n = d_spatialpacking.nrFieldCells();
   for(size_t i=0; i < n; i++) {
       if (maskTrue(i))
           res[i] = (REAL4)ct.getY(i);
@@ -98,7 +98,7 @@ void calc::GenerateSpatial::ycoordinate(REAL4 *res) const
 
 void calc::GenerateSpatial::uniform(REAL4 *res) const
 {
- size_t n = d_spatialpacking.nrFieldCells();
+ size_t const n = d_spatialpacking.nrFieldCells();
  for(size_t i=0; i < n ; i++)
   if (maskTrue(i))
    res[i] = (REAL4)Ran();
@@ -108,7 +108,7 @@ void calc::GenerateSpatial::uniform(REAL4 *res) const
 
 void calc::GenerateSpatial::normal(REAL4 *res) const
 {
- size_t n = d_spatialpacking.nrFieldCells();
+ size_t const n = d_spatialpacking.nrFieldCells();
  for(size_t i=0; i < n ; i++)
   if (maskTrue(i))
    res[i] = (REAL4)GasDev();
@@ -118,7 +118,7 @@ void calc::GenerateSpatial::normal(REAL4 *res) const
 
 void calc::GenerateSpatial::uniqueid(REAL4 *res) const
 {
-  size_t n = d_spatialpacking.nrFieldCells();
+  size_t const n = d_spatialpacking.nrFieldCells();
   if (d_nrMask == 1) {
     if (d_mask[0] == 1) {
       for(size_t i=0; i < n; i++)
@@ -140,7 +140,7 @@ void calc::GenerateSpatial::uniqueid(REAL4 *res) const
 
 void calc::GenerateNonSpatial::celllength (REAL4 *res) const
 {
-    geo::AppRasterSpace     ars(d_rasterSpace);
+    geo::AppRasterSpace     const ars(d_rasterSpace);
     *res=(REAL4)ars.cellSize();
 }
 

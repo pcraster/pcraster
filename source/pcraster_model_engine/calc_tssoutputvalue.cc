@@ -47,11 +47,11 @@ static int doTimeoutput(
      // CRI_1 CRI_4
      // create a rasterDim of 1 row by nrCells cols
      //   allowing to work with MaskPacking data
-     size_t nrCells=std::max(id->nrValues(),expr->nrValues());
-     geo::RasterDim rs(1,nrCells);
-     calc::ApiMapC<MAP_INT4> idM(rs,id->src(),id->isSpatial(),id->cr());
+     size_t const nrCells=std::max(id->nrValues(),expr->nrValues());
+     geo::RasterDim const rs(1,nrCells);
+     calc::ApiMapC<MAP_INT4> const idM(rs,id->src(),id->isSpatial(),id->cr());
 
-     calc::ApiMapC<MAP_INT4> exprM(rs,expr->src(),expr->isSpatial(),expr->cr());
+     calc::ApiMapC<MAP_INT4> const exprM(rs,expr->src(),expr->isSpatial(),expr->cr());
      result = AddToTssRowINT4(val,nrCols, idM.map(), exprM.map());
   }
   return result;
@@ -141,7 +141,7 @@ calc::TssOutputValue::~TssOutputValue()
 
 size_t calc::FileTimeoutput::initNrRowsCached() const
 {
-  size_t nrt=d_stackInfo.lastInt();
+  size_t const nrt=d_stackInfo.lastInt();
 
   if (appHeader == APP_NOHEADER) {
     // then write at last timeStep, to support current tcl-interface
@@ -237,7 +237,7 @@ void calc::FileTimeoutput::openFile(std::ofstream& ofs)
 
   if (appHeader == APP_DEFHEADER) {
     // print header
-    CSF_VS vs = vs2CsfVs(d_stackInfo.vs());
+    CSF_VS const vs = vs2CsfVs(d_stackInfo.vs());
     if (vs == VS_UNDEFINED)
      ofs << "summary\n";
     else
@@ -336,7 +336,7 @@ void calc::FileTimeoutput::timeoutput(
   if (!val) // do not write this time step
     return;
 
-  int result= detail::doTimeoutput(val,id,expr, d_nrCols);
+  int const result= detail::doTimeoutput(val,id,expr, d_nrCols);
 
   if (result) {
     d_fileErrorOccured=true;
@@ -352,7 +352,7 @@ calc::FileTimeoutput* calc::createFileTimeoutput(
     const StackInfo& stackInfo,
     const Field* id)
 {
-  size_t nrCols = detail::maxId(id);
+  size_t const nrCols = detail::maxId(id);
   if (nrCols) {
     return new FileTimeoutput(stackInfo,nrCols);
   }
@@ -380,11 +380,11 @@ void calc::MemoryTimeoutput::timeoutput(
     const Field *expr,
     size_t )
 {
-  size_t nrCols = detail::maxId(id);
+  size_t const nrCols = detail::maxId(id);
   // reuse code above with std::vector<double> in
   // then recast in case of INT4 or UINT1
   std::vector<double> val(nrCols);
-  int result = detail::doTimeoutput(&(val[0]), id, expr, nrCols);
+  int const result = detail::doTimeoutput(&(val[0]), id, expr, nrCols);
   if (result) {
     throw std::runtime_error("Failed to add data to timeseries");
   }

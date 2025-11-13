@@ -183,7 +183,7 @@ void MemoryTableDriver::write(
 
   // Create a MemoryTableData object to add to the pool. Put it at the record
   // for a table with the same name and space at the specified address.
-  MemoryTableData data(space, address, new Table(table));
+  MemoryTableData const data(space, address, new Table(table));
 
   // Add the data to the pool. The pool owns the data now. Previous contents
   // are removed first if needed.

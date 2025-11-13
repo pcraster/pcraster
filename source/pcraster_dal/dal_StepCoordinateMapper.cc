@@ -72,7 +72,7 @@ void StepCoordinateMapper::mapToDestination(
          size_t index) const
 {
   if(address.isValid(index)) {
-    double result = destination(address.coordinate<size_t>(index));
+    double const result = destination(address.coordinate<size_t>(index));
 
     if(result < 1.0) {
       address.unsetCoordinate(index);
@@ -105,7 +105,7 @@ void StepCoordinateMapper::mapToSource(
          size_t index) const
 {
   if(address.isValid(index)) {
-    double result = source(address.coordinate<size_t>(index));
+    double const result = source(address.coordinate<size_t>(index));
 
     if(result < 1.0) {
       address.unsetCoordinate(index);
@@ -133,8 +133,8 @@ std::string StepCoordinateMapper::toString(
   if(address.isValid(index)) {
     assert(space.dimension(index).meaning() == Space);
 
-    size_t coordinate = address.coordinate<size_t>(index);
-    double mappedCoordinate = destination(coordinate);
+    size_t const coordinate = address.coordinate<size_t>(index);
+    double const mappedCoordinate = destination(coordinate);
 
     // result = boost::lexical_cast<std::string>(mappedCoordinate);
     std::stringstream stream;

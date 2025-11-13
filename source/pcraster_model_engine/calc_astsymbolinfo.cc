@@ -213,10 +213,10 @@ void calc::ASTSymbolInfo::setDefinition(const pcrxml::Definition& d)
     // other way around, to create correct messages
     dt.restrict(d_dataType);
    } catch(const VSClash& v) {
-      PositionName pn("definition");
+      PositionName const pn("definition");
       throwSym(pn,vsClashError(v,"set"));
    } catch(const STClash& s) {
-      PositionName pn("definition");
+      PositionName const pn("definition");
       const char *cfg   ="nonspatial";
       const char *script="spatial";
       if (s.spatialFound()) {

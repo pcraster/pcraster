@@ -244,7 +244,7 @@ calc::DataType calc::Operator::computeResultType(const ArgTypes& args,size_t r) 
      // type derived from first arg with
      // multiple types in its arg definition
      // e.g. areaminimum
-     size_t i = firstPolyInput();
+     size_t const i = firstPolyInput();
      ft = DataType(args[i].vs(),ft.st());
   }
   if (ft.stEither()) {
@@ -275,8 +275,8 @@ size_t calc::Operator::actualInput(size_t argNr) const
 
   PRECOND(d_inputTailRepeat);
 
-  size_t fixedPart       = d_inputs.size()-d_inputTailRepeat;
-  size_t argPosInVarPart = (argNr-fixedPart) % d_inputTailRepeat;
+  size_t const fixedPart       = d_inputs.size()-d_inputTailRepeat;
+  size_t const argPosInVarPart = (argNr-fixedPart) % d_inputTailRepeat;
   PRECOND(fixedPart+argPosInVarPart < d_inputs.size());
   return fixedPart+argPosInVarPart;
 }
@@ -385,8 +385,8 @@ std::string calc::Operator::strInput(int nr) const
 std::string calc::Operator::checkNrInputs(size_t actualNrInputs) const
 {
   // Check number of arguments
-  int argCond = (int)d_inputs.size() - (int)actualNrInputs;
-  int argTest = (!argCond) ? 0 : argCond/std::abs(argCond);
+  int const argCond = (int)d_inputs.size() - (int)actualNrInputs;
+  int const argTest = (!argCond) ? 0 : argCond/std::abs(argCond);
 
   std::string msg;
   switch (argTest) {

@@ -64,7 +64,7 @@ void SpatialDataset::readTimeSeries(
   assert(table.nrCols() == 0);
   assert(table.nrRecs() == 0);
 
-  size_t indexOfTime = dataSpace().indexOf(dal::Time);
+  size_t const indexOfTime = dataSpace().indexOf(dal::Time);
   dal::Dimension const& timeDimension(dataSpace().dimension(indexOfTime));
 
   // Create table for data values at the time steps.
@@ -88,7 +88,7 @@ void SpatialDataset::readTimeSeries(
       size_t index = dataSpace().indexOf(dal::Scenarios);
       dal::Dimension const& scenarioDimension(dataSpace().dimension(index));
       assert(scenarioDimension.nrValues() == 1);
-      std::string scenario = scenarioDimension.value<std::string>(0);
+      std::string const scenario = scenarioDimension.value<std::string>(0);
       index = iterSpace.indexOf(dal::Scenarios);
       iterSpace.dimension(index).setValue<std::string>(scenario);
       localAddress.setCoordinate<std::string>(index, scenario);
@@ -111,7 +111,7 @@ void SpatialDataset::readTimeSeries(
   }
 
   table.insertCol(0, "time", dal::TI_UINT4);
-  dal::Array<UINT4>& timeCol(table.col<UINT4>(0));
+  dal::Array<UINT4> const& timeCol(table.col<UINT4>(0));
   dal::Array<REAL4>& attrCol(table.col<REAL4>(1));
   assert(timeCol.size() <= timeDimension.nrCoordinates());
 
@@ -193,7 +193,7 @@ void SpatialDataset::readCumulativeProbabilities(
   assert(table.nrCols() == 0);
   assert(table.nrRecs() == 0);
 
-  size_t indexOfCumProbabilities = dataSpace().indexOf(
+  size_t const indexOfCumProbabilities = dataSpace().indexOf(
          dal::CumulativeProbabilities);
   dal::Dimension const& cumProbDimension(
          dataSpace().dimension(indexOfCumProbabilities));
@@ -219,7 +219,7 @@ void SpatialDataset::readCumulativeProbabilities(
       size_t index = dataSpace().indexOf(dal::Scenarios);
       dal::Dimension const& scenarioDimension(dataSpace().dimension(index));
       assert(scenarioDimension.nrValues() == 1);
-      std::string scenario = scenarioDimension.value<std::string>(0);
+      std::string const scenario = scenarioDimension.value<std::string>(0);
       index = iterSpace.indexOf(dal::Scenarios);
       iterSpace.dimension(index).setValue<std::string>(scenario);
       localAddress.setCoordinate<std::string>(index, scenario);

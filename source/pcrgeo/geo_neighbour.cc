@@ -208,7 +208,7 @@ static inline LinearLoc adjLinearLoc(
   result[0]+=(l.deltaRow*nrCols);
   // row dec/inc
   result[0]+=l.deltaCol;
-  bool outOfRange =
+  bool const outOfRange =
    // row decrement yield this
    // row increment yield this after
    //  overflow on the (rather) save assumption:
@@ -262,12 +262,12 @@ geo::LinearLoc geo::NB::target(
  */
 geo::NB::Code geo::NB::code(const CellLoc& from, const CellLoc& to)
 {
-  int deltaRow=to.row()-from.row();
-  int deltaCol=to.col()-from.col();
+  int const deltaRow=to.row()-from.row();
+  int const deltaCol=to.col()-from.col();
   DEVELOP_PRECOND(to != from);
   DEVELOP_PRECOND(deltaRow >= -1 && deltaRow <= 1);
   DEVELOP_PRECOND(deltaCol >= -1 && deltaCol <= 1);
-  Code  delta[/*row*/3][/*col*/3] = {
+  Code  const delta[/*row*/3][/*col*/3] = {
        { 5, 6, 7 },
        { 3,99, 4 },
        { 0, 1, 2 } };
@@ -282,8 +282,8 @@ geo::NB::Code geo::NB::code(const CellLoc& from, const CellLoc& to)
  */
 bool geo::NB::diagonal(const CellLoc& from, const CellLoc& to)
 {
-  int deltaRow=to.row()-from.row();
-  int deltaCol=to.col()-from.col();
+  int const deltaRow=to.row()-from.row();
+  int const deltaCol=to.col()-from.col();
   DEVELOP_PRECOND(to != from);
   DEVELOP_PRECOND(deltaRow >= -1 && deltaRow <= 1);
   DEVELOP_PRECOND(deltaCol >= -1 && deltaCol <= 1);

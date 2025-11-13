@@ -4,13 +4,13 @@
 
 CSF_CR calc::cr(const CRIndex& cri)
 {
-  CSF_CR crV[4]= { CR_UINT1,CR_INT4,CR_REAL4,CR_UNDEFINED };
+  CSF_CR const crV[4]= { CR_UINT1,CR_INT4,CR_REAL4,CR_UNDEFINED };
   POSTCOND(cri < 4);
   return crV[cri];
 }
 size_t calc::size(const CRIndex& cri)
 {
-  size_t s[3]= { 1,4,4 };
+  size_t const s[3]= { 1,4,4 };
   POSTCOND(cri < 3);
   return s[cri];
 }

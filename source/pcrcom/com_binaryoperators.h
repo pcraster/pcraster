@@ -82,7 +82,7 @@ template<class InputIterator, class OutputIterator>
 OutputIterator divideByRange(OutputIterator to_pos, OutputIterator to_end,
          InputIterator from_pos) {
 
-  typename std::iterator_traits<InputIterator>::value_type zero(0);
+  typename std::iterator_traits<InputIterator>::value_type const zero(0);
 
   while(to_pos != to_end) {
     if(!pcr::isMV(*to_pos)) {

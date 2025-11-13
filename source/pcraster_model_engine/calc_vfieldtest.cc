@@ -10,8 +10,8 @@ BOOST_AUTO_TEST_CASE(test)
   using namespace calc;
 
   {
-   int ns=3;
-   VField<int> vf(ns,5);
+   int const ns=3;
+   VField<int> const vf(ns,5);
    BOOST_CHECK(!vf.spatial());
    BOOST_CHECK(vf.size()==5);
    BOOST_CHECK(vf[0]==3);
@@ -20,7 +20,7 @@ BOOST_AUTO_TEST_CASE(test)
   }
   {
    int s[5]={10,11,12,13,14};
-   VField<int> vf(s,5);
+   VField<int> const vf(s,5);
    BOOST_CHECK(vf.spatial());
    BOOST_CHECK(vf.size()==5);
    BOOST_CHECK(vf[0]==10);
@@ -29,7 +29,7 @@ BOOST_AUTO_TEST_CASE(test)
   }
   {
    Field *f(new NonSpatial(VS_N,3));
-   VField<INT4> vf(f,5);
+   VField<INT4> const vf(f,5);
    BOOST_CHECK(!vf.spatial());
    BOOST_CHECK(vf.size()==5);
    BOOST_CHECK(vf[0]==3);
@@ -40,7 +40,7 @@ BOOST_AUTO_TEST_CASE(test)
    INT4 data[5]={10,11,12,13,14};
    Field *f(new Spatial(VS_N,data,5));
 
-   VField<INT4> vf(f,5);
+   VField<INT4> const vf(f,5);
    BOOST_CHECK(vf.spatial());
    BOOST_CHECK(vf.size()==5);
    BOOST_CHECK(vf[0]==10);
@@ -58,7 +58,7 @@ BOOST_AUTO_TEST_CASE(testUpdateMV)
 
   {
    INT4 s[5]={10,11,MV_INT4,13,14};
-   VField<INT4> vf(s,5);
+   VField<INT4> const vf(s,5);
    vf.updateMVField(bf);
    BOOST_CHECK(bf.count()==1);
    BOOST_CHECK(bf[2]==1);
@@ -67,7 +67,7 @@ BOOST_AUTO_TEST_CASE(testUpdateMV)
 
   {
    UINT1 s[5]={10,11,13,14,MV_UINT1};
-   VField<UINT1> vf(s,5);
+   VField<UINT1> const vf(s,5);
    vf.updateMVField(bf);
    BOOST_CHECK(bf.count()==2);
    BOOST_CHECK(bf[2]==1);
@@ -76,7 +76,7 @@ BOOST_AUTO_TEST_CASE(testUpdateMV)
 
   {
    Field *f(new NonSpatial(VS_N,3));
-   VField<INT4> vf(f,5);
+   VField<INT4> const vf(f,5);
    BOOST_CHECK(bf.count()==2);
    BOOST_CHECK(bf[2]==1);
    BOOST_CHECK(bf[4]==1);

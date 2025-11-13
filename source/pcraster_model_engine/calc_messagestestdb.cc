@@ -90,7 +90,7 @@ class MessagesTestDBPrivate:
 
   void addTest(const std::string& id,const QDomElement& e) {
     PRECOND(e.tagName()=="test");
-    std::string idS=attrStr(e,"id");
+    std::string const idS=attrStr(e,"id");
     PRECOND(!idS.empty());
 
     auto notYetPresent=find(id);
@@ -120,17 +120,17 @@ public:
   void operator()(const QDomElement& e) {
     if (e.tagName() != "test")
       return; // skip makefile
-    std::string id=attrStr(e,"id");
+    std::string const id=attrStr(e,"id");
     PRECOND(!id.empty());
 
 
     try {
-     std::vector<QDomElement> c(pcrxml::childElements(e));
+     std::vector<QDomElement> const c(pcrxml::childElements(e));
      addTest(id, e);
      // check non-emptyness now
      for(auto & i : c) {
       if (i.tagName() == QString(d_dbMsg.name().c_str())) {
-        std::string result=d_dbMsg.toString(id,i);
+        std::string const result=d_dbMsg.toString(id,i);
         if (i.hasAttribute("resFile"))
           writeResFile(id,result);
       }
@@ -148,7 +148,7 @@ public:
    d_dbModel("model"),
    d_dbAst("ast")
   { // copy is made in testdir
-    pcrxml::Document doc(com::PathName("messagestest.xml"));
+    pcrxml::Document const doc(com::PathName("messagestest.xml"));
     d_root=doc.documentElement();
     pcrxml::forEachChildElement(d_root,*this);
   }
@@ -174,7 +174,7 @@ public:
       const detail::DBCol& subElem,
       const std::string& id) const
   {
-    QDomElement e(findE(subElem,id));
+    QDomElement const e(findE(subElem,id));
     if (e.isNull())
       return "";
     return subElem.toString(id,e);
@@ -196,7 +196,7 @@ public:
       const std::string& id,
       const std::string& resultOfUnitTest) const
   {
-    std::string msg = findS(d_dbMsg,id);
+    std::string const msg = findS(d_dbMsg,id);
     if (msg.empty()) {
      d_dump<< "NOT PRESENT IN messagetest.xml\n"
            << "unittest        : " << resultOfUnitTest << "\n";
@@ -204,7 +204,7 @@ public:
      return false;
     }
 
-    QDomElement e(findE(d_dbMsg,id));
+    QDomElement const e(findE(d_dbMsg,id));
     std::string cmpTo(resultOfUnitTest);
     if (e.hasAttribute("replace")) {
       // order matters, \ and / as last ones!
@@ -221,7 +221,7 @@ public:
   QDomElement xml(
     const std::string& id) const
   {
-    QDomElement ast= findE(d_dbAst,id);
+    QDomElement const ast= findE(d_dbAst,id);
     if (ast.isNull()) {
       d_dump<< "AST NOT PRESENT IN messagetest.xml \n";
       writeDump(id,"ABSENCE");
@@ -239,7 +239,7 @@ public:
   std::string options(
     const std::string& id) const
   {
-    QDomElement e = findE(d_dbModel,id);
+    QDomElement const e = findE(d_dbModel,id);
     return attrStr(e,"options");
   }
 
@@ -280,7 +280,7 @@ calc::MessagesTestDB::MessagesTestDB()
   try {
    d_data=new MessagesTestDBPrivate();
   } catch (const com::Exception&  e) {
-    bool badFormatOfXML=false;
+    bool const badFormatOfXML=false;
     std::cerr << e.messages();
     PRECOND(badFormatOfXML);
     (void)badFormatOfXML; // Shut up compiler

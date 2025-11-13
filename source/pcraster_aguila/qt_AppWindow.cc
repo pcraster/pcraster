@@ -140,7 +140,7 @@ bool qt::AppWindow::confirmOkWarning(QWidget* p, const std::string& caption,
 {
   QApplication::setOverrideCursor(Qt::ArrowCursor);
 #if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
-  int b = QMessageBox::warning(p, caption.c_str(), explainConsequence.c_str(),
+  int const b = QMessageBox::warning(p, caption.c_str(), explainConsequence.c_str(),
                            QMessageBox::Ok,
                            QMessageBox::Cancel);
 #else

@@ -42,10 +42,10 @@ struct NodeList : public std::list<QDomNode> {
    }
 */
    static bool emptyTextNode(const QDomNode& n) {
-     QDomText t= n.toText();
+     QDomText const t= n.toText();
      if (t.isNull())
        return false;
-     QString contents=t.nodeValue().trimmed();
+     QString const contents=t.nodeValue().trimmed();
      return contents.isEmpty();
    }
    void deleteEmptyTextNodes() {
@@ -207,7 +207,7 @@ pcrxml::DomDiff& pcrxml::DomDiff::operator=(DomDiff const& rhs)
 bool pcrxml::DomDiff::equal(bool throwOnDiff) const
 {
   Private::NodeList nv1(Private::NodeList::create(d_doc1));
-  Private::NodeList nv2(Private::NodeList::create(d_doc2));
+  Private::NodeList const nv2(Private::NodeList::create(d_doc2));
 
   return  nv1.equal(nv2,throwOnDiff);
 }

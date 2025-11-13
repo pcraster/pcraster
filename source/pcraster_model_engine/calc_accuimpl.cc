@@ -67,7 +67,7 @@ public:
     AccumulateFluxPar(threshold)
     {}
   float operator()(float interimState, size_t pos) const override {
-    float threshold=d_par[pos];
+    float const threshold=d_par[pos];
     if (threshold < 0)
       throw DomainError("threshold < 0");
     if(interimState <= threshold)
@@ -83,7 +83,7 @@ public:
     AccumulateFluxPar(fraction)
     {}
   float operator()(float interimState, size_t pos) const override {
-    float fraction=d_par[pos];
+    float const fraction=d_par[pos];
     if (0 > fraction || fraction > 1)
       throw DomainError("fraction not in [0,1] range");
     return interimState * fraction;
@@ -97,7 +97,7 @@ public:
     AccumulateFluxPar(trigger)
     {}
   float operator()(float interimState, size_t pos) const override {
-    float trigger=d_par[pos];
+    float const trigger=d_par[pos];
     if (trigger < 0)
       throw DomainError("trigger < 0");
     if (trigger <= interimState)
@@ -147,9 +147,9 @@ static void accuStateFlux(
     Field& newState(arg.result(0));
     Field& flux    (arg.result(1));
 
-    size_t size(flux.nrValues());
+    size_t const size(flux.nrValues());
 
-    ScopedLddGraph      lg(rte,arg[0]);
+    ScopedLddGraph      const lg(rte,arg[0]);
     // TODO void calc::ExecutorTest::testRunTimeErrors()
     //  swap value of arg[1] and arg[2] error description is not
     //  correct it contains _mrf
@@ -218,9 +218,9 @@ void calc::AccuImpl::finishVertex(size_t v)
     pcr::setMV(d_newState[v]);
   } else {
     // up has al its in-fluxes now summed in flux
-    float interimState = d_oldState[v] + d_flux[v];
+    float const interimState = d_oldState[v] + d_flux[v];
 
-    float newFlux = d_fluxFo(interimState,v);
+    float const newFlux = d_fluxFo(interimState,v);
         d_flux[v] = newFlux;
     d_newState[v] = interimState-newFlux;
   }
@@ -267,9 +267,9 @@ void calc::AccuAll::exec(
     Field& newState(arg.result(0));
     Field& flux    (arg.result(1));
 
-    size_t size(flux.nrValues());
+    size_t const size(flux.nrValues());
 
-    ScopedLddGraph lg(rte,arg[0]);
+    ScopedLddGraph const lg(rte,arg[0]);
     const VField<REAL4> oldState(arg[1],size);
 
     AccuImpl ag(newState.dest_f(), flux.dest_f(),lg.current(),oldState,All());

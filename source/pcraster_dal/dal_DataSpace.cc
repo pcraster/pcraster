@@ -186,7 +186,7 @@ DataSpace::DataSpace(
             case RegularDiscretisation: {
               RasterDimensions const& rasterDimensions(
                    _dimensions[i].value<RasterDimensions>(0));
-              size_t index = rasterDimensions.index(coordinates.x(),
+              size_t const index = rasterDimensions.index(coordinates.x(),
                    coordinates.y());
 
               // Determine coordinates of north west corner of cell.

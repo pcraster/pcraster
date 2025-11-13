@@ -19,7 +19,7 @@ struct Fixture
 
     Fixture()
     {
-        static ClientWrapper client("/my/path/vector_driver_test", true);
+        static ClientWrapper const client("/my/path/vector_driver_test", true);
     }
 
     ~Fixture()
@@ -34,7 +34,7 @@ BOOST_AUTO_TEST_CASE(exists)
 {
   using namespace dal;
 
-  VectorDriver driver;
+  VectorDriver const driver;
 
   // Static data.
   {
@@ -141,7 +141,7 @@ BOOST_AUTO_TEST_CASE(data_space)
 
     BOOST_CHECK_EQUAL(space.size(), size_t(1));
 
-    Dimension dimension(space.dimension(0));
+    Dimension const dimension(space.dimension(0));
     BOOST_CHECK_EQUAL(dimension.meaning(), Space);
     BOOST_CHECK_EQUAL(dimension.nrValues(), size_t(1));
     BOOST_CHECK_EQUAL(dimension.coordinateType(), NumericalCoordinates);
@@ -171,7 +171,7 @@ BOOST_AUTO_TEST_CASE(data_space)
 
     BOOST_CHECK_EQUAL(space.size(), size_t(1));
 
-    Dimension dimension(space.dimension(0));
+    Dimension const dimension(space.dimension(0));
     BOOST_CHECK_EQUAL(dimension.meaning(), Space);
     BOOST_CHECK_EQUAL(dimension.nrValues(), size_t(1));
     BOOST_CHECK_EQUAL(dimension.coordinateType(), NumericalCoordinates);
@@ -286,8 +286,8 @@ BOOST_AUTO_TEST_CASE(extremes)
 {
   using namespace dal;
 
-  VectorDriver driver;
-  std::shared_ptr<Vector> vector;
+  VectorDriver const driver;
+  std::shared_ptr<Vector> const vector;
   boost::any min;
   boost::any max;
 

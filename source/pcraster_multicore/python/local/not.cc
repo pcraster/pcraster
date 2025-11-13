@@ -36,7 +36,7 @@ calc::Field* not_number(
   fa::SequentialExecutionPolicy sequential;
 
   using InputNoDataPolicy = fa::InputNoDataPolicies<NonspatialDetectNoData<UINT1>>;
-  InputNoDataPolicy input_no_data_policy{{*arg1}};
+  InputNoDataPolicy const input_no_data_policy{{*arg1}};
 
   NonspatialSetNoData<UINT1> output_no_data_policy(*res);
 
@@ -53,7 +53,7 @@ calc::Field* not_spatial(
          multicore_field::Spatial<UINT1>* res){
 
   using InputNoDataPolicy = fa::InputNoDataPolicies<SpatialDetectNoData<UINT1>>;
-  InputNoDataPolicy input_no_data_policy{{*arg1}};
+  InputNoDataPolicy const input_no_data_policy{{*arg1}};
 
   SpatialSetNoData<UINT1> output_no_data_policy(*res);
 

@@ -53,7 +53,7 @@ DataInfo<Vector> VectorDataSources::openData(
   std::unique_ptr<Vector> vector(new Vector(name, space));
   assert(vector.get());
 
-  DataInfo<Vector> info(vector.get(), VS_SCALAR, vector->dataSpace());
+  DataInfo<Vector> const info(vector.get(), VS_SCALAR, vector->dataSpace());
   vector.release();
 
   return info;

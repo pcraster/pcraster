@@ -11,8 +11,8 @@ BOOST_AUTO_TEST_CASE(cpp_stream)
 {
   {
   // VS_LDD, VS_BOOLEAN
-  double vals[] = { 0, 1, 9 };
-  for (double val : vals) {
+  double const vals[] = { 0, 1, 9 };
+  for (double const val : vals) {
     std::ostringstream os;
     const size_t buf_size = 16;
     char buf[buf_size];
@@ -23,8 +23,8 @@ BOOST_AUTO_TEST_CASE(cpp_stream)
   }
   {
   // VS_ORDINAL VS_NOMINAL
-  double vals[] = { 0, 1, 9,-12345,999999 };
-  for (double val : vals) {
+  double const vals[] = { 0, 1, 9,-12345,999999 };
+  for (double const val : vals) {
     std::ostringstream os;
     const size_t buf_size = 16;
     char buf[buf_size];
@@ -35,8 +35,8 @@ BOOST_AUTO_TEST_CASE(cpp_stream)
   }
   {
   // VS_SCALAR VS_DIRECTIONAL
-  double vals[] = { 0, 1, 9,-12345,999999,123.56,0.00004,-12345689101214.456748 };
-  for (double val : vals) {
+  double const vals[] = { 0, 1, 9,-12345,999999,123.56,0.00004,-12345689101214.456748 };
+  for (double const val : vals) {
     std::ostringstream os;
     const size_t buf_size = 16;
     char buf[buf_size];

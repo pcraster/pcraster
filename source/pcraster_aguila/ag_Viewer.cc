@@ -104,7 +104,7 @@ static dal::DataSpace fixForScenario(
 {
    // subSpace copy is modified if scenarios are used
    dal::DataSpace subSpace(dataSpace);
-   size_t indexOfScenarios = subSpace.indexOf(dal::Scenarios);
+   size_t const indexOfScenarios = subSpace.indexOf(dal::Scenarios);
 
    if(indexOfScenarios < dataSpace.rank()) {
      subSpace.dimension(indexOfScenarios).setValue<std::string>(scenarios[j]);
@@ -171,7 +171,7 @@ void Viewer::createViews(
 
   // Currently, the XML contains just one group. In the future: loop.
   VisGroup* group = newGroup();
-  DataConfiguration dc(/* d_dal, */ group, cfg.visualisationGroup());
+  DataConfiguration const dc(/* d_dal, */ group, cfg.visualisationGroup());
 
   typedef pcrxml::VisualisationGroup::view_sequence Views;
   Views const& xmlViews(cfg.visualisationGroup().view());
@@ -181,7 +181,7 @@ void Viewer::createViews(
 
   for(const auto & xmlView : xmlViews) {
     if(!xmlView.valueOnly().present()) {
-      std::vector<std::vector<DataGuide> > guideCollections(
+      std::vector<std::vector<DataGuide> > const guideCollections(
          dc.guidesOfView2(xmlView));
 
       if(xmlView.default_().present()) {
@@ -529,7 +529,7 @@ VisGroup* Viewer::createDrapeView(
 
   // Create windows.
   std::vector<Map3DWindow*> windows;
-  std::vector<std::string> scenarios; // EMPTY FTTB
+  std::vector<std::string> const scenarios; // EMPTY FTTB
 #ifdef AGUILA_WITH_OPENGL
   // 1 window Or for each scenario one window. (max( ))
   for(size_t i = 0; i < std::max<size_t>(1,scenarios.size()); ++i) {
@@ -875,7 +875,7 @@ VisGroup* Viewer::displayMap2D(
 
   // Create windows.
   std::vector<Map2DWindow*> windows;
-  std::vector<std::string> scenarios(findScenarios(results));
+  std::vector<std::string> const scenarios(findScenarios(results));
 
   // 1 window Or for each scenario one window. (max( ))
   for(size_t i = 0; i < std::max<size_t>(1,scenarios.size()); ++i) {
@@ -886,7 +886,7 @@ VisGroup* Viewer::displayMap2D(
   for(const auto & result : results) {
     for(size_t j = 0; j < windows.size(); ++j) {
       // subSpace copy is modified if scenarios are used
-      dal::DataSpace subSpace(fixForScenario(result.space(), scenarios, j));
+      dal::DataSpace const subSpace(fixForScenario(result.space(), scenarios, j));
       windows[j]->addAttribute(group->addData(result.name, subSpace));
     }
   }
@@ -999,7 +999,7 @@ VisGroup* Viewer::displayMultiMap2D(
             }
           }
           else {
-            size_t indexOfScenarios =
+            size_t const indexOfScenarios =
               subSpace.indexOf(dal::Scenarios);
             size_t scenarioIndex = 0;
 
@@ -1098,7 +1098,7 @@ VisGroup* Viewer::displayMap3D(
 
   // Create windows.
   std::vector<Map3DWindow*> windows;
-  std::vector<std::string> scenarios(findScenarios(results));
+  std::vector<std::string> const scenarios(findScenarios(results));
 #ifdef AGUILA_WITH_OPENGL
   // 1 window Or for each scenario one window. (max( ))
   for(size_t i = 0; i < std::max<size_t>(1,scenarios.size()); ++i) {
@@ -1114,7 +1114,7 @@ VisGroup* Viewer::displayMap3D(
     for(; i != results.end(); ++i) {
       for(size_t j = 0; j < windows.size(); ++j) {
         // subSpace copy is modified if scenarios are used
-        dal::DataSpace subSpace(fixForScenario(i->space(), scenarios,j));
+        dal::DataSpace const subSpace(fixForScenario(i->space(), scenarios,j));
 
         windows[j]->addAttribute(group->addData(i->name, subSpace));
       }
@@ -1297,7 +1297,7 @@ VisGroup* Viewer::displayValueView(
       group = groupFor(queryResults);
     }
 
-    std::vector<std::string> scenarios(findScenarios(queryResults));
+    std::vector<std::string> const scenarios(findScenarios(queryResults));
 
     for(const auto & queryResult : queryResults) {
       std::string const& name = queryResult.name;
@@ -1308,7 +1308,7 @@ VisGroup* Viewer::displayValueView(
       }
       else {
         for(size_t j = 0; j < scenarios.size(); ++j) {
-          dal::DataSpace subSubSpace(fixForScenario(subSpace,scenarios,j));
+          dal::DataSpace const subSubSpace(fixForScenario(subSpace,scenarios,j));
           group->addData(name, subSubSpace);
         }
       }

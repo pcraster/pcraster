@@ -54,7 +54,7 @@ BOOST_AUTO_TEST_CASE(testCloneSet)
   bool catched=false;
   try {
     // 0,0 is invalid
-   RunTimeEngine      rte(geo::RasterSpace(0,0));
+   RunTimeEngine      const rte(geo::RasterSpace(0,0));
    const Operator* o = major2op(OP_NOT_);
    rtTypeCheck(*o,rte.d_rte,0);
   } catch(const com::Exception& e) {
@@ -74,7 +74,7 @@ BOOST_AUTO_TEST_CASE(testCloneDiffer)
     // 0,0 is invalid
    RunTimeEngine      rte(geo::RasterSpace(2,2));
    const Operator* o = major2op(OP_NOT_);
-   UINT1 bData=0;
+   UINT1 const bData=0;
    rte.transferPushField(new Spatial(VS_B,&bData , 1)); // 2*2 != 1
    rtTypeCheck(*o,rte.d_rte,1);
 
@@ -94,7 +94,7 @@ BOOST_AUTO_TEST_CASE(testNrArgs)
   bool catched=false;
   try {
     // 0,0 is invalid
-   RunTimeEngine      rte(geo::RasterSpace(2,2));
+   RunTimeEngine      const rte(geo::RasterSpace(2,2));
    const Operator* o = major2op(OP_NOT_);
    rtTypeCheck(*o,rte.d_rte,0);
 
@@ -114,7 +114,7 @@ BOOST_AUTO_TEST_CASE(testTypeCheck)
  { // conversion
    RunTimeEngine      rte(geo::RasterSpace(2,2));
    const Operator* o = major2op(OP_SCALAR);
-   REAL4 bData=1.0;
+   REAL4 const bData=1.0;
    auto* ns =new NonSpatial(VS_SD,bData);
    BOOST_CHECK(ns->vs()==VS_SD);
    rte.pushField(ns);
@@ -204,7 +204,7 @@ BOOST_AUTO_TEST_CASE(testResetVs)
 BOOST_AUTO_TEST_CASE(testBuildExpr)
 {
 
-   bool todoCoverMaxVarArgForPython=false;
+   bool const todoCoverMaxVarArgForPython=false;
    BOOST_WARN(todoCoverMaxVarArgForPython);
 
 /* bug with building up the expression
@@ -250,7 +250,7 @@ BOOST_AUTO_TEST_CASE(testLoadByStorageId)
 
   {
 
-    DataStorageId id("tmp.tbl");
+    DataStorageId const id("tmp.tbl");
     // pass reference pointer, no transfer of ownership
     rte.pushDataStorageId(&id);
 
@@ -272,7 +272,7 @@ BOOST_AUTO_TEST_CASE(testLoadByStorageId)
   // remove, to ensure next call will use already loaded version
   com::remove("tmp.tbl");
   {
-    DataStorageId id("tmp.tbl");
+    DataStorageId const id("tmp.tbl");
     // pass reference pointer, no transfer of ownership
     rte.pushDataStorageId(&id);
 
@@ -294,7 +294,7 @@ BOOST_AUTO_TEST_CASE(testLoadByStorageId)
   }
   // let's generated an error message
   { // one column short
-    DataStorageId id("tmp.tbl");
+    DataStorageId const id("tmp.tbl");
     // pass reference pointer, no transfer of ownership
     rte.pushDataStorageId(&id);
 
@@ -316,7 +316,7 @@ BOOST_CHECK(e.messages().find(
 
   }
   { // one column wrong
-    DataStorageId id("tmp.tbl");
+    DataStorageId const id("tmp.tbl");
     // pass reference pointer, no transfer of ownership
     rte.pushDataStorageId(&id);
 

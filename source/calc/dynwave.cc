@@ -17,7 +17,7 @@ static double AactToLevel(
     double yc, double z,
     double FW)
 {
-  double Acmax=(Bw+z*yc)*yc;
+  double const Acmax=(Bw+z*yc)*yc;
   if (Aact > Acmax)
     return yc + (Aact - Acmax)/FW;
   if (z > 0)
@@ -163,7 +163,7 @@ extern "C" int DynamicWave(
 
   ReadOnlyReal8_ref(timeStepInSecondsInterface,m_timeStepInSeconds);
   POSTCOND(!timeStepInSecondsInterface.spatial());
-  double timeStepInSeconds=timeStepInSecondsInterface.value(0,0);
+  double const timeStepInSeconds=timeStepInSecondsInterface.value(0,0);
 
   ReadOnlyReal8_ref(nrTimeSlicesInterface,m_nrTimeSlices);
   POSTCOND(!nrTimeSlicesInterface.spatial());
@@ -191,7 +191,7 @@ extern "C" int DynamicWave(
   nsDomains.push_back(fieldapi::ScalarDomainCheck(nrTimeSlicesInterface,
         "NrTimeSlices", com::GreaterThan<double>(0)));
 
-  int nsCheck = fieldapi::checkScalarDomains(nsDomains,geo::CellLoc(0,0));
+  int const nsCheck = fieldapi::checkScalarDomains(nsDomains,geo::CellLoc(0,0));
   if (nsCheck != -1)// pcrcalc/test350
     return RetError(1,nsDomains[nsCheck].msg().c_str());
 
@@ -215,7 +215,7 @@ extern "C" int DynamicWave(
   // mark resultQ with MV if ANY of the inputs is MV
   std::vector<geo::CellLoc> catchmentOutlets;
   for(geo::CellLocVisitor cl(ldd); cl.valid(); ++cl) {
-     geo::CellLoc c(*cl);
+     geo::CellLoc const c(*cl);
      UINT1 cVal = 0;
      if ( (ldd.get(cVal,c)) && cVal == LDD_PIT) // found a catchment outlet */
          catchmentOutlets.push_back(c);
@@ -229,19 +229,19 @@ extern "C" int DynamicWave(
      }
   }
 
-  double iterationTime= timeStepInSeconds/nrTimeSlices; //[sec]
+  double const iterationTime= timeStepInSeconds/nrTimeSlices; //[sec]
 
   for(size_t slice=0;slice<nrTimeSlices;slice++)
   for(auto & catchmentOutlet : catchmentOutlets)
   // WPA 2.1
   for(calc::DownStreamVisitor v(ldd,catchmentOutlet);v.valid();++v){
-    geo::CellLoc  c=*v; // current cell
+    geo::CellLoc  const c=*v; // current cell
     if (resultQ.isMV(c)) // marked as MV if some inputs is MV
       break;
 
     if (slice == 0) { // check once
 
-      int check = fieldapi::checkScalarDomains(domains,c);
+      int const check = fieldapi::checkScalarDomains(domains,c);
       if (check != -1)
         return RetError(1,domains[check].msg().c_str()); // pcrcalc/test349
       if (!(FW[c] >= (Bw[c]+yc[c]*z[c])))
@@ -249,7 +249,7 @@ extern "C" int DynamicWave(
           "FloodplainWidth not wider than bankfull channel width");
     }
 
-    geo::LDD::Code cL=ldd[c]; // ldd value of c
+    geo::LDD::Code const cL=ldd[c]; // ldd value of c
 
     double QtimeStep = NAN; // Q  m3/sec
     // WPA 2.3 is  cell a structure or channel segment
@@ -262,16 +262,16 @@ extern "C" int DynamicWave(
          QtimeStep=0; // no downstream cell
       } else { // has downstream cell
         // WPA 2.2
-        geo::CellLoc ds=geo::LDD::target(c,cL);
+        geo::CellLoc const ds=geo::LDD::target(c,cL);
         if (resultQ.isMV(ds)) // marked as MV if some inputs is MV
             break;
 
         if (resultH[c] <= 0)
           QtimeStep = 0;
         else {
-          double levToAact=LevelToAactStream(resultH[c], Bw[c], z[c]);
-          double levToP   =   LevelToPStream(resultH[c], Bw[c], z[c]);
-          double Sf    = ((resultH[c]+channelBottomLevel[c])-
+          double const levToAact=LevelToAactStream(resultH[c], Bw[c], z[c]);
+          double const levToP   =   LevelToPStream(resultH[c], Bw[c], z[c]);
+          double const Sf    = ((resultH[c]+channelBottomLevel[c])-
                          (resultH[ds]+channelBottomLevel[ds]))/L[c];
           QtimeStep = iterationTime * qDyn(channelRoughness[c],
                           levToAact, Sf,
@@ -289,7 +289,7 @@ extern "C" int DynamicWave(
     if (cL == LDD_PIT) {
          dsVolume=0; // no downstream cell
     } else { // has downstream cell
-     geo::CellLoc ds=geo::LDD::target(c,cL);
+     geo::CellLoc const ds=geo::LDD::target(c,cL);
      dsVolume=L[ds] *
       LevelToAact(resultH[ds], Bw[ds],
           yc[ds],z[ds], FW[ds]);
@@ -307,7 +307,7 @@ extern "C" int DynamicWave(
 
     if (cL != LDD_PIT) {
      // WPA 2.4.1 change resultH[downstream]
-     geo::CellLoc ds=geo::LDD::target(c,cL);
+     geo::CellLoc const ds=geo::LDD::target(c,cL);
      dsVolume+=QtimeStep;
      resultH.put(AactToLevel(dsVolume/L[ds], Bw[ds], yc[ds], z[ds],FW[ds]),ds);
     }

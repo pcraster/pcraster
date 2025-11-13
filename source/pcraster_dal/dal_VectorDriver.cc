@@ -46,11 +46,11 @@ public:
   {
     assert(!name.empty());
 
-    std::filesystem::path path(name);
+    std::filesystem::path const path(name);
 
     std::string result;
-    std::string basename = path.stem().string();
-    std::string extension = path.extension().string();
+    std::string const basename = path.stem().string();
+    std::string const extension = path.extension().string();
 
     if(extension.empty()) {
       result = basename + "_" + direction;
@@ -378,7 +378,7 @@ DataSpace VectorDriver::dataSpace(
          DataSpace const& space,
          DataSpaceAddress const& address) const
 {
-  std::shared_ptr<Vector> vector(open(name, space, address));
+  std::shared_ptr<Vector> const vector(open(name, space, address));
 
   if(!vector) {
     // TODO make sure this function supports VECTOR.
@@ -573,7 +573,7 @@ void VectorDriver::browse(
          std::string const& location) const
 {
   // Determine list of candidate file names of files to consider.
-  std::filesystem::path path(location);
+  std::filesystem::path const path(location);
   std::vector<std::string> leaves;
   possibleFileBasedAttributeFileNames(path, leaves);
 
@@ -652,7 +652,7 @@ void VectorDriver::browse(
 
             Properties const& properties(vector->properties());
 
-            CSF_VS valueScale = properties.hasValue(DAL_CSF_VALUESCALE)
+            CSF_VS const valueScale = properties.hasValue(DAL_CSF_VALUESCALE)
               ? properties.value<CSF_VS>(DAL_CSF_VALUESCALE)
               : VS_NOTDETERMINED;
 
@@ -697,7 +697,7 @@ void VectorDriver::browse(
           if(vector) {
             Properties const& properties(vector->properties());
 
-            CSF_VS valueScale = properties.hasValue(DAL_CSF_VALUESCALE)
+            CSF_VS const valueScale = properties.hasValue(DAL_CSF_VALUESCALE)
               ? properties.value<CSF_VS>(DAL_CSF_VALUESCALE)
               : VS_NOTDETERMINED;
 

@@ -35,24 +35,24 @@ BOOST_AUTO_TEST_CASE(test)
 {
   using namespace ag;
 
-  std::string name("dataset1/aap/scalar");
+  std::string const name("dataset1/aap/scalar");
   dal::DataSpace space;
   space.addDimension(dal::Dimension(dal::Time, size_t(10), size_t(20),
          size_t(1)));
 
   Raster raster(name, space);
-  DataInfo<Raster> data(&raster, VS_SCALAR);
+  DataInfo<Raster> const data(&raster, VS_SCALAR);
 
   DataManager<Raster> manager(geo::STACK);
   BOOST_CHECK_EQUAL(manager.size(), size_t(0));
   BOOST_CHECK(manager.empty());
 
-  DataGuide guide1 = manager.add(data);
+  DataGuide const guide1 = manager.add(data);
   BOOST_CHECK_EQUAL(manager.size(), size_t(1));
   BOOST_CHECK(!manager.empty());
 
   // 2nd guide is pointing to the same data as the first.
-  DataGuide guide2 = manager.add(data);
+  DataGuide const guide2 = manager.add(data);
   BOOST_CHECK_EQUAL(manager.size(), size_t(1));
   BOOST_CHECK(!manager.empty());
 

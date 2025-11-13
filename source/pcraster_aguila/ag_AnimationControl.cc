@@ -144,12 +144,12 @@ void AnimationControl::createInterface()
 
   d_data->d_progressBar = new qt::AnimationProgBar(gb);
 
-  QPixmap startIcon = QPixmap((const char **)play_xpm);
-  QPixmap pauseIcon = QPixmap((const char **)pause_xpm);
-  QPixmap forewardsIcon = QPixmap((const char **)fastforward_xpm);
-  QPixmap backwardsIcon = QPixmap((const char **)rewind_xpm);
-  QPixmap beginIcon = QPixmap((const char **)begin_xpm);
-  QPixmap endIcon = QPixmap((const char **)end_xpm);
+  QPixmap const startIcon = QPixmap((const char **)play_xpm);
+  QPixmap const pauseIcon = QPixmap((const char **)pause_xpm);
+  QPixmap const forewardsIcon = QPixmap((const char **)fastforward_xpm);
+  QPixmap const backwardsIcon = QPixmap((const char **)rewind_xpm);
+  QPixmap const beginIcon = QPixmap((const char **)begin_xpm);
+  QPixmap const endIcon = QPixmap((const char **)end_xpm);
 
   d_data->d_start = new QPushButton(gb);
   d_data->d_start->setToolTip("Start animation");
@@ -284,7 +284,7 @@ void AnimationControl::configureInterface()
 
 void AnimationControl::updateInterface()
 {
-  qt::Animation& animation = dataObject().animationManager();
+  qt::Animation const& animation = dataObject().animationManager();
 
   d_data->d_progressBar->setFirstStep(animation.firstStep());
 
@@ -326,9 +326,9 @@ void AnimationControl::updateInterface()
   }
 
 
-  int progress = static_cast<int>(animation.currentStep() -
+  int const progress = static_cast<int>(animation.currentStep() -
          animation.firstStep() + 1);
-  int total = static_cast<int>(animation.timeSpan() + 1);
+  int const total = static_cast<int>(animation.timeSpan() + 1);
 
   d_data->d_progressBar->setMaximum(total);
   d_data->d_progressBar->setValue(progress);
@@ -441,7 +441,7 @@ void AnimationControl::timeStepChanged()
          dataObject().dataSpace(), dataObject().dataSpaceAddress())));
   }
   else {
-    qt::Animation& animation = dataObject().animationManager();
+    qt::Animation const& animation = dataObject().animationManager();
     bool ok(false);
     size_t timeStep = d_data->d_stepEdit->text().toUInt(&ok);
     assert(ok);

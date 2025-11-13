@@ -13,7 +13,7 @@ void testType()
  StoredAsT  d1[ ] = { 0, 1, 2 , 3, 40, 5 };
  pcr::setMV(d1[4]);
  TestField<StoredAsT,2,3> d2(d1);
- ReadOnlySpatial<UseAsT,StoredAsT> t(TEST_FIELD_INIT(d2));
+ ReadOnlySpatial<UseAsT,StoredAsT> const t(TEST_FIELD_INIT(d2));
  UseAsT v;
 
  BOOST_CHECK(t.spatial());

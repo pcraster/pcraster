@@ -8,13 +8,13 @@ BOOST_AUTO_TEST_CASE(constructor)
 {
   using namespace discr;
 
-  size_t nrRows = 3;
-  size_t nrCols = 4;
-  double cellSize = 1.5;
-  double west = 1.0;
-  double north = 0.0;
+  size_t const nrRows = 3;
+  size_t const nrCols = 4;
+  double const cellSize = 1.5;
+  double const west = 1.0;
+  double const north = 0.0;
 
-  Raster raster(nrRows, nrCols, cellSize, west, north);
+  Raster const raster(nrRows, nrCols, cellSize, west, north);
 
   {
     RasterData<REAL4> dem(&raster);
@@ -55,7 +55,7 @@ BOOST_AUTO_TEST_CASE(constructor)
     BOOST_CHECK(dem.cell(8) == 3.0);
     BOOST_CHECK(dem.cell(11) == 9.0);
 
-    RasterData<REAL4> copyOfDem(dem);
+    RasterData<REAL4> const copyOfDem(dem);
     for(size_t i = 0; i < raster.nrCells(); ++i) {
       if(i != 6) {
         BOOST_CHECK(!dem.isMV(i));
@@ -75,7 +75,7 @@ BOOST_AUTO_TEST_CASE(equals)
 {
   using namespace discr;
 
-  Raster raster(3, 4, 1.5, 1.0, 0.0);
+  Raster const raster(3, 4, 1.5, 1.0, 0.0);
 
   REAL4 values[12] = {
        1.0, 3.0, 5.0, 7.0,
@@ -93,7 +93,7 @@ BOOST_AUTO_TEST_CASE(equals)
   BOOST_CHECK(dem1 != dem2);
   BOOST_CHECK(dem2 != dem1);
 
-  RasterData<REAL4> defaultRaster(&raster);
+  RasterData<REAL4> const defaultRaster(&raster);
   BOOST_CHECK(defaultRaster == defaultRaster);
   BOOST_CHECK(dem1 != defaultRaster);
   BOOST_CHECK(defaultRaster != dem1);
@@ -102,7 +102,7 @@ BOOST_AUTO_TEST_CASE(equals)
     pcr::setMV(value);
   }
 
-  RasterData<REAL4> mvRaster(&raster, values);
+  RasterData<REAL4> const mvRaster(&raster, values);
 
   BOOST_CHECK(dem1 != mvRaster);
   dem1.setAllMV();
@@ -114,10 +114,10 @@ BOOST_AUTO_TEST_CASE(assignment_operator)
 {
   using namespace discr;
 
-  Raster raster(3, 4, 1.5, 1.0, 0.0);
+  Raster const raster(3, 4, 1.5, 1.0, 0.0);
   RasterData<REAL4> dem1(&raster);
 
-  RasterData<REAL4> dem2(&raster, 5.0);
+  RasterData<REAL4> const dem2(&raster, 5.0);
   BOOST_CHECK(dem1 != dem2);
 
   dem1 = 5.0;

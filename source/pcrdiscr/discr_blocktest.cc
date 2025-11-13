@@ -10,13 +10,13 @@ BOOST_AUTO_TEST_CASE(constructor)
 {
   using namespace discr;
 
-  size_t nrRows = 3;
-  size_t nrCols = 4;
-  double cellSize = 1.5;
-  double west = 1.0;
-  double north = 0.0;
+  size_t const nrRows = 3;
+  size_t const nrCols = 4;
+  double const cellSize = 1.5;
+  double const west = 1.0;
+  double const north = 0.0;
 
-  Raster raster(nrRows, nrCols, cellSize, west, north);
+  Raster const raster(nrRows, nrCols, cellSize, west, north);
 
   {
     Block block(nrRows, nrCols, cellSize, west, north);
@@ -96,7 +96,7 @@ BOOST_AUTO_TEST_CASE(add_voxels)
   using namespace discr;
 
   // Two rows, one column.
-  Raster raster(2, 1);
+  Raster const raster(2, 1);
   typedef Block::ThicknessType T;
 
   {
@@ -142,7 +142,7 @@ BOOST_AUTO_TEST_CASE(nr_voxels)
   using namespace discr;
 
   // Two rows, one column.
-  Raster raster(2, 1, 1.0, 0.0, 0.0);
+  Raster const raster(2, 1, 1.0, 0.0, 0.0);
 
   {
     Block block(raster, 5.0);
@@ -168,7 +168,7 @@ BOOST_AUTO_TEST_CASE(remove_voxels)
   using namespace discr;
 
   // Two rows, one column.
-  Raster raster(2, 1, 1.0, 0.0, 0.0);
+  Raster const raster(2, 1, 1.0, 0.0, 0.0);
   typedef Block::ThicknessType T;
 
   {
@@ -206,7 +206,7 @@ BOOST_AUTO_TEST_CASE(cut_voxels)
   using namespace discr;
 
   // Two rows, one column.
-  Raster raster(2, 1, 1.0, 0.0, 0.0);
+  Raster const raster(2, 1, 1.0, 0.0, 0.0);
   typedef Block::ThicknessType T;
 
   {
@@ -226,7 +226,7 @@ BOOST_AUTO_TEST_CASE(set_mv)
   using namespace discr;
 
   // Two rows, one column.
-  Raster raster(2, 1, 1.0, 0.0, 0.0);
+  Raster const raster(2, 1, 1.0, 0.0, 0.0);
 
   {
     Block block(raster, 5.0);
@@ -256,11 +256,11 @@ BOOST_AUTO_TEST_CASE(equals)
   using namespace discr;
 
   // Two rows, one column.
-  Raster raster(2, 1, 1.0, 0.0, 0.0);
+  Raster const raster(2, 1, 1.0, 0.0, 0.0);
 
   {
     Block block1(raster, 5.0);
-    Block block2(raster, 6.0);
+    Block const block2(raster, 6.0);
     BOOST_CHECK(block1 == block1);
     BOOST_CHECK(block2 == block2);
     BOOST_CHECK(block1 != block2);
@@ -288,7 +288,7 @@ BOOST_AUTO_TEST_CASE(is_empty)
   using namespace discr;
 
   // Two rows, one column.
-  Raster raster(2, 1, 1.0, 0.0, 0.0);
+  Raster const raster(2, 1, 1.0, 0.0, 0.0);
 
   {
     Block block(raster, 5.0);
@@ -315,7 +315,7 @@ BOOST_AUTO_TEST_CASE(is_regular)
   using namespace discr;
 
   // Two rows, one column.
-  Raster raster(2, 1, 1.0, 0.0, 0.0);
+  Raster const raster(2, 1, 1.0, 0.0, 0.0);
 
   {
     // empty block
@@ -347,7 +347,7 @@ BOOST_AUTO_TEST_CASE(bottom_elevation)
   using namespace discr;
 
   // Two rows, one column.
-  Raster raster(2, 1, 1.0, 0.0, 0.0);
+  Raster const raster(2, 1, 1.0, 0.0, 0.0);
   bool isValid = false;
   typedef Block::ThicknessType T;
   T elevation = NAN;
@@ -400,7 +400,7 @@ BOOST_AUTO_TEST_CASE(top_elevation)
   using namespace discr;
 
   // Two rows, one column.
-  Raster raster(2, 1, 1.0, 0.0, 0.0);
+  Raster const raster(2, 1, 1.0, 0.0, 0.0);
   bool isValid = false;
   typedef Block::ThicknessType T;
   T elevation = NAN;
@@ -453,7 +453,7 @@ BOOST_AUTO_TEST_CASE(extreme_elevations)
   using namespace discr;
 
   // Two rows, one column.
-  Raster raster(2, 1, 1.0, 0.0, 0.0);
+  Raster const raster(2, 1, 1.0, 0.0, 0.0);
   bool isValid = false;
   typedef Block::ThicknessType T;
   T bottom = NAN;

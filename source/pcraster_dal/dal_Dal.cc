@@ -104,8 +104,8 @@ Dal::Dal(
   // Limit drivers to the set from optional $PCRASTER_DAL_FORMATS environment
   // variable.
   Drivers selectedDrivers;
-  Drivers copyOfAutoAddedDrivers(_autoAddedDrivers);
-  Drivers copyOfDrivers(_drivers);
+  Drivers const copyOfAutoAddedDrivers(_autoAddedDrivers);
+  Drivers const copyOfDrivers(_drivers);
 
   Environment const& environment(Client::library().environment());
 
@@ -306,7 +306,7 @@ void Dal::addDriverToCache(
 
   if(!inCache(name, space)) {
     // First time this driver is added to the cache.
-    std::string key(nameAndSpaceToString(name, space));
+    std::string const key(nameAndSpaceToString(name, space));
     _driversByDataset[key] = std::make_tuple(
          driver, DataSpaceQueryResult(), DataSpaceQueryResult());
 
@@ -401,7 +401,7 @@ DataSpaceQueryResult Dal::search(
   assert(driver);
 
   QUERY((*driver), name, space)
-  DataSpaceQueryResult result = driver->search(name, space, haltCondition);
+  DataSpaceQueryResult const result = driver->search(name, space, haltCondition);
 
   if(result) {
     if(library()->cacheDatasetInfo()) {
@@ -699,7 +699,7 @@ Dal::Cache::const_iterator Dal::cacheValue(
          std::string const& name,
          DataSpace const& space) const
 {
-  std::string key(nameAndSpaceToString(name, space));
+  std::string const key(nameAndSpaceToString(name, space));
   auto it = _driversByDataset.find(key);
 
   return it;
@@ -711,7 +711,7 @@ Dal::Cache::iterator Dal::cacheValue(
          std::string const& name,
          DataSpace const& space)
 {
-  std::string key(nameAndSpaceToString(name, space));
+  std::string const key(nameAndSpaceToString(name, space));
   auto it = _driversByDataset.find(key);
 
   return it;

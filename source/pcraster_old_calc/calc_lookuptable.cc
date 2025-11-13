@@ -113,7 +113,7 @@ calc::LookupRecord::LookupRecord(
     const std::vector<size_t>& select):
   d_result(l.d_result)
 {
-  for(unsigned long k : select) {
+  for(unsigned long const k : select) {
     d_key.push_back(l.d_key[k]->createClone());
   }
 }

@@ -109,7 +109,7 @@ void calc::FieldLeaf::skipExecution()
   try {
   // if we skip, do get the value, so it is able to clean up
   //  if d_overWriteVal is true
-  calc::FieldHandle f = d_par->value(d_index->select(), d_overWriteVal);
+  calc::FieldHandle const f = d_par->value(d_index->select(), d_overWriteVal);
   }
   catch(const calc::Field::NotInitialized&) {
     // not initialized, forget about it, no deletion neccessary

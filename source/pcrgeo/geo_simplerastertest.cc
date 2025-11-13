@@ -57,7 +57,7 @@ BOOST_AUTO_TEST_CASE(contents)
   BOOST_CHECK(d_raster2->end() - d_raster2->begin() ==
                    static_cast<int>(d_raster2->nrCells()));
 
-  for(int it : *d_raster2) {
+  for(int const it : *d_raster2) {
     BOOST_CHECK(it == 8);
   }
 

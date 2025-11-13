@@ -276,7 +276,7 @@ void Vector::calculateExtremes()
   _min = boost::any();
   _max = boost::any();
 
-  size_t nrCells = this->nrCells();
+  size_t const nrCells = this->nrCells();
   T value;
   T min = 0; // Shut up compiler.
   T max = 0; // Shut up compiler.

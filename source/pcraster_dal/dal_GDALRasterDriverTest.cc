@@ -296,11 +296,11 @@ void testTemporalRaster(
     timeSteps.push_back(1);
     timeSteps.push_back(100);
     timeSteps.push_back(1);
-    dal::Dimension time(dal::Time, timeSteps);
+    dal::Dimension const time(dal::Time, timeSteps);
     space.addDimension(time);
   }
 
-  dal::DataSpaceQueryResult queryResult = dynamic_cast<dal::Driver const&>(
+  dal::DataSpaceQueryResult const queryResult = dynamic_cast<dal::Driver const&>(
          driver).search(name, space, dal::HaltOnFirstItemFound);
   BOOST_REQUIRE(queryResult);
   raster.reset(dynamic_cast<dal::Raster*>(driver.open(name, space,
@@ -352,7 +352,7 @@ BOOST_AUTO_TEST_CASE(description)
   assert(manager->GetDriverCount() > 0);
   GDALDriver* gdalDriver = manager->GetDriver(0);
 
-  GDALRasterDriver driver(gdalDriver);
+  GDALRasterDriver const driver(gdalDriver);
   BOOST_CHECK_EQUAL(driver.description(),
          std::string("GDAL raster driver for ") + gdalDriver->GetDescription());
 }
@@ -362,7 +362,7 @@ BOOST_AUTO_TEST_CASE(unexisting)
 {
   using namespace dal;
 
-  std::string filename = "unexisting";
+  std::string const filename = "unexisting";
   GDALRasterDriver driver("PCRaster");
 
   auto* raster = dynamic_cast<Raster*>(
@@ -387,7 +387,7 @@ BOOST_AUTO_TEST_CASE(empty)
 {
   using namespace dal;
 
-  std::string filename = "emptyfile";
+  std::string const filename = "emptyfile";
   GDALRasterDriver driver("PCRaster");
 
   auto* raster = dynamic_cast<Raster*>(
@@ -487,7 +487,7 @@ BOOST_AUTO_TEST_CASE(esri_ascii_grid1)
 {
   using namespace dal;
 
-  std::string filename = "esriasciigrid1.asc";
+  std::string const filename = "esriasciigrid1.asc";
   GDALRasterDriver driver("AAIGrid");
   Raster *raster = nullptr;
 
@@ -557,7 +557,7 @@ BOOST_AUTO_TEST_CASE(default_extension)
 {
   using namespace dal;
 
-  std::string filename = "esriasciigrid1";
+  std::string const filename = "esriasciigrid1";
   GDALRasterDriver driver("AAIGrid");
   Raster* raster = nullptr;
 

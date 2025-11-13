@@ -64,15 +64,15 @@ void VectorDrawer::draw (
   }
 
   // Scale magnitude to max one cell size.
-  double cellSizeInPixels = this->cellSizeInPixels(screen_to_world);
+  double const cellSizeInPixels = this->cellSizeInPixels(screen_to_world);
 
   if(cellSizeInPixels < 3) {
     drawCells(painter, indices, world_to_screen, screen_to_world);
     return;
   }
 
-  double scale = cellSizeInPixels / _properties.maxCutoff();
-  size_t nrCellsPerPixel = this->nrCellsPerPixel(world_to_screen);
+  double const scale = cellSizeInPixels / _properties.maxCutoff();
+  size_t const nrCellsPerPixel = this->nrCellsPerPixel(world_to_screen);
 
   QVector<QLineF> lines(3);
   double centerX = NAN;
@@ -129,7 +129,7 @@ void VectorDrawer::draw (
         _vector->dimensions().coordinates(row + 0.5, col + 0.5,
               centerX, centerY);
 
-        QPointF p = QPointF(centerX, centerY);
+        QPointF const p = QPointF(centerX, centerY);
         matrix.translate(world_to_screen.map(p).x(), world_to_screen.map(p).y());
 
         // Rotate according to the vector's angle.
@@ -159,7 +159,7 @@ void VectorDrawer::drawCells(
          QTransform const& world_to_screen,
          QTransform const&  /*screen_to_world*/) const
 {
-  size_t nrCellsPerPixel = this->nrCellsPerPixel(world_to_screen);
+  size_t const nrCellsPerPixel = this->nrCellsPerPixel(world_to_screen);
   double leftScreen = NAN;
   double topScreen = NAN;
   double rightScreen = NAN;

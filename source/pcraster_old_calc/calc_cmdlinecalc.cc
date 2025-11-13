@@ -86,7 +86,7 @@ public:
           // overwrite this one each time
           // std::cerr << "Executing timestep " << pi.inTimeStep << "\r" ;
           // seems to do test349 better from the commandline :-(
-           std::string s(com::toString(pi.inTimeStep));
+           std::string const s(com::toString(pi.inTimeStep));
            std::cerr << "Executing timestep " << s << "\r" ;
            std::cerr.flush();
         }

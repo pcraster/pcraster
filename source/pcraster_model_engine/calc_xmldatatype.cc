@@ -147,15 +147,15 @@ pcrxml::DataType toXMLDataType(DataType const& dt)
 
 pcrxml::FieldTypeOfValue toXMLFieldTypeOfValue(DataType const& dt)
 {
- pcrxml::DataTypeOfValue pdt(toXMLDataTypeOfValue(dt));
- pcrxml::SpatialType pst(st2XML(dt.st()));
+ pcrxml::DataTypeOfValue const pdt(toXMLDataTypeOfValue(dt));
+ pcrxml::SpatialType const pst(st2XML(dt.st()));
  return pcrxml::FieldTypeOfValue(pdt,pst);
 }
 
 pcrxml::FieldType  toXMLFieldType(DataType const& dt)
 {
- pcrxml::DataType pdt(toXMLDataType(dt));
- pcrxml::SpatialType pst(st2XML(dt.st()));
+ pcrxml::DataType const pdt(toXMLDataType(dt));
+ pcrxml::SpatialType const pst(st2XML(dt.st()));
  return pcrxml::FieldType(pdt,pst);
 }
 

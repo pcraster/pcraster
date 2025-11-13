@@ -112,7 +112,7 @@ void calc::ClientInterface::load()
 const char* calc::ClientInterface::pcr_ScriptXMLReflection()
 {
   load();
-  XMLReflection xmlReflection(*d_script);
+  XMLReflection const xmlReflection(*d_script);
   d_xmlReflectionBuffer=xmlReflection.toString();
   return d_xmlReflectionBuffer.c_str();
 }

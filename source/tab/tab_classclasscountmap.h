@@ -69,7 +69,7 @@ class ClassClassCountMap : public std::map<Class,ClassCountMap<Class> >
   S colClasses() const {
     S s;
     for (auto i=this->begin();i!=this->end();++i) {
-      S a(i->second.classes());
+      S const a(i->second.classes());
       s.insert(a.begin(),a.end());
     }
     return s;

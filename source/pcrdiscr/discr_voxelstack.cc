@@ -115,7 +115,7 @@ bool VoxelStack::isRegular() const
 
   if(!empty()) {
     DEVELOP_PRECOND(!pcr::isMV(operator[](0)));
-    REAL4 thickness = operator[](0);
+    REAL4 const thickness = operator[](0);
 
     for(size_t i = 1; i < size(); ++i) {
       DEVELOP_PRECOND(!pcr::isMV(operator[](i)));

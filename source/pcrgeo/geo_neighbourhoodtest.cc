@@ -18,7 +18,7 @@ BOOST_AUTO_TEST_CASE(random_cell_locations)
     // in the neighbourhood, than we excpect to get all cells within the
     // neighbourhood back.
     std::vector<LinearLoc> locations;
-    RasterDim space(3, 3); // 3x3 raster
+    RasterDim const space(3, 3); // 3x3 raster
     NeighbourhoodWrapper neighbourhood(0, 1); // 3x3 neighbourhood
     PRECOND(neighbourhood.nrRows() == 3);
     PRECOND(neighbourhood.nrCols() == 3);

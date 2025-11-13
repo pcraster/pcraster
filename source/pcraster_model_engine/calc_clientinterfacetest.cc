@@ -74,9 +74,9 @@ BOOST_GLOBAL_FIXTURE(Fixture);
 
 BOOST_AUTO_TEST_CASE(testFromString)
 {
-  calc::detail::FakeDevLicense fl;
+  calc::detail::FakeDevLicense const fl;
 
-  geo::FileCreateTester mt("tmp.res");
+  geo::FileCreateTester const mt("tmp.res");
   PcrScript *s= pcr_createScriptFromTextString("tmp.res = inp1s.map + 4;");
   BOOST_CHECK(s);
   pcr_ScriptExecute(s);
@@ -125,13 +125,13 @@ static void foo() {
 //! test the C-Api
 BOOST_AUTO_TEST_CASE(testCapi)
 {
-  calc::detail::FakeDevLicense fl;
+  calc::detail::FakeDevLicense const fl;
 
   { // NULL pointer to pcr_createScriptFromTextFile
     PcrScript *s=pcr_createScriptFromTextFile(nullptr);
     BOOST_CHECK(s);
     BOOST_CHECK(pcr_ScriptError(s));
-    std::string msg(pcr_ScriptErrorMessage(s));
+    std::string const msg(pcr_ScriptErrorMessage(s));
     BOOST_CHECK(msg.find("pcr_createScriptFrom") != std::string::npos);
     pcr_destroyScript(s);
   }
@@ -149,7 +149,7 @@ BOOST_AUTO_TEST_CASE(testCapi)
     BOOST_CHECK_EQUAL(result,(const void *)nullptr);
 
     BOOST_CHECK(pcr_ScriptError(s));
-    std::string msg(pcr_ScriptErrorMessage(s));
+    std::string const msg(pcr_ScriptErrorMessage(s));
     BOOST_CHECK(msg.find(f) != std::string::npos);
     pcr_destroyScript(s);
   }
@@ -160,14 +160,14 @@ BOOST_AUTO_TEST_CASE(testCapi)
     BOOST_CHECK(s);
     pcr_ScriptExecute(s);
     BOOST_CHECK(pcr_ScriptError(s));
-    std::string msg(pcr_ScriptErrorMessage(s));
+    std::string const msg(pcr_ScriptErrorMessage(s));
     BOOST_CHECK(msg.find("not_existant.map") != std::string::npos);
     pcr_destroyScript(s);
   }
 
   { // execute
     com::write("tmp.res = inp1s.map + 4;","pcrscripttest.mod");
-    geo::FileCreateTester fct("tmp.res");
+    geo::FileCreateTester const fct("tmp.res");
     PcrScript *s=pcr_createScriptFromTextFile("pcrscripttest.mod");
     BOOST_CHECK(s);
     pcr_ScriptExecute(s);
@@ -178,7 +178,7 @@ BOOST_AUTO_TEST_CASE(testCapi)
 
   { // execute again
     com::write("tmp2.res = inp1s.map + 4;","pcrscripttest.mod");
-    geo::FileCreateTester fct("tmp2.res");
+    geo::FileCreateTester const fct("tmp2.res");
     PcrScript *s=pcr_createScriptFromTextFile("pcrscripttest.mod");
     BOOST_CHECK(s);
     if (!s) foo(); // supress not used message of foo: the sample code
@@ -198,7 +198,7 @@ BOOST_AUTO_TEST_CASE(testCapi)
 
 BOOST_AUTO_TEST_CASE(testIOMemoryStatic)
 {
-  calc::detail::FakeDevLicense fl;
+  calc::detail::FakeDevLicense const fl;
   // with interface
   //    ASTTestFactory::modelFromId("pcrcalc521").c_str());
 
@@ -208,7 +208,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryStatic)
   { // 1) as is, default not memory IO, so pcr tries
     // find  input data as files
    PcrScript *s=pcr_createScriptFromXMLFile("apiExamples/memoryOnlyIO_1.xml");
-   int r(pcr_ScriptExecuteInitialStepMemory(s, data0));
+   int const r(pcr_ScriptExecuteInitialStepMemory(s, data0));
    BOOST_CHECK_EQUAL(r,-1);
    BOOST_CHECK(pcr_ScriptError(s));
 
@@ -252,7 +252,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryStatic)
   { // 6) Set a dataType for memInput: but IOMemory needs explicit spatial type
     //    since cover accepts both
     PcrScript *s=pcr_createScriptFromXMLFile("apiExamples/memoryOnlyIO_6.xml");
-    int r(pcr_ScriptExecuteInitialStepMemory(s, data0));
+    int const r(pcr_ScriptExecuteInitialStepMemory(s, data0));
     BOOST_CHECK_EQUAL(r,-1);
     BOOST_CHECK_MESSAGE_ErrorMessage(s,
     "ERROR: memInput: spatialType undecided (specify by field.spatialType");
@@ -261,7 +261,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryStatic)
   { // 7) Runtime error passing 0-ptrs
     PcrScript *s=pcr_createScriptFromXMLFile("apiExamples/memoryOnlyIO_7.xml");
     BOOST_CHECK(!pcr_ScriptError(s));
-    int r(pcr_ScriptExecuteInitialStepMemory(s, data0));
+    int const r(pcr_ScriptExecuteInitialStepMemory(s, data0));
     BOOST_CHECK_EQUAL(r,-1);
     BOOST_CHECK(pcr_ScriptError(s));
     BOOST_CHECK_MESSAGE_ErrorMessage(s,
@@ -275,7 +275,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryStatic)
     PcrScript *s=pcr_createScriptFromXMLFile("apiExamples/memoryOnlyIO_7.xml");
     BOOST_CHECK(!pcr_ScriptError(s));
     void *data[2] = { input, nullptr }; // output 0, means allocate by API
-    int r(pcr_ScriptExecuteInitialStepMemory(s, data));
+    int const r(pcr_ScriptExecuteInitialStepMemory(s, data));
     BOOST_CHECK_EQUAL(r,0);
     BOOST_CHECK(!pcr_ScriptError(s));
 
@@ -293,7 +293,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryStatic)
     PcrScript *s=pcr_createScriptFromXMLFile("apiExamples/memoryOnlyIO_7.xml");
     BOOST_CHECK(!pcr_ScriptError(s));
 
-    int r(pcr_ScriptExecuteInitialStepMemory(s, data));
+    int const r(pcr_ScriptExecuteInitialStepMemory(s, data));
     BOOST_CHECK_EQUAL(r,0);
     BOOST_CHECK(!pcr_ScriptError(s));
 
@@ -314,7 +314,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryStatic)
     PcrScript *s=pcr_createScriptFromXMLFile("apiExamples/memoryOnlyIO_StatisticsAsString.xml");
     BOOST_CHECK(!pcr_ScriptError(s));
 
-    int r(pcr_ScriptExecuteInitialStepMemory(s, data));
+    int const r(pcr_ScriptExecuteInitialStepMemory(s, data));
     BOOST_CHECK_MESSAGE(!pcr_ScriptError(s), pcr_ScriptErrorMessage(s));
     BOOST_REQUIRE_EQUAL(r,0);
 
@@ -330,7 +330,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryStatic)
     BOOST_CHECK(data[2]); // allocated
     if (data[2])
     {
-      std::string statTable((const char *)data[2]);
+      std::string const statTable((const char *)data[2]);
       BOOST_CHECK_EQUAL(statTable, std::string(
         "	memInput\n"
         "area	2500\n"
@@ -344,7 +344,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryStatic)
     BOOST_CHECK(data[3]); // allocated
     if (data[3])
     {
-      std::string statTable((const char *)data[3]);
+      std::string const statTable((const char *)data[3]);
       BOOST_CHECK_EQUAL(statTable, std::string(
         "	memOutMap\n"
         "area	2500\n"
@@ -364,12 +364,12 @@ BOOST_AUTO_TEST_CASE(testIOMemoryStatic)
     PcrScript *s=pcr_createScriptFromXMLFile("apiExamples/memoryOnlyIO_Error1.xml");
     BOOST_CHECK(!pcr_ScriptError(s));
 
-    int r(pcr_ScriptExecuteInitialStepMemory(s, data));
+    int const r(pcr_ScriptExecuteInitialStepMemory(s, data));
     BOOST_CHECK(r!=1);
     BOOST_CHECK(pcr_ScriptError(s));
     BOOST_CHECK_MESSAGE_ErrorMessage(s,
     "xml:ERROR: memOutput: defined as statistics type on line '1:3' and set here as scalar type");
-    bool todo(false);
+    bool const todo(false);
     // see void calc::ASTSymbolInfo::setDefinition(const pcrxml::Definition& d)
     // has the way to do it 'the other way around'
     BOOST_WARN_MESSAGE(todo,
@@ -381,13 +381,13 @@ BOOST_AUTO_TEST_CASE(testIOMemoryStatic)
     PcrScript *s=pcr_createScriptFromXMLFile("apiExamples/memoryOnlyIO_Error2.xml");
     BOOST_CHECK(!pcr_ScriptError(s));
 
-    int r(pcr_ScriptExecuteInitialStepMemory(s, data));
+    int const r(pcr_ScriptExecuteInitialStepMemory(s, data));
     BOOST_CHECK(r!=1);
     BOOST_CHECK(pcr_ScriptError(s));
     // ID attribute 'tmp' is referenced but was never declared
     BOOST_CHECK_MESSAGE_ErrorMessage(s,"ID attribute 'tmp'");
 
-    bool todoAllowModelVarsToBeUsedInStatistics(false);
+    bool const todoAllowModelVarsToBeUsedInStatistics(false);
     BOOST_WARN(todoAllowModelVarsToBeUsedInStatistics);
   }
   { // writing to same output twice
@@ -395,7 +395,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryStatic)
     PcrScript *s=pcr_createScriptFromXMLFile("apiExamples/memoryOnlyIO_Error3.xml");
     BOOST_CHECK(!pcr_ScriptError(s));
 
-    int r(pcr_ScriptExecuteInitialStepMemory(s, data));
+    int const r(pcr_ScriptExecuteInitialStepMemory(s, data));
     BOOST_CHECK(r!=1);
     BOOST_CHECK(pcr_ScriptError(s));
     BOOST_CHECK_MESSAGE_ErrorMessage(s,
@@ -484,7 +484,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryDynamic)
   NrData=5
  };
 
-  detail::FakeDevLicense fl;
+  detail::FakeDevLicense const fl;
   // with interface
   //    ASTTestFactory::modelFromId("pcrcalc521").c_str());
   {
@@ -509,7 +509,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryDynamic)
     PcrScript *s=pcr_createScriptFromXMLFile("apiExamples/memoryOnlyIO_8.xml");
     BOOST_CHECK(!pcr_ScriptError(s));
 
-    int r(pcr_ScriptExecuteInitialStepMemory(s, data));
+    int const r(pcr_ScriptExecuteInitialStepMemory(s, data));
     BOOST_CHECK_EQUAL(r,1);
     BOOST_REQUIRE(!pcr_ScriptError(s));
 
@@ -518,7 +518,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryDynamic)
     // memOutputDynamic is not assigned in initial
     // see \bug tag in API documentation of pcr_ScriptExecuteInitialStepMemory
     // bugzilla #104
-    bool todoMemAssignInStatic=false;
+    bool const todoMemAssignInStatic=false;
     BOOST_WARN(todoMemAssignInStatic);
     BOOST_CHECK_EQUAL(memOutputDynamic[1],-1.0F);   // should NOT be -1 !!!
     BOOST_CHECK_EQUAL(memOutputDynamic[24],-1.0F);  // should NOT be -1 !!!
@@ -580,7 +580,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryDynamic)
 
 
     BOOST_CHECK(!data[MemOutputInitial]);
-    int r(pcr_ScriptExecuteInitialStepMemory(s, data));
+    int const r(pcr_ScriptExecuteInitialStepMemory(s, data));
     BOOST_CHECK_EQUAL(r,1);
     BOOST_REQUIRE(!pcr_ScriptError(s));
 
@@ -622,7 +622,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryDynamic)
     void  *data[NrData] = {stub,stub,indexedArray,stub,stub};
     PcrScript *s=pcr_createScriptFromXMLFile("apiExamples/memoryOnlyIO_8.xml");
 
-    int r(pcr_ScriptExecuteInitialStepMemory(s, data));
+    int const r(pcr_ScriptExecuteInitialStepMemory(s, data));
     BOOST_CHECK_EQUAL(r,-1);
     BOOST_CHECK(pcr_ScriptError(s));
 
@@ -638,7 +638,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryDynamic)
     PcrScript *s=pcr_createScriptFromXMLFile("apiExamples/memoryOnlyIO_8.xml");
 
     // no error since array is not used in initial section
-    int r(pcr_ScriptExecuteInitialStepMemory(s, data));
+    int const r(pcr_ScriptExecuteInitialStepMemory(s, data));
     BOOST_CHECK_EQUAL(r,1);
     BOOST_CHECK(!pcr_ScriptError(s));
 
@@ -673,7 +673,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryDynamic)
 
     PcrScript *s=pcr_createScriptFromXMLFile("apiExamples/memoryOnlyIO_8.xml");
 
-    int r=pcr_ScriptExecuteNextTimeStepMemory(s, data);
+    int const r=pcr_ScriptExecuteNextTimeStepMemory(s, data);
     BOOST_CHECK_EQUAL(r,-1);
     BOOST_CHECK(pcr_ScriptError(s));
     BOOST_CHECK_MESSAGE_ErrorMessage(s,
@@ -696,7 +696,7 @@ BOOST_AUTO_TEST_CASE(testIOMemoryTimeoutput)
 {
   using namespace calc;
 
-  detail::FakeDevLicense fl;
+  detail::FakeDevLicense const fl;
   {
     void  *data[1] = {nullptr};
 
@@ -763,7 +763,7 @@ BOOST_AUTO_TEST_CASE(testXMLSettings)
 {
   using namespace calc;
 
-  detail::FakeDevLicense fl;
+  detail::FakeDevLicense const fl;
     UINT1 input[4]= { 1,0,0,1 };
     INT4 output[4] = { MV_INT4,MV_INT4,MV_INT4,MV_INT4 };
 
@@ -817,7 +817,7 @@ BOOST_AUTO_TEST_CASE(testBil)
 {
   using namespace calc;
 
-  detail::FakeDevLicense fl;
+  detail::FakeDevLicense const fl;
   PcrScript *s(nullptr);
   try { // execute again
     com::write("#! --bandmap\ntmp2.bil = inp1s.map + 4;","pcrscripttest.mod");
@@ -846,7 +846,7 @@ BOOST_AUTO_TEST_CASE(testXML)
 {
   using namespace calc;
 
-  detail::FakeDevLicense fl;
+  detail::FakeDevLicense const fl;
 
   {
    PcrScript *s=pcr_createScriptFromXMLFile("PCRasterLinkOutTestPyDynamicModel.xml");
@@ -892,7 +892,7 @@ BOOST_AUTO_TEST_CASE(testXML)
   }
 
   // test xsd not found
-  bool skipValidatingIfSchemaIsNotFound=true;
+  bool const skipValidatingIfSchemaIsNotFound=true;
   BOOST_WARN(skipValidatingIfSchemaIsNotFound);
 }
 
@@ -900,7 +900,7 @@ BOOST_AUTO_TEST_CASE(testXMLHabitat)
 {
   using namespace calc;
 
-  detail::FakeDevLicense fl;
+  detail::FakeDevLicense const fl;
   { // ECOTOOP (was habitat8.xml)
     PcrScript *s=pcr_createScriptFromXMLFile("apiExamples/lookup.xml");
     pcr_ScriptExecute(s);
@@ -926,7 +926,7 @@ BOOST_AUTO_TEST_CASE(testXMLStatistics)
 {
   using namespace calc;
 
-  detail::FakeDevLicense fl;
+  detail::FakeDevLicense const fl;
   { // statistics with mask
     PcrScript *s=pcr_createScriptFromXMLFile("apiExamples/statisticsMask.xml");
     StatTable::setVerbose(true);
@@ -957,9 +957,9 @@ BOOST_AUTO_TEST_CASE(testXMLStatistics)
     pcr_ScriptExecute(s);
     StatTable::setVerbose(false);
     BOOST_CHECK(pcr_ScriptErrorMessage(s)==std::string());
-    fs::directory_iterator end;
+    fs::directory_iterator const end;
     for(fs::directory_iterator i("allStatisticsResults"); i != end; ++i ) {
-      fs::path computed =fs::path("allStatisticsResults")/i->path().filename();
+      fs::path const computed =fs::path("allStatisticsResults")/i->path().filename();
       BOOST_CHECK(compareFileWithValidated(computed.string()));
       // fs::path validated=fs::path("validated")/i->path().filename();
       //   if(!com::filesExistsAndEqual(validated.string(),computed.string()))
@@ -970,7 +970,7 @@ BOOST_AUTO_TEST_CASE(testXMLStatistics)
     pcr_destroyScript(s);
   }
 #ifdef __linux__
-    bool writingBilReadingCsfMakeDalUnstable=true;
+    bool const writingBilReadingCsfMakeDalUnstable=true;
     BOOST_WARN(writingBilReadingCsfMakeDalUnstable);
 #endif
 }

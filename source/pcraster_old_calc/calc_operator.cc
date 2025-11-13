@@ -27,7 +27,7 @@ calc::Operator::Operator(const std::string &name,
 
 void calc::Operator::pushBackArg(VS vs, ST st)
 {
-  OP_ARGS a = { vs, st };
+  OP_ARGS const a = { vs, st };
   d_argPars.push_back(a);
 }
 

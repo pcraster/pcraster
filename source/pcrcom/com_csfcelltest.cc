@@ -44,20 +44,20 @@ BOOST_AUTO_TEST_CASE(cast_and_copy_cells)
   // FAILED when pcr::isMV(INT2 ) is not implemented
   // because type promotion will use pcr::isMV(INT4) where
   //  pcr::isMV(INT2) is needed
-  INT2 i2=MV_INT2;
+  INT2 const i2=MV_INT2;
   INT4 i4 = 0;
   copyCells(&i4,&i2,1);
   BOOST_CHECK(i4==MV_INT4);
   }
 
   {
-  INT4 i4=MV_INT4;
+  INT4 const i4=MV_INT4;
   INT2 i2 = 0;
   copyCells(&i2,&i4,1);
   BOOST_CHECK(i2==MV_INT2);
   }
   {
-  double d=14;
+  double const d=14;
   UINT1 i1 = 0;
   CastCell<UINT1,double>()(i1,d);
   BOOST_CHECK(i1==14);
@@ -180,7 +180,7 @@ BOOST_AUTO_TEST_CASE(alter_to_std_mv)
 {
   {
     UINT1 v[3]={0,3,MV_UINT1};
-    pcr::AlterToStdMV<UINT1> t(3);
+    pcr::AlterToStdMV<UINT1> const t(3);
     std::for_each(v,v+3,t);
     BOOST_CHECK(v[0]==0);
     BOOST_CHECK(v[1]==MV_UINT1);
@@ -201,7 +201,7 @@ BOOST_AUTO_TEST_CASE(from_std_mv)
 {
   {
     UINT1 v[3]={0,3,MV_UINT1};
-    pcr::FromStdMV<UINT1> t(3);
+    pcr::FromStdMV<UINT1> const t(3);
     std::transform(v,v+3,v,t);
     BOOST_CHECK(v[0]==0);
     BOOST_CHECK(v[1]==3);
@@ -296,8 +296,8 @@ BOOST_AUTO_TEST_CASE(less_mv)
   using namespace com;
 
  {
-  UINT1  u1(1);
-  UINT1  u5(5);
+  UINT1  const u1(1);
+  UINT1  const u5(5);
   BOOST_CHECK( lessMV(u1,u5));
   BOOST_CHECK(!lessMV(u5,u1));
   BOOST_CHECK(!lessMV(u1,u1));
@@ -305,8 +305,8 @@ BOOST_AUTO_TEST_CASE(less_mv)
   BOOST_CHECK(!lessMV(MV_UINT1,u1));
  }
  {
-  INT4  u1(1);
-  INT4  u5(5);
+  INT4  const u1(1);
+  INT4  const u5(5);
   BOOST_CHECK( lessMV(u1,u5));
   BOOST_CHECK(!lessMV(u5,u1));
   BOOST_CHECK(!lessMV(u1,u1));

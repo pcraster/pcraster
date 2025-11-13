@@ -240,7 +240,7 @@ void geo_ColumnFile::readData()
 
     if(!d_fs)                                                              // 5.
     {
-      std::string m = com::createMessage(
+      std::string const m = com::createMessage(
                      "row %Zd: bad format; floating point number expected", n);
       throw com::FileFormatError(d_fn,m);
     }
@@ -266,7 +266,7 @@ void geo_ColumnFile::selVar(size_t n)
 {
   if(n > d_nrVars)
   {
-    std::string m = com::createMessage(
+    std::string const m = com::createMessage(
                           "only %Zd variables in %s and variable %Zd requested",
                           d_nrVars, d_fn.c_str(), n);
     throw com::FileError(d_fn,m);

@@ -64,7 +64,7 @@ static std::ostream& operator<<(
     // , { VS_UNKNOWN, "unknown!"}
    };
 
-  size_t nrVs = ARRAY_SIZE(names);
+  size_t const nrVs = ARRAY_SIZE(names);
   size_t thisSet[ARRAY_SIZE(names)];
   size_t i = 0;
   size_t thisSetNr=0;
@@ -116,7 +116,7 @@ VS vsOfNumber(double value)
   int set = (int)VS_FIELD;
   if ( value >= (double)LONG_MIN && value <= (double)LONG_MAX )
   {
-    long i = (long)value;
+    long const i = (long)value;
     if ( value == ((double)i) )
     {
      /* if the value is not equal to 0 or 1
@@ -147,11 +147,11 @@ VS vsOfNumber(double value)
  */
 VS expectedFileType(const std::string& fileName,VS typeExpected)
 {
-  calc::File file(fileName);
+  calc::File const file(fileName);
   VS vs = typeExpected;
   try {
     file.validateExisting();
-    geo::CSFMap mapFile(fileName);
+    geo::CSFMap const mapFile(fileName);
     vs = calc::csfVs2vs(mapFile.valueScale());
   }
   catch(const geo::NotA_PCRasterMap&) {

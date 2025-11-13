@@ -83,7 +83,7 @@ double RasterDrawer::cellSizeInPixels(
 size_t RasterDrawer::nrCellsPerPixel(
          QTransform const& mapper) const
 {
-  double nrCellsPerPixel = 1.0 / cellSizeInPixels(mapper);
+  double const nrCellsPerPixel = 1.0 / cellSizeInPixels(mapper);
 
   // Return a minimum of 1 cell per pixel, but possibly more. Err on the safe
   // side.
@@ -109,7 +109,7 @@ void RasterDrawer::draw(
   assert(dirtyMapAreaInPixels.top() >= 0);
 
   // Convert dirtyMapAreaInPixels to dirtyMapAreaInWorldCoordinates.
-  QRectF dirtyMapAreaInWorldCoordinates(
+  QRectF const dirtyMapAreaInWorldCoordinates(
     screen_to_world.map( QPointF(dirtyMapAreaInPixels.left(), dirtyMapAreaInPixels.top()) ),
     screen_to_world.map( QPointF(dirtyMapAreaInPixels.right(), dirtyMapAreaInPixels.bottom()) )
   );
@@ -133,19 +133,19 @@ void RasterDrawer::draw(
          southEastCellIndices.ry(), southEastCellIndices.rx());
   // Add a cell to the dirtyMapAreaInCells to account for those drawers that
   // draw in the neighbouring cell.
-  QRectF dirtyMapAreaInCells(northWestCellIndices - QPointF(1.0, 1.0),
+  QRectF const dirtyMapAreaInCells(northWestCellIndices - QPointF(1.0, 1.0),
          southEastCellIndices + QPointF(1.0, 1.0));
 
   assert(!dirtyMapAreaInCells.isEmpty());
 
-  int firstRow = std::max(std::floor(dirtyMapAreaInCells.top()), 0.0);
-  int lastRow = std::min(std::floor(dirtyMapAreaInCells.bottom()),
+  int const firstRow = std::max(std::floor(dirtyMapAreaInCells.top()), 0.0);
+  int const lastRow = std::min(std::floor(dirtyMapAreaInCells.bottom()),
          _raster->dimensions().nrRows() - 1.0);
-  int firstCol = std::max(std::floor(dirtyMapAreaInCells.left()), 0.0);
-  int lastCol = std::min(std::floor(dirtyMapAreaInCells.right()),
+  int const firstCol = std::max(std::floor(dirtyMapAreaInCells.left()), 0.0);
+  int const lastCol = std::min(std::floor(dirtyMapAreaInCells.right()),
          _raster->dimensions().nrCols() - 1.0);
 
-  QRect indices(QPoint(firstCol, firstRow), QPoint(lastCol, lastRow));
+  QRect const indices(QPoint(firstCol, firstRow), QPoint(lastCol, lastRow));
 
   if(indices.isEmpty()) {
     return;
@@ -216,7 +216,7 @@ void RasterDrawer::drawCells(
          QTransform const& world_to_screen,
          QTransform const&  /*screen_to_world*/) const
 {
-  size_t nrCellsPerPixel = this->nrCellsPerPixel(world_to_screen);
+  size_t const nrCellsPerPixel = this->nrCellsPerPixel(world_to_screen);
   double leftScreen = NAN;
   double topScreen = NAN;
   double rightScreen = NAN;
@@ -236,7 +236,7 @@ void RasterDrawer::drawCells(
   auto firstCol = static_cast<size_t>(indices.left());
   auto lastCol = static_cast<size_t>(indices.right());
 
-  QColor colour(Qt::black);
+  QColor const colour(Qt::black);
   // colour.setAlpha(150);  No, results in weird striping pattern.
 
   painter.setRenderHint(QPainter::Antialiasing, false);

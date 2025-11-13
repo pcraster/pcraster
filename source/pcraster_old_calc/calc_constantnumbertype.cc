@@ -9,7 +9,7 @@ static VS TypeNumber(double value)
   int set = (int)VS_FIELD;
   if ( value >= (double)LONG_MIN && value <= (double)LONG_MAX )
   {
-    long i = (long)value;
+    long const i = (long)value;
     if ( value == ((double)i) )
     {
            /* if the value is not equal to 0 or 1 
@@ -27,7 +27,7 @@ static VS TypeNumber(double value)
     /* even if it is an integer we cannot store it in a real: mask classifieds out */
     set &= ~(VS_N|VS_O|VS_B|VS_L);
   }
-  VS setTypes = (VS)set;
+  VS const setTypes = (VS)set;
   return setTypes;
 }
 

@@ -118,7 +118,7 @@ void MemoryTableData::initialiseValues(
     initialiseValues(values);
   }
   else {
-    Dimension dimension(space.dimension(0));
+    Dimension const dimension(space.dimension(0));
     space.eraseDimension(0);
 
     // Length of values corresponds with the nrCoordinates of the
@@ -181,7 +181,7 @@ void MemoryTableData::add(
     add(table, values);
   }
   else {
-    Dimension dimension(space.dimension(0));
+    Dimension const dimension(space.dimension(0));
     size_t index = values.size();
 
     switch(dimension.meaning()) {
@@ -256,7 +256,7 @@ void MemoryTableData::clear(
     clear(values);
   }
   else {
-    Dimension dimension(space.dimension(0));
+    Dimension const dimension(space.dimension(0));
     space.eraseDimension(0);
 
     for(size_t i = 0; i < dimension.nrCoordinates(); ++i) {
@@ -387,7 +387,7 @@ Table const* MemoryTableData::table(
     result = table(values);
   }
   else {
-    Dimension dimension(space.dimension(0));
+    Dimension const dimension(space.dimension(0));
     size_t index = values.size();
 
     switch(dimension.meaning()) {

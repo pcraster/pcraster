@@ -19,7 +19,7 @@ BOOST_AUTO_TEST_CASE(compressor)
   using namespace calc;
 
  {
-  geo::RasterSpace rs(2,3);
+  geo::RasterSpace const rs(2,3);
   UINT1 mask[6]= { 1, 1, 1, 1, 1, 1 };
   MaskCompressor mc(rs,mask);
   NullCompressor nc(rs);
@@ -56,10 +56,10 @@ BOOST_AUTO_TEST_CASE(compressor)
   }
  }
  {
-  geo::RasterSpace rs(2,3);
+  geo::RasterSpace const rs(2,3);
   UINT1 mask[6]= { 1, 1, MV_UINT1, 1, 0, 1 };
   REAL4 values[6] = { 1,2,3,4,5,6 };
-  MaskCompressor mc(rs,mask);
+  MaskCompressor const mc(rs,mask);
 
   BOOST_CHECK(mc.nrCellsCompressed() == 4);
   BOOST_CHECK(mc.toDecompressedIndex(0) == 0);
@@ -92,7 +92,7 @@ BOOST_AUTO_TEST_CASE(script)
 {
   using namespace calc;
 
-  geo::RasterSpace rs(80,50);
+  geo::RasterSpace const rs(80,50);
   /* make boolean mask with:
    *  - triangle of 1, where mask is defined
    *  - triangle of MV
@@ -131,8 +131,8 @@ BOOST_AUTO_TEST_CASE(script)
   bool succes=true;
   try {
 
-    geo::FileCreateTester mt("resultMvComprScript.map");
-    geo::FileCreateTester ma("areaMvComprScript.map");
+    geo::FileCreateTester const mt("resultMvComprScript.map");
+    geo::FileCreateTester const ma("areaMvComprScript.map");
 
     ModelBuilder mb;
     mb.setClone("mvComprMask.map");
@@ -162,7 +162,7 @@ BOOST_AUTO_TEST_CASE(_0_option)
 {
   using namespace calc;
 
-  geo::RasterSpace rs(8,8);
+  geo::RasterSpace const rs(8,8);
   UINT1 **mask   = com::new2d<UINT1>(rs.nrRows(),rs.nrCols());
   REAL4 **result = com::new2d<REAL4>(rs.nrRows(),rs.nrCols());
 
@@ -188,7 +188,7 @@ BOOST_AUTO_TEST_CASE(_0_option)
   bool succes=true;
   try {
 
-    geo::FileCreateTester mt("zeroCompr.map");
+    geo::FileCreateTester const mt("zeroCompr.map");
 
     ModelBuilder mb;
     mb.setClone("zeroComprMask.map");

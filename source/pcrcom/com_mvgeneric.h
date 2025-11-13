@@ -188,11 +188,11 @@ template<typename T1,
     return forEachNonMV(v1,v2,len1,op);
 
   if (len1 == 1) {
-    NonSpatialContainer<T1> nsc1(*v1);
+    NonSpatialContainer<T1> const nsc1(*v1);
     return forEachNonMV(nsc1,v2,len2,op);
   }
   POSTCOND(len2 == 1);
-  NonSpatialContainer<T2> nsc2(*v2);
+  NonSpatialContainer<T2> const nsc2(*v2);
   return forEachNonMV(v1,nsc2,len1,op);
 }
 
@@ -222,7 +222,7 @@ template<typename T1,
     return forEachNonMV(v1,v2,len1,op);
 
   POSTCOND(len2 == 1);
-  NonSpatialContainer<T2> nsc2(*v2);
+  NonSpatialContainer<T2> const nsc2(*v2);
   return forEachNonMV(v1,nsc2,len1,op);
 }
 

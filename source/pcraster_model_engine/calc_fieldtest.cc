@@ -11,13 +11,13 @@ BOOST_AUTO_TEST_CASE(testCtorNonSpatial)
   using namespace calc;
 
   {
-    REAL4 v = NAN;
-    NonSpatial ns(VS_S,v);
+    REAL4 const v = NAN;
+    NonSpatial const ns(VS_S,v);
     BOOST_CHECK(ns.cr()==CR_REAL4);
   }
   {
     INT4 vb[3]={2,MV_INT4,6};
-    Spatial  sb(VS_N,vb,3);
+    Spatial  const sb(VS_N,vb,3);
 
     BOOST_CHECK(sb.cr()==CR_INT4);
     BOOST_CHECK(sb.nrValues()==3);

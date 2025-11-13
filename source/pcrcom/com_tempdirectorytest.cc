@@ -23,7 +23,7 @@ BOOST_AUTO_TEST_CASE(constructor_destructor)
  { // dtor remove
    fs::path dir;
    {
-    TempDirectory td("pcrcalcSwap");
+    TempDirectory const td("pcrcalcSwap");
     dir=td.name();
     BOOST_CHECK(fs::exists(dir));
    }
@@ -33,7 +33,7 @@ BOOST_AUTO_TEST_CASE(constructor_destructor)
   TempDirectory td("pcrcalcSwap");
   BOOST_CHECK(fs::exists(td.name()));
 
-  fs::path pete=td.memberPath("pete");
+  fs::path const pete=td.memberPath("pete");
   fs::create_directory(pete);
   BOOST_CHECK( fs::exists(pete));
 
@@ -48,7 +48,7 @@ BOOST_AUTO_TEST_CASE(remove_failure)
   using namespace com;
 
   TempDirectory td("pcrcalcSwap");
-  fs::path  toOpenForWriting=td.memberPath("toOpenForWriting");
+  fs::path  const toOpenForWriting=td.memberPath("toOpenForWriting");
 
   std::ofstream bofs{toOpenForWriting};
 

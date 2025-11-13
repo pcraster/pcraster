@@ -71,7 +71,7 @@ struct special {
   inline static UINT1 impl_d_2_l( const REAL4& v) {
      const UINT1 lookup[8] = { 8, 9, 6, 3, 2, 1, 4, 7 };
      double dum = NAN;
-     double shift = 1.0/16.0; /* ((pi/8)/2pi) = 1/16 */
+     double const shift = 1.0/16.0; /* ((pi/8)/2pi) = 1/16 */
      if (v == -1)
        return LDD_PIT;
      /* shift a halfdir - eps. (0.0624999) */

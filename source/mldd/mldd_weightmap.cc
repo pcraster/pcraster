@@ -82,21 +82,21 @@ mldd::WeightMap::WeightMap(const WeightMap& rhs)
  */
 double mldd::WeightMap::get(const Edge& e) const
 {
-  geo::CellLoc s(e.source());
-  geo::CellLoc d(e.target()); // downstream
+  geo::CellLoc const s(e.source());
+  geo::CellLoc const d(e.target()); // downstream
 
   // weighted slope
   if (d_dr.nrOutflowNB(s)==1)
     return 1; // no weight only one outflow
 
-  double dist[2] = { 1, std::numbers::sqrt2 };
+  double const dist[2] = { 1, std::numbers::sqrt2 };
   bool   diagonal= d.row()!=s.row() || d.col()!=s.col();
   if (d_dem.mv(d)||d_dem.mv(s))
     return mvMark(); // mv prohibit calculation
-  double slopeS  =(std::max<double>(d_dem[s]-d_dem[d],0))/dist[diagonal];
+  double const slopeS  =(std::max<double>(d_dem[s]-d_dem[d],0))/dist[diagonal];
   double sumS(0);
   for(OutEdgeIterator oe=d_dr.beginOutEdge(s);oe.any();++oe) {
-    geo::CellLoc d=(*oe).target(); // downstream
+    geo::CellLoc const d=(*oe).target(); // downstream
     if (d_dem.mv(s))
       continue;
     diagonal= d.row()!=s.row() || d.col()!=s.col();
@@ -115,14 +115,14 @@ void mldd::WeightMap::fillDirMap(
     geo::NB::Code dir,
     REAL4         *map) const
 {
-  geo::RasterDim rd(d_dr.rasterDim());
+  geo::RasterDim const rd(d_dr.rasterDim());
   for(geo::LinearLoc i=0; i < rd.nrCells(); ++i) {
     pcr::setMV(map[i]);
     if (d_dr.hasOutflowDir(i,dir)) {
-      geo::CellLoc s(rd.convert(i));
-      geo::CellLoc d(rd.target<geo::NB>(s,dir));
+      geo::CellLoc const s(rd.convert(i));
+      geo::CellLoc const d(rd.target<geo::NB>(s,dir));
 
-      double v=get(Edge(s,d));
+      double const v=get(Edge(s,d));
       if (v!=mvMark())
         map[i]=v;
     }

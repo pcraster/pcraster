@@ -10,7 +10,7 @@
 
 BOOST_AUTO_TEST_CASE(empty_file)
 {
-    com::PathName pn("empty.filemap");
+    com::PathName const pn("empty.filemap");
     com::create(pn);
 #ifdef WIN32
     com::FileMap fm(pn);
@@ -20,7 +20,7 @@ BOOST_AUTO_TEST_CASE(empty_file)
     // linux no mmap call with length 0 allowed since 2.6.something
     bool catched=false;
     try {
-     com::FileMap fm(pn);
+     com::FileMap const fm(pn);
     } catch(const com::OpenFileError& e) {
       catched=true;
       BOOST_CHECK(e.messages().find(
@@ -45,16 +45,16 @@ BOOST_AUTO_TEST_CASE(iterators)
   header.push_back("181072 333611 1022");
 
   for(auto & file : files) {
-    com::PathName pn(file);
-    com::FileMap  fm(pn);
-    std::string   contents(fm.begin(),fm.end());
+    com::PathName const pn(file);
+    com::FileMap  const fm(pn);
+    std::string   const contents(fm.begin(),fm.end());
     std::vector<std::string> lines(com::split(contents,'\n'));
     BOOST_CHECK(lines.size() == 5+155);
     for(size_t l=0; l<header.size(); l++) {
       if (lines[l][0] == '\r')
         lines[l].erase(0,1);
       if (!lines[l].empty()) {
-        size_t last=lines[l].size()-1;
+        size_t const last=lines[l].size()-1;
         if (lines[l][last] == '\r')
           lines[l].erase(last,1);
        }
@@ -71,14 +71,14 @@ BOOST_AUTO_TEST_CASE(file_map_to_large)
 #ifdef WIN32
   com::PathName big("E:\\gam_allXL.xyz");
 #else
-  com::PathName big("/home/cees/tmp/gam_allXL.xyz");
+  com::PathName const big("/home/cees/tmp/gam_allXL.xyz");
 #endif
   if (com::exists(big)) {
     BOOST_CHECK(size(big) > gigaByte<size_t>(2));
     testOpenForReading(big);
     bool catched(false);
     try {
-     FileMap n(big);
+     FileMap const n(big);
     } catch (const com::OpenFileError& e) {
       catched=true;
 

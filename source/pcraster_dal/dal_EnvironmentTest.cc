@@ -14,14 +14,14 @@ BOOST_AUTO_TEST_CASE(dal_formats)
   {
     dev::unsetEnvironmentVariable("PCRASTER_DAL_FORMATS");
     BOOST_CHECK(!dev::environmentVariableSet("PCRASTER_DAL_FORMATS"));
-    Environment environment("/usr/bin/dal");
+    Environment const environment("/usr/bin/dal");
     BOOST_CHECK(environment.formatNames().empty());
   }
 
   {
     dev::setEnvironmentVariable("PCRASTER_DAL_FORMATS", "PCRaster");
     BOOST_CHECK(dev::environmentVariableSet("PCRASTER_DAL_FORMATS"));
-    Environment environment("/usr/bin/dal");
+    Environment const environment("/usr/bin/dal");
     BOOST_REQUIRE_EQUAL(environment.formatNames().size(), size_t(1));
     BOOST_CHECK_EQUAL(environment.formatNames()[0], "PCRaster");
   }
@@ -29,7 +29,7 @@ BOOST_AUTO_TEST_CASE(dal_formats)
   {
     dev::setEnvironmentVariable("PCRASTER_DAL_FORMATS",
          " PCRaster, HDF4, , ESRI Shapefile , HDF4");
-    Environment environment("/usr/bin/dal");
+    Environment const environment("/usr/bin/dal");
     BOOST_REQUIRE_EQUAL(environment.formatNames().size(), size_t(3));
     BOOST_CHECK_EQUAL(environment.formatNames()[0], "PCRaster");
     BOOST_CHECK_EQUAL(environment.formatNames()[1], "HDF4");
@@ -49,21 +49,21 @@ BOOST_AUTO_TEST_CASE(gdal_data)
   // Set variable if it is not already set.
   {
     dev::unsetEnvironmentVariable("GDAL_DATA");
-    Environment environment("/usr");
+    Environment const environment("/usr");
     BOOST_CHECK_EQUAL(environment.gdalData(), "/usr/share/gdal");
   }
 
   // Don't touch variable if it is already set.
   {
     dev::setEnvironmentVariable("GDAL_DATA", "");
-    Environment environment("/usr");
+    Environment const environment("/usr");
     BOOST_CHECK_EQUAL(environment.gdalData(), "");
   }
 
   // Don't touch variable if it is already set.
   {
     dev::setEnvironmentVariable("GDAL_DATA", " ");
-    Environment environment("/usr");
+    Environment const environment("/usr");
     BOOST_CHECK_EQUAL(environment.gdalData(), std::string(" "));
   }
 #endif

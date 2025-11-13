@@ -64,7 +64,7 @@ void DirectionalRasterDrawer::draw(
     return;
   }
 
-  size_t nrCellsPerPixel = this->nrCellsPerPixel(world_to_screen);
+  size_t const nrCellsPerPixel = this->nrCellsPerPixel(world_to_screen);
   double leftScreen = NAN;
   double topScreen = NAN;
   double rightScreen = NAN;

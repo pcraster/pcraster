@@ -256,10 +256,10 @@ void Parser::expectFile(const std::string& fileDescr) {
 
 void Parser::checkParseError() {
 	const ANTLRTokenPtr at(LT(1));
-	calc::Symbol p=symbol(at);
+	calc::Symbol const p=symbol(at);
 	// pcrcalc/test34
 	std::ostringstream msg;
-	bool kw=mytoken(at)->isKeyword();
+	bool const kw=mytoken(at)->isKeyword();
 	msg  << "Syntax error at " << (kw ? "keyword ":"symbol ") << p.qName();
 	if (kw)
 	msg  << "\n Keywords can not be used as names for files or variables"
@@ -304,7 +304,7 @@ Parser::externalBindings(int *_retsignal, calc::RunSettings& rs )
 {
 #line 385 "calcparser.g"
 	zzRULE;
-	int _sva=1;
+	int const _sva=1;
 	ANTLRTokenPtr left=nullptr;
 	int _signal=NoSignal;
 	*_retsignal = NoSignal;
@@ -382,7 +382,7 @@ Parser::model(int *_retsignal)
 {
 #line 404 "calcparser.g"
 	zzRULE;
-	int _sva=1;
+	int const _sva=1;
 	int _signal=NoSignal;
 	*_retsignal = NoSignal;
 	if ( (setwd1[LA(1)]&0x8) && 
@@ -441,7 +441,7 @@ Parser::modelProlog(int *_retsignal)
 {
 #line 414 "calcparser.g"
 	zzRULE;
-	int _sva=1;
+	int const _sva=1;
 	int _signal=NoSignal;
 	*_retsignal = NoSignal;
 #line 414 "calcparser.g"
@@ -483,7 +483,7 @@ Parser::modelCode(int *_retsignal)
 {
 #line 416 "calcparser.g"
 	zzRULE;
-	int _sva=1;
+	int const _sva=1;
 	ANTLRTokenPtr pos=nullptr;
 	int _signal=NoSignal;
 	*_retsignal = NoSignal;
@@ -524,7 +524,7 @@ Parser::modelCode(int *_retsignal)
 
 #line 419 "calcparser.g"
 			
-			calc::Element p(element(pos));
+			calc::Element const p(element(pos));
 			if (!script()->isDynamicModel()) // pcrcalc/test8a
 			p.posError("There is a dynamic section but no timer section");
 			// create and add it to the script
@@ -549,7 +549,7 @@ Parser::bindingSection(int *_retsignal)
 {
 #line 431 "calcparser.g"
 	zzRULE;
-	int _sva=1;
+	int const _sva=1;
 	int _signal=NoSignal;
 	*_retsignal = NoSignal;
 #line 431 "calcparser.g"
@@ -576,7 +576,7 @@ Parser::areaMapSection(int *_retsignal)
 {
 #line 436 "calcparser.g"
 	zzRULE;
-	int _sva=1;
+	int const _sva=1;
 	int _signal=NoSignal;
 	*_retsignal = NoSignal;
 #line 436 "calcparser.g"
@@ -609,7 +609,7 @@ Parser::timer(int *_retsignal)
 {
 #line 444 "calcparser.g"
 	zzRULE;
-	int _sva=1;
+	int const _sva=1;
 	ANTLRTokenPtr tssID=nullptr;
 	int _signal=NoSignal;
 	*_retsignal = NoSignal;
@@ -682,7 +682,7 @@ Parser::timerValue(int *_retsignal)
 	 calc::TimerValue  	 _retv;
 #line 462 "calcparser.g"
 	zzRULE;
-	int _sva=1;
+	int const _sva=1;
 	int _signal=NoSignal;
 	PURIFY(_retv,sizeof( calc::TimerValue  	))
 	*_retsignal = NoSignal;
@@ -727,7 +727,7 @@ Parser::reportMomentDef(int *_retsignal)
 {
 #line 470 "calcparser.g"
 	zzRULE;
-	int _sva=1;
+	int const _sva=1;
 	ANTLRTokenPtr reportId=nullptr;
 	int _signal=NoSignal;
 	*_retsignal = NoSignal;
@@ -767,11 +767,11 @@ Parser::bindingDefinition(int *_retsignal)
 {
 #line 479 "calcparser.g"
 	zzRULE;
-	int _sva=1;
+	int const _sva=1;
 	int _signal=NoSignal;
 	*_retsignal = NoSignal;
 #line 479 "calcparser.g"
-	 calc::DefPar p  = parWithIndeces(&_signal, script() ); if (_signal) goto _handler;
+	 calc::DefPar const p  = parWithIndeces(&_signal, script() ); if (_signal) goto _handler;
 
 #line 479 "calcparser.g"
 	zzmatch_wsig(TOK_IS, _handler);
@@ -795,7 +795,7 @@ Parser::bindingRight(int *_retsignal, const calc::DefPar& par  )
 {
 #line 482 "calcparser.g"
 	zzRULE;
-	int _sva=1;
+	int const _sva=1;
 	ANTLRTokenPtr convF=nullptr;
 	ANTLRTokenPtr indF=nullptr;
 	int _signal=NoSignal;
@@ -922,13 +922,13 @@ Parser::bindingRight(int *_retsignal, const calc::DefPar& par  )
 						indexTableFile.setInputFilePath();
 						if (!par.isArray()) {
 							// pcrcalc/test275
-							calc::Symbol f = symbol(indF);
+							calc::Symbol const f = symbol(indF);
 							f.posError("Function "+f.qName()+" only allowed on array parameters");
 						}
 						auto *p =
 						dynamic_cast<calc::IndexTable *>
 						(par.block()->findSymbol(&indexTableFile,VS_INDEXTABLE,false));
-						bool firstUse = !p;
+						bool const firstUse = !p;
 						if (firstUse) {
 							try {
 								expectedFileType(indexTableFile.externalName(),VS_INDEXTABLE);
@@ -972,7 +972,7 @@ Parser::indecesDef(int *_retsignal, std::vector<calc::ParsIndex* >& indDef )
 {
 #line 558 "calcparser.g"
 	zzRULE;
-	int _sva=1;
+	int const _sva=1;
 	int _signal=NoSignal;
 	*_retsignal = NoSignal;
 #line 559 "calcparser.g"
@@ -1010,7 +1010,7 @@ Parser::indexDef(int *_retsignal)
 	 calc::ParsIndex *  	 _retv = nullptr;
 #line 567 "calcparser.g"
 	zzRULE;
-	int _sva=1;
+	int const _sva=1;
 	ANTLRTokenPtr name=nullptr;
 	int _signal=NoSignal;
 	PURIFY(_retv,sizeof( calc::ParsIndex *  	))
@@ -1053,7 +1053,7 @@ Parser::indexDef(int *_retsignal)
 				{
 					if ( (setwd4[LA(1)]&0x8) ) {
 #line 578 "calcparser.g"
-						 calc::Symbol extName  = qid(&_signal); if (_signal) goto _handler;
+						 calc::Symbol const extName  = qid(&_signal); if (_signal) goto _handler;
 
 #line 579 "calcparser.g"
 						
@@ -1062,7 +1062,7 @@ Parser::indexDef(int *_retsignal)
 					else {
 						if ( (LA(1)==TOK_LP) ) {
 #line 583 "calcparser.g"
-							  calc::IdList set_list   = idList(&_signal); if (_signal) goto _handler;
+							  calc::IdList const set_list   = idList(&_signal); if (_signal) goto _handler;
 
 #line 584 "calcparser.g"
 							_retv = new calc::ParsIndexSet(on,symbol(name),set_list);
@@ -1103,7 +1103,7 @@ Parser::reportMoments(int *_retsignal, std::vector<calc::ParsReportMoment> &m )
 {
 #line 591 "calcparser.g"
 	zzRULE;
-	int _sva=1;
+	int const _sva=1;
 	int _signal=NoSignal;
 	*_retsignal = NoSignal;
 #line 592 "calcparser.g"
@@ -1139,7 +1139,7 @@ Parser::reportMoment(int *_retsignal, calc::ParsReportMoment& p )
 {
 #line 600 "calcparser.g"
 	zzRULE;
-	int _sva=1;
+	int const _sva=1;
 	ANTLRTokenPtr start=nullptr;
 	ANTLRTokenPtr range=nullptr;
 	ANTLRTokenPtr range2=nullptr;
@@ -1240,7 +1240,7 @@ Parser::reportMomentStep(int *_retsignal)
 	 int  	 _retv = 0;
 #line 621 "calcparser.g"
 	zzRULE;
-	int _sva=1;
+	int const _sva=1;
 	ANTLRTokenPtr v=nullptr;
 	int _signal=NoSignal;
 	PURIFY(_retv,sizeof( int  	))
@@ -1272,14 +1272,14 @@ Parser::idList(int *_retsignal)
 	  calc::IdList   	 _retv;
 #line 631 "calcparser.g"
 	zzRULE;
-	int _sva=1;
+	int const _sva=1;
 	ANTLRTokenPtr firstId=nullptr;
 	ANTLRTokenPtr nextId=nullptr;
 	int _signal=NoSignal;
 	PURIFY(_retv,sizeof(  calc::IdList   	))
 	*_retsignal = NoSignal;
 #line 632 "calcparser.g"
-	std::vector<calc::Symbol> list; calc::Symbol s;
+	std::vector<calc::Symbol> list; calc::Symbol const s;
 #line 633 "calcparser.g"
 	zzmatch_wsig(TOK_LP, _handler);
 	 consume();
@@ -1328,7 +1328,7 @@ Parser::codeBlocks(int *_retsignal, calc::StatementBlock *inclIn )
 {
 #line 641 "calcparser.g"
 	zzRULE;
-	int _sva=1;
+	int const _sva=1;
 	int _signal=NoSignal;
 	*_retsignal = NoSignal;
 #line 652 "calcparser.g"
@@ -1383,7 +1383,7 @@ Parser::codeBlock(int *_retsignal, calc::StatementBlock *inclIn )
 {
 #line 655 "calcparser.g"
 	zzRULE;
-	int _sva=1;
+	int const _sva=1;
 	ANTLRTokenPtr v=nullptr;
 	ANTLRTokenPtr modelId=nullptr;
 	ANTLRTokenPtr modelName=nullptr;
@@ -1434,7 +1434,7 @@ Parser::codeBlock(int *_retsignal, calc::StatementBlock *inclIn )
 									const size_t buf_size = 8;
 									char buf[buf_size];
 									std::snprintf(buf, buf_size, "%d", inSituNr++);
-									calc::Symbol s(script(),buf,nullptr);
+									calc::Symbol const s(script(),buf,nullptr);
 									calc::ReportDefinition *rd = nullptr;
 									rd = new calc::ReportDefinition(
 									script()->generatedSymbol("reportMoments",buf),
@@ -1523,7 +1523,7 @@ Parser::foreach(int *_retsignal, calc::StatementBlock *inclIn )
 {
 #line 699 "calcparser.g"
 	zzRULE;
-	int _sva=1;
+	int const _sva=1;
 	ANTLRTokenPtr posF=nullptr;
 	ANTLRTokenPtr iterId=nullptr;
 	ANTLRTokenPtr inId=nullptr;
@@ -1532,10 +1532,10 @@ Parser::foreach(int *_retsignal, calc::StatementBlock *inclIn )
 	*_retsignal = NoSignal;
 #line 700 "calcparser.g"
 	calc::ForEach *f=nullptr;
-	calc::Symbol iter;
+	calc::Symbol const iter;
 	calc::IdList in;
 	calc::IdList except;
-	calc::IdList s; bool ascending=true;
+	calc::IdList const s; bool const ascending=true;
 #line 703 "calcparser.g"
 	zzmatch_wsig(TOK_FOREACH, _handler);
 	
@@ -1636,7 +1636,7 @@ Parser::repeat(int *_retsignal, calc::StatementBlock *inclIn )
 {
 #line 723 "calcparser.g"
 	zzRULE;
-	int _sva=1;
+	int const _sva=1;
 	ANTLRTokenPtr posR=nullptr;
 	int _signal=NoSignal;
 	*_retsignal = NoSignal;
@@ -1692,7 +1692,7 @@ Parser::assignment(int *_retsignal, calc::StatementBlock *inclIn,const calc::Wri
 {
 #line 747 "calcparser.g"
 	zzRULE;
-	int _sva=1;
+	int const _sva=1;
 	int _signal=NoSignal;
 	*_retsignal = NoSignal;
 #line 749 "calcparser.g"
@@ -1728,7 +1728,7 @@ Parser::assignmentTail(int *_retsignal, calc::StatementBlock *inclIn,
 {
 #line 759 "calcparser.g"
 	zzRULE;
-	int _sva=1;
+	int const _sva=1;
 	ANTLRTokenPtr ass=nullptr;
 	ANTLRTokenPtr theId=nullptr;
 	ANTLRTokenPtr methodId=nullptr;
@@ -1812,13 +1812,13 @@ Parser::assignmentTail(int *_retsignal, calc::StatementBlock *inclIn,
 				leftPars.push_back(par);
 #line 795 "calcparser.g"
 				{
-					int zzcnt=1;
+					int const zzcnt=1;
 					do {
 #line 795 "calcparser.g"
 						zzmatch_wsig(TOK_COMMA, _handler);
 						 consume();
 #line 795 "calcparser.g"
-						 calc::UsePar par2  = parWithIndeces(&_signal, inclIn ); if (_signal) goto _handler;
+						 calc::UsePar const par2  = parWithIndeces(&_signal, inclIn ); if (_signal) goto _handler;
 
 #line 796 "calcparser.g"
 						
@@ -1849,7 +1849,7 @@ Parser::assignmentTail(int *_retsignal, calc::StatementBlock *inclIn,
 
 #line 806 "calcparser.g"
 							calc::FieldExprArgs args;
-							calc::Symbol modelName = symbol(theId);
+							calc::Symbol const modelName = symbol(theId);
 							std::string strArg;
  consume();
 #line 810 "calcparser.g"
@@ -1875,10 +1875,10 @@ Parser::assignmentTail(int *_retsignal, calc::StatementBlock *inclIn,
 								fid2 = (ANTLRTokenPtr)LT(1);
 
 #line 822 "calcparser.g"
-								calc::Symbol sym1 = symbol(theId);
+								calc::Symbol const sym1 = symbol(theId);
 								const calc::Operator& op1 = calc::funcName2op(sym1.name());
 								if (op1.opCode() == OP_NOP) notAFunc(sym1);
-								calc::Symbol sym2 = symbol(fid2);
+								calc::Symbol const sym2 = symbol(fid2);
 								const calc::Operator& op2 = calc::funcName2op(sym2.name());
 								if (op2.opCode() == OP_NOP) notAFunc(sym2);
  consume();
@@ -1931,7 +1931,7 @@ Parser::statementSep(int *_retsignal)
 {
 #line 843 "calcparser.g"
 	zzRULE;
-	int _sva=1;
+	int const _sva=1;
 	int _signal=NoSignal;
 	*_retsignal = NoSignal;
 	if ( (LA(1)==TOK_SC) ) {
@@ -1966,7 +1966,7 @@ Parser::expr(int *_retsignal, calc::StatementBlock *inclIn )
 	 calc::FieldExpr * 	 _retv = nullptr;
 #line 851 "calcparser.g"
 	zzRULE;
-	int _sva=1;
+	int const _sva=1;
 	ANTLRTokenPtr opS=nullptr;
 	int _signal=NoSignal;
 	PURIFY(_retv,sizeof( calc::FieldExpr * 	))
@@ -2019,7 +2019,7 @@ Parser::xor_expr(int *_retsignal, calc::StatementBlock *inclIn )
 	 calc::FieldExpr * 	 _retv = nullptr;
 #line 869 "calcparser.g"
 	zzRULE;
-	int _sva=1;
+	int const _sva=1;
 	ANTLRTokenPtr opS=nullptr;
 	int _signal=NoSignal;
 	PURIFY(_retv,sizeof( calc::FieldExpr * 	))
@@ -2064,7 +2064,7 @@ Parser::and_expr(int *_retsignal, calc::StatementBlock *inclIn )
 	 calc::FieldExpr * 	 _retv = nullptr;
 #line 881 "calcparser.g"
 	zzRULE;
-	int _sva=1;
+	int const _sva=1;
 	ANTLRTokenPtr opS=nullptr;
 	int _signal=NoSignal;
 	PURIFY(_retv,sizeof( calc::FieldExpr * 	))
@@ -2108,7 +2108,7 @@ Parser::eq_expr(int *_retsignal, calc::StatementBlock *inclIn )
 	 calc::FieldExpr * 	 _retv = nullptr;
 #line 894 "calcparser.g"
 	zzRULE;
-	int _sva=1;
+	int const _sva=1;
 	ANTLRTokenPtr opS=nullptr;
 	int _signal=NoSignal;
 	PURIFY(_retv,sizeof( calc::FieldExpr * 	))
@@ -2152,7 +2152,7 @@ Parser::comp_expr(int *_retsignal, calc::StatementBlock *inclIn )
 	 calc::FieldExpr * 	 _retv = nullptr;
 #line 906 "calcparser.g"
 	zzRULE;
-	int _sva=1;
+	int const _sva=1;
 	ANTLRTokenPtr opS=nullptr;
 	int _signal=NoSignal;
 	PURIFY(_retv,sizeof( calc::FieldExpr * 	))
@@ -2196,7 +2196,7 @@ Parser::add_expr(int *_retsignal, calc::StatementBlock *inclIn )
 	 calc::FieldExpr * 	 _retv = nullptr;
 #line 918 "calcparser.g"
 	zzRULE;
-	int _sva=1;
+	int const _sva=1;
 	ANTLRTokenPtr opS=nullptr;
 	int _signal=NoSignal;
 	PURIFY(_retv,sizeof( calc::FieldExpr * 	))
@@ -2242,7 +2242,7 @@ Parser::mult_expr(int *_retsignal, calc::StatementBlock *inclIn )
 	 calc::FieldExpr * 	 _retv = nullptr;
 #line 933 "calcparser.g"
 	zzRULE;
-	int _sva=1;
+	int const _sva=1;
 	ANTLRTokenPtr opS=nullptr;
 	int _signal=NoSignal;
 	PURIFY(_retv,sizeof( calc::FieldExpr * 	))
@@ -2287,7 +2287,7 @@ Parser::pow_expr(int *_retsignal, calc::StatementBlock *inclIn )
 	 calc::FieldExpr * 	 _retv = nullptr;
 #line 945 "calcparser.g"
 	zzRULE;
-	int _sva=1;
+	int const _sva=1;
 	ANTLRTokenPtr opS=nullptr;
 	int _signal=NoSignal;
 	PURIFY(_retv,sizeof( calc::FieldExpr * 	))
@@ -2331,7 +2331,7 @@ Parser::sign_expr(int *_retsignal, calc::StatementBlock *inclIn )
 	 calc::FieldExpr * 	 _retv = nullptr;
 #line 957 "calcparser.g"
 	zzRULE;
-	int _sva=1;
+	int const _sva=1;
 	ANTLRTokenPtr s=nullptr;
 	int _signal=NoSignal;
 	PURIFY(_retv,sizeof( calc::FieldExpr * 	))
@@ -2387,7 +2387,7 @@ Parser::not_expr(int *_retsignal, calc::StatementBlock *inclIn )
 	 calc::FieldExpr * 	 _retv = nullptr;
 #line 981 "calcparser.g"
 	zzRULE;
-	int _sva=1;
+	int const _sva=1;
 	ANTLRTokenPtr s=nullptr;
 	int _signal=NoSignal;
 	PURIFY(_retv,sizeof( calc::FieldExpr * 	))
@@ -2433,7 +2433,7 @@ Parser::misc_expr(int *_retsignal, calc::StatementBlock *inclIn )
 	 calc::FieldExpr * 	 _retv = nullptr;
 #line 996 "calcparser.g"
 	zzRULE;
-	int _sva=1;
+	int const _sva=1;
 	ANTLRTokenPtr opS=nullptr;
 	ANTLRTokenPtr convF=nullptr;
 	ANTLRTokenPtr lookF=nullptr;
@@ -2568,7 +2568,7 @@ Parser::misc_expr(int *_retsignal, calc::StatementBlock *inclIn )
 					zzmatch_wsig(TOK_LP, _handler);
 					 consume();
 #line 1024 "calcparser.g"
-					 calc::UsePar table  = parWithIndeces(&_signal,  inclIn ); if (_signal) goto _handler;
+					 calc::UsePar const table  = parWithIndeces(&_signal,  inclIn ); if (_signal) goto _handler;
 
 #line 1025 "calcparser.g"
 					zzmatch_wsig(TOK_COMMA, _handler);
@@ -2694,7 +2694,7 @@ Parser::misc_expr(int *_retsignal, calc::StatementBlock *inclIn )
 									
 #line 1078 "calcparser.g"
 									
-									calc::Symbol fSym(symbol(indF));
+									calc::Symbol const fSym(symbol(indF));
 									const calc::Operator& fOp = calc::funcName2op(fSym.name());
 									if (!inclIn->inDynamic())
 									errorFuncInDynamic(fSym);
@@ -2717,7 +2717,7 @@ Parser::misc_expr(int *_retsignal, calc::StatementBlock *inclIn )
 												
 #line 1089 "calcparser.g"
 												calc::FieldExprArgs args;
-												calc::Symbol name = symbol(theId);
+												calc::Symbol const name = symbol(theId);
 												const calc::Operator& o = calc::funcName2op(name.name());
 												if (o.opCode() == OP_NOP)
 												notAFunc(name);
@@ -2758,7 +2758,7 @@ Parser::misc_expr(int *_retsignal, calc::StatementBlock *inclIn )
 
 #line 1110 "calcparser.g"
 													calc::FieldExprArgs args;
-													calc::Symbol modelName = symbol(theId);
+													calc::Symbol const modelName = symbol(theId);
 													std::string strArg;
  consume();
 #line 1114 "calcparser.g"
@@ -2776,7 +2776,7 @@ Parser::misc_expr(int *_retsignal, calc::StatementBlock *inclIn )
 														{
 															while ( (LA(1)==TOK_LB) ) {
 #line 1122 "calcparser.g"
-																 calc::Symbol a  = arrayIndex(&_signal); if (_signal) goto _handler;
+																 calc::Symbol const a  = arrayIndex(&_signal); if (_signal) goto _handler;
 
 #line 1122 "calcparser.g"
 																p.d_index.push_back(a);
@@ -2824,7 +2824,7 @@ Parser::modelLinkArgs(int *_retsignal, calc::StatementBlock *inclIn, std::string
 {
 #line 1130 "calcparser.g"
 	zzRULE;
-	int _sva=1;
+	int const _sva=1;
 	ANTLRTokenPtr ref=nullptr;
 	int _signal=NoSignal;
 	*_retsignal = NoSignal;
@@ -2877,7 +2877,7 @@ Parser::exprList(int *_retsignal, calc::StatementBlock *inclIn, calc::FieldExprA
 {
 #line 1140 "calcparser.g"
 	zzRULE;
-	int _sva=1;
+	int const _sva=1;
 	int _signal=NoSignal;
 	*_retsignal = NoSignal;
 #line 1141 "calcparser.g"
@@ -2915,7 +2915,7 @@ Parser::parWithIndeces(int *_retsignal, calc::StatementBlock *s )
 	 calc::ConstructPar  	 _retv;
 #line 1150 "calcparser.g"
 	zzRULE;
-	int _sva=1;
+	int const _sva=1;
 	ANTLRTokenPtr i=nullptr;
 	ANTLRTokenPtr r=nullptr;
 	int _signal=NoSignal;
@@ -2979,7 +2979,7 @@ Parser::arrayIndex(int *_retsignal)
 	 calc::Symbol  	 _retv;
 #line 1160 "calcparser.g"
 	zzRULE;
-	int _sva=1;
+	int const _sva=1;
 	ANTLRTokenPtr id=nullptr;
 	int _signal=NoSignal;
 	PURIFY(_retv,sizeof( calc::Symbol  	))
@@ -3014,7 +3014,7 @@ Parser::qid(int *_retsignal)
 	 calc::Symbol  	 _retv;
 #line 1165 "calcparser.g"
 	zzRULE;
-	int _sva=1;
+	int const _sva=1;
 	ANTLRTokenPtr i=nullptr;
 	ANTLRTokenPtr r=nullptr;
 	int _signal=NoSignal;
@@ -3064,7 +3064,7 @@ Parser::number(int *_retsignal)
 	 calc::Symbol  	 _retv;
 #line 1172 "calcparser.g"
 	zzRULE;
-	int _sva=1;
+	int const _sva=1;
 	int _signal=NoSignal;
 	PURIFY(_retv,sizeof( calc::Symbol  	))
 	*_retsignal = NoSignal;
@@ -3106,7 +3106,7 @@ Parser::unsignedNumber(int *_retsignal)
 	 calc::Symbol  	 _retv;
 #line 1188 "calcparser.g"
 	zzRULE;
-	int _sva=1;
+	int const _sva=1;
 	ANTLRTokenPtr v1=nullptr;
 	ANTLRTokenPtr v2=nullptr;
 	int _signal=NoSignal;
@@ -3155,7 +3155,7 @@ Parser::sign(int *_retsignal)
 	 calc::Symbol  	 _retv;
 #line 1194 "calcparser.g"
 	zzRULE;
-	int _sva=1;
+	int const _sva=1;
 	ANTLRTokenPtr v1=nullptr;
 	ANTLRTokenPtr v2=nullptr;
 	int _signal=NoSignal;

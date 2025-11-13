@@ -13,38 +13,38 @@ BOOST_AUTO_TEST_CASE(pcr_document)
   using namespace pcrxml;
 
   { // only document Element name
-    Document doc(createPcrDocument("ExchangeModel"));
-    DomDiff diff(doc.toStdString(),
+    Document const doc(createPcrDocument("ExchangeModel"));
+    DomDiff const diff(doc.toStdString(),
      "<?xml version='1.0' encoding='ISO-8859-1' standalone='yes'?>"
      "<!DOCTYPE ExchangeModel PUBLIC '-//PCRaster//Generic' 'pcraster.dtd'>"
      " <ExchangeModel xmlns='http://www.pcraster.nl/xml'/>");
     BOOST_CHECK(diff.equal(false));
   }
   { // document Element 
-    Document doc(createPcrDocument("<ExchangeModel/>"));
-    DomDiff diff(doc.toStdString(),
+    Document const doc(createPcrDocument("<ExchangeModel/>"));
+    DomDiff const diff(doc.toStdString(),
      "<?xml version='1.0' encoding='ISO-8859-1' standalone='yes'?>"
      "<!DOCTYPE ExchangeModel PUBLIC '-//PCRaster//Generic' 'pcraster.dtd'>"
      " <ExchangeModel xmlns='http://www.pcraster.nl/xml'/>");
     BOOST_CHECK(diff.equal(false));
   }
   { // copy from element tree, do not add xmlns attrs
-    Document doc(pcrxml::createPcrDocument(
+    Document const doc(pcrxml::createPcrDocument(
           "<ExchangeModel xmlns='XX' attr='value'></ExchangeModel>"));
 
     const char *cmp= "<?xml version='1.0' encoding='ISO-8859-1' standalone='yes'?>"
      "<!DOCTYPE ExchangeModel PUBLIC '-//PCRaster//Generic' 'pcraster.dtd'>"
      "<ExchangeModel xmlns='http://www.pcraster.nl/xml' attr='value'/></ExchangeModel>";
-    DomDiff diff(doc.toStdString(),cmp);
+    DomDiff const diff(doc.toStdString(),cmp);
     BOOST_CHECK(diff.equal(false));
   }
   { // copy from element tree
-    Document doc(pcrxml::createPcrDocument(
+    Document const doc(pcrxml::createPcrDocument(
                  "<ExchangeModel><TT x='v'/><X>de</X></ExchangeModel>"));
     const char *cmp= "<?xml version='1.0' encoding='ISO-8859-1' standalone='yes'?>"
      "<!DOCTYPE ExchangeModel PUBLIC '-//PCRaster//Generic' 'pcraster.dtd'>"
      "<ExchangeModel xmlns='http://www.pcraster.nl/xml'><TT x='v'/><X>de</X></ExchangeModel>";
-    DomDiff diff(doc.toStdString(),cmp);
+    DomDiff const diff(doc.toStdString(),cmp);
     BOOST_CHECK(diff.equal(true));
   }
 }
@@ -57,7 +57,7 @@ BOOST_AUTO_TEST_CASE(non_existant)
   bool catchedExpectedException(false);
 
   try {
-    Document d(com::PathName("failureExpectedDoesNotExist.xml"));
+    Document const d(com::PathName("failureExpectedDoesNotExist.xml"));
   }
   catch(com::FileError const& ) {
     // According to the Document docs.
@@ -79,7 +79,7 @@ BOOST_AUTO_TEST_CASE(ctor_and_parser)
  bool catchedExpectedException(false);
  try {
    //! no valid xml file
-   Document invalidDoc("<licensedFeature value='EsriSupport'>");
+   Document const invalidDoc("<licensedFeature value='EsriSupport'>");
  } catch (const com::BadStreamFormat& ) {
    catchedExpectedException = true;
  }
@@ -87,10 +87,10 @@ BOOST_AUTO_TEST_CASE(ctor_and_parser)
 
  catchedExpectedException=false;
  try {
-   com::PathName pn("empty.tmp"); // empty file, 0 bytes
+   com::PathName const pn("empty.tmp"); // empty file, 0 bytes
    com::create(pn);
    //! no valid xml file
-   Document invalidDoc(pn);
+   Document const invalidDoc(pn);
  } catch (const com::BadStreamFormat& ) {
    catchedExpectedException = true;
  }
@@ -99,38 +99,38 @@ BOOST_AUTO_TEST_CASE(ctor_and_parser)
  catchedExpectedException=false;
  try {
    // not an XML file
-   com::PathName pn("aNonXMLfile");
+   com::PathName const pn("aNonXMLfile");
    //! no valid xml file
-   Document invalidDoc(pn);
+   Document const invalidDoc(pn);
  } catch (const com::BadStreamFormat& ) {
    catchedExpectedException = true;
  }
  BOOST_CHECK(catchedExpectedException);
 
  try {
- Document docWithDocType("<licensedFeature value='EsriSupport' />");
+ Document const docWithDocType("<licensedFeature value='EsriSupport' />");
  el = docWithDocType.documentElement();
 
 
 
  // tests finding of docType done with Xerces
- Document docWithNoDocType1("<licensedFeature value='EsriSupport' />");
+ Document const docWithNoDocType1("<licensedFeature value='EsriSupport' />");
  el = docWithNoDocType1.documentElement();
 
- Document docWithNoDocType2("<TestEmptyElementNoAttr/>");
+ Document const docWithNoDocType2("<TestEmptyElementNoAttr/>");
  el = docWithNoDocType2.documentElement();
 
- Document docWithNoDocType3("<TestEmptyElementNoAttr	 />");
+ Document const docWithNoDocType3("<TestEmptyElementNoAttr	 />");
  el = docWithNoDocType3.documentElement();
 
- Document docWithNoDocType4("<TestEmptyElementNoAttr\n	 />");
+ Document const docWithNoDocType4("<TestEmptyElementNoAttr\n	 />");
  el = docWithNoDocType4.documentElement();
 
- Document docWithNoDocType5("<TestEmptyElementNoAttr></TestEmptyElementNoAttr>");
+ Document const docWithNoDocType5("<TestEmptyElementNoAttr></TestEmptyElementNoAttr>");
  el = docWithNoDocType5.documentElement();
 
  // ctor segfaulted on finding this docType
- Document doc6(
+ Document const doc6(
    "<systemLicense><licensee value='Piet Snot'/></systemLicense>");
 
 
@@ -147,21 +147,21 @@ BOOST_AUTO_TEST_CASE(first_match_by_tag_name)
   using namespace pcrxml;
 
  {
-   Document head("<E1><E2/></E1>");
-   QDomElement el=head.firstMatchByTagName("E1");
+   Document const head("<E1><E2/></E1>");
+   QDomElement const el=head.firstMatchByTagName("E1");
    BOOST_CHECK(!el.isNull());
    BOOST_CHECK(el.tagName()=="E1");
  }
  {
-   Document selectFirst("<E1><E2 first='first'/><E2 second='second'/></E1>");
-   QDomElement el=selectFirst.firstMatchByTagName("E2");
+   Document const selectFirst("<E1><E2 first='first'/><E2 second='second'/></E1>");
+   QDomElement const el=selectFirst.firstMatchByTagName("E2");
    BOOST_CHECK(!el.isNull());
    BOOST_CHECK(el.tagName()=="E2");
    BOOST_CHECK(el.hasAttribute("first"));
  }
  {
-   Document selectFirst("<E1/>");
-   QDomElement el=selectFirst.firstMatchByTagName("E2");
+   Document const selectFirst("<E1/>");
+   QDomElement const el=selectFirst.firstMatchByTagName("E2");
    BOOST_CHECK(el.isNull());
  }
 }

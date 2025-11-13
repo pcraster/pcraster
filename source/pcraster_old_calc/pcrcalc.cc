@@ -88,10 +88,10 @@ PcrScriptImpl::PcrScriptImpl(const char* scriptName)
     TRY_ALL {
       if (!scriptName)
         throw com::Exception("call to pcr_createScript with 0 ptr argument");
-      com::PathName pn(scriptName);
+      com::PathName const pn(scriptName);
       try {
-        pcrxml::Document doc(pn);
-        QDomElement de(doc.documentElement());
+        pcrxml::Document const doc(pn);
+        QDomElement const de(doc.documentElement());
         // if here then it is xml
         if(de.tagName() == "Root" &&
             (de.attribute("class") == "nl.wldelft.habitat.CaseHabitat" ||

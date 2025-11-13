@@ -59,7 +59,7 @@ public:
 
     for(size_t r=0; r < d_nrActualArgs; ++r) {
       // reverser order popping
-      size_t argNr=d_nrActualArgs-r-1;
+      size_t const argNr=d_nrActualArgs-r-1;
       DataValue *argI =d_rte.popDataValue();
       switch(argI->ovs()) {
         case VS_STRING: {
@@ -92,7 +92,7 @@ public:
     }
     e.transferFunctionArgs(av.release());
 
-    ScopedCFG cfg(&e);
+    ScopedCFG const cfg(&e);
     // eigenlijk while closure
     BuildTypesVisitor btv(cfg.cfg);
     btv.init(d_syms);
@@ -100,7 +100,7 @@ public:
 
     // check restriction to one result type
     for (size_t i=0; i < e.nrReturns(); ++i) {
-      VS vs = e.returnDataType(i).vs();
+      VS const vs = e.returnDataType(i).vs();
       checkOneVs(vs,"a data type ");
     }
 
@@ -110,7 +110,7 @@ public:
        case VS_STRING: {
             const auto *ds=dynamic_cast<const DataStorageId *>(d_args[i]);
             // should now be resolved
-            ASTSymbolInfo t(btv.table()[ds->id()]);
+            ASTSymbolInfo const t(btv.table()[ds->id()]);
             // load will read data (maybe slow), must we defer it further?
             d_rte.load(t);
             d_args[i] = d_rte.dataTable()[ds->id()];

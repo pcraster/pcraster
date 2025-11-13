@@ -8,7 +8,7 @@ BOOST_AUTO_TEST_CASE(description)
 {
   using namespace dal;
 
-  TextMatrixDriver driver;
+  TextMatrixDriver const driver;
   BOOST_CHECK_EQUAL(driver.description(), "Text matrix file format");
 }
 
@@ -17,7 +17,7 @@ BOOST_AUTO_TEST_CASE(unexisting)
 {
   using namespace dal;
 
-  std::string filename = "unexisting";
+  std::string const filename = "unexisting";
   TextMatrixDriver driver;
   bool exceptionCaught = false;
 
@@ -42,7 +42,7 @@ BOOST_AUTO_TEST_CASE(empty)
 {
   using namespace dal;
 
-  std::string filename = "emptyfile";
+  std::string const filename = "emptyfile";
   TextMatrixDriver driver;
   bool exceptionCaught = false;
 
@@ -67,7 +67,7 @@ BOOST_AUTO_TEST_CASE(invalid_grammar)
 {
   using namespace dal;
 
-  std::string filename = ":/:/:/:/:";
+  std::string const filename = ":/:/:/:/:";
   TextMatrixDriver driver;
   bool exceptionCaught = false;
 

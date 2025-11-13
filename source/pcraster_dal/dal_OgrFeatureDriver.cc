@@ -165,7 +165,7 @@ void read(
 {
   assert(table.nrRecs() == 0);
 
-  size_t attrId = table.indexOf(path.attribute());
+  size_t const attrId = table.indexOf(path.attribute());
   assert(attrId < table.nrCols());
 
   // if(!(attrId < table.nrCols())) {
@@ -215,7 +215,7 @@ void read(
   //   }
   // }
 
-  std::string tableName(detail::tableName(path, space));
+  std::string const tableName(detail::tableName(path, space));
 
   // This assumes the table is previously opened by dal and, hence, the driver
   // is known.
@@ -505,7 +505,7 @@ FeaturePath OgrFeatureDriver::featurePathFor(
     auto callBack = [&](std::string const& name) {
         auto dataset = GDALOpenEx(name.c_str(), GDAL_OF_VECTOR,
             this->_driver_names, nullptr, nullptr);
-        bool result = dataset != nullptr;
+        bool const result = dataset != nullptr;
         GDALClose(dataset);
         return result;
     };
@@ -554,7 +554,7 @@ FeaturePath OgrFeatureDriver::featurePathFor(
 
   if(found) {
     assert(result.isValid());
-    std::filesystem::path path(result.source() + defaultExtension(name,
+    std::filesystem::path const path(result.source() + defaultExtension(name,
          space));
     result = FeaturePath(
          (path / result.layer() / result.attribute()).generic_string(),
@@ -574,11 +574,11 @@ bool OgrFeatureDriver::exists(
 {
   DataSpace newSpace(space);
   newSpace.eraseDimension(Space);
-  DataSpaceAddress newAddress(space.eraseCoordinates(address, Space));
+  DataSpaceAddress const newAddress(space.eraseCoordinates(address, Space));
 
   // Not sure whether we can optimize the check for data at the address passed.
   // So we may as well use open for the test.
-  std::shared_ptr<FeatureLayer> layer(open(name, newSpace, newAddress,
+  std::shared_ptr<FeatureLayer> const layer(open(name, newSpace, newAddress,
          TI_NR_TYPES));
 
   return bool(layer);
@@ -595,7 +595,7 @@ TypeId OgrFeatureDriver::open(
   OGRFeatureDefn* featureDefinition = ogrLayer.GetLayerDefn();
   assert(featureDefinition);
 
-  int fieldId = featureDefinition->GetFieldIndex(attributeName.c_str());
+  int const fieldId = featureDefinition->GetFieldIndex(attributeName.c_str());
   assert(fieldId == -1 || fieldId >= 0);
 
   if(fieldId == -1) {
@@ -625,7 +625,7 @@ TypeId OgrFeatureDriver::open(
 {
   assert(!space.hasSpace());
 
-  std::string tableName = detail::tableName(path, space);
+  std::string const tableName = detail::tableName(path, space);
 
   // Try to open the attribute table, whatever the format.
   std::shared_ptr<Dataset> dataset;
@@ -668,7 +668,7 @@ FeatureLayer* OgrFeatureDriver::open(
   assert(!space.hasSpace());
 
   FeatureLayer* layer = nullptr;
-  FeaturePath path(featurePathFor(name, space, address));
+  FeaturePath const path(featurePathFor(name, space, address));
 
   if(path.isValid()) {
     auto dataset = static_cast<GDALDataset*>(GDALOpenEx(path.source().c_str(),
@@ -681,13 +681,13 @@ FeatureLayer* OgrFeatureDriver::open(
       if(ogrLayer) {
         // Feature definition is owned by the layer.
         OGRFeatureDefn* featureDefinition = ogrLayer->GetLayerDefn();
-        OGRwkbGeometryType geometryType = featureDefinition->GetGeomType();
+        OGRwkbGeometryType const geometryType = featureDefinition->GetGeomType();
 
         if(geometryType != wkbNone && geometryType != wkbUnknown) {
           // Determine the geometry of the layer. The geometry may already be
           // read a previous time, maybe for another attribute of the same
           // layer.
-          std::string key = (std::filesystem::path(
+          std::string const key = (std::filesystem::path(
               path.source()) /* .normalize() */ / path.layer()).string();
           FeatureLayerGeometries* geometries = nullptr;
 
@@ -698,13 +698,13 @@ FeatureLayer* OgrFeatureDriver::open(
           else {
             // May be expensive...
             OGREnvelope extent;
-            OGRErr err = ogrLayer->GetExtent(&extent, TRUE);
+            OGRErr const err = ogrLayer->GetExtent(&extent, TRUE);
             assert (err == OGRERR_NONE);
             (void)err; // Shut up compiler
-            double west = extent.MinX;
-            double north = extent.MaxY;
-            double east = extent.MaxX;
-            double south = extent.MinY;
+            double const west = extent.MinX;
+            double const north = extent.MaxY;
+            double const east = extent.MaxX;
+            double const south = extent.MinY;
 
             geometries = new FeatureLayerGeometries(west, north, east, south);
             Client::library().geometriesCache().insert(key, geometries);
@@ -802,7 +802,7 @@ void OgrFeatureDriver::readGeometryAndAttribute(
   assert(!layer.hasValues());
   assert(layer.hasAttribute());
 
-  int fieldId = detail::fieldId(ogrLayer, layer.name());
+  int const fieldId = detail::fieldId(ogrLayer, layer.name());
   assert(fieldId >= 0);
 
   OGRFeature* feature = nullptr;
@@ -862,7 +862,7 @@ void OgrFeatureDriver::readAttribute(
   assert(layer.hasAttribute());
   assert(!layer.hasValues());
 
-  std::string tableName = detail::tableName(path, space);
+  std::string const tableName = detail::tableName(path, space);
 
   std::shared_ptr<Dataset> dataset;
   std::tie(dataset, std::ignore) = Client::dal().open(
@@ -876,10 +876,10 @@ void OgrFeatureDriver::readAttribute(
 
   detail::read(table, layer, path, space, address);
 
-  size_t attrId = table.indexOf(path.attribute());
+  size_t const attrId = table.indexOf(path.attribute());
   assert(attrId < table.nrCols());
 
-  size_t fidId = table.indexOf("fid");
+  size_t const fidId = table.indexOf("fid");
   assert(fidId < table.nrCols());
 
   Array<INT4> const& featureIds(table.col<INT4>(fidId));
@@ -945,7 +945,7 @@ void OgrFeatureDriver::updateAttribute(
   assert(layer.hasValues());
   assert(layer.hasAttribute());
 
-  int fieldId = detail::fieldId(ogrLayer, layer.name());
+  int const fieldId = detail::fieldId(ogrLayer, layer.name());
   assert(fieldId >= 0);
 
   OGRFeature* feature = nullptr;
@@ -998,7 +998,7 @@ void OgrFeatureDriver::updateAttribute(
          DataSpace const& space,
          DataSpaceAddress const& address) const
 {
-  std::string tableName = detail::tableName(path, space);
+  std::string const tableName = detail::tableName(path, space);
 
   std::shared_ptr<Dataset> dataset;
   std::tie(dataset, std::ignore) = Client::dal().open(tableName,
@@ -1013,10 +1013,10 @@ void OgrFeatureDriver::updateAttribute(
   // TODO Reserve memory based on current number of features in the layer.
   detail::read(table, layer, path, space, address);
 
-  size_t attrId = table.indexOf(path.attribute());
+  size_t const attrId = table.indexOf(path.attribute());
   assert(attrId < table.nrCols());
 
-  size_t fidId = table.indexOf("fid");
+  size_t const fidId = table.indexOf("fid");
   assert(fidId < table.nrCols());
 
   assert(layer.nrGeometries() == table.nrRecs());
@@ -1086,7 +1086,7 @@ void OgrFeatureDriver::readAttribute(
   assert(layer.hasAttribute());
   assert(!layer.hasValues());
 
-  int fieldId = detail::fieldId(ogrLayer, layer.name());
+  int const fieldId = detail::fieldId(ogrLayer, layer.name());
   assert(fieldId >= 0);
 
   OGRFeature* feature = nullptr;
@@ -1162,7 +1162,7 @@ void OgrFeatureDriver::read(
 {
   assert(!space.hasSpace());
 
-  FeaturePath path(featurePathFor(name, space, address));
+  FeaturePath const path(featurePathFor(name, space, address));
   GDALDataset* dataset = nullptr;
 
   try {
@@ -1183,7 +1183,7 @@ void OgrFeatureDriver::read(
 
     // Feature definition is owned by the layer.
     OGRFeatureDefn* featureDefinition = ogrLayer->GetLayerDefn();
-    OGRwkbGeometryType geometryType = featureDefinition->GetGeomType();
+    OGRwkbGeometryType const geometryType = featureDefinition->GetGeomType();
 
     if(geometryType == wkbNone || geometryType == wkbUnknown) {
       // FEATURE  Unknow geometry type.
@@ -1263,15 +1263,15 @@ void OgrFeatureDriver::read(
   // - get value at record corresponding with this id.
   assert(typeId == TI_REAL4);
   assert(space.hasSpace());
-  size_t index = space.indexOf(Space);
+  size_t const index = space.indexOf(Space);
   auto const& spatialAddress(
          address.coordinate<SpatialCoordinate>(index));
 
   DataSpace newSpace(space);
-  DataSpaceAddress newAddress = newSpace.eraseCoordinates(address, Space);
+  DataSpaceAddress const newAddress = newSpace.eraseCoordinates(address, Space);
   newSpace.eraseDimension(Space);
 
-  std::shared_ptr<FeatureLayer> layer(read(name, newSpace, newAddress,
+  std::shared_ptr<FeatureLayer> const layer(read(name, newSpace, newAddress,
          typeId));
   assert(layer);
 
@@ -1285,7 +1285,7 @@ void OgrFeatureDriver::browse(
          std::string const& location) const
 {
   // Determine list of candidate file names of files to consider.
-  std::filesystem::path path(location);
+  std::filesystem::path const path(location);
   std::vector<std::string> leaves;
   possibleFileBasedAttributeFileNames(path, leaves);
   filterOutUnsupportedFileNames(leaves);
@@ -1336,8 +1336,8 @@ void OgrFeatureDriver::browse(
           name = leave + "/" + featureDefinition->GetName() + "/" +
               fieldDefinition->GetNameRef();
 
-          DataSpace space;
-          DataSpaceAddress address;
+          DataSpace const space;
+          DataSpaceAddress const address;
 
           // TODO Determine value scale.
           // TODO Determine data space.

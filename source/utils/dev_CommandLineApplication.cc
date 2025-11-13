@@ -57,7 +57,7 @@ CommandLineApplication::CommandLineApplication(
   namespace fs = std::filesystem;
 
   // Command name is argv[0] without the path and extension.
-  fs::path argv0Path(argv[0]);
+  fs::path const argv0Path(argv[0]);
   _commandName = argv0Path.stem().string();
 
   _genericOptions = "options:" % (
@@ -195,7 +195,7 @@ int CommandLineApplication::parseCommandLine()
 {
 //   namespace po = boost::program_options;
 
-  int result = EXIT_FAILURE;
+  int const result = EXIT_FAILURE;
 
 //   po::options_description commandlineOptions;
 //   commandlineOptions.add(_genericOptions).add(_hiddenOptions);

@@ -27,8 +27,8 @@ class MarkTestPrivate {
      d_nrRows = 3;
      d_nrCols = 2;
      d_nrCells = d_nrRows * d_nrCols;
-     double cellSize = 15.0;
-     CSF_PT projection = PT_YINCT2B;
+     double const cellSize = 15.0;
+     CSF_PT const projection = PT_YINCT2B;
 
      BootTestApi(cellSize, projection == PT_YINCT2B);
 
@@ -46,10 +46,10 @@ class MarkTestPrivate {
 
    bool execCheckLe(const UINT1 *expectedResult) {
        // Call function.
-      int r= MarkWhileSumLe(d_result,d_order,d_amount,d_treshold);
+      int const r= MarkWhileSumLe(d_result,d_order,d_amount,d_treshold);
       POSTCOND(!r);
       (void)r; // Shut up compiler
-      bool t= std::equal(d_resultCells, d_resultCells + d_nrCells, expectedResult);
+      bool const t= std::equal(d_resultCells, d_resultCells + d_nrCells, expectedResult);
       if (!t) {
         std::cout << "result ";
         for (size_t i=0;i < d_nrCells; i++)
@@ -60,10 +60,10 @@ class MarkTestPrivate {
    }
    bool execCheckGe(const UINT1 *expectedResult) {
        // Call function.
-      int r= MarkUntilSumGe(d_result,d_order,d_amount,d_treshold);
+      int const r= MarkUntilSumGe(d_result,d_order,d_amount,d_treshold);
       POSTCOND(!r);
       (void)r; // Shut up compiler
-      bool t= std::equal(d_resultCells, d_resultCells + d_nrCells, expectedResult);
+      bool const t= std::equal(d_resultCells, d_resultCells + d_nrCells, expectedResult);
       if (!t) {
         std::cout << "result ";
         for (size_t i=0;i < d_nrCells; i++)

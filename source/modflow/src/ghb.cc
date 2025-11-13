@@ -66,7 +66,7 @@ void GHB::write(std::string const& path){
   // # ghb cells is calculated by write_list
   assert(d_nr_ghb_cells != 0);
 
-  std::string filename = mf::execution_path(path, "pcrmf.ghb");
+  std::string const filename = mf::execution_path(path, "pcrmf.ghb");
 
   std::ofstream content(filename);
 
@@ -90,7 +90,7 @@ void GHB::write(std::string const& path){
 void GHB::write_list(std::string const& path){
   // This method also calculates the nr of ghb cells,
   // needs to be called before write
-  std::string filename = mf::execution_path(path, "pcrmf_ghb.asc");
+  std::string const filename = mf::execution_path(path, "pcrmf_ghb.asc");
   std::ofstream content(filename);
 
   if(!content.is_open()){
@@ -102,14 +102,14 @@ void GHB::write_list(std::string const& path){
 
   for(size_t layer = 1; layer<= d_mf->d_nrMFLayer; layer++){
     size_t count = 0;
-    size_t size = d_mf->d_layer2BlockLayer.size();
-    size_t blockLayer = d_mf->d_layer2BlockLayer.at(size - layer);
+    size_t const size = d_mf->d_layer2BlockLayer.size();
+    size_t const blockLayer = d_mf->d_layer2BlockLayer.at(size - layer);
 
     for(size_t row = 0; row < d_mf->d_nrOfRows; row++){
       for(size_t col = 0; col < d_mf->d_nrOfColumns; col++){
 
-        double head = d_mf->d_ghbHead->cell(count)[blockLayer];
-        double cond = d_mf->d_ghbCond->cell(count)[blockLayer];
+        double const head = d_mf->d_ghbHead->cell(count)[blockLayer];
+        double const cond = d_mf->d_ghbCond->cell(count)[blockLayer];
 
         if(cond > 0.0){
           content << mfLayer;
@@ -138,12 +138,12 @@ calc::Field* GHB::getGhbLeakage(size_t layer, std::string const& path) const {
 
   // modflow reports from top to bottom, thus
   // get the 'inverse' layer number to start from the right position
-  int pos_multiplier = d_mf->get_modflow_layernr(layer);
+  int const pos_multiplier = d_mf->get_modflow_layernr(layer);
 
   auto* spatial = new calc::Spatial(VS_S, calc::CRI_f, d_mf->d_nrOfCells);
   auto* cells = static_cast<REAL4*>(spatial->dest());
 
-  mf::BinaryReader reader;
+  mf::BinaryReader const reader;
   const std::string filename(mf::execution_path(path, "fort." + std::to_string(d_output_unit_number)));
   reader.read(stmp.str(), filename, cells, desc, pos_multiplier);
 

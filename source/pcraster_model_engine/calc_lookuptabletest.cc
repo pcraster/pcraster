@@ -28,7 +28,7 @@ class TestLookupCtor : public LookupTable {
     {
        if (vs.empty())
          vs=std::vector<VS>(2,VS_S);
-       std::string name("LookupTableTest.tbl");
+       std::string const name("LookupTableTest.tbl");
        com::write(contents,name);
        setRecords(name,vs);
     }
@@ -72,8 +72,8 @@ BOOST_AUTO_TEST_CASE(testOldStyleCtor)
   double r = NAN;
 
  { // OK
-  std::vector<VS> colVs(2,VS_S);
-  TestLookupCtor t("[3 , 5 ] 2.4",colVs);
+  std::vector<VS> const colVs(2,VS_S);
+  TestLookupCtor const t("[3 , 5 ] 2.4",colVs);
 
   r=-2;
   BOOST_CHECK( t.find(r,makeKey(4.0f)));
@@ -100,8 +100,8 @@ BOOST_AUTO_TEST_CASE(testOldStyleCtor)
   BOOST_CHECK( r==-2);
  }
  { // OK
-  std::vector<VS> colVs(2,VS_S);
-  TestLookupCtor t("<0  , 0.2 ] 1\n"\
+  std::vector<VS> const colVs(2,VS_S);
+  TestLookupCtor const t("<0  , 0.2 ] 1\n"\
                    "<0.2, 0.4 ] 2" ,colVs);
 
   r=-2;
@@ -113,7 +113,7 @@ BOOST_AUTO_TEST_CASE(testOldStyleCtor)
  try { // 2.4 not a nominal
   std::vector<VS> colVs(2,VS_S);
   colVs[1]=VS_N;
-  TestLookupCtor t("[3 , 5 ] 2.4",colVs);
+  TestLookupCtor const t("[3 , 5 ] 2.4",colVs);
  } catch (const com::Exception& e) {
    BOOST_CHECK(e.messages().find("2.4")     != std::string::npos &&
              e.messages().find("nominal") != std::string::npos );
@@ -132,7 +132,7 @@ BOOST_AUTO_TEST_CASE(testAllIntervals)
 
  {
   // TEST_ONE new com::EqualTo(l->l)
-  TestLookupCtor t(" 4 2.4");
+  TestLookupCtor const t(" 4 2.4");
 
   r=-2;
   BOOST_CHECK(!t.find(r,makeKey(3)));
@@ -144,7 +144,7 @@ BOOST_AUTO_TEST_CASE(testAllIntervals)
  }
  {
   // TEST_INF_INF com::AnythingValidator() infinity
-  TestLookupCtor t("<,>  2.4");
+  TestLookupCtor const t("<,>  2.4");
   r=-2;
   BOOST_CHECK( t.find(r,makeKey(3)));
   BOOST_CHECK( r==2.4f); r=-2;
@@ -155,7 +155,7 @@ BOOST_AUTO_TEST_CASE(testAllIntervals)
  }
  {
   // TEST_GE_INF w com::GreaterThanEqualTo(l->l) [l  ,inf>
-  TestLookupCtor t("[3 ,  ] 2.4");
+  TestLookupCtor const t("[3 ,  ] 2.4");
 
   r=-2;
   BOOST_CHECK(!t.find(r,makeKey(2)));
@@ -167,7 +167,7 @@ BOOST_AUTO_TEST_CASE(testAllIntervals)
  }
  {
    // TEST_GT_INF  com::GreaterThan(l->l);  <l  ,inf>
-  TestLookupCtor t("<3 ,  > 2.4");
+  TestLookupCtor const t("<3 ,  > 2.4");
 
   r=-2;
   BOOST_CHECK(!t.find(r,makeKey(2)));
@@ -179,7 +179,7 @@ BOOST_AUTO_TEST_CASE(testAllIntervals)
  }
  {
    // TEST_INF_LE  com::LessThanEqualTo(l->h) <inf,h]
-  TestLookupCtor t("<  , 4] 2.4");
+  TestLookupCtor const t("<  , 4] 2.4");
 
   r=-2;
   BOOST_CHECK( t.find(r,makeKey(2)));
@@ -191,7 +191,7 @@ BOOST_AUTO_TEST_CASE(testAllIntervals)
  }
  {
    // TEST_INF_LT : com::LessThan(l->h);        // <inf,h>
-  TestLookupCtor t("<  , 4> 2.4");
+  TestLookupCtor const t("<  , 4> 2.4");
 
   r=-2;
   BOOST_CHECK( t.find(r,makeKey(2)));
@@ -205,7 +205,7 @@ BOOST_AUTO_TEST_CASE(testAllIntervals)
     // TEST_GE_LE  com::BetweenLimits(
     //                        com::GreaterThanEqualTo(l->l),
     //                        com::LessThanEqualTo(l->h));       [l  ,h]
-  TestLookupCtor  t("[3 , 5] 2.4");
+  TestLookupCtor  const t("[3 , 5] 2.4");
 
   r=-2;
   BOOST_CHECK(!t.find(r,makeKey(2)));
@@ -223,7 +223,7 @@ BOOST_AUTO_TEST_CASE(testAllIntervals)
     // TEST_GT_LE  com::BetweenLimits(
     //                        com::GreaterThan(l->l),
     //                        com::LessThanEqualTo(l->h));         <l  ,h]
-  TestLookupCtor t("<3 , 5] 2.4");
+  TestLookupCtor const t("<3 , 5] 2.4");
 
   r=-2;
   BOOST_CHECK(!t.find(r,makeKey(2)));
@@ -241,7 +241,7 @@ BOOST_AUTO_TEST_CASE(testAllIntervals)
    // TEST_GE_LT com::BetweenLimits(
    //                         com::GreaterThanEqualTo(l->l),
    //                         com::LessThan(l->h));               [l  ,h>
-   TestLookupCtor t("[3 , 5> 2.4");
+   TestLookupCtor const t("[3 , 5> 2.4");
 
    r=-2;
    BOOST_CHECK(!t.find(r,makeKey(2)));
@@ -259,7 +259,7 @@ BOOST_AUTO_TEST_CASE(testAllIntervals)
    // TEST_GT_LT  com::BetweenLimits(
    //                         com::GreaterThan(l->l),
    //                         com::LessThan(l->h));                <l  ,h>
-   TestLookupCtor t("<3 , 5> 2.4");
+   TestLookupCtor const t("<3 , 5> 2.4");
 
    r=-2;
    BOOST_CHECK(!t.find(r,makeKey(2)));
@@ -284,7 +284,7 @@ BOOST_AUTO_TEST_CASE(testAllIntervalsInterpolate)
 
  {
   // TEST_ONE new com::EqualTo(l->l)
-  TestLookupCtor t(" 4 2.4");
+  TestLookupCtor const t(" 4 2.4");
 
   r=-2;
   BOOST_CHECK(!t.interpolate(r,makeKey(3)));
@@ -296,7 +296,7 @@ BOOST_AUTO_TEST_CASE(testAllIntervalsInterpolate)
  }
  {
   // TEST_INF_INF com::AnythingValidator() infinity
-  TestLookupCtor t("<,>  2.4");
+  TestLookupCtor const t("<,>  2.4");
   r=-2;
   BOOST_CHECK( t.interpolate(r,makeKey(3)));
   BOOST_CHECK( r==2.4f); r=-2;
@@ -307,7 +307,7 @@ BOOST_AUTO_TEST_CASE(testAllIntervalsInterpolate)
  }
  {
   // TEST_GE_INF w com::GreaterThanEqualTo(l->l) [l  ,inf>
-  TestLookupCtor t("[3 ,  ] 2.4");
+  TestLookupCtor const t("[3 ,  ] 2.4");
 
   r=-2;
   BOOST_CHECK(!t.interpolate(r,makeKey(2)));
@@ -319,7 +319,7 @@ BOOST_AUTO_TEST_CASE(testAllIntervalsInterpolate)
  }
  {
    // TEST_GT_INF  com::GreaterThan(l->l);  <l  ,inf>
-  TestLookupCtor t("<3 ,  > 2.4");
+  TestLookupCtor const t("<3 ,  > 2.4");
 
   r=-2;
   BOOST_CHECK(!t.interpolate(r,makeKey(2)));
@@ -331,7 +331,7 @@ BOOST_AUTO_TEST_CASE(testAllIntervalsInterpolate)
  }
  {
    // TEST_INF_LE  com::LessThanEqualTo(l->h) <inf,h]
-  TestLookupCtor t("<  , 4] 2.4");
+  TestLookupCtor const t("<  , 4] 2.4");
 
   r=-2;
   BOOST_CHECK( t.interpolate(r,makeKey(2)));
@@ -343,7 +343,7 @@ BOOST_AUTO_TEST_CASE(testAllIntervalsInterpolate)
  }
  {
    // TEST_INF_LT : com::LessThan(l->h);        // <inf,h>
-  TestLookupCtor t("<  , 4> 2.4");
+  TestLookupCtor const t("<  , 4> 2.4");
 
   r=-2;
   BOOST_CHECK( t.interpolate(r,makeKey(2)));
@@ -357,7 +357,7 @@ BOOST_AUTO_TEST_CASE(testAllIntervalsInterpolate)
     // TEST_GE_LE  com::BetweenLimits(
     //                        com::GreaterThanEqualTo(l->l),
     //                        com::LessThanEqualTo(l->h));       [l  ,h]
-  TestLookupCtor t("[3 , 5] 2.4");
+  TestLookupCtor const t("[3 , 5] 2.4");
 
   r=-2;
   BOOST_CHECK(!t.interpolate(r,makeKey(2)));
@@ -375,7 +375,7 @@ BOOST_AUTO_TEST_CASE(testAllIntervalsInterpolate)
     // TEST_GT_LE  com::BetweenLimits(
     //                        com::GreaterThan(l->l),
     //                        com::LessThanEqualTo(l->h));         <l  ,h]
-  TestLookupCtor t("<3 , 5] 2.4");
+  TestLookupCtor const t("<3 , 5] 2.4");
 
   r=-2;
   BOOST_CHECK(!t.interpolate(r,makeKey(2)));
@@ -393,7 +393,7 @@ BOOST_AUTO_TEST_CASE(testAllIntervalsInterpolate)
    // TEST_GE_LT com::BetweenLimits(
    //                         com::GreaterThanEqualTo(l->l),
    //                         com::LessThan(l->h));               [l  ,h>
-   TestLookupCtor t("[3 , 5> 2.4");
+   TestLookupCtor const t("[3 , 5> 2.4");
 
    r=-2;
    BOOST_CHECK(!t.interpolate(r,makeKey(2)));
@@ -411,7 +411,7 @@ BOOST_AUTO_TEST_CASE(testAllIntervalsInterpolate)
    // TEST_GT_LT  com::BetweenLimits(
    //                         com::GreaterThan(l->l),
    //                         com::LessThan(l->h));                <l  ,h>
-   TestLookupCtor t("<3 , 5> 2.4");
+   TestLookupCtor const t("<3 , 5> 2.4");
 
    r=-2;
    BOOST_CHECK(!t.interpolate(r,makeKey(2)));
@@ -431,9 +431,9 @@ BOOST_AUTO_TEST_CASE(testMultipleKeys)
 {
   using namespace calc;
 
-  std::vector<VS> colVs(3,VS_S);
+  std::vector<VS> const colVs(3,VS_S);
   double r = NAN;
-  TestLookupCtor t("[3 , 5 ] [ 7, 9] 2.4",colVs);
+  TestLookupCtor const t("[3 , 5 ] [ 7, 9] 2.4",colVs);
 
   r=-2;
   BOOST_CHECK( t.find(r,makeKey(3,8)));
@@ -452,9 +452,9 @@ BOOST_AUTO_TEST_CASE(testMultipleRecords)
 {
   using namespace calc;
 
-  std::vector<VS> colVs(3,VS_S);
+  std::vector<VS> const colVs(3,VS_S);
   double r = NAN;
-  TestLookupCtor t("[3 , 5 ] [ 7, 9] 2.4\n"
+  TestLookupCtor const t("[3 , 5 ] [ 7, 9] 2.4\n"
                " 8       [ 7, 9] 4.8\n"
                " <,>     [ 7, 9] 8  \n" ,colVs);
 
@@ -475,7 +475,7 @@ BOOST_AUTO_TEST_CASE(testInterpolate)
 
  {
   double r = NAN;
-  TestLookupCtor ts(
+  TestLookupCtor const ts(
      " 0.0  0 \n"
      " 3.0  0  \n"
      " 6.0   1 \n"
@@ -498,7 +498,7 @@ BOOST_AUTO_TEST_CASE(testInterpolate)
  }
  {
   double r = NAN;
-  TestLookupCtor t("[3 , 5 ]  2.4\n"
+  TestLookupCtor const t("[3 , 5 ]  2.4\n"
                " 8         4.8");
   r=-2;
   BOOST_CHECK( t.interpolate(r,makeKey(3)));
@@ -514,7 +514,7 @@ BOOST_AUTO_TEST_CASE(testInterpolate)
  }
  {
   double r = NAN;
-  TestLookupCtor t("4  2\n"
+  TestLookupCtor const t("4  2\n"
                                 " 8  4");
   r=-2;
   BOOST_CHECK(!t.interpolate(r,makeKey(3)));
@@ -553,7 +553,7 @@ BOOST_AUTO_TEST_CASE(testInterpolateMWF)
    bool interpolate(double& r,
                     double keyValue) const
    {
-     LookupTable::Key prefixKey(1,d_prefixKeyValue);
+     LookupTable::Key const prefixKey(1,d_prefixKeyValue);
     return TestLookupCtor::interpolate(r,prefixKey,keyValue,d_keyCol,d_resultCol);
    }
  };
@@ -629,7 +629,7 @@ BOOST_AUTO_TEST_CASE(testInterpolateMWF)
      "4 0 12.0 -104 \n"       // 4
      "4 0 15.0 -105 \n"       // 5
      "8 9 95.0 -100 \n",4);   // 6
-  std::vector<VS> l4s(4,VS_S);
+  std::vector<VS> const l4s(4,VS_S);
   TestLookupCtor stableSorted(
      "4 0 0.0  -100 \n"       // 0
      "4 0 3.0  -101  \n"      // 1

@@ -20,19 +20,19 @@ BOOST_AUTO_TEST_CASE(test_)
 
   // Instantiate clients in sequence.
   {
-    ClientWrapper client("/usr/bin/dal");
+    ClientWrapper const client("/usr/bin/dal");
     BOOST_CHECK(client.isInitialized());
   }
 
   {
-    ClientWrapper client("/usr/bin/dal");
+    ClientWrapper const client("/usr/bin/dal");
     BOOST_CHECK(client.isInitialized());
   }
 
   // Instantiate clients in parallel.
   {
-    ClientWrapper client1("/usr/bin/dal");
-    ClientWrapper client2("/usr/bin/dal");
+    ClientWrapper const client1("/usr/bin/dal");
+    ClientWrapper const client2("/usr/bin/dal");
 
     BOOST_CHECK(client1.isInitialized());
     BOOST_CHECK(client2.isInitialized());

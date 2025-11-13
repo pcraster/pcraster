@@ -90,11 +90,11 @@ void ClassLegendBody::paintLineLegend()
   QPainter painter(this);
   painter.setPen(palette().color(QPalette::WindowText));
 
-  int y = static_cast<int>(0.5 * QFontMetrics(qApp->font()).height());
+  int const y = static_cast<int>(0.5 * QFontMetrics(qApp->font()).height());
 
   // Draw line.
-  int left = 0;
-  int right = left + keySize().width();
+  int const left = 0;
+  int const right = left + keySize().width();
   painter.drawLine(left, y, right, y);
 
   // Draw label.

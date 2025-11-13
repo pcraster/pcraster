@@ -84,7 +84,7 @@ void calc::Global::exec(RunTimeEnv* rte,const Operator& op,size_t nrArgs) const
   }
 
   GlobArgs a(op,rte,nrArgs);
-  int error=d_f(a.dest(),a.src());
+  int const error=d_f(a.dest(),a.src());
   if (error)
     throwDomainErrorFromCalcLib();
   a.pushResults();
@@ -131,7 +131,7 @@ void calc::MRF::exec(RunTimeEnv* rte,const Operator& op,size_t nrArgs) const
     redirect()->exec(rte,op,nrArgs);
   else {
     GlobArgs a(op,rte,nrArgs);
-    int error=d_f(a.dest(0),a.dest(1),a.src());
+    int const error=d_f(a.dest(0),a.dest(1),a.src());
     if (error)
       throwDomainErrorFromCalcLib();
     a.pushResults();

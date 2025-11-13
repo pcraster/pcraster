@@ -15,11 +15,11 @@ struct Fixture
         // Yes, bootstrapping problem. We need write to be able to test open and
         // read, but write might not be ok. Assume that when all tests succeed all
         // is fine.
-        size_t nrRows = 3;
-        size_t nrCols = 2;
-        double cellSize = 1.0;
-        double west = 4.0;
-        double north = 5.0;
+        size_t const nrRows = 3;
+        size_t const nrCols = 2;
+        double const cellSize = 1.0;
+        double const west = 4.0;
+        double const north = 5.0;
 
         d_blockDiscretisation = new Block(nrRows, nrCols, cellSize, west, north);
         d_blockDiscretisation->createCells();
@@ -142,7 +142,7 @@ BOOST_AUTO_TEST_CASE(read_)
 
       BOOST_CHECK_EQUAL(stack.size(), i);
 
-      for(float & j : stack) {
+      for(float  const& j : stack) {
         BOOST_CHECK(dal::comparable(j, REAL4(i)));
       }
     }

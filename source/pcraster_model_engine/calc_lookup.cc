@@ -55,10 +55,10 @@ static void execLookupLookup(
 
   Field& r(a.createResult());
 
-  size_t nrKeys(a.size()); // = size of fields
+  size_t const nrKeys(a.size()); // = size of fields
   LookupTable::Key keyValues(nrKeys);
 
-  size_t nr(r.nrValues());
+  size_t const nr(r.nrValues());
 
   try {
     for(size_t i=0; i < nr; i++) {

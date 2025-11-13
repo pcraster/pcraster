@@ -166,7 +166,7 @@ void geo::CSFStack<T>::init()
     PRECOND(map->projection() != PT_UNDEFINED);
     d_minIsValid = map->min(&d_min) ? true: false;
     d_maxIsValid = map->max(&d_max) ? true: false;
-    Projection proj = map->projection() == PT_YINCT2B ? YIncrT2B : YIncrB2T;
+    Projection const proj = map->projection() == PT_YINCT2B ? YIncrT2B : YIncrB2T;
     d_raster = new Raster<T>(map->nrRows(), map->nrCols(),
                    map->cellSize(), map->left(), map->top(), proj);
 

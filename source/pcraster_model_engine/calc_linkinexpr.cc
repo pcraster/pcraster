@@ -88,8 +88,8 @@ public:
 
   Operator *createFunction(std::string const& name) const {
 
-   std::vector<DataType> result;   // result types
-   std::vector<DataType> argument; // input types
+   std::vector<DataType> const result;   // result types
+   std::vector<DataType> const argument; // input types
 
    const pcrxml::LinkInFunctionManifest *f=findFunction(name);
    if (!f)
@@ -197,7 +197,7 @@ void LinkInExpr::loadLibrary(const LinkInLibrary *library)
     return;
 
   d_library=library;
-  OperatorCreator oc(d_library->manifest());
+  OperatorCreator const oc(d_library->manifest());
 
   if (isConstructor()) {
     d_op=std::shared_ptr<Operator>(oc.createConstructor(d_className));
@@ -267,8 +267,8 @@ void LinkInExpr::check()
     posError(r.error().get());
 
   // reset operator to returned types
-  std::vector<DataType> result=xml2DataType(r.result());
-  std::vector<DataType> argument(xml2DataType(r.argument()));
+  std::vector<DataType> const result=xml2DataType(r.result());
+  std::vector<DataType> const argument(xml2DataType(r.argument()));
   d_op = std::make_shared<Operator>(d_op->name(),result,argument);
 }
 
@@ -328,7 +328,7 @@ const ASTPar* LinkInExpr::objectPar() const
 
 pcrxml::RunContext LinkInExpr::context(RunTimeEnv const& rte) const
 {
-  std::shared_ptr<pcrxml::RunContext> rc(rte.createXMLContext());
+  std::shared_ptr<pcrxml::RunContext> const rc(rte.createXMLContext());
   return *rc;
 }
 

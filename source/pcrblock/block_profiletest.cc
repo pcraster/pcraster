@@ -11,14 +11,14 @@ BOOST_AUTO_TEST_CASE(test)
   using namespace block;
 
   // Create a block.
-  discr::Raster raster(3, 2);
+  discr::Raster const raster(3, 2);
   discr::Block block(raster);
 
   // Create an attribute.
   discr::BlockData<REAL4> date(&block);
 
-  size_t lastTimeStep = 10000;
-  REAL4 thickness = 1.0;
+  size_t const lastTimeStep = 10000;
+  REAL4 const thickness = 1.0;
 
   // Fill the block/attribute.
   discr::RasterData<REAL4> value(&raster);

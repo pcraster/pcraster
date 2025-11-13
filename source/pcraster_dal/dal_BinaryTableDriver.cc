@@ -138,7 +138,7 @@ void BinaryTableDriver::write(
          std::string const& name) const
 {
   std::ofstream stream;
-  std::filesystem::path path(pathForDataSpaceAddress(name, space, address));
+  std::filesystem::path const path(pathForDataSpaceAddress(name, space, address));
 
   if(!TextFileDriver::open(stream, path, std::ios::binary)) {
     throwCannotBeCreated(path.string(), TABLE);

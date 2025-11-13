@@ -10,7 +10,7 @@ std::string ag::getOpenDataFileName(QWidget *p)
 #if QT_VERSION < QT_VERSION_CHECK(5, 9, 0)
   QString fn = QFileDialog::getOpenFileName(p, QString::null, QString::null,
 #else
-  QString fn = QFileDialog::getOpenFileName(p, QString(), QString(),
+  QString const fn = QFileDialog::getOpenFileName(p, QString(), QString(),
 #endif
                    "All data files (*.csf *.map)");
 

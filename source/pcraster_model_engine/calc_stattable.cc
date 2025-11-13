@@ -449,7 +449,7 @@ void calc::StatTable::exec(
     subjectTable.reset(FetchIntervals::create(rte));
 
   std::ostringstream out;
-  StatComputation sc(out,
+  StatComputation const sc(out,
                      d_verbose,
                      subjectField,
                      subjectTable.get(),
@@ -592,16 +592,16 @@ template<typename SubjectType, typename CrossType>
   // header line 2
   d_out << d_subject.d_name;
   typedef typename std::set<INT4> S;
-  S col=m.colClasses();
-  S row=m.rowClasses();
+  S const col=m.colClasses();
+  S const row=m.rowClasses();
 
-  for(int c : col)
+  for(int const c : col)
    d_out << "\t" << c;
   d_out << "\n";
 
-  for(int r : row) {
+  for(int const r : row) {
     d_out << r;
-    for(int c : col)
+    for(int const c : col)
      d_out << "\t" << area(m.getCount(r,c));
     d_out << "\n";
   }
@@ -872,7 +872,7 @@ template<typename SubjectType>
 void calc::StatComputation::scalarTable(
   const REAL4* begin , const REAL4*end) const
 {
-  detail::ScalarStats s= detail::scalarStats(begin,end);
+  detail::ScalarStats const s= detail::scalarStats(begin,end);
 
   d_out <<     "\t"<< d_subject.d_name << "\n";
   d_out << "area\t" << area(s.nr())     << "\n";

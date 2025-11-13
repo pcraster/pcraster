@@ -58,7 +58,7 @@ void calc::RepeatUntil::prepareExecution()
 
 bool calc::RepeatUntil::buildTypes()
 {
-  bool promotionOccured=StatementBlock::buildTypes();
+  bool const promotionOccured=StatementBlock::buildTypes();
   d_condition->buildTypesRecursive(VS_B);
   return promotionOccured;
 }

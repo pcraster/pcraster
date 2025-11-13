@@ -79,7 +79,7 @@ template <class Operation>
 void forEachNode(DOMNode* node, Operation& o) {
   assert(node);
   o(node);
-  NodeSet nodeSet(node->getAttributes());
+  NodeSet const nodeSet(node->getAttributes());
   for(auto i : nodeSet)
     o(i);
   DOMNodeList* list = node->getChildNodes();

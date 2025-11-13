@@ -78,7 +78,7 @@ DataSpace TableDriver::dataSpace(
          DataSpace const& space,
          DataSpaceAddress const& address) const
 {
-  std::shared_ptr<Table> table(open(name, space, address));
+  std::shared_ptr<Table> const table(open(name, space, address));
 
   if(!table) {
     throwCannotBeOpened(name, TABLE);
@@ -97,7 +97,7 @@ DataSpace TableDriver::dataSpace(
            table->title(i) == "year")) &&
          isInteger(table->typeId(i))) {
       // Read the time column.
-      size_t timeCol = i;
+      size_t const timeCol = i;
       table->setTypeId(timeCol, TI_INT4);   // We might encounter neg values.
       for(++i; i < table->nrCols(); ++i) {
         table->setTypeId(i, TI_NR_TYPES);

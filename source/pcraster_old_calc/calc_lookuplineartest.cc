@@ -19,7 +19,7 @@ class LookupLinearCtor : public calc::LookupLinear {
         const std::vector<VS>& in):
     LookupLinear(out)
     {
-       std::string name("LookupLinearTest.tbl");
+       std::string const name("LookupLinearTest.tbl");
        com::write(contents,name);
        setRecords(name,in);
     }
@@ -55,11 +55,11 @@ BOOST_AUTO_TEST_CASE(old_style_constructor)
 {
   using namespace calc;
 
-  std::vector<VS> inKeys(1,VS_S);
+  std::vector<VS> const inKeys(1,VS_S);
   double r = NAN;
 
  { // OK
-  LookupLinearCtor t("[3 , 5 ] 2.4",VS_S,inKeys);
+  LookupLinearCtor const t("[3 , 5 ] 2.4",VS_S,inKeys);
 
   r=-2;
   BOOST_CHECK( t.find(r,makeKey(3)));
@@ -76,7 +76,7 @@ BOOST_AUTO_TEST_CASE(old_style_constructor)
 
  bool failure=false;
  try { // 2.4 not a nominal
-  LookupLinearCtor t("[3 , 5 ] 2.4",VS_N,inKeys);
+  LookupLinearCtor const t("[3 , 5 ] 2.4",VS_N,inKeys);
  } catch (const com::Exception& e) {
    BOOST_CHECK(e.messages().find("2.4")     != std::string::npos &&
              e.messages().find("nominal") != std::string::npos );
@@ -92,12 +92,12 @@ BOOST_AUTO_TEST_CASE(all_intervals)
 {
   using namespace calc;
 
-  std::vector<VS> inKeys(1,VS_S);
+  std::vector<VS> const inKeys(1,VS_S);
   double r = NAN;
 
  {
   // TEST_ONE new com::EqualTo(l->l)
-  LookupLinearCtor t(" 4 2.4",VS_S,inKeys);
+  LookupLinearCtor const t(" 4 2.4",VS_S,inKeys);
 
   r=-2;
   BOOST_CHECK(!t.find(r,makeKey(3)));
@@ -109,7 +109,7 @@ BOOST_AUTO_TEST_CASE(all_intervals)
  }
  {
   // TEST_INF_INF com::AnthingInterval() infinity
-  LookupLinearCtor t("<,>  2.4",VS_S,inKeys);
+  LookupLinearCtor const t("<,>  2.4",VS_S,inKeys);
   r=-2;
   BOOST_CHECK( t.find(r,makeKey(3)));
   BOOST_CHECK( r==2.4); r=-2;
@@ -120,7 +120,7 @@ BOOST_AUTO_TEST_CASE(all_intervals)
  }
  {
   // TEST_GE_INF w com::GreaterThanEqualTo(l->l) [l  ,inf>
-  LookupLinearCtor t("[3 ,  ] 2.4",VS_S,inKeys);
+  LookupLinearCtor const t("[3 ,  ] 2.4",VS_S,inKeys);
 
   r=-2;
   BOOST_CHECK(!t.find(r,makeKey(2)));
@@ -132,7 +132,7 @@ BOOST_AUTO_TEST_CASE(all_intervals)
  }
  {
    // TEST_GT_INF  com::GreaterThan(l->l);  <l  ,inf>
-  LookupLinearCtor t("<3 ,  > 2.4",VS_S,inKeys);
+  LookupLinearCtor const t("<3 ,  > 2.4",VS_S,inKeys);
 
   r=-2;
   BOOST_CHECK(!t.find(r,makeKey(2)));
@@ -144,7 +144,7 @@ BOOST_AUTO_TEST_CASE(all_intervals)
  }
  {
    // TEST_INF_LE  com::LessThanEqualTo(l->h) <inf,h]
-  LookupLinearCtor t("<  , 4] 2.4",VS_S,inKeys);
+  LookupLinearCtor const t("<  , 4] 2.4",VS_S,inKeys);
 
   r=-2;
   BOOST_CHECK( t.find(r,makeKey(2)));
@@ -156,7 +156,7 @@ BOOST_AUTO_TEST_CASE(all_intervals)
  }
  {
    // TEST_INF_LT : com::LessThan(l->h);        // <inf,h>
-  LookupLinearCtor t("<  , 4> 2.4",VS_S,inKeys);
+  LookupLinearCtor const t("<  , 4> 2.4",VS_S,inKeys);
 
   r=-2;
   BOOST_CHECK( t.find(r,makeKey(2)));
@@ -170,7 +170,7 @@ BOOST_AUTO_TEST_CASE(all_intervals)
     // TEST_GE_LE  com::BetweenLimits(
     //                        com::GreaterThanEqualTo(l->l),
     //                        com::LessThanEqualTo(l->h));       [l  ,h]
-  LookupLinearCtor t("[3 , 5] 2.4",VS_S,inKeys);
+  LookupLinearCtor const t("[3 , 5] 2.4",VS_S,inKeys);
 
   r=-2;
   BOOST_CHECK(!t.find(r,makeKey(2)));
@@ -188,7 +188,7 @@ BOOST_AUTO_TEST_CASE(all_intervals)
     // TEST_GT_LE  com::BetweenLimits(
     //                        com::GreaterThan(l->l),
     //                        com::LessThanEqualTo(l->h));         <l  ,h]
-  LookupLinearCtor t("<3 , 5] 2.4",VS_S,inKeys);
+  LookupLinearCtor const t("<3 , 5] 2.4",VS_S,inKeys);
 
   r=-2;
   BOOST_CHECK(!t.find(r,makeKey(2)));
@@ -206,7 +206,7 @@ BOOST_AUTO_TEST_CASE(all_intervals)
    // TEST_GE_LT com::BetweenLimits(
    //                         com::GreaterThanEqualTo(l->l),
    //                         com::LessThan(l->h));               [l  ,h>
-   LookupLinearCtor t("[3 , 5> 2.4",VS_S,inKeys);
+   LookupLinearCtor const t("[3 , 5> 2.4",VS_S,inKeys);
 
    r=-2;
    BOOST_CHECK(!t.find(r,makeKey(2)));
@@ -224,7 +224,7 @@ BOOST_AUTO_TEST_CASE(all_intervals)
    // TEST_GT_LT  com::BetweenLimits(
    //                         com::GreaterThan(l->l),
    //                         com::LessThan(l->h));                <l  ,h>
-   LookupLinearCtor t("<3 , 5> 2.4",VS_S,inKeys);
+   LookupLinearCtor const t("<3 , 5> 2.4",VS_S,inKeys);
 
    r=-2;
    BOOST_CHECK(!t.find(r,makeKey(2)));
@@ -246,9 +246,9 @@ BOOST_AUTO_TEST_CASE(multiple_records)
   using namespace calc;
 
  {
-  std::vector<VS> inKeys(1,VS_S);
+  std::vector<VS> const inKeys(1,VS_S);
   double r = NAN;
-  LookupLinearCtor ts(
+  LookupLinearCtor const ts(
      " 0.0  0 \n"
      " 3.0  0  \n"
      " 6.0   1 \n"
@@ -270,9 +270,9 @@ BOOST_AUTO_TEST_CASE(multiple_records)
   BOOST_CHECK( r==0);   r=-2;
  }
  {
-  std::vector<VS> inKeys(1,VS_S);
+  std::vector<VS> const inKeys(1,VS_S);
   double r = NAN;
-  LookupLinearCtor t("[3 , 5 ]  2.4\n"
+  LookupLinearCtor const t("[3 , 5 ]  2.4\n"
                                 " 8         4.8",VS_S,inKeys);
   r=-2;
   BOOST_CHECK( t.find(r,makeKey(3)));
@@ -287,9 +287,9 @@ BOOST_AUTO_TEST_CASE(multiple_records)
   BOOST_CHECK(com::equal_epsilon(r,3.6));
  }
  {
-  std::vector<VS> inKeys(1,VS_S);
+  std::vector<VS> const inKeys(1,VS_S);
   double r = NAN;
-  LookupLinearCtor t("4  2\n"
+  LookupLinearCtor const t("4  2\n"
                                 " 8  4",VS_S,inKeys);
   r=-2;
   BOOST_CHECK(!t.find(r,makeKey(3)));

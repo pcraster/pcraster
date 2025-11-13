@@ -95,8 +95,8 @@ void CumDistributionFunctionView::process()
 
       if(space.hasCumProbabilities()) {
         dal::DataSpaceAddress const& address(dataObject().dataSpaceAddress());
-        size_t index = space.indexOf(dal::CumulativeProbabilities);
-        double quantile = address.coordinate<float>(index);
+        size_t const index = space.indexOf(dal::CumulativeProbabilities);
+        double const quantile = address.coordinate<float>(index);
 
         setYMarker(quantile);
       }
@@ -341,8 +341,8 @@ void CumDistributionFunctionView::drawPlots()
 
       dal::Array<REAL4> const& quantileCol(table.col<REAL4>(0));
       dal::Array<REAL4> const& attrCol(table.col<REAL4>(1));
-      boost::scoped_array<double> x(new double[table.nrRecs()]);
-      boost::scoped_array<double> y(new double[table.nrRecs()]);
+      boost::scoped_array<double> const x(new double[table.nrRecs()]);
+      boost::scoped_array<double> const y(new double[table.nrRecs()]);
 
       RangeDrawProps const& properties(
         object.properties().rangeDrawProperties(guide));
@@ -384,10 +384,10 @@ void CumDistributionFunctionView::drawPlots()
     disableMarker(yMarker());
   }
   else {
-    size_t indexOfCumProbabilities = space.indexOf(
+    size_t const indexOfCumProbabilities = space.indexOf(
          dal::CumulativeProbabilities);
     assert(address.isValid(indexOfCumProbabilities));
-    float quantile = address.coordinate<float>(indexOfCumProbabilities);
+    float const quantile = address.coordinate<float>(indexOfCumProbabilities);
 
     setYMarker(quantile);
     disableMarker(xMarker());
@@ -441,7 +441,7 @@ void CumDistributionFunctionView::moved(
     // Snap to closest quantile.
     dal::DataSpace const& space = dataObject().dataSpace();
     if(space.hasCumProbabilities()) {
-      size_t index = space.indexOf(dal::CumulativeProbabilities);
+      size_t const index = space.indexOf(dal::CumulativeProbabilities);
       dal::Dimension const& dimension = space.dimension(index);
       dataObject().setQuantile(dimension.clamp<float>(static_cast<float>(point.y())), false);
     }
@@ -490,7 +490,7 @@ void CumDistributionFunctionView::toggleMarker()
     // Snap to closest quantile.
     dal::DataSpace const& space = dataObject().dataSpace();
     assert(space.hasCumProbabilities());
-    size_t index = space.indexOf(dal::CumulativeProbabilities);
+    size_t const index = space.indexOf(dal::CumulativeProbabilities);
     dal::Dimension const& dimension = space.dimension(index);
     dataObject().setQuantile(dimension.clamp<float>(y), false);
 
@@ -513,7 +513,7 @@ void CumDistributionFunctionView::toggleMarker()
       // Marker does not intersect the curve of the first guide.
 
       x = m_axisX->min();
-      double range = m_axisX->max() - m_axisX->min();
+      double const range = m_axisX->max() - m_axisX->min();
 
       if(range > 0.0) {
         // Use the middle value.

@@ -44,7 +44,7 @@ calc::Field* ifthenelse_number_n_n(
         NonspatialDetectNoData<UINT1>,
         NonspatialDetectNoData<T>,
         NonspatialDetectNoData<T>>;
-  InputNoDataPolicy input_no_data_policy{{*condition}, {*arg1}, {*arg2}};
+  InputNoDataPolicy const input_no_data_policy{{*condition}, {*arg1}, {*arg2}};
 
   NonspatialSetNoData<T> output_no_data_policy(*res);
 
@@ -67,7 +67,7 @@ calc::Field* ifthenelse_number_n_s(
         NonspatialDetectNoData<UINT1>,
         NonspatialDetectNoData<T>,
         SpatialDetectNoData<T>>;
-  InputNoDataPolicy input_no_data_policy{{*condition}, {*arg1}, {*arg2}};
+  InputNoDataPolicy const input_no_data_policy{{*condition}, {*arg1}, {*arg2}};
 
   SpatialSetNoData<T> output_no_data_policy(*res);
 
@@ -90,7 +90,7 @@ calc::Field* ifthenelse_number_s_n(
          NonspatialDetectNoData<UINT1>,
          SpatialDetectNoData<T>,
          NonspatialDetectNoData<T>>;
-  InputNoDataPolicy input_no_data_policy{{*condition}, {*arg1}, {*arg2}};
+  InputNoDataPolicy const input_no_data_policy{{*condition}, {*arg1}, {*arg2}};
 
   SpatialSetNoData<T> output_no_data_policy(*res);
 
@@ -113,7 +113,7 @@ calc::Field* ifthenelse_number_s_s(
          NonspatialDetectNoData<UINT1>,
          SpatialDetectNoData<T>,
          SpatialDetectNoData<T>>;
-  InputNoDataPolicy input_no_data_policy{{*condition}, {*arg1}, {*arg2}};
+  InputNoDataPolicy const input_no_data_policy{{*condition}, {*arg1}, {*arg2}};
 
   SpatialSetNoData<T> output_no_data_policy(*res);
 
@@ -136,7 +136,7 @@ calc::Field* ifthenelse_field_n_n(
          SpatialDetectNoData<UINT1>,
          NonspatialDetectNoData<T>,
          NonspatialDetectNoData<T>>;
-  InputNoDataPolicy input_no_data_policy{{*condition}, {*arg1}, {*arg2}};
+  InputNoDataPolicy const input_no_data_policy{{*condition}, {*arg1}, {*arg2}};
 
   SpatialSetNoData<T> output_no_data_policy(*res);
 
@@ -158,7 +158,7 @@ calc::Field* ifthenelse_field_s_n(
          SpatialDetectNoData<UINT1>,
          SpatialDetectNoData<T>,
          NonspatialDetectNoData<T>>;
-  InputNoDataPolicy input_no_data_policy{{*condition}, {*arg1}, {*arg2}};
+  InputNoDataPolicy const input_no_data_policy{{*condition}, {*arg1}, {*arg2}};
 
   SpatialSetNoData<T> output_no_data_policy(*res);
 
@@ -180,7 +180,7 @@ calc::Field* ifthenelse_field_n_s(
          SpatialDetectNoData<UINT1>,
          NonspatialDetectNoData<T>,
          SpatialDetectNoData<T>>;
-  InputNoDataPolicy input_no_data_policy{{*condition}, {*arg1}, {*arg2}};
+  InputNoDataPolicy const input_no_data_policy{{*condition}, {*arg1}, {*arg2}};
 
   SpatialSetNoData<T> output_no_data_policy(*res);
 
@@ -202,7 +202,7 @@ calc::Field* ifthenelse_field_s_s(
          SpatialDetectNoData<UINT1>,
          SpatialDetectNoData<T>,
          SpatialDetectNoData<T>>;
-  InputNoDataPolicy input_no_data_policy{{*condition}, {*arg1}, {*arg2}};
+  InputNoDataPolicy const input_no_data_policy{{*condition}, {*arg1}, {*arg2}};
 
   SpatialSetNoData<T> output_no_data_policy(*res);
 
@@ -304,8 +304,8 @@ calc::Field* ifthenelse(
   assert_boolean_valuescale(*condition, "first argument");
   assert_equal_valuescale(*field_a, *field_b, "one argument");
 
-  VS result_vs = field_a->vs();
-  calc::CRIndex result_cri = field_a->cri();
+  VS const result_vs = field_a->vs();
+  calc::CRIndex const result_cri = field_a->cri();
 
   if(boolean_valuescale(*field_a) || ldd_valuescale(*field_a)){
     return detail::ifthenelse<UINT1>(condition, field_a, field_b, result_vs, result_cri);

@@ -46,7 +46,7 @@ namespace calc {
 
      void parseTextStatistics(pcrxml::TextStatistics const& s ) {
 
-       std::string name(pcrxsd::toString(s.name()));
+       std::string const name(pcrxsd::toString(s.name()));
        if (d_nameStatTableMap.count(name)) {
           std::ostringstream is;
           is << "redefinition of textStatistics with name '"<<
@@ -96,9 +96,9 @@ namespace calc {
       d_table(table),
       d_nameStatTableMap(nameStatTableMap)
     {
-      for(NameStatTablePair i : d_nameStatTableMap)
+      for(NameStatTablePair const i : d_nameStatTableMap)
       {
-        std::string name(i.first);
+        std::string const name(i.first);
         if (d_table.count(name)) {
           // force a type error on existing
           ASTSymbolInfo& sym(d_table[i.second->id()]);
@@ -106,7 +106,7 @@ namespace calc {
            sym.dataType().restrict(VS_STATISTICS);
           } catch(const VSClash& v) {
            // PRINT_VAR(name);
-           std::string msg= sym.vsClashError(v,"set");
+           std::string const msg= sym.vsClashError(v,"set");
            sym.throwSym(PositionName("xml"),msg);
           }
         } else {

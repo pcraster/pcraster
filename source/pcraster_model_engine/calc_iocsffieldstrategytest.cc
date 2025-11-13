@@ -33,20 +33,20 @@ BOOST_AUTO_TEST_CASE(testGetStackReaderDefault)
 
  {
   IoFieldStrategy s(APP_IO_PCRASTER);
-  RunDirectory rd;
-  std::string stackName("tmp");
-  std::string sr = s.inPathStack(rd,stackName,1);
-  std::string result("tmp00000.001");
+  RunDirectory const rd;
+  std::string const stackName("tmp");
+  std::string const sr = s.inPathStack(rd,stackName,1);
+  std::string const result("tmp00000.001");
   BOOST_CHECK(s.makeStackItemName(stackName,1) == result);
   BOOST_CHECK(sr == stackName);
  }
 
  {
   IoFieldStrategy s(APP_IO_PCRASTER);
-  RunDirectory rd;
-  std::string stackName("./stackReader/tmp00000.001");
+  RunDirectory const rd;
+  std::string const stackName("./stackReader/tmp00000.001");
   BOOST_CHECK(com::pathExists(stackName));
-  std::string sr = s.inPathStack(rd,stackName,1);
+  std::string const sr = s.inPathStack(rd,stackName,1);
   com::PathName  result("./stackReader/tmp00000.001");
   result.makeNative();
 
@@ -66,11 +66,11 @@ BOOST_AUTO_TEST_CASE(testGetStackReaderPath)
 
   rd.setRunDirectory(path.toString(),"");
   path.makeAbsolute();
-  std::string stackName("tmp");
-  std::string sr = s.inPathStack(rd,stackName,1);
-  std::string item1("tmp00000.001");
+  std::string const stackName("tmp");
+  std::string const sr = s.inPathStack(rd,stackName,1);
+  std::string const item1("tmp00000.001");
   BOOST_CHECK(s.makeStackItemName(stackName,1) == item1);
-  com::PathName result(path+stackName);
+  com::PathName const result(path+stackName);
   BOOST_CHECK(sr == result.toString());
 
 }

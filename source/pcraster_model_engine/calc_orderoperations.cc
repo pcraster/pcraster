@@ -83,7 +83,7 @@ void calc::orderOperation(
       order.push_back(i);
 
   // order on val, index in order is the order nr
-  detail::OrderSortFO sort(val);
+  detail::OrderSortFO const sort(val);
   std::sort(order.begin(),order.end(),sort);
 
   for(size_t i=0; i < order.size(); ++i) {
@@ -111,12 +111,12 @@ void calc::areaOrderOperation(
       order.push_back(i);
 
   // order on val, index in order is the order nr
-  detail::AreaOrderSortFO sort(expr,areaClass);
+  detail::AreaOrderSortFO const sort(expr,areaClass);
   std::sort(order.begin(),order.end(),sort);
 
   INT4   prevClass=MV_INT4;
   REAL4  orderNr=1;
-  for(unsigned long i : order) {
+  for(unsigned long const i : order) {
     assert(order[i] < len);
     if (areaClass[i] != prevClass) {
       orderNr=1;

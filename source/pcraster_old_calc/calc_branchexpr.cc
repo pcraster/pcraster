@@ -40,7 +40,7 @@ void calc::BranchExpr::defaultBuildType(
      // type derived from first argwith
      // multiple types in its argdefinition
      // e.g. areaminimum
-     int i = op().firstPolyArg();
+     int const i = op().firstPolyArg();
      newVs = args[i]->vs();
   }
   if (d_type.spatialDerived()) {
@@ -106,8 +106,8 @@ void calc::BranchExpr::buildTypes()
     if (op().cg() == CG_COMM || op().opCode() == OP_MAX || op().opCode() == OP_MIN) {
       Args newArgs(nrArgs());
       size_t pos=0;
-      bool order[2] = { false, true }; // first non-spatial then spatials
-      for(bool o : order)
+      bool const order[2] = { false, true }; // first non-spatial then spatials
+      for(bool const o : order)
        for(size_t i=0; i < nrArgs(); i++)
         if (args[i]->spatial() == o)
          newArgs[pos++] = args[i];
@@ -134,7 +134,7 @@ void calc::BranchExpr::argCombError(
   std::ostringstream msg;
   msg << op().strArg(nr) << ": type is " << toString(offendingArg->vs()) <<", while ";
   if (op().syntax() == "function") {
-     int prev = (nr > 1) ? -1 : 0;
+     int const prev = (nr > 1) ? -1 : 0;
      /* prev forcing a type or
       * -1 if the comb of arg 0 to nr-1
       * forced an illegal type for arg nr
@@ -160,7 +160,7 @@ void calc::BranchExpr::special()
 {
   Args& args = fieldArgs();
   VS newVs = VS_FIELD; // depends on arguments
-  int startArg = (op().opCode() == OP_IF_ELSE) ? 1 : 0;
+  int const startArg = (op().opCode() == OP_IF_ELSE) ? 1 : 0;
   switch(op().opCode()) {
     case OP_MIN: case OP_MAX: case OP_COVER:
     // xml: if (lastArg has repeat ???
@@ -176,7 +176,7 @@ void calc::BranchExpr::special()
        *  all arguments have the same type
        */
         for(size_t i=startArg; i <nrArgs(); i++) {
-         VS oldVs = newVs;
+         VS const oldVs = newVs;
          newVs = intersect(newVs,args[i]->vs());
          if (newVs == VS_UNKNOWN)
             argCombError(i,oldVs);

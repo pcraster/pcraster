@@ -8,6 +8,6 @@ BOOST_AUTO_TEST_CASE(bil2ascii)
 {
   using namespace geo;
 
-  RasterFileConverter b2a("all1_float.bil");
+  RasterFileConverter const b2a("all1_float.bil");
   b2a.writeAscii("bil2ascii.txt");
 }

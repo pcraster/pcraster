@@ -48,10 +48,10 @@ BOOST_AUTO_TEST_CASE(get_stack_reader_path)
 
   rd.setRunDirectory(path.toString(),"");
   path.makeAbsolute();
-  std::string stackName("tmp");
+  std::string const stackName("tmp");
   const StackReader *sr = s.createStackReader(rd,stackName);
-  std::string item1("tmp00000.001");
-  com::PathName result(path+item1);
+  std::string const item1("tmp00000.001");
+  com::PathName const result(path+item1);
   BOOST_CHECK(s.makeStackItemName(stackName,1) == item1);
 //PRINT_VAR(sr->itemName(1))
 //PRINT_VAR(result.toString());

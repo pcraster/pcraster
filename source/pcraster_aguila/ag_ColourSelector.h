@@ -40,7 +40,7 @@ std::vector<QColor> mapLoop(
 
   if(selectionSize > 0) {
     com::RawPalette::const_iterator pos;
-    size_t nrColours = palette.nrColours();
+    size_t const nrColours = palette.nrColours();
 
     for(size_t i = 0; i < selectionSize; i++) {
       pos = palette.begin() + static_cast<int>(classes[i]) % nrColours;
@@ -64,7 +64,7 @@ std::vector<QColor> mapLoop(
 
   if(palette.nrColours() > 0) {
     com::RawPalette::const_iterator pos;
-    size_t nrColours = palette.nrColours();
+    size_t const nrColours = palette.nrColours();
 
     for(size_t i = 0; i < classes.size(); i++) {
       pos = palette.begin() + static_cast<int>(classes[i]) % nrColours;

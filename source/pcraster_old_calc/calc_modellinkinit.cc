@@ -47,7 +47,7 @@ bool calc::ModelLinkInit::buildTypes()
 
   d_par->initCheck(d_sig);
 
-  calc::MethodOperator mop(d_par->modelTypeName(), d_sig);
+  calc::MethodOperator const mop(d_par->modelTypeName(), d_sig);
 
   calc::FieldArgs a(d_posOfModelName,mop(),d_args);
   a.restrictFieldArgs(d_sig.d_strArgGiven ? 1 : 0 );
@@ -57,7 +57,7 @@ bool calc::ModelLinkInit::buildTypes()
 
 void calc::ModelLinkInit::prepareExecution()
 {
-  calc::MethodOperator mop(d_par->modelTypeName(), d_sig);
+  calc::MethodOperator const mop(d_par->modelTypeName(), d_sig);
   calc::FieldArgs a(d_posOfModelName,mop(),d_args);
   a.prepareExecution();
 }
@@ -65,7 +65,7 @@ void calc::ModelLinkInit::prepareExecution()
 void calc::ModelLinkInit::run()
 {
   calc::FieldStack stack;
-  calc::MethodOperator mop(d_par->modelTypeName(), d_sig);
+  calc::MethodOperator const mop(d_par->modelTypeName(), d_sig);
 
   calc::FieldArgs a(d_posOfModelName,mop(),d_args);
   a.executeArgs(stack);

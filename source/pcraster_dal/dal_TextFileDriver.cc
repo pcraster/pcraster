@@ -114,7 +114,7 @@ void dal::TextFileDriver::determineTypeId(
 {
   for(const auto & col : row) {
 
-    TypeId ti = d_types.idOfSmallestType(col);
+    TypeId const ti = d_types.idOfSmallestType(col);
 
     if(typeId == TI_NR_TYPES) {
       // No valid type id stored yet.
@@ -168,7 +168,7 @@ void dal::TextFileDriver::determineTypeIds(
 
   for(size_t col = 0; col < record.size(); ++col) {
 
-    TypeId typeId = d_types.idOfSmallestType(record[col]);
+    TypeId const typeId = d_types.idOfSmallestType(record[col]);
 
     if(typeIds[col] == TI_NR_TYPES) {
       // No typeId stored yet for this column.

@@ -140,7 +140,7 @@ namespace detail {
            "value " + value + " is not a valid set").c_str());
     }
 
-    Items<pcrxml::FloatSet> result =
+    Items<pcrxml::FloatSet> const result =
     std::for_each(v.begin(),v.end(),Items<pcrxml::FloatSet>());
 
     return result.set;
@@ -196,7 +196,7 @@ namespace detail {
            "value " + value + " is not a valid set").c_str());
     }
 
-    Items<pcrxml::OneBasedIntegerSet> result =
+    Items<pcrxml::OneBasedIntegerSet> const result =
     std::for_each(v.begin(),v.end(),Items<pcrxml::OneBasedIntegerSet>());
 
     return result.set;
@@ -230,7 +230,7 @@ namespace detail {
     if(v[0] > v[1]) {
       std::swap(v[0], v[1]);
     }
-    pcrxml::OneBasedIntegerRange result(v[0],v[1],v[2]);
+    pcrxml::OneBasedIntegerRange const result(v[0],v[1],v[2]);
     return result;
   }
 
@@ -305,7 +305,7 @@ namespace detail {
         elementCount+=timesteps().size();
       }
       if (stackStepEnd != 0) {
-       pcrxml::OneBasedIntegerRange range(stackStepStart, stackStepEnd,1);
+       pcrxml::OneBasedIntegerRange const range(stackStepStart, stackStepEnd,1);
        timesteps().push_back(pcrxml::Timesteps());
        timesteps().back().range(range);
        elementCount+=1;
@@ -626,7 +626,7 @@ void AguilaProgramOptions::obtainProgramOptions(
                .first_column(0)
                .doc_column(8);
 
-    std::filesystem::path path(argv[0]);
+    std::filesystem::path const path(argv[0]);
     std::ostringstream stream;
     stream << "<pre>" << path.filename() << " [options] defaultViews\nAllowed options:\n\n";
     stream << clipp::documentation(genericOptions, fmt).str();
@@ -652,9 +652,9 @@ void AguilaProgramOptions::obtainProgramOptions(
     if(!config_filename.empty()) {
       d_configFileName = config_filename;
       boost::trim(d_configFileName);
-      std::filesystem::path path(d_configFileName);
+      std::filesystem::path const path(d_configFileName);
       dal::testFileCanBeOpenedForReading(path);
-      std::ifstream stream(path.string().c_str());
+      std::ifstream const stream(path.string().c_str());
 
       using boost::property_tree::ptree;
       ptree pt;
@@ -690,7 +690,7 @@ void AguilaProgramOptions::obtainProgramOptions(
           std::stringstream msg{};
           msg << "unrecognised option '" << key.first << "'\n";
           msg << "Use -h or --help for usage information";
-          com::Exception exception(msg.str());
+          com::Exception const exception(msg.str());
           throw exception;
         }
       }
@@ -699,7 +699,7 @@ void AguilaProgramOptions::obtainProgramOptions(
     if(!xml_filename.empty()) {
       d_configFileName = xml_filename;
       boost::trim(d_configFileName);
-      std::filesystem::path path(d_configFileName);
+      std::filesystem::path const path(d_configFileName);
       dal::testFileCanBeOpenedForReading(path);
 
       delete d_configuration;
@@ -734,7 +734,7 @@ void AguilaProgramOptions::obtainProgramOptions(
       size_t nrRows=0;
       size_t nrCols=0;
       // parse nrRows x nrCols
-      com::Exception error("Multi view layout '" + multi + "': Not valid");
+      com::Exception const error("Multi view layout '" + multi + "': Not valid");
 
       if(!parse(multi.c_str(),
         uint_p[assign_a(nrRows)] >> "x" >> uint_p[assign_a(nrCols)]).full) {
@@ -773,13 +773,13 @@ void AguilaProgramOptions::obtainProgramOptions(
     variables["testVisualisation"] = testVisualisation;
 #endif
 
-    detail::ViewsFromXML xmlViews(variables);
+    detail::ViewsFromXML const xmlViews(variables);
 
     if (xmlViews.elementCount) {
       d_configuration->visualisationGroup().view(xmlViews);
     }
 
-    detail::DataSpaceFromXML xmlDataSpace(variables,
+    detail::DataSpaceFromXML const xmlDataSpace(variables,
          xmlViews.stackStepStart, xmlViews.stackStepEnd);
 
     if(xmlDataSpace.elementCount) {
@@ -790,7 +790,7 @@ void AguilaProgramOptions::obtainProgramOptions(
     std::stringstream msg{};
     msg << "unrecognised option '" << unrecognised[0] << "'\n";
     msg << "Use -h or --help for usage information";
-    com::Exception exception(msg.str());
+    com::Exception const exception(msg.str());
     throw exception;
   }
 }

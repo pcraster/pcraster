@@ -31,7 +31,7 @@ public:
                          pcrxml::LinkInExecuteInput const& l,
                          LinkInTransferArray linkInTransferArray)
   {
-    std::string objName=std::string(l.callPoint().object()->objectName());
+    std::string const objName=std::string(l.callPoint().object()->objectName());
     auto i=objects.find(objName);
       // instance already exists, constructing again means deleting the old one
     if (i!=objects.end())
@@ -44,11 +44,11 @@ public:
                           pcrxml::LinkInExecuteInput const& l,
                           LinkInTransferArray linkInTransferArray)
   {
-    std::string objName=std::string(l.callPoint().object()->objectName());
+    std::string const objName=std::string(l.callPoint().object()->objectName());
     auto i=objects.find(objName);
     assert(i!=objects.end());
 
-    std::string methodName=std::string(l.callPoint().object()->methodName().get());
+    std::string const methodName=std::string(l.callPoint().object()->methodName().get());
     if (methodName=="operation") {
       i->second->operation(l,linkInTransferArray);
     }
@@ -73,7 +73,7 @@ public:
   {
       // check error
     assert(l.stringArgument()); // should be checked in pcr_LinkInCheck
-    std::string op = std::string(l.stringArgument().get());
+    std::string const op = std::string(l.stringArgument().get());
     assert(op=="div" || op=="add"); // should be checked in pcr_LinkInCheck
 
       // run time error voor div
@@ -110,8 +110,8 @@ static void checkerBoard(
   auto *result=(unsigned char *)linkInTransferArray[0];
 
   unsigned char value = 0;
-  size_t nrRows=l.context().areaMap().nrRows();
-  size_t nrCols=l.context().areaMap().nrCols();
+  size_t const nrRows=l.context().areaMap().nrRows();
+  size_t const nrCols=l.context().areaMap().nrCols();
   size_t cell=0;
   for(size_t r=0;r<nrRows; r++) {
     value=r%2;

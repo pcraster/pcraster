@@ -33,10 +33,10 @@ bool geo::idi(
        double radius,
        const Point& c)
 {
-  double cellRadiusSqr = radius * radius;
+  double const cellRadiusSqr = radius * radius;
 
-  bool   allCandidate = cellRadiusSqr == 0;
-  size_t nrPoints=points.size();
+  bool   const allCandidate = cellRadiusSqr == 0;
+  size_t const nrPoints=points.size();
   com::auto_array_ptr<SortKey>keys(new SortKey[nrPoints]);
   size_t nrKeys=0;
   for(size_t i=0; i < nrPoints; i++) {

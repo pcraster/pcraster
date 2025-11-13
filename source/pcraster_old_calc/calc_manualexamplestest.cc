@@ -32,7 +32,7 @@ BOOST_AUTO_TEST_CASE(all)
   using namespace calc;
 
   BOOST_WARN_MESSAGE( 0, "copy this module from PCRasterModelEngine");
-  std::vector<ManualExampleTester> et;
+  std::vector<ManualExampleTester> const et;
 // #include "examples.inc"
   int nrFailures=0;
   for(auto & i : et) {

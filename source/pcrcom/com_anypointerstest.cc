@@ -25,7 +25,7 @@ BOOST_AUTO_TEST_CASE(test_)
 
   Doubles doubles;
   BOOST_CHECK(pointers.size<Doubles>() == 0);
-  size_t idDoubles = pointers.insert(&doubles);
+  size_t const idDoubles = pointers.insert(&doubles);
   BOOST_CHECK(!pointers.empty());
   BOOST_CHECK(pointers.size() == 1);
   BOOST_CHECK(pointers.size<Doubles>() == 1);
@@ -36,7 +36,7 @@ BOOST_AUTO_TEST_CASE(test_)
     doublesPointer = pointers.pointer<Doubles>(idDoubles);
   }
   catch(std::bad_any_cast& ) {
-    bool bad_any_cast = false;
+    bool const bad_any_cast = false;
     BOOST_CHECK(bad_any_cast);
   }
 
@@ -51,7 +51,7 @@ BOOST_AUTO_TEST_CASE(test_)
     doublesPointer = pointers.pointer<Doubles>(idDoubles);
   }
   catch(std::bad_any_cast& ) {
-    bool bad_any_cast = false;
+    bool const bad_any_cast = false;
     BOOST_CHECK(bad_any_cast);
   }
 
@@ -62,7 +62,7 @@ BOOST_AUTO_TEST_CASE(test_)
   typedef std::vector<int> Integers;
   Integers integers;
   BOOST_CHECK(pointers.size<Integers>() == 0);
-  size_t idIntegers = pointers.insert(&integers);
+  size_t const idIntegers = pointers.insert(&integers);
   BOOST_CHECK(pointers.size<Integers>() == 1);
 
   BOOST_CHECK(idDoubles != idIntegers);
@@ -86,7 +86,7 @@ BOOST_AUTO_TEST_CASE(test_)
       integersPointer = pointers.pointer<Integers>(idIntegers2);
     }
     catch(std::bad_any_cast& ) {
-      bool bad_any_cast = false;
+      bool const bad_any_cast = false;
       BOOST_CHECK(bad_any_cast);
     }
 
@@ -122,14 +122,14 @@ BOOST_AUTO_TEST_CASE(test_)
   {
     AnyPointers pointers;
     A a;
-    size_t id = pointers.insert(&a);
+    size_t const id = pointers.insert(&a);
     BOOST_CHECK(pointers.size<A>() == 1);
 
     try {
       /* A const* pointer = */ ((AnyPointers const&)pointers).pointer<A>(id);
     }
     catch(std::bad_any_cast&) {
-      bool bad_any_cast = false;
+      bool const bad_any_cast = false;
       BOOST_CHECK(bad_any_cast);
     }
 

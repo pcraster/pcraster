@@ -67,7 +67,7 @@ void com::BasicTable::clean()
 
 void com::BasicTable::resize(size_t n)
 {
-  long dn = n - d_columns.size();
+  long const dn = n - d_columns.size();
 
   if(dn < 0) {
     for(size_t i = n; i != d_columns.size(); i++) {
@@ -337,8 +337,8 @@ std::istream &operator>>(std::istream &s, BasicTable &t)
   std::string line;
   std::getline(s, line);
   // Adjust this if separator is variable.
-  std::vector<std::string> tokens = split(line);
-  size_t n = tokens.size();
+  std::vector<std::string> const tokens = split(line);
+  size_t const n = tokens.size();
   t.resize(n);
 
 
@@ -367,7 +367,7 @@ std::istream &operator>>(std::istream &s, BasicTable &t)
         // Check if this is a real error situation.
         if(!s.eof() || (s.eof() && i > 0))
         {
-          std::string m = createMessage(
+          std::string const m = createMessage(
             "bad format: line %d of table, token %d", l, i + 1);
           throw BadStreamFormat(m);
         }
@@ -386,7 +386,7 @@ std::istream &operator>>(std::istream &s, BasicTable &t)
       }
       else if(!std::isspace(c))             // Not a newline, space or tab.
       {
-        std::string m = createMessage(
+        std::string const m = createMessage(
                                      "bad format, line %d, token %d", l, i + 1);
         throw BadStreamFormat(m);
       }

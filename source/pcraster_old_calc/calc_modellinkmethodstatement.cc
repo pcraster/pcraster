@@ -32,7 +32,7 @@ calc::ModelLinkMethodStatement::ModelLinkMethodStatement(
 {
  try {
   buildTypes();
-  size_t nrArgExp = d_sig.d_result.size();
+  size_t const nrArgExp = d_sig.d_result.size();
   if ( left.size() != nrArgExp ) {
     // pcrcalc/test327
     std::ostringstream msg;
@@ -40,9 +40,9 @@ calc::ModelLinkMethodStatement::ModelLinkMethodStatement(
     posError(msg.str());
   }
   for (size_t i=0; i < left.size(); i++) {
-    calc::ModelLinkArgSpec spec = d_sig.d_result[i];
+    calc::ModelLinkArgSpec const spec = d_sig.d_result[i];
     d_left.push_back(new calc::FieldLeft(b,w,left[i],spec.vs));
-    calc::FieldType t(spec.vs,spec.st);
+    calc::FieldType const t(spec.vs,spec.st);
     d_left[i]->restrictUser(t); // pcrcalc/test328
   }
  } catch (...) {
@@ -82,7 +82,7 @@ bool calc::ModelLinkMethodStatement::buildTypes()
       d_methodName.posError(d_methodName.qName()+" "+s.what());
   }
 
-  MethodOperator mop(d_methodName.name(), d_sig);
+  MethodOperator const mop(d_methodName.name(), d_sig);
 
   FieldArgs a(d_methodName,mop(),d_args);
   a.restrictFieldArgs(d_sig.d_strArgGiven ? 1 : 0 );
@@ -92,7 +92,7 @@ bool calc::ModelLinkMethodStatement::buildTypes()
 
 void calc::ModelLinkMethodStatement::prepareExecution()
 {
-  MethodOperator mop(d_par->modelTypeName(), d_sig);
+  MethodOperator const mop(d_par->modelTypeName(), d_sig);
   FieldArgs a(d_methodName,mop(),d_args);
   a.prepareExecution();
   for (auto & i : d_left)
@@ -102,7 +102,7 @@ void calc::ModelLinkMethodStatement::prepareExecution()
 void calc::ModelLinkMethodStatement::run()
 {
   FieldStack stack;
-  MethodOperator mop(d_par->modelTypeName(), d_sig);
+  MethodOperator const mop(d_par->modelTypeName(), d_sig);
 
   FieldArgs a(d_methodName,mop(),d_args);
   a.executeArgs(stack);
@@ -118,7 +118,7 @@ void calc::ModelLinkMethodStatement::run()
   typedef std::shared_ptr<GlobResult> SGlobResult;
   std::vector<SGlobResult> result;
   for (size_t i=0; i < d_sig.d_result.size(); i++) {
-    VS vs=d_sig.d_result[i].vs;
+    VS const vs=d_sig.d_result[i].vs;
     result.push_back(std::make_shared<GlobResult>(
         vs,vs,scriptConst().compressor()));
     d_sig.d_result[i].value = result[i]->MAPinterface();

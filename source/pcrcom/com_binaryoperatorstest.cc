@@ -9,7 +9,7 @@ BOOST_AUTO_TEST_CASE(mv_cast)
   using namespace com;
 
   UINT1 to[] = {  2,  5,  3};
-  UINT1 from = MV_UINT1;
+  UINT1 const from = MV_UINT1;
 
  addValue(to, to+3, from);
 

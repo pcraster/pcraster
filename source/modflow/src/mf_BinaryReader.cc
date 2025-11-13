@@ -56,7 +56,7 @@ void BinaryReader::read(const std::string & err_mgs, const std::string & filenam
 
   //size_t nr_cells = d_mf->d_nrOfCells;
   //int nr_result_layer = d_mf->nr_modflow_layer();
-  int nr_bytes = sizeof(float);
+  int const nr_bytes = sizeof(float);
 
   // first we should check if the requested content is at 'that' position...
   // 36 metadata; 16 2 * block markers
@@ -96,11 +96,11 @@ void BinaryReader::read(const std::string & err_mgs, const std::string & filenam
   file.read(tmp, 4);
   std::memcpy(&lay, &(tmp[0]), 4);
 
-  size_t nr_cells = static_cast<size_t>(row * col);
+  size_t const nr_cells = static_cast<size_t>(row * col);
 
   // jump to the right block and position, skip the metadata, block marker;
   // multiplier holds layer number of the layer we are interested in
-  size_t new_pos = nr_bytes + 36 + 8 + multiplier * (nr_cells * nr_bytes);
+  size_t const new_pos = nr_bytes + 36 + 8 + multiplier * (nr_cells * nr_bytes);
 
 
   //size_t nr_cells = row * col;

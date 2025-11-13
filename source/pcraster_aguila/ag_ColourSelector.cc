@@ -36,7 +36,7 @@ std::vector<QColor> mapEqualInterval(
       result[0] = qt::RgbTupleToQColor(*(palette.begin()), palette.max());
     }
     else {
-      REAL8 s = static_cast<REAL8>(palette.nrColours() - 1) / (nrClasses - 1);
+      REAL8 const s = static_cast<REAL8>(palette.nrColours() - 1) / (nrClasses - 1);
       com::RawPalette::const_iterator pos;
 
       for(size_t i = 0; i < nrClasses; i++) {
@@ -61,7 +61,7 @@ std::vector<QColor> mapSequential(
 
   if(selectionSize > 0) {
     com::RawPalette::const_iterator pos;
-    size_t nrColours = palette.nrColours();
+    size_t const nrColours = palette.nrColours();
 
     for(size_t i = 0; i < selectionSize; i++) {
       pos = palette.begin() + i % nrColours;

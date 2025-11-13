@@ -41,7 +41,7 @@ calc::GlobResult::GlobResult(
          d_concreteVs(concreteVs),
          d_compressor(c)
 {
- CSF_CR inCr = biggestCellRepr(d_concreteVs);
+ CSF_CR const inCr = biggestCellRepr(d_concreteVs);
   // create the API_MAP with new allocated data
  switch(biggestCellRepr(interfaceVs)) {
   case CR_REAL4:

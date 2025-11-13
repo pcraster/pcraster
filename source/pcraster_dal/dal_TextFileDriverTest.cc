@@ -21,7 +21,7 @@ BOOST_AUTO_TEST_CASE(determine_type_id)
 {
   using namespace dal;
 
-  TextFileDriverWrapper driver;
+  TextFileDriverWrapper const driver;
 
   {
     std::vector<std::string> row;

@@ -67,7 +67,7 @@ Dialog::Dialog(QWidget *p, bool m, Qt::WindowFlags f)
     d_data->cancel->setText("Cancel");
 
     QSize s1 = d_data->cancel->sizeHint();
-    QSize s2 = d_data->ok->sizeHint();
+    QSize const s2 = d_data->ok->sizeHint();
     s1 = QSize(std::max(s1.width(), s2.width()),
                std::max(s1.height(), s2.height()));
     d_data->cancel->setFixedSize(s1);

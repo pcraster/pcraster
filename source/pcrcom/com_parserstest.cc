@@ -8,7 +8,7 @@ BOOST_AUTO_TEST_CASE(comment_parser)
 {
   using namespace com;
 
-  CommentGrammar parser;
+  CommentGrammar const parser;
 
   std::vector<std::string> valid;
   std::vector<std::string> invalid;
@@ -45,7 +45,7 @@ BOOST_AUTO_TEST_CASE(section_header_parser)
 {
   using namespace com;
 
-  SectionHeaderGrammar parser;
+  SectionHeaderGrammar const parser;
 
   std::vector<std::string> valid;
   std::vector<std::string> invalid;
@@ -74,7 +74,7 @@ BOOST_AUTO_TEST_CASE(number_parser)
 {
   using namespace com;
 
-  NumberGrammar parser;
+  NumberGrammar const parser;
 
   std::vector<std::string> valid;
   std::vector<std::string> invalid;
@@ -102,7 +102,7 @@ BOOST_AUTO_TEST_CASE(variable_name_parser)
 {
   using namespace com;
 
-  VariableNameGrammar parser;
+  VariableNameGrammar const parser;
 
   std::vector<std::string> valid;
   std::vector<std::string> invalid;
@@ -137,7 +137,7 @@ BOOST_AUTO_TEST_CASE(filename_parser)
 {
   using namespace com;
 
-  FileNameGrammar parser;
+  FileNameGrammar const parser;
 
   std::vector<std::string> valid;
   std::vector<std::string> invalid;

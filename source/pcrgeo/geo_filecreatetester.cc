@@ -172,8 +172,8 @@ bool geo::FileCreateTester::equalToTss(
 
   for(size_t r=0; r < tss1.nrRecs(); ++r)
    for(size_t c=0; c < tss1.nrCols(); ++c) {
-     double v1=tss1.value(c,r);
-     double v2=tss2.value(c,r);
+     double const v1=tss1.value(c,r);
+     double const v2=tss2.value(c,r);
      double diff=v1-v2;
      if (com::equal_epsilon(v1,v2,0.00001))
        diff=0; // do not write epsilon diff to difference file

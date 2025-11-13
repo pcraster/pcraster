@@ -209,7 +209,7 @@ inline void geo::RasterDim::linear2RowCol(
 #ifdef DEBUG_DEVELOP
   PRECOND(linear < nrCells());
 #endif
-  CellLoc c = convert(linear);
+  CellLoc const c = convert(linear);
   row = c.row();
   col = c.col();
 }

@@ -20,12 +20,12 @@ BOOST_AUTO_TEST_CASE(test_)
 
   std::vector<boost::any> values;
   DataSpace space;
-  TypeId typeId = TI_REAL4;
-  size_t nrRows = 3;
-  size_t nrCols = 2;
-  double cellSize = 15.0;
-  double north = 0.0;
-  double west = 0.0;
+  TypeId const typeId = TI_REAL4;
+  size_t const nrRows = 3;
+  size_t const nrCols = 2;
+  double const cellSize = 15.0;
+  double const north = 0.0;
+  double const west = 0.0;
 
   // Mmm, not useful...?
   // {

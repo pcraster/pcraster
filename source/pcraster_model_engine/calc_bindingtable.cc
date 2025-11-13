@@ -185,7 +185,7 @@ void calc::BindingTable::addLastDefinition(
   while(i) {
     --i;
     auto *a= dynamic_cast<ASTAss *>(l[i]);
-    std::string name(a->par()->name());
+    std::string const name(a->par()->name());
     if (!names.count(name)) {
       add.push_back(new ASTAss(*a));
       names.insert(name);

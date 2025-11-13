@@ -37,7 +37,7 @@ calc::StackInput::StackInput(
       firstExisting=i;
 
      try {
-      VS newVs = d_reader->checkItem(i,vs);
+      VS const newVs = d_reader->checkItem(i,vs);
       if (!isIn(newVs,vs)) { // pcrcalc/test250(ac)
        throw com::Exception(
         " does not have the same data type as first element ("+toString(vs)+")");
@@ -108,7 +108,7 @@ void calc::StackInput::execute(FieldStack& stack)
 {
   try {
    PRECOND(scriptConst().currentTimeStep() < d_itemToLoad.size());
-   size_t itemToRead=d_itemToLoad[scriptConst().currentTimeStep()];
+   size_t const itemToRead=d_itemToLoad[scriptConst().currentTimeStep()];
    stack.push(FieldHandle(
     d_reader->read(itemToRead, vs(),scriptConst().compressor())));
   } catch(const com::FileError& e) {

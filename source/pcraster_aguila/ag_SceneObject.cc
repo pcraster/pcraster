@@ -241,7 +241,7 @@ void ag::SceneObject::setRotation(GLfloat yaw, GLfloat pitch, GLfloat roll)
     d_pitch = pitch;
     d_roll = roll;
     d_quaternion.reset();
-    Quaternion q(d_pitch, d_yaw, d_roll);
+    Quaternion const q(d_pitch, d_yaw, d_roll);
     d_quaternion.postMult(q);
     setDirty(true);
   }
@@ -262,7 +262,7 @@ void ag::SceneObject::rotateBy(GLfloat yaw, GLfloat pitch, GLfloat roll)
     d_yaw += yaw;
     d_pitch += pitch;
     d_roll += roll;
-    Quaternion q(pitch, yaw, roll);
+    Quaternion const q(pitch, yaw, roll);
     d_quaternion.postMult(q);
     setDirty(true);
   }
@@ -279,7 +279,7 @@ void ag::SceneObject::yawBy(GLfloat a)
 {
   if(a != 0.0) {
     d_yaw += a;
-    Quaternion q(0.0, a, 0.0);
+    Quaternion const q(0.0, a, 0.0);
     d_quaternion.postMult(q);
     setDirty(true);
   }
@@ -296,7 +296,7 @@ void ag::SceneObject::pitchBy(GLfloat a)
 {
   if(a != 0.0) {
     d_pitch += a;
-    Quaternion q(a, 0.0, 0.0);
+    Quaternion const q(a, 0.0, 0.0);
     d_quaternion.postMult(q);
     setDirty(true);
   }
@@ -313,7 +313,7 @@ void ag::SceneObject::rollBy(GLfloat a)
 {
   if(a != 0.0) {
     d_roll += a;
-    Quaternion q(0.0, 0.0, a);
+    Quaternion const q(0.0, 0.0, a);
     d_quaternion.postMult(q);
     setDirty(true);
   }

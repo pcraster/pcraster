@@ -165,7 +165,7 @@ calc::Field *calc::StackInput::read(
 */
   PRECOND(t < d_itemToLoad.size());
   // i is read as the value for t
-  size_t i= d_itemToLoad[t];
+  size_t const i= d_itemToLoad[t];
   if (i != d_cachedTimeStep) {
     delete d_cachedField;
     d_cachedField = readField(i);

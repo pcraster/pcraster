@@ -144,7 +144,7 @@ void BAS::getHeadsFromBinary(std::string const& path){
   }
 
   for(size_t layer = 0; layer < d_mf->d_nrMFLayer; layer++){
-    size_t blockLayer = d_mf->mfLayer2BlockLayer(layer);//+1);
+    size_t const blockLayer = d_mf->mfLayer2BlockLayer(layer);//+1);
     // first record contains the header informations
     // they are omitted because we already know nrRows aso
     char header[mf::recordMarkerSize];
@@ -167,7 +167,7 @@ void BAS::getHeadsFromBinary(std::string const& path){
     file.read(charData, dataSizeBytes);
     auto *floatData = reinterpret_cast<REAL4 *>(charData);
 
-    size_t cellMax = d_mf->d_nrOfCells;
+    size_t const cellMax = d_mf->d_nrOfCells;
     //int k = 0;
     for(size_t pos = 0; pos < cellMax; pos++){
       auto val = static_cast<REAL4>( floatData[pos]);
@@ -225,10 +225,10 @@ void BAS::getHeads(float *result, size_t layer){
   d_mf->d_gridCheck->isGrid(layer, "getHeads");
   d_mf->d_gridCheck->isConfined(layer, "getHeads");
 
-  REAL4 hdry = d_mf->d_bcf->getHDRY();
+  REAL4 const hdry = d_mf->d_bcf->getHDRY();
   // mf to block
   for(size_t i = 0; i < d_mf->d_nrOfCells; ++i){
-    REAL4 value = d_mf->d_initialHead->cell(i)[layer];
+    REAL4 const value = d_mf->d_initialHead->cell(i)[layer];
 
     //if(static_cast<float>(std::fabs((value - d_hnoflo))>0.00001)){
     if(static_cast<float>(std::fabs((value - hdry)) > 0.00001)){
@@ -246,9 +246,9 @@ void BAS::getHeads(float *result, size_t layer){
 
 discr::BlockData<REAL4>* BAS::getHeads(){
   //REAL4 init = 0.0;
-  discr::Raster raster(50,50,50.0,50.0,50.0);
+  discr::Raster const raster(50,50,50.0,50.0,50.0);
   discr::Block bla(raster);//NULL;//d_mf->d_baseArea;
-  discr::BlockData<REAL4> block(&bla);
+  discr::BlockData<REAL4> const block(&bla);
   discr::BlockData<REAL4> *resultHeads = nullptr;//
   resultHeads = new discr::BlockData<REAL4>( &bla);
   d_mf->d_cmethods->setDiscrBlockData(*(d_mf->d_initialHead), *resultHeads);
@@ -267,9 +267,9 @@ calc::Field* BAS::getHeads(size_t layer){
 
 
 
-  float hdry = d_mf->d_bcf->getHDRY();
+  float const hdry = d_mf->d_bcf->getHDRY();
   for(size_t pos = 0; pos < d_mf->d_nrOfCells; pos++){
-    REAL4 value = d_mf->d_initialHead->cell(pos)[layer];
+    REAL4 const value = d_mf->d_initialHead->cell(pos)[layer];
     //if(std::fabs(static_cast<float>(value - d_hnoflo)) < 0.00001){
     if(std::fabs(static_cast<float>(value - hdry)) < 0.00001){
       pcr::setMV(cells[pos]);

@@ -146,7 +146,7 @@ void FeatureLayer::read(
 {
   assert(d_layer);
 
-  dal::DataSpaceAddress localAddress(this->localAddress(space, address));
+  dal::DataSpaceAddress const localAddress(this->localAddress(space, address));
   assert(dataSource().dataSpace().rank() == localAddress.size());
 
   if(isRead(localAddress)) {
@@ -191,7 +191,7 @@ bool FeatureLayer::isRead() const
   bool result = false;
 
   if(addressRead().size() == dataSource().dataSpace().size()) {
-    dal::DataSpaceAddress addressReadWithoutSpace(
+    dal::DataSpaceAddress const addressReadWithoutSpace(
          dataSource().dataSpace().eraseCoordinates(addressRead(), dal::Space));
     dal::DataSpace const& space(dataSource().enclosingDataSpace());
 
@@ -211,7 +211,7 @@ bool FeatureLayer::isRead(
   if(isRead()) {
     dal::DataSpaceAddress addressWithoutSpace(
          dataSource().dataSpace().eraseCoordinates(address, dal::Space));
-    dal::DataSpaceAddress addressReadWithoutSpace(
+    dal::DataSpaceAddress const addressReadWithoutSpace(
          dataSource().dataSpace().eraseCoordinates(addressRead(), dal::Space));
     dal::DataSpace const& space(dataSource().enclosingDataSpace());
 
@@ -219,7 +219,7 @@ bool FeatureLayer::isRead(
       // <hack>
       // Discard scenario setting of address. Make it equal to the scenario
       // in the currently read address.
-      size_t index = space.indexOf(dal::Scenarios);
+      size_t const index = space.indexOf(dal::Scenarios);
       addressWithoutSpace.setCoordinate<std::string>(index,
          addressReadWithoutSpace.coordinate<std::string>(index));
       // </hack>

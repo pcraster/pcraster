@@ -451,16 +451,16 @@ template<typename SubjectType, typename CrossType>
   // header line 2
   out << d_subject.d_name;
   typedef typename std::set<INT4> S;
-  S col=m.colClasses();
-  S row=m.rowClasses();
+  S const col=m.colClasses();
+  S const row=m.rowClasses();
 
-  for(int c : col)
+  for(int const c : col)
    out << "\t" << c;
   out << "\n";
 
-  for(int r : row) {
+  for(int const r : row) {
     out << r;
-    for(int c : col)
+    for(int const c : col)
      out << "\t" << area(m.getCount(r,c));
     out << "\n";
   }
@@ -762,7 +762,7 @@ template<typename SubjectType>
 void calc::StatTable::scalarTable(
   const REAL4* begin , const REAL4*end) const
 {
-  detail::ScalarStats s= detail::scalarStats(begin,end);
+  detail::ScalarStats const s= detail::scalarStats(begin,end);
 
   std::ofstream out;
   open(out);

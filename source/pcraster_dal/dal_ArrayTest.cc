@@ -8,13 +8,13 @@ BOOST_AUTO_TEST_CASE(constructor)
   using namespace dal;
 
   {
-    Array<int> array;
+    Array<int> const array;
     BOOST_CHECK(array.empty());
     BOOST_CHECK_EQUAL(array.size(), size_t(0));
   }
 
   {
-    Array<int> array(5);
+    Array<int> const array(5);
     BOOST_CHECK(!array.empty());
     BOOST_CHECK_EQUAL(array.size(), size_t(5));
   }
@@ -29,7 +29,7 @@ BOOST_AUTO_TEST_CASE(constructor)
   }
 
   {
-    Array<int> rhs(5, 3);
+    Array<int> const rhs(5, 3);
        /*
     for(size_t i = 0; i < 5; ++i) {
       lhs[i] == 3;
@@ -44,7 +44,7 @@ BOOST_AUTO_TEST_CASE(index_of)
   using namespace dal;
 
   {
-    Array<int> array;
+    Array<int> const array;
     BOOST_CHECK_EQUAL(indexOf(array, 5), 0);
   }
 

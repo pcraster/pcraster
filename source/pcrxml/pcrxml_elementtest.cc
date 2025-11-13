@@ -53,8 +53,8 @@ BOOST_AUTO_TEST_CASE(required)
  { // misses required attribute name
   bool catched(false);
   try {
-   Document head("<Data/>");
-   pcrxml::Data dt(head.documentElement());
+   Document const head("<Data/>");
+   pcrxml::Data const dt(head.documentElement());
   } catch (const com::Exception& e) {
     BOOST_CHECK(e.messages().find(
           "ttribute 'name' as part of element Data") != std::string::npos);
@@ -65,8 +65,8 @@ BOOST_AUTO_TEST_CASE(required)
  { // wrong enum/NMTOKEN
   bool catched(false);
   try {
-   Document head("<Data name='x' ioType='y' />");
-   pcrxml::Data dt(head.documentElement());
+   Document const head("<Data name='x' ioType='y' />");
+   pcrxml::Data const dt(head.documentElement());
   } catch (const com::Exception& e) {
     BOOST_CHECK(e.messages().find(
           "attribute ioType: y is not a defined NMTOKEN value") != std::string::npos);
@@ -75,7 +75,7 @@ BOOST_AUTO_TEST_CASE(required)
   BOOST_CHECK(catched);
  }
  {
-   pcrxml::Data dt;
+   pcrxml::Data const dt;
    // dt.name not present while required
    BOOST_CHECK(!dt.name.present());
 
@@ -85,11 +85,11 @@ BOOST_AUTO_TEST_CASE(required)
  { // Can skip unknown attrs, what we know see as
    // a feature to hack up Schema support
   try {
-   Document head("<Data "
+   Document const head("<Data "
        "xsi:noNamespaceSchemaLocation='ExchangeModel.xsd' "
        "xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' "
        "name='x' ioType='Input' />");
-   pcrxml::Data dt(head.documentElement());
+   pcrxml::Data const dt(head.documentElement());
    BOOST_CHECK(dt.name()=="x");
   } catch (const com::Exception& e) {
     PRINT_VAR(e.messages());
@@ -99,8 +99,8 @@ BOOST_AUTO_TEST_CASE(required)
  { // misses required element (Map|...|Table)
   bool doesNotTellRequiredChoiseIsMissing(false);
   try {
-   Document head("<Data name='x' ioType='Input' />");
-   pcrxml::Data dt(head.documentElement());
+   Document const head("<Data name='x' ioType='Input' />");
+   pcrxml::Data const dt(head.documentElement());
   } catch (const com::Exception& e) {
     PRINT_VAR(e.messages());
     BOOST_CHECK(e.messages().find( "BLA BLA") != std::string::npos);

@@ -44,7 +44,7 @@ BOOST_AUTO_TEST_CASE(testAll)
         failMsgs.push_back(e.messages());
       }
 
-    size_t nrFailuresAllowed=0;
+    size_t const nrFailuresAllowed=0;
 #ifdef WIN32
     if (failMsgs.size()==1) {
      std::cerr << "TODO view on win32 slightly different" << std::endl;

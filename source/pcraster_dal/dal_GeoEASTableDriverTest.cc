@@ -9,7 +9,7 @@ BOOST_AUTO_TEST_CASE(description)
 {
   using namespace dal;
 
-  GeoEASTableDriver driver;
+  GeoEASTableDriver const driver;
   BOOST_CHECK_EQUAL(driver.description(), "Geo-EAS table file format");
 }
 
@@ -18,7 +18,7 @@ BOOST_AUTO_TEST_CASE(unexisting)
 {
   using namespace dal;
 
-  std::string filename = "unexisting";
+  std::string const filename = "unexisting";
   GeoEASTableDriver driver;
   bool exceptionCaught = false;
 
@@ -43,7 +43,7 @@ BOOST_AUTO_TEST_CASE(empty)
 {
   using namespace dal;
 
-  std::string filename = "emptyfile";
+  std::string const filename = "emptyfile";
   GeoEASTableDriver driver;
   bool exceptionCaught = false;
 
@@ -68,7 +68,7 @@ BOOST_AUTO_TEST_CASE(invalid_grammer)
 {
   using namespace dal;
 
-  std::string filename = ":/:/:/:/:";
+  std::string const filename = ":/:/:/:/:";
   GeoEASTableDriver driver;
   bool exceptionCaught = false;
 

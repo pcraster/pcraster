@@ -33,9 +33,9 @@ ag::Quaternion::Quaternion(const Quaternion& q)
 
 ag::Quaternion::Quaternion(GLfloat x, GLfloat y, GLfloat z)
 {
-  Quaternion qx(x, 1.0, 0.0, 0.0);
-  Quaternion qy(y, 0.0, 1.0, 0.0);
-  Quaternion qz(z, 0.0, 0.0, 1.0);
+  Quaternion const qx(x, 1.0, 0.0, 0.0);
+  Quaternion const qy(y, 0.0, 1.0, 0.0);
+  Quaternion const qz(z, 0.0, 0.0, 1.0);
 
   *this = qx;
   postMult(qy);
@@ -47,10 +47,10 @@ ag::Quaternion::Quaternion(GLfloat x, GLfloat y, GLfloat z)
 ag::Quaternion::Quaternion(GLfloat angle, GLfloat x, GLfloat y, GLfloat z)
 {
   // Normalize the axis.
-  GLfloat factor = x * x + y * y + z * z;
+  GLfloat const factor = x * x + y * y + z * z;
   assert(factor != 0.0);
 
-  GLfloat scale(1.0 / std::sqrt(static_cast<double>(factor)));
+  GLfloat const scale(1.0 / std::sqrt(static_cast<double>(factor)));
   x *= scale;
   y *= scale;
   z *= scale;
@@ -58,7 +58,7 @@ ag::Quaternion::Quaternion(GLfloat angle, GLfloat x, GLfloat y, GLfloat z)
   // Build a quaternion.
   d_val[0] = std::cos(static_cast<double>(angle) / 2.0);
 
-  GLfloat sinha = std::sin(static_cast<double>(angle) / 2.0);
+  GLfloat const sinha = std::sin(static_cast<double>(angle) / 2.0);
   d_val[1] = x * sinha;
   d_val[2] = y * sinha;
   d_val[3] = z * sinha;
@@ -88,10 +88,10 @@ ag::Quaternion& ag::Quaternion::operator=(const Quaternion& q)
 
 void ag::Quaternion::normalize()
 {
-  GLfloat factor = d_val[0] * d_val[0] + d_val[1] * d_val[1] +
+  GLfloat const factor = d_val[0] * d_val[0] + d_val[1] * d_val[1] +
                    d_val[2] * d_val[2] + d_val[3] * d_val[3];
   assert(factor != 0.0);
-  GLfloat scale = 1.0 / std::sqrt(static_cast<double>(factor));
+  GLfloat const scale = 1.0 / std::sqrt(static_cast<double>(factor));
   d_val[0] *= scale;
   d_val[1] *= scale;
   d_val[2] *= scale;
@@ -113,14 +113,14 @@ void ag::Quaternion::matrix(GLfloat m[16])
 {
   normalize();
 
-  GLfloat w = d_val[0];
-  GLfloat x = d_val[1];
-  GLfloat y = d_val[2];
-  GLfloat z = d_val[3];
+  GLfloat const w = d_val[0];
+  GLfloat const x = d_val[1];
+  GLfloat const y = d_val[2];
+  GLfloat const z = d_val[3];
 
-  GLfloat xx = x * x;
-  GLfloat yy = y * y;
-  GLfloat zz = z * z;
+  GLfloat const xx = x * x;
+  GLfloat const yy = y * y;
+  GLfloat const zz = z * z;
 
   #define M(x, y)  m[x + y * 4]
 
@@ -149,7 +149,7 @@ void ag::Quaternion::matrix(GLfloat m[16])
 
 void ag::Quaternion::postMult(const Quaternion& q)
 {
-  Quaternion tmp(*this);
+  Quaternion const tmp(*this);
   multAndSet(tmp, q);
 }
 

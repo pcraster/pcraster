@@ -37,7 +37,7 @@ calc::Field* defined_number(
   fa::SequentialExecutionPolicy sequential;
 
   using InputNoDataPolicy = fa::InputNoDataPolicies<NonspatialDetectNoData<T>>;
-  InputNoDataPolicy input_no_data_policy{{*arg1}};
+  InputNoDataPolicy const input_no_data_policy{{*arg1}};
 
   fa::algebra::defined(input_no_data_policy, sequential, *res);
 
@@ -52,7 +52,7 @@ calc::Field* defined_spatial(
          multicore_field::Spatial<UINT1>* res){
 
   using InputNoDataPolicy = fa::InputNoDataPolicies<SpatialDetectNoData<T>>;
-  InputNoDataPolicy input_no_data_policy{{*arg1}};
+  InputNoDataPolicy const input_no_data_policy{{*arg1}};
 
   fa::algebra::defined(input_no_data_policy, epol, *res);
 
@@ -70,7 +70,7 @@ calc::Field* defined(
 
   calc::Field* res_field = nullptr;
 
-  CSF_CR cell_representation = field_a->cr();
+  CSF_CR const cell_representation = field_a->cr();
 
   if(field_a->isSpatial() == false){
     res_field = new calc::NonSpatial(VS_B);

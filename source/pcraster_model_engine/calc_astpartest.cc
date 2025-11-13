@@ -8,8 +8,8 @@ BOOST_AUTO_TEST_CASE(testCompare)
 {
   using namespace calc;
 
-  ASTPar a("aName");
-  ASTPar b("bName");
+  ASTPar const a("aName");
+  ASTPar const b("bName");
   BOOST_CHECK(a!=b);
   BOOST_CHECK(a==a);
   BOOST_CHECK(b==b);

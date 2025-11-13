@@ -69,10 +69,10 @@ public:
  */
 bool compareFileWithValidated(std::string const& fileName)
 {
-    fs::path computed(fileName);
-    fs::path validated=fs::path("validated")/fileName;
+    fs::path const computed(fileName);
+    fs::path const validated=fs::path("validated")/fileName;
     if(!com::filesExistsAndEqual(validated.string(),computed.string())) {
-      std::string compareFileWithValidatedFailure=computed.string();
+      std::string const compareFileWithValidatedFailure=computed.string();
       PRINT_VAR(compareFileWithValidatedFailure);
       return false;
     }

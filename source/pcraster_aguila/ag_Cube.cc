@@ -77,14 +77,14 @@ void ag::Cube::createList()
   GLfloat blue[4]     = { 0.0, 0.0, 1.0, 1.0 };
   GLfloat emission[4] = { 0.25, 0.25, 0.25, 1.0 };
 
-  GLfloat x  = SceneObject::x() - 0.5 * width();
-  GLfloat y  = SceneObject::y() - 0.5 * height();
-  GLfloat z  = SceneObject::z() - 0.5 * depth();
+  GLfloat const x  = SceneObject::x() - 0.5 * width();
+  GLfloat const y  = SceneObject::y() - 0.5 * height();
+  GLfloat const z  = SceneObject::z() - 0.5 * depth();
 
-  size_t n   = 10;
-  GLfloat dx = width() / n;
-  GLfloat dy = height() / n;
-  GLfloat dz = depth() / n;
+  size_t const n   = 10;
+  GLfloat const dx = width() / n;
+  GLfloat const dy = height() / n;
+  GLfloat const dz = depth() / n;
 
 
 #ifdef DEBUG_DEVELOP

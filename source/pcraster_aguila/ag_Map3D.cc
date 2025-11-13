@@ -108,7 +108,7 @@ void Map3D::saveAsPNG(
          std::filesystem::path const& path) const
 {
   if(QPixmap::defaultDepth() != d_mapView->depthOfRenderingContext()) {
-    std::string msg = std::format(
+    std::string const msg = std::format(
          "Error while saving\n"
          "Please make sure that the depth of the desktop equals the depth\n"
          "of the OpenGL rendering context. Currently the depth of the\n"

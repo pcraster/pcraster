@@ -24,7 +24,7 @@ GridCheck::GridCheck(PCRModflow *mf) : d_mf(mf){
 void GridCheck::isGrid(size_t layer, const std::string &methodName){
   // maximum layer number
   
-  size_t size = d_mf->dd_isConfined.size();// - 1;
+  size_t const size = d_mf->dd_isConfined.size();// - 1;
   if(0 == size){
     d_mf->d_cmethods->error("Grid not yet defined: No layer specified", methodName);
   }
@@ -55,7 +55,7 @@ void GridCheck::isConfined(size_t layer, const std::string &methodName){
  * \todo still needed?
  */
 void GridCheck::setVCond(size_t mfLayer, const std::string &methodName){
-  size_t size = d_mf->d_nrBlockLayer - 1;
+  size_t const size = d_mf->d_nrBlockLayer - 1;
   if(mfLayer>size){
     std::stringstream stmp;
     stmp << "Operation on layer " << mfLayer << " failed: Maximum layer number is " << size;
@@ -67,11 +67,11 @@ void GridCheck::setVCond(size_t mfLayer, const std::string &methodName){
  * test for missing values
  */
 void GridCheck::testMV(const float *values, const std::string &methodName){
-  size_t size = d_mf->d_nrOfCells;
+  size_t const size = d_mf->d_nrOfCells;
   for(size_t i = 0; i < size; ++i){
     if(IS_MV_REAL4(values + i)){
-      size_t row = 1 + i / d_mf->d_nrOfColumns;
-      size_t col = 1 + i % d_mf->d_nrOfColumns;
+      size_t const row = 1 + i / d_mf->d_nrOfColumns;
+      size_t const col = 1 + i % d_mf->d_nrOfColumns;
       std::stringstream stmp;
       stmp << "Missing value detected in row " << row << " column " << col; 
       d_mf->d_cmethods->error(stmp.str(), methodName);
@@ -84,11 +84,11 @@ void GridCheck::testMV(const float *values, const std::string &methodName){
  */
 void GridCheck::testMV(const int *values, const std::string &methodName){
 
-  size_t size = d_mf->d_nrOfCells;
+  size_t const size = d_mf->d_nrOfCells;
   for(size_t i = 0; i < size; ++i){
     if(IS_MV_INT4(values + i)){
-      size_t row = 1 + i / d_mf->d_nrOfColumns;
-      size_t col = 1 + i % d_mf->d_nrOfColumns;
+      size_t const row = 1 + i / d_mf->d_nrOfColumns;
+      size_t const col = 1 + i % d_mf->d_nrOfColumns;
       std::stringstream stmp;
       stmp << "Missing value detected in row " << row << " column " << col;
       d_mf->d_cmethods->error(stmp.str(), methodName);
@@ -100,8 +100,8 @@ void GridCheck::testMV(const int *values, const std::string &methodName){
  * testing thickness of layer
  */
 void GridCheck::testElevation(){
-  size_t layerSize = d_mf->d_nrBlockLayer;
-  size_t cellSize = d_mf->d_nrOfCells;
+  size_t const layerSize = d_mf->d_nrBlockLayer;
+  size_t const cellSize = d_mf->d_nrOfCells;
 
   for(size_t layer = 0; layer < layerSize; layer++){
     for(size_t i = 0; i < cellSize; i++){

@@ -76,7 +76,7 @@ bool dal::GeoEASTableDriver::readHeader(
 
   using namespace boost::spirit::classic;
   size_t nrAttributes = 0;
-  rule<> valueParser = Uint4Type::Parser()[assign_a(nrAttributes)];
+  rule<> const valueParser = Uint4Type::Parser()[assign_a(nrAttributes)];
 
   if(!parse(line.c_str(), valueParser).full) {
     return false;
@@ -390,7 +390,7 @@ void GeoEASTableDriver::write(
          std::string const& name) const
 {
   std::ofstream stream;
-  std::filesystem::path path(pathForDataSpaceAddress(name, space, address));
+  std::filesystem::path const path(pathForDataSpaceAddress(name, space, address));
 
   if(!TextFileDriver::open(stream, path)) {
     throwCannotBeOpened(path.string(), TABLE);

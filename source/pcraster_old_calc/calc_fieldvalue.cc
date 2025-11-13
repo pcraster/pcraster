@@ -35,7 +35,7 @@ calc::FieldHandle calc::FieldValue::value(bool isLastUse)
 {
   if (! d_val)
     throw  calc::Field::NotInitialized();
-  FieldHandle f = *d_val;
+  FieldHandle const f = *d_val;
   if (isLastUse) {
     delete d_val;
     d_val= nullptr;

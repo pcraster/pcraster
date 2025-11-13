@@ -101,7 +101,7 @@ calc::RunTimeEnv::RunTimeEnv(
 calc::RunTimeEnv::RunTimeEnv(
     const geo::RasterSpace&  rs)
 {
-  RunTimeEnvSettings s;
+  RunTimeEnvSettings const s;
   init(s);
   d_ioStrategy->setRasterSpace(rs);
   checkConstraints(s);
@@ -120,7 +120,7 @@ void calc::RunTimeEnv::checkConstraints(
   // The CSF rasterformat uses INT4 to store the number of rows or the number of columns
   // the maximum value should not exeed signed int32
   // bug/sf648
-  size_t MAX_ROW_COL = 2147483647; // (2 ^ 31) - 1;
+  size_t const MAX_ROW_COL = 2147483647; // (2 ^ 31) - 1;
 
   if(d_ioStrategy->rasterSpace().nrRows() > MAX_ROW_COL){
     throw com::Exception("pcrcalc does not support maps holding more than 2^31 - 1 rows");
@@ -291,7 +291,7 @@ size_t calc::RunTimeEnv::stackSize() const
 //! get value of \a p from d_data and push it on one of the stacks.
 void calc::RunTimeEnv::pushValue(const ASTPar* p)
 {
-  DataTable::DTE e(d_data.dataLoad(p->name()));
+  DataTable::DTE const e(d_data.dataLoad(p->name()));
   d_stack.push(new StackedValue(*this,e.symbol(),p->lastUse()));
 }
 
@@ -442,7 +442,7 @@ void calc::RunTimeEnv::assignStackTop(
 
   debugMVAssignments(f.get());
 
-  std::string name(e.symbol().name());
+  std::string const name(e.symbol().name());
   std::string writtenAsFile;
 
 // #error check if must be written
@@ -481,7 +481,7 @@ void calc::RunTimeEnv::assignStackTop(
 //! load symbol \a i in DataTable and setup a FieldWriter if needed
 void calc::RunTimeEnv::load(const ASTSymbolInfo& i)
 {
-  bool write =i.reportPosition()!= RPNone;
+  bool const write =i.reportPosition()!= RPNone;
   bool outTss(false);
   if (i.vs()==VS_TSS) {
     if (i.memoryOutputId() == i.noMemoryExchangeId() && write)

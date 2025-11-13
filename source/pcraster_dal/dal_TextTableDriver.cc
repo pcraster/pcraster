@@ -165,7 +165,7 @@ bool TextTableDriver::open(
   // column to contain multiple records with '0'. In that case we continue
   // reading until we see a different value. Otherwise the type will be int4,
   // which may be wrong in case subsequent records contain floating points.
-  size_t nrLinesToProbe = d_headerType == HEADER ? 6 : 5;
+  size_t const nrLinesToProbe = d_headerType == HEADER ? 6 : 5;
   std::vector<bool> non_zero_found(nrCols, false);
   bool non_zero_found_for_each_column = false;
   for(size_t i = 0;

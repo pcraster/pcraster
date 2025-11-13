@@ -319,7 +319,7 @@ static void spiritParser(
    boost::algorithm::trim(copyStr);
 
 
-   bool correct=parse(copyStr.begin(),copyStr.end(),
+   bool const correct=parse(copyStr.begin(),copyStr.end(),
         //  Begin grammar
           (   real_p[assign_a(singleValue)]
               | (
@@ -365,8 +365,8 @@ com::Interval<R> * com::createIntervalFromLookupTableKey (
    }
 
    PRECOND(ranges.size() == 2);
-   char lowRange  = ranges[0];
-   char highRange = ranges[1];
+   char const lowRange  = ranges[0];
+   char const highRange = ranges[1];
 
    com::UpperLimit<R>* h(nullptr);
    com::LowerLimit<R>* l(nullptr);

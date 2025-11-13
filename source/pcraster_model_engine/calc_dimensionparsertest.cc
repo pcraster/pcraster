@@ -43,13 +43,13 @@ BOOST_AUTO_TEST_CASE(testError)
   using namespace calc;
 
  try {
-  DimensionParser dp("kg;m");
+  DimensionParser const dp("kg;m");
  } catch (const com::Exception& e) {
 BOOST_CHECK(e.messages().find("';' is not a recognized unit dimension")
    != std::string::npos);
  }
  try {
-  DimensionParser dp("X kg");
+  DimensionParser const dp("X kg");
  } catch (const com::Exception& e) {
 BOOST_CHECK(e.messages().find('X') != std::string::npos);
  }

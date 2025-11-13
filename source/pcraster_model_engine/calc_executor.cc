@@ -162,7 +162,7 @@ bool calc::Executor::execInitialSection()
  */
 bool calc::Executor::execDynamicSectionOnce()
 {
-  size_t t=d_rte.timer().currentInt();
+  size_t const t=d_rte.timer().currentInt();
   // call to execInitial done
   PRECOND(d_rte.timer().currentInt()!=0 || d_allCodeExecuted);
   // do setStep until

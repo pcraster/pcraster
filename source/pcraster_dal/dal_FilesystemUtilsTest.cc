@@ -10,7 +10,7 @@ BOOST_AUTO_TEST_CASE(path_is_readable)
 {
   using namespace dal;
 
-  bool testImplemented = false;
+  bool const testImplemented = false;
   BOOST_WARN(testImplemented);
 }
 
@@ -19,7 +19,7 @@ BOOST_AUTO_TEST_CASE(path_is_writable)
 {
   using namespace dal;
 
-  bool testImplemented = false;
+  bool const testImplemented = false;
   BOOST_WARN(testImplemented);
 }
 
@@ -224,7 +224,7 @@ BOOST_AUTO_TEST_CASE(time_step_path)
   std::filesystem::path path;
 
   {
-    boost::gregorian::date date(1971, 4, 17);
+    boost::gregorian::date const date(1971, 4, 17);
 
     // Default.
     path = timeStepPath("kor", date);
@@ -240,7 +240,7 @@ BOOST_AUTO_TEST_CASE(time_step_path)
   }
 
   {
-    boost::gregorian::date date(1971, 4, 17);
+    boost::gregorian::date const date(1971, 4, 17);
 
     // DAL.
     path = timeStepPath("name", date, DALConvention);
@@ -257,7 +257,7 @@ BOOST_AUTO_TEST_CASE(time_step_path)
   }
 
   // See first lines of this function.
-  bool timeStepPathVariantTested = false;
+  bool const timeStepPathVariantTested = false;
   BOOST_WARN(timeStepPathVariantTested);
 }
 
@@ -823,8 +823,8 @@ BOOST_AUTO_TEST_CASE(path_for_data_space_address)
 //   BOOST_WARN(testPathForDataSpaceAddressFails);
 // #endif
 
-  DataSpace space;
-  DataSpaceAddress address;
+  DataSpace const space;
+  DataSpaceAddress const address;
 
   {
     // Empty space and address.
@@ -851,7 +851,7 @@ BOOST_AUTO_TEST_CASE(path_for_data_space_address)
     quantiles.push_back(0.01f);
     quantiles.push_back(0.99f);
     quantiles.push_back(0.01f);
-    Dimension cumProbabilities(CumulativeProbabilities, quantiles);
+    Dimension const cumProbabilities(CumulativeProbabilities, quantiles);
     DataSpace space;
     space.addDimension(cumProbabilities);
 
@@ -944,7 +944,7 @@ BOOST_AUTO_TEST_CASE(path_for_data_space_address)
   // BOOST_WARN(testImplemented);
 
   {
-    std::string name = "soil";
+    std::string const name = "soil";
     DataSpace space;
     std::vector<size_t> timeSteps;
     timeSteps.push_back(size_t(10));
@@ -995,7 +995,7 @@ BOOST_AUTO_TEST_CASE(add_extension_if_needed)
   }
 
   {
-    bool addExtensionIfNeededOnEmptyBaseNameWorks = false;
+    bool const addExtensionIfNeededOnEmptyBaseNameWorks = false;
     BOOST_WARN(addExtensionIfNeededOnEmptyBaseNameWorks);
     // name = ".";
     // extension = ".eas";

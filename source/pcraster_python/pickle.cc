@@ -66,7 +66,7 @@ void fill_raster(calc::Field & field, const pybind11::tuple& state){
 
 pybind11::tuple getstate(calc::Field const & raster){
 
-  CSF_VS value_scale = calc::vs2CsfVs(raster.vs());
+  CSF_VS const value_scale = calc::vs2CsfVs(raster.vs());
   std::stringstream values;
   values.precision(std::numeric_limits<double>::digits10 + 1);
 
@@ -96,14 +96,14 @@ pybind11::tuple getstate(calc::Field const & raster){
     }
   }
 
-  size_t nr_rows = globals.cloneSpace().nrRows();
-  size_t nr_cols = globals.cloneSpace().nrCols();
-  double north = globals.cloneSpace().north();
-  int projection = static_cast<int>(globals.cloneSpace().projection());
-  double west = globals.cloneSpace().west();
-  double cell_size = globals.cloneSpace().cellSize();
-  int vs = static_cast<int>(raster.vs());
-  int cri = static_cast<int>(raster.cri());
+  size_t const nr_rows = globals.cloneSpace().nrRows();
+  size_t const nr_cols = globals.cloneSpace().nrCols();
+  double const north = globals.cloneSpace().north();
+  int const projection = static_cast<int>(globals.cloneSpace().projection());
+  double const west = globals.cloneSpace().west();
+  double const cell_size = globals.cloneSpace().cellSize();
+  int const vs = static_cast<int>(raster.vs());
+  int const cri = static_cast<int>(raster.cri());
 
   return pybind11::make_tuple(values.str(), vs, cri, nr_rows, nr_cols, north, west, cell_size, projection);
 }
@@ -112,14 +112,14 @@ pybind11::tuple getstate(calc::Field const & raster){
 calc::Field* setstate(pybind11::tuple const & state) {
   auto nr_rows = state[3].cast<size_t>();
   auto nr_cols = state[4].cast<size_t>();
-  size_t nr_cells = nr_rows * nr_cols;
+  size_t const nr_cells = nr_rows * nr_cols;
   auto north = state[5].cast<double>();
   auto west = state[6].cast<double>();
   auto cell_size = state[7].cast<double>() ;
-  int projection = state[8].cast<int>();
+  int const projection = state[8].cast<int>();
 
   if (!globals.cloneSpace().valid()) {
-    geo::RasterSpace cloneSpace(nr_rows, nr_cols, cell_size, west, north, static_cast<geo::Projection>(projection));
+    geo::RasterSpace const cloneSpace(nr_rows, nr_cols, cell_size, west, north, static_cast<geo::Projection>(projection));
     globals.setCloneSpace(cloneSpace);
   }
   else {
@@ -160,12 +160,12 @@ calc::Field* setstate(pybind11::tuple const & state) {
     }
   }
 
-  VS vs = static_cast<VS>(state[1].cast<int>());
-  calc::CRIndex cri = static_cast<calc::CRIndex>(state[2].cast<int>());
+  VS const vs = static_cast<VS>(state[1].cast<int>());
+  calc::CRIndex const cri = static_cast<calc::CRIndex>(state[2].cast<int>());
 
   calc::Field *field = new calc::Spatial(vs, cri, nr_cells);
 
-  CSF_VS csf_value_scale = calc::vs2CsfVs(vs);
+  CSF_VS const csf_value_scale = calc::vs2CsfVs(vs);
 
   switch(csf_value_scale){
     case VS_BOOLEAN:

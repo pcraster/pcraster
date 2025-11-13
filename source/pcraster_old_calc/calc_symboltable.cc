@@ -94,8 +94,8 @@ void calc::SymbolTable::add(calc::UserSymbol *newPar)
 {
  try {
   PRECOND(newPar != nullptr);
-  ParameterTableItem addElem(newPar->name(), newPar);
-  std::pair<Iter,bool> p=d_table.insert(addElem);
+  ParameterTableItem const addElem(newPar->name(), newPar);
+  std::pair<Iter,bool> const p=d_table.insert(addElem);
   if(! p.second) {
    // test261 test262 test273a test273 test322
    calc::UserSymbol *firstdef = p.first->second;

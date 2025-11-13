@@ -136,7 +136,7 @@ void ag::BooleanQuadDrawer::draw(size_t r, size_t c) const
     1.0
   };
 
-  UINT1 v = d_raster.cell<UINT1>(r, c);
+  UINT1 const v = d_raster.cell<UINT1>(r, c);
 
   if(!pcr::isMV(v)) {
     if(v) {
@@ -183,10 +183,10 @@ void ag::NominalQuadDrawer::draw(size_t r, size_t c) const
 {
   static const GLfloat m = 255.0;
 
-  INT4 v = d_raster.cell<INT4>(r, c);
+  INT4 const v = d_raster.cell<INT4>(r, c);
 
   if(!pcr::isMV(v)) {
-    size_t i = d_dp.classifier().index(v);
+    size_t const i = d_dp.classifier().index(v);
     const QColor& colour = d_dp.colourByIndex(i);
 
     GLfloat diffuse[] = {
@@ -241,10 +241,10 @@ void ag::OrdinalQuadDrawer::draw(size_t r, size_t c) const
 {
   static const GLfloat m = 255;
 
-  INT4 v = d_raster.cell<INT4>(r, c);
+  INT4 const v = d_raster.cell<INT4>(r, c);
 
   if(!pcr::isMV(v)) {
-    size_t i = d_dp.classifier().index(v);
+    size_t const i = d_dp.classifier().index(v);
     const QColor& colour = d_dp.colourByIndex(i);
 
     GLfloat diffuse[] = {
@@ -300,7 +300,7 @@ void ag::ScalarQuadDrawer::draw(size_t r, size_t c) const
 {
   static const GLfloat m = 255.0;
 
-  REAL4 v = d_raster.cell<REAL4>(r, c);
+  REAL4 const v = d_raster.cell<REAL4>(r, c);
 
   if(!pcr::isMV(v)) {
     QColor colour;
@@ -364,7 +364,7 @@ void ag::DirectionalQuadDrawer::draw(size_t r, size_t c) const
 {
   static const GLfloat m = 255.0;
 
-  REAL4 v = d_raster.cell<REAL4>(r, c);
+  REAL4 const v = d_raster.cell<REAL4>(r, c);
 
   if(!pcr::isMV(v)) {
     QColor colour;
@@ -516,10 +516,10 @@ ag::LddQuadDrawer::~LddQuadDrawer()
 
 void ag::LddQuadDrawer::draw(size_t r, size_t c) const
 {
-  UINT1 v = d_raster.cell<UINT1>(r, c);
+  UINT1 const v = d_raster.cell<UINT1>(r, c);
   if(!pcr::isMV(v)) {
-    unsigned char gdd = d_gdd.cell<unsigned char>(r, c);
-    GLuint tex = d_dp.texture(gdd, v);
+    unsigned char const gdd = d_gdd.cell<unsigned char>(r, c);
+    GLuint const tex = d_dp.texture(gdd, v);
     glBindTexture(GL_TEXTURE_2D, tex);
   }
 }

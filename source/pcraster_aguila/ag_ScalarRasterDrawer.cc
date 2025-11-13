@@ -62,7 +62,7 @@ void ScalarRasterDrawer::drawSingleColour(
          QTransform const& world_to_screen,
          QTransform const&  /*screen_to_world*/) const
 {
-  size_t nrCellsPerPixel = this->nrCellsPerPixel(world_to_screen);
+  size_t const nrCellsPerPixel = this->nrCellsPerPixel(world_to_screen);
 
   double leftScreen = NAN;
   double topScreen = NAN;
@@ -84,7 +84,7 @@ void ScalarRasterDrawer::drawSingleColour(
   auto lastCol = static_cast<size_t>(indices.right());
 
   assert(_properties.palette()->nrColours() > 0);
-  QColor colour = qt::RgbTupleToQColor(*_properties.palette()->begin(),
+  QColor const colour = qt::RgbTupleToQColor(*_properties.palette()->begin(),
          _properties.palette()->max());
 
   painter.setRenderHint(QPainter::Antialiasing, false);
@@ -130,7 +130,7 @@ void ScalarRasterDrawer::drawMultipleColours(
          QTransform const& world_to_screen,
          QTransform const&  /*screen_to_world*/) const
 {
-  size_t nrCellsPerPixel = this->nrCellsPerPixel(world_to_screen);
+  size_t const nrCellsPerPixel = this->nrCellsPerPixel(world_to_screen);
 
   double leftScreen = NAN;
   double topScreen = NAN;
@@ -239,7 +239,7 @@ void ScalarRasterDrawer::drawContours(
   //  diagonal of the middle to the bottom right of the cell with value 8, to
   //  the horizontal from the middle of 8 to the middle of 5. Etc.
 
-  size_t nrCellsPerPixel = this->nrCellsPerPixel(world_to_screen);
+  size_t const nrCellsPerPixel = this->nrCellsPerPixel(world_to_screen);
 
   dal::Matrix matrix(_raster->dimensions().nrRows(),
          _raster->dimensions().nrCols(), dal::TypeTraits<REAL4>::typeId);
@@ -270,7 +270,7 @@ void ScalarRasterDrawer::drawContours(
   double cyWld = NAN;
   double cxPix = NAN;
   double cyPix = NAN;
-  int    nrOfContours  = _properties.nrClasses();
+  int    const nrOfContours  = _properties.nrClasses();
   int    contourNr = 0;
   REAL4  contourValue = NAN;
   std::vector<double> contourValues = _properties.classBorders();
@@ -284,8 +284,8 @@ void ScalarRasterDrawer::drawContours(
   size_t index2 = 0;    // Loop index.
 
   // Size of cell in pixels.
-  double cellSize  = cellSizeInPixels(world_to_screen);
-  double halfCellSize = 0.5 * cellSize;
+  double const cellSize  = cellSizeInPixels(world_to_screen);
+  double const halfCellSize = 0.5 * cellSize;
 
   painter.setRenderHint(QPainter::Antialiasing);
 
@@ -314,7 +314,7 @@ void ScalarRasterDrawer::drawContours(
 
         // Calculate the pixelcoordinates of the centre.
         _raster->dimensions().coordinates(row + 1, col + 1, cxWld, cyWld);
-        QPointF p = QPointF(cxWld, cyWld);
+        QPointF const p = QPointF(cxWld, cyWld);
         cxPix = world_to_screen.map(p).x();
         cyPix = world_to_screen.map(p).y();
 

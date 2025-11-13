@@ -54,7 +54,7 @@ double *calc::TssOutputValue::getValueBuffer(size_t &nrVals)
   /* pcrcalc/test13[cd] */
   if ( (!d_fw.writeCurrentTimeStep()) && (appHeader == APP_NOHEADER) )
     return nullptr;
-  size_t t = d_fw.currentTimeStep();
+  size_t const t = d_fw.currentTimeStep();
   if (t == d_timeStepLastAdded) {
     // pcrcalc/test317 writing a value twice in loop!
     PRECOND(d_nrRowsFilled > 0);
@@ -76,7 +76,7 @@ void calc::TssOutputValue::openFile(std::ofstream& ofs)
      com::open(ofs,d_fw.tssFileName());
 
     /* print header */
-    CSF_VS vs = vs2CsfVs(d_vs);
+    CSF_VS const vs = vs2CsfVs(d_vs);
     if (appHeader == APP_DEFHEADER) {
       if (vs == VS_UNDEFINED)
        ofs << "summary\n";

@@ -121,7 +121,7 @@ void VisualisationWindow::insertPreferencesMenuItem()
 
 void VisualisationWindow::insertAnimateAction()
 {
-  QPixmap animateIcon = QPixmap((const char**)startanimation_xpm);
+  QPixmap const animateIcon = QPixmap((const char**)startanimation_xpm);
   d_animateAction = new QAction(
          animateIcon,
          "&Animate...",
@@ -183,7 +183,7 @@ void VisualisationWindow::createViewMenu()
 
 void VisualisationWindow::insertShowCursorAction()
 {
-  QPixmap icon = QPixmap((const char**)cursor_xpm);
+  QPixmap const icon = QPixmap((const char**)cursor_xpm);
   auto* action = new QAction(
          icon,
          "Show &Cursor and Values...",
@@ -363,12 +363,12 @@ void VisualisationWindow::fileMenuCopy()
 
 void VisualisationWindow::fileMenuOpen()
 {
-  QString filename = QFileDialog::getOpenFileName(this);
+  QString const filename = QFileDialog::getOpenFileName(this);
 
   try {
     if(!filename.isNull()) {
       VisGroup* group = Viewer::instance()->group(this);
-      DataGuide guide = group->addData(
+      DataGuide const guide = group->addData(
          std::string(filename.toUtf8().constData()), dal::DataSpace());
       addAttribute(guide);
       CursorWindow::instance(&dataObject())->addAttribute(guide);
@@ -409,11 +409,11 @@ void VisualisationWindow::fileMenuSaveAs()
   try {
     assert(!fileFormats().empty());
 
-    dal::DataSpace space(dataSpace());
+    dal::DataSpace const space(dataSpace());
          // visualisationDataSpace().intersect(profileDataSpace(),
          // dal::DataSpace::DontIntersectCoordinates));
          // | dal::DataSpace::KeepNonSharedDimensions));
-    dal::DataSpaceAddress address(space.trim(dataSpace(), dataSpaceAddress()));
+    dal::DataSpaceAddress const address(space.trim(dataSpace(), dataSpaceAddress()));
 
     SaveViewAsDialog dialog(appName(), space, address, fileFormats(), this);
 
@@ -476,7 +476,7 @@ void VisualisationWindow::saveAs(
          const dal::DataSpace& iterationSpace)
 {
   // dal::DataSpace space(dataObject().dataSpace());
-  dal::DataSpaceAddress originalDataSpaceAddress(dataSpaceAddress());
+  dal::DataSpaceAddress const originalDataSpaceAddress(dataSpaceAddress());
 
   // Collection of (address, file name) tuples.
   typedef std::tuple<dal::DataSpaceAddress, std::filesystem::path>
@@ -490,8 +490,8 @@ void VisualisationWindow::saveAs(
 ///   // If the iteration space contains scenarios, replace them with the name of
 ///   // the directory to write the output in. Otherwise add a scenario with this
 ///   // name.
-  std::filesystem::path path(dal::pathFor(name));
-  std::string branchPath(path.parent_path().string());
+  std::filesystem::path const path(dal::pathFor(name));
+  std::string const branchPath(path.parent_path().string());
   name = path.filename().string();
 ///   size_t index = iterationSpace.indexOf(dal::Scenarios);
 ///
@@ -534,7 +534,7 @@ void VisualisationWindow::saveAs(
       break;
     }
     else {
-      std::filesystem::path path(std::get<1>(addressPathTuples[i]));
+      std::filesystem::path const path(std::get<1>(addressPathTuples[i]));
       // dal::testPathIsWritable(path);
 
       // com::PathInfo pathInfo(std::get<1>(addressPathTuples[i]));
@@ -545,7 +545,7 @@ void VisualisationWindow::saveAs(
         stream << "Overwrite existing file(s) '"
                << path.string() << "'?'";
                    // << pathInfo.pathName().baseName() << "'?";
-        bool ok = confirmOkWarning(nullptr, appName(), stream.str());
+        bool const ok = confirmOkWarning(nullptr, appName(), stream.str());
 
         if(!ok) {
           break;

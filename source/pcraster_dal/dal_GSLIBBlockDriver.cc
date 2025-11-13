@@ -117,7 +117,7 @@ void GSLIBBlockDriver::write(
          std::ofstream& stream) const
 {
   // Assumes/requires regular block.
-  size_t nrVoxelsPerStack = block.cell<std::vector<T> >(0).size();
+  size_t const nrVoxelsPerStack = block.cell<std::vector<T> >(0).size();
 
   std::vector<std::vector<T> const*> stacks(block.nrCells());
   size_t i = 0;
@@ -153,7 +153,7 @@ void GSLIBBlockDriver::write<UINT1>(
          std::ofstream& stream) const
 {
   // Assumes/requires regular block.
-  size_t nrVoxelsPerStack = block.cell<std::vector<UINT1> >(0).size();
+  size_t const nrVoxelsPerStack = block.cell<std::vector<UINT1> >(0).size();
 
   std::vector<std::vector<UINT1> const*> stacks(block.nrCells());
   size_t i = 0;

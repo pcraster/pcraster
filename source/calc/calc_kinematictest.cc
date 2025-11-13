@@ -18,8 +18,8 @@ BOOST_AUTO_TEST_CASE(iterate1)
 {
  // adapt initial estimator Qkx twice
  //  Qkx   = MAX(Qkx, 1e-30);
- double cmpEps(1E-12);
- double v = IterateToQnew(
+ double const cmpEps(1E-12);
+ double const v = IterateToQnew(
                   /* Qin    */ 0.000201343,
                   /* Qold   */ 0.000115866,
                   /* q      */ -0.000290263,
@@ -29,7 +29,7 @@ BOOST_AUTO_TEST_CASE(iterate1)
                   /* deltaX */ 10,
                   /* epsilon */ 1E-12);
  // printf("\n %20.18f \n",v);
- double retV = 0.000031450866300937;
+ double const retV = 0.000031450866300937;
  BOOST_CHECK(v > (retV-cmpEps) && v < (retV+cmpEps) );
 }
 
@@ -37,7 +37,7 @@ BOOST_AUTO_TEST_CASE(iterate1)
 BOOST_AUTO_TEST_CASE(iterate2)
 {
  // does not terminate
- double v = IterateToQnew(
+ double const v = IterateToQnew(
               /* Qin */ 0,
               /* Qold */  1.11659e-07,
               /* q */ -1.32678e-05,

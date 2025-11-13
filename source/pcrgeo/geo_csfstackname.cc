@@ -322,8 +322,8 @@ bool geo::CSFStackName::isMemberOfStack(const com::PathName& fileName) const
     }
 
     // Check if stuff after base name is numbers and optionally one ".".
-    size_t i = baseName().baseName().length();
-    size_t n = fileName.length() - baseName().baseName().length();
+    size_t const i = baseName().baseName().length();
+    size_t const n = fileName.length() - baseName().baseName().length();
     std::string numbers = fileName.toString().substr(i, n);
 
     bool extensionSeen = false;
@@ -398,7 +398,7 @@ void geo::CSFStackName::stackNamePool(std::vector<com::PathName>& pool) const
 
   // Directory iterator to retrieve file names.
   // Loop over all file names.
-  std::filesystem::directory_iterator end_iter;
+  std::filesystem::directory_iterator const end_iter;
 
   for (std::filesystem::directory_iterator f(directoryName.path());
        f != end_iter; ++f) {
@@ -423,11 +423,11 @@ bool geo::CSFStackName::findTimeStep(std::vector<com::PathName>& pool,
                    size_t& step) const
 {
   bool result = false;
-  com::PathName::Equals equals;
-  com::PathName::LessThen lessThen;
+  com::PathName::Equals const equals;
+  com::PathName::LessThen const lessThen;
 
   // File name to search for.
-  com::PathName searchName = fileName(step).baseName();
+  com::PathName const searchName = fileName(step).baseName();
 
   // If pool.back() < searchName then there's no chance that this
   // or the next file(s) will be found.

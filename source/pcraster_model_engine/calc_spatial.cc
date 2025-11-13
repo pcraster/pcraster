@@ -323,7 +323,7 @@ public:
 calc::Spatial* calc::Spatial::findMVinMask(
    const std::vector<bool>& areaMask) const
 {
-  CRIndex cr=allFitCRIndex(vs());
+  CRIndex const cr=allFitCRIndex(vs());
 
   MaskChecker c(nrValues());
   // check for MV created if we are assigning a spatial

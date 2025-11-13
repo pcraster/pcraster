@@ -21,12 +21,12 @@ BOOST_AUTO_TEST_CASE(filling_of_data_space)
     timeSteps.push_back(1);
     DataSpace space;
     space.addDimension(Dimension(Time, timeSteps));
-    size_t nrRows = 3;
-    size_t nrCols = 2;
-    double cellSize = 15.0;
-    double north = 8.0;
-    double west = 9.0;
-    TypeId typeId = TI_REAL4;
+    size_t const nrRows = 3;
+    size_t const nrCols = 2;
+    double const cellSize = 15.0;
+    double const north = 8.0;
+    double const west = 9.0;
+    TypeId const typeId = TI_REAL4;
     MemoryRasterData data(space, typeId, nrRows, nrCols, cellSize,
          north, west);
     BOOST_CHECK(!pool.rasterExists("dem", space));

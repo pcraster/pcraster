@@ -27,7 +27,7 @@ namespace calc {
      }
 
      bool checkLastUse(const std::string& path, bool lastUse)const {
-       bool ok=astCast<ASTPar>(d_a.ast(),path)->lastUse() == lastUse;
+       bool const ok=astCast<ASTPar>(d_a.ast(),path)->lastUse() == lastUse;
        if (!ok) {
          // make sure we do the correct path
          std::cerr << "lastUse failure path: " <<
@@ -333,14 +333,14 @@ BOOST_AUTO_TEST_CASE(testIOTypes)
   using namespace calc;
 
   {
-  ASTCFGTester  test(StringParser::createCodeAsNode("a=0"));
+  ASTCFGTester  const test(StringParser::createCodeAsNode("a=0"));
   std::map<std::string,IOType> r = ioTypes(test.cfg());
   BOOST_CHECK(r.count("a"));
   BOOST_CHECK(r["a"].input() ==pcrxml::ModelInputType::None);
   BOOST_CHECK(r["a"].output()==pcrxml::ModelOutputType::Initial);
   }
   {
-  ASTCFGTester  test(StringParser::createCodeAsNode("a=b"));
+  ASTCFGTester  const test(StringParser::createCodeAsNode("a=b"));
   std::map<std::string,IOType> r = ioTypes(test.cfg());
   BOOST_CHECK(r.count("a"));
   BOOST_CHECK(r["a"].input() ==pcrxml::ModelInputType::None);
@@ -350,7 +350,7 @@ BOOST_AUTO_TEST_CASE(testIOTypes)
   BOOST_CHECK(r["b"].output()==pcrxml::ModelOutputType::Fixed);
   }
   {
-    ASTCFGTester  test(StringParser::createCodeAsNode(
+    ASTCFGTester  const test(StringParser::createCodeAsNode(
           "a=0;         \n" \
           "repeat {     \n" \
           "a=b*2;       \n" \
@@ -364,7 +364,7 @@ BOOST_AUTO_TEST_CASE(testIOTypes)
     BOOST_CHECK(r["b"].output()==pcrxml::ModelOutputType::Fixed);
   }
   {
-  ASTCFGTester  test(StringParser::createCodeAsNode(
+  ASTCFGTester  const test(StringParser::createCodeAsNode(
         "initial  dynamic a=b"));
   std::map<std::string,IOType> r = ioTypes(test.cfg());
   BOOST_CHECK(r.count("a"));
@@ -375,7 +375,7 @@ BOOST_AUTO_TEST_CASE(testIOTypes)
   BOOST_CHECK(r["b"].output()==pcrxml::ModelOutputType::Fixed);
   }
   {
-  ASTCFGTester  test(StringParser::createCodeAsNode(
+  ASTCFGTester  const test(StringParser::createCodeAsNode(
         "initial  dynamic a=b; b=sqrt(a);"));
   std::map<std::string,IOType> r = ioTypes(test.cfg());
   BOOST_CHECK(r.count("a"));
@@ -386,7 +386,7 @@ BOOST_AUTO_TEST_CASE(testIOTypes)
   BOOST_CHECK(r["b"].output()==pcrxml::ModelOutputType::Dynamic);
   }
   {
-  ASTCFGTester  test(StringParser::createCodeAsNode(
+  ASTCFGTester  const test(StringParser::createCodeAsNode(
         "initial b=3;  dynamic a=b;"));
   std::map<std::string,IOType> r = ioTypes(test.cfg());
   BOOST_CHECK(r.count("a"));
@@ -400,9 +400,9 @@ BOOST_AUTO_TEST_CASE(testIOTypes)
   //ASTNode *e=StringParser::createExpr("a+a"); WORKS!
   //ASTNode *e=StringParser::createExpr("a"); // NOT
   ASTNode *e=StringParser::createExpr("not a"); // WORKS
-  bool todo_ioTypes_expr=false;
+  bool const todo_ioTypes_expr=false;
   BOOST_WARN(todo_ioTypes_expr);
-  ASTCFGTester  test(new Code(e));
+  ASTCFGTester  const test(new Code(e));
   std::map<std::string,IOType> r = ioTypes(test.cfg());
   BOOST_WARN(r.count("a"));
   BOOST_WARN(r["a"].input() ==pcrxml::ModelInputType::Initial);

@@ -27,7 +27,7 @@
 void com::testOpenForReading(const std::string &fileName)
 {
   PRECOND(!fileName.empty());
-  PathInfo pi(fileName);
+  PathInfo const pi(fileName);
   pi.testOpenForReading();
 }
 
@@ -74,7 +74,7 @@ void com::open(std::ifstream &fs, const PathName &fileName,
 void com::testOpenForWriting(const std::string &fileName)
 {
   PRECOND(!fileName.empty());
-  PathInfo pi(fileName);
+  PathInfo const pi(fileName);
   pi.testOpenForWriting();
 }
 
@@ -115,7 +115,7 @@ void com::open(std::ofstream &fs, const PathName &fileName,
 void com::create(const std::string &fileName)
 {
   PRECOND(!fileName.empty());
-  PathInfo info(fileName);
+  PathInfo const info(fileName);
 
   if(!info.exists())
   {
@@ -174,7 +174,7 @@ void com::remove(const PathName &fileName)
 */
 void com::expectExistingFile(const std::string &name)
 {
-  PathInfo p(name);
+  PathInfo const p(name);
   if (!p.exists())
    throw OpenFileError(name," does not exists");
   if (p.isDirectory())
@@ -332,7 +332,7 @@ void com::write(
 //! wrapper for PathInfo::exists()
 bool  com::exists(const PathName& fileName)
 {
-  PathInfo pi(fileName);
+  PathInfo const pi(fileName);
   return pi.exists();
 }
 

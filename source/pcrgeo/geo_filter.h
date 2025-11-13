@@ -217,11 +217,11 @@ DstType Filter<SrcType, DstType>::calcUL(
     return d_mv;
   }
   else {
-    size_t nrRows = std::min(row + 1 + radius(), source.nrRows());
-    size_t nrCols = std::min(col + 1 + radius(), source.nrCols());
+    size_t const nrRows = std::min(row + 1 + radius(), source.nrRows());
+    size_t const nrCols = std::min(col + 1 + radius(), source.nrCols());
 
-    size_t rowFlt = radius() - row;
-    size_t colFlt = radius() - col;
+    size_t const rowFlt = radius() - row;
+    size_t const colFlt = radius() - col;
 
     row = 0;
     col = 0;
@@ -250,11 +250,11 @@ DstType Filter<SrcType, DstType>::calcUR(const SimpleRaster<SrcType>& source,
     return d_mv;
   }
   else {
-    size_t nrRows = std::min(row + 1 + radius(), source.nrRows());
-    size_t nrCols = std::min(radius() + source.nrCols() - col, source.nrCols());
+    size_t const nrRows = std::min(row + 1 + radius(), source.nrRows());
+    size_t const nrCols = std::min(radius() + source.nrCols() - col, source.nrCols());
 
-    size_t rowFlt = radius() - row;
-    size_t colFlt = 0;
+    size_t const rowFlt = radius() - row;
+    size_t const colFlt = 0;
 
     row = 0;
     col = col > radius() ? col - radius() : 0;
@@ -283,11 +283,11 @@ DstType Filter<SrcType, DstType>::calcLR(const SimpleRaster<SrcType>& source,
     return d_mv;
   }
   else {
-    size_t nrRows = std::min(radius() + source.nrRows() - row, source.nrRows());
-    size_t nrCols = std::min(radius() + source.nrCols() - col, source.nrCols());
+    size_t const nrRows = std::min(radius() + source.nrRows() - row, source.nrRows());
+    size_t const nrCols = std::min(radius() + source.nrCols() - col, source.nrCols());
 
-    size_t rowFlt = 0;
-    size_t colFlt = 0;
+    size_t const rowFlt = 0;
+    size_t const colFlt = 0;
 
     row = row > radius() ? row - radius() : 0;
     col = col > radius() ? col - radius() : 0;
@@ -316,11 +316,11 @@ DstType Filter<SrcType, DstType>::calcLL(const SimpleRaster<SrcType>& source,
     return d_mv;
   }
   else {
-    size_t nrRows = std::min(radius() + source.nrRows() - row, source.nrRows());
-    size_t nrCols = std::min(col + 1 + radius(), source.nrCols());
+    size_t const nrRows = std::min(radius() + source.nrRows() - row, source.nrRows());
+    size_t const nrCols = std::min(col + 1 + radius(), source.nrCols());
 
-    size_t rowFlt = 0;
-    size_t colFlt = radius() - col;
+    size_t const rowFlt = 0;
+    size_t const colFlt = radius() - col;
 
     row = row > radius() ? row - radius() : 0;
     col = 0;
@@ -349,11 +349,11 @@ DstType Filter<SrcType, DstType>::calcTop(const SimpleRaster<SrcType>& source,
     return d_mv;
   }
   else {
-    size_t nrRows = std::min(row + 1 + radius(), source.nrRows());
-    size_t nrCols = this->nrCols();
+    size_t const nrRows = std::min(row + 1 + radius(), source.nrRows());
+    size_t const nrCols = this->nrCols();
 
-    size_t rowFlt = radius() - row;
-    size_t colFlt = 0;
+    size_t const rowFlt = radius() - row;
+    size_t const colFlt = 0;
 
     row = 0;
     col = col > radius() ? col - radius() : 0;
@@ -382,11 +382,11 @@ DstType Filter<SrcType, DstType>::calcBottom(const SimpleRaster<SrcType>&
     return d_mv;
   }
   else {
-    size_t nrRows = std::min(radius() + source.nrRows() - row, source.nrRows());
-    size_t nrCols = this->nrCols();
+    size_t const nrRows = std::min(radius() + source.nrRows() - row, source.nrRows());
+    size_t const nrCols = this->nrCols();
 
-    size_t rowFlt = 0;
-    size_t colFlt = 0;
+    size_t const rowFlt = 0;
+    size_t const colFlt = 0;
 
     row = row > radius() ? row - radius() : 0;
     col = col > radius() ? col - radius() : 0;
@@ -415,11 +415,11 @@ DstType Filter<SrcType, DstType>::calcLeft(const SimpleRaster<SrcType>& source,
     return d_mv;
   }
   else {
-    size_t nrRows = this->nrRows();
-    size_t nrCols = std::min(col + 1 + radius(), source.nrCols());
+    size_t const nrRows = this->nrRows();
+    size_t const nrCols = std::min(col + 1 + radius(), source.nrCols());
 
-    size_t colFlt = radius() - col;
-    size_t rowFlt = 0;
+    size_t const colFlt = radius() - col;
+    size_t const rowFlt = 0;
 
     row = row > radius() ? row - radius() : 0;
     col = 0;
@@ -448,11 +448,11 @@ DstType Filter<SrcType, DstType>::calcRight(const SimpleRaster<SrcType>& source,
     return d_mv;
   }
   else {
-    size_t nrRows = this->nrRows();
-    size_t nrCols = std::min(radius() + source.nrCols() - col, source.nrCols());
+    size_t const nrRows = this->nrRows();
+    size_t const nrCols = std::min(radius() + source.nrCols() - col, source.nrCols());
 
-    size_t rowFlt = 0;
-    size_t colFlt = 0;
+    size_t const rowFlt = 0;
+    size_t const colFlt = 0;
 
     row = row > radius() ? row - radius() : 0;
     col = col > radius() ? col - radius() : 0;
@@ -481,11 +481,11 @@ DstType Filter<SrcType, DstType>::calcInterior(
     return d_mv;
   }
   else {
-    size_t nrRows = this->nrRows();
-    size_t nrCols = this->nrCols();
+    size_t const nrRows = this->nrRows();
+    size_t const nrCols = this->nrCols();
 
-    size_t rowFlt = 0;
-    size_t colFlt = 0;
+    size_t const rowFlt = 0;
+    size_t const colFlt = 0;
 
     row = row > radius() ? row - radius() : 0;
     col = col > radius() ? col - radius() : 0;

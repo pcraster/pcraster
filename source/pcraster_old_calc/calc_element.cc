@@ -78,7 +78,7 @@ const calc::IScript& calc::Element::scriptConst() const
 void calc::Element::runtimeError(
   const std::string& inMsg) const
 {
-  size_t t = scriptConst().currentTimeStep();
+  size_t const t = scriptConst().currentTimeStep();
   std::ostringstream msg;
   msg << "\nRUNTIME";
   if (t >= 1)

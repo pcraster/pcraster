@@ -47,9 +47,9 @@ void com_LogClassifier<T>::classify(std::vector<T> &b, T min, T max, size_t n)
 
   n += 1;
   b.resize(n);
-  double lmin  = std::log10(static_cast<double>(min));
-  double lmax  = std::log10(static_cast<double>(max));
-  double width = (lmax - lmin) / (n - 1);
+  double const lmin  = std::log10(static_cast<double>(min));
+  double const lmax  = std::log10(static_cast<double>(max));
+  double const width = (lmax - lmin) / (n - 1);
 
   for(size_t i = 0; i < n - 1; i++)  // Calculate all but the last class border.
     b[i] = static_cast<T>(std::pow(10.0, lmin + i * width));

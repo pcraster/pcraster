@@ -20,7 +20,7 @@ static xml_schema::date_time makeDateTime(const std::string& date)
     xsi:schemaLocation='http://www.pcraster.nl/pcrxml unitTest.xsd'>";
   o << date << "</pcr:clock> ";
   std::istringstream i(o.str());
-  std::unique_ptr<xml_schema::date_time> d(pcrxml::clock(i));
+  std::unique_ptr<xml_schema::date_time> const d(pcrxml::clock(i));
   return *d;
 }
 
@@ -36,7 +36,7 @@ static pcrxml::TimeDuration makeTimeDuration(
     xsi:schemaLocation='http://www.pcraster.nl/pcrxml commonTypes.xsd'>";
   o << duration << "</pcr:unitTestOnlyDuration> ";
   std::istringstream i(o.str());
-  std::unique_ptr<pcrxml::TimeDuration> d(pcrxml::unitTestOnlyDuration(i));
+  std::unique_ptr<pcrxml::TimeDuration> const d(pcrxml::unitTestOnlyDuration(i));
   return *d;
 }
 
@@ -50,7 +50,7 @@ BOOST_AUTO_TEST_CASE(to_boost_posix_time)
   using namespace pcrxsd;
 
   {
-  boost::posix_time::ptime p1= toPosixTime(
+  boost::posix_time::ptime const p1= toPosixTime(
       makeDateTime("2005-02-10T18:15:00"));
   BOOST_CHECK(p1.date().year()==2005);
   BOOST_CHECK(p1.date().month()==2);
@@ -62,7 +62,7 @@ BOOST_AUTO_TEST_CASE(to_boost_posix_time)
   }
 
   {
-  boost::posix_time::ptime p1= toPosixTime(makeDateTime("2005-02-10T18:15:00.345"));
+  boost::posix_time::ptime const p1= toPosixTime(makeDateTime("2005-02-10T18:15:00.345"));
   BOOST_CHECK(p1.date().year()==2005);
   BOOST_CHECK(p1.date().month()==2);
   BOOST_CHECK(p1.date().day()==10);
@@ -96,7 +96,7 @@ BOOST_AUTO_TEST_CASE(time_duration_assumption)
     ptime time;
     time = ptime(bg::date(2006, boost::gregorian::Feb, 1),
                  time_duration(0, 0, 0, 0));
-    time_duration duration(4098, 0, 0, 0);
+    time_duration const duration(4098, 0, 0, 0);
     time += duration;
 
     BOOST_CHECK(time.date().year()==2006);
@@ -111,7 +111,7 @@ BOOST_AUTO_TEST_CASE(time_duration_assumption)
     // can expess the same in minutes
     ptime time = ptime(bg::date(2006, boost::gregorian::Feb, 1),
                  time_duration(0, 0, 0, 0));
-    time_duration duration(0,static_cast<time_duration::min_type>(4098*60), 0, 0);
+    time_duration const duration(0,static_cast<time_duration::min_type>(4098*60), 0, 0);
     time += duration;
 
     BOOST_CHECK(time.date().year()==2006);
@@ -130,24 +130,24 @@ BOOST_AUTO_TEST_CASE(time_duration)
   using namespace pcrxsd;
 
   {
-  boost::posix_time::time_duration p =
+  boost::posix_time::time_duration const p =
     toPosixTimeDuration(makeTimeDuration("<pcr:hours>10</pcr:hours>"));
   BOOST_CHECK(p.hours()==10);
   }
 
   {
-  boost::posix_time::time_duration p =
+  boost::posix_time::time_duration const p =
     toPosixTimeDuration(makeTimeDuration("<pcr:minutes>10</pcr:minutes>"));
   BOOST_CHECK(p.minutes()==10);
   }
   {
-  boost::posix_time::time_duration p =
+  boost::posix_time::time_duration const p =
     toPosixTimeDuration(makeTimeDuration("<pcr:minutes>100</pcr:minutes>"));
   BOOST_CHECK(p.hours()==1);
   BOOST_CHECK(p.minutes()==40);
   }
   {
-  boost::posix_time::time_duration p =
+  boost::posix_time::time_duration const p =
     toPosixTimeDuration(makeTimeDuration("<pcr:seconds>100</pcr:seconds>"));
   BOOST_CHECK(p.minutes()==1);
   BOOST_CHECK(p.seconds()==40);

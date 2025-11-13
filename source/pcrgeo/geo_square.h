@@ -175,7 +175,7 @@ template<class T, size_t n, typename B>
   /* if one of the edges is within the other
    * it intersects for boths partly
    */
-  T side[2]={1,-1};
+  T const side[2]={1,-1};
   for(size_t s=0; s<(1<<n); ++s) {
     // bitfield s encode for each dimension
     // a permutation of 1/-1 to select edge

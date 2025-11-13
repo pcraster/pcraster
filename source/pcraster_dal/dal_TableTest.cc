@@ -124,13 +124,13 @@ BOOST_AUTO_TEST_CASE(copy)
 
   // Copy construct empty.
   {
-    Table copy(*d_empty);
+    Table const copy(*d_empty);
     testEmptyTable(copy);
   }
 
   // Copy construct table1.
   {
-    Table copy(*d_table1);
+    Table const copy(*d_table1);
     testTable1(copy);
   }
 
@@ -161,8 +161,8 @@ BOOST_AUTO_TEST_CASE(assign)
     table1.appendCol<INT4>();
     table1.appendCol<INT4>();
 
-    size_t joinFrom = 0;
-    size_t colToWrite = 1;
+    size_t const joinFrom = 0;
+    size_t const colToWrite = 1;
 
     Array<INT4>& ids1(table1.col<INT4>(joinFrom));
     ids1.resize(5);
@@ -183,8 +183,8 @@ BOOST_AUTO_TEST_CASE(assign)
     table2.appendCol<INT4>();
     table2.appendCol<INT4>();
 
-    size_t joinTo = 1;
-    size_t colToRead = 0;
+    size_t const joinTo = 1;
+    size_t const colToRead = 0;
 
     Array<INT4>& ids2(table2.col<INT4>(joinTo));
     ids2.resize(5);

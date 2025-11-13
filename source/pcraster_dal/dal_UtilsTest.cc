@@ -23,7 +23,7 @@ struct Fixture
 
     Fixture()
     {
-        static ClientWrapper client("/my/path/utils_test", true);
+        static ClientWrapper const client("/my/path/utils_test", true);
     }
 
     ~Fixture()
@@ -74,7 +74,7 @@ BOOST_AUTO_TEST_CASE(split_name_and_selection)
   using namespace dal;
 
   {
-    std::string name = "table{1,3,q}";
+    std::string const name = "table{1,3,q}";
     std::tuple<std::string, std::vector<std::string> > tuple =
            splitNameAndSelection(name);
 
@@ -86,7 +86,7 @@ BOOST_AUTO_TEST_CASE(split_name_and_selection)
   }
 
   {
-    std::string name = "table{}";
+    std::string const name = "table{}";
     std::tuple<std::string, std::vector<std::string> > tuple =
            splitNameAndSelection(name);
 
@@ -95,7 +95,7 @@ BOOST_AUTO_TEST_CASE(split_name_and_selection)
   }
 
   {
-    std::string name = "table{1}";
+    std::string const name = "table{1}";
     std::tuple<std::string, std::vector<std::string> > tuple =
            splitNameAndSelection(name);
 
@@ -105,7 +105,7 @@ BOOST_AUTO_TEST_CASE(split_name_and_selection)
   }
 
   {
-    std::string name = "table{1,2}";
+    std::string const name = "table{1,2}";
     std::tuple<std::string, std::vector<std::string> > tuple =
            splitNameAndSelection(name);
 
@@ -116,7 +116,7 @@ BOOST_AUTO_TEST_CASE(split_name_and_selection)
   }
 
   {
-    std::string name = "table{1, 2}";
+    std::string const name = "table{1, 2}";
     std::tuple<std::string, std::vector<std::string> > tuple =
            splitNameAndSelection(name);
 
@@ -127,7 +127,7 @@ BOOST_AUTO_TEST_CASE(split_name_and_selection)
   }
 
   {
-    std::string name = "table { 1, 2 }";
+    std::string const name = "table { 1, 2 }";
     std::tuple<std::string, std::vector<std::string> > tuple =
            splitNameAndSelection(name);
 
@@ -139,7 +139,7 @@ BOOST_AUTO_TEST_CASE(split_name_and_selection)
 
   {
     // Input string is not trimmed.
-    std::string name = "table{1, 2} ";
+    std::string const name = "table{1, 2} ";
     std::tuple<std::string, std::vector<std::string> > tuple =
            splitNameAndSelection(name);
 
@@ -175,10 +175,10 @@ BOOST_AUTO_TEST_CASE(data_space_to_field_names)
   scenarios.insert("aap");
   scenarios.insert("noot");
   scenarios.insert("mies");
-  Dimension scenario(Scenarios, scenarios);
+  Dimension const scenario(Scenarios, scenarios);
 
-  Dimension time(Time, size_t(1), size_t(10), size_t(1));
-  Dimension uncertainty(CumulativeProbabilities, 0.01f, 0.99f, 0.01f);
+  Dimension const time(Time, size_t(1), size_t(10), size_t(1));
+  Dimension const uncertainty(CumulativeProbabilities, 0.01f, 0.99f, 0.01f);
 
   {
     fieldNames.clear();
@@ -238,26 +238,26 @@ BOOST_AUTO_TEST_CASE(data_space_address_to_sql_query)
 
   DataSpace space;
   DataSpaceAddress address;
-  std::string tableName = "MyTable";
-  std::string fieldName = "Co2";
+  std::string const tableName = "MyTable";
+  std::string const fieldName = "Co2";
 
   std::set<std::string> scenarios;
   scenarios.insert("aap");
   scenarios.insert("noot");
   scenarios.insert("mies");
-  Dimension scenario(Scenarios, scenarios);
+  Dimension const scenario(Scenarios, scenarios);
 
   std::vector<size_t> timeSteps;
   timeSteps.push_back(1);
   timeSteps.push_back(10);
   timeSteps.push_back(1);
-  Dimension time(Time, timeSteps);
+  Dimension const time(Time, timeSteps);
 
   std::vector<float> quantiles;
   quantiles.push_back(0.01f);
   quantiles.push_back(0.99f);
   quantiles.push_back(0.01f);
-  Dimension uncertainty(CumulativeProbabilities, quantiles);
+  Dimension const uncertainty(CumulativeProbabilities, quantiles);
 
   {
     BOOST_CHECK_EQUAL(dataSpaceAddressToSqlQuery(space, address, tableName,

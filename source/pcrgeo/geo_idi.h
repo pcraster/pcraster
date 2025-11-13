@@ -26,8 +26,8 @@ public:
                  d_c(c), d_val(POSSIBLE_DATA_LOSS(float,val)) {}
       //! squared distance
       double distSqr(const Point& c) const {
-           double x = static_cast<double>(d_c.x())-c.x();
-           double y = static_cast<double>(d_c.y())-c.y();
+           double const x = static_cast<double>(d_c.x())-c.x();
+           double const y = static_cast<double>(d_c.y())-c.y();
            return (x*x+y*y);
        }
       double value() const {

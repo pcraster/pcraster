@@ -286,7 +286,7 @@ void   calc::Operations::loadLib(const std::string& libName)
  */
 void   calc::Operations::load(const CalcLib::GetMeta& gm)
 {
-  ObjectLinkMeta olm(gm());
+  ObjectLinkMeta const olm(gm());
   std::string className(olm.className());
   const ObjectLinkMeta::MethodMap& m(olm.methodMap());
 

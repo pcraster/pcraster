@@ -40,7 +40,7 @@ BOOST_AUTO_TEST_CASE(down_stream)
   using namespace geo;
 
   {
-    CellLocVisitor cv(1,1);
+    CellLocVisitor const cv(1,1);
     for(size_t l=1; l <=9; l++) {
       CellLoc c=cv.downstream(l);
       BOOST_CHECK(l==5|| !cv.downstream(c,l));

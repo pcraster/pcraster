@@ -64,7 +64,7 @@ public:
   {}
 
   void initVertex(const Vertex& vC) {
-    size_t v=linear(vC);
+    size_t const v=linear(vC);
     d_data.addDem(v);
     d_inflow[v] =0;
     d_outflow[v]=0;
@@ -73,7 +73,7 @@ public:
   void finishVertex(const Vertex& vC) {
     if (pcr::isMV(d_data.d_dem[vC]))
       return;
-    size_t v=linear(vC);
+    size_t const v=linear(vC);
     if (!d_data.d_fixedHead[v]) {
       d_data.d_dem[v] += (d_inflow[v]-d_outflow[v])/d_data.d_area[v];
       d_data.checkDem(v);
@@ -83,11 +83,11 @@ public:
 
 
   void downstreamEdge(const Edge& e) {
-   REAL4 drop= d_data.drop(e);
+   REAL4 const drop= d_data.drop(e);
    if (drop < 0)
      return;
    DEVELOP_PRECOND(d_edgeNr < d_data.d_fixedEdgeFlowTerm.size());
-   REAL4 edgeFlow = drop * d_data.d_fixedEdgeFlowTerm[d_edgeNr++];
+   REAL4 const edgeFlow = drop * d_data.d_fixedEdgeFlowTerm[d_edgeNr++];
    d_outflow[e.source()]+=edgeFlow;
    d_inflow[e.target()] +=edgeFlow;
   }
@@ -187,7 +187,7 @@ void mldd::Diffuse::initSet(size_t v)
 void mldd::Diffuse::initFlowTerm(const Edge& e)
 {
   // c: index in [8] is NB code from e.source()->e.target()
-  size_t c(geo::NB::code(e.source(),e.target()));
+  size_t const c(geo::NB::code(e.source(),e.target()));
   // index in grid is s = e.source()
   size_t s = 0;
   size_t t = 0;
@@ -224,7 +224,7 @@ void mldd::Diffuse::addDem(size_t v)
 
 //! return < 0 if MV, >=0 otherwise
 REAL4 mldd::Diffuse::drop(const Edge& e) const {
-  REAL4 diff = com::subtract(d_dem[e.source()], d_dem[e.target()]);
+  REAL4 const diff = com::subtract(d_dem[e.source()], d_dem[e.target()]);
   return pcr::isMV(diff) ? -1 : std::max(diff, 0.0F);
 }
 

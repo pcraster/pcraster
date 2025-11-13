@@ -60,10 +60,10 @@ template <class Operation>
  */
 void forEachNode(QDomNode node, Operation& o) {
   o(node);
-  NodeSet attrs(node.attributes());
+  NodeSet const attrs(node.attributes());
   for(const auto & attr : attrs)
     o(attr);
-  QDomNodeList list = node.childNodes();
+  QDomNodeList const list = node.childNodes();
   for(size_t i=0; i < (size_t)list.count(); ++i)
     forEachNode(list.item(i),o);
 }
@@ -83,7 +83,7 @@ void forEachNode(QDomNode node, Operation& o) {
 template <class Operation>
  void forEachElement(QDomElement e, Operation& o) {
   o(e);
-  QDomNodeList list = e.childNodes();
+  QDomNodeList const list = e.childNodes();
    for(size_t i=0; i < (size_t)list.count(); i++)
      if (list.item(i).isElement())
        forEachElement(list.item(i).toElement(),o);
@@ -99,7 +99,7 @@ template <class Operation>
  */
 template <class Operation>
  void forEachChildElement(const QDomElement& e, Operation& o) {
- QDomNodeList list = e.childNodes();
+ QDomNodeList const list = e.childNodes();
    for(size_t i=0; i < (size_t)list.count(); i++)
      if (list.item(i).isElement())
        o(list.item(i).toElement());

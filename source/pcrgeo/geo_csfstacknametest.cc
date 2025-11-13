@@ -46,8 +46,8 @@ BOOST_AUTO_TEST_CASE(filename)
 
  {
   // Static stack in current dir.
-  com::PathName pn = "soil.csf";
-  geo::CSFStackName sn(pn);
+  com::PathName const pn = "soil.csf";
+  geo::CSFStackName const sn(pn);
   BOOST_CHECK(sn.fileName(50) == "soil.csf");
  } 
  // pcrcalc has a trick that if the extension
@@ -55,36 +55,36 @@ BOOST_AUTO_TEST_CASE(filename)
  // same file
  {
   // CW wanted to use this one  in pcrcalc
-  com::PathName pn = "tmp.res";
-  geo::CSFStackName sn(pn);
+  com::PathName const pn = "tmp.res";
+  geo::CSFStackName const sn(pn);
   BOOST_CHECK(!sn.isDynamic());
   BOOST_CHECK(sn.fileName(1) == "tmp.res");
   BOOST_CHECK(sn.fileName(300) == "tmp.res");
  }
  {
   // and not this one in pcrcalc
-  com::PathName pn = "tmp.res";
-  geo::CSFStackName sn(pn,1,1000);
+  com::PathName const pn = "tmp.res";
+  geo::CSFStackName const sn(pn,1,1000);
   BOOST_CHECK(sn.isDynamic());
   BOOST_CHECK(sn.fileName(1) == "tmp.res");
   BOOST_CHECK(sn.fileName(300) == "tmp.res");
  }
  {
   // Dynamic stack in current dir.
-  com::PathName pn = "soil0000.010+100";
-  geo::CSFStackName sn(pn);
+  com::PathName const pn = "soil0000.010+100";
+  geo::CSFStackName const sn(pn);
   BOOST_CHECK(sn.fileName(50) == "soil0000.050");
  }
 
   {
-    com::PathName pn = "soilsoil.010+100";
-    geo::CSFStackName sn(pn);
+    com::PathName const pn = "soilsoil.010+100";
+    geo::CSFStackName const sn(pn);
     BOOST_CHECK(sn.fileName(50) == "soilsoil.050");
   }
 
   {
-    com::PathName pn = "soilsoil.s10+100";
-    geo::CSFStackName sn(pn);
+    com::PathName const pn = "soilsoil.s10+100";
+    geo::CSFStackName const sn(pn);
     BOOST_CHECK(sn.fileName(50) == "soilsoil.s50");
   }
 }
@@ -149,8 +149,8 @@ BOOST_AUTO_TEST_CASE(bad_formats)
   // stupid error
   catchWrongFormat=false;
   try {
-       com::PathName pn("+");
-       geo::CSFStackName sn(pn);
+       com::PathName const pn("+");
+       geo::CSFStackName const sn(pn);
   } catch (const com::Exception& ) {
    catchWrongFormat=true;
   }
@@ -159,8 +159,8 @@ BOOST_AUTO_TEST_CASE(bad_formats)
   // no last timestep
   catchWrongFormat=false;
   try {
-       com::PathName pn("rnpnts00.001+");
-       geo::CSFStackName sn(pn);
+       com::PathName const pn("rnpnts00.001+");
+       geo::CSFStackName const sn(pn);
   } catch (const com::Exception& ) {
    catchWrongFormat=true;
   }
@@ -169,8 +169,8 @@ BOOST_AUTO_TEST_CASE(bad_formats)
   // last timestep is not numeric
   catchWrongFormat=false;
   try {
-       com::PathName pn("rnpnts00.001+XXX");
-       geo::CSFStackName sn(pn);
+       com::PathName const pn("rnpnts00.001+XXX");
+       geo::CSFStackName const sn(pn);
   } catch (const com::Exception& ) {
    catchWrongFormat=true;
   }
@@ -179,8 +179,8 @@ BOOST_AUTO_TEST_CASE(bad_formats)
   // no first timestep
   catchWrongFormat=false;
   try {
-       com::PathName pn("rnpntsxx.xxx+431");
-       geo::CSFStackName sn(pn);
+       com::PathName const pn("rnpntsxx.xxx+431");
+       geo::CSFStackName const sn(pn);
   } catch (const com::Exception& ) {
    catchWrongFormat=true;
   }
@@ -189,8 +189,8 @@ BOOST_AUTO_TEST_CASE(bad_formats)
   catchWrongFormat=false;
   // first timestep larger than second
   try {
-       com::PathName pn("XXXX970.009+3");
-       geo::CSFStackName sn(pn);
+       com::PathName const pn("XXXX970.009+3");
+       geo::CSFStackName const sn(pn);
   } catch (const com::Exception& ) {
     catchWrongFormat=true;
   }
@@ -203,6 +203,6 @@ BOOST_AUTO_TEST_CASE(as_aguila_argument)
 {
   using namespace geo;
 
-  std::string r(CSFStackName::asAguilaArgument("prefix",1,100));
+  std::string const r(CSFStackName::asAguilaArgument("prefix",1,100));
   BOOST_CHECK(r == "prefix00.001+100");
 }

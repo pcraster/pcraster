@@ -45,7 +45,7 @@ void w4t(
     Value const& value,
     Result& result){
 
-    fern::Square<bool, 1> window_kernel({
+    fern::Square<bool, 1> const window_kernel({
         {false, true , false},
         {true , false, true},
         {false, true , false}
@@ -84,7 +84,7 @@ calc::Field* window4total(
   fa::ExecutionPolicy epol = execution_policy();
 
   using InputNoDataPolicy = fa::InputNoDataPolicies<SpatialDetectNoData<REAL4>>;
-  InputNoDataPolicy input_no_data_policy{{arg}};
+  InputNoDataPolicy const input_no_data_policy{{arg}};
 
   SpatialSetNoData<REAL4> output_no_data_policy(result);
 

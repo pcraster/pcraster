@@ -118,7 +118,7 @@ RCH::RCH(PCRModflow *mf, size_t rchOpCode) :
 
 void RCH::setRecharge(const calc::Field *rch, size_t optCode){
   if(!((optCode == 1) || (optCode == 3))){
-    std::string stmp("Input error: set recharge option code within either to 1 or 3");
+    std::string const stmp("Input error: set recharge option code within either to 1 or 3");
     d_mf->d_cmethods->error(stmp, "setRecharge");
   }
   REAL8 value = 0.0;
@@ -165,12 +165,12 @@ calc::Field* RCH::getRecharge(size_t layer, std::string const& path) const {
 
   // modflow reports from top to bottom, thus
   // get the 'inverse' layer number to start from the right position
-  int pos_multiplier = d_mf->get_modflow_layernr(layer);
+  int const pos_multiplier = d_mf->get_modflow_layernr(layer);
 
   auto* spatial = new calc::Spatial(VS_S, calc::CRI_f, d_mf->d_nrOfCells);
   auto* cells = static_cast<REAL4*>(spatial->dest());
 
-  mf::BinaryReader reader;
+  mf::BinaryReader const reader;
   const std::string filename(mf::execution_path(path, "fort." + std::to_string(d_output_unit_number)));
   reader.read(stmp.str(), filename, cells, desc, pos_multiplier);
 
@@ -192,11 +192,11 @@ void RCH::getRecharge(float *values, size_t layer, std::string const& path) cons
 
   // modflow reports from top to bottom, thus
   // get the 'inverse' layer number to start from the right position
-  int pos_multiplier = d_mf->get_modflow_layernr(layer);
+  int const pos_multiplier = d_mf->get_modflow_layernr(layer);
 
 
   //get_binary(cells, desc, start_pos, pos_multiplier);
-  mf::BinaryReader reader;
+  mf::BinaryReader const reader;
   const std::string filename(mf::execution_path(path, "fort." + std::to_string(d_output_unit_number)));
   reader.read(stmp.str(), filename, values, desc, pos_multiplier);
 }
@@ -205,7 +205,7 @@ void RCH::getRecharge(float *values, size_t layer, std::string const& path) cons
 
 void RCH::write(std::string const& path){
 
-  std::string filename = mf::execution_path(path, "pcrmf.rch");
+  std::string const filename = mf::execution_path(path, "pcrmf.rch");
 
   std::ofstream content(filename);
 
@@ -235,7 +235,7 @@ void RCH::write(std::string const& path){
 
 void RCH::write_array(std::string const& path){
 
-  std::string filename = mf::execution_path(path, "pcrmf_rch.asc");
+  std::string const filename = mf::execution_path(path, "pcrmf_rch.asc");
 
   std::ofstream content(filename);
 
@@ -260,7 +260,7 @@ void RCH::write_array(std::string const& path){
 
 void RCH::write_indicated(std::string const& path){
 
-  std::string filename = mf::execution_path(path, "pcrmf_irch.asc");
+  std::string const filename = mf::execution_path(path, "pcrmf_irch.asc");
 
   std::ofstream content(filename);
 

@@ -179,10 +179,10 @@ void geo::RasterSpace::rowCol2Coords(
   double &x,
   double &y) const
 {
-  double yRow   = d_cellSize * row;
-  double xCol   = d_cellSize * col;
-  double xCol_t = xCol * d_angleCos - yRow * d_angleSin;
-  double yRow_t = xCol * d_angleSin + yRow * d_angleCos;
+  double const yRow   = d_cellSize * row;
+  double const xCol   = d_cellSize * col;
+  double const xCol_t = xCol * d_angleCos - yRow * d_angleSin;
+  double const yRow_t = xCol * d_angleSin + yRow * d_angleCos;
 
   x = d_left + xCol_t;
   if(d_projection == YIncrT2B)
@@ -245,7 +245,7 @@ void geo::RasterSpace::coords2Loc(
 void geo::RasterSpace::coords2RowCol(double x, double y,
                    double& row, double& col) const
 {
-  double xCol = (x - d_left) / d_cellSize;
+  double const xCol = (x - d_left) / d_cellSize;
   double yRow = NAN;
   if(d_projection == YIncrT2B) {
     yRow = (y - d_top) / d_cellSize;
@@ -255,8 +255,8 @@ void geo::RasterSpace::coords2RowCol(double x, double y,
   }
 
   /* rotate clockwise: */
-  double c = d_angleCos;     /* cos(t) == cos(-t) */
-  double s = -(d_angleSin);  /* -sin(t) == sin(-t) */
+  double const c = d_angleCos;     /* cos(t) == cos(-t) */
+  double const s = -(d_angleSin);  /* -sin(t) == sin(-t) */
 
   col = xCol * c - yRow * s;
   row = xCol * s + yRow * c;
@@ -283,7 +283,7 @@ geo::Quadrant geo::RasterSpace::quadrant(double x, double y) const
   rowCol2Coords(std::floor(row) + 0.5, std::floor(col) + 0.5, xCenter, yCenter);
 
   // Determine quadrant.
-  double sign = projection() == geo::YIncrB2T ? -1.0 : 1.0;
+  double const sign = projection() == geo::YIncrB2T ? -1.0 : 1.0;
 
   if(x < xCenter && (sign * (y - yCenter)) < 0.0) {
     // North west quadrant.

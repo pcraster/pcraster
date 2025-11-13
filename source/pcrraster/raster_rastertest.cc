@@ -6,7 +6,7 @@ BOOST_AUTO_TEST_CASE(test)
 {
   // using namespace raster;
 
-  bool testImplemented = false;
+  bool const testImplemented = false;
   BOOST_WARN(testImplemented);
 }
 
@@ -15,6 +15,6 @@ BOOST_AUTO_TEST_CASE(set_mv)
 {
   // using namespace raster;
 
-  bool testImplemented = false;
+  bool const testImplemented = false;
   BOOST_WARN(testImplemented);
 }

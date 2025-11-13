@@ -195,7 +195,7 @@ void calc::ASTScript::applyInterface()
 
   // 1) external binding -> bindings
   if (!d_rteSettings.externalBindingFile().isEmpty()) {
-   RunSettings rs(d_rteSettings.externalBindingFile());
+   RunSettings const rs(d_rteSettings.externalBindingFile());
    bt.overwrite(rs);
   }
 
@@ -223,7 +223,7 @@ void calc::ASTScript::compile()
   if (!d_rteSettings.compile())
     return;
 
- std::vector<PointCodeBlock *> l=
+ std::vector<PointCodeBlock *> const l=
    insertPointCodeBlocks(d_symbols,d_code,d_cfgCode);
  d_pointCodeBlockDll= new PointCodeBlockDll(l);
 
@@ -252,7 +252,7 @@ void calc::ASTScript::compile()
 
 void calc::ASTScript::setSettingsFromXML(pcrxml::Script const& script)
 {
-  std::string areaMapRef =
+  std::string const areaMapRef =
     d_rteSettings.setSettingsFromXML(script);
   if (! areaMapRef.empty()) {
     setAreaMapFromString(areaMapRef,"<xmlApi>");
@@ -296,7 +296,7 @@ void calc::ASTScript::analyzeNoContextUnChecked()
 
   // compute ioTypes
   typedef std::map<std::string,IOType> CodeTypes;
-  CodeTypes codeTypes=ioTypes(d_cfgCode);
+  CodeTypes const codeTypes=ioTypes(d_cfgCode);
   for (auto & codeType : codeTypes) {
     auto s=d_symbols.find(codeType.first);
     PRECOND(s!=d_symbols.end());
@@ -334,7 +334,7 @@ void calc::ASTScript::resolveUnChecked() {
   //      before setDefinition() is done
   setReports();
 
-  Timer t(timer());
+  Timer const t(timer());
 
   d_rteSettings.resolve(d_symbols, areaMap, t);
 
@@ -378,7 +378,7 @@ void calc::ASTScript::setReports()
  if (d_code)
     d_code->accept(rv);
 
- ReportPars rps(rv.reportPars());
+ ReportPars const rps(rv.reportPars());
  for(auto & rp : rps) {
    auto s= d_symbols.find(rp.first);
    POSTCOND(s != d_symbols.end());
@@ -504,7 +504,7 @@ calc::Timer calc::ASTScript::timer() const
    const ASTSymbolInfo&  a(d_symbols[d_timerStartOrTss->name()]);
    if (!a.isConstant()) { // it is a (file)-symbol
      try {
-       TimeTable tss(a.externalName(),VS_S,1);
+       TimeTable const tss(a.externalName(),VS_S,1);
        timer.setStartInt(1);
        timer.setLastInt(tss.nrTimeSteps());
       } catch(const com::Exception& e) {
@@ -520,7 +520,7 @@ calc::Timer calc::ASTScript::timer() const
    Private::Check c(d_symbols);
    timer.setStartInt(c(d_timerStartOrTss,"start time"));
    timer.setLastInt(c(d_timerEnd,"end time"));
-   size_t step  = c(d_timerStep,"time step");
+   size_t const step  = c(d_timerStep,"time step");
 
 
    if ( timer.startInt() == 0) { // pcrcalc6

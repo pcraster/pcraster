@@ -104,7 +104,7 @@ std::string ag::NominalDrawProps::label(
   std::string result = "mv";
 
   if(!pcr::isMV(value)) {
-    size_t index = classifier().index(value);
+    size_t const index = classifier().index(value);
     result = classifier().descr(index);
   }
 

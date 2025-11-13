@@ -65,7 +65,7 @@ BOOST_AUTO_TEST_CASE(quadrant)
   using namespace geo;
 
   {
-    RasterSpace space(3, 3, 1.0, 0.0, 0.0, geo::YIncrT2B);
+    RasterSpace const space(3, 3, 1.0, 0.0, 0.0, geo::YIncrT2B);
     BOOST_CHECK(space.quadrant(0.0, 0.0) == NorthWest);
     BOOST_CHECK(space.quadrant(3.0, 0.0) == NorthWest);
     BOOST_CHECK(space.quadrant(3.0, 3.0) == NorthWest);
@@ -80,7 +80,7 @@ BOOST_AUTO_TEST_CASE(quadrant)
   }
 
   {
-    RasterSpace space(3, 3, 1.0, 0.0, 0.0, geo::YIncrB2T);
+    RasterSpace const space(3, 3, 1.0, 0.0, 0.0, geo::YIncrB2T);
     BOOST_CHECK(space.quadrant(0.0,  0.0) == NorthWest);
     BOOST_CHECK(space.quadrant(3.0,  0.0) == NorthWest);
     BOOST_CHECK(space.quadrant(3.0, -3.0) == NorthWest);
@@ -108,7 +108,7 @@ BOOST_AUTO_TEST_CASE(io)
 
     std::stringstream s;
 
-    RasterSpace rs1(11, 12, 13.0, 14.0, 15.0, geo::YIncrB2T);
+    RasterSpace const rs1(11, 12, 13.0, 14.0, 15.0, geo::YIncrB2T);
     s << rs1;
 
     RasterSpace rs2;
@@ -131,7 +131,7 @@ BOOST_AUTO_TEST_CASE(io)
 
     std::stringstream s;
 
-    RasterSpace rs1(11, 12, 13.0, 14.0, 15.0, geo::YIncrB2T);
+    RasterSpace const rs1(11, 12, 13.0, 14.0, 15.0, geo::YIncrB2T);
     s << "blabla" << rs1;
 
     RasterSpace rs2;

@@ -31,7 +31,7 @@ static size_t _nr_worker_threads{std::thread::hardware_concurrency()};
 
 
 void set_nr_worker_threads(size_t threads){
-  size_t max_threads = std::thread::hardware_concurrency();
+  size_t const max_threads = std::thread::hardware_concurrency();
 
   if(threads > max_threads){
     std::cout << "Amount of worker threads requested (" << threads << ") exceeds maximum number of threads; limiting to " << max_threads << " threads.\n";

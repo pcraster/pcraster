@@ -144,12 +144,12 @@ calc::Field* RIV::getRiverLeakage(size_t layer, std::string const& path) const {
 
   // modflow reports from top to bottom, thus
   // get the 'inverse' layer number to start from the right position
-  int pos_multiplier = d_mf->get_modflow_layernr(layer);
+  int const pos_multiplier = d_mf->get_modflow_layernr(layer);
 
   auto* spatial = new calc::Spatial(VS_S, calc::CRI_f, d_mf->d_nrOfCells);
   auto* cells = static_cast<REAL4*>(spatial->dest());
 
-  mf::BinaryReader reader;
+  mf::BinaryReader const reader;
   const std::string filename(mf::execution_path(path, "fort." + std::to_string(d_output_unit_number)));
   reader.read(stmp.str(), filename, cells, desc, pos_multiplier);
 
@@ -171,10 +171,10 @@ void RIV::getRiverLeakage(float *values, size_t layer, std::string const& path) 
 
   // modflow reports from top to bottom, thus
   // get the 'inverse' layer number to start from the right position
-  int pos_multiplier = d_mf->get_modflow_layernr(layer);
+  int const pos_multiplier = d_mf->get_modflow_layernr(layer);
 
   //get_binary(cells, desc, start_pos, pos_multiplier);
-  mf::BinaryReader reader;
+  mf::BinaryReader const reader;
   const std::string filename(mf::execution_path(path, "fort." + std::to_string(d_output_unit_number)));
   reader.read(stmp.str(), filename, values, desc, pos_multiplier);
 }
@@ -186,7 +186,7 @@ void RIV::write(std::string const& path){
   // # riv cells is calculated by write_list
   assert(d_nr_river_cells != 0);
 
-  std::string filename = mf::execution_path(path, "pcrmf.riv");
+  std::string const filename = mf::execution_path(path, "pcrmf.riv");
 
   std::ofstream content(filename);
 
@@ -211,7 +211,7 @@ void RIV::write(std::string const& path){
 void RIV::write_list(std::string const& path){
   // This method also calculates the nr of river cells,
   // needs to be called before write
-  std::string filename = mf::execution_path(path, "pcrmf_riv.asc");
+  std::string const filename = mf::execution_path(path, "pcrmf_riv.asc");
   std::ofstream content(filename);
 
   if(!content.is_open()){
@@ -223,12 +223,12 @@ void RIV::write_list(std::string const& path){
   int mfLayer = 1;
   for(size_t layer = 1; layer<= d_mf->d_nrMFLayer; layer++){
     count = 0;
-    size_t size = d_mf->d_layer2BlockLayer.size();
-    int blockLayer = d_mf->d_layer2BlockLayer.at(size - layer);
+    size_t const size = d_mf->d_layer2BlockLayer.size();
+    int const blockLayer = d_mf->d_layer2BlockLayer.at(size - layer);
 
     for(size_t row = 0; row < d_mf->d_nrOfRows; row++){
       for(size_t col = 0; col < d_mf->d_nrOfColumns; col++){
-        float cond = d_mf->d_rivCond->cell(count)[blockLayer];
+        float const cond = d_mf->d_rivCond->cell(count)[blockLayer];
         if(cond > 0.0){
           content << mfLayer;
           content << " " << (row + 1);

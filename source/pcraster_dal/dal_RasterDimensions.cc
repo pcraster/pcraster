@@ -49,10 +49,10 @@ std::tuple<RasterDimensions, RasterDimensions> RasterDimensions::overlap(
          RasterDimensions const& dimensions2)
 {
   // Determine overlapping area in world coordinates.
-  double west  = std::max(dimensions1.west(),  dimensions2.west());
-  double east  = std::min(dimensions1.east(),  dimensions2.east());
-  double north = std::min(dimensions1.north(), dimensions2.north());
-  double south = std::max(dimensions1.south(), dimensions2.south());
+  double const west  = std::max(dimensions1.west(),  dimensions2.west());
+  double const east  = std::min(dimensions1.east(),  dimensions2.east());
+  double const north = std::min(dimensions1.north(), dimensions2.north());
+  double const south = std::max(dimensions1.south(), dimensions2.south());
 
   return std::make_tuple(
          dimensions1.areaDimensions(west, north, east, south),
@@ -189,8 +189,8 @@ RasterDimensions const& RasterDimensions::operator|=(
     SpaceDimensions::operator|=(rhs);
     _cellSize = std::min(_cellSize, rhs._cellSize);
 
-    double nrRows = latitudinalExtent() / _cellSize;
-    double nrCols = longitudinalExtent() / _cellSize;
+    double const nrRows = latitudinalExtent() / _cellSize;
+    double const nrCols = longitudinalExtent() / _cellSize;
 
     assert(comparable(fmod(nrRows, 1.0), 0.0));
     assert(comparable(fmod(nrCols, 1.0), 0.0));
@@ -415,8 +415,8 @@ void RasterDimensions::coordinates(
          double& x,
          double& y) const
 {
-  double row = index / nrCols();
-  double col = index % nrCols();
+  double const row = index / nrCols();
+  double const col = index % nrCols();
 
   coordinates(row + 0.5, col + 0.5, x, y);
 }
@@ -460,7 +460,7 @@ void RasterDimensions::coordinates(
 bool RasterDimensions::compatible(
          RasterDimensions const& rhs) const
 {
-  double cellSize = std::min(_cellSize, rhs._cellSize);
+  double const cellSize = std::min(_cellSize, rhs._cellSize);
 
   SpaceDimensions envelope(*this);
   envelope |= rhs;

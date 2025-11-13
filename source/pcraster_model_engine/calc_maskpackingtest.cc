@@ -40,10 +40,10 @@ BOOST_AUTO_TEST_CASE(testSpatialPacking)
 {
   using namespace calc;
 
- geo::RasterDim rs(2,3);
+ geo::RasterDim const rs(2,3);
 
  {
-  UINT1 maskInit[6]= { 1, 1, 1, 1, 1, 1 };
+  UINT1 const maskInit[6]= { 1, 1, 1, 1, 1, 1 };
   // Test both being equal with full mask
   std::vector<bool> mask(6);
   for(size_t i=0; i < 6; ++i)
@@ -126,7 +126,7 @@ BOOST_AUTO_TEST_CASE(testSpatialPacking)
     // TEST UnpackedCreation
 
     { // automatic clean up
-      UnpackedCreation uc(*c,VS_N);
+      UnpackedCreation const uc(*c,VS_N);
       BOOST_CHECK(uc.unpacked()->nrValues()==6);
       BOOST_CHECK(uc.unpacked()->vs()==VS_N);
     }
@@ -143,7 +143,7 @@ BOOST_AUTO_TEST_CASE(testSpatialPacking)
    } // eofor
  }
  {
-  UINT1 maskInit[6]   = { 1 , 1, MV_UINT1, 1,     0,     1};
+  UINT1 const maskInit[6]   = { 1 , 1, MV_UINT1, 1,     0,     1};
   // rlIndex              0 -v-  2, -m-    3, -v- 4, -m- 5 -v- 6
   std::vector<bool> mask(6);
   for(size_t i=0; i < 6; ++i)
@@ -212,7 +212,7 @@ BOOST_AUTO_TEST_CASE(testSpatialPacking)
   // TEST UnpackedCreation
 
   { // automatic clean up
-    UnpackedCreation uc(mp,VS_N);
+    UnpackedCreation const uc(mp,VS_N);
     BOOST_CHECK(uc.unpacked()->nrValues()==6);
     BOOST_CHECK(uc.unpacked()->vs()==VS_N);
   }
@@ -237,7 +237,7 @@ BOOST_AUTO_TEST_CASE(testScript)
 {
   using namespace calc;
 
-  geo::RasterSpace rs(80,50);
+  geo::RasterSpace const rs(80,50);
   /* make boolean mask with:
    *  - triangle of 1, where mask is defined
    *  - triangle of MV
@@ -275,8 +275,8 @@ BOOST_AUTO_TEST_CASE(testScript)
   }
 
   {
-    geo::FileCreateTester mt("resultComputed.map");
-    geo::FileCreateTester ma("areaComputed.map");
+    geo::FileCreateTester const mt("resultComputed.map");
+    geo::FileCreateTester const ma("areaComputed.map");
 
     ModelBuilder mb;
     mb.setClone("mvComprMask.map");

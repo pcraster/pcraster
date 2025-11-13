@@ -60,10 +60,10 @@ void ag::TimePlotWindow::rescan()
 void ag::TimePlotWindow::addAttribute(
          DataGuide const& guide)
 {
-  dal::DataSpace space(dataObject().dataSpace(guide));
+  dal::DataSpace const space(dataObject().dataSpace(guide));
 
   if(!space.hasTime()) {
-    std::string message = std::format(
+    std::string const message = std::format(
          "Unable to add {0} to a {1} visualisation.\n"
          "Dataset does not contain temporal information.\n"
          "Dimensions present: {2}.",

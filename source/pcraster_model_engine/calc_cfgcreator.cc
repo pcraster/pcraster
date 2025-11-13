@@ -99,7 +99,7 @@ public:
 //------------------------------------------------------------------------------
 
 calc::CFGNode *calc::createCFG(ASTNode *n) {
-  std::vector<ASTNode *> nodeVector(1,n);
+  std::vector<ASTNode *> const nodeVector(1,n);
   return createCFG(nodeVector);
 }
 

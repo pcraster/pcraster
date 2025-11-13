@@ -327,7 +327,7 @@ void FeatureLayer::replace(
   assert(featureId != OGRNullFID);
   assert(_valueIdByFeatureId.find(featureId) != _valueIdByFeatureId.end());
 
-  size_t valueId = _valueIdByFeatureId[featureId];
+  size_t const valueId = _valueIdByFeatureId[featureId];
   Array<T>& col(_values.col<T>(0));
   col[valueId] = value;
 }
@@ -357,7 +357,7 @@ void FeatureLayer::value(
 {
   assert(hasAttribute());
 
-  long int featureId = this->featureId(x, y);
+  long int const featureId = this->featureId(x, y);
 
   if(featureId == OGRNullFID) {
     pcr::setMV(result);
@@ -389,7 +389,7 @@ void FeatureLayer::value(
   auto it =
          _valueIdByFeatureId.find(featureId);
   assert(it != _valueIdByFeatureId.end());
-  size_t valueId = (*it).second;
+  size_t const valueId = (*it).second;
   assert(valueId < _values.nrRecs());
   result = _values.cell<T>(valueId, 0);
 }

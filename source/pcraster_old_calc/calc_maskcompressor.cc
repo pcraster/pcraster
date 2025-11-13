@@ -64,11 +64,11 @@ void calc::MaskCompressor::decompress(
     DecompressedData& d,
     const void * compressedData) const
 {
-  CSF_CR cr = biggestCellRepr(d.vs());
+  CSF_CR const cr = biggestCellRepr(d.vs());
   ConstValueBuffer compressed;
   compressed.d_void=compressedData;
 
-  ValueBuffer copy=createValueBuffer(cr,d_mask.size());
+  ValueBuffer const copy=createValueBuffer(cr,d_mask.size());
   size_t compressedIndex=0;
   for(size_t i=0; i<d_mask.size(); i++)
     switch(cr) {
@@ -98,12 +98,12 @@ void calc::MaskCompressor::decompress(
 //! create Spatial with compressed contents
 calc::Spatial* calc::MaskCompressor::createSpatial(CompressionInput& ci)const
 {
-  CSF_CR cr = biggestCellRepr(ci.vs());
+  CSF_CR const cr = biggestCellRepr(ci.vs());
   ConstValueBuffer decompressed;
   decompressed.d_void=ci.decompressedData();
 
   ValueBuffer compressed=createValueBuffer(cr,nrCellsCompressed());
-  size_t size=CELLSIZE(cr);
+  size_t const size=CELLSIZE(cr);
   DEVELOP_PRECOND(size==1||size==4);
   size_t compressedIndex=0;
   for(size_t i=0; i<d_mask.size(); i++)

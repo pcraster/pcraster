@@ -12,11 +12,11 @@
 // Test if fixed head cells stay constant.
 BOOST_AUTO_TEST_CASE(fixed_head)
 {
-  size_t nrRows = 3;
-  size_t nrCols = 3;
-  size_t nrCells = nrRows * nrCols;
-  double cellSize = 15.0;
-  CSF_PT projection = PT_YINCT2B;
+  size_t const nrRows = 3;
+  size_t const nrCols = 3;
+  size_t const nrCells = nrRows * nrCols;
+  double const cellSize = 15.0;
+  CSF_PT const projection = PT_YINCT2B;
 
   BootTestApi(cellSize, projection == PT_YINCT2B);
 
@@ -75,11 +75,11 @@ BOOST_AUTO_TEST_CASE(fixed_head)
 BOOST_AUTO_TEST_CASE(budget)
 {
   using namespace std::placeholders;
-  size_t nrRows = 3;
-  size_t nrCols = 3;
-  size_t nrCells = nrRows * nrCols;
-  double cellSize = 100.0;
-  CSF_PT projection = PT_YINCT2B;
+  size_t const nrRows = 3;
+  size_t const nrCols = 3;
+  size_t const nrCells = nrRows * nrCols;
+  double const cellSize = 100.0;
+  CSF_PT const projection = PT_YINCT2B;
 
   BootTestApi(cellSize, projection == PT_YINCT2B);
 

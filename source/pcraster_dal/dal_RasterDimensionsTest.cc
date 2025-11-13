@@ -12,7 +12,7 @@ BOOST_AUTO_TEST_CASE(test_)
 
   // Default.
   {
-    RasterDimensions raster;
+    RasterDimensions const raster;
 
     BOOST_CHECK(dal::comparable(raster.cellSize(), 1.0));
     BOOST_CHECK(dal::comparable(raster.west(), 0.0));
@@ -23,7 +23,7 @@ BOOST_AUTO_TEST_CASE(test_)
 
   // Non-default.
   {
-    RasterDimensions raster(3, 4);
+    RasterDimensions const raster(3, 4);
 
     BOOST_CHECK(dal::comparable(raster.cellSize(), 1.0));
     BOOST_CHECK(dal::comparable(raster.west(), 0.0));
@@ -33,7 +33,7 @@ BOOST_AUTO_TEST_CASE(test_)
   }
 
   {
-    RasterDimensions raster(3, 4, 5.0, 1.0, 2.0);
+    RasterDimensions const raster(3, 4, 5.0, 1.0, 2.0);
 
     BOOST_CHECK(dal::comparable(raster.cellSize(), 5.0));
     BOOST_CHECK(dal::comparable(raster.west(), 1.0));
@@ -45,13 +45,13 @@ BOOST_AUTO_TEST_CASE(test_)
   // Copy.
   {
     RasterDimensions
-         raster1(3, 4, 5.0, 1.0, 2.0);
+         const raster1(3, 4, 5.0, 1.0, 2.0);
     RasterDimensions
-         raster2(3, 4, 5.0, 1.0, 3.0);
+         const raster2(3, 4, 5.0, 1.0, 3.0);
     RasterDimensions
-         raster3(3, 4, 5.0, 1.0, 2.0);
+         const raster3(3, 4, 5.0, 1.0, 2.0);
     RasterDimensions
-         raster4(3, 5, 5.0, 1.0, 2.0);
+         const raster4(3, 5, 5.0, 1.0, 2.0);
 
     BOOST_CHECK(raster1 == raster1);
     BOOST_CHECK(raster1 != raster2);
@@ -66,8 +66,8 @@ BOOST_AUTO_TEST_CASE(assignment)
   using namespace dal;
 
   {
-    RasterDimensions raster1(3, 4, 5.0, 1.0, 2.0);
-    RasterDimensions raster2(3, 5, 5.0, 1.0, 2.0);
+    RasterDimensions const raster1(3, 4, 5.0, 1.0, 2.0);
+    RasterDimensions const raster2(3, 5, 5.0, 1.0, 2.0);
     RasterDimensions raster;
 
     raster = raster1;
@@ -86,7 +86,7 @@ BOOST_AUTO_TEST_CASE(index_)
   using namespace dal;
 
   {
-    RasterDimensions raster(3, 4, 5.0, 1.0, 2.0);
+    RasterDimensions const raster(3, 4, 5.0, 1.0, 2.0);
 
     BOOST_CHECK_EQUAL(raster.index(size_t(0), size_t(0)), size_t(0));
     BOOST_CHECK_EQUAL(raster.index(size_t(0), size_t(1)), size_t(1));
@@ -105,7 +105,7 @@ BOOST_AUTO_TEST_CASE(coordinates)
   using namespace dal;
 
   {
-    RasterDimensions raster(3, 4, 5.0, 1.0, 2.0);
+    RasterDimensions const raster(3, 4, 5.0, 1.0, 2.0);
     double x = NAN;
     double y = NAN;
 
@@ -126,8 +126,8 @@ BOOST_AUTO_TEST_CASE(area_dimensions)
 
   // Empty area.
   {
-    RasterDimensions raster(3, 4, 5.0, 1.0, 2.0);
-    RasterDimensions area(raster.areaDimensions(1.0, 2.0, 1.0, 2.0));
+    RasterDimensions const raster(3, 4, 5.0, 1.0, 2.0);
+    RasterDimensions const area(raster.areaDimensions(1.0, 2.0, 1.0, 2.0));
     BOOST_CHECK_EQUAL(area.nrRows(), size_t(0));
     BOOST_CHECK_EQUAL(area.nrCols(), size_t(0));
     BOOST_CHECK_EQUAL(area.cellSize(), raster.cellSize());
@@ -137,8 +137,8 @@ BOOST_AUTO_TEST_CASE(area_dimensions)
 
   // Small area.
   {
-    RasterDimensions raster(3, 4, 5.0, 1.0, 2.0);
-    RasterDimensions area(raster.areaDimensions(1.0, 2.0, 1.1, 1.9));
+    RasterDimensions const raster(3, 4, 5.0, 1.0, 2.0);
+    RasterDimensions const area(raster.areaDimensions(1.0, 2.0, 1.1, 1.9));
     BOOST_CHECK_EQUAL(area.nrRows(), size_t(1));
     BOOST_CHECK_EQUAL(area.nrCols(), size_t(1));
     BOOST_CHECK_EQUAL(area.cellSize(), raster.cellSize());
@@ -148,8 +148,8 @@ BOOST_AUTO_TEST_CASE(area_dimensions)
 
   // Area on cell border.
   {
-    RasterDimensions raster(3, 4, 5.0, 1.0, 2.0);
-    RasterDimensions area(raster.areaDimensions(1.0, 2.0, 6.0, -3.0));
+    RasterDimensions const raster(3, 4, 5.0, 1.0, 2.0);
+    RasterDimensions const area(raster.areaDimensions(1.0, 2.0, 6.0, -3.0));
     BOOST_CHECK_EQUAL(area.nrRows(), size_t(1));
     BOOST_CHECK_EQUAL(area.nrCols(), size_t(1));
     BOOST_CHECK_EQUAL(area.cellSize(), raster.cellSize());
@@ -159,8 +159,8 @@ BOOST_AUTO_TEST_CASE(area_dimensions)
 
   // Area just over cell border.
   {
-    RasterDimensions raster(3, 4, 5.0, 1.0, 2.0);
-    RasterDimensions area(raster.areaDimensions(1.0, 2.0, 6.1, -3.1));
+    RasterDimensions const raster(3, 4, 5.0, 1.0, 2.0);
+    RasterDimensions const area(raster.areaDimensions(1.0, 2.0, 6.1, -3.1));
     BOOST_CHECK_EQUAL(area.nrRows(), size_t(2));
     BOOST_CHECK_EQUAL(area.nrCols(), size_t(2));
     BOOST_CHECK_EQUAL(area.cellSize(), raster.cellSize());
@@ -179,7 +179,7 @@ BOOST_AUTO_TEST_CASE(overlap)
 
   // Empty raster dimensions.
   {
-    RasterDimensions raster(size_t(0), size_t(0));
+    RasterDimensions const raster(size_t(0), size_t(0));
 
     std::tie(area1, area2) = RasterDimensions::overlap(raster, raster);
     BOOST_CHECK_EQUAL(area1.nrRows(), size_t(0));
@@ -189,8 +189,8 @@ BOOST_AUTO_TEST_CASE(overlap)
 
   // One empty, one non-empty raster dimension.
   {
-    RasterDimensions raster1(size_t(0), size_t(0));
-    RasterDimensions raster2(3, 4, 5.0, 1.0, 2.0);
+    RasterDimensions const raster1(size_t(0), size_t(0));
+    RasterDimensions const raster2(3, 4, 5.0, 1.0, 2.0);
 
     std::tie(area1, area2) = RasterDimensions::overlap(raster1, raster2);
     BOOST_CHECK_EQUAL(area1.nrRows(), size_t(0));
@@ -220,8 +220,8 @@ BOOST_AUTO_TEST_CASE(overlap)
 
   // Non-overlapping raster dimensions.
   {
-    RasterDimensions raster1(3, 4, 5.0, 1.0, 2.0);
-    RasterDimensions raster2(3, 4, 5.0, 22, -14.0);
+    RasterDimensions const raster1(3, 4, 5.0, 1.0, 2.0);
+    RasterDimensions const raster2(3, 4, 5.0, 22, -14.0);
 
     std::tie(area1, area2) = RasterDimensions::overlap(raster1, raster2);
     BOOST_CHECK_EQUAL(area1.nrRows(), size_t(0));
@@ -238,8 +238,8 @@ BOOST_AUTO_TEST_CASE(overlap)
 
   // Equal raster dimensions.
   {
-    RasterDimensions raster1(3, 4, 5.0, 1.0, 2.0);
-    RasterDimensions raster2(3, 4, 5.0, 1.0, 2.0);
+    RasterDimensions const raster1(3, 4, 5.0, 1.0, 2.0);
+    RasterDimensions const raster2(3, 4, 5.0, 1.0, 2.0);
 
     assert(raster1 == raster2);
     std::tie(area1, area2) = RasterDimensions::overlap(raster1, raster2);
@@ -251,8 +251,8 @@ BOOST_AUTO_TEST_CASE(overlap)
   {
     {
       // Second raster is offset to south-east by one row and column.
-      RasterDimensions raster1(3, 4, 5.0, 1.0, 2.0);
-      RasterDimensions raster2(3, 4, 5.0, 6.0, -3.0);
+      RasterDimensions const raster1(3, 4, 5.0, 1.0, 2.0);
+      RasterDimensions const raster2(3, 4, 5.0, 6.0, -3.0);
 
       std::tie(area1, area2) = RasterDimensions::overlap(raster1, raster2);
       BOOST_CHECK_EQUAL(area1.nrRows(), size_t(2));
@@ -265,8 +265,8 @@ BOOST_AUTO_TEST_CASE(overlap)
 
     {
       // Second raster is offset to north-west by one row and column.
-      RasterDimensions raster1(3, 4, 5.0, 1.0, 2.0);
-      RasterDimensions raster2(3, 4, 5.0, -4.0, 7.0);
+      RasterDimensions const raster1(3, 4, 5.0, 1.0, 2.0);
+      RasterDimensions const raster2(3, 4, 5.0, -4.0, 7.0);
 
       std::tie(area1, area2) = RasterDimensions::overlap(raster1, raster2);
       BOOST_CHECK_EQUAL(area1.nrRows(), size_t(2));

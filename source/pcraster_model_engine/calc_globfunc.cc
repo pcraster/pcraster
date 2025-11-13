@@ -73,8 +73,8 @@ struct AccumTT : public MapReal8 {
    ldd->SetGetTest(GET_MV_TEST, ldd);
    velocity->SetGetTest(GET_MV_TEST, velocity);
 
-   MapUint1 pits(ldd->nrRows, ldd->nrCols);
-   MapReal8 friction(ldd->nrRows,ldd->nrCols);
+   MapUint1 const pits(ldd->nrRows, ldd->nrCols);
+   MapReal8 const friction(ldd->nrRows,ldd->nrCols);
    for(int r = 0; r < ldd->nrRows; ++r)
      for(int c = 0; c < ldd->nrCols; ++c)
      {
@@ -102,9 +102,9 @@ int Do_accutraveltime(void *s, void *f, const void **ins)
 {
  const auto *ldd = (const MAP_UINT1*)ins[0];
 
- MapReal8 removed(ldd->nrRows,ldd->nrCols);
- MapReal8 constantTransportFraction(ldd->nrRows, ldd->nrCols, 1.0F);
- AccumTT  accumTT(ldd,(const MAP_REAL8 *)ins[2]);
+ MapReal8 const removed(ldd->nrRows,ldd->nrCols);
+ MapReal8 const constantTransportFraction(ldd->nrRows, ldd->nrCols, 1.0F);
+ AccumTT  const accumTT(ldd,(const MAP_REAL8 *)ins[2]);
 
  return TravelTime((MAP_REAL8 *)s, (MAP_REAL8 *)f,removed.map(),
            (const MAP_UINT1 *)ldd,
@@ -115,9 +115,9 @@ int Do_accutraveltime(void *s, void *f, const void **ins)
 int Do_accutraveltimefraction(void *s, void *f, const void **ins)
 {
  const auto *ldd = (const MAP_UINT1*)ins[0];
- AccumTT  accumTT(ldd,(const MAP_REAL8 *)ins[2]);
+ AccumTT  const accumTT(ldd,(const MAP_REAL8 *)ins[2]);
 
- MapReal8 removed(ldd->nrRows,ldd->nrCols);
+ MapReal8 const removed(ldd->nrRows,ldd->nrCols);
  return TravelTime((MAP_REAL8 *)s, (MAP_REAL8 *)f, removed.map(),
            ldd,
            (const MAP_REAL8 *)ins[1], accumTT.map(),
@@ -127,9 +127,9 @@ int Do_accutraveltimefraction(void *s, void *f, const void **ins)
 int Do_accutraveltimefractionremoved(void *removed, const void **ins)
 {
  const auto *ldd = (const MAP_UINT1*)ins[0];
- AccumTT  accumTT(ldd,(const MAP_REAL8 *)ins[2]);
- MapReal8 s(ldd->nrRows,ldd->nrCols);
- MapReal8 f(ldd->nrRows,ldd->nrCols);
+ AccumTT  const accumTT(ldd,(const MAP_REAL8 *)ins[2]);
+ MapReal8 const s(ldd->nrRows,ldd->nrCols);
+ MapReal8 const f(ldd->nrRows,ldd->nrCols);
  return TravelTime(s.map(),f.map(), (MAP_REAL8 *)removed,
            ldd,
            (const MAP_REAL8 *)ins[1], accumTT.map(),
@@ -190,11 +190,11 @@ int Do_dynamicwave(void *q, void *h, const void **in)
 int Do_lddcreate(void *l, void *d, const void **ins)
 {
   auto* ldd=(MAP_UINT1 *)l;
-  int r = Lddm(ldd, (const MAP_REAL8 *)ins[0]);
+  int const r = Lddm(ldd, (const MAP_REAL8 *)ins[0]);
   if (r)
     return r;
 
-  MapInt4 t(ldd->nrRows,ldd->nrCols);
+  MapInt4 const t(ldd->nrRows,ldd->nrCols);
   return PitRem((MAP_UINT1 *)l, (MAP_REAL8 *)d,(MAP_INT4 *)t.map(),
            (const MAP_REAL8 *)ins[0],
            (const MAP_REAL8 *)ins[1],
@@ -207,11 +207,11 @@ int Do_lddcreatend(void *l, void *d, const void **ins)
 {
 
   auto* ldd=(MAP_UINT1 *)l;
-  int r = LddmND(ldd, (const MAP_REAL8 *)ins[0]);
+  int const r = LddmND(ldd, (const MAP_REAL8 *)ins[0]);
   if (r)
     return r;
 
-  MapInt4 t(ldd->nrRows,ldd->nrCols);
+  MapInt4 const t(ldd->nrRows,ldd->nrCols);
   return PitRemND((MAP_UINT1 *)l, (MAP_REAL8 *)d,t.map(),
            (const MAP_REAL8 *)ins[0],
            (const MAP_REAL8 *)ins[1],
@@ -393,7 +393,7 @@ int Do_windowtotal(void * out, const void **ins)
 int Do_order(void * out, const void **ins)
 {
   auto *o= (MAP_REAL8 *)out;
-  MapInt4 t(o->nrRows,o->nrCols);
+  MapInt4 const t(o->nrRows,o->nrCols);
   return Order(o, (const MAP_REAL8 *)ins[0], t.map());
 }
 
@@ -450,7 +450,7 @@ int Do_influencesimplegauss(void *out, const void **ins)
 int Do_distributesimplegauss(void *out, const void **ins)
 {
  auto *o=(MAP_REAL8 *)out;
- MapReal8 t(o->nrRows,o->nrCols);
+ MapReal8 const t(o->nrRows,o->nrCols);
  return DistributeSimpleGauss(
            o, t.map(),
            (const MAP_REAL8 *)ins[0], (const MAP_REAL8 *)ins[1],

@@ -118,7 +118,7 @@ REAL8 geo::VoxelStack::depth(const_iterator it) const
 
   if(it != d_column.end())
   {
-    addDepth a = std::for_each(++it, end(), addDepth());
+    addDepth const a = std::for_each(++it, end(), addDepth());
     d = a.depth;
   }
 

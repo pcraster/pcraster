@@ -33,7 +33,7 @@ BOOST_AUTO_TEST_CASE(testTest)
     try {
       mte.test();
     } catch (...) {
-      bool bilRelatedIGuess=false;
+      bool const bilRelatedIGuess=false;
       BOOST_CHECK(bilRelatedIGuess);
     }
  }

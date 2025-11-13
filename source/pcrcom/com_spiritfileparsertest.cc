@@ -12,7 +12,7 @@ BOOST_AUTO_TEST_CASE(current)
 {
   using namespace com;
 
-  com::PathName pn("testparser.txt");
+  com::PathName const pn("testparser.txt");
   com::write("1 2 3 4\n \n 5 A6",pn);
   std::vector<int> parsed;
 
@@ -55,12 +55,12 @@ BOOST_AUTO_TEST_CASE(file_map_too_large)
 #ifdef WIN32
   com::PathName big("E:\\gam_allXL.xyz");
 #else
-  com::PathName big("/home/cees/tmp/gam_allXL.xyz");
+  com::PathName const big("/home/cees/tmp/gam_allXL.xyz");
 #endif
   if (com::exists(big)) {
    bool catched(false);
    try {
-    SpiritFileParser n(big);
+    SpiritFileParser const n(big);
    } catch(const com::OpenFileError& c) {
      BOOST_CHECK(c.messages().find("large") != std::string::npos);
      catched=true;

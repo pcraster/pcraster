@@ -166,7 +166,7 @@ typename GriddedPoints<Point>::iterator
  *d_points.cell(row, col).push_back(point);
  */
 
-  CellLoc loc = cellLoc<Point>(point);
+  CellLoc const loc = cellLoc<Point>(point);
   PRECOND(!isMV(loc));
   d_points.cell(loc).push_back(point);
   return --d_points.cell(loc).end();
@@ -571,7 +571,7 @@ template<class Point>
 void GriddedPoints<Point>::points(const CellLoc& loc,
          double radius, std::vector<Point>& points) const
 {
-  CircularNeighbourhood neighbourhood(0, radius);
+  CircularNeighbourhood const neighbourhood(0, radius);
   this->points(loc, neighbourhood, points);
 }
 
@@ -581,7 +581,7 @@ template<class Point>
 void GriddedPoints<Point>::points(const CellLoc& loc,
          double radius, std::vector<Point*>& points)
 {
-  CircularNeighbourhood neighbourhood(0, radius);
+  CircularNeighbourhood const neighbourhood(0, radius);
   this->points(loc, neighbourhood, points);
 }
 
@@ -614,8 +614,8 @@ void GriddedPoints<Point>::points(const CellLoc& loc,
     colOffset = -startCol;
   }
 
-  size_t endRow = std::min(loc.row() + neighbourhood.radius(), nrRows() - 1);
-  size_t endCol = std::min(loc.col() + neighbourhood.radius(), nrCols() - 1);
+  size_t const endRow = std::min(loc.row() + neighbourhood.radius(), nrRows() - 1);
+  size_t const endCol = std::min(loc.col() + neighbourhood.radius(), nrCols() - 1);
 
   for(size_t row = startRow; row <= endRow; ++row) {
     for(size_t col = startCol; col <= endCol; ++col) {
@@ -656,8 +656,8 @@ void GriddedPoints<Point>::points(const CellLoc& loc,
     colOffset = -startCol;
   }
 
-  size_t endRow = std::min(loc.row() + neighbourhood.radius(), nrRows() - 1);
-  size_t endCol = std::min(loc.col() + neighbourhood.radius(), nrCols() - 1);
+  size_t const endRow = std::min(loc.row() + neighbourhood.radius(), nrRows() - 1);
+  size_t const endCol = std::min(loc.col() + neighbourhood.radius(), nrCols() - 1);
 
   for(size_t row = startRow; row <= endRow; ++row) {
     for(size_t col = startCol; col <= endCol; ++col) {

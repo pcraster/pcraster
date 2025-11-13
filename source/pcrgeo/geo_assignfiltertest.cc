@@ -9,8 +9,8 @@ BOOST_AUTO_TEST_CASE(test)
   using namespace geo;
 
   // Create filter. Weight matrix won't be used.
-  SimpleRaster<double> weights(5, 5, 1.0);
-  AssignFilter filter(weights);
+  SimpleRaster<double> const weights(5, 5, 1.0);
+  AssignFilter const filter(weights);
 
   // Create source raster.
   SimpleRaster<int> source(5, 5);

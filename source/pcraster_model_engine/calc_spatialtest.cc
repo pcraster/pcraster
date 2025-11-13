@@ -18,7 +18,7 @@ BOOST_AUTO_TEST_CASE(testSetAndGetCell)
      BOOST_CHECK(n.getCell(v,3));
      BOOST_CHECK(v==8);
     } catch(...) {
-      bool success=false;
+      bool const success=false;
       BOOST_CHECK(success);
     }
   }
@@ -31,7 +31,7 @@ BOOST_AUTO_TEST_CASE(testSetAndGetCell)
      BOOST_CHECK(n.getCell(v,3));
      BOOST_CHECK(v==1);
     } catch(...) {
-      bool success=false;
+      bool const success=false;
       BOOST_CHECK(success);
     }
   }
@@ -43,7 +43,7 @@ BOOST_AUTO_TEST_CASE(testSetAndGetCell)
      BOOST_CHECK(n.getCell(v,3));
      BOOST_CHECK(v==-2);
     } catch(...) {
-      bool success=false;
+      bool const success=false;
       BOOST_CHECK(success);
     }
   }

@@ -56,7 +56,7 @@ calc::IoFieldStrategy* calc::IoBandFieldStrategy::checkInputMap(
     const std::string& fName)
 {
   // load value as band map
-  BandMap map(fName);
+  BandMap const map(fName);
   vs = map.vs();
   return this;
 }
@@ -80,8 +80,8 @@ const calc::StackReader* calc::IoBandFieldStrategy::createStackReader(
  */
 void calc::IoBandFieldStrategy::checkClone(const std::string& mapFileName)
 {
-    geo::BandMap map(mapFileName);
-    geo::RasterSpace mapRs(map.rasterSpace());
+    geo::BandMap const map(mapFileName);
+    geo::RasterSpace const mapRs(map.rasterSpace());
 
     setAndCheckCommon(mapFileName,mapRs);
 

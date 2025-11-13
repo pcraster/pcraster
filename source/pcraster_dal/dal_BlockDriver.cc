@@ -91,7 +91,7 @@ DataSpace BlockDriver::dataSpace(
 {
   assert(!space.hasSpace());
 
-  std::shared_ptr<Block> block(open(name, space, address));
+  std::shared_ptr<Block> const block(open(name, space, address));
 
   if(!block) {
     throwCannotBeOpened(name, BLOCK, space, address);
@@ -106,7 +106,7 @@ DataSpace BlockDriver::dataSpace(
   cols.push_back(block->nrCols());
   cols.push_back(size_t(1));
 
-  DataSpace rasterSpace;
+  DataSpace const rasterSpace;
   assert(false); // Update to use RasterDimensions, see elsewhere.
   // rasterSpace.addDimension(Dimension(NumericalCoordinates, Space,
   //        RegularDiscretisation, rows));

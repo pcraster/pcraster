@@ -20,8 +20,8 @@ BOOST_AUTO_TEST_CASE(no_compaction_add)
     // Add voxels.
     // Test block.
 
-    discr::Raster raster(3, 1, 1.0, 0.0, 0.0);
-    discr::RasterData<REAL4> baseElevation(&raster, REAL4(-5.0));
+    discr::Raster const raster(3, 1, 1.0, 0.0, 0.0);
+    discr::RasterData<REAL4> const baseElevation(&raster, REAL4(-5.0));
     discr::Block block(baseElevation);
     typedef discr::Block::ThicknessType T;
 
@@ -51,15 +51,15 @@ BOOST_AUTO_TEST_CASE(macky_bridge_add)
 {
   using namespace block;
 
-  size_t nrRows = 3;
-  size_t nrCols = 4;
-  double cellSize = 1.5;
-  double west = 1.0;
-  double north = 0.0;
+  size_t const nrRows = 3;
+  size_t const nrCols = 4;
+  double const cellSize = 1.5;
+  double const west = 1.0;
+  double const north = 0.0;
 
   // Discretisations.
-  discr::Raster raster(nrRows, nrCols, cellSize, west, north);
-  discr::RasterData<REAL4> baseElevation(&raster, REAL4(5.0));
+  discr::Raster const raster(nrRows, nrCols, cellSize, west, north);
+  discr::RasterData<REAL4> const baseElevation(&raster, REAL4(5.0));
   discr::Block block(baseElevation);
 
   // Data.
@@ -67,7 +67,7 @@ BOOST_AUTO_TEST_CASE(macky_bridge_add)
   discr::BlockData<INT4> sediment(&block, 3);
 
   // Add function arguments.
-  discr::RasterData<REAL4> thickness(&raster, REAL4(15.5));
+  discr::RasterData<REAL4> const thickness(&raster, REAL4(15.5));
   auto maxVoxelThickness = REAL4(1.0);
 
   // No compaction.
@@ -102,17 +102,17 @@ BOOST_AUTO_TEST_CASE(de_haan_add)
 {
   using namespace block;
 
-  size_t nrRows = 1;
-  size_t nrCols = 1;
-  double cellSize = 1.0;
-  double west = 0.0;
-  double north = 0.0;
+  size_t const nrRows = 1;
+  size_t const nrCols = 1;
+  double const cellSize = 1.0;
+  double const west = 0.0;
+  double const north = 0.0;
 
-  REAL4 timeStepDuration = 36000.0;
-  size_t nrTimeSteps = 22;
+  REAL4 const timeStepDuration = 36000.0;
+  size_t const nrTimeSteps = 22;
 
-  discr::Raster raster(nrRows, nrCols, cellSize, west, north);
-  discr::RasterData<REAL4> baseElevation(&raster, 0.0);
+  discr::Raster const raster(nrRows, nrCols, cellSize, west, north);
+  discr::RasterData<REAL4> const baseElevation(&raster, 0.0);
   discr::Block block(baseElevation);
 
   discr::BlockData<REAL4> initialThickness(&block);
@@ -120,7 +120,7 @@ BOOST_AUTO_TEST_CASE(de_haan_add)
   discr::BlockData<REAL4> cummulativeDuration(&block, timeStepDuration);
   discr::BlockData<INT4> sediment(&block, 3);
 
-  discr::RasterData<REAL4> thickness(&raster, 2.0);
+  discr::RasterData<REAL4> const thickness(&raster, 2.0);
 
   Compactors<DeHaanCompactor> compactors;
   compactors.setCompactor(3, DeHaanCompactor(0.2, 0.02, 6.0));

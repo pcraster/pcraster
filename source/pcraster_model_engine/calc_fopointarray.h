@@ -128,7 +128,7 @@ template<class O>
      static void nsImpl(Input l, Result r, size_t n)
      {
         DEVELOP_PRECOND(!pcr::isMV(*l));
-        T lV=*l;
+        T const lV=*l;
         for(size_t i=0; i < n; ++i)
         if (!pcr::isMV(r[i])) // result already mv
         {
@@ -142,7 +142,7 @@ template<class O>
      static void snImpl(Result l, Input r, size_t n)
      {
         DEVELOP_PRECOND(!pcr::isMV(*r));
-        T rV=*r;
+        T const rV=*r;
         if (O::rightDomainIll(rV))
           throw DomainError();
 
@@ -233,7 +233,7 @@ template<typename T>
      static void nsImpl(Result r, Cond cond, True trueV, size_t n)
      {
         DEVELOP_PRECOND(!pcr::isMV(*cond));
-        UINT1 c=*cond;
+        UINT1 const c=*cond;
         for(size_t i=0; i < n; ++i)
          op(r[i],c,trueV[i]);
      }
@@ -347,7 +347,7 @@ template<class O>
      static void nsImpl(R res, E l, E r, size_t n)
      {
         DEVELOP_PRECOND(!pcr::isMV(*l));
-        T lV=*l;
+        T const lV=*l;
         for(size_t i=0; i < n; ++i) {
          pcr::setMV(res[i]);
          if (!pcr::isMV(r[i]))
@@ -357,7 +357,7 @@ template<class O>
      static void snImpl(R res, E l, E r, size_t n)
      {
         DEVELOP_PRECOND(!pcr::isMV(*r));
-        T rV=*r;
+        T const rV=*r;
         for(size_t i=0; i < n; ++i) {
          pcr::setMV(res[i]);
          if (!pcr::isMV(l[i]))

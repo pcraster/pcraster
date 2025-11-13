@@ -37,7 +37,7 @@ BOOST_AUTO_TEST_CASE(NaN)
 //    BOOST_WARN_MESSAGE( 0, "MSC does not read Nan (std? or gcc non-std)?");
 //  #else
   dal::CSFRasterDriver driver;
-  std::string filename("nan.map");
+  std::string const filename("nan.map");
   dal::Raster* raster = dynamic_cast<dal::RasterDriver&>(driver).read(filename);
 
   assert(raster);

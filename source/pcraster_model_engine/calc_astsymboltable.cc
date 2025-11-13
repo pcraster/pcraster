@@ -124,7 +124,7 @@ void calc::ASTSymbolTable::checkDifferentExternalNames() const
   CheckMap checked;
 
   const calc::ASTSymbolTable& this_(*this);
-  for(ASTSymbolTablePair i : this_) {
+  for(ASTSymbolTablePair const i : this_) {
     const ASTSymbolInfo& s(i.second);
     auto dup=checked.find(s.externalName());
     if (dup!=checked.end()) {
@@ -141,7 +141,7 @@ bool calc::ASTSymbolTable::containsMemoryExchangeSymbols() const
 {
   const size_t noExchange(ASTSymbolInfo::noMemoryExchangeId());
   const calc::ASTSymbolTable& this_(*this);
-  for(ASTSymbolTablePair i : this_) {
+  for(ASTSymbolTablePair const i : this_) {
     ASTSymbolInfo const& si(i.second);
     if (si.memoryInputId() != noExchange || si.memoryOutputId() != noExchange)
        return true;
@@ -179,7 +179,7 @@ calc::LinkInLibrary const* calc::ASTSymbolTable::linkInLibrary(std::string const
 std::ostream& calc::operator<<(std::ostream& s, const calc::ASTSymbolTable& t)
 {
   s << "\n";
-  for(ASTSymbolTablePair pos : t) {
+  for(ASTSymbolTablePair const pos : t) {
     s << "name(" << pos.first  << ")";
     s << "info(" << pos.second << ")\n";
   }

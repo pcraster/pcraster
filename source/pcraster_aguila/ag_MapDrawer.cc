@@ -56,10 +56,10 @@ QRectF MapDrawer::envelopeInPixels(
          QPointF const& offset,
          double scale) const
 {
-  double width  = zoom * _overallDimensions.longitudinalExtent() / scale;
-  double height = zoom * _overallDimensions.latitudinalExtent() / scale;
-  double left   = anchor.x() + (zoom * offset.x() / scale) - (0.5 * width);
-  double top    = anchor.y() + (zoom * offset.y() / scale) - (0.5 * height);
+  double const width  = zoom * _overallDimensions.longitudinalExtent() / scale;
+  double const height = zoom * _overallDimensions.latitudinalExtent() / scale;
+  double const left   = anchor.x() + (zoom * offset.x() / scale) - (0.5 * width);
+  double const top    = anchor.y() + (zoom * offset.y() / scale) - (0.5 * height);
 
   return {left, top, width, height};
 }
@@ -69,13 +69,13 @@ std::tuple<QTransform, QTransform> MapDrawer::mappers(
          QRectF const& envelopeInPixels) const{
 
 
-  double x = (_overallDimensions.east() - _overallDimensions.west()) /(envelopeInPixels.right() - envelopeInPixels.left()) ;
-  double y = -1.0 * std::fabs((_overallDimensions.south()  -_overallDimensions.north()) / (envelopeInPixels.bottom() - envelopeInPixels.top()));
-  double dx = -1*x*(envelopeInPixels.left())  + _overallDimensions.west() ;
-  double dy = -1*y*(envelopeInPixels.top()) + _overallDimensions.north();
+  double const x = (_overallDimensions.east() - _overallDimensions.west()) /(envelopeInPixels.right() - envelopeInPixels.left()) ;
+  double const y = -1.0 * std::fabs((_overallDimensions.south()  -_overallDimensions.north()) / (envelopeInPixels.bottom() - envelopeInPixels.top()));
+  double const dx = -1*x*(envelopeInPixels.left())  + _overallDimensions.west() ;
+  double const dy = -1*y*(envelopeInPixels.top()) + _overallDimensions.north();
 
-  QTransform  screen_to_world = QTransform(x, 0.0, 0.0, 0.0, y, 0.0, dx, dy, 1.0);
-  QTransform  world_to_screen= screen_to_world.inverted();
+  QTransform  const screen_to_world = QTransform(x, 0.0, 0.0, 0.0, y, 0.0, dx, dy, 1.0);
+  QTransform  const world_to_screen= screen_to_world.inverted();
 
   return std::make_tuple(world_to_screen, screen_to_world);
 }
@@ -113,7 +113,7 @@ void MapDrawer::draw(
   }
 
   // Which pixels are potentially drawn by the dataset.
-  QRectF envelopeInPixels = this->envelopeInPixels(anchor, zoom, offset, scale);
+  QRectF const envelopeInPixels = this->envelopeInPixels(anchor, zoom, offset, scale);
 
   // If this fails, then return here. The zoom level is such that no pixels
   // are drawn.
@@ -127,7 +127,7 @@ void MapDrawer::draw(
 
   // Actual area of the screen that possibly contains stuff to draw.
   // QRect dirtyMapAreaInPixels = envelopeInPixels & dirtyScreenArea;
-  QRectF dirtyMapAreaInPixels = envelopeInPixels & dirtyScreenArea;
+  QRectF const dirtyMapAreaInPixels = envelopeInPixels & dirtyScreenArea;
 
   if(dirtyMapAreaInPixels.isEmpty()) {
     return;

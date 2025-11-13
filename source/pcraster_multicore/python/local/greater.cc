@@ -41,7 +41,7 @@ calc::Field* greater_number_number(
 
   using InputNoDataPolicy = fa::InputNoDataPolicies<NonspatialDetectNoData<T>,
         NonspatialDetectNoData<T>>;
-  InputNoDataPolicy input_no_data_policy{{*arg1},{*arg2}};
+  InputNoDataPolicy const input_no_data_policy{{*arg1},{*arg2}};
 
   NonspatialSetNoData<UINT1> output_no_data_policy(*res);
 
@@ -61,7 +61,7 @@ calc::Field* greater_field_field(
 
   using InputNoDataPolicy = fa::InputNoDataPolicies<SpatialDetectNoData<T>,
         SpatialDetectNoData<T>>;
-  InputNoDataPolicy input_no_data_policy{{*arg1},{*arg2}};
+  InputNoDataPolicy const input_no_data_policy{{*arg1},{*arg2}};
 
   SpatialSetNoData<UINT1> output_no_data_policy(*res);
 
@@ -82,7 +82,7 @@ calc::Field* greater_number_field(
   using InputNoDataPolicy = fa::InputNoDataPolicies<NonspatialDetectNoData<T>,
     SpatialDetectNoData<T>>;
 
-  InputNoDataPolicy input_no_data_policy{{*arg1},{*arg2}};
+  InputNoDataPolicy const input_no_data_policy{{*arg1},{*arg2}};
   SpatialSetNoData<UINT1> output_no_data_policy(*res);
 
   fa::algebra::greater(input_no_data_policy,
@@ -102,7 +102,7 @@ calc::Field* greater_field_number(
   using InputNoDataPolicy = fa::InputNoDataPolicies<SpatialDetectNoData<T>,
     NonspatialDetectNoData<T>>;
 
-  InputNoDataPolicy input_no_data_policy{{*arg1},{*arg2}};
+  InputNoDataPolicy const input_no_data_policy{{*arg1},{*arg2}};
   SpatialSetNoData<UINT1> output_no_data_policy(*res);
 
   fa::algebra::greater(input_no_data_policy,

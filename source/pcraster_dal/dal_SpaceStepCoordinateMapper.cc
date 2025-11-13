@@ -75,8 +75,8 @@ std::string SpaceStepCoordinateMapper::toString(
   if(address.isValid(index)) {
     assert(space.dimension(index).meaning() == Space);
 
-    size_t coordinate = address.coordinate<size_t>(index);
-    double mappedCoordinate = destination(coordinate);
+    size_t const coordinate = address.coordinate<size_t>(index);
+    double const mappedCoordinate = destination(coordinate);
 
     std::stringstream stream;
     stream << mappedCoordinate; // << std::ends;

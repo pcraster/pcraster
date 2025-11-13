@@ -419,7 +419,7 @@ void ag::Map3DView::mouseReleaseEvent(QMouseEvent* event)
 void ag::Map3DView::mouseMoveEvent(QMouseEvent* event)
 {
   d_mapViewTarget.move(event->pos());
-  QPoint move = d_mapViewTarget.movement();
+  QPoint const move = d_mapViewTarget.movement();
 
   if(event->buttons() == Qt::LeftButton) {
 

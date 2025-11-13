@@ -80,7 +80,7 @@ void calc::Calc::setScriptFile(
 
 void calc::Calc::setRunDirectory(const com::PathName&  rd)
 {
-  com::PathName externalBindingFile;
+  com::PathName const externalBindingFile;
   script().setRunDirectory(rd,externalBindingFile);
 }
 
@@ -148,7 +148,7 @@ bool calc::Calc::processArgs(
       case 'b' : externalBindingFile=(const char *)OptArg;
             break;
       case 's' : {
-            int seed = *(const int *)OptArg;
+            int const seed = *(const int *)OptArg;
             if (seed <= 0) // args/test26
               throw com::Exception("-s seed must be > 0 (not "+quote(seed)+")");
             SetRan((unsigned int)seed);
@@ -229,7 +229,7 @@ void calc::Calc::parse()
 {
   try {
    ParserInput pi(d_lexInput);
-   ModelParser mp(pi,script());
+   ModelParser const mp(pi,script());
    script().htmlPrint();
   } catch(const Element::SyntaxErrorBug&) {
     // pcrcalc/test345(ab)
@@ -316,10 +316,10 @@ int calc::runScriptFile(const char *scriptName)
 {
   appOutput=APP_NOOUT;
   Script   s;
-  com::PathName sn(scriptName);
+  com::PathName const sn(scriptName);
   ParserInput pi(sn);
 
-  ModelParser mp(pi,s);
+  ModelParser const mp(pi,s);
 
   s.run();
   return s.exitVal();
@@ -333,10 +333,10 @@ int calc::runScriptString(const char *script)
 {
   appOutput=APP_NOOUT;
   Script   s;
-  std::string si(script);
+  std::string const si(script);
   ParserInput pi(si);
 
-  ModelParser mp(pi,s);
+  ModelParser const mp(pi,s);
 
   s.run();
   return s.exitVal();

@@ -52,7 +52,7 @@ calc::PointCodeBlock::PointCodeBlock(
       l->transferPushBack(*i);
   d_pointCode = new Code(l);
 
-  ScopedCFG cfg(d_pointCode);
+  ScopedCFG const cfg(d_pointCode);
 
   d_input  = inputSet(cfg.cfg);
   d_output = newLiveDefSet(cfg.cfg);
@@ -171,7 +171,7 @@ void calc::PointCodeBlock::genCode(std::ostream& s) const
     << dllFunctionName() << "(CellPtr* v,size_t n) {"
     << '\n';
 
-  ParSet vContents=transfer();
+  ParSet const vContents=transfer();
 
 #ifdef DEBUG
   s << "/* " << std::endl
@@ -215,7 +215,7 @@ void calc::PointCodeBlock::exec(RunTimeEnv& rte)
   ParPCBVector vector;
 
   // set defines alfabetic order mapped to vector index v
-  ParSet set(transfer());
+  ParSet const set(transfer());
 
 
   for(auto p : set) {

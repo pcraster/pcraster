@@ -66,7 +66,7 @@ void BooleanRasterDrawer::draw(
     return;
   }
 
-  size_t nrCellsPerPixel = this->nrCellsPerPixel(world_to_screen);
+  size_t const nrCellsPerPixel = this->nrCellsPerPixel(world_to_screen);
   double leftScreen = NAN;
   double topScreen = NAN;
   double rightScreen = NAN;
@@ -87,8 +87,8 @@ void BooleanRasterDrawer::draw(
   auto firstCol = static_cast<size_t>(indices.left());
   auto lastCol = static_cast<size_t>(indices.right());
 
-  QColor trueColour = _properties.colourByIndex(1);
-  QColor falseColour = _properties.colourByIndex(0);
+  QColor const trueColour = _properties.colourByIndex(1);
+  QColor const falseColour = _properties.colourByIndex(0);
 
   painter.setRenderHint(QPainter::Antialiasing, false);
   painter.setPen(Qt::NoPen);

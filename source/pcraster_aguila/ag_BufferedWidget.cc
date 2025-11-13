@@ -160,7 +160,7 @@ void BufferedWidget::updateBuffer(
   static int green = 155;
   static int blue = 255;
 
-  QRectF dirtyArea(area.left(), area.top(), area.width() - 1,
+  QRectF const dirtyArea(area.left(), area.top(), area.width() - 1,
          area.height() - 1);
 
   // Draw the scene.
@@ -260,8 +260,8 @@ void BufferedWidget::resizeEvent(
   QSize const newSize = event->size();
 
   // If the buffer grew, then we have something new to update.
-  int deltaWidth = newSize.width() - oldSize.width();
-  int deltaHeight = newSize.height() - oldSize.height();
+  int const deltaWidth = newSize.width() - oldSize.width();
+  int const deltaHeight = newSize.height() - oldSize.height();
 
   // Upper left corner of part of old buffer that needs to be copied into the
   // new, resized, buffer.
@@ -274,7 +274,7 @@ void BufferedWidget::resizeEvent(
     assert(_anchor.x() == 0.0 && _anchor.y() == 0.0);
 
     if(deltaWidth > 0) {
-      QRectF deltaDirtyRightArea(oldSize.width(), 0.0,
+      QRectF const deltaDirtyRightArea(oldSize.width(), 0.0,
                    deltaWidth, newSize.height());
 
       if(!_dirtyRightArea.isValid()) {
@@ -286,7 +286,7 @@ void BufferedWidget::resizeEvent(
     }
 
     if(deltaHeight > 0) {
-      QRectF deltaDirtyBottomArea(0.0, oldSize.height(),
+      QRectF const deltaDirtyBottomArea(0.0, oldSize.height(),
                    oldSize.width(), deltaHeight);
 
       if(!_dirtyBottomArea.isValid()) {
@@ -310,10 +310,10 @@ void BufferedWidget::resizeEvent(
 
     // Determine delta width at the left and right side. Make sure that
     // the the anchor point stays in the center.
-    double deltaWidthLeft = newSize.width() / 2.0 - oldSize.width() / 2.0;
-    double deltaWidthRight = deltaWidth - deltaWidthLeft;
-    double deltaHeightTop = newSize.height() / 2.0 - oldSize.height() / 2.0;
-    double deltaHeightBottom = deltaHeight - deltaHeightTop;
+    double const deltaWidthLeft = newSize.width() / 2.0 - oldSize.width() / 2.0;
+    double const deltaWidthRight = deltaWidth - deltaWidthLeft;
+    double const deltaHeightTop = newSize.height() / 2.0 - oldSize.height() / 2.0;
+    double const deltaHeightBottom = deltaHeight - deltaHeightTop;
 
     assert(deltaWidthLeft + deltaWidthRight == deltaWidth);
     assert(deltaWidthLeft + deltaWidthRight == deltaWidth);
@@ -331,7 +331,7 @@ void BufferedWidget::resizeEvent(
       //
 
       // Left.
-      QRectF deltaDirtyLeftArea(0.0, 0.0, deltaWidthLeft, newSize.height());
+      QRectF const deltaDirtyLeftArea(0.0, 0.0, deltaWidthLeft, newSize.height());
 
       if(!_dirtyLeftArea.isValid()) {
         _dirtyLeftArea = deltaDirtyLeftArea;
@@ -342,7 +342,7 @@ void BufferedWidget::resizeEvent(
       }
 
       // Right.
-      QRectF deltaDirtyRightArea(deltaWidthLeft + oldSize.width(),
+      QRectF const deltaDirtyRightArea(deltaWidthLeft + oldSize.width(),
                  0.0, deltaWidthRight, newSize.height());
 
       if(!_dirtyRightArea.isValid()) {
@@ -357,7 +357,7 @@ void BufferedWidget::resizeEvent(
     if(deltaHeight > 0) {
 
       // Top.
-      QRectF deltaDirtyTopArea(std::max(deltaWidthLeft, 0.0), 0.0,
+      QRectF const deltaDirtyTopArea(std::max(deltaWidthLeft, 0.0), 0.0,
          oldSize.width(), deltaHeightTop);
 
       if(!_dirtyTopArea.isValid()) {
@@ -369,7 +369,7 @@ void BufferedWidget::resizeEvent(
       }
 
       // Bottom.
-      QRectF deltaDirtyBottomArea(std::max(deltaWidthLeft, 0.0),
+      QRectF const deltaDirtyBottomArea(std::max(deltaWidthLeft, 0.0),
          deltaHeightTop + oldSize.height(), oldSize.width(), deltaHeightBottom);
 
       if(!_dirtyBottomArea.isValid()) {
@@ -459,7 +459,7 @@ void BufferedWidget::moveContents(
 
     // Mark the dirty area.
     // Left.
-    QRectF deltaDirtyLeftArea(0, 0, dx, height());
+    QRectF const deltaDirtyLeftArea(0, 0, dx, height());
 
     if(!_dirtyLeftArea.isValid()) {
       _dirtyLeftArea = deltaDirtyLeftArea;
@@ -475,7 +475,7 @@ void BufferedWidget::moveContents(
 
     // Mark the dirty area.
     // Right.
-    QRectF deltaDirtyRightArea(width() - -dx, 0, -dx, height());
+    QRectF const deltaDirtyRightArea(width() - -dx, 0, -dx, height());
 
     if(!_dirtyRightArea.isValid()) {
       _dirtyRightArea = deltaDirtyRightArea;
@@ -492,7 +492,7 @@ void BufferedWidget::moveContents(
 
     // Mark the dirty area.
     // Top
-    QRectF deltaDirtyTopArea(0, 0, width(), dy);
+    QRectF const deltaDirtyTopArea(0, 0, width(), dy);
 
     if(!_dirtyTopArea.isValid()) {
       _dirtyTopArea = deltaDirtyTopArea;
@@ -508,7 +508,7 @@ void BufferedWidget::moveContents(
 
     // Mark the dirty area.
     // Bottom.
-    QRectF deltaDirtyBottomArea(0, height() - -dy, width(), -dy);
+    QRectF const deltaDirtyBottomArea(0, height() - -dy, width(), -dy);
 
     if(!_dirtyBottomArea.isValid()) {
       _dirtyBottomArea = deltaDirtyBottomArea;

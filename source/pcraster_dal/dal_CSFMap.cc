@@ -211,7 +211,7 @@ void dal::CSFMap::open(
 {
   assert(!d_map);
 
-  MOPEN_PERM permission = allowUpdate ? M_READ_WRITE : M_READ;
+  MOPEN_PERM const permission = allowUpdate ? M_READ_WRITE : M_READ;
 
   d_map = Mopen(d_path.string().c_str(), permission);
 
@@ -663,9 +663,9 @@ Table CSFMap::legend() const
   Table legend;
 
   if(hasLegend()) {
-    size_t nrEntries = nrLegendEntries();
+    size_t const nrEntries = nrLegendEntries();
     assert(nrEntries > 0);
-    boost::scoped_array<CSF_LEGEND> csfLegend(new CSF_LEGEND[nrEntries]);
+    boost::scoped_array<CSF_LEGEND> const csfLegend(new CSF_LEGEND[nrEntries]);
 
     if(MgetLegend(d_map, csfLegend.get()) == 0) {
       throwCannotReadLegend(d_path.string());

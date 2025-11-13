@@ -203,7 +203,7 @@ calc::Field* readField(
       }
     }
 
-    geo::RasterSpace cloneSpace(raster->nrRows(), raster->nrCols(),
+    geo::RasterSpace const cloneSpace(raster->nrRows(), raster->nrCols(),
          raster->cellSize(), raster->west(), raster->north(), projection);
     globals.setCloneSpace(cloneSpace);
   }
@@ -232,9 +232,9 @@ pybind11::object readFieldCell(
   POSTCOND(raster);
   assert(driver);
 
-  dal::RasterDimensions rasterDim(raster->nrRows(), raster->nrCols(), raster->cellSize(), raster->west(), raster->north());
-  dal::Dimension dim(dal::Space, dal::RegularDiscretisation, rasterDim);
-  dal::DataSpace space(dim);
+  dal::RasterDimensions const rasterDim(raster->nrRows(), raster->nrCols(), raster->cellSize(), raster->west(), raster->north());
+  dal::Dimension const dim(dal::Space, dal::RegularDiscretisation, rasterDim);
+  dal::DataSpace const space(dim);
 
   double x = 0.0;
   double y = 0.0;
@@ -338,7 +338,7 @@ void writeField(
          std::filesystem::path const& input_path)
 {
 
-  std::string filename{input_path.string()};
+  std::string const filename{input_path.string()};
   checkNotNullPointer(field);
 
   switch(field->cr()) {
@@ -367,7 +367,7 @@ void writeFilename(
          std::filesystem::path const& input_path,
          std::filesystem::path const& output_path)
 {
-  std::string outputFilename{output_path.string()};
+  std::string const outputFilename{output_path.string()};
   writeField(readField(input_path), outputFilename);
 }
 
@@ -443,7 +443,7 @@ pybind11::tuple fieldGetCellIndex(
 
   pybind11::tuple tuple;
   double value = 0;
-  bool isValid = field->getCell(value, static_cast<size_t>(index));
+  bool const isValid = field->getCell(value, static_cast<size_t>(index));
 
   switch(field->vs()) {
     case VS_B: {
@@ -528,7 +528,7 @@ pybind11::tuple cellvalue_by_index(
 
   pybind11::tuple tuple;
   double value = 0;
-  bool isValid = field->getCell(value, static_cast<size_t>(index));
+  bool const isValid = field->getCell(value, static_cast<size_t>(index));
 
   switch(field->vs()) {
     case VS_B: {
@@ -606,13 +606,13 @@ pybind11::tuple cellvalue_by_coordinates(
     throw std::invalid_argument("Not implemented for projection type 'YIncrT2B'");
   }
 
-  double west = globals.cloneSpace().west();
-  double north = globals.cloneSpace().north();
-  size_t nr_rows = globals.cloneSpace().nrRows();
-  size_t nr_cols = globals.cloneSpace().nrCols();
-  double cellsize = globals.cloneSpace().cellSize();
-  double east = west + nr_cols * cellsize;
-  double south = north - nr_rows * cellsize;
+  double const west = globals.cloneSpace().west();
+  double const north = globals.cloneSpace().north();
+  size_t const nr_rows = globals.cloneSpace().nrRows();
+  size_t const nr_cols = globals.cloneSpace().nrCols();
+  double const cellsize = globals.cloneSpace().cellSize();
+  double const east = west + nr_cols * cellsize;
+  double const south = north - nr_rows * cellsize;
 
   if((xcoordinate < west) || (xcoordinate > east)){
     std::ostringstream errMsg;
@@ -638,11 +638,11 @@ pybind11::tuple cellvalue_by_coordinates(
     throw std::invalid_argument(errMsg.str());
   }
 
-  double xCol = (xcoordinate - west) / cellsize;
-  double yRow = (north - ycoordinate) / cellsize;
+  double const xCol = (xcoordinate - west) / cellsize;
+  double const yRow = (north - ycoordinate) / cellsize;
 
-  size_t row = std::floor(yRow);
-  size_t col = std::floor(xCol);
+  size_t const row = std::floor(yRow);
+  size_t const col = std::floor(xCol);
 
   return cellvalue_by_index(field, row * nr_cols + col);
 }
@@ -670,7 +670,7 @@ calc::Field* closeAtTolerance(calc::Field const * result,
   checkNotNullPointer(result);
   checkNotNullPointer(validated);
 
-  size_t nrCells = globals.cloneSpace().nrCells();
+  size_t const nrCells = globals.cloneSpace().nrCells();
 
   auto* field = new calc::Spatial(VS_B, calc::CRI_1, nrCells);
   auto* cells = static_cast<UINT1*>(field->dest());
@@ -679,7 +679,7 @@ calc::Field* closeAtTolerance(calc::Field const * result,
     cells[i] = 0;
   }
 
-  boost::math::fpc::close_at_tolerance<REAL4> tester(
+  boost::math::fpc::close_at_tolerance<REAL4> const tester(
          boost::math::fpc::fpc_detail::fraction_tolerance<REAL4>(REAL4(1e-4)),
          boost::math::fpc::FPC_STRONG);
 
@@ -752,11 +752,11 @@ void check_csftype(std::string const& filename){
 void setCloneSpaceFromFilename(
          std::filesystem::path const& input_path)
 {
-  std::string filename{input_path.string()};
+  std::string const filename{input_path.string()};
 
   check_csftype(filename);
 
-  std::shared_ptr<dal::Raster> raster(globals.rasterDal().read(filename));
+  std::shared_ptr<dal::Raster> const raster(globals.rasterDal().read(filename));
   assert(raster);
 
   geo::Projection projection = geo::IllegalProjection;
@@ -770,7 +770,7 @@ void setCloneSpaceFromFilename(
 
   // \todo what about angle?
 
-  geo::RasterSpace space(raster->nrRows(), raster->nrCols(),
+  geo::RasterSpace const space(raster->nrRows(), raster->nrCols(),
          raster->cellSize(), raster->west(), raster->north(), projection);
   globals.setCloneSpace(space);
 }
@@ -783,7 +783,7 @@ void setCloneSpaceFromValues(
     double west,
     double north)
 {
-  int max_row_col = std::numeric_limits<int>::max();
+  int const max_row_col = std::numeric_limits<int>::max();
 
   if( (nrRows < 1) || (nrRows > max_row_col) ) {
     std::ostringstream errMsg;
@@ -810,7 +810,7 @@ void setCloneSpaceFromValues(
 
   }
 
-  geo::RasterSpace space(nrRows, nrCols, cellSize, west, north, geo::YIncrB2T);
+  geo::RasterSpace const space(nrRows, nrCols, cellSize, west, north, geo::YIncrB2T);
   globals.setCloneSpace(space);
 }
 
@@ -883,7 +883,7 @@ calc::Field* maptotal(calc::Field const & field)
   calc::Field* result = new calc::NonSpatial(VS_S);
   auto* result_cell = static_cast<REAL4*>(result->dest());
 
-  size_t nrCells = globals.cloneSpace().nrCells();
+  size_t const nrCells = globals.cloneSpace().nrCells();
   double maptotal = 0.0;
   double cellvalue = 0.0;
 

@@ -184,9 +184,9 @@ void pt::MOCLink::initExecute(
   double nrParticles = NAN;
   nrParticlesMap->Get(&nrParticles, 0, 0, nrParticlesMap);
   PRECOND(!pcr::isMV(nrParticles));
-  com::GreaterThan<double> nrParticleValidator(0.0);
+  com::GreaterThan<double> const nrParticleValidator(0.0);
   if(!nrParticleValidator.valid(nrParticles)) {
-    std::string message = "Number of particles per cell must be " +
+    std::string const message = "Number of particles per cell must be " +
          nrParticleValidator.msg();
     throw com::Exception(message);
   }
@@ -454,12 +454,12 @@ void pt::MOCLink::adjustConcentrationExecute(
   }
 
   // Domain checks...
-  com::GreaterThanEqualTo<double> interval(-1.0);
+  com::GreaterThanEqualTo<double> const interval(-1.0);
   for(geo::CellLocVisitor loc(d_rs.nrRows(), d_rs.nrCols()); loc.valid();
          ++loc) {
     if(!pcr::isMV(deltaConc.cell(*loc)) &&
          !interval.valid(deltaConc.cell(*loc))) {
-      std::string message = "Change in concentration must be " + interval.msg();
+      std::string const message = "Change in concentration must be " + interval.msg();
       throw com::Exception(message);
     }
   }

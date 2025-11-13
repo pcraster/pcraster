@@ -198,7 +198,7 @@ void VisEngine::rescan(
       _data->_change |= QUANTILE;
     }
     else if(object.dataSpace().hasCumProbabilities()) {
-      size_t index = object.dataSpace().indexOf(
+      size_t const index = object.dataSpace().indexOf(
          dal::CumulativeProbabilities);
       if(!dal::comparable<float>(
          object.dataSpaceAddress().coordinate<float>(index),
@@ -211,7 +211,7 @@ void VisEngine::rescan(
       _data->_change |= TIME;
     }
     else if(object.dataSpace().hasTime()) {
-      size_t index = object.dataSpace().indexOf(dal::Time);
+      size_t const index = object.dataSpace().indexOf(dal::Time);
       if(object.dataSpaceAddress().coordinate<size_t>(index) !=
             _data->_dataSpaceAddress.coordinate<size_t>(index)) {
         _data->_change |= TIME;
@@ -223,7 +223,7 @@ void VisEngine::rescan(
     /// }
     /// else if(...) {
     if(object.dataSpace().hasSpace()) {
-      size_t index = object.dataSpace().indexOf(dal::Space);
+      size_t const index = object.dataSpace().indexOf(dal::Space);
 
       if(object.dataSpaceAddress().isValid(index) !=
          _data->_dataSpaceAddress.isValid(index)) {
@@ -314,7 +314,7 @@ void VisEngine::rescan(
     if((*it).isRangeData()) {
       RangeDrawProps const& newDrawProperties =
          object.properties().rangeDrawProperties(*it);
-      RangeDrawProps& oldDrawProperties =
+      RangeDrawProps const& oldDrawProperties =
          _data->_properties.rangeDrawProperties(*it);
 
       if(oldDrawProperties != newDrawProperties) {
@@ -508,7 +508,7 @@ void VisEngine::setHeight(
          DataGuide const& guide)
 {
   if(guide.valueScale() != VS_SCALAR) {
-    std::string message = std::format(
+    std::string const message = std::format(
          "Value scale {0}: Not a valid value scale for height data.\n"
          "Valid value scale is: {1}.",
          dal::valueScaleToString(guide.valueScale()),

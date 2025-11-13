@@ -20,14 +20,14 @@ BOOST_AUTO_TEST_CASE(testSetAndGetCell)
      n.getCell(v,79);
      BOOST_CHECK(v==8);
     } catch(...) {
-      bool success=false;
+      bool const success=false;
       BOOST_CHECK(success);
     }
     BOOST_CHECK(n.getValue() == 8);
   }
 
   { // set a value boolean UINT1
-    UINT1 v=0;
+    UINT1 const v=0;
     NonSpatial n(VS_B,v);
     BOOST_CHECK(n.cri()==CRI_1);
     try {
@@ -38,7 +38,7 @@ BOOST_AUTO_TEST_CASE(testSetAndGetCell)
      n.getCell(v,79);
      BOOST_CHECK(v==1);
     } catch(...) {
-      bool success=false;
+      bool const success=false;
       BOOST_CHECK(success);
     }
     BOOST_CHECK(n.getValue() == 1);
@@ -56,7 +56,7 @@ BOOST_AUTO_TEST_CASE(testSetAndGetCell)
      n.getCell(v,79);
      BOOST_CHECK(v==-2);
     } catch(...) {
-      bool success=false;
+      bool const success=false;
       BOOST_CHECK(success);
     }
     BOOST_CHECK(n.getValue() == -2);

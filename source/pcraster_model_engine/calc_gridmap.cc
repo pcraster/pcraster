@@ -87,7 +87,7 @@ calc::GridStat calc::GridMapOut::writeData(const void *allValues)
 {
   if (d_driver.name() == "EHdr") {
     // Hack up old "WL" bandmap thing
-    geo::BandMap map(d_fileName, d_rs, biggestCellRepr(d_vs),false,0);
+    geo::BandMap const map(d_fileName, d_rs, biggestCellRepr(d_vs),false,0);
     switch(map.cellRepr()) {
      case CR_UINT1:
           map.putCellsAsUINT1((const UINT1 *)allValues);break;
@@ -158,9 +158,9 @@ calc::GridMapIn::GridMapIn(
 
     const dal::Properties& p(raster->properties());
 
-    double angle=p.value<double>(DAL_CSF_ANGLE,0.0);
-    CSF_PT prj  =p.value<CSF_PT>(DAL_CSF_PROJECTION,PT_YINCT2B);
-    CSF_VS vs   =p.value<CSF_VS>(DAL_CSF_VALUESCALE,VS_NOTDETERMINED);
+    double const angle=p.value<double>(DAL_CSF_ANGLE,0.0);
+    CSF_PT const prj  =p.value<CSF_PT>(DAL_CSF_PROJECTION,PT_YINCT2B);
+    CSF_VS const vs   =p.value<CSF_VS>(DAL_CSF_VALUESCALE,VS_NOTDETERMINED);
 
     if (vs!=VS_NOTDETERMINED)
       d_vs = csfVs2vs(vs);
@@ -198,7 +198,7 @@ void  calc::GridMapIn::createSpatial(void *dest,VS readAs)
 {
   if (d_bandMap) {
     // Hack up old "WL" bandmap thing
-    geo::BandMap map(d_fileName);
+    geo::BandMap const map(d_fileName);
     switch(biggestCellRepr(readAs)) {
      case CR_UINT1:
           map.getCellsAsUINT1((UINT1 *)dest);break;

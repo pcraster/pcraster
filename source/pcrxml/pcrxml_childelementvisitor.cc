@@ -60,7 +60,7 @@ bool pcrxml::ChildElementVisitor::allChildrenProcessed() const
 QDomElement pcrxml::ChildElementVisitor::processChild()
 {
   PRECOND(!allChildrenProcessed());
-  unsigned int thisOne(d_current);
+  unsigned int const thisOne(d_current);
   d_current++;
   advance();
   PRECOND(d_children.item(thisOne).isElement());

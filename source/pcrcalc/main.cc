@@ -37,6 +37,6 @@ int main(
    }
   };
 
-  Main m(argc,argv);
+  Main const m(argc,argv);
   return m.result;
 }

@@ -34,7 +34,7 @@ static Document createEmptyDocElPcrDocument(
       docElName,
       "-//PCRaster//Generic" ,
       "pcraster.dtd")));
- QDomNode decl=doc.createProcessingInstruction("xml",
+ QDomNode const decl=doc.createProcessingInstruction("xml",
      "version='1.0' encoding='ISO-8859-1' standalone='yes'");
  doc.insertBefore(decl,doc.firstChild());
  return doc;
@@ -64,19 +64,19 @@ pcrxml::Document pcrxml::createPcrDocument(
   No namespace processing is performed either.
   */
   contentsDoc.setContent(QString(contents.c_str()));
-  QDomElement docEl(contentsDoc.documentElement());
+  QDomElement const docEl(contentsDoc.documentElement());
   Document doc(createEmptyDocElPcrDocument(docEl.tagName()));
-  QDomNamedNodeMap attrs(docEl.attributes());
+  QDomNamedNodeMap const attrs(docEl.attributes());
   for(size_t i=0; std::cmp_less(i , attrs.length()); ++i) {
-    QDomAttr a=doc.importNode(attrs.item(i),true).toAttr();
+    QDomAttr const a=doc.importNode(attrs.item(i),true).toAttr();
     if (a.nodeName()!="xmlns") // seems xmlns is not as an attribute recognized
      if (!doc.documentElement().hasAttribute(a.nodeName())) {
        doc.documentElement().setAttributeNode(a);
      }
   }
-  QDomNodeList dnl(docEl.childNodes());
+  QDomNodeList const dnl(docEl.childNodes());
   for(size_t i=0; std::cmp_less(i , dnl.length()); ++i) {
-      QDomNode n(doc.importNode(dnl.item(i),true));
+      QDomNode const n(doc.importNode(dnl.item(i),true));
       doc.documentElement().appendChild(n);
   }
   return doc;
@@ -99,14 +99,14 @@ void pcrxml::Document::initFromStr(const QString&       content)
    QString errMsg;
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
-   ParseResult success = setContent(content, ParseOption::Default);
+   ParseResult const success = setContent(content, ParseOption::Default);
    errMsg = success.errorMessage;
 #else
    bool success = setContent(content,false,&errMsg);
 #endif
 
    if (!success) {
-     QByteArray asciiData = errMsg.toLatin1();
+     QByteArray const asciiData = errMsg.toLatin1();
      const char *goodData = asciiData.constData();
      throw com::BadStreamFormat(goodData);
      }
@@ -151,7 +151,7 @@ pcrxml::Document::Document(const com::PathName& file)
 {
   com::PathInfo(file).testOpenForReading();
   QFile f(QString(file.toString().c_str()));
-  bool success = f.open(QIODevice::ReadOnly);
+  bool const success = f.open(QIODevice::ReadOnly);
   // com::testOpenForReading() should assert this
   // but it does not:
   //  POSTCOND(success);
@@ -161,14 +161,14 @@ pcrxml::Document::Document(const com::PathName& file)
   QString errMsg;
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
-   ParseResult parse_success = setContent(&f, ParseOption::Default);
+   ParseResult const parse_success = setContent(&f, ParseOption::Default);
    errMsg = parse_success.errorMessage;
 #else
    bool parse_success = setContent(&f,false,&errMsg);
 #endif
 
   if (!parse_success) {
-     QByteArray asciiData = errMsg.toLatin1();
+     QByteArray const asciiData = errMsg.toLatin1();
      const char *goodData = asciiData.constData();
      throw com::BadStreamFormat(goodData);
   }
@@ -220,7 +220,7 @@ QDomElement pcrxml::Document::firstMatchByTagName(
 {
   PRECOND(!tagName.isEmpty());
 
-  QDomElement de(documentElement());
+  QDomElement const de(documentElement());
 
   // QDomElement::elementsByTagName only return descendant elements!
   // not the element if the element itself matches

@@ -59,7 +59,7 @@ TempDirectory::TempDirectory(const std::string& prefix)
   try {
     d_name=prefix; // tmp setting in case of throwFileError
 
-    std::filesystem::path tmpDir=tempDirectoryName().path();
+    std::filesystem::path const tmpDir=tempDirectoryName().path();
 
     com::UniqueStringGenerator g;
     g.setPrefix(prefix);

@@ -31,7 +31,7 @@ BOOST_AUTO_TEST_CASE(test)
         "               #  g:l/2/a/>/e/,/0/p \n" \
         "               #  g:2/a/>/,/0/p     \n";
 
-  std::unique_ptr<ASTNode> aPtr(StringParser::createStatementList(code));
+  std::unique_ptr<ASTNode> const aPtr(StringParser::createStatementList(code));
   ASTNode *a(aPtr.get());
   {
     ASTNode *l=path(a,"l");

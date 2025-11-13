@@ -104,11 +104,11 @@ void calc::SameBin::exec              (RunTimeEnv* rte,const Operator& op,size_t
   PRECOND(nrArgs==2);
   typedef BinArg B;
   ExecArguments   a(op,rte,2);
-  B             b(a);
+  B             const b(a);
 
   POSTCOND(a[B::Left].cri() == a[B::Right].cri()); // same binary operands
 
-  CRIndex i = a[B::Left].cri();
+  CRIndex const i = a[B::Left].cri();
   POSTCOND(d_fieldOp[i]);
   switch(b.t) {
     case B::SS_NN: {
@@ -140,10 +140,10 @@ void calc::DiffBin::exec(RunTimeEnv* rte,const Operator& op,size_t DEBUG_ARG(nrA
   PRECOND(nrArgs==2);
   typedef BinArg B;
   ExecArguments a(op,rte,2);
-  B             b(a);
+  B             const b(a);
 
   auto *r = static_cast<UINT1 *>(a.dest());
-  CRIndex i = a[1].cri(); // selection on 2nd/right operand in case of IfThenArray
+  CRIndex const i = a[1].cri(); // selection on 2nd/right operand in case of IfThenArray
   POSTCOND(d_fieldOp[i]);
   switch(b.t) {
     case B::SS_NN:
@@ -177,13 +177,13 @@ void calc::IfThenElse::exec(RunTimeEnv* rte,const Operator& op,size_t DEBUG_ARG(
   PRECOND(nrArgs==3);
   typedef BinArg B;
   ExecArguments a(op,rte,3);
-  B             b(a,1,2);
+  B             const b(a,1,2);
 
   if (a[0].isSpatial()) {
     // compute field
-    CRIndex i = a[1].cri(); // selection on true branch of IfThenElseArray
+    CRIndex const i = a[1].cri(); // selection on true branch of IfThenElseArray
     // always spatial
-    size_t n = std::max<>(a[0].nrValues(),b.n);
+    size_t const n = std::max<>(a[0].nrValues(),b.n);
     POSTCOND(d_fieldOp[i]);
     switch(b.t) {
       case B::SS_NN:
@@ -203,13 +203,13 @@ void calc::IfThenElse::exec(RunTimeEnv* rte,const Operator& op,size_t DEBUG_ARG(
   } else {
     // condition is nonspatial: select an entire branch field as result
     PRECOND(!a[0].isMV());
-    bool           cond=a[0].src_1()[0]==1;
-    size_t resultBranch=cond ?  1 : 2;
-    size_t  otherBranch=3-resultBranch;
+    bool           const cond=a[0].src_1()[0]==1;
+    size_t const resultBranch=cond ?  1 : 2;
+    size_t  const otherBranch=3-resultBranch;
 
     // set result to this argument
     (void)a.srcDest(resultBranch);
-    bool cast=!a.result().isSpatial() && a[otherBranch].isSpatial();
+    bool const cast=!a.result().isSpatial() && a[otherBranch].isSpatial();
     a.pushResults();
     if (cast)
       major2op(OP_SPATIAL)->exec(rte,1);
@@ -250,8 +250,8 @@ void calc::DiffUn::exec              (RunTimeEnv* rte,const Operator& op,size_t 
   ExecArguments a(op,rte,nrArgs);
   Field& r(a.createResult());
 
-  size_t n=std::max(r.nrValues(),a[0].nrValues());
-  CRIndex i = a[0].cri();
+  size_t const n=std::max(r.nrValues(),a[0].nrValues());
+  CRIndex const i = a[0].cri();
   POSTCOND(d_fieldOp[i]);
   d_fieldOp[i]->f(r.dest(),a[0].src(),n);
 
@@ -274,7 +274,7 @@ calc::SpatialImpl::~SpatialImpl()
 void calc::SpatialImpl::exec              (RunTimeEnv* rte,const Operator& op,size_t nrArgs) const
 {
   Field *in=rte->popField();
-  bool  nop=in->isSpatial();
+  bool  const nop=in->isSpatial();
   rte->pushField(in);
   if (!nop)
     DiffUn::exec(rte,op,nrArgs);
@@ -292,7 +292,7 @@ void calc::GenNonSpatial::exec          (RunTimeEnv* rte,const Operator& op,size
   ExecArguments a(op,rte,nrArgs);
   Field& r(a.createResult());
 
-  GenerateNonSpatial gsf(rte->rasterSpace());
+  GenerateNonSpatial const gsf(rte->rasterSpace());
   switch(op.opCode()) {
     case OP_CELLLENGTH:
       gsf.celllength(r.dest_f()); break;
@@ -326,7 +326,7 @@ void calc::GenSpatial::exec              (RunTimeEnv* rte,const Operator& op,siz
   PRECOND(nrArgs==1);
   ExecArguments a(op,rte,nrArgs);
   Field& r(a.createResult());
-  GenerateSpatial gsf(a[0],rte->spatialPacking(),rte->rasterSpace());
+  GenerateSpatial const gsf(a[0],rte->spatialPacking(),rte->rasterSpace());
 
   switch(op.opCode()) {
     case OP_UNIQUEID:
@@ -388,7 +388,7 @@ void calc::Conversion::exec          (RunTimeEnv* rte,const Operator& op,size_t 
   };
 
   Field *in=rte->popField();
-  MAJOR_CODE doOp=ConvTable()(in->vs(),op.vs());
+  MAJOR_CODE const doOp=ConvTable()(in->vs(),op.vs());
   POSTCOND(doOp!=OP_ILL);
   if (doOp != OP_NOP) {
     rte->pushField(in);
@@ -544,10 +544,10 @@ void calc::ArgOrderWithIdAddAreaLimited::exec (
         const REAL4* chances=args[i].src_f();
 
         PRECOND(!args[i+1].isSpatial());
-        INT4  id=args[i+1].src_4()[0];
+        INT4  const id=args[i+1].src_4()[0];
 
         PRECOND(!args[i+2].isSpatial());
-        double areaLimit=args[i+2].src_f()[0];
+        double const areaLimit=args[i+2].src_f()[0];
 
         argOrderArgs.push_back(ArgOrderIdInfo(chances,id,areaLimit));
     }
@@ -571,10 +571,10 @@ void calc::ArgOrderAddAreaLimited::exec (RunTimeEnv* rte,const Operator& op,size
         PRECOND(args[i].isSpatial());
         const REAL4* chances=args[i].src_f();
 
-        INT4  id=argOrderArgs.size()+1;
+        INT4  const id=argOrderArgs.size()+1;
 
         PRECOND(!args[i+1].isSpatial());
-        double areaLimit=args[i+1].src_f()[0];
+        double const areaLimit=args[i+1].src_f()[0];
 
         argOrderArgs.push_back(ArgOrderIdInfo(chances,id,areaLimit));
     }
@@ -599,10 +599,10 @@ void calc::ArgOrderWithIdAreaLimited::exec (RunTimeEnv* rte,const Operator& op,s
         const REAL4* chances=args[i].src_f();
 
         PRECOND(!args[i+1].isSpatial());
-        INT4  id=args[i+1].src_4()[0];
+        INT4  const id=args[i+1].src_4()[0];
 
         PRECOND(!args[i+2].isSpatial());
-        double areaLimit=args[i+2].src_f()[0];
+        double const areaLimit=args[i+2].src_f()[0];
 
         argOrderArgs.push_back(ArgOrderIdInfo(chances,id,areaLimit));
     }
@@ -622,10 +622,10 @@ void calc::ArgOrderAreaLimited::exec (RunTimeEnv* rte,const Operator& op,size_t 
         PRECOND(args[i].isSpatial());
         const REAL4* chances=args[i].src_f();
 
-        INT4  id=argOrderArgs.size()+1;
+        INT4  const id=argOrderArgs.size()+1;
 
         PRECOND(!args[i+1].isSpatial());
-        double areaLimit=args[i+1].src_f()[0];
+        double const areaLimit=args[i+1].src_f()[0];
 
         argOrderArgs.push_back(ArgOrderIdInfo(chances,id,areaLimit));
     }
@@ -646,7 +646,7 @@ void calc::ArgOrderWithId::exec (RunTimeEnv* rte,const Operator& op,size_t nrArg
         const REAL4* chances=args[i].src_f();
 
         PRECOND(!args[i+1].isSpatial());
-        INT4  id=args[i+1].src_4()[0];
+        INT4  const id=args[i+1].src_4()[0];
 
         argOrderArgs.push_back(ArgOrderIdInfo(chances,id));
     }
@@ -666,7 +666,7 @@ void calc::ArgOrder::exec (RunTimeEnv* rte,const Operator& op,size_t nrArgs) con
         PRECOND(args[i].isSpatial());
         const REAL4* chances=args[i].src_f();
 
-        INT4  id=argOrderArgs.size()+1;
+        INT4  const id=argOrderArgs.size()+1;
 
         argOrderArgs.push_back(ArgOrderIdInfo(chances,id));
     }

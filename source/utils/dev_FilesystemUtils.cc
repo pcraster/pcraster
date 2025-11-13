@@ -13,7 +13,7 @@ namespace detail {
 
 bool accessible(std::filesystem::path const& path) {
   try{
-    std::filesystem::file_status s = std::filesystem::status(path);
+    std::filesystem::file_status const s = std::filesystem::status(path);
     if((s.permissions() & (std::filesystem::perms::owner_exec | std::filesystem::perms::group_exec | std::filesystem::perms::others_exec)) != std::filesystem::perms::none){
       return true;
     }

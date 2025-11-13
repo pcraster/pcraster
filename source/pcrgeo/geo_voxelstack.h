@@ -155,7 +155,7 @@ inline void geo::VoxelStack::setBottom(REAL8 b)
 
 inline void geo::VoxelStack::add(size_t n, INT4 s, REAL8 t)
 {
-  Voxel v(s, t);
+  Voxel const v(s, t);
   d_column.insert(d_column.end(), n, v);
 }
 

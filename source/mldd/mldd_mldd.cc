@@ -103,7 +103,7 @@ mldd::Mldd& mldd::Mldd::operator=(Mldd const& rhs)
 void mldd::Mldd::addOneLdd(const UINT1 *ldd) const
 {
   for(size_t i=0; i < d_rs.nrCells(); ++i) {
-    UINT1 cVal=ldd[i];
+    UINT1 const cVal=ldd[i];
     if ( cVal != MV_UINT1 && cVal != LDD_PIT)
        d_dag->addFlowNB(d_rs.convert(i),cVal);
   }
@@ -144,12 +144,12 @@ void mldd::Mldd::getWeight(
 
   // order is relevant for python code
   // expected return order is N,NE,E,SE,S,SW,W,NW
-  geo::LDD::Code lddCodes[8]={8,9 ,6,3 ,2,1 ,4,7 };
+  geo::LDD::Code const lddCodes[8]={8,9 ,6,3 ,2,1 ,4,7 };
 
-  WeightMap wm(*d_dag,*d_dem);
+  WeightMap const wm(*d_dag,*d_dem);
 
   for(size_t r=0;r<8; r++) {
-    geo::NB::Code nb=geo::LDD::toNB(lddCodes[r]);
+    geo::NB::Code const nb=geo::LDD::toNB(lddCodes[r]);
     wm.fillDirMap(nb,result[r]);
   }
 }
@@ -198,7 +198,7 @@ void mldd::Mldd::upstream(
   REAL4*       out,
   const REAL4* in) const
 {
-  WeightMap wm(*d_dag,*d_dem);
+  WeightMap const wm(*d_dag,*d_dem);
   Upstream uv(wm,in,out);
 
   d_dag->downstreamVisitor(uv);
@@ -208,7 +208,7 @@ void mldd::Mldd::accuflux(
   REAL4*       out,
   const REAL4* in) const
 {
-  WeightMap wm(*d_dag,*d_dem);
+  WeightMap const wm(*d_dag,*d_dem);
   Accuflux uv(wm,in,out);
 
   d_dag->downstreamVisitor(uv);
@@ -220,13 +220,13 @@ void mldd::Mldd::getStream(
   // order is relevant for python code
   // expected return order is
   //                         N,NE,E,SE,S,SW,W,NW
-  geo::LDD::Code lddCodes[8]={8,9 ,6,3 ,2,1 ,4,7 };
+  geo::LDD::Code const lddCodes[8]={8,9 ,6,3 ,2,1 ,4,7 };
 
 
   for(size_t r=0;r<8; r++) {
     UINT1 *out(result[r]);
     pcr::setMV(out,d_rs.nrCells());
-    geo::NB::Code nb=geo::LDD::toNB(lddCodes[r]);
+    geo::NB::Code const nb=geo::LDD::toNB(lddCodes[r]);
     for(size_t c=0; c < d_rs.nrCells(); c++) {
       if (d_dag->hasOutflowDir(c,nb))
         out[c]=lddCodes[r];

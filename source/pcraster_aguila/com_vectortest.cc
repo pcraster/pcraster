@@ -7,7 +7,7 @@ BOOST_AUTO_TEST_CASE(size)
 {
   using namespace com;
 
-  Vector<double> v(5);
+  Vector<double> const v(5);
   BOOST_CHECK(v.size() == 5);
 }
 
@@ -107,7 +107,7 @@ BOOST_AUTO_TEST_CASE(cross)
   v2.setElement(2, 0);
   v2.setElement(3, 1);
 
-  Vector<int> v3 = Vector<int>::cross(v1, v2);
+  Vector<int> const v3 = Vector<int>::cross(v1, v2);
   BOOST_CHECK(v3.element(1) == 2);
   BOOST_CHECK(v3.element(2) == -7);
   BOOST_CHECK(v3.element(3) == -6);

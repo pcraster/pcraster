@@ -15,7 +15,7 @@ void createTestTable(
     const char *contents,
     const std::vector<VS>& inKeys)
 {
-    std::string name("LookupTableTest.tbl");
+    std::string const name("LookupTableTest.tbl");
     com::write(contents,name);
     t.setRecords(name,inKeys);
 }
@@ -50,7 +50,7 @@ BOOST_AUTO_TEST_CASE(old_style_constructor)
 {
     using namespace calc;
 
-    std::vector<VS> inKeys(1, VS_S);
+    std::vector<VS> const inKeys(1, VS_S);
     double r = NAN;
 
     { // OK
@@ -90,7 +90,7 @@ BOOST_AUTO_TEST_CASE(all_intervals)
 {
   using namespace calc;
 
-  std::vector<VS> inKeys(1,VS_S);
+  std::vector<VS> const inKeys(1,VS_S);
   double r = NAN;
 
  {
@@ -253,7 +253,7 @@ BOOST_AUTO_TEST_CASE(multiple_keys)
 {
   using namespace calc;
 
-  std::vector<VS> inKeys(2,VS_S);
+  std::vector<VS> const inKeys(2,VS_S);
   double r = NAN;
   LookupTable t(VS_S);
   createTestTable(t,"[3 , 5 ] [ 7, 9] 2.4",inKeys);
@@ -276,7 +276,7 @@ BOOST_AUTO_TEST_CASE(multiple_records)
 {
   using namespace calc;
 
-  std::vector<VS> inKeys(2,VS_S);
+  std::vector<VS> const inKeys(2,VS_S);
   double r = NAN;
   LookupTable t(VS_S);
   createTestTable(t,"[3 , 5 ] [ 7, 9] 2.4\n"

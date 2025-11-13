@@ -46,7 +46,7 @@ void calc::TimeinputExpr::execute(FieldStack& stack)
 
   const TimeTable *tss = d_tss->execute();
   const TIME_TABLE *tssTable = tss->tss();
-  size_t rowIndex = scriptConst().currentTimeStep()-1;
+  size_t const rowIndex = scriptConst().currentTimeStep()-1;
 
   try {
 
@@ -54,7 +54,7 @@ void calc::TimeinputExpr::execute(FieldStack& stack)
    if (!id->isSpatial()) {
      const auto *ns =
        dynamic_cast<const calc::NonSpatial *>(id.get_rep());
-    int colNr = static_cast<int>(ns->getValue());
+    int const colNr = static_cast<int>(ns->getValue());
     // no such column pcrcalc/test232
     if (colNr <= 0 || colNr >= tssTable->nrCols)
       throw std::runtime_error("No match in timeinput...");
@@ -65,7 +65,7 @@ void calc::TimeinputExpr::execute(FieldStack& stack)
     stack.push(calc::FieldHandle(new calc::NonSpatial(vs(),*vPtr)));
 
    } else {
-    GlobResult result(VS_S,vs(),scriptConst().compressor());
+    GlobResult const result(VS_S,vs(),scriptConst().compressor());
     stack.push(id); // GlobArgs must read from stack
     GlobArgs   args(op(), scriptConst().compressor(), stack);
     (void)TimeInputSeries(

@@ -58,7 +58,7 @@ void calc::ModelErrorTester::loadAndExec()
    catched=false;
    msgEq=false;
    try {
-     std::unique_ptr<ASTScript> script(
+     std::unique_ptr<ASTScript> const script(
      StringParser::createScript(MessagesTestDB::instance()->model(d_id)));
      exec(script.get());
    } catch (const com::Exception& s) {

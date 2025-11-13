@@ -159,7 +159,7 @@ BOOST_AUTO_TEST_CASE(stackname_fix)
     char c2[17] = "volcano0.001+090";
     char *argv[]= { c1, c2 };
 
-    AguilaProgramOptions apo(2, argv);
+    AguilaProgramOptions const apo(2, argv);
     BOOST_CHECK(apo.configuration().visualisationGroup().view().size()==1);
     BOOST_CHECK(apo.configuration().visualisationGroup().searchSpace().present());
 
@@ -177,7 +177,7 @@ BOOST_AUTO_TEST_CASE(stackname_fix)
     char c2[8] = "dem.map";
     char *argv[]= { c1, c2 };
 
-    AguilaProgramOptions apo(2, argv);
+    AguilaProgramOptions const apo(2, argv);
     BOOST_CHECK(!apo.configuration().visualisationGroup().searchSpace().present());
   }
 
@@ -186,7 +186,7 @@ BOOST_AUTO_TEST_CASE(stackname_fix)
     char c2[13] = "volcano0.090";
     char *argv[]= { c1, c2 };
 
-    AguilaProgramOptions apo(2, argv);
+    AguilaProgramOptions const apo(2, argv);
     BOOST_CHECK(apo.configuration().visualisationGroup().view().size()==1);
     BOOST_CHECK(apo.configuration().visualisationGroup().searchSpace().present());
 
@@ -213,7 +213,7 @@ BOOST_AUTO_TEST_CASE(drape_syntax)
 
     char *argv[]= { c1, c2, c3, c4 };
 
-    AguilaProgramOptions apo(4, argv);
+    AguilaProgramOptions const apo(4, argv);
     BOOST_CHECK_EQUAL(
          apo.configuration().visualisationGroup().view().size(), size_t(1));
   }
@@ -227,7 +227,7 @@ BOOST_AUTO_TEST_CASE(drape_syntax)
 
     char *argv[]= { c1, c2, c3, c4, c5 };
 
-    AguilaProgramOptions apo(5, argv);
+    AguilaProgramOptions const apo(5, argv);
     BOOST_CHECK_EQUAL(
          apo.configuration().visualisationGroup().view().size(), size_t(1));
   }

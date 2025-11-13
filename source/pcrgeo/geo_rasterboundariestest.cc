@@ -8,7 +8,7 @@ BOOST_AUTO_TEST_CASE(index_left)
 {
   using namespace geo;
 
-  RasterBoundaries<size_t> boundaries(3, 2);
+  RasterBoundaries<size_t> const boundaries(3, 2);
   BOOST_CHECK(boundaries.indexLeft(0, 0) == 2);
   BOOST_CHECK(boundaries.indexLeft(0, 1) == 3);
   BOOST_CHECK(boundaries.indexLeft(1, 0) == 7);
@@ -22,7 +22,7 @@ BOOST_AUTO_TEST_CASE(index_top)
 {
   using namespace geo;
 
-  RasterBoundaries<size_t> boundaries(3, 2);
+  RasterBoundaries<size_t> const boundaries(3, 2);
   BOOST_CHECK(boundaries.indexTop(0, 0) == 0);
   BOOST_CHECK(boundaries.indexTop(0, 1) == 1);
   BOOST_CHECK(boundaries.indexTop(1, 0) == 5);
@@ -36,7 +36,7 @@ BOOST_AUTO_TEST_CASE(index_right)
 {
   using namespace geo;
 
-  RasterBoundaries<size_t> boundaries(3, 2);
+  RasterBoundaries<size_t> const boundaries(3, 2);
   BOOST_CHECK(boundaries.indexRight(0, 0) == 3);
   BOOST_CHECK(boundaries.indexRight(0, 1) == 4);
   BOOST_CHECK(boundaries.indexRight(1, 0) == 8);
@@ -50,7 +50,7 @@ BOOST_AUTO_TEST_CASE(index_bottom)
 {
   using namespace geo;
 
-  RasterBoundaries<size_t> boundaries(3, 2);
+  RasterBoundaries<size_t> const boundaries(3, 2);
   BOOST_CHECK(boundaries.indexBottom(0, 0) == 5);
   BOOST_CHECK(boundaries.indexBottom(0, 1) == 6);
   BOOST_CHECK(boundaries.indexBottom(1, 0) == 10);

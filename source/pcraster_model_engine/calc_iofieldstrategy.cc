@@ -172,7 +172,7 @@ void calc::IoFieldStrategy::checkInputMap(
   // test if is an existing file
   com::testOpenForReading(fName);
 
-  GridMapIn mapFile(fName);
+  GridMapIn const mapFile(fName);
   vs = mapFile.vs();
 
   checkClone(fName);
@@ -183,7 +183,7 @@ std::string calc::IoFieldStrategy::inPathStack(
     const std::string& stackName,
     size_t /* nrTimeSteps */)
 {
-  std::string stackPrefix(com::PathName(stackName).baseName());
+  std::string const stackPrefix(com::PathName(stackName).baseName());
 
   // expand to existing of first time step
   // must be existing because rd must be traversed to find where
@@ -203,7 +203,7 @@ std::string calc::IoFieldStrategy::inPathStack(
  */
 void calc::IoFieldStrategy::checkClone(const std::string& mapFileName)
 {
-    GridMapIn          map(mapFileName);
+    GridMapIn          const map(mapFileName);
     const geo::RasterSpace& mapRs(map.rasterSpace());
 
     // check some
@@ -235,7 +235,7 @@ std::string calc::IoFieldStrategy::makeStackItemName(
     const std::string& iname,
     int   atTimeStep) const
 {
-  std::filesystem::path p =dal::timeStepPath83(std::filesystem::path(iname),atTimeStep);
+  std::filesystem::path const p =dal::timeStepPath83(std::filesystem::path(iname),atTimeStep);
   com::PathName pn(p.string());
   pn.makeNative();
   return pn.toString();

@@ -26,7 +26,7 @@ BOOST_AUTO_TEST_CASE(xml_to_class)
             </definition>");
   std::unique_ptr<pcrxml::Definition> d(pcrxml::definition(s));
 
-  std::string name(d->name());
+  std::string const name(d->name());
   BOOST_CHECK(d->name()==name);
   BOOST_CHECK(!d->name().empty());
 
@@ -34,7 +34,7 @@ BOOST_AUTO_TEST_CASE(xml_to_class)
   BOOST_CHECK(!d->relation());
 
   BOOST_CHECK(d->description());
-  std::string des(d->description()->text());
+  std::string const des(d->description()->text());
   BOOST_CHECK(des=="Haskell sucks");
 }
 
@@ -90,7 +90,7 @@ BOOST_AUTO_TEST_CASE(no_schema)
 
  {/// no validate
   // set to schema PCRasterXX.xsd that should not be found
-  std::string s(
+  std::string const s(
     "<definition name='a'                                   \
       xmlns='http://www.pcraster.nl/pcrxml'                 \
       xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' \
@@ -100,7 +100,7 @@ BOOST_AUTO_TEST_CASE(no_schema)
   ip.setValidate(true);
   try {
     std::unique_ptr<pcrxml::Definition> d(pcrxml::definition(*ip.document()));
-    std::string name("a");
+    std::string const name("a");
     BOOST_CHECK(d->name()==name);
     BOOST_CHECK(!d->name().empty());
   } catch(Exception const& e) {
@@ -118,7 +118,7 @@ BOOST_AUTO_TEST_CASE(no_schema)
   std::unique_ptr<pcrxml::Definition> d(pcrxml::definition(s,
                                           xml_schema::flags::dont_validate));
 
-  std::string name("a");
+  std::string const name("a");
   BOOST_CHECK(d->name()==name);
   BOOST_CHECK(!d->name().empty());
  }
@@ -131,7 +131,7 @@ BOOST_AUTO_TEST_CASE(no_schema)
   std::unique_ptr<pcrxml::Definition> d(pcrxml::definition(s,
                                           xml_schema::flags::dont_validate));
 
-  std::string name("a");
+  std::string const name("a");
   BOOST_CHECK(d->name()==name);
   BOOST_CHECK(!d->name().empty());
  }
@@ -143,7 +143,7 @@ BOOST_AUTO_TEST_CASE(no_schema)
       xsi:schemaLocation='http://www.pcraster.nl/pcrxml'/>");
   bool catched=false;
   try {
-   std::unique_ptr<pcrxml::Definition> d(pcrxml::definition(s));
+   std::unique_ptr<pcrxml::Definition> const d(pcrxml::definition(s));
   } catch(...) {
     catched=true;
   }
@@ -168,7 +168,7 @@ BOOST_AUTO_TEST_CASE(no_schema)
   bool noException(true);
   try {
    std::unique_ptr<pcrxml::Definition> d(pcrxml::definition(s,0,props));
-   std::string name("a");
+   std::string const name("a");
    BOOST_CHECK(d->name()==name);
    BOOST_CHECK(!d->name().empty());
   } catch (xml_schema::exception const& ) {

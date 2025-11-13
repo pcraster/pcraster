@@ -72,11 +72,11 @@ BOOST_AUTO_TEST_CASE(testAreaOrder)
    pcr::setMV(exprV[8]);
 
    UINT1 areaClassV[9] = { 1,1,0,0,0,0,1,MV_UINT1,0 };
-   REAL4 expectedV[9]  = { 3,1,1,2,3,4,2,-999    ,0 };
+   REAL4 const expectedV[9]  = { 3,1,1,2,3,4,2,-999    ,0 };
    REAL4 result[9]     = { 0,0,0,0,0,0,0,0       ,0 };
 
-   VSpatial<double,REAL4> expr(exprV);
-   VSpatial<INT4,UINT1>   areaClass(areaClassV);
+   VSpatial<double,REAL4> const expr(exprV);
+   VSpatial<INT4,UINT1>   const areaClass(areaClassV);
 
    areaOrderOperation(result, expr,areaClass,9);
 

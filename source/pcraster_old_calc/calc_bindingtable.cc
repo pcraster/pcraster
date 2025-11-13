@@ -34,7 +34,7 @@ calc::BindingTable::~BindingTable()
 
 const calc::Symbol* calc::BindingTable::find(const std::string& name) const
 {
-    calc::Symbol s(nullptr,name,nullptr);
+    calc::Symbol const s(nullptr,name,nullptr);
     auto p=d_table.find(s);
     if (p != d_table.end())
         return &(p->second.d_value);
@@ -82,7 +82,7 @@ void calc::BindingTable::add(const Symbol& left, const Symbol& right, VS vs)
   if (!rightV)
       rightV = &right;
 
-  std::pair<Table::iterator,bool> p=d_table.insert(std::make_pair(
+  std::pair<Table::iterator,bool> const p=d_table.insert(std::make_pair(
          left,
          Right(InScript,*rightV,vs)));
   auto fd =p.first;

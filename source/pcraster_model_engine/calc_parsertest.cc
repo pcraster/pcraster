@@ -44,17 +44,17 @@ BOOST_AUTO_TEST_CASE(testExpr)
   typedef std::unique_ptr<ASTNode> E;
 
   {
-  E e(sp.createExpr("a"));
+  E const e(sp.createExpr("a"));
   BOOST_CHECK(dynamic_cast<ASTPar *>(e.get()));
   }
 
   {
-  E e(sp.createExpr("a*b"));
+  E const e(sp.createExpr("a*b"));
   BOOST_CHECK(dynamic_cast<ASTExpr *>(e.get()));
   }
 
   {
-  E e(sp.createExpr("a and b"));
+  E const e(sp.createExpr("a and b"));
   BOOST_CHECK(dynamic_cast<ASTExpr *>(e.get()));
   }
   { // test ASTExpr::transferFunctionArgs()
@@ -64,7 +64,7 @@ BOOST_AUTO_TEST_CASE(testExpr)
        //           a2),
        //         a3),
        //       a4)
-    E eAutoPtr(sp.createExpr("min(0,1,2,3,4)"));
+    E const eAutoPtr(sp.createExpr("min(0,1,2,3,4)"));
     auto *e=dynamic_cast<ASTExpr *>(eAutoPtr.get());
 
     for(size_t a=0; a < 4; ++a) {
@@ -139,7 +139,7 @@ BOOST_AUTO_TEST_CASE(testCode)
 
  { // only a dynamic section
   typedef std::unique_ptr<ASTNode> B;
-  B l(sp.createCodeAsNode(parsertest::model("pcrcalc8a")));
+  B const l(sp.createCodeAsNode(parsertest::model("pcrcalc8a")));
   auto *d(astCast<DynamicSection>(l.get(),"C/b/0"));
   BOOST_REQUIRE(d);
   auto    *s(dynamic_cast<ASTNodeList *>(d->statements()));
@@ -147,7 +147,7 @@ BOOST_AUTO_TEST_CASE(testCode)
  }
  { // initial plus dynamic
   typedef std::unique_ptr<ASTNode> B;
-  B b(sp.createCodeAsNode(parsertest::model("pcrcalc8ab")));
+  B const b(sp.createCodeAsNode(parsertest::model("pcrcalc8ab")));
   auto *l(astCast<ASTNodeList>(b.get(),"C/b"));
   BOOST_REQUIRE(l);
 
@@ -261,12 +261,12 @@ BOOST_AUTO_TEST_CASE(testParseErrors)
  MODEL_ERROR_TEST(pcrcalc514);
  MODEL_ERROR_TEST(pcrcalc520);
  {
-     com::PathName empty("empty.mod");
+     com::PathName const empty("empty.mod");
      com::write("",empty);
      bool catched=false;
      try {
       CompleteParser<ASTScript,com::PathName> cp(empty);
-      std::unique_ptr<ASTScript> s(cp.parseScript());
+      std::unique_ptr<ASTScript> const s(cp.parseScript());
      } catch(const com::Exception& e) {
 BOOST_CHECK(e.messages().find("script contains no code") != std::string::npos);
        catched=true;
@@ -289,15 +289,15 @@ BOOST_AUTO_TEST_CASE(testModel)
  };
 
  {
-  M m(parsertest::model("pcrcalc256"));
+  M const m(parsertest::model("pcrcalc256"));
   BOOST_CHECK(m.cfgCode);
  }
  {
-  M m(parsertest::model("pcrcalc0"));
+  M const m(parsertest::model("pcrcalc0"));
   BOOST_CHECK(m.cfgCode);
  }
  { // simple statement list
-   M m("p=1+0;p=p+2;");
+   M const m("p=1+0;p=p+2;");
    BOOST_CHECK(m.cfgCode);
  }
  MODEL_ERROR_TEST(pcrcalc510);
@@ -306,7 +306,7 @@ BOOST_AUTO_TEST_CASE(testModel)
  MODEL_ERROR_TEST(pcrcalc515);
  MODEL_ERROR_TEST(pcrcalc516);
  {
-  M m(parsertest::model("pcrcalc509"));
+  M const m(parsertest::model("pcrcalc509"));
   BOOST_CHECK(m.cfgCode);
  }
  MODEL_ERROR_TEST(pcrcalc555);
@@ -331,10 +331,10 @@ BOOST_AUTO_TEST_CASE(testExternalBindings)
  // SYNTAX ERROR
  bool catched(false);
  try {
-    com::PathName pn("testAddBindings.txt");
+    com::PathName const pn("testAddBindings.txt");
     com::write("jan=3; #comment\njan=cees + 4\n",
                 "testAddBindings.txt");
-    RunSettings rs(pn);
+    RunSettings const rs(pn);
  } catch (calc::PosException&) {
   catched=true;
  }
@@ -342,10 +342,10 @@ BOOST_AUTO_TEST_CASE(testExternalBindings)
 
  // CORRECT
 {
-  com::PathName pn("testAddBindings.txt");
+  com::PathName const pn("testAddBindings.txt");
   com::write("jan=3.5; #comment\njan=\"xx file.txt\"\nn=4",
               "testAddBindings.txt");
-  RunSettings rs(pn);
+  RunSettings const rs(pn);
 
   // jan = 3.5 overwritten by jan = xx file.txt
 
@@ -381,7 +381,7 @@ BOOST_AUTO_TEST_CASE(testNonAsciiScript)
   {
     // cyrilic chars in comments
     // comments are stripped so that is ok
-    com::PathName pn("okaflow.mod");
+    com::PathName const pn("okaflow.mod");
     CompleteParser<ASTScript,com::PathName> cp(pn);
 
     bool catched=false;
@@ -402,7 +402,7 @@ BOOST_AUTO_TEST_CASE(testNonAsciiScript)
     bool todoCharSet=false;
     // check that exception is not an unsupported char
     try {
-     com::PathName pn("charSetProblem.mod");
+     com::PathName const pn("charSetProblem.mod");
      CompleteParser<ASTScript,com::PathName> cp(pn);
      std::unique_ptr<ASTScript> s(cp.parseScript());
      s->analyzeAndResolve();

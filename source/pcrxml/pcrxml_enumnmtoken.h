@@ -66,7 +66,7 @@ public:
   EnumType value(const QDomNode& owningElement, const std::string& name) const
   {
     // create string Attribute and use that value
-    String str(owningElement,name,true);
+    String const str(owningElement,name,true);
     // should not be called otherwise
     PRECOND(str.present());
     // size_t i=lookup(str,d_strings,d_nrValues); dunno non-inline
@@ -83,7 +83,7 @@ public:
   {
       auto i=static_cast<size_t>(value);
       PRECOND(i < d_nrStrings);
-      String str(d_strings[i]);
+      String const str(d_strings[i]);
       return str.value();
   }
 };

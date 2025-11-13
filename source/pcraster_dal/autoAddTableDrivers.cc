@@ -3,7 +3,7 @@
 
     // Add all drivers supported by the local qt installation.
     {
-      QStringList list = QSqlDatabase::drivers();
+      QStringList const list = QSqlDatabase::drivers();
 
       // First add dbms specific drivers.
       for(auto & it : list) {

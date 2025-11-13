@@ -71,7 +71,7 @@ bool TextConstantDriver::open(
          Constant& /* constant */,
          std::istream& stream) const
 {
-  bool result = false;
+  bool const result = false;
   std::string line;
   std::getline(stream, line);
 
@@ -106,7 +106,7 @@ Constant* TextConstantDriver::open(
 {
   Constant* result = nullptr;
 
-  std::filesystem::path path(pathForDataSpaceAddress(name, space, address));
+  std::filesystem::path const path(pathForDataSpaceAddress(name, space, address));
 
   std::ifstream stream;
 
@@ -129,7 +129,7 @@ void TextConstantDriver::read(
          DataSpace const& space,
          DataSpaceAddress const& address) const
 {
-  std::filesystem::path path(pathForDataSpaceAddress(name, space, address));
+  std::filesystem::path const path(pathForDataSpaceAddress(name, space, address));
   std::ifstream stream;
 
   if(!TextFileDriver::open(stream, path) || !open(constant, stream)) {

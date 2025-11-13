@@ -215,7 +215,7 @@ GLuint ag::LddDrawProps::texture(unsigned char gdd, UINT1 ldd) const
 {
   // Calculate unique id of configuration.
   // size_t uniqueId = ldd - 1;
-  size_t uniqueId = _data->id(gdd, ldd);
+  size_t const uniqueId = _data->id(gdd, ldd);
   assert(uniqueId < 2304);
 
   if(_data->_textures[uniqueId] == 0) {
@@ -281,7 +281,7 @@ std::string ag::LddDrawProps::label(
   std::string result = "mv";
 
   if(!pcr::isMV(value)) {
-    size_t index = classifier().index(value);
+    size_t const index = classifier().index(value);
     result = classifier().descr(index);
   }
 

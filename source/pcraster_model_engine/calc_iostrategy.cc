@@ -172,13 +172,13 @@ void IOStrategy::setMemoryExchangeData(const ASTSymbolTable& symbols,
 
   const size_t noExchange(ASTSymbolInfo::noMemoryExchangeId());
   long maxIdInt=-1;
-  for(ASTSymbolTablePair i : symbols) {
+  for(ASTSymbolTablePair const i : symbols) {
     ASTSymbolInfo const& si(i.second);
     size_t ids[2];
     ids[0]=si.memoryInputId();
     ids[1]=si.memoryOutputId();
     if(ids[0] != noExchange || ids[1] != noExchange) {
-      for(unsigned long id : ids) {
+      for(unsigned long const id : ids) {
         // not both set
         PRECOND(ids[0] != noExchange || ids[1] != noExchange);
         if(id != noExchange) {
@@ -222,7 +222,7 @@ void  IOStrategy::resolve(
     throw com::FileError(d_debugMVAssignmentsMap,
         "result map for -d can not be used in the script");
 
-  bool needExplicitClone=d_mvCompression || !d_debugMVAssignmentsMap.empty();
+  bool const needExplicitClone=d_mvCompression || !d_debugMVAssignmentsMap.empty();
   if (needExplicitClone) {
     // need explicit clone
     // if not there trick a AreaMap::throwIfNotSet by passing empty RS
@@ -322,7 +322,7 @@ calc::DataType IOStrategy::resolveInputSymbol(
   // // will throw if not exists:
   // file.validateExisting();
 
-  bool expectField=isIn(dt.vs(),VS_FIELD);
+  bool const expectField=isIn(dt.vs(),VS_FIELD);
   DataType newDt(dt.vs());
   try {
      // updates vs
@@ -405,7 +405,7 @@ MemoryExchangeItem* IOStrategy::memoryValue(std::string const& name) const {
 void IOStrategy::transferMemoryExchangeItemIntoDataTransferArray(
         MemoryExchangeItem* i)
 {
-    size_t id(i->id());
+    size_t const id(i->id());
     if (!(id < d_dataTransferArrayUser0.size())) {
      PRINT_VAR(id);
      PRINT_VAR(d_dataTransferArrayUser0.size());
@@ -447,7 +447,7 @@ void  IOStrategy::readField(
   const void *src = d_dataTransferArray[mem->id()];
   if (src)
   {
-   size_t n(type.st()==ST_SPATIAL ? rasterSpace().nrCells() : 1);
+   size_t const n(type.st()==ST_SPATIAL ? rasterSpace().nrCells() : 1);
    std::memcpy(dest, src, n*bytesPerCell(type.vs()));
   } else {
    throw com::Exception("0-ptr data input buffer passed");
@@ -471,7 +471,7 @@ GridStat IOStrategy::writeFieldUnpacked(
     } else {
       // user is requesting us to allocate it
       PRECOND(mem->name() == name);
-      std::shared_ptr<Field> allocatedCopy(f->createClone());
+      std::shared_ptr<Field> const allocatedCopy(f->createClone());
       auto *mei =
        new MemoryExchangeItemField(name, mem->id(),
                                 allocatedCopy);
@@ -598,7 +598,7 @@ StackInput* IOStrategy::createStackInput(
     const std::string& externalName,
     const MapStackType& type)
 {
-  std::string inPath=d_fs->inPathStack(runDirectory(),externalName,timer().lastInt());
+  std::string const inPath=d_fs->inPathStack(runDirectory(),externalName,timer().lastInt());
 
   if (type.use() == MapStackType::Lookup) // no need for timer
     return new StackInput(*this,inPath,type);

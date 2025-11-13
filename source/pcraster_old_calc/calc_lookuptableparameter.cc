@@ -46,7 +46,7 @@ void calc::LookupTableParameter::loadValuesFromIndexTable(
   if (d_vals.size() > 0)
     return;
   PRECOND(d_table);
-  size_t n  = nrElements();
+  size_t const n  = nrElements();
   std::vector<const IndexTable::Value *> tableNames;
   d_table->nameValues(*this,tableNames);
   for(size_t i=0; i < n; i++) {

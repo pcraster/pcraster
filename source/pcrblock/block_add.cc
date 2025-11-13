@@ -109,7 +109,7 @@ static void mackeyBridgeAdd(
     }
 
     DEVELOP_PRECOND(!stack.empty());
-    size_t i = stack.size() - 1;   // Index of top voxel.
+    size_t const i = stack.size() - 1;   // Index of top voxel.
     DEVELOP_PRECOND(!pcr::isMV(originalThickness[i]));
     DEVELOP_PRECOND(originalThickness[i] > 0.0);
 

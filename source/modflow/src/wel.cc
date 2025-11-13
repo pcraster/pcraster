@@ -112,12 +112,12 @@ calc::Field* WEL::get_well(size_t layer, std::string const& path){
 
   // modflow reports from top to bottom, thus
   // get the 'inverse' layer number to start from the right position
-  int pos_multiplier = d_mf->get_modflow_layernr(layer);
+  int const pos_multiplier = d_mf->get_modflow_layernr(layer);
 
   auto* spatial = new calc::Spatial(VS_S, calc::CRI_f, d_mf->d_nrOfCells);
   auto* cells = static_cast<REAL4*>(spatial->dest());
 
-  mf::BinaryReader reader;
+  mf::BinaryReader const reader;
   const std::string filename(mf::execution_path(path, "fort." + std::to_string(d_output_unit_number)));
   reader.read(stmp.str(), filename, cells, desc, pos_multiplier);
 
@@ -127,7 +127,7 @@ calc::Field* WEL::get_well(size_t layer, std::string const& path){
 
 void WEL::write_list(std::string const& path){
 
-  std::string filename = mf::execution_path(path, "pcrmf_wel.asc");
+  std::string const filename = mf::execution_path(path, "pcrmf_wel.asc");
 
   std::ofstream content(filename);
 
@@ -138,17 +138,17 @@ void WEL::write_list(std::string const& path){
 
   int mfLayer = 1;
 
-  boost::math::fpc::close_at_tolerance<REAL4> tester(
+  boost::math::fpc::close_at_tolerance<REAL4> const tester(
          boost::math::fpc::fpc_detail::fraction_tolerance<REAL4>(REAL4(1e-4)),
          boost::math::fpc::FPC_STRONG);
 
   for(size_t layer = 1; layer <= d_mf->d_nrMFLayer; layer++){
     size_t count = 0;
-    size_t size = d_mf->d_layer2BlockLayer.size();
-    size_t blockLayer = d_mf->d_layer2BlockLayer.at(size - layer);
+    size_t const size = d_mf->d_layer2BlockLayer.size();
+    size_t const blockLayer = d_mf->d_layer2BlockLayer.at(size - layer);
     for (size_t row = 0; row < d_mf->d_nrOfRows; row++){
       for (size_t col = 0; col < d_mf->d_nrOfColumns; col++){
-        double val = d_mf->d_welValues->cell(count)[blockLayer];
+        double const val = d_mf->d_welValues->cell(count)[blockLayer];
         if(!tester(static_cast<REAL4>(0.0), static_cast<REAL4>(val))){
           content << mfLayer;
           content << " " << (row + 1);
@@ -169,7 +169,7 @@ void WEL::write(std::string const& path){
   // # wel cells is calculated by write_list
   assert(d_nr_wel_cells != 0);
 
-  std::string filename = mf::execution_path(path, "pcrmf.wel");
+  std::string const filename = mf::execution_path(path, "pcrmf.wel");
 
   std::ofstream content(filename);
 

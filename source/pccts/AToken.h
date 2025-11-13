@@ -92,7 +92,7 @@ public:
 		{
 			va_list marker;
 			va_start( marker, pFormat );
-  			int iRet = vfprintf(pFile, pFormat, marker);
+  			int const iRet = vfprintf(pFile, pFormat, marker);
 			va_end( marker );
 			return iRet;
 		}

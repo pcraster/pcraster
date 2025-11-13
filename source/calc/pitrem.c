@@ -97,7 +97,7 @@ FindOutflowCell(UINT1 *outflowConCellCode, /* read-write dir from (outflowRow,ou
     INT4 catchIdNB = 0;
     UINT1 i = 0;
     UINT1 conCellCode = 0;            /* 0 no cell found */
-    REAL8 conCellDem = USED_UNINIT_ZERO; /* guarded by conCellCode */
+    REAL8 conCellDem = 0; /* guarded by conCellCode */
     REAL8 overflowLevel = NAN;
 
     PRECOND(catch->Get(&catchId, r, c, catch) && catchId > 0);

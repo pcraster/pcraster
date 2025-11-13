@@ -67,7 +67,7 @@ static void Lowest(int *rTo,             /* write-only flows to this one */
                    int colNr,            /* column of cell */
                    REAL8 height)         /* height if (rowNr, colNr) */
 {
-    int nrBestDirs = USED_UNINIT_ZERO;
+    int nrBestDirs = 0;
     int i = 0;
     int rNext = 0;
     int cNext = 0;

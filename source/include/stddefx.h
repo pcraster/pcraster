@@ -167,16 +167,9 @@
 /* typedef for fourth argument qsort(),bsearch(), etc.. */
 typedef int (*QSORT_CMP)(const void *e1, const void *e2);
 
-/* OBSOLOTE?: #define VOID void */
-/* retype VOID to char in a module
- if calculation is required */
-typedef char *VPTR;
+
 #define ARRAY_SIZE(arrayName) (sizeof(arrayName)/sizeof(arrayName[0]))
 
-/* STUFF to shut up compiler warnings
- */
-#define USED_UNINIT_ZERO   0
-#define USED_UNINIT_NULL   NULL
 
 #ifdef __cplusplus
  /* 1) end extern "C" linkage */

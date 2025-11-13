@@ -178,8 +178,8 @@ dal::StackInfo::StackInfo(
 
       // Given the DOS naming rules of PCRaster stacknames we can determine
       // the maximum value for the last time step:
-      // blablabl.001+... -> MAX(last) = 999
-      // blablab0.001+... -> MAX(last) = 9999
+      // blablabl.001+... -> std::max(last) = 999
+      // blablab0.001+... -> std::max(last) = 9999
       // If the user provides an insane large number for the last time step as
       // in blablab0.001+88988999933 -> we know last is maximal 9999.
       // Thus according to the naming rules, we reset last to the maximum

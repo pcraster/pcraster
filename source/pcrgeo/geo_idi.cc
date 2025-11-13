@@ -70,7 +70,7 @@ bool geo::idi(
   }
 
   ComputeValue<Point> cv(c,idp);
-  maxNr = MIN(nrKeys,maxNr);
+  maxNr = std::min(nrKeys,maxNr);
   for(size_t i=0; i < maxNr; i++)
     cv.add(points[keys[i].pId]);
   value=cv.value();

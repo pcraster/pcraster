@@ -167,9 +167,9 @@ void calc::IoEsriFieldStrategy::setupFormatSpecificClone()
       // copy one from d_fallBack
       d_rasterSpaceEsri = rasterSpace();
       d_bbox[0] = d_rasterSpaceEsri.left();
-      d_bbox[1] = MIN(d_rasterSpaceEsri.bottom(), d_rasterSpaceEsri.top());
+      d_bbox[1] = std::min(d_rasterSpaceEsri.bottom(), d_rasterSpaceEsri.top());
       d_bbox[2] = d_rasterSpaceEsri.right();
-      d_bbox[3] = MAX(d_rasterSpaceEsri.bottom(), d_rasterSpaceEsri.top());
+      d_bbox[3] = std::max(d_rasterSpaceEsri.bottom(), d_rasterSpaceEsri.top());
    }
 }
 

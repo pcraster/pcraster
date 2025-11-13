@@ -63,7 +63,7 @@ com::DiMap::~DiMap()
 */
 bool com::DiMap::contains(double x) const
 {
-  return ( (x >= MIN(d_x1, d_x1)) && (x <= MAX(d_x1, d_x2)));
+  return ( (x >= std::min(d_x1, d_x1)) && (x <= std::max(d_x1, d_x2)));
 }
 
 
@@ -74,7 +74,7 @@ bool com::DiMap::contains(double x) const
 */
 bool com::DiMap::contains(int x) const
 {
-  return (x >= MIN(d_y1, d_y1)) && (x <= MAX(d_y1, d_y2));
+  return (x >= std::min(d_y1, d_y1)) && (x <= std::max(d_y1, d_y2));
 }
 
 
@@ -185,10 +185,10 @@ double com::DiMap::invTransform(int y) const
 */
 int com::DiMap::limTransform(double x) const
 {
-  if(x > MAX(d_x1, d_x2))
-    x = MAX(d_x1, d_x2);
-  else if(x < MIN(d_x1, d_x2))
-    x = MIN(d_x1, d_x2);
+  if(x > std::max(d_x1, d_x2))
+    x = std::max(d_x1, d_x2);
+  else if(x < std::min(d_x1, d_x2))
+    x = std::min(d_x1, d_x2);
 
   return transform(x);
 }

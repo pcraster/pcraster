@@ -774,7 +774,7 @@ void calc::BranchExprImpl::execIfThenElse(
   int const indM[3] = { 4,2,1};
   int ind=0;
   for (size_t i=0; i < 3 ; i++) {
-    n = MAX(n,(*inp[i])->nrValues());
+    n = std::max(n,(*inp[i])->nrValues());
     ind |= (*inp[i])->isSpatial() ? indM[i] : 0;
   }
   POSTCOND(ind >= 0 && ind < 8);

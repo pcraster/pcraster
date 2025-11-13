@@ -56,7 +56,7 @@ static int GetMaxId(
   for(r=0;r <nrRows;r++)
    for(c=0;c <nrCols;c++)
     if (id->Get(&val,r,c, id))
-     max = MAX(max,val);
+     max = std::max(max,val);
   return max;
 }
 

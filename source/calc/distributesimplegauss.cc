@@ -123,8 +123,8 @@ extern "C" int DistributeSimpleGauss(
 
     auto rStart = static_cast<size_t>(MAX(((int)c.row())-maxDistCells,0));
     auto cStart = static_cast<size_t>(MAX(((int)c.col())-maxDistCells,0));
-    size_t const rStop  = MIN(nrRows,c.row()+maxDistCells);
-    size_t const cStop  = MIN(nrCols,c.col()+maxDistCells);
+    size_t const rStop  = std::min(nrRows,c.row()+maxDistCells);
+    size_t const cStop  = std::min(nrCols,c.col()+maxDistCells);
     for(size_t rDest = rStart; rDest < rStop; rDest++)
        for(size_t cDest = cStart; cDest < cStop; cDest++)
     {

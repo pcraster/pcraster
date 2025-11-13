@@ -17,7 +17,7 @@ extern "C" double IterateToQnew(
 BOOST_AUTO_TEST_CASE(iterate1)
 {
  // adapt initial estimator Qkx twice
- //  Qkx   = MAX(Qkx, 1e-30);
+ //  Qkx   = std::max(Qkx, 1e-30);
  double const cmpEps(1E-12);
  double const v = IterateToQnew(
                   /* Qin    */ 0.000201343,

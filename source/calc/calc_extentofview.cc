@@ -134,7 +134,7 @@ extern "C" int ExtentOfView(
 
   // Determine all direction angles.
   // Determine max distance in cells in the raster.
-  double const maxExtent = MAX(nrRows,nrCols);
+  double const maxExtent = std::max(nrRows,nrCols);
   int offsetX = com::ceil<int, double>(std::hypot(maxExtent,maxExtent));
   int offsetY = 0;
   double const subAngle = 360.0 / nrDirections;

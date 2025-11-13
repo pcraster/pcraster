@@ -189,12 +189,12 @@ void geo::CSFStack<T>::init()
         map->useAs(d_useType);
 
         if(map->min(&min)) {
-          d_min = d_minIsValid ? MIN(d_min, min) : min;
+          d_min = d_minIsValid ? std::min(d_min, min) : min;
           d_minIsValid = true;
         }
 
         if(map->max(&max)) {
-          d_max = d_maxIsValid ? MAX(d_max, max) : max;
+          d_max = d_maxIsValid ? std::max(d_max, max) : max;
           d_maxIsValid = true;
         }
       }

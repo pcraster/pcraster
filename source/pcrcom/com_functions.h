@@ -39,7 +39,7 @@ typename std::iterator_traits<InputIterator>::value_type minimum(
   while(from_pos != from_end) {
 
     if(!pcr::isMV(*from_pos)) {
-      value = MIN(value, *from_pos);
+      value = std::min(value, *from_pos);
     }
 
     ++from_pos;
@@ -73,7 +73,7 @@ typename std::iterator_traits<InputIterator>::value_type maximum(
   while(from_pos != from_end) {
 
     if(!pcr::isMV(*from_pos)) {
-      value = MAX(value, *from_pos);
+      value = std::max(value, *from_pos);
     }
 
     ++from_pos;

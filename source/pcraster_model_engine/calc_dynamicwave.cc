@@ -880,17 +880,17 @@ static double iterateToQnew(
     // negative or 0. In that case we change Qkx+1 to 1e-30. This keeps the
     // convergence loop healthy.
     Qkx   = (deltaTX * Qin + Qold * ab_pQ + sliceInSecs * q) / (deltaTX + ab_pQ);
-    Qkx   = MAX(Qkx, 1e-30); /* added test-case calc::KinematicTest::iterate1 */
+    Qkx   = std::max(Qkx, (REAL)1e-30); /* added test-case calc::KinematicTest::iterate1 */
     fQkx  = deltaTX * Qkx + alpha * std::pow(Qkx, (REAL)beta) - C;   /* Current k */
     dfQkx = deltaTX + alpha * beta * std::pow(Qkx, (REAL)beta - 1);  /* Current k */
     Qkx   -= fQkx / dfQkx;                                /* Next k */
-    Qkx   = MAX(Qkx, 1e-30);
+    Qkx   = std::max(Qkx, (REAL)1e-30);
     count = 0;
     do {
       fQkx  = deltaTX * Qkx + alpha * std::pow(Qkx, (REAL)beta) - C;   /* Current k */
       dfQkx = deltaTX + alpha * beta * std::pow(Qkx, (REAL)beta - 1);  /* Current k */
       Qkx   -= fQkx / dfQkx;                                /* Next k */
-      Qkx   = MAX(Qkx, 1e-30);
+      Qkx   = std::max(Qkx, (REAL)1e-30);
       count++;
     } while(std::fabs(fQkx) > epsilon && count < MAX_ITERS);
 
@@ -914,7 +914,7 @@ static double iterateToQnew(
      // }
 #endif
     Qk1 = Qkx;
-    return (double)(MAX(Qk1,0));
+    return std::max(Qk1, (REAL)0);
 }
 
 //------------------------------------------------------------------------------

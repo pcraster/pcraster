@@ -749,7 +749,7 @@ void Map2DView::zoomByRectangle(
   dataObject().map2DMoveBy(movement, false);
 
   // Zoom into the zoom rectangle.
-  double const scale = MIN(
+  double const scale = std::min(
        ABS(static_cast<double>(width()) / rectangle.width()),
        ABS(static_cast<double>(height()) / rectangle.height()));
   dataObject().map2DZoomBy(scale, false);

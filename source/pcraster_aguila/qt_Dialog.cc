@@ -150,11 +150,11 @@ void Dialog::adjustSize()
   int h = 0;
   
   w = d_data->ok->width() + d_data->ok->width() + SPACING;
-  h = MAX(d_data->ok->height(), d_data->cancel->height());
+  h = std::max(d_data->ok->height(), d_data->cancel->height());
 
   if(d_data->cw)
   {
-    w = MAX(w, d_data->cw->minimumSize().width());
+    w = std::max(w, d_data->cw->minimumSize().width());
     h += d_data->cw->minimumSize().height() + SPACING;
   }
 

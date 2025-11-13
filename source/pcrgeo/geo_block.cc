@@ -70,7 +70,7 @@ REAL8 geo::Block::thickness() const
   REAL8 t = 0;
 
   for(const auto & it : *this)
-    t = MAX(t, it.thickness());
+    t = std::max(t, it.thickness());
 
   return t;
 }
@@ -82,7 +82,7 @@ REAL8 geo::Block::low() const
   REAL8 b = 0;
 
   for(const auto & it : *this)
-    b = MIN(b, it.bottom());
+    b = std::min(b, it.bottom());
 
   return b;
 }
@@ -94,7 +94,7 @@ REAL8 geo::Block::high() const
   REAL8 h = 0;
 
   for(const auto & it : *this)
-    h = MAX(h, it.top());
+    h = std::max(h, it.top());
 
   return h;
 }

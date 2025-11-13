@@ -547,18 +547,18 @@ bool intersect(const geo_Rectangle &rect1, const geo_Rectangle &rect2,
   REAL8 maxY = NAN;
   REAL8 minY = NAN;
 
-  maxX = MAX(rect1.getUpperLeft()[geo::X], rect2.getUpperLeft()[geo::X]);
-  minX = MIN(rect1.getLowerRight()[geo::X], rect2.getLowerRight()[geo::X]);
+  maxX = std::max(rect1.getUpperLeft()[geo::X], rect2.getUpperLeft()[geo::X]);
+  minX = std::min(rect1.getLowerRight()[geo::X], rect2.getLowerRight()[geo::X]);
 
   if(projection == geo_Const::YINCRB2T)
   {
-    maxY = MIN(rect1.getLowerRight()[geo::Y], rect2.getLowerRight()[geo::Y]);
-    minY = MAX(rect1.getUpperLeft()[geo::Y], rect2.getUpperLeft()[geo::Y]);
+    maxY = std::min(rect1.getLowerRight()[geo::Y], rect2.getLowerRight()[geo::Y]);
+    minY = std::max(rect1.getUpperLeft()[geo::Y], rect2.getUpperLeft()[geo::Y]);
   }
   else
   {
-    maxY = MIN(rect1.getUpperLeft()[geo::Y], rect2.getUpperLeft()[geo::Y]);
-    minY = MAX(rect1.getLowerRight()[geo::Y], rect2.getLowerRight()[geo::Y]);
+    maxY = std::min(rect1.getUpperLeft()[geo::Y], rect2.getUpperLeft()[geo::Y]);
+    minY = std::max(rect1.getLowerRight()[geo::Y], rect2.getLowerRight()[geo::Y]);
   }
 
   return (maxX <= minX) && (maxY <= minY);
@@ -580,18 +580,18 @@ geo_Rectangle intersection(const geo_Rectangle &rect1,
   REAL8 ulY = NAN;
   REAL8 lrY = NAN;
 
-  ulX = MAX(rect1.getUpperLeft()[geo::X], rect2.getUpperLeft()[geo::X]);
-  lrX = MIN(rect1.getLowerRight()[geo::X], rect2.getLowerRight()[geo::X]);
+  ulX = std::max(rect1.getUpperLeft()[geo::X], rect2.getUpperLeft()[geo::X]);
+  lrX = std::min(rect1.getLowerRight()[geo::X], rect2.getLowerRight()[geo::X]);
 
   if(projection == geo_Const::YINCRB2T)
   {
-    ulY = MIN(rect1.getUpperLeft()[geo::Y], rect2.getUpperLeft()[geo::Y]);
-    lrY = MAX(rect1.getLowerRight()[geo::Y], rect2.getLowerRight()[geo::Y]);
+    ulY = std::min(rect1.getUpperLeft()[geo::Y], rect2.getUpperLeft()[geo::Y]);
+    lrY = std::max(rect1.getLowerRight()[geo::Y], rect2.getLowerRight()[geo::Y]);
   }
   else
   {
-    ulY = MAX(rect1.getUpperLeft()[geo::Y], rect2.getUpperLeft()[geo::Y]);
-    lrY = MIN(rect1.getLowerRight()[geo::Y], rect2.getLowerRight()[geo::Y]);
+    ulY = std::max(rect1.getUpperLeft()[geo::Y], rect2.getUpperLeft()[geo::Y]);
+    lrY = std::min(rect1.getLowerRight()[geo::Y], rect2.getLowerRight()[geo::Y]);
   }
 
   return {ulX, ulY, lrX, lrY};

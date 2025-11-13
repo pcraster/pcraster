@@ -101,7 +101,7 @@ extern "C" int Idi(
           && f_maxNr >=  0 ) {
             auto maxNr = static_cast<size_t>(f_maxNr);
             if (maxNr)
-              maxNr = MIN(maxNr, nrPoints);
+              maxNr = std::min(maxNr, nrPoints);
             else
               maxNr = nrPoints;
             double v = NAN;

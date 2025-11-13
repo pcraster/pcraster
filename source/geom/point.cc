@@ -81,7 +81,7 @@ static bool CompEps(double a, /* r- value to compare against b */
    * really streches this one
    * found this code on the NET
    */
-    double const d = MAX(1, MAX(fabs(a), fabs(b)));
+    double const d = std::max(1.0, std::max(fabs(a), fabs(b)));
     return (fabs(a - b) / d) < EPS;
     /*
   double eps;
@@ -260,10 +260,10 @@ int PointOnLineAlsoOnCord(const POINT2D *p,  /* point that is on the line throug
 
     /* maxX, minX, maxY, minY defines the
        rectangle of the 2 points c1 and c2 */
-    maxX = MAX(c1->x, c2->x);
-    minX = MIN(c1->x, c2->x);
-    maxY = MAX(c1->y, c2->y);
-    minY = MIN(c1->y, c2->y);
+    maxX = std::max(c1->x, c2->x);
+    minX = std::min(c1->x, c2->x);
+    maxY = std::max(c1->y, c2->y);
+    minY = std::min(c1->y, c2->y);
 
     /* see if it falls on the cord */
     return ((minX <= p->x) && (p->x <= maxX) && (minY <= p->y) && (p->y <= maxY));
@@ -451,10 +451,10 @@ int PointInPolygon(const POINT2D *p,   /* point  */
     PRECOND(pol[0].y == pol[nr].y);
 
     for (i = 0; i < nr; i++) {
-        maxX = MAX(pol[i].x, pol[i + 1].x);
-        minX = MIN(pol[i].x, pol[i + 1].x);
-        maxY = MAX(pol[i].y, pol[i + 1].y);
-        minY = MIN(pol[i].y, pol[i + 1].y);
+        maxX = std::max(pol[i].x, pol[i + 1].x);
+        minX = std::min(pol[i].x, pol[i + 1].x);
+        maxY = std::max(pol[i].y, pol[i + 1].y);
+        minY = std::min(pol[i].y, pol[i + 1].y);
 
         if (p->x == pol[i].x) { /* do not test i+1 -> double counting otherwise */
             if (p->y == pol[i].y)
@@ -593,10 +593,10 @@ int SmallestFittingRectangleCentre(
         minX = maxX = p[0].x;
         minY = maxY = p[0].y;
         for (i = 1; i < nr; i++) {
-            minX = MIN(minX, p[i].x);
-            maxX = MAX(maxX, p[i].x);
-            minY = MIN(minY, p[i].y);
-            maxY = MAX(maxY, p[i].y);
+            minX = std::min(minX, p[i].x);
+            maxX = std::max(maxX, p[i].x);
+            minY = std::min(minY, p[i].y);
+            maxY = std::max(maxY, p[i].y);
         }
 
         area = AreaRectangle(maxX, minX, maxY, minY);
@@ -840,7 +840,7 @@ double MinXPolygon(const POINT2D *p, /* the polygon */
     double m = p[0].x;
     PRECOND(n > 0);
     for (i = 1; i < n; i++)
-        m = MIN(p[i].x, m);
+        m = std::min(p[i].x, m);
     return m;
 }
 
@@ -854,7 +854,7 @@ double MinYPolygon(const POINT2D *p, /* the polygon */
     double m = p[0].y;
     PRECOND(n > 0);
     for (i = 1; i < n; i++)
-        m = MIN(p[i].y, m);
+        m = std::min(p[i].y, m);
     return m;
 }
 
@@ -868,7 +868,7 @@ double MaxXPolygon(const POINT2D *p, /* the polygon */
     double m = p[0].x;
     PRECOND(n > 0);
     for (i = 1; i < n; i++)
-        m = MAX(p[i].x, m);
+        m = std::max(p[i].x, m);
     return m;
 }
 
@@ -882,7 +882,7 @@ double MaxYPolygon(const POINT2D *p, /* the polygon */
     double m = p[0].y;
     PRECOND(n > 0);
     for (i = 1; i < n; i++)
-        m = MAX(p[i].y, m);
+        m = std::max(p[i].y, m);
     return m;
 }
 
@@ -910,10 +910,10 @@ int IntersectAllignedRectangles(
     double const xMaxR2 = MaxXPolygon(r2, 4);
     double const xMinR2 = MinXPolygon(r2, 4);
 
-    double const yMax = MIN(yMaxR1, yMaxR2);
-    double const yMin = MAX(yMinR1, yMinR2);
-    double const xMax = MIN(xMaxR1, xMaxR2);
-    double const xMin = MAX(xMinR1, xMinR2);
+    double const yMax = std::min(yMaxR1, yMaxR2);
+    double const yMin = std::max(yMinR1, yMinR2);
+    double const xMax = std::min(xMaxR1, xMaxR2);
+    double const xMin = std::max(xMinR1, xMinR2);
 
     // bug/sf463 and sf485
     // Test if rectangles R1 and R2 are adjacent.

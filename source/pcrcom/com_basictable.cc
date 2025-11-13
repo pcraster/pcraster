@@ -185,7 +185,7 @@ double com::BasicTable::min(size_t i) const
         min = *it;
       }
       else {
-        min = MIN(min, *it);
+        min = std::min(min, *it);
       }
     }
   }
@@ -206,7 +206,7 @@ double com::BasicTable::max(size_t i) const
         max = *it;
       }
       else {
-        max = MAX(max, *it);
+        max = std::max(max, *it);
       }
     }
   }
@@ -395,7 +395,7 @@ std::istream &operator>>(std::istream &s, BasicTable &t)
 
   // Update number of records variable.
   for(i = 0; i < n; i++)
-    t.d_nrRecs = MAX(t.d_nrRecs, t.d_columns[i]->size());
+    t.d_nrRecs = std::max(t.d_nrRecs, t.d_columns[i]->size());
 
   return s;                                                               // 10.
 }

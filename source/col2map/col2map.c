@@ -26,7 +26,7 @@
 /**********************/
 /* Can't we reuse POS_X or POS_Y for POS_ID ?
  */
-#define ID_NOT_IN_MAP -1
+#define ID_NOT_IN_MAP (-1)
 
 #define POS_COUNT 0 /* reuse POS_X */
 #define POS_ID 3

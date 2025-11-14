@@ -89,11 +89,11 @@ typedef	int		CELLTYPE;	/* cell values are 32 bit quantities */
 #define	CELLFLOAT	2		/* 32 bit floating point numbers*/
 
 #define	CELLMAX		 2147483646	/* maximum integer value  (2**31 - 2) */
-#define	CELLMIN		-2147483646	/* minimum integer value -(2**31 - 2) */
+#define	CELLMIN		(-2147483646)	/* minimum integer value -(2**31 - 2) */
 
 
 
-#define	MISSINGINT	-2147483647	/* CELLMIN - 1 */
+#define	MISSINGINT	(-2147483647)	/* CELLMIN - 1 */
 
 
 void  GetMissingFloat(float *);
@@ -277,7 +277,7 @@ int GridIOExit(void);
 #define  READWRITE           2
 
 
-#define  ADAPTIVE           -1
+#define  ADAPTIVE           (-1)
 
 #define  COMPRESSED          0
 #define  UNCOMPRESSED        1

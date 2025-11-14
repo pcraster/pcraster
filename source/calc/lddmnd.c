@@ -35,7 +35,7 @@ extern bool repairLddModifiedMap;
 #define MAKE_VALID_CODE(tempCode) ((UINT1)((tempCode) & (~16)))
 /* IS_VALID_CODE: strip invalid bit and test against 0
  */
-#define IS_VALID_CODE(code) ((!IS_TEMP_CODE(code)) && code)
+#define IS_VALID_CODE(code) ((!IS_TEMP_CODE(code)) && (code))
 
 /*********************/
 /* LOCAL DEFINITIONS */

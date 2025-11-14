@@ -47,9 +47,9 @@ double geomFittingRectangleStep = 16;
    justifiable) ==. This implementation will
    hold better if the parameters are floats */
 
-#define Double(x) ((double)x)
+#define Double(x) ((double)(x))
 /* put long double here if neccessary */
-#define LDouble(x) ((double)x)
+#define LDouble(x) ((double)(x))
 // #define LD(x) LDouble(x)
 
 #define ON_POLYGON (geomPointOnPolygonIsIn)

@@ -168,7 +168,7 @@
 typedef int (*QSORT_CMP)(const void *e1, const void *e2);
 
 
-#define ARRAY_SIZE(arrayName) (sizeof(arrayName)/sizeof(arrayName[0]))
+#define ARRAY_SIZE(arrayName) (sizeof(arrayName)/sizeof((arrayName)[0]))
 
 
 #ifdef __cplusplus

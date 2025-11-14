@@ -94,8 +94,8 @@ public:
 // TesterClass derived from ModelErrorTester
 #define MODEL_ERROR_TESTER(TesterClass,idX)  \
  TesterClass idX(# idX);                     \
- idX.loadAndExec();                          \
- BOOST_CHECK(idX.catched);                     \
- BOOST_CHECK(idX.msgEq);
+ (idX).loadAndExec();                          \
+ BOOST_CHECK((idX).catched);                     \
+ BOOST_CHECK((idX).msgEq);
 
 #endif

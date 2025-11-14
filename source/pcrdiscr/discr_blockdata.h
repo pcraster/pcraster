@@ -459,11 +459,11 @@ inline RasterData<ValueType> const& BlockData<ValueType>::defaultValue() const
 
 #ifdef DEBUG_DEVELOP
   #define DEVELOP_CHECK_BLOCK_DATA_CONSISTENCY(data) \
-  for(size_t i = 0; i < data.block()->nrCells(); ++i) { \
-    if(data.block()->cell(i).isMV()) { \
-      PRECOND(data.cell(i).empty()); \
+  for(size_t i = 0; i < (data).block()->nrCells(); ++i) { \
+    if((data).block()->cell(i).isMV()) { \
+      PRECOND((data).cell(i).empty()); \
     } \
-    PRECOND(data.block()->cell(i).size() == data.cell(i).size()); \
+    PRECOND((data).block()->cell(i).size() == (data).cell(i).size()); \
   }
 #else
   #define DEVELOP_CHECK_BLOCK_DATA_CONSISTENCY(data)

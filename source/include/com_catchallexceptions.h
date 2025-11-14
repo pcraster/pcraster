@@ -98,27 +98,27 @@ extern "C" std::type_info *__cxa_current_exception_type ();
 #define PRINT_EXCEPTION_TYPE(stream) \
     std::type_info *t=__cxa_current_exception_type ();          \
     if (t)                                                      \
-      stream << " typeinfo::name = " << t->name() << std::endl;
+      (stream) << " typeinfo::name = " << t->name() << std::endl;
 #else
 #define PRINT_EXCEPTION_TYPE(stream) \
-      stream << " typeinfo::name = " << "not present " << std::endl;
+      (stream) << " typeinfo::name = " << "not present " << std::endl;
 #endif
 
-#define CATCH_ALL(stream,prefix,appSpecificCatch)  \
- OS_EXCEPTION(stream)                           \
- appSpecificCatch                               \
- catch (const com::Exception& cEx) {            \
-  stream<<prefix<< COM_EXCEPTION_MESSAGES;      \
- } catch (const dal::Exception& dEx) {          \
-  stream<<prefix<< dEx.message();               \
- } catch (const std::bad_alloc &) {             \
-  stream<<prefix<<"Not enough memory\n";        \
- } catch (const std::exception &msg) {          \
-  stream<<prefix<<"Unknown exception: "         \
-    << msg.what() << " (programming error)\n";  \
- } catch (...) {                                \
-  stream<<prefix<<"Unknown exception (programming error)\n";  \
-    PRINT_EXCEPTION_TYPE(stream)                              \
+#define CATCH_ALL(stream,prefix,appSpecificCatch)       \
+ OS_EXCEPTION(stream)                                   \
+ appSpecificCatch                                       \
+ catch (const com::Exception& cEx) {                    \
+  (stream) << (prefix) << COM_EXCEPTION_MESSAGES;       \
+ } catch (const dal::Exception& dEx) {                  \
+  (stream) << (prefix) << dEx.message();                \
+ } catch (const std::bad_alloc &) {                     \
+  (stream) << (prefix) << "Not enough memory\n";        \
+ } catch (const std::exception &msg) {                  \
+  (stream) << (prefix) << "Unknown exception: "         \
+    << msg.what() << " (programming error)\n";          \
+ } catch (...) {                                        \
+  (stream) << (prefix) << "Unknown exception (programming error)\n";  \
+    PRINT_EXCEPTION_TYPE(stream)                                      \
  }
 
 

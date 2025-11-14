@@ -161,8 +161,8 @@ C const* ObjectLinkProxy<C>::object() const
 
 #ifdef DEBUG_DEVELOP
 # define TIE_FIELD_CHECK(f, spatial, type)     \
-  DEVELOP_PRECOND(f->cri() == type);           \
-  DEVELOP_PRECOND(f->isSpatial() == spatial);
+  DEVELOP_PRECOND((f)->cri() == (type));           \
+  DEVELOP_PRECOND((f)->isSpatial() == (spatial));
 #else
 # define TIE_FIELD_CHECK(f, spatial, type)
 #endif

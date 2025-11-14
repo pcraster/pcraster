@@ -444,8 +444,8 @@ extern int squareFraction(
 #define INVALID_LDD_DIR 10
 #define SCALE ? Side():Diagonal()
 
-#define FOR_ALL_LDD_NBS(i)   for(i=1 ; i<INVALID_LDD_DIR; i+=(i!=4)?1:2)
-#define FOR_ALL_LDD_NONDIAGONAL_NBS(i)   for(i=2 ; i<INVALID_LDD_DIR; i+=2)
+#define FOR_ALL_LDD_NBS(i)   for((i)=1 ; (i)<INVALID_LDD_DIR; (i)+=((i)!=4)?1:2)
+#define FOR_ALL_LDD_NONDIAGONAL_NBS(i)   for((i)=2 ; (i)<INVALID_LDD_DIR; (i)+=2)
 #define IS_VALID_LDD_CODE(i) ( (i) > 0 && (i) < INVALID_LDD_DIR )
 
 #define COORD_EQ(r1,c1,r2,c2) (((r1)==(r2))&&((c1)==(c2)))

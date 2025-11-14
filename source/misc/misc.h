@@ -51,7 +51,7 @@ extern void StartLimitMalloc(void);
 #endif
 
 #ifndef __C2MAN__
-#define FREE_NULL(x) Free(x), x = NULL
+#define FREE_NULL(x) Free(x), (x) = NULL
 #define CHK_MALLOC_TYPE(type, nr) ((type *)ChkMalloc(sizeof(type) * ((size_t)(nr))))
 #endif
 
@@ -136,9 +136,9 @@ extern int BitMatrixSet(const unsigned char **m, int r, int c);
 /* simplex.c */
 #define LEX_NUMBER 300
 #define LEX_FIRST_UNUSED_TOKEN_VALUE 301
-#define LEX_ILL_TOKEN -1
-#define LEX_READ_ERROR -2
-#define LEX_TOKEN_TOBIG -3
+#define LEX_ILL_TOKEN (-1)
+#define LEX_READ_ERROR (-2)
+#define LEX_TOKEN_TOBIG (-3)
 extern void LexInstall(FILE *fd, const char *specialSymbols);
 const char *LexGetTokenValue(void);
 long LexGetLineNr(void);

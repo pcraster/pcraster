@@ -21,7 +21,7 @@
 #define EXPECT_ERROR(v,n,msgId)  \
 {                                \
     TRY_TEST_MSG {               \
-      v.visit();                 \
+      (v).visit();                 \
     } CATCH_TEST_MSG(msgId);     \
 }
 

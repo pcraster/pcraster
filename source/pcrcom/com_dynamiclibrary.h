@@ -22,7 +22,7 @@ class DynamicLibraryException: public Exception {
 #define STATIC_DLL_FUNC_PTR(dll,funcName) \
   static T_##funcName funcPtr = 0; \
   if (!funcPtr) \
-   funcPtr = (T_##funcName)(dll->loadFunction(#funcName));
+   funcPtr = (T_##funcName)((dll)->loadFunction(#funcName));
 
 //! Load a shared (unix) or dynamic (win32) library on demand
 /*! any method, constructor and destructor can throw

@@ -13,7 +13,7 @@
 
 #define CATCH_POS(stream) \
  catch (const calc::PosException &p) {   \
-  stream<<p.messages(); }
+  (stream)<<p.messages(); }
 
 #define CATCH_ALL_EXCEPTIONS(stream)     \
   CATCH_ALL(stream,"ERROR: ",CATCH_POS(stream))

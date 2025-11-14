@@ -122,7 +122,7 @@ void ag::Quaternion::matrix(GLfloat m[16])
   GLfloat const yy = y * y;
   GLfloat const zz = z * z;
 
-  #define M(x, y)  m[x + y * 4]
+  #define M(x, y)  m[(x) + (y) * 4]
 
   M(0, 0) = 1.0 - 2.0 * (yy + zz);
   M(1, 0) = 2.0 * (x * y + w * z);

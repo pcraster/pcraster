@@ -7,8 +7,8 @@ include(CPM)
 message(STATUS "Configuring PCRaster ${${PROJECT_NAME}_VERSION}")
 
 include(PCRasterMacro)
-include(PCRasterConfiguration)
 include(PCRasterCompilerConfiguration)
+include(PCRasterConfiguration)
 include(PCRasterTestMacro)
 
 set(PCRASTER_DATA_DIR ${PROJECT_SOURCE_DIR}/data)

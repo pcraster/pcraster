@@ -1,22 +1,8 @@
 #ifndef INCLUDED_PCRXML_ELEMENTCDATASECTION
 #define INCLUDED_PCRXML_ELEMENTCDATASECTION
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Standard library headers.
-
-// Library headers.
-#ifndef INCLUDED_PCRXML_ELEMENT
 #include "pcrxml_element.h"
-#define INCLUDED_PCRXML_ELEMENT
-#endif
-
-// Target headers.
 
 
 class QDomNode;

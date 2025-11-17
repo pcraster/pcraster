@@ -1,17 +1,10 @@
 #ifndef INCLUDED_PCRXML_ATTRIBUTE
 #define INCLUDED_PCRXML_ATTRIBUTE
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
-#ifndef INCLUDED_STRING
 #include <string>
-#define INCLUDED_STRING
-#endif
+
 
 class QDomNode;
 class QDomElement;

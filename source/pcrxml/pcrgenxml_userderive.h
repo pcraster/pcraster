@@ -5,13 +5,7 @@ Do not edit, generated from libs/pcrxml/generate.py
 #ifndef INCLUDED_PCRGENXML_USERDERIVE
 #define INCLUDED_PCRGENXML_USERDERIVE
 
-
-#ifndef INCLUDED_PCRXML_ATTRIBUTE
 #include "pcrxml_attribute.h"
-#define INCLUDED_PCRXML_ATTRIBUTE
-#endif
-
-
 
 
 class QDomElement;

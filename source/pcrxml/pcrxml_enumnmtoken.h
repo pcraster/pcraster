@@ -1,25 +1,13 @@
 #ifndef INCLUDED_PCRXML_ENUMNMTOKEN
 #define INCLUDED_PCRXML_ENUMNMTOKEN
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-#ifndef INCLUDED_PCRXML_STRING
 #include "pcrxml_string.h" // used in value()
-#define INCLUDED_PCRXML_STRING
-#endif
-
-#ifndef INCLUDED_COM_EXCEPTION
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
+
+#include <string>
+
 
 class QDomNode;
 

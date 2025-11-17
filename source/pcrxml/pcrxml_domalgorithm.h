@@ -1,25 +1,11 @@
 #ifndef INCLUDED_PCRXML_ALGORITHM
 #define INCLUDED_PCRXML_ALGORITHM
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
-// Library headers.
-#ifndef INCLUDED_QDOM
 #include <qdom.h>
-#define INCLUDED_QDOM
-#endif
-#ifndef INCLUDED_SET
-#include <set>
-#define INCLUDED_SET
-#endif
-// PCRaster library headers.
 
-// Module headers.
+#include <set>
 
 
 namespace pcrxml {

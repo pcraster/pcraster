@@ -1,16 +1,9 @@
 #ifndef INCLUDED_PCRXML_STRINGCONV
 #define INCLUDED_PCRXML_STRINGCONV
 
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
-#ifndef INCLUDED_STRING
-# include <string>
-# define INCLUDED_STRING
-#endif
+#include <string>
 
 class QString;
 

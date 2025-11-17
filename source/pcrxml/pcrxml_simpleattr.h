@@ -1,24 +1,11 @@
 #ifndef INCLUDED_PCRXML_SIMPLEATTR
 #define INCLUDED_PCRXML_SIMPLEATTR
 
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_PCRXML_ATTRIBUTE
 #include "pcrxml_attribute.h"
-#define INCLUDED_PCRXML_ATTRIBUTE
-#endif
-#ifndef INCLUDED_STRING
+
 #include <string>
-#define INCLUDED_STRING
-#endif
+
 
 class QDomNode;
 class QDomElement;

@@ -1,24 +1,13 @@
 #ifndef INCLUDED_PCRXML_CHILDELEMENTVISITOR
 #define INCLUDED_PCRXML_CHILDELEMENTVISITOR
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
-#ifndef  INCLUDED_QDOM
 #include <qdom.h>
-#define  INCLUDED_QDOM
-#endif
 
-#ifndef INCLUDED_STRING
 #include <string>
-#define INCLUDED_STRING
-#endif
-
 #include <utility>
+
 
 class QDomNode;
 

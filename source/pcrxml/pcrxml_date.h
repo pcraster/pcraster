@@ -1,18 +1,8 @@
 #ifndef INCLUDED_PCRXML_DATE
 #define INCLUDED_PCRXML_DATE
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef PCRXML_STRING_INCLUDED
 #include "pcrxml_string.h"
-#define PCRXML_STRING_INCLUDED
-#endif
-
 
 
 namespace pcrxml {

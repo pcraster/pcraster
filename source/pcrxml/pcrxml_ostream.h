@@ -1,20 +1,9 @@
 #ifndef INCLUDED_PCRXML_OSTREAM
 #define INCLUDED_PCRXML_OSTREAM
 
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
-//------------------------------------------------------------------------------
-// FREE FUNCTIONS
-//------------------------------------------------------------------------------
-
-#ifndef INCLUDED_IOSTREAM
 #include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
 
 
 class QDomDocument;

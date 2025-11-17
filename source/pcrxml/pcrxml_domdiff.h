@@ -1,26 +1,10 @@
 #ifndef INCLUDED_PCRXML_DOMDIFF
 #define INCLUDED_PCRXML_DOMDIFF
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_QDOM
-#include <qdom.h>
-#define INCLUDED_QDOM
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_PCRXML_DOCUMENT
 #include "pcrxml_document.h"
-#define INCLUDED_PCRXML_DOCUMENT
-#endif
+
+#include <qdom.h>
 
 
 namespace pcrxml {

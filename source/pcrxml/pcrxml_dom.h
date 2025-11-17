@@ -1,35 +1,12 @@
 #ifndef INCLUDED_PCRXML_DOM
 #define INCLUDED_PCRXML_DOM
 
-/*!
-  \file
-  Extends QDom with some usefull functions
-*/
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
-// Library headers.
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-#ifndef INCLUDED_QDOM
 #include <qdom.h>
-#define INCLUDED_QDOM
-#endif
-#ifndef INCLUDED_IOSTREAM
+
 #include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
-
+#include <vector>
 
 
 namespace pcrxml {

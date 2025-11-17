@@ -1,17 +1,9 @@
 #ifndef INCLUDED_PCRXML_INTERSPACEDSENTENCE
 #define INCLUDED_PCRXML_INTERSPACEDSENTENCE
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_PCRXML_STRING
 #include "pcrxml_string.h"
-#define INCLUDED_PCRXML_STRING
-#endif
+
 
 namespace pcrxml {
 

@@ -1,17 +1,10 @@
 #ifndef INCLUDED_PCRXML_DOCTYPE
 #define INCLUDED_PCRXML_DOCTYPE
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
 
-#ifndef INCLUDED_STRING
 #include <string>
-#define INCLUDED_STRING
-#endif
+
 
 namespace pcrxml {
 

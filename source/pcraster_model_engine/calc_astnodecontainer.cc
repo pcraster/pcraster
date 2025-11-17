@@ -6,7 +6,7 @@
 #include "calc_astpar.h"
 #include "calc_astvisitor.h"
 
-#include <boost/bind/mem_fn.hpp>
+#include <functional>
 
 
 /*!
@@ -62,7 +62,7 @@ TEMPLATE_DECL
 void calc::ASTNodeContainer<S>::deepClone(const AC& src)
 {
     std::transform(src.begin(),src.end(), std::back_inserter(d_container),
-        boost::mem_fn(&ASTNode::createClone));
+        std::mem_fn(&ASTNode::createClone));
 }
 
 

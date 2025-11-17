@@ -1,10 +1,11 @@
 #define BOOST_TEST_MODULE pcraster com file
 #include <boost/test/unit_test.hpp>
-#include <sstream>
 #include "com_file.h"
 #include "com_pathname.h"
 #include "com_exception.h"
 #include "com_pathinfo.h"
+
+#include <sstream>
 
 
 BOOST_AUTO_TEST_CASE(open_ifstream)
@@ -350,10 +351,11 @@ BOOST_AUTO_TEST_CASE(read_write_size)
  {
   std::string c;
   std::string const contents("line only two\n");
-  size_t const expectedSize=contents.size();
 #ifdef WIN32
   // newline is 2 chars
-  expectedSize+=1;
+  size_t const expectedSize = contents.size() + 1;
+#else
+  size_t const expectedSize = contents.size();
 #endif
   PathName const pn("fe_two");
   BOOST_CHECK(size(pn) == expectedSize);

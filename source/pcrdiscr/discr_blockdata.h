@@ -5,8 +5,9 @@
 #include "pcrtypes.h"
 #include "discr_block.h"
 
-#include <boost/bind/bind.hpp>
 #include <boost/signals2/connection.hpp>
+
+#include <functional>
 
 
 namespace discr {
@@ -264,7 +265,7 @@ inline void BlockData<ValueType>::createConnections()
   void (BlockData::*const addVoxels)(size_t, size_t) = &BlockData::addVoxels;
 
   d_addVoxelsConnection = d_block->addVoxelsSignal().connect(
-         boost::bind(addVoxels, this, boost::placeholders::_1, boost::placeholders::_2));
+         std::bind(addVoxels, this, std::placeholders::_1, std::placeholders::_2));
   d_removeVoxelsConnection = d_block->removeVoxelsSignal().connect(
          [this](auto && PH1, auto && PH2) { removeVoxels(std::forward<decltype(PH1)>(PH1), std::forward<decltype(PH2)>(PH2)); });
   // d_cutVoxelConnection = d_block->cutVoxelSignal().connect(

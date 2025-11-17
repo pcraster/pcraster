@@ -17,7 +17,7 @@ We further improved the code quality and the build system to ensure an ongoing c
 * Modernising the source code. C17 and C++20 are now the default standards when compiling PCRaster.
 * We removed the dependency to the deprecated OpenGL Utility Library (GLU). Linking to libGLU is no longer required.
 * We replaced internal math and string utility libraries by standard equivalents.
-* Replacing numerous 3rd party code with C++ standard equivalents: numbers, gcd, tuple, format, signbit, isnan, mpl::if_c, is_integral, is_signed, is_same, integer types
+* Replacing numerous 3rd party code with C++ standard equivalents: numbers, gcd, tuple, format, signbit, isnan, mpl::if_c, is_integral, is_signed, is_same, integer types, bind
 * Various issues raised by compiler warnings were fixed.
 
 .. * Qt6 by default 5 as option

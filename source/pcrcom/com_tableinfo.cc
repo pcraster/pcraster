@@ -1,40 +1,14 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_COM_TABLEINFO
 #include "com_tableinfo.h"
-#define INCLUDED_COM_TABLEINFO
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_SPIRITFILEPARSER
+#include "stddefx.h"
 #include "com_spiritfileparser.h"
-#define INCLUDED_COM_SPIRITFILEPARSER
-#endif
-#include <boost/spirit/dynamic/while.hpp>
-#ifndef INCLUDED_BOOST_BIND
-#include <boost/bind.hpp>
-#define INCLUDED_BOOST_BIND
-#endif
-#ifndef INCLUDED_COM_MATH
 #include "com_math.h"
-#define INCLUDED_COM_MATH
-#endif
-#ifndef INCLUDED_COM_STRLIB
 #include "com_strlib.h"
-#define INCLUDED_COM_STRLIB
-#endif
-#ifndef INCLUDED_COM_FILE
 #include "com_file.h"
-#define INCLUDED_COM_FILE
-#endif
-// Module headers.
 
+#include <boost/spirit/dynamic/while.hpp>
 
+#include <iostream>
+#include <functional>
 
 /*!
   \file
@@ -45,10 +19,6 @@
 
 //------------------------------------------------------------------------------
 
-#ifndef INCLUDED_IOSTREAM
-#include <iostream>
-#define INCLUDED_IOSTREAM
-#endif
 
 namespace com {
 
@@ -133,13 +103,13 @@ private:
    d_continueParsing=true;
    d_values.clear();
    sfp.pi = boost::spirit::parse(sfp.begin(),sfp.end(),
-    while_p(boost::bind(&com::TableInfoParser::continueParsing,this))
-     [ *(eol_p[boost::bind(&com::TableInfoParser::endLine,this)])
+    while_p(std::bind(&com::TableInfoParser::continueParsing,this))
+     [ *(eol_p[std::bind(&com::TableInfoParser::endLine,this)])
                                   >> // allow new lines
        // some values on a line, 0 is ok, empty file
        +(real_p[append(d_values)])>> 
-        (+(eol_p[boost::bind(&com::TableInfoParser::endLine,this)])
-         |end_p[boost::bind(&com::TableInfoParser::endLine,this)]
+        (+(eol_p[std::bind(&com::TableInfoParser::endLine,this)])
+         |end_p[std::bind(&com::TableInfoParser::endLine,this)]
          )          // terminated by some new lines or eof
      ] // [ handler() ]
     , blank_p);
@@ -191,9 +161,9 @@ private:
       //  Line 2, a single integer:
       uint_p[assign(d_nrColsOnLine2)] >> eol_p >>
       //  Line 3 and on for column names
-      while_p(boost::bind(&com::TableInfoParser::columnNamesToParse,this))
+      while_p(std::bind(&com::TableInfoParser::columnNamesToParse,this))
         [((*(anychar_p-eol_p))
-          [boost::bind(&com::TableInfoParser::add,this,_1,_2)]
+          [std::bind(&com::TableInfoParser::add,this,std::placeholders::_1,std::placeholders::_2)]
            >> eol_p )] >>
       // try first value line
       *(real_p[append(d_values)])>> !eol_p

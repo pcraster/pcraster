@@ -4,8 +4,6 @@
 #include "dal_SpatialCoordinate.h"
 #include "dal_Utils.h"
 
-#include <boost/bind/bind.hpp>
-
 #include <algorithm>
 #include <functional>
 #include <cmath>
@@ -17,9 +15,6 @@
   This file contains the implementation of the DataSpace class.
 */
 
-#if BOOST_VERSION > 107200
-  using namespace boost::placeholders;
-#endif
 
 
 namespace dal {
@@ -370,24 +365,24 @@ void DataSpace::checkConsistency()
   }
 
   assert(std::count_if(_dimensions.begin(), _dimensions.end(),
-         boost::bind(std::equal_to<Meaning>(),
-              boost::bind(&Dimension::meaning, _1),
+         std::bind(std::equal_to<Meaning>(),
+              std::bind(&Dimension::meaning, std::placeholders::_1),
               Scenarios)) <= 1);
   assert(std::count_if(_dimensions.begin(), _dimensions.end(),
-         boost::bind(std::equal_to<Meaning>(),
-              boost::bind(&Dimension::meaning, _1),
+         std::bind(std::equal_to<Meaning>(),
+              std::bind(&Dimension::meaning, std::placeholders::_1),
               Samples)) <= 1);
   assert(std::count_if(_dimensions.begin(), _dimensions.end(),
-         boost::bind(std::equal_to<Meaning>(),
-              boost::bind(&Dimension::meaning, _1),
+         std::bind(std::equal_to<Meaning>(),
+              std::bind(&Dimension::meaning, std::placeholders::_1),
               CumulativeProbabilities)) <= 1);
   assert(std::count_if(_dimensions.begin(), _dimensions.end(),
-         boost::bind(std::equal_to<Meaning>(),
-              boost::bind(&Dimension::meaning, _1),
+         std::bind(std::equal_to<Meaning>(),
+              std::bind(&Dimension::meaning, std::placeholders::_1),
               Time)) <= 1);
   assert(std::count_if(_dimensions.begin(), _dimensions.end(),
-         boost::bind(std::equal_to<Meaning>(),
-              boost::bind(&Dimension::meaning, _1),
+         std::bind(std::equal_to<Meaning>(),
+              std::bind(&Dimension::meaning, std::placeholders::_1),
               Space)) <= 2);
 }
 #endif
@@ -1083,8 +1078,8 @@ DataSpaceIterator DataSpace::rend() const
 bool DataSpace::isSpatial() const
 {
   return std::find_if(_dimensions.begin(), _dimensions.end(),
-         boost::bind(std::equal_to<Meaning>(),
-           boost::bind(&Dimension::meaning, _1), Space)) != _dimensions.end();
+         std::bind(std::equal_to<Meaning>(),
+           std::bind(&Dimension::meaning, std::placeholders::_1), Space)) != _dimensions.end();
 }
 
 
@@ -1146,15 +1141,15 @@ bool DataSpace::hasSpace() const
 bool DataSpace::hasRaster() const
 {
   return std::count_if(_dimensions.begin(), _dimensions.end(),
-         boost::bind(
+         std::bind(
               std::logical_and<bool>(),
-              boost::bind(
+              std::bind(
                    std::equal_to<Meaning>(),
-                   boost::bind(&Dimension::meaning, _1),
+                   std::bind(&Dimension::meaning, std::placeholders::_1),
                    Space),
-              boost::bind(
+              std::bind(
                    std::equal_to<DiscretisationType>(),
-                   boost::bind(&Dimension::discretisation, _1),
+                   std::bind(&Dimension::discretisation, std::placeholders::_1),
                    RegularDiscretisation))
          ) == 1;
 }
@@ -1171,15 +1166,15 @@ bool DataSpace::hasRaster() const
 bool DataSpace::hasFeatures() const
 {
   return std::count_if(_dimensions.begin(), _dimensions.end(),
-         boost::bind(
+         std::bind(
               std::logical_and<bool>(),
-              boost::bind(
+              std::bind(
                    std::equal_to<Meaning>(),
-                   boost::bind(&Dimension::meaning, _1),
+                   std::bind(&Dimension::meaning, std::placeholders::_1),
                    Space),
-              boost::bind(
+              std::bind(
                    std::equal_to<DiscretisationType>(),
-                   boost::bind(&Dimension::discretisation, _1),
+                   std::bind(&Dimension::discretisation, std::placeholders::_1),
                    BorderedDiscretisation))
          ) == 1;
 }

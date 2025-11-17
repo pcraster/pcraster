@@ -7,7 +7,6 @@
 #include "dal_Library.h"
 #include "dal_TableDriver.h"
 
-#include <boost/bind/bind.hpp>
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/function.hpp>
 #include <ogrsf_frmts.h>

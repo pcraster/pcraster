@@ -2,7 +2,6 @@
 
 #include <boost/algorithm/string/split.hpp>
 #include <boost/algorithm/string/trim.hpp>
-#include <boost/bind/bind.hpp>
 
 #include "cpl_conv.h"
 
@@ -17,10 +16,6 @@
   \file
   This file contains the implementation of the Environment class.
 */
-
-#if BOOST_VERSION > 107200
-  using namespace boost::placeholders;
-#endif
 
 
 namespace dal {

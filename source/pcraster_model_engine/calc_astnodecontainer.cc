@@ -6,8 +6,7 @@
 #include "calc_astpar.h"
 #include "calc_astvisitor.h"
 
-#include <boost/bind/bind.hpp>
-using namespace boost::placeholders;
+#include <boost/bind/mem_fn.hpp>
 
 
 /*!

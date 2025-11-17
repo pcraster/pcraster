@@ -1,28 +1,8 @@
-#ifndef INCLUDED_STDDEFX
-#include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-#ifndef INCLUDED_COM_INTABLESTREAM
 #include "com_intablestream.h"
-#define INCLUDED_COM_INTABLESTREAM
-#endif
-
-// Library headers.
-#ifndef INCLUDED_BOOST_BIND
-#include <boost/bind.hpp>
-#define INCLUDED_BOOST_BIND
-#endif
-#include <boost/spirit/dynamic/while.hpp>
-
-// PCRaster library headers.
-#ifndef INCLUDED_COM_EXCEPTION
+#include "stddefx.h"
 #include "com_exception.h"
-#define INCLUDED_COM_EXCEPTION
-#endif
 
-// Module headers.
-
+#include <boost/spirit/dynamic/while.hpp>
 
 
 /*!

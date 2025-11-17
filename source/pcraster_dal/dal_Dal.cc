@@ -13,13 +13,13 @@
 #include "dal_TextTableDriver.h"
 #include "dal_VectorDriver.h"
 
-#include <boost/bind/bind.hpp>
 #include <QSqlDatabase>
 #include <QStringList>
 #include <ogrsf_frmts.h>
-#include "gdal_priv.h"
+#include <gdal_priv.h>
 
 #include <algorithm>
+#include <functional>
 #include <memory>
 
 
@@ -28,9 +28,6 @@
   This file contains the implementation of the Dal class.
 */
 
-#if BOOST_VERSION > 107200
-  using namespace boost::placeholders;
-#endif
 
 namespace dal {
 
@@ -112,16 +109,16 @@ Dal::Dal(
   for(std::string const& name : environment.formatNames()) {
     // See if a driver by that name exists.
     auto it = std::find_if(_autoAddedDrivers.begin(),
-         _autoAddedDrivers.end(), boost::bind(
-           std::equal_to<std::string>(), boost::bind(&Driver::name, _1), name));
+         _autoAddedDrivers.end(), std::bind(
+           std::equal_to<std::string>(), std::bind(&Driver::name, std::placeholders::_1), name));
 
     if(it != _autoAddedDrivers.end()) {
       // Move driver to new collection.
       selectedDrivers.push_back(*it);
       _autoAddedDrivers.erase(it);
       _drivers.erase(std::find_if(_drivers.begin(),
-         _drivers.end(), boost::bind(std::equal_to<std::string>(),
-              boost::bind(&Driver::name, _1), name)));
+         _drivers.end(), std::bind(std::equal_to<std::string>(),
+              std::bind(&Driver::name, std::placeholders::_1), name)));
     }
   }
 
@@ -505,8 +502,8 @@ std::tuple<DataSpaceQueryResult, Driver*> Dal::search(
     //   2. Remove the drivers that don't support the passed in data type.
     if(datasetType != NR_DATASET_TYPES) {
       drivers.erase(std::remove_if(drivers.begin(), drivers.end(),
-         boost::bind(std::not_equal_to<DatasetType>(),
-              boost::bind(&Driver::datasetType, _1), datasetType)),
+         std::bind(std::not_equal_to<DatasetType>(),
+              std::bind(&Driver::datasetType, std::placeholders::_1), datasetType)),
          drivers.end());
     }
 
@@ -551,8 +548,8 @@ bool Dal::exists(
     // Remove the drivers that don't support the passed in data type.
     if(datasetType != NR_DATASET_TYPES) {
       drivers.erase(std::remove_if(drivers.begin(), drivers.end(),
-         boost::bind(std::not_equal_to<DatasetType>(),
-              boost::bind(&Driver::datasetType, _1), datasetType)),
+         std::bind(std::not_equal_to<DatasetType>(),
+              std::bind(&Driver::datasetType, std::placeholders::_1), datasetType)),
          drivers.end());
     }
 
@@ -644,8 +641,8 @@ std::tuple<std::shared_ptr<Dataset>, Driver*> Dal::open(
     // Remove the drivers that don't support the passed in data type.
     if(datasetType != NR_DATASET_TYPES) {
       drivers.erase(std::remove_if(drivers.begin(), drivers.end(),
-         boost::bind(std::not_equal_to<DatasetType>(),
-              boost::bind(&Driver::datasetType, _1), datasetType)),
+         std::bind(std::not_equal_to<DatasetType>(),
+              std::bind(&Driver::datasetType, std::placeholders::_1), datasetType)),
          drivers.end());
     }
 

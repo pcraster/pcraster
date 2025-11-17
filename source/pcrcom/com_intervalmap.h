@@ -4,9 +4,8 @@
 #include "stddefx.h"
 #include "com_interval.h"
 
-#include <boost/bind/bind.hpp>
-
 #include <algorithm>
+#include <functional>
 #include <iostream>
 #include <map>
 
@@ -229,7 +228,7 @@ private:
            typename GetValueOp>
   Iter partition(Iter beginR, Iter endR, const_iterator i, GetValueOp op) const {
      intervalMap::PartitionFO<IT> const fo(i->first);
-     return std::partition(beginR,endR,boost::bind(fo,boost::bind(op,boost::placeholders::_1)));
+     return std::partition(beginR,endR,std::bind(fo,std::bind(op,std::placeholders::_1)));
   }
 
   /*!
@@ -240,7 +239,7 @@ private:
   Iter partitionOutside(Iter beginR, Iter endR, GetValueOp op) const {
      NotInInterval const nii(*this);
      return std::partition(beginR,endR,
-           boost::bind(nii,boost::bind(op,boost::placeholders::_1)));
+           std::bind(nii,std::bind(op,std::placeholders::_1)));
   }
 
   void print(std::ostream& s) const {
@@ -402,7 +401,7 @@ private:
            typename GetValueOp>
   Iter partition(Iter beginR, Iter endR, const_iterator i, GetValueOp op) const {
      intervalMap::PartitionFO<IT> const fo(i->first);
-     return std::partition(beginR,endR,boost::bind(fo,boost::bind(op,boost::placeholders::_1)));
+     return std::partition(beginR,endR,std::bind(fo,std::bind(op,std::placeholders::_1)));
   }
 
   /*!
@@ -413,7 +412,7 @@ private:
   Iter partitionOutside(Iter beginR, Iter endR, GetValueOp op) const {
      NotInInterval const nii(*this);
      return std::partition(beginR,endR,
-           boost::bind(nii,boost::bind(op,boost::placeholders::_1)));
+           std::bind(nii,std::bind(op,std::placeholders::_1)));
   }
 
   //----------------------------------------------------------------------------

@@ -45,12 +45,6 @@ BOOST_AUTO_TEST_CASE(testAll)
       }
 
     size_t const nrFailuresAllowed=0;
-#ifdef WIN32
-    if (failMsgs.size()==1) {
-     std::cerr << "TODO view on win32 slightly different" << std::endl;
-     nrFailuresAllowed=1;
-    }
-#endif
 
     std::ostringstream msgs;
     if (failMsgs.size()) {

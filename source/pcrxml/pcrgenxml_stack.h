@@ -5,32 +5,12 @@ Do not edit, generated from libs/pcrxml/generate.py
 #ifndef INCLUDED_PCRGENXML_STACK
 #define INCLUDED_PCRGENXML_STACK
 
-
-#ifndef INCLUDED_PCRGENXML_DATATYPEDTD
 #include "pcrgenxml_datatypedtd.h"
-#define INCLUDED_PCRGENXML_DATATYPEDTD
-#endif
-
-
-
-#ifndef INCLUDED_PCRGENXML_TIMESTEPRANGE
 #include "pcrgenxml_timesteprange.h"
-#define INCLUDED_PCRGENXML_TIMESTEPRANGE
-#endif
-
-
-
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-
-
-#ifndef INCLUDED_PCRXML_ELEMENT
 #include "pcrxml_element.h"
-#define INCLUDED_PCRXML_ELEMENT
-#endif
+
+#include <string>
+
 
 
 class QDomNode;

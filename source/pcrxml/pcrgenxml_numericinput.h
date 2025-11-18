@@ -5,32 +5,11 @@ Do not edit, generated from libs/pcrxml/generate.py
 #ifndef INCLUDED_PCRGENXML_NUMERICINPUT
 #define INCLUDED_PCRGENXML_NUMERICINPUT
 
-
-#ifndef INCLUDED_PCRGENXML_LOWERLIMIT
 #include "pcrgenxml_lowerlimit.h"
-#define INCLUDED_PCRGENXML_LOWERLIMIT
-#endif
-
-
-
-#ifndef INCLUDED_PCRGENXML_UPPERLIMIT
 #include "pcrgenxml_upperlimit.h"
-#define INCLUDED_PCRGENXML_UPPERLIMIT
-#endif
-
-
-
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-
-
-#ifndef INCLUDED_PCRXML_ELEMENT
 #include "pcrxml_element.h"
-#define INCLUDED_PCRXML_ELEMENT
-#endif
+
+#include <string>
 
 
 class QDomNode;

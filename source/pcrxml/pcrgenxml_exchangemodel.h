@@ -6,59 +6,16 @@ Do not edit, generated from libs/pcrxml/generate.py
 #define INCLUDED_PCRGENXML_EXCHANGEMODEL
 
 
-#ifndef INCLUDED_PCRGENXML_AREAMAPDTD
 #include "pcrgenxml_areamapdtd.h"
-#define INCLUDED_PCRGENXML_AREAMAPDTD
-#endif
-
-
-
-#ifndef INCLUDED_PCRGENXML_EXCHANGEITEM
 #include "pcrgenxml_exchangeitem.h"
-#define INCLUDED_PCRGENXML_EXCHANGEITEM
-#endif
-
-
-
-#ifndef INCLUDED_PCRGENXML_IOSTRATEGYTYPE
 #include "pcrgenxml_iostrategytype.h"
-#define INCLUDED_PCRGENXML_IOSTRATEGYTYPE
-#endif
-
-
-
-#ifndef INCLUDED_PCRGENXML_INTEGERTIMER
 #include "pcrgenxml_integertimer.h"
-#define INCLUDED_PCRGENXML_INTEGERTIMER
-#endif
-
-
-
-#ifndef INCLUDED_PCRXML_STRING
 #include "pcrxml_string.h"
-#define INCLUDED_PCRXML_STRING
-#endif
-
-
-
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-
-
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-
-
-#ifndef INCLUDED_PCRXML_ELEMENT
 #include "pcrxml_element.h"
-#define INCLUDED_PCRXML_ELEMENT
-#endif
+
+#include <string>
+#include <vector>
+
 
 
 class QDomNode;

@@ -5,67 +5,17 @@ Do not edit, generated from libs/pcrxml/generate.py
 #ifndef INCLUDED_PCRGENXML_FILEINPUT
 #define INCLUDED_PCRGENXML_FILEINPUT
 
-
-#ifndef INCLUDED_PCRGENXML_DATA
 #include "pcrgenxml_data.h"
-#define INCLUDED_PCRGENXML_DATA
-#endif
-
-
-
-#ifndef INCLUDED_PCRGENXML_MAP
 #include "pcrgenxml_map.h"
-#define INCLUDED_PCRGENXML_MAP
-#endif
-
-
-
-#ifndef INCLUDED_PCRGENXML_STACK
 #include "pcrgenxml_stack.h"
-#define INCLUDED_PCRGENXML_STACK
-#endif
-
-
-
-#ifndef INCLUDED_PCRGENXML_TABLE
 #include "pcrgenxml_table.h"
-#define INCLUDED_PCRGENXML_TABLE
-#endif
-
-
-
-#ifndef INCLUDED_PCRGENXML_TIMESERIES
 #include "pcrgenxml_timeseries.h"
-#define INCLUDED_PCRGENXML_TIMESERIES
-#endif
-
-
-
-#ifndef INCLUDED_PCRXML_BOOLEAN
 #include "pcrxml_boolean.h"
-#define INCLUDED_PCRXML_BOOLEAN
-#endif
-
-
-
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-
-
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-
-
-#ifndef INCLUDED_PCRXML_ELEMENT
 #include "pcrxml_element.h"
-#define INCLUDED_PCRXML_ELEMENT
-#endif
+
+#include <string>
+#include <vector>
+
 
 
 class QDomNode;

@@ -5,46 +5,13 @@ Do not edit, generated from libs/pcrxml/generate.py
 #ifndef INCLUDED_PCRGENXML_VISUALISATIONCONFIGURATION
 #define INCLUDED_PCRGENXML_VISUALISATIONCONFIGURATION
 
-
-#ifndef INCLUDED_PCRGENXML_RUNTIMEPLATFORM
 #include "pcrgenxml_runtimeplatform.h"
-#define INCLUDED_PCRGENXML_RUNTIMEPLATFORM
-#endif
-
-
-
-#ifndef INCLUDED_PCRGENXML_VISUALISATIONGROUP
 #include "pcrgenxml_visualisationgroup.h"
-#define INCLUDED_PCRGENXML_VISUALISATIONGROUP
-#endif
-
-
-
-#ifndef INCLUDED_PCRXML_STRING
 #include "pcrxml_string.h"
-#define INCLUDED_PCRXML_STRING
-#endif
-
-
-
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-
-
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-
-
-#ifndef INCLUDED_PCRXML_ELEMENT
 #include "pcrxml_element.h"
-#define INCLUDED_PCRXML_ELEMENT
-#endif
+
+#include <string>
+#include <vector>
 
 
 class QDomNode;

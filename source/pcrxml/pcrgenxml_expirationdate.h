@@ -5,32 +5,11 @@ Do not edit, generated from libs/pcrxml/generate.py
 #ifndef INCLUDED_PCRGENXML_EXPIRATIONDATE
 #define INCLUDED_PCRGENXML_EXPIRATIONDATE
 
-
-#ifndef INCLUDED_PCRGENXML_DATEFORMAT
 #include "pcrgenxml_dateformat.h"
-#define INCLUDED_PCRGENXML_DATEFORMAT
-#endif
-
-
-
-#ifndef INCLUDED_PCRXML_DATE
 #include "pcrxml_date.h"
-#define INCLUDED_PCRXML_DATE
-#endif
-
-
-
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-
-
-#ifndef INCLUDED_PCRXML_ELEMENT
 #include "pcrxml_element.h"
-#define INCLUDED_PCRXML_ELEMENT
-#endif
+
+#include <string>
 
 
 class QDomNode;

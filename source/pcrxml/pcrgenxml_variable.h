@@ -5,60 +5,15 @@ Do not edit, generated from libs/pcrxml/generate.py
 #ifndef INCLUDED_PCRGENXML_VARIABLE
 #define INCLUDED_PCRGENXML_VARIABLE
 
-
-#ifndef INCLUDED_PCRGENXML_DATATYPEDTD
 #include "pcrgenxml_datatypedtd.h"
-#define INCLUDED_PCRGENXML_DATATYPEDTD
-#endif
-
-
-
-#ifndef INCLUDED_PCRGENXML_INPUTTYPE
 #include "pcrgenxml_inputtype.h"
-#define INCLUDED_PCRGENXML_INPUTTYPE
-#endif
-
-
-
-#ifndef INCLUDED_PCRGENXML_OUTPUTTYPE
 #include "pcrgenxml_outputtype.h"
-#define INCLUDED_PCRGENXML_OUTPUTTYPE
-#endif
-
-
-
-#ifndef INCLUDED_PCRGENXML_SPATIAL
 #include "pcrgenxml_spatial.h"
-#define INCLUDED_PCRGENXML_SPATIAL
-#endif
-
-
-
-#ifndef INCLUDED_PCRXML_STRING
 #include "pcrxml_string.h"
-#define INCLUDED_PCRXML_STRING
-#endif
-
-
-
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-
-
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-
-
-#ifndef INCLUDED_PCRXML_ELEMENT
 #include "pcrxml_element.h"
-#define INCLUDED_PCRXML_ELEMENT
-#endif
+
+#include <string>
+#include <vector>
 
 
 class QDomNode;

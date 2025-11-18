@@ -5,39 +5,13 @@ Do not edit, generated from libs/pcrxml/generate.py
 #ifndef INCLUDED_PCRGENXML_INPUTPOINTS
 #define INCLUDED_PCRGENXML_INPUTPOINTS
 
-
-#ifndef INCLUDED_PCRGENXML_COMPUTEDRIVERAXIS
 #include "pcrgenxml_computedriveraxis.h"
-#define INCLUDED_PCRGENXML_COMPUTEDRIVERAXIS
-#endif
-
-
-
-#ifndef INCLUDED_PCRGENXML_RIVERAXISFILE
 #include "pcrgenxml_riveraxisfile.h"
-#define INCLUDED_PCRGENXML_RIVERAXISFILE
-#endif
-
-
-
-#ifndef INCLUDED_PCRXML_DOUBLE
 #include "pcrxml_double.h"
-#define INCLUDED_PCRXML_DOUBLE
-#endif
-
-
-
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-
-
-#ifndef INCLUDED_PCRXML_ELEMENT
 #include "pcrxml_element.h"
-#define INCLUDED_PCRXML_ELEMENT
-#endif
+
+#include <string>
+
 
 
 class QDomNode;

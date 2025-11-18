@@ -5,67 +5,17 @@ Do not edit, generated from libs/pcrxml/generate.py
 #ifndef INCLUDED_PCRGENXML_INPUT
 #define INCLUDED_PCRGENXML_INPUT
 
-
-#ifndef INCLUDED_PCRGENXML_INPUTFILE
 #include "pcrgenxml_inputfile.h"
-#define INCLUDED_PCRGENXML_INPUTFILE
-#endif
-
-
-
-#ifndef INCLUDED_PCRGENXML_INPUTLODINGS
 #include "pcrgenxml_inputlodings.h"
-#define INCLUDED_PCRGENXML_INPUTLODINGS
-#endif
-
-
-
-#ifndef INCLUDED_PCRGENXML_INPUTPOINTS
 #include "pcrgenxml_inputpoints.h"
-#define INCLUDED_PCRGENXML_INPUTPOINTS
-#endif
-
-
-
-#ifndef INCLUDED_PCRGENXML_MIGRATIONDIRECTION
 #include "pcrgenxml_migrationdirection.h"
-#define INCLUDED_PCRGENXML_MIGRATIONDIRECTION
-#endif
-
-
-
-#ifndef INCLUDED_PCRXML_BOOLEAN
 #include "pcrxml_boolean.h"
-#define INCLUDED_PCRXML_BOOLEAN
-#endif
-
-
-
-#ifndef INCLUDED_PCRXML_DOUBLE
 #include "pcrxml_double.h"
-#define INCLUDED_PCRXML_DOUBLE
-#endif
-
-
-
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-
-
-#ifndef INCLUDED_VECTOR
-#include <vector>
-#define INCLUDED_VECTOR
-#endif
-
-
-
-#ifndef INCLUDED_PCRXML_ELEMENT
 #include "pcrxml_element.h"
-#define INCLUDED_PCRXML_ELEMENT
-#endif
+
+#include <string>
+#include <vector>
+
 
 
 class QDomNode;

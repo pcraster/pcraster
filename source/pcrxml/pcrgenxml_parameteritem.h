@@ -5,53 +5,15 @@ Do not edit, generated from libs/pcrxml/generate.py
 #ifndef INCLUDED_PCRGENXML_PARAMETERITEM
 #define INCLUDED_PCRGENXML_PARAMETERITEM
 
-
-#ifndef INCLUDED_PCRGENXML_FILEINPUT
 #include "pcrgenxml_fileinput.h"
-#define INCLUDED_PCRGENXML_FILEINPUT
-#endif
-
-
-
-#ifndef INCLUDED_PCRGENXML_NUMERICINPUT
 #include "pcrgenxml_numericinput.h"
-#define INCLUDED_PCRGENXML_NUMERICINPUT
-#endif
-
-
-
-#ifndef INCLUDED_PCRGENXML_SCRIPTLINK
 #include "pcrgenxml_scriptlink.h"
-#define INCLUDED_PCRGENXML_SCRIPTLINK
-#endif
-
-
-
-#ifndef INCLUDED_PCRGENXML_SHOWDATA
 #include "pcrgenxml_showdata.h"
-#define INCLUDED_PCRGENXML_SHOWDATA
-#endif
-
-
-
-#ifndef INCLUDED_PCRXML_STRING
 #include "pcrxml_string.h"
-#define INCLUDED_PCRXML_STRING
-#endif
-
-
-
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-
-
-#ifndef INCLUDED_PCRXML_ELEMENT
 #include "pcrxml_element.h"
-#define INCLUDED_PCRXML_ELEMENT
-#endif
+
+#include <string>
+
 
 
 class QDomNode;

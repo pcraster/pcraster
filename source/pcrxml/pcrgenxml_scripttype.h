@@ -5,12 +5,7 @@ Do not edit, generated from libs/pcrxml/generate.py
 #ifndef INCLUDED_PCRGENXML_SCRIPTTYPE
 #define INCLUDED_PCRGENXML_SCRIPTTYPE
 
-
-#ifndef INCLUDED_PCRXML_ATTRIBUTE
 #include "pcrxml_attribute.h"
-#define INCLUDED_PCRXML_ATTRIBUTE
-#endif
-
 
 
 

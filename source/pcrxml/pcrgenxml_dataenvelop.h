@@ -5,26 +5,10 @@ Do not edit, generated from libs/pcrxml/generate.py
 #ifndef INCLUDED_PCRGENXML_DATAENVELOP
 #define INCLUDED_PCRGENXML_DATAENVELOP
 
-
-#ifndef INCLUDED_PCRGENXML_DATAENVELOPENCODING
 #include "pcrgenxml_dataenvelopencoding.h"
-#define INCLUDED_PCRGENXML_DATAENVELOPENCODING
-#endif
-
-
-
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-
-
-#ifndef INCLUDED_PCRXML_PCDATAELEMENT
 #include "pcrxml_pcdataelement.h"
-#define INCLUDED_PCRXML_PCDATAELEMENT
-#endif
 
+#include <string>
 
 class QDomNode;
 namespace pcrxml {

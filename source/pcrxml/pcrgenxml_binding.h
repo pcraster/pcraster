@@ -5,60 +5,16 @@ Do not edit, generated from libs/pcrxml/generate.py
 #ifndef INCLUDED_PCRGENXML_BINDING
 #define INCLUDED_PCRGENXML_BINDING
 
-
-#ifndef INCLUDED_PCRGENXML_MAP
 #include "pcrgenxml_map.h"
-#define INCLUDED_PCRGENXML_MAP
-#endif
-
-
-
-#ifndef INCLUDED_PCRGENXML_NONSPATIAL
 #include "pcrgenxml_nonspatial.h"
-#define INCLUDED_PCRGENXML_NONSPATIAL
-#endif
-
-
-
-#ifndef INCLUDED_PCRGENXML_STACK
 #include "pcrgenxml_stack.h"
-#define INCLUDED_PCRGENXML_STACK
-#endif
-
-
-
-#ifndef INCLUDED_PCRGENXML_TABLE
 #include "pcrgenxml_table.h"
-#define INCLUDED_PCRGENXML_TABLE
-#endif
-
-
-
-#ifndef INCLUDED_PCRGENXML_TIMESERIES
 #include "pcrgenxml_timeseries.h"
-#define INCLUDED_PCRGENXML_TIMESERIES
-#endif
-
-
-
-#ifndef INCLUDED_PCRXML_STRING
 #include "pcrxml_string.h"
-#define INCLUDED_PCRXML_STRING
-#endif
-
-
-
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-
-
-#ifndef INCLUDED_PCRXML_ELEMENT
 #include "pcrxml_element.h"
-#define INCLUDED_PCRXML_ELEMENT
-#endif
+
+#include <string>
+
 
 
 class QDomNode;

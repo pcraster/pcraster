@@ -5,46 +5,14 @@ Do not edit, generated from libs/pcrxml/generate.py
 #ifndef INCLUDED_PCRGENXML_DIRECTORYSTACKINFO
 #define INCLUDED_PCRGENXML_DIRECTORYSTACKINFO
 
-
-#ifndef INCLUDED_PCRGENXML_DATATYPEENUM
 #include "pcrgenxml_datatypeenum.h"
-#define INCLUDED_PCRGENXML_DATATYPEENUM
-#endif
-
-
-
-#ifndef INCLUDED_PCRXML_BOOLEAN
 #include "pcrxml_boolean.h"
-#define INCLUDED_PCRXML_BOOLEAN
-#endif
-
-
-
-#ifndef INCLUDED_PCRXML_DOUBLE
 #include "pcrxml_double.h"
-#define INCLUDED_PCRXML_DOUBLE
-#endif
-
-
-
-#ifndef INCLUDED_PCRXML_POSITIVEINTEGER
 #include "pcrxml_positiveinteger.h"
-#define INCLUDED_PCRXML_POSITIVEINTEGER
-#endif
-
-
-
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-
-
-#ifndef INCLUDED_PCRXML_ELEMENT
 #include "pcrxml_element.h"
-#define INCLUDED_PCRXML_ELEMENT
-#endif
+
+#include <string>
+
 
 
 class QDomNode;

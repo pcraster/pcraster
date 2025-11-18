@@ -5,53 +5,14 @@ Do not edit, generated from libs/pcrxml/generate.py
 #ifndef INCLUDED_PCRGENXML_DATASETCONFIGURATION
 #define INCLUDED_PCRGENXML_DATASETCONFIGURATION
 
-
-#ifndef INCLUDED_PCRGENXML_COMPUTE
 #include "pcrgenxml_compute.h"
-#define INCLUDED_PCRGENXML_COMPUTE
-#endif
-
-
-
-#ifndef INCLUDED_PCRGENXML_INPUT
 #include "pcrgenxml_input.h"
-#define INCLUDED_PCRGENXML_INPUT
-#endif
-
-
-
-#ifndef INCLUDED_PCRGENXML_INTERPOLATE
 #include "pcrgenxml_interpolate.h"
-#define INCLUDED_PCRGENXML_INTERPOLATE
-#endif
-
-
-
-#ifndef INCLUDED_PCRGENXML_LODINGS
 #include "pcrgenxml_lodings.h"
-#define INCLUDED_PCRGENXML_LODINGS
-#endif
-
-
-
-#ifndef INCLUDED_PCRXML_POSITIVEINTEGER
 #include "pcrxml_positiveinteger.h"
-#define INCLUDED_PCRXML_POSITIVEINTEGER
-#endif
-
-
-
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-
-
-#ifndef INCLUDED_PCRXML_ELEMENT
 #include "pcrxml_element.h"
-#define INCLUDED_PCRXML_ELEMENT
-#endif
+
+#include <string>
 
 
 class QDomNode;

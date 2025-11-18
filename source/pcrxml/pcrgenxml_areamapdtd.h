@@ -5,32 +5,12 @@ Do not edit, generated from libs/pcrxml/generate.py
 #ifndef INCLUDED_PCRGENXML_AREAMAPDTD
 #define INCLUDED_PCRGENXML_AREAMAPDTD
 
-
-#ifndef INCLUDED_PCRGENXML_RASTERMASK
 #include "pcrgenxml_rastermask.h"
-#define INCLUDED_PCRGENXML_RASTERMASK
-#endif
-
-
-
-#ifndef INCLUDED_PCRGENXML_RASTERSPACE
 #include "pcrgenxml_rasterspace.h"
-#define INCLUDED_PCRGENXML_RASTERSPACE
-#endif
-
-
-
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-
-
-#ifndef INCLUDED_PCRXML_ELEMENT
 #include "pcrxml_element.h"
-#define INCLUDED_PCRXML_ELEMENT
-#endif
+
+#include <string>
+
 
 
 class QDomNode;

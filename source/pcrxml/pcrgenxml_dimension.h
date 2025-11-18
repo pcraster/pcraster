@@ -5,32 +5,12 @@ Do not edit, generated from libs/pcrxml/generate.py
 #ifndef INCLUDED_PCRGENXML_DIMENSION
 #define INCLUDED_PCRGENXML_DIMENSION
 
-
-#ifndef INCLUDED_PCRGENXML_DIMENSIONBASEENUM
 #include "pcrgenxml_dimensionbaseenum.h"
-#define INCLUDED_PCRGENXML_DIMENSIONBASEENUM
-#endif
-
-
-
-#ifndef INCLUDED_PCRXML_INTEGER
 #include "pcrxml_integer.h"
-#define INCLUDED_PCRXML_INTEGER
-#endif
-
-
-
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-
-
-#ifndef INCLUDED_PCRXML_ELEMENT
 #include "pcrxml_element.h"
-#define INCLUDED_PCRXML_ELEMENT
-#endif
+
+#include <string>
+
 
 
 class QDomNode;

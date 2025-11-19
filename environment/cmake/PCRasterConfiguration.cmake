@@ -114,6 +114,11 @@ if(NOT EXISTS ${CMAKE_BINARY_DIR}/_deps/xsd-src/libxsd/xsd/cxx/xml/dom/serializa
     file(TOUCH ${CMAKE_BINARY_DIR}/_deps/xsd-src/libxsd/xsd/cxx/xml/dom/serialization-header.txx.sentinel)
 endif()
 
+add_library(Clipp::Clipp INTERFACE IMPORTED)
+set_target_properties(Clipp::Clipp
+    PROPERTIES
+        INTERFACE_INCLUDE_DIRECTORIES "${CMAKE_SOURCE_DIR}/external/include/clipp/"
+)
 
 
 if(PCRASTER_BUILD_TEST)

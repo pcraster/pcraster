@@ -21,10 +21,8 @@ add_library(pcraster::utils ALIAS utils)
 target_include_directories(utils
     PRIVATE
         ${CMAKE_CURRENT_BINARY_DIR}/
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/../include>
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
 )
 
 target_link_libraries(utils
@@ -32,6 +30,8 @@ target_link_libraries(utils
         XercesC::XercesC
         GDAL::GDAL
         Boost::headers
+    PUBLIC
+        Clipp::Clipp
 )
 
 if(PCRASTER_BUILD_TEST)
@@ -44,5 +44,6 @@ if(PCRASTER_BUILD_TEST)
         LINK_LIBRARIES
             pcraster::utils
             Qt::Core
+            Clipp::Clipp
     )
 endif()

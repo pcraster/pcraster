@@ -1,25 +1,11 @@
-#ifndef INCLUDED_SUPPORTEDSCHEMA
-#define INCLUDED_SUPPORTEDSCHEMA
+#ifndef INCLUDED_PCRXSD_SUPPORTEDSCHEMA
+#define INCLUDED_PCRXSD_SUPPORTEDSCHEMA
 
-
-
-// #ifndef INCLUDED_STDDEFX
-// #include "stddefx.h"
-// #define INCLUDED_STDDEFX
-// #endif
-
-// Library headers.
-#ifndef INCLUDED_STRING
-#include <string>
-#define INCLUDED_STRING
-#endif
-
-// XERCES_CPP_NAMESPACE
 #include <xercesc/util/XercesVersion.hpp>
 
-// PCRaster library headers.
+#include <string>
 
-// Module headers.
+
 
 namespace XERCES_CPP_NAMESPACE {
   class DOMLSInput;

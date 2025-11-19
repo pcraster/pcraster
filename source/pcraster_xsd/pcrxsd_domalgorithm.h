@@ -5,29 +5,15 @@
  *  PORTED FROM PCRXML,
  *  dunno if we really need it
  */
+#include "pcrxsd_utils.h"
 
-// #ifndef INCLUDED_STDDEFX
-// #include "stddefx.h"
-// #define INCLUDED_STDDEFX
-// #endif
-// Library headers.
-#include <cassert>
 #include <xercesc/dom/DOMNodeList.hpp>
 #include <xercesc/dom/DOMElement.hpp>
 #include <xercesc/dom/DOMNamedNodeMap.hpp>
-#ifndef INCLUDED_SET
+
+#include <cassert>
 #include <set>
-#define INCLUDED_SET
-#endif
 
-// toString only
-#ifndef INCLUDED_PCRXSD_UTILS
-#include "pcrxsd_utils.h"
-#define INCLUDED_PCRXSD_UTILS
-#endif
-// PCRaster library headers.
-
-// Module headers.
 
 
 namespace pcrxml {

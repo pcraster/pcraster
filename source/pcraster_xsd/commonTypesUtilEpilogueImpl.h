@@ -4,15 +4,7 @@
 
 */
 
-// Library headers.
-#ifndef INCLUDED_BOOST_DATE_TIME_POSIX_TIME_POSIX_TIME
 #include <boost/date_time/posix_time/posix_time.hpp>
-#define INCLUDED_BOOST_DATE_TIME_POSIX_TIME_POSIX_TIME
-#endif
-
-// PCRaster library headers.
-
-// Module headers.
 
 
 

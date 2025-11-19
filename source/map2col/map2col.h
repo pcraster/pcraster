@@ -1,3 +1,5 @@
+#ifndef INCLUDED_MAP2COL_MAP2COL
+#define INCLUDED_MAP2COL_MAP2COL
 
 typedef struct INP_MAP {
     MAP *m;
@@ -20,3 +22,5 @@ extern int Map2Col(INP_MAP *maps,
                    bool colWise,
                    bool printMV,
                    const char *inputColumnFile);
+
+#endif

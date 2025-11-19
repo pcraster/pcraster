@@ -1,19 +1,11 @@
 #ifndef INCLUDED_PCRXSD_DOMINPUT
 #define INCLUDED_PCRXSD_DOMINPUT
 
-// #ifndef INCLUDED_STDDEFX
-// #include "stddefx.h"
-// #define INCLUDED_STDDEFX
-// #endif
-
-// Library headers.
 // XERCES_CPP_NAMESPACE
 #include <xercesc/util/XercesVersion.hpp>
-// PCRaster library headers.
-
-// Module headers.
 
 #include <string>
+
 
 
 namespace XERCES_CPP_NAMESPACE {

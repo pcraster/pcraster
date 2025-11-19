@@ -1,3 +1,6 @@
+#ifndef INCLUDED_MAP2ASC_MAP2ASC
+#define INCLUDED_MAP2ASC_MAP2ASC
+
 typedef enum HEADER
 {
     HEAD_NONE = 0,
@@ -17,3 +20,5 @@ extern int Map2Asc(
     int nrCellsOnLine,
     HEADER head,
     bool colWise);
+
+#endif

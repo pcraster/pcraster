@@ -1,22 +1,9 @@
 #ifndef INCLUDED_PCRXSD_STRINGDOMINPUT
 #define INCLUDED_PCRXSD_STRINGDOMINPUT
 
-
-
-// #ifndef INCLUDED_STDDEFX
-// #include "stddefx.h"
-// #define INCLUDED_STDDEFX
-// #endif
-
-// Library headers.
-
-// PCRaster library headers.
-
-// Module headers.
-#ifndef INCLUDED_PCRXSD_DOMINPUT
 #include "pcrxsd_dominput.h"
-#define INCLUDED_PCRXSD_DOMINPUT
-#endif
+
+
 
 namespace pcrxsd {
   // StringDomInput declarations.

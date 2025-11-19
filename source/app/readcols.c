@@ -21,12 +21,16 @@
 /**********************/
 
 /* additional ones, std are in header file */
-#define POS_X   0
-#define POS_Y   1
-#define POS_V   2
+enum {
+POS_X =   0,
+POS_Y =   1,
+POS_V =   2
+};
 // #define POS_TAG 3
 
-#define REC_ALLOC  1024 /* will result 32Kb for XYV data (=4 doubles) */
+enum {
+REC_ALLOC =  1024 /* will result 32Kb for XYV data (=4 doubles) */
+};
 
 #define NR_COL_MISMATCH \
      "There are %u columns on line %u, %u required"

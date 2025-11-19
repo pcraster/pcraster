@@ -24,7 +24,9 @@
 /*********************/
 /* LOCAL DEFINITIONS */
 /*********************/
-#define LDD_MAX 9
+enum {
+LDD_MAX = 9
+};
 
 /******************/
 /* IMPLEMENTATION */

@@ -69,8 +69,10 @@ extern int nrSearchTables;
 /**********************/
 /* LOCAL DEFINITIONS  */
 /**********************/
-#define INITSIZE 20
-#define MAXSIZE 200
+enum {
+INITSIZE = 20,
+MAXSIZE = 200
+};
 #define EPSILON 0.00000001
 
 /******************/

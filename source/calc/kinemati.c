@@ -53,7 +53,9 @@ static double CalcSnew(
     return( sum == 0 ? 0 : ((Qnew/sum) * (Sin+Sold+s) ) );
 }
 */
-#define MAX_ITERS 3000
+enum {
+MAX_ITERS = 3000
+};
 
 double IterateToQnew(
     double Qin, /* summed Q new in for all sub-cachments */

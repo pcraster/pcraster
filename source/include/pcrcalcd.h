@@ -57,7 +57,9 @@ typedef OP_ARGS PCR_EXTERNAL_ARGUMENT;
 /* total number of external functions
  * per library that can be loaded
  */
-#define PCR_NR_EXT_FUNCTIONS 64
+enum {
+PCR_NR_EXT_FUNCTIONS = 64
+};
 
 
 typedef int (*PCR_EXTERNAL_FUNCTION_RESULT_TYPES)

@@ -32,8 +32,10 @@
     "i f input table or matrix\n"                                                             \
     "m # move column number (only with -i)\n"
 
-#define INIT_NR_INTERVALS 8
-#define INIT_NR_SLOTS 1024
+enum {
+INIT_NR_INTERVALS = 8,
+INIT_NR_SLOTS = 1024
+};
 
 /**********************/
 /* LOCAL DEFINITIONS  */

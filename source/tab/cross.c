@@ -24,8 +24,10 @@
 /* LOCAL DECLARATIONS */
 /**********************/
 /* key index in single col tables */
-#define INTERVAL 0
-#define COUNT 1
+enum {
+INTERVAL = 0,
+COUNT = 1
+};
 
 /*********************/
 /* LOCAL DEFINITIONS */

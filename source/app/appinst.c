@@ -70,10 +70,12 @@ bool appAllOptionsMostLeft = false;
 #   define VERSION "%s version: %s (%s)\n"
 # endif
 
-#define OPT_SYM_NONE 0
-#define OPT_SYM_REAL 1   /* $ */
-#define OPT_SYM_INT  2   /* # */
-#define OPT_SYM_STR  3   /* * */
+enum {
+OPT_SYM_NONE = 0,
+OPT_SYM_REAL = 1,   /* $ */
+OPT_SYM_INT =  2,   /* # */
+OPT_SYM_STR =  3   /* * */
+};
 #define SET_OPT_SYM(i,value)  localFlagsOptions[i] = (localFlagsOptions[i]|((value)<<1))
 #define GET_OPT_SYM(x)        ((localFlagsOptions[x])>>1)
 #define SET_OPT_MULT(x)       localFlagsOptions[x] = ((localFlagsOptions[x])|1)

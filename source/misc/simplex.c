@@ -32,7 +32,9 @@
 /* characters that can appear in a 
  * number
  */
-#define TOKEN_LEN 256
+enum {
+TOKEN_LEN = 256
+};
 // #define NUMBER_CHARS "0123456789.+-dDeE"
 
 /*********************/

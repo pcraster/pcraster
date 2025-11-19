@@ -7,7 +7,9 @@
 #include "mldd_dagraster.h"
 
 
-#define CASE1_NR  6
+enum {
+CASE1_NR =  6
+};
 
 struct Fixture
 {

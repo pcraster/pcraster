@@ -24,7 +24,9 @@ BOOST_AUTO_TEST_CASE(cast_and_copy_cells)
 {
   using namespace com;
 
-  #define NR 10
+enum {
+NR = 10
+};
   INT4  *int4 = new INT4[NR];
 
   auto *uint1  = reinterpret_cast<UINT1 *>(int4);

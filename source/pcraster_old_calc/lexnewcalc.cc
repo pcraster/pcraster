@@ -118,7 +118,9 @@ typedef unsigned int flex_uint32_t;
 #endif
 
 /* Returned upon end-of-file. */
-#define YY_NULL 0
+enum {
+YY_NULL = 0
+};
 
 /* Promotes a possibly negative, possibly signed char to an unsigned
  * integer for use as an array index.  If the signed char is negative,
@@ -146,7 +148,9 @@ typedef unsigned int flex_uint32_t;
 /* Special action meaning "start processing a new file". */
 #define YY_NEW_FILE yyrestart( yyin  )
 
-#define YY_END_OF_BUFFER_CHAR 0
+enum {
+YY_END_OF_BUFFER_CHAR = 0
+};
 
 /* Size of default input buffer. */
 #ifndef YY_BUF_SIZE
@@ -164,9 +168,11 @@ typedef struct yy_buffer_state *YY_BUFFER_STATE;
 
 extern int yyleng;
 
-#define EOB_ACT_CONTINUE_SCAN 0
-#define EOB_ACT_END_OF_FILE 1
-#define EOB_ACT_LAST_MATCH 2
+enum {
+EOB_ACT_CONTINUE_SCAN = 0,
+EOB_ACT_END_OF_FILE = 1,
+EOB_ACT_LAST_MATCH = 2
+};
 
     #define YY_LESS_LINENO(n)
     
@@ -504,8 +510,10 @@ static yyconst flex_int16_t yy_chk[220] =
        96,   96,   96,   96,   96,   96,   96,   96,   96
     } ;
 
-#define YY_TRAILING_MASK 0x2000
-#define YY_TRAILING_HEAD_MASK 0x4000
+enum {
+YY_TRAILING_MASK = 0x2000,
+YY_TRAILING_HEAD_MASK = 0x4000
+};
 #define REJECT \
 { \
 *yy_cp = (yy_hold_char); /* undo effects of setting up yytext */ \
@@ -583,7 +591,9 @@ and ended by a quote */
  */
 #line 618 "<stdout>"
 
-#define INITIAL 0
+enum {
+INITIAL = 0
+};
 
 #ifndef YY_NO_UNISTD_H
 /* Special case for "unistd.h", since it is non-ANSI. We include it way

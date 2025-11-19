@@ -18,7 +18,9 @@ extern "C" {
 #include "csftypes.h"
 
 /* make smaller to ease debugging */
-#define MAX_NR_FAST_LIST 256
+enum {
+MAX_NR_FAST_LIST = 256
+};
 
 /* pass UINT1_T as default word size
  */

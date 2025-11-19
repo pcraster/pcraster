@@ -21,8 +21,10 @@
 /**********************/
 /* LOCAL DECLARATIONS */
 /**********************/
-#define POS_X 0
-#define POS_Y 1
+enum {
+POS_X = 0,
+POS_Y = 1
+};
 
 /**********************/
 /* LOCAL DEFINITIONS  */

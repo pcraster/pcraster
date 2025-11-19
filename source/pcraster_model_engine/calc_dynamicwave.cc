@@ -835,7 +835,9 @@ void calc::KinematicWave::exec(
 }
 
 
-#define MAX_ITERS 3000
+enum {
+MAX_ITERS = 3000
+};
 
 static double iterateToQnew(
     double Qin,   /* summed Q new in for all sub-catchments */

@@ -238,7 +238,9 @@ BOOST_AUTO_TEST_CASE(testLoadByStorageId)
   // use a copy
   com::copy("inp_1.tbl","tmp.tbl");
 
-#define NR6 6
+enum {
+NR6 = 6
+};
 
   const Operator* a=major2op(OP_LOOKUPNOMINAL);
 

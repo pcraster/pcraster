@@ -32,7 +32,9 @@ BOOST_AUTO_TEST_CASE(testSameBin)
 {
   using namespace calc;
 
-#define NR 3
+enum {
+NR = 3
+};
   const geo::RasterSpace rs(1,NR);
   REAL4 const v1=1;
   REAL4 vb[NR]={2,0,6};
@@ -99,7 +101,9 @@ BOOST_AUTO_TEST_CASE(testCover)
 {
   using namespace calc;
 
-#define NR 3
+enum {
+NR = 3
+};
   const geo::RasterSpace rs(1,NR);
   REAL4 const v1=1;
   REAL4 vb[NR]={2,0,6};
@@ -165,7 +169,9 @@ BOOST_AUTO_TEST_CASE(testSameUn)
 {
   using namespace calc;
 
-#define NR 3
+enum {
+NR = 3
+};
   const geo::RasterSpace rs(1,NR);
   REAL4 const v1=1;
   REAL4 vb[NR]={4,0,-6};
@@ -205,7 +211,9 @@ BOOST_AUTO_TEST_CASE(testDomainError)
 {
   using namespace calc;
 
-#define NR 3
+enum {
+NR = 3
+};
   const geo::RasterSpace rs(1,NR);
   { // N SameUn
     RunTimeEnv rte(rs);
@@ -280,7 +288,9 @@ BOOST_AUTO_TEST_CASE(testDiffUn)
 {
   using namespace calc;
 
-#define NR 3
+enum {
+NR = 3
+};
   const geo::RasterSpace rs(1,NR);
  { // Manual typed in
     RunTimeEnv rte(rs);
@@ -355,7 +365,9 @@ BOOST_AUTO_TEST_CASE(testCompare)
 {
   using namespace calc;
 
-#define NR 3
+enum {
+NR = 3
+};
   const geo::RasterSpace rs(1,NR);
   REAL4 const v1=1;
   REAL4 vb[NR]={2,0,6};
@@ -419,7 +431,9 @@ BOOST_AUTO_TEST_CASE(testIfThen)
 {
   using namespace calc;
 
-#define NR 3
+enum {
+NR = 3
+};
   const geo::RasterSpace rs(1,NR);
   UINT1 sCond[NR]={1,1,0};
   REAL4 sTrue[NR]={2,0,6};
@@ -476,7 +490,9 @@ BOOST_AUTO_TEST_CASE(testIfThenElse)
 {
   using namespace calc;
 
-#define NR 3
+enum {
+NR = 3
+};
   const geo::RasterSpace rs(1,NR);
   UINT1 sCond[NR] ={1,1,0};
 
@@ -539,7 +555,9 @@ BOOST_AUTO_TEST_CASE(testGen)
 {
   using namespace calc;
 
-#define NR 3
+enum {
+NR = 3
+};
   const geo::RasterSpace rs(1,NR);
   {
     RunTimeEnv rte(rs);
@@ -561,7 +579,9 @@ BOOST_AUTO_TEST_CASE(testGlobal)
 {
   using namespace calc;
 
-#define NR6 6
+enum {
+NR6 = 6
+};
   const geo::RasterSpace rs(1,NR6);
   const Operator* a=major2op(OP_AREAMAJORITY);
 
@@ -648,7 +668,9 @@ BOOST_AUTO_TEST_CASE(testMRF)
 {
   using namespace calc;
 
-#define NR6 6
+enum {
+NR6 = 6
+};
   const geo::RasterSpace rs(1,NR6);
 
   UINT1 vbPoints[NR6]={1,0,0,0,0,0};
@@ -715,7 +737,9 @@ BOOST_AUTO_TEST_CASE(testConversion)
 {
   using namespace calc;
 
-#define NR6 6
+enum {
+NR6 = 6
+};
   const geo::RasterSpace rs(1,NR6);
 
   UINT1 vbBol[NR6]={1  ,1  ,0,0,1,1};
@@ -782,7 +806,9 @@ BOOST_AUTO_TEST_CASE(testLookup)
   <msg>1</msg>
 </test>
 */
-#define NR6 6
+enum {
+NR6 = 6
+};
   const geo::RasterSpace rs(1,NR6);
 
   auto* l(new LookupTable());
@@ -848,7 +874,9 @@ BOOST_AUTO_TEST_CASE(testTimeinputTssOp)
     }
   } setTimer;
 
-#define NR6 6
+enum {
+NR6 = 6
+};
   const geo::RasterSpace rs(1,NR6);
 
   // 2 steps with 3 columns

@@ -39,8 +39,8 @@ static size_t nrFast;
 #define MAXFAST 256
 
 typedef struct DATA {
-    INT4 id;     /* id of cell serves as ID */
-    double area; /* area from cell in output cell */
+  INT4 id;     /* id of cell serves as ID */
+  double area; /* area from cell in output cell */
 } DATA;
 
 /******************/
@@ -51,13 +51,13 @@ typedef struct DATA {
  */
 static int ReturnId(DATA *f) /* record of which the id is wanted */
 {
-    return (int)(f->id);
+  return (int)(f->id);
 }
 
 static void InitRec(DATA *f, int id)
 {
-    f->id = id;
-    f->area = 0;
+  f->id = id;
+  f->area = 0;
 }
 
 /* Compares a two DATA structures according to their id-field
@@ -66,34 +66,34 @@ static void InitRec(DATA *f, int id)
 static int CmpStatContVal(DATA *e1, /* pointer to first id */
                           DATA *e2) /* pointer to second id */
 {
-    INT4 tmp = 0;
-    tmp = (e1->id) - (e2->id);
-    return (int)tmp;
+  INT4 tmp = 0;
+  tmp = (e1->id) - (e2->id);
+  return (int)tmp;
 }
 
 static DATA const *FindMaxArea(const DATA *e1, const DATA *e2)
 {
-    int a = CmpDouble(&(e1->area), &(e2->area));
-    if (a == 0)
-        a = (int)((e1->id) - (e2->id));
-    POSTCOND(a != 0);
-    return (a > 0) ? e1 : e2;
+  int a = CmpDouble(&(e1->area), &(e2->area));
+  if (a == 0)
+    a = (int)((e1->id) - (e2->id));
+  POSTCOND(a != 0);
+  return (a > 0) ? e1 : e2;
 }
 
 static DATA const *FindMaxId(const DATA *e1, const DATA *e2)
 {
-    const DATA *maxId = NULL;
-    const DATA *otherId = NULL;
-    if (e1->id > e2->id) {
-        maxId = e1;
-        otherId = e2;
-    } else {
-        maxId = e2;
-        otherId = e1;
-    }
-    if (maxId->area == 0)
-        return otherId;
-    return maxId;
+  const DATA *maxId = NULL;
+  const DATA *otherId = NULL;
+  if (e1->id > e2->id) {
+    maxId = e1;
+    otherId = e2;
+  } else {
+    maxId = e2;
+    otherId = e1;
+  }
+  if (maxId->area == 0)
+    return otherId;
+  return maxId;
 }
 
 /* Calculates the output id according to areas and ids.
@@ -106,30 +106,30 @@ static int CalcOut(MAP *out,            /* write-only output map */
                    size_t cOut,         /* column of pixel */
                    SEARCH_TABLE *table) /* list of ids & areas */
 {
-    //     size_t cover= 0; /* total non-MV cells covering */
-    INT4 outVal = 0; /* the calculated output id */
-    DATA *record = NULL;
+  //     size_t cover= 0; /* total non-MV cells covering */
+  INT4 outVal = 0; /* the calculated output id */
+  DATA *record = NULL;
 
-    if (opMax == 1) { /* maximum id option */
-        /* Maximum id is the output id */
-        record = (DATA *)(STsearch(table, (SEARCH_REC)FindMaxId));
-    } else { /* id with maximum area wanted */
-        record = (DATA *)(STsearch(table, (SEARCH_REC)FindMaxArea));
-    }
+  if (opMax == 1) { /* maximum id option */
+    /* Maximum id is the output id */
+    record = (DATA *)(STsearch(table, (SEARCH_REC)FindMaxId));
+  } else { /* id with maximum area wanted */
+    record = (DATA *)(STsearch(table, (SEARCH_REC)FindMaxArea));
+  }
 
-    outVal = MV_INT4;
-    if (record->area != 0) {
-        outVal = record->id;
-        /* Determine number of covered subpixels of output pixel */
-        //         if (raster != NULL)
-        //             cover= DetNrCoverCells(raster); /* coverage percentage */
-        //                                             /* CW CW CW ???????????????
-        //                                              * if( cover < nrCoverCells || cover == 0)
-        //                                              *    outVal = MV_INT4;
-        //                                              */
-    }
-    RputCell(out, rOut, cOut, &outVal);
-    return 0;
+  outVal = MV_INT4;
+  if (record->area != 0) {
+    outVal = record->id;
+    /* Determine number of covered subpixels of output pixel */
+    //         if (raster != NULL)
+    //             cover= DetNrCoverCells(raster); /* coverage percentage */
+    //                                             /* CW CW CW ???????????????
+    //                                              * if( cover < nrCoverCells || cover == 0)
+    //                                              *    outVal = MV_INT4;
+    //                                              */
+  }
+  RputCell(out, rOut, cOut, &outVal);
+  return 0;
 }
 
 /* Adds cell to search table.
@@ -145,28 +145,28 @@ static int AddCell(SEARCH_TABLE *table,       /* read-write search table */
                    bool aligned,              /* maps are aligned */
                    REAL8 angle)               /* angle of output map */
 {
-    (void)r;  // Shut up compiler
-    INT4 id = currRow[(int)c];
+  (void)r;  // Shut up compiler
+  INT4 id = currRow[(int)c];
 
-    PRECOND(0 <= r && r < RgetNrRows(in));
-    PRECOND(0 <= c && c < RgetNrCols(in));
+  PRECOND(0 <= r && r < RgetNrRows(in));
+  PRECOND(0 <= c && c < RgetNrCols(in));
 
-    /* Add item to search table for cell */
-    if (!IsMV(in, &id)) {
-        DATA *record = NULL;
-        DATA key;
-        double area = NAN; /* area of overlap */
-        key.id = id;
+  /* Add item to search table for cell */
+  if (!IsMV(in, &id)) {
+    DATA *record = NULL;
+    DATA key;
+    double area = NAN; /* area of overlap */
+    key.id = id;
 
-        area = CalcArea(inputCell, outputCell, aligned);
-        if (area != 0 && raster != NULL)
-            ModRaster(raster, outputCell, inputCell, angle);
-        record = (DATA *)(STfindOrInsert(table, &key));
-        if (record == NULL)
-            return 1;
-        record->area += area;
-    }
-    return 0;
+    area = CalcArea(inputCell, outputCell, aligned);
+    if (area != 0 && raster != NULL)
+      ModRaster(raster, outputCell, inputCell, angle);
+    record = (DATA *)(STfindOrInsert(table, &key));
+    if (record == NULL)
+      return 1;
+    record->area += area;
+  }
+  return 0;
 }
 
 /* Calculates one pixel from output map, given the input maps.
@@ -182,149 +182,148 @@ static int CalcPixel(MAP *out,      /* write-only output map */
                      bool aligned,  /* maps are aligned */
                      REAL8 angle)   /* angle of output map */
 {
-    SEARCH_TABLE *table = NULL; /* read-write search table */
-    double r = NAN;
-    double c = NAN;
-    double *leftB = NULL;
-    double *belowB = NULL;
-    double *rightB = NULL;
-    double *upperB = NULL;
-    PTYPE tlX = NAN;
-    PTYPE tlY = NAN;
-    PTYPE trX = NAN;
-    PTYPE trY = NAN;
-    PTYPE brX = NAN;
-    PTYPE brY = NAN;
-    PTYPE blX = NAN;
-    PTYPE blY = NAN; /* corners */
-    size_t i = 0;
-    POINT2D *outputCell = NULL; /* polygon of output cell */
+  SEARCH_TABLE *table = NULL; /* read-write search table */
+  double r = NAN;
+  double c = NAN;
+  double *leftB = NULL;
+  double *belowB = NULL;
+  double *rightB = NULL;
+  double *upperB = NULL;
+  PTYPE tlX = NAN;
+  PTYPE tlY = NAN;
+  PTYPE trX = NAN;
+  PTYPE trY = NAN;
+  PTYPE brX = NAN;
+  PTYPE brY = NAN;
+  PTYPE blX = NAN;
+  PTYPE blY = NAN; /* corners */
+  size_t i = 0;
+  POINT2D *outputCell = NULL; /* polygon of output cell */
 #ifdef DEBUG
-    size_t nr = 4; /* nr of points of cell */
+  size_t nr = 4; /* nr of points of cell */
 #endif
 
-    if (raster != NULL)
-        raster = InitRaster(raster); /* initialize raster */
+  if (raster != NULL)
+    raster = InitRaster(raster); /* initialize raster */
 
-    /* Initialize table */
-    table =
-        STnew(nrFast, sizeof(DATA), (RETURN_ID)ReturnId, (INIT_REC)InitRec, (QSORT_CMP)CmpStatContVal);
-    if (table == NULL)
-        goto failure_alloc;
+  /* Initialize table */
+  table = STnew(nrFast, sizeof(DATA), (RETURN_ID)ReturnId, (INIT_REC)InitRec, (QSORT_CMP)CmpStatContVal);
+  if (table == NULL)
+    goto failure_alloc;
 
-    /* Initialize the boundaries */
-    if (((rightB = (double *)(ChkTmpMalloc(nrMaps * sizeof(double))))) == NULL)
-        goto failure_alloc;
-    if (((leftB = (double *)(ChkTmpMalloc(nrMaps * sizeof(double))))) == NULL)
-        goto failure_alloc;
-    if (((upperB = (double *)(ChkTmpMalloc(nrMaps * sizeof(double))))) == NULL)
-        goto failure_alloc;
-    if (((belowB = (double *)(ChkTmpMalloc(nrMaps * sizeof(double))))) == NULL)
-        goto failure_alloc;
+  /* Initialize the boundaries */
+  if (((rightB = (double *)(ChkTmpMalloc(nrMaps * sizeof(double))))) == NULL)
+    goto failure_alloc;
+  if (((leftB = (double *)(ChkTmpMalloc(nrMaps * sizeof(double))))) == NULL)
+    goto failure_alloc;
+  if (((upperB = (double *)(ChkTmpMalloc(nrMaps * sizeof(double))))) == NULL)
+    goto failure_alloc;
+  if (((belowB = (double *)(ChkTmpMalloc(nrMaps * sizeof(double))))) == NULL)
+    goto failure_alloc;
 
-    /* Determine the four corners of output pixel */
-    /* top left */
-    RrowCol2Coords(out, (double)rOut, (double)cOut, &tlX, &tlY);
+  /* Determine the four corners of output pixel */
+  /* top left */
+  RrowCol2Coords(out, (double)rOut, (double)cOut, &tlX, &tlY);
 
-    /* top right */
-    RrowCol2Coords(out, (double)rOut, (double)cOut + 1, &trX, &trY);
-    /* bottom left */
-    RrowCol2Coords(out, (double)rOut + 1, (double)cOut, &blX, &blY);
-    /* bottom right */
-    RrowCol2Coords(out, (double)rOut + 1, (double)cOut + 1, &brX, &brY);
+  /* top right */
+  RrowCol2Coords(out, (double)rOut, (double)cOut + 1, &trX, &trY);
+  /* bottom left */
+  RrowCol2Coords(out, (double)rOut + 1, (double)cOut, &blX, &blY);
+  /* bottom right */
+  RrowCol2Coords(out, (double)rOut + 1, (double)cOut + 1, &brX, &brY);
 
-    outputCell = PutInPol(tlX, tlY, trX, trY, brX, brY, blX, blY);
-    if (outputCell == NULL)
-        goto failure;
+  outputCell = PutInPol(tlX, tlY, trX, trY, brX, brY, blX, blY);
+  if (outputCell == NULL)
+    goto failure;
 
-    POSTCOND(outputCell[0].x == outputCell[nr].x);
-    POSTCOND(outputCell[0].y == outputCell[nr].y);
+  POSTCOND(outputCell[0].x == outputCell[nr].x);
+  POSTCOND(outputCell[0].y == outputCell[nr].y);
 
-    /* Get pixel on every input map */
-    for (i = 0; i < nrMaps; i++) {
-        MAP *X = in[i];
-        PTYPE tlC = NAN;
-        PTYPE tlR = NAN;
-        PTYPE trC = NAN;
-        PTYPE trR = NAN;
-        PTYPE brC = NAN;
-        PTYPE brR = NAN;
-        PTYPE blC = NAN;
-        PTYPE blR = NAN;
-        PTYPE tlX2 = NAN;
-        PTYPE tlY2 = NAN;
-        PTYPE trX2 = NAN;
-        PTYPE trY2 = NAN;
-        PTYPE brX2 = NAN;
-        PTYPE brY2 = NAN;
-        PTYPE blX2 = NAN;
-        PTYPE blY2 = NAN;
-        INT4 *currRow = NULL;
+  /* Get pixel on every input map */
+  for (i = 0; i < nrMaps; i++) {
+    MAP *X = in[i];
+    PTYPE tlC = NAN;
+    PTYPE tlR = NAN;
+    PTYPE trC = NAN;
+    PTYPE trR = NAN;
+    PTYPE brC = NAN;
+    PTYPE brR = NAN;
+    PTYPE blC = NAN;
+    PTYPE blR = NAN;
+    PTYPE tlX2 = NAN;
+    PTYPE tlY2 = NAN;
+    PTYPE trX2 = NAN;
+    PTYPE trY2 = NAN;
+    PTYPE brX2 = NAN;
+    PTYPE brY2 = NAN;
+    PTYPE blX2 = NAN;
+    PTYPE blY2 = NAN;
+    INT4 *currRow = NULL;
 
-        /* Corners: (tlX, tlY), (trX, trY), (blX, blY) and
+    /* Corners: (tlX, tlY), (trX, trY), (blX, blY) and
          * (brX, brY). Translate for input map.
          */
-        Rcoords2RowCol(X, tlX, tlY, &tlC, &tlR); /* top left */
-        Rcoords2RowCol(X, trX, trY, &trC, &trR); /* top right */
-        Rcoords2RowCol(X, blX, blY, &blC, &blR); /* bottom left */
-        Rcoords2RowCol(X, brX, brY, &brC, &brR); /* bottom right */
+    Rcoords2RowCol(X, tlX, tlY, &tlC, &tlR); /* top left */
+    Rcoords2RowCol(X, trX, trY, &trC, &trR); /* top right */
+    Rcoords2RowCol(X, blX, blY, &blC, &blR); /* bottom left */
+    Rcoords2RowCol(X, brX, brY, &brC, &brR); /* bottom right */
 
-        /* Boundaries in the input map */
-        rightB[i] = ceil(MaxPoint(tlR, trR, blR, brR));
-        belowB[i] = ceil(MaxPoint(tlC, trC, blC, brC));
-        leftB[i] = floor(MinPoint(tlR, trR, blR, brR));
-        upperB[i] = floor(MinPoint(tlC, trC, blC, brC));
+    /* Boundaries in the input map */
+    rightB[i] = ceil(MaxPoint(tlR, trR, blR, brR));
+    belowB[i] = ceil(MaxPoint(tlC, trC, blC, brC));
+    leftB[i] = floor(MinPoint(tlR, trR, blR, brR));
+    upperB[i] = floor(MinPoint(tlC, trC, blC, brC));
 
-        PRECOND(upperB[i] <= belowB[i]);
-        PRECOND(leftB[i] <= rightB[i]);
-        for (r = upperB[i]; r < belowB[i]; r++) {
-            if (0 <= r && r < RgetNrRows(X))
-                currRow = (INT4 *)CacheGetRow(in, i, r);
+    PRECOND(upperB[i] <= belowB[i]);
+    PRECOND(leftB[i] <= rightB[i]);
+    for (r = upperB[i]; r < belowB[i]; r++) {
+      if (0 <= r && r < RgetNrRows(X))
+        currRow = (INT4 *)CacheGetRow(in, i, r);
 
-            for (c = leftB[i]; c < rightB[i]; c++) { /* Cells that might be in pixel */
-                POINT2D *inputCell = NULL;
+      for (c = leftB[i]; c < rightB[i]; c++) { /* Cells that might be in pixel */
+        POINT2D *inputCell = NULL;
 
-                if (r < 0 || RgetNrRows(X) <= r || c < 0 || RgetNrCols(X) <= c)
-                    continue;
+        if (r < 0 || RgetNrRows(X) <= r || c < 0 || RgetNrCols(X) <= c)
+          continue;
 
-                /* Top left & right, bottom right & left */
-                RrowCol2Coords(X, r, c, &tlX2, &tlY2);
-                RrowCol2Coords(X, r, c + 1, &trX2, &trY2);
-                RrowCol2Coords(X, r + 1, c + 1, &brX2, &brY2);
-                RrowCol2Coords(X, r + 1, c, &blX2, &blY2);
-                inputCell = PutInPol(tlX2, tlY2, trX2, trY2, brX2, brY2, blX2, blY2);
-                if (inputCell == NULL)
-                    goto failure;
+        /* Top left & right, bottom right & left */
+        RrowCol2Coords(X, r, c, &tlX2, &tlY2);
+        RrowCol2Coords(X, r, c + 1, &trX2, &trY2);
+        RrowCol2Coords(X, r + 1, c + 1, &brX2, &brY2);
+        RrowCol2Coords(X, r + 1, c, &blX2, &blY2);
+        inputCell = PutInPol(tlX2, tlY2, trX2, trY2, brX2, brY2, blX2, blY2);
+        if (inputCell == NULL)
+          goto failure;
 
-                POSTCOND(inputCell[0].x == inputCell[nr].x);
-                POSTCOND(inputCell[0].y == inputCell[nr].y);
+        POSTCOND(inputCell[0].x == inputCell[nr].x);
+        POSTCOND(inputCell[0].y == inputCell[nr].y);
 
-                if (AddCell(table, inputCell, outputCell, currRow, in[i], r, c, aligned, angle))
-                    return 1;
-                Free(inputCell); /* deallocate */
-            }
-        }
+        if (AddCell(table, inputCell, outputCell, currRow, in[i], r, c, aligned, angle))
+          return 1;
+        Free(inputCell); /* deallocate */
+      }
     }
+  }
 
-    if (CalcOut(out, rOut, cOut, table))
-        goto failure;
+  if (CalcOut(out, rOut, cOut, table))
+    goto failure;
 
-    STfree(table);
-    Free(outputCell);
-    ChkTmpFree(upperB);
-    ChkTmpFree(leftB);
-    ChkTmpFree(belowB);
-    ChkTmpFree(rightB);
-    return 0;
+  STfree(table);
+  Free(outputCell);
+  ChkTmpFree(upperB);
+  ChkTmpFree(leftB);
+  ChkTmpFree(belowB);
+  ChkTmpFree(rightB);
+  return 0;
 failure:
-    ChkTmpFree(upperB);
-    ChkTmpFree(leftB);
-    ChkTmpFree(belowB);
-    ChkTmpFree(rightB);
+  ChkTmpFree(upperB);
+  ChkTmpFree(leftB);
+  ChkTmpFree(belowB);
+  ChkTmpFree(rightB);
 failure_alloc:
-    Free(outputCell);
-    STfree(table);
-    return 1;
+  Free(outputCell);
+  STfree(table);
+  return 1;
 }
 
 /* Resamples N input maps into 1 output map.
@@ -343,47 +342,47 @@ int SampleClass(MAP *out,          /* write-only output map */
                 bool aligned,      /* maps are aligned */
                 REAL8 angle)       /* angle of output map */
 {
-    INT4 maxVal = 0; /* maximum id input maps */
-    size_t r = 0;
-    size_t c = 0;            /* row and column coordinate */
-    size_t nrCoverCells = 0; /* min. nr. of cells for non-MV */
-    size_t i = 0;            /* input map i, nr. of fast list
+  INT4 maxVal = 0; /* maximum id input maps */
+  size_t r = 0;
+  size_t c = 0;            /* row and column coordinate */
+  size_t nrCoverCells = 0; /* min. nr. of cells for non-MV */
+  size_t i = 0;            /* input map i, nr. of fast list
                           * items.
                           */
 
-    InitCache(out, in, nrMaps);
+  InitCache(out, in, nrMaps);
 
-    nrCoverCells = ceil((percentage / 100) * rasterSize * rasterSize);
+  nrCoverCells = ceil((percentage / 100) * rasterSize * rasterSize);
 
-    if (percentage > 0 && nrMaps > 1)
-        raster = NewRaster(nrCoverCells, rasterSize);
+  if (percentage > 0 && nrMaps > 1)
+    raster = NewRaster(nrCoverCells, rasterSize);
 
-    /* Determine maximum id of input maps */
-    RgetMaxVal(in[0], &maxVal);
-    for (i = 1; i < nrMaps; i++) {
-        INT4 max = 0;
-        RgetMaxVal(in[i], &max);
-        maxVal = MAX(max, maxVal);
+  /* Determine maximum id of input maps */
+  RgetMaxVal(in[0], &maxVal);
+  for (i = 1; i < nrMaps; i++) {
+    INT4 max = 0;
+    RgetMaxVal(in[i], &max);
+    maxVal = MAX(max, maxVal);
+  }
+
+  /* Determine the number of items in the fast list */
+  if (MAXFAST < maxVal)
+    nrFast = MAXFAST;
+  else
+    nrFast = maxVal + 1;
+
+
+  /* Calculate the id for each pixel */
+  for (r = 0; r < nrRows; r++) {
+    AppRowProgress((int)r);
+    for (c = 0; c < nrCols; c++) {
+      if (CalcPixel(out, in, nrMaps, r, c, aligned, angle))
+        return 1; /* allocation failed */
     }
-
-    /* Determine the number of items in the fast list */
-    if (MAXFAST < maxVal)
-        nrFast = MAXFAST;
-    else
-        nrFast = maxVal + 1;
-
-
-    /* Calculate the id for each pixel */
-    for (r = 0; r < nrRows; r++) {
-        AppRowProgress((int)r);
-        for (c = 0; c < nrCols; c++) {
-            if (CalcPixel(out, in, nrMaps, r, c, aligned, angle))
-                return 1; /* allocation failed */
-        }
-    }
-    AppEndRowProgress();
-    if (raster != NULL)
-        FreeRaster(raster);
-    FreeCache(nrMaps);
-    return 0; /* successfully terminated */
+  }
+  AppEndRowProgress();
+  if (raster != NULL)
+    FreeRaster(raster);
+  FreeCache(nrMaps);
+  return 0; /* successfully terminated */
 }

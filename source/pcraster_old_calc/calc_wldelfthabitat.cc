@@ -19,10 +19,11 @@
 #include "calc_stattable.h"
 
 #include <QtGlobal>
+
 #include <iostream>
+#include <map>
 #include <sstream>
 #include <set>
-#include <map>
 #include <sstream>
 
 /*!
@@ -50,11 +51,7 @@ namespace calc {
       const QDomElement& e,
       const QString& attrName) {
     QString const value=e.attribute(attrName);
-#if QT_VERSION < QT_VERSION_CHECK(5, 9, 0)
-    if (value == QString::null) {
-#else
     if (value == QString()) {
-#endif
       std::ostringstream os;
       os << "expect element '"
          << std::string(e.tagName().toLatin1())

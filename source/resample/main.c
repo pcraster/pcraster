@@ -29,11 +29,11 @@
 /*************/
 /* EXTERNALS */
 /*************/
-int opPer= 0;      /* option for percentage */
-int opMax= 0;      /* option for maximum value */
-bool opR= false;   /* option for resample factor */
-bool opMV= false;  /* option for non-MV border */
-bool opB= false;   /* option for border */
+int opPer = 0;     /* option for percentage */
+int opMax = 0;     /* option for maximum value */
+bool opR = false;  /* option for resample factor */
+bool opMV = false; /* option for non-MV border */
+bool opB = false;  /* option for border */
 int optionAcc;     /* option for accuracy */
 size_t rasterSize; /* rasterSize for cover raster */
 int nrOpFields;    /* number of option fields */
@@ -50,29 +50,30 @@ extern int nrSearchTables;
 #define NO_CLONE_NEEDED (opR || opMV || opB)
 
 
-#define USAGE                                                                                                                                                                                                                                                                          \
-    "USAGE resample InputMap(s) OutputMap\n"                                                                                                                                                                                                                                           \
-    " e $ error percentage\n"                                                                                                                                                                                                                                                          \
-    " b # border\n"                                                                                                                                                                                                                                                                    \
-    " c # non-MV border\n"                                                                                                                                                                                                                                                             \
-    " m   maximal value calculated\n"                                                                                                                                                                                                                                                  \
-    " p $ percentage (default 0)\n"                                                                                                                                                                                                                                                    \
-    " r $ resample factor\n"                                                                                                                                                                                                                                                           \
-    " B   same as -b 0\n"                                                                                                                                                                                                                                                              \
-    " C   same as -c 0\n"                                                                                                                                                                                                                                                              \
-    " R   same as -r 1\n"                                                                                                                                                                                                                                                              \
-    " a   contract map when rounding to cells\n"                                                                                                                                                                                                                                       \
-    " x   expand map when rounding to cells (default)\n"                                                                                                                                                                                                                               \
-    " k   keep minumum and maximum of input \n"                                                                                                                                                                                                                                        \
+#define USAGE                                                                                           \
+    "USAGE resample InputMap(s) OutputMap\n"                                                            \
+    " e $ error percentage\n"                                                                           \
+    " b # border\n"                                                                                     \
+    " c # non-MV border\n"                                                                              \
+    " m   maximal value calculated\n"                                                                   \
+    " p $ percentage (default 0)\n"                                                                     \
+    " r $ resample factor\n"                                                                            \
+    " B   same as -b 0\n"                                                                               \
+    " C   same as -c 0\n"                                                                               \
+    " R   same as -r 1\n"                                                                               \
+    " a   contract map when rounding to cells\n"                                                        \
+    " x   expand map when rounding to cells (default)\n"                                                \
+    " k   keep minumum and maximum of input \n"                                                         \
     " --clone clone.map resample to this size\n"
 
 /**********************/
 /* LOCAL DEFINITIONS  */
 /**********************/
 enum {
-INITSIZE = 20,
-MAXSIZE = 200
+    INITSIZE = 20,
+    MAXSIZE = 200
 };
+
 #define EPSILON 0.00000001
 
 /******************/
@@ -81,56 +82,55 @@ MAXSIZE = 200
 /* Determines the boundaries and calculates X0, Y0, nrRows and nrCols.
  * Returns nothing but changes the X0, Y0, nrRows and nrCols.
  */
-static void CalcBound(
-    REAL8 *X0,         /* write-only X0 */
-    REAL8 *Y0,         /* write-only Y0 */
-    size_t *nrRows,    /* write-only nr of rows */
-    size_t *nrCols,    /* write-only nr of columns */
-    POINT2D *leftU,    /* read-write maximum x-coordinate */
-    POINT2D *rightU,   /* read-write maximum y-coordinate */
-    POINT2D *leftL,    /* read-write minimum x-coordinate */
-    POINT2D *rightL,   /* read-write minimum y-coordinate */
-    int borderValue,   /* bordervalue */
-    double cellSize,   /* cellSize */
-    double angle,      /* angle of output map */
-    CSF_PT projection, /* projection of output map */
-    bool contract)     /* to contract the map */
+static void CalcBound(REAL8 *X0,         /* write-only X0 */
+                      REAL8 *Y0,         /* write-only Y0 */
+                      size_t *nrRows,    /* write-only nr of rows */
+                      size_t *nrCols,    /* write-only nr of columns */
+                      POINT2D *leftU,    /* read-write maximum x-coordinate */
+                      POINT2D *rightU,   /* read-write maximum y-coordinate */
+                      POINT2D *leftL,    /* read-write minimum x-coordinate */
+                      POINT2D *rightL,   /* read-write minimum y-coordinate */
+                      int borderValue,   /* bordervalue */
+                      double cellSize,   /* cellSize */
+                      double angle,      /* angle of output map */
+                      CSF_PT projection, /* projection of output map */
+                      bool contract)     /* to contract the map */
 {
     double nrR = NAN;
     double nrC = NAN;
 
     /* Adjust boundaries according to border value */
-    leftU->x-= borderValue;
-    rightU->x+= borderValue;
-    leftL->x-= borderValue;
-    rightL->x+= borderValue;
+    leftU->x -= borderValue;
+    rightU->x += borderValue;
+    leftL->x -= borderValue;
+    rightL->x += borderValue;
     if (projection == PT_YINCT2B) {
-        leftU->y-= borderValue;
-        rightU->y-= borderValue;
-        leftL->y+= borderValue;
-        rightL->y+= borderValue;
+        leftU->y -= borderValue;
+        rightU->y -= borderValue;
+        leftL->y += borderValue;
+        rightL->y += borderValue;
     } else {
-        leftU->y+= borderValue;
-        rightU->y+= borderValue;
-        leftL->y-= borderValue;
-        rightL->y-= borderValue;
+        leftU->y += borderValue;
+        rightU->y += borderValue;
+        leftL->y -= borderValue;
+        rightL->y -= borderValue;
     }
 
     /* Calculate the number of rows and columns */
-    nrR= (rightL->y - rightU->y) / cellSize;
-    nrC= (rightU->x - leftU->x) / cellSize;
+    nrR = (rightL->y - rightU->y) / cellSize;
+    nrC = (rightU->x - leftU->x) / cellSize;
 
     if (nrR < 0)
-        nrR= -nrR;
+        nrR = -nrR;
     if (nrC < 0)
-        nrC= -nrC;
+        nrC = -nrC;
 
     if (contract) {
-        *nrRows= floor((REAL4)nrR);
-        *nrCols= floor((REAL4)nrC);
+        *nrRows = floor((REAL4)nrR);
+        *nrCols = floor((REAL4)nrC);
     } else {
-        *nrRows= ceil((REAL4)nrR);
-        *nrCols= ceil((REAL4)nrC);
+        *nrRows = ceil((REAL4)nrR);
+        *nrCols = ceil((REAL4)nrC);
     }
 
     /* Rotate points back to original position */
@@ -141,8 +141,8 @@ static void CalcBound(
         (void)RotPoint(rightL, M_2PI - angle);
     }
 
-    *X0= leftU->x;
-    *Y0= leftU->y;
+    *X0 = leftU->x;
+    *Y0 = leftU->y;
 
     return;
 }
@@ -150,18 +150,17 @@ static void CalcBound(
 /* Checks whether all input maps have the same attributes as given.
  * Returns 1 in case of a difference, 0 otherwise.
  */
-static int CheckInputMaps(
-    MAP **in,          /* input maps to check */
-    size_t nrMaps,     /* number of input maps */
-    CSF_PT projection, /* projection to satisfy */
-    REAL8 angle,       /* angle to satisfy */
-    REAL8 cellSize)    /* cell size to satisfy */
+static int CheckInputMaps(MAP **in,          /* input maps to check */
+                          size_t nrMaps,     /* number of input maps */
+                          CSF_PT projection, /* projection to satisfy */
+                          REAL8 angle,       /* angle to satisfy */
+                          REAL8 cellSize)    /* cell size to satisfy */
 {
     size_t i = 0;
 
     /* Check all input maps */
-    for (i= 0; i < nrMaps; i++) {
-        MAP *X= in[i];
+    for (i = 0; i < nrMaps; i++) {
+        MAP *X = in[i];
         if (angle != RgetAngle(X)) {
             ErrorNested("all input map should have the same angle.");
             return 1;
@@ -184,24 +183,23 @@ static int CheckInputMaps(
  * The bordervalue is added.
  * Returns x0, y0, nrRows and nrCols for out.
  */
-static int SmallestFittingRectangle(
-    REAL8 *X0out,      /* write-only X0 */
-    REAL8 *Y0out,      /* write-only Y0 */
-    size_t *nrRows,    /* write-only nr of rows */
-    size_t *nrCols,    /* write-only nr of columns */
-    MAP **in,          /* read-only pointer to input maps */
-    int borderValue,   /* bordervalue */
-    size_t nrMaps,     /* number of input maps */
-    REAL8 cellSize,    /* cell size of output map */
-    REAL8 angle,       /* angle of output map */
-    CSF_PT projection, /* projection of output map */
-    bool contract)     /* map should be contracted */
+static int SmallestFittingRectangle(REAL8 *X0out,      /* write-only X0 */
+                                    REAL8 *Y0out,      /* write-only Y0 */
+                                    size_t *nrRows,    /* write-only nr of rows */
+                                    size_t *nrCols,    /* write-only nr of columns */
+                                    MAP **in,          /* read-only pointer to input maps */
+                                    int borderValue,   /* bordervalue */
+                                    size_t nrMaps,     /* number of input maps */
+                                    REAL8 cellSize,    /* cell size of output map */
+                                    REAL8 angle,       /* angle of output map */
+                                    CSF_PT projection, /* projection of output map */
+                                    bool contract)     /* map should be contracted */
 {
     size_t i = 0;
-    REAL8 upperB= 0;
-    REAL8 leftB= 0;
-    REAL8 rightB= 0;
-    REAL8 belowB= 0;
+    REAL8 upperB = 0;
+    REAL8 leftB = 0;
+    REAL8 rightB = 0;
+    REAL8 belowB = 0;
     /* ^- shut up about use before def */
     POINT2D leftUpperC;
     POINT2D rightUpperC;
@@ -209,60 +207,61 @@ static int SmallestFittingRectangle(
     POINT2D rightLowerC;
 
     /* determine the boundaries for every map */
-    for (i= 0; i < nrMaps; i++) {
-        MAP *X= in[i];
+    for (i = 0; i < nrMaps; i++) {
+        MAP *X = in[i];
         int c = 0;
         POINT2D polygon[4]; /* rectangle */
-        REAL8 X0= RgetX0(X);
-        REAL8 Y0= RgetY0(X);
-        REAL8 nrR= (REAL8)RgetNrRows(X);
-        REAL8 nrC= (REAL8)RgetNrCols(X);
+        REAL8 X0 = RgetX0(X);
+        REAL8 Y0 = RgetY0(X);
+        REAL8 nrR = (REAL8)RgetNrRows(X);
+        REAL8 nrC = (REAL8)RgetNrCols(X);
 
         /* transform corners of map into x- and y-coordinates */
-        polygon[0].x= X0;
-        polygon[0].y= Y0;
+        polygon[0].x = X0;
+        polygon[0].y = Y0;
         RrowCol2Coords(X, 0.0, nrC - EPSILON, &polygon[1].x, &polygon[1].y);
         RrowCol2Coords(X, nrR - EPSILON, nrC - EPSILON, &polygon[2].x, &polygon[2].y);
         RrowCol2Coords(X, nrR - EPSILON, 0.0, &polygon[3].x, &polygon[3].y);
 
         /* Rotate all corners of map */
         if (angle != 0)
-            for (c= 0; c < 4; c++)
+            for (c = 0; c < 4; c++)
                 RotPoint(polygon + c, angle);
 
         /* Determine boundaries of rotated output map */
-        for (c= 0; c < 4; c++) {
+        for (c = 0; c < 4; c++) {
             if ((i == 0 && c == 0) || polygon[c].y > belowB)
-                belowB= polygon[c].y;
+                belowB = polygon[c].y;
             if ((i == 0 && c == 0) || polygon[c].y < upperB)
-                upperB= polygon[c].y;
+                upperB = polygon[c].y;
             if ((i == 0 && c == 0) || polygon[c].x > rightB)
-                rightB= polygon[c].x;
+                rightB = polygon[c].x;
             if ((i == 0 && c == 0) || polygon[c].x < leftB)
-                leftB= polygon[c].x;
+                leftB = polygon[c].x;
         }
     }
 
     /* Put boundaries in corners of the rotated map */
-    leftUpperC.x= leftB;
-    rightUpperC.x= rightB;
-    leftLowerC.x= leftB;
-    rightLowerC.x= rightB;
+    leftUpperC.x = leftB;
+    rightUpperC.x = rightB;
+    leftLowerC.x = leftB;
+    rightLowerC.x = rightB;
 
     if (projection == PT_YINCT2B) {
-        leftUpperC.y= upperB;
-        rightUpperC.y= upperB;
-        leftLowerC.y= belowB;
-        rightLowerC.y= belowB;
+        leftUpperC.y = upperB;
+        rightUpperC.y = upperB;
+        leftLowerC.y = belowB;
+        rightLowerC.y = belowB;
     } else {
-        leftUpperC.y= belowB;
-        rightUpperC.y= belowB;
-        leftLowerC.y= upperB;
-        rightLowerC.y= upperB;
+        leftUpperC.y = belowB;
+        rightUpperC.y = belowB;
+        leftLowerC.y = upperB;
+        rightLowerC.y = upperB;
     }
 
     /* calculate the boundary of the output map */
-    CalcBound(X0out, Y0out, nrRows, nrCols, &leftUpperC, &rightUpperC, &leftLowerC, &rightLowerC, borderValue, cellSize, angle, projection, contract);
+    CalcBound(X0out, Y0out, nrRows, nrCols, &leftUpperC, &rightUpperC, &leftLowerC, &rightLowerC,
+              borderValue, cellSize, angle, projection, contract);
     return 0;
 }
 
@@ -270,55 +269,57 @@ static int SmallestFittingRectangle(
  * The border value can be added around this rectangle.
  * Returns x0, y0 , nrRows and nrCols for out.
  */
-static int SmallestNonMVRect(
-    REAL8 *X0out,      /* write-only X0 */
-    REAL8 *Y0out,      /* write-only Y0 */
-    size_t *nrRows,    /* write-only nr of rows */
-    size_t *nrCols,    /* write-only nr of columns */
-    MAP **in,          /* read-only pointer in maps */
-    int borderValue,   /* border value */
-    size_t nrMaps,     /* number of input maps */
-    CSF_VS valueScale, /* value scale of output map */
-    REAL8 cellSize,    /* cellSize of map */
-    REAL8 angle,       /* angle of output map */
-    CSF_PT projection, /* projection of output map */
-    bool contract)     /* map should be contracted */
+static int SmallestNonMVRect(REAL8 *X0out,      /* write-only X0 */
+                             REAL8 *Y0out,      /* write-only Y0 */
+                             size_t *nrRows,    /* write-only nr of rows */
+                             size_t *nrCols,    /* write-only nr of columns */
+                             MAP **in,          /* read-only pointer in maps */
+                             int borderValue,   /* border value */
+                             size_t nrMaps,     /* number of input maps */
+                             CSF_VS valueScale, /* value scale of output map */
+                             REAL8 cellSize,    /* cellSize of map */
+                             REAL8 angle,       /* angle of output map */
+                             CSF_PT projection, /* projection of output map */
+                             bool contract)     /* map should be contracted */
 {
     size_t i = 0;
     POINT2D leftUpperC;
     POINT2D leftLowerC;
     POINT2D rightUpperC;
     POINT2D rightLowerC;
-    REAL8 upperB= 0;
-    REAL8 leftB= 0;
-    REAL8 rightB= 0;
-    REAL8 belowB= 0;
+    REAL8 upperB = 0;
+    REAL8 leftB = 0;
+    REAL8 rightB = 0;
+    REAL8 belowB = 0;
     /* ^- shut up about use before def */
 
-    for (i= 0; i < nrMaps; i++) {
-        MAP *X= in[i];
-        bool first= true;
+    for (i = 0; i < nrMaps; i++) {
+        MAP *X = in[i];
+        bool first = true;
         POINT2D polygon[4];
         size_t r = 0;
         size_t c = 0;
-        size_t nrR= RgetNrRows(X);
-        size_t nrC= RgetNrCols(X);
+        size_t nrR = RgetNrRows(X);
+        size_t nrC = RgetNrCols(X);
 
-        for (r= 0; r < nrR; r++)
-            for (c= 0; c < nrC; c++) {
+        for (r = 0; r < nrR; r++)
+            for (c = 0; c < nrC; c++) {
                 INT4 int4Val = 0;
                 REAL8 real8Val = NAN;
 
-                if ((AppIsClassified(valueScale) && RgetCell(in[i], r, c, &int4Val) && int4Val != MV_INT4) || (!AppIsClassified(valueScale) && RgetCell(in[i], r, c, &real8Val) && (IsMV(in[i], &real8Val) == false))) {
+                if ((AppIsClassified(valueScale) && RgetCell(in[i], r, c, &int4Val) &&
+                     int4Val != MV_INT4) ||
+                    (!AppIsClassified(valueScale) && RgetCell(in[i], r, c, &real8Val) &&
+                     (IsMV(in[i], &real8Val) == false))) {
                     if (first || c < leftB)
-                        leftB= c;
+                        leftB = c;
                     if (first || c > rightB)
-                        rightB= c;
+                        rightB = c;
                     if (first || r > belowB)
-                        belowB= r;
+                        belowB = r;
                     if (first || r < upperB)
-                        upperB= r;
-                    first= false;
+                        upperB = r;
+                    first = false;
                 }
             }
 
@@ -330,55 +331,55 @@ static int SmallestNonMVRect(
 
         /* Rotate all corners of map */
         if (angle != 0) {
-            for (c= 0; c < 4; c++)
-                polygon[c]= *RotPoint(polygon + c, angle);
+            for (c = 0; c < 4; c++)
+                polygon[c] = *RotPoint(polygon + c, angle);
         }
 
         /* Determine boundaries of rotated output map */
-        for (c= 0; c < 4; c++) {
+        for (c = 0; c < 4; c++) {
             if (polygon[c].y > belowB || (i == 0 && c == 0))
-                belowB= polygon[c].y;
+                belowB = polygon[c].y;
             if (polygon[c].y < upperB || (i == 0 && c == 0))
-                upperB= polygon[c].y;
+                upperB = polygon[c].y;
             if (polygon[c].x > rightB || (i == 0 && c == 0))
-                rightB= polygon[c].x;
+                rightB = polygon[c].x;
             if (polygon[c].x < leftB || (i == 0 && c == 0))
-                leftB= polygon[c].x;
+                leftB = polygon[c].x;
         }
     }
 
-    leftUpperC.x= leftB;
-    rightUpperC.x= rightB;
-    leftLowerC.x= leftB;
-    rightLowerC.x= rightB;
+    leftUpperC.x = leftB;
+    rightUpperC.x = rightB;
+    leftLowerC.x = leftB;
+    rightLowerC.x = rightB;
 
     if (projection == PT_YINCT2B) {
-        leftUpperC.y= upperB;
-        rightUpperC.y= upperB;
-        leftLowerC.y= belowB;
-        rightLowerC.y= belowB;
+        leftUpperC.y = upperB;
+        rightUpperC.y = upperB;
+        leftLowerC.y = belowB;
+        rightLowerC.y = belowB;
     } else {
-        leftUpperC.y= belowB;
-        rightUpperC.y= belowB;
-        leftLowerC.y= upperB;
-        rightLowerC.y= upperB;
+        leftUpperC.y = belowB;
+        rightUpperC.y = belowB;
+        leftLowerC.y = upperB;
+        rightLowerC.y = upperB;
     }
 
-    CalcBound(X0out, Y0out, nrRows, nrCols, &leftUpperC, &rightUpperC, &leftLowerC, &rightLowerC, borderValue, cellSize, angle, projection, contract);
+    CalcBound(X0out, Y0out, nrRows, nrCols, &leftUpperC, &rightUpperC, &leftLowerC, &rightLowerC,
+              borderValue, cellSize, angle, projection, contract);
     return 0;
 }
 
 /* Deallocates all input maps
  * Return nothing.
  */
-static void FreeMaps(
-    MAP **in,      /* write-only pointer to input maps */
-    size_t nrMaps) /* number of input maps */
+static void FreeMaps(MAP **in,      /* write-only pointer to input maps */
+                     size_t nrMaps) /* number of input maps */
 {
     size_t i = 0;
-    for (i= 0; i < nrMaps; i++) /* Close all maps */
+    for (i = 0; i < nrMaps; i++) /* Close all maps */
     {
-        MAP *tmp= in[i];
+        MAP *tmp = in[i];
         if (Mclose(tmp))
             MperrorExit(MgetFileName(tmp), 1);
     }
@@ -391,13 +392,12 @@ static void FreeMaps(
  * cell size than the rastersize may be less than the INITSIZE.
  * Returns 1 in case of error, 0 otherwise.
  */
-static int DetRasterSize(
-    const MAP *out,   /* write-only output map */
-    MAP **in,         /* read-only input maps */
-    size_t nrMaps,    /* number of input maps */
-    double errFactor) /* maximum error */
+static int DetRasterSize(const MAP *out,   /* write-only output map */
+                         MAP **in,         /* read-only input maps */
+                         size_t nrMaps,    /* number of input maps */
+                         double errFactor) /* maximum error */
 {
-    REAL8 minCellSize= REAL8_MAX;
+    REAL8 minCellSize = REAL8_MAX;
     size_t i = 0;
     CSF_PT projIn;
     CSF_PT projOut;
@@ -409,78 +409,77 @@ static int DetRasterSize(
     REAL8 Yout = NAN;
     REAL8 angleIn = NAN;
     REAL8 angleOut = NAN;
-    rasterSize= INITSIZE;
+    rasterSize = INITSIZE;
 
     /* If option -a set -> rastersize depends on wanted accuracy */
     if (optionAcc) {
         if (errFactor != 0)
-            rasterSize= ceil((double)50 / errFactor);
+            rasterSize = ceil((double)50 / errFactor);
         else
-            rasterSize= MAXSIZE;
+            rasterSize = MAXSIZE;
     }
 
     /* Determine the output angle */
-    angleOut= RgetAngle(out);
-    projOut= MgetProjection(out);
+    angleOut = RgetAngle(out);
+    projOut = MgetProjection(out);
 
     /* Determine the minimum cell size */
-    for (i= 0; i < nrMaps; i++) {
-        MAP *X= in[i];
-        angleIn= RgetAngle(X);
-        projIn= MgetProjection(X);
+    for (i = 0; i < nrMaps; i++) {
+        MAP *X = in[i];
+        angleIn = RgetAngle(X);
+        projIn = MgetProjection(X);
         if (angleIn != angleOut || projIn != projOut)
             return 0; /* different angles */
-        cellSize= RgetCellSize(X);
+        cellSize = RgetCellSize(X);
         if (cellSize <= 0) /* illegal cell size */
             return 1;
         if (cellSize < minCellSize)
-            minCellSize= cellSize; /* minimum cell size */
+            minCellSize = cellSize; /* minimum cell size */
     }
-    cellSize= RgetCellSize(out);
+    cellSize = RgetCellSize(out);
     if (cellSize <= 0)
         return 1; /* illegal cell size */
     if (cellSize < minCellSize)
-        minCellSize= cellSize; /* minimum cell size */
+        minCellSize = cellSize; /* minimum cell size */
 
     /* Determine whether all cell size are N * min(cellsize) */
-    for (i= 0; i < nrMaps; i++) {
-        MAP *X= in[i];
-        cellSize= RgetCellSize(X);
-        n= (REAL8)cellSize / minCellSize;
+    for (i = 0; i < nrMaps; i++) {
+        MAP *X = in[i];
+        cellSize = RgetCellSize(X);
+        n = (REAL8)cellSize / minCellSize;
         if ((REAL8)(int)n < n - EPSILON || n + EPSILON < (REAL8)(int)n)
             return 0; /* RASTERSIZE NOT MODIFIED */
     }
-    cellSize= RgetCellSize(out);
-    n= (REAL8)cellSize / minCellSize;
+    cellSize = RgetCellSize(out);
+    n = (REAL8)cellSize / minCellSize;
 
     if ((REAL8)(int)n < n - EPSILON || n + EPSILON < (REAL8)(int)n)
         return 0;
 
     /* Determine whether the distances are N * min(cell size) */
-    Xout= RgetX0(out);
-    Yout= RgetY0(out);
-    for (i= 0; i < nrMaps; i++) {
-        X0= RgetX0(in[i]);
-        Y0= RgetY0(in[i]);
-        n= (X0 - Xout) / minCellSize;
+    Xout = RgetX0(out);
+    Yout = RgetY0(out);
+    for (i = 0; i < nrMaps; i++) {
+        X0 = RgetX0(in[i]);
+        Y0 = RgetY0(in[i]);
+        n = (X0 - Xout) / minCellSize;
         if ((REAL8)(int)n < n - EPSILON || n + EPSILON < (REAL8)(int)n)
             return 0;
-        n= (Y0 - Yout) / minCellSize;
+        n = (Y0 - Yout) / minCellSize;
         if ((REAL8)(int)n < n - EPSILON || n + EPSILON < (REAL8)(int)n)
             return 0;
     }
-    cellSize= RgetCellSize(out);
-    rasterSize= (int)(cellSize / minCellSize);
+    cellSize = RgetCellSize(out);
+    rasterSize = (int)(cellSize / minCellSize);
     return 0;
 }
 
 /* Deallocates the array of input maps.
  * Closes the input and output maps.
  */
-static void EndResample(
-    MAP **in,      /* input maps to free */
-    size_t nrMaps, /* number of input maps */
-    MAP *out)      /* output map to free */
+static void EndResample(MAP **in,      /* input maps to free */
+                        size_t nrMaps, /* number of input maps */
+                        MAP *out)      /* output map to free */
 {
     /* Deallocate and close the input maps */
     FreeMaps(in, nrMaps);
@@ -497,9 +496,8 @@ static void EndResample(
  * Determines type and characteristics of output map.
  * Returns nothing, exits with 1 in case of error.
  */
-int main(
-    int argc,     /* number of arguments */
-    char *argv[]) /* list of arguments */
+int main(int argc,     /* number of arguments */
+         char *argv[]) /* list of arguments */
 {
     MAP *clone = NULL;
     MAP *out = NULL;
@@ -520,111 +518,111 @@ int main(
     size_t nrCols = 0;
     CSF_PT projection;
     CSF_VS valueScale;
-    double percent= 0;
-    double errFactor= 2.5;
-    double resampleN= 0.0;
-    bool aligned= true;
-    bool keepInputMinMax= false;
-    REAL8 minAllInput= 0;
-    REAL8 maxAllInput= 0;
-    bool onlyReal4= true;
-    bool contract= false;
-    bool onlyUint1= true;
+    double percent = 0;
+    double errFactor = 2.5;
+    double resampleN = 0.0;
+    bool aligned = true;
+    bool keepInputMinMax = false;
+    REAL8 minAllInput = 0;
+    REAL8 maxAllInput = 0;
+    bool onlyReal4 = true;
+    bool contract = false;
+    bool onlyUint1 = true;
 
     if (InstallArgs(argc, argv, "axmp$r$c#b#e$RBCk", "resample"))
         exit(1);
 
-    while ((c= GetOpt()) != 0) {
+    while ((c = GetOpt()) != 0) {
         switch (c) {
-        case 'b':
-            opB= true;
-            borderval= *((int *)OptArg);
-            break;
-        case 'B':
-            opB= true;
-            borderval= 0;
-            break;
-        case 'C':
-            opMV= true;
-            borderval= 0;
-            break;
-        case 'c':
-            opMV= true;
-            borderval= *((int *)OptArg);
-            break;
-        case 'a':
-            contract= true;
-            break;
-        case 'x':
-            contract= false;
-            break;
-        case 'm':
-            opMax= 1;
-            break;
-        case 'p':
-            opPer= 1;
-            percent= *((double *)OptArg);
-            if (percent < 0 || 100 < percent) {
-                Error("illegal percentage");
-                exit(1);
-            }
-            break;
-        case 'R':
-            opR= 1;
-            resampleN= 1;
-            break;
-        case 'r':
-            opR= 1;
-            resampleN= *((double *)OptArg);
-            break;
-        case 'e':
-            optionAcc= 1;
-            errFactor= *((double *)OptArg);
-            break;
-        case 'k':
-            keepInputMinMax= true;
-            break;
+            case 'b':
+                opB = true;
+                borderval = *((int *)OptArg);
+                break;
+            case 'B':
+                opB = true;
+                borderval = 0;
+                break;
+            case 'C':
+                opMV = true;
+                borderval = 0;
+                break;
+            case 'c':
+                opMV = true;
+                borderval = *((int *)OptArg);
+                break;
+            case 'a':
+                contract = true;
+                break;
+            case 'x':
+                contract = false;
+                break;
+            case 'm':
+                opMax = 1;
+                break;
+            case 'p':
+                opPer = 1;
+                percent = *((double *)OptArg);
+                if (percent < 0 || 100 < percent) {
+                    Error("illegal percentage");
+                    exit(1);
+                }
+                break;
+            case 'R':
+                opR = 1;
+                resampleN = 1;
+                break;
+            case 'r':
+                opR = 1;
+                resampleN = *((double *)OptArg);
+                break;
+            case 'e':
+                optionAcc = 1;
+                errFactor = *((double *)OptArg);
+                break;
+            case 'k':
+                keepInputMinMax = true;
+                break;
         }
     }
 
-    argv= ArgArguments(&argc);
+    argv = ArgArguments(&argc);
     if (AppArgCountCheck(argc, 3, -1, USAGE))
         exit(1);
 
-    outputName= argv[argc - 1];
-    nrMaps= argc - 2;
+    outputName = argv[argc - 1];
+    nrMaps = argc - 2;
 
     /* Read the desired specifics out of the clone map
      * or use first input as clone map
      */
-    cloneName= NO_CLONE_NEEDED ? argv[1] : NULL;
-    if ((clone= AppOpenClone(&cloneName, cloneName)) == NULL)
+    cloneName = NO_CLONE_NEEDED ? argv[1] : NULL;
+    if ((clone = AppOpenClone(&cloneName, cloneName)) == NULL)
         exit(1);
 
     /* Determine the valueScale out of 1st input map */
-    tmp= Mopen(argv[1], M_READ);
+    tmp = Mopen(argv[1], M_READ);
     if (tmp == NULL)
         MperrorExit(argv[1], 1);
 
     /* all input maps have same value scale */
-    valueScale= RgetValueScale(tmp);
+    valueScale = RgetValueScale(tmp);
     if (valueScale == VS_LDD && !opMV) {
         Error("can not do this type of resampling on map '%s' with type ldd", argv[1]);
         exit(1);
     }
     /* adjust old ones */
     if (valueScale == VS_CLASSIFIED)
-        valueScale= VS_ORDINAL;
+        valueScale = VS_ORDINAL;
     if (valueScale == VS_CONTINUOUS)
-        valueScale= VS_SCALAR;
+        valueScale = VS_SCALAR;
 
     /* get location attributes of clone or of 1st input map */
-    projection= MgetProjection(clone);
-    nrRows= RgetNrRows(clone);
-    nrCols= RgetNrCols(clone);
-    X0= RgetX0(clone);
-    Y0= RgetY0(clone);
-    angleOut= RgetAngle(clone);
+    projection = MgetProjection(clone);
+    nrRows = RgetNrRows(clone);
+    nrCols = RgetNrCols(clone);
+    X0 = RgetX0(clone);
+    Y0 = RgetY0(clone);
+    angleOut = RgetAngle(clone);
 
     /* resample option -> cell size(inputmap) * factor
      * Number of rows and columns are divided by resample
@@ -633,42 +631,42 @@ int main(
     if (opR == 1) {
         /* setting for unit */
         if (!appUnitTrue) {
-            cellSize= resampleN;
-            resampleN/= (double)RgetCellSize(tmp);
+            cellSize = resampleN;
+            resampleN /= (double)RgetCellSize(tmp);
         } else
-            cellSize= RgetCellSize(tmp) * resampleN;
+            cellSize = RgetCellSize(tmp) * resampleN;
         if (contract) {
-            nrRows= floor((double)nrRows / (double)resampleN);
-            nrCols= floor((double)nrCols / (double)resampleN);
+            nrRows = floor((double)nrRows / (double)resampleN);
+            nrCols = floor((double)nrCols / (double)resampleN);
 
             /* Prevent an illegal map */
             if (nrRows == 0)
-                nrRows= 1;
+                nrRows = 1;
             if (nrCols == 0)
-                nrCols= 1;
+                nrCols = 1;
         } else {
-            nrRows= ceil((double)nrRows / (double)resampleN);
-            nrCols= ceil((double)nrCols / (double)resampleN);
+            nrRows = ceil((double)nrRows / (double)resampleN);
+            nrCols = ceil((double)nrCols / (double)resampleN);
         }
     } else
-        cellSize= RgetCellSize(clone);
+        cellSize = RgetCellSize(clone);
 
     /* Allocate memory for the input map pointers */
-    in= (MAP **)ChkMalloc(sizeof(MAP *) * nrMaps);
+    in = (MAP **)ChkMalloc(sizeof(MAP *) * nrMaps);
     if (in == NULL) {
         AppEnd();
         exit(1);
     }
 
     /* Read all input maps with desired cell representation */
-    for (i= 0; i < nrMaps; i++) {
+    for (i = 0; i < nrMaps; i++) {
         REAL8 tmpMin = NAN;
         REAL8 tmpMax = NAN;
 
-        tmp= Mopen(argv[1 + i], M_READ);
-        angleIn= RgetAngle(tmp);
+        tmp = Mopen(argv[1 + i], M_READ);
+        angleIn = RgetAngle(tmp);
         if (angleIn != 0)
-            aligned= false;
+            aligned = false;
         if (tmp == NULL)
             MperrorExit(argv[1 + i], 1);
 
@@ -677,22 +675,22 @@ int main(
             exit(1);
         }
 
-        in[i]= tmp;
+        in[i] = tmp;
 
         /* Determine which cell representation should be used */
-        onlyReal4= RgetCellRepr(in[i]) == CR_REAL4;
-        onlyUint1= RgetCellRepr(in[i]) == CR_UINT1;
+        onlyReal4 = RgetCellRepr(in[i]) == CR_REAL4;
+        onlyUint1 = RgetCellRepr(in[i]) == CR_UINT1;
 
 
         RuseAs(in[i], CR_REAL8);
         RgetMinVal(tmp, &tmpMin);
         RgetMaxVal(tmp, &tmpMax);
         if (i == 0) {
-            minAllInput= tmpMin;
-            maxAllInput= tmpMax;
+            minAllInput = tmpMin;
+            maxAllInput = tmpMax;
         }
-        minAllInput= MIN(minAllInput, tmpMin);
-        maxAllInput= MAX(maxAllInput, tmpMax);
+        minAllInput = MIN(minAllInput, tmpMin);
+        maxAllInput = MAX(maxAllInput, tmpMax);
 
         if (AppIsClassified(valueScale))
             RuseAs(in[i], CR_INT4);
@@ -708,13 +706,15 @@ int main(
         }
 
         if (opB == 1) {
-            if (SmallestFittingRectangle(&X0, &Y0, &nrRows, &nrCols, in, borderval, nrMaps, cellSize, angleIn, projection, contract)) {
+            if (SmallestFittingRectangle(&X0, &Y0, &nrRows, &nrCols, in, borderval, nrMaps, cellSize,
+                                         angleIn, projection, contract)) {
                 FreeMaps(in, nrMaps);
                 AppEnd();
                 exit(1);
             }
         } else {
-            if (SmallestNonMVRect(&X0, &Y0, &nrRows, &nrCols, in, borderval, nrMaps, valueScale, cellSize, angleIn, projection, contract)) {
+            if (SmallestNonMVRect(&X0, &Y0, &nrRows, &nrCols, in, borderval, nrMaps, valueScale,
+                                  cellSize, angleIn, projection, contract)) {
                 FreeMaps(in, nrMaps);
                 AppEnd();
                 exit(1);
@@ -724,7 +724,10 @@ int main(
 
     /* Create output map with suitable cell representation */
     /* NOTE ! Create map with smallest representation possible */
-    out= Rcreate(outputName, nrRows, nrCols, AppIsClassified(valueScale) ? (onlyUint1 ? CR_UINT1 : CR_INT4) : (onlyReal4 ? CR_REAL4 : CR_REAL8), valueScale, projection, X0, Y0, angleOut, cellSize);
+    out = Rcreate(outputName, nrRows, nrCols,
+                  AppIsClassified(valueScale) ? (onlyUint1 ? CR_UINT1 : CR_INT4)
+                                              : (onlyReal4 ? CR_REAL4 : CR_REAL8),
+                  valueScale, projection, X0, Y0, angleOut, cellSize);
     if (out == NULL) {
         FreeMaps(in, nrMaps);
         Error("can not create output map '%s': %s", argv[1], MstrError());
@@ -733,7 +736,7 @@ int main(
     RuseAs(out, AppIsClassified(valueScale) ? CR_INT4 : CR_REAL8);
 
     if (angleOut != 0)
-        aligned= false;
+        aligned = false;
 
 
     /* determine raster size according wanted accuracy */
@@ -743,7 +746,7 @@ int main(
             exit(1);
         }
     } else
-        rasterSize= 1;
+        rasterSize = 1;
 
     if (nrMaps > 1 && percent > 0)
         AppProgress("rasterSize: %d\n", rasterSize);

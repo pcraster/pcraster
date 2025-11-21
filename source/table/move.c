@@ -49,17 +49,14 @@ int MoveColumn(const char *outputName, const char *inputName, size_t colNr)
     if (t == NULL)
         return RetError(1, "While reading '%s'", inputName);
     if (t->nrKeys < colNr) {
-        Error("Can't move columns '%d', '%s' has only '%d' columns",
-              colNr + 1,
-              inputName,
+        Error("Can't move columns '%d', '%s' has only '%d' columns", colNr + 1, inputName,
               t->nrKeys + 1);
         FreeLookupTable(t);
         return 1;
     }
     for (r = 0; r < t->nrRecords; r++) {
         LOOK_UP_KEY k = t->records[r][colNr];
-        memmove(t->records[r] + colNr,
-                t->records[r] + (colNr + 1),
+        memmove(t->records[r] + colNr, t->records[r] + (colNr + 1),
                 (t->nrKeys - colNr) * sizeof(LOOK_UP_KEY));
         t->records[r][t->nrKeys] = k;
     }

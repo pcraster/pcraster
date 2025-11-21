@@ -23,18 +23,18 @@
 /**********************/
 /* Prints message about usage of program.
  */
-#define USAGE                                                                                 \
-    "USAGE: table InputMaps OutputTable\n"                                                    \
-    "0   include tuples with score 0\n"                                                       \
-    "h   histogram stretched intervals\n"                                                     \
-    "H # nr. of slots for histogram stretched intervals (implies -h)\n"                       \
-    "n # nr. of intervals\n"                                                                  \
-    "i f input table or matrix\n"                                                             \
+#define USAGE                                                                                           \
+    "USAGE: table InputMaps OutputTable\n"                                                              \
+    "0   include tuples with score 0\n"                                                                 \
+    "h   histogram stretched intervals\n"                                                               \
+    "H # nr. of slots for histogram stretched intervals (implies -h)\n"                                 \
+    "n # nr. of intervals\n"                                                                            \
+    "i f input table or matrix\n"                                                                       \
     "m # move column number (only with -i)\n"
 
 enum {
-INIT_NR_INTERVALS = 8,
-INIT_NR_SLOTS = 1024
+    INIT_NR_INTERVALS = 8,
+    INIT_NR_SLOTS = 1024
 };
 
 /**********************/
@@ -79,9 +79,7 @@ static MAP **ReadMaps(const char **mapArgs, size_t nrMaps)
         }
         if (!Rcompare(in[0], in[i])) {
             PRECOND(i != 0);
-            Error("maps '%s' and '%s' do not have the same location attributes",
-                  mapArgs[0],
-                  mapArgs[i]);
+            Error("maps '%s' and '%s' do not have the same location attributes", mapArgs[0], mapArgs[i]);
             goto failure;
         }
         // if (LimitedVersionCheck(
@@ -94,8 +92,7 @@ failure:
     return NULL;
 }
 
-static int
-WriteCrossTable(const char *tableName, LOOK_UP_TABLE *t, bool ommitZeros, double area)
+static int WriteCrossTable(const char *tableName, LOOK_UP_TABLE *t, bool ommitZeros, double area)
 {
     size_t i = 0;
     if (appUnitTrue)
@@ -114,7 +111,6 @@ WriteCrossTable(const char *tableName, LOOK_UP_TABLE *t, bool ommitZeros, double
     }
     return WriteLookupTable(tableName, t);
 }
-
 
 /* Function for using a table and N input maps to produce output map.
  * Assumes a file "lookup table" and N input maps present. Checks
@@ -143,44 +139,44 @@ int main(int argc,     /* number of arguments */
     /* Check which options are used and set externals accordingly */
     while ((c = GetOpt()) != 0) {
         switch (c) {
-        case '0':
-            ommitZeros = false;
-            break;
-        case 'h':
-            histogram = true;
-            break;
-        case 'H':
-            histogram = true;
-            c = *((const int *)OptArg);
-            if (c <= 0) {
-                Error("-H: count slots must be greater than 0 (is %d)", c);
-                goto failure;
-            }
-            nrCountSlots = (size_t)c;
-            break;
-        case 'n':
-            c = *((const int *)OptArg);
-            if (c <= 0) {
-                Error("-n: number of intervals must be greater than 0 (is %d)", c);
-                goto failure;
-            }
-            nrIntervals = (size_t)c;
-            break;
-        case 'i':
-            inputTableName = OptArg;
-            if (AppInputTest(inputTableName))
-                goto failure;
-            break;
-        case 'm':
-            c = *((const int *)OptArg);
-            if (c <= 0) {
-                Error("-m: column number to move must be greater than 0 (is %d)", moveColNr);
-                goto failure;
-            }
-            moveColNr = c;
-            break;
+            case '0':
+                ommitZeros = false;
+                break;
+            case 'h':
+                histogram = true;
+                break;
+            case 'H':
+                histogram = true;
+                c = *((const int *)OptArg);
+                if (c <= 0) {
+                    Error("-H: count slots must be greater than 0 (is %d)", c);
+                    goto failure;
+                }
+                nrCountSlots = (size_t)c;
+                break;
+            case 'n':
+                c = *((const int *)OptArg);
+                if (c <= 0) {
+                    Error("-n: number of intervals must be greater than 0 (is %d)", c);
+                    goto failure;
+                }
+                nrIntervals = (size_t)c;
+                break;
+            case 'i':
+                inputTableName = OptArg;
+                if (AppInputTest(inputTableName))
+                    goto failure;
+                break;
+            case 'm':
+                c = *((const int *)OptArg);
+                if (c <= 0) {
+                    Error("-m: column number to move must be greater than 0 (is %d)", moveColNr);
+                    goto failure;
+                }
+                moveColNr = c;
+                break;
         } /* switch */
-    }     /* while  */
+    } /* while  */
 
     if ((argv = ArgArguments(&argc)) == NULL)
         goto failure;
@@ -203,8 +199,7 @@ int main(int argc,     /* number of arguments */
         if (nrCountSlots < nrIntervals) {
             Error("-H,-n: number of count slots (is %d) must be greater than "
                   "number of intervals (is %d)",
-                  nrCountSlots,
-                  nrIntervals);
+                  nrCountSlots, nrIntervals);
             goto failure;
         }
 

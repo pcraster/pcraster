@@ -16,12 +16,12 @@ static size_t logCounter = 0;
 #ifndef BORLANDC
 static FILE *ActiveLogFile(void)
 {
-    return NULL;
+  return NULL;
 }
 
 static void SetIncrLogCounter(void)
 {
-    logCounter++;
+  logCounter++;
 }
 
 #else
@@ -29,85 +29,78 @@ static void SetIncrLogCounter(void)
 
 static bool TestValue(DWORD messId)
 {
-    if (messId == ERROR_SUCCESS)
-        return FALSE;
+  if (messId == ERROR_SUCCESS)
+    return FALSE;
 
-    return TRUE;
+  return TRUE;
 }
 
 static void SetIncrLogCounter()
 {
-    /* check if logging is active 
+  /* check if logging is active 
          * logging is active if the key below
          * is found.
          * if logging is not active return NULL;
          */
-    HKEY hKey;
-    DWORD regLogCounter;
-    DWORD regLogCounterSize = sizeof(regLogCounter);
-    char logFileName[1024];
-    logCounter = 0;
-    if (TestValue(RegOpenKeyEx(
-            HKEY_CURRENT_USER, "Software\\PCRaster\\Mutate", 0, KEY_ALL_ACCESS, &hKey))) {
-        /* no such key */
-        return;
-    }
-    if (TestValue(
-            RegQueryValueEx(hKey, "LogCounter", 0, 0, &regLogCounter, &regLogCounterSize)))
-        return;
-    regLogCounter++;
-    if (TestValue(RegSetValueEx(
-            hKey, "LogCounter", 0, REG_DWORD, &regLogCounter, sizeof(regLogCounter))))
-        return;
-    logCounter = regLogCounter;
-    RegCloseKey(hKey);
+  HKEY hKey;
+  DWORD regLogCounter;
+  DWORD regLogCounterSize = sizeof(regLogCounter);
+  char logFileName[1024];
+  logCounter = 0;
+  if (TestValue(
+          RegOpenKeyEx(HKEY_CURRENT_USER, "Software\\PCRaster\\Mutate", 0, KEY_ALL_ACCESS, &hKey))) {
+    /* no such key */
+    return;
+  }
+  if (TestValue(RegQueryValueEx(hKey, "LogCounter", 0, 0, &regLogCounter, &regLogCounterSize)))
+    return;
+  regLogCounter++;
+  if (TestValue(RegSetValueEx(hKey, "LogCounter", 0, REG_DWORD, &regLogCounter, sizeof(regLogCounter))))
+    return;
+  logCounter = regLogCounter;
+  RegCloseKey(hKey);
 }
 
 static FILE *ActiveLogFile()
 {
-    /* check if logging is active 
+  /* check if logging is active 
          * logging is active if the key below
          * is found.
          * if logging is not active return NULL;
          */
-    HKEY hKey;
-    DWORD len = 1024;
-    char logFileName[1024];
-    if (TestValue(RegOpenKeyEx(
-            HKEY_CURRENT_USER, "Software\\PCRaster\\Mutate", 0, KEY_READ, &hKey))) {
-        /* no such key */
-        return NULL;
-    }
-    if (TestValue(RegQueryValueEx(hKey, "DataRoot", 0, 0, logFileName, &len)))
-        return NULL;
-    RegCloseKey(hKey);
+  HKEY hKey;
+  DWORD len = 1024;
+  char logFileName[1024];
+  if (TestValue(RegOpenKeyEx(HKEY_CURRENT_USER, "Software\\PCRaster\\Mutate", 0, KEY_READ, &hKey))) {
+    /* no such key */
+    return NULL;
+  }
+  if (TestValue(RegQueryValueEx(hKey, "DataRoot", 0, 0, logFileName, &len)))
+    return NULL;
+  RegCloseKey(hKey);
 
-    return fopen(logFileName, "a");
+  return fopen(logFileName, "a");
 }
 
 #endif
 
 static void WriteStartTag(FILE *f, const char *tagName)
 {
-    time_t timer = time(NULL);
-    struct tm *tblock = localtime(&timer);
-    fprintf(f,
-            "<%s time=\"%s\" time2=\"%zu\" session_id=\"%zu\">\n",
-            tagName,
-            asctime(tblock),
-            (size_t)timer,
-            logCounter);
+  time_t timer = time(NULL);
+  struct tm *tblock = localtime(&timer);
+  fprintf(f, "<%s time=\"%s\" time2=\"%zu\" session_id=\"%zu\">\n", tagName, asctime(tblock),
+          (size_t)timer, logCounter);
 }
 
 void AppLogError(const char *errorMsg)
 {
-    FILE *f = ActiveLogFile();
-    if (!f)
-        return;
-    WriteStartTag(f, "command_error");
-    fprintf(f, "%s ", errorMsg);
-    fprintf(f, "\n</command_error>\n");
-    fclose(f);
+  FILE *f = ActiveLogFile();
+  if (!f)
+    return;
+  WriteStartTag(f, "command_error");
+  fprintf(f, "%s ", errorMsg);
+  fprintf(f, "\n</command_error>\n");
+  fclose(f);
 }
 
 extern void (*appLogErrorFunc)(const char *msg);
@@ -117,41 +110,41 @@ extern void (*appLogErrorFunc)(const char *msg);
 void AppLogStart(int argc,    /* number of arguments */
                  char **argv) /* read-only input line, actually const */
 {
-    int i = 0;
-    FILE *f = ActiveLogFile();
-    char *appDir = NULL;
-    char *appFile = NULL;
-    if (!f)
-        return;
-    SetIncrLogCounter();
-    /* CW_MUTATE SEND: DATE,DIRECTORY,ARGS to logger */
-    WriteStartTag(f, "command_start");
-    SplitFilePathName(argv[0], &appDir, &appFile);
-    fprintf(f, "<app_dir>%s</app_dir>\n", appDir);
-    fprintf(f, "<app_file>%s</app_file>\n", appFile);
-    for (i = 1; i < argc; i++)
-        fprintf(f, "%s ", argv[i]);
-    fprintf(f, "\n</command_start>\n");
-    fclose(f);
+  int i = 0;
+  FILE *f = ActiveLogFile();
+  char *appDir = NULL;
+  char *appFile = NULL;
+  if (!f)
+    return;
+  SetIncrLogCounter();
+  /* CW_MUTATE SEND: DATE,DIRECTORY,ARGS to logger */
+  WriteStartTag(f, "command_start");
+  SplitFilePathName(argv[0], &appDir, &appFile);
+  fprintf(f, "<app_dir>%s</app_dir>\n", appDir);
+  fprintf(f, "<app_file>%s</app_file>\n", appFile);
+  for (i = 1; i < argc; i++)
+    fprintf(f, "%s ", argv[i]);
+  fprintf(f, "\n</command_start>\n");
+  fclose(f);
 
-    appLogErrorFunc = AppLogError;
+  appLogErrorFunc = AppLogError;
 }
 
 void AppLogFile(const char *asciiFile)
 {
-    int c = 0;
-    FILE *fContents = fopen(asciiFile, "r");
-    FILE *f = ActiveLogFile();
-    if (f == NULL || fContents == NULL){
-        fclose(f);
-        fclose(fContents);
-        return;
-    }
-    /* CW_MUTATE SEND: DATE,DIRECTORY,ARGS to logger */
-    WriteStartTag(f, "command_file");
-    while ((c = fgetc(fContents)) != EOF)
-        fputc(c, f);
-    fprintf(f, "</command_file>\n");
+  int c = 0;
+  FILE *fContents = fopen(asciiFile, "r");
+  FILE *f = ActiveLogFile();
+  if (f == NULL || fContents == NULL) {
     fclose(f);
     fclose(fContents);
+    return;
+  }
+  /* CW_MUTATE SEND: DATE,DIRECTORY,ARGS to logger */
+  WriteStartTag(f, "command_file");
+  while ((c = fgetc(fContents)) != EOF)
+    fputc(c, f);
+  fprintf(f, "</command_file>\n");
+  fclose(f);
+  fclose(fContents);
 }

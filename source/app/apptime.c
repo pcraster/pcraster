@@ -18,16 +18,16 @@
 /**********************/
 /* LOCAL DECLARATIONS */
 /**********************/
-#define ZERO    ((time_t)0)
-#define NOTIME  ((time_t)-1)
+#define ZERO ((time_t)0)
+#define NOTIME ((time_t)-1)
 
 /*********************/
 /* LOCAL DEFINITIONS */
 /*********************/
 static bool firstDynTimeCalled = true;
-static  time_t start  = ZERO;
-static  time_t paused = ZERO;
-static  char  timeBuf[16];
+static time_t start = ZERO;
+static time_t paused = ZERO;
+static char timeBuf[16];
 
 /******************/
 /* IMPLEMENTATION */
@@ -39,14 +39,10 @@ static  char  timeBuf[16];
  * Houres are printed in %2d-format.
  * Minutes and seconds are printed in %02d-format.
  */
-static const char *StrTime(
- long t)  /* time in seconds */
+static const char *StrTime(long t) /* time in seconds */
 {
- (void)sprintf(timeBuf,"%d:%02d:%02d",
-  (int) (t / 3600),
-  (int) (t % 3600)/60,
-  (int) (t % 60));
- return timeBuf;
+  (void)sprintf(timeBuf, "%d:%02d:%02d", (int)(t / 3600), (int)(t % 3600) / 60, (int)(t % 60));
+  return timeBuf;
 }
 
 /* Start a stopwatch
@@ -58,8 +54,8 @@ static const char *StrTime(
  */
 static void StartTimer(void)
 {
- (void)time(&start);
- POSTCOND(start != NOTIME);
+  (void)time(&start);
+  POSTCOND(start != NOTIME);
 }
 
 /* Read stopwatch time
@@ -72,34 +68,33 @@ static long ReadTimer(void)
   time_t now = 0;
 
   if (paused != ZERO)
-    return((long)(paused-start));
+    return ((long)(paused - start));
 
   (void)time(&now);
   POSTCOND(now != NOTIME);
-  return((long)(now-start));
+  return ((long)(now - start));
 }
 
 /* Prints time at line to show that program is running.
  */
 void AppDynamicProgress(void)
 {
- const char *time = NULL;
- if(appOutput != APP_PROGRESS)
-  return;
- if(firstDynTimeCalled)
- {
-  firstDynTimeCalled = false;
-  StartTimer();
-  (void)fprintf(stderr,  "PROGRESS:\n");
- }
- time = StrTime(ReadTimer());
- (void)fprintf(stderr, "\r %s", time);
+  const char *time = NULL;
+  if (appOutput != APP_PROGRESS)
+    return;
+  if (firstDynTimeCalled) {
+    firstDynTimeCalled = false;
+    StartTimer();
+    (void)fprintf(stderr, "PROGRESS:\n");
+  }
+  time = StrTime(ReadTimer());
+  (void)fprintf(stderr, "\r %s", time);
 }
 
 /* Prints new line to stderr.
  */
- void AppEndDynamicProgress(void)
- {
-  if(appOutput == APP_PROGRESS)
-   (void)fprintf(stderr, "\n");
- }
+void AppEndDynamicProgress(void)
+{
+  if (appOutput == APP_PROGRESS)
+    (void)fprintf(stderr, "\n");
+}

@@ -36,9 +36,9 @@
  * as a special value in this function.
  * Returns new radian value scaled to [0,2PI>.
  */
-double AppInputDirection(double val)  /* value to convert */
+double AppInputDirection(double val) /* value to convert */
 {
-  if(appDirection == APP_DEGREES)
+  if (appDirection == APP_DEGREES)
     return Deg2Rad(val);
   POSTCOND(0 <= val && val < M_2PI);
   return val;
@@ -48,9 +48,9 @@ double AppInputDirection(double val)  /* value to convert */
  * The value -1 is not converted.
  * Returns input value in degrees or radians.
  */
-double AppOutputDirection(double rad)    /* value to convert */
+double AppOutputDirection(double rad) /* value to convert */
 {
-   if(rad != -1 && appDirection == APP_DEGREES)
-     rad = Rad2Deg(rad);
-   return rad;
+  if (rad != -1 && appDirection == APP_DEGREES)
+    rad = Rad2Deg(rad);
+  return rad;
 }

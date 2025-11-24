@@ -18,26 +18,28 @@ extern "C" {
 #include "csftypes.h"
 
 /* make smaller to ease debugging */
-#define MAX_NR_FAST_LIST 256
+enum {
+  MAX_NR_FAST_LIST = 256
+};
 
 /* pass UINT1_T as default word size
  */
 typedef unsigned int UINT1_T;
 
-typedef enum  GET_TEST {
+typedef enum GET_TEST {
   GET_NO_MV_TEST, /* return FALSE if co-ordinates are outside the map,
                    * TRUE otherwise
                    */
-  GET_MV_TEST    /* return FALSE if co-ordinates are outside the map
+  GET_MV_TEST     /* return FALSE if co-ordinates are outside the map
                    * or the value is a MV,
                    * TRUE otherwise
                    * this is the default behaviour at initialisation
                    */
 } GET_TEST;
 
-typedef  void (*PUT_MV_FUNC)(void **spatialValue, int r, int c);
-typedef  void (*PUT_VAL_FUNC)(void **spatialValue, const void *val, int r, int c);
-typedef void (*GET_FUNC)(void *v, const void ** spatialValue, int r, int c);
+typedef void (*PUT_MV_FUNC)(void **spatialValue, int r, int c);
+typedef void (*PUT_VAL_FUNC)(void **spatialValue, const void *val, int r, int c);
+typedef void (*GET_FUNC)(void *v, const void **spatialValue, int r, int c);
 
 /* mapdim.c */
 extern REAL8 Area(void);
@@ -49,6 +51,5 @@ extern REAL8 YProjectionFactor(void);
 /* only used and in calc::calcapi.c
  */
 void BootTestApi(/* size_t nrRows, size_t nrCols, */
-     double cellSize, int doesYincT2B);
-
+                 double cellSize, int doesYincT2B);
 

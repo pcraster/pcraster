@@ -34,14 +34,14 @@
  */
 int AppInputTest(const char *inputFile) /* the input file */
 {
-    /* Check input file  */
-    switch (FileStat(inputFile)) {
+  /* Check input file  */
+  switch (FileStat(inputFile)) {
     case 1:
-        Error("input file '%s' is not a (regular) file", inputFile);
-        return 1;
+      Error("input file '%s' is not a (regular) file", inputFile);
+      return 1;
     case 2:
-        Error("input file '%s' does not exist", inputFile);
-        return 1;
-    }
-    return 0;
+      Error("input file '%s' does not exist", inputFile);
+      return 1;
+  }
+  return 0;
 }

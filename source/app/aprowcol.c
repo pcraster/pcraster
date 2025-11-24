@@ -47,22 +47,21 @@ int AppRgetRowCol(const MAP *m, /* map handle */
                   int *row,     /* write-only row number.  */
                   int *col)     /* write-only column number.  */
 {
-    double r = NAN;
-    double c = NAN;
-    if (appUnitTrue)
-        Rcoords2RowCol(m, x, y, &r, &c);
-    else {
-        r = y;
-        c = x;
-    }
+  double r = NAN;
+  double c = NAN;
+  if (appUnitTrue)
+    Rcoords2RowCol(m, x, y, &r, &c);
+  else {
+    r = y;
+    c = x;
+  }
 
-    (*row) = (int)floor(r);
-    (*col) = (int)floor(c);
-    if (appCoord == APP_LR && ((double)(*row)) == r && ((double)(*col)) == c) {
-        (*row)--;
-        (*col)--;
-    }
+  (*row) = (int)floor(r);
+  (*col) = (int)floor(c);
+  if (appCoord == APP_LR && ((double)(*row)) == r && ((double)(*col)) == c) {
+    (*row)--;
+    (*col)--;
+  }
 
-    return ((*col) >= 0 && (*row) >= 0 && (*col) < (int)RgetNrCols(m) &&
-            (*row) < (int)RgetNrRows(m));
+  return ((*col) >= 0 && (*row) >= 0 && (*col) < (int)RgetNrCols(m) && (*row) < (int)RgetNrRows(m));
 }

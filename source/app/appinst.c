@@ -6,12 +6,12 @@
 /********/
 
 /* libs ext. <>, our ""  */
-#include "app.h"  /* GetOpt, ArgArguments, InstallArgs */
-#include "misc.h"  /* ChkRealloc, StrcpTmpMalloc */
+#include "app.h"      /* GetOpt, ArgArguments, InstallArgs */
+#include "misc.h"     /* ChkRealloc, StrcpTmpMalloc */
 #include "pcrshell.h" /* set directory */
-#include <ctype.h>  /* isspace */
+#include <ctype.h>    /* isspace */
 #include <math.h>
-#include <string.h>  /* memmove, strlen, strchr, strcmp */
+#include <string.h> /* memmove, strlen, strchr, strcmp */
 
 #include "app_options.h"
 
@@ -23,7 +23,7 @@
 /* EXTERNALS */
 /*************/
 
-bool   appUnitTest=false;
+bool appUnitTest = false;
 
 /* list of dynamic library names
  * dynamicLibraryNames holds all dynamic libraries with the
@@ -34,7 +34,7 @@ char *dynamicLibraryNames[64];
 
 /* number of dynamic libraries in dynamicLibraryNames
  */
-size_t nrDynamicLibraryNames=0;
+size_t nrDynamicLibraryNames = 0;
 
 /* pointer to flag argument
  * OptArg holds the flag argument.
@@ -64,32 +64,39 @@ bool appAllOptionsMostLeft = false;
 /* LOCAL DECLARATIONS */
 /**********************/
 
-# ifdef EVAL_VERSION
-#  define VERSION "%s Evaluation-version: %s (%s)\n"
-#  else
-#   define VERSION "%s version: %s (%s)\n"
-# endif
+#ifdef EVAL_VERSION
+#define VERSION "%s Evaluation-version: %s (%s)\n"
+#else
+#define VERSION "%s version: %s (%s)\n"
+#endif
 
 enum {
-OPT_SYM_NONE = 0,
-OPT_SYM_REAL = 1,   /* $ */
-OPT_SYM_INT =  2,   /* # */
-OPT_SYM_STR =  3   /* * */
+  OPT_SYM_NONE = 0,
+  OPT_SYM_REAL = 1, /* $ */
+  OPT_SYM_INT = 2,  /* # */
+  OPT_SYM_STR = 3   /* * */
 };
-#define SET_OPT_SYM(i,value)  localFlagsOptions[i] = (localFlagsOptions[i]|((value)<<1))
-#define GET_OPT_SYM(x)        ((localFlagsOptions[x])>>1)
-#define SET_OPT_MULT(x)       localFlagsOptions[x] = ((localFlagsOptions[x])|1)
-#define GET_OPT_MULT(x)       ((localFlagsOptions[x])&1)
 
-#define SET_FLAG(flag, s, setFlag)  {if (StrEq(flag,s)){setFlag; return true;}}
+#define SET_OPT_SYM(i, value) localFlagsOptions[i] = (localFlagsOptions[i] | ((value) << 1))
+#define GET_OPT_SYM(x) ((localFlagsOptions[x]) >> 1)
+#define SET_OPT_MULT(x) localFlagsOptions[x] = ((localFlagsOptions[x]) | 1)
+#define GET_OPT_MULT(x) ((localFlagsOptions[x]) & 1)
+
+#define SET_FLAG(flag, s, setFlag)                                                                      \
+  {                                                                                                     \
+    if (StrEq(flag, s)) {                                                                               \
+      setFlag;                                                                                          \
+      return true;                                                                                      \
+    }                                                                                                   \
+  }
 
 /* FLAG stuff (LIBRARY_INTERNAL)
  */
 typedef struct FLAG {
-  bool   set;
+  bool set;
   double d;
-  int    i;
-  const char  *s;
+  int i;
+  const char *s;
   struct FLAG *next;
 } FLAG;
 
@@ -97,20 +104,20 @@ typedef struct FLAG {
 /* LOCAL DEFINITIONS */
 /*********************/
 
-static char *localFlags=NULL;
-static int  nrLocFlags=0;
-static char *localFlagsOptions=NULL;
-static char *groupInput=NULL;
-static char *groupResult=NULL;
+static char *localFlags = NULL;
+static int nrLocFlags = 0;
+static char *localFlagsOptions = NULL;
+static char *groupInput = NULL;
+static char *groupResult = NULL;
 /* TRUE if --clone flag is last one parsed
  * and its argument is not yet parsed
  */
 static bool appCloneParsed = false;
 static FLAG *flagsSet;
-static int nrFlagsSet=0;
+static int nrFlagsSet = 0;
 static int nrMaxDiffFlagsSet;
 static char **locArgv;
-static int locArgc=0;
+static int locArgc = 0;
 
 static int getOptNextFlag;
 static FLAG *getOptFlagSet;
@@ -121,65 +128,63 @@ static FLAG *getOptFlagSet;
 
 static bool NumbersAreArg(const char *arg)
 {
-   double d = NAN;
-   return appNumbersAreArguments && CnvrtDouble(&d,arg);
+  double d = NAN;
+  return appNumbersAreArguments && CnvrtDouble(&d, arg);
 }
 
-static int InstallLocalOptions(
-  const char *o) /* option string passed to InstallArgs */
+static int InstallLocalOptions(const char *o) /* option string passed to InstallArgs */
 {
-        size_t i = 0;
-        size_t n = strlen(o); /* big enough, too big */
-        int groupInputLen = 0;
+  size_t i = 0;
+  size_t n = strlen(o); /* big enough, too big */
+  int groupInputLen = 0;
 
-#     ifdef DEBUG
+#ifdef DEBUG
   /* Check on redefinition of format of options */
-  for(i = 0; i < strlen(o); i++)
-  {
+  for (i = 0; i < strlen(o); i++) {
     char a = o[i];
-    if(isalnum(a))
-     PRECOND(strchr(o+(i+1), a) == NULL);
+    if (isalnum(a))
+      PRECOND(strchr(o + (i + 1), a) == NULL);
   }
-#     endif
+#endif
 
-        localFlags        = (char *)ChkMalloc((size_t)(n+1));
-        groupInput        = (char *)ChkMalloc((size_t)(n+1));
-        groupResult       = (char *)ChkMalloc((size_t)(n+1));
+  localFlags = (char *)ChkMalloc((size_t)(n + 1));
+  groupInput = (char *)ChkMalloc((size_t)(n + 1));
+  groupResult = (char *)ChkMalloc((size_t)(n + 1));
   if (localFlags == NULL || groupInput == NULL || groupResult == NULL)
     return 1;
-        localFlagsOptions = (char *)ChkCalloc((size_t)(n+1), sizeof(char)); /* 0's are defaults */
+  localFlagsOptions = (char *)ChkCalloc((size_t)(n + 1), sizeof(char)); /* 0's are defaults */
   if (localFlagsOptions == NULL)
     return 1;
-  for (i=0; i < n; i++ ) {
-   switch(o[i]) {
-    case '&' :
-     PRECOND(nrLocFlags > 0);
-     SET_OPT_MULT(nrLocFlags-1);
-     break;
-    case '$' :
-     PRECOND(nrLocFlags > 0);
-     PRECOND(GET_OPT_SYM(nrLocFlags-1)==OPT_SYM_NONE);
-     SET_OPT_SYM(nrLocFlags-1,OPT_SYM_REAL);
-     break;
-    case '#' :
-     PRECOND(nrLocFlags > 0);
-     PRECOND(GET_OPT_SYM(nrLocFlags-1)==OPT_SYM_NONE);
-     SET_OPT_SYM(nrLocFlags-1,OPT_SYM_INT);
-     break;
-    case '*' :
-     PRECOND(nrLocFlags > 0);
-     PRECOND(GET_OPT_SYM(nrLocFlags-1)==OPT_SYM_NONE);
-     SET_OPT_SYM(nrLocFlags-1,OPT_SYM_STR);
-     break;
-    case '(' :
-    case ')' :
-     groupInput[groupInputLen++] = o[i];
-     break;
-    default : /* the flag itself or '\0' */
-     PRECOND(isalnum(o[i]) || o[i] == '\0'); /* [a-z,A-Z,0-9] */
-     localFlags[nrLocFlags++] = o[i];
-     groupInput[groupInputLen++] = o[i];
-   }
+  for (i = 0; i < n; i++) {
+    switch (o[i]) {
+      case '&':
+        PRECOND(nrLocFlags > 0);
+        SET_OPT_MULT(nrLocFlags - 1);
+        break;
+      case '$':
+        PRECOND(nrLocFlags > 0);
+        PRECOND(GET_OPT_SYM(nrLocFlags - 1) == OPT_SYM_NONE);
+        SET_OPT_SYM(nrLocFlags - 1, OPT_SYM_REAL);
+        break;
+      case '#':
+        PRECOND(nrLocFlags > 0);
+        PRECOND(GET_OPT_SYM(nrLocFlags - 1) == OPT_SYM_NONE);
+        SET_OPT_SYM(nrLocFlags - 1, OPT_SYM_INT);
+        break;
+      case '*':
+        PRECOND(nrLocFlags > 0);
+        PRECOND(GET_OPT_SYM(nrLocFlags - 1) == OPT_SYM_NONE);
+        SET_OPT_SYM(nrLocFlags - 1, OPT_SYM_STR);
+        break;
+      case '(':
+      case ')':
+        groupInput[groupInputLen++] = o[i];
+        break;
+      default:                                  /* the flag itself or '\0' */
+        PRECOND(isalnum(o[i]) || o[i] == '\0'); /* [a-z,A-Z,0-9] */
+        localFlags[nrLocFlags++] = o[i];
+        groupInput[groupInputLen++] = o[i];
+    }
   }
   localFlags[nrLocFlags] = '\0';
   groupInput[groupInputLen] = '\0';
@@ -199,126 +204,118 @@ int SetClone(const char *cloneName)
 /* Checks whether given flag fits a global option.
  * Returns 1 if flag is global, - otherwise.
  */
-bool ParseGlobalFlag(
-   const char *flag) /* InclDoubleDash */
+bool ParseGlobalFlag(const char *flag) /* InclDoubleDash */
 {
-  flag +=2; /* skip "--" */
+  flag += 2; /* skip "--" */
   appCloneParsed = false;
 
-  SET_FLAG( flag, "clone",        appCloneParsed = true)
-  SET_FLAG( flag, "unittrue",     appUnitTrue = true)
-  SET_FLAG( flag, "unitcell",     appUnitTrue = false)
-  SET_FLAG( flag, "lddout",       appPitOnBorder = true)
-  SET_FLAG( flag, "lddin",        appPitOnBorder = false)
-  SET_FLAG( flag, "lddcut",       appLddDemModifier = APP_LDDDEMCUT)
-  SET_FLAG( flag, "lddfill",      appLddDemModifier = APP_LDDDEMFILL)
-  SET_FLAG( flag, "nondiagonal",  appDiagonal = false)
-  SET_FLAG( flag, "diagonal",     appDiagonal = true)
-  SET_FLAG( flag, "radians",      appDirection = APP_RADIANS)
-  SET_FLAG( flag, "degrees",      appDirection = APP_DEGREES)
-  SET_FLAG( flag, "coorcentre",   appCoord = APP_C)
-  SET_FLAG( flag, "coorul",       appCoord = APP_UL)
-  SET_FLAG( flag, "coorlr",       appCoord = APP_LR)
-  SET_FLAG( flag, "nothing",      appOutput = APP_NOOUT)
-  SET_FLAG( flag, "noprogress",   appOutput = APP_OUT)
-  SET_FLAG( flag, "progress",     appOutput = APP_PROGRESS)
-  SET_FLAG( flag, "noheader",     appHeader = APP_NOHEADER)
-  SET_FLAG( flag, "defaultheader",appHeader = APP_DEFHEADER)
-  SET_FLAG( flag, "dbheader",     appHeader = APP_DBHEADER)
-  SET_FLAG( flag, "esrigrid",     appIOstrategy = APP_IO_ESRIGRID)
-  SET_FLAG( flag, "pcraster",     appIOstrategy = APP_IO_PCRASTER)
-  SET_FLAG( flag, "bandmap",      appIOstrategy = APP_IO_BANDMAP)
-  SET_FLAG( flag, "single",       appDouble = false)
-  SET_FLAG( flag, "double",       appDouble = true)
-  SET_FLAG( flag, "small",        appLarge = false)
-  SET_FLAG( flag, "large",        appLarge = true)
-  SET_FLAG( flag, "matrixtable",  app2dMatrix = true)
-  SET_FLAG( flag, "columntable",  app2dMatrix = false)
-  SET_FLAG( flag, "chezy",        appDynamicWaveRoughness = APP_DWR_CHEZY)
-  SET_FLAG( flag, "manning",      appDynamicWaveRoughness = APP_DWR_MANNING)
-  SET_FLAG( flag, "savewd",       appSaveWD = true)
-  SET_FLAG( flag, "nosavewd",     appSaveWD = false)
+  SET_FLAG(flag, "clone", appCloneParsed = true)
+  SET_FLAG(flag, "unittrue", appUnitTrue = true)
+  SET_FLAG(flag, "unitcell", appUnitTrue = false)
+  SET_FLAG(flag, "lddout", appPitOnBorder = true)
+  SET_FLAG(flag, "lddin", appPitOnBorder = false)
+  SET_FLAG(flag, "lddcut", appLddDemModifier = APP_LDDDEMCUT)
+  SET_FLAG(flag, "lddfill", appLddDemModifier = APP_LDDDEMFILL)
+  SET_FLAG(flag, "nondiagonal", appDiagonal = false)
+  SET_FLAG(flag, "diagonal", appDiagonal = true)
+  SET_FLAG(flag, "radians", appDirection = APP_RADIANS)
+  SET_FLAG(flag, "degrees", appDirection = APP_DEGREES)
+  SET_FLAG(flag, "coorcentre", appCoord = APP_C)
+  SET_FLAG(flag, "coorul", appCoord = APP_UL)
+  SET_FLAG(flag, "coorlr", appCoord = APP_LR)
+  SET_FLAG(flag, "nothing", appOutput = APP_NOOUT)
+  SET_FLAG(flag, "noprogress", appOutput = APP_OUT)
+  SET_FLAG(flag, "progress", appOutput = APP_PROGRESS)
+  SET_FLAG(flag, "noheader", appHeader = APP_NOHEADER)
+  SET_FLAG(flag, "defaultheader", appHeader = APP_DEFHEADER)
+  SET_FLAG(flag, "dbheader", appHeader = APP_DBHEADER)
+  SET_FLAG(flag, "esrigrid", appIOstrategy = APP_IO_ESRIGRID)
+  SET_FLAG(flag, "pcraster", appIOstrategy = APP_IO_PCRASTER)
+  SET_FLAG(flag, "bandmap", appIOstrategy = APP_IO_BANDMAP)
+  SET_FLAG(flag, "single", appDouble = false)
+  SET_FLAG(flag, "double", appDouble = true)
+  SET_FLAG(flag, "small", appLarge = false)
+  SET_FLAG(flag, "large", appLarge = true)
+  SET_FLAG(flag, "matrixtable", app2dMatrix = true)
+  SET_FLAG(flag, "columntable", app2dMatrix = false)
+  SET_FLAG(flag, "chezy", appDynamicWaveRoughness = APP_DWR_CHEZY)
+  SET_FLAG(flag, "manning", appDynamicWaveRoughness = APP_DWR_MANNING)
+  SET_FLAG(flag, "savewd", appSaveWD = true)
+  SET_FLAG(flag, "nosavewd", appSaveWD = false)
 
-  if (strncmp(flag,"dynamiclibraries:",strlen("dynamiclibraries:")) == 0)
+  if (strncmp(flag, "dynamiclibraries:", strlen("dynamiclibraries:")) == 0)
     return app_setDynamicLibraries(flag);
 
-   return false;      /*  flag does not fit */
+  return false; /*  flag does not fit */
 }
 
 SAVE_STRTOK createSaveStrtok(const char *s);
 void deleteSaveStrtok(SAVE_STRTOK s);
-const char* nextSaveStrtok(SAVE_STRTOK s);
+const char *nextSaveStrtok(SAVE_STRTOK s);
 
 /* scans environment variable for global options.
  * Returns 1 on case of failed memory allocation or crap in env. variable,
  * 0 otherwise.
  */
- static int ParseEnv(void)
- {
+static int ParseEnv(void)
+{
   SAVE_STRTOK ss;
-  const char   *p = NULL;
+  const char *p = NULL;
   char *env = getenv("PCROPTIONS");
   if (env == NULL)
     return 0; /* ready */
-  ss=createSaveStrtok(env);
+  ss = createSaveStrtok(env);
   p = nextSaveStrtok(ss);
-  while( p != NULL )
-  {
+  while (p != NULL) {
     if (appCloneParsed) /* --clone just parsed, copy name */
     {
       if (SetClone(p))
         goto error;
       appCloneParsed = false;
-    }
-    else if (!ParseGlobalFlag(p)) {
+    } else if (!ParseGlobalFlag(p)) {
       Error("env. variable PCROPTIONS contains unknown"
-           " global option: '%s'", p);
+            " global option: '%s'",
+            p);
       goto error;
     }
     p = nextSaveStrtok(ss);
   }
   deleteSaveStrtok(ss);
   if (appCloneParsed)
-     return RetError(1,"env. variable PCROPTIONS contains --clone"
-          " option, but no clone map specified");
+    return RetError(1, "env. variable PCROPTIONS contains --clone"
+                       " option, but no clone map specified");
   return 0;
 error:
   deleteSaveStrtok(ss);
   return 1;
 } /* ParseEnv */
 
-static int CheckSetFlag(
-  FLAG *currFlag, /* write-only */
-  int  i,         /* flag index */
-  const char *a)  /* argument of index */
+static int CheckSetFlag(FLAG *currFlag, /* write-only */
+                        int i,          /* flag index */
+                        const char *a)  /* argument of index */
 {
-   PRECOND(a != NULL);
-   PRECOND(a[0] != '\0');
-   PRECOND(currFlag != NULL);
+  PRECOND(a != NULL);
+  PRECOND(a[0] != '\0');
+  PRECOND(currFlag != NULL);
 
-   switch(GET_OPT_SYM(i))  {
+  switch (GET_OPT_SYM(i)) {
     case OPT_SYM_REAL:
-           if (!CnvrtDouble(&(currFlag->d),a))
-             return RetError(1,
-              "argument of option '%c' is not a real number ('%s')",
-              localFlags[i],a);
-     break;
+      if (!CnvrtDouble(&(currFlag->d), a))
+        return RetError(1, "argument of option '%c' is not a real number ('%s')", localFlags[i], a);
+      break;
     case OPT_SYM_INT:
-           if (!CnvrtInt(&(currFlag->i),a))
-             return RetError(1,
-              "argument of option '%c' is not an integer number ('%s')",
-              localFlags[i],a);
-           break;
-          default:
-     PRECOND(GET_OPT_SYM(i) == OPT_SYM_STR);
-     currFlag->s = a;
+      if (!CnvrtInt(&(currFlag->i), a))
+        return RetError(1, "argument of option '%c' is not an integer number ('%s')", localFlags[i], a);
+      break;
+    default:
+      PRECOND(GET_OPT_SYM(i) == OPT_SYM_STR);
+      currFlag->s = a;
   }
   return 0;
 } /* CheckSetFlag */
 
-static int ParseLocalFlags(
-  int *locArgPtr,  /* read-write local arg ptr */
-  int  argc)       /* nr of arguments */
+static int ParseLocalFlags(int *locArgPtr, /* read-write local arg ptr */
+                           int argc)       /* nr of arguments */
 {
   int i = 0;
   const char *f = locArgv[*locArgPtr];
@@ -326,208 +323,195 @@ static int ParseLocalFlags(
 
   PRECOND(f[0] == '-');
 
-  for(i=1; f != NULL && f[i] != '\0'; i++)
-  {
-   char *flagPtr = strchr(localFlags, f[i]);
-   int  flagIndex = 0;
-   if (flagPtr == NULL)
-     return RetError(1,"Unknown option '%c'",f[i]);
-   flagIndex = flagPtr-localFlags;
+  for (i = 1; f != NULL && f[i] != '\0'; i++) {
+    char *flagPtr = strchr(localFlags, f[i]);
+    int flagIndex = 0;
+    if (flagPtr == NULL)
+      return RetError(1, "Unknown option '%c'", f[i]);
+    flagIndex = flagPtr - localFlags;
 
-   /* find flag record
+    /* find flag record
     */
-   currFlag = flagsSet+flagIndex;
-   if (GET_OPT_MULT(flagIndex) &&
-       ( currFlag->set ) )
-    { /* add another one
+    currFlag = flagsSet + flagIndex;
+    if (GET_OPT_MULT(flagIndex) && (currFlag->set)) { /* add another one
        */
-     for ( ; currFlag->next != NULL; currFlag = currFlag->next)
-               ;
-     currFlag->next = flagsSet+(nrFlagsSet++);
-     currFlag = currFlag->next;
+      for (; currFlag->next != NULL; currFlag = currFlag->next)
+        ;
+      currFlag->next = flagsSet + (nrFlagsSet++);
+      currFlag = currFlag->next;
     }
-   currFlag->set = true;
-   if (GET_OPT_SYM(flagIndex) != OPT_SYM_NONE)
-   { /* trailing argument neccessary
+    currFlag->set = true;
+    if (GET_OPT_SYM(flagIndex) != OPT_SYM_NONE) { /* trailing argument neccessary
       */
       const char *flagArg = NULL;
-      if (f[i+1] != '\0')
-      { /* it's in this string
+      if (f[i + 1] != '\0') { /* it's in this string
          */
-         flagArg = f+(i+1);
-         f = NULL; /* DONE */
-      }
-      else
-      {
-       if ( *locArgPtr < (argc-1) )
-       { /* it's in next cmdline arg
+        flagArg = f + (i + 1);
+        f = NULL; /* DONE */
+      } else {
+        if (*locArgPtr < (argc - 1)) { /* it's in next cmdline arg
           */
-         locArgv[(*locArgPtr)++] = NULL;
-         flagArg = locArgv[(*locArgPtr)];
-       }
-       else
-        return RetError(1," option '%c' requires an argument",f[i]);
+          locArgv[(*locArgPtr)++] = NULL;
+          flagArg = locArgv[(*locArgPtr)];
+        } else
+          return RetError(1, " option '%c' requires an argument", f[i]);
       }
       if (CheckSetFlag(currFlag, flagIndex, flagArg))
         return 1;
-   }
-      }
-      return 0;
+    }
+  }
+  return 0;
 }
 
-static int ParseArgv(
-  int argc,    /* number of arguments */
-  char *argv[])  /* read-only input line */
+static int ParseArgv(int argc,     /* number of arguments */
+                     char *argv[]) /* read-only input line */
 {
   int locArgPtr = 0;
   locArgc = argc;
-  locArgv = (char **)ChkMalloc(argc*sizeof(char *));
+  locArgv = (char **)ChkMalloc(argc * sizeof(char *));
 
   nrFlagsSet = 1; /* let alloc succeed */
-  for (locArgPtr=0; locArgPtr < argc; locArgPtr++)
-  {
+  for (locArgPtr = 0; locArgPtr < argc; locArgPtr++) {
     locArgv[locArgPtr] = argv[locArgPtr];
     if (locArgPtr > 0 && argv[locArgPtr][0] == '-' && argv[locArgPtr][1] != '-')
-     /* string of local options */
-      nrFlagsSet += strlen(argv[locArgPtr])-1;
+      /* string of local options */
+      nrFlagsSet += strlen(argv[locArgPtr]) - 1;
   }
   nrMaxDiffFlagsSet = nrLocFlags;
   /* Calloc: 0's are defaults */
-  flagsSet = (FLAG *)ChkCalloc((size_t)(nrFlagsSet+nrMaxDiffFlagsSet) , sizeof(FLAG));
+  flagsSet = (FLAG *)ChkCalloc((size_t)(nrFlagsSet + nrMaxDiffFlagsSet), sizeof(FLAG));
   if (flagsSet == NULL)
     return 1;
   nrFlagsSet = nrMaxDiffFlagsSet;
-  for (locArgPtr=1; locArgPtr < argc; locArgPtr++)
-  {
-   bool arg = false;
-   if (!strncmp("--", locArgv[locArgPtr], (size_t)2))
-   {
-    appCloneParsed = false;
-    if (!ParseGlobalFlag(locArgv[locArgPtr]))
-     return RetError(1,"command line contains unknown"
-          " global option: '%s'", locArgv[locArgPtr]);
-    if (appCloneParsed)
-    {
+  for (locArgPtr = 1; locArgPtr < argc; locArgPtr++) {
+    bool arg = false;
+    if (!strncmp("--", locArgv[locArgPtr], (size_t)2)) {
       appCloneParsed = false;
-      locArgv[locArgPtr] = NULL; /* exclude from arguments */
-      if (++locArgPtr < argc)
-      {
-       if (SetClone(locArgv[locArgPtr]))
-         return 1;
-      } else
-          return RetError(1,"command line contains --clone"
-                            " option, but no clone map specified");
-    }
-   } /* not a global option: */
-  else if ( locArgv[locArgPtr][0] == '-'
-            && !NumbersAreArg(locArgv[locArgPtr]))
-             /* keep if it's a number and we want to keep
+      if (!ParseGlobalFlag(locArgv[locArgPtr]))
+        return RetError(1,
+                        "command line contains unknown"
+                        " global option: '%s'",
+                        locArgv[locArgPtr]);
+      if (appCloneParsed) {
+        appCloneParsed = false;
+        locArgv[locArgPtr] = NULL; /* exclude from arguments */
+        if (++locArgPtr < argc) {
+          if (SetClone(locArgv[locArgPtr]))
+            return 1;
+        } else
+          return RetError(1, "command line contains --clone"
+                             " option, but no clone map specified");
+      }
+    } /* not a global option: */
+    else if (locArgv[locArgPtr][0] == '-' && !NumbersAreArg(locArgv[locArgPtr]))
+    /* keep if it's a number and we want to keep
               * them
               */
-        {
-          if (ParseLocalFlags(&locArgPtr, argc))
-            return 1;
-        } else /* not an option */
-           arg = true;
-   if (!arg)
-        locArgv[locArgPtr] = NULL; /* exclude from arguments */
-   else
-    { /* first argument found
+    {
+      if (ParseLocalFlags(&locArgPtr, argc))
+        return 1;
+    } else /* not an option */
+      arg = true;
+    if (!arg)
+      locArgv[locArgPtr] = NULL; /* exclude from arguments */
+    else {                       /* first argument found
        */
-       if (appAllOptionsMostLeft)
-         break;
+      if (appAllOptionsMostLeft)
+        break;
     }
-       } /* eofor */
+  } /* eofor */
 
-       /* resize options to smaller size
+  /* resize options to smaller size
        * should work always
         */
-       if (nrFlagsSet != 0)
-       {
-   ChkReallocFree((void **)&flagsSet, nrFlagsSet * sizeof(FLAG));
-   POSTCOND(flagsSet != NULL);
-       }
-    return 0;
+  if (nrFlagsSet != 0) {
+    ChkReallocFree((void **)&flagsSet, nrFlagsSet * sizeof(FLAG));
+    POSTCOND(flagsSet != NULL);
+  }
+  return 0;
 }
 
 static bool GroupCheck(void)
 {
-  enum state { SINGLE, GROUP } state;
-  int  groupMemberUsed = -1; /* FOR DEBUG */
+  enum state {
+    SINGLE,
+    GROUP
+  } state;
+
+  int groupMemberUsed = -1; /* FOR DEBUG */
   int i = 0;
   int n = strlen(groupResult);
   PRECOND(groupResult);
   state = SINGLE;
-  for(i=0; i < n; i++)
-  {
-    if(state==SINGLE)
-     switch(groupResult[i]) {
-      case '(' : state = GROUP;
-                       groupMemberUsed = 0;
-                            /* index, initial none used
+  for (i = 0; i < n; i++) {
+    if (state == SINGLE)
+      switch (groupResult[i]) {
+        case '(':
+          state = GROUP;
+          groupMemberUsed = 0;
+          /* index, initial none used
                              * 0 is safe since group starts
                              * with '(', so a valid value
                              * will be larger than 0
                              */
-                       break;
-      case ')' : PRECOND(false); break;
-     }
-    else
-    {
-     PRECOND(groupMemberUsed >= 0);
-     switch(groupResult[i]) {
-      case '-' : if (!groupMemberUsed)
-                  groupMemberUsed = i;
-                 else
-                  return
-                    RetError(0,"Options '-%c' and '-%c' are mutually exclusive "
-                               ", specify only one of them",
-                               groupInput[groupMemberUsed],
-                               groupInput[i]);
-                 break;
-      case ')' : state = SINGLE;
-                 break;
-      default  : POSTCOND(groupResult[i] != '(');
-     }
+          break;
+        case ')':
+          PRECOND(false);
+          break;
+      }
+    else {
+      PRECOND(groupMemberUsed >= 0);
+      switch (groupResult[i]) {
+        case '-':
+          if (!groupMemberUsed)
+            groupMemberUsed = i;
+          else
+            return RetError(0,
+                            "Options '-%c' and '-%c' are mutually exclusive "
+                            ", specify only one of them",
+                            groupInput[groupMemberUsed], groupInput[i]);
+          break;
+        case ')':
+          state = SINGLE;
+          break;
+        default:
+          POSTCOND(groupResult[i] != '(');
+      }
     }
   }
   return 1;
 }
 
-int AppParseShellLine(
-  const char *firstLine)
+int AppParseShellLine(const char *firstLine)
 {
   SAVE_STRTOK ss = createSaveStrtok(firstLine);
   const char *p = NULL;
   PRECOND(!appCloneParsed);
-  p= nextSaveStrtok(ss);
-  while( p != NULL )
-  {
+  p = nextSaveStrtok(ss);
+  while (p != NULL) {
     if (appCloneParsed) /* --clone just parsed, copy name */
     {
       if (SetClone(p))
         goto error;
       appCloneParsed = false;
-    }
-    else
-      if (!strncmp("--", p, (size_t)2))
-        if (!ParseGlobalFlag(p)) {
-           Error("the #! line contains unknown"
-                 " global option: '%s'", p);
-           goto error;
-         }
-    p= nextSaveStrtok(ss);
+    } else if (!strncmp("--", p, (size_t)2))
+      if (!ParseGlobalFlag(p)) {
+        Error("the #! line contains unknown"
+              " global option: '%s'",
+              p);
+        goto error;
+      }
+    p = nextSaveStrtok(ss);
   }
   deleteSaveStrtok(ss);
   if (appCloneParsed)
-     return RetError(1,"the #! line of contains --clone"
-          " option, but no clone map specified");
+    return RetError(1, "the #! line of contains --clone"
+                       " option, but no clone map specified");
   return 0;
 error:
   deleteSaveStrtok(ss);
   return 1;
 }
-
 
 /* Gives the arguments and check the result of flag processing.
  * ArgArgument gives the arguments that are not identified
@@ -540,12 +524,12 @@ error:
  * EXAMPLE
  * .so examples/exapp.tr
  */
-char **ArgArguments(int *nrArgs)    /* write-only number of arguments */
+char **ArgArguments(int *nrArgs) /* write-only number of arguments */
 {
   int src = 0;
-  int dest=0;
+  int dest = 0;
   /* shift ptrs to begin */
-  for(src=0; src < locArgc; src++)
+  for (src = 0; src < locArgc; src++)
     if (locArgv[src] != NULL)
       locArgv[dest++] = locArgv[src];
   *nrArgs = dest;
@@ -564,39 +548,44 @@ char **ArgArguments(int *nrArgs)    /* write-only number of arguments */
  * EXAMPLE
  * .so examples/exapp.tr
  */
- int GetOpt(void)
- {
+int GetOpt(void)
+{
   int nextFlag = 0;
   char *grPtr = NULL;
   if (getOptNextFlag >= nrMaxDiffFlagsSet || flagsSet == NULL)
     return 0;
 
-  if (getOptFlagSet == NULL)
-  { /* find new one */
-   for( ; getOptNextFlag < nrMaxDiffFlagsSet; getOptNextFlag++)
-   {
-    getOptFlagSet = flagsSet+getOptNextFlag;
-    if (getOptFlagSet->set)
-      break;
-   }
-   if (getOptNextFlag == nrMaxDiffFlagsSet)
-     return 0;
+  if (getOptFlagSet == NULL) { /* find new one */
+    for (; getOptNextFlag < nrMaxDiffFlagsSet; getOptNextFlag++) {
+      getOptFlagSet = flagsSet + getOptNextFlag;
+      if (getOptFlagSet->set)
+        break;
+    }
+    if (getOptNextFlag == nrMaxDiffFlagsSet)
+      return 0;
   }
 
-        switch(GET_OPT_SYM(getOptNextFlag))  {
-           case OPT_SYM_REAL: OptArg = &(getOptFlagSet->d); break;
-           case OPT_SYM_INT:  OptArg = &(getOptFlagSet->i); break;
-     case OPT_SYM_STR:  OptArg = getOptFlagSet->s; break;
-     default:           OptArg = NULL;
+  switch (GET_OPT_SYM(getOptNextFlag)) {
+    case OPT_SYM_REAL:
+      OptArg = &(getOptFlagSet->d);
+      break;
+    case OPT_SYM_INT:
+      OptArg = &(getOptFlagSet->i);
+      break;
+    case OPT_SYM_STR:
+      OptArg = getOptFlagSet->s;
+      break;
+    default:
+      OptArg = NULL;
   }
   getOptFlagSet = getOptFlagSet->next;
   if (getOptFlagSet == NULL)
-   nextFlag= localFlags[getOptNextFlag++];
+    nextFlag = localFlags[getOptNextFlag++];
   else
-   nextFlag= localFlags[getOptNextFlag];
-        grPtr = strchr(groupResult, nextFlag);
-        if (grPtr != NULL) /* NULL possible if flag has multiple option */
-    *grPtr = '-'; /* mark used */
+    nextFlag = localFlags[getOptNextFlag];
+  grPtr = strchr(groupResult, nextFlag);
+  if (grPtr != NULL) /* NULL possible if flag has multiple option */
+    *grPtr = '-';    /* mark used */
   return nextFlag;
 }
 
@@ -633,12 +622,11 @@ char **ArgArguments(int *nrArgs)    /* write-only number of arguments */
  * EXAMPLE
  * .so examples/exapp.tr
  */
-int InstallArgs(
-  int argc,    /* number of arguments */
-  char **argv,    /* read-only input line, actually const */
-  const char *options,  /* option list */
-  const char *progName  /* name of program */
-  )
+int InstallArgs(int argc,            /* number of arguments */
+                char **argv,         /* read-only input line, actually const */
+                const char *options, /* option list */
+                const char *progName /* name of program */
+)
 {
 
   AppSetGlobalArgsDefaults();
@@ -648,30 +636,28 @@ int InstallArgs(
 
   /* parse global options set in environment variable */
   if (ParseEnv())
-     goto error;
-  if  (ParseArgv(argc,argv))
-     goto error;
+    goto error;
+  if (ParseArgv(argc, argv))
+    goto error;
 
   /* init GetOpt processing */
   getOptNextFlag = 0;
-  getOptFlagSet  = NULL;
+  getOptFlagSet = NULL;
 
   /*
    * AppLogStart(argc,argv);
    * CW_MUTATE SEND: DATE,DIRECTORY,ARGS to logger
    */
 #ifdef WIN32
-   if (appSaveWD)
-      (void)setPCRShellDirectoryToCurrent();
+  if (appSaveWD)
+    (void)setPCRShellDirectoryToCurrent();
 #endif
 
-  if(appOutput != APP_NOOUT && !appUnitTest)
-  {
-#      ifdef DEBUG_DEVELOP
-  (void)fprintf(stderr,"PCRTEAM VERSION, INTERNAL USE ONLY! (%s)\n",
-   PLATFORM_TXT);
-#      endif
-   (void)fprintf(stderr, VERSION, progName, PCRASTER_VERSION, PLATFORM_TXT);
+  if (appOutput != APP_NOOUT && !appUnitTest) {
+#ifdef DEBUG_DEVELOP
+    (void)fprintf(stderr, "PCRTEAM VERSION, INTERNAL USE ONLY! (%s)\n", PLATFORM_TXT);
+#endif
+    (void)fprintf(stderr, VERSION, progName, PCRASTER_VERSION, PLATFORM_TXT);
   }
   return 0;
 error:
@@ -685,9 +671,9 @@ void AppSetGlobalArgsDefaults(void)
 
   /* re-initialize settings of global variables.
    */
-#  undef STORAGE_CLASS
-#  define STORAGE_CLASS(class)
-#  include "global.inc"
+#undef STORAGE_CLASS
+#define STORAGE_CLASS(class)
+#include "global.inc"
 }
 
 /* check if the app has enough arguments, print usage if none given
@@ -695,23 +681,22 @@ void AppSetGlobalArgsDefaults(void)
  * and prints the usage string if argc is 1
  * return 0 if the nr. of arguments are ok, 1 if not
  */
-int AppArgCountCheck(
-  int argc,    /* the number of arguments >= 1 */
-  int minArgc, /* the minimum number of arguments */
-  int maxArgc, /* the maximum number of arguments, -1 if
+int AppArgCountCheck(int argc,          /* the number of arguments >= 1 */
+                     int minArgc,       /* the minimum number of arguments */
+                     int maxArgc,       /* the maximum number of arguments, -1 if
                 * unlimited  number of arguments is
                 * possible
                 */
-  const char *usage) /* the usage message */
+                     const char *usage) /* the usage message */
 {
   if (argc == 1) {
     (void)fprintf(stderr, "%s", usage);
     exit(0);
   }
   if (argc < minArgc)
-   return RetError(1,"Not enough arguments");
+    return RetError(1, "Not enough arguments");
   if (maxArgc != -1 && argc > maxArgc)
-   return RetError(1,"Too many arguments");
+    return RetError(1, "Too many arguments");
   return 0;
 }
 
@@ -727,16 +712,16 @@ void AppEnd(void)
   FREE_NULL(appClone);
   EndGetOpt();
 
-  for (i=0; i < nrDynamicLibraryNames; i++)
-      free(dynamicLibraryNames[i]);
-  nrDynamicLibraryNames=0;
+  for (i = 0; i < nrDynamicLibraryNames; i++)
+    free(dynamicLibraryNames[i]);
+  nrDynamicLibraryNames = 0;
 }
 
 void EndGetOpt(void)
 {
-  nrLocFlags=0;
-  nrFlagsSet=0;
-  locArgc=0;
+  nrLocFlags = 0;
+  nrFlagsSet = 0;
+  locArgc = 0;
   FREE_NULL(localFlags);
   FREE_NULL(localFlagsOptions);
   FREE_NULL(flagsSet);
@@ -747,17 +732,16 @@ void EndGetOpt(void)
 
 
 #ifdef NEVER
-int main(
- int argc,  /* number of arguments */
- char **argv)  /* list of arguments */
+int main(int argc,    /* number of arguments */
+         char **argv) /* list of arguments */
 {
- if(InstallArgs(argc, argv, "t&h$x#m*S", "name", "1.01"))
-  exit(1);
+  if (InstallArgs(argc, argv, "t&h$x#m*S", "name", "1.01"))
+    exit(1);
 
- argv = ArgArguments(&argc);
+  argv = ArgArguments(&argc);
 
- AppEnd();
- exit(0);
- return 0;
+  AppEnd();
+  exit(0);
+  return 0;
 }
 #endif

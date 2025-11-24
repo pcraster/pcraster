@@ -35,10 +35,10 @@
  */
 CSF_CR AppDefaultCellRepr(CSF_VS vs) /* value scale */
 {
-    UINT2 c = RdefaultCellRepr(vs);
-    if (c == CR_REAL4 && appDouble)
-        c = CR_REAL8;
-    if (c == CR_INT4 && !appLarge)
-        c = CR_UINT1;
-    return c;
+  UINT2 c = RdefaultCellRepr(vs);
+  if (c == CR_REAL4 && appDouble)
+    c = CR_REAL8;
+  if (c == CR_INT4 && !appLarge)
+    c = CR_UINT1;
+  return c;
 }

@@ -42,12 +42,14 @@ int MoveColumn(const char *outputName, const char *inputName, size_t colNr)
   colNr--;
 
   f = fopen(inputName, "r");
-  if (f == NULL)
+  if (f == NULL) {
     return RetError(1, "Failure to open '%s'", inputName);
+  }
   t = ReadLookupTable(f, NULL, (size_t)0, VS_UNDEFINED);
   fclose(f);
-  if (t == NULL)
+  if (t == NULL) {
     return RetError(1, "While reading '%s'", inputName);
+  }
   if (t->nrKeys < colNr) {
     Error("Can't move columns '%d', '%s' has only '%d' columns", colNr + 1, inputName, t->nrKeys + 1);
     FreeLookupTable(t);

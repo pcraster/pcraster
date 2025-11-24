@@ -39,8 +39,9 @@ void FreeCache(size_t nrMaps) /* number of input maps */
   size_t i = 0;
   size_t r = 0;
   for (i = 0; i < nrMaps; i++) {
-    for (r = 0; r < cache[i].nrRows; r++)
+    for (r = 0; r < cache[i].nrRows; r++) {
       Free(cache[i].cache[r].rowField);
+    }
     Free(cache[i].cache);
   }
   Free(cache);
@@ -58,8 +59,9 @@ CACHE *InitCache(const MAP *out, /* output maps */
 
   counter = 0;
   cache = (CACHE *)(ChkMalloc(sizeof(CACHE) * nrMaps));
-  if (cache == NULL)
+  if (cache == NULL) {
     return NULL;
+  }
   for (i = 0; i < nrMaps; i++) {
     size_t nrCols = RgetNrCols(in[i]);
     REAL8 cellSizeIn = RgetCellSize(in[i]);
@@ -70,17 +72,20 @@ CACHE *InitCache(const MAP *out, /* output maps */
 
     AppProgress("nr. of rows in cache %d for input map %d\n", n, i);
 
-    if (((cache[i].cache = (ROW_CACHE *)(ChkMalloc(sizeof(ROW_CACHE) * n)))) == NULL)
+    if (((cache[i].cache = (ROW_CACHE *)(ChkMalloc(sizeof(ROW_CACHE) * n)))) == NULL) {
       return NULL;
+    }
 
     /* initialize each row in cache */
     for (r = 0; r < n; r++) {
       if (AppIsClassified((CSF_VS)(valueScale)) &&
-          ((cache[i].cache[r].rowField = ChkMalloc(sizeof(INT4) * nrCols))) == NULL)
+          ((cache[i].cache[r].rowField = ChkMalloc(sizeof(INT4) * nrCols))) == NULL) {
         return NULL;
+      }
       if (!AppIsClassified((CSF_VS)(valueScale)) &&
-          ((cache[i].cache[r].rowField = ChkMalloc(sizeof(REAL8) * nrCols))) == NULL)
+          ((cache[i].cache[r].rowField = ChkMalloc(sizeof(REAL8) * nrCols))) == NULL) {
         return NULL;
+      }
       cache[i].cache[r].lastCount = counter;
 
       /* initialize row nr with illegal row nr. */
@@ -120,8 +125,9 @@ void *CacheGetRow(MAP **in,      /* read-only list of input maps */
       lowestCount = cache[mapNr].cache[r].lastCount;
     }
   }
-  if (lru == -1)
+  if (lru == -1) {
     lru = 0;
+  }
   cache[mapNr].cache[lru].lastCount = counter;
   cache[mapNr].cache[lru].rowNr = rowNr;
 

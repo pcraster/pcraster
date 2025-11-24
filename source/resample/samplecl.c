@@ -74,8 +74,9 @@ static int CmpStatContVal(DATA *e1, /* pointer to first id */
 static DATA const *FindMaxArea(const DATA *e1, const DATA *e2)
 {
   int a = CmpDouble(&(e1->area), &(e2->area));
-  if (a == 0)
+  if (a == 0) {
     a = (int)((e1->id) - (e2->id));
+  }
   POSTCOND(a != 0);
   return (a > 0) ? e1 : e2;
 }
@@ -91,8 +92,9 @@ static DATA const *FindMaxId(const DATA *e1, const DATA *e2)
     maxId = e2;
     otherId = e1;
   }
-  if (maxId->area == 0)
+  if (maxId->area == 0) {
     return otherId;
+  }
   return maxId;
 }
 
@@ -159,11 +161,13 @@ static int AddCell(SEARCH_TABLE *table,       /* read-write search table */
     key.id = id;
 
     area = CalcArea(inputCell, outputCell, aligned);
-    if (area != 0 && raster != NULL)
+    if (area != 0 && raster != NULL) {
       ModRaster(raster, outputCell, inputCell, angle);
+    }
     record = (DATA *)(STfindOrInsert(table, &key));
-    if (record == NULL)
+    if (record == NULL) {
       return 1;
+    }
     record->area += area;
   }
   return 0;
@@ -203,23 +207,29 @@ static int CalcPixel(MAP *out,      /* write-only output map */
   size_t nr = 4; /* nr of points of cell */
 #endif
 
-  if (raster != NULL)
+  if (raster != NULL) {
     raster = InitRaster(raster); /* initialize raster */
+  }
 
   /* Initialize table */
   table = STnew(nrFast, sizeof(DATA), (RETURN_ID)ReturnId, (INIT_REC)InitRec, (QSORT_CMP)CmpStatContVal);
-  if (table == NULL)
+  if (table == NULL) {
     goto failure_alloc;
+  }
 
   /* Initialize the boundaries */
-  if (((rightB = (double *)(ChkTmpMalloc(nrMaps * sizeof(double))))) == NULL)
+  if (((rightB = (double *)(ChkTmpMalloc(nrMaps * sizeof(double))))) == NULL) {
     goto failure_alloc;
-  if (((leftB = (double *)(ChkTmpMalloc(nrMaps * sizeof(double))))) == NULL)
+  }
+  if (((leftB = (double *)(ChkTmpMalloc(nrMaps * sizeof(double))))) == NULL) {
     goto failure_alloc;
-  if (((upperB = (double *)(ChkTmpMalloc(nrMaps * sizeof(double))))) == NULL)
+  }
+  if (((upperB = (double *)(ChkTmpMalloc(nrMaps * sizeof(double))))) == NULL) {
     goto failure_alloc;
-  if (((belowB = (double *)(ChkTmpMalloc(nrMaps * sizeof(double))))) == NULL)
+  }
+  if (((belowB = (double *)(ChkTmpMalloc(nrMaps * sizeof(double))))) == NULL) {
     goto failure_alloc;
+  }
 
   /* Determine the four corners of output pixel */
   /* top left */
@@ -233,8 +243,9 @@ static int CalcPixel(MAP *out,      /* write-only output map */
   RrowCol2Coords(out, (double)rOut + 1, (double)cOut + 1, &brX, &brY);
 
   outputCell = PutInPol(tlX, tlY, trX, trY, brX, brY, blX, blY);
-  if (outputCell == NULL)
+  if (outputCell == NULL) {
     goto failure;
+  }
 
   POSTCOND(outputCell[0].x == outputCell[nr].x);
   POSTCOND(outputCell[0].y == outputCell[nr].y);
@@ -277,14 +288,16 @@ static int CalcPixel(MAP *out,      /* write-only output map */
     PRECOND(upperB[i] <= belowB[i]);
     PRECOND(leftB[i] <= rightB[i]);
     for (r = upperB[i]; r < belowB[i]; r++) {
-      if (0 <= r && r < RgetNrRows(X))
+      if (0 <= r && r < RgetNrRows(X)) {
         currRow = (INT4 *)CacheGetRow(in, i, r);
+      }
 
       for (c = leftB[i]; c < rightB[i]; c++) { /* Cells that might be in pixel */
         POINT2D *inputCell = NULL;
 
-        if (r < 0 || RgetNrRows(X) <= r || c < 0 || RgetNrCols(X) <= c)
+        if (r < 0 || RgetNrRows(X) <= r || c < 0 || RgetNrCols(X) <= c) {
           continue;
+        }
 
         /* Top left & right, bottom right & left */
         RrowCol2Coords(X, r, c, &tlX2, &tlY2);
@@ -292,21 +305,24 @@ static int CalcPixel(MAP *out,      /* write-only output map */
         RrowCol2Coords(X, r + 1, c + 1, &brX2, &brY2);
         RrowCol2Coords(X, r + 1, c, &blX2, &blY2);
         inputCell = PutInPol(tlX2, tlY2, trX2, trY2, brX2, brY2, blX2, blY2);
-        if (inputCell == NULL)
+        if (inputCell == NULL) {
           goto failure;
+        }
 
         POSTCOND(inputCell[0].x == inputCell[nr].x);
         POSTCOND(inputCell[0].y == inputCell[nr].y);
 
-        if (AddCell(table, inputCell, outputCell, currRow, in[i], r, c, aligned, angle))
+        if (AddCell(table, inputCell, outputCell, currRow, in[i], r, c, aligned, angle)) {
           return 1;
+        }
         Free(inputCell); /* deallocate */
       }
     }
   }
 
-  if (CalcOut(out, rOut, cOut, table))
+  if (CalcOut(out, rOut, cOut, table)) {
     goto failure;
+  }
 
   STfree(table);
   Free(outputCell);
@@ -354,8 +370,9 @@ int SampleClass(MAP *out,          /* write-only output map */
 
   nrCoverCells = ceil((percentage / 100) * rasterSize * rasterSize);
 
-  if (percentage > 0 && nrMaps > 1)
+  if (percentage > 0 && nrMaps > 1) {
     raster = NewRaster(nrCoverCells, rasterSize);
+  }
 
   /* Determine maximum id of input maps */
   RgetMaxVal(in[0], &maxVal);
@@ -366,23 +383,26 @@ int SampleClass(MAP *out,          /* write-only output map */
   }
 
   /* Determine the number of items in the fast list */
-  if (MAXFAST < maxVal)
+  if (MAXFAST < maxVal) {
     nrFast = MAXFAST;
-  else
+  } else {
     nrFast = maxVal + 1;
+  }
 
 
   /* Calculate the id for each pixel */
   for (r = 0; r < nrRows; r++) {
     AppRowProgress((int)r);
     for (c = 0; c < nrCols; c++) {
-      if (CalcPixel(out, in, nrMaps, r, c, aligned, angle))
+      if (CalcPixel(out, in, nrMaps, r, c, aligned, angle)) {
         return 1; /* allocation failed */
+      }
     }
   }
   AppEndRowProgress();
-  if (raster != NULL)
+  if (raster != NULL) {
     FreeRaster(raster);
+  }
   FreeCache(nrMaps);
   return 0; /* successfully terminated */
 }

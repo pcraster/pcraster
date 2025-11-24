@@ -120,10 +120,12 @@ static void CalcBound(REAL8 *X0,         /* write-only X0 */
   nrR = (rightL->y - rightU->y) / cellSize;
   nrC = (rightU->x - leftU->x) / cellSize;
 
-  if (nrR < 0)
+  if (nrR < 0) {
     nrR = -nrR;
-  if (nrC < 0)
+  }
+  if (nrC < 0) {
     nrC = -nrC;
+  }
 
   if (contract) {
     *nrRows = floor((REAL4)nrR);
@@ -224,20 +226,26 @@ static int SmallestFittingRectangle(REAL8 *X0out,      /* write-only X0 */
     RrowCol2Coords(X, nrR - EPSILON, 0.0, &polygon[3].x, &polygon[3].y);
 
     /* Rotate all corners of map */
-    if (angle != 0)
-      for (c = 0; c < 4; c++)
+    if (angle != 0) {
+      for (c = 0; c < 4; c++) {
         RotPoint(polygon + c, angle);
+      }
+    }
 
     /* Determine boundaries of rotated output map */
     for (c = 0; c < 4; c++) {
-      if ((i == 0 && c == 0) || polygon[c].y > belowB)
+      if ((i == 0 && c == 0) || polygon[c].y > belowB) {
         belowB = polygon[c].y;
-      if ((i == 0 && c == 0) || polygon[c].y < upperB)
+      }
+      if ((i == 0 && c == 0) || polygon[c].y < upperB) {
         upperB = polygon[c].y;
-      if ((i == 0 && c == 0) || polygon[c].x > rightB)
+      }
+      if ((i == 0 && c == 0) || polygon[c].x > rightB) {
         rightB = polygon[c].x;
-      if ((i == 0 && c == 0) || polygon[c].x < leftB)
+      }
+      if ((i == 0 && c == 0) || polygon[c].x < leftB) {
         leftB = polygon[c].x;
+      }
     }
   }
 
@@ -302,7 +310,7 @@ static int SmallestNonMVRect(REAL8 *X0out,      /* write-only X0 */
     size_t nrR = RgetNrRows(X);
     size_t nrC = RgetNrCols(X);
 
-    for (r = 0; r < nrR; r++)
+    for (r = 0; r < nrR; r++) {
       for (c = 0; c < nrC; c++) {
         INT4 int4Val = 0;
         REAL8 real8Val = NAN;
@@ -310,17 +318,22 @@ static int SmallestNonMVRect(REAL8 *X0out,      /* write-only X0 */
         if ((AppIsClassified(valueScale) && RgetCell(in[i], r, c, &int4Val) && int4Val != MV_INT4) ||
             (!AppIsClassified(valueScale) && RgetCell(in[i], r, c, &real8Val) &&
              (IsMV(in[i], &real8Val) == false))) {
-          if (first || c < leftB)
+          if (first || c < leftB) {
             leftB = c;
-          if (first || c > rightB)
+          }
+          if (first || c > rightB) {
             rightB = c;
-          if (first || r > belowB)
+          }
+          if (first || r > belowB) {
             belowB = r;
-          if (first || r < upperB)
+          }
+          if (first || r < upperB) {
             upperB = r;
+          }
           first = false;
         }
       }
+    }
 
     /* Get coordinates of corners */
     RrowCol2Coords(X, upperB, leftB, &polygon[0].x, &polygon[0].y);
@@ -330,20 +343,25 @@ static int SmallestNonMVRect(REAL8 *X0out,      /* write-only X0 */
 
     /* Rotate all corners of map */
     if (angle != 0) {
-      for (c = 0; c < 4; c++)
+      for (c = 0; c < 4; c++) {
         polygon[c] = *RotPoint(polygon + c, angle);
+      }
     }
 
     /* Determine boundaries of rotated output map */
     for (c = 0; c < 4; c++) {
-      if (polygon[c].y > belowB || (i == 0 && c == 0))
+      if (polygon[c].y > belowB || (i == 0 && c == 0)) {
         belowB = polygon[c].y;
-      if (polygon[c].y < upperB || (i == 0 && c == 0))
+      }
+      if (polygon[c].y < upperB || (i == 0 && c == 0)) {
         upperB = polygon[c].y;
-      if (polygon[c].x > rightB || (i == 0 && c == 0))
+      }
+      if (polygon[c].x > rightB || (i == 0 && c == 0)) {
         rightB = polygon[c].x;
-      if (polygon[c].x < leftB || (i == 0 && c == 0))
+      }
+      if (polygon[c].x < leftB || (i == 0 && c == 0)) {
         leftB = polygon[c].x;
+      }
     }
   }
 
@@ -379,8 +397,9 @@ static void FreeMaps(MAP **in,      /* write-only pointer to input maps */
   for (i = 0; i < nrMaps; i++) /* Close all maps */
   {
     MAP *tmp = in[i];
-    if (Mclose(tmp))
+    if (Mclose(tmp)) {
       MperrorExit(MgetFileName(tmp), 1);
+    }
   }
   Free(in); /* Deallocate memory */
 }
@@ -412,10 +431,11 @@ static int DetRasterSize(const MAP *out,   /* write-only output map */
 
   /* If option -a set -> rastersize depends on wanted accuracy */
   if (optionAcc) {
-    if (errFactor != 0)
+    if (errFactor != 0) {
       rasterSize = ceil((double)50 / errFactor);
-    else
+    } else {
       rasterSize = MAXSIZE;
+    }
   }
 
   /* Determine the output angle */
@@ -427,33 +447,40 @@ static int DetRasterSize(const MAP *out,   /* write-only output map */
     MAP *X = in[i];
     angleIn = RgetAngle(X);
     projIn = MgetProjection(X);
-    if (angleIn != angleOut || projIn != projOut)
+    if (angleIn != angleOut || projIn != projOut) {
       return 0; /* different angles */
+    }
     cellSize = RgetCellSize(X);
-    if (cellSize <= 0) /* illegal cell size */
+    if (cellSize <= 0) { /* illegal cell size */
       return 1;
-    if (cellSize < minCellSize)
+    }
+    if (cellSize < minCellSize) {
       minCellSize = cellSize; /* minimum cell size */
+    }
   }
   cellSize = RgetCellSize(out);
-  if (cellSize <= 0)
+  if (cellSize <= 0) {
     return 1; /* illegal cell size */
-  if (cellSize < minCellSize)
+  }
+  if (cellSize < minCellSize) {
     minCellSize = cellSize; /* minimum cell size */
+  }
 
   /* Determine whether all cell size are N * min(cellsize) */
   for (i = 0; i < nrMaps; i++) {
     MAP *X = in[i];
     cellSize = RgetCellSize(X);
     n = (REAL8)cellSize / minCellSize;
-    if ((REAL8)(int)n < n - EPSILON || n + EPSILON < (REAL8)(int)n)
+    if ((REAL8)(int)n < n - EPSILON || n + EPSILON < (REAL8)(int)n) {
       return 0; /* RASTERSIZE NOT MODIFIED */
+    }
   }
   cellSize = RgetCellSize(out);
   n = (REAL8)cellSize / minCellSize;
 
-  if ((REAL8)(int)n < n - EPSILON || n + EPSILON < (REAL8)(int)n)
+  if ((REAL8)(int)n < n - EPSILON || n + EPSILON < (REAL8)(int)n) {
     return 0;
+  }
 
   /* Determine whether the distances are N * min(cell size) */
   Xout = RgetX0(out);
@@ -462,11 +489,13 @@ static int DetRasterSize(const MAP *out,   /* write-only output map */
     X0 = RgetX0(in[i]);
     Y0 = RgetY0(in[i]);
     n = (X0 - Xout) / minCellSize;
-    if ((REAL8)(int)n < n - EPSILON || n + EPSILON < (REAL8)(int)n)
+    if ((REAL8)(int)n < n - EPSILON || n + EPSILON < (REAL8)(int)n) {
       return 0;
+    }
     n = (Y0 - Yout) / minCellSize;
-    if ((REAL8)(int)n < n - EPSILON || n + EPSILON < (REAL8)(int)n)
+    if ((REAL8)(int)n < n - EPSILON || n + EPSILON < (REAL8)(int)n) {
       return 0;
+    }
   }
   cellSize = RgetCellSize(out);
   rasterSize = (int)(cellSize / minCellSize);
@@ -483,8 +512,9 @@ static void EndResample(MAP **in,      /* input maps to free */
   /* Deallocate and close the input maps */
   FreeMaps(in, nrMaps);
 
-  if (Mclose(out)) /* Close the output map */
+  if (Mclose(out)) { /* Close the output map */
     MperrorExit(MgetFileName(out), 1);
+  }
 
   AppEnd();
 }
@@ -528,8 +558,9 @@ int main(int argc,     /* number of arguments */
   bool contract = false;
   bool onlyUint1 = true;
 
-  if (InstallArgs(argc, argv, "axmp$r$c#b#e$RBCk", "resample"))
+  if (InstallArgs(argc, argv, "axmp$r$c#b#e$RBCk", "resample")) {
     exit(1);
+  }
 
   while ((c = GetOpt()) != 0) {
     switch (c) {
@@ -585,8 +616,9 @@ int main(int argc,     /* number of arguments */
   }
 
   argv = ArgArguments(&argc);
-  if (AppArgCountCheck(argc, 3, -1, USAGE))
+  if (AppArgCountCheck(argc, 3, -1, USAGE)) {
     exit(1);
+  }
 
   outputName = argv[argc - 1];
   nrMaps = argc - 2;
@@ -595,13 +627,15 @@ int main(int argc,     /* number of arguments */
      * or use first input as clone map
      */
   cloneName = NO_CLONE_NEEDED ? argv[1] : NULL;
-  if ((clone = AppOpenClone(&cloneName, cloneName)) == NULL)
+  if ((clone = AppOpenClone(&cloneName, cloneName)) == NULL) {
     exit(1);
+  }
 
   /* Determine the valueScale out of 1st input map */
   tmp = Mopen(argv[1], M_READ);
-  if (tmp == NULL)
+  if (tmp == NULL) {
     MperrorExit(argv[1], 1);
+  }
 
   /* all input maps have same value scale */
   valueScale = RgetValueScale(tmp);
@@ -610,10 +644,12 @@ int main(int argc,     /* number of arguments */
     exit(1);
   }
   /* adjust old ones */
-  if (valueScale == VS_CLASSIFIED)
+  if (valueScale == VS_CLASSIFIED) {
     valueScale = VS_ORDINAL;
-  if (valueScale == VS_CONTINUOUS)
+  }
+  if (valueScale == VS_CONTINUOUS) {
     valueScale = VS_SCALAR;
+  }
 
   /* get location attributes of clone or of 1st input map */
   projection = MgetProjection(clone);
@@ -632,23 +668,27 @@ int main(int argc,     /* number of arguments */
     if (!appUnitTrue) {
       cellSize = resampleN;
       resampleN /= (double)RgetCellSize(tmp);
-    } else
+    } else {
       cellSize = RgetCellSize(tmp) * resampleN;
+    }
     if (contract) {
       nrRows = floor((double)nrRows / (double)resampleN);
       nrCols = floor((double)nrCols / (double)resampleN);
 
       /* Prevent an illegal map */
-      if (nrRows == 0)
+      if (nrRows == 0) {
         nrRows = 1;
-      if (nrCols == 0)
+      }
+      if (nrCols == 0) {
         nrCols = 1;
+      }
     } else {
       nrRows = ceil((double)nrRows / (double)resampleN);
       nrCols = ceil((double)nrCols / (double)resampleN);
     }
-  } else
+  } else {
     cellSize = RgetCellSize(clone);
+  }
 
   /* Allocate memory for the input map pointers */
   in = (MAP **)ChkMalloc(sizeof(MAP *) * nrMaps);
@@ -664,10 +704,12 @@ int main(int argc,     /* number of arguments */
 
     tmp = Mopen(argv[1 + i], M_READ);
     angleIn = RgetAngle(tmp);
-    if (angleIn != 0)
+    if (angleIn != 0) {
       aligned = false;
-    if (tmp == NULL)
+    }
+    if (tmp == NULL) {
       MperrorExit(argv[1 + i], 1);
+    }
 
     if (!RvalueScaleIs(tmp, valueScale)) {
       Error("%s has illegal data type: '%s'\n", argv[1 + i], RstrValueScale(valueScale));
@@ -691,10 +733,11 @@ int main(int argc,     /* number of arguments */
     minAllInput = MIN(minAllInput, tmpMin);
     maxAllInput = MAX(maxAllInput, tmpMax);
 
-    if (AppIsClassified(valueScale))
+    if (AppIsClassified(valueScale)) {
       RuseAs(in[i], CR_INT4);
-    else
+    } else {
       RuseAs(in[i], CR_REAL8);
+    }
   }
 
   if (opB == 1 || opMV == 1) {
@@ -734,8 +777,9 @@ int main(int argc,     /* number of arguments */
   }
   RuseAs(out, AppIsClassified(valueScale) ? CR_INT4 : CR_REAL8);
 
-  if (angleOut != 0)
+  if (angleOut != 0) {
     aligned = false;
+  }
 
 
   /* determine raster size according wanted accuracy */
@@ -744,13 +788,15 @@ int main(int argc,     /* number of arguments */
       Error("Illegal cell size\n");
       exit(1);
     }
-  } else
+  } else {
     rasterSize = 1;
+  }
 
-  if (nrMaps > 1 && percent > 0)
+  if (nrMaps > 1 && percent > 0) {
     AppProgress("rasterSize: %d\n", rasterSize);
-  else
+  } else {
     AppProgress("No raster used\n");
+  }
 
   /* Call function */
   if (AppIsClassified(valueScale)) { /* Call resample function for classified maps */

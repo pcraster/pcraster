@@ -40,18 +40,21 @@ PTYPE MinPoint(PTYPE tl, /* top left */
 {
   PTYPE min1 = NAN;
   PTYPE min2 = NAN;
-  if (tr <= tl)
+  if (tr <= tl) {
     min1 = tr;
-  else
+  } else {
     min1 = tl;
-  if (br <= bl)
+  }
+  if (br <= bl) {
     min2 = br;
-  else
+  } else {
     min2 = bl;
-  if (min1 <= min2)
+  }
+  if (min1 <= min2) {
     return min1;
-  else
+  } else {
     return min2;
+  }
 }
 
 /* Calculates maximum of the row or column coordinates of four corners. 
@@ -64,18 +67,21 @@ PTYPE MaxPoint(PTYPE tl, /* top left */
 {
   PTYPE max1 = NAN;
   PTYPE max2 = NAN;
-  if (tl <= tr)
+  if (tl <= tr) {
     max1 = tr;
-  else
+  } else {
     max1 = tl;
-  if (br <= bl)
+  }
+  if (br <= bl) {
     max2 = bl;
-  else
+  } else {
     max2 = br;
-  if (max1 <= max2)
+  }
+  if (max1 <= max2) {
     return max2;
-  else
+  } else {
     return max1;
+  }
 }
 
 /* Put 4 points in a POINT2D structure with first point also as fifth.
@@ -95,8 +101,9 @@ POINT2D *PutInPol(PTYPE tlX, /* top left x */
                   PTYPE blY) /* bottom left y */
 {
   POINT2D *cell = (POINT2D *)ChkMalloc(5 * sizeof(POINT2D));
-  if (cell == NULL)
+  if (cell == NULL) {
     return NULL;
+  }
   cell[0].x = tlX;       /* top left x-coordinate */
   cell[0].y = tlY;       /* top left y-coordinate */
   cell[1].x = trX;       /* top right x-coordinate */
@@ -124,18 +131,20 @@ double CalcArea(const POINT2D *inputCell,  /* polygon input cell */
   int inNr = 0;       /* nr corners in overlap */
 
   /* Intersect the two cells */
-  if (aligned)
+  if (aligned) {
     inNr = IntersectAllignedRectangles(polygon, outputCell, inputCell);
-  else
+  } else {
     inNr = IntersectRectangles(polygon, outputCell, inputCell);
+  }
 
   POSTCOND(polygon[0].x == polygon[inNr].x);
   POSTCOND(polygon[0].y == polygon[inNr].y);
 
-  if (inNr > 0)
+  if (inNr > 0) {
     area = AreaOfPolygon(polygon, inNr);
-  else
+  } else {
     area = 0; /* no overlap */
+  }
   return area;
 }
 
@@ -170,20 +179,22 @@ void ModRaster(RASTER *raster,            /* read-write raster */
   }
 
   /* No modification necessary, cell coverage satisfied */
-  if (raster->covered)
+  if (raster->covered) {
     return;
+  }
 
   /* steps to "walk" through raster */
   stepY = (out[2].y - out[1].y) * stepSize;
   stepX = (out[1].x - out[0].x) * stepSize;
 
   /* Determine for each subpixel whether it is covered */
-  for (i = 0; i < raster->rasterSize; i++)
+  for (i = 0; i < raster->rasterSize; i++) {
     for (j = 0; j < raster->rasterSize; j++) {
       POINT2D point[1]; /* subpixel to check */
 
-      if (BitSet(raster->field, (int)((i * raster->rasterSize) + j)))
+      if (BitSet(raster->field, (int)((i * raster->rasterSize) + j))) {
         continue;
+      }
 
       /* take center of subpixel -> + 05 * step */
       point[0].x = out[0].x + i * stepX + 0.5 * stepX;
@@ -197,10 +208,12 @@ void ModRaster(RASTER *raster,            /* read-write raster */
       {
         SetBit1(raster->field, ((int)(i * raster->rasterSize + j)));
         raster->count++;
-        if (raster->nrCoverCells <= raster->count)
+        if (raster->nrCoverCells <= raster->count) {
           raster->covered = true;
+        }
       }
     }
+  }
 }
 
 /* Determine the percentage of the outputcell that is covered.
@@ -224,9 +237,11 @@ RASTER *InitRaster(RASTER *raster) /* write-only raster to initialize */
 
   PRECOND(raster != NULL);
 
-  for (i = 0; i < raster->rasterSize; i++)
-    for (j = 0; j < raster->rasterSize; j++)
+  for (i = 0; i < raster->rasterSize; i++) {
+    for (j = 0; j < raster->rasterSize; j++) {
       SetBit0(raster->field, (int)((i * raster->rasterSize) + j));
+    }
+  }
   raster->covered = false;
   raster->count = 0;
   return raster;
@@ -240,10 +255,12 @@ RASTER *NewRaster(size_t nrCoverCells, /* min. nr. of non-MV cells for non-MV */
 {
   RASTER *raster = (RASTER *)(ChkMalloc(sizeof(RASTER)));
   size_t nrExtraBytes = 0;
-  if (raster == NULL)
+  if (raster == NULL) {
     return NULL;
-  if ((rasterSize * rasterSize) % 8 > 0)
+  }
+  if ((rasterSize * rasterSize) % 8 > 0) {
     nrExtraBytes = 1;
+  }
   raster->field = (unsigned char *)ChkMalloc((UINT4)(rasterSize * rasterSize / 8) + nrExtraBytes);
   if (raster->field == NULL) {
     Free(raster);

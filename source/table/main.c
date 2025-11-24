@@ -49,11 +49,14 @@ enum {
 static void FreeMaps(MAP **in, size_t nrMaps) /* number of input maps */
 {
   size_t i = 0;
-  if (in == NULL)
+  if (in == NULL) {
     return;
-  for (i = 0; i < nrMaps; i++) /* Close all maps */
-    if (in[i] != NULL)
+  }
+  for (i = 0; i < nrMaps; i++) { /* Close all maps */
+    if (in[i] != NULL) {
       Mclose(in[i]);
+    }
+  }
   Free(in); /* Deallocate memory */
 }
 
@@ -64,8 +67,9 @@ static MAP **ReadMaps(const char **mapArgs, size_t nrMaps)
      *  neccessary for FreeMaps
      */
   MAP **in = (MAP **)ChkCalloc(nrMaps, sizeof(MAP *));
-  if (in == NULL)
+  if (in == NULL) {
     return NULL;
+  }
   /* Read all input maps with desired cell representation */
   for (i = 0; i < nrMaps; i++) {
     in[i] = Mopen(mapArgs[i], M_READ);
@@ -95,19 +99,21 @@ failure:
 static int WriteCrossTable(const char *tableName, LOOK_UP_TABLE *t, bool ommitZeros, double area)
 {
   size_t i = 0;
-  if (appUnitTrue)
+  if (appUnitTrue) {
     area *= area;
-  else
+  } else {
     area = 1;
+  }
 
   // if (LimitedVersionCheck(-1, -1, -1, (int)t->nrRecords, -1, -1))
   //     return 1;
 
   for (i = 0; i < t->nrRecords; i++) {
-    if (ommitZeros && t->records[i][t->nrKeys].l == 0)
+    if (ommitZeros && t->records[i][t->nrKeys].l == 0) {
       t->records[i][t->nrKeys].t = TEST_NOKEY;
-    else
+    } else {
       t->records[i][t->nrKeys].l *= area;
+    }
   }
   return WriteLookupTable(tableName, t);
 }
@@ -133,8 +139,9 @@ int main(int argc,     /* number of arguments */
   size_t nrCountSlots = INIT_NR_SLOTS;
   size_t moveColNr = 0;
 
-  if (InstallArgs(argc, argv, "0m#i*n#hH#", "table"))
+  if (InstallArgs(argc, argv, "0m#i*n#hH#", "table")) {
     goto failure;
+  }
 
   /* Check which options are used and set externals accordingly */
   while ((c = GetOpt()) != 0) {
@@ -164,8 +171,9 @@ int main(int argc,     /* number of arguments */
         break;
       case 'i':
         inputTableName = OptArg;
-        if (AppInputTest(inputTableName))
+        if (AppInputTest(inputTableName)) {
           goto failure;
+        }
         break;
       case 'm':
         c = *((const int *)OptArg);
@@ -178,11 +186,13 @@ int main(int argc,     /* number of arguments */
     } /* switch */
   } /* while  */
 
-  if ((argv = ArgArguments(&argc)) == NULL)
+  if ((argv = ArgArguments(&argc)) == NULL) {
     goto failure;
+  }
 
-  if (AppArgCountCheck(argc, 2, -1, USAGE))
+  if (AppArgCountCheck(argc, 2, -1, USAGE)) {
     goto failure;
+  }
 
   tableName = argv[argc - 1];
 
@@ -192,8 +202,9 @@ int main(int argc,     /* number of arguments */
       Error("-m: no input table specified with -i");
       goto failure;
     }
-    if (MoveColumn(tableName, inputTableName, moveColNr))
+    if (MoveColumn(tableName, inputTableName, moveColNr)) {
       goto failure;
+    }
   } else { /* do a cross */
     LOOK_UP_TABLE *t = NULL;
     if (nrCountSlots < nrIntervals) {
@@ -209,16 +220,19 @@ int main(int argc,     /* number of arguments */
       goto failure;
     }
     in = ReadMaps((const char **)(argv + 1), nrMaps);
-    if (in == NULL)
+    if (in == NULL) {
       goto failure;
+    }
 
-    if (inputTableName != NULL)
+    if (inputTableName != NULL) {
       /* existing table */
       t = UpdateCrossTable(inputTableName, in, nrMaps);
-    else
+    } else {
       t = MakeNewCrossTable(in, nrMaps, nrIntervals, histogram ? nrCountSlots : 0);
-    if (t == NULL)
+    }
+    if (t == NULL) {
       goto failure;
+    }
 
     WriteCrossTable(tableName, t, ommitZeros, RgetCellSize(in[0]));
 

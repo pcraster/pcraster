@@ -70,8 +70,9 @@ static double WeightDirectionalMean(double *totalWeight, /* write-only total of 
     *totalWeight += (double)list[i].area;
   }
 
-  if (*totalWeight == 0)
+  if (*totalWeight == 0) {
     return 0; /* no values to take mean */
+  }
 
   tC /= *totalWeight;
   tS /= *totalWeight;
@@ -104,17 +105,20 @@ static void CalcDirectionOut(MAP *out,            /* write-only output map */
   /* Take the weighted sum of the values, weight is the area */
   outVal = (REAL8)WeightDirectionalMean(&area, list, nrList);
 
-  if (area == 0)
+  if (area == 0) {
     first = true; /* no cell covers output cell */
+  }
 
   /* Determine whether or not missing value for output pixel */
-  if (nrMaps > 1 && nrCoverCells > 0)
+  if (nrMaps > 1 && nrCoverCells > 0) {
     cover = DetNrCoverCells(raster);
-  else
+  } else {
     cover = area * rasterSize * rasterSize / (cellSize * cellSize);
+  }
 
-  if (first || ceil(cover) < nrCoverCells || cover == 0)
+  if (first || ceil(cover) < nrCoverCells || cover == 0) {
     SET_MV_REAL8(&outVal); /* MV */
+  }
   RputCell(out, rOut, cOut, &outVal);
 }
 
@@ -139,33 +143,38 @@ static void CalcScalarOut(MAP *out,            /* write-only output map */
 
   if (opMax == 1) {
     first = true;
-    for (i = 0; i < nrList; i++)
+    for (i = 0; i < nrList; i++) {
       if (list[i].area > 0) {
-        if (first)
+        if (first) {
           outVal = list[i].value;
-        else
+        } else {
           outVal = MAX(outVal, list[i].value);
+        }
         first = false;
         area += list[i].area; /* sum of areas */
       }
+    }
   } else {
     /* Take the weighted sum of the values, weight is the area */
     for (i = 0; i < nrList; i++) {
       area += list[i].area; /* sum of areas */
       outVal += list[i].value * list[i].area;
     }
-    if (area != 0)
+    if (area != 0) {
       outVal /= area; /* average */
-    else
+    } else {
       first = true; /* no cell covers output cell */
+    }
   }
   /* Determine whether or not missing value for output pixel */
-  if (nrMaps > 1 && nrCoverCells > 0)
+  if (nrMaps > 1 && nrCoverCells > 0) {
     cover = DetNrCoverCells(raster);
-  else
+  } else {
     cover = area * rasterSize * rasterSize / (cellSize * cellSize);
-  if (first || ceil(cover) < nrCoverCells || cover == 0)
+  }
+  if (first || ceil(cover) < nrCoverCells || cover == 0) {
     SET_MV_REAL8(&outVal); /* put mv */
+  }
   RputCell(out, rOut, cOut, &outVal);
 }
 
@@ -187,16 +196,18 @@ static int AddCell(DATA **list,               /* read-write list of cells */
 {
   REAL8 value = NAN;
   (*nrList)++;
-  if ((*list = (DATA *)ChkRealloc(*list, *nrList * sizeof(DATA))) == NULL)
+  if ((*list = (DATA *)ChkRealloc(*list, *nrList * sizeof(DATA))) == NULL) {
     return 1;
+  }
 
   value = currRow[c];
 
   if (!IsMV(in, &value)) {
     double area = NAN; /* area of overlap */
     area = CalcArea(inputCell, outputCell, aligned);
-    if (area != 0 && nrCoverCells > 0 && nrMaps > 1)
+    if (area != 0 && nrCoverCells > 0 && nrMaps > 1) {
       ModRaster(raster, outputCell, inputCell, angle);
+    }
     (*list)[*nrList - 1].area = area;
     (*list)[*nrList - 1].value = value;
   } else { /* no valid value */
@@ -239,8 +250,9 @@ static int CalcPixel(MAP *out,            /* write-only output map */
 #endif
   CSF_VS vs; /* value scale of first input map */
 
-  if (nrCoverCells > 0 && nrMaps > 1)
+  if (nrCoverCells > 0 && nrMaps > 1) {
     raster = InitRaster(raster); /* initialize the raster */
+  }
 
   /* Determine the four corners of output pixel */
   RrowCol2Coords(out, rOut, cOut, &tlX, &tlY);         /* top left */
@@ -248,8 +260,9 @@ static int CalcPixel(MAP *out,            /* write-only output map */
   RrowCol2Coords(out, rOut + 1, cOut, &blX, &blY);     /* bottom left */
   RrowCol2Coords(out, rOut + 1, cOut + 1, &brX, &brY); /* bottom right */
   outputCell = PutInPol(tlX, tlY, trX, trY, brX, brY, blX, blY);
-  if (outputCell == NULL)
+  if (outputCell == NULL) {
     return 1;
+  }
 
   POSTCOND(outputCell[0].x == outputCell[nr].x);
   POSTCOND(outputCell[0].y == outputCell[nr].y);
@@ -298,14 +311,16 @@ static int CalcPixel(MAP *out,            /* write-only output map */
     /* Check all cells between the boundaries */
     for (r = upperB; r < belowB; r++) {
       REAL8 *currRow = NULL;
-      if (0 <= r && r <= RgetNrRows(X))
+      if (0 <= r && r <= RgetNrRows(X)) {
         currRow = (REAL8 *)CacheGetRow(in, i, r);
+      }
 
       for (c = leftB; c < rightB; c++) { /* Cells that might be in pixel */
         POINT2D *inputCell = NULL;       /* polygon input cell */
 
-        if (r < 0 || RgetNrRows(X) <= r || c < 0 || RgetNrCols(X) <= c)
+        if (r < 0 || RgetNrRows(X) <= r || c < 0 || RgetNrCols(X) <= c) {
           continue;
+        }
 
         /* Top left & right, bottom left & right */
         RrowCol2Coords(X, r, c, &tlX2, &tlY2);
@@ -313,16 +328,18 @@ static int CalcPixel(MAP *out,            /* write-only output map */
         RrowCol2Coords(X, r + 1, c, &blX2, &blY2);
         RrowCol2Coords(X, r + 1, c + 1, &brX2, &brY2);
         inputCell = PutInPol(tlX2, tlY2, trX2, trY2, brX2, brY2, blX2, blY2);
-        if (inputCell == NULL)
+        if (inputCell == NULL) {
           return 1;
+        }
 
         POSTCOND(inputCell[0].x == inputCell[nr].x);
         POSTCOND(inputCell[0].y == inputCell[nr].y);
 
         /* Add item to list for cell */
         if (AddCell(&list, raster, &nrList, inputCell, outputCell, currRow, X, nrMaps, (size_t)c,
-                    nrCoverCells, aligned, angle))
+                    nrCoverCells, aligned, angle)) {
           return 1;
+        }
         Free(inputCell); /* deallocate */
       }
     }
@@ -330,10 +347,11 @@ static int CalcPixel(MAP *out,            /* write-only output map */
 
   /* calculate output value of pixel according value scale */
   vs = RgetValueScale(in[0]);
-  if (vs != VS_DIRECTION)
+  if (vs != VS_DIRECTION) {
     CalcScalarOut(out, (size_t)rOut, (size_t)cOut, nrList, list, nrCoverCells, nrMaps);
-  else
+  } else {
     CalcDirectionOut(out, (size_t)rOut, (size_t)cOut, nrList, list, nrCoverCells, nrMaps);
+  }
 
   Free(outputCell); /* deallocate */
   Free(list);       /* deallocate */
@@ -362,21 +380,24 @@ int SampleCont(MAP *out,          /* write-only output map */
   InitCache(out, in, nrMaps);
   for (r = 0; r < nrRows; r++) {
 
-    if (nrMaps > 1 && percentage > 0)
+    if (nrMaps > 1 && percentage > 0) {
       raster = NewRaster(nrCoverCells, rasterSize);
+    }
 
     /* Print progress information if wanted */
     AppRowProgress((int)r);
 
     for (c = 0; c < nrCols; c++) { /* For every output cell */
-      if (CalcPixel(out, in, nrCoverCells, nrMaps, r, c, aligned, angle))
+      if (CalcPixel(out, in, nrCoverCells, nrMaps, r, c, aligned, angle)) {
         return 1; /* allocation failed */
+      }
     }
   }
 
   AppEndRowProgress();
-  if (nrMaps > 1 && percentage > 0)
+  if (nrMaps > 1 && percentage > 0) {
     FreeRaster(raster);
+  }
   FreeCache(nrMaps);
   return 0; /* successfully terminated */
 }

@@ -34,12 +34,12 @@
  */
 void FreeLookupTable(LOOK_UP_TABLE *t) /* table to deallocate */
 {
-    PRECOND(t != NULL);
+  PRECOND(t != NULL);
 
-    if (t->records != NULL)
-        Free2d((void **)t->records, t->nrRecords);
-    Free(t->keyVs);
-    Free(t);
+  if (t->records != NULL)
+    Free2d((void **)t->records, t->nrRecords);
+  Free(t->keyVs);
+  Free(t);
 }
 
 /* allocates the records of a lookup tables
@@ -48,8 +48,8 @@ void FreeLookupTable(LOOK_UP_TABLE *t) /* table to deallocate */
  */
 int AllocLookupTable(LOOK_UP_TABLE *t) /* with nrRecords and nrKeys defined */
 {
-    PRECOND(t->nrRecords > 0);
-    t->records = (LOOK_UP_KEY **)Malloc2d(t->nrRecords, t->nrKeys + 1, sizeof(LOOK_UP_KEY));
-    t->keyVs = (CSF_VS *)ChkMalloc((t->nrKeys + 1) * sizeof(CSF_VS));
-    return t->records == NULL || t->keyVs == NULL;
+  PRECOND(t->nrRecords > 0);
+  t->records = (LOOK_UP_KEY **)Malloc2d(t->nrRecords, t->nrKeys + 1, sizeof(LOOK_UP_KEY));
+  t->keyVs = (CSF_VS *)ChkMalloc((t->nrKeys + 1) * sizeof(CSF_VS));
+  return t->records == NULL || t->keyVs == NULL;
 }

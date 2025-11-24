@@ -1,13 +1,13 @@
 #include "ag_ClassLegendBody.h"
-#include <cassert>
-#include <QApplication>
-#include <QPainter>
 #include "ag_ClassDrawProps.h"
 #include "ag_DataObject.h"
 #include "ag_DataProperties.h"
-#include <QtGlobal>
-#include <QFontMetrics>
 
+#include <QFontMetrics>
+#include <QApplication>
+#include <QPainter>
+
+#include <cassert>
 
 
 /*!
@@ -70,11 +70,7 @@ int ClassLegendBody::maxWidthLabel() const
   for(size_t i = 0; i < d_drawProperties.nrClasses(); ++i) {
     label = d_drawProperties.label(i);
     result = std::max<int>(result,
-#if QT_VERSION < QT_VERSION_CHECK(5, 11, 0)
-        qApp->fontMetrics().width(QString(label.c_str())));
-#else
         QFontMetrics(qApp->font()).horizontalAdvance(QString(label.c_str())));
-#endif
          // qApp->desktop()->fontMetrics().width(QString(label.c_str())));
   }
 
@@ -187,12 +183,7 @@ int ClassLegendBody::width() const
   switch(d_guide.valueScale()) {
     case VS_LDD: {
       result = keySize().width() + labelOffset().width() +
-#if QT_VERSION < QT_VERSION_CHECK(5, 11, 0)
-        qApp->fontMetrics().width("flow direction");
-#else
         QFontMetrics(qApp->font()).horizontalAdvance("flow direction");
-#endif
-
       break;
     }
     case VS_BOOLEAN:

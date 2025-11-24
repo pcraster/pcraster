@@ -1,17 +1,13 @@
 #include "ag_Util.h"
-#include <cassert>
-#include <QFileDialog>
-#include <QtGlobal>
 
+#include <QFileDialog>
+
+#include <cassert>
 
 
 std::string ag::getOpenDataFileName(QWidget *p)
 {
-#if QT_VERSION < QT_VERSION_CHECK(5, 9, 0)
-  QString fn = QFileDialog::getOpenFileName(p, QString::null, QString::null,
-#else
   QString const fn = QFileDialog::getOpenFileName(p, QString(), QString(),
-#endif
                    "All data files (*.csf *.map)");
 
   return fn.isEmpty() ? std::string() : std::string(fn.toUtf8().constData());

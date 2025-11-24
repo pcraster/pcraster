@@ -516,19 +516,9 @@ void Map2DView::wheelEvent(
   else if(event->modifiers() & Qt::AltModifier) {
   }
   else {
-#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
-    int nrDegrees = event->delta() / 8;
-#else
     int const nrDegrees = event->angleDelta().y() / 8;
-#endif
-
     double const fraction = nrDegrees / 360.0;
-
-#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
-    if(event->orientation() == Qt::Vertical) {
-#else
     if(event->angleDelta().y() != 0) {
-#endif
       // Zoom in to current mouse position.
       dataObject().map2DZoomBy(1.0 + fraction, true);
     }

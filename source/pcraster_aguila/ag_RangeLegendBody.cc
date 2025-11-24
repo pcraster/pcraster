@@ -1,22 +1,16 @@
 #include "ag_RangeLegendBody.h"
-
-// Std
-#include <string>
-#include <vector>
-
-// Qt
-#include <QApplication>
-#include <QPainter>
-#include <QFontMetrics>
-
-// Pcr
 #include "com_classifier.h"
 #include "com_util.h"
 #include "ag_DataObject.h"
 #include "ag_DataProperties.h"
 #include "ag_RangeDrawProps.h"
 
+#include <QApplication>
+#include <QPainter>
+#include <QFontMetrics>
 
+#include <string>
+#include <vector>
 
 /*!
   \file
@@ -139,19 +133,11 @@ int RangeLegendBody::maxLengthLabel() const
 
   if(_drawProperties.rawValueClassifier()->algorithm() ==
        com::Classifier::USERDEFINED) {
-#if QT_VERSION < QT_VERSION_CHECK(5, 11, 0)
-    length = qApp->fontMetrics().width(QString("Not distinguishable"));
-#else
     length = QFontMetrics(qApp->font()).horizontalAdvance(QString("Not distinguishable"));
-#endif
   }
   else {
     for(size_t i = 0; i <= _drawProperties.nrClasses(); ++i) {
-#if QT_VERSION < QT_VERSION_CHECK(5, 11, 0)
-      length = std::max<int>(length, qApp->fontMetrics().width(label(i)));
-#else
       length = std::max<int>(length, QFontMetrics(qApp->font()).horizontalAdvance(label(i)));
-#endif
     }
   }
 
@@ -163,11 +149,7 @@ int RangeLegendBody::maxLengthLabel() const
 int RangeLegendBody::keyBoxHeight() const
 {
   return _drawProperties.drawerType() == VECTORS
-#if QT_VERSION < QT_VERSION_CHECK(5, 11, 0)
-         ? qApp->fontMetrics().width(QString("Cell length"))
-#else
          ? QFontMetrics(qApp->font()).horizontalAdvance(QString("Cell length"))
-#endif
          : _maxKeyBoxHeight;
 }
 

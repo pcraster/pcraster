@@ -55,17 +55,19 @@ int AppDetectColumnFile(bool *geoEas,         /* write-only boolean */
     return 0;
   }
   while ((c = fgetc(f)) != EOF) {
-    if (c == '\n')
+    if (c == '\n') {
       break;
-    else
+    } else {
       somethingOnLine1 = true;
+    }
   }
   if (c == EOF) { /* end of file */
     if (somethingOnLine1) {
       /* there's only 1 line, can't be Geo-EAS */
       goto detect_plain;
-    } else
+    } else {
       goto error; /* empty file */
+    }
   }
   POSTCOND(c == '\n');
 
@@ -73,9 +75,10 @@ int AppDetectColumnFile(bool *geoEas,         /* write-only boolean */
   token = LexGetToken();
   if (token == LEX_NUMBER) {
     long nvarOnLine = LexGetLineNr();
-    if (!CnvrtInt(&nrCols, LexGetTokenValue()))
+    if (!CnvrtInt(&nrCols, LexGetTokenValue())) {
       /* not a valid integer */
       goto detect_plain;
+    }
     LexGetToken();
     if (LexGetLineNr() > nvarOnLine) {
       *geoEas = true;
@@ -98,8 +101,9 @@ detect_plain:
         firstNonEmptyLine--;
         break;
       default:
-        if (token != sepChar)
+        if (token != sepChar) {
           nrCols++;
+        }
     }
     token = LexGetToken();
   }

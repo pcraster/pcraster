@@ -47,17 +47,20 @@ MAP *AppOpenClone(
       return NULL;
     }
     *cloneFileName = appClone;
-  } else
+  } else {
     *cloneFileName = (char *)cmdLineClone;
+  }
 
   /* Check clone file  */
   switch (FileStat(*cloneFileName)) {
     case 0:
       clone = Mopen(*cloneFileName, M_READ);
-      if (clone != NULL)
+      if (clone != NULL) {
         break;
-      if (Merrno != NOT_CSF)
+      }
+      if (Merrno != NOT_CSF) {
         Mperror(*cloneFileName);
+      }
       // Falls through
     case 1:
       Error("clone map '%s' is not a map", *cloneFileName);

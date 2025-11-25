@@ -50,8 +50,9 @@ extern "C" bool app_setDynamicLibraries(
   PRECOND(libList.size() >= 1);
   PRECOND(libList[0] == "dynamiclibraries");
   for (size_t i=1;i < libList.size(); i++) {
-   if (nrDynamicLibraryNames == 64)
+   if (nrDynamicLibraryNames == 64) {
     return RetError(false,"Too many dynamic libraries (max=%d)",64);
+   }
    dynamicLibraryNames[nrDynamicLibraryNames++] =
      StrcpyChkMalloc(libList[i].c_str());
   }
@@ -79,7 +80,8 @@ void deleteSaveStrtok(SAVE_STRTOK s)
 
 const char* nextSaveStrtok(SAVE_STRTOK s)
 {
-  if (s.data->d_next <  s.data->d_strings.size())
+  if (s.data->d_next <  s.data->d_strings.size()) {
    return s.data->d_strings[s.data->d_next++].c_str();
+  }
   return nullptr;
 }

@@ -49,9 +49,9 @@ int AppRgetRowCol(const MAP *m, /* map handle */
 {
   double r = NAN;
   double c = NAN;
-  if (appUnitTrue)
+  if (appUnitTrue) {
     Rcoords2RowCol(m, x, y, &r, &c);
-  else {
+  } else {
     r = y;
     c = x;
   }

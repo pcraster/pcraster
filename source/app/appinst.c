@@ -142,19 +142,22 @@ static int InstallLocalOptions(const char *o) /* option string passed to Install
   /* Check on redefinition of format of options */
   for (i = 0; i < strlen(o); i++) {
     char a = o[i];
-    if (isalnum(a))
+    if (isalnum(a)) {
       PRECOND(strchr(o + (i + 1), a) == NULL);
+    }
   }
 #endif
 
   localFlags = (char *)ChkMalloc((size_t)(n + 1));
   groupInput = (char *)ChkMalloc((size_t)(n + 1));
   groupResult = (char *)ChkMalloc((size_t)(n + 1));
-  if (localFlags == NULL || groupInput == NULL || groupResult == NULL)
+  if (localFlags == NULL || groupInput == NULL || groupResult == NULL) {
     return 1;
+  }
   localFlagsOptions = (char *)ChkCalloc((size_t)(n + 1), sizeof(char)); /* 0's are defaults */
-  if (localFlagsOptions == NULL)
+  if (localFlagsOptions == NULL) {
     return 1;
+  }
   for (i = 0; i < n; i++) {
     switch (o[i]) {
       case '&':
@@ -195,9 +198,11 @@ static int InstallLocalOptions(const char *o) /* option string passed to Install
 int SetClone(const char *cloneName)
 {
   FREE_NULL(appClone);
-  if (cloneName)
-    if ((appClone = StrcpyChkMalloc(cloneName)) == NULL)
+  if (cloneName) {
+    if ((appClone = StrcpyChkMalloc(cloneName)) == NULL) {
       return 1;
+    }
+  }
   return 0;
 }
 
@@ -243,8 +248,9 @@ bool ParseGlobalFlag(const char *flag) /* InclDoubleDash */
   SET_FLAG(flag, "savewd", appSaveWD = true)
   SET_FLAG(flag, "nosavewd", appSaveWD = false)
 
-  if (strncmp(flag, "dynamiclibraries:", strlen("dynamiclibraries:")) == 0)
+  if (strncmp(flag, "dynamiclibraries:", strlen("dynamiclibraries:")) == 0) {
     return app_setDynamicLibraries(flag);
+  }
 
   return false; /*  flag does not fit */
 }
@@ -262,15 +268,17 @@ static int ParseEnv(void)
   SAVE_STRTOK ss;
   const char *p = NULL;
   char *env = getenv("PCROPTIONS");
-  if (env == NULL)
+  if (env == NULL) {
     return 0; /* ready */
+  }
   ss = createSaveStrtok(env);
   p = nextSaveStrtok(ss);
   while (p != NULL) {
     if (appCloneParsed) /* --clone just parsed, copy name */
     {
-      if (SetClone(p))
+      if (SetClone(p)) {
         goto error;
+      }
       appCloneParsed = false;
     } else if (!ParseGlobalFlag(p)) {
       Error("env. variable PCROPTIONS contains unknown"
@@ -281,9 +289,10 @@ static int ParseEnv(void)
     p = nextSaveStrtok(ss);
   }
   deleteSaveStrtok(ss);
-  if (appCloneParsed)
+  if (appCloneParsed) {
     return RetError(1, "env. variable PCROPTIONS contains --clone"
                        " option, but no clone map specified");
+  }
   return 0;
 error:
   deleteSaveStrtok(ss);
@@ -300,12 +309,14 @@ static int CheckSetFlag(FLAG *currFlag, /* write-only */
 
   switch (GET_OPT_SYM(i)) {
     case OPT_SYM_REAL:
-      if (!CnvrtDouble(&(currFlag->d), a))
+      if (!CnvrtDouble(&(currFlag->d), a)) {
         return RetError(1, "argument of option '%c' is not a real number ('%s')", localFlags[i], a);
+      }
       break;
     case OPT_SYM_INT:
-      if (!CnvrtInt(&(currFlag->i), a))
+      if (!CnvrtInt(&(currFlag->i), a)) {
         return RetError(1, "argument of option '%c' is not an integer number ('%s')", localFlags[i], a);
+      }
       break;
     default:
       PRECOND(GET_OPT_SYM(i) == OPT_SYM_STR);
@@ -326,8 +337,9 @@ static int ParseLocalFlags(int *locArgPtr, /* read-write local arg ptr */
   for (i = 1; f != NULL && f[i] != '\0'; i++) {
     char *flagPtr = strchr(localFlags, f[i]);
     int flagIndex = 0;
-    if (flagPtr == NULL)
+    if (flagPtr == NULL) {
       return RetError(1, "Unknown option '%c'", f[i]);
+    }
     flagIndex = flagPtr - localFlags;
 
     /* find flag record
@@ -335,8 +347,9 @@ static int ParseLocalFlags(int *locArgPtr, /* read-write local arg ptr */
     currFlag = flagsSet + flagIndex;
     if (GET_OPT_MULT(flagIndex) && (currFlag->set)) { /* add another one
        */
-      for (; currFlag->next != NULL; currFlag = currFlag->next)
+      for (; currFlag->next != NULL; currFlag = currFlag->next) {
         ;
+      }
       currFlag->next = flagsSet + (nrFlagsSet++);
       currFlag = currFlag->next;
     }
@@ -353,11 +366,13 @@ static int ParseLocalFlags(int *locArgPtr, /* read-write local arg ptr */
           */
           locArgv[(*locArgPtr)++] = NULL;
           flagArg = locArgv[(*locArgPtr)];
-        } else
+        } else {
           return RetError(1, " option '%c' requires an argument", f[i]);
+        }
       }
-      if (CheckSetFlag(currFlag, flagIndex, flagArg))
+      if (CheckSetFlag(currFlag, flagIndex, flagArg)) {
         return 1;
+      }
     }
   }
   return 0;
@@ -373,34 +388,39 @@ static int ParseArgv(int argc,     /* number of arguments */
   nrFlagsSet = 1; /* let alloc succeed */
   for (locArgPtr = 0; locArgPtr < argc; locArgPtr++) {
     locArgv[locArgPtr] = argv[locArgPtr];
-    if (locArgPtr > 0 && argv[locArgPtr][0] == '-' && argv[locArgPtr][1] != '-')
+    if (locArgPtr > 0 && argv[locArgPtr][0] == '-' && argv[locArgPtr][1] != '-') {
       /* string of local options */
       nrFlagsSet += strlen(argv[locArgPtr]) - 1;
+    }
   }
   nrMaxDiffFlagsSet = nrLocFlags;
   /* Calloc: 0's are defaults */
   flagsSet = (FLAG *)ChkCalloc((size_t)(nrFlagsSet + nrMaxDiffFlagsSet), sizeof(FLAG));
-  if (flagsSet == NULL)
+  if (flagsSet == NULL) {
     return 1;
+  }
   nrFlagsSet = nrMaxDiffFlagsSet;
   for (locArgPtr = 1; locArgPtr < argc; locArgPtr++) {
     bool arg = false;
     if (!strncmp("--", locArgv[locArgPtr], (size_t)2)) {
       appCloneParsed = false;
-      if (!ParseGlobalFlag(locArgv[locArgPtr]))
+      if (!ParseGlobalFlag(locArgv[locArgPtr])) {
         return RetError(1,
                         "command line contains unknown"
                         " global option: '%s'",
                         locArgv[locArgPtr]);
+      }
       if (appCloneParsed) {
         appCloneParsed = false;
         locArgv[locArgPtr] = NULL; /* exclude from arguments */
         if (++locArgPtr < argc) {
-          if (SetClone(locArgv[locArgPtr]))
+          if (SetClone(locArgv[locArgPtr])) {
             return 1;
-        } else
+          }
+        } else {
           return RetError(1, "command line contains --clone"
                              " option, but no clone map specified");
+        }
       }
     } /* not a global option: */
     else if (locArgv[locArgPtr][0] == '-' && !NumbersAreArg(locArgv[locArgPtr]))
@@ -408,16 +428,19 @@ static int ParseArgv(int argc,     /* number of arguments */
               * them
               */
     {
-      if (ParseLocalFlags(&locArgPtr, argc))
+      if (ParseLocalFlags(&locArgPtr, argc)) {
         return 1;
-    } else /* not an option */
+      }
+    } else { /* not an option */
       arg = true;
-    if (!arg)
+    }
+    if (!arg) {
       locArgv[locArgPtr] = NULL; /* exclude from arguments */
-    else {                       /* first argument found
+    } else {                     /* first argument found
        */
-      if (appAllOptionsMostLeft)
+      if (appAllOptionsMostLeft) {
         break;
+      }
     }
   } /* eofor */
 
@@ -444,7 +467,7 @@ static bool GroupCheck(void)
   PRECOND(groupResult);
   state = SINGLE;
   for (i = 0; i < n; i++) {
-    if (state == SINGLE)
+    if (state == SINGLE) {
       switch (groupResult[i]) {
         case '(':
           state = GROUP;
@@ -459,17 +482,18 @@ static bool GroupCheck(void)
           PRECOND(false);
           break;
       }
-    else {
+    } else {
       PRECOND(groupMemberUsed >= 0);
       switch (groupResult[i]) {
         case '-':
-          if (!groupMemberUsed)
+          if (!groupMemberUsed) {
             groupMemberUsed = i;
-          else
+          } else {
             return RetError(0,
                             "Options '-%c' and '-%c' are mutually exclusive "
                             ", specify only one of them",
                             groupInput[groupMemberUsed], groupInput[i]);
+          }
           break;
         case ')':
           state = SINGLE;
@@ -491,22 +515,25 @@ int AppParseShellLine(const char *firstLine)
   while (p != NULL) {
     if (appCloneParsed) /* --clone just parsed, copy name */
     {
-      if (SetClone(p))
+      if (SetClone(p)) {
         goto error;
+      }
       appCloneParsed = false;
-    } else if (!strncmp("--", p, (size_t)2))
+    } else if (!strncmp("--", p, (size_t)2)) {
       if (!ParseGlobalFlag(p)) {
         Error("the #! line contains unknown"
               " global option: '%s'",
               p);
         goto error;
       }
+    }
     p = nextSaveStrtok(ss);
   }
   deleteSaveStrtok(ss);
-  if (appCloneParsed)
+  if (appCloneParsed) {
     return RetError(1, "the #! line of contains --clone"
                        " option, but no clone map specified");
+  }
   return 0;
 error:
   deleteSaveStrtok(ss);
@@ -529,9 +556,11 @@ char **ArgArguments(int *nrArgs) /* write-only number of arguments */
   int src = 0;
   int dest = 0;
   /* shift ptrs to begin */
-  for (src = 0; src < locArgc; src++)
-    if (locArgv[src] != NULL)
+  for (src = 0; src < locArgc; src++) {
+    if (locArgv[src] != NULL) {
       locArgv[dest++] = locArgv[src];
+    }
+  }
   *nrArgs = dest;
   return GroupCheck() ? locArgv : NULL;
 }
@@ -552,17 +581,20 @@ int GetOpt(void)
 {
   int nextFlag = 0;
   char *grPtr = NULL;
-  if (getOptNextFlag >= nrMaxDiffFlagsSet || flagsSet == NULL)
+  if (getOptNextFlag >= nrMaxDiffFlagsSet || flagsSet == NULL) {
     return 0;
+  }
 
   if (getOptFlagSet == NULL) { /* find new one */
     for (; getOptNextFlag < nrMaxDiffFlagsSet; getOptNextFlag++) {
       getOptFlagSet = flagsSet + getOptNextFlag;
-      if (getOptFlagSet->set)
+      if (getOptFlagSet->set) {
         break;
+      }
     }
-    if (getOptNextFlag == nrMaxDiffFlagsSet)
+    if (getOptNextFlag == nrMaxDiffFlagsSet) {
       return 0;
+    }
   }
 
   switch (GET_OPT_SYM(getOptNextFlag)) {
@@ -579,13 +611,15 @@ int GetOpt(void)
       OptArg = NULL;
   }
   getOptFlagSet = getOptFlagSet->next;
-  if (getOptFlagSet == NULL)
+  if (getOptFlagSet == NULL) {
     nextFlag = localFlags[getOptNextFlag++];
-  else
+  } else {
     nextFlag = localFlags[getOptNextFlag];
+  }
   grPtr = strchr(groupResult, nextFlag);
-  if (grPtr != NULL) /* NULL possible if flag has multiple option */
-    *grPtr = '-';    /* mark used */
+  if (grPtr != NULL) { /* NULL possible if flag has multiple option */
+    *grPtr = '-';      /* mark used */
+  }
   return nextFlag;
 }
 
@@ -630,15 +664,18 @@ int InstallArgs(int argc,            /* number of arguments */
 {
 
   AppSetGlobalArgsDefaults();
-  if (InstallLocalOptions(options))
+  if (InstallLocalOptions(options)) {
     goto error;
+  }
 
 
   /* parse global options set in environment variable */
-  if (ParseEnv())
+  if (ParseEnv()) {
     goto error;
-  if (ParseArgv(argc, argv))
+  }
+  if (ParseArgv(argc, argv)) {
     goto error;
+  }
 
   /* init GetOpt processing */
   getOptNextFlag = 0;
@@ -693,10 +730,12 @@ int AppArgCountCheck(int argc,          /* the number of arguments >= 1 */
     (void)fprintf(stderr, "%s", usage);
     exit(0);
   }
-  if (argc < minArgc)
+  if (argc < minArgc) {
     return RetError(1, "Not enough arguments");
-  if (maxArgc != -1 && argc > maxArgc)
+  }
+  if (maxArgc != -1 && argc > maxArgc) {
     return RetError(1, "Too many arguments");
+  }
   return 0;
 }
 
@@ -712,8 +751,9 @@ void AppEnd(void)
   FREE_NULL(appClone);
   EndGetOpt();
 
-  for (i = 0; i < nrDynamicLibraryNames; i++)
+  for (i = 0; i < nrDynamicLibraryNames; i++) {
     free(dynamicLibraryNames[i]);
+  }
   nrDynamicLibraryNames = 0;
 }
 

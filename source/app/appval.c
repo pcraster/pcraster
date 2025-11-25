@@ -62,8 +62,9 @@ int AppCheckVal(const char *v,     /* token value to read */
   REAL8 real8Val = NAN;
   int result = 0;
 
-  if (cellRepr == CR_UNDEFINED)
+  if (cellRepr == CR_UNDEFINED) {
     cellRepr = AppDefaultCellRepr(valueScale);
+  }
 
   switch (valueScale) {
     case VS_BOOLEAN:
@@ -71,10 +72,11 @@ int AppCheckVal(const char *v,     /* token value to read */
       break;
     case VS_NOMINAL:
     case VS_ORDINAL:
-      if (appLarge)
+      if (appLarge) {
         result = CnvrtINT4(&int4Val, v);
-      else
+      } else {
         result = CnvrtUINT1(&uint1Val, v);
+      }
       break;
     case VS_LDD:
       result = (CnvrtUINT1(&uint1Val, v) && (UINT1)0 < uint1Val && uint1Val <= (UINT1)LDD_MAX);
@@ -86,10 +88,11 @@ int AppCheckVal(const char *v,     /* token value to read */
 #endif
       case VS_SCALAR:
       case VS_DIRECTION:
-        if (appDouble)
+        if (appDouble) {
           result = CnvrtREAL8(&real8Val, v);
-        else
+        } else {
           result = CnvrtREAL4(&real4Val, v);
+        }
       break;
     case VS_UNDEFINED:
       result = CnvrtREAL8(&real8Val, v);
@@ -105,9 +108,10 @@ int AppCheckVal(const char *v,     /* token value to read */
     switch (valueScale) {
       case VS_SCALAR:
       case VS_DIRECTION:
-        if (!appDouble && CnvrtREAL8(&real8Val, v))
+        if (!appDouble && CnvrtREAL8(&real8Val, v)) {
           /* legal value but not in single */
           s = " in single cell representation";
+        }
         break;
       case VS_NOMINAL:
       case VS_ORDINAL:
@@ -121,10 +125,11 @@ int AppCheckVal(const char *v,     /* token value to read */
         break;
       }
     }
-    if (valueScale != VS_UNDEFINED)
+    if (valueScale != VS_UNDEFINED) {
       ErrorNested("'%s' is not a legal %s value %s", v, RstrValueScale(valueScale), s);
-    else
+    } else {
       ErrorNested("'%s' is not a legal numerical value", v);
+    }
   }
   return !result;
 }

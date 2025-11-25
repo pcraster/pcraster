@@ -38,8 +38,9 @@
  */
 double AppInputDirection(double val) /* value to convert */
 {
-  if (appDirection == APP_DEGREES)
+  if (appDirection == APP_DEGREES) {
     return Deg2Rad(val);
+  }
   POSTCOND(0 <= val && val < M_2PI);
   return val;
 }
@@ -50,7 +51,8 @@ double AppInputDirection(double val) /* value to convert */
  */
 double AppOutputDirection(double rad) /* value to convert */
 {
-  if (rad != -1 && appDirection == APP_DEGREES)
+  if (rad != -1 && appDirection == APP_DEGREES) {
     rad = Rad2Deg(rad);
+  }
   return rad;
 }

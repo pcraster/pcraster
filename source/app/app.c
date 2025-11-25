@@ -37,8 +37,9 @@ static bool firstTimeCalled = true; /* for prefix PROGRESS */
 /* Write busy with given row number to stderr and returns */
 void AppRowProgress(int r) /* number of current row */
 {
-  if (appOutput != APP_PROGRESS)
+  if (appOutput != APP_PROGRESS) {
     return;
+  }
   (void)fprintf(stderr, "\rBusy with row: %d", r);
   FLUSH(stderr);
   FLUSH(stdout);
@@ -47,8 +48,9 @@ void AppRowProgress(int r) /* number of current row */
 /* Write newline to stderr and returns */
 void AppEndRowProgress(void)
 {
-  if (appOutput == APP_PROGRESS)
+  if (appOutput == APP_PROGRESS) {
     (void)fprintf(stderr, "\n");
+  }
 }
 
 /* Writes progress message to stderr if desired and then returns.
@@ -58,8 +60,9 @@ void AppProgress(const char *fmt, /* Format control */
 {
   va_list marker; /* parameter list of variable length */
 
-  if (appOutput != APP_PROGRESS)
+  if (appOutput != APP_PROGRESS) {
     return; /* no progress message desired */
+  }
 
   /* Let marker point to 1st unnamed argument */
   va_start(marker, VA_START_ARG(fmt));
@@ -85,8 +88,9 @@ void AppVerbose(const char *fmt, /* Format control */
   va_list marker; /* parameter list of variable length */
 
 
-  if (appOutput == APP_NOOUT)
+  if (appOutput == APP_NOOUT) {
     return; /* no progress message desired */
+  }
 
   /* Let marker point to 1st unnamed argument */
   va_start(marker, VA_START_ARG(fmt));

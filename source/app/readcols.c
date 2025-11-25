@@ -77,8 +77,9 @@ static void FreeColumnOrTimeSeriesData(double **dataRecords, /* data returned th
   size_t i = 0;
   /* Free the chunks allocated
    */
-  for (i = 0; i < nrDataRecords; i += REC_ALLOC)
+  for (i = 0; i < nrDataRecords; i += REC_ALLOC) {
     Free(dataRecords[i]);
+  }
   /* Free the list itself
    */
   Free(dataRecords);
@@ -164,8 +165,9 @@ static int HandleAnErrorTss(REAL8 *retVal, size_t colNr, size_t lineNr, const ch
   if (appHeader == APP_NOHEADER && colNr == 1) {
     SET_MV_REAL8(retVal);
     return 0;
-  } else
+  } else {
     return HandleAnErrorDefault(retVal, colNr, lineNr, wrong);
+  }
 }
 
 static int (*handleAnError)(REAL8 *v, size_t c, size_t l, const char *w) = HandleAnErrorDefault;
@@ -222,8 +224,9 @@ static int ReadAllColumnFile(double ***recs,          /* write-only array of nrR
     ErrorNested("Can't determine number of columns");
     return 1;
   }
-  if ((currRecValues = CHK_MALLOC_TYPE(double, nCols)) == NULL)
+  if ((currRecValues = CHK_MALLOC_TYPE(double, nCols)) == NULL) {
     return 1;
+  }
 
   /* set up local recordBuffer */
   InitAllRecs(colNr == NULL ? nCols : 4);
@@ -250,13 +253,15 @@ static int ReadAllColumnFile(double ***recs,          /* write-only array of nrR
     for (i = 1; i <= nCols; i++) {
       const char *v = NULL;
       int token = LexGetToken();
-      if (token == sepChar) /* skip separator */
+      if (token == sepChar) { /* skip separator */
         token = LexGetToken();
+      }
       v = LexGetTokenValue();
       switch (token) {
-        case 0:       /* EOF */
-          if (i == 1) /* OK */
+        case 0:         /* EOF */
+          if (i == 1) { /* OK */
             goto wholeFileParsed;
+          }
           /* EOF in the middle of a record */
           /* column i not found: */
           ErrorNested(NR_COL_MISMATCH, i - 1, l, nCols);
@@ -295,15 +300,17 @@ static int ReadAllColumnFile(double ***recs,          /* write-only array of nrR
                * PRECOND(r!= NULL);
                */
       if (!CnvrtValueMV(currRecValues + (i - 1), v, mv, number, mvDbl)) {
-        if (handleAnError(currRecValues + (i - 1), i, l, v))
+        if (handleAnError(currRecValues + (i - 1), i, l, v)) {
           goto error;
+        }
       }
     } /* eofor */
     if (resultRec == NULL) {
       /* kept NON-NULL if last one is rejected
      */
-      if ((resultRec = NewAllRec()) == NULL)
+      if ((resultRec = NewAllRec()) == NULL) {
         goto error;
+      }
     }
 
     /* copy required columns
@@ -326,10 +333,12 @@ static int ReadAllColumnFile(double ***recs,          /* write-only array of nrR
         hadMV = true;
       }
       if (skipMV) {
-        if (!hadMV)
+        if (!hadMV) {
           resultRec = NULL; /* non MV or keep: next record please */
-      } else
+        }
+      } else {
         resultRec = NULL; /* always next record please */
+      }
     } /* eo copy XYV */
   } /* eowhile */
 wholeFileParsed:
@@ -396,13 +405,15 @@ int AppReadColumnFile(REAL8 ***recs,           /* write-only array of nrRecs ptr
   size_t nrCols = 0;
   size_t lineDelta = 0;
   if (ReadAllColumnFile(recs, nrRecs, &nrCols, nrRecordsRead, nrMVvalueColumn, nrMVcoordColumn,
-                        skipMVrecords, geoeas, inputFile, mv, sepChar, colNr))
+                        skipMVrecords, geoeas, inputFile, mv, sepChar, colNr)) {
     return 1;
+  }
   lineDelta = (*geoeas) ? (nrCols + 2) : 0;
 
   if (ColError(POS_X, colNr[POS_X], nrCols) || ColError(POS_Y, colNr[POS_Y], nrCols) ||
-      ColError(POS_V, colNr[POS_V], nrCols))
+      ColError(POS_V, colNr[POS_V], nrCols)) {
     goto error;
+  }
 
   for (rec = 0; rec < *nrRecs; rec++) {
     REAL8 *r = allRecList[rec];
@@ -417,8 +428,9 @@ int AppReadColumnFile(REAL8 ***recs,           /* write-only array of nrRecs ptr
       ErrorNested("value-column %u on line %u", colNr[POS_V], rec + lineDelta + 1);
       goto error;
     }
-    if (!IS_MV_REAL8(r + POS_V) && vs == VS_DIRECTION && r[POS_V] != -1)
+    if (!IS_MV_REAL8(r + POS_V) && vs == VS_DIRECTION && r[POS_V] != -1) {
       r[POS_V] = AppInputDirection(r[POS_V]);
+    }
   } /* eofor */
   return 0;
 error:
@@ -458,12 +470,14 @@ int AppReadTimeSeriesFile(REAL8 ***recs,         /* write-only array of nrSteps 
   size_t nrMVvalueColumn = 0;
   size_t nrMVcoordColumn = 0;
 
-  if (appHeader == APP_NOHEADER)
+  if (appHeader == APP_NOHEADER) {
     handleAnError = HandleAnErrorTss;
+  }
 
   if (ReadAllColumnFile(recs, nrSteps, nrCols, &nrRecordsRead, &nrMVvalueColumn, &nrMVcoordColumn, false,
-                        geoeas, inputFile, mv, sepChar, NULL))
+                        geoeas, inputFile, mv, sepChar, NULL)) {
     return 1;
+  }
 
   handleAnError = HandleAnErrorDefault;
 
@@ -474,9 +488,9 @@ int AppReadTimeSeriesFile(REAL8 ***recs,         /* write-only array of nrSteps 
       switch (c) {
         case 0:
           if (IS_MV_REAL8(r + 0)) {
-            if (appHeader == APP_NOHEADER)
+            if (appHeader == APP_NOHEADER) {
               r[0] = i + 1;
-            else {
+            } else {
               ErrorNested("timestep column (column 1) on line %u contains a MV", i + lineDelta + 1);
               goto error;
             }
@@ -493,8 +507,9 @@ int AppReadTimeSeriesFile(REAL8 ***recs,         /* write-only array of nrSteps 
               ErrorNested("column %u on line %u", c + 1, i + lineDelta + 1);
               goto error;
             }
-            if (vs == VS_DIRECTION && r[c] != -1)
+            if (vs == VS_DIRECTION && r[c] != -1) {
               r[c] = AppInputDirection(r[c]);
+            }
           }
           break;
       }

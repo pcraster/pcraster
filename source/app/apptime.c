@@ -67,8 +67,9 @@ static long ReadTimer(void)
 {
   time_t now = 0;
 
-  if (paused != ZERO)
+  if (paused != ZERO) {
     return ((long)(paused - start));
+  }
 
   (void)time(&now);
   POSTCOND(now != NOTIME);
@@ -80,8 +81,9 @@ static long ReadTimer(void)
 void AppDynamicProgress(void)
 {
   const char *time = NULL;
-  if (appOutput != APP_PROGRESS)
+  if (appOutput != APP_PROGRESS) {
     return;
+  }
   if (firstDynTimeCalled) {
     firstDynTimeCalled = false;
     StartTimer();
@@ -95,6 +97,7 @@ void AppDynamicProgress(void)
  */
 void AppEndDynamicProgress(void)
 {
-  if (appOutput == APP_PROGRESS)
+  if (appOutput == APP_PROGRESS) {
     (void)fprintf(stderr, "\n");
+  }
 }

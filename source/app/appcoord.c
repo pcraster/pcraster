@@ -66,7 +66,8 @@ int AppRgetCoords(const MAP *m, /* map handle */
     case APP_UL:
       break;  // Shut up compiler
   }
-  if (appUnitTrue)
+  if (appUnitTrue) {
     (void)RrowCol2Coords(m, *y, *x, x, y);
+  }
   return result;
 }

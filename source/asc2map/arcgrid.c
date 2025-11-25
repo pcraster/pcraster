@@ -29,8 +29,9 @@
 /* IMPLEMENTATION */
 /******************/
 
-static int NextToken(void) {
-    int c= LexGetToken();
+static int NextToken(void)
+{
+    int c = LexGetToken();
     if (LexError(c)) {
         ErrorNested("on line %d", LexGetLineNr());
         return 1;
@@ -38,7 +39,8 @@ static int NextToken(void) {
     return 0;
 }
 
-static int ParseError(const char *expect) {
+static int ParseError(const char *expect)
+{
     ErrorNested("expected header to contain %s at this point but read '%s'", expect, LexGetTokenValue());
     ErrorNested("on line %d", LexGetLineNr());
     return 1;
@@ -53,7 +55,8 @@ static int GetDouble(double *v) /* write-only value */
     return 0;
 }
 
-static int GetWord(const char *w) {
+static int GetWord(const char *w)
+{
     if (NextToken())
         return 1;
     if (!StrCaseEq(w, LexGetTokenValue())) {
@@ -71,9 +74,8 @@ static int GetWord(const char *w) {
  * in the header
  * returns 0 if OK, 1 if format error
  */
-int ReadArcInfoGridAsciiHeader(
-    ARC_INFO_GRID_ASCII *a, /* write only */
-    FILE *f)                /* input file, left at point where
+int ReadArcInfoGridAsciiHeader(ARC_INFO_GRID_ASCII *a, /* write only */
+                               FILE *f)                /* input file, left at point where
                              * first cell can be scanned  */
 {
     int val = 0;
@@ -86,27 +88,29 @@ int ReadArcInfoGridAsciiHeader(
     if (GetDouble(&v))
         return 1;
     if ((!CnvrtInt(&val, LexGetTokenValue())) || val <= 0) {
-        ErrorNested("line %d: '%s' is not a legal value for the number of columns", LexGetLineNr(), LexGetTokenValue());
+        ErrorNested("line %d: '%s' is not a legal value for the number of columns", LexGetLineNr(),
+                    LexGetTokenValue());
         return 1;
     }
-    a->nrCols= (size_t)val;
+    a->nrCols = (size_t)val;
 
     if (GetWord("NROWS"))
         return 1;
     if (GetDouble(&v))
         return 1;
     if ((!CnvrtInt(&val, LexGetTokenValue())) || val <= 0) {
-        ErrorNested("line %d: '%s' is not a legal value for the number of rows", LexGetLineNr(), LexGetTokenValue());
+        ErrorNested("line %d: '%s' is not a legal value for the number of rows", LexGetLineNr(),
+                    LexGetTokenValue());
         return 1;
     }
-    a->nrRows= (size_t)val;
+    a->nrRows = (size_t)val;
 
     /* xllcenter | xllcorner */
     if (NextToken())
         return 1;
     if (!StrCaseEq(LexGetTokenValue(), "XLLCENTER") && !StrCaseEq(LexGetTokenValue(), "XLLCORNER"))
         return ParseError("key word 'XLLCENTER'or 'XLLCORNER'");
-    a->xCorner= StrCaseEq(LexGetTokenValue(), "XLLCENTER");
+    a->xCorner = StrCaseEq(LexGetTokenValue(), "XLLCENTER");
     if (GetDouble(&(a->xLL)))
         return 1;
 
@@ -115,7 +119,7 @@ int ReadArcInfoGridAsciiHeader(
         return 1;
     if (!StrCaseEq(LexGetTokenValue(), "YLLCENTER") && !StrCaseEq(LexGetTokenValue(), "YLLCORNER"))
         return ParseError("key word 'YLLCENTER'or 'YLLCORNER'");
-    a->yCorner= StrCaseEq(LexGetTokenValue(), "YLLCENTER");
+    a->yCorner = StrCaseEq(LexGetTokenValue(), "YLLCENTER");
     if (GetDouble(&(a->yLL)))
         return 1;
 
@@ -124,7 +128,8 @@ int ReadArcInfoGridAsciiHeader(
     if (GetDouble(&(a->cellSize)))
         return 1;
     if (a->cellSize <= 0) {
-        ErrorNested("line %d: '%s' is not a legal value for the cell size", LexGetLineNr(), LexGetTokenValue());
+        ErrorNested("line %d: '%s' is not a legal value for the cell size", LexGetLineNr(),
+                    LexGetTokenValue());
         return 1;
     }
 
@@ -132,14 +137,14 @@ int ReadArcInfoGridAsciiHeader(
     if (NextToken())
         return 1;
     if (StrCaseEq(LexGetTokenValue(), "NODATA_VALUE")) {
-        a->mvGiven= true;
+        a->mvGiven = true;
         if (GetDouble(&(a->mv)))
             return 1;
     } else {
         /* first number of grid-data: unget */
         LexUngetToken();
-        a->mvGiven= false;
-        a->mv= -9999;
+        a->mvGiven = false;
+        a->mv = -9999;
     }
     return 0;
 }
@@ -154,10 +159,9 @@ int ReadArcInfoGridAsciiHeader(
  * are not two numbers on the first line denoting the number of
  * rows and columns.
  */
-int ReadGenamapAuditHeader(
-    size_t *nrRows, /* write-only, number of rows */
-    size_t *nrCols, /* write-only, number of columns */
-    FILE *f)        /* input file, left at point where
+int ReadGenamapAuditHeader(size_t *nrRows, /* write-only, number of rows */
+                           size_t *nrCols, /* write-only, number of columns */
+                           FILE *f)        /* input file, left at point where
                      * first cell can be scanned  */
 {
     int val = 0;
@@ -174,16 +178,18 @@ int ReadGenamapAuditHeader(
     } while (!CnvrtInt(&val, LexGetTokenValue()));
 
     if (*nrRows <= 0) {
-        ErrorNested("line %d: '%s' is not a legal value for the number of rows", LexGetLineNr(), LexGetTokenValue());
+        ErrorNested("line %d: '%s' is not a legal value for the number of rows", LexGetLineNr(),
+                    LexGetTokenValue());
         return 1;
     }
-    *nrRows= (size_t)val;
+    *nrRows = (size_t)val;
     if (NextToken())
         return 1;
     if ((!CnvrtInt(&val, LexGetTokenValue())) || (*nrCols <= 0)) {
-        ErrorNested("line %d: '%s' is not a legal value for the number of columns", LexGetLineNr(), LexGetTokenValue());
+        ErrorNested("line %d: '%s' is not a legal value for the number of columns", LexGetLineNr(),
+                    LexGetTokenValue());
         return 1;
     }
-    *nrCols= (size_t)val;
+    *nrCols = (size_t)val;
     return 0;
 }

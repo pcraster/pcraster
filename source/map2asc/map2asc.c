@@ -9,10 +9,10 @@
 /********/
 
 /* libs ext. <>, our ""  */
-#include "app.h"    /* appOutput, APP_PROGRESS, AppProgress */
+#include "app.h" /* appOutput, APP_PROGRESS, AppProgress */
 #include "csf.h"
 #include "misc.h"
-#include <ctype.h>  /* isdigit */
+#include <ctype.h> /* isdigit */
 #include <math.h>
 #include <string.h> /* strlen, strcpy */
 
@@ -45,12 +45,9 @@ static CSF_VS valueScale;
 /* Scans maps in order according to option.
  * Returns 1 in case of an error, 0 otherwise.
  */
-static int ScanMap(
-    FILE *outputFile, /* write-only output file */
-    MAP *inputMap,    /* read-only input maps */
-    const char *sep,
-    size_t nrCellsOnLine,
-    bool colWise)
+static int ScanMap(FILE *outputFile, /* write-only output file */
+                   MAP *inputMap,    /* read-only input maps */
+                   const char *sep, size_t nrCellsOnLine, bool colWise)
 {
     size_t r = 0;
     size_t c = 0;
@@ -60,72 +57,46 @@ static int ScanMap(
     nrRows = RgetNrRows(inputMap);
     nrCols = RgetNrCols(inputMap);
 
-    if (colWise)
-    { /* for each column all rows are scanned */
+    if (colWise) { /* for each column all rows are scanned */
         size_t cell = 0;
-        for (c = 0; c < nrCols; c++)
-        {
+        for (c = 0; c < nrCols; c++) {
             AppProgress("progress line beneath denotes columns not rows\n");
             AppRowProgress(c);
-            for (r = 0; r < nrRows; r++)
-            {
+            for (r = 0; r < nrRows; r++) {
                 REAL8 val = NAN;
                 int res = 0;
                 RgetCell(inputMap, r, c, &val);
-                res = PutCell(
-                    outputFile,
-                    &val,
-                    valueScale,
-                    number,
-                    mvVal,
-                    valFmt,
-                    mvStr,
-                    sep,
-                    cell == 0);
-                if (res != 0)
-                {
+                res =
+                    PutCell(outputFile, &val, valueScale, number, mvVal, valFmt, mvStr, sep, cell == 0);
+                if (res != 0) {
                     PrintError(res, r, c, &val);
                     return res;
                 }
-                if (++cell == nrCellsOnLine)
-                {
+                if (++cell == nrCellsOnLine) {
                     fprintf(outputFile, "\n");
                     cell = 0;
                 }
             }
             AppEndRowProgress();
         }
-    }
-    else
-    { /* for each row all columns are scanned */
+    } else { /* for each row all columns are scanned */
         size_t cell = 0;
         REAL8 *currRow = (REAL8 *)Rmalloc(inputMap, nrCols);
-        if (currRow == NULL) return 1;
+        if (currRow == NULL)
+            return 1;
 
-        for (r = 0; r < nrRows; r++)
-        {
+        for (r = 0; r < nrRows; r++) {
             AppRowProgress(r);
             RgetRow(inputMap, r, currRow);
-            for (c = 0; c < nrCols; c++)
-            {
-                int res = PutCell(
-                    outputFile,
-                    currRow + c,
-                    valueScale,
-                    number,
-                    mvVal,
-                    valFmt,
-                    mvStr,
-                    sep,
-                    cell == 0);
-                if (res != 0)
-                {
+            for (c = 0; c < nrCols; c++) {
+                int res = PutCell(outputFile, currRow + c, valueScale, number, mvVal, valFmt, mvStr, sep,
+                                  cell == 0);
+                if (res != 0) {
                     PrintError(res, r, c, currRow + c);
                     Free(currRow);
                     return res;
                 }
-                if (++cell == nrCellsOnLine)
-                {
+                if (++cell == nrCellsOnLine) {
                     fprintf(outputFile, "\n");
                     cell = 0;
                 }
@@ -140,9 +111,8 @@ static int ScanMap(
 /* Prints header in outputFile.
  * Returns 1 in case of an error, 0 otherwise.
  */
-static int PrintAsciiGridHeader(
-    FILE *outputFile, /* write-only output file */
-    MAP *input)       /* read-only input map */
+static int PrintAsciiGridHeader(FILE *outputFile, /* write-only output file */
+                                MAP *input)       /* read-only input map */
 {
     size_t nrRows = RgetNrRows(input);
     size_t nrCols = RgetNrCols(input);
@@ -181,7 +151,8 @@ static int PrintAsciiGridHeader(
     fprintf(outputFile, "XLLCORNER %f\n", x);
     fprintf(outputFile, "YLLCORNER %f\n", y);
     fprintf(outputFile, "CELLSIZE %f\n", RgetCellSize(input));
-    if (fprintf(outputFile, "NODATA_VALUE %s\n", mvStr) < 0) return 1;
+    if (fprintf(outputFile, "NODATA_VALUE %s\n", mvStr) < 0)
+        return 1;
     return 0;
 }
 
@@ -190,19 +161,17 @@ static int PrintAsciiGridHeader(
  * a plain ascii file is created.
  * Returns 1 in case of an error, 0 otherwise
  */
-int Map2Asc(
-    MAP *inputMap,     /* read-only input map    */
-    char *outputFile,  /* write-only output file */
-    const char *mv,    /* mv-string              */
-    char *fmt,         /* empty string if not given */
-    const char *sep,   /* separator, NULL if not given */
-    int nrCellsOnLine, /* preset to NrCols if not given */
-    HEADER head,       /* write ASCIIGRID header Y/N */
-    bool colWise)      /* output columnwise Y/N */
+int Map2Asc(MAP *inputMap,     /* read-only input map    */
+            char *outputFile,  /* write-only output file */
+            const char *mv,    /* mv-string              */
+            char *fmt,         /* empty string if not given */
+            const char *sep,   /* separator, NULL if not given */
+            int nrCellsOnLine, /* preset to NrCols if not given */
+            HEADER head,       /* write ASCIIGRID header Y/N */
+            bool colWise)      /* output columnwise Y/N */
 {
     FILE *output = fopen(outputFile, "w");
-    if (output == NULL)
-    {
+    if (output == NULL) {
         Error("Unable to create '%s'", outputFile);
         goto failure;
     }
@@ -213,40 +182,33 @@ int Map2Asc(
     MakeFmts(valFmt, mvStr, valueScale, fmt, mv, inputMap);
 
     /* Create output ascii file */
-    switch (head)
-    {
-    case HEAD_NONE:
-        break;
-    case HEAD_ARCINFO:
-        if (PrintAsciiGridHeader(output, inputMap))
-        {
+    switch (head) {
+        case HEAD_NONE:
+            break;
+        case HEAD_ARCINFO:
+            if (PrintAsciiGridHeader(output, inputMap)) {
+                Error("Unable to write to '%s'", outputFile);
+                goto failure2;
+            }
+            break;
+        case HEAD_ROWCOL:
+            if (fprintf(output, "%d %d\n", (int)RgetNrRows(inputMap), (int)RgetNrCols(inputMap)) < 0)
+                goto failure2;
+            break;
+        case HEAD_COLROW:
+            if (fprintf(output, "%d %d\n", (int)RgetNrCols(inputMap), (int)RgetNrRows(inputMap)) < 0)
+                goto failure2;
+            break;
+    }
+    switch (ScanMap(output, inputMap, sep, nrCellsOnLine, colWise)) {
+        case 0:
+            break; /* OK */
+        case 1:
             Error("Unable to write to '%s'", outputFile);
             goto failure2;
-        }
-        break;
-    case HEAD_ROWCOL:
-        if (fprintf(
-                output, "%d %d\n", (int)RgetNrRows(inputMap), (int)RgetNrCols(inputMap)) <
-            0)
+        case 2:
+            Error("In input map '%s'", MgetFileName(inputMap));
             goto failure2;
-        break;
-    case HEAD_COLROW:
-        if (fprintf(
-                output, "%d %d\n", (int)RgetNrCols(inputMap), (int)RgetNrRows(inputMap)) <
-            0)
-            goto failure2;
-        break;
-    }
-    switch (ScanMap(output, inputMap, sep, nrCellsOnLine, colWise))
-    {
-    case 0:
-        break; /* OK */
-    case 1:
-        Error("Unable to write to '%s'", outputFile);
-        goto failure2;
-    case 2:
-        Error("In input map '%s'", MgetFileName(inputMap));
-        goto failure2;
     }
 
     fclose(output);

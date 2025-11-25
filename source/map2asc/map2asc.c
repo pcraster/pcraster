@@ -49,63 +49,62 @@ static int ScanMap(FILE *outputFile, /* write-only output file */
                    MAP *inputMap,    /* read-only input maps */
                    const char *sep, size_t nrCellsOnLine, bool colWise)
 {
-    size_t r = 0;
-    size_t c = 0;
-    size_t nrRows = 0;
-    size_t nrCols = 0;
+  size_t r = 0;
+  size_t c = 0;
+  size_t nrRows = 0;
+  size_t nrCols = 0;
 
-    nrRows = RgetNrRows(inputMap);
-    nrCols = RgetNrCols(inputMap);
+  nrRows = RgetNrRows(inputMap);
+  nrCols = RgetNrCols(inputMap);
 
-    if (colWise) { /* for each column all rows are scanned */
-        size_t cell = 0;
-        for (c = 0; c < nrCols; c++) {
-            AppProgress("progress line beneath denotes columns not rows\n");
-            AppRowProgress(c);
-            for (r = 0; r < nrRows; r++) {
-                REAL8 val = NAN;
-                int res = 0;
-                RgetCell(inputMap, r, c, &val);
-                res =
-                    PutCell(outputFile, &val, valueScale, number, mvVal, valFmt, mvStr, sep, cell == 0);
-                if (res != 0) {
-                    PrintError(res, r, c, &val);
-                    return res;
-                }
-                if (++cell == nrCellsOnLine) {
-                    fprintf(outputFile, "\n");
-                    cell = 0;
-                }
-            }
-            AppEndRowProgress();
+  if (colWise) { /* for each column all rows are scanned */
+    size_t cell = 0;
+    for (c = 0; c < nrCols; c++) {
+      AppProgress("progress line beneath denotes columns not rows\n");
+      AppRowProgress(c);
+      for (r = 0; r < nrRows; r++) {
+        REAL8 val = NAN;
+        int res = 0;
+        RgetCell(inputMap, r, c, &val);
+        res = PutCell(outputFile, &val, valueScale, number, mvVal, valFmt, mvStr, sep, cell == 0);
+        if (res != 0) {
+          PrintError(res, r, c, &val);
+          return res;
         }
-    } else { /* for each row all columns are scanned */
-        size_t cell = 0;
-        REAL8 *currRow = (REAL8 *)Rmalloc(inputMap, nrCols);
-        if (currRow == NULL)
-            return 1;
-
-        for (r = 0; r < nrRows; r++) {
-            AppRowProgress(r);
-            RgetRow(inputMap, r, currRow);
-            for (c = 0; c < nrCols; c++) {
-                int res = PutCell(outputFile, currRow + c, valueScale, number, mvVal, valFmt, mvStr, sep,
-                                  cell == 0);
-                if (res != 0) {
-                    PrintError(res, r, c, currRow + c);
-                    Free(currRow);
-                    return res;
-                }
-                if (++cell == nrCellsOnLine) {
-                    fprintf(outputFile, "\n");
-                    cell = 0;
-                }
-            }
+        if (++cell == nrCellsOnLine) {
+          fprintf(outputFile, "\n");
+          cell = 0;
         }
-        AppEndRowProgress();
-        Free(currRow);
+      }
+      AppEndRowProgress();
     }
-    return 0;
+  } else { /* for each row all columns are scanned */
+    size_t cell = 0;
+    REAL8 *currRow = (REAL8 *)Rmalloc(inputMap, nrCols);
+    if (currRow == NULL)
+      return 1;
+
+    for (r = 0; r < nrRows; r++) {
+      AppRowProgress(r);
+      RgetRow(inputMap, r, currRow);
+      for (c = 0; c < nrCols; c++) {
+        int res =
+            PutCell(outputFile, currRow + c, valueScale, number, mvVal, valFmt, mvStr, sep, cell == 0);
+        if (res != 0) {
+          PrintError(res, r, c, currRow + c);
+          Free(currRow);
+          return res;
+        }
+        if (++cell == nrCellsOnLine) {
+          fprintf(outputFile, "\n");
+          cell = 0;
+        }
+      }
+    }
+    AppEndRowProgress();
+    Free(currRow);
+  }
+  return 0;
 }
 
 /* Prints header in outputFile.
@@ -114,15 +113,15 @@ static int ScanMap(FILE *outputFile, /* write-only output file */
 static int PrintAsciiGridHeader(FILE *outputFile, /* write-only output file */
                                 MAP *input)       /* read-only input map */
 {
-    size_t nrRows = RgetNrRows(input);
-    size_t nrCols = RgetNrCols(input);
-    double x = NAN;
-    double y = NAN;
+  size_t nrRows = RgetNrRows(input);
+  size_t nrCols = RgetNrCols(input);
+  double x = NAN;
+  double y = NAN;
 
-    /* Calculate XLLCorner and YLLCorner */
-    RgetCoords(input, 0, nrRows, 0, &x, &y);
+  /* Calculate XLLCorner and YLLCorner */
+  RgetCoords(input, 0, nrRows, 0, &x, &y);
 
-    /*
+  /*
   Als je map files exporteert met -a a optie voor Arc/INFO
     Zet hij er in de header .0000 achetr en dat moet niet
 
@@ -145,15 +144,15 @@ static int PrintAsciiGridHeader(FILE *outputFile, /* write-only output file */
     NODATA_VALUE -9999
 */
 
-    /* Print header */
-    fprintf(outputFile, "NCOLS %zu\n", nrCols);
-    fprintf(outputFile, "NROWS %zu\n", nrRows);
-    fprintf(outputFile, "XLLCORNER %f\n", x);
-    fprintf(outputFile, "YLLCORNER %f\n", y);
-    fprintf(outputFile, "CELLSIZE %f\n", RgetCellSize(input));
-    if (fprintf(outputFile, "NODATA_VALUE %s\n", mvStr) < 0)
-        return 1;
-    return 0;
+  /* Print header */
+  fprintf(outputFile, "NCOLS %zu\n", nrCols);
+  fprintf(outputFile, "NROWS %zu\n", nrRows);
+  fprintf(outputFile, "XLLCORNER %f\n", x);
+  fprintf(outputFile, "YLLCORNER %f\n", y);
+  fprintf(outputFile, "CELLSIZE %f\n", RgetCellSize(input));
+  if (fprintf(outputFile, "NODATA_VALUE %s\n", mvStr) < 0)
+    return 1;
+  return 0;
 }
 
 /* Converts csf input files to an ascii output file.
@@ -170,53 +169,53 @@ int Map2Asc(MAP *inputMap,     /* read-only input map    */
             HEADER head,       /* write ASCIIGRID header Y/N */
             bool colWise)      /* output columnwise Y/N */
 {
-    FILE *output = fopen(outputFile, "w");
-    if (output == NULL) {
-        Error("Unable to create '%s'", outputFile);
-        goto failure;
-    }
+  FILE *output = fopen(outputFile, "w");
+  if (output == NULL) {
+    Error("Unable to create '%s'", outputFile);
+    goto failure;
+  }
 
-    /* Fill buffers for print format */
-    valueScale = RgetValueScale(inputMap);
-    number = CnvrtDouble(&mvVal, mv);
-    MakeFmts(valFmt, mvStr, valueScale, fmt, mv, inputMap);
+  /* Fill buffers for print format */
+  valueScale = RgetValueScale(inputMap);
+  number = CnvrtDouble(&mvVal, mv);
+  MakeFmts(valFmt, mvStr, valueScale, fmt, mv, inputMap);
 
-    /* Create output ascii file */
-    switch (head) {
-        case HEAD_NONE:
-            break;
-        case HEAD_ARCINFO:
-            if (PrintAsciiGridHeader(output, inputMap)) {
-                Error("Unable to write to '%s'", outputFile);
-                goto failure2;
-            }
-            break;
-        case HEAD_ROWCOL:
-            if (fprintf(output, "%d %d\n", (int)RgetNrRows(inputMap), (int)RgetNrCols(inputMap)) < 0)
-                goto failure2;
-            break;
-        case HEAD_COLROW:
-            if (fprintf(output, "%d %d\n", (int)RgetNrCols(inputMap), (int)RgetNrRows(inputMap)) < 0)
-                goto failure2;
-            break;
-    }
-    switch (ScanMap(output, inputMap, sep, nrCellsOnLine, colWise)) {
-        case 0:
-            break; /* OK */
-        case 1:
-            Error("Unable to write to '%s'", outputFile);
-            goto failure2;
-        case 2:
-            Error("In input map '%s'", MgetFileName(inputMap));
-            goto failure2;
-    }
+  /* Create output ascii file */
+  switch (head) {
+    case HEAD_NONE:
+      break;
+    case HEAD_ARCINFO:
+      if (PrintAsciiGridHeader(output, inputMap)) {
+        Error("Unable to write to '%s'", outputFile);
+        goto failure2;
+      }
+      break;
+    case HEAD_ROWCOL:
+      if (fprintf(output, "%d %d\n", (int)RgetNrRows(inputMap), (int)RgetNrCols(inputMap)) < 0)
+        goto failure2;
+      break;
+    case HEAD_COLROW:
+      if (fprintf(output, "%d %d\n", (int)RgetNrCols(inputMap), (int)RgetNrRows(inputMap)) < 0)
+        goto failure2;
+      break;
+  }
+  switch (ScanMap(output, inputMap, sep, nrCellsOnLine, colWise)) {
+    case 0:
+      break; /* OK */
+    case 1:
+      Error("Unable to write to '%s'", outputFile);
+      goto failure2;
+    case 2:
+      Error("In input map '%s'", MgetFileName(inputMap));
+      goto failure2;
+  }
 
-    fclose(output);
-    return 0;
+  fclose(output);
+  return 0;
 
 failure2:
-    fclose(output);
-    remove(outputFile);
+  fclose(output);
+  remove(outputFile);
 failure:
-    return 1;
+  return 1;
 }

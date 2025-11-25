@@ -8,6 +8,7 @@ The most relevant updates for users:
 
 * We added support for Qt version 6, which is now used by default. Qt 5.15 still can be selected when configuring and building time. But further support of Qt5 in upcoming releases is unlikely, and we stop testing builds with Qt5.
 * This is the last release for x86_64-based macOS systems. We no longer build, test and support the x86_64 (Intel) macOS architecture in upcoming releases.
+* We modernised the Python code and fixed `DeprecationWarning`s and `SyntaxWarning`s.
 
 .. * aguila contour
 ..
@@ -19,6 +20,7 @@ We further improved the code quality and the build system to ensure an ongoing c
 * We replaced internal math and string utility libraries by standard equivalents.
 * Replacing numerous 3rd party code with C++ standard equivalents: numbers, gcd, tuple, format, signbit, isnan, mpl::if_c, is_integral, is_signed, is_same, integer types, bind, mem_fn
 * Various issues raised by compiler warnings were fixed.
+* We removed deprecated Qt code.
 
 .. * Qt6 by default 5 as option
 .. * Including outdated Boost headers were removed

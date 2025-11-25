@@ -80,16 +80,16 @@ int main(int argc, char *argv[])
         EXIT(1);
     }
 
-    switch (CheckFileSets(
-        &errorFile, (const char **)(argv + 1), 2, (const char **)(argv + 3), argc - 3)) {
-    case 0: /* OK */
-        break;
-    case 1:
-        Error("'%s' is used both as input and output", errorFile);
-        break;
-    case 2:
-        Error("'%s' is used twice as output", errorFile);
-        break;
+    switch (
+        CheckFileSets(&errorFile, (const char **)(argv + 1), 2, (const char **)(argv + 3), argc - 3)) {
+        case 0: /* OK */
+            break;
+        case 1:
+            Error("'%s' is used both as input and output", errorFile);
+            break;
+        case 2:
+            Error("'%s' is used twice as output", errorFile);
+            break;
     }
 
     EXIT(0);

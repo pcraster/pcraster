@@ -39,7 +39,6 @@ static bool NotOnlySpace(const char *s)
     return false;
 }
 
-
 /* Converts a string to an INT4 number 
  * This function converts 
  * a string to an INT4 number with domain checking. A string 
@@ -198,19 +197,9 @@ bool CnvrtInt(int *result,     /* write-only. resulting number */
 #ifdef TEST_MAIN
 int main(void)
 {
-    char *tests[] = {"123",
-                     " 123",
-                     "",
-                     "999999999999999999",
-                     "9.12",
-                     "-5",
-                     "-5 ",
-                     "-3.89",
-                     "\t 7 \t",
-                     "--5",
-                     "-5t",
-                     "-3.89",
-                     "\t 7 \tx"};
+    char *tests[] = {
+        "123", " 123",  "",        "999999999999999999", "9.12", "-5", "-5 ", "-3.89", "\t 7 \t", "--5",
+        "-5t", "-3.89", "\t 7 \tx"};
     int i;
     UINT1 val1;
     INT4 val4;
@@ -220,13 +209,7 @@ int main(void)
         r1 = CnvrtUINT1(&val1, tests[i]);
         r4 = CnvrtINT4(&val4, tests[i]);
         r8 = CnvrtREAL8(&val8, tests[i]);
-        (void)printf("|%s| 1( %d ,%d) 4(%d,%d) 8(%d,%g)\n",
-                     tests[i],
-                     r1,
-                     (int)val1,
-                     r4,
-                     (int)val4,
-                     r8,
+        (void)printf("|%s| 1( %d ,%d) 4(%d,%d) 8(%d,%g)\n", tests[i], r1, (int)val1, r4, (int)val4, r8,
                      (double)val8);
     }
     return 0;

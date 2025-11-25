@@ -63,13 +63,12 @@ int FileRead(void *ptr,                  /* buffer filled */
  * -1 is returned, if ferror is false and shortItemCountIsError is set then Error() is also called
  * and -1 returned.
  */
-int FileReadAtPos(
-    void *ptr,                  /* buffer filled */
-    size_t size,                /* size of each element */
-    size_t nmemb,               /* number of elements */
-    long pos,                   /* file position from start */
-    FILE *f,                    /* file to read from */
-    bool shortItemCountIsError) /* TRUE if an error must be emitted if there are less
+int FileReadAtPos(void *ptr,                  /* buffer filled */
+                  size_t size,                /* size of each element */
+                  size_t nmemb,               /* number of elements */
+                  long pos,                   /* file position from start */
+                  FILE *f,                    /* file to read from */
+                  bool shortItemCountIsError) /* TRUE if an error must be emitted if there are less
                                  * than nmemb members read, FALSE otherwise
                                  */
 {
@@ -158,7 +157,6 @@ long FileSize(FILE *f) /* the file */
     }
     return l;
 }
-
 
 /* Read line with fgets() and check result
  * FileGetString wraps fgets() with error detection.

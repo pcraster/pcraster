@@ -28,11 +28,9 @@
 /**********************/
 /* LOCAL DECLARATIONS */
 /**********************/
-#define INDEX_BITSET(setBit, major, minor)                                                    \
-    major = (((int)(setBit)) / 8), (minor) = (((int)(setBit)) % 8)
+#define INDEX_BITSET(setBit, major, minor) major = (((int)(setBit)) / 8), (minor) = (((int)(setBit)) % 8)
 
-#define BYTE_SETSIZE(bitSetSize)                                                              \
-    ((((int)(bitSetSize)) / 8) + (((((int)(bitSetSize)) % 8) == 0) ? 0 : 1))
+#define BYTE_SETSIZE(bitSetSize) ((((int)(bitSetSize)) / 8) + (((((int)(bitSetSize)) % 8) == 0) ? 0 : 1))
 
 /*********************/
 /* LOCAL DEFINITIONS */
@@ -55,6 +53,7 @@ static const unsigned char nbits[] = {
     /* 208 - 223 */ 3, 4, 4, 5, 4, 5, 5, 6, 4, 5, 5, 6, 5, 6, 6, 7,
     /* 224 - 239 */ 3, 4, 4, 5, 4, 5, 5, 6, 4, 5, 5, 6, 5, 6, 6, 7,
     /* 240 - 255 */ 4, 5, 5, 6, 5, 6, 6, 7, 5, 6, 6, 7, 6, 7, 7, 8};
+
 /******************/
 /* IMPLEMENTATION */
 /******************/
@@ -131,7 +130,6 @@ int BitSet(const unsigned char *set, /* array of setSize bytes */
     INDEX_BITSET(bitIndex, n, i);
     return set[n] & 1 << i;
 }
-
 
 /*ARGSUSED*/
 
@@ -227,15 +225,15 @@ static const unsigned char *EndianFix(const unsigned char *set, int setByteSize)
 
     (void)memcpy(b, set, setByteSize); /* never overlap */
     switch (setByteSize) {
-    case 2:
-        SwapByte2(b);
-        break;
-    case 4:
-        SwapByte4(b);
-        break;
-    case 8:
-        SwapByte8(b);
-        break;
+        case 2:
+            SwapByte2(b);
+            break;
+        case 4:
+            SwapByte4(b);
+            break;
+        case 8:
+            SwapByte8(b);
+            break;
     }
     return (const unsigned char *)b;
 }
@@ -251,8 +249,7 @@ static const unsigned char *EndianFix(const unsigned char *set, int setByteSize)
  */
 extern int FirstBitSetType(const unsigned char *set, int setByteSize)
 {
-    DEVELOP_PRECOND(setByteSize == 1 || setByteSize == 2 || setByteSize == 4 ||
-                    setByteSize == 8);
+    DEVELOP_PRECOND(setByteSize == 1 || setByteSize == 2 || setByteSize == 4 || setByteSize == 8);
     return FirstBitSet(EndianFix(set, setByteSize), setByteSize << 3);
 }
 
@@ -260,8 +257,7 @@ extern int FirstBitSetType(const unsigned char *set, int setByteSize)
  */
 extern int NrBitSetType(const unsigned char *set, int setByteSize)
 {
-    DEVELOP_PRECOND(setByteSize == 1 || setByteSize == 2 || setByteSize == 4 ||
-                    setByteSize == 8);
+    DEVELOP_PRECOND(setByteSize == 1 || setByteSize == 2 || setByteSize == 4 || setByteSize == 8);
     /* << 3 = * 8 ;  bytes -> bits  */
     return NrBitSet(EndianFix(set, setByteSize), setByteSize << 3);
 }

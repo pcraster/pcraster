@@ -90,7 +90,6 @@ static void CopyColumns(void *ptr, size_t nrRows, size_t newCol, size_t oldCol, 
     }
 }
 
-
 /* reallocate memory allocated by Malloc2d
  * Realloc2d reallocates memory allocated by Malloc2d 
  * in realloc(3) style.  The number of columns can only decrease.
@@ -157,7 +156,7 @@ void Free2d(void **array2d, /* Destructed. Array created through a call
     PRECOND(array2d != NULL);
     Free(*array2d);
     Free(array2d);
-    (void)nrRows; // Shut up compiler
+    (void)nrRows;  // Shut up compiler
 } /* Free2d */
 
 /* address of continuous area representing the 2d array contents

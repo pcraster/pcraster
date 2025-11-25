@@ -15,7 +15,6 @@ static void AddToFreeList(struct RECMEM_HEAP *r);
 /***************/
 
 
-
 /*********************/
 /* LOCAL DEFINITIONS */
 /*********************/
@@ -50,8 +49,8 @@ typedef struct RECMEM_LINK {
  * proper allignment. (See malloc()).
  */
 RECMEM_HEAP *
-NewRecMemHeap(size_t recSize,   /* size of each record */
-              size_t blockSize, /* number of records that goes in one malloc */
+NewRecMemHeap(size_t recSize,                       /* size of each record */
+              size_t blockSize,                     /* number of records that goes in one malloc */
               void *(*mallocFunction)(size_t size), /* ptr to function that does the allocation
                                                      * if NULL then ChkMalloc is used
                                                      */
@@ -92,7 +91,6 @@ NewRecMemHeap(size_t recSize,   /* size of each record */
     }
     return (r);
 }
-
 
 /* Allocates space for one record in a record heap
  * Allocates the amount of space that is defined  when creating
@@ -222,15 +220,13 @@ bool VerifyRecPtr(void *m, RECMEM_HEAP *r)
     RECMEM_LINK *p;
 
     for (i = 0; i < r->nrBlocks; i++)
-        if (m >= r->blocks[i] &&
-            ((char *)m) < ((char *)r->blocks[i]) + (r->blockSize * r->recSize)) {
+        if (m >= r->blocks[i] && ((char *)m) < ((char *)r->blocks[i]) + (r->blockSize * r->recSize)) {
             /* ok it's valid pointer */
             /* now check if it's not in the free list */
             for (p = (RECMEM_LINK *)r->freeList; p != NULL; p = p->next)
                 if (p == m) {
-                    (void)fprintf(stderr,
-                                  "Trace used record is on"
-                                  "freeList!\n");
+                    (void)fprintf(stderr, "Trace used record is on"
+                                          "freeList!\n");
                     return false; /* record is
                                        used: can't be in
                                        free list */

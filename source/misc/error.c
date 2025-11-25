@@ -283,13 +283,9 @@ char *Win32GetLastError(void)
 {
     static char win32MsgBuf[1024];
 
-    FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM,
-                  NULL,
-                  GetLastError(),
-                  MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // Default language
-                  (LPTSTR)&win32MsgBuf,
-                  1023,
-                  NULL);
+    FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM, NULL, GetLastError(),
+                  MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),  // Default language
+                  (LPTSTR)&win32MsgBuf, 1023, NULL);
     return win32MsgBuf;
 }
 

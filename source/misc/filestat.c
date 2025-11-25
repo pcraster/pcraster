@@ -66,7 +66,6 @@ int FileStat(const char *fileName) /* the file name */
 #endif
 }
 
-
 /* stat a file, for regular file yes or no and check for valid filename
  * FileStatValid combines a call to FileStat and FileNameValid.
  * Very important in DOS. For example topo.imap is not valid DOS file name
@@ -153,17 +152,17 @@ int FileNameValid(const char *fileName) /* fileName without spaces */
         if (l > maxAllow[state])
             return 0;
         switch (*p) {
-        case DIR_PATH_DELIM_CHAR:
-            l = 0; /* new DOS_PREFIX */
-            break;
-        case '.':
-            l = 0;
-            state++;
-            if (state >= 2)
-                return 0;
-            break;
-        default:
-            l++;
+            case DIR_PATH_DELIM_CHAR:
+                l = 0; /* new DOS_PREFIX */
+                break;
+            case '.':
+                l = 0;
+                state++;
+                if (state >= 2)
+                    return 0;
+                break;
+            default:
+                l++;
         }
         p++;
     }
@@ -209,8 +208,8 @@ char *MakeFilePathName(char *buf,            /* buffer to copy result in. If NUL
  * strings if that part is not present.
  */
 void SplitFilePathName(const char *fullPathName, /* the full path name */
-                       char **dirName,  /* ptr to directory part, is ptr into privateBuffer */
-                       char **fileName) /* ptr to file part, is ptr into fullPathName */
+                       char **dirName,           /* ptr to directory part, is ptr into privateBuffer */
+                       char **fileName)          /* ptr to file part, is ptr into fullPathName */
 {
     char *split = strrchr(fullPathName, DIR_PATH_DELIM_CHAR);
     if (split != NULL)
@@ -225,7 +224,6 @@ void SplitFilePathName(const char *fullPathName, /* the full path name */
     else
         privateBuffer[0] = '\0'; /* no dirName */
 }
-
 
 /* change directory seperators in-situ
  * This function changes all occurenses of '\' or '/' to
@@ -255,8 +253,7 @@ int main(int argc, char *argv[])
 {
     int i;
     for (i = 1; i < argc; i++)
-        (void)printf(
-            "%s is a %s filename\n", argv[i], FileNameValid(argv[i]) ? "VALID" : "INVALID");
+        (void)printf("%s is a %s filename\n", argv[i], FileNameValid(argv[i]) ? "VALID" : "INVALID");
     EXIT(0);
     return 0;
 }

@@ -262,7 +262,6 @@ char *LeftRightTabTrim(char *str) /* String to be modified */
 
 } /* LeftRightTabTrim */
 
-
 /* Trim string and replace space by single space, and count tokens.
  * Removes leading and trailing isspace() characters and 
  * substitutes sequences of isspace() chararacters with one  
@@ -273,8 +272,8 @@ char *LeftRightTabTrim(char *str) /* String to be modified */
  */
 int TokenSpaceTrim(char *s) /* read-write. String to be modified and counted */
 {
-    int i = 0;     /* index over s */
-    int d = 0;     /* destination index */
+    int i = 0; /* index over s */
+    int d = 0; /* destination index */
     int t = 0; /* #tokens */
 
     /* remove leading spaces */
@@ -318,6 +317,7 @@ int IsAlphaNumericUnderscore(int c)
 
 #ifdef NEVER
 #define EXIT exit
+
 int main(int argc, char *argv[])
 {
     if (argc != 4) {
@@ -325,8 +325,7 @@ int main(int argc, char *argv[])
         EXIT(1);
     }
 
-    (void)printf(
-        "%s %s %d\n", argv[1], argv[2], StrNCaseEq(argv[1], argv[2], (size_t)atoi(argv[3])));
+    (void)printf("%s %s %d\n", argv[1], argv[2], StrNCaseEq(argv[1], argv[2], (size_t)atoi(argv[3])));
     EXIT(0);
     return 0;
 }

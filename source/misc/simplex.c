@@ -33,8 +33,9 @@
  * number
  */
 enum {
-TOKEN_LEN = 256
+    TOKEN_LEN = 256
 };
+
 // #define NUMBER_CHARS "0123456789.+-dDeE"
 
 /*********************/
@@ -159,48 +160,48 @@ int LexGetToken(void)
     read_char:
         c = fgetc(inFd);
         switch (c) {
-        case 0x1a: /* skip DOS Ctrl-Z at end of file */
-            goto read_char;
-        case '\n':
-            if (i > 0) {
-                /* unget since token is found on this line */
-                if (ungetc(c, inFd) == EOF)
-                    return LEX_READ_ERROR;
-                return TerminateToken(i);
-            } else
-                lineNr++;
-            break;
-        case EOF:
-            if (i > 0)
-                return TerminateToken(i);
-            return feof(inFd) ? 0 : LEX_READ_ERROR;
-        default:
-            if (isspace(c)) {
+            case 0x1a: /* skip DOS Ctrl-Z at end of file */
+                goto read_char;
+            case '\n':
+                if (i > 0) {
+                    /* unget since token is found on this line */
+                    if (ungetc(c, inFd) == EOF)
+                        return LEX_READ_ERROR;
+                    return TerminateToken(i);
+                } else
+                    lineNr++;
+                break;
+            case EOF:
                 if (i > 0)
                     return TerminateToken(i);
-            } else {
-                if (strchr(specialSym, c) != NULL) {
-                    if (i > 0) {
-                        /* unget: something is pending, 
+                return feof(inFd) ? 0 : LEX_READ_ERROR;
+            default:
+                if (isspace(c)) {
+                    if (i > 0)
+                        return TerminateToken(i);
+                } else {
+                    if (strchr(specialSym, c) != NULL) {
+                        if (i > 0) {
+                            /* unget: something is pending, 
                          * special symbol next time 
                          */
-                        if (ungetc(c, inFd) == EOF)
-                            return LEX_READ_ERROR;
-                        return TerminateToken(i);
+                            if (ungetc(c, inFd) == EOF)
+                                return LEX_READ_ERROR;
+                            return TerminateToken(i);
+                        } else {
+                            buf[0] = (char)c;
+                            buf[1] = '\0';
+                            lastToken = c;
+                            return c; /* return the special symbol */
+                        }
                     } else {
-                        buf[0] = (char)c;
-                        buf[1] = '\0';
-                        lastToken = c;
-                        return c; /* return the special symbol */
-                    }
-                } else {
-                    buf[i++] = c;
-                    if (i >= (TOKEN_LEN - 1)) {
-                        buf[i - 1] = '\0'; /* cut off */
-                        return LEX_TOKEN_TOBIG;
+                        buf[i++] = c;
+                        if (i >= (TOKEN_LEN - 1)) {
+                            buf[i - 1] = '\0'; /* cut off */
+                            return LEX_TOKEN_TOBIG;
+                        }
                     }
                 }
-            }
         }
     }
 }
@@ -242,16 +243,16 @@ int LexSkipLines(int nrLines) /* > 0, 1 means skip current line only */
     read_char:
         c = fgetc(inFd);
         switch (c) {
-        case '\n':
-            lineNr++;
-            i++;
-            if (i == nrLines)
-                return i;
-            break;
-        case EOF:
-            return feof(inFd) ? i : LEX_READ_ERROR;
-        case 0x1a: /* skip DOS Ctrl-Z at end of file */
-            goto read_char;
+            case '\n':
+                lineNr++;
+                i++;
+                if (i == nrLines)
+                    return i;
+                break;
+            case EOF:
+                return feof(inFd) ? i : LEX_READ_ERROR;
+            case 0x1a: /* skip DOS Ctrl-Z at end of file */
+                goto read_char;
         }
     }
     /*NOTREACHED*/
@@ -274,16 +275,16 @@ int LexSkipLines(int nrLines) /* > 0, 1 means skip current line only */
 int LexError(int token) /* return value of LexGetToken */
 {
     switch (token) {
-    case 0:
-        ErrorNested("Unexpected end of file");
-        return 1;
-    case LEX_READ_ERROR:
-        ErrorNested("General read error");
-        return 1;
-    case LEX_TOKEN_TOBIG:
-        ErrorNested("value or string is more than %d characters", TOKEN_LEN - 1);
-        return 1;
-    default:
-        return 0;
+        case 0:
+            ErrorNested("Unexpected end of file");
+            return 1;
+        case LEX_READ_ERROR:
+            ErrorNested("General read error");
+            return 1;
+        case LEX_TOKEN_TOBIG:
+            ErrorNested("value or string is more than %d characters", TOKEN_LEN - 1);
+            return 1;
+        default:
+            return 0;
     }
 }

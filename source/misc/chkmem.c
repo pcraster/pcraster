@@ -32,7 +32,6 @@ typedef struct TMP_NODE {
     struct TMP_NODE *next;
 } TMP_NODE;
 
-
 static void PrintNoCore(void);
 static int NoReleaserInstalled(void);
 
@@ -84,7 +83,6 @@ void Free(void *ptr)
 #ifdef __C2MAN__
 typedef int entityType;
 
-
 /* macro that calls ChkMalloc with proper typecasts
  * macro that calls ChkMalloc with proper typecasts
  * 
@@ -125,7 +123,6 @@ static int NoReleaserInstalled(void)
 {
     return (0);
 }
-
 
 /* register function to call on allocation failure
  * ChkRegisterNoMoreMemory stores a function ptr that
@@ -197,7 +194,7 @@ void *ChkMalloc(size_t size) /* size in bytes, larger than 0 */
     nrMallocs++;
     if (b != NULL)
         (void)memset(b, 124, size);
-        /* test program for value picking (here 124)
+    /* test program for value picking (here 124)
          * is at the bottom of this file
          */
 #endif
@@ -351,7 +348,6 @@ void *ChkTmpMalloc(size_t size) /* size in bytes, larger than 0 */
 
 } /* ChkTmpMalloc */
 
-
 /* deallocates memory allocated through a call to ChkTmpMalloc
  */
 void ChkTmpFree(void *v) /* Destructed. Pointer returned by ChkTmpMalloc */
@@ -482,7 +478,6 @@ void main(void)
     }
 }
 
-
 #include <malloc.h>
 
 /*
@@ -500,6 +495,7 @@ static int nrMallocs = 0;
 typedef void *(*MALLOC_HOOK)(size_t s, const void *ad);
 extern MALLOC_HOOK __malloc_hook;
 static MALLOC_HOOK default_malloc_hook;
+
 static void *TraceMallocHook(size_t s, const void *ad)
 {
     __malloc_hook = default_malloc_hook;

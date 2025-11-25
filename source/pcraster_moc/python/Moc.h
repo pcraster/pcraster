@@ -1,17 +1,7 @@
 #ifndef INCLUDED_MOC
 #define INCLUDED_MOC
 
-
-
-// External headers.
-
-// Project headers.
-#ifndef INCLUDED_PT_PARTICLETRACKER
 #include "pt_ParticleTracker.h"
-#define INCLUDED_PT_PARTICLETRACKER
-#endif
-
-// Module headers.
 
 #include <pybind11/pybind11.h>
 #include <memory>

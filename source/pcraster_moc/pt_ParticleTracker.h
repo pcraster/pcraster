@@ -1,41 +1,12 @@
 #ifndef INCLUDED_PT_PARTICLETRACKER
 #define INCLUDED_PT_PARTICLETRACKER
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_GEO_GRIDDEDPOINTS
 #include "geo_griddedpoints.h"
-#define INCLUDED_GEO_GRIDDEDPOINTS
-#endif
-
-#ifndef INCLUDED_GEO_POINTVALUE
 #include "geo_pointvalue.h"
-#define INCLUDED_GEO_POINTVALUE
-#endif
-
-#ifndef INCLUDED_GEO_RASTERBOUNDARIES
 #include "geo_rasterboundaries.h"
-#define INCLUDED_GEO_RASTERBOUNDARIES
-#endif
-
-#ifndef INCLUDED_PCRDLL
 #include "pcrdll.h"
-#define INCLUDED_PCRDLL
-#endif
-
-// Module headers.
-#ifndef INCLUDED_PT_PARTICLE
 #include "pt_Particle.h"
-#define INCLUDED_PT_PARTICLE
-#endif
 
 
 

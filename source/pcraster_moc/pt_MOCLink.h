@@ -1,26 +1,9 @@
 #ifndef INCLUDED_PT_MOCLINK
 #define INCLUDED_PT_MOCLINK
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-#ifndef INCLUDED_GEO_RASTERSPACE
 #include "geo_rasterspace.h"
-#define INCLUDED_GEO_RASTERSPACE
-#endif
-
-// PCRaster library headers.
-#ifndef INCLUDED_CALC_MODELLINK
 #include "calc_modellink.h"
-#define INCLUDED_CALC_MODELLINK
-#endif
-
-// Module headers.
 
 
 

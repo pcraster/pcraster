@@ -1,22 +1,8 @@
 #ifndef INCLUDED_PT_PARTICLE
 #define INCLUDED_PT_PARTICLE
 
-
-
-#ifndef INCLUDED_STDDEFX
 #include "stddefx.h"
-#define INCLUDED_STDDEFX
-#endif
-
-// Library headers.
-
-// PCRaster library headers.
-#ifndef INCLUDED_GEO_POINT
 #include "geo_point.h"
-#define INCLUDED_GEO_POINT
-#endif
-
-// Module headers.
 
 
 

@@ -21,7 +21,7 @@ static void AddToFreeList(struct RECMEM_HEAP *r);
 /* struct used for linking records (LIBRARY_INTERNAL)
  */
 typedef struct RECMEM_LINK {
-    struct RECMEM_LINK *next;
+  struct RECMEM_LINK *next;
 } RECMEM_LINK;
 
 /**********************/
@@ -58,38 +58,38 @@ NewRecMemHeap(size_t recSize,                       /* size of each record */
                                                      * if NULL then Free is used
                                                      */
 {
-    RECMEM_HEAP *r = NULL;
-    void *(*mallocFunc)(size_t size) = NULL;
-    void (*freeFunc)(void *ptr) = NULL;
+  RECMEM_HEAP *r = NULL;
+  void *(*mallocFunc)(size_t size) = NULL;
+  void (*freeFunc)(void *ptr) = NULL;
 
-    if (mallocFunction == NULL)
-        mallocFunc = ChkMalloc;
-    else
-        mallocFunc = mallocFunction;
+  if (mallocFunction == NULL)
+    mallocFunc = ChkMalloc;
+  else
+    mallocFunc = mallocFunction;
 
-    if (freeFunction == NULL)
-        freeFunc = FreeFuncPtr;
-    else
-        freeFunc = freeFunction;
+  if (freeFunction == NULL)
+    freeFunc = FreeFuncPtr;
+  else
+    freeFunc = freeFunction;
 
-    PRECOND(recSize >= sizeof(void *));
+  PRECOND(recSize >= sizeof(void *));
 
-    r = mallocFunc(sizeof(RECMEM_HEAP));
-    if (r != NULL) {
-        r->recSize = recSize;
-        r->blockSize = blockSize;
-        r->Malloc = mallocFunc;
-        r->_Free = freeFunc;
-        r->nrBlocks = 0;
-        if (AddBlock(r) == NULL) {
-            freeFunc(r);
-            r = NULL;
-        }
-#ifdef DEBUG_DEVELOP
-        r->count = 0;
-#endif
+  r = mallocFunc(sizeof(RECMEM_HEAP));
+  if (r != NULL) {
+    r->recSize = recSize;
+    r->blockSize = blockSize;
+    r->Malloc = mallocFunc;
+    r->_Free = freeFunc;
+    r->nrBlocks = 0;
+    if (AddBlock(r) == NULL) {
+      freeFunc(r);
+      r = NULL;
     }
-    return (r);
+#ifdef DEBUG_DEVELOP
+    r->count = 0;
+#endif
+  }
+  return (r);
 }
 
 /* Allocates space for one record in a record heap
@@ -102,22 +102,22 @@ void *NewRecord(RECMEM_HEAP *r) /* Abstract. RECMEM_HEAP to allocate from. Must 
                                  * created by NewRecMemHeap()
                                  */
 {
-    RECMEM_LINK *v = NULL;
+  RECMEM_LINK *v = NULL;
 
-    if (r->freeList == NULL) /* list exhausted */
-        (void)AddBlock(r);   /* add a block */
-                             /* if add blocks fails 
+  if (r->freeList == NULL) /* list exhausted */
+    (void)AddBlock(r);     /* add a block */
+                           /* if add blocks fails 
                               * then is r->freeList still NULL 
                               */
-    v = (RECMEM_LINK *)r->freeList;
+  v = (RECMEM_LINK *)r->freeList;
 
-    if (v != NULL) {
-        r->freeList = ((RECMEM_LINK *)r->freeList)->next;
+  if (v != NULL) {
+    r->freeList = ((RECMEM_LINK *)r->freeList)->next;
 #ifdef DEBUG_DEVELOP
-        r->count++;
+    r->count++;
 #endif
-    }
-    return ((void *)v);
+  }
+  return ((void *)v);
 }
 
 /* return space of one record to record heap
@@ -132,13 +132,13 @@ void FreeRecord(void *m,        /* deallocated. pointer to space to free */
                                  */
 {
 #ifdef DEBUG_DEVELOP
-    PRECOND(VerifyRecPtr(m, r));
-    /* it must be pointer from this recmem_heap */
+  PRECOND(VerifyRecPtr(m, r));
+  /* it must be pointer from this recmem_heap */
 #endif
-    ((RECMEM_LINK *)m)->next = r->freeList;
-    r->freeList = m;
+  ((RECMEM_LINK *)m)->next = r->freeList;
+  r->freeList = m;
 #ifdef DEBUG_DEVELOP
-    r->count--;
+  r->count--;
 #endif
 }
 
@@ -148,58 +148,58 @@ void FreeRecord(void *m,        /* deallocated. pointer to space to free */
  */
 void FreeAllRecords(RECMEM_HEAP *r)
 {
-    size_t i = 0;
+  size_t i = 0;
 
-    for (i = 0; i < r->nrBlocks; i++)
-        r->_Free(r->blocks[i]);
-    if (r->nrBlocks > 0)
-        r->_Free(r->blocks);
-    r->_Free(r);
+  for (i = 0; i < r->nrBlocks; i++)
+    r->_Free(r->blocks[i]);
+  if (r->nrBlocks > 0)
+    r->_Free(r->blocks);
+  r->_Free(r);
 }
 
 /*C the array of blocks is only modified/extended if the function
     is succesfull */
 static void *AddBlock(RECMEM_HEAP *r)
 {
-    void **blockArray = NULL;
+  void **blockArray = NULL;
 
-    blockArray = (void **)r->Malloc((r->nrBlocks + 1) * sizeof(void *));
-    if (blockArray != NULL) {
-        blockArray[r->nrBlocks] = r->Malloc(r->blockSize * r->recSize);
-        if (blockArray[r->nrBlocks] == NULL) {
-            r->_Free(blockArray);
-            blockArray = NULL;
-        } else {
-            /* copy old entries in new array */
-            (void)memcpy(blockArray, r->blocks, r->nrBlocks * sizeof(void *));
-            /* free old array */
-            if (r->nrBlocks > 0)
-                r->_Free(r->blocks);
-            /* assign new array */
-            r->blocks = blockArray;
-            r->nrBlocks++;
-            r->freeList = NULL; /* nothing on freeList yet */
-            AddToFreeList(r);
-        }
+  blockArray = (void **)r->Malloc((r->nrBlocks + 1) * sizeof(void *));
+  if (blockArray != NULL) {
+    blockArray[r->nrBlocks] = r->Malloc(r->blockSize * r->recSize);
+    if (blockArray[r->nrBlocks] == NULL) {
+      r->_Free(blockArray);
+      blockArray = NULL;
+    } else {
+      /* copy old entries in new array */
+      (void)memcpy(blockArray, r->blocks, r->nrBlocks * sizeof(void *));
+      /* free old array */
+      if (r->nrBlocks > 0)
+        r->_Free(r->blocks);
+      /* assign new array */
+      r->blocks = blockArray;
+      r->nrBlocks++;
+      r->freeList = NULL; /* nothing on freeList yet */
+      AddToFreeList(r);
     }
-    return (blockArray);
+  }
+  return (blockArray);
 }
 
 /*C put records of just allocated block in freeList */
 static void AddToFreeList(RECMEM_HEAP *r)
 {
-    char *b = NULL; /* pointer in buffer */
-    size_t i = 0;
+  char *b = NULL; /* pointer in buffer */
+  size_t i = 0;
 
-    PRECOND(r->freeList == NULL);
-    PRECOND(r->nrBlocks > 0);
+  PRECOND(r->freeList == NULL);
+  PRECOND(r->nrBlocks > 0);
 
-    r->freeList = (void *)r->blocks[r->nrBlocks - 1]; /* first record in block */
+  r->freeList = (void *)r->blocks[r->nrBlocks - 1]; /* first record in block */
 
-    b = (char *)r->freeList; /* start of block */
-    for (i = 0; i < ((r->blockSize - 1) * r->recSize); i += r->recSize)
-        ((RECMEM_LINK *)(b + i))->next = (RECMEM_LINK *)(b + i + r->recSize);
-    ((RECMEM_LINK *)(b + i))->next = NULL;
+  b = (char *)r->freeList; /* start of block */
+  for (i = 0; i < ((r->blockSize - 1) * r->recSize); i += r->recSize)
+    ((RECMEM_LINK *)(b + i))->next = (RECMEM_LINK *)(b + i + r->recSize);
+  ((RECMEM_LINK *)(b + i))->next = NULL;
 }
 
 
@@ -216,25 +216,25 @@ static void AddToFreeList(RECMEM_HEAP *r)
  */
 bool VerifyRecPtr(void *m, RECMEM_HEAP *r)
 {
-    size_t i;
-    RECMEM_LINK *p;
+  size_t i;
+  RECMEM_LINK *p;
 
-    for (i = 0; i < r->nrBlocks; i++)
-        if (m >= r->blocks[i] && ((char *)m) < ((char *)r->blocks[i]) + (r->blockSize * r->recSize)) {
-            /* ok it's valid pointer */
-            /* now check if it's not in the free list */
-            for (p = (RECMEM_LINK *)r->freeList; p != NULL; p = p->next)
-                if (p == m) {
-                    (void)fprintf(stderr, "Trace used record is on"
-                                          "freeList!\n");
-                    return false; /* record is
+  for (i = 0; i < r->nrBlocks; i++)
+    if (m >= r->blocks[i] && ((char *)m) < ((char *)r->blocks[i]) + (r->blockSize * r->recSize)) {
+      /* ok it's valid pointer */
+      /* now check if it's not in the free list */
+      for (p = (RECMEM_LINK *)r->freeList; p != NULL; p = p->next)
+        if (p == m) {
+          (void)fprintf(stderr, "Trace used record is on"
+                                "freeList!\n");
+          return false; /* record is
                                        used: can't be in
                                        free list */
-                }
-            return true;
         }
-    (void)fprintf(stderr, "this pointer is not from this heap\n");
-    return false;
+      return true;
+    }
+  (void)fprintf(stderr, "this pointer is not from this heap\n");
+  return false;
 }
 
 #endif /* DEBUG */

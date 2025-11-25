@@ -33,10 +33,10 @@
  */
 static bool NotOnlySpace(const char *s)
 {
-    while (*s != '\0')
-        if (!isspace(*(s++)))
-            return true;
-    return false;
+  while (*s != '\0')
+    if (!isspace(*(s++)))
+      return true;
+  return false;
 }
 
 /* Converts a string to an INT4 number 
@@ -53,20 +53,20 @@ static bool NotOnlySpace(const char *s)
 bool CnvrtINT4(INT4 *result,    /* write-only. resulting number */
                const char *str) /* string to convert to an INT4 */
 {
-    double d = NAN;
+  double d = NAN;
 
-    PRECOND(result != NULL);
-    PRECOND(str != NULL);
+  PRECOND(result != NULL);
+  PRECOND(str != NULL);
 
-    /* is it a valid double ? */
-    if (!CnvrtDouble(&d, str))
-        return false;
+  /* is it a valid double ? */
+  if (!CnvrtDouble(&d, str))
+    return false;
 
-    /* is there a fraction ? */
-    if ((d != floor(d)) || (d < ((double)INT4_MIN)) || (d > ((double)INT4_MAX)))
-        return false;
-    *result = (INT4)d;
-    return true;
+  /* is there a fraction ? */
+  if ((d != floor(d)) || (d < ((double)INT4_MIN)) || (d > ((double)INT4_MAX)))
+    return false;
+  *result = (INT4)d;
+  return true;
 }
 
 /* Converts a string to an UINT1 number
@@ -84,16 +84,16 @@ bool CnvrtINT4(INT4 *result,    /* write-only. resulting number */
 bool CnvrtUINT1(UINT1 *result,   /* write-only. resulting number */
                 const char *str) /* string to convert to an UINT1 */
 {
-    INT4 v = 0;
+  INT4 v = 0;
 
-    PRECOND(result != NULL);
-    PRECOND(str != NULL);
+  PRECOND(result != NULL);
+  PRECOND(str != NULL);
 
-    if (CnvrtINT4(&v, str) && ((INT4)UINT1_MIN) <= v && v <= ((INT4)UINT1_MAX)) {
-        *result = (UINT1)v;
-        return true;
-    }
-    return false;
+  if (CnvrtINT4(&v, str) && ((INT4)UINT1_MIN) <= v && v <= ((INT4)UINT1_MAX)) {
+    *result = (UINT1)v;
+    return true;
+  }
+  return false;
 }
 
 /* Converts a string to an REAL8 number.
@@ -110,20 +110,20 @@ bool CnvrtUINT1(UINT1 *result,   /* write-only. resulting number */
 bool CnvrtREAL8(REAL8 *result,   /* write-only. resulting number */
                 const char *str) /* string to convert to an REAL8 */
 {
-    double v = NAN;
-    char *endPtr = NULL;
+  double v = NAN;
+  char *endPtr = NULL;
 
-    PRECOND(result != NULL);
-    PRECOND(str != NULL);
-    if (*str == '\0')
-        return false;
-    errno = 0;
-    v = strtod(str, &endPtr);
-    if (errno == ERANGE || NotOnlySpace(endPtr)) {
-        return false;
-    }
-    *result = (REAL8)v;
-    return true;
+  PRECOND(result != NULL);
+  PRECOND(str != NULL);
+  if (*str == '\0')
+    return false;
+  errno = 0;
+  v = strtod(str, &endPtr);
+  if (errno == ERANGE || NotOnlySpace(endPtr)) {
+    return false;
+  }
+  *result = (REAL8)v;
+  return true;
 }
 
 /* Converts a string to an REAL4 number.
@@ -140,15 +140,15 @@ bool CnvrtREAL8(REAL8 *result,   /* write-only. resulting number */
 bool CnvrtREAL4(REAL4 *result,   /* write-only. resulting number */
                 const char *str) /* string to convert to an REAL8 */
 {
-    REAL8 v = NAN;
+  REAL8 v = NAN;
 
-    PRECOND(result != NULL);
-    PRECOND(str != NULL);
+  PRECOND(result != NULL);
+  PRECOND(str != NULL);
 
-    if (!CnvrtREAL8(&v, str) || fabs(v) > ((REAL8)REAL4_MAX))
-        return false;
-    *result = (REAL4)v;
-    return true;
+  if (!CnvrtREAL8(&v, str) || fabs(v) > ((REAL8)REAL4_MAX))
+    return false;
+  *result = (REAL4)v;
+  return true;
 }
 
 /* Converts a string to a double number.
@@ -164,7 +164,7 @@ bool CnvrtREAL4(REAL4 *result,   /* write-only. resulting number */
 bool CnvrtDouble(double *result,  /* write-only. resulting number */
                  const char *str) /* string to convert to a double */
 {
-    return CnvrtREAL8(result, str);
+  return CnvrtREAL8(result, str);
 }
 
 /* Converts a string to an int number
@@ -182,37 +182,37 @@ bool CnvrtDouble(double *result,  /* write-only. resulting number */
 bool CnvrtInt(int *result,     /* write-only. resulting number */
               const char *str) /* string to convert to an int */
 {
-    INT4 v = 0;
+  INT4 v = 0;
 
-    PRECOND(result != NULL);
-    PRECOND(str != NULL);
+  PRECOND(result != NULL);
+  PRECOND(str != NULL);
 
-    if (CnvrtINT4(&v, str) && ((INT4)INT_MIN) <= v && v <= ((INT4)INT_MAX)) {
-        *result = (int)v;
-        return true;
-    }
-    return false;
+  if (CnvrtINT4(&v, str) && ((INT4)INT_MIN) <= v && v <= ((INT4)INT_MAX)) {
+    *result = (int)v;
+    return true;
+  }
+  return false;
 }
 
 #ifdef TEST_MAIN
 int main(void)
 {
-    char *tests[] = {
-        "123", " 123",  "",        "999999999999999999", "9.12", "-5", "-5 ", "-3.89", "\t 7 \t", "--5",
-        "-5t", "-3.89", "\t 7 \tx"};
-    int i;
-    UINT1 val1;
-    INT4 val4;
-    REAL8 val8;
-    bool r1, r4, r8;
-    for (i = 0; i < ARRAY_SIZE(tests); i++) {
-        r1 = CnvrtUINT1(&val1, tests[i]);
-        r4 = CnvrtINT4(&val4, tests[i]);
-        r8 = CnvrtREAL8(&val8, tests[i]);
-        (void)printf("|%s| 1( %d ,%d) 4(%d,%d) 8(%d,%g)\n", tests[i], r1, (int)val1, r4, (int)val4, r8,
-                     (double)val8);
-    }
-    return 0;
+  char *tests[] = {
+      "123", " 123",  "",        "999999999999999999", "9.12", "-5", "-5 ", "-3.89", "\t 7 \t", "--5",
+      "-5t", "-3.89", "\t 7 \tx"};
+  int i;
+  UINT1 val1;
+  INT4 val4;
+  REAL8 val8;
+  bool r1, r4, r8;
+  for (i = 0; i < ARRAY_SIZE(tests); i++) {
+    r1 = CnvrtUINT1(&val1, tests[i]);
+    r4 = CnvrtINT4(&val4, tests[i]);
+    r8 = CnvrtREAL8(&val8, tests[i]);
+    (void)printf("|%s| 1( %d ,%d) 4(%d,%d) 8(%d,%g)\n", tests[i], r1, (int)val1, r4, (int)val4, r8,
+                 (double)val8);
+  }
+  return 0;
 }
 #endif /* TEST_MAIN */
 
@@ -228,13 +228,13 @@ bool CnvrtValueMV(REAL8 *vNum,       /* write-only, value number or MV_REAL8
                   bool number,       /* test on mv number ? */
                   double mvDbl)      /* mv number, only used if number is TRUE */
 {
-    if (CnvrtDouble(vNum, vStr)) { /* value is a number
+  if (CnvrtDouble(vNum, vStr)) { /* value is a number
                                     */
-        if (number && mvDbl == (*vNum))
-            SET_MV_REAL8(vNum);
-        return 1;
-    } else { /* value is a string */
-        SET_MV_REAL8(vNum);
-        return StrEq(vStr, mvStr);
-    }
+    if (number && mvDbl == (*vNum))
+      SET_MV_REAL8(vNum);
+    return 1;
+  } else { /* value is a string */
+    SET_MV_REAL8(vNum);
+    return StrEq(vStr, mvStr);
+  }
 }

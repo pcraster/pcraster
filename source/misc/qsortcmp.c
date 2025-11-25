@@ -14,7 +14,7 @@
 int CmpUchar(const unsigned char *e1, /* pointer to single character */
              const unsigned char *e2) /* pointer to single character */
 {
-    return (((int)(*e1)) - ((int)(*e2)));
+  return (((int)(*e1)) - ((int)(*e2)));
 }
 
 /* Comparison function for integer 
@@ -30,7 +30,7 @@ int CmpUchar(const unsigned char *e1, /* pointer to single character */
 int CmpInt(const int *e1, /* pointer to single integer */
            const int *e2) /* pointer to single integer */
 {
-    return ((*e1) - (*e2));
+  return ((*e1) - (*e2));
 }
 
 /* Comparison function for float 
@@ -46,10 +46,10 @@ int CmpInt(const int *e1, /* pointer to single integer */
 int CmpFloat(const float *e1, /* pointer to single float */
              const float *e2) /* pointer to single float */
 {
-    double e1_min_e2 = (*e1) - (*e2);
-    if (e1_min_e2 < 0)
-        return (-1);
-    return (e1_min_e2 > 0);
+  double e1_min_e2 = (*e1) - (*e2);
+  if (e1_min_e2 < 0)
+    return (-1);
+  return (e1_min_e2 > 0);
 }
 
 /* Comparison function for double 
@@ -65,9 +65,9 @@ int CmpFloat(const float *e1, /* pointer to single float */
 int CmpDouble(const double *e1, /* pointer to single double */
               const double *e2) /* pointer to single double */
 {
-    /* see cmpdoubl.s for GNU def */
-    register double e1_min_e2 = (*e1) - (*e2);
-    if (e1_min_e2 < 0)
-        return (-1);
-    return (e1_min_e2 > 0);
+  /* see cmpdoubl.s for GNU def */
+  register double e1_min_e2 = (*e1) - (*e2);
+  if (e1_min_e2 < 0)
+    return (-1);
+  return (e1_min_e2 > 0);
 }

@@ -14,9 +14,9 @@
 int StrEq(const char *s1, /* first string */
           const char *s2) /* second string. */
 {
-    PRECOND(s1 != NULL);
-    PRECOND(s2 != NULL);
-    return !strcmp(s1, s2);
+  PRECOND(s1 != NULL);
+  PRECOND(s2 != NULL);
+  return !strcmp(s1, s2);
 } /* StrEq */
 
 /* compare strings like strncmp , ignoring the case of the characters
@@ -26,23 +26,23 @@ int StrNCaseEq(const char *s1, /* first string */
                const char *s2, /* second string. */
                size_t count)   /* number of characters compared */
 {
-    size_t i = 0;
-    size_t l1 = 0;
-    size_t l2 = 0;
-    PRECOND(s1 != NULL);
-    PRECOND(s2 != NULL);
+  size_t i = 0;
+  size_t l1 = 0;
+  size_t l2 = 0;
+  PRECOND(s1 != NULL);
+  PRECOND(s2 != NULL);
 
-    l1 = strlen(s1);
-    l2 = strlen(s2);
-    if (count > MIN(l1, l2) && l1 != l2)
-        /* compare more chars then avail and not the same length */
-        return 0; /* not the same lenght is not equal */
+  l1 = strlen(s1);
+  l2 = strlen(s2);
+  if (count > MIN(l1, l2) && l1 != l2)
+    /* compare more chars then avail and not the same length */
+    return 0; /* not the same lenght is not equal */
 
-    count = MIN(count, MIN(l1, l2));
-    for (i = 0; i < count; i++)
-        if (toupper(s1[i]) != toupper(s2[i]))
-            return 0;
-    return 1; /* all chars equal thus string equal */
+  count = MIN(count, MIN(l1, l2));
+  for (i = 0; i < count; i++)
+    if (toupper(s1[i]) != toupper(s2[i]))
+      return 0;
+  return 1; /* all chars equal thus string equal */
 
 } /* StrNCaseEq */
 
@@ -52,10 +52,10 @@ int StrNCaseEq(const char *s1, /* first string */
 int StrCaseEq(const char *s1, /* first string */
               const char *s2) /* second string. */
 {
-    PRECOND(s1 != NULL);
-    PRECOND(s2 != NULL);
+  PRECOND(s1 != NULL);
+  PRECOND(s2 != NULL);
 
-    return StrNCaseEq(s1, s2, MAX(strlen(s1), strlen(s2)));
+  return StrNCaseEq(s1, s2, MAX(strlen(s1), strlen(s2)));
 
 } /* StrCaseEq */
 
@@ -71,16 +71,16 @@ char *Strncpy0(char *dest,      /* write-only. Destination string. */
                const char *src, /* 0-terminated source string. */
                size_t count)    /* Number of characters maximally copied. */
 {
-    size_t end = 0;
+  size_t end = 0;
 
-    PRECOND(dest != NULL);
-    PRECOND(src != NULL);
+  PRECOND(dest != NULL);
+  PRECOND(src != NULL);
 
-    (void)strncpy(dest, src, count);
-    end = (strlen(src) > count ? count : strlen(src));
-    if (dest[end] != '\0')
-        dest[end] = '\0';
-    return (dest);
+  (void)strncpy(dest, src, count);
+  end = (strlen(src) > count ? count : strlen(src));
+  if (dest[end] != '\0')
+    dest[end] = '\0';
+  return (dest);
 
 } /* Strncpy0 */
 
@@ -93,12 +93,12 @@ char *Strncpy0(char *dest,      /* write-only. Destination string. */
  */
 char *StrcpyChkTmpMalloc(const char *str) /* string to copy in new allocated space */
 {
-    char *s = NULL;
-    PRECOND(str != NULL);
-    s = (char *)ChkTmpMalloc(strlen(str) + 1);
-    if (s == NULL)
-        return NULL;
-    return strcpy(s, str);
+  char *s = NULL;
+  PRECOND(str != NULL);
+  s = (char *)ChkTmpMalloc(strlen(str) + 1);
+  if (s == NULL)
+    return NULL;
+  return strcpy(s, str);
 }
 
 /* copy string in allocated buffer
@@ -107,8 +107,8 @@ char *StrcpyChkTmpMalloc(const char *str) /* string to copy in new allocated spa
  */
 char *StrcpyChkMalloc(const char *str) /* string to copy in new allocated space */
 {
-    PRECOND(str != NULL);
-    return (char *)MemcpyChkMalloc(str, strlen(str) + 1);
+  PRECOND(str != NULL);
+  return (char *)MemcpyChkMalloc(str, strlen(str) + 1);
 }
 
 /* copy bytes in allocated buffer
@@ -118,12 +118,12 @@ char *StrcpyChkMalloc(const char *str) /* string to copy in new allocated space 
 void *MemcpyChkMalloc(const void *src, /* memory to copy in new allocated space */
                       size_t n)        /* number of bytes to copy */
 {
-    void *s = NULL;
-    PRECOND(src != NULL);
-    s = (char *)ChkMalloc(n);
-    if (s == NULL)
-        return NULL;
-    return memcpy(s, src, n);
+  void *s = NULL;
+  PRECOND(src != NULL);
+  s = (char *)ChkMalloc(n);
+  if (s == NULL)
+    return NULL;
+  return memcpy(s, src, n);
 }
 
 /* Checks if string contains space characters.
@@ -132,12 +132,12 @@ void *MemcpyChkMalloc(const void *src, /* memory to copy in new allocated space 
  */
 int NoSpaces(const char *string) /* Searched string */
 {
-    size_t i = 0;
+  size_t i = 0;
 
-    while (string[i] != '\0')
-        if (isspace(string[i++]))
-            return (0);
-    return (1);
+  while (string[i] != '\0')
+    if (isspace(string[i++]))
+      return (0);
+  return (1);
 } /* NoSpaces */
 
 /* Checks if string is empty.
@@ -146,7 +146,7 @@ int NoSpaces(const char *string) /* Searched string */
  */
 int EmptyString(const char *str) /* Checked string. */
 {
-    return (str[0] == '\0');
+  return (str[0] == '\0');
 }
 
 /* Removes all space characters 
@@ -156,15 +156,15 @@ int EmptyString(const char *str) /* Checked string. */
  */
 char *DelSpaces(char *str) /* read-write. String to be modified */
 {
-    size_t i = 0;
-    size_t d = 0;
+  size_t i = 0;
+  size_t d = 0;
 
 
-    for (i = d = 0; str[i] != '\0'; i++)
-        if (!isspace(str[i]))
-            str[d++] = str[i];
-    str[d] = '\0';
-    return (str);
+  for (i = d = 0; str[i] != '\0'; i++)
+    if (!isspace(str[i]))
+      str[d++] = str[i];
+  str[d] = '\0';
+  return (str);
 } /* DelSpaces */
 
 /* Count the occurrence of some characters in a set
@@ -173,13 +173,13 @@ char *DelSpaces(char *str) /* read-write. String to be modified */
 size_t CountChars(const char *str, /* String to count  */
                   const char *set) /* set of characters */
 {
-    size_t n = 0;
-    const char *p = str;
-    while ((p = strpbrk(p, set)) != NULL) {
-        n++;
-        p++;
-    }
-    return n;
+  size_t n = 0;
+  const char *p = str;
+  while ((p = strpbrk(p, set)) != NULL) {
+    n++;
+    p++;
+  }
+  return n;
 } /* CountChars */
 
 /* Removes a subset of characters 
@@ -190,14 +190,14 @@ size_t CountChars(const char *str, /* String to count  */
 char *DelChars(char *str, /* read-write. String to be modified */
                const char *set)
 {
-    size_t i = 0;
-    size_t d = 0;
+  size_t i = 0;
+  size_t d = 0;
 
-    for (i = d = 0; str[i] != '\0'; i++)
-        if (strchr(set, str[i]) == NULL)
-            str[d++] = str[i];
-    str[d] = '\0';
-    return (str);
+  for (i = d = 0; str[i] != '\0'; i++)
+    if (strchr(set, str[i]) == NULL)
+      str[d++] = str[i];
+  str[d] = '\0';
+  return (str);
 } /* DelChars */
 
 /* Trim string.
@@ -206,25 +206,25 @@ char *DelChars(char *str, /* read-write. String to be modified */
  */
 char *LeftRightTrim(char *str) /* String to be modified */
 {
-    int i = 0;
-    int n = 0;
-    char *p = NULL;
+  int i = 0;
+  int n = 0;
+  char *p = NULL;
 
-    PRECOND(str != NULL);
+  PRECOND(str != NULL);
 
-    n = (int)strlen(str);
-    if (n == 0)
-        return (str);
+  n = (int)strlen(str);
+  if (n == 0)
+    return (str);
 
-    /* remove trailing spaces */
-    for (i = n - 1; i >= 0 && isspace(str[i]); i--)
-        str[i] = '\0';
+  /* remove trailing spaces */
+  for (i = n - 1; i >= 0 && isspace(str[i]); i--)
+    str[i] = '\0';
 
-    /* remove leading spaces */
-    for (p = str; isspace(*p); p++)
-        ;
-    /* strcpy(str,p) -> memmove(str,p,strlen(p)+1) copy incl. \0  */
-    return memmove(str, p, strlen(p) + 1);
+  /* remove leading spaces */
+  for (p = str; isspace(*p); p++)
+    ;
+  /* strcpy(str,p) -> memmove(str,p,strlen(p)+1) copy incl. \0  */
+  return memmove(str, p, strlen(p) + 1);
 } /* LeftRightTrim */
 
 /* Trim string and replace space by single space.
@@ -235,30 +235,30 @@ char *LeftRightTrim(char *str) /* String to be modified */
  */
 char *LeftRightTabTrim(char *str) /* String to be modified */
 {
-    int i = 0;
-    int n = 0;
+  int i = 0;
+  int n = 0;
 
-    PRECOND(str != NULL);
+  PRECOND(str != NULL);
 
-    n = (int)strlen(str);
-    if (n == 0)
-        return (str);
+  n = (int)strlen(str);
+  if (n == 0)
+    return (str);
 
-    (void)LeftRightTrim(str);
+  (void)LeftRightTrim(str);
 
-    /* substitute sequences of isspace() char with one ' ' */
-    for (n = i = 0; str[i] != '\0'; i++)
-        if (isspace(str[i])) {
-            PRECOND(n > 0); /* str[0] is not space,
+  /* substitute sequences of isspace() char with one ' ' */
+  for (n = i = 0; str[i] != '\0'; i++)
+    if (isspace(str[i])) {
+      PRECOND(n > 0); /* str[0] is not space,
                              * because leading spaces are removed
                              */
-            if (!isspace(str[n - 1]))
-                str[n++] = ' ';
-        } else
-            str[n++] = str[i];
-    str[n] = '\0';
+      if (!isspace(str[n - 1]))
+        str[n++] = ' ';
+    } else
+      str[n++] = str[i];
+  str[n] = '\0';
 
-    return (str);
+  return (str);
 
 } /* LeftRightTabTrim */
 
@@ -272,33 +272,33 @@ char *LeftRightTabTrim(char *str) /* String to be modified */
  */
 int TokenSpaceTrim(char *s) /* read-write. String to be modified and counted */
 {
-    int i = 0; /* index over s */
-    int d = 0; /* destination index */
-    int t = 0; /* #tokens */
+  int i = 0; /* index over s */
+  int d = 0; /* destination index */
+  int t = 0; /* #tokens */
 
-    /* remove leading spaces */
-    for (i = 0; isspace(s[i]); i++) {
-        /* inc i is all we want */;
-    }
-    /* copy string */
-    for (d = 0; s[i] != '\0';) {
-        if (isspace(s[i])) {
-            s[d++] = ' ';
-            t++;
-            while (isspace(s[i]))
-                i++;
-        } else
-            s[d++] = s[i++];
-    }
-    /* adjust for trailing spaces */
-    if (isspace(s[d - 1])) {
-        d--;
-        t--;
-    }
-    /* put string terminator */
-    s[d] = '\0';
-    t = (d == 0) ? 0 : t + 1;
-    return (t);
+  /* remove leading spaces */
+  for (i = 0; isspace(s[i]); i++) {
+    /* inc i is all we want */;
+  }
+  /* copy string */
+  for (d = 0; s[i] != '\0';) {
+    if (isspace(s[i])) {
+      s[d++] = ' ';
+      t++;
+      while (isspace(s[i]))
+        i++;
+    } else
+      s[d++] = s[i++];
+  }
+  /* adjust for trailing spaces */
+  if (isspace(s[d - 1])) {
+    d--;
+    t--;
+  }
+  /* put string terminator */
+  s[d] = '\0';
+  t = (d == 0) ? 0 : t + 1;
+  return (t);
 } /* TokenSpaceTrim */
 
 /* Check if character is in [a-zA-Z0-9_] 
@@ -311,7 +311,7 @@ int TokenSpaceTrim(char *s) /* read-write. String to be modified and counted */
  */
 int IsAlphaNumericUnderscore(int c)
 {
-    return isalpha(c) || isdigit(c) || (c == '_');
+  return isalpha(c) || isdigit(c) || (c == '_');
 }
 
 
@@ -320,13 +320,13 @@ int IsAlphaNumericUnderscore(int c)
 
 int main(int argc, char *argv[])
 {
-    if (argc != 4) {
-        (void)printf("USAGE test str1 str2 count\n");
-        EXIT(1);
-    }
+  if (argc != 4) {
+    (void)printf("USAGE test str1 str2 count\n");
+    EXIT(1);
+  }
 
-    (void)printf("%s %s %d\n", argv[1], argv[2], StrNCaseEq(argv[1], argv[2], (size_t)atoi(argv[3])));
-    EXIT(0);
-    return 0;
+  (void)printf("%s %s %d\n", argv[1], argv[2], StrNCaseEq(argv[1], argv[2], (size_t)atoi(argv[3])));
+  EXIT(0);
+  return 0;
 }
 #endif

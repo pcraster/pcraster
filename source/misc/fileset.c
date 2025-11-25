@@ -49,23 +49,23 @@ int CheckFileSets(const char **conflictFileName, /* write-only, this file causes
                   const char **inputFiles,       /* array of input file names */
                   int nrInputFiles)              /* size of inputFiles array */
 {
-    int i = 0;
-    int j = 0;
+  int i = 0;
+  int j = 0;
 
-    if (nrOutputFiles > 1)
-        for (i = 0; i < nrOutputFiles; i++)
-            for (j = i + 1; j < nrOutputFiles; j++)
-                if (FileNamesEq(outputFiles[i], outputFiles[j])) {
-                    *conflictFileName = outputFiles[i];
-                    return 2;
-                }
+  if (nrOutputFiles > 1)
     for (i = 0; i < nrOutputFiles; i++)
-        for (j = 0; j < nrInputFiles; j++)
-            if (FileNamesEq(outputFiles[i], inputFiles[j])) {
-                *conflictFileName = outputFiles[i];
-                return 1;
-            }
-    return 0;
+      for (j = i + 1; j < nrOutputFiles; j++)
+        if (FileNamesEq(outputFiles[i], outputFiles[j])) {
+          *conflictFileName = outputFiles[i];
+          return 2;
+        }
+  for (i = 0; i < nrOutputFiles; i++)
+    for (j = 0; j < nrInputFiles; j++)
+      if (FileNamesEq(outputFiles[i], inputFiles[j])) {
+        *conflictFileName = outputFiles[i];
+        return 1;
+      }
+  return 0;
 }
 
 #ifdef NEVER
@@ -74,25 +74,24 @@ int CheckFileSets(const char **conflictFileName, /* write-only, this file causes
  */
 int main(int argc, char *argv[])
 {
-    const char *errorFile;
-    if (argc < 4) {
-        (void)fprintf(stderr, "USAGE: program out1 out2 inputFiles\n");
-        EXIT(1);
-    }
+  const char *errorFile;
+  if (argc < 4) {
+    (void)fprintf(stderr, "USAGE: program out1 out2 inputFiles\n");
+    EXIT(1);
+  }
 
-    switch (
-        CheckFileSets(&errorFile, (const char **)(argv + 1), 2, (const char **)(argv + 3), argc - 3)) {
-        case 0: /* OK */
-            break;
-        case 1:
-            Error("'%s' is used both as input and output", errorFile);
-            break;
-        case 2:
-            Error("'%s' is used twice as output", errorFile);
-            break;
-    }
+  switch (CheckFileSets(&errorFile, (const char **)(argv + 1), 2, (const char **)(argv + 3), argc - 3)) {
+    case 0: /* OK */
+      break;
+    case 1:
+      Error("'%s' is used both as input and output", errorFile);
+      break;
+    case 2:
+      Error("'%s' is used twice as output", errorFile);
+      break;
+  }
 
-    EXIT(0);
-    return 0;
+  EXIT(0);
+  return 0;
 }
 #endif

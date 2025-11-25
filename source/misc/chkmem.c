@@ -29,7 +29,7 @@
 /* struct used for ChkTmp functions (LIBRARY_INTERNAL)
  */
 typedef struct TMP_NODE {
-    struct TMP_NODE *next;
+  struct TMP_NODE *next;
 } TMP_NODE;
 
 static void PrintNoCore(void);
@@ -67,16 +67,16 @@ static TMP_NODE *tmpList = NULL;
 */
 void Free(void *ptr)
 {
-    if (ptr == NULL)
-        return;
-    if (limitMalloc) {
-        if (nrMallocs < 0) {
-            exitOnError = 128;
-            Error("call to free (or Free) while malloc counter = 0");
-        }
-        nrMallocs--;
+  if (ptr == NULL)
+    return;
+  if (limitMalloc) {
+    if (nrMallocs < 0) {
+      exitOnError = 128;
+      Error("call to free (or Free) while malloc counter = 0");
     }
-    free(ptr);
+    nrMallocs--;
+  }
+  free(ptr);
 }
 #endif
 
@@ -93,27 +93,27 @@ entityType *CHK_MALLOC_TYPE(entityType t, /* type of entity
                             size_t nr)    /* number of entities
                                            */
 {
-    /* MACRO DOCUMENTATION */
+  /* MACRO DOCUMENTATION */
 }
 #endif
 
 
 static void DoNoMoreMemory(void)
 {
-    TMP_NODE *n = NULL;
-    TMP_NODE *t = tmpList;
-    while (t != NULL) {
-        n = t->next;
-        Free(t);
-        t = n;
-    }
-    if (NoMoreMemory != NULL)
-        NoMoreMemory();
+  TMP_NODE *n = NULL;
+  TMP_NODE *t = tmpList;
+  while (t != NULL) {
+    n = t->next;
+    Free(t);
+    t = n;
+  }
+  if (NoMoreMemory != NULL)
+    NoMoreMemory();
 }
 
 static void PrintNoCore(void)
 {
-    Error("Not enough memory\n");
+  Error("Not enough memory\n");
 }
 
 /* Dummy memory releaser
@@ -121,7 +121,7 @@ static void PrintNoCore(void)
  */
 static int NoReleaserInstalled(void)
 {
-    return (0);
+  return (0);
 }
 
 /* register function to call on allocation failure
@@ -131,7 +131,7 @@ static int NoReleaserInstalled(void)
  */
 void ChkRegisterNoMoreMemory(void (*f)(void)) /* function to call at allocation failure */
 {
-    NoMoreMemory = f;
+  NoMoreMemory = f;
 }
 
 /* register function to call on allocation failure for getting memory
@@ -142,7 +142,7 @@ void ChkRegisterNoMoreMemory(void (*f)(void)) /* function to call at allocation 
  */
 void ChkRegisterTryReleaseMemory(int (*f)(void)) /* function to call to release memory */
 {
-    TryRelease = f;
+  TryRelease = f;
 }
 
 /* wrapper around malloc()
@@ -169,36 +169,36 @@ void ChkRegisterTryReleaseMemory(int (*f)(void)) /* function to call to release 
  */
 void *ChkMalloc(size_t size) /* size in bytes, larger than 0 */
 {
-    void *b = NULL;
+  void *b = NULL;
 
 #ifdef DEBUG_DEVELOP
-    if (size == 0)
+  if (size == 0)
 #endif
-        PRECOND(size > 0);
+    PRECOND(size > 0);
 
 #ifdef DEBUG_DEVELOP
-    if (limitMalloc) {
-        if (nrMallocs >= limitMalloc) {
-            DoNoMoreMemory();
-            return NULL;
-        }
+  if (limitMalloc) {
+    if (nrMallocs >= limitMalloc) {
+      DoNoMoreMemory();
+      return NULL;
     }
+  }
 #endif
 
-    while ((b = malloc(size)) == NULL)
-        if (!TryRelease()) {
-            DoNoMoreMemory();
-            return NULL;
-        }
+  while ((b = malloc(size)) == NULL)
+    if (!TryRelease()) {
+      DoNoMoreMemory();
+      return NULL;
+    }
 #ifdef DEBUG_DEVELOP
-    nrMallocs++;
-    if (b != NULL)
-        (void)memset(b, 124, size);
-    /* test program for value picking (here 124)
+  nrMallocs++;
+  if (b != NULL)
+    (void)memset(b, 124, size);
+  /* test program for value picking (here 124)
          * is at the bottom of this file
          */
 #endif
-    return (b);
+  return (b);
 }
 
 /* wrapper around calloc()
@@ -212,32 +212,32 @@ void *ChkMalloc(size_t size) /* size in bytes, larger than 0 */
 void *ChkCalloc(size_t nnemb, /* number of elements.larger than 0 */
                 size_t size)  /* size of each element in bytes, larger than 0 */
 {
-    void *b = NULL;
+  void *b = NULL;
 
 
 #ifdef DEBUG_DEVELOP
-    if (size == 0)
+  if (size == 0)
 #endif
-        PRECOND(size > 0);
+    PRECOND(size > 0);
 
 #ifdef DEBUG_DEVELOP
-    if (limitMalloc) {
-        if (nrMallocs >= limitMalloc) {
-            DoNoMoreMemory();
-            return NULL;
-        }
+  if (limitMalloc) {
+    if (nrMallocs >= limitMalloc) {
+      DoNoMoreMemory();
+      return NULL;
     }
+  }
 #endif
 
-    while ((b = calloc(nnemb, size)) == NULL)
-        if (!TryRelease()) {
-            DoNoMoreMemory();
-            return NULL;
-        }
+  while ((b = calloc(nnemb, size)) == NULL)
+    if (!TryRelease()) {
+      DoNoMoreMemory();
+      return NULL;
+    }
 #ifdef DEBUG_DEVELOP
-    nrMallocs++;
+  nrMallocs++;
 #endif
-    return (b);
+  return (b);
 }
 
 #ifdef DEBUG_DEVELOP
@@ -251,22 +251,22 @@ void *ChkCalloc(size_t nnemb, /* number of elements.larger than 0 */
  */
 void StopLimitMalloc(void)
 {
-    if (limitMalloc && (!stopLimitMalloc)) {
-        stopLimitMalloc = true;
-        limitMalloc = 0;
-        if (nrMallocs < 0) {
-            exitOnError = 128;
-            Error("'%d' more calls to free than to"
-                  " allocation functions",
-                  -nrMallocs);
-        }
-        if (nrMallocs > 0) {
-            exitOnError = 128;
-            Error("'%d' more calls to allocation functions than to free", nrMallocs);
-        }
-        if (nrMallocs == 0)
-            (void)fprintf(stderr, "OK: allocation and free functions are in balance\n");
+  if (limitMalloc && (!stopLimitMalloc)) {
+    stopLimitMalloc = true;
+    limitMalloc = 0;
+    if (nrMallocs < 0) {
+      exitOnError = 128;
+      Error("'%d' more calls to free than to"
+            " allocation functions",
+            -nrMallocs);
     }
+    if (nrMallocs > 0) {
+      exitOnError = 128;
+      Error("'%d' more calls to allocation functions than to free", nrMallocs);
+    }
+    if (nrMallocs == 0)
+      (void)fprintf(stderr, "OK: allocation and free functions are in balance\n");
+  }
 }
 
 /* initialize test environment for allocation failure
@@ -285,21 +285,21 @@ void StopLimitMalloc(void)
  */
 void StartLimitMalloc(void)
 {
-    char *s = getenv("LIMITMALLOC");
-    int atExitRet = 0;
-    if (s == NULL) {
-        exitOnError = 130;
-        Error("StartLimitMalloc is called while LIMITMALLOC"
-              " is not set");
-    }
-    limitMalloc = atoi(s);
-    nrMallocs = 0;
-    if (limitMalloc <= 0) {
-        exitOnError = 130;
-        Error("StartLimitMalloc: LIMITMALLOC <= 0 : '%s'", s);
-    }
-    atExitRet = atexit(StopLimitMalloc);
-    POSTCOND(atExitRet == 0);
+  char *s = getenv("LIMITMALLOC");
+  int atExitRet = 0;
+  if (s == NULL) {
+    exitOnError = 130;
+    Error("StartLimitMalloc is called while LIMITMALLOC"
+          " is not set");
+  }
+  limitMalloc = atoi(s);
+  nrMallocs = 0;
+  if (limitMalloc <= 0) {
+    exitOnError = 130;
+    Error("StartLimitMalloc: LIMITMALLOC <= 0 : '%s'", s);
+  }
+  atExitRet = atexit(StopLimitMalloc);
+  POSTCOND(atExitRet == 0);
 }
 #endif
 
@@ -324,27 +324,27 @@ void StartLimitMalloc(void)
  */
 void *ChkTmpMalloc(size_t size) /* size in bytes, larger than 0 */
 {
-    TMP_NODE *b = NULL;
+  TMP_NODE *b = NULL;
 
 
 #ifdef DEBUG_DEVELOP
-    if (size == 0)
+  if (size == 0)
 #endif
-        PRECOND(size > 0);
+    PRECOND(size > 0);
 
-    /* allocate block preceeded by a TMP_NODE structure
+  /* allocate block preceeded by a TMP_NODE structure
      */
-    b = (TMP_NODE *)ChkMalloc(sizeof(TMP_NODE) + size);
-    if (b == NULL)
-        return NULL;
+  b = (TMP_NODE *)ChkMalloc(sizeof(TMP_NODE) + size);
+  if (b == NULL)
+    return NULL;
 
-    /* add TMP_NODE pointer to list */
-    b->next = tmpList;
-    tmpList = b;
+  /* add TMP_NODE pointer to list */
+  b->next = tmpList;
+  tmpList = b;
 
-    /* return pointer to block
+  /* return pointer to block
      */
-    return ((void *)(((char *)b) + sizeof(TMP_NODE)));
+  return ((void *)(((char *)b) + sizeof(TMP_NODE)));
 
 } /* ChkTmpMalloc */
 
@@ -352,24 +352,24 @@ void *ChkTmpMalloc(size_t size) /* size in bytes, larger than 0 */
  */
 void ChkTmpFree(void *v) /* Destructed. Pointer returned by ChkTmpMalloc */
 {
-    /* TMP_NODE lies before the block 
+  /* TMP_NODE lies before the block 
          */
-    TMP_NODE *n = (TMP_NODE *)((char *)v - sizeof(TMP_NODE));
-    TMP_NODE *t = tmpList;
+  TMP_NODE *n = (TMP_NODE *)((char *)v - sizeof(TMP_NODE));
+  TMP_NODE *t = tmpList;
 
-    /*
+  /*
      * remove node from list
      */
-    if (t == n) /* first node */
-        tmpList = n->next;
-    else {
-        while (t != NULL && t->next != n)
-            t = t->next;
-        PRECOND(t != NULL);
-        t->next = n->next;
-    }
+  if (t == n) /* first node */
+    tmpList = n->next;
+  else {
+    while (t != NULL && t->next != n)
+      t = t->next;
+    PRECOND(t != NULL);
+    t->next = n->next;
+  }
 
-    Free(n);
+  Free(n);
 
 } /* ChkTmpFree */
 
@@ -384,31 +384,31 @@ void ChkTmpFree(void *v) /* Destructed. Pointer returned by ChkTmpMalloc */
 void *ChkRealloc(void *ptr,   /* pointer to old block */
                  size_t size) /* new size in bytes, larger than 0 */
 {
-    void *b = NULL;
+  void *b = NULL;
 
 #ifdef DEBUG_DEVELOP
-    if (size == 0)
+  if (size == 0)
 #endif
-        PRECOND(size > 0);
+    PRECOND(size > 0);
 
 #ifdef DEBUG_DEVELOP
-    if (limitMalloc && ptr == NULL) {
-        if (nrMallocs >= limitMalloc) {
-            DoNoMoreMemory();
-            return NULL;
-        }
+  if (limitMalloc && ptr == NULL) {
+    if (nrMallocs >= limitMalloc) {
+      DoNoMoreMemory();
+      return NULL;
     }
+  }
 #endif
-    while ((b = realloc(ptr, size)) == NULL)
-        if (!TryRelease()) {
-            DoNoMoreMemory();
-            return NULL;
-        }
+  while ((b = realloc(ptr, size)) == NULL)
+    if (!TryRelease()) {
+      DoNoMoreMemory();
+      return NULL;
+    }
 #ifdef DEBUG_DEVELOP
-    if (limitMalloc && ptr == NULL)
-        nrMallocs++;
+  if (limitMalloc && ptr == NULL)
+    nrMallocs++;
 #endif
-    return (b);
+  return (b);
 } /* ChkRealloc */
 
 /* reallocate block, and free in case of failure
@@ -423,14 +423,14 @@ int ChkReallocFree(void **ptr, /*  read-write, ptr to address of
                    size_t n)   /* new size of block.
                                 */
 {
-    void *new = ChkRealloc(*ptr, n);
-    if (new == NULL) {
-        Free(*ptr);
-        *ptr = NULL;
-        return 1;
-    }
-    *ptr = new;
-    return 0;
+  void *new = ChkRealloc(*ptr, n);
+  if (new == NULL) {
+    Free(*ptr);
+    *ptr = NULL;
+    return 1;
+  }
+  *ptr = new;
+  return 0;
 }
 
 #ifdef __C2MAN__
@@ -443,7 +443,7 @@ int ChkReallocFree(void **ptr, /*  read-write, ptr to address of
 void FREE_NULL(void *x) /* memory block to free, pointer is set to NULL
                          */
 {
-    /* MACRO DOCUMENTATION */
+  /* MACRO DOCUMENTATION */
 }
 
 #endif
@@ -455,27 +455,27 @@ void FREE_NULL(void *x) /* memory block to free, pointer is set to NULL
 
 void main(void)
 {
-    int l;
+  int l;
 
-    for (l = 0; l < 256; l++) {
-        double buf;
-        float *f = (float *)&buf;
-        int *i = (int *)&buf;
-        short int *s = (short int *)&buf;
-        void *p = (void *)&buf;
-        char *c = (char *)&buf;
+  for (l = 0; l < 256; l++) {
+    double buf;
+    float *f = (float *)&buf;
+    int *i = (int *)&buf;
+    short int *s = (short int *)&buf;
+    void *p = (void *)&buf;
+    char *c = (char *)&buf;
 
-        (void)memset((void *)&buf, l, sizeof(double));
+    (void)memset((void *)&buf, l, sizeof(double));
 
 
-        (void)printf("l = %d\n", l);
-        (void)printf(" double %g\n", buf);
-        (void)printf(" float  %g\n", (float)(*f));
-        (void)printf(" int  %d\n", *i);
-        (void)printf(" short  int  %d\n", *s);
-        (void)printf(" ptr  %p\n", p);
-        (void)printf(" char  %c\n", *c);
-    }
+    (void)printf("l = %d\n", l);
+    (void)printf(" double %g\n", buf);
+    (void)printf(" float  %g\n", (float)(*f));
+    (void)printf(" int  %d\n", *i);
+    (void)printf(" short  int  %d\n", *s);
+    (void)printf(" ptr  %p\n", p);
+    (void)printf(" char  %c\n", *c);
+  }
 }
 
 #include <malloc.h>
@@ -498,14 +498,14 @@ static MALLOC_HOOK default_malloc_hook;
 
 static void *TraceMallocHook(size_t s, const void *ad)
 {
-    __malloc_hook = default_malloc_hook;
-    void *ptr = malloc(s);
-    if (s > 450000) {
-        nrMallocs++;
-        printf("malloc %p %u %08d\n", ptr, malloc_usable_size(ptr), nrMallocs);
-    }
-    __malloc_hook = TraceMallocHook;
-    return ptr;
+  __malloc_hook = default_malloc_hook;
+  void *ptr = malloc(s);
+  if (s > 450000) {
+    nrMallocs++;
+    printf("malloc %p %u %08d\n", ptr, malloc_usable_size(ptr), nrMallocs);
+  }
+  __malloc_hook = TraceMallocHook;
+  return ptr;
 }
 
 typedef void (*FREE_HOOK)(void *ptr, const void *ad);
@@ -514,13 +514,13 @@ static FREE_HOOK default_free_hook;
 
 static void TraceFreeHook(void *ptr, const void *ad)
 {
-    size_t s = malloc_usable_size(ptr);
-    if (s > 450000) {
-        nrMallocs--;
-        printf("free %p %u %08d\n", ptr, malloc_usable_size(ptr), nrMallocs);
-    }
-    __free_hook = default_free_hook;
-    free(ptr);
-    __free_hook = TraceFreeHook;
+  size_t s = malloc_usable_size(ptr);
+  if (s > 450000) {
+    nrMallocs--;
+    printf("free %p %u %08d\n", ptr, malloc_usable_size(ptr), nrMallocs);
+  }
+  __free_hook = default_free_hook;
+  free(ptr);
+  __free_hook = TraceFreeHook;
 }
 #endif

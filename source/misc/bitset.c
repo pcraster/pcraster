@@ -76,17 +76,17 @@ static const unsigned char nbits[] = {
 int NrBitSet(const unsigned char *set, /* array of setSize bytes */
              int setSize)              /* number of bits in set */
 {
-    int i = 0;
-    int n = 0;
-    /* whole bytes */
-    int b = 0;
-    int B = (setSize) / 8;
-    for (; i < B; i++)
-        n += (int)nbits[set[i]];
-    b = (setSize) % 8;
-    for (i = 0; i < b; i++)
-        n += ((set[B] & (1 << b)) != 0) ? 1 : 0;
-    return n;
+  int i = 0;
+  int n = 0;
+  /* whole bytes */
+  int b = 0;
+  int B = (setSize) / 8;
+  for (; i < B; i++)
+    n += (int)nbits[set[i]];
+  b = (setSize) % 8;
+  for (i = 0; i < b; i++)
+    n += ((set[B] & (1 << b)) != 0) ? 1 : 0;
+  return n;
 }
 
 /* Set given bit on 1.
@@ -95,13 +95,13 @@ int NrBitSet(const unsigned char *set, /* array of setSize bytes */
 int SetBit1(unsigned char *set, /* array of setSize bytes */
             int setBit)         /* bit number to set to 1 */
 {
-    int i = 0;
-    int n = 0;
-    int p = BitSet(set, setBit);
-    INDEX_BITSET(setBit, n, i);
-    PRECOND(setBit >= 0);
-    set[n] |= 1 << i;
-    return p;
+  int i = 0;
+  int n = 0;
+  int p = BitSet(set, setBit);
+  INDEX_BITSET(setBit, n, i);
+  PRECOND(setBit >= 0);
+  set[n] |= 1 << i;
+  return p;
 }
 
 /* Set given bit on 0.
@@ -110,13 +110,13 @@ int SetBit1(unsigned char *set, /* array of setSize bytes */
 int SetBit0(unsigned char *set, /* array of setSize bytes */
             int setBit)         /* bit number to set to 0 */
 {
-    int i = 0;
-    int n = 0;
-    int p = BitSet(set, setBit);
-    INDEX_BITSET(setBit, n, i);
-    PRECOND(setBit >= 0);
-    set[n] &= ~(1 << i); /* AND with complement */
-    return p;
+  int i = 0;
+  int n = 0;
+  int p = BitSet(set, setBit);
+  INDEX_BITSET(setBit, n, i);
+  PRECOND(setBit >= 0);
+  set[n] &= ~(1 << i); /* AND with complement */
+  return p;
 }
 
 /* Checks given bit on being 1.
@@ -125,10 +125,10 @@ int SetBit0(unsigned char *set, /* array of setSize bytes */
 int BitSet(const unsigned char *set, /* array of setSize bytes */
            int bitIndex)             /* index nr of bit to check */
 {
-    int i = 0;
-    int n = 0;
-    INDEX_BITSET(bitIndex, n, i);
-    return set[n] & 1 << i;
+  int i = 0;
+  int n = 0;
+  INDEX_BITSET(bitIndex, n, i);
+  return set[n] & 1 << i;
 }
 
 /*ARGSUSED*/
@@ -150,30 +150,30 @@ int BitSet(const unsigned char *set, /* array of setSize bytes */
 int FirstBitSet(const unsigned char *set, /* array of at least setSize bits */
                 int setSize)              /* number of bits in set to check */
 {
-    /* TODO: we can optimize this function
+  /* TODO: we can optimize this function
      * by stepping through machine word size first
      * and doing
      * if set[indWordSize] == 0)
      *   continue
      * or something like that
      */
-    int i = 0;
-    int j = 0;
-    int s = 0;
-    int indFound = -1; /* not found */
-    s = BYTE_SETSIZE(setSize);
-    for (i = 0; i < s; i++)
-        for (j = 0; j < 8; j++)
-            if (set[i] & (1 << j)) {
-                indFound = (i * 8) + j;
-                goto found;
-            }
+  int i = 0;
+  int j = 0;
+  int s = 0;
+  int indFound = -1; /* not found */
+  s = BYTE_SETSIZE(setSize);
+  for (i = 0; i < s; i++)
+    for (j = 0; j < 8; j++)
+      if (set[i] & (1 << j)) {
+        indFound = (i * 8) + j;
+        goto found;
+      }
 found:
-    if (indFound == -1 || indFound >= setSize) /* 1-bit could be in un-initialized
+  if (indFound == -1 || indFound >= setSize) /* 1-bit could be in un-initialized
                                                 * last bits of last byte
                                                 */
-        return -1;
-    return indFound;
+    return -1;
+  return indFound;
 }
 
 /* compute the index of the highest bit set
@@ -185,57 +185,57 @@ found:
 int LastBitSet(const unsigned char *set, /* array of at least setSize bits */
                int setSize)              /* number of bits in set (to check) */
 {
-    /* TODO: something like the TODO in FirstBitSet
+  /* TODO: something like the TODO in FirstBitSet
      */
-    int i = 0;
-    int j = 0;
-    int s = 0;
-    int bitsInLastByte = 0;
-    s = BYTE_SETSIZE(setSize);
-    if (!s) /* set is 0-size, not found  */
-        return -1;
+  int i = 0;
+  int j = 0;
+  int s = 0;
+  int bitsInLastByte = 0;
+  s = BYTE_SETSIZE(setSize);
+  if (!s) /* set is 0-size, not found  */
+    return -1;
 
-    /* do last partial filled byte */
-    bitsInLastByte = setSize % 8;
-    s--; /* this is the potentially partial filled byte */
-    for (j = bitsInLastByte - 1; j >= 0; j--)
-        if (set[s] & (1 << j))
-            return (s * 8) + j;
-    /* now set s to first we will examin
+  /* do last partial filled byte */
+  bitsInLastByte = setSize % 8;
+  s--; /* this is the potentially partial filled byte */
+  for (j = bitsInLastByte - 1; j >= 0; j--)
+    if (set[s] & (1 << j))
+      return (s * 8) + j;
+  /* now set s to first we will examin
      * depending on if there is a partial filled byte
      * already processed above
      */
-    if (bitsInLastByte)
-        s--;
-    /* do others */
-    for (i = s; i >= 0; i--)
-        for (j = 7; j >= 0; j--)
-            if (set[i] & (1 << j))
-                return (i * 8) + j;
-    return -1;
+  if (bitsInLastByte)
+    s--;
+  /* do others */
+  for (i = s; i >= 0; i--)
+    for (j = 7; j >= 0; j--)
+      if (set[i] & (1 << j))
+        return (i * 8) + j;
+  return -1;
 }
 
 #ifdef CPU_BIG_ENDIAN
 static const unsigned char *EndianFix(const unsigned char *set, int setByteSize)
 {
-    static unsigned char b[8];
-    PRECOND(setByteSize == 1 || setByteSize == 2 || setByteSize == 4 || setByteSize == 8);
-    if (setByteSize == 1)
-        return set;
+  static unsigned char b[8];
+  PRECOND(setByteSize == 1 || setByteSize == 2 || setByteSize == 4 || setByteSize == 8);
+  if (setByteSize == 1)
+    return set;
 
-    (void)memcpy(b, set, setByteSize); /* never overlap */
-    switch (setByteSize) {
-        case 2:
-            SwapByte2(b);
-            break;
-        case 4:
-            SwapByte4(b);
-            break;
-        case 8:
-            SwapByte8(b);
-            break;
-    }
-    return (const unsigned char *)b;
+  (void)memcpy(b, set, setByteSize); /* never overlap */
+  switch (setByteSize) {
+    case 2:
+      SwapByte2(b);
+      break;
+    case 4:
+      SwapByte4(b);
+      break;
+    case 8:
+      SwapByte8(b);
+      break;
+  }
+  return (const unsigned char *)b;
 }
 
 #else
@@ -249,15 +249,15 @@ static const unsigned char *EndianFix(const unsigned char *set, int setByteSize)
  */
 extern int FirstBitSetType(const unsigned char *set, int setByteSize)
 {
-    DEVELOP_PRECOND(setByteSize == 1 || setByteSize == 2 || setByteSize == 4 || setByteSize == 8);
-    return FirstBitSet(EndianFix(set, setByteSize), setByteSize << 3);
+  DEVELOP_PRECOND(setByteSize == 1 || setByteSize == 2 || setByteSize == 4 || setByteSize == 8);
+  return FirstBitSet(EndianFix(set, setByteSize), setByteSize << 3);
 }
 
 /* implementation for NRBITSET_TYPE (LIBRARY_INTERNAL)
  */
 extern int NrBitSetType(const unsigned char *set, int setByteSize)
 {
-    DEVELOP_PRECOND(setByteSize == 1 || setByteSize == 2 || setByteSize == 4 || setByteSize == 8);
-    /* << 3 = * 8 ;  bytes -> bits  */
-    return NrBitSet(EndianFix(set, setByteSize), setByteSize << 3);
+  DEVELOP_PRECOND(setByteSize == 1 || setByteSize == 2 || setByteSize == 4 || setByteSize == 8);
+  /* << 3 = * 8 ;  bytes -> bits  */
+  return NrBitSet(EndianFix(set, setByteSize), setByteSize << 3);
 }

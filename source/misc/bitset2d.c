@@ -46,29 +46,29 @@
  */
 unsigned char **NewBitMatrix(size_t nrRows, size_t nrCols)
 {
-    size_t nrByteCols = (size_t)((nrCols / 8) + ((nrCols % 8) != 0));
-    return (unsigned char **)Malloc2d(nrRows, nrByteCols, sizeof(unsigned char));
+  size_t nrByteCols = (size_t)((nrCols / 8) + ((nrCols % 8) != 0));
+  return (unsigned char **)Malloc2d(nrRows, nrByteCols, sizeof(unsigned char));
 }
 
 void SetAllBitMatrix(unsigned char **m, int nrRows, int nrCols, int v) /* 0 or 1 */
 {
-    int i = 0;
-    int nrByteCols = (nrCols / 8) + ((nrCols % 8) != 0);
-    PRECOND(v == 0 || v == 1);
-    if (v)
-        v = 0xFF;
-    for (i = 0; i < nrRows; i++)
-        (void)memset(m[i], v, (size_t)nrByteCols);
+  int i = 0;
+  int nrByteCols = (nrCols / 8) + ((nrCols % 8) != 0);
+  PRECOND(v == 0 || v == 1);
+  if (v)
+    v = 0xFF;
+  for (i = 0; i < nrRows; i++)
+    (void)memset(m[i], v, (size_t)nrByteCols);
 }
 
 int Set1BitMatrix(unsigned char **m, int r, int c)
 {
-    return SetBit1(m[r], c);
+  return SetBit1(m[r], c);
 }
 
 int Set0BitMatrix(unsigned char **m, int r, int c)
 {
-    return SetBit0(m[r], c);
+  return SetBit0(m[r], c);
 }
 
 /* Checks given bit on being 1.
@@ -77,5 +77,5 @@ int Set0BitMatrix(unsigned char **m, int r, int c)
 int BitMatrixSet(const unsigned char **m, int r, int c) /* nr. of bit to check */
 {
 
-    return BitSet(m[r], c);
+  return BitSet(m[r], c);
 }

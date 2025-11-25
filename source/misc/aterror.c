@@ -42,40 +42,40 @@ static bool firstTimeCalled = true;
 /* acts like atexit */
 int AtError(void (*func)(void))
 {
-    size_t i = 0;
-    if (firstTimeCalled) {
-        for (i = 0; i < MAX_FUNCS; i++)
-            funcs[i] = NULL;
-        firstTimeCalled = false;
-    }
+  size_t i = 0;
+  if (firstTimeCalled) {
     for (i = 0; i < MAX_FUNCS; i++)
-        if (funcs[i] == NULL) { /* free slot */
-            funcs[i] = func;
-            break;
-        }
-    PRECOND(i != MAX_FUNCS);
-    return (i == MAX_FUNCS);
+      funcs[i] = NULL;
+    firstTimeCalled = false;
+  }
+  for (i = 0; i < MAX_FUNCS; i++)
+    if (funcs[i] == NULL) { /* free slot */
+      funcs[i] = func;
+      break;
+    }
+  PRECOND(i != MAX_FUNCS);
+  return (i == MAX_FUNCS);
 }
 
 int NoLongerAtError(void (*func)(void))
 {
-    size_t i = 0;
-    PRECOND(!firstTimeCalled);
-    for (i = 0; i < MAX_FUNCS; i++)
-        if (funcs[i] == func) { /* give slot free */
-            funcs[i] = NULL;
-            break;
-        }
-    return (i == MAX_FUNCS);
+  size_t i = 0;
+  PRECOND(!firstTimeCalled);
+  for (i = 0; i < MAX_FUNCS; i++)
+    if (funcs[i] == func) { /* give slot free */
+      funcs[i] = NULL;
+      break;
+    }
+  return (i == MAX_FUNCS);
 }
 
 void ExecAtError(void)
 {
-    size_t i = 0;
-    if (firstTimeCalled) /* then there's something */
-        for (i = 0; i < MAX_FUNCS; i++)
-            if (funcs[i] != NULL) {
-                funcs[i]();
-                funcs[i] = NULL;
-            }
+  size_t i = 0;
+  if (firstTimeCalled) /* then there's something */
+    for (i = 0; i < MAX_FUNCS; i++)
+      if (funcs[i] != NULL) {
+        funcs[i]();
+        funcs[i] = NULL;
+      }
 }

@@ -48,52 +48,59 @@ static LOOK_UP_TABLE *MakeSingleCross(CSF_VS vs, double minVal, double maxVal, s
 {
   size_t i = 0;
   LOOK_UP_TABLE *t = ChkMalloc(sizeof(LOOK_UP_TABLE));
-  if (t == NULL)
+  if (t == NULL) {
     return NULL;
+  }
   t->nrKeys = 1;
   t->keyVs = NULL;
   t->records = NULL;
   PRECOND(maxVal >= minVal);
   switch (vs) {
     case VS_DIRECTION:
-      if (minVal == maxVal)
+      if (minVal == maxVal) {
         t->nrRecords = 1;
-      else {
+      } else {
         t->nrRecords = nrInt;
-        if (minVal == -1)
+        if (minVal == -1) {
           t->nrRecords++;
+        }
       }
       break;
     case VS_SCALAR:
     case VS_CONTINUOUS:
-      if (minVal == maxVal)
+      if (minVal == maxVal) {
         t->nrRecords = 1;
-      else
+      } else {
         t->nrRecords = nrInt;
+      }
       break;
     default: /* classified */
       t->nrRecords = (int)(maxVal - minVal + 1);
   }
-  if (AllocLookupTable(t))
+  if (AllocLookupTable(t)) {
     goto error;
+  }
   t->keyVs[0] = vs;
   switch (vs) {
     case VS_DIRECTION: {
       size_t i_s = 0;
       ; /* i start */
-      if (minVal == maxVal || minVal == -1)
+      if (minVal == maxVal || minVal == -1) {
         SetValue(t->records[i_s++] + INTERVAL, TEST_ONE, minVal, minVal);
+      }
       if (minVal != maxVal) {
         double inc = NAN;
-        if (minVal == -1)
+        if (minVal == -1) {
           minVal = 0;
+        }
         inc = (maxVal - minVal) / nrInt;
-        if (inc == 0)
+        if (inc == 0) {
           SetValue(t->records[i_s++] + INTERVAL, TEST_ONE, minVal, minVal);
-        else {
-          for (i = 0; i < nrInt; i++)
+        } else {
+          for (i = 0; i < nrInt; i++) {
             SetValue(t->records[i + i_s] + INTERVAL, TEST_GE_LT, minVal + (i * inc),
                      minVal + ((i + 1) * inc));
+          }
           t->records[t->nrRecords - 1][INTERVAL].t = TEST_GE_LE;
           t->records[t->nrRecords - 1][INTERVAL].h = maxVal; /* remove round errors */
         }
@@ -101,12 +108,13 @@ static LOOK_UP_TABLE *MakeSingleCross(CSF_VS vs, double minVal, double maxVal, s
     } break;
     case VS_SCALAR:
     case VS_CONTINUOUS:
-      if (t->nrRecords == 1)
+      if (t->nrRecords == 1) {
         SetValue(t->records[0] + INTERVAL, TEST_ONE, minVal, minVal);
-      else {
+      } else {
         double inc = (maxVal - minVal) / nrInt;
-        for (i = 0; i < nrInt; i++)
+        for (i = 0; i < nrInt; i++) {
           SetValue(t->records[i] + INTERVAL, TEST_GE_LT, minVal + (i * inc), minVal + ((i + 1) * inc));
+        }
         t->records[nrInt - 1][INTERVAL].t = TEST_GE_LE;
         t->records[nrInt - 1][INTERVAL].h = maxVal; /* remove round errors */
       }
@@ -114,8 +122,9 @@ static LOOK_UP_TABLE *MakeSingleCross(CSF_VS vs, double minVal, double maxVal, s
     default: /* classified */
     {
       double inc = minVal;
-      for (i = 0; inc <= maxVal; inc += 1, i++)
+      for (i = 0; inc <= maxVal; inc += 1, i++) {
         SetValue(t->records[i] + INTERVAL, TEST_ONE, inc, inc);
+      }
     }
   } /* eoswitch */
   return t;
@@ -133,15 +142,18 @@ static int ApplyCross(LOOK_UP_TABLE *t, MAP **maps)
   size_t nrCols = RgetNrCols(maps[0]);
   double **buf = (double **)Malloc2d(t->nrKeys, nrCols, sizeof(double));
   double *key = NULL;
-  if (buf == NULL)
+  if (buf == NULL) {
     return 1;
+  }
   key = (double *)ChkMalloc(sizeof(double) * t->nrKeys);
-  if (key == NULL)
+  if (key == NULL) {
     goto allocError;
+  }
 
   /* set types */
-  for (m = 0; m < t->nrKeys; m++)
+  for (m = 0; m < t->nrKeys; m++) {
     t->keyVs[m] = RgetValueScale(maps[m]);
+  }
   t->keyVs[t->nrKeys] = VS_UNDEFINED;
 
   /* set count to zero */
@@ -152,17 +164,20 @@ static int ApplyCross(LOOK_UP_TABLE *t, MAP **maps)
 
   /* count */
   for (r = 0; r < nrRows; r++) {
-    for (m = 0; m < t->nrKeys; m++)
+    for (m = 0; m < t->nrKeys; m++) {
       if (RgetRow(maps[m], r, buf[m]) != nrCols) {
         ErrorNested("read error on '%s'", MgetFileName(maps[m]));
         goto readError;
       }
+    }
     for (c = 0; c < nrCols; c++) {
       size_t k = 0;
-      for (m = 0; m < t->nrKeys && (!IS_MV_REAL8(buf[m] + c)); m++)
+      for (m = 0; m < t->nrKeys && (!IS_MV_REAL8(buf[m] + c)); m++) {
         key[m] = buf[m][c];
-      if (m != t->nrKeys) /* mv read */
+      }
+      if (m != t->nrKeys) { /* mv read */
         continue;
+      }
       for (k = 0; k < t->nrRecords; k++) {
         k = FindCrossKey(t, key, k);
         if (k != t->nrRecords) {
@@ -197,17 +212,21 @@ static LOOK_UP_TABLE *MakeHistoCross(MAP *m, size_t nrInt, size_t nrSlots)
 
   RgetMinVal(m, &minVal);
   RgetMaxVal(m, &maxVal);
-  if (IS_MV_REAL8(&minVal) || IS_MV_REAL8(&maxVal))
+  if (IS_MV_REAL8(&minVal) || IS_MV_REAL8(&maxVal)) {
     minVal = maxVal = 0;
+  }
 
   h = MakeSingleCross(vs, minVal, maxVal, nrSlots);
-  if (h == NULL)
+  if (h == NULL) {
     return NULL;
-  if (h->nrRecords == 1)
+  }
+  if (h->nrRecords == 1) {
     return h;
+  }
   h->searchMethod = SEARCH_BINARY;
-  if (ApplyCross(h, &m))
+  if (ApplyCross(h, &m)) {
     goto error;
+  }
   for (r = 0; r < h->nrRecords; r++) {
     total += h->records[r][h->nrKeys].l;
     POSTCOND(h->records[r][h->nrKeys].t == TEST_ONE);
@@ -282,21 +301,24 @@ MakeNewCrossTable(MAP **maps, size_t nrMaps, size_t nrInt, /* number of interval
   size_t m = 0;
   size_t t_nr = 0; /* number in t */
 
-  if (s == NULL)
+  if (s == NULL) {
     return NULL;
+  }
   for (m = 0; m < nrMaps; m++) {
     double minVal = NAN;
     double maxVal = NAN;
     CSF_VS vs = RgetValueScale(maps[m]);
     RgetMinVal(maps[m], &minVal);
     RgetMaxVal(maps[m], &maxVal);
-    if (IS_MV_REAL8(&minVal) || IS_MV_REAL8(&maxVal))
+    if (IS_MV_REAL8(&minVal) || IS_MV_REAL8(&maxVal)) {
       minVal = maxVal = 0;
+    }
     if (nrSlots > 0 && (vs == VS_DIRECTION || vs == VS_SCALAR || vs == VS_CONTINUOUS)) {
       s[m] = MakeHistoCross(maps[m], nrInt, nrSlots);
       t = s[m];
-    } else
+    } else {
       s[m] = MakeSingleCross(vs, minVal, maxVal, nrInt);
+    }
     if (s[m] == NULL) {
       nrMaps = m;
       goto done;
@@ -311,19 +333,23 @@ MakeNewCrossTable(MAP **maps, size_t nrMaps, size_t nrInt, /* number of interval
      *  due to matrix lay out and binary search
      */
   t = (LOOK_UP_TABLE *)ChkMalloc(sizeof(LOOK_UP_TABLE));
-  if (t == NULL)
+  if (t == NULL) {
     goto done;
-  if (nrMaps == 2)
+  }
+  if (nrMaps == 2) {
     t->nrMatrCols = s[0]->nrRecords;
+  }
   count = (size_t *)ChkMalloc(nrMaps * sizeof(size_t));
   count[0] = 1;
-  for (m = 1; m < nrMaps; m++)
+  for (m = 1; m < nrMaps; m++) {
     count[m] = s[m - 1]->nrRecords * count[m - 1];
+  }
   t_nr = count[nrMaps - 1] * s[nrMaps - 1]->nrRecords;
   t->nrRecords = t_nr;
   t->nrKeys = nrMaps;
-  if (AllocLookupTable(t))
+  if (AllocLookupTable(t)) {
     goto error2;
+  }
   for (t_nr = 0; t_nr < t->nrRecords; t_nr++) {
     size_t index = t_nr;
     m = nrMaps;
@@ -336,15 +362,17 @@ MakeNewCrossTable(MAP **maps, size_t nrMaps, size_t nrInt, /* number of interval
   }
 
   t->searchMethod = SEARCH_BINARY;
-  if (!ApplyCross(t, maps))
+  if (!ApplyCross(t, maps)) {
     goto done; /* success */
-error2:        /* else error */
+  }
+error2: /* else error */
   FreeLookupTable(t);
   t = NULL;
 done:
   Free(count);
-  for (m = 0; m < nrMaps; m++)
+  for (m = 0; m < nrMaps; m++) {
     FreeLookupTable(s[m]);
+  }
   Free(s);
   return t;
 }
@@ -356,8 +384,9 @@ static LOOK_UP_TABLE *CutTable(LOOK_UP_TABLE *t, size_t nrCols)
 
   PRECOND(nrCols >= 2); /* for memcpy keyVs */
 
-  if (n == NULL)
+  if (n == NULL) {
     return NULL;
+  }
   *n = *t;
   n->nrKeys = nrCols - 1;
   if (AllocLookupTable(n)) {
@@ -366,8 +395,9 @@ static LOOK_UP_TABLE *CutTable(LOOK_UP_TABLE *t, size_t nrCols)
     return NULL;
   }
   memcpy(n->keyVs, t->keyVs, sizeof(CSF_VS) * (nrCols - 1));
-  for (i = 0; i < t->nrRecords; i++)
+  for (i = 0; i < t->nrRecords; i++) {
     memcpy(n->records[i], t->records[i], sizeof(LOOK_UP_KEY) * nrCols);
+  }
   FreeLookupTable(t);
   return n;
 }
@@ -378,10 +408,12 @@ LOOK_UP_TABLE *UpdateCrossTable(const char *crossTable, MAP **maps, size_t nrMap
   LOOK_UP_TABLE *t = NULL;
   FILE *f = NULL;
   size_t i = 0;
-  if (keyVs == NULL)
+  if (keyVs == NULL) {
     return NULL;
-  for (i = 0; i < nrMaps; i++)
+  }
+  for (i = 0; i < nrMaps; i++) {
     keyVs[i] = RgetValueScale(maps[i]);
+  }
   f = fopen(crossTable, "r");
   if (f == NULL) {
     Error("Can't open '%s'", crossTable);
@@ -401,18 +433,21 @@ LOOK_UP_TABLE *UpdateCrossTable(const char *crossTable, MAP **maps, size_t nrMap
   }
   if (t->nrKeys != nrMaps) {
     t = CutTable(t, nrMaps + 1);
-    if (t == NULL)
+    if (t == NULL) {
       goto failure;
+    }
   }
   t->searchMethod = SEARCH_LINEAR;
-  if (ApplyCross(t, maps))
+  if (ApplyCross(t, maps)) {
     goto failure;
+  }
   Free(keyVs);
   return t;
 
 failure:
   Free(keyVs);
-  if (t != NULL)
+  if (t != NULL) {
     FreeLookupTable(t);
+  }
   return NULL;
 }

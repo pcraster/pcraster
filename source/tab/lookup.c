@@ -68,72 +68,84 @@ static int TestInfInf(const double *v, const LOOK_UP_KEY *k)
 static int TestGeInf(const double *v, const LOOK_UP_KEY *k)
 {
   PRECOND(k->t == TEST_GE_INF);
-  if (*v < k->l)
+  if (*v < k->l) {
     return -1;
+  }
   return 0;
 }
 
 static int TestGtInf(const double *v, const LOOK_UP_KEY *k)
 {
   PRECOND(k->t == TEST_GT_INF);
-  if (*v <= k->l)
+  if (*v <= k->l) {
     return -1;
+  }
   return 0;
 }
 
 static int TestInfLe(const double *v, const LOOK_UP_KEY *k)
 {
   PRECOND(k->t == TEST_INF_LE);
-  if (*v > k->h)
+  if (*v > k->h) {
     return 1;
+  }
   return 0;
 }
 
 static int TestGeLe(const double *v, const LOOK_UP_KEY *k)
 {
   PRECOND(k->t == TEST_GE_LE);
-  if (*v < k->l)
+  if (*v < k->l) {
     return -1;
-  if (*v > k->h)
+  }
+  if (*v > k->h) {
     return 1;
+  }
   return 0;
 }
 
 static int TestGtLe(const double *v, const LOOK_UP_KEY *k)
 {
   PRECOND(k->t == TEST_GT_LE);
-  if (*v <= k->l)
+  if (*v <= k->l) {
     return -1;
-  if (*v > k->h)
+  }
+  if (*v > k->h) {
     return 1;
+  }
   return 0;
 }
 
 static int TestInfLt(const double *v, const LOOK_UP_KEY *k)
 {
   PRECOND(k->t == TEST_INF_LT);
-  if (*v >= k->h)
+  if (*v >= k->h) {
     return 1;
+  }
   return 0;
 }
 
 static int TestGeLt(const double *v, const LOOK_UP_KEY *k)
 {
   PRECOND(k->t == TEST_GE_LT);
-  if (*v < k->l)
+  if (*v < k->l) {
     return -1;
-  if (*v >= k->h)
+  }
+  if (*v >= k->h) {
     return 1;
+  }
   return 0;
 }
 
 static int TestGtLt(const double *v, const LOOK_UP_KEY *k)
 {
   PRECOND(k->t == TEST_GT_LT);
-  if (*v <= k->l)
+  if (*v <= k->l) {
     return -1;
-  if (*v >= k->h)
+  }
+  if (*v >= k->h) {
     return 1;
+  }
   return 0;
 }
 
@@ -152,8 +164,9 @@ static int CmpKey(const double *keyValues, const LOOK_UP_KEY **keys)
     const LOOK_UP_KEY *k = (*keys) + i;
     PRECOND(k->t < ARRAY_SIZE(Cmp));
     r = Cmp[k->t](keyValues + i, k);
-    if (r)
+    if (r) {
       break;
+    }
   }
   POSTCOND((r == 0 && i == -1) || (r != 0 && i >= 0));
   return r;
@@ -177,8 +190,9 @@ LOOK_UP_KEY *FindLookupKey(const LOOK_UP_TABLE *t,  /* lookup table */
   } else {
     k = bsearch(keyValues, t->records, nr, sizeof(LOOK_UP_KEY *), (QSORT_CMP)CmpKey);
   }
-  if (k != NULL)
+  if (k != NULL) {
     return *k;
+  }
   return NULL;
 }
 
@@ -198,8 +212,9 @@ size_t FindCrossKey(const LOOK_UP_TABLE *t,  /* lookup table */
   } else {
     k = bsearch(keyValues, t->records + startHere, nr, sizeof(LOOK_UP_KEY *), (QSORT_CMP)CmpKey);
   }
-  if (k != NULL)
+  if (k != NULL) {
     return (size_t)(k - (t->records));
+  }
   return t->nrRecords;
 }
 

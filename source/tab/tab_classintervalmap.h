@@ -54,8 +54,9 @@ class ClassIntervalMap : public std::map<Class,IntervalMapT>
 
   //! if class no yet in map then add with initial 0 count
   void addClass(Class row) {
-    if (this->count(row)==0)
+    if (this->count(row)==0) {
        (*this)[row].insertIntervals(d_intervals);
+    }
   }
 
   /*! \brief incr count for class combination \a r \a c,

@@ -56,24 +56,28 @@ static void *InsertSorted(const void *key, /* key to be inserted */
   size_t x = 0; /* num == 0 case */
   int c = 0;
   size_t l = 0;
-  if (num == 0)
+  if (num == 0) {
     goto done;
+  }
   size_t r = num - 1;
   do {
     x = (l + r) / 2;
-    if ((c = cmp(key, ((char *)base) + (x * width))) < 0)
+    if ((c = cmp(key, ((char *)base) + (x * width))) < 0) {
       r = x - 1;
-    else
+    } else {
       l = x + 1;
+    }
   } while ((c != 0) && l <= r);
   POSTCOND(c != 0); /* NOT FOUND */
-  if (c > 0)
+  if (c > 0) {
     x++; /* insertion point is after x */
+  }
   PRECOND(x <= num);
-  if (x != num) /* no memmove if insertion point is at end */
+  if (x != num) { /* no memmove if insertion point is at end */
     /* move part of array after insertion point 1 to the right */
     (void)memmove((((char *)base) + ((x + 1) * width)), (((char *)base) + (x * width)),
                   (num - x) * width);
+  }
 done:
   return memcpy((((char *)base) + (x * width)), key, width);
 }
@@ -85,10 +89,12 @@ done:
  */
 void STfree(SEARCH_TABLE *table) /* table to deallocate */
 {
-  if (table == NULL)
+  if (table == NULL) {
     return;
-  if (table->slowList != NULL)
+  }
+  if (table->slowList != NULL) {
     free(table->slowList);
+  }
   free(table->fastList);
   free(table);
 }
@@ -98,10 +104,12 @@ void STforAll(SEARCH_TABLE *t,   /* table to deallocate */
 {
   size_t i = 0;
 
-  for (i = 0; i < t->nrSlowList; i++)
+  for (i = 0; i < t->nrSlowList; i++) {
     action(((char *)(t->slowList)) + (i * t->recSize));
-  for (i = 0; i < t->nrFastList; i++)
+  }
+  for (i = 0; i < t->nrFastList; i++) {
     action(((char *)(t->fastList)) + (i * t->recSize));
+  }
 }
 
 void STfreeAction(SEARCH_TABLE *t,   /* table to deallocate */
@@ -125,15 +133,17 @@ void *STsearch(const SEARCH_TABLE *t, /* table to search */
 
   if (t->nrSlowList != 0) {
     best = t->slowList;
-    for (i = 1; i < t->nrSlowList; i++)
+    for (i = 1; i < t->nrSlowList; i++) {
       best = f(best, (((const char *)(t->slowList)) + (i * t->recSize)));
+    }
     fastBegin = 0;
   } else {
     best = t->fastList;
     fastBegin = 1;
   }
-  for (i = fastBegin; i < t->nrFastList; i++)
+  for (i = fastBegin; i < t->nrFastList; i++) {
     best = f(best, (((const char *)(t->fastList)) + (i * t->recSize)));
+  }
   return (void *)best;
 }
 
@@ -162,12 +172,14 @@ SEARCH_TABLE *STnew(size_t nrFastList,  /* nr. of elements in fast list
   SEARCH_TABLE *t = NULL;
   PRECOND(cmp != NULL);
 #ifdef DEBUG
-  if (nrFastList > 0)
+  if (nrFastList > 0) {
     PRECOND(nrFastList > 0 && ReturnId != NULL && InitRec != NULL);
+  }
 #endif
   t = (SEARCH_TABLE *)ChkMalloc(sizeof(SEARCH_TABLE));
-  if (t == NULL)
+  if (t == NULL) {
     return NULL; /* memory allocation failed */
+  }
   t->nrFastList = nrFastList;
   t->recSize = recSize;
   /* init slowList here so STfree works in this function */
@@ -189,8 +201,9 @@ SEARCH_TABLE *STnew(size_t nrFastList,  /* nr. of elements in fast list
       InitRec((void *)r, (int)i);
       r += recSize;
     }
-  } else
+  } else {
     t->fastList = NULL;
+  }
 #ifdef DEBUG_DEVELOP
   nrSearchTables++;
 #endif
@@ -209,8 +222,9 @@ void *STinsert(SEARCH_TABLE *t, /* read-write table */
   void *c = NULL;
   t->nrSlowList++;
   c = (void *)ChkRealloc(t->slowList, t->nrSlowList * t->recSize);
-  if (c == NULL)
+  if (c == NULL) {
     return NULL;
+  }
   t->slowList = c;
   return InsertSorted(f, t->slowList, t->nrSlowList - 1, t->recSize, t->cmp);
 }
@@ -235,8 +249,9 @@ void *STfind(const SEARCH_TABLE *t, /* read-write table */
     }
   }
 
-  if (t->nrSlowList == 0)
+  if (t->nrSlowList == 0) {
     return NULL;
+  }
   /* search id in slowList */
   return bsearch(record, t->slowList, t->nrSlowList, t->recSize, t->cmp);
 }
@@ -247,10 +262,12 @@ void *STfindOrInsert(SEARCH_TABLE *t, /* read-write table */
   void *c = STfind(t, r);
   PRECOND(t->InitRec != NULL);
   PRECOND(t->ReturnId != NULL);
-  if (c != NULL)
+  if (c != NULL) {
     return c;
+  }
   c = STinsert(t, r);
-  if (c != NULL)
+  if (c != NULL) {
     t->InitRec(c, t->ReturnId(r));
+  }
   return c;
 }

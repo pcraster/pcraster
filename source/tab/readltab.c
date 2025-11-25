@@ -39,8 +39,9 @@ static int SetNumber(LOOK_UP_KEY *k, bool low, CSF_VS vs)
   const char *sv = LexGetTokenValue();
   double *v = low ? &(k->l) : &(k->h);
   CnvrtDouble(v, sv);
-  if (AppCheckVal(sv, vs, CR_UNDEFINED))
+  if (AppCheckVal(sv, vs, CR_UNDEFINED)) {
     k->t = TEST_ERROR;
+  }
   return k->t == TEST_ERROR;
 }
 
@@ -57,11 +58,13 @@ static int IllegalState(LOOK_UP_KEY *k, int token, const char *legals) /* number
       num = " or a number";
     }
     /* PRECOND(strlen(l) >= 1);  always a symbol */
-    if (l[1] == '\0')
+    if (l[1] == '\0') {
       one = "";
+    }
 
-    if (token != LEX_EOL)
+    if (token != LEX_EOL) {
       p = LexGetTokenValue();
+    }
     (void)ErrorNested("read '%s' expected%s '%s'%s", p, one, l, num);
   }
   return 1;
@@ -91,18 +94,20 @@ static int ParseKey(LOOK_UP_KEY *k, /* write-only key, if k->t == TEST_NOKEY
   while (1) {
     t = LexGetToken();
     if (t >= 0 && LexGetLineNr() != startLineNr) {
-      if (state == STATE_START) /* parsed empty line */
+      if (state == STATE_START) { /* parsed empty line */
         startLineNr = LexGetLineNr();
-      else
+      } else {
         t = LEX_EOL;
+      }
     }
     switch (state) {
       case STATE_START:
         switch (t) {
           case LEX_NUMBER:
             k->t = TEST_ONE;
-            if (SetNumber(k, true, vs))
+            if (SetNumber(k, true, vs)) {
               return 1;
+            }
             return 0;
           case '[':
             k->t = TEST_GE_INF;
@@ -123,8 +128,9 @@ static int ParseKey(LOOK_UP_KEY *k, /* write-only key, if k->t == TEST_NOKEY
         PRECOND(k->t == TEST_GE_INF || k->t == TEST_GT_INF);
         switch (t) {
           case LEX_NUMBER:
-            if (SetNumber(k, true, vs))
+            if (SetNumber(k, true, vs)) {
               return 1;
+            }
             state = STATE_COMMA;
             break;
           case ',':
@@ -136,16 +142,18 @@ static int ParseKey(LOOK_UP_KEY *k, /* write-only key, if k->t == TEST_NOKEY
         }
         break;
       case STATE_COMMA:
-        if (t != ',')
+        if (t != ',') {
           return IllegalState(k, t, ",");
+        }
         state = STATE_HIGHNUM;
         break;
       case STATE_HIGHNUM:
         POSTCOND(k->t == TEST_GE_INF || k->t == TEST_GT_INF || k->t == TEST_INF_INF);
         switch (t) {
           case LEX_NUMBER:
-            if (SetNumber(k, false, vs))
+            if (SetNumber(k, false, vs)) {
               return 1;
+            }
             state = STATE_HIGHTOKEN;
             if (k->t != TEST_INF_INF && (k->l > k->h)) {
               k->t = TEST_ERROR;  // pcrcalc/test69
@@ -188,19 +196,22 @@ static size_t DetectNrColsTable(FILE *tableFile) /* file to read */
   int nrCols = 0;
   LexInstall(tableFile, "[]<>,");
   while ((!ParseKey(&k, VS_UNDEFINED)) && !TEST_NOKEYREAD(k.t)) {
-    if (nrCols == 0)
+    if (nrCols == 0) {
       l = LexGetLineNr();
-    else {
+    } else {
       PRECOND(l != 0);
-      if (l != LexGetLineNr())
+      if (l != LexGetLineNr()) {
         break;
+      }
     }
     nrCols++;
   }
-  if (k.t == TEST_ERROR)
+  if (k.t == TEST_ERROR) {
     return RetErrorNested(0, "line '%ld' column '%d':", l, nrCols + 1);
-  if (k.t == TEST_NOKEY && nrCols == 0)
+  }
+  if (k.t == TEST_NOKEY && nrCols == 0) {
     return RetErrorNested(0, "no columns found");
+  }
   rewind(tableFile);
   return nrCols;
 }
@@ -225,8 +236,9 @@ static LOOK_UP_KEY *ReadLookupRecs(size_t *nrCols,     /* write-only */
   size_t c = DetectNrColsTable(tableFile);
   LOOK_UP_KEY *k = NULL;
   long recStartAt = 0;
-  if (c == 0)
+  if (c == 0) {
     goto error;
+  }
 
   if (c == 1 && vsTargetVal != VS_UNDEFINED) {
     ErrorNested("only 1 column found");
@@ -244,17 +256,20 @@ static LOOK_UP_KEY *ReadLookupRecs(size_t *nrCols,     /* write-only */
     CSF_VS vs = VS_UNDEFINED;
     if (n == nrK) {
       nrK += 40;
-      if (ChkReallocFree((void **)&k, nrK * sizeof(LOOK_UP_KEY)))
+      if (ChkReallocFree((void **)&k, nrK * sizeof(LOOK_UP_KEY))) {
         return NULL;
+      }
     }
-    if (vsTargetVal != VS_UNDEFINED && (n % c) == nrKeysExp)
+    if (vsTargetVal != VS_UNDEFINED && (n % c) == nrKeysExp) {
       vs = vsTargetVal;
+    }
     ParseKey(k + n, vs);
     if (k[n].t == TEST_NOKEY) {
-      if ((n % c) == 0)
+      if ((n % c) == 0) {
         break;
-      else
+      } else {
         goto notEnough;
+      }
     }
     if (k[n].t == TEST_ERROR) {
       ErrorNested("while reading at line '%ld' column '%d'", LexGetLineNr(), (n % c) + 1);
@@ -296,19 +311,23 @@ static int CheckMatrixCell(size_t row, /* 1-based index */
                            size_t col, /* 1-based index */
                            const LOOK_UP_KEY *k, CSF_VS vs)
 {
-  if (k->t != TEST_ONE)
+  if (k->t != TEST_ONE) {
     return RetErrorNested(1, "value field in matrix at row '%ld' column '%d' is not a single value", row,
                           col);
-  if (vs != VS_UNDEFINED)
-    if (AppCheckValNum(k->l, vs, CR_UNDEFINED))
+  }
+  if (vs != VS_UNDEFINED) {
+    if (AppCheckValNum(k->l, vs, CR_UNDEFINED)) {
       return RetErrorNested(1, "value field in matrix at row '%ld' column '%d'", row, col);
+    }
+  }
   return 0;
 }
 
 static void CnvrtDirectional(double *val)
 {
-  if (*val != -1)
+  if (*val != -1) {
     *val = AppInputDirection(*val);
+  }
 }
 
 /* read a lookup or cross table
@@ -341,10 +360,12 @@ LOOK_UP_TABLE *ReadLookupTable(FILE *f,             /* the tablefile */
     nrColsExp = nrCols;
     nrKeys = nrCols - 1;
     keyVs = NULL;
-  } else
+  } else {
     nrColsExp = nrCols;
-  if (k == NULL || (t = ChkMalloc(sizeof(LOOK_UP_TABLE))) == NULL)
+  }
+  if (k == NULL || (t = ChkMalloc(sizeof(LOOK_UP_TABLE))) == NULL) {
     return NULL;
+  }
   t->nrKeys = nrKeys;
   t->keyVs = NULL;
   t->records = NULL;
@@ -359,9 +380,10 @@ LOOK_UP_TABLE *ReadLookupTable(FILE *f,             /* the tablefile */
       ErrorNested("matrix must have at least 2 rows and 2 columns");
       goto error;
     }
-    if (AllocLookupTable(t))
+    if (AllocLookupTable(t)) {
       goto error;
-    for (r = 0, i = 0; i < nrRecs * nrCols; i++)
+    }
+    for (r = 0, i = 0; i < nrRecs * nrCols; i++) {
       if ((i / nrCols) != 0     /* not first row */
           && (i % nrCols) != 0) /* not first col */
       {
@@ -371,9 +393,11 @@ LOOK_UP_TABLE *ReadLookupTable(FILE *f,             /* the tablefile */
         t->records[r][1] = k[nrCols * (i / nrCols)];
         /* outputValue */
         t->records[r++][2] = k[i];
-        if (CheckMatrixCell(i / nrCols, i % nrCols, k + i, outputVs))
+        if (CheckMatrixCell(i / nrCols, i % nrCols, k + i, outputVs)) {
           goto error;
+        }
       }
+    }
     POSTCOND(r == t->nrRecords);
   } else /* table (not matrix) */
   {
@@ -382,31 +406,39 @@ LOOK_UP_TABLE *ReadLookupTable(FILE *f,             /* the tablefile */
       ErrorNested("not enough columns, read '%d' expected '%d' columns", nrCols, nrColsExp);
       goto error;
     }
-    if (AllocLookupTable(t))
+    if (AllocLookupTable(t)) {
       goto error;
-    for (r = 0; r < nrRecs; r++)
+    }
+    for (r = 0; r < nrRecs; r++) {
       (void)memcpy(t->records[r], k + (nrCols * r), nrColsExp * sizeof(LOOK_UP_KEY));
+    }
   }
 
   Free(k);
-  if (keyVs != NULL)
+  if (keyVs != NULL) {
     (void)memcpy(t->keyVs, keyVs, t->nrKeys * sizeof(CSF_VS));
-  else
-    for (r = 0; r < t->nrKeys; r++)
+  } else {
+    for (r = 0; r < t->nrKeys; r++) {
       t->keyVs[r] = VS_UNDEFINED;
+    }
+  }
   t->keyVs[t->nrKeys] = outputVs;
 
   /* adjust for directional
    */
   nrCols = nrKeys + (outputVs != VS_UNDEFINED);
-  for (c = 0; c < nrCols; c++)
-    if (t->keyVs[c] == VS_DIRECTION)
+  for (c = 0; c < nrCols; c++) {
+    if (t->keyVs[c] == VS_DIRECTION) {
       for (r = 0; r < t->nrRecords; r++) {
-        if (LOW_DEFINED(t->records[r][c].t))
+        if (LOW_DEFINED(t->records[r][c].t)) {
           CnvrtDirectional(&(t->records[r][c].l));
-        if (HIGH_DEFINED(t->records[r][c].t))
+        }
+        if (HIGH_DEFINED(t->records[r][c].t)) {
           CnvrtDirectional(&(t->records[r][c].h));
+        }
       }
+    }
+  }
   return t;
 error:
   Free(k);

@@ -43,10 +43,11 @@ typedef struct SPEC {
 
 static void BufPrint(char *buf, double v)
 {
-  if (floor(v) == v)
+  if (floor(v) == v) {
     sprintf(buf, "%.0f", v);
-  else
+  } else {
     sprintf(buf, "%g", v);
+  }
 }
 
 static void PrintKey(FILE *f, const SPEC *s, const LOOK_UP_KEY *k, bool lastCol)
@@ -67,28 +68,33 @@ static void PrintKey(FILE *f, const SPEC *s, const LOOK_UP_KEY *k, bool lastCol)
   PRECOND(ARRAY_SIZE(fmts) > k->t);
 
   if (LOW_DEFINED(k->t)) {
-    if (lastCol)
+    if (lastCol) {
       BufPrint(lBuf, k->l);
-    else
+    } else {
       BufPrint(lBuf, k->l);
-  } else
+    }
+  } else {
     lBuf[0] = '\0';
+  }
 
-  if (HIGH_DEFINED(k->t))
+  if (HIGH_DEFINED(k->t)) {
     BufPrint(hBuf, k->h);
-  else
+  } else {
     hBuf[0] = '\0';
+  }
 
   if (k->t == TEST_ONE) {
     int len = s->lFmt + s->hFmt;
-    if (s->allOne)
+    if (s->allOne) {
       fprintf(f, "%-*s", len, lBuf);
-    else
-      fprintf(f, " %-*s", len + 2, lBuf); /* minus one for preceding space
+    } else {
+      fprintf(f, " %-*s", len + 2, lBuf);
+    } /* minus one for preceding space
                                                  * plus 3 for [,]
                                                  */
-  } else
+  } else {
     fprintf(f, fmts[k->t], s->lFmt, lBuf, s->hFmt, hBuf);
+  }
 }
 
 static const LOOK_UP_TABLE *CreateMatrix(const LOOK_UP_TABLE *t)
@@ -96,8 +102,9 @@ static const LOOK_UP_TABLE *CreateMatrix(const LOOK_UP_TABLE *t)
   LOOK_UP_TABLE *m = ChkMalloc(sizeof(LOOK_UP_TABLE));
   size_t r = 0;
   size_t i = 0;
-  if (m == NULL)
+  if (m == NULL) {
     return NULL;
+  }
   /* determine nrCols => nrKeys */
   m->nrKeys = t->nrMatrCols;
   POSTCOND((t->nrRecords % m->nrKeys) == 0);
@@ -112,18 +119,21 @@ static const LOOK_UP_TABLE *CreateMatrix(const LOOK_UP_TABLE *t)
   m->records[0][0].l = 0;
   m->records[0][0].t = TEST_ONE;
   /* col-index */
-  for (i = 1; i < (m->nrKeys + 1); i++)
+  for (i = 1; i < (m->nrKeys + 1); i++) {
     m->records[0][i] = t->records[i - 1][0];
+  }
   /* row-index */
-  for (i = 1; i < m->nrRecords; i++)
+  for (i = 1; i < m->nrRecords; i++) {
     m->records[i][0] = t->records[(i - 1) * t->nrMatrCols][1];
+  }
   /* fill matrix */
-  for (r = 1; r < m->nrRecords; r++)
+  for (r = 1; r < m->nrRecords; r++) {
     for (i = 1; i < (m->nrKeys + 1); i++) {
       m->records[r][i] = t->records[(r - 1) * m->nrKeys + (i - 1)][2];
       POSTCOND(m->records[r][i].t == TEST_ONE || m->records[r][i].t == TEST_NOKEY);
       m->records[r][i].t = TEST_ONE;
     }
+  }
   return m;
 }
 
@@ -132,10 +142,12 @@ static LOOK_UP_KEY *ConvDir(const LOOK_UP_KEY *key, CSF_VS vs)
   static LOOK_UP_KEY b;
   b = *key;
   if (vs == VS_DIRECTION) {
-    if (LOW_DEFINED(b.t))
+    if (LOW_DEFINED(b.t)) {
       b.l = AppOutputDirection(b.l);
-    if (HIGH_DEFINED(b.t))
+    }
+    if (HIGH_DEFINED(b.t)) {
       b.h = AppOutputDirection(b.h);
+    }
   }
   return &b;
 }
@@ -156,12 +168,14 @@ int WriteLookupTable(const char *fileName, const LOOK_UP_TABLE *table)
   const LOOK_UP_TABLE *t = table;
   if (matrWrite) {
     t = CreateMatrix(t);
-    if (t == NULL)
+    if (t == NULL) {
       return RetError(1, "While writing file '%s'", fileName);
+    }
   }
   spec = (SPEC *)ChkMalloc(sizeof(SPEC) * (t->nrKeys + 1));
-  if (spec == NULL)
+  if (spec == NULL) {
     goto error;
+  }
   f = fopen(fileName, "w");
   if (f == NULL) {
     Error("Can't create file '%s'", fileName);
@@ -171,16 +185,17 @@ int WriteLookupTable(const char *fileName, const LOOK_UP_TABLE *table)
     spec[k].allOne = true;
     spec[k].lFmt = 0;
     spec[k].hFmt = 0;
-    for (r = 0; r < t->nrRecords; r++)
+    for (r = 0; r < t->nrRecords; r++) {
       if (t->records[r][t->nrKeys].t != TEST_NOKEY) {
         char buf[64];
         key = ConvDir(t->records[r] + k, t->keyVs[k]);
         spec[k].allOne &= (key->t == TEST_ONE);
         if (LOW_DEFINED(key->t)) {
-          if (k == t->nrKeys)
+          if (k == t->nrKeys) {
             BufPrint(buf, key->l);
-          else
+          } else {
             BufPrint(buf, key->l);
+          }
           spec[k].lFmt = MAX(spec[k].lFmt, strlen(buf));
         }
         if (HIGH_DEFINED(key->t)) {
@@ -188,29 +203,34 @@ int WriteLookupTable(const char *fileName, const LOOK_UP_TABLE *table)
           spec[k].hFmt = MAX(spec[k].hFmt, strlen(buf));
         }
       }
+    }
   }
-  for (r = 0; r < t->nrRecords; r++)
+  for (r = 0; r < t->nrRecords; r++) {
     if (t->records[r][t->nrKeys].t != TEST_NOKEY) {
       for (k = 0; k < (t->nrKeys + 1); k++) {
         key = ConvDir(t->records[r] + k, t->keyVs[k]);
         PrintKey(f, spec + k, key, k == t->nrKeys);
-        if (k != t->nrKeys)
+        if (k != t->nrKeys) {
           fprintf(f, " ");
+        }
       }
       if (fprintf(f, "\n") < 0) {
         Error("Writing to '%s' failed", fileName);
         goto errorWrite;
       }
     } /* eofor each line */
-  if (matrWrite)
+  }
+  if (matrWrite) {
     FreeLookupTable((LOOK_UP_TABLE *)t);
+  }
   fclose(f);
   return 0;
 errorWrite:
   fclose(f);
   remove(fileName);
 error:
-  if (matrWrite)
+  if (matrWrite) {
     FreeLookupTable((LOOK_UP_TABLE *)t);
+  }
   return 1;
 }

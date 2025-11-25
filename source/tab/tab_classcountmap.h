@@ -34,15 +34,17 @@ class ClassCountMap : public std::map<Class,size_t>
    //! return the classes in map
     S classes() const {
       S s;
-      for (auto i=this->begin();i!=this->end();++i)
+      for (auto i=this->begin();i!=this->end();++i) {
         s.insert(i->first);
+      }
       return s;
     }
 
     //! if class not yet in map then add with initial 0 count
     void addClass(Class c) {
-      if (!this->count(c))
+      if (!this->count(c)) {
        (*this)[c]=0;
+      }
     }
     //! incr count for class \a c, or set to 1 if not existent
     void incr(Class c) {
@@ -60,8 +62,9 @@ class ClassCountMap : public std::map<Class,size_t>
     //! return the count, 0 if not in map
     size_t getCount(Class c) const {
       auto i=this->find(c);
-      if (i!=this->end())
+      if (i!=this->end()) {
         return i->second;
+      }
       return 0;
     }
 };

@@ -36,8 +36,9 @@ void FreeLookupTable(LOOK_UP_TABLE *t) /* table to deallocate */
 {
   PRECOND(t != NULL);
 
-  if (t->records != NULL)
+  if (t->records != NULL) {
     Free2d((void **)t->records, t->nrRecords);
+  }
   Free(t->keyVs);
   Free(t);
 }

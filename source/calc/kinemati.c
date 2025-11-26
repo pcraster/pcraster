@@ -76,8 +76,9 @@ double IterateToQnew(double Qin,  /* summed Q new in for all sub-cachments */
   POSTCOND(sizeof(REAL) >= 8);
 
   /* if no input then output = 0 */
-  if ((Qin + Qold + q) == 0) /* +q CW NEW! */
+  if ((Qin + Qold + q) == 0) { /* +q CW NEW! */
     return (0);
+  }
 
   /* common terms */
   ab_pQ = alpha * beta * pow(((Qold + Qin) / 2), beta - 1);
@@ -168,9 +169,9 @@ static void Sum(int r, /* row current cell */
 
       if (ldd->Get(&lddVal, rNB, cNB, ldd) &&
           FlowsTo(lddVal, rNB, cNB, r, c)) { /* (r,c) is in map and no MV */
-        if (Qnew->Get(&QnewUps, rNB, cNB, Qnew))
+        if (Qnew->Get(&QnewUps, rNB, cNB, Qnew)) {
           Qin += QnewUps;
-        else
+        } else
         /* neighbor has MV output value
                  * no need to examine others.
                  */
@@ -183,8 +184,9 @@ static void Sum(int r, /* row current cell */
 
     QnewVal = IterateToQnew(Qin, QoldVal, qVal, alphaVal, betaVal, deltaTVal, deltaXVal, epsilon);
     Qnew->Put(QnewVal, r, c, Qnew);
-  } else
+  } else {
     Qnew->PutMV(r, c, Qnew);
+  }
 }
 
 static int KinematicOneCatchment(int r,                 /* r- Y-coordinate of catchment OutflowPoint */
@@ -201,8 +203,9 @@ static int KinematicOneCatchment(int r,                 /* r- Y-coordinate of ca
   PRECOND(ldd->GetGetTest(ldd) == GET_MV_TEST);
 
   list = LinkChkNd(NULL, r, c); /* pit is 1st element */
-  if (list == NULL)
+  if (list == NULL) {
     return 1; /* memory allocation failed */
+  }
 
   while (list != NULL) {
     r = list->rowNr; /* row of cell to check */
@@ -214,8 +217,9 @@ static int KinematicOneCatchment(int r,                 /* r- Y-coordinate of ca
       Sum(r, c, Qnew, Qold, q, ldd, alpha, beta, deltaT, deltaX);
       list = RemFromList(list);
     } else { /* add ups NB cell to process first */
-      if ((list = AddUpsNbsMarkFirst(list, ldd)) == NULL)
+      if ((list = AddUpsNbsMarkFirst(list, ldd)) == NULL) {
         return 1; /* memory error */
+      }
     }
   }
   return 0;
@@ -238,12 +242,16 @@ int Kinematic(MAP_REAL8 *Qnew,                             /* -w discharge at ti
   int r = 0;
   int c = 0; /* (r,c) becomes co-ordinate of outflowpoint */
 
-  for (r = 0; r < nrRows; r++)
-    for (c = 0; c < nrCols; c++)
+  for (r = 0; r < nrRows; r++) {
+    for (c = 0; c < nrCols; c++) {
       if (ldd->Get(&lddVal, r, c, ldd)) {
-        if (lddVal == LDD_PIT) /* found catchment outlet */
+        if (lddVal == LDD_PIT) { /* found catchment outlet */
           KinematicOneCatchment(r, c, Qnew, Qold, q, ldd, alpha, beta, deltaT, deltaX);
-      } else
+        }
+      } else {
         Qnew->PutMV(r, c, Qnew);
+      }
+    }
+  }
   return 0;
 }

@@ -88,22 +88,25 @@ int IBNGauss(MAP_REAL8 *out, const MAP_REAL8 *units, const MAP_REAL8 *range, con
   /* set all to 0 or MV
    * check range of rangeValSrc
    */
-  for (rSrc = 0; rSrc < nrRows; rSrc++)
+  for (rSrc = 0; rSrc < nrRows; rSrc++) {
     for (cSrc = 0; cSrc < nrCols; cSrc++) {
       if (units->Get(&unitsValSrc, rSrc, cSrc, units) &&
           nrPackages->Get(&nrPackValSrc, rSrc, cSrc, nrPackages) &&
           range->Get(&rangeValSrc, rSrc, cSrc, range)) { /* init with remainder */
         REAL8 remainder = unitsValSrc - floor(unitsValSrc);
         out->Put(remainder, rSrc, cSrc, out);
-        if (rangeValSrc < 0)
+        if (rangeValSrc < 0) {
           return RetError(1, "ibngauss: Domain error on parameters");
-      } else /* some of the units maps are MV */
+        }
+      } else { /* some of the units maps are MV */
         out->PutMV(rSrc, cSrc, out);
+      }
     }
+  }
 
 
-  for (rSrc = 0; rSrc < nrRows; rSrc++)
-    for (cSrc = 0; cSrc < nrCols; cSrc++)
+  for (rSrc = 0; rSrc < nrRows; rSrc++) {
+    for (cSrc = 0; cSrc < nrCols; cSrc++) {
       if (units->Get(&unitsValSrc, rSrc, cSrc, units) &&
           nrPackages->Get(&nrPackValSrc, rSrc, cSrc, nrPackages) &&
           range->Get(&rangeValSrc, rSrc, cSrc, range)) {
@@ -146,5 +149,7 @@ int IBNGauss(MAP_REAL8 *out, const MAP_REAL8 *units, const MAP_REAL8 *range, con
           }
         } /* for all packages */
       } /* eo for all cells */
+    }
+  }
   return 0; /* successful terminated */
 }

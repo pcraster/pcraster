@@ -62,8 +62,9 @@ int main(int argc,     /* number of arguments */
 
   valueScale = VS_UNDEFINED;
 
-  if (InstallArgs(argc, argv, "(ag)r#h#m*(BLNOSDV)s*", "asc2map"))
+  if (InstallArgs(argc, argv, "(ag)r#h#m*(BLNOSDV)s*", "asc2map")) {
     goto failure;
+  }
 
   while ((c = GetOpt()) != 0) {
     switch (c) {
@@ -102,19 +103,23 @@ int main(int argc,     /* number of arguments */
     }
   }
 
-  if ((argv = ArgArguments(&argc)) == NULL)
+  if ((argv = ArgArguments(&argc)) == NULL) {
     goto failure;
+  }
 
-  if (AppArgCountCheck(argc, 3, 3, USAGE))
+  if (AppArgCountCheck(argc, 3, 3, USAGE)) {
     goto failure;
+  }
 
   /* Check input file  */
-  if (AppInputTest(argv[1]))
+  if (AppInputTest(argv[1])) {
     goto failure;
+  }
 
   clone = AppOpenClone(&cloneFileName, NULL);
-  if (clone == NULL)
+  if (clone == NULL) {
     goto failure;
+  }
 
   // if (LimitedVersionCheck((int)RgetNrRows(clone), (int)RgetNrCols(clone), -1, -1, -1, -1))
   //     goto failure2;
@@ -126,8 +131,9 @@ int main(int argc,     /* number of arguments */
       goto failure2;
     }
     cellRepr = RgetCellRepr(clone);
-  } else
+  } else {
     cellRepr = AppDefaultCellRepr(valueScale);
+  }
   output = Rdup(argv[2], clone, cellRepr, valueScale);
   if (output == NULL) {
     Mperror(argv[2]);
@@ -145,8 +151,9 @@ int main(int argc,     /* number of arguments */
     rowHeader = 0;
   }
 
-  if (Asc2Map(output, argv[1], mv, sepChar, a, header, rowHeader) != 0)
+  if (Asc2Map(output, argv[1], mv, sepChar, a, header, rowHeader) != 0) {
     goto failure3;
+  }
 
   Mclose(output);
 
@@ -158,8 +165,9 @@ failure3:
   Mclose(output);
   (void)remove(argv[2]);
 failure2:
-  if (clone != NULL)
+  if (clone != NULL) {
     Mclose(clone);
+  }
 failure:
   AppEnd();
   exit(1);

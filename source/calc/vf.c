@@ -24,7 +24,7 @@ extern int vf_gradx(MAP_REAL8 *result, const MAP_REAL8 *scalar)
   nrows = result->NrRows(result);
   ncols = result->NrCols(result);
   dx = scalar->CellLength(scalar);
-  for (r = 0; r < nrows; r++)
+  for (r = 0; r < nrows; r++) {
     for (c = 0; c < ncols; c++) {
       if (scalar->Get(&value, r, c, scalar)) /* - v - */
       {
@@ -47,9 +47,11 @@ extern int vf_gradx(MAP_REAL8 *result, const MAP_REAL8 *scalar)
           /* cell is isolated, the derivative is zero */
           result->Put(0, r, c, result);
         }
-      } else /* - 0 - */
+      } else { /* - 0 - */
         result->PutMV(r, c, result);
+      }
     }
+  }
   return 0;
 }
 
@@ -71,7 +73,7 @@ extern int vf_grady(MAP_REAL8 *result, const MAP_REAL8 *scalar)
   nrows = result->NrRows(result);
   ncols = result->NrCols(result);
   dy = scalar->CellLength(scalar);
-  for (r = 0; r < nrows; r++)
+  for (r = 0; r < nrows; r++) {
     for (c = 0; c < ncols; c++) {
       if (scalar->Get(&value, r, c, scalar)) {
         if (scalar->Get(&up, r - 1, c, scalar) && scalar->Get(&down, r + 1, c, scalar)) {
@@ -87,9 +89,11 @@ extern int vf_grady(MAP_REAL8 *result, const MAP_REAL8 *scalar)
           /* cell is isolated, the derivative is zero */
           result->Put(0, r, c, result);
         }
-      } else /* - 0 - */
+      } else { /* - 0 - */
         result->PutMV(r, c, result);
+      }
     }
+  }
   return 0;
 }
 
@@ -111,7 +115,7 @@ int vf_divergence(MAP_REAL8 *result, const MAP_REAL8 *vectorfieldx, const MAP_RE
   ncols = result->NrCols(result);
   dx = vectorfieldx->CellLength(vectorfieldx);
   dy = vectorfieldy->CellLength(vectorfieldy);
-  for (r = 0; r < nrows; r++)
+  for (r = 0; r < nrows; r++) {
     for (c = 0; c < ncols; c++) {
       double valuex = NAN;
       double valuey = NAN;
@@ -142,9 +146,11 @@ int vf_divergence(MAP_REAL8 *result, const MAP_REAL8 *vectorfieldx, const MAP_RE
         }
 
         result->Put(res, r, c, result);
-      } else
+      } else {
         result->PutMV(r, c, result);
+      }
     }
+  }
 
   return 0;
 }
@@ -163,7 +169,7 @@ int vf_diver(MAP_REAL8 *result, const MAP_REAL8 *vectorfieldx, const MAP_REAL8 *
   int ncols = 0;
   nrows = result->NrRows(result);
   ncols = result->NrCols(result);
-  for (r = 0; r < nrows; r++)
+  for (r = 0; r < nrows; r++) {
     for (c = 0; c < ncols; c++) {
       double res = NAN;
       double value = NAN;
@@ -186,8 +192,9 @@ int vf_diver(MAP_REAL8 *result, const MAP_REAL8 *vectorfieldx, const MAP_REAL8 *
                  vectorfieldx->Get(&valueRight, r, c + 1, vectorfieldx)) {
         deltax->Get(&dx, r, c, deltax);
         res = (valueRight - value) / dx;
-      } else
+      } else {
         res = 0;
+      }
       if (vectorfieldy->Get(&value, r, c, vectorfieldy) &&
           vectorfieldy->Get(&valueUp, r + 1, c, vectorfieldy) &&
           vectorfieldy->Get(&valueDown, r + 1, c, vectorfieldy)) {
@@ -201,9 +208,11 @@ int vf_diver(MAP_REAL8 *result, const MAP_REAL8 *vectorfieldx, const MAP_REAL8 *
                  vectorfieldy->Get(&valueDown, r - 1, c, vectorfieldy)) {
         deltay->Get(&dy, r, c, deltay);
         result->Put(res + (value - valueDown) / dy, r, c, result);
-      } else
+      } else {
         result->PutMV(r, c, result);
+      }
     }
+  }
 
   return 0;
 }
@@ -228,7 +237,7 @@ int vf_lax(MAP_REAL8 *result, MAP_REAL8 const *input, MAP_REAL8 const *fractMap)
 
   nrows = result->NrRows(result);
   ncols = result->NrCols(result);
-  for (r = 0; r < nrows; r++)
+  for (r = 0; r < nrows; r++) {
     for (c = 0; c < ncols; c++) {
       gg = 0;
       hh = 0;
@@ -266,9 +275,11 @@ int vf_lax(MAP_REAL8 *result, MAP_REAL8 const *input, MAP_REAL8 const *fractMap)
           hh = hh + 2;
         }
         result->Put((1 - frac) * cellv + frac * (gg / hh), r, c, result);
-      } else
+      } else {
         result->PutMV(r, c, result);
+      }
     }
+  }
   return 0;
 }
 
@@ -288,45 +299,55 @@ extern int vf_laplacian(MAP_REAL8 *result, const MAP_REAL8 *scalar)
   nrows = result->NrRows(result);
   ncols = result->NrCols(result);
   dx = scalar->CellLength(scalar);
-  for (r = 0; r < nrows; r++)
+  for (r = 0; r < nrows; r++) {
     for (c = 0; c < ncols; c++) {
       gg = 0;
       if (scalar->Get(&value, r + 0, c + 0, scalar)) {
         if (scalar->Get(&neighbour, r - 1, c - 1, scalar)) {
           gg = gg + 2 * neighbour;
-        } else
+        } else {
           gg = gg + 2 * value;
+        }
         if (scalar->Get(&neighbour, r - 1, c + 0, scalar)) {
           gg = gg + 3 * neighbour;
-        } else
+        } else {
           gg = gg + 3 * value;
+        }
         if (scalar->Get(&neighbour, r - 1, c + 1, scalar)) {
           gg = gg + 2 * neighbour;
-        } else
+        } else {
           gg = gg + 2 * value;
+        }
         if (scalar->Get(&neighbour, r + 0, c - 1, scalar)) {
           gg = gg + 3 * neighbour;
-        } else
+        } else {
           gg = gg + 3 * value;
+        }
         if (scalar->Get(&neighbour, r + 0, c + 1, scalar)) {
           gg = gg + 3 * neighbour;
-        } else
+        } else {
           gg = gg + 3 * value;
+        }
         if (scalar->Get(&neighbour, r + 1, c - 1, scalar)) {
           gg = gg + 2 * neighbour;
-        } else
+        } else {
           gg = gg + 2 * value;
+        }
         if (scalar->Get(&neighbour, r + 1, c + 0, scalar)) {
           gg = gg + 3 * neighbour;
-        } else
+        } else {
           gg = gg + 3 * value;
+        }
         if (scalar->Get(&neighbour, r + 1, c + 1, scalar)) {
           gg = gg + 2 * neighbour;
-        } else
+        } else {
           gg = gg + 2 * value;
+        }
         result->Put((gg - 20 * value) / (dx * dx), r, c, result);
-      } else
+      } else {
         result->PutMV(r, c, result);
+      }
     }
+  }
   return 0;
 }

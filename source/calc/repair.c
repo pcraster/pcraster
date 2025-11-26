@@ -50,12 +50,14 @@ static int MarkCatch(UINT1 **visitMap, /* read write */
                      MAP_UINT1 *ldd)   /* read write */
 {
   NODE *list = LinkChkNd(NULL, r, c);
-  if (list == NULL)
+  if (list == NULL) {
     return 1;
+  }
   while (list != NULL) {
     visitMap[list->rowNr][list->colNr] = 1;
-    if (ReplaceFirstByUpsNbs(&list, ldd))
+    if (ReplaceFirstByUpsNbs(&list, ldd)) {
       return 1;
+    }
   }
   return 0;
 }
@@ -105,8 +107,9 @@ int RepairLdd(MAP_UINT1 *ldd,         /* write-only output ldd  */
   int r = 0;
   int c = 0;
   UINT1 **visitMap = (UINT1 **)Malloc2d((size_t)nrRows, (size_t)nrCols, sizeof(UINT1));
-  if (visitMap == NULL)
+  if (visitMap == NULL) {
     return 1;
+  }
   (void)memset(visitMap[0], 0x0, (size_t)(nrRows * nrCols));
 
   /* algorithm wants inLdd->Get() to return FALSE in case of MV */
@@ -116,8 +119,8 @@ int RepairLdd(MAP_UINT1 *ldd,         /* write-only output ldd  */
   repairLddModifiedMap = false;
 
   /* copy matrix and check for old and invalid codes */
-  for (r = 0; r < nrRows; r++)
-    for (c = 0; c < nrCols; c++)
+  for (r = 0; r < nrRows; r++) {
+    for (c = 0; c < nrCols; c++) {
       if (inLdd->Get(&lddCurr, r, c, inLdd)) { /* determine downstream neighbor 
                                                       */
         if (!IS_VALID_LDD_CODE(lddCurr)) {     /* old code */
@@ -127,10 +130,14 @@ int RepairLdd(MAP_UINT1 *ldd,         /* write-only output ldd  */
         if (!IS_VALID_LDD_CODE(lddCurr)) { /* 0 */
           ldd->PutMV(r, c, ldd);
           repairLddModifiedMap = true;
-        } else
+        } else {
           ldd->Put(lddCurr, r, c, ldd);
-      } else
+        }
+      } else {
         ldd->PutMV(r, c, ldd);
+      }
+    }
+  }
 
   /* 
      * now repair 
@@ -138,8 +145,8 @@ int RepairLdd(MAP_UINT1 *ldd,         /* write-only output ldd  */
      * - mark all valid paths by travelling upstream from 
      *   pit values
      */
-  for (r = 0; r < nrRows; r++)
-    for (c = 0; c < nrCols; c++)
+  for (r = 0; r < nrRows; r++) {
+    for (c = 0; c < nrCols; c++) {
       if (ldd->Get(&lddCurr, r, c, ldd)) {
         int rDS = DownStrR(r, lddCurr);
         int cDS = DownStrC(c, lddCurr);
@@ -148,19 +155,27 @@ int RepairLdd(MAP_UINT1 *ldd,         /* write-only output ldd  */
           PutRepair(LDD_PIT, r, c, ldd);
           lddCurr = LDD_PIT;
         }
-        if (lddCurr == LDD_PIT)
-          if (MarkCatch(visitMap, r, c, ldd))
+        if (lddCurr == LDD_PIT) {
+          if (MarkCatch(visitMap, r, c, ldd)) {
             goto error;
+          }
+        }
       }
+    }
+  }
 
   /* all unmarked points
      * are part of a cycle
      */
-  for (r = 0; r < nrRows; r++)
-    for (c = 0; c < nrCols; c++)
-      if (ldd->Get(&lddCurr, r, c, ldd) && (!visitMap[r][c]))
-        if (FixCycle(ldd, visitMap, r, c))
+  for (r = 0; r < nrRows; r++) {
+    for (c = 0; c < nrCols; c++) {
+      if (ldd->Get(&lddCurr, r, c, ldd) && (!visitMap[r][c])) {
+        if (FixCycle(ldd, visitMap, r, c)) {
           goto error;
+        }
+      }
+    }
+  }
 
   Free2d((void **)visitMap, (size_t)nrRows);
   return 0;
@@ -190,12 +205,14 @@ int MaskLdd(MAP_UINT1 *ldd,         /* write-only output ldd  */
   inLdd->SetGetTest(GET_MV_TEST, inLdd);
 
   /* for every cell check where it flows to */
-  for (r = 0; r < nrRows; r++)
+  for (r = 0; r < nrRows; r++) {
     for (c = 0; c < nrCols; c++) {
-      if (inLdd->Get(&lddCurr, r, c, inLdd) && mask->Get(&m, r, c, mask) && m == 1)
+      if (inLdd->Get(&lddCurr, r, c, inLdd) && mask->Get(&m, r, c, mask) && m == 1) {
         ldd->Put(lddCurr, r, c, ldd);
-      else
+      } else {
         ldd->PutMV(r, c, ldd);
+      }
     }
+  }
   return RepairLdd(ldd, ldd);
 }

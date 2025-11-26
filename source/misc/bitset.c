@@ -81,11 +81,13 @@ int NrBitSet(const unsigned char *set, /* array of setSize bytes */
   /* whole bytes */
   int b = 0;
   int B = (setSize) / 8;
-  for (; i < B; i++)
+  for (; i < B; i++) {
     n += (int)nbits[set[i]];
+  }
   b = (setSize) % 8;
-  for (i = 0; i < b; i++)
+  for (i = 0; i < b; i++) {
     n += ((set[B] & (1 << b)) != 0) ? 1 : 0;
+  }
   return n;
 }
 
@@ -162,17 +164,20 @@ int FirstBitSet(const unsigned char *set, /* array of at least setSize bits */
   int s = 0;
   int indFound = -1; /* not found */
   s = BYTE_SETSIZE(setSize);
-  for (i = 0; i < s; i++)
-    for (j = 0; j < 8; j++)
+  for (i = 0; i < s; i++) {
+    for (j = 0; j < 8; j++) {
       if (set[i] & (1 << j)) {
         indFound = (i * 8) + j;
         goto found;
       }
+    }
+  }
 found:
-  if (indFound == -1 || indFound >= setSize) /* 1-bit could be in un-initialized
+  if (indFound == -1 || indFound >= setSize) { /* 1-bit could be in un-initialized
                                                 * last bits of last byte
                                                 */
     return -1;
+  }
   return indFound;
 }
 
@@ -192,26 +197,33 @@ int LastBitSet(const unsigned char *set, /* array of at least setSize bits */
   int s = 0;
   int bitsInLastByte = 0;
   s = BYTE_SETSIZE(setSize);
-  if (!s) /* set is 0-size, not found  */
+  if (!s) { /* set is 0-size, not found  */
     return -1;
+  }
 
   /* do last partial filled byte */
   bitsInLastByte = setSize % 8;
   s--; /* this is the potentially partial filled byte */
-  for (j = bitsInLastByte - 1; j >= 0; j--)
-    if (set[s] & (1 << j))
+  for (j = bitsInLastByte - 1; j >= 0; j--) {
+    if (set[s] & (1 << j)) {
       return (s * 8) + j;
+    }
+  }
   /* now set s to first we will examin
      * depending on if there is a partial filled byte
      * already processed above
      */
-  if (bitsInLastByte)
+  if (bitsInLastByte) {
     s--;
+  }
   /* do others */
-  for (i = s; i >= 0; i--)
-    for (j = 7; j >= 0; j--)
-      if (set[i] & (1 << j))
+  for (i = s; i >= 0; i--) {
+    for (j = 7; j >= 0; j--) {
+      if (set[i] & (1 << j)) {
         return (i * 8) + j;
+      }
+    }
+  }
   return -1;
 }
 

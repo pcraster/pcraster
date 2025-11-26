@@ -59,8 +59,9 @@ static int DetWindow(REAL8 *bw,     /* write-only, border weight, 0 if border pi
   winSize *= 0.5;
   winSize -= 0.5;
   *bw = modf(winSize, &Floor);
-  if (*bw == 1)
+  if (*bw == 1) {
     *bw = 0;
+  }
   return (int)ceil(winSize);
 }
 
@@ -71,10 +72,12 @@ static double Weight(int pw,    /* half pixel window size */
 {
   REAL8 w = 1;
   if (bw > 0) { /* determine border weigths */
-    if (abs(r) == pw)
+    if (abs(r) == pw) {
       w *= bw;
-    if (abs(c) == pw)
+    }
+    if (abs(c) == pw) {
       w *= bw;
+    }
   }
   return w;
 }
@@ -114,8 +117,8 @@ int WindowMin(MAP_REAL8 *min,           /* write-only output minimum map  */
 
         SET_MV_REAL8(&winMin);
         /* Calculate in window */
-        for (rWin = -pw; rWin <= pw; rWin++)
-          for (cWin = -pw; cWin <= pw; cWin++)
+        for (rWin = -pw; rWin <= pw; rWin++) {
+          for (cWin = -pw; cWin <= pw; cWin++) {
             if (val->Get(&value, rWin + r, cWin + c, val)) {
               if (IS_MV_REAL8(&winMin)) {
                 winMin = value;
@@ -123,13 +126,17 @@ int WindowMin(MAP_REAL8 *min,           /* write-only output minimum map  */
                 winMin = MIN(winMin, value);
               }
             }
-        if (IS_MV_REAL8(&winMin))
+          }
+        }
+        if (IS_MV_REAL8(&winMin)) {
           min->PutMV(r, c, min);
-        else
+        } else {
           min->Put(winMin, r, c, min);
-      } else
+        }
+      } else {
         /* MV or winsize <= 0 */
         min->PutMV(r, c, min);
+      }
     }
   }
   AppEndRowProgress();
@@ -171,8 +178,8 @@ int WindowMax(MAP_REAL8 *max,           /* write-only output max map  */
 
         SET_MV_REAL8(&winMax);
         /* Calculate in window */
-        for (rWin = -pw; rWin <= pw; rWin++)
-          for (cWin = -pw; cWin <= pw; cWin++)
+        for (rWin = -pw; rWin <= pw; rWin++) {
+          for (cWin = -pw; cWin <= pw; cWin++) {
             if (val->Get(&value, rWin + r, cWin + c, val)) {
               if (IS_MV_REAL8(&winMax)) {
                 winMax = value;
@@ -180,12 +187,16 @@ int WindowMax(MAP_REAL8 *max,           /* write-only output max map  */
                 winMax = MAX(winMax, value);
               }
             }
-        if (IS_MV_REAL8(&winMax))
+          }
+        }
+        if (IS_MV_REAL8(&winMax)) {
           max->PutMV(r, c, max);
-        else
+        } else {
           max->Put(winMax, r, c, max);
-      } else
+        }
+      } else {
         max->PutMV(r, c, max);
+      }
     }
   }
   AppEndRowProgress();
@@ -226,7 +237,7 @@ int WindowAverage(MAP_REAL8 *average,       /* write-only output average map  */
         pw = DetWindow(&bw, winSize);
 
         /* Calculate in window */
-        for (rWin = -pw; rWin <= pw; rWin++)
+        for (rWin = -pw; rWin <= pw; rWin++) {
           for (cWin = -pw; cWin <= pw; cWin++) {
             if (val->Get(&value, rWin + r, cWin + c, val)) {
               REAL8 w = Weight(pw, rWin, cWin, bw);
@@ -234,13 +245,16 @@ int WindowAverage(MAP_REAL8 *average,       /* write-only output average map  */
               count += w;
             }
           }
-        if (count > 0)
+        }
+        if (count > 0) {
           average->Put(winTotal / count, r, c, average);
-        else
+        } else {
           average->PutMV(r, c, average);
-      } else
+        }
+      } else {
         /* MV or winSize <= 0 */
         average->PutMV(r, c, average);
+      }
     }
   }
   AppEndRowProgress();
@@ -281,20 +295,23 @@ int WindowTotal(MAP_REAL8 *total,         /* write-only output total map  */
         pw = DetWindow(&bw, winSize);
 
         /* Calculate in window */
-        for (rWin = -pw; rWin <= pw; rWin++)
+        for (rWin = -pw; rWin <= pw; rWin++) {
           for (cWin = -pw; cWin <= pw; cWin++) {
             if (val->Get(&value, rWin + r, cWin + c, val)) {
               valSet = true;
               winTotal += value * Weight(pw, rWin, cWin, bw);
             }
           }
-        if (valSet)
+        }
+        if (valSet) {
           total->Put(winTotal, r, c, total);
-        else
+        } else {
           total->PutMV(r, c, total);
-      } else
+        }
+      } else {
         /* MV or winSize <= 0 */
         total->PutMV(r, c, total);
+      }
     }
   }
   AppEndRowProgress();
@@ -308,12 +325,13 @@ static REAL8 maxCount = 0;
 static void ForAllMaj(const DATA *e)
 {
   if (e->count == maxCount) {
-    if (foundRec == NULL)
+    if (foundRec == NULL) {
       foundRec = e;
-    else {
+    } else {
       foundConflict = true;
-      if (e->value > foundRec->value)
+      if (e->value > foundRec->value) {
         foundRec = e;
+      }
     }
   }
 }
@@ -375,11 +393,12 @@ int WindowMajority(MAP_INT4 *majority,       /* write-only output majority map  
 
           table = STnew((size_t)val->HintNrFastList(val), sizeof(DATA), (RETURN_ID)ReturnId,
                         (INIT_REC)InitRec, (QSORT_CMP)CmpRec);
-          if (table == NULL)
+          if (table == NULL) {
             return 1;
+          }
 
           /* Calculate in window */
-          for (rWin = -pw; rWin <= pw; rWin++)
+          for (rWin = -pw; rWin <= pw; rWin++) {
             for (cWin = -pw; cWin <= pw; cWin++) {
               if (val->Get(&value, rWin + r, cWin + c, val)) {
                 DATA key;
@@ -394,6 +413,7 @@ int WindowMajority(MAP_INT4 *majority,       /* write-only output majority map  
                 maxCount = MAX(maxCount, rec->count);
               }
             }
+          }
           if (maxCount == 0) {       /* all mv in window */
             prevMaxCount = maxCount; /* stop iter */
             outputValue = MV_INT4;
@@ -402,18 +422,20 @@ int WindowMajority(MAP_INT4 *majority,       /* write-only output majority map  
             foundConflict = false;
             STforAll(table, (ACTION_REC)ForAllMaj);
             POSTCOND(foundRec != NULL);
-            if (foundConflict)
+            if (foundConflict) {
               pw += 1; /* extend window */
-            else
+            } else {
               prevMaxCount = maxCount;
+            }
             outputValue = foundRec->value;
           }
           STfree(table);
         }
-        if (outputValue == MV_INT4)
+        if (outputValue == MV_INT4) {
           majority->PutMV(r, c, majority);
-        else
+        } else {
           majority->Put(outputValue, r, c, majority);
+        }
       } else {
         /* MV or winSize <= 0 */
         majority->PutMV(r, c, majority);
@@ -458,11 +480,12 @@ int WindowDiversity(MAP_REAL8 *divM,          /* write-only output diversity map
 
         table = STnew((size_t)val->HintNrFastList(val), sizeof(DATA), (RETURN_ID)ReturnId,
                       (INIT_REC)InitRec, (QSORT_CMP)CmpRec);
-        if (table == NULL)
+        if (table == NULL) {
           return 1;
+        }
 
         /* Calculate in window */
-        for (rWin = -pw; rWin <= pw; rWin++)
+        for (rWin = -pw; rWin <= pw; rWin++) {
           for (cWin = -pw; cWin <= pw; cWin++) {
             if (val->Get(&value, rWin + r, cWin + c, val)) {
               DATA key;
@@ -473,16 +496,19 @@ int WindowDiversity(MAP_REAL8 *divM,          /* write-only output diversity map
                 STfree(table);
                 return 1;
               }
-              if (rec->count == 0) /* first time encountered */
+              if (rec->count == 0) { /* first time encountered */
                 divVal++;
+              }
               rec->count = 1;
             }
           }
+        }
         STfree(table);
-        if (divVal > 0)
+        if (divVal > 0) {
           divM->Put(divVal, r, c, divM);
-        else
+        } else {
           divM->PutMV(r, c, divM);
+        }
       } else {
         /* MV or winSize <= 0 */
         divM->PutMV(r, c, divM);
@@ -532,19 +558,23 @@ int WindowHighpass(MAP_REAL8 *h,             /* write-only output h map  */
         totalSurr = centralValue * areaSurr;
 
         /* Calculate in window */
-        for (rWin = -pw; rWin <= pw; rWin++)
-          for (cWin = -pw; cWin <= pw; cWin++)
+        for (rWin = -pw; rWin <= pw; rWin++) {
+          for (cWin = -pw; cWin <= pw; cWin++) {
             if (val->Get(&value, rWin + r, cWin + c, val)) {
               REAL8 a = Weight(pw, rWin, cWin, bw);
               areaSurr += a;
               totalSurr += (a * value);
             }
-        if (areaSurr == 0)
+          }
+        }
+        if (areaSurr == 0) {
           h->PutMV(r, c, h); /* all missing value */
-        else
+        } else {
           h->Put((2 * areaSurr * centralValue) - totalSurr, r, c, h);
-      } else
+        }
+      } else {
         h->PutMV(r, c, h);
+      }
     }
   }
   AppEndRowProgress();

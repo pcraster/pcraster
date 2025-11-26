@@ -86,7 +86,7 @@ static int DoBirds(int *rTo, int *cTo, MAP_INT4 *point, MAP_REAL8 *dist,
 
   *rTo = -1, *cTo = -1;
 
-  for (r = 0; r < nrRows; r++)
+  for (r = 0; r < nrRows; r++) {
     for (c = 0; c < nrCols; c++) {
       REAL8 dispRangeVal = NAN;
       REAL8 habVal = NAN;
@@ -97,16 +97,19 @@ static int DoBirds(int *rTo, int *cTo, MAP_INT4 *point, MAP_REAL8 *dist,
             dist->Get(&distVal, r, c, dist) && distVal > 0) /* should move and 0 is not reached area */
         {
           REAL8 draw = Ran();
-          if (draw <= maxUniform) /* <= eliminates Ran() == 0 */
+          if (draw <= maxUniform) { /* <= eliminates Ran() == 0 */
             continue;
-          if (draw > (pow(0.1, distVal / dispRangeVal) * habVal))
+          }
+          if (draw > (pow(0.1, distVal / dispRangeVal) * habVal)) {
             continue;
+          }
           *rTo = r;
           *cTo = c;
           maxUniform = draw;
         }
       }
     }
+  }
   return 0;
 }
 
@@ -149,30 +152,37 @@ int BirdsSpread(MAP_UINT1 *occupied,        /* read-write output map  */
      * 1 if there are birds initially 
      * will be reset later
      */
-  for (r = 0; r < nrRows; r++)
+  for (r = 0; r < nrRows; r++) {
     for (c = 0; c < nrCols; c++) {
       point->Put(0, r, c, point);
-      if (nrBirds->Get(&nrBirdsVal, r, c, nrBirds))
+      if (nrBirds->Get(&nrBirdsVal, r, c, nrBirds)) {
         occupied->Put((UINT1)(nrBirdsVal ? 1 : 0), r, c, occupied);
-      else
+      } else {
         occupied->PutMV(r, c, occupied);
+      }
     }
+  }
 
-  for (r = 0; r < nrRows; r++)
-    for (c = 0; c < nrCols; c++)
+  for (r = 0; r < nrRows; r++) {
+    for (c = 0; c < nrCols; c++) {
       if (nrBirds->Get(&nrBirdsVal, r, c, nrBirds) && nrBirdsVal > 0) {
         point->Put(1, r, c, point); /* set point */
-        if (SpreadMax(dist, zone, point, cost, friction, maxRange))
+        if (SpreadMax(dist, zone, point, cost, friction, maxRange)) {
           return 1;
+        }
         while (nrBirdsVal > 0) {
-          if (DoBirds(&rTo, &cTo, point, dist, occupied, dispRange, habQual))
+          if (DoBirds(&rTo, &cTo, point, dist, occupied, dispRange, habQual)) {
             return 1;
+          }
           nrBirdsVal -= 1;
-          if (rTo >= 0) /* reached point, died otherwise */
+          if (rTo >= 0) { /* reached point, died otherwise */
             occupied->Put(1, rTo, cTo, occupied);
+          }
           point->Put(0, r, c, point); /* undo set point */
         }
       }
+    }
+  }
 
   DeleteMAP_REAL8(dist);
   DeleteMAP_INT4(zone);
@@ -180,10 +190,13 @@ int BirdsSpread(MAP_UINT1 *occupied,        /* read-write output map  */
 
   /* reset occupied for initial birds
          */
-  for (r = 0; r < nrRows; r++)
-    for (c = 0; c < nrCols; c++)
-      if (nrBirds->Get(&nrBirdsVal, r, c, nrBirds) && nrBirdsVal > 0)
+  for (r = 0; r < nrRows; r++) {
+    for (c = 0; c < nrCols; c++) {
+      if (nrBirds->Get(&nrBirdsVal, r, c, nrBirds) && nrBirdsVal > 0) {
         occupied->Put(0, r, c, occupied);
+      }
+    }
+  }
 
   return 0; /* successful terminated */
 }

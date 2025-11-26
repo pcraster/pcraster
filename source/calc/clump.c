@@ -50,8 +50,9 @@ static int PerformClump(MAP_INT4 *out,      /* read-write output map */
 
   in->Get(&currClumpValue, r, c, in);
   coordList = LinkToList(NULL, r, c);
-  if (coordList == NULL)
+  if (coordList == NULL) {
     return 1;
+  }
   while (coordList != NULL) {
     int i = 0;
     int rowNr = coordList->rowNr;
@@ -111,8 +112,9 @@ int Clump(MAP_INT4 *out,      /* read-write output map */
       INT4 inVal = 0;
       INT4 outVal = 0;
       if (in->Get(&inVal, r, c, in) && out->Get(&outVal, r, c, out) == false) {
-        if (PerformClump(out, in, r, c, currClumpNr, nrRows, nrCols))
+        if (PerformClump(out, in, r, c, currClumpNr, nrRows, nrCols)) {
           return 1;
+        }
         currClumpNr++;
       }
     }

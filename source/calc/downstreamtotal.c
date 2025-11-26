@@ -48,14 +48,16 @@ static int CalcOut(MAP_REAL8 *total,        /* write-only output map */
 {
   NODE *list = LinkChkNd(NULL, r, c); /* add pit */
 
-  if (list == NULL)
+  if (list == NULL) {
     return 1;
+  }
 
   /* process pit (starting point) first */
   total->Put((REAL8)0, r, c, total);
 
-  if (ReplaceFirstByUpsNbs(&list, ldd))
+  if (ReplaceFirstByUpsNbs(&list, ldd)) {
     return 1;
+  }
 
   while (list != NULL) {
     int rDS = 0;
@@ -71,12 +73,14 @@ static int CalcOut(MAP_REAL8 *total,        /* write-only output map */
     rDS = DownStrR(r, l);
     cDS = DownStrC(c, l);
 
-    if (amount->Get(&amountDS, rDS, cDS, amount) && total->Get(&totalDS, rDS, cDS, total))
+    if (amount->Get(&amountDS, rDS, cDS, amount) && total->Get(&totalDS, rDS, cDS, total)) {
       total->Put(totalDS + amountDS, r, c, total);
-    else
+    } else {
       total->PutMV(r, c, total);
-    if (ReplaceFirstByUpsNbs(&list, ldd))
+    }
+    if (ReplaceFirstByUpsNbs(&list, ldd)) {
       return 1;
+    }
   } /* eowhile */
   return 0;
 }
@@ -105,15 +109,19 @@ int Downstreamtotal(MAP_REAL8 *total,        /* write-only output map  */
   /* For every pit in the ldd map calculate the distance to first
      * down-stream nonzero point for every cell in the catchment.
      */
-  for (r = 0; r < nrRows; r++)
+  for (r = 0; r < nrRows; r++) {
     for (c = 0; c < nrCols; c++) {
       UINT1 lddVal = 0;
       if (ldd->Get(&lddVal, r, c, ldd)) {
-        if (lddVal == LDD_PIT)
-          if (CalcOut(total, r, c, ldd, amount))
+        if (lddVal == LDD_PIT) {
+          if (CalcOut(total, r, c, ldd, amount)) {
             return 1;
-      } else
+          }
+        }
+      } else {
         total->PutMV(r, c, total);
+      }
     }
+  }
   return 0;
 }

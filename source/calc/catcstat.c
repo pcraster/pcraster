@@ -62,9 +62,9 @@ static int Sum(MAP_REAL8 *result,      /* read-write output flux map */
 
       if (ldd->Get(&lddVal, rNB, cNB, ldd) &&
           FlowsTo(lddVal, rNB, cNB, r, c)) { /* (r,c) is in map and no MV */
-        if (result->Get(&val, rNB, cNB, result))
+        if (result->Get(&val, rNB, cNB, result)) {
           accamount += val;
-        else
+        } else
         /* neighbor has MV output value
                  * no need to examine others.
                  */
@@ -102,8 +102,9 @@ static int CalcPoint(MAP_REAL8 *result,    /* Read-write output state map  */
   PRECOND(ldd->GetGetTest(ldd) == GET_MV_TEST);
 
   list = LinkChkNd(NULL, r, c); /* pit is 1st element */
-  if (list == NULL)
+  if (list == NULL) {
     return 1; /* memory allocation failed */
+  }
 
   while (list != NULL) {
     r = list->rowNr; /* row of cell to check */
@@ -112,12 +113,14 @@ static int CalcPoint(MAP_REAL8 *result,    /* Read-write output state map  */
     if (IS_VISITED(list)) { /* it's catchment is processed 
                                  * ups NBs contain inflow
                                  */
-      if (Sum(result, r, c, ldd, val))
+      if (Sum(result, r, c, ldd, val)) {
         return 2;
+      }
       list = RemFromList(list);
     } else { /* add ups NB cell to process first */
-      if ((list = AddUpsNbsMarkFirst(list, ldd)) == NULL)
+      if ((list = AddUpsNbsMarkFirst(list, ldd)) == NULL) {
         return 1;
+      }
     }
   }
   return 0;
@@ -157,17 +160,19 @@ int PerformCatchStat(MAP_REAL8 *result,      /* Read-write output flux map  */
   /* For every pit in the ldd map calculate the accumulated
      * amount for every cell in its catchment.
      */
-  for (r = 0; r < nrRows; r++)
+  for (r = 0; r < nrRows; r++) {
     for (c = 0; c < nrCols; c++) {
       if (ldd->Get(&lddVal, r, c, ldd)) {
         if (lddVal == LDD_PIT) {
           int res = CalcPoint(result, r, c, ldd, value);
-          if (res)
+          if (res) {
             return res;
+          }
         }
       } else {
         result->PutMV(r, c, result);
       }
     }
+  }
   return 0; /* successful exited */
 }

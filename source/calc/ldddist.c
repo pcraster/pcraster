@@ -57,20 +57,23 @@ static int CalcOut(MAP_REAL8 *out,            /* write-only output map */
   NODE *list = LinkChkNd(NULL, r, c); /* add pit */
   UINT1 pntVal = 0;
 
-  if (list == NULL)
+  if (list == NULL) {
     return 1;
+  }
 
   /* process pit (starting point) first
      * in this way DS is always defined
      * in while loop
      */
   points->Get(&pntVal, r, c, points);
-  if (pntVal == 1)
+  if (pntVal == 1) {
     out->Put((REAL8)0, r, c, out);
-  else
+  } else {
     out->PutMV(r, c, out);
-  if (ReplaceFirstByUpsNbs(&list, ldd))
+  }
+  if (ReplaceFirstByUpsNbs(&list, ldd)) {
     return 1;
+  }
 
   while (list != NULL) {
     c = list->colNr;
@@ -100,21 +103,24 @@ static int CalcOut(MAP_REAL8 *out,            /* write-only output map */
           if (friction->Get(&f, r, c, friction) && friction->Get(&fDS, rDS, cDS, friction) &&
               out->Get(&oDS, rDS, cDS, out)) {
             REAL8 o = NAN;
-            if (useWeightedFriction)
+            if (useWeightedFriction) {
               o = oDS + ((Corner(l) ? dw : w) * (fDS + f));
-            else
+            } else {
               o = oDS + ((Corner(l) ? Diagonal() : Side()) * (f));
+            }
             if (f < 0) {
               FreeList(list);
               return RetError(1, "ldddist: Domain error on parameters");
             }
             out->Put(o, r, c, out);
-          } else
+          } else {
             out->PutMV(r, c, out);
+          }
         }
     } /* eoswitch */
-    if (ReplaceFirstByUpsNbs(&list, ldd))
+    if (ReplaceFirstByUpsNbs(&list, ldd)) {
       return 1;
+    }
   } /* eowhile */
   return 0;
 }
@@ -150,15 +156,19 @@ int Ldddist(MAP_REAL8 *out,            /* write-only output map  */
   /* For every pit in the ldd map calculate the distance to first
      * down-stream nonzero point for every cell in the catchment.
     */
-  for (r = 0; r < nrRows; r++)
+  for (r = 0; r < nrRows; r++) {
     for (c = 0; c < nrCols; c++) {
       UINT1 lddVal = 0;
       if (ldd->Get(&lddVal, r, c, ldd)) {
-        if (lddVal == LDD_PIT)
-          if (CalcOut(out, r, c, ldd, points, friction, w, dw, useWeightedFriction))
+        if (lddVal == LDD_PIT) {
+          if (CalcOut(out, r, c, ldd, points, friction, w, dw, useWeightedFriction)) {
             return 1;
-      } else
+          }
+        }
+      } else {
         out->PutMV(r, c, out);
+      }
     }
+  }
   return 0;
 }

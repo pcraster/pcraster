@@ -51,8 +51,9 @@ static NODE *AddToList(NODE *list, /* write-only original list */
                                  */
     return list;
 #endif
-  if (Set1BitMatrix(inList, row, col)) /* already in list */
+  if (Set1BitMatrix(inList, row, col)) { /* already in list */
     return list;
+  }
   c = NewNode(row, col);
   if (c == NULL) {
     list = FreeList(list);
@@ -60,9 +61,9 @@ static NODE *AddToList(NODE *list, /* write-only original list */
   }
   /* initialize node, row,col set in NewNode */
   c->prev = NULL;
-  if (list == NULL)
+  if (list == NULL) {
     list = firstOfList = c; /* first element in list */
-  else {
+  } else {
     firstOfList->prev = c; /* put in front of 1st element */
     firstOfList = c;
   }
@@ -151,8 +152,9 @@ static int PerformSpread(MAP_REAL8 *outCost,        /* read-write output costs *
 
       if (friction->Get(&f, rNext, cNext, friction) && outId->Get(&id, rNext, cNext, outId)) {
         INT4 newId = 0;
-        if (id != 0)
+        if (id != 0) {
           outCost->Get(&s, rNext, cNext, outCost); /* already visited */
+        }
 
         newS = CalcSpreadValue(&newId, outCost, outId, friction, rNext, cNext, f);
 #ifdef _MSC_VER
@@ -168,8 +170,9 @@ static int PerformSpread(MAP_REAL8 *outCost,        /* read-write output costs *
                      * found, inspect the neighbors too. 
                      */
           coordList = AddToList(coordList, rNext, cNext);
-          if (coordList == NULL)
+          if (coordList == NULL) {
             return 1;
+          }
           outCost->Put(newS, rNext, cNext, outCost); /* new costs */
           outId->Put(newId, rNext, cNext, outId);    /* new id */
         }
@@ -202,33 +205,39 @@ int Spread(MAP_REAL8 *outCost,        /* read-write output map  */
   int nrCols = points->NrCols(points);
   inList = NewBitMatrix((size_t)nrRows, (size_t)nrCols);
 
-  if (inList == NULL)
+  if (inList == NULL) {
     return 1;
+  }
   SetAllBitMatrix(inList, nrRows, nrCols, 0); /* not in list */
 
   /* Fill outCostBuf with MV, this is the initial value */
   outCost->PutAllMV(outCost);
 
   /* Fill outIdBuf with 0, this is the initial value */
-  for (r = 0; r < nrRows; r++)
-    for (c = 0; c < nrCols; c++)
+  for (r = 0; r < nrRows; r++) {
+    for (c = 0; c < nrCols; c++) {
       outId->Put(0, r, c, outId);
+    }
+  }
 
   /* breadth - first */
-  for (r = 0; r < nrRows; r++)
+  for (r = 0; r < nrRows; r++) {
     for (c = 0; c < nrCols; c++) {
       if (points->Get(&pointVal, r, c, points) && (friction->Get(&f, r, c, friction))) {
-        if (f < 0)
+        if (f < 0) {
           return RetError(1, "spread: Domain error on parameters");
+        }
         if (pointVal != 0) { /* put spread points in coordlist */
-          if (!cost->Get(&s, r, c, cost))
+          if (!cost->Get(&s, r, c, cost)) {
             goto putMv;
+          }
 
           outCost->Put(s, r, c, outCost);
           outId->Put(pointVal, r, c, outId);
           coordList = AddToList(coordList, r, c);
-          if (coordList == NULL)
+          if (coordList == NULL) {
             return 1;
+          }
         }
       } else {
       putMv:
@@ -236,8 +245,10 @@ int Spread(MAP_REAL8 *outCost,        /* read-write output map  */
         outCost->PutMV(r, c, outCost);
       }
     }
-  if (PerformSpread(outCost, outId, coordList, friction))
+  }
+  if (PerformSpread(outCost, outId, coordList, friction)) {
     return 1;
+  }
   Free2d((void **)inList, (size_t)nrRows);
   return 0; /* successful terminated */
 }

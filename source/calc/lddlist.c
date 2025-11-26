@@ -55,9 +55,11 @@ int ReplaceFirstByUpsNbs(NODE **list, /* modified list, can become NULL if list
     int rNB = RNeighbor(r, i);
     int cNB = CNeighbor(c, i);
     UINT1 nbVal = 0;
-    if (ldd->Get(&nbVal, rNB, cNB, ldd) && FlowsTo(nbVal, rNB, cNB, r, c))
-      if ((*list = LinkChkNd(*list, rNB, cNB)) == NULL)
+    if (ldd->Get(&nbVal, rNB, cNB, ldd) && FlowsTo(nbVal, rNB, cNB, r, c)) {
+      if ((*list = LinkChkNd(*list, rNB, cNB)) == NULL) {
         return 1;
+      }
+    }
   }
   return 0;
 }
@@ -80,9 +82,11 @@ NODE *AddUpsNbsMarkFirst(NODE *list, /* list to append to */
     int rNB = RNeighbor(r, i);
     int cNB = CNeighbor(c, i);
     UINT1 nbVal = 0;
-    if (ldd->Get(&nbVal, rNB, cNB, ldd) && FlowsTo(nbVal, rNB, cNB, r, c))
-      if ((list = LinkChkNd(list, rNB, cNB)) == NULL)
+    if (ldd->Get(&nbVal, rNB, cNB, ldd) && FlowsTo(nbVal, rNB, cNB, r, c)) {
+      if ((list = LinkChkNd(list, rNB, cNB)) == NULL) {
         return NULL;
+      }
+    }
   }
   return list;
 }

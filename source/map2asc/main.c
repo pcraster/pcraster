@@ -73,10 +73,11 @@ int main(int argc,     /* number of arguments */
 
   strcpy(format, ""); /* empty string if not given */
 
-  if (InstallArgs(argc, argv, "n#m*s*(aRC)(rc)f*", "map2asc"))
+  if (InstallArgs(argc, argv, "n#m*s*(aRC)(rc)f*", "map2asc")) {
     goto failure;
+  }
 
-  while ((c = GetOpt()) != 0)
+  while ((c = GetOpt()) != 0) {
     switch (c) {
       case 'a':
         head = HEAD_ARCINFO;
@@ -107,19 +108,24 @@ int main(int argc,     /* number of arguments */
         colWise = true;
         break;
       case 'f':
-        if (CheckFmt(LeftRightTrim(strcpy(format, OptArg))))
+        if (CheckFmt(LeftRightTrim(strcpy(format, OptArg)))) {
           goto failure;
+        }
         break;
     }
+  }
 
   argv = ArgArguments(&argc);
-  if (argv == NULL)
+  if (argv == NULL) {
     goto failure;
+  }
 
-  if (AppArgCountCheck(argc, 3, 3, USAGE))
+  if (AppArgCountCheck(argc, 3, 3, USAGE)) {
     goto failure;
-  if (AppInputTest(argv[1]))
+  }
+  if (AppInputTest(argv[1])) {
     goto failure;
+  }
 
   /* Determine the valueScale out of input map */
   inputMap = Mopen(argv[1], M_READ);
@@ -133,11 +139,13 @@ int main(int argc,     /* number of arguments */
   //     goto failure;
 
   RuseAs(inputMap, CR_REAL8);
-  if (nrCellsOnLine == 0) /* not specified on command line */
+  if (nrCellsOnLine == 0) { /* not specified on command line */
     nrCellsOnLine = (int)(colWise ? RgetNrRows(inputMap) : RgetNrCols(inputMap));
+  }
 
-  if (Map2Asc(inputMap, argv[2], mv, format, separator, nrCellsOnLine, head, colWise))
+  if (Map2Asc(inputMap, argv[2], mv, format, separator, nrCellsOnLine, head, colWise)) {
     goto failure2;
+  }
 
   Mclose(inputMap);
   AppEnd();

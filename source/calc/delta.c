@@ -43,16 +43,18 @@ static REAL8 GetVal(const MAP_REAL8 *dem, /* Digital Elevation Model */
   int n = 0;
   REAL8 newVal = NAN; /* value for invalid value */
 
-  if (dem->Get(&newVal, r, c, dem))
+  if (dem->Get(&newVal, r, c, dem)) {
     return newVal;
+  }
   newVal = 0;
   /* Determine the three closest cells. */
   for (i = 1; i <= NR_LDD_DIR; i++) {
     REAL8 v = NAN;
     int rNext = RNeighbor(r, i);
     int cNext = CNeighbor(c, i);
-    if (i == LDD_PIT)
+    if (i == LDD_PIT) {
       continue;
+    }
 
     if (dem->Get(&v, rNext, cNext, dem)) {
       newVal += v;
@@ -76,9 +78,11 @@ void CalcDeltaXY(double *dzDx,         /* write-only, difference in X */
 #define Z(ir, jc) (z[(ir) + 1][(jc) + 1])
   REAL8 d = 8 * Side();
 
-  for (ir = 0; ir < 3; ir++)
-    for (jc = 0; jc < 3; jc++)
+  for (ir = 0; ir < 3; ir++) {
+    for (jc = 0; jc < 3; jc++) {
       z[ir][jc] = GetVal(dem, r - 1 + ir, c - 1 + jc);
+    }
+  }
 
   *dzDy = ((Z(1, 1) + 2 * Z(1, 0) + Z(1, -1)) - (Z(-1, 1) + 2 * Z(-1, 0) + Z(-1, -1))) / d;
 

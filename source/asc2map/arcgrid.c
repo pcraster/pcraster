@@ -48,17 +48,20 @@ static int ParseError(const char *expect)
 
 static int GetDouble(double *v) /* write-only value */
 {
-  if (NextToken())
+  if (NextToken()) {
     return 1;
-  if (!CnvrtDouble(v, LexGetTokenValue()))
+  }
+  if (!CnvrtDouble(v, LexGetTokenValue())) {
     return ParseError("a number");
+  }
   return 0;
 }
 
 static int GetWord(const char *w)
 {
-  if (NextToken())
+  if (NextToken()) {
     return 1;
+  }
   if (!StrCaseEq(w, LexGetTokenValue())) {
     char buf[64];
     (void)sprintf(buf, "key word '%s'", w);
@@ -83,10 +86,12 @@ int ReadArcInfoGridAsciiHeader(ARC_INFO_GRID_ASCII *a, /* write only */
   rewind(f);
   LexInstall(f, "");
 
-  if (GetWord("NCOLS"))
+  if (GetWord("NCOLS")) {
     return 1;
-  if (GetDouble(&v))
+  }
+  if (GetDouble(&v)) {
     return 1;
+  }
   if ((!CnvrtInt(&val, LexGetTokenValue())) || val <= 0) {
     ErrorNested("line %d: '%s' is not a legal value for the number of columns", LexGetLineNr(),
                 LexGetTokenValue());
@@ -94,10 +99,12 @@ int ReadArcInfoGridAsciiHeader(ARC_INFO_GRID_ASCII *a, /* write only */
   }
   a->nrCols = (size_t)val;
 
-  if (GetWord("NROWS"))
+  if (GetWord("NROWS")) {
     return 1;
-  if (GetDouble(&v))
+  }
+  if (GetDouble(&v)) {
     return 1;
+  }
   if ((!CnvrtInt(&val, LexGetTokenValue())) || val <= 0) {
     ErrorNested("line %d: '%s' is not a legal value for the number of rows", LexGetLineNr(),
                 LexGetTokenValue());
@@ -106,27 +113,35 @@ int ReadArcInfoGridAsciiHeader(ARC_INFO_GRID_ASCII *a, /* write only */
   a->nrRows = (size_t)val;
 
   /* xllcenter | xllcorner */
-  if (NextToken())
+  if (NextToken()) {
     return 1;
-  if (!StrCaseEq(LexGetTokenValue(), "XLLCENTER") && !StrCaseEq(LexGetTokenValue(), "XLLCORNER"))
+  }
+  if (!StrCaseEq(LexGetTokenValue(), "XLLCENTER") && !StrCaseEq(LexGetTokenValue(), "XLLCORNER")) {
     return ParseError("key word 'XLLCENTER'or 'XLLCORNER'");
+  }
   a->xCorner = StrCaseEq(LexGetTokenValue(), "XLLCENTER");
-  if (GetDouble(&(a->xLL)))
+  if (GetDouble(&(a->xLL))) {
     return 1;
+  }
 
   /* yllcenter | yllcorner */
-  if (NextToken())
+  if (NextToken()) {
     return 1;
-  if (!StrCaseEq(LexGetTokenValue(), "YLLCENTER") && !StrCaseEq(LexGetTokenValue(), "YLLCORNER"))
+  }
+  if (!StrCaseEq(LexGetTokenValue(), "YLLCENTER") && !StrCaseEq(LexGetTokenValue(), "YLLCORNER")) {
     return ParseError("key word 'YLLCENTER'or 'YLLCORNER'");
+  }
   a->yCorner = StrCaseEq(LexGetTokenValue(), "YLLCENTER");
-  if (GetDouble(&(a->yLL)))
+  if (GetDouble(&(a->yLL))) {
     return 1;
+  }
 
-  if (GetWord("CELLSIZE"))
+  if (GetWord("CELLSIZE")) {
     return 1;
-  if (GetDouble(&(a->cellSize)))
+  }
+  if (GetDouble(&(a->cellSize))) {
     return 1;
+  }
   if (a->cellSize <= 0) {
     ErrorNested("line %d: '%s' is not a legal value for the cell size", LexGetLineNr(),
                 LexGetTokenValue());
@@ -134,12 +149,14 @@ int ReadArcInfoGridAsciiHeader(ARC_INFO_GRID_ASCII *a, /* write only */
   }
 
   /* optional no data value */
-  if (NextToken())
+  if (NextToken()) {
     return 1;
+  }
   if (StrCaseEq(LexGetTokenValue(), "NODATA_VALUE")) {
     a->mvGiven = true;
-    if (GetDouble(&(a->mv)))
+    if (GetDouble(&(a->mv))) {
       return 1;
+    }
   } else {
     /* first number of grid-data: unget */
     LexUngetToken();
@@ -169,8 +186,9 @@ int ReadGenamapAuditHeader(size_t *nrRows, /* write-only, number of rows */
   LexInstall(f, "");
 
   do {
-    if (NextToken())
+    if (NextToken()) {
       return 1;
+    }
     if (LexGetLineNr() > 1) {
       ErrorNested("Line 1 does not contain the number of rows and columns");
       return 1;
@@ -183,8 +201,9 @@ int ReadGenamapAuditHeader(size_t *nrRows, /* write-only, number of rows */
     return 1;
   }
   *nrRows = (size_t)val;
-  if (NextToken())
+  if (NextToken()) {
     return 1;
+  }
   if ((!CnvrtInt(&val, LexGetTokenValue())) || (*nrCols <= 0)) {
     ErrorNested("line %d: '%s' is not a legal value for the number of columns", LexGetLineNr(),
                 LexGetTokenValue());

@@ -94,12 +94,14 @@ static void PutMinMax(MAP_REAL8 *min,        /* write-only output minimum or max
         DATA *record = NULL;
         key.id = id;
         record = STfind(table, &key);
-        if (record != NULL && record->count != 0)
+        if (record != NULL && record->count != 0) {
           min->Put(record->value.minMax, r, c, min);
-        else
+        } else {
           min->PutMV(r, c, min);
-      } else /* MV in -> MV out */
+        }
+      } else { /* MV in -> MV out */
         min->PutMV(r, c, min);
+      }
     }
   }
 }
@@ -128,8 +130,9 @@ int AreaMin(MAP_REAL8 *min,        /* write-only output minimum map  */
   /* allocate and initialize the search table */
   table = STnew((size_t)class->HintNrFastList(class), sizeof(DATA), (RETURN_ID)RetIdArea,
                 (INIT_REC)InitRecAve, (QSORT_CMP)CmpStatCont);
-  if (table == NULL)
+  if (table == NULL) {
     return 1;
+  }
 
   /* scan map to calculate the minimum value */
   for (r = 0; r < nrRows; r++) {
@@ -182,8 +185,9 @@ int AreaMax(MAP_REAL8 *max,        /* write-only output maximum map  */
   /* allocate and initialize the search table */
   table = STnew((size_t)class->HintNrFastList(class), sizeof(DATA), (RETURN_ID)RetIdArea,
                 (INIT_REC)InitRecAve, (QSORT_CMP)CmpStatCont);
-  if (table == NULL)
+  if (table == NULL) {
     return 1;
+  }
 
   /* scan map to calculate the maximum value */
   for (r = 0; r < nrRows; r++) {
@@ -217,8 +221,9 @@ static int GetInt4(REAL8 *v, int r, int c, const MAP_INT4 *m)
 {
   INT4 v4 = 0;
   int result = m->Get(&v4, r, c, m);
-  if (result)
+  if (result) {
     *v = v4;
+  }
   return result;
 }
 
@@ -244,11 +249,12 @@ static SEARCH_TABLE *TotalTable(LOCAL_GET_FUNC get,    /* how to value from val 
 
   table = STnew((size_t)class->HintNrFastList(class), sizeof(DATA), (RETURN_ID)RetIdArea,
                 (INIT_REC)InitRecAve, (QSORT_CMP)CmpStatCont);
-  if (table == NULL)
+  if (table == NULL) {
     return NULL;
+  }
 
   /* scan the map to calculate the average value of each area */
-  for (r = 0; r < nrRows; r++)
+  for (r = 0; r < nrRows; r++) {
     for (c = 0; c < nrCols; c++) {
       if (class->Get(&id, r, c, class) && get(&value, r, c, val)) {
         DATA *record = NULL;
@@ -264,6 +270,7 @@ static SEARCH_TABLE *TotalTable(LOCAL_GET_FUNC get,    /* how to value from val 
       }
       /* ignore MV */
     }
+  }
   return table;
 }
 
@@ -283,15 +290,16 @@ static int AreaGeneration(MAP_REAL8 *result, const MAP_INT4 *class, /* input cla
 
   table = STnew((size_t)class->HintNrFastList(class), sizeof(DATA), (RETURN_ID)RetIdArea,
                 (INIT_REC)InitRecAve, (QSORT_CMP)CmpStatCont);
-  if (table == NULL)
+  if (table == NULL) {
     return 1;
+  }
   /* use value.total to determine if it's
      *   the first time (gen a number)
      * use count to store the number
      */
 
   /* scan the map to calculate the average value of each area */
-  for (r = 0; r < nrRows; r++)
+  for (r = 0; r < nrRows; r++) {
     for (c = 0; c < nrCols; c++) {
       INT4 id = 0; /* value in class map */
       if (class->Get(&id, r, c, class)) {
@@ -308,9 +316,11 @@ static int AreaGeneration(MAP_REAL8 *result, const MAP_INT4 *class, /* input cla
           record->count = genFunc();
         }
         result->Put(record->count, r, c, result);
-      } else
+      } else {
         result->PutMV(r, c, result);
+      }
     }
+  }
   STfree(table);
   return 0;
 }
@@ -349,8 +359,9 @@ int AreaAverage(MAP_REAL8 *average,    /* write-only output average map  */
   nrCols = class->NrCols(class);
 
   table = TotalTable((LOCAL_GET_FUNC)GetReal8, val, class);
-  if (table == NULL)
+  if (table == NULL) {
     return 1;
+  }
 
   /* scan the map to put the average values in the output map */
   for (r = 0; r < nrRows; r++) {
@@ -361,12 +372,14 @@ int AreaAverage(MAP_REAL8 *average,    /* write-only output average map  */
         DATA *record = NULL;
         key.id = id;
         record = STfind(table, &key);
-        if (record != NULL && record->count != 0)
+        if (record != NULL && record->count != 0) {
           average->Put(record->value.total / record->count, r, c, average);
-        else
+        } else {
           average->PutMV(r, c, average);
-      } else /* MV in -> MV out */
+        }
+      } else { /* MV in -> MV out */
         average->PutMV(r, c, average);
+      }
     }
   }
   STfree(table);
@@ -395,8 +408,9 @@ int AreaTotal(MAP_REAL8 *total,      /* write-only output total map  */
   nrCols = class->NrCols(class);
 
   table = TotalTable((LOCAL_GET_FUNC)GetReal8, val, class);
-  if (table == NULL)
+  if (table == NULL) {
     return 1;
+  }
 
   /* scan the map to put the total values in the output map */
   for (r = 0; r < nrRows; r++) {
@@ -407,12 +421,14 @@ int AreaTotal(MAP_REAL8 *total,      /* write-only output total map  */
         DATA key;
         key.id = id;
         record = STfind(table, &key);
-        if (record != NULL && record->count != 0)
+        if (record != NULL && record->count != 0) {
           total->Put(record->value.total, r, c, total);
-        else
+        } else {
           total->PutMV(r, c, total);
-      } else /* MV in -> MV out */
+        }
+      } else { /* MV in -> MV out */
         total->PutMV(r, c, total);
+      }
     }
   }
   STfree(table);
@@ -429,14 +445,16 @@ static void InitRecDivMaj(DATA *e, int id)
   e->value.tab = STnew((size_t)InitRecFastList, sizeof(DATA), (RETURN_ID)RetIdArea, (INIT_REC)InitRecAve,
                        /* as long as the count is set to 0 */
                        (QSORT_CMP)CmpStatCont);
-  if (e->value.tab == NULL)
+  if (e->value.tab == NULL) {
     InitRecAllocFailure = true;
+  }
 }
 
 static void FreeRecDivMaj(DATA *e)
 {
-  if (e->value.tab != NULL)
+  if (e->value.tab != NULL) {
     STfree(e->value.tab);
+  }
 }
 
 /* create table with for each a table as record
@@ -494,8 +512,9 @@ static SEARCH_TABLE *MajTable(const MAP_INT4 *val,   /* input value map */
         /* if first time this value found
                  * then increment count of id
                  */
-        if (valRec->count++ == 0)
+        if (valRec->count++ == 0) {
           idRec->count++;
+        }
       }
       /* ignore MV */
     }
@@ -516,8 +535,9 @@ int AreaDiversity(MAP_REAL8 *diversity,  /* write-only output diversity map  */
   val->SetGetTest(GET_MV_TEST, val);
   class->SetGetTest(GET_MV_TEST, class);
 
-  if ((table = MajTable(val, class)) == NULL)
+  if ((table = MajTable(val, class)) == NULL) {
     return 1;
+  }
 
   nrRows = class->NrRows(class);
   nrCols = class->NrCols(class);
@@ -531,10 +551,11 @@ int AreaDiversity(MAP_REAL8 *diversity,  /* write-only output diversity map  */
         DATA key;
         key.id = id;
         record = STfind(table, &key);
-        if (record != NULL && record->count != 0)
+        if (record != NULL && record->count != 0) {
           diversity->Put(record->count, r, c, diversity);
-        else
+        } else {
           diversity->PutMV(r, c, diversity);
+        }
       } else { /* MV in -> MV out */
         diversity->PutMV(r, c, diversity);
       }
@@ -546,9 +567,10 @@ int AreaDiversity(MAP_REAL8 *diversity,  /* write-only output diversity map  */
 
 static DATA const *FindMaj(const DATA *e1, const DATA *e2)
 {
-  if (e1->count == e2->count)
+  if (e1->count == e2->count) {
     /* highest value if maj equal */
     return (e1->id > e2->id ? e1 : e2);
+  }
   return (e1->count > e2->count ? e1 : e2);
 }
 
@@ -575,8 +597,9 @@ int AreaMajority(MAP_INT4 *majority,    /* write-only output majority map  */
   val->SetGetTest(GET_MV_TEST, val);
   class->SetGetTest(GET_MV_TEST, class);
 
-  if ((table = MajTable(val, class)) == NULL)
+  if ((table = MajTable(val, class)) == NULL) {
     return 1;
+  }
 
   /* now search for each item it's table to find the majority */
   STforAll(table, (ACTION_REC)ForAllMajArea);
@@ -592,12 +615,14 @@ int AreaMajority(MAP_INT4 *majority,    /* write-only output majority map  */
         DATA key;
         key.id = id;
         record = STfind(table, &key);
-        if (record != NULL && record->count != 0)
+        if (record != NULL && record->count != 0) {
           majority->Put(record->maj, r, c, majority);
-        else
+        } else {
           majority->PutMV(r, c, majority);
-      } else /* MV in -> MV out */
+        }
+      } else { /* MV in -> MV out */
         majority->PutMV(r, c, majority);
+      }
     }
   }
 
@@ -628,8 +653,9 @@ int AreaCount(MAP_REAL8 *out,        /* write-only output area count map  */
 
   /* initialize table */
   table = TotalTable((LOCAL_GET_FUNC)GetInt4, class, class);
-  if (table == NULL)
+  if (table == NULL) {
     return 1;
+  }
 
   /* this can be optimized by doing the area*record->count
      * on the table, Probably true for all area-funcs that call
@@ -646,8 +672,9 @@ int AreaCount(MAP_REAL8 *out,        /* write-only output area count map  */
         record = STfind(table, &key);
         POSTCOND(record != NULL && record->count > 0);
         out->Put(area * record->count, r, c, out);
-      } else /* MV in -> MV out */
+      } else { /* MV in -> MV out */
         out->PutMV(r, c, out);
+      }
     }
   }
   STfree(table);
@@ -682,8 +709,9 @@ int AddToTssRowREAL8(REAL8 *data,           /* write values, starts at col 1 of 
 
   /* POSTCOND(t->vs == VS_SCALAR); temporary, no statistics for directional! */
   table = TotalTable((LOCAL_GET_FUNC)GetReal8, expr, id);
-  if (table == NULL)
+  if (table == NULL) {
     return 1;
+  }
 
   /* scan id map */
   for (i = 0; i < nrData; i++) {
@@ -691,10 +719,11 @@ int AddToTssRowREAL8(REAL8 *data,           /* write values, starts at col 1 of 
     DATA *record = NULL;
     key.id = i + 1;
     record = STfind(table, &key);
-    if (record == NULL || record->count == 0)
+    if (record == NULL || record->count == 0) {
       SET_MV_REAL8(data + i);
-    else
+    } else {
       data[i] = record->value.total / record->count;
+    }
   }
   STfree(table);
   return 0;
@@ -726,8 +755,9 @@ int AddToTssRowINT4(REAL8 *data,          /* write values, starts at col 1 of TI
   PRECOND(expr->NrRows(expr) == nrRows);
   PRECOND(expr->NrCols(expr) == nrCols);
 
-  if ((table = MajTable(expr, id)) == NULL)
+  if ((table = MajTable(expr, id)) == NULL) {
     return 1;
+  }
   /* now search for each item it's table to find the majority */
   STforAll(table, (ACTION_REC)ForAllMajArea);
 
@@ -738,10 +768,11 @@ int AddToTssRowINT4(REAL8 *data,          /* write values, starts at col 1 of TI
     DATA *record = NULL;
     key.id = i + 1;
     record = STfind(table, &key);
-    if (record == NULL || record->count == 0)
+    if (record == NULL || record->count == 0) {
       SET_MV_REAL8(data + i);
-    else
+    } else {
       data[i] = record->maj;
+    }
   }
 
   STfreeAction(table, (ACTION_REC)FreeRecDivMaj);

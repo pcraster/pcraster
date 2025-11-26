@@ -81,8 +81,9 @@ static int ScanMap(FILE *outputFile, /* write-only output file */
   } else { /* for each row all columns are scanned */
     size_t cell = 0;
     REAL8 *currRow = (REAL8 *)Rmalloc(inputMap, nrCols);
-    if (currRow == NULL)
+    if (currRow == NULL) {
       return 1;
+    }
 
     for (r = 0; r < nrRows; r++) {
       AppRowProgress(r);
@@ -150,8 +151,9 @@ static int PrintAsciiGridHeader(FILE *outputFile, /* write-only output file */
   fprintf(outputFile, "XLLCORNER %f\n", x);
   fprintf(outputFile, "YLLCORNER %f\n", y);
   fprintf(outputFile, "CELLSIZE %f\n", RgetCellSize(input));
-  if (fprintf(outputFile, "NODATA_VALUE %s\n", mvStr) < 0)
+  if (fprintf(outputFile, "NODATA_VALUE %s\n", mvStr) < 0) {
     return 1;
+  }
   return 0;
 }
 
@@ -191,12 +193,14 @@ int Map2Asc(MAP *inputMap,     /* read-only input map    */
       }
       break;
     case HEAD_ROWCOL:
-      if (fprintf(output, "%d %d\n", (int)RgetNrRows(inputMap), (int)RgetNrCols(inputMap)) < 0)
+      if (fprintf(output, "%d %d\n", (int)RgetNrRows(inputMap), (int)RgetNrCols(inputMap)) < 0) {
         goto failure2;
+      }
       break;
     case HEAD_COLROW:
-      if (fprintf(output, "%d %d\n", (int)RgetNrCols(inputMap), (int)RgetNrRows(inputMap)) < 0)
+      if (fprintf(output, "%d %d\n", (int)RgetNrCols(inputMap), (int)RgetNrRows(inputMap)) < 0) {
         goto failure2;
+      }
       break;
   }
   switch (ScanMap(output, inputMap, sep, nrCellsOnLine, colWise)) {

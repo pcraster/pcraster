@@ -83,8 +83,9 @@ int FileStat(const char *fileName) /* the file name */
 int FileStatValid(const char *fileName) /* the file name */
 {
   int r = FileStat(fileName);
-  if ((!r) && (!FileNameValid(fileName)))
+  if ((!r) && (!FileNameValid(fileName))) {
     r = 3;
+  }
   return r;
 }
 
@@ -123,8 +124,9 @@ int FileNameExt(const char *fileName,  /* fileName without spaces */
   PRECOND(extension != NULL);
   /* find the position of the extension
      */
-  if ((p = strrchr(fileName, '.')) == NULL)
+  if ((p = strrchr(fileName, '.')) == NULL) {
     return 0;
+  }
   return FileNamesEq(p + 1, extension);
 }
 
@@ -143,8 +145,9 @@ int FileNameValid(const char *fileName) /* fileName without spaces */
   int maxAllow[2] = {8, 3};
   PRECOND(fileName != NULL);
 #endif
-  if (StrCaseEq(fileName, "aux") || StrCaseEq(fileName, "con"))
+  if (StrCaseEq(fileName, "aux") || StrCaseEq(fileName, "con")) {
     return 0;
+  }
 
 #ifdef DOS_FS
 #ifdef DOS_FS_8_3
@@ -195,10 +198,11 @@ char *MakeFilePathName(char *buf,            /* buffer to copy result in. If NUL
                        const char *fileName) /* name of file */
 {
   char *b = (buf == NULL) ? privateBuffer : buf;
-  if (*dirName == '\0')
+  if (*dirName == '\0') {
     (void)strcpy(b, fileName);
-  else
+  } else {
     (void)sprintf(b, "%s%c%s", dirName, DIR_PATH_DELIM_CHAR, fileName);
+  }
   return b;
 }
 
@@ -212,17 +216,19 @@ void SplitFilePathName(const char *fullPathName, /* the full path name */
                        char **fileName)          /* ptr to file part, is ptr into fullPathName */
 {
   char *split = strrchr(fullPathName, DIR_PATH_DELIM_CHAR);
-  if (split != NULL)
+  if (split != NULL) {
     *fileName = split + 1;
-  else
+  } else {
     *fileName = (char *)fullPathName;
+  }
   strcpy(privateBuffer, fullPathName);
   *dirName = privateBuffer;
   split = strrchr(privateBuffer, DIR_PATH_DELIM_CHAR);
-  if (split != NULL)
+  if (split != NULL) {
     *split = '\0';
-  else
+  } else {
     privateBuffer[0] = '\0'; /* no dirName */
+  }
 }
 
 /* change directory seperators in-situ
@@ -242,8 +248,9 @@ char *ReplaceDirPathDelimChar(char *str) /* rw string to be altered */
   PRECOND(n >= 1); /* non-empty string plus end " */
 
   for (i = 0; i < n; i++) {
-    if (str[i] == otherDelimChar)
+    if (str[i] == otherDelimChar) {
       str[i] = DIR_PATH_DELIM_CHAR;
+    }
   }
   return str;
 }

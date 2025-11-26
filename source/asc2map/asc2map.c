@@ -77,8 +77,9 @@ static int ScanInputFile(MAP *out,        /* write-only */
   double mvDbl = NAN;
   bool number = CnvrtDouble(&mvDbl, mv);
 
-  if (buf == NULL)
+  if (buf == NULL) {
     return 1;
+  }
 
   /* initialize the lexical analyzer */
   sepBuf[0] = (char)sepChar;
@@ -122,26 +123,29 @@ static int ScanInputFile(MAP *out,        /* write-only */
       rowHeader = 2;
     } break;
     default:
-      if (header > 0)
+      if (header > 0) {
         if (LexSkipLines(header) != header) {
           ErrorNested("not enough lines in file to skip '%d' lines of header", header);
           goto error;
         }
+      }
       break;
   }
 
   for (r = 0; r < nrRows; r++) {
     AppRowProgress((int)r);
-    if (rowHeader > 0)
+    if (rowHeader > 0) {
       LexSkipLines(rowHeader + 1);
+    }
     for (c = 0; c < nrCols; c++) {
       int token = LexGetToken();
       const char *v = NULL;
       REAL8 val = NAN;
 
       /* skip separator */
-      if (token == sepChar)
+      if (token == sepChar) {
         token = LexGetToken();
+      }
 
       if (LexError(token)) {
         EndError(r, c, (UINT4)nrRows, (UINT4)nrCols);
@@ -167,10 +171,11 @@ static int ScanInputFile(MAP *out,        /* write-only */
               goto error;
             }
             if (vs == VS_DIRECTION) {
-              if (val != -1)
+              if (val != -1) {
                 val = AppInputDirection(val);
-              else
+              } else {
                 nrDirFlat++;
+              }
             }
             buf[c] = val;
             nrnonMV++;
@@ -196,8 +201,9 @@ static int ScanInputFile(MAP *out,        /* write-only */
   AppVerbose("number lines read: %ld \n", LexGetLineNr());
   AppVerbose("number of non-mv cells: %ld\n", nrnonMV);
   AppVerbose("number of mv cells: %ld\n", nrMV);
-  if (vs == VS_DIRECTION)
+  if (vs == VS_DIRECTION) {
     AppVerbose("number of no-direction cells: %ld\n", nrDirFlat);
+  }
 
   result = 0;
 error:

@@ -18,15 +18,17 @@
 static void AddToState(REAL8 addThis, int r, int c, MAP_REAL8 *stateOut) /* Read-write state map */
 {
   REAL8 addTo = NAN;
-  if (stateOut->Get(&addTo, r, c, stateOut))
+  if (stateOut->Get(&addTo, r, c, stateOut)) {
     stateOut->Put(addTo + addThis, r, c, stateOut);
+  }
 }
 
 static void ReplaceOutFlux(REAL8 newVal, int r, int c, MAP_REAL8 *fluxOut) /* Read-write state map */
 {
   REAL8 dummy = NAN;
-  if (fluxOut->Get(&dummy, r, c, fluxOut))
+  if (fluxOut->Get(&dummy, r, c, fluxOut)) {
     fluxOut->Put(newVal, r, c, fluxOut);
+  }
 }
 
 /* fluxOut,stateOut = diffuseflux,diffusestate(in,dir,fluxIn) */
@@ -49,15 +51,17 @@ int Diffuse1(MAP_REAL8 *stateOut,     /* Read-write state map */
 
   fluxOut->PutAllMV(fluxOut);
   stateOut->PutAllMV(stateOut);
-  for (c = 0; c < cols; c++)
-    for (r = 0; r < rows; r++)
+  for (c = 0; c < cols; c++) {
+    for (r = 0; r < rows; r++) {
       if (in->Get(&inVal, r, c, in)) {
         fluxOut->Put(inVal, r, c, fluxOut);
         /* state is initial equal to inVal */
         stateOut->Put(inVal, r, c, stateOut);
       }
+    }
+  }
 
-  for (c = 0; c < cols; c++)
+  for (c = 0; c < cols; c++) {
     for (r = 0; r < rows; r++) {
       int dirValQuadr = 0;
       double fc = NAN;
@@ -162,5 +166,6 @@ int Diffuse1(MAP_REAL8 *stateOut,     /* Read-write state map */
           PRECOND(false);
       } /* switch */
     }
+  }
   return 0;
 }

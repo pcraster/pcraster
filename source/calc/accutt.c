@@ -37,10 +37,12 @@
 static REAL8 Threshold(REAL8 amount,    /* amount to evaluate */
                        REAL8 threshold) /* threshold */
 {
-  if (threshold < 0)
+  if (threshold < 0) {
     return -1;
-  if (amount <= threshold)
+  }
+  if (amount <= threshold) {
     return 0;
+  }
   return (amount - threshold); /* ret neg if amount < 0 */
 }
 

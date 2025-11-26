@@ -165,28 +165,33 @@ int LexGetToken(void)
       case '\n':
         if (i > 0) {
           /* unget since token is found on this line */
-          if (ungetc(c, inFd) == EOF)
+          if (ungetc(c, inFd) == EOF) {
             return LEX_READ_ERROR;
+          }
           return TerminateToken(i);
-        } else
+        } else {
           lineNr++;
+        }
         break;
       case EOF:
-        if (i > 0)
+        if (i > 0) {
           return TerminateToken(i);
+        }
         return feof(inFd) ? 0 : LEX_READ_ERROR;
       default:
         if (isspace(c)) {
-          if (i > 0)
+          if (i > 0) {
             return TerminateToken(i);
+          }
         } else {
           if (strchr(specialSym, c) != NULL) {
             if (i > 0) {
               /* unget: something is pending, 
                          * special symbol next time 
                          */
-              if (ungetc(c, inFd) == EOF)
+              if (ungetc(c, inFd) == EOF) {
                 return LEX_READ_ERROR;
+              }
               return TerminateToken(i);
             } else {
               buf[0] = (char)c;
@@ -246,8 +251,9 @@ int LexSkipLines(int nrLines) /* > 0, 1 means skip current line only */
       case '\n':
         lineNr++;
         i++;
-        if (i == nrLines)
+        if (i == nrLines) {
           return i;
+        }
         break;
       case EOF:
         return feof(inFd) ? i : LEX_READ_ERROR;

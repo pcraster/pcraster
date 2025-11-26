@@ -66,18 +66,22 @@ int ProfileCurvature(MAP_REAL8 *curv,      /* Read-write slope output map  */
   nrCols = dem->NrCols(dem);
 
   /* For every cell in the dem map calculate the curv. */
-  for (r = 0; r < nrRows; r++)
-    for (c = 0; c < nrCols; c++)
+  for (r = 0; r < nrRows; r++) {
+    for (c = 0; c < nrCols; c++) {
       if (dem->Get(&val, r, c, dem)) {
         ZevenbergenGrid(Z, dem, r, c);
         Stuff(&D, &E, &F, &G, &H, Z);
-        if (G == 0 && H == 0)
+        if (G == 0 && H == 0) {
           val = 0;
-        else
+        } else {
           val = -2 * (D * sqr(G) + E * sqr(H) + F * G * H) / (sqr(G) + sqr(H));
+        }
         curv->Put(val, r, c, curv);
-      } else
+      } else {
         curv->PutMV(r, c, curv);
+      }
+    }
+  }
   return 0;
 }
 
@@ -104,17 +108,21 @@ int PlanformCurvature(MAP_REAL8 *curv,      /* Read-write slope output map  */
   nrCols = dem->NrCols(dem);
 
   /* For every cell in the dem map calculate the curv. */
-  for (r = 0; r < nrRows; r++)
-    for (c = 0; c < nrCols; c++)
+  for (r = 0; r < nrRows; r++) {
+    for (c = 0; c < nrCols; c++) {
       if (dem->Get(&val, r, c, dem)) {
         ZevenbergenGrid(Z, dem, r, c);
         Stuff(&D, &E, &F, &G, &H, Z);
-        if (G == 0 && H == 0)
+        if (G == 0 && H == 0) {
           val = 0;
-        else
+        } else {
           val = 2 * (D * sqr(H) + E * sqr(G) - F * G * H) / (sqr(G) + sqr(H));
+        }
         curv->Put(val, r, c, curv);
-      } else
+      } else {
         curv->PutMV(r, c, curv);
+      }
+    }
+  }
   return 0;
 }

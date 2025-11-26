@@ -87,8 +87,9 @@ NODE *LinkToList(NODE *list, /* read-write list of cells */
                  int colNr)  /* column of cell to be linked */
 {
   NODE *new = NewNode(rowNr, colNr);
-  if (new == NULL)
+  if (new == NULL) {
     return NULL; /* memory allocation failed */
+  }
   new->prev = list;
   list = new;
   POSTCOND(list != NULL);
@@ -101,8 +102,9 @@ NODE *LinkToList(NODE *list, /* read-write list of cells */
  */
 NODE *FreeList(NODE *list) /* read-write list to deallocate */
 {
-  while (list != NULL)
+  while (list != NULL) {
     list = RemFromList(list);
+  }
   POSTCOND(list == NULL);
   return list;
 }
@@ -193,9 +195,10 @@ bool InList(NODE *list, /* Read-only list */
   NODE *p = NULL; /* pointer to list of structs */
   p = list;
   while (p != NULL) {
-    if (p->rowNr == r && p->colNr == c)
+    if (p->rowNr == r && p->colNr == c) {
       /* element in list same coordinates as cell (r,c) */
       return true;
+    }
     p = p->prev; /* check previous element in list */
   }
   return false;

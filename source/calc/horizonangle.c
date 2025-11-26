@@ -41,10 +41,11 @@ static void AdvancePoint(POINT2D *p, int dir, const LINE *l)
                              {-1, 0},
                              {0, -1}};
   AddPoint(p, select + dir);
-  if (dir % 2) /* s->x == 0 */
+  if (dir % 2) { /* s->x == 0 */
     p->x = XgivenY(l, p->y);
-  else
+  } else {
     p->y = YgivenX(l, p->x);
+  }
 }
 
 static void ComputeTangent(MAP_REAL8 *result, REAL8 viewAngleVal, const MAP_REAL8 *dem, int ry, int cx)
@@ -95,10 +96,11 @@ static void ComputeTangent(MAP_REAL8 *result, REAL8 viewAngleVal, const MAP_REAL
     }
     AdvancePoint(&p, dir, &l);
   }
-  if ((int)floor(bestPoint.x) == cx && (int)floor(bestPoint.y) == ry)
+  if ((int)floor(bestPoint.x) == cx && (int)floor(bestPoint.y) == ry) {
     result->PutMV(ry, cx, result);
-  else
+  } else {
     result->Put(bestM, ry, cx, result);
+  }
 }
 
 extern int HorizonTangent(MAP_REAL8 *result,    /* angle in degrees */
@@ -121,13 +123,14 @@ extern int HorizonTangent(MAP_REAL8 *result,    /* angle in degrees */
 
   /* For every cell in the dem map calculate the slope. */
   for (r = 0; r < nrRows; r++) {
-    for (c = 0; c < nrCols; c++)
+    for (c = 0; c < nrCols; c++) {
       if (dem->Get(&demVal, r, c, dem) && viewAngle->Get(&viewAngleVal, r, c, viewAngle) &&
           viewAngleVal != -1) {
         ComputeTangent(result, viewAngleVal, dem, r, c);
       } else {
         result->PutMV(r, c, result);
       }
+    }
   }
   return 0;
 }

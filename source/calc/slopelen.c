@@ -61,18 +61,21 @@ static void Longest(MAP_REAL8 *out,            /* read-write output map */
     REAL8 incrDist = NAN;
     int rNext = RNeighbor(r, lddVal);
     int cNext = CNeighbor(c, lddVal);
-    if (appUnitTrue)
+    if (appUnitTrue) {
       incrDist = (!Corner(lddVal))SCALE;
-    else
+    } else {
       incrDist = (!Corner(lddVal)) ? 1 : sqrt((REAL8)2);
+    }
     incrCost = ((fricVal + fricVal2) / 2);
     newDist += incrDist * incrCost;
     if (out->Get(&oldDist, rNext, cNext, out)) {
-      if (oldDist < newDist)
+      if (oldDist < newDist) {
         out->Put(newDist, rNext, cNext, out);
+      }
     } else {
-      if (ldd->Get(&lddVal, rNext, cNext, ldd))
+      if (ldd->Get(&lddVal, rNext, cNext, ldd)) {
         out->Put(newDist, rNext, cNext, out);
+      }
     }
     r = rNext;
     c = cNext;
@@ -115,10 +118,12 @@ int Slopelength(MAP_REAL8 *out,            /* Read-write output map  */
     AppRowProgress(r);
     for (c = 0; c < nrCols; c++) {
       if (ldd->Get(&lddVal, r, c, ldd) && friction->Get(&fricVal, r, c, friction)) {
-        if (fricVal < 0)
+        if (fricVal < 0) {
           return RetError(1, "slopelength: Domain error on parameters");
-        if (NoInput(ldd, r, c))
+        }
+        if (NoInput(ldd, r, c)) {
           Longest(out, ldd, friction, r, c);
+        }
       }
     }
   }

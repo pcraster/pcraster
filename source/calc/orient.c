@@ -62,12 +62,15 @@ int Orient(MAP_REAL8 *orient,    /* Read-write output orient map  */
         CalcDeltaXY(&Dx, &Dy, dem, r, c);
         if (Dx == 0) /* exception value */
         {
-          if (Dy == 0) /* Flat -> -1 */
+          if (Dy == 0) { /* Flat -> -1 */
             orient->Put((REAL8)-1, r, c, orient);
-          if (Dy > 0) /* north: 0 DEGREES */
+          }
+          if (Dy > 0) { /* north: 0 DEGREES */
             orient->Put((REAL8)0, r, c, orient);
-          if (Dy < 0) /* south: 180 DEGREES */
+          }
+          if (Dy < 0) { /* south: 180 DEGREES */
             orient->Put(M_PI, r, c, orient);
+          }
         } else {
           if (Dy == 0) {
             REAL8 orientVal = M_PI / (REAL8)2;
@@ -75,19 +78,23 @@ int Orient(MAP_REAL8 *orient,    /* Read-write output orient map  */
             {           /* 270 DEG */
               orientVal *= 3;
               orient->Put(orientVal, r, c, orient);
-            } else /* east 90 DEG */
+            } else { /* east 90 DEG */
               orient->Put(orientVal, r, c, orient);
+            }
           } else {
             REAL8 A = atan(Dx / Dy);
-            if (Dy < 0)
+            if (Dy < 0) {
               A += M_PI;
-            if (Dy > 0 && Dx < 0)
+            }
+            if (Dy > 0 && Dx < 0) {
               A += 2 * M_PI;
+            }
             orient->Put(A, r, c, orient);
           }
         }
-      } else
+      } else {
         orient->PutMV(r, c, orient);
+      }
     }
   }
   AppEndRowProgress();

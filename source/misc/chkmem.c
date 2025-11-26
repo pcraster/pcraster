@@ -67,8 +67,9 @@ static TMP_NODE *tmpList = NULL;
 */
 void Free(void *ptr)
 {
-  if (ptr == NULL)
+  if (ptr == NULL) {
     return;
+  }
   if (limitMalloc) {
     if (nrMallocs < 0) {
       exitOnError = 128;
@@ -85,7 +86,7 @@ typedef int entityType;
 
 /* macro that calls ChkMalloc with proper typecasts
  * macro that calls ChkMalloc with proper typecasts
- * 
+ *
  * CHK_MALLOC_TYPE(type,nr)   ( (type *)ChkMalloc(sizeof(type)*((size_t)(nr))))
  */
 entityType *CHK_MALLOC_TYPE(entityType t, /* type of entity
@@ -107,8 +108,9 @@ static void DoNoMoreMemory(void)
     Free(t);
     t = n;
   }
-  if (NoMoreMemory != NULL)
+  if (NoMoreMemory != NULL) {
     NoMoreMemory();
+  }
 }
 
 static void PrintNoCore(void)
@@ -117,7 +119,7 @@ static void PrintNoCore(void)
 }
 
 /* Dummy memory releaser
- * 
+ *
  */
 static int NoReleaserInstalled(void)
 {
@@ -149,22 +151,22 @@ void ChkRegisterTryReleaseMemory(int (*f)(void)) /* function to call to release 
  * Allocates a block. If the misc library is compiled with
  * -DDEBUG_DEVELOP then each byte of the block is set to a value 124.
  * This results in the following values for data types
- * 
+ *
  * double 4.44172e+291
- * 
+ *
  * float  5.24393e+36
- * 
+ *
  * int  2088533116
- * 
+ *
  * short  int  31868
- * 
+ *
  * ptr  7b033390 (HP) or 0x7c7c7c7c (Linux)
- * 
+ *
  * char  |
  * returns
- * 
+ *
  * pointer to memory block or
- * 
+ *
  * NULL, if there is not enough memory, after Error() is called
  */
 void *ChkMalloc(size_t size) /* size in bytes, larger than 0 */
@@ -172,9 +174,12 @@ void *ChkMalloc(size_t size) /* size in bytes, larger than 0 */
   void *b = NULL;
 
 #ifdef DEBUG_DEVELOP
-  if (size == 0)
+  if (size == 0) {
 #endif
     PRECOND(size > 0);
+#ifdef DEBUG_DEVELOP
+  }
+#endif
 
 #ifdef DEBUG_DEVELOP
   if (limitMalloc) {
@@ -185,15 +190,17 @@ void *ChkMalloc(size_t size) /* size in bytes, larger than 0 */
   }
 #endif
 
-  while ((b = malloc(size)) == NULL)
+  while ((b = malloc(size)) == NULL) {
     if (!TryRelease()) {
       DoNoMoreMemory();
       return NULL;
     }
+  }
 #ifdef DEBUG_DEVELOP
   nrMallocs++;
-  if (b != NULL)
+  if (b != NULL) {
     (void)memset(b, 124, size);
+  }
   /* test program for value picking (here 124)
          * is at the bottom of this file
          */
@@ -202,11 +209,11 @@ void *ChkMalloc(size_t size) /* size in bytes, larger than 0 */
 }
 
 /* wrapper around calloc()
- * Allocates an array of elements. 
+ * Allocates an array of elements.
  * returns
- * 
+ *
  * pointer to memory block or
- * 
+ *
  * NULL, if there is not enough memory, after Error() is called
  */
 void *ChkCalloc(size_t nnemb, /* number of elements.larger than 0 */
@@ -216,9 +223,12 @@ void *ChkCalloc(size_t nnemb, /* number of elements.larger than 0 */
 
 
 #ifdef DEBUG_DEVELOP
-  if (size == 0)
+  if (size == 0) {
 #endif
     PRECOND(size > 0);
+#ifdef DEBUG_DEVELOP
+  }
+#endif
 
 #ifdef DEBUG_DEVELOP
   if (limitMalloc) {
@@ -229,11 +239,12 @@ void *ChkCalloc(size_t nnemb, /* number of elements.larger than 0 */
   }
 #endif
 
-  while ((b = calloc(nnemb, size)) == NULL)
+  while ((b = calloc(nnemb, size)) == NULL) {
     if (!TryRelease()) {
       DoNoMoreMemory();
       return NULL;
     }
+  }
 #ifdef DEBUG_DEVELOP
   nrMallocs++;
 #endif
@@ -264,8 +275,9 @@ void StopLimitMalloc(void)
       exitOnError = 128;
       Error("'%d' more calls to allocation functions than to free", nrMallocs);
     }
-    if (nrMallocs == 0)
+    if (nrMallocs == 0) {
       (void)fprintf(stderr, "OK: allocation and free functions are in balance\n");
+    }
   }
 }
 
@@ -277,9 +289,9 @@ void StopLimitMalloc(void)
  * freed. This procedure is garantueed to work if all allocation request
  * are done through Chk-allocation function familly and deallocation
  * with Free. Addionately alloc, realloc and free are renamed in misc.h to
- * ChkMalloc, ChkRealloc and Free if the application or library 
+ * ChkMalloc, ChkRealloc and Free if the application or library
  * is compiled with LIMITMALLOC defined
- * 
+ *
  * StartLimitMalloc exits with an exit code of 130 if the env. variable
  * LIMITMALLOC is not set or contains a non-positive value.
  */
@@ -310,12 +322,12 @@ void StartLimitMalloc(void)
  * ChkTmpMalloc() fails then all memory allocated through
  * ChkTmpMalloc()-calls is deallocated in that call. Thus, an
  * explicit call to ChkTmpFree() is not necessary in the error
- * handling of such a code sequence.  Normal deallocation 
+ * handling of such a code sequence.  Normal deallocation
  * must be done with ChkTmpFree().
  * returns
- * 
+ *
  * pointer to memory block or
- * 
+ *
  * NULL, if there is not enough memory, after Error() is called
  *
  * WARNING
@@ -328,15 +340,19 @@ void *ChkTmpMalloc(size_t size) /* size in bytes, larger than 0 */
 
 
 #ifdef DEBUG_DEVELOP
-  if (size == 0)
+  if (size == 0) {
 #endif
     PRECOND(size > 0);
+#ifdef DEBUG_DEVELOP
+  }
+#endif
 
   /* allocate block preceeded by a TMP_NODE structure
      */
   b = (TMP_NODE *)ChkMalloc(sizeof(TMP_NODE) + size);
-  if (b == NULL)
+  if (b == NULL) {
     return NULL;
+  }
 
   /* add TMP_NODE pointer to list */
   b->next = tmpList;
@@ -352,7 +368,7 @@ void *ChkTmpMalloc(size_t size) /* size in bytes, larger than 0 */
  */
 void ChkTmpFree(void *v) /* Destructed. Pointer returned by ChkTmpMalloc */
 {
-  /* TMP_NODE lies before the block 
+  /* TMP_NODE lies before the block
          */
   TMP_NODE *n = (TMP_NODE *)((char *)v - sizeof(TMP_NODE));
   TMP_NODE *t = tmpList;
@@ -360,11 +376,12 @@ void ChkTmpFree(void *v) /* Destructed. Pointer returned by ChkTmpMalloc */
   /*
      * remove node from list
      */
-  if (t == n) /* first node */
+  if (t == n) { /* first node */
     tmpList = n->next;
-  else {
-    while (t != NULL && t->next != n)
+  } else {
+    while (t != NULL && t->next != n) {
       t = t->next;
+    }
     PRECOND(t != NULL);
     t->next = n->next;
   }
@@ -376,9 +393,9 @@ void ChkTmpFree(void *v) /* Destructed. Pointer returned by ChkTmpMalloc */
 /* wrapper around realloc()
  * Read ChkMalloc(misc) for details.
  * returns
- * 
+ *
  * pointer to reallocated memory block or
- * 
+ *
  * NULL, if there is not enough memory, after Error() is called
  */
 void *ChkRealloc(void *ptr,   /* pointer to old block */
@@ -387,9 +404,12 @@ void *ChkRealloc(void *ptr,   /* pointer to old block */
   void *b = NULL;
 
 #ifdef DEBUG_DEVELOP
-  if (size == 0)
+  if (size == 0) {
 #endif
     PRECOND(size > 0);
+#ifdef DEBUG_DEVELOP
+  }
+#endif
 
 #ifdef DEBUG_DEVELOP
   if (limitMalloc && ptr == NULL) {
@@ -399,14 +419,16 @@ void *ChkRealloc(void *ptr,   /* pointer to old block */
     }
   }
 #endif
-  while ((b = realloc(ptr, size)) == NULL)
+  while ((b = realloc(ptr, size)) == NULL) {
     if (!TryRelease()) {
       DoNoMoreMemory();
       return NULL;
     }
+  }
 #ifdef DEBUG_DEVELOP
-  if (limitMalloc && ptr == NULL)
+  if (limitMalloc && ptr == NULL) {
     nrMallocs++;
+  }
 #endif
   return (b);
 } /* ChkRealloc */
@@ -416,7 +438,7 @@ void *ChkRealloc(void *ptr,   /* pointer to old block */
  * frees the old block in case of an error.
  * RETURNS 1 if succesfull, 0 if a memory error occurred
  */
-int ChkReallocFree(void **ptr, /*  read-write, ptr to address of 
+int ChkReallocFree(void **ptr, /*  read-write, ptr to address of
                                 *  block to be modified, set to NULL
                                 * in case of an error.
                                 */
@@ -437,7 +459,7 @@ int ChkReallocFree(void **ptr, /*  read-write, ptr to address of
 
 /* macro that calls Free, and set x to NULL
  * macro that calls Free, and set x to NULL
- * 
+ *
  * FREE_NULL(x)  Free(x), x = NULL
  */
 void FREE_NULL(void *x) /* memory block to free, pointer is set to NULL

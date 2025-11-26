@@ -94,8 +94,9 @@ static int Compute(int rPit,                  /* row of pit cell */
   TT_CELL *list = NULL;
 
   list = NewCell(rPit, cPit, NULL);
-  if (list == NULL)
+  if (list == NULL) {
     return 1;
+  }
   flux->Put(0.0, rPit, cPit, flux);
   state->Put(0.0, rPit, cPit, state);
   removed->Put(0.0, rPit, cPit, removed);
@@ -117,8 +118,9 @@ static int Compute(int rPit,                  /* row of pit cell */
       double timeToCurrent = NAN;
       double timeToDown = NAN;
       amount->Get(&matTravelling, current->r, current->c, amount);
-      if (matTravelling <= 0)
+      if (matTravelling <= 0) {
         goto done;
+      }
       accumTT->Get(&startCummTT, current->r, current->c, accumTT);
 
       while (current) {
@@ -132,17 +134,20 @@ static int Compute(int rPit,                  /* row of pit cell */
           timeToDown = timeToCell(accumTT, down, startCummTT);
         }
 
-        if (timeToCurrent >= 1.0)
+        if (timeToCurrent >= 1.0) {
           break;
+        }
 
-        if (down && timeToDown >= 1.0)
+        if (down && timeToDown >= 1.0) {
           break;
+        }
 
         /* else just passing */
 
         /* TODO better test on MV and not in [0, 1] */
-        if (!fraction->Get(&localFraction, current->r, current->c, fraction))
+        if (!fraction->Get(&localFraction, current->r, current->c, fraction)) {
           localFraction = 1;
+        }
         localFraction = MIN(MAX(0, localFraction), 1);
 
         localFlux = localFraction * matTravelling;
@@ -171,8 +176,9 @@ static int Compute(int rPit,                  /* row of pit cell */
 
         matTravelling -= toCurrentStateVal;
 
-        if (!fraction->Get(&localFraction, current->r, current->c, fraction))
+        if (!fraction->Get(&localFraction, current->r, current->c, fraction)) {
           localFraction = 1;
+        }
         localFraction = MIN(MAX(0, localFraction), 1);
 
         localFlux = localFraction * matTravelling;
@@ -183,8 +189,9 @@ static int Compute(int rPit,                  /* row of pit cell */
         /* then this is what remains for down */
         matTravelling = localFlux;
       }
-      if (down != NULL)
+      if (down != NULL) {
         AddAmount(state, down, matTravelling);
+      }
     done:
       /* remove the cell */
       list = RemoveCell(list);
@@ -200,8 +207,9 @@ static int Compute(int rPit,                  /* row of pit cell */
        */
       for (; list->nextLddDir <= 9; list->nextLddDir++) {
         double a = NAN;
-        if (list->nextLddDir == LDD_PIT)
+        if (list->nextLddDir == LDD_PIT) {
           list->nextLddDir++;
+        }
         rNB = RNeighbor(r, list->nextLddDir);
         cNB = CNeighbor(c, list->nextLddDir);
         if (amount->Get(&a, rNB, cNB, amount) && accumTT->Get(&a, rNB, cNB, amount) &&
@@ -212,8 +220,9 @@ static int Compute(int rPit,                  /* row of pit cell */
         {
           list->nextLddDir++;
           list = NewCell(rNB, cNB, list);
-          if (list == NULL)
+          if (list == NULL) {
             return 1;
+          }
           flux->Put(0.0, rNB, cNB, flux);
           state->Put(0.0, rNB, cNB, state);
           removed->Put(0.0, rNB, cNB, removed);
@@ -256,12 +265,13 @@ int TravelTime(MAP_REAL8 *state,         /* write-only output map  */
   fraction->SetGetTest(GET_MV_TEST, fraction);
 
   /* Fill outIdBuf with 0, this is the initial value */
-  for (r = 0; r < nrRows; r++)
+  for (r = 0; r < nrRows; r++) {
     for (c = 0; c < nrCols; c++) {
       if (ldd->Get(&lddVal, r, c, ldd) && (amount->Get(&amountVal, r, c, amount)) &&
           (accumTT->Get(&accumTTVal, r, c, accumTT)) && (fraction->Get(&fractionVal, r, c, fraction))) {
-        if (lddVal == LDD_PIT)
+        if (lddVal == LDD_PIT) {
           Compute(r, c, state, flux, removed, ldd, amount, accumTT, fraction);
+        }
       } else {
         // some input MV so make it MV
         state->PutMV(r, c, state);
@@ -269,8 +279,9 @@ int TravelTime(MAP_REAL8 *state,         /* write-only output map  */
         removed->PutMV(r, c, removed);
       }
     }
+  }
   /* TODO this should not be needed but something goes wrong */
-  for (r = 0; r < nrRows; r++)
+  for (r = 0; r < nrRows; r++) {
     for (c = 0; c < nrCols; c++) {
       if (!(ldd->Get(&lddVal, r, c, ldd) && (amount->Get(&amountVal, r, c, amount)) &&
             (accumTT->Get(&accumTTVal, r, c, accumTT)) &&
@@ -280,5 +291,6 @@ int TravelTime(MAP_REAL8 *state,         /* write-only output map  */
         removed->PutMV(r, c, removed);
       }
     }
+  }
   return 0; /* successful terminated */
 }

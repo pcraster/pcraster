@@ -66,8 +66,9 @@ static int PrintHeader(FILE *outputFile,    /* write-only output file */
         break;
     }
     POSTCOND(s != NULL);
-    if (fprintf(outputFile, "%s\n", s) < 0)
+    if (fprintf(outputFile, "%s\n", s) < 0) {
       return 1;
+    }
   }
   return 0;
 }
@@ -76,9 +77,11 @@ static void FreeCache(INP_MAP *maps, /* list of map records */
                       size_t nrMaps) /* array size of maps */
 {
   size_t i = 0;
-  for (i = 0; i < nrMaps; i++)
-    if (maps[i].type == 'v')
+  for (i = 0; i < nrMaps; i++) {
+    if (maps[i].type == 'v') {
       Free(maps[i].r);
+    }
+  }
 }
 
 static int InitMaps(INP_MAP *maps, /* list of map records */
@@ -88,9 +91,9 @@ static int InitMaps(INP_MAP *maps, /* list of map records */
   size_t i = 0;
   size_t n = 0;
   for (i = n = 0; i < nrMaps; i++) {
-    if (maps[i].type != 'v')
+    if (maps[i].type != 'v') {
       maps[i].vs = VS_SCALAR; /* x or y */
-    else {
+    } else {
       maps[i].vs = RgetValueScale(maps[i].m);
       maps[i].cacheRow = -1; /* no row read */
       maps[i].r = (REAL8 *)Rmalloc(maps[i].m, RgetNrCols(maps[i].m));
@@ -117,10 +120,11 @@ static int ReadInputRecords(bool *geoEas, const char *inputFile, size_t xcoord, 
   cols[1] = cols[2] = ycoord;
   recList = NULL;
   nrRecs = 0;
-  if (globSep == NULL)
+  if (globSep == NULL) {
     locsep = ",";
-  else
+  } else {
     locsep = globSep;
+  }
 
   if (AppReadColumnFile(&recList, &nrRecs, &nrRecsRead, &nrMVvalCol, &nrMVcoorCol, geoEas, inputFile, mv,
                         VS_UNDEFINED, CR_UNDEFINED, cols, locsep[0], false)) {
@@ -153,19 +157,23 @@ static int PrintValuesLine(FILE *out,           /* output file */
                            bool append)         /* append determines if we write the first col */
 {
   size_t i = 0;
-  for (i = 0; i < nrMaps; i++)
+  for (i = 0; i < nrMaps; i++) {
     if (PutCell(out, values + i, maps[i].vs, mvIsNumber, mvValue, maps[i].valFmt, maps[i].mvStr, globSep,
-                (!append) && i == 0))
+                (!append) && i == 0)) {
       return 1;
+    }
+  }
   return fprintf(out, "\n") < 0;
 }
 
 static int CopyLine(FILE *in, FILE *out)
 {
   int c = 0;
-  while ((c = fgetc(in)) != '\n' && c != EOF)
-    if (fputc(c, out) == EOF)
+  while ((c = fgetc(in)) != '\n' && c != EOF) {
+    if (fputc(c, out) == EOF) {
       break;
+    }
+  }
   return ferror(in) || ferror(out);
 }
 
@@ -178,8 +186,9 @@ static int DoAppendMode(const char *outputFile, const char *inputFile, INP_MAP *
   size_t i = 0;
   size_t c = 0;
 
-  if ((values = (REAL8 *)ChkMalloc(sizeof(REAL8) * nrMaps)) == NULL)
+  if ((values = (REAL8 *)ChkMalloc(sizeof(REAL8) * nrMaps)) == NULL) {
     goto error;
+  }
 
   if ((in = fopen(inputFile, "r")) == NULL) {
     Error("Can't open '%s'", inputFile);
@@ -202,8 +211,9 @@ static int DoAppendMode(const char *outputFile, const char *inputFile, INP_MAP *
          */
     nrCols = (size_t)AppDetectColumnFile(&geoEas, inputFile, ',');
     fprintf(out, "%zu\n", (nrCols + nrMaps));
-    while ((getChar = fgetc(in)) != '\n' && getChar != EOF)
+    while ((getChar = fgetc(in)) != '\n' && getChar != EOF) {
       ; /* eof-error will be detected later */
+    }
 
     /* copy old column description lines */
     for (c = 0; c < nrCols; c++) {
@@ -212,8 +222,9 @@ static int DoAppendMode(const char *outputFile, const char *inputFile, INP_MAP *
     }
 
     /* write new column decription lines */
-    for (c = 0; c < nrMaps; c++)
+    for (c = 0; c < nrMaps; c++) {
       fprintf(out, "map2col append: %s\n", MgetFileName(maps[c].m));
+    }
   }
   // if (LimitedVersionCheck(-1, -1, -1, -1, (int)nrRecs, -1)) goto error2;
 
@@ -222,9 +233,9 @@ static int DoAppendMode(const char *outputFile, const char *inputFile, INP_MAP *
       Error("while copying from %s to %s", inputFile, outputFile);
       goto error2;
     }
-    if (IS_MV_REAL8(recList[i] + POS_X) || IS_MV_REAL8(recList[i] + POS_Y))
+    if (IS_MV_REAL8(recList[i] + POS_X) || IS_MV_REAL8(recList[i] + POS_Y)) {
       SetMemMV(values, nrMaps, CR_REAL8);
-    else
+    } else {
       for (c = 0; c < nrMaps; c++) {
         int row = 0;
         int col = 0;
@@ -235,9 +246,11 @@ static int DoAppendMode(const char *outputFile, const char *inputFile, INP_MAP *
             ErrorNested("In map '%s'", MgetFileName(maps[c].m));
             goto error2;
           }
-        } else /* outside */
+        } else { /* outside */
           SET_MV_REAL8(values + c);
+        }
       } /* eofor maps */
+    }
     if (PrintValuesLine(out, maps, values, nrMaps, true)) {
       Error("Can't write to '%s'", outputFile);
       goto error2;
@@ -271,8 +284,9 @@ static int DoCreateMode(const char *outputFile, INP_MAP *maps, size_t nrMaps, bo
   size_t nrCols = 0;
   MAP *m = NULL;
 
-  while (maps[row].type != 'v')
+  while (maps[row].type != 'v') {
     row++;
+  }
   m = maps[row].m;
 
   nrRows = RgetNrRows(m);
@@ -282,15 +296,16 @@ static int DoCreateMode(const char *outputFile, INP_MAP *maps, size_t nrMaps, bo
     Error("Can't create '%s'", outputFile);
     goto error;
   }
-  if ((values = (REAL8 *)ChkMalloc(nrMaps * sizeof(REAL8))) == NULL)
+  if ((values = (REAL8 *)ChkMalloc(nrMaps * sizeof(REAL8))) == NULL) {
     goto error1;
+  }
   if (geoEas && PrintHeader(out, maps, nrMaps)) {
     Error("Can't write to '%s'", outputFile);
     goto error2;
   }
 
-  if (colWise)
-    for (col = 0; col < nrCols; col++)
+  if (colWise) {
+    for (col = 0; col < nrCols; col++) {
       for (row = 0; row < nrRows; row++) {
         double xout = NAN;
         double yout = NAN;
@@ -305,8 +320,9 @@ static int DoCreateMode(const char *outputFile, INP_MAP *maps, size_t nrMaps, bo
         for (c = 0; c < nrMaps; c++) {
           size_t mrow = 0;
           size_t mcol = 0;
-          if (maps[c].type != 'v')
+          if (maps[c].type != 'v') {
             continue;
+          }
           if (RgetRowCol(maps[c].m, x, y, &mrow, &mcol)) {
             RgetCell(maps[c].m, mrow, mcol, values + c);
             allMv &= IS_MV_REAL8(values + c);
@@ -315,17 +331,20 @@ static int DoCreateMode(const char *outputFile, INP_MAP *maps, size_t nrMaps, bo
               ErrorNested("In map '%s'", MgetFileName(maps[c].m));
               goto error2;
             }
-          } else /* outside */
+          } else { /* outside */
             SET_MV_REAL8(values + c);
+          }
         } /* eofor maps */
-        if ((!allMv) || printMV)
+        if ((!allMv) || printMV) {
           if (PrintValuesLine(out, maps, values, nrMaps, false)) {
             Error("Can't write to '%s'", outputFile);
             goto error2;
           }
+        }
       } /* eofor col,row */
-  else /* rowWise */
-    for (row = 0; row < nrRows; row++)
+    }
+  } else { /* rowWise */
+    for (row = 0; row < nrRows; row++) {
       for (col = 0; col < nrCols; col++) {
         double xout = NAN;
         double yout = NAN;
@@ -340,8 +359,9 @@ static int DoCreateMode(const char *outputFile, INP_MAP *maps, size_t nrMaps, bo
         for (c = 0; c < nrMaps; c++) {
           size_t mrow = 0;
           size_t mcol = 0;
-          if (maps[c].type != 'v')
+          if (maps[c].type != 'v') {
             continue;
+          }
           if (RgetRowCol(maps[c].m, x, y, &mrow, &mcol)) {
             GetCell(values + c, maps + c, (int)mrow, (int)mcol);
             allMv &= IS_MV_REAL8(values + c);
@@ -350,15 +370,19 @@ static int DoCreateMode(const char *outputFile, INP_MAP *maps, size_t nrMaps, bo
               ErrorNested("In map '%s'", MgetFileName(maps[c].m));
               goto error2;
             }
-          } else /* outside */
+          } else { /* outside */
             SET_MV_REAL8(values + c);
+          }
         } /* eofor maps */
-        if ((!allMv) || printMV)
+        if ((!allMv) || printMV) {
           if (PrintValuesLine(out, maps, values, nrMaps, false)) {
             Error("Can't write to '%s'", outputFile);
             goto error2;
           }
+        }
       } /* eofor row,col */
+    }
+  }
 
   Free(values);
   fclose(out);
@@ -394,19 +418,22 @@ int Map2Col(INP_MAP *maps,                         /* list of map records */
 
   mvIsNumber = CnvrtDouble(&mvValue, mv);
   globSep = separator;
-  if (InitMaps(maps, nrMaps, mv))
+  if (InitMaps(maps, nrMaps, mv)) {
     goto error;
+  }
   if (inputColumnFile != NULL) { /* append mode */
-    if (ReadInputRecords(&geoEas, inputColumnFile, xcoord, ycoord, mv))
+    if (ReadInputRecords(&geoEas, inputColumnFile, xcoord, ycoord, mv)) {
       goto error1;
+    }
     if (DoAppendMode(outputFile, inputColumnFile, maps, nrMaps, geoEas)) {
       AppFreeColumnData(recList, nrRecs);
       goto error1;
     }
     AppFreeColumnData(recList, nrRecs);
   } else { /* Create a new output column file */
-    if (DoCreateMode(outputFile, maps, nrMaps, geoEas, colWise, printMV, xcoord, ycoord))
+    if (DoCreateMode(outputFile, maps, nrMaps, geoEas, colWise, printMV, xcoord, ycoord)) {
       goto error1;
+    }
   }
 
   FreeCache(maps, nrMaps);

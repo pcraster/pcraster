@@ -34,14 +34,17 @@ int StrNCaseEq(const char *s1, /* first string */
 
   l1 = strlen(s1);
   l2 = strlen(s2);
-  if (count > MIN(l1, l2) && l1 != l2)
+  if (count > MIN(l1, l2) && l1 != l2) {
     /* compare more chars then avail and not the same length */
     return 0; /* not the same lenght is not equal */
+  }
 
   count = MIN(count, MIN(l1, l2));
-  for (i = 0; i < count; i++)
-    if (toupper(s1[i]) != toupper(s2[i]))
+  for (i = 0; i < count; i++) {
+    if (toupper(s1[i]) != toupper(s2[i])) {
       return 0;
+    }
+  }
   return 1; /* all chars equal thus string equal */
 
 } /* StrNCaseEq */
@@ -78,8 +81,9 @@ char *Strncpy0(char *dest,      /* write-only. Destination string. */
 
   (void)strncpy(dest, src, count);
   end = (strlen(src) > count ? count : strlen(src));
-  if (dest[end] != '\0')
+  if (dest[end] != '\0') {
     dest[end] = '\0';
+  }
   return (dest);
 
 } /* Strncpy0 */
@@ -96,8 +100,9 @@ char *StrcpyChkTmpMalloc(const char *str) /* string to copy in new allocated spa
   char *s = NULL;
   PRECOND(str != NULL);
   s = (char *)ChkTmpMalloc(strlen(str) + 1);
-  if (s == NULL)
+  if (s == NULL) {
     return NULL;
+  }
   return strcpy(s, str);
 }
 
@@ -121,8 +126,9 @@ void *MemcpyChkMalloc(const void *src, /* memory to copy in new allocated space 
   void *s = NULL;
   PRECOND(src != NULL);
   s = (char *)ChkMalloc(n);
-  if (s == NULL)
+  if (s == NULL) {
     return NULL;
+  }
   return memcpy(s, src, n);
 }
 
@@ -134,9 +140,11 @@ int NoSpaces(const char *string) /* Searched string */
 {
   size_t i = 0;
 
-  while (string[i] != '\0')
-    if (isspace(string[i++]))
+  while (string[i] != '\0') {
+    if (isspace(string[i++])) {
       return (0);
+    }
+  }
   return (1);
 } /* NoSpaces */
 
@@ -160,9 +168,11 @@ char *DelSpaces(char *str) /* read-write. String to be modified */
   size_t d = 0;
 
 
-  for (i = d = 0; str[i] != '\0'; i++)
-    if (!isspace(str[i]))
+  for (i = d = 0; str[i] != '\0'; i++) {
+    if (!isspace(str[i])) {
       str[d++] = str[i];
+    }
+  }
   str[d] = '\0';
   return (str);
 } /* DelSpaces */
@@ -193,9 +203,11 @@ char *DelChars(char *str, /* read-write. String to be modified */
   size_t i = 0;
   size_t d = 0;
 
-  for (i = d = 0; str[i] != '\0'; i++)
-    if (strchr(set, str[i]) == NULL)
+  for (i = d = 0; str[i] != '\0'; i++) {
+    if (strchr(set, str[i]) == NULL) {
       str[d++] = str[i];
+    }
+  }
   str[d] = '\0';
   return (str);
 } /* DelChars */
@@ -213,16 +225,19 @@ char *LeftRightTrim(char *str) /* String to be modified */
   PRECOND(str != NULL);
 
   n = (int)strlen(str);
-  if (n == 0)
+  if (n == 0) {
     return (str);
+  }
 
   /* remove trailing spaces */
-  for (i = n - 1; i >= 0 && isspace(str[i]); i--)
+  for (i = n - 1; i >= 0 && isspace(str[i]); i--) {
     str[i] = '\0';
+  }
 
   /* remove leading spaces */
-  for (p = str; isspace(*p); p++)
+  for (p = str; isspace(*p); p++) {
     ;
+  }
   /* strcpy(str,p) -> memmove(str,p,strlen(p)+1) copy incl. \0  */
   return memmove(str, p, strlen(p) + 1);
 } /* LeftRightTrim */
@@ -241,21 +256,25 @@ char *LeftRightTabTrim(char *str) /* String to be modified */
   PRECOND(str != NULL);
 
   n = (int)strlen(str);
-  if (n == 0)
+  if (n == 0) {
     return (str);
+  }
 
   (void)LeftRightTrim(str);
 
   /* substitute sequences of isspace() char with one ' ' */
-  for (n = i = 0; str[i] != '\0'; i++)
+  for (n = i = 0; str[i] != '\0'; i++) {
     if (isspace(str[i])) {
       PRECOND(n > 0); /* str[0] is not space,
                              * because leading spaces are removed
                              */
-      if (!isspace(str[n - 1]))
+      if (!isspace(str[n - 1])) {
         str[n++] = ' ';
-    } else
+      }
+    } else {
       str[n++] = str[i];
+    }
+  }
   str[n] = '\0';
 
   return (str);
@@ -285,10 +304,12 @@ int TokenSpaceTrim(char *s) /* read-write. String to be modified and counted */
     if (isspace(s[i])) {
       s[d++] = ' ';
       t++;
-      while (isspace(s[i]))
+      while (isspace(s[i])) {
         i++;
-    } else
+      }
+    } else {
       s[d++] = s[i++];
+    }
   }
   /* adjust for trailing spaces */
   if (isspace(s[d - 1])) {

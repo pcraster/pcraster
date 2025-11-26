@@ -28,8 +28,9 @@ void **MallocIndex2d(size_t row,    /* number of rows. > 0 */
   PRECOND(size > 0);
 
   prow = (const char **)ChkMalloc(((size_t)row) * sizeof(void *));
-  if (prow == NULL)
+  if (prow == NULL) {
     return (NULL);
+  }
 
   for (i = 0; i < (size_t)row; i++) {
     prow[i] = ll;
@@ -61,13 +62,15 @@ void **Malloc2d(size_t row,  /* number of rows. > 0 */
   PRECOND(size > 0);
 
   pdata = (void *)ChkMalloc(((size_t)row) * ((size_t)col) * size);
-  if (pdata == NULL)
+  if (pdata == NULL) {
     return (NULL);
+  }
 
 
   prow = MallocIndex2d(row, col, size, pdata);
-  if (prow == NULL)
+  if (prow == NULL) {
     Free(pdata);
+  }
 
   return prow;
 } /* Malloc2d */
@@ -115,20 +118,23 @@ void **Realloc2d(void **ptr,    /* existing 2d array */
   PRECOND(size > 0);
   PRECOND(newCol <= oldCol);
 
-  if (newCol < oldCol)
+  if (newCol < oldCol) {
     CopyColumns(ptr[0], MIN(oldRow, newRow), newCol, oldCol, size);
+  }
 
   pdata = (void *)ChkRealloc(ptr[0], ((size_t)newRow) * ((size_t)newCol) * size);
-  if (pdata == NULL)
+  if (pdata == NULL) {
     return (NULL);
+  }
 
   /* free old index array */
   FreeIndex2d(ptr);
 
   /* make new one */
   ptr = MallocIndex2d(newRow, newCol, size, pdata);
-  if (ptr == NULL)
+  if (ptr == NULL) {
     Free(pdata);
+  }
 
   return ptr;
 } /* Realloc2d */

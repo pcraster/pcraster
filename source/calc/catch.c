@@ -34,15 +34,17 @@ static int IdentifyFromPit(MAP_INT4 *out, int r, int c, const MAP_UINT1 *ldd, co
 {
   NODE *list = LinkChkNd(NULL, r, c); /* current search tree */
   INT4 val = 0;
-  if (list == NULL)
+  if (list == NULL) {
     return -1; /* allocation failed */
+  }
 
   /* init pit
      * copy id or 0 to out map
      * and set to 0 if points is MV
      */
-  if (!points->Get(&val, r, c, points))
+  if (!points->Get(&val, r, c, points)) {
     val = 0;
+  }
   out->Put(val, r, c, out);
 
   while (list != NULL) {
@@ -59,16 +61,18 @@ static int IdentifyFromPit(MAP_INT4 *out, int r, int c, const MAP_UINT1 *ldd, co
     cDS = DownStrC(c, l);
     out->Get(&idDS, rDS, cDS, out);
     POSTCOND(idDS != MV_INT4);
-    if (idDS != 0)
+    if (idDS != 0) {
       out->Put(idDS, r, c, out);
-    else {
-      if (points->Get(&id, r, c, points))
+    } else {
+      if (points->Get(&id, r, c, points)) {
         out->Put(id, r, c, out);
-      else
+      } else {
         out->Put(0, r, c, out);
+      }
     }
-    if (ReplaceFirstByUpsNbs(&list, ldd))
+    if (ReplaceFirstByUpsNbs(&list, ldd)) {
       return 1;
+    }
   }
   return 0;
 }
@@ -104,15 +108,19 @@ int Catch(MAP_INT4 *out,          /* write-only output map  */
   /* For every pit in the ldd map do the function  
      * for every cell in the catchment
      */
-  for (r = 0; r < nrRows; r++)
+  for (r = 0; r < nrRows; r++) {
     for (c = 0; c < nrCols; c++) {
       if (ldd->Get(&lddVal, r, c, ldd)) {
-        if (lddVal == LDD_PIT) /* start from each pit */
-          if (IdentifyFromPit(out, r, c, ldd, points))
+        if (lddVal == LDD_PIT) { /* start from each pit */
+          if (IdentifyFromPit(out, r, c, ldd, points)) {
             return 1;
-      } else
+          }
+        }
+      } else {
         out->PutMV(r, c, out);
+      }
     }
+  }
   return 0; /* successful terminated */
 }
 
@@ -120,15 +128,17 @@ static int SubIdentifyFromPit(MAP_INT4 *out, int r, int c, const MAP_UINT1 *ldd,
 {
   NODE *list = LinkChkNd(NULL, r, c); /* current search tree */
   INT4 val = 0;
-  if (list == NULL)
+  if (list == NULL) {
     return -1; /* allocation failed */
+  }
 
   /* init pit
      * copy id or 0 to out map
      * and set to 0 if points is MV
      */
-  if (!points->Get(&val, r, c, points))
+  if (!points->Get(&val, r, c, points)) {
     val = 0;
+  }
   out->Put(val, r, c, out);
 
   while (list != NULL) {
@@ -144,16 +154,17 @@ static int SubIdentifyFromPit(MAP_INT4 *out, int r, int c, const MAP_UINT1 *ldd,
     rDS = DownStrR(r, l);
     cDS = DownStrC(c, l);
     points->Get(&id, r, c, points);
-    if (id != MV_INT4 && id != 0)
+    if (id != MV_INT4 && id != 0) {
       out->Put(id, r, c, out);
-    else {
+    } else {
       /* propagate dowstream id */
       out->Get(&idDS, rDS, cDS, out);
       POSTCOND(idDS != MV_INT4);
       out->Put(idDS, r, c, out);
     }
-    if (ReplaceFirstByUpsNbs(&list, ldd))
+    if (ReplaceFirstByUpsNbs(&list, ldd)) {
       return 1;
+    }
   }
   return 0;
 }
@@ -187,14 +198,18 @@ int SubCatchment(MAP_INT4 *out,          /* write-only output map  */
   /* For every pit in the ldd map do the function  
      * for every cell in the catchment
      */
-  for (r = 0; r < nrRows; r++)
+  for (r = 0; r < nrRows; r++) {
     for (c = 0; c < nrCols; c++) {
       if (ldd->Get(&lddVal, r, c, ldd)) {
-        if (lddVal == LDD_PIT) /* start from each pit */
-          if (SubIdentifyFromPit(out, r, c, ldd, points))
+        if (lddVal == LDD_PIT) { /* start from each pit */
+          if (SubIdentifyFromPit(out, r, c, ldd, points)) {
             return 1;
-      } else
+          }
+        }
+      } else {
         out->PutMV(r, c, out);
+      }
     }
+  }
   return 0; /* successful terminated */
 }

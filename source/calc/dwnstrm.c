@@ -69,10 +69,11 @@ int DownStream(MAP_REAL8 *out,          /* write-only output map  */
         int cNext = CNeighbor(c, lddVal);
 
         if (amount->Get(&amountVal, rNext, cNext, amount) && (ldd->Get(&lddNext, rNext, cNext, ldd))) {
-          if (lddVal != LDD_PIT)
+          if (lddVal != LDD_PIT) {
             out->Put(amountVal, r, c, out);
-          else
+          } else {
             out->Put(ownVal, r, c, out);
+          }
         }
       }
       /* else-> (r,c) keeps MV as output value */

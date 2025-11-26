@@ -52,7 +52,7 @@ int Slope(MAP_REAL8 *slope,     /* Read-write slope output map  */
 
   /* For every cell in the dem map calculate the slope. */
   for (r = 0; r < nrRows; r++) {
-    for (c = 0; c < nrCols; c++)
+    for (c = 0; c < nrCols; c++) {
       if (dem->Get(&demVal, r, c, dem)) {
         REAL8 Dx = NAN;
         REAL8 Dy = NAN;
@@ -60,8 +60,10 @@ int Slope(MAP_REAL8 *slope,     /* Read-write slope output map  */
         CalcDeltaXY(&Dx, &Dy, dem, r, c);
         G = sqrt(sqr(Dx) + sqr(Dy));
         slope->Put(G, r, c, slope);
-      } else
+      } else {
         slope->PutMV(r, c, slope);
+      }
+    }
   }
   return 0;
 }
@@ -82,7 +84,7 @@ int Window4total(MAP_REAL8 *out,      /* Read-write output map  */
   nrRows = in->NrRows(in);
   nrCols = in->NrCols(in);
 
-  for (r = 0; r < nrRows; r++)
+  for (r = 0; r < nrRows; r++) {
     for (c = 0; c < nrCols; c++) {
       REAL8 inVal = NAN;
       REAL8 sum = 0;
@@ -96,10 +98,12 @@ int Window4total(MAP_REAL8 *out,      /* Read-write output map  */
           nr++;
         }
       }
-      if (nr == 0)
+      if (nr == 0) {
         out->PutMV(r, c, out);
-      else
+      } else {
         out->Put(sum, r, c, out);
+      }
     }
+  }
   return 0;
 }

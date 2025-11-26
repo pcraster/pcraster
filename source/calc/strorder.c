@@ -54,8 +54,9 @@ static void AssignOrder(MAP_INT4 *order,      /* read-write output state map */
       /*  order of NB should be known: */
       PRECOND(order->Get(&orderVal, rNB, cNB, order));
       order->Get(&orderVal, rNB, cNB, order);
-      if (highNBstreamOrder == orderVal)
+      if (highNBstreamOrder == orderVal) {
         nrHighNBstreamOrder++;
+      }
       if (highNBstreamOrder < orderVal) {
         highNBstreamOrder = orderVal;
         nrHighNBstreamOrder = 1;
@@ -63,8 +64,9 @@ static void AssignOrder(MAP_INT4 *order,      /* read-write output state map */
     }
   }
   /* works even if no upstream cells, due to proper initialixation */
-  if (nrHighNBstreamOrder >= 2)
+  if (nrHighNBstreamOrder >= 2) {
     highNBstreamOrder++;
+  }
   order->Put(highNBstreamOrder, r, c, order);
 }
 
@@ -78,8 +80,9 @@ static int CalcOrder(MAP_INT4 *order,      /* Read-write output state map  */
   PRECOND(ldd->GetGetTest(ldd) == GET_MV_TEST);
 
   list = LinkChkNd(NULL, r, c); /* pit is 1st element */
-  if (list == NULL)
+  if (list == NULL) {
     return 1; /* memory allocation failed */
+  }
 
   while (list != NULL) {
     r = list->rowNr; /* row of cell to check */
@@ -91,8 +94,9 @@ static int CalcOrder(MAP_INT4 *order,      /* Read-write output state map  */
       AssignOrder(order, r, c, ldd);
       list = RemFromList(list);
     } else { /* add ups NB cell to process first */
-      if ((list = AddUpsNbsMarkFirst(list, ldd)) == NULL)
+      if ((list = AddUpsNbsMarkFirst(list, ldd)) == NULL) {
         return 1;
+      }
     }
   }
   return 0;
@@ -116,16 +120,19 @@ int StreamOrder(MAP_INT4 *order,      /* Read-write output flux map  */
   /* For each pit in the ldd map 
      * traverse upstream to do the calculation
      */
-  for (r = 0; r < nrRows; r++)
+  for (r = 0; r < nrRows; r++) {
     for (c = 0; c < nrCols; c++) {
       if (ldd->Get(&lddVal, r, c, ldd)) {
         if (lddVal == LDD_PIT) {
           int res = CalcOrder(order, r, c, ldd);
-          if (res)
+          if (res) {
             return res;
+          }
         }
-      } else
+      } else {
         order->PutMV(r, c, order);
+      }
     }
+  }
   return 0; /* successful exited */
 }

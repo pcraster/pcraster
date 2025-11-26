@@ -60,19 +60,21 @@ int TimeInputSeries(MAP_REAL8 *out,      /* map to write */
   PRECOND(0 <= timeStep && timeStep < t->nrSteps);
   id->SetGetTest(GET_MV_TEST, id);
 
-  for (r = 0; r < nrRows; r++)
+  for (r = 0; r < nrRows; r++) {
     for (c = 0; c < nrCols; c++) {
       INT4 idVal = 0;
-      if (!id->Get(&idVal, r, c, id))
+      if (!id->Get(&idVal, r, c, id)) {
         out->PutMV(r, c, out);
-      else {                               /* id is not a MV */
+      } else {                             /* id is not a MV */
         if (0 < idVal && idVal < t->nrCols /* id is in time table */
-            && (!IS_MV_REAL8(t->vals[timeStep] + idVal)))
+            && (!IS_MV_REAL8(t->vals[timeStep] + idVal))) {
           out->Put(t->vals[timeStep][idVal], r, c, out);
-        else
+        } else {
           out->PutMV(r, c, out); /* not in table , or MV */
+        }
       }
     }
+  }
   return 0;
 }
 
@@ -102,8 +104,9 @@ TIME_TABLE *ReadTimeInputTable(const char *fileName,   /* name of file to read *
   (void)nrFirstStepsToSkip;  // shut up compiler
   (void)nrStepsToRead;       // shut up compiler
 
-  if ((t = NewTimeTable(vs, 0)) == NULL)
+  if ((t = NewTimeTable(vs, 0)) == NULL) {
     return NULL;
+  }
   t->vs = vs;
   if (AppReadTimeSeriesFile(&(t->vals), &nrSteps, &nrCols, &geoEas, fileName, "1E31", t->vs,
                             CR_UNDEFINED, ',')) {
@@ -131,8 +134,9 @@ TIME_TABLE *NewTimeTable(CSF_VS vs,   /* value scale , VS_UNDEFINED is valid */
   nrTimeTables++;
 #endif
   t = ChkMalloc(sizeof(TIME_TABLE));
-  if (t == NULL)
+  if (t == NULL) {
     return NULL;
+  }
   t->vs = vs;
   t->nrSteps = nrSteps;
   t->vals = NULL; /* important, output table are allocated 
@@ -152,7 +156,8 @@ void FreeTimeTable(TIME_TABLE *t) /* free all memory of this table */
 #ifdef DEBUG
   nrTimeTables--;
 #endif
-  if (t->vals != NULL)
+  if (t->vals != NULL) {
     Free2d((void **)t->vals, (size_t)t->nrSteps);
+  }
   Free(t);
 }

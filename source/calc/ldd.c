@@ -166,8 +166,9 @@ bool NoInput(const MAP_UINT1 *ldd, /* ldd.map */
   {
     int r = DownStrR(rowNr, j);
     int c = DownStrC(colNr, j);
-    if (ldd->Get(&lddVal, r, c, ldd) && FlowsTo(lddVal, r, c, rowNr, colNr))
+    if (ldd->Get(&lddVal, r, c, ldd) && FlowsTo(lddVal, r, c, rowNr, colNr)) {
       return false;
+    }
   }
   return true;
 }
@@ -229,12 +230,14 @@ int SumFluxUps(REAL8 *newState,       /* write-only new state */
       if (ldd->Get(&lddVal, rNext, cNext, ldd) && flux->Get(&fluxVal, rNext, cNext, flux))
       /* neighbor is upstream element */
       {
-        if (FlowsTo(lddVal, rNext, cNext, r, c))
+        if (FlowsTo(lddVal, rNext, cNext, r, c)) {
           *newState += fluxVal;
+        }
       } else {
-        if (ldd->Get(&lddVal, rNext, cNext, ldd) && (FlowsTo(lddVal, rNext, cNext, r, c)))
+        if (ldd->Get(&lddVal, rNext, cNext, ldd) && (FlowsTo(lddVal, rNext, cNext, r, c))) {
           /* upstream neighbor with MV flux */
           return 1;
+        }
       }
     }
   }

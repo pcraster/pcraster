@@ -145,13 +145,17 @@ void vfError(const char *fmt, /* Format control, see printf() for a description 
     int j = 0;
     int id = errorNestLevel - i; /* # of indents */
     while (*p != '\0') {
-      if (p == ptrs[i]) /* start */
-        for (j = 0; j < id; j++)
+      if (p == ptrs[i]) { /* start */
+        for (j = 0; j < id; j++) {
           errorMsg[msgPtr++] = INDENT;
+        }
+      }
       errorMsg[msgPtr++] = *p;
-      if (*p == '\n') /*  newline in a level */
-        for (j = 0; j < id; j++)
+      if (*p == '\n') { /*  newline in a level */
+        for (j = 0; j < id; j++) {
           errorMsg[msgPtr++] = INDENT;
+        }
+      }
       p++;
     }
     errorMsg[msgPtr++] = '\n';
@@ -159,17 +163,20 @@ void vfError(const char *fmt, /* Format control, see printf() for a description 
   errorNestLevel = 0; /* reset NestedErrors */
 
 
-  if (appLogErrorFunc)
+  if (appLogErrorFunc) {
     (*appLogErrorFunc)(errorMsg);
+  }
 
   /* call error handler */
   errorHandler(errorMsg);
 
-  if (exitOnError)
+  if (exitOnError) {
     exit(exitOnError);
+  }
 #ifdef DEBUG
-  if (getenv("PCR_ERROREXIT") != NULL)
+  if (getenv("PCR_ERROREXIT") != NULL) {
     exit(1);
+  }
 #endif
 }
 
@@ -271,8 +278,9 @@ void Warning(const char *fmt, /* Format control, see printf() for a description 
   (void)vfprintf(stderr, fmt, marker);
   va_end(marker);
 
-  if (fmt[strlen(fmt) - 1] != '\n')
+  if (fmt[strlen(fmt) - 1] != '\n') {
     (void)fprintf(stderr, "\n");
+  }
 }
 
 #ifdef WIN32

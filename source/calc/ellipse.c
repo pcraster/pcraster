@@ -62,10 +62,12 @@ static double Weight(int pw,    /* half pixel window size */
 {
   REAL8 w = 1;
   if (bw > 0) { /* determine border weigths */
-    if (abs(r) == pw)
+    if (abs(r) == pw) {
       w *= bw;
-    if (abs(c) == pw)
+    }
+    if (abs(c) == pw) {
       w *= bw;
+    }
   }
   return w;
 }
@@ -123,15 +125,17 @@ static int BuildCircle(REAL8 radius)
   }
   for (i = 0; i < nrLines; i++) {
     /* mark not initialized */
-    if (!IS_MV_REAL4(&(l[i].start.f)))
+    if (!IS_MV_REAL4(&(l[i].start.f))) {
       break;
+    }
   }
   POSTCOND(i < nrLines);
   lineStart = i;
   for (i = nrLines - 1; i >= 0; i--) {
     /* mark not initialized */
-    if (!IS_MV_REAL4(&(l[i].start.f)))
+    if (!IS_MV_REAL4(&(l[i].start.f))) {
       break;
+    }
   }
   POSTCOND(i >= 0);
   lineEndIncl = i;
@@ -171,7 +175,7 @@ int EllipseAverage(MAP_REAL8 *average,      /* write-only output average map  */
   nrRows = val->NrRows(val);
   nrCols = val->NrCols(val);
 
-  for (r = 0; r < nrRows; r++)
+  for (r = 0; r < nrRows; r++) {
     for (c = 0; c < nrCols; c++) {
       REAL8 value = NAN;
       REAL8 xmajorV = NAN;
@@ -191,7 +195,7 @@ int EllipseAverage(MAP_REAL8 *average,      /* write-only output average map  */
         average->PutMV(r, c, average);
 
         /* Calculate in window */
-        for (rWin = -pw; rWin <= pw; rWin++)
+        for (rWin = -pw; rWin <= pw; rWin++) {
           for (cWin = -pw; cWin <= pw; cWin++) {
             if (val->Get(&value, rWin + r, cWin + c, val)) {
               REAL8 w = Weight(pw, rWin, cWin, bw);
@@ -199,13 +203,17 @@ int EllipseAverage(MAP_REAL8 *average,      /* write-only output average map  */
               count += w;
             }
           }
-        if (count > 0)
+        }
+        if (count > 0) {
           average->Put(winTotal / count, r, c, average);
-        else
+        } else {
           average->PutMV(r, c, average);
-      } else
+        }
+      } else {
         /* MV or winSize <= 0 */
         average->PutMV(r, c, average);
+      }
     }
+  }
   return 0;
 }

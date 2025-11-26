@@ -75,8 +75,9 @@ static void PutMvUpsPits(MAP_UINT1 *ldd, /* read-write modified ldd */
     int cNB = CNeighbor(c, i);
     UINT1 dNB = 0;
     ldd->Get(&dNB, rNB, cNB, ldd);
-    if (FlowsTo(dNB, rNB, cNB, r, c))
+    if (FlowsTo(dNB, rNB, cNB, r, c)) {
       ldd->Put(LDD_PIT, rNB, cNB, ldd);
+    }
   }
 }
 
@@ -107,7 +108,7 @@ static void FindOutflowCell(UINT1 *outflowConCellCode, /* read-write dir from (o
   {
     int rNB = RNeighbor(r, i);
     int cNB = CNeighbor(c, i);
-    if (catch->Get(&catchIdNB, rNB, cNB, catch))
+    if (catch->Get(&catchIdNB, rNB, cNB, catch)) {
       if (catchList[catchId - 1].partOfCatch != catchList[catchIdNB - 1].partOfCatch) {
         REAL8 v = NAN;
         dem->Get(&v, rNB, cNB, dem);
@@ -116,9 +117,11 @@ static void FindOutflowCell(UINT1 *outflowConCellCode, /* read-write dir from (o
           conCellDem = v;
         }
       }
+    }
   }
-  if (!conCellCode)
+  if (!conCellCode) {
     return; /* no new potential overflow cell found */
+  }
 
   dem->Get(&overflowLevel, r, c, dem);
   overflowLevel = MAX(overflowLevel, conCellDem);
@@ -163,8 +166,9 @@ static REAL8 Outflow(REAL8 *outflowLevel,    /* write only */
   int conPitRow = 0;
   int conPitCol = 0;
 
-  if (list == NULL)
+  if (list == NULL) {
     return -1; /* allocation failed */
+  }
 
   while (list != NULL) {
     int r = list->rowNr;
@@ -173,11 +177,13 @@ static REAL8 Outflow(REAL8 *outflowLevel,    /* write only */
     FindOutflowCell(&outflowConCellCode, outflowLevel, outflowRow, outflowCol, catch, dem, catchList, r,
                     c);
 
-    if (ReplaceFirstByUpsNbs(&list, ldd))
+    if (ReplaceFirstByUpsNbs(&list, ldd)) {
       return -1;
+    }
   }
-  if (!outflowConCellCode)
+  if (!outflowConCellCode) {
     return 0; /* stop, no outflowCell found, keep pit */
+  }
 
   dem->Get(&pitLevel, pitr, pitc, dem);
 
@@ -189,8 +195,9 @@ static REAL8 Outflow(REAL8 *outflowLevel,    /* write only */
   conPitRow = catchList[conCatchId - 1].r;
   conPitCol = catchList[conCatchId - 1].c;
   dem->Get(&conPitLevel, conPitRow, conPitCol, dem);
-  if (conPitLevel > pitLevel)
+  if (conPitLevel > pitLevel) {
     return 0; /* stop, keep pit */
+  }
   return area;
 }
 
@@ -201,8 +208,9 @@ static int ComputeCore(REAL8 *coreArea,   /* write-only */
 {
   NODE *list = LinkChkNd(NULL, pitr, pitc); /* current search tree */
 
-  if (list == NULL)
+  if (list == NULL) {
     return 1; /* allocation failed */
+  }
 
   *coreArea = 0;
   *coreVolume = 0;
@@ -215,10 +223,12 @@ static int ComputeCore(REAL8 *coreArea,   /* write-only */
     if (l < outflowLevel) {
       (*coreArea)++;
       (*coreVolume) += (outflowLevel - l);
-      if (ReplaceFirstByUpsNbs(&list, ldd))
+      if (ReplaceFirstByUpsNbs(&list, ldd)) {
         return 1;
-    } else
+      }
+    } else {
       list = RemFromList(list);
+    }
   }
   return 0;
 }
@@ -289,8 +299,9 @@ static int FillDem(MAP_REAL8 *dem, int pitr, int pitc, REAL8 outflowLevel, const
 {
   NODE *list = LinkChkNd(NULL, pitr, pitc); /* current search tree */
 
-  if (list == NULL)
+  if (list == NULL) {
     return 1; /* allocation failed */
+  }
 
   while (list != NULL) {
     int r = list->rowNr;
@@ -300,10 +311,12 @@ static int FillDem(MAP_REAL8 *dem, int pitr, int pitc, REAL8 outflowLevel, const
     dem->Get(&l, r, c, dem);
     if (l < outflowLevel) {
       dem->Put(outflowLevel, r, c, dem);
-      if (ReplaceFirstByUpsNbs(&list, ldd))
+      if (ReplaceFirstByUpsNbs(&list, ldd)) {
         return 1;
-    } else
+      }
+    } else {
       list = RemFromList(list);
+    }
   }
   return 0;
 }
@@ -311,10 +324,11 @@ static int FillDem(MAP_REAL8 *dem, int pitr, int pitc, REAL8 outflowLevel, const
 static bool ThresholdFailed(REAL8 val, int r, int c, const MAP_REAL8 *thmap)
 {
   REAL8 th = NAN;
-  if (thmap->Get(&th, r, c, thmap))
+  if (thmap->Get(&th, r, c, thmap)) {
     return val > th;
-  else
+  } else {
     return true;
+  }
 }
 
 /* Removes one pit given by the input (pitr, pitc).
@@ -361,27 +375,33 @@ static int RemPit(MAP_UINT1 *ldd,           /* read-write ldd map */
                       catch, catchList, dem, pitr, pitc);
 
 
-  if (catchArea <= 0)
+  if (catchArea <= 0) {
     return catchArea < 0; /* mem failure if -1, keep pit if 0 */
+  }
 
   dem->Get(&pitLevel, pitr, pitc, dem);
 
-  if (ThresholdFailed(outflowLevel - pitLevel, pitr, pitc, depth)) /* same units no adjustment */
-    return 0;                                                      /* keep pit */
+  if (ThresholdFailed(outflowLevel - pitLevel, pitr, pitc, depth)) { /* same units no adjustment */
+    return 0;                                                        /* keep pit */
+  }
 
-  if (ComputeCore(&coreArea, &coreVolume, outflowLevel, pitr, pitc, ldd, dem))
+  if (ComputeCore(&coreArea, &coreVolume, outflowLevel, pitr, pitc, ldd, dem)) {
     return 1; /* failure */
+  }
 
   catchArea *= Area();
   coreArea *= Area();
   coreVolume *= Area();
 
-  if (ThresholdFailed(coreVolume, pitr, pitc, volume))
+  if (ThresholdFailed(coreVolume, pitr, pitc, volume)) {
     return 0; /* keep pit */
-  if (ThresholdFailed(coreArea, pitr, pitc, area))
+  }
+  if (ThresholdFailed(coreArea, pitr, pitc, area)) {
     return 0; /* keep pit */
-  if (ThresholdFailed((coreVolume / catchArea) * 1000, pitr, pitc, mminput))
+  }
+  if (ThresholdFailed((coreVolume / catchArea) * 1000, pitr, pitc, mminput)) {
     return 0; /* keep pit */
+  }
 
   /* now pit can be removed
          */
@@ -417,9 +437,11 @@ static int RemPit(MAP_UINT1 *ldd,           /* read-write ldd map */
 
   /* do filling before pit removal
     */
-  if (appLddDemModifier == APP_LDDDEMFILL)
-    if (FillDem(dem, pitr, pitc, outflowLevel, ldd))
+  if (appLddDemModifier == APP_LDDDEMFILL) {
+    if (FillDem(dem, pitr, pitc, outflowLevel, ldd)) {
       return 1; /* failure */
+    }
+  }
 
   ReversePath(ldd, outflowRow, outflowCol, outflowConRow, outflowConCol);
 
@@ -427,8 +449,9 @@ static int RemPit(MAP_UINT1 *ldd,           /* read-write ldd map */
      * removed pit is now a path trough the connection cell
      * into another catchment
      */
-  if (appLddDemModifier == APP_LDDDEMCUT)
+  if (appLddDemModifier == APP_LDDDEMCUT) {
     CutDem(dem, pitr, pitc, pitLevel, ldd);
+  }
 
   return 0; /* pit succesfully removed */
 }
@@ -440,10 +463,12 @@ static int RemPit(MAP_UINT1 *ldd,           /* read-write ldd map */
 static int CmpPit(const PIT *in1, const PIT *in2)
 {
   int res = -CmpDouble(&(in1->demVal), &(in2->demVal));
-  if (res)
+  if (res) {
     return res;
-  if (in1->r != in2->r)
+  }
+  if (in1->r != in2->r) {
     return in1->r - in2->r;
+  }
 
   PRECOND(in1->c != in2->c);
   return in1->c - in2->c;
@@ -464,8 +489,9 @@ static bool GlobOptionPermitRemoval(const MAP_UINT1 *ldd, int r, int c)
       UINT1 d = 0;
       int rNB = RNeighbor(r, i);
       int cNB = CNeighbor(c, i);
-      if (!ldd->Get(&d, rNB, cNB, ldd))
+      if (!ldd->Get(&d, rNB, cNB, ldd)) {
         return false;
+      }
     }
   }
   return true;
@@ -513,33 +539,38 @@ int PitRemND(MAP_UINT1 *ldd,           /* Read-write output map  */
   /* copy input dem to result dem
      * and put MV's if one of (ldd,dem) maps is MV 
      */
-  for (r = 0; r < nrRows; r++)
-    for (c = 0; c < nrCols; c++)
+  for (r = 0; r < nrRows; r++) {
+    for (c = 0; c < nrCols; c++) {
       if (ldd->Get(&lddVal, r, c, ldd)) {
-        if (inDem->Get(&demVal, r, c, inDem))
+        if (inDem->Get(&demVal, r, c, inDem)) {
           dem->Put(demVal, r, c, dem); /* both defined */
-        else {                         /* lld defined but dem not */
+        } else {                       /* lld defined but dem not */
           dem->PutMV(r, c, dem);
           PutMvUpsPits(ldd, r, c);
         }
-      } else /* dem defined but ldd not */
+      } else { /* dem defined but ldd not */
         dem->PutMV(r, c, dem);
+      }
+    }
+  }
 
   /* Search for pits in the map, 
      * create catchment map
      */
-  for (r = 0; r < nrRows; r++)
-    for (c = 0; c < nrCols; c++)
+  for (r = 0; r < nrRows; r++) {
+    for (c = 0; c < nrCols; c++) {
       if (ldd->Get(&lddVal, r, c, ldd)) {
         if (lddVal == LDD_PIT) {
           void *cp = NULL;
           nPits++;
           /* allocate and increase lists */
-          if ((cp = ChkRealloc(catchList, (sizeof(CATCH)) * nPits)) == NULL)
+          if ((cp = ChkRealloc(catchList, (sizeof(CATCH)) * nPits)) == NULL) {
             goto error;
+          }
           catchList = (CATCH *)cp;
-          if ((cp = ChkRealloc(pits, (sizeof(PIT)) * nPits)) == NULL)
+          if ((cp = ChkRealloc(pits, (sizeof(PIT)) * nPits)) == NULL) {
             goto error;
+          }
           pits = (PIT *)cp;
           pits[nPits - 1].r = catchList[nPits - 1].r = r;
           pits[nPits - 1].c = catchList[nPits - 1].c = c;
@@ -555,27 +586,34 @@ int PitRemND(MAP_UINT1 *ldd,           /* Read-write output map  */
 #endif
 
           catch->Put(nPits, r, c, catch);
-        } else
+        } else {
           catch->Put(0, r, c, catch); /* find catch with Catchment func */
-      } else
+        }
+      } else {
         catch->PutMV(r, c, catch);
+      }
+    }
+  }
 
   /* checkif we have a sound ldd
      */
   POSTCOND((!RepairLdd(ldd, ldd)) && (!repairLddModifiedMap));
 
   /* identify catchments */
-  if (Catch(catch, ldd, catch))
+  if (Catch(catch, ldd, catch)) {
     goto error;
+  }
 
-  if (nPits == 1)
+  if (nPits == 1) {
     goto done;
+  }
 
   /* init updList, ptr-based
      * can't be done in the realloc loop
      */
-  for (i = 0; i < nPits; i++)
+  for (i = 0; i < nPits; i++) {
     catchList[i].updList = catchList + i;
+  }
 
   qsort(pits, (size_t)nPits, sizeof(PIT), (QSORT_CMP)CmpPit);
 
@@ -597,8 +635,9 @@ int PitRemND(MAP_UINT1 *ldd,           /* Read-write output map  */
   {
     AppProgress("removing pit nr. %5d out of %5d\r", i + 1, nPits);
     if (GlobOptionPermitRemoval(ldd, pits[i].r, pits[i].c)) {
-      if (RemPit(ldd, dem, catch, catchList, depth, volume, area, mminput, pits[i].r, pits[i].c))
+      if (RemPit(ldd, dem, catch, catchList, depth, volume, area, mminput, pits[i].r, pits[i].c)) {
         goto error;
+      }
 #ifdef HEAVY_DEBUG
       /* check if we have a sound ldd
              * after each pit removal

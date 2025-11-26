@@ -143,8 +143,9 @@ static int HasLowerNeighbor(const MAP_REAL8 *dem,    /* dem.map */
     int rNext = RNeighbor(rowNr, i);
     int cNext = CNeighbor(colNr, i);
     if (dem->Get(&newDem, rNext, cNext, dem) && points->Get(&pntVal, rNext, cNext, points) &&
-        (demVal > newDem))
+        (demVal > newDem)) {
       return true; /* has lower neighbor */
+    }
   }
   return false; /* no neighbor is lower */
 }
@@ -175,8 +176,9 @@ static REAL8 DoDrain(MAP_REAL8 *out,          /* read-write output map */
     list = RemFromList(list);
     if (HasLowerNeighbor(dem, points, rowNr, colNr)) {
       list = DoNeighbors(out, list, dem, points, rowNr, colNr, drainVal);
-      if (list == NULL)
+      if (list == NULL) {
         return 1;
+      }
     }
   }
   POSTCOND(list == NULL);
@@ -212,9 +214,11 @@ int Drain(MAP_REAL8 *out,          /* write-only output map  */
   PRECOND(nrCols == points->NrCols(points));
 
   /* Fill outBuf with 0, this is the initial value */
-  for (r = 0; r < nrRows; r++)
-    for (c = 0; c < nrCols; c++)
+  for (r = 0; r < nrRows; r++) {
+    for (c = 0; c < nrCols; c++) {
       out->Put((REAL8)0, r, c, out);
+    }
+  }
 
   /* algorithm wants dem->Get() and points->Get() to
      * return FALSE if a value is a missing value
@@ -227,7 +231,7 @@ int Drain(MAP_REAL8 *out,          /* write-only output map  */
      * put point value in output map. The latter is necessary when a
      * defined point streams into another defined point.
      */
-  for (r = 0; r < nrRows; r++)
+  for (r = 0; r < nrRows; r++) {
     for (c = 0; c < nrCols; c++) {
       if (dem->Get(&demVal, r, c, dem) && points->Get(&pointVal, r, c, points)) {
         if (pointVal != 0) {
@@ -241,9 +245,11 @@ int Drain(MAP_REAL8 *out,          /* write-only output map  */
           pointlist = tmp;
           nrPnts++;
         }
-      } else
+      } else {
         out->PutMV(r, c, out);
+      }
     }
+  }
 
   /* For every true point in the points map do the function */
   while (pointlist != NULL) {

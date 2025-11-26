@@ -33,9 +33,11 @@
  */
 static bool NotOnlySpace(const char *s)
 {
-  while (*s != '\0')
-    if (!isspace(*(s++)))
+  while (*s != '\0') {
+    if (!isspace(*(s++))) {
       return true;
+    }
+  }
   return false;
 }
 
@@ -59,12 +61,14 @@ bool CnvrtINT4(INT4 *result,    /* write-only. resulting number */
   PRECOND(str != NULL);
 
   /* is it a valid double ? */
-  if (!CnvrtDouble(&d, str))
+  if (!CnvrtDouble(&d, str)) {
     return false;
+  }
 
   /* is there a fraction ? */
-  if ((d != floor(d)) || (d < ((double)INT4_MIN)) || (d > ((double)INT4_MAX)))
+  if ((d != floor(d)) || (d < ((double)INT4_MIN)) || (d > ((double)INT4_MAX))) {
     return false;
+  }
   *result = (INT4)d;
   return true;
 }
@@ -115,8 +119,9 @@ bool CnvrtREAL8(REAL8 *result,   /* write-only. resulting number */
 
   PRECOND(result != NULL);
   PRECOND(str != NULL);
-  if (*str == '\0')
+  if (*str == '\0') {
     return false;
+  }
   errno = 0;
   v = strtod(str, &endPtr);
   if (errno == ERANGE || NotOnlySpace(endPtr)) {
@@ -145,8 +150,9 @@ bool CnvrtREAL4(REAL4 *result,   /* write-only. resulting number */
   PRECOND(result != NULL);
   PRECOND(str != NULL);
 
-  if (!CnvrtREAL8(&v, str) || fabs(v) > ((REAL8)REAL4_MAX))
+  if (!CnvrtREAL8(&v, str) || fabs(v) > ((REAL8)REAL4_MAX)) {
     return false;
+  }
   *result = (REAL4)v;
   return true;
 }
@@ -230,8 +236,9 @@ bool CnvrtValueMV(REAL8 *vNum,       /* write-only, value number or MV_REAL8
 {
   if (CnvrtDouble(vNum, vStr)) { /* value is a number
                                     */
-    if (number && mvDbl == (*vNum))
+    if (number && mvDbl == (*vNum)) {
       SET_MV_REAL8(vNum);
+    }
     return 1;
   } else { /* value is a string */
     SET_MV_REAL8(vNum);

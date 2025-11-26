@@ -63,18 +63,19 @@ int Upstream(MAP_REAL8 *out,       /* write-only output map  */
           int rNext = RNeighbor(r, d);
           int cNext = CNeighbor(c, d);
           if (ldd->Get(&l, rNext, cNext, ldd) && FlowsTo(l, rNext, cNext, r, c)) {
-            if (in->Get(&v, rNext, cNext, in))
+            if (in->Get(&v, rNext, cNext, in)) {
               sum += v;
-            else { /* mv in in-map make it's downstream MV 
+            } else { /* mv in in-map make it's downstream MV 
                                 */
               goto putMV;
             }
           }
         } /* eofor all directions */
         out->Put(sum, r, c, out);
-      } else
+      } else {
       putMV:
         out->PutMV(r, c, out);
+      }
     } /* eofor cols */
   } /* eofor rows */
   AppEndRowProgress();

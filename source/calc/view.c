@@ -72,18 +72,21 @@ static void CalcView(MAP_UINT1 *out,          /* write-only output map        */
 
   if (dem->Get(&height2, rNext, cNext, dem) && (points->Get(&nextPnt, rNext, cNext, points))) {
     REAL4 tmp = NAN;
-    if (dist1 != 0)
+    if (dist1 != 0) {
       /* rounding or truncation causes slight differences */
       vis1 = (height1 - viewHght) / dist1;
-    else
+    } else {
       vis1 = VISMIN;
+    }
     if (vis1 == VISMIN || visPlane <= (tmp = AppCastREAL4(vis1))) { /* visible, output := TRUE */
       out->Put(1, r, c, out);
       currRow[c] = vis1; /* change visibility plane */
-    } else               /* not visible, vis. plane remains unchanged */
+    } else {             /* not visible, vis. plane remains unchanged */
       currRow[c] = visPlane;
-  } else /* MV -> not able to peer through. */
+    }
+  } else { /* MV -> not able to peer through. */
     currRow[c] = REAL8_MAX;
+  }
 }
 
 /* Determines visibility for each cell in the first quadrant.
@@ -117,8 +120,9 @@ static int First(MAP_UINT1 *out,          /* write-only output map  */
      * current row.
      */
   lastRow = (REAL8 *)ChkMalloc(sizeof(REAL8) * (viewc + 1));
-  if (lastRow == NULL)
+  if (lastRow == NULL) {
     return 1;
+  }
   currRow = (REAL8 *)ChkMalloc(sizeof(REAL8) * (viewc + 1));
   if (currRow == NULL) {
     free(lastRow);
@@ -220,8 +224,9 @@ static int Second(MAP_UINT1 *out,          /* write-only output map  */
 
   /* allocate and initialize the last and current row */
   lastRow = (REAL8 *)ChkMalloc(sizeof(REAL8) * (nrCols));
-  if (lastRow == NULL)
+  if (lastRow == NULL) {
     return 1;
+  }
   currRow = (REAL8 *)ChkMalloc(sizeof(REAL8) * (nrCols));
   if (currRow == NULL) {
     free(lastRow);
@@ -331,8 +336,9 @@ static int Third(MAP_UINT1 *out,          /* write-only output map  */
 
   /* allocate and initialize the last and current row */
   lastRow = (REAL8 *)ChkMalloc(sizeof(REAL8) * (viewc + 1));
-  if (lastRow == NULL)
+  if (lastRow == NULL) {
     return 1;
+  }
   currRow = (REAL8 *)ChkMalloc(sizeof(REAL8) * (viewc + 1));
   if (currRow == NULL) {
     free(lastRow);
@@ -449,8 +455,9 @@ static int Fourth(MAP_UINT1 *out,          /* write-only output map  */
 
   /* allocate and initialize last and current row */
   lastRow = (REAL8 *)ChkMalloc(sizeof(REAL8) * (nrCols));
-  if (lastRow == NULL)
+  if (lastRow == NULL) {
     return 1;
+  }
   currRow = (REAL8 *)ChkMalloc(sizeof(REAL8) * (nrCols));
   if (currRow == NULL) {
     free(lastRow);
@@ -557,10 +564,11 @@ int View(MAP_UINT1 *out,          /* write-only output map  */
   PRECOND(nrCols == points->NrCols(points));
 
   /* Fill out with FALSE, this is the initial value */
-  for (r = 0; r < nrRows; r++)
+  for (r = 0; r < nrRows; r++) {
     for (c = 0; c < nrCols; c++) {
       out->Put((UINT1)0, r, c, out);
     }
+  }
 
   /* algorithm wants dem->Get() to return FALSE in case of MV */
   dem->SetGetTest(GET_MV_TEST, dem);
@@ -569,21 +577,26 @@ int View(MAP_UINT1 *out,          /* write-only output map  */
 
   /* For every view point in the points map */
   AppProgress("\nBusy with viewpoint:\n");
-  for (r = 0; r < nrRows; r++)
+  for (r = 0; r < nrRows; r++) {
     for (c = 0; c < nrCols; c++) {
       if (dem->Get(&demVal, r, c, dem) && (points->Get(&pointVal, r, c, points)) && (pointVal)) {
         v++;
         AppProgress("\r%d          ", v);
-        if (First(out, r, c, dem, points))
+        if (First(out, r, c, dem, points)) {
           return 1;
-        if (Second(out, r, c, dem, points, nrCols))
+        }
+        if (Second(out, r, c, dem, points, nrCols)) {
           return 1;
-        if (Third(out, r, c, dem, points, nrRows))
+        }
+        if (Third(out, r, c, dem, points, nrRows)) {
           return 1;
-        if (Fourth(out, r, c, dem, points, nrRows, nrCols))
+        }
+        if (Fourth(out, r, c, dem, points, nrRows, nrCols)) {
           return 1;
+        }
       }
     }
+  }
   AppEndRowProgress();
   return 0; /* successful terminated */
 }

@@ -54,19 +54,22 @@ int Move(MAP_UINT1 *result,                       /* Read-write output map  */
 
   result->PutAllMV(result);
 
-  for (r = 0; r < nrRows; r++)
+  for (r = 0; r < nrRows; r++) {
     for (c = 0; c < nrCols; c++) {
       if (in->Get(&inVal, r, c, in) && x->Get(&xColVal, r, c, x) && y->Get(&yRowVal, r, c, y)) {
         int yRowDest = r + (int)floor(YProjectionFactor() * (yRowVal / Side()));
         int xColDest = c + (int)floor(xColVal / Side());
         UINT1 resVal = 0;
 
-        if (result->Get(&resVal, yRowDest, xColDest, result))
+        if (result->Get(&resVal, yRowDest, xColDest, result)) {
           /* in the map */
-          if (resVal != 1) /* then it's mv or false */
+          if (resVal != 1) { /* then it's mv or false */
             result->Put(inVal, yRowDest, xColDest, result);
+          }
+        }
       }
     }
+  }
   return 0;
 }
 
@@ -100,13 +103,15 @@ int Shift(MAP_REAL8 *result,                       /* Read-write output map  */
 
   result->PutAllMV(result);
 
-  for (r = 0; r < nrRows; r++)
+  for (r = 0; r < nrRows; r++) {
     for (c = 0; c < nrCols; c++) {
       int yRowSrc = r + yRowVal;
       int xColSrc = c + xColVal;
-      if (in->Get(&inVal, yRowSrc, xColSrc, in))
+      if (in->Get(&inVal, yRowSrc, xColSrc, in)) {
         result->Put(inVal, r, c, result);
+      }
     }
+  }
   return 0;
 }
 
@@ -133,19 +138,21 @@ int Shift0(MAP_REAL8 *result,                       /* Read-write output map  */
 
   result->PutAllMV(result);
 
-  for (r = 0; r < nrRows; r++)
+  for (r = 0; r < nrRows; r++) {
     for (c = 0; c < nrCols; c++) {
       int yRowSrc = r + yRowVal;
       int xColSrc = c + xColVal;
-      if (in->Get(&inVal, yRowSrc, xColSrc, in))
+      if (in->Get(&inVal, yRowSrc, xColSrc, in)) {
         result->Put(inVal, r, c, result);
-      else
+      } else {
         result->Put(0.0, r, c, result);
+      }
       /*
        * BOOL 
         if (yRowDest >= 0 && yRowDest < nrRows &&
             xColVal  >= 0 && xColDest < nrCols)
       */
     }
+  }
   return 0;
 }

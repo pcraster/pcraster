@@ -37,10 +37,12 @@
 static REAL8 Trigger(REAL8 amount,     /* amount to evaluate */
                      REAL8 triggerVal) /* trigger value */
 {
-  if (triggerVal < 0)
+  if (triggerVal < 0) {
     amount = triggerVal; /* return err. neg. value */
-  if (triggerVal <= amount)
+  }
+  if (triggerVal <= amount) {
     return amount;
+  }
   return 0;
 }
 

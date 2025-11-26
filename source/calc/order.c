@@ -141,15 +141,19 @@ static INT4 Partition(MAP_INT4 *tmp,       /* read-write index map */
   pe = Gett(tmp, in, j); /* move pivot to right end */
 
   while (i < j) {
-    while (i < j && Gett(tmp, in, i) <= pe)
+    while (i < j && Gett(tmp, in, i) <= pe) {
       i++;
-    while (i < j && Gett(tmp, in, j) >= pe)
+    }
+    while (i < j && Gett(tmp, in, j) >= pe) {
       j--;
-    if (i < j)
+    }
+    if (i < j) {
       Exchange(tmp, i, j);
+    }
   }
-  if (i != right)
+  if (i != right) {
     Exchange(tmp, i, right); /* pe to partition location */
+  }
 
   return i; /* return index of partition element */
 }
@@ -168,8 +172,9 @@ static int QuickSort(INT4 partToSort, INT4 nrCells, const MAP_REAL8 *in, /* Read
   do {
     if (right > left) {
       i = Partition(tmp, in, left, right);
-      if (ChkReallocFree((void **)&stack, (pointer + 2) * sizeof(INT4)))
+      if (ChkReallocFree((void **)&stack, (pointer + 2) * sizeof(INT4))) {
         return 1;
+      }
 
 
       if (i - left > right - i) {
@@ -240,7 +245,7 @@ int Order(MAP_REAL8 *out,      /* Read-write output map  */
              * for maps
              */
   partToSort = nrCells;
-  for (r = 0; r < nrRows; r++)
+  for (r = 0; r < nrRows; r++) {
     for (c = 0; c < nrCols; c++) {
       PRECOND(id == (r * nrCols + c));
 
@@ -249,34 +254,42 @@ int Order(MAP_REAL8 *out,      /* Read-write output map  */
           /* above assures prevVal is
                      * already initialized
                      */
-          if (inputVal < prevVal)
+          if (inputVal < prevVal) {
             nrRuns++;
+          }
         }
         prevVal = inputVal;
         PutINT4(id, --partToSort, tmp);
-      } else
+      } else {
         out->PutMV(r, c, out);
+      }
       id++; /* Calculate next id */
     }
+  }
 
-  if (partToSort == nrCells)
+  if (partToSort == nrCells) {
     /* ALL MV, which are already written in above loop: ready */
     return 0;
+  }
 
   if (nrRuns == 1) {
     /* if nrRuns == 1 then everything is sorted, 
          * it is one increasing run 
          */
     id = 1;
-    for (r = 0; r < nrRows; r++)
-      for (c = 0; c < nrCols; c++)
-        if (in->Get(&inputVal, r, c, in))
+    for (r = 0; r < nrRows; r++) {
+      for (c = 0; c < nrCols; c++) {
+        if (in->Get(&inputVal, r, c, in)) {
           out->Put(id++, r, c, out);
+        }
+      }
+    }
     return 0;
   }
 
-  if (QuickSort(partToSort, nrCells, in, tmp))
+  if (QuickSort(partToSort, nrCells, in, tmp)) {
     return 1;
+  }
 
   for (i = partToSort; i < nrCells; i++) { /* result on location out[tmp[i]]  = i */
     INT4 tmpIn = 0;

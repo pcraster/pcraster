@@ -89,15 +89,17 @@ static void SpreadDown(MAP_REAL8 *outCost,        /* write-only output map  */
              * neighbor being a corner neighbor or not .
              */
       if (Corner(lddVal1)) {
-        if (appUnitTrue)
+        if (appUnitTrue) {
           totalcost = fricVal * diagonal;
-        else
+        } else {
           totalcost = fricVal * sqrt((REAL8)2);
+        }
       } else {
-        if (appUnitTrue)
+        if (appUnitTrue) {
           totalcost = fricVal * side;
-        else
+        } else {
           totalcost = fricVal;
+        }
       }
       totalcost += costVal1; /* cost current cell */
 
@@ -107,10 +109,12 @@ static void SpreadDown(MAP_REAL8 *outCost,        /* write-only output map  */
         outId->Put(id1, rNext, cNext, outId);
         r = rNext;
         c = cNext;
-      } else
+      } else {
         return; /* old path was cheaper, stop */
-    } else
+      }
+    } else {
       return; /* MV in input, stop */
+    }
   }
   return;
 }
@@ -150,12 +154,13 @@ int SpreadLdd(MAP_REAL8 *outCost,        /* write-only output map  */
   outCost->SetGetTest(GET_MV_TEST, outCost);
 
   /* Fill outIdBuf with 0, this is the initial value */
-  for (r = 0; r < nrRows; r++)
+  for (r = 0; r < nrRows; r++) {
     for (c = 0; c < nrCols; c++) {
       if (ldd->Get(&lddVal, r, c, ldd) && (points->Get(&pntVal, r, c, points)) &&
           (friction->Get(&fricVal, r, c, friction)) && (cost->Get(&initCostVal, r, c, cost))) {
-        if (fricVal < 0)
+        if (fricVal < 0) {
           return RetError(1, "spreadldd: Domain error on parameters");
+        }
         if (pntVal == 0) {
           outId->Put(0, r, c, outId);
           outCost->PutMV(r, c, outCost);
@@ -168,6 +173,7 @@ int SpreadLdd(MAP_REAL8 *outCost,        /* write-only output map  */
         outId->PutMV(r, c, outId);
       }
     }
+  }
 
   /* For every nonzero point in the pointmap perform the 
      * spread function.
@@ -175,8 +181,9 @@ int SpreadLdd(MAP_REAL8 *outCost,        /* write-only output map  */
   for (r = 0; r < nrRows; r++) {
     AppRowProgress(r);
     for (c = 0; c < nrCols; c++) {
-      if (outCost->Get(&initCostVal, r, c, outCost))
+      if (outCost->Get(&initCostVal, r, c, outCost)) {
         SpreadDown(outCost, outId, ldd, points, cost, friction, r, c);
+      }
     }
   }
   AppEndRowProgress();

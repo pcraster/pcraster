@@ -58,10 +58,11 @@ static void BuildPath(MAP_UINT1 *out,          /* write-only output map */
     r = RNeighbor(r, lddVal);
     c = CNeighbor(c, lddVal);
   }
-  if (lddVal == LDD_PIT)
+  if (lddVal == LDD_PIT) {
     out->Put(1, r, c, out); /* pit */
-  else
+  } else {
     out->PutMV(r, c, out);
+  }
 }
 
 /* Determines for each TRUE point its downstream path to pit.
@@ -90,10 +91,11 @@ int Path(MAP_UINT1 *out,          /* write-only output map  */
   PRECOND(nrCols = points->NrCols(points));
 
   /* Fill outBuf with 0, this is the initial value */
-  for (r = 0; r < nrRows; r++)
+  for (r = 0; r < nrRows; r++) {
     for (c = 0; c < nrCols; c++) {
       out->Put(0, r, c, out);
     }
+  }
 
   /* algorithm wants ldd->Get() and points->Get() to
      * return FALSE if a value is a missing value
@@ -107,10 +109,12 @@ int Path(MAP_UINT1 *out,          /* write-only output map  */
     AppRowProgress(r);
     for (c = 0; c < nrCols; c++) {
       if (ldd->Get(&lddVal, r, c, ldd) && points->Get(&pointVal, r, c, points)) {
-        if (pointVal)
+        if (pointVal) {
           BuildPath(out, ldd, points, r, c);
-      } else
+        }
+      } else {
         out->PutMV(r, c, out);
+      }
     }
   }
   AppEndRowProgress();

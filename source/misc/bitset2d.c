@@ -55,10 +55,12 @@ void SetAllBitMatrix(unsigned char **m, int nrRows, int nrCols, int v) /* 0 or 1
   int i = 0;
   int nrByteCols = (nrCols / 8) + ((nrCols % 8) != 0);
   PRECOND(v == 0 || v == 1);
-  if (v)
+  if (v) {
     v = 0xFF;
-  for (i = 0; i < nrRows; i++)
+  }
+  for (i = 0; i < nrRows; i++) {
     (void)memset(m[i], v, (size_t)nrByteCols);
+  }
 }
 
 int Set1BitMatrix(unsigned char **m, int r, int c)

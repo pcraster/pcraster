@@ -106,11 +106,13 @@ static void Lowest(int *rTo,             /* write-only flows to this one */
           nrBestDirs = 1;
           bestDirs[0] = i;
           bestDrop = thisDrop;
-        } else if (!(AppCastREAL4(thisDrop) < AppCastREAL4(bestDrop)))
+        } else if (!(AppCastREAL4(thisDrop) < AppCastREAL4(bestDrop))) {
           bestDirs[nrBestDirs++] = i;
+        }
       }
-    } else
+    } else {
       aNBisMV = true;
+    }
   }
   /* WAAL_CW
      * if (print)
@@ -126,9 +128,9 @@ static void Lowest(int *rTo,             /* write-only flows to this one */
     return;
   }
   PRECOND(nrBestDirs > 0);
-  if (bestDrop == 0 || nrBestDirs == 1) /* a flat or no conflict */
+  if (bestDrop == 0 || nrBestDirs == 1) { /* a flat or no conflict */
     i = 0;
-  else {
+  } else {
     PRECOND(nrBestDirs > 1);
     /* multiple outflow directions found */
     /* Check on multiple candidates */
@@ -172,14 +174,15 @@ static void Step1(MAP_UINT1 *ldd,       /* write-only output ldd map,
     PRECOND(dem->Get(&toDem, rTo, cTo, dem));
 
     (void)dem->Get(&toDem, rTo, cTo, dem);
-    if (toDem == demVal) /* a flat found */
+    if (toDem == demVal) { /* a flat found */
       ldd->Put(0, r, c, ldd);
-    else {
+    } else {
       /* Simple case */
       ldd->Put(Ldddir(r, c, rTo, cTo), r, c, ldd);
     }
-  } else
+  } else {
     ldd->Put(LDD_PIT, r, c, ldd); /* pit, neighbors higher */
+  }
 }
 
 /* Calculates the ldd directions on a flat of type 1.
@@ -257,7 +260,7 @@ static bool Step3(MAP_UINT1 *ldd,       /* read-write ldd.map */
     UINT1 v = 0;
     if (ldd->Get(&v, rNB, cNB, ldd) && IS_VALID_CODE(v) &&
         FlowsTo(v, rNB, cNB, r, c) /* NB flows in current */
-    )
+    ) {
       FOR_ALL_LDD_NONDIAGONAL_NBS(j)
       {
         REAL8 demNB = NAN;
@@ -270,6 +273,7 @@ static bool Step3(MAP_UINT1 *ldd,       /* read-write ldd.map */
           return true;
         }
       }
+    }
   }
   return false;
 }
@@ -306,11 +310,13 @@ fflush(0);
      */
   for (r = 0; r < nrRows; r++) {
     AppRowProgress(r);
-    for (c = 0; c < nrCols; c++)
-      if (dem->Get(&demVal, r, c, dem))
+    for (c = 0; c < nrCols; c++) {
+      if (dem->Get(&demVal, r, c, dem)) {
         Step1(ldd, dem, demVal, r, c);
-      else
+      } else {
         ldd->PutMV(r, c, ldd);
+      }
+    }
   }
   /* Do CALL for second phase */
   AppProgress("\nFlats of type 1:\n");
@@ -319,16 +325,23 @@ fflush(0);
   {
 
     cellsFixed = false;
-    for (r = 0; r < nrRows; r++)
-      for (c = 0; c < nrCols; c++)
-        if (ldd->Get(&outVal, r, c, ldd) && (outVal == 0)) /* to be solved */
+    for (r = 0; r < nrRows; r++) {
+      for (c = 0; c < nrCols; c++) {
+        if (ldd->Get(&outVal, r, c, ldd) && (outVal == 0)) { /* to be solved */
           cellsFixed |= Step2(ldd, dem, r, c);
+        }
+      }
+    }
     /* replace temp codes */
-    if (cellsFixed)
-      for (r = 0; r < nrRows; r++)
-        for (c = 0; c < nrCols; c++)
-          if (ldd->Get(&outVal, r, c, ldd) && IS_TEMP_CODE(outVal))
+    if (cellsFixed) {
+      for (r = 0; r < nrRows; r++) {
+        for (c = 0; c < nrCols; c++) {
+          if (ldd->Get(&outVal, r, c, ldd) && IS_TEMP_CODE(outVal)) {
             ldd->Put(MAKE_VALID_CODE(outVal), r, c, ldd);
+          }
+        }
+      }
+    }
   }
 
   /* Do CALL for third phase */
@@ -338,27 +351,37 @@ fflush(0);
   {
 
     cellsFixed = false;
-    for (r = 0; r < nrRows; r++)
-      for (c = 0; c < nrCols; c++)
-        if (ldd->Get(&outVal, r, c, ldd) && (outVal == 0)) /* to be solved */
+    for (r = 0; r < nrRows; r++) {
+      for (c = 0; c < nrCols; c++) {
+        if (ldd->Get(&outVal, r, c, ldd) && (outVal == 0)) { /* to be solved */
           cellsFixed |= Step3(ldd, dem, r, c);
+        }
+      }
+    }
     /* replace temp codes */
-    if (cellsFixed)
-      for (r = 0; r < nrRows; r++)
-        for (c = 0; c < nrCols; c++)
-          if (ldd->Get(&outVal, r, c, ldd) && IS_TEMP_CODE(outVal))
+    if (cellsFixed) {
+      for (r = 0; r < nrRows; r++) {
+        for (c = 0; c < nrCols; c++) {
+          if (ldd->Get(&outVal, r, c, ldd) && IS_TEMP_CODE(outVal)) {
             ldd->Put(MAKE_VALID_CODE(outVal), r, c, ldd);
+          }
+        }
+      }
+    }
   }
 
   /* remaining 0's are pits
      */
-  for (r = 0; r < nrRows; r++)
-    for (c = 0; c < nrCols; c++)
+  for (r = 0; r < nrRows; r++) {
+    for (c = 0; c < nrCols; c++) {
       if (ldd->Get(&outVal, r, c, ldd)) {
         POSTCOND(!IS_TEMP_CODE(outVal));
-        if (outVal == 0)
+        if (outVal == 0) {
           ldd->Put(LDD_PIT, r, c, ldd);
+        }
       }
+    }
+  }
   /* check if we have a sound ldd
      */
   POSTCOND((!RepairLdd(ldd, ldd)) && (!repairLddModifiedMap));

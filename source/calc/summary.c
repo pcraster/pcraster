@@ -63,8 +63,9 @@ static void DirectionalStatistics(long double *mean,          /* write-only, mea
   R = sqrt(tC * tC + tS * tS);
   meanIn = atan2(tS / R, tC / R);
 
-  for (i = 0, p = samples; i < n; p++, i++)
+  for (i = 0, p = samples; i < n; p++, i++) {
     tD += cos(*p - meanIn);
+  }
 
   D = 1 - tD / n;
   *mean = meanIn;
@@ -94,17 +95,20 @@ static int ClassSummary(TIME_TABLE *t,         /* read-write table to add to */
   PRECOND(expr->GetGetTest(expr) == GET_MV_TEST);
 
   /* scan map for minimum and maximum value */
-  for (r = 0; r < nrRows; r++)
+  for (r = 0; r < nrRows; r++) {
     for (c = 0; c < nrCols; c++) {
       REAL8 val = NAN;
       if (expr->Get(&val, r, c, expr)) {
         n++;
-        if (val < min)
+        if (val < min) {
           min = val;
-        if (val > max)
+        }
+        if (val > max) {
           max = val;
+        }
       }
     }
+  }
 
   /* Consider special case */
   if (n == 0) {
@@ -116,27 +120,32 @@ static int ClassSummary(TIME_TABLE *t,         /* read-write table to add to */
   }
 
   /* determine the majority */
-  if ((score = ChkMalloc(sizeof(REAL8) * (int)((max - min) + 1))) == NULL)
+  if ((score = ChkMalloc(sizeof(REAL8) * (int)((max - min) + 1))) == NULL) {
     return 1;
-  for (i = (int)min; i <= (int)max; i++)
+  }
+  for (i = (int)min; i <= (int)max; i++) {
     score[i - (int)min] = 0;
+  }
 
   /* Scan map for majority */
-  for (r = 0; r < nrRows; r++)
+  for (r = 0; r < nrRows; r++) {
     for (c = 0; c < nrCols; c++) {
       REAL8 val = NAN;
       if (expr->Get(&val, r, c, expr)) {
         int index = (int)(val - min);
         score[index]++;
-        if (score[index] > maxScore)
+        if (score[index] > maxScore) {
           maxScore = score[index];
+        }
       }
     }
+  }
 
   /* Search for minimum value with highest score */
   c = (int)min;
-  while (score[c - (int)min] != maxScore)
+  while (score[c - (int)min] != maxScore) {
     c++;
+  }
   majority = c;
 
   /* Write characteristics to table */
@@ -165,16 +174,18 @@ static void BooleanSummary(TIME_TABLE *t,         /* read-write table to add to 
   PRECOND(expr->GetGetTest(expr) == GET_MV_TEST);
 
   /* Scan map for statistics */
-  for (r = 0; r < nrRows; r++)
+  for (r = 0; r < nrRows; r++) {
     for (c = 0; c < nrCols; c++) {
       if (expr->Get(&val, r, c, expr)) {
         n++;
-        if (val == 0)
+        if (val == 0) {
           nrFalse++;
-        else
+        } else {
           nrTrue++;
+        }
       }
     }
+  }
   t->vals[currTimeStep][0] = n;
   t->vals[currTimeStep][1] = nrFalse;
   t->vals[currTimeStep][2] = nrTrue;
@@ -207,17 +218,20 @@ static void ScalarSummary(TIME_TABLE *t,         /* read-write table to add to *
   PRECOND(expr->GetGetTest(expr) == GET_MV_TEST);
 
   /* Scan map for mean, min, max and n */
-  for (r = 0; r < nrRows; r++)
+  for (r = 0; r < nrRows; r++) {
     for (c = 0; c < nrCols; c++) { /* consider only non-MV pixels */
       if (expr->Get(&val, r, c, expr)) {
         n++;
-        if (val > max)
+        if (val > max) {
           max = val;
-        if (val < min)
+        }
+        if (val < min) {
           min = val;
+        }
         sum += val;
       }
     }
+  }
 
   /* scan map for standard deviation */
   if (n == 1 || n == 0) {
@@ -226,12 +240,14 @@ static void ScalarSummary(TIME_TABLE *t,         /* read-write table to add to *
   } else {
     mean = sum / (REAL8)n;
     sum = 0;
-    for (r = 0; r < nrRows; r++)
+    for (r = 0; r < nrRows; r++) {
       for (c = 0; c < nrCols; c++) {
-        if (expr->Get(&val, r, c, expr))
+        if (expr->Get(&val, r, c, expr)) {
           sum += pow((val - mean), (double)2) / n;
+        }
         /* (n - 1); */
       }
+    }
     sd = sqrt(sum);
   }
 
@@ -275,16 +291,19 @@ static int DirectionSummary(TIME_TABLE *t,         /* read-write table to add to
   PRECOND(expr->GetGetTest(expr) == GET_MV_TEST);
 
   /* Scan map for min, max and n */
-  for (r = 0; r < nrRows; r++)
+  for (r = 0; r < nrRows; r++) {
     for (c = 0; c < nrCols; c++) { /* consider only non-MV pixels */
       if (expr->Get(&val, r, c, expr)) {
         n++;
-        if (val > max)
+        if (val > max) {
           max = val;
-        if (val < min)
+        }
+        if (val < min) {
           min = val;
+        }
       }
     }
+  }
 
   /* Consider special case of n = 0 */
   if (n == 0) {
@@ -296,12 +315,13 @@ static int DirectionSummary(TIME_TABLE *t,         /* read-write table to add to
     return 0;
   }
 
-  if ((vals = ChkMalloc(sizeof(long double) * n)) == NULL)
+  if ((vals = ChkMalloc(sizeof(long double) * n)) == NULL) {
     return 1;
+  }
 
   /* Scan map for mean and standard deviation */
   i = 0;
-  for (r = 0; r < nrRows; r++)
+  for (r = 0; r < nrRows; r++) {
     for (c = 0; c < nrCols; c++) { /* consider only non-MV pixels */
       if (expr->Get(&val, r, c, expr)) {
         vals[i] = val;
@@ -310,9 +330,11 @@ static int DirectionSummary(TIME_TABLE *t,         /* read-write table to add to
       if (n == 1 || n == 0) { /* consider special cases */
         sd = 0;
         mean = 0;
-      } else
+      } else {
         DirectionalStatistics(&mean, &sd, vals, n);
+      }
     }
+  }
 
   /* Put characteristis in table */
   t->vals[currTimeStep][0] = n;
@@ -388,8 +410,9 @@ TIME_TABLE *CreateSummaryTable(int nrTimeSteps, /* number of time steps */
   }
 
   /* allocate and initialize the table */
-  if ((t = ChkMalloc(sizeof(TIME_TABLE))) == NULL)
+  if ((t = ChkMalloc(sizeof(TIME_TABLE))) == NULL) {
     return NULL;
+  }
   t->vs = vs;
   t->nrSteps = nrTimeSteps;
   t->nrCols = nrCols;

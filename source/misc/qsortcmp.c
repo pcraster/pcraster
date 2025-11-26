@@ -47,8 +47,9 @@ int CmpFloat(const float *e1, /* pointer to single float */
              const float *e2) /* pointer to single float */
 {
   double e1_min_e2 = (*e1) - (*e2);
-  if (e1_min_e2 < 0)
+  if (e1_min_e2 < 0) {
     return (-1);
+  }
   return (e1_min_e2 > 0);
 }
 
@@ -67,7 +68,8 @@ int CmpDouble(const double *e1, /* pointer to single double */
 {
   /* see cmpdoubl.s for GNU def */
   register double e1_min_e2 = (*e1) - (*e2);
-  if (e1_min_e2 < 0)
+  if (e1_min_e2 < 0) {
     return (-1);
+  }
   return (e1_min_e2 > 0);
 }

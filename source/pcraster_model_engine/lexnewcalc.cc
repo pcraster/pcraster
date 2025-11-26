@@ -1021,7 +1021,7 @@ YY_RULE_SETUP
                                * and trashes on the next point
                                */
 
-                  value = atol((char *)yytext);
+                  value = atol(yytext);
                   if (value < (long)INT_MIN || value > (long)INT_MAX)
                      RETURN_FLOAT;
                   RETURN_INT(atoi((char *)yytext),TOK_INT);
@@ -1924,7 +1924,7 @@ static int yy_flex_strlen (yyconst char * s )
 
 void *gramalloc (yy_size_t  size )
 {
-	return (void *) malloc( size );
+	return malloc( size );
 }
 
 void *gramrealloc  (void * ptr, yy_size_t  size )
@@ -1936,7 +1936,7 @@ void *gramrealloc  (void * ptr, yy_size_t  size )
 	 * any pointer type to void*, and deal with argument conversions
 	 * as though doing an assignment.
 	 */
-	return (void *) realloc( (char *) ptr, size );
+	return realloc( (char *) ptr, size );
 }
 
 void gramfree (void * ptr )

@@ -426,7 +426,7 @@ void IOStrategy::transferMemoryExchangeItemIntoDataTransferArray(
        std::shared_ptr<MemoryExchangeItem>(i);
 
       // change user's d_dataTransferArray
-      d_dataTransferArray[id] = (void *)(i->rawValue());
+      d_dataTransferArray[id] = i->rawValue();
    }
 }
 

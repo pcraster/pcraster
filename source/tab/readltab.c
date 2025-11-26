@@ -65,7 +65,7 @@ static int IllegalState(LOOK_UP_KEY *k, int token, const char *legals) /* number
     if (token != LEX_EOL) {
       p = LexGetTokenValue();
     }
-    (void)ErrorNested("read '%s' expected%s '%s'%s", p, one, l, num);
+    ErrorNested("read '%s' expected%s '%s'%s", p, one, l, num);
   }
   return 1;
 }

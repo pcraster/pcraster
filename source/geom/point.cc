@@ -711,7 +711,7 @@ double CWAngle(const POINT2D *p) /* the point */
  */
 double Dist(const POINT2D *p1, const POINT2D *p2)
 {
-    return ((double)hypot((p1->x) - (p2->x), (p1->y) - (p2->y)));
+    return (hypot((p1->x) - (p2->x), (p1->y) - (p2->y)));
 }
 
 /* compare two points
@@ -922,7 +922,7 @@ int IntersectAllignedRectangles(
     // Such a line/polygon may incorrectly get a very
     // small area assigned due to floating point operations
     static boost::math::fpc::close_at_tolerance<double> const tester(
-        boost::math::fpc::fpc_detail::fraction_tolerance<double>(double(1e-8)),
+        boost::math::fpc::fpc_detail::fraction_tolerance<double>(1e-8),
         boost::math::fpc::FPC_STRONG);
 
     if (tester(static_cast<double>(yMax), static_cast<double>(yMin)) ||

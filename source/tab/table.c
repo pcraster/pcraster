@@ -221,7 +221,7 @@ void *STinsert(SEARCH_TABLE *t, /* read-write table */
 {
   void *c = NULL;
   t->nrSlowList++;
-  c = (void *)ChkRealloc(t->slowList, t->nrSlowList * t->recSize);
+  c = ChkRealloc(t->slowList, t->nrSlowList * t->recSize);
   if (c == NULL) {
     return NULL;
   }

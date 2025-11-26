@@ -135,7 +135,7 @@ Properties& Driver::properties(
     std::string const& key) const
 {
   if(!hasProperties(key)) {
-    const_cast<Properties&>(d_datasetProperties).setValue<Properties>(key,
+    d_datasetProperties.setValue<Properties>(key,
          Properties());
   }
 

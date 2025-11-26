@@ -443,7 +443,7 @@ pybind11::tuple fieldGetCellIndex(
 
   pybind11::tuple tuple;
   double value = 0;
-  bool const isValid = field->getCell(value, static_cast<size_t>(index));
+  bool const isValid = field->getCell(value, index);
 
   switch(field->vs()) {
     case VS_B: {
@@ -528,7 +528,7 @@ pybind11::tuple cellvalue_by_index(
 
   pybind11::tuple tuple;
   double value = 0;
-  bool const isValid = field->getCell(value, static_cast<size_t>(index));
+  bool const isValid = field->getCell(value, index);
 
   switch(field->vs()) {
     case VS_B: {
@@ -685,9 +685,9 @@ calc::Field* closeAtTolerance(calc::Field const * result,
 
   for(size_t i = 0; i < nrCells; ++i) {
     double validatedValue = NAN;
-    validated->getCell(validatedValue, static_cast<size_t>(i));
+    validated->getCell(validatedValue, i);
     double resultValue = NAN;
-    result->getCell(resultValue, static_cast<size_t>(i));
+    result->getCell(resultValue, i);
 
     if(!pcr::isMV(validatedValue)){
       if(!pcr::isMV(resultValue)){

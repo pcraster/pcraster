@@ -171,7 +171,7 @@ NODE *RemFromList(NODE *list) /* read-write list of cells */
   PRECOND(list != NULL); /* can not remove from empty list */
   tmp = list;
   list = list->prev;
-  Free((NODE *)tmp);
+  Free(tmp);
 
 #ifdef DEBUG_DEVELOP
   PRECOND(currListNodes > 0);

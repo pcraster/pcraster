@@ -297,8 +297,7 @@ void FeatureLayerDrawer::drawMultiPoint(
   int const nrGeometries = multiPoint.getNumGeometries();
 
   for(int i = 0; i < nrGeometries; ++i) {
-    auto const& point(dynamic_cast<OGRPoint const&>(
-        *multiPoint.getGeometryRef(i)));
+    auto const& point( (*multiPoint.getGeometryRef(i)));
     drawPoint(painter, world_to_screen, screen_to_world, featureId, point);
   }
 }
@@ -315,8 +314,7 @@ void FeatureLayerDrawer::drawMultiLine(
   int const nrGeometries = multiLine.getNumGeometries();
 
   for(int i = 0; i < nrGeometries; ++i) {
-    auto const& line(dynamic_cast<OGRLineString const&>(
-        *multiLine.getGeometryRef(i)));
+    auto const& line( (*multiLine.getGeometryRef(i)));
     drawLine(painter, world_to_screen, screen_to_world, featureId, line);
   }
 }
@@ -333,8 +331,7 @@ void FeatureLayerDrawer::drawMultiPolygon(
   int const nrGeometries = multiPolygon.getNumGeometries();
 
   for(int i = 0; i < nrGeometries; ++i) {
-    auto const& polygon(dynamic_cast<OGRPolygon const&>(
-        *multiPolygon.getGeometryRef(i)));
+    auto const& polygon( (*multiPolygon.getGeometryRef(i)));
     drawPolygon(painter, world_to_screen, screen_to_world, featureId, polygon);
   }
 }

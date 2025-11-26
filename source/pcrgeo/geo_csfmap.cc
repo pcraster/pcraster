@@ -599,7 +599,7 @@ com::Legend<INT4> geo::CSFMap::legend() const
     try {
       size_t const n = nrLegendEntries();
       PRECOND(n > 0);
-      l = static_cast<CSF_LEGEND *>(new CSF_LEGEND[n]);
+      l = new CSF_LEGEND[n];
 
       if(MgetLegend(d_map, l) == 0) {
         throw com::Exception("Unable to read csf-legend");
@@ -610,7 +610,7 @@ com::Legend<INT4> geo::CSFMap::legend() const
 
       auto it = legend.begin();
       for(size_t i = 1; i < n; ++i) {
-        (*it).setValue(static_cast<INT4>(l[i].nr));
+        (*it).setValue(l[i].nr);
         (*it).setDescr(l[i].descr);
         ++it;
       }

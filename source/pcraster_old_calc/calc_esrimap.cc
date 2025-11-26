@@ -68,8 +68,8 @@ calc::EsriMap::EsriMap(const std::string& fileName):
   double dummyAdjBndBox[4] = { 0,0,0,0 };
   calc::EsriGridIO::privateAccessWindowSet(d_chanId, d_box, d_cellSize,
     dummyAdjBndBox, nrRows, nrCols);
-  d_nrRows = static_cast<size_t>(nrRows);
-  d_nrCols = static_cast<size_t>(nrCols);
+  d_nrRows = nrRows;
+  d_nrCols = nrCols;
   EsriGridIO::privateAccessWindowClear(d_chanId);
 }
 

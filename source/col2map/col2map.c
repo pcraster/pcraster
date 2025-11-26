@@ -183,7 +183,7 @@ static int CalcSortTable(REAL8 **recs, size_t nrRecs, size_t idNotUsed) {
         recs[new->index][POS_COUNT]++;
     }
     STfree(table);
-    qsort(recs, (size_t)nrRecs, sizeof(REAL8 *), (QSORT_CMP)CmpCountVal);
+    qsort(recs, nrRecs, sizeof(REAL8 *), (QSORT_CMP)CmpCountVal);
     return 0;
 }
 
@@ -404,7 +404,7 @@ int Col2Map(
     CalcRecordId(out);
 
     /* Sort records on cell ID, ID outside map = -1 */
-    qsort(recList, (size_t)nrRecords, sizeof(REAL8 *), (QSORT_CMP)CmpId);
+    qsort(recList, nrRecords, sizeof(REAL8 *), (QSORT_CMP)CmpId);
 
     /* skip over records outside map */
     ri = 0;

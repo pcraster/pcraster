@@ -1680,7 +1680,7 @@ static int yy_flex_strlen (yyconst char * s )
 
 void *yyalloc (yy_size_t  size )
 {
-	return (void *) malloc( size );
+	return malloc( size );
 }
 
 void *yyrealloc  (void * ptr, yy_size_t  size )
@@ -1692,7 +1692,7 @@ void *yyrealloc  (void * ptr, yy_size_t  size )
 	 * any pointer type to void*, and deal with argument conversions
 	 * as though doing an assignment.
 	 */
-	return (void *) realloc( (char *) ptr, size );
+	return realloc( (char *) ptr, size );
 }
 
 void yyfree (void * ptr )

@@ -506,7 +506,7 @@ void geo::BandMap::getCellsAsINT4(INT4 *buf) const
   if (d_cellRepr == CR_UINT1) {
     getCellsAsUINT1((UINT1 *)buf); // with MV handling on UINT1
     // copy with MV transformation
-    com::copyCells((INT4 *)buf,(const UINT1 *)buf,nrCells());
+    com::copyCells(buf,(const UINT1 *)buf,nrCells());
   } else {
     PRECOND(d_cellRepr == CR_INT2);
 
@@ -528,7 +528,7 @@ void geo::BandMap::getCellsAsREAL4(REAL4 *buf) const
    case CR_UINT1:
     getCellsAsUINT1((UINT1 *)buf); // with MV handling on UINT1
     // copy with MV transformation
-    com::copyCells((REAL4 *)buf,(const UINT1 *)buf,nrCells());
+    com::copyCells(buf,(const UINT1 *)buf,nrCells());
     break;
 
    case CR_INT2:

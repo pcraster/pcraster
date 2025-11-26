@@ -142,7 +142,7 @@ MAP_UINT1 *CreateSpatialUINT1(CSF_CR cr, size_t nrRows, size_t nrCols)
   }
   if (cr == CR_REAL8)
     cr = CR_REAL4;
-  buf = ChkMalloc((size_t)(nrRows * nrCols * CELLSIZE(cr)));
+  buf = ChkMalloc(nrRows * nrCols * CELLSIZE(cr));
   if (buf == NULL)
     return NULL;
   map = InitMapUINT1(nrRows, nrCols, buf, true, cr);
@@ -293,7 +293,7 @@ MAP_INT4 *CreateSpatialINT4(CSF_CR cr, size_t nrRows, size_t nrCols)
   }
   if (cr == CR_REAL8)
     cr = CR_REAL4;
-  buf = ChkMalloc((size_t)(nrRows * nrCols * CELLSIZE(cr)));
+  buf = ChkMalloc(nrRows * nrCols * CELLSIZE(cr));
   if (buf == NULL)
     return NULL;
   map = InitMapINT4(nrRows, nrCols, buf, true, cr);
@@ -444,7 +444,7 @@ MAP_REAL8 *CreateSpatialREAL8(CSF_CR cr, size_t nrRows, size_t nrCols)
   }
   if (cr == CR_REAL8)
     cr = CR_REAL4;
-  buf = ChkMalloc((size_t)(nrRows * nrCols * CELLSIZE(cr)));
+  buf = ChkMalloc(nrRows * nrCols * CELLSIZE(cr));
   if (buf == NULL)
     return NULL;
   map = InitMapREAL8(nrRows, nrCols, buf, true, cr);

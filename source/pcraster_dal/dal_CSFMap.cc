@@ -680,7 +680,7 @@ Table CSFMap::legend() const
     legend.setTitle(csfLegend[0].descr);
 
     for(size_t i = 1; i < nrEntries; ++i) {
-      legend.col<INT4>(0)[i - 1] = static_cast<INT4>(csfLegend[i].nr);
+      legend.col<INT4>(0)[i - 1] = csfLegend[i].nr;
       legend.col<std::string>(1)[i - 1] = csfLegend[i].descr;
     }
   }

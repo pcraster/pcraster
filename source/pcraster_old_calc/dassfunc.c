@@ -139,7 +139,7 @@ int Do_lddcreate_impl(void *l, void *d, const void **ins)
     printf("PIT REMOVER DISABLED\n");
 #error ARE YOU SURE?
 #else
-  r = PitRem((MAP_UINT1 *)l, (MAP_REAL8 *)d,(MAP_INT4 *)t,
+  r = PitRem((MAP_UINT1 *)l, (MAP_REAL8 *)d,t,
            (const MAP_REAL8 *)ins[0],
            (const MAP_REAL8 *)ins[1],
            (const MAP_REAL8 *)ins[2],

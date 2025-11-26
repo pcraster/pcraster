@@ -470,13 +470,13 @@ static int DetRasterSize(const MAP *out,   /* write-only output map */
   for (i = 0; i < nrMaps; i++) {
     MAP *X = in[i];
     cellSize = RgetCellSize(X);
-    n = (REAL8)cellSize / minCellSize;
+    n = cellSize / minCellSize;
     if ((REAL8)(int)n < n - EPSILON || n + EPSILON < (REAL8)(int)n) {
       return 0; /* RASTERSIZE NOT MODIFIED */
     }
   }
   cellSize = RgetCellSize(out);
-  n = (REAL8)cellSize / minCellSize;
+  n = cellSize / minCellSize;
 
   if ((REAL8)(int)n < n - EPSILON || n + EPSILON < (REAL8)(int)n) {
     return 0;
@@ -672,8 +672,8 @@ int main(int argc,     /* number of arguments */
       cellSize = RgetCellSize(tmp) * resampleN;
     }
     if (contract) {
-      nrRows = floor((double)nrRows / (double)resampleN);
-      nrCols = floor((double)nrCols / (double)resampleN);
+      nrRows = floor((double)nrRows / resampleN);
+      nrCols = floor((double)nrCols / resampleN);
 
       /* Prevent an illegal map */
       if (nrRows == 0) {
@@ -683,8 +683,8 @@ int main(int argc,     /* number of arguments */
         nrCols = 1;
       }
     } else {
-      nrRows = ceil((double)nrRows / (double)resampleN);
-      nrCols = ceil((double)nrCols / (double)resampleN);
+      nrRows = ceil((double)nrRows / resampleN);
+      nrCols = ceil((double)nrCols / resampleN);
     }
   } else {
     cellSize = RgetCellSize(clone);

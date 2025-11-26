@@ -37,7 +37,7 @@
 static int DetRow(int nrCols, /* number of columns */
                   int i)      /* index in map */
 {
-  int row = (int)(i / nrCols);
+  int row = (i / nrCols);
   return row;
 }
 

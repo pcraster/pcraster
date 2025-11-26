@@ -129,7 +129,7 @@ void SetRan(unsigned int seed) /* value >= 0. If 0 then seed is taken from
         i = seed;
     a = ((i << 16) >> 16);
     b = i >> 16;
-    (void)start_random_number((int)a, (int)b);
+    start_random_number((int)a, (int)b);
 }
 
 /* draw from standard normal distribution

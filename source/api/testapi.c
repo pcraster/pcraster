@@ -86,7 +86,7 @@ static void *ReadMapContents(MAP *m, CSF_CR outCr, size_t nrRows, size_t nrCols)
   if (buf == NULL)
     return NULL;
   RgetSomeCells(m, (size_t)0, nrRows * nrCols, buf);
-  buf = ChkRealloc(buf, (size_t)(nrRows * nrCols * CELLSIZE(outCr)));
+  buf = ChkRealloc(buf, nrRows * nrCols * CELLSIZE(outCr));
   POSTCOND(buf != NULL); /* realloc always smalller */
   return buf;
 }

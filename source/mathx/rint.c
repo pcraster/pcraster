@@ -14,11 +14,11 @@
 double Rint(double x) /* value to be rounded  */
 {
     double t = fabs(x);
-    if (t - floor(t) >= (double)0.5)
+    if (t - floor(t) >= 0.5)
         t = ceil(t);
     else
         t = floor(t);
-    if (x < (double)0.0)
+    if (x < 0.0)
         t = -t;
     return t;
 }

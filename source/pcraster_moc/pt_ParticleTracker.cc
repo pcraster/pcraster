@@ -878,11 +878,11 @@ void pt::ParticleTracker::calculateDispersionEquationCoefficients(
 
   // i + 1/2, j -> right side
   _disp3 = b_right * Dxy_right /
-         static_cast<double>(4 * cellWidth() * cellHeight());
+         (4 * cellWidth() * cellHeight());
 
   // i, j + 1/2 -> bottom side
   _disp4 = b_bottom * Dxy_bottom /
-         static_cast<double>(4 * cellWidth() * cellHeight());
+         (4 * cellWidth() * cellHeight());
 
   // These variables might introduce missing values within the aquifer.
   adjustAquifer(_disp1);

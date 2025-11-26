@@ -170,7 +170,7 @@ void BAS::getHeadsFromBinary(std::string const& path){
     size_t const cellMax = d_mf->d_nrOfCells;
     //int k = 0;
     for(size_t pos = 0; pos < cellMax; pos++){
-      auto val = static_cast<REAL4>( floatData[pos]);
+      auto val = floatData[pos];
       d_mf->d_initialHead->cell(pos)[blockLayer] =  val;
     }
     // read the tailing bytes, discard content

@@ -294,7 +294,7 @@ LOOK_UP_TABLE *
 MakeNewCrossTable(MAP **maps, size_t nrMaps, size_t nrInt, /* number of intervals */
                   size_t nrSlots) /* number of histo slots, 0 if not histogram stretched */
 {
-  LOOK_UP_TABLE **s = ChkCalloc((size_t)nrMaps, sizeof(LOOK_UP_TABLE *));
+  LOOK_UP_TABLE **s = ChkCalloc(nrMaps, sizeof(LOOK_UP_TABLE *));
   /* array of single tables, NULL init */
   LOOK_UP_TABLE *t = NULL; /* final table, if set in loop then histo */
   size_t *count = NULL;

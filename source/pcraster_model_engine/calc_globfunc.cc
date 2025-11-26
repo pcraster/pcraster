@@ -94,7 +94,7 @@ struct AccumTT : public MapReal8 {
        } else
           friction.map()->PutMV(r,c, friction.map());
      }
-   lddDistResult = Ldddist((MAP_REAL8 *)map(),ldd, pits.map(), friction.map(), false);
+   lddDistResult = Ldddist(map(),ldd, pits.map(), friction.map(), false);
  }
 };
 
@@ -195,7 +195,7 @@ int Do_lddcreate(void *l, void *d, const void **ins)
     return r;
 
   MapInt4 const t(ldd->nrRows,ldd->nrCols);
-  return PitRem((MAP_UINT1 *)l, (MAP_REAL8 *)d,(MAP_INT4 *)t.map(),
+  return PitRem((MAP_UINT1 *)l, (MAP_REAL8 *)d,t.map(),
            (const MAP_REAL8 *)ins[0],
            (const MAP_REAL8 *)ins[1],
            (const MAP_REAL8 *)ins[2],

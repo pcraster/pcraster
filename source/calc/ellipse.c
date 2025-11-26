@@ -84,7 +84,7 @@ static void Add2Lines(HOR_CUT_LINE *l, int nrLines, int xCeil, REAL8 c, REAL8 s,
 {
   REAL8 xRot = (x * c) - (y * s);
   REAL8 yRot = (x * s) - (y * c);
-  int xInd = ((int)floor(xRot)) + (int)xCeil;
+  int xInd = ((int)floor(xRot)) + xCeil;
   POSTCOND(xInd >= 0 && xInd < nrLines);
   if (IS_MV_REAL4(&(l[xInd].start.f))) {
     l[xInd].start.f = POSSIBLE_DATA_LOSS(REAL4, yRot);

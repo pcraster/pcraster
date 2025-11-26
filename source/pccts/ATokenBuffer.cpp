@@ -67,7 +67,7 @@ ANTLRTokenBuffer(ANTLRTokenStream *_input, int _k, int _chunk_size_formal) /* MR
 	next = &buffer[0];
 	num_markers = 0;
 	end_of_buffer = &buffer[buffer_size-1];
-	threshold = &buffer[(int)(buffer_size/2)];	// MR23 - Used to be 1.0/2.0 !
+	threshold = &buffer[(buffer_size/2)];	// MR23 - Used to be 1.0/2.0 !
 	_deleteTokens = 1; 	// assume we delete tokens
 	parser=nullptr;				// MR5 - uninitialized reference
 }

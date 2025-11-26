@@ -128,7 +128,7 @@ void Do_acos(
     if (fabs(val[i]) > (REAL4)1.0)
       SET_MV_REAL4(val+i);
     else
-      val[i] = (REAL4)acos((REAL4)val[i]);
+      val[i] = (REAL4)acos(val[i]);
   }
 }
 
@@ -143,7 +143,7 @@ void Do_asin(
   if (! IS_MV_REAL4(val+i))
   {
     t = val[i];
-    if (fabs(t) > (double)1.0)
+    if (fabs(t) > 1.0)
       SET_MV_REAL4(val+i);
     else
     {
@@ -164,7 +164,7 @@ void Do_atan(
   for(i=0; i < n; i++)
   if (! IS_MV_REAL4(val+i))
   {
-    t = atan((REAL4)val[i]);
+    t = atan(val[i]);
     val[i] = (REAL4)ScaleRad(t);
   }
 }
@@ -185,7 +185,7 @@ void Do_tan_d(
            || tan_mv2 == val[i])
       SET_MV_REAL4(val+i);
     else
-      val[i] = (REAL4)tan((REAL4)val[i]);
+      val[i] = (REAL4)tan(val[i]);
   }
 }
 
@@ -199,7 +199,7 @@ void Do_sin_d(
   if (! IS_MV_REAL4(val+i))
   {
     if (val[i] != (REAL4)-1)
-      val[i] = (REAL4)sin((REAL4)val[i]);
+      val[i] = (REAL4)sin(val[i]);
     else
       SET_MV_REAL4(val+i);
   }
@@ -215,7 +215,7 @@ void Do_cos_d(
   if (! IS_MV_REAL4(val+i))
   {
     if (val[i] != (REAL4)-1)
-      val[i] = (REAL4)cos((REAL4)val[i]);
+      val[i] = (REAL4)cos(val[i]);
     else
       SET_MV_REAL4(val+i);
   }
@@ -249,7 +249,7 @@ void Do_ln(
   if (! IS_MV_REAL4(val+i))
   {
     if (val[i] > (REAL4)0.0)
-      val[i] = (REAL4)log((REAL4)val[i]);
+      val[i] = (REAL4)log(val[i]);
     else
       SET_MV_REAL4(val+i);
   }
@@ -266,7 +266,7 @@ void Do_log10(
   if (! IS_MV_REAL4(val+i))
   {
     if (val[i] > (REAL4)0.0)
-      val[i] = (REAL4)log10((REAL4)val[i]);
+      val[i] = (REAL4)log10(val[i]);
     else
       SET_MV_REAL4(val+i);
   }

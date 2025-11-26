@@ -112,7 +112,7 @@ double SpaceStepMapper::destination(
 {
   assert(isValid());
 
-  return d_coordinate + d_cellSize * (double(index) - d_index);
+  return d_coordinate + d_cellSize * (index - d_index);
 }
 
 

@@ -40,30 +40,30 @@
 int Slope(MAP_REAL8 *slope,     /* Read-write slope output map  */
           const MAP_REAL8 *dem) /* Digital Elevation Model */
 {
-    REAL8 demVal = NAN; /* value read in dem.map */
-    int nrRows = 0;
-    int nrCols = 0;
-    int r = 0;
-    int c = 0;
+  REAL8 demVal = NAN; /* value read in dem.map */
+  int nrRows = 0;
+  int nrCols = 0;
+  int r = 0;
+  int c = 0;
 
-    dem->SetGetTest(GET_MV_TEST, dem);
-    nrRows = dem->NrRows(dem);
-    nrCols = dem->NrCols(dem);
+  dem->SetGetTest(GET_MV_TEST, dem);
+  nrRows = dem->NrRows(dem);
+  nrCols = dem->NrCols(dem);
 
-    /* For every cell in the dem map calculate the slope. */
-    for (r = 0; r < nrRows; r++) {
-        for (c = 0; c < nrCols; c++)
-            if (dem->Get(&demVal, r, c, dem)) {
-                REAL8 Dx = NAN;
-                REAL8 Dy = NAN;
-                REAL8 G = NAN;
-                CalcDeltaXY(&Dx, &Dy, dem, r, c);
-                G = sqrt(sqr(Dx) + sqr(Dy));
-                slope->Put(G, r, c, slope);
-            } else
-                slope->PutMV(r, c, slope);
-    }
-    return 0;
+  /* For every cell in the dem map calculate the slope. */
+  for (r = 0; r < nrRows; r++) {
+    for (c = 0; c < nrCols; c++)
+      if (dem->Get(&demVal, r, c, dem)) {
+        REAL8 Dx = NAN;
+        REAL8 Dy = NAN;
+        REAL8 G = NAN;
+        CalcDeltaXY(&Dx, &Dy, dem, r, c);
+        G = sqrt(sqr(Dx) + sqr(Dy));
+        slope->Put(G, r, c, slope);
+      } else
+        slope->PutMV(r, c, slope);
+  }
+  return 0;
 }
 
 /* calculate sum of 4 neigbours
@@ -72,34 +72,34 @@ int Slope(MAP_REAL8 *slope,     /* Read-write slope output map  */
 int Window4total(MAP_REAL8 *out,      /* Read-write output map  */
                  const MAP_REAL8 *in) /* in */
 {
-    int nrRows = 0;
-    int nrCols = 0;
-    int r = 0;
-    int c = 0;
-    const int lddCodes[] = {2, 4, 6, 8};
+  int nrRows = 0;
+  int nrCols = 0;
+  int r = 0;
+  int c = 0;
+  const int lddCodes[] = {2, 4, 6, 8};
 
-    in->SetGetTest(GET_MV_TEST, in);
-    nrRows = in->NrRows(in);
-    nrCols = in->NrCols(in);
+  in->SetGetTest(GET_MV_TEST, in);
+  nrRows = in->NrRows(in);
+  nrCols = in->NrCols(in);
 
-    for (r = 0; r < nrRows; r++)
-        for (c = 0; c < nrCols; c++) {
-            REAL8 inVal = NAN;
-            REAL8 sum = 0;
-            int i = 0;
-            int nr = 0;
-            for (i = 0; i < 4; i++) {
-                int nbR = DownStrR(r, lddCodes[i]);
-                int nbC = DownStrC(c, lddCodes[i]);
-                if (in->Get(&inVal, nbR, nbC, in)) {
-                    sum += inVal;
-                    nr++;
-                }
-            }
-            if (nr == 0)
-                out->PutMV(r, c, out);
-            else
-                out->Put(sum, r, c, out);
+  for (r = 0; r < nrRows; r++)
+    for (c = 0; c < nrCols; c++) {
+      REAL8 inVal = NAN;
+      REAL8 sum = 0;
+      int i = 0;
+      int nr = 0;
+      for (i = 0; i < 4; i++) {
+        int nbR = DownStrR(r, lddCodes[i]);
+        int nbC = DownStrC(c, lddCodes[i]);
+        if (in->Get(&inVal, nbR, nbC, in)) {
+          sum += inVal;
+          nr++;
         }
-    return 0;
+      }
+      if (nr == 0)
+        out->PutMV(r, c, out);
+      else
+        out->Put(sum, r, c, out);
+    }
+  return 0;
 }

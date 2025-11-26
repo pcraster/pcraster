@@ -46,39 +46,39 @@ static int CalcOut(MAP_REAL8 *total,        /* write-only output map */
                    const MAP_UINT1 *ldd,    /* ldd map */
                    const MAP_REAL8 *amount) /* amount map */
 {
-    NODE *list = LinkChkNd(NULL, r, c); /* add pit */
+  NODE *list = LinkChkNd(NULL, r, c); /* add pit */
 
-    if (list == NULL)
-        return 1;
+  if (list == NULL)
+    return 1;
 
-    /* process pit (starting point) first */
-    total->Put((REAL8)0, r, c, total);
+  /* process pit (starting point) first */
+  total->Put((REAL8)0, r, c, total);
 
+  if (ReplaceFirstByUpsNbs(&list, ldd))
+    return 1;
+
+  while (list != NULL) {
+    int rDS = 0;
+    int cDS = 0;
+    REAL8 amountDS = NAN;
+    REAL8 totalDS = NAN;
+    UINT1 l = 0;
+
+    c = list->colNr;
+    r = list->rowNr;
+
+    ldd->Get(&l, r, c, ldd);
+    rDS = DownStrR(r, l);
+    cDS = DownStrC(c, l);
+
+    if (amount->Get(&amountDS, rDS, cDS, amount) && total->Get(&totalDS, rDS, cDS, total))
+      total->Put(totalDS + amountDS, r, c, total);
+    else
+      total->PutMV(r, c, total);
     if (ReplaceFirstByUpsNbs(&list, ldd))
-        return 1;
-
-    while (list != NULL) {
-        int rDS = 0;
-        int cDS = 0;
-        REAL8 amountDS = NAN;
-        REAL8 totalDS = NAN;
-        UINT1 l = 0;
-
-        c = list->colNr;
-        r = list->rowNr;
-
-        ldd->Get(&l, r, c, ldd);
-        rDS = DownStrR(r, l);
-        cDS = DownStrC(c, l);
-
-        if (amount->Get(&amountDS, rDS, cDS, amount) && total->Get(&totalDS, rDS, cDS, total))
-            total->Put(totalDS + amountDS, r, c, total);
-        else
-            total->PutMV(r, c, total);
-        if (ReplaceFirstByUpsNbs(&list, ldd))
-            return 1;
-    } /* eowhile */
-    return 0;
+      return 1;
+  } /* eowhile */
+  return 0;
 }
 
 /* Determines the distance from cell to first downstream nonzero point. 
@@ -90,30 +90,30 @@ int Downstreamtotal(MAP_REAL8 *total,        /* write-only output map  */
                     const MAP_UINT1 *ldd,    /* ldd map            */
                     const MAP_REAL8 *amount) /* amount map */
 {
-    int r = 0;
-    int c = 0;
-    int nrRows = ldd->NrRows(ldd);
-    int nrCols = ldd->NrCols(ldd);
+  int r = 0;
+  int c = 0;
+  int nrRows = ldd->NrRows(ldd);
+  int nrCols = ldd->NrCols(ldd);
 
-    /* algorithm wants ldd->Get(), amount->Get()
+  /* algorithm wants ldd->Get(), amount->Get()
       * to return FALSE if a value is a missing value
       */
-    ldd->SetGetTest(GET_MV_TEST, ldd);
-    amount->SetGetTest(GET_MV_TEST, amount);
-    total->SetGetTest(GET_MV_TEST, total);
+  ldd->SetGetTest(GET_MV_TEST, ldd);
+  amount->SetGetTest(GET_MV_TEST, amount);
+  total->SetGetTest(GET_MV_TEST, total);
 
-    /* For every pit in the ldd map calculate the distance to first
+  /* For every pit in the ldd map calculate the distance to first
      * down-stream nonzero point for every cell in the catchment.
      */
-    for (r = 0; r < nrRows; r++)
-        for (c = 0; c < nrCols; c++) {
-            UINT1 lddVal = 0;
-            if (ldd->Get(&lddVal, r, c, ldd)) {
-                if (lddVal == LDD_PIT)
-                    if (CalcOut(total, r, c, ldd, amount))
-                        return 1;
-            } else
-                total->PutMV(r, c, total);
-        }
-    return 0;
+  for (r = 0; r < nrRows; r++)
+    for (c = 0; c < nrCols; c++) {
+      UINT1 lddVal = 0;
+      if (ldd->Get(&lddVal, r, c, ldd)) {
+        if (lddVal == LDD_PIT)
+          if (CalcOut(total, r, c, ldd, amount))
+            return 1;
+      } else
+        total->PutMV(r, c, total);
+    }
+  return 0;
 }

@@ -53,7 +53,7 @@ extern bool repairLddModifiedMap;
  */
 static REAL8 Scale(int ldddir) /* ldd direction */
 {
-    return (Corner(ldddir) == false) SCALE;
+  return (Corner(ldddir) == false) SCALE;
 }
 
 /* Finds lowest neighbor from current cell.
@@ -67,33 +67,33 @@ static void Lowest(int *rTo,             /* write-only flows to this one */
                    int colNr,            /* column of cell */
                    REAL8 height)         /* height if (rowNr, colNr) */
 {
-    int nrBestDirs = 0;
-    int i = 0;
-    int rNext = 0;
-    int cNext = 0;
-    bool aNBisMV = false;       /* a neighbour is missing value */
-    UINT1 bestDirs[NR_LDD_DIR]; /* array of bestdrops */
-    REAL8 bestDrop = -1;        /* scaled vertical distance between
+  int nrBestDirs = 0;
+  int i = 0;
+  int rNext = 0;
+  int cNext = 0;
+  bool aNBisMV = false;       /* a neighbour is missing value */
+  UINT1 bestDirs[NR_LDD_DIR]; /* array of bestdrops */
+  REAL8 bestDrop = -1;        /* scaled vertical distance between
                                  * current cell and lowest neighbor.
                                  * start negative if init always >= 0
                                  */
-                                /* WAAL_CW
+                              /* WAAL_CW
                                  * BOOL  print = (rowNr == 11 && colNr == 87) && FALSE;
                                  */
-    PRECOND(dem->GetGetTest(dem) == GET_MV_TEST);
+  PRECOND(dem->GetGetTest(dem) == GET_MV_TEST);
 
-    FOR_ALL_LDD_NBS(i)
-    {
-        REAL8 demVal = NAN;
+  FOR_ALL_LDD_NBS(i)
+  {
+    REAL8 demVal = NAN;
 
-        rNext = RNeighbor(rowNr, i);
-        cNext = CNeighbor(colNr, i);
+    rNext = RNeighbor(rowNr, i);
+    cNext = CNeighbor(colNr, i);
 
-        if (dem->Get(&demVal, rNext, cNext, dem)) {
-            if (demVal <= height) /* possible flow or flat */
-            {
-                REAL8 thisDrop = (height - demVal) / Scale(i);
-                /* WAAL_CW
+    if (dem->Get(&demVal, rNext, cNext, dem)) {
+      if (demVal <= height) /* possible flow or flat */
+      {
+        REAL8 thisDrop = (height - demVal) / Scale(i);
+        /* WAAL_CW
                  *  if (print)
                  *  {
                  *    printf("X drop %d %d %g\n",rNext,cNext,thisDrop);
@@ -102,47 +102,47 @@ static void Lowest(int *rTo,             /* write-only flows to this one */
                  *    printf("X comp %g  = %g = %d\n",thisDrop, bestDrop, thisDrop==bestDrop);
                  *  }
                  */
-                if (AppCastREAL4(thisDrop) > AppCastREAL4(bestDrop)) { /* better drop found */
-                    nrBestDirs = 1;
-                    bestDirs[0] = i;
-                    bestDrop = thisDrop;
-                } else if (!(AppCastREAL4(thisDrop) < AppCastREAL4(bestDrop)))
-                    bestDirs[nrBestDirs++] = i;
-            }
-        } else
-            aNBisMV = true;
-    }
-    /* WAAL_CW
+        if (AppCastREAL4(thisDrop) > AppCastREAL4(bestDrop)) { /* better drop found */
+          nrBestDirs = 1;
+          bestDirs[0] = i;
+          bestDrop = thisDrop;
+        } else if (!(AppCastREAL4(thisDrop) < AppCastREAL4(bestDrop)))
+          bestDirs[nrBestDirs++] = i;
+      }
+    } else
+      aNBisMV = true;
+  }
+  /* WAAL_CW
      * if (print)
      *   printf("X nrdrops %d best %g first drop: %d\n",nrBestDirs,bestDrop,bestDirs[0]);
      */
-    if ((bestDrop < 0) ||          /* all cells are higher */
-        (aNBisMV && bestDrop == 0) /* border of a flat */
-        )
-    /* assign a pit: return pixel itself */
-    {
-        *rTo = rowNr;
-        *cTo = colNr;
-        return;
-    }
-    PRECOND(nrBestDirs > 0);
-    if (bestDrop == 0 || nrBestDirs == 1) /* a flat or no conflict */
-        i = 0;
-    else {
-        PRECOND(nrBestDirs > 1);
-        /* multiple outflow directions found */
-        /* Check on multiple candidates */
-        /* CW change this! find bestDrop recursily */
-        i = (int)floor(Ran() * nrBestDirs); /* CW make a ran [0.1> ! */
-        i = MIN(i, nrBestDirs - 1);
-        /* WAAL_CW
+  if ((bestDrop < 0) ||          /* all cells are higher */
+      (aNBisMV && bestDrop == 0) /* border of a flat */
+      )
+  /* assign a pit: return pixel itself */
+  {
+    *rTo = rowNr;
+    *cTo = colNr;
+    return;
+  }
+  PRECOND(nrBestDirs > 0);
+  if (bestDrop == 0 || nrBestDirs == 1) /* a flat or no conflict */
+    i = 0;
+  else {
+    PRECOND(nrBestDirs > 1);
+    /* multiple outflow directions found */
+    /* Check on multiple candidates */
+    /* CW change this! find bestDrop recursily */
+    i = (int)floor(Ran() * nrBestDirs); /* CW make a ran [0.1> ! */
+    i = MIN(i, nrBestDirs - 1);
+    /* WAAL_CW
          * (void)printf("Random selection done out of %d rc %d %d picked %d\n", nrBestDirs,
          * rowNr, colNr, i );
          */
-    }
+  }
 
-    *rTo = RNeighbor(rowNr, bestDirs[i]);
-    *cTo = CNeighbor(colNr, bestDirs[i]);
+  *rTo = RNeighbor(rowNr, bestDirs[i]);
+  *cTo = CNeighbor(colNr, bestDirs[i]);
 }
 
 /* Calculates the ldd direction values for the UINT1 ldd map.
@@ -160,26 +160,26 @@ static void Step1(MAP_UINT1 *ldd,       /* write-only output ldd map,
                   int c)                /* column number of current cell */
 
 {
-    int rTo = 0;
-    int cTo = 0;
+  int rTo = 0;
+  int cTo = 0;
 
-    PRECOND(dem->GetGetTest(dem) == GET_MV_TEST);
+  PRECOND(dem->GetGetTest(dem) == GET_MV_TEST);
 
-    Lowest(&rTo, &cTo, dem, r, c, demVal); /* lowest neighbor */
-    /* Test whether the cell itself is returned or not */
-    if ((r != rTo || c != cTo)) {
-        REAL8 toDem = NAN;
-        PRECOND(dem->Get(&toDem, rTo, cTo, dem));
+  Lowest(&rTo, &cTo, dem, r, c, demVal); /* lowest neighbor */
+  /* Test whether the cell itself is returned or not */
+  if ((r != rTo || c != cTo)) {
+    REAL8 toDem = NAN;
+    PRECOND(dem->Get(&toDem, rTo, cTo, dem));
 
-        (void)dem->Get(&toDem, rTo, cTo, dem);
-        if (toDem == demVal) /* a flat found */
-            ldd->Put(0, r, c, ldd);
-        else {
-            /* Simple case */
-            ldd->Put(Ldddir(r, c, rTo, cTo), r, c, ldd);
-        }
-    } else
-        ldd->Put(LDD_PIT, r, c, ldd); /* pit, neighbors higher */
+    (void)dem->Get(&toDem, rTo, cTo, dem);
+    if (toDem == demVal) /* a flat found */
+      ldd->Put(0, r, c, ldd);
+    else {
+      /* Simple case */
+      ldd->Put(Ldddir(r, c, rTo, cTo), r, c, ldd);
+    }
+  } else
+    ldd->Put(LDD_PIT, r, c, ldd); /* pit, neighbors higher */
 }
 
 /* Calculates the ldd directions on a flat of type 1.
@@ -196,39 +196,39 @@ static bool Step2(MAP_UINT1 *ldd,       /* read-write ldd map */
                   int r,                /* row current cell */
                   int c)                /* column current cell */
 {
-    REAL8 demValNB = NAN;
-    REAL8 demVal = NAN;
-    UINT1 outVal = 0;
-    int i = 0;
-    int rNB = 0;
-    int cNB = 0;
+  REAL8 demValNB = NAN;
+  REAL8 demVal = NAN;
+  UINT1 outVal = 0;
+  int i = 0;
+  int rNB = 0;
+  int cNB = 0;
 
-    PRECOND(dem->Get(&demVal, r, c, dem));
+  PRECOND(dem->Get(&demVal, r, c, dem));
 
-    dem->Get(&demVal, r, c, dem);
-    /* CW multiple candidate selection
+  dem->Get(&demVal, r, c, dem);
+  /* CW multiple candidate selection
      * not yet implemented
      */
-    FOR_ALL_LDD_NBS(i)
-    {
-        rNB = RNeighbor(r, i); /* row neighbor */
-        cNB = CNeighbor(c, i); /* column neighbor */
+  FOR_ALL_LDD_NBS(i)
+  {
+    rNB = RNeighbor(r, i); /* row neighbor */
+    cNB = CNeighbor(c, i); /* column neighbor */
 
-        if (dem->Get(&demValNB, rNB, cNB, dem) && (demVal >= demValNB) &&
-            (ldd->Get(&outVal, rNB, cNB, ldd)) && IS_VALID_CODE(outVal) &&
-            (!(RNeighbor(rNB, outVal) == r && CNeighbor(cNB, outVal) == c))) { /*
+    if (dem->Get(&demValNB, rNB, cNB, dem) && (demVal >= demValNB) &&
+        (ldd->Get(&outVal, rNB, cNB, ldd)) && IS_VALID_CODE(outVal) &&
+        (!(RNeighbor(rNB, outVal) == r && CNeighbor(cNB, outVal) == c))) { /*
                                                                                 * NB is lower or equal and
                                                                                 *    has valid direction and does
                                                                                 *    not point to current cell
                                                                                 */
-            UINT1 ldddir = 0;
-            PRECOND(demVal == demValNB);
-            ldddir = Ldddir(r, c, rNB, cNB);
-            ldd->Put(MAKE_TEMP_CODE(ldddir), r, c, ldd);
-            return true;
-        }
+      UINT1 ldddir = 0;
+      PRECOND(demVal == demValNB);
+      ldddir = Ldddir(r, c, rNB, cNB);
+      ldd->Put(MAKE_TEMP_CODE(ldddir), r, c, ldd);
+      return true;
     }
-    return false;
+  }
+  return false;
 }
 
 /* Operates on a flat of type 2.
@@ -242,36 +242,36 @@ static bool Step3(MAP_UINT1 *ldd,       /* read-write ldd.map */
                   int r,                /* row current cell */
                   int c)                /* column current cell */
 {
-    REAL8 demVal = NAN;
-    int i = 0;
-    int j = 0;
+  REAL8 demVal = NAN;
+  int i = 0;
+  int j = 0;
 
-    PRECOND(dem->GetGetTest(dem) == GET_MV_TEST);
-    PRECOND(dem->Get(&demVal, r, c, dem));
-    dem->Get(&demVal, r, c, dem);
+  PRECOND(dem->GetGetTest(dem) == GET_MV_TEST);
+  PRECOND(dem->Get(&demVal, r, c, dem));
+  dem->Get(&demVal, r, c, dem);
 
-    FOR_ALL_LDD_NBS(i)
-    {
-        int rNB = RNeighbor(r, i);
-        int cNB = CNeighbor(c, i);
-        UINT1 v = 0;
-        if (ldd->Get(&v, rNB, cNB, ldd) && IS_VALID_CODE(v) &&
-            FlowsTo(v, rNB, cNB, r, c) /* NB flows in current */
-        )
-            FOR_ALL_LDD_NBS(j)
-            {
-                REAL8 demNB = NAN;
-                rNB = RNeighbor(r, j);
-                cNB = CNeighbor(c, j);
-                if (ldd->Get(&v, rNB, cNB, ldd) && v == 0 && dem->Get(&demNB, rNB, cNB, dem) &&
-                    demVal == demNB) {
-                    UINT1 ldddir = Ldddir(r, c, rNB, cNB);
-                    ldd->Put(MAKE_TEMP_CODE(ldddir), r, c, ldd);
-                    return true;
-                }
-            }
-    }
-    return false;
+  FOR_ALL_LDD_NBS(i)
+  {
+    int rNB = RNeighbor(r, i);
+    int cNB = CNeighbor(c, i);
+    UINT1 v = 0;
+    if (ldd->Get(&v, rNB, cNB, ldd) && IS_VALID_CODE(v) &&
+        FlowsTo(v, rNB, cNB, r, c) /* NB flows in current */
+    )
+      FOR_ALL_LDD_NBS(j)
+      {
+        REAL8 demNB = NAN;
+        rNB = RNeighbor(r, j);
+        cNB = CNeighbor(c, j);
+        if (ldd->Get(&v, rNB, cNB, ldd) && v == 0 && dem->Get(&demNB, rNB, cNB, dem) &&
+            demVal == demNB) {
+          UINT1 ldddir = Ldddir(r, c, rNB, cNB);
+          ldd->Put(MAKE_TEMP_CODE(ldddir), r, c, ldd);
+          return true;
+        }
+      }
+  }
+  return false;
 }
 
 /* Determines the UINT1 ldd map (ldd map) out of the dem map.
@@ -282,81 +282,81 @@ static bool Step3(MAP_UINT1 *ldd,       /* read-write ldd.map */
 int Lddm(MAP_UINT1 *ldd,       /* Read-write output ldd map  */
          const MAP_REAL8 *dem) /* dem map */
 {
-    UINT1 outVal = 0;   /* value in ldd map */
-    REAL8 demVal = NAN; /* value in dem map */
-    int r = 0;
-    int c = 0;
-    int nrRows = 0;
-    int nrCols = 0;
-    bool cellsFixed = 0;
+  UINT1 outVal = 0;   /* value in ldd map */
+  REAL8 demVal = NAN; /* value in dem map */
+  int r = 0;
+  int c = 0;
+  int nrRows = 0;
+  int nrCols = 0;
+  bool cellsFixed = 0;
 
-    nrRows = dem->NrRows(dem);
-    nrCols = dem->NrCols(dem);
+  nrRows = dem->NrRows(dem);
+  nrCols = dem->NrCols(dem);
 
-    dem->SetGetTest(GET_MV_TEST, dem);
-    ldd->SetGetTest(GET_MV_TEST, ldd);
+  dem->SetGetTest(GET_MV_TEST, dem);
+  ldd->SetGetTest(GET_MV_TEST, ldd);
 
-    AppProgress("Simple case:\n");
-    /* Do CALL for first phase
+  AppProgress("Simple case:\n");
+  /* Do CALL for first phase
      * and mv setting for MV in dem
      */
-    for (r = 0; r < nrRows; r++) {
-        AppRowProgress(r);
-        for (c = 0; c < nrCols; c++)
-            if (dem->Get(&demVal, r, c, dem))
-                Step1(ldd, dem, demVal, r, c);
-            else
-                ldd->PutMV(r, c, ldd);
-    }
-    /* Do CALL for second phase */
-    AppProgress("\nFlats of type 1:\n");
-    cellsFixed = true;
-    while (cellsFixed) /* still cells fixed in flats of type 1 */
-    {
+  for (r = 0; r < nrRows; r++) {
+    AppRowProgress(r);
+    for (c = 0; c < nrCols; c++)
+      if (dem->Get(&demVal, r, c, dem))
+        Step1(ldd, dem, demVal, r, c);
+      else
+        ldd->PutMV(r, c, ldd);
+  }
+  /* Do CALL for second phase */
+  AppProgress("\nFlats of type 1:\n");
+  cellsFixed = true;
+  while (cellsFixed) /* still cells fixed in flats of type 1 */
+  {
 
-        cellsFixed = false;
-        for (r = 0; r < nrRows; r++)
-            for (c = 0; c < nrCols; c++)
-                if (ldd->Get(&outVal, r, c, ldd) && (outVal == 0)) /* to be solved */
-                    cellsFixed |= Step2(ldd, dem, r, c);
-        /* replace temp codes */
-        if (cellsFixed)
-            for (r = 0; r < nrRows; r++)
-                for (c = 0; c < nrCols; c++)
-                    if (ldd->Get(&outVal, r, c, ldd) && IS_TEMP_CODE(outVal))
-                        ldd->Put(MAKE_VALID_CODE(outVal), r, c, ldd);
-    }
-
-    /* Do CALL for third phase */
-    AppProgress("\nFlats of type 2:\n");
-    cellsFixed = true;
-    while (cellsFixed) /* still cells fixed in flats of type 2 */
-    {
-
-        cellsFixed = false;
-        for (r = 0; r < nrRows; r++)
-            for (c = 0; c < nrCols; c++)
-                if (ldd->Get(&outVal, r, c, ldd) && (outVal == 0)) /* to be solved */
-                    cellsFixed |= Step3(ldd, dem, r, c);
-        /* replace temp codes */
-        if (cellsFixed)
-            for (r = 0; r < nrRows; r++)
-                for (c = 0; c < nrCols; c++)
-                    if (ldd->Get(&outVal, r, c, ldd) && IS_TEMP_CODE(outVal))
-                        ldd->Put(MAKE_VALID_CODE(outVal), r, c, ldd);
-    }
-
-    /* remaining 0's are pits
-     */
+    cellsFixed = false;
     for (r = 0; r < nrRows; r++)
+      for (c = 0; c < nrCols; c++)
+        if (ldd->Get(&outVal, r, c, ldd) && (outVal == 0)) /* to be solved */
+          cellsFixed |= Step2(ldd, dem, r, c);
+    /* replace temp codes */
+    if (cellsFixed)
+      for (r = 0; r < nrRows; r++)
         for (c = 0; c < nrCols; c++)
-            if (ldd->Get(&outVal, r, c, ldd)) {
-                POSTCOND(!IS_TEMP_CODE(outVal));
-                if (outVal == 0)
-                    ldd->Put(LDD_PIT, r, c, ldd);
-            }
-    /* check if we have a sound ldd
+          if (ldd->Get(&outVal, r, c, ldd) && IS_TEMP_CODE(outVal))
+            ldd->Put(MAKE_VALID_CODE(outVal), r, c, ldd);
+  }
+
+  /* Do CALL for third phase */
+  AppProgress("\nFlats of type 2:\n");
+  cellsFixed = true;
+  while (cellsFixed) /* still cells fixed in flats of type 2 */
+  {
+
+    cellsFixed = false;
+    for (r = 0; r < nrRows; r++)
+      for (c = 0; c < nrCols; c++)
+        if (ldd->Get(&outVal, r, c, ldd) && (outVal == 0)) /* to be solved */
+          cellsFixed |= Step3(ldd, dem, r, c);
+    /* replace temp codes */
+    if (cellsFixed)
+      for (r = 0; r < nrRows; r++)
+        for (c = 0; c < nrCols; c++)
+          if (ldd->Get(&outVal, r, c, ldd) && IS_TEMP_CODE(outVal))
+            ldd->Put(MAKE_VALID_CODE(outVal), r, c, ldd);
+  }
+
+  /* remaining 0's are pits
      */
-    POSTCOND((!RepairLdd(ldd, ldd)) && (!repairLddModifiedMap));
-    return 0;
+  for (r = 0; r < nrRows; r++)
+    for (c = 0; c < nrCols; c++)
+      if (ldd->Get(&outVal, r, c, ldd)) {
+        POSTCOND(!IS_TEMP_CODE(outVal));
+        if (outVal == 0)
+          ldd->Put(LDD_PIT, r, c, ldd);
+      }
+  /* check if we have a sound ldd
+     */
+  POSTCOND((!RepairLdd(ldd, ldd)) && (!repairLddModifiedMap));
+  return 0;
 }

@@ -44,29 +44,29 @@ static NODE *AddToList(NODE *list, /* write-only original list */
                        int row,    /* row from cell to add */
                        int col)    /* column from cell to add */
 {
-    NODE *c = NULL;
+  NODE *c = NULL;
 #ifdef NEVER
-    if (InList(list, row, col)) /* CW not neccessary when 
+  if (InList(list, row, col)) /* CW not neccessary when 
                                  * building initial list
                                  */
-        return list;
-#endif
-    if (Set1BitMatrix(inList, row, col)) /* already in list */
-        return list;
-    c = NewNode(row, col);
-    if (c == NULL) {
-        list = FreeList(list);
-        return NULL; /* allocation error */
-    }
-    /* initialize node, row,col set in NewNode */
-    c->prev = NULL;
-    if (list == NULL)
-        list = firstOfList = c; /* first element in list */
-    else {
-        firstOfList->prev = c; /* put in front of 1st element */
-        firstOfList = c;
-    }
     return list;
+#endif
+  if (Set1BitMatrix(inList, row, col)) /* already in list */
+    return list;
+  c = NewNode(row, col);
+  if (c == NULL) {
+    list = FreeList(list);
+    return NULL; /* allocation error */
+  }
+  /* initialize node, row,col set in NewNode */
+  c->prev = NULL;
+  if (list == NULL)
+    list = firstOfList = c; /* first element in list */
+  else {
+    firstOfList->prev = c; /* put in front of 1st element */
+    firstOfList = c;
+  }
+  return list;
 }
 
 /* Calculates the spread value.
@@ -83,35 +83,35 @@ static REAL8 CalcSpreadValue(INT4 *id,                  /* write-only id */
                              int c,                     /* column curr. cell */
                              REAL8 f)                   /* friction value (r, c) */
 {
-    REAL8 costs = NAN;
-    REAL8 costVal = NAN;
-    REAL8 fricNxt = NAN;
-    REAL8 minCosts = NAN;
-    int i = 0;
-    int rNext = 0;
-    int cNext = 0;
-    INT4 newId = 0; /* id spread point of min. cost */
+  REAL8 costs = NAN;
+  REAL8 costVal = NAN;
+  REAL8 fricNxt = NAN;
+  REAL8 minCosts = NAN;
+  int i = 0;
+  int rNext = 0;
+  int cNext = 0;
+  INT4 newId = 0; /* id spread point of min. cost */
 
-    minCosts = REAL8_MAX; /* minimum costs until now */
-    FOR_ALL_LDD_NBS(i)
-    {
-        rNext = RNeighbor(r, i);
-        cNext = CNeighbor(c, i);
-        if (outCost->Get(&costVal, rNext, cNext, outCost) &&
-            (friction->Get(&fricNxt, rNext, cNext, friction))) {
-            costs = (f + fricNxt) / 2;
-            costs *= (Corner(i) == false) SCALE;
-            costs += costVal;
-            if (costs < minCosts) { /* cheapest path from neighbor to r,c */
-                minCosts = costs;
-                outId->Get(&newId, rNext, cNext, outId);
-                *id = newId;
-                POSTCOND(*id != 0);
-            }
-        }
+  minCosts = REAL8_MAX; /* minimum costs until now */
+  FOR_ALL_LDD_NBS(i)
+  {
+    rNext = RNeighbor(r, i);
+    cNext = CNeighbor(c, i);
+    if (outCost->Get(&costVal, rNext, cNext, outCost) &&
+        (friction->Get(&fricNxt, rNext, cNext, friction))) {
+      costs = (f + fricNxt) / 2;
+      costs *= (Corner(i) == false) SCALE;
+      costs += costVal;
+      if (costs < minCosts) { /* cheapest path from neighbor to r,c */
+        minCosts = costs;
+        outId->Get(&newId, rNext, cNext, outId);
+        *id = newId;
+        POSTCOND(*id != 0);
+      }
     }
-    *id = newId;     /* id from cheapest neighbor */
-    return minCosts; /* minimum costs to get to r, c */
+  }
+  *id = newId;     /* id from cheapest neighbor */
+  return minCosts; /* minimum costs to get to r, c */
 }
 
 /* Performs the spread function using the breadth-first strategy. 
@@ -127,64 +127,64 @@ static int PerformSpread(MAP_REAL8 *outCost,        /* read-write output costs *
                          const MAP_REAL8 *friction, /* friction map */
                          const MAP_REAL8 *maxCost)  /* max cost map */
 {
-    int rNext = 0;
-    int cNext = 0;
-    int rowNr = 0;
-    int colNr = 0;
-    int i = 0;
-    REAL8 f = NAN; /* friction of current cell */
-    REAL8 s = NAN;
-    REAL8 newS = NAN; /* old & new spreadval. of curr. cell */
+  int rNext = 0;
+  int cNext = 0;
+  int rowNr = 0;
+  int colNr = 0;
+  int i = 0;
+  REAL8 f = NAN; /* friction of current cell */
+  REAL8 s = NAN;
+  REAL8 newS = NAN; /* old & new spreadval. of curr. cell */
 
-    PRECOND(outCost->GetGetTest(outCost) == GET_MV_TEST);
-    PRECOND(outId->GetGetTest(outId) == GET_MV_TEST);
-    PRECOND(friction->GetGetTest(friction) == GET_MV_TEST);
-    PRECOND(maxCost->GetGetTest(maxCost) == GET_MV_TEST);
+  PRECOND(outCost->GetGetTest(outCost) == GET_MV_TEST);
+  PRECOND(outId->GetGetTest(outId) == GET_MV_TEST);
+  PRECOND(friction->GetGetTest(friction) == GET_MV_TEST);
+  PRECOND(maxCost->GetGetTest(maxCost) == GET_MV_TEST);
 
-    while (coordList != NULL) {
-        INT4 id = 0;                        /* id of current cell */
-        rowNr = coordList->rowNr;           /* cell from which is spread */
-        colNr = coordList->colNr;           /* (source cell ) */
-        coordList = RemFromList(coordList); /* unable */
-        id = Set0BitMatrix(inList, rowNr, colNr);
-        POSTCOND(id != 0); /* was set */
+  while (coordList != NULL) {
+    INT4 id = 0;                        /* id of current cell */
+    rowNr = coordList->rowNr;           /* cell from which is spread */
+    colNr = coordList->colNr;           /* (source cell ) */
+    coordList = RemFromList(coordList); /* unable */
+    id = Set0BitMatrix(inList, rowNr, colNr);
+    POSTCOND(id != 0); /* was set */
 
-        AppDynamicProgress();
+    AppDynamicProgress();
 
-        FOR_ALL_LDD_NBS(i)
-        { /* find new spread value for all neighbors */
-            rNext = RNeighbor(rowNr, i);
-            cNext = CNeighbor(colNr, i);
+    FOR_ALL_LDD_NBS(i)
+    { /* find new spread value for all neighbors */
+      rNext = RNeighbor(rowNr, i);
+      cNext = CNeighbor(colNr, i);
 
-            if (friction->Get(&f, rNext, cNext, friction) && outId->Get(&id, rNext, cNext, outId)) {
-                INT4 newId = 0;
-                if (id != 0)
-                    outCost->Get(&s, rNext, cNext, outCost); /* already visited */
+      if (friction->Get(&f, rNext, cNext, friction) && outId->Get(&id, rNext, cNext, outId)) {
+        INT4 newId = 0;
+        if (id != 0)
+          outCost->Get(&s, rNext, cNext, outCost); /* already visited */
 
-                newS = CalcSpreadValue(&newId, outCost, outId, friction, rNext, cNext, f);
+        newS = CalcSpreadValue(&newId, outCost, outId, friction, rNext, cNext, f);
 
-                if (newId != 0 && (id == 0 || AppCastREAL4(newS) < s)) {
-                    /* a cheaper or first route to this cell
+        if (newId != 0 && (id == 0 || AppCastREAL4(newS) < s)) {
+          /* a cheaper or first route to this cell
                      * found, inspect the neighbors too. 
                      */
-                    REAL8 maxCostVal = NAN;
-                    bool maxCostReached = 0;
-                    maxCost->Get(&maxCostVal, rNext, cNext, maxCost);
-                    maxCostReached = maxCostVal <= newS;
-                    if (!maxCostReached) {
-                        outCost->Put(newS, rNext, cNext, outCost); /* new costs */
-                        outId->Put(newId, rNext, cNext, outId);    /* new id */
+          REAL8 maxCostVal = NAN;
+          bool maxCostReached = 0;
+          maxCost->Get(&maxCostVal, rNext, cNext, maxCost);
+          maxCostReached = maxCostVal <= newS;
+          if (!maxCostReached) {
+            outCost->Put(newS, rNext, cNext, outCost); /* new costs */
+            outId->Put(newId, rNext, cNext, outId);    /* new id */
 
-                        coordList = AddToList(coordList, rNext, cNext);
-                        if (coordList == NULL)
-                            return 1;
-                    }
-                }
-            }
+            coordList = AddToList(coordList, rNext, cNext);
+            if (coordList == NULL)
+              return 1;
+          }
         }
+      }
     }
-    /* POSTCOND(coordList == NULL); */
-    return 0;
+  }
+  /* POSTCOND(coordList == NULL); */
+  return 0;
 }
 
 /* Spreads from each nonzero point in points map.
@@ -199,76 +199,76 @@ int SpreadMax(MAP_REAL8 *outCost,        /* read-write output map  */
               const MAP_REAL8 *friction, /* friction of each cell */
               const MAP_REAL8 *maxCost)  /* maximum cost before cell is read */
 {
-    NODE *coordList = NULL; /* list with cells to be checked */
-    INT4 pointVal = 0;      /* value in points map of cell */
-    REAL8 costVal = NAN;
-    REAL8 s = NAN;
-    REAL8 f = NAN; /* s = initial cost, f = friction of cell */
-    int r = 0;
-    int nrRows = points->NrRows(points);
-    int c = 0;
-    int nrCols = points->NrCols(points);
-    inList = NewBitMatrix((size_t)nrRows, (size_t)nrCols);
+  NODE *coordList = NULL; /* list with cells to be checked */
+  INT4 pointVal = 0;      /* value in points map of cell */
+  REAL8 costVal = NAN;
+  REAL8 s = NAN;
+  REAL8 f = NAN; /* s = initial cost, f = friction of cell */
+  int r = 0;
+  int nrRows = points->NrRows(points);
+  int c = 0;
+  int nrCols = points->NrCols(points);
+  inList = NewBitMatrix((size_t)nrRows, (size_t)nrCols);
 
-    if (inList == NULL)
-        return 1;
-    SetAllBitMatrix(inList, nrRows, nrCols, 0); /* not in list */
+  if (inList == NULL)
+    return 1;
+  SetAllBitMatrix(inList, nrRows, nrCols, 0); /* not in list */
 
-    /* Fill outCostBuf with MV, this is the initial value */
-    outCost->PutAllMV(outCost);
+  /* Fill outCostBuf with MV, this is the initial value */
+  outCost->PutAllMV(outCost);
 
-    /* Fill outIdBuf with 0, this is the initial value */
-    for (r = 0; r < nrRows; r++)
-        for (c = 0; c < nrCols; c++)
-            outId->Put(0, r, c, outId);
+  /* Fill outIdBuf with 0, this is the initial value */
+  for (r = 0; r < nrRows; r++)
+    for (c = 0; c < nrCols; c++)
+      outId->Put(0, r, c, outId);
 
-    /* algorithm wants points->Get() and all others to
+  /* algorithm wants points->Get() and all others to
      * return FALSE if a value is a missing value
      */
-    points->SetGetTest(GET_MV_TEST, points);
-    friction->SetGetTest(GET_MV_TEST, friction);
-    cost->SetGetTest(GET_MV_TEST, cost);
-    outId->SetGetTest(GET_MV_TEST, outId);
-    outCost->SetGetTest(GET_MV_TEST, outCost);
-    maxCost->SetGetTest(GET_MV_TEST, maxCost);
+  points->SetGetTest(GET_MV_TEST, points);
+  friction->SetGetTest(GET_MV_TEST, friction);
+  cost->SetGetTest(GET_MV_TEST, cost);
+  outId->SetGetTest(GET_MV_TEST, outId);
+  outCost->SetGetTest(GET_MV_TEST, outCost);
+  maxCost->SetGetTest(GET_MV_TEST, maxCost);
 
-    /* breadth - first */
-    for (r = 0; r < nrRows; r++) {
-        for (c = 0; c < nrCols; c++) {
-            if (points->Get(&pointVal, r, c, points) && (friction->Get(&f, r, c, friction))) {
-                if (f < 0)
-                    return RetError(1, "spread: Domain error on parameters");
-                if (pointVal != 0) { /* put spread points in coordlist */
-                    if (!cost->Get(&s, r, c, cost))
-                        goto putMv;
+  /* breadth - first */
+  for (r = 0; r < nrRows; r++) {
+    for (c = 0; c < nrCols; c++) {
+      if (points->Get(&pointVal, r, c, points) && (friction->Get(&f, r, c, friction))) {
+        if (f < 0)
+          return RetError(1, "spread: Domain error on parameters");
+        if (pointVal != 0) { /* put spread points in coordlist */
+          if (!cost->Get(&s, r, c, cost))
+            goto putMv;
 
-                    outCost->Put(s, r, c, outCost);
-                    outId->Put(pointVal, r, c, outId);
-                    coordList = AddToList(coordList, r, c);
-                    if (coordList == NULL)
-                        return 1;
-                }
-            } else {
-            putMv:
-                outId->PutMV(r, c, outId);
-                outCost->PutMV(r, c, outCost);
-            }
+          outCost->Put(s, r, c, outCost);
+          outId->Put(pointVal, r, c, outId);
+          coordList = AddToList(coordList, r, c);
+          if (coordList == NULL)
+            return 1;
         }
-        AppDynamicProgress();
+      } else {
+      putMv:
+        outId->PutMV(r, c, outId);
+        outCost->PutMV(r, c, outCost);
+      }
     }
-    if (PerformSpread(outCost, outId, coordList, friction, maxCost))
-        return 1;
-    /* cost is not computed for ouside maxCost rangge set to 0  */
-    for (r = 0; r < nrRows; r++)
-        for (c = 0; c < nrCols; c++)
-            if (points->Get(&pointVal, r, c, points) &&
-                (friction->Get(&f, r, c, friction))) { /* under above condition we dis spread so now 
+    AppDynamicProgress();
+  }
+  if (PerformSpread(outCost, outId, coordList, friction, maxCost))
+    return 1;
+  /* cost is not computed for ouside maxCost rangge set to 0  */
+  for (r = 0; r < nrRows; r++)
+    for (c = 0; c < nrCols; c++)
+      if (points->Get(&pointVal, r, c, points) &&
+          (friction->Get(&f, r, c, friction))) { /* under above condition we dis spread so now 
                                              * test for these cells if cost is computed
                                              */
-                if (!outCost->Get(&costVal, r, c, outCost))
-                    outCost->Put(0.0, r, c, outCost);
-            }
-    AppEndDynamicProgress();
-    Free2d((void **)inList, (size_t)nrRows);
-    return 0; /* successful terminated */
+        if (!outCost->Get(&costVal, r, c, outCost))
+          outCost->Put(0.0, r, c, outCost);
+      }
+  AppEndDynamicProgress();
+  Free2d((void **)inList, (size_t)nrRows);
+  return 0; /* successful terminated */
 }

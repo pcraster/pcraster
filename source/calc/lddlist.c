@@ -43,23 +43,23 @@ int ReplaceFirstByUpsNbs(NODE **list, /* modified list, can become NULL if list
                         */
                          const MAP_UINT1 *ldd)
 {
-    int r = 0;
-    int c = 0;
-    int i = 0;
-    PRECOND(list != NULL);
-    r = (*list)->rowNr;
-    c = (*list)->colNr;
-    *list = RemFromList(*list);
-    FOR_ALL_LDD_NBS(i)
-    {
-        int rNB = RNeighbor(r, i);
-        int cNB = CNeighbor(c, i);
-        UINT1 nbVal = 0;
-        if (ldd->Get(&nbVal, rNB, cNB, ldd) && FlowsTo(nbVal, rNB, cNB, r, c))
-            if ((*list = LinkChkNd(*list, rNB, cNB)) == NULL)
-                return 1;
-    }
-    return 0;
+  int r = 0;
+  int c = 0;
+  int i = 0;
+  PRECOND(list != NULL);
+  r = (*list)->rowNr;
+  c = (*list)->colNr;
+  *list = RemFromList(*list);
+  FOR_ALL_LDD_NBS(i)
+  {
+    int rNB = RNeighbor(r, i);
+    int cNB = CNeighbor(c, i);
+    UINT1 nbVal = 0;
+    if (ldd->Get(&nbVal, rNB, cNB, ldd) && FlowsTo(nbVal, rNB, cNB, r, c))
+      if ((*list = LinkChkNd(*list, rNB, cNB)) == NULL)
+        return 1;
+  }
+  return 0;
 }
 
 /* mark first item as visited and put its upstream neighbours in front as unvisited
@@ -68,21 +68,21 @@ int ReplaceFirstByUpsNbs(NODE **list, /* modified list, can become NULL if list
 NODE *AddUpsNbsMarkFirst(NODE *list, /* list to append to */
                          const MAP_UINT1 *ldd)
 {
-    int r = 0;
-    int c = 0;
-    int i = 0;
-    PRECOND(list != NULL);
-    r = list->rowNr;
-    c = list->colNr;
-    SET_VISITED(list);
-    FOR_ALL_LDD_NBS(i)
-    {
-        int rNB = RNeighbor(r, i);
-        int cNB = CNeighbor(c, i);
-        UINT1 nbVal = 0;
-        if (ldd->Get(&nbVal, rNB, cNB, ldd) && FlowsTo(nbVal, rNB, cNB, r, c))
-            if ((list = LinkChkNd(list, rNB, cNB)) == NULL)
-                return NULL;
-    }
-    return list;
+  int r = 0;
+  int c = 0;
+  int i = 0;
+  PRECOND(list != NULL);
+  r = list->rowNr;
+  c = list->colNr;
+  SET_VISITED(list);
+  FOR_ALL_LDD_NBS(i)
+  {
+    int rNB = RNeighbor(r, i);
+    int cNB = CNeighbor(c, i);
+    UINT1 nbVal = 0;
+    if (ldd->Get(&nbVal, rNB, cNB, ldd) && FlowsTo(nbVal, rNB, cNB, r, c))
+      if ((list = LinkChkNd(list, rNB, cNB)) == NULL)
+        return NULL;
+  }
+  return list;
 }

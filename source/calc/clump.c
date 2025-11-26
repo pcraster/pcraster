@@ -42,47 +42,47 @@ static int PerformClump(MAP_INT4 *out,      /* read-write output map */
                         int nrCols)         /* number of columns */
 /* Each call creates exactly one Clump */
 {
-    NODE *coordList = NULL;
-    INT4 currClumpValue = 0; /* current clump value */
+  NODE *coordList = NULL;
+  INT4 currClumpValue = 0; /* current clump value */
 
-    PRECOND(in->GetGetTest(in) == GET_MV_TEST);
-    PRECOND(out->GetGetTest(out) == GET_MV_TEST);
+  PRECOND(in->GetGetTest(in) == GET_MV_TEST);
+  PRECOND(out->GetGetTest(out) == GET_MV_TEST);
 
-    in->Get(&currClumpValue, r, c, in);
-    coordList = LinkToList(NULL, r, c);
-    if (coordList == NULL)
-        return 1;
-    while (coordList != NULL) {
-        int i = 0;
-        int rowNr = coordList->rowNr;
-        int colNr = coordList->colNr;
+  in->Get(&currClumpValue, r, c, in);
+  coordList = LinkToList(NULL, r, c);
+  if (coordList == NULL)
+    return 1;
+  while (coordList != NULL) {
+    int i = 0;
+    int rowNr = coordList->rowNr;
+    int colNr = coordList->colNr;
 
-        /* remove a co-ordinate (r,c) entry from the list */
-        coordList = RemFromList(coordList);
-        out->Put(currClumpNr, r, c, out);
-        for (i = 1; i <= NR_LDD_DIR; i++) {
-            INT4 clumpVal = 0;
-            INT4 outVal = 0;
-            int rNext = RNeighbor(rowNr, i);
-            int cNext = CNeighbor(colNr, i);
+    /* remove a co-ordinate (r,c) entry from the list */
+    coordList = RemFromList(coordList);
+    out->Put(currClumpNr, r, c, out);
+    for (i = 1; i <= NR_LDD_DIR; i++) {
+      INT4 clumpVal = 0;
+      INT4 outVal = 0;
+      int rNext = RNeighbor(rowNr, i);
+      int cNext = CNeighbor(colNr, i);
 
-            if (in->Get(&clumpVal, rNext, cNext, in) && 0 <= rNext && rNext < nrRows && 0 <= cNext &&
-                cNext < nrCols && (i != LDD_PIT) && (appDiagonal || Corner(i) == false) &&
-                clumpVal == currClumpValue) {
-                if (!out->Get(&outVal, rNext, cNext, out)) {
-                    NODE *tmp = NULL;
-                    tmp = LinkToList(coordList, rNext, cNext);
-                    if (tmp == NULL) {
-                        FreeList(coordList);
-                        return 1;
-                    }
-                    coordList = tmp;
-                    out->Put(currClumpNr, rNext, cNext, out);
-                }
-            }
+      if (in->Get(&clumpVal, rNext, cNext, in) && 0 <= rNext && rNext < nrRows && 0 <= cNext &&
+          cNext < nrCols && (i != LDD_PIT) && (appDiagonal || Corner(i) == false) &&
+          clumpVal == currClumpValue) {
+        if (!out->Get(&outVal, rNext, cNext, out)) {
+          NODE *tmp = NULL;
+          tmp = LinkToList(coordList, rNext, cNext);
+          if (tmp == NULL) {
+            FreeList(coordList);
+            return 1;
+          }
+          coordList = tmp;
+          out->Put(currClumpNr, rNext, cNext, out);
         }
+      }
     }
-    return 0;
+  }
+  return 0;
 }
 
 /* Performs a clump on cells that are neighbors.
@@ -93,32 +93,32 @@ static int PerformClump(MAP_INT4 *out,      /* read-write output map */
 int Clump(MAP_INT4 *out,      /* read-write output map */
           const MAP_INT4 *in) /* input map */
 {
-    int r = 0;
-    int c = 0;
-    INT4 currClumpNr = 1;
-    int nrRows = in->NrRows(in);
-    int nrCols = in->NrCols(in);
+  int r = 0;
+  int c = 0;
+  INT4 currClumpNr = 1;
+  int nrRows = in->NrRows(in);
+  int nrCols = in->NrCols(in);
 
-    /* out has initial value MV */
-    out->PutAllMV(out);
+  /* out has initial value MV */
+  out->PutAllMV(out);
 
-    in->SetGetTest(GET_MV_TEST, in);
-    out->SetGetTest(GET_MV_TEST, out);
+  in->SetGetTest(GET_MV_TEST, in);
+  out->SetGetTest(GET_MV_TEST, out);
 
-    for (r = 0; r < nrRows; r++) {
-        AppRowProgress(r);
-        for (c = 0; c < nrCols; c++) {
-            INT4 inVal = 0;
-            INT4 outVal = 0;
-            if (in->Get(&inVal, r, c, in) && out->Get(&outVal, r, c, out) == false) {
-                if (PerformClump(out, in, r, c, currClumpNr, nrRows, nrCols))
-                    return 1;
-                currClumpNr++;
-            }
-        }
+  for (r = 0; r < nrRows; r++) {
+    AppRowProgress(r);
+    for (c = 0; c < nrCols; c++) {
+      INT4 inVal = 0;
+      INT4 outVal = 0;
+      if (in->Get(&inVal, r, c, in) && out->Get(&outVal, r, c, out) == false) {
+        if (PerformClump(out, in, r, c, currClumpNr, nrRows, nrCols))
+          return 1;
+        currClumpNr++;
+      }
     }
-    AppEndRowProgress();
-    return 0;
+  }
+  AppEndRowProgress();
+  return 0;
 }
 
 /* End of file */

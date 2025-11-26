@@ -46,77 +46,77 @@ static NODE *DoNeighbors(MAP_REAL8 *out,          /* read-write output map */
                          int c,                   /* current cell column */
                          REAL8 drainVal)          /* value to drain down */
 {
-    NODE *list2 = NULL; /* list of lowest neighbors */
-    REAL8 dropMax = 0;  /* maximal drop value */
-    REAL8 dropVal = 0;  /* maximal drop value */
-    int i = 0;
-    int nrPaths = 0; /* nr of outgoing paths */
-    REAL8 demVal = NAN;
-    REAL8 newDem = NAN;
-    REAL8 outVal = NAN;
-    REAL8 pntVal = NAN; /* dem value
+  NODE *list2 = NULL; /* list of lowest neighbors */
+  REAL8 dropMax = 0;  /* maximal drop value */
+  REAL8 dropVal = 0;  /* maximal drop value */
+  int i = 0;
+  int nrPaths = 0; /* nr of outgoing paths */
+  REAL8 demVal = NAN;
+  REAL8 newDem = NAN;
+  REAL8 outVal = NAN;
+  REAL8 pntVal = NAN; /* dem value
                                            * and output value of old and new cell and the
                                            * point value of both to check on MV.
                                            */
 
-    PRECOND(dem->GetGetTest(dem) == GET_MV_TEST);
-    PRECOND(points->GetGetTest(points) == GET_MV_TEST);
-    PRECOND(out->GetGetTest(out) == GET_MV_TEST);
-    PRECOND(dem->Get(&demVal, r, c, dem));
-    PRECOND(out->Get(&outVal, r, c, out));
+  PRECOND(dem->GetGetTest(dem) == GET_MV_TEST);
+  PRECOND(points->GetGetTest(points) == GET_MV_TEST);
+  PRECOND(out->GetGetTest(out) == GET_MV_TEST);
+  PRECOND(dem->Get(&demVal, r, c, dem));
+  PRECOND(out->Get(&outVal, r, c, out));
 
-    dem->Get(&demVal, r, c, dem); /* height original cell */
-    out->Get(&outVal, r, c, out); /* output original cell */
+  dem->Get(&demVal, r, c, dem); /* height original cell */
+  out->Get(&outVal, r, c, out); /* output original cell */
 
-    for (i = 1; i <= NR_LDD_DIR; i++) { /* check all neighbors */
-        int rNext = RNeighbor(r, i);
-        int cNext = CNeighbor(c, i);
+  for (i = 1; i <= NR_LDD_DIR; i++) { /* check all neighbors */
+    int rNext = RNeighbor(r, i);
+    int cNext = CNeighbor(c, i);
 
-        if (dem->Get(&newDem, rNext, cNext, dem) &&       /* no MV */
-            points->Get(&pntVal, rNext, cNext, points) && /* no MV */
-            (i != LDD_PIT) &&                             /* skip cell itself */
-            (0 < (demVal - newDem)))                      /* lower than current cell */
-        {
-            REAL8 dist = (Corner(i) == false) SCALE;
+    if (dem->Get(&newDem, rNext, cNext, dem) &&       /* no MV */
+        points->Get(&pntVal, rNext, cNext, points) && /* no MV */
+        (i != LDD_PIT) &&                             /* skip cell itself */
+        (0 < (demVal - newDem)))                      /* lower than current cell */
+    {
+      REAL8 dist = (Corner(i) == false) SCALE;
 
-            dropVal = (demVal - newDem) / dist;
-            if (dropMax <= dropVal) {
-                NODE *tmp = NULL;
-                if (dropMax < dropVal) {
-                    /* all previous found neighbors
+      dropVal = (demVal - newDem) / dist;
+      if (dropMax <= dropVal) {
+        NODE *tmp = NULL;
+        if (dropMax < dropVal) {
+          /* all previous found neighbors
                      * were not the lowest -> reset.
                      */
-                    list2 = FreeList(list2);
-                    POSTCOND(list2 == NULL);
-                    nrPaths = 0;
-                    dropMax = dropVal;
-                }
-                nrPaths++;
-                tmp = LinkToList(list2, rNext, cNext);
-                if (tmp == NULL) {
-                    FreeList(list2);
-                    FreeList(list);
-                    return NULL;
-                }
-                list2 = tmp;
-            }
+          list2 = FreeList(list2);
+          POSTCOND(list2 == NULL);
+          nrPaths = 0;
+          dropMax = dropVal;
         }
-    }
-    drainVal /= nrPaths; /* divide between steepest paths */
-    while (list2 != NULL) {
-        PRECOND(out->Get(&outVal, list2->rowNr, list2->colNr, out));
-        out->Get(&outVal, list2->rowNr, list2->colNr, out);
-        outVal += drainVal;
-        out->Put(outVal, list2->rowNr, list2->colNr, out);
-        list = LinkChkReal(list, list2->rowNr, list2->colNr, drainVal);
-        if (list == NULL) {
-            FreeList(list2);
-            return NULL;
+        nrPaths++;
+        tmp = LinkToList(list2, rNext, cNext);
+        if (tmp == NULL) {
+          FreeList(list2);
+          FreeList(list);
+          return NULL;
         }
-        list2 = RemFromList(list2);
+        list2 = tmp;
+      }
     }
-    POSTCOND(list != NULL); /* result HasLowerNeighbor was TRUE */
-    return list;
+  }
+  drainVal /= nrPaths; /* divide between steepest paths */
+  while (list2 != NULL) {
+    PRECOND(out->Get(&outVal, list2->rowNr, list2->colNr, out));
+    out->Get(&outVal, list2->rowNr, list2->colNr, out);
+    outVal += drainVal;
+    out->Put(outVal, list2->rowNr, list2->colNr, out);
+    list = LinkChkReal(list, list2->rowNr, list2->colNr, drainVal);
+    if (list == NULL) {
+      FreeList(list2);
+      return NULL;
+    }
+    list2 = RemFromList(list2);
+  }
+  POSTCOND(list != NULL); /* result HasLowerNeighbor was TRUE */
+  return list;
 }
 
 /* Checks a cell on having a lower neighbor.
@@ -129,24 +129,24 @@ static int HasLowerNeighbor(const MAP_REAL8 *dem,    /* dem.map */
                             int rowNr,               /* row number of checked cell */
                             int colNr)               /* column number of checked cell */
 {
-    REAL8 demVal = NAN;
-    REAL8 newDem = NAN; /* heights original cell and neighbor */
-    REAL8 pntVal = NAN; /* if MV, then not a valid lower neighbor */
-    int i = 0;
+  REAL8 demVal = NAN;
+  REAL8 newDem = NAN; /* heights original cell and neighbor */
+  REAL8 pntVal = NAN; /* if MV, then not a valid lower neighbor */
+  int i = 0;
 
-    PRECOND(dem->GetGetTest(dem) == GET_MV_TEST);
-    PRECOND(dem->Get(&demVal, rowNr, colNr, dem));
+  PRECOND(dem->GetGetTest(dem) == GET_MV_TEST);
+  PRECOND(dem->Get(&demVal, rowNr, colNr, dem));
 
-    dem->Get(&demVal, rowNr, colNr, dem);
+  dem->Get(&demVal, rowNr, colNr, dem);
 
-    for (i = 1; i <= NR_LDD_DIR; i++) { /* Check all neighbors for being lower */
-        int rNext = RNeighbor(rowNr, i);
-        int cNext = CNeighbor(colNr, i);
-        if (dem->Get(&newDem, rNext, cNext, dem) && points->Get(&pntVal, rNext, cNext, points) &&
-            (demVal > newDem))
-            return true; /* has lower neighbor */
-    }
-    return false; /* no neighbor is lower */
+  for (i = 1; i <= NR_LDD_DIR; i++) { /* Check all neighbors for being lower */
+    int rNext = RNeighbor(rowNr, i);
+    int cNext = CNeighbor(colNr, i);
+    if (dem->Get(&newDem, rNext, cNext, dem) && points->Get(&pntVal, rNext, cNext, points) &&
+        (demVal > newDem))
+      return true; /* has lower neighbor */
+  }
+  return false; /* no neighbor is lower */
 }
 
 /* Drains down from each nonzero point.
@@ -160,27 +160,27 @@ static REAL8 DoDrain(MAP_REAL8 *out,          /* read-write output map */
                      int r,                   /* current cell row number */
                      int c)                   /* current cell column nr. */
 {
-    NODE *list = NULL;
-    REAL8 pntVal = NAN;   /* value in points.map */
-    REAL8 drainVal = NAN; /* total value to drain down */
+  NODE *list = NULL;
+  REAL8 pntVal = NAN;   /* value in points.map */
+  REAL8 drainVal = NAN; /* total value to drain down */
 
-    PRECOND(points->Get(&pntVal, r, c, points));
+  PRECOND(points->Get(&pntVal, r, c, points));
 
-    points->Get(&pntVal, r, c, points);
-    list = LinkChkReal(list, r, c, pntVal);
-    while (list != NULL) {
-        int rowNr = list->rowNr;
-        int colNr = list->colNr;
-        drainVal = list->val.Real;
-        list = RemFromList(list);
-        if (HasLowerNeighbor(dem, points, rowNr, colNr)) {
-            list = DoNeighbors(out, list, dem, points, rowNr, colNr, drainVal);
-            if (list == NULL)
-                return 1;
-        }
+  points->Get(&pntVal, r, c, points);
+  list = LinkChkReal(list, r, c, pntVal);
+  while (list != NULL) {
+    int rowNr = list->rowNr;
+    int colNr = list->colNr;
+    drainVal = list->val.Real;
+    list = RemFromList(list);
+    if (HasLowerNeighbor(dem, points, rowNr, colNr)) {
+      list = DoNeighbors(out, list, dem, points, rowNr, colNr, drainVal);
+      if (list == NULL)
+        return 1;
     }
-    POSTCOND(list == NULL);
-    return 0;
+  }
+  POSTCOND(list == NULL);
+  return 0;
 }
 
 /* Determines for each nonzero point its steepest downhill path.
@@ -194,69 +194,69 @@ int Drain(MAP_REAL8 *out,          /* write-only output map  */
           const MAP_REAL8 *dem,    /* dem map */
           const MAP_REAL8 *points) /* points map */
 {
-    REAL8 pointVal = NAN;
-    REAL8 demVal = NAN;
-    NODE *pointlist = NULL;
-    int r = 0;
-    int c = 0;
-    int nrRows = 0;
-    int nrCols = 0;
-    int nrPnts = 0;
+  REAL8 pointVal = NAN;
+  REAL8 demVal = NAN;
+  NODE *pointlist = NULL;
+  int r = 0;
+  int c = 0;
+  int nrRows = 0;
+  int nrCols = 0;
+  int nrPnts = 0;
 
-    AppProgress("\nnumber of points to do:\n");
+  AppProgress("\nnumber of points to do:\n");
 
-    nrRows = dem->NrRows(dem);
-    nrCols = dem->NrCols(dem);
+  nrRows = dem->NrRows(dem);
+  nrCols = dem->NrCols(dem);
 
-    PRECOND(nrRows == points->NrRows(points));
-    PRECOND(nrCols == points->NrCols(points));
+  PRECOND(nrRows == points->NrRows(points));
+  PRECOND(nrCols == points->NrCols(points));
 
-    /* Fill outBuf with 0, this is the initial value */
-    for (r = 0; r < nrRows; r++)
-        for (c = 0; c < nrCols; c++)
-            out->Put((REAL8)0, r, c, out);
+  /* Fill outBuf with 0, this is the initial value */
+  for (r = 0; r < nrRows; r++)
+    for (c = 0; c < nrCols; c++)
+      out->Put((REAL8)0, r, c, out);
 
-    /* algorithm wants dem->Get() and points->Get() to
+  /* algorithm wants dem->Get() and points->Get() to
      * return FALSE if a value is a missing value
      */
-    dem->SetGetTest(GET_MV_TEST, dem);
-    points->SetGetTest(GET_MV_TEST, points);
-    out->SetGetTest(GET_MV_TEST, out);
+  dem->SetGetTest(GET_MV_TEST, dem);
+  points->SetGetTest(GET_MV_TEST, points);
+  out->SetGetTest(GET_MV_TEST, out);
 
-    /* For every true point in the points map, put point in list and
+  /* For every true point in the points map, put point in list and
      * put point value in output map. The latter is necessary when a
      * defined point streams into another defined point.
      */
-    for (r = 0; r < nrRows; r++)
-        for (c = 0; c < nrCols; c++) {
-            if (dem->Get(&demVal, r, c, dem) && points->Get(&pointVal, r, c, points)) {
-                if (pointVal != 0) {
-                    NODE *tmp = NULL;
-                    out->Put(pointVal, r, c, out);
-                    tmp = LinkToList(pointlist, r, c);
-                    if (tmp == NULL) {
-                        FreeList(pointlist);
-                        return 1;
-                    }
-                    pointlist = tmp;
-                    nrPnts++;
-                }
-            } else
-                out->PutMV(r, c, out);
-        }
-
-    /* For every true point in the points map do the function */
-    while (pointlist != NULL) {
-        r = pointlist->rowNr;
-        c = pointlist->colNr;
-        if (DoDrain(out, dem, points, r, c)) {
+  for (r = 0; r < nrRows; r++)
+    for (c = 0; c < nrCols; c++) {
+      if (dem->Get(&demVal, r, c, dem) && points->Get(&pointVal, r, c, points)) {
+        if (pointVal != 0) {
+          NODE *tmp = NULL;
+          out->Put(pointVal, r, c, out);
+          tmp = LinkToList(pointlist, r, c);
+          if (tmp == NULL) {
             FreeList(pointlist);
             return 1;
+          }
+          pointlist = tmp;
+          nrPnts++;
         }
-        pointlist = RemFromList(pointlist);
-        nrPnts--;
-        AppProgress("\r%d                   ", nrPnts);
+      } else
+        out->PutMV(r, c, out);
     }
-    AppEndRowProgress();
-    return 0; /* successful terminated */
+
+  /* For every true point in the points map do the function */
+  while (pointlist != NULL) {
+    r = pointlist->rowNr;
+    c = pointlist->colNr;
+    if (DoDrain(out, dem, points, r, c)) {
+      FreeList(pointlist);
+      return 1;
+    }
+    pointlist = RemFromList(pointlist);
+    nrPnts--;
+    AppProgress("\r%d                   ", nrPnts);
+  }
+  AppEndRowProgress();
+  return 0; /* successful terminated */
 }

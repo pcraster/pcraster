@@ -35,37 +35,37 @@ static void AssignOrder(MAP_INT4 *order,      /* read-write output state map */
                         int c,                /* column current cell */
                         const MAP_UINT1 *ldd) /* ldd map  */
 {
-    int i = 0;
-    INT4 highNBstreamOrder = 0;
-    INT4 nrHighNBstreamOrder = 2; /* makes end condition easier */
+  int i = 0;
+  INT4 highNBstreamOrder = 0;
+  INT4 nrHighNBstreamOrder = 2; /* makes end condition easier */
 
-    /* sum all upstream fluxes */
-    FOR_ALL_LDD_NBS(i)
-    {
-        INT4 orderVal = 0;
-        UINT1 lddVal = 0;
-        int rNB = 0;
-        int cNB = 0;
-        rNB = RNeighbor(r, i);
-        cNB = CNeighbor(c, i);
+  /* sum all upstream fluxes */
+  FOR_ALL_LDD_NBS(i)
+  {
+    INT4 orderVal = 0;
+    UINT1 lddVal = 0;
+    int rNB = 0;
+    int cNB = 0;
+    rNB = RNeighbor(r, i);
+    cNB = CNeighbor(c, i);
 
-        if (ldd->Get(&lddVal, rNB, cNB, ldd) &&
-            FlowsTo(lddVal, rNB, cNB, r, c)) { /* (rNB,cNB) flows in (r,c) */
-            /*  order of NB should be known: */
-            PRECOND(order->Get(&orderVal, rNB, cNB, order));
-            order->Get(&orderVal, rNB, cNB, order);
-            if (highNBstreamOrder == orderVal)
-                nrHighNBstreamOrder++;
-            if (highNBstreamOrder < orderVal) {
-                highNBstreamOrder = orderVal;
-                nrHighNBstreamOrder = 1;
-            }
-        }
+    if (ldd->Get(&lddVal, rNB, cNB, ldd) &&
+        FlowsTo(lddVal, rNB, cNB, r, c)) { /* (rNB,cNB) flows in (r,c) */
+      /*  order of NB should be known: */
+      PRECOND(order->Get(&orderVal, rNB, cNB, order));
+      order->Get(&orderVal, rNB, cNB, order);
+      if (highNBstreamOrder == orderVal)
+        nrHighNBstreamOrder++;
+      if (highNBstreamOrder < orderVal) {
+        highNBstreamOrder = orderVal;
+        nrHighNBstreamOrder = 1;
+      }
     }
-    /* works even if no upstream cells, due to proper initialixation */
-    if (nrHighNBstreamOrder >= 2)
-        highNBstreamOrder++;
-    order->Put(highNBstreamOrder, r, c, order);
+  }
+  /* works even if no upstream cells, due to proper initialixation */
+  if (nrHighNBstreamOrder >= 2)
+    highNBstreamOrder++;
+  order->Put(highNBstreamOrder, r, c, order);
 }
 
 static int CalcOrder(MAP_INT4 *order,      /* Read-write output state map  */
@@ -73,59 +73,59 @@ static int CalcOrder(MAP_INT4 *order,      /* Read-write output state map  */
                      int c,                /* pit column coordinate */
                      const MAP_UINT1 *ldd) /* ldd map */
 {
-    NODE *list = NULL;
+  NODE *list = NULL;
 
-    PRECOND(ldd->GetGetTest(ldd) == GET_MV_TEST);
+  PRECOND(ldd->GetGetTest(ldd) == GET_MV_TEST);
 
-    list = LinkChkNd(NULL, r, c); /* pit is 1st element */
-    if (list == NULL)
-        return 1; /* memory allocation failed */
+  list = LinkChkNd(NULL, r, c); /* pit is 1st element */
+  if (list == NULL)
+    return 1; /* memory allocation failed */
 
-    while (list != NULL) {
-        r = list->rowNr; /* row of cell to check */
-        c = list->colNr; /* column of cell to check */
+  while (list != NULL) {
+    r = list->rowNr; /* row of cell to check */
+    c = list->colNr; /* column of cell to check */
 
-        if (IS_VISITED(list)) { /* it's catchment is processed 
+    if (IS_VISITED(list)) { /* it's catchment is processed 
                                  * ups NBs contain order numbers
                                  */
-            AssignOrder(order, r, c, ldd);
-            list = RemFromList(list);
-        } else { /* add ups NB cell to process first */
-            if ((list = AddUpsNbsMarkFirst(list, ldd)) == NULL)
-                return 1;
-        }
+      AssignOrder(order, r, c, ldd);
+      list = RemFromList(list);
+    } else { /* add ups NB cell to process first */
+      if ((list = AddUpsNbsMarkFirst(list, ldd)) == NULL)
+        return 1;
     }
-    return 0;
+  }
+  return 0;
 }
 
 int StreamOrder(MAP_INT4 *order,      /* Read-write output flux map  */
                 const MAP_UINT1 *ldd) /* ldd map */
 {
-    UINT1 lddVal = 0;
-    int r = 0;
-    int c = 0;
-    int nrRows = 0;
-    int nrCols = 0;
+  UINT1 lddVal = 0;
+  int r = 0;
+  int c = 0;
+  int nrRows = 0;
+  int nrCols = 0;
 
-    nrRows = ldd->NrRows(ldd);
-    nrCols = ldd->NrCols(ldd);
+  nrRows = ldd->NrRows(ldd);
+  nrCols = ldd->NrCols(ldd);
 
-    /* function wants MAP->Get() to return FALSE in case of MV */
-    ldd->SetGetTest(GET_MV_TEST, ldd);
+  /* function wants MAP->Get() to return FALSE in case of MV */
+  ldd->SetGetTest(GET_MV_TEST, ldd);
 
-    /* For each pit in the ldd map 
+  /* For each pit in the ldd map 
      * traverse upstream to do the calculation
      */
-    for (r = 0; r < nrRows; r++)
-        for (c = 0; c < nrCols; c++) {
-            if (ldd->Get(&lddVal, r, c, ldd)) {
-                if (lddVal == LDD_PIT) {
-                    int res = CalcOrder(order, r, c, ldd);
-                    if (res)
-                        return res;
-                }
-            } else
-                order->PutMV(r, c, order);
+  for (r = 0; r < nrRows; r++)
+    for (c = 0; c < nrCols; c++) {
+      if (ldd->Get(&lddVal, r, c, ldd)) {
+        if (lddVal == LDD_PIT) {
+          int res = CalcOrder(order, r, c, ldd);
+          if (res)
+            return res;
         }
-    return 0; /* successful exited */
+      } else
+        order->PutMV(r, c, order);
+    }
+  return 0; /* successful exited */
 }

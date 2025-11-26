@@ -39,11 +39,11 @@
 static REAL8 Fraction(REAL8 amount,   /* amount to evaluate */
                       REAL8 fraction) /* fraction */
 {
-    REAL8 val = NAN;
-    if (0 > fraction || fraction > 1)
-        return -1;
-    val = amount * fraction;
-    return val;
+  REAL8 val = NAN;
+  if (0 > fraction || fraction > 1)
+    return -1;
+  val = amount * fraction;
+  return val;
 }
 
 /* Determines the new state and flux for each cell.
@@ -58,12 +58,12 @@ int AccuFraction(MAP_REAL8 *state,          /* Read-write state map */
                  const MAP_REAL8 *amount,   /* amount map */
                  const MAP_REAL8 *fracflux) /* transport fraction map */
 {
-    switch (PerformAccu(state, flux, ldd, amount, fracflux, Fraction)) {
-        case 2:
-            Error("accufraction: Domain error on parameters");
-            // Falls through
-        case 1:
-            return 1; /* for both 1 and 2 */
-    }
-    return 0;
+  switch (PerformAccu(state, flux, ldd, amount, fracflux, Fraction)) {
+    case 2:
+      Error("accufraction: Domain error on parameters");
+      // Falls through
+    case 1:
+      return 1; /* for both 1 and 2 */
+  }
+  return 0;
 }

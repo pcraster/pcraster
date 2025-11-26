@@ -36,7 +36,7 @@
 static REAL8 Capacity(REAL8 amount,   /* amount to evaluate */
                       REAL8 capacity) /* capacity */
 {
-    return MIN(capacity, amount);
+  return MIN(capacity, amount);
 }
 
 /* Determines the new state and flux for each cell.
@@ -51,12 +51,12 @@ int AccuLtc(MAP_REAL8 *state,          /* Read-write output state map  */
             const MAP_REAL8 *amount,   /* amount map  */
             const MAP_REAL8 *transcap) /* transport capacity map */
 {
-    switch (PerformAccu(state, flux, ldd, amount, transcap, Capacity)) {
-        case 2:
-            Error("accucapacity: Domain error on parameters");
-            // Falls through
-        case 1:
-            return 1; /* for both 1 and 2 */
-    }
-    return 0;
+  switch (PerformAccu(state, flux, ldd, amount, transcap, Capacity)) {
+    case 2:
+      Error("accucapacity: Domain error on parameters");
+      // Falls through
+    case 1:
+      return 1; /* for both 1 and 2 */
+  }
+  return 0;
 }

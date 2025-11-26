@@ -47,33 +47,33 @@ int currListNodes = 0;
  */
 NODE *RevList(NODE *list) /* read-write list to reverse */
 {
-    NODE *e[3];
+  NODE *e[3];
 
-    e[0] = NULL;
-    e[1] = list;
+  e[0] = NULL;
+  e[1] = list;
 
-    while (e[1] != NULL) {
-        e[2] = e[1]->prev;
-        /* action on e[1] if required */
-        e[1]->prev = e[0];
-        e[0] = e[1];
-        e[1] = e[2];
-    }
-    return (e[0]);
+  while (e[1] != NULL) {
+    e[2] = e[1]->prev;
+    /* action on e[1] if required */
+    e[1]->prev = e[0];
+    e[0] = e[1];
+    e[1] = e[2];
+  }
+  return (e[0]);
 }
 
 NODE *NewNode(int rowNr, /* row of cell for new node */
               int colNr) /* column of cell for new node */
 {
-    NODE *n = (NODE *)ChkMalloc(sizeof(NODE));
-    if (n != NULL) {
-        n->rowNr = rowNr;
-        n->colNr = colNr;
+  NODE *n = (NODE *)ChkMalloc(sizeof(NODE));
+  if (n != NULL) {
+    n->rowNr = rowNr;
+    n->colNr = colNr;
 #ifdef DEBUG_DEVELOP
-        currListNodes++;
+    currListNodes++;
 #endif
-    }
-    return n;
+  }
+  return n;
 }
 
 /* Puts a new element at the beginning of the NODE list.
@@ -86,13 +86,13 @@ NODE *LinkToList(NODE *list, /* read-write list of cells */
                  int rowNr,  /* row of cell to be linked */
                  int colNr)  /* column of cell to be linked */
 {
-    NODE *new = NewNode(rowNr, colNr);
-    if (new == NULL)
-        return NULL; /* memory allocation failed */
-    new->prev = list;
-    list = new;
-    POSTCOND(list != NULL);
-    return list;
+  NODE *new = NewNode(rowNr, colNr);
+  if (new == NULL)
+    return NULL; /* memory allocation failed */
+  new->prev = list;
+  list = new;
+  POSTCOND(list != NULL);
+  return list;
 }
 
 /* Deallocates a list, needed when the algorithm did not return 0.
@@ -101,10 +101,10 @@ NODE *LinkToList(NODE *list, /* read-write list of cells */
  */
 NODE *FreeList(NODE *list) /* read-write list to deallocate */
 {
-    while (list != NULL)
-        list = RemFromList(list);
-    POSTCOND(list == NULL);
-    return list;
+  while (list != NULL)
+    list = RemFromList(list);
+  POSTCOND(list == NULL);
+  return list;
 }
 
 /* Links new element to list with its REAL8 value.
@@ -121,16 +121,16 @@ NODE *LinkChkReal(NODE *list,  /* read-write list */
                   int colNr,   /* column from cell to be linked */
                   REAL8 value) /* a value to link */
 {
-    NODE *tmp = NULL;
-    tmp = LinkToList(list, rowNr, colNr);
-    if (tmp == NULL) /* allocation failed */
-    {
-        list = FreeList(list);
-        return NULL;
-    }
-    list = tmp;
-    list->val.Real = value; /* real8 value of cell */
-    return (list);
+  NODE *tmp = NULL;
+  tmp = LinkToList(list, rowNr, colNr);
+  if (tmp == NULL) /* allocation failed */
+  {
+    list = FreeList(list);
+    return NULL;
+  }
+  list = tmp;
+  list->val.Real = value; /* real8 value of cell */
+  return (list);
 }
 
 /* Links element and direction to list, used during depth-first search.
@@ -146,16 +146,16 @@ NODE *LinkChkNd(NODE *list, /* read-write list */
                 int rowNr,  /* row from cell to be linked */
                 int colNr)  /* column from cell to be linked */
 {
-    NODE *tmp = NULL;
-    tmp = LinkToList(list, rowNr, colNr);
-    if (tmp == NULL) /* allocation failed */
-    {
-        list = FreeList(list);
-        return NULL;
-    }
-    list = tmp;
-    list->val.visited = false; /* no directions checked yet */
-    return (list);
+  NODE *tmp = NULL;
+  tmp = LinkToList(list, rowNr, colNr);
+  if (tmp == NULL) /* allocation failed */
+  {
+    list = FreeList(list);
+    return NULL;
+  }
+  list = tmp;
+  list->val.visited = false; /* no directions checked yet */
+  return (list);
 }
 
 /* Removes the first element of the list.
@@ -165,18 +165,18 @@ NODE *LinkChkNd(NODE *list, /* read-write list */
  */
 NODE *RemFromList(NODE *list) /* read-write list of cells */
 {
-    NODE *tmp = NULL;
-    PRECOND(list != NULL); /* can not remove from empty list */
-    tmp = list;
-    list = list->prev;
-    Free((NODE *)tmp);
+  NODE *tmp = NULL;
+  PRECOND(list != NULL); /* can not remove from empty list */
+  tmp = list;
+  list = list->prev;
+  Free((NODE *)tmp);
 
 #ifdef DEBUG_DEVELOP
-    PRECOND(currListNodes > 0);
-    maxListNodes = MAX(maxListNodes, currListNodes);
-    currListNodes--;
+  PRECOND(currListNodes > 0);
+  maxListNodes = MAX(maxListNodes, currListNodes);
+  currListNodes--;
 #endif
-    return list;
+  return list;
 }
 
 /* Checks whether a cell is already in a list.
@@ -190,13 +190,13 @@ bool InList(NODE *list, /* Read-only list */
             int r,      /* row number cell to check */
             int c)      /* column number from cell to check */
 {
-    NODE *p = NULL; /* pointer to list of structs */
-    p = list;
-    while (p != NULL) {
-        if (p->rowNr == r && p->colNr == c)
-            /* element in list same coordinates as cell (r,c) */
-            return true;
-        p = p->prev; /* check previous element in list */
-    }
-    return false;
+  NODE *p = NULL; /* pointer to list of structs */
+  p = list;
+  while (p != NULL) {
+    if (p->rowNr == r && p->colNr == c)
+      /* element in list same coordinates as cell (r,c) */
+      return true;
+    p = p->prev; /* check previous element in list */
+  }
+  return false;
 }

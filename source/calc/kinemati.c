@@ -54,83 +54,83 @@ static double CalcSnew(
 }
 */
 enum {
-    MAX_ITERS = 3000
+  MAX_ITERS = 3000
 };
 
 double IterateToQnew(double Qin,  /* summed Q new in for all sub-cachments */
                      double Qold, /* current discharge */
                      double q, double alpha, double beta, double deltaT, double deltaX, double epsilon)
 {
-    /* Using Newton-Raphson Method
+  /* Using Newton-Raphson Method
    */
-    typedef long double REAL;
-    REAL Qk1 = NAN; /* Q at loop k+1 for i+1, j+1 */
-    REAL ab_pQ = NAN;
-    REAL deltaTX = NAN;
-    REAL C = NAN;
-    int count = 0;
+  typedef long double REAL;
+  REAL Qk1 = NAN; /* Q at loop k+1 for i+1, j+1 */
+  REAL ab_pQ = NAN;
+  REAL deltaTX = NAN;
+  REAL C = NAN;
+  int count = 0;
 
-    REAL Qkx = NAN;
-    REAL fQkx = NAN;
-    REAL dfQkx = NAN;
-    POSTCOND(sizeof(REAL) >= 8);
+  REAL Qkx = NAN;
+  REAL fQkx = NAN;
+  REAL dfQkx = NAN;
+  POSTCOND(sizeof(REAL) >= 8);
 
-    /* if no input then output = 0 */
-    if ((Qin + Qold + q) == 0) /* +q CW NEW! */
-        return (0);
+  /* if no input then output = 0 */
+  if ((Qin + Qold + q) == 0) /* +q CW NEW! */
+    return (0);
 
-    /* common terms */
-    ab_pQ = alpha * beta * pow(((Qold + Qin) / 2), beta - 1);
-    deltaTX = deltaT / deltaX;
-    C = deltaTX * Qin + alpha * pow(Qold, beta) + deltaT * q;
+  /* common terms */
+  ab_pQ = alpha * beta * pow(((Qold + Qin) / 2), beta - 1);
+  deltaTX = deltaT / deltaX;
+  C = deltaTX * Qin + alpha * pow(Qold, beta) + deltaT * q;
 
-    /*  1. Initial guess Qk1.             */
-    /*  2. Evaluate function f at Qkx.    */
-    /*  3. Evaluate derivative df at Qkx. */
-    /*  4. Check convergence.             */
+  /*  1. Initial guess Qk1.             */
+  /*  2. Evaluate function f at Qkx.    */
+  /*  3. Evaluate derivative df at Qkx. */
+  /*  4. Check convergence.             */
 
-    /*
+  /*
      * There's a problem with the first guess of Qkx. fQkx is only defined
      * for Qkx's > 0. Sometimes the first guess results in a Qkx+1 which is
      * negative or 0. In that case we change Qkx+1 to 1e-30. This keeps the
      * convergence loop healthy.
      */
-    Qkx = (deltaTX * Qin + Qold * ab_pQ + deltaT * q) / (deltaTX + ab_pQ);
-    Qkx = MAX(Qkx, 1e-30); /* added test-case calc::KinematicTest::iterate1 */
+  Qkx = (deltaTX * Qin + Qold * ab_pQ + deltaT * q) / (deltaTX + ab_pQ);
+  Qkx = MAX(Qkx, 1e-30);                             /* added test-case calc::KinematicTest::iterate1 */
+  fQkx = deltaTX * Qkx + alpha * pow(Qkx, beta) - C; /* Current k */
+  dfQkx = deltaTX + alpha * beta * pow(Qkx, beta - 1); /* Current k */
+  Qkx -= fQkx / dfQkx;                                 /* Next k */
+  Qkx = MAX(Qkx, 1e-30);
+  count = 0;
+  do {
     fQkx = deltaTX * Qkx + alpha * pow(Qkx, beta) - C;   /* Current k */
     dfQkx = deltaTX + alpha * beta * pow(Qkx, beta - 1); /* Current k */
     Qkx -= fQkx / dfQkx;                                 /* Next k */
     Qkx = MAX(Qkx, 1e-30);
-    count = 0;
-    do {
-        fQkx = deltaTX * Qkx + alpha * pow(Qkx, beta) - C;   /* Current k */
-        dfQkx = deltaTX + alpha * beta * pow(Qkx, beta - 1); /* Current k */
-        Qkx -= fQkx / dfQkx;                                 /* Next k */
-        Qkx = MAX(Qkx, 1e-30);
-        count++;
-    } while (fabsl(fQkx) > epsilon && count < MAX_ITERS);
+    count++;
+  } while (fabsl(fQkx) > epsilon && count < MAX_ITERS);
 
 #ifdef DEBUG_DEVELOP
-    /* Our loop should converge in around 2 steps, otherwise something's
+  /* Our loop should converge in around 2 steps, otherwise something's
      * wrong.
      */
-    /*  test-case calc::KinematicTest::iterate2
+  /*  test-case calc::KinematicTest::iterate2
      *  is such a case, but values are very low
      * 1e-30 is returned
      */
-    if (0 && count == MAX_ITERS) {
-        printf("\nfQkx %g Qkx %g\n", (double)fQkx, (double)Qkx);
-        printf("Qin %g \n", Qin);
-        printf("Qold %g \n", Qold);
-        printf("q %g \n", q);
-        printf("alpha %g \n", alpha);
-        printf("beta %g \n", beta);
-        printf("deltaT %g \n", deltaT);
-        printf("deltaX %g \n", deltaX);
-    }
+  if (0 && count == MAX_ITERS) {
+    printf("\nfQkx %g Qkx %g\n", (double)fQkx, (double)Qkx);
+    printf("Qin %g \n", Qin);
+    printf("Qold %g \n", Qold);
+    printf("q %g \n", q);
+    printf("alpha %g \n", alpha);
+    printf("beta %g \n", beta);
+    printf("deltaT %g \n", deltaT);
+    printf("deltaX %g \n", deltaX);
+  }
 #endif
-    Qk1 = Qkx;
-    return (MAX(Qk1, 0));
+  Qk1 = Qkx;
+  return (MAX(Qk1, 0));
 }
 
 /* Accumulates the amount of the current cell and its neighbors.
@@ -142,49 +142,49 @@ static void Sum(int r, /* row current cell */
                 const MAP_REAL8 *alpha, const MAP_REAL8 *beta, const MAP_REAL8 *deltaT,
                 const MAP_REAL8 *deltaX)
 {
-    REAL8 QoldVal = NAN;
-    REAL8 qVal = NAN;
-    REAL8 alphaVal = NAN;
-    REAL8 betaVal = NAN;
-    REAL8 deltaTVal = NAN;
-    REAL8 deltaXVal = NAN;
+  REAL8 QoldVal = NAN;
+  REAL8 qVal = NAN;
+  REAL8 alphaVal = NAN;
+  REAL8 betaVal = NAN;
+  REAL8 deltaTVal = NAN;
+  REAL8 deltaXVal = NAN;
 
-    if (Qold->Get(&QoldVal, r, c, Qold) && q->Get(&qVal, r, c, q) &&
-        alpha->Get(&alphaVal, r, c, alpha) && beta->Get(&betaVal, r, c, beta) &&
-        deltaT->Get(&deltaTVal, r, c, deltaT) && deltaX->Get(&deltaXVal, r, c, deltaX)) {
-        REAL8 QnewVal = NAN;
-        REAL8 QnewUps = NAN;
-        REAL8 Qin = 0.0;
-        int i = 0;
-        UINT1 lddVal = 0;
+  if (Qold->Get(&QoldVal, r, c, Qold) && q->Get(&qVal, r, c, q) && alpha->Get(&alphaVal, r, c, alpha) &&
+      beta->Get(&betaVal, r, c, beta) && deltaT->Get(&deltaTVal, r, c, deltaT) &&
+      deltaX->Get(&deltaXVal, r, c, deltaX)) {
+    REAL8 QnewVal = NAN;
+    REAL8 QnewUps = NAN;
+    REAL8 Qin = 0.0;
+    int i = 0;
+    UINT1 lddVal = 0;
 
-        /* get Qin = sum of Upstream NB Qnew */
-        FOR_ALL_LDD_NBS(i)
-        {
-            int rNB = 0;
-            int cNB = 0;
-            rNB = RNeighbor(r, i);
-            cNB = CNeighbor(c, i);
+    /* get Qin = sum of Upstream NB Qnew */
+    FOR_ALL_LDD_NBS(i)
+    {
+      int rNB = 0;
+      int cNB = 0;
+      rNB = RNeighbor(r, i);
+      cNB = CNeighbor(c, i);
 
-            if (ldd->Get(&lddVal, rNB, cNB, ldd) &&
-                FlowsTo(lddVal, rNB, cNB, r, c)) { /* (r,c) is in map and no MV */
-                if (Qnew->Get(&QnewUps, rNB, cNB, Qnew))
-                    Qin += QnewUps;
-                else
-                /* neighbor has MV output value
+      if (ldd->Get(&lddVal, rNB, cNB, ldd) &&
+          FlowsTo(lddVal, rNB, cNB, r, c)) { /* (r,c) is in map and no MV */
+        if (Qnew->Get(&QnewUps, rNB, cNB, Qnew))
+          Qin += QnewUps;
+        else
+        /* neighbor has MV output value
                  * no need to examine others.
                  */
-                {
-                    Qnew->PutMV(r, c, Qnew);
-                    return;
-                }
-            }
+        {
+          Qnew->PutMV(r, c, Qnew);
+          return;
         }
+      }
+    }
 
-        QnewVal = IterateToQnew(Qin, QoldVal, qVal, alphaVal, betaVal, deltaTVal, deltaXVal, epsilon);
-        Qnew->Put(QnewVal, r, c, Qnew);
-    } else
-        Qnew->PutMV(r, c, Qnew);
+    QnewVal = IterateToQnew(Qin, QoldVal, qVal, alphaVal, betaVal, deltaTVal, deltaXVal, epsilon);
+    Qnew->Put(QnewVal, r, c, Qnew);
+  } else
+    Qnew->PutMV(r, c, Qnew);
 }
 
 static int KinematicOneCatchment(int r,                 /* r- Y-coordinate of catchment OutflowPoint */
@@ -196,29 +196,29 @@ static int KinematicOneCatchment(int r,                 /* r- Y-coordinate of ca
                                  const MAP_REAL8 *alpha, /* see kinematic wave formula */
                                  const MAP_REAL8 *beta, const MAP_REAL8 *deltaT, const MAP_REAL8 *deltaX)
 {
-    NODE *list = NULL;
+  NODE *list = NULL;
 
-    PRECOND(ldd->GetGetTest(ldd) == GET_MV_TEST);
+  PRECOND(ldd->GetGetTest(ldd) == GET_MV_TEST);
 
-    list = LinkChkNd(NULL, r, c); /* pit is 1st element */
-    if (list == NULL)
-        return 1; /* memory allocation failed */
+  list = LinkChkNd(NULL, r, c); /* pit is 1st element */
+  if (list == NULL)
+    return 1; /* memory allocation failed */
 
-    while (list != NULL) {
-        r = list->rowNr; /* row of cell to check */
-        c = list->colNr; /* column of cell to check */
+  while (list != NULL) {
+    r = list->rowNr; /* row of cell to check */
+    c = list->colNr; /* column of cell to check */
 
-        if (IS_VISITED(list)) { /* it's catchment is processed
+    if (IS_VISITED(list)) { /* it's catchment is processed
            * ups NBs contain inflow
            */
-            Sum(r, c, Qnew, Qold, q, ldd, alpha, beta, deltaT, deltaX);
-            list = RemFromList(list);
-        } else { /* add ups NB cell to process first */
-            if ((list = AddUpsNbsMarkFirst(list, ldd)) == NULL)
-                return 1; /* memory error */
-        }
+      Sum(r, c, Qnew, Qold, q, ldd, alpha, beta, deltaT, deltaX);
+      list = RemFromList(list);
+    } else { /* add ups NB cell to process first */
+      if ((list = AddUpsNbsMarkFirst(list, ldd)) == NULL)
+        return 1; /* memory error */
     }
-    return 0;
+  }
+  return 0;
 }
 
 int Kinematic(MAP_REAL8 *Qnew,                             /* -w discharge at time j+1 */
@@ -227,23 +227,23 @@ int Kinematic(MAP_REAL8 *Qnew,                             /* -w discharge at ti
               const MAP_REAL8 *alpha,                      /* see kinematic wave formula */
               const MAP_REAL8 *beta, const MAP_REAL8 *deltaT, const MAP_REAL8 *deltaX)
 {
-    /*
+  /*
  * q has to be:         q(j+1,i+1) + q (j,i+1) / 2
  * alpha has to be:     (n * (b+2*h)^(2/3) / sqrt(S) )^ 0.6
  * beta has to be for manning's equation:  3/5
  */
-    int nrRows = ldd->NrRows(ldd);
-    int nrCols = ldd->NrCols(ldd);
-    UINT1 lddVal = 0;
-    int r = 0;
-    int c = 0; /* (r,c) becomes co-ordinate of outflowpoint */
+  int nrRows = ldd->NrRows(ldd);
+  int nrCols = ldd->NrCols(ldd);
+  UINT1 lddVal = 0;
+  int r = 0;
+  int c = 0; /* (r,c) becomes co-ordinate of outflowpoint */
 
-    for (r = 0; r < nrRows; r++)
-        for (c = 0; c < nrCols; c++)
-            if (ldd->Get(&lddVal, r, c, ldd)) {
-                if (lddVal == LDD_PIT) /* found catchment outlet */
-                    KinematicOneCatchment(r, c, Qnew, Qold, q, ldd, alpha, beta, deltaT, deltaX);
-            } else
-                Qnew->PutMV(r, c, Qnew);
-    return 0;
+  for (r = 0; r < nrRows; r++)
+    for (c = 0; c < nrCols; c++)
+      if (ldd->Get(&lddVal, r, c, ldd)) {
+        if (lddVal == LDD_PIT) /* found catchment outlet */
+          KinematicOneCatchment(r, c, Qnew, Qold, q, ldd, alpha, beta, deltaT, deltaX);
+      } else
+        Qnew->PutMV(r, c, Qnew);
+  return 0;
 }

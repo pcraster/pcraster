@@ -37,11 +37,11 @@
 static REAL8 Trigger(REAL8 amount,     /* amount to evaluate */
                      REAL8 triggerVal) /* trigger value */
 {
-    if (triggerVal < 0)
-        amount = triggerVal; /* return err. neg. value */
-    if (triggerVal <= amount)
-        return amount;
-    return 0;
+  if (triggerVal < 0)
+    amount = triggerVal; /* return err. neg. value */
+  if (triggerVal <= amount)
+    return amount;
+  return 0;
 }
 
 /* Determines the new state and flux for each cell.
@@ -57,12 +57,12 @@ int AccuTrigger(MAP_REAL8 *state,         /* Read-write output state map  */
                 const MAP_REAL8 *amount,  /* amount map  */
                 const MAP_REAL8 *trigger) /* transport trigger map */
 {
-    switch (PerformAccu(state, flux, ldd, amount, trigger, Trigger)) {
-        case 2:
-            Error("accutrigger: Domain error on parameters");
-            // Falls through
-        case 1:
-            return 1; /* for both 1 and 2 */
-    }
-    return 0;
+  switch (PerformAccu(state, flux, ldd, amount, trigger, Trigger)) {
+    case 2:
+      Error("accutrigger: Domain error on parameters");
+      // Falls through
+    case 1:
+      return 1; /* for both 1 and 2 */
+  }
+  return 0;
 }

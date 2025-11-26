@@ -43,40 +43,40 @@ static void Longest(MAP_REAL8 *out,            /* read-write output map */
                     int cellr,                 /* row number of cell */
                     int cellc)                 /* column number of cell */
 {
-    REAL8 fricVal = NAN;
-    REAL8 fricVal2 = NAN;
-    REAL8 oldDist = NAN;
-    REAL8 newDist = 0;
-    UINT1 lddVal = 0;
-    int r = cellr;
-    int c = cellc;
+  REAL8 fricVal = NAN;
+  REAL8 fricVal2 = NAN;
+  REAL8 oldDist = NAN;
+  REAL8 newDist = 0;
+  UINT1 lddVal = 0;
+  int r = cellr;
+  int c = cellc;
 
-    /* end of catchment -> slopelength is 0 */
-    out->Put((REAL8)0, r, c, out);
+  /* end of catchment -> slopelength is 0 */
+  out->Put((REAL8)0, r, c, out);
 
-    while (ldd->Get(&lddVal, r, c, ldd) && friction->Get(&fricVal, r, c, friction) &&
-           friction->Get(&fricVal2, RNeighbor(r, lddVal), CNeighbor(c, lddVal), friction) &&
-           lddVal != LDD_PIT) {
-        REAL8 incrCost = NAN;
-        REAL8 incrDist = NAN;
-        int rNext = RNeighbor(r, lddVal);
-        int cNext = CNeighbor(c, lddVal);
-        if (appUnitTrue)
-            incrDist = (!Corner(lddVal))SCALE;
-        else
-            incrDist = (!Corner(lddVal)) ? 1 : sqrt((REAL8)2);
-        incrCost = ((fricVal + fricVal2) / 2);
-        newDist += incrDist * incrCost;
-        if (out->Get(&oldDist, rNext, cNext, out)) {
-            if (oldDist < newDist)
-                out->Put(newDist, rNext, cNext, out);
-        } else {
-            if (ldd->Get(&lddVal, rNext, cNext, ldd))
-                out->Put(newDist, rNext, cNext, out);
-        }
-        r = rNext;
-        c = cNext;
+  while (ldd->Get(&lddVal, r, c, ldd) && friction->Get(&fricVal, r, c, friction) &&
+         friction->Get(&fricVal2, RNeighbor(r, lddVal), CNeighbor(c, lddVal), friction) &&
+         lddVal != LDD_PIT) {
+    REAL8 incrCost = NAN;
+    REAL8 incrDist = NAN;
+    int rNext = RNeighbor(r, lddVal);
+    int cNext = CNeighbor(c, lddVal);
+    if (appUnitTrue)
+      incrDist = (!Corner(lddVal))SCALE;
+    else
+      incrDist = (!Corner(lddVal)) ? 1 : sqrt((REAL8)2);
+    incrCost = ((fricVal + fricVal2) / 2);
+    newDist += incrDist * incrCost;
+    if (out->Get(&oldDist, rNext, cNext, out)) {
+      if (oldDist < newDist)
+        out->Put(newDist, rNext, cNext, out);
+    } else {
+      if (ldd->Get(&lddVal, rNext, cNext, ldd))
+        out->Put(newDist, rNext, cNext, out);
     }
+    r = rNext;
+    c = cNext;
+  }
 }
 
 /* Determines the length of the longest path to end of catchment.
@@ -91,37 +91,37 @@ int Slopelength(MAP_REAL8 *out,            /* Read-write output map  */
                 const MAP_UINT1 *ldd,      /* ldd map */
                 const MAP_REAL8 *friction) /* friction map */
 {
-    UINT1 lddVal = 0;
-    int r = 0;
-    int c = 0;
-    int nrRows = 0;
-    int nrCols = 0;
-    REAL8 fricVal = NAN;
+  UINT1 lddVal = 0;
+  int r = 0;
+  int c = 0;
+  int nrRows = 0;
+  int nrCols = 0;
+  REAL8 fricVal = NAN;
 
-    ldd->SetGetTest(GET_MV_TEST, ldd);
-    friction->SetGetTest(GET_MV_TEST, friction);
-    out->SetGetTest(GET_MV_TEST, out);
+  ldd->SetGetTest(GET_MV_TEST, ldd);
+  friction->SetGetTest(GET_MV_TEST, friction);
+  out->SetGetTest(GET_MV_TEST, out);
 
-    nrRows = ldd->NrRows(ldd);
-    nrCols = ldd->NrCols(ldd);
+  nrRows = ldd->NrRows(ldd);
+  nrCols = ldd->NrCols(ldd);
 
-    /* Initialize the output map */
-    out->PutAllMV(out);
+  /* Initialize the output map */
+  out->PutAllMV(out);
 
-    /* For every end cell in the ldd map calculate the longest
+  /* For every end cell in the ldd map calculate the longest
      * path from cell to end of catchment.
      */
-    for (r = 0; r < nrRows; r++) {
-        AppRowProgress(r);
-        for (c = 0; c < nrCols; c++) {
-            if (ldd->Get(&lddVal, r, c, ldd) && friction->Get(&fricVal, r, c, friction)) {
-                if (fricVal < 0)
-                    return RetError(1, "slopelength: Domain error on parameters");
-                if (NoInput(ldd, r, c))
-                    Longest(out, ldd, friction, r, c);
-            }
-        }
+  for (r = 0; r < nrRows; r++) {
+    AppRowProgress(r);
+    for (c = 0; c < nrCols; c++) {
+      if (ldd->Get(&lddVal, r, c, ldd) && friction->Get(&fricVal, r, c, friction)) {
+        if (fricVal < 0)
+          return RetError(1, "slopelength: Domain error on parameters");
+        if (NoInput(ldd, r, c))
+          Longest(out, ldd, friction, r, c);
+      }
     }
-    AppEndRowProgress();
-    return 0;
+  }
+  AppEndRowProgress();
+  return 0;
 }

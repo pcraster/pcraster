@@ -74,13 +74,9 @@ uit in de brenner functie
 /******************/
 /* IMPLEMENTATION */
 /******************/
-static int DoBirds(int *rTo,
-                   int *cTo,
-                   MAP_INT4 *point,
-                   MAP_REAL8 *dist,
-                   MAP_UINT1 *occupied, /* read-write output map  */
-                   const MAP_REAL8 *dispRange,
-                   const MAP_REAL8 *habQual) /* habitat quality */
+static int DoBirds(int *rTo, int *cTo, MAP_INT4 *point, MAP_REAL8 *dist,
+                   MAP_UINT1 *occupied,                                  /* read-write output map  */
+                   const MAP_REAL8 *dispRange, const MAP_REAL8 *habQual) /* habitat quality */
 {
     int r = 0;
     int nrRows = point->NrRows(point);

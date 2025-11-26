@@ -59,11 +59,11 @@ int AccuFraction(MAP_REAL8 *state,          /* Read-write state map */
                  const MAP_REAL8 *fracflux) /* transport fraction map */
 {
     switch (PerformAccu(state, flux, ldd, amount, fracflux, Fraction)) {
-    case 2:
-        Error("accufraction: Domain error on parameters");
-        // Falls through
-    case 1:
-        return 1; /* for both 1 and 2 */
+        case 2:
+            Error("accufraction: Domain error on parameters");
+            // Falls through
+        case 1:
+            return 1; /* for both 1 and 2 */
     }
     return 0;
 }

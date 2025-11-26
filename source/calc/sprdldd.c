@@ -79,11 +79,9 @@ static void SpreadDown(MAP_REAL8 *outCost,        /* write-only output map  */
 
         /* Check on MV in input maps */
         if (friction->Get(&fricVal2, rNext, cNext, friction) &&
-            (cost->Get(&costVal2, rNext, cNext, cost)) &&
-            (ldd->Get(&lddVal2, rNext, cNext, ldd)) &&
+            (cost->Get(&costVal2, rNext, cNext, cost)) && (ldd->Get(&lddVal2, rNext, cNext, ldd)) &&
             (outId->Get(&id2, rNext, cNext, outId)) && (outId->Get(&id1, r, c, outId)) &&
-            (outCost->Get(&costVal1, r, c, outCost)) &&
-            (points->Get(&pntVal2, rNext, cNext, points))) {
+            (outCost->Get(&costVal1, r, c, outCost)) && (points->Get(&pntVal2, rNext, cNext, points))) {
             REAL8 fricVal = ((fricVal1 + fricVal2) / 2);
             REAL8 totalcost = NAN;
 
@@ -156,8 +154,7 @@ int SpreadLdd(MAP_REAL8 *outCost,        /* write-only output map  */
     for (r = 0; r < nrRows; r++)
         for (c = 0; c < nrCols; c++) {
             if (ldd->Get(&lddVal, r, c, ldd) && (points->Get(&pntVal, r, c, points)) &&
-                (friction->Get(&fricVal, r, c, friction)) &&
-                (cost->Get(&initCostVal, r, c, cost))) {
+                (friction->Get(&fricVal, r, c, friction)) && (cost->Get(&initCostVal, r, c, cost))) {
                 if (fricVal < 0)
                     return RetError(1, "spreadldd: Domain error on parameters");
                 if (pntVal == 0) {

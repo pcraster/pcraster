@@ -132,7 +132,7 @@ static int PerformSpread(MAP_REAL8 *outCost,        /* read-write output costs *
     int rowNr = 0;
     int colNr = 0;
     int i = 0;
-    REAL8 f = NAN;       /* friction of current cell */
+    REAL8 f = NAN; /* friction of current cell */
     REAL8 s = NAN;
     REAL8 newS = NAN; /* old & new spreadval. of curr. cell */
 
@@ -142,7 +142,7 @@ static int PerformSpread(MAP_REAL8 *outCost,        /* read-write output costs *
     PRECOND(maxCost->GetGetTest(maxCost) == GET_MV_TEST);
 
     while (coordList != NULL) {
-        INT4 id = 0;                            /* id of current cell */
+        INT4 id = 0;                        /* id of current cell */
         rowNr = coordList->rowNr;           /* cell from which is spread */
         colNr = coordList->colNr;           /* (source cell ) */
         coordList = RemFromList(coordList); /* unable */
@@ -156,8 +156,7 @@ static int PerformSpread(MAP_REAL8 *outCost,        /* read-write output costs *
             rNext = RNeighbor(rowNr, i);
             cNext = CNeighbor(colNr, i);
 
-            if (friction->Get(&f, rNext, cNext, friction) &&
-                outId->Get(&id, rNext, cNext, outId)) {
+            if (friction->Get(&f, rNext, cNext, friction) && outId->Get(&id, rNext, cNext, outId)) {
                 INT4 newId = 0;
                 if (id != 0)
                     outCost->Get(&s, rNext, cNext, outCost); /* already visited */
@@ -201,10 +200,10 @@ int SpreadMax(MAP_REAL8 *outCost,        /* read-write output map  */
               const MAP_REAL8 *maxCost)  /* maximum cost before cell is read */
 {
     NODE *coordList = NULL; /* list with cells to be checked */
-    INT4 pointVal = 0;          /* value in points map of cell */
+    INT4 pointVal = 0;      /* value in points map of cell */
     REAL8 costVal = NAN;
     REAL8 s = NAN;
-    REAL8 f = NAN;    /* s = initial cost, f = friction of cell */
+    REAL8 f = NAN; /* s = initial cost, f = friction of cell */
     int r = 0;
     int nrRows = points->NrRows(points);
     int c = 0;
@@ -263,8 +262,7 @@ int SpreadMax(MAP_REAL8 *outCost,        /* read-write output map  */
     for (r = 0; r < nrRows; r++)
         for (c = 0; c < nrCols; c++)
             if (points->Get(&pointVal, r, c, points) &&
-                (friction->Get(
-                    &f, r, c, friction))) { /* under above condition we dis spread so now 
+                (friction->Get(&f, r, c, friction))) { /* under above condition we dis spread so now 
                                              * test for these cells if cost is computed
                                              */
                 if (!outCost->Get(&costVal, r, c, outCost))

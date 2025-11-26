@@ -78,40 +78,40 @@ static int CalcOut(MAP_REAL8 *out,            /* write-only output map */
 
         points->Get(&pntVal, r, c, points);
         switch (pntVal) {
-        case MV_UINT1:
-            out->PutMV(r, c, out);
-            break;
-        case 1:
-            /* new start point */
-            out->Put((REAL8)0, r, c, out);
-            break;
-        default:
-            PRECOND(pntVal == 0); /* only bools allowed */
-            {
-                int rDS = 0;
-                int cDS = 0;
-                REAL8 f = NAN;
-                REAL8 fDS = NAN;
-                REAL8 oDS = NAN;
-                UINT1 l = 0;
-                ldd->Get(&l, r, c, ldd);
-                rDS = DownStrR(r, l);
-                cDS = DownStrC(c, l);
-                if (friction->Get(&f, r, c, friction) &&
-                    friction->Get(&fDS, rDS, cDS, friction) && out->Get(&oDS, rDS, cDS, out)) {
-                    REAL8 o = NAN;
-                    if (useWeightedFriction)
-                        o = oDS + ((Corner(l) ? dw : w) * (fDS + f));
-                    else
-                        o = oDS + ((Corner(l) ? Diagonal() : Side()) * (f));
-                    if (f < 0) {
-                        FreeList(list);
-                        return RetError(1, "ldddist: Domain error on parameters");
-                    }
-                    out->Put(o, r, c, out);
-                } else
-                    out->PutMV(r, c, out);
-            }
+            case MV_UINT1:
+                out->PutMV(r, c, out);
+                break;
+            case 1:
+                /* new start point */
+                out->Put((REAL8)0, r, c, out);
+                break;
+            default:
+                PRECOND(pntVal == 0); /* only bools allowed */
+                {
+                    int rDS = 0;
+                    int cDS = 0;
+                    REAL8 f = NAN;
+                    REAL8 fDS = NAN;
+                    REAL8 oDS = NAN;
+                    UINT1 l = 0;
+                    ldd->Get(&l, r, c, ldd);
+                    rDS = DownStrR(r, l);
+                    cDS = DownStrC(c, l);
+                    if (friction->Get(&f, r, c, friction) && friction->Get(&fDS, rDS, cDS, friction) &&
+                        out->Get(&oDS, rDS, cDS, out)) {
+                        REAL8 o = NAN;
+                        if (useWeightedFriction)
+                            o = oDS + ((Corner(l) ? dw : w) * (fDS + f));
+                        else
+                            o = oDS + ((Corner(l) ? Diagonal() : Side()) * (f));
+                        if (f < 0) {
+                            FreeList(list);
+                            return RetError(1, "ldddist: Domain error on parameters");
+                        }
+                        out->Put(o, r, c, out);
+                    } else
+                        out->PutMV(r, c, out);
+                }
         } /* eoswitch */
         if (ReplaceFirstByUpsNbs(&list, ldd))
             return 1;

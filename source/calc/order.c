@@ -154,10 +154,8 @@ static INT4 Partition(MAP_INT4 *tmp,       /* read-write index map */
     return i; /* return index of partition element */
 }
 
-static int QuickSort(INT4 partToSort,
-                     INT4 nrCells,
-                     const MAP_REAL8 *in, /* Read-write input map */
-                     MAP_INT4 *tmp)       /* read-write index temporary map */
+static int QuickSort(INT4 partToSort, INT4 nrCells, const MAP_REAL8 *in, /* Read-write input map */
+                     MAP_INT4 *tmp) /* read-write index temporary map */
 {
     int left = partToSort;
     int right = nrCells - 1;
@@ -196,7 +194,6 @@ static int QuickSort(INT4 partToSort,
     Free(stack);
     return 0;
 }
-
 
 /* Gives unique numbers to values in the input map in ascending order.
  * The quicksort algorithm is used to determine the order of the

@@ -43,7 +43,6 @@ static void Stuff(REAL8 *D, REAL8 *E, REAL8 *F, REAL8 *G, REAL8 *H, const REAL8 
     *H = (Z[2] - Z[8]) / (2 * L);
 }
 
-
 /* Calculates profile curvature (See Zevenbergen)
  * Returns 0.
  */

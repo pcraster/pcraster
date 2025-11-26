@@ -7,7 +7,7 @@
 /********/
 
 /* libs ext. <>, our ""  */
-#include "mathx.h" // ScaleRad, hypot
+#include "mathx.h"  // ScaleRad, hypot
 #include "geometry.h"
 #include "misc.h"
 #include "calc.h"
@@ -33,7 +33,6 @@
 /******************/
 
 
-
 static void AdvancePoint(POINT2D *p, int dir, const LINE *l)
 {
     const POINT2D select[4] = {/* see notes RIVM-14 */
@@ -48,8 +47,7 @@ static void AdvancePoint(POINT2D *p, int dir, const LINE *l)
         p->y = YgivenX(l, p->x);
 }
 
-static void
-ComputeTangent(MAP_REAL8 *result, REAL8 viewAngleVal, const MAP_REAL8 *dem, int ry, int cx)
+static void ComputeTangent(MAP_REAL8 *result, REAL8 viewAngleVal, const MAP_REAL8 *dem, int ry, int cx)
 {
     double a = NAN;
     double bestM = NAN;
@@ -87,9 +85,7 @@ ComputeTangent(MAP_REAL8 *result, REAL8 viewAngleVal, const MAP_REAL8 *dem, int 
         if (a > bestZ) {
             double newM = (a - startZ);
             if (newM > bestM) {
-                newM /=
-                    hypot(cx - floor(p.x), ry - floor(p.y)) *
-                    Side();
+                newM /= hypot(cx - floor(p.x), ry - floor(p.y)) * Side();
                 if (newM > bestM) {
                     bestM = newM;
                     bestZ = a;
@@ -104,7 +100,6 @@ ComputeTangent(MAP_REAL8 *result, REAL8 viewAngleVal, const MAP_REAL8 *dem, int 
     else
         result->Put(bestM, ry, cx, result);
 }
-
 
 extern int HorizonTangent(MAP_REAL8 *result,    /* angle in degrees */
                           const MAP_REAL8 *dem, /* */
@@ -127,8 +122,8 @@ extern int HorizonTangent(MAP_REAL8 *result,    /* angle in degrees */
     /* For every cell in the dem map calculate the slope. */
     for (r = 0; r < nrRows; r++) {
         for (c = 0; c < nrCols; c++)
-            if (dem->Get(&demVal, r, c, dem) &&
-                viewAngle->Get(&viewAngleVal, r, c, viewAngle) && viewAngleVal != -1) {
+            if (dem->Get(&demVal, r, c, dem) && viewAngle->Get(&viewAngleVal, r, c, viewAngle) &&
+                viewAngleVal != -1) {
                 ComputeTangent(result, viewAngleVal, dem, r, c);
             } else {
                 result->PutMV(r, c, result);

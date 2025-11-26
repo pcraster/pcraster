@@ -63,24 +63,21 @@ static void CalcView(MAP_UINT1 *out,          /* write-only output map        */
     int noMV = 0;
 
     /* calculate distance from (r, c) to view point */
-    dist1 =
-        sqrt((REAL8)(pow((REAL8)(r - viewr), (REAL8)2) + pow((REAL8)(c - viewc), (REAL8)2)));
+    dist1 = sqrt((REAL8)(pow((REAL8)(r - viewr), (REAL8)2) + pow((REAL8)(c - viewc), (REAL8)2)));
 
     noMV = dem->Get(&viewHght, viewr, viewc, dem);
     PRECOND(noMV);
-    (void)lastRow; // shut up compiler
-    (void)noMV;    // shut up compiler
+    (void)lastRow;  // shut up compiler
+    (void)noMV;     // shut up compiler
 
-    if (dem->Get(&height2, rNext, cNext, dem) &&
-        (points->Get(&nextPnt, rNext, cNext, points))) {
+    if (dem->Get(&height2, rNext, cNext, dem) && (points->Get(&nextPnt, rNext, cNext, points))) {
         REAL4 tmp = NAN;
         if (dist1 != 0)
             /* rounding or truncation causes slight differences */
             vis1 = (height1 - viewHght) / dist1;
         else
             vis1 = VISMIN;
-        if (vis1 == VISMIN ||
-            visPlane <= (tmp = AppCastREAL4(vis1))) { /* visible, output := TRUE */
+        if (vis1 == VISMIN || visPlane <= (tmp = AppCastREAL4(vis1))) { /* visible, output := TRUE */
             out->Put(1, r, c, out);
             currRow[c] = vis1; /* change visibility plane */
         } else                 /* not visible, vis. plane remains unchanged */
@@ -173,18 +170,7 @@ static int First(MAP_UINT1 *out,          /* write-only output map  */
 
             /* Calculate visibility of current cell */
             if (dem->Get(&height1, r, c, dem) && (points->Get(&pntVal, r, c, points))) {
-                CalcView(out,
-                         currRow,
-                         lastRow,
-                         dem,
-                         points,
-                         r,
-                         c,
-                         rNext,
-                         cNext,
-                         visPlane,
-                         viewr,
-                         viewc,
+                CalcView(out, currRow, lastRow, dem, points, r, c, rNext, cNext, visPlane, viewr, viewc,
                          height1);
             } else {
                 out->PutMV(r, c, out);
@@ -294,18 +280,7 @@ static int Second(MAP_UINT1 *out,          /* write-only output map  */
 
             /* Determine visibility of the current cell */
             if (dem->Get(&height1, r, c, dem) && (points->Get(&pntVal, r, c, points))) {
-                CalcView(out,
-                         currRow,
-                         lastRow,
-                         dem,
-                         points,
-                         r,
-                         c,
-                         rNext,
-                         cNext,
-                         visPlane,
-                         viewr,
-                         viewc,
+                CalcView(out, currRow, lastRow, dem, points, r, c, rNext, cNext, visPlane, viewr, viewc,
                          height1);
             } else {
                 out->PutMV(r, c, out);
@@ -324,7 +299,6 @@ static int Second(MAP_UINT1 *out,          /* write-only output map  */
     free(currRow); /* deallocate */
     return 0;
 }
-
 
 /* Determines visibility for each cell in the third quadrant.
  * The possible blocking neighbor is on the right side and/or
@@ -423,18 +397,7 @@ static int Third(MAP_UINT1 *out,          /* write-only output map  */
 
             /* Determine visibility of the current cell */
             if (dem->Get(&height1, r, c, dem) && (points->Get(&pntVal, r, c, points))) {
-                CalcView(out,
-                         currRow,
-                         lastRow,
-                         dem,
-                         points,
-                         r,
-                         c,
-                         rNext,
-                         cNext,
-                         visPlane,
-                         viewr,
-                         viewc,
+                CalcView(out, currRow, lastRow, dem, points, r, c, rNext, cNext, visPlane, viewr, viewc,
                          height1);
             } else {
                 out->PutMV(r, c, out);
@@ -550,18 +513,7 @@ static int Fourth(MAP_UINT1 *out,          /* write-only output map  */
 
             /* Calculate visibility current cell */
             if (dem->Get(&height1, r, c, dem) && (points->Get(&pntVal, r, c, points))) {
-                CalcView(out,
-                         currRow,
-                         lastRow,
-                         dem,
-                         points,
-                         r,
-                         c,
-                         rNext,
-                         cNext,
-                         visPlane,
-                         viewr,
-                         viewc,
+                CalcView(out, currRow, lastRow, dem, points, r, c, rNext, cNext, visPlane, viewr, viewc,
                          height1);
             } else {
                 out->PutMV(r, c, out);
@@ -591,7 +543,7 @@ int View(MAP_UINT1 *out,          /* write-only output map  */
          const MAP_UINT1 *points) /* points map */
 {
     UINT1 pointVal = 0; /* value in points.map */
-    REAL8 demVal = NAN;   /* value in dem map */
+    REAL8 demVal = NAN; /* value in dem map */
     int r = 0;
     int c = 0;
     int nrRows = 0;
@@ -619,8 +571,7 @@ int View(MAP_UINT1 *out,          /* write-only output map  */
     AppProgress("\nBusy with viewpoint:\n");
     for (r = 0; r < nrRows; r++)
         for (c = 0; c < nrCols; c++) {
-            if (dem->Get(&demVal, r, c, dem) && (points->Get(&pointVal, r, c, points)) &&
-                (pointVal)) {
+            if (dem->Get(&demVal, r, c, dem) && (points->Get(&pointVal, r, c, points)) && (pointVal)) {
                 v++;
                 AppProgress("\r%d          ", v);
                 if (First(out, r, c, dem, points))

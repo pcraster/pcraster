@@ -1,7 +1,6 @@
 #include "stddefx.h"
 
 
-
 /********/
 /* USES */
 /********/
@@ -67,9 +66,9 @@ static int PerformClump(MAP_INT4 *out,      /* read-write output map */
             int rNext = RNeighbor(rowNr, i);
             int cNext = CNeighbor(colNr, i);
 
-            if (in->Get(&clumpVal, rNext, cNext, in) && 0 <= rNext && rNext < nrRows &&
-                0 <= cNext && cNext < nrCols && (i != LDD_PIT) &&
-                (appDiagonal || Corner(i) == false) && clumpVal == currClumpValue) {
+            if (in->Get(&clumpVal, rNext, cNext, in) && 0 <= rNext && rNext < nrRows && 0 <= cNext &&
+                cNext < nrCols && (i != LDD_PIT) && (appDiagonal || Corner(i) == false) &&
+                clumpVal == currClumpValue) {
                 if (!out->Get(&outVal, rNext, cNext, out)) {
                     NODE *tmp = NULL;
                     tmp = LinkToList(coordList, rNext, cNext);
@@ -121,4 +120,5 @@ int Clump(MAP_INT4 *out,      /* read-write output map */
     AppEndRowProgress();
     return 0;
 }
+
 /* End of file */

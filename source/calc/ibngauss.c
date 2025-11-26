@@ -10,7 +10,7 @@
 /* libs ext. <>, our ""  */
 #include "misc.h"
 #include "calc.h"
-#include "app.h"  /* appUnitTrue, appOutput */
+#include "app.h" /* appUnitTrue, appOutput */
 #include "mathx.h"
 
 /* global header (opt.) and test's prototypes "" */
@@ -67,93 +67,84 @@ Non-integer values for the Package parameter are rounded to the nearest integer 
 
 */
 
-int IBNGauss(
-     MAP_REAL8 *out,
-     const MAP_REAL8 *units,
-     const MAP_REAL8 *range,
-     const MAP_REAL8 *nrPackages)
+int IBNGauss(MAP_REAL8 *out, const MAP_REAL8 *units, const MAP_REAL8 *range, const MAP_REAL8 *nrPackages)
 {
-  int   rSrc = 0;
-  int   nrRows= units->NrRows(units);
-  int   cSrc = 0;
-  int   nrCols= units->NrCols(units);
-  REAL8 unitsValSrc = NAN;
-  REAL8 rangeValSrc = NAN;
-  REAL8 nrPackValSrc = NAN;
+    int rSrc = 0;
+    int nrRows = units->NrRows(units);
+    int cSrc = 0;
+    int nrCols = units->NrCols(units);
+    REAL8 unitsValSrc = NAN;
+    REAL8 rangeValSrc = NAN;
+    REAL8 nrPackValSrc = NAN;
 
-  /* algorithm wants points->Get() and all others to
+    /* algorithm wants points->Get() and all others to
    * return FALSE if a value is a missing value
    */
-  out->SetGetTest(GET_MV_TEST, out);
-  units->SetGetTest(GET_MV_TEST, units);
-  nrPackages->SetGetTest(GET_MV_TEST, nrPackages);
-  range->SetGetTest(GET_MV_TEST, range);
+    out->SetGetTest(GET_MV_TEST, out);
+    units->SetGetTest(GET_MV_TEST, units);
+    nrPackages->SetGetTest(GET_MV_TEST, nrPackages);
+    range->SetGetTest(GET_MV_TEST, range);
 
-  /* set all to 0 or MV
+    /* set all to 0 or MV
    * check range of rangeValSrc
    */
-  for(rSrc = 0; rSrc < nrRows; rSrc++)
-   for(cSrc = 0; cSrc < nrCols; cSrc++)
-   {
-    if(units->Get(&unitsValSrc, rSrc, cSrc, units) &&
-       nrPackages->Get(&nrPackValSrc, rSrc, cSrc, nrPackages) &&
-       range->Get(&rangeValSrc, rSrc, cSrc, range))
-    { /* init with remainder */
-      REAL8 remainder = unitsValSrc - floor(unitsValSrc);
-      out->Put(remainder, rSrc, cSrc, out);
-      if (rangeValSrc < 0)
-       return  RetError(1,"ibngauss: Domain error on parameters");
-    } else /* some of the units maps are MV */
-      out->PutMV(rSrc, cSrc, out);
-   }
+    for (rSrc = 0; rSrc < nrRows; rSrc++)
+        for (cSrc = 0; cSrc < nrCols; cSrc++) {
+            if (units->Get(&unitsValSrc, rSrc, cSrc, units) &&
+                nrPackages->Get(&nrPackValSrc, rSrc, cSrc, nrPackages) &&
+                range->Get(&rangeValSrc, rSrc, cSrc, range)) { /* init with remainder */
+                REAL8 remainder = unitsValSrc - floor(unitsValSrc);
+                out->Put(remainder, rSrc, cSrc, out);
+                if (rangeValSrc < 0)
+                    return RetError(1, "ibngauss: Domain error on parameters");
+            } else /* some of the units maps are MV */
+                out->PutMV(rSrc, cSrc, out);
+        }
 
 
-  for(rSrc = 0; rSrc < nrRows; rSrc++)
-   for(cSrc = 0; cSrc < nrCols; cSrc++)
-    if(units->Get(&unitsValSrc, rSrc, cSrc, units) &&
-       nrPackages->Get(&nrPackValSrc, rSrc, cSrc, nrPackages) &&
-       range->Get(&rangeValSrc, rSrc, cSrc, range)
-      )
-    {
-      int i = 0;
-      int nrInputUnits = (int)floor(unitsValSrc);
-      int nrPackages = (int)nrPackValSrc; /* round to integer */
-      int packageSize = 0;
-      int nrPackagesWithOneMore = 0;
-      if (nrPackages <= 0 || nrPackages > nrInputUnits) {
-        nrPackages=nrInputUnits;
-        packageSize=1;
-        nrPackagesWithOneMore=0;
-      }
-      else {
-        packageSize=nrInputUnits/nrPackages;          /* integer division */
-        nrPackagesWithOneMore= nrInputUnits%nrPackages; /* integer modulo */
-      }
-      rangeValSrc /= Side(); /* transform to pixel lengths */
-       for(i=0; i < nrPackages; i++) {
-         /* GasDev returns value from normal distribution mean=0,sd=1 */
-          REAL8 length = GasDev()*rangeValSrc;
-         /* Ran() return an uniform number
+    for (rSrc = 0; rSrc < nrRows; rSrc++)
+        for (cSrc = 0; cSrc < nrCols; cSrc++)
+            if (units->Get(&unitsValSrc, rSrc, cSrc, units) &&
+                nrPackages->Get(&nrPackValSrc, rSrc, cSrc, nrPackages) &&
+                range->Get(&rangeValSrc, rSrc, cSrc, range)) {
+                int i = 0;
+                int nrInputUnits = (int)floor(unitsValSrc);
+                int nrPackages = (int)nrPackValSrc; /* round to integer */
+                int packageSize = 0;
+                int nrPackagesWithOneMore = 0;
+                if (nrPackages <= 0 || nrPackages > nrInputUnits) {
+                    nrPackages = nrInputUnits;
+                    packageSize = 1;
+                    nrPackagesWithOneMore = 0;
+                } else {
+                    packageSize = nrInputUnits / nrPackages;           /* integer division */
+                    nrPackagesWithOneMore = nrInputUnits % nrPackages; /* integer modulo */
+                }
+                rangeValSrc /= Side(); /* transform to pixel lengths */
+                for (i = 0; i < nrPackages; i++) {
+                    /* GasDev returns value from normal distribution mean=0,sd=1 */
+                    REAL8 length = GasDev() * rangeValSrc;
+                    /* Ran() return an uniform number
           * we create an angle between 0 and 180 degrees
           */
-          REAL8 angle =Ran()*M_PI;
-         /* now since length can be negative or positive we
+                    REAL8 angle = Ran() * M_PI;
+                    /* now since length can be negative or positive we
           * generate a receiving cell address having an angle
           * with the src cell between 0 and 360 degrees
           */
-          int xColDest = cSrc+(int)(length*cos(angle));
-          int yRowDest = rSrc+(int)(length*sin(angle));
-          REAL8 valDest = NAN;
-          if (out->Get(&valDest, yRowDest, xColDest, out)) {
-            /* destination is defined area */
-            valDest+=packageSize;
-           if (i < nrPackagesWithOneMore) {
-             /* the first nrPackagesWithOneMore package do 1 more */
-             valDest+=1;
-           }
-           out->Put(valDest, yRowDest, xColDest, out);
-          }
-       } /* for all packages */
-    } /* eo for all cells */
-  return 0;    /* successful terminated */
+                    int xColDest = cSrc + (int)(length * cos(angle));
+                    int yRowDest = rSrc + (int)(length * sin(angle));
+                    REAL8 valDest = NAN;
+                    if (out->Get(&valDest, yRowDest, xColDest, out)) {
+                        /* destination is defined area */
+                        valDest += packageSize;
+                        if (i < nrPackagesWithOneMore) {
+                            /* the first nrPackagesWithOneMore package do 1 more */
+                            valDest += 1;
+                        }
+                        out->Put(valDest, yRowDest, xColDest, out);
+                    }
+                } /* for all packages */
+            } /* eo for all cells */
+    return 0; /* successful terminated */
 }

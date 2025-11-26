@@ -76,7 +76,7 @@ int Upstream(MAP_REAL8 *out,       /* write-only output map  */
             putMV:
                 out->PutMV(r, c, out);
         } /* eofor cols */
-    }     /* eofor rows */
+    } /* eofor rows */
     AppEndRowProgress();
     return 0; /* successful terminated */
 }

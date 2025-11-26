@@ -5,9 +5,9 @@
 /* USES */
 /********/
 /* libs ext. <>, our ""  */
-#include "app.h"    /* appUnitTrue, appOutput */
+#include "app.h" /* appUnitTrue, appOutput */
 #include "calc.h"
-#include "mathx.h"  /* sqr,sqrt */
+#include "mathx.h" /* sqr,sqrt */
 #include "misc.h"
 #include "table.h"
 #include <math.h>
@@ -71,14 +71,14 @@ static double Weight(int pw,    /* half pixel window size */
 }
 
 typedef struct HOR_CUT_LINE { /* horizontal cut line */
+
     union {
         REAL4 f;
         INT4 i;
     } start, end; /* if start = MV , not yet initialized */
 } HOR_CUT_LINE;
 
-static void
-Add2Lines(HOR_CUT_LINE *l, int nrLines, int xCeil, REAL8 c, REAL8 s, REAL8 x, REAL8 y)
+static void Add2Lines(HOR_CUT_LINE *l, int nrLines, int xCeil, REAL8 c, REAL8 s, REAL8 x, REAL8 y)
 {
     REAL8 xRot = (x * c) - (y * s);
     REAL8 yRot = (x * s) - (y * c);
@@ -90,7 +90,7 @@ Add2Lines(HOR_CUT_LINE *l, int nrLines, int xCeil, REAL8 c, REAL8 s, REAL8 x, RE
     }
     l[xInd].start.f = POSSIBLE_DATA_LOSS(REAL4, MIN(l[xInd].start.f, yRot));
     l[xInd].end.f = POSSIBLE_DATA_LOSS(REAL4, MAX(l[xInd].end.f, yRot));
-    (void)nrLines; // shut up compiler
+    (void)nrLines;  // shut up compiler
 }
 
 static int BuildCircle(REAL8 radius)

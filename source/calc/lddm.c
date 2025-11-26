@@ -31,7 +31,7 @@ extern bool repairLddModifiedMap;
 /**********************/
 
 #define MAKE_TEMP_CODE(validCode) ((UINT1)((validCode) | 16))
-#define IS_TEMP_CODE(tempCode) ((tempCode)&16)
+#define IS_TEMP_CODE(tempCode) ((tempCode) & 16)
 #define MAKE_VALID_CODE(tempCode) ((UINT1)((tempCode) & (~16)))
 /* IS_VALID_CODE: strip invalid bit and test against 0
  */
@@ -274,8 +274,6 @@ static bool Step3(MAP_UINT1 *ldd,       /* read-write ldd.map */
     return false;
 }
 
-
-
 /* Determines the UINT1 ldd map (ldd map) out of the dem map.
  * Assumes an REAL8 dem map present (Digital Elevation Model).
  * The function also needs to know the map size. 
@@ -284,7 +282,7 @@ static bool Step3(MAP_UINT1 *ldd,       /* read-write ldd.map */
 int Lddm(MAP_UINT1 *ldd,       /* Read-write output ldd map  */
          const MAP_REAL8 *dem) /* dem map */
 {
-    UINT1 outVal = 0; /* value in ldd map */
+    UINT1 outVal = 0;   /* value in ldd map */
     REAL8 demVal = NAN; /* value in dem map */
     int r = 0;
     int c = 0;

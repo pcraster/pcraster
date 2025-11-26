@@ -37,7 +37,7 @@
  */
 static REAL8 All(REAL8 amount, REAL8 dummy)
 {
-    (void)dummy; // Shut up compiler
+    (void)dummy;  // Shut up compiler
     return amount;
 }
 
@@ -60,11 +60,11 @@ int Accu(MAP_REAL8 *state,        /* Read-write output state map  */
      */
     accuCheckDomain = true; /* I want it to be true */
     switch (PerformAccu(state, flux, ldd, amount, amount, All)) {
-    case 2:
-        Error("Domain error on parameter");
-        // Falls through
-    case 1:
-        return 1; /* for both 1 and 2 */
+        case 2:
+            Error("Domain error on parameter");
+            // Falls through
+        case 1:
+            return 1; /* for both 1 and 2 */
     }
     accuCheckDomain = true;
     return 0;

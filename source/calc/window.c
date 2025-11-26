@@ -4,9 +4,9 @@
 /* USES */
 /********/
 /* libs ext. <>, our ""  */
-#include "app.h"    /* appUnitTrue, appOutput */
+#include "app.h" /* appUnitTrue, appOutput */
 #include "calc.h"
-#include "mathx.h"  /* modf */
+#include "mathx.h" /* modf */
 #include "misc.h"
 #include "table.h"
 #include <math.h>
@@ -345,7 +345,7 @@ int WindowMajority(MAP_INT4 *majority,       /* write-only output majority map  
     int c = 0;
     int nrRows = 0;
     int nrCols = 0;
-    INT4 value = 0;    /* value at r, c in value map */
+    INT4 value = 0;      /* value at r, c in value map */
     REAL8 winSize = NAN; /* window Size */
 
     val->SetGetTest(GET_MV_TEST, val);
@@ -373,11 +373,8 @@ int WindowMajority(MAP_INT4 *majority,       /* write-only output majority map  
                     prevMaxCount = maxCount;
                     maxCount = 0;
 
-                    table = STnew((size_t)val->HintNrFastList(val),
-                                  sizeof(DATA),
-                                  (RETURN_ID)ReturnId,
-                                  (INIT_REC)InitRec,
-                                  (QSORT_CMP)CmpRec);
+                    table = STnew((size_t)val->HintNrFastList(val), sizeof(DATA), (RETURN_ID)ReturnId,
+                                  (INIT_REC)InitRec, (QSORT_CMP)CmpRec);
                     if (table == NULL)
                         return 1;
 
@@ -438,7 +435,7 @@ int WindowDiversity(MAP_REAL8 *divM,          /* write-only output diversity map
     int c = 0;
     int nrRows = 0;
     int nrCols = 0;
-    INT4 value = 0;    /* value at r, c in value map */
+    INT4 value = 0;      /* value at r, c in value map */
     REAL8 winSize = NAN; /* window Size */
 
     val->SetGetTest(GET_MV_TEST, val);
@@ -459,11 +456,8 @@ int WindowDiversity(MAP_REAL8 *divM,          /* write-only output diversity map
                 int rWin = 0;
                 int cWin = 0;
 
-                table = STnew((size_t)val->HintNrFastList(val),
-                              sizeof(DATA),
-                              (RETURN_ID)ReturnId,
-                              (INIT_REC)InitRec,
-                              (QSORT_CMP)CmpRec);
+                table = STnew((size_t)val->HintNrFastList(val), sizeof(DATA), (RETURN_ID)ReturnId,
+                              (INIT_REC)InitRec, (QSORT_CMP)CmpRec);
                 if (table == NULL)
                     return 1;
 

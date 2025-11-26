@@ -25,8 +25,8 @@
 /**********************/
 
 
-#define NR_LDD_DIR 9  /* number of directions as defined in ldd */
-#define LDD_PIT 5  /* ldd direction 5 is pit */
+#define NR_LDD_DIR 9 /* number of directions as defined in ldd */
+#define LDD_PIT 5    /* ldd direction 5 is pit */
 #define INVALID_LDD_DIR 10
 
 /* see note RIVM-36 */
@@ -41,20 +41,18 @@
  *  e.g. if a cell has a value 7, it flows TO its upper left neigbour
  */
 
-static struct { 
-     int deltaCol;
-     int deltaRow;
-       } LddValue[10] = {{ 0,   0},
-               {-1,   1},    /* 1 */
-               { 0,   1},    /* 2 */
-               { 1,   1},    /* 3 */
-               {-1,   0},    /* 4 */
-               { 0,   0},    /* LDD_PIT */
-               { 1,   0},    /* 6 */
-               {-1,  -1},    /* 7 */
-               { 0,  -1},    /* 8 */
-               { 1,  -1} };  /* 9 = NR_LDD_DIR */
-
+static struct {
+    int deltaCol;
+    int deltaRow;
+} LddValue[10] = {{0, 0},   {-1, 1}, /* 1 */
+                  {0, 1},            /* 2 */
+                  {1, 1},            /* 3 */
+                  {-1, 0},           /* 4 */
+                  {0, 0},            /* LDD_PIT */
+                  {1, 0},            /* 6 */
+                  {-1, -1},          /* 7 */
+                  {0, -1},           /* 8 */
+                  {1, -1}};          /* 9 = NR_LDD_DIR */
 
 /******************/
 /* IMPLEMENTATION */
@@ -70,19 +68,19 @@ static struct {
  * EXAMPLE
  * .so examples/pitups.tr
  */
-bool FlowsTo(int lddFrom,  /* ldd value of (rFrom,cFrom)  */
-       int rFrom,          /* row    */
-       int cFrom,          /* column */
-       int rToDS,          /* row of possible downstream cell */
-       int cToDS)          /* column possible downstream cell */
+bool FlowsTo(int lddFrom, /* ldd value of (rFrom,cFrom)  */
+             int rFrom,   /* row    */
+             int cFrom,   /* column */
+             int rToDS,   /* row of possible downstream cell */
+             int cToDS)   /* column possible downstream cell */
 {
-  PRECOND( 0 < lddFrom && lddFrom < 10 ); /* valid ldd value? */
+    PRECOND(0 < lddFrom && lddFrom < 10); /* valid ldd value? */
 
-  /* cells are adjacent: */
-  PRECOND( abs(rFrom-rToDS) <= 1 && abs(cFrom-cToDS) <= 1 );
+    /* cells are adjacent: */
+    PRECOND(abs(rFrom - rToDS) <= 1 && abs(cFrom - cToDS) <= 1);
 
-  return ((rFrom+ LddValue[lddFrom].deltaRow == rToDS) &&
-          (cFrom+ LddValue[lddFrom].deltaCol == cToDS));
+    return ((rFrom + LddValue[lddFrom].deltaRow == rToDS) &&
+            (cFrom + LddValue[lddFrom].deltaCol == cToDS));
 }
 
 /* Calculates the row number of the downstream cell.
@@ -92,14 +90,14 @@ bool FlowsTo(int lddFrom,  /* ldd value of (rFrom,cFrom)  */
  * EXAMPLE
  * .so examples/pitneigh.tr
  */
- int DownStrR( int rowNr,  /* rowNr from current cell */
-          int d)          /* ldd code of current cell */
- {
-   int DSr = 0;
-   PRECOND(0 <= d && d <= NR_LDD_DIR);
-   DSr = rowNr + LddValue[d].deltaRow;
-   return DSr;
- }
+int DownStrR(int rowNr, /* rowNr from current cell */
+             int d)     /* ldd code of current cell */
+{
+    int DSr = 0;
+    PRECOND(0 <= d && d <= NR_LDD_DIR);
+    DSr = rowNr + LddValue[d].deltaRow;
+    return DSr;
+}
 
 /* Calculates the col number of the downstream cell.
  * An index and the col number of the current cell are input.
@@ -108,17 +106,17 @@ bool FlowsTo(int lddFrom,  /* ldd value of (rFrom,cFrom)  */
  * EXAMPLE
  * .so examples/pitneigh.tr
  */
- int DownStrC( int colNr,  /* colNr from current cell */
-               int d)      /* ldd code of current cell */
- {
-   int DSc = 0;
-   PRECOND(0 <= d && d <= NR_LDD_DIR);
-   DSc = colNr + LddValue[d].deltaCol;
-   return DSc;
- }
+int DownStrC(int colNr, /* colNr from current cell */
+             int d)     /* ldd code of current cell */
+{
+    int DSc = 0;
+    PRECOND(0 <= d && d <= NR_LDD_DIR);
+    DSc = colNr + LddValue[d].deltaCol;
+    return DSc;
+}
 
 #ifdef DEBUG
-  /* Calculates the col number of a neighbor cell.
+/* Calculates the col number of a neighbor cell.
    * An index and the col number of the current cell are input.
    * This a macro that calls DownStrC().
    * Returns the col number of the neighbor cell.
@@ -126,12 +124,13 @@ bool FlowsTo(int lddFrom,  /* ldd value of (rFrom,cFrom)  */
    * EXAMPLE
    * .so examples/pitneigh.tr
    */
-   int CNeighbor(int colNr,  /* colNr from current cell */
-                 int index)  /* determines which neighbor */
-   { return DownStrC(colNr,index);
-   }
+int CNeighbor(int colNr, /* colNr from current cell */
+              int index) /* determines which neighbor */
+{
+    return DownStrC(colNr, index);
+}
 
-  /* Calculates the row number of a neighbor cell.
+/* Calculates the row number of a neighbor cell.
    * An index and the row number of the current cell are input.
    * This a macro that calls DownStrR().
    * Returns the row number of the neighbor cell.
@@ -139,10 +138,11 @@ bool FlowsTo(int lddFrom,  /* ldd value of (rFrom,cFrom)  */
    * EXAMPLE
    * .so examples/pitneigh.tr
    */
-   int RNeighbor(int rowNr,  /* rowNr from current cell */
-           int index)  /* determines which neighbor */
-   { return DownStrR(rowNr,index);
-   }
+int RNeighbor(int rowNr, /* rowNr from current cell */
+              int index) /* determines which neighbor */
+{
+    return DownStrR(rowNr, index);
+}
 #endif
 
 /* Checks whether a cell has no input.
@@ -154,23 +154,22 @@ bool FlowsTo(int lddFrom,  /* ldd value of (rFrom,cFrom)  */
  * EXAMPLE
  * .so examples/pitend.tr
  */
-bool NoInput(      const MAP_UINT1 *ldd,    /* ldd.map */
-        int rowNr,       /* row of current cell*/
-        int colNr)       /* column current cell*/
+bool NoInput(const MAP_UINT1 *ldd, /* ldd.map */
+             int rowNr,            /* row of current cell*/
+             int colNr)            /* column current cell*/
 {
-  int   j = 0;
-  UINT1   lddVal = 0;
+    int j = 0;
+    UINT1 lddVal = 0;
 
-  PRECOND(ldd->GetGetTest(ldd) == GET_MV_TEST);
-  FOR_ALL_LDD_NBS(j)
-  {
-    int r = DownStrR(rowNr, j);
-    int c = DownStrC(colNr, j);
-    if (ldd -> Get(&lddVal, r, c, ldd)&&
-      FlowsTo(lddVal, r, c, rowNr, colNr))
-        return false;
-  }
-  return true;
+    PRECOND(ldd->GetGetTest(ldd) == GET_MV_TEST);
+    FOR_ALL_LDD_NBS(j)
+    {
+        int r = DownStrR(rowNr, j);
+        int c = DownStrC(colNr, j);
+        if (ldd->Get(&lddVal, r, c, ldd) && FlowsTo(lddVal, r, c, rowNr, colNr))
+            return false;
+    }
+    return true;
 }
 
 /* Calculates the ldd value of a cell given its downstream cell.
@@ -179,24 +178,22 @@ bool NoInput(      const MAP_UINT1 *ldd,    /* ldd.map */
  * EXAMPLE
  * .so examples/exldddir.tr
  */
-UINT1 Ldddir(
-        int rFrom,  /* row number of cell */
-        int cFrom,   /* column number of cell */
-        int rDS,  /* row number of downstream cell */
-        int cDS)  /* column number of downstream cell */
+UINT1 Ldddir(int rFrom, /* row number of cell */
+             int cFrom, /* column number of cell */
+             int rDS,   /* row number of downstream cell */
+             int cDS)   /* column number of downstream cell */
 {
-  UINT1   ldddir = 0;
-  int   lddtab[3][3] = {{3, 2, 1}, {6, 5, 4},{9, 8, 7}};
-  int   rDelta = rFrom - rDS + 1;
-  int   cDelta = cFrom - cDS + 1;
+    UINT1 ldddir = 0;
+    int lddtab[3][3] = {{3, 2, 1}, {6, 5, 4}, {9, 8, 7}};
+    int rDelta = rFrom - rDS + 1;
+    int cDelta = cFrom - cDS + 1;
 
-  PRECOND(0 <= cDelta && cDelta <= 2 &&
-          0 <= rDelta && rDelta <= 2);
+    PRECOND(0 <= cDelta && cDelta <= 2 && 0 <= rDelta && rDelta <= 2);
 
-  ldddir = lddtab[rDelta][cDelta];
+    ldddir = lddtab[rDelta][cDelta];
 
-  POSTCOND(0 < ldddir && ldddir <= NR_LDD_DIR);
-  return ldddir;
+    POSTCOND(0 < ldddir && ldddir <= NR_LDD_DIR);
+    return ldddir;
 }
 
 /* Calculates the sum of fluxes of upstream neighbors.
@@ -208,46 +205,40 @@ UINT1 Ldddir(
  * EXAMPLE
  * .so examples/exsumflux.tr
  */
-int SumFluxUps(
-    REAL8 *newState,  /* write-only new state */
-    const MAP_REAL8 *flux,  /* map with fluxes */
-    const MAP_UINT1 *ldd,  /* ldd map */
-    int r,      /* row of current cell */
-    int c)      /* column of current cell */
+int SumFluxUps(REAL8 *newState,       /* write-only new state */
+               const MAP_REAL8 *flux, /* map with fluxes */
+               const MAP_UINT1 *ldd,  /* ldd map */
+               int r,                 /* row of current cell */
+               int c)                 /* column of current cell */
 {
-  int i = 0;
-  *newState = 0;
+    int i = 0;
+    *newState = 0;
 
-  PRECOND(ldd->GetGetTest(ldd) == GET_MV_TEST);
-  PRECOND(flux->GetGetTest(flux) == GET_MV_TEST);
+    PRECOND(ldd->GetGetTest(ldd) == GET_MV_TEST);
+    PRECOND(flux->GetGetTest(flux) == GET_MV_TEST);
 
-  /* sum of fluxes from upstream neighbors */
-  for(i = 1; i <= NR_LDD_DIR; i++)
-  {  /* all neighbors */
-    if(i != LDD_PIT)    /* not cell itself */
-    {
-      int   rNext = DownStrR(r, i);
-      int  cNext = DownStrC(c, i);
-      UINT1   lddVal = 0;
-      REAL8   fluxVal = NAN;
+    /* sum of fluxes from upstream neighbors */
+    for (i = 1; i <= NR_LDD_DIR; i++) { /* all neighbors */
+        if (i != LDD_PIT)               /* not cell itself */
+        {
+            int rNext = DownStrR(r, i);
+            int cNext = DownStrC(c, i);
+            UINT1 lddVal = 0;
+            REAL8 fluxVal = NAN;
 
-      if(ldd->Get(&lddVal, rNext, cNext, ldd) &&
-      flux->Get(&fluxVal, rNext, cNext, flux))
-      /* neighbor is upstream element */
-      {
-        if(FlowsTo(lddVal, rNext, cNext, r, c))
-          *newState += fluxVal;
-      }
-      else
-      {
-        if(ldd->Get(&lddVal, rNext, cNext, ldd) &&
-        (FlowsTo(lddVal, rNext, cNext, r, c)))
-         /* upstream neighbor with MV flux */
-          return 1;
-      }
+            if (ldd->Get(&lddVal, rNext, cNext, ldd) && flux->Get(&fluxVal, rNext, cNext, flux))
+            /* neighbor is upstream element */
+            {
+                if (FlowsTo(lddVal, rNext, cNext, r, c))
+                    *newState += fluxVal;
+            } else {
+                if (ldd->Get(&lddVal, rNext, cNext, ldd) && (FlowsTo(lddVal, rNext, cNext, r, c)))
+                    /* upstream neighbor with MV flux */
+                    return 1;
+            }
+        }
     }
-  }
-  return 0;
+    return 0;
 }
 
 /* Determines whether neighbor i is a corner neighbor.
@@ -258,9 +249,9 @@ int SumFluxUps(
  * EXAMPLE
  * .so examples/pitcorne.tr
  */
-bool Corner(int i)    /* direction of neighbor */
+bool Corner(int i) /* direction of neighbor */
 {
-  PRECOND(IS_VALID_LDD_CODE(i));
-  PRECOND(i != LDD_PIT);
-  return i % 2;
+    PRECOND(IS_VALID_LDD_CODE(i));
+    PRECOND(i != LDD_PIT);
+    return i % 2;
 }

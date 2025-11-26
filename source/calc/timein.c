@@ -84,11 +84,10 @@ int TimeInputSeries(MAP_REAL8 *out,      /* map to write */
  * NOTE
  * use FreeTimeTable to free the space allocated in this function
  */
-TIME_TABLE *
-ReadTimeInputTable(const char *fileName,   /* name of file to read */
-                   int nrFirstStepsToSkip, /* nr. of steps to skip (NOT USED, set to 0) */
-                   int nrStepsToRead,      /* nr. of steps to read (NOT USED, set to 0) */
-                   CSF_VS vs)              /* value scale */
+TIME_TABLE *ReadTimeInputTable(const char *fileName,   /* name of file to read */
+                               int nrFirstStepsToSkip, /* nr. of steps to skip (NOT USED, set to 0) */
+                               int nrStepsToRead,      /* nr. of steps to read (NOT USED, set to 0) */
+                               CSF_VS vs)              /* value scale */
 {
     TIME_TABLE *t = NULL;
     bool geoEas = 0;
@@ -100,21 +99,14 @@ ReadTimeInputTable(const char *fileName,   /* name of file to read */
     /* suppress not used warning */
     PRECOND(nrFirstStepsToSkip >= 0);
     PRECOND(nrStepsToRead >= 0);
-    (void)nrFirstStepsToSkip; // shut up compiler
-    (void)nrStepsToRead;      // shut up compiler
+    (void)nrFirstStepsToSkip;  // shut up compiler
+    (void)nrStepsToRead;       // shut up compiler
 
     if ((t = NewTimeTable(vs, 0)) == NULL)
         return NULL;
     t->vs = vs;
-    if (AppReadTimeSeriesFile(&(t->vals),
-                              &nrSteps,
-                              &nrCols,
-                              &geoEas,
-                              fileName,
-                              "1E31",
-                              t->vs,
-                              CR_UNDEFINED,
-                              ',')) {
+    if (AppReadTimeSeriesFile(&(t->vals), &nrSteps, &nrCols, &geoEas, fileName, "1E31", t->vs,
+                              CR_UNDEFINED, ',')) {
         Error("while reading timeseries '%s'", fileName);
         Free(t);
         return NULL;

@@ -52,11 +52,11 @@ int AccuLtc(MAP_REAL8 *state,          /* Read-write output state map  */
             const MAP_REAL8 *transcap) /* transport capacity map */
 {
     switch (PerformAccu(state, flux, ldd, amount, transcap, Capacity)) {
-    case 2:
-        Error("accucapacity: Domain error on parameters");
-        // Falls through
-    case 1:
-        return 1; /* for both 1 and 2 */
+        case 2:
+            Error("accucapacity: Domain error on parameters");
+            // Falls through
+        case 1:
+            return 1; /* for both 1 and 2 */
     }
     return 0;
 }

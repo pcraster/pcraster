@@ -132,12 +132,12 @@ static int PerformSpread(MAP_REAL8 *outCost,        /* read-write output costs *
     int rowNr = 0;
     int colNr = 0;
     int i = 0;
-    REAL8 f = NAN;       /* friction of current cell */
+    REAL8 f = NAN; /* friction of current cell */
     REAL8 s = NAN;
     REAL8 newS = NAN; /* old & new spreadval. of curr. cell */
 
     while (coordList != NULL) {
-        INT4 id = 0;                            /* id of current cell */
+        INT4 id = 0;                        /* id of current cell */
         rowNr = coordList->rowNr;           /* cell from which is spread */
         colNr = coordList->colNr;           /* (source cell ) */
         coordList = RemFromList(coordList); /* unable */
@@ -149,8 +149,7 @@ static int PerformSpread(MAP_REAL8 *outCost,        /* read-write output costs *
             rNext = RNeighbor(rowNr, i);
             cNext = CNeighbor(colNr, i);
 
-            if (friction->Get(&f, rNext, cNext, friction) &&
-                outId->Get(&id, rNext, cNext, outId)) {
+            if (friction->Get(&f, rNext, cNext, friction) && outId->Get(&id, rNext, cNext, outId)) {
                 INT4 newId = 0;
                 if (id != 0)
                     outCost->Get(&s, rNext, cNext, outCost); /* already visited */
@@ -195,9 +194,9 @@ int Spread(MAP_REAL8 *outCost,        /* read-write output map  */
            const MAP_REAL8 *friction) /* friction of each cell */
 {
     NODE *coordList = NULL; /* list with cells to be checked */
-    INT4 pointVal = 0;          /* value in points map of cell */
+    INT4 pointVal = 0;      /* value in points map of cell */
     REAL8 s = NAN;
-    REAL8 f = NAN;             /* s = initial cost, f = friction of cell */
+    REAL8 f = NAN; /* s = initial cost, f = friction of cell */
     int r = 0;
     int nrRows = points->NrRows(points);
     int c = 0;

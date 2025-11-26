@@ -6,7 +6,7 @@
 /********/
 
 /* libs ext. <>, our ""  */
-#include "app.h"   /* AppProgress, APP_PROGRESS, appOutput */
+#include "app.h" /* AppProgress, APP_PROGRESS, appOutput */
 #include "calc.h"
 #include "mathx.h" /* pow, sqrt */
 #include "misc.h"
@@ -36,8 +36,8 @@
  * Input and result are in radians. The sample size must be larger
  * than one.
  */
-static void DirectionalStatistics(long double *mean, /* write-only, mean */
-                                  long double *sd,   /* write-only, standard deviation */
+static void DirectionalStatistics(long double *mean,          /* write-only, mean */
+                                  long double *sd,            /* write-only, standard deviation */
                                   const long double *samples, /* array of n samples, radians */
                                   int n)                      /* sample size */
 {
@@ -339,27 +339,27 @@ TIME_TABLE *AddToSummaryTable(TIME_TABLE *t,         /* read-write table to add 
 
     /* Determine which kind of summary should be made */
     switch (t->vs) {
-    case VS_SCALAR:
-        ScalarSummary(t, expr, currTimeStep, nrRows, nrCols);
-        break;
+        case VS_SCALAR:
+            ScalarSummary(t, expr, currTimeStep, nrRows, nrCols);
+            break;
 
-    case VS_DIRECTION:
-        if (DirectionSummary(t, expr, currTimeStep, nrRows, nrCols)) {
-            FreeTimeTable(t);
-            return NULL; /* allocation failed */
-        }
-        break;
+        case VS_DIRECTION:
+            if (DirectionSummary(t, expr, currTimeStep, nrRows, nrCols)) {
+                FreeTimeTable(t);
+                return NULL; /* allocation failed */
+            }
+            break;
 
-    case VS_BOOLEAN:
-        BooleanSummary(t, expr, currTimeStep, nrRows, nrCols);
-        break;
+        case VS_BOOLEAN:
+            BooleanSummary(t, expr, currTimeStep, nrRows, nrCols);
+            break;
 
-    default:
-        if (ClassSummary(t, expr, currTimeStep, nrRows, nrCols)) {
-            FreeTimeTable(t);
-            return NULL; /* allocation failed */
-        }
-        break;
+        default:
+            if (ClassSummary(t, expr, currTimeStep, nrRows, nrCols)) {
+                FreeTimeTable(t);
+                return NULL; /* allocation failed */
+            }
+            break;
     }
     return t; /* return modified time table */
 }
@@ -375,16 +375,16 @@ TIME_TABLE *CreateSummaryTable(int nrTimeSteps, /* number of time steps */
 
     /* determine the number of columns for time table */
     switch (vs) {
-    case VS_DIRECTION:
-    case VS_SCALAR:
-        nrCols = 5;
-        break;
-    case VS_BOOLEAN:
-        nrCols = 3;
-        break;
-    default:
-        nrCols = 4;
-        break;
+        case VS_DIRECTION:
+        case VS_SCALAR:
+            nrCols = 5;
+            break;
+        case VS_BOOLEAN:
+            nrCols = 3;
+            break;
+        default:
+            nrCols = 4;
+            break;
     }
 
     /* allocate and initialize the table */
@@ -393,8 +393,7 @@ TIME_TABLE *CreateSummaryTable(int nrTimeSteps, /* number of time steps */
     t->vs = vs;
     t->nrSteps = nrTimeSteps;
     t->nrCols = nrCols;
-    if ((t->vals = (REAL8 **)Malloc2d((size_t)t->nrSteps, (size_t)t->nrCols, sizeof(REAL8))) ==
-        NULL) {
+    if ((t->vals = (REAL8 **)Malloc2d((size_t)t->nrSteps, (size_t)t->nrCols, sizeof(REAL8))) == NULL) {
         free(t);
         return NULL;
     }

@@ -126,11 +126,8 @@ int AreaMin(MAP_REAL8 *min,        /* write-only output minimum map  */
     nrCols = class->NrCols(class);
 
     /* allocate and initialize the search table */
-    table = STnew((size_t) class->HintNrFastList(class),
-                  sizeof(DATA),
-                  (RETURN_ID)RetIdArea,
-                  (INIT_REC)InitRecAve,
-                  (QSORT_CMP)CmpStatCont);
+    table = STnew((size_t)class->HintNrFastList(class), sizeof(DATA), (RETURN_ID)RetIdArea,
+                  (INIT_REC)InitRecAve, (QSORT_CMP)CmpStatCont);
     if (table == NULL)
         return 1;
 
@@ -183,11 +180,8 @@ int AreaMax(MAP_REAL8 *max,        /* write-only output maximum map  */
     nrCols = class->NrCols(class);
 
     /* allocate and initialize the search table */
-    table = STnew((size_t) class->HintNrFastList(class),
-                  sizeof(DATA),
-                  (RETURN_ID)RetIdArea,
-                  (INIT_REC)InitRecAve,
-                  (QSORT_CMP)CmpStatCont);
+    table = STnew((size_t)class->HintNrFastList(class), sizeof(DATA), (RETURN_ID)RetIdArea,
+                  (INIT_REC)InitRecAve, (QSORT_CMP)CmpStatCont);
     if (table == NULL)
         return 1;
 
@@ -219,7 +213,6 @@ int AreaMax(MAP_REAL8 *max,        /* write-only output maximum map  */
     return 0;
 }
 
-
 static int GetInt4(REAL8 *v, int r, int c, const MAP_INT4 *m)
 {
     INT4 v4 = 0;
@@ -242,18 +235,15 @@ static SEARCH_TABLE *TotalTable(LOCAL_GET_FUNC get,    /* how to value from val 
     int c = 0;
     int nrRows = 0;
     int nrCols = 0;
-    INT4 id = 0;             /* value in class map */
-    REAL8 value = NAN;         /* value in value map */
+    INT4 id = 0;                /* value in class map */
+    REAL8 value = NAN;          /* value in value map */
     SEARCH_TABLE *table = NULL; /* table */
 
     nrRows = class->NrRows(class);
     nrCols = class->NrCols(class);
 
-    table = STnew((size_t) class->HintNrFastList(class),
-                  sizeof(DATA),
-                  (RETURN_ID)RetIdArea,
-                  (INIT_REC)InitRecAve,
-                  (QSORT_CMP)CmpStatCont);
+    table = STnew((size_t)class->HintNrFastList(class), sizeof(DATA), (RETURN_ID)RetIdArea,
+                  (INIT_REC)InitRecAve, (QSORT_CMP)CmpStatCont);
     if (table == NULL)
         return NULL;
 
@@ -277,8 +267,7 @@ static SEARCH_TABLE *TotalTable(LOCAL_GET_FUNC get,    /* how to value from val 
     return table;
 }
 
-static int AreaGeneration(MAP_REAL8 *result,
-                          const MAP_INT4 *class, /* input classes map */
+static int AreaGeneration(MAP_REAL8 *result, const MAP_INT4 *class, /* input classes map */
                           double (*genFunc)(void))
 {
     int r = 0;
@@ -292,11 +281,8 @@ static int AreaGeneration(MAP_REAL8 *result,
 
     class->SetGetTest(GET_MV_TEST, class);
 
-    table = STnew((size_t) class->HintNrFastList(class),
-                  sizeof(DATA),
-                  (RETURN_ID)RetIdArea,
-                  (INIT_REC)InitRecAve,
-                  (QSORT_CMP)CmpStatCont);
+    table = STnew((size_t)class->HintNrFastList(class), sizeof(DATA), (RETURN_ID)RetIdArea,
+                  (INIT_REC)InitRecAve, (QSORT_CMP)CmpStatCont);
     if (table == NULL)
         return 1;
     /* use value.total to determine if it's
@@ -440,12 +426,10 @@ static void InitRecDivMaj(DATA *e, int id)
 {
     e->id = id;
     e->count = 0;
-    e->value.tab = STnew((size_t)InitRecFastList,
-                         sizeof(DATA),
-                         (RETURN_ID)RetIdArea,
-                         (INIT_REC)InitRecAve,
-                         /* as long as the count is set to 0 */
-                         (QSORT_CMP)CmpStatCont);
+    e->value.tab =
+        STnew((size_t)InitRecFastList, sizeof(DATA), (RETURN_ID)RetIdArea, (INIT_REC)InitRecAve,
+              /* as long as the count is set to 0 */
+              (QSORT_CMP)CmpStatCont);
     if (e->value.tab == NULL)
         InitRecAllocFailure = true;
 }
@@ -470,11 +454,8 @@ static SEARCH_TABLE *MajTable(const MAP_INT4 *val,   /* input value map */
     SEARCH_TABLE *table = NULL;
 
     InitRecFastList = val->HintNrFastList(val);
-    table = STnew((size_t) class->HintNrFastList(class),
-                  sizeof(DATA),
-                  (RETURN_ID)RetIdArea,
-                  (INIT_REC)InitRecDivMaj,
-                  (QSORT_CMP)CmpStatCont);
+    table = STnew((size_t)class->HintNrFastList(class), sizeof(DATA), (RETURN_ID)RetIdArea,
+                  (INIT_REC)InitRecDivMaj, (QSORT_CMP)CmpStatCont);
     if (table == NULL || InitRecAllocFailure) {
         STfreeAction(table, (ACTION_REC)FreeRecDivMaj);
         InitRecAllocFailure = false;
@@ -581,7 +562,6 @@ static void ForAllMajArea(DATA *e)
     e->maj = majClass->id;
 }
 
-
 int AreaMajority(MAP_INT4 *majority,    /* write-only output majority map  */
                  const MAP_INT4 *val,   /* input value map */
                  const MAP_INT4 *class) /* input classes map */
@@ -590,7 +570,7 @@ int AreaMajority(MAP_INT4 *majority,    /* write-only output majority map  */
     int c = 0;
     int nrRows = 0;
     int nrCols = 0;
-    INT4 id = 0;             /* value at r, c in class map */
+    INT4 id = 0;                /* value at r, c in class map */
     SEARCH_TABLE *table = NULL; /* table */
 
     val->SetGetTest(GET_MV_TEST, val);
@@ -638,9 +618,9 @@ int AreaCount(MAP_REAL8 *out,        /* write-only output area count map  */
     int c = 0;
     int nrRows = 0;
     int nrCols = 0;
-    INT4 id = 0;             /* value at r, c in class map */
+    INT4 id = 0;                /* value at r, c in class map */
     SEARCH_TABLE *table = NULL; /* table */
-    REAL8 area = Area(); /* total area */
+    REAL8 area = Area();        /* total area */
 
     class->SetGetTest(GET_MV_TEST, class);
 
@@ -679,9 +659,9 @@ int AreaCount(MAP_REAL8 *out,        /* write-only output area count map  */
  * For each id (column in time-table) the value is determined.
  * Returns NULL in case of an error, pointer to time-table otherwise.
  */
-int AddToTssRowREAL8(REAL8 *data,        /* write values, starts at col 1 of TIME_TABLE row! */
-                     size_t nrData,      /* nr of Cols of data */
-                     const MAP_INT4 *id, /* id map */
+int AddToTssRowREAL8(REAL8 *data,           /* write values, starts at col 1 of TIME_TABLE row! */
+                     size_t nrData,         /* nr of Cols of data */
+                     const MAP_INT4 *id,    /* id map */
                      const MAP_REAL8 *expr) /* expression map */
 {
     SEARCH_TABLE *table = NULL;
@@ -725,9 +705,9 @@ int AddToTssRowREAL8(REAL8 *data,        /* write values, starts at col 1 of TIM
  * For each id (column in time-table) the value is determined.
  * Returns 1 in case of an error, 0 otherwise.
  */
-int AddToTssRowINT4(REAL8 *data,        /* write values, starts at col 1 of TIME_TABLE row! */
-                    size_t nrData,      /* nr of Cols of data */
-                    const MAP_INT4 *id, /* id map */
+int AddToTssRowINT4(REAL8 *data,          /* write values, starts at col 1 of TIME_TABLE row! */
+                    size_t nrData,        /* nr of Cols of data */
+                    const MAP_INT4 *id,   /* id map */
                     const MAP_INT4 *expr) /* expression map */
 {
     SEARCH_TABLE *table = NULL;

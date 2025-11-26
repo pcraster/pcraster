@@ -46,11 +46,11 @@ static NODE *DoNeighbors(MAP_REAL8 *out,          /* read-write output map */
                          int c,                   /* current cell column */
                          REAL8 drainVal)          /* value to drain down */
 {
-    NODE *list2 = NULL;                   /* list of lowest neighbors */
-    REAL8 dropMax = 0;                    /* maximal drop value */
-    REAL8 dropVal = 0;                    /* maximal drop value */
+    NODE *list2 = NULL; /* list of lowest neighbors */
+    REAL8 dropMax = 0;  /* maximal drop value */
+    REAL8 dropVal = 0;  /* maximal drop value */
     int i = 0;
-    int nrPaths = 0;                   /* nr of outgoing paths */
+    int nrPaths = 0; /* nr of outgoing paths */
     REAL8 demVal = NAN;
     REAL8 newDem = NAN;
     REAL8 outVal = NAN;
@@ -131,7 +131,7 @@ static int HasLowerNeighbor(const MAP_REAL8 *dem,    /* dem.map */
 {
     REAL8 demVal = NAN;
     REAL8 newDem = NAN; /* heights original cell and neighbor */
-    REAL8 pntVal = NAN;         /* if MV, then not a valid lower neighbor */
+    REAL8 pntVal = NAN; /* if MV, then not a valid lower neighbor */
     int i = 0;
 
     PRECOND(dem->GetGetTest(dem) == GET_MV_TEST);
@@ -142,8 +142,8 @@ static int HasLowerNeighbor(const MAP_REAL8 *dem,    /* dem.map */
     for (i = 1; i <= NR_LDD_DIR; i++) { /* Check all neighbors for being lower */
         int rNext = RNeighbor(rowNr, i);
         int cNext = CNeighbor(colNr, i);
-        if (dem->Get(&newDem, rNext, cNext, dem) &&
-            points->Get(&pntVal, rNext, cNext, points) && (demVal > newDem))
+        if (dem->Get(&newDem, rNext, cNext, dem) && points->Get(&pntVal, rNext, cNext, points) &&
+            (demVal > newDem))
             return true; /* has lower neighbor */
     }
     return false; /* no neighbor is lower */

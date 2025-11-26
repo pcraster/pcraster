@@ -80,24 +80,23 @@ static void PutMvUpsPits(MAP_UINT1 *ldd, /* read-write modified ldd */
     }
 }
 
-static void
-FindOutflowCell(UINT1 *outflowConCellCode, /* read-write dir from (outflowRow,outflowCol) to 
+static void FindOutflowCell(UINT1 *outflowConCellCode, /* read-write dir from (outflowRow,outflowCol) to 
                                             * connection cell, 0 if none found
                                             */
-                REAL8 *outflowLevel,       /* read-write best outflowLevel so far */
-                int *outflowRow,           /* write-only row of outflow cell */
-                int *outflowCol,           /* write-only col of outflow cell */
-                const MAP_INT4 *catch,     /* catchment map */
-                const MAP_REAL8 *dem,      /* catchment map */
-                const CATCH *catchList,    /* catchment table */
-                int r,                     /* row of cell to be checked */
-                int c)                     /* column cell to be checked */
+                            REAL8 *outflowLevel,       /* read-write best outflowLevel so far */
+                            int *outflowRow,           /* write-only row of outflow cell */
+                            int *outflowCol,           /* write-only col of outflow cell */
+                            const MAP_INT4 *catch,     /* catchment map */
+                            const MAP_REAL8 *dem,      /* catchment map */
+                            const CATCH *catchList,    /* catchment table */
+                            int r,                     /* row of cell to be checked */
+                            int c)                     /* column cell to be checked */
 {
     INT4 catchId = 0;
     INT4 catchIdNB = 0;
     UINT1 i = 0;
-    UINT1 conCellCode = 0;            /* 0 no cell found */
-    REAL8 conCellDem = 0; /* guarded by conCellCode */
+    UINT1 conCellCode = 0; /* 0 no cell found */
+    REAL8 conCellDem = 0;  /* guarded by conCellCode */
     REAL8 overflowLevel = NAN;
 
     PRECOND(catch->Get(&catchId, r, c, catch) && catchId > 0);
@@ -171,15 +170,8 @@ static REAL8 Outflow(REAL8 *outflowLevel,    /* write only */
         int r = list->rowNr;
         int c = list->colNr;
         area++;
-        FindOutflowCell(&outflowConCellCode,
-                        outflowLevel,
-                        outflowRow,
-                        outflowCol,
-                        catch,
-                        dem,
-                        catchList,
-                        r,
-                        c);
+        FindOutflowCell(&outflowConCellCode, outflowLevel, outflowRow, outflowCol, catch, dem, catchList,
+                        r, c);
 
         if (ReplaceFirstByUpsNbs(&list, ldd))
             return -1;
@@ -204,10 +196,7 @@ static REAL8 Outflow(REAL8 *outflowLevel,    /* write only */
 
 static int ComputeCore(REAL8 *coreArea,   /* write-only */
                        REAL8 *coreVolume, /* write-only */
-                       REAL8 outflowLevel,
-                       int pitr,
-                       int pitc,
-                       const MAP_UINT1 *ldd,
+                       REAL8 outflowLevel, int pitr, int pitc, const MAP_UINT1 *ldd,
                        const MAP_REAL8 *dem)
 {
     NODE *list = LinkChkNd(NULL, pitr, pitc); /* current search tree */
@@ -237,10 +226,7 @@ static int ComputeCore(REAL8 *coreArea,   /* write-only */
 /* traverse from outflowCell to pit
  * reversing all direction
  */
-static void ReversePath(MAP_UINT1 *ldd,
-                        int outflowRow,
-                        int outflowCol,
-                        int outflowConRow,
+static void ReversePath(MAP_UINT1 *ldd, int outflowRow, int outflowCol, int outflowConRow,
                         int outflowConCol)
 {
     int r = outflowRow;
@@ -299,8 +285,7 @@ static void CutDem(MAP_REAL8 *dem, int r, int c, REAL8 cutLevel, const MAP_UINT1
     }
 }
 
-static int
-FillDem(MAP_REAL8 *dem, int pitr, int pitc, REAL8 outflowLevel, const MAP_UINT1 *ldd)
+static int FillDem(MAP_REAL8 *dem, int pitr, int pitc, REAL8 outflowLevel, const MAP_UINT1 *ldd)
 {
     NODE *list = LinkChkNd(NULL, pitr, pitc); /* current search tree */
 
@@ -331,7 +316,6 @@ static bool ThresholdFailed(REAL8 val, int r, int c, const MAP_REAL8 *thmap)
     else
         return true;
 }
-
 
 /* Removes one pit given by the input (pitr, pitc).
  * First the overflow cell and connection point are determined. After 
@@ -373,17 +357,8 @@ static int RemPit(MAP_UINT1 *ldd,           /* read-write ldd map */
     PRECOND(c == LDD_PIT);
 #endif
 
-    catchArea = Outflow(&outflowLevel,
-                        &outflowRow,
-                        &outflowCol,
-                        &outflowConRow,
-                        &outflowConCol,
-                        ldd,
-                        catch,
-                        catchList,
-                        dem,
-                        pitr,
-                        pitc);
+    catchArea = Outflow(&outflowLevel, &outflowRow, &outflowCol, &outflowConRow, &outflowConCol, ldd,
+                        catch, catchList, dem, pitr, pitc);
 
 
     if (catchArea <= 0)
@@ -391,9 +366,8 @@ static int RemPit(MAP_UINT1 *ldd,           /* read-write ldd map */
 
     dem->Get(&pitLevel, pitr, pitc, dem);
 
-    if (ThresholdFailed(
-            outflowLevel - pitLevel, pitr, pitc, depth)) /* same units no adjustment */
-        return 0;                                        /* keep pit */
+    if (ThresholdFailed(outflowLevel - pitLevel, pitr, pitc, depth)) /* same units no adjustment */
+        return 0;                                                    /* keep pit */
 
     if (ComputeCore(&coreArea, &coreVolume, outflowLevel, pitr, pitc, ldd, dem))
         return 1; /* failure */
@@ -623,16 +597,7 @@ int PitRem(MAP_UINT1 *ldd,           /* Read-write output map  */
     {
         AppProgress("removing pit nr. %5d out of %5d\r", i + 1, nPits);
         if (GlobOptionPermitRemoval(ldd, pits[i].r, pits[i].c)) {
-            if (RemPit(ldd,
-                       dem,
-                       catch,
-                       catchList,
-                       depth,
-                       volume,
-                       area,
-                       mminput,
-                       pits[i].r,
-                       pits[i].c))
+            if (RemPit(ldd, dem, catch, catchList, depth, volume, area, mminput, pits[i].r, pits[i].c))
                 goto error;
 #ifdef HEAVY_DEBUG
             /* check if we have a sound ldd

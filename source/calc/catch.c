@@ -30,8 +30,7 @@
 /* IMPLEMENTATION */
 /******************/
 
-static int
-IdentifyFromPit(MAP_INT4 *out, int r, int c, const MAP_UINT1 *ldd, const MAP_INT4 *points)
+static int IdentifyFromPit(MAP_INT4 *out, int r, int c, const MAP_UINT1 *ldd, const MAP_INT4 *points)
 {
     NODE *list = LinkChkNd(NULL, r, c); /* current search tree */
     INT4 val = 0;
@@ -73,7 +72,6 @@ IdentifyFromPit(MAP_INT4 *out, int r, int c, const MAP_UINT1 *ldd, const MAP_INT
     }
     return 0;
 }
-
 
 /* implementation of catchment function
  * Works allright even if out and points are the same map, PitRem() depends
@@ -118,8 +116,7 @@ int Catch(MAP_INT4 *out,          /* write-only output map  */
     return 0; /* successful terminated */
 }
 
-static int
-SubIdentifyFromPit(MAP_INT4 *out, int r, int c, const MAP_UINT1 *ldd, const MAP_INT4 *points)
+static int SubIdentifyFromPit(MAP_INT4 *out, int r, int c, const MAP_UINT1 *ldd, const MAP_INT4 *points)
 {
     NODE *list = LinkChkNd(NULL, r, c); /* current search tree */
     INT4 val = 0;

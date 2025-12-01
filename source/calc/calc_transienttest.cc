@@ -8,7 +8,6 @@
 #include "csftypes.h"
 #include "calc.h"
 
-
 // Test if fixed head cells stay constant.
 BOOST_AUTO_TEST_CASE(fixed_head)
 {
@@ -22,38 +21,28 @@ BOOST_AUTO_TEST_CASE(fixed_head)
 
   // Set cell values.
   REAL4 resultElevationCells[9];
-  REAL4 elevationCells[]           = { 1.0F, 2.0F, 3.0F,
-                                       4.0F, 5.0F, 6.0F,
-                                       7.0F, 8.0F, 9.0F };
-  REAL4 rechargeCells[]            = { 1.0F };
-  REAL4 transmissivityCells[]      = { 1.0F };
-  INT4 flowConditionCells[]        = { 2 };      // Fixed head.
-  REAL4 storageCoefficientCells[]  = { 1.0F };
-  REAL4 intervalCells[]            = { 1.0F };
-  REAL4 toleranceCells[]           = { 0.001F };
+  REAL4 elevationCells[] = {1.0F, 2.0F, 3.0F, 4.0F, 5.0F, 6.0F, 7.0F, 8.0F, 9.0F};
+  REAL4 rechargeCells[] = {1.0F};
+  REAL4 transmissivityCells[] = {1.0F};
+  INT4 flowConditionCells[] = {2};  // Fixed head.
+  REAL4 storageCoefficientCells[] = {1.0F};
+  REAL4 intervalCells[] = {1.0F};
+  REAL4 toleranceCells[] = {0.001F};
 
   // Create maps.
-  MAP_REAL8* elevation = InitMapREAL8(nrRows, nrCols,
-                   elevationCells, true, CR_REAL4);
-  MAP_REAL8* resultElevation = InitMapREAL8(nrRows, nrCols,
-                   resultElevationCells, true, CR_REAL4);
-  MAP_REAL8* recharge = InitMapREAL8(nrRows, nrCols,
-                   rechargeCells, false, CR_REAL4);
-  MAP_REAL8* transmissivity = InitMapREAL8(nrRows, nrCols,
-                   transmissivityCells, false, CR_REAL4);
-  MAP_INT4* flowCondition = InitMapINT4(nrRows, nrCols,
-                   flowConditionCells, false, CR_INT4);
-  MAP_REAL8* storageCoefficient = InitMapREAL8(nrRows, nrCols,
-                   storageCoefficientCells, false, CR_REAL4);
-  MAP_REAL8* interval = InitMapREAL8(nrRows, nrCols,
-                   intervalCells, false, CR_REAL4);
-  MAP_REAL8* tolerance = InitMapREAL8(nrRows, nrCols,
-                   toleranceCells, false, CR_REAL4);
+  MAP_REAL8 *elevation = InitMapREAL8(nrRows, nrCols, elevationCells, true, CR_REAL4);
+  MAP_REAL8 *resultElevation = InitMapREAL8(nrRows, nrCols, resultElevationCells, true, CR_REAL4);
+  MAP_REAL8 *recharge = InitMapREAL8(nrRows, nrCols, rechargeCells, false, CR_REAL4);
+  MAP_REAL8 *transmissivity = InitMapREAL8(nrRows, nrCols, transmissivityCells, false, CR_REAL4);
+  MAP_INT4 *flowCondition = InitMapINT4(nrRows, nrCols, flowConditionCells, false, CR_INT4);
+  MAP_REAL8 *storageCoefficient = InitMapREAL8(nrRows, nrCols, storageCoefficientCells, false, CR_REAL4);
+  MAP_REAL8 *interval = InitMapREAL8(nrRows, nrCols, intervalCells, false, CR_REAL4);
+  MAP_REAL8 *tolerance = InitMapREAL8(nrRows, nrCols, toleranceCells, false, CR_REAL4);
 
   // Call function.
-  void* out[]       = { resultElevation };
-  const void* in[]  = { elevation, recharge, transmissivity, flowCondition,
-                   storageCoefficient, interval, tolerance };
+  void *out[] = {resultElevation};
+  const void *in[] = {elevation,          recharge, transmissivity, flowCondition,
+                      storageCoefficient, interval, tolerance};
   BOOST_CHECK(!Transient(out, in, 7));
 
   // Delete maps.
@@ -67,10 +56,8 @@ BOOST_AUTO_TEST_CASE(fixed_head)
   DeleteInternalMAP_REAL8(tolerance);
 
   // Check result.
-  BOOST_CHECK(std::equal(elevationCells, elevationCells + nrCells,
-                   resultElevationCells));
+  BOOST_CHECK(std::equal(elevationCells, elevationCells + nrCells, resultElevationCells));
 }
-
 
 BOOST_AUTO_TEST_CASE(budget)
 {
@@ -85,35 +72,27 @@ BOOST_AUTO_TEST_CASE(budget)
 
   // Set cell values.
   REAL4 resultElevationCells[9];
-  REAL4 elevationCells[]           = { 0.0F };    // Flat surface.
-  REAL4 rechargeCells[]            = { 0.0F };    // No discharge / recharge.
-  REAL4 transmissivityCells[]      = { 300.0F };
-  INT4 flowConditionCells[]        = { 1 };      // Calculate head.
-  REAL4 storageCoefficientCells[]  = { 0.002F };
-  REAL4 intervalCells[]            = { 0.001F };
-  REAL4 toleranceCells[]           = { 0.001F };
+  REAL4 elevationCells[] = {0.0F};  // Flat surface.
+  REAL4 rechargeCells[] = {0.0F};   // No discharge / recharge.
+  REAL4 transmissivityCells[] = {300.0F};
+  INT4 flowConditionCells[] = {1};  // Calculate head.
+  REAL4 storageCoefficientCells[] = {0.002F};
+  REAL4 intervalCells[] = {0.001F};
+  REAL4 toleranceCells[] = {0.001F};
 
   // Create maps.
-  MAP_REAL8* elevation = InitMapREAL8(nrRows, nrCols,
-                   elevationCells, false, CR_REAL4);
-  MAP_REAL8* resultElevation = InitMapREAL8(nrRows, nrCols,
-                   resultElevationCells, true, CR_REAL4);
-  MAP_REAL8* recharge = InitMapREAL8(nrRows, nrCols,
-                   rechargeCells, false, CR_REAL4);
-  MAP_REAL8* transmissivity = InitMapREAL8(nrRows, nrCols,
-                   transmissivityCells, false, CR_REAL4);
-  MAP_INT4* flowCondition = InitMapINT4(nrRows, nrCols,
-                   flowConditionCells, false, CR_INT4);
-  MAP_REAL8* storageCoefficient = InitMapREAL8(nrRows, nrCols,
-                   storageCoefficientCells, false, CR_REAL4);
-  MAP_REAL8* interval = InitMapREAL8(nrRows, nrCols,
-                   intervalCells, false, CR_REAL4);
-  MAP_REAL8* tolerance = InitMapREAL8(nrRows, nrCols,
-                   toleranceCells, false, CR_REAL4);
+  MAP_REAL8 *elevation = InitMapREAL8(nrRows, nrCols, elevationCells, false, CR_REAL4);
+  MAP_REAL8 *resultElevation = InitMapREAL8(nrRows, nrCols, resultElevationCells, true, CR_REAL4);
+  MAP_REAL8 *recharge = InitMapREAL8(nrRows, nrCols, rechargeCells, false, CR_REAL4);
+  MAP_REAL8 *transmissivity = InitMapREAL8(nrRows, nrCols, transmissivityCells, false, CR_REAL4);
+  MAP_INT4 *flowCondition = InitMapINT4(nrRows, nrCols, flowConditionCells, false, CR_INT4);
+  MAP_REAL8 *storageCoefficient = InitMapREAL8(nrRows, nrCols, storageCoefficientCells, false, CR_REAL4);
+  MAP_REAL8 *interval = InitMapREAL8(nrRows, nrCols, intervalCells, false, CR_REAL4);
+  MAP_REAL8 *tolerance = InitMapREAL8(nrRows, nrCols, toleranceCells, false, CR_REAL4);
 
   // Prepare arguments.
-  void* out[1];
-  const void* in[7];
+  void *out[1];
+  const void *in[7];
   out[0] = resultElevation;
   in[0] = elevation;
   in[1] = recharge;
@@ -127,12 +106,12 @@ BOOST_AUTO_TEST_CASE(budget)
   BOOST_CHECK(!Transient(out, in, 7));
 
   // Nothing should have changed.
-  for(size_t i = 0; i < nrCells; ++i) {
+  for (size_t i = 0; i < nrCells; ++i) {
     BOOST_CHECK(resultElevationCells[i] == elevationCells[0]);
   }
 
   //----------------------------------------------------------------------------
-  rechargeCells[0] = 0.2F;         // Add something, everywhere.
+  rechargeCells[0] = 0.2F;  // Add something, everywhere.
   DeleteInternalMAP_REAL8(recharge);
   recharge = InitMapREAL8(nrRows, nrCols, rechargeCells, false, CR_REAL4);
   in[1] = recharge;
@@ -142,12 +121,14 @@ BOOST_AUTO_TEST_CASE(budget)
 
   // No flow: equal amount of stuff on all cells.
   BOOST_CHECK(std::count_if(resultElevationCells, resultElevationCells + nrCells,
-         [capture0 = resultElevationCells[0]](auto && PH1) { return std::equal_to<REAL4>()(std::forward<decltype(PH1)>(PH1), capture0); }));
+                            [capture0 = resultElevationCells[0]](auto &&PH1) {
+                              return std::equal_to<REAL4>()(std::forward<decltype(PH1)>(PH1), capture0);
+                            }));
 
   // Test amount added to all cells.
   // yepyep
 
-/*
+  /*
  *  std::cout << endl;
  *  std::cout << elevationCells[0] << endl;
  * std::copy(resultElevationCells, resultElevationCells + nrCells,
@@ -177,7 +158,7 @@ BOOST_AUTO_TEST_CASE(budget)
   DeleteInternalMAP_REAL8(interval);
   DeleteInternalMAP_REAL8(tolerance);
 
-/*
+  /*
   // Check result.
   BOOST_CHECK(std::accumulate(elevationCells, elevationCells + nrCells, 0.0) ==
          std::accumulate(resultElevationCells, resultElevationCells + nrCells, 0.0));

@@ -3,13 +3,10 @@
 #include "csftypes.h"
 #include "geo_cellloc.h"
 
-
-
 /*!
   \file
   This file contains the implementation of the DownStreamVisitor class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -25,18 +22,17 @@
    \param catchmentOutletPit location of catchment outlet, must have pit
                              value on \a lddMap
  */
-calc::DownStreamVisitor::DownStreamVisitor(
-    const fieldapi::ReadOnlyUint1& lddMap,
-    const geo::CellLoc& catchmentOutletPit):
-    d_lddMap(lddMap)
+calc::DownStreamVisitor::DownStreamVisitor(const fieldapi::ReadOnlyUint1 &lddMap,
+                                           const geo::CellLoc &catchmentOutletPit)
+    : d_lddMap(lddMap)
 {
 #ifdef DEBUG
-   UINT1 pitV = 0;
-   PRECOND(d_lddMap.get(pitV,catchmentOutletPit));
-   PRECOND(pitV==5);
+  UINT1 pitV = 0;
+  PRECOND(d_lddMap.get(pitV, catchmentOutletPit));
+  PRECOND(pitV == 5);
 #endif
-   d_inProcess.push(geo::DownStreamVisitorCell(catchmentOutletPit));
-   next();
+  d_inProcess.push(geo::DownStreamVisitorCell(catchmentOutletPit));
+  next();
 }
 
 //! dtor
@@ -49,25 +45,24 @@ calc::DownStreamVisitor::~DownStreamVisitor()
   }
 }
 
-
 //! advance to next cell in down stream order
 void calc::DownStreamVisitor::next()
 {
   if (!valid())
     return;
-  while(! front().allUpstreamNeighboursVisited()) {
-    geo::DownStreamVisitorCell& f(front());
+  while (!front().allUpstreamNeighboursVisited()) {
+    geo::DownStreamVisitorCell &f(front());
     int rowNB = 0;
     int colNB = 0;
-    geo::intDownstreamCell(rowNB,colNB, f, f.d_nextNeighbourToVisit);
+    geo::intDownstreamCell(rowNB, colNB, f, f.d_nextNeighbourToVisit);
     UINT1 l = 0;
-    bool const isUpstreamNB= (d_lddMap.get(l,rowNB,colNB) &&
-                        geo::LDD::flowsTo(l, f.d_nextNeighbourToVisit));
+    bool const isUpstreamNB =
+        (d_lddMap.get(l, rowNB, colNB) && geo::LDD::flowsTo(l, f.d_nextNeighbourToVisit));
     // next time look for next
     f.next(isUpstreamNB);
     // add isUpstreamNB
     if (isUpstreamNB)
-      d_inProcess.push(geo::DownStreamVisitorCell(geo::CellLoc(rowNB,colNB)));
+      d_inProcess.push(geo::DownStreamVisitorCell(geo::CellLoc(rowNB, colNB)));
   }
 }
 
@@ -81,8 +76,8 @@ void calc::DownStreamVisitor::operator++()
 //! return current cell
 geo::UpstreamNeighbourVisitor calc::DownStreamVisitor::operator*() const
 {
-  const geo::DownStreamVisitorCell& f(d_inProcess.top());
-  return geo::UpstreamNeighbourVisitor(f,f.d_upstreamNeighbourDirs);
+  const geo::DownStreamVisitorCell &f(d_inProcess.top());
+  return geo::UpstreamNeighbourVisitor(f, f.d_upstreamNeighbourDirs);
 }
 
 //! check if some left to be processed
@@ -92,9 +87,9 @@ bool calc::DownStreamVisitor::valid() const
 }
 
 //! return first;
-geo::DownStreamVisitorCell& calc::DownStreamVisitor::front()
+geo::DownStreamVisitorCell &calc::DownStreamVisitor::front()
 {
-    return d_inProcess.top();
+  return d_inProcess.top();
 }
 
 //------------------------------------------------------------------------------

@@ -10,7 +10,6 @@
 #include <cmath>
 #include <iostream>
 
-
 //------------------------------------------------------------------------------
 // Implicit finite difference according to:
 // Introduction to groundwater modeling
@@ -18,7 +17,8 @@
 // Crank-Nicolson method, Gauss-Seidel iteration
 //------------------------------------------------------------------------------
 
-namespace calc {
+namespace calc
+{
 
 struct CalculationArgs {
 
@@ -28,34 +28,27 @@ struct CalculationArgs {
   double d_interval;
   double d_currentElevation;
   double d_recharge;
-  double d_transmissivity;   // Average t for all directions.
+  double d_transmissivity;  // Average t for all directions.
   double d_storageCoefficient;
-  double d_h1;       // h * t for all directions, timestep n
-  double d_h2;       // h * t for all directions, timestep n + 1.
-
+  double d_h1;  // h * t for all directions, timestep n
+  double d_h2;  // h * t for all directions, timestep n + 1.
 };
 
-
-
-double calcElevation(const CalculationArgs& args)
+double calcElevation(const CalculationArgs &args)
 {
   double const f1 = (args.d_area * args.d_storageCoefficient) / args.d_interval;
-  double const f2 = 1.0 / (f1 + args.d_nrCells * args.d_transmissivity *
-                   args.d_alpha);
+  double const f2 = 1.0 / (f1 + args.d_nrCells * args.d_transmissivity * args.d_alpha);
 
   return f2 * (args.d_alpha * args.d_h2 + f1 * args.d_currentElevation +
-                   (1.0 - args.d_alpha) *
-                   (args.d_h1 - args.d_currentElevation * args.d_nrCells *
-                   args.d_transmissivity) + args.d_area * args.d_recharge);
+               (1.0 - args.d_alpha) *
+                   (args.d_h1 - args.d_currentElevation * args.d_nrCells * args.d_transmissivity) +
+               args.d_area * args.d_recharge);
 }
-
-
 
 class DiffuseAlgorithm
 {
 
 public:
-
   enum Direction {
     NoDirection = 0x000,
     Left = 0x0001,
@@ -69,39 +62,35 @@ public:
     Enclosed = Left | Top | Right | Bottom
   };
 
-  enum FlowCondition  {
+  enum FlowCondition {
     NOFLOW = 0,
     CALCULATE = 1,
     FIXED = 2
   };
 
+  DiffuseAlgorithm(const DiffuseAlgorithm &other) = delete;
 
-  DiffuseAlgorithm(const DiffuseAlgorithm& other) = delete;
-
-  DiffuseAlgorithm& operator=(const DiffuseAlgorithm& other) = delete;
+  DiffuseAlgorithm &operator=(const DiffuseAlgorithm &other) = delete;
 
 private:
-
-  fieldapi::ReadWriteReal8&  d_resultElevation;
-  const fieldapi::ReadOnlyReal8& d_elevation;
-  const fieldapi::ReadOnlyReal8& d_recharge;
-  const fieldapi::ReadOnlyReal8& d_transmissivity;
-  const fieldapi::ReadOnlyInt4& d_flowCondition;
-  const fieldapi::ReadOnlyReal8& d_storageCoefficient;
+  fieldapi::ReadWriteReal8 &d_resultElevation;
+  const fieldapi::ReadOnlyReal8 &d_elevation;
+  const fieldapi::ReadOnlyReal8 &d_recharge;
+  const fieldapi::ReadOnlyReal8 &d_transmissivity;
+  const fieldapi::ReadOnlyInt4 &d_flowCondition;
+  const fieldapi::ReadOnlyReal8 &d_storageCoefficient;
 
   CalculationArgs d_args{};
-  geo::CellLoc d_location;    // A cell location.
+  geo::CellLoc d_location;  // A cell location.
 
-  geo::SimpleRaster<double> d_tmRight; // Average transm. values, right.
-  geo::SimpleRaster<double> d_tmBottom; // Average transm. values, bottom.
+  geo::SimpleRaster<double> d_tmRight;   // Average transm. values, right.
+  geo::SimpleRaster<double> d_tmBottom;  // Average transm. values, bottom.
 
   geo::SimpleRaster<unsigned int> d_noFlowBoundaries;
 
-
-
   double calcElevationWithNoFlowBoundary(size_t r, size_t c, unsigned int direction)
   {
-    if(direction == Enclosed) {
+    if (direction == Enclosed) {
       // Current cell is surrounded by no flow boundaries. Current elevation
       // remains unchanged.
       return d_elevation.value(r, c);
@@ -119,13 +108,12 @@ private:
     double tmBottom(0);
 
     // Cell to the left.
-    if(!(direction & Left)) {
+    if (!(direction & Left)) {
       tmLeft = d_tmRight.cell(r, c - 1);
       d_args.d_h1 += tmLeft * d_elevation.value(r, c - 1);
       d_args.d_h2 += tmLeft * d_resultElevation.value(r, c - 1);
       ++d_args.d_nrCells;
-    }
-    else if(!(direction & Right)) {
+    } else if (!(direction & Right)) {
       // Copy value from Right cell.
       tmLeft = d_tmRight.cell(r, c);
       d_args.d_h1 += tmLeft * d_elevation.value(r, c + 1);
@@ -134,13 +122,12 @@ private:
     }
 
     // Cell to the top.
-    if(!(direction & Top)) {
+    if (!(direction & Top)) {
       tmTop = d_tmBottom.cell(r - 1, c);
       d_args.d_h1 += tmTop * d_elevation.value(r - 1, c);
       d_args.d_h2 += tmTop * d_resultElevation.value(r - 1, c);
       ++d_args.d_nrCells;
-    }
-    else if(!(direction & Bottom)) {
+    } else if (!(direction & Bottom)) {
       // Copy value from Bottom cell.
       tmTop = d_tmBottom.cell(r, c);
       d_args.d_h1 += tmTop * d_elevation.value(r + 1, c);
@@ -149,13 +136,12 @@ private:
     }
 
     // Cell to the right.
-    if(!(direction & Right)) {
+    if (!(direction & Right)) {
       tmRight = d_tmRight.cell(r, c);
       d_args.d_h1 += tmRight * d_elevation.value(r, c + 1);
       d_args.d_h2 += tmRight * d_resultElevation.value(r, c + 1);
       ++d_args.d_nrCells;
-    }
-    else if(!(direction & Left)) {
+    } else if (!(direction & Left)) {
       // Copy value from Left cell.
       tmRight = d_tmRight.cell(r, c - 1);
       d_args.d_h1 += tmRight * d_elevation.value(r, c - 1);
@@ -164,13 +150,12 @@ private:
     }
 
     // Cell to the bottom.
-    if(!(direction & Bottom)) {
+    if (!(direction & Bottom)) {
       tmBottom = d_tmBottom.cell(r, c);
       d_args.d_h1 += tmBottom * d_elevation.value(r + 1, c);
       d_args.d_h2 += tmBottom * d_resultElevation.value(r + 1, c);
       ++d_args.d_nrCells;
-    }
-    else if(!(direction & Top)) {
+    } else if (!(direction & Top)) {
       // Copy value from Top cell.
       tmBottom = d_tmBottom.cell(r - 1, c);
       d_args.d_h1 += tmBottom * d_elevation.value(r - 1, c);
@@ -183,24 +168,21 @@ private:
     d_args.d_currentElevation = d_elevation.value(r, c);
     d_args.d_recharge = d_recharge.value(r, c);
     // Arithmic mean.
-    d_args.d_transmissivity = (tmLeft + tmTop + tmRight + tmBottom) /
-                   d_args.d_nrCells;
+    d_args.d_transmissivity = (tmLeft + tmTop + tmRight + tmBottom) / d_args.d_nrCells;
     d_args.d_storageCoefficient = d_storageCoefficient.value(r, c);
 
     return calc::calcElevation(d_args);
   }
 
-
-
   double calcElevationWithoutNoFlowBoundary(size_t r, size_t c)
   {
-    d_args.d_h1 = 0.0;       // Elevation at t = n, * transmissivities.
-    d_args.d_h2 = 0.0;       // Elevation at t = n + 1, * transmissivities.
-    d_args.d_nrCells = 0;    // Nr of cells contributing to the current value.
+    d_args.d_h1 = 0.0;     // Elevation at t = n, * transmissivities.
+    d_args.d_h2 = 0.0;     // Elevation at t = n + 1, * transmissivities.
+    d_args.d_nrCells = 0;  // Nr of cells contributing to the current value.
     static double tmLeft;
     static double tmTop;
     static double tmRight;
-    static double tmBottom; // Harm. means of transm.
+    static double tmBottom;  // Harm. means of transm.
 
     // The current cell has no no flow boundaries. All neighbours have
     // valid values.
@@ -235,32 +217,28 @@ private:
     d_args.d_currentElevation = d_elevation.value(r, c);
     d_args.d_recharge = d_recharge.value(r, c);
     // Arithmic mean.
-    d_args.d_transmissivity = (tmLeft + tmTop + tmRight + tmBottom) /
-                   d_args.d_nrCells;
+    d_args.d_transmissivity = (tmLeft + tmTop + tmRight + tmBottom) / d_args.d_nrCells;
     d_args.d_storageCoefficient = d_storageCoefficient.value(r, c);
 
     return calc::calcElevation(d_args);
   }
 
 
-
 public:
+  DiffuseAlgorithm(fieldapi::ReadWriteReal8 &resultElevation, const fieldapi::ReadOnlyReal8 &elevation,
+                   const fieldapi::ReadOnlyReal8 &recharge,
+                   const fieldapi::ReadOnlyReal8 &transmissivity,
+                   const fieldapi::ReadOnlyInt4 &flowCondition,
+                   const fieldapi::ReadOnlyReal8 &storageCoefficient, double area, double alpha,
+                   double interval)
 
-  DiffuseAlgorithm(fieldapi::ReadWriteReal8& resultElevation,
-         const fieldapi::ReadOnlyReal8& elevation,
-         const fieldapi::ReadOnlyReal8& recharge,
-         const fieldapi::ReadOnlyReal8& transmissivity,
-         const fieldapi::ReadOnlyInt4& flowCondition,
-         const fieldapi::ReadOnlyReal8& storageCoefficient,
-         double area, double alpha, double interval)
-
-    : d_resultElevation(resultElevation), d_elevation(elevation),
-      d_recharge(recharge), d_transmissivity(transmissivity),
-      d_flowCondition(flowCondition), d_storageCoefficient(storageCoefficient),
-      d_tmRight(resultElevation.nrRows(), resultElevation.nrCols()),
-      d_tmBottom(resultElevation.nrRows(), resultElevation.nrCols()),
-      d_noFlowBoundaries(resultElevation.nrRows(), resultElevation.nrCols(),
-      static_cast<unsigned int>(NoDirection))
+      : d_resultElevation(resultElevation), d_elevation(elevation), d_recharge(recharge),
+        d_transmissivity(transmissivity), d_flowCondition(flowCondition),
+        d_storageCoefficient(storageCoefficient),
+        d_tmRight(resultElevation.nrRows(), resultElevation.nrCols()),
+        d_tmBottom(resultElevation.nrRows(), resultElevation.nrCols()),
+        d_noFlowBoundaries(resultElevation.nrRows(), resultElevation.nrCols(),
+                           static_cast<unsigned int>(NoDirection))
 
   {
     d_args.d_area = area;
@@ -268,11 +246,9 @@ public:
     d_args.d_interval = interval;
 
 
-
-
     geo::CellLoc loc;
     size_t r = 0;
-    size_t c = 0; // comes from C ya know
+    size_t c = 0;  // comes from C ya know
 
     //--------------------------------------------------------------------------
     // Calculate transmissivities. These stay constant within a call to the
@@ -281,42 +257,36 @@ public:
 
     // Harmonic mean transmissivities current and right cell.
     // For every row.
-    for( r = 0; r < d_tmRight.nrRows(); ++r) {
+    for (r = 0; r < d_tmRight.nrRows(); ++r) {
 
       loc.setRow(r);
 
       // For every but the last col.
-      for( c = 0; c < d_tmRight.nrCols() - 1; ++c) {
+      for (c = 0; c < d_tmRight.nrCols() - 1; ++c) {
 
         loc.setCol(c);
 
-        if(!d_transmissivity.isMV(loc) &&
-                   !d_transmissivity.isMV(geo::CellLoc(r, c + 1))) {
-          d_tmRight.cell(r, c) =
-              2 * d_transmissivity.value(r, c + 1) *
-              d_transmissivity.value(r, c) /
-              (d_transmissivity.value(r, c + 1) + d_transmissivity.value(r, c));
+        if (!d_transmissivity.isMV(loc) && !d_transmissivity.isMV(geo::CellLoc(r, c + 1))) {
+          d_tmRight.cell(r, c) = 2 * d_transmissivity.value(r, c + 1) * d_transmissivity.value(r, c) /
+                                 (d_transmissivity.value(r, c + 1) + d_transmissivity.value(r, c));
         }
       }
     }
 
     // Harmonic mean transmissivities current and bottom cell.
     // For every but the last row.
-    for( r = 0; r < d_tmBottom.nrRows() - 1; ++r) {
+    for (r = 0; r < d_tmBottom.nrRows() - 1; ++r) {
 
       loc.setRow(r);
 
       // For every col.
-      for( c = 0; c < d_tmBottom.nrCols(); ++c) {
+      for (c = 0; c < d_tmBottom.nrCols(); ++c) {
 
         loc.setCol(c);
 
-        if(!d_transmissivity.isMV(loc) &&
-                   !d_transmissivity.isMV(geo::CellLoc(r + 1, c))) {
-          d_tmBottom.cell(r, c) =
-              2 * d_transmissivity.value(r + 1, c) *
-              d_transmissivity.value(r, c) /
-              (d_transmissivity.value(r + 1, c) + d_transmissivity.value(r, c));
+        if (!d_transmissivity.isMV(loc) && !d_transmissivity.isMV(geo::CellLoc(r + 1, c))) {
+          d_tmBottom.cell(r, c) = 2 * d_transmissivity.value(r + 1, c) * d_transmissivity.value(r, c) /
+                                  (d_transmissivity.value(r + 1, c) + d_transmissivity.value(r, c));
         }
       }
     }
@@ -335,40 +305,40 @@ public:
     PRECOND(d_noFlowBoundaries.nrCols() >= 1);
 
     // For every but the first and last row.
-    for( r = 1; r < d_noFlowBoundaries.nrRows() - 1; ++r) {
+    for (r = 1; r < d_noFlowBoundaries.nrRows() - 1; ++r) {
 
       // For every but the first and last col.
-      for( c = 1; c < d_noFlowBoundaries.nrCols() - 1; ++c) {
+      for (c = 1; c < d_noFlowBoundaries.nrCols() - 1; ++c) {
 
         // Cell to the left.
         loc.setRow(r);
         loc.setCol(c - 1);
-        if(d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
-                   d_flowCondition.value(r, c - 1) == NOFLOW) {
+        if (d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
+            d_flowCondition.value(r, c - 1) == NOFLOW) {
           d_noFlowBoundaries.cell(r, c) |= Left;
         }
 
         // Cell to the top.
         loc.setRow(r - 1);
         loc.setCol(c);
-        if(d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
-                   d_flowCondition.value(r - 1, c) == NOFLOW) {
+        if (d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
+            d_flowCondition.value(r - 1, c) == NOFLOW) {
           d_noFlowBoundaries.cell(r, c) |= Top;
         }
 
         // Cell to the right.
         loc.setRow(r);
         loc.setCol(c + 1);
-        if(d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
-                   d_flowCondition.value(r, c + 1) == NOFLOW) {
+        if (d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
+            d_flowCondition.value(r, c + 1) == NOFLOW) {
           d_noFlowBoundaries.cell(r, c) |= Right;
         }
 
         // Cell to the bottom.
         loc.setRow(r + 1);
         loc.setCol(c);
-        if(d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
-                   d_flowCondition.value(r + 1, c) == NOFLOW) {
+        if (d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
+            d_flowCondition.value(r + 1, c) == NOFLOW) {
           d_noFlowBoundaries.cell(r, c) |= Bottom;
         }
       }
@@ -384,7 +354,7 @@ public:
     c = 0;
 
     // For every but the first and last row.
-    for(r = 1; r < d_noFlowBoundaries.nrRows() - 1; ++r) {
+    for (r = 1; r < d_noFlowBoundaries.nrRows() - 1; ++r) {
 
       // Cell to the left.
       d_noFlowBoundaries.cell(r, c) |= Left;
@@ -392,24 +362,24 @@ public:
       // Cell to the top.
       loc.setRow(r - 1);
       loc.setCol(c);
-      if(d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
-                   d_flowCondition.value(r - 1, c) == NOFLOW) {
+      if (d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
+          d_flowCondition.value(r - 1, c) == NOFLOW) {
         d_noFlowBoundaries.cell(r, c) |= Top;
       }
 
       // Cell to the right.
       loc.setRow(r);
       loc.setCol(c + 1);
-      if(d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
-                   d_flowCondition.value(r, c + 1) == NOFLOW) {
+      if (d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
+          d_flowCondition.value(r, c + 1) == NOFLOW) {
         d_noFlowBoundaries.cell(r, c) |= Right;
       }
 
       // Cell to the bottom.
       loc.setRow(r + 1);
       loc.setCol(c);
-      if(d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
-                 d_flowCondition.value(r + 1, c) == NOFLOW) {
+      if (d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
+          d_flowCondition.value(r + 1, c) == NOFLOW) {
         d_noFlowBoundaries.cell(r, c) |= Bottom;
       }
     }
@@ -418,21 +388,21 @@ public:
     c = d_noFlowBoundaries.nrCols() - 1;
 
     // For every but the first and last row.
-    for(r = 1; r < d_noFlowBoundaries.nrRows() - 1; ++r) {
+    for (r = 1; r < d_noFlowBoundaries.nrRows() - 1; ++r) {
 
       // Cell to the left.
       loc.setRow(r);
       loc.setCol(c - 1);
-      if(d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
-                   d_flowCondition.value(r, c - 1) == NOFLOW) {
+      if (d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
+          d_flowCondition.value(r, c - 1) == NOFLOW) {
         d_noFlowBoundaries.cell(r, c) |= Left;
       }
 
       // Cell to the top.
       loc.setRow(r - 1);
       loc.setCol(c);
-      if(d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
-                   d_flowCondition.value(r - 1, c) == NOFLOW) {
+      if (d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
+          d_flowCondition.value(r - 1, c) == NOFLOW) {
         d_noFlowBoundaries.cell(r, c) |= Top;
       }
 
@@ -442,8 +412,8 @@ public:
       // Cell to the bottom.
       loc.setRow(r + 1);
       loc.setCol(c);
-      if(d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
-                 d_flowCondition.value(r + 1, c) == NOFLOW) {
+      if (d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
+          d_flowCondition.value(r + 1, c) == NOFLOW) {
         d_noFlowBoundaries.cell(r, c) |= Bottom;
       }
     }
@@ -452,13 +422,13 @@ public:
     r = 0;
 
     // For every but the first and last col.
-    for(c = 1; c < d_noFlowBoundaries.nrCols() - 1; ++c) {
+    for (c = 1; c < d_noFlowBoundaries.nrCols() - 1; ++c) {
 
       // Cell to the left.
       loc.setRow(r);
       loc.setCol(c - 1);
-      if(d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
-                   d_flowCondition.value(r, c - 1) == NOFLOW) {
+      if (d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
+          d_flowCondition.value(r, c - 1) == NOFLOW) {
         d_noFlowBoundaries.cell(r, c) |= Left;
       }
 
@@ -468,16 +438,16 @@ public:
       // Cell to the right.
       loc.setRow(r);
       loc.setCol(c + 1);
-      if(d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
-                   d_flowCondition.value(r, c + 1) == NOFLOW) {
+      if (d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
+          d_flowCondition.value(r, c + 1) == NOFLOW) {
         d_noFlowBoundaries.cell(r, c) |= Right;
       }
 
       // Cell to the bottom.
       loc.setRow(r + 1);
       loc.setCol(c);
-      if(d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
-                 d_flowCondition.value(r + 1, c) == NOFLOW) {
+      if (d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
+          d_flowCondition.value(r + 1, c) == NOFLOW) {
         d_noFlowBoundaries.cell(r, c) |= Bottom;
       }
     }
@@ -486,29 +456,29 @@ public:
     r = d_noFlowBoundaries.nrRows() - 1;
 
     // For every but the first and last col.
-    for(c = 1; c < d_noFlowBoundaries.nrCols() - 1; ++c) {
+    for (c = 1; c < d_noFlowBoundaries.nrCols() - 1; ++c) {
 
       // Cell to the left.
       loc.setRow(r);
       loc.setCol(c - 1);
-      if(d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
-                   d_flowCondition.value(r, c - 1) == NOFLOW) {
+      if (d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
+          d_flowCondition.value(r, c - 1) == NOFLOW) {
         d_noFlowBoundaries.cell(r, c) |= Left;
       }
 
       // Cell to the top.
       loc.setRow(r - 1);
       loc.setCol(c);
-      if(d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
-                   d_flowCondition.value(r - 1, c) == NOFLOW) {
+      if (d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
+          d_flowCondition.value(r - 1, c) == NOFLOW) {
         d_noFlowBoundaries.cell(r, c) |= Top;
       }
 
       // Cell to the right.
       loc.setRow(r);
       loc.setCol(c + 1);
-      if(d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
-                   d_flowCondition.value(r, c + 1) == NOFLOW) {
+      if (d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
+          d_flowCondition.value(r, c + 1) == NOFLOW) {
         d_noFlowBoundaries.cell(r, c) |= Right;
       }
 
@@ -525,16 +495,16 @@ public:
     // Cell to the right.
     loc.setRow(r);
     loc.setCol(c + 1);
-    if(d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
-                   d_flowCondition.value(r, c + 1) == NOFLOW) {
+    if (d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
+        d_flowCondition.value(r, c + 1) == NOFLOW) {
       d_noFlowBoundaries.cell(r, c) |= Right;
     }
 
     // Cell to the bottom.
     loc.setRow(r + 1);
     loc.setCol(c);
-    if(d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
-                 d_flowCondition.value(r + 1, c) == NOFLOW) {
+    if (d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
+        d_flowCondition.value(r + 1, c) == NOFLOW) {
       d_noFlowBoundaries.cell(r, c) |= Bottom;
     }
 
@@ -547,16 +517,16 @@ public:
     // Cell to the left.
     loc.setRow(r);
     loc.setCol(c - 1);
-    if(d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
-                   d_flowCondition.value(r, c - 1) == NOFLOW) {
+    if (d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
+        d_flowCondition.value(r, c - 1) == NOFLOW) {
       d_noFlowBoundaries.cell(r, c) |= Left;
     }
 
     // Cell to the bottom.
     loc.setRow(r + 1);
     loc.setCol(c);
-    if(d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
-                 d_flowCondition.value(r + 1, c) == NOFLOW) {
+    if (d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
+        d_flowCondition.value(r + 1, c) == NOFLOW) {
       d_noFlowBoundaries.cell(r, c) |= Bottom;
     }
 
@@ -569,16 +539,16 @@ public:
     // Cell to the left.
     loc.setRow(r);
     loc.setCol(c - 1);
-    if(d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
-                   d_flowCondition.value(r, c - 1) == NOFLOW) {
+    if (d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
+        d_flowCondition.value(r, c - 1) == NOFLOW) {
       d_noFlowBoundaries.cell(r, c) |= Left;
     }
 
     // Cell to the top.
     loc.setRow(r - 1);
     loc.setCol(c);
-    if(d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
-                   d_flowCondition.value(r - 1, c) == NOFLOW) {
+    if (d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
+        d_flowCondition.value(r - 1, c) == NOFLOW) {
       d_noFlowBoundaries.cell(r, c) |= Top;
     }
 
@@ -591,24 +561,22 @@ public:
     // Cell to the top.
     loc.setRow(r - 1);
     loc.setCol(c);
-    if(d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
-                   d_flowCondition.value(r - 1, c) == NOFLOW) {
+    if (d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
+        d_flowCondition.value(r - 1, c) == NOFLOW) {
       d_noFlowBoundaries.cell(r, c) |= Top;
     }
 
     // Cell to the right.
     loc.setRow(r);
     loc.setCol(c + 1);
-    if(d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
-                   d_flowCondition.value(r, c + 1) == NOFLOW) {
+    if (d_elevation.isMV(loc) || d_flowCondition.isMV(loc) ||
+        d_flowCondition.value(r, c + 1) == NOFLOW) {
       d_noFlowBoundaries.cell(r, c) |= Right;
     }
   }
 
-
-
-//! Calculates the new elevation at a cell position.
-/*!
+  //! Calculates the new elevation at a cell position.
+  /*!
   \param     r Row of cell.
   \param     c Column of cell.
   \return    Elevation.
@@ -619,20 +587,16 @@ public:
   {
     PRECOND(!d_resultElevation.isMV(geo::CellLoc(r, c)));
 
-    if(d_noFlowBoundaries.cell(r, c) != NoDirection) {
+    if (d_noFlowBoundaries.cell(r, c) != NoDirection) {
       return calcElevationWithNoFlowBoundary(r, c, d_noFlowBoundaries.cell(r, c));
-    }
-    else {
+    } else {
       return calcElevationWithoutNoFlowBoundary(r, c);
     }
   }
-
 };
 
 
-
-} // namespace calc.
-
+}  // namespace calc.
 
 //!
 /*!
@@ -650,25 +614,25 @@ public:
 
   Issues: cell length, error messages and handling of return values
 */
-extern "C" int  Transient(void** out, const void** in, int nrArgs)
+extern "C" int Transient(void **out, const void **in, int nrArgs)
 {
-  using namespace calc; // hack hack
+  using namespace calc;  // hack hack
   PRECOND(nrArgs == 7);
-  (void)nrArgs; // shut up compiler
+  (void)nrArgs;  // shut up compiler
 
-  ReadWriteReal8_ref(resultElevation, static_cast<MAP_REAL8*>(out[0]));
-  ReadOnlyReal8_ref(elevation, static_cast<const MAP_REAL8*>(in[0]));
-  ReadOnlyReal8_ref(recharge, static_cast<const MAP_REAL8*>(in[1]));
-  ReadOnlyReal8_ref(transmissivity, static_cast<const MAP_REAL8*>(in[2]));
-  ReadOnlyInt4_ref(flowCondition, static_cast<const MAP_INT4*>(in[3]));
-  ReadOnlyReal8_ref(storageCoefficient, static_cast<const MAP_REAL8*>(in[4]));
-  ReadOnlyReal8_ref(intervalInterface, static_cast<const MAP_REAL8*>(in[5]));
-  ReadOnlyReal8_ref(toleranceInterface, static_cast<const MAP_REAL8*>(in[6]));
+  ReadWriteReal8_ref(resultElevation, static_cast<MAP_REAL8 *>(out[0]));
+  ReadOnlyReal8_ref(elevation, static_cast<const MAP_REAL8 *>(in[0]));
+  ReadOnlyReal8_ref(recharge, static_cast<const MAP_REAL8 *>(in[1]));
+  ReadOnlyReal8_ref(transmissivity, static_cast<const MAP_REAL8 *>(in[2]));
+  ReadOnlyInt4_ref(flowCondition, static_cast<const MAP_INT4 *>(in[3]));
+  ReadOnlyReal8_ref(storageCoefficient, static_cast<const MAP_REAL8 *>(in[4]));
+  ReadOnlyReal8_ref(intervalInterface, static_cast<const MAP_REAL8 *>(in[5]));
+  ReadOnlyReal8_ref(toleranceInterface, static_cast<const MAP_REAL8 *>(in[6]));
 
   PRECOND(!intervalInterface.spatial());
   PRECOND(!toleranceInterface.spatial());
 
-  std::vector<const fieldapi::Common*> inputs;
+  std::vector<const fieldapi::Common *> inputs;
   inputs.push_back(&elevation);
   inputs.push_back(&recharge);
   inputs.push_back(&transmissivity);
@@ -687,28 +651,28 @@ extern "C" int  Transient(void** out, const void** in, int nrArgs)
   // Domain checks...
   std::vector<fieldapi::ScalarDomainCheck> scalarDomains;
   std::vector<fieldapi::ScalarDomainCheck> nsDomains;
-  scalarDomains.push_back(fieldapi::ScalarDomainCheck(transmissivity,
-                   "transmissivity", com::GreaterThan<double>(0)));
-  scalarDomains.push_back(fieldapi::ScalarDomainCheck(storageCoefficient,
-                   "storage coefficient", com::GreaterThan<double>(0)));
-  nsDomains.push_back(fieldapi::ScalarDomainCheck(intervalInterface,
-                   "interval", com::GreaterThan<double>(0)));
-  nsDomains.push_back(fieldapi::ScalarDomainCheck(toleranceInterface,
-                   "tolerance", com::GreaterThan<double>(0)));
+  scalarDomains.push_back(
+      fieldapi::ScalarDomainCheck(transmissivity, "transmissivity", com::GreaterThan<double>(0)));
+  scalarDomains.push_back(fieldapi::ScalarDomainCheck(storageCoefficient, "storage coefficient",
+                                                      com::GreaterThan<double>(0)));
+  nsDomains.push_back(
+      fieldapi::ScalarDomainCheck(intervalInterface, "interval", com::GreaterThan<double>(0)));
+  nsDomains.push_back(
+      fieldapi::ScalarDomainCheck(toleranceInterface, "tolerance", com::GreaterThan<double>(0)));
 
   // Checks...
   int check = 0;
 
   // Check non spatials.
   check = fieldapi::checkScalarDomains(nsDomains, geo::CellLoc(0, 0));
-  if(check != -1) {
+  if (check != -1) {
     return RetError(1, nsDomains[check].msg().c_str());
   }
 
   // Check spatials.
-  for(geo::CellLocVisitor loc(elevation); loc.valid(); ++loc) {
+  for (geo::CellLocVisitor loc(elevation); loc.valid(); ++loc) {
     check = fieldapi::checkScalarDomains(scalarDomains, *loc);
-    if(check != -1) {
+    if (check != -1) {
       return RetError(1, scalarDomains[check].msg().c_str());
     }
   }
@@ -717,28 +681,27 @@ extern "C" int  Transient(void** out, const void** in, int nrArgs)
   double oldValue = NAN;
   double const tolerance = toleranceInterface.value(0, 0);
   double difference = NAN;
-  double maxDifference = NAN;    // Current and max difference.
+  double maxDifference = NAN;  // Current and max difference.
   // size_t nrIterations = 0;
 
   // yepyep: fieldapi::Common::cellLength();
-  auto* map = static_cast<MAP_REAL8*>(out[0]);
+  auto *map = static_cast<MAP_REAL8 *>(out[0]);
   double const cellLength = map->CellLength(map);
   PRECOND(cellLength > 0.0);
 
   // Result elevation is missing value if any of the inputs is MV.
-  for(geo::CellLocVisitor visitor(elevation); visitor.valid(); ++visitor) {
+  for (geo::CellLocVisitor visitor(elevation); visitor.valid(); ++visitor) {
 
-    if(fieldapi::nonMV(inputs, *visitor)) {
+    if (fieldapi::nonMV(inputs, *visitor)) {
       resultElevation.copy(elevation, *visitor);
-    }
-    else {
+    } else {
       resultElevation.putMV(*visitor);
     }
   }
 
-  DiffuseAlgorithm algorithm(resultElevation, elevation, recharge,
-                   transmissivity, flowCondition, storageCoefficient,
-                   cellLength * cellLength, 0.5, intervalInterface.value(0, 0));
+  DiffuseAlgorithm algorithm(resultElevation, elevation, recharge, transmissivity, flowCondition,
+                             storageCoefficient, cellLength * cellLength, 0.5,
+                             intervalInterface.value(0, 0));
   // std::cout << std::endl;
 
   // Algorithm...
@@ -747,11 +710,11 @@ extern "C" int  Transient(void** out, const void** in, int nrArgs)
   do {
     maxDifference = 0.0;
 
-    for( r = 0; r < nrRows; ++r) {
-      for( c = 0; c < nrCols; ++c) {
+    for (r = 0; r < nrRows; ++r) {
+      for (c = 0; c < nrCols; ++c) {
 
         // Skip missing values.
-        if(resultElevation.isMV(geo::CellLoc(r, c))) {
+        if (resultElevation.isMV(geo::CellLoc(r, c))) {
           continue;
         }
 
@@ -759,14 +722,14 @@ extern "C" int  Transient(void** out, const void** in, int nrArgs)
         oldValue = resultElevation.value(r, c);
 
         // Select calculation method for current cell, based on flow condition.
-        if(flowCondition.value(r, c) == DiffuseAlgorithm::CALCULATE) {
+        if (flowCondition.value(r, c) == DiffuseAlgorithm::CALCULATE) {
           resultElevation.put(algorithm.calcElevation(r, c), r, c);
         }
         // (else FIXED, NOFLOW)
 
         // Determine difference.
         difference = std::abs(resultElevation.value(r, c) - oldValue);
-        if(difference > maxDifference) {
+        if (difference > maxDifference) {
           maxDifference = difference;
         }
       }

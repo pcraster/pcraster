@@ -8,13 +8,10 @@
 #include "mldd_upstream.h"
 #include "mldd_removestream.h"
 
-
-
 /*!
   \file
   This file contains the implementation of the Mldd class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -40,11 +37,9 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC MLDD MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
@@ -52,10 +47,8 @@ public:
 //------------------------------------------------------------------------------
 
 //! old modellink
-mldd::Mldd::Mldd(const geo::RasterSpace& rs):
-  d_rs(rs),
-  d_dag(new DagRaster(rs)),
-  d_dem(new geo::ScalarSimpleRaster(rs))
+mldd::Mldd::Mldd(const geo::RasterSpace &rs)
+    : d_rs(rs), d_dag(new DagRaster(rs)), d_dem(new geo::ScalarSimpleRaster(rs))
 {
 }
 
@@ -71,7 +64,6 @@ mldd::Mldd::Mldd(calc::RunTimeEnv* rte):
 */
 
 
-
 /* NOT IMPLEMENTED
 //! Copy constructor.
 mldd::Mldd::Mldd(Mldd const& rhs)
@@ -83,12 +75,9 @@ mldd::Mldd::Mldd(Mldd const& rhs)
 */
 
 
-
 mldd::Mldd::~Mldd()
 {
 }
-
-
 
 /* NOT IMPLEMENTED
 //! Assignment operator.
@@ -102,158 +91,131 @@ mldd::Mldd& mldd::Mldd::operator=(Mldd const& rhs)
 
 void mldd::Mldd::addOneLdd(const UINT1 *ldd) const
 {
-  for(size_t i=0; i < d_rs.nrCells(); ++i) {
-    UINT1 const cVal=ldd[i];
-    if ( cVal != MV_UINT1 && cVal != LDD_PIT)
-       d_dag->addFlowNB(d_rs.convert(i),cVal);
+  for (size_t i = 0; i < d_rs.nrCells(); ++i) {
+    UINT1 const cVal = ldd[i];
+    if (cVal != MV_UINT1 && cVal != LDD_PIT)
+      d_dag->addFlowNB(d_rs.convert(i), cVal);
   }
 }
 
-void mldd::Mldd::addStream(const UINT1* ldd)
+void mldd::Mldd::addStream(const UINT1 *ldd)
 {
   addOneLdd(ldd);
 
   try {
     d_dag->updateOrder();
-  } catch(const NotADag&) {
+  } catch (const NotADag &) {
     throw com::Exception("Cycle detected in addStream\n");
   }
 }
 
-void mldd::Mldd::setStream(const std::vector<const UINT1*>& ldd)
+void mldd::Mldd::setStream(const std::vector<const UINT1 *> &ldd)
 {
   d_dag->clear();
 
   // order is not relevant for DagRaster code
   // since the ldd value itself is encoded within
   // a particular index
-  for(auto i : ldd)
-     addOneLdd(i);
+  for (auto i : ldd)
+    addOneLdd(i);
 
   try {
     d_dag->updateOrder();
-  } catch(const NotADag&) {
+  } catch (const NotADag &) {
     throw com::Exception("Cycle detected in setStream\n");
   }
 }
 
-void mldd::Mldd::getWeight(
-    std::vector<REAL4 *>& result) const
+void mldd::Mldd::getWeight(std::vector<REAL4 *> &result) const
 {
-  PRECOND(result.size()==8);
+  PRECOND(result.size() == 8);
 
   // order is relevant for python code
   // expected return order is N,NE,E,SE,S,SW,W,NW
-  geo::LDD::Code const lddCodes[8]={8,9 ,6,3 ,2,1 ,4,7 };
+  geo::LDD::Code const lddCodes[8] = {8, 9, 6, 3, 2, 1, 4, 7};
 
-  WeightMap const wm(*d_dag,*d_dem);
+  WeightMap const wm(*d_dag, *d_dem);
 
-  for(size_t r=0;r<8; r++) {
-    geo::NB::Code const nb=geo::LDD::toNB(lddCodes[r]);
-    wm.fillDirMap(nb,result[r]);
+  for (size_t r = 0; r < 8; r++) {
+    geo::NB::Code const nb = geo::LDD::toNB(lddCodes[r]);
+    wm.fillDirMap(nb, result[r]);
   }
 }
 
-void mldd::Mldd::getDem(
-    REAL4 *dem) const
+void mldd::Mldd::getDem(REAL4 *dem) const
 {
-  std::copy(d_dem->begin(),d_dem->end(),dem);
+  std::copy(d_dem->begin(), d_dem->end(), dem);
 }
 
-void mldd::Mldd::setDem(
-    const REAL4 *dem)
+void mldd::Mldd::setDem(const REAL4 *dem)
 {
-  std::copy(dem+0,dem+d_rs.nrCells(),d_dem->begin());
+  std::copy(dem + 0, dem + d_rs.nrCells(), d_dem->begin());
 }
 
-void mldd::Mldd::diffuse(REAL4*       totalOutflow,
-                         const REAL4* oldState,
-                         const REAL4* area,
-                         const REAL4* fixedHead,
-                         const std::vector<const REAL4 *>&
-                           diffusionValueInArgOrder,
-                         INT4         nrIterations)
+void mldd::Mldd::diffuse(REAL4 *totalOutflow, const REAL4 *oldState, const REAL4 *area,
+                         const REAL4 *fixedHead,
+                         const std::vector<const REAL4 *> &diffusionValueInArgOrder, INT4 nrIterations)
 {
   PRECOND(d_dem);
-  Diffuse diffuse(*d_dem,
-                  totalOutflow,
-                  oldState,
-                  area,
-                  fixedHead,
-                  diffusionValueInArgOrder,
-                  nrIterations,
-                  d_rs.cellSize());
+  Diffuse diffuse(*d_dem, totalOutflow, oldState, area, fixedHead, diffusionValueInArgOrder,
+                  nrIterations, d_rs.cellSize());
   diffuse.run(*d_dag);
 }
 
-void mldd::Mldd::removeStream(const std::vector<const UINT1 *>& markInArgOrder)
+void mldd::Mldd::removeStream(const std::vector<const UINT1 *> &markInArgOrder)
 {
   RemoveStream rsVisitor(*d_dag, markInArgOrder);
   d_dag->downstreamVisitor(rsVisitor);
   d_dag->remove(rsVisitor.removeDag());
 }
 
-
-void mldd::Mldd::upstream(
-  REAL4*       out,
-  const REAL4* in) const
+void mldd::Mldd::upstream(REAL4 *out, const REAL4 *in) const
 {
-  WeightMap const wm(*d_dag,*d_dem);
-  Upstream uv(wm,in,out);
+  WeightMap const wm(*d_dag, *d_dem);
+  Upstream uv(wm, in, out);
 
   d_dag->downstreamVisitor(uv);
 }
 
-void mldd::Mldd::accuflux(
-  REAL4*       out,
-  const REAL4* in) const
+void mldd::Mldd::accuflux(REAL4 *out, const REAL4 *in) const
 {
-  WeightMap const wm(*d_dag,*d_dem);
-  Accuflux uv(wm,in,out);
+  WeightMap const wm(*d_dag, *d_dem);
+  Accuflux uv(wm, in, out);
 
   d_dag->downstreamVisitor(uv);
 }
 
-void mldd::Mldd::getStream(
-  const std::vector<UINT1 *>& result) const
+void mldd::Mldd::getStream(const std::vector<UINT1 *> &result) const
 {
   // order is relevant for python code
   // expected return order is
   //                         N,NE,E,SE,S,SW,W,NW
-  geo::LDD::Code const lddCodes[8]={8,9 ,6,3 ,2,1 ,4,7 };
+  geo::LDD::Code const lddCodes[8] = {8, 9, 6, 3, 2, 1, 4, 7};
 
 
-  for(size_t r=0;r<8; r++) {
+  for (size_t r = 0; r < 8; r++) {
     UINT1 *out(result[r]);
-    pcr::setMV(out,d_rs.nrCells());
-    geo::NB::Code const nb=geo::LDD::toNB(lddCodes[r]);
-    for(size_t c=0; c < d_rs.nrCells(); c++) {
-      if (d_dag->hasOutflowDir(c,nb))
-        out[c]=lddCodes[r];
+    pcr::setMV(out, d_rs.nrCells());
+    geo::NB::Code const nb = geo::LDD::toNB(lddCodes[r]);
+    for (size_t c = 0; c < d_rs.nrCells(); c++) {
+      if (d_dag->hasOutflowDir(c, nb))
+        out[c] = lddCodes[r];
       if (d_dag->isPit(c))
-        out[c]=5;
+        out[c] = 5;
     }
   }
 }
 
-
-
-geo::RasterSpace const& mldd::Mldd::space() const
+geo::RasterSpace const &mldd::Mldd::space() const
 {
   return d_rs;
 }
-
-
 
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE OPERATORS
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

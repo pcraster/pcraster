@@ -15,7 +15,6 @@
 */
 
 
-
 //------------------------------------------------------------------------------
 
 /*
@@ -39,25 +38,19 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC DAGRASTER MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF DAGRASTER MEMBERS
 //------------------------------------------------------------------------------
 
-mldd::DagRaster::DagRaster(const geo::RasterDim& rd):
-  d_rd(rd),
-  d_outflowNB(rd,d_0),
-  d_inflowNB (rd,d_0)
+mldd::DagRaster::DagRaster(const geo::RasterDim &rd)
+    : d_rd(rd), d_outflowNB(rd, d_0), d_inflowNB(rd, d_0)
 {
 }
-
-
 
 mldd::DagRaster::~DagRaster()
 {
@@ -78,74 +71,69 @@ mldd::DagRaster::DagRaster(const DagRaster& rhs)
 }
 */
 
-void  mldd::DagRaster::addInflowNB(const geo::CellLoc& c, geo::NB::Code nb)
+void mldd::DagRaster::addInflowNB(const geo::CellLoc &c, geo::NB::Code nb)
 {
-  d_inflowNB[c] |= 1<<nb;
-}
-void  mldd::DagRaster::addOutflowNB(const geo::CellLoc& c, geo::NB::Code nb)
-{
-  d_outflowNB[c] |= 1<<nb;
+  d_inflowNB[c] |= 1 << nb;
 }
 
-void  mldd::DagRaster::addFlowNB(size_t row,size_t col, geo::LDD::Code lc)
+void mldd::DagRaster::addOutflowNB(const geo::CellLoc &c, geo::NB::Code nb)
 {
-  addFlowNB(geo::CellLoc(row,col),lc);
+  d_outflowNB[c] |= 1 << nb;
+}
+
+void mldd::DagRaster::addFlowNB(size_t row, size_t col, geo::LDD::Code lc)
+{
+  addFlowNB(geo::CellLoc(row, col), lc);
 }
 
 /*!
  * \todo
  *   document that pits can not be added?
  */
-void  mldd::DagRaster::addFlowNB(
-    const geo::CellLoc& outflowC,
-    geo::LDD::Code lc)
+void mldd::DagRaster::addFlowNB(const geo::CellLoc &outflowC, geo::LDD::Code lc)
 {
   PRECOND(lc != 5);
-  geo::NB::Code const oc= geo::LDD::toNB(lc);
+  geo::NB::Code const oc = geo::LDD::toNB(lc);
   // addOutflowNB(outflowC,oc); NO only add if flows to inside map
-  geo::CellLoc const inflowC = geo::NB::target(outflowC,oc);
+  geo::CellLoc const inflowC = geo::NB::target(outflowC, oc);
   if (d_rd.contains(inflowC)) {
-    addFlow(outflowC,inflowC);
+    addFlow(outflowC, inflowC);
     // addOutflowNB(outflowC,oc);
     // addInflowNB(inflowC,geo::NB::reverse(oc));
   }
 }
 
-void  mldd::DagRaster::addFlow(
-    const geo::CellLoc& from,
-    const geo::CellLoc& to)
+void mldd::DagRaster::addFlow(const geo::CellLoc &from, const geo::CellLoc &to)
 {
-  geo::NB::Code const oc= geo::NB::code(from,to);
-  addOutflowNB(from,oc);
-  addInflowNB(to,geo::NB::reverse(oc));
+  geo::NB::Code const oc = geo::NB::code(from, to);
+  addOutflowNB(from, oc);
+  addInflowNB(to, geo::NB::reverse(oc));
 }
 
-
-size_t mldd::DagRaster::nrInflowNB(const geo::CellLoc& c) const
+size_t mldd::DagRaster::nrInflowNB(const geo::CellLoc &c) const
 {
-  return NRBITSET_TYPE(d_inflowNB[c],EightBits);
+  return NRBITSET_TYPE(d_inflowNB[c], EightBits);
 }
 
-size_t mldd::DagRaster::nrOutflowNB(const geo::CellLoc& c) const
+size_t mldd::DagRaster::nrOutflowNB(const geo::CellLoc &c) const
 {
-  return NRBITSET_TYPE(d_outflowNB[c],EightBits);
+  return NRBITSET_TYPE(d_outflowNB[c], EightBits);
 }
 
-bool   mldd::DagRaster::isPit(const size_t c) const
+bool mldd::DagRaster::isPit(const size_t c) const
 {
-  return d_inflowNB[c] > 0 && d_outflowNB[c]==0;
+  return d_inflowNB[c] > 0 && d_outflowNB[c] == 0;
 }
 
-bool   mldd::DagRaster::hasInflowNB(const geo::CellLoc& c) const
+bool mldd::DagRaster::hasInflowNB(const geo::CellLoc &c) const
 {
   return d_inflowNB[c];
 }
 
-bool   mldd::DagRaster::hasOutflowNB(const geo::CellLoc& c) const
+bool mldd::DagRaster::hasOutflowNB(const geo::CellLoc &c) const
 {
   return d_outflowNB[c];
 }
-
 
 //! clear all data
 void mldd::DagRaster::clear()
@@ -155,8 +143,7 @@ void mldd::DagRaster::clear()
   d_rto.clear();
 }
 
-
-const geo::RasterDim& mldd::DagRaster::rasterDim() const
+const geo::RasterDim &mldd::DagRaster::rasterDim() const
 {
   return d_rd;
 }
@@ -168,25 +155,23 @@ size_t mldd::DagRaster::nrVertices() const
   std::count_if(d_outflowNB.begin(), d_outflowNB.end(),
       std::bind2nd(std::not_equal_to<int>(),0));
    */
-  size_t count=0;
-  for(geo::LinearLoc i=0; i < d_outflowNB.nrCells(); i++)
+  size_t count = 0;
+  for (geo::LinearLoc i = 0; i < d_outflowNB.nrCells(); i++)
     count += isVertex(i);
   return count;
 }
 
 size_t mldd::DagRaster::nrEdges() const
 {
-  size_t count=0;
-  for(geo::LinearLoc i=0; i < d_outflowNB.nrCells(); i++)
-    count += NRBITSET_TYPE(d_outflowNB[i],EightBits);
+  size_t count = 0;
+  for (geo::LinearLoc i = 0; i < d_outflowNB.nrCells(); i++)
+    count += NRBITSET_TYPE(d_outflowNB[i], EightBits);
   return count;
 }
 
-bool mldd::DagRaster::hasOutflowDir(
-    geo::LinearLoc c,
-    geo::NB::Code dir) const
+bool mldd::DagRaster::hasOutflowDir(geo::LinearLoc c, geo::NB::Code dir) const
 {
-  return d_outflowNB[c] & (1<<dir);
+  return d_outflowNB[c] & (1 << dir);
 }
 
 bool mldd::DagRaster::isVertex(geo::LinearLoc l) const
@@ -194,7 +179,7 @@ bool mldd::DagRaster::isVertex(geo::LinearLoc l) const
   return d_outflowNB[l] || d_inflowNB[l];
 }
 
-mldd::Vertex mldd::DagRaster::nextVertex(const Vertex& c) const
+mldd::Vertex mldd::DagRaster::nextVertex(const Vertex &c) const
 {
   geo::LinearLoc l(d_rd.convert(c));
   do {
@@ -207,7 +192,7 @@ mldd::Vertex mldd::DagRaster::nextVertex(const Vertex& c) const
 mldd::Vertex mldd::DagRaster::beginVertex() const
 {
   // first cell
-  geo::CellLoc b=d_rd.convert(0);
+  geo::CellLoc b = d_rd.convert(0);
   if (isVertex(0))
     return b;
   // if first cell is not a vertex, proceed from first
@@ -221,36 +206,33 @@ mldd::Vertex mldd::DagRaster::endVertex() const
 }
 
 //! return iterator for all out edges of c
-mldd::OutEdgeIterator mldd::DagRaster::beginOutEdge(const Vertex& c) const
+mldd::OutEdgeIterator mldd::DagRaster::beginOutEdge(const Vertex &c) const
 {
-  return OutEdgeIterator(c,d_outflowNB[c],0);
+  return OutEdgeIterator(c, d_outflowNB[c], 0);
 }
 
 //! return end-iterator for all out edges of c (if any() is not usable)
-mldd::OutEdgeIterator mldd::DagRaster::endOutEdge(const   Vertex& c) const
+mldd::OutEdgeIterator mldd::DagRaster::endOutEdge(const Vertex &c) const
 {
   return OutEdgeIterator(c);
 }
 
-
-void mldd::DagRaster::downstreamVisitor(
-    DownstreamVisitor& dv) const
+void mldd::DagRaster::downstreamVisitor(DownstreamVisitor &dv) const
 {
-  for(auto i : d_rto)
+  for (auto i : d_rto)
     dv.initVertex(i);
-  for(auto i=d_rto.rbegin(); i!=d_rto.rend();++i) {
-    for(OutEdgeIterator e=beginOutEdge(*i);e.any();++e)
-       dv.downstreamEdge(*e);
+  for (auto i = d_rto.rbegin(); i != d_rto.rend(); ++i) {
+    for (OutEdgeIterator e = beginOutEdge(*i); e.any(); ++e)
+      dv.downstreamEdge(*e);
     dv.finishVertex(*i);
   }
 }
 
-void mldd::DagRaster::remove(
-    const DagRaster& rm)
+void mldd::DagRaster::remove(const DagRaster &rm)
 {
-  PRECOND(rasterDim()==rm.rasterDim());
-  for(size_t i=0; i < d_outflowNB.nrCells(); ++i) {
-    d_inflowNB[i]  ^= rm.d_inflowNB[i];
+  PRECOND(rasterDim() == rm.rasterDim());
+  for (size_t i = 0; i < d_outflowNB.nrCells(); ++i) {
+    d_inflowNB[i] ^= rm.d_inflowNB[i];
     d_outflowNB[i] ^= rm.d_outflowNB[i];
   }
   updateOrder();
@@ -262,16 +244,14 @@ void mldd::DagRaster::updateOrder()
   std::vector<boost::default_color_type> raster(d_rd.nrCells());
   typedef DagRasterPropertyMap<boost::default_color_type> Color;
 
-  Color const colorMap(d_rd,raster);
+  Color const colorMap(d_rd, raster);
 
   d_rto.clear();
 
   try {
-  boost::topological_sort(*this,
-      std::back_inserter(d_rto),
-      boost::color_map(colorMap));
-  } catch (const boost::not_a_dag&) {
-     throw NotADag();
+    boost::topological_sort(*this, std::back_inserter(d_rto), boost::color_map(colorMap));
+  } catch (const boost::not_a_dag &) {
+    throw NotADag();
   }
 }
 
@@ -288,17 +268,16 @@ void mldd::DagRaster::conceptCheck() const
   using namespace boost;
   using namespace mldd;
 
-  typedef mldd::DagRasterPropertyMap<int>  DrpInt;
-  function_requires < ReadWritePropertyMapConcept < DrpInt, mldd::Vertex > >();
-  function_requires < GraphConcept              < DagRaster > >();
-  function_requires < VertexListGraphConcept    < DagRaster > >();
-  function_requires < IncidenceGraphConcept     < DagRaster > >();
+  typedef mldd::DagRasterPropertyMap<int> DrpInt;
+  function_requires<ReadWritePropertyMapConcept<DrpInt, mldd::Vertex>>();
+  function_requires<GraphConcept<DagRaster>>();
+  function_requires<VertexListGraphConcept<DagRaster>>();
+  function_requires<IncidenceGraphConcept<DagRaster>>();
 
-// Not needed:
-//  function_requires < BidirectionalGraphConcept < DagRaster > >();
-//  function_requires < VertexMutableGraphConcept < DagRaster > >();
-//  function_requires < EdgeMutableGraphConcept   < DagRaster > >();
-
+  // Not needed:
+  //  function_requires < BidirectionalGraphConcept < DagRaster > >();
+  //  function_requires < VertexMutableGraphConcept < DagRaster > >();
+  //  function_requires < EdgeMutableGraphConcept   < DagRaster > >();
 }
 
 //------------------------------------------------------------------------------
@@ -306,18 +285,12 @@ void mldd::DagRaster::conceptCheck() const
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
 
-void  mldd::Edge::linear(
-    size_t& s,
-    size_t& t,
-    const geo::RasterDim& rd) const
+void mldd::Edge::linear(size_t &s, size_t &t, const geo::RasterDim &rd) const
 {
-  s=rd.convert(source());
-  t=rd.convert(target());
+  s = rd.convert(source());
+  t = rd.convert(target());
 }
-
-

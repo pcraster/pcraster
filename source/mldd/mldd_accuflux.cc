@@ -2,13 +2,10 @@
 #include "mldd_accuflux.h"
 #include "mldd_weightmap.h"
 
-
-
 /*!
   \file
   This file contains the implementation of the Accuflux class.
 */
-
 
 
 //------------------------------------------------------------------------------
@@ -34,27 +31,19 @@ public:
 */
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC ACCUFLUX MEMBERS
 //------------------------------------------------------------------------------
-
 
 
 //------------------------------------------------------------------------------
 // DEFINITION OF ACCUFLUX MEMBERS
 //------------------------------------------------------------------------------
 
-mldd::Accuflux::Accuflux(const mldd::WeightMap& w,
-                         const REAL4* oldState,
-                               REAL4* newState
-                         ):
-   DownstreamVisitor(w.rasterDim()),
-   d_w(w),
-   d_oldState(oldState),
-   d_newState(newState)
+mldd::Accuflux::Accuflux(const mldd::WeightMap &w, const REAL4 *oldState, REAL4 *newState)
+    : DownstreamVisitor(w.rasterDim()), d_w(w), d_oldState(oldState), d_newState(newState)
 {
-  pcr::setMV(d_newState,w.rasterDim().nrCells());
+  pcr::setMV(d_newState, w.rasterDim().nrCells());
 }
 
 mldd::Accuflux::~Accuflux()
@@ -76,23 +65,22 @@ mldd::Accuflux::Accuflux(const Accuflux& rhs)
 }
 */
 
-void mldd::Accuflux::initVertex(
-   const Vertex& vC)
+void mldd::Accuflux::initVertex(const Vertex &vC)
 {
-  size_t const v=linear(vC);
-  d_newState[v]=d_oldState[v];
+  size_t const v = linear(vC);
+  d_newState[v] = d_oldState[v];
 }
 
-void mldd::Accuflux::downstreamEdge(const Edge& e)
+void mldd::Accuflux::downstreamEdge(const Edge &e)
 {
   size_t s = 0;
   size_t t = 0;
-  linear(s,t,e);
+  linear(s, t, e);
   DEVELOP_PRECOND(!pcr::isMV(d_newState[t]));
-  double const w=d_w[e];
+  double const w = d_w[e];
 
   if (w != WeightMap::mvMark() && !pcr::isMV(d_newState[s]))
-    d_newState[t]+=(w*d_newState[s]);
+    d_newState[t] += (w * d_newState[s]);
 }
 
 //------------------------------------------------------------------------------
@@ -100,10 +88,6 @@ void mldd::Accuflux::downstreamEdge(const Edge& e)
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

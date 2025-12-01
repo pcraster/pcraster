@@ -19,12 +19,9 @@
   \warning   .
   \sa        .
 */
-template<class Neighbourhood>
-int fraction(
-         MAP_REAL8* outputMap,
-         MAP_UINT1 const* inputMap,
-         MAP_REAL8 const* innerRadiusMap,
-         MAP_REAL8 const* outerRadiusMap)
+template <class Neighbourhood>
+int fraction(MAP_REAL8 *outputMap, MAP_UINT1 const *inputMap, MAP_REAL8 const *innerRadiusMap,
+             MAP_REAL8 const *outerRadiusMap)
 {
   PRECOND(outputMap->spatial);
   PRECOND(inputMap->spatial);
@@ -41,9 +38,9 @@ int fraction(
   geo::SimpleRaster<REAL8> outputRaster(nrRows, nrCols);
 
   // Copy values from inputMap-arg to inputRaster-var
-  for(int row = 0; row < nrRows; ++row) {
-    for(int col = 0; col < nrCols; ++col) {
-      if(!inputMap->Get(&inputRaster.cell(row, col), row, col, inputMap)) {
+  for (int row = 0; row < nrRows; ++row) {
+    for (int col = 0; col < nrCols; ++col) {
+      if (!inputMap->Get(&inputRaster.cell(row, col), row, col, inputMap)) {
         inputRaster.setMV(row, col);
       }
     }
@@ -65,37 +62,27 @@ int fraction(
     engine.calc();
 
     // Copy values of outputRaster-var to outputMap-arg
-    for(int row = 0; row < nrRows; ++row) {
-      for(int col = 0; col < nrCols; ++col) {
-        if(!outputRaster.isMV(row, col)) {
+    for (int row = 0; row < nrRows; ++row) {
+      for (int col = 0; col < nrCols; ++col) {
+        if (!outputRaster.isMV(row, col)) {
           outputMap->Put(outputRaster.cell(row, col), row, col, outputMap);
-        }
-        else {
+        } else {
           outputMap->PutMV(row, col, outputMap);
         }
       }
     }
-  }
-  catch(...) {
+  } catch (...) {
     result = 1;
   }
 
   return result;
 }
 
-
-
-extern "C" int squareFraction(
-         MAP_REAL8* outputMap,
-         MAP_UINT1 const* inputMap,
-         MAP_REAL8 const* innerRadiusMap,
-         MAP_REAL8 const* outerRadiusMap)
+extern "C" int squareFraction(MAP_REAL8 *outputMap, MAP_UINT1 const *inputMap,
+                              MAP_REAL8 const *innerRadiusMap, MAP_REAL8 const *outerRadiusMap)
 {
-  return fraction<geo::SquareNeighbourhood>(outputMap, inputMap,
-         innerRadiusMap, outerRadiusMap);
+  return fraction<geo::SquareNeighbourhood>(outputMap, inputMap, innerRadiusMap, outerRadiusMap);
 }
-
-
 
 // int circularFraction(
 //          MAP_REAL8* outputMap,
@@ -108,15 +95,10 @@ extern "C" int squareFraction(
 // }
 
 
-
-extern "C" int riksFraction(
-         MAP_REAL8* outputMap,
-         MAP_UINT1 const* inputMap,
-         MAP_REAL8 const* innerRadiusMap,
-         MAP_REAL8 const* outerRadiusMap)
+extern "C" int riksFraction(MAP_REAL8 *outputMap, MAP_UINT1 const *inputMap,
+                            MAP_REAL8 const *innerRadiusMap, MAP_REAL8 const *outerRadiusMap)
 {
-  return fraction<geo::RiksNeighbourhood>(outputMap, inputMap,
-         innerRadiusMap, outerRadiusMap);
+  return fraction<geo::RiksNeighbourhood>(outputMap, inputMap, innerRadiusMap, outerRadiusMap);
 }
 
 // } // namespace calc

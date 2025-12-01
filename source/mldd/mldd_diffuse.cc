@@ -16,18 +16,17 @@
 
 //------------------------------------------------------------------------------
 
-namespace mldd {
+namespace mldd
+{
 
 //! initialize diffusion iteration
 class DiffuseInit : public DownstreamVisitor
 {
-  Diffuse& d_data;
-  size_t   d_edgeVisitNr{0};
-public:
+  Diffuse &d_data;
+  size_t d_edgeVisitNr{0};
 
-  DiffuseInit(Diffuse& data, size_t nrEdges):
-     DownstreamVisitor(data.d_dem.rasterDim()),
-     d_data(data)
+public:
+  DiffuseInit(Diffuse &data, size_t nrEdges) : DownstreamVisitor(data.d_dem.rasterDim()), d_data(data)
   {
     d_data.d_fixedEdgeFlowTerm.reserve(nrEdges);
   }
@@ -37,10 +36,12 @@ public:
   }
 
   //! set d_totalOutflow to 0 or MV is any of the input is MV
-  void initVertex(const Vertex& v) {
+  void initVertex(const Vertex &v)
+  {
     d_data.initSet(linear(v));
   }
-  void downstreamEdge(const Edge& e)
+
+  void downstreamEdge(const Edge &e)
   {
     DEVELOP_PRECOND(d_edgeVisitNr < d_data.d_fixedEdgeFlowTerm.capacity());
     d_data.initFlowTerm(e);
@@ -50,53 +51,51 @@ public:
 
 class DiffuseIter : public DownstreamVisitor
 {
-  Diffuse& d_data;
+  Diffuse &d_data;
   geo::ScalarSimpleRaster d_inflow;
   geo::ScalarSimpleRaster d_outflow;
-  size_t   d_edgeNr{0};
+  size_t d_edgeNr{0};
 
 public:
-  DiffuseIter(Diffuse& data):
-    DownstreamVisitor(data.d_dem.rasterDim()),
-    d_data(data),
-    d_inflow(data.d_dem.rasterDim()),
-    d_outflow(data.d_dem.rasterDim())
-  {}
-
-  void initVertex(const Vertex& vC) {
-    size_t const v=linear(vC);
-    d_data.addDem(v);
-    d_inflow[v] =0;
-    d_outflow[v]=0;
+  DiffuseIter(Diffuse &data)
+      : DownstreamVisitor(data.d_dem.rasterDim()), d_data(data), d_inflow(data.d_dem.rasterDim()),
+        d_outflow(data.d_dem.rasterDim())
+  {
   }
 
-  void finishVertex(const Vertex& vC) {
+  void initVertex(const Vertex &vC)
+  {
+    size_t const v = linear(vC);
+    d_data.addDem(v);
+    d_inflow[v] = 0;
+    d_outflow[v] = 0;
+  }
+
+  void finishVertex(const Vertex &vC)
+  {
     if (pcr::isMV(d_data.d_dem[vC]))
       return;
-    size_t const v=linear(vC);
+    size_t const v = linear(vC);
     if (!d_data.d_fixedHead[v]) {
-      d_data.d_dem[v] += (d_inflow[v]-d_outflow[v])/d_data.d_area[v];
+      d_data.d_dem[v] += (d_inflow[v] - d_outflow[v]) / d_data.d_area[v];
       d_data.checkDem(v);
     }
-    d_data.d_totalOutflow[v]+=d_outflow[v];
+    d_data.d_totalOutflow[v] += d_outflow[v];
   }
 
-
-  void downstreamEdge(const Edge& e) {
-   REAL4 const drop= d_data.drop(e);
-   if (drop < 0)
-     return;
-   DEVELOP_PRECOND(d_edgeNr < d_data.d_fixedEdgeFlowTerm.size());
-   REAL4 const edgeFlow = drop * d_data.d_fixedEdgeFlowTerm[d_edgeNr++];
-   d_outflow[e.source()]+=edgeFlow;
-   d_inflow[e.target()] +=edgeFlow;
+  void downstreamEdge(const Edge &e)
+  {
+    REAL4 const drop = d_data.drop(e);
+    if (drop < 0)
+      return;
+    DEVELOP_PRECOND(d_edgeNr < d_data.d_fixedEdgeFlowTerm.size());
+    REAL4 const edgeFlow = drop * d_data.d_fixedEdgeFlowTerm[d_edgeNr++];
+    d_outflow[e.source()] += edgeFlow;
+    d_inflow[e.target()] += edgeFlow;
   }
-
 };
 
-} // namespace mldd
-
-
+}  // namespace mldd
 
 //------------------------------------------------------------------------------
 // DEFINITION OF STATIC DIFFUSE MEMBERS
@@ -107,26 +106,16 @@ public:
 // DEFINITION OF DIFFUSE MEMBERS
 //------------------------------------------------------------------------------
 
-mldd::Diffuse::Diffuse(geo::ScalarSimpleRaster&  dem,
-                       REAL4*       totalOutflow,
-                       const REAL4* oldState,
-                       const REAL4* area,
-                       const REAL4* fixedHead,
-                       const std::vector<const REAL4 *>&
-                                    diffusionValueInArgOrder,
-                       INT4         nrIterations,
-                       double       cellSize):
-  d_oldState (oldState),
-  d_area     (area),
-  d_fixedHead(fixedHead),
-  d_diffusionValue(8),
-  d_nrIterations(nrIterations),
-  d_totalOutflow(totalOutflow),
-  d_dem(dem)
+mldd::Diffuse::Diffuse(geo::ScalarSimpleRaster &dem, REAL4 *totalOutflow, const REAL4 *oldState,
+                       const REAL4 *area, const REAL4 *fixedHead,
+                       const std::vector<const REAL4 *> &diffusionValueInArgOrder, INT4 nrIterations,
+                       double cellSize)
+    : d_oldState(oldState), d_area(area), d_fixedHead(fixedHead), d_diffusionValue(8),
+      d_nrIterations(nrIterations), d_totalOutflow(totalOutflow), d_dem(dem)
 {
-  d_cellSize[0]=cellSize;
-  d_cellSize[1]=cellSize*std::numbers::sqrt2;
-  arg2NBOrder(d_diffusionValue,diffusionValueInArgOrder);
+  d_cellSize[0] = cellSize;
+  d_cellSize[1] = cellSize * std::numbers::sqrt2;
+  arg2NBOrder(d_diffusionValue, diffusionValueInArgOrder);
 
   if (d_nrIterations <= 0) {
     // TODO operator name should be prepended in pcrme a runtimeerr
@@ -136,15 +125,13 @@ mldd::Diffuse::Diffuse(geo::ScalarSimpleRaster&  dem,
   pcr::setMV(d_totalOutflow, d_dem.rasterDim().nrCells());
 }
 
-
-
 mldd::Diffuse::~Diffuse()
 {
- if (d_infinity || d_minInfinity) {
-  std::cerr << '\n';
-  std::cerr << "Dem of diffuse has reached "<< d_infinity << " times +infinity " << '\n';
-  std::cerr << "Dem of diffuse has reached "<< d_minInfinity << " times -infinity " << '\n';
- }
+  if (d_infinity || d_minInfinity) {
+    std::cerr << '\n';
+    std::cerr << "Dem of diffuse has reached " << d_infinity << " times +infinity " << '\n';
+    std::cerr << "Dem of diffuse has reached " << d_minInfinity << " times -infinity " << '\n';
+  }
 }
 
 /* NOT IMPLEMENTED
@@ -162,10 +149,11 @@ mldd::Diffuse::Diffuse(const Diffuse& rhs)
 }
 */
 
-void mldd::Diffuse::run(const DagRaster& dr) {
-  DiffuseInit init(*this,dr.nrEdges());
+void mldd::Diffuse::run(const DagRaster &dr)
+{
+  DiffuseInit init(*this, dr.nrEdges());
   dr.downstreamVisitor(init);
-  for(int i=0; i < d_nrIterations; ++i) {
+  for (int i = 0; i < d_nrIterations; ++i) {
     DiffuseIter iter(*this);
     dr.downstreamVisitor(iter);
   }
@@ -173,57 +161,56 @@ void mldd::Diffuse::run(const DagRaster& dr) {
 
 void mldd::Diffuse::setResultMV(const size_t v)
 {
-    pcr::setMV(d_dem[v]);
-    pcr::setMV(d_totalOutflow[v]);
+  pcr::setMV(d_dem[v]);
+  pcr::setMV(d_totalOutflow[v]);
 }
 
 void mldd::Diffuse::initSet(size_t v)
 {
-  d_totalOutflow[v]=0;
-  if (com::oneIsMV(d_oldState[v],d_area[v],d_fixedHead[v]))
+  d_totalOutflow[v] = 0;
+  if (com::oneIsMV(d_oldState[v], d_area[v], d_fixedHead[v]))
     setResultMV(v);
 }
 
-void mldd::Diffuse::initFlowTerm(const Edge& e)
+void mldd::Diffuse::initFlowTerm(const Edge &e)
 {
   // c: index in [8] is NB code from e.source()->e.target()
-  size_t const c(geo::NB::code(e.source(),e.target()));
+  size_t const c(geo::NB::code(e.source(), e.target()));
   // index in grid is s = e.source()
   size_t s = 0;
   size_t t = 0;
-  e.linear(s,t,d_dem.rasterDim());
+  e.linear(s, t, d_dem.rasterDim());
   if (pcr::isMV(d_diffusionValue[c][s])) {
 
     setResultMV(s);
     setResultMV(t);
-    d_fixedEdgeFlowTerm.push_back(0); // 0 don't care
+    d_fixedEdgeFlowTerm.push_back(0);  // 0 don't care
   } else {
-    d_fixedEdgeFlowTerm.push_back((d_diffusionValue[c][s]
-          / d_nrIterations)
-          / d_cellSize[geo::NB::diagonal(e.source(),e.target())]);
-
+    d_fixedEdgeFlowTerm.push_back((d_diffusionValue[c][s] / d_nrIterations) /
+                                  d_cellSize[geo::NB::diagonal(e.source(), e.target())]);
   }
 }
 
 void mldd::Diffuse::checkDem(size_t v)
 {
-   if (d_dem[v] == std::numeric_limits<REAL4>::infinity())
-      d_infinity++; // throw std::range_error("dem has reached infinity");
-   if (d_dem[v] == -std::numeric_limits<REAL4>::infinity())
-      d_minInfinity++; // throw std::range_error("dem has reached infinity");
+  if (d_dem[v] == std::numeric_limits<REAL4>::infinity())
+    d_infinity++;  // throw std::range_error("dem has reached infinity");
+  if (d_dem[v] == -std::numeric_limits<REAL4>::infinity())
+    d_minInfinity++;  // throw std::range_error("dem has reached infinity");
 }
 
 //! \todo rhs-expr is constant in iterations
 void mldd::Diffuse::addDem(size_t v)
 {
   if (!pcr::isMV(d_dem[v])) {
-   d_dem[v]+=(d_oldState[v]/d_nrIterations)/d_area[v];
-   checkDem(v);
+    d_dem[v] += (d_oldState[v] / d_nrIterations) / d_area[v];
+    checkDem(v);
   }
 }
 
 //! return < 0 if MV, >=0 otherwise
-REAL4 mldd::Diffuse::drop(const Edge& e) const {
+REAL4 mldd::Diffuse::drop(const Edge &e) const
+{
   REAL4 const diff = com::subtract(d_dem[e.source()], d_dem[e.target()]);
   return pcr::isMV(diff) ? -1 : std::max(diff, 0.0F);
 }
@@ -233,10 +220,6 @@ REAL4 mldd::Diffuse::drop(const Edge& e) const {
 //------------------------------------------------------------------------------
 
 
-
 //------------------------------------------------------------------------------
 // DEFINITION OF FREE FUNCTIONS
 //------------------------------------------------------------------------------
-
-
-

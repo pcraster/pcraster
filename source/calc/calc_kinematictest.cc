@@ -2,52 +2,46 @@
 #include <boost/test/unit_test.hpp>
 
 
-extern "C" double IterateToQnew(
-    double Qin, /* summed Q new in for all sub-cachments */
-    double Qold,  /* current discharge */
-    double q,
-    double alpha,
-    double beta,
-    double deltaT,
-    double deltaX,
-    double epsilon);
-
+extern "C" double IterateToQnew(double Qin,  /* summed Q new in for all sub-cachments */
+                                double Qold, /* current discharge */
+                                double q, double alpha, double beta, double deltaT, double deltaX,
+                                double epsilon);
 
 //! some stuff that crashed
 BOOST_AUTO_TEST_CASE(iterate1)
 {
- // adapt initial estimator Qkx twice
- //  Qkx   = std::max(Qkx, 1e-30);
- double const cmpEps(1E-12);
- double const v = IterateToQnew(
-                  /* Qin    */ 0.000201343,
-                  /* Qold   */ 0.000115866,
-                  /* q      */ -0.000290263,
-                  /* alpha  */ 1.73684,
-                  /* beta   */ 0.6,
-                  /* deltaT */ 15,
-                  /* deltaX */ 10,
-                  /* epsilon */ 1E-12);
- // printf("\n %20.18f \n",v);
- double const retV = 0.000031450866300937;
- BOOST_CHECK(v > (retV-cmpEps) && v < (retV+cmpEps) );
+  // adapt initial estimator Qkx twice
+  //  Qkx   = std::max(Qkx, 1e-30);
+  double const cmpEps(1E-12);
+  double const v = IterateToQnew(
+      /* Qin    */ 0.000201343,
+      /* Qold   */ 0.000115866,
+      /* q      */ -0.000290263,
+      /* alpha  */ 1.73684,
+      /* beta   */ 0.6,
+      /* deltaT */ 15,
+      /* deltaX */ 10,
+      /* epsilon */ 1E-12);
+  // printf("\n %20.18f \n",v);
+  double const retV = 0.000031450866300937;
+  BOOST_CHECK(v > (retV - cmpEps) && v < (retV + cmpEps));
 }
 
 //! more stuff that crashed
 BOOST_AUTO_TEST_CASE(iterate2)
 {
- // does not terminate
- double const v = IterateToQnew(
-              /* Qin */ 0,
-              /* Qold */  1.11659e-07,
-              /* q */ -1.32678e-05,
-              /* alpha */ 1.6808,
-              /* beta */ 0.6,
-              /* deltaT */ 15,
-              /* deltaX */ 10,
-              /* epsilon */ 1E-12);
- 
- BOOST_CHECK(v == 1e-30);
+  // does not terminate
+  double const v = IterateToQnew(
+      /* Qin */ 0,
+      /* Qold */ 1.11659e-07,
+      /* q */ -1.32678e-05,
+      /* alpha */ 1.6808,
+      /* beta */ 0.6,
+      /* deltaT */ 15,
+      /* deltaX */ 10,
+      /* epsilon */ 1E-12);
+
+  BOOST_CHECK(v == 1e-30);
 }
 
 /*

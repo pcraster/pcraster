@@ -13,47 +13,43 @@
 #include <numbers>
 #include <utility>
 
-
 /*!
   \file
   This file contains the implementation of the ExtentOfView class.
 */
 
 
-
-template<class T>
-class RememberPoints
+template <class T> class RememberPoints
 {
 
 private:
-
-  const fieldapi::ReadOnly<INT4>& d_classes;
+  const fieldapi::ReadOnly<INT4> &d_classes;
   INT4 d_class{};
-  std::vector<std::pair<T, T> > d_points;
+  std::vector<std::pair<T, T>> d_points;
 
 public:
-
-  RememberPoints(const fieldapi::ReadOnly<INT4>& classes)
-    : d_classes(classes)
+  RememberPoints(const fieldapi::ReadOnly<INT4> &classes) : d_classes(classes)
   {
   }
 
-  RememberPoints(const fieldapi::ReadOnly<INT4>& classes, INT4 currentClass)
-    : d_classes(classes), d_class(currentClass)
+  RememberPoints(const fieldapi::ReadOnly<INT4> &classes, INT4 currentClass)
+      : d_classes(classes), d_class(currentClass)
   {
   }
 
-  RememberPoints(const RememberPoints& other) = delete;
+  RememberPoints(const RememberPoints &other) = delete;
 
-  RememberPoints& operator=(const RememberPoints& other) = delete;
+  RememberPoints &operator=(const RememberPoints &other) = delete;
 
-  void setClass(INT4 currentClass) {
+  void setClass(INT4 currentClass)
+  {
     d_class = currentClass;
   }
 
-  bool operator()(T x, T y) {
+  bool operator()(T x, T y)
+  {
     static INT4 value;
-    if(d_classes.get(value, y, x) && value == d_class) {
+    if (d_classes.get(value, y, x) && value == d_class) {
       d_points.push_back(std::make_pair(y, x));
       return true;
     }
@@ -61,46 +57,46 @@ public:
     return false;
   }
 
-  std::pair<T, T>& operator[](size_t i) {
+  std::pair<T, T> &operator[](size_t i)
+  {
     return d_points[i];
   }
 
-  void clear() {
+  void clear()
+  {
     d_points.clear();
   }
 
-  size_t size() {
+  size_t size()
+  {
     return d_points.size();
   }
 
   // Distance in cells.
-  double distance() {
+  double distance()
+  {
     double distance = 0.0;
 
-    if(size()) {
-      const std::pair<T, T>& begin = d_points.front();
-      const std::pair<T, T>& end = d_points.back();
+    if (size()) {
+      const std::pair<T, T> &begin = d_points.front();
+      const std::pair<T, T> &end = d_points.back();
       auto dx = static_cast<double>(end.first - begin.first);
       auto dy = static_cast<double>(end.second - begin.second);
       // Add one for current cell.
-      distance = std::hypot(dx,dy) + 1.0;
+      distance = std::hypot(dx, dy) + 1.0;
     }
 
     return distance;
   }
-
 };
 
-
-
-extern "C" int ExtentOfView(
-  MAP_REAL8 *m_result,                  // scalar, average extent of view
-  const MAP_INT4* m_classes,            // nominal, classes
-  const MAP_REAL8* m_nrDirections)      // scalar, number of directions
+extern "C" int ExtentOfView(MAP_REAL8 *m_result,              // scalar, average extent of view
+                            const MAP_INT4 *m_classes,        // nominal, classes
+                            const MAP_REAL8 *m_nrDirections)  // scalar, number of directions
 {
   ReadWriteReal8_ref(result, m_result);
 
-  std::vector<const fieldapi::Common*> inputs;
+  std::vector<const fieldapi::Common *> inputs;
   ReadOnlyInt4_ref(classes, m_classes);
   inputs.push_back(&classes);
   ReadOnlyReal8_ref(nrDirectionsInterface, m_nrDirections);
@@ -108,13 +104,13 @@ extern "C" int ExtentOfView(
 
   PRECOND(classes.spatial());
   PRECOND(!nrDirectionsInterface.spatial());
-  auto nrDirections = static_cast<size_t>(nrDirectionsInterface.value(0,0));
+  auto nrDirections = static_cast<size_t>(nrDirectionsInterface.value(0, 0));
 
   std::vector<fieldapi::ScalarDomainCheck> nsDomains;
-  nsDomains.push_back(fieldapi::ScalarDomainCheck(nrDirectionsInterface,
-        "Number of directions", com::GreaterThan<double>(0)));
-  int const nsCheck = fieldapi::checkScalarDomains(nsDomains,geo::CellLoc(0,0));
-  if(nsCheck != -1) {
+  nsDomains.push_back(fieldapi::ScalarDomainCheck(nrDirectionsInterface, "Number of directions",
+                                                  com::GreaterThan<double>(0)));
+  int const nsCheck = fieldapi::checkScalarDomains(nsDomains, geo::CellLoc(0, 0));
+  if (nsCheck != -1) {
     return RetError(1, nsDomains[nsCheck].msg().c_str());
   }
 
@@ -122,53 +118,48 @@ extern "C" int ExtentOfView(
   size_t const nrCols = classes.nrCols();
 
   // Result is missing value if any of the inputs is.
-  for(geo::CellLocVisitor visitor(classes); visitor.valid(); ++visitor) {
+  for (geo::CellLocVisitor visitor(classes); visitor.valid(); ++visitor) {
 
-    if(fieldapi::nonMV(inputs, *visitor)) {
-       result.put(0.0, *visitor);
-    }
-    else {
+    if (fieldapi::nonMV(inputs, *visitor)) {
+      result.put(0.0, *visitor);
+    } else {
       result.putMV(*visitor);
     }
   }
 
   // Determine all direction angles.
   // Determine max distance in cells in the raster.
-  double const maxExtent = std::max(nrRows,nrCols);
-  int offsetX = com::ceil<int, double>(std::hypot(maxExtent,maxExtent));
+  double const maxExtent = std::max(nrRows, nrCols);
+  int offsetX = com::ceil<int, double>(std::hypot(maxExtent, maxExtent));
   int offsetY = 0;
   double const subAngle = 360.0 / nrDirections;
   double angle = NAN;
   typedef std::pair<int, int> Offset;
-  typedef std::vector<std::pair<double, Offset> > Offsets;
+  typedef std::vector<std::pair<double, Offset>> Offsets;
   Offsets offsets;
 
-  for(size_t direction = 0; direction < nrDirections; ++direction) {
+  for (size_t direction = 0; direction < nrDirections; ++direction) {
 
     angle = direction * subAngle;
     PRECOND(angle >= 0 && angle < 360);
 
-    if(angle == 90.0) {
+    if (angle == 90.0) {
       offsetX = 0;
       offsetY = 100;
-    }
-    else if(angle == 270.0) {
+    } else if (angle == 270.0) {
       offsetX = 0;
       offsetY = -100;
-    }
-    else {
-      if(angle < 90 || angle > 270) {
+    } else {
+      if (angle < 90 || angle > 270) {
         offsetX = 100;
-      }
-      else {
+      } else {
         offsetX = -100;
       }
 
       angle *= std::numbers::pi / 180;
       offsetY = boost::math::iround(std::tan(angle) * offsetX);
     }
-    offsets.push_back(std::make_pair(angle,
-         std::make_pair(offsetX, offsetY)));
+    offsets.push_back(std::make_pair(angle, std::make_pair(offsetX, offsetY)));
   }
 
   int x = 0;
@@ -177,28 +168,27 @@ extern "C" int ExtentOfView(
   RememberPoints<int> points(classes);
 
   // Loop over each cell.
-  for(geo::CellLocVisitor visitor(classes); visitor.valid(); ++visitor) {
+  for (geo::CellLocVisitor visitor(classes); visitor.valid(); ++visitor) {
     x = (*visitor).col();
     y = (*visitor).row();
     sum = 0.0;
 
     // Determine class.
-    if(result.isMV(*visitor)) {
+    if (result.isMV(*visitor)) {
       continue;
     }
 
     points.setClass(classes[*visitor]);
 
     // Loop over each direction.
-    for(auto & offset : offsets) {
+    for (auto &offset : offsets) {
 
       points.clear();
       POSTCOND(!points.size());
 
       // Determine number of cells with same class.
       PRECOND(!classes.isMV(*visitor));
-      geo::midpointLine(x, y, x + offset.second.first, y + offset.second.second,
-         points);
+      geo::midpointLine(x, y, x + offset.second.first, y + offset.second.second, points);
       POSTCOND(points.size());
 
       sum += points.distance();

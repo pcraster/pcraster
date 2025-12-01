@@ -61,7 +61,7 @@ void **Malloc2d(size_t row,  /* number of rows. > 0 */
   PRECOND(col > 0);
   PRECOND(size > 0);
 
-  pdata = ChkMalloc((row) * (col) * size);
+  pdata = ChkMalloc((row) * (col)*size);
   if (pdata == NULL) {
     return (NULL);
   }
@@ -122,7 +122,7 @@ void **Realloc2d(void **ptr,    /* existing 2d array */
     CopyColumns(ptr[0], MIN(oldRow, newRow), newCol, oldCol, size);
   }
 
-  pdata = ChkRealloc(ptr[0], (newRow) * (newCol) * size);
+  pdata = ChkRealloc(ptr[0], (newRow) * (newCol)*size);
   if (pdata == NULL) {
     return (NULL);
   }

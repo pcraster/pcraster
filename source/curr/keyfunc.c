@@ -42,15 +42,16 @@ KEY_FUNC FindKeyFunc(int key,                   /* key, pressed by user */
                      const KEY_2_COM *keyFuncs, /* array of keys and functions */
                      size_t nrKeys)             /* number of keys in keyFuncs */
 {
-    size_t i = 0;
+  size_t i = 0;
 
-    /* search for function according to key */
-    for (i = 0; i < nrKeys; i++) {
-        if (key == keyFuncs[i].key)
-            return keyFuncs[i].function;
-    }
+  /* search for function according to key */
+  for (i = 0; i < nrKeys; i++) {
+    if (key == keyFuncs[i].key)
+      return keyFuncs[i].function;
+  }
 
-    /* No function belongs to key that was pressed */
-    return NULL;
+  /* No function belongs to key that was pressed */
+  return NULL;
 }
+
 /* end of file */

@@ -21,6 +21,7 @@ We further improved the code quality and the build system to ensure an ongoing c
 * Replacing numerous 3rd party code with C++ standard equivalents: numbers, gcd, tuple, format, signbit, isnan, mpl::if_c, is_integral, is_signed, is_same, integer types, bind, mem_fn
 * Various issues raised by compiler warnings were fixed.
 * We removed deprecated Qt code.
+* We removed deprecated Boost code.
 
 .. * Qt6 by default 5 as option
 .. * Including outdated Boost headers were removed
